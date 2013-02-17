@@ -1,4 +1,4 @@
-* App Commit: 02/14/2013 - 79d18a3122e4211b3f8b32587df34cae20bb070c
+* Latest `laravel/laravel` commit applied: 02/14/2013 - 79d18a3122e4211b3f8b32587df34cae20bb070c
 
 * Composer Packages
 	* nesbot/carbon
@@ -78,17 +78,14 @@
 
 * Added `app/controller` directory.
 * Added `helpers.php` in the `nova` directory.
-
 * Moved the content of `app/filters.php` to `nova/src/Nova/Core/filters.php`. Devs can add their own filters after the require statement in `app/filters.php`.
 * Moved `vendor` to `nova/vendor` directory.
 * Moved `bootstrap/autoload.php` to `nova/start/autoload.php`.
-
 * Updated `index.php` with constants for base, app, nova and vendor paths.
 * Updated `index.php` with URL constants for base, app and nova.
 * Updated `nova/start.php` with a new config loader that'll pull and merge config files from all over the file system.
 * Updated `nova/start.php` to bind the Location class to the App container.
 * Updated `nova/start.php` to pull in the Nova helpers.
-
 * Removed `app/controllers` directory.
 
 ## Questions
