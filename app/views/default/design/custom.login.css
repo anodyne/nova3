@@ -1,0 +1,23 @@
+.btn {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+	padding: 8px;
+
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.small-controls {
+	margin-top: 10px;
+}
+
+.page-header {
+	text-align: center;
+}

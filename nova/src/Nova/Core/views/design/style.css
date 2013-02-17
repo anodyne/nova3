@@ -1,0 +1,64 @@
+body {
+	padding-top: 40px;
+}
+
+.footer-content {
+	margin-top: 20px;
+}
+
+.reorder {
+	height: 16px;
+	width: 16px;
+	background: transparent url(images/reorder-16x16.png) no-repeat center center;
+}
+
+.btn-noclick:hover {
+	cursor: default;
+}
+
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover,
+.btn:focus,
+a:focus {
+	outline: 0;
+}
+
+legend {
+	margin-bottom: 0;
+}
+
+label.control-label {
+	font-weight: bold;
+}
+
+.alert-block {
+	padding-right: 14px;
+}
+
+.font-small {
+	font-size: 11px;
+}
+
+footer {
+	color: #888;
+}
+footer a {
+	color: #666;
+	text-decoration: underline;
+}
+footer a:hover {
+	color: #444;
+}
+
+.system-warning {
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+}
+
+.align-center {
+	text-align: center;
+}
+.align-right {
+	text-align: right;
+}

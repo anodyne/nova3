@@ -1,0 +1,46 @@
+
+
+<!-- Illuminate Profiler -->
+
+<div id="illuminate-profiler">
+	<style type="text/css" scoped>
+		<?php echo  $profiler_css ; ?>
+	</style>
+
+	<div class="illuminate-bar">
+		<div class="illuminate-bar-button"></div>
+		<div class="illuminate-bar-time">
+			<?php echo  $profiler_time ; ?>
+		</div>
+		<div class="illuminate-bar-mem">
+			<?php echo  $profiler_mem ; ?>
+		</div>
+	</div>
+
+	<div class="illuminate-overlay">
+		<div class="illuminate-content">
+			<div class="illuminate-content-inner">
+				<?php foreach($profiler_panes as $pane): ?>
+					<div class="illuminate-pane" -data-pane="<?php echo  $pane['profiler_key'] ; ?>">
+						<?php echo  $pane->get() ; ?>
+					</div>
+				<?php endforeach; ?>							
+			</div>
+		</div>
+		<ul class="illuminate-menu">
+			<?php foreach($profiler_panes as $pane): ?>
+				<li -data-pane="<?php echo  $pane['profiler_key'] ; ?>"><?php echo  $pane['profiler_title'] ; ?> <span class="illuminate-overlay-close">&times;</span></li>
+			<?php endforeach; ?>				
+		</ul>
+		<div class="illuminate-logo">
+			
+		</div>
+	</div>
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		<?php echo  $profiler_js ; ?>
+	</script>
+</div>
+
+

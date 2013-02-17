@@ -1,0 +1,1 @@
+<?php echo nl2br(lang('email.content.arc.reviewStart'));?>

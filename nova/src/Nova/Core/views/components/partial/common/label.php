@@ -1,0 +1,1 @@
+<span class="label<?php echo $class;?>"><?php echo $value;?></span>

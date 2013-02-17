@@ -1,0 +1,12 @@
+/nova/vendor
+composer.phar
+composer.lock
+.DS_Store
+
+nova3.sublime-project
+nova3.sublime-workspace
+
+app/assets/common/st24/ranks/dress-gray
+app/assets/common/st24/ranks/dress-white
+app/assets/common/st24/ranks/tng
+app/assets/common/st24/ranks/voy

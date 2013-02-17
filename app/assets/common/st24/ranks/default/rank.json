@@ -1,0 +1,11 @@
+{
+	"name": "DS9 Duty Uniform",
+	"location": "default",
+	"credits": "The Deep Space Nine duty uniform rank set used in Nova were created by Kuro-chan of <a href='http://www.kuro-rpg.net' target='_blank''>Kuro-RPG</a>. Please do not modify the images in any way.",
+	"preview": "preview.png",
+	"blank": "blank.png",
+	"extension": ".png",
+	"url": "http://www.kuro-rpg.net/",
+	"genre": "st24",
+	"default": 1
+}
