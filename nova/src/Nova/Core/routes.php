@@ -2,9 +2,11 @@
 
 Route::get('test/citadel', function()
 {
-	$c = new Nova\Citadel\Citadel;
+	$user = Sentry::getUserProvider();
 
-	sd($c->user(1));
+	echo '<pre>';
+	var_dump($user);
+	echo '</pre>';
 });
 
 // Migrations
