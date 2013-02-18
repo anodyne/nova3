@@ -29,15 +29,13 @@ Route::filter('apiAuth', function()
 
 Route::get('api/info', function()
 {
-	return Response::json(array(
-		'error' => false,
-		'message' => array(
-			'api_version'	=> '1.0',
-			'nova_version'	=> '3.0',
-			'nova_url'		=> 'url',
-		)),
-		201
-	);
+    $data = array(
+        'api_version'   => Config::get('nova.api.version'),
+        'nova_version'  => Config::get('nova.app.version'),
+        'nova_url'      => str_replace(Request::path(), '', Request::url())
+    );
+
+    return Response::json($data, 200);
 });
 
 require_once 'routes/logs.php';
