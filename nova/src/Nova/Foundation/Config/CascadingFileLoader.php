@@ -65,7 +65,6 @@ class CascadingFileLoader implements LoaderInterface {
 			'app'		=> APPPATH.'config',
 			'wiki'		=> SRCPATH.'Wiki/config',
 			'forum'		=> SRCPATH.'Forum/config',
-			'sentry'	=> SRCPATH.'Sentry/config',
 			'core'		=> SRCPATH.'Core/config',
 		);
 	}
@@ -87,9 +86,16 @@ class CascadingFileLoader implements LoaderInterface {
 		// well as any environment folders with their specific configuration items.
 		$path = $this->getPath($namespace);
 
+		// If the path is null, just return the empty items array
 		if (is_null($path))
 		{
 			return $items;
+		}
+
+		// Make sure the path is an array
+		if ( ! is_array($path))
+		{
+			$path = array($path);
 		}
 
 		// Loop through the paths and load the files
@@ -166,16 +172,13 @@ class CascadingFileLoader implements LoaderInterface {
 	 * Apply any cascades to an array of package options.
 	 *
 	 * @param	string	The environment
-	 * @param	string  The package
-	 * @param	string  The group
-	 * @param	array   The items
+	 * @param	string	The package
+	 * @param	string	The group
+	 * @param	array	The items
 	 * @return	array
-	 * @throws	Exception
 	 */
 	public function cascadePackage($environment, $package, $group, $items)
 	{
-		throw new \Exception('Cascading package loading is not supported with this Config Loader.');
-
 		// First we will look for a configuration file in the packages configuration
 		// folder. If it exists, we will load it and merge it with these original
 		// options so that we will easily "cascade" a package's configurations.
