@@ -11,7 +11,11 @@
  
 namespace Nova\Core\Model;
 
-class SiteContent extends \Model {
+use Cache;
+use Model;
+use SettingsModel;
+
+class SiteContent extends Model {
 
 	protected $table = 'site_contents';
 	
@@ -79,8 +83,10 @@ class SiteContent extends \Model {
 	 */
 	public static function getSectionContent($type, $section)
 	{
-		$cache = \Cache::get("content_{$type}_{$section}");
+		// Try to get the cache first
+		$cache = Cache::get("content_{$type}_{$section}");
 
+		// If we have something in the cache, return it instead of querying
 		if ($cache !== null)
 		{
 			return $cache;
@@ -112,7 +118,7 @@ class SiteContent extends \Model {
 					foreach ($arr[2] as $k => $v)
 					{
 						// Get the item from the settings table
-						$replace = \SettingsModel::getItems($v);
+						$replace = SettingsModel::getItems($v);
 						
 						// Set the new content
 						$content = str_replace($arr[0][$k], $replace, $content);
@@ -124,7 +130,7 @@ class SiteContent extends \Model {
 			}
 			
 			// Cache the information
-			\Cache::forever("content_{$type}_{$section}", $values);
+			Cache::forever("content_{$type}_{$section}", $values);
 			
 			return $values;
 		}
@@ -140,7 +146,7 @@ class SiteContent extends \Model {
 	 * stay in the (setting key) => (setting value) format.
 	 *
 	 * @api
-	 * @param	array 	the data array for updating the site content
+	 * @param	array 	The data array for updating the site content
 	 * @return	void
 	 */
 	public static function updateSiteContent(array $data)
@@ -149,7 +155,7 @@ class SiteContent extends \Model {
 		{
 			$record = static::query()->where('key', $key)->get_one();
 			
-			// track what we need to clear and re-cache
+			// Track what we need to clear and re-cache
 			$clear[$record->section][] = $record->type;
 			
 			$record->content = $value;
@@ -160,10 +166,10 @@ class SiteContent extends \Model {
 		{
 			foreach ($type as $t)
 			{
-				// delete the cache
-				\Cache::delete('content_'.$t.'_'.$section);
+				// Delete the cached item
+				Cache::forget("content_{$t}_{$section}");
 				
-				// now grab that content again (which will automatically re-cache everything)
+				// Now grab that content again (which will automatically re-cache everything)
 				static::getSectionContent($t, $section);
 			}
 		}
