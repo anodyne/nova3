@@ -11,9 +11,20 @@ class CreateUsers extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('users', function($table)
+		Schema::create('users', function($t)
 		{
-			$table->increments('id');
+			$t->increments('id');
+		});
+
+		Schema::create('user_suspended', function($t)
+		{
+			$t->increments('id');
+			$t->integer('user_id')->unsigned();
+			$t->integer('attempts');
+			$t->boolean('suspended');
+			$t->boolean('banned');
+			$t->timestamp('last_attempt_at');
+			$t->timestamp('suspended_at');
 		});
 	}
 
@@ -25,6 +36,7 @@ class CreateUsers extends Migration {
 	public function down()
 	{
 		Schema::drop('users');
+		Schema::drop('user_suspended');
 	}
 
 }
