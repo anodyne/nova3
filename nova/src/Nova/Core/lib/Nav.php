@@ -175,10 +175,10 @@ class Nav {
 				$navaccess = explode('.', $item->access);
 
 				// Find if the user has access
-				$access = Sentry::user()->hasAccess("$navaccess[0].$navaccess[1]");
+				$access = Sentry::getUser()->hasAccess("$navaccess[0].$navaccess[1]");
 
 				// Find if the user has the proper level
-				$level = Sentry::user()->atLeastLevel("$navaccess[0].$navaccess[1]", $navaccess[2]);
+				$level = Sentry::getUser()->atLeastLevel("$navaccess[0].$navaccess[1]", $navaccess[2]);
 
 				// Remove items from the return array if they shouldn't be there based on access
 				if ( ! $access or ($access and ! $level))
@@ -227,7 +227,7 @@ class Nav {
 		if (Sentry::check())
 		{
 			// Get the user
-			$user = Sentry::user();
+			$user = Sentry::getUser();
 
 			// Get the message count
 			$messageCount = 0;
@@ -272,7 +272,7 @@ class Nav {
 				1 => array(
 					array(
 						'name' => ucwords(\lang('my', array('thing' => \lang('account')))),
-						'url' => 'admin/user/edit/'.Sentry::user()->id,
+						'url' => 'admin/user/edit/'.Sentry::getUser()->id,
 						'extra' => array(),
 						'additional' => ' <span class="icn icn-50 tooltip-left" data-icon="?" title="'.\lang('short.help.user_account').'"></span>'),
 					array(
@@ -316,7 +316,7 @@ class Nav {
 
 			// Set the data for the output
 			$output->with('data', $this->userData)
-				->with('name', Sentry::user()->get('name'))
+				->with('name', Sentry::getUser()->name)
 				->with('notifyClass', $totalClass)
 				->with('notifyTotal', $total)
 				->with('loggedIn', true);
