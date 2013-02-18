@@ -3,41 +3,54 @@
 return array(
 	
 	/**
-	 * General application info
+	 * General information about Nova.
 	 */
-	'app_name'				=> 'Nova',
-	'app_version_full'		=> '3.0',
-	'app_version_major'		=> 3,
-	'app_version_minor'		=> 0,
-	'app_version_update'	=> 0,
+	'app' => array(
+
+		'name' => 'Nova',
+		'version' => '3.0',
+		'version_major' => 3,
+		'version_minor' => 0,
+		'version_update' => 0,
+
+	),
 	
 	/**
-	 * Wiki info
+	 * Information about the wiki.
 	 */
-	'wiki_name'				=> 'Thresher',
-	'wiki_version_full'		=> 'Release 3',
-	'wiki_version_major'	=> 2,
-	'wiki_version_minor'	=> 0,
-	'wiki_version_update'	=> 0,
+	'wiki' => array(
+
+		'name' => 'Thresher',
+		'version' => 'Release 3',
+		'version_major' => 2,
+		'version_minor' => 0,
+		'version_update' => 0,
+
+	),
 	
 	/**
-	 * Forum info
+	 * Information about the forum.
 	 */
-	'forum_name'			=> 'Mako',
-	'forum_version_full'	=> 'Release 1',
-	'forum_version_major'	=> 0,
-	'forum_version_minor'	=> 0,
-	'forum_version_update'	=> 0,
-	
+	'forum' => array(
+
+		'name' => 'Mako',
+		'version' => 'Release 1',
+		'version_major' => 0,
+		'version_minor' => 0,
+		'version_update' => 0,
+
+	),
+
 	/**
-	 * Update version path
+	 * Information about the API.
 	 */
-	'version_check_path'	=> NOVAPATH.'src/Nova/Setup/assets/update/version.json',
-	//'version_check_path'	=> 'http://www.anodyne-productions.com/updates/version.json',
-	
-	/**
-	 * Should we be using dev data?
-	 */
-	'use_dev_data'			=> true,
+	'api' => array(
+
+		'version' => 'v1',
+		'version_major' => 1,
+		'version_minor' => 0,
+		'version_update' => 0,
+
+	),
 
 );
