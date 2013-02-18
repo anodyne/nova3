@@ -39,42 +39,20 @@ $app->bindInstallPaths(require NOVAPATH.'start/paths.php');
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('localhost', '*.dev', '*.app'),
+	'local' => array('localhost', '*.dev', '*.app', 'dev.*'),
 
 ));
 
 /*
 |--------------------------------------------------------------------------
-| Register Config Loader
+| Load the Bindings
 |--------------------------------------------------------------------------
 |
-| We need to register a new config loader that'll loop through the
-| different directories to get all the config files we need.
+| We bind several items during startup, so call that file in.
 |
 */
 
-$app->bind('config.loader', function($app)
-{
-	$filesystem = new Illuminate\Filesystem\Filesystem;
-
-	return new Nova\Foundation\Config\CascadingFileLoader($filesystem, false);
-	
-}, true);
-
-/*
-|--------------------------------------------------------------------------
-| Register Location Class
-|--------------------------------------------------------------------------
-|
-| We're going to register the Location class with the App container so
-| we always have access to it.
-|
-*/
-
-$app->bind('location', function($app)
-{
-	return new Nova\Core\Lib\Location(false, false, false);
-});
+require NOVAPATH.'start/bindings.php';
 
 /*
 |--------------------------------------------------------------------------
