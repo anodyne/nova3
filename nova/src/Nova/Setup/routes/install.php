@@ -1,15 +1,4 @@
 <?php
-/**
- * Install routes
- *
- * These routes handle the installation of Nova 3.
- *
- * @package		Nova
- * @subpackage	Setup
- * @category	Route
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
 
 Route::group(array('prefix' => 'setup/install'), function()
 {
@@ -23,12 +12,44 @@ Route::group(array('prefix' => 'setup/install'), function()
 		// Run the migrations
 		Artisan::call('migrate');
 
-		// Seed the database with dev data
-		Artisan::call('db:seed');
+		// Do the quick installs
+		ModuleCatalogModel::install();
+		RankCatalogModel::install();
+		SkinCatalogModel::install();
+		WidgetCatalogModel::install();
 
-		// Cache
+		// Seed the database with dev data if necessary
+		if (Config::get('nova.use_dev_data'))
+		{
+			Artisan::call('db:seed');
+		}
+		
+		// Clear the entire cache
+		Cache::flush();
+
+		// Cache the headers
+		SiteContentModel::getSectionContent('header', 'main');
+		SiteContentModel::getSectionContent('header', 'sim');
+		SiteContentModel::getSectionContent('header', 'personnel');
+		SiteContentModel::getSectionContent('header', 'search');
+		SiteContentModel::getSectionContent('header', 'login');
+		
+		// Cache the titles
+		SiteContentModel::getSectionContent('title', 'main');
+		SiteContentModel::getSectionContent('title', 'sim');
+		SiteContentModel::getSectionContent('title', 'personnel');
+		SiteContentModel::getSectionContent('title', 'search');
+		SiteContentModel::getSectionContent('title', 'login');
+		
+		// Cache the messages
+		SiteContentModel::getSectionContent('message', 'main');
+		SiteContentModel::getSectionContent('message', 'sim');
+		SiteContentModel::getSectionContent('message', 'personnel');
+		SiteContentModel::getSectionContent('message', 'search');
+		SiteContentModel::getSectionContent('message', 'login');
 
 		// Register
+		# TODO: need to figure out how we want to do registration
 
 		return Redirect::to('setup/install/settings');
 	});
