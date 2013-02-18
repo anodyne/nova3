@@ -14,7 +14,7 @@ Route::group(array('prefix' => 'setup/utilities'), function()
 		WidgetCatalogModel::uninstall();
 
 		// Uninstall Nova
-		Artisan::call('migrate:reset', array('path' => 'nova/src/Nova/Setup/database/migrations'));
+		Artisan::call('migrate:reset', array('--path' => 'nova/src/Nova/Setup/database/migrations'));
 
 		// Remove the system install cache
 		Cache::forget('nova_system_installed');

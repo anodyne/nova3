@@ -10,7 +10,7 @@ Route::group(array('prefix' => 'setup/install'), function()
 	Route::post('/', function()
 	{
 		// Run the migrations
-		Artisan::call('migrate');
+		Artisan::call('migrate', array('--path' => 'nova/src/Nova/Setup/database/migrations'));
 
 		// Do the quick installs
 		ModuleCatalogModel::install();
