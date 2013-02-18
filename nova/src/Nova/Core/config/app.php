@@ -115,6 +115,7 @@ return array(
 		/**
 		 * Nova Service Providers
 		 */
+		'Cartalyst\Sentry\SentryServiceProvider',
 		'Nova\Foundation\Routing\RoutingServiceProvider',
 		'Nova\Foundation\Translation\TranslationServiceProvider',
 
@@ -198,13 +199,13 @@ return array(
 		/**
 		 * Nova Classes
 		 */
-		'Date'		=> 'Carbon\Carbon',
+		'Date'		=> 'Datum\Datum',
 		'Debug'		=> 'Nova\Core\Lib\Debug',
 		'Html'		=> 'Fuel\Util\Html',
 		'Markdown'	=> 'Nova\Core\Lib\Markdown',
 		'Model'		=> 'Nova\Foundation\Database\Eloquent\Model',
 		'Nav'		=> 'Nova\Core\Lib\Nav',
-		'Sentry'	=> 'Nova\Sentry\Sentry',
+		'Sentry' 	=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Status'	=> 'Nova\Core\Lib\Status',
 		'Utility'	=> 'Nova\Core\Lib\Utility',
 
@@ -219,14 +220,17 @@ return array(
 		 */
 		'AccessRoleModel'			=> 'Nova\Core\Model\Access\Role',
 		'AccessTaskModel'			=> 'Nova\Core\Model\Access\Task',
+		'ModuleCatalogModel'		=> 'Nova\Core\Model\Catalog\Module',
 		'NavModel'					=> 'Nova\Core\Model\Nav',
 		'RankCatalogModel'			=> 'Nova\Core\Model\Catalog\Rank',
 		'SettingsModel'				=> 'Nova\Core\Model\Settings',
 		'SiteContentModel'			=> 'Nova\Core\Model\SiteContent',
+		'SkinCatalogModel'			=> 'Nova\Core\Model\Catalog\Skin',
 		'SkinSectionCatalogModel'	=> 'Nova\Core\Model\Catalog\SkinSection',
 		'SystemModel'				=> 'Nova\Core\Model\System',
 		'UserModel'					=> 'Nova\Core\Model\User',
 		'UserSuspendModel'			=> 'Nova\Core\Model\User\Suspend',
+		'WidgetCatalogModel'		=> 'Nova\Core\Model\Catalog\Widget',
 
 	),
 
