@@ -11,7 +11,10 @@
  
 namespace Nova\Core\Model\Catalog;
 
-class Module extends \Model implements \QuickInstallInterface {
+use Model;
+use QuickInstallInterface;
+
+class Module extends Model implements QuickInstallInterface {
 	
 	protected $table = 'catalog_modules';
 	
