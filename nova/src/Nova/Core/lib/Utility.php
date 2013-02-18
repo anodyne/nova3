@@ -15,7 +15,9 @@ namespace Nova\Core\Lib;
 use App;
 use Cache;
 use Route;
+use Config;
 use Sentry;
+use Request;
 use Redirect;
 use Exception;
 use SystemModel;
@@ -64,7 +66,7 @@ class Utility {
 	{
 		if (Sentry::check())
 		{
-			return Sentry::user()->get()->getPreferences('rank');
+			return Sentry::getUser()->getPreferences('rank');
 		}
 
 		return SettingsModel::getItems('rank');
@@ -82,7 +84,7 @@ class Utility {
 	{
 		if (Sentry::check())
 		{
-			return Sentry::user()->get()->getPreferences('skin_'.$section);
+			return Sentry::getUser()->getPreferences('skin_'.$section);
 		}
 
 		return SettingsModel::getItems('skin_'.$section);
@@ -97,23 +99,20 @@ class Utility {
 	 * 3 - incremental update (3.0.1 => 3.0.2)
 	 *
 	 * @api
-	 * @return 	mixed	false if there are no updates, an object with information if there are
+	 * @return 	object|bool
 	 */
 	public static function getUpdates()
 	{
 		if (ini_get('allow_url_fopen'))
 		{
-			// grab the update setting preference
-			$pref = \Model_Settings::getItems('updates');
+			// Grab the update setting preference
+			$pref = SettingsModel::getItems('updates');
 			
-			// get the ignore version info
-			$sys = \Model_System::find('first');
+			// Get the ignore version info
+			$sys = SystemModel::find('first');
 			
-			// load the nova config file
-			\Config::load('nova::nova', 'nova');
-			
-			// load the data
-			$content = file_get_contents(\Config::get('nova.version_info'));
+			// Load the data
+			$content = file_get_contents(Config::get('nova.version_check_path'));
 			
 			// parse the content
 			$US = json_decode($content);
@@ -127,10 +126,10 @@ class Utility {
 				}
 				
 				// build the system version string
-				$sysversion = $sys->version_major.'.'.$sys->version_minor.'.'.$sys->version_update;
+				$sysVersion = $sys->version_major.'.'.$sys->version_minor.'.'.$sys->version_update;
 				
 				// check the version in the system versus what's coming from the update server
-				if (version_compare($sysversion, $US->version, '<'))
+				if (version_compare($sysVersion, $US->version, '<'))
 				{
 					// if the admin wants to see these specific updates, pass the object along
 					if ($US->severity <= $pref)
@@ -159,34 +158,24 @@ class Utility {
 	 */
 	public static function installed()
 	{
-		// Get the environment
-		$env = App::make('env');
-
-		// Get the path info from the Request object
-		$path = Route::getRequest()->getPathInfo();
-
 		// Make sure the database config file is there first
-		if ( ! file_exists(APPPATH."config/{$env}/database.php"))
+		if ( ! file_exists(APPPATH.'config/'.App::environment().'/database.php'))
 		{
 			// Make sure we take in to account the controllers this needs to ignore
-			if (stristr($path, 'setup/') === false)
+			if ( ! Request::is('setup/*'))
 			{
-				return Redirect::to('setup/main/config');
+				return Redirect::to('setup/config');
 			}
 		}
 		else
 		{
 			// Wipe out the system install cache if we're in the setup module
-			if (stristr($path, 'setup/') !== false)
+			if (Request::is('setup/*'))
 			{
 				Cache::forget('nova_system_installed');
 			}
 
-			/**
-			 * Since we only ever cache the install status when the system is
-			 * actually installed, we can just assume here that if an
-			 * exception isn't thrown that the system is installed.
-			 */
+			// Get the install status from the cache
 			$status = Cache::get('nova_system_installed');
 
 			// If the status is null, we know it doesn't exist
@@ -196,7 +185,7 @@ class Utility {
 				$uid = SystemModel::getUniqueId();
 
 				// Only cache if we have a UID and we aren't in the setup module
-				if ( ! empty($uid) and stristr($path, 'setup/') === false)
+				if ( ! empty($uid) and ! Request::is('setup/*'))
 				{
 					Cache::forever('nova_system_installed', (int) true);
 
