@@ -3,6 +3,7 @@
 namespace Nova\Citadel\Users;
 
 use Model;
+use Session;
 use Cartalyst\Sentry\Groups\GroupInterface;
 use Cartalyst\Sentry\Hashing\HasherInterface;
 use Cartalyst\Sentry\Users\LoginRequiredException;
@@ -723,42 +724,6 @@ class User extends Model implements UserInterface {
 	public static function getLoginAttribute()
 	{
 		return static::$loginAttribute;
-	}
-
-	public function isAdmin()
-	{
-		if (\Session::get('user') == (int) $this->user['id'])
-		{
-			// grab the preferences from the session
-			$preferences = \Session::get('preferences', false);
-
-			// make sure we have preferences and they're an admin
-			if ($preferences !== false and (bool) $preferences['is_sysadmin'] === true)
-			{
-				return true;
-			}
-
-			return false;
-		}
-		else
-		{
-			$user = \Model_User::find($this->user['id']);
-
-			if ($user !== null)
-			{
-				foreach ($user->preferences as $key => $value)
-				{
-					if ($key == 'is_sysadmin' and (bool) $value === true)
-					{
-						return true;
-					}
-				}
-
-				return false;
-			}
-
-			return false;
-		}
 	}
 
 }
