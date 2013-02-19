@@ -11,25 +11,25 @@ class CreateAnnouncements extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('announcements', function($table)
+		Schema::create('announcements', function($t)
 		{
-			$table->increments('id');
-			$table->string('title')->default('');
-			$table->integer('user_id');
-			$table->integer('character_id');
-			$table->integer('category_id');
-			$table->text('content');
-			$table->boolean('status')->default(3);
-			$table->boolean('private')->default(0);
-			$table->text('tags')->nullable();
-			$table->timestamps();
+			$t->increments('id');
+			$t->string('title')->default('');
+			$t->integer('user_id');
+			$t->integer('character_id');
+			$t->integer('category_id');
+			$t->text('content');
+			$t->boolean('status')->default(3);
+			$t->boolean('private')->default(0);
+			$t->text('tags')->nullable();
+			$t->timestamps();
 		});
 
-		Schema::create('announcement_categories', function($table)
+		Schema::create('announcement_categories', function($t)
 		{
-			$table->increments('id');
-			$table->string('name')->default('');
-			$table->boolean('status')->default(3);
+			$t->increments('id');
+			$t->string('name')->default('');
+			$t->boolean('status')->default(3);
 		});
 	}
 

@@ -11,16 +11,16 @@ class CreateComments extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('comments', function($table)
+		Schema::create('comments', function($t)
 		{
-			$table->increments('id');
-			$table->integer('user_id');
-			$table->integer('character_id');
-			$table->string('type', 100);
-			$table->integer('item_id');
-			$table->text('content');
-			$table->boolean('status')->default(3);
-			$table->datetime('created_at');
+			$t->increments('id');
+			$t->integer('user_id');
+			$t->integer('character_id');
+			$t->integer('commentable_id');
+			$t->string('commentable_type', 100);
+			$t->text('content');
+			$t->boolean('status')->default(3);
+			$t->timestamps();
 		});
 	}
 

@@ -11,15 +11,15 @@ class CreateManifests extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('manifests', function($table)
+		Schema::create('manifests', function($t)
 		{
-			$table->increments('id');
-			$table->string('name');
-			$table->integer('order')->nullable();
-			$table->text('desc')->nullable();
-			$table->text('header_content')->nullable();
-			$table->boolean('status')->default(3);
-			$table->boolean('default')->default(0);
+			$t->increments('id');
+			$t->string('name');
+			$t->integer('order')->nullable();
+			$t->text('desc')->nullable();
+			$t->text('header_content')->nullable();
+			$t->boolean('status')->default(3);
+			$t->boolean('default')->default(0);
 		});
 	}
 

@@ -11,26 +11,26 @@ class CreateSystem extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('system_info', function($table)
+		Schema::create('system_info', function($t)
 		{
-			$table->increments('id');
-			$table->string('uid', 32);
-			$table->boolean('version_major')->default(3);
-			$table->boolean('version_minor');
-			$table->boolean('version_patch');
-			$table->string('ignore', 20)->nullable();
-			$table->timestamps();
+			$t->increments('id');
+			$t->string('uid', 32);
+			$t->boolean('version_major')->default(3);
+			$t->boolean('version_minor');
+			$t->boolean('version_patch');
+			$t->string('ignore', 20)->nullable();
+			$t->timestamps();
 		});
 
-		Schema::create('system_events', function($table)
+		Schema::create('system_events', function($t)
 		{
-			$table->increments('id')->unsigned();
-			$table->string('email', 100);
-			$table->string('ip', 16);
-			$table->integer('user_id')->nullable();
-			$table->integer('character_id')->nullable();
-			$table->text('content');
-			$table->datetime('created_at');
+			$t->increments('id')->unsigned();
+			$t->string('email', 100);
+			$t->string('ip', 16);
+			$t->integer('user_id')->nullable();
+			$t->integer('character_id')->nullable();
+			$t->text('content');
+			$t->datetime('created_at');
 		});
 	}
 

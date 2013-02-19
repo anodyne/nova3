@@ -11,40 +11,40 @@ class CreateApplications extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('applications', function($table)
+		Schema::create('applications', function($t)
 		{
-			$table->increments('id');
-			$table->integer('user_id');
-			$table->integer('character_id');
-			$table->integer('position_id');
-			$table->boolean('status')->default(1);
-			$table->text('sample_post')->nullable();
-			$table->timestamps();
+			$t->increments('id');
+			$t->integer('user_id');
+			$t->integer('character_id');
+			$t->integer('position_id');
+			$t->boolean('status')->default(1);
+			$t->text('sample_post')->nullable();
+			$t->timestamps();
 		});
 
-		Schema::create('application_responses', function($table)
+		Schema::create('application_responses', function($t)
 		{
-			$table->increments('id');
-			$table->integer('app_id');
-			$table->integer('user_id');
-			$table->boolean('type')->default(1);
-			$table->text('content')->nullable();
-			$table->datetime('created_at');
+			$t->increments('id');
+			$t->integer('app_id');
+			$t->integer('user_id');
+			$t->boolean('type')->default(1);
+			$t->text('content')->nullable();
+			$t->datetime('created_at');
 		});
 
-		Schema::create('application_reviewers', function($table)
+		Schema::create('application_reviewers', function($t)
 		{
-			$table->increments('id');
-			$table->integer('app_id');
-			$table->integer('user_id');
+			$t->increments('id');
+			$t->integer('app_id');
+			$t->integer('user_id');
 		});
 
-		Schema::create('application_rules', function($table)
+		Schema::create('application_rules', function($t)
 		{
-			$table->increments('id');
-			$table->string('type', 50)->default('global');
-			$table->text('condition')->nullable();
-			$table->text('users')->nullable();
+			$t->increments('id');
+			$t->string('type', 50)->default('global');
+			$t->text('condition')->nullable();
+			$t->text('users')->nullable();
 		});
 
 		$this->seed();

@@ -11,9 +11,9 @@ class CreateWiki extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('wiki_pages', function($table)
+		Schema::create('wiki_pages', function($t)
 		{
-			$table->increments('id');
+			$t->increments('id');
 		});
 	}
 

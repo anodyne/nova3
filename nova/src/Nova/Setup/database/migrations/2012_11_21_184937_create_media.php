@@ -11,15 +11,15 @@ class CreateMedia extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('media', function($table)
+		Schema::create('media', function($t)
 		{
-			$table->increments('id')->unsigned();
-			$table->text('filename')->nullable();
-			$table->string('mime_type')->nullable();
-			$table->string('resource_type')->nullable();
-			$table->integer('user_id');
-			$table->string('ip_address', 16);
-			$table->timestamps();
+			$t->increments('id')->unsigned();
+			$t->text('filename')->nullable();
+			$t->string('mime_type')->nullable();
+			$t->string('resource_type')->nullable();
+			$t->integer('user_id');
+			$t->string('ip_address', 16);
+			$t->timestamps();
 		});
 	}
 

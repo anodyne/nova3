@@ -11,66 +11,66 @@ class CreateCatalogs extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('catalog_modules', function($table)
+		Schema::create('catalog_modules', function($t)
 		{
-			$table->increments('id');
-			$table->string('name')->nullable();
-			$table->string('short_name', 50)->nullable();
-			$table->string('location');
-			$table->text('desc')->nullable();
-			$table->boolean('protected')->default(0);
-			$table->boolean('status')->default(3);
-			$table->text('credits')->nullable();
-			$table->timestamps();
+			$t->increments('id');
+			$t->string('name')->nullable();
+			$t->string('short_name', 50)->nullable();
+			$t->string('location');
+			$t->text('desc')->nullable();
+			$t->boolean('protected')->default(0);
+			$t->boolean('status')->default(3);
+			$t->text('credits')->nullable();
+			$t->timestamps();
 		});
 
-		Schema::create('catalog_ranks', function($table)
+		Schema::create('catalog_ranks', function($t)
 		{
-			$table->increments('id');
-			$table->string('name')->nullable();
-			$table->string('location');
-			$table->string('preview', 50)->default('preview.png');
-			$table->string('blank', 50)->default('blank.png');
-			$table->string('extension', 5)->default('.png');
-			$table->boolean('status')->default(3);
-			$table->text('credits')->nullable();
-			$table->boolean('default')->default(0);
-			$table->string('genre', 10);
-			$table->timestamps();
+			$t->increments('id');
+			$t->string('name')->nullable();
+			$t->string('location');
+			$t->string('preview', 50)->default('preview.png');
+			$t->string('blank', 50)->default('blank.png');
+			$t->string('extension', 5)->default('.png');
+			$t->boolean('status')->default(3);
+			$t->text('credits')->nullable();
+			$t->boolean('default')->default(0);
+			$t->string('genre', 10);
+			$t->timestamps();
 		});
 
-		Schema::create('catalog_skins', function($table)
+		Schema::create('catalog_skins', function($t)
 		{
-			$table->increments('id');
-			$table->string('name')->nullable();
-			$table->string('location');
-			$table->text('credits')->nullable();
-			$table->string('version', 10)->nullable();
-			$table->timestamps();
+			$t->increments('id');
+			$t->string('name')->nullable();
+			$t->string('location');
+			$t->text('credits')->nullable();
+			$t->string('version', 10)->nullable();
+			$t->timestamps();
 		});
 
-		Schema::create('catalog_skinsecs', function($table)
+		Schema::create('catalog_skinsecs', function($t)
 		{
-			$table->increments('id');
-			$table->string('section', 50);
-			$table->string('skin', 100);
-			$table->string('preview', 50)->nullable();
-			$table->boolean('status')->default(3);
-			$table->boolean('default')->default(0);
-			$table->string('nav', 20)->default('dropdown');
-			$table->timestamps();
+			$t->increments('id');
+			$t->string('section', 50);
+			$t->string('skin', 100);
+			$t->string('preview', 50)->nullable();
+			$t->boolean('status')->default(3);
+			$t->boolean('default')->default(0);
+			$t->string('nav', 20)->default('dropdown');
+			$t->timestamps();
 		});
 
-		Schema::create('catalog_widgets', function($table)
+		Schema::create('catalog_widgets', function($t)
 		{
-			$table->increments('id');
-			$table->string('name');
-			$table->string('location');
-			$table->string('page', 100);
-			$table->boolean('zone')->nullable();
-			$table->boolean('status')->default(3);
-			$table->text('credits')->nullable();
-			$table->timestamps();
+			$t->increments('id');
+			$t->string('name');
+			$t->string('location');
+			$t->string('page', 100);
+			$t->boolean('zone')->nullable();
+			$t->boolean('status')->default(3);
+			$t->text('credits')->nullable();
+			$t->timestamps();
 		});
 	}
 

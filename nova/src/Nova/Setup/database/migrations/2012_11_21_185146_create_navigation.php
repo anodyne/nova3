@@ -11,20 +11,20 @@ class CreateNavigation extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('navigation', function($table)
+		Schema::create('navigation', function($t)
 		{
-			$table->increments('id');
-			$table->string('name');
-			$table->integer('group')->nullable();
-			$table->integer('order')->nullable();
-			$table->text('url');
-			$table->string('url_target')->default('onsite');
-			$table->string('needs_login')->default('none');
-			$table->string('access');
-			$table->string('type');
-			$table->string('category');
-			$table->boolean('status')->default(3);
-			$table->integer('sim_type')->default(1);
+			$t->increments('id');
+			$t->string('name');
+			$t->integer('group')->nullable();
+			$t->integer('order')->nullable();
+			$t->text('url');
+			$t->string('url_target')->default('onsite');
+			$t->string('needs_login')->default('none');
+			$t->string('access');
+			$t->string('type');
+			$t->string('category');
+			$t->boolean('status')->default(3);
+			$t->integer('sim_type')->default(1);
 		});
 	}
 

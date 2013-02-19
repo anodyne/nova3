@@ -11,29 +11,29 @@ class CreateRoles extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('roles', function($table)
+		Schema::create('roles', function($t)
 		{
-			$table->increments('id');
-			$table->string('name')->nullable();
-			$table->text('desc')->nullable();
-			$table->text('inherits')->nullable();
+			$t->increments('id');
+			$t->string('name')->nullable();
+			$t->text('desc')->nullable();
+			$t->text('inherits')->nullable();
 		});
 
-		Schema::create('roles_tasks', function($table)
+		Schema::create('roles_tasks', function($t)
 		{
-			$table->increments('id');
-			$table->integer('role_id');
-			$table->integer('task_id');
+			$t->increments('id');
+			$t->integer('role_id');
+			$t->integer('task_id');
 		});
 
-		Schema::create('tasks', function($table)
+		Schema::create('tasks', function($t)
 		{
-			$table->increments('id');
-			$table->string('component', 100)->nullable();
-			$table->string('action', 11)->default('read');
-			$table->boolean('level')->default(0);
-			$table->string('label')->nullable();
-			$table->string('help')->nullable();
+			$t->increments('id');
+			$t->string('component', 100)->nullable();
+			$t->string('action', 11)->default('read');
+			$t->boolean('level')->default(0);
+			$t->string('label')->nullable();
+			$t->string('help')->nullable();
 		});
 	}
 

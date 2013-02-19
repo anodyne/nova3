@@ -11,14 +11,14 @@ class CreateBans extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('bans', function($table)
+		Schema::create('bans', function($t)
 		{
-			$table->increments('id');
-			$table->integer('level')->default(1);
-			$table->string('ip_address', 16)->nullable();
-			$table->string('email', 100)->nullable();
-			$table->text('reason')->nullable();
-			$table->datetime('created_at');
+			$t->increments('id');
+			$t->integer('level')->default(1);
+			$t->string('ip_address', 16)->nullable();
+			$t->string('email', 100)->nullable();
+			$t->text('reason')->nullable();
+			$t->datetime('created_at');
 		});
 	}
 

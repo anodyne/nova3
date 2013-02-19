@@ -11,25 +11,25 @@ class CreateMessages extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('messages', function($table)
+		Schema::create('messages', function($t)
 		{
-			$table->increments('id')->unsigned();
-			$table->integer('user_id');
-			$table->integer('character_id');
-			$table->string('subject');
-			$table->text('content');
-			$table->boolean('status')->default(3);
-			$table->datetime('created_at');
+			$t->increments('id')->unsigned();
+			$t->integer('user_id');
+			$t->integer('character_id');
+			$t->string('subject');
+			$t->text('content');
+			$t->boolean('status')->default(3);
+			$t->datetime('created_at');
 		});
 
-		Schema::create('message_recipients', function($table)
+		Schema::create('message_recipients', function($t)
 		{
-			$table->increments('id')->unsigned();
-			$table->integer('message_id');
-			$table->integer('user_id');
-			$table->integer('character_id');
-			$table->boolean('read')->default(0);
-			$table->boolean('status')->default(3);
+			$t->increments('id')->unsigned();
+			$t->integer('message_id');
+			$t->integer('user_id');
+			$t->integer('character_id');
+			$t->boolean('read')->default(0);
+			$t->boolean('status')->default(3);
 		});
 	}
 

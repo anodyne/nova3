@@ -11,9 +11,9 @@ class CreatePositions extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('positions', function($table)
+		Schema::create('positions', function($t)
 		{
-			$table->increments('id');
+			$t->increments('id');
 		});
 	}
 

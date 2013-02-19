@@ -11,10 +11,10 @@ class CreateSimTypes extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('sim_types', function($table)
+		Schema::create('sim_types', function($t)
 		{
-			$table->increments('id');
-			$table->string('name', 50);
+			$t->increments('id');
+			$t->string('name', 50);
 		});
 	}
 

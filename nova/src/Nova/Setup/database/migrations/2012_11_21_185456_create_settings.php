@@ -11,14 +11,14 @@ class CreateSettings extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('settings', function($table)
+		Schema::create('settings', function($t)
 		{
-			$table->increments('id');
-			$table->string('key', 100);
-			$table->text('value')->nullable();
-			$table->string('label')->nullable();
-			$table->text('help')->nullable();
-			$table->boolean('user_created')->default(1);
+			$t->increments('id');
+			$t->string('key', 100);
+			$t->text('value')->nullable();
+			$t->string('label')->nullable();
+			$t->text('help')->nullable();
+			$t->boolean('user_created')->default(1);
 		});
 	}
 

@@ -11,16 +11,16 @@ class CreateSiteContents extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('site_contents', function($table)
+		Schema::create('site_contents', function($t)
 		{
-			$table->increments('id');
-			$table->string('key');
-			$table->string('label')->nullable();
-			$table->text('content')->nullable();
-			$table->string('type');
-			$table->string('section', 50)->nullable();
-			$table->string('page', 100)->nullable();
-			$table->boolean('protected')->default(0);
+			$t->increments('id');
+			$t->string('key');
+			$t->string('label')->nullable();
+			$t->text('content')->nullable();
+			$t->string('type');
+			$t->string('section', 50)->nullable();
+			$t->string('page', 100)->nullable();
+			$t->boolean('protected')->default(0);
 		});
 	}
 

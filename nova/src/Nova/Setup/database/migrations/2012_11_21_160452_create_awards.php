@@ -11,45 +11,45 @@ class CreateAwards extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('awards', function($table)
+		Schema::create('awards', function($t)
 		{
-			$table->increments('id');
-			$table->string('name')->nullable();
-			$table->string('image', 100)->nullable();
-			$table->integer('category_id')->nullable();
-			$table->integer('order')->nullable();
-			$table->text('desc')->nullable();
-			$table->string('type')->default('ic');
-			$table->boolean('status')->default(3);
+			$t->increments('id');
+			$t->string('name')->nullable();
+			$t->string('image', 100)->nullable();
+			$t->integer('category_id')->nullable();
+			$t->integer('order')->nullable();
+			$t->text('desc')->nullable();
+			$t->string('type')->default('ic');
+			$t->boolean('status')->default(3);
 		});
 
-		Schema::create('award_categories', function($table)
+		Schema::create('award_categories', function($t)
 		{
-			$table->increments('id');
-			$table->string('name')->nullable();
-			$table->text('desc')->nullable();
-			$table->boolean('status')->default(3);
+			$t->increments('id');
+			$t->string('name')->nullable();
+			$t->text('desc')->nullable();
+			$t->boolean('status')->default(3);
 		});
 
-		Schema::create('award_queue', function($table)
+		Schema::create('award_queue', function($t)
 		{
-			$table->increments('id');
-			$table->integer('receiver_user_id');
-			$table->integer('sender_user_id');
-			$table->integer('award_id');
-			$table->text('reason')->nullable();
-			$table->boolean('status')->default(3);
-			$table->datetime('created_at');
+			$t->increments('id');
+			$t->integer('receiver_user_id');
+			$t->integer('sender_user_id');
+			$t->integer('award_id');
+			$t->text('reason')->nullable();
+			$t->boolean('status')->default(3);
+			$t->datetime('created_at');
 		});
 
-		Schema::create('award_received', function($table)
+		Schema::create('award_received', function($t)
 		{
-			$table->increments('id');
-			$table->integer('receiver_user_id');
-			$table->integer('sender_user_id');
-			$table->integer('award_id');
-			$table->text('reason')->nullable();
-			$table->datetime('created_at');
+			$t->increments('id');
+			$t->integer('receiver_user_id');
+			$t->integer('sender_user_id');
+			$t->integer('award_id');
+			$t->text('reason')->nullable();
+			$t->datetime('created_at');
 		});
 	}
 

@@ -11,9 +11,9 @@ class CreateForums extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('forum_posts', function($table)
+		Schema::create('forum_posts', function($t)
 		{
-			$table->increments('id');
+			$t->increments('id');
 		});
 	}
 

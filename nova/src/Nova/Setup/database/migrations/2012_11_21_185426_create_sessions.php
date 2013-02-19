@@ -11,11 +11,11 @@ class CreateSessions extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('sessions', function($table)
+		Schema::create('sessions', function($t)
 		{
-			$table->string('id', 40)->unique();
-			$table->integer('last_activity');
-			$table->text('data');
+			$t->string('id')->unique();
+			$t->text('payload');
+			$t->integer('last_activity');
 		});
 	}
 

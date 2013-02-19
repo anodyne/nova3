@@ -11,37 +11,37 @@ class CreatePosts extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('posts', function($table)
+		Schema::create('posts', function($t)
 		{
-			$table->increments('id');
-			$table->string('title')->nullable();
-			$table->string('location')->nullable();
-			$table->string('timeline')->nullable();
-			$table->integer('mission_id');
-			$table->integer('saved_user_id')->nullable();
-			$table->boolean('status')->default(3);
-			$table->text('content');
-			$table->text('keywords')->nullable();
-			$table->text('participants')->nullable();
-			$table->integer('lock_user_id')->nullable();
-			$table->datetime('lock_date');
-			$table->timestamps();
+			$t->increments('id');
+			$t->string('title')->nullable();
+			$t->string('location')->nullable();
+			$t->string('timeline')->nullable();
+			$t->integer('mission_id');
+			$t->integer('saved_user_id')->nullable();
+			$t->boolean('status')->default(3);
+			$t->text('content');
+			$t->text('keywords')->nullable();
+			$t->text('participants')->nullable();
+			$t->integer('lock_user_id')->nullable();
+			$t->datetime('lock_date');
+			$t->timestamps();
 		});
 
-		Schema::create('post_authors', function($table)
+		Schema::create('post_authors', function($t)
 		{
-			$table->increments('id');
-			$table->integer('post_id');
-			$table->integer('user_id');
-			$table->integer('character_id');
+			$t->increments('id');
+			$t->integer('post_id');
+			$t->integer('user_id');
+			$t->integer('character_id');
 		});
 
-		Schema::create('post_locks', function($table)
+		Schema::create('post_locks', function($t)
 		{
-			$table->increments('id');
-			$table->integer('post_id');
-			$table->integer('user_id');
-			$table->timestamps();
+			$t->increments('id');
+			$t->integer('post_id');
+			$t->integer('user_id');
+			$t->timestamps();
 		});
 	}
 

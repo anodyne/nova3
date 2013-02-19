@@ -11,16 +11,16 @@ class CreatePersonalLogs extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('personal_logs', function($table)
+		Schema::create('personal_logs', function($t)
 		{
-			$table->increments('id');
-			$table->string('title')->nullable();
-			$table->integer('user_id');
-			$table->integer('character_id');
-			$table->text('content')->nullable();
-			$table->boolean('status')->default(3);
-			$table->text('keywords')->nullable();
-			$table->timestamps();
+			$t->increments('id');
+			$t->string('title')->nullable();
+			$t->integer('user_id');
+			$t->integer('character_id');
+			$t->text('content')->nullable();
+			$t->boolean('status')->default(3);
+			$t->text('keywords')->nullable();
+			$t->timestamps();
 		});
 	}
 

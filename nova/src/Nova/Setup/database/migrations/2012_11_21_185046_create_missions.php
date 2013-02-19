@@ -11,31 +11,31 @@ class CreateMissions extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('missions', function($table)
+		Schema::create('missions', function($t)
 		{
-			$table->increments('id');
-			$table->string('title');
-			$table->text('images')->nullable();
-			$table->integer('order');
-			$table->integer('group_id');
-			$table->boolean('status')->default(1);
-			$table->date('start_date');
-			$table->date('end_date');
-			$table->text('desc');
-			$table->text('summary')->nullable();
-			$table->text('notes')->nullable();
-			$table->datetime('notes_updated_at');
-			$table->timestamps();
+			$t->increments('id');
+			$t->string('title');
+			$t->text('images')->nullable();
+			$t->integer('order');
+			$t->integer('group_id');
+			$t->boolean('status')->default(1);
+			$t->date('start_date');
+			$t->date('end_date');
+			$t->text('desc');
+			$t->text('summary')->nullable();
+			$t->text('notes')->nullable();
+			$t->datetime('notes_updated_at');
+			$t->timestamps();
 		});
 
-		Schema::create('mission_groups', function($table)
+		Schema::create('mission_groups', function($t)
 		{
-			$table->increments('id');
-			$table->string('name');
-			$table->integer('order');
-			$table->text('desc');
-			$table->integer('parent_id')->nullable();
-			$table->timestamps();
+			$t->increments('id');
+			$t->string('name');
+			$t->integer('order');
+			$t->text('desc');
+			$t->integer('parent_id')->nullable();
+			$t->timestamps();
 		});
 	}
 

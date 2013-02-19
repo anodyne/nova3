@@ -14,16 +14,16 @@ class CreateDepartments extends Migration {
 		# TODO: need to load the genre from the config file
 		$genre = 'st24';
 
-		Schema::create("departments_$genre", function($table)
+		Schema::create("departments_$genre", function($t)
 		{
-			$table->increments('id');
-			$table->string('name');
-			$table->text('desc')->nullable();
-			$table->integer('order')->nullable();
-			$table->boolean('status')->default(3);
-			$table->string('type')->default('playing');
-			$table->integer('parent_id')->default(0);
-			$table->integer('manifest_id')->default(1);
+			$t->increments('id');
+			$t->string('name');
+			$t->text('desc')->nullable();
+			$t->integer('order')->nullable();
+			$t->boolean('status')->default(3);
+			$t->string('type')->default('playing');
+			$t->integer('parent_id')->default(0);
+			$t->integer('manifest_id')->default(1);
 		});
 
 		# TODO: need to figure out how to seed the departments

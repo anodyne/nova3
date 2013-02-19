@@ -11,13 +11,13 @@ class CreateModeration extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('moderation', function($table)
+		Schema::create('moderation', function($t)
 		{
-			$table->increments('id');
-			$table->integer('user_id')->nullable();
-			$table->integer('character_id')->nullable();
-			$table->string('type', 100)->nullable();
-			$table->datetime('created_at');
+			$t->increments('id');
+			$t->integer('user_id')->nullable();
+			$t->integer('character_id')->nullable();
+			$t->string('type', 100)->nullable();
+			$t->datetime('created_at');
 		});
 	}
 

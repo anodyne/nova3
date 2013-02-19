@@ -11,76 +11,76 @@ class CreateForms extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('forms', function($table)
+		Schema::create('forms', function($t)
 		{
-			$table->increments('id');
-			$table->string('key', 20);
-			$table->string('name');
-			$table->string('orientation', 50)->default('vertical');
+			$t->increments('id');
+			$t->string('key', 20);
+			$t->string('name');
+			$t->string('orientation', 50)->default('vertical');
 		});
 
-		Schema::create('form_data', function($table)
+		Schema::create('form_data', function($t)
 		{
-			$table->increments('id')->unsigned();
-			$table->string('form_key', 20);
-			$table->integer('field_id')->unsigned();
-			$table->integer('user_id')->nullable();
-			$table->integer('character_id')->nullable();
-			$table->integer('item_id')->nullable();
-			$table->text('value')->nullable();
-			$table->datetime('updated_at');
+			$t->increments('id')->unsigned();
+			$t->string('form_key', 20);
+			$t->integer('field_id')->unsigned();
+			$t->integer('user_id')->nullable();
+			$t->integer('character_id')->nullable();
+			$t->integer('item_id')->nullable();
+			$t->text('value')->nullable();
+			$t->datetime('updated_at');
 		});
 
-		Schema::create('form_fields', function($table)
+		Schema::create('form_fields', function($t)
 		{
-			$table->increments('id')->unsigned();
-			$table->string('form_key', 20);
-			$table->integer('section_id')->nullable();
-			$table->string('type', 50)->default('text');
-			$table->string('label');
-			$table->integer('order')->nullable();
-			$table->boolean('status')->default(3);
-			$table->integer('restriction')->nullable();
-			$table->text('help')->nullable();
-			$table->string('selected', 50)->nullable();
-			$table->string('value')->nullable();
-			$table->string('html_name')->nullable();
-			$table->string('html_id')->nullable();
-			$table->string('html_class')->nullable();
-			$table->integer('html_rows')->default(5);
-			$table->text('placeholder')->nullable();
-			$table->datetime('updated_at');
+			$t->increments('id')->unsigned();
+			$t->string('form_key', 20);
+			$t->integer('section_id')->nullable();
+			$t->string('type', 50)->default('text');
+			$t->string('label');
+			$t->integer('order')->nullable();
+			$t->boolean('status')->default(3);
+			$t->integer('restriction')->nullable();
+			$t->text('help')->nullable();
+			$t->string('selected', 50)->nullable();
+			$t->string('value')->nullable();
+			$t->string('html_name')->nullable();
+			$t->string('html_id')->nullable();
+			$t->string('html_class')->nullable();
+			$t->integer('html_rows')->default(5);
+			$t->text('placeholder')->nullable();
+			$t->datetime('updated_at');
 		});
 
-		Schema::create('form_sections', function($table)
+		Schema::create('form_sections', function($t)
 		{
-			$table->increments('id');
-			$table->string('form_key', 20);
-			$table->integer('tab_id')->nullable();
-			$table->string('name')->nullable();
-			$table->integer('order');
-			$table->boolean('status')->default(3);
-			$table->datetime('updated_at');
+			$t->increments('id');
+			$t->string('form_key', 20);
+			$t->integer('tab_id')->nullable();
+			$t->string('name')->nullable();
+			$t->integer('order');
+			$t->boolean('status')->default(3);
+			$t->datetime('updated_at');
 		});
 
-		Schema::create('form_tabs', function($table)
+		Schema::create('form_tabs', function($t)
 		{
-			$table->increments('id');
-			$table->string('form_key', 20);
-			$table->string('name');
-			$table->string('link_id', 20)->nullable();
-			$table->integer('order')->nullable();
-			$table->boolean('status')->default(3);
-			$table->datetime('updated_at');
+			$t->increments('id');
+			$t->string('form_key', 20);
+			$t->string('name');
+			$t->string('link_id', 20)->nullable();
+			$t->integer('order')->nullable();
+			$t->boolean('status')->default(3);
+			$t->datetime('updated_at');
 		});
 
-		Schema::create('form_values', function($table)
+		Schema::create('form_values', function($t)
 		{
-			$table->increments('id');
-			$table->integer('field_id')->unsigned();
-			$table->string('value');
-			$table->text('content');
-			$table->integer('order');
+			$t->increments('id');
+			$t->integer('field_id')->unsigned();
+			$t->string('value');
+			$t->text('content');
+			$t->integer('order');
 		});
 	}
 
