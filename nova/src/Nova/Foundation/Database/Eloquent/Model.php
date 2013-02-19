@@ -203,7 +203,7 @@ class Model extends lModel {
 		// Loop through the data and add it to the item
 		foreach ($data as $key => $value)
 		{
-			if ($key != 'id' and array_key_exists($key, static::$_properties))
+			if ($key != 'id' and array_key_exists($key, static::$properties))
 			{
 				if (is_array($data))
 				{
@@ -264,7 +264,7 @@ class Model extends lModel {
 			// Loop through the arguments and build the where clause
 			foreach ($value as $col => $val)
 			{
-				if (array_key_exists($col, static::$_properties))
+				if (array_key_exists($col, static::$properties))
 				{
 					$query->where($col, $val);
 				}
@@ -275,7 +275,7 @@ class Model extends lModel {
 		}
 		else
 		{
-			if (array_key_exists($column, static::$_properties))
+			if (array_key_exists($column, static::$properties))
 			{
 				if ( ! $search)
 				{
@@ -339,7 +339,7 @@ class Model extends lModel {
 			// Loop through the data array and make the changes
 			foreach ($data as $key => $value)
 			{
-				if ($key != 'id' and array_key_exists($key, static::$_properties))
+				if ($key != 'id' and array_key_exists($key, static::$properties))
 				{
 					if ($filter)
 					{
@@ -408,7 +408,7 @@ class Model extends lModel {
 			// Loop through the arguments to build the where
 			foreach ($args as $column => $value)
 			{
-				if (array_key_exists($column, static::$_properties))
+				if (array_key_exists($column, static::$properties))
 				{
 					$item->where($column, $value);
 				}
