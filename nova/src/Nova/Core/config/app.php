@@ -115,9 +115,11 @@ return array(
 		/**
 		 * Nova Service Providers
 		 */
-		'Cartalyst\Sentry\SentryServiceProvider',
+		'Nova\Citadel\CitadelServiceProvider',
 		'Nova\Foundation\Routing\RoutingServiceProvider',
 		'Nova\Foundation\Translation\TranslationServiceProvider',
+
+		'Meido\HTML\HTMLServiceProvider',
 
 	),
 
@@ -201,7 +203,7 @@ return array(
 		 */
 		'Date'		=> 'Datum\Datum',
 		'Debug'		=> 'Nova\Core\Lib\Debug',
-		'Html'		=> 'Fuel\Util\Html',
+		'HTML'		=> 'Meido\HTML\HTMLFacade',
 		'Markdown'	=> 'Nova\Core\Lib\Markdown',
 		'Model'		=> 'Nova\Foundation\Database\Eloquent\Model',
 		'Nav'		=> 'Nova\Core\Lib\Nav',
@@ -219,18 +221,68 @@ return array(
 		 * Nova Models
 		 */
 		'AccessRoleModel'			=> 'Nova\Core\Model\Access\Role',
+		'AccessRoleTaskModel'		=> 'Nova\Core\Model\Access\RoleTask',
 		'AccessTaskModel'			=> 'Nova\Core\Model\Access\Task',
+
+		'AppModel'					=> 'Nova\Core\Model\Application',
+		'AppResponseModel'			=> 'Nova\Core\Model\Application\Response',
+		'AppReviewerModel'			=> 'Nova\Core\Model\Application\Reviewer',
+		'AppRuleModel'				=> 'Nova\Core\Model\Application\Rule',
+
+		'AwardModel'				=> 'Nova\Core\Model\Award',
+		'AwardCategoryModel'		=> 'Nova\Core\Model\Award\Category',
+		'AwardQueueModel'			=> 'Nova\Core\Model\Award\Queue',
+		'AwardReceiveModel'			=> 'Nova\Core\Model\Award\Receive',
+		
 		'ModuleCatalogModel'		=> 'Nova\Core\Model\Catalog\Module',
-		'NavModel'					=> 'Nova\Core\Model\Nav',
 		'RankCatalogModel'			=> 'Nova\Core\Model\Catalog\Rank',
-		'SettingsModel'				=> 'Nova\Core\Model\Settings',
-		'SiteContentModel'			=> 'Nova\Core\Model\SiteContent',
 		'SkinCatalogModel'			=> 'Nova\Core\Model\Catalog\Skin',
 		'SkinSectionCatalogModel'	=> 'Nova\Core\Model\Catalog\SkinSection',
-		'SystemModel'				=> 'Nova\Core\Model\System',
-		'UserModel'					=> 'Nova\Core\Model\User',
-		'UserSuspendModel'			=> 'Nova\Core\Model\User\Suspend',
 		'WidgetCatalogModel'		=> 'Nova\Core\Model\Catalog\Widget',
+
+		'CharacterModel'			=> 'Nova\Core\Model\Character',
+		'CharacterImageModel'		=> 'Nova\Core\Model\Character\Image',
+		'CharacterPositionModel'	=> 'Nova\Core\Model\Character\Positions',
+		'CharacterPromotionModel'	=> 'Nova\Core\Model\Character\Promotion',
+
+		'FormModel'					=> 'Nova\Core\Model\Form',
+		'FormDataModel'				=> 'Nova\Core\Model\Form\Data',
+		'FormFieldModel'			=> 'Nova\Core\Model\Form\Field',
+		'FormSectionModel'			=> 'Nova\Core\Model\Form\Section',
+		'FormTabModel'				=> 'Nova\Core\Model\Form\Tab',
+		'FormValueModel'			=> 'Nova\Core\Model\Form\Value',
+
+		'RankModel'					=> 'Nova\Core\Model\Rank',
+		'RankGroupModel'			=> 'Nova\Core\Model\Rank\Group',
+		'RankInfoModel'				=> 'Nova\Core\Model\Rank\Info',
+
+		'UserModel'					=> 'Nova\Core\Model\User',
+		'UserLoaModel'				=> 'Nova\Core\Model\User\Loa',
+		'UserPrefsModel'			=> 'Nova\Core\Model\User\Preferences',
+		'UserSuspendModel'			=> 'Nova\Core\Model\User\Suspend',
+
+		'AnnouncementModel'			=> 'Nova\Core\Model\Announcement',
+		'AnnouncementCategoryModel'	=> 'Nova\Core\Model\AnnouncementCategory',
+		'BanModel'					=> 'Nova\Core\Model\Ban',
+		'CommentModel'				=> 'Nova\Core\Model\Comment',
+		'DeptModel'					=> 'Nova\Core\Model\Department',
+		'ManifestModel'				=> 'Nova\Core\Model\Manifest',
+		'MediaModel'				=> 'Nova\Core\Model\Media',
+		'MessageModel'				=> 'Nova\Core\Model\Message',
+		'MessageRecipientModel'		=> 'Nova\Core\Model\MessageRecipient',
+		'MissionModel'				=> 'Nova\Core\Model\Mission',
+		'MissionGroupModel'			=> 'Nova\Core\Model\MissionGroup',
+		'ModerationModel'			=> 'Nova\Core\Model\Moderation',
+		'NavModel'					=> 'Nova\Core\Model\Nav',
+		'LogModel'					=> 'Nova\Core\Model\PersonalLog',
+		'PositionModel'				=> 'Nova\Core\Model\Position',
+		'PostModel'					=> 'Nova\Core\Model\Post',
+		'PostAuthorModel'			=> 'Nova\Core\Model\PostAuthor',
+		'SettingsModel'				=> 'Nova\Core\Model\Settings',
+		'SimTypeModel'				=> 'Nova\Core\Model\SimType',
+		'SiteContentModel'			=> 'Nova\Core\Model\SiteContent',
+		'SystemModel'				=> 'Nova\Core\Model\System',
+		'SystemEventModel'			=> 'Nova\Core\Model\SystemEvent',
 
 	),
 
