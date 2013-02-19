@@ -66,7 +66,7 @@ class Utility {
 	{
 		if (Sentry::check())
 		{
-			return Sentry::getUser()->getPreferences('rank');
+			return Sentry::getUser()->getPreferenceItem('rank');
 		}
 
 		return SettingsModel::getItems('rank');
@@ -84,10 +84,10 @@ class Utility {
 	{
 		if (Sentry::check())
 		{
-			return Sentry::getUser()->getPreferences('skin_'.$section);
+			return Sentry::getUser()->getPreferenceItem("skin_{$section}");
 		}
 
-		return SettingsModel::getItems('skin_'.$section);
+		return SettingsModel::getItems("skin_{$section}");
 	}
 
 	/**
