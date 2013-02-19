@@ -6,50 +6,39 @@
  * @subpackage	Core
  * @category	Model
  * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
+ * @copyright	2013 Anodyne Productions
  */
  
 namespace Nova\Core\Model\User;
 
-class Preferences extends \Model {
+use Model;
+use UserModel;
+
+class Preferences extends Model {
 	
 	protected $table = 'user_preferences';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'user_id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'default' => 0),
-		'key' => array(
-			'type' => 'string',
-			'constraint' => 50),
-		'value' => array(
-			'type' => 'text',
-			'null' => true),
+	protected static $properties = array(
+		'id'		=> array('type' => 'int', 'constraint' => 11, 'auto_increment' => true),
+		'user_id'	=> array('type' => 'int', 'constraint' => 11, 'default' => 0),
+		'key'		=> array('type' => 'string', 'constraint' => 50),
+		'value'		=> array('type' => 'text', 'null' => true),
 	);
 	
 	/**
-	 * Relationships
+	 * Belongs To: User
+	 *
+	 * @return	User
 	 */
-	public static $_belongs_to = array(
-		'user' => array(
-			'model_to' => '\\Model_User',
-			'key_to' => 'id',
-			'key_from' => 'user_id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
+	public function user()
+	{
+		return $this->belongsTo('UserModel');
+	}
 	
 	/**
 	 * Create the default user settings.
 	 *
-	 * @api
-	 * @param	int		the user ID
+	 * @param	int		The user ID
 	 * @return	object
 	 */
 	public static function createUserPreferences($user)
@@ -81,15 +70,14 @@ class Preferences extends \Model {
 
 		foreach ($insert as $key => $value)
 		{
-			// create a new record
+			// Create a new record
 			$record = static::forge();
 
-			// set the key and value
+			// Set the key and value
 			$record->user_id = $user;
 			$record->key = $key;
 			$record->value = $value;
 
-			// save the record
 			$record->save();
 		}
 		
@@ -99,31 +87,30 @@ class Preferences extends \Model {
 	/**
 	 * Update the user preferences.
 	 *
-	 * @api
-	 * @param 	int 	the user ID
-	 * @param 	array 	an array of data to use
+	 * @param 	int 	The user ID
+	 * @param 	array 	An array of data to use
 	 * @return 	bool
 	 */
 	public static function updateUserPreferences($id, array $data)
 	{
-		// load the items
+		// Load the items
 		$items = static::query()->where('user_id', $id)->get();
 
-		// set the count to 0
+		// Set the count to 0
 		$count = 0;
 
 		foreach ($items as $i)
 		{
-			// if we've got the item in the array, update it
+			// If we've got the item in the array, update it
 			if (array_key_exists($i->key, $data))
 			{
-				// update the value
+				// Update the value
 				$i->value = \Security::xss_clean($data[$i->key]);
 
-				// save the item
+				// Save the item
 				$i->save();
 
-				// increment the count
+				// Increment the count
 				++$count;
 			}
 		}
