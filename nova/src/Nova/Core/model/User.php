@@ -6,170 +6,124 @@
  * @subpackage	Core
  * @category	Model
  * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
+ * @copyright	2013 Anodyne Productions
  */
  
 namespace Nova\Core\Model;
 
+use Model;
 use Status;
+use AppModel;
+use LogModel;
+use PostModel;
+use CharacterModel;
+use UserPrefsModel;
+use AccessRoleModel;
+use AppReviewerModel;
+use AnnouncementModel;
 
-class User extends \Model {
+class User extends Model {
 
 	protected $table = 'users';
 
 	protected $hidden = array(
 		'password',
-		'password_reset_hash',
-		'temp_password',
-		'remember_me',
+		'reset_password_hash',
+		'activation_hash',
+		'persist_hash',
 		'ip_address'
 	);
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'status' => array(
-			'type' => 'tinyint',
-			'constraint' => 1,
-			'default' => \Status::PENDING),
-		'name' => array(
-			'type' => 'string',
-			'constraint' => 255,
-			'null' => true),
-		'email' => array(
-			'type' => 'string',
-			'constraint' => 100,
-			'null' => true),
-		'password' => array(
-			'type' => 'string',
-			'constraint' => 96,
-			'null' => true),
-		'character_id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'default' => 0),
-		'role_id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'default' => 0),
-		'password_reset_hash' => array(
-			'type' => 'string',
-			'constraint' => 24,
-			'null' => true),
-		'temp_password' => array(
-			'type' => 'string',
-			'constraint' => 96,
-			'null' => true),
-		'remember_me' => array(
-			'type' => 'string',
-			'constraint' => 24,
-			'null' => true),
-		'ip_address' => array(
-			'type' => 'string',
-			'constraint' => 16,
-			'null' => true),
-		'leave_date' => array(
-			'type' => 'datetime',
-			'null' => true),
-		'last_post' => array(
-			'type' => 'datetime',
-			'null' => true),
-		'last_login' => array(
-			'type' => 'datetime',
-			'null' => true),
-		'created_at' => array(
-			'type' => 'datetime',
-			'null' => true),
-		'updated_at' => array(
-			'type' => 'datetime',
-			'null' => true),
+	protected static $properties = array(
+		'id'					=> array('type' => 'int', 'constraint' => 11, 'auto_increment' => true),
+		'status'				=> array('type' => 'tinyint', 'constraint' => 1, 'default' => Status::PENDING),
+		'name'					=> array('type' => 'string', 'constraint' => 255, 'null' => true),
+		'email'					=> array('type' => 'string', 'constraint' => 100, 'null' => true),
+		'password'				=> array('type' => 'string', 'constraint' => 96, 'null' => true),
+		'character_id'			=> array('type' => 'int', 'constraint' => 11, 'default' => 0),
+		'role_id'				=> array('type' => 'int', 'constraint' => 11, 'default' => 0),
+		'reset_password_hash'	=> array('type' => 'string', 'constraint' => 255, 'null' => true),
+		'activation_hash'		=> array('type' => 'string', 'constraint' => 255, 'null' => true),
+		'persist_hash'			=> array('type' => 'string', 'constraint' => 255, 'null' => true),
+		'ip_address'			=> array('type' => 'string', 'constraint' => 16, 'null' => true),
+		'leave_date'			=> array('type' => 'datetime', 'null' => true),
+		'last_post'				=> array('type' => 'datetime', 'null' => true),
+		'last_login'			=> array('type' => 'datetime', 'null' => true),
+		'created_at'			=> array('type' => 'datetime', 'null' => true),
+		'updated_at'			=> array('type' => 'datetime', 'null' => true),
 	);
 	
 	/**
-	 * Relationships
+	 * Belongs To: Access Role
 	 */
-	protected static $_belongs_to = array(
-		'role' => array(
-			'model_to' => '\\Model_Access_Role',
-			'key_to' => 'id',
-			'key_from' => 'role_id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
-	
-	protected static $_has_one = array(
-		'character' => array(
-			'model_to' => '\\Model_Character',
-			'key_to' => 'id',
-			'key_from' => 'character_id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-		'app' => array(
-			'key_from' => 'id',
-			'model_to' => '\\Model_Application',
-			'key_to' => 'user_id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
-	
-	protected static $_has_many = array(
-		'characters' => array(
-			'model_to' => '\\Model_Character',
-			'key_to' => 'user_id',
-			'key_from' => 'id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-		'logs' => array(
-			'model_to' => '\\Model_PersonalLog',
-			'key_to' => 'user_id',
-			'key_from' => 'id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-		'announcements' => array(
-			'model_to' => '\\Model_Announcement',
-			'key_to' => 'user_id',
-			'key_from' => 'id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-		'preferences' => array(
-			'model_to' => '\\Model_User_Preferences',
-			'key_to' => 'user_id',
-			'key_from' => 'id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
-	
-	protected static $_many_many = array(
-		'posts' => array(
-			'model_to' => '\\Model_Post',
-			'key_to' => 'id',
-			'key_from' => 'id',
-			'key_through_from' => 'user_id',
-			'key_through_to' => 'post_id',
-			'table_through' => 'post_authors',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-		'appReviews' => array(
-			'model_to' => '\\Model_Application',
-			'key_to' => 'id',
-			'key_from' => 'id',
-			'key_through_from' => 'user_id',
-			'key_through_to' => 'app_id',
-			'table_through' => 'application_reviewers',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
+	public function role()
+	{
+		return $this->belongsTo('AccessRoleModel');
+	}
+
+	/**
+	 * Has One: Main Character
+	 */
+	public function character()
+	{
+		return $this->hasOne('CharacterModel');
+	}
+
+	/**
+	 * Has One: Application
+	 */
+	public function app()
+	{
+		return $this->hasOne('AppModel');
+	}
+
+	/**
+	 * Has Many: Characters
+	 */
+	public function characters()
+	{
+		return $this->hasMany('CharacterModel');
+	}
+
+	/**
+	 * Has Many: Personal Logs
+	 */
+	public function logs()
+	{
+		return $this->hasMany('LogModel');
+	}
+
+	/**
+	 * Has Many: Announcements
+	 */
+	public function announcements()
+	{
+		return $this->hasMany('AnnouncementModel');
+	}
+
+	/**
+	 * Has Many: User Preferences
+	 */
+	public function preferences()
+	{
+		return $this->hasMany('UserPrefsModel');
+	}
+
+	/**
+	 * Belongs To Many: Posts (through Post Authors)
+	 */
+	public function posts()
+	{
+		return $this->belongsToMany('PostModel', 'post_authors');
+	}
+
+	/**
+	 * Belongs To Many: Application Reviews (through Application Reviewers)
+	 */
+	public function appReviews()
+	{
+		return $this->belongsToMany('AppModel', 'application_reviewers');
+	}
 
 	/**
 	 * Observers
@@ -178,47 +132,42 @@ class User extends \Model {
 		'\\User' => array(
 			'events' => array('after_insert', 'before_insert', 'after_update', 'before_delete')
 		),
-		'Orm\\Observer_CreatedAt' => array(
-			'events' => array('before_insert'),
-			'mysql_timestamp' => true,
-		),
-		'Orm\\Observer_UpdatedAt' => array(
-			'events' => array('before_save'),
-			'mysql_timestamp' => true,
-		),
 	);
+
+	/**
+	 * Status Accessor.
+	 *
+	 * Converts the integer-based status field to a string.
+	 *
+	 * @param	string	The field value
+	 * @return	string
+	 */
+	public function getStatusAttribute($value)
+	{
+		return Status::toString($value);
+	}
 
 	/**
 	 * Get the user's preferences.
 	 *
-	 * @api
-	 * @param	string	a specific item to grab
-	 * @return	array
+	 * @param	string	Preference key to get
+	 * @return	string
 	 */
-	public function getPreferences($item = false)
+	public function getPreferenceItem($item = false)
 	{
-		// Set up a blank array for storing the items
-		$prefs = array();
-		
-		// Loop through the preferences
-		foreach ($this->preferences as $p)
+		// Filter the preferences based on what we want
+		$pref = $this->preferences->filter(function($p) use($item)
 		{
-			$prefs[$p->key] = $p->value;
-		}
+			return ($p->key == $item);
+		});
 
-		if ($item)
-		{
-			return $prefs[$item];
-		}
-		
-		return $prefs;
+		return $pref->first()->value;
 	}
 
 	/**
 	 * Get the user's application reviews.
 	 *
-	 * @api
-	 * @param	int		a specific status to pull back
+	 * @param	int		Specific status to pull back
 	 * @return	array
 	 */
 	public function getAppReviews($status = false)
@@ -246,28 +195,9 @@ class User extends \Model {
 	}
 
 	/**
-	 * Get every user based on criteria.
-	 *
-	 * @api
-	 * @param	int		the status to pull
-	 * @return	object
-	 */
-	public static function getItems($status = \Status::ACTIVE)
-	{
-		// Get a new instance of the model
-		$instance = new static;
-
-		// Start a new Query Builder
-		$query = $instance->newQuery();
-
-		return $query->where('status', $status)->get();
-	}
-	
-	/**
 	 * Update the status of the user.
 	 *
-	 * @api
-	 * @param	string	the status to change to
+	 * @param	string	Status to change to
 	 * @return	void
 	 */
 	public function updateStatus($status)
@@ -275,36 +205,40 @@ class User extends \Model {
 		switch ($status)
 		{
 			case 'activate':
-				$this->status = \Status::ACTIVE;
+				$this->status = Status::ACTIVE;
 			break;
 
 			case 'deactivate':
-				$this->status = \Status::INACTIVE;
+				$this->status = Status::INACTIVE;
 			break;
 
 			case 'remove':
-				$this->status = \Status::REMOVED;
+				$this->status = Status::REMOVED;
 			break;
 		}
 
-		// Save the user
 		$this->save();
 	}
 	
 	/**
 	 * Update a user.
 	 *
-	 * @api
-	 * @param	int		the user ID to update, if nothing is provided, it will update all users
-	 * @param	array 	a data array to use for updating the record
-	 * @return	object
+	 * @param	int		The user ID to update, if nothing is provided, it will update all users
+	 * @param	array 	A data array to use for updating the record
+	 * @return	User|void
 	 */
 	public static function updateUser($user, array $data)
 	{
+		// Get a new instance of the model
+		$instance = new static;
+
+		// Start a new Query Builder
+		$query = $instance->newQuery();
+
 		if ($user !== null)
 		{
 			// Get the user
-			$record = static::find($user);
+			$record = $query->where('id', $user)->first();
 			
 			// Loop through the data array and make the changes
 			foreach ($data as $key => $value)
@@ -312,7 +246,6 @@ class User extends \Model {
 				$record->$key = $value;
 			}
 			
-			// Save the record
 			$record->save();
 			
 			return $record;
@@ -320,7 +253,7 @@ class User extends \Model {
 		else
 		{
 			// Pull everything from the table
-			$records = static::all();
+			$records = $query->get();
 			
 			// Loop through all the records
 			foreach ($records as $r)
@@ -331,14 +264,25 @@ class User extends \Model {
 					$r->$key = $value;
 				}
 				
-				// Save the record
 				$r->save();
 			}
 		}
 	}
 
-	public function getStatusAttribute($value)
+	/**
+	 * Get every user based on criteria.
+	 *
+	 * @param	int		Status to pull
+	 * @return	Collection
+	 */
+	public static function getItems($status = Status::ACTIVE)
 	{
-		return Status::toString($value);
+		// Get a new instance of the model
+		$instance = new static;
+
+		// Start a new Query Builder
+		$query = $instance->newQuery();
+
+		return $query->where('status', $status)->get();
 	}
 }
