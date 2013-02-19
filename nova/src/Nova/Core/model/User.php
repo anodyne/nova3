@@ -148,6 +148,17 @@ class User extends Model {
 	}
 
 	/**
+	 * Is the user a system administrator?
+	 *
+	 * @return	bool
+	 * @todo	Should we get rid of this preference altogether and use the role instead?
+	 */
+	public function isAdmin()
+	{
+		return (bool) ($this->getPreferenceItem('is_sysadmin'));
+	}
+
+	/**
 	 * Get the user's preferences.
 	 *
 	 * @param	string	Preference key to get
@@ -238,7 +249,7 @@ class User extends Model {
 		if ($user !== null)
 		{
 			// Get the user
-			$record = $query->where('id', $user)->first();
+			$record = $query->find($user);
 			
 			// Loop through the data array and make the changes
 			foreach ($data as $key => $value)

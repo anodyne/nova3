@@ -6,54 +6,35 @@
  * @subpackage	Core
  * @category	Model
  * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
+ * @copyright	2013 Anodyne Productions
  */
  
 namespace Nova\Core\Model\Rank;
 
-class Info extends \Model {
+use Model;
+use Status;
+use RankModel;
+
+class Info extends Model {
 	
 	protected $table = 'rank_info_';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'name' => array(
-			'type' => 'string',
-			'constraint' => 255,
-			'null' => true),
-		'short_name' => array(
-			'type' => 'string',
-			'constraint' => 20,
-			'null' => true),
-		'order' => array(
-			'type' => 'int',
-			'constraint' => 5,
-			'null' => true),
-		'group' => array(
-			'type' => 'int',
-			'constraint' => 5,
-			'null' => true),
-		'status' => array(
-			'type' => 'tinyint',
-			'constraint' => 1,
-			'default' => \Status::ACTIVE),
+	protected static $properties = array(
+		'id' => array('type' => 'int', 'constraint' => 11, 'auto_increment' => true),
+		'name' => array('type' => 'string', 'constraint' => 255, 'null' => true),
+		'short_name' => array('type' => 'string', 'constraint' => 20, 'null' => true),
+		'order' => array('type' => 'int', 'constraint' => 5, 'null' => true),
+		'group' => array('type' => 'int', 'constraint' => 5, 'null' => true),
+		'status' => array('type' => 'tinyint', 'constraint' => 1, 'default' => Status::ACTIVE),
 	);
 
 	/**
-	 * Relationships
+	 * Has Many: Ranks
 	 */
-	public static $_has_many = array(
-		'ranks' => array(
-			'model_to' => '\\Model_Rank',
-			'key_to' => 'info_id',
-			'key_from' => 'id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
+	public function ranks()
+	{
+		return $this->hasMany('RankModel');
+	}
 
 	/**
 	 * Observers

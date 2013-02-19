@@ -11,36 +11,27 @@
  
 namespace Nova\Core\Model;
 
-class Comment extends \Model
-{
+use Model;
+use Status;
+
+class Comment extends Model {
+
 	protected $table = 'comments';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'user_id' => array(
-			'type' => 'int',
-			'constraint' => 11),
-		'character_id' => array(
-			'type' => 'int',
-			'constraint' => 11),
-		'type' => array(
-			'type' => 'string',
-			'constraint' => 100,
-			'null' => true),
-		'item_id' => array(
-			'type' => 'int',
-			'constraint' => 11),
-		'content' => array(
-			'type' => 'text',
-			'null' => true),
-		'status' => array(
-			'type' => 'tinyint',
-			'constraint' => 1,
-			'default' => \Status::ACTIVE),
-		'created_at' => array(
-			'type' => 'datetime'),
+	protected static $properties = array(
+		'id'				=> array('type' => 'int', 'constraint' => 11, 'auto_increment' => true),
+		'commentable_type'	=> array('type' => 'string', 'constraint' => 100, 'null' => true),
+		'commentable_id'	=> array('type' => 'int', 'constraint' => 11),
+		'content'			=> array('type' => 'text', 'null' => true),
+		'status'			=> array('type' => 'tinyint', 'constraint' => 1, 'default' => Status::ACTIVE),
+		'created_at'		=> array('type' => 'datetime'),
 	);
+
+	/**
+	 * Polymorphic Relationship
+	 */
+	public function commentable()
+	{
+		return $this->morphTo();
+	}
 }

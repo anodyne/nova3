@@ -6,66 +6,51 @@
  * @subpackage	Core
  * @category	Model
  * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
+ * @copyright	2013 Anodyne Productions
  */
  
 namespace Nova\Core\Model;
 
-class Rank extends \Model
-{
+use Model;
+use RankInfoModel;
+use CharacterModel;
+use RankGroupModel;
+
+class Rank extends Model {
+
 	protected $table = 'ranks_';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'info_id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'null' => true),
-		'group_id' => array(
-			'type' => 'int',
-			'constraint' => 11),
-		'base' => array(
-			'type' => 'string',
-			'constraint' => 50,
-			'null' => true),
-		'pip' => array(
-			'type' => 'string',
-			'constraint' => 50,
-			'null' => true),
+	protected static $properties = array(
+		'id' => array('type' => 'int', 'constraint' => 11, 'auto_increment' => true),
+		'info_id' => array('type' => 'int', 'constraint' => 11, 'null' => true),
+		'group_id' => array('type' => 'int', 'constraint' => 11),
+		'base' => array('type' => 'string', 'constraint' => 50, 'null' => true),
+		'pip' => array('type' => 'string', 'constraint' => 50, 'null' => true),
 	);
 
 	/**
-	 * Relationships
+	 * Belongs To: Rank Info
 	 */
-	protected static $_belongs_to = array(
-		'info' => array(
-			'model_to' => '\\Model_Rank_Info',
-			'key_to' => 'id',
-			'key_from' => 'info_id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-		'group' => array(
-			'model_to' => '\\Model_Rank_Group',
-			'key_to' => 'id',
-			'key_from' => 'group_id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
+	public function info()
+	{
+		return $this->belongsTo('RankInfoModel');
+	}
 
-	protected static $_has_many = array(
-		'characters' => array(
-			'key_from' => 'id',
-			'model_to' => '\\Model_Character',
-			'key_to' => 'rank_id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		)
-	);
+	/**
+	 * Belongs To: Rank Group
+	 */
+	public function group()
+	{
+		return $this->belongsTo('RankGroupModel');
+	}
+
+	/**
+	 * Has Many: Characters
+	 */
+	public function characters()
+	{
+		return $this->hasMany('CharacterModel');
+	}
 
 	/**
 	 * Observers
