@@ -57,6 +57,14 @@ class Model_Wiki_Page extends \Model
 	);
 
 	/**
+	 * Polymorphic Relationship: Comments
+	 */
+	public function comments()
+	{
+		return $this->morphMany('CommentModel', 'commentable');
+	}
+
+	/**
 	 * Get all the comments for a wiki page.
 	 *
 	 * @api
