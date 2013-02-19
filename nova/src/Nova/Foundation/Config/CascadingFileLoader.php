@@ -119,6 +119,12 @@ class CascadingFileLoader implements LoaderInterface {
 
 			if ($this->files->exists($file))
 			{
+				// Make sure there's something here if we need it
+				if ( ! array_key_exists($location, $items))
+				{
+					$items[$location] = array();
+				}
+
 				$items[$location] = array_merge($items[$location], $this->files->getRequire($file));
 			}
 		}
