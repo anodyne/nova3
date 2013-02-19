@@ -13,7 +13,7 @@
  */
 
 /**
- * Make sure the database config file is in place.
+ * Route filter to ensure the right database connection file is in place.
  */
 Route::filter('configFileCheck', function()
 {
@@ -28,30 +28,74 @@ Route::filter('configFileCheck', function()
 });
 
 /**
- * Make sure the user is authorized to be here.
+ * Route filter to ensure the person is authorized to be here.
  */
-Route::filter('authorizedAdmin', function()
+Route::filter('setupAuthorization', function()
 {
 	if (Utility::installed())
 	{
-		/*if (Sentry::check())
+		if (Sentry::check())
 		{
 			// If they aren't a system admin, send them away
 			if ( ! Sentry::getUser()->isAdmin())
 			{
-				//return Redirect::to('login/index/'.\Login\Controller_Login::NOT_ADMIN);
+				//return Redirect::to('login/index/'.Nova\Core\Controller\Login::NOT_ADMIN);
 			}
 		}
 		else
 		{
-			if (Request::is('setup/utilities/*') or Request::is('setup/*'))
-			{
-				// No session? Send them away
-				//return Redirect::to('login/index/'.\Login\Controller_Login::NOT_LOGGED_IN);
-			}
-		}*/
+			// No session? Send them away
+			//return Redirect::to('login/index/'.Nova\Core\Controller\Login::NOT_LOGGED_IN);
+		}
 	}
 });
+
+/**
+ * Setup template execution.
+ *
+ * @param	object	An object of data to use for the current request
+ * @return	View
+ */
+function setupTemplate($data)
+{
+	// Get the view paths
+	$views = Config::get('view.paths');
+
+	// Add the setup package to the list for this request
+	$views[] = SRCPATH.'Setup/views';
+	Config::set('view.paths', $views);
+
+	// Build the structure
+	$template = View::make('components/structure/setup');
+	$template->title = $data->title;
+	$template->javascript = View::make("components/js/{$data->jsView}");
+
+	// Build the layout
+	$template->layout = View::make('components/template/setup');
+	$template->layout->steps = $data->steps;
+	$template->layout->image = HTML::image(SRCURL."Setup/views/design/images/{$data->layout->image}", false, array('id' => 'title-image', 'alt' => ''));
+	$template->layout->label = $data->layout->label;
+	
+	// Build the flash message
+	if (isset($data->flash))
+	{
+		$template->layout->flash = View::make('components/partial/flash')
+			->with(json_decode(json_encode($data->flash), true));
+	}
+	else
+	{
+		$template->layout->flash = false;
+	}
+
+	// Build the content
+	$template->layout->content = View::make("components/page/{$data->view}")
+		->with(json_decode(json_encode($data->content), true));
+
+	// Build the controls
+	$template->layout->controls = $data->controls;
+
+	return $template;
+}
 
 require_once 'routes/setup.php';
 require_once 'routes/update.php';
