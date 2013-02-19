@@ -14,6 +14,22 @@ class CreateUsers extends Migration {
 		Schema::create('users', function($t)
 		{
 			$t->increments('id');
+			$t->integer('status');
+			$t->string('name');
+			$t->string('email');
+			$t->string('password');
+			$t->integer('character_id');
+			$t->integer('role_id');
+			$t->string('reset_password_hash')->nullable();
+			$t->string('activation_hash')->nullable();
+			$t->string('persist_hash')->nullable();
+			$t->string('ip_address');
+			$t->datetime('leave_date');
+			$t->datetime('last_post');
+			$t->datetime('last_login');
+			$t->timestamps();
+
+			$t->unique('email');
 		});
 
 		Schema::create('user_suspended', function($t)
