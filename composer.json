@@ -20,7 +20,6 @@
 	"autoload": {
 		"classmap": [
 			"app/commands",
-			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/tests/TestCase.php"
