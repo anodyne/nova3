@@ -36,7 +36,7 @@ Route::filter('setupAuthorization', function()
 	{
 		if (Sentry::check())
 		{
-			// If they aren't a system admin, send them away
+			// Not a system administrator? No soup for you!
 			if ( ! Sentry::getUser()->isAdmin())
 			{
 				//return Redirect::to('login/index/'.Nova\Core\Controller\Login::NOT_ADMIN);
