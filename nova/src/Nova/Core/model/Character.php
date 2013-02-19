@@ -6,131 +6,104 @@
  * @subpackage	Core
  * @category	Model
  * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
+ * @copyright	2013 Anodyne Productions
  */
  
 namespace Nova\Core\Model;
+
+use Status;
+use LogModel;
+use AppModel;
+use UserModel;
+use RankModel;
+use PostModel;
+use AnnouncementModel;
+use CharacterPositionModel;
+use CharacterPromotionModel;
 
 class Character extends \Model
 {
 	protected $table = 'characters';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'user_id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'default' => 0),
-		'status' => array(
-			'type' => 'tinyint',
-			'constraint' => 1,
-			'default' => \Status::PENDING),
-		'first_name' => array(
-			'type' => 'string',
-			'constraint' => 255,
-			'null' => true),
-		'middle_name' => array(
-			'type' => 'string',
-			'constraint' => 255,
-			'null' => true),
-		'last_name' => array(
-			'type' => 'string',
-			'constraint' => 255,
-			'null' => true),
-		'suffix' => array(
-			'type' => 'string',
-			'constraint' => 50,
-			'null' => true),
-		'rank_id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'default' => 1),
-		'activated' => array(
-			'type' => 'datetime',
-			'null' => true),
-		'deactivated' => array(
-			'type' => 'datetime',
-			'null' => true),
-		'last_post' => array(
-			'type' => 'datetime',
-			'null' => true),
-		'created_at' => array(
-			'type' => 'datetime',
-			'null' => true),
-		'updated_at' => array(
-			'type' => 'datetime',
-			'null' => true),
+	protected static $properties = array(
+		'id'			=> array('type' => 'int', 'constraint' => 11, 'auto_increment' => true),
+		'user_id'		=> array('type' => 'int', 'constraint' => 11, 'default' => 0),
+		'status'		=> array('type' => 'tinyint', 'constraint' => 1, 'default' => Status::PENDING),
+		'first_name'	=> array('type' => 'string', 'constraint' => 255, 'null' => true),
+		'middle_name'	=> array('type' => 'string', 'constraint' => 255, 'null' => true),
+		'last_name'		=> array('type' => 'string', 'constraint' => 255, 'null' => true),
+		'suffix'		=> array('type' => 'string', 'constraint' => 50, 'null' => true),
+		'rank_id'		=> array('type' => 'int', 'constraint' => 11, 'default' => 1),
+		'activated'		=> array('type' => 'datetime', 'null' => true),
+		'deactivated'	=> array('type' => 'datetime', 'null' => true),
+		'last_post'		=> array('type' => 'datetime', 'null' => true),
+		'created_at'	=> array('type' => 'datetime', 'null' => true),
+		'updated_at'	=> array('type' => 'datetime', 'null' => true),
 	);
 	
 	/**
-	 * Relationships
+	 * Belongs To: Rank
 	 */
-	protected static $_belongs_to = array(
-		'rank' => array(
-			'model_to' => '\\Model_Rank',
-			'key_to' => 'id',
-			'key_from' => 'rank_id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-		'user' => array(
-			'model_to' => '\\Model_User',
-			'key_to' => 'id',
-			'key_from' => 'user_id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
+	public function rank()
+	{
+		return $this->belongsTo('RankModel');
+	}
 
-	protected static $_has_one = array(
-		'app' => array(
-			'key_from' => 'id',
-			'model_to' => '\\Model_Application',
-			'key_to' => 'character_id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		)
-	);
-	
-	protected static $_has_many = array(
-		'logs' => array(
-			'model_to' => '\\Model_PersonalLog',
-			'key_to' => 'character_id',
-			'key_from' => 'id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-		'announcements' => array(
-			'model_to' => '\\Model_Announcement',
-			'key_to' => 'character_id',
-			'key_from' => 'id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-		'promotions' => array(
-			'model_to' => '\\Model_Character_Promotion',
-			'key_to' => 'character_id',
-			'key_from' => 'id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
-	
-	protected static $_many_many = array(
-		'posts' => array(
-			'key_from' => 'id',
-			'key_through_from' => 'character_id',
-			'table_through' => 'post_authors',
-			'key_through_to' => 'post_id',
-			'model_to' => '\\Model_Post',
-			'key_to' => 'id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
+	/**
+	 * Belongs To: User
+	 */
+	public function user()
+	{
+		return $this->belongsTo('UserModel');
+	}
+
+	/**
+	 * Has One: Application
+	 */
+	public function app()
+	{
+		return $this->hasOne('AppModel');
+	}
+
+	/**
+	 * Has Many: Personal Logs
+	 */
+	public function logs()
+	{
+		return $this->hasMany('LogModel');
+	}
+
+	/**
+	 * Has Many: Announcements
+	 */
+	public function announcements()
+	{
+		return $this->hasMany('AnnouncementModel');
+	}
+
+	/**
+	 * Has Many: Promotion Records
+	 */
+	public function promotions()
+	{
+		return $this->hasMany('CharacterPromotionModel');
+	}
+
+	/**
+	 * Belongs To Many: Posts (through Post Authors)
+	 */
+	public function posts()
+	{
+		return $this->belongsToMany('PostModel', 'post_authors');
+	}
+
+	/**
+	 * Belongs To Many: Positions (through Character Positions)
+	 */
+	public function positions()
+	{
+		return $this->belongsToMany('PositionModel', 'character_positions');
+	}
 
 	/**
 	 * Observers
@@ -139,76 +112,13 @@ class Character extends \Model
 		'\\Character' => array(
 			'events' => array('after_insert')
 		),
-		'Orm\\Observer_CreatedAt' => array(
-			'events' => array('before_insert'),
-			'mysql_timestamp' => true,
-		),
-		'Orm\\Observer_UpdatedAt' => array(
-			'events' => array('before_save'),
-			'mysql_timestamp' => true,
-		),
 	);
-
-	/**
-	 * Get all characters from the database.
-	 *
-	 * @api
-	 * @param	string	the status of characters to pull back
-	 * @return	object
-	 */
-	public static function getCharacters($scope = \Status::ACTIVE)
-	{
-		switch ($scope)
-		{
-			case 'active':
-			default:
-				$result = static::find('all', array(
-					'where' => array('status' => \Status::ACTIVE)
-				));
-			break;
-			
-			case 'inactive':
-				$result = static::find('all', array(
-					'where' => array('status' => \Status::INACTIVE)
-				));
-			break;
-			
-			case 'pending':
-				$result = static::find('all', array(
-					'where' => array('status' => \Status::PENDING)
-				));
-			break;
-			
-			case 'npc':
-				# TODO: is this right?
-				$result = static::find('all', array(
-					'where' => array(
-						array('user_id' => 0),
-						array('status' => \Status::ACTIVE)
-					),
-				));
-			break;
-			
-			case '':
-				$result = static::find('all');
-
-				$result = static::find('all', array(
-					'where' => array(
-						array(array('status', '!=', \Status::REMOVED))
-					),
-				));
-			break;
-		}
-		
-		return $result;
-	}
 
 	/**
 	 * Get the name of the character.
 	 *
-	 * @api
-	 * @param	bool	show the character rank?
-	 * @param	bool	use the rank short name instead of the full name?
+	 * @param	bool	Show the character rank?
+	 * @param	bool	Use the rank short name instead of the full name?
 	 * @return	string
 	 */
 	public function getName($showRank = true, $showShortRank = false)
@@ -235,49 +145,79 @@ class Character extends \Model
 	}
 
 	/**
-	 * Get the positions for the character.
-	 *
-	 * @api
-	 * @return	object
-	 */
-	public function getPositions()
-	{
-		return \Model_Character_Positions::getItems($this->id);
-	}
-
-	/**
 	 * Does the character have a user associated with it?
 	 *
 	 * @return	bool
 	 */
 	public function hasUser()
 	{
-		return ($this->user !== null and $this->user->id > 0);
+		return ($this->user() !== null and $this->user->id > 0);
 	}
 	
 	/**
 	 * Update the position record.
 	 *
-	 * @api
-	 * @param	int		the new ID to use
-	 * @param	int		the old ID to use (for finding the record)
+	 * @param	int		New ID to use
+	 * @param	int		Old ID to use (for finding the record)
 	 * @return	void
 	 */
-	public function updatePosition($new_id, $old_id = false)
+	public function updatePosition($newId, $oldId = false)
 	{
-		// build the arguments
+		// Build the arguments
 		$args['character_id'] = $this->id;
 
-		if ($old_id)
+		if ($oldId)
 		{
-			$args['position_id'] = $old_id;
+			$args['position_id'] = $oldId;
 		}
 
-		// get the position record
-		$position = \Model_Character_Positions::getItems($args);
+		// Get the position record
+		$position = CharacterPositionModel::getItems($args);
 
-		// update to the new position
-		$position->position_id = $new_id;
+		// Update to the new position
+		$position->position_id = $newId;
 		$position->save();
+	}
+
+	/**
+	 * Get all characters from the database.
+	 *
+	 * @param	string	Status of characters to pull back
+	 * @return	Collection
+	 */
+	public static function getCharacters($scope = 'active')
+	{
+		// Get a new instance of the model
+		$instance = new static;
+
+		// Start a new Query Builder
+		$query = $instance->newQuery();
+
+		// Get everything
+		$items = $query->get();
+
+		// Filter the characters based on the scope
+		$characters = $items->filter(function($item) use($scope)
+		{
+			switch ($scope)
+			{
+				case 'active':
+				case 'inactive':
+				case 'pending':
+				default:
+					return ($item->status == Status::toInt($scope));
+				break;
+				
+				case 'npc':
+					return ($item->status == Status::ACTIVE and $item->user_id === 0);
+				break;
+				
+				case '':
+					return ($item->status != Status::REMOVED);
+				break;
+			}
+		});
+
+		return $characters;
 	}
 }
