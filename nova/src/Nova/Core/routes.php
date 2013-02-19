@@ -2,9 +2,9 @@
 
 Route::get('test/citadel', function()
 {
-	$user = Sentry::getUserProvider()->findById(1)->isAdmin();
+	$user = Sentry::getUserProvider()->findById(8);
 
-	sd($user);
+	sd($user->isAdmin());
 });
 
 Route::get('test/user', function()
@@ -14,6 +14,19 @@ Route::get('test/user', function()
 
 	//sd($characters->toArray());
 	sd($user->getPreferenceItem('loa'));
+});
+
+Route::get('test/comments', function()
+{
+	//PostModel::create(array('title' => 'Second Post'));
+
+	$post = PostModel::find(2);
+	//$post->comments()->create(array('content' => 'Third post comment'));
+
+	foreach ($post->comments as $comment)
+	{
+		d($comment);
+	}
 });
 
 // Migrations
