@@ -2,11 +2,18 @@
 
 Route::get('test/citadel', function()
 {
-	$user = Sentry::getUserProvider();
+	$user = Sentry::getUserProvider()->findById(1)->isAdmin();
 
-	echo '<pre>';
-	var_dump($user);
-	echo '</pre>';
+	sd($user);
+});
+
+Route::get('test/user', function()
+{
+	$user = UserModel::find(8);
+	$characters = CharacterModel::getCharacters('npc');
+
+	//sd($characters->toArray());
+	sd($user->getPreferenceItem('loa'));
 });
 
 // Migrations
