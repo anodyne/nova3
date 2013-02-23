@@ -119,6 +119,7 @@ return array(
 		'Nova\Foundation\Routing\RoutingServiceProvider',
 		'Nova\Foundation\Translation\TranslationServiceProvider',
 
+		'Meido\Form\FormServiceProvider',
 		'Meido\HTML\HTMLServiceProvider',
 
 	),
@@ -203,6 +204,7 @@ return array(
 		 */
 		'Date'		=> 'Datum\Datum',
 		'Debug'		=> 'Nova\Core\Lib\Debug',
+		'Form'		=> 'Meido\Form\FormFacade',
 		'HTML'		=> 'Meido\HTML\HTMLFacade',
 		'Markdown'	=> 'Nova\Core\Lib\Markdown',
 		'Model'		=> 'Nova\Foundation\Database\Eloquent\Model',
