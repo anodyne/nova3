@@ -14,9 +14,9 @@
 
 namespace Nova\Citadel\Hashing;
 
-use Cartalyst\Sentry\Hashing\HasherInterface as SentryHashInterface;
+use Cartalyst\Sentry\Hashing\HasherInterface;
 
-class CitadelHasher implements SentryHashInterface {
+class CitadelHasher implements HasherInterface {
 
 	/**
 	 * Salt Length
