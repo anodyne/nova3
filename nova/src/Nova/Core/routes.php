@@ -4,7 +4,10 @@ Route::get('test/citadel', function()
 {
 	$user = Sentry::getUserProvider()->findById(8);
 
-	sd($user->isAdmin());
+	$role = Sentry::getGroupProvider()->findByName('Power User')->getPermissions();
+
+	sd($role);
+	sd($user->inGroup($role));
 });
 
 Route::get('test/user', function()
@@ -18,10 +21,10 @@ Route::get('test/user', function()
 
 Route::get('test/comments', function()
 {
-	//PostModel::create(array('title' => 'Second Post'));
+	//PostModel::create(array('title' => 'Third Post'));
 
-	$post = PostModel::find(2);
-	//$post->comments()->create(array('content' => 'Third post comment'));
+	$post = PostModel::find(1);
+	//$post->comments()->create(array('content' => 'Fourth post comment'));
 
 	foreach ($post->comments as $comment)
 	{
