@@ -77,6 +77,7 @@
 	* Status: IN PROGRESS
 	* Callbacks/observers to make life a little easier with handling dependent actions triggered off an event.
 		* The `insert()` and `update()` methods are in the QueryBuilder, not the Eloquent model, so we either have to do some pretty elaborate overriding or we have to copy the entire `save()` method from the model and insert the observers that way. If we go that route, we have to keep an eye on that file moving forward to make sure there are no changes to it that could impact the model.
+	* Polymorphic relationships between posts/logs/announcements/wiki pages and comments works great with one caveat: if an admin overrides the model, that relationship fails, so those items wouldn't be able to pull back any existing comments. Likewise, any comments created with extended models wouldn't be available to the original model because of the way Eloquent handles tracking those items.
 * Views
 	* Status: TESTING
 	* The view config file allows setting paths to the view directories to search. That's all that's needed in our case.
@@ -103,3 +104,44 @@
 * How do you create a class and matching Facade?
 * What's the right place to call customized config loaders?
 * What's the right place to call customized language loaders?
+
+## Phing Job
+
+* Pull from Github
+* Run Composer
+* Run all unit tests, break out if there are any failures
+* Remove unnecessary files
+	* .gitignore
+	* app/tests
+	* phpunit.xml
+	* server.php
+* Remove unnecessary files from the vendors
+	* .git/
+	* test/
+	* Test/
+	* tests/
+	* Tests/
+	* test-suite/
+	* doc/
+	* docs/
+	* .gitignore
+	* .gitattributes
+	* phpunit.xml
+	* phpunit.xml.dist
+	* .travis.yml
+	* readme.md
+	* README.md
+	* README.mdown
+	* readme.mdown
+	* README.git
+	* license.txt
+	* LICENSE
+	* CHANGELOG.md
+	* changelog.md
+	* CHANGELOG.mdown
+	* changelog.mdown
+	* build.xml
+	* VERSION
+* Build and zip genres
+* Upload to server
+* Upload broadcast file
