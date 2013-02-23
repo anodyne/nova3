@@ -7,7 +7,7 @@
  * @subpackage	Core
  * @category	Class
  * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
+ * @copyright	2013 Anodyne Productions
  */
 
 namespace Nova\Core\Lib;
@@ -202,23 +202,22 @@ class Utility {
 	}
 
 	/**
-	 * Get the public ip address of the user.
+	 * Get the public IP address of the user.
 	 *
-	 * @author	FuelPHP Development Team
 	 * @return  string
 	 */
-	public static function ip($default = '0.0.0.0')
+	public static function ip()
 	{
-		return static::server('REMOTE_ADDR', $default);
+		return Request::server('REMOTE_ADDR');
 	}
 
 	/**
 	 * Get the real ip address of the user.  Even if they are using a proxy.
 	 *
 	 * @author	FuelPHP Development Team
-	 * @param	string	the default to return on failure
-	 * @param	bool	exclude private and reserved IPs
-	 * @return  string  the real ip address of the user
+	 * @param	string	The default to return on failure
+	 * @param	bool	Exclude private and reserved IPs
+	 * @return  string
 	 */
 	public static function realIp($default = '0.0.0.0', $excludeReserved = false)
 	{
@@ -226,17 +225,20 @@ class Utility {
 
 		foreach ($serverKeys as $key)
 		{
-			if ( ! static::server($key))
+			if ( ! Request::server($key))
 			{
 				continue;
 			}
 
-			$ips = explode(',', static::server($key));
-			array_walk($ips, function (&$ip) {
+			$ips = explode(',', Request::server($key));
+
+			array_walk($ips, function (&$ip)
+			{
 				$ip = trim($ip);
 			});
 
-			$ips = array_filter($ips, function($ip) use($excludeReserved) {
+			$ips = array_filter($ips, function($ip) use($excludeReserved)
+			{
 				return filter_var($ip, FILTER_VALIDATE_IP, $excludeReserved ? FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE : null);
 			});
 
@@ -247,18 +249,5 @@ class Utility {
 		}
 
 		return $default;
-	}
-
-	/**
-	 * Fetch an item from the SERVER array
-	 *
-	 * @author	FuelPHP Development Team
-	 * @param   string  The index key
-	 * @param   mixed   The default value
-	 * @return  string|array
-	 */
-	public static function server($index = null, $default = null)
-	{
-		return (func_num_args() === 0) ? $_SERVER : Arr::get($_SERVER, strtoupper($index), $default);
 	}
 }
