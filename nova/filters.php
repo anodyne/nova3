@@ -28,9 +28,12 @@ App::after(function($request, $response)
 
 Route::filter('csrf', function()
 {
-	if (Session::getToken() != Input::get('csrf_token'))
+	if (Request::getMethod() == 'POST')
 	{
-		throw new Illuminate\Session\TokenMismatchException;
+		if (Session::getToken() != Input::get('csrf_token'))
+		{
+			throw new Illuminate\Session\TokenMismatchException;
+		}
 	}
 });
 
