@@ -1,6 +1,6 @@
 <header>
 	<div class="container">
-		<img src="{{ SRCURL }}Setup/views/design/images/logo.png" alt="">
+		<div class="logo"></div>
 	</div>
 </header>
 

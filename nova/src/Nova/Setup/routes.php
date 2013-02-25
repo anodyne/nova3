@@ -19,8 +19,8 @@ Route::filter('configFileCheck', function()
 {
 	if ( ! file_exists(APPPATH.'config/'.App::environment().'/database.php'))
 	{
-		// Only redirect if we aren't on the config page
-		if ( ! Request::is('setup/config'))
+		// Only redirect if we aren't on the config page(s)
+		if ( ! Request::is('setup/config*'))
 		{
 			return Redirect::to('setup/config');
 		}
@@ -58,23 +58,27 @@ Route::filter('setupAuthorization', function()
  */
 function setupTemplate($data)
 {
-	// Get the view paths
-	$views = Config::get('view.paths');
-
 	// Add the setup package to the list for this request
-	$views[] = SRCPATH.'Setup/views';
-	Config::set('view.paths', $views);
+	View::addLocation(SRCPATH.'Setup/views');
 
 	// Build the structure
 	$template = View::make('components/structure/setup');
 	$template->title = $data->title;
-	$template->javascript = View::make("components/js/{$data->jsView}");
+	$template->javascript = ( ! empty($data->jsView)) ? View::make("components/js/{$data->jsView}") : false;
 
 	// Build the layout
 	$template->layout = View::make('components/template/setup');
-	$template->layout->steps = $data->steps;
-	$template->layout->image = HTML::image(SRCURL."Setup/views/design/images/{$data->layout->image}", false, array('id' => 'title-image', 'alt' => ''));
 	$template->layout->label = $data->layout->label;
+
+	// Build the steps indicator
+	if ( ! empty($data->steps))
+	{
+		$template->layout->steps = View::make("components/partial/{$data->steps}");
+	}
+	else
+	{
+		$template->layout->steps = false;
+	}
 	
 	// Build the flash message
 	if (isset($data->flash))

@@ -1,27 +1,31 @@
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('[rel*=ignoreVersion]').click(function(){
-			var version = $(this).data('version');
-			
-			$.ajax({
-				type: "POST",
-				url: "{{ URL::to('setup/ajax/ignore_version') }}",
-				data: { version: version },
-				success: function(data){
-					location.reload(true);
-				}
-			});
-			
-			return false;
+	
+	/**
+	 * Ignore the current update.
+	 */
+	$('.js-ignoreVersion').on('click', function(){
+		
+		$.ajax({
+			type: "POST",
+			url: "{{ URL::to('setup/ajax/ignore_version') }}",
+			data: { version: $(this).data('version') },
+			success: function(data){
+				location.reload(true);
+			}
 		});
+		
+		return false;
 	});
 
+	/**
+	 * Move on to the next step.
+	 */
 	$('#next').on('click', function(){
 
-		// hide the controls
+		// Hide the controls
 		$('.lower').slideUp();
 
-		// show the loading graphic
+		// Show the loading graphic
 		$('#loaded').fadeOut('fast', function(){
 			$('#loading').fadeIn();
 		});

@@ -13,5 +13,8 @@
 
 Route::group(array('prefix' => 'setup/update'), function()
 {
-	//
+	Route::get('/', function()
+	{
+		return 'Update index';
+	});
 });
