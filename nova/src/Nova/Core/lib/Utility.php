@@ -106,33 +106,33 @@ class Utility {
 		if (ini_get('allow_url_fopen'))
 		{
 			// Grab the update setting preference
-			$pref = SettingsModel::getItems('updates');
+			$updatePref = SettingsModel::getItems('updates');
 			
 			// Get the ignore version info
-			$sys = SystemModel::find('first');
+			$sys = SystemModel::first();
 			
 			// Load the data
 			$content = file_get_contents(Config::get('nova.version_check_path'));
-			
-			// parse the content
+
+			// Parse the content
 			$US = json_decode($content);
 
 			if ($US !== null)
 			{
-				// if the admin has ignored this version, stop execution
+				// If the admin has ignored this version, stop execution
 				if (version_compare($US->version, $sys->version_ignore, '=='))
 				{
 					return false;
 				}
 				
-				// build the system version string
+				// Build the system version string
 				$sysVersion = $sys->version_major.'.'.$sys->version_minor.'.'.$sys->version_update;
 				
-				// check the version in the system versus what's coming from the update server
+				// Check the version in the system versus what's coming from the update server
 				if (version_compare($sysVersion, $US->version, '<'))
 				{
-					// if the admin wants to see these specific updates, pass the object along
-					if ($US->severity <= $pref)
+					// If the admin wants to see these specific updates, pass the object along
+					if ($US->severity <= $updatePref)
 					{
 						return $US;
 					}
@@ -170,7 +170,7 @@ class Utility {
 		else
 		{
 			// Wipe out the system install cache if we're in the setup module
-			if (Request::is('setup/*'))
+			if (Request::is('setup*') and file_exists(APPPATH.'storage/cache/nova_system_installed'))
 			{
 				Cache::forget('nova_system_installed');
 			}
@@ -181,15 +181,22 @@ class Utility {
 			// If the status is null, we know it doesn't exist
 			if ($status === null)
 			{
-				// Grab the UID
-				$uid = SystemModel::getUniqueId();
-
-				// Only cache if we have a UID and we aren't in the setup module
-				if ( ! empty($uid) and ! Request::is('setup/*'))
+				try
 				{
-					Cache::forever('nova_system_installed', (int) true);
+					// Grab the UID
+					$uid = SystemModel::getUniqueId();
 
-					return true;
+					// Only cache if we have a UID
+					if ( ! empty($uid))
+					{
+						Cache::forever('nova_system_installed', (int) true);
+
+						return true;
+					}
+				}
+				catch (Exception $e)
+				{
+					return false;
 				}
 
 				return false;
