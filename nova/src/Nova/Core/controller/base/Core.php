@@ -13,7 +13,12 @@
 
 namespace Nova\Core\Controller\Base;
 
-abstract class Core extends \Controller {
+use Nav;
+use Config;
+use Session;
+use Controller;
+
+abstract class Core extends Controller {
 
 	/**
 	 * @var	object	A View object for storing the template.
@@ -120,17 +125,20 @@ abstract class Core extends \Controller {
 		 */
 		$baseControllerStartup = function() use(&$me)
 		{
+			// Set the session to use the database
+			Session::driver('database');
+
 			// Set the genre
-			$me->genre = \Config::get('nova.genre');
+			$me->genre = Config::get('nova.genre');
 
 			// Load all of the settings
 			$me->settings = \SettingsModel::getItems(false);
 
 			// Set the language
-			\Config::set('app.locale', \Session::get('language', 'en'));
+			Config::set('app.locale', Session::get('language', 'en'));
 
 			// Resolve the Nav class from the App container
-			$me->nav = new \Nav;
+			$me->nav = new Nav;
 
 			// Create empty objects for the data
 			$me->_data = new \stdClass;
