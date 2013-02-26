@@ -30,7 +30,10 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				 */
 				$data->content->option = 3;
 				$data->layout->label = 'Update Nova 3';
-				$data->controls = "<a href='#' class='pull-right js-ignoreVersion' data-version='{$update->version}'>Ignore this version</a>";
+				$data->controls = HTML::to('#', 'Ignore this version', array(
+					'class' => 'pull-right js-ignoreVersion',
+					'data-version' => $update->version
+				));
 				$data->controls.= Form::open('setup/update/1').
 					Form::button('Start Update', array('class' => 'btn btn-primary', 'id' => 'next', 'name' => 'submit')).
 					Form::hidden('csrf_token', csrf_token()).
@@ -52,7 +55,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				 */
 				$data->content->option = 4;
 				$data->layout->label = 'Nova Setup Utilities';
-				$data->controls = '<a href="'.URL::to('main/index').'" class="pull-right">Back to site</a>';
+				$data->controls = HTML::to('main/index', 'Back to Site', array('class' => 'pull-right'));
 			}
 		}
 		else
@@ -80,9 +83,15 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				// Nova 2 means they can do the migration
 				if ($data->content->option == 2)
 				{
-					$data->controls = "<a href='".URL::to('setup/install')."' class='pull-right'>I'd like to do a Fresh Install instead</a>";
+					$data->controls = HTML::to('setup/install', "I'd like to do a Fresh Install", array(
+						'class' => 'pull-right'
+					));
 					$data->controls.= Form::open('setup/migrate').
-						Form::button('Start Migration', array('class' => 'btn btn-primary', 'id' => 'next', 'name' => 'submit')).
+						Form::button('Start Migration', array(
+							'class' => 'btn btn-primary',
+							'id' => 'next',
+							'name' => 'submit'
+						)).
 						Form::hidden('csrf_token', csrf_token()).
 						Form::close();
 					$data->layout->label = 'Migrate From Nova 2';
@@ -94,7 +103,9 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				// Nova 1 means they can't do the migration
 				if ($data->content->option == 5)
 				{
-					$data->controls = "<a href='".URL::to('setup/install')."' class='pull-right'>I'd like to do a Fresh Install instead</a>";
+					$data->controls = HTML::to('setup/install', "I'd like to do a Fresh Install", array(
+						'class' => 'pull-right'
+					));
 					$data->layout->label = 'Unable to Migrate to Nova 3';
 				}
 			}
@@ -148,14 +159,14 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		{
 			$data->content->message = Lang::get('setup.config.text.noconfig');
 			$data->layout->label = 'File Not Found';
-			$data->controls = '<a href="'.URL::to('setup/config').'" class="pull-right">Try again</a>';
+			$data->controls = HTML::to('setup/config', 'Try Again', array('class' => 'pull-right'));
 		}
 		else
 		{
 			if (file_exists(APPPATH.'config/'.App::environment().'/database.php'))
 			{
 				$data->content->message = Lang::get('setup.config.text.exists', array('env' => App::environment()));
-				$data->controls = '<a href="'.URL::to('setup/config/info').'" class="pull-right">Back to Setup Center</a>';
+				$data->controls = HTML::to('setup', 'Back to Setup Center', array('class' => 'pull-right'));
 			}
 			else
 			{
@@ -171,12 +182,14 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 					
 					if (extension_loaded('mysql') or class_exists('mysqli'))
 					{
-						$data->controls = '<a href="'.URL::to('setup/config/info').'" class="btn btn-primary">Next Step</a>';
+						$data->controls = HTML::to('setup/config/info', 'Database Info', array(
+							'class' => 'btn btn-primary'
+						));
 						
 					}
 					else
 					{
-						$data->flash[] = array(
+						$data->flash = array(
 							'status' => 'danger',
 							'message' => Lang::get('setup.config.text.nodb'),
 						);
@@ -233,11 +246,11 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		$data->content->step = false;
 
 		// Set the variables to use
-		$dbName		= trim(e(Input::get('dbName')));
-		$dbUser		= trim(e(Input::get('dbUser')));
-		$dbPass		= trim(e(Input::get('dbPass')));
-		$dbHost		= trim(e(Input::get('dbHost')));
-		$prefix		= trim(e(Input::get('prefix')));
+		$dbName	= trim(e(Input::get('dbName')));
+		$dbUser	= trim(e(Input::get('dbUser')));
+		$dbPass	= trim(e(Input::get('dbPass')));
+		$dbHost	= trim(e(Input::get('dbHost')));
+		$prefix	= trim(e(Input::get('prefix')));
 		
 		// Set the session variables
 		Session::put('dbName', $dbName);
@@ -264,7 +277,6 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 			// Write the controls
 			$data->controls = Form::open('setup/config/write').
 				Form::button('Write Connection File', array(
-					'type'	=> 'submit',
 					'class'	=> 'btn btn-primary',
 					'id'	=> 'next',
 					'name'	=> 'next'
@@ -299,7 +311,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 			}
 			
 			// Write the controls
-			$data->controls = '<a href="'.URL::to('setup/config/info').'" class="btn btn-primary">Start Over</a>';
+			$data->controls = HTML::to('setup/config/info', 'Start Over', array('class' => 'btn btn-primary'));
 		}
 
 		return setupTemplate($data);
@@ -322,7 +334,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		$data->content->step = false;
 
 		// Get the file
-		$dbFileContents = Filesystem::get(SRCPATH.'Setup/database/db.mysql.php');
+		$dbFileContents = File::get(SRCPATH.'Setup/database/db.mysql.php');
 
 		if ($dbFileContents !== false)
 		{
@@ -332,7 +344,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				'#USERNAME#' => Session::get('dbUser'),
 				'#PASSWORD#' => Session::get('dbPass'),
 				'#HOSTNAME#' => Session::get('dbHost'),
-				'#PREFIX'    => Session::get('prefix'),
+				'#PREFIX#'   => Session::get('prefix'),
 			);
 
 			// Loop through and do the replacements
@@ -342,15 +354,15 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 			}
 
 			// Try to chmod the config directory to the proper permissions
-			chmod(APPPATH.'config/'.app('environment'), 0777);
+			chmod(APPPATH.'config/'.App::environment(), 0777);
 
 			// Write the contents of the file
-			$write = Filesystem::put(APPPATH.'config/'.app('environment').'/database.php', $dbFileContents);
+			$write = File::put(APPPATH.'config/'.App::environment().'/database.php', $dbFileContents);
 
 			if ($write !== false)
 			{
 				// Try to chmod the file to the proper permissions
-				chmod(APPPATH.'config/'.app('environment').'/database.php', 0666);
+				chmod(APPPATH.'config/'.App::environment().'/database.php', 0666);
 
 				// Set the success message
 				$data->content->message = Lang::get('setup.config.text.step3write');
@@ -379,12 +391,11 @@ return array(
 );");
 			
 				// Set the message
-				$data->content->message = Lang::get('setup.config.text.step3nowrite', array('env' => app('environment')));
+				$data->content->message = Lang::get('setup.config.text.step3nowrite', array('env' => App::environment()));
 				
 				// Write the controls
 				$data->controls = Form::open('setup/config/verify').
 					Form::button('Re-Test', array(
-						'type'	=> 'submit',
 						'class'	=> 'btn btn-primary',
 						'id'	=> 'next',
 						'name'	=> 'next'
@@ -411,12 +422,11 @@ return array(
 );");
 		
 			// Set the message
-			$data->content->message = Lang::get('setup.config.text.step3nowrite', array('env' => app('environment')));
+			$data->content->message = Lang::get('setup.config.text.step3nowrite', array('env' => App::environment()));
 			
 			// Write the controls
 			$data->controls = Form::open('setup/config/verify').
 				Form::button('Re-Test', array(
-					'type'	=> 'submit',
 					'class'	=> 'btn btn-primary',
 					'id'	=> 'next',
 					'name'	=> 'next'

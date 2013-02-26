@@ -38,7 +38,7 @@ return array(
 	),
 
 	'remove' => array(
-		'instructions' => "Whoa, hold up! Uninstalling Nova will remove all the data in the database tables (posts, logs, characters, etc.) as well as any mods you've installed and cannot be undone. <strong>Make absolutely sure you want to do this before continuing.</strong>",
+		'instructions' => "Whoa, hold up! Uninstalling Nova will remove all the data in the database tables (posts, logs, characters, etc.) as well as any MODs you've installed and cannot be undone. <strong>Make absolutely sure you want to do this before continuing.</strong>",
 		'success' => "Poof! I was able to successfully uninstall Nova 3. Now, you can go back to the Setup Center to re-install Nova 3 or upgrade from Nova 2.",
 		'failure' => "Uh oh! I wasn't able to uninstall Nova 3. Try again or if the problem continues, you can manually remove the database tables from the database.",
 		'no_tables' => "I couldn't find a Nova 3 installation to remove.",
