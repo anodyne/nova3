@@ -321,62 +321,50 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		$data->content = new stdClass;
 		$data->content->step = false;
 
-		// Grab the disabled functions
-		$disabled = explode(',', ini_get('disable_functions'));
-		
-		// Make sure everything is trimmed properly
-		foreach ($disabled as $key => $value)
+		// Get the file
+		$dbFileContents = Filesystem::get(SRCPATH.'Setup/database/db.mysql.php');
+
+		if ($dbFileContents !== false)
 		{
-			$disabled[$key] = trim($value);
-		}
-		
-		// What we need
-		$need = array('fopen', 'fwrite', 'file');
-		
-		// Check to make sure we have what we need
-		$check = array_intersect($disabled, $need);
-		
-		// Pull in the mysql file
-		$file = file(SRCPATH.'Setup/database/db.mysql.php');
-		
-		if (is_array($file))
-		{
-			foreach ($file as $lineNumber => $line)
+			// Set what should be replaced
+			$replacements = array(
+				'#DATABASE#' => Session::get('dbName'),
+				'#USERNAME#' => Session::get('dbUser'),
+				'#PASSWORD#' => Session::get('dbPass'),
+				'#HOSTNAME#' => Session::get('dbHost'),
+				'#PREFIX'    => Session::get('prefix'),
+			);
+
+			// Loop through and do the replacements
+			foreach ($replacements as $key => $value)
 			{
-				switch (substr($line, 0, 9))
-				{
-					case "'database":
-						$file[$lineNumber] = str_replace("#DATABASE#", Session::get('dbName'), $line);
-					break;
-					
-					case "'username":
-						$file[$lineNumber] = str_replace("#USERNAME#", Session::get('dbUser'), $line);
-					break;
-					
-					case "'password":
-						$file[$lineNumber] = str_replace("#PASSWORD#", Session::get('dbPass'), $line);
-					break;
-					
-					case "'host' =>":
-						$file[$lineNumber] = str_replace("#HOSTNAME#", Session::get('dbHost'), $line);
-					break;
-					
-					case "'prefix' ":
-						$file[$lineNumber] = str_replace("#PREFIX#", Session::get('prefix'), $line);
-					break;
-				}
+				$dbFileContents = str_replace($key, $value, $dbFileContents);
 			}
-			
-			$code = false;
-			
-			foreach ($file as $value)
+
+			// Try to chmod the config directory to the proper permissions
+			chmod(APPPATH.'config/'.app('environment'), 0777);
+
+			// Write the contents of the file
+			$write = Filesystem::put(APPPATH.'config/'.app('environment').'/database.php', $dbFileContents);
+
+			if ($write !== false)
 			{
-				$code.= htmlentities($value);
+				// Try to chmod the file to the proper permissions
+				chmod(APPPATH.'config/'.app('environment').'/database.php', 0666);
+
+				// Set the success message
+				$data->content->message = Lang::get('setup.config.text.step3write');
+				
+				// Wipe out the session data
+				Session::flush();
+				
+				// Write the controls
+				$data->controls = HTML::to('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
 			}
-		}
-		else
-		{
-			$code = htmlentities("<?php
+			else
+			{
+				// Dump the code to a variable
+				$data->content->code = e("<?php
 
 return array(
 'connections' => array(
@@ -389,68 +377,12 @@ return array(
 ),
 ),
 );");
-		}
-		
-		if (count($check) == 0)
-		{
-			try
-			{
-				// Try to chmod the config directory to the proper permissions
-				chmod(APPPATH.'config/'.App::environment(), 0777);
-			}
-			catch (Exception $e)
-			{
-				// Add the message
-				Log::error('Could not change file permissions of the config directory to 0777. Please do so manually.');
-			}
 			
-			// Open the file
-			$handle = fopen(APPPATH.'config/'.App::environment().'/database.php', 'w');
-			
-			// Figure out if the write was successful
-			$write = false;
-		
-			// Write the file line by line
-			foreach ($file as $line)
-			{
-				$write = fwrite($handle, $line);
-			}
-			
-			// Close the file
-			fclose($handle);
-			
-			try
-			{
-				// Try to chmod the file to the proper permissions
-				chmod(APPPATH.'config/'.App::environment().'/database.php', 0666);
-			}
-			catch (Exception $e)
-			{
-				// Add the message
-				Log::error('Could not change file permissions of the database configuration file to 0666. Please do so manually.');
-			}
-			
-			if ($write !== false)
-			{
-				// Set the success message
-				$data->content->message = Lang::get('setup.config.text.step3write');
-				
-				// Wipe out the session
-				Session::flush();
+				// Set the message
+				$data->content->message = Lang::get('setup.config.text.step3nowrite', array('env' => app('environment')));
 				
 				// Write the controls
-				$data->controls = '<a href="'.URL::to('setup').'" class="btn btn-primary">Back to Setup Center</a>';
-			}
-			else
-			{
-				$data->content->code = $code;
-			
-				$data->content->message = Lang::get('setup.config.text.step3nowrite', array(
-					'env' => App::environment())
-				);
-				
-				// Write the controls
-				$data->controls = Form::open('setup/config/check').
+				$data->controls = Form::open('setup/config/verify').
 					Form::button('Re-Test', array(
 						'type'	=> 'submit',
 						'class'	=> 'btn btn-primary',
@@ -463,14 +395,26 @@ return array(
 		}
 		else
 		{
-			$data->content->code = $code;
-			
-			$data->content->message = Lang::get('setup.config.text.step3nowrite', array(
-				'env' => App::environment())
-			);
+			// Dump the code to a variable
+			$data->content->code = e("<?php
+
+return array(
+'connections' => array(
+'mysql' => array(
+'host' => '".Session::get('dbHost')."',
+'database' => '".Session::get('dbName')."',
+'username' => '".Session::get('dbUser')."',
+'password' => '".Session::get('dbPass')."',
+'prefix' => '".Session::get('prefix')."',
+),
+),
+);");
+		
+			// Set the message
+			$data->content->message = Lang::get('setup.config.text.step3nowrite', array('env' => app('environment')));
 			
 			// Write the controls
-			$data->controls = Form::open('setup/config/check').
+			$data->controls = Form::open('setup/config/verify').
 				Form::button('Re-Test', array(
 					'type'	=> 'submit',
 					'class'	=> 'btn btn-primary',
@@ -479,6 +423,68 @@ return array(
 				)).
 				Form::hidden('csrf_token', csrf_token()).
 				Form::close();
+		}
+
+		return setupTemplate($data);
+	});
+	
+	/**
+	 * Verify the connection works (only used when the file can't be written).
+	 */
+	Route::post('config/verify', function()
+	{
+		$data = new stdClass;
+		$data->view = 'setup/config';
+		$data->jsView = false;
+		$data->title = 'Database Connection Setup';
+		$data->layout = new stdClass;
+		$data->layout->label = 'Verify Database Connection <small>Database Connection Setup</small>';
+		$data->controls = false;
+		$data->steps = false;
+		$data->content = new stdClass;
+		$data->content->step = false;
+
+		// Get the table prefix
+		$prefix = DB::getTablePrefix();
+
+		try
+		{
+			// Try to get the migration table
+			$hasTable = Schema::hasTable("{$prefix}migrations");
+			
+			// Write the message
+			$data->content->message = Lang::get('setup.config.text.step2.success');
+			
+			// Write the controls
+			$data->controls = HTML::to('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
+		}
+		catch (Exception $e)
+		{
+			$msg = (string) $e->getMessage();
+
+			if (stripos($msg, 'No such host is known') !== false)
+			{
+				$data->layout->label = 'Database Host Not Found';
+				$data->content->message = Lang::get('setup.config.text.step2.nohost');
+			}
+			elseif (stripos($msg, 'Access denied for user') !== false)
+			{
+				$data->layout->label = 'User/Password Issue';
+				$data->content->message = Lang::get('setup.config.text.step2.userpass');
+			}
+			elseif (stripos($msg, 'Unknown database') !== false)
+			{
+				$data->layout->label = 'Database Not Found';
+				$data->content->message = Lang::get('setup.config.text.step2.dbname', array('dbname' => $dbName));
+			}
+			else
+			{
+				$data->layout->label = 'Unknown Database Issue';
+				$data->content->message = Lang::get('setup.config.text.step2.gen');
+			}
+			
+			// Write the controls
+			$data->controls = HTML::to('setup/config/info', 'Start Over', array('class' => 'btn btn-primary'));
 		}
 
 		return setupTemplate($data);

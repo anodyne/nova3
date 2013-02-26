@@ -85,7 +85,7 @@
 		</div>
 
 		<div class="span6">
-			<h3><span class="icn icn24 text-error" data-icon="r"></span> Uninstall Nova</h3>
+			<h3><span class="icn icn24 text-error" data-icon="-"></span> Uninstall Nova</h3>
 
 			<p>If you want to completely uninstall Nova, you can do so with this option. <strong>Be warned:</strong> this action is permanent and cannot be undone. You will lose all data in the Nova database! Make sure you have backed everything up. Also note that this will not delete any Nova files.</p>
 

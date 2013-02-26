@@ -1,23 +1,14 @@
 <?php if (Uri::segment(4) == 0): ?>
-	<!-- step 2 -->
-	<div class="step"></div>
-	
-	<!-- step 1 -->
-	<div class="step"></div>
+	<span class="icn icn24 step tip-below" data-title="Step 1" data-icon="n"></span>
+	<span class="icn icn24 step tip-below" data-title="Step 2" data-icon="n"></span>
 <?php endif;?>
 
 <?php if (Uri::segment(4) == 1): ?>
-	<!-- step 2 -->
-	<div class="step step-active"></div>
-	
-	<!-- step 1 -->
-	<div class="step step-complete"></div>
+	<span class="icn icn24 step step-complete tip-below" data-title="Step 1" data-icon="c"></span>
+	<span class="icn icn24 step step-active tip-below" data-title="Step 2" data-icon="s"></span>
 <?php endif;?>
 
 <?php if (Uri::segment(4) == 2): ?>
-	<!-- step 2 -->
-	<div class="step step-complete"></div>
-	
-	<!-- step 1 -->
-	<div class="step step-complete"></div>
+	<span class="icn icn24 step step-complete tip-below" data-title="Step 1" data-icon="c"></span>
+	<span class="icn icn24 step step-complete tip-below" data-title="Step 2" data-icon="c"></span>
 <?php endif;?>
