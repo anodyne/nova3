@@ -1,1 +1,0 @@
-<p><?php echo nl2br($message);?></p>
