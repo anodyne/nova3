@@ -13,6 +13,7 @@
 namespace Nova\Core\Lib;
 
 use App;
+use File;
 use Cache;
 use Route;
 use Config;
@@ -22,7 +23,6 @@ use Redirect;
 use Exception;
 use SystemModel;
 use SettingsModel;
-use Fuel\Util\Arr;
 
 class Utility {
 	
@@ -30,36 +30,34 @@ class Utility {
 	 * Pulls the image index arrays from the base as well as the current skin.
 	 *
 	 * <code>
-	 * $image_index = Utility::getImageIndex('default');
+	 * $imageIndex = Utility::getImageIndex('default');
 	 * </code>
 	 *
-	 * @api
-	 * @param	string	the current skin
+	 * @param	string	The current skin
 	 * @return 	array
 	 */
 	public static function getImageIndex($skin)
 	{
 		return array();
+
+		// Load the image index from the core first
+		$commonIndex = include_once SRCPATH.'Core/views/images.php';
+
+		// Now load the image index from the skin (if it has one)
+		$skinIndex = (File::exists(APPPATH."views/{$skin}/images.php"))
+			? include_once APPPATH."views/{$skin}/images.php"
+			: array();
 		
-		// load the image index from the nova module first
-		$common_path = \Finder::search('views', 'nova::images');
-		$common_index = \Fuel::load($common_path);
+		// Merge the files into an array
+		$imageIndex = array_merge((array) $commonIndex, (array) $skinIndex);
 		
-		// load the current skin's image index (if it has one)
-		$skin_path = \Finder::search('views', $skin.'/images');
-		$skin_index = ($skin_path !== false) ? \Fuel::load($skin_path) : array();
-		
-		// merge the files into an array
-		$image_index = array_merge( (array) $common_index, (array) $skin_index);
-		
-		return $image_index;
+		return $imageIndex;
 	}
 
 	/**
 	 * Get the current rank set, whether it's the user's preference or the
 	 * system default.
 	 *
-	 * @api
 	 * @return	string
 	 */
 	public static function getRank()
@@ -76,8 +74,7 @@ class Utility {
 	 * Get the current skin for a given section, whether it's the user's
 	 * preference or the system default.
 	 *
-	 * @api
-	 * @param	string	the section
+	 * @param	string	The section
 	 * @return	string
 	 */
 	public static function getSkin($section)
@@ -98,7 +95,6 @@ class Utility {
 	 * 2 - minor update (3.0 => 3.1)
 	 * 3 - incremental update (3.0.1 => 3.0.2)
 	 *
-	 * @api
 	 * @return 	object|bool
 	 */
 	public static function getUpdates()
@@ -112,7 +108,7 @@ class Utility {
 			$sys = SystemModel::first();
 			
 			// Load the data
-			$content = file_get_contents(Config::get('nova.version_check_path'));
+			$content = File::getRemote(Config::get('nova.version_check_path'));
 
 			// Parse the content
 			$US = json_decode($content);
@@ -159,7 +155,7 @@ class Utility {
 	public static function installed()
 	{
 		// Make sure the database config file is there first
-		if ( ! file_exists(APPPATH.'config/'.App::environment().'/database.php'))
+		if ( ! File::exists(APPPATH.'config/'.App::environment().'/database.php'))
 		{
 			// Make sure we take in to account the controllers this needs to ignore
 			if ( ! Request::is('setup/*'))
@@ -170,7 +166,7 @@ class Utility {
 		else
 		{
 			// Wipe out the system install cache if we're in the setup module
-			if (Request::is('setup*') and file_exists(APPPATH.'storage/cache/nova_system_installed'))
+			if (Request::is('setup*') and File::exists(APPPATH.'storage/cache/nova_system_installed'))
 			{
 				Cache::forget('nova_system_installed');
 			}
