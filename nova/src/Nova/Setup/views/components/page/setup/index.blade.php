@@ -76,20 +76,12 @@
 	<p>{{ $update['description'] }}</p>
 @elseif ($option == 4)
 	<div class="row-fluid">
-		<div class="span6">
+		<div class="span12">
 			<h3><span class="icn icn24 text-info" data-icon="u"></span> Update Nova</h3>
 
-			<p>It isn't enough to just build Nova, it's just as important to keep it up-to-date. Even if your server doesn't allow you to check for updates, you can start the update process from here and be up and running on the latest version of Nova in only a few minutes.</p>
+			<p>It isn't enough to just build Nova, it needs to be maintained too. Even if your server doesn't allow you to check for updates, you can start the update process from here and be up and running on the latest version of Nova in only a few minutes.</p>
 
 			<a href="{{ URL::to('setup/update') }}" class="btn btn-block">Update Nova</a>
-		</div>
-
-		<div class="span6">
-			<h3><span class="icn icn24 text-error" data-icon="-"></span> Uninstall Nova</h3>
-
-			<p>If you want to completely uninstall Nova, you can do so with this option. <strong>Be warned:</strong> this action is permanent and cannot be undone. You will lose all data in the Nova database! Make sure you have backed everything up. Also note that this will not delete any Nova files.</p>
-
-			<a href="{{ URL::to('setup/utilities/uninstall') }}" class="btn btn-danger btn-block">Uninstall Nova</a>
 		</div>
 	</div>
 
@@ -97,17 +89,17 @@
 		<div class="span6">
 			<h3><span class="icn icn24 text-warning" data-icon="g"></span> The Genre Panel</h3>
 
-			<p>A flexible genre system allows Nova to be used for a wide range of games. Using the Genre Panel you can change your game's genre to one of the other provided genres. <strong>Be warned:</strong> if you change the genre, you'll likely have to do a bunch of manual work to change your characters to have the proper positions and ranks.</p>
+			<p>A flexible genre system allows Nova to be used for a wide range of games. Using the Genre Panel you can change your game's genre to one of the other provided genres. Changing the genre will require some manual work to change your characters to use the proper positions and ranks.</p>
 
 			<a href="{{ URL::to('setup/utilities/genres') }}" class="btn btn-block">The Genre Panel</a>
 		</div>
 
 		<div class="span6">
-			<h3><span class="icn icn24 text-warning" data-icon="d"></span> Database Change Panel</h3>
+			<h3><span class="icn icn24 text-error" data-icon="-"></span> Uninstall Nova</h3>
 
-			<p>Nova's structure allows for creating MODs that modify existing functionality, or sometimes, even add whole new sets of features. Some of the MODs you may encounter may require changes to the database. Using the Database Change Panel, you can make those changes quickly and easily with a simple user interface.</p>
+			<p>If you want to completely uninstall Nova, you can do so with this option. <strong>Be warned:</strong> this action is permanent and cannot be undone. You will lose all data in the Nova database! Make sure you have backed everything up. Also note that this will not delete any Nova files.</p>
 
-			<a href="{{ URL::to('setup/utilities/database') }}" class="btn btn-block">Database Change Panel</a>
+			<a href="{{ URL::to('setup/utilities/uninstall') }}" class="btn btn-block">Uninstall Nova</a>
 		</div>
 	</div>
 @elseif ($option == 5)
