@@ -499,4 +499,107 @@ return array(
 
 		return setupTemplate($data);
 	});
+
+	/**
+	 * Uninstall Nova.
+	 */
+	Route::get('uninstall', function()
+	{
+		$data = new stdClass;
+		$data->view = 'setup/uninstall';
+		$data->jsView = 'setup/uninstall_js';
+		$data->title = 'Uninstall Nova';
+		$data->layout = new stdClass;
+		$data->layout->label = 'Uninstall Nova';
+		$data->steps = false;
+		$data->content = new stdClass;
+		$data->content->message = Lang::get('setup.uninstall.instructions');
+
+		$data->controls = HTML::to('setup', "I don't want to do this, get me out of here", array('class' => 'pull-right'));
+		$data->controls.= Form::open('setup/uninstall').
+			Form::button('Uninstall', array('class' => 'btn btn-danger', 'id' => 'next', 'name' => 'submit')).
+			Form::hidden('csrf_token', csrf_token()).
+			Form::close();
+
+		return setupTemplate($data);
+	});
+	Route::post('uninstall', function()
+	{
+		// Do the QuickInstall removals
+		ModuleCatalogModel::uninstall();
+		RankCatalogModel::uninstall();
+		SkinCatalogModel::uninstall();
+		WidgetCatalogModel::uninstall();
+
+		// Uninstall Nova
+		Artisan::call('migrate:reset', array('--path' => 'nova/src/Nova/Setup/database/migrations'));
+
+		// Remove the system install cache
+		if (File::exists(APPPATH.'storage/cache/nova_system_installed'))
+		{
+			Cache::forget('nova_system_installed');
+		}
+
+		return Redirect::to('setup');
+	});
+
+	/**
+	 * Genre Panel.
+	 */
+	Route::get('genres', function()
+	{
+		$data = new stdClass;
+		$data->view = 'setup/genre';
+		$data->jsView = 'setup/genre_js';
+		$data->title = 'The Genre Panel';
+		$data->layout = new stdClass;
+		$data->layout->label = 'The Genre Panel';
+		$data->steps = false;
+		$data->content = new stdClass;
+		$data->controls = HTML::to('setup', 'Back to Setup Center', array('class' => 'pull-right'));
+
+		// Get the genre info
+		$info = Config::get('genres');
+
+		// Get the table prefix
+		$prefix = DB::getTablePrefix();
+
+		// Map the genres directory
+		$fs = new Directory(SRCPATH.'Setup/assets/install/genres');
+		$map = $fs->listFiles();
+
+		// Loop through the files in the genres directory
+		foreach ($map as $key => $m)
+		{
+			// Drop the extension off the end
+			$value = str_replace('.php', '', $m);
+
+			// Drop the path off the beginning
+			$value = str_replace(SRCPATH.'Setup/assets/install/genres/', '', $value);
+
+			if (array_key_exists($value, $info))
+			{
+				$genres[$value] = array(
+					'name'		=> $info[$value],
+					'installed' => ((bool) Schema::hasTable("{$prefix}departments_{$value}")),
+				);
+			}
+			else
+			{
+				$additional[$value] = array(
+					'name'		=> $value,
+					'installed' => ((bool) Schema::hasTable("{$prefix}departments_{$value}")),
+				);
+			}
+		}
+		
+		// Set the genres list
+		$data->content->genres = (isset($genres)) ? $genres : false;
+		$data->content->additional = (isset($additional)) ? $additional : false;
+		
+		// Set the loading image
+		$data->content->loading = HTML::image('nova/src/Nova/Setup/views/design/images/loading.gif', 'Processing');
+
+		return setupTemplate($data);
+	});
 });

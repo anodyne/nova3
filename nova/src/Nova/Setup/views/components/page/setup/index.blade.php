@@ -91,7 +91,7 @@
 
 			<p>A flexible genre system allows Nova to be used for a wide range of games. Using the Genre Panel you can change your game's genre to one of the other provided genres. Changing the genre will require some manual work to change your characters to use the proper positions and ranks.</p>
 
-			<a href="{{ URL::to('setup/utilities/genres') }}" class="btn btn-block">The Genre Panel</a>
+			<a href="{{ URL::to('setup/genres') }}" class="btn btn-block">The Genre Panel</a>
 		</div>
 
 		<div class="span6">
@@ -99,7 +99,7 @@
 
 			<p>If you want to completely uninstall Nova, you can do so with this option. <strong>Be warned:</strong> this action is permanent and cannot be undone. You will lose all data in the Nova database! Make sure you have backed everything up. Also note that this will not delete any Nova files.</p>
 
-			<a href="{{ URL::to('setup/utilities/uninstall') }}" class="btn btn-block">Uninstall Nova</a>
+			<a href="{{ URL::to('setup/uninstall') }}" class="btn btn-block">Uninstall Nova</a>
 		</div>
 	</div>
 @elseif ($option == 5)
