@@ -15,7 +15,8 @@
 		"showclix/fuelphp-util": "*",
 		"ikimea/browser": "dev-master",
 		"raveren/kint": "dev-master",
-		"cartalyst/sentry": "dev-master"
+		"cartalyst/sentry": "dev-master",
+		"fuelphp/filesystem": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
