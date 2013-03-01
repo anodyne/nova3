@@ -95,6 +95,8 @@ return array(
 		'Illuminate\Encryption\EncryptionServiceProvider',
 		'Illuminate\Filesystem\FilesystemServiceProvider',
 		'Illuminate\Hashing\HashServiceProvider',
+		'Illuminate\Html\HtmlServiceProvider',
+		'Illuminate\Foundation\Providers\KeyGeneratorServiceProvider',
 		'Illuminate\Log\LogServiceProvider',
 		'Illuminate\Mail\MailServiceProvider',
 		'Illuminate\Database\MigrationServiceProvider',
@@ -119,8 +121,8 @@ return array(
 		'Nova\Foundation\Routing\RoutingServiceProvider',
 		'Nova\Foundation\Translation\TranslationServiceProvider',
 
-		'Meido\Form\FormServiceProvider',
-		'Meido\HTML\HTMLServiceProvider',
+		//'Meido\Form\FormServiceProvider',
+		//'Meido\HTML\HTMLServiceProvider',
 
 	),
 
@@ -167,7 +169,9 @@ return array(
 		'Eloquent'        => 'Illuminate\Database\Eloquent\Model',
 		'Event'           => 'Illuminate\Support\Facades\Event',
 		'File'            => 'Illuminate\Support\Facades\File',
+		'Form'            => 'Illuminate\Support\Facades\Form',
 		'Hash'            => 'Illuminate\Support\Facades\Hash',
+		'Html'            => 'Illuminate\Html\HtmlBuilder',
 		'Input'           => 'Illuminate\Support\Facades\Input',
 		'Lang'            => 'Illuminate\Support\Facades\Lang',
 		'Log'             => 'Illuminate\Support\Facades\Log',
@@ -204,8 +208,8 @@ return array(
 		 */
 		'Date'		=> 'Datum\Datum',
 		'Debug'		=> 'Nova\Core\Lib\Debug',
-		'Form'		=> 'Meido\Form\FormFacade',
-		'HTML'		=> 'Meido\HTML\HTMLFacade',
+		//'Form'		=> 'Meido\Form\FormFacade',
+		//'HTML'		=> 'Meido\HTML\HTMLFacade',
 		'Markdown'	=> 'Nova\Core\Lib\Markdown',
 		'Model'		=> 'Nova\Foundation\Database\Eloquent\Model',
 		'Nav'		=> 'Nova\Core\Lib\Nav',
