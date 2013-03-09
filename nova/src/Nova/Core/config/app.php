@@ -187,7 +187,7 @@ return array(
 		'Schema'          => 'Illuminate\Support\Facades\Schema',
 		'Seeder'          => 'Illuminate\Database\Seeder',
 		'Session'         => 'Illuminate\Support\Facades\Session',
-		'Str'             => 'Illuminate\Support\Str',
+		//'Str'             => 'Illuminate\Support\Str',
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
@@ -207,14 +207,12 @@ return array(
 		 * Nova Classes
 		 */
 		'Date'		=> 'Datum\Datum',
-		'Debug'		=> 'Nova\Core\Lib\Debug',
-		//'Form'		=> 'Meido\Form\FormFacade',
-		//'HTML'		=> 'Meido\HTML\HTMLFacade',
 		'Markdown'	=> 'Nova\Core\Lib\Markdown',
 		'Model'		=> 'Nova\Foundation\Database\Eloquent\Model',
 		'Nav'		=> 'Nova\Core\Lib\Nav',
 		'Sentry' 	=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Status'	=> 'Nova\Core\Lib\Status',
+		'Str'		=> 'Nova\Foundation\Support\Str',
 		'Utility'	=> 'Nova\Core\Lib\Utility',
 
 		/**
