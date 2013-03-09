@@ -1,7 +1,7 @@
 ## Latest `laravel/laravel` Commit
 
-* 02/27/2013
-* 05cb4ca2765b2e8769d764d95013f2476265b558
+* 03/08/2013
+* 2a14998be997329ebb86cff5b64df76d00446241
 
 ## Composer Packages
 
@@ -108,14 +108,15 @@
 ## Phing Job
 
 * Pull from Github
-* Run Composer
-* Run all unit tests, break out if there are any failures
+* Run `composer install`
+* Run all unit tests (on Nova only), break out if there are any failures
 * Remove unnecessary files
 	* .gitignore
 	* app/tests
 	* phpunit.xml
 	* server.php
 * Remove unnecessary files from the vendors
+	* All of these files and directories should be stored in an array then looped through. Within the loop, we can run `rm -rf nova/vendor/**/[item]` to remove those from all vendor directories.
 	* .git/
 	* test/
 	* Test/
