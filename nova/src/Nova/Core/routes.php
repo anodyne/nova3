@@ -32,6 +32,11 @@ Route::get('test/comments', function()
 	}
 });
 
+Route::get('test/misc', function()
+{
+	return Str::words("The quick fox jumped over the lazy dog.", 2);
+});
+
 // Migrations
 Route::get('migrate', function()
 {
