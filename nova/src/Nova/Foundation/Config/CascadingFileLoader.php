@@ -259,4 +259,15 @@ class CascadingFileLoader implements LoaderInterface {
 	{
 		return $this->files;
 	}
+
+	/**
+	 * Returns all registered namespaces with the config
+	 * loader.
+	 *
+	 * @return array
+	 */
+	public function getNamespaces()
+	{
+		return $this->hints;
+	}
 }
