@@ -658,11 +658,23 @@ class User extends Model implements UserInterface {
 	 * @param	string	Dot-notated component-action item
 	 * @return	bool
 	 */
-	public function hasAccess($permissions)
+	public function hasAccess($permissions, $all = true)
 	{
 		$mergedPermissions = $this->getMergedPermissions();
 
 		return (array_get($mergedPermissions, $permissions, false) !== false);
+	}
+
+	/**
+	 * Returns if the user has access to any of the
+	 * given permissions.
+	 *
+	 * @param  array  $permissions
+	 * @return bool
+	 */
+	public function hasAnyAccess(array $permissions)
+	{
+		return true;
 	}
 
 	/**

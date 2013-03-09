@@ -222,4 +222,16 @@ class Provider implements ProviderInterface {
 		}
 	}
 
+	/**
+	 * Returns all users with access to
+	 * any given permission(s).
+	 *
+	 * @param  array  $permissions
+	 * @return array
+	 */
+	public function findAllWithAnyAccess(array $permissions)
+	{
+		return $permissions;
+	}
+
 }
