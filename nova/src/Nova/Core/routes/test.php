@@ -23,15 +23,19 @@ Route::group(array('prefix' => 'test'), function()
 
 	Route::get('comments', function()
 	{
-		//PostModel::create(array('title' => 'Third Post'));
+		return 'test/comments';
 
-		$post = PostModel::find(1);
-		//$post->comments()->create(array('content' => 'Fourth post comment'));
+		//$model = PostModel::create(array('title' => 'Post 9'));
+
+		//return 'Finished!';
+
+		/*$post = PostModel::find(1);
+		$post->comments()->create(array('content' => 'Fifth post comment'));
 
 		foreach ($post->comments as $comment)
 		{
 			d($comment);
-		}
+		}*/
 	});
 
 	Route::get('misc', function()
@@ -41,11 +45,10 @@ Route::group(array('prefix' => 'test'), function()
 
 	Route::get('migrate', function()
 	{
-		// Set up for migrations
-		Artisan::call('migrate:install');
+		set_time_limit(0);
 
 		// Run the migrations
-		Artisan::call('migrate');
+		Artisan::call('migrate', array('--path' => 'nova/src/Nova/Setup/database/migrations'));
 
 		// Seed the database with dev data
 		//Artisan::call('db:seed');
@@ -68,4 +71,9 @@ Route::group(array('prefix' => 'test'), function()
 
 		var_dump(Cache::get('nova_module_list'));
 	});
+});
+
+Event::listen('eloquent.created', function($m)
+{
+	Log::info('Post created');
 });
