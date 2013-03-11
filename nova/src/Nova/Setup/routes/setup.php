@@ -30,10 +30,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				 */
 				$data->content->option = 3;
 				$data->layout->label = 'Update Nova 3';
-				$data->controls = Html::to('#', 'Ignore this version', array(
-					'class' => 'pull-right js-ignoreVersion',
-					'data-version' => $update->version
-				));
+				$data->controls = '<a href="#" class="pull-right js-ignoreVersion" data-version="'.$update->version.'">Ignore this version</a>';
 				$data->controls.= Form::open('setup/update/1').
 					Form::button('Start Update', array('class' => 'btn btn-primary', 'id' => 'next', 'name' => 'submit')).
 					Form::hidden('csrf_token', csrf_token()).
@@ -55,7 +52,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				 */
 				$data->content->option = 4;
 				$data->layout->label = 'Nova Setup Utilities';
-				$data->controls = Html::to('main/index', 'Back to Site', array('class' => 'pull-right'));
+				$data->controls = '<a href="'.URL::to('main/index').'" class="pull-right">Back to Site</a>';
 			}
 		}
 		else
@@ -83,9 +80,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				// Nova 2 means they can do the migration
 				if ($data->content->option == 2)
 				{
-					$data->controls = Html::to('setup/install', "I'd like to do a Fresh Install", array(
-						'class' => 'pull-right'
-					));
+					$data->controls = '<a href="'.URL::to('setup/install').'" class="pull-right">I\'d like to do a Fresh Install</a>';
 					$data->controls.= Form::open('setup/migrate').
 						Form::button('Start Migration', array(
 							'class' => 'btn btn-primary',
@@ -103,9 +98,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				// Nova 1 means they can't do the migration
 				if ($data->content->option == 5)
 				{
-					$data->controls = Html::to('setup/install', "I'd like to do a Fresh Install", array(
-						'class' => 'pull-right'
-					));
+					$data->controls = '<a href="'.URL::to('setup/install').'" class="pull-right">I\'d like to do a Fresh Install</a>';
 					$data->layout->label = 'Unable to Migrate to Nova 3';
 				}
 			}
@@ -159,14 +152,14 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		{
 			$data->content->message = Lang::get('setup.config.text.noconfig');
 			$data->layout->label = 'File Not Found';
-			$data->controls = Html::to('setup/config', 'Try Again', array('class' => 'pull-right'));
+			$data->controls = '<a href="'.URL::to('setup/config').'" class="pull-right">Try Again</a>';
 		}
 		else
 		{
 			if (file_exists(APPPATH.'config/'.App::environment().'/database.php'))
 			{
 				$data->content->message = Lang::get('setup.config.text.exists', array('env' => App::environment()));
-				$data->controls = Html::to('setup', 'Back to Setup Center', array('class' => 'pull-right'));
+				$data->controls = '<a href="'.URL::to('setup').'" class="pull-right">Back to Setup Center</a>';
 			}
 			else
 			{
@@ -182,9 +175,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 					
 					if (extension_loaded('mysql') or class_exists('mysqli'))
 					{
-						$data->controls = Html::to('setup/config/info', 'Database Info', array(
-							'class' => 'btn btn-primary'
-						));
+						$data->controls = '<a href="'.URL::to('setup/config/info').'" class="btn btn-primary">Database Info</a>';
 						
 					}
 					else
@@ -311,7 +302,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 			}
 			
 			// Write the controls
-			$data->controls = Html::to('setup/config/info', 'Start Over', array('class' => 'btn btn-primary'));
+			$data->controls = '<a href="'.URL::to('setup/config/info').'" class="btn btn-primary">Start Over</a>';
 		}
 
 		return setupTemplate($data);
@@ -371,7 +362,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				Session::flush();
 				
 				// Write the controls
-				$data->controls = Html::to('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
+				$data->controls = '<a href="'.URL::to('setup').'" class="btn btn-primary">Back to Setup Center</a>';
 			}
 			else
 			{
@@ -466,7 +457,7 @@ return array(
 			$data->content->message = Lang::get('setup.config.text.step2.success');
 			
 			// Write the controls
-			$data->controls = Html::to('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
+			$data->controls = '<a href="'.URL::to('setup').'" class="btn btn-primary">Back to Setup Center</a>';
 		}
 		catch (Exception $e)
 		{
@@ -494,7 +485,7 @@ return array(
 			}
 			
 			// Write the controls
-			$data->controls = Html::to('setup/config/info', 'Start Over', array('class' => 'btn btn-primary'));
+			$data->controls = '<a href="'.URL::to('setup/config/info').'" class="btn btn-primary">Start Over</a>';
 		}
 
 		return setupTemplate($data);
@@ -515,7 +506,7 @@ return array(
 		$data->content = new stdClass;
 		$data->content->message = Lang::get('setup.uninstall.instructions');
 
-		$data->controls = Html::to('setup', "I don't want to do this, get me out of here", array('class' => 'pull-right'));
+		$data->controls = '<a href="'.URL::to('setup').'" class="pull-right">I don\'t want to do this, get me out of here</a>';
 		$data->controls.= Form::open('setup/uninstall').
 			Form::button('Uninstall', array('class' => 'btn btn-danger', 'id' => 'next', 'name' => 'submit')).
 			Form::hidden('csrf_token', csrf_token()).
@@ -556,7 +547,7 @@ return array(
 		$data->layout->label = 'The Genre Panel';
 		$data->steps = false;
 		$data->content = new stdClass;
-		$data->controls = Html::to('setup', 'Back to Setup Center', array('class' => 'pull-right'));
+		$data->controls = '<a href="'.URL::to('setup').'" class="pull-right">Back to Setup Center</a>';
 
 		// Get the genre info
 		$info = Config::get('genres');
@@ -598,7 +589,7 @@ return array(
 		$data->content->additional = (isset($additional)) ? $additional : false;
 		
 		// Set the loading image
-		$data->content->loading = Html::image('nova/src/Nova/Setup/views/design/images/loading.gif', 'Processing');
+		$data->content->loading = '<img src="'.URL::asset('nova/src/Nova/Setup/views/design/images/loading.gif').'" alt="Processing">';
 
 		return setupTemplate($data);
 	});
