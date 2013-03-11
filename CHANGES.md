@@ -77,6 +77,9 @@
 	* Status: IN PROGRESS
 	* Callbacks/observers to make life a little easier with handling dependent actions triggered off an event.
 		* The `insert()` and `update()` methods are in the QueryBuilder, not the Eloquent model, so we either have to do some pretty elaborate overriding or we have to copy the entire `save()` method from the model and insert the observers that way. If we go that route, we have to keep an eye on that file moving forward to make sure there are no changes to it that could impact the model.
+		* Probably can use events instead of re-inventing the wheel here, but need a few things first:
+			* Need to see examples of how to use events with models. When I tried listening to `eloquent.created` it wouldn't fire properly.
+			* Need to figure out the best way of handling them so that they can be easily overridden. This one is the tricky one that may force us to go down the observer in the model/own class route.
 	* Polymorphic relationships between posts/logs/announcements/wiki pages and comments works great with one caveat: if an admin overrides the model, that relationship fails, so those items wouldn't be able to pull back any existing comments. Likewise, any comments created with extended models wouldn't be available to the original model because of the way Eloquent handles tracking those items.
 * Views
 	* Status: TESTING
