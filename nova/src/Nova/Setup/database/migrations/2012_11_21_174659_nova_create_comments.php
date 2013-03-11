@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePersonalLogs extends Migration {
+class NovaCreateComments extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,15 +11,15 @@ class CreatePersonalLogs extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('personal_logs', function($t)
+		Schema::create('comments', function($t)
 		{
 			$t->increments('id');
-			$t->string('title')->nullable();
 			$t->integer('user_id');
 			$t->integer('character_id');
-			$t->text('content')->nullable();
-			$t->boolean('status')->default(3);
-			$t->text('keywords')->nullable();
+			$t->integer('commentable_id');
+			$t->string('commentable_type', 100);
+			$t->text('content');
+			$t->boolean('status')->default(Status::ACTIVE);
 			$t->timestamps();
 		});
 	}
@@ -31,6 +31,6 @@ class CreatePersonalLogs extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('personal_logs');
+		Schema::drop('comments');
 	}
 }

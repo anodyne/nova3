@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMessages extends Migration {
+class NovaCreateMessages extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -18,8 +18,8 @@ class CreateMessages extends Migration {
 			$t->integer('character_id');
 			$t->string('subject');
 			$t->text('content');
-			$t->boolean('status')->default(3);
-			$t->datetime('created_at');
+			$t->boolean('status')->default(Status::ACTIVE);
+			$t->timestamps();
 		});
 
 		Schema::create('message_recipients', function($t)
@@ -29,7 +29,8 @@ class CreateMessages extends Migration {
 			$t->integer('user_id');
 			$t->integer('character_id');
 			$t->boolean('read')->default(0);
-			$t->boolean('status')->default(3);
+			$t->boolean('status')->default(Status::ACTIVE);
+			$t->timestamps();
 		});
 	}
 

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateApplications extends Migration {
+class NovaCreateApplications extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -29,7 +29,7 @@ class CreateApplications extends Migration {
 			$t->integer('user_id');
 			$t->boolean('type')->default(1);
 			$t->text('content')->nullable();
-			$t->datetime('created_at');
+			$t->timestamps();
 		});
 
 		Schema::create('application_reviewers', function($t)
@@ -47,6 +47,7 @@ class CreateApplications extends Migration {
 			$t->text('users')->nullable();
 		});
 
+		// Seed the database
 		$this->seed();
 	}
 
@@ -73,7 +74,8 @@ class CreateApplications extends Migration {
 
 		foreach ($rules as $r)
 		{
-			//\Model_Application_Rule::createItem($r);
+			DB::table('application_rules')->insert($r);
 		}
 	}
+	
 }

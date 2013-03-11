@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAwards extends Migration {
+class NovaCreateAwards extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -20,7 +20,7 @@ class CreateAwards extends Migration {
 			$t->integer('order')->nullable();
 			$t->text('desc')->nullable();
 			$t->string('type')->default('ic');
-			$t->boolean('status')->default(3);
+			$t->boolean('status')->default(Status::ACTIVE);
 		});
 
 		Schema::create('award_categories', function($t)
@@ -28,7 +28,7 @@ class CreateAwards extends Migration {
 			$t->increments('id');
 			$t->string('name')->nullable();
 			$t->text('desc')->nullable();
-			$t->boolean('status')->default(3);
+			$t->boolean('status')->default(Status::ACTIVE);
 		});
 
 		Schema::create('award_queue', function($t)
@@ -38,8 +38,8 @@ class CreateAwards extends Migration {
 			$t->integer('sender_user_id');
 			$t->integer('award_id');
 			$t->text('reason')->nullable();
-			$t->boolean('status')->default(3);
-			$t->datetime('created_at');
+			$t->boolean('status')->default(Status::ACTIVE);
+			$t->timestamps();
 		});
 
 		Schema::create('award_received', function($t)
@@ -49,7 +49,7 @@ class CreateAwards extends Migration {
 			$t->integer('sender_user_id');
 			$t->integer('award_id');
 			$t->text('reason')->nullable();
-			$t->datetime('created_at');
+			$t->timestamps();
 		});
 	}
 

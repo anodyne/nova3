@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateForms extends Migration {
+class NovaCreateForms extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -17,6 +17,7 @@ class CreateForms extends Migration {
 			$t->string('key', 20);
 			$t->string('name');
 			$t->string('orientation', 50)->default('vertical');
+			$t->timestamps();
 		});
 
 		Schema::create('form_data', function($t)
@@ -28,7 +29,7 @@ class CreateForms extends Migration {
 			$t->integer('character_id')->nullable();
 			$t->integer('item_id')->nullable();
 			$t->text('value')->nullable();
-			$t->datetime('updated_at');
+			$t->timestamps();
 		});
 
 		Schema::create('form_fields', function($t)
@@ -39,7 +40,7 @@ class CreateForms extends Migration {
 			$t->string('type', 50)->default('text');
 			$t->string('label');
 			$t->integer('order')->nullable();
-			$t->boolean('status')->default(3);
+			$t->boolean('status')->default(Status::ACTIVE);
 			$t->integer('restriction')->nullable();
 			$t->text('help')->nullable();
 			$t->string('selected', 50)->nullable();
@@ -49,7 +50,7 @@ class CreateForms extends Migration {
 			$t->string('html_class')->nullable();
 			$t->integer('html_rows')->default(5);
 			$t->text('placeholder')->nullable();
-			$t->datetime('updated_at');
+			$t->timestamps();
 		});
 
 		Schema::create('form_sections', function($t)
@@ -59,8 +60,8 @@ class CreateForms extends Migration {
 			$t->integer('tab_id')->nullable();
 			$t->string('name')->nullable();
 			$t->integer('order');
-			$t->boolean('status')->default(3);
-			$t->datetime('updated_at');
+			$t->boolean('status')->default(Status::ACTIVE);
+			$t->timestamps();
 		});
 
 		Schema::create('form_tabs', function($t)
@@ -70,8 +71,8 @@ class CreateForms extends Migration {
 			$t->string('name');
 			$t->string('link_id', 20)->nullable();
 			$t->integer('order')->nullable();
-			$t->boolean('status')->default(3);
-			$t->datetime('updated_at');
+			$t->boolean('status')->default(Status::ACTIVE);
+			$t->timestamps();
 		});
 
 		Schema::create('form_values', function($t)
@@ -81,6 +82,7 @@ class CreateForms extends Migration {
 			$t->string('value');
 			$t->text('content');
 			$t->integer('order');
+			$t->timestamps();
 		});
 	}
 

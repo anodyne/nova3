@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRoles extends Migration {
+class NovaCreateRoles extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -29,12 +29,16 @@ class CreateRoles extends Migration {
 		Schema::create('tasks', function($t)
 		{
 			$t->increments('id');
+			$t->string('name')->nullable();
+			$t->string('desc')->nullable();
 			$t->string('component', 100)->nullable();
 			$t->string('action', 11)->default('read');
 			$t->boolean('level')->default(0);
-			$t->string('label')->nullable();
-			$t->string('help')->nullable();
+			$t->text('dependencies')->nullable();
 		});
+
+		// Seed the tables
+		$this->seed();
 	}
 
 	/**
@@ -120,20 +124,20 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'messages',
 				'level' => 0,
-				'label' => 'Write Messages',
-				'help' => 'Write and send messages to other users.'),
+				'name' => 'Write Messages',
+				'desc' => 'Write and send messages to other users.'),
 			array(
 				'action' => 'read',
 				'component' => 'messages',
 				'level' => 0,
-				'label' => 'Read Messages',
-				'help' => 'Read own messages.'),
+				'name' => 'Read Messages',
+				'desc' => 'Read own messages.'),
 			array(
 				'action' => 'delete',
 				'component' => 'messages',
 				'level' => 0,
-				'label' => 'Delete Messages',
-				'help' => 'Delete own messages.'),
+				'name' => 'Delete Messages',
+				'desc' => 'Delete own messages.'),
 			
 			/**
 			 * User Actions
@@ -142,32 +146,32 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'user',
 				'level' => 0,
-				'label' => 'Create User',
-				'help' => ''),
+				'name' => 'Create User',
+				'desc' => ''),
 			array(
 				'action' => 'read',
 				'component' => 'user',
 				'level' => 0,
-				'label' => 'View All Users',
-				'help' => ''),
+				'name' => 'View All Users',
+				'desc' => ''),
 			array(
 				'action' => 'update',
 				'component' => 'user',
 				'level' => 1,
-				'label' => 'Edit User (Level 1)',
-				'help' => 'Update own user account.'),
+				'name' => 'Edit User (Level 1)',
+				'desc' => 'Update own user account.'),
 			array(
 				'action' => 'update',
 				'component' => 'user',
 				'level' => 2,
-				'label' => 'Edit User (Level 2)',
-				'help' => 'Update any user account.'),
+				'name' => 'Edit User (Level 2)',
+				'desc' => 'Update any user account.'),
 			array(
 				'action' => 'delete',
 				'component' => 'user',
 				'level' => 0,
-				'label' => 'Delete User',
-				'help' => 'User accounts associated with a character who has content associated with their account (posts, logs, announcements) cannot be deleted.'),
+				'name' => 'Delete User',
+				'desc' => 'User accounts associated with a character who has content associated with their account (posts, logs, announcements) cannot be deleted.'),
 
 			/**
 			 * Character Actions
@@ -176,56 +180,56 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'character',
 				'level' => 1,
-				'label' => 'Create Character (Level 1)',
-				'help' => 'Create a new non-playing character.'),
+				'name' => 'Create Character (Level 1)',
+				'desc' => 'Create a new non-playing character.'),
 			array(
 				'action' => 'create',
 				'component' => 'character',
 				'level' => 2,
-				'label' => 'Create Character (Level 2)',
-				'help' => 'Create a new character (playing and non-playing) and accept or reject new characters.'),
+				'name' => 'Create Character (Level 2)',
+				'desc' => 'Create a new character (playing and non-playing) and accept or reject new characters.'),
 			array(
 				'action' => 'read',
 				'component' => 'character',
 				'level' => 1,
-				'label' => 'View Characters',
-				'help' => 'See all characters associated with their account.'),
+				'name' => 'View Characters',
+				'desc' => 'See all characters associated with their account.'),
 			array(
 				'action' => 'read',
 				'component' => 'character',
 				'level' => 2,
-				'label' => 'View Non-Playing Characters',
-				'help' => 'See all non-playing characters.'),
+				'name' => 'View Non-Playing Characters',
+				'desc' => 'See all non-playing characters.'),
 			array(
 				'action' => 'read',
 				'component' => 'character',
 				'level' => 3,
-				'label' => 'View All Characters',
-				'help' => 'See all characters.'),
+				'name' => 'View All Characters',
+				'desc' => 'See all characters.'),
 			array(
 				'action' => 'update',
 				'component' => 'character',
 				'level' => 1,
-				'label' => 'Edit Character (Level 1)',
-				'help' => 'Update own character(s) bio.'),
+				'name' => 'Edit Character (Level 1)',
+				'desc' => 'Update own character(s) bio.'),
 			array(
 				'action' => 'update',
 				'component' => 'character',
 				'level' => 2,
-				'label' => 'Edit Character (Level 2)',
-				'help' => 'Update any non-playing character bio.'),
+				'name' => 'Edit Character (Level 2)',
+				'desc' => 'Update any non-playing character bio.'),
 			array(
 				'action' => 'update',
 				'component' => 'character',
 				'level' => 3,
-				'label' => 'Edit Character (Level 3)',
-				'help' => 'Update any character bio.'),
+				'name' => 'Edit Character (Level 3)',
+				'desc' => 'Update any character bio.'),
 			array(
 				'action' => 'delete',
 				'component' => 'character',
 				'level' => 0,
-				'label' => 'Delete Character',
-				'help' => 'Characters who have content (posts, logs, announcements, etc.) cannot be deleted.'),
+				'name' => 'Delete Character',
+				'desc' => 'Characters who have content (posts, logs, announcements, etc.) cannot be deleted.'),
 
 			/**
 			 * Mission Post Actions
@@ -234,32 +238,32 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'post',
 				'level' => 0,
-				'label' => 'Create Post',
-				'help' => ''),
+				'name' => 'Create Post',
+				'desc' => ''),
 			array(
 				'action' => 'read',
 				'component' => 'post',
 				'level' => 0,
-				'label' => 'View Mission Posts',
-				'help' => 'See all non-activated mission posts.'),
+				'name' => 'View Mission Posts',
+				'desc' => 'See all non-activated mission posts.'),
 			array(
 				'action' => 'update',
 				'component' => 'post',
 				'level' => 1,
-				'label' => 'Edit Post (Level 1)',
-				'help' => 'Update own mission posts.'),
+				'name' => 'Edit Post (Level 1)',
+				'desc' => 'Update own mission posts.'),
 			array(
 				'action' => 'update',
 				'component' => 'post',
 				'level' => 2,
-				'label' => 'Edit Post (Level 2)',
-				'help' => 'Update any mission post.'),
+				'name' => 'Edit Post (Level 2)',
+				'desc' => 'Update any mission post.'),
 			array(
 				'action' => 'delete',
 				'component' => 'post',
 				'level' => 0,
-				'label' => 'Delete Post',
-				'help' => ''),
+				'name' => 'Delete Post',
+				'desc' => ''),
 
 			/**
 			 * Personal Log Actions
@@ -268,32 +272,32 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'log',
 				'level' => 0,
-				'label' => 'Create Log',
-				'help' => ''),
+				'name' => 'Create Log',
+				'desc' => ''),
 			array(
 				'action' => 'read',
 				'component' => 'log',
 				'level' => 0,
-				'label' => 'View Personal Logs',
-				'help' => 'See all non-activated personal logs.'),
+				'name' => 'View Personal Logs',
+				'desc' => 'See all non-activated personal logs.'),
 			array(
 				'action' => 'update',
 				'component' => 'log',
 				'level' => 1,
-				'label' => 'Edit Log (Level 1)',
-				'help' => 'Update own personal logs.'),
+				'name' => 'Edit Log (Level 1)',
+				'desc' => 'Update own personal logs.'),
 			array(
 				'action' => 'update',
 				'component' => 'log',
 				'level' => 2,
-				'label' => 'Edit Log (Level 2)',
-				'help' => 'Update any personal log.'),
+				'name' => 'Edit Log (Level 2)',
+				'desc' => 'Update any personal log.'),
 			array(
 				'action' => 'delete',
 				'component' => 'log',
 				'level' => 0,
-				'label' => 'Delete Log',
-				'help' => ''),
+				'name' => 'Delete Log',
+				'desc' => ''),
 
 			/**
 			 * Announcement Actions
@@ -302,32 +306,32 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'announcement',
 				'level' => 0,
-				'label' => 'Create Announcement',
-				'help' => ''),
+				'name' => 'Create Announcement',
+				'desc' => ''),
 			array(
 				'action' => 'read',
 				'component' => 'announcement',
 				'level' => 0,
-				'label' => 'View Announcements',
-				'help' => 'See all non-activated announcements.'),
+				'name' => 'View Announcements',
+				'desc' => 'See all non-activated announcements.'),
 			array(
 				'action' => 'update',
 				'component' => 'announcement',
 				'level' => 1,
-				'label' => 'Edit Announcement (Level 1)',
-				'help' => 'Update own announcements.'),
+				'name' => 'Edit Announcement (Level 1)',
+				'desc' => 'Update own announcements.'),
 			array(
 				'action' => 'update',
 				'component' => 'announcement',
 				'level' => 2,
-				'label' => 'Edit Announcement (Level 2)',
-				'help' => 'Update any announcement.'),
+				'name' => 'Edit Announcement (Level 2)',
+				'desc' => 'Update any announcement.'),
 			array(
 				'action' => 'delete',
 				'component' => 'announcement',
 				'level' => 0,
-				'label' => 'Delete Announcement',
-				'help' => ''),
+				'name' => 'Delete Announcement',
+				'desc' => ''),
 
 			/**
 			 * Comment Actions
@@ -336,26 +340,26 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'comment',
 				'level' => 0,
-				'label' => 'Create Comment',
-				'help' => ''),
+				'name' => 'Create Comment',
+				'desc' => ''),
 			array(
 				'action' => 'read',
 				'component' => 'comment',
 				'level' => 0,
-				'label' => 'View All Comments',
-				'help' => 'See all non-activated comments.'),
+				'name' => 'View All Comments',
+				'desc' => 'See all non-activated comments.'),
 			array(
 				'action' => 'update',
 				'component' => 'comment',
 				'level' => 0,
-				'label' => 'Edit Comment',
-				'help' => ''),
+				'name' => 'Edit Comment',
+				'desc' => ''),
 			array(
 				'action' => 'delete',
 				'component' => 'comment',
 				'level' => 0,
-				'label' => 'Delete Comment',
-				'help' => ''),
+				'name' => 'Delete Comment',
+				'desc' => ''),
 
 			/**
 			 * Report Actions
@@ -364,26 +368,26 @@ class CreateRoles extends Migration {
 				'action' => 'read',
 				'component' => 'report',
 				'level' => 1,
-				'label' => 'View Reports (Level 1)',
-				'help' => 'See the sim stats and milestone reports.'),
+				'name' => 'View Reports (Level 1)',
+				'desc' => 'See the sim stats and milestone reports.'),
 			array(
 				'action' => 'read',
 				'component' => 'report',
 				'level' => 2,
-				'label' => 'View Reports (Level 2)',
-				'help' => 'See the crew activity and posting reports as well as all level 1 reports.'),
+				'name' => 'View Reports (Level 2)',
+				'desc' => 'See the crew activity and posting reports as well as all level 1 reports.'),
 			array(
 				'action' => 'read',
 				'component' => 'report',
 				'level' => 3,
-				'label' => 'View Reports (Level 3)',
-				'help' => 'See the LOA and award nomination reports as well as all level 1 and 2 reports.'),
+				'name' => 'View Reports (Level 3)',
+				'desc' => 'See the LOA and award nomination reports as well as all level 1 and 2 reports.'),
 			array(
 				'action' => 'read',
 				'component' => 'report',
 				'level' => 4,
-				'label' => 'View Reports (Level 4)',
-				'help' => 'See all system reports.'),
+				'name' => 'View Reports (Level 4)',
+				'desc' => 'See all system reports.'),
 
 			/**
 			 * Ban Actions
@@ -392,26 +396,26 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'ban',
 				'level' => 0,
-				'label' => 'Create Ban',
-				'help' => ''),
+				'name' => 'Create Ban',
+				'desc' => ''),
 			array(
 				'action' => 'read',
 				'component' => 'ban',
 				'level' => 0,
-				'label' => 'View All Bans',
-				'help' => ''),
+				'name' => 'View All Bans',
+				'desc' => ''),
 			array(
 				'action' => 'update',
 				'component' => 'ban',
 				'level' => 0,
-				'label' => 'Edit Ban',
-				'help' => ''),
+				'name' => 'Edit Ban',
+				'desc' => ''),
 			array(
 				'action' => 'delete',
 				'component' => 'ban',
 				'level' => 0,
-				'label' => 'Delete Ban',
-				'help' => ''),
+				'name' => 'Delete Ban',
+				'desc' => ''),
 
 			/**
 			 * Position Actions
@@ -420,26 +424,26 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'position',
 				'level' => 0,
-				'label' => 'Create Position',
-				'help' => ''),
+				'name' => 'Create Position',
+				'desc' => ''),
 			array(
 				'action' => 'read',
 				'component' => 'position',
 				'level' => 0,
-				'label' => 'View All Positions',
-				'help' => ''),
+				'name' => 'View All Positions',
+				'desc' => ''),
 			array(
 				'action' => 'update',
 				'component' => 'position',
 				'level' => 0,
-				'label' => 'Edit Position',
-				'help' => ''),
+				'name' => 'Edit Position',
+				'desc' => ''),
 			array(
 				'action' => 'delete',
 				'component' => 'position',
 				'level' => 0,
-				'label' => 'Delete Position',
-				'help' => ''),
+				'name' => 'Delete Position',
+				'desc' => ''),
 
 			/**
 			 * Rank Actions
@@ -448,26 +452,26 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'rank',
 				'level' => 0,
-				'label' => 'Create Rank',
-				'help' => ''),
+				'name' => 'Create Rank',
+				'desc' => ''),
 			array(
 				'action' => 'read',
 				'component' => 'rank',
 				'level' => 0,
-				'label' => 'View All Ranks',
-				'help' => ''),
+				'name' => 'View All Ranks',
+				'desc' => ''),
 			array(
 				'action' => 'update',
 				'component' => 'rank',
 				'level' => 0,
-				'label' => 'Edit Rank',
-				'help' => ''),
+				'name' => 'Edit Rank',
+				'desc' => ''),
 			array(
 				'action' => 'delete',
 				'component' => 'rank',
 				'level' => 0,
-				'label' => 'Delete Rank',
-				'help' => ''),
+				'name' => 'Delete Rank',
+				'desc' => ''),
 
 			/**
 			 * Department Actions
@@ -476,26 +480,26 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'department',
 				'level' => 0,
-				'label' => 'Create Department',
-				'help' => ''),
+				'name' => 'Create Department',
+				'desc' => ''),
 			array(
 				'action' => 'read',
 				'component' => 'department',
 				'level' => 0,
-				'label' => 'View All Departments',
-				'help' => ''),
+				'name' => 'View All Departments',
+				'desc' => ''),
 			array(
 				'action' => 'update',
 				'component' => 'department',
 				'level' => 0,
-				'label' => 'Edit Department',
-				'help' => ''),
+				'name' => 'Edit Department',
+				'desc' => ''),
 			array(
 				'action' => 'delete',
 				'component' => 'department',
 				'level' => 0,
-				'label' => 'Delete Department',
-				'help' => ''),
+				'name' => 'Delete Department',
+				'desc' => ''),
 
 			/**
 			 * Catalog Actions
@@ -504,26 +508,26 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'catalog',
 				'level' => 0,
-				'label' => 'Create Catalog',
-				'help' => ''),
+				'name' => 'Create Catalog',
+				'desc' => ''),
 			array(
 				'action' => 'read',
 				'component' => 'catalog',
 				'level' => 0,
-				'label' => 'View All Catalogs',
-				'help' => ''),
+				'name' => 'View All Catalogs',
+				'desc' => ''),
 			array(
 				'action' => 'update',
 				'component' => 'catalog',
 				'level' => 0,
-				'label' => 'Edit Catalog',
-				'help' => ''),
+				'name' => 'Edit Catalog',
+				'desc' => ''),
 			array(
 				'action' => 'delete',
 				'component' => 'catalog',
 				'level' => 0,
-				'label' => 'Delete Catalog',
-				'help' => ''),
+				'name' => 'Delete Catalog',
+				'desc' => ''),
 
 			/**
 			 * Form Actions
@@ -532,20 +536,20 @@ class CreateRoles extends Migration {
 				'action' => 'read',
 				'component' => 'form',
 				'level' => 0,
-				'label' => 'View All Forms',
-				'help' => ''),
+				'name' => 'View All Forms',
+				'desc' => ''),
 			array(
 				'action' => 'update',
 				'component' => 'form',
 				'level' => 0,
-				'label' => 'Edit Form',
-				'help' => ''),
+				'name' => 'Edit Form',
+				'desc' => ''),
 			array(
 				'action' => 'delete',
 				'component' => 'form',
 				'level' => 0,
-				'label' => 'Delete Form',
-				'help' => ''),
+				'name' => 'Delete Form',
+				'desc' => ''),
 
 			/**
 			 * Navigation Actions
@@ -554,26 +558,26 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'nav',
 				'level' => 0,
-				'label' => 'Create Navigation Item',
-				'help' => ''),
+				'name' => 'Create Navigation Item',
+				'desc' => ''),
 			array(
 				'action' => 'read',
 				'component' => 'nav',
 				'level' => 0,
-				'label' => 'View All Navigation',
-				'help' => ''),
+				'name' => 'View All Navigation',
+				'desc' => ''),
 			array(
 				'action' => 'update',
 				'component' => 'nav',
 				'level' => 0,
-				'label' => 'Edit Navigation',
-				'help' => ''),
+				'name' => 'Edit Navigation',
+				'desc' => ''),
 			array(
 				'action' => 'delete',
 				'component' => 'nav',
 				'level' => 0,
-				'label' => 'Delete Navigation Item',
-				'help' => ''),
+				'name' => 'Delete Navigation Item',
+				'desc' => ''),
 
 			/**
 			 * Role Actions
@@ -582,26 +586,26 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'role',
 				'level' => 0,
-				'label' => 'Create Role',
-				'help' => ''),
+				'name' => 'Create Role',
+				'desc' => ''),
 			array(
 				'action' => 'read',
 				'component' => 'role',
 				'level' => 0,
-				'label' => 'View All Roles',
-				'help' => ''),
+				'name' => 'View All Roles',
+				'desc' => ''),
 			array(
 				'action' => 'update',
 				'component' => 'role',
 				'level' => 0,
-				'label' => 'Edit Role',
-				'help' => ''),
+				'name' => 'Edit Role',
+				'desc' => ''),
 			array(
 				'action' => 'delete',
 				'component' => 'role',
 				'level' => 0,
-				'label' => 'Delete Role',
-				'help' => ''),
+				'name' => 'Delete Role',
+				'desc' => ''),
 
 			/**
 			 * Content Actions
@@ -610,26 +614,26 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'content',
 				'level' => 0,
-				'label' => 'Create Content',
-				'help' => ''),
+				'name' => 'Create Content',
+				'desc' => ''),
 			array(
 				'action' => 'read',
 				'component' => 'content',
 				'level' => 0,
-				'label' => 'View All Content',
-				'help' => ''),
+				'name' => 'View All Content',
+				'desc' => ''),
 			array(
 				'action' => 'update',
 				'component' => 'content',
 				'level' => 0,
-				'label' => 'Edit Content',
-				'help' => ''),
+				'name' => 'Edit Content',
+				'desc' => ''),
 			array(
 				'action' => 'delete',
 				'component' => 'content',
 				'level' => 0,
-				'label' => 'Delete Content',
-				'help' => ''),
+				'name' => 'Delete Content',
+				'desc' => ''),
 
 			/**
 			 * Settings Actions
@@ -638,26 +642,26 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'settings',
 				'level' => 0,
-				'label' => 'Create Setting',
-				'help' => ''),
+				'name' => 'Create Setting',
+				'desc' => ''),
 			array(
 				'action' => 'read',
 				'component' => 'settings',
 				'level' => 0,
-				'label' => 'View All Settings',
-				'help' => ''),
+				'name' => 'View All Settings',
+				'desc' => ''),
 			array(
 				'action' => 'update',
 				'component' => 'settings',
 				'level' => 0,
-				'label' => 'Edit Setting',
-				'help' => ''),
+				'name' => 'Edit Setting',
+				'desc' => ''),
 			array(
 				'action' => 'delete',
 				'component' => 'settings',
 				'level' => 0,
-				'label' => 'Delete Setting',
-				'help' => ''),
+				'name' => 'Delete Setting',
+				'desc' => ''),
 
 			/**
 			 * Specs Actions
@@ -666,26 +670,26 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'specs',
 				'level' => 0,
-				'label' => 'Create Specification',
-				'help' => ''),
+				'name' => 'Create Specification',
+				'desc' => ''),
 			array(
 				'action' => 'read',
 				'component' => 'specs',
 				'level' => 0,
-				'label' => 'View All Specifications',
-				'help' => ''),
+				'name' => 'View All Specifications',
+				'desc' => ''),
 			array(
 				'action' => 'update',
 				'component' => 'specs',
 				'level' => 0,
-				'label' => 'Edit Specification',
-				'help' => ''),
+				'name' => 'Edit Specification',
+				'desc' => ''),
 			array(
 				'action' => 'delete',
 				'component' => 'specs',
 				'level' => 0,
-				'label' => 'Delete Specification',
-				'help' => ''),
+				'name' => 'Delete Specification',
+				'desc' => ''),
 
 			/**
 			 * Tour Actions
@@ -694,26 +698,26 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'tour',
 				'level' => 0,
-				'label' => 'Create Tour',
-				'help' => ''),
+				'name' => 'Create Tour',
+				'desc' => ''),
 			array(
 				'action' => 'read',
 				'component' => 'tour',
 				'level' => 0,
-				'label' => 'View All Tour Items',
-				'help' => ''),
+				'name' => 'View All Tour Items',
+				'desc' => ''),
 			array(
 				'action' => 'update',
 				'component' => 'tour',
 				'level' => 0,
-				'label' => 'Edit Tour',
-				'help' => ''),
+				'name' => 'Edit Tour',
+				'desc' => ''),
 			array(
 				'action' => 'delete',
 				'component' => 'tour',
 				'level' => 0,
-				'label' => 'Delete Tour',
-				'help' => ''),
+				'name' => 'Delete Tour',
+				'desc' => ''),
 
 			/**
 			 * Wiki Actions
@@ -722,44 +726,44 @@ class CreateRoles extends Migration {
 				'action' => 'create',
 				'component' => 'wiki',
 				'level' => 1,
-				'label' => 'Create Wiki Page',
-				'help' => ''),
+				'name' => 'Create Wiki Page',
+				'desc' => ''),
 			array(
 				'action' => 'create',
 				'component' => 'wiki',
 				'level' => 2,
-				'label' => 'Create Wiki Categories',
-				'help' => ''),
+				'name' => 'Create Wiki Categories',
+				'desc' => ''),
 			array(
 				'action' => 'update',
 				'component' => 'wiki',
 				'level' => 1,
-				'label' => 'Edit Wiki (Level 1)',
-				'help' => 'Update own wiki pages'),
+				'name' => 'Edit Wiki (Level 1)',
+				'desc' => 'Update own wiki pages'),
 			array(
 				'action' => 'update',
 				'component' => 'wiki',
 				'level' => 2,
-				'label' => 'Edit Wiki (Level 2)',
-				'help' => 'Update and revert all wiki pages'),
+				'name' => 'Edit Wiki (Level 2)',
+				'desc' => 'Update and revert all wiki pages'),
 			array(
 				'action' => 'update',
 				'component' => 'wiki',
 				'level' => 3,
-				'label' => 'Edit Wiki (Level 3)',
-				'help' => 'Update wiki categories'),
+				'name' => 'Edit Wiki (Level 3)',
+				'desc' => 'Update wiki categories'),
 			array(
 				'action' => 'delete',
 				'component' => 'wiki',
 				'level' => 1,
-				'label' => 'Delete Wiki Page',
-				'help' => ''),
+				'name' => 'Delete Wiki Page',
+				'desc' => ''),
 			array(
 				'action' => 'delete',
 				'component' => 'wiki',
 				'level' => 2,
-				'label' => 'Delete Wiki Categories',
-				'help' => ''),
+				'name' => 'Delete Wiki Categories',
+				'desc' => ''),
 
 			# TODO: forum actions
 		);

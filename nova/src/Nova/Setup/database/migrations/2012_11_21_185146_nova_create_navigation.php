@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNavigation extends Migration {
+class NovaCreateNavigation extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -23,8 +23,9 @@ class CreateNavigation extends Migration {
 			$t->string('access');
 			$t->string('type');
 			$t->string('category');
-			$t->boolean('status')->default(3);
+			$t->boolean('status')->default(Status::ACTIVE);
 			$t->integer('sim_type')->default(1);
+			$t->timestamps();
 		});
 	}
 

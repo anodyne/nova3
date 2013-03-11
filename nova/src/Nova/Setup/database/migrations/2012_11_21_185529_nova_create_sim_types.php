@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateForums extends Migration {
+class NovaCreateSimTypes extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,9 +11,10 @@ class CreateForums extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('forum_posts', function($t)
+		Schema::create('sim_types', function($t)
 		{
 			$t->increments('id');
+			$t->string('name', 50);
 		});
 	}
 
@@ -24,7 +25,6 @@ class CreateForums extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('forum_posts');
+		Schema::drop('sim_types');
 	}
-
 }

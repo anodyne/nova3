@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMissions extends Migration {
+class NovaCreateMissions extends Migration {
 
 	/**
 	 * Run the migrations.

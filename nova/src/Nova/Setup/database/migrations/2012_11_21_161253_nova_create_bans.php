@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBans extends Migration {
+class NovaCreateBans extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -18,7 +18,7 @@ class CreateBans extends Migration {
 			$t->string('ip_address', 16)->nullable();
 			$t->string('email', 100)->nullable();
 			$t->text('reason')->nullable();
-			$t->datetime('created_at');
+			$t->timestamps();
 		});
 	}
 
@@ -31,4 +31,5 @@ class CreateBans extends Migration {
 	{
 		Schema::drop('bans');
 	}
+	
 }

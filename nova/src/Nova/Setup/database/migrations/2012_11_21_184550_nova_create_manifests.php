@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateManifests extends Migration {
+class NovaCreateManifests extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -18,7 +18,7 @@ class CreateManifests extends Migration {
 			$t->integer('order')->nullable();
 			$t->text('desc')->nullable();
 			$t->text('header_content')->nullable();
-			$t->boolean('status')->default(3);
+			$t->boolean('status')->default(Status::ACTIVE);
 			$t->boolean('default')->default(0);
 		});
 	}

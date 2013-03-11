@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePosts extends Migration {
+class NovaCreatePosts extends Migration {
 
 	/**
 	 * Run the migrations.

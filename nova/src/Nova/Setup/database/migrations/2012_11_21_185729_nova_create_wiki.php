@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePositions extends Migration {
+class NovaCreateWiki extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,7 +11,7 @@ class CreatePositions extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('positions', function($t)
+		Schema::create('wiki_pages', function($t)
 		{
 			$t->increments('id');
 		});
@@ -24,6 +24,7 @@ class CreatePositions extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('positions');
+		Schema::drop('wiki_pages');
 	}
+
 }

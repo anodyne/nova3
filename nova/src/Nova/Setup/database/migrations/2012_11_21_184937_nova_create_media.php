@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMedia extends Migration {
+class NovaCreateMedia extends Migration {
 
 	/**
 	 * Run the migrations.

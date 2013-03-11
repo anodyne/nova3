@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsers extends Migration {
+class NovaCreateUsers extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -16,7 +16,7 @@ class CreateUsers extends Migration {
 			$t->increments('id');
 			$t->integer('status');
 			$t->string('name');
-			$t->string('email');
+			$t->string('email')->unique();
 			$t->string('password');
 			$t->integer('character_id');
 			$t->integer('role_id');
@@ -28,8 +28,6 @@ class CreateUsers extends Migration {
 			$t->datetime('last_post');
 			$t->datetime('last_login');
 			$t->timestamps();
-
-			$t->unique('email');
 		});
 
 		Schema::create('user_suspended', function($t)

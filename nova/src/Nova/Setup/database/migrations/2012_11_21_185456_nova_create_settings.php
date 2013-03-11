@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSettings extends Migration {
+class NovaCreateSettings extends Migration {
 
 	/**
 	 * Run the migrations.

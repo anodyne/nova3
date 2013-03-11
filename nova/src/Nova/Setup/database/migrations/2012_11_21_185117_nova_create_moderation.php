@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateModeration extends Migration {
+class NovaCreateModeration extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -17,7 +17,7 @@ class CreateModeration extends Migration {
 			$t->integer('user_id')->nullable();
 			$t->integer('character_id')->nullable();
 			$t->string('type', 100)->nullable();
-			$t->datetime('created_at');
+			$t->timestamps();
 		});
 	}
 

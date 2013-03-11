@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAnnouncements extends Migration {
+class NovaCreateAnnouncements extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -19,7 +19,7 @@ class CreateAnnouncements extends Migration {
 			$t->integer('character_id');
 			$t->integer('category_id');
 			$t->text('content');
-			$t->boolean('status')->default(3);
+			$t->boolean('status')->default(Status::ACTIVE);
 			$t->boolean('private')->default(0);
 			$t->text('tags')->nullable();
 			$t->timestamps();
@@ -29,8 +29,11 @@ class CreateAnnouncements extends Migration {
 		{
 			$t->increments('id');
 			$t->string('name')->default('');
-			$t->boolean('status')->default(3);
+			$t->boolean('status')->default(Status::ACTIVE);
 		});
+
+		// Seed the database
+		$this->seed();
 	}
 
 	/**

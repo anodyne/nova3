@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSessions extends Migration {
+class NovaCreateSessions extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -28,4 +28,5 @@ class CreateSessions extends Migration {
 	{
 		Schema::drop('sessions');
 	}
+
 }

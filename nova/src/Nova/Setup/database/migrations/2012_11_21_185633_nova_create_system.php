@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSystem extends Migration {
+class NovaCreateSystem extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -30,7 +30,7 @@ class CreateSystem extends Migration {
 			$t->integer('user_id')->nullable();
 			$t->integer('character_id')->nullable();
 			$t->text('content');
-			$t->datetime('created_at');
+			$t->timestamps();
 		});
 	}
 

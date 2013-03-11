@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCharacters extends Migration {
+class NovaCreateCharacters extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -35,7 +35,7 @@ class CreateCharacters extends Migration {
 			$t->text('image');
 			$t->boolean('primary')->default(0);
 			$t->integer('created_by');
-			$t->datetime('created_at');
+			$t->timestamps();
 		});
 
 		Schema::create('character_positions', function($t)
@@ -55,7 +55,7 @@ class CreateCharacters extends Migration {
 			$t->string('old_rank');
 			$t->integer('new_order');
 			$t->string('new_rank');
-			$t->datetime('created_at');
+			$t->timestamps();
 		});
 	}
 
