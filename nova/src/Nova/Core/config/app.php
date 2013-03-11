@@ -288,6 +288,11 @@ return array(
 		'SystemModel'				=> 'Nova\Core\Model\System',
 		'SystemEventModel'			=> 'Nova\Core\Model\SystemEvent',
 
+		/**
+		 * Nova Event Handlers
+		 */
+		'PostHandler'	=> 'Nova\Core\Handler\Post',
+
 	),
 
 );
