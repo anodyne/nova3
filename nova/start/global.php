@@ -34,9 +34,17 @@ $logFile = 'log-'.php_sapi_name().'.txt';
 
 Log::useDailyFiles(APPPATH.'storage/logs/'.$logFile);
 
-/**
- * 404 Error
- */
+/*
+|--------------------------------------------------------------------------
+| Application Errors
+|--------------------------------------------------------------------------
+|
+| Here we will configure the 404 page that'll be thrown whenever a page
+| can't be found. The view file can be overridden with seamless substitution
+| if the admin so chooses.
+|
+*/
+
 App::missing(function()
 {
 	// Get an instance of the location object
