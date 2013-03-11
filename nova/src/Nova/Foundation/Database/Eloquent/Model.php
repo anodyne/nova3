@@ -23,83 +23,6 @@ use Illuminate\Database\Eloquent\Model as lModel;
 class Model extends lModel {
 	
 	/**
-	 * Extended Eloquent Model
-	 *
-	 * These methods extend the default Eloquent behavior to
-	 * add the observer functionality. This allows us to call classes
-	 * at certain points during the execution of a model.
-	 */
-	public function delete()
-	{
-		$this->observe('beforeDelete');
-
-		parent::delete();
-
-		$this->observe('afterDelete');
-	}
-
-	public function save()
-	{
-		$this->observe('beforeSave');
-
-		/**
-		 * Begin parent::save()
-		 */
-		$keyName = $this->getKeyName();
-
-		// First we need to create a fresh query instance and touch the creation and
-		// update timestamp on the model which are maintained by us for developer
-		// convenience. Then we will just continue saving the model instances.
-		$query = $this->newQuery();
-
-		if ($this->timestamps)
-		{
-			$this->updateTimestamps();
-		}
-
-		// If the model already exists in the database we can just update our record
-		// that is already in this database using the current IDs in this "where"
-		// clause to only update this model. Otherwise, we'll just insert them.
-		if ($this->exists)
-		{
-			$this->observe('beforeUpdate');
-
-			$query->where($keyName, '=', $this->getKey());
-
-			$query->update($this->attributes);
-
-			$this->observe('afterUpdate');
-		}
-
-		// If the model is brand new, we'll insert it into our database and set the
-		// ID attribute on the model to the value of the newly inserted row's ID
-		// which is typically an auto-increment value managed by the database.
-		else
-		{
-			$this->observe('beforeInsert');
-
-			if ($this->incrementing)
-			{
-				$this->$keyName = $query->insertGetId($this->attributes);
-			}
-			else
-			{
-				$query->insert($this->attributes);				
-			}
-
-			$this->observe('afterInsert');
-		}
-
-		$this->observe('afterSave');
-
-		return $this->exists = true;
-
-		/**
-		 * End parent::save();
-		 */
-	}
-
-	/**
 	 * Observer Functionality
 	 *
 	 * This has been ported from FuelPHP 1.x to provide callback-like
@@ -189,48 +112,29 @@ class Model extends lModel {
 	/**
 	 * Create an item with the data passed.
 	 *
-	 * @api
-	 * @param	mixed	An array or object of data
+	 * @param	array	An array of data
 	 * @param	bool	Should the object be returned?
 	 * @param	bool	Should the data be filtered?
 	 * @return	mixed
 	 */
-	public static function createItem($data, $returnObject = false, $filter = true)
+	public static function createItem(array $data, $returnObject = false, $filter = true)
 	{
-		// Create a forge
-		$item = static::forge();
-		
 		// Loop through the data and add it to the item
 		foreach ($data as $key => $value)
 		{
 			if ($key != 'id' and array_key_exists($key, static::$properties))
 			{
-				if (is_array($data))
+				if ($filter)
 				{
-					if ($filter)
-					{
-						$item->{$key} = \Security::xss_clean($data[$key]);
-					}
-					else
-					{
-						$item->{$key} = $data[$key];
-					}
-				}
-				else
-				{
-					if ($filter)
-					{
-						$item->{$key} = \Security::xss_clean($data->{$key});
-					}
-					else
-					{
-						$item->{$key} = $data->{$key};
-					}
+					$data[$key] = trim(\e($data[$key]));
 				}
 			}
 		}
+
+		// Create the item
+		$item = static::create($data);
 		
-		if ($item->save())
+		if ($item !== null)
 		{
 			if ($returnObject)
 			{
