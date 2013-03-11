@@ -8,7 +8,7 @@
  * @subpackage	Core
  * @category	Class
  * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
+ * @copyright	2013 Anodyne Productions
  */
 
 namespace Nova\Core\Lib;
@@ -26,7 +26,7 @@ class Status {
 	/**
 	 * Translate a status into a string.
 	 *
-	 * @api
+	 * @todo	Switch over to the language helper
 	 * @param	int		Status to translate
 	 * @return	int
 	 */
@@ -120,4 +120,5 @@ class Status {
 
 		return $final;
 	}
+
 }
