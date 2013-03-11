@@ -20,7 +20,8 @@
 	"autoload": {
 		"classmap": [
 			"app/commands",
-			"app/database/migrations"
+			"app/database/migrations",
+			"nova/src/Nova/Setup/database/migrations"
 		],
 
 		"psr-0": {
