@@ -21,12 +21,12 @@ use LogModel;
 use Redirect;
 use Exception;
 use PostModel;
+use Announcement;
 use CharacterModel;
 use UserPrefsModel;
 use AccessRoleModel;
 use UserSuspendModel;
 use AppReviewerModel;
-use AnnouncementModel;
 use Cartalyst\Sentry\Users\UserInterface;
 use Cartalyst\Sentry\Groups\GroupInterface;
 
@@ -106,7 +106,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function announcements()
 	{
-		return $this->hasMany('AnnouncementModel');
+		return $this->hasMany('Announcement');
 	}
 
 	/**

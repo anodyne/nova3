@@ -59,7 +59,7 @@ class NovaCreateAnnouncements extends Migration {
 
 		foreach ($data as $value)
 		{
-			DB::table('announcement_categories')->insert($value);
+			AnnouncementCategory::createItem($value);
 		}
 	}
 }

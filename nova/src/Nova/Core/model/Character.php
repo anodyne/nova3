@@ -1,44 +1,25 @@
-<?php
-/**
- * Character Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
- 
-namespace Nova\Core\Model;
+<?php namespace Nova\Core\Model;
 
+use Model;
 use Status;
 use LogModel;
 use AppModel;
 use UserModel;
 use RankModel;
 use PostModel;
-use AnnouncementModel;
+use Announcement;
+use AwardReceive;
 use CharacterPositionModel;
 use CharacterPromotionModel;
 
-class Character extends \Model
-{
+class Character extends Model {
+
 	protected $table = 'characters';
 	
 	protected static $properties = array(
-		'id'			=> array('type' => 'int', 'constraint' => 11, 'auto_increment' => true),
-		'user_id'		=> array('type' => 'int', 'constraint' => 11, 'default' => 0),
-		'status'		=> array('type' => 'tinyint', 'constraint' => 1, 'default' => Status::PENDING),
-		'first_name'	=> array('type' => 'string', 'constraint' => 255, 'null' => true),
-		'middle_name'	=> array('type' => 'string', 'constraint' => 255, 'null' => true),
-		'last_name'		=> array('type' => 'string', 'constraint' => 255, 'null' => true),
-		'suffix'		=> array('type' => 'string', 'constraint' => 50, 'null' => true),
-		'rank_id'		=> array('type' => 'int', 'constraint' => 11, 'default' => 1),
-		'activated'		=> array('type' => 'datetime', 'null' => true),
-		'deactivated'	=> array('type' => 'datetime', 'null' => true),
-		'last_post'		=> array('type' => 'datetime', 'null' => true),
-		'created_at'	=> array('type' => 'datetime', 'null' => true),
-		'updated_at'	=> array('type' => 'datetime', 'null' => true),
+		'id', 'user_id', 'status', 'first_name', 'middle_name', 'last_name', 
+		'suffix', 'rank_id', 'activated', 'deactivated', 'last_post', 
+		'created_at', 'updated_at',
 	);
 	
 	/**
@@ -78,7 +59,7 @@ class Character extends \Model
 	 */
 	public function announcements()
 	{
-		return $this->hasMany('AnnouncementModel');
+		return $this->hasMany('Announcement');
 	}
 
 	/**
@@ -87,6 +68,14 @@ class Character extends \Model
 	public function promotions()
 	{
 		return $this->hasMany('CharacterPromotionModel');
+	}
+
+	/**
+	 * Has Many: Awards
+	 */
+	public function awards()
+	{
+		return $this->hasMany('AwardReceive');
 	}
 
 	/**
@@ -104,15 +93,6 @@ class Character extends \Model
 	{
 		return $this->belongsToMany('PositionModel', 'character_positions');
 	}
-
-	/**
-	 * Observers
-	 */
-	protected static $_observers = array(
-		'\\Character' => array(
-			'events' => array('after_insert')
-		),
-	);
 
 	/**
 	 * Get the name of the character.
@@ -220,4 +200,5 @@ class Character extends \Model
 
 		return $characters;
 	}
+
 }

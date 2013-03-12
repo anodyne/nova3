@@ -1,28 +1,15 @@
-<?php
-/**
- * Announcement Categories Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
- 
-namespace Nova\Core\Model;
+<?php namespace Nova\Core\Model;
 
 use Model;
 use Status;
-use AnnouncementModel;
+use Announcement;
 
 class AnnouncementCategory extends Model {
 
 	protected $table = 'announcement_categories';
 	
 	protected static $properties = array(
-		'id' => array('type' => 'int', 'constraint' => 11, 'auto_increment' => true),
-		'name' => array('type' => 'string', 'constraint' => 255, 'default' => ''),
-		'status' => array('type' => 'tinyint', 'constraint' => 1, 'default' => Status::ACTIVE),
+		'id', 'name', 'status',
 	);
 
 	/**
@@ -30,6 +17,7 @@ class AnnouncementCategory extends Model {
 	 */
 	public function announcements()
 	{
-		return $this->hasMany('AnnouncementModel');
+		return $this->hasMany('Announcement');
 	}
+
 }

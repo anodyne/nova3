@@ -233,10 +233,10 @@ return array(
 		'AppReviewerModel'			=> 'Nova\Core\Model\Application\Reviewer',
 		'AppRuleModel'				=> 'Nova\Core\Model\Application\Rule',
 
-		'AwardModel'				=> 'Nova\Core\Model\Award',
-		'AwardCategoryModel'		=> 'Nova\Core\Model\Award\Category',
-		'AwardQueueModel'			=> 'Nova\Core\Model\Award\Queue',
-		'AwardReceiveModel'			=> 'Nova\Core\Model\Award\Receive',
+		'Award'						=> 'Nova\Core\Model\Award',
+		'AwardCategory'				=> 'Nova\Core\Model\Award\Category',
+		'AwardQueue'				=> 'Nova\Core\Model\Award\Queue',
+		'AwardReceive'				=> 'Nova\Core\Model\Award\Receive',
 		
 		'ModuleCatalogModel'		=> 'Nova\Core\Model\Catalog\Module',
 		'RankCatalogModel'			=> 'Nova\Core\Model\Catalog\Rank',
@@ -265,9 +265,9 @@ return array(
 		'UserPrefsModel'			=> 'Nova\Core\Model\User\Preferences',
 		'UserSuspendModel'			=> 'Nova\Core\Model\User\Suspend',
 
-		'AnnouncementModel'			=> 'Nova\Core\Model\Announcement',
-		'AnnouncementCategoryModel'	=> 'Nova\Core\Model\AnnouncementCategory',
-		'BanModel'					=> 'Nova\Core\Model\Ban',
+		'Announcement'				=> 'Nova\Core\Model\Announcement',
+		'AnnouncementCategory'		=> 'Nova\Core\Model\AnnouncementCategory',
+		'Ban'						=> 'Nova\Core\Model\Ban',
 		'CommentModel'				=> 'Nova\Core\Model\Comment',
 		'DeptModel'					=> 'Nova\Core\Model\Department',
 		'ManifestModel'				=> 'Nova\Core\Model\Manifest',

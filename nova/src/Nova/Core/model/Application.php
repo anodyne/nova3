@@ -1,123 +1,67 @@
-<?php
-/**
- * Application Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
- 
-namespace Nova\Core\Model;
+<?php namespace Nova\Core\Model;
 
 use Date;
+use Model;
+use Sentry;
+use Status;
+use UserModel;
+use PositionModel;
+use CharacterModel;
+use ApplicationResponseModel;
 
-class Application extends \Model
-{
+class Application extends Model {
+
 	protected $table = 'applications';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'user_id' => array(
-			'type' => 'int',
-			'constraint' => 11),
-		'character_id' => array(
-			'type' => 'int',
-			'constraint' => 11),
-		'position_id' => array(
-			'type' => 'string',
-			'constraint' => 255),
-		'status' => array(
-			'type' => 'tinyint',
-			'constraint' => 1,
-			'default' => \Status::IN_PROGRESS),
-		'sample_post' => array(
-			'type' => 'text',
-			'null' => true),
-		'created_at' => array(
-			'type' => 'datetime',
-			'null' => true),
-		'updated_at' => array(
-			'type' => 'datetime',
-			'null' => true),
+	protected static $properties = array(
+		'id', 'user_id', 'character_id', 'position_id', 'status', 'sample_post',
+		'created_at', 'updated_at',
 	);
 
 	/**
-	 * Relationships
+	 * Belongs To: Character
 	 */
-	protected static $_belongs_to = array(
-		'character' => array(
-			'model_to' => '\\Model_Character',
-			'key_to' => 'id',
-			'key_from' => 'character_id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-		'position' => array(
-			'model_to' => '\\Model_Position',
-			'key_to' => 'id',
-			'key_from' => 'position_id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-		'user' => array(
-			'model_to' => '\\Model_User',
-			'key_to' => 'id',
-			'key_from' => 'user_id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
-
-	protected static $_has_many = array(
-		'responses' => array(
-			'model_to' => '\\Model_Application_Response',
-			'key_to' => 'app_id',
-			'key_from' => 'id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
-
-	protected static $_many_many = array(
-		'reviewers' => array(
-			'model_to' => '\\Model_User',
-			'key_to' => 'id',
-			'key_from' => 'id',
-			'key_through_from' => 'app_id',
-			'key_through_to' => 'user_id',
-			'table_through' => 'application_reviewers',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
+	public function character()
+	{
+		return $this->belongsTo('CharacterModel');
+	}
 
 	/**
-	 * Observers
+	 * Belongs To: Position
 	 */
-	protected static $_observers = array(
-		'\\Application' => array(
-			'events' => array('after_insert')
-		),
-		'Orm\\Observer_CreatedAt' => array(
-			'events' => array('before_insert'),
-			'mysql_timestamp' => true,
-		),
-		'Orm\\Observer_UpdatedAt' => array(
-			'events' => array('before_save'),
-			'mysql_timestamp' => true,
-		),
-	);
+	public function position()
+	{
+		return $this->belongsTo('PositionModel');
+	}
+
+	/**
+	 * Belongs To: User
+	 */
+	public function user()
+	{
+		return $this->belongsTo('UserModel');
+	}
+
+	/**
+	 * Has Many: Personal Logs
+	 */
+	public function responses()
+	{
+		return $this->hasMany('ApplicationResponseModel');
+	}
+
+	/**
+	 * Belongs To Many: Positions (through Character Positions)
+	 */
+	public function reviewers()
+	{
+		return $this->belongsToMany('UserModel', 'application_reviewers');
+	}
 
 	/**
 	 * Get all comment records for this application.
 	 *
-	 * @api
-	 * @return	object
+	 * @return	Application\Response
 	 */
 	public function getComments()
 	{
@@ -131,13 +75,12 @@ class Application extends \Model
 	/**
 	 * Gets the decision makers that are involved with this application.
 	 *
-	 * @api
 	 * @return	array
 	 */
 	public function getDecisionMakers()
 	{
 		// get all decision makers
-		$decision_makers = array_keys(\Sentry::usersWithAccess('character.create.2'));
+		$decision_makers = array_keys(Sentry::usersWithAccess('character.create.2'));
 
 		// loop through the reviewers
 		foreach ($this->reviewers as $r)
@@ -152,17 +95,16 @@ class Application extends \Model
 	/**
 	 * Get the application records.
 	 *
-	 * @api
-	 * @param	bool	should we get only active records?
-	 * @return	object
+	 * @param	bool	Should we get only active records?
+	 * @return	Application
 	 */
-	public static function getItems($only_active = true)
+	public static function getItems($onlyActive = true)
 	{
 		$query = static::query();
 
-		if ($only_active)
+		if ($onlyActive)
 		{
-			$query->where('status', \Status::IN_PROGRESS);
+			$query->where('status', Status::IN_PROGRESS);
 		}
 
 		return $query->get();
@@ -171,9 +113,8 @@ class Application extends \Model
 	/**
 	 * Get vote records for this application.
 	 *
-	 * @api
-	 * @param	mixed	which responses to get (yes/no/false for all)
-	 * @return	object
+	 * @param	mixed	Which responses to get (yes/no/false for all)
+	 * @return	Application\Response
 	 */
 	public function getVotes($response = false)
 	{
@@ -198,13 +139,12 @@ class Application extends \Model
 	/**
 	 * Substitute the keys for their actual values.
 	 *
-	 * @api
-	 * @param	string	the message
+	 * @param	string	The untranslated message
 	 * @return	string
 	 */
 	public function substituteMessageKeys($message)
 	{
-		// build the list of possible substitutions
+		// Build the list of possible substitutions
 		$args = array(
 			'name'		=> $this->user->name,
 			'character'	=> $this->character->getName(false),
@@ -213,7 +153,7 @@ class Application extends \Model
 			'sim'		=> \Model_Settings::getItems('sim_name'),
 		);
 
-		// loop through all the arguments and replace it if it's in the message
+		// Loop through all the arguments and replace it if it's in the message
 		foreach ($args as $key => $value)
 		{
 			if (strpos($message, '#'. $key .'#') !== false)
@@ -229,13 +169,12 @@ class Application extends \Model
 	 * Update the reviewers associated with this review. This involves
 	 * removing all reviewers and re-adding them.
 	 *
-	 * @api
-	 * @param	mixed	the data to use for updating reviewers
-	 * @param	bool	should an email be sent to reviewers who are new?
+	 * @param	mixed	The data to use for updating reviewers
+	 * @param	bool	Should an email be sent to reviewers who are new?
 	 * @return	mixed
 	 * @todo	send the email to a new reviewer
 	 */
-	public function updateReviewers($data, $email_to_new = true)
+	public function updateReviewers($data, $emailToNew = true)
 	{
 		// make sure we have an array
 		$data = ( ! is_array($data)) ? array($data) : $data;
@@ -273,7 +212,7 @@ class Application extends \Model
 			}
 		}
 
-		if ($email_to_new and count($sendEmail) > 0)
+		if ($emailToNew and count($sendEmail) > 0)
 		{
 			// send the email
 			\NovaMail::send('arc_reviewer_add', array(
@@ -288,9 +227,8 @@ class Application extends \Model
 	 * Create a new vote record if the user doesn't have one, otherwise,
 	 * update their existing record.
 	 *
-	 * @api
-	 * @param	Sentry_User		the Sentry user object
-	 * @param	array			the POST array
+	 * @param	User	The Sentry user object
+	 * @param	array	The POST array
 	 * @return	bool
 	 */
 	public function updateVote($user, $data)
@@ -318,4 +256,5 @@ class Application extends \Model
 
 		return true;
 	}
+
 }

@@ -1,55 +1,35 @@
-<?php
-/**
- * Form Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
- 
-namespace Nova\Core\Model;
+<?php namespace Nova\Core\Model;
 
-class Form extends \Model
-{
+use Model;
+
+class Form extends Model {
+
 	protected $table = 'forms';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'key' => array(
-			'type' => 'string',
-			'constraint' => 20,
-			'null' => true),
-		'name' => array(
-			'type' => 'string',
-			'constraint' => 255,
-			'null' => true),
-		'orientation' => array(
-			'type' => 'string',
-			'constraint' => 50,
-			'default' => 'vertical'),
+	protected static $properties = array(
+		'id', 'key', 'name', 'orientation',
 	);
 
 	/**
 	 * Get a form by key.
 	 *
-	 * @api
-	 * @param	string	the form key
-	 * @return	object
+	 * @param	string	The form key
+	 * @return	Form
 	 */
 	public static function getForm($key)
 	{
-		return static::query()->where('key', $key)->get_one();
+		// Get a new instance of the model
+		$instance = new static;
+
+		// Start a new Query Builder
+		$query = $instance->newQuery();
+
+		return $query->where('key', $key)->first();
 	}
 
 	/**
 	 * Get all forms.
 	 *
-	 * @api
 	 * @return	array
 	 */
 	public static function getForms()
@@ -68,4 +48,5 @@ class Form extends \Model
 
 		return $records;
 	}
+
 }
