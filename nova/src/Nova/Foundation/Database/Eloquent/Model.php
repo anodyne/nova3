@@ -23,93 +23,6 @@ use Illuminate\Database\Eloquent\Model as lModel;
 class Model extends lModel {
 	
 	/**
-	 * Observer Functionality
-	 *
-	 * This has been ported from FuelPHP 1.x to provide callback-like
-	 * functionality on a per model basis. Credit due to the FuelPHP
-	 * development team for this code.
-	 */
-
-	protected static $observersCached = array();
-
-	public function observe($event)
-	{
-		return "Fired ${event}";
-
-		foreach ($this->observers() as $observer => $settings)
-		{
-			// Get the events from the observer settings array
-			$events = isset($settings['events']) ? $settings['events'] : array();
-			
-			if (empty($events) or in_array($event, $events))
-			{
-				if ( ! class_exists($observer))
-				{
-					// Add the observer with the full classname for next usage
-					unset(static::$observersCached[$observer]);
-					static::$observersCached[$observerClass] = $events;
-					$observer = $observerClass;
-				}
-
-				try
-				{
-					call_user_func(array($observer, 'ormNotify'), $this, $event);
-				}
-				catch (\Exception $e)
-				{
-					throw $e;
-				}
-			}
-		}
-	}
-
-	/**
-	 * Get the class's observers and what they observe
-	 *
-	 * @param   string  specific observer to retrieve info of, allows direct param access by using dot notation
-	 * @param   mixed   default return value when specific key wasn't found
-	 * @return  array
-	 */
-	public static function observers($specific = null, $default = null)
-	{
-		$class = get_called_class();
-
-		if ( ! array_key_exists($class, static::$observersCached))
-		{
-			$observers = array();
-			
-			if (property_exists($class, '_observers'))
-			{
-				foreach (static::$_observers as $obsK => $obsV)
-				{
-					if (is_int($obsK))
-					{
-						$observers[$obsV] = array();
-					}
-					else
-					{
-						$observers[$obsK] = $obsV;
-					}
-				}
-			}
-			static::$observersCached[$class] = $observers;
-		}
-
-		if ($specific)
-		{
-			return \Arr::get(static::$observersCached[$class], $specific, $default);
-		}
-
-		return static::$observersCached[$class];
-	}
-
-	/**
-	 * Base Model
-	 *
-	 * These methods provide a consistent API across all of Nova's models.
-	 */
-
-	/**
 	 * Create an item with the data passed.
 	 *
 	 * @param	array	An array of data
@@ -122,7 +35,7 @@ class Model extends lModel {
 		// Loop through the data and add it to the item
 		foreach ($data as $key => $value)
 		{
-			if ($key != 'id' and array_key_exists($key, static::$properties))
+			if ($key != 'id' and in_array($key, static::$properties))
 			{
 				if ($filter)
 				{
