@@ -518,7 +518,7 @@ return array(
 	{
 		// Do the QuickInstall removals
 		ModuleCatalogModel::uninstall();
-		RankCatalog::uninstall();
+		RankCatalogModel::uninstall();
 		SkinCatalogModel::uninstall();
 		WidgetCatalogModel::uninstall();
 

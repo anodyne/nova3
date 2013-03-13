@@ -14,7 +14,7 @@ Route::group(array('prefix' => 'setup/install'), function()
 
 		// Do the quick installs
 		ModuleCatalogModel::install();
-		RankCatalog::install();
+		RankCatalogModel::install();
 		SkinCatalogModel::install();
 		WidgetCatalogModel::install();
 

@@ -40,7 +40,7 @@ Route::group(array('prefix' => 'test'), function()
 
 	Route::get('misc', function()
 	{
-		return Str::words("The quick fox jumped over the lazy dog.", 2);
+		dd(DeptModel::find(1));
 	});
 
 	Route::get('migrate', function()
@@ -74,15 +74,9 @@ Route::group(array('prefix' => 'test'), function()
 
 	Route::get('finder', function()
 	{
-		RankCatalog::install();
+		$roles = AccessRoleModel::all();
 
-		$finder = new Symfony\Component\Finder\Finder();
-		$finder->files()->in(SRCPATH.'Setup/assets/install/genres')->name('*.php');
-
-		foreach ($finder as $f)
-		{
-			s($f->getRelativePathName());
-		}
+		sd($roles->toSimpleArray());
 	});
 });
 
