@@ -105,4 +105,3 @@ require_once 'routes/setup.php';
 require_once 'routes/update.php';
 require_once 'routes/install.php';
 require_once 'routes/migrate.php';
-require_once 'routes/utilities.php';
