@@ -24,6 +24,7 @@ class NovaCreateDepartments extends Migration {
 			$t->string('type')->default('playing');
 			$t->integer('parent_id')->default(0);
 			$t->integer('manifest_id')->default(1);
+			$t->timestamps();
 		});
 
 		// Pull in the genre data file
@@ -32,7 +33,7 @@ class NovaCreateDepartments extends Migration {
 		// Loop through the departments and seed the data
 		foreach ($depts as $d)
 		{
-			DB::table("departments_{$genre}")->insert($d);
+			DeptModel::createItem($d);
 		}
 	}
 
@@ -48,4 +49,5 @@ class NovaCreateDepartments extends Migration {
 
 		Schema::drop("departments_{$genre}");
 	}
+
 }

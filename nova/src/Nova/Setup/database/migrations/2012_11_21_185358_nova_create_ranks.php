@@ -21,6 +21,7 @@ class NovaCreateRanks extends Migration {
 			$t->integer('group_id');
 			$t->string('base');
 			$t->string('pip')->nullable();
+			$t->timestamps();
 		});
 
 		Schema::create("ranks_groups_{$genre}", function($t)
@@ -29,6 +30,7 @@ class NovaCreateRanks extends Migration {
 			$t->string('name');
 			$t->integer('order');
 			$t->boolean('status')->default(Status::ACTIVE);
+			$t->timestamps();
 		});
 
 		Schema::create("ranks_info_{$genre}", function($t)
@@ -39,6 +41,7 @@ class NovaCreateRanks extends Migration {
 			$t->integer('order');
 			$t->integer('group');
 			$t->boolean('status')->default(Status::ACTIVE);
+			$t->timestamps();
 		});
 
 		// Pull in the genre data file
@@ -46,17 +49,17 @@ class NovaCreateRanks extends Migration {
 
 		foreach ($info as $i)
 		{
-			DB::table("ranks_info_{$genre}")->insert($i);
+			RankInfoModel::createItem($i);
 		}
 
 		foreach ($groups as $g)
 		{
-			DB::table("ranks_groups_{$genre}")->insert($g);
+			RankGroupModel::createItem($g);
 		}
 
 		foreach ($ranks as $r)
 		{
-			DB::table("ranks_{$genre}")->insert($r);
+			RankModel::createItem($r);
 		}
 	}
 

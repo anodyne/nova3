@@ -14,6 +14,8 @@ class NovaCreateMedia extends Migration {
 		Schema::create('media', function($t)
 		{
 			$t->increments('id')->unsigned();
+			$t->integer('imageable_id');
+			$t->string('imageable_type', 100);
 			$t->text('filename')->nullable();
 			$t->string('mime_type')->nullable();
 			$t->string('resource_type')->nullable();
@@ -32,4 +34,5 @@ class NovaCreateMedia extends Migration {
 	{
 		Schema::drop('media');
 	}
+	
 }

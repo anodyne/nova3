@@ -14,9 +14,9 @@ class NovaCreateAwards extends Migration {
 		Schema::create('awards', function($t)
 		{
 			$t->increments('id');
-			$t->string('name')->nullable();
-			$t->string('image', 100)->nullable();
+			$t->string('name');
 			$t->integer('category_id')->nullable();
+			$t->string('image', 100)->nullable();
 			$t->integer('order')->nullable();
 			$t->text('desc')->nullable();
 			$t->string('type')->default('ic');
@@ -26,29 +26,20 @@ class NovaCreateAwards extends Migration {
 		Schema::create('award_categories', function($t)
 		{
 			$t->increments('id');
-			$t->string('name')->nullable();
+			$t->string('name');
 			$t->text('desc')->nullable();
 			$t->boolean('status')->default(Status::ACTIVE);
 		});
 
-		Schema::create('award_queue', function($t)
+		Schema::create('award_recipients', function($t)
 		{
 			$t->increments('id');
-			$t->integer('receiver_user_id');
+			$t->integer('character_id');
+			$t->integer('user_id');
 			$t->integer('sender_user_id');
 			$t->integer('award_id');
 			$t->text('reason')->nullable();
-			$t->boolean('status')->default(Status::ACTIVE);
-			$t->timestamps();
-		});
-
-		Schema::create('award_received', function($t)
-		{
-			$t->increments('id');
-			$t->integer('receiver_user_id');
-			$t->integer('sender_user_id');
-			$t->integer('award_id');
-			$t->text('reason')->nullable();
+			$t->boolean('status')->default(Status::PENDING);
 			$t->timestamps();
 		});
 	}
@@ -62,7 +53,6 @@ class NovaCreateAwards extends Migration {
 	{
 		Schema::drop('awards');
 		Schema::drop('award_categories');
-		Schema::drop('award_queue');
-		Schema::drop('award_received');
+		Schema::drop('award_recipients');
 	}
 }

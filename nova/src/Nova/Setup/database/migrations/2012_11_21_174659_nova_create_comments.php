@@ -14,10 +14,10 @@ class NovaCreateComments extends Migration {
 		Schema::create('comments', function($t)
 		{
 			$t->increments('id');
-			$t->integer('user_id');
-			$t->integer('character_id');
 			$t->integer('commentable_id');
 			$t->string('commentable_type', 100);
+			$t->integer('user_id');
+			$t->integer('character_id');
 			$t->text('content');
 			$t->boolean('status')->default(Status::ACTIVE);
 			$t->timestamps();
@@ -33,4 +33,5 @@ class NovaCreateComments extends Migration {
 	{
 		Schema::drop('comments');
 	}
+
 }

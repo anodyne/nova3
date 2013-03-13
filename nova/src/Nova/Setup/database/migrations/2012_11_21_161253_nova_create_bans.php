@@ -16,7 +16,7 @@ class NovaCreateBans extends Migration {
 			$t->increments('id');
 			$t->integer('level')->default(1);
 			$t->string('ip_address', 16)->nullable();
-			$t->string('email', 100)->nullable();
+			$t->string('email')->nullable();
 			$t->text('reason')->nullable();
 			$t->timestamps();
 		});

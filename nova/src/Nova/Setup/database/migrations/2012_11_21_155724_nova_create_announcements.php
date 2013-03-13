@@ -20,7 +20,7 @@ class NovaCreateAnnouncements extends Migration {
 			$t->integer('category_id');
 			$t->text('content');
 			$t->boolean('status')->default(Status::ACTIVE);
-			$t->boolean('private')->default(0);
+			$t->boolean('private')->default((int) false);
 			$t->text('tags')->nullable();
 			$t->timestamps();
 		});
@@ -59,7 +59,7 @@ class NovaCreateAnnouncements extends Migration {
 
 		foreach ($data as $value)
 		{
-			AnnouncementCategory::createItem($value);
+			AnnouncementCategoryModel::createItem($value);
 		}
 	}
 }

@@ -14,7 +14,7 @@ class NovaCreateRoles extends Migration {
 		Schema::create('roles', function($t)
 		{
 			$t->increments('id');
-			$t->string('name')->nullable();
+			$t->string('name');
 			$t->text('desc')->nullable();
 			$t->text('inherits')->nullable();
 		});
@@ -29,9 +29,9 @@ class NovaCreateRoles extends Migration {
 		Schema::create('tasks', function($t)
 		{
 			$t->increments('id');
-			$t->string('name')->nullable();
+			$t->string('name');
 			$t->string('desc')->nullable();
-			$t->string('component', 100)->nullable();
+			$t->string('component', 100);
 			$t->string('action', 11)->default('read');
 			$t->boolean('level')->default(0);
 			$t->text('dependencies')->nullable();
@@ -91,7 +91,7 @@ class NovaCreateRoles extends Migration {
 
 		foreach ($data as $value)
 		{
-			DB::table('roles')->insert($value);
+			AccessRoleModel::createItem($value);
 		}
 	}
 
@@ -770,7 +770,8 @@ class NovaCreateRoles extends Migration {
 		
 		foreach ($data as $value)
 		{
-			DB::table('tasks')->insert($value);
+			AccessTaskModel::createItem($value);
 		}
 	}
+
 }

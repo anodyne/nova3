@@ -11,15 +11,14 @@ class NovaCreateCatalogs extends Migration {
 	 */
 	public function up()
 	{
-		# VERIFY
 		Schema::create('catalog_modules', function($t)
 		{
 			$t->increments('id');
-			$t->string('name')->nullable();
+			$t->string('name');
 			$t->string('short_name', 50)->nullable();
 			$t->string('location');
 			$t->text('desc')->nullable();
-			$t->boolean('protected')->default(0);
+			$t->boolean('protected')->default((int) false);
 			$t->boolean('status')->default(Status::ACTIVE);
 			$t->text('credits')->nullable();
 			$t->timestamps();
@@ -35,36 +34,33 @@ class NovaCreateCatalogs extends Migration {
 			$t->string('extension', 5)->default('.png');
 			$t->boolean('status')->default(Status::ACTIVE);
 			$t->text('credits')->nullable();
-			$t->boolean('default')->default(0);
+			$t->boolean('default')->default((int) false);
 			$t->string('genre', 10);
 			$t->timestamps();
 		});
 
-		# VERIFY
 		Schema::create('catalog_skins', function($t)
 		{
 			$t->increments('id');
-			$t->string('name')->nullable();
+			$t->string('name');
 			$t->string('location');
 			$t->text('credits')->nullable();
 			$t->string('version', 10)->nullable();
 			$t->timestamps();
 		});
 
-		# VERIFY
-		Schema::create('catalog_skinsecs', function($t)
+		Schema::create('catalog_skin_sections', function($t)
 		{
 			$t->increments('id');
 			$t->string('section', 50);
 			$t->string('skin', 100);
 			$t->string('preview', 50)->nullable();
 			$t->boolean('status')->default(Status::ACTIVE);
-			$t->boolean('default')->default(0);
+			$t->boolean('default')->default((int) false);
 			$t->string('nav', 20)->default('dropdown');
 			$t->timestamps();
 		});
 
-		# VERIFY
 		Schema::create('catalog_widgets', function($t)
 		{
 			$t->increments('id');
@@ -85,7 +81,7 @@ class NovaCreateCatalogs extends Migration {
 
 		foreach ($catalog_ranks as $c)
 		{
-			RankCatalog::createItem($c);
+			RankCatalogModel::createItem($c);
 		}
 	}
 
@@ -99,7 +95,8 @@ class NovaCreateCatalogs extends Migration {
 		Schema::drop('catalog_modules');
 		Schema::drop('catalog_ranks');
 		Schema::drop('catalog_skins');
-		Schema::drop('catalog_skinsecs');
+		Schema::drop('catalog_skin_sections');
 		Schema::drop('catalog_widgets');
 	}
+
 }
