@@ -71,6 +71,19 @@ Route::group(array('prefix' => 'test'), function()
 
 		var_dump(Cache::get('nova_module_list'));
 	});
+
+	Route::get('finder', function()
+	{
+		RankCatalog::install();
+
+		$finder = new Symfony\Component\Finder\Finder();
+		$finder->files()->in(SRCPATH.'Setup/assets/install/genres')->name('*.php');
+
+		foreach ($finder as $f)
+		{
+			s($f->getRelativePathName());
+		}
+	});
 });
 
 Event::listen('eloquent.created', function($m)
