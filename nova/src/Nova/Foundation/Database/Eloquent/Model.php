@@ -18,10 +18,35 @@
 
 namespace Nova\Foundation\Database\Eloquent;
 
-use Illuminate\Database\Eloquent\Model as lModel;
+use Nova\Foundation\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 
-class Model extends lModel {
+class Model extends EloquentModel {
 	
+	/**
+	 * Override the default Eloquent Collection with our own.
+	 *
+	 * @param	array	An array of models
+	 * @return	Collection
+	 */
+	public function newCollection(array $models = array())
+	{
+		return new Collection($models);
+	}
+
+	/**
+	 * Kick off a new query.
+	 *
+	 * @return	Builder
+	 */
+	public static function startQuery()
+	{
+		// Get a new instance of the model
+		$instance = new static;
+
+		return $instance->newQuery();
+	}
+
 	/**
 	 * Create an item with the data passed.
 	 *
