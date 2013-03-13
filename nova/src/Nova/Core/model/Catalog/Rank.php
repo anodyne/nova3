@@ -1,40 +1,21 @@
-<?php
-/**
- * Rank Catalog Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
- 
-namespace Nova\Core\Model\Catalog;
+<?php namespace Nova\Core\Model\Catalog;
 
+use File;
 use Model;
 use Config;
 use Status;
 use Exception;
+use SplFileInfo;
 use QuickInstallInterface;
-use FuelPHP\FileSystem\Directory;
+use Symfony\Component\Finder\Finder;
 
 class Rank extends Model implements QuickInstallInterface {
 
 	protected $table = 'catalog_ranks';
 
 	protected static $properties = array(
-		'id'			=> array('type' => 'int', 'constraint' => 11, 'auto_increment' => true),
-		'name'			=> array('type' => 'string'),
-		'location'		=> array('type' => 'string'),
-		'preview'		=> array('type' => 'string', 'constraint' => 50, 'default' => 'preview.png'),
-		'blank'			=> array('type' => 'string', 'constraint' => 50, 'default' => 'blank.png'),
-		'extension'		=> array('type' => 'string', 'constraint' => 5, 'default' => '.png'),
-		'status'		=> array('type' => 'tinyint', 'constraint' => 4, 'default' => Status::ACTIVE),
-		'credits'		=> array('type' => 'text', 'null' => true),
-		'default'		=> array('type' => 'tinyint', 'constraint' => 1, 'default' => 0),
-		'genre'			=> array('type' => 'string', 'constraint' => 10),
-		'created_at'	=> array('type' => 'datetime'),
-		'updated_at'	=> array('type' => 'datetime'),
+		'id', 'name', 'location', 'preview', 'blank', 'extension', 'status', 
+		'credits', 'default', 'genre', 'created_at', 'updated_at',
 	);
 	
 	/**
@@ -42,9 +23,10 @@ class Rank extends Model implements QuickInstallInterface {
 	 *
 	 * @param	string	Status to pull
 	 * @param	bool	Whether to limit to the current genre (true) or all genres (false)
+	 * @param	string	The property to return
 	 * @return	Collection
 	 */
-	public static function getItems($status = Status::ACTIVE, $limitToCurrentGenre = true)
+	public static function getItems($status = Status::ACTIVE, $limitToCurrentGenre = true, $onlyReturn = false)
 	{
 		// Get a new instance of the model
 		$instance = new static;
@@ -60,6 +42,20 @@ class Rank extends Model implements QuickInstallInterface {
 		if ( ! empty($status))
 		{
 			$query->where('status', $status);
+		}
+
+		if ($onlyReturn !== false)
+		{
+			// Temporary holding array
+			$retval = array();
+
+			// Loop through the results
+			foreach ($query->get() as $row)
+			{
+				$retval[] = $row->{$onlyReturn};
+			}
+
+			return $retval;
 		}
 		
 		return $query->get();
@@ -102,37 +98,31 @@ class Rank extends Model implements QuickInstallInterface {
 
 		if ($location === null)
 		{
-			// Map the ranks directory
-			$fs = new Directory(APPPATH."assets/common/{$genre}/ranks");
-			$dir = $fs->listFiles();
-
 			// Get all the rank set locations
-			$ranks = static::getItems();
+			$ranks = static::getItems(Status::ACTIVE, true, 'location');
 
-			if (count($ranks) > 0)
-			{
-				// Start by removing anything that's already installed
-				foreach ($ranks as $rank)
+			// Create a new finder
+			$finder = Finder::create()->directories()->in(APPPATH."assets/common/{$genre}/ranks")
+				->filter(function(SplFileInfo $fileinfo) use ($ranks)
 				{
-					if (array_key_exists($rank->location.DIRECTORY_SEPARATOR, $dir))
+					if (in_array($fileinfo->getRelativePathName(), $ranks))
 					{
-						unset($dir[$rank->location.DIRECTORY_SEPARATOR]);
+						return false;
 					}
-				}
-			}
-				
-			// Loop through the directories now
-			foreach ($dir as $key => $value)
+				});
+
+			// Loop through the directories and install
+			foreach ($finder as $f)
 			{
 				// Assign our path to a variable
-				$file = APPPATH."assets/common/{$genre}/ranks/{$key}rank.json";
+				$file = APPPATH."assets/common/{$genre}/ranks/".$f->getRelativePathName()."/rank.json";
 
 				// Make sure the file exists first
-				if (file_exists($file))
+				if (File::exists($file))
 				{
 					// Get the contents and decode the JSON
 					$content = file_get_contents($file);
-					$data = json_decode($content);
+					$data = json_decode($content, true);
 
 					// Create the item
 					static::createItem($data);
@@ -145,11 +135,11 @@ class Rank extends Model implements QuickInstallInterface {
 			$file = APPPATH."assets/common/{$genre}/ranks/{$location}/rank.json";
 			
 			// Make sure the file exists first
-			if (file_exists($file))
+			if (File::exists($file))
 			{
 				// Get the contents and decode the JSON
 				$content = file_get_contents($file);
-				$data = json_decode($content);
+				$data = json_decode($content, true);
 				
 				// Create the item
 				static::createItem($data);
