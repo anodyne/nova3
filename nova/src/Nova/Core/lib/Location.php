@@ -1,17 +1,4 @@
-<?php
-/**
- * The Location class provides methods for searching through Nova's file 
- * structure to find the correct view or image to pull. This is the heart and 
- * soul of seamless substitution.
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Class
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
-
-namespace Nova\Core\Lib;
+<?php namespace Nova\Core\Lib;
 
 class Location {
 
@@ -200,11 +187,11 @@ class Location {
 
 		// Get the rank catalog object
 		/*$catalog = ( ! $location)
-			? \RankCatalog::getItem(\Utility::getRank(), 'location')
-			: \RankCatalog::getItem($location, 'location');*/
+			? \RankCatalogModel::getItem(\Utility::getRank(), 'location')
+			: \RankCatalogModel::getItem($location, 'location');*/
 
 		// Get the rank catalog object
-		$catalog = \RankCatalog::getItem('default', 'location');
+		$catalog = \RankCatalogModel::getItem('default', 'location');
 
 		if (is_dir(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/base") 
 				and is_dir(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/pips"))
