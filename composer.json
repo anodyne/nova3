@@ -9,8 +9,7 @@
 		"dandoescode/datum": "1.0.*",
 		"dflydev/markdown": "1.0.*",
 		"jonob/html": "1.*",
-		"cartalyst/sentry": "dev-master",
-		"fuelphp/filesystem": "dev-master"
+		"cartalyst/sentry": "dev-master"
 	},
 	"require-dev": {
 		"raveren/kint": "dev-master",
