@@ -1,66 +1,36 @@
-<?php
-/**
- * Widgets Catalog Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
- 
-namespace Nova\Core\Model\Catalog;
+<?php namespace Nova\Core\Model\Catalog;
 
-class Widget extends \Model implements \QuickInstallInterface {
+use Model;
+use Status;
+use Exception;
+use QuickInstallInterface;
+
+class Widget extends Model implements QuickInstallInterface {
 	
 	protected $table = 'catalog_widgets';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'name' => array(
-			'type' => 'string',
-			'constraint' => 255,
-			'null' => true),
-		'location' => array(
-			'type' => 'string',
-			'constraint' => 255,
-			'null' => true),
-		'page' => array(
-			'type' => 'string',
-			'constraint' => 100,
-			'null' => true),
-		'zone' => array(
-			'type' => 'int',
-			'constraint' => 5,
-			'null' => true),
-		'status' => array(
-			'type' => 'tinyint',
-			'constraint' => 1,
-			'default' => \Status::ACTIVE),
-		'credits' => array(
-			'type' => 'text',
-			'null' => true),
+	protected static $properties = array(
+		'id', 'name', 'location', 'page', 'zone', 'status', 'credits',
+		'created_at', 'updated_at',
 	);
 	
 	/**
 	 * Get all items from the catalog.
 	 *
-	 * @api
-	 * @param	string	the status to pull
-	 * @return	object
+	 * @param	string	The status to pull
+	 * @return	Collection
 	 */
-	public static function getItems($status = \Status::ACTIVE)
+	public static function getItems($status = Status::ACTIVE)
 	{
-		$status_where = ( ! empty($status)) ? array('status', $status) : array();
-		
-		$result = static::query()
-			->where($status_where)
-			->get();
-			
-		return $result;
+		// Start a new Query Builder
+		$query = static::startQuery();
+
+		if ( ! empty($status))
+		{
+			$query->where('status', $status);
+		}
+
+		return $query->get();
 	}
 
 	public static function install($location = null)
@@ -147,6 +117,7 @@ class Widget extends \Model implements \QuickInstallInterface {
 
 	public static function uninstall($location)
 	{
-		throw new \Exception('Uninstall method is not implemented.');
+		throw new Exception('Uninstall method is not implemented.');
 	}
+
 }

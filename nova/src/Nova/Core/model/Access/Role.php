@@ -1,15 +1,4 @@
-<?php
-/**
- * Access Role Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
- 
-namespace Nova\Core\Model\Access;
+<?php namespace Nova\Core\Model\Access;
 
 use Model;
 use UserModel;
@@ -28,10 +17,7 @@ class Role extends Model implements GroupInterface {
 	protected $table = 'roles';
 	
 	protected static $properties = array(
-		'id' => array('type' => 'int', 'constraint' => 11, 'auto_increment' => true),
-		'name' => array('type' => 'string', 'constraint' => 255, 'null' => true),
-		'desc' => array('type' => 'text', 'null' => true),
-		'inherits' => array('type' => 'text', 'null' => true),
+		'id', 'name', 'desc', 'inherits',
 	);
 
 	/**
@@ -48,32 +34,6 @@ class Role extends Model implements GroupInterface {
 	public function tasks()
 	{
 		return $this->belongsToMany('AccessTaskModel', 'roles_tasks');
-	}
-
-	/**
-	 * Get all the roles.
-	 *
-	 * @param	array	Any items to remove from the final array
-	 * @return	array
-	 */
-	public static function getRoles(array $remove = array())
-	{
-		$items = static::all();
-
-		$roles = array();
-
-		if (count($items) > 0)
-		{
-			foreach ($items as $r)
-			{
-				if ( ! in_array($r->id, $remove))
-				{
-					$roles[$r->id] = $r->name;
-				}
-			}
-		}
-
-		return $roles;
 	}
 	
 	/**
@@ -151,4 +111,5 @@ class Role extends Model implements GroupInterface {
 	{
 		return $this->getTasks();
 	}
+
 }

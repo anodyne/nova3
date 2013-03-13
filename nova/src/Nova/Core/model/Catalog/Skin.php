@@ -1,42 +1,19 @@
-<?php
-/**
- * Skin Catalog Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
- 
-namespace Nova\Core\Model\Catalog;
+<?php namespace Nova\Core\Model\Catalog;
 
-class Skin extends \Model implements \QuickInstallInterface {
+use Model;
+use Status;
+use Exception;
+use CatalogSkinSecModel;
+use QuickInstallInterface;
+
+class Skin extends Model implements QuickInstallInterface {
 
 	protected $table = 'catalog_skins';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'name' => array(
-			'type' => 'string',
-			'constraint' => 255,
-			'null' => true),
-		'location' => array(
-			'type' => 'string',
-			'constraint' => 255,
-			'null' => true),
-		'credits' => array(
-			'type' => 'text',
-			'null' => true),
-		'version' => array(
-			'type' => 'string',
-			'constraint' => 10,
-			'null' => true),
+	protected static $properties = array(
+		'id', 'name', 'location', 'credits', 'version', 'created_at', 'updated_at',
 	);
-	
+
 	public static $_has_many = array(
 		'sections' => array(
 			'model_to' => '\\Model_Catalog_SkinSec',
@@ -50,17 +27,20 @@ class Skin extends \Model implements \QuickInstallInterface {
 	/**
 	 * Get all items from the catalog.
 	 *
-	 * @api
-	 * @param	string	the status to pull
-	 * @return	object
+	 * @param	string	The status to pull
+	 * @return	Collection
 	 */
-	public static function getItems($status = 'active')
+	public static function getItems($status = Status::ACTIVE)
 	{
-		$status_where = ( ! empty($status)) ? array('status', $status) : array();
-		
-		$result = static::find('all');
-			
-		return $result;
+		// Start a new Query Builder
+		$query = static::startQuery();
+
+		if ( ! empty($status))
+		{
+			$query->where('status', $status);
+		}
+
+		return $query->get();
 	}
 
 	public static function install($location = null)
@@ -187,6 +167,7 @@ class Skin extends \Model implements \QuickInstallInterface {
 
 	public static function uninstall($location)
 	{
-		throw new \Exception('Uninstall method is not implemented.');
+		throw new Exception('Uninstall method is not implemented.');
 	}
+
 }

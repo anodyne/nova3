@@ -1,167 +1,136 @@
-<?php
-/**
- * Module Catalog Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
- 
-namespace Nova\Core\Model\Catalog;
+<?php namespace Nova\Core\Model\Catalog;
 
 use Model;
+use Config;
+use Status;
+use Artisan;
+use Exception;
+use SplFileInfo;
 use QuickInstallInterface;
+use Symfony\Component\Finder\Finder;
 
 class Module extends Model implements QuickInstallInterface {
 	
 	protected $table = 'catalog_modules';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'name' => array(
-			'type' => 'string',
-			'constraint' => 255,
-			'null' => true),
-		'short_name' => array(
-			'type' => 'string',
-			'constraint' => 50,
-			'null' => true),
-		'location' => array(
-			'type' => 'string',
-			'constraint' => 255,
-			'null' => true),
-		'desc' => array(
-			'type' => 'text',
-			'null' => true),
-		'protected' => array(
-			'type' => 'tinyint',
-			'constraint' => 1,
-			'default' => 0),
-		'status' => array(
-			'type' => 'tinyint',
-			'constraint' => 1,
-			'default' => \Status::ACTIVE),
-		'credits' => array(
-			'type' => 'text',
-			'null' => true),
+	protected static $properties = array(
+		'id', 'name', 'short_name', 'location', 'desc', 'protected', 'status', 
+		'credits',
 	);
 	
 	/**
 	 * Get all the modules from the catalog.
 	 *
-	 * @api
-	 * @param	string	the status of modules
-	 * @return	object
+	 * @param	string	Status to pull
+	 * @param	string	The property to return
+	 * @return	Collection
 	 */
-	public static function getItems($status = \Status::ACTIVE)
+	public static function getItems($status = Status::ACTIVE, $onlyReturn = false)
 	{
-		return static::query()->where('status', $status)->get();
+		// Start a new Query Builder
+		$query = static::startQuery();
+
+		// Get on the status we want
+		$query->where('status', $status);
+
+		if ($onlyReturn !== false)
+		{
+			// Temporary holding array
+			$retval = array();
+
+			// Loop through the results
+			foreach ($query->get() as $row)
+			{
+				$retval[] = $row->{$onlyReturn};
+			}
+
+			return $retval;
+		}
+
+		return $query->get();
 	}
 
 	/**
-	 * Implement the QuickInstall interface.
+	 * Install via QuickInstall.
+	 *
+	 * @param	string	A specific location to install
+	 * @return	void
 	 */
 	public static function install($location = null)
 	{
 		if ($location === null)
 		{
-			// get a listing of all modules
-			$dir = \File::read_dir(APPPATH.'modules');
+			// Get all the module locations
+			$modules = static::getItems(Status::ACTIVE, 'location');
 
-			// get all the installed modules
-			$modules = static::getItems();
-
-			if (count($modules) > 0)
-			{
-				// start by removing anything that's already installed
-				foreach ($modules as $module)
+			// Create a new finder and filter the results
+			$finder = Finder::create()->directories()->in(APPPATH."module")
+				->filter(function(SplFileInfo $fileinfo) use ($modules)
 				{
-					if (array_key_exists($module->location.DS, $dir))
+					if (in_array($fileinfo->getRelativePathName(), $modules))
 					{
-						unset($dir[$module->location.DS]);
+						return false;
 					}
-				}
-			}
-				
-			// loop through the directories now
-			foreach ($dir as $key => $value)
+				});
+
+			// Loop through the directories and install
+			foreach ($finder as $f)
 			{
-				try
-				{
-					// get the list of files for the module's migrations
-					$moddir = \File::read_dir(APPPATH.'modules/'.$key.'migrations');
+				// Assign our path to a variable
+				$dir = APPPATH."module/".$f->getRelativePathName();
 
-					// if we have migration files, do the module install
-					if (count($moddir) > 0)
-					{
-						// clean the key
-						$clean_key = str_replace(DS, '', $key);
-
-						// run the migration
-						\Migrate::latest($clean_key, 'module');
-					}
-				}
-				catch (\Fuel\Core\InvalidPathException $e)
+				// Run the migrations if they exist
+				if (File::isDirectory($dir."/database/migrations"))
 				{
-					// we have no migrations to run for this module
+					Artisan::call('migrate', array('--path' => $dir."/database/migrations"));
 				}
 
-				// assign our path to a variable
-				$file = APPPATH.'modules/'.$key.'module.json';
-				
-				// make sure the QI file exists first
-				if (file_exists($file))
+				// Make sure the file exists first
+				if (File::exists($dir."/module.json"))
 				{
-					// get the contents and decode the JSON
+					// Get the contents and decode the JSON
 					$content = file_get_contents($file);
-					$data = json_decode($content);
-					
-					// create the item
+					$data = json_decode($content, true);
+
+					// Create the item
 					static::createItem($data);
 				}
 			}
 		}
 		else
 		{
-			try
-			{
-				// get the list of files for the module's migrations
-				$dir = \File::read_dir(APPPATH.'modules/'.$location.'/migrations');
+			// Assign our path to a variable
+			$dir = APPPATH."module/".$location;
 
-				// if we have migration files, do the module install
-				if (count($dir) > 0)
-				{
-					\Migrate::latest($location, 'module');
-				}
-			}
-			catch (\Fuel\Core\InvalidPathException $e)
+			// Run the migrations if they exist
+			if (File::isDirectory($dir."/database/migrations"))
 			{
-				// we have no migrations to run for this module
+				Artisan::call('migrate', array('--path' => $dir."/database/migrations"));
 			}
 
-			// assign our path to a variable
-			$file = APPPATH.'modules/'.$location.'/module.json';
-			
-			// make sure the QI file exists first
-			if (file_exists($file))
+			// Make sure the file exists first
+			if (File::exists($dir."/rank.json"))
 			{
-				// get the contents and decode the JSON
+				// Get the contents and decode the JSON
 				$content = file_get_contents($file);
-				$data = json_decode($content);
+				$data = json_decode($content, true);
 				
-				// create the item
+				// Create the item
 				static::createItem($data);
 			}
 		}
 	}
-	
+
+	/**
+	 * Uninstall via QuickInstall.
+	 *
+	 * @param	string	A specific location to uninstall
+	 * @return	void
+	 * @throws	Exception
+	 */
 	public static function uninstall($location)
 	{
-		throw new \Exception('Uninstall method is not implemented.');
+		throw new Exception('Uninstall method is not implemented.');
 	}
+
 }

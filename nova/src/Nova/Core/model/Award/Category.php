@@ -1,9 +1,11 @@
 <?php namespace Nova\Core\Model\Award;
 
 use Model;
-use Award;
+use AwardModel;
 
 class Category extends Model {
+	
+	public $timestamps = false;
 	
 	protected $table = 'award_categories';
 	
@@ -16,7 +18,7 @@ class Category extends Model {
 	 */
 	public function awards()
 	{
-		return $this->hasMany('Award');
+		return $this->hasMany('AwardModel');
 	}
 
 }

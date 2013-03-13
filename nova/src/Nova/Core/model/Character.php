@@ -7,8 +7,9 @@ use AppModel;
 use UserModel;
 use RankModel;
 use PostModel;
-use Announcement;
-use AwardReceive;
+use MediaModel;
+use AnnouncementModel;
+use AwardRecipientModel;
 use CharacterPositionModel;
 use CharacterPromotionModel;
 
@@ -59,7 +60,7 @@ class Character extends Model {
 	 */
 	public function announcements()
 	{
-		return $this->hasMany('Announcement');
+		return $this->hasMany('AnnouncementModel');
 	}
 
 	/**
@@ -75,7 +76,7 @@ class Character extends Model {
 	 */
 	public function awards()
 	{
-		return $this->hasMany('AwardReceive');
+		return $this->hasMany('AwardRecipientModel');
 	}
 
 	/**
@@ -92,6 +93,14 @@ class Character extends Model {
 	public function positions()
 	{
 		return $this->belongsToMany('PositionModel', 'character_positions');
+	}
+
+	/**
+	 * Polymorphic Relationship: Media
+	 */
+	public function images()
+	{
+		return $this->morphMany('MediaModel', 'imageable');
 	}
 
 	/**
@@ -167,11 +176,8 @@ class Character extends Model {
 	 */
 	public static function getCharacters($scope = 'active')
 	{
-		// Get a new instance of the model
-		$instance = new static;
-
 		// Start a new Query Builder
-		$query = $instance->newQuery();
+		$query = static::startQuery();
 
 		// Get everything
 		$items = $query->get();

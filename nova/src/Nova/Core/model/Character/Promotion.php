@@ -1,48 +1,23 @@
-<?php
-/**
- * Character Promotions Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
- 
-namespace Nova\Core\Model\Character;
+<?php namespace Nova\Core\Model\Character;
 
-class Promotion extends \Model {
+use Model;
+use CharacterModel;
+
+class Promotion extends Model {
 	
 	protected $table = 'character_promotions';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'bigint',
-			'constraint' => 20,
-			'auto_increment' => true),
-		'user_id' => array(
-			'type' => 'int',
-			'constraint' => 11),
-		'character_id' => array(
-			'type' => 'int',
-			'constraint' => 11),
-		'old_order' => array(
-			'type' => 'int',
-			'constraint' => 5,
-			'null' => true),
-		'old_rank' => array(
-			'type' => 'string',
-			'constraint' => 100,
-			'null' => true),
-		'new_order' => array(
-			'type' => 'int',
-			'constraint' => 5,
-			'null' => true),
-		'new_rank' => array(
-			'type' => 'string',
-			'constraint' => 100,
-			'null' => true),
-		'created_at' => array(
-			'type' => 'datetime'),
+	protected static $properties = array(
+		'id', 'character_id', 'old_order', 'old_rank', 'new_order', 'new_rank',
+		'created_at', 'updated_at',
 	);
+
+	/**
+	 * Belongs To: Character
+	 */
+	public function character()
+	{
+		return $this->belongsTo('CharacterModel');
+	}
+
 }

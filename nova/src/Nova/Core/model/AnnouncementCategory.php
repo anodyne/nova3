@@ -2,7 +2,7 @@
 
 use Model;
 use Status;
-use Announcement;
+use AnnouncementModel;
 
 class AnnouncementCategory extends Model {
 
@@ -17,7 +17,7 @@ class AnnouncementCategory extends Model {
 	 */
 	public function announcements()
 	{
-		return $this->hasMany('Announcement');
+		return $this->hasMany('AnnouncementModel');
 	}
 
 }

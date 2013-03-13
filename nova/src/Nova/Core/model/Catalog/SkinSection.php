@@ -1,49 +1,14 @@
-<?php
-/**
- * Skin Section Catalog Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
- 
-namespace Nova\Core\Model\Catalog;
+<?php namespace Nova\Core\Model\Catalog;
 
-class SkinSection extends \Model {
+use Model;
+
+class SkinSection extends Model {
 	
-	protected $table = 'catalog_skinsecs';
+	protected $table = 'catalog_skin_sections';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'section' => array(
-			'type' => 'string',
-			'constraint' => 50,
-			'null' => true),
-		'skin' => array(
-			'type' => 'string',
-			'constraint' => 100,
-			'null' => true),
-		'preview' => array(
-			'type' => 'string',
-			'constraint' => 50,
-			'null' => true),
-		'status' => array(
-			'type' => 'tinyint',
-			'constraint' => 1,
-			'default' => \Status::ACTIVE),
-		'default' => array(
-			'type' => 'tinyint',
-			'constraint' => 1,
-			'default' => 0),
-		'nav' => array(
-			'type' => 'string',
-			'constraint' => 20,
-			'default' => 'dropdown'),
+	protected static $properties = array(
+		'id', 'section', 'skin', 'preview', 'status', 'default', 'nav',
+		'created_at', 'updated_at',
 	);
 	
 	/**
@@ -62,16 +27,18 @@ class SkinSection extends \Model {
 	/**
 	 * Get the default skin section catalog item.
 	 *
-	 * @api
-	 * @param	string	the section to pull
-	 * @return	object
+	 * @param	string	The section to pull
+	 * @param	bool	Only return the location?
+	 * @return	Section|string
 	 */
 	public static function getDefault($section, $valueOnly = false)
 	{
-		$result = static::query()
-			->where(array('default', (int) true))
+		// Start a new Query Builder
+		$query = static::startQuery();
+
+		$query->where(array('default', (int) true))
 			->where(array('section', $section))
-			->get_one();
+			->first();
 		
 		if ($valueOnly)
 		{
@@ -84,26 +51,26 @@ class SkinSection extends \Model {
 	/**
 	 * Get all items from the catalog.
 	 *
-	 * @api
 	 * @param	array	The arguments
-	 * @param	string	The status
-	 * @return	object
+	 * @param	bool	Return only the first item?
+	 * @return	Collection|Section
 	 */
 	public static function getItems(array $arguments, $returnOne = false)
 	{
-		// Start the query
-		$result = static::query();
+		// Start a new Query Builder
+		$query = static::startQuery();
 
 		foreach ($arguments as $col => $val)
 		{
-			$result->where($col, $val);
+			$query->where($col, $val);
 		}
 
 		if ($returnOne)
 		{
-			return $result->get_one();
+			return $query->first();
 		}
 
-		return $result->get();
+		return $query->get();
 	}
+	
 }

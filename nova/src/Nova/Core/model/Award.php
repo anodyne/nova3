@@ -1,14 +1,17 @@
 <?php namespace Nova\Core\Model;
 
 use Model;
-use AwardCategory;
+use AwardCategoryModel;
+use AwardRecipientModel;
 
 class Award extends Model {
 
+	public $timestamps = false;
+
 	protected $table = 'awards';
-	
+
 	protected static $properties = array(
-		'id', 'name', 'image', 'category_id', 'order', 'desc', 'type', 'status',
+		'id', 'name', 'category_id', 'image', 'order', 'desc', 'type', 'status',
 	);
 
 	/**
@@ -16,7 +19,15 @@ class Award extends Model {
 	 */
 	public function category()
 	{
-		return $this->belongsTo('AwardCategory');
+		return $this->belongsTo('AwardCategoryModel');
+	}
+
+	/**
+	 * Has Many: Recipients
+	 */
+	public function recipients()
+	{
+		return $this->hasMany('AwardRecipientModel');
 	}
 
 }

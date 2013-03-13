@@ -1,15 +1,4 @@
-<?php
-/**
- * Rank Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
- 
-namespace Nova\Core\Model;
+<?php namespace Nova\Core\Model;
 
 use Model;
 use RankInfoModel;
@@ -21,11 +10,7 @@ class Rank extends Model {
 	protected $table = 'ranks_';
 	
 	protected static $properties = array(
-		'id' => array('type' => 'int', 'constraint' => 11, 'auto_increment' => true),
-		'info_id' => array('type' => 'int', 'constraint' => 11, 'null' => true),
-		'group_id' => array('type' => 'int', 'constraint' => 11),
-		'base' => array('type' => 'string', 'constraint' => 50, 'null' => true),
-		'pip' => array('type' => 'string', 'constraint' => 50, 'null' => true),
+		'id', 'info_id', 'group_id', 'base', 'pip', 'created_at', 'updated_at',
 	);
 
 	/**
@@ -63,15 +48,18 @@ class Rank extends Model {
 
 	/**
 	 * Since the table name is appended with the genre, we can't hard-code
-	 * it in to the model. The _init method is necessary since PHP won't
-	 * allow creating an object project that's dynamic. This method changes
-	 * the name of the table once the class is loaded.
+	 * it in to the model. When the object is created, we have to pull the
+	 * genre out of the config and name the table.
 	 *
 	 * @internal
 	 * @return	void
 	 */
-	public static function _init()
+	public function __construct(array $attributes = array())
 	{
-		static::$_table_name = static::$_table_name.\Config::get('nova.genre');
+		parent::__construct($attributes);
+
+		// Set the name of the table
+		$this->setTable('ranks_'.Config::get('nova.genre'));
 	}
+
 }

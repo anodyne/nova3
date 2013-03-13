@@ -28,11 +28,8 @@ class Rank extends Model implements QuickInstallInterface {
 	 */
 	public static function getItems($status = Status::ACTIVE, $limitToCurrentGenre = true, $onlyReturn = false)
 	{
-		// Get a new instance of the model
-		$instance = new static;
-
 		// Start a new Query Builder
-		$query = $instance->newQuery();
+		$query = static::startQuery();
 
 		if ($limitToCurrentGenre)
 		{
@@ -69,11 +66,8 @@ class Rank extends Model implements QuickInstallInterface {
 	 */
 	public static function getDefault($valueOnly = false)
 	{
-		// Get a new instance of the model
-		$instance = new static;
-
 		// Start a new Query Builder
-		$query = $instance->newQuery();
+		$query = static::startQuery();
 
 		$result = $query->where('default', (int) true)->first();
 		
@@ -101,7 +95,7 @@ class Rank extends Model implements QuickInstallInterface {
 			// Get all the rank set locations
 			$ranks = static::getItems(Status::ACTIVE, true, 'location');
 
-			// Create a new finder
+			// Create a new finder and filter the results
 			$finder = Finder::create()->directories()->in(APPPATH."assets/common/{$genre}/ranks")
 				->filter(function(SplFileInfo $fileinfo) use ($ranks)
 				{

@@ -1,75 +1,42 @@
-<?php
-/**
- * Position Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
- 
-namespace Nova\Core\Model;
+<?php namespace Nova\Core\Model;
 
-class Position extends \Model
-{
+use Model;
+use DeptModel;
+use CharacterModel;
+use ApplicationModel;
+
+class Position extends Model {
+
 	protected $table = 'positions_';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'name' => array(
-			'type' => 'string',
-			'constraint' => 255,
-			'null' => true),
-		'desc' => array(
-			'type' => 'text',
-			'null' => true),
-		'dept_id' => array(
-			'type' => 'int',
-			'constraint' => 11),
-		'order' => array(
-			'type' => 'int',
-			'constraint' => 5,
-			'null' => true),
-		'open' => array(
-			'type' => 'int',
-			'constraint' => 5,
-			'default' => 1),
-		'status' => array(
-			'type' => 'tinyint',
-			'constraint' => 1,
-			'default' => \Status::ACTIVE),
-		'type' => array(
-			'type' => 'enum',
-			'constraint' => "'senior','officer','enlisted','other'",
-			'default' => 'officer'),
-	);
-	
-	/**
-	 * Relationships
-	 */
-	protected static $_belongs_to = array(
-		'dept' => array(
-			'model_to' => '\\Model_Department',
-			'key_to' => 'id',
-			'key_from' => 'dept_id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
+	protected static $properties = array(
+		'id', 'name', 'desc', 'dept_id', 'order', 'open', 'status', 'type', 
+		'created_at', 'updated_at',
 	);
 
-	protected static $_has_many = array(
-		'applicants' => array(
-			'model_to' => '\\Model_Application',
-			'key_to' => 'position_id',
-			'key_from' => 'id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
+	/**
+	 * Belongs To: Department
+	 */
+	public function dept()
+	{
+		return $this->belongsTo('DeptModel');
+	}
+
+	/**
+	 * Has Many: Applicants
+	 */
+	public function applicants()
+	{
+		return $this->hasMany('ApplicationModel');
+	}
+
+	/**
+	 * Belongs To Many: Characters (through Character Positions)
+	 */
+	public function characters()
+	{
+		return $this->belongsToMany('CharacterModel', 'character_positions');
+	}
 
 	/**
 	 * Observers
@@ -82,33 +49,23 @@ class Position extends \Model
 
 	/**
 	 * Since the table name is appended with the genre, we can't hard-code
-	 * it in to the model. The _init method is necessary since PHP won't
-	 * allow creating an object project that's dynamic. This method changes
-	 * the name of the table once the class is loaded.
+	 * it in to the model. When the object is created, we have to pull the
+	 * genre out of the config and name the table.
 	 *
 	 * @internal
 	 * @return	void
 	 */
-	public static function _init()
+	public function __construct(array $attributes = array())
 	{
-		static::$_table_name = static::$_table_name.\Config::get('nova.genre');
-	}
+		parent::__construct($attributes);
 
-	/**
-	 * Get all characters for this position.
-	 *
-	 * @api
-	 * @return	object
-	 */
-	public function getCharacters()
-	{
-		return \Model_Character_Positions::getItems($this->id, 'position_id');
+		// Set the name of the table
+		$this->setTable('positions_'.Config::get('nova.genre'));
 	}
 	
 	/**
 	 * Get positions based on criteria passed to the method.
 	 *
-	 * @api
 	 * @param	string	the scope of the positions to pull (all, open)
 	 * @param	int		the department to pull (works for all scopes)
 	 * @param	bool	whether to show displayed positions or not (null for both)
@@ -168,13 +125,12 @@ class Position extends \Model
 	/**
 	 * Update the open slots for the position.
 	 *
-	 * @api
-	 * @param	string	the action being taken on the character (add, remove)
+	 * @param	string	The action being taken on the character (add, remove)
 	 * @return	void
 	 */
-	public function updateAvailability($character_action)
+	public function updatePositionAvailability($action)
 	{
-		if ($character_action == 'add')
+		if ($action == 'add')
 		{
 			$this->open = --$this->open;
 		}
@@ -185,4 +141,5 @@ class Position extends \Model
 
 		$this->save();
 	}
+
 }

@@ -15,12 +15,17 @@ class Ban extends Model {
 	 *
 	 * @param	string	The value to use
 	 * @param	string	The column to use
-	 * @return	Ban
-	 * @todo	Should this be removed in favor of something else?
+	 * @return	Collection
 	 */
 	public static function getItems($value, $column = 'email')
 	{
-		return static::query()->where($column, $value)->get();
+		// Get a new instance of the model
+		$instance = new static;
+
+		// Start a new Query Builder
+		$query = $instance->newQuery();
+
+		return $query->where($column, $value)->get();
 	}
 
 }

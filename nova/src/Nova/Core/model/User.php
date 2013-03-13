@@ -21,12 +21,13 @@ use LogModel;
 use Redirect;
 use Exception;
 use PostModel;
-use Announcement;
 use CharacterModel;
 use UserPrefsModel;
 use AccessRoleModel;
 use UserSuspendModel;
 use AppReviewerModel;
+use AnnouncementModel;
+use AwardRecipientModel;
 use Cartalyst\Sentry\Users\UserInterface;
 use Cartalyst\Sentry\Groups\GroupInterface;
 
@@ -106,7 +107,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function announcements()
 	{
-		return $this->hasMany('Announcement');
+		return $this->hasMany('AnnouncementModel');
 	}
 
 	/**
@@ -123,6 +124,14 @@ class User extends Model implements UserInterface {
 	public function throttles()
 	{
 		return $this->hasMany('UserSuspendModel');
+	}
+
+	/**
+	 * Has Many: Awards
+	 */
+	public function awards()
+	{
+		return $this->hasMany('AwardRecipientModel');
 	}
 
 	/**
