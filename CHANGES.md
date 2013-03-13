@@ -1,34 +1,22 @@
 ## Latest `laravel/laravel` Commit
 
-* 03/11/2013
-* 6f92ee8efd69d04beedf4b70e226c1a2acf37e6f
+* 03/13/2013
+* 13adb44ddf947492ba057842219b1e3a6118263a
 
 ## Composer Packages
 
-* nesbot/carbon
-	* Dates
 * dandoescode/datum
 	* Dates
-* showclix/fuelphp-util
-	* Array handling
-	* Common string functions with `mb_string` detection
-	* Number helpers
-	* HTML generation
-	* Inflector functions
 * dflydev/markdown
 	* Markdown parsing
+* jonob/html
+	* Port of the Laravel 3 HTML helpers to Laravel 4
+* cartalyst/sentry
+	* Authentication
 * ikimea/browser
 	* Browser detection
 * raveren/kint
 	* Debugging output helpers
-* meido/str
-	* Port of the Laravel 3 string helpers to Laravel 4
-* meido/form
-	* Port of the Laravel 3 form helpers to Laravel 4
-* meido/html
-	* Port of the Laravel 3 HTML helpers to Laravel 4
-* cartalyst/sentry
-	* Authentication
 
 ## Nova 3 Work
 
