@@ -239,7 +239,7 @@ return array(
 		'AwardReceive'				=> 'Nova\Core\Model\Award\Receive',
 		
 		'ModuleCatalogModel'		=> 'Nova\Core\Model\Catalog\Module',
-		'RankCatalogModel'			=> 'Nova\Core\Model\Catalog\Rank',
+		'RankCatalog'				=> 'Nova\Core\Model\Catalog\Rank',
 		'SkinCatalogModel'			=> 'Nova\Core\Model\Catalog\Skin',
 		'SkinSectionCatalogModel'	=> 'Nova\Core\Model\Catalog\SkinSection',
 		'WidgetCatalogModel'		=> 'Nova\Core\Model\Catalog\Widget',

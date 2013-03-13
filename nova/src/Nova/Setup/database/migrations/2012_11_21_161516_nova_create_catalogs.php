@@ -85,7 +85,7 @@ class NovaCreateCatalogs extends Migration {
 
 		foreach ($catalog_ranks as $c)
 		{
-			RankCatalogModel::createItem($c);
+			RankCatalog::createItem($c);
 		}
 	}
 

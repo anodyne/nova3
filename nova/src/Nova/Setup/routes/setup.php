@@ -33,7 +33,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				$data->controls = '<a href="#" class="pull-right js-ignoreVersion" data-version="'.$update->version.'">Ignore this version</a>';
 				$data->controls.= Form::open('setup/update/1').
 					Form::button('Start Update', array('class' => 'btn btn-primary', 'id' => 'next', 'name' => 'submit')).
-					Form::hidden('csrf_token', csrf_token()).
+					Form::hidden('_token', csrf_token()).
 					Form::close();
 
 				// Pull in the steps indicators
@@ -87,7 +87,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 							'id' => 'next',
 							'name' => 'submit'
 						)).
-						Form::hidden('csrf_token', csrf_token()).
+						Form::hidden('_token', csrf_token()).
 						Form::close();
 					$data->layout->label = 'Migrate From Nova 2';
 
@@ -111,7 +111,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				$data->content->option = 1;
 				$data->controls = Form::open('setup/install').
 					Form::button('Start Install', array('class' => 'btn btn-primary', 'id' => 'next', 'name' => 'submit')).
-					Form::hidden('csrf_token', csrf_token()).
+					Form::hidden('_token', csrf_token()).
 					Form::close();
 				$data->layout->label = 'Install Nova 3';
 
@@ -214,7 +214,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				'class' => 'btn btn-primary',
 				'id' => 'next'
 			)).
-			Form::hidden('csrf_token', csrf_token()).
+			Form::hidden('_token', csrf_token()).
 			Form::close();
 
 		return setupTemplate($data);
@@ -272,7 +272,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 					'id'	=> 'next',
 					'name'	=> 'next'
 				)).
-				Form::hidden('csrf_token', csrf_token()).
+				Form::hidden('_token', csrf_token()).
 				Form::close();
 
 		}
@@ -391,7 +391,7 @@ return array(
 						'id'	=> 'next',
 						'name'	=> 'next'
 					)).
-					Form::hidden('csrf_token', csrf_token()).
+					Form::hidden('_token', csrf_token()).
 					Form::close();
 			}
 		}
@@ -422,7 +422,7 @@ return array(
 					'id'	=> 'next',
 					'name'	=> 'next'
 				)).
-				Form::hidden('csrf_token', csrf_token()).
+				Form::hidden('_token', csrf_token()).
 				Form::close();
 		}
 
@@ -509,7 +509,7 @@ return array(
 		$data->controls = '<a href="'.URL::to('setup').'" class="pull-right">I don\'t want to do this, get me out of here</a>';
 		$data->controls.= Form::open('setup/uninstall').
 			Form::button('Uninstall', array('class' => 'btn btn-danger', 'id' => 'next', 'name' => 'submit')).
-			Form::hidden('csrf_token', csrf_token()).
+			Form::hidden('_token', csrf_token()).
 			Form::close();
 
 		return setupTemplate($data);
@@ -518,7 +518,7 @@ return array(
 	{
 		// Do the QuickInstall removals
 		ModuleCatalogModel::uninstall();
-		RankCatalogModel::uninstall();
+		RankCatalog::uninstall();
 		SkinCatalogModel::uninstall();
 		WidgetCatalogModel::uninstall();
 
@@ -555,18 +555,17 @@ return array(
 		// Get the table prefix
 		$prefix = DB::getTablePrefix();
 
-		// Map the genres directory
-		$fs = new Directory(SRCPATH.'Setup/assets/install/genres');
-		$map = $fs->listFiles();
+		// Create a new finder
+		$finder = new Symfony\Component\Finder\Finder();
+
+		// Set what we're looking for
+		$finder->files()->in(SRCPATH.'Setup/assets/install/genres')->name('*.php');
 
 		// Loop through the files in the genres directory
-		foreach ($map as $key => $m)
+		foreach ($finder as $f)
 		{
 			// Drop the extension off the end
-			$value = str_replace('.php', '', $m);
-
-			// Drop the path off the beginning
-			$value = str_replace(SRCPATH.'Setup/assets/install/genres/', '', $value);
+			$value = str_replace('.php', '', $f->getRelativePathName());
 
 			if (array_key_exists($value, $info))
 			{
@@ -592,5 +591,108 @@ return array(
 		$data->content->loading = '<img src="'.URL::asset('nova/src/Nova/Setup/views/design/images/loading.gif').'" alt="Processing">';
 
 		return setupTemplate($data);
+	});
+});
+
+Route::group(array('prefix' => 'setup/ajax', 'before' => 'configFileCheck|setupAuthorization|csrf'), function()
+{
+	Route::post('install_genre', function()
+	{
+		// grab the genre variable
+		$genre = trim(\Security::xss_clean(\Input::post('genre')));
+
+		// pull in the schema data
+		include NOVAPATH.'setup/assets/install/fields.php';
+
+		// build an array of genre tables that need to be added
+		$tables = array(
+			'departments_'.$genre => array(
+				'fields' => $fields_departments),
+			'positions_'.$genre => array(
+				'fields' => $fields_positions),
+			'ranks_'.$genre => array(
+				'fields' => $fields_ranks),
+		);
+
+		foreach ($tables as $table => $value)
+		{
+			// set the primary key
+			$primary_key = (isset($value['id'])) ? array($value['id']) : array('id');
+
+			// set the fields for the table
+			$fields = (isset($value['fields'])) ? $value['fields'] : ${'fields_'.$table};
+
+			// create the table with the values
+			\DBUtil::create_table($table, $fields, $primary_key);
+			
+			// if we've specified an index, create it
+			if (isset($value['index']))
+			{
+				foreach ($value['index'] as $index)
+				{
+					\DBUtil::create_index($table, $index);
+				}
+			}
+		}
+
+		// pause the script for a second
+		sleep(1);
+
+		// pull in the genre data
+		include_once NOVAPATH.'setup/assets/install/genres/'.strtolower($genre).'.php';
+
+		$insert = array();
+		
+		foreach ($data as $key => $value)
+		{
+			foreach ($$value as $k => $v)
+			{
+				// do the query
+				$result = \DB::insert($key)->set($v)->execute();
+
+				// capture whether it was successful or not
+				$insert[$key] = (is_array($result));
+			}
+		}
+		
+		if (in_array(false, $insert))
+		{
+			return json_encode(array('code' => 0));
+		}
+		
+		// figure out what to return
+		$retval = (count(\DB::list_tables('%_'.$genre)) > 0) ? array('code' => 1) : array('code' => 0);
+
+		// create an event
+		\SystemEvent::add('user', '[[event.setup.genre|{{'.$genre.'}}|action.installed]]');
+		
+		return json_encode($retval);
+	});
+
+	Route::post('uninstall_genre', function()
+	{
+		// Grab the genre
+		$genre = trim(e(Input::get('genre')));
+
+		// Get the table prefix
+		$prefix = DB::getTablePrefix();
+
+		// Drop the tables
+		Schema::dropIfExists("{$prefix}departments_{$genre}");
+		Schema::dropIfExists("{$prefix}positions_{$genre}");
+		Schema::dropIfExists("{$prefix}ranks_{$genre}");
+
+		// Try to get one of the tables
+		$hasTable = Schema::hasTable("{$prefix}departments_{$genre}");
+
+		if ($hasTable === 0)
+		{
+			// Create an event
+			//SystemEvent::add('user', '[[event.setup.genre|{{'.$genre.'}}|action.removed]]');
+
+			return json_encode(array('code' => 1));
+		}
+
+		return json_encode(array('code' => 0));
 	});
 });
