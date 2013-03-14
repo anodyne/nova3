@@ -40,7 +40,32 @@ Route::group(array('prefix' => 'test'), function()
 
 	Route::get('misc', function()
 	{
-		dd(DeptModel::find(1));
+		dd(SettingsModel::getItems());
+
+		//dd(CharacterModel::getCharacters()->toArray());
+
+		//$depts = DeptModel::where('type', 'nonplaying')->with('positions')->get();
+
+		//dd($depts->toArray());
+
+		$positions = PositionModel::getItems('open.playing')->filter(function($item)
+			{
+				return ($item->type == 'senior');
+			});
+		/*$positions = PositionModel::with(array('dept.positions' => function($query)
+		{
+			$query->where('type', 'nonplaying');
+		}))->get();*/
+		//$positions = PositionModel::find(1);
+
+		dd($positions->toArray());
+		//dd($positions);
+
+		foreach ($positions as $p)
+		{
+			//d($p->name);
+			//d($p->dept->name);
+		}
 	});
 
 	Route::get('migrate', function()
@@ -78,9 +103,4 @@ Route::group(array('prefix' => 'test'), function()
 
 		sd($roles->toSimpleArray());
 	});
-});
-
-Event::listen('eloquent.created', function($m)
-{
-	Log::info('Post created');
 });
