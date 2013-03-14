@@ -1,15 +1,4 @@
-<?php
-/**
- * System Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
- 
-namespace Nova\Core\Model;
+<?php namespace Nova\Core\Model;
 
 use Model;
 
@@ -18,14 +7,8 @@ class System extends Model {
 	protected $table = 'system_info';
 	
 	protected static $properties = array(
-		'id' => array('type' => 'int', 'constraint' => 1, 'auto_increment' => true),
-		'uid' => array('type' => 'string', 'constraint' => 32, 'null' => true),
-		'install_date' => array('type' => 'datetime'),
-		'last_update' => array('type' => 'datetime', 'null' => true),
-		'version_major' => array('type' => 'int', 'constraint' => 1, 'default' => 3),
-		'version_minor' => array('type' => 'int', 'constraint' => 2),
-		'version_update' => array('type' => 'int', 'constraint' => 4),
-		'version_ignore' => array('type' => 'string', 'constraint' => 20, 'null' => true),
+		'id', 'uid', 'version_major', 'version_minor', 'version_update', 
+		'version_ignore', 'created_at', 'updated_at',
 	);
 	
 	/**
@@ -35,11 +18,8 @@ class System extends Model {
 	 */
 	public static function getUniqueId()
 	{
-		// Get a new instance of the model
-		$instance = new static;
-
 		// Start a new Query Builder
-		$query = $instance->newQuery();
+		$query = static::startQuery();
 
 		return $query->find(1)->uid;
 	}
@@ -48,15 +28,12 @@ class System extends Model {
 	 * Update the system information.
 	 *
 	 * @param	array	The content to use in the update
-	 * @return	Nova\Core\Model\System
+	 * @return	System
 	 */
 	public static function updateInfo(array $data)
 	{
-		// Get a new instance of the model
-		$instance = new static;
-
 		// Start a new Query Builder
-		$query = $instance->newQuery();
+		$query = static::startQuery();
 
 		// Get the first record in the table
 		$record = $query->find(1);
@@ -72,4 +49,5 @@ class System extends Model {
 		
 		return $record;
 	}
+
 }

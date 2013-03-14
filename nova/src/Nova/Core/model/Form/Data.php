@@ -1,157 +1,63 @@
-<?php
-/**
- * Form Data Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
- 
-namespace Nova\Core\Model\Form;
+<?php namespace Nova\Core\Model\Form;
 
-class Data extends \Model {
+use Model;
+use FormFieldModel;
+
+class Data extends Model {
 	
 	protected $table = 'form_data';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'bigint',
-			'constraint' => 20,
-			'auto_increment' => true),
-		'form_key' => array(
-			'type' => 'string',
-			'constraint' => 20),
-		'field_id' => array(
-			'type' => 'bigint',
-			'constraint' => 20),
-		'user_id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'null' => true),
-		'character_id' => array(
-			'type' => 'string',
-			'constraint' => 11,
-			'null' => true),
-		'item_id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'null' => true),
-		'value' => array(
-			'type' => 'text',
-			'null' => true),
-		'updated_at' => array(
-			'type' => 'bigint',
-			'constraint' => 20,
-			'null' => true),
+	protected static $properties = array(
+		'id', 'form_key', 'field_id', 'data_id', 'value', 'created_at', 
+		'updated_at',
 	);
 
 	/**
-	 * Observers
+	 * Belongs To: Field
 	 */
-	protected static $_observers = array(
-		'Orm\\Observer_UpdatedAt' => array(
-			'events' => array('before_save'),
-			'mysql_timestamp' => true,
-		),
-	);
+	public function field()
+	{
+		return $this->belongsTo('FormFieldModel');
+	}
 
 	/**
 	 * Get specific form data.
 	 *
-	 * @api
-	 * @param	string	the type of data
-	 * @param	int		the ID of the item
-	 * @return	object
+	 * @param	string	The form key
+	 * @param	int		The ID of the item
+	 * @return	Collection
 	 */
-	public static function getData($type, $id)
+	public static function getData($form, $id)
 	{
-		switch ($type)
-		{
-			case 'field':
-				$field_column = 'field_id';
-			break;
+		// Start a new query
+		$query = static::startQuery();
 
-			case 'character':
-			case 'bio':
-				$field_column = 'character_id';
-			break;
-
-			case 'user':
-				$field_column = 'user_id';
-			break;
-
-			case 'item':
-			case 'tour':
-			case 'specs':
-			case 'app':
-			default:
-				$field_column = 'item_id';
-			break;
-		}
-		
-		return static::query()->where($field_column, $id)->get();
-	}
-	
-	/**
-	 * Create data for a single field in the data table.
-	 *
-	 * @api
-	 * @param	array 	the data array to use for creation
-	 * @return	object
-	 */
-	public static function createData(array $data)
-	{
-		$record = \Model_Form_Data::forge();
-		
-		foreach ($data as $key => $value)
-		{
-			$record->{$key} = \Security::xss_clean($value);
-		}
-		
-		$record->save();
-		
-		return $record;
+		return $query->where('form_key', $type)->where('data_id', $id)->get();
 	}
 	
 	/**
 	 * Update data in the data table.
 	 *
-	 * @api
-	 * @param	string	the form to update
-	 * @param	int		the ID to udpate
-	 * @param	array 	a data array of information to update
+	 * @param	string	The form to update
+	 * @param	int		The ID to udpate
+	 * @param	array 	A data array of information to update
 	 * @return	bool
 	 */
 	public static function updateData($type, $id, array $data)
 	{
 		$results = array();
 		
-		// figure out what field we need to use
-		switch ($type)
-		{
-			case 'bio':
-				$field = 'character_id';
-			break;
-			
-			case 'user':
-				$field = 'user_id';
-			break;
-			
-			default:
-				$field = 'item_id';
-			break;
-		}
-		
-		// loop through the data array and make the changes
+		// Loop through the data array and make the changes
 		foreach ($data as $key => $value)
 		{
-			// get the record
-			$record = static::query()->where('field_id', $key)->where($field, $id)->get_one();
+			// Start a new query
+			$query = static::startQuery();
+
+			// Get the record
+			$record = $query->where('field_id', $key)->where('data_id', $id)->first();
 			
-			// update the values
-			$record->value = \Security::xss_clean($value);
+			// Update the values
+			$record->value = \e($value);
 			$retval = $record->save();
 			
 			$results[] = ($retval !== false) ? true : $retval;
@@ -164,4 +70,5 @@ class Data extends \Model {
 		
 		return true;
 	}
+
 }

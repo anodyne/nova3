@@ -1,28 +1,18 @@
-<?php
-/**
- * User Preferences Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
- 
-namespace Nova\Core\Model\User;
+<?php namespace Nova\Core\Model\User;
 
 use Model;
 use UserModel;
+use RankCatalogModel;
+use SkinSectionCatalogModel;
 
 class Preferences extends Model {
+	
+	public $timestamps = false;
 	
 	protected $table = 'user_preferences';
 	
 	protected static $properties = array(
-		'id'		=> array('type' => 'int', 'constraint' => 11, 'auto_increment' => true),
-		'user_id'	=> array('type' => 'int', 'constraint' => 11, 'default' => 0),
-		'key'		=> array('type' => 'string', 'constraint' => 50),
-		'value'		=> array('type' => 'text', 'null' => true),
+		'id', 'user_id', 'key', 'value',
 	);
 	
 	/**
@@ -39,7 +29,7 @@ class Preferences extends Model {
 	 * Create the default user settings.
 	 *
 	 * @param	int		The user ID
-	 * @return	object
+	 * @return	Preferences
 	 */
 	public static function createUserPreferences($user)
 	{
@@ -51,14 +41,9 @@ class Preferences extends Model {
 			'timezone'				=> 'UTC',
 			'email_format'			=> 'html',
 			'language'				=> 'en',
-			
-			'rank'					=> \Model_Catalog_Rank::getDefault(true),
-			'skin_main'				=> \Model_Catalog_SkinSec::getDefault('main', true),
-			'skin_admin'			=> \Model_Catalog_SkinSec::getDefault('admin', true),
-			
-			# TODO: need to pull these values from the menu
-			'my_links'				=> '',
-			
+			'rank'					=> RankCatalogModel::getDefault(true),
+			'skin_main'				=> SkinSectionCatalogModel::getDefault('main', true),
+			'skin_admin'			=> SkinSectionCatalogModel::getDefault('admin', true),
 			'email_comments'		=> (int) true,
 			'email_messages'		=> (int) true,
 			'email_logs'			=> (int) true,
@@ -71,7 +56,7 @@ class Preferences extends Model {
 		foreach ($insert as $key => $value)
 		{
 			// Create a new record
-			$record = static::forge();
+			$record = new static;
 
 			// Set the key and value
 			$record->user_id = $user;
@@ -93,8 +78,11 @@ class Preferences extends Model {
 	 */
 	public static function updateUserPreferences($id, array $data)
 	{
+		// Start a new query
+		$query = static::startQuery();
+
 		// Load the items
-		$items = static::query()->where('user_id', $id)->get();
+		$items = $query->where('user_id', $id)->get();
 
 		// Set the count to 0
 		$count = 0;
@@ -105,7 +93,7 @@ class Preferences extends Model {
 			if (array_key_exists($i->key, $data))
 			{
 				// Update the value
-				$i->value = \Security::xss_clean($data[$i->key]);
+				$i->value = \e($data[$i->key]);
 
 				// Save the item
 				$i->save();
@@ -122,4 +110,5 @@ class Preferences extends Model {
 
 		return false;
 	}
+
 }

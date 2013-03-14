@@ -1,15 +1,4 @@
-<?php
-/**
- * User Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
- 
-namespace Nova\Core\Model;
+<?php namespace Nova\Core\Model;
 
 use Str;
 use Model;
@@ -44,22 +33,9 @@ class User extends Model implements UserInterface {
 	);
 	
 	protected static $properties = array(
-		'id'					=> array('type' => 'int', 'constraint' => 11, 'auto_increment' => true),
-		'status'				=> array('type' => 'tinyint', 'constraint' => 1, 'default' => Status::PENDING),
-		'name'					=> array('type' => 'string', 'constraint' => 255, 'null' => true),
-		'email'					=> array('type' => 'string', 'constraint' => 100, 'null' => true),
-		'password'				=> array('type' => 'string', 'constraint' => 96, 'null' => true),
-		'character_id'			=> array('type' => 'int', 'constraint' => 11, 'default' => 0),
-		'role_id'				=> array('type' => 'int', 'constraint' => 11, 'default' => 0),
-		'reset_password_hash'	=> array('type' => 'string', 'constraint' => 255, 'null' => true),
-		'activation_hash'		=> array('type' => 'string', 'constraint' => 255, 'null' => true),
-		'persist_hash'			=> array('type' => 'string', 'constraint' => 255, 'null' => true),
-		'ip_address'			=> array('type' => 'string', 'constraint' => 16, 'null' => true),
-		'leave_date'			=> array('type' => 'datetime', 'null' => true),
-		'last_post'				=> array('type' => 'datetime', 'null' => true),
-		'last_login'			=> array('type' => 'datetime', 'null' => true),
-		'created_at'			=> array('type' => 'datetime', 'null' => true),
-		'updated_at'			=> array('type' => 'datetime', 'null' => true),
+		'id', 'status', 'name', 'email', 'password', 'character_id', 'role_id', 
+		'reset_password_hash', 'activation_hash', 'persist_hash', 'ip_address', 
+		'leave_date', 'last_post', 'last_login', 'created_at', 'updated_at',
 	);
 	
 	/**
@@ -265,11 +241,8 @@ class User extends Model implements UserInterface {
 	 */
 	public static function updateUser($user, array $data)
 	{
-		// Get a new instance of the model
-		$instance = new static;
-
 		// Start a new Query Builder
-		$query = $instance->newQuery();
+		$query = static::startQuery();
 
 		if ($user !== null)
 		{
@@ -313,11 +286,8 @@ class User extends Model implements UserInterface {
 	 */
 	public static function getItems($status = Status::ACTIVE)
 	{
-		// Get a new instance of the model
-		$instance = new static;
-
 		// Start a new Query Builder
-		$query = $instance->newQuery();
+		$query = static::startQuery();
 
 		return $query->where('status', $status)->get();
 	}
@@ -776,4 +746,5 @@ class User extends Model implements UserInterface {
 		// Check to see if the user has EXACTLY a level
 		return (array_get($mergedPermissions, $permissions, false) >= $level);
 	}
+	
 }

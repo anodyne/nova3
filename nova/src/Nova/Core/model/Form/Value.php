@@ -1,60 +1,45 @@
-<?php
-/**
- * Form Values Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
- 
-namespace Nova\Core\Model\Form;
+<?php namespace Nova\Core\Model\Form;
 
-class Value extends \Model {
+use Model;
+use FormDataModel;
+use FormFieldModel;
+
+class Value extends Model {
 	
 	protected $table = 'form_values';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'field_id' => array(
-			'type' => 'int',
-			'constraint' => 11),
-		'value' => array(
-			'type' => 'string',
-			'constraint' => 100,
-			'null' => true),
-		'content' => array(
-			'type' => 'text',
-			'null' => true),
-		'order' => array(
-			'type' => 'int',
-			'constraint' => 5,
-			'null' => true),
+	protected static $properties = array(
+		'id', 'field_id', 'value', 'content', 'order', 'created_at', 'updated_at',
 	);
-	
-	public static $_belongs_to = array(
-		'field' => array(
-			'model_to' => '\\Model_Form_Field',
-			'key_to' => 'id',
-			'key_from' => 'field_id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
+
+	/**
+	 * Belongs To: Field
+	 */
+	public function section()
+	{
+		return $this->belongsTo('FormFieldModel');
+	}
+
+	/**
+	 * Has Many: Data
+	 */
+	public function data()
+	{
+		return $this->hasMany('FormDataModel');
+	}
 
 	/**
 	 * Get values.
 	 *
-	 * @api
-	 * @param	int		the field ID
-	 * @return	object
+	 * @param	int		The field ID
+	 * @return	Collection
 	 */
 	public static function getItems($field)
 	{
-		return static::query()->where('field_id', $field)->order_by('order', 'asc')->get();
+		// Start a new query
+		$query = static::startQuery();
+
+		return $query->where('field_id', $field)->orderBy('order', 'asc')->get();
 	}
+
 }

@@ -17,7 +17,7 @@ class NovaCreateSystem extends Migration {
 			$t->string('uid', 32);
 			$t->boolean('version_major')->default(3);
 			$t->boolean('version_minor');
-			$t->boolean('version_patch');
+			$t->boolean('version_update');
 			$t->string('ignore', 20)->nullable();
 			$t->timestamps();
 		});
@@ -32,6 +32,18 @@ class NovaCreateSystem extends Migration {
 			$t->text('content');
 			$t->timestamps();
 		});
+
+		// Seed the database
+		SystemModel::createItem(array(
+			'uid'				=> Str::random(32),
+			'version_major'		=> Config::get('app.version_major'),
+			'version_minor'		=> Config::get('app.version_minor'),
+			'version_update'	=> Config::get('app.version_update'),
+		));
+
+		SystemEvent::createItem(array(
+			'content' => Config::get('app.name')." was successfully installed.",
+		));
 	}
 
 	/**
@@ -44,4 +56,5 @@ class NovaCreateSystem extends Migration {
 		Schema::drop('system_info');
 		Schema::drop('system_events');
 	}
+	
 }

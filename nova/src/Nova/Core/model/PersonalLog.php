@@ -5,12 +5,14 @@ use UserModel;
 use CommentModel;
 use CharacterModel;
 
+# TODO: do we want to allow for some kind of custom ordering?
+
 class PersonalLog extends Model {
 
 	protected $table = 'personal_logs';
 	
 	protected static $properties = array(
-		'id', 'title', 'user_id', 'character_id', 'content', 'status', 'tags', 
+		'id', 'title', 'user_id', 'character_id', 'content', 'status', 'keywords', 
 		'created_at', 'updated_at',
 	);
 

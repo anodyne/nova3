@@ -1,13 +1,15 @@
 <?php namespace Nova\Core\Model;
 
 use Model;
-use DepartmentModel;
+use DeptModel;
 
 class Manifest extends Model {
 
+	public $timestamps = false;
+
 	protected $table = 'manifests';
 	
-	protected static $_properties = array(
+	protected static $properties = array(
 		'id', 'name', 'order', 'desc', 'header_content', 'status', 'default',
 	);
 
@@ -16,7 +18,7 @@ class Manifest extends Model {
 	 */
 	public function departments()
 	{
-		return $this->hasMany('DepartmentModel');
+		return $this->hasMany('DeptModel');
 	}
 
 }

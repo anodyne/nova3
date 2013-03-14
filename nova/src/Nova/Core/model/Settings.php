@@ -1,100 +1,42 @@
-<?php
-/**
- * Settings Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
+<?php namespace Nova\Core\Model;
+
+use Model;
  
-namespace Nova\Core\Model;
- 
-class Settings extends \Model {
+class Settings extends Model {
 
 	protected $table = 'settings';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'key' => array(
-			'type' => 'string',
-			'constraint' => 100),
-		'value' => array(
-			'type' => 'text',
-			'null' => true),
-		'label' => array(
-			'type' => 'string',
-			'constraint' => 255,
-			'null' => true),
-		'help' => array(
-			'type' => 'text',
-			'null' => true),
-		'user_created' => array(
-			'type' => 'tinyint',
-			'constraint' => 1,
-			'default' => 1),
+	protected static $properties = array(
+		'id', 'key', 'value', 'label', 'help', 'user_created',
 	);
 	
 	/**
 	 * Get a specific set of settings from the database.
 	 *
-	 * @api
-	 * @param	mixed 	a string with one key or an array of keys to use
-	 * @param	boolean	whether to pull the value only (applies to single key requests)
+	 * @param	mixed 	A string with one key, an array of keys to use or false for all settings
+	 * @param	bool	Whether to pull the value only (applies to single key requests only)
 	 * @return	mixed
 	 */
-	public static function getItems($keys, $valueOnly = true)
+	public static function getItems($keys = false, $valueOnly = true)
 	{
+		// Start a new Query Builder
+		$query = static::startQuery();
+
 		if (is_array($keys))
 		{
-			$obj = new \stdClass;
-			
-			$settings = static::all();
-			
-			foreach ($settings as $s)
-			{
-				if (in_array($s->key, $keys))
-				{
-					$obj->{$s->key} = $s->value;
-				}
-			}
-			
-			return $obj;
+			return $query->whereIn('key', $keys)->get()->toSimpleObject('key', 'value');
 		}
 		else
 		{
-			if ($keys === false or $keys === null)
+			if ( ! $keys)
 			{
-				$obj = new \stdClass;
-				
-				$settings = static::all();
-
-
-				
-				foreach ($settings as $s)
-				{
-					$attr = $s->getAttributes();
-					
-					$obj->{$attr['key']} = $s->value;
-				}
-				
-				return $obj;
+				return $query->get()->toSimpleObject('key', 'value');
 			}
 			else
 			{
-				// Get a new instance of the model
-				$instance = new static;
-
-				// Start a new Query Builder
-				$query = $instance->newQuery();
-
 				$result = $query->where('key', $keys)->first();
 				
-				if ($valueOnly === true)
+				if ($valueOnly)
 				{
 					return $result->value;
 				}
@@ -111,15 +53,17 @@ class Settings extends \Model {
 	 * update multiple settings at the same time. The data array just needs to
 	 * stay in the (setting key) => (setting value) format.
 	 *
-	 * @api
-	 * @param	array 	the data array for updating the settings
+	 * @param	array 	The data for updating the settings
 	 * @return	void
 	 */
 	public static function updateItems(array $data)
 	{
 		foreach ($data as $key => $value)
 		{
-			$record = static::query()->where('key', $key)->get_one();
+			// Start a new query
+			$query = static::startQuery();
+
+			$record = $query->where('key', $key)->first();
 
 			if ($record)
 			{
@@ -128,4 +72,5 @@ class Settings extends \Model {
 			}
 		}
 	}
+
 }

@@ -32,7 +32,7 @@ class NovaCreatePositions extends Migration {
 
 		foreach ($positions as $p)
 		{
-			DB::table("positions_{$genre}")->insert($p);
+			PositionModel::createItem($p);
 		}
 	}
 
@@ -48,4 +48,5 @@ class NovaCreatePositions extends Migration {
 
 		Schema::drop("positions_{$genre}");
 	}
+
 }

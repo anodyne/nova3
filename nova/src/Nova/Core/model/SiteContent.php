@@ -1,15 +1,4 @@
-<?php
-/**
- * Site Content Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
- 
-namespace Nova\Core\Model;
+<?php namespace Nova\Core\Model;
 
 use Cache;
 use Model;
@@ -17,55 +6,27 @@ use SettingsModel;
 
 class SiteContent extends Model {
 
+	public $timestamps = false;
+
 	protected $table = 'site_contents';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'key' => array(
-			'type' => 'string',
-			'constraint' => 255),
-		'label' => array(
-			'type' => 'string',
-			'constraint' => 255,
-			'null' => true),
-		'content' => array(
-			'type' => 'text',
-			'null' => true),
-		'type' => array(
-			'type' => 'enum',
-			'constraint' => "'title','header','message','other'",
-			'default' => 'message'),
-		'section' => array(
-			'type' => 'string',
-			'constraint' => 50,
-			'null' => true),
-		'page' => array(
-			'type' => 'string',
-			'constraint' => 100,
-			'null' => true),
-		'protected' => array(
-			'type' => 'tinyint',
-			'constraint' => 1,
-			'default' => 0),
+	protected static $properties = array(
+		'id', 'key', 'label', 'content', 'type', 'section', 'page', 'protected',
 	);
 	
 	/**
 	 * Get a specific piece of content from the database.
 	 *
-	 * @api
-	 * @param	string	the key of the content to get
-	 * @param	boolean	whether to pull only the value or the full object
-	 * @return	mixed
+	 * @param	string	The key of the content to get
+	 * @param	bool	Whether to pull only the value or the full object
+	 * @return	string|SiteContent
 	 */
 	public static function getContentItem($key, $valueOnly = true)
 	{
 		// Get the content
 		$result = static::getItem($key, 'key', false);
 
-		if ($valueOnly === true)
+		if ($valueOnly)
 		{
 			return $result->content;
 		}
@@ -76,9 +37,8 @@ class SiteContent extends Model {
 	/**
 	 * Get all of the content for a section from the database.
 	 *
-	 * @api
-	 * @param	string	the type of message to pull
-	 * @param	string	the section to pull for
+	 * @param	string	The type of message to pull
+	 * @param	string	The section to pull for
 	 * @return	array
 	 */
 	public static function getSectionContent($type, $section)
@@ -92,11 +52,8 @@ class SiteContent extends Model {
 			return $cache;
 		}
 
-		// Get a new instance of the model
-		$instance = new static;
-
 		// Start a new Query Builder
-		$query = $instance->newQuery();
+		$query = static::startQuery();
 
 		// Query the database
 		$result = $query->where('type', $type)->where('section', $section)->get();
@@ -145,15 +102,17 @@ class SiteContent extends Model {
 	 * update multiple settings at the same time. The data array just needs to
 	 * stay in the (setting key) => (setting value) format.
 	 *
-	 * @api
-	 * @param	array 	The data array for updating the site content
+	 * @param	array 	The data for updating the site content
 	 * @return	void
 	 */
 	public static function updateSiteContent(array $data)
 	{
 		foreach ($data as $key => $value)
 		{
-			$record = static::query()->where('key', $key)->get_one();
+			// Start a new query
+			$query = static::startQuery();
+
+			$record = $query->where('key', $key)->first();
 			
 			// Track what we need to clear and re-cache
 			$clear[$record->section][] = $record->type;
@@ -174,9 +133,5 @@ class SiteContent extends Model {
 			}
 		}
 	}
-	
-	private static function _substitute($content)
-	{
-		preg_match_all('/{{([a-zA-Z]+): ([a-zA-Z_-]+)}}/', $content, $arr, PREG_PATTERN_ORDER);
-	}
+
 }

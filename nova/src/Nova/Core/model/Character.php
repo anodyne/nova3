@@ -179,32 +179,25 @@ class Character extends Model {
 		// Start a new Query Builder
 		$query = static::startQuery();
 
-		// Get everything
-		$items = $query->get();
-
-		// Filter the characters based on the scope
-		$characters = $items->filter(function($item) use($scope)
+		switch ($scope)
 		{
-			switch ($scope)
-			{
-				case 'active':
-				case 'inactive':
-				case 'pending':
-				default:
-					return ($item->status == Status::toInt($scope));
-				break;
-				
-				case 'npc':
-					return ($item->status == Status::ACTIVE and $item->user_id === 0);
-				break;
-				
-				case '':
-					return ($item->status != Status::REMOVED);
-				break;
-			}
-		});
+			case 'active':
+			case 'inactive':
+			case 'pending':
+			default:
+				$query = $query->where('status', Status::toInt($scope));
+			break;
+			
+			case 'npc':
+				$query = $query->where('status', Status::ACTIVE)->where('user_id', 0);
+			break;
+			
+			case '':
+				$query = $query->where('status', '!=', Status::REMOVED);
+			break;
+		}
 
-		return $characters;
+		return $query->get();
 	}
 
 }

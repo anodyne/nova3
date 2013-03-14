@@ -28,7 +28,7 @@ class NovaCreateMessages extends Migration {
 			$t->integer('message_id');
 			$t->integer('user_id');
 			$t->integer('character_id');
-			$t->boolean('read')->default(0);
+			$t->boolean('read')->default((int) false);
 			$t->boolean('status')->default(Status::ACTIVE);
 			$t->timestamps();
 		});
@@ -44,4 +44,5 @@ class NovaCreateMessages extends Migration {
 		Schema::drop('messages');
 		Schema::drop('message_recipients');
 	}
+
 }

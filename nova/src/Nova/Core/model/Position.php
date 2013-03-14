@@ -1,6 +1,9 @@
 <?php namespace Nova\Core\Model;
 
+use Str;
 use Model;
+use Config;
+use Status;
 use DeptModel;
 use CharacterModel;
 use ApplicationModel;
@@ -66,60 +69,67 @@ class Position extends Model {
 	/**
 	 * Get positions based on criteria passed to the method.
 	 *
-	 * @param	string	the scope of the positions to pull (all, open)
-	 * @param	int		the department to pull (works for all scopes)
-	 * @param	bool	whether to show displayed positions or not (null for both)
-	 * @return	object
+	 * @param	string	A dot-delimited scope (all/open.playing/nonplaying)
+	 * @param	int		The department ID to pull from
+	 * @param	int		What status of positions to show
+	 * @return	Collection
 	 */
-	public static function getItems($scope = 'all', $dept = null, $active = true)
+	public static function getItems($scope = 'all', $dept = false, $status = Status::ACTIVE)
 	{
-		// grab the genre
-		$genre = \Config::get('nova.genre');
+		// Grab the genre
+		$genre = Config::get('nova.genre');
 
-		$query = static::query();
+		// Start a new query
+		$items = static::startQuery();
 		
-		if ( ! empty($active))
+		// Set the status we're looking for
+		if ($status !== false)
 		{
-			$query->where('status', \Status::ACTIVE);
+			$items = $items->where("positions_{$genre}.status", $status);
 		}
-		
+
+		// Set the department we're looking for
+		if ($dept !== false and (is_numeric($dept)) and $dept > 0)
+		{
+			$items = $items->where("positions_{$genre}.dept_id", $dept);
+		}
+
+		if (Str::contains($scope, '.'))
+		{
+			// If we've got a period, we'll split at the period
+			list($scope, $type) = explode('.', $scope);
+		}
+		else
+		{
+			// With no period, we'll make the scope the type as well
+			$type = $scope;
+		}
+
+		// Narrow the results based on the scope (all/open)
 		switch ($scope)
 		{
-			case 'all_playing':
-				$query->related('dept')->where('dept.type', 'playing');
-			break;
-
-			case 'all_nonplaying':
-				$query->related('dept')->where('dept.type', 'nonplaying');
-			break;
-
 			case 'open':
-				$query->where('open', '>', 0);
-			break;
-
-			case 'open_playing':
-				$query->related('dept')
-					->where('dept.type', 'playing')
-					->where('open', '>', 0);
-			break;
-
-			case 'open_nonplaying':
-				$query->related('dept')
-					->where('dept.type', 'nonplaying')
-					->where('open', '>', 0);
+				$items = $items->where("positions_{$genre}.open", '>', 0);
 			break;
 		}
-		
-		if ( ! empty($dept) and is_numeric($dept))
+
+		// Join the departments table to pull only positions from certain types of departments
+		switch ($type)
 		{
-			$query->where('dept_id', $dept);
+			case 'playing':
+			case 'nonplaying':
+				$items = $items->join("departments_{$genre}", function($join) use($genre)
+						{
+							$join->on("positions_{$genre}.dept_id", '=', "departments_{$genre}.id");
+						})
+					->where("departments_{$genre}.type", $type)
+					->select("positions_{$genre}.*");
+			break;
 		}
-		
-		// we should always be using the dept and order to order the results
-		$query->order_by('dept_id', 'asc');
-		$query->order_by('order', 'asc');
-		
-		return $query->get();
+
+		return $items->orderBy("positions_{$genre}.dept_id", 'asc')
+			->orderBy("positions_{$genre}.order", 'asc')
+			->get();
 	}
 
 	/**

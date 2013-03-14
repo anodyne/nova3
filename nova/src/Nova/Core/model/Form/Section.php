@@ -1,71 +1,33 @@
-<?php
-/**
- * Form Sections Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
- 
-namespace Nova\Core\Model\Form;
+<?php namespace Nova\Core\Model\Form;
 
-class Section extends \Model {
+use Model;
+use FormTabModel;
+use FormFieldModel;
+
+class Section extends Model {
 	
 	protected $table = 'form_sections';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'form_key' => array(
-			'type' => 'string',
-			'constraint' => 20),
-		'tab_id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'null' => true),
-		'name' => array(
-			'type' => 'string',
-			'constraint' => 255,
-			'null' => true),
-		'order' => array(
-			'type' => 'int',
-			'constraint' => 5,
-			'null' => true),
-		'status' => array(
-			'type' => 'tinyint',
-			'constraint' => 1,
-			'default' => \Status::ACTIVE),
-		'updated_at' => array(
-			'type' => 'datetime',
-			'null' => true),
+	protected static $properties = array(
+		'id', 'form_key', 'tab_id', 'name', 'order', 'status', 'created_at', 
+		'updated_at',
 	);
 
 	/**
-	 * Relationships
+	 * Belongs To: Tab
 	 */
-	public static $_belongs_to = array(
-		'tab' => array(
-			'model_to' => '\\Model_Form_Tab',
-			'key_to' => 'id',
-			'key_from' => 'tab_id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
+	public function tab()
+	{
+		return $this->belongsTo('FormTabModel');
+	}
 
-	public static $_has_many = array(
-		'fields' => array(
-			'model_to' => '\\Model_Form_Field',
-			'key_to' => 'section_id',
-			'key_from' => 'id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
+	/**
+	 * Has Many: Fields
+	 */
+	public function fields()
+	{
+		return $this->hasMany('FormFieldModel');
+	}
 
 	/**
 	 * Observers
@@ -74,33 +36,22 @@ class Section extends \Model {
 		'\\Form_Section' => array(
 			'events' => array('before_delete', 'after_insert', 'after_update')
 		),
-		'Orm\\Observer_UpdatedAt' => array(
-			'events' => array('before_save'),
-			'mysql_timestamp' => true,
-		),
 	);
 
 	/**
 	 * Get sections.
 	 *
-	 * @api
-	 * @param	string	the form
+	 * @param	string	The form key
 	 * @return	array
 	 */
 	public static function getItems($key)
 	{
-		$items = static::query()->where('form_key', $key)->order_by('name', 'asc')->get();
+		// Start a new query
+		$query = static::startQuery();
 
-		$sections = array();
+		$items = $query->where('form_key', $key)->orderBy('name', 'asc')->get();
 
-		if (count($items) > 0)
-		{
-			foreach ($items as $sec)
-			{
-				$sections[$sec->id] = $sec->name;
-			}
-		}
-
-		return $sections;
+		return $items->toSimpleArray();
 	}
+
 }

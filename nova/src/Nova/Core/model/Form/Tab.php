@@ -1,64 +1,23 @@
-<?php
-/**
- * Form Tabs Model
- *
- * *NOTE:* The link_id field does not reference another field in the database,
- * it is used to build the clickable tab.
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
- 
-namespace Nova\Core\Model\Form;
+<?php namespace Nova\Core\Model\Form;
 
-class Tab extends \Model {
+use Model;
+
+class Tab extends Model {
 	
 	protected $table = 'form_tabs';
 	
-	protected static $_properties = array(
-		'id' => array(
-			'type' => 'int',
-			'constraint' => 11,
-			'auto_increment' => true),
-		'form_key' => array(
-			'type' => 'string',
-			'constraint' => 20),
-		'name' => array(
-			'type' => 'string',
-			'constraint' => 255,
-			'null' => true),
-		'link_id' => array(
-			'type' => 'string',
-			'constraint' => 20,
-			'null' => true),
-		'order' => array(
-			'type' => 'int',
-			'constraint' => 5,
-			'null' => true),
-		'status' => array(
-			'type' => 'tinyint',
-			'constraint' => 1,
-			'default' => \Status::ACTIVE),
-		'updated_at' => array(
-			'type' => 'datetime',
-			'null' => true),
+	protected static $properties = array(
+		'id', 'form_key', 'name', 'link_id', 'order', 'status', 'created_at', 
+		'updated_at',
 	);
 
 	/**
-	 * Relationships
+	 * Has Many: Sections
 	 */
-	public static $_has_many = array(
-		'sections' => array(
-			'model_to' => '\\Model_Form_Section',
-			'key_to' => 'tab_id',
-			'key_from' => 'id',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
-	);
+	public function sections()
+	{
+		return $this->hasMany('FormSectionModel');
+	}
 
 	/**
 	 * Observers
@@ -67,33 +26,23 @@ class Tab extends \Model {
 		'\\Form_Tab' => array(
 			'events' => array('before_delete', 'after_insert', 'after_update')
 		),
-		'Orm\\Observer_UpdatedAt' => array(
-			'events' => array('before_save'),
-			'mysql_timestamp' => true,
-		),
 	);
 
 	/**
 	 * Get tabs.
 	 *
-	 * @api
-	 * @param	string	the form
+	 * @param	string	The form key
 	 * @return	array
 	 */
 	public static function getItems($key)
 	{
-		$items = static::query()->where('form_key', $key)->order_by('name', 'asc')->get();
+		// Start a new query
+		$query = static::startQuery();
 
-		$tabs = array();
+		// Get the items
+		$items = $query->where('form_key', $key)->orderBy('name', 'asc')->get();
 
-		if (count($items) > 0)
-		{
-			foreach ($items as $tab)
-			{
-				$tabs[$tab->id] = $tab->name;
-			}
-		}
-
-		return $tabs;
+		return $items->toSimpleArray();
 	}
+
 }

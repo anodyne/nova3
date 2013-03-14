@@ -7,7 +7,7 @@ use Status;
 use UserModel;
 use PositionModel;
 use CharacterModel;
-use ApplicationResponseModel;
+use AppResponseModel;
 
 class Application extends Model {
 
@@ -43,15 +43,15 @@ class Application extends Model {
 	}
 
 	/**
-	 * Has Many: Personal Logs
+	 * Has Many: Responses
 	 */
 	public function responses()
 	{
-		return $this->hasMany('ApplicationResponseModel');
+		return $this->hasMany('AppResponseModel');
 	}
 
 	/**
-	 * Belongs To Many: Positions (through Character Positions)
+	 * Belongs To Many: Reviewers (through Application Reviewers)
 	 */
 	public function reviewers()
 	{

@@ -17,7 +17,7 @@ class NovaCreateApplications extends Migration {
 			$t->integer('user_id');
 			$t->integer('character_id');
 			$t->integer('position_id');
-			$t->boolean('status')->default(1);
+			$t->boolean('status')->default(Status::PENDING);
 			$t->text('sample_post')->nullable();
 			$t->timestamps();
 		});
@@ -27,7 +27,7 @@ class NovaCreateApplications extends Migration {
 			$t->increments('id');
 			$t->integer('app_id');
 			$t->integer('user_id');
-			$t->boolean('type')->default(1);
+			$t->boolean('type')->default(AppResponseModel::COMMENT);
 			$t->text('content')->nullable();
 			$t->timestamps();
 		});
@@ -74,7 +74,7 @@ class NovaCreateApplications extends Migration {
 
 		foreach ($rules as $r)
 		{
-			DB::table('application_rules')->insert($r);
+			AppRuleModel::createItem($r);
 		}
 	}
 	

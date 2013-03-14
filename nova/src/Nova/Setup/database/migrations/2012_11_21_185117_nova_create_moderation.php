@@ -30,4 +30,5 @@ class NovaCreateModeration extends Migration {
 	{
 		Schema::drop('moderation');
 	}
+
 }

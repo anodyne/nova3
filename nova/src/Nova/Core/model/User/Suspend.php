@@ -1,15 +1,4 @@
-<?php
-/**
- * User Suspension Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
- 
-namespace Nova\Core\Model\User;
+<?php namespace Nova\Core\Model\User;
 
 use Model;
 use DateTime;
@@ -20,15 +9,12 @@ use Cartalyst\Sentry\Throttling\UserSuspendedException;
 
 class Suspend extends Model implements ThrottleInterface {
 
+	public $timestamps = false;
+
 	protected $table = 'user_suspended';
 	
 	protected static $properties = array(
-		'id' => array('type' => 'int', 'constraint' => 11, 'auto_increment' => true),
-		'user_id' => array('type' => 'int', 'constraint' => 11),
-		'suspended' => array('type' => 'tinyint', 'constraint' => 1),
-		'banned' => array('type' => 'tinyint', 'constraint' => 1),
-		'last_attempt_at' => array('type' => 'datetime'),
-		'suspended_at' => array('type' => 'datetime', 'null' => true),
+		'id', 'user_id', 'suspended', 'banned', 'last_attempt_at', 'suspended_at',
 	);
 
 	/**
@@ -354,4 +340,5 @@ class Suspend extends Model implements ThrottleInterface {
 		unset($unsuspendAt);
 		unset($now);
 	}
+	
 }

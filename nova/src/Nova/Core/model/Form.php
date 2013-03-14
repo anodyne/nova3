@@ -1,13 +1,14 @@
 <?php namespace Nova\Core\Model;
 
 use Model;
+use Status;
 
 class Form extends Model {
 
 	protected $table = 'forms';
 	
 	protected static $properties = array(
-		'id', 'key', 'name', 'orientation',
+		'id', 'key', 'name', 'orientation', 'status', 'created_at', 'updated_at',
 	);
 
 	/**
@@ -18,11 +19,8 @@ class Form extends Model {
 	 */
 	public static function getForm($key)
 	{
-		// Get a new instance of the model
-		$instance = new static;
-
 		// Start a new Query Builder
-		$query = $instance->newQuery();
+		$query = static::startQuery();
 
 		return $query->where('key', $key)->first();
 	}
@@ -30,23 +28,29 @@ class Form extends Model {
 	/**
 	 * Get all forms.
 	 *
-	 * @return	array
+	 * @param	int		The status to pull
+	 * @param	bool	Get the full object (true) or a simple array (false)
+	 * @return	Collection|array
 	 */
-	public static function getForms()
+	public static function getForms($status = Status::ACTIVE, $returnObj = false)
 	{
-		$items = static::find('all');
+		// Start a new query builder
+		$query = static::startQuery();
 
-		$records = array();
-
-		if (count($items) > 0)
+		if ( ! empty($status))
 		{
-			foreach ($items as $item)
-			{
-				$records[$item->key] = $item->name;
-			}
+			$query->where('status', $status);
 		}
 
-		return $records;
+		// Get everything
+		$items = $query->get();
+
+		if ($returnObj)
+		{
+			return $items;
+		}
+
+		return $items->toSimpleArray('key', 'name');
 	}
 
 }

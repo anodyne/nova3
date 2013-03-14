@@ -1,42 +1,21 @@
-<?php
-/**
- * Mission Posts Model
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Model
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
- 
-namespace Nova\Core\Model;
+<?php namespace Nova\Core\Model;
 
 use Model;
 use Status;
 use UserModel;
 use MissionModel;
 use CommentModel;
+use PostLockModel;
 use CharacterModel;
+use PostParticipantModel;
 
 class Post extends Model {
 
 	protected $table = 'posts';
 	
 	protected static $properties = array(
-		'id'			=> array('type' => 'int', 'constraint' => 11, 'auto_increment' => true),
-		'title'			=> array('type' => 'string', 'constraint' => 255, 'null' => true),
-		'location'		=> array('type' => 'string', 'constraint' => 255, 'null' => true),
-		'timeline'		=> array('type' => 'string', 'constraint' => 255, 'null' => true),
-		'mission_id'	=> array('type' => 'int', 'constraint' => 11),
-		'saved_user_id'	=> array('type' => 'int', 'constriant' => 11, 'null' => true),
-		'status'		=> array('type' => 'tinyint', 'constraint' => 1, 'default' => Status::ACTIVE),
-		'content'		=> array('type' => 'text', 'null' => true),
-		'tags'			=> array('type' => 'text', 'null' => true),
-		'participants'	=> array('type' => 'text', 'null' => true),
-		'lock_user_id'	=> array('type' => 'int', 'constraint' => 11, 'null' => true),
-		'lock_date'		=> array('type' => 'datetime', 'null' => true),
-		'created_at'	=> array('type' => 'datetime'),
-		'updated_at'	=> array('type' => 'datetime', 'null' => true),
+		'id', 'title', 'location', 'timeline', 'mission_id', 'saved_user_id', 
+		'status', 'content', 'keywords', 'created_at', 'updated_at',
 	);
 	
 	/**
@@ -45,6 +24,22 @@ class Post extends Model {
 	public function mission()
 	{
 		return $this->belongsTo('MissionModel');
+	}
+
+	/**
+	 * Has One: Post Lock
+	 */
+	public function lock()
+	{
+		return $this->hasOne('PostLockModel');
+	}
+
+	/**
+	 * Has Many: Post Participants
+	 */
+	public function participants()
+	{
+		return $this->hasMany('PostParticipantModel');
 	}
 
 	/**
@@ -100,4 +95,5 @@ class Post extends Model {
 		
 		return implode(' &amp; ', $output);
 	}
+	
 }

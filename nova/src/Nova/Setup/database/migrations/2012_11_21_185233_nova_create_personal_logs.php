@@ -33,4 +33,5 @@ class NovaCreatePersonalLogs extends Migration {
 	{
 		Schema::drop('personal_logs');
 	}
+
 }

@@ -43,7 +43,7 @@ class Department extends Model {
 	 */
 	public function positions()
 	{
-		return $this->hasMany('PositionModel');
+		return $this->hasMany('PositionModel', 'dept_id');
 	}
 	
 }
