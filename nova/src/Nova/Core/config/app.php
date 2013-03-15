@@ -208,6 +208,7 @@ return array(
 		 */
 		'Date'		=> 'Datum\Datum',
 		'Markdown'	=> 'Nova\Core\Lib\Markdown',
+		'Media'		=> 'Nova\Core\Lib\Media',
 		'Model'		=> 'Nova\Foundation\Database\Eloquent\Model',
 		'Nav'		=> 'Nova\Core\Lib\Nav',
 		'Sentry' 	=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
@@ -218,8 +219,9 @@ return array(
 		/**
 		 * Nova Interfaces
 		 */
-		'QuickInstallInterface'	=> 'Nova\Core\Lib\QuickInstallInterface',
-		'SearchInterface'		=> 'Nova\Core\Lib\SearchInterface',
+		'MediaInterface'			=> 'Nova\Core\Contract\Media',
+		'QuickInstallInterface'		=> 'Nova\Core\Contract\QuickInstall',
+		'SearchInterface'			=> 'Nova\Core\Contract\Search',
 
 		/**
 		 * Nova Models
