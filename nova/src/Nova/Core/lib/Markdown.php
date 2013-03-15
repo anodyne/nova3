@@ -1,6 +1,7 @@
-<?php
+<?php namespace Nova\Core\Lib;
 
-namespace Nova\Core\Lib;
+use dflydev\markdown\MarkdownParser;
+use dflydev\markdown\MarkdownExtraParser;
 
 class Markdown {
 
@@ -13,7 +14,7 @@ class Markdown {
 	public static function parse($str)
 	{
 		// Create a new parser
-		$parser = new \dflydev\markdown\MarkdownParser;
+		$parser = new MarkdownParser;
 
 		// Return the transformed text
 		return $parser->transformMarkdown($str);
@@ -28,9 +29,10 @@ class Markdown {
 	public static function parseExtra($str)
 	{
 		// Create a new parser
-		$parser = new \dflydev\markdown\MarkdownExtraParser;
+		$parser = new MarkdownExtraParser;
 
 		// Return the transformed text
 		return $parser->transformMarkdown($str);
 	}
+	
 }
