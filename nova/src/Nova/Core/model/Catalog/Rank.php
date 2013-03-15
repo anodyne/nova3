@@ -85,12 +85,12 @@ class Rank extends Model implements QuickInstallInterface {
 	 * @param	string	A specific location to install
 	 * @return	void
 	 */
-	public static function install($location = null)
+	public static function install($location = false)
 	{
 		// Get the genre
 		$genre = Config::get('nova.genre');
 
-		if ($location === null)
+		if ( ! $location)
 		{
 			// Get all the rank set locations
 			$ranks = static::getItems(Status::ACTIVE, true, 'location');

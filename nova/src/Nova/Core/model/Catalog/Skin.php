@@ -43,7 +43,7 @@ class Skin extends Model implements QuickInstallInterface {
 		return $query->get();
 	}
 
-	public static function install($location = null)
+	public static function install($location = false)
 	{
 		return true;
 		/*

@@ -56,9 +56,9 @@ class Module extends Model implements QuickInstallInterface {
 	 * @param	string	A specific location to install
 	 * @return	void
 	 */
-	public static function install($location = null)
+	public static function install($location = false)
 	{
-		if ($location === null)
+		if ( ! $location)
 		{
 			// Get all the module locations
 			$modules = static::getItems(Status::ACTIVE, 'location');
