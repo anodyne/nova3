@@ -6,6 +6,8 @@ use AnnouncementModel;
 
 class AnnouncementCategory extends Model {
 
+	public $timestamps = false;
+	
 	protected $table = 'announcement_categories';
 	
 	protected static $properties = array(

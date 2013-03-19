@@ -4,6 +4,8 @@ use Model;
 
 class RoleTask extends Model {
 
+	public $timestamps = false;
+	
 	protected $table = 'roles_tasks';
 	
 	protected static $properties = array(

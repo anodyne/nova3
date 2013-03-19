@@ -14,6 +14,8 @@ class Role extends Model implements GroupInterface {
 	const ADMIN			= 5;
 	const SYSADMIN		= 6;
 	
+	public $timestamps = false;
+
 	protected $table = 'roles';
 	
 	protected static $properties = array(

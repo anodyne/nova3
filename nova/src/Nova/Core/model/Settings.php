@@ -4,6 +4,8 @@ use Model;
  
 class Settings extends Model {
 
+	public $timestamps = false;
+	
 	protected $table = 'settings';
 	
 	protected static $properties = array(

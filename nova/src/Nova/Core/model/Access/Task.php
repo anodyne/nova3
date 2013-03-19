@@ -5,6 +5,8 @@ use AccessRoleModel;
 
 class Task extends Model {
 
+	public $timestamps = false;
+	
 	protected $table = 'tasks';
 	
 	protected static $properties = array(
