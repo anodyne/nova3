@@ -1,8 +1,8 @@
 <?php namespace Nova\Foundation\Support;
 
-use Illuminate\Support\Str as lStr;
+use Illuminate\Support\Str as LaravelStr;
 
-class Str extends lStr {
+class Str extends LaravelStr {
 
 	/**
 	 * Get the length of a string.
