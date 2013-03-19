@@ -16,3 +16,4 @@
 		* Implement install method
 		* Implement uninstall method
 * Convert observers to handlers
+* Cleanup base model
