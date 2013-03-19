@@ -1,5 +1,13 @@
 <?php namespace Nova\Core\Lib;
 
+use URL;
+use Html;
+use File;
+use View;
+use Config;
+use Request;
+use Utility;
+use Exception;
 use RankCatalog;
 
 class Location {
@@ -25,21 +33,6 @@ class Location {
 	protected $module;
 
 	/**
-	 * Create a new Location object.
-	 *
-	 * @param	string	The file name
-	 * @param	string	The skin name
-	 * @param	string	The fallback module
-	 * @return	void
-	 */
-	public function __construct($file, $skin, $module)
-	{
-		$this->file = $file;
-		$this->skin = $skin;
-		$this->module = $module;
-	}
-
-	/**
 	 * Finds and returns the path to an asset image. Asset images are not part
 	 * of seamless substitution since they're stored entirely outside of the 
 	 * Nova core.
@@ -63,7 +56,7 @@ class Location {
 	 * Searches to find where to pull the specified file from. If the file 
 	 * exists in the skin, it'll use that that one and stop searching. If the 
 	 * file exists in the override module (app/module/override), it'll use that 
-	 * and stop searching. Otherwise, it'll use whatever's found in the nova 
+	 * and stop searching. Otherwise, it'll use whatever's found in the Nova 
 	 * module.
 	 *
 	 * @param	string	File
@@ -128,13 +121,15 @@ class Location {
 	 *
 	 * @return	string
 	 */
-	public function findFile()
+	protected function findFile()
 	{
-		if (is_file(APPPATH."module/override/views/components/{$this->type}/{$this->file}.php"))
+		if (File::exists(APPPATH."module/override/views/components/{$this->type}/{$this->file}.php")
+				or File::exists(APPPATH."module/override/views/components/{$this->type}/{$this->file}.blade.php"))
 		{
 			return "components/{$this->type}/{$this->file}";
 		}
-		elseif (is_file(APPPATH."views/{$this->skin}/components/{$this->type}/{$this->file}.php"))
+		elseif (File::exists(APPPATH."views/{$this->skin}/components/{$this->type}/{$this->file}.php")
+				or File::exists(APPPATH."views/{$this->skin}/components/{$this->type}/{$this->file}.blade.php"))
 		{
 			return "{$this->skin}/components/{$this->type}/{$this->file}";
 		}
@@ -149,7 +144,7 @@ class Location {
 	 * @param	array	Attributes for the image return type
 	 * @return	string
 	 */
-	public function findImage($return = 'path', $attributes = array())
+	protected function findImage($return = 'path', $attributes = array())
 	{
 		// Find the path to the image
 		$path = $this->findAssetPath();
@@ -157,15 +152,18 @@ class Location {
 		switch ($return)
 		{
 			case 'image':
-				return \Html::img(\Uri::base(false).$path, $attributes);
+				// Set the ALT attribute to the image name if it isn't set already
+				$attributes['alt'] = ( ! array_key_exists('alt', $attributes)) ? $this->file : $attributes['alt'];
+
+				return '<img src="'.URL::asset($path).'" '.Html::attributes($attributes).'>';
 			break;
 
 			case 'urlpath':
-				return \Uri::base(false).$path;
+				return URL::asset($path);
 			break;
 
 			case 'abspath':
-				return APPPATH.$path;
+				return APPPATH.str_replace('app/', '', $path);
 			break;
 
 			default:
@@ -182,29 +180,33 @@ class Location {
 	 * @param	string	An optional rank location
 	 * @return	string
 	 */
-	public function findRank($base, $pip, $location = false)
+	protected function findRank($base, $pip, $location = false)
 	{
 		// Get the genre
-		$genre = \Config::get('nova.genre');
+		$genre = Config::get('nova.genre');
 
 		// Get the rank catalog object
-		/*$catalog = ( ! $location)
-			? RankCatalog::getItem(\Utility::getRank(), 'location')
-			: RankCatalog::getItem($location, 'location');*/
+		$catalog = ( ! $location)
+			? RankCatalog::getItem(Utility::getRank(), 'location')
+			: RankCatalog::getItem($location, 'location');
 
-		// Get the rank catalog object
-		$catalog = RankCatalog::getItem('default', 'location');
-
-		if (is_dir(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/base") 
-				and is_dir(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/pips"))
+		if (File::isDirectory(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/base") 
+				and File::isDirectory(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/pips"))
 		{
+			// Set the base path for the ranks
+			$basePath = "app/assets/common/{$genre}/ranks/{$catalog->location}";
+
+			// Set the base and pip image paths
+			$baseImage = URL::asset("{$basePath}/base/{$base}{$catalog->extension}");
+			$pipImage = URL::asset("{$basePath}/pips/{$pip}{$catalog->extension}");
+			
 			// Set up the properties
 			$properties = array(
-				'base' => "background:transparent url(".\Request::root().'/app/assets/common/'.$genre.'/ranks/'.$catalog->location.'/base/'.$base.$catalog->extension.") no-repeat top left;",
-				'pip' => "background:transparent url(".\Request::root().'/app/assets/common/'.$genre.'/ranks/'.$catalog->location.'/pips/'.$pip.$catalog->extension.") no-repeat top left;",
+				'base' => "background:transparent url({$baseImage}) no-repeat top left;",
+				'pip' => "background:transparent url({$pipImage}) no-repeat top left;",
 			);
 
-			return \View::make($this->file('common/rank', $this->skin, 'partial'))
+			return View::make($this->file('common/rank', $this->skin, 'partial'))
 				->with('props', $properties)
 				->render();
 		}
@@ -219,7 +221,7 @@ class Location {
 		$imageName = (empty($pip)) ? $base.$catalog->extension : $base."-".$pip.$catalog->extension;
 
 		// Return the old rank style
-		return \Html::tag('img', array('src' => "app/assets/common/{$genre}/ranks/{$catalog->location}/{$imageName}"));
+		return '<img src="'.URL::asset("app/assets/common/{$genre}/ranks/{$catalog->location}/{$imageName}").'" alt="">';
 	}
 
 	/**
@@ -240,11 +242,11 @@ class Location {
 			break;
 			
 			case 'image':
-				if (is_file(APPPATH."module/override/views/design/images/{$this->file}"))
+				if (File::exists(APPPATH."module/override/views/design/images/{$this->file}"))
 				{
 					return "app/module/override/views/design/images/{$this->file}";
 				}
-				elseif (is_file(APPPATH."views/{$this->skin}/design/images/{$this->file}"))
+				elseif (File::exists(APPPATH."views/{$this->skin}/design/images/{$this->file}"))
 				{
 					return "app/views/{$this->skin}/design/images/{$this->file}";
 				}
@@ -253,104 +255,13 @@ class Location {
 			break;
 			
 			case 'rank':
-				return "app/assets/common/".\Config::get('nova.genre')."/ranks/{$args[1]}/{$args[2]}";
+				return "app/assets/common/".Config::get('nova.genre')."/ranks/{$args[1]}/{$args[2]}";
 			break;
 			
 			default:
-				throw new \NovaInvalidImageTypeException(lang('error.exception.invalid_image'));
+				throw new Exception(lang('error.exception.invalid_image'));
 			break;
 		}
 	}
-
-	/**
-	 * Get the file.
-	 *
-	 * @return	string
-	 */
-	public function getFile()
-	{
-		return $this->file;
-	}
-
-	/**
-	 * Get the skin.
-	 *
-	 * @return	string
-	 */
-	public function getSkin()
-	{
-		return $this->skin;
-	}
-
-	/**
-	 * Get the type.
-	 *
-	 * @return	string
-	 */
-	public function getType()
-	{
-		return $this->type;
-	}
-
-	/**
-	 * Get the fallback module.
-	 *
-	 * @return	string
-	 */
-	public function getModule()
-	{
-		return $this->module;
-	}
-
-	/**
-	 * Set the file name.
-	 *
-	 * @param	string	The name of the file (including extension if anything except .php)
-	 * @return	Location
-	 */
-	public function setFile($value)
-	{
-		$this->file = $value;
-
-		return $this;
-	}
-
-	/**
-	 * Set the skin name.
-	 *
-	 * @param	string	The name of the skin
-	 * @return	Location
-	 */
-	public function setSkin($value)
-	{
-		$this->skin = $value;
-
-		return $this;
-	}
-
-	/**
-	 * Set the type of file.
-	 *
-	 * @param	string	The type of file (only necessary when searching for files, not images)
-	 * @return	Location
-	 */
-	public function setType($value)
-	{
-		$this->type = $value;
-
-		return $this;
-	}
-
-	/**
-	 * Set the fallback module.
-	 *
-	 * @param	string	The name of the module to fall back to
-	 * @return	Location
-	 */
-	public function setModule($value)
-	{
-		$this->module = $value;
-
-		return $this;
-	}
+	
 }
