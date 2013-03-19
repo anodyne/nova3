@@ -2,13 +2,14 @@
 
 use Model;
 use Status;
-use LogModel;
-use AppModel;
-use UserModel;
-use RankModel;
-use PostModel;
-use MediaModel;
-use AnnouncementModel;
+use PersonalLog;
+use NovaApp;
+use User;
+use Rank;
+use Post;
+use Media;
+use Position;
+use Announcement;
 use AwardRecipient;
 use CharacterPosition;
 use CharacterPromotion;
@@ -28,7 +29,7 @@ class Character extends Model {
 	 */
 	public function rank()
 	{
-		return $this->belongsTo('RankModel');
+		return $this->belongsTo('Rank');
 	}
 
 	/**
@@ -36,7 +37,7 @@ class Character extends Model {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('UserModel');
+		return $this->belongsTo('User');
 	}
 
 	/**
@@ -44,7 +45,7 @@ class Character extends Model {
 	 */
 	public function app()
 	{
-		return $this->hasOne('AppModel');
+		return $this->hasOne('NovaApp');
 	}
 
 	/**
@@ -52,7 +53,7 @@ class Character extends Model {
 	 */
 	public function logs()
 	{
-		return $this->hasMany('LogModel');
+		return $this->hasMany('PersonalLog');
 	}
 
 	/**
@@ -60,7 +61,7 @@ class Character extends Model {
 	 */
 	public function announcements()
 	{
-		return $this->hasMany('AnnouncementModel');
+		return $this->hasMany('Announcement');
 	}
 
 	/**
@@ -84,7 +85,7 @@ class Character extends Model {
 	 */
 	public function posts()
 	{
-		return $this->belongsToMany('PostModel', 'post_authors');
+		return $this->belongsToMany('Post', 'post_authors');
 	}
 
 	/**
@@ -92,7 +93,7 @@ class Character extends Model {
 	 */
 	public function positions()
 	{
-		return $this->belongsToMany('PositionModel', 'character_positions');
+		return $this->belongsToMany('Position', 'character_positions');
 	}
 
 	/**
@@ -100,7 +101,7 @@ class Character extends Model {
 	 */
 	public function images()
 	{
-		return $this->morphMany('MediaModel', 'imageable');
+		return $this->morphMany('Media', 'imageable');
 	}
 
 	/**

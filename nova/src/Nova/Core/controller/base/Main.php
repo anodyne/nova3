@@ -83,7 +83,7 @@ abstract class Main extends \BaseController {
 			$me->template->layout->navsub->widget1	= false;
 			$me->template->layout->navsub->widget2	= false;
 			$me->template->layout->navsub->widget3	= false;*/
-			$me->template->layout->footer->extra 	= \SiteContentModel::getContentItem('footer');
+			$me->template->layout->footer->extra 	= \SiteContent::getContentItem('footer');
 		};
 
 		// Call the before filters

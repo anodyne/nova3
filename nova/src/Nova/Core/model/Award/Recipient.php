@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Model\Award;
 
 use Model;
-use UserModel;
+use User;
 use Award;
 use Character;
 
@@ -35,7 +35,7 @@ class Recipient extends Model {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('UserModel');
+		return $this->belongsTo('User');
 	}
 
 }

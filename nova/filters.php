@@ -67,7 +67,7 @@ Route::filter('installed', function()
 	if ($status === null)
 	{
 		// Grab the UID
-		$uid = SystemModel::getUniqueId();
+		$uid = System::getUniqueId();
 
 		// Only cache if we have a UID
 		if ( ! empty($uid))

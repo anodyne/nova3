@@ -176,7 +176,7 @@ class NovaCreateSettings extends Migration {
 		// Loop through and insert the data
 		foreach ($data as $d)
 		{
-			SettingsModel::createItem($d);
+			Settings::add($d);
 		}
 	}
 

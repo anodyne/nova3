@@ -2,10 +2,10 @@
 
 use Model;
 use Status;
-use UserModel;
-use CommentModel;
+use User;
+use Comment;
 use Character;
-use AnnouncementCategoryModel;
+use AnnouncementCategory;
 
 class Announcement extends Model {
 
@@ -21,7 +21,7 @@ class Announcement extends Model {
 	 */
 	public function category()
 	{
-		return $this->belongsTo('AnnouncementCategoryModel');
+		return $this->belongsTo('AnnouncementCategory');
 	}
 
 	/**
@@ -37,7 +37,7 @@ class Announcement extends Model {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('UserModel');
+		return $this->belongsTo('User');
 	}
 
 	/**
@@ -45,7 +45,7 @@ class Announcement extends Model {
 	 */
 	public function comments()
 	{
-		return $this->morphMany('CommentModel', 'commentable');
+		return $this->morphMany('Comment', 'commentable');
 	}
 
 }

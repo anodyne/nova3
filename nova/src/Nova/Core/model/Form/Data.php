@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Model\Form;
 
 use Model;
-use FormFieldModel;
+use NovaFormField;
 
 class Data extends Model {
 	
@@ -17,7 +17,7 @@ class Data extends Model {
 	 */
 	public function field()
 	{
-		return $this->belongsTo('FormFieldModel');
+		return $this->belongsTo('NovaFormField');
 	}
 
 	/**

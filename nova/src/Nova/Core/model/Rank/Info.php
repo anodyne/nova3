@@ -3,7 +3,7 @@
 use Model;
 use Config;
 use Status;
-use RankModel;
+use Rank;
 
 class Info extends Model {
 	
@@ -18,7 +18,7 @@ class Info extends Model {
 	 */
 	public function ranks()
 	{
-		return $this->hasMany('RankModel');
+		return $this->hasMany('Rank');
 	}
 
 	/**

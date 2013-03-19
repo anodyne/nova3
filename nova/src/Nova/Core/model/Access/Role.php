@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Model\Access;
 
 use Model;
-use UserModel;
+use User;
 use AccessTask;
 use Cartalyst\Sentry\Groups\GroupInterface;
 
@@ -27,7 +27,7 @@ class Role extends Model implements GroupInterface {
 	 */
 	public function users()
 	{
-		return $this->hasMany('UserModel');
+		return $this->hasMany('User');
 	}
 
 	/**

@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Model\Mission;
 
 use Model;
-use MissionModel;
-use MissionGroupModel;
+use Mission;
+use MissionGroup;
 
 class Group extends Model {
 
@@ -17,7 +17,7 @@ class Group extends Model {
 	 */
 	public function group()
 	{
-		return $this->belongsTo('MissionGroupModel', 'parent_id');
+		return $this->belongsTo('MissionGroup', 'parent_id');
 	}
 
 	/**
@@ -25,7 +25,7 @@ class Group extends Model {
 	 */
 	public function missions()
 	{
-		return $this->hasMany('MissionModel');
+		return $this->hasMany('Mission');
 	}
 
 }

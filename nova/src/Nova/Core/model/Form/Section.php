@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Model\Form;
 
 use Model;
-use FormTabModel;
-use FormFieldModel;
+use NovaFormTab;
+use NovaFormField;
 
 class Section extends Model {
 	
@@ -18,7 +18,7 @@ class Section extends Model {
 	 */
 	public function tab()
 	{
-		return $this->belongsTo('FormTabModel');
+		return $this->belongsTo('NovaFormTab');
 	}
 
 	/**
@@ -26,7 +26,7 @@ class Section extends Model {
 	 */
 	public function fields()
 	{
-		return $this->hasMany('FormFieldModel');
+		return $this->hasMany('NovaFormField');
 	}
 
 	/**

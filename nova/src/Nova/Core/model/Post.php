@@ -2,12 +2,12 @@
 
 use Model;
 use Status;
-use UserModel;
-use MissionModel;
-use CommentModel;
-use PostLockModel;
+use User;
+use Mission;
+use Comment;
+use PostLock;
 use Character;
-use PostParticipantModel;
+use PostParticipant;
 
 class Post extends Model {
 
@@ -23,7 +23,7 @@ class Post extends Model {
 	 */
 	public function mission()
 	{
-		return $this->belongsTo('MissionModel');
+		return $this->belongsTo('Mission');
 	}
 
 	/**
@@ -31,7 +31,7 @@ class Post extends Model {
 	 */
 	public function lock()
 	{
-		return $this->hasOne('PostLockModel');
+		return $this->hasOne('PostLock');
 	}
 
 	/**
@@ -39,7 +39,7 @@ class Post extends Model {
 	 */
 	public function participants()
 	{
-		return $this->hasMany('PostParticipantModel');
+		return $this->hasMany('PostParticipant');
 	}
 
 	/**
@@ -47,7 +47,7 @@ class Post extends Model {
 	 */
 	public function userAuthors()
 	{
-		return $this->belongsToMany('UserModel', 'post_authors');
+		return $this->belongsToMany('User', 'post_authors');
 	}
 
 	/**
@@ -63,7 +63,7 @@ class Post extends Model {
 	 */
 	public function comments()
 	{
-		return $this->morphMany('CommentModel', 'commentable');
+		return $this->morphMany('Comment', 'commentable');
 	}
 	
 	/**

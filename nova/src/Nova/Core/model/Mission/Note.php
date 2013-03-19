@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Model\Mission;
 
 use Model;
-use MissionModel;
+use Mission;
 
 class Note extends Model {
 
@@ -16,7 +16,7 @@ class Note extends Model {
 	 */
 	public function mission()
 	{
-		return $this->belongsTo('MissionModel');
+		return $this->belongsTo('Mission');
 	}
 
 }

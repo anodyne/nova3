@@ -49,17 +49,17 @@ class NovaCreateRanks extends Migration {
 
 		foreach ($info as $i)
 		{
-			RankInfoModel::createItem($i);
+			RankInfo::add($i);
 		}
 
 		foreach ($groups as $g)
 		{
-			RankGroupModel::createItem($g);
+			RankGroup::add($g);
 		}
 
 		foreach ($ranks as $r)
 		{
-			RankModel::createItem($r);
+			Rank::add($r);
 		}
 	}
 

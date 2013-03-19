@@ -91,7 +91,7 @@ class NovaCreateRoles extends Migration {
 
 		foreach ($data as $value)
 		{
-			AccessRole::createItem($value);
+			AccessRole::add($value);
 		}
 	}
 
@@ -770,7 +770,7 @@ class NovaCreateRoles extends Migration {
 		
 		foreach ($data as $value)
 		{
-			AccessTask::createItem($value);
+			AccessTask::add($value);
 		}
 	}
 

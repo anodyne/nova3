@@ -32,7 +32,7 @@ class NovaCreateSimTypes extends Migration {
 		// Loop through the data and add it
 		foreach ($data as $d)
 		{
-			SimTypeModel::createItem($d);
+			SimType::add($d);
 		}
 	}
 

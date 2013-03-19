@@ -1,10 +1,10 @@
 <?php namespace Nova\Core\Model;
 
 use Model;
-use PostModel;
-use MediaModel;
-use MissionNoteModel;
-use MissionGroupModel;
+use Post;
+use Media;
+use MissionNote;
+use MissionGroup;
 
 class Mission extends Model {
 
@@ -20,7 +20,7 @@ class Mission extends Model {
 	 */
 	public function group()
 	{
-		return $this->belongsTo('MissionGroupModel');
+		return $this->belongsTo('MissionGroup');
 	}
 
 	/**
@@ -28,7 +28,7 @@ class Mission extends Model {
 	 */
 	public function notes()
 	{
-		return $this->hasMany('MissionNoteModel');
+		return $this->hasMany('MissionNote');
 	}
 
 	/**
@@ -36,7 +36,7 @@ class Mission extends Model {
 	 */
 	public function posts()
 	{
-		return $this->hasMany('PostModel');
+		return $this->hasMany('Post');
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Mission extends Model {
 	 */
 	public function images()
 	{
-		return $this->morphMany('MediaModel', 'imageable');
+		return $this->morphMany('Media', 'imageable');
 	}
 
 }

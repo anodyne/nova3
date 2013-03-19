@@ -36,9 +36,8 @@ class SkinSection extends Model {
 		// Start a new Query Builder
 		$query = static::startQuery();
 
-		$query->where(array('default', (int) true))
-			->where(array('section', $section))
-			->first();
+		// Get the first item we find
+		$result = $query->where('default', (int) true)->where('section', $section)->first();
 		
 		if ($valueOnly)
 		{

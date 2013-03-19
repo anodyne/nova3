@@ -132,7 +132,7 @@ abstract class Core extends Controller {
 			$me->genre = Config::get('nova.genre');
 
 			// Load all of the settings
-			$me->settings = \SettingsModel::getItems(false);
+			$me->settings = \Settings::getItems(false);
 
 			// Set the language
 			Config::set('app.locale', Session::get('language', 'en'));
@@ -148,9 +148,9 @@ abstract class Core extends Controller {
 			$controllerName = \Fuel\Util\Inflector::denamespace(\Route::getController());
 			
 			// Grab the content for the current section
-			$me->_headers	= \SiteContentModel::getSectionContent('header', $controllerName);
-			$me->_messages	= \SiteContentModel::getSectionContent('message', $controllerName);
-			$me->_titles	= \SiteContentModel::getSectionContent('title', $controllerName);
+			$me->_headers	= \SiteContent::getSectionContent('header', $controllerName);
+			$me->_messages	= \SiteContent::getSectionContent('message', $controllerName);
+			$me->_titles	= \SiteContent::getSectionContent('title', $controllerName);
 		};
 
 		// Call the before filters

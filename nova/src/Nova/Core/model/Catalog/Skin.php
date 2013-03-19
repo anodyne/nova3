@@ -104,7 +104,7 @@ class Skin extends Model implements QuickInstallInterface {
 						);
 						
 						// create the skin
-						Model_CatalogueSkin::createItem($data_skin);
+						Model_CatalogueSkin::add($data_skin);
 						
 						// go through and add the sections
 						foreach ($data->sections as $v)
@@ -118,7 +118,7 @@ class Skin extends Model implements QuickInstallInterface {
 							);
 							
 							// create the section
-							Model_CatalogueSkinSec::createItem($data_section);
+							Model_CatalogueSkinSec::add($data_section);
 						}
 					}
 				}
@@ -144,7 +144,7 @@ class Skin extends Model implements QuickInstallInterface {
 				);
 				
 				// create the skin
-				Model_CatalogueSkin::createItem($data_skin);
+				Model_CatalogueSkin::add($data_skin);
 				
 				// go through and add the sections
 				foreach ($data->sections as $v)
@@ -158,7 +158,7 @@ class Skin extends Model implements QuickInstallInterface {
 					);
 					
 					// create the section
-					Model_CatalogueSkinSec::createItem($data_section);
+					Model_CatalogueSkinSec::add($data_section);
 				}
 			}
 		}

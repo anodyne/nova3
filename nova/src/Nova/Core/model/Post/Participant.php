@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Model\Post;
 
 use Model;
-use PostModel;
+use Post;
 
 class Participant extends Model {
 
@@ -18,7 +18,7 @@ class Participant extends Model {
 	 */
 	public function post()
 	{
-		return $this->belongsTo('PostModel');
+		return $this->belongsTo('Post');
 	}
 
 }

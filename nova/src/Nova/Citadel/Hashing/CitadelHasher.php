@@ -14,6 +14,7 @@
 
 namespace Nova\Citadel\Hashing;
 
+use System;
 use Cartalyst\Sentry\Hashing\HasherInterface;
 
 class CitadelHasher implements HasherInterface {
@@ -60,6 +61,7 @@ class CitadelHasher implements HasherInterface {
 	 */
 	protected function createSalt()
 	{
-		return SystemModel::getUid();
+		return System::getUniqueId();
 	}
+	
 }

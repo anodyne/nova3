@@ -2,7 +2,7 @@
 
 use Model;
 use DateTime;
-use UserModel;
+use User;
 use Cartalyst\Sentry\Throttling\ThrottleInterface;
 use Cartalyst\Sentry\Throttling\UserBannedException;
 use Cartalyst\Sentry\Throttling\UserSuspendedException;
@@ -57,7 +57,7 @@ class Suspend extends Model implements ThrottleInterface {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('UserModel');
+		return $this->belongsTo('User');
 	}
 
 	/*

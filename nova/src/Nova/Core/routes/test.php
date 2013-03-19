@@ -14,7 +14,7 @@ Route::group(array('prefix' => 'test'), function()
 
 	Route::get('user', function()
 	{
-		$user = UserModel::find(8);
+		$user = User::find(8);
 		$characters = Character::getCharacters('npc');
 
 		//sd($characters->toArray());
@@ -25,11 +25,11 @@ Route::group(array('prefix' => 'test'), function()
 	{
 		return 'test/comments';
 
-		//$model = PostModel::create(array('title' => 'Post 9'));
+		//$model = Post::create(array('title' => 'Post 9'));
 
 		//return 'Finished!';
 
-		/*$post = PostModel::find(1);
+		/*$post = Post::find(1);
 		$post->comments()->create(array('content' => 'Fifth post comment'));
 
 		foreach ($post->comments as $comment)
@@ -40,32 +40,32 @@ Route::group(array('prefix' => 'test'), function()
 
 	Route::get('misc', function()
 	{
-		dd(SettingsModel::getItems());
+		//dd(Settings::getItems());
 
 		//dd(Character::getCharacters()->toArray());
 
-		//$depts = DeptModel::where('type', 'nonplaying')->with('positions')->get();
+		//$depts = Dept::where('type', 'nonplaying')->with('positions')->get();
 
 		//dd($depts->toArray());
 
-		$positions = PositionModel::getItems('open.playing')->filter(function($item)
+		/*$positions = Position::getItems('open.playing')->filter(function($item)
 			{
 				return ($item->type == 'senior');
 			});
-		/*$positions = PositionModel::with(array('dept.positions' => function($query)
+		/*$positions = Position::with(array('dept.positions' => function($query)
 		{
 			$query->where('type', 'nonplaying');
 		}))->get();*/
-		//$positions = PositionModel::find(1);
+		//$positions = Position::find(1);
 
-		dd($positions->toArray());
+		//dd($positions->toArray());
 		//dd($positions);
 
-		foreach ($positions as $p)
+		/*foreach ($positions as $p)
 		{
 			//d($p->name);
 			//d($p->dept->name);
-		}
+		}*/
 	});
 
 	Route::get('migrate', function()
@@ -102,5 +102,10 @@ Route::group(array('prefix' => 'test'), function()
 		$roles = AccessRole::all();
 
 		sd($roles->toSimpleArray());
+	});
+
+	Route::get('handlers', function()
+	{
+		//
 	});
 });

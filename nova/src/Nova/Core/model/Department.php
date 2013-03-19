@@ -2,8 +2,8 @@
 
 use Model;
 use Config;
-use ManifestModel;
-use PositionModel;
+use Manifest;
+use Position;
 
 class Department extends Model {
 
@@ -35,7 +35,7 @@ class Department extends Model {
 	 */
 	public function manifest()
 	{
-		return $this->belongsTo('ManifestModel');
+		return $this->belongsTo('Manifest');
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Department extends Model {
 	 */
 	public function positions()
 	{
-		return $this->hasMany('PositionModel', 'dept_id');
+		return $this->hasMany('Position', 'dept_id');
 	}
 	
 }

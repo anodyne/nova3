@@ -1,5 +1,6 @@
 <?php namespace Nova\Core\Model\Catalog;
 
+use File;
 use Model;
 use Config;
 use Status;
@@ -93,7 +94,7 @@ class Module extends Model implements QuickInstallInterface {
 					$data = json_decode($content, true);
 
 					// Create the item
-					static::createItem($data);
+					static::add($data);
 				}
 			}
 		}
@@ -116,7 +117,7 @@ class Module extends Model implements QuickInstallInterface {
 				$data = json_decode($content, true);
 				
 				// Create the item
-				static::createItem($data);
+				static::add($data);
 			}
 		}
 	}

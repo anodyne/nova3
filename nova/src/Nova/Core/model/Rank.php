@@ -2,9 +2,9 @@
 
 use Model;
 use Config;
-use RankInfoModel;
+use RankInfo;
 use Character;
-use RankGroupModel;
+use RankGroup;
 
 class Rank extends Model {
 
@@ -19,7 +19,7 @@ class Rank extends Model {
 	 */
 	public function info()
 	{
-		return $this->belongsTo('RankInfoModel');
+		return $this->belongsTo('RankInfo');
 	}
 
 	/**
@@ -27,7 +27,7 @@ class Rank extends Model {
 	 */
 	public function group()
 	{
-		return $this->belongsTo('RankGroupModel');
+		return $this->belongsTo('RankGroup');
 	}
 
 	/**

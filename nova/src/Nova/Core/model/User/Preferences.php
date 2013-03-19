@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Model\User;
 
 use Model;
-use UserModel;
+use User;
 use RankCatalog;
 use SkinSectionCatalog;
 
@@ -22,7 +22,7 @@ class Preferences extends Model {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('UserModel');
+		return $this->belongsTo('User');
 	}
 	
 	/**

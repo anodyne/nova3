@@ -83,7 +83,7 @@ class Widget extends Model implements QuickInstallInterface {
 					);
 					
 					// create the item
-					Model_CatalogueWidget::createItem($data_widget);
+					Model_CatalogueWidget::add($data_widget);
 				}
 			}
 		}
@@ -109,7 +109,7 @@ class Widget extends Model implements QuickInstallInterface {
 				);
 				
 				// create the item
-				Model_CatalogueWidget::createItem($data_widget);
+				Model_CatalogueWidget::add($data_widget);
 			}
 		}
 		*/

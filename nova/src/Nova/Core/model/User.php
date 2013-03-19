@@ -5,17 +5,16 @@ use Model;
 use Status;
 use Sentry;
 use Session;
-use AppModel;
-use LogModel;
+use NovaApp;
+use PersonalLog;
 use Redirect;
 use Exception;
-use PostModel;
+use Post;
 use Character;
-use UserPrefsModel;
+use UserPrefs;
 use AccessRole;
-use UserSuspendModel;
-use AppReviewer;
-use AnnouncementModel;
+use UserSuspend;
+use Announcement;
 use AwardRecipient;
 use Cartalyst\Sentry\Users\UserInterface;
 use Cartalyst\Sentry\Groups\GroupInterface;
@@ -59,7 +58,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function app()
 	{
-		return $this->hasOne('AppModel');
+		return $this->hasOne('NovaApp');
 	}
 
 	/**
@@ -75,7 +74,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function logs()
 	{
-		return $this->hasMany('LogModel');
+		return $this->hasMany('PersonalLog');
 	}
 
 	/**
@@ -83,7 +82,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function announcements()
 	{
-		return $this->hasMany('AnnouncementModel');
+		return $this->hasMany('Announcement');
 	}
 
 	/**
@@ -91,7 +90,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function preferences()
 	{
-		return $this->hasMany('UserPrefsModel');
+		return $this->hasMany('UserPrefs');
 	}
 
 	/**
@@ -99,7 +98,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function throttles()
 	{
-		return $this->hasMany('UserSuspendModel');
+		return $this->hasMany('UserSuspend');
 	}
 
 	/**
@@ -115,7 +114,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function posts()
 	{
-		return $this->belongsToMany('PostModel', 'post_authors');
+		return $this->belongsToMany('Post', 'post_authors');
 	}
 
 	/**
@@ -123,7 +122,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function appReviews()
 	{
-		return $this->belongsToMany('AppModel', 'application_reviewers');
+		return $this->belongsToMany('NovaApp', 'application_reviewers');
 	}
 
 	/**

@@ -128,7 +128,7 @@ class NovaCreateForms extends Migration {
 
 		foreach ($data as $d)
 		{
-			FormModel::createItem($d);
+			NovaForm::add($d);
 		}
 	}
 
@@ -401,7 +401,7 @@ class NovaCreateForms extends Migration {
 
 		foreach ($data as $d)
 		{
-			FormFieldModel::createItem($d);
+			NovaFormField::add($d);
 		}
 	}
 
@@ -437,7 +437,7 @@ class NovaCreateForms extends Migration {
 
 		foreach ($data as $d)
 		{
-			FormSectionModel::createItem($d);
+			NovaFormSection::add($d);
 		}
 	}
 
@@ -468,7 +468,7 @@ class NovaCreateForms extends Migration {
 
 		foreach ($data as $d)
 		{
-			FormTabModel::createItem($d);
+			NovaFormTab::add($d);
 		}
 	}
 
@@ -524,7 +524,7 @@ class NovaCreateForms extends Migration {
 
 		foreach ($data as $d)
 		{
-			FormValueModel::createItem($d);
+			NovaFormValue::add($d);
 		}
 	}
 

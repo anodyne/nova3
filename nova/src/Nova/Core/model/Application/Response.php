@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Model\Application;
 
 use Model;
-use AppModel;
-use UserModel;
+use NovaApp;
+use User;
 
 class Response extends Model {
 	
@@ -22,7 +22,7 @@ class Response extends Model {
 	 */
 	public function app()
 	{
-		return $this->belongsTo('AppModel');
+		return $this->belongsTo('NovaApp');
 	}
 
 	/**
@@ -30,7 +30,7 @@ class Response extends Model {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('UserModel');
+		return $this->belongsTo('User');
 	}
 	
 }

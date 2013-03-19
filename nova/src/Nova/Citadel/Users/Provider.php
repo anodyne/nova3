@@ -2,7 +2,7 @@
 
 namespace Nova\Citadel\Users;
 
-use UserModel;
+use User;
 use Cartalyst\Sentry\Hashing\HasherInterface;
 use Cartalyst\Sentry\Groups\GroupInterface;
 use Cartalyst\Sentry\Users\ProviderInterface;
@@ -17,7 +17,7 @@ class Provider implements ProviderInterface {
 	 *
 	 * @var string
 	 */
-	protected $model = 'UserModel';
+	protected $model = 'User';
 
 	/**
 	 * The hasher for the model.
@@ -145,7 +145,7 @@ class Provider implements ProviderInterface {
 	 */
 	public function findByActivationCode($code)
 	{
-		return UserModel::where('activation_hash', $code)->first();
+		return User::where('activation_hash', $code)->first();
 	}
 
 	/**
@@ -158,7 +158,7 @@ class Provider implements ProviderInterface {
 	 */
 	public function findByResetPasswordCode($code)
 	{
-		return UserModel::where('reset_password_hash', $code)->first();
+		return User::where('reset_password_hash', $code)->first();
 	}
 
 	/**

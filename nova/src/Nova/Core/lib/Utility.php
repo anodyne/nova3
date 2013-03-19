@@ -1,16 +1,4 @@
-<?php
-/**
- * The Utility class contains methods for a wide variety of operations that need
- * to be completed throughout the system.
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Class
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
-
-namespace Nova\Core\Lib;
+<?php namespace Nova\Core\Lib;
 
 use App;
 use File;
@@ -18,11 +6,11 @@ use Cache;
 use Route;
 use Config;
 use Sentry;
+use System;
 use Request;
+use Settings;
 use Redirect;
 use Exception;
-use SystemModel;
-use SettingsModel;
 
 class Utility {
 	
@@ -67,7 +55,7 @@ class Utility {
 			return Sentry::getUser()->getPreferenceItem('rank');
 		}
 
-		return SettingsModel::getItems('rank');
+		return Settings::getItems('rank');
 	}
 
 	/**
@@ -84,7 +72,7 @@ class Utility {
 			return Sentry::getUser()->getPreferenceItem("skin_{$section}");
 		}
 
-		return SettingsModel::getItems("skin_{$section}");
+		return Settings::getItems("skin_{$section}");
 	}
 
 	/**
@@ -102,10 +90,10 @@ class Utility {
 		if (ini_get('allow_url_fopen'))
 		{
 			// Grab the update setting preference
-			$updatePref = SettingsModel::getItems('updates');
+			$updatePref = Settings::getItems('updates');
 			
 			// Get the ignore version info
-			$sys = SystemModel::first();
+			$sys = System::first();
 			
 			// Load the data
 			$content = File::getRemote(Config::get('nova.version_check_path'));
@@ -180,7 +168,7 @@ class Utility {
 				try
 				{
 					// Grab the UID
-					$uid = SystemModel::getUniqueId();
+					$uid = System::getUniqueId();
 
 					// Only cache if we have a UID
 					if ( ! empty($uid))
@@ -215,7 +203,7 @@ class Utility {
 	}
 
 	/**
-	 * Get the real ip address of the user.  Even if they are using a proxy.
+	 * Get the real ip address of the user. Even if they are using a proxy.
 	 *
 	 * @author	FuelPHP Development Team
 	 * @param	string	The default to return on failure

@@ -1,24 +1,10 @@
-<?php
-/**
- * The Nav class provides an interface for generating navigation
- * menus out of the database, including managing the caching of
- * the navigation for faster load speeds.
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Class
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
-
-namespace Nova\Core\Lib;
+<?php namespace Nova\Core\Lib;
 
 use View;
 use Sentry;
 use Utility;
 use NavModel;
-use SettingsModel;
-use Fuel\Util\Inflector;
+use Settings;
 
 class Nav {
 	
@@ -102,7 +88,7 @@ class Nav {
 				{
 					$output = View::make($this->app['location']->file('nav/classic', Utility::getSkin($this->section), 'partial'))
 						->with('items', $this->data[$this->type]['items'][$this->category])
-						->with('name', SettingsModel::getItems('sim_name'));
+						->with('name', Settings::getItems('sim_name'));
 				}
 				else
 				{
@@ -115,7 +101,7 @@ class Nav {
 			default:
 				$output = View::make($this->app['location']->file('nav/dropdown', Utility::getSkin($this->section), 'partial'))
 					->with('items', $this->data)
-					->with('name', SettingsModel::getItems('sim_name'))
+					->with('name', Settings::getItems('sim_name'))
 					->with('userMenu', $this->userOutput)
 					->with('section', $this->section)
 					->with('category', $this->category);
@@ -259,55 +245,55 @@ class Nav {
 			$this->userData = array(
 				0 => array(
 					array(
-						'name' => ucwords(\lang('cp')),
+						'name' => ucwords(lang('cp')),
 						'url' => 'admin/index',
 						'extra' => array(),
 						'additional' => ''),
 					array(
-						'name' => ucfirst(Inflector::pluralize(\lang('notification'))),
+						'name' => ucfirst(Str::plural(lang('notification'))),
 						'url' => 'admin/notifications',
 						'extra' => array(),
 						'additional' => ''),
 				),
 				1 => array(
 					array(
-						'name' => ucwords(\lang('my', array('thing' => \lang('account')))),
+						'name' => ucwords(lang('my', array('thing' => lang('account')))),
 						'url' => 'admin/user/edit/'.Sentry::getUser()->id,
 						'extra' => array(),
-						'additional' => ' <span class="icn icn-50 tooltip-left" data-icon="?" title="'.\lang('short.help.user_account').'"></span>'),
+						'additional' => ' <span class="icn icn-50 tooltip-left" data-icon="?" title="'.lang('short.help.user_account').'"></span>'),
 					array(
-						'name' => ucwords(\lang('my', array('thing' => Inflector::pluralize(\lang('character'))))),
+						'name' => ucwords(lang('my', array('thing' => Str::plural(lang('character'))))),
 						'url' => 'admin/character/edit',
 						'extra' => array(),
 						'additional' => ''),
 				),
 				2 => array(
 					array(
-						'name' => $messageOutput.ucfirst(Inflector::pluralize(\lang('message'))),
+						'name' => $messageOutput.ucfirst(Str::plural(lang('message'))),
 						'url' => 'admin/messages',
 						'extra' => array(),
 						'additional' => ''),
 					array(
-						'name' => $writingOutput.\lang('writing', 1),
+						'name' => $writingOutput.lang('writing', 1),
 						'url' => 'admin/writing',
 						'extra' => array(),
 						'additional' => ''),
 				),
 				3 => array(
 					array(
-						'name' => ucfirst(\langConcat('action.request loa')),
+						'name' => ucfirst(langConcat('action.request loa')),
 						'url' => 'admin/user/loa',
 						'extra' => array(),
 						'additional' => ''),
 					array(
-						'name' => ucfirst(\langConcat('action.nominate for award')),
+						'name' => ucfirst(langConcat('action.nominate for award')),
 						'url' => 'admin/user/nominate',
 						'extra' => array(),
 						'additional' => ''),
 				),
 				4 => array(
 					array(
-						'name' => ucfirst(\lang('action.logout')),
+						'name' => ucfirst(lang('action.logout')),
 						'url' => 'login/logout',
 						'extra' => array(),
 						'additional' => ''),
@@ -325,7 +311,7 @@ class Nav {
 		{
 			// Set the data for the output
 			$output->with('loggedIn', false)
-			 ->with('loginText', ucwords(\lang('action.login')));
+			 ->with('loginText', ucwords(lang('action.login')));
 		}
 
 		// Set the output render to the class variable

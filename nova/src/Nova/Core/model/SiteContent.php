@@ -2,7 +2,6 @@
 
 use Cache;
 use Model;
-use SettingsModel;
 
 class SiteContent extends Model {
 
@@ -75,7 +74,7 @@ class SiteContent extends Model {
 					foreach ($arr[2] as $k => $v)
 					{
 						// Get the item from the settings table
-						$replace = SettingsModel::getItems($v);
+						$replace = \Settings::getItems($v);
 						
 						// Set the new content
 						$content = str_replace($arr[0][$k], $replace, $content);

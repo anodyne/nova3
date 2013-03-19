@@ -31,25 +31,25 @@ Route::group(array('prefix' => 'setup/install'), function()
 		Cache::flush();
 
 		// Cache the headers
-		SiteContentModel::getSectionContent('header', 'main');
-		SiteContentModel::getSectionContent('header', 'sim');
-		SiteContentModel::getSectionContent('header', 'personnel');
-		SiteContentModel::getSectionContent('header', 'search');
-		SiteContentModel::getSectionContent('header', 'login');
+		SiteContent::getSectionContent('header', 'main');
+		SiteContent::getSectionContent('header', 'sim');
+		SiteContent::getSectionContent('header', 'personnel');
+		SiteContent::getSectionContent('header', 'search');
+		SiteContent::getSectionContent('header', 'login');
 		
 		// Cache the titles
-		SiteContentModel::getSectionContent('title', 'main');
-		SiteContentModel::getSectionContent('title', 'sim');
-		SiteContentModel::getSectionContent('title', 'personnel');
-		SiteContentModel::getSectionContent('title', 'search');
-		SiteContentModel::getSectionContent('title', 'login');
+		SiteContent::getSectionContent('title', 'main');
+		SiteContent::getSectionContent('title', 'sim');
+		SiteContent::getSectionContent('title', 'personnel');
+		SiteContent::getSectionContent('title', 'search');
+		SiteContent::getSectionContent('title', 'login');
 		
 		// Cache the messages
-		SiteContentModel::getSectionContent('message', 'main');
-		SiteContentModel::getSectionContent('message', 'sim');
-		SiteContentModel::getSectionContent('message', 'personnel');
-		SiteContentModel::getSectionContent('message', 'search');
-		SiteContentModel::getSectionContent('message', 'login');
+		SiteContent::getSectionContent('message', 'main');
+		SiteContent::getSectionContent('message', 'sim');
+		SiteContent::getSectionContent('message', 'personnel');
+		SiteContent::getSectionContent('message', 'search');
+		SiteContent::getSectionContent('message', 'login');
 
 		// Register
 		# TODO: need to figure out how we want to do registration

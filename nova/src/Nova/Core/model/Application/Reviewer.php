@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Model\Application;
 
 use Model;
-use AppModel;
+use NovaApp;
 
 class Reviewer extends Model {
 	
@@ -18,7 +18,7 @@ class Reviewer extends Model {
 	 */
 	public function app()
 	{
-		return $this->belongsTo('AppModel');
+		return $this->belongsTo('NovaApp');
 	}
 
 }

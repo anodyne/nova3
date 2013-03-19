@@ -35,7 +35,7 @@ class NovaCreateManifests extends Migration {
 		// Loop through and add the data
 		foreach ($data as $d)
 		{
-			ManifestModel::createItem($d);
+			Manifest::add($d);
 		}
 	}
 

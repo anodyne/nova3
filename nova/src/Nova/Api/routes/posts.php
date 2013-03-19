@@ -1,10 +1,10 @@
 <?php
 
-Route::model('post', 'UserModel');
+Route::model('post', 'User');
 
 Route::group(array('prefix' => 'api/post'), function()
 {
-	Route::get('{post}', function(UserModel $post)
+	Route::get('{post}', function(User $post)
 	{
 		return $post;
 

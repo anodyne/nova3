@@ -32,7 +32,7 @@ class NovaCreatePositions extends Migration {
 
 		foreach ($positions as $p)
 		{
-			PositionModel::createItem($p);
+			Position::add($p);
 		}
 	}
 

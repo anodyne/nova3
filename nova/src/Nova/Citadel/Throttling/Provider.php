@@ -14,7 +14,7 @@ class Provider implements ProviderInterface {
 	 *
 	 * @var string
 	 */
-	protected $model = 'UserSuspendModel';
+	protected $model = 'UserSuspend';
 
 	/**
 	 * The user provider used for finding users

@@ -1,6 +1,7 @@
 <?php namespace Nova\Core\Model\Form;
 
 use Model;
+use NovaFormSection;
 
 class Tab extends Model {
 	
@@ -16,7 +17,7 @@ class Tab extends Model {
 	 */
 	public function sections()
 	{
-		return $this->hasMany('FormSectionModel');
+		return $this->hasMany('NovaFormSection');
 	}
 
 	/**

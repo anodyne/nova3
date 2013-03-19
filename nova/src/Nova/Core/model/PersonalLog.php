@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Model;
 
 use Model;
-use UserModel;
-use CommentModel;
+use User;
+use Comment;
 use Character;
 
 # TODO: do we want to allow for some kind of custom ordering?
@@ -29,7 +29,7 @@ class PersonalLog extends Model {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('UserModel');
+		return $this->belongsTo('User');
 	}
 
 	/**
@@ -37,7 +37,7 @@ class PersonalLog extends Model {
 	 */
 	public function comments()
 	{
-		return $this->morphMany('CommentModel', 'commentable');
+		return $this->morphMany('Comment', 'commentable');
 	}
 
 }

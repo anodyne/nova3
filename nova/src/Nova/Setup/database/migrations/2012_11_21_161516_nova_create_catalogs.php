@@ -107,7 +107,7 @@ class NovaCreateCatalogs extends Migration {
 
 		foreach ($catalog_ranks as $c)
 		{
-			RankCatalog::createItem($c);
+			RankCatalog::add($c);
 		}
 	}
 
@@ -124,7 +124,7 @@ class NovaCreateCatalogs extends Migration {
 
 		foreach ($skins as $s)
 		{
-			SkinCatalog::createItem($s);
+			SkinCatalog::add($s);
 		}
 
 		$skinSections = array(
@@ -147,7 +147,7 @@ class NovaCreateCatalogs extends Migration {
 
 		foreach ($skinSections as $c)
 		{
-			SkinSectionCatalog::createItem($c);
+			SkinSectionCatalog::add($c);
 		}
 	}
 

@@ -4,9 +4,9 @@ use Date;
 use Model;
 use Sentry;
 use Status;
-use UserModel;
-use AppResponse;
-use PositionModel;
+use User;
+use NovaAppResponse;
+use Position;
 use Character;
 
 class Application extends Model {
@@ -31,7 +31,7 @@ class Application extends Model {
 	 */
 	public function position()
 	{
-		return $this->belongsTo('PositionModel');
+		return $this->belongsTo('Position');
 	}
 
 	/**
@@ -39,7 +39,7 @@ class Application extends Model {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('UserModel');
+		return $this->belongsTo('User');
 	}
 
 	/**
@@ -47,7 +47,7 @@ class Application extends Model {
 	 */
 	public function responses()
 	{
-		return $this->hasMany('AppResponse');
+		return $this->hasMany('NovaAppResponse');
 	}
 
 	/**
@@ -55,7 +55,7 @@ class Application extends Model {
 	 */
 	public function reviewers()
 	{
-		return $this->belongsToMany('UserModel', 'application_reviewers');
+		return $this->belongsToMany('User', 'application_reviewers');
 	}
 
 	/**
@@ -199,7 +199,7 @@ class Application extends Model {
 		foreach ($data as $d)
 		{
 			// add the reviewer
-			\Model_Application_Reviewer::createItem(array(
+			\Model_Application_Reviewer::add(array(
 				'app_id' => $this->id,
 				'user_id' => $d
 			));
@@ -246,7 +246,7 @@ class Application extends Model {
 		else
 		{
 			// add the response
-			\Model_Application_Response::createItem(array(
+			\Model_Application_Response::add(array(
 				'app_id' => $this->id,
 				'user_id' => $user->id,
 				'type' => \Model_Application_Response::VOTE,

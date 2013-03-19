@@ -735,7 +735,7 @@ class NovaCreateNavigation extends Migration {
 
 		foreach ($data as $d)
 		{
-			NavModel::createItem($d);
+			NavModel::add($d);
 		}
 	}
 

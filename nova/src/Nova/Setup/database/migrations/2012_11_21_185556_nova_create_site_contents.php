@@ -502,7 +502,7 @@ class NovaCreateSiteContents extends Migration {
 		// Loop through the insert the data
 		foreach ($data as $d)
 		{
-			SiteContentModel::createItem($d);
+			SiteContent::add($d);
 		}
 	}
 

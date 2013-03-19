@@ -2,7 +2,9 @@
 
 use Model;
 use Status;
-use FormDataModel;
+use NovaFormData;
+use NovaFormValue;
+use NovaFormSection;
 
 class Field extends Model {
 	
@@ -19,7 +21,7 @@ class Field extends Model {
 	 */
 	public function section()
 	{
-		return $this->belongsTo('FormSectionModel');
+		return $this->belongsTo('NovaFormSection');
 	}
 
 	/**
@@ -27,7 +29,7 @@ class Field extends Model {
 	 */
 	public function data()
 	{
-		return $this->hasMany('FormDataModel');
+		return $this->hasMany('NovaFormData');
 	}
 
 	/**
@@ -35,7 +37,7 @@ class Field extends Model {
 	 */
 	public function values()
 	{
-		return $this->hasMany('FormValueModel');
+		return $this->hasMany('NovaFormValue');
 	}
 
 	/**

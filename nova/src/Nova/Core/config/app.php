@@ -119,11 +119,9 @@ return array(
 		 * Nova Service Providers
 		 */
 		'Nova\Citadel\CitadelServiceProvider',
+		'Nova\Core\Providers\LocationServiceProvider',
 		'Nova\Foundation\Routing\RoutingServiceProvider',
 		'Nova\Foundation\Translation\TranslationServiceProvider',
-
-		//'Meido\Form\FormServiceProvider',
-		//'Meido\HTML\HTMLServiceProvider',
 
 	),
 
@@ -207,15 +205,17 @@ return array(
 		/**
 		 * Nova Classes
 		 */
-		'Date'		=> 'Datum\Datum',
-		'Markdown'	=> 'Nova\Core\Lib\Markdown',
-		'Media'		=> 'Nova\Core\Lib\Media',
-		'Model'		=> 'Nova\Foundation\Database\Eloquent\Model',
-		'Nav'		=> 'Nova\Core\Lib\Nav',
-		'Sentry' 	=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
-		'Status'	=> 'Nova\Core\Lib\Status',
-		'Str'		=> 'Nova\Foundation\Support\Str',
-		'Utility'	=> 'Nova\Core\Lib\Utility',
+		'Date'			=> 'Datum\Datum',
+		'Location'		=> 'Nova\Core\Facades\Location',
+		'Markdown'		=> 'Nova\Core\Lib\Markdown',
+		'Media'			=> 'Nova\Core\Lib\Media',
+		'Model'			=> 'Nova\Foundation\Database\Eloquent\Model',
+		'Nav'			=> 'Nova\Core\Lib\Nav',
+		'Sentry' 		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+		'Status'		=> 'Nova\Core\Lib\Status',
+		'Str'			=> 'Nova\Foundation\Support\Str',
+		'SystemEvent'	=> 'Nova\Core\Lib\SystemEvent',
+		'Utility'		=> 'Nova\Core\Lib\Utility',
 
 		/**
 		 * Nova Interfaces
@@ -228,13 +228,13 @@ return array(
 		 * Nova Models
 		 */
 		'AccessRole'				=> 'Nova\Core\Model\Access\Role',
-		'AccessRoleTask'			=> 'Nova\Core\Model\Access\RoleTask', // do we need this?
+		'AccessRoleTask'			=> 'Nova\Core\Model\Access\RoleTask',
 		'AccessTask'				=> 'Nova\Core\Model\Access\Task',
 
-		'AppModel'					=> 'Nova\Core\Model\Application',
-		'AppResponse'				=> 'Nova\Core\Model\Application\Response',
-		'AppReviewer'				=> 'Nova\Core\Model\Application\Reviewer',
-		'AppRule'					=> 'Nova\Core\Model\Application\Rule',
+		'NovaApp'					=> 'Nova\Core\Model\Application',
+		'NovaAppResponse'			=> 'Nova\Core\Model\Application\Response',
+		'NovaAppReviewer'			=> 'Nova\Core\Model\Application\Reviewer',
+		'NovaAppRule'				=> 'Nova\Core\Model\Application\Rule',
 
 		'Award'						=> 'Nova\Core\Model\Award',
 		'AwardCategory'				=> 'Nova\Core\Model\Award\Category',
@@ -247,57 +247,57 @@ return array(
 		'WidgetCatalog'				=> 'Nova\Core\Model\Catalog\Widget',
 
 		'Character'					=> 'Nova\Core\Model\Character',
-		'CharacterPosition'			=> 'Nova\Core\Model\Character\Positions', // do we need this?
+		'CharacterPosition'			=> 'Nova\Core\Model\Character\Positions',
 		'CharacterPromotion'		=> 'Nova\Core\Model\Character\Promotion',
 
-		'FormModel'					=> 'Nova\Core\Model\Form',
-		'FormDataModel'				=> 'Nova\Core\Model\Form\Data',
-		'FormFieldModel'			=> 'Nova\Core\Model\Form\Field',
-		'FormSectionModel'			=> 'Nova\Core\Model\Form\Section',
-		'FormTabModel'				=> 'Nova\Core\Model\Form\Tab',
-		'FormValueModel'			=> 'Nova\Core\Model\Form\Value',
+		'NovaForm'					=> 'Nova\Core\Model\Form',
+		'NovaFormData'				=> 'Nova\Core\Model\Form\Data',
+		'NovaFormField'				=> 'Nova\Core\Model\Form\Field',
+		'NovaFormSection'			=> 'Nova\Core\Model\Form\Section',
+		'NovaFormTab'				=> 'Nova\Core\Model\Form\Tab',
+		'NovaFormValue'				=> 'Nova\Core\Model\Form\Value',
 
-		'MissionModel'				=> 'Nova\Core\Model\Mission',
-		'MissionGroupModel'			=> 'Nova\Core\Model\Mission\Group',
-		'MissionNoteModel'			=> 'Nova\Core\Model\Mission\Note',
+		'Mission'					=> 'Nova\Core\Model\Mission',
+		'MissionGroup'				=> 'Nova\Core\Model\Mission\Group',
+		'MissionNote'				=> 'Nova\Core\Model\Mission\Note',
 
-		'PostModel'					=> 'Nova\Core\Model\Post',
-		'PostAuthorModel'			=> 'Nova\Core\Model\Post\Author',
-		'PostLockModel'				=> 'Nova\Core\Model\Post\Lock',
-		'PostParticipantModel'		=> 'Nova\Core\Model\Post\Participant',
+		'Post'						=> 'Nova\Core\Model\Post',
+		'PostAuthor'				=> 'Nova\Core\Model\Post\Author',
+		'PostLock'					=> 'Nova\Core\Model\Post\Lock',
+		'PostParticipant'			=> 'Nova\Core\Model\Post\Participant',
 
-		'RankModel'					=> 'Nova\Core\Model\Rank',
-		'RankGroupModel'			=> 'Nova\Core\Model\Rank\Group',
-		'RankInfoModel'				=> 'Nova\Core\Model\Rank\Info',
+		'Rank'						=> 'Nova\Core\Model\Rank',
+		'RankGroup'					=> 'Nova\Core\Model\Rank\Group',
+		'RankInfo'					=> 'Nova\Core\Model\Rank\Info',
 
-		'UserModel'					=> 'Nova\Core\Model\User',
-		'UserLoaModel'				=> 'Nova\Core\Model\User\Loa',
-		'UserPrefsModel'			=> 'Nova\Core\Model\User\Preferences',
-		'UserSuspendModel'			=> 'Nova\Core\Model\User\Suspend',
+		'User'						=> 'Nova\Core\Model\User',
+		'UserLoa'					=> 'Nova\Core\Model\User\Loa',
+		'UserPrefs'					=> 'Nova\Core\Model\User\Preferences',
+		'UserSuspend'				=> 'Nova\Core\Model\User\Suspend',
 
-		'AnnouncementModel'			=> 'Nova\Core\Model\Announcement',
-		'AnnouncementCategoryModel'	=> 'Nova\Core\Model\AnnouncementCategory',
-		'BanModel'					=> 'Nova\Core\Model\Ban',
-		'CommentModel'				=> 'Nova\Core\Model\Comment',
-		'DeptModel'					=> 'Nova\Core\Model\Department',
-		'ManifestModel'				=> 'Nova\Core\Model\Manifest',
-		'MediaModel'				=> 'Nova\Core\Model\Media',
-		'MessageModel'				=> 'Nova\Core\Model\Message',
-		'MessageRecipientModel'		=> 'Nova\Core\Model\MessageRecipient',
-		'ModerationModel'			=> 'Nova\Core\Model\Moderation',
+		'Announcement'				=> 'Nova\Core\Model\Announcement',
+		'AnnouncementCategory'		=> 'Nova\Core\Model\AnnouncementCategory',
+		'Ban'						=> 'Nova\Core\Model\Ban',
+		'Comment'					=> 'Nova\Core\Model\Comment',
+		'Dept'						=> 'Nova\Core\Model\Department',
+		'Manifest'					=> 'Nova\Core\Model\Manifest',
+		'Media'						=> 'Nova\Core\Model\Media',
+		'Message'					=> 'Nova\Core\Model\Message',
+		'MessageRecipient'			=> 'Nova\Core\Model\MessageRecipient',
+		'Moderation'				=> 'Nova\Core\Model\Moderation',
 		'NavModel'					=> 'Nova\Core\Model\Nav',
-		'LogModel'					=> 'Nova\Core\Model\PersonalLog',
-		'PositionModel'				=> 'Nova\Core\Model\Position',
-		'SettingsModel'				=> 'Nova\Core\Model\Settings',
-		'SimTypeModel'				=> 'Nova\Core\Model\SimType',
-		'SiteContentModel'			=> 'Nova\Core\Model\SiteContent',
-		'SystemModel'				=> 'Nova\Core\Model\System',
+		'PersonalLog'				=> 'Nova\Core\Model\PersonalLog',
+		'Position'					=> 'Nova\Core\Model\Position',
+		'Settings'					=> 'Nova\Core\Model\Settings',
+		'SimType'					=> 'Nova\Core\Model\SimType',
+		'SiteContent'				=> 'Nova\Core\Model\SiteContent',
+		'System'					=> 'Nova\Core\Model\System',
 		'SystemEventModel'			=> 'Nova\Core\Model\SystemEvent',
 
 		/**
 		 * Nova Event Handlers
 		 */
-		'PostHandler'	=> 'Nova\Core\Handler\Post',
+		'UserHandler'	=> 'Nova\Core\Handlers\User',
 
 	),
 

@@ -4,7 +4,7 @@ use Str;
 use Model;
 use Config;
 use Status;
-use DeptModel;
+use Dept;
 use Character;
 use ApplicationModel;
 
@@ -22,7 +22,7 @@ class Position extends Model {
 	 */
 	public function dept()
 	{
-		return $this->belongsTo('DeptModel');
+		return $this->belongsTo('Dept');
 	}
 
 	/**

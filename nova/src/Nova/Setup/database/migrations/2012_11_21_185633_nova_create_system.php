@@ -25,24 +25,24 @@ class NovaCreateSystem extends Migration {
 		Schema::create('system_events', function($t)
 		{
 			$t->increments('id')->unsigned();
-			$t->string('email', 100);
+			$t->string('email', 100)->nullable();
 			$t->string('ip', 16);
 			$t->integer('user_id')->nullable();
-			$t->integer('character_id')->nullable();
 			$t->text('content');
 			$t->timestamps();
 		});
 
 		// Seed the database
-		SystemModel::createItem(array(
+		System::add(array(
 			'uid'				=> Str::random(32),
 			'version_major'		=> Config::get('app.version_major'),
 			'version_minor'		=> Config::get('app.version_minor'),
 			'version_update'	=> Config::get('app.version_update'),
 		));
 
-		SystemEvent::createItem(array(
-			'content' => Config::get('app.name')." was successfully installed.",
+		SystemEventModel::add(array(
+			'ip'		=> Utility::realIp(),
+			'content'	=> Config::get('nova.app.name')." was successfully installed.",
 		));
 	}
 

@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Model\Form;
 
 use Model;
-use FormDataModel;
-use FormFieldModel;
+use NovaFormData;
+use NovaFormField;
 
 class Value extends Model {
 	
@@ -17,7 +17,7 @@ class Value extends Model {
 	 */
 	public function section()
 	{
-		return $this->belongsTo('FormFieldModel');
+		return $this->belongsTo('NovaFormField');
 	}
 
 	/**
@@ -25,7 +25,7 @@ class Value extends Model {
 	 */
 	public function data()
 	{
-		return $this->hasMany('FormDataModel');
+		return $this->hasMany('NovaFormData');
 	}
 
 	/**

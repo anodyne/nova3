@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Model;
 
 use Model;
-use MessageRecipientModel;
+use MessageRecipient;
 
 class Message extends Model {
 
@@ -17,7 +17,7 @@ class Message extends Model {
 	 */
 	public function messages()
 	{
-		return $this->hasMany('MessageRecipientModel');
+		return $this->hasMany('MessageRecipient');
 	}
 
 }

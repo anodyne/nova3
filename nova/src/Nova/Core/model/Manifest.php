@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Model;
 
 use Model;
-use DeptModel;
+use Dept;
 
 class Manifest extends Model {
 
@@ -18,7 +18,7 @@ class Manifest extends Model {
 	 */
 	public function departments()
 	{
-		return $this->hasMany('DeptModel');
+		return $this->hasMany('Dept');
 	}
 
 }

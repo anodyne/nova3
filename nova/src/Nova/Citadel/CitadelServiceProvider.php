@@ -108,7 +108,7 @@ class CitadelServiceProvider extends ServiceProvider {
 	{
 		$this->app['sentry.user'] = $this->app->share(function($app)
 		{
-			$model = 'UserModel';
+			$model = 'User';
 
 			// We will never be accessing a user in Sentry without accessing
 			// the user provider first. So, we can lazily setup our user
@@ -138,9 +138,7 @@ class CitadelServiceProvider extends ServiceProvider {
 	{
 		$this->app['sentry.throttle'] = $this->app->share(function($app)
 		{
-			$model = 'UserSuspendModel';
-
-			return new ThrottleProvider($app['sentry.user'], $model);
+			return new ThrottleProvider($app['sentry.user'], 'UserSuspend');
 		});
 	}
 
