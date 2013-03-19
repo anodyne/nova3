@@ -1,4 +1,5 @@
-<?php
+<?php namespace Nova\Foundation\Database\Eloquent;
+
 /**
  * The model class is the foundation for all of Nova's models and provides core
  * functionality that's shared across a lot of the models used in Nova,
@@ -8,16 +9,9 @@
  * Because these methods are the basis for the majority of CRUD operations in 
  * Nova models, any changes to this class should be done carefully and 
  * deliberately since they can cause wide ranging issues if not done properly.
- *
- * @package		Nova
- * @subpackage	Foundation
- * @category	Class
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
  */
 
-namespace Nova\Foundation\Database\Eloquent;
-
+use Date;
 use Status;
 use Nova\Foundation\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
@@ -33,6 +27,38 @@ class Model extends EloquentModel {
 	public function newCollection(array $models = array())
 	{
 		return new Collection($models);
+	}
+
+	/**
+	 * Get a fresh timestamp for the model.
+	 *
+	 * @return mixed
+	 */
+	public function freshTimestamp()
+	{
+		return Date::now('UTC')->toDateTimeString();
+	}
+
+	/**
+	 * Delete the model from the database.
+	 *
+	 * @return void
+	 */
+	public function delete()
+	{
+		if ($this->exists)
+		{
+			// Fire the "deleting" event
+			if ($this->fireModelEvent('deleting') === false) return false;
+
+			// Do the delete
+			$retval = parent::delete();
+
+			// Fire the "deleted" event
+			$this->fireModelEvent('deleted', false);
+			
+			return $retval;
+		}
 	}
 
 	/**
@@ -54,19 +80,25 @@ class Model extends EloquentModel {
 	 * @param	array	An array of data
 	 * @param	bool	Should the object be returned?
 	 * @param	bool	Should the data be filtered?
-	 * @return	object|bool
+	 * @return	$this|bool
 	 */
 	public static function add(array $data, $returnObject = false, $filter = true)
 	{
 		// Loop through the data and add it to the item
 		foreach ($data as $key => $value)
 		{
+			// Make sure we don't have an ID field or something that
+			// isn't actually a column in the database
 			if ($key != 'id' and in_array($key, static::$properties))
 			{
 				if ($filter)
 				{
-					$data[$key] = trim(\e($data[$key]));
+					$data[$key] = trim(e($data[$key]));
 				}
+			}
+			else
+			{
+				unset($data[$key]);
 			}
 		}
 
@@ -87,19 +119,6 @@ class Model extends EloquentModel {
 	}
 
 	/**
-	 * Create an item with the data passed.
-	 *
-	 * @param	array	An array of data
-	 * @param	bool	Should the object be returned?
-	 * @param	bool	Should the data be filtered?
-	 * @return	mixed
-	 */
-	public static function createItem(array $data, $returnObject = false, $filter = true)
-	{
-		return static::add($data, $returnObject, $filter);
-	}
-
-	/**
 	 * Find a record/records in the table based on the simple arguments.
 	 *
 	 * @param	string	The value
@@ -117,7 +136,7 @@ class Model extends EloquentModel {
 			// Loop through the arguments and build the where clause
 			foreach ($value as $col => $val)
 			{
-				if (array_key_exists($col, static::$properties))
+				if (in_array($col, static::$properties))
 				{
 					$query->where($col, $val);
 				}
@@ -128,7 +147,7 @@ class Model extends EloquentModel {
 		}
 		else
 		{
-			if (array_key_exists($column, static::$properties))
+			if (in_array($column, static::$properties))
 			{
 				if ( ! $search)
 				{
@@ -187,11 +206,11 @@ class Model extends EloquentModel {
 			// Loop through the data array and make the changes
 			foreach ($data as $key => $value)
 			{
-				if ($key != 'id' and array_key_exists($key, static::$properties))
+				if ($key != 'id' and in_array($key, static::$properties))
 				{
 					if ($filter)
 					{
-						$value = \e($value);
+						$value = e($value);
 					}
 
 					$item->{$key} = $value;
@@ -227,7 +246,7 @@ class Model extends EloquentModel {
 				{
 					if ($filter)
 					{
-						$value = \e($value);
+						$value = e($value);
 					}
 
 					$item->{$key} = $value;
@@ -239,19 +258,6 @@ class Model extends EloquentModel {
 
 			return true;
 		}
-	}
-	
-	/**
-	 * Update an item in the table based on the ID and data.
-	 *
-	 * @param	mixed	The ID to update or NULL to update everything
-	 * @param	array 	The array of data to update with
-	 * @param	bool	Should the data be run through the XSS filter?
-	 * @return	mixed
-	 */
-	public static function updateItem($id, array $data, $returnObject = false, $filter = true)
-	{
-		return static::update($id, $data, $returnObject, $filter);
 	}
 
 	/**
@@ -271,7 +277,7 @@ class Model extends EloquentModel {
 			// Loop through the arguments to build the where
 			foreach ($args as $column => $value)
 			{
-				if (array_key_exists($column, static::$properties))
+				if (in_array($column, static::$properties))
 				{
 					$query->where($column, $value);
 				}
@@ -293,17 +299,6 @@ class Model extends EloquentModel {
 		}
 		
 		return false;
-	}
-	
-	/**
-	 * Delete an item in the table based on the arguments passed.
-	 *
-	 * @param	mixed	An array of arguments or the item ID
-	 * @return	bool
-	 */
-	public static function deleteItem($args)
-	{
-		return static::remove($args);
 	}
 
 }
