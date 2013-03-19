@@ -1,12 +1,13 @@
 <?php namespace Nova\Core\Model\Rank;
 
 use Model;
+use Config;
 use Status;
 use RankModel;
 
 class Info extends Model {
 	
-	protected $table = 'rank_info_';
+	protected $table = 'ranks_info_';
 	
 	protected static $properties = array(
 		'id', 'name', 'short_name', 'order', 'group', 'status', 'created_at', 'updated_at',
@@ -42,7 +43,7 @@ class Info extends Model {
 		parent::__construct($attributes);
 
 		// Set the name of the table
-		$this->setTable('rank_info_'.Config::get('nova.genre'));
+		$this->setTable('ranks_info_'.Config::get('nova.genre'));
 	}
 
 	/**

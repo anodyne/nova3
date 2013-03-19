@@ -7,7 +7,7 @@ use RankModel;
 
 class Group extends Model {
 	
-	protected $table = 'rank_groups_';
+	protected $table = 'ranks_groups_';
 	
 	protected static $properties = array(
 		'id', 'name', 'order', 'status', 'created_at', 'updated_at',
@@ -43,7 +43,7 @@ class Group extends Model {
 		parent::__construct($attributes);
 
 		// Set the name of the table
-		$this->setTable('rank_groups_'.Config::get('nova.genre'));
+		$this->setTable('ranks_groups_'.Config::get('nova.genre'));
 	}
 
 	/**

@@ -1,6 +1,7 @@
 <?php namespace Nova\Core\Model;
 
 use Model;
+use Config;
 use RankInfoModel;
 use CharacterModel;
 use RankGroupModel;
