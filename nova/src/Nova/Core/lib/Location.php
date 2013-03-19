@@ -1,5 +1,7 @@
 <?php namespace Nova\Core\Lib;
 
+use RankCatalog;
+
 class Location {
 
 	/**
@@ -187,11 +189,11 @@ class Location {
 
 		// Get the rank catalog object
 		/*$catalog = ( ! $location)
-			? \RankCatalogModel::getItem(\Utility::getRank(), 'location')
-			: \RankCatalogModel::getItem($location, 'location');*/
+			? RankCatalog::getItem(\Utility::getRank(), 'location')
+			: RankCatalog::getItem($location, 'location');*/
 
 		// Get the rank catalog object
-		$catalog = \RankCatalogModel::getItem('default', 'location');
+		$catalog = RankCatalog::getItem('default', 'location');
 
 		if (is_dir(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/base") 
 				and is_dir(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/pips"))

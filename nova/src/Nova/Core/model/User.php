@@ -10,13 +10,13 @@ use LogModel;
 use Redirect;
 use Exception;
 use PostModel;
-use CharacterModel;
+use Character;
 use UserPrefsModel;
-use AccessRoleModel;
+use AccessRole;
 use UserSuspendModel;
-use AppReviewerModel;
+use AppReviewer;
 use AnnouncementModel;
-use AwardRecipientModel;
+use AwardRecipient;
 use Cartalyst\Sentry\Users\UserInterface;
 use Cartalyst\Sentry\Groups\GroupInterface;
 
@@ -43,7 +43,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function role()
 	{
-		return $this->belongsTo('AccessRoleModel');
+		return $this->belongsTo('AccessRole');
 	}
 
 	/**
@@ -51,7 +51,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function character()
 	{
-		return $this->hasOne('CharacterModel');
+		return $this->hasOne('Character');
 	}
 
 	/**
@@ -67,7 +67,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function characters()
 	{
-		return $this->hasMany('CharacterModel');
+		return $this->hasMany('Character');
 	}
 
 	/**
@@ -107,7 +107,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function awards()
 	{
-		return $this->hasMany('AwardRecipientModel');
+		return $this->hasMany('AwardRecipient');
 	}
 
 	/**
@@ -607,7 +607,7 @@ class User extends Model implements UserInterface {
 				if ($i > 0 and $i !== null)
 				{
 					// Get the role
-					$r = AccessRoleModel::find($i);
+					$r = AccessRole::find($i);
 					
 					// Loop through the role's tasks and add them
 					foreach ($r->tasks as $t)

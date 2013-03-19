@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Model\Access;
 
 use Model;
-use AccessRoleModel;
+use AccessRole;
 
 class Task extends Model {
 
@@ -18,7 +18,7 @@ class Task extends Model {
 	 */
 	public function roles()
 	{
-		return $this->belongsToMany('AccessRoleModel', 'roles_tasks');
+		return $this->belongsToMany('AccessRole', 'roles_tasks');
 	}
 
 	/**

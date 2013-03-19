@@ -2,7 +2,7 @@
 
 use Model;
 use UserModel;
-use AccessTaskModel;
+use AccessTask;
 use Cartalyst\Sentry\Groups\GroupInterface;
 
 class Role extends Model implements GroupInterface {
@@ -35,7 +35,7 @@ class Role extends Model implements GroupInterface {
 	 */
 	public function tasks()
 	{
-		return $this->belongsToMany('AccessTaskModel', 'roles_tasks');
+		return $this->belongsToMany('AccessTask', 'roles_tasks');
 	}
 	
 	/**

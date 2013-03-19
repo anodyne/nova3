@@ -6,7 +6,7 @@ use UserModel;
 use MissionModel;
 use CommentModel;
 use PostLockModel;
-use CharacterModel;
+use Character;
 use PostParticipantModel;
 
 class Post extends Model {
@@ -55,7 +55,7 @@ class Post extends Model {
 	 */
 	public function characterAuthors()
 	{
-		return $this->belongsToMany('CharacterModel', 'post_authors');
+		return $this->belongsToMany('Character', 'post_authors');
 	}
 
 	/**

@@ -3,7 +3,7 @@
 use Model;
 use Config;
 use RankInfoModel;
-use CharacterModel;
+use Character;
 use RankGroupModel;
 
 class Rank extends Model {
@@ -35,7 +35,7 @@ class Rank extends Model {
 	 */
 	public function characters()
 	{
-		return $this->hasMany('CharacterModel');
+		return $this->hasMany('Character');
 	}
 
 	/**

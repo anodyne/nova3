@@ -5,7 +5,7 @@ use Model;
 use Config;
 use Status;
 use DeptModel;
-use CharacterModel;
+use Character;
 use ApplicationModel;
 
 class Position extends Model {
@@ -38,7 +38,7 @@ class Position extends Model {
 	 */
 	public function characters()
 	{
-		return $this->belongsToMany('CharacterModel', 'character_positions');
+		return $this->belongsToMany('Character', 'character_positions');
 	}
 
 	/**

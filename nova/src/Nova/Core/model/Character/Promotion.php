@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Model\Character;
 
 use Model;
-use CharacterModel;
+use Character;
 
 class Promotion extends Model {
 	
@@ -17,7 +17,7 @@ class Promotion extends Model {
 	 */
 	public function character()
 	{
-		return $this->belongsTo('CharacterModel');
+		return $this->belongsTo('Character');
 	}
 
 }

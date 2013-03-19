@@ -2,8 +2,8 @@
 
 use Model;
 use UserModel;
-use RankCatalogModel;
-use SkinSectionCatalogModel;
+use RankCatalog;
+use SkinSectionCatalog;
 
 class Preferences extends Model {
 	
@@ -41,9 +41,9 @@ class Preferences extends Model {
 			'timezone'				=> 'UTC',
 			'email_format'			=> 'html',
 			'language'				=> 'en',
-			'rank'					=> RankCatalogModel::getDefault(true),
-			'skin_main'				=> SkinSectionCatalogModel::getDefault('main', true),
-			'skin_admin'			=> SkinSectionCatalogModel::getDefault('admin', true),
+			'rank'					=> RankCatalog::getDefault(true),
+			'skin_main'				=> SkinSectionCatalog::getDefault('main', true),
+			'skin_admin'			=> SkinSectionCatalog::getDefault('admin', true),
 			'email_comments'		=> (int) true,
 			'email_messages'		=> (int) true,
 			'email_logs'			=> (int) true,

@@ -27,7 +27,7 @@ class NovaCreateApplications extends Migration {
 			$t->increments('id');
 			$t->integer('app_id');
 			$t->integer('user_id');
-			$t->boolean('type')->default(AppResponseModel::COMMENT);
+			$t->boolean('type')->default(AppResponse::COMMENT);
 			$t->text('content')->nullable();
 			$t->timestamps();
 		});
@@ -74,7 +74,7 @@ class NovaCreateApplications extends Migration {
 
 		foreach ($rules as $r)
 		{
-			AppRuleModel::createItem($r);
+			AppRule::createItem($r);
 		}
 	}
 	

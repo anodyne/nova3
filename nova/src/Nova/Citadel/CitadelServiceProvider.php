@@ -95,9 +95,7 @@ class CitadelServiceProvider extends ServiceProvider {
 	{
 		$this->app['sentry.group'] = $this->app->share(function($app)
 		{
-			$model = 'AccessRoleModel';
-
-			return new GroupProvider($model);
+			return new GroupProvider('AccessRole');
 		});
 	}
 

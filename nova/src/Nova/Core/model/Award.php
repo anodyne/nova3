@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Model;
 
 use Model;
-use AwardCategoryModel;
-use AwardRecipientModel;
+use AwardCategory;
+use AwardRecipient;
 
 class Award extends Model {
 
@@ -19,7 +19,7 @@ class Award extends Model {
 	 */
 	public function category()
 	{
-		return $this->belongsTo('AwardCategoryModel');
+		return $this->belongsTo('AwardCategory');
 	}
 
 	/**
@@ -27,7 +27,7 @@ class Award extends Model {
 	 */
 	public function recipients()
 	{
-		return $this->hasMany('AwardRecipientModel');
+		return $this->hasMany('AwardRecipient');
 	}
 
 }

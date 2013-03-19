@@ -4,7 +4,7 @@ use Model;
 use Status;
 use UserModel;
 use CommentModel;
-use CharacterModel;
+use Character;
 use AnnouncementCategoryModel;
 
 class Announcement extends Model {
@@ -29,7 +29,7 @@ class Announcement extends Model {
 	 */
 	public function character()
 	{
-		return $this->belongsTo('CharacterModel');
+		return $this->belongsTo('Character');
 	}
 
 	/**

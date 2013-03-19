@@ -9,9 +9,9 @@ use RankModel;
 use PostModel;
 use MediaModel;
 use AnnouncementModel;
-use AwardRecipientModel;
-use CharacterPositionModel;
-use CharacterPromotionModel;
+use AwardRecipient;
+use CharacterPosition;
+use CharacterPromotion;
 
 class Character extends Model {
 
@@ -68,7 +68,7 @@ class Character extends Model {
 	 */
 	public function promotions()
 	{
-		return $this->hasMany('CharacterPromotionModel');
+		return $this->hasMany('CharacterPromotion');
 	}
 
 	/**
@@ -76,7 +76,7 @@ class Character extends Model {
 	 */
 	public function awards()
 	{
-		return $this->hasMany('AwardRecipientModel');
+		return $this->hasMany('AwardRecipient');
 	}
 
 	/**
@@ -161,7 +161,7 @@ class Character extends Model {
 		}
 
 		// Get the position record
-		$position = CharacterPositionModel::getItems($args);
+		$position = CharacterPosition::getItems($args);
 
 		// Update to the new position
 		$position->position_id = $newId;

@@ -2,8 +2,8 @@
 
 use Model;
 use UserModel;
-use AwardModel;
-use CharacterModel;
+use Award;
+use Character;
 
 class Recipient extends Model {
 	
@@ -19,7 +19,7 @@ class Recipient extends Model {
 	 */
 	public function award()
 	{
-		return $this->belongsTo('AwardModel');
+		return $this->belongsTo('Award');
 	}
 
 	/**
@@ -27,7 +27,7 @@ class Recipient extends Model {
 	 */
 	public function character()
 	{
-		return $this->belongsTo('CharacterModel');
+		return $this->belongsTo('Character');
 	}
 
 	/**

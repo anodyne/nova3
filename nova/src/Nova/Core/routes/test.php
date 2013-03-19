@@ -15,7 +15,7 @@ Route::group(array('prefix' => 'test'), function()
 	Route::get('user', function()
 	{
 		$user = UserModel::find(8);
-		$characters = CharacterModel::getCharacters('npc');
+		$characters = Character::getCharacters('npc');
 
 		//sd($characters->toArray());
 		sd($user->getPreferenceItem('loa'));
@@ -42,7 +42,7 @@ Route::group(array('prefix' => 'test'), function()
 	{
 		dd(SettingsModel::getItems());
 
-		//dd(CharacterModel::getCharacters()->toArray());
+		//dd(Character::getCharacters()->toArray());
 
 		//$depts = DeptModel::where('type', 'nonplaying')->with('positions')->get();
 
@@ -99,7 +99,7 @@ Route::group(array('prefix' => 'test'), function()
 
 	Route::get('finder', function()
 	{
-		$roles = AccessRoleModel::all();
+		$roles = AccessRole::all();
 
 		sd($roles->toSimpleArray());
 	});

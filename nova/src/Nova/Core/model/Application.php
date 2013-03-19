@@ -5,9 +5,9 @@ use Model;
 use Sentry;
 use Status;
 use UserModel;
+use AppResponse;
 use PositionModel;
-use CharacterModel;
-use AppResponseModel;
+use Character;
 
 class Application extends Model {
 
@@ -23,7 +23,7 @@ class Application extends Model {
 	 */
 	public function character()
 	{
-		return $this->belongsTo('CharacterModel');
+		return $this->belongsTo('Character');
 	}
 
 	/**
@@ -47,7 +47,7 @@ class Application extends Model {
 	 */
 	public function responses()
 	{
-		return $this->hasMany('AppResponseModel');
+		return $this->hasMany('AppResponse');
 	}
 
 	/**

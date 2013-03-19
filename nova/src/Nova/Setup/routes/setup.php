@@ -175,10 +175,10 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 	Route::post('uninstall', function()
 	{
 		// Do the QuickInstall removals
-		ModuleCatalogModel::uninstall();
-		RankCatalogModel::uninstall();
-		SkinCatalogModel::uninstall();
-		WidgetCatalogModel::uninstall();
+		ModuleCatalog::uninstall();
+		RankCatalog::uninstall();
+		SkinCatalog::uninstall();
+		WidgetCatalog::uninstall();
 
 		// Uninstall Nova
 		Artisan::call('migrate:reset', array('--path' => 'nova/src/Nova/Setup/database/migrations'));

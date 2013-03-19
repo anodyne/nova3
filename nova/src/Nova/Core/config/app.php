@@ -227,29 +227,28 @@ return array(
 		/**
 		 * Nova Models
 		 */
-		'AccessRoleModel'			=> 'Nova\Core\Model\Access\Role',
-		'AccessRoleTaskModel'		=> 'Nova\Core\Model\Access\RoleTask',
-		'AccessTaskModel'			=> 'Nova\Core\Model\Access\Task',
+		'AccessRole'				=> 'Nova\Core\Model\Access\Role',
+		'AccessRoleTask'			=> 'Nova\Core\Model\Access\RoleTask', // do we need this?
+		'AccessTask'				=> 'Nova\Core\Model\Access\Task',
 
 		'AppModel'					=> 'Nova\Core\Model\Application',
-		'AppResponseModel'			=> 'Nova\Core\Model\Application\Response',
-		'AppReviewerModel'			=> 'Nova\Core\Model\Application\Reviewer',
-		'AppRuleModel'				=> 'Nova\Core\Model\Application\Rule',
+		'AppResponse'				=> 'Nova\Core\Model\Application\Response',
+		'AppReviewer'				=> 'Nova\Core\Model\Application\Reviewer',
+		'AppRule'					=> 'Nova\Core\Model\Application\Rule',
 
-		'AwardModel'				=> 'Nova\Core\Model\Award',
-		'AwardCategoryModel'		=> 'Nova\Core\Model\Award\Category',
-		'AwardRecipientModel'		=> 'Nova\Core\Model\Award\Recipient',
+		'Award'						=> 'Nova\Core\Model\Award',
+		'AwardCategory'				=> 'Nova\Core\Model\Award\Category',
+		'AwardRecipient'			=> 'Nova\Core\Model\Award\Recipient',
 		
-		'ModuleCatalogModel'		=> 'Nova\Core\Model\Catalog\Module',
-		'RankCatalogModel'			=> 'Nova\Core\Model\Catalog\Rank',
-		'SkinCatalogModel'			=> 'Nova\Core\Model\Catalog\Skin',
-		'SkinSectionCatalogModel'	=> 'Nova\Core\Model\Catalog\SkinSection',
-		'WidgetCatalogModel'		=> 'Nova\Core\Model\Catalog\Widget',
+		'ModuleCatalog'				=> 'Nova\Core\Model\Catalog\Module',
+		'RankCatalog'				=> 'Nova\Core\Model\Catalog\Rank',
+		'SkinCatalog'				=> 'Nova\Core\Model\Catalog\Skin',
+		'SkinSectionCatalog'		=> 'Nova\Core\Model\Catalog\SkinSection',
+		'WidgetCatalog'				=> 'Nova\Core\Model\Catalog\Widget',
 
-		'CharacterModel'			=> 'Nova\Core\Model\Character',
-		'CharacterImageModel'		=> 'Nova\Core\Model\Character\Image',
-		'CharacterPositionModel'	=> 'Nova\Core\Model\Character\Positions',
-		'CharacterPromotionModel'	=> 'Nova\Core\Model\Character\Promotion',
+		'Character'					=> 'Nova\Core\Model\Character',
+		'CharacterPosition'			=> 'Nova\Core\Model\Character\Positions', // do we need this?
+		'CharacterPromotion'		=> 'Nova\Core\Model\Character\Promotion',
 
 		'FormModel'					=> 'Nova\Core\Model\Form',
 		'FormDataModel'				=> 'Nova\Core\Model\Form\Data',

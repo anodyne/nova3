@@ -16,10 +16,10 @@ Route::group(array('prefix' => 'setup/install'), function()
 		Artisan::call('migrate', array('--path' => 'nova/src/Nova/Setup/database/migrations'));
 
 		// Do the quick installs
-		ModuleCatalogModel::install();
-		RankCatalogModel::install();
-		SkinCatalogModel::install();
-		WidgetCatalogModel::install();
+		ModuleCatalog::install();
+		RankCatalog::install();
+		SkinCatalog::install();
+		WidgetCatalog::install();
 
 		// Seed the database with dev data if necessary
 		if (Config::get('nova.use_dev_data'))

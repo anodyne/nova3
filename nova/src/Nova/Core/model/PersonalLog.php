@@ -3,7 +3,7 @@
 use Model;
 use UserModel;
 use CommentModel;
-use CharacterModel;
+use Character;
 
 # TODO: do we want to allow for some kind of custom ordering?
 
@@ -21,7 +21,7 @@ class PersonalLog extends Model {
 	 */
 	public function character()
 	{
-		return $this->belongsTo('CharacterModel');
+		return $this->belongsTo('Character');
 	}
 
 	/**

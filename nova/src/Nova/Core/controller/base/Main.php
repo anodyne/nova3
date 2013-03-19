@@ -34,7 +34,7 @@ abstract class Main extends \BaseController {
 			$me->images		= \Utility::getImageIndex($me->skin);
 
 			// Get the skin section info
-			$me->_sectionInfo = \SkinSectionCatalogModel::getItem($me->skin, 'skin');
+			$me->_sectionInfo = \SkinSectionCatalog::getItem($me->skin, 'skin');
 		};
 
 		/**
