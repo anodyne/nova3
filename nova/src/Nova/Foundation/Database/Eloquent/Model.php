@@ -18,6 +18,7 @@
 
 namespace Nova\Foundation\Database\Eloquent;
 
+use Status;
 use Nova\Foundation\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
@@ -53,9 +54,9 @@ class Model extends EloquentModel {
 	 * @param	array	An array of data
 	 * @param	bool	Should the object be returned?
 	 * @param	bool	Should the data be filtered?
-	 * @return	mixed
+	 * @return	object|bool
 	 */
-	public static function createItem(array $data, $returnObject = false, $filter = true)
+	public static function add(array $data, $returnObject = false, $filter = true)
 	{
 		// Loop through the data and add it to the item
 		foreach ($data as $key => $value)
@@ -86,6 +87,19 @@ class Model extends EloquentModel {
 	}
 
 	/**
+	 * Create an item with the data passed.
+	 *
+	 * @param	array	An array of data
+	 * @param	bool	Should the object be returned?
+	 * @param	bool	Should the data be filtered?
+	 * @return	mixed
+	 */
+	public static function createItem(array $data, $returnObject = false, $filter = true)
+	{
+		return static::add($data, $returnObject, $filter);
+	}
+
+	/**
 	 * Find a record/records in the table based on the simple arguments.
 	 *
 	 * @param	string	The value
@@ -95,11 +109,8 @@ class Model extends EloquentModel {
 	 */
 	public static function getItem($value, $column, $search = false)
 	{
-		// Get a new instance of the model
-		$instance = new static;
-
 		// Start a new Query Builder
-		$query = $instance->newQuery();
+		$query = static::startQuery();
 
 		if (is_array($value))
 		{
@@ -140,11 +151,8 @@ class Model extends EloquentModel {
 	 */
 	public static function getFormItems($key, $getOnlyActive = false)
 	{
-		// Get a new instance of the model
-		$instance = new static;
-
 		// Start a new Query Builder
-		$query = $instance->newQuery();
+		$query = static::startQuery();
 
 		// Make sure we're pulling back the right form
 		$query->where('form_key', $key);
@@ -152,28 +160,26 @@ class Model extends EloquentModel {
 		// Should we be getting all items or just enabled ones?
 		if ($getOnlyActive)
 		{
-			$query->where('status', \Status::ACTIVE);
+			$query->where('status', Status::ACTIVE);
 		}
 
 		// Order the items
 		$query->orderBy('order', 'asc');
 
-		// Return the object
 		return $query->get();
 	}
-	
+
 	/**
 	 * Update an item in the table based on the ID and data.
 	 *
-	 * @api
 	 * @param	mixed	The ID to update or NULL to update everything
 	 * @param	array 	The array of data to update with
 	 * @param	bool	Should the data be run through the XSS filter?
 	 * @return	mixed
 	 */
-	public static function updateItem($id, array $data, $returnObject = false, $filter = true)
+	public static function update($id, array $data, $returnObject = false, $filter = true)
 	{
-		if ($id !== null)
+		if ($id)
 		{
 			// Get the item
 			$item = static::find($id);
@@ -185,7 +191,7 @@ class Model extends EloquentModel {
 				{
 					if ($filter)
 					{
-						$value = \Security::xss_clean($value);
+						$value = \e($value);
 					}
 
 					$item->{$key} = $value;
@@ -207,8 +213,11 @@ class Model extends EloquentModel {
 		}
 		else
 		{
+			// Start a new query
+			$query = static::startQuery();
+
 			// Pull everything from the table
-			$items = static::find('all');
+			$items = $query->get();
 			
 			// Loop through all the items
 			foreach ($items as $item)
@@ -218,7 +227,7 @@ class Model extends EloquentModel {
 				{
 					if ($filter)
 					{
-						$value = \Security::xss_clean($value);
+						$value = \e($value);
 					}
 
 					$item->{$key} = $value;
@@ -233,31 +242,43 @@ class Model extends EloquentModel {
 	}
 	
 	/**
+	 * Update an item in the table based on the ID and data.
+	 *
+	 * @param	mixed	The ID to update or NULL to update everything
+	 * @param	array 	The array of data to update with
+	 * @param	bool	Should the data be run through the XSS filter?
+	 * @return	mixed
+	 */
+	public static function updateItem($id, array $data, $returnObject = false, $filter = true)
+	{
+		return static::update($id, $data, $returnObject, $filter);
+	}
+
+	/**
 	 * Delete an item in the table based on the arguments passed.
 	 *
-	 * @api
 	 * @param	mixed	An array of arguments or the item ID
 	 * @return	bool
 	 */
-	public static function deleteItem($args)
+	public static function remove($args)
 	{
 		// If we have a list of arguments, loop through them
 		if (is_array($args))
 		{
-			// Start the find
-			$item = static::query();
-
+			// Start a new query
+			$query = static::startQuery();
+			
 			// Loop through the arguments to build the where
 			foreach ($args as $column => $value)
 			{
 				if (array_key_exists($column, static::$properties))
 				{
-					$item->where($column, $value);
+					$query->where($column, $value);
 				}
 			}
 
 			// Get the item
-			$entry = $item->get_one();
+			$entry = $query->first();
 		}
 		else
 		{
@@ -273,4 +294,16 @@ class Model extends EloquentModel {
 		
 		return false;
 	}
+	
+	/**
+	 * Delete an item in the table based on the arguments passed.
+	 *
+	 * @param	mixed	An array of arguments or the item ID
+	 * @return	bool
+	 */
+	public static function deleteItem($args)
+	{
+		return static::remove($args);
+	}
+
 }
