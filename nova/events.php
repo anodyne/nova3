@@ -14,12 +14,14 @@
 $classes = Config::get('app.aliases');
 
 /**
- * Post
+ * User
  */
-Event::listen("eloquent.created: {$classes['PostModel']}", "{$classes['PostHandler']}@created");
-Event::listen("eloquent.updated: {$classes['PostModel']}", "{$classes['PostHandler']}@updated");
+Event::listen("eloquent.creating: {$classes['User']}", "{$classes['UserHandler']}@beforeCreate");
+Event::listen("eloquent.created: {$classes['User']}", "{$classes['UserHandler']}@afterCreate");
+Event::listen("eloquent.updated: {$classes['User']}", "{$classes['UserHandler']}@afterUpdate");
+Event::listen("eloquent.deleting: {$classes['User']}", "{$classes['UserHandler']}@beforeDelete");
 
 /**
  * Comment Handlers
  */
-//Event::listen("eloquent.created: {$classes['CommentModel']}", "{$classes['CommentHandler']}@onCreate");
+//Event::listen("eloquent.created: {$classes['Comment']}", "{$classes['CommentHandler']}@onCreate");
