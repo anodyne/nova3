@@ -16,7 +16,6 @@ class Markdown {
 		// Create a new parser
 		$parser = new MarkdownParser;
 
-		// Return the transformed text
 		return $parser->transformMarkdown($str);
 	}
 
@@ -31,7 +30,6 @@ class Markdown {
 		// Create a new parser
 		$parser = new MarkdownExtraParser;
 
-		// Return the transformed text
 		return $parser->transformMarkdown($str);
 	}
 	
