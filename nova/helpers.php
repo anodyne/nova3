@@ -4,7 +4,7 @@
  *
  * @package		Nova
  * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
+ * @copyright	2013 Anodyne Productions
  */
 
 /**
