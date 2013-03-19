@@ -1,7 +1,7 @@
 ## Latest `laravel/laravel` Commit
 
-* 03/16/2013
-* 36e7b132d4602428eba497b8a782e8b398c9c3a3
+* 03/18/2013
+* b6a94c02165cf7a40d8c778f470f3dc0e14312f4
 
 ## Composer Packages
 
