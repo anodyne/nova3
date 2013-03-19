@@ -136,6 +136,32 @@ class Provider implements ProviderInterface {
 	}
 
 	/**
+	 * Finds a user by the given activation code.
+	 *
+	 * @param  string  $code
+	 * @return Cartalyst\Sentry\Users\UserInterface
+	 * @throws RuntimeException
+	 * @throws Cartalyst\Sentry\Users\UserNotFoundException
+	 */
+	public function findByActivationCode($code)
+	{
+		return UserModel::where('activation_hash', $code)->first();
+	}
+
+	/**
+	 * Finds a user by the given reset password code.
+	 *
+	 * @param  string  $code
+	 * @return Cartalyst\Sentry\Users\UserInterface
+	 * @throws RuntimeException
+	 * @throws Cartalyst\Sentry\Users\UserNotFoundException
+	 */
+	public function findByResetPasswordCode($code)
+	{
+		return UserModel::where('reset_password_hash', $code)->first();
+	}
+
+	/**
 	 * Returns an all users.
 	 *
 	 * @return array
