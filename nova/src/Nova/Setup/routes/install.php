@@ -9,6 +9,9 @@ Route::group(array('prefix' => 'setup/install'), function()
 
 	Route::post('/', function()
 	{
+		// Make sure we don't time out
+		set_time_limit(0);
+
 		// Run the migrations
 		Artisan::call('migrate', array('--path' => 'nova/src/Nova/Setup/database/migrations'));
 

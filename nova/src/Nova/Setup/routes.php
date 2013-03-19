@@ -1,28 +1,16 @@
 <?php
-/**
- * Setup routes
- *
- * The setup routes are separated into different files to keep file sizes down
- * and to separate code into logical groupings.
- *
- * @package		Nova
- * @subpackage	Setup
- * @category	Route
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
 
 /**
  * Route filter to ensure the right database connection file is in place.
  */
 Route::filter('configFileCheck', function()
 {
-	if ( ! file_exists(APPPATH.'config/'.App::environment().'/database.php'))
+	if ( ! File::exists(APPPATH.'config/'.App::environment().'/database.php'))
 	{
 		// Only redirect if we aren't on the config page(s)
-		if ( ! Request::is('setup/config*'))
+		if ( ! Request::is('setup/config/db*') or ! Request::is('setup/'))
 		{
-			return Redirect::to('setup/config');
+			return Redirect::to('setup');
 		}
 	}
 });
@@ -101,7 +89,7 @@ function setupTemplate($data)
 	return $template;
 }
 
-require_once 'routes/setup.php';
-require_once 'routes/update.php';
-require_once 'routes/install.php';
-require_once 'routes/migrate.php';
+require 'routes/setup.php';
+require 'routes/update.php';
+require 'routes/install.php';
+require 'routes/migrate.php';

@@ -2,14 +2,40 @@
 
 Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthorization|csrf'), function()
 {
-	/**
-	 * Setup center that determines what course of action should be taken.
-	 */
 	Route::get('/', function()
 	{
 		$data = new stdClass;
 		$data->view = 'setup/index';
-		$data->jsView = 'setup/index_js';
+		$data->jsView = false;
+		$data->title = 'Setup Center';
+		$data->layout = new stdClass;
+		$data->layout->label = 'Nova Setup';
+		$data->controls = false;
+		$data->steps = false;
+		$data->content = new stdClass;
+
+		// Do some checks to see what we should show
+		$installed = (bool) Utility::installed();
+		$data->content->db = (bool) File::exists(APPPATH.'config/'.App::environment().'/database.php');
+		$data->content->email = (bool) File::exists(APPPATH.'config/'.App::environment().'/mail.php');
+
+		// If the system is installed, kick them forward
+		if ($installed)
+		{
+			//return Redirect::to('setup/start');
+		}
+
+		return setupTemplate($data);
+	});
+
+	/**
+	 * Setup center that determines what course of action should be taken.
+	 */
+	Route::get('start', function()
+	{
+		$data = new stdClass;
+		$data->view = 'setup/start';
+		$data->jsView = 'setup/start_js';
 		$data->title = 'Setup Center';
 		$data->layout = new stdClass;
 		$data->layout->label = 'Nova Setup';
@@ -31,7 +57,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				$data->content->option = 3;
 				$data->layout->label = 'Update Nova 3';
 				$data->controls = '<a href="#" class="pull-right js-ignoreVersion" data-version="'.$update->version.'">Ignore this version</a>';
-				$data->controls.= Form::open('setup/update/1').
+				$data->controls.= Form::open(array('url' => 'setup/update/1')).
 					Form::button('Start Update', array('class' => 'btn btn-primary', 'id' => 'next', 'name' => 'submit')).
 					Form::hidden('_token', csrf_token()).
 					Form::close();
@@ -81,11 +107,11 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				if ($data->content->option == 2)
 				{
 					$data->controls = '<a href="'.URL::to('setup/install').'" class="pull-right">I\'d like to do a Fresh Install</a>';
-					$data->controls.= Form::open('setup/migrate').
+					$data->controls.= Form::open(array('url' => 'setup/migrate')).
 						Form::button('Start Migration', array(
-							'class' => 'btn btn-primary',
-							'id' => 'next',
-							'name' => 'submit'
+							'class'	=> 'btn btn-primary',
+							'id'	=> 'next',
+							'name'	=> 'submit'
 						)).
 						Form::hidden('_token', csrf_token()).
 						Form::close();
@@ -109,7 +135,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				 * is a fresh install of Nova 3.
 				 */
 				$data->content->option = 1;
-				$data->controls = Form::open('setup/install').
+				$data->controls = Form::open(array('url' => 'setup/install')).
 					Form::button('Start Install', array('class' => 'btn btn-primary', 'id' => 'next', 'name' => 'submit')).
 					Form::hidden('_token', csrf_token()).
 					Form::close();
@@ -123,374 +149,6 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		return setupTemplate($data);
 	});
 	
-	/**
-	 * Intro to the database connection config process.
-	 */
-	Route::get('config', function()
-	{
-		$data = new stdClass;
-		$data->view = 'setup/config';
-		$data->jsView = false;
-		$data->title = 'Database Connection Setup';
-		$data->layout = new stdClass;
-		$data->layout->label = 'Database Connection Setup';
-		$data->controls = false;
-		$data->steps = false;
-		$data->content = new stdClass;
-		$data->content->step = false;
-
-		// Clear the installed status cache
-		if (file_exists(APPPATH.'storage/cache/nova_system_installed'))
-		{
-			Cache::forget('nova_system_installed');
-		}
-		
-		// Make sure we don't time out
-		set_time_limit(0);
-		
-		if ( ! file_exists(SRCPATH.'Setup/database/db.mysql.php'))
-		{
-			$data->content->message = Lang::get('setup.config.text.noconfig');
-			$data->layout->label = 'File Not Found';
-			$data->controls = '<a href="'.URL::to('setup/config').'" class="pull-right">Try Again</a>';
-		}
-		else
-		{
-			if (file_exists(APPPATH.'config/'.App::environment().'/database.php'))
-			{
-				$data->content->message = Lang::get('setup.config.text.exists', array('env' => App::environment()));
-				$data->controls = '<a href="'.URL::to('setup').'" class="pull-right">Back to Setup Center</a>';
-			}
-			else
-			{
-				if (version_compare(PHP_VERSION, '5.3.7', '<'))
-				{
-					$data->content->message = Lang::get('setup.config.text.php', array('php' => PHP_VERSION));
-					$data->layout->label = 'Installation Cannot Continue';
-				}
-				else
-				{
-
-					$data->content->message = Lang::get('setup.config.text.step0', array('env' => App::environment()));
-					
-					if (extension_loaded('mysql') or class_exists('mysqli'))
-					{
-						$data->controls = '<a href="'.URL::to('setup/config/info').'" class="btn btn-primary">Database Info</a>';
-						
-					}
-					else
-					{
-						$data->flash = array(
-							'status' => 'danger',
-							'message' => Lang::get('setup.config.text.nodb'),
-						);
-					}
-				}
-			}
-		}
-
-		return setupTemplate($data);
-	});
-	
-	/**
-	 * Collect the database connection parameters.
-	 */
-	Route::get('config/info', function()
-	{
-		$data = new stdClass;
-		$data->view = 'setup/config';
-		$data->jsView = false;
-		$data->title = 'Database Connection Setup';
-		$data->layout = new stdClass;
-		$data->layout->label = 'Database Info <small>Database Connection Setup</small>';
-		$data->controls = false;
-		$data->steps = false;
-		$data->content = new stdClass;
-		$data->content->step = 'info';
-
-		$data->content->message = Lang::get('setup.config.text.connection');
-		$data->controls = Form::button('Check Database Connection', array(
-				'name' => 'next',
-				'class' => 'btn btn-primary',
-				'id' => 'next'
-			)).
-			Form::hidden('_token', csrf_token()).
-			Form::close();
-
-		return setupTemplate($data);
-	});
-
-	/**
-	 * Check the values entered to see if we can connect.
-	 */
-	Route::post('config/check', function()
-	{
-		$data = new stdClass;
-		$data->view = 'setup/config';
-		$data->jsView = false;
-		$data->title = 'Database Connection Setup';
-		$data->layout = new stdClass;
-		$data->layout->label = 'Check Database Connection <small>Database Connection Setup</small>';
-		$data->controls = false;
-		$data->steps = false;
-		$data->content = new stdClass;
-		$data->content->step = false;
-
-		// Set the variables to use
-		$dbName	= trim(e(Input::get('dbName')));
-		$dbUser	= trim(e(Input::get('dbUser')));
-		$dbPass	= trim(e(Input::get('dbPass')));
-		$dbHost	= trim(e(Input::get('dbHost')));
-		$prefix	= trim(e(Input::get('prefix')));
-		
-		// Set the session variables
-		Session::put('dbName', $dbName);
-		Session::put('dbUser', $dbUser);
-		Session::put('dbPass', $dbPass);
-		Session::put('dbHost', $dbHost);
-		Session::put('prefix', $prefix);
-
-		// Set the connection parameters
-		Config::set('database.connections.mysql.host', Session::get('dbHost'));
-		Config::set('database.connections.mysql.database', Session::get('dbName'));
-		Config::set('database.connections.mysql.username', Session::get('dbUser'));
-		Config::set('database.connections.mysql.password', Session::get('dbPass'));
-		Config::set('database.connections.mysql.prefix', Session::get('prefix'));
-
-		try
-		{
-			// Try to get the migration table
-			$hasTable = Schema::hasTable("{$prefix}migrations");
-			
-			// Write the message
-			$data->content->message = Lang::get('setup.config.text.step2.success');
-			
-			// Write the controls
-			$data->controls = Form::open('setup/config/write').
-				Form::button('Write Connection File', array(
-					'class'	=> 'btn btn-primary',
-					'id'	=> 'next',
-					'name'	=> 'next'
-				)).
-				Form::hidden('_token', csrf_token()).
-				Form::close();
-
-		}
-		catch (Exception $e)
-		{
-			$msg = (string) $e->getMessage();
-
-			if (stripos($msg, 'No such host is known') !== false)
-			{
-				$data->layout->label = 'Database Host Not Found';
-				$data->content->message = Lang::get('setup.config.text.step2.nohost');
-			}
-			elseif (stripos($msg, 'Access denied for user') !== false)
-			{
-				$data->layout->label = 'User/Password Issue';
-				$data->content->message = Lang::get('setup.config.text.step2.userpass');
-			}
-			elseif (stripos($msg, 'Unknown database') !== false)
-			{
-				$data->layout->label = 'Database Not Found';
-				$data->content->message = Lang::get('setup.config.text.step2.dbname', array('dbname' => $dbName));
-			}
-			else
-			{
-				$data->layout->label = 'Unknown Database Issue';
-				$data->content->message = Lang::get('setup.config.text.step2.gen');
-			}
-			
-			// Write the controls
-			$data->controls = '<a href="'.URL::to('setup/config/info').'" class="btn btn-primary">Start Over</a>';
-		}
-
-		return setupTemplate($data);
-	});
-	
-	/**
-	 * Write the config file.
-	 */
-	Route::post('config/write', function()
-	{
-		$data = new stdClass;
-		$data->view = 'setup/config';
-		$data->jsView = false;
-		$data->title = 'Database Connection Setup';
-		$data->layout = new stdClass;
-		$data->layout->label = 'Write Database Connection <small>Database Connection Setup</small>';
-		$data->controls = false;
-		$data->steps = false;
-		$data->content = new stdClass;
-		$data->content->step = false;
-
-		// Get the file
-		$dbFileContents = File::get(SRCPATH.'Setup/database/db.mysql.php');
-
-		if ($dbFileContents !== false)
-		{
-			// Set what should be replaced
-			$replacements = array(
-				'#DATABASE#' => Session::get('dbName'),
-				'#USERNAME#' => Session::get('dbUser'),
-				'#PASSWORD#' => Session::get('dbPass'),
-				'#HOSTNAME#' => Session::get('dbHost'),
-				'#PREFIX#'   => Session::get('prefix'),
-			);
-
-			// Loop through and do the replacements
-			foreach ($replacements as $key => $value)
-			{
-				$dbFileContents = str_replace($key, $value, $dbFileContents);
-			}
-
-			// Try to chmod the config directory to the proper permissions
-			chmod(APPPATH.'config/'.App::environment(), 0777);
-
-			// Write the contents of the file
-			$write = File::put(APPPATH.'config/'.App::environment().'/database.php', $dbFileContents);
-
-			if ($write !== false)
-			{
-				// Try to chmod the file to the proper permissions
-				chmod(APPPATH.'config/'.App::environment().'/database.php', 0666);
-
-				// Set the success message
-				$data->content->message = Lang::get('setup.config.text.step3write');
-				
-				// Wipe out the session data
-				Session::flush();
-				
-				// Write the controls
-				$data->controls = '<a href="'.URL::to('setup').'" class="btn btn-primary">Back to Setup Center</a>';
-			}
-			else
-			{
-				// Dump the code to a variable
-				$data->content->code = e("<?php
-
-return array(
-'connections' => array(
-'mysql' => array(
-'host' => '".Session::get('dbHost')."',
-'database' => '".Session::get('dbName')."',
-'username' => '".Session::get('dbUser')."',
-'password' => '".Session::get('dbPass')."',
-'prefix' => '".Session::get('prefix')."',
-),
-),
-);");
-			
-				// Set the message
-				$data->content->message = Lang::get('setup.config.text.step3nowrite', array('env' => App::environment()));
-				
-				// Write the controls
-				$data->controls = Form::open('setup/config/verify').
-					Form::button('Re-Test', array(
-						'class'	=> 'btn btn-primary',
-						'id'	=> 'next',
-						'name'	=> 'next'
-					)).
-					Form::hidden('_token', csrf_token()).
-					Form::close();
-			}
-		}
-		else
-		{
-			// Dump the code to a variable
-			$data->content->code = e("<?php
-
-return array(
-'connections' => array(
-'mysql' => array(
-'host' => '".Session::get('dbHost')."',
-'database' => '".Session::get('dbName')."',
-'username' => '".Session::get('dbUser')."',
-'password' => '".Session::get('dbPass')."',
-'prefix' => '".Session::get('prefix')."',
-),
-),
-);");
-		
-			// Set the message
-			$data->content->message = Lang::get('setup.config.text.step3nowrite', array('env' => App::environment()));
-			
-			// Write the controls
-			$data->controls = Form::open('setup/config/verify').
-				Form::button('Re-Test', array(
-					'class'	=> 'btn btn-primary',
-					'id'	=> 'next',
-					'name'	=> 'next'
-				)).
-				Form::hidden('_token', csrf_token()).
-				Form::close();
-		}
-
-		return setupTemplate($data);
-	});
-	
-	/**
-	 * Verify the connection works (only used when the file can't be written).
-	 */
-	Route::post('config/verify', function()
-	{
-		$data = new stdClass;
-		$data->view = 'setup/config';
-		$data->jsView = false;
-		$data->title = 'Database Connection Setup';
-		$data->layout = new stdClass;
-		$data->layout->label = 'Verify Database Connection <small>Database Connection Setup</small>';
-		$data->controls = false;
-		$data->steps = false;
-		$data->content = new stdClass;
-		$data->content->step = false;
-
-		// Get the table prefix
-		$prefix = DB::getTablePrefix();
-
-		try
-		{
-			// Try to get the migration table
-			$hasTable = Schema::hasTable("{$prefix}migrations");
-			
-			// Write the message
-			$data->content->message = Lang::get('setup.config.text.step2.success');
-			
-			// Write the controls
-			$data->controls = '<a href="'.URL::to('setup').'" class="btn btn-primary">Back to Setup Center</a>';
-		}
-		catch (Exception $e)
-		{
-			$msg = (string) $e->getMessage();
-
-			if (stripos($msg, 'No such host is known') !== false)
-			{
-				$data->layout->label = 'Database Host Not Found';
-				$data->content->message = Lang::get('setup.config.text.step2.nohost');
-			}
-			elseif (stripos($msg, 'Access denied for user') !== false)
-			{
-				$data->layout->label = 'User/Password Issue';
-				$data->content->message = Lang::get('setup.config.text.step2.userpass');
-			}
-			elseif (stripos($msg, 'Unknown database') !== false)
-			{
-				$data->layout->label = 'Database Not Found';
-				$data->content->message = Lang::get('setup.config.text.step2.dbname', array('dbname' => $dbName));
-			}
-			else
-			{
-				$data->layout->label = 'Unknown Database Issue';
-				$data->content->message = Lang::get('setup.config.text.step2.gen');
-			}
-			
-			// Write the controls
-			$data->controls = '<a href="'.URL::to('setup/config/info').'" class="btn btn-primary">Start Over</a>';
-		}
-
-		return setupTemplate($data);
-	});
-
 	/**
 	 * Uninstall Nova.
 	 */
@@ -589,6 +247,645 @@ return array(
 		
 		// Set the loading image
 		$data->content->loading = '<img src="'.URL::asset('nova/src/Nova/Setup/views/design/images/loading.gif').'" alt="Processing">';
+
+		return setupTemplate($data);
+	});
+});
+
+Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|setupAuthorization|csrf'), function()
+{
+	/**
+	 * Intro to the database connection config process.
+	 */
+	Route::get('/', function()
+	{
+		$data = new stdClass;
+		$data->view = 'setup/config/database';
+		$data->jsView = false;
+		$data->title = 'Database Connection Setup';
+		$data->layout = new stdClass;
+		$data->layout->label = 'Database Connection Setup';
+		$data->controls = false;
+		$data->steps = false;
+		$data->content = new stdClass;
+		$data->content->step = false;
+
+		// Clear the installed status cache
+		if (file_exists(APPPATH.'storage/cache/nova_system_installed'))
+		{
+			Cache::forget('nova_system_installed');
+		}
+		
+		// Make sure we don't time out
+		set_time_limit(0);
+		
+		if ( ! file_exists(SRCPATH.'Setup/generators/database.php'))
+		{
+			$data->content->message = Lang::get('setup.config.noconfig', array(
+				'type'	=> 'database connection',
+				'file'	=> 'database',
+			));
+			$data->layout->label = 'File Not Found';
+			$data->controls = '<a href="'.URL::to('setup/config/db').'" class="pull-right">Try Again</a>';
+		}
+		else
+		{
+			if (file_exists(APPPATH.'config/'.App::environment().'/database.php'))
+			{
+				$data->content->message = Lang::get('setup.config.exists', array(
+					'type'	=> 'database connection',
+					'env'	=> App::environment()
+				));
+				$data->controls = '<a href="'.URL::to('setup').'" class="pull-right">Back to Setup Center</a>';
+			}
+			else
+			{
+				if (version_compare(PHP_VERSION, '5.3.7', '<'))
+				{
+					$data->content->message = Lang::get('setup.config.php', array('php' => PHP_VERSION));
+					$data->layout->label = 'Installation Cannot Continue';
+				}
+				else
+				{
+
+					$data->content->message = Lang::get('setup.config.db.intro', array('env' => App::environment()));
+					
+					if (count(PDO::getAvailableDrivers()) > 0)
+					{
+						$data->controls = '<a href="'.URL::to('setup/config/db/info').'" class="btn btn-primary">Database Info</a>';
+					}
+					else
+					{
+						$data->flash = array(
+							'status' => 'danger',
+							'message' => Lang::get('setup.config.db.nodb'),
+						);
+					}
+				}
+			}
+		}
+
+		return setupTemplate($data);
+	});
+	
+	/**
+	 * Collect the database connection parameters.
+	 */
+	Route::get('info', function()
+	{
+		$data = new stdClass;
+		$data->view = 'setup/config/database';
+		$data->jsView = false;
+		$data->title = 'Database Connection Setup';
+		$data->layout = new stdClass;
+		$data->layout->label = 'Database Info <small>Database Connection Setup</small>';
+		$data->controls = false;
+		$data->steps = false;
+		$data->content = new stdClass;
+		$data->content->step = 'info';
+
+		$data->content->message = Lang::get('setup.config.db.connection');
+		$data->controls = Form::button('Check Database Connection', array(
+				'name'	=> 'next',
+				'class'	=> 'btn btn-primary',
+				'id'	=> 'next'
+			)).
+			Form::hidden('_token', csrf_token()).
+			Form::close();
+
+		return setupTemplate($data);
+	});
+
+	/**
+	 * Check the values entered to see if we can connect.
+	 */
+	Route::post('check', function()
+	{
+		$data = new stdClass;
+		$data->view = 'setup/config/database';
+		$data->jsView = false;
+		$data->title = 'Database Connection Setup';
+		$data->layout = new stdClass;
+		$data->layout->label = 'Check Database Connection <small>Database Connection Setup</small>';
+		$data->controls = false;
+		$data->steps = false;
+		$data->content = new stdClass;
+		$data->content->step = false;
+
+		// Set the variables to use
+		$dbName	= trim(e(Input::get('dbName')));
+		$dbUser	= trim(e(Input::get('dbUser')));
+		$dbPass	= trim(e(Input::get('dbPass')));
+		$dbHost	= trim(e(Input::get('dbHost')));
+		$prefix	= trim(e(Input::get('prefix')));
+		
+		// Set the session variables
+		Session::put('dbName', $dbName);
+		Session::put('dbUser', $dbUser);
+		Session::put('dbPass', $dbPass);
+		Session::put('dbHost', $dbHost);
+		Session::put('prefix', $prefix);
+
+		// Set the connection parameters
+		Config::set('database.connections.mysql.host', Session::get('dbHost'));
+		Config::set('database.connections.mysql.database', Session::get('dbName'));
+		Config::set('database.connections.mysql.username', Session::get('dbUser'));
+		Config::set('database.connections.mysql.password', Session::get('dbPass'));
+		Config::set('database.connections.mysql.prefix', Session::get('prefix'));
+
+		try
+		{
+			// Try to get the migration table
+			$hasTable = Schema::hasTable("{$prefix}migrations");
+			
+			// Write the message
+			$data->content->message = Lang::get('setup.config.db.check.success');
+			
+			// Write the controls
+			$data->controls = Form::open('setup/config/db/write').
+				Form::button('Write Connection File', array(
+					'class'	=> 'btn btn-primary',
+					'id'	=> 'next',
+					'name'	=> 'next'
+				)).
+				Form::hidden('_token', csrf_token()).
+				Form::close();
+
+		}
+		catch (Exception $e)
+		{
+			$msg = (string) $e->getMessage();
+
+			if (stripos($msg, 'No such host is known') !== false)
+			{
+				$data->layout->label = 'Database Host Not Found';
+				$data->content->message = Lang::get('setup.config.db.check.nohost');
+			}
+			elseif (stripos($msg, 'Access denied for user') !== false)
+			{
+				$data->layout->label = 'User/Password Issue';
+				$data->content->message = Lang::get('setup.config.db.check.userpass');
+			}
+			elseif (stripos($msg, 'Unknown database') !== false)
+			{
+				$data->layout->label = 'Database Not Found';
+				$data->content->message = Lang::get('setup.config.db.check.dbname', array('dbname' => $dbName));
+			}
+			else
+			{
+				$data->layout->label = 'Unknown Database Issue';
+				$data->content->message = Lang::get('setup.config.db.check.gen');
+			}
+			
+			// Write the controls
+			$data->controls = '<a href="'.URL::to('setup/config/db/info').'" class="btn btn-primary">Start Over</a>';
+		}
+
+		return setupTemplate($data);
+	});
+	
+	/**
+	 * Write the config file.
+	 */
+	Route::post('write', function()
+	{
+		$data = new stdClass;
+		$data->view = 'setup/config/database';
+		$data->jsView = false;
+		$data->title = 'Database Connection Setup';
+		$data->layout = new stdClass;
+		$data->layout->label = 'Write Database Connection <small>Database Connection Setup</small>';
+		$data->controls = false;
+		$data->steps = false;
+		$data->content = new stdClass;
+		$data->content->step = false;
+
+		// Get the file
+		$dbFileContents = File::get(SRCPATH.'Setup/generators/database.php');
+
+		if ($dbFileContents !== false)
+		{
+			// Set what should be replaced
+			$replacements = array(
+				'#DATABASE#' => Session::get('dbName'),
+				'#USERNAME#' => Session::get('dbUser'),
+				'#PASSWORD#' => Session::get('dbPass'),
+				'#HOSTNAME#' => Session::get('dbHost'),
+				'#PREFIX#'   => Session::get('prefix'),
+			);
+
+			// Loop through and do the replacements
+			foreach ($replacements as $key => $value)
+			{
+				$dbFileContents = str_replace($key, $value, $dbFileContents);
+			}
+
+			// Try to chmod the config directory to the proper permissions
+			chmod(APPPATH.'config/'.App::environment(), 0777);
+
+			// Write the contents of the file
+			$write = File::put(APPPATH.'config/'.App::environment().'/database.php', $dbFileContents);
+
+			if ($write !== false)
+			{
+				// Try to chmod the file to the proper permissions
+				chmod(APPPATH.'config/'.App::environment().'/database.php', 0666);
+
+				// Set the success message
+				$data->content->message = Lang::get('setup.config.db.write.success');
+				
+				// Wipe out the session data
+				Session::flush();
+				
+				// Write the controls
+				$data->controls = '<a href="'.URL::to('setup').'" class="btn btn-primary">Back to Setup Center</a>';
+			}
+			else
+			{
+				// Dump the code to a variable
+				$data->content->code = e("<?php
+
+return array(
+'connections' => array(
+'mysql' => array(
+'host' => '".Session::get('dbHost')."',
+'database' => '".Session::get('dbName')."',
+'username' => '".Session::get('dbUser')."',
+'password' => '".Session::get('dbPass')."',
+'prefix' => '".Session::get('prefix')."',
+),
+),
+);");
+			
+				// Set the message
+				$data->content->message = Lang::get('setup.config.db.write.failure', array('env' => App::environment()));
+				
+				// Write the controls
+				$data->controls = Form::open('setup/config/db/verify').
+					Form::button('Re-Test', array(
+						'class'	=> 'btn btn-primary',
+						'id'	=> 'next',
+						'name'	=> 'next'
+					)).
+					Form::hidden('_token', csrf_token()).
+					Form::close();
+			}
+		}
+		else
+		{
+			// Dump the code to a variable
+			$data->content->code = e("<?php
+
+return array(
+'connections' => array(
+'mysql' => array(
+'host' => '".Session::get('dbHost')."',
+'database' => '".Session::get('dbName')."',
+'username' => '".Session::get('dbUser')."',
+'password' => '".Session::get('dbPass')."',
+'prefix' => '".Session::get('prefix')."',
+),
+),
+);");
+		
+			// Set the message
+			$data->content->message = Lang::get('setup.config.db.write.failure', array('env' => App::environment()));
+			
+			// Write the controls
+			$data->controls = Form::open('setup/config/db/verify').
+				Form::button('Re-Test', array(
+					'class'	=> 'btn btn-primary',
+					'id'	=> 'next',
+					'name'	=> 'next'
+				)).
+				Form::hidden('_token', csrf_token()).
+				Form::close();
+		}
+
+		return setupTemplate($data);
+	});
+	
+	/**
+	 * Verify the connection works (only used when the file can't be written).
+	 */
+	Route::post('verify', function()
+	{
+		$data = new stdClass;
+		$data->view = 'setup/config/database';
+		$data->jsView = false;
+		$data->title = 'Database Connection Setup';
+		$data->layout = new stdClass;
+		$data->layout->label = 'Verify Database Connection <small>Database Connection Setup</small>';
+		$data->controls = false;
+		$data->steps = false;
+		$data->content = new stdClass;
+		$data->content->step = false;
+
+		// Get the table prefix
+		$prefix = DB::getTablePrefix();
+
+		try
+		{
+			// Try to get the migration table
+			$hasTable = Schema::hasTable("{$prefix}migrations");
+
+			// Clear the session
+			Session::flush();
+			
+			// Write the message
+			$data->content->message = Lang::get('setup.config.db.check.success');
+			
+			// Write the controls
+			$data->controls = '<a href="'.URL::to('setup').'" class="btn btn-primary">Back to Setup Center</a>';
+		}
+		catch (Exception $e)
+		{
+			$msg = (string) $e->getMessage();
+
+			if (stripos($msg, 'No such host is known') !== false)
+			{
+				$data->layout->label = 'Database Host Not Found';
+				$data->content->message = Lang::get('setup.config.db.check.nohost');
+			}
+			elseif (stripos($msg, 'Access denied for user') !== false)
+			{
+				$data->layout->label = 'User/Password Issue';
+				$data->content->message = Lang::get('setup.config.db.check.userpass');
+			}
+			elseif (stripos($msg, 'Unknown database') !== false)
+			{
+				$data->layout->label = 'Database Not Found';
+				$data->content->message = Lang::get('setup.config.db.check.dbname', array('dbname' => $dbName));
+			}
+			else
+			{
+				$data->layout->label = 'Unknown Database Issue';
+				$data->content->message = Lang::get('setup.config.db.check.gen');
+			}
+			
+			// Write the controls
+			$data->controls = '<a href="'.URL::to('setup/config/db/info').'" class="btn btn-primary">Start Over</a>';
+		}
+
+		return setupTemplate($data);
+	});
+});
+
+Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileCheck|setupAuthorization|csrf'), function()
+{
+	/**
+	 * Intro to the database connection config process.
+	 */
+	Route::get('/', function()
+	{
+		$data = new stdClass;
+		$data->view = 'setup/config/email';
+		$data->jsView = false;
+		$data->title = 'Email Setup';
+		$data->layout = new stdClass;
+		$data->layout->label = 'Email Setup';
+		$data->controls = false;
+		$data->steps = false;
+		$data->content = new stdClass;
+		$data->content->step = false;
+
+		// Clear the installed status cache
+		if (file_exists(APPPATH.'storage/cache/nova_system_installed'))
+		{
+			Cache::forget('nova_system_installed');
+		}
+		
+		// Make sure we don't time out
+		set_time_limit(0);
+		
+		if ( ! File::exists(SRCPATH.'Setup/generators/mail.php'))
+		{
+			$data->content->message = Lang::get('setup.config.noconfig', array(
+				'type'	=> 'email config',
+				'file'	=> 'mail',
+			));
+			$data->layout->label = 'File Not Found';
+			$data->controls = '<a href="'.URL::to('setup/config/email').'" class="pull-right">Try Again</a>';
+		}
+		else
+		{
+			if (File::exists(APPPATH.'config/'.App::environment().'/mail.php'))
+			{
+				$data->content->message = Lang::get('setup.config.exists', array(
+					'type'	=> 'email config',
+					'env'	=> App::environment(),
+				));
+				$data->controls = '<a href="'.URL::to('setup/start').'" class="pull-right">Back to Setup Center</a>';
+			}
+			else
+			{
+				if (version_compare(PHP_VERSION, '5.3.7', '<'))
+				{
+					$data->content->message = Lang::get('setup.config.php', array('php' => PHP_VERSION));
+					$data->layout->label = 'Installation Cannot Continue';
+				}
+				else
+				{
+
+					$data->content->message = Lang::get('setup.config.email.intro', array('env' => App::environment()));
+					$data->controls = '<a href="'.URL::to('setup/config/email/info').'" class="btn btn-primary">Email Info</a>';
+				}
+			}
+		}
+
+		return setupTemplate($data);
+	});
+	
+	/**
+	 * Collect the database connection parameters.
+	 */
+	Route::get('info', function()
+	{
+		$data = new stdClass;
+		$data->view = 'setup/config/email';
+		$data->jsView = false;
+		$data->title = 'Email Setup';
+		$data->layout = new stdClass;
+		$data->layout->label = 'Email Info <small>Email Setup</small>';
+		$data->controls = false;
+		$data->steps = false;
+		$data->content = new stdClass;
+		$data->content->step = 'info';
+
+		$data->content->message = Lang::get('setup.config.email.info');
+		$data->controls = Form::button('Write Config File', array(
+				'name' => 'next',
+				'class' => 'btn btn-primary',
+				'id' => 'next'
+			)).
+			Form::hidden('_token', csrf_token()).
+			Form::close();
+
+		return setupTemplate($data);
+	});
+
+	/**
+	 * Write the config file.
+	 */
+	Route::post('write', function()
+	{
+		$data = new stdClass;
+		$data->view = 'setup/config/email';
+		$data->jsView = false;
+		$data->title = 'Email Setup';
+		$data->layout = new stdClass;
+		$data->layout->label = 'Write Email Config <small>Email Setup</small>';
+		$data->controls = false;
+		$data->steps = false;
+		$data->content = new stdClass;
+		$data->content->step = false;
+
+		// Set the variables to use
+		$host		= trim(e(Input::get('hostname')));
+		$port		= trim(e(Input::get('port')));
+		$username	= trim(e(Input::get('username')));
+		$password	= trim(e(Input::get('password')));
+		$encryption	= trim(e(Input::get('encryption')));
+		
+		// Set the session variables
+		Session::put('emailHost', $host);
+		Session::put('emailPort', $port);
+		Session::put('emailPass', $password);
+		Session::put('emailUser', $username);
+		Session::put('emailEncr', $encryption);
+
+		// Get the file
+		$emailFileContents = File::get(SRCPATH.'Setup/generators/mail.php');
+
+		if ($emailFileContents !== false)
+		{
+			// Set what should be replaced
+			$replacements = array(
+				'#HOSTNAME#'	=> Session::get('emailHost'),
+				'#USERNAME#'	=> Session::get('emailUser'),
+				'#PASSWORD#'	=> Session::get('emailPass'),
+				"'#PORT#'"		=> Session::get('emailPort'),
+				'#ENCRYPTION#'	=> Session::get('emailEncr'),
+			);
+
+			// Loop through and do the replacements
+			foreach ($replacements as $key => $value)
+			{
+				$emailFileContents = str_replace($key, $value, $emailFileContents);
+			}
+
+			// Try to chmod the config directory to the proper permissions
+			chmod(APPPATH.'config/'.App::environment(), 0777);
+
+			// Write the contents of the file
+			$write = File::put(APPPATH.'config/'.App::environment().'/mail.php', $emailFileContents);
+
+			if ($write !== false)
+			{
+				// Try to chmod the file to the proper permissions
+				chmod(APPPATH.'config/'.App::environment().'/mail.php', 0666);
+
+				// Set the success message
+				$data->content->message = Lang::get('setup.config.email.write.success');
+				
+				// Wipe out the session data
+				Session::flush();
+				
+				// Write the controls
+				$data->controls = '<a href="'.URL::to('setup').'" class="btn btn-primary">Back to Setup Center</a>';
+			}
+			else
+			{
+				// Dump the code to a variable
+				$data->content->code = e("<?php
+
+return array(
+'host' => '".Session::get('emailHost')."',
+'port' => ".Session::get('emailPort').",
+'encryption' => '".Session::get('emailEncr')."',
+'username' => '".Session::get('emailUser')."',
+'password' => '".Session::get('emailPass')."',
+);");
+			
+				// Set the message
+				$data->content->message = Lang::get('setup.config.email.write.failure', array('env' => App::environment()));
+				
+				// Write the controls
+				$data->controls = Form::open('setup/config/verify').
+					Form::button('Re-Test', array(
+						'class'	=> 'btn btn-primary',
+						'id'	=> 'next',
+						'name'	=> 'next'
+					)).
+					Form::hidden('_token', csrf_token()).
+					Form::close();
+			}
+		}
+		else
+		{
+			// Dump the code to a variable
+			$data->content->code = e("<?php
+
+return array(
+'host' => '".Session::get('emailHost')."',
+'port' => ".Session::get('emailPort').",
+'encryption' => '".Session::get('emailEncr')."',
+'username' => '".Session::get('emailUser')."',
+'password' => '".Session::get('emailPass')."',
+);");
+		
+			// Set the message
+			$data->content->message = Lang::get('setup.config.email.write.failure', array('env' => App::environment()));
+			
+			// Write the controls
+			$data->controls = Form::open('setup/config/verify').
+				Form::button('Verify', array(
+					'class'	=> 'btn btn-primary',
+					'id'	=> 'next',
+					'name'	=> 'next'
+				)).
+				Form::hidden('_token', csrf_token()).
+				Form::close();
+		}
+
+		return setupTemplate($data);
+	});
+	
+	/**
+	 * Verify the connection works (only used when the file can't be written).
+	 */
+	Route::post('verify', function()
+	{
+		$data = new stdClass;
+		$data->view = 'setup/config/email';
+		$data->jsView = false;
+		$data->title = 'Email Setup';
+		$data->layout = new stdClass;
+		$data->layout->label = 'Verify Email Config <small>Email Setup</small>';
+		$data->controls = false;
+		$data->steps = false;
+		$data->content = new stdClass;
+		$data->content->step = false;
+
+		if (File::exists(APPPATH.'config/'.App::environment().'/mail.php'))
+		{
+			// Clear the session
+			Session::flush();
+
+			// Write the message
+			$data->content->message = Lang::get('setup.config.email.verify.success');
+			
+			// Write the controls
+			$data->controls = '<a href="'.URL::to('setup').'" class="btn btn-primary">Back to Setup Center</a>';
+		}
+		else
+		{
+			$data->layout->label = 'Email Config File Not Found';
+			$data->content->message = Lang::get('setup.config.email.verify.failure');
+
+			// Write the controls
+			$data->controls = '<a href="'.URL::to('setup/config/email/info').'" class="btn btn-primary">Start Over</a>';
+		}
 
 		return setupTemplate($data);
 	});

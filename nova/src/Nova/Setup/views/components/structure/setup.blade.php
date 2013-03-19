@@ -24,7 +24,7 @@
 		<link rel='stylesheet' href='{{ SRCURL }}Setup/views/design/retina.css' media='only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)'>
 	</head>
 	<body>
-		{{{ $layout }}}
+		{{ $layout }}
 
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" src="{{ SRCURL }}Assets/js/bootstrap.min.js"></script>
@@ -35,6 +35,6 @@
 				$('.tip-below').tooltip({ placement: 'bottom' });
 			});
 		</script>
-		{{{ $javascript }}}
+		{{ $javascript }}
 	</body>
 </html>

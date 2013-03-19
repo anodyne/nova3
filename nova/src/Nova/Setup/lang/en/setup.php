@@ -2,23 +2,38 @@
 
 return array(
 	'config' => array(
-		'text' => array(
-			'exists' => "The database connection file already exists in the <code>app/config/:env</code> directory. If you need to change any of the items in this file, you can either manually edit the file or delete it and start over again.",
-			'php' => "Your server is running PHP version :php but Nova requires at least PHP 5.3.7. You cannot continue with the setup process. Please contact your host about correcting this issue.",
-			'noconfig' => "Sorry, I couldn't find the database connection file template that should be located at <code>nova/src/Nova/Setup/database/db.mysql.php</code> that I need to work from. Please re-upload the file from the Nova zip archive and try again.",
-			'nodb' => "Sorry, I need to have the MySQL extension loaded in order to continue with Nova's setup.",
+		'exists' => "The :type file already exists in the <code>app/config/:env</code> directory. If you need to change any of the items in this file, you can either manually edit the file or delete it and start over again.",
+		'noconfig' => "The :type file template located at <code>nova/src/Nova/Setup/generators/:file</code> couldn't be found. Please upload the file from the Nova zip archive and try again.",
+		'php' => "Your server is running PHP version :php but Nova requires at least PHP 5.3.7. You cannot continue with the setup process. Please contact your host about correcting this issue.",
+
+		'db' => array(
+			'nodb' => "The PDO extension or drivers couldn't be found and must be present in order to continue with Nova's setup. Contact your host to resolve this issue.",
 			'connection' => "Enter your database connection details below. If you're not sure about these, contact your web host.",
-			'step0' => "Before installing Nova 3, the database connection file needs to be created. In order to do that, you'll need to have the following information about your database:</p><ol><li>The database name</li><li>The database username</li><li>The database password</li><li>The database host</li><li>The table prefix you want to use</li></ol><p>In all likelihood, your web host gave you this information when you created your account. If you don't have this information, contact your web host and they'll be able to get you what you need in order to continue.</p><blockquote><p>If for any reason this wizard can't automatically create the database connection file for you you, don't worry. All the wizard does is fill in the database information to a config file for you. You can also open <code>nova/src/Nova/Setup/database/db.mysql.php</code>, copy its contents and paste them into a new file called <code>database.php</code> in the <code>app/config/:env</code> directory if you'd rather not use this wizard.</p></blockquote>",
-			'step2' => array(
-				'success'=> "Successfully connected to your database! Now, we'll attempt to write the config file with the connection parameters.",
-				'nohost' => "I couldn't find the database host you provided. Most of the time, web hosts use <code>localhost</code>, but in some instances, they set up their servers differently. Check with your web host about the proper database host to use and try again.",
-				'userpass' => "The username and/or password you gave me doesn't seem to work. Double check your username and/or password and try again.",
-				'dbname' => "I was able to connect to the database server (which means your username and password are fine) but I couldn't find the <code>:dbname</code> database.</p><ul><li>Are you sure it exists?</li><li>Does the user have permission to use the <code>:dbname</code> database?</li><li>On some systems the name of your database is prefixed with your username, like <strong>username_:dbname</strong>. Could that be the problem?</li></ul><p>If you don't know how to setup a database or your database connection settings, you should <strong>contact your web host</strong>.",
-				'gen' => "There was an error I couldn't identify when trying to connect to the database. This could be caused by incorrect database connection settings or the database server being down. Check with your web host to see if there are any issues and try again."
+			'intro' => "Before installing Nova 3, the database connection file needs to be created. In order to do that, you'll need to have the following information about your database:</p><ol><li>The database name</li><li>The database username</li><li>The database password</li><li>The database host</li><li>The table prefix you want to use</li></ol><p>In all likelihood, your web host gave you this information when you created your account. If you don't have this information, contact your web host and they'll be able to get you what you need in order to continue.</p><blockquote><p>If for any reason this wizard can't automatically create the database connection file for you you, don't worry. All the wizard does is fill in the database information to a config file for you. You can also open <code>nova/src/Nova/Setup/generators/database.php</code>, copy its contents and paste them into a new file called <code>database.php</code> in the <code>app/config/:env</code> directory if you'd rather not use this wizard.</p></blockquote>",
+			'check' => array(
+				'success'=> "A successful connection was made to your database. Please continue to attempt creating the config file with the connection parameters specified.",
+				'nohost' => "The database host you provided could not be found. Most of the time, web hosts use <code>localhost</code>, but in some instances, they set up their servers differently. Check with your web host about the proper database host to use and try again.",
+				'userpass' => "The username and/or password you provided doesn't seem to work. Double check your username and/or password and try again.",
+				'dbname' => "A successful connection was made to your database server (which means your username and password are fine) but the database <code>:dbname</code> couldn't be found.</p><ul><li>Are you sure it exists?</li><li>Does the user have permission to use the <code>:dbname</code> database?</li><li>On some systems the name of your database is prefixed with your username, like <strong>username_:dbname</strong>. Could that be the problem?</li></ul><p>If you don't know how to setup a database or your database connection settings, you should <strong>contact your web host</strong>.",
+				'gen' => "There was an unidentified error when trying to connect to the database. This could be caused by incorrect database connection settings or the database server being down. Check with your web host to see if there are any issues and try again."
 			),
-			'step3write' => "Database connection config file was successfully created. You can now continue with the Nova setup.",
-			'step3nowrite' => "Uh-oh! I couldn't write the database connection file. This is probably because your server doesn't allow creating and writing to files. Don't worry though, you can copy the text below and paste it into a new file called <code>db.php</code> in the <code>app/config/:env</code> directory. Once you've saved and uploaded the file, you can re-test your database connection.",
-			'step4success' => "Alright sparky! You've finally finished. Head over to the Setup Center to continue setting up Nova.",
+			'write' => array(
+				'success' => "Database connection config file was successfully created. You can now continue with the Nova setup.",
+				'failure' => "Uh-oh! I couldn't write the database connection file. This is probably because your server doesn't allow creating and writing to files. Don't worry though, you can copy the text below and paste it into a new file called <code>db.php</code> in the <code>app/config/:env</code> directory. Once you've saved and uploaded the file, you can re-test your database connection.",
+			),
+		),
+
+		'email' => array(
+			'intro' => "Nova 3 requires an SMTP server for sending emails. This has been done for several reasons, but the main reason is to provide greater reliability delivering emails to players. You can read more about emails in Nova and your options for setting this up in the <a href='#' target='_blank'>email options</a> document in AnodyneDocs.</p><p>Before setting up Nova 3, the email config file needs to be created. In order to do that, you'll need to have the following information about how you want to send email from Nova:</p><ol><li>The name of the SMTP server you're using</li><li>The server port</li><li>The encryption type</li><li>The email address and name you want emails to come from</li><li>Your SMTP server username</li><li>Your SMTP server password</li></ol><p>In all likelihood, your web host or SMTP host (if you're using a third-party service) gave you this information when you created your account. If you don't have this information, contact your web host/SMTP host and they'll be able to get you what you need in order to continue.</p><blockquote><p>If for any reason this wizard can't automatically create the email config file for you you, don't worry. All the wizard does is fill in the information to a config file for you. You can also open <code>nova/src/Nova/Setup/generators/mail.php</code>, copy its contents and paste them into a new file called <code>mail.php</code> in the <code>app/config/:env</code> directory if you'd rather not use this wizard.</p></blockquote>",
+			'info' => "The information below can be found from either your web host or your SMTP service host. You can read more about emails in Nova and your options for setting this up in the <a href='#' target='_blank'>email options</a> document in AnodyneDocs.",
+			'write' => array(
+				'success' => "The email config file was successfully created. You can now continue with the Nova setup.",
+				'failure' => "The email config file couldn't be created. This is probably because your server doesn't allow creating and/or writing to files. Don't worry though, you can copy the text below and paste it into a new file called <code>mail.php</code> in the <code>app/config/:env</code> directory. Once you've saved and uploaded the file, you can verify the settings and continue setting up Nova.",
+			),
+			'verify' => array(
+				'success' => "The email config file has been verified. You can now continue setting up Nova.",
+				'failure' => "The email config file still couldn't be found. Either the file wasn't properly created or you haven't manually created the file yet. You can start the wizard over to attempt to create the file again.",
+			),
 		),
 	),
 	
