@@ -1,17 +1,4 @@
-<?php
-/**
- * Status codes are stored as integers now and this class is designed to
- * store the available statuses as well as translate to and from strings
- * for ease of use.
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Class
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
-
-namespace Nova\Core\Lib;
+<?php namespace Nova\Core\Lib;
 
 class Status {
 
@@ -69,7 +56,6 @@ class Status {
 	/**
 	 * Translate a string into a status.
 	 *
-	 * @api
 	 * @param	string	Text to translate from
 	 * @return	int
 	 */
