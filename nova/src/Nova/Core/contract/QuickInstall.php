@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Lib\Contract;
+<?php namespace Nova\Core\Contract;
 
 interface QuickInstall {
 	
