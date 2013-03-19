@@ -1,17 +1,4 @@
-<?php
-/**
- * Compiles language files from pre-determined locations and recursively merges
- * them together to allow admins to override language files from the lang
- * directory.
- *
- * @package		Nova
- * @subpackage	Foundation
- * @category	Class
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
-
-namespace Nova\Foundation\Translation;
+<?php namespace Nova\Foundation\Translation;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\LoaderInterface;
@@ -71,7 +58,7 @@ class CascadingFileLoader implements LoaderInterface {
 	 */
 	public function load($locale, $group, $namespace = null)
 	{
-		if (is_null($namespace))
+		if (is_null($namespace) or $namespace == '*')
 		{
 			return $this->loadPath($this->path, $locale, $group);
 		}
@@ -87,6 +74,7 @@ class CascadingFileLoader implements LoaderInterface {
 	 * @param  string  $locale
 	 * @param  string  $group
 	 * @param  string  $namespace
+	 * @return array
 	 */
 	protected function loadNamespaced($locale, $group, $namespace)
 	{
@@ -115,7 +103,8 @@ class CascadingFileLoader implements LoaderInterface {
 
 			if ($this->files->exists($file))
 			{
-				$items[$location] = array_dot($this->files->getRequire($file));
+				//$items[$location] = array_dot($this->files->getRequire($file));
+				$items[$location] = $this->files->getRequire($file);
 			}
 		}
 
