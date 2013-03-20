@@ -14,14 +14,29 @@
 $classes = Config::get('app.aliases');
 
 /**
+ * Characters
+ */
+Event::listen("eloquent.created: {$classes['Character']}", "{$classes['CharacterHandler']}@afterCreate");
+
+/**
+ * Positions
+ */
+Event::listen("eloquent.created: {$classes['Position']}", "{$classes['PositionHandler']}@afterCreate");
+Event::listen("eloquent.updated: {$classes['Position']}", "{$classes['PositionHandler']}@afterUpdate");
+Event::listen("eloquent.deleting: {$classes['Position']}", "{$classes['PositionHandler']}@beforeDelete");
+
+/**
+ * Ranks
+ */
+Event::listen("eloquent.created: {$classes['Rank']}", "{$classes['RankHandler']}@afterCreate");
+Event::listen("eloquent.updated: {$classes['Rank']}", "{$classes['RankHandler']}@afterUpdate");
+Event::listen("eloquent.deleting: {$classes['Rank']}", "{$classes['RankHandler']}@beforeDelete");
+Event::listen("eloquent.saving: {$classes['Rank']}", "{$classes['RankHandler']}@beforeSave");
+
+/**
  * User
  */
 Event::listen("eloquent.creating: {$classes['User']}", "{$classes['UserHandler']}@beforeCreate");
 Event::listen("eloquent.created: {$classes['User']}", "{$classes['UserHandler']}@afterCreate");
 Event::listen("eloquent.updated: {$classes['User']}", "{$classes['UserHandler']}@afterUpdate");
 Event::listen("eloquent.deleting: {$classes['User']}", "{$classes['UserHandler']}@beforeDelete");
-
-/**
- * Comment Handlers
- */
-//Event::listen("eloquent.created: {$classes['Comment']}", "{$classes['CommentHandler']}@onCreate");

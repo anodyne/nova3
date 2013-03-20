@@ -297,7 +297,10 @@ return array(
 		/**
 		 * Nova Event Handlers
 		 */
-		'UserHandler'	=> 'Nova\Core\Handlers\User',
+		'CharacterHandler'	=> 'Nova\Core\Handlers\Character',
+		'PositionHandler'	=> 'Nova\Core\Handlers\Position',
+		'RankHandler'		=> 'Nova\Core\Handlers\Rank',
+		'UserHandler'		=> 'Nova\Core\Handlers\User',
 
 	),
 
