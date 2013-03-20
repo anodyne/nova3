@@ -9,11 +9,9 @@
 		"dandoescode/datum": "1.0.*",
 		"dflydev/markdown": "1.0.*",
 		"jonob/html": "1.*",
-		"cartalyst/sentry": "dev-master"
-	},
-	"require-dev": {
-		"raveren/kint": "dev-master",
-		"ikimea/browser": "dev-master"
+		"cartalyst/sentry": "dev-master",
+		"ikimea/browser": "dev-master",
+		"raveren/kint": "dev-master"
 	},
 
 	"autoload": {
