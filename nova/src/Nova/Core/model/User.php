@@ -159,6 +159,39 @@ class User extends Model implements UserInterface {
 	}
 
 	/**
+	 * Scope the query to active users.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeActive($query)
+	{
+		$query->where('status', Status::ACTIVE);
+	}
+
+	/**
+	 * Scope the query to inactive users.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeInactive($query)
+	{
+		$query->where('status', Status::INACTIVE);
+	}
+
+	/**
+	 * Scope the query to pending users.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopePending($query)
+	{
+		$query->where('status', Status::PENDING);
+	}
+
+	/**
 	 * Get the user's preferences.
 	 *
 	 * @param	string	Preference key to get
@@ -275,20 +308,6 @@ class User extends Model implements UserInterface {
 				$r->save();
 			}
 		}
-	}
-
-	/**
-	 * Get every user based on criteria.
-	 *
-	 * @param	int		Status to pull
-	 * @return	Collection
-	 */
-	public static function getItems($status = Status::ACTIVE)
-	{
-		// Start a new Query Builder
-		$query = static::startQuery();
-
-		return $query->where('status', $status)->get();
 	}
 
 	/*

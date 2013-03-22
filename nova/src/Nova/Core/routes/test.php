@@ -66,6 +66,8 @@ Route::group(array('prefix' => 'test'), function()
 			//d($p->name);
 			//d($p->dept->name);
 		}*/
+
+		//sd(User::pending()->get()->count());
 	});
 
 	Route::get('migrate', function()
