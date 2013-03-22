@@ -8,24 +8,17 @@ A quick glance at Nova 3 and the file structure looks pretty similar to Nova 2, 
 
 Laravel comes with a command line interface called Artisan that provides a number of helpful commands to use while developing applications. If you're running on a shared server, it's likely you don't have access to the command line to use Artisan; if you're on a dedicated server, you probably do have access to the command line. Either way, command line access isn't necessary because of Laravel's Artisan facade that provides access to all the functionality without needing the command line.
 
-`Artisan::call('--version')`
-
 ### composer.json
 
-Laravel 4 is built on top of framework-agnostic components built by the wider PHP community. Composer is the tool used to manage the dependencies between packages. Laravel uses it to make sure all the necessary pieces it needs are in place and Nova uses it to make sure the third-party components we use are available. In most cases, you should never have to modify this file, but if you do, it may be necessary for you to manually make changes to this file in the event we update the Composer dependencies for Nova, Laravel or any of the other components.
+Laravel 4 is built on top of many framework-agnostic components built by the wider PHP community. Composer is the tool used to manage the dependencies between packages. Laravel uses it to make sure all the necessary pieces it needs are in place and Nova uses it to make sure the third-party components we use are available. In most cases, you should never have to modify this file, but if you do, it may be necessary for you to manually make changes to this file in the event we update the Composer dependencies for Nova, Laravel or any of the other components.
 
 ### index.php
 
 The index file is the entry point into Nova. Everything starts and ends with the index file; constants used through the system are setup, Laravel's components are created and booted up for use by Nova, requests are executed and responses are sent. Since this is a critical file to the execution of Nova, you shouldn't be modifying it unless you know exactly what you're doing.
 
-### server.php
-
-In PHP 5.4, devs can now use a built-in web server in PHP to test and debug their code. To make using the PHP web server easier to use with Laravel 4, the server.php file can be called from the command line.
-
-__Need example__
-
 ## App
 
+* events.php
 * filters.php
 * routes.php
 
@@ -51,7 +44,7 @@ Any models you create are stored here. Models stored here must be namespaced wit
 
 ### module
 
-Any third-party modules are stored here. Modules must be namespaced with `Model\{Folder}`.
+Any third-party modules are stored here. Modules must be namespaced with `Module\{Folder}`.
 
 ### start
 
