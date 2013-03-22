@@ -123,10 +123,9 @@ class Model extends EloquentModel {
 	 *
 	 * @param	string	The value
 	 * @param	mixed	The column
-	 * @param	bool	Is this for a search?
 	 * @return	object
 	 */
-	public static function getItem($value, $column, $search = false)
+	public static function getItem($value, $column)
 	{
 		// Start a new Query Builder
 		$query = static::startQuery();
@@ -149,12 +148,7 @@ class Model extends EloquentModel {
 		{
 			if (in_array($column, static::$properties))
 			{
-				if ( ! $search)
-				{
-					return $query->where($column, $value)->first();
-				}
-
-				return $query->where($column, 'like', $value)->get();
+				return $query->where($column, $value)->first();
 			}
 		}
 		
