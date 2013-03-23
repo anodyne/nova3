@@ -53,6 +53,25 @@ class Location {
 	}
 
 	/**
+	 * Searches to find where to pull the specified email from. If the email 
+	 * exists in the override module (app/module/override), it'll use that 
+	 * and stop searching. Otherwise, it'll use whatever's found in the Nova 
+	 * module.
+	 *
+	 * @param	string	File
+	 * @param	string	Email format (html/text)
+	 * @return	string
+	 */
+	public function email($file, $format, $module = 'core')
+	{
+		$this->file = $file;
+		$this->type = "email/{$format}";
+		$this->module = $module;
+
+		return $this->findEmail();
+	}
+
+	/**
 	 * Searches to find where to pull the specified file from. If the file 
 	 * exists in the skin, it'll use that that one and stop searching. If the 
 	 * file exists in the override module (app/module/override), it'll use that 
@@ -114,6 +133,16 @@ class Location {
 		$this->type = 'rank';
 
 		return $this->findRank($base, $pip, $location);
+	}
+
+	/**
+	 * Find the right path to an email view.
+	 *
+	 * @return	string
+	 */
+	protected function findEmail()
+	{
+		return "components/{$this->type}/{$this->file}";
 	}
 
 	/**
