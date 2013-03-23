@@ -14,6 +14,11 @@
 $classes = Config::get('app.aliases');
 
 /**
+ * Applications
+ */
+Event::listen("eloquent.created: {$classes['NovaApp']}", "{$classes['AppHandler']}@afterCreate");
+
+/**
  * Characters
  */
 Event::listen("eloquent.created: {$classes['Character']}", "{$classes['CharacterHandler']}@afterCreate");
