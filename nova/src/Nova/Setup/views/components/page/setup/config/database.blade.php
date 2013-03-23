@@ -1,9 +1,9 @@
 @if ($step === false)
-	<p>{{{ $message }}}</p>
+	<p>{{ $message }}</p>
 @elseif ($step == 'info')
-	<p>{{{ $message }}}</p>
+	<p>{{ $message }}</p>
 	
-	{{{ Form::open('setup/config/check') }}}
+	{{ Form::open(array('url' => 'setup/config/db/check')) }}
 		<div class="row-fluid">
 			<div class="span6">
 				<label class="control-label">Database Name</label>
@@ -40,11 +40,11 @@
 			</div>
 		</div>
 @elseif ($step == 'write')
-	<p>{{{ $message }}}</p>
+	<p>{{ $message }}</p>
 	
 	@if (isset($code))
 		<hr>
 		
-		<pre>{{{ $code }}}</pre>
+		<pre>{{ $code }}</pre>
 	@endif
 @endif
