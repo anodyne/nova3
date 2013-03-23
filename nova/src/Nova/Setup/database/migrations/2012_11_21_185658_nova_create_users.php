@@ -54,11 +54,12 @@ class NovaCreateUsers extends Migration {
 		{
 			$t->increments('id');
 			$t->integer('user_id');
-			$t->integer('attempts');
-			$t->boolean('suspended');
-			$t->boolean('banned');
-			$t->timestamp('last_attempt_at');
-			$t->timestamp('suspended_at');
+			$t->string('ip_address')->nullable();
+			$t->integer('attempts')->default(0);
+			$t->boolean('suspended')->default(0);
+			$t->boolean('banned')->default(0);
+			$t->timestamp('last_attempt_at')->nullable();
+			$t->timestamp('suspended_at')->nullable();
 		});
 	}
 
