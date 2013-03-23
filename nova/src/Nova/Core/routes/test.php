@@ -68,6 +68,8 @@ Route::group(array('prefix' => 'test'), function()
 		}*/
 
 		//sd(User::pending()->get()->count());
+
+		echo Form::languages('language');
 	});
 
 	Route::get('migrate', function()
