@@ -16,3 +16,4 @@
 		* Implement install method
 		* Implement uninstall method
 * Convert observers to handlers
+* Nova Email updates
