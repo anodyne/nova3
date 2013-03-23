@@ -17,23 +17,12 @@ class NovaCreateAnnouncements extends Migration {
 			$t->string('title')->default('');
 			$t->integer('user_id');
 			$t->integer('character_id');
-			$t->integer('category_id');
 			$t->text('content');
 			$t->boolean('status')->default(Status::ACTIVE);
 			$t->boolean('private')->default((int) false);
-			$t->text('tags')->nullable();
+			$t->text('keywords')->nullable();
 			$t->timestamps();
 		});
-
-		Schema::create('announcement_categories', function($t)
-		{
-			$t->increments('id');
-			$t->string('name')->default('');
-			$t->boolean('status')->default(Status::ACTIVE);
-		});
-
-		// Seed the database
-		$this->seed();
 	}
 
 	/**
@@ -44,22 +33,5 @@ class NovaCreateAnnouncements extends Migration {
 	public function down()
 	{
 		Schema::drop('announcements');
-		Schema::drop('announcement_categories');
-	}
-
-	protected function seed()
-	{
-		$data = array(
-			array('name' => 'General'),
-			array('name' => 'Sim'),
-			array('name' => 'In-Character'),
-			array('name' => 'Out-of-Character'),
-			array('name' => 'Website Update'),
-		);
-
-		foreach ($data as $value)
-		{
-			AnnouncementCategory::add($value);
-		}
 	}
 }
