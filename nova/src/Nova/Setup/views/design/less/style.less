@@ -109,7 +109,7 @@ section {
 	blockquote {
 		margin: 15px 0;
 
-		border-color: #d7dbe1;
+		border-color: @color-subtle;
 
 		h4 {
 			font-weight: 600;
@@ -133,7 +133,7 @@ section {
 		display: block;
 
 		color: #667484;
-		border-top: 1px solid #d7dbe1;
+		border-top: 1px solid @color-subtle;
 
 		a.pull-right {
 			color: @color-muted;
@@ -149,7 +149,7 @@ section {
 	}
 
 	hr {
-		border-top: 1px solid #d7dbe1;
+		border-top: 1px solid @color-subtle;
 		border-bottom: 1px solid rgba(255, 255, 255, .75);
 	}
 
@@ -179,6 +179,18 @@ section {
 
 			color: @color-muted;
 			font-size: @font-size-small;
+		}
+	}
+
+	fieldset {
+		legend {
+			margin-bottom: 10px;
+
+			border-color: @color-subtle;
+		}
+
+		legend + .control-group {
+			margin-top: 10px;
 		}
 	}
 

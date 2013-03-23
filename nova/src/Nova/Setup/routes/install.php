@@ -4,7 +4,7 @@ Route::group(array('prefix' => 'setup/install'), function()
 {
 	Route::get('/', function()
 	{
-		return 'Install index';
+		return Redirect::to('setup/start');
 	});
 
 	Route::post('/', function()
@@ -59,7 +59,22 @@ Route::group(array('prefix' => 'setup/install'), function()
 
 	Route::get('settings', function()
 	{
-		return 'Post-install setup';
+		$data = new stdClass;
+		$data->view = 'install/settings';
+		$data->jsView = 'install/settings_js';
+		$data->title = 'Setup Center';
+		$data->layout = new stdClass;
+		$data->layout->label = 'Nova Setup';
+		$data->controls = false;
+		$data->steps = 'setup_install';
+		$data->content = new stdClass;
+
+		$data->content->defaultRank = false;
+		$data->content->positions = Position::getItems('open.playing')->toSimpleArray();
+
+		$data->controls = Form::button('Submit', array('class' => 'btn btn-primary')).Form::close();
+
+		return setupTemplate($data);
 	});
 
 	Route::post('settings', function()
