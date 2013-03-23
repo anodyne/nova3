@@ -69,8 +69,14 @@ Route::group(array('prefix' => 'setup/install'), function()
 		$data->steps = 'setup_install';
 		$data->content = new stdClass;
 
-		$data->content->defaultRank = false;
-		$data->content->positions = Position::getItems('open.playing')->toSimpleArray();
+		// Get the default rank set
+		$rankSetLocation = RankCatalog::getDefault(true);
+
+		// Get the rank item
+		$rank = Rank::find(1);
+
+		// Build the rank image
+		$data->content->defaultRank = Location::rank($rank->base, $rank->pip, $rankSetLocation);
 
 		$data->controls = Form::button('Submit', array('class' => 'btn btn-primary')).Form::close();
 
