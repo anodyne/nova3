@@ -8,7 +8,7 @@ Route::filter('configFileCheck', function()
 	if ( ! File::exists(APPPATH.'config/'.App::environment().'/database.php'))
 	{
 		// Only redirect if we aren't on the config page(s)
-		if ( ! Request::is('setup/config/db*') or ! Request::is('setup/'))
+		if ( ! Request::is('setup/config/db*') and ! Request::is('setup'))
 		{
 			return Redirect::to('setup');
 		}
