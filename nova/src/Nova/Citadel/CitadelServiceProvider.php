@@ -158,12 +158,12 @@ class CitadelServiceProvider extends ServiceProvider {
 			$app['sentry.loaded'] = true;
 
 			return new Sentry(
-				$app['sentry.hasher'],
+				$app['sentry.user'],
+				$app['sentry.group'],
+				$app['sentry.throttle'],
 				$app['sentry.session'],
 				$app['sentry.cookie'],
-				$app['sentry.group'],
-				$app['sentry.user'],
-				$app['sentry.throttle']
+				$app['request']->getClientIp()
 			);
 		});
 	}

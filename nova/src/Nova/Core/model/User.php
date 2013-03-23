@@ -482,6 +482,17 @@ class User extends Model implements UserInterface {
 	}
 
 	/**
+	 * Checks the password passed matches the user's password.
+	 *
+	 * @param  string  $password
+	 * @return bool
+	 */
+	public function checkPassword($password)
+	{
+		return $this->checkHash($password, $this->getPassword());
+	}
+
+	/**
 	 * Checks if the provided user reset password code is valid without actually
 	 * resetting the password.
 	 *
@@ -754,6 +765,24 @@ class User extends Model implements UserInterface {
 
 		// Check to see if the user has EXACTLY a level
 		return (array_get($mergedPermissions, $permissions, false) >= $level);
+	}
+
+	/**
+	 * Check string against hashed string.
+	 *
+	 * @param  string  $string
+	 * @param  string  $hashedString
+	 * @return bool
+	 * @throws RuntimeException
+	 */
+	public function checkHash($string, $hashedString)
+	{
+		if ( ! static::$hasher)
+		{
+			throw new \RuntimeException("A hasher has not been provided for the user.");
+		}
+
+		return static::$hasher->checkHash($string, $hashedString);
 	}
 	
 }

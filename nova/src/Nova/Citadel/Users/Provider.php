@@ -260,4 +260,19 @@ class Provider implements ProviderInterface {
 		return $permissions;
 	}
 
+	/**
+	 * Returns all users who belong to
+	 * a group.
+	 *
+	 * @param  Cartalyst\Sentry\Groups\GroupInterface  $group
+	 * @return array
+	 */
+	public function findAllInGroup($group)
+	{
+		return array_filter($this->findAll(), function($user) use ($group)
+		{
+			return $user->inGroup($group);
+		});
+	}
+
 }
