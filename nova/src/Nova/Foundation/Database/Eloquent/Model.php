@@ -13,6 +13,7 @@
 
 use Date;
 use Status;
+use Exception;
 use Nova\Foundation\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
@@ -81,6 +82,7 @@ class Model extends EloquentModel {
 	 * @param	bool	Should the object be returned?
 	 * @param	bool	Should the data be filtered?
 	 * @return	$this|bool
+	 * @throws	Exception
 	 */
 	public static function add(array $data, $returnObject = false, $filter = true)
 	{
@@ -115,7 +117,7 @@ class Model extends EloquentModel {
 			return true;
 		}
 		
-		return false;
+		throw new Exception(lang('error.exception.model.create'));
 	}
 
 	/**
@@ -189,6 +191,7 @@ class Model extends EloquentModel {
 	 * @param	array 	The array of data to update with
 	 * @param	bool	Should the data be run through the XSS filter?
 	 * @return	mixed
+	 * @throws	Exception
 	 */
 	public static function update($id, array $data, $returnObject = false, $filter = true)
 	{
@@ -197,32 +200,36 @@ class Model extends EloquentModel {
 			// Get the item
 			$item = static::find($id);
 			
-			// Loop through the data array and make the changes
-			foreach ($data as $key => $value)
+			// Make sure we have something
+			if ($item !== null)
 			{
-				if ($key != 'id' and in_array($key, static::$properties))
+				// Loop through the data array and make the changes
+				foreach ($data as $key => $value)
 				{
-					if ($filter)
+					if ($key != 'id' and in_array($key, static::$properties))
 					{
-						$value = e($value);
+						if ($filter)
+						{
+							$value = e($value);
+						}
+
+						$item->{$key} = $value;
+					}
+				}
+				
+				// Save the item
+				if ($item->save())
+				{
+					if ($returnObject)
+					{
+						return $item;
 					}
 
-					$item->{$key} = $value;
-				}
-			}
-			
-			// Save the item
-			if ($item->save())
-			{
-				if ($returnObject)
-				{
-					return $item;
+					return true;
 				}
 
-				return true;
+				throw new Exception(lang('error.exception.model.update.notSaved'));
 			}
-
-			return false;
 		}
 		else
 		{
@@ -231,27 +238,33 @@ class Model extends EloquentModel {
 
 			// Pull everything from the table
 			$items = $query->get();
-			
-			// Loop through all the items
-			foreach ($items as $item)
+
+			// Make sure we have items
+			if ($items->count() > 0)
 			{
-				// Loop through the data and make the changes
-				foreach ($data as $key => $value)
+				// Loop through all the items
+				foreach ($items as $item)
 				{
-					if ($filter)
+					// Loop through the data and make the changes
+					foreach ($data as $key => $value)
 					{
-						$value = e($value);
+						if ($filter)
+						{
+							$value = e($value);
+						}
+
+						$item->{$key} = $value;
 					}
-
-					$item->{$key} = $value;
+					
+					// Save the item
+					$item->save();
 				}
-				
-				// Save the item
-				$item->save();
-			}
 
-			return true;
+				return true;
+			}
 		}
+
+		throw new Exception(lang('error.exception.model.update.notFound'));
 	}
 
 	/**
@@ -259,6 +272,7 @@ class Model extends EloquentModel {
 	 *
 	 * @param	mixed	An array of arguments or the item ID
 	 * @return	bool
+	 * @throws	Exception
 	 */
 	public static function remove($args)
 	{
@@ -286,13 +300,17 @@ class Model extends EloquentModel {
 			$entry = static::find($args);
 		}
 
-		// Now that we have the item, delete it
-		if ($entry->delete(null, true))
+		// Make sure we have an entry
+		if ($entry !== null)
 		{
-			return true;
+			// Now that we have the item, delete it
+			if ($entry->delete(null, true))
+			{
+				return true;
+			}
 		}
 		
-		return false;
+		throw new Exception(lang('error.exception.model.delete'));
 	}
 
 }

@@ -12,6 +12,14 @@ return array(
 
 	'exception' => array(
 		'invalid_image' => "Invalid image type provided. Available options are asset, image, and rank.",
+		'model' => array(
+			'create' => "The record could not be created. You may find more information in your error logs.",
+			'delete' => "No record(s) found to delete. Verify the criteria of your query.",
+			'update' => array(
+				'notFound' => "No record(s) found to update. Verify the criteria of your query.",
+				'notSaved' => "The record could not be updated. You may find more information in your error logs.",
+			),
+		),
 	),
 
 	'login' => array(
