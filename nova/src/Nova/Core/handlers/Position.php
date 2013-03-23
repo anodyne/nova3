@@ -15,7 +15,7 @@ class Position {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.position', lang('position'), $model->name, lang('action.created'));
+		SystemEvent::addUserEvent('event.admin.position', lang('base.position'), $model->name, lang('action.created'));
 	}
 
 	/**
@@ -29,7 +29,7 @@ class Position {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.position', lang('position'), $model->name, lang('action.updated'));
+		SystemEvent::addUserEvent('event.admin.position', lang('base.position'), $model->name, lang('action.updated'));
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Position {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.position', lang('position'), $model->name, lang('action.deleted'));
+		SystemEvent::addUserEvent('event.admin.position', lang('base.position'), $model->name, lang('action.deleted'));
 	}
 
 }
