@@ -2,7 +2,7 @@
 
 use Dept;
 use Rank;
-use Location;
+use Location as NovaLocation;
 use Position;
 use Markdown;
 use RankGroup;
@@ -244,7 +244,7 @@ class FormBuilder extends LaravelFormBuilder {
 				// Get the rank
 				$rank = Rank::find($selected);
 
-				$output.= Location::rank($rank->base, $rank->pip);
+				$output.= NovaLocation::rank($rank->base, $rank->pip);
 			}
 
 			$output.= '</div></div>';
@@ -368,7 +368,7 @@ class FormBuilder extends LaravelFormBuilder {
 		// Figure out the section
 		$section = (\Uri::segment(1) == 'admin') ? 'admin' : 'main';
 		
-		return \View::forge(\Location::file('flash', \Utility::getSkin($section), 'partial'))
+		return \View::forge(NovaLocation::file('flash', \Utility::getSkin($section), 'partial'))
 			->set('status', 'danger')
 			->set('message', lang('error.notFound', lang('users')))
 			->render();
@@ -417,7 +417,7 @@ class FormBuilder extends LaravelFormBuilder {
 		// Figure out the section
 		$section = (\Uri::segment(1) == 'admin') ? 'admin' : 'main';
 		
-		return \View::forge(\Location::file('flash', \Utility::getSkin($section), 'partial'))
+		return \View::forge(NovaLocation::file('flash', \Utility::getSkin($section), 'partial'))
 			->set('status', 'danger')
 			->set('message', lang('error.notFound', lang('characters')))
 			->render();
