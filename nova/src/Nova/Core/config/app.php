@@ -210,9 +210,9 @@ return array(
 		/**
 		 * Nova Interfaces
 		 */
-		'MediaInterface'			=> 'Nova\Core\Contract\Media',
-		'QuickInstallInterface'		=> 'Nova\Core\Contract\QuickInstall',
-		'SearchInterface'			=> 'Nova\Core\Contract\Search',
+		'MediaInterface'			=> 'Nova\Core\Contracts\Media',
+		'QuickInstallInterface'		=> 'Nova\Core\Contracts\QuickInstall',
+		'SearchInterface'			=> 'Nova\Core\Contracts\Search',
 
 		/**
 		 * Nova Models
