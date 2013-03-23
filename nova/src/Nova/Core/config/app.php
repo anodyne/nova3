@@ -82,7 +82,7 @@ return array(
 		'Illuminate\Encryption\EncryptionServiceProvider',
 		'Illuminate\Filesystem\FilesystemServiceProvider',
 		'Illuminate\Hashing\HashServiceProvider',
-		'Illuminate\Html\HtmlServiceProvider',
+		//'Illuminate\Html\HtmlServiceProvider',
 		'Illuminate\Foundation\Providers\KeyGeneratorServiceProvider',
 		'Illuminate\Log\LogServiceProvider',
 		'Illuminate\Mail\MailServiceProvider',
@@ -106,6 +106,7 @@ return array(
 		 * Nova Service Providers
 		 */
 		'Nova\Citadel\CitadelServiceProvider',
+		'Nova\Core\Providers\HtmlServiceProvider',
 		'Nova\Core\Providers\LocationServiceProvider',
 		'Nova\Foundation\Routing\RoutingServiceProvider',
 		'Nova\Foundation\Translation\TranslationServiceProvider',
@@ -193,6 +194,8 @@ return array(
 		 * Nova Classes
 		 */
 		'Date'			=> 'Datum\Datum',
+		'Email'			=> 'Nova\Core\Lib\Email',
+		'Form'			=> 'Nova\Core\Facades\Form',
 		'Location'		=> 'Nova\Core\Facades\Location',
 		'Markdown'		=> 'Nova\Core\Lib\Markdown',
 		'Media'			=> 'Nova\Core\Lib\Media',
@@ -263,7 +266,6 @@ return array(
 		'UserSuspend'				=> 'Nova\Core\Model\User\Suspend',
 
 		'Announcement'				=> 'Nova\Core\Model\Announcement',
-		'AnnouncementCategory'		=> 'Nova\Core\Model\AnnouncementCategory',
 		'Ban'						=> 'Nova\Core\Model\Ban',
 		'Comment'					=> 'Nova\Core\Model\Comment',
 		'Dept'						=> 'Nova\Core\Model\Department',
@@ -284,6 +286,7 @@ return array(
 		/**
 		 * Nova Event Handlers
 		 */
+		'AppHandler'		=> 'Nova\Core\Handlers\Application',
 		'CharacterHandler'	=> 'Nova\Core\Handlers\Character',
 		'PositionHandler'	=> 'Nova\Core\Handlers\Position',
 		'RankHandler'		=> 'Nova\Core\Handlers\Rank',
