@@ -107,30 +107,58 @@ class Character extends Model {
 	/**
 	 * Get the name of the character.
 	 *
-	 * @param	bool	Show the character rank?
-	 * @param	bool	Use the rank short name instead of the full name?
+	 * @param	bool	Show a link to the character bio?
 	 * @return	string
 	 */
-	public function getName($showRank = true, $showShortRank = false)
+	public function getName($link = false)
 	{
-		$pieces = array(
-			($showRank) 
-				? ($showShortRank) 
-					? $this->rank->info->short_name 
-					: $this->rank->info->name 
-				: '',
-			$this->first_name,
-			$this->last_name
-		);
-		
-		foreach ($pieces as $key => $p)
+		return $this->constructName(array($this->first_name, $this->last_name), $link);
+	}
+
+	/**
+	 * Get the name and full rank of the character.
+	 *
+	 * @param	bool	Show a link to the character bio?
+	 * @return	string
+	 */
+	public function getNameWithRank($link = false)
+	{
+		return $this->constructName(array($this->rank->info->name, $this->getName(false)), $link);
+	}
+
+	/**
+	 * Get the name and short rank of the character.
+	 *
+	 * @param	bool	Show a link to the character bio?
+	 * @return	string
+	 */
+	public function getNameWithShortRank($link = false)
+	{
+		return $this->constructName(array($this->rank->info->short_name, $this->getName(false)), $link);
+	}
+
+	/**
+	 * Put the name together the way it should be.
+	 *
+	 * @param	array	The pieces of the name
+	 * @param	bool	Show a link to the character bio?
+	 * @return	string
+	 */
+	protected function constructName(array $pieces, $link = false)
+	{
+		foreach ($pieces as $key => $value)
 		{
-			if (empty($p))
+			if (empty($value))
 			{
 				unset($pieces[$key]);
 			}
 		}
-		
+
+		if ($link)
+		{
+			return '<a href="'.URL::to('personnel/character/'.$this->id).'">'.implode(' ', $pieces).'</a>';
+		}
+
 		return implode(' ', $pieces);
 	}
 

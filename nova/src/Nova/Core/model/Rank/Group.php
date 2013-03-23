@@ -57,7 +57,7 @@ class Group extends Model {
 		// Start a new Query Builder
 		$query = static::startQuery();
 
-		// add a where statement only if we want just displayed items
+		// Add a where statement only if we want just displayed items
 		if ($status !== false)
 		{
 			$query->where('status', $status);

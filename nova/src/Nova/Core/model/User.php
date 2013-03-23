@@ -1,18 +1,18 @@
 <?php namespace Nova\Core\Model;
 
 use Str;
+use Post;
 use Model;
 use Status;
 use Sentry;
 use Session;
 use NovaApp;
-use PersonalLog;
 use Redirect;
 use Exception;
-use Post;
 use Character;
 use UserPrefs;
 use AccessRole;
+use PersonalLog;
 use UserSuspend;
 use Announcement;
 use AwardRecipient;
@@ -124,15 +124,6 @@ class User extends Model implements UserInterface {
 	{
 		return $this->belongsToMany('NovaApp', 'application_reviewers');
 	}
-
-	/**
-	 * Observers
-	 */
-	protected static $_observers = array(
-		'\\User' => array(
-			'events' => array('after_insert', 'before_insert', 'after_update', 'before_delete')
-		),
-	);
 
 	/**
 	 * Status Accessor.

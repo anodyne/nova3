@@ -42,15 +42,6 @@ class Position extends Model {
 	}
 
 	/**
-	 * Observers
-	 */
-	protected static $_observers = array(
-		'\\Position' => array(
-			'events' => array('before_delete', 'after_insert', 'after_update')
-		),
-	);
-
-	/**
 	 * Since the table name is appended with the genre, we can't hard-code
 	 * it in to the model. When the object is created, we have to pull the
 	 * genre out of the config and name the table.

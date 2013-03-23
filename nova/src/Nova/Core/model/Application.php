@@ -1,13 +1,13 @@
 <?php namespace Nova\Core\Model;
 
 use Date;
+use User;
 use Model;
 use Sentry;
 use Status;
-use User;
-use NovaAppResponse;
 use Position;
 use Character;
+use NovaAppResponse;
 
 class Application extends Model {
 
@@ -59,20 +59,6 @@ class Application extends Model {
 	}
 
 	/**
-	 * Get all comment records for this application.
-	 *
-	 * @return	Application\Response
-	 */
-	public function getComments()
-	{
-		return \Model_Application_Response::query()
-			->where('app_id', $this->id)
-			->where('type', \Model_Application_Response::COMMENT)
-			->order_by('created_at', 'desc')
-			->get();
-	}
-
-	/**
 	 * Gets the decision makers that are involved with this application.
 	 *
 	 * @return	array
@@ -93,21 +79,14 @@ class Application extends Model {
 	}
 
 	/**
-	 * Get the application records.
+	 * Scope the query to pending apps.
 	 *
-	 * @param	bool	Should we get only active records?
-	 * @return	Application
+	 * @param	Builder		The query builder instance
+	 * @return	void
 	 */
-	public static function getItems($onlyActive = true)
+	public function scopePending($query)
 	{
-		$query = static::query();
-
-		if ($onlyActive)
-		{
-			$query->where('status', Status::IN_PROGRESS);
-		}
-
-		return $query->get();
+		$query->where('status', Status::IN_PROGRESS);
 	}
 
 	/**
