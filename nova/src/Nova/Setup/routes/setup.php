@@ -402,7 +402,7 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 			$data->content->message = Lang::get('setup.config.db.check.success');
 			
 			// Write the controls
-			$data->controls = Form::open('setup/config/db/write').
+			$data->controls = Form::open(array('url' => 'setup/config/db/write')).
 				Form::button('Write Connection File', array(
 					'class'	=> 'btn btn-primary',
 					'id'	=> 'next',
