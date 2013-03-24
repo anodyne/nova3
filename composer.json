@@ -18,7 +18,8 @@
 		"classmap": [
 			"app/commands",
 			"app/database/migrations",
-			"nova/src/Nova/Setup/database/migrations"
+			"nova/src/Nova/Setup/database/migrations",
+			"app/tests/TestCase.php"
 		],
 
 		"psr-0": {
