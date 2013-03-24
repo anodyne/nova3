@@ -1,5 +1,12 @@
 <?php
 
+// Constants for absolute paths
+define('BASEPATH',		__DIR__.'/../../');
+define('APPPATH',		BASEPATH.'app/');
+define('NOVAPATH',		BASEPATH.'nova/');
+define('VENDORPATH',	NOVAPATH.'vendor/');
+define('SRCPATH',		NOVAPATH.'src/Nova/');
+
 /*
 |--------------------------------------------------------------------------
 | Register The Composer Auto Loader

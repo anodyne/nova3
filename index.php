@@ -8,13 +8,6 @@
 
 define('LARAVEL_START', microtime(true));
 
-// Constants for absolute paths
-define('BASEPATH',		__DIR__.'/');
-define('APPPATH',		BASEPATH.'app/');
-define('NOVAPATH',		BASEPATH.'nova/');
-define('VENDORPATH',	NOVAPATH.'vendor/');
-define('SRCPATH',		NOVAPATH.'src/Nova/');
-
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
@@ -27,7 +20,7 @@ define('SRCPATH',		NOVAPATH.'src/Nova/');
 |
 */
 
-require NOVAPATH.'start/autoload.php';
+require __DIR__.'/nova/start/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +34,7 @@ require NOVAPATH.'start/autoload.php';
 |
 */
 
-$app = require_once NOVAPATH.'start/start.php';
+$app = require_once __DIR__.'/nova/start/start.php';
 
 // Constants for URLs
 define('BASEURL',	$app->request->root().'/');
