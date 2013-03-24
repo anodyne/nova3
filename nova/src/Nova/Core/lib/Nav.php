@@ -129,7 +129,7 @@ class Nav {
 	 */
 	protected function setData()
 	{
-		$data = NavModel::all();
+		$data = NavModel::get();
 
 		foreach ($data as $key => $item)
 		{
@@ -160,17 +160,23 @@ class Nav {
 				// Get the access info for the nav item
 				$navaccess = explode('.', $item->access);
 
-				// Find if the user has access
-				$access = Sentry::getUser()->hasAccess("$navaccess[0].$navaccess[1]");
+				// Get the user
+				$user = Sentry::getUser();
 
-				// Find if the user has the proper level
-				$level = Sentry::getUser()->atLeastLevel("$navaccess[0].$navaccess[1]", $navaccess[2]);
-
-				// Remove items from the return array if they shouldn't be there based on access
-				if ( ! $access or ($access and ! $level))
+				if ($user)
 				{
-					unset($retval[$type][$cat][$item->id]);
-					unset($retval[$type][$cat][$item->category][$item->id]);
+					// Find if the user has access
+					$access = $user->hasAccess("$navaccess[0].$navaccess[1]");
+
+					// Find if the user has the proper level
+					$level = $user->atLeastLevel("$navaccess[0].$navaccess[1]", $navaccess[2]);
+
+					// Remove items from the return array if they shouldn't be there based on access
+					if ( ! $access or ($access and ! $level))
+					{
+						unset($retval[$type][$cat][$item->id]);
+						unset($retval[$type][$cat][$item->category][$item->id]);
+					}
 				}
 			}
 		}
