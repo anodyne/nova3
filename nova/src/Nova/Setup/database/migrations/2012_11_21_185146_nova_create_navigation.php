@@ -53,6 +53,7 @@ class NovaCreateNavigation extends Migration {
 				'group' => 0,
 				'order' => 0,
 				'url' => 'main/index',
+				'type' => 'main',
 				'category' => 'main'),
 			/*array(
 				'name' => 'Personnel',
