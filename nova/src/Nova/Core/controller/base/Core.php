@@ -126,7 +126,7 @@ abstract class Core extends Controller {
 		$baseControllerStartup = function() use(&$me)
 		{
 			// Set the session to use the database
-			Session::driver('database');
+			//Session::driver('database');
 
 			// Set the genre
 			$me->genre = Config::get('nova.genre');
@@ -145,7 +145,7 @@ abstract class Core extends Controller {
 			$me->_jsData = new \stdClass;
 
 			// Get the controller name from the Router and denamespace it
-			$controllerName = \Fuel\Util\Inflector::denamespace(\Route::getController());
+			$controllerName = \Str::denamespace(\Route::getController());
 			
 			// Grab the content for the current section
 			$me->_headers	= \SiteContent::getSectionContent('header', $controllerName);
@@ -223,7 +223,7 @@ abstract class Core extends Controller {
 		if ($this->_editable === true)
 		{
 			// Get the controller name from the Router and denamespace it
-			$controllerName = \Fuel\Util\Inflector::denamespace(\Route::getController());
+			$controllerName = \Str::denamespace(\Route::getController());
 
 			// Set the final header content key
 			$this->template->layout->headerKey = (array_key_exists($actionName, $this->_headers)) 
@@ -246,6 +246,8 @@ abstract class Core extends Controller {
 					->with('message', $flash['message']);
 			}
 		}
+
+		sd($this->template->render());
 
 		echo $this->template;
 	}
