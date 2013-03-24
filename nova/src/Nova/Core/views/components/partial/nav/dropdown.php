@@ -13,7 +13,8 @@
 				<?php echo $userMenu;?>
 
 				<ul class="nav">
-				<?php foreach ($items[$section]['items'] as $item): ?>
+				<?php foreach ($items[$section] as $item): ?>
+					<?php dd($item['category']);?>
 					<?php if (isset($items[$section][$item->category]) and is_array($items[$section][$item->category])): ?>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $item->name;?> <b class="caret"></b></a>
