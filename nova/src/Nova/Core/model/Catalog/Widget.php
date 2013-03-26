@@ -8,6 +8,10 @@ use QuickInstallInterface;
 class Widget extends Model implements QuickInstallInterface {
 	
 	protected $table = 'catalog_widgets';
+
+	protected $fillable = array(
+		'name', 'location', 'page', 'zone', 'status', 'credits',
+	);
 	
 	protected static $properties = array(
 		'id', 'name', 'location', 'page', 'zone', 'status', 'credits',

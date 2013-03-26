@@ -2,16 +2,15 @@
 
 use Model;
 use Status;
-use User;
-use Mission;
-use Comment;
-use PostLock;
-use Character;
-use PostParticipant;
 
 class Post extends Model {
 
 	protected $table = 'posts';
+
+	protected $fillable = array(
+		'title', 'location', 'timeline', 'mission_id', 'saved_user_id',
+		'status', 'content', 'keywords',
+	);
 	
 	protected static $properties = array(
 		'id', 'title', 'location', 'timeline', 'mission_id', 'saved_user_id', 

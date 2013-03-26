@@ -2,7 +2,6 @@
 
 use Model;
 use DateTime;
-use User;
 use Cartalyst\Sentry\Throttling\ThrottleInterface;
 use Cartalyst\Sentry\Throttling\UserBannedException;
 use Cartalyst\Sentry\Throttling\UserSuspendedException;
@@ -12,6 +11,10 @@ class Suspend extends Model implements ThrottleInterface {
 	public $timestamps = false;
 
 	protected $table = 'user_suspended';
+
+	protected $fillable = array(
+		'user_id', 'suspended', 'banned', 'last_attempt_at', 'suspended_at',
+	);
 	
 	protected static $properties = array(
 		'id', 'user_id', 'suspended', 'banned', 'last_attempt_at', 'suspended_at',

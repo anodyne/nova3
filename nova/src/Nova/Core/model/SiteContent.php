@@ -8,6 +8,10 @@ class SiteContent extends Model {
 	public $timestamps = false;
 
 	protected $table = 'site_contents';
+
+	protected $fillable = array(
+		'key', 'label', 'content', 'type', 'section', 'page',
+	);
 	
 	protected static $properties = array(
 		'id', 'key', 'label', 'content', 'type', 'section', 'page', 'protected',

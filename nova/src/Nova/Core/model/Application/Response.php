@@ -1,8 +1,6 @@
 <?php namespace Nova\Core\Model\Application;
 
 use Model;
-use NovaApp;
-use User;
 
 class Response extends Model {
 	
@@ -12,8 +10,12 @@ class Response extends Model {
 	const EMAIL			= 4; // an email to the applicant
 
 	protected $table = 'application_responses';
+
+	protected $fillable = array(
+		'app_id', 'user_id', 'type', 'content',
+	);
 	
-	protected static $_properties = array(
+	protected static $properties = array(
 		'id', 'app_id', 'user_id', 'type', 'content', 'created_at', 'updated_at',
 	);
 

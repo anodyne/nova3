@@ -1,22 +1,17 @@
 <?php namespace Nova\Core\Model;
 
+use URL;
 use Model;
 use Status;
-use PersonalLog;
-use NovaApp;
-use User;
-use Rank;
-use Post;
-use Media;
-use Position;
-use Announcement;
-use AwardRecipient;
-use CharacterPosition;
-use CharacterPromotion;
 
 class Character extends Model {
 
 	protected $table = 'characters';
+
+	protected $fillable = array(
+		'first_name', 'last_name', 'middle_name', 'suffix', 'status',
+		'user_id', 'rank_id', 'activated'
+	);
 	
 	protected static $properties = array(
 		'id', 'user_id', 'status', 'first_name', 'middle_name', 'last_name', 

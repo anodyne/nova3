@@ -3,11 +3,14 @@
 use Model;
 use Config;
 use Status;
-use Rank;
 
 class Info extends Model {
 	
 	protected $table = 'ranks_info_';
+
+	protected $fillable = array(
+		'name', 'short_name', 'order', 'group', 'status',
+	);
 	
 	protected static $properties = array(
 		'id', 'name', 'short_name', 'order', 'group', 'status', 'created_at', 'updated_at',
@@ -20,15 +23,6 @@ class Info extends Model {
 	{
 		return $this->hasMany('Rank');
 	}
-
-	/**
-	 * Observers
-	 */
-	protected static $_observers = array(
-		'\\Rank_Info' => array(
-			'events' => array('before_delete', 'after_insert', 'after_update')
-		),
-	);
 
 	/**
 	 * Since the table name is appended with the genre, we can't hard-code

@@ -13,10 +13,14 @@ use Symfony\Component\Finder\Finder;
 class Module extends Model implements QuickInstallInterface {
 	
 	protected $table = 'catalog_modules';
+
+	protected $fillable = array(
+		'name', 'short_name', 'location', 'desc', 'status', 'credits',
+	);
 	
 	protected static $properties = array(
 		'id', 'name', 'short_name', 'location', 'desc', 'protected', 'status', 
-		'credits',
+		'credits', 'created_at', 'updated_at',
 	);
 	
 	/**

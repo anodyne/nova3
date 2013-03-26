@@ -1,7 +1,6 @@
 <?php namespace Nova\Core\Model\User;
 
 use Model;
-use User;
 use RankCatalog;
 use SkinSectionCatalog;
 
@@ -10,6 +9,10 @@ class Preferences extends Model {
 	public $timestamps = false;
 	
 	protected $table = 'user_preferences';
+
+	protected $fillable = array(
+		'user_id', 'key', 'value',
+	);
 	
 	protected static $properties = array(
 		'id', 'user_id', 'key', 'value',

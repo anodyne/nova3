@@ -5,23 +5,14 @@ use Model;
 class SkinSection extends Model {
 	
 	protected $table = 'catalog_skin_sections';
+
+	protected $fillable = array(
+		'section', 'skin', 'preview', 'status', 'default', 'nav',
+	);
 	
 	protected static $properties = array(
 		'id', 'section', 'skin', 'preview', 'status', 'default', 'nav',
 		'created_at', 'updated_at',
-	);
-	
-	/**
-	 * Relationships
-	 */
-	public static $_belongs_to = array(
-		'skins' => array(
-			'model_to' => '\\Model_Catalog_Skin',
-			'key_to' => 'location',
-			'key_from' => 'skin',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
 	);
 	
 	/**

@@ -5,6 +5,10 @@ use Model;
 class Ban extends Model {
 
 	protected $table = 'bans';
+
+	protected $fillable = array(
+		'level', 'ip_address', 'email', 'reason',
+	);
 	
 	protected static $properties = array(
 		'id', 'level', 'ip_address', 'email', 'reason', 'created_at', 'updated_at'
@@ -19,11 +23,8 @@ class Ban extends Model {
 	 */
 	public static function getItems($value, $column = 'email')
 	{
-		// Get a new instance of the model
-		$instance = new static;
-
 		// Start a new Query Builder
-		$query = $instance->newQuery();
+		$query = static::startQuery();
 
 		return $query->where($column, $value)->get();
 	}

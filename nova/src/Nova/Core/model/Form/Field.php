@@ -2,13 +2,16 @@
 
 use Model;
 use Status;
-use NovaFormData;
-use NovaFormValue;
-use NovaFormSection;
 
 class Field extends Model {
 	
 	protected $table = 'form_fields';
+
+	protected $fillable = array(
+		'form_key', 'section_id', 'type', 'label', 'order', 'status',
+		'restriction', 'help', 'selected', 'value', 'html_name', 'html_id',
+		'html_class', 'html_rows', 'placeholder',
+	);
 	
 	protected static $properties = array(
 		'id', 'form_key', 'section_id', 'type', 'label', 'order', 'status', 
@@ -39,15 +42,6 @@ class Field extends Model {
 	{
 		return $this->hasMany('NovaFormValue');
 	}
-
-	/**
-	 * Observers
-	 */
-	protected static $_observers = array(
-		'\\Form_Field' => array(
-			'events' => array('before_delete', 'after_insert', 'after_update')
-		),
-	);
 
 	/**
 	 * Get fields.

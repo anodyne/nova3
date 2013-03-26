@@ -6,6 +6,11 @@ use Status;
 class Nav extends Model {
 
 	protected $table = 'navigation';
+
+	protected $fillable = array(
+		'name', 'group', 'order', 'url', 'url_target', 'needs_login',
+		'access', 'type', 'category', 'status', 'sim_type',
+	);
 	
 	protected static $properties = array(
 		'id', 'name', 'group', 'order', 'url', 'url_target', 'needs_login', 

@@ -1,13 +1,16 @@
 <?php namespace Nova\Core\Model\Access;
 
 use Model;
-use AccessRole;
 
 class Task extends Model {
 
 	public $timestamps = false;
 	
 	protected $table = 'tasks';
+
+	protected $fillable = array(
+		'name', 'desc', 'component', 'action', 'level', 'dependencies',
+	);
 	
 	protected static $properties = array(
 		'id', 'name', 'desc', 'component', 'action', 'level', 'dependencies',
@@ -28,11 +31,8 @@ class Task extends Model {
 	 */
 	public static function getComponents()
 	{
-		// Get a new instance of the model
-		$instance = new static;
-
 		// Start a new Query Builder
-		$query = $instance->newQuery();
+		$query = static::startQuery();
 
 		return $query->groupBy('component')->get();
 	}
@@ -51,11 +51,8 @@ class Task extends Model {
 		// Break the task up into its components
 		list($component, $action, $level) = $taskArray;
 
-		// Get a new instance of the model
-		$instance = new static;
-
 		// Start a new Query Builder
-		$query = $instance->newQuery();
+		$query = static::startQuery();
 
 		return $query->where('component', $component)
 			->where('action', $action)

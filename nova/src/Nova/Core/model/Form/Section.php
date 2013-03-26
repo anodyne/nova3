@@ -1,12 +1,14 @@
 <?php namespace Nova\Core\Model\Form;
 
 use Model;
-use NovaFormTab;
-use NovaFormField;
 
 class Section extends Model {
 	
 	protected $table = 'form_sections';
+
+	protected $fillable = array(
+		'form_key', 'tab_id', 'name', 'order', 'status',
+	);
 	
 	protected static $properties = array(
 		'id', 'form_key', 'tab_id', 'name', 'order', 'status', 'created_at', 
@@ -28,15 +30,6 @@ class Section extends Model {
 	{
 		return $this->hasMany('NovaFormField');
 	}
-
-	/**
-	 * Observers
-	 */
-	protected static $_observers = array(
-		'\\Form_Section' => array(
-			'events' => array('before_delete', 'after_insert', 'after_update')
-		),
-	);
 
 	/**
 	 * Get sections.

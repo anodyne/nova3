@@ -1,15 +1,16 @@
 <?php namespace Nova\Core\Model;
 
 use Model;
-use User;
-use Comment;
-use Character;
 
 # TODO: do we want to allow for some kind of custom ordering?
 
 class PersonalLog extends Model {
 
 	protected $table = 'personal_logs';
+
+	protected $fillable = array(
+		'title', 'user_id', 'character_id', 'content', 'status', 'keywords',
+	);
 	
 	protected static $properties = array(
 		'id', 'title', 'user_id', 'character_id', 'content', 'status', 'keywords', 

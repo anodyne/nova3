@@ -5,6 +5,10 @@ use Model;
 class Comment extends Model {
 
 	protected $table = 'comments';
+
+	protected $fillable = array(
+		'content', 'status',
+	);
 	
 	protected static $properties = array(
 		'id', 'commentable_type', 'commentable_id', 'content', 'status', 

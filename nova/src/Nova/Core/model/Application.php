@@ -1,17 +1,17 @@
 <?php namespace Nova\Core\Model;
 
 use Date;
-use User;
 use Model;
 use Sentry;
 use Status;
-use Position;
-use Character;
-use NovaAppResponse;
 
 class Application extends Model {
 
 	protected $table = 'applications';
+
+	protected $fillable = array(
+		'user_id', 'character_id', 'position_id', 'status', 'sample_post',
+	);
 	
 	protected static $properties = array(
 		'id', 'user_id', 'character_id', 'position_id', 'status', 'sample_post',

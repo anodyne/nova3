@@ -1,11 +1,14 @@
 <?php namespace Nova\Core\Model;
 
 use Model;
-use MessageRecipient;
 
 class Message extends Model {
 
 	protected $table = 'messages';
+
+	protected $fillable = array(
+		'user_id', 'character_id', 'subject', 'content', 'status',
+	);
 	
 	protected static $properties = array(
 		'id', 'user_id', 'character_id', 'subject', 'content', 'status', 

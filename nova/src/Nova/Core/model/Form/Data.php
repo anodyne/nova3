@@ -1,11 +1,14 @@
 <?php namespace Nova\Core\Model\Form;
 
 use Model;
-use NovaFormField;
 
 class Data extends Model {
 	
 	protected $table = 'form_data';
+
+	protected $fillable = array(
+		'form_key', 'field_id', 'data_id', 'value'
+	);
 	
 	protected static $properties = array(
 		'id', 'form_key', 'field_id', 'data_id', 'value', 'created_at', 

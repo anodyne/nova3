@@ -4,13 +4,14 @@ use Str;
 use Model;
 use Config;
 use Status;
-use Dept;
-use Character;
-use ApplicationModel;
 
 class Position extends Model {
 
 	protected $table = 'positions_';
+
+	protected $fillable = array(
+		'name', 'desc', 'dept_id', 'order', 'open', 'status', 'type',
+	);
 	
 	protected static $properties = array(
 		'id', 'name', 'desc', 'dept_id', 'order', 'open', 'status', 'type', 
@@ -30,7 +31,7 @@ class Position extends Model {
 	 */
 	public function applicants()
 	{
-		return $this->hasMany('ApplicationModel');
+		return $this->hasMany('NovaApp');
 	}
 
 	/**

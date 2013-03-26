@@ -13,6 +13,11 @@ class Rank extends Model implements QuickInstallInterface {
 
 	protected $table = 'catalog_ranks';
 
+	protected $fillable = array(
+		'name', 'location', 'preview', 'blank', 'extension', 'status',
+		'credits', 'default', 'genre',
+	);
+
 	protected static $properties = array(
 		'id', 'name', 'location', 'preview', 'blank', 'extension', 'status', 
 		'credits', 'default', 'genre', 'created_at', 'updated_at',

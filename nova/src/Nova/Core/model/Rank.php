@@ -2,13 +2,14 @@
 
 use Model;
 use Config;
-use RankInfo;
-use Character;
-use RankGroup;
 
 class Rank extends Model {
 
 	protected $table = 'ranks_';
+
+	protected $fillable = array(
+		'info_id', 'group_id', 'base', 'pip',
+	);
 	
 	protected static $properties = array(
 		'id', 'info_id', 'group_id', 'base', 'pip', 'created_at', 'updated_at',
@@ -37,15 +38,6 @@ class Rank extends Model {
 	{
 		return $this->hasMany('Character');
 	}
-
-	/**
-	 * Observers
-	 */
-	protected static $_observers = array(
-		'\\Rank' => array(
-			'events' => array('before_delete', 'after_insert', 'after_update', 'before_save')
-		),
-	);
 
 	/**
 	 * Since the table name is appended with the genre, we can't hard-code

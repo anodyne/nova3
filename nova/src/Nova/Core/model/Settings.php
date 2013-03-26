@@ -7,6 +7,10 @@ class Settings extends Model {
 	public $timestamps = false;
 	
 	protected $table = 'settings';
+
+	protected $fillable = array(
+		'key', 'value', 'label', 'help',
+	);
 	
 	protected static $properties = array(
 		'id', 'key', 'value', 'label', 'help', 'user_created',

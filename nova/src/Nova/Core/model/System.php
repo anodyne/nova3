@@ -5,6 +5,11 @@ use Model;
 class System extends Model {
 
 	protected $table = 'system_info';
+
+	protected $fillable = array(
+		'uid', 'version_major', 'version_minor', 'version_update',
+		'version_ignore',
+	);
 	
 	protected static $properties = array(
 		'id', 'uid', 'version_major', 'version_minor', 'version_update', 

@@ -1,11 +1,14 @@
 <?php namespace Nova\Core\Model\Mission;
 
 use Model;
-use Mission;
 
 class Note extends Model {
 
 	protected $table = 'mission_notes';
+
+	protected $fillable = array(
+		'mission_id', 'content',
+	);
 	
 	protected static $properties = array(
 		'id', 'mission_id', 'content', 'created_at', 'updated_at',

@@ -3,25 +3,18 @@
 use Model;
 use Status;
 use Exception;
-use CatalogSkinSecModel;
 use QuickInstallInterface;
 
 class Skin extends Model implements QuickInstallInterface {
 
 	protected $table = 'catalog_skins';
+
+	protected $fillable = array(
+		'name', 'location', 'credits', 'version',
+	);
 	
 	protected static $properties = array(
 		'id', 'name', 'location', 'credits', 'version', 'created_at', 'updated_at',
-	);
-
-	public static $_has_many = array(
-		'sections' => array(
-			'model_to' => '\\Model_Catalog_SkinSec',
-			'key_to' => 'skin',
-			'key_from' => 'location',
-			'cascade_save' => false,
-			'cascade_delete' => false,
-		),
 	);
 	
 	/**

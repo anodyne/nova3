@@ -6,6 +6,10 @@ use Status;
 class Form extends Model {
 
 	protected $table = 'forms';
+
+	protected $fillable = array(
+		'key', 'name', 'orientation', 'status',
+	);
 	
 	protected static $properties = array(
 		'id', 'key', 'name', 'orientation', 'status', 'created_at', 'updated_at',

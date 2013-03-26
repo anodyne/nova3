@@ -1,14 +1,16 @@
 <?php namespace Nova\Core\Model;
 
-use User;
 use Model;
 use Status;
-use Comment;
-use Character;
 
 class Announcement extends Model {
 
 	protected $table = 'announcements';
+
+	protected $fillable = array(
+		'title', 'user_id', 'character_id', 'content', 'status',
+		'private', 'keywords'
+	);
 	
 	protected static $properties = array(
 		'id', 'title', 'user_id', 'character_id', 'content', 'status',

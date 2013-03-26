@@ -1,13 +1,16 @@
 <?php namespace Nova\Core\Model\Post;
 
 use Model;
-use Post;
 
 class Participant extends Model {
 
 	public $timestamps = false;
 
 	protected $table = 'post_participants';
+
+	protected $fillable = array(
+		'post_id', 'user_id',
+	);
 	
 	protected static $_properties = array(
 		'id', 'post_id', 'user_id',

@@ -2,12 +2,15 @@
 
 use Model;
 use Config;
-use Manifest as ManifestModel;
-use Position as PositionModel;
 
 class Department extends Model {
 
 	protected $table = 'departments_';
+
+	protected $fillable = array(
+		'name', 'desc', 'order', 'status', 'type', 'parent_id',
+		'manifest_id',
+	);
 	
 	protected static $properties = array(
 		'id', 'name', 'desc', 'order', 'status', 'type', 'parent_id', 
@@ -35,7 +38,7 @@ class Department extends Model {
 	 */
 	public function manifest()
 	{
-		return $this->belongsTo('ManifestModel');
+		return $this->belongsTo('Manifest');
 	}
 
 	/**
@@ -43,7 +46,7 @@ class Department extends Model {
 	 */
 	public function positions()
 	{
-		return $this->hasMany('PositionModel', 'dept_id');
+		return $this->hasMany('Position', 'dept_id');
 	}
 	
 }

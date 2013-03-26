@@ -7,8 +7,12 @@ class Author extends Model {
 	public $timestamps = false;
 
 	protected $table = 'post_authors';
+
+	protected $fillable = array(
+		'post_id', 'character_id', 'user_id',
+	);
 	
-	protected static $_properties = array(
+	protected static $properties = array(
 		'id', 'post_id', 'character_id', 'user_id',
 	);
 

@@ -1,12 +1,14 @@
 <?php namespace Nova\Core\Model\Mission;
 
 use Model;
-use Mission;
-use MissionGroup;
 
 class Group extends Model {
 
 	protected $table = 'mission_groups';
+
+	protected $fillable = array(
+		'name', 'order', 'desc', 'parent_id',
+	);
 	
 	protected static $properties = array(
 		'id', 'name', 'order', 'desc', 'parent_id', 'created_at', 'updated_at',

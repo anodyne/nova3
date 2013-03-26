@@ -1,13 +1,16 @@
 <?php namespace Nova\Core\Model\Award;
 
 use Model;
-use Award;
 
 class Category extends Model {
 	
 	public $timestamps = false;
 	
 	protected $table = 'award_categories';
+
+	protected $fillable = array(
+		'name', 'desc', 'status',
+	);
 	
 	protected static $properties = array(
 		'id', 'name', 'desc', 'status',

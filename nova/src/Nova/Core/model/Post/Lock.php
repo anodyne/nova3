@@ -1,11 +1,14 @@
 <?php namespace Nova\Core\Model\Post;
 
 use Model;
-use Post;
 
 class Lock extends Model {
 
 	protected $table = 'post_locks';
+
+	protected $fillable = array(
+		'post_id', 'user_id',
+	);
 	
 	protected static $_properties = array(
 		'id', 'post_id', 'user_id', 'created_at', 'updated_at',

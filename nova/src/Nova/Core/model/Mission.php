@@ -1,14 +1,15 @@
 <?php namespace Nova\Core\Model;
 
 use Model;
-use Post;
-use Media;
-use MissionNote;
-use MissionGroup;
 
 class Mission extends Model {
 
 	protected $table = 'missions';
+
+	protected $fillable = array(
+		'title', 'images', 'order', 'group_id', 'status', 'start_date',
+		'end_date', 'desc', 'summary',
+	);
 	
 	protected static $properties = array(
 		'id', 'title', 'images', 'order', 'group_id', 'status', 'start_date', 

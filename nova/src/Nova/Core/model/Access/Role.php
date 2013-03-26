@@ -1,8 +1,6 @@
 <?php namespace Nova\Core\Model\Access;
 
 use Model;
-use User;
-use AccessTask;
 use Cartalyst\Sentry\Groups\GroupInterface;
 
 class Role extends Model implements GroupInterface {
@@ -17,6 +15,10 @@ class Role extends Model implements GroupInterface {
 	public $timestamps = false;
 
 	protected $table = 'roles';
+
+	protected $fillable = array(
+		'name', 'desc', 'inherits',
+	);
 	
 	protected static $properties = array(
 		'id', 'name', 'desc', 'inherits',
@@ -58,11 +60,8 @@ class Role extends Model implements GroupInterface {
 
 			foreach ($inherited as $i)
 			{
-				// Get a new instance of the model
-				$instance = new static;
-
 				// Start a new Query Builder
-				$query = $instance->newQuery();	
+				$query = static::startQuery();	
 
 				// Put the tasks into the holding array
 				$groups[] = $query->find($i)->getTasks();

@@ -1,21 +1,12 @@
 <?php namespace Nova\Core\Model;
 
 use Str;
-use Post;
 use Model;
 use Status;
 use Sentry;
 use Session;
-use NovaApp;
 use Redirect;
 use Exception;
-use Character;
-use UserPrefs;
-use AccessRole;
-use PersonalLog;
-use UserSuspend;
-use Announcement;
-use AwardRecipient;
 use Cartalyst\Sentry\Users\UserInterface;
 use Cartalyst\Sentry\Groups\GroupInterface;
 
@@ -23,11 +14,13 @@ class User extends Model implements UserInterface {
 
 	protected $table = 'users';
 
+	protected $fillable = array(
+		'first_name', 'last_name', 'email', 'status', 'name', 'character_id',
+		'role_id', 'password'
+	);
+
 	protected $hidden = array(
-		'password',
-		'reset_password_hash',
-		'activation_hash',
-		'persist_hash',
+		'password', 'reset_password_hash', 'activation_hash', 'persist_hash',
 		'ip_address'
 	);
 	
