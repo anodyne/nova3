@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Handlers;
 
 use SystemEvent;
-use NovaFormDataModel;
-use NovaFormFieldModel;
+use NovaFormData;
+use NovaFormField;
 
 class Character {
 
@@ -20,13 +20,13 @@ class Character {
 		/**
 		 * Fill the character rows for the dynamic form with blank data for editing later.
 		 */
-		$fields = NovaFormFieldModel::getFormItems('character');
+		$fields = NovaFormField::getFormItems('character');
 		
 		if (count($fields) > 0)
 		{
 			foreach ($fields as $f)
 			{
-				NovaFormDataModel::add(array(
+				NovaFormData::add(array(
 					'form_key' 	=> 'bio',
 					'field_id' 	=> $f->id,
 					'data_id'	=> $model->id,
