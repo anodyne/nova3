@@ -12,6 +12,7 @@
  */
 
 use Date;
+use Config;
 use Status;
 use Exception;
 use Nova\Foundation\Database\Eloquent\Collection;
@@ -38,6 +39,26 @@ class Model extends EloquentModel {
 	public function freshTimestamp()
 	{
 		return Date::now('UTC')->toDateTimeString();
+	}
+
+	/**
+	 * Define a many-to-many relationship.
+	 *
+	 * @param  string  $related
+	 * @param  string  $table
+	 * @param  string  $foreignKey
+	 * @param  string  $otherKey
+	 * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 */
+	public function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null)
+	{
+		// Get the class aliases
+		$aliases = Config::get('app.aliases');
+
+		// Figure out what the real model class should be
+		$model = $aliases[$related];
+
+		return parent::belongsToMany($model, $table, $foreignKey, $otherKey);
 	}
 
 	/**
