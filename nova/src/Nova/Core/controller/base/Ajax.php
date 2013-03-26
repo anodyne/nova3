@@ -1,5 +1,5 @@
-<?php
+<?php namespace Nova\Core\Controller\Base;
 
-namespace Nova\Core\Controller\Base;
+use Controller;
 
-abstract class Ajax extends \Controller {}
+abstract class Ajax extends Controller {}
