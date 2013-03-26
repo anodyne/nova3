@@ -27,3 +27,8 @@ if (App::environment() == 'local')
 {
 	require_once SRCPATH.'Core/routes/test.php';
 }
+
+Route::get('temp/main/index', function()
+{
+	return 'Temporary main index page.';
+});
