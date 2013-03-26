@@ -1,6 +1,6 @@
 <?php
 
-Route::group(array('prefix' => 'setup/install'), function()
+Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|setupAuthorization|csrf'), function()
 {
 	Route::get('/', function()
 	{
@@ -66,7 +66,7 @@ Route::group(array('prefix' => 'setup/install'), function()
 		$data->layout = new stdClass;
 		$data->layout->label = 'Nova Setup';
 		$data->controls = false;
-		$data->steps = 'setup_install';
+		$data->steps = 'steps_install';
 		$data->content = new stdClass;
 
 		// Get the default rank set
@@ -78,6 +78,7 @@ Route::group(array('prefix' => 'setup/install'), function()
 		// Build the rank image
 		$data->content->defaultRank = Location::rank($rank->base, $rank->pip, $rankSetLocation);
 
+		// Set the controls
 		$data->controls = Form::button('Submit', array('class' => 'btn btn-primary')).Form::close();
 
 		return setupTemplate($data);
@@ -85,13 +86,55 @@ Route::group(array('prefix' => 'setup/install'), function()
 
 	Route::post('settings', function()
 	{
-		//
+		// Update the sim name
+		$simName = Settings::getItems('sim_name', false);
+		$simName->value = Input::get('sim_name');
+		$simName->save();
+
+		// Create the user
+		$user = User::add(array(
+			'status'	=> Status::ACTIVE,
+			'name'		=> Input::get('name'),
+			'email'		=> Input::get('email'),
+			'password'	=> Input::get('password'),
+			'role_id'	=> AccessRole::SYSADMIN,
+		), true);
+
+		// Create the character
+		$character = Character::add(array(
+			'user_id'		=> $user->id,
+			'status'		=> Status::ACTIVE,
+			'first_name'	=> Input::get('first_name'),
+			'last_name'		=> Input::get('last_name'),
+			'rank_id'		=> Input::get('rank'),
+			'activated'		=> Date::now()->toDateTimeString(),
+		), true);
+
+		// Add the character's position
+		$character->positions()->attach(Input::get('position'), array('primary' => (int) true));
+
+		// Update the user with the character ID
+		$user->character_id = $character->id;
+		$user->save();
 
 		return Redirect::to('setup/install/finalize');
 	});
 
 	Route::get('finalize', function()
 	{
-		return 'Post-install finalize';
+		$data = new stdClass;
+		$data->view = 'install/finalize';
+		$data->jsView = 'install/finalize_js';
+		$data->title = 'Setup Center';
+		$data->layout = new stdClass;
+		$data->layout->label = 'Nova Setup';
+		$data->controls = false;
+		$data->steps = 'steps_install';
+		$data->content = new stdClass;
+
+		// Set the controls
+		$data->controls = '<a href="'.URL::to('temp/main/index').'" class="btn btn-primary">Go to Main Page</a>';
+
+		return setupTemplate($data);
 	});
 });

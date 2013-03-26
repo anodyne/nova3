@@ -7,7 +7,7 @@
 			
 			$.ajax({
 				type: "POST",
-				url: "<?php echo URL::to('ajax/info/position_desc');?>",
+				url: "{{ URL::to('ajax/info/position_desc') }}",
 				data: { position: $('#positionDrop option:selected').val() },
 				success: function(data){
 					$('#positionDesc').html('');
@@ -23,7 +23,7 @@
 			
 			$.ajax({
 				type: "POST",
-				url: "<?php echo URL::to('ajax/info/rank_image');?>",
+				url: "{{ URL::to('ajax/info/rank_image') }}",
 				data: {
 					rank: $('#rankDrop option:selected').val(),
 					location: 'default'

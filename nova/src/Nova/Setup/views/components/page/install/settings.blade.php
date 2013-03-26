@@ -7,7 +7,7 @@
 		<div class="control-group">
 			<label class="control-label">Sim Name</label>
 			<div class="controls">
-				{{ Form::text('sim_name', false, array('class' => 'span4')) }}
+				{{ Form::text('sim_name', false, array('class' => 'span5')) }}
 			</div>
 		</div>
 	</fieldset>
@@ -84,7 +84,7 @@
 				<div class="control-group">
 					<label class="control-label">Position</label>
 					<div class="controls">
-						{{ Form::position('position', null, array('class' => 'span5'), 'open.playing', true) }}
+						{{ Form::position('position', null, array('class' => 'span5', 'id' => 'positionDrop'), 'open.playing', true) }}
 					</div>
 				</div>
 			</div>
@@ -99,7 +99,7 @@
 				<div class="control-group">
 					<label class="control-label">Rank</label>
 					<div class="controls">
-						{{ Form::rank('rank', null, array('class' => 'span5'), true) }}
+						{{ Form::rank('rank', null, array('class' => 'span5', 'id' => 'rankDrop'), true) }}
 					</div>
 				</div>
 			</div>
