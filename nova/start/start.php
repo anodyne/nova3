@@ -77,7 +77,9 @@ require NOVAPATH.'helpers.php';
 |
 */
 
-require $app->getBootstrapFile();
+$framework = VENDORPATH.'laravel/framework/src';
+
+require $framework.'/Illuminate/Foundation/start.php';
 
 /*
 |--------------------------------------------------------------------------
