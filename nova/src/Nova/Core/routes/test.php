@@ -69,7 +69,7 @@ Route::group(array('prefix' => 'test'), function()
 
 		//sd(User::pending()->get()->count());
 
-		echo Form::languages('language');
+		sd(URL::to('ajax/info/position_desc'));
 	});
 
 	Route::get('migrate', function()
