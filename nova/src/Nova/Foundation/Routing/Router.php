@@ -12,6 +12,7 @@
 
 namespace Nova\Foundation\Routing;
 
+use Request as LaravelRequest;
 use ReflectionClass;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router as lRouter;
@@ -187,7 +188,7 @@ class Router extends lRouter {
 		$path = trim($path, '/');
 
 		// Create the route
-		$this->createRoute('get', $path, $route);
+		$this->createRoute(strtolower(LaravelRequest::getMethod()), $path, $route);
 	}
 
 	/**
@@ -226,14 +227,14 @@ class Router extends lRouter {
 				{
 					$this->debug('Found: '.$find);
 
-					// Make the namespace an array
-					$namespaceArray = explode('\\', $namespace);
+					// Build the path segments we're using
+					$pathSegments = str_replace('\\\\', '/', strtolower($namespace).'\\'.$segment);
 
-					// Push the current segment onto the array
-					$namespaceArray[] = $segment;
+					// Build the new path
+					$newPath = trim(str_replace($pathSegments, '', LaravelRequest::path()), '/');
 
 					// Update the URI segments
-					$this->uriSegments = array_values(array_diff($this->uriSegments, $namespaceArray));
+					$this->uriSegments = explode('/', $newPath);
 
 					// Found the controller
 					return $find;
