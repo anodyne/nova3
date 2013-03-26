@@ -41,28 +41,6 @@ class Model extends EloquentModel {
 	}
 
 	/**
-	 * Delete the model from the database.
-	 *
-	 * @return void
-	 */
-	public function delete()
-	{
-		if ($this->exists)
-		{
-			// Fire the "deleting" event
-			if ($this->fireModelEvent('deleting') === false) return false;
-
-			// Do the delete
-			$retval = parent::delete();
-
-			// Fire the "deleted" event
-			$this->fireModelEvent('deleted', false);
-			
-			return $retval;
-		}
-	}
-
-	/**
 	 * Kick off a new query.
 	 *
 	 * @return	Builder
