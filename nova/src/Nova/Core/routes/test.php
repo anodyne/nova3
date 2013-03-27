@@ -69,7 +69,7 @@ Route::group(array('prefix' => 'test'), function()
 
 		//sd(User::pending()->get()->count());
 
-		sd(URL::to('ajax/info/position_desc'));
+		d(Config::get('database'));
 	});
 
 	Route::get('migrate', function()
