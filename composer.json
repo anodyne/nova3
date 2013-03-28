@@ -10,7 +10,7 @@
 		"dflydev/markdown": "1.0.*",
 		"jonob/html": "1.*",
 		"cartalyst/sentry": "dev-master",
-		"ikimea/browser": "dev-master",
+		"ikimea/browser": "1.*",
 		"raveren/kint": "dev-master"
 	},
 
