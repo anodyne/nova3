@@ -7,7 +7,7 @@
  * @author		Anodyne Productions
  */
 
-$g = 'blk';
+$g = 'blank';
 
 $data = array(
 	'departments_'.$g 	=> 'depts',
