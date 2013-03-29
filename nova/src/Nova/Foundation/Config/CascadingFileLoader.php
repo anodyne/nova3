@@ -65,7 +65,6 @@ class CascadingFileLoader implements LoaderInterface {
 			'app'		=> APPPATH.'config',
 			'wiki'		=> SRCPATH.'Wiki/config',
 			'forum'		=> SRCPATH.'Forum/config',
-			'setup'		=> SRCPATH.'Setup/config',
 			'core'		=> SRCPATH.'Core/config',
 		);
 	}
