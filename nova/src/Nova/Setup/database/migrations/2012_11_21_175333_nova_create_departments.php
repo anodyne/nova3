@@ -9,10 +9,10 @@ class NovaCreateDepartments extends Migration {
 	 *
 	 * @return void
 	 */
-	public function up()
+	public function up($explicitGenre = false)
 	{
 		// Get the genre
-		$genre = Config::get('nova.genre');
+		$genre = ($explicitGenre) ? $explicitGenre : Config::get('nova.genre');
 
 		Schema::create("departments_{$genre}", function($t)
 		{
@@ -42,10 +42,10 @@ class NovaCreateDepartments extends Migration {
 	 *
 	 * @return void
 	 */
-	public function down()
+	public function down($explicitGenre = false)
 	{
 		// Get the genre
-		$genre = Config::get('nova.genre');
+		$genre = ($explicitGenre) ? $explicitGenre : Config::get('nova.genre');
 
 		Schema::drop("departments_{$genre}");
 	}

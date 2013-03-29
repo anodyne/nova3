@@ -9,10 +9,10 @@ class NovaCreatePositions extends Migration {
 	 *
 	 * @return void
 	 */
-	public function up()
+	public function up($explicitGenre = false)
 	{
 		// Get the genre
-		$genre = Config::get('nova.genre');
+		$genre = ($explicitGenre) ? $explicitGenre : Config::get('nova.genre');
 
 		Schema::create("positions_{$genre}", function($t)
 		{
@@ -41,10 +41,10 @@ class NovaCreatePositions extends Migration {
 	 *
 	 * @return void
 	 */
-	public function down()
+	public function down($explicitGenre = false)
 	{
 		// Get the genre
-		$genre = Config::get('nova.genre');
+		$genre = ($explicitGenre) ? $explicitGenre : Config::get('nova.genre');
 
 		Schema::drop("positions_{$genre}");
 	}
