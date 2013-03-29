@@ -1,4 +1,4 @@
-<p>From here, you can see the status of genres and install or uninstall them as needed. The only limitation you have is that you can't uninstall the current active genre. If you want to uninstall the current active genre, first change the genre code in your Nova config file <code>app/config/nova.php</code>, save and upload the file, then come back here to uninstall that genre.</p>
+<p>From here, you can see the status of genres and install or uninstall them as needed. The only limitation you have is that you can't uninstall the current active genre. If you want to uninstall the current active genre, first install a new genre, change the genre code in your Nova config file <code>app/config/nova.php</code>, save and upload the file, then come back here to uninstall the genre.</p>
 
 <hr>
 
@@ -9,67 +9,67 @@
 			<div class="thumbnail">
 				<h4>{{ $genre['name'] }} <small>{{ strtoupper($key) }}</small></h4>
 
-				<p>
-					@if ($key == Config::get('nova.genre'))
-						<span class="label label-info">Active Genre</span>
-					@endif
+				<p class="pull-right">
+					<?php $installHide = ($genre['installed']) ? 'hide' : '';?>
+					<?php $uninstallHide = ( ! $genre['installed']) ? 'hide' : '';?>
+					<?php $uninstallDisable = ($key == Config::get('nova.genre')) ? true : false;?>
 
-					@if ( ! $genre['installed'])
-						<span class="label">Not Installed</span>
-					@else
-						<span class="label label-success">Installed</span>
-					@endif
+					<button data-genre="{{ $key }}" class="js-do-install btn btn-primary btn-mini {{ $installHide }}">Install</button>
+					<button data-genre="{{ $key }}" class="js-do-uninstall btn btn-danger btn-mini {{ $uninstallHide }}"<?php if ($uninstallDisable){ echo ' disabled="disabled"'; }?>>Uninstall</button>
 				</p>
 
+				<p class="pull-right hide" style="padding-bottom:2px;">{{ $loading }}</p>
+
 				<p>
-					@if ( ! $genre['installed'])
-						<button data-genre="{{ $key }}" class="js-do-install btn btn-primary btn-small">Install</button>
-					@else
-						@if ($key != Config::get('nova.genre'))
-							<button data-genre="{{ $key }}" class="js-do-uninstall btn btn-danger btn-small">Uninstall</button>
-						@else
-							<button data-genre="{{ $key }}" class="js-do-uninstall btn btn-primary btn-small" disabled="disabled">Uninstall</button>
-						@endif
-					@endif
+					<?php $activeHide = ($key != Config::get('nova.genre')) ? 'hide' : '';?>
+					<?php $installHide = ( ! $genre['installed']) ? 'hide' : '';?>
+					<?php $uninstallHide = ($genre['installed']) ? 'hide' : '';?>
+
+					<span class="label label-info {{ $activeHide }}">Active Genre</span>
+					<span class="label label-success {{ $installHide }}">Installed</span>
+					<span class="label {{ $uninstallHide }}">Not Installed</span>
 				</p>
+
+				<div style="clear:both"></div>
 			</div>
 		</li>
 	@endforeach
 	</ul>
 
-	<h3>Additional Genres</h3>
+	@if (is_array($additional))
+		<h3>Additional Genres</h3>
 
-	<ul class="thumbnails">
-	@foreach ($additional as $key => $genre)
-		<li class="span4">
-			<div class="thumbnail">
-				<h4>{{ $genre['name'] }}</h4>
+		<ul class="thumbnails">
+		@foreach ($additional as $key => $genre)
+			<li class="span4">
+				<div class="thumbnail">
+					<h4>{{ $genre['name'] }}</h4>
 
-				<p>
-					@if ($key == Config::get('nova.genre'))
-						<span class="label label-info">Active Genre</span>
-					@endif
+					<p class="pull-right">
+						<?php $installHide = ($genre['installed']) ? 'hide' : '';?>
+						<?php $uninstallHide = ( ! $genre['installed']) ? 'hide' : '';?>
+						<?php $uninstallDisable = ($key == Config::get('nova.genre')) ? true : false;?>
 
-					@if ( ! $genre['installed'])
-						<span class="label">Not Installed</span>
-					@else
-						<span class="label label-success">Installed</span>
-					@endif
-				</p>
+						<button data-genre="{{ $key }}" class="js-do-install btn btn-primary btn-mini {{ $installHide }}">Install</button>
+						<button data-genre="{{ $key }}" class="js-do-uninstall btn btn-danger btn-mini {{ $uninstallHide }}"<?php if ($uninstallDisable){ echo ' disabled="disabled"'; }?>>Uninstall</button>
+					</p>
 
-				<p>
-					@if ( ! $genre['installed'])
-						<button data-genre="{{ $key }}" class="js-do-install btn btn-primary btn-small">Install</button>
-					@else
-						@if ($key != Config::get('nova.genre'))
-							<button data-genre="{{ $key }}" class="js-do-uninstall btn btn-danger btn-small">Uninstall</button>
-						@else
-							<button data-genre="{{ $key }}" class="js-do-uninstall btn btn-primary btn-small" disabled="disabled">Uninstall</button>
-						@endif
-					@endif
-				</p>
-			</div>
-		</li>
-	@endforeach
-	</ul>
+					<p class="pull-right hide" style="padding-bottom:2px;">{{ $loading }}</p>
+
+					<p>
+						<?php $activeHide = ($key != Config::get('nova.genre')) ? 'hide' : '';?>
+						<?php $installHide = ( ! $genre['installed']) ? 'hide' : '';?>
+						<?php $uninstallHide = ($genre['installed']) ? 'hide' : '';?>
+
+						<span class="label label-info {{ $activeHide }}">Active Genre</span>
+						<span class="label label-success {{ $installHide }}">Installed</span>
+						<span class="label {{ $uninstallHide }}">Not Installed</span>
+					</p>
+
+					<div style="clear:both"></div>
+				</div>
+			</li>
+		@endforeach
+		</ul>
+	@endif
 @endif

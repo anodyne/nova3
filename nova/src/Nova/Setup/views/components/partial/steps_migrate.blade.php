@@ -1,29 +1,29 @@
-<?php if (Uri::segment(4) == 0): ?>
+@if (Request::segment(3) === null)
 	<span class="icn icn24 step tip-below" data-title="Step 1" data-icon="n"></span>
 	<span class="icn icn24 step tip-below" data-title="Step 2" data-icon="n"></span>
 	<span class="icn icn24 step tip-below" data-title="Step 3" data-icon="n"></span>
-<?php endif;?>
+@endif
 
-<?php if (Uri::segment(4) == 1): ?>
+@if (Request::segment(3) == 'one')
 	<span class="icn icn24 step step-active tip-below" data-title="Step 1" data-icon="s"></span>
 	<span class="icn icn24 step tip-below" data-title="Step 2" data-icon="n"></span>
 	<span class="icn icn24 step tip-below" data-title="Step 3" data-icon="n"></span>
-<?php endif;?>
+@endif
 
-<?php if (Uri::segment(4) == 2): ?>
+@if (Request::segment(3) == 'two')
 	<span class="icn icn24 step step-complete tip-below" data-title="Step 1" data-icon="c"></span>
 	<span class="icn icn24 step step-active tip-below" data-title="Step 2" data-icon="s"></span>
 	<span class="icn icn24 step tip-below" data-title="Step 3" data-icon="n"></span>
-<?php endif;?>
+@endif
 
-<?php if (Uri::segment(4) == 3): ?>
+@if (Request::segment(3) == 'three')
 	<span class="icn icn24 step step-complete tip-below" data-title="Step 1" data-icon="c"></span>
 	<span class="icn icn24 step step-complete tip-below" data-title="Step 2" data-icon="c"></span>
 	<span class="icn icn24 step step-active tip-below" data-title="Step 3" data-icon="s"></span>
-<?php endif;?>
+@endif
 
-<?php if (Uri::segment(4) == 4): ?>
+@if (Uri::segment(4) == 'four')
 	<span class="icn icn24 step step-complete tip-below" data-title="Step 1" data-icon="c"></span>
 	<span class="icn icn24 step step-complete tip-below" data-title="Step 2" data-icon="c"></span>
 	<span class="icn icn24 step step-complete tip-below" data-title="Step 3" data-icon="c"></span>
-<?php endif;?>
+@endif
