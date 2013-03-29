@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Lib;
 
 use Sentry;
-use Utility;
 use SystemEventModel;
+use Utility as UtilityLib;
 
 class SystemEvent {
 
@@ -55,7 +55,7 @@ class SystemEvent {
 
 		SystemEventModel::add(array(
 			'email'			=> ($user !== null) ? $user->email : '',
-			'ip'			=> Utility::realIp(),
+			'ip'			=> UtilityLib::realIp(),
 			'user_id'		=> ($user !== null and $type == 'user') ? $user->id : 0,
 			'content'		=> call_user_func_array('lang', $args),
 		));
