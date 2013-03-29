@@ -22,7 +22,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		// If the system is installed, kick them forward
 		if ($installed)
 		{
-			//return Redirect::to('setup/start');
+			return Redirect::to('setup/start');
 		}
 
 		return setupTemplate($data);
@@ -56,14 +56,17 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				 */
 				$data->content->option = 3;
 				$data->layout->label = 'Update Nova 3';
-				$data->controls = '<a href="#" class="pull-right js-ignoreVersion" data-version="'.$update->version.'">Ignore this version</a>';
+				$data->controls = Html::link('#', 'Ignore this version', array(
+					'class' => 'pull-right js-ignoreVersion',
+					'data->version' => $update->version,
+				));
 				$data->controls.= Form::open(array('url' => 'setup/update/1')).
 					Form::button('Start Update', array('class' => 'btn btn-primary', 'id' => 'next', 'name' => 'submit')).
 					Form::hidden('_token', csrf_token()).
 					Form::close();
 
 				// Pull in the steps indicators
-				$data->steps = 'setup_update';
+				$data->steps = 'steps_update';
 
 				// Send the update information over
 				$data->content->update = new stdClass;
@@ -78,7 +81,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				 */
 				$data->content->option = 4;
 				$data->layout->label = 'Nova Setup Utilities';
-				$data->controls = '<a href="'.URL::to('main/index').'" class="pull-right">Back to Site</a>';
+				$data->controls = Html::link('main/index', 'Back to Site', array('class' => 'pull-right'));
 			}
 		}
 		else
@@ -106,7 +109,9 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				// Nova 2 means they can do the migration
 				if ($data->content->option == 2)
 				{
-					$data->controls = '<a href="'.URL::to('setup/install').'" class="pull-right">I\'d like to do a Fresh Install</a>';
+					$data->controls = Html::link('setup/install', "I'd like to do a Fresh Install", array(
+						'class' => 'pull-right',
+					));
 					$data->controls.= Form::open(array('url' => 'setup/migrate')).
 						Form::button('Start Migration', array(
 							'class'	=> 'btn btn-primary',
@@ -118,13 +123,15 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 					$data->layout->label = 'Migrate From Nova 2';
 
 					// Pull in the steps indicators
-					$data->steps = 'setup_upgrade';
+					$data->steps = 'steps_migrate';
 				}
 				
 				// Nova 1 means they can't do the migration
 				if ($data->content->option == 5)
 				{
-					$data->controls = '<a href="'.URL::to('setup/install').'" class="pull-right">I\'d like to do a Fresh Install</a>';
+					$data->controls = Html::link('setup/install', "I'd like to do a Fresh Install", array(
+						'class' => 'pull-right',
+					));
 					$data->layout->label = 'Unable to Migrate to Nova 3';
 				}
 			}
@@ -142,7 +149,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				$data->layout->label = 'Install Nova 3';
 
 				// Pull in the steps indicators
-				$data->steps = 'setup_install';
+				$data->steps = 'steps_install';
 			}
 		}
 
@@ -164,8 +171,10 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		$data->content = new stdClass;
 		$data->content->message = Lang::get('setup.uninstall.instructions');
 
-		$data->controls = '<a href="'.URL::to('setup').'" class="pull-right">I don\'t want to do this, get me out of here</a>';
-		$data->controls.= Form::open('setup/uninstall').
+		$data->controls = Html::link('setup', "I don't want to do this, get me out of here", array(
+			'class' => 'pull-right'
+		));
+		$data->controls.= Form::open(array('url' => 'setup/uninstall')).
 			Form::button('Uninstall', array('class' => 'btn btn-danger', 'id' => 'next', 'name' => 'submit')).
 			Form::hidden('_token', csrf_token()).
 			Form::close();
@@ -205,10 +214,10 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		$data->layout->label = 'The Genre Panel';
 		$data->steps = false;
 		$data->content = new stdClass;
-		$data->controls = '<a href="'.URL::to('setup').'" class="pull-right">Back to Setup Center</a>';
+		$data->controls = Html::link('setup', 'Back to Setup Center', array('class' => 'pull-right'));
 
 		// Get the genre info
-		$info = Config::get('genres');
+		$info = Config::get('nova.genres');
 
 		// Get the table prefix
 		$prefix = DB::getTablePrefix();
@@ -246,7 +255,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		$data->content->additional = (isset($additional)) ? $additional : false;
 		
 		// Set the loading image
-		$data->content->loading = '<img src="'.URL::asset('nova/src/Nova/Setup/views/design/images/loading.gif').'" alt="Processing">';
+		$data->content->loading = Html::image('nova/src/Nova/Setup/views/design/images/loading.gif', 'Processing');
 
 		return setupTemplate($data);
 	});
@@ -286,7 +295,7 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 				'file'	=> 'database',
 			));
 			$data->layout->label = 'File Not Found';
-			$data->controls = '<a href="'.URL::to('setup/config/db').'" class="pull-right">Try Again</a>';
+			$data->controls = Html::link('setup/config/db', 'Try Again', array('class' => 'pull-right'));
 		}
 		else
 		{
@@ -296,7 +305,7 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 					'type'	=> 'database connection',
 					'env'	=> App::environment()
 				));
-				$data->controls = '<a href="'.URL::to('setup').'" class="pull-right">Back to Setup Center</a>';
+				$data->controls = Html::link('setup', 'Back to Setup Center', array('class' => 'pull-right'));
 			}
 			else
 			{
@@ -312,7 +321,9 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 					
 					if (count(PDO::getAvailableDrivers()) > 0)
 					{
-						$data->controls = '<a href="'.URL::to('setup/config/db/info').'" class="btn btn-primary">Database Info</a>';
+						$data->controls = Html::link('setup/config/db/info', 'Database Info', array(
+							'class' => 'btn btn-primary'
+						));
 					}
 					else
 					{
@@ -438,7 +449,7 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 			}
 			
 			// Write the controls
-			$data->controls = '<a href="'.URL::to('setup/config/db/info').'" class="btn btn-primary">Start Over</a>';
+			$data->controls = Html::link('setup/config/db/info', 'Start Over', array('class' => 'btn btn-primary'));
 		}
 
 		return setupTemplate($data);
@@ -498,7 +509,7 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 				Session::flush();
 				
 				// Write the controls
-				$data->controls = '<a href="'.URL::to('setup').'" class="btn btn-primary">Back to Setup Center</a>';
+				$data->controls = Html::link('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
 			}
 			else
 			{
@@ -521,7 +532,7 @@ return array(
 				$data->content->message = Lang::get('setup.config.db.write.failure', array('env' => App::environment()));
 				
 				// Write the controls
-				$data->controls = Form::open('setup/config/db/verify').
+				$data->controls = Form::open(array('url' => 'setup/config/db/verify')).
 					Form::button('Re-Test', array(
 						'class'	=> 'btn btn-primary',
 						'id'	=> 'next',
@@ -552,7 +563,7 @@ return array(
 			$data->content->message = Lang::get('setup.config.db.write.failure', array('env' => App::environment()));
 			
 			// Write the controls
-			$data->controls = Form::open('setup/config/db/verify').
+			$data->controls = Form::open(array('url' => 'setup/config/db/verify')).
 				Form::button('Re-Test', array(
 					'class'	=> 'btn btn-primary',
 					'id'	=> 'next',
@@ -596,7 +607,7 @@ return array(
 			$data->content->message = Lang::get('setup.config.db.check.success');
 			
 			// Write the controls
-			$data->controls = '<a href="'.URL::to('setup').'" class="btn btn-primary">Back to Setup Center</a>';
+			$data->controls = Html::link('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
 		}
 		catch (Exception $e)
 		{
@@ -624,7 +635,7 @@ return array(
 			}
 			
 			// Write the controls
-			$data->controls = '<a href="'.URL::to('setup/config/db/info').'" class="btn btn-primary">Start Over</a>';
+			$data->controls = Html::link('setup/config/db/info', 'Start Over', array('class' => 'btn btn-primary'));
 		}
 
 		return setupTemplate($data);
@@ -665,7 +676,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 				'file'	=> 'mail',
 			));
 			$data->layout->label = 'File Not Found';
-			$data->controls = '<a href="'.URL::to('setup/config/email').'" class="pull-right">Try Again</a>';
+			$data->controls = Html::link('setup/config/email', 'Try Again', array('class' => 'pull-right'));
 		}
 		else
 		{
@@ -675,7 +686,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 					'type'	=> 'email config',
 					'env'	=> App::environment(),
 				));
-				$data->controls = '<a href="'.URL::to('setup/start').'" class="pull-right">Back to Setup Center</a>';
+				$data->controls = Html::link('setup', 'Back to Setup Center', array('class' => 'pull-right'));
 			}
 			else
 			{
@@ -688,7 +699,9 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 				{
 
 					$data->content->message = Lang::get('setup.config.email.intro', array('env' => App::environment()));
-					$data->controls = '<a href="'.URL::to('setup/config/email/info').'" class="btn btn-primary">Email Info</a>';
+					$data->controls = Html::link('setup/config/email/info', 'Email Info', array(
+						'class' => 'btn btn-primary'
+					));
 				}
 			}
 		}
@@ -792,7 +805,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 				Session::flush();
 				
 				// Write the controls
-				$data->controls = '<a href="'.URL::to('setup').'" class="btn btn-primary">Back to Setup Center</a>';
+				$data->controls = Html::link('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
 			}
 			else
 			{
@@ -811,7 +824,7 @@ return array(
 				$data->content->message = Lang::get('setup.config.email.write.failure', array('env' => App::environment()));
 				
 				// Write the controls
-				$data->controls = Form::open('setup/config/verify').
+				$data->controls = Form::open(array('url' => 'setup/config/verify')).
 					Form::button('Re-Test', array(
 						'class'	=> 'btn btn-primary',
 						'id'	=> 'next',
@@ -838,7 +851,7 @@ return array(
 			$data->content->message = Lang::get('setup.config.email.write.failure', array('env' => App::environment()));
 			
 			// Write the controls
-			$data->controls = Form::open('setup/config/verify').
+			$data->controls = Form::open(array('url' => 'setup/config/verify')).
 				Form::button('Verify', array(
 					'class'	=> 'btn btn-primary',
 					'id'	=> 'next',
@@ -876,7 +889,7 @@ return array(
 			$data->content->message = Lang::get('setup.config.email.verify.success');
 			
 			// Write the controls
-			$data->controls = '<a href="'.URL::to('setup').'" class="btn btn-primary">Back to Setup Center</a>';
+			$data->controls = Html::link('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
 		}
 		else
 		{
@@ -884,7 +897,7 @@ return array(
 			$data->content->message = Lang::get('setup.config.email.verify.failure');
 
 			// Write the controls
-			$data->controls = '<a href="'.URL::to('setup/config/email/info').'" class="btn btn-primary">Start Over</a>';
+			$data->controls = Html::link('setup/config/email/info', 'Start Over', array('class' => 'btn btn-primary'));
 		}
 
 		return setupTemplate($data);
@@ -895,75 +908,34 @@ Route::group(array('prefix' => 'setup/ajax', 'before' => 'configFileCheck|setupA
 {
 	Route::post('install_genre', function()
 	{
-		// grab the genre variable
-		$genre = trim(\Security::xss_clean(\Input::post('genre')));
+		// Grab the genre
+		$genre = trim(e(Input::get('genre')));
 
-		// pull in the schema data
-		include NOVAPATH.'setup/assets/install/fields.php';
+		// Create new instances of the migrations
+		$depts = new NovaCreateDepartments;
+		$positions = new NovaCreatePositions;
+		$ranks = new NovaCreateRanks;
 
-		// build an array of genre tables that need to be added
-		$tables = array(
-			'departments_'.$genre => array(
-				'fields' => $fields_departments),
-			'positions_'.$genre => array(
-				'fields' => $fields_positions),
-			'ranks_'.$genre => array(
-				'fields' => $fields_ranks),
-		);
+		// Drop the items
+		$depts->up($genre);
+		$positions->up($genre);
+		$ranks->up($genre);
 
-		foreach ($tables as $table => $value)
+		// Get the table prefix
+		$prefix = DB::getTablePrefix();
+
+		// Try to get one of the tables
+		$hasTable = Schema::hasTable("{$prefix}departments_{$genre}");
+
+		if ($hasTable)
 		{
-			// set the primary key
-			$primary_key = (isset($value['id'])) ? array($value['id']) : array('id');
+			// Create an event
+			SystemEvent::addUserEvent('event.setup.genre', $genre, lang('action.installed'));
 
-			// set the fields for the table
-			$fields = (isset($value['fields'])) ? $value['fields'] : ${'fields_'.$table};
-
-			// create the table with the values
-			\DBUtil::create_table($table, $fields, $primary_key);
-			
-			// if we've specified an index, create it
-			if (isset($value['index']))
-			{
-				foreach ($value['index'] as $index)
-				{
-					\DBUtil::create_index($table, $index);
-				}
-			}
+			return json_encode(array('code' => 1));
 		}
 
-		// pause the script for a second
-		sleep(1);
-
-		// pull in the genre data
-		include_once NOVAPATH.'setup/assets/install/genres/'.strtolower($genre).'.php';
-
-		$insert = array();
-		
-		foreach ($data as $key => $value)
-		{
-			foreach ($$value as $k => $v)
-			{
-				// do the query
-				$result = \DB::insert($key)->set($v)->execute();
-
-				// capture whether it was successful or not
-				$insert[$key] = (is_array($result));
-			}
-		}
-		
-		if (in_array(false, $insert))
-		{
-			return json_encode(array('code' => 0));
-		}
-		
-		// figure out what to return
-		$retval = (count(\DB::list_tables('%_'.$genre)) > 0) ? array('code' => 1) : array('code' => 0);
-
-		// create an event
-		\SystemEvent::add('user', '[[event.setup.genre|{{'.$genre.'}}|action.installed]]');
-		
-		return json_encode($retval);
+		return json_encode(array('code' => 0));
 	});
 
 	Route::post('uninstall_genre', function()
@@ -971,21 +943,26 @@ Route::group(array('prefix' => 'setup/ajax', 'before' => 'configFileCheck|setupA
 		// Grab the genre
 		$genre = trim(e(Input::get('genre')));
 
+		// Create new instances of the migrations
+		$depts = new NovaCreateDepartments;
+		$positions = new NovaCreatePositions;
+		$ranks = new NovaCreateRanks;
+
+		// Drop the items
+		$depts->down($genre);
+		$positions->down($genre);
+		$ranks->down($genre);
+
 		// Get the table prefix
 		$prefix = DB::getTablePrefix();
-
-		// Drop the tables
-		Schema::dropIfExists("{$prefix}departments_{$genre}");
-		Schema::dropIfExists("{$prefix}positions_{$genre}");
-		Schema::dropIfExists("{$prefix}ranks_{$genre}");
 
 		// Try to get one of the tables
 		$hasTable = Schema::hasTable("{$prefix}departments_{$genre}");
 
-		if ($hasTable === 0)
+		if ( ! $hasTable)
 		{
 			// Create an event
-			//SystemEvent::add('user', '[[event.setup.genre|{{'.$genre.'}}|action.removed]]');
+			SystemEvent::addUserEvent('event.setup.genre', $genre, lang('action.removed'));
 
 			return json_encode(array('code' => 1));
 		}
