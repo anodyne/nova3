@@ -19,6 +19,9 @@ return array(
 				'notFound' => "No record(s) found to update. Verify the criteria of your query.",
 				'notSaved' => "The record could not be updated. You may find more information in your error logs.",
 			),
+			'get' => array(
+				'notFound' => "No record(s) found. Verify the criteria of your query.",
+			),
 		),
 	),
 
