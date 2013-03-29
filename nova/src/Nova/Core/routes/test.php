@@ -40,36 +40,7 @@ Route::group(array('prefix' => 'test'), function()
 
 	Route::get('misc', function()
 	{
-		//dd(Settings::getItems());
-
-		//dd(Character::getCharacters()->toArray());
-
-		//$depts = Dept::where('type', 'nonplaying')->with('positions')->get();
-
-		//dd($depts->toArray());
-
-		/*$positions = Position::getItems('open.playing')->filter(function($item)
-			{
-				return ($item->type == 'senior');
-			});
-		/*$positions = Position::with(array('dept.positions' => function($query)
-		{
-			$query->where('type', 'nonplaying');
-		}))->get();*/
-		//$positions = Position::find(1);
-
-		//dd($positions->toArray());
-		//dd($positions);
-
-		/*foreach ($positions as $p)
-		{
-			//d($p->name);
-			//d($p->dept->name);
-		}*/
-
-		//sd(User::pending()->get()->count());
-
-		d(Config::get('database'));
+		s(RankCatalog::test());
 	});
 
 	Route::get('migrate', function()
