@@ -44,7 +44,7 @@ class Info extends AjaxBaseController {
 		
 		// Set the output
 		$output = (count($rank) > 0) 
-			? Location::rank($rank->base, $rank->pip, RankCatalog::getDefault()->location) 
+			? Location::rank($rank->base, $rank->pip, RankCatalog::getDefault(true)) 
 			: '';
 		
 		echo $output;
