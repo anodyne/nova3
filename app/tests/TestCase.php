@@ -9,11 +9,11 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
      */
     public function createApplication()
     {
-    	$unitTesting = true;
+        $unitTesting = true;
 
         $testEnvironment = 'testing';
 
-    	return require NOVAPATH.'start/start.php';
+        return require NOVAPATH.'start/start.php';
     }
 
 }
