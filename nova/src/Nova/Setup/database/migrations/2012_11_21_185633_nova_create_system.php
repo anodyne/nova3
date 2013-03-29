@@ -35,9 +35,9 @@ class NovaCreateSystem extends Migration {
 		// Seed the database
 		System::add(array(
 			'uid'				=> Str::random(32),
-			'version_major'		=> Config::get('app.version_major'),
-			'version_minor'		=> Config::get('app.version_minor'),
-			'version_update'	=> Config::get('app.version_update'),
+			'version_major'		=> Config::get('nova.app.version_major'),
+			'version_minor'		=> Config::get('nova.app.version_minor'),
+			'version_update'	=> Config::get('nova.app.version_update'),
 		));
 
 		SystemEventModel::add(array(
