@@ -2,7 +2,6 @@
 
 use Model;
 use Status;
-use Exception;
 use QuickInstallInterface;
 
 class Widget extends Model implements QuickInstallInterface {
@@ -17,111 +16,126 @@ class Widget extends Model implements QuickInstallInterface {
 		'id', 'name', 'location', 'page', 'zone', 'status', 'credits',
 		'created_at', 'updated_at',
 	);
-	
+
 	/**
-	 * Get all items from the catalog.
+	 * Scope the query to active widgets.
 	 *
-	 * @param	string	The status to pull
-	 * @return	Collection
+	 * @param	Builder		The query builder
+	 * @return	void
 	 */
-	public static function getItems($status = Status::ACTIVE)
+	public function scopeActive($query)
 	{
-		// Start a new Query Builder
-		$query = static::startQuery();
-
-		if ( ! empty($status))
-		{
-			$query->where('status', $status);
-		}
-
-		return $query->get();
+		$query->where('status', Status::ACTIVE);
 	}
 
+	/**
+	 * Scope the query to inactive widgets.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeInactive($query)
+	{
+		$query->where('status', Status::INACTIVE);
+	}
+
+	/**
+	 * Install via QuickInstall.
+	 *
+	 * @param	string	A specific location to install
+	 * @return	void
+	 */
 	public static function install($location = false)
 	{
-		return true;
-		/*
-		if ($location === null)
+		if ( ! $location)
 		{
-			// get the directory listing
-			$dir = self::directory_list(MODPATH.'app/views/components/widget/');
-			
-			// get all the installed widgets
-			$widgets = Model_CatalogueWidget::getItems();
-			
-			if (count($widgets) > 0)
-			{
-				// start by removing anything that's already installed
-				foreach ($widgets as $w)
+			// Get all the item locations
+			$widgets = static::active()->get()->toSimpleArray('id', 'location');
+
+			// Create a new finder and filter the results
+			$finder = Finder::create()->directories()->in(APPPATH."widgets")
+				->filter(function(SplFileInfo $fileinfo) use ($widgets)
 				{
-					// find the location in the directory listing
-					$key = array_search($w->location, $dir);
-					
-					if ($key !== false)
+					if (in_array($fileinfo->getRelativePathName(), $widgets))
 					{
-						unset($dir[$key]);
+						return false;
 					}
-				}
-			}
-			
-			// loop through the directories now
-			foreach ($dir as $key => $value)
+				});
+
+			// Loop through the directories and install
+			foreach ($finder as $f)
 			{
-				// assign our path to a variable
-				$file = MODPATH.'app/views/components/widget/'.$value.'/widget.json';
-				
-				// make sure the file exists first
-				if (file_exists($file))
+				// Assign our path to a variable
+				$file = APPPATH."widgets/".$f->getRelativePathName()."/widget.json";
+
+				// Make sure the file exists first
+				if (File::exists($file))
 				{
-					// get the contents and decode the JSON
+					// Get the contents and decode the JSON
 					$content = file_get_contents($file);
-					$data = json_decode($content);
-					
-					$data_widget = array(
+					$data = json_decode($content, true);
+
+					// Create the item
+					static::add(array(
 						'name'		=> $data->name,
 						'location'	=> $data->location,
 						'page'		=> $data->page,
 						'zone'		=> $data->zone,
-						'status'	=> 'active',
+						'status'	=> Status::ACTIVE,
 						'credits'	=> $data->credits
-					);
-					
-					// create the item
-					Model_CatalogueWidget::add($data_widget);
+					));
 				}
 			}
 		}
 		else
 		{
-			// assign our path to a variable
-			$file = MODPATH.'app/views/components/widget/'.$location.'/widget.json';
+			// Assign our path to a variable
+			$file = APPPATH."widgets/{$location}/widget.json";
 			
-			// make sure the file exists first
-			if (file_exists($file))
+			// Make sure the file exists first
+			if (File::exists($file))
 			{
-				// get the contents and decode the JSON
+				// Get the contents and decode the JSON
 				$content = file_get_contents($file);
-				$data = json_decode($content);
+				$data = json_decode($content, true);
 				
-				$data_widget = array(
+				// Create the item
+				static::add(array(
 					'name'		=> $data->name,
 					'location'	=> $data->location,
 					'page'		=> $data->page,
 					'zone'		=> $data->zone,
-					'status'	=> 'active',
+					'status'	=> Status::ACTIVE,
 					'credits'	=> $data->credits
-				);
-				
-				// create the item
-				Model_CatalogueWidget::add($data_widget);
+				));
 			}
 		}
-		*/
 	}
 
-	public static function uninstall($location)
+	/**
+	 * Uninstall via QuickInstall.
+	 *
+	 * @param	string	A specific location to uninstall
+	 * @return	void
+	 */
+	public static function uninstall($location = true)
 	{
-		throw new Exception('Uninstall method is not implemented.');
+		if ( ! $location)
+		{
+			// Get all the item locations
+			$widgets = static::get();
+
+			// Loop through the widgets and remove them
+			foreach ($widgets as $w)
+			{
+				$w->delete();
+			}
+		}
+		else
+		{
+			// Remove the item from the database
+			$item = static::remove(array('location' => $location));
+		}
 	}
 
 }

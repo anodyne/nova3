@@ -5,7 +5,6 @@ use Model;
 use Config;
 use Status;
 use Artisan;
-use Exception;
 use SplFileInfo;
 use QuickInstallInterface;
 use Symfony\Component\Finder\Finder;
@@ -22,37 +21,27 @@ class Module extends Model implements QuickInstallInterface {
 		'id', 'name', 'short_name', 'location', 'desc', 'protected', 'status', 
 		'credits', 'created_at', 'updated_at',
 	);
-	
+
 	/**
-	 * Get all the modules from the catalog.
+	 * Scope the query to active items.
 	 *
-	 * @param	string	Status to pull
-	 * @param	string	The property to return
-	 * @return	Collection
+	 * @param	Builder		The query builder
+	 * @return	void
 	 */
-	public static function getItems($status = Status::ACTIVE, $onlyReturn = false)
+	public function scopeActive($query)
 	{
-		// Start a new Query Builder
-		$query = static::startQuery();
+		$query->where('status', Status::ACTIVE);
+	}
 
-		// Get on the status we want
-		$query->where('status', $status);
-
-		if ($onlyReturn !== false)
-		{
-			// Temporary holding array
-			$retval = array();
-
-			// Loop through the results
-			foreach ($query->get() as $row)
-			{
-				$retval[] = $row->{$onlyReturn};
-			}
-
-			return $retval;
-		}
-
-		return $query->get();
+	/**
+	 * Scope the query to inactive items.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeInactive($query)
+	{
+		$query->where('status', Status::INACTIVE);
 	}
 
 	/**
@@ -66,7 +55,7 @@ class Module extends Model implements QuickInstallInterface {
 		if ( ! $location)
 		{
 			// Get all the module locations
-			$modules = static::getItems(Status::ACTIVE, 'location');
+			$modules = static::active()->get()->toSimpleArray('id', 'location');
 
 			// Create a new finder and filter the results
 			$finder = Finder::create()->directories()->in(APPPATH."module")
@@ -131,11 +120,50 @@ class Module extends Model implements QuickInstallInterface {
 	 *
 	 * @param	string	A specific location to uninstall
 	 * @return	void
-	 * @throws	Exception
 	 */
-	public static function uninstall($location)
+	public static function uninstall($location = true)
 	{
-		throw new Exception('Uninstall method is not implemented.');
+		if ( ! $location)
+		{
+			// Get all the module locations
+			$modules = static::get()->toSimpleArray('id', 'location');
+
+			// Create a new finder and filter the results
+			$finder = Finder::create()->directories()->in(APPPATH."module");
+
+			// Loop through the directories and uninstall
+			foreach ($finder as $f)
+			{
+				// Assign our path to a variable
+				$dir = APPPATH."module/".$f->getRelativePathName();
+
+				// Run the migrations if they exist
+				if (File::isDirectory($dir."/database/migrations"))
+				{
+					Artisan::call('migrate:rollback', array('--path' => $dir."/database/migrations"));
+				}
+			}
+
+			// Loop through the modules and remove them
+			foreach ($modules as $m)
+			{
+				$m->delete();
+			}
+		}
+		else
+		{
+			// Assign our path to a variable
+			$dir = APPPATH."module/".$location;
+
+			// Rollback the migrations if they exist
+			if (File::isDirectory($dir."/database/migrations"))
+			{
+				Artisan::call('migrate:rollback', array('--path' => $dir."/database/migrations"));
+			}
+
+			// Remove the item from the database
+			$item = static::remove(array('location' => $location));
+		}
 	}
 
 }

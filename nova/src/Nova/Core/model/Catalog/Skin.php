@@ -2,8 +2,8 @@
 
 use Model;
 use Status;
-use Exception;
 use QuickInstallInterface;
+use SkinSectionCatalog as SkinSectionCatalogModel;
 
 class Skin extends Model implements QuickInstallInterface {
 
@@ -16,151 +16,166 @@ class Skin extends Model implements QuickInstallInterface {
 	protected static $properties = array(
 		'id', 'name', 'location', 'credits', 'version', 'created_at', 'updated_at',
 	);
-	
+
 	/**
-	 * Get all items from the catalog.
+	 * Get the sections for this skin.
 	 *
-	 * @param	string	The status to pull
 	 * @return	Collection
 	 */
-	public static function getItems($status = Status::ACTIVE)
+	public function sections()
 	{
-		// Start a new Query Builder
-		$query = static::startQuery();
-
-		if ( ! empty($status))
-		{
-			$query->where('status', $status);
-		}
-
-		return $query->get();
+		return SkinSectionCatalogModel::getItems(array('skin' => $this->location));
 	}
 
+	/**
+	 * Scope the query to active items.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeActive($query)
+	{
+		$query->where('status', Status::ACTIVE);
+	}
+
+	/**
+	 * Scope the query to inactive items.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeInactive($query)
+	{
+		$query->where('status', Status::INACTIVE);
+	}
+
+	/**
+	 * Install via QuickInstall.
+	 *
+	 * @param	string	A specific location to install
+	 * @return	void
+	 */
 	public static function install($location = false)
 	{
-		return true;
-		/*
-		if ($location === null)
+		if ( ! $location)
 		{
-			// get the listing of the directory
-			$dir = self::directory_list(APPPATH.'views/');
-			
-			// get all the skin catalogue items
-			$skins = Model_CatalogueSkin::getItems();
-			
-			if (count($skins) > 0)
+			// Get all the skin locations
+			$skins = static::active()->get()->toSimpleArray('id', 'location');
+
+			// Create a new finder and filter the results
+			$finder = Finder::create()->directories()->in(APPPATH."views")
+				->filter(function(SplFileInfo $fileinfo) use ($skins)
+				{
+					if (in_array($fileinfo->getRelativePathName(), $skins))
+					{
+						return false;
+					}
+				});
+
+			// Loop through the directories and install
+			foreach ($finder as $f)
 			{
-				// start by removing anything that's already installed
-				foreach ($skins as $skin)
+				// Assign our path to a variable
+				$dir = APPPATH."views/".$f->getRelativePathName();
+
+				// Make sure the file exists first
+				if (File::exists($dir."/skin.json"))
 				{
-					// find the location in the directory listing
-					$key = array_search($skin->location, $dir);
+					// Get the contents and decode the JSON
+					$content = file_get_contents($file);
+					$data = json_decode($content, true);
+
+					// Add the skin record
+					static::add(array(
+						'name'		=> $data->name,
+						'location'	=> $data->location,
+						'credits'	=> $data->credits,
+						'version'	=> $data->version,
+					));
 					
-					if ($key !== false)
+					// Loop through and add the sections
+					foreach ($data->sections as $s)
 					{
-						unset($dir[$key]);
-					}
-				}
-				
-				// create an array of items to remove
-				$pop = array('template.php');
-				
-				// remove the items
-				foreach ($pop as $p)
-				{
-					// find the location in the directory listing
-					$key = array_search($p, $dir);
-					
-					if ($key !== false)
-					{
-						unset($dir[$key]);
-					}
-				}
-				
-				// now loop through the directories and install the skins
-				foreach ($dir as $key => $value)
-				{
-					// assign our path to a variable
-					$file = APPPATH.'views/'.$value.'/skin.json';
-					
-					// make sure the file exists first
-					if (file_exists($file))
-					{
-						$content = file_get_contents($file);
-						$data = json_decode($content);
-						
-						$data_skin = array(
-							'name' => $data->name,
-							'location' => $data->location,
-							'credits' => $data->credits,
-							'version' => $data->version
-						);
-						
-						// create the skin
-						Model_CatalogueSkin::add($data_skin);
-						
-						// go through and add the sections
-						foreach ($data->sections as $v)
-						{
-							$data_section = array(
-								'section' => $v->type,
-								'skin' => $data->location,
-								'preview' => $v->preview,
-								'status' => 'active',
-								'default' => 0
-							);
-							
-							// create the section
-							Model_CatalogueSkinSec::add($data_section);
-						}
+						SkinSectionCatalogModel::add(array(
+							'section' 	=> $s->type,
+							'skin' 		=> $data->location,
+							'preview'	=> $s->preview,
+							'status' 	=> Status::ACTIVE,
+							'default' 	=> (int) false
+						));
 					}
 				}
 			}
 		}
 		else
 		{
-			// assign our path to a variable
-			$file = APPPATH.'views/'.$location.'/skin.json';
-			
-			// make sure the file exists first
-			if (file_exists($file))
+			// Assign our path to a variable
+			$dir = APPPATH."views/".$location;
+
+			// Make sure the file exists first
+			if (File::exists($dir."/skin.json"))
 			{
-				// get the contents and decode the JSON
+				// Get the contents and decode the JSON
 				$content = file_get_contents($file);
-				$data = json_decode($content);
+				$data = json_decode($content, true);
 				
-				$data_skin = array(
-					'name' => $data->name,
-					'location' => $data->location,
-					'credits' => $data->credits,
-					'version' => $data->version
-				);
+				// Add the skin record
+				static::add(array(
+					'name'		=> $data->name,
+					'location'	=> $data->location,
+					'credits'	=> $data->credits,
+					'version'	=> $data->version,
+				));
 				
-				// create the skin
-				Model_CatalogueSkin::add($data_skin);
-				
-				// go through and add the sections
-				foreach ($data->sections as $v)
+				// Loop through and add the sections
+				foreach ($data->sections as $s)
 				{
-					$data_section = array(
-						'section' => $v->type,
-						'skin' => $data->location,
-						'preview' => $v->preview,
-						'status' => 'active',
-						'default' => 0
-					);
-					
-					// create the section
-					Model_CatalogueSkinSec::add($data_section);
+					SkinSectionCatalogModel::add(array(
+						'section' 	=> $s->type,
+						'skin' 		=> $data->location,
+						'preview'	=> $s->preview,
+						'status' 	=> Status::ACTIVE,
+						'default' 	=> (int) false
+					));
 				}
 			}
 		}
-		*/
 	}
 
-	public static function uninstall($location)
+	/**
+	 * Uninstall via QuickInstall.
+	 *
+	 * @param	string	A specific location to uninstall
+	 * @return	void
+	 */
+	public static function uninstall($location = true)
 	{
-		throw new Exception('Uninstall method is not implemented.');
+		if ( ! $location)
+		{
+			// Get all the skin locations
+			$skins = static::get();
+
+			// Loop through the delete the skins
+			foreach ($skins as $skin)
+			{
+				// Loop through the sections and remove them
+				foreach ($skin->sections() as $sec)
+				{
+					$sec->delete();
+				}
+
+				// Remove the skin now
+				$skin->delete();
+			}
+		}
+		else
+		{
+			// Remove the skin sections
+			$sections = SkinSectionCatalogModel::remove(array('location' => $location));
+
+			// Remove the skin
+			static::remove(array('location' => $location));
+		}
 	}
 
 }

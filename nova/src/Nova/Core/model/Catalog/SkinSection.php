@@ -1,6 +1,7 @@
 <?php namespace Nova\Core\Model\Catalog;
 
 use Model;
+use SkinCatalog as SkinCatalogModel;
 
 class SkinSection extends Model {
 	
@@ -14,6 +15,38 @@ class SkinSection extends Model {
 		'id', 'section', 'skin', 'preview', 'status', 'default', 'nav',
 		'created_at', 'updated_at',
 	);
+
+	/**
+	 * Get the skin for this section.
+	 *
+	 * @return	Collection
+	 */
+	public function skin()
+	{
+		return SkinCatalogModel::getItems(array('location' => $this->location));
+	}
+
+	/**
+	 * Scope the query to active items.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeActive($query)
+	{
+		$query->where('status', Status::ACTIVE);
+	}
+
+	/**
+	 * Scope the query to inactive items.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeInactive($query)
+	{
+		$query->where('status', Status::INACTIVE);
+	}
 	
 	/**
 	 * Get the default skin section catalog item.
@@ -36,31 +69,6 @@ class SkinSection extends Model {
 		}
 		
 		return $result;
-	}
-
-	/**
-	 * Get all items from the catalog.
-	 *
-	 * @param	array	The arguments
-	 * @param	bool	Return only the first item?
-	 * @return	Collection|Section
-	 */
-	public static function getItems(array $arguments, $returnOne = false)
-	{
-		// Start a new Query Builder
-		$query = static::startQuery();
-
-		foreach ($arguments as $col => $val)
-		{
-			$query->where($col, $val);
-		}
-
-		if ($returnOne)
-		{
-			return $query->first();
-		}
-
-		return $query->get();
 	}
 	
 }

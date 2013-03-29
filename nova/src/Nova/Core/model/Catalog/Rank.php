@@ -22,66 +22,74 @@ class Rank extends Model implements QuickInstallInterface {
 		'id', 'name', 'location', 'preview', 'blank', 'extension', 'status', 
 		'credits', 'default', 'genre', 'created_at', 'updated_at',
 	);
-	
+
 	/**
-	 * Get all items from the catalog.
+	 * Scope the query to active items.
 	 *
-	 * @param	string	Status to pull
-	 * @param	bool	Whether to limit to the current genre (true) or all genres (false)
-	 * @param	string	The property to return
-	 * @return	Collection
+	 * @param	Builder		The query builder
+	 * @return	void
 	 */
-	public static function getItems($status = Status::ACTIVE, $limitToCurrentGenre = true, $onlyReturn = false)
+	public function scopeActive($query)
 	{
-		// Start a new Query Builder
-		$query = static::startQuery();
+		$query->where('status', Status::ACTIVE);
+	}
 
-		if ($limitToCurrentGenre)
-		{
-			$query->where('genre', Config::get('nova.genre'));
-		}
+	/**
+	 * Scope the query to inactive items.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeInactive($query)
+	{
+		$query->where('status', Status::INACTIVE);
+	}
 
-		if ( ! empty($status))
-		{
-			$query->where('status', $status);
-		}
+	/**
+	 * Scope the query to the current genre.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeCurrentGenre($query)
+	{
+		$query->where('genre', Config::get('nova.genre'));
+	}
 
-		if ($onlyReturn !== false)
-		{
-			// Temporary holding array
-			$retval = array();
-
-			// Loop through the results
-			foreach ($query->get() as $row)
-			{
-				$retval[] = $row->{$onlyReturn};
-			}
-
-			return $retval;
-		}
-		
-		return $query->get();
+	/**
+	 * Scope the query to the default item.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeDefault($query)
+	{
+		$query->where('default', (int) true);
 	}
 	
 	/**
 	 * Get the default rank catalog item.
 	 *
-	 * @param	bool	Return just the location value (true) or the whole object (false)
-	 * @return	string|Collection
+	 * @param	bool	Only return the pertinent value?
+	 * @return	Collection
+	 * @throws	Exception
 	 */
 	public static function getDefault($valueOnly = false)
 	{
-		// Start a new Query Builder
-		$query = static::startQuery();
-
-		$result = $query->where('default', (int) true)->first();
+		// Find the items
+		$result = static::active()->default()->currentGenre()->first();
 		
-		if ($valueOnly)
+		if ($result)
 		{
-			return $result->location;
+			if ($valueOnly)
+			{
+				return $result->location;
+			}
+			
+			return $result;
 		}
-		
-		return $result;
+
+		throw new Exception(lang('error.exception.model.get.notFound'));
 	}
 
 	/**
@@ -98,7 +106,7 @@ class Rank extends Model implements QuickInstallInterface {
 		if ( ! $location)
 		{
 			// Get all the rank set locations
-			$ranks = static::getItems(Status::ACTIVE, true, 'location');
+			$ranks = static::active()->currentGenre()->get()->toSimpleArray('id', 'location');
 
 			// Create a new finder and filter the results
 			$finder = Finder::create()->directories()->in(APPPATH."assets/common/{$genre}/ranks")
@@ -151,11 +159,25 @@ class Rank extends Model implements QuickInstallInterface {
 	 *
 	 * @param	string	A specific location to uninstall
 	 * @return	void
-	 * @throws	Exception
 	 */
-	public static function uninstall($location)
+	public static function uninstall($location = 'foo')
 	{
-		throw new Exception('Uninstall method is not implemented.');
+		if ( ! $location)
+		{
+			// Get all the rank locations
+			$ranks = static::get();
+
+			// Loop through the ranks and remove them
+			foreach ($ranks as $m)
+			{
+				$m->delete();
+			}
+		}
+		else
+		{
+			// Remove the item from the database
+			$item = static::remove(array('location' => $location));
+		}
 	}
 
 }
