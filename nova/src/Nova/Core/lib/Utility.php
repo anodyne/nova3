@@ -89,34 +89,34 @@ class Utility {
 	{
 		if (ini_get('allow_url_fopen'))
 		{
-			// Grab the update setting preference
-			$updatePref = Settings::getItems('updates');
-			
 			// Get the ignore version info
 			$sys = System::first();
-			
+
 			// Load the data
 			$content = File::getRemote(Config::get('nova.version_check_path'));
 
 			// Parse the content
-			$US = json_decode($content);
+			$updateServer = json_decode($content);
 
-			if ($US !== null)
+			if ($updateServer !== null)
 			{
+				// Grab the update setting preference
+				$updatePref = (int) Settings::getItems('updates');
+
 				// If the admin has ignored this version, stop execution
-				if (version_compare($US->version, $sys->version_ignore, '=='))
+				if (version_compare($updateServer->version, $sys->version_ignore, '=='))
 				{
 					return false;
 				}
 				
 				// Build the system version string
 				$sysVersion = $sys->version_major.'.'.$sys->version_minor.'.'.$sys->version_update;
-				
+
 				// Check the version in the system versus what's coming from the update server
-				if (version_compare($sysVersion, $US->version, '<'))
+				if (version_compare($sysVersion, $updateServer->version, '<'))
 				{
 					// If the admin wants to see these specific updates, pass the object along
-					if ($US->severity <= $updatePref)
+					if ($updateServer->severity <= $updatePref)
 					{
 						return $US;
 					}
