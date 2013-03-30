@@ -42,7 +42,7 @@ return array(
 	|
 	*/
 
-	'files' => APPPATH.'storage/sessions',
+	'files' => storage_path().'/sessions',
 
 	/*
 	|--------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 ## Latest `laravel/laravel` Commit
 
-* 03/28/2013
-* 66c9dd46e5ba7698d6ab244d88ef1f251f97abf6
+* 03/29/2013
+* f0b8d2cc9dee996baf79970d0c4e156e0cbdc77e
 
 ## Composer Packages
 
@@ -21,7 +21,7 @@
 ## Nova 3 Work
 
 * Migrations
-	* Status: IN PROGRESS
+	* Status: TESTING
 	* How do we handle migrations in L4?
 		* Can be handled with `Artisan::call('migrate')`.
 	* How do we run migrations from a location other than `app`?
@@ -41,12 +41,17 @@
 ## Changes to Laravel 4
 
 * Routing
-	* Status: TESTING
+	* Status: IN PROGRESS
 	* The new router checks the request path and tries to find a controller/action that matches that path. If nothing is found, it searches through the explicitly created routes. If it isn't found there, it throws an exception.
 	* If the request path is empty, the router falls back to a request path of `main/index`.
 	* TODO: Would love to figure out a way to have the core modules use explicit routing and everything else use dynamic routing. This would improve load times, but the trick is how do you then override a core page? You'd have to explicitly create a new route. I'm not opposed to it, but it is more work for developers.
+	* TODO: Would like to have RESTful controllers that can be used or not, it's up to the developer.
+		* getAction
+		* postAction
+		* putAction
+		* deleteAction
 * Controllers
-	* Status: TESTING
+	* Status: IN PROGRESS
 	* Controllers need better before/after actions. Currently the only thing there is are filters, but those are too global to handle the granular control needed when loading up or shutting down specific controllers.
 		* App filters can be run for everything, but there's also more granular route filters that can be used. In our case, we can build several route filters and then call them in the base controller constructor. This should suffice as they cascade like the before/after methods do in Fuel.
 * Modules
@@ -92,7 +97,6 @@
 
 ## Questions
 
-* How do you create a class and matching Facade?
 * What's the right place to call customized config loaders?
 * What's the right place to call customized language loaders?
 

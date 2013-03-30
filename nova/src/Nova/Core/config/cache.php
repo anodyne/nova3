@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'path' => APPPATH.'storage/cache',
+	'path' => storage_path().'/cache',
 
 	/*
 	|--------------------------------------------------------------------------
