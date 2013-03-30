@@ -1,7 +1,9 @@
 <?php namespace Nova\Core\Model;
 
 use Date;
+use Event;
 use Model;
+use Config;
 use Sentry;
 use Status;
 
@@ -56,6 +58,21 @@ class Application extends Model {
 	public function reviewers()
 	{
 		return $this->belongsToMany('User', 'application_reviewers');
+	}
+
+	/**
+	 * Boot the model and define the event listeners.
+	 *
+	 * @return	void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		// Get all the aliases
+		$classes = Config::get('app.aliases');
+
+		Event::listen("eloquent.created: {$classes['NovaApp']}", "{$classes['AppHandler']}@afterCreate");
 	}
 
 	/**

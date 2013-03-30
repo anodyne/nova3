@@ -1,7 +1,9 @@
 <?php namespace Nova\Core\Model;
 
 use URL;
+use Event;
 use Model;
+use Config;
 use Status;
 
 class Character extends Model {
@@ -97,6 +99,21 @@ class Character extends Model {
 	public function images()
 	{
 		return $this->morphMany('Media', 'imageable');
+	}
+
+	/**
+	 * Boot the model and define the event listeners.
+	 *
+	 * @return	void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		// Get all the aliases
+		$classes = Config::get('app.aliases');
+
+		Event::listen("eloquent.created: {$classes['Character']}", "{$classes['CharacterHandler']}@afterCreate");
 	}
 
 	/**

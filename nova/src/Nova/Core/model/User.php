@@ -2,6 +2,8 @@
 
 use Str;
 use Model;
+use Event;
+use Config;
 use Status;
 use Sentry;
 use Session;
@@ -29,6 +31,12 @@ class User extends Model implements UserInterface {
 		'reset_password_hash', 'activation_hash', 'persist_hash', 'ip_address', 
 		'leave_date', 'last_post', 'last_login', 'created_at', 'updated_at',
 	);
+
+	/*
+	|--------------------------------------------------------------------------
+	| Relationships
+	|--------------------------------------------------------------------------
+	*/
 	
 	/**
 	 * Belongs To: Access Role
@@ -118,6 +126,12 @@ class User extends Model implements UserInterface {
 		return $this->belongsToMany('NovaApp', 'application_reviewers');
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| Custom Accessors
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
 	 * Status Accessor.
 	 *
@@ -131,16 +145,11 @@ class User extends Model implements UserInterface {
 		return Status::toString($value);
 	}
 
-	/**
-	 * Is the user a system administrator?
-	 *
-	 * @return	bool
-	 * @todo	Should we get rid of this preference altogether and use the role instead?
-	 */
-	public function isAdmin()
-	{
-		return (bool) ($this->getPreferenceItem('is_sysadmin'));
-	}
+	/*
+	|--------------------------------------------------------------------------
+	| Model Scopes
+	|--------------------------------------------------------------------------
+	*/
 
 	/**
 	 * Scope the query to active users.
@@ -173,6 +182,41 @@ class User extends Model implements UserInterface {
 	public function scopePending($query)
 	{
 		$query->where('status', Status::PENDING);
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Boot the model and define the event listeners.
+	 *
+	 * @return	void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		// Get all the aliases
+		$classes = Config::get('app.aliases');
+
+		Event::listen("eloquent.creating: {$classes['User']}", "{$classes['UserHandler']}@beforeCreate");
+		Event::listen("eloquent.created: {$classes['User']}", "{$classes['UserHandler']}@afterCreate");
+		Event::listen("eloquent.updated: {$classes['User']}", "{$classes['UserHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$classes['User']}", "{$classes['UserHandler']}@beforeDelete");
+	}
+
+	/**
+	 * Is the user a system administrator?
+	 *
+	 * @return	bool
+	 * @todo	Should we get rid of this preference altogether and use the role instead?
+	 */
+	public function isAdmin()
+	{
+		return (bool) ($this->getPreferenceItem('is_sysadmin'));
 	}
 
 	/**
@@ -247,7 +291,7 @@ class User extends Model implements UserInterface {
 
 		$this->save();
 	}
-	
+
 	/**
 	 * Update a user.
 	 *

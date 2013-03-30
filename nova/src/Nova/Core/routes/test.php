@@ -79,8 +79,12 @@ Route::group(array('prefix' => 'test'), function()
 		sd($roles->toSimpleArray());
 	});
 
-	Route::get('handlers', function()
+	Route::get('events', function()
 	{
-		//
+		User::add(array(
+			'name' => 'John Doe', 
+			'email' => 'john.doe@example.com', 
+			'password' => 'foo',
+		));
 	});
 });

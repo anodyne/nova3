@@ -1,6 +1,7 @@
 <?php namespace Nova\Core\Model;
 
 use Str;
+use Event;
 use Model;
 use Config;
 use Status;
@@ -56,6 +57,23 @@ class Position extends Model {
 
 		// Set the name of the table
 		$this->setTable('positions_'.Config::get('nova.genre'));
+	}
+
+	/**
+	 * Boot the model and define the event listeners.
+	 *
+	 * @return	void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		// Get all the aliases
+		$classes = Config::get('app.aliases');
+
+		Event::listen("eloquent.created: {$classes['Position']}", "{$classes['PositionHandler']}@afterCreate");
+		Event::listen("eloquent.updated: {$classes['Position']}", "{$classes['PositionHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$classes['Position']}", "{$classes['PositionHandler']}@beforeDelete");
 	}
 	
 	/**

@@ -1,5 +1,6 @@
 <?php namespace Nova\Core\Model;
 
+use Event;
 use Model;
 use Config;
 
@@ -53,6 +54,24 @@ class Rank extends Model {
 
 		// Set the name of the table
 		$this->setTable('ranks_'.Config::get('nova.genre'));
+	}
+
+	/**
+	 * Boot the model and define the event listeners.
+	 *
+	 * @return	void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		// Get all the aliases
+		$classes = Config::get('app.aliases');
+
+		Event::listen("eloquent.created: {$classes['Rank']}", "{$classes['RankHandler']}@afterCreate");
+		Event::listen("eloquent.updated: {$classes['Rank']}", "{$classes['RankHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$classes['Rank']}", "{$classes['RankHandler']}@beforeDelete");
+		Event::listen("eloquent.saving: {$classes['Rank']}", "{$classes['RankHandler']}@beforeSave");
 	}
 
 }
