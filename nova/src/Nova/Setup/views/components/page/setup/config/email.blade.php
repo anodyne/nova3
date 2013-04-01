@@ -6,6 +6,14 @@
 	<hr>
 	
 	{{ Form::open(array('url' => 'setup/config/email/write')) }}
+		<div class="control-group">
+			<label class="control-label">Email Driver</label>
+			<div class="controls">
+				<label class="radio inline"><input type="radio" name="driver" value="smtp" checked="checked"> SMTP</label>
+				<label class="radio inline"><input type="radio" name="driver" value="mail"> PHP Mail</label>
+			</div>
+		</div>
+
 		<div class="row-fluid">
 			<div class="span6">
 				<label class="control-label">SMTP Host</label>

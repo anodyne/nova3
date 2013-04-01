@@ -1,6 +1,7 @@
 <?php
 
 return array(
+'driver' => '#DRIVER#',
 'host' => '#HOSTNAME#',
 'port' => '#PORT#',
 'encryption' => '#ENCRYPTION#',
