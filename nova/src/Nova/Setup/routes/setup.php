@@ -116,7 +116,8 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 						Form::button('Start Migration', array(
 							'class'	=> 'btn btn-primary',
 							'id'	=> 'next',
-							'name'	=> 'submit'
+							'name'	=> 'submit',
+							'type'	=> 'submit',
 						)).
 						Form::hidden('_token', csrf_token()).
 						Form::close();
@@ -143,7 +144,12 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				 */
 				$data->content->option = 1;
 				$data->controls = Form::open(array('url' => 'setup/install')).
-					Form::button('Start Install', array('class' => 'btn btn-primary', 'id' => 'next', 'name' => 'submit')).
+					Form::button('Start Install', array(
+						'class'	=> 'btn btn-primary',
+						'id'	=> 'next',
+						'name'	=> 'submit',
+						'type'	=> 'submit',
+					)).
 					Form::hidden('_token', csrf_token()).
 					Form::close();
 				$data->layout->label = 'Install Nova 3';
@@ -175,7 +181,12 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 			'class' => 'pull-right'
 		));
 		$data->controls.= Form::open(array('url' => 'setup/uninstall')).
-			Form::button('Uninstall', array('class' => 'btn btn-danger', 'id' => 'next', 'name' => 'submit')).
+			Form::button('Uninstall', array(
+				'class'	=> 'btn btn-danger',
+				'id'	=> 'next',
+				'name'	=> 'submit',
+				'type'	=> 'submit',
+			)).
 			Form::hidden('_token', csrf_token()).
 			Form::close();
 
@@ -183,6 +194,9 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 	});
 	Route::post('uninstall', function()
 	{
+		// Make sure we don't time out
+		set_time_limit(0);
+
 		// Do the QuickInstall removals
 		ModuleCatalog::uninstall();
 		RankCatalog::uninstall();
@@ -190,13 +204,10 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		WidgetCatalog::uninstall();
 
 		// Uninstall Nova
-		Artisan::call('migrate:reset', array('--path' => 'nova/src/Nova/Setup/database/migrations'));
+		Artisan::call('migrate:reset');
 
 		// Remove the system install cache
-		if (File::exists(APPPATH.'storage/cache/nova_system_installed'))
-		{
-			Cache::forget('nova_system_installed');
-		}
+		Cache::forget('nova_system_installed');
 
 		return Redirect::to('setup');
 	});
@@ -280,15 +291,12 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 		$data->content->step = false;
 
 		// Clear the installed status cache
-		if (file_exists(APPPATH.'storage/cache/nova_system_installed'))
-		{
-			Cache::forget('nova_system_installed');
-		}
+		Cache::forget('nova_system_installed');
 		
 		// Make sure we don't time out
 		set_time_limit(0);
 		
-		if ( ! file_exists(SRCPATH.'Setup/generators/database.php'))
+		if ( ! File::exists(SRCPATH.'Setup/generators/database.php'))
 		{
 			$data->content->message = Lang::get('setup.config.noconfig', array(
 				'type'	=> 'database connection',
@@ -299,7 +307,7 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 		}
 		else
 		{
-			if (file_exists(APPPATH.'config/'.App::environment().'/database.php'))
+			if (File::exists(APPPATH.'config/'.App::environment().'/database.php'))
 			{
 				$data->content->message = Lang::get('setup.config.exists', array(
 					'type'	=> 'database connection',
@@ -316,12 +324,11 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 				}
 				else
 				{
-
 					$data->content->message = Lang::get('setup.config.db.intro', array('env' => App::environment()));
 					
 					if (count(PDO::getAvailableDrivers()) > 0)
 					{
-						$data->controls = Html::link('setup/config/db/info', 'Database Info', array(
+						$data->controls = Html::link('setup/config/db/info', 'Start', array(
 							'class' => 'btn btn-primary'
 						));
 					}
@@ -359,7 +366,8 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 		$data->controls = Form::button('Check Database Connection', array(
 				'name'	=> 'next',
 				'class'	=> 'btn btn-primary',
-				'id'	=> 'next'
+				'id'	=> 'next',
+				'type'	=> 'submit',
 			)).
 			Form::hidden('_token', csrf_token()).
 			Form::close();
@@ -417,7 +425,8 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 				Form::button('Write Connection File', array(
 					'class'	=> 'btn btn-primary',
 					'id'	=> 'next',
-					'name'	=> 'next'
+					'name'	=> 'next',
+					'type'	=> 'submit',
 				)).
 				Form::hidden('_token', csrf_token()).
 				Form::close();
@@ -536,7 +545,8 @@ return array(
 					Form::button('Re-Test', array(
 						'class'	=> 'btn btn-primary',
 						'id'	=> 'next',
-						'name'	=> 'next'
+						'name'	=> 'next',
+						'type'	=> 'submit',
 					)).
 					Form::hidden('_token', csrf_token()).
 					Form::close();
@@ -567,7 +577,8 @@ return array(
 				Form::button('Re-Test', array(
 					'class'	=> 'btn btn-primary',
 					'id'	=> 'next',
-					'name'	=> 'next'
+					'name'	=> 'next',
+					'type'	=> 'submit',
 				)).
 				Form::hidden('_token', csrf_token()).
 				Form::close();
@@ -645,7 +656,7 @@ return array(
 Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileCheck|setupAuthorization|csrf'), function()
 {
 	/**
-	 * Intro to the database connection config process.
+	 * Intro to the email config process.
 	 */
 	Route::get('/', function()
 	{
@@ -661,10 +672,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 		$data->content->step = false;
 
 		// Clear the installed status cache
-		if (file_exists(APPPATH.'storage/cache/nova_system_installed'))
-		{
-			Cache::forget('nova_system_installed');
-		}
+		Cache::forget('nova_system_installed');
 		
 		// Make sure we don't time out
 		set_time_limit(0);
@@ -699,7 +707,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 				{
 
 					$data->content->message = Lang::get('setup.config.email.intro', array('env' => App::environment()));
-					$data->controls = Html::link('setup/config/email/info', 'Email Info', array(
+					$data->controls = Html::link('setup/config/email/info', 'Start', array(
 						'class' => 'btn btn-primary'
 					));
 				}
@@ -710,7 +718,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 	});
 	
 	/**
-	 * Collect the database connection parameters.
+	 * Collect the email parameters.
 	 */
 	Route::get('info', function()
 	{
@@ -727,9 +735,10 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 
 		$data->content->message = Lang::get('setup.config.email.info');
 		$data->controls = Form::button('Write Config File', array(
-				'name' => 'next',
-				'class' => 'btn btn-primary',
-				'id' => 'next'
+				'name'	=> 'next',
+				'class'	=> 'btn btn-primary',
+				'id'	=> 'next',
+				'type'	=> 'submit',
 			)).
 			Form::hidden('_token', csrf_token()).
 			Form::close();
@@ -754,6 +763,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 		$data->content->step = false;
 
 		// Set the variables to use
+		$driver		= trim(e(Input::get('driver')));
 		$host		= trim(e(Input::get('hostname')));
 		$port		= trim(e(Input::get('port')));
 		$username	= trim(e(Input::get('username')));
@@ -761,6 +771,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 		$encryption	= trim(e(Input::get('encryption')));
 		
 		// Set the session variables
+		Session::put('emailDrvr', $driver);
 		Session::put('emailHost', $host);
 		Session::put('emailPort', $port);
 		Session::put('emailPass', $password);
@@ -774,6 +785,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 		{
 			// Set what should be replaced
 			$replacements = array(
+				'#DRIVER#'		=> Session::get('emailDrvr'),
 				'#HOSTNAME#'	=> Session::get('emailHost'),
 				'#USERNAME#'	=> Session::get('emailUser'),
 				'#PASSWORD#'	=> Session::get('emailPass'),
@@ -813,6 +825,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 				$data->content->code = e("<?php
 
 return array(
+'driver' => '".Session::get('emailDrvr')."',
 'host' => '".Session::get('emailHost')."',
 'port' => ".Session::get('emailPort').",
 'encryption' => '".Session::get('emailEncr')."',
@@ -828,7 +841,8 @@ return array(
 					Form::button('Re-Test', array(
 						'class'	=> 'btn btn-primary',
 						'id'	=> 'next',
-						'name'	=> 'next'
+						'name'	=> 'next',
+						'type'	=> 'submit',
 					)).
 					Form::hidden('_token', csrf_token()).
 					Form::close();
@@ -840,6 +854,7 @@ return array(
 			$data->content->code = e("<?php
 
 return array(
+'driver' => '".Session::get('emailDrvr')."',
 'host' => '".Session::get('emailHost')."',
 'port' => ".Session::get('emailPort').",
 'encryption' => '".Session::get('emailEncr')."',
@@ -855,7 +870,8 @@ return array(
 				Form::button('Verify', array(
 					'class'	=> 'btn btn-primary',
 					'id'	=> 'next',
-					'name'	=> 'next'
+					'name'	=> 'next',
+					'type'	=> 'submit',
 				)).
 				Form::hidden('_token', csrf_token()).
 				Form::close();
@@ -865,7 +881,7 @@ return array(
 	});
 	
 	/**
-	 * Verify the connection works (only used when the file can't be written).
+	 * Verify the config file exists.
 	 */
 	Route::post('verify', function()
 	{

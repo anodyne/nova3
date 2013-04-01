@@ -79,7 +79,13 @@ Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|set
 		$data->content->defaultRank = Location::rank($rank->base, $rank->pip, $rankSetLocation);
 
 		// Set the controls
-		$data->controls = Form::button('Submit', array('class' => 'btn btn-primary')).Form::close();
+		$data->controls = Form::button('Submit', array(
+			'class'	=> 'btn btn-primary',
+			'id'	=> 'next',
+			'type'	=> 'submit',
+		)).
+		Form::hidden('_token', csrf_token()).
+		Form::close();
 
 		return setupTemplate($data);
 	});
@@ -133,7 +139,7 @@ Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|set
 		$data->content = new stdClass;
 
 		// Set the controls
-		$data->controls = '<a href="'.URL::to('temp/main/index').'" class="btn btn-primary">Go to Main Page</a>';
+		$data->controls = Html::link('temp/main/index', 'Go to Main Page', array('class' => 'btn btn-primary'));
 
 		return setupTemplate($data);
 	});

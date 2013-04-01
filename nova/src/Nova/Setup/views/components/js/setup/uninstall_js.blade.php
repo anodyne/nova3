@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-		$('#remove').click(function(){
+		$('#next').click(function(){
 			
 			// Hide the controls
 			$('.lower').slideUp();
