@@ -6,9 +6,9 @@ use File;
 use View;
 use Config;
 use Request;
-use Utility;
 use Exception;
 use RankCatalog;
+use Utility as UtilityLib;
 
 class Location {
 
@@ -216,7 +216,7 @@ class Location {
 
 		// Get the rank catalog object
 		$catalog = ( ! $location)
-			? RankCatalog::getItem(Utility::getRank(), 'location')
+			? RankCatalog::getItem(UtilityLib::getRank(), 'location')
 			: RankCatalog::getItem($location, 'location');
 
 		if (File::isDirectory(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/base") 
