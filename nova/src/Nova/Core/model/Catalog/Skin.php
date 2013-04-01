@@ -13,11 +13,12 @@ class Skin extends Model implements QuickInstallInterface {
 	protected $table = 'catalog_skins';
 
 	protected $fillable = array(
-		'name', 'location', 'credits', 'version',
+		'name', 'location', 'credits', 'version', 'status',
 	);
 	
 	protected static $properties = array(
-		'id', 'name', 'location', 'credits', 'version', 'created_at', 'updated_at',
+		'id', 'name', 'location', 'credits', 'version', 'status', 'created_at',
+		'updated_at',
 	);
 
 	/**
