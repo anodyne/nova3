@@ -146,21 +146,21 @@ class Utility {
 		if ( ! File::exists(APPPATH.'config/'.App::environment().'/database.php'))
 		{
 			// Make sure we take in to account the controllers this needs to ignore
-			if ( ! Request::is('setup/*'))
+			if ( ! Request::is('setup*'))
 			{
-				return Redirect::to('setup/config');
+				return Redirect::to('setup');
 			}
 		}
 		else
 		{
+			// Get the install status from the cache
+			$status = Cache::get('nova_system_installed');
+
 			// Wipe out the system install cache if we're in the setup module
-			if (Request::is('setup*') and File::exists(APPPATH.'storage/cache/nova_system_installed'))
+			if (Request::is('setup*') and $status !== null)
 			{
 				Cache::forget('nova_system_installed');
 			}
-
-			// Get the install status from the cache
-			$status = Cache::get('nova_system_installed');
 
 			// If the status is null, we know it doesn't exist
 			if ($status === null)
