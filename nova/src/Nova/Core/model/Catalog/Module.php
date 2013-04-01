@@ -121,7 +121,7 @@ class Module extends Model implements QuickInstallInterface {
 	 * @param	string	A specific location to uninstall
 	 * @return	void
 	 */
-	public static function uninstall($location = true)
+	public static function uninstall($location = false)
 	{
 		if ( ! $location)
 		{

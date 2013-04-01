@@ -1,8 +1,11 @@
 <?php namespace Nova\Core\Model\Catalog;
 
+use File;
 use Model;
 use Status;
+use SplFileInfo;
 use QuickInstallInterface;
+use Symfony\Component\Finder\Finder;
 
 class Widget extends Model implements QuickInstallInterface {
 	
@@ -118,7 +121,7 @@ class Widget extends Model implements QuickInstallInterface {
 	 * @param	string	A specific location to uninstall
 	 * @return	void
 	 */
-	public static function uninstall($location = true)
+	public static function uninstall($location = false)
 	{
 		if ( ! $location)
 		{

@@ -160,7 +160,7 @@ class Rank extends Model implements QuickInstallInterface {
 	 * @param	string	A specific location to uninstall
 	 * @return	void
 	 */
-	public static function uninstall($location = 'foo')
+	public static function uninstall($location = false)
 	{
 		if ( ! $location)
 		{

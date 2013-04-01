@@ -1,6 +1,7 @@
 <?php namespace Nova\Core\Model\Catalog;
 
 use Model;
+use Status;
 use SkinCatalog as SkinCatalogModel;
 
 class SkinSection extends Model {
@@ -23,7 +24,7 @@ class SkinSection extends Model {
 	 */
 	public function skin()
 	{
-		return SkinCatalogModel::getItems(array('location' => $this->location));
+		return SkinCatalogModel::where('location', $this->location)->active()->get();
 	}
 
 	/**

@@ -1,8 +1,11 @@
 <?php namespace Nova\Core\Model\Catalog;
 
+use File;
 use Model;
 use Status;
+use SplFileInfo;
 use QuickInstallInterface;
+use Symfony\Component\Finder\Finder;
 use SkinSectionCatalog as SkinSectionCatalogModel;
 
 class Skin extends Model implements QuickInstallInterface {
@@ -24,7 +27,7 @@ class Skin extends Model implements QuickInstallInterface {
 	 */
 	public function sections()
 	{
-		return SkinSectionCatalogModel::getItems(array('skin' => $this->location));
+		return SkinSectionCatalogModel::where('skin', $this->location)->active()->get();
 	}
 
 	/**
@@ -148,7 +151,7 @@ class Skin extends Model implements QuickInstallInterface {
 	 * @param	string	A specific location to uninstall
 	 * @return	void
 	 */
-	public static function uninstall($location = true)
+	public static function uninstall($location = false)
 	{
 		if ( ! $location)
 		{
