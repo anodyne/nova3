@@ -188,7 +188,7 @@ return array(
 		'Schema'          => 'Illuminate\Support\Facades\Schema',
 		'Seeder'          => 'Illuminate\Database\Seeder',
 		'Session'         => 'Illuminate\Support\Facades\Session',
-		//'Str'             => 'Illuminate\Support\Str',
+		'Str'             => 'Illuminate\Support\Str',
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
@@ -217,7 +217,6 @@ return array(
 		'Nav'			=> 'Nova\Core\Lib\Nav',
 		'Sentry' 		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Status'		=> 'Nova\Core\Lib\Status',
-		'Str'			=> 'Nova\Foundation\Support\Str',
 		'SystemEvent'	=> 'Nova\Core\Lib\SystemEvent',
 		'Utility'		=> 'Nova\Core\Lib\Utility',
 
