@@ -34,6 +34,9 @@ require __DIR__.'/nova/start/autoload.php';
 
 $app = require_once __DIR__.'/nova/start/start.php';
 
+// Pull in the macros
+require APPPATH.'macros.php';
+
 // Constants for URLs
 define('BASEURL',	$app->request->root().'/');
 define('APPURL',	BASEURL.'app/');

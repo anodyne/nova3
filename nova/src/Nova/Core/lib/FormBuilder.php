@@ -20,7 +20,7 @@ class FormBuilder extends LaravelFormBuilder {
 	 * @param	array	Extra attributes to be added to the select menu
 	 * @return	string
 	 */
-	public function department($name, $selected = null, $options = array())
+	/*public function department($name, $selected = null, $options = array())
 	{
 		// Grab the departments
 		$depts = Dept::all();
@@ -46,7 +46,7 @@ class FormBuilder extends LaravelFormBuilder {
 		}
 		
 		return false;
-	}
+	}*/
 
 	/**
 	 * Builds a select menu of available languages.
@@ -56,7 +56,7 @@ class FormBuilder extends LaravelFormBuilder {
 	 * @param	array	Extra attributes to be added to the select menu
 	 * @return	string
 	 */
-	public function languages($name, $selected = null, $options = array())
+	/*public function languages($name, $selected = null, $options = array())
 	{
 		// An array of languages
 		$languages = array(
@@ -129,7 +129,7 @@ class FormBuilder extends LaravelFormBuilder {
 		}
 
 		return $this->select($name, $list, $selected, $options);
-	}
+	}*/
 
 	/**
 	 * Builds a select menu that includes all of the positions from
@@ -142,7 +142,7 @@ class FormBuilder extends LaravelFormBuilder {
 	 * @param	bool	Just the select menu? (default: false)
 	 * @return	string
 	 */
-	public function position($name, $selected = null, $options = array(), $type = 'all', $selectOnly = false)
+	/*public function position($name, $selected = null, $options = array(), $type = 'all', $selectOnly = false)
 	{
 		if (is_numeric($type))
 		{
@@ -199,7 +199,7 @@ class FormBuilder extends LaravelFormBuilder {
 		}
 		
 		return false;
-	}
+	}*/
 	
 	/**
 	 * Builds a select menu that includes all of the ranks from
@@ -211,7 +211,7 @@ class FormBuilder extends LaravelFormBuilder {
 	 * @param	bool	Just show the select menu? (default: false)
 	 * @return	string
 	 */
-	public function rank($name, $selected = null, $options = array(), $selectOnly = false)
+	/*public function rank($name, $selected = null, $options = array(), $selectOnly = false)
 	{
 		// Grab the rank groups
 		$groups = RankGroup::getItems(Status::ACTIVE);
@@ -253,7 +253,7 @@ class FormBuilder extends LaravelFormBuilder {
 		}
 		
 		return false;
-	}
+	}*/
 
 	/**
 	 * Builds a select menu that includes all of the access roles from
