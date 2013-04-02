@@ -64,7 +64,7 @@ require NOVAPATH.'start/bindings.php';
 |
 */
 
-require NOVAPATH.'helpers.php';
+require NOVAPATH.'start/helpers.php';
 
 /*
 |--------------------------------------------------------------------------
