@@ -87,4 +87,15 @@ Route::group(array('prefix' => 'test'), function()
 			'password' => 'foo',
 		));
 	});
+
+	Route::get('macros', function()
+	{
+		//echo Form::department('dept');
+		//echo Form::languages('language');
+		//echo Form::position('position');
+		//echo Form::rank('rank');
+
+		s(Str::length('this is four words'));
+		s(Str::words('this is four words', 2));
+	});
 });
