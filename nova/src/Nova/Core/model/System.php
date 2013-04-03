@@ -8,12 +8,12 @@ class System extends Model {
 
 	protected $fillable = array(
 		'uid', 'version_major', 'version_minor', 'version_update',
-		'version_ignore',
+		'ignore',
 	);
 	
 	protected static $properties = array(
 		'id', 'uid', 'version_major', 'version_minor', 'version_update', 
-		'version_ignore', 'created_at', 'updated_at',
+		'ignore', 'created_at', 'updated_at',
 	);
 	
 	/**
