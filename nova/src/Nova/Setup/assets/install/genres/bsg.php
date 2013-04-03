@@ -12,6 +12,8 @@ $g = 'bsg';
 
 $data = array(
 	'departments_'.$g 	=> 'depts',
+	'ranks_info_'.$g	=> 'info',
+	'ranks_groups_'.$g	=> 'groups',
 	'ranks_'.$g			=> 'ranks',
 	'positions_'.$g		=> 'positions',
 	'catalog_ranks'		=> 'catalog_ranks',
@@ -64,6 +66,219 @@ $depts = array(
 		'desc' => "The Colonial legislature is bicameral. The upper house is the Quorum of Twelve, with each colony represented by a single delegate, each with one vote. When the vice presidency becomes vacant, the Quorum is responsible for both the nomination and confirmation of the successor to that office. The president of the Colonies is also the presiding officer of the Quorum, with the authority to break tie votes.\r\n\r\nThe lower house, The People's Council, is larger and elected on a proportional basis.",
 		'order' => 1,
 		'parent_id' => 9),
+);
+
+$groups = array(
+	array(
+		'name' => 'Colonial Navy',
+		'order' => 0),
+	array(
+		'name' => 'Colonial Marines',
+		'order' => 1),
+);
+
+$info = array(
+	array(
+		'name' => 'Admiral',
+		'short_name' => 'ADM',
+		'order' => 0,
+		'group' => 1),
+	array(
+		'name' => 'Rear-Admiral',
+		'short_name' => 'RADM',
+		'order' => 1,
+		'group' => 1),
+	array(
+		'name' => 'Commander',
+		'short_name' => 'CDR',
+		'order' => 2,
+		'group' => 1),
+	array(
+		'name' => 'Colonel',
+		'short_name' => 'COL',
+		'order' => 3,
+		'group' => 1),
+	array(
+		'name' => 'Lieutenant Colonel',
+		'short_name' => 'LTCOL',
+		'order' => 4,
+		'group' => 1),
+	array(
+		'name' => 'Major',
+		'short_name' => 'MAJ',
+		'order' => 5,
+		'group' => 1),
+	array(
+		'name' => 'Captain',
+		'short_name' => 'CAPT',
+		'order' => 6,
+		'group' => 1),
+	array(
+		'name' => 'Lieutenant',
+		'short_name' => 'LT',
+		'order' => 7,
+		'group' => 1),
+	array(
+		'name' => 'Lieutenant JG',
+		'short_name' => 'LT(JG)',
+		'order' => 8,
+		'group' => 1),
+	array(
+		'name' => 'Ensign',
+		'short_name' => 'ENS',
+		'order' => 9,
+		'group' => 1),
+	array(
+		'name' => 'Master Chief Petty Officer',
+		'short_name' => 'MCPO',
+		'order' => 10,
+		'group' => 1),
+	array(
+		'name' => 'Senior Chief Petty Officer',
+		'short_name' => 'SCPO',
+		'order' => 11,
+		'group' => 1),
+	array(
+		'name' => 'Chief Petty Officer',
+		'short_name' => 'CPO',
+		'order' => 12,
+		'group' => 1),
+	array(
+		'name' => 'Petty Officer, 1st Class',
+		'short_name' => 'PO1',
+		'order' => 13,
+		'group' => 1),
+	array(
+		'name' => 'Petty Officer, 2nd Class',
+		'short_name' => 'PO2',
+		'order' => 14,
+		'group' => 1),
+	array(
+		'name' => 'Petty Officer, 3rd Class',
+		'short_name' => 'PO3',
+		'order' => 15,
+		'group' => 1),
+	array(
+		'name' => 'Crewman Specialist',
+		'short_name' => 'SPEC',
+		'order' => 16,
+		'group' => 1),
+	array(
+		'name' => 'Deckhand',
+		'short_name' => 'DECK',
+		'order' => 17,
+		'group' => 1),
+	array(
+		'name' => 'Recruit',
+		'short_name' => 'REC',
+		'order' => 18,
+		'group' => 1),
+	array(
+		'name' => '',
+		'short_name' => '',
+		'order' => 19,
+		'group' => 1),
+
+	array(
+		'name' => 'General',
+		'short_name' => 'GEN',
+		'order' => 0,
+		'group' => 2),
+	array(
+		'name' => 'Lieutenant General',
+		'short_name' => 'LTGEN',
+		'order' => 1,
+		'group' => 2),
+	array(
+		'name' => 'Major General',
+		'short_name' => 'MAJGEN',
+		'order' => 2,
+		'group' => 2),
+	array(
+		'name' => 'Brigadier General',
+		'short_name' => 'BGEN',
+		'order' => 3,
+		'group' => 2),
+	array(
+		'name' => 'Colonel',
+		'short_name' => 'COL',
+		'order' => 4,
+		'group' => 2),
+	array(
+		'name' => 'Lieutenant Colonel',
+		'short_name' => 'LTCOL',
+		'order' => 5,
+		'group' => 2),
+	array(
+		'name' => 'Major',
+		'short_name' => 'MAJ',
+		'order' => 6,
+		'group' => 2),
+	array(
+		'name' => 'Captain',
+		'short_name' => 'CAPT',
+		'order' => 7,
+		'group' => 2),
+	array(
+		'name' => '1st Lieutenant',
+		'short_name' => '1LT',
+		'order' => 8,
+		'group' => 2),
+	array(
+		'name' => '2nd Lieutenant',
+		'short_name' => '2LT',
+		'order' => 9,
+		'group' => 2),
+	array(
+		'name' => 'Sergeant Major',
+		'short_name' => 'SGTMAJ',
+		'order' => 10,
+		'group' => 2),
+	array(
+		'name' => 'Master Sergeant',
+		'short_name' => 'MSGT',
+		'order' => 11,
+		'group' => 2),
+	array(
+		'name' => 'Gunnery Sergeant',
+		'short_name' => 'GYSGT',
+		'order' => 12,
+		'group' => 2),
+	array(
+		'name' => 'Staff Sergeant',
+		'short_name' => 'SSGT',
+		'order' => 13,
+		'group' => 2),
+	array(
+		'name' => 'Sergeant',
+		'short_name' => 'SGT',
+		'order' => 14,
+		'group' => 2),
+	array(
+		'name' => 'Corporal',
+		'short_name' => 'CPL',
+		'order' => 15,
+		'group' => 2),
+	array(
+		'name' => 'Lance Corporal',
+		'short_name' => 'LCPL',
+		'order' => 16,
+		'group' => 2),
+	array(
+		'name' => 'Private, 1st Class',
+		'short_name' => 'PFC',
+		'order' => 17,
+		'group' => 2),
+	array(
+		'name' => 'Private',
+		'short_name' => 'PVT',
+		'order' => 18,
+		'group' => 2),
+	array(
+		'name' => '',
+		'short_name' => '',
+		'order' => 19,
+		'group' => 2),
 );
 
 $ranks = array(
