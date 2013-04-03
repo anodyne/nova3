@@ -8,7 +8,7 @@
 		$.ajax({
 			type: "POST",
 			url: "{{ URL::to('setup/ajax/ignore_version') }}",
-			data: { version: $(this).data('version') },
+			data: { version: $(this).data('version'), '_token': "{{ csrf_token() }}" },
 			success: function(data){
 				location.reload(true);
 			}
@@ -27,7 +27,7 @@
 
 		// Show the loading graphic
 		$('#loaded').fadeOut('fast', function(){
-			$('#loading').fadeIn();
+			$('#loading').removeClass('hide');
 		});
 	});
 </script>

@@ -8,7 +8,7 @@
 
 			// Show the loading graphic
 			$('#loaded').fadeOut('fast', function(){
-				$('#loading').fadeIn();
+				$('#loading').removeClass('hide');
 			});
 		});
 	});

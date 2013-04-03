@@ -5,7 +5,7 @@
 			$('.lower').slideUp();
 
 			$('#loaded').fadeOut('fast', function(){
-				$('#loading').fadeIn();
+				$('#loading').removeClass('hide');
 			});
 		});
 	});
