@@ -92,6 +92,41 @@ Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|set
 
 	Route::post('settings', function()
 	{
+		// Set the validation rules
+		$rules = array(
+			'sim_name'			=> 'required',
+			'name'				=> 'required',
+			'email'				=> 'required|email',
+			'password'			=> 'required',
+			'password_confirm'	=> 'required|same:password',
+			'first_name'		=> 'required',
+			'position'			=> 'required',
+			'rank'				=> 'required',
+		);
+
+		// Set the validation messages
+		$messages = array(
+			'sim_name.required' => "Please enter your sim's name",
+			'name.required' => "Please enter your name",
+			'email.required' => "Please enter your email address",
+			'email.email' => "Please enter a valid email address",
+			'password.required' => "Please enter a password",
+			'password_confirm.required' => "Please enter your password again",
+			'password_confirm.same' => "Your passwords do not match, try again",
+			'first_name.required' => "Please enter your character's first name",
+			'position.required' => "Please select a position",
+			'rank.required' => "Please select a rank",
+		);
+
+		// Setup the validator
+		$validator = Validator::make(Input::all(), $rules, $messages);
+
+		// If the validation fails, stop and go back
+		if ($validator->fails())
+		{
+			return Redirect::to('setup/install/settings')->withErrors($validator)->withInput();
+		}
+
 		// Update the sim name
 		$simName = Settings::getItems('sim_name', false);
 		$simName->value = Input::get('sim_name');
