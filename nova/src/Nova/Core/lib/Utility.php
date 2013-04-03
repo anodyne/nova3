@@ -115,10 +115,19 @@ class Utility {
 				// Check the version in the system versus what's coming from the update server
 				if (version_compare($sysVersion, $updateServer->version, '<'))
 				{
+					// Get the ignore version
+					$ignoreVersion = System::first()->ignore;
+
+					// If the admin wants to ignore this version, bail
+					if (version_compare($ignoreVersion, $updateServer->version, '=='))
+					{
+						return false;
+					}
+
 					// If the admin wants to see these specific updates, pass the object along
 					if ($updateServer->severity <= $updatePref)
 					{
-						return $US;
+						return $updateServer;
 					}
 					
 					return false;
