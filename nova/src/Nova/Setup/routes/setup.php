@@ -2,6 +2,9 @@
 
 Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthorization|csrf'), function()
 {
+	/**
+	 * Start page that will get people started.
+	 */
 	Route::get('/', function()
 	{
 		$data = new stdClass;
@@ -58,10 +61,15 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				$data->layout->label = 'Update Nova 3';
 				$data->controls = Html::link('#', 'Ignore this version', array(
 					'class' => 'pull-right js-ignoreVersion',
-					'data->version' => $update->version,
+					'data-version' => $update->version,
 				));
-				$data->controls.= Form::open(array('url' => 'setup/update/1')).
-					Form::button('Start Update', array('class' => 'btn btn-primary', 'id' => 'next', 'name' => 'submit')).
+				$data->controls.= Form::open(array('url' => 'setup/update')).
+					Form::button('Start Update', array(
+						'class'	=> 'btn btn-primary',
+						'id'	=> 'next',
+						'name'	=> 'submit',
+						'type'	=> 'submit',
+					)).
 					Form::hidden('_token', csrf_token()).
 					Form::close();
 
@@ -922,6 +930,20 @@ return array(
 
 Route::group(array('prefix' => 'setup/ajax', 'before' => 'configFileCheck|setupAuthorization|csrf'), function()
 {
+	/**
+	 * Ignore the update notification for a version.
+	 */
+	Route::post('ignore_version', function()
+	{
+		// Update the system information table with the ignore version
+		System::updateInfo(array(
+			'ignore' => Input::get('version')
+		));
+	});
+
+	/**
+	 * Install a new genre.
+	 */
 	Route::post('install_genre', function()
 	{
 		// Grab the genre
@@ -954,6 +976,9 @@ Route::group(array('prefix' => 'setup/ajax', 'before' => 'configFileCheck|setupA
 		return json_encode(array('code' => 0));
 	});
 
+	/**
+	 * Uninstall an existing genre.
+	 */
 	Route::post('uninstall_genre', function()
 	{
 		// Grab the genre
