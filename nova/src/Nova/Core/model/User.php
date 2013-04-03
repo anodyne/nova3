@@ -152,28 +152,6 @@ class User extends Model implements UserInterface {
 	*/
 
 	/**
-	 * Scope the query to active users.
-	 *
-	 * @param	Builder		The query builder
-	 * @return	void
-	 */
-	public function scopeActive($query)
-	{
-		$query->where('status', Status::ACTIVE);
-	}
-
-	/**
-	 * Scope the query to inactive users.
-	 *
-	 * @param	Builder		The query builder
-	 * @return	void
-	 */
-	public function scopeInactive($query)
-	{
-		$query->where('status', Status::INACTIVE);
-	}
-
-	/**
 	 * Scope the query to pending users.
 	 *
 	 * @param	Builder		The query builder
