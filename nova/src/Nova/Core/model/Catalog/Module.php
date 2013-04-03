@@ -116,54 +116,40 @@ class Module extends Model implements QuickInstallInterface {
 	}
 
 	/**
-	 * Uninstall via QuickInstall.
+	 * Uninstall all the items.
 	 *
-	 * @param	string	A specific location to uninstall
 	 * @return	void
 	 */
-	public static function uninstall($location = false)
+	public static function uninstallAll()
 	{
-		if ( ! $location)
+		// Get all the active items
+		$items = static::active()->get();
+
+		// Loop through the items and uninstall them
+		foreach ($items as $i)
 		{
-			// Get all the module locations
-			$modules = static::get()->toSimpleArray('id', 'location');
-
-			// Create a new finder and filter the results
-			$finder = Finder::create()->directories()->in(APPPATH."module");
-
-			// Loop through the directories and uninstall
-			foreach ($finder as $f)
-			{
-				// Assign our path to a variable
-				$dir = APPPATH."module/".$f->getRelativePathName();
-
-				// Run the migrations if they exist
-				if (File::isDirectory($dir."/database/migrations"))
-				{
-					Artisan::call('migrate:rollback', array('--path' => $dir."/database/migrations"));
-				}
-			}
-
-			// Loop through the modules and remove them
-			foreach ($modules as $m)
-			{
-				$m->delete();
-			}
+			$i->uninstall();
 		}
-		else
+	}
+
+	/**
+	 * Uninstall the item.
+	 *
+	 * @return	void
+	 */
+	public function uninstall()
+	{
+		// Assign our path to a variable
+		$dir = APPPATH."module/".$this->location;
+
+		// Reset the migrations if they exist
+		if (File::isDirectory($dir."/database/migrations"))
 		{
-			// Assign our path to a variable
-			$dir = APPPATH."module/".$location;
-
-			// Rollback the migrations if they exist
-			if (File::isDirectory($dir."/database/migrations"))
-			{
-				Artisan::call('migrate:rollback', array('--path' => $dir."/database/migrations"));
-			}
-
-			// Remove the item from the database
-			$item = static::remove(array('location' => $location));
+			Artisan::call('migrate:reset', array('--path' => $dir."/database/migrations"));
 		}
+
+		// Delete this from the database
+		$this->delete();
 	}
 
 }

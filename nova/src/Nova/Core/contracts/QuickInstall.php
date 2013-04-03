@@ -10,10 +10,17 @@ interface QuickInstall {
 	public static function install($location = false);
 
 	/**
+	 * Uninstall all the items.
+	 *
+	 * @return	void
+	 */
+	public static function uninstallAll();
+
+	/**
 	 * Uninstall the item.
 	 *
-	 * @param	string	The location of the item.
+	 * @return	void
 	 */
-	public static function uninstall($location);
+	public function uninstall();
 
 }
