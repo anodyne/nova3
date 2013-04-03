@@ -20,6 +20,7 @@ The index file is the entry point into Nova. Everything starts and ends with the
 
 * events.php
 * filters.php
+* macros.php
 * routes.php
 
 ### assets
@@ -38,7 +39,7 @@ Any controllers you create are stored here. Controllers stored here must be name
 
 ### lang
 
-### models
+### model
 
 Any models you create are stored here. Models stored here must be namespaced with `App\Model`.
 
@@ -58,6 +59,8 @@ Cache files, logs, meta data, session information and cached views are stored he
 
 Nova skins are stored here and include view files (PHP presentation files that contain minimal logic).
 
+### widgets
+
 ## Nova
 
 Like previous versions of Nova, we _strongly_ discourage developers from modifying anything in these directories. Since this is part of the Nova core, if updates are made, these directories are what's changing. We've gone to great lengths to make sure that anything you will want to be modifying can be done from the `app` directory or from individual modules in `app/module`.
@@ -73,6 +76,10 @@ Nova 3 includes a RESTful API for accessing information out of Nova into other w
 #### Assets
 
 Javascript, image and CSS assets that Nova needs are stored here. This allows us to update these components without impacting individual games.
+
+#### Citadel
+
+The extension of Sentry for Nova's purposes.
 
 #### Core
 
@@ -103,10 +110,6 @@ By default, L4 requires explicitly routing every page. While that offers develop
 ##### Translation
 
 Like the config loader, L4's translation code wants to pull from `app/lang`. While this is fine in most cases, it would create a nightmare for admins when updating the system. Like the config loader, we've created a cascading translation loader that pulls from a variety of locations and combines them together to provide Nova with the final translation array to use.
-
-#### Sentry
-
-Nova's Sentry driver.
 
 #### Setup
 

@@ -27,4 +27,6 @@ This method is especially helpful when you want to take a result set and make so
 
 <pre>{{ Form::select('roles', AccessRole::get()->toSimpleArray()) }}</pre>
 
+<p class="alert alert-info"><strong>Note:</strong> In reality, you'd probably choose to use the `Form::roles()` method, but this was meant as an illustration of how you can quickly populate a select menu with data using the `toSimpleArray()` method.</p>
+
 ## `toSimpleObject()`

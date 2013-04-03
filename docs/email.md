@@ -12,7 +12,7 @@ One of the changes made in Nova 3 was the removal of using PHP's built-in `mail(
 	* Free accounts can send up to 12,000 emails a month
 	* For $9.95 a month, you can send up to 40,000 emails a month
 * Gmail
-	* You can create a new Gmail account for sending your email though
+	* You can create a new Gmail account for free for sending your email though
 * Your host
 	* Most hosting companies provide an SMTP server and credentials that you can use
 	* Contact your host to see if there are limits on how much mail you can send or if there will be repercussions for using their email servers to send email through a CMS

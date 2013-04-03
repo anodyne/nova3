@@ -45,6 +45,14 @@ You can even chain scopes, so if you wanted to get all active system administrat
 
 <pre>User::active()->isSysAdmin()->get();</pre>
 
-## Note
+<p class="alert alert-info"><strong>Note:</strong> The above examples are meant to illustrate some of the things you can do with model scopes. Practically speaking, Sentry provides a better interface for interacting with users and their roles and permissions.</p>
 
-The above examples are meant to illustrate some of the things you can do with model scopes. Practically speaking, Sentry provides a better interface for interacting with users and their roles and permissions.
+## Provided Scopes
+
+Nova comes with several pre-defined scopes in the base model that you can use on almost all models.
+
+### `active()`
+
+### `inactive()`
+
+### `pending()`
