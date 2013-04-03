@@ -3,9 +3,9 @@
 <hr>
 
 @if (isset($genres))
-	<ul class="thumbnails">
+	<div class="row">
 	@foreach ($genres as $key => $genre)
-		<li class="span4">
+		<div class="col-span-4">
 			<div class="thumbnail">
 				<h4>{{ $genre['name'] }} <small>{{ strtoupper($key) }}</small></h4>
 
@@ -32,16 +32,16 @@
 
 				<div style="clear:both"></div>
 			</div>
-		</li>
+		</div>
 	@endforeach
-	</ul>
+	</div>
 
 	@if (is_array($additional))
 		<h3>Additional Genres</h3>
 
-		<ul class="thumbnails">
+		<div class="row">
 		@foreach ($additional as $key => $genre)
-			<li class="span4">
+			<div class="col-span-4">
 				<div class="thumbnail">
 					<h4>{{ $genre['name'] }}</h4>
 
@@ -68,8 +68,8 @@
 
 					<div style="clear:both"></div>
 				</div>
-			</li>
+			</div>
 		@endforeach
-		</ul>
+		</div>
 	@endif
 @endif
