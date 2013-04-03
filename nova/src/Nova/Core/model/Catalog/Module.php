@@ -22,27 +22,11 @@ class Module extends Model implements QuickInstallInterface {
 		'credits', 'created_at', 'updated_at',
 	);
 
-	/**
-	 * Scope the query to active items.
-	 *
-	 * @param	Builder		The query builder
-	 * @return	void
-	 */
-	public function scopeActive($query)
-	{
-		$query->where('status', Status::ACTIVE);
-	}
-
-	/**
-	 * Scope the query to inactive items.
-	 *
-	 * @param	Builder		The query builder
-	 * @return	void
-	 */
-	public function scopeInactive($query)
-	{
-		$query->where('status', Status::INACTIVE);
-	}
+	/*
+	|--------------------------------------------------------------------------
+	| QuickInstall Implementation
+	|--------------------------------------------------------------------------
+	*/
 
 	/**
 	 * Install via QuickInstall.

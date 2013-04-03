@@ -20,27 +20,11 @@ class Widget extends Model implements QuickInstallInterface {
 		'created_at', 'updated_at',
 	);
 
-	/**
-	 * Scope the query to active widgets.
-	 *
-	 * @param	Builder		The query builder
-	 * @return	void
-	 */
-	public function scopeActive($query)
-	{
-		$query->where('status', Status::ACTIVE);
-	}
-
-	/**
-	 * Scope the query to inactive widgets.
-	 *
-	 * @param	Builder		The query builder
-	 * @return	void
-	 */
-	public function scopeInactive($query)
-	{
-		$query->where('status', Status::INACTIVE);
-	}
+	/*
+	|--------------------------------------------------------------------------
+	| QuickInstall Implementation
+	|--------------------------------------------------------------------------
+	*/
 
 	/**
 	 * Install via QuickInstall.
@@ -118,27 +102,29 @@ class Widget extends Model implements QuickInstallInterface {
 	/**
 	 * Uninstall via QuickInstall.
 	 *
-	 * @param	string	A specific location to uninstall
 	 * @return	void
 	 */
-	public static function uninstall($location = false)
+	public static function uninstallAll()
 	{
-		if ( ! $location)
-		{
-			// Get all the item locations
-			$widgets = static::get();
+		// Get all the rank locations
+		$items = static::active()->get();
 
-			// Loop through the widgets and remove them
-			foreach ($widgets as $w)
-			{
-				$w->delete();
-			}
-		}
-		else
+		// Loop through the ranks and remove them
+		foreach ($items as $i)
 		{
-			// Remove the item from the database
-			$item = static::remove(array('location' => $location));
+			$i->uninstall();
 		}
+	}
+
+	/**
+	 * Uninstall the item.
+	 *
+	 * @return	void
+	 */
+	public function uninstall()
+	{
+		// Delete this from the database
+		$this->delete();
 	}
 
 }

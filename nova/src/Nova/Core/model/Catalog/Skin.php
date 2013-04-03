@@ -21,6 +21,12 @@ class Skin extends Model implements QuickInstallInterface {
 		'updated_at',
 	);
 
+	/*
+	|--------------------------------------------------------------------------
+	| Relationships
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
 	 * Get the sections for this skin.
 	 *
@@ -31,27 +37,11 @@ class Skin extends Model implements QuickInstallInterface {
 		return SkinSectionCatalogModel::where('skin', $this->location)->active()->get();
 	}
 
-	/**
-	 * Scope the query to active items.
-	 *
-	 * @param	Builder		The query builder
-	 * @return	void
-	 */
-	public function scopeActive($query)
-	{
-		$query->where('status', Status::ACTIVE);
-	}
-
-	/**
-	 * Scope the query to inactive items.
-	 *
-	 * @param	Builder		The query builder
-	 * @return	void
-	 */
-	public function scopeInactive($query)
-	{
-		$query->where('status', Status::INACTIVE);
-	}
+	/*
+	|--------------------------------------------------------------------------
+	| QuickInstall Implementation
+	|--------------------------------------------------------------------------
+	*/
 
 	/**
 	 * Install via QuickInstall.
@@ -149,37 +139,35 @@ class Skin extends Model implements QuickInstallInterface {
 	/**
 	 * Uninstall via QuickInstall.
 	 *
-	 * @param	string	A specific location to uninstall
 	 * @return	void
 	 */
-	public static function uninstall($location = false)
+	public static function uninstallAll()
 	{
-		if ( ! $location)
+		// Get all the items
+		$items = static::active()->get();
+
+		// Loop through the items and uninstall them
+		foreach ($items as $i)
 		{
-			// Get all the skin locations
-			$skins = static::get();
-
-			// Loop through the delete the skins
-			foreach ($skins as $skin)
-			{
-				// Loop through the sections and remove them
-				foreach ($skin->sections() as $sec)
-				{
-					$sec->delete();
-				}
-
-				// Remove the skin now
-				$skin->delete();
-			}
+			$i->uninstall();
 		}
-		else
+	}
+
+	/**
+	 * Uninstall the item.
+	 *
+	 * @return	void
+	 */
+	public function uninstall()
+	{
+		// Loop through the sections and remove them
+		foreach ($this->sections() as $section)
 		{
-			// Remove the skin sections
-			$sections = SkinSectionCatalogModel::remove(array('location' => $location));
-
-			// Remove the skin
-			static::remove(array('location' => $location));
+			$section->delete();
 		}
+
+		// Now remove the skin
+		$this->delete();
 	}
 
 }

@@ -17,6 +17,12 @@ class SkinSection extends Model {
 		'created_at', 'updated_at',
 	);
 
+	/*
+	|--------------------------------------------------------------------------
+	| Relationships
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
 	 * Get the skin for this section.
 	 *
@@ -27,27 +33,11 @@ class SkinSection extends Model {
 		return SkinCatalogModel::where('location', $this->location)->active()->get();
 	}
 
-	/**
-	 * Scope the query to active items.
-	 *
-	 * @param	Builder		The query builder
-	 * @return	void
-	 */
-	public function scopeActive($query)
-	{
-		$query->where('status', Status::ACTIVE);
-	}
-
-	/**
-	 * Scope the query to inactive items.
-	 *
-	 * @param	Builder		The query builder
-	 * @return	void
-	 */
-	public function scopeInactive($query)
-	{
-		$query->where('status', Status::INACTIVE);
-	}
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
 	
 	/**
 	 * Get the default skin section catalog item.

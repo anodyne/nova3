@@ -23,27 +23,11 @@ class Rank extends Model implements QuickInstallInterface {
 		'credits', 'default', 'genre', 'created_at', 'updated_at',
 	);
 
-	/**
-	 * Scope the query to active items.
-	 *
-	 * @param	Builder		The query builder
-	 * @return	void
-	 */
-	public function scopeActive($query)
-	{
-		$query->where('status', Status::ACTIVE);
-	}
-
-	/**
-	 * Scope the query to inactive items.
-	 *
-	 * @param	Builder		The query builder
-	 * @return	void
-	 */
-	public function scopeInactive($query)
-	{
-		$query->where('status', Status::INACTIVE);
-	}
+	/*
+	|--------------------------------------------------------------------------
+	| Model Scopes
+	|--------------------------------------------------------------------------
+	*/
 
 	/**
 	 * Scope the query to the current genre.
@@ -66,6 +50,12 @@ class Rank extends Model implements QuickInstallInterface {
 	{
 		$query->where('default', (int) true);
 	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
 	
 	/**
 	 * Get the default rank catalog item.
@@ -91,6 +81,12 @@ class Rank extends Model implements QuickInstallInterface {
 
 		throw new Exception(lang('error.exception.model.get.notFound'));
 	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| QuickInstall Implementation
+	|--------------------------------------------------------------------------
+	*/
 
 	/**
 	 * Install via QuickInstall.
@@ -157,27 +153,29 @@ class Rank extends Model implements QuickInstallInterface {
 	/**
 	 * Uninstall via QuickInstall.
 	 *
-	 * @param	string	A specific location to uninstall
 	 * @return	void
 	 */
-	public static function uninstall($location = false)
+	public static function uninstallAll()
 	{
-		if ( ! $location)
-		{
-			// Get all the rank locations
-			$ranks = static::get();
+		// Get all the rank locations
+		$items = static::active()->get();
 
-			// Loop through the ranks and remove them
-			foreach ($ranks as $m)
-			{
-				$m->delete();
-			}
-		}
-		else
+		// Loop through the ranks and remove them
+		foreach ($items as $i)
 		{
-			// Remove the item from the database
-			$item = static::remove(array('location' => $location));
+			$i->uninstall();
 		}
+	}
+
+	/**
+	 * Uninstall the item.
+	 *
+	 * @return	void
+	 */
+	public function uninstall()
+	{
+		// Delete this from the database
+		$this->delete();
 	}
 
 }
