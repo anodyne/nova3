@@ -14,11 +14,7 @@ Route::group(array('prefix' => 'test'), function()
 
 	Route::get('user', function()
 	{
-		$user = User::find(8);
-		$characters = Character::getCharacters('npc');
-
-		//sd($characters->toArray());
-		sd($user->getPreferenceItem('loa'));
+		s(User::active()->get());
 	});
 
 	Route::get('comments', function()
