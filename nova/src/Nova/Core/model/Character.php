@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Model;
 
-use URL;
+use Html;
 use Event;
 use Model;
 use Config;
@@ -107,6 +107,40 @@ class Character extends Model {
 		return $this->morphMany('Media', 'imageable');
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| Model Scopes
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Scope the query to pending users.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopePending($query)
+	{
+		$query->where('status', Status::PENDING);
+	}
+
+	/**
+	 * Scope the query to non-played characters.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeNpc($query)
+	{
+		$query->where('status', Status::ACTIVE)->where('user_id', 0);
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
 	 * Boot the model and define the event listeners.
 	 *
@@ -120,45 +154,6 @@ class Character extends Model {
 		$classes = Config::get('app.aliases');
 
 		Event::listen("eloquent.created: {$classes['Character']}", "{$classes['CharacterHandler']}@afterCreate");
-	}
-
-	/*
-	|--------------------------------------------------------------------------
-	| Model Scopes
-	|--------------------------------------------------------------------------
-	*/
-
-	/**
-	 * Scope the query to active users.
-	 *
-	 * @param	Builder		The query builder
-	 * @return	void
-	 */
-	public function scopeActive($query)
-	{
-		$query->where('status', Status::ACTIVE);
-	}
-
-	/**
-	 * Scope the query to inactive users.
-	 *
-	 * @param	Builder		The query builder
-	 * @return	void
-	 */
-	public function scopeInactive($query)
-	{
-		$query->where('status', Status::INACTIVE);
-	}
-
-	/**
-	 * Scope the query to pending users.
-	 *
-	 * @param	Builder		The query builder
-	 * @return	void
-	 */
-	public function scopePending($query)
-	{
-		$query->where('status', Status::PENDING);
 	}
 
 	/**
@@ -213,7 +208,7 @@ class Character extends Model {
 
 		if ($link)
 		{
-			return '<a href="'.URL::to('personnel/character/'.$this->id).'">'.implode(' ', $pieces).'</a>';
+			return Html::link("personnel/character/{$this->id}", implode(' ', $pieces));
 		}
 
 		return implode(' ', $pieces);
