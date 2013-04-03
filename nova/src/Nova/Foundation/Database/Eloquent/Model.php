@@ -20,6 +20,12 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class Model extends EloquentModel {
 	
+	/*
+	|--------------------------------------------------------------------------
+	| Eloquent Model Method Overrides
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
 	 * Override the default Eloquent Collection with our own.
 	 *
@@ -61,6 +67,12 @@ class Model extends EloquentModel {
 		return parent::belongsToMany($model, $table, $foreignKey, $otherKey);
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| Model Helpers
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
 	 * Kick off a new query.
 	 *
@@ -73,6 +85,46 @@ class Model extends EloquentModel {
 
 		return $instance->newQuery();
 	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Scopes
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Scope the query to active items.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeActive($query)
+	{
+		if (in_array('status', static::$properties))
+		{
+			$query->where('status', Status::ACTIVE);
+		}
+	}
+
+	/**
+	 * Scope the query to inactive items.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeInactive($query)
+	{
+		if (in_array('status', static::$properties))
+		{
+			$query->where('status', Status::INACTIVE);
+		}
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| CRUD Operations
+	|--------------------------------------------------------------------------
+	*/
 
 	/**
 	 * Create an item with the data passed.
