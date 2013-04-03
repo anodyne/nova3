@@ -13,7 +13,7 @@
 
 ClassLoader::addDirectories(array(
 
-	app_path().'/commands',
+	//app_path().'/commands',
 	//app_path().'/controllers',
 	//app_path().'/models',
 	//app_path().'/database/seeds',
@@ -118,3 +118,8 @@ App::error(function(Exception $exception, $code)
 {
 	Log::error($exception);
 });
+
+/**
+ * Disable Kint output.
+ */
+Kint::enabled(false);
