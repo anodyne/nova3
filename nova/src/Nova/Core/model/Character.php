@@ -20,6 +20,12 @@ class Character extends Model {
 		'suffix', 'rank_id', 'activated', 'deactivated', 'last_post', 
 		'created_at', 'updated_at',
 	);
+
+	/*
+	|--------------------------------------------------------------------------
+	| Relationships
+	|--------------------------------------------------------------------------
+	*/
 	
 	/**
 	 * Belongs To: Rank
@@ -114,6 +120,45 @@ class Character extends Model {
 		$classes = Config::get('app.aliases');
 
 		Event::listen("eloquent.created: {$classes['Character']}", "{$classes['CharacterHandler']}@afterCreate");
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Scopes
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Scope the query to active users.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeActive($query)
+	{
+		$query->where('status', Status::ACTIVE);
+	}
+
+	/**
+	 * Scope the query to inactive users.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeInactive($query)
+	{
+		$query->where('status', Status::INACTIVE);
+	}
+
+	/**
+	 * Scope the query to pending users.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopePending($query)
+	{
+		$query->where('status', Status::PENDING);
 	}
 
 	/**
