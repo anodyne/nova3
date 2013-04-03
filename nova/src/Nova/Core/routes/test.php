@@ -94,8 +94,9 @@ Route::group(array('prefix' => 'test'), function()
 		//echo Form::languages('language');
 		//echo Form::position('position');
 		//echo Form::rank('rank');
-
-		s(Str::length('this is four words'));
-		s(Str::words('this is four words', 2));
+		//echo Form::roles('role');
+		//echo Form::timezones('timezone');
+		echo Form::users('users');
+		//echo Form::characters('characters');
 	});
 });
