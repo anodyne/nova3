@@ -43,19 +43,6 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Routable Locales
-	|--------------------------------------------------------------------------
-	|
-	| Here you may list the locales that are "routable" for your application.
-	| When a request with a URI beginning with one of the locales is sent
-	| to the application, the "default" locale will be set accordingly.
-	|
-	*/
-
-	'locales' => array(),
-
-	/*
-	|--------------------------------------------------------------------------
 	| Encryption Key
 	|--------------------------------------------------------------------------
 	|
@@ -95,7 +82,7 @@ return array(
 		'Illuminate\Encryption\EncryptionServiceProvider',
 		'Illuminate\Filesystem\FilesystemServiceProvider',
 		'Illuminate\Hashing\HashServiceProvider',
-		//'Illuminate\Html\HtmlServiceProvider',
+		'Illuminate\Html\HtmlServiceProvider',
 		'Illuminate\Foundation\Providers\KeyGeneratorServiceProvider',
 		'Illuminate\Log\LogServiceProvider',
 		'Illuminate\Mail\MailServiceProvider',
@@ -120,7 +107,6 @@ return array(
 		 * Nova Service Providers
 		 */
 		'Nova\Citadel\CitadelServiceProvider',
-		'Nova\Core\Providers\HtmlServiceProvider',
 		'Nova\Core\Providers\LocationServiceProvider',
 		'Nova\Foundation\Routing\RoutingServiceProvider',
 		'Nova\Foundation\Translation\TranslationServiceProvider',
@@ -209,7 +195,6 @@ return array(
 		 */
 		'Date'			=> 'Datum\Datum',
 		'Email'			=> 'Nova\Core\Lib\Email',
-		'Form'			=> 'Nova\Core\Facades\Form',
 		'Location'		=> 'Nova\Core\Facades\Location',
 		'Markdown'		=> 'Nova\Core\Lib\Markdown',
 		'Media'			=> 'Nova\Core\Lib\Media',

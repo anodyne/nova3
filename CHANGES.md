@@ -1,7 +1,7 @@
 ## Latest `laravel/laravel` Commit
 
-* 03/29/2013
-* f0b8d2cc9dee996baf79970d0c4e156e0cbdc77e
+* 03/30/2013
+* 67488916f46a00bb578b6b32308be5ef727ec1b4
 
 ## Composer Packages
 
@@ -9,8 +9,6 @@
 	* Dates
 * dflydev/markdown
 	* Markdown parsing
-* jonob/html
-	* Port of the Laravel 3 HTML helpers to Laravel 4
 * cartalyst/sentry
 	* Authentication
 * ikimea/browser
