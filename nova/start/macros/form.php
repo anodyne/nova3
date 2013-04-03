@@ -1,6 +1,70 @@
 <?php
 
 /**
+ * Builds a select menu that includes all of the characters from
+ * the database based on the parameters passed to the method.
+ *
+ * @param	string	Name of the select menu
+ * @param	int 	Selected item
+ * @param	array	Extra attributes to be added to the select menu
+ * @param	string	Which characters to pull
+ * @param	bool	Split characters up by whether they're linked or not (default: false)
+ * @return	string
+ */
+Form::macro('characters', function($name, $selected = null, $options = array(), $status = Status::ACTIVE, $showLinked = false)
+{
+	switch ($status)
+	{
+		case Status::ACTIVE:
+			$characters = Character::active()->get();
+		break;
+
+		case Status::INACTIVE:
+			$characters = Character::inactive()->get();
+		break;
+
+		case Status::PENDING:
+			$characters = Character::pending()->get();
+		break;
+		
+		default:
+			$characters = Character::get();
+		break;
+	}
+	
+	if (count($characters) > 0)
+	{
+		$characterList[0] = '';
+		
+		foreach ($characters as $c)
+		{
+			if ($showLinked)
+			{
+				$sub = ($c->hasUser()) 
+					? ucwords(langConcat('base.linked base.characters')) 
+					: ucwords(langConcat('base.unlinked base.characters'));
+
+				$characterList[$sub][$c->id] = $c->getNameWithRank();
+			}
+			else
+			{
+				$characterList[$c->id] = $c->getNameWithRank();
+			}
+		}
+
+		return Form::select($name, $characterList, $selected, $options);
+	}
+
+	// Figure out the section
+	$section = (Request::segment(1) == 'admin') ? 'admin' : 'main';
+	
+	return View::make(Location::file('flash', Utility::getSkin($section), 'partial'))
+		->with('status', 'danger')
+		->with('message', lang('error.notFound', lang('base.characters')))
+		->render();
+});
+
+/**
  * Builds a select menu that includes all of the positions from
  * the database based on the parameters passed to the method.
  *
@@ -173,7 +237,7 @@ Form::macro('position', function($name, $selected = null, $options = array(), $t
 		}
 
 		// Merge the user options into what should be there
-		$options = array_merge(array('id' => 'positionDrop', 'class' => 'span4'), $options);
+		$options = array_merge(array('id' => 'positionDrop', 'class' => 'col-span-4'), $options);
 
 		// Build the output
 		$output = '<div class="control-group"><label class="control-label">'.ucfirst(lang('base.position')).'</label><div class="controls">';
@@ -224,7 +288,7 @@ Form::macro('rank', function($name, $selected = null, $options = array(), $selec
 		}
 
 		// Merge the user options into what should be there
-		$options = array_merge(array('id' => 'rankDrop', 'class' => 'span4'), $options);
+		$options = array_merge(array('id' => 'rankDrop', 'class' => 'col-span-4'), $options);
 
 		// Build the output
 		$output = '<div class="control-group"><label class="control-label">'.ucfirst(lang('base.rank')).'</label><div class="controls">';
@@ -245,4 +309,137 @@ Form::macro('rank', function($name, $selected = null, $options = array(), $selec
 	}
 	
 	return false;
+});
+
+/**
+ * Builds a select menu that includes all of the access roles from
+ * the database based on the parameters passed to the method.
+ *
+ * @param	string	Name of the select menu
+ * @param	int 	Selected item
+ * @param	array	Extra attributes to add to the select menu
+ * @param	bool	Just show the select menu? (default: false)
+ * @return	string
+ */
+Form::macro('roles', function($name, $selected = null, $options = array(), $selectOnly = false)
+{
+	// Get the access roles
+	$roles = AccessRole::get()->toSimpleArray('id', 'name');
+
+	if (count($roles) > 0)
+	{
+		if ($selectOnly)
+		{
+			return Form::select($name, $roles, $selected, $options);
+		}
+
+		// Merge the user options into what should be there
+		$options = array_merge(array('id' => 'roleDrop', 'class' => 'col-span-4'), (array) $options);
+
+		// Build the output
+		$output = '<div class="control-group"><label class="control-label">'.ucwords(lang('base.access_role')).'</label><div class="controls">';
+		$output.= Form::select($name, $roles, $selected, $options);
+		$output.= '<div id="roleDesc" class="help-block">';
+
+		if (is_numeric($selected))
+		{
+			$output.= Markdown::parse(AccessRole::find($selected)->desc);
+		}
+
+		$output.= '</div></div></div>';
+
+		return $output;
+	}
+
+	return false;
+});
+
+/**
+ * Builds a select menu that includes all timezones supported in PHP.
+ *
+ * @param	string	Name of the select menu
+ * @param	int 	Selected item
+ * @param	array	Extra attributes to be added to the select menu
+ * @return	string
+ */
+Form::macro('timezones', function($name, $selected = null, $options = array())
+{
+	// Get the timezone information
+	$zones = timezone_identifiers_list();
+
+	// Make sure UTC is in the list
+	$locations['UTC'] = 'UTC';
+
+	foreach ($zones as $zone)
+	{
+		// Break out the zones into contintent and city
+		$zone = explode('/', $zone);
+
+		// Only use "friendly" continent names
+		if ($zone[0] == 'Africa' or $zone[0] == 'America' or $zone[0] == 'Antarctica' or $zone[0] == 'Arctic' or 
+				$zone[0] == 'Asia' or $zone[0] == 'Atlantic' or $zone[0] == 'Australia' or $zone[0] == 'Europe' or 
+				$zone[0] == 'Indian' or $zone[0] == 'Pacific')
+		{
+			if (isset($zone[1]) != '')
+			{
+				// Create an array with the zone and the friendly name
+				$locations[$zone[0]][$zone[0].'/'.$zone[1]] = str_replace('_', ' ', $zone[1]);
+			}
+		}
+	}
+
+	// Merge the user options into what should be there
+	$options = array_merge(array('class' => 'col-span-4'), (array) $options);
+
+	return Form::select($name, $locations, $selected, $options);
+});
+
+/**
+ * Builds a select menu that includes all of the users from
+ * the database based on the parameters passed to the method.
+ *
+ * @param	string	Name of the select menu
+ * @param	int 	Selected item
+ * @param	array	Extra attributes to be added to the select menu
+ * @param	int		The status of the users to retrieve
+ * @return	string
+ */
+Form::macro('users', function($name, $selected = null, $options = array(), $status = Status::ACTIVE)
+{
+	switch ($status)
+	{
+		case Status::ACTIVE:
+			$users = User::active()->get()->toSimpleArray('id', 'name');
+		break;
+
+		case Status::INACTIVE:
+			$users = User::inactive()->get()->toSimpleArray('id', 'name');
+		break;
+
+		case Status::PENDING:
+			$users = User::pending()->get()->toSimpleArray('id', 'name');
+		break;
+		
+		default:
+			$users = User::get()->toSimpleArray('id', 'name');
+		break;
+	}
+
+	s($users);
+	
+	if (count($users) > 0)
+	{
+		// Build the list of users
+		$usersList = array(0 => '') + $users;
+		
+		return Form::select($name, $usersList, $selected, $options);
+	}
+
+	// Figure out the section
+	$section = (Request::segment(1) == 'admin') ? 'admin' : 'main';
+	
+	return View::make(Location::file('flash', Utility::getSkin($section), 'partial'))
+		->with('status', 'danger')
+		->with('message', lang('error.notFound', lang('base.users')))
+		->render();
 });
