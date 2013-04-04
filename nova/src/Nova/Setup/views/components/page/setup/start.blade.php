@@ -76,12 +76,20 @@
 	<p>{{ $update['description'] }}</p>
 @elseif ($option == 4)
 	<div class="row">
-		<div class="col-span-12">
+		<div class="col-span-6">
 			<h3><span class="icn icn24 text-info" data-icon="u"></span> Update Nova</h3>
 
 			<p>It isn't enough to just build Nova, it needs to be maintained too. Even if your server doesn't allow you to check for updates, you can start the update process from here and be up and running on the latest version of Nova in only a few minutes.</p>
 
 			<a href="{{ URL::to('setup/update') }}" class="btn btn-block">Update Nova</a>
+		</div>
+
+		<div class="col-span-6">
+			<h3><span class="icn icn24 text-error" data-icon="b"></span> Rollback Nova</h3>
+
+			<p>There are situations where you may need or want to rollback to the previous version of Nova. While we work hard to make sure that doesn't need to happen, it is necessary sometimes. This process will <strong>attempt</strong> to roll your system back one version.</p>
+
+			<a href="{{ URL::to('setup/update/rollback') }}" class="btn btn-block">Rollback Nova</a>
 		</div>
 	</div>
 
