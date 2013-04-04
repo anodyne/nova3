@@ -2,11 +2,17 @@
 
 Route::group(array('prefix' => 'setup/update', 'before' => 'configFileCheck|setupAuthorization|csrf'), function()
 {
+	/**
+	 * Nothing here, redirect to the start page.
+	 */
 	Route::get('/', function()
 	{
 		return Redirect::to('setup/start');
 	});
 
+	/**
+	 * Run the update process.
+	 */
 	Route::post('/', function()
 	{
 		// Make sure we don't time out
@@ -21,6 +27,9 @@ Route::group(array('prefix' => 'setup/update', 'before' => 'configFileCheck|setu
 		return Redirect::to('setup/update/finalize');
 	});
 
+	/**
+	 * Show page confirming everything is finished.
+	 */
 	Route::get('finalize', function()
 	{
 		$data = new stdClass;
@@ -42,6 +51,9 @@ Route::group(array('prefix' => 'setup/update', 'before' => 'configFileCheck|setu
 
 Route::group(array('prefix' => 'setup/update/rollback', 'before' => 'configFileCheck|setupAuthorization|csrf'), function()
 {
+	/**
+	 * Explain what rollback is and provide the start option.
+	 */
 	Route::get('/', function()
 	{
 		$data = new stdClass;
@@ -78,7 +90,10 @@ Route::group(array('prefix' => 'setup/update/rollback', 'before' => 'configFileC
 
 		return setupTemplate($data);
 	});
-
+	
+	/**
+	 * Do the rollback.
+	 */
 	Route::post('/', function()
 	{
 		// Make sure we don't time out
@@ -93,6 +108,9 @@ Route::group(array('prefix' => 'setup/update/rollback', 'before' => 'configFileC
 		return Redirect::to('setup/update/rollback/finalize');
 	});
 
+	/**
+	 * Confirm the rollback is done and tell them what to do next.
+	 */
 	Route::get('finalize', function()
 	{
 		$data = new stdClass;
@@ -106,7 +124,8 @@ Route::group(array('prefix' => 'setup/update/rollback', 'before' => 'configFileC
 		$data->content = new stdClass;
 
 		// Set the controls
-		$data->controls = Html::link('temp/main/index', 'Back to Site', array('class' => 'btn btn-primary'));
+		$data->controls = Html::link('setup', "Back to Setup Center", array('class' => 'pull-right'));
+		$data->controls.= Html::link('temp/main/index', 'Back to Site', array('class' => 'btn btn-primary'));
 
 		return setupTemplate($data);
 	});

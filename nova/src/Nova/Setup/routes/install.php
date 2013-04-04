@@ -2,11 +2,17 @@
 
 Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|setupAuthorization|csrf'), function()
 {
+	/**
+	 * Nothing here, redirect to the start page.
+	 */
 	Route::get('/', function()
 	{
 		return Redirect::to('setup/start');
 	});
 
+	/**
+	 * Do the install and cache some of the content.
+	 */
 	Route::post('/', function()
 	{
 		// Make sure we don't time out
@@ -56,7 +62,10 @@ Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|set
 
 		return Redirect::to('setup/install/settings');
 	});
-
+	
+	/**
+	 * Provide the fields for setting up the sim.
+	 */
 	Route::get('settings', function()
 	{
 		$data = new stdClass;
@@ -90,6 +99,9 @@ Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|set
 		return setupTemplate($data);
 	});
 
+	/**
+	 * Validate the data and if it passes, update the database.
+	 */
 	Route::post('settings', function()
 	{
 		// Set the validation rules
@@ -160,7 +172,10 @@ Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|set
 
 		return Redirect::to('setup/install/finalize');
 	});
-
+	
+	/**
+	 * Confirm everything finished.
+	 */
 	Route::get('finalize', function()
 	{
 		$data = new stdClass;
