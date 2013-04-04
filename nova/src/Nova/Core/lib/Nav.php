@@ -3,6 +3,7 @@
 use View;
 use Sentry;
 use Utility;
+use Location;
 use NavModel;
 use Settings;
 
@@ -48,8 +49,6 @@ class Nav {
 	 */
 	protected $section;
 
-	protected $app;
-
 	/**
 	 * Create a new Nav.
 	 *
@@ -65,7 +64,6 @@ class Nav {
 		$this->type		= $type;
 		$this->category	= $category;
 		$this->section	= $section;
-		$this->app		= \app();
 
 		// Set the nav data
 		$this->setData();
@@ -86,20 +84,20 @@ class Nav {
 			case 'classic':
 				if ($this->type == 'main')
 				{
-					$output = View::make($this->app['location']->file('nav/classic', Utility::getSkin($this->section), 'partial'))
-						->with('items', $this->data[$this->type]['items'][$this->category])
+					$output = View::make(Location::file('nav/classic', Utility::getSkin($this->section), 'partial'))
+						->with('items', $this->data[$this->type]['mainNavItems'][$this->category])
 						->with('name', Settings::getItems('sim_name'));
 				}
 				else
 				{
-					$output = View::make($this->app['location']->file('nav/subnav', Utility::getSkin($this->section), 'partial'))
+					$output = View::make(Location::file('nav/subnav', Utility::getSkin($this->section), 'partial'))
 						->with('items', $this->data[$this->section][$this->category]);
 				}
 			break;
 			
 			case 'dropdown':
 			default:
-				$output = View::make($this->app['location']->file('nav/dropdown', Utility::getSkin($this->section), 'partial'))
+				$output = View::make(Location::file('nav/dropdown', Utility::getSkin($this->section), 'partial'))
 					->with('items', $this->data)
 					->with('name', Settings::getItems('sim_name'))
 					->with('userMenu', $this->userOutput)
@@ -131,15 +129,26 @@ class Nav {
 	{
 		$data = NavModel::get();
 
-		foreach ($data as $key => $item)
+		foreach ($data as $item)
 		{
-			// Set the proper type based on the item type
+			/**
+			 * TYPE is about whether it's a main nav item, sub nav item,
+			 * admin main nav items or admin sub nav item. We need to make
+			 * sure we're taking into account whether something should be
+			 * in the MAIN side of things or the ADMIN side of things.
+			 */
 			$type = $item->type;
 			$type = ($type == 'sub') ? 'main' : $type;
 			$type = ($type == 'adminsub') ? 'admin' : $type;
 
-			// Set the proper category based on the item category
-			$cat = ($item->type == 'main' or $item->type == 'admin') ? 'items' : $item->category;
+			/**
+			 * If the TYPE is main or admin, we'll put it into the ITEMS
+			 * section of the array because we'll be using it to build the
+			 * main nav and admin main nav. If it has a TYPE other than
+			 * main or admin, we're going to categorize them by the category
+			 * that's listed in the database record.
+			 */
+			$cat = ($item->type == 'main' or $item->type == 'admin') ? 'mainNavItems' : $item->category;
 
 			// Get the sub nav items under this section
 			$sub = ($type == 'sub' or $type == 'adminsub') ? NavModel::getItems($type, $item->category) : false;
@@ -214,7 +223,7 @@ class Nav {
 	protected function setUserDataAndOutput()
 	{
 		// Start to build the output
-		$output = View::make($this->app['location']->file('nav/user', Utility::getSkin($this->section), 'partial'));
+		$output = View::make(Location::file('nav/user', Utility::getSkin($this->section), 'partial'));
 
 		if (Sentry::check())
 		{
@@ -237,12 +246,12 @@ class Nav {
 
 			// Figure out the outputs
 			$writingOutput = ($writingCount > 0) 
-				? View::make($this->app['location']->file('common/label', Utility::getSkin($this->section), 'partial'))
+				? View::make(Location::file('common/label', Utility::getSkin($this->section), 'partial'))
 					->with('class', $writingClass)
 					->with('value', $writingCount)
 				: false;
 			$messageOutput = ($messageCount > 0) 
-				? View::make($this->app['location']->file('common/label', Utility::getSkin($this->section), 'partial'))
+				? View::make(Location::file('common/label', Utility::getSkin($this->section), 'partial'))
 					->with('class', $messageClass)
 					->with('value', $messageCount)
 				: false;
