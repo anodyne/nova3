@@ -17,19 +17,13 @@ class Utility {
 	/**
 	 * Pulls the image index arrays from the base as well as the current skin.
 	 *
-	 * <code>
-	 * $imageIndex = Utility::getImageIndex('default');
-	 * </code>
-	 *
 	 * @param	string	The current skin
 	 * @return 	array
 	 */
 	public static function getImageIndex($skin)
 	{
-		return array();
-
 		// Load the image index from the core first
-		$commonIndex = include_once SRCPATH.'Core/views/images.php';
+		$commonIndex = include SRCPATH.'Core/views/images.php';
 
 		// Now load the image index from the skin (if it has one)
 		$skinIndex = (File::exists(APPPATH."views/{$skin}/images.php"))
