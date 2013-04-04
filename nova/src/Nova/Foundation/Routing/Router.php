@@ -12,6 +12,7 @@
 
 namespace Nova\Foundation\Routing;
 
+use Cache;
 use Request as LaravelRequest;
 use ReflectionClass;
 use Illuminate\Routing\Route;
@@ -236,6 +237,8 @@ class Router extends lRouter {
 					// Update the URI segments
 					$this->uriSegments = explode('/', $newPath);
 
+					$this->debug($this->uriSegments);
+
 					// Found the controller
 					return $find;
 				}
@@ -274,7 +277,7 @@ class Router extends lRouter {
 		}
 
 		// Get the list of active modules
-		$modules = \Cache::get('nova_module_list', array());
+		$modules = Cache::get('nova_module_list', array());
 
 		// Does this controller exist in any of the modules?
 		foreach ($modules as $m)
@@ -313,8 +316,8 @@ class Router extends lRouter {
 	 */
 	protected function buildActionName()
 	{
-		$action = (isset($this->uriSegments[0]))
-			? str_replace('{name}', ucfirst($this->uriSegments[0]), $this->novaActionNamePattern)
+		$action = (isset($this->uriSegments[1]))
+			? str_replace('{name}', ucfirst($this->uriSegments[1]), $this->novaActionNamePattern)
 			: str_replace('{name}', ucfirst($this->novaActionDefault), $this->novaActionNamePattern);
 
 		// Remove the first element from the array
