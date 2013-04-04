@@ -43,7 +43,7 @@ Route::group(array('prefix' => 'setup/update', 'before' => 'configFileCheck|setu
 		$data->content = new stdClass;
 
 		// Set the controls
-		$data->controls = Html::link('temp/main/index', 'Back to Site', array('class' => 'btn btn-primary'));
+		$data->controls = Html::link('main/index', 'Back to Site', array('class' => 'btn btn-primary'));
 
 		return setupTemplate($data);
 	});
@@ -125,7 +125,7 @@ Route::group(array('prefix' => 'setup/update/rollback', 'before' => 'configFileC
 
 		// Set the controls
 		$data->controls = Html::link('setup', "Back to Setup Center", array('class' => 'pull-right'));
-		$data->controls.= Html::link('temp/main/index', 'Back to Site', array('class' => 'btn btn-primary'));
+		$data->controls.= Html::link('main/index', 'Back to Site', array('class' => 'btn btn-primary'));
 
 		return setupTemplate($data);
 	});
