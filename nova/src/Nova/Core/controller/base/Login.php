@@ -1,5 +1,5 @@
-<?php
+<?php namespace Nova\Core\Controller\Base;
 
-namespace Nova\Core\Controller\Base;
+use BaseController;
 
-abstract class Login extends \BaseController {}
+abstract class Login extends BaseController {}

@@ -1,22 +1,19 @@
-<?php
-/**
- * Nova's base controller.
- *
- * This file is aliased to the class name `BaseController`.
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Controller
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
-
-namespace Nova\Core\Controller\Base;
+<?php namespace Nova\Core\Controller\Base;
 
 use Nav;
+use Str;
+use View;
+use Event;
+use Route;
 use Config;
 use Session;
+use Location;
+use Markdown;
+use Settings;
+use stdClass;
+use Exception;
 use Controller;
+use SiteContent;
 
 abstract class Core extends Controller {
 
@@ -125,46 +122,47 @@ abstract class Core extends Controller {
 		 */
 		$baseControllerStartup = function() use(&$me)
 		{
-			// Set the session to use the database
-			//Session::driver('database');
-
 			// Set the genre
 			$me->genre = Config::get('nova.genre');
 
 			// Load all of the settings
-			$me->settings = \Settings::getItems(false);
+			$me->settings = Settings::get()->toSimpleObject('key', 'value');
 
 			// Set the language
 			Config::set('app.locale', Session::get('language', 'en'));
 
-			// Resolve the Nav class from the App container
+			// Create a new Nav object
 			$me->nav = new Nav;
 
 			// Create empty objects for the data
-			$me->_data = new \stdClass;
-			$me->_jsData = new \stdClass;
+			$me->_data = new stdClass;
+			$me->_jsData = new stdClass;
 
 			// Get the controller name from the Router and denamespace it
-			$controllerName = \Str::denamespace(\Route::getController());
-			
+			$controllerName = Str::denamespace(Route::getController());
+
 			// Grab the content for the current section
-			$me->_headers	= \SiteContent::getSectionContent('header', $controllerName);
-			$me->_messages	= \SiteContent::getSectionContent('message', $controllerName);
-			$me->_titles	= \SiteContent::getSectionContent('title', $controllerName);
+			$me->_headers	= SiteContent::getSectionContent('header', $controllerName);
+			$me->_messages	= SiteContent::getSectionContent('message', $controllerName);
+			$me->_titles	= SiteContent::getSectionContent('title', $controllerName);
 		};
 
-		// Call the before filters
+		/**
+		 * Call the before filters.
+		 */
 		try
 		{
 			$this->beforeFilter('installed');
 			$this->beforeFilter($baseControllerStartup());
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
-			echo $e->getMessage();		
+			echo $e->getMessage();
 		}
 
-		// Call the after filters
+		/**
+		 * Call the after filters.
+		 */
 		try
 		{
 			$this->afterFilter(function() use(&$me)
@@ -172,9 +170,9 @@ abstract class Core extends Controller {
 				$me->after();
 			});
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
-			echo $e->getMessage();		
+			echo $e->getMessage();
 		}
 	}
 
@@ -185,23 +183,20 @@ abstract class Core extends Controller {
 	 */
 	final public function after()
 	{
-		// Resolve an instance of the Location class from the App container
-		$loc = \App::make('location');
-
 		// Set the content view (if it's been set)
 		if ( ! empty($this->_view))
 		{
-			$this->template->layout->content = \View::make($loc->file($this->_view, $this->skin, 'page'), $this->_data);
+			$this->template->layout->content = View::make(Location::file($this->_view, $this->skin, 'page'), $this->_data);
 		}
 		
 		// Set the javascript view (if it's been set)
 		if ( ! empty($this->_jsView))
 		{
-			$this->template->javascript = \View::make($loc->file($this->_jsView, $this->skin, 'js'), $this->_jsData);
+			$this->template->javascript = View::make(Location::file($this->_jsView, $this->skin, 'js'), $this->_jsData);
 		}
 
 		// Pull the action name from the Route
-		$actionName = \Route::getAction();
+		$actionName = Route::getAction();
 
 		// Set the final title content
 		$this->template->title.= (property_exists($this->_data, 'title')) 
@@ -215,15 +210,15 @@ abstract class Core extends Controller {
 		
 		// set the final message content
 		$this->template->layout->message = (property_exists($this->_data, 'message')) 
-			? \Markdown::parse($this->_data->message)
+			? Markdown::parse($this->_data->message)
 			: ((array_key_exists($actionName, $this->_messages)) 
-				? \Markdown::parse($this->_messages[$actionName])
+				? Markdown::parse($this->_messages[$actionName])
 				: null);
 
 		if ($this->_editable === true)
 		{
 			// Get the controller name from the Router and denamespace it
-			$controllerName = \Str::denamespace(\Route::getController());
+			$controllerName = Str::denamespace(Route::getController());
 
 			// Set the final header content key
 			$this->template->layout->headerKey = (array_key_exists($actionName, $this->_headers)) 
@@ -241,13 +236,11 @@ abstract class Core extends Controller {
 		{
 			foreach ($this->_flash as $flash)
 			{
-				$this->template->layout->flash = \View::make($loc->file('flash', $this->skin, 'partial'))
+				$this->template->layout->flash = View::make(Location::file('flash', $this->skin, 'partial'))
 					->with('status', $flash['status'])
 					->with('message', $flash['message']);
 			}
 		}
-
-		sd($this->template->render());
 
 		echo $this->template;
 	}
@@ -284,4 +277,5 @@ abstract class Core extends Controller {
 			 */
 		}
 	}
+
 }

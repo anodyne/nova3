@@ -1,37 +1,33 @@
-<?php
+<?php namespace Nova\Core\Controller;
 
-namespace Nova\Core\Controller;
+use MainBaseController;
 
-class Sim extends \Controller {
+class Sim extends MainBaseController {
 
-	/*public function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 
-		$this->beforeFilter(function()
+		// Get a copy of the controller
+		$me = $this;
+
+		// Do the final nav setup
+		$finalNavSetup = function() use(&$me)
 		{
-			\Debug::dump('Controller::before');
-		});
+			if ($me->_sectionInfo->nav == 'classic')
+			{
+				// Set the type and category
+				$me->nav->setType('sub')->setCategory('sim');
 
-		$this->afterFilter(function()
-		{
-			\Debug::dump('Controller::after');
-		});
-	}*/
+				// Build the menu
+				$me->template->layout->navsub->menu = $me->nav->build();
+			}
+		};
 
-	public function actionIndex()
-	{
-		$settings = new \stdClass;
-		$settings->meta_description = '';
-		$settings->meta_keywords = '';
-		$settings->meta_author = '';
-
-		return \View::make('components/structure/main', array(
-			'skin'		=> 'default',
-			'sec'		=> 'main',
-			'settings'	=> $settings,
-		))
-			->with('title', 'Title')
-			->with('layout', false);
+		// Run the before filter
+		$this->beforeFilter($finalNavSetup());
 	}
+
+	public function actionIndex() {}
+
 }

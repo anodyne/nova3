@@ -1,17 +1,8 @@
-<?php
-/**
- * Nova's main controller.
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Controller
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
+<?php namespace Nova\Core\Controller;
 
-namespace Nova\Core\Controller;
+use MainBaseController;
 
-class Main extends \MainBaseController {
+class Main extends MainBaseController {
 
 	public function __construct()
 	{
@@ -25,7 +16,11 @@ class Main extends \MainBaseController {
 		{
 			if ($me->_sectionInfo->nav == 'classic')
 			{
-				$me->template->layout->navsub->classic = $me->nav->setType('sub')->build();
+				// Set the type and category
+				$me->nav->setType('sub')->setCategory('main');
+
+				// Build the menu
+				$me->template->layout->navsub->menu = $me->nav->build();
 			}
 		};
 
@@ -33,13 +28,6 @@ class Main extends \MainBaseController {
 		$this->beforeFilter($finalNavSetup());
 	}
 
-	public function actionIndex()
-	{}
+	public function actionIndex() {}
 
-	public function actionFoo()
-	{
-		$this->_data->title = 'Foo';
-		$this->_data->header = 'Foo';
-		$this->_data->message = 'Foo';
-	}
 }
