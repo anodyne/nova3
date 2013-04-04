@@ -55,9 +55,9 @@ Route::filter('installed', function()
 	$path = Route::getRequest()->getPathInfo();
 
 	// If the config file doesn't exist, bounce over the config setup
-	if ( ! file_exists(APPPATH."config/{$env}/database.php"))
+	if ( ! File::exists(APPPATH."config/{$env}/database.php"))
 	{
-		//return Redirect::to('setup/main/config');
+		return Redirect::to('setup');
 	}
 
 	// Get the system install status cache file
@@ -77,7 +77,7 @@ Route::filter('installed', function()
 		else
 		{
 			// Nothing here, so the system isn't installed
-			return Redirect::to('setup/main/index');
+			return Redirect::to('setup');
 		}
 	}
 });
