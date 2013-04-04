@@ -27,9 +27,6 @@
 				<link rel="stylesheet" href="<?php echo APPURL;?>views/<?php echo $skin;?>/design/custom.css">
 			<?php endif;?>
 		<?php endif;?>
-
-		<!-- Bootstrap responsive design -->
-		<link rel="stylesheet" href="<?php echo SRCURL;?>Assets/css/bootstrap-responsive.min.css">
 	</head>
 	<body>
 		<?php echo $layout;?>
@@ -39,7 +36,7 @@
 		<![endif]-->
 		
 		<!-- Nova's core Javascript -->
-		<?php include_once SRCPATH.'Core/views/components/js/core/main_js.php';?>
+		<?php include SRCPATH.'Core/views/components/js/core/main_js.php';?>
 
 		<!-- Nova's per-page Javascript -->
 		<?php echo $javascript;?>
