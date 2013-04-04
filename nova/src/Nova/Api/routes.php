@@ -1,13 +1,4 @@
 <?php
-/**
- * API Routes
- *
- * @package		Nova
- * @subpackage	API
- * @category	Route
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
 
 Route::filter('apiAuth', function()
 {
@@ -38,6 +29,6 @@ Route::get('api/info', function()
     return Response::json($data, 200);
 });
 
-require_once 'routes/logs.php';
-require_once 'routes/posts.php';
-require_once 'routes/announcements.php';
+require 'routes/logs.php';
+require 'routes/posts.php';
+require 'routes/announcements.php';
