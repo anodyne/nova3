@@ -1,4 +1,4 @@
-# Models Filters
+# Model Filters
 
 ## Positions
 

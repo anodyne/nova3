@@ -7,10 +7,10 @@ Nova 3 provides a base model that all of Nova's models extend from. This provide
 Adding a record to the database is as simple as calling the `add()` method and passing it an array of data where the key is the column and the value is the content you want to store.
 
 <pre>PersonalLog::add(array(
-	'title' => 'My Title',
-	'content' => "This is the content for my personal log.",
-	'user_id' => {your user ID},
-	'character_id' => {your character ID},
+	'title'			=> 'My Title',
+	'content'		=> "This is the content for my personal log.",
+	'user_id'		=> {your user ID},
+	'character_id'	=> {your character ID},
 ));</pre>
 
 ### Parameters

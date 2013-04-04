@@ -1,6 +1,6 @@
 # Eloquent Collections
 
-All multi-result sets returned by Nova (either via the `get()` method or a relationship) return an Eloquent `Collection` object. This objects implements the IteratorAggregate PHP interface so it can be iterated over like an array. However, this object also has a variety of other helpful methods for working with result sets.
+All multi-result sets returned by Nova (either via the `get()` method or a relationship) return an Eloquent `Collection` object. This object implements the `IteratorAggregate` PHP interface so it can be iterated over like an array. However, this object also has a variety of other helpful methods for working with result sets.
 
 ## `toSimpleArray()`
 
