@@ -184,7 +184,7 @@ class Location {
 				// Set the ALT attribute to the image name if it isn't set already
 				$attributes['alt'] = ( ! array_key_exists('alt', $attributes)) ? $this->file : $attributes['alt'];
 
-				return '<img src="'.URL::asset($path).'" '.Html::attributes($attributes).'>';
+				return Html::image($path, null, $attributes);
 			break;
 
 			case 'urlpath':
@@ -250,7 +250,7 @@ class Location {
 		$imageName = (empty($pip)) ? $base.$catalog->extension : $base."-".$pip.$catalog->extension;
 
 		// Return the old rank style
-		return '<img src="'.URL::asset("app/assets/common/{$genre}/ranks/{$catalog->location}/{$imageName}").'" alt="">';
+		return Html::image("app/assets/common/{$genre}/ranks/{$catalog->location}/{$imageName}", null);
 	}
 
 	/**
