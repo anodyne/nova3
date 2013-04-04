@@ -1,9 +1,9 @@
 <div class="navbar">
 	<div class="navbar-inner">
-		<a class="brand" href="<?php echo URL::to('main/index');?>"><?php echo $name;?></a>
+		{{ Html::link('main/index', $name, array('class' => 'brand')) }}
 
 		<ul class="nav">
-		<?php foreach ($items as $item): ?>
+		@foreach ($items as $item)
 			<?php
 
 			// get the url segments
@@ -18,8 +18,8 @@
 			// figure out what should be shown
 			$targetOutput = ($item->url_target == 'offsite') ? ' target="_blank"' : false;
 
-			?><li<?php echo $activeOutput;?>><a href="<?php echo URL::to($item->url);?>"<?php echo $targetOutput;?>><?php echo $item->name;?></a></li>
-		<?php endforeach;?>
+			?><li{{ $activeOutput }}>{{ Html::link($item->url, $item->name) }}</li>
+		@endforeach
 		</ul>
 	</div>
 </div>
