@@ -1,14 +1,14 @@
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
-<script type="text/javascript" src="<?php echo Request::root();?>/nova/src/Nova/Assets/js/jquery.lazy.js"></script>
-<script type="text/javascript" src="<?php echo Request::root();?>/nova/src/Nova/Assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="<?php echo SRCURL;?>Assets/js/jquery.lazy.js"></script>
+<script type="text/javascript" src="<?php echo SRCURL;?>Assets/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		
 		$.lazy({
-			src: "<?php echo Request::root();?>/nova/src/Nova/Assets/js/jquery.chosen.min.js",
+			src: "<?php echo SRCURL;?>Assets/js/chosen.jquery.min.js",
 			name: 'chosen',
 			dependencies: {
-				css: ['<?php echo Request::root();?>/nova/src/Nova/Assets/css/jquery.chosen.css']
+				css: ['<?php echo SRCURL;?>Assets/css/chosen.css']
 			},
 			cache: true
 		});
@@ -53,7 +53,7 @@
 		});
 	});
 
-	// rank dropdown
+	// Rank dropdown
 	$('#rankDrop').on('change', function(){
 		
 		$.ajax({
@@ -72,7 +72,7 @@
 		return false;
 	});
 
-	// position dropdown
+	// Position dropdown
 	$('#positionDrop').on('change', function(){
 		
 		$.ajax({
@@ -88,7 +88,7 @@
 		return false;
 	});
 
-	// access role dropdown
+	// Access role dropdown
 	$('#roleDrop').on('change', function(){
 		
 		$.ajax({

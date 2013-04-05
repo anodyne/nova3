@@ -1,6 +1,6 @@
 <?php include_once SRCPATH.'Core/views/components/js/core/core_js.php';?>
 
-<script type="text/javascript" src="<?php echo Request::root();?>/nova/src/Nova/Assets/js/jquery.jeditable.min.js"></script>
+<script type="text/javascript" src="<?php echo SRCURL;?>/Assets/js/jquery.jeditable.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		
