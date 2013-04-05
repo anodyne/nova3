@@ -1,5 +1,16 @@
 <?php namespace Nova\Core\Controller;
 
+/**
+ * Controller that handles requests for the "main" section of Nova.
+ *
+ * @package		Nova
+ * @subpackage	Core
+ * @category	Controller
+ * @author		Anodyne Productions
+ * @copyright	2013 Anodyne Productions
+ */
+
+use Form;
 use MainBaseController;
 
 class Main extends MainBaseController {
@@ -28,6 +39,38 @@ class Main extends MainBaseController {
 		$this->beforeFilter($finalNavSetup());
 	}
 
-	public function actionIndex() {}
+	public function getIndex()
+	{
+		$output = Form::open(array('method' => 'delete'));
+		$output.= Form::button('Submit', array(
+			'type' => 'submit',
+			'class' => 'btn btn-primary',
+		));
+		$output.= Form::close();
+
+		return $output;
+	}
+	public function postIndex()
+	{
+		$output = Form::open(array('method' => 'delete'));
+		$output.= Form::button('Submit', array(
+			'type' => 'submit',
+			'class' => 'btn btn-primary',
+		));
+		$output.= Form::close();
+
+		return $output;
+	}
+	public function putIndex()
+	{
+		$output = Form::open(array('method' => 'delete'));
+		$output.= Form::button('Submit', array(
+			'type' => 'submit',
+			'class' => 'btn btn-primary',
+		));
+		$output.= Form::close();
+
+		return $output;
+	}
 
 }
