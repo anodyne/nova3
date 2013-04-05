@@ -1,5 +1,15 @@
 <?php namespace Nova\Core\Controller;
 
+/**
+ * Controller that handles requests for the "sim" section of Nova.
+ *
+ * @package		Nova
+ * @subpackage	Core
+ * @category	Controller
+ * @author		Anodyne Productions
+ * @copyright	2013 Anodyne Productions
+ */
+
 use MainBaseController;
 
 class Sim extends MainBaseController {
@@ -28,6 +38,7 @@ class Sim extends MainBaseController {
 		$this->beforeFilter($finalNavSetup());
 	}
 
-	public function actionIndex() {}
+	public function getIndex()
+	{}
 
 }
