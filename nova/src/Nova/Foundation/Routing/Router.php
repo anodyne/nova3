@@ -1,26 +1,26 @@
-<?php
+<?php namespace Nova\Foundation\Routing;
+
 /**
- * Overrides the default Router so that we can try to find
- * where something is located and route to there automatically.
+ * Overrides the default Router so that we can try to find where something is 
+ * located and route there automatically.
  *
  * @package		Nova
  * @subpackage	Foundation
  * @category	Class
  * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
+ * @copyright	2013 Anodyne Productions
  */
 
-namespace Nova\Foundation\Routing;
-
+use Str;
 use Cache;
-use Request as LaravelRequest;
 use ReflectionClass;
 use Illuminate\Routing\Route;
-use Illuminate\Routing\Router as lRouter;
+use Request as LaravelRequest;
+use Illuminate\Routing\Router as LaravelRouter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class Router extends lRouter {
+class Router extends LaravelRouter {
 
 	/**
 	 * The naming convention used for controllers.
@@ -35,7 +35,7 @@ class Router extends lRouter {
 	/**
 	 * The naming convention used for controller actions.
 	 */
-	protected $novaActionNamePattern = 'action{name}';
+	protected $novaActionNamePattern = '{action}{name}';
 
 	/**
 	 * The default action for a controller.
@@ -43,7 +43,7 @@ class Router extends lRouter {
 	protected $novaActionDefault = 'index';
 
 	/**
-	 * The paths to check.
+	 * The core namespaces to check.
 	 */
 	protected $novaCoreNamespaces = array(
 		'Nova\\Core',
@@ -52,7 +52,7 @@ class Router extends lRouter {
 	);
 
 	/**
-	 * Namespaces used in checking.
+	 * The non-core namespaces to check.
 	 */
 	protected $novaNonCoreNamespaces = array(
 		'app'		=> 'App\\',
@@ -77,8 +77,8 @@ class Router extends lRouter {
 	/**
 	 * Match the given request to a route object.
 	 *
-	 * @param  Symfony\Component\HttpFoundation\Request  $request
-	 * @return Illuminate\Routing\Route
+	 * @param	Symfony\Component\HttpFoundation\Request	The request object
+	 * @return	Illuminate\Routing\Route
 	 */
 	protected function findRoute(Request $request)
 	{
@@ -88,6 +88,8 @@ class Router extends lRouter {
 		try
 		{
 			$path = '/'.trim($request->getPathInfo(), '/');
+
+			$this->debug('Original Path', $path);
 
 			$this->parsePath($path);
 
@@ -119,19 +121,18 @@ class Router extends lRouter {
 	 *
 	 * @param	string	The request path
 	 * @return	bool|void
-	 * @throws	NotFoundHttpException
-	 *
-	 * @todo	Remove debug calls
 	 */
 	protected function parsePath($path)
 	{
 		// Get the path as an array
 		$this->uriSegments = explode('/', substr_replace($path, '', 0, 1));
 
+		$this->debug('URI Segments', $this->uriSegments);
+
 		// Build the controller name
 		$controllerName = $this->buildControllerName($this->uriSegments);
 
-		$this->debug('Final Controller Name: '.$controllerName);
+		$this->debug('Final Controller Name', $controllerName);
 
 		// No controller found, let the Router check explicit routes
 		if ( ! $controllerName)
@@ -151,39 +152,18 @@ class Router extends lRouter {
 		// Build the action name
 		$actionName = $this->buildActionName();
 
-		$this->debug('Final Action Name: '.$actionName);
-
-		// If we don't have the action method, throw a 404
-		if ( ! $class->hasMethod($actionName))
-		{
-			throw new NotFoundHttpException;
-		}
-
-		// Split out the action from the pattern
-		$actionPrefix = str_replace('{name}', '', $this->novaActionNamePattern);
-
-		// Set the action in the Router
-		$this->action = strtolower(str_replace($actionPrefix, '', $actionName));
+		// Try the action name first...
+		$actionName = $this->tryAction($class, $actionName);
 
 		// Build the rest of the route with the found action
 		$route.= '@'.$actionName;
 
-		$this->debug('Final Route: '.$route);
-
-		// Start a string for any parameters
-		$paramString = '';
-
-		// Loop through the remaining segments
-		foreach ($this->uriSegments as $s)
-		{
-			$paramString.= '{any}/';
-		}
+		$this->debug('Final Route', $route);
 
 		// Take the remaining URI segments and make them a string
 		$segmentString = implode('/', $this->uriSegments);
 
-		// Swap out the segments for wildcards
-		$path = str_replace($segmentString, $paramString, $path);
+		$this->debug('Segment String', $segmentString);
 
 		// Now trim the path to make sure we don't have pesky slashes in there
 		$path = trim($path, '/');
@@ -226,24 +206,29 @@ class Router extends lRouter {
 				}
 				else
 				{
-					$this->debug('Found: '.$find);
+					$this->debug('Found Controller', $find);
 
 					// Build the path segments we're using
 					$pathSegments = str_replace('\\\\', '/', strtolower($namespace).'\\'.$segment);
+					$pathSegments = str_replace('\\', '/', $pathSegments);
+					$pathSegments = trim($pathSegments, '/');
+
+					$this->debug('Controller Path', $pathSegments);
 
 					// Build the new path
 					$newPath = trim(str_replace($pathSegments, '', LaravelRequest::path()), '/');
 
+					$this->debug('Request Path', LaravelRequest::path());
+					$this->debug('Controller Action + Parameters', $newPath);
+
 					// Update the URI segments
 					$this->uriSegments = explode('/', $newPath);
 
-					$this->debug($this->uriSegments);
+					$this->debug('URI Segments', $this->uriSegments);
 
 					// Found the controller
 					return $find;
 				}
-
-				$this->debug('===============');
 			}
 
 			return false;
@@ -268,7 +253,6 @@ class Router extends lRouter {
 
 		// Build the namespace for app controllers
 		$appController = $this->novaNonCoreNamespaces['app'].$controller;
-		$this->debug($appController);
 
 		// Does this controller exist in the app?
 		if (class_exists($appController))
@@ -284,7 +268,6 @@ class Router extends lRouter {
 		{
 			// Build the namespace for the module controllers
 			$moduleController = $this->novaNonCoreNamespaces['module'].ucfirst($m).'\\'.$controller;
-			$this->debug($moduleController);
 
 			// Does this controller exist in the module?
 			if (class_exists($moduleController))
@@ -293,12 +276,12 @@ class Router extends lRouter {
 			}
 		}
 		
-		// It's not in the app or the modules, so rip through the Nova namespaces and check there
+		// It's not in the app or the modules, so rip through the Nova 
+		// namespaces and check there
 		foreach ($this->novaCoreNamespaces as $n)
 		{
 			// Build the namespace for the core controllers
 			$coreController = $n.'\\'.$controller;
-			$this->debug($coreController);
 
 			if (class_exists($coreController))
 			{
@@ -316,35 +299,103 @@ class Router extends lRouter {
 	 */
 	protected function buildActionName()
 	{
-		$action = (isset($this->uriSegments[1]))
-			? str_replace('{name}', ucfirst($this->uriSegments[1]), $this->novaActionNamePattern)
+		$this->debug('URI Segments', implode('/', $this->uriSegments));
+
+		// Make sure we have the right action name
+		$action = (isset($this->uriSegments[0]))
+			? str_replace('{name}', ucfirst($this->uriSegments[0]), $this->novaActionNamePattern)
 			: str_replace('{name}', ucfirst($this->novaActionDefault), $this->novaActionNamePattern);
 
-		// Remove the first element from the array
-		array_shift($this->uriSegments);
+		// Make sure we have the right action
+		$action = str_replace('{action}', Str::lower(LaravelRequest::getMethod()), $action);
 
 		return $action;
 	}
 
-	protected function debug($var)
+	/**
+	 * Take the action name and try to find a good match before throwing a 404.
+	 *
+	 * @param	ReflectionClass	The controller class info
+	 * @param	string			The action
+	 * @return	string
+	 * @throws	NotFoundHttpException
+	 */
+	protected function tryAction(ReflectionClass $class, $action)
+	{
+		// Try the action name we were passed
+		if ($class->hasMethod($action))
+		{
+			// Set the action in the Router
+			$this->action = Str::lower(str_replace(Str::lower(LaravelRequest::getMethod()), '', $action));
+			
+			return $action;
+		}
+
+		// Find the position of the first capital letter
+		preg_match("/^.*?[A-Z]/", $action, $arr);
+		$capitalPosition = (strlen($arr[0]) - 1);
+
+		// What's the method type we're trying to use?
+		$methodType = substr($action, 0, $capitalPosition);
+
+		$this->debug('Method Type', $methodType);
+
+		// Check and see if we have a POST method
+		if ($class->hasMethod(str_replace($methodType, 'post', $action)))
+		{
+			// Set the action in the Router
+			$this->action = Str::lower(str_replace($methodType, '', $action));
+
+			return str_replace($methodType, 'post', $action);
+		}
+
+		$this->debug('Post Attempt', str_replace($methodType, 'post', $action));
+
+		// Check and see if we have a GET method
+		if ($class->hasMethod(str_replace($methodType, 'get', $action)))
+		{
+			// Set the action in the Router
+			$this->action = Str::lower(str_replace($methodType, '', $action));
+
+			return str_replace($methodType, 'get', $action);
+		}
+
+		$this->debug('Get Attempt', str_replace($methodType, 'get', $action));
+
+		throw new NotFoundHttpException;
+	}
+
+	protected function debug($title = null, $var)
 	{
 		$show = false;
 
 		if ($show)
 		{
 			echo '<pre>';
+			var_dump($title.':');
 			var_dump($var);
 			echo '</pre>';
 		}
 	}
 
+	/**
+	 * Get the controller.
+	 *
+	 * @return	string
+	 */
 	public function getController()
 	{
 		return $this->controller;
 	}
 
+	/**
+	 * Return the action.
+	 *
+	 * @return	string
+	 */
 	public function getAction()
 	{
 		return $this->action;
 	}
+
 }
