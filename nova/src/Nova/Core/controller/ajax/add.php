@@ -1,23 +1,25 @@
-<?php
+<?php namespace Nova\Core\Controller\Ajax;
+
 /**
- * Nova's ajax controller.
+ * Controller that handles all ajax requests that deal with addition or creation.
  *
  * @package		Nova
+ * @subpackage	Core
  * @category	Controller
  * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
+ * @copyright	2013 Anodyne Productions
  */
 
-namespace Nova;
+use AjaxBaseController;
 
-class Controller_Ajax_Add extends Controller_Base_Ajax
-{
+class Add extends AjaxBaseController {
+
 	/**
 	 * Ban a user.
 	 *
 	 * @return	void
 	 */
-	public function action_arc_banuser($id)
+	public function getArc_banuser($id)
 	{
 		if (\Sentry::check() and \Sentry::user()->hasAccess('ban.create'))
 		{
@@ -42,7 +44,7 @@ class Controller_Ajax_Add extends Controller_Base_Ajax
 	 *
 	 * @return	string
 	 */
-	public function action_formfield_value()
+	public function getFormfield_value()
 	{
 		if (\Sentry::check() and \Sentry::user()->hasAccess('form.update'))
 		{
@@ -75,7 +77,7 @@ class Controller_Ajax_Add extends Controller_Base_Ajax
 	 *
 	 * @return	void
 	 */
-	public function action_module($module)
+	public function getModule($module)
 	{
 		if (\Sentry::check() and \Sentry::user()->hasAccess('catalog.create'))
 		{
@@ -95,7 +97,7 @@ class Controller_Ajax_Add extends Controller_Base_Ajax
 	 * @param	int		the ID of the rank set being duplicated
 	 * @return	void
 	 */
-	public function action_rankgroup_duplicate($id)
+	public function getRankgroup_duplicate($id)
 	{
 		if (\Sentry::check() and \Sentry::user()->hasAccess('rank.create'))
 		{
@@ -149,7 +151,7 @@ class Controller_Ajax_Add extends Controller_Base_Ajax
 	 *
 	 * @return	void
 	 */
-	public function action_rankinfo()
+	public function getRankinfo()
 	{
 		if (\Sentry::check() and \Sentry::user()->hasAccess('rank.create'))
 		{
@@ -173,7 +175,7 @@ class Controller_Ajax_Add extends Controller_Base_Ajax
 	 * @param	int		The ID of the role being duplicated
 	 * @return	void
 	 */
-	public function action_role_duplicate($id)
+	public function getRole_duplicate($id)
 	{
 		if (\Sentry::check() and \Sentry::user()->hasAccess('role.create'))
 		{
@@ -195,11 +197,12 @@ class Controller_Ajax_Add extends Controller_Base_Ajax
 	 *
 	 * @return	void
 	 */
-	public function action_user()
+	public function getUser()
 	{
 		if (\Sentry::check() and \Sentry::user()->hasAccess('user.create'))
 		{
 			echo \View::forge(\Location::file('add/user', \Utility::getSkin('admin'), 'ajax'));
 		}
 	}
+
 }

@@ -1,5 +1,15 @@
 <?php namespace Nova\Core\Controller\Ajax;
 
+/**
+ * Controller that handles all ajax requests that deal with getting info.
+ *
+ * @package		Nova
+ * @subpackage	Core
+ * @category	Controller
+ * @author		Anodyne Productions
+ * @copyright	2013 Anodyne Productions
+ */
+
 use Rank;
 use Input;
 use Location;
@@ -12,7 +22,7 @@ class Info extends AjaxBaseController {
 	/**
 	 * Get a position's description.
 	 */
-	public function actionPosition_desc()
+	public function getPosition_desc()
 	{
 		// Set the variable
 		$position = e(Input::get('position'));
@@ -30,7 +40,7 @@ class Info extends AjaxBaseController {
 	/**
 	 * Get the rank image.
 	 */
-	public function actionRank_image()
+	public function getRank_image()
 	{
 		// Set the variables
 		$rank = e(Input::get('rank'));
@@ -53,10 +63,10 @@ class Info extends AjaxBaseController {
 	/**
 	 * Get the preview for a specific rank set.
 	 */
-	public function action_rank_preview($location = false)
+	public function getRank_preview($location = false)
 	{
 		// Clean the variable
-		$location = \Security::xss_clean($location);
+		$location = e($location);
 		
 		// Get the catalog item
 		$rank = \Model_Catalog_Rank::getItem($location, 'location');
@@ -72,7 +82,7 @@ class Info extends AjaxBaseController {
 	/**
 	 * Get a role's description.
 	 */
-	public function action_role_desc()
+	public function getRole_desc()
 	{
 		// Set the variable
 		$role = \Security::xss_clean(\Input::post('role', false));
@@ -90,7 +100,7 @@ class Info extends AjaxBaseController {
 	/**
 	 * Get the users who are assigned a given role.
 	 */
-	public function action_role_users($id)
+	public function getRole_users($id)
 	{
 		if (\Sentry::check() and \Sentry::user()->hasAccess('role.read'))
 		{
@@ -110,7 +120,7 @@ class Info extends AjaxBaseController {
 	/**
 	 * Get the preview for a specific skin.
 	 */
-	public function action_skin_preview($section = false, $location = false)
+	public function getSkin_preview($section = false, $location = false)
 	{
 		// Clean the variables
 		$section = \Security::xss_clean($section);
