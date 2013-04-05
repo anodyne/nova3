@@ -1,6 +1,6 @@
 <div class="navbar">
-	<div class="navbar-inner">
-		{{ Html::link('main/index', $name, array('class' => 'brand')) }}
+	<div class="container">
+		{{ Html::link('main/index', $name, array('class' => 'navbar-brand')) }}
 
 		<ul class="nav">
 		@foreach ($items as $item)
