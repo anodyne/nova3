@@ -2,10 +2,12 @@
 /**
  * Genre Install Data (BSG)
  *
- * @package		Install
- * @category	Assets
+ * @package		Nova
+ * @subpackage	Setup
+ * @category	Asset
  * @author		Anodyne Productions
  * @author		ladythorne (Anodyne forums)
+ * @copyright	2013 Anodyne Productions
  */
 
 $g = 'bsg';
@@ -69,460 +71,96 @@ $depts = array(
 );
 
 $groups = array(
-	array(
-		'name' => 'Colonial Navy',
-		'order' => 0),
-	array(
-		'name' => 'Colonial Marines',
-		'order' => 1),
+	array('name' => 'Colonial Navy', 'order' => 0),
+	array('name' => 'Colonial Marines', 'order' => 1),
 );
 
 $info = array(
-	array(
-		'name' => 'Admiral',
-		'short_name' => 'ADM',
-		'order' => 0,
-		'group' => 1),
-	array(
-		'name' => 'Rear-Admiral',
-		'short_name' => 'RADM',
-		'order' => 1,
-		'group' => 1),
-	array(
-		'name' => 'Commander',
-		'short_name' => 'CDR',
-		'order' => 2,
-		'group' => 1),
-	array(
-		'name' => 'Colonel',
-		'short_name' => 'COL',
-		'order' => 3,
-		'group' => 1),
-	array(
-		'name' => 'Lieutenant Colonel',
-		'short_name' => 'LTCOL',
-		'order' => 4,
-		'group' => 1),
-	array(
-		'name' => 'Major',
-		'short_name' => 'MAJ',
-		'order' => 5,
-		'group' => 1),
-	array(
-		'name' => 'Captain',
-		'short_name' => 'CAPT',
-		'order' => 6,
-		'group' => 1),
-	array(
-		'name' => 'Lieutenant',
-		'short_name' => 'LT',
-		'order' => 7,
-		'group' => 1),
-	array(
-		'name' => 'Lieutenant JG',
-		'short_name' => 'LT(JG)',
-		'order' => 8,
-		'group' => 1),
-	array(
-		'name' => 'Ensign',
-		'short_name' => 'ENS',
-		'order' => 9,
-		'group' => 1),
-	array(
-		'name' => 'Master Chief Petty Officer',
-		'short_name' => 'MCPO',
-		'order' => 10,
-		'group' => 1),
-	array(
-		'name' => 'Senior Chief Petty Officer',
-		'short_name' => 'SCPO',
-		'order' => 11,
-		'group' => 1),
-	array(
-		'name' => 'Chief Petty Officer',
-		'short_name' => 'CPO',
-		'order' => 12,
-		'group' => 1),
-	array(
-		'name' => 'Petty Officer, 1st Class',
-		'short_name' => 'PO1',
-		'order' => 13,
-		'group' => 1),
-	array(
-		'name' => 'Petty Officer, 2nd Class',
-		'short_name' => 'PO2',
-		'order' => 14,
-		'group' => 1),
-	array(
-		'name' => 'Petty Officer, 3rd Class',
-		'short_name' => 'PO3',
-		'order' => 15,
-		'group' => 1),
-	array(
-		'name' => 'Crewman Specialist',
-		'short_name' => 'SPEC',
-		'order' => 16,
-		'group' => 1),
-	array(
-		'name' => 'Deckhand',
-		'short_name' => 'DECK',
-		'order' => 17,
-		'group' => 1),
-	array(
-		'name' => 'Recruit',
-		'short_name' => 'REC',
-		'order' => 18,
-		'group' => 1),
-	array(
-		'name' => '',
-		'short_name' => '',
-		'order' => 19,
-		'group' => 1),
+	array('name' => 'Admiral', 'short_name' => 'ADM', 'order' => 0, 'group' => 1),
+	array('name' => 'Rear-Admiral', 'short_name' => 'RADM', 'order' => 1, 'group' => 1),
+	array('name' => 'Commander', 'short_name' => 'CDR', 'order' => 2, 'group' => 1),
+	array('name' => 'Colonel', 'short_name' => 'COL', 'order' => 3, 'group' => 1),
+	array('name' => 'Lieutenant Colonel', 'short_name' => 'LTCOL', 'order' => 4, 'group' => 1),
+	array('name' => 'Major', 'short_name' => 'MAJ', 'order' => 5, 'group' => 1),
+	array('name' => 'Captain', 'short_name' => 'CAPT', 'order' => 6, 'group' => 1),
+	array('name' => 'Lieutenant', 'short_name' => 'LT', 'order' => 7, 'group' => 1),
+	array('name' => 'Lieutenant JG', 'short_name' => 'LT(JG)', 'order' => 8, 'group' => 1),
+	array('name' => 'Ensign', 'short_name' => 'ENS', 'order' => 9, 'group' => 1),
+	array('name' => 'Master Chief Petty Officer', 'short_name' => 'MCPO', 'order' => 10, 'group' => 1),
+	array('name' => 'Senior Chief Petty Officer', 'short_name' => 'SCPO', 'order' => 11, 'group' => 1),
+	array('name' => 'Chief Petty Officer', 'short_name' => 'CPO', 'order' => 12, 'group' => 1),
+	array('name' => 'Petty Officer, 1st Class', 'short_name' => 'PO1', 'order' => 13, 'group' => 1),
+	array('name' => 'Petty Officer, 2nd Class', 'short_name' => 'PO2', 'order' => 14, 'group' => 1),
+	array('name' => 'Petty Officer, 3rd Class', 'short_name' => 'PO3', 'order' => 15, 'group' => 1),
+	array('name' => 'Crewman Specialist', 'short_name' => 'SPEC', 'order' => 16, 'group' => 1),
+	array('name' => 'Deckhand', 'short_name' => 'DECK', 'order' => 17, 'group' => 1),
+	array('name' => 'Recruit', 'short_name' => 'REC', 'order' => 18, 'group' => 1),
+	array('name' => '', 'short_name' => '', 'order' => 19, 'group' => 1),
 
-	array(
-		'name' => 'General',
-		'short_name' => 'GEN',
-		'order' => 0,
-		'group' => 2),
-	array(
-		'name' => 'Lieutenant General',
-		'short_name' => 'LTGEN',
-		'order' => 1,
-		'group' => 2),
-	array(
-		'name' => 'Major General',
-		'short_name' => 'MAJGEN',
-		'order' => 2,
-		'group' => 2),
-	array(
-		'name' => 'Brigadier General',
-		'short_name' => 'BGEN',
-		'order' => 3,
-		'group' => 2),
-	array(
-		'name' => 'Colonel',
-		'short_name' => 'COL',
-		'order' => 4,
-		'group' => 2),
-	array(
-		'name' => 'Lieutenant Colonel',
-		'short_name' => 'LTCOL',
-		'order' => 5,
-		'group' => 2),
-	array(
-		'name' => 'Major',
-		'short_name' => 'MAJ',
-		'order' => 6,
-		'group' => 2),
-	array(
-		'name' => 'Captain',
-		'short_name' => 'CAPT',
-		'order' => 7,
-		'group' => 2),
-	array(
-		'name' => '1st Lieutenant',
-		'short_name' => '1LT',
-		'order' => 8,
-		'group' => 2),
-	array(
-		'name' => '2nd Lieutenant',
-		'short_name' => '2LT',
-		'order' => 9,
-		'group' => 2),
-	array(
-		'name' => 'Sergeant Major',
-		'short_name' => 'SGTMAJ',
-		'order' => 10,
-		'group' => 2),
-	array(
-		'name' => 'Master Sergeant',
-		'short_name' => 'MSGT',
-		'order' => 11,
-		'group' => 2),
-	array(
-		'name' => 'Gunnery Sergeant',
-		'short_name' => 'GYSGT',
-		'order' => 12,
-		'group' => 2),
-	array(
-		'name' => 'Staff Sergeant',
-		'short_name' => 'SSGT',
-		'order' => 13,
-		'group' => 2),
-	array(
-		'name' => 'Sergeant',
-		'short_name' => 'SGT',
-		'order' => 14,
-		'group' => 2),
-	array(
-		'name' => 'Corporal',
-		'short_name' => 'CPL',
-		'order' => 15,
-		'group' => 2),
-	array(
-		'name' => 'Lance Corporal',
-		'short_name' => 'LCPL',
-		'order' => 16,
-		'group' => 2),
-	array(
-		'name' => 'Private, 1st Class',
-		'short_name' => 'PFC',
-		'order' => 17,
-		'group' => 2),
-	array(
-		'name' => 'Private',
-		'short_name' => 'PVT',
-		'order' => 18,
-		'group' => 2),
-	array(
-		'name' => '',
-		'short_name' => '',
-		'order' => 19,
-		'group' => 2),
+	array('name' => 'General', 'short_name' => 'GEN', 'order' => 0, 'group' => 2),
+	array('name' => 'Lieutenant General', 'short_name' => 'LTGEN', 'order' => 1, 'group' => 2),
+	array('name' => 'Major General', 'short_name' => 'MAJGEN', 'order' => 2, 'group' => 2),
+	array('name' => 'Brigadier General', 'short_name' => 'BGEN', 'order' => 3, 'group' => 2),
+	array('name' => 'Colonel', 'short_name' => 'COL', 'order' => 4, 'group' => 2),
+	array('name' => 'Lieutenant Colonel', 'short_name' => 'LTCOL', 'order' => 5, 'group' => 2),
+	array('name' => 'Major', 'short_name' => 'MAJ', 'order' => 6, 'group' => 2),
+	array('name' => 'Captain', 'short_name' => 'CAPT', 'order' => 7, 'group' => 2),
+	array('name' => '1st Lieutenant', 'short_name' => '1LT', 'order' => 8, 'group' => 2),
+	array('name' => '2nd Lieutenant', 'short_name' => '2LT', 'order' => 9, 'group' => 2),
+	array('name' => 'Sergeant Major', 'short_name' => 'SGTMAJ', 'order' => 10, 'group' => 2),
+	array('name' => 'Master Sergeant', 'short_name' => 'MSGT', 'order' => 11, 'group' => 2),
+	array('name' => 'Gunnery Sergeant', 'short_name' => 'GYSGT', 'order' => 12, 'group' => 2),
+	array('name' => 'Staff Sergeant', 'short_name' => 'SSGT', 'order' => 13, 'group' => 2),
+	array('name' => 'Sergeant', 'short_name' => 'SGT', 'order' => 14, 'group' => 2),
+	array('name' => 'Corporal', 'short_name' => 'CPL', 'order' => 15, 'group' => 2),
+	array('name' => 'Lance Corporal', 'short_name' => 'LCPL', 'order' => 16, 'group' => 2),
+	array('name' => 'Private, 1st Class', 'short_name' => 'PFC', 'order' => 17, 'group' => 2),
+	array('name' => 'Private', 'short_name' => 'PVT', 'order' => 18, 'group' => 2),
+	array('name' => '', 'short_name' => '', 'order' => 19, 'group' => 2),
 );
 
 $ranks = array(
-	array(
-		'name' => 'Admiral',
-		'short_name' => 'ADM',
-		'image' => 'a4',
-		'order' => 0,
-		'class' => 1),
-	array(
-		'name' => 'Rear-Admiral',
-		'short_name' => 'RADM',
-		'image' => 'a3',
-		'order' => 1,
-		'class' => 1),
-	array(
-		'name' => 'Commander',
-		'short_name' => 'CDR',
-		'image' => 'a2',
-		'order' => 2,
-		'class' => 1),
-	array(
-		'name' => 'Colonel',
-		'short_name' => 'COL',
-		'image' => 'a1',
-		'order' => 3,
-		'class' => 1),
-	array(
-		'name' => 'Lieutenant Colonel',
-		'short_name' => 'LTCOL',
-		'image' => 'o6',
-		'order' => 4,
-		'class' => 1),
-	array(
-		'name' => 'Major',
-		'short_name' => 'MAJ',
-		'image' => 'o5',
-		'order' => 5,
-		'class' => 1),
-	array(
-		'name' => 'Captain',
-		'short_name' => 'CAPT',
-		'image' => 'o4',
-		'order' => 6,
-		'class' => 1),
-	array(
-		'name' => 'Lieutenant',
-		'short_name' => 'LT',
-		'image' => 'o3',
-		'order' => 7,
-		'class' => 1),
-	array(
-		'name' => 'Lieutenant JG',
-		'short_name' => 'LT(JG)',
-		'image' => 'o2',
-		'order' => 8,
-		'class' => 1),
-	array(
-		'name' => 'Ensign',
-		'short_name' => 'ENS',
-		'image' => 'o1',
-		'order' => 9,
-		'class' => 1),
-	array(
-		'name' => 'Master Chief Petty Officer',
-		'short_name' => 'MCPO',
-		'image' => 'e9',
-		'order' => 10,
-		'class' => 1),
-	array(
-		'name' => 'Senior Chief Petty Officer',
-		'short_name' => 'SCPO',
-		'image' => 'e8',
-		'order' => 11,
-		'class' => 1),
-	array(
-		'name' => 'Chief Petty Officer',
-		'short_name' => 'CPO',
-		'image' => 'e7',
-		'order' => 12,
-		'class' => 1),
-	array(
-		'name' => 'Petty Officer, 1st Class',
-		'short_name' => 'PO1',
-		'image' => 'e6',
-		'order' => 13,
-		'class' => 1),
-	array(
-		'name' => 'Petty Officer, 2nd Class',
-		'short_name' => 'PO2',
-		'image' => 'e5',
-		'order' => 14,
-		'class' => 1),
-	array(
-		'name' => 'Petty Officer, 3rd Class',
-		'short_name' => 'PO3',
-		'image' => 'e4',
-		'order' => 15,
-		'class' => 1),
-	array(
-		'name' => 'Crewman Specialist',
-		'short_name' => 'SPEC',
-		'image' => 'e3',
-		'order' => 16,
-		'class' => 1),
-	array(
-		'name' => 'Deckhand',
-		'short_name' => 'DECK',
-		'image' => 'e2',
-		'order' => 17,
-		'class' => 1),
-	array(
-		'name' => 'Recruit',
-		'short_name' => 'REC',
-		'image' => 'e1',
-		'order' => 18,
-		'class' => 1),
-	array(
-		'name' => '',
-		'short_name' => '',
-		'image' => 'blank',
-		'order' => 19,
-		'class' => 1),
-		
-	array(
-		'name' => 'General',
-		'short_name' => 'GEN',
-		'image' => 'a4',
-		'order' => 0,
-		'class' => 2),
-	array(
-		'name' => 'Lieutenant General',
-		'short_name' => 'LTGEN',
-		'image' => 'a3',
-		'order' => 1,
-		'class' => 2),
-	array(
-		'name' => 'Major General',
-		'short_name' => 'MAJGEN',
-		'image' => 'a2',
-		'order' => 2,
-		'class' => 2),
-	array(
-		'name' => 'Brigadier General',
-		'short_name' => 'BGEN',
-		'image' => 'a1',
-		'order' => 3,
-		'class' => 2),
-	array(
-		'name' => 'Colonel',
-		'short_name' => 'COL',
-		'image' => 'o6',
-		'order' => 4,
-		'class' => 2),
-	array(
-		'name' => 'Lieutenant Colonel',
-		'short_name' => 'LTCOL',
-		'image' => 'o5',
-		'order' => 5,
-		'class' => 2),
-	array(
-		'name' => 'Major',
-		'short_name' => 'MAJ',
-		'image' => 'o4',
-		'order' => 6,
-		'class' => 2),
-	array(
-		'name' => 'Captain',
-		'short_name' => 'CAPT',
-		'image' => 'o3',
-		'order' => 7,
-		'class' => 2),
-	array(
-		'name' => '1st Lieutenant',
-		'short_name' => '1LT',
-		'image' => 'o2',
-		'order' => 8,
-		'class' => 2),
-	array(
-		'name' => '2nd Lieutenant',
-		'short_name' => '2LT',
-		'image' => 'o1',
-		'order' => 9,
-		'class' => 2),
-	array(
-		'name' => 'Sergeant Major',
-		'short_name' => 'SGTMAJ',
-		'image' => 'e9',
-		'order' => 10,
-		'class' => 2),
-	array(
-		'name' => 'Master Sergeant',
-		'short_name' => 'MSGT',
-		'image' => 'e8',
-		'order' => 11,
-		'class' => 2),
-	array(
-		'name' => 'Gunnery Sergeant',
-		'short_name' => 'GYSGT',
-		'image' => 'e7',
-		'order' => 12,
-		'class' => 2),
-	array(
-		'name' => 'Staff Sergeant',
-		'short_name' => 'SSGT',
-		'image' => 'e6',
-		'order' => 13,
-		'class' => 2),
-	array(
-		'name' => 'Sergeant',
-		'short_name' => 'SGT',
-		'image' => 'e5',
-		'order' => 14,
-		'class' => 2),
-	array(
-		'name' => 'Corporal',
-		'short_name' => 'CPL',
-		'image' => 'e4',
-		'order' => 15,
-		'class' => 2),
-	array(
-		'name' => 'Lance Corporal',
-		'short_name' => 'LCPL',
-		'image' => 'e3',
-		'order' => 16,
-		'class' => 2),
-	array(
-		'name' => 'Private, 1st Class',
-		'short_name' => 'PFC',
-		'image' => 'e2',
-		'order' => 17,
-		'class' => 2),
-	array(
-		'name' => 'Private',
-		'short_name' => 'PVT',
-		'image' => 'e1',
-		'order' => 18,
-		'class' => 2),
-	array(
-		'name' => '',
-		'short_name' => '',
-		'image' => 'blank',
-		'order' => 19,
-		'class' => 2),
+	array('info_id' => 1, 'group_id' => 1, 'base' => 'a4'),
+	array('info_id' => 2, 'group_id' => 1, 'base' => 'a3'),
+	array('info_id' => 3, 'group_id' => 1, 'base' => 'a2'),
+	array('info_id' => 4, 'group_id' => 1, 'base' => 'a1'),
+	array('info_id' => 5, 'group_id' => 1, 'base' => 'o6'),
+	array('info_id' => 6, 'group_id' => 1, 'base' => 'o5'),
+	array('info_id' => 7, 'group_id' => 1, 'base' => 'o4'),
+	array('info_id' => 8, 'group_id' => 1, 'base' => 'o3'),
+	array('info_id' => 9, 'group_id' => 1, 'base' => 'o2'),
+	array('info_id' => 10, 'group_id' => 1, 'base' => 'o1'),
+	array('info_id' => 11, 'group_id' => 1, 'base' => 'e9'),
+	array('info_id' => 12, 'group_id' => 1, 'base' => 'e8'),
+	array('info_id' => 13, 'group_id' => 1, 'base' => 'e7'),
+	array('info_id' => 14, 'group_id' => 1, 'base' => 'e6'),
+	array('info_id' => 15, 'group_id' => 1, 'base' => 'e5'),
+	array('info_id' => 16, 'group_id' => 1, 'base' => 'e4'),
+	array('info_id' => 17, 'group_id' => 1, 'base' => 'e3'),
+	array('info_id' => 18, 'group_id' => 1, 'base' => 'e2'),
+	array('info_id' => 19, 'group_id' => 1, 'base' => 'e1'),
+	array('info_id' => 20, 'group_id' => 1, 'base' => 'blank'),
+	
+	array('info_id' => 21, 'group_id' => 2, 'base' => 'a4'),
+	array('info_id' => 22, 'group_id' => 2, 'base' => 'a3'),
+	array('info_id' => 23, 'group_id' => 2, 'base' => 'a2'),
+	array('info_id' => 24, 'group_id' => 2, 'base' => 'a1'),
+	array('info_id' => 25, 'group_id' => 2, 'base' => 'o6'),
+	array('info_id' => 26, 'group_id' => 2, 'base' => 'o5'),
+	array('info_id' => 27, 'group_id' => 2, 'base' => 'o4'),
+	array('info_id' => 28, 'group_id' => 2, 'base' => 'o3'),
+	array('info_id' => 29, 'group_id' => 2, 'base' => 'o2'),
+	array('info_id' => 30, 'group_id' => 2, 'base' => 'o1'),
+	array('info_id' => 31, 'group_id' => 2, 'base' => 'e9'),
+	array('info_id' => 32, 'group_id' => 2, 'base' => 'e8'),
+	array('info_id' => 33, 'group_id' => 2, 'base' => 'e7'),
+	array('info_id' => 34, 'group_id' => 2, 'base' => 'e6'),
+	array('info_id' => 35, 'group_id' => 2, 'base' => 'e5'),
+	array('info_id' => 36, 'group_id' => 2, 'base' => 'e4'),
+	array('info_id' => 37, 'group_id' => 2, 'base' => 'e3'),
+	array('info_id' => 38, 'group_id' => 2, 'base' => 'e2'),
+	array('info_id' => 39, 'group_id' => 2, 'base' => 'e1'),
+	array('info_id' => 40, 'group_id' => 2, 'base' => 'blank'),
 );
 
 $positions = array(
