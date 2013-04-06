@@ -1,16 +1,20 @@
 <?php
 /**
- * Genre Install Data (BLK)
+ * Genre Install Data (BLANK)
  *
- * @package		Install
- * @category	Assets
+ * @package		Nova
+ * @subpackage	Setup
+ * @category	Asset
  * @author		Anodyne Productions
+ * @copyright	2013 Anodyne Productions
  */
 
 $g = 'blank';
 
 $data = array(
 	'departments_'.$g 	=> 'depts',
+	'ranks_info_'.$g	=> 'info',
+	'ranks_groups_'.$g	=> 'groups',
 	'ranks_'.$g			=> 'ranks',
 	'positions_'.$g		=> 'positions',
 	'catalog_ranks'		=> 'catalog_ranks',
@@ -23,13 +27,16 @@ $depts = array(
 		'order' => 0),
 );
 
+$groups = array(
+	array('name' => 'Blank Group', 'order' => 0),
+);
+
+$info = array(
+	array('name' => '', 'short_name' => '', 'order' => 0, 'group' => 1),
+);
+
 $ranks = array(
-	array(
-		'name' => 'Blank',
-		'short_name' => 'BLANK',
-		'image' => '',
-		'order' => 0,
-		'class' => 1),
+	array('info_id' => 1, 'group_id' => 1, 'base' => ''),
 );
 
 $positions = array(
