@@ -8,6 +8,10 @@
  * @author		Hasahnaithiau Nghymru
  */
 
+/**
+ * no colors
+ */
+
 $g = 'crd';
 
 $data = array(

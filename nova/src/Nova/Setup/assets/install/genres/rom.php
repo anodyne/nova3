@@ -8,6 +8,11 @@
  * @author		Hasahnaithiau Nghymru
  */
 
+/**
+ * gold - g - tal shiar
+ * silver - s - romulan star navy
+ */
+
 $g = 'rom';
 
 $data = array(

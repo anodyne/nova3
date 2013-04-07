@@ -7,6 +7,14 @@
  * @author		Anodyne Productions
  * @since		2.0
  */
+
+/**
+ * blue - b - command
+ * gray - g - army
+ * red - r - support (engineering, technical, sonar, communications, supply)
+ * white - w - medical
+ * yellow - y - admiralty
+ */
  
 $g = 'dsv';
 

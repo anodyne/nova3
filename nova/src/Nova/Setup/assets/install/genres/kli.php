@@ -7,6 +7,11 @@
  * @author		Anodyne Productions
  */
 
+/**
+ * brown - m - marines
+ * silver - n - navy
+ */
+
 $g = 'kli';
 
 $data = array(

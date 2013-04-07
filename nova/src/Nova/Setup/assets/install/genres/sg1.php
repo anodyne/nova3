@@ -7,6 +7,12 @@
  * @author		Anodyne Productions
  */
 
+/**
+ * army - a
+ * air force - af
+ * marines - m
+ */
+
 $g = 'sg1';
 
 $data = array(

@@ -9,6 +9,14 @@
  * @copyright	2013 Anodyne Productions
  */
 
+/**
+ * black - b - cadet (in TOS, these were also gray)
+ * blue - c - medical and sciences
+ * green - g
+ * red - r - operations
+ * yellow - y - command
+ */
+
 $g = 'st23';
 
 $data = array(

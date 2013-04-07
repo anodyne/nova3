@@ -7,6 +7,14 @@
  * @author		Anodyne Productions
  */
 
+/**
+ * red - command - r
+ * silver - operations - s
+ * yellow - security - y
+ * blue - medial and sciences - b
+ * green - engineering - g
+ */
+
 $g = 'baj';
 
 $data = array(

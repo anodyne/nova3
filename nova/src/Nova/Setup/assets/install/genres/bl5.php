@@ -8,6 +8,13 @@
  * @author		Rycon (Anodyne forums)
  */
 
+/**
+ * blue - b - navy
+ * gray - s - security forces
+ * green - m
+ * brown - d - marines
+ */
+
 $g = 'bl5';
 
 $data = array(
