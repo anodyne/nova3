@@ -90,7 +90,6 @@ $info = array(
 	array('name' => "Ragoc", 'short_name' => "RAG", 'order' => 0, 'group' => 3),
 	array('name' => "Gor", 'short_name' => "GOR", 'order' => 1, 'group' => 3),
 	array('name' => "Garhec", 'short_name' => "GAR", 'order' => 2, 'group' => 3),
-	array('name' => "", 'short_name' => "", 'order' => 3, 'group' => 3),
 );
 
 $ranks = array(
@@ -107,7 +106,6 @@ $ranks = array(
 	array('info_id' => 11, 'group_id' => 3, 'base' => 'e3'),
 	array('info_id' => 12, 'group_id' => 3, 'base' => 'e2'),
 	array('info_id' => 13, 'group_id' => 3, 'base' => 'e1'),
-	array('info_id' => 14, 'group_id' => 3, 'base' => 'blank'),
 );
 
 $positions = array(
