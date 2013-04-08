@@ -95,7 +95,6 @@ $info = array(
 	array('name' => 'Crewman Specialist', 'short_name' => 'SPEC', 'order' => 16, 'group' => 1),
 	array('name' => 'Deckhand', 'short_name' => 'DECK', 'order' => 17, 'group' => 1),
 	array('name' => 'Recruit', 'short_name' => 'REC', 'order' => 18, 'group' => 1),
-	array('name' => '', 'short_name' => '', 'order' => 19, 'group' => 1),
 
 	array('name' => 'General', 'short_name' => 'GEN', 'order' => 0, 'group' => 2),
 	array('name' => 'Lieutenant General', 'short_name' => 'LTGEN', 'order' => 1, 'group' => 2),
@@ -116,7 +115,6 @@ $info = array(
 	array('name' => 'Lance Corporal', 'short_name' => 'LCPL', 'order' => 16, 'group' => 2),
 	array('name' => 'Private, 1st Class', 'short_name' => 'PFC', 'order' => 17, 'group' => 2),
 	array('name' => 'Private', 'short_name' => 'PVT', 'order' => 18, 'group' => 2),
-	array('name' => '', 'short_name' => '', 'order' => 19, 'group' => 2),
 );
 
 $ranks = array(
@@ -139,7 +137,6 @@ $ranks = array(
 	array('info_id' => 17, 'group_id' => 1, 'base' => 'e3'),
 	array('info_id' => 18, 'group_id' => 1, 'base' => 'e2'),
 	array('info_id' => 19, 'group_id' => 1, 'base' => 'e1'),
-	array('info_id' => 20, 'group_id' => 1, 'base' => 'blank'),
 	
 	array('info_id' => 21, 'group_id' => 2, 'base' => 'a4'),
 	array('info_id' => 22, 'group_id' => 2, 'base' => 'a3'),
@@ -160,7 +157,6 @@ $ranks = array(
 	array('info_id' => 37, 'group_id' => 2, 'base' => 'e3'),
 	array('info_id' => 38, 'group_id' => 2, 'base' => 'e2'),
 	array('info_id' => 39, 'group_id' => 2, 'base' => 'e1'),
-	array('info_id' => 40, 'group_id' => 2, 'base' => 'blank'),
 );
 
 $positions = array(
