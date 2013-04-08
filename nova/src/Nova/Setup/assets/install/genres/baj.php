@@ -2,17 +2,11 @@
 /**
  * Genre Install Data (BAJ)
  *
- * @package		Install
- * @category	Assets
+ * @package		Nova
+ * @subpackage	Setup
+ * @category	Asset
  * @author		Anodyne Productions
- */
-
-/**
- * red - command - r
- * silver - operations - s
- * yellow - security - y
- * blue - medial and sciences - b
- * green - engineering - g
+ * @copyright	2013 Anodyne Productions
  */
 
 $g = 'baj';
@@ -76,390 +70,76 @@ $groups = array(
 	array('name' => 'Security', 'order' => 2),
 	array('name' => 'Medical and Sciences', 'order' => 3),
 	array('name' => 'Operations', 'order' => 4),
-	array('name' => 'Clergy', 'order' => 5),
+	array('name' => 'Engineering', 'order' => 5),
+	array('name' => 'Bajoran Religious Order', 'order' => 6),
 );
 
 $info = array(
 	array('name' => 'General', 'short_name' => 'GEN', 'order' => 0, 'group' => 1),
+	array('name' => 'Lieutenant General', 'short_name' => 'LT GEN', 'order' => 1, 'group' => 1),
+	array('name' => 'Major General', 'short_name' => 'MAJ GEN', 'order' => 2, 'group' => 1),
+	array('name' => 'Brigadier General', 'short_name' => 'BRG GEN', 'order' => 3, 'group' => 1),
+
+	array('name' => 'Colonel', 'short_name' => 'COL', 'order' => 0, 'group' => 2),
+	array('name' => 'Field Colonel', 'short_name' => 'FCOL', 'order' => 1, 'group' => 2),
+	array('name' => 'Major', 'short_name' => 'MAJ', 'order' => 2, 'group' => 2),
+	array('name' => 'Captain', 'short_name' => 'CAPT', 'order' => 3, 'group' => 2),
+	array('name' => '1st Lieutenant', 'short_name' => '1LT', 'order' => 4, 'group' => 2),
+	array('name' => '2nd Lieutenant', 'short_name' => '2LT', 'order' => 5, 'group' => 2),
+
+	array('name' => 'Emissary', 'short_name' => 'EMS', 'order' => 0, 'group' => 3),
+	array('name' => 'Kai', 'short_name' => 'KAI', 'order' => 1, 'group' => 3),
+	array('name' => 'Vedek', 'short_name' => 'VDK', 'order' => 2, 'group' => 3),
+	array('name' => 'Ranjen', 'short_name' => 'RNJ', 'order' => 3, 'group' => 3),
+	array('name' => 'Prylar', 'short_name' => 'PYL', 'order' => 4, 'group' => 3),
 );
 
-$ranks= array(
-	array(
-		'name' => 'General',
-		'short_name' => 'GEN',
-		'image' => 'r-a4',
-		'order' => 0,
-		'class' => 1),
-	array(
-		'name' => 'General',
-		'short_name' => 'GEN',
-		'image' => 'g-a4',
-		'order' => 0,
-		'class' => 2),
-	array(
-		'name' => 'General',
-		'short_name' => 'GEN',
-		'image' => 'y-a4',
-		'order' => 0,
-		'class' => 3),
-	array(
-		'name' => 'General',
-		'short_name' => 'GEN',
-		'image' => 'b-a4',
-		'order' => 0,
-		'class' => 4),
-	array(
-		'name' => 'General',
-		'short_name' => 'GEN',
-		'image' => 's-a4',
-		'order' => 0,
-		'class' => 5),
-	array(
-		'name' => 'Emissary',
-		'short_name' => 'EMS',
-		'image' => 'rl-a4',
-		'order' => 0,
-		'class' => 6),
-		
-	array(
-		'name' => 'Lieutenant General',
-		'short_name' => 'LT GEN',
-		'image' => 'r-a3',
-		'order' => 1,
-		'class' => 1),
-	array(
-		'name' => 'Lieutenant General',
-		'short_name' => 'LT GEN',
-		'image' => 'g-a3',
-		'order' => 1,
-		'class' => 2),
-	array(
-		'name' => 'Lieutenant General',
-		'short_name' => 'LT GEN',
-		'image' => 'y-a3',
-		'order' => 1,
-		'class' => 3),
-	array(
-		'name' => 'Lieutenant General',
-		'short_name' => 'LT GEN',
-		'image' => 'b-a3',
-		'order' => 1,
-		'class' => 4),
-	array(
-		'name' => 'Lieutenant General',
-		'short_name' => 'LT GEN',
-		'image' => 's-a3',
-		'order' => 1,
-		'class' => 5),
-	array(
-		'name' => 'Kai',
-		'short_name' => 'KAI',
-		'image' => 'rl-a3',
-		'order' => 1,
-		'class' => 6),
-		
-	array(
-		'name' => 'Major General',
-		'short_name' => 'MAJ GEN',
-		'image' => 'r-a2',
-		'order' => 2,
-		'class' => 1),
-	array(
-		'name' => 'Major General',
-		'short_name' => 'MAJ GEN',
-		'image' => 'g-a2',
-		'order' => 2,
-		'class' => 2),
-	array(
-		'name' => 'Major General',
-		'short_name' => 'MAJ GEN',
-		'image' => 'y-a2',
-		'order' => 2,
-		'class' => 3),
-	array(
-		'name' => 'Major General',
-		'short_name' => 'MAJ GEN',
-		'image' => 'b-a2',
-		'order' => 2,
-		'class' => 4),
-	array(
-		'name' => 'Major General',
-		'short_name' => 'MAJ GEN',
-		'image' => 's-a2',
-		'order' => 2,
-		'class' => 5),
-	array(
-		'name' => 'Vedek',
-		'short_name' => 'VDK',
-		'image' => 'rl-a2',
-		'order' => 2,
-		'class' => 6),
-		
-	array(
-		'name' => 'Brigadier General',
-		'short_name' => 'BRG GEN',
-		'image' => 'r-a1',
-		'order' => 3,
-		'class' => 1),
-	array(
-		'name' => 'Brigadier General',
-		'short_name' => 'BRG GEN',
-		'image' => 'g-a1',
-		'order' => 3,
-		'class' => 2),
-	array(
-		'name' => 'Brigadier General',
-		'short_name' => 'BRG GEN',
-		'image' => 'y-a1',
-		'order' => 3,
-		'class' => 3),
-	array(
-		'name' => 'Brigadier General',
-		'short_name' => 'BRG GEN',
-		'image' => 'b-a1',
-		'order' => 3,
-		'class' => 4),
-	array(
-		'name' => 'Brigadier General',
-		'short_name' => 'BRG GEN',
-		'image' => 's-a1',
-		'order' => 3,
-		'class' => 5),
-	array(
-		'name' => 'Ranjen',
-		'short_name' => 'RNJ',
-		'image' => 'rl-a1',
-		'order' => 3,
-		'class' => 6),
-		
-	array(
-		'name' => 'Colonel',
-		'short_name' => 'COL',
-		'image' => 'r-o6',
-		'order' => 4,
-		'class' => 1),
-	array(
-		'name' => 'Colonel',
-		'short_name' => 'COL',
-		'image' => 'g-o6',
-		'order' => 4,
-		'class' => 2),
-	array(
-		'name' => 'Colonel',
-		'short_name' => 'COL',
-		'image' => 'y-o6',
-		'order' => 4,
-		'class' => 3),
-	array(
-		'name' => 'Colonel',
-		'short_name' => 'COL',
-		'image' => 'b-o6',
-		'order' => 4,
-		'class' => 4),
-	array(
-		'name' => 'Colonel',
-		'short_name' => 'COL',
-		'image' => 's-o6',
-		'order' => 4,
-		'class' => 5),
-	array(
-		'name' => 'Prylar',
-		'short_name' => 'PYL',
-		'image' => 'rl-o6',
-		'order' => 4,
-		'class' => 6),
-		
-	array(
-		'name' => 'Field Colonel',
-		'short_name' => 'FCOL',
-		'image' => 'r-o5',
-		'order' => 5,
-		'class' => 1),
-	array(
-		'name' => 'Field Colonel',
-		'short_name' => 'FCOL',
-		'image' => 'g-o5',
-		'order' => 5,
-		'class' => 2),
-	array(
-		'name' => 'Field Colonel',
-		'short_name' => 'FCOL',
-		'image' => 'y-o5',
-		'order' => 5,
-		'class' => 3),
-	array(
-		'name' => 'Field Colonel',
-		'short_name' => 'FCOL',
-		'image' => 'b-o5',
-		'order' => 5,
-		'class' => 4),
-	array(
-		'name' => 'Field Colonel',
-		'short_name' => 'FCOL',
-		'image' => 's-o5',
-		'order' => 5,
-		'class' => 5),
-		
-	array(
-		'name' => 'Major',
-		'short_name' => 'MAJ',
-		'image' => 'r-o4',
-		'order' => 6,
-		'class' => 1),
-	array(
-		'name' => 'Major',
-		'short_name' => 'MAJ',
-		'image' => 'g-o4',
-		'order' => 6,
-		'class' => 2),
-	array(
-		'name' => 'Major',
-		'short_name' => 'MAJ',
-		'image' => 'y-o4',
-		'order' => 6,
-		'class' => 3),
-	array(
-		'name' => 'Major',
-		'short_name' => 'MAJ',
-		'image' => 'b-o4',
-		'order' => 6,
-		'class' => 4),
-	array(
-		'name' => 'Major',
-		'short_name' => 'MAJ',
-		'image' => 's-o4',
-		'order' => 6,
-		'class' => 5),
-		
-	array(
-		'name' => 'Captain',
-		'short_name' => 'CAPT',
-		'image' => 'r-o3',
-		'order' => 7,
-		'class' => 1),
-	array(
-		'name' => 'Captain',
-		'short_name' => 'CAPT',
-		'image' => 'g-o3',
-		'order' => 7,
-		'class' => 2),
-	array(
-		'name' => 'Captain',
-		'short_name' => 'CAPT',
-		'image' => 'y-o3',
-		'order' => 7,
-		'class' => 3),
-	array(
-		'name' => 'Captain',
-		'short_name' => 'CAPT',
-		'image' => 'b-o3',
-		'order' => 7,
-		'class' => 4),
-	array(
-		'name' => 'Captain',
-		'short_name' => 'CAPT',
-		'image' => 's-o3',
-		'order' => 7,
-		'class' => 5),
-		
-	array(
-		'name' => '1st Lieutenant',
-		'short_name' => '1LT',
-		'image' => 'r-o2',
-		'order' => 8,
-		'class' => 1),
-	array(
-		'name' => '1st Lieutenant',
-		'short_name' => '1LT',
-		'image' => 'g-o2',
-		'order' => 8,
-		'class' => 2),
-	array(
-		'name' => '1st Lieutenant',
-		'short_name' => '1LT',
-		'image' => 'y-o2',
-		'order' => 8,
-		'class' => 3),
-	array(
-		'name' => '1st Lieutenant',
-		'short_name' => '1LT',
-		'image' => 'b-o2',
-		'order' => 8,
-		'class' => 4),
-	array(
-		'name' => '1st Lieutenant',
-		'short_name' => '1LT',
-		'image' => 's-o2',
-		'order' => 8,
-		'class' => 5),
-		
-	array(
-		'name' => '2nd Lieutenant',
-		'short_name' => '2LT',
-		'image' => 'r-o1',
-		'order' => 9,
-		'class' => 1),
-	array(
-		'name' => '2nd Lieutenant',
-		'short_name' => '2LT',
-		'image' => 'g-o1',
-		'order' => 9,
-		'class' => 2),
-	array(
-		'name' => '2nd Lieutenant',
-		'short_name' => '2LT',
-		'image' => 'y-o1',
-		'order' => 9,
-		'class' => 3),
-	array(
-		'name' => '2nd Lieutenant',
-		'short_name' => '2LT',
-		'image' => 'b-o1',
-		'order' => 9,
-		'class' => 4),
-	array(
-		'name' => '2nd Lieutenant',
-		'short_name' => '2LT',
-		'image' => 's-o1',
-		'order' => 9,
-		'class' => 5),
-		
-	array(
-		'name' => '',
-		'short_name' => '',
-		'image' => 'r-blank',
-		'order' => 10,
-		'class' => 1),
-	array(
-		'name' => '',
-		'short_name' => '',
-		'image' => 'g-blank',
-		'order' => 10,
-		'class' => 2),
-	array(
-		'name' => '',
-		'short_name' => '',
-		'image' => 'y-blank',
-		'order' => 10,
-		'class' => 3),
-	array(
-		'name' => '',
-		'short_name' => '',
-		'image' => 'b-blank',
-		'order' => 10,
-		'class' => 4),
-	array(
-		'name' => '',
-		'short_name' => '',
-		'image' => 's-blank',
-		'order' => 10,
-		'class' => 5),
-	array(
-		'name' => '',
-		'short_name' => '',
-		'image' => 's-blank',
-		'order' => 5,
-		'class' => 6)
+$ranks = array(
+	array('info_id' => 1, 'group_id' => 1, 'base' => 'r-a4'),
+	array('info_id' => 2, 'group_id' => 1, 'base' => 'r-a3'),
+	array('info_id' => 3, 'group_id' => 1, 'base' => 'r-a2'),
+	array('info_id' => 4, 'group_id' => 1, 'base' => 'r-a1'),
+
+	array('info_id' => 5, 'group_id' => 2, 'base' => 'r-o6'),
+	array('info_id' => 6, 'group_id' => 2, 'base' => 'r-o5'),
+	array('info_id' => 7, 'group_id' => 2, 'base' => 'r-o4'),
+	array('info_id' => 8, 'group_id' => 2, 'base' => 'r-o3'),
+	array('info_id' => 9, 'group_id' => 2, 'base' => 'r-o2'),
+	array('info_id' => 10, 'group_id' => 2, 'base' => 'r-o1'),
+
+	array('info_id' => 5, 'group_id' => 3, 'base' => 'y-o6'),
+	array('info_id' => 6, 'group_id' => 3, 'base' => 'y-o5'),
+	array('info_id' => 7, 'group_id' => 3, 'base' => 'y-o4'),
+	array('info_id' => 8, 'group_id' => 3, 'base' => 'y-o3'),
+	array('info_id' => 9, 'group_id' => 3, 'base' => 'y-o2'),
+	array('info_id' => 10, 'group_id' => 3, 'base' => 'y-o1'),
+
+	array('info_id' => 5, 'group_id' => 4, 'base' => 'b-o6'),
+	array('info_id' => 6, 'group_id' => 4, 'base' => 'b-o5'),
+	array('info_id' => 7, 'group_id' => 4, 'base' => 'b-o4'),
+	array('info_id' => 8, 'group_id' => 4, 'base' => 'b-o3'),
+	array('info_id' => 9, 'group_id' => 4, 'base' => 'b-o2'),
+	array('info_id' => 10, 'group_id' => 4, 'base' => 'b-o1'),
+
+	array('info_id' => 5, 'group_id' => 5, 'base' => 's-o6'),
+	array('info_id' => 6, 'group_id' => 5, 'base' => 's-o5'),
+	array('info_id' => 7, 'group_id' => 5, 'base' => 's-o4'),
+	array('info_id' => 8, 'group_id' => 5, 'base' => 's-o3'),
+	array('info_id' => 9, 'group_id' => 5, 'base' => 's-o2'),
+	array('info_id' => 10, 'group_id' => 5, 'base' => 's-o1'),
+
+	array('info_id' => 5, 'group_id' => 6, 'base' => 'g-o6'),
+	array('info_id' => 6, 'group_id' => 6, 'base' => 'g-o5'),
+	array('info_id' => 7, 'group_id' => 6, 'base' => 'g-o4'),
+	array('info_id' => 8, 'group_id' => 6, 'base' => 'g-o3'),
+	array('info_id' => 9, 'group_id' => 6, 'base' => 'g-o2'),
+	array('info_id' => 10, 'group_id' => 6, 'base' => 'g-o1'),
+
+	array('info_id' => 11, 'group_id' => 7, 'base' => 'rl-a4'),
+	array('info_id' => 12, 'group_id' => 7, 'base' => 'rl-a3'),
+	array('info_id' => 13, 'group_id' => 7, 'base' => 'rl-a2'),
+	array('info_id' => 14, 'group_id' => 7, 'base' => 'rl-a1'),
+	array('info_id' => 15, 'group_id' => 7, 'base' => 'rl-o6'),
 );
 
 $positions = array(
