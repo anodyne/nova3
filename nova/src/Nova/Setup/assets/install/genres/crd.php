@@ -2,20 +2,20 @@
 /**
  * Genre Install Data (CRD)
  *
- * @package		Install
- * @category	Assets
+ * @package		Nova
+ * @subpackage	Setup
+ * @category	Asset
  * @author		Anodyne Productions
  * @author		Hasahnaithiau Nghymru
- */
-
-/**
- * no colors
+ * @copyright	2013 Anodyne Productions
  */
 
 $g = 'crd';
 
 $data = array(
 	'departments_'.$g 	=> 'depts',
+	'ranks_info_'.$g	=> 'info',
+	'ranks_groups_'.$g	=> 'groups',
 	'ranks_'.$g			=> 'ranks',
 	'positions_'.$g		=> 'positions',
 	'catalog_ranks'		=> 'catalog_ranks',
@@ -68,91 +68,46 @@ $depts = array(
 		'order' => 10)
 );
 
-$ranks= array(
-	array(
-		'name' => 'Legate (3rd Order)',
-		'short_name' => 'LEG',
-		'image' => 'a4',
-		'order' => 0,
-		'class' => 1),
-	array(
-		'name' => 'Legate (2nd Order)',
-		'short_name' => 'LEG',
-		'image' => 'a3',
-		'order' => 1,
-		'class' => 1),
-	array(
-		'name' => 'Legate (1st Order)',
-		'short_name' => 'LEG',
-		'image' => 'a2',
-		'order' => 2,
-		'class' => 1),
-	array(
-		'name' => 'Jagual',
-		'short_name' => 'JAG',
-		'image' => 'a1',
-		'order' => 3,
-		'class' => 1),
-	array(
-		'name' => 'Gul',
-		'short_name' => 'GUL',
-		'image' => 'o6',
-		'order' => 4,
-		'class' => 1),
-	array(
-		'name' => 'Glinn',
-		'short_name' => 'GLI',
-		'image' => 'o5',
-		'order' => 5,
-		'class' => 1),
-	array(
-		'name' => 'Kel',
-		'short_name' => 'KEL',
-		'image' => 'o4',
-		'order' => 6,
-		'class' => 1),
-	array(
-		'name' => 'Gil',
-		'short_name' => 'GIL',
-		'image' => 'o3',
-		'order' => 7,
-		'class' => 1),
-	array(
-		'name' => 'Dalin',
-		'short_name' => 'DAL',
-		'image' => 'o2',
-		'order' => 8,
-		'class' => 1),
-	array(
-		'name' => 'Riyak',
-		'short_name' => 'RIY',
-		'image' => 'o1',
-		'order' => 9,
-		'class' => 1),
-	array(
-		'name' => 'Ragoc',
-		'short_name' => 'RAG',
-		'image' => 'e3',
-		'order' => 10,
-		'class' => 1),
-	array(
-		'name' => 'Gor',
-		'short_name' => 'GOR',
-		'image' => 'e2',
-		'order' => 11,
-		'class' => 1),
-	array(
-		'name' => 'Garhec',
-		'short_name' => 'GAR',
-		'image' => 'e1',
-		'order' => 12,
-		'class' => 1),
-	array(
-		'name' => '',
-		'short_name' => '',
-		'image' => 'blank',
-		'order' => 13,
-		'class' => 1)
+$groups = array(
+	array('name' => 'Admiralty', 'order' => 0),
+	array('name' => 'Officers', 'order' => 1),
+	array('name' => 'Enlisted', 'order' => 2),
+);
+
+$info = array(
+	array('name' => "Legate (3rd Order)", 'short_name' => "LEG", 'order' => 0, 'group' => 1),
+	array('name' => "Legate (2nd Order)", 'short_name' => "LEG", 'order' => 1, 'group' => 1),
+	array('name' => "Legate (1st Order)", 'short_name' => "LEG", 'order' => 2, 'group' => 1),
+	array('name' => "Jagual", 'short_name' => "JAG", 'order' => 3, 'group' => 1),
+
+	array('name' => "Gul", 'short_name' => "GUL", 'order' => 0, 'group' => 2),
+	array('name' => "Glinn", 'short_name' => "GLI", 'order' => 1, 'group' => 2),
+	array('name' => "Kel", 'short_name' => "KEL", 'order' => 2, 'group' => 2),
+	array('name' => "Gil", 'short_name' => "GIL", 'order' => 3, 'group' => 2),
+	array('name' => "Dalin", 'short_name' => "DAL", 'order' => 4, 'group' => 2),
+	array('name' => "Riyak", 'short_name' => "RIY", 'order' => 5, 'group' => 2),
+
+	array('name' => "Ragoc", 'short_name' => "RAG", 'order' => 0, 'group' => 3),
+	array('name' => "Gor", 'short_name' => "GOR", 'order' => 1, 'group' => 3),
+	array('name' => "Garhec", 'short_name' => "GAR", 'order' => 2, 'group' => 3),
+	array('name' => "", 'short_name' => "", 'order' => 3, 'group' => 3),
+);
+
+$ranks = array(
+	array('info_id' => 1, 'group_id' => 1, 'base' => 'a4'),
+	array('info_id' => 2, 'group_id' => 1, 'base' => 'a3'),
+	array('info_id' => 3, 'group_id' => 1, 'base' => 'a2'),
+	array('info_id' => 4, 'group_id' => 1, 'base' => 'a1'),
+	array('info_id' => 5, 'group_id' => 2, 'base' => 'o6'),
+	array('info_id' => 6, 'group_id' => 2, 'base' => 'o5'),
+	array('info_id' => 7, 'group_id' => 2, 'base' => 'o4'),
+	array('info_id' => 8, 'group_id' => 2, 'base' => 'o3'),
+	array('info_id' => 9, 'group_id' => 2, 'base' => 'o2'),
+	array('info_id' => 10, 'group_id' => 2, 'base' => 'o1'),
+	array('info_id' => 11, 'group_id' => 3, 'base' => 'e3'),
+	array('info_id' => 12, 'group_id' => 3, 'base' => 'e2'),
+	array('info_id' => 13, 'group_id' => 3, 'base' => 'e1'),
+	array('info_id' => 14, 'group_id' => 3, 'base' => 'blank'),
 );
 
 $positions = array(
