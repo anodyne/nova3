@@ -2,24 +2,22 @@
 /**
  * Genre Install Data (ROM)
  *
- * @package		Install
- * @category	Assets
+ * @package		Nova
+ * @subpackage	Setup
+ * @category	Asset
  * @author		Anodyne Productions
- * @author		Hasahnaithiau Nghymru
- */
-
-/**
- * gold - g - tal shiar
- * silver - s - romulan star navy
+ * @copyright	2013 Anodyne Productions
  */
 
 $g = 'rom';
 
 $data = array(
 	'departments_'.$g 	=> 'depts',
+	'ranks_info_'.$g	=> 'info',
+	'ranks_groups_'.$g	=> 'groups',
 	'ranks_'.$g			=> 'ranks',
 	'positions_'.$g		=> 'positions',
-	'catalog_ranks'		=> 'catalog_ranks'
+	'catalog_ranks'		=> 'catalog_ranks',
 );
 
 $depts = array(
@@ -73,115 +71,48 @@ $depts = array(
 		'order' => 11)
 );
 
-$ranks= array(
-	array(
-		'name' => 'Admiral',
-		'short_name' => 'ADM',
-		'image' => 's-o8',
-		'order' => 0,
-		'class' => 1),
-	array(
-		'name' => 'Commodore',
-		'short_name' => 'COMO',
-		'image' => 's-o7',
-		'order' => 1,
-		'class' => 1),
-	array(
-		'name' => 'Commander',
-		'short_name' => 'CMDR',
-		'image' => 's-o6',
-		'order' => 2,
-		'class' => 1),
-	array(
-		'name' => 'Sub-Commander',
-		'short_name' => 'SCMDR',
-		'image' => 's-o5',
-		'order' => 3,
-		'class' => 1),
-	array(
-		'name' => 'Centurion',
-		'short_name' => 'CENT',
-		'image' => 's-o4',
-		'order' => 4,
-		'class' => 1),
-	array(
-		'name' => 'Lieutenant',
-		'short_name' => 'LT',
-		'image' => 's-o3',
-		'order' => 5,
-		'class' => 1),
-	array(
-		'name' => 'Sub-Lieutenant',
-		'short_name' => 'SLT',
-		'image' => 's-o2',
-		'order' => 6,
-		'class' => 1),
-	array(
-		'name' => 'Uhlan',
-		'short_name' => 'UHL',
-		'image' => 's-o1',
-		'order' => 7,
-		'class' => 1),
-	array(
-		'name' => '',
-		'short_name' => '',
-		'image' => 'blank',
-		'order' => 8,
-		'class' => 1),
-	array(
-		'name' => 'General',
-		'short_name' => 'GEN',
-		'image' => 'g-o8',
-		'order' => 9,
-		'class' => 2),
-	array(
-		'name' => 'Sub-General',
-		'short_name' => 'SGEN',
-		'image' => 'g-o7',
-		'order' => 10,
-		'class' => 2),
-	array(
-		'name' => 'Colonel',
-		'short_name' => 'COL',
-		'image' => 'g-o6',
-		'order' => 11,
-		'class' => 2),
-	array(
-		'name' => 'Sub-Colonel',
-		'short_name' => 'SCOL',
-		'image' => 'g-o5',
-		'order' => 12,
-		'class' => 2),
-	array(
-		'name' => 'Major',
-		'short_name' => 'MAJ',
-		'image' => 'g-o4',
-		'order' => 13,
-		'class' => 2),
-	array(
-		'name' => 'Captain',
-		'short_name' => 'CAPT',
-		'image' => 'g-o3',
-		'order' => 14,
-		'class' => 2),
-	array(
-		'name' => 'Lieutenant',
-		'short_name' => 'LT',
-		'image' => 'g-o2',
-		'order' => 15,
-		'class' => 2),
-	array(
-		'name' => 'Uhlan',
-		'short_name' => 'UHL',
-		'image' => 'g-o1',
-		'order' => 16,
-		'class' => 2),
-	array(
-		'name' => '',
-		'short_name' => '',
-		'image' => 'blank',
-		'order' => 17,
-		'class' => 2)
+$groups = array(
+	array('name' => 'Romulan Star Navy', 'order' => 0),
+	array('name' => 'Tal Shiar', 'order' => 1),
+);
+
+$info = array(
+	array('name' => "Admiral", 'short_name' => "ADM", 'order' => 0, 'group' => 1),
+	array('name' => "Commodore", 'short_name' => "COMO", 'order' => 1, 'group' => 1),
+	array('name' => "Commander", 'short_name' => "CMDR", 'order' => 2, 'group' => 1),
+	array('name' => "Sub-Commander", 'short_name' => "SCMDR", 'order' => 3, 'group' => 1),
+	array('name' => "Centurion", 'short_name' => "CENT", 'order' => 4, 'group' => 1),
+	array('name' => "Lieutenant", 'short_name' => "LT", 'order' => 5, 'group' => 1),
+	array('name' => "Sub-Lieutenant", 'short_name' => "SLT", 'order' => 6, 'group' => 1),
+	array('name' => "Uhlan", 'short_name' => "UHL", 'order' => 7, 'group' => 1),
+
+	array('name' => "General", 'short_name' => "GEN", 'order' => 0, 'group' => 2),
+	array('name' => "Sub-General", 'short_name' => "SGEN", 'order' => 1, 'group' => 2),
+	array('name' => "Colonel", 'short_name' => "COL", 'order' => 2, 'group' => 2),
+	array('name' => "Sub-Colonel", 'short_name' => "SCOL", 'order' => 3, 'group' => 2),
+	array('name' => "Major", 'short_name' => "MAJ", 'order' => 4, 'group' => 2),
+	array('name' => "Captain", 'short_name' => "CAPT", 'order' => 5, 'group' => 2),
+	array('name' => "Lieutenant", 'short_name' => "LT", 'order' => 6, 'group' => 2),
+);
+
+$ranks = array(
+	array('info_id' => 1, 'group_id' => 1, 'base' => 's-o8'),
+	array('info_id' => 2, 'group_id' => 1, 'base' => 's-o7'),
+	array('info_id' => 3, 'group_id' => 1, 'base' => 's-o6'),
+	array('info_id' => 4, 'group_id' => 1, 'base' => 's-o5'),
+	array('info_id' => 5, 'group_id' => 1, 'base' => 's-o4'),
+	array('info_id' => 6, 'group_id' => 1, 'base' => 's-o3'),
+	array('info_id' => 7, 'group_id' => 1, 'base' => 's-o2'),
+	array('info_id' => 8, 'group_id' => 1, 'base' => 's-o1'),
+
+	array('info_id' => 9, 'group_id' => 2, 'base' => 'g-o8'),
+	array('info_id' => 10, 'group_id' => 2, 'base' => 'g-o7'),
+	array('info_id' => 11, 'group_id' => 2, 'base' => 'g-o6'),
+	array('info_id' => 12, 'group_id' => 2, 'base' => 'g-o5'),
+	array('info_id' => 13, 'group_id' => 2, 'base' => 'g-o4'),
+	array('info_id' => 14, 'group_id' => 2, 'base' => 'g-o3'),
+	array('info_id' => 15, 'group_id' => 2, 'base' => 'g-o2'),
+	array('info_id' => 8, 'group_id' => 2, 'base' => 'g-o1'),
 );
 
 $positions = array(
