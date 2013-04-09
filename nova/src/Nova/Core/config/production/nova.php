@@ -6,4 +6,6 @@ return array(
 
 	'use_dev_data' => false,
 
+	'registration_path' => '',
+
 );

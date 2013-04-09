@@ -11,6 +11,7 @@ use Request;
 use Settings;
 use Redirect;
 use Exception;
+//use Httpful\Request as Httpful;
 
 class Utility {
 	
@@ -244,4 +245,19 @@ class Utility {
 
 		return $default;
 	}
+
+	public static function register()
+	{
+		if (in_array('curl', get_loaded_extensions()))
+		{
+			/*Httpful::post(Config::get('nova.registration_path'))
+				->body(array(
+					'url'		=> Request::url(),
+					'version'	=> Config::get('nova.app.version'),
+				))
+				->sendsXml();
+				->send();*/
+		}
+	}
+
 }

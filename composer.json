@@ -9,6 +9,7 @@
 		"dandoescode/datum": "1.*",
 		"dflydev/markdown": "1.*",
 		"ikimea/browser": "1.*",
+		"nategood/httpful": "*",
 		"cartalyst/sentry": "dev-master",
 		"raveren/kint": "dev-master"
 	},
