@@ -1,7 +1,7 @@
 ## Latest `laravel/laravel` Commit
 
 * 04/08/2013
-* c9d0090f72ce7fa64c671771523dc0bf436adb0f
+* b2a1c9be530ec325342c64cdbc187461302be398
 
 ## Composer Packages
 
@@ -15,6 +15,8 @@
 	* Browser detection
 * raveren/kint
 	* Debugging output helpers
+* nategood/httpful
+	* Wrapper for working with cURL
 
 ## Nova 3 Work
 
