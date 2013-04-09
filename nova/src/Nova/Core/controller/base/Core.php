@@ -273,6 +273,8 @@ abstract class Core extends Controller {
 			}
 		}
 
+		//sd($this->template->render());
+
 		echo $this->template;
 	}
 	

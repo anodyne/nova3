@@ -1,5 +1,10 @@
+@import "http://fonts.googleapis.com/css?family=Open+Sans:300,400,600";
+
 body {
 	padding-top: 40px;
+
+	font-family: "Open Sans", helvetica, arial, sans-serif;
+	font-size: 16px;
 }
 
 .footer-content {
@@ -40,14 +45,19 @@ label.control-label {
 }
 
 footer {
-	color: #888;
+	margin: 15px 0;
+	padding: 15px 0;
+
+	color: #999;
+	font-size: 13px;
+	border-top: 1px solid #eee;
 }
 footer a {
-	color: #666;
+	color: #777;
 	text-decoration: underline;
 }
 footer a:hover {
-	color: #444;
+	color: #555;
 }
 
 .system-warning {
@@ -61,4 +71,16 @@ footer a:hover {
 }
 .align-right {
 	text-align: right;
+}
+
+label.control-label {
+	font-weight: 600;
+}
+
+h1 {
+	font-weight: 300;
+}
+
+.control-group {
+	margin-bottom: 15px;
 }
