@@ -78,11 +78,12 @@ class Provider implements ProviderInterface {
 	 * Finds a throttling interface by the given user login.
 	 *
 	 * @param  string  $login
+	 * @param  string  $ipAddress
 	 * @return Cartalyst\Sentry\Throttling\ThrottleInterface
 	 */
 	public function findByUserLogin($login, $ipAddress = null)
 	{
-		$user  = $this->userProvider->findById($id);
+		$user  = $this->userProvider->findByLogin($login);
 		$model = $this->createModel();
 		$query = $model->where('user_id', '=', ($userId = $user->getId()));
 
@@ -95,6 +96,7 @@ class Provider implements ProviderInterface {
 		{
 			$throttle = $this->createModel();
 			$throttle->user_id = $userId;
+			if ($ipAddress) $throttle->ip_address = $ipAddress;
 			$throttle->save();
 		}
 

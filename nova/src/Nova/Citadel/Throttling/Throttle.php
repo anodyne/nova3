@@ -1,12 +1,10 @@
-<?php
-
-namespace Nova\Citadel\Throttling;
+<?php namespace Nova\Citadel\Throttling;
 
 use Model;
+use DateTime;
 use Cartalyst\Sentry\Throttling\ThrottleInterface;
 use Cartalyst\Sentry\Throttling\UserSuspendedException;
 use Cartalyst\Sentry\Throttling\UserBannedException;
-use DateTime;
 
 class Throttle extends Model implements ThrottleInterface {
 
