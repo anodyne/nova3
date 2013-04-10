@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	
 	'admin' => array(
 		'arc' => array(
 			'ban_user' => "Level :0 ban was issued against :1",
@@ -63,4 +64,5 @@ return array(
 		'updated' => ":0 was updated to version :1",
 		'genre' => "The :0 genre was :1",
 	),
+	
 );

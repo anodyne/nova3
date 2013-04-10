@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	
 	'add' => 'add',
 	'added' => 'added',
 	'agree' => 'agree',
@@ -71,4 +72,5 @@ return array(
 	'uninstalled' => 'uninstalled',
 
 	'view' => 'view',
+	
 );

@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	
 	'header' => array(),
 
 	'message' => array(
@@ -15,4 +16,5 @@ return array(
 	),
 
 	'title' => array(),
+	
 );

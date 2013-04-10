@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	
 	'notFound' => "No :0 found",
 	
 	'email' => array(
@@ -25,17 +26,4 @@ return array(
 		),
 	),
 
-	'login' => array(
-		'notLoggedIn' => "You must log in to continue.",
-		'noEmail' => "You did not enter an email address. Please enter an email address and try again.",
-		'noPassword' => "You did not enter a password. Please enter a password to continue.",
-		'notFound' => "Either your user account could not found or you entered your email and/or password incorrectly. Please try again. If you believe an error has occurred, please contact the game master.",
-		'suspended' => "You have been suspended for too many log in attempts. You will be able to attempt to log in again in :0 minutes.",
-		'banned' => "You have been banned from this game. Please contact the game master if you believe this was done in error.",
-		
-		'maintenance' => "Maintenance mode has been activated and you cannot log in. Please try again later. If you continue to get this error, please contact the game master.",
-		'resetFailed' => "The password reset failed. Please try again.",
-		'authException' => "An unknown authentication occurred when attempting to reset your password. Please make sure your information is correct and try again.",
-		'confirmationFailed' => "Your password reset could not be confirmed. Please make sure you have used the right confirmation link and try again.",
-	),
 );

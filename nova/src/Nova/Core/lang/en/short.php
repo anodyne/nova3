@@ -1,6 +1,7 @@
 <?php
 
 return array(
+
 	'add' 		=> "add :0",
 	'clear'		=> "clear :0",
 	'create' 	=> "create :0",
@@ -119,4 +120,5 @@ return array(
 	'help' => array(
 		'user_account' => "Edit your user details and bio, change your preferences and request an LOA from your account page"
 	),
+
 );
