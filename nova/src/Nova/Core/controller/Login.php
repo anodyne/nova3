@@ -21,6 +21,7 @@ use Utility;
 use Location;
 use Markdown;
 use Redirect;
+use Validator;
 use LoginBaseController;
 
 class Login extends LoginBaseController {
@@ -113,7 +114,7 @@ class Login extends LoginBaseController {
 		catch (\Cartalyst\Sentry\Throttling\UserSuspendedException $e)
 		{
 			// Get the throttle record
-			$throttle = Sentry::getThrottleProvider()->findByUserLogin($email);
+			$throttle = Sentry::getThrottleProvider()->findByLogin($email);
 
 			// Get the suspended date into a usable format
 			$suspendedAt = Date::instance($throttle->suspended_at)
@@ -122,7 +123,6 @@ class Login extends LoginBaseController {
 			// Get now
 			$now = Date::now('UTC');
 
-			// Flash the remaining lock out time
 			Session::flash('suspended_time', $suspendedAt->diffInMinutes($now));
 
 			return Redirect::to('login/index/'.self::SUSPENDED);
@@ -139,7 +139,6 @@ class Login extends LoginBaseController {
 	 */
 	public function getLogout()
 	{
-		// Do the log out
 		Sentry::logout();
 
 		return Redirect::to('main/index');
@@ -185,7 +184,7 @@ class Login extends LoginBaseController {
 			$email = e(Input::get('email'));
 
 			// Get the user
-			$user = Sentry::getUserProvider()->findByUserLogin($email);
+			$user = Sentry::getUserProvider()->findByLogin($email);
 
 			// Get the password reset code
 			$resetCode = $user->getResetPasswordCode();
@@ -197,6 +196,8 @@ class Login extends LoginBaseController {
 			// Get the settings for use in the closure
 			$settings = $this->settings;
 
+			Mail::pretend();
+
 			// Send the email
 			Mail::send(Location::email('login/reset', 'html'), $data, function($m) use($user, $settings)
 			{
@@ -205,12 +206,10 @@ class Login extends LoginBaseController {
 				$m->subject($settings->email_subject.' '.lang('email.subject.passwordReset'));
 			});
 
-			// Flash the session
 			Session::flash('reset_step1', true);
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
-			// Flash the session
 			Session::flash('reset_step1', false);
 		}
 
