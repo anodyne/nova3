@@ -12,10 +12,14 @@
 
 use URL;
 use Date;
+use Html;
+use Mail;
 use Input;
 use Sentry;
 use Session;
 use Utility;
+use Location;
+use Markdown;
 use Redirect;
 use LoginBaseController;
 
@@ -41,36 +45,36 @@ class Login extends LoginBaseController {
 			{
 				case self::NOT_LOGGED_IN:
 					$errorStatus = 'danger';
-					$errorMsg = lang("error.login.notLoggedIn");
+					$errorMsg = lang("login.error.notLoggedIn");
 				break;
 
 				case self::NO_EMAIL:
 					$errorStatus = 'danger';
-					$errorMsg = lang("error.login.noEmail");
+					$errorMsg = lang("login.error.noEmail");
 				break;
 
 				case self::NO_PASSWORD:
 					$errorStatus = 'danger';
-					$errorMsg = lang("error.login.noPassword");
+					$errorMsg = lang("login.error.noPassword");
 				break;
 
 				case self::NOT_FOUND:
 					$errorStatus = 'danger';
-					$errorMsg = lang("error.login.notFound");
+					$errorMsg = lang("login.error.notFound");
 				break;
 
 				case self::SUSPENDED:
 					$errorStatus = 'danger';
-					$errorMsg = lang("error.login.suspended", Session::get('suspended_time'));
+					$errorMsg = lang("login.error.suspended", Session::get('suspended_time'));
 				break;
 
 				case self::BANNED:
 					$errorStatus = 'danger';
-					$errorMsg = lang("error.login.banned");
+					$errorMsg = lang("login.error.banned");
 				break;
 			}
 
-			// set the flash data
+			// Set the flash data
 			$this->_flash[] = array(
 				'status' 	=> $errorStatus,
 				'message' 	=> $errorMsg,
@@ -151,88 +155,66 @@ class Login extends LoginBaseController {
 	 */
 	public function getReset()
 	{
+		// Set the view
 		$this->_view = 'login/reset';
 
-		if (\Input::method() == 'POST')
+		// Get the reset success message
+		$flash = Input::get('reset_step1', null);
+
+		// Set the flash data
+		if ($flash === true)
 		{
-			if (\Security::check_token())
-			{
-				// grab the data from the POST and filter it
-				$email = \Security::xss_clean(\Input::post('email'));
-				$password = \Security::xss_clean(\Input::post('password'));
-
-				try
-				{
-					// do the reset
-					$reset = \Sentry::resetPassword($email, $password);
-
-					if ($reset)
-					{
-						// set the email address coming from the reset
-						$address = $reset['email'];
-
-						// create the confirmation link
-						$link = URL::to('login/reset_confirm/'.$reset['link']);
-
-						// parse the content for the message
-						$email_content = lang('email.content.passwordReset', $link);
-
-						// set up the email
-						$email = \Email::forge();
-						$email->from($this->settings->email_address, $this->settings->email_name)
-							->to($address)
-							->subject($this->settings->email_subject.' '.lang('email.subject.passwordReset'))
-							->body($email_content);
-
-						try
-						{
-							// send the email
-							$email->send();
-
-							$this->_flash[] = array(
-								'status' 	=> 'success',
-								'message' 	=> lang('short.login.resetSuccess')
-							);
-						}
-						catch(\EmailValidationFailedException $e)
-						{
-							$this->_flash[] = array(
-								'status' 	=> 'danger',
-								'message' 	=> lang('error.email.validationFailed')
-							);
-						}
-						catch(\EmailSendingFailedException $e)
-						{
-							$this->_flash[] = array(
-								'status' 	=> 'danger',
-								'message' 	=> lang('error.email.couldNotSend')
-							);
-						}
-					}
-					else
-					{
-						$this->_flash[] = array(
-							'status' 	=> 'danger',
-							'message' 	=> lang('error.login.resetFailed')
-						);
-					}
-				}
-				catch (\SentryAuthException $e)
-				{
-					$this->_flash[] = array(
-						'status' 	=> 'danger',
-						'message' 	=> lang('error.login.authException')
-					);
-				}
-			}
-			else
-			{
-				$this->_flash[] = array(
-					'status' 	=> 'danger',
-					'message' 	=> lang('error.csrf'),
-				);
-			}
+			$this->_flash[] = array(
+				'status' 	=> 'success',
+				'message' 	=> lang('login.reset.step1Success'),
+			);
 		}
+		elseif ($flash === false)
+		{
+			$this->_flash[] = array(
+				'status' 	=> 'danger',
+				'message' 	=> lang('login.reset.step1Failure'),
+			);
+		}
+	}
+	public function postReset()
+	{
+		try
+		{
+			// Grab the credentials
+			$email = e(Input::get('email'));
+
+			// Get the user
+			$user = Sentry::getUserProvider()->findByUserLogin($email);
+
+			// Get the password reset code
+			$resetCode = $user->getResetPasswordCode();
+
+			// Build the content
+			$data['title'] = lang('email.subject.passwordReset');
+			$data['content'] = lang('email.content.passwordReset', URL::to("login/reset_confirm/{$user->id}/{$resetCode}"));
+
+			// Get the settings for use in the closure
+			$settings = $this->settings;
+
+			// Send the email
+			Mail::send(Location::email('login/reset', 'html'), $data, function($m) use($user, $settings)
+			{
+				$m->from($settings->email_address, $settings->email_name);
+				$m->to($user->email);
+				$m->subject($settings->email_subject.' '.lang('email.subject.passwordReset'));
+			});
+
+			// Flash the session
+			Session::flash('reset_step1', true);
+		}
+		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
+			// Flash the session
+			Session::flash('reset_step1', false);
+		}
+
+		return Redirect::to('login/reset');
 	}
 
 	# TODO: need some kind of procedure for how to handle if the email doesn't go out
@@ -243,46 +225,101 @@ class Login extends LoginBaseController {
 	 */
 	public function getReset_confirm()
 	{
+		// Set the view
 		$this->_view = 'login/reset_confirm';
 
-		if (\Input::method() == 'POST')
-		{
-			if (\Security::check_token())
-			{
-				try
-				{
-					// confirm password reset
-					$confirm_reset = \Sentry::resetPasswordConfirm(\Uri::segment(3), \Uri::segment(4));
+		// Set the data
+		$this->_data->user = $this->request->segment(3);
+		$this->_data->code = $this->request->segment(4);
+		$this->_data->confirmed = false;
 
-					if ($confirm_reset)
-					{
-						// redirect to the login page with a message about a successful reset
-						\Response::redirect('login/index/'.self::PASS_RESET);
-					}
-					else
-					{
-						$this->_flash[] = array(
-							'status' 	=> 'danger',
-							'message' 	=> lang('error.login.confirmationFailed')
-						);
-					}
-				}
-				catch (\SentryAuthException $e)
+		// Get the reset triggers
+		$confirm = Input::get('reset_confirmation', null);
+		$reset = Input::get('reset_step2', null);
+
+		if ($confirm === true)
+		{
+			if ($reset === true)
+			{
+				$this->_flash[] = array(
+					'status' 	=> 'success',
+					'message' 	=> lang('login.reset.step2Success', Html::link('login/index', ucfirst(lang('action.login')))),
+				);
+
+				$this->_data->confirmed = true;
+				$this->_data->message = false;
+			}
+			elseif ($reset === false)
+			{
+				$this->_flash[] = array(
+					'status' 	=> 'danger',
+					'message' 	=> lang('login.reset.step2Failure'),
+				);
+			}
+		}
+		elseif ($confirm === false)
+		{
+			$this->_flash[] = array(
+				'status' 	=> 'danger',
+				'message' 	=> lang('login.reset.confirmationFailed'),
+			);
+		}
+	}
+	public function postReset_confirm()
+	{
+		// Grab the data URI
+		$id = $this->request->segment(3);
+		$code = $this->request->segment(4);
+
+		// Set the validation rules
+		$rules = array(
+			'password'			=> 'required',
+			'password_confirm'	=> 'required|same:password',
+		);
+
+		// Setup the validator
+		$validator = Validator::make(Input::all(), $rules);
+
+		// If the validation fails, stop and go back
+		if ($validator->fails())
+		{
+			return Redirect::to("login/reset_confirm/{$id}/{$code}")->withErrors($validator)->withInput();
+		}
+
+		try
+		{
+			// Get the data from the input array
+			$newPassword = Input::get('password');
+
+			// Get the user
+			$user = Sentry::getUserProvider()->findById($id);
+
+			// Check the reset code against what we have in the database
+			if ($user->checkResetPasswordCode($code))
+			{
+				// Attempt to reset the user password
+				if ($user->attemptResetPassword($code, $newPassword))
 				{
-					$this->_flash[] = array(
-						'status' 	=> 'danger',
-						'message' 	=> lang('error.login.authException')
-					);
+					Session::flash('reset_confirmation', true);
+					Session::flash('reset_step2', true);
+				}
+				else
+				{
+					Session::flash('reset_confirmation', true);
+					Session::flash('reset_step2', false);
 				}
 			}
 			else
 			{
-				$this->_flash[] = array(
-					'status' 	=> 'danger',
-					'message' 	=> lang('error.csrf'),
-				);
+				Session::flash('reset_confirmation', false);
 			}
 		}
+		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
+			Session::flash('reset_confirmation', false);
+		}
+
+		return Redirect::to('login/reset_confirm');
 	}
 
 	public function getAuthenticated()
