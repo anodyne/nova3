@@ -91,7 +91,8 @@ class Login extends LoginBaseController {
 				'password'	=> $password,
 			));
 
-			return Redirect::to('admin/main/index');
+			return Redirect::to('login/authenticated');
+			//return Redirect::to('admin/main/index');
 		}
 		catch (\Cartalyst\Sentry\Users\LoginRequiredException $e)
 		{
@@ -281,6 +282,11 @@ class Login extends LoginBaseController {
 				);
 			}
 		}
+	}
+
+	public function getAuthenticated()
+	{
+		d(Sentry::getUser());
 	}
 
 }
