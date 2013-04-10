@@ -8,8 +8,6 @@ use Cartalyst\Sentry\Throttling\UserSuspendedException;
 
 class Suspend extends Model implements ThrottleInterface {
 
-	public $timestamps = false;
-
 	protected $table = 'user_suspended';
 
 	protected $fillable = array(
