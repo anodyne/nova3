@@ -15,7 +15,7 @@
 
 	<div class="control-group">
 		<div class="controls">
-			{{ Form::button(ucwords(lang('action.login')), array('class' => 'btn btn-primary btn-block btn-large')) }}
+			{{ Form::button(ucwords(lang('action.login')), array('class' => 'btn btn-primary btn-block btn-large', 'type' => 'submit')) }}
 			{{ Html::link('login/reset', lang("short.forgotPassword"), array('class' => 'btn btn-block')) }}
 			{{ Html::link('main/index', lang("short.backToSite"), array('class' => 'btn btn-block')) }}
 		</div>
