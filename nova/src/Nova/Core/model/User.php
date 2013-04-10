@@ -9,6 +9,7 @@ use Sentry;
 use Session;
 use Redirect;
 use Exception;
+use AccessRole;
 use Cartalyst\Sentry\Users\UserInterface;
 use Cartalyst\Sentry\Groups\GroupInterface;
 
@@ -24,6 +25,11 @@ class User extends Model implements UserInterface {
 	protected $hidden = array(
 		'password', 'reset_password_hash', 'activation_hash', 'persist_hash',
 		'ip_address'
+	);
+
+	protected $hashableAttributes = array(
+		'password',
+		'persist_code',
 	);
 	
 	protected static $properties = array(
@@ -124,25 +130,6 @@ class User extends Model implements UserInterface {
 	public function appReviews()
 	{
 		return $this->belongsToMany('NovaApp', 'application_reviewers');
-	}
-
-	/*
-	|--------------------------------------------------------------------------
-	| Custom Accessors
-	|--------------------------------------------------------------------------
-	*/
-
-	/**
-	 * Status Accessor.
-	 *
-	 * Converts the integer-based status field to a string.
-	 *
-	 * @param	string	The field value
-	 * @return	string
-	 */
-	public function getStatusAttribute($value)
-	{
-		return Status::toString($value);
 	}
 
 	/*
@@ -783,6 +770,18 @@ class User extends Model implements UserInterface {
 	}
 
 	/**
+	 * Checks if the user has at least the given level
+	 *
+	 * @param	string	A dot-notated array key of the task
+	 * @param	int		The level to check for (default: 0)
+	 * @return	bool
+	 */
+	public function hasAtLeastLevel($permissions, $level = 0)
+	{
+		return $this->hasLevel($permissions, $level, false);
+	}
+
+	/**
 	 * Check string against hashed string.
 	 *
 	 * @param  string  $string
@@ -798,6 +797,16 @@ class User extends Model implements UserInterface {
 		}
 
 		return static::$hasher->checkHash($string, $hashedString);
+	}
+
+	/**
+	 * Returns an array of hashable attributes.
+	 *
+	 * @return array
+	 */
+	public function getHashableAttributes()
+	{
+		return $this->hashableAttributes;
 	}
 	
 }
