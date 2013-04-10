@@ -1,4 +1,5 @@
-<?php
+<?php namespace Nova\Foundation\Routing;
+
 /**
  * Service Provider for the Nova Routing component.
  *
@@ -6,49 +7,33 @@
  * @subpackage	Foundation
  * @category	Class
  * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
+ * @copyright	2013 Anodyne Productions
  */
 
-namespace Nova\Foundation\Routing;
+use Illuminate\Routing\RoutingServiceProvider as LaravelRoutingServiceProvider;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\Routing\UrlGenerator;
-use Illuminate\Support\ServiceProvider;
-
-class RoutingServiceProvider extends ServiceProvider {
+class RoutingServiceProvider extends LaravelRoutingServiceProvider {
 
 	/**
-	 * Register the service provider.
+	 * Register the router instance.
 	 *
 	 * @return void
 	 */
-	public function register()
+	protected function registerRouter()
 	{
 		$this->app['router'] = $this->app->share(function($app)
 		{
-			return new Router($app);
-		});
+			$router = new Router($app);
 
-		$this->registerUrlGenerator();
+			// If the current application environment is "testing", we will disable the
+			// routing filters, since they can be tested independently of the routes
+			// and just get in the way of our typical controller testing concerns.
+			if ($app['env'] == 'testing')
+			{
+				$router->disableFilters();
+			}
 
-		$this->registerRedirector();
-	}
-
-	/**
-	 * Register the URL generator service.
-	 *
-	 * @return void
-	 */
-	protected function registerUrlGenerator()
-	{
-		$this->app['url'] = $this->app->share(function($app)
-		{
-			// The URL generator needs the route collection that exists on the router.
-			// Keep in mind this is an object, so we're passing by references here
-			// and all the registered routes will be available to the generator.
-			$routes = $app['router']->getRoutes();
-
-			return new UrlGenerator($routes, $app['request']);
+			return $router;
 		});
 	}
 
@@ -74,4 +59,5 @@ class RoutingServiceProvider extends ServiceProvider {
 			return $redirector;
 		});
 	}
+
 }
