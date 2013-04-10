@@ -1,5 +1,6 @@
 <?php namespace Nova\Core\Lib;
 
+use Str;
 use View;
 use Sentry;
 use Utility;
@@ -178,7 +179,7 @@ class Nav {
 					$access = $user->hasAccess("$navaccess[0].$navaccess[1]");
 
 					// Find if the user has the proper level
-					$level = $user->atLeastLevel("$navaccess[0].$navaccess[1]", $navaccess[2]);
+					$level = $user->hasAtLeastLevel("$navaccess[0].$navaccess[1]", $navaccess[2]);
 
 					// Remove items from the return array if they shouldn't be there based on access
 					if ( ! $access or ($access and ! $level))
@@ -260,48 +261,48 @@ class Nav {
 			$this->userData = array(
 				0 => array(
 					array(
-						'name' => ucwords(lang('cp')),
+						'name' => ucwords(lang('base.cp')),
 						'url' => 'admin/index',
 						'extra' => array(),
 						'additional' => ''),
 					array(
-						'name' => ucfirst(Str::plural(lang('notification'))),
+						'name' => ucfirst(Str::plural(lang('base.notification'))),
 						'url' => 'admin/notifications',
 						'extra' => array(),
 						'additional' => ''),
 				),
 				1 => array(
 					array(
-						'name' => ucwords(lang('my', array('thing' => lang('account')))),
+						'name' => ucwords(lang('base.my', lang('base.account'))),
 						'url' => 'admin/user/edit/'.Sentry::getUser()->id,
 						'extra' => array(),
 						'additional' => ' <span class="icn icn-50 tooltip-left" data-icon="?" title="'.lang('short.help.user_account').'"></span>'),
 					array(
-						'name' => ucwords(lang('my', array('thing' => Str::plural(lang('character'))))),
+						'name' => ucwords(lang('base.my', Str::plural(lang('base.character')))),
 						'url' => 'admin/character/edit',
 						'extra' => array(),
 						'additional' => ''),
 				),
 				2 => array(
 					array(
-						'name' => $messageOutput.ucfirst(Str::plural(lang('message'))),
+						'name' => $messageOutput.ucfirst(Str::plural(lang('base.message'))),
 						'url' => 'admin/messages',
 						'extra' => array(),
 						'additional' => ''),
 					array(
-						'name' => $writingOutput.lang('writing', 1),
+						'name' => $writingOutput.lang('base.writing', 1),
 						'url' => 'admin/writing',
 						'extra' => array(),
 						'additional' => ''),
 				),
 				3 => array(
 					array(
-						'name' => ucfirst(langConcat('action.request loa')),
+						'name' => ucfirst(langConcat('action.request base.loa')),
 						'url' => 'admin/user/loa',
 						'extra' => array(),
 						'additional' => ''),
 					array(
-						'name' => ucfirst(langConcat('action.nominate for award')),
+						'name' => ucfirst(langConcat('action.nominate base.for base.award')),
 						'url' => 'admin/user/nominate',
 						'extra' => array(),
 						'additional' => ''),

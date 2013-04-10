@@ -97,7 +97,7 @@ return array(
 	'level' => "level",
 
 	'message' => "message",
-	'my' => "my :thing",
+	'my' => "my :0",
 	'middle' => 'middle',
 	'module' => 'module',
 	'modules' => 'modules',
