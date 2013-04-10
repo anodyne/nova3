@@ -27,7 +27,11 @@ class Model extends EloquentModel {
 	*/
 
 	/**
-	 * Override the default Eloquent Collection with our own.
+	 * Create a new Eloquent Collection instance.
+	 *
+	 * We override this method from the Eloquent model so that we
+	 * can ensure every collection being created is one of our own
+	 * making and not the default.
 	 *
 	 * @param	array	An array of models
 	 * @return	Collection
@@ -40,15 +44,46 @@ class Model extends EloquentModel {
 	/**
 	 * Get a fresh timestamp for the model.
 	 *
+	 * We override this method from the Eloquent model so that we
+	 * can ensure that every timestamp being generated is done so
+	 * as UTC.
+	 *
 	 * @return mixed
 	 */
 	public function freshTimestamp()
 	{
-		return Date::now('UTC')->toDateTimeString();
+		return Date::now('UTC');
+	}
+
+	/**
+	 * Return a timestamp as DateTime object.
+	 *
+	 * We override this method from the Eloquent model so that we
+	 * can ensure that everything being stored in the database is
+	 * being done so as UTC.
+	 *
+	 * @param	mixed	The value to store
+	 * @return	Date
+	 */
+	protected function asDateTime($value)
+	{
+		if ( ! $value instanceof Date)
+		{
+			$format = $this->getDateFormat();
+
+			return Date::createFromFormat($format, $value, 'UTC');
+		}
+
+		return $value;
 	}
 
 	/**
 	 * Define a many-to-many relationship.
+	 *
+	 * We override this method from the Eloquent model so that we
+	 * can grab the class alias from the config file and create
+	 * the model based on what class SHOULD be used instead of
+	 * assuming the core should be used.
 	 *
 	 * @param  string  $related
 	 * @param  string  $table
