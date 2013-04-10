@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Model\User;
 
+use Date;
 use Model;
-use DateTime;
 use Cartalyst\Sentry\Throttling\ThrottleInterface;
 use Cartalyst\Sentry\Throttling\UserBannedException;
 use Cartalyst\Sentry\Throttling\UserSuspendedException;
@@ -307,7 +307,7 @@ class Suspend extends Model implements ThrottleInterface {
 	{
 		$lastAttempt = clone($this->last_attempt_at);
 		$clearAttemptsAt = $lastAttempt->modify("+{$this->suspensionTime} minutes");
-		$now = new DateTime;
+		$now = Date::now('UTC');
 
 		if ($clearAttemptsAt <= $now)
 		{
@@ -330,7 +330,7 @@ class Suspend extends Model implements ThrottleInterface {
 	{
 		$suspended = clone($this->suspended_at);
 		$unsuspendAt = $suspended->modify("+{$this->suspensionTime} minutes");
-		$now = new DateTime;
+		$now = Date::now('UTC');
 
 		if ($unsuspendAt <= $now)
 		{
