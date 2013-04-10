@@ -109,7 +109,7 @@ return array(
 		'Nova\Citadel\CitadelServiceProvider',
 		'Nova\Core\Providers\LocationServiceProvider',
 		'Nova\Foundation\Routing\RoutingServiceProvider',
-		//'Whoops\Provider\Illuminate\WhoopsServiceProvider',
+		'Whoops\Provider\Illuminate\WhoopsServiceProvider',
 		'Nova\Foundation\Translation\TranslationServiceProvider',
 
 	),
