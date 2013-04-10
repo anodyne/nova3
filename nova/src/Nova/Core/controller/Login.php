@@ -112,10 +112,11 @@ class Login extends LoginBaseController {
 			$throttle = Sentry::getThrottleProvider()->findByUserLogin($email);
 
 			// Get the suspended date into a usable format
-			$suspendedAt = Date::createFromFormat('Y-m-d H:i:s', $throttle->suspended_at);
+			$suspendedAt = Date::instance($throttle->suspended_at)
+				->addMinutes($throttle->getSuspensionTime());
 
 			// Get now
-			$now = Date::now();
+			$now = Date::now('UTC');
 
 			// Flash the remaining lock out time
 			Session::flash('suspended_time', $suspendedAt->diffInMinutes($now));
