@@ -168,6 +168,8 @@ class Router extends LaravelRouter {
 		// Now trim the path to make sure we don't have pesky slashes in there
 		$path = trim($path, '/');
 
+		$this->debug('Path', $path);
+
 		// Create the route
 		$this->createRoute(strtolower(LaravelRequest::getMethod()), $path, $route);
 	}
