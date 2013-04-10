@@ -299,14 +299,12 @@ class Router extends LaravelRouter {
 	 */
 	protected function buildActionName()
 	{
-		$this->debug('URI Segments', implode('/', $this->uriSegments));
-
 		// Make sure we have the right action name
-		$action = (isset($this->uriSegments[0]))
+		$action = (isset($this->uriSegments[0]) and ! empty($this->uriSegments[0]))
 			? str_replace('{name}', ucfirst($this->uriSegments[0]), $this->novaActionNamePattern)
 			: str_replace('{name}', ucfirst($this->novaActionDefault), $this->novaActionNamePattern);
 
-		// Make sure we have the right action
+		// Make sure we have the right HTTP verb
 		$action = str_replace('{action}', Str::lower(LaravelRequest::getMethod()), $action);
 
 		return $action;
