@@ -223,7 +223,7 @@ abstract class Core extends Controller {
 		$actionName = Route::getAction();
 
 		// Set the final title content
-		$this->template->title.= (property_exists($this->_data, 'title')) 
+		$this->template->title.= (is_object($this->_data) and property_exists($this->_data, 'title')) 
 			? $this->_data->title 
 			: ((array_key_exists($actionName, $this->_titles)) 
 				? $this->_titles[$actionName] 
@@ -231,7 +231,7 @@ abstract class Core extends Controller {
 		);
 		
 		// Set the final header content
-		$this->template->layout->header = (property_exists($this->_data, 'header')) 
+		$this->template->layout->header = (is_object($this->_data) and property_exists($this->_data, 'header')) 
 			? $this->_data->header 
 			: ((array_key_exists($actionName, $this->_headers)) 
 				? $this->_headers[$actionName] 
@@ -239,7 +239,7 @@ abstract class Core extends Controller {
 		);
 		
 		// set the final message content
-		$this->template->layout->message = (property_exists($this->_data, 'message')) 
+		$this->template->layout->message = (is_object($this->_data) and property_exists($this->_data, 'message')) 
 			? Markdown::parse($this->_data->message)
 			: ((array_key_exists($actionName, $this->_messages)) 
 				? Markdown::parse($this->_messages[$actionName])
