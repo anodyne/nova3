@@ -362,7 +362,7 @@ class NovaCreateSiteContents extends Migration {
 			array(
 				'key' => 'login_reset_message',
 				'label' => 'Reset Password Message',
-				'content' => "To reset your password, simply enter your email address and a new password. You'll receive an email shortly with a link to confirm your password reset. If you log in to the site before confirming your password reset, the reset will be cancelled.",
+				'content' => "To reset your password, simply enter your email address. You'll receive an email shortly with a link to confirm your password reset. If you log in to the site before confirming your password reset, the reset will be cancelled.",
 				'type' => 'message',
 				'section' => 'login',
 				'page' => 'reset',
@@ -370,7 +370,7 @@ class NovaCreateSiteContents extends Migration {
 			array(
 				'key' => 'login_reset_confirm_message',
 				'label' => 'Confirm Reset Password Message',
-				'content' => "The second step of the password reset process is confirmation. In order to complete your password reset, click the button below. Your password will be changed to the one you chose. If you did not request a password reset, you can simply log in to the site to cancel the reset request.",
+				'content' => "The second step of the password reset process is confirmation. In order to complete your password reset, enter a new password and click the button below and your password will be changed. If you did not request a password reset, you can simply log in to the site to cancel the reset request.",
 				'type' => 'message',
 				'section' => 'login',
 				'page' => 'reset_confirm',
