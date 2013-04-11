@@ -53,8 +53,8 @@ abstract class Login extends BaseController {
 			);
 
 			// Set the structure file
-			$me->template = View::make(Location::file('login', $me->skin, 'structure'), $vars);
-			$me->template->layout = View::make(Location::file('login', $me->skin, 'template'), $vars);
+			$me->template = View::make(Location::file('login', $me->skin, 'structure'))->with($vars);
+			$me->template->layout = View::make(Location::file('login', $me->skin, 'template'))->with($vars);
 
 			// Populate the template
 			$me->template->title 			= $me->settings->sim_name.' :: ';

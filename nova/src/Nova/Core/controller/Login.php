@@ -17,11 +17,9 @@ use Mail;
 use Input;
 use Sentry;
 use Session;
-use Utility;
 use Location;
-use Markdown;
 use Redirect;
-use Validator;
+use UserValidator;
 use LoginBaseController;
 
 class Login extends LoginBaseController {
@@ -42,35 +40,32 @@ class Login extends LoginBaseController {
 		// Only show the error messages when there's something wrong
 		if ($error > self::OK)
 		{
+			// Set the error class
+			$errorStatus = 'danger';
+
 			switch ($error)
 			{
 				case self::NOT_LOGGED_IN:
-					$errorStatus = 'danger';
 					$errorMsg = lang("login.error.notLoggedIn");
 				break;
 
 				case self::NO_EMAIL:
-					$errorStatus = 'danger';
 					$errorMsg = lang("login.error.noEmail");
 				break;
 
 				case self::NO_PASSWORD:
-					$errorStatus = 'danger';
 					$errorMsg = lang("login.error.noPassword");
 				break;
 
 				case self::NOT_FOUND:
-					$errorStatus = 'danger';
 					$errorMsg = lang("login.error.notFound");
 				break;
 
 				case self::SUSPENDED:
-					$errorStatus = 'danger';
 					$errorMsg = lang("login.error.suspended", Session::get('suspended_time'));
 				break;
 
 				case self::BANNED:
-					$errorStatus = 'danger';
 					$errorMsg = lang("login.error.banned");
 				break;
 			}
@@ -84,6 +79,15 @@ class Login extends LoginBaseController {
 	}
 	public function postIndex()
 	{
+		// Set up the validation server
+		$validator = new UserValidator;
+
+		// If the validation fails, stop and go back
+		if ( ! $validator->passes())
+		{
+			return Redirect::back()->withInput()->withErrors($validator->getErrors());
+		}
+
 		try
 		{
 			// Grab the credentials
@@ -96,20 +100,11 @@ class Login extends LoginBaseController {
 				'password'	=> $password,
 			));
 
-			return Redirect::to('login/authenticated');
-			//return Redirect::to('admin/main/index');
-		}
-		catch (\Cartalyst\Sentry\Users\LoginRequiredException $e)
-		{
-			return Redirect::to('login/index/'.self::NO_EMAIL);
-		}
-		catch (\Cartalyst\Sentry\Users\PasswordRequiredException $e)
-		{
-			return Redirect::to('login/index/'.self::NO_PASSWORD);
+			return Redirect::to('admin/main/index');
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
-			return Redirect::to('login/index/'.self::NOT_FOUND);
+			return Redirect::to('login/index/'.self::NOT_FOUND)->withInput();
 		}
 		catch (\Cartalyst\Sentry\Throttling\UserSuspendedException $e)
 		{
@@ -123,9 +118,9 @@ class Login extends LoginBaseController {
 			// Get now
 			$now = Date::now('UTC');
 
-			Session::flash('suspended_time', $suspendedAt->diffInMinutes($now));
-
-			return Redirect::to('login/index/'.self::SUSPENDED);
+			return Redirect::to('login/index/'.self::SUSPENDED)
+				->with('suspended_time', $suspendedAt->diffInMinutes($now))
+				->withInput();
 		}
 		catch (\Cartalyst\Sentry\Throttling\UserBannedException $e)
 		{
@@ -139,6 +134,7 @@ class Login extends LoginBaseController {
 	 */
 	public function getLogout()
 	{
+		// Do the logout
 		Sentry::logout();
 
 		return Redirect::to('main/index');
@@ -158,7 +154,7 @@ class Login extends LoginBaseController {
 		$this->_view = 'login/reset';
 
 		// Get the reset success message
-		$flash = Input::get('reset_step1', null);
+		$flash = Session::get('reset_step1', null);
 
 		// Set the flash data
 		if ($flash === true)
@@ -178,6 +174,15 @@ class Login extends LoginBaseController {
 	}
 	public function postReset()
 	{
+		// Set up the validation server
+		$validator = new UserValidator;
+
+		// If the validation fails, stop and go back
+		if ( ! $validator->passes())
+		{
+			return Redirect::back()->withInput()->withErrors($validator->getErrors());
+		}
+
 		try
 		{
 			// Grab the credentials
@@ -189,14 +194,12 @@ class Login extends LoginBaseController {
 			// Get the password reset code
 			$resetCode = $user->getResetPasswordCode();
 
-			// Build the content
+			// Build the content for the email
 			$data['title'] = lang('email.subject.passwordReset');
 			$data['content'] = lang('email.content.passwordReset', URL::to("login/reset_confirm/{$user->id}/{$resetCode}"));
 
 			// Get the settings for use in the closure
 			$settings = $this->settings;
-
-			Mail::pretend();
 
 			// Send the email
 			Mail::send(Location::email('login/reset', 'html'), $data, function($m) use($user, $settings)
@@ -206,14 +209,16 @@ class Login extends LoginBaseController {
 				$m->subject($settings->email_subject.' '.lang('email.subject.passwordReset'));
 			});
 
-			Session::flash('reset_step1', true);
+			// Set the data to flash to the next request
+			$flashData = array('reset_step1' => true);
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
-			Session::flash('reset_step1', false);
+			// Set the data to flash to the next request
+			$flashData = array('reset_step1' => false);
 		}
 
-		return Redirect::to('login/reset');
+		return Redirect::to('login/reset')->with($flashData);
 	}
 
 	# TODO: need some kind of procedure for how to handle if the email doesn't go out
@@ -233,8 +238,8 @@ class Login extends LoginBaseController {
 		$this->_data->confirmed = false;
 
 		// Get the reset triggers
-		$confirm = Input::get('reset_confirmation', null);
-		$reset = Input::get('reset_step2', null);
+		$confirm = Session::get('reset_confirmation', null);
+		$reset = Session::get('reset_step2', null);
 
 		if ($confirm === true)
 		{
@@ -270,19 +275,13 @@ class Login extends LoginBaseController {
 		$id = $this->request->segment(3);
 		$code = $this->request->segment(4);
 
-		// Set the validation rules
-		$rules = array(
-			'password'			=> 'required',
-			'password_confirm'	=> 'required|same:password',
-		);
-
-		// Setup the validator
-		$validator = Validator::make(Input::all(), $rules);
+		// Set up the validation server
+		$validator = new UserValidator;
 
 		// If the validation fails, stop and go back
-		if ($validator->fails())
+		if ( ! $validator->passes())
 		{
-			return Redirect::to("login/reset_confirm/{$id}/{$code}")->withErrors($validator)->withInput();
+			return Redirect::back()->withInput()->withErrors($validator->getErrors());
 		}
 
 		try
@@ -299,31 +298,38 @@ class Login extends LoginBaseController {
 				// Attempt to reset the user password
 				if ($user->attemptResetPassword($code, $newPassword))
 				{
-					Session::flash('reset_confirmation', true);
-					Session::flash('reset_step2', true);
+					// Set up the data to flash to the next request
+					$flashData = array(
+						'reset_confirmation' => true,
+						'reset_step2' => true
+					);
 				}
 				else
 				{
-					Session::flash('reset_confirmation', true);
-					Session::flash('reset_step2', false);
+					// Set up the data to flash to the next request
+					$flashData = array(
+						'reset_confirmation' => true,
+						'reset_step2' => false
+					);
 				}
 			}
 			else
 			{
-				Session::flash('reset_confirmation', false);
+				// Set up the data to flash to the next request
+				$flashData = array(
+					'reset_confirmation' => false,
+				);
 			}
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
-			Session::flash('reset_confirmation', false);
+			// Set up the data to flash to the next request
+			$flashData = array(
+				'reset_confirmation' => false,
+			);
 		}
 
-		return Redirect::to('login/reset_confirm');
-	}
-
-	public function getAuthenticated()
-	{
-		d(Sentry::getUser());
+		return Redirect::to('login/reset_confirm')->with($flashData);
 	}
 
 }
