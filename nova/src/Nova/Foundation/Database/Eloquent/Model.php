@@ -102,6 +102,24 @@ class Model extends EloquentModel {
 		return parent::belongsToMany($model, $table, $foreignKey, $otherKey);
 	}
 
+	/**
+	 * Define a one-to-many relationship.
+	 *
+	 * @param  string  $related
+	 * @param  string  $foreignKey
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function hasMany($related, $foreignKey = null)
+	{
+		// Get the class aliases
+		$aliases = Config::get('app.aliases');
+
+		// Figure out what the real model class should be
+		$model = $aliases[$related];
+
+		return parent::hasMany($model, $foreignKey);
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Model Helpers
