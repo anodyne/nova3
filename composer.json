@@ -10,8 +10,7 @@
 		"dflydev/markdown": "1.*",
 		"ikimea/browser": "1.*",
 		"cartalyst/sentry": "dev-master",
-		"raveren/kint": "dev-master",
-		"filp/whoops": "1.*"
+		"raveren/kint": "dev-master"
 	},
 
 	"autoload": {
