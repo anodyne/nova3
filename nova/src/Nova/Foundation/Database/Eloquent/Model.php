@@ -279,7 +279,7 @@ class Model extends EloquentModel {
 	 * @return	mixed
 	 * @throws	Exception
 	 */
-	public static function updates($id, array $data, $returnObject = false, $filter = true)
+	public static function edit($id, array $data, $returnObject = false, $filter = true)
 	{
 		if ($id)
 		{
