@@ -69,6 +69,24 @@ class User {
 	}
 
 	/**
+	 * Pre-update observer.
+	 *
+	 * @param	$model	The current model
+	 * @return	void
+	 */
+	public function beforeUpdate($model)
+	{
+		if (Str::length($model->password) < 96)
+		{
+			// Get the hasher out of the IoC container
+			$hasher = App::make('sentry.hasher');
+
+			// Update the password
+			$model->password = $hasher->hash($model->password);
+		}
+	}
+
+	/**
 	 * Post-update observer.
 	 *
 	 * @param	$model	The current model
@@ -76,6 +94,15 @@ class User {
 	 */
 	public function afterUpdate($model)
 	{
+		if (Str::length($model->password) < 96)
+		{
+			// Get the hasher out of the IoC container
+			$hasher = App::make('sentry.hasher');
+
+			// Update the password
+			$model->password = $hasher->hash($model->password);
+		}
+		
 		/**
 		 * System Event
 		 */

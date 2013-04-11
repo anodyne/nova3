@@ -169,6 +169,7 @@ class User extends Model implements UserInterface {
 
 		Event::listen("eloquent.creating: {$classes['User']}", "{$classes['UserHandler']}@beforeCreate");
 		Event::listen("eloquent.created: {$classes['User']}", "{$classes['UserHandler']}@afterCreate");
+		Event::listen("eloquent.updating: {$classes['User']}", "{$classes['UserHandler']}@beforeUpdate");
 		Event::listen("eloquent.updated: {$classes['User']}", "{$classes['UserHandler']}@afterUpdate");
 		Event::listen("eloquent.deleting: {$classes['User']}", "{$classes['UserHandler']}@beforeDelete");
 	}
@@ -192,13 +193,9 @@ class User extends Model implements UserInterface {
 	 */
 	public function getPreferenceItem($item = false)
 	{
-		// Filter the preferences based on what we want
-		$pref = $this->preferences->filter(function($p) use($item)
-		{
-			return ($p->key == $item);
-		});
+		$prefs = $this->preferences->toSimpleArray('key', 'value');
 
-		return $pref->first()->value;
+		return $prefs[$item];
 	}
 
 	/**
