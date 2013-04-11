@@ -7,7 +7,7 @@ class Main extends AdminBaseController {
 
 	public function getIndex()
 	{
-		d(Sentry::getUser());
+		dd(Sentry::getUser());
 	}
 
 }

@@ -38,7 +38,7 @@ abstract class Admin extends BaseController {
 		$sectionControllerStartup = function() use(&$me)
 		{
 			// Set the variables
-			$me->skin		= Session::get('skin_admin', $me->settings->skin_main);
+			$me->skin		= Session::get('skin_admin');
 			$me->rank		= Session::get('rank', $me->settings->rank);
 			$me->timezone	= Session::get('timezone', $me->settings->timezone);
 			$me->images		= Utility::getImageIndex($me->skin);
