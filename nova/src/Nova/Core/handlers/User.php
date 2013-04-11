@@ -8,26 +8,6 @@ use NovaFormData;
 use NovaFormField;
 
 class User {
-	
-	/**
-	 * Before the model is saved, we need to make sure the password
-	 * is appropriately hashed. This will happen before every save,
-	 * so if the password IS hashed, we have problems.
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
-	public function beforeCreate($model)
-	{
-		if (Str::length($model->password) < 96)
-		{
-			// Get the hasher out of the IoC container
-			$hasher = App::make('sentry.hasher');
-
-			// Update the password
-			$model->password = $hasher->hash($model->password);
-		}
-	}
 
 	/**
 	 * When a user is created, we need to create blank data records
@@ -69,24 +49,6 @@ class User {
 	}
 
 	/**
-	 * Pre-update observer.
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
-	public function beforeUpdate($model)
-	{
-		if (Str::length($model->password) < 96)
-		{
-			// Get the hasher out of the IoC container
-			$hasher = App::make('sentry.hasher');
-
-			// Update the password
-			$model->password = $hasher->hash($model->password);
-		}
-	}
-
-	/**
 	 * Post-update observer.
 	 *
 	 * @param	$model	The current model
@@ -94,15 +56,6 @@ class User {
 	 */
 	public function afterUpdate($model)
 	{
-		if (Str::length($model->password) < 96)
-		{
-			// Get the hasher out of the IoC container
-			$hasher = App::make('sentry.hasher');
-
-			// Update the password
-			$model->password = $hasher->hash($model->password);
-		}
-		
 		/**
 		 * System Event
 		 */
@@ -121,6 +74,26 @@ class User {
 		 * System Event
 		 */
 		SystemEvent::addUserEvent('event.admin.user.item', $model->name, lang('action.deleted'));
+	}
+
+	/**
+	 * Before the model is saved, we need to make sure the password
+	 * is appropriately hashed. This will happen before every save,
+	 * so if the password IS hashed, we have problems.
+	 *
+	 * @param	$model	The current model
+	 * @return	void
+	 */
+	public function beforeSave($model)
+	{
+		if (Str::length($model->password) < 96)
+		{
+			// Get the hasher out of the IoC container
+			$hasher = App::make('sentry.hasher');
+
+			// Update the password
+			$model->password = $hasher->hash($model->password);
+		}
 	}
 
 }

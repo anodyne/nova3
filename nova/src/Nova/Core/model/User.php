@@ -167,11 +167,10 @@ class User extends Model implements UserInterface {
 		// Get all the aliases
 		$classes = Config::get('app.aliases');
 
-		Event::listen("eloquent.creating: {$classes['User']}", "{$classes['UserHandler']}@beforeCreate");
 		Event::listen("eloquent.created: {$classes['User']}", "{$classes['UserHandler']}@afterCreate");
-		Event::listen("eloquent.updating: {$classes['User']}", "{$classes['UserHandler']}@beforeUpdate");
 		Event::listen("eloquent.updated: {$classes['User']}", "{$classes['UserHandler']}@afterUpdate");
 		Event::listen("eloquent.deleting: {$classes['User']}", "{$classes['UserHandler']}@beforeDelete");
+		Event::listen("eloquent.saving: {$classes['User']}", "{$classes['UserHandler']}@beforeSave");
 	}
 
 	/**
