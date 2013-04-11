@@ -103,7 +103,6 @@ class CascadingFileLoader implements LoaderInterface {
 
 			if ($this->files->exists($file))
 			{
-				//$items[$location] = array_dot($this->files->getRequire($file));
 				$items[$location] = $this->files->getRequire($file);
 			}
 		}
