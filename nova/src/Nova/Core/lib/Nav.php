@@ -261,48 +261,48 @@ class Nav {
 			$this->userData = array(
 				0 => array(
 					array(
-						'name' => ucwords(lang('base.cp')),
+						'name' => ucwords(lang('cp')),
 						'url' => 'admin/index',
 						'extra' => array(),
 						'additional' => ''),
 					array(
-						'name' => ucfirst(Str::plural(lang('base.notification'))),
+						'name' => ucfirst(Str::plural(lang('notification'))),
 						'url' => 'admin/notifications',
 						'extra' => array(),
 						'additional' => ''),
 				),
 				1 => array(
 					array(
-						'name' => ucwords(lang('base.my', lang('base.account'))),
+						'name' => ucwords(lang('my', lang('account'))),
 						'url' => 'admin/user/edit/'.Sentry::getUser()->id,
 						'extra' => array(),
 						'additional' => ' <span class="icn icn-50 tooltip-left" data-icon="?" title="'.lang('short.help.user_account').'"></span>'),
 					array(
-						'name' => ucwords(lang('base.my', Str::plural(lang('base.character')))),
+						'name' => ucwords(lang('my', Str::plural(lang('character')))),
 						'url' => 'admin/character/edit',
 						'extra' => array(),
 						'additional' => ''),
 				),
 				2 => array(
 					array(
-						'name' => $messageOutput.ucfirst(Str::plural(lang('base.message'))),
+						'name' => $messageOutput.ucfirst(Str::plural(lang('message'))),
 						'url' => 'admin/messages',
 						'extra' => array(),
 						'additional' => ''),
 					array(
-						'name' => $writingOutput.lang('base.writing', 1),
+						'name' => $writingOutput.lang('writing', 1),
 						'url' => 'admin/writing',
 						'extra' => array(),
 						'additional' => ''),
 				),
 				3 => array(
 					array(
-						'name' => ucfirst(langConcat('action.request base.loa')),
+						'name' => ucfirst(langConcat('action.request loa')),
 						'url' => 'admin/user/loa',
 						'extra' => array(),
 						'additional' => ''),
 					array(
-						'name' => ucfirst(langConcat('action.nominate base.for base.award')),
+						'name' => ucfirst(langConcat('action.nominate for award')),
 						'url' => 'admin/user/nominate',
 						'extra' => array(),
 						'additional' => ''),
