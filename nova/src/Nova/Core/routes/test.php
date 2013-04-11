@@ -36,7 +36,8 @@ Route::group(array('prefix' => 'test'), function()
 
 	Route::get('misc', function()
 	{
-		s(RankCatalog::test());
+		s(langConcat('position rank'));
+		//s(lang('base.rank'));
 	});
 
 	Route::get('migrate', function()
