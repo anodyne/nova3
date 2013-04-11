@@ -6,7 +6,7 @@
 	<div class="page-header">
 		<h1>{{ $header }}</h1>
 	</div>
-	
+
 	<p>{{ $message }}</p>
 
 	{{ $flash }}

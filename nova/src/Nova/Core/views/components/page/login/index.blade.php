@@ -1,15 +1,17 @@
 {{ Form::open() }}
-	<div class="control-group">
-		<label class="control-label">{{ ucwords(lang("base.email_address")) }}</label>
+	<div class="control-group {{ ($errors->has('email')) ? 'has-error' : '' }}">
+		<label class="control-label">{{ ucwords(lang("email_address")) }}</label>
 		<div class="controls">
-			{{ Form::email('email', null, array('class' => 'span6')) }}
+			{{ Form::email('email', null, array('class' => 'span6 input-with-feedback')) }}
+			{{ $errors->first('email', '<p class="text-danger">:message</p>') }}
 		</div>
 	</div>
 	
-	<div class="control-group">
-		<label class="control-label">{{ ucfirst(lang("base.password")) }}</label>
+	<div class="control-group {{ ($errors->has('password')) ? 'has-error' : '' }}">
+		<label class="control-label">{{ ucfirst(lang("password")) }}</label>
 		<div class="controls">
-			{{ Form::password('password', array('class' => 'span6')) }}
+			{{ Form::password('password', array('class' => 'span6 input-with-feedback')) }}
+			{{ $errors->first('password', '<p class="text-danger">:message</p>') }}
 		</div>
 	</div>
 
