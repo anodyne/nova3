@@ -27,7 +27,7 @@ if ( ! function_exists('lang'))
 		}
 
 		// The first will always be the key to translate
-		$key = $args[0];
+		$key = ( ! Str::contains($args[0], '.')) ? 'base.'.$args[0] : $args[0];
 
 		// Set up an empty array of arguments
 		$argsArray = array();
@@ -58,6 +58,9 @@ if ( ! function_exists('langConcat'))
 		// Loop through the array
 		foreach ($pieces as $key => $value)
 		{
+			// Make sure the value is right
+			$value = ( ! Str::contains($value, '.')) ? 'base.'.$value : $value;
+			
 			// Run the content through the translator
 			$retval[$key] = Lang::get($value);
 		}
