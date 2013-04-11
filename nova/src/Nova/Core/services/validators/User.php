@@ -4,8 +4,10 @@ use BaseValidator;
 
 class User extends BaseValidator {
 
-	protected static $rules = array();
-
-	protected static $messages array();
+	protected static $rules = array(
+		'email'				=> 'required|email',
+		'password'			=> 'required',
+		'password_confirm'	=> 'required|same:password',
+	);
 
 }
