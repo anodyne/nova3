@@ -7,9 +7,10 @@
 		<h1>{{ $header }}</h1>
 	</div>
 
+	{{ $flash }}
+
 	<p>{{ $message }}</p>
 
-	{{ $flash }}
 	{{ $content }}
 
 	<footer>
