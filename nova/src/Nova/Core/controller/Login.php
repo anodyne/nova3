@@ -100,6 +100,12 @@ class Login extends LoginBaseController {
 				'password'	=> $password,
 			));
 
+			// Loop through the prefs and put them into the session
+			foreach ($user->preferences as $pref)
+			{
+				Session::put($pref->key, $pref->value);
+			}
+
 			return Redirect::to('admin/main/index');
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
@@ -119,8 +125,8 @@ class Login extends LoginBaseController {
 			$now = Date::now('UTC');
 
 			return Redirect::to('login/index/'.self::SUSPENDED)
-				->with('suspended_time', $suspendedAt->diffInMinutes($now))
-				->withInput();
+				->withInput()
+				->with('suspended_time', $suspendedAt->diffInMinutes($now));
 		}
 		catch (\Cartalyst\Sentry\Throttling\UserBannedException $e)
 		{
@@ -156,15 +162,15 @@ class Login extends LoginBaseController {
 		// Get the reset success message
 		$flash = Session::get('reset_step1', null);
 
-		// Set the flash data
-		if ($flash === true)
+		if ($flash == 'success')
 		{
 			$this->_flash[] = array(
 				'status' 	=> 'success',
 				'message' 	=> lang('login.reset.step1Success'),
 			);
 		}
-		elseif ($flash === false)
+
+		if ($flash === 'failure')
 		{
 			$this->_flash[] = array(
 				'status' 	=> 'danger',
@@ -209,13 +215,13 @@ class Login extends LoginBaseController {
 				$m->subject($settings->email_subject.' '.lang('email.subject.passwordReset'));
 			});
 
-			// Set the data to flash to the next request
-			$flashData = array('reset_step1' => true);
+			// Set up the data to flash to the next request
+			$flashData = array('reset_step1' => 'success');
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
-			// Set the data to flash to the next request
-			$flashData = array('reset_step1' => false);
+			// Set up the data to flash to the next request
+			$flashData = array('reset_step1' => 'failure');
 		}
 
 		return Redirect::to('login/reset')->with($flashData);
