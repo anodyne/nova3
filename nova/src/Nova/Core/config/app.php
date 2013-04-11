@@ -291,6 +291,12 @@ return array(
 		'RankHandler'		=> 'Nova\Core\Handlers\Rank',
 		'UserHandler'		=> 'Nova\Core\Handlers\User',
 
+		/**
+		 * Nova Services
+		 */
+		'BaseValidator'		=> 'Nova\Core\Services\Validators\Base',
+		'UserValidator'		=> 'Nova\Core\Services\Validators\User',
+
 	),
 
 );
