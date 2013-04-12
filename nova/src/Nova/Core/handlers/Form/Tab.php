@@ -6,7 +6,7 @@ use NovaFormData;
 use NovaFormField;
 use NovaFormSection;
 
-class Field {
+class Tab {
 
 	/**
 	 * When a new tab is added, we need to check to see how many tabs exist
