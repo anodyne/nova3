@@ -2,6 +2,6 @@
 
 require NOVAPATH.'start/global.php';
 
-require __DIR__.'/../filters.php';
+require APPPATH.'filters.php';
 
-require __DIR__.'/../events.php';
+require APPPATH.'events.php';
