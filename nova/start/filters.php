@@ -16,7 +16,6 @@ App::before(function($request)
 	//
 });
 
-
 App::after(function($request, $response)
 {
 	//
@@ -97,7 +96,7 @@ Route::filter('csrf', function()
 Route::filter('installed', function()
 {
 	// Resolve the environment out of the App container
-	$env = App::make('env');
+	$env = App::environment();
 
 	// Get the path info from the Request object
 	$path = Route::getRequest()->getPathInfo();
