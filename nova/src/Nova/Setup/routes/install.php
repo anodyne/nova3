@@ -30,7 +30,7 @@ Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|set
 		// Seed the database with dev data if necessary
 		if (Config::get('nova.use_dev_data'))
 		{
-			Artisan::call('db:seed');
+			//Artisan::call('db:seed');
 		}
 		
 		// Clear the entire cache
