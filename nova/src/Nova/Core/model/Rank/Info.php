@@ -1,5 +1,6 @@
 <?php namespace Nova\Core\Model\Rank;
 
+use Event;
 use Model;
 use Config;
 use Status;

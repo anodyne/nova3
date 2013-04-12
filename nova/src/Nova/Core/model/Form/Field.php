@@ -1,6 +1,8 @@
 <?php namespace Nova\Core\Model\Form;
 
+use Event;
 use Model;
+use Config;
 use Status;
 
 class Field extends Model {
