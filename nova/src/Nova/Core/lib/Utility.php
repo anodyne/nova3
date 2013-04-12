@@ -11,7 +11,6 @@ use Request;
 use Settings;
 use Redirect;
 use Exception;
-//use Httpful\Request as Httpful;
 
 class Utility {
 	
