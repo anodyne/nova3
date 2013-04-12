@@ -294,6 +294,7 @@ return array(
 		
 		'AppHandler'				=> 'Nova\Core\Handlers\Application',
 		'CharacterHandler'			=> 'Nova\Core\Handlers\Character',
+		'CommentHandler'			=> 'Nova\Core\Handlers\Comment',
 		'PositionHandler'			=> 'Nova\Core\Handlers\Position',
 		'RankHandler'				=> 'Nova\Core\Handlers\Rank',
 		'UserHandler'				=> 'Nova\Core\Handlers\User',
