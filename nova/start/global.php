@@ -119,4 +119,4 @@ App::error(function(Exception $exception, $code)
 /**
  * Disable Kint output.
  */
-//Kint::enabled(false);
+Kint::enabled(false);
