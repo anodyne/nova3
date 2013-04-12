@@ -14,16 +14,22 @@
  * @copyright	2013 Anodyne Productions
  */
 
+use App;
 use Nav;
 use Str;
+use File;
 use View;
+use Cache;
 use Event;
 use Route;
 use Config;
+use System;
 use Request;
 use Session;
+use Utility;
 use Location;
 use Markdown;
+use Redirect;
 use Settings;
 use stdClass;
 use Exception;
@@ -133,9 +139,48 @@ abstract class Core extends Controller {
 		$me = $this;
 
 		/**
+		 * Before closure that checks the install status.
+		 */
+		$this->beforeFilter(function()
+		{
+			// Resolve the environment out of the App container
+			$env = App::environment();
+
+			// Get the path info from the Request object
+			$path = Route::getRequest()->getPathInfo();
+
+			// If the config file doesn't exist, bounce over the config setup
+			if ( ! File::exists(APPPATH."config/{$env}/database.php"))
+			{
+				return Redirect::to('setup');
+			}
+
+			// Get the system install status cache file
+			$status = Cache::get('nova_system_installed');
+
+			// If the status is null, we know the cache file doesn't exist
+			if ($status === null)
+			{
+				// Grab the UID
+				$uid = System::getUniqueId();
+
+				// Only cache if we have a UID
+				if ( ! empty($uid))
+				{
+					Cache::forever('nova_system_installed', (int) true);
+				}
+				else
+				{
+					// Nothing here, so the system isn't installed
+					return Redirect::to('setup');
+				}
+			}
+		});
+
+		/**
 		 * Before closure that handles the setup of each request.
 		 */
-		$baseControllerStartup = function() use(&$me)
+		$this->beforeFilter(function() use(&$me)
 		{
 			// Set the Request instance
 			$me->request = Request::instance();
@@ -155,6 +200,7 @@ abstract class Core extends Controller {
 			// Create empty objects for the data
 			$me->_data = new stdClass;
 			$me->_jsData = new stdClass;
+			$me->_sectionInfo = new stdClass;
 
 			// Get the controller name from the Router and denamespace it
 			$controllerName = Str::denamespace(Route::getController());
@@ -163,35 +209,15 @@ abstract class Core extends Controller {
 			$me->_headers	= SiteContent::getSectionContent('header', $controllerName);
 			$me->_messages	= SiteContent::getSectionContent('message', $controllerName);
 			$me->_titles	= SiteContent::getSectionContent('title', $controllerName);
-		};
+		});
 
 		/**
-		 * Call the before filters.
+		 * Call the after filter.
 		 */
-		try
+		$this->afterFilter(function() use(&$me)
 		{
-			$this->beforeFilter('installed');
-			$this->beforeFilter($baseControllerStartup());
-		}
-		catch (Exception $e)
-		{
-			echo $e->getMessage();
-		}
-
-		/**
-		 * Call the after filters.
-		 */
-		try
-		{
-			$this->afterFilter(function() use(&$me)
-			{
-				$me->after();
-			});
-		}
-		catch (Exception $e)
-		{
-			echo $e->getMessage();
-		}
+			$me->after();
+		});
 	}
 
 	/**
@@ -201,6 +227,8 @@ abstract class Core extends Controller {
 	 */
 	final public function after()
 	{
+		if ( ! is_object($this->template)) return;
+
 		// Set the content view (if it's been set)
 		if ( ! empty($this->_view))
 		{

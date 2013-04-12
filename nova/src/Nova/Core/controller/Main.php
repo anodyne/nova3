@@ -23,7 +23,7 @@ class Main extends MainBaseController {
 		$me = $this;
 
 		// Do the final nav setup
-		$finalNavSetup = function() use(&$me)
+		$this->beforeFilter(function() use(&$me)
 		{
 			if ($me->_sectionInfo->nav == 'classic')
 			{
@@ -33,44 +33,9 @@ class Main extends MainBaseController {
 				// Build the menu
 				$me->template->layout->navsub->menu = $me->nav->build();
 			}
-		};
-
-		// Run the before filter
-		$this->beforeFilter($finalNavSetup());
+		});
 	}
 
-	public function getIndex()
-	{
-		$output = Form::open(array('method' => 'delete'));
-		$output.= Form::button('Submit', array(
-			'type' => 'submit',
-			'class' => 'btn btn-primary',
-		));
-		$output.= Form::close();
-
-		return $output;
-	}
-	public function postIndex()
-	{
-		$output = Form::open(array('method' => 'delete'));
-		$output.= Form::button('Submit', array(
-			'type' => 'submit',
-			'class' => 'btn btn-primary',
-		));
-		$output.= Form::close();
-
-		return $output;
-	}
-	public function putIndex()
-	{
-		$output = Form::open(array('method' => 'delete'));
-		$output.= Form::button('Submit', array(
-			'type' => 'submit',
-			'class' => 'btn btn-primary',
-		));
-		$output.= Form::close();
-
-		return $output;
-	}
+	public function getIndex() {}
 
 }

@@ -36,7 +36,7 @@ abstract class Main extends BaseController {
 		/**
 		 * Before filter that populates some of the variables with data.
 		 */
-		$sectionControllerStartup = function() use(&$me)
+		$this->beforeFilter(function() use(&$me)
 		{
 			// Set the variables
 			$me->skin		= Session::get('skin_main', $me->settings->skin_main);
@@ -46,12 +46,12 @@ abstract class Main extends BaseController {
 
 			// Get the skin section info
 			$me->_sectionInfo = SkinSectionCatalog::getItem($me->skin, 'skin');
-		};
+		});
 
 		/**
 		 * Before filter that creates the template objects.
 		 */
-		$templateStart = function() use(&$me)
+		$this->beforeFilter(function() use(&$me)
 		{
 			// Set the values to be passed to the structure
 			$vars = array(
@@ -65,12 +65,12 @@ abstract class Main extends BaseController {
 			$me->template->layout = View::make(Location::file('main', $me->skin, 'template'), $vars);
 			$me->template->layout->navsub = View::make(Location::file('navsub', $me->skin, 'partial'));
 			$me->template->layout->footer = View::make(Location::file('footer', $me->skin, 'partial'));
-		};
+		});
 
 		/**
 		 * Before filter that fills the template with default data.
 		 */
-		$templateFill = function() use(&$me)
+		$this->beforeFilter(function() use(&$me)
 		{
 			// Build the navigation
 			$me->nav->setStyle($me->_sectionInfo->nav)
@@ -92,21 +92,7 @@ abstract class Main extends BaseController {
 			$me->template->layout->navsub->widget2	= false;
 			$me->template->layout->navsub->widget3	= false;
 			$me->template->layout->footer->extra 	= SiteContent::getContentItem('footer');
-		};
-
-		/**
-		 * Call the before filters.
-		 */
-		try
-		{
-			$this->beforeFilter($sectionControllerStartup());
-			$this->beforeFilter($templateStart());
-			$this->beforeFilter($templateFill());
-		}
-		catch (Exception $e)
-		{
-			echo $e->getMessage();
-		}
+		});
 	}
 
 }
