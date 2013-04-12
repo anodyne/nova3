@@ -12,7 +12,7 @@ class NovaCreateDepartments extends Migration {
 	public function up($explicitGenre = false)
 	{
 		// Get the genre
-		$genre = ($explicitGenre) ? $explicitGenre : Config::get('nova.genre');
+		$genre = ($explicitGenre) ?: Config::get('nova.genre');
 
 		Schema::create("departments_{$genre}", function($t)
 		{
@@ -27,13 +27,16 @@ class NovaCreateDepartments extends Migration {
 			$t->timestamps();
 		});
 
-		// Pull in the genre data file
-		include SRCPATH."Setup/assets/install/genres/{$genre}.php";
-
-		// Loop through the departments and seed the data
-		foreach ($depts as $d)
+		if ($explicitGenre)
 		{
-			Dept::add($d);
+			// Pull in the genre data file
+			include SRCPATH."Setup/assets/install/genres/{$genre}.php";
+
+			// Loop through the departments and seed the data
+			foreach ($depts as $d)
+			{
+				Dept::add($d);
+			}
 		}
 	}
 
@@ -45,7 +48,7 @@ class NovaCreateDepartments extends Migration {
 	public function down($explicitGenre = false)
 	{
 		// Get the genre
-		$genre = ($explicitGenre) ? $explicitGenre : Config::get('nova.genre');
+		$genre = ($explicitGenre) ?: Config::get('nova.genre');
 
 		Schema::drop("departments_{$genre}");
 	}

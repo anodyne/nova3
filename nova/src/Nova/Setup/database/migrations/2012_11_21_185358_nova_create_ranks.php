@@ -12,7 +12,7 @@ class NovaCreateRanks extends Migration {
 	public function up($explicitGenre = false)
 	{
 		// Get the genre
-		$genre = ($explicitGenre) ? $explicitGenre : Config::get('nova.genre');
+		$genre = ($explicitGenre) ?: Config::get('nova.genre');
 
 		Schema::create("ranks_{$genre}", function($t)
 		{
@@ -44,22 +44,25 @@ class NovaCreateRanks extends Migration {
 			$t->timestamps();
 		});
 
-		// Pull in the genre data file
-		include SRCPATH."Setup/assets/install/genres/{$genre}.php";
-
-		foreach ($info as $i)
+		if ($explicitGenre)
 		{
-			DB::table("ranks_info_{$genre}")->insert($i);
-		}
+			// Pull in the genre data file
+			include SRCPATH."Setup/assets/install/genres/{$genre}.php";
 
-		foreach ($groups as $g)
-		{
-			DB::table("ranks_groups_{$genre}")->insert($g);
-		}
+			foreach ($info as $i)
+			{
+				RankInfo::add($i);
+			}
 
-		foreach ($ranks as $r)
-		{
-			DB::table("ranks_{$genre}")->insert($r);
+			foreach ($groups as $g)
+			{
+				RankGroup::add($g);
+			}
+
+			foreach ($ranks as $r)
+			{
+				Rank::add($r);
+			}
 		}
 	}
 
@@ -71,7 +74,7 @@ class NovaCreateRanks extends Migration {
 	public function down($explicitGenre = false)
 	{
 		// Get the genre
-		$genre = ($explicitGenre) ? $explicitGenre : Config::get('nova.genre');
+		$genre = ($explicitGenre) ?: Config::get('nova.genre');
 
 		Schema::drop("ranks_{$genre}");
 		Schema::drop("ranks_groups_{$genre}");

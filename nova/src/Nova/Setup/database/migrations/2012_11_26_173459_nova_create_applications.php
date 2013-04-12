@@ -46,9 +46,6 @@ class NovaCreateApplications extends Migration {
 			$t->text('condition')->nullable();
 			$t->text('users')->nullable();
 		});
-
-		// Seed the database
-		$this->seed();
 	}
 
 	/**
@@ -62,20 +59,6 @@ class NovaCreateApplications extends Migration {
 		Schema::drop('application_responses');
 		Schema::drop('application_reviewers');
 		Schema::drop('application_rules');
-	}
-
-	protected function seed()
-	{
-		$rules = array(
-			array(
-				'type' => 'global',
-				'users' => '{"position":[2]}'),
-		);
-
-		foreach ($rules as $r)
-		{
-			NovaAppRule::add($r);
-		}
 	}
 	
 }

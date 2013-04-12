@@ -21,22 +21,6 @@ class NovaCreateManifests extends Migration {
 			$t->boolean('status')->default(Status::ACTIVE);
 			$t->boolean('default')->default((int) false);
 		});
-
-		// Data to seed the database with
-		$data = array(
-			array(
-				'name' => 'Primary Manifest',
-				'order' => 0,
-				'desc' => "",
-				'header_content' => "You can edit the header content of this manifest from Manifest Management...",
-				'default' => (int) true),
-		);
-
-		// Loop through and add the data
-		foreach ($data as $d)
-		{
-			Manifest::add($d);
-		}
 	}
 
 	/**

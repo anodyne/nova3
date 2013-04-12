@@ -12,7 +12,7 @@ class NovaCreatePositions extends Migration {
 	public function up($explicitGenre = false)
 	{
 		// Get the genre
-		$genre = ($explicitGenre) ? $explicitGenre : Config::get('nova.genre');
+		$genre = ($explicitGenre) ?: Config::get('nova.genre');
 
 		Schema::create("positions_{$genre}", function($t)
 		{
@@ -27,12 +27,15 @@ class NovaCreatePositions extends Migration {
 			$t->timestamps();
 		});
 
-		// Pull in the genre data file
-		include SRCPATH."Setup/assets/install/genres/{$genre}.php";
-
-		foreach ($positions as $p)
+		if ($explicitGenre)
 		{
-			DB::table("positions_{$genre}")->insert($p);
+			// Pull in the genre data file
+			include SRCPATH."Setup/assets/install/genres/{$genre}.php";
+
+			foreach ($positions as $p)
+			{
+				Position::add($p);
+			}
 		}
 	}
 
@@ -44,7 +47,7 @@ class NovaCreatePositions extends Migration {
 	public function down($explicitGenre = false)
 	{
 		// Get the genre
-		$genre = ($explicitGenre) ? $explicitGenre : Config::get('nova.genre');
+		$genre = ($explicitGenre) ?: Config::get('nova.genre');
 
 		Schema::drop("positions_{$genre}");
 	}

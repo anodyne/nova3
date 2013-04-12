@@ -73,9 +73,6 @@ class NovaCreateCatalogs extends Migration {
 			$t->text('credits')->nullable();
 			$t->timestamps();
 		});
-
-		// Seed the database
-		$this->seed();
 	}
 
 	/**
@@ -90,66 +87,6 @@ class NovaCreateCatalogs extends Migration {
 		Schema::drop('catalog_skins');
 		Schema::drop('catalog_skin_sections');
 		Schema::drop('catalog_widgets');
-	}
-
-	protected function seed()
-	{
-		$this->seedRanks();
-		$this->seedSkins();
-	}
-
-	protected function seedRanks()
-	{
-		// Get the genre
-		$genre = Config::get('nova.genre');
-
-		// Pull in the genre data file
-		include SRCPATH."Setup/assets/install/genres/{$genre}.php";
-
-		foreach ($catalog_ranks as $c)
-		{
-			RankCatalog::add($c);
-		}
-	}
-
-	protected function seedSkins()
-	{
-		$skins = array(
-			array(
-				'name' => 'Default',
-				'location' => 'default',
-				'credits' => '',
-				'version' => ''
-			),
-		);
-
-		foreach ($skins as $s)
-		{
-			SkinCatalog::add($s);
-		}
-
-		$skinSections = array(
-			array(
-				'section' => 'main',
-				'skin' => 'default',
-				'preview' => 'preview-main.jpg',
-				'default' => (int) true),
-			array(
-				'section' => 'login',
-				'skin' => 'default',
-				'preview' => 'preview-login.jpg',
-				'default' => (int) true),
-			array(
-				'section' => 'admin',
-				'skin' => 'default',
-				'preview' => 'preview-admin.jpg',
-				'default' => (int) true),
-		);
-
-		foreach ($skinSections as $c)
-		{
-			SkinSectionCatalog::add($c);
-		}
 	}
 
 }
