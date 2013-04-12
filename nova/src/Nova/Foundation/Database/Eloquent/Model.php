@@ -78,6 +78,75 @@ class Model extends EloquentModel {
 	}
 
 	/**
+	 * Define a one-to-one relationship.
+	 *
+	 * We override this method from the Eloquent model so that we
+	 * can grab the class alias from the config file and create
+	 * the model based on what class SHOULD be used instead of
+	 * assuming the core should be used.
+	 *
+	 * @param  string  $related
+	 * @param  string  $foreignKey
+	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
+	 */
+	public function hasOne($related, $foreignKey = null)
+	{
+		// Get the class aliases
+		$aliases = Config::get('app.aliases');
+
+		// Figure out what the real model class should be
+		$model = $aliases[$related];
+
+		return parent::hasOne($model, $foreignKey);
+	}
+
+	/**
+	 * Define an inverse one-to-one or many relationship.
+	 *
+	 * We override this method from the Eloquent model so that we
+	 * can grab the class alias from the config file and create
+	 * the model based on what class SHOULD be used instead of
+	 * assuming the core should be used.
+	 *
+	 * @param  string  $related
+	 * @param  string  $foreignKey
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function belongsTo($related, $foreignKey = null)
+	{
+		// Get the class aliases
+		$aliases = Config::get('app.aliases');
+
+		// Figure out what the real model class should be
+		$model = $aliases[$related];
+
+		return parent::belongsTo($model, $foreignKey);
+	}
+
+	/**
+	 * Define a one-to-many relationship.
+	 *
+	 * We override this method from the Eloquent model so that we
+	 * can grab the class alias from the config file and create
+	 * the model based on what class SHOULD be used instead of
+	 * assuming the core should be used.
+	 *
+	 * @param  string  $related
+	 * @param  string  $foreignKey
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function hasMany($related, $foreignKey = null)
+	{
+		// Get the class aliases
+		$aliases = Config::get('app.aliases');
+
+		// Figure out what the real model class should be
+		$model = $aliases[$related];
+
+		return parent::hasMany($model, $foreignKey);
+	}
+
+	/**
 	 * Define a many-to-many relationship.
 	 *
 	 * We override this method from the Eloquent model so that we
@@ -100,24 +169,6 @@ class Model extends EloquentModel {
 		$model = $aliases[$related];
 
 		return parent::belongsToMany($model, $table, $foreignKey, $otherKey);
-	}
-
-	/**
-	 * Define a one-to-many relationship.
-	 *
-	 * @param  string  $related
-	 * @param  string  $foreignKey
-	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
-	 */
-	public function hasMany($related, $foreignKey = null)
-	{
-		// Get the class aliases
-		$aliases = Config::get('app.aliases');
-
-		// Figure out what the real model class should be
-		$model = $aliases[$related];
-
-		return parent::hasMany($model, $foreignKey);
 	}
 
 	/*
