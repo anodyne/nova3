@@ -17,6 +17,12 @@ class Announcement extends Model {
 		'private', 'keywords', 'created_at', 'updated_at',
 	);
 
+	/*
+	|--------------------------------------------------------------------------
+	| Relationships
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
 	 * Belongs To: Character
 	 */
@@ -41,6 +47,12 @@ class Announcement extends Model {
 		return $this->morphMany('Comment', 'commentable');
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| Accessors and Mutators
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
 	 * Private Status Accessor.
 	 *
@@ -53,6 +65,12 @@ class Announcement extends Model {
 	{
 		return (bool) $value;
 	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Scopes
+	|--------------------------------------------------------------------------
+	*/
 
 	/**
 	 * Scope the query to activated announcements.

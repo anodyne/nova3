@@ -16,6 +16,12 @@ class Post extends Model {
 		'id', 'title', 'location', 'timeline', 'mission_id', 'saved_user_id', 
 		'status', 'content', 'keywords', 'created_at', 'updated_at',
 	);
+
+	/*
+	|--------------------------------------------------------------------------
+	| Relationships
+	|--------------------------------------------------------------------------
+	*/
 	
 	/**
 	 * Belongs To: Mission
@@ -64,6 +70,12 @@ class Post extends Model {
 	{
 		return $this->morphMany('Comment', 'commentable');
 	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
 	
 	/**
 	 * Display the authors for a mission post.
