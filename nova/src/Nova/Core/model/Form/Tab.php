@@ -23,6 +23,29 @@ class Tab extends Model {
 		return $this->hasMany('NovaFormSection');
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Boot the model and define the event listeners.
+	 *
+	 * @return	void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		// Get all the aliases
+		$classes = Config::get('app.aliases');
+
+		Event::listen("eloquent.created: {$classes['NovaFormTab']}", "{$classes['NovaFormTabHandler']}@afterCreate");
+		Event::listen("eloquent.updated: {$classes['NovaFormTab']}", "{$classes['NovaFormTabHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$classes['NovaFormTab']}", "{$classes['NovaFormTabHandler']}@beforeDelete");
+	}
+
 	/**
 	 * Get tabs.
 	 *

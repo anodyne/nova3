@@ -285,11 +285,18 @@ return array(
 		/**
 		 * Nova Event Handlers
 		 */
-		'AppHandler'		=> 'Nova\Core\Handlers\Application',
-		'CharacterHandler'	=> 'Nova\Core\Handlers\Character',
-		'PositionHandler'	=> 'Nova\Core\Handlers\Position',
-		'RankHandler'		=> 'Nova\Core\Handlers\Rank',
-		'UserHandler'		=> 'Nova\Core\Handlers\User',
+		'NovaFormFieldHandler'		=> 'Nova\Core\Handlers\Form\Field',
+		'NovaFormSectionHandler'	=> 'Nova\Core\Handlers\Form\Section',
+		'NovaFormTabHandler'		=> 'Nova\Core\Handlers\Form\Tab',
+
+		'RankGroupHandler'			=> 'Nova\Core\Handlers\Rank\Group',
+		'RankInfoHandler'			=> 'Nova\Core\Handlers\Rank\Info',
+		
+		'AppHandler'				=> 'Nova\Core\Handlers\Application',
+		'CharacterHandler'			=> 'Nova\Core\Handlers\Character',
+		'PositionHandler'			=> 'Nova\Core\Handlers\Position',
+		'RankHandler'				=> 'Nova\Core\Handlers\Rank',
+		'UserHandler'				=> 'Nova\Core\Handlers\User',
 
 		/**
 		 * Nova Services

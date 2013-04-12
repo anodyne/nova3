@@ -31,6 +31,29 @@ class Section extends Model {
 		return $this->hasMany('NovaFormField');
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Boot the model and define the event listeners.
+	 *
+	 * @return	void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		// Get all the aliases
+		$classes = Config::get('app.aliases');
+
+		Event::listen("eloquent.created: {$classes['NovaFormSection']}", "{$classes['NovaFormSectionHandler']}@afterCreate");
+		Event::listen("eloquent.updated: {$classes['NovaFormSection']}", "{$classes['NovaFormSectionHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$classes['NovaFormSection']}", "{$classes['NovaFormSectionHandler']}@beforeDelete");
+	}
+
 	/**
 	 * Get sections.
 	 *

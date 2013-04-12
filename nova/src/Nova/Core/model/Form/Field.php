@@ -43,6 +43,29 @@ class Field extends Model {
 		return $this->hasMany('NovaFormValue');
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Boot the model and define the event listeners.
+	 *
+	 * @return	void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		// Get all the aliases
+		$classes = Config::get('app.aliases');
+
+		Event::listen("eloquent.created: {$classes['NovaFormField']}", "{$classes['NovaFormFieldHandler']}@afterCreate");
+		Event::listen("eloquent.updated: {$classes['NovaFormField']}", "{$classes['NovaFormFieldHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$classes['NovaFormField']}", "{$classes['NovaFormFieldHandler']}@beforeDelete");
+	}
+
 	/**
 	 * Get fields.
 	 *

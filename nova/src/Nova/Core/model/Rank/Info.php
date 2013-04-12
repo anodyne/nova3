@@ -24,6 +24,29 @@ class Info extends Model {
 		return $this->hasMany('Rank');
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Boot the model and define the event listeners.
+	 *
+	 * @return	void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		// Get all the aliases
+		$classes = Config::get('app.aliases');
+
+		Event::listen("eloquent.created: {$classes['RankInfo']}", "{$classes['RankInfoHandler']}@afterCreate");
+		Event::listen("eloquent.updated: {$classes['RankInfo']}", "{$classes['RankInfoHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$classes['RankInfo']}", "{$classes['RankInfoHandler']}@beforeDelete");
+	}
+
 	/**
 	 * Since the table name is appended with the genre, we can't hard-code
 	 * it in to the model. When the object is created, we have to pull the
