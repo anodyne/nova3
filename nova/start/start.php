@@ -83,21 +83,6 @@ require $framework.'/Illuminate/Foundation/start.php';
 
 /*
 |--------------------------------------------------------------------------
-| Set the Session Driver
-|--------------------------------------------------------------------------
-|
-| We need to set the session driver explicitly because we can't use the
-| database driver until the system has been installed.
-|
-*/
-
-if ( ! Schema::hasTable(DB::getTablePrefix()."_sessions"))
-{
-	Config::set('session.driver', 'cookie');
-}
-
-/*
-|--------------------------------------------------------------------------
 | Return The Application
 |--------------------------------------------------------------------------
 |

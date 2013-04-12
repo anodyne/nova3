@@ -48,9 +48,6 @@ Log::useDailyFiles(storage_path().'/logs/'.$logFile);
 
 App::missing(function()
 {
-	// Get an instance of the location object
-	$location = App::make('location');
-
 	// Random headers and messages to use
 	$messages = array(
 		0 => array(
@@ -106,7 +103,7 @@ App::missing(function()
 	// Log the error
 	Log::error('404 Not Found. Could not find the page requested: '.Request::path());
 
-	return View::make($location->file('404', Utility::getSkin('main'), 'error'))
+	return View::make(Location::file('404', Utility::getSkin('main'), 'error'))
 		->with('header', $messages[$rand]['header'])
 		->with('message', $messages[$rand]['message']);
 });
@@ -122,4 +119,4 @@ App::error(function(Exception $exception, $code)
 /**
  * Disable Kint output.
  */
-Kint::enabled(false);
+//Kint::enabled(false);
