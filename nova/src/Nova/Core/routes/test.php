@@ -2,15 +2,10 @@
 
 Route::group(array('prefix' => 'test'), function()
 {
-	Route::get('/', function()
+	Route::get('index', function()
 	{
-		$post = Post::find(1);
-		$comment = Comment::find(12);
+		$position = Position::find(1);
 
-		s($comment->commentable);
-
-		//$post->comments()->create(array('content' => 'Post comment'));
-
-		//return 'Done';
+		s($position->dept->id);
 	});
 });
