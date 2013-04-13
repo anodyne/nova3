@@ -21,7 +21,7 @@ class Rank extends Model {
 	 */
 	public function info()
 	{
-		return $this->belongsTo('RankInfo');
+		return $this->belongsTo('RankInfo', 'info_id');
 	}
 
 	/**
@@ -29,7 +29,7 @@ class Rank extends Model {
 	 */
 	public function group()
 	{
-		return $this->belongsTo('RankGroup');
+		return $this->belongsTo('RankGroup', 'group_id');
 	}
 
 	/**

@@ -24,7 +24,7 @@ class Position extends Model {
 	 */
 	public function dept()
 	{
-		return $this->belongsTo('Dept');
+		return $this->belongsTo('Dept', 'dept_id');
 	}
 
 	/**
