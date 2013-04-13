@@ -161,15 +161,18 @@ abstract class Core extends Controller {
 			// If the status is null, we know the cache file doesn't exist
 			if ($status === null)
 			{
-				// Grab the UID
-				$uid = System::getUniqueId();
-
-				// Only cache if we have a UID
-				if ( ! empty($uid))
+				try
 				{
-					Cache::forever('nova_system_installed', (int) true);
+					// Grab the UID
+					$uid = System::getUniqueId();
+
+					// Only cache if we have a UID
+					if ( ! empty($uid))
+					{
+						Cache::forever('nova_system_installed', (int) true);
+					}
 				}
-				else
+				catch (Exception $e)
 				{
 					// Nothing here, so the system isn't installed
 					return Redirect::to('setup');
