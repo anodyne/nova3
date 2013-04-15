@@ -50,15 +50,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function role()
 	{
-		return $this->belongsTo('AccessRole');
-	}
-
-	/**
-	 * Has One: Main Character
-	 */
-	public function character()
-	{
-		return $this->hasOne('Character');
+		return $this->belongsTo('AccessRole', 'role_id');
 	}
 
 	/**
@@ -66,7 +58,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function app()
 	{
-		return $this->hasOne('NovaApp');
+		return $this->hasOne('NovaApp', 'user_id');
 	}
 
 	/**
@@ -74,7 +66,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function characters()
 	{
-		return $this->hasMany('Character');
+		return $this->hasMany('Character', 'user_id');
 	}
 
 	/**
@@ -82,7 +74,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function logs()
 	{
-		return $this->hasMany('PersonalLog');
+		return $this->hasMany('PersonalLog', 'user_id');
 	}
 
 	/**
@@ -90,7 +82,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function announcements()
 	{
-		return $this->hasMany('Announcement');
+		return $this->hasMany('Announcement', 'user_id');
 	}
 
 	/**
@@ -98,7 +90,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function preferences()
 	{
-		return $this->hasMany('UserPrefs');
+		return $this->hasMany('UserPrefs', 'user_id');
 	}
 
 	/**
@@ -106,7 +98,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function throttles()
 	{
-		return $this->hasMany('UserSuspend');
+		return $this->hasMany('UserSuspend', 'user_id');
 	}
 
 	/**
@@ -114,7 +106,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function awards()
 	{
-		return $this->hasMany('AwardRecipient');
+		return $this->hasMany('AwardRecipient', 'user_id');
 	}
 
 	/**
@@ -127,6 +119,8 @@ class User extends Model implements UserInterface {
 
 	/**
 	 * Belongs To Many: Application Reviews (through Application Reviewers)
+	 *
+	 * BROKEN. WILL FIX LATER.
 	 */
 	public function appReviews()
 	{
@@ -186,19 +180,6 @@ class User extends Model implements UserInterface {
 	}
 
 	/**
-	 * Get the user's preferences.
-	 *
-	 * @param	string	Preference key to get
-	 * @return	string
-	 */
-	public function getPreferenceItem($item = false)
-	{
-		$prefs = $this->preferences->toSimpleArray('key', 'value');
-
-		return $prefs[$item];
-	}
-
-	/**
 	 * Get the user's application reviews.
 	 *
 	 * @param	int		Specific status to pull back
@@ -226,6 +207,29 @@ class User extends Model implements UserInterface {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Get the user's preferences.
+	 *
+	 * @param	string	Preference key to get
+	 * @return	string
+	 */
+	public function getPreferenceItem($item = false)
+	{
+		$prefs = $this->preferences->toSimpleArray('key', 'value');
+
+		return $prefs[$item];
+	}
+
+	/**
+	 * Get the user's primary character.
+	 *
+	 * @return	Character
+	 */
+	public function getPrimaryCharacter()
+	{
+		return $this->characters->find($this->character_id);
 	}
 
 	/**
