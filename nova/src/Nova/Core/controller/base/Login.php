@@ -29,7 +29,7 @@ abstract class Login extends BaseController {
 		/**
 		 * Before filter that populates some of the variables with data.
 		 */
-		$sectionControllerStartup = function() use(&$me)
+		$this->beforeFilter(function() use(&$me)
 		{
 			// Set the variables
 			$me->skin		= Session::get('skin_login', $me->settings->skin_login);
@@ -38,12 +38,12 @@ abstract class Login extends BaseController {
 
 			// Get the skin section info
 			$me->_sectionInfo = SkinSectionCatalog::getItem($me->skin, 'skin');
-		};
+		});
 
 		/**
 		 * Before filter that creates the template objects.
 		 */
-		$templateStart = function() use(&$me)
+		$this->beforeFilter(function() use(&$me)
 		{
 			// Set the values to be passed to the structure
 			$vars = array(
@@ -64,20 +64,7 @@ abstract class Login extends BaseController {
 			$me->template->layout->content	= false;
 			$me->template->layout->header	= false;
 			$me->template->layout->message	= false;
-		};
-
-		/**
-		 * Call the before filters.
-		 */
-		try
-		{
-			$this->beforeFilter($sectionControllerStartup());
-			$this->beforeFilter($templateStart());
-		}
-		catch (Exception $e)
-		{
-			echo $e->getMessage();
-		}
+		});
 	}
 
 }
