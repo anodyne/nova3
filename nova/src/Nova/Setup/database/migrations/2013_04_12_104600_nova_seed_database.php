@@ -1542,7 +1542,7 @@ class NovaSeedDatabase extends Migration {
 				'name' => 'Control Panel',
 				'group' => 0,
 				'order' => 0,
-				'url' => 'admin/index',
+				'url' => 'admin/main/index',
 				'type' => 'admin',
 				'category' => 'admin'),
 			/*array(
@@ -1654,8 +1654,16 @@ class NovaSeedDatabase extends Migration {
 				'category' => 'manage',
 				'access' => 'rank.read.0'),*/
 			array(
-				'name' => 'Forms',
+				'name' => 'Access Roles',
 				'group' => 0,
+				'order' => 0,
+				'url' => 'admin/role/index',
+				'type' => 'adminsub',
+				'category' => 'manage',
+				'access' => 'role.read.0'),
+			/*array(
+				'name' => 'Forms',
+				'group' => 1,
 				'order' => 0,
 				'url' => 'admin/form/index',
 				'type' => 'adminsub',
@@ -1663,21 +1671,21 @@ class NovaSeedDatabase extends Migration {
 				'access' => 'form.read.0'),
 			array(
 				'name' => 'Ranks',
-				'group' => 1,
+				'group' => 2,
 				'order' => 0,
 				'url' => 'admin/rank/index',
 				'type' => 'adminsub',
 				'category' => 'manage',
-				'access' => 'rank.read.0'),
+				'access' => 'rank.read.0'),*/
 
-			array(
+			/*array(
 				'name' => 'All Characters',
 				'group' => 0,
 				'order' => 0,
 				'url' => 'admin/character/index',
 				'type' => 'adminsub',
 				'category' => 'users',
-				'access' => 'character.read.0'),
+				'access' => 'character.read.0'),*/
 			array(
 				'name' => 'All Users',
 				'group' => 1,
@@ -1686,14 +1694,14 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'adminsub',
 				'category' => 'users',
 				'access' => 'user.read.0'),
-			array(
+			/*array(
 				'name' => 'Application Review',
 				'group' => 2,
 				'order' => 0,
 				'url' => 'admin/application/index',
 				'type' => 'adminsub',
 				'category' => 'users',
-				'access' => ''),
+				'access' => ''),*/
 			/*	
 			array(
 				'name' => 'Settings',
