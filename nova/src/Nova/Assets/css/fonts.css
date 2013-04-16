@@ -12,6 +12,7 @@
 .icn {
 	font-family: 'icomoon';
 	speak: none;
+	font-weight: normal !important;
 }
 .icn16 {
 	font-size: 16px !important;
