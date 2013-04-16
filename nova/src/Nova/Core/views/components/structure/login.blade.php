@@ -12,8 +12,8 @@
 		<!-- Bootstrap styles -->
 		{{ Html::style('nova/src/Nova/Assets/css/bootstrap.min.css') }}
 
-		<!-- IcoMoon icon font -->
-		{{ Html::style('nova/src/Nova/Assets/css/icomoon.css') }}
+		<!-- Web fonts styles -->
+		{{ Html::style('nova/src/Nova/Assets/css/fonts.css') }}
 		
 		<!-- Nova's base styles and any user-defined styles -->
 		@if (is_file(APPPATH.'views/'.$skin.'/design/style.login.css'))

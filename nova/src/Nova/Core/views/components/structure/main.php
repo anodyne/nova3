@@ -14,8 +14,8 @@
 		<!-- Bootstrap styles -->
 		<link rel="stylesheet" href="<?php echo SRCURL;?>Assets/css/bootstrap.min.css">
 
-		<!-- IcoMoon icon font -->
-		<link rel="stylesheet" href="<?php echo SRCURL;?>Assets/css/icomoon.css">
+		<!-- Web font stylesheet -->
+		<link rel="stylesheet" href="<?php echo SRCURL;?>Assets/css/fonts.css">
 		
 		<!-- Nova's base styles and any user-defined styles -->
 		<?php if (is_file(APPPATH.'views/'.$skin.'/design/style.css')): ?>

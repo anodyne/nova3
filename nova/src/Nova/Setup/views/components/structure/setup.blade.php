@@ -17,7 +17,7 @@
 		<![endif]-->
 		
 		<link rel="stylesheet" href="{{ SRCURL }}Assets/css/bootstrap.min.css">
-		<link rel="stylesheet" href="{{ SRCURL }}Assets/css/icomoon.css">
+		<link rel="stylesheet" href="{{ SRCURL }}Assets/css/fonts.css">
 		<link rel="stylesheet" href="{{ SRCURL }}Setup/views/design/style.css">
 
 		<!-- High pixel density displays -->
