@@ -304,6 +304,20 @@ class User extends Model implements UserInterface {
 		}
 	}
 
+	/**
+	 * Repopulate the session data.
+	 *
+	 * @return	void
+	 */
+	public function populateSession()
+	{
+		// Loop through the prefs and put them into the session
+		foreach ($this->preferences as $pref)
+		{
+			Session::put($pref->key, $pref->value);
+		}
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Sentry User Interface Methods
@@ -835,7 +849,7 @@ class User extends Model implements UserInterface {
 		// Check the login
 		if (Sentry::check() === false and $redirect === true)
 		{
-			//return Redirect::to('login/index/'.\Login\Controller_Login::NOT_LOGGED_IN);
+			return Redirect::to('login/index/'.\Nova\Core\Controller\Login::NOT_LOGGED_IN);
 		}
 		else
 		{
@@ -859,7 +873,7 @@ class User extends Model implements UserInterface {
 
 			if ($redirect === true and ! in_array(true, $allowed))
 			{
-				//return Redirect::to('admin/error/'.\Nova\Controller_Admin::NOT_ALLOWED);
+				return Redirect::to('admin/error/'.\Nova\Core\Controller\Admin\Main::NOT_ALLOWED);
 			}
 			
 			return (in_array(true, $allowed));
