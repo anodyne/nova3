@@ -1,0 +1,1 @@
+<p>{{ lang('short.deleteConfirm', langConcat('role task'), $name) }}</p>

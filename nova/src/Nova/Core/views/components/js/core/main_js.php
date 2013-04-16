@@ -4,18 +4,18 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-		<?php if (Sentry::check() and Sentry::user()->hasAccess('content.update')): ?>
+		<?php if (Sentry::check() and Sentry::getUser()->hasAccess('content.update')): ?>
 
-			$('.editable-single').editable("<?php echo Uri::create('ajax/update/content_save');?>", {
-				loadurl: "<?php echo Uri::create('ajax/get/content_load');?>",
+			$('.editable-single').editable("<?php echo URL::to('ajax/update/content_save');?>", {
+				loadurl: "<?php echo URL::to('ajax/get/content_load');?>",
 				id: 'key',
 				cancel: false,
 				submit: '<button class="btn btn-mini" type="submit">Save</button>',
 				placeholder: ''
 			});
 
-			$('.editable-multi').editable("<?php echo Uri::create('ajax/update/content_save');?>", {
-				loadurl: "<?php echo Uri::create('ajax/get/content_load');?>",
+			$('.editable-multi').editable("<?php echo URL::to('ajax/update/content_save');?>", {
+				loadurl: "<?php echo URL::to('ajax/get/content_load');?>",
 				id: 'key',
 				type: 'textarea',
 				cancel: false,

@@ -20,16 +20,20 @@
 		 * Bootstrap Tooltips
 		 */
 		$('.tooltip-right').tooltip({
-			placement: 'right'
+			placement: 'right',
+			container: 'body'
 		});
 		$('.tooltip-left').tooltip({
-			placement: 'left'
+			placement: 'left',
+			container: 'body'
 		});
 		$('.tooltip-top').tooltip({
-			placement: 'top'
+			placement: 'top',
+			container: 'body'
 		});
 		$('.tooltip-bottom').tooltip({
-			placement: 'bottom'
+			placement: 'bottom',
+			container: 'body'
 		});
 
 		/**
