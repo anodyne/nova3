@@ -314,8 +314,10 @@ return array(
 		/**
 		 * Nova Services
 		 */
-		'BaseValidator'		=> 'Nova\Core\Services\Validators\Base',
-		'UserValidator'		=> 'Nova\Core\Services\Validators\User',
+		'AccessTaskValidator'	=> 'Nova\Core\Services\Validators\Access\Task',
+
+		'BaseValidator'			=> 'Nova\Core\Services\Validators\Base',
+		'UserValidator'			=> 'Nova\Core\Services\Validators\User',
 
 	),
 
