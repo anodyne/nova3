@@ -41,8 +41,8 @@ label.control-label {
 	padding-right: 14px;
 }
 
-.font-small {
-	font-size: 11px;
+.fontSmall {
+	font-size: 13px;
 }
 
 footer {
@@ -84,4 +84,8 @@ h1 {
 
 .control-group {
 	margin-bottom: 15px;
+}
+
+.help-block {
+	font-size: 13px;
 }
