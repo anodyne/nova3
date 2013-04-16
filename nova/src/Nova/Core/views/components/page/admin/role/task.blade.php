@@ -1,5 +1,5 @@
 <div class="btn-group">
-	<a href="{{ URL::to('admin/role/tasks') }}" class="btn icn16 tooltip-top" title="{{ ucfirst(lang('short.back', langConcat('access tasks'))) }}"><div class="icn" data-icon="<"></div></a>
+	<a href="{{ URL::to('admin/role/tasks') }}" class="btn icn16 tooltip-top" title="{{ ucfirst(lang('short.back', langConcat('access tasks'))) }}">{{ $_icons['back'] }}</a>
 </div>
 
 {{ Form::model($task) }}
