@@ -312,7 +312,7 @@ return array(
 		'UserHandler'				=> 'Nova\Core\Handlers\User',
 
 		/**
-		 * Nova Services
+		 * Nova Validator Service
 		 */
 		'AccessTaskValidator'	=> 'Nova\Core\Services\Validators\Access\Task',
 
