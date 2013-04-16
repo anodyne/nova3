@@ -15,25 +15,25 @@ use Exception;
 class Utility {
 	
 	/**
-	 * Pulls the image index arrays from the base as well as the current skin.
+	 * Pulls the web font index arrays from the base as well as the current skin.
 	 *
 	 * @param	string	The current skin
 	 * @return 	array
 	 */
-	public static function getImageIndex($skin)
+	public static function getIconIndex($skin)
 	{
-		// Load the image index from the core first
-		$commonIndex = include SRCPATH.'Core/views/images.php';
+		// Load the icon index from the core first
+		$commonIndex = include SRCPATH.'Core/views/icons.php';
 
-		// Now load the image index from the skin (if it has one)
-		$skinIndex = (File::exists(APPPATH."views/{$skin}/images.php"))
-			? include_once APPPATH."views/{$skin}/images.php"
+		// Now load the icon index from the skin (if it has one)
+		$skinIndex = (File::exists(APPPATH."views/{$skin}/icons.php"))
+			? include_once APPPATH."views/{$skin}/icons.php"
 			: array();
 		
 		// Merge the files into an array
-		$imageIndex = array_merge((array) $commonIndex, (array) $skinIndex);
+		$iconIndex = array_merge((array) $commonIndex, (array) $skinIndex);
 		
-		return $imageIndex;
+		return $iconIndex;
 	}
 
 	/**
