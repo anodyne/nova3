@@ -49,9 +49,9 @@ abstract class Core extends Controller {
 	public $settings;
 	
 	/**
-	 * Image information from the image indices.
+	 * Icon information from the icon indices.
 	 */
-	public $images;
+	public $icons;
 
 	/**
 	 * The genre.
@@ -238,7 +238,7 @@ abstract class Core extends Controller {
 			$this->template->layout->content = View::make(
 				Location::file($this->_view, $this->skin, 'page'),
 				$this->_data
-			);
+			)->with('_icons', $this->icons);
 		}
 		
 		// Set the javascript view (if it's been set)

@@ -2,6 +2,8 @@
 
 use Input;
 use Sentry;
+use Session;
+use Redirect;
 use AccessRole;
 use AccessTask;
 use AccessTaskValidator;
@@ -190,7 +192,7 @@ class Role extends AdminBaseController {
 			$this->_data->actionSource = json_encode(array('create', 'read', 'update', 'delete'));
 
 			// Set the action
-			$this->_data->action = ($taskID === false) ? 'create' : 'update';
+			$this->_data->action = ($taskID == 0) ? 'create' : 'update';
 
 			// Manually set the header, title and message
 			$title = ucwords(lang('short.manage', langConcat('access task')));
@@ -214,14 +216,33 @@ class Role extends AdminBaseController {
 			$title = ucwords(lang('short.manage', langConcat('access tasks')));
 			$this->_data->header = $this->_data->title = $title;
 			$this->_data->message = lang('sitecontent.message.roleTasks');
+
+			// Get the flash status
+			$flashStatus = Session::get('flashStatus', null);
+
+			s(Session::has('flashStatus'));
+
+			if ($flashStatus !== null)
+			{
+				$this->_flash[] = array(
+					'status' => Session::get('flashStatus'),
+					'message' => Session::get('flashMessage'),
+				);
+
+				Session::forget('flashStatus');
+				Session::forget('flashMessage');
+			}
 		}
 	}
 	public function postTasks()
 	{
+		// Set the view
+		$this->_view = 'processing';
+
 		// Get the action
 		$action = e(Input::get('action'));
 
-		// Set up the validation server
+		// Set up the validation service
 		$validator = new AccessTaskValidator;
 
 		// If the validation fails, stop and go back
@@ -241,13 +262,11 @@ class Role extends AdminBaseController {
 			// Create the item
 			$item = AccessTask::add(Input::all(), true);
 
-			// Set the flash message
-			$this->_flash[] = array(
-				'status' => ($item) ? 'success' : 'danger',
-				'message' => ($item) 
-					? ucfirst(lang('short.alert.success.create', langConcat('access task')))
-					: ucfirst(lang('short.alert.failure.create', langConcat('access task'))),
-			);
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? ucfirst(lang('short.alert.success.create', langConcat('access task')))
+				: ucfirst(lang('short.alert.failure.create', langConcat('access task')));
 		}
 
 		/**
@@ -255,25 +274,35 @@ class Role extends AdminBaseController {
 		 */
 		if ($user->hasAccess('role.update') and $action == 'update')
 		{
-			// Update a task
+			// Get the ID
+			$id = e(Input::get('id'));
+			$id = (is_numeric($id)) ? $id : false;
+
+			if ($id)
+			{
+				// Create the item
+				$item = AccessTask::edit($id, Input::all(), true);
+			}
+
+			// Set the flash info
+			$flashStatus = ($id) ? 'success' : 'danger';
+			$flashMessage = ($id) 
+				? ucfirst(lang('short.alert.success.update', langConcat('access task')))
+				: ucfirst(lang('short.alert.failure.update', langConcat('access task')));
+
+			Session::put('flashStatus', $flashStatus);
+			Session::put('flashMessage', $flashMessage);
 		}
+
+		return Redirect::to('admin/role/tasks');
 	}
 	public function deleteTask()
 	{
-		// Set up the validation server
-		$validator = new AccessTaskValidator;
-
-		// If the validation fails, stop and go back
-		if ( ! $validator->passes())
-		{
-			return Redirect::back()->withInput()->withErrors($validator->getErrors());
-		}
-
-		// Get the current user
-		$user = Sentry::getUser();
+		// Set the view
+		$this->_view = 'processing';
 
 		// Only let the user delete if they have the right permissions
-		if ($user->hasAccess('role.delete'))
+		if (Sentry::getUser()->hasAccess('role.delete'))
 		{
 			// Get the task ID
 			$id = is_numeric(e(Input::get('id'))) ?: false;
@@ -289,8 +318,20 @@ class Role extends AdminBaseController {
 
 				// Now delete the task
 				$task->delete();
+
+				// Flash the data to the session
+				Session::flash('flashStatus', 'success');
+				Session::flash('flashMessage', ucfirst(lang('short.alert.success.delete', langConcat('access task'))));
+			}
+			else
+			{
+				// Flash the data to the session
+				Session::flash('flashStatus', 'danger');
+				Session::flash('flashMessage', ucfirst(lang('short.alert.failure.delete', langConcat('access task'))));
 			}
 		}
+
+		return Redirect::to('admin/role/tasks');
 	}
 
 }

@@ -31,22 +31,29 @@ abstract class Admin extends BaseController {
 	{
 		parent::__construct();
 
-		// Make sure we're logged in
-		if ( ! Sentry::check())
-		{
-			return Redirect::to('login/index'.\Nova\Core\Controller\Login::NOT_LOGGED_IN);
-		}
-		else
-		{
-			// Do we have what we need in the session?
-			if (Session::get('skin_admin') === null)
-			{
-				Sentry::getUser()->populateSession();
-			}
-		}
-
 		// Get a copy of the controller
 		$me = $this;
+
+		/**
+		 * Before filter that checks the login status. If the user isn't logged
+		 * in, it'll kick them over to the login page, otherwise it'll make sure
+		 * the session is populated with the necessary data.
+		 */
+		$this->beforeFilter(function()
+		{
+			if (Sentry::check() === false)
+			{
+				return Redirect::to('login/index/'.\Nova\Core\Controller\Login::NOT_LOGGED_IN);
+			}
+			else
+			{
+				// Do we have what we need in the session?
+				if ( ! Session::has('skin_admin'))
+				{
+					Sentry::getUser()->populateSession();
+				}
+			}
+		});
 
 		/**
 		 * Before filter that populates some of the variables with data.
@@ -57,7 +64,7 @@ abstract class Admin extends BaseController {
 			$me->skin		= Session::get('skin_admin');
 			$me->rank		= Session::get('rank', $me->settings->rank);
 			$me->timezone	= Session::get('timezone', $me->settings->timezone);
-			$me->images		= Utility::getImageIndex($me->skin);
+			$me->icons		= Utility::getIconIndex($me->skin);
 
 			// Get the skin section info
 			$me->_sectionInfo = SkinSectionCatalog::getItem($me->skin, 'skin');

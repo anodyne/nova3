@@ -42,7 +42,7 @@ abstract class Main extends BaseController {
 			$me->skin		= Session::get('skin_main', $me->settings->skin_main);
 			$me->rank		= Session::get('rank', $me->settings->rank);
 			$me->timezone	= Session::get('timezone', $me->settings->timezone);
-			$me->images		= Utility::getImageIndex($me->skin);
+			$me->icons		= Utility::getIconIndex($me->skin);
 
 			// Get the skin section info
 			$me->_sectionInfo = SkinSectionCatalog::getItem($me->skin, 'skin');
