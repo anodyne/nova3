@@ -100,11 +100,8 @@ class Login extends LoginBaseController {
 				'password'	=> $password,
 			));
 
-			// Loop through the prefs and put them into the session
-			foreach ($user->preferences as $pref)
-			{
-				Session::put($pref->key, $pref->value);
-			}
+			// Populate the session
+			$user->populateSession();
 
 			return Redirect::to('admin/main/index');
 		}
@@ -142,6 +139,9 @@ class Login extends LoginBaseController {
 	{
 		// Do the logout
 		Sentry::logout();
+
+		// Flush the session
+		Session::flush();
 
 		return Redirect::to('main/index');
 	}

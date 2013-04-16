@@ -13,6 +13,20 @@
  * @copyright	2013 Anodyne Productions
  */
 
+use Request;
 use Controller;
 
-abstract class Ajax extends Controller {}
+abstract class Ajax extends Controller {
+
+	/**
+	 * The request instance.
+	 */
+	protected $request;
+
+	public function __construct()
+	{
+		// Get the request instance
+		$this->request = Request::instance();
+	}
+
+}

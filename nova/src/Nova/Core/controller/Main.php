@@ -11,6 +11,7 @@
  */
 
 use Form;
+use Sentry;
 use MainBaseController;
 
 class Main extends MainBaseController {
@@ -36,6 +37,9 @@ class Main extends MainBaseController {
 		});
 	}
 
-	public function getIndex() {}
+	public function getIndex()
+	{
+		//
+	}
 
 }

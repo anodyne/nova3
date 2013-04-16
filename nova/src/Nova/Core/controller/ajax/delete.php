@@ -1,17 +1,13 @@
-<?php
-/**
- * Nova's ajax controller.
- *
- * @package		Nova
- * @category	Controller
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
+<?php namespace Nova\Core\Controller\Ajax;
 
-namespace Nova;
+use View;
+use Sentry;
+use Utility;
+use Location;
+use AjaxBaseController;
 
-class Controller_Ajax_Delete extends Controller_Base_Ajax
-{
+class Delete extends AjaxBaseController {
+
 	public function action_apprule($id)
 	{
 		if (\Sentry::check() and \Sentry::user()->hasLevel('character.create', 2))
@@ -237,27 +233,63 @@ class Controller_Ajax_Delete extends Controller_Base_Ajax
 	/**
 	 * Confirm the deletion of an access role.
 	 *
-	 * @param	int		The role ID
+	 * @return	string
 	 */
-	public function action_role($id)
+	public function getRole()
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('role.delete'))
+		// Get the ID
+		$id = e($this->request->segment(4));
+
+		if (Sentry::check() and Sentry::getUser()->hasAccess('role.delete'))
 		{
-			// Sanitize
-			$id = \Security::xss_clean($id);
-
 			// Get the role
-			$role = \Model_Access_Role::find($id);
+			$role = \AccessRole::find($id);
 
-			if ($role !== null)
+			if ($role)
 			{
 				$data = array(
 					'name' 	=> $role->name,
 					'id' 	=> $role->id,
-					'roles'	=> \Model_Access_Role::getRoles(array($id)),
 				);
 
-				echo \View::forge(\Location::file('delete/role', \Utility::getSkin('admin'), 'ajax'), $data);
+				// Get all the roles
+				$allRoles = \AccessRole::get();
+
+				// Filter out the role we're deleting
+				$data['roles'] = $allRoles->filter(function($r) use($id)
+				{
+					return ($r->id != $id);
+				});
+
+				sd(View::make(Location::file('delete/role', Utility::getSkin('admin'), 'ajax'), $data)->render());
+
+				echo View::make(Location::file('delete/role', Utility::getSkin('admin'), 'ajax'), $data);
+			}
+		}
+	}
+
+	/**
+	 * Confirm the deletion of an access role task.
+	 *
+	 * @return	string
+	 */
+	public function getRole_task()
+	{
+		// Get the ID
+		$id = e($this->request->segment(4));
+
+		if (Sentry::check() and Sentry::getUser()->hasAccess('role.delete'))
+		{
+			// Get the task
+			$task = \AccessTask::find($id);
+
+			if ($task)
+			{
+				$view = View::make(Location::file('delete/role_task', Utility::getSkin('admin'), 'ajax'))
+					->with('name', $task->name)
+					->with('id', $task->id);
+
+				echo $view;
 			}
 		}
 	}

@@ -15,9 +15,11 @@
  */
 
 use View;
+use Sentry;
 use Session;
 use Utility;
 use Location;
+use Redirect;
 use Exception;
 use SiteContent;
 use BaseController;
@@ -28,6 +30,20 @@ abstract class Admin extends BaseController {
 	public function __construct()
 	{
 		parent::__construct();
+
+		// Make sure we're logged in
+		if ( ! Sentry::check())
+		{
+			return Redirect::to('login/index'.\Nova\Core\Controller\Login::NOT_LOGGED_IN);
+		}
+		else
+		{
+			// Do we have what we need in the session?
+			if (Session::get('skin_admin') === null)
+			{
+				Sentry::getUser()->populateSession();
+			}
+		}
 
 		// Get a copy of the controller
 		$me = $this;
