@@ -27,6 +27,7 @@ class NovaCreateUsers extends Migration {
 			$t->datetime('leave_date');
 			$t->datetime('last_post');
 			$t->datetime('last_login');
+			$t->datetime('activated_at');
 			$t->timestamps();
 		});
 
