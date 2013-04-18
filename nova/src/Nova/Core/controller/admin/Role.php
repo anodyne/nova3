@@ -217,20 +217,12 @@ class Role extends AdminBaseController {
 			$this->_data->header = $this->_data->title = $title;
 			$this->_data->message = lang('sitecontent.message.roleTasks');
 
-			// Get the flash status
-			$flashStatus = Session::get('flashStatus', null);
-
-			s(Session::has('flashStatus'));
-
-			if ($flashStatus !== null)
+			if (Session::has('flashStatus'))
 			{
 				$this->_flash[] = array(
 					'status' => Session::get('flashStatus'),
 					'message' => Session::get('flashMessage'),
 				);
-
-				Session::forget('flashStatus');
-				Session::forget('flashMessage');
 			}
 		}
 	}
@@ -289,10 +281,11 @@ class Role extends AdminBaseController {
 			$flashMessage = ($id) 
 				? ucfirst(lang('short.alert.success.update', langConcat('access task')))
 				: ucfirst(lang('short.alert.failure.update', langConcat('access task')));
-
-			Session::put('flashStatus', $flashStatus);
-			Session::put('flashMessage', $flashMessage);
 		}
+
+		// Flash the session with the necessary data
+		Session::flash('flashStatus', $flashStatus);
+		Session::flash('flashMessage', $flashMessage);
 
 		return Redirect::to('admin/role/tasks');
 	}
