@@ -262,12 +262,12 @@ class Nav {
 				0 => array(
 					array(
 						'name' => ucwords(lang('cp')),
-						'url' => 'admin/index',
+						'url' => 'admin/main/index',
 						'extra' => array(),
 						'additional' => ''),
 					array(
 						'name' => ucfirst(Str::plural(lang('notification'))),
-						'url' => 'admin/notifications',
+						'url' => 'admin/main/notifications',
 						'extra' => array(),
 						'additional' => ''),
 				),
@@ -276,7 +276,7 @@ class Nav {
 						'name' => ucwords(lang('my', lang('account'))),
 						'url' => 'admin/user/edit/'.Sentry::getUser()->id,
 						'extra' => array(),
-						'additional' => ' <span class="icn icn-50 tooltip-left" data-icon="?" title="'.lang('short.help.user_account').'"></span>'),
+						'additional' => ''),
 					array(
 						'name' => ucwords(lang('my', Str::plural(lang('character')))),
 						'url' => 'admin/character/edit',
@@ -286,12 +286,12 @@ class Nav {
 				2 => array(
 					array(
 						'name' => $messageOutput.ucfirst(Str::plural(lang('message'))),
-						'url' => 'admin/messages',
+						'url' => 'admin/messages/index',
 						'extra' => array(),
 						'additional' => ''),
 					array(
 						'name' => $writingOutput.lang('writing', 1),
-						'url' => 'admin/writing',
+						'url' => 'admin/writing/index',
 						'extra' => array(),
 						'additional' => ''),
 				),
