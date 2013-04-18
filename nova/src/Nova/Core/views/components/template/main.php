@@ -15,6 +15,8 @@
 			<?php endif;?>
 		</div>
 
+		<?php echo $flash;?>
+
 		<?php if (isset($messageKey)): ?>
 			<div class="editable-multi" id="<?php echo $messageKey;?>"><?php echo $message;?></div>
 		<?php else: ?>
@@ -25,7 +27,6 @@
 			<?php echo $navsub;?>
 		<?php endif;?>
 		
-		<?php echo $flash;?>
 		<?php echo $content;?>
 		<?php echo $ajax;?>
 		
