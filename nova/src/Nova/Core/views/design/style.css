@@ -2,10 +2,10 @@
 
 body {
 	padding-top: 40px;
+	line-height: 1.75;
 
 	font-family: "Open Sans", helvetica, arial, sans-serif;
 	font-size: 16px;
-	line-height: 1.75;
 }
 
 .footer-content {
@@ -27,18 +27,6 @@ body {
 .btn:focus,
 a:focus {
 	outline: 0;
-}
-
-legend {
-	margin-bottom: 0;
-}
-
-label.control-label {
-	font-weight: bold;
-}
-
-.alert-block {
-	padding-right: 14px;
 }
 
 .fontSmall {
@@ -65,13 +53,6 @@ footer a:hover {
 	-webkit-border-radius: 0;
 	-moz-border-radius: 0;
 	border-radius: 0;
-}
-
-.align-center {
-	text-align: center;
-}
-.align-right {
-	text-align: right;
 }
 
 label.control-label {
