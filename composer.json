@@ -1,10 +1,11 @@
 {
 	"config": {
-		"vendor-dir": "nova/vendor"
+		"vendor-dir": "nova/vendor",
+		"preferred-install": "dist"
 	},
 
 	"require": {
-		"laravel/framework": "4.0.*",
+		"laravel/framework": "4.*",
 
 		"dflydev/markdown": "1.*",
 		"ikimea/browser": "1.*",
