@@ -6,7 +6,6 @@
 	"require": {
 		"laravel/framework": "4.0.*",
 
-		"dandoescode/datum": "1.*",
 		"dflydev/markdown": "1.*",
 		"ikimea/browser": "1.*",
 		"cartalyst/sentry": "dev-master",

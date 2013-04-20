@@ -5,8 +5,6 @@
 
 ## Composer Packages
 
-* dandoescode/datum
-	* Dates
 * dflydev/markdown
 	* Markdown parsing
 * cartalyst/sentry

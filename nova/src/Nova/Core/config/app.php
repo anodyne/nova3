@@ -206,7 +206,7 @@ return array(
 		/**
 		 * Nova Classes
 		 */
-		'Date'			=> 'Datum\Datum',
+		'Date'			=> 'Carbon\Carbon',
 		'Email'			=> 'Nova\Core\Lib\Email',
 		'Location'		=> 'Nova\Core\Facades\Location',
 		'Markdown'		=> 'Nova\Core\Lib\Markdown',
