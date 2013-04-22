@@ -11,4 +11,24 @@
  */
 
 // Get all the aliases
-$classes = Config::get('app.aliases');
+$aliases = Config::get('app.aliases');
+
+// Get the event config file
+$events = Config::get('events');
+
+// Loop through the events
+foreach ($events as $event => $handlers)
+{
+	// Make sure the handlers is an array
+	$handlers = ( ! is_array($handlers)) ? array($handlers) : $handlers;
+
+	// Loop through the handler classes and set the listeners
+	foreach ($handlers as $h)
+	{
+		// Set the final class to use
+		$finalHandler = (array_key_exists($h, $aliases)) ? $aliases[$h] : $h;
+
+		// Listen to the event
+		Event::listen($event, $finalHandler);
+	}
+}
