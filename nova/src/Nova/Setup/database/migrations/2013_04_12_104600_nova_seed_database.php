@@ -2332,6 +2332,20 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'header',
 				'section' => 'user',
 				'page' => 'index'),
+			array(
+				'key' => 'admin_role_index_header',
+				'label' => 'Access Roles Header',
+				'content' => "Manage Access Roles",
+				'type' => 'header',
+				'section' => 'role',
+				'page' => 'index'),
+			array(
+				'key' => 'admin_role_tasks_header',
+				'label' => 'Access Role Tasks Header',
+				'content' => "Manage Access Role Tasks",
+				'type' => 'header',
+				'section' => 'role',
+				'page' => 'tasks'),
 
 			/**
 			 * Page Titles
@@ -2490,6 +2504,20 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'title',
 				'section' => 'user',
 				'page' => 'index'),
+			array(
+				'key' => 'admin_role_index_title',
+				'label' => 'Access Roles Title',
+				'content' => "Access Roles",
+				'type' => 'title',
+				'section' => 'role',
+				'page' => 'index'),
+			array(
+				'key' => 'admin_role_tasks_title',
+				'label' => 'Access Role Tasks Title',
+				'content' => "Access Role Tasks",
+				'type' => 'title',
+				'section' => 'role',
+				'page' => 'tasks'),
 
 			/**
 			 * Messages
@@ -2587,6 +2615,20 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'message',
 				'section' => 'application',
 				'page' => 'rules'),
+			array(
+				'key' => 'admin_role_index_message',
+				'label' => 'Access Roles Message',
+				'content' => "Access roles control exactly what a user can and can't do in Nova. Some sensible defaults are included for managing your users, but you're free to create and edit these roles to fit your own game. Be careful when editing or deleting existing roles as doing so could prevent you or others from accessing areas of Nova.",
+				'type' => 'message',
+				'section' => 'role',
+				'page' => 'index'),
+			array(
+				'key' => 'admin_role_tasks_message',
+				'label' => 'Access Roles Tasks Message',
+				'content' => "Access roles are made up of tasks. Each task defines something a user can do such as creating, updating, deleting or even seeing entries. When combined with a component, this system allows for granular control over what a user can and can't do in Nova. You can edit any tasks in system or even create your own for your own pages or MODs. Be careful when editing or deleting existing items as doing so could prevent you or others from accessing areas of Nova.",
+				'type' => 'message',
+				'section' => 'role',
+				'page' => 'tasks'),
 
 			/**
 			 * Other Messages
