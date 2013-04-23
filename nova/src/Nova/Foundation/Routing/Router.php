@@ -197,6 +197,8 @@ class Router extends LaravelRouter {
 					return $this->buildControllerName(array($this->novaControllerDefault));
 				}
 
+				$this->debug('Namespace', $namespace);
+
 				// Find the controller
 				$find = $this->findController($namespace.ucfirst($segment));
 
