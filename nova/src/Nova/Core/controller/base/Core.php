@@ -86,7 +86,7 @@ abstract class Core extends Controller {
 	/**
 	 * Name of the view file to use.
 	 */
-	public $_view;
+	public $_view = 'processing';
 	
 	/**
 	 * Controller action data.
@@ -291,6 +291,14 @@ abstract class Core extends Controller {
 			$this->template->layout->messageKey = (array_key_exists($actionName, $this->_messages)) 
 				? $controllerName.'_'.$actionName.'_message' 
 				: false;
+		}
+
+		if (Session::has('flashStatus'))
+		{
+			$this->_flash[] = array(
+				'status' => Session::get('flashStatus'),
+				'message' => Session::get('flashMessage'),
+			);
 		}
 		
 		// Flash messages
