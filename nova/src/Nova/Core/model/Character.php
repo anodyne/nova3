@@ -36,7 +36,7 @@ class Character extends Model {
 	 */
 	public function rank()
 	{
-		return $this->belongsTo('Rank');
+		return $this->belongsTo('Rank', 'rank_id');
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Character extends Model {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('User');
+		return $this->belongsTo('User', 'user_id');
 	}
 
 	/**
