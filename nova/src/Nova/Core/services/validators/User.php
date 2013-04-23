@@ -4,7 +4,7 @@ use BaseValidator;
 
 class User extends BaseValidator {
 
-	protected static $rules = array(
+	public static $rules = array(
 		'email'				=> 'required|email',
 		'password'			=> 'required',
 		'password_confirm'	=> 'required|same:password',

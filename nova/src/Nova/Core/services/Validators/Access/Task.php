@@ -4,7 +4,7 @@ use BaseValidator;
 
 class Task extends BaseValidator {
 
-	protected static $rules = array(
+	public static $rules = array(
 		'name'			=> 'required',
 		'desc'			=> 'required',
 		'component'		=> 'required',
