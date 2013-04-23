@@ -11,7 +11,11 @@
  */
 
 use Rank;
+use View;
 use Input;
+use Sentry;
+use Request;
+use Utility;
 use Location;
 use Position;
 use RankCatalog;
@@ -98,22 +102,20 @@ class Info extends AjaxBaseController {
 	}
 
 	/**
-	 * Get the users who are assigned a given role.
+	 * Get the roles who have the given task.
 	 */
-	public function getRole_users($id)
+	public function getRoles_with_task()
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('role.read'))
+		if (Sentry::check() and Sentry::getUser()->hasAccess('role.read'))
 		{
 			// Clean the variable
-			$id = \Security::xss_clean($id);
+			$id = e(Request::segment(4, false));
 
-			// Get the role
-			$role = \Model_Access_Role::find($id);
+			// Get the task
+			$task = \AccessTask::find($id);
 
-			// Get the users
-			$data['users'] = $role->users;
-
-			echo \View::forge(\Location::file('info/role_users', \Utility::getSkin('admin'), 'ajax'), $data);
+			echo View::make(Location::file('info/task_roles', Utility::getSkin('admin'), 'ajax'))
+				->with('roles', $task->roles);
 		}
 	}
 
@@ -135,6 +137,24 @@ class Info extends AjaxBaseController {
 			: '';
 		
 		echo $output;
+	}
+
+	/**
+	 * Get the users who are assigned a given role.
+	 */
+	public function getUsers_with_role()
+	{
+		if (Sentry::check() and Sentry::getUser()->hasAccess('role.read'))
+		{
+			// Clean the variable
+			$id = e(Request::segment(4, false));
+			
+			// Get the role
+			$role = \AccessRole::find($id);
+
+			echo View::make(Location::file('info/role_users', Utility::getSkin('admin'), 'ajax'))
+				->with('users', $role->users);
+		}
 	}
 
 }

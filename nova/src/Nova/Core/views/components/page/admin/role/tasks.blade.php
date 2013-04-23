@@ -28,19 +28,15 @@
 				<tr>
 					<td class="col-span-9">
 						<p><strong>{{ $t->name }}</strong></p>
-						<p class="text-muted fontSmall">{{ $t->desc }}</p>
+						<p class="text-muted text-small">{{ $t->desc }}</p>
 					</td>
 					<td class="col-span-3">
 						<div class="btn-toolbar pull-right">
 							<div class="btn-group">
-								<a href="#" class="btn btn-small tooltip-top task-action icn16" title="{{ ucfirst(lang('short.view', langConcat('roles with this task'))) }}" data-action="view" data-id="{{ $t->id }}">{{ $_icons['view'] }}</a>
+								<a href="#" class="btn btn-small tooltip-top js-task-action icn16" title="{{ ucfirst(lang('short.view', langConcat('roles with this task'))) }}" data-action="view" data-id="{{ $t->id }}">{{ $_icons['view'] }}</a>
 								
 								@if (Sentry::getUser()->hasAccess('role.update'))
 									<a href="{{ URL::to('admin/role/tasks/'.$t->id) }}" class="btn btn-small tooltip-top icn16" title="{{ ucfirst(lang('short.edit', lang('task'))) }}">{{ $_icons['edit'] }}</a>
-								@endif
-
-								@if (Sentry::getUser()->hasAccess('role.create'))
-									<a href="#" class="btn btn-small tooltip-top role-action icn16" title="{{ ucfirst(lang('short.duplicate', lang('task'))) }}" data-action="duplicate" data-id="{{ $t->id }}">{{ $_icons['duplicate'] }}</a>
 								@endif
 							</div>
 

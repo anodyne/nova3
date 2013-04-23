@@ -237,11 +237,11 @@ class Delete extends AjaxBaseController {
 	 */
 	public function getRole()
 	{
-		// Get the ID
-		$id = e($this->request->segment(4));
-
 		if (Sentry::check() and Sentry::getUser()->hasAccess('role.delete'))
 		{
+			// Get the ID
+			$id = e($this->request->segment(4));
+
 			// Get the role
 			$role = \AccessRole::find($id);
 
@@ -275,21 +275,18 @@ class Delete extends AjaxBaseController {
 	 */
 	public function getRole_task()
 	{
-		// Get the ID
-		$id = e($this->request->segment(4));
-
 		if (Sentry::check() and Sentry::getUser()->hasAccess('role.delete'))
 		{
+			// Get the ID
+			$id = e($this->request->segment(4));
+
 			// Get the task
 			$task = \AccessTask::find($id);
 
 			if ($task)
 			{
-				$view = View::make(Location::file('delete/role_task', Utility::getSkin('admin'), 'ajax'))
-					->with('name', $task->name)
-					->with('id', $task->id);
-
-				echo $view;
+				echo View::make(Location::file('delete/role_task', Utility::getSkin('admin'), 'ajax'))
+					->with('task', $task);
 			}
 		}
 	}

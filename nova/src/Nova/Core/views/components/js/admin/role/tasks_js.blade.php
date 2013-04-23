@@ -6,29 +6,25 @@
 
 		if (doaction == 'delete')
 		{
-			$('<div/>').dialog2({
-				title: "{{ ucwords(lang('short.delete', lang('role'))) }}",
-				content: "{{ URL::to('ajax/delete/role_task') }}/" + id
-			});
-		}
-
-		if (doaction == 'duplicate')
-		{
-			$('<div/>').dialog2({
-				title: "{{ ucwords(lang('short.duplicate', lang('role'))) }}",
-				content: "{{ URL::to('ajax/add/role_duplicate') }}/" + id
-			});
+			$('#deleteTask').modal({
+				remote: "{{ URL::to('ajax/delete/role_task') }}/" + id,
+				keyboard: true
+			}).modal('show');
 		}
 
 		if (doaction == 'view')
 		{
-			$('<div/>').dialog2({
-				title: "{{ ucwords(langConcat('users with this role')) }}",
-				content: "{{ URL::to('ajax/info/role_users') }}/" + id
-			});
+			$('#rolesWithTask').modal({
+				remote: "{{ URL::to('ajax/info/roles_with_task') }}/" + id,
+				keyboard: true
+			}).modal('show');
 		}
 
 		return false;
+	});
+
+	$('body').on('hidden', '.modal', function(){
+		$(this).removeData('modal');
 	});
 
 </script>

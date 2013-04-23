@@ -1,8 +1,11 @@
 <?php namespace Nova\Core\Controller\Admin;
 
+use Form;
+use View;
 use Input;
 use Sentry;
 use Session;
+use Location;
 use Redirect;
 use AccessRole;
 use AccessTask;
@@ -20,10 +23,10 @@ class Role extends AdminBaseController {
 		Sentry::getUser()->allowed('role.update', true);
 
 		// Set the JS view
-		$this->_js_view = 'admin/role/roles_js';
+		$this->_jsView = 'admin/role/roles_js';
 
 		// Get the role ID from the URI
-		$roleID = $this->request->segment(4);
+		$roleID = $this->request->segment(4, false);
 
 		if ($roleID)
 		{
@@ -44,9 +47,12 @@ class Role extends AdminBaseController {
 			// Get all the roles
 			$this->_data->roles = AccessRole::get();
 
-			// Manually set the header and title
-			$title = ucwords(lang('short.manage', langConcat('access roles')));
-			$this->_data->header = $this->_date->title = $title;
+			// Build the modal
+			$this->template->layout->ajax = View::make(Location::file('common/modal', $this->skin, 'partial'))
+				->with('modalId', 'usersWithRole')
+				->with('modalHeader', ucwords(langConcat('users with role')))
+				->with('modalBody', '')
+				->with('modalFooter', false);
 		}
 	}
 	public function postIndex()
@@ -194,10 +200,6 @@ class Role extends AdminBaseController {
 
 			// Set the action
 			$this->_data->action = ($taskID == 0) ? 'create' : 'update';
-
-			// Manually set the header, title and message
-			$title = ucwords(lang('short.manage', langConcat('access task')));
-			$this->_data->header = $this->_data->title = $title;
 		}
 		else
 		{
@@ -213,10 +215,18 @@ class Role extends AdminBaseController {
 				$this->_data->tasks[$t->component][] = $t;
 			}
 
-			// Manually set the header, title and message
-			$title = ucwords(lang('short.manage', langConcat('access tasks')));
-			$this->_data->header = $this->_data->title = $title;
-			$this->_data->message = lang('sitecontent.message.roleTasks');
+			// Build the modals
+			$this->template->layout->ajax = View::make(Location::file('common/modal', $this->skin, 'partial'))
+				->with('modalId', 'deleteTask')
+				->with('modalHeader', ucwords(lang('short.delete', lang('task'))))
+				->with('modalBody', '')
+				->with('modalFooter', false);
+
+			$this->template->layout->ajax.= View::make(Location::file('common/modal', $this->skin, 'partial'))
+				->with('modalId', 'rolesWithTask')
+				->with('modalHeader', ucwords(langConcat('access roles with task')))
+				->with('modalBody', '')
+				->with('modalFooter', false);
 		}
 	}
 	public function postTasks()
@@ -283,13 +293,14 @@ class Role extends AdminBaseController {
 
 		return Redirect::to('admin/role/tasks');
 	}
-	public function deleteTask()
+	public function deleteTasks()
 	{
 		// Only let the user delete if they have the right permissions
 		if (Sentry::getUser()->hasAccess('role.delete'))
 		{
-			// Get the task ID
-			$id = is_numeric(e(Input::get('id'))) ?: false;
+			// Get the ID
+			$id = e(Input::get('id'));
+			$id = (is_numeric($id)) ? $id : false;
 
 			// We have a task ID, so continue...
 			if ($id)
