@@ -11,6 +11,9 @@ use AdminBaseController;
 
 class Role extends AdminBaseController {
 
+	/**
+	 * Manage access roles.
+	 */
 	public function getIndex()
 	{
 		// Verify the user is allowed
@@ -147,9 +150,7 @@ class Role extends AdminBaseController {
 	}
 
 	/**
-	 * @todo	Create a new task
-	 * @todo	Edit an existing task
-	 * @todo	Delete a task
+	 * Manage tasks associated with access roles.
 	 */
 	public function getTasks()
 	{
@@ -216,21 +217,10 @@ class Role extends AdminBaseController {
 			$title = ucwords(lang('short.manage', langConcat('access tasks')));
 			$this->_data->header = $this->_data->title = $title;
 			$this->_data->message = lang('sitecontent.message.roleTasks');
-
-			if (Session::has('flashStatus'))
-			{
-				$this->_flash[] = array(
-					'status' => Session::get('flashStatus'),
-					'message' => Session::get('flashMessage'),
-				);
-			}
 		}
 	}
 	public function postTasks()
 	{
-		// Set the view
-		$this->_view = 'processing';
-
 		// Get the action
 		$action = e(Input::get('action'));
 
@@ -259,6 +249,10 @@ class Role extends AdminBaseController {
 			$flashMessage = ($item) 
 				? ucfirst(lang('short.alert.success.create', langConcat('access task')))
 				: ucfirst(lang('short.alert.failure.create', langConcat('access task')));
+
+			// Flash the session with the necessary data
+			Session::flash('flashStatus', $flashStatus);
+			Session::flash('flashMessage', $flashMessage);
 		}
 
 		/**
@@ -281,19 +275,16 @@ class Role extends AdminBaseController {
 			$flashMessage = ($id) 
 				? ucfirst(lang('short.alert.success.update', langConcat('access task')))
 				: ucfirst(lang('short.alert.failure.update', langConcat('access task')));
-		}
 
-		// Flash the session with the necessary data
-		Session::flash('flashStatus', $flashStatus);
-		Session::flash('flashMessage', $flashMessage);
+			// Flash the session with the necessary data
+			Session::flash('flashStatus', $flashStatus);
+			Session::flash('flashMessage', $flashMessage);
+		}
 
 		return Redirect::to('admin/role/tasks');
 	}
 	public function deleteTask()
 	{
-		// Set the view
-		$this->_view = 'processing';
-
 		// Only let the user delete if they have the right permissions
 		if (Sentry::getUser()->hasAccess('role.delete'))
 		{
