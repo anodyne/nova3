@@ -29,7 +29,7 @@ a:focus {
 	outline: 0;
 }
 
-.fontSmall {
+.text-small {
 	font-size: 13px;
 }
 
@@ -73,4 +73,14 @@ h1 {
 
 .help-block {
 	font-size: 13px;
+}
+
+.btn-toolbar {
+	margin: 15px 0;
+}
+
+.modal-body .btn,
+.modal-body .btn-group,
+.modal-body .btn-toolbar {
+	margin-top: 15px;
 }
