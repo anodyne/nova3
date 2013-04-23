@@ -18,6 +18,8 @@ class Rank extends Model implements QuickInstallInterface {
 		'credits', 'default', 'genre',
 	);
 
+	protected $dates = array('created_at', 'updated_at');
+
 	protected static $properties = array(
 		'id', 'name', 'location', 'preview', 'blank', 'extension', 'status', 
 		'credits', 'default', 'genre', 'created_at', 'updated_at',

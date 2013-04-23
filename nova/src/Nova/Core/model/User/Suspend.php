@@ -13,6 +13,8 @@ class Suspend extends Model implements ThrottleInterface {
 	protected $fillable = array(
 		'user_id', 'suspended', 'banned', 'last_attempt_at', 'suspended_at',
 	);
+
+	protected $dates = array('last_attempt_at', 'suspended_at');
 	
 	protected static $properties = array(
 		'id', 'user_id', 'suspended', 'banned', 'last_attempt_at', 'suspended_at',

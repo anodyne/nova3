@@ -10,6 +10,8 @@ class System extends Model {
 		'uid', 'version_major', 'version_minor', 'version_update',
 		'ignore',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'uid', 'version_major', 'version_minor', 'version_update', 

@@ -9,6 +9,8 @@ class Ban extends Model {
 	protected $fillable = array(
 		'level', 'ip_address', 'email', 'reason',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'level', 'ip_address', 'email', 'reason', 'created_at', 'updated_at'

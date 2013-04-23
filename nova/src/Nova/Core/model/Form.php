@@ -10,6 +10,8 @@ class Form extends Model {
 	protected $fillable = array(
 		'key', 'name', 'orientation', 'status',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'key', 'name', 'orientation', 'status', 'created_at', 'updated_at',

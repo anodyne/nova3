@@ -11,6 +11,8 @@ class Section extends Model {
 	protected $fillable = array(
 		'form_key', 'tab_id', 'name', 'order', 'status',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'form_key', 'tab_id', 'name', 'order', 'status', 'created_at', 

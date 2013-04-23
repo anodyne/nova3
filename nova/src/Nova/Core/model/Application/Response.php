@@ -11,9 +11,9 @@ class Response extends Model {
 
 	protected $table = 'application_responses';
 
-	protected $fillable = array(
-		'app_id', 'user_id', 'type', 'content',
-	);
+	protected $fillable = array('app_id', 'user_id', 'type', 'content');
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'app_id', 'user_id', 'type', 'content', 'created_at', 'updated_at',

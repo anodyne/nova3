@@ -9,6 +9,8 @@ class Group extends Model {
 	protected $fillable = array(
 		'name', 'order', 'desc', 'parent_id',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'name', 'order', 'desc', 'parent_id', 'created_at', 'updated_at',

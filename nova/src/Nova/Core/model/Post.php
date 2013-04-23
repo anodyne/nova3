@@ -11,6 +11,8 @@ class Post extends Model {
 		'title', 'location', 'timeline', 'mission_id', 'saved_user_id',
 		'status', 'content', 'keywords',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'title', 'location', 'timeline', 'mission_id', 'saved_user_id', 

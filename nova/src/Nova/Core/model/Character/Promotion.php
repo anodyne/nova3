@@ -9,6 +9,8 @@ class Promotion extends Model {
 	protected $fillable = array(
 		'character_id', 'old_order', 'old_rank', 'new_order', 'new_rank',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'character_id', 'old_order', 'old_rank', 'new_order', 'new_rank',

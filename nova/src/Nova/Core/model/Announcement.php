@@ -11,6 +11,8 @@ class Announcement extends Model {
 		'title', 'user_id', 'character_id', 'content', 'status',
 		'private', 'keywords'
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'title', 'user_id', 'character_id', 'content', 'status',

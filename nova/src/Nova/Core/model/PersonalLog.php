@@ -11,6 +11,8 @@ class PersonalLog extends Model {
 	protected $fillable = array(
 		'title', 'user_id', 'character_id', 'content', 'status', 'keywords',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'title', 'user_id', 'character_id', 'content', 'status', 'keywords', 

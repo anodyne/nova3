@@ -11,6 +11,8 @@ class Rank extends Model {
 	protected $fillable = array(
 		'info_id', 'group_id', 'base', 'pip',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'info_id', 'group_id', 'base', 'pip', 'created_at', 'updated_at',

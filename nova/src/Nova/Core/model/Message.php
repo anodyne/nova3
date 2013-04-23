@@ -9,6 +9,8 @@ class Message extends Model {
 	protected $fillable = array(
 		'user_id', 'character_id', 'subject', 'content', 'status',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'user_id', 'character_id', 'subject', 'content', 'status', 

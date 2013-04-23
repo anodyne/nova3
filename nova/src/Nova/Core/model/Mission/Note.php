@@ -9,6 +9,8 @@ class Note extends Model {
 	protected $fillable = array(
 		'mission_id', 'content',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'mission_id', 'content', 'created_at', 'updated_at',

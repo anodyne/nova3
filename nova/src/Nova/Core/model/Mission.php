@@ -10,6 +10,8 @@ class Mission extends Model {
 		'title', 'images', 'order', 'group_id', 'status', 'start_date',
 		'end_date', 'desc', 'summary',
 	);
+
+	protected $dates = array('created_at', 'updated_at', 'start_date', 'end_date');
 	
 	protected static $properties = array(
 		'id', 'title', 'images', 'order', 'group_id', 'status', 'start_date', 

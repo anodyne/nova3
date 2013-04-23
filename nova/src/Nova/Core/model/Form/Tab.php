@@ -11,6 +11,8 @@ class Tab extends Model {
 	protected $fillable = array(
 		'form_key', 'name', 'link_id', 'order', 'status',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'form_key', 'name', 'link_id', 'order', 'status', 'created_at', 

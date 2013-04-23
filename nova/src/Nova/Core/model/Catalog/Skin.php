@@ -15,6 +15,8 @@ class Skin extends Model implements QuickInstallInterface {
 	protected $fillable = array(
 		'name', 'location', 'credits', 'version', 'status',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'name', 'location', 'credits', 'version', 'status', 'created_at',

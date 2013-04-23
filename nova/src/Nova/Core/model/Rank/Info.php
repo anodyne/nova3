@@ -12,6 +12,8 @@ class Info extends Model {
 	protected $fillable = array(
 		'name', 'short_name', 'order', 'group', 'status',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'name', 'short_name', 'order', 'group', 'status', 'created_at', 'updated_at',

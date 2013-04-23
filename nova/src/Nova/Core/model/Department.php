@@ -11,6 +11,8 @@ class Department extends Model {
 		'name', 'desc', 'order', 'status', 'type', 'parent_id',
 		'manifest_id',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'name', 'desc', 'order', 'status', 'type', 'parent_id', 

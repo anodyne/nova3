@@ -9,6 +9,8 @@ class MessageRecipient extends Model {
 	protected $fillable = array(
 		'message_id', 'user_id', 'character_id', 'unread', 'status',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'message_id', 'user_id', 'character_id', 'unread', 'status', 

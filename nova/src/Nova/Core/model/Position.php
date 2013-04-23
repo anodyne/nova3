@@ -13,6 +13,8 @@ class Position extends Model {
 	protected $fillable = array(
 		'name', 'desc', 'dept_id', 'order', 'open', 'status', 'type',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'name', 'desc', 'dept_id', 'order', 'open', 'status', 'type', 

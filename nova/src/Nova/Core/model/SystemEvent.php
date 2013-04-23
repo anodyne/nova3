@@ -9,6 +9,8 @@ class SystemEvent extends Model {
 	protected $fillable = array(
 		'email', 'ip', 'user_id', 'character_id', 'content',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'email', 'ip', 'user_id', 'character_id', 'content', 

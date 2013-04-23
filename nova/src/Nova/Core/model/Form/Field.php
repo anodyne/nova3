@@ -14,6 +14,8 @@ class Field extends Model {
 		'restriction', 'help', 'selected', 'value', 'html_name', 'html_id',
 		'html_class', 'html_rows', 'placeholder',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'form_key', 'section_id', 'type', 'label', 'order', 'status', 

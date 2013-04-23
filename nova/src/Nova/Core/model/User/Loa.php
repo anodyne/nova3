@@ -10,6 +10,8 @@ class Loa extends Model {
 		'user_id', 'start_date', 'end_date', 'duration', 'reason',
 		'type',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'user_id', 'start_date', 'end_date', 'duration', 'reason', 

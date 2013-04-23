@@ -14,6 +14,10 @@ class Character extends Model {
 		'first_name', 'last_name', 'middle_name', 'suffix', 'status',
 		'user_id', 'rank_id', 'activated'
 	);
+
+	protected $dates = array(
+		'created_at', 'updated_at', 'activated', 'deactivated', 'last_post',
+	);
 	
 	protected static $properties = array(
 		'id', 'user_id', 'status', 'first_name', 'middle_name', 'last_name', 

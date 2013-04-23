@@ -11,6 +11,8 @@ class Comment extends Model {
 	protected $fillable = array(
 		'content', 'status', 'commentable_type', 'commentable_id'
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'commentable_type', 'commentable_id', 'content', 'status', 

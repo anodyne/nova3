@@ -12,6 +12,8 @@ class Group extends Model {
 	protected $fillable = array(
 		'name', 'order', 'status',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'name', 'order', 'status', 'created_at', 'updated_at',

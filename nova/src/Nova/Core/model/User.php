@@ -28,9 +28,10 @@ class User extends Model implements UserInterface {
 		'ip_address'
 	);
 
-	protected $hashableAttributes = array(
-		'password',
-		'persist_code',
+	protected $hashableAttributes = array('password', 'persist_code');
+
+	protected $dates = array(
+		'created_at', 'updated_at', 'leave_date', 'last_post', 'last_login'
 	);
 	
 	protected static $properties = array(

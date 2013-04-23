@@ -10,6 +10,8 @@ class Recipient extends Model {
 		'character_id', 'user_id', 'sender_user_id', 'award_id', 'reason',
 		'status',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'character_id', 'user_id', 'sender_user_id', 'award_id', 'reason', 

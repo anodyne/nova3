@@ -11,6 +11,8 @@ class SkinSection extends Model {
 	protected $fillable = array(
 		'section', 'skin', 'preview', 'status', 'default', 'nav',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'section', 'skin', 'preview', 'status', 'default', 'nav',

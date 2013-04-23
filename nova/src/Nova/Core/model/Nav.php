@@ -11,6 +11,8 @@ class Nav extends Model {
 		'name', 'group', 'order', 'url', 'url_target', 'needs_login',
 		'access', 'type', 'category', 'status', 'sim_type',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'name', 'group', 'order', 'url', 'url_target', 'needs_login', 

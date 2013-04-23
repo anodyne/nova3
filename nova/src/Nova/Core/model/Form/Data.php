@@ -9,6 +9,8 @@ class Data extends Model {
 	protected $fillable = array(
 		'form_key', 'field_id', 'data_id', 'value'
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'form_key', 'field_id', 'data_id', 'value', 'created_at', 

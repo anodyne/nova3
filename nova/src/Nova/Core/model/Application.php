@@ -14,6 +14,8 @@ class Application extends Model {
 	protected $fillable = array(
 		'user_id', 'character_id', 'position_id', 'status', 'sample_post',
 	);
+
+	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'user_id', 'character_id', 'position_id', 'status', 'sample_post',
