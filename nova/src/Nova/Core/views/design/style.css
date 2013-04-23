@@ -33,6 +33,10 @@ a:focus {
 	font-size: 13px;
 }
 
+strong {
+	font-weight: 600;
+}
+
 footer {
 	margin: 15px 0;
 	padding: 15px 0;
