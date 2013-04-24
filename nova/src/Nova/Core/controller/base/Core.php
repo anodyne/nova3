@@ -109,6 +109,11 @@ abstract class Core extends Controller {
 	public $_flash = array();
 
 	/**
+	 * Array of ajax views
+	 */
+	public $_ajax = array();
+
+	/**
 	 * The skin section catalog object
 	 */
 	public $_sectionInfo;
@@ -309,6 +314,15 @@ abstract class Core extends Controller {
 				$this->template->layout->flash = View::make(Location::file('flash', $this->skin, 'partial'))
 					->with('status', $flash['status'])
 					->with('message', $flash['message']);
+			}
+		}
+
+		// Ajax views
+		if (count($this->_ajax) > 0)
+		{
+			foreach ($this->_ajax as $ajax)
+			{
+				$this->template->layout->ajax.= $ajax;
 			}
 		}
 
