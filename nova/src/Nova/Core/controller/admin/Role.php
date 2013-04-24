@@ -30,13 +30,19 @@ class Role extends AdminBaseController {
 
 		if ($roleID)
 		{
-			if ($roleID === 0)
+			// Set the view
+			$this->_view = 'admin/role/role';
+
+			// Get the role
+			$this->_data->role = AccessRole::find($roleID);
+
+			// Get all the tasks
+			$tasks = AccessTask::get();
+
+			// Loop through the tasks and group them by component
+			foreach ($tasks as $t)
 			{
-				// Create a new role
-			}
-			else
-			{
-				// Edit the selected role
+				$this->_data->tasks[$t->component][] = $t;
 			}
 		}
 		else
