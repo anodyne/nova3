@@ -7,13 +7,13 @@
 <div class="btn-toolbar">
 	@if (Sentry::getUser()->hasAccess('role.create'))
 		<div class="btn-group">
-			<a href="{{ URL::to('admin/role/tasks/0') }}" class="btn icn16 tooltip-top" title="{{ ucfirst(lang('short.add', langConcat('access task'))) }}">{{ $_icons['add'] }}</a>
+			<a href="{{ URL::to('admin/role/tasks/0') }}" class="btn icn-size-16 tooltip-top" title="{{ ucfirst(lang('short.add', langConcat('access task'))) }}">{{ $_icons['add'] }}</a>
 		</div>
 	@endif
 
 	@if (Sentry::getUser()->hasAccess('role.update'))
 		<div class="btn-group">
-			<a href="{{ URL::to('admin/role/index') }}" class="btn icn16 tooltip-top" title="{{ ucfirst(lang('short.manage', langConcat('access roles'))) }}">{{ $_icons['lock'] }}</a>
+			<a href="{{ URL::to('admin/role/index') }}" class="btn icn-size-16 tooltip-top" title="{{ ucfirst(lang('short.manage', langConcat('access roles'))) }}">{{ $_icons['lock'] }}</a>
 		</div>
 	@endif
 </div>
@@ -33,16 +33,16 @@
 					<td class="col-span-3">
 						<div class="btn-toolbar pull-right">
 							<div class="btn-group">
-								<a href="#" class="btn btn-small tooltip-top js-task-action icn16" title="{{ ucfirst(lang('short.view', langConcat('roles with this task'))) }}" data-action="view" data-id="{{ $t->id }}">{{ $_icons['view'] }}</a>
+								<a href="#" class="btn btn-small tooltip-top js-task-action icn-size-16" title="{{ ucfirst(lang('short.view', langConcat('roles with this task'))) }}" data-action="view" data-id="{{ $t->id }}">{{ $_icons['view'] }}</a>
 								
 								@if (Sentry::getUser()->hasAccess('role.update'))
-									<a href="{{ URL::to('admin/role/tasks/'.$t->id) }}" class="btn btn-small tooltip-top icn16" title="{{ ucfirst(lang('short.edit', lang('task'))) }}">{{ $_icons['edit'] }}</a>
+									<a href="{{ URL::to('admin/role/tasks/'.$t->id) }}" class="btn btn-small tooltip-top icn-size-16" title="{{ ucfirst(lang('short.edit', lang('task'))) }}">{{ $_icons['edit'] }}</a>
 								@endif
 							</div>
 
 							@if (Sentry::getUser()->hasAccess('role.delete'))
 								<div class="btn-group">
-									<a href="#" class="btn btn-small btn-danger tooltip-top js-task-action icn16" title="{{ ucfirst(lang('short.delete', lang('task'))) }}" data-action="delete" data-id="{{ $t->id }}">{{ $_icons['remove'] }}</a>
+									<a href="#" class="btn btn-small btn-danger tooltip-top js-task-action icn-size-16" title="{{ ucfirst(lang('short.delete', lang('task'))) }}" data-action="delete" data-id="{{ $t->id }}">{{ $_icons['remove'] }}</a>
 								</div>
 							@endif
 						</div>

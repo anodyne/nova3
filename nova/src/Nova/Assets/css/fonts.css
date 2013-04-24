@@ -15,24 +15,25 @@
 	font-weight: normal !important;
 
 	-webkit-font-smoothing: antialiased;
+	font-smoothing: antialiased;
 }
-.icn16 {
+.icn-size-16 {
 	font-size: 16px !important;
 }
-.icn24 {
-	font-size: 24px !important;
-}
-.icn32 {
+.icn-size-32 {
 	font-size: 32px !important;
 }
+.icn-size-64 {
+	font-size: 64px !important;
+}
 
-.icn-25 {
+.icn-opacity-25 {
 	opacity: 0.25;
 }
-.icn-50 {
+.icn-opacity-50 {
 	opacity: 0.5;
 }
-.icn-75 {
+.icn-opacity-75 {
 	opacity: 0.75;
 }
 
