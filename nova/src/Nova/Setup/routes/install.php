@@ -180,7 +180,7 @@ Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|set
 			'first_name'	=> Input::get('first_name'),
 			'last_name'		=> Input::get('last_name'),
 			'rank_id'		=> Input::get('rank'),
-			'activated'		=> Date::now()->toDateTimeString(),
+			'activated'		=> Date::now(),
 		), true);
 
 		// Add the character's position
