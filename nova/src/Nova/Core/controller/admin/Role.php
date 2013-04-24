@@ -47,10 +47,17 @@ class Role extends AdminBaseController {
 			// Get all the roles
 			$this->_data->roles = AccessRole::get();
 
-			// Build the modal
-			$this->template->layout->ajax = View::make(Location::file('common/modal', $this->skin, 'partial'))
+			// Build the users with roles modal
+			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
 				->with('modalId', 'usersWithRole')
 				->with('modalHeader', ucwords(langConcat('users with role')))
+				->with('modalBody', '')
+				->with('modalFooter', false);
+
+			// Build the delete roles modal
+			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+				->with('modalId', 'deleteRole')
+				->with('modalHeader', ucwords(lang('short.delete', langConcat('access role'))))
 				->with('modalBody', '')
 				->with('modalFooter', false);
 		}
@@ -215,14 +222,15 @@ class Role extends AdminBaseController {
 				$this->_data->tasks[$t->component][] = $t;
 			}
 
-			// Build the modals
-			$this->template->layout->ajax = View::make(Location::file('common/modal', $this->skin, 'partial'))
+			// Build the delete task modal
+			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
 				->with('modalId', 'deleteTask')
 				->with('modalHeader', ucwords(lang('short.delete', lang('task'))))
 				->with('modalBody', '')
 				->with('modalFooter', false);
 
-			$this->template->layout->ajax.= View::make(Location::file('common/modal', $this->skin, 'partial'))
+			// Build the roles with task modal
+			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
 				->with('modalId', 'rolesWithTask')
 				->with('modalHeader', ucwords(langConcat('access roles with task')))
 				->with('modalBody', '')
