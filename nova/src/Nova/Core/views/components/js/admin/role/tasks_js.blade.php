@@ -23,8 +23,4 @@
 		return false;
 	});
 
-	$('body').on('hidden', '.modal', function(){
-		$(this).removeData('modal');
-	});
-
 </script>

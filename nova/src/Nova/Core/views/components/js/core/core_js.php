@@ -9,7 +9,6 @@
 <script type="text/javascript" src="<?php echo SRCURL;?>Assets/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		
 		$.lazy({
 			src: "<?php echo SRCURL;?>Assets/js/chosen.jquery.min.js",
 			name: 'chosen',
@@ -65,7 +64,6 @@
 
 	// Rank dropdown
 	$('#rankDrop').on('change', function(){
-		
 		$.ajax({
 			type: "POST",
 			url: "<?php echo URL::to('ajax/info/rank_image');?>",
@@ -84,7 +82,6 @@
 
 	// Position dropdown
 	$('#positionDrop').on('change', function(){
-		
 		$.ajax({
 			type: "POST",
 			url: "<?php echo URL::to('ajax/info/position_desc');?>",
@@ -100,7 +97,6 @@
 
 	// Access role dropdown
 	$('#roleDrop').on('change', function(){
-		
 		$.ajax({
 			type: "POST",
 			url: "<?php echo URL::to('ajax/info/role_desc');?>",
@@ -113,4 +109,10 @@
 		
 		return false;
 	});
+
+	// Destroy all modals when they're hidden
+	$('body').on('hidden', '.modal', function(){
+		$(this).removeData('modal');
+	});
+
 </script>
