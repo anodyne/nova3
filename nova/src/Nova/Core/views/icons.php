@@ -2,48 +2,48 @@
 
 return array(
 
-	'add' => '<div class="icn" data-icon="+"></div>',
+	'add' => '<span class="icn" data-icon="+"></span>',
 
-	'back' => '<div class="icn" data-icon="<"></div>',
+	'back' => '<span class="icn" data-icon="<"></span>',
 
-	'categories' => '<div class="icn" data-icon=","></div>',
-	'check' => '<div class="icn" data-icon="4"></div>',
-	'clock' => '<div class="icn" data-icon="h"></div>',
-	'close' => '<div class="icn" data-icon="x"></div>',
+	'categories' => '<span class="icn" data-icon=","></span>',
+	'check' => '<span class="icn" data-icon="4"></span>',
+	'clock' => '<span class="icn" data-icon="h"></span>',
+	'close' => '<span class="icn" data-icon="x"></span>',
 
-	'duplicate' => '<div class="icn" data-icon="_"></div>',
+	'duplicate' => '<span class="icn" data-icon="_"></span>',
 	
-	'edit' => '<div class="icn" data-icon="p"></div>',
-	'email' => '<div class="icn" data-icon="e"></div>',
+	'edit' => '<span class="icn" data-icon="p"></span>',
+	'email' => '<span class="icn" data-icon="e"></span>',
 
-	'filter' => '<div class="icn" data-icon="f"></div>',
-	'forward' => '<div class="icn" data-icon=">"></div>',
+	'filter' => '<span class="icn" data-icon="f"></span>',
+	'forward' => '<span class="icn" data-icon=">"></span>',
 
-	'image' => '<div class="icn" data-icon="m"></div>',
-	'info' => '<div class="icn" data-icon="i"></div>',
-	'inProgress' => '<div class="icn" data-icon="\'"></div>',
+	'image' => '<span class="icn" data-icon="m"></span>',
+	'info' => '<span class="icn" data-icon="i"></span>',
+	'inProgress' => '<span class="icn" data-icon="\'"></span>',
 
-	'link' => '<div class="icn" data-icon="-"></div>',
-	'lock' => '<div class="icn" data-icon="("></div>',
+	'link' => '<span class="icn" data-icon="-"></span>',
+	'lock' => '<span class="icn" data-icon="("></span>',
 
-	'question' => '<div class="icn" data-icon="?"></div>',
+	'question' => '<span class="icn" data-icon="?"></span>',
 
-	'reject' => '<div class="icn" data-icon="2"></div>',
-	'remove' => '<div class="icn" data-icon="t"></div>',
+	'reject' => '<span class="icn" data-icon="2"></span>',
+	'remove' => '<span class="icn" data-icon="t"></span>',
 
-	'settings' => '<div class="icn" data-icon=")"></div>',
-	'share' => '<div class="icn" data-icon="a"></div>',
-	'star' => '<div class="icn" data-icon="5"></div>',
-	'starHollow' => '<div class="icn" data-icon="6"></div>',
+	'settings' => '<span class="icn" data-icon=")"></span>',
+	'share' => '<span class="icn" data-icon="a"></span>',
+	'star' => '<span class="icn" data-icon="5"></span>',
+	'starHollow' => '<span class="icn" data-icon="6"></span>',
 
-	'thumbsUp' => '<div class="icn" data-icon="."></div>',
-	'thumbsDown' => '<div class="icn" data-icon="/"></div>',
+	'thumbsUp' => '<span class="icn" data-icon="."></span>',
+	'thumbsDown' => '<span class="icn" data-icon="/"></span>',
 
-	'user' => '<div class="icn" data-icon="u"></div>',
+	'user' => '<span class="icn" data-icon="u"></span>',
 
-	'view' => '<div class="icn" data-icon="s"></div>',
+	'view' => '<span class="icn" data-icon="s"></span>',
 
-	'warning' => '<div class="icn" data-icon="!"></div>',
+	'warning' => '<span class="icn" data-icon="!"></span>',
 
 	/**
 	 * OLD
