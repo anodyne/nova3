@@ -3,17 +3,21 @@
 </noscript>
 
 <div class="container">
-	<div class="page-header">
-		<h1>{{ $header }}</h1>
+	<div class="row">
+		<div class="col-span-6 col-offset-3">
+			<div class="page-header">
+				<h1>{{ $header }}</h1>
+			</div>
+
+			{{ $flash }}
+
+			<p>{{ $message }}</p>
+
+			{{ $content }}
+
+			<footer>
+				&copy; {{ Date::now()->year }} Anodyne Productions
+			</footer>
+		</div>
 	</div>
-
-	{{ $flash }}
-
-	<p>{{ $message }}</p>
-
-	{{ $content }}
-
-	<footer>
-		&copy; {{ date('Y') }} Anodyne Productions
-	</footer>
 </div>
