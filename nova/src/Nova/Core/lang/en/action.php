@@ -35,6 +35,8 @@ return array(
 
 	'filter' => 'filter',
 
+	'inherit' => 'inherit',
+	'inherits' => 'inherits',
 	'install' => 'install',
 	'installed' => 'installed',
 	
