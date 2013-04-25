@@ -848,15 +848,12 @@ class User extends Model implements UserInterface {
 	public function allowed($key, $redirect = false)
 	{
 		// Check the login
-		if (Sentry::check() === false and $redirect === true)
+		if ( ! Sentry::check() and $redirect)
 		{
 			return Redirect::to('login/index/'.\Nova\Core\Controller\Login::NOT_LOGGED_IN);
 		}
 		else
 		{
-			// Get the current user
-			$user = Sentry::getUser();
-
 			// If we have a simple string, make it an array
 			if ( ! is_array($key))
 			{
@@ -869,10 +866,10 @@ class User extends Model implements UserInterface {
 			// Loop through the array and see if they have access
 			foreach ($key as $k)
 			{
-				$allowed[] = $user->hasAccess($k);
+				$allowed[] = $this->hasAccess($k);
 			}
 
-			if ($redirect === true and ! in_array(true, $allowed))
+			if ($redirect and ! in_array(true, $allowed))
 			{
 				return Redirect::to('admin/error/'.\Nova\Core\Controller\Admin\Main::NOT_ALLOWED);
 			}
