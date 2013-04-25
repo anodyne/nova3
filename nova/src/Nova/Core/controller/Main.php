@@ -10,8 +10,8 @@
  * @copyright	2013 Anodyne Productions
  */
 
-use Form;
-use Sentry;
+use Markdown;
+use SiteContent;
 use MainBaseController;
 
 class Main extends MainBaseController {
@@ -39,7 +39,17 @@ class Main extends MainBaseController {
 
 	public function getIndex()
 	{
-		//
+		// Set the view
+		$this->_view = 'main/index';
+	}
+
+	public function getCredits()
+	{
+		// Set the view
+		$this->_view = 'main/credits';
+
+		// Get the permanent credits
+		$this->_data->permanentCredits = Markdown::parse(SiteContent::getContentItem('credits_perm'));
 	}
 
 }
