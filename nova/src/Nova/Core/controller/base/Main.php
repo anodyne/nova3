@@ -16,10 +16,9 @@
  */
 
 use View;
-use Session;
+use Sentry;
 use Utility;
 use Location;
-use Exception;
 use SiteContent;
 use BaseController;
 use SkinSectionCatalog;
@@ -38,10 +37,13 @@ abstract class Main extends BaseController {
 		 */
 		$this->beforeFilter(function() use(&$me)
 		{
+			// Get the user
+			$user = Sentry::getUser();
+
 			// Set the variables
-			$me->skin		= Session::get('skin_main', $me->settings->skin_main);
-			$me->rank		= Session::get('rank', $me->settings->rank);
-			$me->timezone	= Session::get('timezone', $me->settings->timezone);
+			$me->skin		= (Sentry::check()) ? $user->getPreferenceItem('skin_main') : $me->settings->skin_main;
+			$me->rank		= (Sentry::check()) ? $user->getPreferenceItem('rank') : $me->settings->rank;
+			$me->timezone	= (Sentry::check()) ? $user->getPreferenceItem('timezone') : $me->settings->timezone;
 			$me->icons		= Utility::getIconIndex($me->skin);
 
 			// Get the skin section info

@@ -159,28 +159,30 @@ abstract class Core extends Controller {
 			{
 				return Redirect::to('setup');
 			}
-
-			// Get the system install status cache file
-			$status = Cache::get('nova_system_installed');
-
-			// If the status is null, we know the cache file doesn't exist
-			if ($status === null)
+			else
 			{
-				try
-				{
-					// Grab the UID
-					$uid = System::getUniqueId();
+				// Get the system install status cache file
+				$status = Cache::get('nova_system_installed');
 
-					// Only cache if we have a UID
-					if ( ! empty($uid))
-					{
-						Cache::forever('nova_system_installed', (int) true);
-					}
-				}
-				catch (Exception $e)
+				// If the status is null, we know the cache file doesn't exist
+				if ($status === null)
 				{
-					// Nothing here, so the system isn't installed
-					return Redirect::to('setup');
+					try
+					{
+						// Grab the UID
+						$uid = System::getUniqueId();
+
+						// Only cache if we have a UID
+						if ( ! empty($uid))
+						{
+							Cache::forever('nova_system_installed', (int) true);
+						}
+					}
+					catch (Exception $e)
+					{
+						// Nothing here, so the system isn't installed
+						return Redirect::to('setup');
+					}
 				}
 			}
 		});
@@ -199,8 +201,7 @@ abstract class Core extends Controller {
 			// Load all of the settings
 			$me->settings = Settings::get()->toSimpleObject('key', 'value');
 
-			// Set the language
-			Config::set('app.locale', Session::get('language', 'en'));
+			// TODO: need to figure out how we're going to handle languages
 
 			// Create a new Nav object
 			$me->nav = new Nav;
@@ -252,7 +253,7 @@ abstract class Core extends Controller {
 			$this->template->javascript = View::make(
 				Location::file($this->_jsView, $this->skin, 'js'),
 				$this->_jsData
-			);
+			)->with('_icons', $this->icons);
 		}
 
 		// Pull the action name from the Route
@@ -282,7 +283,7 @@ abstract class Core extends Controller {
 				: null
 		);
 
-		if ($this->_editable === true)
+		if ($this->_editable)
 		{
 			// Get the controller name from the Router and denamespace it
 			$controllerName = Str::denamespace(Route::getController());
@@ -298,11 +299,12 @@ abstract class Core extends Controller {
 				: false;
 		}
 
+		// If there's flash data in the session, grab it
 		if (Session::has('flashStatus'))
 		{
 			$this->_flash[] = array(
-				'status' => Session::get('flashStatus'),
-				'message' => Session::get('flashMessage'),
+				'status'	=> Session::get('flashStatus'),
+				'message'	=> Session::get('flashMessage'),
 			);
 		}
 		
@@ -311,7 +313,7 @@ abstract class Core extends Controller {
 		{
 			foreach ($this->_flash as $flash)
 			{
-				$this->template->layout->flash = View::make(Location::file('flash', $this->skin, 'partial'))
+				$this->template->layout->flash.= View::make(Location::file('flash', $this->skin, 'partial'))
 					->with('status', $flash['status'])
 					->with('message', $flash['message']);
 			}
@@ -326,9 +328,15 @@ abstract class Core extends Controller {
 			}
 		}
 
-		//sd($this->template->render());
-
-		echo $this->template;
+		// If the View object throws an exception, try to get around it
+		try
+		{
+			echo $this->template;
+		}
+		catch (Exception $e)
+		{
+			sd($this->template->render());
+		}
 	}
 	
 	/**
