@@ -2636,7 +2636,7 @@ class NovaSeedDatabase extends Migration {
 			array(
 				'key' => 'credits_perm',
 				'label' => 'Permanent Credits',
-				'content' => "The Nova 3 experience can be summed up as \"smarter and better\". From the top down, Nova is faster, simpler, more flexible, and smarter than before. This is accomplished in no small part by the simple, flexible, and elegant PHP 5.3 foundation of <a href='http://fuelphp.com/' target='_blank'>FuelPHP</a>. The icons found throughout Nova are the tireless work of <a href='http://p.yusukekamiyamane.com/' target='_blank'>Yusuke Kamiyamane</a> (Fugue), <a href='http://pictos.cc' target='_blank'>Drew Wilson</a> (Pictos), and <a href='http://glyphicons.com/' target='_blank'>Jan Kovařík</a> (Glyphicons).",
+				'content' => "The Nova 3 experience can be summed up as \"smarter and better\". From the top down, Nova is faster, simpler, more flexible, and smarter than before. This is accomplished in no small part by the simple, flexible, and elegant PHP 5.3 foundation of <a href='http://laravel.com/' target='_blank'>Laravel</a>. The icons found throughout Nova are from the <a href='http://icomoon.io/' target='_blank'>IcoMoon</a> icon font.",
 				'protected' => (int) true,
 				'type' => 'other'),
 			array(
@@ -2679,7 +2679,7 @@ class NovaSeedDatabase extends Migration {
 		// Loop through the insert the data
 		foreach ($data as $d)
 		{
-			SiteContent::add($d);
+			SiteContent::add($d, false, false);
 		}
 	}
 
