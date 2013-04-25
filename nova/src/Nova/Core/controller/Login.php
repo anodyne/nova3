@@ -100,9 +100,6 @@ class Login extends LoginBaseController {
 				'password'	=> $password,
 			));
 
-			// Populate the session
-			$user->populateSession();
-
 			return Redirect::to('admin/main/index');
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
@@ -140,7 +137,7 @@ class Login extends LoginBaseController {
 		// Do the logout
 		Sentry::logout();
 
-		// Flush the session
+		// Flush the session for safe measure
 		Session::flush();
 
 		return Redirect::to('main/index');
@@ -227,8 +224,8 @@ class Login extends LoginBaseController {
 		return Redirect::to('login/reset')->with($flashData);
 	}
 
-	# TODO: need some kind of procedure for how to handle if the email doesn't go out
-	# TODO: need something in the admin side of things here a GM can manually confirm a password reset
+	// TODO: need some kind of procedure for how to handle if the email doesn't go out
+	// TODO: need something in the admin side of things here a GM can manually confirm a password reset
 
 	/**
 	 * Confirms a user's request to reset their password.
