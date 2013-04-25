@@ -16,11 +16,9 @@
 
 use View;
 use Sentry;
-use Session;
 use Utility;
 use Location;
 use Redirect;
-use Exception;
 use SiteContent;
 use BaseController;
 use SkinSectionCatalog;
@@ -31,90 +29,89 @@ abstract class Admin extends BaseController {
 	{
 		parent::__construct();
 
-		// Get a copy of the controller
-		$me = $this;
-
 		/**
-		 * Before filter that checks the login status. If the user isn't logged
-		 * in, it'll kick them over to the login page, otherwise it'll make sure
-		 * the session is populated with the necessary data.
+		 * Before any of the before filters run, check to make sure the user is
+		 * logged in. If they aren't, send them over to the log in page.
 		 */
-		$this->beforeFilter(function()
+		if ( ! Sentry::check())
 		{
-			if (Sentry::check() === false)
+			/**
+			 * Before filter that redirects if the user isn't logged in.
+			 */
+			$this->beforeFilter(function()
 			{
 				return Redirect::to('login/index/'.\Nova\Core\Controller\Login::NOT_LOGGED_IN);
-			}
-			else
+			});
+		}
+		else
+		{
+			// Get a copy of the controller
+			$me = $this;
+
+			/**
+			 * Before filter that populates some of the variables with data.
+			 */
+			$this->beforeFilter(function() use(&$me)
 			{
-				// Do we have what we need in the session?
-				if ( ! Session::has('skin_admin'))
-				{
-					Sentry::getUser()->populateSession();
-				}
-			}
-		});
+				// Get the current user
+				$user = Sentry::getUser();
 
-		/**
-		 * Before filter that populates some of the variables with data.
-		 */
-		$this->beforeFilter(function() use(&$me)
-		{
-			// Set the variables
-			$me->skin		= Session::get('skin_admin');
-			$me->rank		= Session::get('rank', $me->settings->rank);
-			$me->timezone	= Session::get('timezone', $me->settings->timezone);
-			$me->icons		= Utility::getIconIndex($me->skin);
+				// Set the variables
+				$me->skin		= $user->getPreferenceItem('skin_admin');
+				$me->rank		= ($user->getPreferenceItem('rank')) ?: $me->settings->rank;
+				$me->timezone	= ($user->getPreferenceItem('timezone')) ?: $me->settings->timezone;
+				$me->icons		= Utility::getIconIndex($me->skin);
 
-			// Get the skin section info
-			$me->_sectionInfo = SkinSectionCatalog::getItem($me->skin, 'skin');
-		});
+				// Get the skin section info
+				$me->_sectionInfo = SkinSectionCatalog::getItem($me->skin, 'skin');
+			});
 
-		/**
-		 * Before filter that creates the template objects.
-		 */
-		$this->beforeFilter(function() use(&$me)
-		{
-			// Set the values to be passed to the structure
-			$vars = array(
-				'skin'		=> $me->skin,
-				'section'	=> 'admin',
-				'settings'	=> $me->settings,
-			);
+			/**
+			 * Before filter that creates the template objects.
+			 */
+			$this->beforeFilter(function() use(&$me)
+			{
+				// Set the values to be passed to the structure
+				$vars = array(
+					'skin'		=> $me->skin,
+					'section'	=> 'admin',
+					'settings'	=> $me->settings,
+				);
 
-			// Set the structure file
-			$me->template = View::make(Location::file('admin', $me->skin, 'structure'))->with($vars);
-			$me->template->layout = View::make(Location::file('admin', $me->skin, 'template'))->with($vars);
-			$me->template->layout->navsub = View::make(Location::file('navsub', $me->skin, 'partial'));
-			$me->template->layout->footer = View::make(Location::file('footer', $me->skin, 'partial'));
-		});
+				// Set the structure file
+				$me->template = View::make(Location::file('admin', $me->skin, 'structure'))->with($vars);
+				$me->template->layout = View::make(Location::file('admin', $me->skin, 'template'))->with($vars);
+				$me->template->layout->navsub = View::make(Location::file('navsub', $me->skin, 'partial'));
+				$me->template->layout->footer = View::make(Location::file('footer', $me->skin, 'partial'));
+			});
 
-		/**
-		 * Before filter that fills the template with default data.
-		 */
-		$this->beforeFilter(function() use(&$me)
-		{
-			// Build the navigation
-			$me->nav->setStyle($me->_sectionInfo->nav)
-				->setSection('admin')
-				->setCategory('admin')
-				->setType('main');
-			
-			// Populate the template
-			$me->template->title 					= $me->settings->sim_name.' :: ';
-			$me->template->javascript				= false;
-			$me->template->layout->ajax 			= false;
-			$me->template->layout->flash			= false;
-			$me->template->layout->content			= false;
-			$me->template->layout->header			= false;
-			$me->template->layout->message			= false;
-			$me->template->layout->navmain 			= $me->nav->build();
-			$me->template->layout->navsub->menu		= false;
-			$me->template->layout->navsub->widget1	= false;
-			$me->template->layout->navsub->widget2	= false;
-			$me->template->layout->navsub->widget3	= false;
-			$me->template->layout->footer->extra 	= SiteContent::getContentItem('footer');
-		});
+			/**
+			 * Before filter that fills the template with default data.
+			 */
+			$this->beforeFilter(function() use(&$me)
+			{
+				// Build the navigation
+				$me->nav->setStyle($me->_sectionInfo->nav)
+					->setSection('admin')
+					->setCategory('admin')
+					->setType('main');
+				
+				// Populate the template
+				$me->template->title 					= $me->settings->sim_name.' :: ';
+				$me->template->javascript				= false;
+				$me->template->layout->ajax 			= false;
+				$me->template->layout->flash			= false;
+				$me->template->layout->content			= false;
+				$me->template->layout->header			= false;
+				$me->template->layout->message			= false;
+				$me->template->layout->navmain 			= $me->nav->build();
+				$me->template->layout->navsub->menu		= false;
+				$me->template->layout->navsub->widget1	= false;
+				$me->template->layout->navsub->widget2	= false;
+				$me->template->layout->navsub->widget3	= false;
+				$me->template->layout->footer->extra 	= SiteContent::getContentItem('footer');
+			});
+		}
 	}
 
 }
