@@ -34,7 +34,8 @@ class Role extends AdminBaseController {
 			$this->_view = 'admin/role/role';
 
 			// Get the role
-			$this->_data->role = AccessRole::find($roleID);
+			$role = AccessRole::find($roleID);
+			$this->_data->role = $role;
 
 			// Get all the tasks
 			$tasks = AccessTask::get();
@@ -44,6 +45,25 @@ class Role extends AdminBaseController {
 			{
 				$this->_data->tasks[$t->component][] = $t;
 			}
+
+			// If we're editing, grab all the tasks for this role
+			if ($roleID > 0)
+			{
+				// Get the tasks for the role we're editing
+				$this->_data->roleTasks = $role->getTasks(false)->toSimpleArray();
+
+				// Now loop through the inherited tasks and get those
+				foreach ($role->getInheritedTasks() as $tasks)
+				{
+					foreach ($tasks as $task)
+					{
+						$this->_data->inheritedTasks[$task->id] = $task->name;
+					}
+				}
+			}
+
+			// Set the action
+			$this->_data->action = ($roleID == 0) ? 'create' : 'update';
 		}
 		else
 		{
@@ -70,102 +90,131 @@ class Role extends AdminBaseController {
 	}
 	public function postIndex()
 	{
-		if (\Input::method() == 'POST')
+		// Get the current user
+		$user = Sentry::getUser();
+
+		// Get the action
+		$action = e(Input::get('action'));
+
+		/**
+		 * Create or duplicate a role.
+		 */
+		if ($user->hasAccess('role.create') and ($action == 'create' or $action == 'duplicate'))
 		{
-			$action = \Security::xss_clean(\Input::post('action'));
-
-			if (\Security::check_token())
+			/**
+			 * Create a role.
+			 */
+			if ($action == 'create')
 			{
-				/**
-				 * Delete a role.
-				 */
-				if ($action == 'delete')
-				{
-					// Get the id of the role to delete
-					$id = \Security::xss_clean(\Input::post('id'));
+				// Create the item
+				$item = AccessRole::add(Input::all(), true);
 
-					// Get the new id to use
-					$newRole = \Security::xss_clean(\Input::post('new_role_id'));
-
-					// Get the role
-					$role = \Model_Access_Role::find($id);
-
-					// Loop through all the users and update their roles
-					foreach ($role->users as $user)
-					{
-						$user->role_id = $newRole;
-						$user->save();
-					}
-
-					// Save the role to lock in the user changes
-					$role->save();
-
-					// Now delete the role
-					$entry = $role->delete();
-
-					if ($entry)
-					{
-						$this->_flash[] = array(
-							'status' 	=> 'success',
-							'message'	=> ucfirst(lang('short.alert.success.delete', langConcat('access role'))),
-						);
-
-						# TODO: add system event
-					}
-					else
-					{
-						$this->_flash[] = array(
-							'status'	=> 'danger',
-							'message'	=> ucfirst(lang('short.alert.failure.delete', langConcat('access role'))),
-						);
-					}
-				}
-
-				/**
-				 * Duplicate a role into a new role.
-				 */
-				if ($action == 'duplicate')
-				{
-					// Get the id and name of the role to duplicate
-					$id = \Security::xss_clean(\Input::post('id'));
-					$name = \Security::xss_clean(\Input::post('name'));
-
-					// Get the item we're duplicating from
-					$original = \Model_Access_Role::find($id);
-
-					// Create a new role
-					$entry = \Model_Access_Role::createItem(array(
-						'name' 		=> $name,
-						'desc' 		=> $original->desc,
-						'inherits'	=> $original->inherits,
-					), true);
-
-					if (is_object($entry))
-					{
-						$this->_flash[] = array(
-							'status' 	=> 'success',
-							'message'	=> ucfirst(lang('short.alert.success.duplicate', langConcat('access role'))),
-						);
-
-						# TODO: add system event
-					}
-					else
-					{
-						$this->_flash[] = array(
-							'status'	=> 'danger',
-							'message'	=> ucfirst(lang('short.alert.failure.duplicate', langConcat('access role'))),
-						);
-					}
-				}
+				// Set the flash info
+				$flashStatus = ($item) ? 'success' : 'danger';
+				$flashMessage = ($item) 
+					? ucfirst(lang('short.alert.success.create', langConcat('access role')))
+					: ucfirst(lang('short.alert.failure.create', langConcat('access role')));
 			}
-			else
+
+			/**
+			 * Duplicate a role.
+			 */
+			if ($action == 'duplicate')
 			{
-				$this->_flash[] = array(
-					'status' 	=> 'danger',
-					'message' 	=> lang('error.csrf'),
-				);
+				// Get the ID
+				$id = e(Input::get('id'));
+				$id = (is_numeric($id)) ? $id : false;
+
+				// Get the role we're duplicating
+				$role = AccessRole::find($id);
+
+				// Create the item
+				$item = AccessRole::add(array(
+					'name'		=> "Duplicate of {$role->name}";
+					'desc'		=> $role->desc,
+					'inherits'	=> $role->inherits,
+				), true);
+
+				// Do the task duplication now
+
+				// Set the flash info
+				$flashStatus = ($item) ? 'success' : 'danger';
+				$flashMessage = ($item) 
+					? ucfirst(lang('short.alert.success.create', langConcat('access role')))
+					: ucfirst(lang('short.alert.failure.create', langConcat('access role')));
 			}
 		}
+
+		/**
+		 * Update the role.
+		 */
+		if ($user->hasAccess('role.update') and ($action == 'update' or $action == 'updateTasks'))
+		{
+			// Get the ID
+			$id = e(Input::get('id'));
+			$id = (is_numeric($id)) ? $id : false;
+
+			/**
+			 * Update the actual role.
+			 */
+			if ($action == 'update')
+			{
+				if ($id)
+				{
+					// Update the item
+					$item = AccessRole::edit($id, Input::all(), true);
+				}
+
+				// Set the flash info
+				$flashStatus = ($id) ? 'success' : 'danger';
+				$flashMessage = ($id) 
+					? ucfirst(lang('short.alert.success.update', langConcat('access role')))
+					: ucfirst(lang('short.alert.failure.update', langConcat('access role')));
+			}
+
+			/**
+			 * Update the tasks associated with the role.
+			 */
+			if ($action == 'updateTasks')
+			{
+				// Get the role
+				$role = AccessRole::find($id);
+
+				// Loop through the inherited tasks and get those
+				foreach ($role->getInheritedTasks() as $tasks)
+				{
+					foreach ($tasks as $task)
+					{
+						$inheritedTasks[] = $task->id;
+					}
+				}
+
+				// Get the tasks from the POST
+				$tasks = Input::get('tasks');
+
+				// Remove the inherited items from the list
+				foreach ($tasks as $id => $name)
+				{
+					if (in_array($id, $inheritedTasks))
+					{
+						unset($tasks[$id]);
+					}
+				}
+
+				// Sync the roles_tasks table
+				$role->tasks()->sync($tasks);
+
+				// Set the flash info
+				$flashStatus = 'success';
+				$flashMessage = ucfirst(lang('short.alert.success.update', langConcat('access role tasks')));
+			}
+		}
+
+		// Flash the session with the necessary data
+		Session::flash('flashStatus', $flashStatus);
+		Session::flash('flashMessage', $flashMessage);
+
+		return Redirect::to('admin/role/index');
 	}
 
 	/**

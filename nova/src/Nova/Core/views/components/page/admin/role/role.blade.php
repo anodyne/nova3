@@ -10,54 +10,100 @@
 <div class="tab-content">
 	<div id="role" class="tab-pane active">
 		{{ Form::model($role, array('url' => 'admin/role/index')) }}
-			<div class="control-group">
-				<label class="control-label">{{ ucwords(lang('name')) }}</label>
-				<div class="controls">
-					{{ Form::text('name', null, array('class' => 'col-span-3 input-with-feedback')) }}
+			<div class="row">
+				<div class="col-span-4">
+					<div class="control-group">
+						<label class="control-label">{{ ucwords(lang('name')) }}</label>
+						<div class="controls">
+							{{ Form::text('name', null, array('class' => 'input-with-feedback')) }}
+						</div>
+					</div>
 				</div>
 			</div>
 
-			<div class="control-group">
-				<label class="control-label">{{ ucwords(lang('desc')) }}</label>
-				<div class="controls">
-					{{ Form::textarea('desc', null, array('class' => 'col-span-6 input-with-feedback', 'rows' => 4)) }}
+			<div class="row">
+				<div class="col-span-8">
+					<div class="control-group">
+						<label class="control-label">{{ ucwords(lang('desc')) }}</label>
+						<div class="controls">
+							{{ Form::textarea('desc', null, array('class' => 'input-with-feedback', 'rows' => 3)) }}
+						</div>
+					</div>
 				</div>
 			</div>
 
-			<div class="control-group">
-				<label class="control-label">{{ ucwords(lang('action.inherits')) }}</label>
-				<div class="controls">
-					{{ Form::roles('inherits', explode(',', $role->inherits), array('class' => 'chzn col-span-6', 'multiple' => 'multiple'), true) }}
+			<div class="row">
+				<div class="col-span-8">
+					<div class="control-group">
+						<label class="control-label">{{ ucwords(lang('action.inherits')) }}</label>
+						<div class="controls">
+							{{ Form::roles('inherits', explode(',', $role->inherits), array('class' => 'chzn', 'multiple' => 'multiple'), true) }}
+						</div>
+					</div>
 				</div>
 			</div>
 
-			<div class="controls">
-				{{ Form::button(ucfirst(lang('action.submit')), array('type' => 'submit', 'class' => 'btn btn-primary')) }}
+			<div class="row">
+				<div class="col-span-4">
+					<div class="controls">
+						{{ Form::hidden('id', $role->id) }}
+						{{ Form::hidden('action', $action) }}
+						{{ Form::hidden('_token', csrf_token()) }}
+						
+						{{ Form::button(ucfirst(lang('action.submit')), array('type' => 'submit', 'class' => 'btn btn-primary')) }}
+					</div>
+				</div>
 			</div>
 		{{ Form::close() }}
 	</div>
 
 	<div id="tasks" class="tab-pane">
 		@if (count($tasks) > 0)
-			@foreach ($tasks as $component => $task)
-				<fieldset>
-					<legend>{{ ucfirst($component) }}</legend>
+			{{ Form::open(array('url' => 'admin/role/index')) }}
+				@foreach ($tasks as $component => $task)
+					<fieldset>
+						<legend>{{ ucfirst($component) }}</legend>
 
-					<div class="row">
-					@foreach ($task as $t)
-						<div class="col-span-3">
-							<label class="checkbox">
-								{{ Form::checkbox('tasks[]') }} {{ $t->name }}
-								
-								@if ( ! empty($t->desc))
-									<span class="icn-opacity-50 tooltip-top" data-title="{{ $t->desc }}">{{ $_icons['question'] }}</span>
-								@endif
-							</label>
+						<div class="row">
+						@foreach ($task as $t)
+							<div class="col-span-4">
+								<label class="checkbox">
+									@if (array_key_exists($t->id, $inheritedTasks))
+										{{ Form::checkbox('tasks[]', $t->id, true, array('disabled' => 'disabled')) }}
+									@elseif (array_key_exists($t->id, $roleTasks))
+										{{ Form::checkbox('tasks[]', $t->id, true) }}
+									@else
+										{{ Form::checkbox('tasks[]', $t->id) }}
+									@endif
+
+									{{ $t->name }}
+									
+									@if ( ! empty($t->desc))
+										<span class="icn-opacity-50 tooltip-top" data-title="{{ $t->desc }}">{{ $_icons['question'] }}</span>
+									@endif
+
+									@if (array_key_exists($t->id, $inheritedTasks))
+										<span class="icn-opacity-50 tooltip-top" data-title="{{ lang('short.roles.inheritedTask') }}">{{ $_icons['info'] }}</span>
+									@endif
+								</label>
+							</div>
+						@endforeach
 						</div>
-					@endforeach
+					</fieldset>
+				@endforeach
+
+				<div class="row">
+					<div class="col-span-4">
+						<div class="controls">
+							{{ Form::hidden('id', $role->id) }}
+							{{ Form::hidden('action', 'updateTasks') }}
+							{{ Form::hidden('_token', csrf_token()) }}
+							
+							{{ Form::button(ucfirst(lang('action.submit')), array('type' => 'submit', 'class' => 'btn btn-primary')) }}
+						</div>
 					</div>
-				</fieldset>
-			@endforeach
+				</div>
+			{{ Form::close() }}
 		@else
 			<p class="alert">{{ lang('error.notFound', langConcat('tasks')) }}</p>
 		@endif
