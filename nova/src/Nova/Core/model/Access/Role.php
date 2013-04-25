@@ -43,9 +43,10 @@ class Role extends Model implements GroupInterface {
 	/**
 	 * Get all the tasks.
 	 *
+	 * @param	bool	Get inherited tasks as well?
 	 * @return	Collection
 	 */
-	public function getTasks()
+	public function getTasks($getInherited = true)
 	{
 		// Loop through this role's tasks
 		foreach ($this->tasks as $task)
@@ -54,18 +55,44 @@ class Role extends Model implements GroupInterface {
 		}
 
 		// If there are inherited roles, loop through those too
+		if ( ! empty($this->inherits) and $getInherited)
+		{
+			$groups += $this->getInheritedTasks(true);
+		}
+
+		return $this->newCollection($groups);
+	}
+
+	/**
+	 * Get all inherited tasks.
+	 *
+	 * @param	bool	Return an array (false) or a Collection (true)
+	 * @return	Collection
+	 */
+	public function getInheritedTasks($returnArray = false)
+	{
+		// Make a temporary group holder
+		$groups = array();
+
 		if ( ! empty($this->inherits))
 		{
+			// Make an array out of the inherited roles
 			$inherited = explode(',', $this->inherits);
 
+			// Loop through the inherited roles
 			foreach ($inherited as $i)
 			{
 				// Start a new Query Builder
-				$query = static::startQuery();	
+				$query = static::startQuery();
 
 				// Put the tasks into the holding array
 				$groups[] = $query->find($i)->getTasks();
 			}
+		}
+
+		if ($returnArray)
+		{
+			return $groups;
 		}
 
 		return $this->newCollection($groups);
