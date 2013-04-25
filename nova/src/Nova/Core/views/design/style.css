@@ -90,10 +90,6 @@ h1 {
 	margin-top: 15px;
 }
 
-.tab-content {
-	padding: 10px;
-}
-
 /*
  *    add this to your own css file,
  *    to overwrite the _chosen_ styling, to look more like bootstrap!
