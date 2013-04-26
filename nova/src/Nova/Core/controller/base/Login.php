@@ -39,32 +39,37 @@ abstract class Login extends BaseController {
 			// Get the skin section info
 			$me->_sectionInfo = SkinSectionCatalog::getItem($me->skin, 'skin');
 		});
+	}
 
-		/**
-		 * Before filter that creates the template objects.
-		 */
-		$this->beforeFilter(function() use(&$me)
-		{
-			// Set the values to be passed to the structure
-			$vars = array(
-				'skin'		=> $me->skin,
-				'section'	=> 'login',
-				'settings'	=> $me->settings,
-			);
+	/**
+	 * Setup the layout.
+	 *
+	 * @return	void
+	 */
+	protected function setupLayout()
+	{
+		// Set the values to be passed to the structure
+		$vars = array(
+			'skin'		=> $this->skin,
+			'section'	=> 'login',
+			'settings'	=> $this->settings,
+		);
 
-			// Set the structure file
-			$me->template = View::make(Location::file('login', $me->skin, 'structure'))->with($vars);
-			$me->template->layout = View::make(Location::file('login', $me->skin, 'template'))->with($vars);
+		// Setup the layout and its data
+		$layout				= View::make(Location::file('login', $this->skin, 'structure'))->with($vars);
+		$layout->title		= $this->settings->sim_name.' :: ';
+		$layout->javascript	= false;
+		
+		// Setup the template and its data
+		$layout->template			= View::make(Location::file('login', $this->skin, 'template'))->with($vars);
+		$layout->template->ajax		= false;
+		$layout->template->flash	= false;
+		$layout->template->content	= false;
+		$layout->template->header	= false;
+		$layout->template->message	= false;
 
-			// Populate the template
-			$me->template->title 			= $me->settings->sim_name.' :: ';
-			$me->template->javascript		= false;
-			$me->template->layout->ajax 	= false;
-			$me->template->layout->flash	= false;
-			$me->template->layout->content	= false;
-			$me->template->layout->header	= false;
-			$me->template->layout->message	= false;
-		});
+		// Pass everything back to the layout
+		$this->layout = $layout;
 	}
 
 }

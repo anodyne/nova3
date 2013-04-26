@@ -72,29 +72,29 @@ abstract class Main extends BaseController {
 		);
 
 		// Setup the layout and its data
-		$layout = View::make(Location::file('main', $this->skin, 'structure'), $vars);
-		$layout->title = $this->settings->sim_name.' :: ';
+		$layout				= View::make(Location::file('main', $this->skin, 'structure'))->with($vars);
+		$layout->title		= $this->settings->sim_name.' :: ';
 		$layout->javascript	= false;
 		
 		// Setup the template and its data
-		$layout->template = View::make(Location::file('main', $this->skin, 'template'), $vars);
-		$layout->template->ajax = false;
-		$layout->template->flash = false;
-		$layout->template->content = false;
-		$layout->template->header = false;
-		$layout->template->message = false;
-		$layout->template->navmain = $this->nav->build();
+		$layout->template			= View::make(Location::file('main', $this->skin, 'template'))->with($vars);
+		$layout->template->ajax		= false;
+		$layout->template->flash	= false;
+		$layout->template->content	= false;
+		$layout->template->header	= false;
+		$layout->template->message	= false;
+		$layout->template->navmain	= $this->nav->build();
 		
 		// Setup the subnav and widgets
-		$layout->template->navsub = View::make(Location::file('navsub', $this->skin, 'partial'));
-		$layout->template->navsub->menu = false;
-		$layout->template->navsub->widget1 = false;
-		$layout->template->navsub->widget2 = false;
-		$layout->template->navsub->widget3 = false;
+		$layout->template->navsub			= View::make(Location::file('navsub', $this->skin, 'partial'));
+		$layout->template->navsub->menu		= false;
+		$layout->template->navsub->widget1	= false;
+		$layout->template->navsub->widget2	= false;
+		$layout->template->navsub->widget3	= false;
 
 		// Setup the footer
-		$layout->template->footer = View::make(Location::file('footer', $this->skin, 'partial'));
-		$layout->template->footer->extra = SiteContent::getContentItem('footer');
+		$layout->template->footer			= View::make(Location::file('footer', $this->skin, 'partial'));
+		$layout->template->footer->extra	= SiteContent::getContentItem('footer');
 
 		// Pass everything back to the layout
 		$this->layout = $layout;
