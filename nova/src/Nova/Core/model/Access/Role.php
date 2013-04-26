@@ -24,6 +24,12 @@ class Role extends Model implements GroupInterface {
 		'id', 'name', 'desc', 'inherits',
 	);
 
+	/*
+	|--------------------------------------------------------------------------
+	| Relationships
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
 	 * Has Many: Users
 	 */
@@ -38,6 +44,29 @@ class Role extends Model implements GroupInterface {
 	public function tasks()
 	{
 		return $this->belongsToMany('AccessTask', 'roles_tasks');
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Boot the model and define the event listeners.
+	 *
+	 * @return	void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		// Get all the aliases
+		$classes = Config::get('app.aliases');
+
+		Event::listen("eloquent.created: {$classes['AccessRole']}", "{$classes['AccessRoleHandler']}@afterCreate");
+		Event::listen("eloquent.updated: {$classes['AccessRole']}", "{$classes['AccessRoleHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$classes['AccessRole']}", "{$classes['AccessRoleHandler']}@beforeDelete");
 	}
 	
 	/**
