@@ -18,7 +18,7 @@ class Main extends AdminBaseController {
 		$this->_data->header = 'Control Panel';
 		$this->_data->message = false;
 
-		s(Sentry::check());
+		//s(Sentry::check());
 		//s($_COOKIE);
 	}
 
