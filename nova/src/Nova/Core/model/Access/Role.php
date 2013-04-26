@@ -1,6 +1,8 @@
 <?php namespace Nova\Core\Model\Access;
 
+use Event;
 use Model;
+use Config;
 use Cartalyst\Sentry\Groups\GroupInterface;
 
 class Role extends Model implements GroupInterface {
@@ -44,6 +46,17 @@ class Role extends Model implements GroupInterface {
 	public function tasks()
 	{
 		return $this->belongsToMany('AccessTask', 'roles_tasks');
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Accessors
+	|--------------------------------------------------------------------------
+	*/
+
+	public function getInheritsAttribute($value)
+	{
+		return explode(',', $value);
 	}
 
 	/*

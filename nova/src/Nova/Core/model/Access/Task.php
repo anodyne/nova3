@@ -1,6 +1,8 @@
 <?php namespace Nova\Core\Model\Access;
 
+use Event;
 use Model;
+use Config;
 
 class Task extends Model {
 
