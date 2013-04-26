@@ -314,6 +314,7 @@ return array(
 		/**
 		 * Nova Validator Service
 		 */
+		'AccessRoleValidator'	=> 'Nova\Core\Services\Validators\Access\Role',
 		'AccessTaskValidator'	=> 'Nova\Core\Services\Validators\Access\Task',
 
 		'BaseValidator'			=> 'Nova\Core\Services\Validators\Base',
