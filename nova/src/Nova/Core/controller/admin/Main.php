@@ -19,6 +19,7 @@ class Main extends AdminBaseController {
 		$this->_data->message = false;
 
 		s(Sentry::check());
+		//s($_COOKIE);
 	}
 
 	public function getError()

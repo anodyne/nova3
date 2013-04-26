@@ -32,7 +32,7 @@ class Main extends MainBaseController {
 				$me->nav->setType('sub')->setCategory('main');
 
 				// Build the menu
-				$me->template->layout->navsub->menu = $me->nav->build();
+				$me->layout->template->navsub->menu = $me->nav->build();
 			}
 		});
 	}

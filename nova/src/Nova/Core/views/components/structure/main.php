@@ -29,7 +29,7 @@
 		<?php endif;?>
 	</head>
 	<body>
-		<?php echo $layout;?>
+		<?php echo $template;?>
 
 		<!--[if lt IE 9]>
 		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>

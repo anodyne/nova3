@@ -219,29 +219,21 @@ abstract class Core extends Controller {
 			$me->_messages	= SiteContent::getSectionContent('message', $controllerName);
 			$me->_titles	= SiteContent::getSectionContent('title', $controllerName);
 		});
-
-		/**
-		 * Call the after filter.
-		 */
-		$this->afterFilter(function() use(&$me)
-		{
-			$me->after();
-		});
 	}
 
 	/**
-	 * Handles final rendering to the browser.
+	 * Finalize the layout.
 	 *
-	 * @return	string
+	 * @return	void
 	 */
-	final public function after()
+	protected function finalizeLayout()
 	{
-		if ( ! is_object($this->template)) return;
+		if ( ! is_object($this->layout)) return;
 
 		// Set the content view (if it's been set)
 		if ( ! empty($this->_view))
 		{
-			$this->template->layout->content = View::make(
+			$this->layout->template->content = View::make(
 				Location::file($this->_view, $this->skin, 'page'),
 				$this->_data
 			)->with('_icons', $this->icons);
@@ -250,7 +242,7 @@ abstract class Core extends Controller {
 		// Set the javascript view (if it's been set)
 		if ( ! empty($this->_jsView))
 		{
-			$this->template->javascript = View::make(
+			$this->layout->javascript = View::make(
 				Location::file($this->_jsView, $this->skin, 'js'),
 				$this->_jsData
 			)->with('_icons', $this->icons);
@@ -260,7 +252,7 @@ abstract class Core extends Controller {
 		$actionName = Route::getAction();
 
 		// Set the final title content
-		$this->template->title.= (is_object($this->_data) and property_exists($this->_data, 'title')) 
+		$this->layout->title.= (is_object($this->_data) and property_exists($this->_data, 'title')) 
 			? $this->_data->title 
 			: ((array_key_exists($actionName, $this->_titles)) 
 				? $this->_titles[$actionName] 
@@ -268,7 +260,7 @@ abstract class Core extends Controller {
 		);
 		
 		// Set the final header content
-		$this->template->layout->header = (is_object($this->_data) and property_exists($this->_data, 'header')) 
+		$this->layout->template->header = (is_object($this->_data) and property_exists($this->_data, 'header')) 
 			? $this->_data->header 
 			: ((array_key_exists($actionName, $this->_headers)) 
 				? $this->_headers[$actionName] 
@@ -276,7 +268,7 @@ abstract class Core extends Controller {
 		);
 		
 		// set the final message content
-		$this->template->layout->message = (is_object($this->_data) and property_exists($this->_data, 'message')) 
+		$this->layout->template->message = (is_object($this->_data) and property_exists($this->_data, 'message')) 
 			? Markdown::parse($this->_data->message)
 			: ((array_key_exists($actionName, $this->_messages)) 
 				? Markdown::parse($this->_messages[$actionName])
@@ -289,12 +281,12 @@ abstract class Core extends Controller {
 			$controllerName = Str::denamespace(Route::getController());
 
 			// Set the final header content key
-			$this->template->layout->headerKey = (array_key_exists($actionName, $this->_headers)) 
+			$this->layout->template->headerKey = (array_key_exists($actionName, $this->_headers)) 
 				? $controllerName.'_'.$actionName.'_header' 
 				: false;
 
 			// Set the final message content key
-			$this->template->layout->messageKey = (array_key_exists($actionName, $this->_messages)) 
+			$this->layout->template->messageKey = (array_key_exists($actionName, $this->_messages)) 
 				? $controllerName.'_'.$actionName.'_message' 
 				: false;
 		}
@@ -313,7 +305,7 @@ abstract class Core extends Controller {
 		{
 			foreach ($this->_flash as $flash)
 			{
-				$this->template->layout->flash.= View::make(Location::file('flash', $this->skin, 'partial'))
+				$this->layout->template->flash.= View::make(Location::file('flash', $this->skin, 'partial'))
 					->with('status', $flash['status'])
 					->with('message', $flash['message']);
 			}
@@ -324,19 +316,27 @@ abstract class Core extends Controller {
 		{
 			foreach ($this->_ajax as $ajax)
 			{
-				$this->template->layout->ajax.= $ajax;
+				$this->layout->template->ajax.= $ajax;
 			}
 		}
+	}
 
-		// If the View object throws an exception, try to get around it
-		try
-		{
-			echo $this->template;
-		}
-		catch (Exception $e)
-		{
-			sd($this->template->render());
-		}
+	/**
+	 * Process a controller action response.
+	 *
+	 * This overrides the Laravel default controller functionality so
+	 * we can finalize the layout before its sent to the response.
+	 *
+	 * @param  \Illuminate\Routing\Router  $router
+	 * @param  string  $method
+	 * @param  mixed   $response
+	 * @return Symfony\Component\HttpFoundation\Response
+	 */
+	protected function processResponse($router, $method, $response)
+	{
+		$this->finalizeLayout();
+
+		return parent::processResponse($router, $method, $response);
 	}
 	
 	/**
