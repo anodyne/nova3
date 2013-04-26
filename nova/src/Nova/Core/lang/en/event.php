@@ -2,6 +2,8 @@
 
 return array(
 	
+	'item' => "The :0 :1 was :2",
+
 	'admin' => array(
 		'arc' => array(
 			'ban_user' => "Level :0 ban was issued against :1",

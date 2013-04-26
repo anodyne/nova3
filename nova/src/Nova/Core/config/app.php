@@ -297,6 +297,8 @@ return array(
 		/**
 		 * Nova Event Handlers
 		 */
+		'NovaAccessTaskHandler'		=> 'Nova\Core\Handlers\Access\Task',
+
 		'NovaFormFieldHandler'		=> 'Nova\Core\Handlers\Form\Field',
 		'NovaFormSectionHandler'	=> 'Nova\Core\Handlers\Form\Section',
 		'NovaFormTabHandler'		=> 'Nova\Core\Handlers\Form\Tab',

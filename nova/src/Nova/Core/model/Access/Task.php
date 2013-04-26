@@ -16,12 +16,41 @@ class Task extends Model {
 		'id', 'name', 'desc', 'component', 'action', 'level', 'dependencies',
 	);
 
+	/*
+	|--------------------------------------------------------------------------
+	| Relationships
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
 	 * Belongs To Many: Roles (through Roles Tasks)
 	 */
 	public function roles()
 	{
 		return $this->belongsToMany('AccessRole', 'roles_tasks');
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Boot the model and define the event listeners.
+	 *
+	 * @return	void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		// Get all the aliases
+		$classes = Config::get('app.aliases');
+
+		Event::listen("eloquent.created: {$classes['AccessTask']}", "{$classes['AccessTaskHandler']}@afterCreate");
+		Event::listen("eloquent.updated: {$classes['AccessTask']}", "{$classes['AccessTaskHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$classes['AccessTask']}", "{$classes['AccessTaskHandler']}@beforeDelete");
 	}
 
 	/**
