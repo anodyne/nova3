@@ -297,8 +297,8 @@ return array(
 		/**
 		 * Nova Event Handlers
 		 */
-		'NovaAccessRoleHandler'		=> 'Nova\Core\Handlers\Access\Role',
-		'NovaAccessTaskHandler'		=> 'Nova\Core\Handlers\Access\Task',
+		'AccessRoleHandler'			=> 'Nova\Core\Handlers\Access\Role',
+		'AccessTaskHandler'			=> 'Nova\Core\Handlers\Access\Task',
 
 		'NovaFormFieldHandler'		=> 'Nova\Core\Handlers\Form\Field',
 		'NovaFormSectionHandler'	=> 'Nova\Core\Handlers\Form\Section',
