@@ -2636,7 +2636,7 @@ class NovaSeedDatabase extends Migration {
 			array(
 				'key' => 'credits_perm',
 				'label' => 'Permanent Credits',
-				'content' => "The Nova 3 experience can be summed up as \"smarter and better\". From the top down, Nova is faster, simpler, more flexible, and smarter than before. This is accomplished in no small part by the simple, flexible, and elegant PHP 5.3 foundation of <a href='http://laravel.com/' target='_blank'>Laravel</a>. The icons found throughout Nova are from the <a href='http://icomoon.io/' target='_blank'>IcoMoon</a> icon font.",
+				'content' => "The Nova 3 experience can be summed up as \"smarter and better\". From the top down, Nova is faster, simpler, smarter and more flexible than before. This is accomplished in no small part by the elegant and powerful PHP 5.3 foundation of <a href='http://laravel.com/' target='_blank'>Laravel</a>. The icons found throughout Nova are from the <a href='http://icomoon.io/' target='_blank'>IcoMoon</a> icon font.",
 				'protected' => (int) true,
 				'type' => 'other'),
 			array(
