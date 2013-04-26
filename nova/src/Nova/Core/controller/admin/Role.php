@@ -28,7 +28,7 @@ class Role extends AdminBaseController {
 		// Get the role ID from the URI
 		$roleID = $this->request->segment(4, false);
 
-		if ($roleID)
+		if ($roleID !== false)
 		{
 			// Set the view
 			$this->_view = 'admin/role/role';
@@ -60,10 +60,18 @@ class Role extends AdminBaseController {
 						$this->_data->inheritedTasks[$task->id] = $task->name;
 					}
 				}
-			}
 
-			// Set the action
-			$this->_data->action = ($roleID == 0) ? 'create' : 'update';
+				// Set the action
+				$this->_data->action = 'update';
+			}
+			else
+			{
+				$this->_data->inheritedTasks = array();
+				$this->_data->roleTasks = array();
+
+				// Set the action
+				$this->_data->action = 'create';
+			}
 		}
 		else
 		{
@@ -134,7 +142,7 @@ class Role extends AdminBaseController {
 
 			// Create the item
 			$item = AccessRole::add(array(
-				'name'		=> ucfirst(langConcat('action.duplicate of'))." {$role->name}",
+				'name'		=> e(Input::get('name')),
 				'desc'		=> $role->desc,
 				'inherits'	=> $role->inherits,
 			), true);

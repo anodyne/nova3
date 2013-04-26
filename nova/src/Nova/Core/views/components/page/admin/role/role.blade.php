@@ -37,7 +37,7 @@
 					<div class="control-group">
 						<label class="control-label">{{ ucwords(lang('action.inherits')) }}</label>
 						<div class="controls">
-							{{ Form::roles('inherits', explode(',', $role->inherits), array('class' => 'chzn', 'multiple' => 'multiple'), true) }}
+							{{ Form::roles('inherits', null, array('class' => 'chzn', 'multiple' => 'multiple'), true) }}
 						</div>
 					</div>
 				</div>
@@ -46,7 +46,7 @@
 			<div class="row">
 				<div class="col-span-4">
 					<div class="controls">
-						{{ Form::hidden('id', $role->id) }}
+						{{ Form::hidden('id') }}
 						{{ Form::hidden('action', $action) }}
 						{{ Form::hidden('_token', csrf_token()) }}
 						
@@ -95,7 +95,7 @@
 				<div class="row">
 					<div class="col-span-4">
 						<div class="controls">
-							{{ Form::hidden('id', $role->id) }}
+							{{-- Form::hidden('id', $role->id) --}}
 							{{ Form::hidden('action', 'updateTasks') }}
 							{{ Form::hidden('_token', csrf_token()) }}
 							
