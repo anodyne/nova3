@@ -100,7 +100,7 @@ class Login extends LoginBaseController {
 				'password'	=> $password,
 			));
 
-			return Redirect::to('admin/main/index');
+			return Redirect::to('admin/main/index')->withCookie(Sentry::getCookie());
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
