@@ -134,12 +134,17 @@ class Role extends AdminBaseController {
 
 			// Create the item
 			$item = AccessRole::add(array(
-				'name'		=> "Duplicate of {$role->name}",
+				'name'		=> ucfirst(langConcat('action.duplicate of'))." {$role->name}",
 				'desc'		=> $role->desc,
 				'inherits'	=> $role->inherits,
 			), true);
 
-			// Do the task duplication now
+			// Get the original tasks
+			$originalTasks = $role->tasks->toSimpleArray();
+			$originalTasks = array_keys($originalTasks);
+
+			// Put the tasks into the new role
+			$item->tasks()->sync($originalTasks);
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
