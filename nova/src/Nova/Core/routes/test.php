@@ -15,4 +15,13 @@ Route::group(array('prefix' => 'test'), function()
 
 		//s($role->tasks->toSimpleArray());
 	});
+
+	Route::get('cookie1', function()
+	{
+		return Redirect::to('test/cookie2')->withCookie(Cookie::forget('test'));
+	});
+	Route::get('cookie2', function()
+	{
+		s(Cookie::get('test'));
+	});
 });
