@@ -39,7 +39,8 @@ $app->bindInstallPaths(require NOVAPATH.'start/paths.php');
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('localhost', '*.dev', '*.app', 'dev.*'),
+	//'local' => array('localhost', '*.dev', '*.app', 'dev.*'),
+	'local' => array('*'),
 
 ));
 
