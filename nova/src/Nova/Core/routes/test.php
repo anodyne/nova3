@@ -4,24 +4,12 @@ Route::group(array('prefix' => 'test'), function()
 {
 	Route::get('index', function()
 	{
-		$role = AccessRole::find(2);
+		//Cache::put('nova.settings', Settings::getItems(false, false), 10);
 
-		s($role->tasks->toArray());
-		//s(DB::getQueryLog());
+		//s(Cache::get('nova.settings'));
 
-		//$role->tasks()->sync(array(2, 3, 6, 100, 200));
+		Cache::forget('nova.settings');
 
-		//$role = AccessRole::find(2);
-
-		//s($role->tasks->toSimpleArray());
-	});
-
-	Route::get('cookie1', function()
-	{
-		return Redirect::to('test/cookie2')->withCookie(Cookie::forget('test'));
-	});
-	Route::get('cookie2', function()
-	{
-		s(Cookie::get('test'));
+		return 'Done';
 	});
 });
