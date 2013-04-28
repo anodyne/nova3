@@ -312,6 +312,7 @@ return array(
 		'CommentHandler'			=> 'Nova\Core\Handlers\Comment',
 		'PositionHandler'			=> 'Nova\Core\Handlers\Position',
 		'RankHandler'				=> 'Nova\Core\Handlers\Rank',
+		'SettingsHandler'			=> 'Nova\Core\Handlers\Settings',
 		'UserHandler'				=> 'Nova\Core\Handlers\User',
 
 		/**

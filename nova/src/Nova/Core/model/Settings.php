@@ -1,6 +1,10 @@
 <?php namespace Nova\Core\Model;
 
+use Cache;
+use Event;
 use Model;
+use Config;
+use stdClass;
  
 class Settings extends Model {
 
@@ -15,6 +19,30 @@ class Settings extends Model {
 	protected static $properties = array(
 		'id', 'key', 'value', 'label', 'help', 'user_created',
 	);
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Boot the model and define the event listeners.
+	 *
+	 * @return	void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		// Get all the aliases
+		$classes = Config::get('app.aliases');
+
+		Event::listen("eloquent.created: {$classes['Settings']}", "{$classes['SettingsHandler']}@afterCreate");
+		Event::listen("eloquent.updated: {$classes['Settings']}", "{$classes['SettingsHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$classes['Settings']}", "{$classes['SettingsHandler']}@beforeDelete");
+		Event::listen("eloquent.saved: {$classes['Settings']}", "{$classes['SettingsHandler']}@afterSave");
+	}
 	
 	/**
 	 * Get a specific set of settings from the database.
@@ -25,6 +53,29 @@ class Settings extends Model {
 	 */
 	public static function getItems($keys = false, $valueOnly = true)
 	{
+		// Check the cache
+		$items = Cache::get('nova.settings');
+
+		// If we have the cache, use it
+		if ($items !== null)
+		{
+			if (is_array($keys))
+			{
+				// Create an object to return
+				$retval = new stdClass;
+
+				// Loop through the keys and add them to the object
+				foreach ($keys as $k)
+				{
+					$retval->{$k} = $items->{$k};
+				}
+
+				return $retval;
+			}
+
+			return $items->{$keys};
+		}
+
 		// Start a new Query Builder
 		$query = static::startQuery();
 
