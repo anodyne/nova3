@@ -56,6 +56,9 @@ Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|set
 		// Clear the entire cache
 		Cache::flush();
 
+		// Cache the settings
+		Cache::forever('nova.settings', Settings::get()->toSimpleObject('key', 'value'));
+
 		// Cache the headers
 		SiteContent::getSectionContent('header', 'main');
 		SiteContent::getSectionContent('header', 'sim');

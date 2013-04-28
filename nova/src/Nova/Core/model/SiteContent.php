@@ -47,7 +47,7 @@ class SiteContent extends Model {
 	public static function getSectionContent($type, $section)
 	{
 		// Try to get the cache first
-		$cache = Cache::get("content_{$type}_{$section}");
+		$cache = Cache::get("nova.content.{$type}.{$section}");
 
 		// If we have something in the cache, return it instead of querying
 		if ($cache !== null)
@@ -90,7 +90,7 @@ class SiteContent extends Model {
 			}
 			
 			// Cache the information
-			Cache::forever("content_{$type}_{$section}", $values);
+			Cache::forever("nova.content.{$type}.{$section}", $values);
 			
 			return $values;
 		}

@@ -265,7 +265,7 @@ class Router extends LaravelRouter {
 		}
 
 		// Get the list of active modules
-		$modules = Cache::get('nova_module_list', array());
+		$modules = Cache::get('nova.modules', array());
 
 		// Does this controller exist in any of the modules?
 		foreach ($modules as $m)

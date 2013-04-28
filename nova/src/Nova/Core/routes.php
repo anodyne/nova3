@@ -11,7 +11,7 @@ require SRCPATH.'Setup/routes.php';
 require SRCPATH.'Wiki/routes.php';
 
 // Get the module list
-$modules = Cache::get('nova_module_list', array());
+$modules = Cache::get('nova.modules', array());
 
 // Loop through the modules and include their route files
 foreach ($modules as $m)

@@ -215,7 +215,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		Artisan::call('migrate:reset');
 
 		// Remove the system install cache
-		Cache::forget('nova_system_installed');
+		Cache::forget('nova.installed');
 
 		return Redirect::to('setup');
 	});
@@ -299,7 +299,7 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 		$data->content->step = false;
 
 		// Clear the installed status cache
-		Cache::forget('nova_system_installed');
+		Cache::forget('nova.installed');
 		
 		// Make sure we don't time out
 		set_time_limit(0);
@@ -680,7 +680,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 		$data->content->step = false;
 
 		// Clear the installed status cache
-		Cache::forget('nova_system_installed');
+		Cache::forget('nova.installed');
 		
 		// Make sure we don't time out
 		set_time_limit(0);

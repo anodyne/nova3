@@ -157,12 +157,12 @@ class Utility {
 		else
 		{
 			// Get the install status from the cache
-			$status = Cache::get('nova_system_installed');
+			$status = Cache::get('nova.installed');
 
 			// Wipe out the system install cache if we're in the setup module
 			if (Request::is('setup*') and $status !== null)
 			{
-				Cache::forget('nova_system_installed');
+				Cache::forget('nova.installed');
 			}
 
 			// If the status is null, we know it doesn't exist
@@ -176,7 +176,7 @@ class Utility {
 					// Only cache if we have a UID
 					if ( ! empty($uid))
 					{
-						Cache::forever('nova_system_installed', (int) true);
+						Cache::forever('nova.installed', (int) true);
 
 						return true;
 					}

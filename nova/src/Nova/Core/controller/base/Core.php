@@ -162,7 +162,7 @@ abstract class Core extends Controller {
 			else
 			{
 				// Get the system install status cache file
-				$status = Cache::get('nova_system_installed');
+				$status = Cache::get('nova.installed');
 
 				// If the status is null, we know the cache file doesn't exist
 				if ($status === null)
@@ -175,7 +175,7 @@ abstract class Core extends Controller {
 						// Only cache if we have a UID
 						if ( ! empty($uid))
 						{
-							Cache::forever('nova_system_installed', (int) true);
+							Cache::forever('nova.installed', (int) true);
 						}
 					}
 					catch (Exception $e)
