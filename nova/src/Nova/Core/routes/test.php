@@ -4,11 +4,9 @@ Route::group(array('prefix' => 'test'), function()
 {
 	Route::get('index', function()
 	{
-		//Cache::put('nova.settings', Settings::getItems(false, false), 10);
-
-		//s(Cache::get('nova.settings'));
-
-		Cache::forget('nova.settings');
+		//s(Config::get('cache'));
+		//Cache::put('test', 'foo', 5);
+		s(Cache::get('test'));
 
 		return 'Done';
 	});
