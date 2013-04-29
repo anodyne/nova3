@@ -31,4 +31,7 @@ Route::get('api/info', function()
 
 require 'routes/logs.php';
 require 'routes/posts.php';
+require 'routes/users.php';
+require 'routes/missions.php';
+require 'routes/characters.php';
 require 'routes/announcements.php';
