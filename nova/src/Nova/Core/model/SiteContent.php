@@ -1,7 +1,9 @@
 <?php namespace Nova\Core\Model;
 
 use Cache;
+use Event;
 use Model;
+use Config;
 
 class SiteContent extends Model {
 
@@ -16,6 +18,30 @@ class SiteContent extends Model {
 	protected static $properties = array(
 		'id', 'key', 'label', 'content', 'type', 'section', 'page', 'protected',
 	);
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Boot the model and define the event listeners.
+	 *
+	 * @return	void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		// Get all the aliases
+		$classes = Config::get('app.aliases');
+
+		Event::listen("eloquent.created: {$classes['SiteContent']}", "{$classes['SiteContentHandler']}@afterCreate");
+		Event::listen("eloquent.updated: {$classes['SiteContent']}", "{$classes['SiteContentHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$classes['SiteContent']}", "{$classes['SiteContentHandler']}@beforeDelete");
+		Event::listen("eloquent.saved: {$classes['SiteContent']}", "{$classes['SiteContentHandler']}@afterSave");
+	}
 	
 	/**
 	 * Get a specific piece of content from the database.

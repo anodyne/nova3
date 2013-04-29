@@ -297,32 +297,33 @@ return array(
 		/**
 		 * Nova Event Handlers
 		 */
-		'AccessRoleHandler'			=> 'Nova\Core\Handlers\Access\Role',
-		'AccessTaskHandler'			=> 'Nova\Core\Handlers\Access\Task',
+		'AccessRoleHandler'			=> 'Nova\Core\Services\Handlers\Access\Role',
+		'AccessTaskHandler'			=> 'Nova\Core\Services\Handlers\Access\Task',
 
-		'NovaFormFieldHandler'		=> 'Nova\Core\Handlers\Form\Field',
-		'NovaFormSectionHandler'	=> 'Nova\Core\Handlers\Form\Section',
-		'NovaFormTabHandler'		=> 'Nova\Core\Handlers\Form\Tab',
+		'NovaFormFieldHandler'		=> 'Nova\Core\Services\Handlers\Form\Field',
+		'NovaFormSectionHandler'	=> 'Nova\Core\Services\Handlers\Form\Section',
+		'NovaFormTabHandler'		=> 'Nova\Core\Services\Handlers\Form\Tab',
 
-		'RankGroupHandler'			=> 'Nova\Core\Handlers\Rank\Group',
-		'RankInfoHandler'			=> 'Nova\Core\Handlers\Rank\Info',
+		'RankGroupHandler'			=> 'Nova\Core\Services\Handlers\Rank\Group',
+		'RankInfoHandler'			=> 'Nova\Core\Services\Handlers\Rank\Info',
 		
-		'AppHandler'				=> 'Nova\Core\Handlers\Application',
-		'CharacterHandler'			=> 'Nova\Core\Handlers\Character',
-		'CommentHandler'			=> 'Nova\Core\Handlers\Comment',
-		'PositionHandler'			=> 'Nova\Core\Handlers\Position',
-		'RankHandler'				=> 'Nova\Core\Handlers\Rank',
-		'SettingsHandler'			=> 'Nova\Core\Handlers\Settings',
-		'UserHandler'				=> 'Nova\Core\Handlers\User',
+		'AppHandler'				=> 'Nova\Core\Services\Handlers\Application',
+		'CharacterHandler'			=> 'Nova\Core\Services\Handlers\Character',
+		'CommentHandler'			=> 'Nova\Core\Services\Handlers\Comment',
+		'PositionHandler'			=> 'Nova\Core\Services\Handlers\Position',
+		'RankHandler'				=> 'Nova\Core\Services\Handlers\Rank',
+		'SettingsHandler'			=> 'Nova\Core\Services\Handlers\Settings',
+		'SiteContentHandler'		=> 'Nova\Core\Services\Handlers\SiteContent',
+		'UserHandler'				=> 'Nova\Core\Services\Handlers\User',
 
 		/**
 		 * Nova Validator Service
 		 */
-		'AccessRoleValidator'	=> 'Nova\Core\Services\Validators\Access\Role',
-		'AccessTaskValidator'	=> 'Nova\Core\Services\Validators\Access\Task',
+		'AccessRoleValidator'		=> 'Nova\Core\Services\Validators\Access\Role',
+		'AccessTaskValidator'		=> 'Nova\Core\Services\Validators\Access\Task',
 
-		'BaseValidator'			=> 'Nova\Core\Services\Validators\Base',
-		'UserValidator'			=> 'Nova\Core\Services\Validators\User',
+		'BaseValidator'				=> 'Nova\Core\Services\Validators\Base',
+		'UserValidator'				=> 'Nova\Core\Services\Validators\User',
 
 	),
 
