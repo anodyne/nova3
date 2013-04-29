@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Handlers\Rank;
+<?php namespace Nova\Core\Services\Events\Rank;
 
 use SystemEvent;
 

@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Handlers\Form;
+<?php namespace Nova\Core\Services\Events\Form;
 
 use Status;
 use NovaFormTab;

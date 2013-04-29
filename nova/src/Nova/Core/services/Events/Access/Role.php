@@ -1,8 +1,8 @@
-<?php namespace Nova\Core\Handlers\Access;
+<?php namespace Nova\Core\Services\Events\Access;
 
 use SystemEvent;
 
-class Task {
+class Role {
 	
 	/**
 	 * After create event
@@ -15,7 +15,7 @@ class Task {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.item', langConcat('access task'), $model->name, lang('action.created'));
+		SystemEvent::addUserEvent('event.item', langConcat('access role'), $model->name, lang('action.created'));
 	}
 
 	/**
@@ -29,7 +29,7 @@ class Task {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.item', langConcat('access task'), $model->name, lang('action.updated'));
+		SystemEvent::addUserEvent('event.item', langConcat('access role'), $model->name, lang('action.updated'));
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Task {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.item', langConcat('access task'), $model->name, lang('action.deleted'));
+		SystemEvent::addUserEvent('event.item', langConcat('access role'), $model->name, lang('action.deleted'));
 	}
 
 }

@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Handlers;
+<?php namespace Nova\Core\Services\Events;
 
 use App;
 use Str;

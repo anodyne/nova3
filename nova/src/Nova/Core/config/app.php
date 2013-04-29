@@ -295,26 +295,26 @@ return array(
 		'SystemEventModel'			=> 'Nova\Core\Model\SystemEvent',
 
 		/**
-		 * Nova Event Handlers
+		 * Nova Event Service
 		 */
-		'AccessRoleHandler'			=> 'Nova\Core\Services\Handlers\Access\Role',
-		'AccessTaskHandler'			=> 'Nova\Core\Services\Handlers\Access\Task',
+		'AccessRoleHandler'			=> 'Nova\Core\Services\Events\Access\Role',
+		'AccessTaskHandler'			=> 'Nova\Core\Services\Events\Access\Task',
 
-		'NovaFormFieldHandler'		=> 'Nova\Core\Services\Handlers\Form\Field',
-		'NovaFormSectionHandler'	=> 'Nova\Core\Services\Handlers\Form\Section',
-		'NovaFormTabHandler'		=> 'Nova\Core\Services\Handlers\Form\Tab',
+		'NovaFormFieldHandler'		=> 'Nova\Core\Services\Events\Form\Field',
+		'NovaFormSectionHandler'	=> 'Nova\Core\Services\Events\Form\Section',
+		'NovaFormTabHandler'		=> 'Nova\Core\Services\Events\Form\Tab',
 
-		'RankGroupHandler'			=> 'Nova\Core\Services\Handlers\Rank\Group',
-		'RankInfoHandler'			=> 'Nova\Core\Services\Handlers\Rank\Info',
+		'RankGroupHandler'			=> 'Nova\Core\Services\Events\Rank\Group',
+		'RankInfoHandler'			=> 'Nova\Core\Services\Events\Rank\Info',
 		
-		'AppHandler'				=> 'Nova\Core\Services\Handlers\Application',
-		'CharacterHandler'			=> 'Nova\Core\Services\Handlers\Character',
-		'CommentHandler'			=> 'Nova\Core\Services\Handlers\Comment',
-		'PositionHandler'			=> 'Nova\Core\Services\Handlers\Position',
-		'RankHandler'				=> 'Nova\Core\Services\Handlers\Rank',
-		'SettingsHandler'			=> 'Nova\Core\Services\Handlers\Settings',
-		'SiteContentHandler'		=> 'Nova\Core\Services\Handlers\SiteContent',
-		'UserHandler'				=> 'Nova\Core\Services\Handlers\User',
+		'AppHandler'				=> 'Nova\Core\Services\Events\Application',
+		'CharacterHandler'			=> 'Nova\Core\Services\Events\Character',
+		'CommentHandler'			=> 'Nova\Core\Services\Events\Comment',
+		'PositionHandler'			=> 'Nova\Core\Services\Events\Position',
+		'RankHandler'				=> 'Nova\Core\Services\Events\Rank',
+		'SettingsHandler'			=> 'Nova\Core\Services\Events\Settings',
+		'SiteContentHandler'		=> 'Nova\Core\Services\Events\SiteContent',
+		'UserHandler'				=> 'Nova\Core\Services\Events\User',
 
 		/**
 		 * Nova Validator Service
