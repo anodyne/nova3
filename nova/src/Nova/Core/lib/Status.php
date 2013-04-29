@@ -13,7 +13,6 @@ class Status {
 	/**
 	 * Translate a status into a string.
 	 *
-	 * @todo	Switch over to the language helper
 	 * @param	int		Status to translate
 	 * @return	int
 	 */
@@ -22,31 +21,31 @@ class Status {
 		switch ($status)
 		{
 			case self::PENDING:
-				$final = 'pending';
+				$final = lang('pending');
 			break;
 
 			case self::INACTIVE:
-				$final = 'inactive';
+				$final = lang('inactive');
 			break;
 
 			case self::ACTIVE:
-				$final = 'active';
+				$final = lang('active');
 			break;
 
 			case self::IN_PROGRESS:
-				$final = 'in progress';
+				$final = lang('in_progress');
 			break;
 
 			case self::APPROVED:
-				$final = 'approved';
+				$final = lang('approved');
 			break;
 
 			case self::REJECTED:
-				$final = 'rejected';
+				$final = lang('rejected');
 			break;
 
 			default:
-				$final = 'status not found';
+				$final = lang('error.notFound', lang('status'));
 			break;
 		}
 
