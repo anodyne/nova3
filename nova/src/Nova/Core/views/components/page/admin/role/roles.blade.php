@@ -15,11 +15,11 @@
 		<tbody>
 		@foreach ($roles as $r)
 			<tr>
-				<td class="col-span-9">
+				<td class="col col-lg-9">
 					<p><strong>{{ $r->name }}</strong></p>
 					<p class="text-muted text-small">{{ $r->desc }}</p>
 				</td>
-				<td class="col-span-3">
+				<td class="col col-lg-3">
 					<div class="btn-toolbar pull-right">
 						<div class="btn-group">
 							<a href="#" class="btn btn-small tooltip-top js-role-action icn-size-16" title="{{ ucfirst(lang('short.view', langConcat('users with this role'))) }}" data-action="view" data-id="{{ $r->id }}">{{ $_icons['view'] }}</a>

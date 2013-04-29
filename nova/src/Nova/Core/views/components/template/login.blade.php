@@ -4,7 +4,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-span-6 col-offset-3">
+		<div class="col col-lg-6 col-offset-3">
 			<div class="page-header">
 				<h1>{{ $header }}</h1>
 			</div>

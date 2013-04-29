@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-span-4">
+	<div class="col col-lg-4">
 		<div class="thumbnail">
 			@if ($db)
 				<div class="icn text-success" data-icon="k"></div>
@@ -17,7 +17,7 @@
 		</div>
 	</div>
 
-	<div class="col-span-4">
+	<div class="col col-lg-4">
 		<div class="thumbnail">
 			@if ($email)
 				<div class="icn text-success" data-icon="k"></div>
@@ -37,7 +37,7 @@
 		</div>
 	</div>
 
-	<div class="col-span-4">
+	<div class="col col-lg-4">
 		<div class="thumbnail">
 			<div class="icn text-muted" data-icon="-"></div>
 

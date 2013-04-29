@@ -29,9 +29,9 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th class="col-span-2">Component</th>
+						<th class="col col-lg-2">Component</th>
 						<th>Description</th>
-						<th class="col-span-1 text-center">Status</th>
+						<th class="col col-lg-1 text-center">Status</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -76,9 +76,9 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th class="col-span-2">Component</th>
+						<th class="col col-lg-2">Component</th>
 						<th>Description</th>
-						<th class="col-span-1 text-center">Status</th>
+						<th class="col col-lg-1 text-center">Status</th>
 					</tr>
 				</thead>
 				<tbody>

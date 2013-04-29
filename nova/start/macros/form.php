@@ -237,7 +237,7 @@ Form::macro('position', function($name, $selected = null, $options = array(), $t
 		}
 
 		// Merge the user options into what should be there
-		$options = array_merge(array('id' => 'positionDrop', 'class' => 'col-span-4'), $options);
+		$options = array_merge(array('id' => 'positionDrop', 'class' => 'col col-lg-4'), $options);
 
 		// Build the output
 		$output = '<div class="control-group"><label class="control-label">'.ucfirst(lang('base.position')).'</label><div class="controls">';
@@ -288,7 +288,7 @@ Form::macro('rank', function($name, $selected = null, $options = array(), $selec
 		}
 
 		// Merge the user options into what should be there
-		$options = array_merge(array('id' => 'rankDrop', 'class' => 'col-span-4'), $options);
+		$options = array_merge(array('id' => 'rankDrop', 'class' => 'col col-lg-4'), $options);
 
 		// Build the output
 		$output = '<div class="control-group"><label class="control-label">'.ucfirst(lang('base.rank')).'</label><div class="controls">';
@@ -334,7 +334,7 @@ Form::macro('roles', function($name, $selected = null, $options = array(), $sele
 		}
 
 		// Merge the user options into what should be there
-		$options = array_merge(array('id' => 'roleDrop', 'class' => 'col-span-4'), (array) $options);
+		$options = array_merge(array('id' => 'roleDrop', 'class' => 'col col-lg-4'), (array) $options);
 
 		// Build the output
 		$output = '<div class="control-group"><label class="control-label">'.ucwords(lang('base.access_role')).'</label><div class="controls">';
@@ -389,7 +389,7 @@ Form::macro('timezones', function($name, $selected = null, $options = array())
 	}
 
 	// Merge the user options into what should be there
-	$options = array_merge(array('class' => 'col-span-4'), (array) $options);
+	$options = array_merge(array('class' => 'col col-lg-4'), (array) $options);
 
 	return Form::select($name, $locations, $selected, $options);
 });

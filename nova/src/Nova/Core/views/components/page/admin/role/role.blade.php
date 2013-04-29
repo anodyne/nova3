@@ -11,7 +11,7 @@
 	<div id="role" class="tab-pane active">
 		{{ Form::model($role, array('url' => 'admin/role/index')) }}
 			<div class="row">
-				<div class="col-span-4">
+				<div class="col col-lg-4">
 					<div class="control-group">
 						<label class="control-label">{{ ucwords(lang('name')) }}</label>
 						<div class="controls">
@@ -22,7 +22,7 @@
 			</div>
 
 			<div class="row">
-				<div class="col-span-8">
+				<div class="col col-lg-8">
 					<div class="control-group">
 						<label class="control-label">{{ ucwords(lang('desc')) }}</label>
 						<div class="controls">
@@ -33,7 +33,7 @@
 			</div>
 
 			<div class="row">
-				<div class="col-span-8">
+				<div class="col col-lg-8">
 					<div class="control-group">
 						<label class="control-label">{{ ucwords(lang('action.inherits')) }}</label>
 						<div class="controls">
@@ -44,7 +44,7 @@
 			</div>
 
 			<div class="row">
-				<div class="col-span-4">
+				<div class="col col-lg-4">
 					<div class="controls">
 						{{ Form::hidden('id') }}
 						{{ Form::hidden('action', $action) }}
@@ -66,7 +66,7 @@
 
 						<div class="row">
 						@foreach ($task as $t)
-							<div class="col-span-4">
+							<div class="col col-lg-4">
 								<label class="checkbox">
 									@if (array_key_exists($t->id, $inheritedTasks))
 										{{ Form::checkbox('tasks[]', $t->id, true, array('disabled' => 'disabled')) }}
@@ -93,7 +93,7 @@
 				@endforeach
 
 				<div class="row">
-					<div class="col-span-4">
+					<div class="col col-lg-4">
 						<div class="controls">
 							{{-- Form::hidden('id', $role->id) --}}
 							{{ Form::hidden('action', 'updateTasks') }}

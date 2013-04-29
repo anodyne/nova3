@@ -5,7 +5,7 @@
 		<div class="control-group">
 			<label class="control-label"></label>
 			<div class="controls">
-				{{ Form::select('new_role_id', null, $roles->toSimpleArray(), array('class' => 'col-span-4')) }}
+				{{ Form::select('new_role_id', null, $roles->toSimpleArray(), array('class' => 'col col-lg-4')) }}
 				<p class="help-block">{{ lang('short.roles.removeRole', lang('users'), $name) }}</p>
 			</div>
 		</div>
