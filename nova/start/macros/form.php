@@ -443,3 +443,20 @@ Form::macro('users', function($name, $selected = null, $options = array(), $stat
 		->with('message', lang('error.notFound', lang('base.users')))
 		->render();
 });
+
+Form::macro('suggest', function($name, $data, $selected, $options)
+{
+	// Figure out the section
+	$section = (Request::segment(1) == 'admin') ? 'admin' : 'main';
+
+	// Set the attributes
+	$attributes = Html::attributes(array(
+		'id' => (isset($options['id'])) ? $options['id'] : '',
+		'class' => (isset($options['class'])) ? $options['class'] : '',
+		'data' => $data,
+		'value' => $selected,
+	));
+
+	return View::make(Location::file('common/magicsuggest', Utility::getSkin($section), 'partial'))
+		->with('attributes', $attributes);
+});
