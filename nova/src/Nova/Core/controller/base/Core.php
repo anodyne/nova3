@@ -233,19 +233,17 @@ abstract class Core extends Controller {
 		// Set the content view (if it's been set)
 		if ( ! empty($this->_view))
 		{
-			$this->layout->template->content = View::make(
-				Location::file($this->_view, $this->skin, 'page'),
-				$this->_data
-			)->with('_icons', $this->icons);
+			$this->layout->template->content = View::make(Location::file($this->_view, $this->skin, 'page'))
+				->with('_icons', $this->icons)
+				->with((array) $this->_data);
 		}
 		
 		// Set the javascript view (if it's been set)
 		if ( ! empty($this->_jsView))
 		{
-			$this->layout->javascript = View::make(
-				Location::file($this->_jsView, $this->skin, 'js'),
-				$this->_jsData
-			)->with('_icons', $this->icons);
+			$this->layout->javascript = View::make(Location::file($this->_jsView, $this->skin, 'js'))
+				->with('_icons', $this->icons)
+				->with((array) $this->_jsData);
 		}
 
 		// Pull the action name from the Route
@@ -306,8 +304,7 @@ abstract class Core extends Controller {
 			foreach ($this->_flash as $flash)
 			{
 				$this->layout->template->flash.= View::make(Location::file('flash', $this->skin, 'partial'))
-					->with('status', $flash['status'])
-					->with('message', $flash['message']);
+					->with($flash);
 			}
 		}
 
