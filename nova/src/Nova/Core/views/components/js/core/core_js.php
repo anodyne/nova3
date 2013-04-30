@@ -8,37 +8,30 @@
 <script type="text/javascript" src="<?php echo SRCURL;?>Assets/js/jquery.lazy.js"></script>
 <script type="text/javascript" src="<?php echo SRCURL;?>Assets/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+	
 	$(document).ready(function(){
-		$.lazy({
-			src: "<?php echo SRCURL;?>Assets/js/chosen.jquery.min.js",
-			name: 'chosen',
-			dependencies: {
-				css: ['<?php echo SRCURL;?>Assets/css/chosen.css']
-			},
-			cache: true
-		});
-
-		// initialize the chosen plugin if it's there
-		$('.chzn').chosen();
-		
 		/**
 		 * Bootstrap Tooltips
 		 */
 		$('.tooltip-right').tooltip({
 			placement: 'right',
-			container: 'body'
+			container: 'body',
+			html: true
 		});
 		$('.tooltip-left').tooltip({
 			placement: 'left',
-			container: 'body'
+			container: 'body',
+			html: true
 		});
 		$('.tooltip-top').tooltip({
 			placement: 'top',
-			container: 'body'
+			container: 'body',
+			html: true
 		});
 		$('.tooltip-bottom').tooltip({
 			placement: 'bottom',
-			container: 'body'
+			container: 'body',
+			html: true
 		});
 
 		/**
