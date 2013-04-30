@@ -12,7 +12,7 @@
 		<div class="nav-collapse collapse navbar-responsive-collapse">
 			{{ $userMenu }}
 
-			<ul class="nav">
+			<ul class="nav navbar-nav">
 			@foreach ($items[$section]['mainNavItems'] as $mainNavItem)
 
 				@if (isset($items[$section][$mainNavItem->category]))

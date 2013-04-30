@@ -2,7 +2,7 @@
 	<div class="container">
 		{{ Html::link('main/index', $name, array('class' => 'navbar-brand')) }}
 
-		<ul class="nav">
+		<ul class="nav navbar-nav">
 		@foreach ($items as $item)
 			<?php
 
