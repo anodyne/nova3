@@ -97,7 +97,7 @@ class Role extends Model implements GroupInterface {
 		}
 
 		// If there are inherited roles, loop through those too
-		if ( ! empty($this->inherits) and $getInherited)
+		if (count($this->inherits) > 0 and $getInherited)
 		{
 			$groups += $this->getInheritedTasks(true);
 		}
@@ -116,19 +116,16 @@ class Role extends Model implements GroupInterface {
 		// Make a temporary group holder
 		$groups = array();
 
-		if ( ! empty($this->inherits))
+		if (count($this->inherits) > 0)
 		{
-			// Make an array out of the inherited roles
-			$inherited = explode(',', $this->inherits);
-
 			// Loop through the inherited roles
-			foreach ($inherited as $i)
+			foreach ($this->inherits as $i)
 			{
 				// Start a new Query Builder
 				$query = static::startQuery();
 
 				// Put the tasks into the holding array
-				$groups[] = $query->find($i)->getTasks();
+				$groups[] = $query->find($i)->getTasks(false);
 			}
 		}
 

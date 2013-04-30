@@ -645,11 +645,8 @@ class User extends Model implements UserInterface {
 				}
 			}
 			
-			// Get an array of inherited roles
-			$inherited = explode(',', $this->role->inherits);
-			
 			// Loop through the inherited roles
-			foreach ($inherited as $i)
+			foreach ($this->role->inherits as $i)
 			{
 				// Make sure we aren't doing anything stupid
 				if ($i > 0 and $i !== null)

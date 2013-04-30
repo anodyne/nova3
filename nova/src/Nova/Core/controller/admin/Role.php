@@ -28,6 +28,9 @@ class Role extends AdminBaseController {
 		// Get the role ID from the URI
 		$roleID = $this->request->segment(4, false);
 
+		// Get all the roles
+		$this->_data->roles = AccessRole::get();
+
 		if ($roleID !== false)
 		{
 			// Set the view
@@ -57,7 +60,10 @@ class Role extends AdminBaseController {
 				{
 					foreach ($tasks as $task)
 					{
-						$this->_data->inheritedTasks[$task->id] = $task->name;
+						$this->_data->inheritedTasks[$task->id] = array(
+							'name' => $task->name,
+							'role' => $task->roles()->first()->name,
+						);
 					}
 				}
 
@@ -77,9 +83,6 @@ class Role extends AdminBaseController {
 		{
 			// Set the view
 			$this->_view = 'admin/role/roles';
-
-			// Get all the roles
-			$this->_data->roles = AccessRole::get();
 
 			// Build the users with roles modal
 			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))

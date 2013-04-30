@@ -1,5 +1,14 @@
 <script type="text/javascript">
 	
+	$(document).on('click', '.accordion-toggle', function(){
+		var visible = $(this).children('div').hasClass('glyphicon-chevron-down');
+
+		if ( ! visible)
+			$(this).children('div').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+		else
+			$(this).children('div').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+	});
+
 	$(document).on('click', '.js-role-action', function(){
 		var doaction = $(this).data('action');
 		var id = $(this).data('id');

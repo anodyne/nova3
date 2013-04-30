@@ -108,7 +108,7 @@ return array(
 		'chooseTaskAction' => "Choose from one of the existing task actions (create, read, update, delete) or create your own.",
 		'chooseTaskLevel' => "Task levels can be used to further differentiate access within an action.",
 		'chooseTaskDependencies' => "Does this task depend on another one? You can create dependencies between tasks by adding them to a comma-separate list in the format <code>{component}.{action}.{level}</code>.",
-		'inheritedTask' => "This task is inherited from another access role. If you'd like to remove this task for this role, remove the role this task originates in.",
+		'inheritedTask' => "Inherited from the <strong>:0</strong> role.",
 	),
 
 	'users' => array(

@@ -101,6 +101,24 @@ class Info extends AjaxBaseController {
 		echo nl2br($output);
 	}
 
+	public function getRole_inherited_tasks()
+	{
+		// Set the variable
+		$role = e(Input::get('role'));
+		$role = (is_numeric($role)) ? $role : false;
+
+		// Get the role
+		$item = \AccessRole::find($role);
+
+		// Loop through and get the task IDs
+		foreach ($item->tasks as $task)
+		{
+			$retval[] = $task->id;
+		}
+
+		return json_encode($retval);
+	}
+
 	/**
 	 * Get the roles who have the given task.
 	 */
