@@ -9,6 +9,25 @@
 			$(this).children('div').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
 	});
 
+	$(document).on('change', '.js-inherited-roles', function(){
+		$.ajax({
+			type: "POST",
+			url: "{{ URL::to('ajax/info/role_inherited_tasks') }}",
+			data: { role: $(this).data('role') },
+			dataType: 'json',
+			success: function(data){
+				$.each(data, function(){
+					var $checkbox = $('input:checkbox[value="' + JSON.stringify(this) + '"]');
+
+					if ($checkbox.prop("checked") == true)
+						$checkbox.prop("checked", false).prop("disabled", false);
+					else
+						$checkbox.prop("checked", true).prop("disabled", true);
+				});
+			}
+		});
+	});
+
 	$(document).on('click', '.js-role-action', function(){
 		var doaction = $(this).data('action');
 		var id = $(this).data('id');
