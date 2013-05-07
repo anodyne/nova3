@@ -110,6 +110,9 @@ class Info extends AjaxBaseController {
 		// Get the role
 		$item = \AccessRole::find($role);
 
+		// Start a holding array
+		$retval = array();
+
 		// Loop through and get the task IDs
 		foreach ($item->tasks as $task)
 		{
