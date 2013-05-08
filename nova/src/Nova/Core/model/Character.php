@@ -212,7 +212,7 @@ class Character extends Model {
 
 		if ($link)
 		{
-			return Html::link("personnel/character/{$this->id}", implode(' ', $pieces));
+			return HTML::link("personnel/character/{$this->id}", implode(' ', $pieces));
 		}
 
 		return implode(' ', $pieces);

@@ -1,6 +1,6 @@
 <div class="navbar">
 	<div class="container">
-		{{ Html::link('main/index', $name, array('class' => 'navbar-brand')) }}
+		{{ HTML::link('main/index', $name, array('class' => 'navbar-brand')) }}
 
 		<ul class="nav navbar-nav">
 		@foreach ($items as $item)
@@ -18,7 +18,7 @@
 			// figure out what should be shown
 			$targetOutput = ($item->url_target == 'offsite') ? ' target="_blank"' : false;
 
-			?><li{{ $activeOutput }}>{{ Html::link($item->url, $item->name) }}</li>
+			?><li{{ $activeOutput }}>{{ HTML::link($item->url, $item->name) }}</li>
 		@endforeach
 		</ul>
 	</div>

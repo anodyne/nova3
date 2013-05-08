@@ -43,7 +43,7 @@ Route::group(array('prefix' => 'setup/update', 'before' => 'configFileCheck|setu
 		$data->content = new stdClass;
 
 		// Set the controls
-		$data->controls = Html::link('main/index', 'Back to Site', array('class' => 'btn btn-primary'));
+		$data->controls = HTML::link('main/index', 'Back to Site', array('class' => 'btn btn-primary'));
 
 		return setupTemplate($data);
 	});
@@ -70,7 +70,7 @@ Route::group(array('prefix' => 'setup/update/rollback', 'before' => 'configFileC
 		if (version_compare(Config::get('nova.app.version'), '3.0.0', '>'))
 		{
 			// Set the controls
-			$data->controls = Html::link('setup', "I don't want to do this, get me out of here", array(
+			$data->controls = HTML::link('setup', "I don't want to do this, get me out of here", array(
 				'class' => 'pull-right'
 			));
 			$data->controls.= Form::open(array('url' => 'setup/update/rollback')).
@@ -124,8 +124,8 @@ Route::group(array('prefix' => 'setup/update/rollback', 'before' => 'configFileC
 		$data->content = new stdClass;
 
 		// Set the controls
-		$data->controls = Html::link('setup', "Back to Setup Center", array('class' => 'pull-right'));
-		$data->controls.= Html::link('main/index', 'Back to Site', array('class' => 'btn btn-primary'));
+		$data->controls = HTML::link('setup', "Back to Setup Center", array('class' => 'pull-right'));
+		$data->controls.= HTML::link('main/index', 'Back to Site', array('class' => 'btn btn-primary'));
 
 		return setupTemplate($data);
 	});

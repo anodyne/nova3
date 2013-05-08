@@ -11,7 +11,7 @@
 		<div class="controls">
 			{{ Form::button(ucfirst(lang('action.submit')), array('type' => 'submit', 'class' => 'btn btn-primary btn-large btn-block')) }}
 			
-			{{ Html::link('login/index', lang('short.cancelPasswordReset'), array('class' => 'btn btn-block')) }}
+			{{ HTML::link('login/index', lang('short.cancelPasswordReset'), array('class' => 'btn btn-block')) }}
 		</div>
 	</div>
 	{{ Form::hidden('_token', csrf_token()) }}

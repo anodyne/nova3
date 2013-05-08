@@ -450,7 +450,7 @@ Form::macro('suggest', function($name, $data, $selected, $options)
 	$section = (Request::segment(1) == 'admin') ? 'admin' : 'main';
 
 	// Set the attributes
-	$attributes = Html::attributes(array(
+	$attributes = HTML::attributes(array(
 		'id' => (isset($options['id'])) ? $options['id'] : '',
 		'class' => (isset($options['class'])) ? $options['class'] : '',
 		'data' => $data,

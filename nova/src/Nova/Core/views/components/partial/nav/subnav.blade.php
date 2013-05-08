@@ -6,6 +6,6 @@
 
 	<?php $targetOutput = ($item->url_target == 'offsite') ? ' target="_blank"' : false;?>
 
-	<li>{{ Html::link($item->url, $item->name) }}</li>
+	<li>{{ HTML::link($item->url, $item->name) }}</li>
 @endforeach
 </ul>

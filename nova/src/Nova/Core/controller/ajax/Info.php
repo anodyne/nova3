@@ -77,7 +77,7 @@ class Info extends AjaxBaseController {
 		
 		// Set the output
 		$output = (count($rank) > 0) 
-			? \Html::img(\Uri::base(false).'app/assets/common/'.$rank->genre.'/ranks/'.$location.'/'.$rank->preview) 
+			? \HTML::img(\Uri::base(false).'app/assets/common/'.$rank->genre.'/ranks/'.$location.'/'.$rank->preview) 
 			: '';
 		
 		echo $output;
@@ -154,7 +154,7 @@ class Info extends AjaxBaseController {
 
 		// Set the output
 		$output = (count($skin) > 0) 
-			? \Html::img(\Uri::base(false).'app/views/'.$location.'/'.$skin->preview) 
+			? \HTML::img(\Uri::base(false).'app/views/'.$location.'/'.$skin->preview) 
 			: '';
 		
 		echo $output;

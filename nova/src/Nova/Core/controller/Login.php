@@ -253,7 +253,7 @@ class Login extends LoginBaseController {
 			{
 				$this->_flash[] = array(
 					'status' 	=> 'success',
-					'message' 	=> lang('login.reset.step2Success', Html::link('login/index', ucfirst(lang('action.login')))),
+					'message' 	=> lang('login.reset.step2Success', HTML::link('login/index', ucfirst(lang('action.login')))),
 				);
 
 				$this->_data->confirmed = true;

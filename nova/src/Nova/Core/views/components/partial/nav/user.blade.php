@@ -15,12 +15,12 @@
 				@endif
 				
 				@foreach ($section as $item)
-					<li>{{ Html::link($item['url'], $item['name'].$item['additional'], $item['extra']) }}</li>
+					<li>{{ HTML::link($item['url'], $item['name'].$item['additional'], $item['extra']) }}</li>
 				@endforeach
 			@endforeach
 			</ul>
 		</li>
 	@else
-		<li>{{ Html::link('login/index', $loginText) }}</li>
+		<li>{{ HTML::link('login/index', $loginText) }}</li>
 	@endif
 </ul>

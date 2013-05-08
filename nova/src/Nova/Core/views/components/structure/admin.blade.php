@@ -10,20 +10,20 @@
 		<meta name="author" content="{{ $settings->meta_author }}">
 		
 		<!-- Bootstrap styles -->
-		{{ Html::style('nova/src/Nova/Assets/css/bootstrap.min.css') }}
+		{{ HTML::style('nova/src/Nova/Assets/css/bootstrap.min.css') }}
 
 		<!-- Web font stylesheet -->
-		{{ Html::style('nova/src/Nova/Assets/css/fonts.css') }}
+		{{ HTML::style('nova/src/Nova/Assets/css/fonts.css') }}
 		
 		<!-- Nova's base styles and any user-defined styles -->
 		@if (is_file(APPPATH.'views/'.$skin.'/design/style.admin.css'))
-			{{ Html::style('app/views/'.$skin.'/design/style.admin.css') }}
+			{{ HTML::style('app/views/'.$skin.'/design/style.admin.css') }}
 		@else
-			{{ Html::style('nova/src/Nova/Core/views/design/style.css') }}
-			{{ Html::style('nova/src/Nova/Core/views/design/style.admin.css') }}
+			{{ HTML::style('nova/src/Nova/Core/views/design/style.css') }}
+			{{ HTML::style('nova/src/Nova/Core/views/design/style.admin.css') }}
 			
 			@if (is_file(APPPATH.'views/'.$skin.'/design/custom.admin.css'))
-				{{ Html::style('app/views/'.$skin.'/design/custom.admin.css') }}
+				{{ HTML::style('app/views/'.$skin.'/design/custom.admin.css') }}
 			@endif
 		@endif
 	</head>

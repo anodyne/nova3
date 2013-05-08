@@ -59,7 +59,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				 */
 				$data->content->option = 3;
 				$data->layout->label = 'Update Nova 3';
-				$data->controls = Html::link('#', 'Ignore this version', array(
+				$data->controls = HTML::link('#', 'Ignore this version', array(
 					'class' => 'pull-right js-ignoreVersion',
 					'data-version' => $update->version,
 				));
@@ -89,7 +89,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				 */
 				$data->content->option = 4;
 				$data->layout->label = 'Nova Setup Utilities';
-				$data->controls = Html::link('main/index', 'Back to Site', array('class' => 'pull-right'));
+				$data->controls = HTML::link('main/index', 'Back to Site', array('class' => 'pull-right'));
 			}
 		}
 		else
@@ -117,7 +117,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				// Nova 2 means they can do the migration
 				if ($data->content->option == 2)
 				{
-					$data->controls = Html::link('setup/install', "I'd like to do a Fresh Install", array(
+					$data->controls = HTML::link('setup/install', "I'd like to do a Fresh Install", array(
 						'class' => 'pull-right',
 					));
 					$data->controls.= Form::open(array('url' => 'setup/migrate')).
@@ -138,7 +138,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				// Nova 1 means they can't do the migration
 				if ($data->content->option == 5)
 				{
-					$data->controls = Html::link('setup/install', "I'd like to do a Fresh Install", array(
+					$data->controls = HTML::link('setup/install', "I'd like to do a Fresh Install", array(
 						'class' => 'pull-right',
 					));
 					$data->layout->label = 'Unable to Migrate to Nova 3';
@@ -185,7 +185,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		$data->content = new stdClass;
 		$data->content->message = Lang::get('setup.uninstall.instructions');
 
-		$data->controls = Html::link('setup', "I don't want to do this, get me out of here", array(
+		$data->controls = HTML::link('setup', "I don't want to do this, get me out of here", array(
 			'class' => 'pull-right'
 		));
 		$data->controls.= Form::open(array('url' => 'setup/uninstall')).
@@ -233,7 +233,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		$data->layout->label = 'The Genre Panel';
 		$data->steps = false;
 		$data->content = new stdClass;
-		$data->controls = Html::link('setup', 'Back to Setup Center', array('class' => 'pull-right'));
+		$data->controls = HTML::link('setup', 'Back to Setup Center', array('class' => 'pull-right'));
 
 		// Get the genre info
 		$info = Config::get('nova.genres');
@@ -274,7 +274,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		$data->content->additional = (isset($additional)) ? $additional : false;
 		
 		// Set the loading image
-		$data->content->loading = Html::image('nova/src/Nova/Setup/views/design/images/loading.gif', 'Processing');
+		$data->content->loading = HTML::image('nova/src/Nova/Setup/views/design/images/loading.gif', 'Processing');
 
 		return setupTemplate($data);
 	});
@@ -311,7 +311,7 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 				'file'	=> 'database',
 			));
 			$data->layout->label = 'File Not Found';
-			$data->controls = Html::link('setup/config/db', 'Try Again', array('class' => 'pull-right'));
+			$data->controls = HTML::link('setup/config/db', 'Try Again', array('class' => 'pull-right'));
 		}
 		else
 		{
@@ -321,7 +321,7 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 					'type'	=> 'database connection',
 					'env'	=> App::environment()
 				));
-				$data->controls = Html::link('setup', 'Back to Setup Center', array('class' => 'pull-right'));
+				$data->controls = HTML::link('setup', 'Back to Setup Center', array('class' => 'pull-right'));
 			}
 			else
 			{
@@ -336,7 +336,7 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 					
 					if (count(PDO::getAvailableDrivers()) > 0)
 					{
-						$data->controls = Html::link('setup/config/db/info', 'Start', array(
+						$data->controls = HTML::link('setup/config/db/info', 'Start', array(
 							'class' => 'btn btn-primary'
 						));
 					}
@@ -466,7 +466,7 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 			}
 			
 			// Write the controls
-			$data->controls = Html::link('setup/config/db/info', 'Start Over', array('class' => 'btn btn-primary'));
+			$data->controls = HTML::link('setup/config/db/info', 'Start Over', array('class' => 'btn btn-primary'));
 		}
 
 		return setupTemplate($data);
@@ -526,7 +526,7 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 				Session::flush();
 				
 				// Write the controls
-				$data->controls = Html::link('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
+				$data->controls = HTML::link('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
 			}
 			else
 			{
@@ -626,7 +626,7 @@ return array(
 			$data->content->message = Lang::get('setup.config.db.check.success');
 			
 			// Write the controls
-			$data->controls = Html::link('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
+			$data->controls = HTML::link('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
 		}
 		catch (Exception $e)
 		{
@@ -654,7 +654,7 @@ return array(
 			}
 			
 			// Write the controls
-			$data->controls = Html::link('setup/config/db/info', 'Start Over', array('class' => 'btn btn-primary'));
+			$data->controls = HTML::link('setup/config/db/info', 'Start Over', array('class' => 'btn btn-primary'));
 		}
 
 		return setupTemplate($data);
@@ -692,7 +692,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 				'file'	=> 'mail',
 			));
 			$data->layout->label = 'File Not Found';
-			$data->controls = Html::link('setup/config/email', 'Try Again', array('class' => 'pull-right'));
+			$data->controls = HTML::link('setup/config/email', 'Try Again', array('class' => 'pull-right'));
 		}
 		else
 		{
@@ -702,7 +702,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 					'type'	=> 'email config',
 					'env'	=> App::environment(),
 				));
-				$data->controls = Html::link('setup', 'Back to Setup Center', array('class' => 'pull-right'));
+				$data->controls = HTML::link('setup', 'Back to Setup Center', array('class' => 'pull-right'));
 			}
 			else
 			{
@@ -715,7 +715,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 				{
 
 					$data->content->message = Lang::get('setup.config.email.intro', array('env' => App::environment()));
-					$data->controls = Html::link('setup/config/email/info', 'Start', array(
+					$data->controls = HTML::link('setup/config/email/info', 'Start', array(
 						'class' => 'btn btn-primary'
 					));
 				}
@@ -825,7 +825,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 				Session::flush();
 				
 				// Write the controls
-				$data->controls = Html::link('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
+				$data->controls = HTML::link('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
 			}
 			else
 			{
@@ -913,7 +913,7 @@ return array(
 			$data->content->message = Lang::get('setup.config.email.verify.success');
 			
 			// Write the controls
-			$data->controls = Html::link('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
+			$data->controls = HTML::link('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
 		}
 		else
 		{
@@ -921,7 +921,7 @@ return array(
 			$data->content->message = Lang::get('setup.config.email.verify.failure');
 
 			// Write the controls
-			$data->controls = Html::link('setup/config/email/info', 'Start Over', array('class' => 'btn btn-primary'));
+			$data->controls = HTML::link('setup/config/email/info', 'Start Over', array('class' => 'btn btn-primary'));
 		}
 
 		return setupTemplate($data);

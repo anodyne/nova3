@@ -7,7 +7,7 @@
 			<span class="icon-bar"></span>
 		</button>
 
-		{{ Html::link('main/index', $name, array('class' => 'navbar-brand')) }}
+		{{ HTML::link('main/index', $name, array('class' => 'navbar-brand')) }}
 
 		<div class="nav-collapse collapse navbar-responsive-collapse">
 			{{ $userMenu }}
@@ -25,12 +25,12 @@
 								<li class="divider"></li>
 							@endif
 
-							<li>{{ Html::link($i->url, $i->name) }}</li>
+							<li>{{ HTML::link($i->url, $i->name) }}</li>
 						@endforeach
 						</ul>
 					</li>
 				@else
-					<li>{{ Html::link($mainNavItem->url, $mainNavItem->name) }}</li>
+					<li>{{ HTML::link($mainNavItem->url, $mainNavItem->name) }}</li>
 				@endif
 
 			@endforeach
