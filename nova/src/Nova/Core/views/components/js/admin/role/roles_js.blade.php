@@ -17,12 +17,12 @@
 			dataType: 'json',
 			success: function(data){
 				$.each(data, function(){
-					var $checkbox = $('input:checkbox[value="' + JSON.stringify(this) + '"]');
+					var $check = $('.taskList input:checkbox[value="' + JSON.stringify(this) + '"]');
 
-					if ($checkbox.prop("checked") == true)
-						$checkbox.prop("checked", false).prop("disabled", false);
+					if ($check.prop("checked") == true)
+						$check.prop("checked", false).prop("disabled", false);
 					else
-						$checkbox.prop("checked", true).prop("disabled", true);
+						$check.prop("checked", true).prop("disabled", true);
 				});
 			}
 		});
