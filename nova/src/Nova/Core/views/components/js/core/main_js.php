@@ -1,6 +1,8 @@
 <?php include_once SRCPATH.'Core/views/components/js/core/core_js.php';?>
 
-<script type="text/javascript" src="<?php echo SRCURL;?>/Assets/js/jquery.jeditable.min.js"></script>
+<link rel="stylesheet" href="<?php echo SRCURL;?>/Assets/css/bootstrap-editable.css">
+
+<script type="text/javascript" src="<?php echo SRCURL;?>/Assets/js/bootstrap-editable.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		
