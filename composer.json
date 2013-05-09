@@ -5,10 +5,13 @@
 	},
 
 	"require": {
+		"php": ">=5.4.0",
+
 		"laravel/framework": "4.*",
 
 		"dflydev/markdown": "1.*",
 		"ikimea/browser": "1.*",
+		"baum/baum": "1.*",
 		"cartalyst/sentry": "dev-master",
 		"raveren/kint": "dev-master"
 	},
