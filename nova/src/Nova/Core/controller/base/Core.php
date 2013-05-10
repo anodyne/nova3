@@ -292,10 +292,10 @@ abstract class Core extends Controller {
 		// If there's flash data in the session, grab it
 		if (Session::has('flashStatus'))
 		{
-			$this->_flash[] = array(
+			$this->_flash[] = [
 				'status'	=> Session::get('flashStatus'),
 				'message'	=> Session::get('flashMessage'),
-			);
+			];
 		}
 		
 		// Flash messages

@@ -60,10 +60,10 @@ class Role extends AdminBaseController {
 				{
 					foreach ($tasks as $task)
 					{
-						$this->_data->inheritedTasks[$task->id] = array(
+						$this->_data->inheritedTasks[$task->id] = [
 							'name' => $task->name,
 							'role' => $task->roles()->first()->name,
-						);
+						];
 					}
 				}
 
@@ -144,11 +144,11 @@ class Role extends AdminBaseController {
 			$role = AccessRole::find($id);
 
 			// Create the item
-			$item = AccessRole::add(array(
+			$item = AccessRole::add([
 				'name'		=> e(Input::get('name')),
 				'desc'		=> $role->desc,
 				'inherits'	=> $role->inherits,
-			), true);
+			], true);
 
 			// Get the original tasks
 			$originalTasks = $role->tasks->toSimpleArray();

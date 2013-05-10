@@ -82,11 +82,11 @@ abstract class Admin extends BaseController {
 	protected function setupLayout()
 	{
 		// Set the values to be passed to the structure
-		$vars = array(
+		$vars = [
 			'skin'		=> $this->skin,
 			'section'	=> 'admin',
 			'settings'	=> $this->settings,
-		);
+		];
 
 		// Setup the layout and its data
 		$layout				= View::make(Location::file('admin', $this->skin, 'structure'))->with($vars);
