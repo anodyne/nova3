@@ -325,7 +325,7 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 			}
 			else
 			{
-				if (version_compare(PHP_VERSION, '5.3.7', '<'))
+				if (version_compare(PHP_VERSION, '5.4.0', '<'))
 				{
 					$data->content->message = Lang::get('setup.config.php', array('php' => PHP_VERSION));
 					$data->layout->label = 'Installation Cannot Continue';
@@ -706,7 +706,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 			}
 			else
 			{
-				if (version_compare(PHP_VERSION, '5.3.7', '<'))
+				if (version_compare(PHP_VERSION, '5.4.0', '<'))
 				{
 					$data->content->message = Lang::get('setup.config.php', array('php' => PHP_VERSION));
 					$data->layout->label = 'Installation Cannot Continue';

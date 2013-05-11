@@ -36,10 +36,10 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><p class="lead">PHP 5.3.7+</p></td>
-						<td>Your host must be running at least version 5.3.7 in order for Nova 3 to run. If this test fails, you won't be able to install Nova 3 and will need to contact your host to see about correcting this issue.</td>
+						<td><p class="lead">PHP 5.4+</p></td>
+						<td>Your host must be running at least version 5.4.0 in order for Nova 3 to run. If this test fails, you won't be able to install Nova 3 and will need to contact your host to see about correcting this issue.</td>
 						<td class="text-center">
-							<?php if (version_compare(PHP_VERSION, '5.3.7', '>=')): ?>
+							<?php if (version_compare(PHP_VERSION, '5.4.0', '>=')): ?>
 								<i class="glyphicon glyphicon-ok text-success"></i>
 							<?php else: ?>
 								<i class="glyphicon glyphicon-remove text-danger"></i>
@@ -48,7 +48,7 @@
 					</tr>
 					<tr>
 						<td><p class="lead">PDO</p></td>
-						<td>In order to connect to the database where Nova's data is stored, you must have the PDO driver installed. Most installations of PHP 5.3 come with this installed. If this test fails, you won't be able to install Nova 3 and will need to contact your host to see about correcting this issue.</td>
+						<td>In order to connect to the database where Nova's data is stored, you must have the PDO driver installed. Most installations of PHP 5.4 come with this installed. If this test fails, you won't be able to install Nova 3 and will need to contact your host to see about correcting this issue.</td>
 						<td class="text-center">
 							<?php if (defined('PDO::ATTR_DRIVER_NAME')): ?>
 								<i class="glyphicon glyphicon-ok text-success"></i>
