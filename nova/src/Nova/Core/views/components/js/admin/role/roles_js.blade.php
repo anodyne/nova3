@@ -17,7 +17,7 @@
 			dataType: 'json',
 			success: function(data){
 				$.each(data, function(){
-					var $check = $('.taskList input:checkbox[value="' + JSON.stringify(this) + '"]');
+					var $check = $('.taskList input:checkbox[value=' + JSON.stringify(this) + ']');
 
 					if ($check.prop("checked") == true)
 						$check.prop("checked", false).prop("disabled", false);
