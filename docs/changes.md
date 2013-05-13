@@ -13,11 +13,13 @@
 	* Browser detection
 * raveren/kint
 	* Debugging output helpers
+* baum/baum
+	* Nested set model
 
 ## Nova 3 Work
 
 * Migrations
-	* Status: TESTING
+	* Status: COMPLETE
 	* How do we handle migrations in L4?
 		* Can be handled with `Artisan::call('migrate')`.
 	* How do we run migrations from a location other than `app`?
@@ -47,7 +49,7 @@
 		* putAction
 		* deleteAction
 * Controllers
-	* Status: IN PROGRESS
+	* Status: TESTING
 	* Controllers need better before/after actions. Currently the only thing there is are filters, but those are too global to handle the granular control needed when loading up or shutting down specific controllers.
 		* App filters can be run for everything, but there's also more granular route filters that can be used. In our case, we can build several route filters and then call them in the base controller constructor. This should suffice as they cascade like the before/after methods do in Fuel.
 * Modules
@@ -55,15 +57,15 @@
 	* The idea here would be to generate a specific namespace people could drop their modules into, say `Module`. This would need to tie in to the routing changes as well.
 	* We need to cache the list of _active_ modules so that it can be used anywhere. If we pulled everything, we could accidentally be pulling something that's inactive or the GM doesn't want out there for a specific reason.
 * Vendor
-	* Status: COMPLETED
+	* Status: COMPLETE
 	* The vendor directory is stored in the `nova` directory.
 	* Constants have been created for the base path, app path, nova path and vendor path.
 * Config
-	* Status: TESTING
+	* Status: COMPLETE
 	* Config files are pulled from `app`, `nova/wiki`, `nova/forum` and `nova/core`. They're pulled in in such an order that the app will override what's set in the core. This also take the environment folders into account as well. The only place we should have environment config folders is `app`.
 	* Module config files cannot be used to change settings in `app`. Users should be aware that something is changing a config and allowing them in modules would make those waters murkier.
 * Models
-	* Status: IN PROGRESS
+	* Status: TESTING
 	* Callbacks/observers to make life a little easier with handling dependent actions triggered off an event.
 		* The `insert()` and `update()` methods are in the QueryBuilder, not the Eloquent model, so we either have to do some pretty elaborate overriding or we have to copy the entire `save()` method from the model and insert the observers that way. If we go that route, we have to keep an eye on that file moving forward to make sure there are no changes to it that could impact the model.
 		* Probably can use events instead of re-inventing the wheel here, but need a few things first:
@@ -71,10 +73,10 @@
 			* Need to figure out the best way of handling them so that they can be easily overridden. This one is the tricky one that may force us to go down the observer in the model/own class route.
 	* Polymorphic relationships between posts/logs/announcements/wiki pages and comments works great with one caveat: if an admin overrides the model, that relationship fails, so those items wouldn't be able to pull back any existing comments. Likewise, any comments created with extended models wouldn't be available to the original model because of the way Eloquent handles tracking those items.
 * Views
-	* Status: TESTING
+	* Status: COMPLETE
 	* The view config file allows setting paths to the view directories to search. That's all that's needed in our case.
 * Language
-	* Status: TESTING
+	* Status: COMPLETE
 
 ## Other Changes Made
 

@@ -1,0 +1,1 @@
+# QuickInstall for Skins

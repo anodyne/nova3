@@ -5,7 +5,7 @@
 * Laravel
 	* Laravel is a clean and classy framework for PHP web development.
 	* http://laravel.com/
-	* Version: 4.0-beta5
+	* Version: 4.0-dev
 * Bootstrap
 	* Sleek, intuitive, and powerful front-end framework for faster and easier web development.
 	* http://twitter.github.io/bootstrap/
