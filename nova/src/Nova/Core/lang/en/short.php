@@ -109,6 +109,7 @@ return array(
 		'chooseTaskLevel' => "Task levels can be used to further differentiate access within an action.",
 		'chooseTaskDependencies' => "Does this task depend on another one? You can create dependencies between tasks by adding them to a comma-separate list in the format <code>{component}.{action}.{level}</code>.",
 		'inheritedTask' => "Inherited from the <strong>:0</strong> role.",
+		'inheritedTaskProcessing' => "Processing inherited role tasks. Please wait...",
 	),
 
 	'users' => array(

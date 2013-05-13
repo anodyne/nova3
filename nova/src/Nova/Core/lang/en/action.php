@@ -52,6 +52,8 @@ return array(
 
 	'override' => "override",
 
+	'processing' => "processing",
+
 	'request' => 'request',
 	'reset' => 'reset',
 	'reject' => 'reject',

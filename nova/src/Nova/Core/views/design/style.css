@@ -79,6 +79,11 @@ h1 {
 	font-size: 13px;
 }
 
+/* This will need to be styled a little bit better moving forward */
+.has-error .help-block {
+	color: #c00;
+}
+
 .btn-group,
 .btn-toolbar {
 	margin: 10px 0;

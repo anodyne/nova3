@@ -5,10 +5,11 @@
 {{ Form::model($role, array('url' => 'admin/role/index')) }}
 	<div class="row">
 		<div class="col col-lg-4">
-			<div class="control-group">
+			<div class="control-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
 				<label class="control-label">{{ ucwords(lang('name')) }}</label>
 				<div class="controls">
 					{{ Form::text('name', null, array('class' => 'input-with-feedback')) }}
+					{{ $errors->first('name', '<p class="help-block">:message</p>') }}
 				</div>
 			</div>
 		</div>
@@ -16,10 +17,11 @@
 
 	<div class="row">
 		<div class="col col-lg-8">
-			<div class="control-group">
+			<div class="control-group{{ ($errors->has('desc')) ? ' has-error' : '' }}">
 				<label class="control-label">{{ ucwords(lang('desc')) }}</label>
 				<div class="controls">
 					{{ Form::textarea('desc', null, array('class' => 'input-with-feedback', 'rows' => 4)) }}
+					{{ $errors->first('desc', '<p class="help-block">:message</p>') }}
 				</div>
 			</div>
 		</div>
@@ -35,7 +37,9 @@
 						<div class="col col-lg-6">
 							<label class="checkbox">
 								@if ($action == 'update')
-									{{ Form::checkbox('inherits[]', $r->id, (in_array($r->id, $role->inherits)), array('data-role' => $r->id, 'class' => 'js-inherited-roles')) }} {{ $r->name }}
+									@if ($r->id != $role->id)
+										{{ Form::checkbox('inherits[]', $r->id, (in_array($r->id, $role->inherits)), array('data-role' => $r->id, 'class' => 'js-inherited-roles')) }} {{ $r->name }}
+									@endif
 								@else
 									{{ Form::checkbox('inherits[]', $r->id, null, array('data-role' => $r->id, 'class' => 'js-inherited-roles')) }} {{ $r->name }}
 								@endif
@@ -140,7 +144,6 @@
 			<div class="controls">
 				{{ Form::hidden('id') }}
 				{{ Form::hidden('action', $action) }}
-				{{ Form::hidden('_token', csrf_token()) }}
 				
 				{{ Form::button(ucfirst(lang('action.submit')), array('type' => 'submit', 'class' => 'btn btn-primary')) }}
 			</div>

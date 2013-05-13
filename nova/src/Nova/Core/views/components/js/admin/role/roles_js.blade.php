@@ -10,20 +10,30 @@
 	});
 
 	$(document).on('change', '.js-inherited-roles', function(){
+		var parentStatus = $(this).is(':checked');
+
 		$.ajax({
 			type: "POST",
 			url: "{{ URL::to('ajax/info/role_inherited_tasks') }}",
 			data: { role: $(this).data('role') },
 			dataType: 'json',
+			beforeSend: function(){
+				// Block the UI so they know what's going on
+				$.blockUI({
+					message: "<span class='text-small'>{{ lang('short.roles.inheritedTaskProcessing') }}</span>",
+					css: {
+						padding: '5px',
+						border: 'none',
+						color: '#444',
+						'border-radius': '4px',
+						'font-weight': '600',
+						'box-shadow': '0 3px 7px rgba(0, 0, 0, 0.3)'
+					}
+				});
+			},
 			success: function(data){
-				
-				// If parentStatus is checked, we're adding, otherwise we're removing
-				var parentStatus = $(this).is(':checked');
-
 				$.each(data, function(){
 					var check = $('.taskList input:checkbox[value=' + JSON.stringify(this) + ']');
-
-					console.log(parentStatus);
 
 					if (parentStatus)
 					{
@@ -36,6 +46,8 @@
 					}
 				});
 
+				// Unblock the UI
+				$.unblockUI();
 			}
 		});
 	});
@@ -54,10 +66,9 @@
 
 		if (doaction == 'duplicate')
 		{
-			$('<div/>').dialog2({
-				title: "{{ ucwords(lang('short.duplicate', lang('role'))) }}",
-				content: "{{ URL::to('ajax/add/role_duplicate') }}/" + id
-			});
+			$('#duplicateRole').modal({
+				remote: "{{ URL::to('ajax/add/role_duplicate') }}/" + id
+			}).modal('show');
 		}
 
 		if (doaction == 'view')

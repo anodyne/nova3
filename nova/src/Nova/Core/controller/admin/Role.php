@@ -97,6 +97,13 @@ class Role extends AdminBaseController {
 				->with('modalHeader', ucwords(lang('short.delete', langConcat('access role'))))
 				->with('modalBody', '')
 				->with('modalFooter', false);
+
+			// Build the duplicate role modal
+			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+				->with('modalId', 'duplicateRole')
+				->with('modalHeader', ucwords(lang('short.duplicate', langConcat('access role'))))
+				->with('modalBody', '')
+				->with('modalFooter', false);
 		}
 	}
 	public function postIndex()
@@ -123,6 +130,30 @@ class Role extends AdminBaseController {
 		{
 			// Create the item
 			$item = AccessRole::add(Input::all(), true);
+
+			// Loop through the inherited tasks and get those
+			foreach ($item->getInheritedTasks() as $tasks)
+			{
+				foreach ($tasks as $task)
+				{
+					$inheritedTasks[] = $task->id;
+				}
+			}
+
+			// Get the tasks from the POST
+			$tasks = Input::get('tasks');
+
+			// Remove the inherited items from the list
+			foreach ($tasks as $task)
+			{
+				if (in_array($task, $inheritedTasks))
+				{
+					unset($tasks[$task]);
+				}
+			}
+
+			// Sync the roles_tasks table
+			$item->tasks()->sync($tasks);
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -175,8 +206,38 @@ class Role extends AdminBaseController {
 
 			if ($id)
 			{
-				// Update the item
-				$item = AccessRole::edit($id, Input::all(), true);
+				// Get the role
+				$role = AccessRole::find($id);
+
+				// Update the role information
+				$role->name = e(Input::get('name'));
+				$role->desc = e(Input::get('desc'));
+				$role->inherits = implode(',', Input::get('inherits'));
+				$role->save();
+
+				// Loop through the inherited tasks and get those
+				foreach ($role->getInheritedTasks() as $tasks)
+				{
+					foreach ($tasks as $task)
+					{
+						$inheritedTasks[] = $task->id;
+					}
+				}
+
+				// Get the tasks from the POST
+				$tasks = Input::get('tasks');
+
+				// Remove the inherited items from the list
+				foreach ($tasks as $task)
+				{
+					if (in_array($task, $inheritedTasks))
+					{
+						unset($tasks[$task]);
+					}
+				}
+
+				// Sync the roles_tasks table
+				$role->tasks()->sync($tasks);
 			}
 
 			// Set the flash info
@@ -186,50 +247,9 @@ class Role extends AdminBaseController {
 				: ucfirst(lang('short.alert.failure.update', langConcat('access role')));
 		}
 
-		/**
-		 * Update the role's tasks.
-		 */
-		if ($user->hasAccess('role.update') and $action == 'updateTasks')
-		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
-			// Get the role
-			$role = AccessRole::find($id);
-
-			// Loop through the inherited tasks and get those
-			foreach ($role->getInheritedTasks() as $tasks)
-			{
-				foreach ($tasks as $task)
-				{
-					$inheritedTasks[] = $task->id;
-				}
-			}
-
-			// Get the tasks from the POST
-			$tasks = Input::get('tasks');
-
-			// Remove the inherited items from the list
-			foreach ($tasks as $id => $name)
-			{
-				if (in_array($id, $inheritedTasks))
-				{
-					unset($tasks[$id]);
-				}
-			}
-
-			// Sync the roles_tasks table
-			$role->tasks()->sync($tasks);
-
-			// Set the flash info
-			$flashStatus = 'success';
-			$flashMessage = ucfirst(lang('short.alert.success.update', langConcat('access role tasks')));
-		}
-
 		return Redirect::to('admin/role/index')
 			->with('flashStatus', $flashStatus)
-			->with('flashMessage', $flashStatus);
+			->with('flashMessage', $flashMessage);
 	}
 	public function deleteIndex()
 	{

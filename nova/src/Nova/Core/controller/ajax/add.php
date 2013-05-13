@@ -10,6 +10,11 @@
  * @copyright	2013 Anodyne Productions
  */
 
+use View;
+use Sentry;
+use Request;
+use Utility;
+use Location;
 use AjaxBaseController;
 
 class Add extends AjaxBaseController {
@@ -175,20 +180,18 @@ class Add extends AjaxBaseController {
 	 * @param	int		The ID of the role being duplicated
 	 * @return	void
 	 */
-	public function getRole_duplicate($id)
+	public function getRole_duplicate()
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('role.create'))
+		if (Sentry::check() and Sentry::getUser()->hasAccess('role.create'))
 		{
-			// ID of the role to duplicate
-			$data['id'] = \Security::xss_clean($id);
+			// Clean the variable
+			$id = e(Request::segment(4, false));
 
 			// Get the original role
-			$original = \Model_Access_Role::find($data['id']);
+			$role = \AccessRole::find($id);
 
-			// Get the name from the original role
-			$data['name'] = $original->name;
-
-			echo \View::forge(\Location::file('add/role_duplicate', \Utility::getSkin('admin'), 'ajax'), $data);
+			echo View::make(Location::file('add/role_duplicate', Utility::getSkin('admin'), 'ajax'))
+				->with('role', $role);
 		}
 	}
 
