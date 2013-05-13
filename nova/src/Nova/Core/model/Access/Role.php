@@ -59,6 +59,11 @@ class Role extends Model implements GroupInterface {
 		return explode(',', $value);
 	}
 
+	public function setInheritsAttribute($value)
+	{
+		$this->attributes['inherits'] = (is_array($value)) ? implode(',', $value) : $value;
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Model Methods
@@ -90,6 +95,9 @@ class Role extends Model implements GroupInterface {
 	 */
 	public function getTasks($getInherited = true)
 	{
+		// Start the array for holding
+		$groups = array();
+		
 		// Loop through this role's tasks
 		foreach ($this->tasks as $task)
 		{
