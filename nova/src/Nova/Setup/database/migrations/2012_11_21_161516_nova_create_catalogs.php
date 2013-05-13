@@ -47,6 +47,7 @@ class NovaCreateCatalogs extends Migration {
 			$t->text('credits')->nullable();
 			$t->string('version', 10)->nullable();
 			$t->boolean('status')->default(Status::ACTIVE);
+			$t->text('options')->nullable();
 			$t->timestamps();
 		});
 
