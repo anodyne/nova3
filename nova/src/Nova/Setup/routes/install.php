@@ -116,7 +116,7 @@ Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|set
 			'id'	=> 'next',
 			'type'	=> 'submit',
 		)).
-		Form::hidden('_token', csrf_token()).
+		//Form::hidden('_token', csrf_token()).
 		Form::close();
 
 		return setupTemplate($data);

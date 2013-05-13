@@ -80,7 +80,7 @@ Route::group(array('prefix' => 'setup/update/rollback', 'before' => 'configFileC
 					'name'	=> 'submit',
 					'type'	=> 'submit',
 				)).
-				Form::hidden('_token', csrf_token()).
+				//Form::hidden('_token', csrf_token()).
 				Form::close();
 		}
 		else

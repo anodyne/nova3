@@ -70,7 +70,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 						'name'	=> 'submit',
 						'type'	=> 'submit',
 					)).
-					Form::hidden('_token', csrf_token()).
+					//Form::hidden('_token', csrf_token()).
 					Form::close();
 
 				// Pull in the steps indicators
@@ -127,7 +127,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 							'name'	=> 'submit',
 							'type'	=> 'submit',
 						)).
-						Form::hidden('_token', csrf_token()).
+						//Form::hidden('_token', csrf_token()).
 						Form::close();
 					$data->layout->label = 'Migrate From Nova 2';
 
@@ -158,7 +158,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 						'name'	=> 'submit',
 						'type'	=> 'submit',
 					)).
-					Form::hidden('_token', csrf_token()).
+					//Form::hidden('_token', csrf_token()).
 					Form::close();
 				$data->layout->label = 'Install Nova 3';
 
@@ -195,7 +195,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				'name'	=> 'submit',
 				'type'	=> 'submit',
 			)).
-			Form::hidden('_token', csrf_token()).
+			//Form::hidden('_token', csrf_token()).
 			Form::close();
 
 		return setupTemplate($data);
@@ -377,7 +377,7 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 				'id'	=> 'next',
 				'type'	=> 'submit',
 			)).
-			Form::hidden('_token', csrf_token()).
+			//Form::hidden('_token', csrf_token()).
 			Form::close();
 
 		return setupTemplate($data);
@@ -436,7 +436,7 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 					'name'	=> 'next',
 					'type'	=> 'submit',
 				)).
-				Form::hidden('_token', csrf_token()).
+				//Form::hidden('_token', csrf_token()).
 				Form::close();
 
 		}
@@ -556,7 +556,7 @@ return array(
 						'name'	=> 'next',
 						'type'	=> 'submit',
 					)).
-					Form::hidden('_token', csrf_token()).
+					//Form::hidden('_token', csrf_token()).
 					Form::close();
 			}
 		}
@@ -588,7 +588,7 @@ return array(
 					'name'	=> 'next',
 					'type'	=> 'submit',
 				)).
-				Form::hidden('_token', csrf_token()).
+				//Form::hidden('_token', csrf_token()).
 				Form::close();
 		}
 
@@ -732,7 +732,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 	{
 		$data = new stdClass;
 		$data->view = 'setup/config/email';
-		$data->jsView = false;
+		$data->jsView = 'setup/config/email_js';
 		$data->title = 'Email Setup';
 		$data->layout = new stdClass;
 		$data->layout->label = 'Email Info <small>Email Setup</small>';
@@ -748,7 +748,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 				'id'	=> 'next',
 				'type'	=> 'submit',
 			)).
-			Form::hidden('_token', csrf_token()).
+			//Form::hidden('_token', csrf_token()).
 			Form::close();
 
 		return setupTemplate($data);
@@ -852,7 +852,7 @@ return array(
 						'name'	=> 'next',
 						'type'	=> 'submit',
 					)).
-					Form::hidden('_token', csrf_token()).
+					//Form::hidden('_token', csrf_token()).
 					Form::close();
 			}
 		}
@@ -881,7 +881,7 @@ return array(
 					'name'	=> 'next',
 					'type'	=> 'submit',
 				)).
-				Form::hidden('_token', csrf_token()).
+				//Form::hidden('_token', csrf_token()).
 				Form::close();
 		}
 
