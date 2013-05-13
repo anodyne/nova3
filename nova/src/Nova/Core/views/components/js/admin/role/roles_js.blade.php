@@ -16,14 +16,26 @@
 			data: { role: $(this).data('role') },
 			dataType: 'json',
 			success: function(data){
-				$.each(data, function(){
-					var $check = $('.taskList input:checkbox[value=' + JSON.stringify(this) + ']');
+				
+				// If parentStatus is checked, we're adding, otherwise we're removing
+				var parentStatus = $(this).is(':checked');
 
-					if ($check.prop("checked") == true)
-						$check.prop("checked", false).prop("disabled", false);
+				$.each(data, function(){
+					var check = $('.taskList input:checkbox[value=' + JSON.stringify(this) + ']');
+
+					console.log(parentStatus);
+
+					if (parentStatus)
+					{
+						if ( ! check.prop("checked") && ! check.prop("disabled"))
+							check.prop("checked", true).prop("disabled", true);
+					}
 					else
-						$check.prop("checked", true).prop("disabled", true);
+					{
+						//
+					}
 				});
+
 			}
 		});
 	});
