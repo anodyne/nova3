@@ -26,6 +26,10 @@
 	* In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery.
 	* http://vitalets.github.io/x-editable/
 	* Version: 1.4.4
+* BlockUI
+	* The jQuery BlockUI Plugin lets you simulate synchronous behavior when using AJAX, without locking the browser.
+	* http://www.malsup.com/jquery/block/
+	* Version: 2.59.0-2013.04.05
 
 ## Under Review
 
