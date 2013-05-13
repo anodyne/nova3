@@ -138,6 +138,11 @@ abstract class Core extends Controller {
 	 */
 	public $_editable = true;
 
+	/**
+	 * Stop execution (used specifically for filters)
+	 */
+	protected $_stopExecution = false;
+
 	public function __construct()
 	{
 		// Get a copy of the controller
@@ -146,7 +151,7 @@ abstract class Core extends Controller {
 		/**
 		 * Before closure that checks the install status.
 		 */
-		$this->beforeFilter(function()
+		$this->beforeFilter(function() use(&$me)
 		{
 			// Resolve the environment out of the App container
 			$env = App::environment();
@@ -154,9 +159,11 @@ abstract class Core extends Controller {
 			// Get the path info from the Request object
 			$path = Route::getRequest()->getPathInfo();
 
-			// If the config file doesn't exist, bounce over the config setup
+			// If the config file doesn't exist, bounce to the setup package
 			if ( ! File::exists(APPPATH."config/{$env}/database.php"))
 			{
+				$me->_stopExecution = true;
+
 				return Redirect::to('setup');
 			}
 			else
@@ -192,32 +199,35 @@ abstract class Core extends Controller {
 		 */
 		$this->beforeFilter(function() use(&$me)
 		{
-			// Set the Request instance
-			$me->request = Request::instance();
+			if ( ! $me->_stopExecution)
+			{
+				// Set the Request instance
+				$me->request = Request::instance();
 
-			// Set the genre
-			$me->genre = Config::get('nova.genre');
+				// Set the genre
+				$me->genre = Config::get('nova.genre');
 
-			// Load all of the settings
-			$me->settings = Settings::get()->toSimpleObject('key', 'value');
+				// Load all of the settings
+				$me->settings = Settings::get()->toSimpleObject('key', 'value');
 
-			// TODO: need to figure out how we're going to handle languages
+				// TODO: need to figure out how we're going to handle languages
 
-			// Create a new Nav object
-			$me->nav = new Nav;
+				// Create a new Nav object
+				$me->nav = new Nav;
 
-			// Create empty objects for the data
-			$me->_data = new stdClass;
-			$me->_jsData = new stdClass;
-			$me->_sectionInfo = new stdClass;
+				// Create empty objects for the data
+				$me->_data = new stdClass;
+				$me->_jsData = new stdClass;
+				$me->_sectionInfo = new stdClass;
 
-			// Get the controller name from the Router and denamespace it
-			$controllerName = Str::denamespace(Route::getController());
+				// Get the controller name from the Router and denamespace it
+				$controllerName = Str::denamespace(Route::getController());
 
-			// Grab the content for the current section
-			$me->_headers	= SiteContent::getSectionContent('header', $controllerName);
-			$me->_messages	= SiteContent::getSectionContent('message', $controllerName);
-			$me->_titles	= SiteContent::getSectionContent('title', $controllerName);
+				// Grab the content for the current section
+				$me->_headers	= SiteContent::getSectionContent('header', $controllerName);
+				$me->_messages	= SiteContent::getSectionContent('message', $controllerName);
+				$me->_titles	= SiteContent::getSectionContent('title', $controllerName);
+			}
 		});
 	}
 

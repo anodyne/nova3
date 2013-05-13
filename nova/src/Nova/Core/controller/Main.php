@@ -26,13 +26,16 @@ class Main extends MainBaseController {
 		// Do the final nav setup
 		$this->beforeFilter(function() use(&$me)
 		{
-			if ($me->_sectionInfo->nav == 'classic')
+			if ( ! $me->_stopExecution)
 			{
-				// Set the type and category
-				$me->nav->setType('sub')->setCategory('main');
+				if ($me->_sectionInfo->nav == 'classic')
+				{
+					// Set the type and category
+					$me->nav->setType('sub')->setCategory('main');
 
-				// Build the menu
-				$me->layout->template->navsub->menu = $me->nav->build();
+					// Build the menu
+					$me->layout->template->navsub->menu = $me->nav->build();
+				}
 			}
 		});
 	}

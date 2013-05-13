@@ -37,23 +37,26 @@ abstract class Main extends BaseController {
 		 */
 		$this->beforeFilter(function() use(&$me)
 		{
-			// Get the user
-			$user = Sentry::getUser();
+			if ( ! $me->_stopExecution)
+			{
+				// Get the user
+				$user = Sentry::getUser();
 
-			// Set the variables
-			$me->skin		= (Sentry::check()) ? $user->getPreferenceItem('skin_main') : $me->settings->skin_main;
-			$me->rank		= (Sentry::check()) ? $user->getPreferenceItem('rank') : $me->settings->rank;
-			$me->timezone	= (Sentry::check()) ? $user->getPreferenceItem('timezone') : $me->settings->timezone;
-			$me->icons		= Utility::getIconIndex($me->skin);
+				// Set the variables
+				$me->skin		= (Sentry::check()) ? $user->getPreferenceItem('skin_main') : $me->settings->skin_main;
+				$me->rank		= (Sentry::check()) ? $user->getPreferenceItem('rank') : $me->settings->rank;
+				$me->timezone	= (Sentry::check()) ? $user->getPreferenceItem('timezone') : $me->settings->timezone;
+				$me->icons		= Utility::getIconIndex($me->skin);
 
-			// Get the skin section info
-			$me->_sectionInfo = SkinSectionCatalog::getItem($me->skin, 'skin');
+				// Get the skin section info
+				$me->_sectionInfo = SkinSectionCatalog::getItem($me->skin, 'skin');
 
-			// Build the navigation
-			$me->nav->setStyle($me->_sectionInfo->nav)
-				->setSection('main')
-				->setCategory('main')
-				->setType('main');
+				// Build the navigation
+				$me->nav->setStyle($me->_sectionInfo->nav)
+					->setSection('main')
+					->setCategory('main')
+					->setType('main');
+				}
 		});
 	}
 
@@ -64,40 +67,43 @@ abstract class Main extends BaseController {
 	 */
 	protected function setupLayout()
 	{
-		// Set the values to be passed to the structure
-		$vars = array(
-			'skin'		=> $this->skin,
-			'section'	=> 'main',
-			'settings'	=> $this->settings,
-		);
+		if ( ! $this->_stopExecution)
+		{
+			// Set the values to be passed to the structure
+			$vars = array(
+				'skin'		=> $this->skin,
+				'section'	=> 'main',
+				'settings'	=> $this->settings,
+			);
 
-		// Setup the layout and its data
-		$layout				= View::make(Location::file('main', $this->skin, 'structure'))->with($vars);
-		$layout->title		= $this->settings->sim_name.' :: ';
-		$layout->javascript	= false;
-		
-		// Setup the template and its data
-		$layout->template			= View::make(Location::file('main', $this->skin, 'template'))->with($vars);
-		$layout->template->ajax		= false;
-		$layout->template->flash	= false;
-		$layout->template->content	= false;
-		$layout->template->header	= false;
-		$layout->template->message	= false;
-		$layout->template->navmain	= $this->nav->build();
-		
-		// Setup the subnav and widgets
-		$layout->template->navsub			= View::make(Location::file('navsub', $this->skin, 'partial'));
-		$layout->template->navsub->menu		= false;
-		$layout->template->navsub->widget1	= false;
-		$layout->template->navsub->widget2	= false;
-		$layout->template->navsub->widget3	= false;
+			// Setup the layout and its data
+			$layout				= View::make(Location::file('main', $this->skin, 'structure'))->with($vars);
+			$layout->title		= $this->settings->sim_name.' :: ';
+			$layout->javascript	= false;
+			
+			// Setup the template and its data
+			$layout->template			= View::make(Location::file('main', $this->skin, 'template'))->with($vars);
+			$layout->template->ajax		= false;
+			$layout->template->flash	= false;
+			$layout->template->content	= false;
+			$layout->template->header	= false;
+			$layout->template->message	= false;
+			$layout->template->navmain	= $this->nav->build();
+			
+			// Setup the subnav and widgets
+			$layout->template->navsub			= View::make(Location::file('navsub', $this->skin, 'partial'));
+			$layout->template->navsub->menu		= false;
+			$layout->template->navsub->widget1	= false;
+			$layout->template->navsub->widget2	= false;
+			$layout->template->navsub->widget3	= false;
 
-		// Setup the footer
-		$layout->template->footer			= View::make(Location::file('footer', $this->skin, 'partial'));
-		$layout->template->footer->extra	= SiteContent::getContentItem('footer');
+			// Setup the footer
+			$layout->template->footer			= View::make(Location::file('footer', $this->skin, 'partial'));
+			$layout->template->footer->extra	= SiteContent::getContentItem('footer');
 
-		// Pass everything back to the layout
-		$this->layout = $layout;
+			// Pass everything back to the layout
+			$this->layout = $layout;
+		}
 	}
 
 }
