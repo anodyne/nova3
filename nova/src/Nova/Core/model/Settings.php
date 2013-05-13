@@ -57,7 +57,7 @@ class Settings extends Model {
 		$items = Cache::get('nova.settings');
 
 		// If we have the cache, use it
-		if ($items !== null)
+		if ($items !== null and $valueOnly)
 		{
 			if (is_array($keys))
 			{
