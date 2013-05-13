@@ -18,8 +18,8 @@
 	<div class="control-group">
 		<div class="controls">
 			{{ Form::button(ucwords(lang('action.login')), array('class' => 'btn btn-primary btn-block btn-large', 'type' => 'submit')) }}
-			{{ HTML::link('login/reset', lang("short.forgotPassword"), array('class' => 'btn btn-block')) }}
-			{{ HTML::link('main/index', lang("short.backToSite"), array('class' => 'btn btn-block')) }}
+			{{ HTML::link('login/reset', lang("short.forgotPassword"), array('class' => 'btn btn-default btn-block')) }}
+			{{ HTML::link('main/index', lang("short.backToSite"), array('class' => 'btn btn-default btn-block')) }}
 		</div>
 	</div>
 	{{ Form::hidden('_token', csrf_token()) }}
