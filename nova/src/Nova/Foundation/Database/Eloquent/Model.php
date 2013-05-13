@@ -248,7 +248,7 @@ class Model extends EloquentModel {
 			// isn't actually a column in the database
 			if ($key != 'id' and in_array($key, static::$properties))
 			{
-				if ($filter and ! $data[$key] instanceof Date)
+				if ($filter and is_string($data[$key]))
 				{
 					$data[$key] = trim(e($data[$key]));
 				}
@@ -363,9 +363,9 @@ class Model extends EloquentModel {
 				{
 					if ($key != 'id' and in_array($key, static::$properties))
 					{
-						if ($filter and ! $value instanceof Date)
+						if ($filter and is_string($value))
 						{
-							$value = e($value);
+							$value = trim(e($value));
 						}
 
 						$item->{$key} = $value;
@@ -403,9 +403,9 @@ class Model extends EloquentModel {
 					// Loop through the data and make the changes
 					foreach ($data as $key => $value)
 					{
-						if ($filter and ! $value instanceof Date)
+						if ($filter and is_string($value))
 						{
-							$value = e($value);
+							$value = trim(e($value));
 						}
 
 						$item->{$key} = $value;
