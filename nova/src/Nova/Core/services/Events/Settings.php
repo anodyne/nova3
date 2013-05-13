@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Services\Events;
 
 use Cache;
-use Settings;
 use SystemEvent;
+use Settings as SettingsModel;
 
 class Settings {
 	
@@ -61,7 +61,7 @@ class Settings {
 		Cache::forget('nova.settings');
 
 		// Re-cache everything
-		Cache::forever('nova.settings', Settings::getItems(false, false));
+		Cache::forever('nova.settings', SettingsModel::getItems(false, false));
 	}
 
 }

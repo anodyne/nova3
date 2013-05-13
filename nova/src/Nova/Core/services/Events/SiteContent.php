@@ -1,10 +1,10 @@
 <?php namespace Nova\Core\Services\Events;
 
 use Cache;
-use SiteContent;
 use SystemEvent;
+use SiteContent as SiteContentModel;
 
-class Settings {
+class SiteContent {
 	
 	/**
 	 * After create event
@@ -63,7 +63,7 @@ class Settings {
 		// Re-cache the section content
 		Cache::forever(
 			"nova.content.{$model->type}.{$model->section}", 
-			SiteContent::getSectionContent($model->type, $model->section)
+			SiteContentModel::getSectionContent($model->type, $model->section)
 		);
 	}
 
