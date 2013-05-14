@@ -669,6 +669,10 @@ class User extends Model implements UserInterface {
 
 			// Put the role info into the session
 			Session::put('role', $roles);
+
+			// Touch the updated_at timestamp
+			$this->updated_at = $this->freshTimestamp();
+			$this->save();
 		}
 		
 		return $roles;
@@ -814,7 +818,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function recordLogin()
 	{
-		$this->last_login = Date::now();
+		$this->last_login = $this->freshTimestamp();
 		$this->save();
 	}
 
