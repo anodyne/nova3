@@ -70,7 +70,6 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 						'name'	=> 'submit',
 						'type'	=> 'submit',
 					)).
-					//Form::hidden('_token', csrf_token()).
 					Form::close();
 
 				// Pull in the steps indicators
@@ -127,7 +126,6 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 							'name'	=> 'submit',
 							'type'	=> 'submit',
 						)).
-						//Form::hidden('_token', csrf_token()).
 						Form::close();
 					$data->layout->label = 'Migrate From Nova 2';
 
@@ -158,7 +156,6 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 						'name'	=> 'submit',
 						'type'	=> 'submit',
 					)).
-					//Form::hidden('_token', csrf_token()).
 					Form::close();
 				$data->layout->label = 'Install Nova 3';
 
@@ -195,7 +192,6 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				'name'	=> 'submit',
 				'type'	=> 'submit',
 			)).
-			//Form::hidden('_token', csrf_token()).
 			Form::close();
 
 		return setupTemplate($data);
@@ -205,17 +201,23 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		// Make sure we don't time out
 		set_time_limit(0);
 
+		// Remove the system install cache
+		Cache::forget('nova.installed');
+
+		// Remove the app's session config file
+		File::delete(APPPATH.'config/'.App::environment().'/session.php');
+
+		// Set the session driver
+		Config::set('session.driver', 'native');
+
 		// Do the QuickInstall removals
-		ModuleCatalog::uninstall();
-		RankCatalog::uninstall();
-		SkinCatalog::uninstall();
-		WidgetCatalog::uninstall();
+		ModuleCatalog::uninstallAll();
+		RankCatalog::uninstallAll();
+		SkinCatalog::uninstallAll();
+		WidgetCatalog::uninstallAll();
 
 		// Uninstall Nova
 		Artisan::call('migrate:reset');
-
-		// Remove the system install cache
-		Cache::forget('nova.installed');
 
 		return Redirect::to('setup');
 	});
@@ -377,7 +379,6 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 				'id'	=> 'next',
 				'type'	=> 'submit',
 			)).
-			//Form::hidden('_token', csrf_token()).
 			Form::close();
 
 		return setupTemplate($data);
@@ -436,7 +437,6 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 					'name'	=> 'next',
 					'type'	=> 'submit',
 				)).
-				//Form::hidden('_token', csrf_token()).
 				Form::close();
 
 		}
@@ -556,7 +556,6 @@ return array(
 						'name'	=> 'next',
 						'type'	=> 'submit',
 					)).
-					//Form::hidden('_token', csrf_token()).
 					Form::close();
 			}
 		}
@@ -588,7 +587,6 @@ return array(
 					'name'	=> 'next',
 					'type'	=> 'submit',
 				)).
-				//Form::hidden('_token', csrf_token()).
 				Form::close();
 		}
 
@@ -748,7 +746,6 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 				'id'	=> 'next',
 				'type'	=> 'submit',
 			)).
-			//Form::hidden('_token', csrf_token()).
 			Form::close();
 
 		return setupTemplate($data);
@@ -852,7 +849,6 @@ return array(
 						'name'	=> 'next',
 						'type'	=> 'submit',
 					)).
-					//Form::hidden('_token', csrf_token()).
 					Form::close();
 			}
 		}
@@ -881,7 +877,6 @@ return array(
 					'name'	=> 'next',
 					'type'	=> 'submit',
 				)).
-				//Form::hidden('_token', csrf_token()).
 				Form::close();
 		}
 
