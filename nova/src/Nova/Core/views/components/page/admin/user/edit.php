@@ -1,9 +1,7 @@
 <div class="btn-toolbar">
-	<?php if (Sentry::user()->hasAccess('user.read')): ?>
 	<div class="btn-group">
 		<a href="<?php echo Uri::create('admin/user/index');?>" class="btn tooltip-top" title="<?php echo ucfirst(lang('short.back', langConcat('all users')));?>"><div class="icn icn16 icn-75" data-icon="<"></div></a>
 	</div>
-	<?php endif;?>
 
 	<div class="btn-group">
 		<a href="#" class="btn tooltip-top" title="<?php echo ucfirst(lang('action.request loa'));?>"><div class="icn icn16 icn-75" data-icon="#"></div></a>
