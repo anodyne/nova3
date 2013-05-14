@@ -15,8 +15,10 @@
  * @copyright	2013 Anodyne Productions
  */
 
+use Date;
 use View;
 use Sentry;
+use Session;
 use Utility;
 use Location;
 use SiteContent;
@@ -56,7 +58,26 @@ abstract class Main extends BaseController {
 					->setSection('main')
 					->setCategory('main')
 					->setType('main');
+
+				if (Sentry::check())
+				{
+					// Has the user's role been updated since their last login?
+					$lastLogin = $user->last_login->diffInMinutes($user->role->updated_at, false);
+					$lastUpdate = $user->updated_at->diffInMinutes($user->role->updated_at, false);
+
+					if ($lastLogin > 0 and $lastUpdate > 0)
+					{
+						# TODO: remove this once we've verified it's working right
+						\Log::info("Session updated (Last Login: {$lastLogin}) (Last Update: {$lastUpdate})");
+						
+						// Clear the access info from the session
+						Session::forget('role');
+
+						// Update the access info in the session
+						$user->getPermissions();
+					}
 				}
+			}
 		});
 	}
 
