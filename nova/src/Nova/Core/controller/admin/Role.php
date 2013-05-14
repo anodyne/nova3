@@ -20,7 +20,7 @@ class Role extends AdminBaseController {
 	public function getIndex()
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed('role.update', true);
+		Sentry::getUser()->allowed(['role.create', 'role.edit', 'role.delete'], true);
 
 		// Set the JS view
 		$this->_jsView = 'admin/role/roles_js';
@@ -295,7 +295,7 @@ class Role extends AdminBaseController {
 	public function getTasks()
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed('role.read', true);
+		Sentry::getUser()->allowed(['role.create', 'role.edit', 'role.delete'], true);
 
 		// Set the JS view
 		$this->_jsView = 'admin/role/tasks_js';

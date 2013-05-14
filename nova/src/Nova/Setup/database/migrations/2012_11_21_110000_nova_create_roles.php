@@ -17,6 +17,7 @@ class NovaCreateRoles extends Migration {
 			$t->string('name');
 			$t->text('desc')->nullable();
 			$t->text('inherits')->nullable();
+			$t->timestamps();
 		});
 
 		Schema::create('roles_tasks', function($t)
@@ -34,7 +35,6 @@ class NovaCreateRoles extends Migration {
 			$t->string('component', 100);
 			$t->string('action', 11)->default('read');
 			$t->boolean('level')->default(0);
-			$t->text('dependencies')->nullable();
 		});
 	}
 

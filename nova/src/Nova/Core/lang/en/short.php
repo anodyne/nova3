@@ -107,7 +107,6 @@ return array(
 		'chooseTaskComponent' => "Choose from one of the existing task components or create your own.",
 		'chooseTaskAction' => "Choose from one of the existing task actions (create, read, update, delete) or create your own.",
 		'chooseTaskLevel' => "Task levels can be used to further differentiate access within an action.",
-		'chooseTaskDependencies' => "Does this task depend on another one? You can create dependencies between tasks by adding them to a comma-separate list in the format <code>{component}.{action}.{level}</code>.",
 		'inheritedTask' => "Inherited from the <strong>:0</strong> role.",
 		'inheritedTaskProcessing' => "Processing inherited role tasks. Please wait...",
 	),

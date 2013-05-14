@@ -61,18 +61,6 @@
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="col col-lg-6">
-			<div class="control-group">
-				<label class="control-label">{{ ucfirst(lang('dependencies')) }}</label>
-				<div class="controls">
-					{{ Form::textarea('dependencies', null, array('class' => 'input-with-feedback')) }}
-					<p class="help-block">{{ lang('short.roles.chooseTaskDependencies') }}</p>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<div class="controls">
 		{{ Form::button(ucfirst(lang('action.submit')), array('type' => 'submit', 'class' => 'btn btn-primary')) }}
 	</div>

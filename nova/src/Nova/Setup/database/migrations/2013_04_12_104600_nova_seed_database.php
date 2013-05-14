@@ -88,7 +88,7 @@ class NovaSeedDatabase extends Migration {
 		$data = array(
 			array(
 				'name' => 'Inactive User',
-				'desc' => "Inactive users have no privileges within the system. This role is automatically assigned to any user with who has been retired.",
+				'desc' => "Inactive users have no privileges within the system. This role is automatically assigned to any user who has been retired.",
 				'inherits' => ''),
 			array(
 				'name' => 'User',
@@ -96,15 +96,15 @@ class NovaSeedDatabase extends Migration {
 				'inherits' => ''),
 			array(
 				'name' => 'Active User',
-				'desc' => "Every active user in the system has these permissions.",
+				'desc' => "Every active user in the system has these permissions and is provided basic functionality throughout the system.",
 				'inherits' => '2'),
 			array(
 				'name' => 'Power User',
-				'desc' => "Power users are given more access to pieces of the system to help them assist the game master as necessary.",
+				'desc' => "Power users are given more access to pieces of the system to assist the game master as necessary.",
 				'inherits' => '2,3'),
 			array(
 				'name' => 'Administrator',
-				'desc' => "Like power users, administrators are given higher permissions to the system to help them assist the game master as necessary.",
+				'desc' => "Like power users, administrators are given higher permissions to the system to assist the game master as necessary.",
 				'inherits' => '2,3,4'),
 			array(
 				'name' => 'System Administrator',
@@ -121,11 +121,11 @@ class NovaSeedDatabase extends Migration {
 	protected function seedRoleTasks()
 	{
 		$data = array(
-			2 => array(1, 2, 3, 6),
-			3 => array(14, 11, 18, 23, 33, 9, 20, 25, 88, 90, 37),
-			4 => array(91, 12, 15, 28, 38),
-			5 => array(21, 26, 31, 92, 94, 16, 17, 13, 7, 35, 36, 39),
-			6 => array(4, 5, 8, 10, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 89),
+			2 => array(1, 2, 3, 5),
+			3 => array(10, 14, 19, 29, 8, 16, 21, 32),
+			4 => array(11, 24, 26, 33),
+			5 => array(17, 22, 27, 12, 13, 6, 30, 31, 34),
+			6 => array(4, 7, 9, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65),
 		);
 
 		foreach ($data as $key => $value)
@@ -154,13 +154,13 @@ class NovaSeedDatabase extends Migration {
 				'component' => 'messages',
 				'level' => 0,
 				'name' => 'Read Messages',
-				'desc' => 'Read own messages.'),
+				'desc' => 'Read your own messages.'),
 			array(
 				'action' => 'delete',
 				'component' => 'messages',
 				'level' => 0,
 				'name' => 'Delete Messages',
-				'desc' => 'Delete own messages.'),
+				'desc' => 'Delete your own messages.'),
 			
 			/**
 			 * User Actions
@@ -172,17 +172,11 @@ class NovaSeedDatabase extends Migration {
 				'name' => 'Create User',
 				'desc' => ''),
 			array(
-				'action' => 'read',
-				'component' => 'user',
-				'level' => 0,
-				'name' => 'View All Users',
-				'desc' => ''),
-			array(
 				'action' => 'update',
 				'component' => 'user',
 				'level' => 1,
 				'name' => 'Edit User (Level 1)',
-				'desc' => 'Update own user account.'),
+				'desc' => 'Update your own user account.'),
 			array(
 				'action' => 'update',
 				'component' => 'user',
@@ -194,7 +188,7 @@ class NovaSeedDatabase extends Migration {
 				'component' => 'user',
 				'level' => 0,
 				'name' => 'Delete User',
-				'desc' => 'User accounts associated with a character who has content associated with their account (posts, logs, announcements) cannot be deleted.'),
+				'desc' => 'Delete users.'),
 
 			/**
 			 * Character Actions
@@ -212,29 +206,11 @@ class NovaSeedDatabase extends Migration {
 				'name' => 'Create Character (Level 2)',
 				'desc' => 'Create a new character (playing and non-playing) and accept or reject new characters.'),
 			array(
-				'action' => 'read',
-				'component' => 'character',
-				'level' => 1,
-				'name' => 'View Characters',
-				'desc' => 'See all characters associated with their account.'),
-			array(
-				'action' => 'read',
-				'component' => 'character',
-				'level' => 2,
-				'name' => 'View Non-Playing Characters',
-				'desc' => 'See all non-playing characters.'),
-			array(
-				'action' => 'read',
-				'component' => 'character',
-				'level' => 3,
-				'name' => 'View All Characters',
-				'desc' => 'See all characters.'),
-			array(
 				'action' => 'update',
 				'component' => 'character',
 				'level' => 1,
 				'name' => 'Edit Character (Level 1)',
-				'desc' => 'Update own character(s) bio.'),
+				'desc' => 'Update your own character(s) bio.'),
 			array(
 				'action' => 'update',
 				'component' => 'character',
@@ -252,7 +228,7 @@ class NovaSeedDatabase extends Migration {
 				'component' => 'character',
 				'level' => 0,
 				'name' => 'Delete Character',
-				'desc' => 'Characters who have content (posts, logs, announcements, etc.) cannot be deleted.'),
+				'desc' => 'Delete characters. Any character who has content associated with them (posts, logs, announcements) cannot be deleted.'),
 
 			/**
 			 * Mission Post Actions
@@ -274,7 +250,7 @@ class NovaSeedDatabase extends Migration {
 				'component' => 'post',
 				'level' => 1,
 				'name' => 'Edit Post (Level 1)',
-				'desc' => 'Update own mission posts.'),
+				'desc' => 'Update your own mission posts.'),
 			array(
 				'action' => 'update',
 				'component' => 'post',
@@ -308,7 +284,7 @@ class NovaSeedDatabase extends Migration {
 				'component' => 'log',
 				'level' => 1,
 				'name' => 'Edit Log (Level 1)',
-				'desc' => 'Update own personal logs.'),
+				'desc' => 'Update your own personal logs.'),
 			array(
 				'action' => 'update',
 				'component' => 'log',
@@ -342,7 +318,7 @@ class NovaSeedDatabase extends Migration {
 				'component' => 'announcement',
 				'level' => 1,
 				'name' => 'Edit Announcement (Level 1)',
-				'desc' => 'Update own announcements.'),
+				'desc' => 'Update your own announcements.'),
 			array(
 				'action' => 'update',
 				'component' => 'announcement',
@@ -365,12 +341,6 @@ class NovaSeedDatabase extends Migration {
 				'level' => 0,
 				'name' => 'Create Comment',
 				'desc' => ''),
-			array(
-				'action' => 'read',
-				'component' => 'comment',
-				'level' => 0,
-				'name' => 'View All Comments',
-				'desc' => 'See all non-activated comments.'),
 			array(
 				'action' => 'update',
 				'component' => 'comment',
@@ -410,7 +380,7 @@ class NovaSeedDatabase extends Migration {
 				'component' => 'report',
 				'level' => 4,
 				'name' => 'View Reports (Level 4)',
-				'desc' => 'See all system reports.'),
+				'desc' => 'See all reports.'),
 
 			/**
 			 * Ban Actions
@@ -420,12 +390,6 @@ class NovaSeedDatabase extends Migration {
 				'component' => 'ban',
 				'level' => 0,
 				'name' => 'Create Ban',
-				'desc' => ''),
-			array(
-				'action' => 'read',
-				'component' => 'ban',
-				'level' => 0,
-				'name' => 'View All Bans',
 				'desc' => ''),
 			array(
 				'action' => 'update',
@@ -450,12 +414,6 @@ class NovaSeedDatabase extends Migration {
 				'name' => 'Create Position',
 				'desc' => ''),
 			array(
-				'action' => 'read',
-				'component' => 'position',
-				'level' => 0,
-				'name' => 'View All Positions',
-				'desc' => ''),
-			array(
 				'action' => 'update',
 				'component' => 'position',
 				'level' => 0,
@@ -476,12 +434,6 @@ class NovaSeedDatabase extends Migration {
 				'component' => 'rank',
 				'level' => 0,
 				'name' => 'Create Rank',
-				'desc' => ''),
-			array(
-				'action' => 'read',
-				'component' => 'rank',
-				'level' => 0,
-				'name' => 'View All Ranks',
 				'desc' => ''),
 			array(
 				'action' => 'update',
@@ -506,12 +458,6 @@ class NovaSeedDatabase extends Migration {
 				'name' => 'Create Department',
 				'desc' => ''),
 			array(
-				'action' => 'read',
-				'component' => 'department',
-				'level' => 0,
-				'name' => 'View All Departments',
-				'desc' => ''),
-			array(
 				'action' => 'update',
 				'component' => 'department',
 				'level' => 0,
@@ -534,12 +480,6 @@ class NovaSeedDatabase extends Migration {
 				'name' => 'Create Catalog',
 				'desc' => ''),
 			array(
-				'action' => 'read',
-				'component' => 'catalog',
-				'level' => 0,
-				'name' => 'View All Catalogs',
-				'desc' => ''),
-			array(
 				'action' => 'update',
 				'component' => 'catalog',
 				'level' => 0,
@@ -556,10 +496,10 @@ class NovaSeedDatabase extends Migration {
 			 * Form Actions
 			 */
 			array(
-				'action' => 'read',
+				'action' => 'create',
 				'component' => 'form',
 				'level' => 0,
-				'name' => 'View All Forms',
+				'name' => 'Create Form',
 				'desc' => ''),
 			array(
 				'action' => 'update',
@@ -584,12 +524,6 @@ class NovaSeedDatabase extends Migration {
 				'name' => 'Create Navigation Item',
 				'desc' => ''),
 			array(
-				'action' => 'read',
-				'component' => 'nav',
-				'level' => 0,
-				'name' => 'View All Navigation',
-				'desc' => ''),
-			array(
 				'action' => 'update',
 				'component' => 'nav',
 				'level' => 0,
@@ -609,25 +543,19 @@ class NovaSeedDatabase extends Migration {
 				'action' => 'create',
 				'component' => 'role',
 				'level' => 0,
-				'name' => 'Create Role',
-				'desc' => ''),
-			array(
-				'action' => 'read',
-				'component' => 'role',
-				'level' => 0,
-				'name' => 'View All Roles',
+				'name' => 'Create Access Role',
 				'desc' => ''),
 			array(
 				'action' => 'update',
 				'component' => 'role',
 				'level' => 0,
-				'name' => 'Edit Role',
+				'name' => 'Edit Access Role',
 				'desc' => ''),
 			array(
 				'action' => 'delete',
 				'component' => 'role',
 				'level' => 0,
-				'name' => 'Delete Role',
+				'name' => 'Delete Access Role',
 				'desc' => ''),
 
 			/**
@@ -638,12 +566,6 @@ class NovaSeedDatabase extends Migration {
 				'component' => 'content',
 				'level' => 0,
 				'name' => 'Create Content',
-				'desc' => ''),
-			array(
-				'action' => 'read',
-				'component' => 'content',
-				'level' => 0,
-				'name' => 'View All Content',
 				'desc' => ''),
 			array(
 				'action' => 'update',
@@ -668,12 +590,6 @@ class NovaSeedDatabase extends Migration {
 				'name' => 'Create Setting',
 				'desc' => ''),
 			array(
-				'action' => 'read',
-				'component' => 'settings',
-				'level' => 0,
-				'name' => 'View All Settings',
-				'desc' => ''),
-			array(
 				'action' => 'update',
 				'component' => 'settings',
 				'level' => 0,
@@ -685,110 +601,6 @@ class NovaSeedDatabase extends Migration {
 				'level' => 0,
 				'name' => 'Delete Setting',
 				'desc' => ''),
-
-			/**
-			 * Specs Actions
-			 */
-			array(
-				'action' => 'create',
-				'component' => 'specs',
-				'level' => 0,
-				'name' => 'Create Specification',
-				'desc' => ''),
-			array(
-				'action' => 'read',
-				'component' => 'specs',
-				'level' => 0,
-				'name' => 'View All Specifications',
-				'desc' => ''),
-			array(
-				'action' => 'update',
-				'component' => 'specs',
-				'level' => 0,
-				'name' => 'Edit Specification',
-				'desc' => ''),
-			array(
-				'action' => 'delete',
-				'component' => 'specs',
-				'level' => 0,
-				'name' => 'Delete Specification',
-				'desc' => ''),
-
-			/**
-			 * Tour Actions
-			 */
-			array(
-				'action' => 'create',
-				'component' => 'tour',
-				'level' => 0,
-				'name' => 'Create Tour',
-				'desc' => ''),
-			array(
-				'action' => 'read',
-				'component' => 'tour',
-				'level' => 0,
-				'name' => 'View All Tour Items',
-				'desc' => ''),
-			array(
-				'action' => 'update',
-				'component' => 'tour',
-				'level' => 0,
-				'name' => 'Edit Tour',
-				'desc' => ''),
-			array(
-				'action' => 'delete',
-				'component' => 'tour',
-				'level' => 0,
-				'name' => 'Delete Tour',
-				'desc' => ''),
-
-			/**
-			 * Wiki Actions
-			 */
-			array(
-				'action' => 'create',
-				'component' => 'wiki',
-				'level' => 1,
-				'name' => 'Create Wiki Page',
-				'desc' => ''),
-			array(
-				'action' => 'create',
-				'component' => 'wiki',
-				'level' => 2,
-				'name' => 'Create Wiki Categories',
-				'desc' => ''),
-			array(
-				'action' => 'update',
-				'component' => 'wiki',
-				'level' => 1,
-				'name' => 'Edit Wiki (Level 1)',
-				'desc' => 'Update own wiki pages'),
-			array(
-				'action' => 'update',
-				'component' => 'wiki',
-				'level' => 2,
-				'name' => 'Edit Wiki (Level 2)',
-				'desc' => 'Update and revert all wiki pages'),
-			array(
-				'action' => 'update',
-				'component' => 'wiki',
-				'level' => 3,
-				'name' => 'Edit Wiki (Level 3)',
-				'desc' => 'Update wiki categories'),
-			array(
-				'action' => 'delete',
-				'component' => 'wiki',
-				'level' => 1,
-				'name' => 'Delete Wiki Page',
-				'desc' => ''),
-			array(
-				'action' => 'delete',
-				'component' => 'wiki',
-				'level' => 2,
-				'name' => 'Delete Wiki Categories',
-				'desc' => ''),
-
-			# TODO: forum actions
 		);
 		
 		foreach ($data as $value)

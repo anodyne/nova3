@@ -127,7 +127,7 @@ class Info extends AjaxBaseController {
 	 */
 	public function getRoles_with_task()
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('role.read'))
+		if (Sentry::check())
 		{
 			// Clean the variable
 			$id = e(Request::segment(4, false));
@@ -165,7 +165,7 @@ class Info extends AjaxBaseController {
 	 */
 	public function getUsers_with_role()
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('role.read'))
+		if (Sentry::check())
 		{
 			// Clean the variable
 			$id = e(Request::segment(4, false));

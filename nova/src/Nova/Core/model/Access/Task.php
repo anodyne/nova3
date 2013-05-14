@@ -11,11 +11,11 @@ class Task extends Model {
 	protected $table = 'tasks';
 
 	protected $fillable = array(
-		'name', 'desc', 'component', 'action', 'level', 'dependencies',
+		'name', 'desc', 'component', 'action', 'level',
 	);
 	
 	protected static $properties = array(
-		'id', 'name', 'desc', 'component', 'action', 'level', 'dependencies',
+		'id', 'name', 'desc', 'component', 'action', 'level',
 	);
 
 	/*

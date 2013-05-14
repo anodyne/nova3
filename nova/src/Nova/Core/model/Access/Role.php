@@ -14,16 +14,18 @@ class Role extends Model implements GroupInterface {
 	const ADMIN			= 5;
 	const SYSADMIN		= 6;
 	
-	public $timestamps = false;
-
 	protected $table = 'roles';
 
 	protected $fillable = array(
 		'name', 'desc', 'inherits',
 	);
+
+	protected $dates = array(
+		'created_at', 'updated_at',
+	);
 	
 	protected static $properties = array(
-		'id', 'name', 'desc', 'inherits',
+		'id', 'name', 'desc', 'inherits', 'created_at', 'updated_at',
 	);
 
 	/*
