@@ -11,8 +11,9 @@
 |
 */
 
-//$app = new Illuminate\Foundation\Application;
 $app = new Nova\Foundation\Application;
+
+$app->redirectIfTrailingSlash();
 
 /*
 |--------------------------------------------------------------------------
