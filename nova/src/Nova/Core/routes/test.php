@@ -8,6 +8,9 @@ Route::group(array('prefix' => 'test'), function()
 		//Cache::put('test', 'foo', 5);
 		//s(Cache::get('test'));
 
+		$foo = [];
+		s($foo);
+
 		return 'Done';
 	});
 
