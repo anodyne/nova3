@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Contracts;
 
-interface Media {
+interface MediaInterface {
 	
 	public function addMedia();
 

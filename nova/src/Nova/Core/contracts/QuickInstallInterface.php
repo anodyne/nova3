@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Contracts;
 
-interface QuickInstall {
+interface QuickInstallInterface {
 	
 	/**
 	 * Install the item.

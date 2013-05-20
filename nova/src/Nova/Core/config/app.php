@@ -183,7 +183,7 @@ return array(
 		'Redirect'        => 'Illuminate\Support\Facades\Redirect',
 		'Redis'           => 'Illuminate\Support\Facades\Redis',
 		'Request'         => 'Illuminate\Support\Facades\Request',
-		'Response'        => 'Illuminate\Support\Facades\Response',
+		//'Response'        => 'Illuminate\Support\Facades\Response',
 		'Route'           => 'Illuminate\Support\Facades\Route',
 		'Schema'          => 'Illuminate\Support\Facades\Schema',
 		'Seeder'          => 'Illuminate\Database\Seeder',
@@ -214,6 +214,7 @@ return array(
 		'Media'			=> 'Nova\Core\Lib\Media',
 		'Model'			=> 'Nova\Foundation\Database\Eloquent\Model',
 		'Nav'			=> 'Nova\Core\Lib\Nav',
+		'Response'      => 'Nova\Foundation\Support\Facades\Response',
 		'Sentry' 		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Status'		=> 'Nova\Core\Lib\Status',
 		'SystemEvent'	=> 'Nova\Core\Lib\SystemEvent',
@@ -222,9 +223,9 @@ return array(
 		/**
 		 * Nova Interfaces
 		 */
-		'MediaInterface'			=> 'Nova\Core\Contracts\Media',
-		'QuickInstallInterface'		=> 'Nova\Core\Contracts\QuickInstall',
-		'SearchInterface'			=> 'Nova\Core\Contracts\Search',
+		'MediaInterface'			=> 'Nova\Core\Contracts\MediaInterface',
+		'QuickInstallInterface'		=> 'Nova\Core\Contracts\QuickInstallInterface',
+		'SearchInterface'			=> 'Nova\Core\Contracts\SearchInterface',
 
 		/**
 		 * Nova Models

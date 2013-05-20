@@ -1,6 +1,6 @@
 <?php
 
-Route::filter('apiAuth', function()
+Route::filter('api.auth', function()
 {
 	// Test against the presence of Basic Auth credentials
 	$creds = [
@@ -10,8 +10,12 @@ Route::filter('apiAuth', function()
 
 	if ( ! Auth::attempt($creds))
 	{
-		return Response::header('WWW-Authenticate', 'Basic realm="NovaAPI"')
-			->json(['error' => true, 'message' => 'Unauthorized Request'], 401);
+		return Response::json([
+			'error' => true,
+			'message' => 'Unauthorized Request'],
+			401,
+			['WWW-Authenticate' => 'Basic realm="NOVE REST API"']
+		);
 	}
 });
 
@@ -28,13 +32,5 @@ Route::get('api/info', function()
 
 Route::group(['prefix' => 'api/v1'], function()
 {
-	Route::resource('user', 'Nova\Api\Controller\V1\User');
+	Route::resource('user', 'Nova\Api\V1\User');
 });
-
-/*
-require 'routes/logs.php';
-require 'routes/posts.php';
-require 'routes/missions.php';
-require 'routes/characters.php';
-require 'routes/announcements.php';
-*/
