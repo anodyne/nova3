@@ -1,6 +1,6 @@
 <?php
 
-Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|setupAuthorization|csrf'), function()
+Route::group(['prefix' => 'setup/install', 'before' => 'configFileCheck|setupAuthorization|csrf'], function()
 {
 	/**
 	 * Nothing here, redirect to the start page.
@@ -19,7 +19,7 @@ Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|set
 		set_time_limit(0);
 
 		// Run the migrations
-		Artisan::call('migrate', array('--path' => 'nova/src/Nova/Setup/database/migrations'));
+		Artisan::call('migrate', ['--path' => 'nova/src/Nova/Setup/database/migrations']);
 
 		// Get the session generator file
 		$fileContents = File::get(SRCPATH.'Setup/generators/session.php');
@@ -111,12 +111,11 @@ Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|set
 		$data->content->defaultRank = Location::rank($rank->base, $rank->pip, $rankSetLocation);
 
 		// Set the controls
-		$data->controls = Form::button('Submit', array(
+		$data->controls = Form::button('Submit', [
 			'class'	=> 'btn btn-primary',
 			'id'	=> 'next',
 			'type'	=> 'submit',
-		)).
-		//Form::hidden('_token', csrf_token()).
+		]).
 		Form::close();
 
 		return setupTemplate($data);
@@ -141,16 +140,16 @@ Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|set
 
 		// Set the validation messages
 		$messages = array(
-			'sim_name.required' => "Please enter your sim's name",
-			'name.required' => "Please enter your name",
-			'email.required' => "Please enter your email address",
-			'email.email' => "Please enter a valid email address",
-			'password.required' => "Please enter a password",
-			'password_confirm.required' => "Please enter your password again",
-			'password_confirm.same' => "Your passwords do not match, try again",
-			'first_name.required' => "Please enter your character's first name",
-			'position.required' => "Please select a position",
-			'rank.required' => "Please select a rank",
+			'sim_name.required'			=> "Please enter your sim's name",
+			'name.required'				=> "Please enter your name",
+			'email.required'			=> "Please enter your email address",
+			'email.email'				=> "Please enter a valid email address",
+			'password.required'			=> "Please enter a password",
+			'password_confirm.required'	=> "Please enter your password again",
+			'password_confirm.same'		=> "Your passwords do not match, try again",
+			'first_name.required'		=> "Please enter your character's first name",
+			'position.required'			=> "Please select a position",
+			'rank.required'				=> "Please select a rank",
 		);
 
 		// Setup the validator
@@ -164,30 +163,31 @@ Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|set
 
 		// Update the sim name
 		$simName = Settings::getItems('sim_name', false);
-		$simName->value = Input::get('sim_name');
+		$simName->value = e(Input::get('sim_name'));
 		$simName->save();
 
 		// Create the user
-		$user = User::add(array(
-			'status'	=> Status::ACTIVE,
-			'name'		=> Input::get('name'),
-			'email'		=> Input::get('email'),
-			'password'	=> Input::get('password'),
-			'role_id'	=> AccessRole::SYSADMIN,
-		), true);
+		$user = User::add([
+			'status'		=> Status::ACTIVE,
+			'name'			=> e(Input::get('name')),
+			'email'			=> e(Input::get('email')),
+			'password'		=> e(Input::get('password')),
+			'role_id'		=> AccessRole::SYSADMIN,
+			'activated_at'	=> Date::now(),
+		], true);
 
 		// Create the character
-		$character = Character::add(array(
+		$character = Character::add([
 			'user_id'		=> $user->id,
 			'status'		=> Status::ACTIVE,
-			'first_name'	=> Input::get('first_name'),
-			'last_name'		=> Input::get('last_name'),
-			'rank_id'		=> Input::get('rank'),
-			'activated'		=> Date::now(),
-		), true);
+			'first_name'	=> e(Input::get('first_name')),
+			'last_name'		=> e(Input::get('last_name')),
+			'rank_id'		=> e(Input::get('rank')),
+			'activated_at'	=> Date::now(),
+		], true);
 
 		// Add the character's position
-		$character->positions()->attach(Input::get('position'), array('primary' => (int) true));
+		$character->positions()->attach(e(Input::get('position')), ['primary' => (int) true]);
 
 		// Update the user with the character ID
 		$user->character_id = $character->id;
@@ -212,7 +212,7 @@ Route::group(array('prefix' => 'setup/install', 'before' => 'configFileCheck|set
 		$data->content = new stdClass;
 
 		// Set the controls
-		$data->controls = HTML::link('main/index', 'Go to Main Page', array('class' => 'btn btn-primary'));
+		$data->controls = HTML::link('main/index', 'Go to Main Page', ['class' => 'btn btn-primary']);
 
 		return setupTemplate($data);
 	});
