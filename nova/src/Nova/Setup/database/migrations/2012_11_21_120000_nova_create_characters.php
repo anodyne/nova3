@@ -21,8 +21,8 @@ class NovaCreateCharacters extends Migration {
 			$t->string('last_name')->nullable();
 			$t->string('suffix')->nullable();
 			$t->integer('rank_id')->default(1);
-			$t->datetime('activated')->nullable();
-			$t->datetime('deactivated')->nullable();
+			$t->datetime('activated_at')->nullable();
+			$t->datetime('deactivated_at')->nullable();
 			$t->datetime('last_post')->nullable();
 			$t->timestamps();
 		});

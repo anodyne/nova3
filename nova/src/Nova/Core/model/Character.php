@@ -12,16 +12,16 @@ class Character extends Model {
 
 	protected $fillable = array(
 		'first_name', 'last_name', 'middle_name', 'suffix', 'status',
-		'user_id', 'rank_id', 'activated'
+		'user_id', 'rank_id', 'activated_at', 'deactivated_at', 'last_post',
 	);
 
 	protected $dates = array(
-		'created_at', 'updated_at', 'activated', 'deactivated', 'last_post',
+		'created_at', 'updated_at', 'activated_at', 'deactivated_at', 'last_post',
 	);
 	
 	protected static $properties = array(
 		'id', 'user_id', 'status', 'first_name', 'middle_name', 'last_name', 
-		'suffix', 'rank_id', 'activated', 'deactivated', 'last_post', 
+		'suffix', 'rank_id', 'activated_at', 'deactivated_at', 'last_post', 
 		'created_at', 'updated_at',
 	);
 
