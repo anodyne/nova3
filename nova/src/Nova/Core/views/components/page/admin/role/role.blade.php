@@ -55,7 +55,7 @@
 	<h2>{{ ucwords(langConcat('role tasks')) }}</h2>
 		
 	@if (count($tasks) > 0)
-		<div class="hidden-phone taskList">
+		<div class="hidden-sm taskList">
 			@foreach ($tasks as $component => $task)
 				<fieldset>
 					<legend>{{ ucfirst($component) }}</legend>
@@ -89,7 +89,7 @@
 			@endforeach
 		</div>
 
-		<div class="visible-phone taskList">
+		<div class="visible-sm taskList">
 			<div class="row">
 				<div class="col col-sm-12">
 					<div class="accordion" id="accordion">
@@ -139,14 +139,10 @@
 		<p class="alert">{{ lang('error.notFound', langConcat('tasks')) }}</p>
 	@endif
 
-	<div class="row">
-		<div class="col col-lg-4">
-			<div class="controls">
-				{{ Form::hidden('id') }}
-				{{ Form::hidden('action', $action) }}
-				
-				{{ Form::button(ucfirst(lang('action.submit')), array('type' => 'submit', 'class' => 'btn btn-primary')) }}
-			</div>
-		</div>
+	<div class="controls">
+		{{ Form::hidden('id') }}
+		{{ Form::hidden('action', $action) }}
+		
+		{{ Form::button(ucfirst(lang('action.submit')), array('type' => 'submit', 'class' => 'btn btn-primary')) }}
 	</div>
 {{ Form::close() }}

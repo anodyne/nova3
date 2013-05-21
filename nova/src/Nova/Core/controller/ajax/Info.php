@@ -129,14 +129,24 @@ class Info extends AjaxBaseController {
 	{
 		if (Sentry::check())
 		{
+			// What type of request is it?
+			$format = e(Request::segment(5, 'html'));
+
 			// Clean the variable
 			$id = e(Request::segment(4, false));
 
 			// Get the task
 			$task = \AccessTask::find($id);
 
-			echo View::make(Location::file('info/task_roles', Utility::getSkin('admin'), 'ajax'))
-				->with('roles', $task->roles);
+			if ($format == 'html')
+			{
+				echo View::make(Location::file('info/task_roles', Utility::getSkin('admin'), 'ajax'))
+					->with('roles', $task->roles);
+			}
+			else
+			{
+				echo $task->roles->toJson();
+			}
 		}
 	}
 

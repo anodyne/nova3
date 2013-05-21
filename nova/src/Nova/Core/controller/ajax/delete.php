@@ -261,8 +261,6 @@ class Delete extends AjaxBaseController {
 					return ($r->id != $id);
 				});
 
-				sd(View::make(Location::file('delete/role', Utility::getSkin('admin'), 'ajax'), $data)->render());
-
 				echo View::make(Location::file('delete/role', Utility::getSkin('admin'), 'ajax'), $data);
 			}
 		}

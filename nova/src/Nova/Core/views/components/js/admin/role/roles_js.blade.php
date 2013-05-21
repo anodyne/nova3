@@ -42,11 +42,32 @@
 					}
 					else
 					{
-						//
+						if (check.prop("disabled"))
+						{
+							$.ajax({
+								type: "POST",
+								url: "{{ URL::to('ajax/info/roles_with_task') }}/" + check.val() + "/json",
+								dataType: "json",
+								success: function(roles){
+
+									console.log("Count: " + roles.length);
+									console.log("ID: " + roles.id);
+									
+									$.each(roles, function(){
+										//console.log(this.id);
+									});
+									// Check what roles this task is associated with
+
+									// Are any of those roles inherited from here?
+									// If Yes, do nothing
+									// If No, uncheck and enabled
+								}
+							});
+						}
 					}
 				});
-
-				// Unblock the UI
+			},
+			complete: function(){
 				$.unblockUI();
 			}
 		});
@@ -58,10 +79,9 @@
 
 		if (doaction == 'delete')
 		{
-			$('<div/>').dialog2({
-				title: "{{ ucwords(lang('short.delete', lang('role'))) }}",
-				content: "{{ URL::to('ajax/delete/role') }}/" + id
-			});
+			$('#deleteRole').modal({
+				remote: "{{ URL::to('ajax/delete/role') }}/" + id
+			}).modal('show');
 		}
 
 		if (doaction == 'duplicate')

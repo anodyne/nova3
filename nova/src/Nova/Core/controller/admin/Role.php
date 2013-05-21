@@ -72,8 +72,8 @@ class Role extends AdminBaseController {
 			}
 			else
 			{
-				$this->_data->inheritedTasks = array();
-				$this->_data->roleTasks = array();
+				$this->_data->inheritedTasks = [];
+				$this->_data->roleTasks = [];
 
 				// Set the action
 				$this->_data->action = 'create';
@@ -143,17 +143,20 @@ class Role extends AdminBaseController {
 			// Get the tasks from the POST
 			$tasks = Input::get('tasks');
 
-			// Remove the inherited items from the list
-			foreach ($tasks as $task)
+			if (isset($tasks) and is_array($tasks))
 			{
-				if (in_array($task, $inheritedTasks))
+				// Remove the inherited items from the list
+				foreach ($tasks as $task)
 				{
-					unset($tasks[$task]);
+					if (in_array($task, $inheritedTasks))
+					{
+						unset($tasks[$task]);
+					}
 				}
-			}
 
-			// Sync the roles_tasks table
-			$item->tasks()->sync($tasks);
+				// Sync the roles_tasks table
+				$item->tasks()->sync($tasks);
+			}
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -227,17 +230,20 @@ class Role extends AdminBaseController {
 				// Get the tasks from the POST
 				$tasks = Input::get('tasks');
 
-				// Remove the inherited items from the list
-				foreach ($tasks as $task)
+				if (isset($tasks) and is_array($tasks))
 				{
-					if (in_array($task, $inheritedTasks))
+					// Remove the inherited items from the list
+					foreach ($tasks as $task)
 					{
-						unset($tasks[$task]);
+						if (in_array($task, $inheritedTasks))
+						{
+							unset($tasks[$task]);
+						}
 					}
-				}
 
-				// Sync the roles_tasks table
-				$role->tasks()->sync($tasks);
+					// Sync the roles_tasks table
+					$item->tasks()->sync($tasks);
+				}
 			}
 
 			// Set the flash info
@@ -260,27 +266,37 @@ class Role extends AdminBaseController {
 			$id = e(Input::get('id'));
 			$id = (is_numeric($id)) ? $id : false;
 
-			// We have a task ID, so continue...
-			if ($id)
+			// Get the new ID
+			$newRoleId = e(Input::get('new_role_id'));
+			$newRoleId = (is_numeric($newRoleId)) ? $newRoleId : false;
+
+			if ($id and $newRoleId)
 			{
-				// Get the task
-				$task = AccessTask::find($id);
+				// Get the role
+				$role = AccessRole::find($id);
+
+				// Update all users with this role
+				foreach ($role->users as $user)
+				{
+					$user->role_id = $newRoleId;
+					$user->save();
+				}
 
 				// Delete the records from the pivot table
-				$task->roles()->detach();
+				$role->tasks()->detach();
 
-				// Now delete the task
-				$task->delete();
+				// Now delete the role
+				$role->delete();
 
 				// Set the flash info
 				$flashStatus = 'success';
-				$flashMessage = ucfirst(lang('short.alert.success.delete', langConcat('access task')));
+				$flashMessage = ucfirst(lang('short.alert.success.delete', langConcat('access role')));
 			}
 			else
 			{
 				// Set the flash info
 				$flashStatus = 'danger';
-				$flashMessage = ucfirst(lang('short.alert.failure.delete', langConcat('access task')));
+				$flashMessage = ucfirst(lang('short.alert.failure.delete', langConcat('access role')));
 			}
 		}
 
@@ -315,7 +331,7 @@ class Role extends AdminBaseController {
 			$components = AccessTask::getComponents();
 
 			// Storage array
-			$cs = array();
+			$cs = [];
 
 			// Loop through the tasks and get the components
 			foreach ($components as $c)
