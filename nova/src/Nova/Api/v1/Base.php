@@ -12,6 +12,7 @@
  * @copyright	2013 Anodyne Productions
  */
 
+use URL;
 use Request;
 use Controller;
 
@@ -22,9 +23,20 @@ abstract class Base extends Controller {
 	 */
 	protected $request;
 
+	/**
+	 * The API URL group.
+	 */
+	protected $url;
+
+	/**
+	 * The number of results per page.
+	 */
+	protected $resultsPerPage = 25;
+
 	public function __construct()
 	{
-		$this->request = Request::instance();
+		$this->url		= URL::to("api/v1");
+		$this->request	= Request::instance();
 	}
 
 }
