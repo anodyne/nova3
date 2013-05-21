@@ -2,21 +2,7 @@
 
 Route::filter('api.auth', function()
 {
-	// Test against the presence of Basic Auth credentials
-	$creds = [
-		'username' => Request::getUser(),
-		'password' => Request::getPassword(),
-	];
-
-	if ( ! Auth::attempt($creds))
-	{
-		return Response::json([
-			'error' => true,
-			'message' => 'Unauthorized Request'],
-			401,
-			['WWW-Authenticate' => 'Basic realm="NOVE REST API"']
-		);
-	}
+	return Auth::onceBasic();
 });
 
 Route::get('api/info', function()
