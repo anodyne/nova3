@@ -100,7 +100,8 @@ class Character extends Model {
 	 */
 	public function positions()
 	{
-		return $this->belongsToMany('Position', 'character_positions');
+		return $this->belongsToMany('Position', 'character_positions')
+			->withPivot('primary');
 	}
 
 	/**
