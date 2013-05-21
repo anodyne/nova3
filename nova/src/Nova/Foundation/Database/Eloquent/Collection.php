@@ -1,10 +1,9 @@
 <?php namespace Nova\Foundation\Database\Eloquent;
 
 use stdClass;
-use Nova\Core\Contracts\CollectionInterface;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
-class Collection extends EloquentCollection implements CollectionInterface {
+class Collection extends EloquentCollection {
 
 	/**
 	 * Convert a collection to a simple array.
@@ -54,54 +53,6 @@ class Collection extends EloquentCollection implements CollectionInterface {
 		}
 
 		return $final;
-	}
-
-	/*
-	|--------------------------------------------------------------------------
-	| CollectionInterface Implementation
-	|--------------------------------------------------------------------------
-	*/
-
-	protected $collectionName;
-
-	/**
-	 * Return ETag based on collection of items.
-	 *
-	 * @return	string
-	 */
-	public function getEtags($regen = false)
-	{
-		$etag = '';
-
-		foreach ($this as $resource)
-		{
-			$etag.= $resource->getEtag($regen);
-		}
-
-		return md5($etag);
-	}
-
-	/**
-	 * Set the name of the collection for API resource output.
-	 *
-	 * @param	string	Name of the collection
-	 * @return	Collection
-	 */
-	public function setCollectionName($name)
-	{
-		$this->collectionName = $name;
-
-		return $this;
-	}
-
-	/**
-	 * Retrieve the collection name.
-	 *
-	 * @return	string
-	 */
-	public function getCollectionName()
-	{
-		return $this->collectionName;
 	}
 
 }

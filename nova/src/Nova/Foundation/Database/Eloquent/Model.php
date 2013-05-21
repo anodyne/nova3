@@ -15,11 +15,10 @@ use Date;
 use Config;
 use Status;
 use Exception;
-use Nova\Core\Contracts\ResourceInterface;
 use Nova\Foundation\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
-class Model extends EloquentModel implements ResourceInterface {
+class Model extends EloquentModel {
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -479,83 +478,6 @@ class Model extends EloquentModel implements ResourceInterface {
 		}
 		
 		throw new Exception(lang('error.exception.model.delete'));
-	}
-
-	/*
-	|--------------------------------------------------------------------------
-	| ResourceInterface Implementation
-	|--------------------------------------------------------------------------
-	*/
-
-	protected $etag = false;
-
-	protected $resourceName;
-
-	/**
-	 * Retrieve ETag for single resource.
-	 *
-	 * @return	string
-	 */
-	public function getEtag($regen = false)
-	{
-		if ($this->exists and ($this->etag === false or $regen === true))
-    	{
-    		$this->etag = $this->generateEtag();
-    	}
-
-    	return $this->etag;
-	}
-
-	/**
-	 * Generate ETag for single resource.
-	 *
-	 * @return	string
-	 */
-	protected function generateEtag()
-	{
-		$etag = $this->getTable().$this->getKey();
-
-		if ($this->usesTimestamps())
-		{
-			$datetime = $this->updated_at;
-
-			if ($datetime instanceof Date)
-			{
-				$datetime = $this->fromDateTime($datetime);
-			}
-
-			$etag.= $datetime;
-		}
-
-    	return md5($etag);
-	}
-
-	/**
-	 * Set the name of the resource for API resource output.
-	 *
-	 * @param	string	Name of the resource
-	 * @return	Model
-	 */
-	public function setResourceName($name)
-	{
-		$this->resourceName = $name;
-
-		return $this;
-	}
-
-	/**
-	 * Retrieve the resource name.
-	 *
-	 * @return	string
-	 */
-	public function getResourceName()
-	{
-		if ($this->resourceName === null)
-		{
-			$this->resourceName = $this->getTable();
-		}
-
-		return $this->resourceName;
 	}
 
 }

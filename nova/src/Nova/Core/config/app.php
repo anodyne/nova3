@@ -218,7 +218,6 @@ return array(
 		'Media'			=> 'Nova\Core\Lib\Media',
 		'Model'			=> 'Nova\Foundation\Database\Eloquent\Model',
 		'Nav'			=> 'Nova\Core\Lib\Nav',
-		'Response'      => 'Nova\Foundation\Support\Facades\Response',
 		'Sentry' 		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Status'		=> 'Nova\Core\Lib\Status',
 		'SystemEvent'	=> 'Nova\Core\Lib\SystemEvent',
