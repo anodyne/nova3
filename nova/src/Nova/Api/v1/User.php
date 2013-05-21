@@ -1,7 +1,9 @@
 <?php namespace Nova\Api\V1;
 
+use Input;
 use Status;
 use Response;
+use UserValidator;
 use User as UserModel;
 
 class User extends Base {
@@ -86,23 +88,6 @@ class User extends Base {
 	}
 
 	/**
-	 * Create a new user.
-	 *
-	 * @return	JSON
-	 */
-	public function store()
-	{
-		$user = new UserModel;
-		$user->user_id = Auth::user()->id;
-		$user->title = Request::get('title');
-		$user->content = Request::get('content');
-
-		$user->save();
-
-		return Response::resourceJson($user, [], 201);
-	}
-
-	/**
 	 * Show a specific user.
 	 *
 	 * @param	int		The user ID
@@ -118,14 +103,32 @@ class User extends Base {
 			return Response::api($this->collectUserData($user), 200);
 		}
 
-		return Response::api("User not found", 404);
+		return Response::api("User not found", 400);
+	}
+
+	/**
+	 * Create a new user.
+	 *
+	 * @return	JSON
+	 * @todo	Authorization
+	 */
+	public function store()
+	{
+		// Validate the user
+		$this->validateUser();
+
+		// Create a new user
+		$user = UserModel::add(Input::get(), true);
+
+		return Response::api($this->collectUserData($user), 201);
 	}
 
 	/**
 	 * Update a user.
 	 *
-	 * @param	int		The ID
+	 * @param	int		The user ID
 	 * @return	JSON
+	 * @todo	Authorization
 	 */
 	public function update($id)
 	{
@@ -133,53 +136,40 @@ class User extends Base {
 		$user = UserModel::find($id);
 
 		// If no article return a bad request because user ID is invalid
-		if ( ! $user)
+		if ($user !== null)
 		{
-			App::abort(400);
+			// Validate the user
+			$this->validateUser();
+
+			// Update the user
+			$user->update(Input::get());
+
+			return Response::api($this->collectUserData($user), 200);
 		}
 
-		// Check If-Match header
-		$etag = Request::header('if-match');
-
-		// If etag is given, and does not match
-		if ($etag !== null and $etag !== $user->getEtag())
-		{
-			return Response::json([], 412);
-		}
-
-		// Some validation, only update fields that are present
-		if (Request::get('title'))
-		{
-			$user->title = Request::get('title');
-		}
-
-		if (Request::get('content'))
-		{
-			$user->content = Request::get('content');
-		}
-
-		// Save it
-		$user->save();
-
-		// Refresh the eTag, since it'll be new
-		$user->getEtag(true);
-
-		return Response::resourceJson($user, [], 200);
+		return Response::api("User not found", 400);
 	}
 
 	/**
 	 * Remove a user.
 	 *
 	 * @param	int		The ID
-	 * @return	bool
+	 * @return	JSON
+	 * @todo	Authorization
 	 */
 	public function destroy($id)
 	{
+		// Find the user
 		$user = UserModel::find($id);
 
-		$user->delete();
+		if ($user !== null)
+		{
+			$user->delete();
 
-		return Response::json(['message' => 'User deleted'], 200);
+			return Response::api("User removed", 200);
+		}
+
+		return Response::api("User not found", 400);
 	}
 
 	/**
@@ -188,7 +178,7 @@ class User extends Base {
 	 * @param	User	The user
 	 * @return	array
 	 */
-	private function collectUserData($user)
+	protected function collectUserData($user)
 	{
 		// Get the user's primary character
 		$primary = $user->getPrimaryCharacter();
@@ -273,6 +263,26 @@ class User extends Base {
 		];
 
 		return $data;
+	}
+
+	/**
+	 * Validate the user.
+	 *
+	 * @return	Response|void
+	 */
+	protected function validateUser()
+	{
+		// Set up the validation service
+		$validator = new UserValidator(Input::get());
+
+		// If the validation fails, stop and go back
+		if ( ! $validator->passes())
+		{
+			// Format the validation errors
+			$messages = $this->formatValidationErrors($validator);
+
+			return Response::api("Validation of the user information failed. {$messages}", 409);
+		}
 	}
 
 }
