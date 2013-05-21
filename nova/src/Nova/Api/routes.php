@@ -16,7 +16,7 @@ Route::get('api/info', function()
 	return Response::json($data, 200);
 });
 
-Route::group(['prefix' => 'api/v1'], function()
+Route::group(['prefix' => '{api}/v1'], function()
 {
 	/**
 	 * User API
@@ -27,7 +27,7 @@ Route::group(['prefix' => 'api/v1'], function()
 	 * PUT		api/v1/user/{id}	Update the user passed in the URI
 	 * DELETE	api/v1/user/{id}	Delete the user passed in the URI
 	 */
-	Route::get('user/{type?}', 'Nova\Api\V1\User@index')->where('type', '[A-Za-z]+');
+	Route::get('user/{type?}/{page?}', 'Nova\Api\V1\User@index')->where('type', '[A-Za-z]+');
 	Route::get('user/{id}', 'Nova\Api\V1\User@show')->where('id', '[0-9]+');
 	Route::post('user', 'Nova\Api\V1\User@store');
 	Route::put('user/{id}', 'Nova\Api\V1\User@update');
