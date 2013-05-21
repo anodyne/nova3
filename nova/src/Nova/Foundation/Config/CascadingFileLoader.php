@@ -212,8 +212,6 @@ class CascadingFileLoader implements LoaderInterface {
 			}
 		}
 
-		s($items);
-
 		return $items;
 	}
 
