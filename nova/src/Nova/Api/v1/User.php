@@ -17,9 +17,8 @@ class User extends Base {
 	 * Display all active users.
 	 *
 	 * @param	string		Type of users to pull (active, inactive, pending)
-	 * @return	Collection
-	 * @todo	Parameters for getting other sets of data from the API
-	 * @todo	Pagination
+	 * @param	int			Page number
+	 * @return	JSON
 	 */
 	public function index($type = 'active', $page = 1)
 	{
@@ -53,88 +52,10 @@ class User extends Base {
 			// Holding array for the user data
 			$userData = [];
 
+			// Loop through the users and collect the data
 			foreach ($users as $user)
 			{
-				// Get the user's primary character
-				$primary = $user->getPrimaryCharacter();
-
-				// Get the primary character's positions
-				foreach ($primary->positions as $position)
-				{
-					$primaryCharacterPositions[] = [
-						'id'			=> $position->id,
-						'name'			=> $position->name,
-						'department'	=> $position->dept->name,
-						'primary'		=> (bool) $position->pivot->primary,
-					];
-
-					if ((bool) $position->pivot->primary === true)
-					{
-						$primaryCharacterPrimaryPosition = [
-							'id'			=> $position->id,
-							'name'			=> $position->name,
-							'department'	=> $position->dept->name,
-						];
-					}
-				}
-
-				// Get the user's characters
-				foreach ($user->characters as $char)
-				{
-					// Get the primary character's positions
-					foreach ($char->positions as $position)
-					{
-						$characterPositions[] = [
-							'id'			=> $position->id,
-							'name'			=> $position->name,
-							'department'	=> $position->dept->name,
-							'primary'		=> (bool) $position->pivot->primary,
-						];
-
-						if ((bool) $position->pivot->primary === true)
-						{
-							$characterPrimaryPosition = [
-								'id'			=> $position->id,
-								'name'			=> $position->name,
-								'department'	=> $position->dept->name,
-							];
-						}
-					}
-
-					$userCharacters[] = [
-						'id'			=> $char->id,
-						'name'			=> $char->getName(),
-						'rank'			=> $char->rank->info->name,
-						'position'		=> $characterPrimaryPosition,
-						'all_positions'	=> $characterPositions,
-					];
-				}
-
-				$userData[] = [
-					'id'				=> $user->id,
-					'name'				=> $user->name,
-					'email'				=> $user->email,
-					'status'			=> Status::toString($user->status),
-					'role'				=> $user->role->name,
-					
-					'dates'				=> [
-						'last_post'		=> $user->last_post->toDateTimeString(),
-						'last_login'	=> $user->last_login->toDateTimeString(),
-						'activated_at'	=> $user->activated_at->toDateTimeString(),
-						'created_at'	=> $user->created_at->toDateTimeString(),
-						'updated_at'	=> $user->updated_at->toDateTimeString(),
-					],
-					
-					'primary_character'	=> [
-						'id'			=> $primary->id,
-						'name'			=> $primary->getName(),
-						'rank'			=> $primary->rank->info->name,
-						'position'		=> $primaryCharacterPrimaryPosition,
-						'all_positions'	=> $primaryCharacterPositions,
-					],
-					
-					'characters'		=> $userCharacters,
-				];
+				$userData[] = $this->collectUserData($user);
 			}
 
 			// Set the data
@@ -167,7 +88,7 @@ class User extends Base {
 	/**
 	 * Create a new user.
 	 *
-	 * @return	User
+	 * @return	JSON
 	 */
 	public function store()
 	{
@@ -184,42 +105,27 @@ class User extends Base {
 	/**
 	 * Show a specific user.
 	 *
-	 * @param	int		The ID
-	 * @return	User
+	 * @param	int		The user ID
+	 * @return	JSON
 	 */
 	public function show($id)
 	{
+		// Get the user
 		$user = UserModel::find($id);
 
 		if ($user !== null)
 		{
-			// Set the resource name
-			$user->setResourceName('user');
-
-			// Get the ETags
-			$etag = Request::getEtags();
-
-			if (isset($etag[0]))
-			{
-				$etag = str_replace('"', '', $etag[0]);
-
-				if ($etag === $user->getEtag())
-				{
-					App::abort(304);
-				}
-			}
-
-			return Response::resourceJson($user);
+			return Response::api($this->collectUserData($user), 200);
 		}
 
-		return Response::json(['error' => true, 'message' => 'User not found'], 404);
+		return Response::api("User not found", 404);
 	}
 
 	/**
 	 * Update a user.
 	 *
 	 * @param	int		The ID
-	 * @return	User
+	 * @return	JSON
 	 */
 	public function update($id)
 	{
@@ -274,6 +180,99 @@ class User extends Base {
 		$user->delete();
 
 		return Response::json(['message' => 'User deleted'], 200);
+	}
+
+	/**
+	 * Pull all the user data together.
+	 *
+	 * @param	User	The user
+	 * @return	array
+	 */
+	private function collectUserData($user)
+	{
+		// Get the user's primary character
+		$primary = $user->getPrimaryCharacter();
+
+		// Get the primary character's positions
+		foreach ($primary->positions as $position)
+		{
+			$primaryCharacterPositions[] = [
+				'id'			=> $position->id,
+				'name'			=> $position->name,
+				'department'	=> $position->dept->name,
+				'primary'		=> (bool) $position->pivot->primary,
+			];
+
+			if ((bool) $position->pivot->primary === true)
+			{
+				$primaryCharacterPrimaryPosition = [
+					'id'			=> $position->id,
+					'name'			=> $position->name,
+					'department'	=> $position->dept->name,
+				];
+			}
+		}
+
+		// Get the user's characters
+		foreach ($user->characters as $char)
+		{
+			// Get the primary character's positions
+			foreach ($char->positions as $position)
+			{
+				$characterPositions[] = [
+					'id'			=> $position->id,
+					'name'			=> $position->name,
+					'department'	=> $position->dept->name,
+					'primary'		=> (bool) $position->pivot->primary,
+				];
+
+				if ((bool) $position->pivot->primary === true)
+				{
+					$characterPrimaryPosition = [
+						'id'			=> $position->id,
+						'name'			=> $position->name,
+						'department'	=> $position->dept->name,
+					];
+				}
+			}
+
+			$userCharacters[] = [
+				'id'			=> $char->id,
+				'name'			=> $char->getName(),
+				'rank'			=> $char->rank->info->name,
+				'position'		=> $characterPrimaryPosition,
+				'all_positions'	=> $characterPositions,
+			];
+		}
+
+		// Set the data
+		$data = [
+			'id'				=> $user->id,
+			'name'				=> $user->name,
+			'email'				=> $user->email,
+			'status'			=> Status::toString($user->status),
+			'role'				=> $user->role->name,
+
+			'dates'				=> [
+				'last_post'		=> $user->last_post->toDateTimeString(),
+				'last_login'	=> $user->last_login->toDateTimeString(),
+				'activated_at'	=> $user->activated_at->toDateTimeString(),
+				'created_at'	=> $user->created_at->toDateTimeString(),
+				'updated_at'	=> $user->updated_at->toDateTimeString(),
+			],
+			
+			'primary_character'	=> [
+				'id'			=> $primary->id,
+				'name'			=> $primary->getName(),
+				'rank'			=> $primary->rank->info->name,
+				'position'		=> $primaryCharacterPrimaryPosition,
+				'all_positions'	=> $primaryCharacterPositions,
+			],
+			
+			'characters'		=> $userCharacters,
+		];
+
+		return $data;
 	}
 
 }
