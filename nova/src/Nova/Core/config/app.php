@@ -126,6 +126,7 @@ return array(
 		'Nova\Foundation\Translation\TranslationServiceProvider',
 
 		'Cartalyst\Api\ApiServiceProvider',
+		'Cartalyst\NestedSets\NestedSetsServiceProvider',
 
 	),
 
