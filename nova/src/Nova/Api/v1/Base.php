@@ -39,4 +39,15 @@ abstract class Base extends Controller {
 		$this->request	= Request::instance();
 	}
 
+	/**
+	 * Format the validation errors into a string.
+	 *
+	 * @param	Validator	The validator object
+	 * @return	string
+	 */
+	protected function formatValidationErrors($validator)
+	{
+		return implode(', ', $validator->messages()->all());
+	}
+
 }
