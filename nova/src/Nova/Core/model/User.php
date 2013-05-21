@@ -31,7 +31,8 @@ class User extends Model implements UserInterface {
 	protected $hashableAttributes = array('password', 'persist_code');
 
 	protected $dates = array(
-		'created_at', 'updated_at', 'leave_date', 'last_post', 'last_login'
+		'created_at', 'updated_at', 'leave_date', 'last_post', 'last_login',
+		'activated_at',
 	);
 	
 	protected static $properties = array(
