@@ -104,8 +104,8 @@
 	});
 
 	// Destroy all modals when they're hidden
-	$('body').on('hidden', '.modal', function(){
-		$(this).removeData('modal');
+	$('.modal').on('hidden.bs.modal', function(){
+		$('.modal').removeData('bs.modal');
 	});
 
 </script>
