@@ -79,7 +79,7 @@ class CascadingFileLoader implements LoaderInterface {
 	 */
 	public function load($environment, $group, $namespace = null)
 	{
-		$items = array();
+		$items = [];
 
 		// First we'll get the root configuration path for the environment which
 		// is where all of the configuration files live for that namespace, as 
@@ -122,7 +122,7 @@ class CascadingFileLoader implements LoaderInterface {
 				// Make sure there's something here if we need it
 				if ( ! array_key_exists($location, $items))
 				{
-					$items[$location] = array();
+					$items[$location] = [];
 				}
 
 				$items[$location] = array_merge($items[$location], $this->files->getRequire($file));
@@ -185,25 +185,34 @@ class CascadingFileLoader implements LoaderInterface {
 	 */
 	public function cascadePackage($environment, $package, $group, $items)
 	{
+		// Places to search for config files
+		$searchArray['app'] = $this->defaultPath['app'];
+		$searchArray['core'] = $this->defaultPath['core'];
+
 		// First we will look for a configuration file in the packages configuration
 		// folder. If it exists, we will load it and merge it with these original
 		// options so that we will easily "cascade" a package's configurations.
 		$file = "packages/{$package}/{$group}.php";
 
-		if ($this->files->exists($path = $this->defaultPath.'/'.$file))
+		foreach ($searchArray as $location => $p)
 		{
-			$items = array_merge($items, $this->getRequire($path));
+			if ($this->files->exists($path = $p.'/'.$file))
+			{
+				$items = array_merge($items, $this->getRequire($path));
+			}
+
+			// Once we have merged the regular package configuration we need to look for
+			// an environment specific configuration file. If one exists, we will get
+			// the contents and merge them on top of this array of options we have.
+			$path = $p."/{$environment}/".$file;
+
+			if ($this->files->exists($path))
+			{
+				$items = array_merge($items, $this->getRequire($path));
+			}
 		}
 
-		// Once we have merged the regular package configuration we need to look for
-		// an environment specific configuration file. If one exists, we will get
-		// the contents and merge them on top of this array of options we have.
-		$path = $this->defaultPath."/{$environment}/".$file;
-
-		if ($this->files->exists($path))
-		{
-			$items = array_merge($items, $this->getRequire($path));
-		}
+		s($items);
 
 		return $items;
 	}
