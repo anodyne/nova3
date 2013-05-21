@@ -12,9 +12,17 @@
 		"dflydev/markdown": "1.*",
 		"ikimea/browser": "1.*",
 		"baum/baum": "1.*",
+		"raveren/kint": "dev-master",
 		"cartalyst/sentry": "dev-master",
-		"raveren/kint": "dev-master"
+		"cartalyst/api": "1.0.*"
 	},
+
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "http://packages.cartalyst.com"
+		}
+	],
 
 	"autoload": {
 		"classmap": [

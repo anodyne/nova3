@@ -125,6 +125,8 @@ return array(
 		'Nova\Foundation\Routing\RoutingServiceProvider',
 		'Nova\Foundation\Translation\TranslationServiceProvider',
 
+		'Cartalyst\Api\ApiServiceProvider',
+
 	),
 
 	/*
@@ -207,6 +209,7 @@ return array(
 		/**
 		 * Nova Classes
 		 */
+		'API'			=> 'Cartalyst\Api\Facades\API',
 		'Date'			=> 'Carbon\Carbon',
 		'Email'			=> 'Nova\Core\Lib\Email',
 		'Location'		=> 'Nova\Core\Facades\Location',
@@ -219,6 +222,10 @@ return array(
 		'Status'		=> 'Nova\Core\Lib\Status',
 		'SystemEvent'	=> 'Nova\Core\Lib\SystemEvent',
 		'Utility'		=> 'Nova\Core\Lib\Utility',
+
+		'Input'			=> 'Cartalyst\Api\Facades\Input',
+		'Request'		=> 'Cartalyst\Api\Facades\Request',
+		'Response'		=> 'Cartalyst\Api\Facades\Response',
 
 		/**
 		 * Nova Interfaces
