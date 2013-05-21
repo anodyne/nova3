@@ -1,6 +1,7 @@
 <?php namespace Nova\Api\V1;
 
 use App;
+use Request;
 use Response;
 use User as UserModel;
 
@@ -16,19 +17,33 @@ class User extends Base {
 	/**
 	 * Display all active users.
 	 *
+	 * @param	string		Type of users to pull (active, inactive, pending)
 	 * @return	Collection
 	 * @todo	Parameters for getting other sets of data from the API
 	 */
-	public function index()
+	public function index($type = 'active')
 	{
-		// Get all active users
-		$users = UserModel::active()->get();
+		switch ($type)
+		{
+			case 'active':
+			default:
+				$users = UserModel::active()->get();
+			break;
+
+			case 'inactive':
+				$users = UserModel::inactive()->get();
+			break;
+
+			case 'pending':
+				$users = UserModel::pending()->get();
+			break;
+		}
 
 		// Set the collection name
 		$users->setCollectionName('users');
 
 		// Get the ETags from the request
-		$etag = $this->request->getEtags();
+		$etag = Request::getEtags();
 
 		// If there's an ETag, check it against what we have already
 		if (isset($etag[0]))
@@ -52,14 +67,14 @@ class User extends Base {
 	 */
 	public function store()
 	{
-		$article = new Article;
-		$article->user_id = Auth::user()->id;
-		$article->title = Request::get('title');
-		$article->content = Request::get('content');
+		$user = new UserModel;
+		$user->user_id = Auth::user()->id;
+		$user->title = Request::get('title');
+		$user->content = Request::get('content');
 
-		$article->save();
+		$user->save();
 
-		return Response::resourceJson($article, [], 201);
+		return Response::resourceJson($user, [], 201);
 	}
 
 	/**
@@ -70,26 +85,30 @@ class User extends Base {
 	 */
 	public function show($id)
 	{
-		if (is_numeric($id))
-		{
-			$user = UserModel::find($id);
+		$user = UserModel::find($id);
 
+		if ($user !== null)
+		{
+			// Set the resource name
+			$user->setResourceName('user');
+
+			// Get the ETags
 			$etag = Request::getEtags();
 
 			if (isset($etag[0]))
 			{
 				$etag = str_replace('"', '', $etag[0]);
 
-				if ($etag === $article->getEtag())
+				if ($etag === $user->getEtag())
 				{
 					App::abort(304);
 				}
 			}
 
-			return Response::resourceJson($article);
+			return Response::resourceJson($user);
 		}
 
-		return Response::json(['error' => true, 'message' => 'Invalid user ID'], 404);
+		return Response::json(['error' => true, 'message' => 'User not found'], 404);
 	}
 
 	/**
@@ -100,12 +119,11 @@ class User extends Base {
 	 */
 	public function update($id)
 	{
-		// Find article
-		$article = Article::find($id);
+		// Find the user
+		$user = UserModel::find($id);
 
-		// If no article return a bad request
-		// because article id is invalid
-		if( !$article )
+		// If no article return a bad request because user ID is invalid
+		if ( ! $user)
 		{
 			App::abort(400);
 		}
@@ -114,29 +132,29 @@ class User extends Base {
 		$etag = Request::header('if-match');
 
 		// If etag is given, and does not match
-		if( $etag !== null && $etag !== $article->getEtag() )
+		if ($etag !== null and $etag !== $user->getEtag())
 		{
 			return Response::json([], 412);
 		}
 
 		// Some validation, only update fields that are present
-		if ( Request::get('title') )
+		if (Request::get('title'))
 		{
-			$article->title = Request::get('title');
+			$user->title = Request::get('title');
 		}
 
-		if ( Request::get('content') )
+		if (Request::get('content'))
 		{
-			$article->content = Request::get('content');
+			$user->content = Request::get('content');
 		}
 
 		// Save it
-		$article->save();
+		$user->save();
 
 		// Refresh the eTag, since it'll be new
-		$article->getEtag(true);
+		$user->getEtag(true);
 
-		return Response::resourceJson($article, [], 200);
+		return Response::resourceJson($user, [], 200);
 	}
 
 	/**
@@ -147,33 +165,11 @@ class User extends Base {
 	 */
 	public function destroy($id)
 	{
-		$article = Article::find($id);
+		$user = UserModel::find($id);
 
-		$article->delete();
+		$user->delete();
 
-		return Response::json([
-			'message' => 'Article Deleted'
-		], 200);
-	}
-
-	/**
-	 * Show the user creation form.
-	 *
-	 * @return	501
-	 */
-	public function create()
-	{
-		return Response::json(['error' => true, 'message' => 'Method not available'], 501);
-	}
-
-	/**
-	 * Show the user edit form.
-	 *
-	 * @return	501
-	 */
-	public function edit($id)
-	{
-		return Response::json(['error' => true, 'message' => 'Method not available'], 501);
+		return Response::json(['message' => 'User deleted'], 200);
 	}
 
 }
