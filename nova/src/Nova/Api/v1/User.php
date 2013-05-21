@@ -1,7 +1,6 @@
 <?php namespace Nova\Api\V1;
 
-use App;
-use Request;
+use Status;
 use Response;
 use User as UserModel;
 
@@ -20,44 +19,149 @@ class User extends Base {
 	 * @param	string		Type of users to pull (active, inactive, pending)
 	 * @return	Collection
 	 * @todo	Parameters for getting other sets of data from the API
+	 * @todo	Pagination
 	 */
-	public function index($type = 'active')
+	public function index($type = 'active', $page = 1)
 	{
+		// Start getting the users
 		switch ($type)
 		{
 			case 'active':
 			default:
-				$users = UserModel::active()->get();
+				$items = UserModel::active();
 			break;
 
 			case 'inactive':
-				$users = UserModel::inactive()->get();
+				$items = UserModel::inactive();
 			break;
 
 			case 'pending':
-				$users = UserModel::pending()->get();
+				$items = UserModel::pending();
 			break;
 		}
 
-		// Set the collection name
-		$users->setCollectionName('users');
+		// Set up the paging
+		if ($page > 1) $items->skip(--$page * $this->resultsPerPage);
+		$items->take($this->resultsPerPage);
 
-		// Get the ETags from the request
-		$etag = Request::getEtags();
+		// Execute the query
+		$users = $items->get();
 
-		// If there's an ETag, check it against what we have already
-		if (isset($etag[0]))
+		// Loop through the users and put them into an array
+		if ($users->count() > 0)
 		{
-			$etag = str_replace('"', '', $etag[0]);
+			// Holding array for the user data
+			$userData = [];
 
-			// Kill the request if it's the same content
-			if ($etag === $users->getEtags())
+			foreach ($users as $user)
 			{
-				App::abort(304);
+				// Get the user's primary character
+				$primary = $user->getPrimaryCharacter();
+
+				// Get the primary character's positions
+				foreach ($primary->positions as $position)
+				{
+					$primaryCharacterPositions[] = [
+						'id'			=> $position->id,
+						'name'			=> $position->name,
+						'department'	=> $position->dept->name,
+						'primary'		=> (bool) $position->pivot->primary,
+					];
+
+					if ((bool) $position->pivot->primary === true)
+					{
+						$primaryCharacterPrimaryPosition = [
+							'id'			=> $position->id,
+							'name'			=> $position->name,
+							'department'	=> $position->dept->name,
+						];
+					}
+				}
+
+				// Get the user's characters
+				foreach ($user->characters as $char)
+				{
+					// Get the primary character's positions
+					foreach ($char->positions as $position)
+					{
+						$characterPositions[] = [
+							'id'			=> $position->id,
+							'name'			=> $position->name,
+							'department'	=> $position->dept->name,
+							'primary'		=> (bool) $position->pivot->primary,
+						];
+
+						if ((bool) $position->pivot->primary === true)
+						{
+							$characterPrimaryPosition = [
+								'id'			=> $position->id,
+								'name'			=> $position->name,
+								'department'	=> $position->dept->name,
+							];
+						}
+					}
+
+					$userCharacters[] = [
+						'id'			=> $char->id,
+						'name'			=> $char->getName(),
+						'rank'			=> $char->rank->info->name,
+						'position'		=> $characterPrimaryPosition,
+						'all_positions'	=> $characterPositions,
+					];
+				}
+
+				$userData[] = [
+					'id'				=> $user->id,
+					'name'				=> $user->name,
+					'email'				=> $user->email,
+					'status'			=> Status::toString($user->status),
+					'role'				=> $user->role->name,
+					
+					'dates'				=> [
+						'last_post'		=> $user->last_post->toDateTimeString(),
+						'last_login'	=> $user->last_login->toDateTimeString(),
+						'activated_at'	=> $user->activated_at->toDateTimeString(),
+						'created_at'	=> $user->created_at->toDateTimeString(),
+						'updated_at'	=> $user->updated_at->toDateTimeString(),
+					],
+					
+					'primary_character'	=> [
+						'id'			=> $primary->id,
+						'name'			=> $primary->getName(),
+						'rank'			=> $primary->rank->info->name,
+						'position'		=> $primaryCharacterPrimaryPosition,
+						'all_positions'	=> $primaryCharacterPositions,
+					],
+					
+					'characters'		=> $userCharacters,
+				];
 			}
+
+			// Set the data
+			$totalPages = ceil($users->count()/$this->resultsPerPage);
+			$data['_meta'] = [
+				'page'			=> $page,
+				'per_page'		=> $this->resultsPerPage,
+				'page_count'	=> $totalPages,
+				'total_count'	=> $users->count(),
+				'links'			=> [
+					'self'		=> $this->url."/user/{$type}/{$page}",
+					'first'		=> $this->url."/user/{$type}/{$totalPages}",
+					'last'		=> $this->url."/user/{$type}/{$page}",
+					'next'		=> ($page < $totalPages)
+						? $this->url."/user/{$type}/".(++$page)
+						: $this->url."/user/{$type}/{$totalPages}",
+					'previous'	=> ($page > 1) 
+						? $this->url."/user/{$type}/".(--$page)
+						: $this->url."/user/{$type}/1",
+				],
+			];
+			$data['users'] = $userData;
+
+			return Response::api($data, 200);
 		}
 
-		return Response::collectionJson($users);
+		return Response::api("No {$type} users found", 404);
 	}
 
 	/**
