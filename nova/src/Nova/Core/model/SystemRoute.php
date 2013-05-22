@@ -24,8 +24,11 @@ class SystemRoute extends Model {
 	 */
 	public static function cache()
 	{
+		// Start a new query
+		$query = static::startQuery();
+
 		// Get all the routes
-		$items = static::all();
+		$items = $query->orderBy('protected', 'desc')->get();
 
 		// Start the routes array
 		$routes = [
