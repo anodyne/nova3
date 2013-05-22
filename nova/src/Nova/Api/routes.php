@@ -1,10 +1,5 @@
 <?php
 
-Route::filter('api.auth', function()
-{
-	return Auth::onceBasic();
-});
-
 Route::group(['prefix' => '{api}/v1'], function()
 {
 	/**
