@@ -2634,6 +2634,66 @@ class NovaSeedDatabase extends Migration {
 				'resource'	=> 'Nova\Core\Controller\Admin\Role@postTasks',
 				'protected'	=> (int) true
 			],
+
+			/**
+			 * ajax/info
+			 */
+			[
+				'name'		=> 'ajax/info/rank_image',
+				'verb'		=> 'get',
+				'uri'		=> 'ajax/info/rank_image',
+				'resource'	=> 'Nova\Core\Controller\Ajax\Info@getRankImage',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'ajax/info/rank_preview',
+				'verb'		=> 'get',
+				'uri'		=> 'ajax/info/rank_preview/{location}',
+				'resource'	=> 'Nova\Core\Controller\Ajax\Info@getRankPreview',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'ajax/info/position_desc',
+				'verb'		=> 'get',
+				'uri'		=> 'ajax/info/position_desc',
+				'resource'	=> 'Nova\Core\Controller\Ajax\Info@getPositionDesc',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'ajax/info/role_desc',
+				'verb'		=> 'get',
+				'uri'		=> 'ajax/info/role_desc',
+				'resource'	=> 'Nova\Core\Controller\Ajax\Info@getRoleDesc',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'ajax/info/role_inherited_tasks',
+				'verb'		=> 'get',
+				'uri'		=> 'ajax/info/role_inherited_tasks',
+				'resource'	=> 'Nova\Core\Controller\Ajax\Info@getRoleInheritedTasks',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'ajax/info/roles_with_tasks',
+				'verb'		=> 'get',
+				'uri'		=> 'ajax/info/roles_with_tasks/{id}/{format}',
+				'resource'	=> 'Nova\Core\Controller\Ajax\Info@getRolesWithTasks',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'ajax/info/skin_preview',
+				'verb'		=> 'get',
+				'uri'		=> 'ajax/info/skin_preview/{section}/{location}',
+				'resource'	=> 'Nova\Core\Controller\Ajax\Info@getSkinPreview',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'ajax/info/users_with_role',
+				'verb'		=> 'get',
+				'uri'		=> 'ajax/info/users_with_role/{id}',
+				'resource'	=> 'Nova\Core\Controller\Ajax\Info@getUsersWithRole',
+				'protected'	=> (int) true
+			],
 		];
 
 		// Add the routes
