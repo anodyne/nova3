@@ -253,14 +253,10 @@ class Role extends AdminBaseController {
 				: ucfirst(lang('short.alert.failure.update', langConcat('access role')));
 		}
 
-		return Redirect::to('admin/role/index')
-			->with('flashStatus', $flashStatus)
-			->with('flashMessage', $flashMessage);
-	}
-	public function deleteIndex()
-	{
-		// Only let the user delete if they have the right permissions
-		if (Sentry::getUser()->hasAccess('role.delete'))
+		/**
+		 * Delete the role.
+		 */
+		if ($user->hasAccess('role.delete') and $action == 'delete')
 		{
 			// Get the ID
 			$id = e(Input::get('id'));
@@ -434,14 +430,10 @@ class Role extends AdminBaseController {
 				: ucfirst(lang('short.alert.failure.update', langConcat('access task')));
 		}
 
-		return Redirect::to('admin/role/tasks')
-			->with('flashStatus', $flashStatus)
-			->with('flashMessage', $flashMessage);
-	}
-	public function deleteTasks()
-	{
-		// Only let the user delete if they have the right permissions
-		if (Sentry::getUser()->hasAccess('role.delete'))
+		/**
+		 * Delete task.
+		 */
+		if ($user->hasAccess('role.delete') and $action == 'delete')
 		{
 			// Get the ID
 			$id = e(Input::get('id'));

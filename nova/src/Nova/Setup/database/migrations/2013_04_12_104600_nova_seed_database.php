@@ -14,6 +14,11 @@ class NovaSeedDatabase extends Migration {
 		Eloquent::unguard();
 
 		/**
+		 * Route Seed
+		 */
+		$this->seedRoutes();
+
+		/**
 		 * Access Role Seeds
 		 */
 		$this->seedRoles();
@@ -2545,6 +2550,96 @@ class NovaSeedDatabase extends Migration {
 		foreach ($ranks as $r)
 		{
 			Rank::add($r);
+		}
+	}
+
+	protected function seedRoutes()
+	{
+		$data = [
+			[
+				'name'		=> 'main/index',
+				'verb'		=> 'get',
+				'uri'		=> '/',
+				'resource'	=> 'Nova\Core\Controller\Main@getIndex',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'main/credits',
+				'verb'		=> 'get',
+				'uri'		=> 'main/credits',
+				'resource'	=> 'Nova\Core\Controller\Main@getCredits',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'main/contact',
+				'verb'		=> 'get',
+				'uri'		=> 'main/contact',
+				'resource'	=> 'Nova\Core\Controller\Main@getContact',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'main/contact',
+				'verb'		=> 'post',
+				'uri'		=> 'main/contact',
+				'resource'	=> 'Nova\Core\Controller\Main@postContact',
+				'protected'	=> (int) true
+			],
+
+			/**
+			 * admin/main
+			 */
+			[
+				'name'		=> 'admin/main/index',
+				'verb'		=> 'get',
+				'uri'		=> 'admin/main/index',
+				'resource'	=> 'Nova\Core\Controller\Admin\Main@getIndex',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'admin/main/error',
+				'verb'		=> 'get',
+				'uri'		=> 'admin/main/error/{code}',
+				'resource'	=> 'Nova\Core\Controller\Admin\Main@getError',
+				'protected'	=> (int) true
+			],
+			
+			/**
+			 * admin/role
+			 */
+			[
+				'name'		=> 'admin/role/index',
+				'verb'		=> 'get',
+				'uri'		=> 'admin/role/index/{roleID?}',
+				'resource'	=> 'Nova\Core\Controller\Admin\Role@getIndex',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'admin/role/index',
+				'verb'		=> 'post',
+				'uri'		=> 'admin/role/index',
+				'resource'	=> 'Nova\Core\Controller\Admin\Role@postIndex',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'admin/role/tasks',
+				'verb'		=> 'get',
+				'uri'		=> 'admin/role/tasks/{taskID?}',
+				'resource'	=> 'Nova\Core\Controller\Admin\Role@getTasks',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'admin/role/tasks',
+				'verb'		=> 'post',
+				'uri'		=> 'admin/role/tasks',
+				'resource'	=> 'Nova\Core\Controller\Admin\Role@postTasks',
+				'protected'	=> (int) true
+			],
+		];
+
+		// Add the routes
+		foreach ($data as $d)
+		{
+			SystemRoute::add($d);
 		}
 	}
 

@@ -1,6 +1,6 @@
 <p>{{ lang('short.deleteConfirm', lang('role'), $name) }}</p>
 
-{{ Form::open(array('url' => 'admin/role/index', 'method' => 'delete')) }}
+{{ Form::open(['url' => 'admin/role/index']) }}
 	@if (count($roles) > 0)
 		<div class="control-group">
 			<label class="control-label"></label>
@@ -14,7 +14,8 @@
 	@endif
 
 	<div class="form-actions">
-		{{ Form::button(ucfirst(lang('action.submit')), array('type' => 'submit', 'class' => 'btn btn-primary')) }}
+		{{ Form::button(ucfirst(lang('action.submit')), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
 		{{ Form::hidden('id', $id) }}
+		{{ Form::hidden('action', 'delete') }}
 	</div>
 </form>

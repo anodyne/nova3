@@ -22,11 +22,8 @@ class Main extends AdminBaseController {
 		s($_COOKIE);
 	}
 
-	public function getError()
+	public function getError($code)
 	{
-		// Get the error code
-		$code = $this->request->segment(4);
-
 		// Set the data
 		switch ($code)
 		{

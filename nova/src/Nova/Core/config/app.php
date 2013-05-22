@@ -121,12 +121,12 @@ return array(
 		 * Nova Service Providers
 		 */
 		'Nova\Citadel\CitadelServiceProvider',
+		//'Nova\Core\Providers\ApiServiceProvider',
 		'Nova\Core\Providers\LocationServiceProvider',
-		'Nova\Foundation\Routing\RoutingServiceProvider',
+		//'Nova\Foundation\Routing\RoutingServiceProvider',
 		'Nova\Foundation\Translation\TranslationServiceProvider',
 
 		'Cartalyst\Api\ApiServiceProvider',
-		'Cartalyst\NestedSets\NestedSetsServiceProvider',
 
 	),
 
@@ -302,6 +302,7 @@ return array(
 		'SiteContent'				=> 'Nova\Core\Model\SiteContent',
 		'System'					=> 'Nova\Core\Model\System',
 		'SystemEventModel'			=> 'Nova\Core\Model\SystemEvent',
+		'SystemRoute'				=> 'Nova\Core\Model\SystemRoute',
 
 		/**
 		 * Nova Event Service

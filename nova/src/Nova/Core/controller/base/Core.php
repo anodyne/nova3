@@ -143,6 +143,8 @@ abstract class Core extends Controller {
 	 */
 	protected $_stopExecution = false;
 
+	protected static $controllerName;
+
 	public function __construct()
 	{
 		// Get a copy of the controller
@@ -220,13 +222,10 @@ abstract class Core extends Controller {
 				$me->_jsData = new stdClass;
 				$me->_sectionInfo = new stdClass;
 
-				// Get the controller name from the Router and denamespace it
-				$controllerName = Str::denamespace(Route::getController());
-
 				// Grab the content for the current section
-				$me->_headers	= SiteContent::getSectionContent('header', $controllerName);
-				$me->_messages	= SiteContent::getSectionContent('message', $controllerName);
-				$me->_titles	= SiteContent::getSectionContent('title', $controllerName);
+				$me->_headers	= SiteContent::getSectionContent('header', static::$controllerName);
+				$me->_messages	= SiteContent::getSectionContent('message', static::$controllerName);
+				$me->_titles	= SiteContent::getSectionContent('title', static::$controllerName);
 			}
 		});
 	}
@@ -256,8 +255,8 @@ abstract class Core extends Controller {
 				->with((array) $this->_jsData);
 		}
 
-		// Pull the action name from the Route
-		$actionName = Route::getAction();
+		// Get the action name
+		$actionName = $this->getActionName();
 
 		// Set the final title content
 		$this->layout->title.= (is_object($this->_data) and property_exists($this->_data, 'title')) 
@@ -286,7 +285,7 @@ abstract class Core extends Controller {
 		if ($this->_editable)
 		{
 			// Get the controller name from the Router and denamespace it
-			$controllerName = Str::denamespace(Route::getController());
+			$controllerName = static::$controllerName;
 
 			// Set the final header content key
 			$this->layout->template->headerKey = (array_key_exists($actionName, $this->_headers)) 
@@ -377,6 +376,28 @@ abstract class Core extends Controller {
 			 * display the page.
 			 */
 		}
+	}
+
+	/**
+	 * Make sure the action name is setup properly.
+	 *
+	 * @return	string
+	 */
+	protected function getActionName()
+	{
+		// Get the full route and de-namespace it
+		$actionName = Str::denamespace(Route::currentRouteAction());
+
+		// Remove the controller class
+		$actionName = str_ireplace(static::$controllerName.'@', '', $actionName);
+		
+		// Remove the HTTP verb
+		$actionName = (substr($actionName, 0, 3) == 'get') ? substr_replace($actionName, '', 0, 3) : $actionName;
+		$actionName = (substr($actionName, 0, 3) == 'put') ? substr_replace($actionName, '', 0, 3) : $actionName;
+		$actionName = (substr($actionName, 0, 4) == 'post') ? substr_replace($actionName, '', 0, 4) : $actionName;
+		$actionName = (substr($actionName, 0, 6) == 'delete') ? substr_replace($actionName, '', 0, 6) : $actionName;
+		
+		return Str::lower($actionName);
 	}
 
 }

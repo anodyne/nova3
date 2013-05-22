@@ -1,6 +1,67 @@
 <?php
 
 /**
+ * Get the routes from the cache and create them.
+ */
+
+// Get all routes
+$routes = Cache::get('nova.routes');
+
+if ($routes === null)
+{
+	Route::get('/', 'Nova\Core\Controller\Main@getIndex');
+	Route::get('main/index', 'Nova\Core\Controller\Main@getIndex');
+
+	Route::get('login', 'Nova\Core\Controller\Login@getIndex');
+	Route::get('login/index', 'Nova\Core\Controller\Login@getIndex');
+	Route::post('login/index', 'Nova\Core\Controller\Login@postIndex');
+
+	Route::get('admin/main/index', 'Nova\Core\Controller\Admin\Main@getIndex');
+	Route::get('admin/main/routes', 'Nova\Core\Controller\Admin\Main@getRoutes');
+	Route::post('admin/main/routes', 'Nova\Core\Controller\Admin\Main@postRoutes');
+
+	// The other option is to run a custom Artisan task that will generate the routes for the user
+}
+else
+{
+	// GET routes
+	if (array_key_exists('get', $routes) and count($routes['get']) > 0)
+	{
+		foreach ($routes['get'] as $route)
+		{
+			Route::get($route['uri'], $route['resource']);
+		}
+	}
+
+	// POST routes
+	if (array_key_exists('post', $routes) and count($routes['post']) > 0)
+	{
+		foreach ($routes['post'] as $route)
+		{
+			Route::post($route['uri'], $route['resource']);
+		}
+	}
+
+	// PUT routes
+	if (array_key_exists('put', $routes) and count($routes['put']) > 0)
+	{
+		foreach ($routes['put'] as $route)
+		{
+			Route::put($route['uri'], $route['resource']);
+		}
+	}
+
+	// DELETE routes
+	if (array_key_exists('delete', $routes) and count($routes['delete']) > 0)
+	{
+		foreach ($routes['delete'] as $route)
+		{
+			Route::delete($route['uri'], $route['resource']);
+		}
+	}
+}
+
+/**
  * Route includes from around the system.
  */
 

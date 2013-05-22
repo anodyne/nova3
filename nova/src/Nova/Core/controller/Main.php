@@ -20,6 +20,9 @@ class Main extends MainBaseController {
 	{
 		parent::__construct();
 
+		// Set the controller
+		static::$controllerName = 'main';
+
 		// Get a copy of the controller
 		$me = $this;
 

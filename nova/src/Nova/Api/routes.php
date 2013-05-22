@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => '{api}/v1'], function()
+Route::group(['prefix' => 'api/v1'], function()
 {
 	/**
 	 * API Info

@@ -32,6 +32,16 @@ class NovaCreateSystem extends Migration {
 			$t->timestamps();
 		});
 
+		Schema::create('system_routes', function($t)
+		{
+			$t->increments('id')->unsigned();
+			$t->string('name');
+			$t->string('verb')->default('get');
+			$t->string('uri');
+			$t->string('resource');
+			$t->boolean('protected')->default(0);
+		});
+
 		// Seed the database
 		System::add(array(
 			'uid'				=> Str::random(32),
@@ -55,6 +65,7 @@ class NovaCreateSystem extends Migration {
 	{
 		Schema::drop('system_info');
 		Schema::drop('system_events');
+		Schema::drop('system_routes');
 	}
 	
 }
