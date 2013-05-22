@@ -10,15 +10,12 @@
  * @copyright	2013 Anodyne Productions
  */
 
-use Rank;
 use View;
 use Input;
 use Sentry;
 use Request;
 use Utility;
 use Location;
-use Position;
-use RankCatalog;
 use AjaxBaseController;
 
 class Info extends AjaxBaseController {
@@ -26,14 +23,14 @@ class Info extends AjaxBaseController {
 	/**
 	 * Get a position's description.
 	 */
-	public function getPosition_desc()
+	public function getPositionDesc()
 	{
 		// Set the variable
 		$position = e(Input::get('position'));
 		$position = (is_numeric($position)) ? $position : false;
 
 		// Get the position
-		$item = Position::find($position);
+		$item = \Position::find($position);
 
 		// Set the output
 		$output = (count($item) > 0) ? $item->desc : '';
@@ -44,7 +41,7 @@ class Info extends AjaxBaseController {
 	/**
 	 * Get the rank image.
 	 */
-	public function getRank_image()
+	public function getRankImage()
 	{
 		// Set the variables
 		$rank = e(Input::get('rank'));
@@ -54,11 +51,11 @@ class Info extends AjaxBaseController {
 		$rank = (is_numeric($rank)) ? $rank : false;
 		
 		// Get the rank
-		$rank = Rank::find($rank);
+		$rank = \Rank::find($rank);
 		
 		// Set the output
 		$output = (count($rank) > 0) 
-			? Location::rank($rank->base, $rank->pip, RankCatalog::getDefault(true)) 
+			? Location::rank($rank->base, $rank->pip, \RankCatalog::getDefault(true)) 
 			: '';
 		
 		echo $output;
@@ -67,7 +64,7 @@ class Info extends AjaxBaseController {
 	/**
 	 * Get the preview for a specific rank set.
 	 */
-	public function getRank_preview($location = false)
+	public function getRankPreview($location)
 	{
 		// Clean the variable
 		$location = e($location);
@@ -86,7 +83,7 @@ class Info extends AjaxBaseController {
 	/**
 	 * Get a role's description.
 	 */
-	public function getRole_desc()
+	public function getRoleDesc()
 	{
 		// Set the variable
 		$role = \Security::xss_clean(\Input::post('role', false));
@@ -101,7 +98,7 @@ class Info extends AjaxBaseController {
 		echo nl2br($output);
 	}
 
-	public function getRole_inherited_tasks()
+	public function getRoleInheritedTasks()
 	{
 		// Set the variable
 		$role = e(Input::get('role'));
@@ -125,15 +122,15 @@ class Info extends AjaxBaseController {
 	/**
 	 * Get the roles who have the given task.
 	 */
-	public function getRoles_with_task()
+	public function getRolesWithTask($id, $format = 'html')
 	{
 		if (Sentry::check())
 		{
 			// What type of request is it?
-			$format = e(Request::segment(5, 'html'));
+			$format = e($format);
 
 			// Clean the variable
-			$id = e(Request::segment(4, false));
+			$id = e($id);
 
 			// Get the task
 			$task = \AccessTask::find($id);
@@ -153,7 +150,7 @@ class Info extends AjaxBaseController {
 	/**
 	 * Get the preview for a specific skin.
 	 */
-	public function getSkin_preview($section = false, $location = false)
+	public function getSkinPreview($section, $location)
 	{
 		// Clean the variables
 		$section = \Security::xss_clean($section);
@@ -173,13 +170,10 @@ class Info extends AjaxBaseController {
 	/**
 	 * Get the users who are assigned a given role.
 	 */
-	public function getUsers_with_role()
+	public function getUsersWithRole($id)
 	{
 		if (Sentry::check())
 		{
-			// Clean the variable
-			$id = e(Request::segment(4, false));
-			
 			// Get the role
 			$role = \AccessRole::find($id);
 
