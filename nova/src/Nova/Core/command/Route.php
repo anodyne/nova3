@@ -1,18 +1,18 @@
-<?php namespace Nova\Core\Command\Route;
+<?php namespace Nova\Core\Command;
 
 use SystemRoute;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class Add extends Command {
+class Route extends Command {
 
 	/**
 	 * The console command name.
 	 *
 	 * @var string
 	 */
-	protected $name = 'route:add';
+	protected $name = 'nova:route';
 
 	/**
 	 * The console command description.
