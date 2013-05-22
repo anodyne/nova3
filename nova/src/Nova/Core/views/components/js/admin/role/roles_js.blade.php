@@ -10,12 +10,13 @@
 	});
 
 	$(document).on('change', '.js-inherited-roles', function(){
+		var parent = $(this);
 		var parentStatus = $(this).is(':checked');
 
 		$.ajax({
 			type: "POST",
 			url: "{{ URL::to('ajax/info/role_inherited_tasks') }}",
-			data: { role: $(this).data('role') },
+			data: { role: parent.data('role') },
 			dataType: 'json',
 			beforeSend: function(){
 				// Block the UI so they know what's going on
@@ -49,18 +50,10 @@
 								url: "{{ URL::to('ajax/info/roles_with_task') }}/" + check.val() + "/json",
 								dataType: "json",
 								success: function(roles){
-
-									console.log("Count: " + roles.length);
-									console.log("ID: " + roles.id);
 									
-									$.each(roles, function(){
-										//console.log(this.id);
-									});
-									// Check what roles this task is associated with
-
-									// Are any of those roles inherited from here?
-									// If Yes, do nothing
-									// If No, uncheck and enabled
+									if (roles.length == 1 && roles.id == parent.val())
+										check.prop("checked", false).prop("disabled", false);
+									
 								}
 							});
 						}
