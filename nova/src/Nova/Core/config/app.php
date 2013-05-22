@@ -121,9 +121,7 @@ return array(
 		 * Nova Service Providers
 		 */
 		'Nova\Citadel\CitadelServiceProvider',
-		//'Nova\Core\Providers\ApiServiceProvider',
 		'Nova\Core\Providers\LocationServiceProvider',
-		//'Nova\Foundation\Routing\RoutingServiceProvider',
 		'Nova\Foundation\Translation\TranslationServiceProvider',
 
 		'Cartalyst\Api\ApiServiceProvider',
