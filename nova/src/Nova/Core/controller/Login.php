@@ -150,7 +150,7 @@ class Login extends LoginBaseController {
 		// Flush the session for safe measure
 		Session::flush();
 
-		return Redirect::to('main/index');
+		return Redirect::to('/');
 	}
 
 	/**

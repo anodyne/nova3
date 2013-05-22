@@ -1127,7 +1127,7 @@ class NovaSeedDatabase extends Migration {
 				'name' => 'Main',
 				'group' => 0,
 				'order' => 0,
-				'url' => 'main/index',
+				'url' => '/',
 				'type' => 'main',
 				'category' => 'main'),
 			/*array(
@@ -1176,7 +1176,7 @@ class NovaSeedDatabase extends Migration {
 				'name' => 'Main',
 				'group' => 0,
 				'order' => 0,
-				'url' => 'main/index',
+				'url' => '/',
 				'type' => 'sub',
 				'category' => 'main'),
 			/*array(

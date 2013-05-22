@@ -7,7 +7,7 @@
 			<span class="icon-bar"></span>
 		</button>
 
-		{{ HTML::link('main/index', $name, array('class' => 'navbar-brand')) }}
+		{{ HTML::link('/', $name, array('class' => 'navbar-brand')) }}
 
 		<div class="nav-collapse collapse navbar-responsive-collapse">
 			{{ $userMenu }}

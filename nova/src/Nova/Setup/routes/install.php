@@ -215,7 +215,7 @@ Route::group(['prefix' => 'setup/install', 'before' => 'configFileCheck|setupAut
 		$data->content = new stdClass;
 
 		// Set the controls
-		$data->controls = HTML::link('main/index', 'Go to Main Page', ['class' => 'btn btn-primary']);
+		$data->controls = HTML::link('/', 'Go to Main Page', ['class' => 'btn btn-primary']);
 
 		return setupTemplate($data);
 	});

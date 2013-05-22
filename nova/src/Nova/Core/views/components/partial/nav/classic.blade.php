@@ -1,6 +1,6 @@
 <div class="navbar">
 	<div class="container">
-		{{ HTML::link('main/index', $name, array('class' => 'navbar-brand')) }}
+		{{ HTML::link('/', $name, array('class' => 'navbar-brand')) }}
 
 		<ul class="nav navbar-nav">
 		@foreach ($items as $item)

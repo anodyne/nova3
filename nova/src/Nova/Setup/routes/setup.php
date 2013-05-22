@@ -88,7 +88,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				 */
 				$data->content->option = 4;
 				$data->layout->label = 'Nova Setup Utilities';
-				$data->controls = HTML::link('main/index', 'Back to Site', array('class' => 'pull-right'));
+				$data->controls = HTML::link('/', 'Back to Site', array('class' => 'pull-right'));
 			}
 		}
 		else
