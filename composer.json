@@ -14,8 +14,7 @@
 		"baum/baum": "1.*",
 		"raveren/kint": "dev-master",
 		"cartalyst/sentry": "dev-master",
-		"cartalyst/api": "1.0.*",
-		"cartalyst/nested-sets": "dev-master"
+		"cartalyst/api": "1.0.*"
 	},
 
 	"repositories": [
