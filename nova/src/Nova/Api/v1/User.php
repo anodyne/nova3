@@ -12,14 +12,14 @@ class User extends Base {
 	{
 		parent::__construct();
 
-		//$this->beforeFilter('api.auth');
+		$this->beforeFilter('auth.api');
 	}
 
 	/**
 	 * Display all active users.
 	 *
-	 * @param	string		Type of users to pull (active, inactive, pending)
-	 * @param	int			Page number
+	 * @param	string	Type of users to pull (active, inactive, pending)
+	 * @param	int		Page number
 	 * @return	JSON
 	 */
 	public function index($type = 'active', $page = 1)
