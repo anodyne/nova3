@@ -20,8 +20,8 @@ if ($routes === null)
 	Route::post('login/index', 'Nova\Core\Controller\Login@postIndex');
 
 	Route::get('admin/main/index', 'Nova\Core\Controller\Admin\Main@getIndex');
-	Route::get('admin/main/routes', 'Nova\Core\Controller\Admin\Main@getRoutes');
-	Route::post('admin/main/routes', 'Nova\Core\Controller\Admin\Main@postRoutes');
+	Route::get('admin/main/pages', 'Nova\Core\Controller\Admin\Main@getPages');
+	Route::post('admin/main/pages', 'Nova\Core\Controller\Admin\Main@postPages');
 
 	// The other option is to run a custom Artisan task that will generate the routes for the user
 }

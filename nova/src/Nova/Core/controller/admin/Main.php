@@ -1,6 +1,7 @@
 <?php namespace Nova\Core\Controller\Admin;
 
 use Sentry;
+use SystemRoute;
 use AdminBaseController;
 
 class Main extends AdminBaseController {
@@ -31,6 +32,35 @@ class Main extends AdminBaseController {
 				$this->_data->header = "Not Allowed";
 				$this->_data->message = "You don't have permission to view that page.";
 			break;
+		}
+	}
+
+	public function getPages()
+	{
+		$this->_view = 'admin/main/pages';
+
+		$this->_data->header = 'Page Manager';
+		$this->_data->message = false;
+
+		// Get all the routes for the system
+		$routes = SystemRoute::get();
+
+		// Make sure we have routes
+		if ($routes->count() > 0)
+		{
+			// Loop through the routes
+			foreach ($routes as $route)
+			{
+				// Separate the routes into CORE and USER routes
+				if ((bool) $route->protected === true)
+				{
+					$this->_data->pages['core'][] = $route;
+				}
+				else
+				{
+					$this->_data->pages['user'][] = $route;
+				}
+			}
 		}
 	}
 
