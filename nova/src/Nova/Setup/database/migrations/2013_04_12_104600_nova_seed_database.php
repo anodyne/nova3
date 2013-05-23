@@ -2591,7 +2591,7 @@ class NovaSeedDatabase extends Migration {
 			[
 				'name'		=> 'login',
 				'verb'		=> 'get',
-				'uri'		=> 'login',
+				'uri'		=> 'login/{error?}',
 				'resource'	=> 'Nova\Core\Controller\Login@getIndex',
 				'protected'	=> (int) true
 			],
@@ -2600,6 +2600,41 @@ class NovaSeedDatabase extends Migration {
 				'verb'		=> 'post',
 				'uri'		=> 'login',
 				'resource'	=> 'Nova\Core\Controller\Login@postIndex',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'login/reset',
+				'verb'		=> 'get',
+				'uri'		=> 'login/reset',
+				'resource'	=> 'Nova\Core\Controller\Login@getReset',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'login/reset',
+				'verb'		=> 'post',
+				'uri'		=> 'login/reset',
+				'resource'	=> 'Nova\Core\Controller\Login@postReset',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'login/reset_confirm',
+				'verb'		=> 'get',
+				'uri'		=> 'login/reset_confirm/{id}/{code}',
+				'resource'	=> 'Nova\Core\Controller\Login@getResetConfirm',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'login/reset_confirm',
+				'verb'		=> 'post',
+				'uri'		=> 'login/reset_confirm/{id}/{code}',
+				'resource'	=> 'Nova\Core\Controller\Login@postResetConfirm',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'logout',
+				'verb'		=> 'get',
+				'uri'		=> 'logout',
+				'resource'	=> 'Nova\Core\Controller\Login@getLogout',
 				'protected'	=> (int) true
 			],
 
@@ -2639,16 +2674,16 @@ class NovaSeedDatabase extends Migration {
 			 * admin/role
 			 */
 			[
-				'name'		=> 'admin/role/index',
+				'name'		=> 'admin/role',
 				'verb'		=> 'get',
-				'uri'		=> 'admin/role/index/{roleID?}',
+				'uri'		=> 'admin/role/{roleID?}',
 				'resource'	=> 'Nova\Core\Controller\Admin\Role@getIndex',
 				'protected'	=> (int) true
 			],
 			[
-				'name'		=> 'admin/role/index',
+				'name'		=> 'admin/role',
 				'verb'		=> 'post',
-				'uri'		=> 'admin/role/index',
+				'uri'		=> 'admin/role',
 				'resource'	=> 'Nova\Core\Controller\Admin\Role@postIndex',
 				'protected'	=> (int) true
 			],
