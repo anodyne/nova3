@@ -1,12 +1,12 @@
 <?php include_once SRCPATH.'Core/views/components/js/core/core_js.php';?>
 
-<link rel="stylesheet" href="<?php echo SRCURL;?>/Assets/css/bootstrap-editable.css">
+<!--<link rel="stylesheet" href="<?php echo SRCURL;?>/Assets/css/bootstrap-editable.css">
 
-<script type="text/javascript" src="<?php echo SRCURL;?>/Assets/js/bootstrap-editable.min.js"></script>
+<script type="text/javascript" src="<?php echo SRCURL;?>/Assets/js/bootstrap-editable.min.js"></script>-->
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-		<?php if (Sentry::check() and Sentry::getUser()->hasAccess('content.update')): ?>
+		<?php /*if (Sentry::check() and Sentry::getUser()->hasAccess('content.update')): ?>
 
 			$('.editable-single').editable("<?php echo URL::to('ajax/update/content_save');?>", {
 				loadurl: "<?php echo URL::to('ajax/get/content_load');?>",
@@ -26,6 +26,6 @@
 				placeholder: ''
 			});
 
-		<?php endif;?>
+		<?php endif;*/?>
 	});
 </script>
