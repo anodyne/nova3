@@ -2586,6 +2586,24 @@ class NovaSeedDatabase extends Migration {
 			],
 
 			/**
+			 * login
+			 */
+			[
+				'name'		=> 'login',
+				'verb'		=> 'get',
+				'uri'		=> 'login',
+				'resource'	=> 'Nova\Core\Controller\Login@getIndex',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'login',
+				'verb'		=> 'post',
+				'uri'		=> 'login',
+				'resource'	=> 'Nova\Core\Controller\Login@postIndex',
+				'protected'	=> (int) true
+			],
+
+			/**
 			 * admin/main
 			 */
 			[
@@ -2600,6 +2618,20 @@ class NovaSeedDatabase extends Migration {
 				'verb'		=> 'get',
 				'uri'		=> 'admin/main/error/{code}',
 				'resource'	=> 'Nova\Core\Controller\Admin\Main@getError',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'admin/main/pages',
+				'verb'		=> 'get',
+				'uri'		=> 'admin/main/pages',
+				'resource'	=> 'Nova\Core\Controller\Admin\Main@getPages',
+				'protected'	=> (int) true
+			],
+			[
+				'name'		=> 'admin/main/pages',
+				'verb'		=> 'post',
+				'uri'		=> 'admin/main/pages',
+				'resource'	=> 'Nova\Core\Controller\Admin\Main@postPages',
 				'protected'	=> (int) true
 			],
 			
