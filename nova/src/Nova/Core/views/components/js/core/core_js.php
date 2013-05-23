@@ -37,19 +37,19 @@
 		/**
 		 * Bootstrap Popovers
 		 */
-		$('.popover-right').tooltip({
+		$('.popover-right').popover({
 			placement: 'right',
 			html: true
 		});
-		$('.popover-left').tooltip({
+		$('.popover-left').popover({
 			placement: 'left',
 			html: true
 		});
-		$('.popover-top').tooltip({
+		$('.popover-top').popover({
 			placement: 'top',
 			html: true
 		});
-		$('.popover-bottom').tooltip({
+		$('.popover-bottom').popover({
 			placement: 'bottom',
 			html: true
 		});
