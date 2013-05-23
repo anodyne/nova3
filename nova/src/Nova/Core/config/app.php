@@ -122,6 +122,7 @@ return array(
 		 */
 		'Nova\Citadel\CitadelServiceProvider',
 		'Nova\Core\Providers\LocationServiceProvider',
+		'Nova\Core\Providers\MarkdownServiceProvider',
 		'Nova\Foundation\Translation\TranslationServiceProvider',
 
 		'Cartalyst\Api\ApiServiceProvider',
@@ -212,7 +213,7 @@ return array(
 		'Date'			=> 'Carbon\Carbon',
 		'Email'			=> 'Nova\Core\Lib\Email',
 		'Location'		=> 'Nova\Core\Facades\Location',
-		'Markdown'		=> 'Nova\Core\Lib\Markdown',
+		'Markdown'		=> 'Nova\Core\Facades\Markdown',
 		'Media'			=> 'Nova\Core\Lib\Media',
 		'Model'			=> 'Nova\Foundation\Database\Eloquent\Model',
 		'Nav'			=> 'Nova\Core\Lib\Nav',

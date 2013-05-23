@@ -1,36 +1,31 @@
 <?php namespace Nova\Core\Lib;
 
 use dflydev\markdown\MarkdownParser;
-use dflydev\markdown\MarkdownExtraParser;
 
 class Markdown {
 
-	/**
-	 * Parse normal Markdown.
-	 *
-	 * @param	string	The text to parse
-	 * @return	string
-	 */
-	public static function parse($str)
-	{
-		// Create a new parser
-		$parser = new MarkdownParser;
+	protected $markdown;
 
-		return $parser->transformMarkdown($str);
+	/**
+	 * Setup a new Markdown parser.
+	 *
+	 * @param	MarkdownParser
+	 * @return	void
+	 */
+	public function __construct(MarkdownParser $markdown)
+	{
+		$this->markdown = $markdown;
 	}
 
 	/**
-	 * Parse Markdown with the PHPMarkdownExtra parser.
+	 * Parse the from Markdown to HTML.
 	 *
-	 * @param	string	The text to parse
+	 * @param	string	The string to parse
 	 * @return	string
 	 */
-	public static function parseExtra($str)
+	public function parse($str)
 	{
-		// Create a new parser
-		$parser = new MarkdownExtraParser;
-
-		return $parser->transformMarkdown($str);
+		return $this->markdown->transformMarkdown($str);
 	}
 	
 }
