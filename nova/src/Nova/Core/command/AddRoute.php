@@ -5,14 +5,14 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class Route extends Command {
+class AddRoute extends Command {
 
 	/**
 	 * The console command name.
 	 *
 	 * @var string
 	 */
-	protected $name = 'nova:route';
+	protected $name = 'nova:routes:add';
 
 	/**
 	 * The console command description.
@@ -48,6 +48,8 @@ class Route extends Command {
 
 		// Recache the routes
 		SystemRoute::cache();
+
+		$this->info('Route added!');
 	}
 
 	/**
