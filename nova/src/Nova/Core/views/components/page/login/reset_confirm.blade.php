@@ -20,9 +20,9 @@
 			<div class="controls">
 				{{ Form::button(ucwords(langConcat('action.confirm password action.reset')), array('type' => 'submit', 'class' => 'btn btn-primary btn-large btn-block')) }}
 				
-				{{ HTML::link('login/index', ucwords(lang('action.login')), array('class' => 'btn btn-block')) }}
+				{{ HTML::link('login', ucwords(lang('action.login')), array('class' => 'btn btn-block')) }}
 			</div>
 		</div>
-		{{ Form::hidden('_token', csrf_token()) }}
+		{{ Form::token() }}
 	{{ Form::close() }}
 @endif

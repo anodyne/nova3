@@ -41,7 +41,7 @@ abstract class Admin extends BaseController {
 			 */
 			$this->beforeFilter(function()
 			{
-				return Redirect::to('login/index/'.\Nova\Core\Controller\Login::NOT_LOGGED_IN);
+				return Redirect::to('login/'.\Nova\Core\Controller\Login::NOT_LOGGED_IN);
 			});
 		}
 		else

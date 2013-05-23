@@ -1,6 +1,6 @@
 <?php
 
-Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthorization|csrf'), function()
+Route::group(['prefix' => 'setup', 'before' => 'configFileCheck|setupAuthorization|csrf'], function()
 {
 	/**
 	 * Start page that will get people started.
@@ -59,17 +59,18 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				 */
 				$data->content->option = 3;
 				$data->layout->label = 'Update Nova 3';
-				$data->controls = HTML::link('#', 'Ignore this version', array(
+				$data->controls = HTML::link('#', 'Ignore this version', [
 					'class' => 'pull-right js-ignoreVersion',
 					'data-version' => $update->version,
-				));
-				$data->controls.= Form::open(array('url' => 'setup/update')).
-					Form::button('Start Update', array(
+				]);
+				$data->controls.= Form::open(['url' => 'setup/update']).
+					Form::button('Start Update', [
 						'class'	=> 'btn btn-primary',
 						'id'	=> 'next',
 						'name'	=> 'submit',
 						'type'	=> 'submit',
-					)).
+					]).
+					Form::token().
 					Form::close();
 
 				// Pull in the steps indicators
@@ -88,7 +89,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				 */
 				$data->content->option = 4;
 				$data->layout->label = 'Nova Setup Utilities';
-				$data->controls = HTML::link('/', 'Back to Site', array('class' => 'pull-right'));
+				$data->controls = HTML::link('/', 'Back to Site', ['class' => 'pull-right']);
 			}
 		}
 		else
@@ -116,16 +117,17 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				// Nova 2 means they can do the migration
 				if ($data->content->option == 2)
 				{
-					$data->controls = HTML::link('setup/install', "I'd like to do a Fresh Install", array(
+					$data->controls = HTML::link('setup/install', "I'd like to do a Fresh Install", [
 						'class' => 'pull-right',
-					));
-					$data->controls.= Form::open(array('url' => 'setup/migrate')).
-						Form::button('Start Migration', array(
+					]);
+					$data->controls.= Form::open(['url' => 'setup/migrate']).
+						Form::button('Start Migration', [
 							'class'	=> 'btn btn-primary',
 							'id'	=> 'next',
 							'name'	=> 'submit',
 							'type'	=> 'submit',
-						)).
+						]).
+						Form::token().
 						Form::close();
 					$data->layout->label = 'Migrate From Nova 2';
 
@@ -136,9 +138,9 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				// Nova 1 means they can't do the migration
 				if ($data->content->option == 5)
 				{
-					$data->controls = HTML::link('setup/install', "I'd like to do a Fresh Install", array(
+					$data->controls = HTML::link('setup/install', "I'd like to do a Fresh Install", [
 						'class' => 'pull-right',
-					));
+					]);
 					$data->layout->label = 'Unable to Migrate to Nova 3';
 				}
 			}
@@ -149,13 +151,14 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 				 * is a fresh install of Nova 3.
 				 */
 				$data->content->option = 1;
-				$data->controls = Form::open(array('url' => 'setup/install')).
-					Form::button('Start Install', array(
+				$data->controls = Form::open(['url' => 'setup/install']).
+					Form::button('Start Install', [
 						'class'	=> 'btn btn-primary',
 						'id'	=> 'next',
 						'name'	=> 'submit',
 						'type'	=> 'submit',
-					)).
+					]).
+					Form::token().
 					Form::close();
 				$data->layout->label = 'Install Nova 3';
 
@@ -185,13 +188,14 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		$data->controls = HTML::link('setup', "I don't want to do this, get me out of here", array(
 			'class' => 'pull-right'
 		));
-		$data->controls.= Form::open(array('url' => 'setup/uninstall')).
-			Form::button('Uninstall', array(
+		$data->controls.= Form::open(['url' => 'setup/uninstall']).
+			Form::button('Uninstall', [
 				'class'	=> 'btn btn-danger',
 				'id'	=> 'next',
 				'name'	=> 'submit',
 				'type'	=> 'submit',
-			)).
+			]).
+			Form::token().
 			Form::close();
 
 		return setupTemplate($data);
@@ -201,8 +205,9 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		// Make sure we don't time out
 		set_time_limit(0);
 
-		// Remove the system install cache
+		// Remove the cache files
 		Cache::forget('nova.installed');
+		Cache::forget('nova.routes');
 
 		// Remove the app's session config file
 		File::delete(APPPATH.'config/'.App::environment().'/session.php');
@@ -235,7 +240,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 		$data->layout->label = 'The Genre Panel';
 		$data->steps = false;
 		$data->content = new stdClass;
-		$data->controls = HTML::link('setup', 'Back to Setup Center', array('class' => 'pull-right'));
+		$data->controls = HTML::link('setup', 'Back to Setup Center', ['class' => 'pull-right']);
 
 		// Get the genre info
 		$info = Config::get('nova.genres');
@@ -257,17 +262,17 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 
 			if (array_key_exists($value, $info))
 			{
-				$genres[$value] = array(
+				$genres[$value] = [
 					'name'		=> $info[$value],
 					'installed' => ((bool) Schema::hasTable("{$prefix}departments_{$value}")),
-				);
+				];
 			}
 			else
 			{
-				$additional[$value] = array(
+				$additional[$value] = [
 					'name'		=> $value,
 					'installed' => ((bool) Schema::hasTable("{$prefix}departments_{$value}")),
-				);
+				];
 			}
 		}
 		
@@ -282,7 +287,7 @@ Route::group(array('prefix' => 'setup', 'before' => 'configFileCheck|setupAuthor
 	});
 });
 
-Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|setupAuthorization|csrf'), function()
+Route::group(['prefix' => 'setup/config/db', 'before' => 'configFileCheck|setupAuthorization|csrf'], function()
 {
 	/**
 	 * Intro to the database connection config process.
@@ -308,39 +313,39 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 		
 		if ( ! File::exists(SRCPATH.'Setup/generators/database.php'))
 		{
-			$data->content->message = Lang::get('setup.config.noconfig', array(
+			$data->content->message = Lang::get('setup.config.noconfig', [
 				'type'	=> 'database connection',
 				'file'	=> 'database',
-			));
+			]);
 			$data->layout->label = 'File Not Found';
-			$data->controls = HTML::link('setup/config/db', 'Try Again', array('class' => 'pull-right'));
+			$data->controls = HTML::link('setup/config/db', 'Try Again', ['class' => 'pull-right']);
 		}
 		else
 		{
 			if (File::exists(APPPATH.'config/'.App::environment().'/database.php'))
 			{
-				$data->content->message = Lang::get('setup.config.exists', array(
+				$data->content->message = Lang::get('setup.config.exists', [
 					'type'	=> 'database connection',
 					'env'	=> App::environment()
-				));
-				$data->controls = HTML::link('setup', 'Back to Setup Center', array('class' => 'pull-right'));
+				]);
+				$data->controls = HTML::link('setup', 'Back to Setup Center', ['class' => 'pull-right']);
 			}
 			else
 			{
 				if (version_compare(PHP_VERSION, '5.4.0', '<'))
 				{
-					$data->content->message = Lang::get('setup.config.php', array('php' => PHP_VERSION));
+					$data->content->message = Lang::get('setup.config.php', ['php' => PHP_VERSION]);
 					$data->layout->label = 'Installation Cannot Continue';
 				}
 				else
 				{
-					$data->content->message = Lang::get('setup.config.db.intro', array('env' => App::environment()));
+					$data->content->message = Lang::get('setup.config.db.intro', ['env' => App::environment()]);
 					
 					if (count(PDO::getAvailableDrivers()) > 0)
 					{
-						$data->controls = HTML::link('setup/config/db/info', 'Start', array(
+						$data->controls = HTML::link('setup/config/db/info', 'Start', [
 							'class' => 'btn btn-primary'
-						));
+						]);
 					}
 					else
 					{
@@ -373,12 +378,13 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 		$data->content->step = 'info';
 
 		$data->content->message = Lang::get('setup.config.db.connection');
-		$data->controls = Form::button('Check Database Connection', array(
+		$data->controls = Form::button('Check Database Connection', [
 				'name'	=> 'next',
 				'class'	=> 'btn btn-primary',
 				'id'	=> 'next',
 				'type'	=> 'submit',
-			)).
+			]).
+			Form::token().
 			Form::close();
 
 		return setupTemplate($data);
@@ -430,13 +436,14 @@ Route::group(array('prefix' => 'setup/config/db', 'before' => 'configFileCheck|s
 			$data->content->message = Lang::get('setup.config.db.check.success');
 			
 			// Write the controls
-			$data->controls = Form::open(array('url' => 'setup/config/db/write')).
-				Form::button('Write Connection File', array(
+			$data->controls = Form::open(['url' => 'setup/config/db/write']).
+				Form::button('Write Connection File', [
 					'class'	=> 'btn btn-primary',
 					'id'	=> 'next',
 					'name'	=> 'next',
 					'type'	=> 'submit',
-				)).
+				]).
+				Form::token().
 				Form::close();
 
 		}

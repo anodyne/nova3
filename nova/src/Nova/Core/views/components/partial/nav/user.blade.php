@@ -21,6 +21,6 @@
 			</ul>
 		</li>
 	@else
-		<li>{{ HTML::link('login/index', $loginText) }}</li>
+		<li>{{ HTML::link('login', $loginText) }}</li>
 	@endif
 </ul>

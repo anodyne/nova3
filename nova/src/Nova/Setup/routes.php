@@ -27,13 +27,13 @@ Route::filter('setupAuthorization', function()
 			// Not a system administrator? No soup for you!
 			if ( ! Sentry::getUser()->isAdmin())
 			{
-				//return Redirect::to('login/index/'.Nova\Core\Controller\Login::NOT_ADMIN);
+				//return Redirect::to('login/'.Nova\Core\Controller\Login::NOT_ADMIN);
 			}
 		}
 		else
 		{
 			// No session? Send them away
-			//return Redirect::to('login/index/'.Nova\Core\Controller\Login::NOT_LOGGED_IN);
+			//return Redirect::to('login/'.Nova\Core\Controller\Login::NOT_LOGGED_IN);
 		}
 	}
 });

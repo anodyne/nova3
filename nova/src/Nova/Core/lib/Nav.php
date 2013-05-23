@@ -310,7 +310,7 @@ class Nav {
 				4 => array(
 					array(
 						'name' => ucfirst(lang('action.logout')),
-						'url' => 'login/logout',
+						'url' => 'logout',
 						'extra' => array(),
 						'additional' => ''),
 				),

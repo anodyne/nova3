@@ -67,5 +67,5 @@
 
 	{{ Form::hidden('action', $action) }}
 	{{ Form::hidden('id') }}
-	{{ Form::hidden('_token', csrf_token()) }}
+	{{ Form::token() }}
 {{ Form::close() }}

@@ -22,5 +22,5 @@
 			{{ HTML::link('/', lang("short.backToSite"), array('class' => 'btn btn-default btn-block')) }}
 		</div>
 	</div>
-	{{ Form::hidden('_token', csrf_token()) }}
+	{{ Form::token() }}
 {{ Form::close() }}

@@ -852,7 +852,7 @@ class User extends Model implements UserInterface {
 		// Check the login
 		if ( ! Sentry::check() and $redirect)
 		{
-			return Redirect::to('login/index/'.\Nova\Core\Controller\Login::NOT_LOGGED_IN);
+			return Redirect::to('login/'.\Nova\Core\Controller\Login::NOT_LOGGED_IN);
 		}
 		else
 		{

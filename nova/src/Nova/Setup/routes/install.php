@@ -119,6 +119,7 @@ Route::group(['prefix' => 'setup/install', 'before' => 'configFileCheck|setupAut
 			'id'	=> 'next',
 			'type'	=> 'submit',
 		]).
+		Form::token();
 		Form::close();
 
 		return setupTemplate($data);

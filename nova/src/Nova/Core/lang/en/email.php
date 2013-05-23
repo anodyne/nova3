@@ -21,8 +21,8 @@ return array(
 		'passwordReset' => "A password reset has been requested for the account associated with this email address. Since this is a two step process, you must now confirm your reset in order for your password to be changed.\r\n\r\n:0\r\n\r\nIf you didn't request this reset, please contact your game master immediately and notify them of the issue. After doing so, you should log in to the site using your current password. Doing so will cancel the reset request.",
 
 		'arc' => array(
-			'addReviewer' => "You have been added to an application review. From the Application Review Center you can review the application, comment on it and vote on whether you think it should be approved or rejected.\r\n\r\n<a href='".URL::to('login/index')."'>Log in</a> to start participating in the review.",
-			'reviewStart' => "A new application has been received and is available for review. From the Application Review Center you can review the application, comment on it and vote on whether you think it should be approved or rejected.\r\n\r\n<a href='".URL::to('login/index')."'>Log in</a> to start participating in the review.",
+			'addReviewer' => "You have been added to an application review. From the Application Review Center you can review the application, comment on it and vote on whether you think it should be approved or rejected.\r\n\r\n<a href='".URL::to('login')."'>Log in</a> to start participating in the review.",
+			'reviewStart' => "A new application has been received and is available for review. From the Application Review Center you can review the application, comment on it and vote on whether you think it should be approved or rejected.\r\n\r\n<a href='".URL::to('login')."'>Log in</a> to start participating in the review.",
 		),
 
 		'user' => array(

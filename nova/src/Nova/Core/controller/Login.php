@@ -36,13 +36,10 @@ class Login extends LoginBaseController {
 	 * they're notified of the error. Also handles notifying the user if they've
 	 * been locked out of the system for too many log in attempts.
 	 */
-	public function getIndex()
+	public function getIndex($error = self::OK)
 	{
 		// Set the view
 		$this->_view = 'login/index';
-
-		// Get the error code
-		$error = $this->request->segment(3);
 
 		// Only show the error messages when there's something wrong
 		if ($error > self::OK)
@@ -114,7 +111,7 @@ class Login extends LoginBaseController {
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
-			return Redirect::to('login/index/'.self::NOT_FOUND)->withInput();
+			return Redirect::to('login/'.self::NOT_FOUND)->withInput();
 		}
 		catch (\Cartalyst\Sentry\Throttling\UserSuspendedException $e)
 		{
@@ -128,13 +125,13 @@ class Login extends LoginBaseController {
 			// Get now
 			$now = Date::now('UTC');
 
-			return Redirect::to('login/index/'.self::SUSPENDED)
+			return Redirect::to('login/'.self::SUSPENDED)
 				->withInput()
 				->with('suspended_time', $suspendedAt->diffInMinutes($now));
 		}
 		catch (\Cartalyst\Sentry\Throttling\UserBannedException $e)
 		{
-			return Redirect::to('login/index/'.self::BANNED);
+			return Redirect::to('login/'.self::BANNED);
 		}
 	}
 
@@ -240,14 +237,14 @@ class Login extends LoginBaseController {
 	/**
 	 * Confirms a user's request to reset their password.
 	 */
-	public function getReset_confirm()
+	public function getResetConfirm($id, $code)
 	{
 		// Set the view
 		$this->_view = 'login/reset_confirm';
 
 		// Set the data
-		$this->_data->user = $this->request->segment(3);
-		$this->_data->code = $this->request->segment(4);
+		$this->_data->user = $id;
+		$this->_data->code = $code;
 		$this->_data->confirmed = false;
 
 		// Get the reset triggers
@@ -260,7 +257,7 @@ class Login extends LoginBaseController {
 			{
 				$this->_flash[] = array(
 					'status' 	=> 'success',
-					'message' 	=> lang('login.reset.step2Success', HTML::link('login/index', ucfirst(lang('action.login')))),
+					'message' 	=> lang('login.reset.step2Success', HTML::link('login', ucfirst(lang('action.login')))),
 				);
 
 				$this->_data->confirmed = true;
@@ -282,12 +279,8 @@ class Login extends LoginBaseController {
 			);
 		}
 	}
-	public function postReset_confirm()
+	public function postResetConfirm($id, $code)
 	{
-		// Grab the data URI
-		$id = $this->request->segment(3);
-		$code = $this->request->segment(4);
-
 		// Set up the validation server
 		$validator = new UserValidator;
 
