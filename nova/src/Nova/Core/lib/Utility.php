@@ -20,7 +20,7 @@ class Utility {
 	 * @param	string	The current skin
 	 * @return 	array
 	 */
-	public static function getIconIndex($skin)
+	public function getIconIndex($skin)
 	{
 		// Load the icon index from the core first
 		$commonIndex = include SRCPATH.'Core/views/icons.php';
@@ -42,7 +42,7 @@ class Utility {
 	 *
 	 * @return	string
 	 */
-	public static function getRank()
+	public function getRank()
 	{
 		if (Sentry::check())
 		{
@@ -59,7 +59,7 @@ class Utility {
 	 * @param	string	The section
 	 * @return	string
 	 */
-	public static function getSkin($section)
+	public function getSkin($section)
 	{
 		if (Sentry::check())
 		{
@@ -79,7 +79,7 @@ class Utility {
 	 *
 	 * @return 	object|bool
 	 */
-	public static function getUpdates()
+	public function getUpdates()
 	{
 		if (ini_get('allow_url_fopen'))
 		{
@@ -143,7 +143,7 @@ class Utility {
 	 *
 	 * @return	bool
 	 */
-	public static function installed()
+	public function installed()
 	{
 		// Make sure the database config file is there first
 		if ( ! File::exists(APPPATH.'config/'.App::environment().'/database.php'))
@@ -200,7 +200,7 @@ class Utility {
 	 *
 	 * @return  string
 	 */
-	public static function ip()
+	public function ip()
 	{
 		return Request::server('REMOTE_ADDR');
 	}
@@ -213,7 +213,7 @@ class Utility {
 	 * @param	bool	Exclude private and reserved IPs
 	 * @return  string
 	 */
-	public static function realIp($default = '0.0.0.0', $excludeReserved = false)
+	public function realIp($default = '0.0.0.0', $excludeReserved = false)
 	{
 		$serverKeys = array('HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR');
 
@@ -245,7 +245,7 @@ class Utility {
 		return $default;
 	}
 
-	public static function register()
+	public function register()
 	{
 		if (in_array('curl', get_loaded_extensions()))
 		{
