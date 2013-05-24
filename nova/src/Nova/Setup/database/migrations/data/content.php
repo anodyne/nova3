@@ -1,0 +1,772 @@
+<?php
+
+return [
+	[
+		'key' => 'sim_name',
+		'value' => '',
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'sim_year',
+		'value' => '',
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'sim_type',
+		'value' => 2,
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'maintenance',
+		'value' => 'off',
+		'help' => "Maintenance mode allows only admins to log in to the system while updates are being applied or other work is being done",
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'skin_main',
+		'value' => 'default',
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'skin_admin',
+		'value' => 'default',
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'skin_login',
+		'value' => 'default',
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'rank',
+		'value' => 'default',
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'email_status',
+		'value' => Status::ACTIVE,
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'email_subject',
+		'value' => '',
+		'help' => "You can set the email subject prefix for every email that comes from the system. The default is your sim name inside brackets.",
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'email_name',
+		'value' => 'Nova',
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'email_address',
+		'value' => 'me@example.com',
+		'help' => "To avoid some email services marking emails from Nova as spam, use this email address to set a specific address. This defaults to an address that should prevent this issue.",
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'email_protocol',
+		'value' => 'mail',
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'email_smtp_server',
+		'value' => 'smtp.example.com',
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'email_smtp_port',
+		'value' => 25,
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'email_smtp_encryption',
+		'value' => '',
+		'help' => "Nova supports sending SMTP emails over SSL or TLS. If you aren't using encryption, leave this blank.",
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'email_smtp_username',
+		'value' => 'username',
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'email_smtp_password',
+		'value' => 'password',
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'email_sendmail_path',
+		'value' => '/usr/sbin/sendmail -bs',
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'timezone',
+		'value' => 'UTC',
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'date_format',
+		'value' => '%d %B %Y',
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'updates',
+		'value' => '4',
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'post_count_format',
+		'value' => 'multiple',
+		'help' => "Posts can be counted in two ways: one post no matter how many authors (single) or a post for each author (multiple)",
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'use_mission_notes',
+		'value' => 'y',
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'online_timespan',
+		'value' => '5',
+		'help' => "This is used for the Who's Online feature and should be set in minutes. The higher the number, the less accurate the data, but the lower impact it'll have on the server.",
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'posting_requirement',
+		'value' => 14,
+		'help' => "The timespan (in days) that a player must post within. Set this to 0 to remove the requirement.",
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'login_attempts',
+		'value' => 5,
+		'help' => "The number of times a user can attempt to log in before being locked out. This feature exists to help protect sites against brute-force attacks.",
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'login_lockout_time',
+		'value' => 15,
+		'help' => "When a user is locked out because of too many log in attempts, this is the number of minutes they need to wait before logging in again. This goes hand-in-hand with the lockout system to protect against brute-force atatcks.",
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'meta_description',
+		'value' => "Anodyne Productions' premier online RPG management software",
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'meta_keywords',
+		'value' => "nova, rpg management, anodyne, rpg, sms",
+		'user_created' => (int) false
+	],
+	[
+		'key' => 'meta_author',
+		'value' => "Anodyne Productions",
+		'user_created' => (int) false
+	],
+];
+
+// Loop through and insert the data
+foreach ($data as $d)
+{
+	Settings::add($d);
+}
+}
+
+protected function seedSimType()
+{
+// Data to seed the database with
+$data = [
+	['name' => 'all'],
+	['name' => 'ship'],
+	['name' => 'base'],
+	['name' => 'colony'],
+	['name' => 'unit'],
+	['name' => 'realm'],
+	['name' => 'planet'],
+	['name' => 'organization'],
+];
+
+// Loop through the data and add it
+foreach ($data as $d)
+{
+	SimType::add($d);
+}
+}
+
+protected function seedSiteContent()
+{
+$data = [
+	/**
+	 * Headers
+	 */
+	[
+		'key' => 'login_index_header',
+		'label' => 'Login Header',
+		'content' => "Log In",
+		'type' => 'header',
+		'section' => 'login',
+		'page' => 'index'
+	],
+	[
+		'key' => 'login_reset_header',
+		'label' => 'Reset Password Header',
+		'content' => "Reset Password",
+		'type' => 'header',
+		'section' => 'login',
+		'page' => 'reset'
+	],
+	[
+		'key' => 'login_reset_confirm_header',
+		'label' => 'Confirm Reset Password Header',
+		'content' => "Confirm Password Reset",
+		'type' => 'header',
+		'section' => 'login',
+		'page' => 'reset_confirm'
+	],
+	[
+		'key' => 'login_logout_header',
+		'label' => 'Logout Header',
+		'content' => "Logout",
+		'type' => 'header',
+		'section' => 'login',
+		'page' => 'logout'
+	],
+	[
+		'key' => 'main_index_header',
+		'label' => 'Main Page Header',
+		'content' => "Welcome to Nova!",
+		'type' => 'header',
+		'section' => 'main',
+		'page' => 'index'
+	],
+	[
+		'key' => 'main_credits_header',
+		'label' => 'Site Credits Header',
+		'content' => 'Site Credits',
+		'type' => 'header',
+		'section' => 'main',
+		'page' => 'credits'
+	],
+	[
+		'key' => 'main_join_header',
+		'label' => 'Join Header',
+		'content' => 'Join',
+		'type' => 'header',
+		'section' => 'main',
+		'page' => 'join'
+	],
+	[
+		'key' => 'sim_index_header',
+		'label' => 'Sim Header',
+		'content' => "The Sim",
+		'type' => 'header',
+		'section' => 'sim',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_index_header',
+		'label' => 'ACP Header',
+		'content' => "Control Panel",
+		'type' => 'header',
+		'section' => 'admin',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_form_index_header',
+		'label' => 'Form Management Header',
+		'content' => "Forms",
+		'type' => 'header',
+		'section' => 'form',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_form_fields_header',
+		'label' => 'Form Field Management Header',
+		'content' => "Manage Form Fields",
+		'type' => 'header',
+		'section' => 'form',
+		'page' => 'fields'
+	],
+	[
+		'key' => 'admin_form_sections_header',
+		'label' => 'Form Section Management Header',
+		'content' => "Manage Form Sections",
+		'type' => 'header',
+		'section' => 'form',
+		'page' => 'sections'
+	],
+	[
+		'key' => 'admin_form_tabs_header',
+		'label' => 'Form Tab Management Header',
+		'content' => "Manage Form Tabs",
+		'type' => 'header',
+		'section' => 'form',
+		'page' => 'tabs'
+	],
+	[
+		'key' => 'admin_ranks_index_header',
+		'label' => 'Ranks Index Header',
+		'content' => "Ranks",
+		'type' => 'header',
+		'section' => 'rank',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_ranks_groups_header',
+		'label' => 'Rank Groups Management Header',
+		'content' => "Rank Groups",
+		'type' => 'header',
+		'section' => 'rank',
+		'page' => 'groups'
+	],
+	[
+		'key' => 'admin_ranks_info_header',
+		'label' => 'Rank Info Management Header',
+		'content' => "Rank Info",
+		'type' => 'header',
+		'section' => 'rank',
+		'page' => 'info'
+	],
+	[
+		'key' => 'admin_ranks_manage_header',
+		'label' => 'Rank Management Header',
+		'content' => "Ranks",
+		'type' => 'header',
+		'section' => 'rank',
+		'page' => 'manage'
+	],
+	[
+		'key' => 'admin_arc_index_header',
+		'label' => 'ARC Index Header',
+		'content' => "Application Review Center",
+		'type' => 'header',
+		'section' => 'application',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_arc_rules_header',
+		'label' => 'ARC Rules Header',
+		'content' => "Application Review Rules",
+		'type' => 'header',
+		'section' => 'application',
+		'page' => 'rules'
+	],
+	[
+		'key' => 'admin_arc_history_header',
+		'label' => 'ARC History Header',
+		'content' => "Application History",
+		'type' => 'header',
+		'section' => 'application',
+		'page' => 'history'
+	],
+	[
+		'key' => 'admin_arc_review_header',
+		'label' => 'ARC Review Header',
+		'content' => "Application Review",
+		'type' => 'header',
+		'section' => 'application',
+		'page' => 'review'
+	],
+	[
+		'key' => 'admin_user_management_header',
+		'label' => 'User Management Header',
+		'content' => "Users",
+		'type' => 'header',
+		'section' => 'user',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_role_index_header',
+		'label' => 'Access Roles Header',
+		'content' => "Manage Access Roles",
+		'type' => 'header',
+		'section' => 'role',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_role_tasks_header',
+		'label' => 'Access Role Tasks Header',
+		'content' => "Manage Access Role Tasks",
+		'type' => 'header',
+		'section' => 'role',
+		'page' => 'tasks'
+	],
+
+	/**
+	 * Page Titles
+	 */
+	[
+		'key' => 'login_index_title',
+		'label' => 'Login Page Title',
+		'content' => "Log In",
+		'type' => 'title',
+		'section' => 'login',
+		'page' => 'index'
+	],
+	[
+		'key' => 'login_reset_title',
+		'label' => 'Reset Password Page Title',
+		'content' => "Reset Password",
+		'type' => 'title',
+		'section' => 'login',
+		'page' => 'reset'
+	],
+	[
+		'key' => 'login_reset_confirm_title',
+		'label' => 'Confirm Reset Password Page Title',
+		'content' => "Confirm Password Reset",
+		'type' => 'title',
+		'section' => 'login',
+		'page' => 'reset_confirm'
+	],
+	[
+		'key' => 'login_logout_title',
+		'label' => 'Logout Page Title',
+		'content' => "Logout",
+		'type' => 'title',
+		'section' => 'login',
+		'page' => 'logout'
+	],
+	[
+		'key' => 'main_index_title',
+		'label' => 'Main Page Title',
+		'content' => "Welcome to Nova!",
+		'type' => 'title',
+		'section' => 'main',
+		'page' => 'index'
+	],
+	[
+		'key' => 'main_credits_title',
+		'label' => 'Site Credits Page Title',
+		'content' => 'Site Credits',
+		'type' => 'title',
+		'section' => 'main',
+		'page' => 'credits'
+	],
+	[
+		'key' => 'main_join_title',
+		'label' => 'Join Page Title',
+		'content' => 'Join',
+		'type' => 'title',
+		'section' => 'main',
+		'page' => 'join'
+	],
+	[
+		'key' => 'sim_index_title',
+		'label' => 'Sim Page Title',
+		'content' => "The Sim",
+		'type' => 'title',
+		'section' => 'sim',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_index_title',
+		'label' => 'ACP Page Title',
+		'content' => "Control Panel",
+		'type' => 'title',
+		'section' => 'admin',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_form_index_title',
+		'label' => 'Form Management Page Title',
+		'content' => "Forms",
+		'type' => 'title',
+		'section' => 'form',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_form_fields_title',
+		'label' => 'Form Field Management Page Title',
+		'content' => "Manage Form Fields",
+		'type' => 'title',
+		'section' => 'form',
+		'page' => 'fields'
+	],
+	[
+		'key' => 'admin_form_sections_title',
+		'label' => 'Form Section Management Page Title',
+		'content' => "Manage Form Sections",
+		'type' => 'title',
+		'section' => 'form',
+		'page' => 'sections'
+	],
+	[
+		'key' => 'admin_form_tabs_title',
+		'label' => 'Form Tab Management Page Title',
+		'content' => "Manage Form Tabs",
+		'type' => 'title',
+		'section' => 'form',
+		'page' => 'tabs'
+	],
+	[
+		'key' => 'admin_ranks_index_title',
+		'label' => 'Ranks Index Page Title',
+		'content' => "Ranks",
+		'type' => 'title',
+		'section' => 'rank',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_ranks_groups_title',
+		'label' => 'Rank Groups Management Page Title',
+		'content' => "Rank Groups",
+		'type' => 'title',
+		'section' => 'rank',
+		'page' => 'groups'
+	],
+	[
+		'key' => 'admin_ranks_info_title',
+		'label' => 'Rank Info Management Page Title',
+		'content' => "Rank Info",
+		'type' => 'title',
+		'section' => 'rank',
+		'page' => 'info'
+	],
+	[
+		'key' => 'admin_ranks_manage_title',
+		'label' => 'Rank Management Page Title',
+		'content' => "Ranks",
+		'type' => 'title',
+		'section' => 'rank',
+		'page' => 'manage'
+	],
+	[
+		'key' => 'admin_arc_index_title',
+		'label' => 'ARC Index Page Title',
+		'content' => "Application Review Center",
+		'type' => 'title',
+		'section' => 'application',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_arc_rules_title',
+		'label' => 'ARC Rules Page Title',
+		'content' => "Application Review Rules",
+		'type' => 'title',
+		'section' => 'application',
+		'page' => 'rules'
+	],
+	[
+		'key' => 'admin_arc_history_title',
+		'label' => 'ARC History Page Title',
+		'content' => "Application History",
+		'type' => 'title',
+		'section' => 'application',
+		'page' => 'history'
+	],
+	[
+		'key' => 'admin_arc_review_title',
+		'label' => 'ARC Review Page Title',
+		'content' => "Application Review",
+		'type' => 'title',
+		'section' => 'application',
+		'page' => 'review'
+	],
+	[
+		'key' => 'admin_user_management_title',
+		'label' => 'User Management Page Title',
+		'content' => "Users",
+		'type' => 'title',
+		'section' => 'user',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_role_index_title',
+		'label' => 'Access Roles Title',
+		'content' => "Access Roles",
+		'type' => 'title',
+		'section' => 'role',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_role_tasks_title',
+		'label' => 'Access Role Tasks Title',
+		'content' => "Access Role Tasks",
+		'type' => 'title',
+		'section' => 'role',
+		'page' => 'tasks'
+	],
+
+	/**
+	 * Messages
+	 */
+	[
+		'key' => 'login_reset_message',
+		'label' => 'Reset Password Message',
+		'content' => "To reset your password, simply enter your email address. You'll receive an email shortly with a link to confirm your password reset. If you log in to the site before confirming your password reset, the reset will be cancelled.",
+		'type' => 'message',
+		'section' => 'login',
+		'page' => 'reset',
+		'protected' => (int) true
+	],
+	[
+		'key' => 'login_reset_confirm_message',
+		'label' => 'Confirm Reset Password Message',
+		'content' => "The second step of the password reset process is confirmation. In order to complete your password reset, enter a new password and click the button below and your password will be changed. If you did not request a password reset, you can simply log in to the site to cancel the reset request.",
+		'type' => 'message',
+		'section' => 'login',
+		'page' => 'reset_confirm',
+		'protected' => (int) true
+	],
+	[
+		'key' => 'main_index_message',
+		'label' => 'Main Page Message',
+		'content' => "Define your welcome message and welcome page header through the Site Content page.",
+		'type' => 'message',
+		'section' => 'main',
+		'page' => 'index'
+	],
+	[
+		'key' => 'main_credits_message',
+		'label' => 'Credits',
+		'content' => "Define your site credits through the Site Messages page.",
+		'type' => 'message',
+		'section' => 'main',
+		'page' => 'credits'
+	],
+	[
+		'key' => 'main_join_message',
+		'label' => 'Join Message',
+		'content' => "Define your join message through the Site Messages page.",
+		'type' => 'message',
+		'section' => '',
+		'page' => ''
+	],
+	[
+		'key' => 'main_join_coppa_message',
+		'label' => 'COPPA Message',
+		'content' => "Members are expected to follow the rules and regulations of both the game and game's organization at all times, both in character and out of character. By continuing, you affirm you will play in a proper and adequate manner. In compliance with the Children's Online Privacy Protection Act of 1998 (COPPA
+	], players under the age of 13 will not be accepted and any player found to be under the age of 13 will be removed immediately and without question.",
+		'type' => 'message',
+		'section' => '',
+		'page' => ''
+	],
+	[
+		'key' => 'sim_index_message',
+		'label' => 'Sim Message',
+		'content' => "Define your sim message through the Site Content page.",
+		'type' => 'message',
+		'section' => 'sim',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_index_message',
+		'label' => 'ACP Message',
+		'content' => "Define your admin control panel through the Site Content page.",
+		'type' => 'message',
+		'section' => 'admin',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_ranks_groups_message',
+		'label' => 'Manage Rank Groups Message',
+		'content' => "Rank groups are a simple way to organize ranks into logical groupings. Every rank in the system belongs to a rank group, allowing admins to easily add new groups of ranks. Nova comes with several rank groups already, but you can easily create new groups and add ranks to them from rank management.",
+		'type' => 'message',
+		'section' => 'rank',
+		'page' => 'groups'
+	],
+	[
+		'key' => 'admin_ranks_info_message',
+		'label' => 'Manage Rank Info Message',
+		'content' => "Rank info contains all of the basic information about ranks that's repeated across multiple ranks, like name, short name, and order. Every rank in the system references one of the rank info records below, meaning that several ranks can be updated simultaneously by changing one of the info records. You can easily create new info records and use them with ranks or edit existing items.",
+		'type' => 'message',
+		'section' => 'rank',
+		'page' => 'info'
+	],
+	[
+		'key' => 'admin_ranks_manage_message',
+		'label' => 'Manage Ranks Message',
+		'content' => "Ranks are made up of several different componets to keep things as flexible as possible. The ranks records below are composed of a rank info, a rank group, a base image, and a pip image. From here, you can change any and all of those pieces to customize your ranks to your liking.",
+		'type' => 'message',
+		'section' => 'rank',
+		'page' => 'manage'
+	],
+	[
+		'key' => 'admin_arc_index_message',
+		'label' => 'ARC Index Message',
+		'content' => "",
+		'type' => 'message',
+		'section' => 'application',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_arc_rules_message',
+		'label' => 'ARC Rules Message',
+		'content' => "Application review rules are a way to automatically add specific users or users who hold specific positions to a review when an application is received. You can create as many rules as you want that will be evaluated and run on every new application. Rules whose conditions cannot be met will be ignored.",
+		'type' => 'message',
+		'section' => 'application',
+		'page' => 'rules'
+	],
+	[
+		'key' => 'admin_role_index_message',
+		'label' => 'Access Roles Message',
+		'content' => "Access roles control exactly what a user can and can't do in Nova. Some sensible defaults are included for managing your users, but you're free to create and edit these roles to fit your own game. Be careful when editing or deleting existing roles as doing so could prevent you or others from accessing areas of Nova.",
+		'type' => 'message',
+		'section' => 'role',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_role_tasks_message',
+		'label' => 'Access Roles Tasks Message',
+		'content' => "Access roles are made up of tasks. Each task defines something a user can do such as creating, updating, deleting or even seeing entries. When combined with a component, this system allows for granular control over what a user can and can't do in Nova. You can edit any tasks in system or even create your own for your own pages or MODs. Be careful when editing or deleting existing items as doing so could prevent you or others from accessing areas of Nova.",
+		'type' => 'message',
+		'section' => 'role',
+		'page' => 'tasks'
+	],
+
+	/**
+	 * Other Messages
+	 */
+	[
+		'key' => 'credits_perm',
+		'label' => 'Permanent Credits',
+		'content' => "The Nova 3 experience can be summed up as \"smarter and better\". From the top down, Nova is faster, simpler, smarter and more flexible than before. This is accomplished in no small part by the elegant and powerful PHP 5.3 foundation of <a href='http://laravel.com/' target='_blank'>Laravel</a>. The icons found throughout Nova are from the <a href='http://icomoon.io/' target='_blank'>IcoMoon</a> icon font.",
+		'protected' => (int) true,
+		'type' => 'other'
+	],
+	[
+		'key' => 'footer',
+		'label' => 'Additional Footer Information',
+		'content' => "New to Nova 3 is the ability to add additional information to the footer, like banner exchanges, without having to edit any files. Just plug your code/message into the 'Additional Footer Information' site content item!",
+		'type' => 'other'
+	],
+	[
+		'key' => 'join_disclaimer',
+		'label' => 'Join Disclaimer',
+		'content' => "Members are expected to follow the rules and regulations of both the sim and fleet at all times, both in character and out of character. By continuing, you affirm that you will sim in a proper and adequate manner. Members who choose to make ultra short posts, post very infrequently, or post posts with explicit content (above PG-13) will be removed immediately, and by continuing, you agree to this. In addition, in compliance with the Children's Online Privacy Protection Act of 1998 (COPPA
+	], we do not accept players under the age of 13.  Any players found to be under the age of 13 will be immediately removed without question.  By agreeing to these terms, you are also saying that you are above the age of 13.",
+		'type' => 'other'
+	],
+	[
+		'key' => 'join_sample_post',
+		'label' => 'Join Sample Post',
+		'content' => "Define your join sample post through the Site Content page. If you don't want to use a sample post, simply leave this blank.",
+		'type' => 'other'
+	],
+	[
+		'key' => 'accept_message',
+		'label' => 'User Acceptance Email',
+		'content' => "Define your user acceptance message through the Site Content page.",
+		'type' => 'other'
+	],
+	[
+		'key' => 'reject_message',
+		'label' => 'User Rejection Message',
+		'content' => "Define your user rejection message through the Site Content page.",
+		'type' => 'other'
+	],
+	[
+		'key' => 'join_character_help',
+		'label' => 'Join Character Help',
+		'content' => "__Tips for a good character application:__
+
+* Be unique. No one likes interacting with a character that can do everything perfectly. Look for ways to make your character fresh and exciting and to give them shortcomings and weaknesses.
+* A character isn't his/her position, but a person with a job. Before they work here, they started somewhere. In this sense, their past has defined their arrival to this place and defined who they are. What brought the character here? There should be a logical reason the character is in the here-and-now of the game situation.
+* A character fits into the world in a specific way. They were born somewhere and are a product of their time (war, poverty, disease, prosperity, etc.). Use those factors to craft a narrative about the character.
+* Many people choose to use exaggerated aspects of their own personality (as well as a complimentary weakness). Doing so will make it easier to write the character because you know how you would react in given situations.",
+		'type' => 'other'
+	],
+];
