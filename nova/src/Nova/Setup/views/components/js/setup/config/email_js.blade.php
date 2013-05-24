@@ -4,9 +4,20 @@
 		var checked = $('.js-email-driver:checked').val();
 
 		if (checked == "smtp")
+		{
+			$('#sendmailOptions').hide();
 			$('#smtpOptions').show();
-		else
+		}
+		if (checked == "sendmail")
+		{
 			$('#smtpOptions').hide();
+			$('#sendmailOptions').show();
+		}
+		else
+		{
+			$('#smtpOptions').hide();
+			$('#sendmailOptions').hide();
+		}
 	});
 
 </script>

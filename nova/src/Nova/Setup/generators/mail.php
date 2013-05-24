@@ -7,4 +7,5 @@ return array(
 'encryption' => '#ENCRYPTION#',
 'username' => '#USERNAME#',
 'password' => '#PASSWORD#',
+'sendmail' => '#SENDMAILPATH#',
 );

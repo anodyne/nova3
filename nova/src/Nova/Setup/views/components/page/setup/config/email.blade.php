@@ -13,6 +13,7 @@
 					<div class="controls">
 						<label class="radio-inline"><input type="radio" name="driver" value="smtp" class="js-email-driver" checked="checked"> SMTP</label>
 						<label class="radio-inline"><input type="radio" name="driver" value="mail" class="js-email-driver"> PHP Mail</label>
+						<label class="radio-inline"><input type="radio" name="driver" value="sendmail" class="js-email-driver"> Sendmail</label>
 					</div>
 				</div>
 			</div>
@@ -50,6 +51,16 @@
 					<label class="control-label">Password</label>
 					<input type="text" class="span10" name="password" value="{{ Session::get('password', '') }}">
 					<p class="help-block">Your SMTP password</p>
+				</div>
+			</div>
+		</div>
+
+		<div id="sendmailOptions" class="hide">
+			<div class="row">
+				<div class="col col-lg-6">
+					<label class="control-label">Sendmail Path</label>
+					<input type="text" name="sendmailpath" value="{{ Session::get('sendmailpath', '/usr/sbin/sendmail') }}">
+					<p class="help-block">The path to Sendmail on the server</p>
 				</div>
 			</div>
 		</div>

@@ -666,7 +666,7 @@ return array(
 	});
 });
 
-Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileCheck|setupAuthorization|csrf'), function()
+Route::group(['prefix' => 'setup/config/email', 'before' => 'configFileCheck|setupAuthorization|csrf'], function()
 {
 	/**
 	 * Intro to the email config process.
@@ -753,6 +753,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 				'id'	=> 'next',
 				'type'	=> 'submit',
 			)).
+			Form::token().
 			Form::close();
 
 		return setupTemplate($data);
@@ -781,6 +782,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 		$username	= trim(e(Input::get('username')));
 		$password	= trim(e(Input::get('password')));
 		$encryption	= trim(e(Input::get('encryption')));
+		$sendmail	= trim(e(Input::get('sendmailpath')));
 		
 		// Set the session variables
 		Session::put('emailDrvr', $driver);
@@ -789,6 +791,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 		Session::put('emailPass', $password);
 		Session::put('emailUser', $username);
 		Session::put('emailEncr', $encryption);
+		Session::put('emailSend', $sendmailpath);
 
 		// Get the file
 		$emailFileContents = File::get(SRCPATH.'Setup/generators/mail.php');
@@ -796,14 +799,15 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 		if ($emailFileContents !== false)
 		{
 			// Set what should be replaced
-			$replacements = array(
+			$replacements = [
 				'#DRIVER#'		=> Session::get('emailDrvr'),
 				'#HOSTNAME#'	=> Session::get('emailHost'),
 				'#USERNAME#'	=> Session::get('emailUser'),
 				'#PASSWORD#'	=> Session::get('emailPass'),
 				"'#PORT#'"		=> Session::get('emailPort'),
 				'#ENCRYPTION#'	=> Session::get('emailEncr'),
-			);
+				'#SENDMAILPATH#'=> Session::get('emailSend'),
+			];
 
 			// Loop through and do the replacements
 			foreach ($replacements as $key => $value)
@@ -829,7 +833,7 @@ Route::group(array('prefix' => 'setup/config/email', 'before' => 'configFileChec
 				Session::flush();
 				
 				// Write the controls
-				$data->controls = HTML::link('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
+				$data->controls = HTML::link('setup', 'Back to Setup Center', ['class' => 'btn btn-primary']);
 			}
 			else
 			{
@@ -843,19 +847,21 @@ return array(
 'encryption' => '".Session::get('emailEncr')."',
 'username' => '".Session::get('emailUser')."',
 'password' => '".Session::get('emailPass')."',
+'sendmail' => '".Session::get('emailSend')."',
 );");
 			
 				// Set the message
-				$data->content->message = Lang::get('setup.config.email.write.failure', array('env' => App::environment()));
+				$data->content->message = Lang::get('setup.config.email.write.failure', ['env' => App::environment()]);
 				
 				// Write the controls
-				$data->controls = Form::open(array('url' => 'setup/config/verify')).
-					Form::button('Re-Test', array(
+				$data->controls = Form::open(['url' => 'setup/config/email/verify']).
+					Form::button('Re-Test', [
 						'class'	=> 'btn btn-primary',
 						'id'	=> 'next',
 						'name'	=> 'next',
 						'type'	=> 'submit',
-					)).
+					]).
+					Form::token().
 					Form::close();
 			}
 		}
@@ -871,19 +877,21 @@ return array(
 'encryption' => '".Session::get('emailEncr')."',
 'username' => '".Session::get('emailUser')."',
 'password' => '".Session::get('emailPass')."',
+'sendmail' => '".Session::get('emailSend')."',
 );");
 		
 			// Set the message
-			$data->content->message = Lang::get('setup.config.email.write.failure', array('env' => App::environment()));
+			$data->content->message = Lang::get('setup.config.email.write.failure', ['env' => App::environment()]);
 			
 			// Write the controls
-			$data->controls = Form::open(array('url' => 'setup/config/verify')).
-				Form::button('Verify', array(
+			$data->controls = Form::open(['url' => 'setup/config/email/verify']).
+				Form::button('Verify', [
 					'class'	=> 'btn btn-primary',
 					'id'	=> 'next',
 					'name'	=> 'next',
 					'type'	=> 'submit',
-				)).
+				]).
+				Form::token().
 				Form::close();
 		}
 
@@ -915,7 +923,7 @@ return array(
 			$data->content->message = Lang::get('setup.config.email.verify.success');
 			
 			// Write the controls
-			$data->controls = HTML::link('setup', 'Back to Setup Center', array('class' => 'btn btn-primary'));
+			$data->controls = HTML::link('setup', 'Back to Setup Center', ['class' => 'btn btn-primary']);
 		}
 		else
 		{
@@ -923,7 +931,7 @@ return array(
 			$data->content->message = Lang::get('setup.config.email.verify.failure');
 
 			// Write the controls
-			$data->controls = HTML::link('setup/config/email/info', 'Start Over', array('class' => 'btn btn-primary'));
+			$data->controls = HTML::link('setup/config/email/info', 'Start Over', ['class' => 'btn btn-primary']);
 		}
 
 		return setupTemplate($data);
