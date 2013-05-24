@@ -7,6 +7,7 @@
 
 <script type="text/javascript" src="<?php echo SRCURL;?>Assets/js/jquery.lazy.js"></script>
 <script type="text/javascript" src="<?php echo SRCURL;?>Assets/js/bootstrap.min.js"></script>
+<!--<script type="text/javascript" src="<?php echo SRCURL;?>Assets/js/underscore-min.js"></script>-->
 <script type="text/javascript">
 	
 	$(document).ready(function(){
