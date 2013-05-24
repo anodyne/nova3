@@ -14,19 +14,23 @@ use AdminBaseController;
 
 class Role extends AdminBaseController {
 
+	public function __construct()
+	{
+		parent::__construct();
+		
+		static::$controllerName = 'role';
+	}
+
 	/**
 	 * Manage access roles.
 	 */
-	public function getIndex()
+	public function getIndex($roleID = false)
 	{
 		// Verify the user is allowed
 		Sentry::getUser()->allowed(['role.create', 'role.edit', 'role.delete'], true);
 
 		// Set the JS view
 		$this->_jsView = 'admin/role/roles_js';
-
-		// Get the role ID from the URI
-		$roleID = $this->request->segment(4, false);
 
 		// Get all the roles
 		$this->_data->roles = AccessRole::get();
@@ -54,6 +58,9 @@ class Role extends AdminBaseController {
 			{
 				// Get the tasks for the role we're editing
 				$this->_data->roleTasks = $role->getTasks(false)->toSimpleArray();
+
+				// Set the inherited tasks array
+				$this->_data->inheritedTasks = [];
 
 				// Now loop through the inherited tasks and get those
 				foreach ($role->getInheritedTasks() as $tasks)
@@ -130,6 +137,9 @@ class Role extends AdminBaseController {
 		{
 			// Create the item
 			$item = AccessRole::add(Input::all(), true);
+
+			// Set the inherited tasks array
+			$inheritedTasks = [];
 
 			// Loop through the inherited tasks and get those
 			foreach ($item->getInheritedTasks() as $tasks)
@@ -215,8 +225,11 @@ class Role extends AdminBaseController {
 				// Update the role information
 				$role->name = e(Input::get('name'));
 				$role->desc = e(Input::get('desc'));
-				$role->inherits = implode(',', Input::get('inherits'));
+				$role->inherits = (Input::get('inherits')) ? implode(',', Input::get('inherits')) : '';
 				$role->save();
+
+				// Set the inherited tasks array
+				$inheritedTasks = [];
 
 				// Loop through the inherited tasks and get those
 				foreach ($role->getInheritedTasks() as $tasks)
@@ -242,7 +255,7 @@ class Role extends AdminBaseController {
 					}
 
 					// Sync the roles_tasks table
-					$item->tasks()->sync($tasks);
+					$role->tasks()->sync($tasks);
 				}
 			}
 
@@ -296,7 +309,7 @@ class Role extends AdminBaseController {
 			}
 		}
 
-		return Redirect::to('admin/role/index')
+		return Redirect::to('admin/role')
 			->with('flashStatus', $flashStatus)
 			->with('flashMessage', $flashMessage);
 	}

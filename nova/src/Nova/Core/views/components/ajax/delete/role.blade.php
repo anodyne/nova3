@@ -1,6 +1,6 @@
 <p>{{ lang('short.deleteConfirm', lang('role'), $name) }}</p>
 
-{{ Form::open(['url' => 'admin/role/index']) }}
+{{ Form::open(['url' => 'admin/role']) }}
 	@if (count($roles) > 0)
 		<div class="control-group">
 			<label class="control-label"></label>

@@ -13,7 +13,7 @@
 
 	@if (Sentry::getUser()->hasAccess('role.update'))
 		<div class="btn-group">
-			<a href="{{ URL::to('admin/role/index') }}" class="btn btn-default icn-size-16 tooltip-top" title="{{ ucfirst(lang('short.manage', langConcat('access roles'))) }}">{{ $_icons['lock'] }}</a>
+			<a href="{{ URL::to('admin/role') }}" class="btn btn-default icn-size-16 tooltip-top" title="{{ ucfirst(lang('short.manage', langConcat('access roles'))) }}">{{ $_icons['lock'] }}</a>
 		</div>
 	@endif
 </div>

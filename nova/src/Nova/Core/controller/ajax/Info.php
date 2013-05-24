@@ -98,55 +98,6 @@ class Info extends AjaxBaseController {
 		echo nl2br($output);
 	}
 
-	public function getRoleInheritedTasks()
-	{
-		// Set the variable
-		$role = e(Input::get('role'));
-		$role = (is_numeric($role)) ? $role : false;
-
-		// Get the role
-		$item = \AccessRole::find($role);
-
-		// Start a holding array
-		$retval = array();
-
-		// Loop through and get the task IDs
-		foreach ($item->tasks as $task)
-		{
-			$retval[] = $task->id;
-		}
-
-		return json_encode($retval);
-	}
-
-	/**
-	 * Get the roles who have the given task.
-	 */
-	public function getRolesWithTask($id, $format = 'html')
-	{
-		if (Sentry::check())
-		{
-			// What type of request is it?
-			$format = e($format);
-
-			// Clean the variable
-			$id = e($id);
-
-			// Get the task
-			$task = \AccessTask::find($id);
-
-			if ($format == 'html')
-			{
-				echo View::make(Location::file('info/task_roles', Utility::getSkin('admin'), 'ajax'))
-					->with('roles', $task->roles);
-			}
-			else
-			{
-				echo $task->roles->toJson();
-			}
-		}
-	}
-
 	/**
 	 * Get the preview for a specific skin.
 	 */
@@ -179,6 +130,55 @@ class Info extends AjaxBaseController {
 
 			echo View::make(Location::file('info/role_users', Utility::getSkin('admin'), 'ajax'))
 				->with('users', $role->users);
+		}
+	}
+
+	public function postRoleInheritedTasks()
+	{
+		// Set the variable
+		$role = e(Input::get('role'));
+		$role = (is_numeric($role)) ? $role : false;
+
+		// Get the role
+		$item = \AccessRole::find($role);
+
+		// Start a holding array
+		$retval = array();
+
+		// Loop through and get the task IDs
+		foreach ($item->tasks as $task)
+		{
+			$retval[] = $task->id;
+		}
+
+		return json_encode($retval);
+	}
+
+	/**
+	 * Get the roles who have the given task.
+	 */
+	public function postRolesWithTask($id, $format = 'html')
+	{
+		if (Sentry::check())
+		{
+			// What type of request is it?
+			$format = e($format);
+
+			// Clean the variable
+			$id = e($id);
+
+			// Get the task
+			$task = \AccessTask::find($id);
+
+			if ($format == 'html')
+			{
+				echo View::make(Location::file('info/task_roles', Utility::getSkin('admin'), 'ajax'))
+					->with('roles', $task->roles);
+			}
+			else
+			{
+				echo $task->roles->toJson();
+			}
 		}
 	}
 

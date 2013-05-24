@@ -1,14 +1,14 @@
 <div class="btn-group">
-	<a href="{{ URL::to('admin/role/index') }}" class="btn btn-default icn-size-16 tooltip-top" title="{{ ucfirst(lang('short.back', langConcat('access roles'))) }}">{{ $_icons['back'] }}</a>
+	<a href="{{ URL::to('admin/role') }}" class="btn btn-default icn-size-16 tooltip-top" title="{{ ucfirst(lang('short.back', langConcat('access roles'))) }}">{{ $_icons['back'] }}</a>
 </div>
 
-{{ Form::model($role, array('url' => 'admin/role/index')) }}
+{{ Form::model($role, ['url' => 'admin/role']) }}
 	<div class="row">
 		<div class="col col-lg-4">
 			<div class="control-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
 				<label class="control-label">{{ ucwords(lang('name')) }}</label>
 				<div class="controls">
-					{{ Form::text('name', null, array('class' => 'input-with-feedback')) }}
+					{{ Form::text('name', null, ['class' => 'input-with-feedback']) }}
 					{{ $errors->first('name', '<p class="help-block">:message</p>') }}
 				</div>
 			</div>
@@ -20,7 +20,7 @@
 			<div class="control-group{{ ($errors->has('desc')) ? ' has-error' : '' }}">
 				<label class="control-label">{{ ucwords(lang('desc')) }}</label>
 				<div class="controls">
-					{{ Form::textarea('desc', null, array('class' => 'input-with-feedback', 'rows' => 4)) }}
+					{{ Form::textarea('desc', null, ['class' => 'input-with-feedback', 'rows' => 4]) }}
 					{{ $errors->first('desc', '<p class="help-block">:message</p>') }}
 				</div>
 			</div>
@@ -34,17 +34,21 @@
 				<div class="controls">
 					<div class="row">
 					@foreach ($roles as $r)
-						<div class="col col-lg-6">
-							<label class="checkbox">
-								@if ($action == 'update')
-									@if ($r->id != $role->id)
-										{{ Form::checkbox('inherits[]', $r->id, (in_array($r->id, $role->inherits)), array('data-role' => $r->id, 'class' => 'js-inherited-roles')) }} {{ $r->name }}
-									@endif
-								@else
-									{{ Form::checkbox('inherits[]', $r->id, null, array('data-role' => $r->id, 'class' => 'js-inherited-roles')) }} {{ $r->name }}
-								@endif
-							</label>
-						</div>
+						@if ($action == 'update')
+							@if ($r->id != $role->id)
+								<div class="col col-lg-6">
+									<label class="checkbox">
+										{{ Form::checkbox('inherits[]', $r->id, (in_array($r->id, $role->inherits)), ['data-role' => $r->id, 'class' => 'js-inherited-roles']) }} {{ $r->name }}
+									</label>
+								</div>
+							@endif
+						@else
+							<div class="col col-lg-6">
+								<label class="checkbox">
+									{{ Form::checkbox('inherits[]', $r->id, null, ['data-role' => $r->id, 'class' => 'js-inherited-roles']) }} {{ $r->name }}
+								</label>
+							</div>
+						@endif
 					@endforeach
 					</div>
 				</div>
@@ -65,7 +69,7 @@
 						<div class="col col-lg-4">
 							<label class="checkbox">
 								@if (array_key_exists($t->id, $inheritedTasks))
-									{{ Form::checkbox('tasks[]', $t->id, true, array('disabled' => 'disabled')) }}
+									{{ Form::checkbox('tasks[]', $t->id, true, ['disabled' => 'disabled']) }}
 								@elseif (array_key_exists($t->id, $roleTasks))
 									{{ Form::checkbox('tasks[]', $t->id, true) }}
 								@else
@@ -108,7 +112,7 @@
 										@foreach ($task as $t)
 											<label class="checkbox">
 												@if (array_key_exists($t->id, $inheritedTasks))
-													{{ Form::checkbox('tasks[]', $t->id, true, array('disabled' => 'disabled')) }}
+													{{ Form::checkbox('tasks[]', $t->id, true, ['disabled' => 'disabled']) }}
 												@elseif (array_key_exists($t->id, $roleTasks))
 													{{ Form::checkbox('tasks[]', $t->id, true) }}
 												@else
@@ -142,7 +146,8 @@
 	<div class="controls">
 		{{ Form::hidden('id') }}
 		{{ Form::hidden('action', $action) }}
+		{{ Form::token() }}
 		
-		{{ Form::button(ucfirst(lang('action.submit')), array('type' => 'submit', 'class' => 'btn btn-primary')) }}
+		{{ Form::button(ucfirst(lang('action.submit')), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
 	</div>
 {{ Form::close() }}

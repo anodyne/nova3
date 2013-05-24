@@ -50,18 +50,37 @@
 								url: "{{ URL::to('ajax/info/roles_with_task') }}/" + check.val() + "/json",
 								dataType: "json",
 								success: function(roles){
-									
 									if (roles.length == 1 && roles.id == parent.val())
+									{
 										check.prop("checked", false).prop("disabled", false);
-									
+									}
+
+									if (roles.length > 1)
+									{
+										// Get an array of all the checked inherited roles
+										var checkedValues = $('.js-inherited-roles:checked').map(function(){
+											return this.value;
+										}).get();
+
+										// Are we allowed to clear the task?
+										var clearTask = true;
+
+										// Loop through the roles
+										$.each(roles, function(){
+											// Is the role one of the checked roles?
+											if ($.inArray(this.id.toString(), checkedValues) > -1 && 
+													clearTask == true)
+												clearTask = false;
+										});
+
+										if (clearTask == true)
+											check.prop("checked", false).prop("disabled", false);
+									}
 								}
 							});
 						}
 					}
 				});
-			},
-			complete: function(){
-				$.unblockUI();
 			}
 		});
 	});
@@ -93,5 +112,8 @@
 
 		return false;
 	});
+
+	// Unblock the UI only after all the Ajax requests have finished
+	$(document).ajaxStop($.unblockUI);
 
 </script>

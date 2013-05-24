@@ -4,7 +4,7 @@
 		<p>{{ lang('short.roles.duplicateSysAdminText', lang('users')) }}</p>
 	</div>
 @endif
-{{ Form::open(array('url' => 'admin/role/index')) }}
+{{ Form::open(array('url' => 'admin/role')) }}
 	<div class="control-group">
 		<label class="control-label">{{ ucwords(langConcat('original role')) }}</label>
 		<div class="controls">{{ $role->name }}</div>

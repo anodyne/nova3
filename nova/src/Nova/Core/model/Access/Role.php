@@ -131,11 +131,14 @@ class Role extends Model implements GroupInterface {
 			// Loop through the inherited roles
 			foreach ($this->inherits as $i)
 			{
-				// Start a new Query Builder
-				$query = static::startQuery();
+				if ( ! empty($i))
+				{
+					// Start a new Query Builder
+					$query = static::startQuery();
 
-				// Put the tasks into the holding array
-				$groups[] = $query->find($i)->getTasks(false);
+					// Put the tasks into the holding array
+					$groups[] = $query->find($i)->getTasks(false);
+				}
 			}
 		}
 
