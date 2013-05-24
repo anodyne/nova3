@@ -36,7 +36,7 @@
 				</tbody>
 			</table>
 		@else
-			<p class="alert">{{ lang('error.notFound', lang('pages')) }}</p>
+			<p class="alert">{{ lang('error.notFound', langConcat('system pages')) }}</p>
 		@endif
 	</div>
 
@@ -59,7 +59,7 @@
 						<td class="col col-lg-5">{{ $page->resource }}</td>
 						<td class="col col-lg-3">
 							<div class="btn-group pull-right">
-								<a href="#" class="btn btn-default btn-small icn-size-16">{{ $_icons['duplicate'] }}</a>
+								<a href="#" class="btn btn-default btn-small icn-size-16 js-route-action" data-route="{{ $page->id }}" data-action="duplicate">{{ $_icons['duplicate'] }}</a>
 							</div>
 						</td>
 					</tr>
@@ -67,7 +67,7 @@
 				</tbody>
 			</table>
 		@else
-			<p class="alert">{{ lang('error.notFound', lang('pages')) }}</p>
+			<p class="alert">{{ lang('error.notFound', langConcat('system pages')) }}</p>
 		@endif
 	</div>
 </div>

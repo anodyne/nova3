@@ -148,6 +148,17 @@ return [
 	],
 
 	/**
+	 * ajax/add
+	 */
+	[
+		'name'		=> 'ajax/add/duplicate_page',
+		'verb'		=> 'get',
+		'uri'		=> 'ajax/add/duplicate_page/{id}',
+		'resource'	=> 'Nova\Core\Controller\Ajax\Add@getPageDuplicate',
+		'protected'	=> (int) true
+	],
+
+	/**
 	 * ajax/info
 	 */
 	[

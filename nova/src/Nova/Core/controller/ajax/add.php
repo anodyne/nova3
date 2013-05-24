@@ -97,6 +97,24 @@ class Add extends AjaxBaseController {
 	}
 
 	/**
+	 * Duplicate a system page route.
+	 *
+	 * @param	int		The ID of the route being duplicated
+	 * @return	void
+	 */
+	public function getPageDuplicate($id)
+	{
+		if (Sentry::check() and Sentry::getUser()->hasAccess('settings.create'))
+		{
+			// Get the original route
+			$route = \SystemRoute::find($id);
+
+			echo View::make(Location::file('add/page_duplicate', Utility::getSkin('admin'), 'ajax'))
+				->with('route', $route);
+		}
+	}
+
+	/**
 	 * Duplicate a rank set.
 	 *
 	 * @param	int		the ID of the rank set being duplicated

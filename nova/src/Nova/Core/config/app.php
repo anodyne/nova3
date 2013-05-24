@@ -322,6 +322,7 @@ return array(
 		'RankHandler'				=> 'Nova\Core\Services\Events\Rank',
 		'SettingsHandler'			=> 'Nova\Core\Services\Events\Settings',
 		'SiteContentHandler'		=> 'Nova\Core\Services\Events\SiteContent',
+		'SystemRouteHandler'		=> 'Nova\Core\Services\Events\SystemRoute',
 		'UserHandler'				=> 'Nova\Core\Services\Events\User',
 
 		/**
@@ -331,6 +332,7 @@ return array(
 		'AccessTaskValidator'		=> 'Nova\Core\Services\Validators\Access\Task',
 
 		'BaseValidator'				=> 'Nova\Core\Services\Validators\Base',
+		'SystemRouteValidator'		=> 'Nova\Core\Services\Validators\SystemRoute',
 		'UserValidator'				=> 'Nova\Core\Services\Validators\User',
 
 	),

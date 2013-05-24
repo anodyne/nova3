@@ -1,8 +1,13 @@
 <?php namespace Nova\Core\Controller\Admin;
 
+use View;
+use Input;
 use Sentry;
+use Location;
+use Redirect;
 use SystemRoute;
 use AdminBaseController;
+use SystemRouteValidator;
 
 class Main extends AdminBaseController {
 
@@ -37,7 +42,11 @@ class Main extends AdminBaseController {
 
 	public function getPages()
 	{
+		// Verify the user is allowed
+		Sentry::getUser()->allowed(['settings.create', 'settings.update', 'settings.delete'], true);
+
 		$this->_view = 'admin/main/pages';
+		$this->_jsView = 'admin/main/pages_js';
 
 		$this->_data->header = 'Page Manager';
 		$this->_data->message = false;
@@ -62,6 +71,85 @@ class Main extends AdminBaseController {
 				}
 			}
 		}
+
+		// Build the duplicate page modal
+		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+			->with('modalId', 'duplicatePage')
+			->with('modalHeader', ucwords(lang('short.duplicate', langConcat('system page'))))
+			->with('modalBody', '')
+			->with('modalFooter', false);
+	}
+	public function postPages()
+	{
+		// Set up the validation service
+		$validator = new SystemRouteValidator;
+
+		// If the validation fails, stop and go back
+		if ( ! $validator->passes())
+		{
+			return Redirect::back()->withInput()->withErrors($validator->getErrors());
+		}
+
+		// Get the action
+		$action = e(Input::get('action'));
+
+		// Get the current user
+		$user = Sentry::getUser();
+
+		/**
+		 * Create a new route.
+		 */
+		if ($user->hasAccess('settings.create') and $action == 'create')
+		{
+			//
+		}
+
+		/**
+		 * Duplicate a core route.
+		 */
+		if ($user->hasAccess('settings.create') and $action == 'duplicate')
+		{
+			// Get the ID
+			$id = e(Input::get('id'));
+			$id = (is_numeric($id)) ? $id : false;
+
+			// Get the route we're duplicating
+			$route = SystemRoute::find($id);
+
+			// Create the item
+			$item = SystemRoute::add([
+				'name'		=> $route->name,
+				'verb'		=> $route->verb,
+				'uri'		=> $route->uri,
+				'resource'	=> $route->resource,
+			], true);
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? ucfirst(lang('short.alert.success.duplicate', langConcat('system page')))
+				: ucfirst(lang('short.alert.failure.duplicate', langConcat('system page')));
+		}
+
+		/**
+		 * Update a route.
+		 */
+		if ($user->hasAccess('settings.update') and $action == 'update')
+		{
+			//
+		}
+
+		/**
+		 * Delete a route.
+		 */
+		if ($user->hasAccess('settings.delete') and $action == 'delete')
+		{
+			//
+		}
+
+		return Redirect::to('admin/main/pages')
+			->with('flashStatus', $flashStatus)
+			->with('flashMessage', $flashMessage);
 	}
 
 }

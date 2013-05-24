@@ -1,7 +1,9 @@
 <?php namespace Nova\Core\Model;
 
 use Cache;
+use Event;
 use Model;
+use Config;
 
 class SystemRoute extends Model {
 
@@ -16,6 +18,30 @@ class SystemRoute extends Model {
 	protected static $properties = array(
 		'id', 'verb', 'name', 'uri', 'resource', 'protected',
 	);
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Boot the model and define the event listeners.
+	 *
+	 * @return	void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		// Get all the aliases
+		$classes = Config::get('app.aliases');
+
+		Event::listen("eloquent.created: {$classes['SystemRoute']}", "{$classes['SystemRouteHandler']}@afterCreate");
+		Event::listen("eloquent.updated: {$classes['SystemRoute']}", "{$classes['SystemRouteHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$classes['SystemRoute']}", "{$classes['SystemRouteHandler']}@beforeDelete");
+		Event::listen("eloquent.saved: {$classes['SystemRoute']}", "{$classes['SystemRouteHandler']}@afterSave");
+	}
 
 	/**
 	 * Cache the routes.

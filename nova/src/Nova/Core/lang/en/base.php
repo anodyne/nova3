@@ -138,6 +138,8 @@ return array(
 	'personal_log' => "personal log",
 	'personal_logs' => "personal logs",
 	'primary' => 'primary',
+	'page' => "page",
+	'pages' => "pages",
 
 	'row' => 'row',
 	'rows' => 'rows',
@@ -175,6 +177,7 @@ return array(
 	'status' => 'status',
 	'skin' => 'skin',
 	'skins' => 'skins',
+	'system' => "system",
 
 	'tab' => "tab",
 	'tabs' => "tabs",

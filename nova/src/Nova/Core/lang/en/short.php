@@ -56,6 +56,8 @@ return array(
 
 	'deleteConfirm' => "Are you sure you want to delete the :0 <strong>:1</strong>? This action is permanent and cannot be undone!",
 
+	'duplicateConfirm' => "This will duplicate the :0 <strong>:1</strong>. Are you sure you want to proceed?",
+
 	'forgotPassword' => "Forgot your password?",
 
 	'javascript' => "You need to have Javascript turned on to use all of Nova 3's features.",
