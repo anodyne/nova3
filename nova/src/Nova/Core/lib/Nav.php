@@ -167,22 +167,37 @@ class Nav {
 			// Dive in to the access checks
 			if ( ! empty($item->access))
 			{
-				// Get the access info for the nav item
-				$navaccess = explode('.', $item->access);
+				// Check if we're dealing with multiple conditions or not
+				if (Str::contains($item->access, '|'))
+				{
+					// Get the array of items to use
+					$navAccessArray = explode('|', $item->access);
+
+					// Loop through the various items
+					foreach ($navAccessArray as $a)
+					{
+						// Create an array from
+						$n = explode('.', $a);
+
+						$navaccess[] = "{$n[0]}.{$n[1]}";
+					}
+				}
+				else
+				{
+					// Get the array of items to use
+					$navAccessArray = explode('.', $item->access);
+
+					// Get the access info for the nav item
+					$navaccess = "{$navAccessArray[0]}.{$navAccessArray[1]}";
+				}
 
 				// Get the user
 				$user = Sentry::getUser();
 
 				if ($user)
 				{
-					// Find if the user has access
-					$access = $user->hasAccess("$navaccess[0].$navaccess[1]");
-
-					// Find if the user has the proper level
-					$level = $user->hasAtLeastLevel("$navaccess[0].$navaccess[1]", $navaccess[2]);
-
 					// Remove items from the return array if they shouldn't be there based on access
-					if ( ! $access or ($access and ! $level))
+					if ( ! $user->allowed($navaccess))
 					{
 						unset($retval[$type][$cat][$item->id]);
 						unset($retval[$type][$cat][$item->category][$item->id]);
