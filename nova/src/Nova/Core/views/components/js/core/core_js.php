@@ -59,12 +59,8 @@
 	// Rank dropdown
 	$('#rankDrop').on('change', function(){
 		$.ajax({
-			type: "POST",
-			url: "<?php echo URL::to('ajax/info/rank_image');?>",
-			data: {
-				rank: $('#rankDrop option:selected').val(),
-				location: 'default'
-			},
+			type: "GET",
+			url: "<?php echo URL::to('ajax/get/rank');?>/" + $('#rankDrop option:selected').val() + "/image",
 			success: function(data){
 				$('#rankImg').html('');
 				$('#rankImg').append(data);

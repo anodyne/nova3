@@ -39,48 +39,6 @@ class Info extends AjaxBaseController {
 	}
 
 	/**
-	 * Get the rank image.
-	 */
-	public function getRankImage()
-	{
-		// Set the variables
-		$rank = e(Input::get('rank'));
-		$location = e(Input::get('location'));
-		
-		// Do a little sanity checking
-		$rank = (is_numeric($rank)) ? $rank : false;
-		
-		// Get the rank
-		$rank = \Rank::find($rank);
-		
-		// Set the output
-		$output = (count($rank) > 0) 
-			? Location::rank($rank->base, $rank->pip, \RankCatalog::getDefault(true)) 
-			: '';
-		
-		echo $output;
-	}
-
-	/**
-	 * Get the preview for a specific rank set.
-	 */
-	public function getRankPreview($location)
-	{
-		// Clean the variable
-		$location = e($location);
-		
-		// Get the catalog item
-		$rank = \Model_Catalog_Rank::getItem($location, 'location');
-		
-		// Set the output
-		$output = (count($rank) > 0) 
-			? \HTML::img(\Uri::base(false).'app/assets/common/'.$rank->genre.'/ranks/'.$location.'/'.$rank->preview) 
-			: '';
-		
-		echo $output;
-	}
-
-	/**
 	 * Get a role's description.
 	 */
 	public function getRoleDesc()

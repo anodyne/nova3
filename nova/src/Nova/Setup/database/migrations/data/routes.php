@@ -159,62 +159,55 @@ return [
 	],
 
 	/**
-	 * ajax/info
+	 * ajax/get
 	 */
 	[
-		'name'		=> 'ajax/info/rank_image',
+		'name'		=> 'ajax/get/rank',
 		'verb'		=> 'get',
-		'uri'		=> 'ajax/info/rank_image',
-		'resource'	=> 'Nova\Core\Controller\Ajax\Info@getRankImage',
+		'uri'		=> 'ajax/get/rank/{id}/{return}',
+		'resource'	=> 'Nova\Core\Controller\Ajax\Get@getRank',
 		'protected'	=> (int) true
 	],
 	[
-		'name'		=> 'ajax/info/rank_preview',
+		'name'		=> 'ajax/get/position_desc',
 		'verb'		=> 'get',
-		'uri'		=> 'ajax/info/rank_preview/{location}',
-		'resource'	=> 'Nova\Core\Controller\Ajax\Info@getRankPreview',
+		'uri'		=> 'ajax/get/position_desc',
+		'resource'	=> 'Nova\Core\Controller\Ajax\Get@getPositionDesc',
 		'protected'	=> (int) true
 	],
 	[
-		'name'		=> 'ajax/info/position_desc',
+		'name'		=> 'ajax/get/role_desc',
 		'verb'		=> 'get',
-		'uri'		=> 'ajax/info/position_desc',
-		'resource'	=> 'Nova\Core\Controller\Ajax\Info@getPositionDesc',
+		'uri'		=> 'ajax/get/role_desc',
+		'resource'	=> 'Nova\Core\Controller\Ajax\Get@getRoleDesc',
 		'protected'	=> (int) true
 	],
 	[
-		'name'		=> 'ajax/info/role_desc',
-		'verb'		=> 'get',
-		'uri'		=> 'ajax/info/role_desc',
-		'resource'	=> 'Nova\Core\Controller\Ajax\Info@getRoleDesc',
-		'protected'	=> (int) true
-	],
-	[
-		'name'		=> 'ajax/info/role_inherited_tasks',
+		'name'		=> 'ajax/get/role_inherited_tasks',
 		'verb'		=> 'post',
-		'uri'		=> 'ajax/info/role_inherited_tasks',
-		'resource'	=> 'Nova\Core\Controller\Ajax\Info@postRoleInheritedTasks',
+		'uri'		=> 'ajax/get/role_inherited_tasks',
+		'resource'	=> 'Nova\Core\Controller\Ajax\Get@postRoleInheritedTasks',
 		'protected'	=> (int) true
 	],
 	[
-		'name'		=> 'ajax/info/roles_with_task',
+		'name'		=> 'ajax/get/roles_with_task',
 		'verb'		=> 'post',
-		'uri'		=> 'ajax/info/roles_with_task/{id}/{format}',
-		'resource'	=> 'Nova\Core\Controller\Ajax\Info@postRolesWithTask',
+		'uri'		=> 'ajax/get/roles_with_task/{id}/{format}',
+		'resource'	=> 'Nova\Core\Controller\Ajax\Get@postRolesWithTask',
 		'protected'	=> (int) true
 	],
 	[
-		'name'		=> 'ajax/info/skin_preview',
+		'name'		=> 'ajax/get/skin_preview',
 		'verb'		=> 'get',
-		'uri'		=> 'ajax/info/skin_preview/{section}/{location}',
-		'resource'	=> 'Nova\Core\Controller\Ajax\Info@getSkinPreview',
+		'uri'		=> 'ajax/get/skin_preview/{section}/{location}',
+		'resource'	=> 'Nova\Core\Controller\Ajax\Get@getSkinPreview',
 		'protected'	=> (int) true
 	],
 	[
-		'name'		=> 'ajax/info/users_with_role',
+		'name'		=> 'ajax/get/users_with_role',
 		'verb'		=> 'get',
-		'uri'		=> 'ajax/info/users_with_role/{id}',
-		'resource'	=> 'Nova\Core\Controller\Ajax\Info@getUsersWithRole',
+		'uri'		=> 'ajax/get/users_with_role/{id}',
+		'resource'	=> 'Nova\Core\Controller\Ajax\Get@getUsersWithRole',
 		'protected'	=> (int) true
 	],
 ];

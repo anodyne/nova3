@@ -1,17 +1,25 @@
-<?php
+<?php namespace Nova\Core\Controller\Ajax;
+
 /**
- * Nova's ajax controller.
+ * Controller that handles all ajax requests that deal with getting info.
  *
  * @package		Nova
+ * @subpackage	Core
  * @category	Controller
  * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
+ * @copyright	2013 Anodyne Productions
  */
 
-namespace Nova;
+use View;
+use Input;
+use Sentry;
+use Request;
+use Utility;
+use Location;
+use AjaxBaseController;
 
-class Controller_Ajax_Get extends Controller_Base_Ajax
-{
+class Get extends AjaxBaseController {
+
 	public function action_content_load()
 	{
 		// get the content key
@@ -21,7 +29,7 @@ class Controller_Ajax_Get extends Controller_Base_Ajax
 		echo \Model_SiteContent::getContent($key);
 	}
 
-	public function action_user()
+public function action_user()
 	{
 		// set the field and values
 		$field = false;
@@ -148,4 +156,161 @@ class Controller_Ajax_Get extends Controller_Base_Ajax
 			echo json_encode($retval);
 		}
 	}
+
+	/**
+	 * Get a position's description.
+	 */
+	public function getPositionDesc()
+	{
+		// Set the variable
+		$position = e(Input::get('position'));
+		$position = (is_numeric($position)) ? $position : false;
+
+		// Get the position
+		$item = \Position::find($position);
+
+		// Set the output
+		$output = (count($item) > 0) ? $item->desc : '';
+		
+		echo nl2br($output);
+	}
+
+	/**
+	 * Get a rank record.
+	 */
+	public function getRank($id, $return = false)
+	{
+		// Sanity check
+		$id = ( ! is_numeric($id)) ? false : $id;
+
+		// Get the rank
+		$rank = \Rank::with('info')->where('id', $id)->first();
+
+		// Figure out what to output
+		switch ($return)
+		{
+			case 'image':
+				return Location::rank($rank->base, $rank->pip, Utility::getRank());
+			break;
+
+			case 'json':
+				return $rank->toJson();
+			break;
+
+			case 'name':
+				return $rank->info->name;
+			break;
+
+			case 'shortname':
+				return $rank->info->short_name;
+			break;
+
+			default:
+				return e($rank->{$return});
+			break;
+		}
+	}
+
+	/**
+	 * Get a role's description.
+	 */
+	public function getRoleDesc()
+	{
+		// Set the variable
+		$role = \Security::xss_clean(\Input::post('role', false));
+		$role = (is_numeric($role)) ? $role : false;
+
+		// Get the role
+		$item = \Model_Access_Role::find($role);
+
+		// Set the output
+		$output = (count($item) > 0) ? $item->desc : '';
+		
+		echo nl2br($output);
+	}
+
+	/**
+	 * Get the preview for a specific skin.
+	 */
+	public function getSkinPreview($section, $location)
+	{
+		// Clean the variables
+		$section = \Security::xss_clean($section);
+		$location = \Security::xss_clean($location);
+		
+		// Pull the skin catalog record
+		$skin = \Model_Catalog_SkinSec::getItems(array('skin' => $location, 'section' => $section), true);
+
+		// Set the output
+		$output = (count($skin) > 0) 
+			? \HTML::img(\Uri::base(false).'app/views/'.$location.'/'.$skin->preview) 
+			: '';
+		
+		echo $output;
+	}
+
+	/**
+	 * Get the users who are assigned a given role.
+	 */
+	public function getUsersWithRole($id)
+	{
+		if (Sentry::check())
+		{
+			// Get the role
+			$role = \AccessRole::find($id);
+
+			echo View::make(Location::file('info/role_users', Utility::getSkin('admin'), 'ajax'))
+				->with('users', $role->users);
+		}
+	}
+
+	public function postRoleInheritedTasks()
+	{
+		// Set the variable
+		$role = e(Input::get('role'));
+		$role = (is_numeric($role)) ? $role : false;
+
+		// Get the role
+		$item = \AccessRole::find($role);
+
+		// Start a holding array
+		$retval = array();
+
+		// Loop through and get the task IDs
+		foreach ($item->tasks as $task)
+		{
+			$retval[] = $task->id;
+		}
+
+		return json_encode($retval);
+	}
+
+	/**
+	 * Get the roles who have the given task.
+	 */
+	public function postRolesWithTask($id, $format = 'html')
+	{
+		if (Sentry::check())
+		{
+			// What type of request is it?
+			$format = e($format);
+
+			// Clean the variable
+			$id = e($id);
+
+			// Get the task
+			$task = \AccessTask::find($id);
+
+			if ($format == 'html')
+			{
+				echo View::make(Location::file('info/task_roles', Utility::getSkin('admin'), 'ajax'))
+					->with('roles', $task->roles);
+			}
+			else
+			{
+				echo $task->roles->toJson();
+			}
+		}
+	}
+
 }

@@ -20,12 +20,8 @@
 		$('#rankDrop').change(function(){
 			
 			$.ajax({
-				type: "POST",
-				url: "{{ URL::to('ajax/info/rank_image') }}",
-				data: {
-					rank: $('#rankDrop option:selected').val(),
-					location: 'default'
-				},
+				type: "GET",
+				url: "{{ URL::to('ajax/info/rank') }}/" + $('#rankDrop option:selected').val() + "/image",
 				success: function(data){
 					$('#rankImg').html('');
 					$('#rankImg').append(data);
