@@ -150,7 +150,7 @@ class NovaSeedDatabase extends Migration {
 
 	protected function seedTasks()
 	{
-		$data = __DIR__.'/data/tasks.php';
+		$data = include __DIR__.'/data/tasks.php';
 		
 		foreach ($data as $value)
 		{
@@ -697,7 +697,7 @@ class NovaSeedDatabase extends Migration {
 
 	protected function seedNav()
 	{
-		$data = __DIR__.'/data/nav.php';
+		$data = include __DIR__.'/data/nav.php';
 
 		foreach ($data as $d)
 		{
@@ -707,7 +707,39 @@ class NovaSeedDatabase extends Migration {
 
 	protected function seedSettings()
 	{
-		$data = __DIR__.'/data/content.php';
+		$data = include __DIR__.'/data/settings.php';
+
+		// Loop through the insert the data
+		foreach ($data as $d)
+		{
+			Settings::add($d);
+		}
+	}
+
+	protected function seedSimType()
+	{
+		// Data to seed the database with
+		$data = [
+			['name' => 'all'],
+			['name' => 'ship'],
+			['name' => 'base'],
+			['name' => 'colony'],
+			['name' => 'unit'],
+			['name' => 'realm'],
+			['name' => 'planet'],
+			['name' => 'organization'],
+		];
+
+		// Loop through the data and add it
+		foreach ($data as $d)
+		{
+			SimType::add($d);
+		}
+	}
+
+	protected function seedSiteContent()
+	{
+		$data = include __DIR__.'/data/content.php';
 
 		// Loop through the insert the data
 		foreach ($data as $d)
