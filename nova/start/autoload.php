@@ -50,7 +50,7 @@ if (file_exists($compiled = NOVAPATH.'start/compiled.php'))
 |
 */
 
-Patchwork\Utf8\Bootup::initAll();
+Patchwork\Utf8\Bootup::initMbstring();
 
 /*
 |--------------------------------------------------------------------------
