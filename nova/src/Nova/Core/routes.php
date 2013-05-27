@@ -12,8 +12,8 @@ if ($routes === null)
 	Route::get('/', 'Nova\Core\Controller\Main@getIndex');
 	Route::get('main/index', 'Nova\Core\Controller\Main@getIndex');
 
-	Route::get('ajax/get/rank/image/{id}/{return}', 'Nova\Core\Controller\Ajax\Info@getRankImage');
-	Route::get('ajax/info/position_desc', 'Nova\Core\Controller\Ajax\Info@getPositionDesc');
+	Route::get('ajax/get/rank/image/{id}/{return}', 'Nova\Core\Controller\Ajax\Get@getRank');
+	Route::get('ajax/get/position/{id}/{return}', 'Nova\Core\Controller\Ajax\Get@getPosition');
 
 	Route::get('login', 'Nova\Core\Controller\Login@getIndex');
 	Route::get('login/index', 'Nova\Core\Controller\Login@getIndex');
