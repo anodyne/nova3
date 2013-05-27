@@ -43,7 +43,7 @@ return [
 	[
 		'name'		=> 'login',
 		'verb'		=> 'post',
-		'uri'		=> 'login',
+		'uri'		=> 'login/{error?}',
 		'resource'	=> 'Nova\Core\Controller\Login@postIndex',
 		'protected'	=> (int) true
 	],
@@ -162,17 +162,17 @@ return [
 	 * ajax/get
 	 */
 	[
+		'name'		=> 'ajax/get/position',
+		'verb'		=> 'get',
+		'uri'		=> 'ajax/get/position/{id}/{return}',
+		'resource'	=> 'Nova\Core\Controller\Ajax\Get@getPosition',
+		'protected'	=> (int) true
+	],
+	[
 		'name'		=> 'ajax/get/rank',
 		'verb'		=> 'get',
 		'uri'		=> 'ajax/get/rank/{id}/{return}',
 		'resource'	=> 'Nova\Core\Controller\Ajax\Get@getRank',
-		'protected'	=> (int) true
-	],
-	[
-		'name'		=> 'ajax/get/position_desc',
-		'verb'		=> 'get',
-		'uri'		=> 'ajax/get/position_desc',
-		'resource'	=> 'Nova\Core\Controller\Ajax\Get@getPositionDesc',
 		'protected'	=> (int) true
 	],
 	[
@@ -208,6 +208,17 @@ return [
 		'verb'		=> 'get',
 		'uri'		=> 'ajax/get/users_with_role/{id}',
 		'resource'	=> 'Nova\Core\Controller\Ajax\Get@getUsersWithRole',
+		'protected'	=> (int) true
+	],
+
+	/**
+	 * ajax/delete
+	 */
+	[
+		'name'		=> 'ajax/delete/system_page',
+		'verb'		=> 'get',
+		'uri'		=> 'ajax/delete/system_page/{id}',
+		'resource'	=> 'Nova\Core\Controller\Ajax\Delete@getSystemPage',
 		'protected'	=> (int) true
 	],
 ];
