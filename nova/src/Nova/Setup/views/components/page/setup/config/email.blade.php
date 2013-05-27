@@ -59,7 +59,7 @@
 			<div class="row">
 				<div class="col col-lg-6">
 					<label class="control-label">Sendmail Path</label>
-					<input type="text" name="sendmailpath" value="{{ Session::get('sendmailpath', '/usr/sbin/sendmail') }}">
+					<input type="text" name="sendmailpath" value="{{ Session::get('sendmailpath', '/usr/sbin/sendmail -bs') }}">
 					<p class="help-block">The path to Sendmail on the server</p>
 				</div>
 			</div>
