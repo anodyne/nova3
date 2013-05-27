@@ -16,6 +16,7 @@ use Sentry;
 use Request;
 use Utility;
 use Location;
+use Markdown;
 use AjaxBaseController;
 
 class Get extends AjaxBaseController {
@@ -158,21 +159,39 @@ public function action_user()
 	}
 
 	/**
-	 * Get a position's description.
+	 * Get a position record.
 	 */
-	public function getPositionDesc()
+	public function getPosition($id, $return = false)
 	{
-		// Set the variable
-		$position = e(Input::get('position'));
-		$position = (is_numeric($position)) ? $position : false;
+		// Sanity check
+		$id = ( ! is_numeric($id)) ? false : $id;
 
 		// Get the position
-		$item = \Position::find($position);
+		$position = \Position::with('dept')->where('id', $id)->first();
 
-		// Set the output
-		$output = (count($item) > 0) ? $item->desc : '';
-		
-		echo nl2br($output);
+		// Figure out what to output
+		switch ($return)
+		{
+			case 'json':
+				return $position->toJson();
+			break;
+
+			case 'desc':
+				return Markdown::parse($position->desc);
+			break;
+
+			case 'deptname':
+				return $position->dept->name;
+			break;
+
+			case 'deptdesc':
+				return Markdown::parse($position->dept->desc);
+			break;
+
+			default:
+				return e($position->{$return});
+			break;
+		}
 	}
 
 	/**

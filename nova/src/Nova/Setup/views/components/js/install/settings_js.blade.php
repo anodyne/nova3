@@ -4,9 +4,8 @@
 		$('#positionDrop').change(function(){
 			
 			$.ajax({
-				type: "POST",
-				url: "{{ URL::to('ajax/info/position_desc') }}",
-				data: { position: $('#positionDrop option:selected').val() },
+				type: "GET",
+				url: "{{ URL::to('ajax/get/position') }}/" + $('#positionDrop option:selected').val() + "/desc",
 				success: function(data){
 					$('#positionDesc').html('');
 					$('#positionDesc').append(data);
@@ -21,7 +20,7 @@
 			
 			$.ajax({
 				type: "GET",
-				url: "{{ URL::to('ajax/info/rank') }}/" + $('#rankDrop option:selected').val() + "/image",
+				url: "{{ URL::to('ajax/get/rank') }}/" + $('#rankDrop option:selected').val() + "/image",
 				success: function(data){
 					$('#rankImg').html('');
 					$('#rankImg').append(data);
