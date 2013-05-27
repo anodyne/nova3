@@ -6,14 +6,8 @@
 	$(document).ready(function(){
 		
 		$.lazy({
-			src: "<?php echo URL::to('nova/src/Nova/Assets/js/jquery.dialog2.js');?>",
-			name: 'dialog2',
-			dependencies: {
-				js: [
-					"<?php echo URL::to('nova/src/Nova/Assets/js/jquery.form.js');?>",
-					"<?php echo URL::to('nova/src/Nova/Assets/js/jquery.controls.js');?>"
-				]
-			},
+			src: "<?php echo URL::to('nova/src/Nova/Assets/js/jquery.quicksearch.js');?>",
+			name: 'quicksearch',
 			cache: true
 		});
 	});
