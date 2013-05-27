@@ -1,13 +1,12 @@
 <!--[if lt IE 9]>
-	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <![endif]-->
 <!--[if gte IE 9]><!-->
-	<script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+	<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
 <!--<![endif]-->
 
 <script type="text/javascript" src="<?php echo SRCURL;?>Assets/js/jquery.lazy.js"></script>
 <script type="text/javascript" src="<?php echo SRCURL;?>Assets/js/bootstrap.min.js"></script>
-<!--<script type="text/javascript" src="<?php echo SRCURL;?>Assets/js/underscore-min.js"></script>-->
 <script type="text/javascript">
 	
 	$(document).ready(function(){
@@ -73,9 +72,8 @@
 	// Position dropdown
 	$('#positionDrop').on('change', function(){
 		$.ajax({
-			type: "POST",
-			url: "<?php echo URL::to('ajax/info/position_desc');?>",
-			data: { position: $('#positionDrop option:selected').val() },
+			type: "GET",
+			url: "<?php echo URL::to('ajax/get/position');?>/" + $('#positionDrop option:selected').val() + "/desc",
 			success: function(data){
 				$('#positionDesc').html('');
 				$('#positionDesc').append(data);
