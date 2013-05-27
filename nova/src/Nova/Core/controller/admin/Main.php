@@ -43,7 +43,7 @@ class Main extends AdminBaseController {
 	public function getPages()
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['settings.create', 'settings.update', 'settings.delete'], true);
+		Sentry::getUser()->allowed(['pages.create', 'pages.update', 'pages.delete'], true);
 
 		$this->_view = 'admin/main/pages';
 		$this->_jsView = 'admin/main/pages_js';
@@ -63,7 +63,7 @@ class Main extends AdminBaseController {
 				// Separate the routes into CORE and USER routes
 				if ((bool) $route->protected === true)
 				{
-					$this->_data->pages['core'][] = $route;
+					$this->_data->pages['system'][] = $route;
 				}
 				else
 				{
@@ -76,6 +76,13 @@ class Main extends AdminBaseController {
 		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
 			->with('modalId', 'duplicatePage')
 			->with('modalHeader', ucwords(lang('short.duplicate', langConcat('system page'))))
+			->with('modalBody', '')
+			->with('modalFooter', false);
+
+		// Build the delete page modal
+		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+			->with('modalId', 'deletePage')
+			->with('modalHeader', ucwords(lang('short.delete', langConcat('system page'))))
 			->with('modalBody', '')
 			->with('modalFooter', false);
 	}
@@ -99,7 +106,7 @@ class Main extends AdminBaseController {
 		/**
 		 * Create a new route.
 		 */
-		if ($user->hasAccess('settings.create') and $action == 'create')
+		if ($user->hasAccess('pages.create') and $action == 'create')
 		{
 			//
 		}
@@ -107,7 +114,7 @@ class Main extends AdminBaseController {
 		/**
 		 * Duplicate a core route.
 		 */
-		if ($user->hasAccess('settings.create') and $action == 'duplicate')
+		if ($user->hasAccess('pages.create') and $action == 'duplicate')
 		{
 			// Get the ID
 			$id = e(Input::get('id'));
@@ -134,7 +141,7 @@ class Main extends AdminBaseController {
 		/**
 		 * Update a route.
 		 */
-		if ($user->hasAccess('settings.update') and $action == 'update')
+		if ($user->hasAccess('pages.update') and $action == 'update')
 		{
 			//
 		}
@@ -142,9 +149,27 @@ class Main extends AdminBaseController {
 		/**
 		 * Delete a route.
 		 */
-		if ($user->hasAccess('settings.delete') and $action == 'delete')
+		if ($user->hasAccess('pages.delete') and $action == 'delete')
 		{
-			//
+			// Get the ID
+			$id = e(Input::get('id'));
+			$id = (is_numeric($id)) ? $id : false;
+
+			if ($id)
+			{
+				// Delete the route
+				SystemRoute::remove($id);
+
+				// Set the flash info
+				$flashStatus = 'success';
+				$flashMessage = ucfirst(lang('short.alert.success.delete', langConcat('system page')));
+			}
+			else
+			{
+				// Set the flash info
+				$flashStatus = 'danger';
+				$flashMessage = ucfirst(lang('short.alert.failure.delete', langConcat('system page')));
+			}
 		}
 
 		return Redirect::to('admin/main/pages')

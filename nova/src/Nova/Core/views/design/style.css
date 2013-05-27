@@ -86,7 +86,7 @@ h1 {
 
 .btn-group,
 .btn-toolbar {
-	margin: 10px 0;
+	margin: 15px 0;
 }
 
 .modal-body .btn,
@@ -103,6 +103,10 @@ h1 {
 
 .accordion-heading {
     font-weight: 600;
+}
+
+.tab-pane {
+	margin: 15px 0;
 }
 
 /* Landscape phone to portrait tablet */

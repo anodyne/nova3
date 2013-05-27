@@ -77,6 +77,14 @@ return [
 		'page' => 'index'
 	],
 	[
+		'key' => 'admin_pages_header',
+		'label' => 'Page Manager Header',
+		'content' => "Page Manager",
+		'type' => 'header',
+		'section' => 'admin',
+		'page' => 'pages'
+	],
+	[
 		'key' => 'admin_form_index_header',
 		'label' => 'Form Management Header',
 		'content' => "Forms",
@@ -273,6 +281,14 @@ return [
 		'page' => 'index'
 	],
 	[
+		'key' => 'admin_pages_title',
+		'label' => 'Page Manager Page Title',
+		'content' => "Page Manager",
+		'type' => 'title',
+		'section' => 'admin',
+		'page' => 'pages'
+	],
+	[
 		'key' => 'admin_form_index_title',
 		'label' => 'Form Management Page Title',
 		'content' => "Forms",
@@ -462,6 +478,14 @@ return [
 		'type' => 'message',
 		'section' => 'admin',
 		'page' => 'index'
+	],
+	[
+		'key' => 'admin_pages_message',
+		'label' => 'Page Manager Message',
+		'content' => "",
+		'type' => 'message',
+		'section' => 'admin',
+		'page' => 'pages'
 	],
 	[
 		'key' => 'admin_ranks_groups_message',

@@ -36,6 +36,7 @@ return array(
 	'comment' => 'comment',
 	'comments' => 'comments',
 	'component' => "component",
+	'core' => "core",
 
 	'display' => 'display',
 	'dropdown' => 'dropdown menu',
@@ -161,6 +162,7 @@ return array(
 	'responses' => 'responses',
 	'result' => 'result',
 	'results' => 'results',
+	'resource' => "resource",
 
 	'secondary' => "secondary",
 	'section' => "section",
@@ -195,12 +197,14 @@ return array(
 	'user' => 'user',
 	'users' => 'users',
 	'unlinked' => "unlinked",
+	'uri' => "URI",
 
 	'vertical' => "vertical",
 	'value' => 'value',
 	'values' => 'values',
 	'vote' => 'vote',
 	'votes' => 'votes',
+	'verb' => "verb",
 
 	'writing' => "writing",
 	'with' => "with",

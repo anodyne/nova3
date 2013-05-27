@@ -307,4 +307,20 @@ class Delete extends AjaxBaseController {
 			}
 		}
 	}
+
+	public function getSystemPage($id)
+	{
+		if (Sentry::check() and Sentry::getUser()->hasAccess('pages.delete'))
+		{
+			// Get the page route
+			$page = \SystemRoute::find($id);
+
+			if ($page)
+			{
+				echo View::make(Location::file('delete/system_page', Utility::getSkin('admin'), 'ajax'))
+					->with('page', $page);
+			}
+		}
+	}
+
 }

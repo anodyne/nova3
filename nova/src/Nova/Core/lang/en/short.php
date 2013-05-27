@@ -38,6 +38,12 @@ return array(
 		),
 	),
 
+	'admin' => [
+		'pages' => [
+			'removeConfirm' => "Are you sure you want to delete your override of the <strong>:1</strong> :0? While this won't remove your custom page, it will revert the URI back to the page stored in the Nova core. If you want to restore the route to your custom page, you will need to create a new page route.",
+		],
+	],
+
 	'arc' => array(
 		'admin' => array(
 			'users' => "Be careful not to remove a decision maker from the review.",

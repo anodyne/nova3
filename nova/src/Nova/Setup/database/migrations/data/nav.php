@@ -394,13 +394,22 @@ return [
 		'access' => 'rank.read.0'
 	],*/
 	[
-		'name' => 'Access Roles',
+		'name' => 'Page Manager',
 		'group' => 0,
 		'order' => 0,
+		'url' => 'admin/main/pages',
+		'type' => 'adminsub',
+		'category' => 'manage',
+		'access' => 'pages.create|pages.update|pages.delete'
+	],
+	[
+		'name' => 'Access Roles',
+		'group' => 0,
+		'order' => 1,
 		'url' => 'admin/role',
 		'type' => 'adminsub',
 		'category' => 'manage',
-		'access' => 'role.create|role.edit|role.delete'
+		'access' => 'role.create|role.update|role.delete'
 	],
 	/*[
 		'name' => 'Forms',
@@ -409,7 +418,7 @@ return [
 		'url' => 'admin/form/index',
 		'type' => 'adminsub',
 		'category' => 'manage',
-		'access' => 'form.create|form.edit|form.delete'
+		'access' => 'form.create|form.update|form.delete'
 	],
 	[
 		'name' => 'Ranks',
@@ -418,7 +427,7 @@ return [
 		'url' => 'admin/rank/index',
 		'type' => 'adminsub',
 		'category' => 'manage',
-		'access' => 'rank.create|rank.edit|rank.delete'
+		'access' => 'rank.create|rank.update|rank.delete'
 	],*/
 
 	/*[

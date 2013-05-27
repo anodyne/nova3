@@ -1,13 +1,18 @@
 <script type="text/javascript">
 	
+	$(document).ready(function(){
+		$('#searchUserPages').quicksearch('#userPages tbody tr');
+		$('#searchSystemPages').quicksearch('#systemPages tbody tr');
+	});
+
 	$(document).on('click', '.js-route-action', function(){
 		var doaction = $(this).data('action');
 		var id = $(this).data('route');
 
 		if (doaction == 'delete')
 		{
-			$('#deleteRole').modal({
-				remote: "{{ URL::to('ajax/delete/role') }}/" + id
+			$('#deletePage').modal({
+				remote: "{{ URL::to('ajax/delete/system_page') }}/" + id
 			}).modal('show');
 		}
 

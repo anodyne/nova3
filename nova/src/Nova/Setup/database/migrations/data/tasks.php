@@ -527,4 +527,29 @@ return [
 		'name' => 'Delete Setting',
 		'desc' => ''
 	],
+
+	/**
+	 * Pages (Routes) Actions
+	 */
+	[
+		'action' => 'create',
+		'component' => 'pages',
+		'level' => 0,
+		'name' => 'Create Page Route',
+		'desc' => ''
+	],
+	[
+		'action' => 'update',
+		'component' => 'pages',
+		'level' => 0,
+		'name' => 'Edit Page Route',
+		'desc' => ''
+	],
+	[
+		'action' => 'delete',
+		'component' => 'pages',
+		'level' => 0,
+		'name' => 'Delete Page Route',
+		'desc' => ''
+	],
 ];
