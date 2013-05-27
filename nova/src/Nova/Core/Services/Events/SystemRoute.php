@@ -41,6 +41,11 @@ class SystemRoute {
 	 */
 	public function beforeDelete($model)
 	{
+		if ((bool) $model->protected === false)
+		{
+			SystemRouteModel::cache();
+		}
+		
 		/**
 		 * System Event
 		 */
