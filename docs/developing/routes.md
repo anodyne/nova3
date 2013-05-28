@@ -1,4 +1,6 @@
-# Routing in Nova 3 - The Nitty Gritty
+# Routing for Developers
+
+## The Nitty Gritty
 
 Now that you know what a route is and some of the pieces involved, let's get down to the nitty gritty of how exactly a route is declared. (You won't ever have to do this, but this might help solidify the concepts further when you're thinking about routes.)
 
@@ -30,3 +32,11 @@ You see there how the name of the parameter and the first parameter in our code 
 <pre>Route::get('character/{id?}', 'Nova\Core\Controller\Personnel@getCharacter');</pre>
 
 The use of the question mark tells the router that that specific parameter is optional. (You'll need to make sure you also provide a default value for the parameter in your code.)
+
+
+
+## Overriding an existing page
+
+### What about when there's already a page overriding the page I want to override?
+
+## Modules and Routing

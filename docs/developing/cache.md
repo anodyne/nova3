@@ -7,6 +7,10 @@ Here are the items that Nova caches as well as the reasons for being cached and 
 * Nova Install Status
 	* Cache key: `nova.installed`
 	* The check of whether Nova is installed happens on every request. In order to facilitate a faster check, the status is cached.
+* Routes
+	* Cache key: `nova.routes`
+	* All page routes are stored in the cache for quick access to create the explicit routes Laravel requires.
+	* The `SystemRoute` model will re-cache the routes whenever something is created, updated or deleted.
 * Installed Modules
 	* Cache key: `nova.modules`
 	* Since all modules are checked during routing and for the loading of route files, the locations of all activated modules are stored in the cache.
