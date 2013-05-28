@@ -109,5 +109,42 @@ h1 {
 	margin: 15px 0;
 }
 
+.alt-col-1 {
+	width: 8.333333333333332%;
+}
+.alt-col-2 {
+	width: 16.666666666666664%;
+}
+.alt-col-3 {
+	width: 25%;
+}
+.alt-col-4 {
+	width: 33.33333333333333%;
+}
+.alt-col-5 {
+	width: 41.66666666666667%;
+}
+.alt-col-6 {
+	width: 50%;
+}
+.alt-col-7 {
+	width: 58.333333333333336%;
+}
+.alt-col-8 {
+	width: 66.66666666666666%;
+}
+.alt-col-9 {
+	width: 75%;
+}
+.alt-col-10 {
+	width: 83.33333333333334%;
+}
+.alt-col-11 {
+	width: 91.66666666666666%;
+}
+.alt-col-12 {
+	width: 100%;
+}
+
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {}

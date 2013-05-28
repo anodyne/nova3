@@ -26,11 +26,11 @@
 			<tbody>
 			@foreach ($task as $t)
 				<tr>
-					<td class="col col-lg-9">
+					<td class="alt-col-9">
 						<p><strong>{{ $t->name }}</strong></p>
 						<p class="text-muted text-small">{{ $t->desc }}</p>
 					</td>
-					<td class="col col-lg-3">
+					<td class="alt-col-3">
 						<div class="btn-toolbar pull-right">
 							<div class="btn-group">
 								<a href="#" class="btn btn-default btn-small tooltip-top js-task-action icn-size-16" title="{{ ucfirst(lang('short.view', langConcat('roles with this task'))) }}" data-action="view" data-id="{{ $t->id }}">{{ $_icons['view'] }}</a>
