@@ -163,6 +163,8 @@ return array(
 	'result' => 'result',
 	'results' => 'results',
 	'resource' => "resource",
+	'route' => "route",
+	'routes' => "routes",
 
 	'secondary' => "secondary",
 	'section' => "section",
@@ -198,6 +200,7 @@ return array(
 	'users' => 'users',
 	'unlinked' => "unlinked",
 	'uri' => "URI",
+	'user_created' => "user-created",
 
 	'vertical' => "vertical",
 	'value' => 'value',
