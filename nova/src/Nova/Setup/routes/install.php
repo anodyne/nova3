@@ -83,6 +83,15 @@ Route::group(['prefix' => 'setup/install', 'before' => 'configFileCheck|setupAut
 		SiteContent::getSectionContent('message', 'search');
 		SiteContent::getSectionContent('message', 'login');
 
+		// Clear the system events table
+		SystemEventModel::delete();
+
+		// Create the only item we need in the system events table
+		SystemEventModel::add(array(
+			'ip'		=> Utility::realIp(),
+			'content'	=> Config::get('nova.app.name')." was successfully installed.",
+		));
+
 		// Register
 		# TODO: need to figure out how we want to do registration
 
