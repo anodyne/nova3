@@ -5,6 +5,7 @@ use File;
 use Cache;
 use Route;
 use Config;
+use Schema;
 use Sentry;
 use System;
 use Request;
@@ -168,6 +169,11 @@ class Utility {
 			// If the status is null, we know it doesn't exist
 			if ($status === null)
 			{
+				if ( ! Schema::hasTable('system_info'))
+				{
+					return false;
+				}
+
 				try
 				{
 					// Grab the UID
@@ -185,8 +191,6 @@ class Utility {
 				{
 					return false;
 				}
-
-				return false;
 			}
 
 			return $status;
