@@ -1,15 +1,5 @@
 <?php namespace Nova\Core\Controller\Ajax;
 
-/**
- * Controller that handles all ajax requests that deal with getting info.
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Controller
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
-
 use View;
 use Input;
 use Sentry;
