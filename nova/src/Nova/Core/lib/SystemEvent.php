@@ -54,7 +54,7 @@ class SystemEvent {
 		$user = Sentry::getUser();
 
 		SystemEventModel::add(array(
-			'email'			=> ($user !== null) ? $user->email : '',
+			'email'			=> ($user !== null and $type == 'user') ? $user->email : '',
 			'ip'			=> UtilityLib::realIp(),
 			'user_id'		=> ($user !== null and $type == 'user') ? $user->id : 0,
 			'content'		=> call_user_func_array('lang', $args),
