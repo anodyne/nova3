@@ -1,8 +1,8 @@
 <script type="text/javascript">
 	
 	$(document).ready(function(){
-		$('#searchUserPages').quicksearch('#userPages tbody tr');
-		$('#searchSystemPages').quicksearch('#systemPages tbody tr');
+		$('#searchUserRoutes').quicksearch('#userRoutes tbody tr');
+		$('#searchCoreRoutes').quicksearch('#coreRoutes tbody tr');
 	});
 
 	$(document).on('click', '.js-route-action', function(){
@@ -12,28 +12,28 @@
 		if (doaction == 'delete')
 		{
 			$('#deletePage').modal({
-				remote: "{{ URL::to('ajax/delete/system_page') }}/" + id
+				remote: "{{ URL::to('ajax/delete/route') }}/" + id
 			}).modal('show');
 		}
 
 		if (doaction == 'duplicate')
 		{
 			$('#duplicatePage').modal({
-				remote: "{{ URL::to('ajax/add/duplicate_page') }}/" + id
+				remote: "{{ URL::to('ajax/add/duplicate_route') }}/" + id
 			}).modal('show');
 		}
 
 		if (doaction == 'add')
 		{
 			$('#addPage').modal({
-				remote: "{{ URL::to('ajax/update/system_page') }}"
+				remote: "{{ URL::to('ajax/update/route') }}"
 			}).modal('show');
 		}
 
 		if (doaction == 'edit')
 		{
 			$('#editPage').modal({
-				remote: "{{ URL::to('ajax/update/system_page') }}/" + id
+				remote: "{{ URL::to('ajax/update/route') }}/" + id
 			}).modal('show');
 		}
 

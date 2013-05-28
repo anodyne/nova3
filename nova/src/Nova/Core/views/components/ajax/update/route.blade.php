@@ -1,4 +1,4 @@
-{{ Form::model($page, ['url' => 'admin/main/pages']) }}
+{{ Form::model($route, ['url' => 'admin/routes']) }}
 	<div class="row">
 		<div class="col col-lg-6">
 			<label class="control-label">{{ ucfirst(lang('name')) }}</label>
