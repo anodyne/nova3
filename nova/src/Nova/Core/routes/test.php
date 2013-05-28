@@ -27,4 +27,10 @@ Route::group(array('prefix' => 'test'), function()
 
 		return 'Done';
 	});
+
+	Route::get('uppercase', function()
+	{
+		s(lang('short.add', langConcat('user route')));
+		s(lang('Short.add', langConcat('user Route')));
+	});
 });
