@@ -9,7 +9,7 @@ use SystemRoute;
 use AdminBaseController;
 use SystemRouteValidator;
 
-class Main extends AdminBaseController {
+class Admin extends AdminBaseController {
 
 	/**
 	 * Error Codes
@@ -17,9 +17,16 @@ class Main extends AdminBaseController {
 	const OK 				= 0;
 	const NOT_ALLOWED 		= 1;
 
+	public function __construct()
+	{
+		parent::__construct();
+		
+		static::$controllerName = 'admin';
+	}
+
 	public function getIndex()
 	{
-		$this->_view = 'admin/main/index';
+		$this->_view = 'admin/admin/index';
 
 		$this->_data->header = 'Control Panel';
 		$this->_data->message = false;
@@ -40,16 +47,13 @@ class Main extends AdminBaseController {
 		}
 	}
 
-	public function getPages()
+	public function getRoutes()
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['pages.create', 'pages.update', 'pages.delete'], true);
+		Sentry::getUser()->allowed(['routes.create', 'routes.update', 'routes.delete'], true);
 
-		$this->_view = 'admin/main/pages';
-		$this->_jsView = 'admin/main/pages_js';
-
-		$this->_data->header = 'Page Manager';
-		$this->_data->message = false;
+		$this->_view = 'admin/admin/routes';
+		$this->_jsView = 'admin/admin/routes_js';
 
 		// Get all the routes for the system
 		$routes = SystemRoute::get();
@@ -63,44 +67,44 @@ class Main extends AdminBaseController {
 				// Separate the routes into CORE and USER routes
 				if ((bool) $route->protected === true)
 				{
-					$this->_data->pages['system'][] = $route;
+					$this->_data->routes['core'][] = $route;
 				}
 				else
 				{
-					$this->_data->pages['user'][] = $route;
+					$this->_data->routes['user'][] = $route;
 				}
 			}
 		}
 
 		// Build the duplicate page modal
 		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
-			->with('modalId', 'duplicatePage')
-			->with('modalHeader', ucwords(lang('short.duplicate', langConcat('system page'))))
+			->with('modalId', 'duplicateRoute')
+			->with('modalHeader', ucwords(lang('short.duplicate', langConcat('core route'))))
 			->with('modalBody', '')
 			->with('modalFooter', false);
 
 		// Build the delete page modal
 		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
-			->with('modalId', 'deletePage')
-			->with('modalHeader', ucwords(lang('short.delete', langConcat('system page'))))
+			->with('modalId', 'deleteRoute')
+			->with('modalHeader', ucwords(lang('short.delete', lang('route'))))
 			->with('modalBody', '')
 			->with('modalFooter', false);
 
 		// Build the add page modal
 		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
-			->with('modalId', 'addPage')
-			->with('modalHeader', ucwords(lang('short.add', langConcat('system page'))))
+			->with('modalId', 'addRoute')
+			->with('modalHeader', ucwords(lang('short.add', lang('route'))))
 			->with('modalBody', '')
 			->with('modalFooter', false);
 
 		// Build the edit page modal
 		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
-			->with('modalId', 'editPage')
-			->with('modalHeader', ucwords(lang('short.edit', langConcat('system page'))))
+			->with('modalId', 'editRoute')
+			->with('modalHeader', ucwords(lang('short.edit', lang('route'))))
 			->with('modalBody', '')
 			->with('modalFooter', false);
 	}
-	public function postPages()
+	public function postRoutes()
 	{
 		// Set up the validation service
 		$validator = new SystemRouteValidator;
@@ -120,7 +124,7 @@ class Main extends AdminBaseController {
 		/**
 		 * Create a new route.
 		 */
-		if ($user->hasAccess('pages.create') and $action == 'create')
+		if ($user->hasAccess('routes.create') and $action == 'create')
 		{
 			// Create the new page route
 			$item = SystemRoute::add(Input::all(), true);
@@ -128,14 +132,14 @@ class Main extends AdminBaseController {
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
 			$flashMessage = ($item) 
-				? ucfirst(lang('short.alert.success.create', langConcat('system page')))
-				: ucfirst(lang('short.alert.failure.create', langConcat('system page')));
+				? ucfirst(lang('short.alert.success.create', lang('route')))
+				: ucfirst(lang('short.alert.failure.create', lang('route')));
 		}
 
 		/**
 		 * Duplicate a core route.
 		 */
-		if ($user->hasAccess('pages.create') and $action == 'duplicate')
+		if ($user->hasAccess('routes.create') and $action == 'duplicate')
 		{
 			// Get the ID
 			$id = e(Input::get('id'));
@@ -155,14 +159,14 @@ class Main extends AdminBaseController {
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
 			$flashMessage = ($item) 
-				? ucfirst(lang('short.alert.success.duplicate', langConcat('system page')))
-				: ucfirst(lang('short.alert.failure.duplicate', langConcat('system page')));
+				? ucfirst(lang('short.alert.success.duplicate', langConcat('core route')))
+				: ucfirst(lang('short.alert.failure.duplicate', langConcat('core route')));
 		}
 
 		/**
 		 * Update a route.
 		 */
-		if ($user->hasAccess('pages.update') and $action == 'update')
+		if ($user->hasAccess('routes.update') and $action == 'update')
 		{
 			// Get the ID
 			$id = e(Input::get('id'));
@@ -174,14 +178,14 @@ class Main extends AdminBaseController {
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
 			$flashMessage = ($item) 
-				? ucfirst(lang('short.alert.success.update', langConcat('system page')))
-				: ucfirst(lang('short.alert.failure.update', langConcat('system page')));
+				? ucfirst(lang('short.alert.success.update', lang('route')))
+				: ucfirst(lang('short.alert.failure.update', lang('route')));
 		}
 
 		/**
 		 * Delete a route.
 		 */
-		if ($user->hasAccess('pages.delete') and $action == 'delete')
+		if ($user->hasAccess('routes.delete') and $action == 'delete')
 		{
 			// Get the ID
 			$id = e(Input::get('id'));
@@ -194,17 +198,17 @@ class Main extends AdminBaseController {
 
 				// Set the flash info
 				$flashStatus = 'success';
-				$flashMessage = ucfirst(lang('short.alert.success.delete', langConcat('system page')));
+				$flashMessage = ucfirst(lang('short.alert.success.delete', lang('route')));
 			}
 			else
 			{
 				// Set the flash info
 				$flashStatus = 'danger';
-				$flashMessage = ucfirst(lang('short.alert.failure.delete', langConcat('system page')));
+				$flashMessage = ucfirst(lang('short.alert.failure.delete', lang('route')));
 			}
 		}
 
-		return Redirect::to('admin/main/pages')
+		return Redirect::to('admin/routes')
 			->with('flashStatus', $flashStatus)
 			->with('flashMessage', $flashMessage);
 	}
