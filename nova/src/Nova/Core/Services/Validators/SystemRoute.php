@@ -6,7 +6,7 @@ class SystemRoute extends BaseValidator {
 
 	public static $rules = array(
 		'name'		=> 'required',
-		'verb'		=> 'required|in:get,put,post,delete',
+		'verb'		=> 'required',
 		'uri'		=> 'required',
 		'resource'	=> 'required',
 	);

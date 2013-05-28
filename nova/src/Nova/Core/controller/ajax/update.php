@@ -1,17 +1,26 @@
-<?php
+<?php namespace Nova\Core\Controller\Ajax;
+
 /**
- * Nova's ajax controller.
+ * Controller that handles all ajax requests that deal with getting info.
  *
  * @package		Nova
+ * @subpackage	Core
  * @category	Controller
  * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
+ * @copyright	2013 Anodyne Productions
  */
 
-namespace Nova;
+use View;
+use Input;
+use Sentry;
+use Request;
+use Utility;
+use Location;
+use Markdown;
+use AjaxBaseController;
 
-class Controller_Ajax_Update extends Controller_Base_Ajax
-{
+class Update extends AjaxBaseController {
+
 	/**
 	 * Updates the site content table when an admin uses jEditable to edit
 	 * some site content outside of the control panel.
@@ -400,6 +409,36 @@ class Controller_Ajax_Update extends Controller_Base_Ajax
 
 				// save the record
 				$record->save();
+			}
+		}
+	}
+
+	/**
+	 * Handles the create and update modals for managing
+	 * system page routes.
+	 *
+	 * @param	int		Page route ID
+	 */
+	public function getSystemPage($id = 0)
+	{
+		// Make sure the user is logged in
+		if (Sentry::check())
+		{
+			// Get the user
+			$user = Sentry::getUser();
+
+			// Make sure the user is allowed to access this page
+			if ($user->hasAccess('pages.create') or $user->hasAccess('pages.update'))
+			{
+				// Get the page route
+				$page = \SystemRoute::find($id);
+
+				// Set the action
+				$action = ($id > 0) ? 'update' : 'create';
+
+				echo View::make(Location::file('update/system_page', Utility::getSkin('admin'), 'ajax'))
+					->with('page', $page)
+					->with('action', $action);
 			}
 		}
 	}

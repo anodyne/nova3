@@ -40,7 +40,10 @@ return array(
 
 	'admin' => [
 		'pages' => [
-			'removeConfirm' => "Are you sure you want to delete your override of the <strong>:1</strong> :0? While this won't remove your custom page, it will revert the URI back to the page stored in the Nova core. If you want to restore the route to your custom page, you will need to create a new page route.",
+			'removeConfirm' => "Are you sure you want to delete the :0 <strong>:1</strong>? While this won't remove any custom page, it will remove the ability to navigate to the page. If you want to restore the route to your custom page, you will need to create a new page route.",
+			'uri' => "Optional URI parameters can be specified with a question mark: <code>{id?}</code>",
+			'resource' => "Resources must include the namespace: <code>App\Controller\Foo@method</code>",
+			'name' => "If you are overriding an existing page, make sure the name matches exactly.",
 		],
 	],
 

@@ -23,10 +23,17 @@
 			}).modal('show');
 		}
 
-		if (doaction == 'view')
+		if (doaction == 'add')
 		{
-			$('#usersWithRole').modal({
-				remote: "{{ URL::to('ajax/info/users_with_role') }}/" + id
+			$('#addPage').modal({
+				remote: "{{ URL::to('ajax/update/system_page') }}"
+			}).modal('show');
+		}
+
+		if (doaction == 'edit')
+		{
+			$('#editPage').modal({
+				remote: "{{ URL::to('ajax/update/system_page') }}/" + id
 			}).modal('show');
 		}
 

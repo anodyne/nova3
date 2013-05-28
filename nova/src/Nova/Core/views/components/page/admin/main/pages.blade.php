@@ -1,16 +1,16 @@
 @if (Sentry::getUser()->hasAccess('pages.create'))
 	<div class="btn-group">
-		<a href="#" class="btn btn-success icn-size-16">{{ $_icons['add'] }}</a>
+		<a href="#" class="btn btn-success icn-size-16 js-route-action" data-action="add">{{ $_icons['add'] }}</a>
 	</div>
 @endif
 
 <ul class="nav nav-tabs">
-	<li><a href="#pagesUser" data-toggle="tab">{{ ucwords(langConcat('user pages')) }}</a></li>
-	<li class="active"><a href="#pagesCore" data-toggle="tab">{{ ucwords(langConcat('system pages')) }}</a></li>
+	<li class="active"><a href="#pagesUser" data-toggle="tab">{{ ucwords(langConcat('user pages')) }}</a></li>
+	<li><a href="#pagesCore" data-toggle="tab">{{ ucwords(langConcat('system pages')) }}</a></li>
 </ul>
 
 <div class="tab-content">
-	<div id="pagesUser" class="tab-pane">
+	<div id="pagesUser" class="tab-pane active">
 		@if (isset($pages['user']))
 			<div class="row">
 				<div class="col col-lg-4">
@@ -42,7 +42,7 @@
 								<div class="btn-toolbar pull-right">
 									@if (Sentry::getUser()->hasAccess('pages.update'))
 										<div class="btn-group">
-											<a href="#" class="btn btn-default btn-small icn-size-16">{{ $_icons['edit'] }}</a>
+											<a href="#" class="btn btn-default btn-small icn-size-16 js-route-action" data-route="{{ $page->id }}" data-action="edit">{{ $_icons['edit'] }}</a>
 										</div>
 									@endif
 
@@ -63,7 +63,7 @@
 		@endif
 	</div>
 
-	<div id="pagesCore" class="active tab-pane">
+	<div id="pagesCore" class="tab-pane">
 		@if (isset($pages['system']))
 			<div class="row">
 				<div class="col col-lg-4">

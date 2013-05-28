@@ -40,6 +40,7 @@ class SystemRoute extends Model {
 		Event::listen("eloquent.created: {$classes['SystemRoute']}", "{$classes['SystemRouteHandler']}@afterCreate");
 		Event::listen("eloquent.updated: {$classes['SystemRoute']}", "{$classes['SystemRouteHandler']}@afterUpdate");
 		Event::listen("eloquent.deleting: {$classes['SystemRoute']}", "{$classes['SystemRouteHandler']}@beforeDelete");
+		Event::listen("eloquent.saving: {$classes['SystemRoute']}", "{$classes['SystemRouteHandler']}@beforeSave");
 		Event::listen("eloquent.saved: {$classes['SystemRoute']}", "{$classes['SystemRouteHandler']}@afterSave");
 	}
 

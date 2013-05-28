@@ -85,6 +85,20 @@ class Main extends AdminBaseController {
 			->with('modalHeader', ucwords(lang('short.delete', langConcat('system page'))))
 			->with('modalBody', '')
 			->with('modalFooter', false);
+
+		// Build the add page modal
+		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+			->with('modalId', 'addPage')
+			->with('modalHeader', ucwords(lang('short.add', langConcat('system page'))))
+			->with('modalBody', '')
+			->with('modalFooter', false);
+
+		// Build the edit page modal
+		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+			->with('modalId', 'editPage')
+			->with('modalHeader', ucwords(lang('short.edit', langConcat('system page'))))
+			->with('modalBody', '')
+			->with('modalFooter', false);
 	}
 	public function postPages()
 	{
@@ -108,7 +122,14 @@ class Main extends AdminBaseController {
 		 */
 		if ($user->hasAccess('pages.create') and $action == 'create')
 		{
-			//
+			// Create the new page route
+			$item = SystemRoute::add(Input::all(), true);
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? ucfirst(lang('short.alert.success.create', langConcat('system page')))
+				: ucfirst(lang('short.alert.failure.create', langConcat('system page')));
 		}
 
 		/**
@@ -143,7 +164,18 @@ class Main extends AdminBaseController {
 		 */
 		if ($user->hasAccess('pages.update') and $action == 'update')
 		{
-			//
+			// Get the ID
+			$id = e(Input::get('id'));
+			$id = (is_numeric($id)) ? $id : false;
+
+			// Update the page route
+			$item = SystemRoute::edit($id, Input::all(), true);
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? ucfirst(lang('short.alert.success.update', langConcat('system page')))
+				: ucfirst(lang('short.alert.failure.update', langConcat('system page')));
 		}
 
 		/**

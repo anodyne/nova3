@@ -221,4 +221,15 @@ return [
 		'resource'	=> 'Nova\Core\Controller\Ajax\Delete@getSystemPage',
 		'protected'	=> (int) true
 	],
+
+	/**
+	 * ajax/update
+	 */
+	[
+		'name'		=> 'ajax/update/system_page',
+		'verb'		=> 'get',
+		'uri'		=> 'ajax/update/system_page/{id?}',
+		'resource'	=> 'Nova\Core\Controller\Ajax\Update@getSystemPage',
+		'protected'	=> (int) true
+	],
 ];
