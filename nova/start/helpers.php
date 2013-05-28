@@ -26,8 +26,17 @@ if ( ! function_exists('lang'))
 			throw new Exception('lang() must have at least 1 parameter defined for the language key');
 		}
 
+		// Set the key
+		$key = $args[0];
+
+		// Should we capitalize?
+		$capitalize = (ctype_upper($key{0}));
+
+		// Make sure the first letter is lower-cased
+		$key = lcfirst($key);
+
 		// The first will always be the key to translate
-		$key = ( ! Str::contains($args[0], '.')) ? 'base.'.$args[0] : $args[0];
+		$key = ( ! Str::contains($key, '.')) ? 'base.'.$key : $key;
 
 		// Set up an empty array of arguments
 		$argsArray = array();
@@ -38,7 +47,9 @@ if ( ! function_exists('lang'))
 		// Re-index the array
 		$argsArray = array_values($args);
 
-		return Lang::get($key, $argsArray);
+		$output = Lang::get($key, $argsArray);
+
+		return ($capitalize) ? ucfirst($output) : $output;
 	}
 }
 
@@ -58,11 +69,17 @@ if ( ! function_exists('langConcat'))
 		// Loop through the array
 		foreach ($pieces as $key => $value)
 		{
+			// Should we be capitalizing?
+			$capitalize = (ctype_upper($value{0}));
+
+			// Make sure we're lower-cased
+			$value = Str::lower($value);
+
 			// Make sure the value is right
 			$value = ( ! Str::contains($value, '.')) ? 'base.'.$value : $value;
-			
+
 			// Run the content through the translator
-			$retval[$key] = Lang::get($value);
+			$retval[$key] = ($capitalize) ? ucfirst(Lang::get($value)) : Lang::get($value);
 		}
 
 		return implode(' ', $retval);
