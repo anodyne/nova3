@@ -84,34 +84,34 @@ return [
 	],
 
 	/**
-	 * admin/main
+	 * admin/admin
 	 */
 	[
-		'name'		=> 'admin/main/index',
+		'name'		=> 'admin/index',
 		'verb'		=> 'get',
-		'uri'		=> 'admin/main/index',
-		'resource'	=> 'Nova\Core\Controller\Admin\Main@getIndex',
+		'uri'		=> 'admin/index',
+		'resource'	=> 'Nova\Core\Controller\Admin\Admin@getIndex',
 		'protected'	=> (int) true
 	],
 	[
-		'name'		=> 'admin/main/error',
+		'name'		=> 'admin/error',
 		'verb'		=> 'get',
-		'uri'		=> 'admin/main/error/{code}',
-		'resource'	=> 'Nova\Core\Controller\Admin\Main@getError',
+		'uri'		=> 'admin/error/{code}',
+		'resource'	=> 'Nova\Core\Controller\Admin\Admin@getError',
 		'protected'	=> (int) true
 	],
 	[
-		'name'		=> 'admin/main/pages',
+		'name'		=> 'admin/routes',
 		'verb'		=> 'get',
-		'uri'		=> 'admin/main/pages',
-		'resource'	=> 'Nova\Core\Controller\Admin\Main@getPages',
+		'uri'		=> 'admin/routes',
+		'resource'	=> 'Nova\Core\Controller\Admin\Admin@getRoutes',
 		'protected'	=> (int) true
 	],
 	[
-		'name'		=> 'admin/main/pages',
+		'name'		=> 'admin/routes',
 		'verb'		=> 'post',
-		'uri'		=> 'admin/main/pages',
-		'resource'	=> 'Nova\Core\Controller\Admin\Main@postPages',
+		'uri'		=> 'admin/routes',
+		'resource'	=> 'Nova\Core\Controller\Admin\Admin@postRoutes',
 		'protected'	=> (int) true
 	],
 	
@@ -151,10 +151,10 @@ return [
 	 * ajax/add
 	 */
 	[
-		'name'		=> 'ajax/add/duplicate_page',
+		'name'		=> 'ajax/add/duplicate_route',
 		'verb'		=> 'get',
-		'uri'		=> 'ajax/add/duplicate_page/{id}',
-		'resource'	=> 'Nova\Core\Controller\Ajax\Add@getPageDuplicate',
+		'uri'		=> 'ajax/add/duplicate_route/{id}',
+		'resource'	=> 'Nova\Core\Controller\Ajax\Add@getRouteDuplicate',
 		'protected'	=> (int) true
 	],
 
@@ -215,10 +215,10 @@ return [
 	 * ajax/delete
 	 */
 	[
-		'name'		=> 'ajax/delete/system_page',
+		'name'		=> 'ajax/delete/route',
 		'verb'		=> 'get',
-		'uri'		=> 'ajax/delete/system_page/{id}',
-		'resource'	=> 'Nova\Core\Controller\Ajax\Delete@getSystemPage',
+		'uri'		=> 'ajax/delete/route/{id}',
+		'resource'	=> 'Nova\Core\Controller\Ajax\Delete@getRoute',
 		'protected'	=> (int) true
 	],
 
@@ -226,10 +226,10 @@ return [
 	 * ajax/update
 	 */
 	[
-		'name'		=> 'ajax/update/system_page',
+		'name'		=> 'ajax/update/route',
 		'verb'		=> 'get',
-		'uri'		=> 'ajax/update/system_page/{id?}',
-		'resource'	=> 'Nova\Core\Controller\Ajax\Update@getSystemPage',
+		'uri'		=> 'ajax/update/route/{id?}',
+		'resource'	=> 'Nova\Core\Controller\Ajax\Update@getRoute',
 		'protected'	=> (int) true
 	],
 ];

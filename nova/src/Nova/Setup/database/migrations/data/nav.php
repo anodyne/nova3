@@ -394,18 +394,18 @@ return [
 		'access' => 'rank.read.0'
 	],*/
 	[
-		'name' => 'Page Manager',
+		'name' => 'Routes Manager',
 		'group' => 0,
 		'order' => 0,
-		'url' => 'admin/main/pages',
+		'url' => 'admin/routes',
 		'type' => 'adminsub',
 		'category' => 'manage',
-		'access' => 'pages.create|pages.update|pages.delete'
+		'access' => 'routes.create|routes.update|routes.delete'
 	],
 	[
 		'name' => 'Access Roles',
-		'group' => 0,
-		'order' => 1,
+		'group' => 1,
+		'order' => 0,
 		'url' => 'admin/role',
 		'type' => 'adminsub',
 		'category' => 'manage',

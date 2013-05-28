@@ -533,23 +533,23 @@ return [
 	 */
 	[
 		'action' => 'create',
-		'component' => 'pages',
+		'component' => 'routes',
 		'level' => 0,
-		'name' => 'Create Page Route',
+		'name' => 'Create Route',
 		'desc' => ''
 	],
 	[
 		'action' => 'update',
-		'component' => 'pages',
+		'component' => 'routes',
 		'level' => 0,
-		'name' => 'Edit Page Route',
+		'name' => 'Edit Route',
 		'desc' => ''
 	],
 	[
 		'action' => 'delete',
-		'component' => 'pages',
+		'component' => 'routes',
 		'level' => 0,
-		'name' => 'Delete Page Route',
+		'name' => 'Delete Route',
 		'desc' => ''
 	],
 ];

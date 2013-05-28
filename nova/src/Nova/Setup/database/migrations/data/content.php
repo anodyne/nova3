@@ -77,12 +77,12 @@ return [
 		'page' => 'index'
 	],
 	[
-		'key' => 'admin_pages_header',
-		'label' => 'Page Manager Header',
-		'content' => "Page Manager",
+		'key' => 'admin_routes_header',
+		'label' => 'Route Manager Header',
+		'content' => "Route Manager",
 		'type' => 'header',
 		'section' => 'admin',
-		'page' => 'pages'
+		'page' => 'routes'
 	],
 	[
 		'key' => 'admin_form_index_header',
@@ -281,12 +281,12 @@ return [
 		'page' => 'index'
 	],
 	[
-		'key' => 'admin_pages_title',
-		'label' => 'Page Manager Page Title',
-		'content' => "Page Manager",
+		'key' => 'admin_routes_title',
+		'label' => 'Routes Manager Page Title',
+		'content' => "Routes Manager",
 		'type' => 'title',
 		'section' => 'admin',
-		'page' => 'pages'
+		'page' => 'routes'
 	],
 	[
 		'key' => 'admin_form_index_title',
@@ -480,12 +480,12 @@ return [
 		'page' => 'index'
 	],
 	[
-		'key' => 'admin_pages_message',
-		'label' => 'Page Manager Message',
+		'key' => 'admin_routes_message',
+		'label' => 'Routes Manager Message',
 		'content' => "",
 		'type' => 'message',
 		'section' => 'admin',
-		'page' => 'pages'
+		'page' => 'routes'
 	],
 	[
 		'key' => 'admin_ranks_groups_message',
