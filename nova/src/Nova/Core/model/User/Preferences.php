@@ -29,50 +29,6 @@ class Preferences extends Model {
 	}
 	
 	/**
-	 * Create the default user settings.
-	 *
-	 * @param	int		The user ID
-	 * @return	Preferences
-	 */
-	public static function createUserPreferences($user)
-	{
-		$insert = array(
-			'is_sysadmin'			=> (int) false,
-			'is_game_master'		=> (int) false,
-			'is_firstlaunch'		=> (int) true,
-			'loa'					=> 'active',
-			'timezone'				=> 'UTC',
-			'email_format'			=> 'html',
-			'language'				=> 'en',
-			'rank'					=> RankCatalog::getDefault(true),
-			'skin_main'				=> SkinSectionCatalog::getDefault('main', true),
-			'skin_admin'			=> SkinSectionCatalog::getDefault('admin', true),
-			'email_comments'		=> (int) true,
-			'email_messages'		=> (int) true,
-			'email_logs'			=> (int) true,
-			'email_announcements'	=> (int) true,
-			'email_posts'			=> (int) true,
-			'email_posts_save'		=> (int) true,
-			'email_posts_delete'	=> (int) true,
-		);
-
-		foreach ($insert as $key => $value)
-		{
-			// Create a new record
-			$record = new static;
-
-			// Set the key and value
-			$record->user_id = $user;
-			$record->key = $key;
-			$record->value = $value;
-
-			$record->save();
-		}
-		
-		return $record;
-	}
-
-	/**
 	 * Update the user preferences.
 	 *
 	 * @param 	int 	The user ID

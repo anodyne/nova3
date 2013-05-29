@@ -10,7 +10,10 @@ use Sentry;
 use Session;
 use Redirect;
 use Exception;
+use UserPrefs;
 use AccessRole;
+use RankCatalog;
+use SkinSectionCatalog;
 use Cartalyst\Sentry\Users\UserInterface;
 use Cartalyst\Sentry\Groups\GroupInterface;
 
@@ -317,6 +320,40 @@ class User extends Model implements UserInterface {
 		foreach ($this->preferences as $pref)
 		{
 			Session::put($pref->key, $pref->value);
+		}
+	}
+
+	/**
+	 * Create the default user settings.
+	 *
+	 * @return	Preferences
+	 */
+	public function createUserPreferences()
+	{
+		$insert = [
+			'is_sysadmin'			=> (int) false,
+			'is_game_master'		=> (int) false,
+			'is_firstlaunch'		=> (int) true,
+			'loa'					=> 'active',
+			'timezone'				=> 'UTC',
+			'email_format'			=> 'html',
+			'language'				=> 'en',
+			'rank'					=> RankCatalog::getDefault(true),
+			'skin_main'				=> SkinSectionCatalog::getDefault('main', true),
+			'skin_admin'			=> SkinSectionCatalog::getDefault('admin', true),
+			'email_comments'		=> (int) true,
+			'email_messages'		=> (int) true,
+			'email_logs'			=> (int) true,
+			'email_announcements'	=> (int) true,
+			'email_posts'			=> (int) true,
+			'email_posts_save'		=> (int) true,
+			'email_posts_delete'	=> (int) true,
+		];
+
+		// Loop through the items that should be created
+		foreach ($insert as $key => $value)
+		{
+			$this->preferences()->save(UserPrefs::create(['key' => $key, 'value' => $value]));
 		}
 	}
 
