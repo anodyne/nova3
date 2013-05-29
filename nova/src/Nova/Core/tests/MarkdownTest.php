@@ -1,6 +1,7 @@
 <?php
 
 use Nova\Core\Lib\Markdown;
+use Nova\Core\Lib\TestCase;
 use dflydev\markdown\MarkdownParser;
 
 class MarkdownTest extends TestCase {
@@ -12,6 +13,9 @@ class MarkdownTest extends TestCase {
 		$this->markdown = new Markdown(new MarkdownParser);
 	}
 
+	/**
+	 * @covers	Markdown::parse
+	 */
 	public function testConvertsToHtml()
 	{
 		$h1Expects = "<h1>Hello World</h1>\n";
@@ -22,6 +26,15 @@ class MarkdownTest extends TestCase {
 
 		$this->assertSame($h1Expects, $h1Actual);
 		$this->assertSame($pExpects, $pActual);
+	}
+
+	/**
+	 * @covers				Markdown::parse
+	 * @expectedException	InvalidArgumentException
+	 */
+	public function testThrowsExceptionWhenNotString()
+	{
+		$this->markdown->parse(new stdClass);
 	}
 
 }
