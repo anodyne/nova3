@@ -4,12 +4,9 @@ Route::group(array('prefix' => 'test'), function()
 {
 	Route::get('index', function()
 	{
-		$user = User::create([
-			'name' => 'Dave Public',
-			'email' => 'dave.public6@example.com',
-			'password' => 'password',
-			'foo' => 'bar'
-		]);
+		$user = User::find(13);
+		$user->email = 'newemail@example.com';
+		$user->save();
 
 		s($user);
 	});
