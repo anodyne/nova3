@@ -114,6 +114,66 @@ return [
 		'resource'	=> 'Nova\Core\Controller\Admin\Admin@postRoutes',
 		'protected'	=> (int) true
 	],
+
+	/**
+	 * admin/form
+	 */
+	[
+		'name'		=> 'admin/form',
+		'verb'		=> 'get',
+		'uri'		=> 'admin/form',
+		'resource'	=> 'Nova\Core\Controller\Admin\Form@getIndex',
+		'protected'	=> (int) true
+	],
+	[
+		'name'		=> 'admin/form',
+		'verb'		=> 'post',
+		'uri'		=> 'admin/form',
+		'resource'	=> 'Nova\Core\Controller\Admin\Form@postIndex',
+		'protected'	=> (int) true
+	],
+	[
+		'name'		=> 'admin/form/tabs',
+		'verb'		=> 'get',
+		'uri'		=> 'admin/form/tabs/{formKey}/{id?}',
+		'resource'	=> 'Nova\Core\Controller\Admin\Form@getTabs',
+		'protected'	=> (int) true
+	],
+	[
+		'name'		=> 'admin/form/tabs',
+		'verb'		=> 'post',
+		'uri'		=> 'admin/form/tabs/{formKey}/{id?}',
+		'resource'	=> 'Nova\Core\Controller\Admin\Form@postTabs',
+		'protected'	=> (int) true
+	],
+	[
+		'name'		=> 'admin/form/sections',
+		'verb'		=> 'get',
+		'uri'		=> 'admin/form/sections/{formKey}/{id?}',
+		'resource'	=> 'Nova\Core\Controller\Admin\Form@getSections',
+		'protected'	=> (int) true
+	],
+	[
+		'name'		=> 'admin/form/sections',
+		'verb'		=> 'post',
+		'uri'		=> 'admin/form/sections/{formKey}/{id?}',
+		'resource'	=> 'Nova\Core\Controller\Admin\Form@postSections',
+		'protected'	=> (int) true
+	],
+	[
+		'name'		=> 'admin/form/fields',
+		'verb'		=> 'get',
+		'uri'		=> 'admin/form/fields/{formKey}/{id?}',
+		'resource'	=> 'Nova\Core\Controller\Admin\Form@getFields',
+		'protected'	=> (int) true
+	],
+	[
+		'name'		=> 'admin/form/fields',
+		'verb'		=> 'post',
+		'uri'		=> 'admin/form/fields/{formKey}/{id?}',
+		'resource'	=> 'Nova\Core\Controller\Admin\Form@postFields',
+		'protected'	=> (int) true
+	],
 	
 	/**
 	 * admin/role

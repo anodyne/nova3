@@ -331,6 +331,8 @@ return array(
 		'AccessRoleValidator'		=> 'Nova\Core\Services\Validators\Access\Role',
 		'AccessTaskValidator'		=> 'Nova\Core\Services\Validators\Access\Task',
 
+		'FormValidator'				=> 'Nova\Core\Services\Validators\Form',
+
 		'BaseValidator'				=> 'Nova\Core\Services\Validators\Base',
 		'SystemRouteValidator'		=> 'Nova\Core\Services\Validators\SystemRoute',
 		'UserValidator'				=> 'Nova\Core\Services\Validators\User',

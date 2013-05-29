@@ -411,16 +411,16 @@ return [
 		'category' => 'manage',
 		'access' => 'role.create|role.update|role.delete'
 	],
-	/*[
+	[
 		'name' => 'Forms',
 		'group' => 1,
-		'order' => 0,
-		'url' => 'admin/form/index',
+		'order' => 1,
+		'url' => 'admin/form',
 		'type' => 'adminsub',
 		'category' => 'manage',
 		'access' => 'form.create|form.update|form.delete'
 	],
-	[
+	/*[
 		'name' => 'Ranks',
 		'group' => 2,
 		'order' => 0,

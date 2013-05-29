@@ -89,6 +89,16 @@ h1 {
 	margin: 15px 0;
 }
 
+.thumbnail {
+	margin-bottom: 15px;
+}
+
+/* This will probably need to be tweaked as we use it more */
+.thumbnail .btn-group,
+.thumbnail .btn-toolbar {
+	margin: 2px 0 0 0;
+}
+
 .modal-body .btn,
 .modal-body .btn-group,
 .modal-body .btn-toolbar {
