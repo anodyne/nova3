@@ -218,7 +218,7 @@ return array(
 		'Nav'			=> 'Nova\Core\Lib\Nav',
 		'Sentry' 		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Status'		=> 'Nova\Core\Lib\Status',
-		'SystemEvent'	=> 'Nova\Core\Lib\SystemEvent',
+		'SystemEvent'	=> 'Nova\Core\Facades\SystemEvent',
 		'Utility'		=> 'Nova\Core\Facades\Utility',
 
 		'Input'			=> 'Cartalyst\Api\Facades\Input',

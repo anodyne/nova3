@@ -3,6 +3,7 @@
 use Nova\Core\Lib\Utility;
 use Nova\Core\Lib\Location;
 use Nova\Core\Lib\Markdown;
+use Nova\Core\Lib\SystemEvent;
 use dflydev\markdown\MarkdownParser;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,6 +18,7 @@ class UtilityServiceProvider extends ServiceProvider {
 	{
 		$this->registerLocation();
 		$this->registerMarkdown();
+		$this->registerSystemEvent();
 		$this->registerUtility();
 	}
 
@@ -33,6 +35,14 @@ class UtilityServiceProvider extends ServiceProvider {
 		$this->app['markdown'] = $this->app->share(function()
 		{
 			return new Markdown(new MarkdownParser);
+		});
+	}
+
+	protected function registerSystemEvent()
+	{
+		$this->app['nova.event'] = $this->app->share(function()
+		{
+			return new SystemEvent;
 		});
 	}
 
