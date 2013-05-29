@@ -28,6 +28,13 @@ class Model extends EloquentModel {
 
 	protected $dates = array();
 
+	public function __construct(array $attributes = array(), $filterData = true)
+	{
+		$attributes = $this->scrubInputData($attributes, $filterData);
+
+		parent::__construct($attributes);
+	}
+
 	/**
 	 * Create a new Eloquent Collection instance.
 	 *
@@ -183,6 +190,22 @@ class Model extends EloquentModel {
 		return parent::belongsToMany($model, $table, $foreignKey, $otherKey);
 	}
 
+	/**
+	 * Update the model in the database.
+	 *
+	 * We override this method from the Eloquent model so that we
+	 * can scrub the data to make sure we're good to use it.
+	 *
+	 * @param	array	Array of data to use
+	 * @return	mixed
+	 */
+	public function update(array $attributes = array(), $filterData = true)
+	{
+		$attributes = $this->scrubInputData($attributes, $filterData);
+
+		return parent::update($attributes);
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Model Helpers
@@ -200,6 +223,37 @@ class Model extends EloquentModel {
 		$instance = new static;
 
 		return $instance->newQuery();
+	}
+
+	/**
+	 * Scrub the data being used to make sure we're allowed to
+	 * store it in this table.
+	 *
+	 * @param	array	Data array
+	 * @param	bool	Filter the data?
+	 * @return	array
+	 */
+	protected function scrubInputData(array $data, $filter = true)
+	{
+		// Loop through the data and scrub it for any issues
+		foreach ($data as $key => $value)
+		{
+			// Make sure we don't have an ID field or something that
+			// isn't actually a column in the database
+			if ($key != $this->getKeyName() and in_array($key, static::$properties))
+			{
+				if ($filter and is_string($data[$key]))
+				{
+					$data[$key] = trim(e($data[$key]));
+				}
+			}
+			else
+			{
+				unset($data[$key]);
+			}
+		}
+
+		return $data;
 	}
 
 	/*
@@ -238,54 +292,9 @@ class Model extends EloquentModel {
 
 	/*
 	|--------------------------------------------------------------------------
-	| CRUD Operations
+	| Static methods
 	|--------------------------------------------------------------------------
 	*/
-
-	/**
-	 * Create an item with the data passed.
-	 *
-	 * @param	array	An array of data
-	 * @param	bool	Should the object be returned?
-	 * @param	bool	Should the data be filtered?
-	 * @return	$this|bool
-	 * @throws	Exception
-	 */
-	public static function add(array $data, $returnObject = false, $filter = true)
-	{
-		// Loop through the data and add it to the item
-		foreach ($data as $key => $value)
-		{
-			// Make sure we don't have an ID field or something that
-			// isn't actually a column in the database
-			if ($key != 'id' and in_array($key, static::$properties))
-			{
-				if ($filter and is_string($data[$key]))
-				{
-					$data[$key] = trim(e($data[$key]));
-				}
-			}
-			else
-			{
-				unset($data[$key]);
-			}
-		}
-
-		// Create the item
-		$item = static::create($data);
-		
-		if ($item !== null)
-		{
-			if ($returnObject)
-			{
-				return $item;
-			}
-
-			return true;
-		}
-		
-		throw new Exception(lang('error.exception.model.create'));
-	}
 
 	/**
 	 * Find a record/records in the table based on the simple arguments.
@@ -294,7 +303,7 @@ class Model extends EloquentModel {
 	 * @param	mixed	The column
 	 * @return	object
 	 */
-	public static function getItem($value, $column)
+	public static function getItems($column, $value)
 	{
 		// Start a new Query Builder
 		$query = static::startQuery();
@@ -310,14 +319,14 @@ class Model extends EloquentModel {
 				}
 			}
 			
-			// Get the record
-			return $query->first();
+			// Get the record(s)
+			return $query->get();
 		}
 		else
 		{
 			if (in_array($column, static::$properties))
 			{
-				return $query->where($column, $value)->first();
+				return $query->where($column, $value)->get();
 			}
 		}
 		
@@ -327,9 +336,9 @@ class Model extends EloquentModel {
 	/**
 	 * Find a form item based on the form key.
 	 *
-	 * @param	string	The form key
-	 * @param	bool	Pull back displayed items (true) or all items (false)
-	 * @return	object
+	 * @param	string	Form key
+	 * @param	bool	Get only active items?
+	 * @return	Collection
 	 */
 	public static function getFormItems($key, $getOnlyActive = false)
 	{
@@ -349,135 +358,6 @@ class Model extends EloquentModel {
 		$query->orderBy('order', 'asc');
 
 		return $query->get();
-	}
-
-	/**
-	 * Update an item in the table based on the ID and data.
-	 *
-	 * @param	mixed	The ID to update or NULL to update everything
-	 * @param	array 	The array of data to update with
-	 * @param	bool	Should the data be run through the XSS filter?
-	 * @return	mixed
-	 * @throws	Exception
-	 */
-	public static function edit($id, array $data, $returnObject = false, $filter = true)
-	{
-		if ($id)
-		{
-			// Get the item
-			$item = static::find($id);
-			
-			// Make sure we have something
-			if ($item !== null)
-			{
-				// Loop through the data array and make the changes
-				foreach ($data as $key => $value)
-				{
-					if ($key != 'id' and in_array($key, static::$properties))
-					{
-						if ($filter and is_string($value))
-						{
-							$value = trim(e($value));
-						}
-
-						$item->{$key} = $value;
-					}
-				}
-				
-				// Save the item
-				if ($item->save())
-				{
-					if ($returnObject)
-					{
-						return $item;
-					}
-
-					return true;
-				}
-
-				throw new Exception(lang('error.exception.model.update.notSaved'));
-			}
-		}
-		else
-		{
-			// Start a new query
-			$query = static::startQuery();
-
-			// Pull everything from the table
-			$items = $query->get();
-
-			// Make sure we have items
-			if ($items->count() > 0)
-			{
-				// Loop through all the items
-				foreach ($items as $item)
-				{
-					// Loop through the data and make the changes
-					foreach ($data as $key => $value)
-					{
-						if ($filter and is_string($value))
-						{
-							$value = trim(e($value));
-						}
-
-						$item->{$key} = $value;
-					}
-					
-					// Save the item
-					$item->save();
-				}
-
-				return true;
-			}
-		}
-
-		throw new Exception(lang('error.exception.model.update.notFound'));
-	}
-
-	/**
-	 * Delete an item in the table based on the arguments passed.
-	 *
-	 * @param	mixed	An array of arguments or the item ID
-	 * @return	bool
-	 * @throws	Exception
-	 */
-	public static function remove($args)
-	{
-		// If we have a list of arguments, loop through them
-		if (is_array($args))
-		{
-			// Start a new query
-			$query = static::startQuery();
-			
-			// Loop through the arguments to build the where
-			foreach ($args as $column => $value)
-			{
-				if (in_array($column, static::$properties))
-				{
-					$query->where($column, $value);
-				}
-			}
-
-			// Get the item
-			$entry = $query->first();
-		}
-		else
-		{
-			// Go directly to the item
-			$entry = static::find($args);
-		}
-
-		// Make sure we have an entry
-		if ($entry !== null)
-		{
-			// Now that we have the item, delete it
-			if ($entry->delete(null, true))
-			{
-				return true;
-			}
-		}
-		
-		throw new Exception(lang('error.exception.model.delete'));
 	}
 
 }
