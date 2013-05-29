@@ -2,16 +2,16 @@
 
 Nova 3 provides a base model that all of Nova's models extend from. This provides a consistent API for all of Nova's models to use. If you know how to add rank items then you know how to add a post or a wiki page.
 
-## `add()`
+## Create Records
 
 Adding a record to the database is as simple as calling the `add()` method and passing it an array of data where the key is the column and the value is the content you want to store.
 
-<pre>PersonalLog::add(array(
+<pre>PersonalLog::create([
 	'title'			=> 'My Title',
 	'content'		=> "This is the content for my personal log.",
 	'user_id'		=> {your user ID},
 	'character_id'	=> {your character ID},
-));</pre>
+]);</pre>
 
 ### Parameters
 
@@ -21,21 +21,21 @@ __Return Complete Object__: You have the option of returning the full object tha
 
 __Filter Data__: To protect the database from malicious user input, you have the option of filtering the data that comes into the database. By default, input is filtered, but passing `false` to the third parameter will cause the data to be stored unfiltered.
 
-## `getItem()`
+## `getItems()`
 
-Retrieving a single item from the database is easy enough to do with the `find()` method, but sometimes you don't know the ID to use that. You could create a complex where clause, but if you only need to pull back an item based on some other criteria, you can use the `getItem()` method.
+Retrieving items from the database by conditions is easy enough to do with the `find()` method, but sometimes you don't know the ID to use that. You could create a where clause inline or even create a new model method, but if you only need to pull back items based on some other criteria, you can use the `getItem()` method.
 
-<pre>PersonalLog::getItem('My Title', 'title');</pre>
+<pre>PersonalLog::getItems('title', 'My Title');</pre>
 
-This will find the _first_ personal log with the title "My Title".
+This will find the all personal logs with the title "My Title". If multiple rows are returned and you just want to grab the first item, you can use the `first()` method as well.
 
-## `update()`
+<pre>PersonalLog::getItems('title', 'My Title')->first();</pre>
+
+## Update Records
 
 Updating an existing record in the database is as simple as calling `update()` (with a few parameters).
 
-<pre>PersonalLog::update(1, array(
-	'title' => 'My Title (Updated)'
-));</pre>
+<pre>PersonalLog::where('id', 1)->update(['title' => 'My Title (Updated)']);</pre>
 
 ### Parameters
 
@@ -47,15 +47,13 @@ __Return Complete Object__: You have the option of returning the full updated ob
 
 __Filter Data__: To protect the database from malicious user input, you have the option of filtering the data that comes into the database. By default, input is filtered, but passing `false` to the fourth parameter will cause the data to be stored unfiltered.
 
-## `remove()`
+## Remove Records
 
 Deleting an existing record from the database is equally as simple.
 
-<pre>PersonalLog::remove(1);
+<pre>PersonalLog::destroy(1);
 
-PersonalLog::remove(array(
-	'title' => 'My Title (Updated)'
-));</pre>
+PersonalLog::where('title' => 'My Title (Updated)')->delete();</pre>
 
 ### Parameters
 

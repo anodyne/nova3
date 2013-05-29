@@ -82,7 +82,7 @@ Sometimes though, tapping in to existing access keys doesn't quite cut it. In th
 
 In your migration's `up()` method, you can create a new access key like this:
 
-<pre>AccessTask::add([
+<pre>AccessTask::create([
 	'action'	=> 'read',
 	'component'	=> 'reportGen',
 	'level'		=> 0,
