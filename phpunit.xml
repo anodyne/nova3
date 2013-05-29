@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         bootstrap="nova/start/autoload.php"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false"
-         syntaxCheck="false"
+		 backupStaticAttributes="false"
+		 bootstrap="nova/start/autoload.php"
+		 colors="true"
+		 convertErrorsToExceptions="true"
+		 convertNoticesToExceptions="true"
+		 convertWarningsToExceptions="true"
+		 processIsolation="false"
+		 stopOnFailure="true"
+		 syntaxCheck="false"
 >
-    <testsuites>
-        <testsuite name="Application Test Suite">
-            <directory>./app/tests/</directory>
-        </testsuite>
-    </testsuites>
+	<testsuites>
+		<testsuite name="app">
+			<directory>./app/tests/</directory>
+		</testsuite>
+
+		<testsuite name="core">
+			<directory>./nova/src/Nova/Core/tests/</directory>
+		</testsuite>
+
+		<testsuite name="foundation">
+			<directory>./nova/src/Nova/Foundation/tests/</directory>
+		</testsuite>
+
+		<testsuite name="setup">
+			<directory>./nova/src/Nova/Setup/tests/</directory>
+		</testsuite>
+	</testsuites>
 </phpunit>
