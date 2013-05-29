@@ -32,7 +32,7 @@ class MarkdownTest extends TestCase {
 	 * @covers				Markdown::parse
 	 * @expectedException	InvalidArgumentException
 	 */
-	public function testThrowsExceptionWhenNotString()
+	public function testThrowsExceptionWhenNotStringOrBoolean()
 	{
 		$this->markdown->parse(new stdClass);
 	}

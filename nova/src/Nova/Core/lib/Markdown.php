@@ -31,8 +31,8 @@ class Markdown {
 	 */
 	public function parse($str)
 	{
-		//if ( ! is_string($str))
-			//throw new InvalidArgumentException("Only strings can be parsed from Markdown to HTML.");
+		if ( ! is_string($str) and ! is_bool($str))
+			throw new InvalidArgumentException("Only strings can be parsed from Markdown to HTML.");
 
 		return $this->markdown->transformMarkdown($str);
 	}
