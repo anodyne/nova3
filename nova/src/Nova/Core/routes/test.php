@@ -4,14 +4,14 @@ Route::group(array('prefix' => 'test'), function()
 {
 	Route::get('index', function()
 	{
-		//s(Config::get('cache'));
-		//Cache::put('test', 'foo', 5);
-		//s(Cache::get('test'));
+		$user = User::create([
+			'name' => 'Dave Public',
+			'email' => 'dave.public6@example.com',
+			'password' => 'password',
+			'foo' => 'bar'
+		]);
 
-		$foo = [];
-		s($foo);
-
-		return 'Done';
+		s($user);
 	});
 
 	Route::get('sessions', function()
