@@ -2,20 +2,21 @@
 
 /**
  * The model class is the foundation for all of Nova's models and provides core
- * functionality that's shared across a lot of the models used in Nova,
- * including creating a new items, updating an existing item, finding items
- * based on criteria, and deleting items.
+ * functionality that's shared across many of the models used in Nova. Because
+ * these methods are available in every model, any changes to this class should
+ * be done carefully and  deliberately since they can cause wide ranging issues
+ * if not done properly.
  *
- * Because these methods are the basis for the majority of CRUD operations in 
- * Nova models, any changes to this class should be done carefully and 
- * deliberately since they can cause wide ranging issues if not done properly.
+ * @package		Nova
+ * @subpackage	Core
+ * @category	Model
+ * @author		Anodyne Productions
+ * @copyright	2013 Anodyne Productions
  */
 
 use Date;
 use Config;
 use Status;
-use Exception;
-use Nova\Foundation\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class Model extends EloquentModel {
@@ -26,11 +27,11 @@ class Model extends EloquentModel {
 	|--------------------------------------------------------------------------
 	*/
 
-	protected $dates = array();
+	protected $dates = [];
 
-	public function __construct(array $attributes = array(), $filterData = true)
+	public function __construct(array $attributes = [])
 	{
-		$attributes = $this->scrubInputData($attributes, $filterData);
+		$attributes = $this->scrubInputData($attributes);
 
 		parent::__construct($attributes);
 	}
@@ -38,14 +39,14 @@ class Model extends EloquentModel {
 	/**
 	 * Create a new Eloquent Collection instance.
 	 *
-	 * We override this method from the Eloquent model so that we
-	 * can ensure every collection being created is one of our own
-	 * making and not the default.
+	 * We override this method from the Eloquent model so that we can ensure
+	 * every collection being created is one of our own making and not the
+	 * default.
 	 *
 	 * @param	array	An array of models
 	 * @return	Collection
 	 */
-	public function newCollection(array $models = array())
+	public function newCollection(array $models = [])
 	{
 		return new Collection($models);
 	}
@@ -63,9 +64,8 @@ class Model extends EloquentModel {
 	/**
 	 * Get a fresh timestamp for the model.
 	 *
-	 * We override this method from the Eloquent model so that we
-	 * can ensure that every timestamp being generated is done so
-	 * as UTC.
+	 * We override this method from the Eloquent model so that we can ensure
+	 * that every timestamp being generated is done so as UTC.
 	 *
 	 * @return mixed
 	 */
@@ -77,9 +77,8 @@ class Model extends EloquentModel {
 	/**
 	 * Return a timestamp as DateTime object.
 	 *
-	 * We override this method from the Eloquent model so that we
-	 * can ensure that everything being stored in the database is
-	 * being done so as UTC.
+	 * We override this method from the Eloquent model so that we can ensure
+	 * that everything being stored in the database is being done so as UTC.
 	 *
 	 * @param	mixed	The value to store
 	 * @return	Date
@@ -99,10 +98,9 @@ class Model extends EloquentModel {
 	/**
 	 * Define a one-to-one relationship.
 	 *
-	 * We override this method from the Eloquent model so that we
-	 * can grab the class alias from the config file and create
-	 * the model based on what class SHOULD be used instead of
-	 * assuming the core should be used.
+	 * We override this method from the Eloquent model so that we can grab the
+	 * class alias from the config file and create the model based on what class
+	 * SHOULD be used instead of assuming the core should be used.
 	 *
 	 * @param  string  $related
 	 * @param  string  $foreignKey
@@ -122,10 +120,9 @@ class Model extends EloquentModel {
 	/**
 	 * Define an inverse one-to-one or many relationship.
 	 *
-	 * We override this method from the Eloquent model so that we
-	 * can grab the class alias from the config file and create
-	 * the model based on what class SHOULD be used instead of
-	 * assuming the core should be used.
+	 * We override this method from the Eloquent model so that we can grab the
+	 * class alias from the config file and create the model based on what class
+	 * SHOULD be used instead of assuming the core should be used.
 	 *
 	 * @param  string  $related
 	 * @param  string  $foreignKey
@@ -145,10 +142,9 @@ class Model extends EloquentModel {
 	/**
 	 * Define a one-to-many relationship.
 	 *
-	 * We override this method from the Eloquent model so that we
-	 * can grab the class alias from the config file and create
-	 * the model based on what class SHOULD be used instead of
-	 * assuming the core should be used.
+	 * We override this method from the Eloquent model so that we can grab the
+	 * class alias from the config file and create the model based on what class
+	 * SHOULD be used instead of assuming the core should be used.
 	 *
 	 * @param  string  $related
 	 * @param  string  $foreignKey
@@ -168,10 +164,9 @@ class Model extends EloquentModel {
 	/**
 	 * Define a many-to-many relationship.
 	 *
-	 * We override this method from the Eloquent model so that we
-	 * can grab the class alias from the config file and create
-	 * the model based on what class SHOULD be used instead of
-	 * assuming the core should be used.
+	 * We override this method from the Eloquent model so that we can grab the
+	 * class alias from the config file and create the model based on what class
+	 * SHOULD be used instead of assuming the core should be used.
 	 *
 	 * @param  string  $related
 	 * @param  string  $table
@@ -190,22 +185,6 @@ class Model extends EloquentModel {
 		return parent::belongsToMany($model, $table, $foreignKey, $otherKey);
 	}
 
-	/**
-	 * Update the model in the database.
-	 *
-	 * We override this method from the Eloquent model so that we
-	 * can scrub the data to make sure we're good to use it.
-	 *
-	 * @param	array	Array of data to use
-	 * @return	mixed
-	 */
-	public function update(array $attributes = array(), $filterData = true)
-	{
-		$attributes = $this->scrubInputData($attributes, $filterData);
-
-		return parent::update($attributes);
-	}
-
 	/*
 	|--------------------------------------------------------------------------
 	| Model Helpers
@@ -213,41 +192,18 @@ class Model extends EloquentModel {
 	*/
 
 	/**
-	 * Kick off a new query.
+	 * Scrub the data being used to make sure we're can store it in the table.
 	 *
-	 * @return	Builder
-	 */
-	public static function startQuery()
-	{
-		// Get a new instance of the model
-		$instance = new static;
-
-		return $instance->newQuery();
-	}
-
-	/**
-	 * Scrub the data being used to make sure we're allowed to
-	 * store it in this table.
-	 *
-	 * @param	array	Data array
-	 * @param	bool	Filter the data?
+	 * @param	array	Array of data to scrub
 	 * @return	array
 	 */
-	protected function scrubInputData(array $data, $filter = true)
+	protected function scrubInputData(array $data)
 	{
 		// Loop through the data and scrub it for any issues
 		foreach ($data as $key => $value)
 		{
-			// Make sure we don't have an ID field or something that
-			// isn't actually a column in the database
-			if ($key != $this->getKeyName() and in_array($key, static::$properties))
-			{
-				if ($filter and is_string($data[$key]))
-				{
-					$data[$key] = trim(e($data[$key]));
-				}
-			}
-			else
+			// Make sure we're only using fillable fields
+			if ( ! $this->isFillable($key))
 			{
 				unset($data[$key]);
 			}
@@ -297,21 +253,34 @@ class Model extends EloquentModel {
 	*/
 
 	/**
+	 * Kick off a new query.
+	 *
+	 * @return	Builder
+	 */
+	public static function startQuery()
+	{
+		// Get a new instance of the model
+		$instance = new static;
+
+		return $instance->newQuery();
+	}
+
+	/**
 	 * Find a record/records in the table based on the simple arguments.
 	 *
+	 * @param	mixed	The column or arguments for a where statement
 	 * @param	string	The value
-	 * @param	mixed	The column
-	 * @return	object
+	 * @return	Collection
 	 */
 	public static function getItems($column, $value)
 	{
 		// Start a new Query Builder
 		$query = static::startQuery();
 
-		if (is_array($value))
+		if (is_array($column))
 		{
 			// Loop through the arguments and build the where clause
-			foreach ($value as $col => $val)
+			foreach ($column as $col => $val)
 			{
 				if (in_array($col, static::$properties))
 				{
@@ -319,7 +288,6 @@ class Model extends EloquentModel {
 				}
 			}
 			
-			// Get the record(s)
 			return $query->get();
 		}
 		else
