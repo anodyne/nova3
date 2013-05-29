@@ -1,5 +1,6 @@
 <?php namespace Nova\Core\Model;
 
+use App;
 use Str;
 use Date;
 use Model;
@@ -22,13 +23,14 @@ class User extends Model implements UserInterface {
 	protected $table = 'users';
 
 	protected $fillable = array(
-		'first_name', 'last_name', 'email', 'status', 'name', 'character_id',
-		'role_id', 'password'
+		'status', 'name', 'email', 'password', 'character_id', 'role_id',
+		'reset_password_hash', 'activation_hash', 'persist_hash', 'ip_address',
+		'leave_date', 'last_post', 'last_login',
 	);
 
 	protected $hidden = array(
 		'password', 'reset_password_hash', 'activation_hash', 'persist_hash',
-		'ip_address'
+		'ip_address',
 	);
 
 	protected $hashableAttributes = array('password', 'persist_code');
@@ -42,6 +44,7 @@ class User extends Model implements UserInterface {
 		'id', 'status', 'name', 'email', 'password', 'character_id', 'role_id', 
 		'reset_password_hash', 'activation_hash', 'persist_hash', 'ip_address', 
 		'leave_date', 'last_post', 'last_login', 'created_at', 'updated_at',
+		'activated_at',
 	);
 
 	/*
@@ -151,6 +154,17 @@ class User extends Model implements UserInterface {
 
 	/*
 	|--------------------------------------------------------------------------
+	| Model Accessors
+	|--------------------------------------------------------------------------
+	*/
+
+	public function setPasswordAttribute($value)
+	{
+		$this->attributes['password'] = App::make('sentry.hasher')->hash($value);
+	}
+
+	/*
+	|--------------------------------------------------------------------------
 	| Model Methods
 	|--------------------------------------------------------------------------
 	*/
@@ -170,7 +184,6 @@ class User extends Model implements UserInterface {
 		Event::listen("eloquent.created: {$classes['User']}", "{$classes['UserHandler']}@afterCreate");
 		Event::listen("eloquent.updated: {$classes['User']}", "{$classes['UserHandler']}@afterUpdate");
 		Event::listen("eloquent.deleting: {$classes['User']}", "{$classes['UserHandler']}@beforeDelete");
-		Event::listen("eloquent.saving: {$classes['User']}", "{$classes['UserHandler']}@beforeSave");
 	}
 
 	/**

@@ -1,8 +1,5 @@
 <?php namespace Nova\Core\Services\Events;
 
-use App;
-use Str;
-use UserPrefs;
 use SystemEvent;
 use NovaFormData;
 use NovaFormField;
@@ -74,26 +71,6 @@ class User {
 		 * System Event
 		 */
 		SystemEvent::addUserEvent('event.item', lang('user'), $model->name, lang('action.deleted'));
-	}
-
-	/**
-	 * Before the model is saved, we need to make sure the password
-	 * is appropriately hashed. This will happen before every save,
-	 * so if the password IS hashed, we have problems.
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
-	public function beforeSave($model)
-	{
-		if (Str::length($model->password) < 96)
-		{
-			// Get the hasher out of the IoC container
-			$hasher = App::make('sentry.hasher');
-
-			// Update the password
-			$model->password = $hasher->hash($model->password);
-		}
 	}
 
 }
