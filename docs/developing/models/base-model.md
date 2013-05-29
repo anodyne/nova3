@@ -2,9 +2,23 @@
 
 Nova 3 provides a base model that all of Nova's models extend from. This provides a consistent API for all of Nova's models to use. If you know how to add rank items then you know how to add a post or a wiki page.
 
+## Get Records
+
+Retrieving items from the database is easy enough to do with Eloquent's `find()` method, but sometimes you don't know the primary key, so that method is useless. You could create a where clause inline or even create a new model method, but the base model provides you with a method to pull back records based on simple criteria using the `getItems()` method.
+
+<pre>PersonalLog::getItems('title', 'My Title');</pre>
+
+This will find the all personal logs with the title "My Title". If multiple rows are returned and you just want to grab the first item, you can use the `first()` method on the `Collection`.
+
+<pre>PersonalLog::getItems('title', 'My Title')->first();</pre>
+
+You can also pass an array of conditions to `getItems()` for more advanced selection.
+
+<pre>PersonalLog::getItems(['title' => 'My Title', 'status' => Status::ACTIVE]);</pre>
+
 ## Create Records
 
-Adding a record to the database is as simple as calling the `add()` method and passing it an array of data where the key is the column and the value is the content you want to store.
+Adding a record to the database is as simple as calling the `create()` method and passing it an array of data where the key is the column and the value is the content you want to store.
 
 <pre>PersonalLog::create([
 	'title'			=> 'My Title',
@@ -13,23 +27,14 @@ Adding a record to the database is as simple as calling the `add()` method and p
 	'character_id'	=> {your character ID},
 ]);</pre>
 
-### Parameters
+For security reasons, all data passed through the `create()` method is filtered for malicious content. If you don't want the data filtered, you will have to instantiate a new object and pass `false` to the second parameter.
 
-__Data__: This is an array of data that will be used to create the record.
-
-__Return Complete Object__: You have the option of returning the full object that was just created or a boolean of whether the record was created. By default, it will return a boolean, but passing `true` to the second parameter will cause the full object to be returned.
-
-__Filter Data__: To protect the database from malicious user input, you have the option of filtering the data that comes into the database. By default, input is filtered, but passing `false` to the third parameter will cause the data to be stored unfiltered.
-
-## `getItems()`
-
-Retrieving items from the database by conditions is easy enough to do with the `find()` method, but sometimes you don't know the ID to use that. You could create a where clause inline or even create a new model method, but if you only need to pull back items based on some other criteria, you can use the `getItem()` method.
-
-<pre>PersonalLog::getItems('title', 'My Title');</pre>
-
-This will find the all personal logs with the title "My Title". If multiple rows are returned and you just want to grab the first item, you can use the `first()` method as well.
-
-<pre>PersonalLog::getItems('title', 'My Title')->first();</pre>
+<pre>$log = new PersonalLog([
+	'title'			=> 'My Title',
+	'content'		=> "This is the content for my personal log.",
+	'user_id'		=> {your user ID},
+	'character_id'	=> {your character ID},
+], false);</pre>
 
 ## Update Records
 
@@ -37,31 +42,21 @@ Updating an existing record in the database is as simple as calling `update()` (
 
 <pre>PersonalLog::where('id', 1)->update(['title' => 'My Title (Updated)']);</pre>
 
-### Parameters
+You can also find the item you want to update and change individual columns as well.
 
-__ID__: This is the numerical ID for the record. You can also pass `false` and run the update for all the records in that database table.
-
-__Data__: This is an array of data that will be used to update the record(s).
-
-__Return Complete Object__: You have the option of returning the full updated object or a boolean of whether the record was updated. By default, it will return a boolean, but passing `true` to the third parameter will cause the full object to be returned.
-
-__Filter Data__: To protect the database from malicious user input, you have the option of filtering the data that comes into the database. By default, input is filtered, but passing `false` to the fourth parameter will cause the data to be stored unfiltered.
+<pre>$log = PersonalLog::find(1);
+$log->title = 'My Title (Updated)';
+$log->save()</pre>
 
 ## Remove Records
 
 Deleting an existing record from the database is equally as simple.
 
 <pre>PersonalLog::destroy(1);
+// Removes the personal log with ID 1
 
-PersonalLog::where('title' => 'My Title (Updated)')->delete();</pre>
-
-### Parameters
-
-__Arguments__: This is a highly dynamic field. You can choose to pass a simple numerical ID to the method and that record will be deleted. You can also pass an array to the method with conditions for a where clause to figure out which item(s) to delete. Using an array only allows for simple AND/= operations. In other words, you can't pass advanced where statements with different conditions to the remove method. If you need to do advanced deletions, you'll need to make explicit calls to the model, like below:
-
-<pre>PersonalLog::where('title' 'like', 'My Title%')
-	->orWhere('content', 'like', '%some phrase%')
-	->delete();</pre>
+PersonalLog::where('title' => 'My Title (Updated)')->delete();
+// Removes all personal logs with the title "My Title (Updated)"</pre>
 
 ## `startQuery()`
 
