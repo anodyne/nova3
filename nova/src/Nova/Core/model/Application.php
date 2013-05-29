@@ -197,10 +197,10 @@ class Application extends Model {
 		foreach ($data as $d)
 		{
 			// add the reviewer
-			\Model_Application_Reviewer::add(array(
+			\Model_Application_Reviewer::create([
 				'app_id' => $this->id,
 				'user_id' => $d
-			));
+			]);
 
 			// if they weren't in the old list, add them to the list for sending an email
 			if ( ! in_array($d, $oldReviewers))
@@ -244,12 +244,12 @@ class Application extends Model {
 		else
 		{
 			// add the response
-			\Model_Application_Response::add(array(
+			\Model_Application_Response::create([
 				'app_id' => $this->id,
 				'user_id' => $user->id,
 				'type' => \Model_Application_Response::VOTE,
 				'content' => (\Arr::get($data, 'vote.yes') !== false) ? 'yes' : 'no'
-			));
+			]);
 		}
 
 		return true;

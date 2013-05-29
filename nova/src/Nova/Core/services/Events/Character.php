@@ -26,12 +26,12 @@ class Character {
 		{
 			foreach ($fields as $f)
 			{
-				NovaFormData::add(array(
+				NovaFormData::create([
 					'form_key' 	=> 'bio',
 					'field_id' 	=> $f->id,
 					'data_id'	=> $model->id,
 					'value' 	=> '',
-				));
+				]);
 			}
 		}
 

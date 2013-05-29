@@ -87,10 +87,10 @@ Route::group(['prefix' => 'setup/install', 'before' => 'configFileCheck|setupAut
 		SystemEventModel::delete();
 
 		// Create the only item we need in the system events table
-		SystemEventModel::add(array(
+		SystemEventModel::create([
 			'ip'		=> Utility::realIp(),
 			'content'	=> Config::get('nova.app.name')." was successfully installed.",
-		));
+		]);
 
 		// Register
 		# TODO: need to figure out how we want to do registration
@@ -180,24 +180,24 @@ Route::group(['prefix' => 'setup/install', 'before' => 'configFileCheck|setupAut
 		$simName->save();
 
 		// Create the user
-		$user = User::add([
+		$user = User::create([
 			'status'		=> Status::ACTIVE,
 			'name'			=> e(Input::get('name')),
 			'email'			=> e(Input::get('email')),
 			'password'		=> e(Input::get('password')),
 			'role_id'		=> AccessRole::SYSADMIN,
 			'activated_at'	=> Date::now(),
-		], true);
+		]);
 
 		// Create the character
-		$character = Character::add([
+		$character = Character::create([
 			'user_id'		=> $user->id,
 			'status'		=> Status::ACTIVE,
 			'first_name'	=> e(Input::get('first_name')),
 			'last_name'		=> e(Input::get('last_name')),
 			'rank_id'		=> e(Input::get('rank')),
 			'activated_at'	=> Date::now(),
-		], true);
+		]);
 
 		// Add the character's position
 		$character->positions()->attach(e(Input::get('position')), ['primary' => (int) true]);

@@ -130,7 +130,7 @@ class Rank extends Model implements QuickInstallInterface {
 					$data = json_decode($content, true);
 
 					// Create the item
-					static::add($data);
+					static::create($data);
 				}
 			}
 		}
@@ -147,7 +147,7 @@ class Rank extends Model implements QuickInstallInterface {
 				$data = json_decode($content, true);
 				
 				// Create the item
-				static::add($data);
+				static::create($data);
 			}
 		}
 	}

@@ -64,7 +64,7 @@ abstract class Admin extends BaseController {
 				$me->icons		= Utility::getIconIndex($me->skin);
 
 				// Get the skin section info
-				$me->_sectionInfo = SkinSectionCatalog::getItem($me->skin, 'skin');
+				$me->_sectionInfo = SkinSectionCatalog::getItems('skin', $me->skin)->first();
 
 				// Build the navigation
 				$me->nav->setStyle($me->_sectionInfo->nav)

@@ -127,7 +127,7 @@ class Admin extends AdminBaseController {
 		if ($user->hasAccess('routes.create') and $action == 'create')
 		{
 			// Create the new page route
-			$item = SystemRoute::add(Input::all(), true);
+			$item = SystemRoute::create(Input::all());
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -149,12 +149,12 @@ class Admin extends AdminBaseController {
 			$route = SystemRoute::find($id);
 
 			// Create the item
-			$item = SystemRoute::add([
+			$item = SystemRoute::create([
 				'name'		=> $route->name,
 				'verb'		=> $route->verb,
 				'uri'		=> $route->uri,
 				'resource'	=> $route->resource,
-			], true);
+			]);
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -172,8 +172,11 @@ class Admin extends AdminBaseController {
 			$id = e(Input::get('id'));
 			$id = (is_numeric($id)) ? $id : false;
 
-			// Update the page route
-			$item = SystemRoute::edit($id, Input::all(), true);
+			if ($id)
+			{
+				// Update the page route
+				$item = SystemRoute::where('id', $id)->update(Input::all());
+			}
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -194,7 +197,7 @@ class Admin extends AdminBaseController {
 			if ($id)
 			{
 				// Delete the route
-				SystemRoute::remove($id);
+				SystemRoute::destroy($id);
 
 				// Set the flash info
 				$flashStatus = 'success';

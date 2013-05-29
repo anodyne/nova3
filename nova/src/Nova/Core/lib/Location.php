@@ -216,8 +216,8 @@ class Location {
 
 		// Get the rank catalog object
 		$catalog = ( ! $location)
-			? RankCatalog::getItem(UtilityLib::getRank(), 'location')
-			: RankCatalog::getItem($location, 'location');
+			? RankCatalog::getItems('location', UtilityLib::getRank())->first()
+			: RankCatalog::getItems('location', $location)->first();
 
 		if (File::isDirectory(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/base") 
 				and File::isDirectory(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/pips"))

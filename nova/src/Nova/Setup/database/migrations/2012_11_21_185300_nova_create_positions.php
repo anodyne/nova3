@@ -34,7 +34,7 @@ class NovaCreatePositions extends Migration {
 
 			foreach ($positions as $p)
 			{
-				Position::add($p);
+				Position::create($p);
 			}
 		}
 	}

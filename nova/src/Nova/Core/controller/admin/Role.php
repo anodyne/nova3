@@ -136,7 +136,7 @@ class Role extends AdminBaseController {
 		if ($user->hasAccess('role.create') and $action == 'create')
 		{
 			// Create the item
-			$item = AccessRole::add(Input::all(), true);
+			$item = AccessRole::create(Input::all());
 
 			// Set the inherited tasks array
 			$inheritedTasks = [];
@@ -188,11 +188,11 @@ class Role extends AdminBaseController {
 			$role = AccessRole::find($id);
 
 			// Create the item
-			$item = AccessRole::add([
+			$item = AccessRole::create([
 				'name'		=> e(Input::get('name')),
 				'desc'		=> $role->desc,
 				'inherits'	=> $role->inherits,
-			], true);
+			]);
 
 			// Get the original tasks
 			$originalTasks = $role->tasks->toSimpleArray();
@@ -412,7 +412,7 @@ class Role extends AdminBaseController {
 		if ($user->hasAccess('role.create') and $action == 'create')
 		{
 			// Create the item
-			$item = AccessTask::add(Input::all(), true);
+			$item = AccessTask::create(Input::all());
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -432,8 +432,8 @@ class Role extends AdminBaseController {
 
 			if ($id)
 			{
-				// Create the item
-				$item = AccessTask::edit($id, Input::all(), true);
+				// Update the task
+				$item = AccessTask::where('id', $id)->update(Input::all());
 			}
 
 			// Set the flash info

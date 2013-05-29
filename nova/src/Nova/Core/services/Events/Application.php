@@ -40,10 +40,10 @@ class Application {
 		foreach ($decisionMakers as $dm)
 		{
 			// Add the reviewer record
-			NovaAppReviewerModel::add(array(
+			NovaAppReviewerModel::create([
 				'app_id'	=> $model->id,
 				'user_id'	=> $dm->id,
-			));
+			]);
 
 			// Add the user to the email array
 			$emailUsers[$dm->id] = $dm->email;
@@ -72,10 +72,10 @@ class Application {
 							foreach ($data->user as $user)
 							{
 								// Add the reviewer record
-								NovaAppReviewerModel::add(array(
+								NovaAppReviewerModel::create([
 									'app_id'	=> $model->id,
 									'user_id'	=> $user,
-								));
+								]);
 
 								// Add the user to the email array
 								$emailUsers[$user] = UserModel::find($user)->email;
@@ -98,10 +98,10 @@ class Application {
 									if ($char->status == Status::ACTIVE and $char->user !== null)
 									{
 										// Add the reviewer record
-										NovaAppReviewerModel::add(array(
+										NovaAppReviewerModel::create([
 											'app_id'	=> $model->id,
 											'user_id'	=> $char->user->id,
-										));
+										]);
 
 										// Add the user to the email array
 										$emailUsers[$char->user->id] = $char->user->email;
@@ -123,10 +123,10 @@ class Application {
 								foreach ($data->user as $user)
 								{
 									// Add the reviewer record
-									NovaAppReviewerModel::add(array(
+									NovaAppReviewerModel::create([
 										'app_id'	=> $model->id,
 										'user_id'	=> $user,
-									));
+									]);
 
 									// Add the user to the email array
 									$emailUsers[$user] = UserModel::find($user)->email;
@@ -149,10 +149,10 @@ class Application {
 										if ($char->status == Status::ACTIVE and $char->user !== null)
 										{
 											// Add the reviewer record
-											NovaAppReviewerModel::add(array(
+											NovaAppReviewerModel::create([
 												'app_id'	=> $model->id,
 												'user_id'	=> $char->user->id,
-											));
+											]);
 
 											// Add the user to the email array
 											$emailUsers[$char->user->id] = $char->user->email;

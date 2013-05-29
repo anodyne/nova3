@@ -37,7 +37,7 @@ abstract class Login extends BaseController {
 			$me->timezone	= Session::get('timezone', $me->settings->timezone);
 
 			// Get the skin section info
-			$me->_sectionInfo = SkinSectionCatalog::getItem($me->skin, 'skin');
+			$me->_sectionInfo = SkinSectionCatalog::getItems('skin', $me->skin)->first();
 		});
 	}
 

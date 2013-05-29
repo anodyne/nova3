@@ -22,34 +22,34 @@ class User {
 		/**
 		 * Create the user settings.
 		 */
-		$settings = UserPrefs::createUserPreferences($model->id);
+		$model->createUserPreferences();
 		
 		/**
 		 * Fill the user rows for the dynamic form with blank data for editing later.
 		 */
 		$fields = NovaFormField::getFormItems('user');
 		
-		if (count($fields) > 0)
+		if ($fields->count() > 0)
 		{
 			foreach ($fields as $f)
 			{
-				NovaFormData::add(array(
-					'form_key' 		=> 'user',
-					'field_id' 		=> $f->id,
-					'data_id' 		=> $model->id,
-					'value' 		=> '',
-				));
+				NovaFormData::create([
+					'form_key' 	=> 'user',
+					'field_id' 	=> $f->id,
+					'data_id' 	=> $model->id,
+					'value' 	=> '',
+				]);
 			}
 		}
 
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.user.item', $model->name, lang('action.created'));
+		SystemEvent::addUserEvent('event.item', lang('user'), $model->name, lang('action.created'));
 	}
 
 	/**
-	 * Post-update observer.
+	 * Post-update event.
 	 *
 	 * @param	$model	The current model
 	 * @return	void
@@ -59,11 +59,11 @@ class User {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.user.item', $model->name, lang('action.updated'));
+		SystemEvent::addUserEvent('event.item', lang('user'), $model->name, lang('action.updated'));
 	}
 
 	/**
-	 * Pre-delete observer.
+	 * Pre-delete event.
 	 *
 	 * @param	$model	The current model
 	 * @return	void
@@ -73,7 +73,7 @@ class User {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.user.item', $model->name, lang('action.deleted'));
+		SystemEvent::addUserEvent('event.item', lang('user'), $model->name, lang('action.deleted'));
 	}
 
 	/**

@@ -82,23 +82,23 @@ class Skin extends Model implements QuickInstallInterface {
 					$data = json_decode($content, true);
 
 					// Add the skin record
-					static::add(array(
+					static::create([
 						'name'		=> $data->name,
 						'location'	=> $data->location,
 						'credits'	=> $data->credits,
 						'version'	=> $data->version,
-					));
+					]);
 					
 					// Loop through and add the sections
 					foreach ($data->sections as $s)
 					{
-						SkinSectionCatalogModel::add(array(
+						SkinSectionCatalogModel::create([
 							'section' 	=> $s->type,
 							'skin' 		=> $data->location,
 							'preview'	=> $s->preview,
 							'status' 	=> Status::ACTIVE,
 							'default' 	=> (int) false
-						));
+						]);
 					}
 				}
 			}
@@ -116,23 +116,23 @@ class Skin extends Model implements QuickInstallInterface {
 				$data = json_decode($content, true);
 				
 				// Add the skin record
-				static::add(array(
+				static::create([
 					'name'		=> $data->name,
 					'location'	=> $data->location,
 					'credits'	=> $data->credits,
 					'version'	=> $data->version,
-				));
+				]);
 				
 				// Loop through and add the sections
 				foreach ($data->sections as $s)
 				{
-					SkinSectionCatalogModel::add(array(
+					SkinSectionCatalogModel::create([
 						'section' 	=> $s->type,
 						'skin' 		=> $data->location,
 						'preview'	=> $s->preview,
 						'status' 	=> Status::ACTIVE,
 						'default' 	=> (int) false
-					));
+					]);
 				}
 			}
 		}

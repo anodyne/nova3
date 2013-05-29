@@ -125,7 +125,7 @@ class NovaSeedDatabase extends Migration {
 
 		foreach ($data as $value)
 		{
-			AccessRole::add($value);
+			AccessRole::create($value);
 		}
 	}
 
@@ -154,7 +154,7 @@ class NovaSeedDatabase extends Migration {
 		
 		foreach ($data as $value)
 		{
-			AccessTask::add($value);
+			AccessTask::create($value);
 		}
 	}
 
@@ -166,7 +166,7 @@ class NovaSeedDatabase extends Migration {
 
 		foreach ($rules as $r)
 		{
-			NovaAppRule::add($r);
+			NovaAppRule::create($r);
 		}
 	}
 
@@ -180,7 +180,7 @@ class NovaSeedDatabase extends Migration {
 
 		foreach ($catalog_ranks as $c)
 		{
-			RankCatalog::add($c);
+			RankCatalog::create($c);
 		}
 	}
 
@@ -192,7 +192,7 @@ class NovaSeedDatabase extends Migration {
 
 		foreach ($skins as $s)
 		{
-			SkinCatalog::add($s);
+			SkinCatalog::create($s);
 		}
 
 		$skinSections = [
@@ -218,7 +218,7 @@ class NovaSeedDatabase extends Migration {
 
 		foreach ($skinSections as $c)
 		{
-			SkinSectionCatalog::add($c);
+			SkinSectionCatalog::create($c);
 		}
 	}
 
@@ -232,7 +232,7 @@ class NovaSeedDatabase extends Migration {
 
 		foreach ($data as $d)
 		{
-			NovaForm::add($d);
+			NovaForm::create($d);
 		}
 	}
 
@@ -531,7 +531,7 @@ class NovaSeedDatabase extends Migration {
 
 		foreach ($data as $d)
 		{
-			NovaFormField::add($d);
+			NovaFormField::create($d);
 		}
 	}
 
@@ -572,7 +572,7 @@ class NovaSeedDatabase extends Migration {
 
 		foreach ($data as $d)
 		{
-			NovaFormSection::add($d);
+			NovaFormSection::create($d);
 		}
 	}
 
@@ -607,7 +607,7 @@ class NovaSeedDatabase extends Migration {
 
 		foreach ($data as $d)
 		{
-			NovaFormTab::add($d);
+			NovaFormTab::create($d);
 		}
 	}
 
@@ -672,7 +672,7 @@ class NovaSeedDatabase extends Migration {
 
 		foreach ($data as $d)
 		{
-			NovaFormValue::add($d);
+			NovaFormValue::create($d);
 		}
 	}
 
@@ -688,10 +688,10 @@ class NovaSeedDatabase extends Migration {
 			],
 		];
 
-		// Loop through and add the data
+		// Loop through and create the data
 		foreach ($data as $d)
 		{
-			Manifest::add($d);
+			Manifest::create($d);
 		}
 	}
 
@@ -701,7 +701,7 @@ class NovaSeedDatabase extends Migration {
 
 		foreach ($data as $d)
 		{
-			NavModel::add($d);
+			NavModel::create($d);
 		}
 	}
 
@@ -712,7 +712,7 @@ class NovaSeedDatabase extends Migration {
 		// Loop through the insert the data
 		foreach ($data as $d)
 		{
-			Settings::add($d);
+			Settings::create($d);
 		}
 	}
 
@@ -730,10 +730,10 @@ class NovaSeedDatabase extends Migration {
 			['name' => 'organization'],
 		];
 
-		// Loop through the data and add it
+		// Loop through the data and create it
 		foreach ($data as $d)
 		{
-			SimType::add($d);
+			SimType::create($d);
 		}
 	}
 
@@ -744,7 +744,7 @@ class NovaSeedDatabase extends Migration {
 		// Loop through the insert the data
 		foreach ($data as $d)
 		{
-			SiteContent::add($d, false, false);
+			SiteContent::create($d);
 		}
 	}
 
@@ -759,7 +759,7 @@ class NovaSeedDatabase extends Migration {
 		// Loop through the departments and seed the data
 		foreach ($depts as $d)
 		{
-			Dept::add($d);
+			Dept::create($d);
 		}
 	}
 
@@ -773,7 +773,7 @@ class NovaSeedDatabase extends Migration {
 
 		foreach ($positions as $p)
 		{
-			Position::add($p);
+			Position::create($p);
 		}
 	}
 
@@ -787,17 +787,17 @@ class NovaSeedDatabase extends Migration {
 
 		foreach ($info as $i)
 		{
-			RankInfo::add($i);
+			RankInfo::create($i);
 		}
 
 		foreach ($groups as $g)
 		{
-			RankGroup::add($g);
+			RankGroup::create($g);
 		}
 
 		foreach ($ranks as $r)
 		{
-			Rank::add($r);
+			Rank::create($r);
 		}
 	}
 
@@ -805,10 +805,10 @@ class NovaSeedDatabase extends Migration {
 	{
 		$data = include __DIR__.'/data/routes.php';
 
-		// Add the routes
+		// Create the routes
 		foreach ($data as $d)
 		{
-			SystemRoute::add($d);
+			SystemRoute::create($d);
 		}
 	}
 

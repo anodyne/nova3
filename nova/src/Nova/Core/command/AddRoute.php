@@ -39,7 +39,7 @@ class AddRoute extends Command {
 	public function fire()
 	{
 		// Add the route
-		SystemRoute::add([
+		SystemRoute::create([
 			'name'		=> $this->argument('name'),
 			'verb'		=> $this->option('verb'),
 			'uri'		=> $this->option('uri'),

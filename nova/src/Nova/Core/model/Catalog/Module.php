@@ -73,7 +73,7 @@ class Module extends Model implements QuickInstallInterface {
 					$data = json_decode($content, true);
 
 					// Create the item
-					static::add($data);
+					static::create($data);
 				}
 			}
 		}
@@ -96,7 +96,7 @@ class Module extends Model implements QuickInstallInterface {
 				$data = json_decode($content, true);
 				
 				// Create the item
-				static::add($data);
+				static::create($data);
 			}
 		}
 	}

@@ -38,7 +38,7 @@ class Field {
 				{
 					foreach ($characters as $c)
 					{
-						NovaFormData::add(array('data_id' => $c->id));
+						NovaFormData::create(['data_id' => $c->id]);
 					}
 				}
 			break;
@@ -51,7 +51,7 @@ class Field {
 				{
 					foreach ($users as $u)
 					{
-						NovaFormData::add(array('data_id' => $u->id));
+						NovaFormData::create(['data_id' => $u->id]);
 					}
 				}
 			break;

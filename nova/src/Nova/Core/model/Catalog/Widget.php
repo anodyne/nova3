@@ -65,14 +65,14 @@ class Widget extends Model implements QuickInstallInterface {
 					$data = json_decode($content, true);
 
 					// Create the item
-					static::add(array(
+					static::create([
 						'name'		=> $data->name,
 						'location'	=> $data->location,
 						'page'		=> $data->page,
 						'zone'		=> $data->zone,
 						'status'	=> Status::ACTIVE,
 						'credits'	=> $data->credits
-					));
+					]);
 				}
 			}
 		}
@@ -89,14 +89,14 @@ class Widget extends Model implements QuickInstallInterface {
 				$data = json_decode($content, true);
 				
 				// Create the item
-				static::add(array(
+				static::create([
 					'name'		=> $data->name,
 					'location'	=> $data->location,
 					'page'		=> $data->page,
 					'zone'		=> $data->zone,
 					'status'	=> Status::ACTIVE,
 					'credits'	=> $data->credits
-				));
+				]);
 			}
 		}
 	}

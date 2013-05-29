@@ -53,7 +53,7 @@ class SiteContent extends Model {
 	public static function getContentItem($key, $valueOnly = true)
 	{
 		// Get the content
-		$result = static::getItem($key, 'key', false);
+		$result = static::getItems('key', $key)->first();
 
 		if ($valueOnly)
 		{

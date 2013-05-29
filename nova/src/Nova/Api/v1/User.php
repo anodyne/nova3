@@ -118,7 +118,7 @@ class User extends Base {
 		$this->validateUser();
 
 		// Create a new user
-		$user = UserModel::add(Input::get(), true);
+		$user = UserModel::create(Input::get());
 
 		return Response::api($this->collectUserData($user), 201);
 	}
