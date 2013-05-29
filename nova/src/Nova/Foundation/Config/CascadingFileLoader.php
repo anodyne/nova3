@@ -1,4 +1,5 @@
-<?php
+<?php namespace Nova\Foundation\Config;
+
 /**
  * Compiles config files from pre-determined locations and recursively merges
  * them together to allow admins to override config files from the app/config
@@ -8,10 +9,8 @@
  * @subpackage	Foundation
  * @category	Class
  * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
+ * @copyright	2013 Anodyne Productions
  */
-
-namespace Nova\Foundation\Config;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Config\LoaderInterface;
@@ -259,7 +258,7 @@ class CascadingFileLoader implements LoaderInterface {
 	/**
 	 * Get the Filesystem instance.
 	 *
-	 * @return	Illuminate\Filesystem
+	 * @return	Filesystem
 	 */
 	public function getFilesystem()
 	{
@@ -270,10 +269,21 @@ class CascadingFileLoader implements LoaderInterface {
 	 * Returns all registered namespaces with the config
 	 * loader.
 	 *
-	 * @return array
+	 * @return	array
 	 */
 	public function getNamespaces()
 	{
 		return $this->hints;
 	}
+
+	/**
+	 * Returns the paths that will be checked.
+	 *
+	 * @return	array
+	 */
+	public function getPaths()
+	{
+		return $this->defaultPath;
+	}
+
 }
