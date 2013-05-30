@@ -169,11 +169,6 @@ class Utility {
 			// If the status is null, we know it doesn't exist
 			if ($status === null)
 			{
-				if ( ! Schema::hasTable('system_info'))
-				{
-					return false;
-				}
-
 				try
 				{
 					// Grab the UID
