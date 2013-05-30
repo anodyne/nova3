@@ -219,7 +219,7 @@ class Model extends EloquentModel {
 	*/
 
 	/**
-	 * Scope the query to active items.
+	 * Active items scope.
 	 *
 	 * @param	Builder		The query builder
 	 * @return	void
@@ -233,7 +233,7 @@ class Model extends EloquentModel {
 	}
 
 	/**
-	 * Scope the query to inactive items.
+	 * Inactive items scope.
 	 *
 	 * @param	Builder		The query builder
 	 * @return	void
@@ -243,6 +243,59 @@ class Model extends EloquentModel {
 		if (in_array('status', static::$properties))
 		{
 			$query->where('status', Status::INACTIVE);
+		}
+	}
+
+	/**
+	 * Ascending order scope.
+	 *
+	 * @param	Builder		The query builder
+	 * @param	string		The field to order by
+	 * @return	void
+	 */
+	public function scopeOrderAsc($query, $orderBy)
+	{
+		$this->orderScope($query, $orderBy, 'asc');
+	}
+
+	/**
+	 * Descending order scope.
+	 *
+	 * @param	Builder		The query builder
+	 * @param	string		The field to order by
+	 * @return	void
+	 */
+	public function scopeOrderDesc($query, $orderBy)
+	{
+		$this->orderScope($query, $orderBy, 'desc');
+	}
+
+	/**
+	 * Do the ordering.
+	 *
+	 * @param	Builder		Query Builder object
+	 * @param	mixed		A string or array of strings of columns
+	 * @param	string		The direction to order
+	 * @return	void
+	 */
+	protected function orderScope($query, $column, $direction)
+	{
+		if (is_array($column))
+		{
+			foreach ($column as $col)
+			{
+				if (in_array($col, static::$properties))
+				{
+					$query->orderBy($col, $direction);
+				}
+			}
+		}
+		else
+		{
+			if (in_array($column, static::$properties))
+			{
+				$query->orderBy($column, $direction);
+			}
 		}
 	}
 
