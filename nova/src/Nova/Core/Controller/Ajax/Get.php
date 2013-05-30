@@ -166,16 +166,12 @@ public function action_user()
 				return $position->toJson();
 			break;
 
-			case 'desc':
-				return Markdown::parse($position->desc);
-			break;
-
 			case 'deptname':
 				return $position->dept->name;
 			break;
 
 			case 'deptdesc':
-				return Markdown::parse($position->dept->desc);
+				return $position->dept->desc;
 			break;
 
 			default:
