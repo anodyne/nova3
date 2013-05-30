@@ -4,11 +4,11 @@ Route::group(array('prefix' => 'test'), function()
 {
 	Route::get('index', function()
 	{
-		$user = User::find(13);
-		$user->email = 'newemail@example.com';
-		$user->save();
+		$forms = NovaForm::orderAsc('name')->get();
+		s($forms->toSimpleArray());
 
-		s($user);
+		$forms = NovaForm::orderDesc('name')->get();
+		s($forms->toSimpleArray());
 	});
 
 	Route::get('sessions', function()
@@ -29,5 +29,11 @@ Route::group(array('prefix' => 'test'), function()
 	{
 		s(lang('short.add', langConcat('user route')));
 		s(lang('Short.add', langConcat('user Route')));
+	});
+
+	Route::get('forms', function()
+	{
+		//NovaFormSection::create(['form_id' => 3, 'name' => 'foo']);
+		//Cache::forget('nova.installed');
 	});
 });
