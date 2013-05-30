@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Command;
+<?php namespace Nova\Core\Commands;
 
 use SystemRoute;
 use Illuminate\Console\Command;

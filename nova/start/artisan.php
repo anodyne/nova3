@@ -11,6 +11,6 @@
 |
 */
 
-Artisan::add(new Nova\Core\Command\AddRoute);
-Artisan::add(new Nova\Core\Command\RefreshRoutes);
-Artisan::add(new Nova\Core\Command\Optimize($app['composer']));
+Artisan::add(new Nova\Core\Commands\AddRoute);
+Artisan::add(new Nova\Core\Commands\RefreshRoutes);
+Artisan::add(new Nova\Core\Commands\Optimize($app['composer']));
