@@ -299,6 +299,21 @@ class Model extends EloquentModel {
 		}
 	}
 
+	/**
+	 * Grouping scope.
+	 *
+	 * @param	Builder		The query builder
+	 * @param	string		The field to group by
+	 * @return	void
+	 */
+	public function scopeGroup($query, $groupBy)
+	{
+		if (in_array($groupBy, static::$properties))
+		{
+			$query->groupBy($groupBy);
+		}
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Static methods

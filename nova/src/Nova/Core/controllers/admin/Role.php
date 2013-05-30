@@ -337,7 +337,7 @@ class Role extends AdminBaseController {
 			$this->_data->task = (is_numeric($taskID)) ? AccessTask::find($taskID) : false;
 
 			// Get all the task components
-			$components = AccessTask::getComponents();
+			$components = AccessTask::group('component')->get();
 
 			// Storage array
 			$cs = [];

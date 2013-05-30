@@ -39,7 +39,7 @@ class Role extends Model implements GroupInterface {
 	 */
 	public function users()
 	{
-		return $this->hasMany('User');
+		return $this->hasMany('User', 'id');
 	}
 
 	/**
