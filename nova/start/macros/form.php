@@ -270,7 +270,7 @@ Form::macro('position', function($name, $selected = null, $options = array(), $t
 Form::macro('rank', function($name, $selected = null, $options = array(), $selectOnly = false)
 {
 	// Grab the rank groups
-	$groups = RankGroup::getItems(Status::ACTIVE);
+	$groups = RankGroup::active()->orderAsc('order')->get();
 
 	if ($groups->count() > 0)
 	{
