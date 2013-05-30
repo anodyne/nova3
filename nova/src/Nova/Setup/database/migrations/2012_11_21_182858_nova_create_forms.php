@@ -24,7 +24,7 @@ class NovaCreateForms extends Migration {
 		Schema::create('form_data', function($t)
 		{
 			$t->increments('id')->unsigned();
-			$t->string('form_key', 20);
+			$t->integer('form_id');
 			$t->integer('field_id')->unsigned();
 			$t->integer('data_id');
 			$t->text('value')->nullable();
@@ -34,7 +34,7 @@ class NovaCreateForms extends Migration {
 		Schema::create('form_fields', function($t)
 		{
 			$t->increments('id')->unsigned();
-			$t->string('form_key', 20);
+			$t->integer('form_id');
 			$t->integer('section_id')->nullable();
 			$t->string('type', 50)->default('text');
 			$t->string('label');
@@ -55,7 +55,7 @@ class NovaCreateForms extends Migration {
 		Schema::create('form_sections', function($t)
 		{
 			$t->increments('id');
-			$t->string('form_key', 20);
+			$t->integer('form_id');
 			$t->integer('tab_id')->nullable();
 			$t->string('name')->nullable();
 			$t->integer('order');
@@ -66,7 +66,7 @@ class NovaCreateForms extends Migration {
 		Schema::create('form_tabs', function($t)
 		{
 			$t->increments('id');
-			$t->string('form_key', 20);
+			$t->integer('form_id');
 			$t->string('name');
 			$t->string('link_id', 20)->nullable();
 			$t->integer('order')->nullable();

@@ -240,7 +240,7 @@ class NovaSeedDatabase extends Migration {
 	{
 		$data = [
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 1,
 				'type' => 'select',
 				'html_name' => 'gender',
@@ -250,7 +250,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 1
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 1,
 				'type' => 'text',
 				'html_name' => 'species',
@@ -261,7 +261,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 2
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 1,
 				'type' => 'text',
 				'html_name' => 'age',
@@ -273,7 +273,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 3
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 2,
 				'type' => 'text',
 				'html_name' => 'height',
@@ -284,7 +284,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 1
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 2,
 				'type' => 'text',
 				'html_name' => 'weight',
@@ -295,7 +295,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 2
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 2,
 				'type' => 'text',
 				'html_name' => 'hair_color',
@@ -306,7 +306,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 3
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 2,
 				'type' => 'text',
 				'html_name' => 'eye_color',
@@ -317,7 +317,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 4
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 2,
 				'type' => 'textarea',
 				'html_name' => 'physical_desc',
@@ -329,7 +329,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 5
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 3,
 				'type' => 'text',
 				'html_name' => 'spouse',
@@ -340,7 +340,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 1
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 3,
 				'type' => 'textarea',
 				'html_name' => 'children',
@@ -351,7 +351,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 2
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 3,
 				'type' => 'text',
 				'html_name' => 'father',
@@ -362,7 +362,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 3
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 3,
 				'type' => 'text',
 				'html_name' => 'mother',
@@ -373,7 +373,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 4
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 3,
 				'type' => 'textarea',
 				'html_name' => 'siblings',
@@ -384,7 +384,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 5
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 3,
 				'type' => 'textarea',
 				'html_name' => 'other_family',
@@ -395,7 +395,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 6
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 4,
 				'type' => 'textarea',
 				'html_name' => 'personality',
@@ -407,7 +407,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 1
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 4,
 				'type' => 'textarea',
 				'html_name' => 'strengths',
@@ -419,7 +419,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 2
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 4,
 				'type' => 'textarea',
 				'html_name' => 'ambitions',
@@ -431,7 +431,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 3
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 4,
 				'type' => 'textarea',
 				'html_name' => 'hobbies',
@@ -443,7 +443,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 4
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 4,
 				'type' => 'textarea',
 				'html_name' => 'languages',
@@ -455,7 +455,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 5
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 5,
 				'type' => 'textarea',
 				'html_name' => 'history',
@@ -467,7 +467,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 1
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'section_id' => 5,
 				'type' => 'textarea',
 				'html_name' => 'service_record',
@@ -479,7 +479,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 2
 			],
 			[
-				'form_key' => 'user',
+				'form_id' => 2,
 				'type' => 'text',
 				'html_name' => 'location',
 				'html_id' => 'location',
@@ -489,7 +489,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 0
 			],
 			[
-				'form_key' => 'user',
+				'form_id' => 2,
 				'type' => 'textarea',
 				'html_name' => 'interests',
 				'html_id' => 'interests',
@@ -499,7 +499,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 1
 			],
 			[
-				'form_key' => 'user',
+				'form_id' => 2,
 				'type' => 'textarea',
 				'html_name' => 'bio',
 				'html_id' => 'bio',
@@ -509,7 +509,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 2
 			],
 			[
-				'form_key' => 'app',
+				'form_id' => 3,
 				'type' => 'textarea',
 				'html_name' => 'experience',
 				'html_id' => 'experience',
@@ -519,7 +519,7 @@ class NovaSeedDatabase extends Migration {
 				'order' => 0
 			],
 			[
-				'form_key' => 'app',
+				'form_id' => 3,
 				'type' => 'select',
 				'html_name' => 'hear_about',
 				'html_id' => 'hear_about',
@@ -539,31 +539,31 @@ class NovaSeedDatabase extends Migration {
 	{
 		$data = [
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'tab_id' => 1,
 				'name' => 'Character Information',
 				'order' => 0
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'tab_id' => 1,
 				'name' => 'Physical Appearance',
 				'order' => 1
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'tab_id' => 2,
 				'name' => 'Family',
 				'order' => 2
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'tab_id' => 3,
 				'name' => 'Personality &amp; Traits',
 				'order' => 0
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'tab_id' => 4,
 				'name' => '',
 				'order' => 0
@@ -580,25 +580,25 @@ class NovaSeedDatabase extends Migration {
 	{
 		$data = [
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'name' => 'Basic Info',
 				'link_id' => 'one',
 				'order' => 1
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'name' => 'Personal Info',
 				'link_id' => 'two',
 				'order' => 2
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'name' => 'Personality',
 				'link_id' => 'three',
 				'order' => 3
 			],
 			[
-				'form_key' => 'character',
+				'form_id' => 1,
 				'name' => 'History',
 				'link_id' => 'four',
 				'order' => 4

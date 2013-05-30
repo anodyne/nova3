@@ -43,17 +43,17 @@ class NovaCreateSystem extends Migration {
 		});
 
 		// Seed the database
-		System::add(array(
+		System::create([
 			'uid'				=> Str::random(32),
 			'version_major'		=> Config::get('nova.app.version_major'),
 			'version_minor'		=> Config::get('nova.app.version_minor'),
 			'version_update'	=> Config::get('nova.app.version_update'),
-		));
+		]);
 
-		SystemEventModel::add(array(
+		SystemEventModel::create([
 			'ip'		=> Utility::realIp(),
 			'content'	=> Config::get('nova.app.name')." was successfully installed.",
-		));
+		]);
 	}
 
 	/**
