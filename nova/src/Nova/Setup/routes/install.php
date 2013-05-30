@@ -83,8 +83,14 @@ Route::group(['prefix' => 'setup/install', 'before' => 'configFileCheck|setupAut
 		SiteContent::getSectionContent('message', 'search');
 		SiteContent::getSectionContent('message', 'login');
 
-		// Clear the system events table
-		SystemEventModel::delete();
+		// Get all the records from the system events table
+		$events = SystemEventModel::get();
+
+		// Loop through and remote all the events
+		foreach ($events as $e)
+		{
+			$e->delete();
+		}
 
 		// Create the only item we need in the system events table
 		SystemEventModel::create([
