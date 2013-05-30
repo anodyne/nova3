@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Controller\Ajax;
+<?php namespace Nova\Core\Controllers\Ajax;
 
 use View;
 use Sentry;

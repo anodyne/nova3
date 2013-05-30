@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Controller\Base;
+<?php namespace Nova\Core\Controllers\Base;
 
 /**
  * All controllers in admin sections of Nova extend from this base controller. 
@@ -41,7 +41,7 @@ abstract class Admin extends BaseController {
 			 */
 			$this->beforeFilter(function()
 			{
-				return Redirect::to('login/'.\Nova\Core\Controller\Login::NOT_LOGGED_IN);
+				return Redirect::to('login/'.\Nova\Core\Controllers\Login::NOT_LOGGED_IN);
 			});
 		}
 		else

@@ -9,19 +9,19 @@ $routes = Cache::get('nova.routes');
 
 if ($routes === null)
 {
-	Route::get('/', 'Nova\Core\Controller\Main@getIndex');
-	Route::get('main/index', 'Nova\Core\Controller\Main@getIndex');
+	Route::get('/', 'Nova\Core\Controllers\Main@getIndex');
+	Route::get('main/index', 'Nova\Core\Controllers\Main@getIndex');
 
-	Route::get('ajax/get/rank/image/{id}/{return}', 'Nova\Core\Controller\Ajax\Get@getRank');
-	Route::get('ajax/get/position/{id}/{return}', 'Nova\Core\Controller\Ajax\Get@getPosition');
+	Route::get('ajax/get/rank/image/{id}/{return}', 'Nova\Core\Controllers\Ajax\Get@getRank');
+	Route::get('ajax/get/position/{id}/{return}', 'Nova\Core\Controllers\Ajax\Get@getPosition');
 
-	Route::get('login', 'Nova\Core\Controller\Login@getIndex');
-	Route::get('login/index', 'Nova\Core\Controller\Login@getIndex');
-	Route::post('login/index', 'Nova\Core\Controller\Login@postIndex');
+	Route::get('login', 'Nova\Core\Controllers\Login@getIndex');
+	Route::get('login/index', 'Nova\Core\Controllers\Login@getIndex');
+	Route::post('login/index', 'Nova\Core\Controllers\Login@postIndex');
 
-	Route::get('admin/main/index', 'Nova\Core\Controller\Admin\Main@getIndex');
-	Route::get('admin/main/pages', 'Nova\Core\Controller\Admin\Main@getPages');
-	Route::post('admin/main/pages', 'Nova\Core\Controller\Admin\Main@postPages');
+	Route::get('admin/main/index', 'Nova\Core\Controllers\Admin\Main@getIndex');
+	Route::get('admin/main/pages', 'Nova\Core\Controllers\Admin\Main@getPages');
+	Route::post('admin/main/pages', 'Nova\Core\Controllers\Admin\Main@postPages');
 
 	// The other option is to run a custom Artisan task that will generate the routes for the user
 }

@@ -1,5 +1,5 @@
 <?php
 
-namespace Nova\Wiki\Controller\Base;
+namespace Nova\Wiki\Controllers\Base;
 
 abstract class Wiki extends \BaseController {}

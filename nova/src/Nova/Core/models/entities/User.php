@@ -902,7 +902,7 @@ class User extends Model implements UserInterface {
 		// Check the login
 		if ( ! Sentry::check() and $redirect)
 		{
-			return Redirect::to('login/'.\Nova\Core\Controller\Login::NOT_LOGGED_IN);
+			return Redirect::to('login/'.\Nova\Core\Controllers\Login::NOT_LOGGED_IN);
 		}
 		else
 		{
@@ -923,7 +923,7 @@ class User extends Model implements UserInterface {
 
 			if ($redirect and ! in_array(true, $allowed))
 			{
-				return Redirect::to('admin/error/'.\Nova\Core\Controller\Admin\Main::NOT_ALLOWED);
+				return Redirect::to('admin/error/'.\Nova\Core\Controllers\Admin\Main::NOT_ALLOWED);
 			}
 			
 			return (in_array(true, $allowed));

@@ -197,13 +197,13 @@ return array(
 		/**
 		 * Nova Base Controllers
 		 */
-		'BaseController'		=> 'Nova\Core\Controller\Base\Core',
-		'MainBaseController'	=> 'Nova\Core\Controller\Base\Main',
-		'LoginBaseController'	=> 'Nova\Core\Controller\Base\Login',
-		'AdminBaseController'	=> 'Nova\Core\Controller\Base\Admin',
-		'AjaxBaseController'	=> 'Nova\Core\Controller\Base\Ajax',
-		'WikiBaseController'	=> 'Nova\Wiki\Controller\Base\Wiki',
-		'ForumBaseController'	=> 'Nova\Forum\Controller\Base\Forum',
+		'BaseController'		=> 'Nova\Core\Controllers\Base\Core',
+		'MainBaseController'	=> 'Nova\Core\Controllers\Base\Main',
+		'LoginBaseController'	=> 'Nova\Core\Controllers\Base\Login',
+		'AdminBaseController'	=> 'Nova\Core\Controllers\Base\Admin',
+		'AjaxBaseController'	=> 'Nova\Core\Controllers\Base\Ajax',
+		'WikiBaseController'	=> 'Nova\Wiki\Controllers\Base\Wiki',
+		'ForumBaseController'	=> 'Nova\Forum\Controllers\Base\Forum',
 
 		/**
 		 * Nova Classes

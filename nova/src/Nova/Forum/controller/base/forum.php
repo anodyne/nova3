@@ -1,5 +1,5 @@
 <?php
 
-namespace Nova\Forum\Controller\Base;
+namespace Nova\Forum\Controllers\Base;
 
 abstract class Forum extends \BaseController {}

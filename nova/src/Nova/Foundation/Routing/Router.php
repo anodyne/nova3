@@ -25,7 +25,7 @@ class Router extends LaravelRouter {
 	/**
 	 * The naming convention used for controllers.
 	 */
-	protected $novaControllerNamePattern = 'Controller\\{name}';
+	protected $novaControllerNamePattern = 'Controllers\\{name}';
 
 	/**
 	 * The default controller.

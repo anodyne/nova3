@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Controller;
+<?php namespace Nova\Core\Controllers;
 
 /**
  * Controller that handles requests for the "sim" section of Nova.

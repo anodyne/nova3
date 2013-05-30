@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Controller\Base;
+<?php namespace Nova\Core\Controllers\Base;
 
 /**
  * All ajax controllers extend from this base controller. This class is 

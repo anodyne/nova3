@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Controller\Admin;
+<?php namespace Nova\Core\Controllers\Admin;
 
 use Form;
 use View;
