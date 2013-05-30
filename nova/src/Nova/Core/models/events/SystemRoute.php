@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Services\Events;
+<?php namespace Nova\Core\Models\Events;
 
 use SystemEvent;
 use SystemRoute as SystemRouteModel;

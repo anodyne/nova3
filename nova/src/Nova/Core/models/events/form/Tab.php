@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Services\Events\Form;
+<?php namespace Nova\Core\Models\Events\Form;
 
 use NovaFormTab;
 use SystemEvent;
@@ -46,12 +46,12 @@ class Tab {
 			else
 			{
 				// Create a new section
-				$sec = NovaFormSection::add(array(
+				$sec = NovaFormSection::create([
 					'form_key'	=> $form,
 					'tab_id'	=> $model->id,
 					'name'		=> '',
 					'order'		=> 0
-				), true);
+				]);
 
 				// Get all the fields and move them in to the section
 				$fields = NovaFormField::getFormItems($form);

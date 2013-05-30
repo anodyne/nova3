@@ -1,8 +1,8 @@
-<?php namespace Nova\Core\Services\Events;
+<?php namespace Nova\Core\Models\Events\Access;
 
 use SystemEvent;
 
-class Position {
+class Role {
 	
 	/**
 	 * After create event
@@ -15,7 +15,7 @@ class Position {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.position', lang('base.position'), $model->name, lang('action.created'));
+		SystemEvent::addUserEvent('event.item', langConcat('access role'), $model->name, lang('action.created'));
 	}
 
 	/**
@@ -29,7 +29,7 @@ class Position {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.position', lang('base.position'), $model->name, lang('action.updated'));
+		SystemEvent::addUserEvent('event.item', langConcat('access role'), $model->name, lang('action.updated'));
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Position {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.position', lang('base.position'), $model->name, lang('action.deleted'));
+		SystemEvent::addUserEvent('event.item', langConcat('access role'), $model->name, lang('action.deleted'));
 	}
 
 }

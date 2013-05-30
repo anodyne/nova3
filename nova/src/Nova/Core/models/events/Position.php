@@ -1,10 +1,8 @@
-<?php namespace Nova\Core\Services\Events;
+<?php namespace Nova\Core\Models\Events;
 
-use Cache;
 use SystemEvent;
-use Settings as SettingsModel;
 
-class Settings {
+class Position {
 	
 	/**
 	 * After create event
@@ -46,22 +44,6 @@ class Settings {
 		 * System Event
 		 */
 		SystemEvent::addUserEvent('event.admin.position', lang('base.position'), $model->name, lang('action.deleted'));
-	}
-
-	/**
-	 * After the model is saved, we need to blow away the old cache
-	 * of settings and replace it with a fresh copy.
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
-	public function afterSave($model)
-	{
-		// Blow away the old cache
-		Cache::forget('nova.settings');
-
-		// Re-cache everything
-		Cache::forever('nova.settings', SettingsModel::getItems(false, false));
 	}
 
 }

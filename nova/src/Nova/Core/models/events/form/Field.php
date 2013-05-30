@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Services\Events\Form;
+<?php namespace Nova\Core\Models\Events\Form;
 
 use User;
 use Status;
@@ -22,13 +22,13 @@ class Field {
 	public function afterCreate($model)
 	{
 		// What should be in the data?
-		$data = array(
-			'form_key'	=> $model->form_key,
+		$data = [
+			'form_id'	=> $model->form->id,
 			'field_id'	=> $model->id,
 			'value'		=> '',
-		);
+		];
 
-		switch ($model->form_key)
+		switch ($model->form->key)
 		{
 			case 'character':
 				// Get all the active characters

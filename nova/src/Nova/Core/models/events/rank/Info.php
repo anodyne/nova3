@@ -1,8 +1,8 @@
-<?php namespace Nova\Core\Services\Events\Rank;
+<?php namespace Nova\Core\Models\Events\Rank;
 
 use SystemEvent;
 
-class Group {
+class Info {
 
 	/**
 	 * Post-insert observer.
@@ -15,7 +15,7 @@ class Group {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.rank.group', $model->name, lang('action.created'));
+		SystemEvent::addUserEvent('event.admin.rank.info', $model->name, lang('action.created'));
 	}
 
 	/**
@@ -29,7 +29,7 @@ class Group {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.rank.group', $model->label, lang('action.updated'));
+		SystemEvent::addUserEvent('event.admin.rank.info', $model->label, lang('action.updated'));
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Group {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.rank.group', $model->name, lang('action.deleted'));
+		SystemEvent::addUserEvent('event.admin.rank.info', $model->name, lang('action.deleted'));
 	}
 
 }
