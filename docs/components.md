@@ -5,7 +5,7 @@
 * Laravel
 	* Laravel is a clean and classy framework for PHP web development.
 	* http://laravel.com/
-	* Version: 4.0-dev
+	* Version: 4.1-dev
 * Bootstrap
 	* Sleek, intuitive, and powerful front-end framework for faster and easier web development.
 	* http://twitter.github.io/bootstrap/
@@ -17,7 +17,7 @@
 * jQuery UI
 	* jQuery UI is a curated set of user interface interactions, effects, widgets, and themes built on top of the jQuery JavaScript Library.
 	* http://jqueryui.com/
-	* Version: 1.10.2
+	* Version: 1.10.1 (IE 9 and lower) and 2.0.2 (IE 10+, Firefox, Chrome)
 * Twitter Typeahead
 	* Twitter typeahead.js is a fast and battle-tested jQuery plugin for auto completion.
 	* http://twitter.github.io/typeahead.js/

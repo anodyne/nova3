@@ -60,3 +60,9 @@ The `active()` scope will a where clause to the query to only pull back items th
 The `inactive()` scope will a where clause to the query to only pull back items that have a status of inactive. (See the Status class document for more information on how Nova handles statuses.)
 
 <p class="alert alert-info"><strong>Note:</strong> In the event that a table doesn't contain a `status` column, the scope won't have any impact on the query.</p>
+
+### `orderAsc()`
+
+### `orderDesc()`
+
+### `group()`
