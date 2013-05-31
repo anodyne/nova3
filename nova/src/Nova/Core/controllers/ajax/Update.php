@@ -403,6 +403,39 @@ class Update extends AjaxBaseController {
 		}
 	}
 
+	/*****************************************/
+	/*****************************************/
+	/*****************************************/
+
+	/**
+	 * Handles the create and update modals for managing forms.
+	 *
+	 * @param	mixed	Form key
+	 */
+	public function getForm($key = 0)
+	{
+		// Make sure the user is logged in
+		if (Sentry::check())
+		{
+			// Get the user
+			$user = Sentry::getUser();
+
+			// Make sure the user is allowed to access this page
+			if ($user->hasAccess('form.create') or $user->hasAccess('form.update'))
+			{
+				// Get the form
+				$form = \NovaForm::getForm($key);
+
+				// Set the action
+				$action = ($key > 0) ? 'update' : 'create';
+
+				echo View::make(Location::file('update/form', Utility::getSkin('admin'), 'ajax'))
+					->with('form', $form)
+					->with('action', $action);
+			}
+		}
+	}
+
 	/**
 	 * Handles the create and update modals for managing
 	 * system page routes.
@@ -427,7 +460,7 @@ class Update extends AjaxBaseController {
 				$action = ($id > 0) ? 'update' : 'create';
 
 				echo View::make(Location::file('update/route', Utility::getSkin('admin'), 'ajax'))
-					->with('page', $route)
+					->with('route', $route)
 					->with('action', $action);
 			}
 		}

@@ -292,4 +292,11 @@ return [
 		'resource'	=> 'Nova\Core\Controllers\Ajax\Update@getRoute',
 		'protected'	=> (int) true
 	],
+	[
+		'name'		=> 'ajax/update/form',
+		'verb'		=> 'get',
+		'uri'		=> 'ajax/update/form/{key?}',
+		'resource'	=> 'Nova\Core\Controllers\Ajax\Update@getForm',
+		'protected'	=> (int) true
+	],
 ];

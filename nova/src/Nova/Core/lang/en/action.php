@@ -34,6 +34,8 @@ return array(
 	'email' => 'email',
 
 	'filter' => 'filter',
+	'fail' => "fail",
+	'failed' => "failed",
 
 	'inherit' => 'inherit',
 	'inherits' => 'inherits',

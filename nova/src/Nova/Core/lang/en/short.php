@@ -14,6 +14,7 @@ return array(
 	'search'	=> "search :0",
 	'show'		=> "show :0",
 	'update' 	=> "update :0",
+	'validate'	=> "validation :0",
 	'view'		=> "view :0",
 
 	'alert' => array(
@@ -39,6 +40,10 @@ return array(
 	),
 
 	'admin' => [
+		'forms' => [
+			'changeFormKey' => "<strong>Warning:</strong> Changing a form key can cause issues with a form. Do so only if you know what you're doing!",
+		],
+
 		'pages' => [
 			'removeConfirm' => "Are you sure you want to delete the :0 <strong>:1</strong>? While this won't remove any custom page, it will remove the ability to navigate to the page. If you want to restore the route to your custom page, you will need to create a new page route.",
 			'uri' => "Optional URI parameters can be specified with a question mark: <code>{id?}</code>",

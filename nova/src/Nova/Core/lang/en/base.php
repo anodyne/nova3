@@ -86,6 +86,8 @@ return array(
 	'in_progress' => 'in progress',
 
 	'joint' => 'joint',
+
+	'key' => "key",
 	
 	'loa' => "LOA",
 	'loa_full' => "Leave of Absence",
