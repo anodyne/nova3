@@ -32,6 +32,7 @@
 		</div>
 	</div>
 
+	{{ Form::token() }}
 	{{ Form::hidden('id') }}
 	{{ Form::hidden('action', $action) }}
 	{{ Form::button(ucfirst(lang('action.submit')), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
