@@ -1,8 +1,8 @@
 <!--[if lt IE 9]>
-	<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <![endif]-->
 <!--[if gte IE 9]><!-->
-	<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
+	<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
 <!--<![endif]-->
 
 <script type="text/javascript" src="<?php echo SRCURL;?>Assets/js/jquery.lazy.js"></script>
