@@ -1,0 +1,1 @@
+<div rel="magicsuggest" {{ $attributes }}></div>

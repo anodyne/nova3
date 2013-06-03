@@ -1,0 +1,1 @@
+<div rel="rankBaseImage" style="width:144px; height:40px; position:relative; z-index:100; <?php echo $props['base'];?>"><div rel="rankPipImage" style="width:144px; height:40px; position:relative; z-index:10; <?php echo $props['pip'];?>"></div></div>

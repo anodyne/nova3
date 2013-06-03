@@ -1,0 +1,3 @@
+<p>Rolling back to a previous version will attempt to remove any database changes that were made in the previous update and get you back to the last version of the system. Sometimes this is an easy process, but sometimes the changes that are made between versions require updating data and those rollbacks can be difficult, if not impossible, to reverse. We offer no guarantees with this process.</p>
+
+{{ $message }}
