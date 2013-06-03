@@ -7,7 +7,8 @@ Route::group(array('prefix' => 'test'), function()
 		$role = AccessRole::find(6);
 		$task = AccessTask::find(1);
 
-		s($role->tasks->toArray());
-		s($task->roles);
+		//s($role->tasks->toArray());
+		//s($task->roles);
+		s(ucfirst(lang('short.alert.success.delete', langConcat('form tab'))));
 	});
 });
