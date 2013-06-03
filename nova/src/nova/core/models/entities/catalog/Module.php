@@ -44,7 +44,7 @@ class Module extends Model implements QuickInstallInterface {
 			$modules = static::active()->get()->toSimpleArray('id', 'location');
 
 			// Create a new finder and filter the results
-			$finder = Finder::create()->directories()->in(APPPATH."module")
+			$finder = Finder::create()->directories()->in(APPPATH."modules")
 				->filter(function(SplFileInfo $fileinfo) use ($modules)
 				{
 					if (in_array($fileinfo->getRelativePathName(), $modules))
@@ -57,7 +57,7 @@ class Module extends Model implements QuickInstallInterface {
 			foreach ($finder as $f)
 			{
 				// Assign our path to a variable
-				$dir = APPPATH."module/".$f->getRelativePathName();
+				$dir = APPPATH."modules/".$f->getRelativePathName();
 
 				// Run the migrations if they exist
 				if (File::isDirectory($dir."/database/migrations"))
@@ -80,7 +80,7 @@ class Module extends Model implements QuickInstallInterface {
 		else
 		{
 			// Assign our path to a variable
-			$dir = APPPATH."module/".$location;
+			$dir = APPPATH."modules/".$location;
 
 			// Run the migrations if they exist
 			if (File::isDirectory($dir."/database/migrations"))
@@ -126,7 +126,7 @@ class Module extends Model implements QuickInstallInterface {
 	public function uninstall()
 	{
 		// Assign our path to a variable
-		$dir = APPPATH."module/".$this->location;
+		$dir = APPPATH."modules/".$this->location;
 
 		// Reset the migrations if they exist
 		if (File::isDirectory($dir."/database/migrations"))

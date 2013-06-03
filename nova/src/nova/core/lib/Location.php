@@ -54,7 +54,7 @@ class Location {
 
 	/**
 	 * Searches to find where to pull the specified email from. If the email 
-	 * exists in the override module (app/module/override), it'll use that 
+	 * exists in the override module (app/modules/override), it'll use that 
 	 * and stop searching. Otherwise, it'll use whatever's found in the Nova 
 	 * module.
 	 *
@@ -74,7 +74,7 @@ class Location {
 	/**
 	 * Searches to find where to pull the specified file from. If the file 
 	 * exists in the skin, it'll use that that one and stop searching. If the 
-	 * file exists in the override module (app/module/override), it'll use that 
+	 * file exists in the override module (app/modules/override), it'll use that 
 	 * and stop searching. Otherwise, it'll use whatever's found in the Nova 
 	 * module.
 	 *
@@ -152,8 +152,8 @@ class Location {
 	 */
 	protected function findFile()
 	{
-		if (File::exists(APPPATH."module/override/views/components/{$this->type}/{$this->file}.php")
-				or File::exists(APPPATH."module/override/views/components/{$this->type}/{$this->file}.blade.php"))
+		if (File::exists(APPPATH."modules/override/views/components/{$this->type}/{$this->file}.php")
+				or File::exists(APPPATH."modules/override/views/components/{$this->type}/{$this->file}.blade.php"))
 		{
 			return "components/{$this->type}/{$this->file}";
 		}
@@ -271,9 +271,9 @@ class Location {
 			break;
 			
 			case 'image':
-				if (File::exists(APPPATH."module/override/views/design/images/{$this->file}"))
+				if (File::exists(APPPATH."modules/override/views/design/images/{$this->file}"))
 				{
-					return "app/module/override/views/design/images/{$this->file}";
+					return "app/modules/override/views/design/images/{$this->file}";
 				}
 				elseif (File::exists(APPPATH."views/{$this->skin}/design/images/{$this->file}"))
 				{
