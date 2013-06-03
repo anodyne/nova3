@@ -15,6 +15,7 @@
 
 	<div class="form-actions">
 		{{ Form::button(ucfirst(lang('action.submit')), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
+		{{ Form::token() }}
 		{{ Form::hidden('id', $id) }}
 		{{ Form::hidden('action', 'delete') }}
 	</div>

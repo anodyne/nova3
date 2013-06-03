@@ -20,6 +20,7 @@
 	<div class="controls">
 		{{ Form::button(ucfirst(lang('action.submit')), array('type' => 'submit', 'class' => 'btn btn-primary')) }}
 		
+		{{ Form::token() }}
 		{{ Form::hidden('id', $role->id) }}
 		{{ Form::hidden('action', 'duplicate') }}
 	</div>
