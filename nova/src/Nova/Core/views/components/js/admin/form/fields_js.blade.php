@@ -1,30 +1,29 @@
-<script type="text/javascript" src="<?php echo Uri::base(false);?>nova/modules/assets/js/jquery.ui.core.min.js"></script>
-<script type="text/javascript" src="<?php echo Uri::base(false);?>nova/modules/assets/js/jquery.ui.widget.min.js"></script>
-<script type="text/javascript" src="<?php echo Uri::base(false);?>nova/modules/assets/js/jquery.ui.mouse.min.js"></script>
-<script type="text/javascript" src="<?php echo Uri::base(false);?>nova/modules/assets/js/jquery.ui.sortable.min.js"></script>
+<script type="text/javascript" src="{{ SRCURL }}Assets/js/jquery.ui.core.min.js"></script>
+<script type="text/javascript" src="{{ SRCURL }}Assets/js/jquery.ui.widget.min.js"></script>
+<script type="text/javascript" src="{{ SRCURL }}Assets/js/jquery.ui.mouse.min.js"></script>
+<script type="text/javascript" src="{{ SRCURL }}Assets/js/jquery.ui.sortable.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-
-		// show the first tab
+		// Show the first tab
 		$('.nav-tabs a:first').tab('show');
 
-		// when creating a new field, we have next/previous buttons for moving between tabs
-		$(document).on('click', '.next-tab', function(){
+		// When creating a new field, we have next/previous buttons for moving between tabs
+		$(document).on('click', '.js-next-tab', function(){
 			$('.nav-tabs a[href="#html"]').tab('show');
-			$(this).removeClass('next-tab').addClass('prev-tab').text('<?php echo ucfirst(lang("previous"));?>');
+			$(this).removeClass('js-next-tab').addClass('js-prev-tab').text('{{ lang("Previous") }}');
 
 			return false;
 		});
 
-		// when creating a new field, we have next/previous buttons for moving between tabs
-		$(document).on('click', '.prev-tab', function(){
+		// When creating a new field, we have next/previous buttons for moving between tabs
+		$(document).on('click', '.js-prev-tab', function(){
 			$('.nav-tabs a[href="#general"]').tab('show');
-			$(this).removeClass('prev-tab').addClass('next-tab').text('<?php echo ucfirst(lang("next"));?>');
+			$(this).removeClass('js-prev-tab').addClass('js-next-tab').text('{{ lang("Next") }}');
 
 			return false;
 		});
 
-		// this fixes the issue where the row being dragged is compacted.
+		// This fixes the issue where the row being dragged is compacted.
 		var fixHelper = function(e, ui){
 			ui.children().each(function(){
 				$(this).width($(this).width());
@@ -33,50 +32,45 @@
 			return ui;
 		};
 
-		// makes the field list sortable and updates when the sort stops
+		// Makes the field list sortable and updates when the sort stops
 		$('.sort-field tbody.sort-body').sortable({
 			helper: fixHelper,
 			stop: function(event, ui){
-				
 				$.ajax({
 					type: 'POST',
-					url: "<?php echo Uri::create('ajax/update/formfield_order');?>",
+					url: "{{ URL::to('ajax/update/formfield_order') }}",
 					data: $(this).sortable('serialize')
 				});
 			}
 		}).disableSelection();
 
-		// makes the value list sortable and updates when the sort stops
+		// Makes the value list sortable and updates when the sort stops
 		$('.sort-value tbody.sort-body').sortable({
 			helper: fixHelper,
 			stop: function(event, ui){
-				
 				$.ajax({
 					type: 'POST',
-					url: "<?php echo Uri::create('ajax/update/formfieldvalue_order');?>",
+					url: "{{ URL::to('ajax/update/formfieldvalue_order') }}",
 					data: $(this).sortable('serialize')
 				});
 			}
 		}).disableSelection();
 
-		// what action to take when a field action is clicked
-		$(document).on('click', '.field-action', function(){
+		// What action to take when a field action is clicked
+		$(document).on('click', '.js-field-action', function(){
 			var doaction = $(this).data('action');
 			var id = $(this).data('id');
 
 			if (doaction == 'delete')
 			{
-				$('<div/>').dialog2({
-					title: "<?php echo ucwords(lang('short.delete', lang('field')));?>",
-					content: "<?php echo Uri::create('ajax/delete/formfield');?>/" + id
-				});
+				//
 			}
 
 			return false;
 		});
 
-		// what action to take when a value action is clicked
-		$(document).on('click', '.value-action', function(){
+		// What action to take when a value action is clicked
+		$(document).on('click', '.js-value-action', function(){
 			var doaction = $(this).data('action');
 			var id = $(this).data('id');
 			var parent = $(this).closest('tr');
@@ -85,7 +79,7 @@
 			{
 				$.ajax({
 					type: 'POST',
-					url: "<?php echo Uri::create('ajax/delete/formfield_value');?>",
+					url: "{{ URL::to('ajax/delete/formfield_value') }}",
 					data: { id: id },
 					success: function(){
 						parent.fadeOut();
@@ -95,10 +89,7 @@
 
 			if (doaction == 'update')
 			{
-				$('<div/>').dialog2({
-					title: "<?php echo ucwords(lang('short.edit', lang('value')));?>",
-					content: "<?php echo Uri::create('ajax/update/formfield_value');?>/" + id
-				});
+				//
 			}
 
 			if (doaction == 'add')
