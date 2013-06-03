@@ -1,1 +1,0 @@
-<p class="alert alert-{{ $status }}">{{ $message }}</p>
