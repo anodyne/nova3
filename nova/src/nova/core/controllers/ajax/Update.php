@@ -235,26 +235,21 @@ class Update extends AjaxBaseController {
 	 *
 	 * @return	void
 	 */
-	public function action_formtab_order()
+	public function postFormTabOrder()
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('form.update'))
+		if (Sentry::check() and Sentry::getUser()->hasAccess('form.update'))
 		{
-			// get and sanitize the input
-			$tabs = \Security::xss_clean(\Input::post('tab'));
+			// Get the tabs
+			$tabs = Input::get('tab');
 
+			// Loop through the tabs
 			foreach ($tabs as $key => $value)
 			{
-				// get the tab record
-				$record = \Model_Form_Tab::find($value);
-
-				// update the order
+				// Get and update the tab record
+				$record = \NovaFormTab::find($value);
 				$record->order = ($key + 1);
-
-				// save the record
 				$record->save();
 			}
-
-			\SystemEvent::add('user', '[[event.admin.form.tab_update|{{'.$record->name.'}}|{{'.$key.'}}]]');
 		}
 	}
 

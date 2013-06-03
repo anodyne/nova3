@@ -42,6 +42,16 @@ return array(
 	'admin' => [
 		'forms' => [
 			'changeFormKey' => "<strong>Warning:</strong> Changing a form key can cause issues with a form. Do so only if you know what you're doing!",
+			'tabUpdateSections' => "Select the new tab that sections in the :0 tab will be moved to.",
+			'tabLinkId' => "Link IDs are used to link a tab with its content on the page. They must be unique and contain no spaces (camelCase is fine) (e.g. one, html, general, characterThings).",
+			'order' => "The order can also be changed by dragging-and-dropping the items on the previous page.",
+
+			'valueCreation' => "Dropdown menu values can be added once you've created the field.",
+			'valuesDropdownOnly' => "You can only move values from one dropdown menu to another.",
+			'valuesContent' => "The content is what will appear to the user in the dropdown menu.",
+			'valuesValue' => "The value is what will be stored in the database and appear on the page.",
+			'sectionUpdateFields' => "Select the new section you'd like any fields in the :0 section to be moved to.",
+			'fieldRestriction' => "Fields can be restricted so only someone with the above role (or anyone who has a role that inherits the above role) can edit the data."
 		],
 
 		'pages' => [
@@ -86,18 +96,6 @@ return array(
 	'pleaseNote' => "please note",
 
 	'refresh' => "Please refresh the page to view your changes.",
-
-	'forms' => array(
-		'valueCreation' => "Dropdown menu values can be added once you've created the field.",
-		'order' => "The order can also be changed by dragging and dropping the items on the previous page.",
-		'valuesDropdownOnly' => "You can only move values from one dropdown menu to another.",
-		'valuesContent' => "The content is what will appear to the user in the dropdown menu.",
-		'valuesValue' => "The value is what will be stored in the database and appear on the page.",
-		'sectionUpdateFields' => "Select the new section you would like any fields in the :0 section to be moved to.",
-		'tabUpdateSections' => "Select the new tab you would like any sections in the :0 tab to be moved to.",
-		'tabLinkId' => "Link IDs are used to link a tab with its content. They must be unique, one word, and simple (e.g. one, html, general).",
-		'fieldRestriction' => "Fields can be restricted so only someone with the above role (or anyone who has a role that inherits the above role) can edit the data."
-	),
 
 	'flash' => array(
 		'failure' => ":0 :1 failed, please try again.",

@@ -142,7 +142,7 @@ return [
 	[
 		'name'		=> 'admin/form/tabs',
 		'verb'		=> 'post',
-		'uri'		=> 'admin/form/tabs/{formKey}/{id?}',
+		'uri'		=> 'admin/form/tabs/{formKey}',
 		'resource'	=> 'Nova\Core\Controllers\Admin\Form@postTabs',
 		'protected'	=> (int) true
 	],
@@ -281,6 +281,13 @@ return [
 		'resource'	=> 'Nova\Core\Controllers\Ajax\Delete@getRoute',
 		'protected'	=> (int) true
 	],
+	[
+		'name'		=> 'ajax/delete/form_tab',
+		'verb'		=> 'get',
+		'uri'		=> 'ajax/delete/form_tab/{id}',
+		'resource'	=> 'Nova\Core\Controllers\Ajax\Delete@getFormTab',
+		'protected'	=> (int) true
+	],
 
 	/**
 	 * ajax/update
@@ -297,6 +304,13 @@ return [
 		'verb'		=> 'get',
 		'uri'		=> 'ajax/update/form/{key?}',
 		'resource'	=> 'Nova\Core\Controllers\Ajax\Update@getForm',
+		'protected'	=> (int) true
+	],
+	[
+		'name'		=> 'ajax/update/form_tab_order',
+		'verb'		=> 'post',
+		'uri'		=> 'ajax/update/form_tab_order',
+		'resource'	=> 'Nova\Core\Controllers\Ajax\Update@postFormTabOrder',
 		'protected'	=> (int) true
 	],
 ];

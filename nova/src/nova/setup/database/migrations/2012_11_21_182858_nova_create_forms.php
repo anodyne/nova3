@@ -18,6 +18,9 @@ class NovaCreateForms extends Migration {
 			$t->string('name');
 			$t->string('orientation', 50)->default('vertical');
 			$t->boolean('status')->default(Status::ACTIVE);
+			$t->boolean('protected')->default(0);
+			$t->boolean('form_viewer')->default(0);
+			$t->text('email_addresses')->nullable();
 			$t->timestamps();
 		});
 

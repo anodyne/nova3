@@ -1,13 +1,13 @@
 <div class="btn-toolbar">
-	@if (Sentry::getUser()->hasAccess('form.create'))
-		<div class="btn-group">
-			<a href="{{ URL::to('admin/form/tabs/'.$formKey.'/0') }}" class="btn btn-success icn-size-16 tooltip-top" title="{{ lang('Short.add', lang('tab')) }}">{{ $_icons['add'] }}</a>
-		</div>
-	@endif
-
 	<div class="btn-group">
 		<a href="{{ URL::to('admin/form') }}" class="btn btn-default icn-size-16 tooltip-top" title="{{ langConcat('All forms') }}">{{ $_icons['back'] }}</a>
 	</div>
+
+	@if (Sentry::getUser()->hasAccess('form.create'))
+		<div class="btn-group">
+			<a href="{{ URL::to('admin/form/tabs/'.$formKey.'/0') }}" class="btn btn-success icn-size-16">{{ $_icons['add'] }}</a>
+		</div>
+	@endif
 
 	<div class="btn-group">
 		<a href="{{ URL::to('admin/form/sections/'.$formKey) }}" class="btn btn-default icn-size-16">{{ lang('Sections') }}</a>
@@ -24,7 +24,7 @@
 					<p>
 						<strong>{{ $t->name }}</strong>
 						@if ($t->status === Status::INACTIVE)
-							<span class="muted">({{ lang('Inactive') }})</span>
+							<span class="text-muted">({{ lang('Inactive') }})</span>
 						@endif
 					</p>
 				</td>

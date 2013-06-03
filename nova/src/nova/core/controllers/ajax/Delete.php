@@ -111,28 +111,26 @@ class Delete extends AjaxBaseController {
 		}
 	}
 
-	public function action_formtab($id)
+	public function getFormTab($id)
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('form.delete'))
+		if (Sentry::check() and Sentry::getUser()->hasAccess('form.delete'))
 		{
-			// get the tab
-			$tab = \Model_Form_Tab::find($id);
+			// Get the tab we're deleting
+			$tab = \NovaFormTab::find($id);
 
-			// get all the tabs
-			$tabs = \Model_Form_Tab::getItems($tab->form_key);
+			// Get all the tabs
+			$tabs = $tab->form->tabs->toSimpleArray('id', 'name');
 
-			// remove the tab we are deleting
+			// Remove the tab we are deleting
 			unset($tabs[$id]);
 
 			if ($tab !== null)
 			{
-				$data = array(
-					'name' => $tab->name,
-					'id' => $tab->id,
-					'tabs' => $tabs,
-				);
-
-				echo \View::forge(\Location::file('delete/tab', \Utility::getSkin('admin'), 'ajax'), $data);
+				echo View::make(Location::file('delete/tab', Utility::getSkin('admin'), 'ajax'))
+					->with('name', $tab->name)
+					->with('id', $tab->id)
+					->with('tabs', $tabs)
+					->with('formKey', $tab->form->key);
 			}
 		}
 	}

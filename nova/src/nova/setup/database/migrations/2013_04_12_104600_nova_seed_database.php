@@ -225,9 +225,21 @@ class NovaSeedDatabase extends Migration {
 	protected function seedForms()
 	{
 		$data = [
-			['key' => 'character', 'name' => 'Character Information'],
-			['key' => 'user', 'name' => 'User Information'],
-			['key' => 'app', 'name' => 'Application Information'],
+			[
+				'key'		=> 'character',
+				'name'		=> 'Character Information',
+				'protected'	=> (int) true,
+			],
+			[
+				'key'		=> 'user',
+				'name'		=> 'User Information',
+				'protected'	=> (int) true,
+			],
+			[
+				'key'		=> 'app',
+				'name'		=> 'Application Information',
+				'protected'	=> (int) true,
+			],
 		];
 
 		foreach ($data as $d)

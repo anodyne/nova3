@@ -1,8 +1,14 @@
 <?php
 
 return [
+	/*
+	|--------------------------------------------------------------------------
+	| HEADERS
+	|--------------------------------------------------------------------------
+	*/
+	
 	/**
-	 * Headers
+	 * Login Headers
 	 */
 	[
 		'key' => 'login_index_header',
@@ -36,6 +42,10 @@ return [
 		'section' => 'login',
 		'page' => 'logout'
 	],
+
+	/**
+	 * Main Headers
+	 */
 	[
 		'key' => 'main_index_header',
 		'label' => 'Main Page Header',
@@ -60,6 +70,10 @@ return [
 		'section' => 'main',
 		'page' => 'join'
 	],
+
+	/**
+	 * Sim Headers
+	 */
 	[
 		'key' => 'sim_index_header',
 		'label' => 'Sim Header',
@@ -68,6 +82,10 @@ return [
 		'section' => 'sim',
 		'page' => 'index'
 	],
+
+	/**
+	 * admin/main Headers
+	 */
 	[
 		'key' => 'admin_index_header',
 		'label' => 'ACP Header',
@@ -84,6 +102,10 @@ return [
 		'section' => 'admin',
 		'page' => 'routes'
 	],
+
+	/**
+	 * admin/form Headers
+	 */
 	[
 		'key' => 'admin_form_index_header',
 		'label' => 'Form Management Header',
@@ -95,7 +117,7 @@ return [
 	[
 		'key' => 'admin_form_fields_header',
 		'label' => 'Form Field Management Header',
-		'content' => "Manage Form Fields",
+		'content' => "Form Fields",
 		'type' => 'header',
 		'section' => 'form',
 		'page' => 'fields'
@@ -103,7 +125,7 @@ return [
 	[
 		'key' => 'admin_form_sections_header',
 		'label' => 'Form Section Management Header',
-		'content' => "Manage Form Sections",
+		'content' => "Form Sections",
 		'type' => 'header',
 		'section' => 'form',
 		'page' => 'sections'
@@ -111,11 +133,15 @@ return [
 	[
 		'key' => 'admin_form_tabs_header',
 		'label' => 'Form Tab Management Header',
-		'content' => "Manage Form Tabs",
+		'content' => "Form Tabs",
 		'type' => 'header',
 		'section' => 'form',
 		'page' => 'tabs'
 	],
+
+	/**
+	 * admin/rank Headers
+	 */
 	[
 		'key' => 'admin_ranks_index_header',
 		'label' => 'Ranks Index Header',
@@ -148,6 +174,10 @@ return [
 		'section' => 'rank',
 		'page' => 'manage'
 	],
+
+	/**
+	 * ARC Headers
+	 */
 	[
 		'key' => 'admin_arc_index_header',
 		'label' => 'ARC Index Header',
@@ -188,6 +218,10 @@ return [
 		'section' => 'user',
 		'page' => 'index'
 	],
+
+	/**
+	 * admin/role Headers
+	 */
 	[
 		'key' => 'admin_role_index_header',
 		'label' => 'Access Roles Header',
@@ -205,8 +239,14 @@ return [
 		'page' => 'tasks'
 	],
 
+	/*
+	|--------------------------------------------------------------------------
+	| PAGE TITLES
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
-	 * Page Titles
+	 * Login Page Titles
 	 */
 	[
 		'key' => 'login_index_title',
@@ -240,6 +280,10 @@ return [
 		'section' => 'login',
 		'page' => 'logout'
 	],
+
+	/**
+	 * Main Page Titles
+	 */
 	[
 		'key' => 'main_index_title',
 		'label' => 'Main Page Title',
@@ -264,6 +308,10 @@ return [
 		'section' => 'main',
 		'page' => 'join'
 	],
+
+	/**
+	 * Sim Page Titles
+	 */
 	[
 		'key' => 'sim_index_title',
 		'label' => 'Sim Page Title',
@@ -272,6 +320,10 @@ return [
 		'section' => 'sim',
 		'page' => 'index'
 	],
+
+	/**
+	 * admin/main Page Titles
+	 */
 	[
 		'key' => 'admin_index_title',
 		'label' => 'ACP Page Title',
@@ -288,6 +340,10 @@ return [
 		'section' => 'admin',
 		'page' => 'routes'
 	],
+
+	/**
+	 * admin/form Page Titles
+	 */
 	[
 		'key' => 'admin_form_index_title',
 		'label' => 'Form Management Page Title',
@@ -299,7 +355,7 @@ return [
 	[
 		'key' => 'admin_form_fields_title',
 		'label' => 'Form Field Management Page Title',
-		'content' => "Manage Form Fields",
+		'content' => "Form Fields",
 		'type' => 'title',
 		'section' => 'form',
 		'page' => 'fields'
@@ -307,7 +363,7 @@ return [
 	[
 		'key' => 'admin_form_sections_title',
 		'label' => 'Form Section Management Page Title',
-		'content' => "Manage Form Sections",
+		'content' => "Form Sections",
 		'type' => 'title',
 		'section' => 'form',
 		'page' => 'sections'
@@ -315,11 +371,15 @@ return [
 	[
 		'key' => 'admin_form_tabs_title',
 		'label' => 'Form Tab Management Page Title',
-		'content' => "Manage Form Tabs",
+		'content' => "Form Tabs",
 		'type' => 'title',
 		'section' => 'form',
 		'page' => 'tabs'
 	],
+
+	/**
+	 * admin/rank Page Titles
+	 */
 	[
 		'key' => 'admin_ranks_index_title',
 		'label' => 'Ranks Index Page Title',
@@ -352,6 +412,10 @@ return [
 		'section' => 'rank',
 		'page' => 'manage'
 	],
+
+	/**
+	 * ARC Page Titles
+	 */
 	[
 		'key' => 'admin_arc_index_title',
 		'label' => 'ARC Index Page Title',
@@ -384,6 +448,10 @@ return [
 		'section' => 'application',
 		'page' => 'review'
 	],
+
+	/**
+	 * admin/user Page Titles
+	 */
 	[
 		'key' => 'admin_user_management_title',
 		'label' => 'User Management Page Title',
@@ -392,6 +460,10 @@ return [
 		'section' => 'user',
 		'page' => 'index'
 	],
+
+	/**
+	 * admin/role Page Titles
+	 */
 	[
 		'key' => 'admin_role_index_title',
 		'label' => 'Access Roles Title',
@@ -409,8 +481,14 @@ return [
 		'page' => 'tasks'
 	],
 
+	/*
+	|--------------------------------------------------------------------------
+	| MESSAGES
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
-	 * Messages
+	 * Login Messages
 	 */
 	[
 		'key' => 'login_reset_message',
@@ -430,6 +508,10 @@ return [
 		'page' => 'reset_confirm',
 		'protected' => (int) true
 	],
+
+	/**
+	 * Main Messages
+	 */
 	[
 		'key' => 'main_index_message',
 		'label' => 'Main Page Message',
@@ -454,15 +536,10 @@ return [
 		'section' => '',
 		'page' => ''
 	],
-	[
-		'key' => 'main_join_coppa_message',
-		'label' => 'COPPA Message',
-		'content' => "Members are expected to follow the rules and regulations of both the game and game's organization at all times, both in character and out of character. By continuing, you affirm you will play in a proper and adequate manner. In compliance with the Children's Online Privacy Protection Act of 1998 (COPPA
-	], players under the age of 13 will not be accepted and any player found to be under the age of 13 will be removed immediately and without question.",
-		'type' => 'message',
-		'section' => '',
-		'page' => ''
-	],
+
+	/**
+	 * Sim Messages
+	 */
 	[
 		'key' => 'sim_index_message',
 		'label' => 'Sim Message',
@@ -471,6 +548,10 @@ return [
 		'section' => 'sim',
 		'page' => 'index'
 	],
+
+	/**
+	 * admin/main Messages
+	 */
 	[
 		'key' => 'admin_index_message',
 		'label' => 'ACP Message',
@@ -487,6 +568,22 @@ return [
 		'section' => 'admin',
 		'page' => 'routes'
 	],
+
+	/**
+	 * admin/form Messages
+	 */
+	[
+		'key' => 'admin_form_tabs_message',
+		'label' => 'Manage Form Tabs Message',
+		'content' => "You can edit any tab attached to this form by using the options below. If you want to change the order the tabs appear in, simply drag the row to where you want it by using the handle on the right.",
+		'type' => 'message',
+		'section' => 'form',
+		'page' => 'tabs'
+	],
+
+	/**
+	 * admin/rank Messages
+	 */
 	[
 		'key' => 'admin_ranks_groups_message',
 		'label' => 'Manage Rank Groups Message',
@@ -511,6 +608,10 @@ return [
 		'section' => 'rank',
 		'page' => 'manage'
 	],
+
+	/**
+	 * ARC Messages
+	 */
 	[
 		'key' => 'admin_arc_index_message',
 		'label' => 'ARC Index Message',
@@ -527,6 +628,10 @@ return [
 		'section' => 'application',
 		'page' => 'rules'
 	],
+
+	/**
+	 * admin/role Messages
+	 */
 	[
 		'key' => 'admin_role_index_message',
 		'label' => 'Access Roles Message',
@@ -544,9 +649,11 @@ return [
 		'page' => 'tasks'
 	],
 
-	/**
-	 * Other Messages
-	 */
+	/*
+	|--------------------------------------------------------------------------
+	| OTHER MESSAGES
+	|--------------------------------------------------------------------------
+	*/
 	[
 		'key' => 'credits_perm',
 		'label' => 'Permanent Credits',
@@ -574,18 +681,6 @@ return [
 		'type' => 'other'
 	],
 	[
-		'key' => 'accept_message',
-		'label' => 'User Acceptance Email',
-		'content' => "Define your user acceptance message through the Site Content page.",
-		'type' => 'other'
-	],
-	[
-		'key' => 'reject_message',
-		'label' => 'User Rejection Message',
-		'content' => "Define your user rejection message through the Site Content page.",
-		'type' => 'other'
-	],
-	[
 		'key' => 'join_character_help',
 		'label' => 'Join Character Help',
 		'content' => "__Tips for a good character application:__
@@ -595,5 +690,24 @@ return [
 * A character fits into the world in a specific way. They were born somewhere and are a product of their time (war, poverty, disease, prosperity, etc.). Use those factors to craft a narrative about the character.
 * Many people choose to use exaggerated aspects of their own personality (as well as a complimentary weakness). Doing so will make it easier to write the character because you know how you would react in given situations.",
 		'type' => 'other'
+	],
+
+	/*
+	|--------------------------------------------------------------------------
+	| EMAILS
+	|--------------------------------------------------------------------------
+	*/
+
+	[
+		'key' => 'accept_message',
+		'label' => 'User Acceptance Email',
+		'content' => "Define your user acceptance message through the Site Content page.",
+		'type' => 'email'
+	],
+	[
+		'key' => 'reject_message',
+		'label' => 'User Rejection Message',
+		'content' => "Define your user rejection message through the Site Content page.",
+		'type' => 'email'
 	],
 ];
