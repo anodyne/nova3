@@ -1,6 +1,8 @@
 <?php namespace Nova\Core\Models\Entities;
 
+use Event;
 use Model;
+use Config;
 use Status;
 
 class Form extends Model {
@@ -8,13 +10,14 @@ class Form extends Model {
 	protected $table = 'forms';
 
 	protected $fillable = array(
-		'key', 'name', 'orientation', 'status',
+		'key', 'name', 'orientation', 'status', 'form_viewer', 'email_addresses',
 	);
 
 	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
-		'id', 'key', 'name', 'orientation', 'status', 'created_at', 'updated_at',
+		'id', 'key', 'name', 'orientation', 'status', 'protected', 'form_viewer',
+		'email_addresses', 'created_at', 'updated_at',
 	);
 
 	/*
@@ -45,6 +48,65 @@ class Form extends Model {
 	public function fields()
 	{
 		return $this->hasMany('NovaFormField', 'form_id');
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Boot the model and define the event listeners.
+	 *
+	 * @return	void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		// Get all the aliases
+		$classes = Config::get('app.aliases');
+
+		// Create event
+		Event::listen(
+			"eloquent.creating: {$classes['NovaForm']}",
+			"{$classes['FormEventHandler']}@beforeCreate"
+		);
+		Event::listen(
+			"eloquent.created: {$classes['NovaForm']}",
+			"{$classes['FormEventHandler']}@afterCreate"
+		);
+
+		// Update Event
+		Event::listen(
+			"eloquent.updating: {$classes['NovaForm']}",
+			"{$classes['FormEventHandler']}@beforeUpdate"
+		);
+		Event::listen(
+			"eloquent.updated: {$classes['NovaForm']}",
+			"{$classes['FormEventHandler']}@afterUpdate"
+		);
+
+		// Delete events
+		Event::listen(
+			"eloquent.deleting: {$classes['NovaForm']}",
+			"{$classes['FormEventHandler']}@beforeDelete"
+		);
+		Event::listen(
+			"eloquent.deleted: {$classes['NovaForm']}",
+			"{$classes['FormEventHandler']}@afterDelete"
+		);
+
+		// Save events
+		Event::listen(
+			"eloquent.saving: {$classes['NovaForm']}",
+			"{$classes['FormEventHandler']}@beforeSave"
+		);
+		Event::listen(
+			"eloquent.saved: {$classes['NovaForm']}",
+			"{$classes['FormEventHandler']}@afterSave"
+		);
 	}
 
 	/**

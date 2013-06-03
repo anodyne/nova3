@@ -1,70 +1,70 @@
 <?php namespace Nova\Core\Models\Events\Form;
 
-use NovaFormTab;
+/**
+ * Form tab event handler.
+ *
+ * afterCreate
+ * When a new tab is created, we need to check to see how many tabs exist
+ * already. If there's only 1 (i.e. the one we just created) then we need to
+ * update all of the sections for that form to move them in to the newly
+ * created tab. If there aren't any sections either, we need to create a 
+ * blank section and move all the fields in to that section. If these steps 
+ * aren't done, we could orphan fields and sections for the form.
+ *
+ * afterUpdate
+ * Create a system event. 
+ *
+ * beforeDelete
+ * Create a system event.
+ */
+
 use SystemEvent;
-use NovaFormData;
-use NovaFormField;
 use NovaFormSection;
+use BaseEventHandler;
 
-class Tab {
+class Tab extends BaseEventHandler {
 
-	/**
-	 * When a new tab is added, we need to check to see how many tabs exist
-	 * already. If there's only 1 (i.e. the one we just created) then we need to
-	 * update all of the sections for that form to move them in to the newly
-	 * created tab. If there aren't any sections either, we need to create a 
-	 * blank section and move all the fields in to that section. If these steps 
-	 * aren't done, we could orphan fields and sections for the form.
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
 	public function afterCreate($model)
 	{
 		// What form are we updating?
-		$form = $model->form_key;
+		$form = $model->form;
 
-		// Count how many tabs we have in this form
-		$tabs = NovaFormTab::getFormItems($form);
-
-		if ($tabs->count() < 2)
+		// We only have the tab we just created...
+		if ($form->tabs->count() == 1)
 		{
-			// Get all the sections for this form
-			$sections = NovaFormSection::getFormItems($form);
-
-			if ($sections->count() > 0)
+			// There were no tabs before, so let's move all the sections
+			// into the tab we just created
+			if ($form->sections->count() > 0)
 			{
-				foreach ($sections as $s)
+				foreach ($form->sections as $section)
 				{
 					// Set the section to have the ID of the newly created tab
-					$s->tab_id = $model->id;
-
-					// Save the record
+					$section->tab_id = $model->id;
 					$s->save();
 				}
 			}
 			else
 			{
 				// Create a new section
-				$sec = NovaFormSection::create([
-					'form_key'	=> $form,
+				$newSection = new NovaFormSection([
+					'form_id'	=> $form->id,
 					'tab_id'	=> $model->id,
 					'name'		=> '',
 					'order'		=> 0
 				]);
 
-				// Get all the fields and move them in to the section
-				$fields = NovaFormField::getFormItems($form);
+				// We don't have any sections, so let's create a blank one
+				$model->section()->save($newSection);
 
-				if (count($fields) > 0)
+				// We have fields...
+				if ($form->fields->count() > 0)
 				{
-					foreach ($fields as $f)
+					// Loop through the fields
+					foreach ($form->fields as $field)
 					{
 						// Update the field section
-						$f->section_id = $sec->id;
-
-						// Save the field
-						$f->save();
+						$field->section_id = $newSection->id;
+						$field->save();
 					}
 				}
 			}
@@ -73,35 +73,41 @@ class Tab {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.form.tab_create', $model->name, $model->form_key);
+		SystemEvent::addUserEvent(
+			'event.admin.form.item',
+			$model->name,
+			langConcat('form tab'),
+			$model->form->name,
+			lang('action.created')
+		);
 	}
 
-	/**
-	 * When a tab is updated, create a system event.
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
 	public function afterUpdate($model)
 	{
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.form.tab_update', $model->name, $model->form_key);
+		SystemEvent::addUserEvent(
+			'event.admin.form.item',
+			$model->name,
+			langConcat('form tab'),
+			$model->form->name,
+			lang('action.updated')
+		);
 	}
 
-	/**
-	 * When a tab is deleted, create a system event.
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
 	public function beforeDelete($model)
 	{
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.form.tab_delete', $model->name, $model->form_key);
+		SystemEvent::addUserEvent(
+			'event.admin.form.item',
+			$model->name,
+			langConcat('form tab'),
+			$model->form->name,
+			lang('action.deleted')
+		);
 	}
 
 }

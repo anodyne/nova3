@@ -76,9 +76,45 @@ class Task extends Model {
 		// Get all the aliases
 		$classes = Config::get('app.aliases');
 
-		Event::listen("eloquent.created: {$classes['AccessTask']}", "{$classes['AccessTaskHandler']}@afterCreate");
-		Event::listen("eloquent.updated: {$classes['AccessTask']}", "{$classes['AccessTaskHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$classes['AccessTask']}", "{$classes['AccessTaskHandler']}@beforeDelete");
+		// Create event
+		Event::listen(
+			"eloquent.creating: {$classes['AccessTask']}",
+			"{$classes['AccessTaskEventHandler']}@beforeCreate"
+		);
+		Event::listen(
+			"eloquent.created: {$classes['AccessTask']}",
+			"{$classes['AccessTaskEventHandler']}@afterCreate"
+		);
+
+		// Update Event
+		Event::listen(
+			"eloquent.updating: {$classes['AccessTask']}",
+			"{$classes['AccessTaskEventHandler']}@beforeUpdate"
+		);
+		Event::listen(
+			"eloquent.updated: {$classes['AccessTask']}",
+			"{$classes['AccessTaskEventHandler']}@afterUpdate"
+		);
+
+		// Delete events
+		Event::listen(
+			"eloquent.deleting: {$classes['AccessTask']}",
+			"{$classes['AccessTaskEventHandler']}@beforeDelete"
+		);
+		Event::listen(
+			"eloquent.deleted: {$classes['AccessTask']}",
+			"{$classes['AccessTaskEventHandler']}@afterDelete"
+		);
+
+		// Save events
+		Event::listen(
+			"eloquent.saving: {$classes['AccessTask']}",
+			"{$classes['AccessTaskEventHandler']}@beforeSave"
+		);
+		Event::listen(
+			"eloquent.saved: {$classes['AccessTask']}",
+			"{$classes['AccessTaskEventHandler']}@afterSave"
+		);
 	}
 
 }

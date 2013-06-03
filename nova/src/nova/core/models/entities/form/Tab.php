@@ -59,26 +59,45 @@ class Tab extends Model {
 		// Get all the aliases
 		$classes = Config::get('app.aliases');
 
-		/*Event::listen("eloquent.created: {$classes['NovaFormTab']}", "{$classes['NovaFormTabHandler']}@afterCreate");
-		Event::listen("eloquent.updated: {$classes['NovaFormTab']}", "{$classes['NovaFormTabHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$classes['NovaFormTab']}", "{$classes['NovaFormTabHandler']}@beforeDelete");*/
+		// Create event
+		Event::listen(
+			"eloquent.creating: {$classes['NovaFormTab']}",
+			"{$classes['FormTabEventHandler']}@beforeCreate"
+		);
+		Event::listen(
+			"eloquent.created: {$classes['NovaFormTab']}",
+			"{$classes['FormTabEventHandler']}@afterCreate"
+		);
+
+		// Update Event
+		Event::listen(
+			"eloquent.updating: {$classes['NovaFormTab']}",
+			"{$classes['FormTabEventHandler']}@beforeUpdate"
+		);
+		Event::listen(
+			"eloquent.updated: {$classes['NovaFormTab']}",
+			"{$classes['FormTabEventHandler']}@afterUpdate"
+		);
+
+		// Delete events
+		Event::listen(
+			"eloquent.deleting: {$classes['NovaFormTab']}",
+			"{$classes['FormTabEventHandler']}@beforeDelete"
+		);
+		Event::listen(
+			"eloquent.deleted: {$classes['NovaFormTab']}",
+			"{$classes['FormTabEventHandler']}@afterDelete"
+		);
+
+		// Save events
+		Event::listen(
+			"eloquent.saving: {$classes['NovaFormTab']}",
+			"{$classes['FormTabEventHandler']}@beforeSave"
+		);
+		Event::listen(
+			"eloquent.saved: {$classes['NovaFormTab']}",
+			"{$classes['FormTabEventHandler']}@afterSave"
+		);
 	}
-
-	/**
-	 * Get tabs.
-	 *
-	 * @param	string	The form key
-	 * @return	array
-	 */
-	/*public static function getItems($key)
-	{
-		// Start a new query
-		$query = static::startQuery();
-
-		// Get the items
-		$items = $query->where('form_key', $key)->orderBy('name', 'asc')->get();
-
-		return $items->toSimpleArray();
-	}*/
 
 }

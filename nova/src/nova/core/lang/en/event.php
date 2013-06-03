@@ -17,6 +17,8 @@ return array(
 		),
 
 		'form' => array(
+			'item' => "The :0 :1 in the :2 form was :3",
+
 			'update' => "The :0 form was updated",
 
 			'field_update' => "The :0 field in the :1 form was updated",
@@ -26,10 +28,6 @@ return array(
 			'section_update' => "The :0 section in the :1 form was updated",
 			'section_create' => "The :0 section was created in the :1 form",
 			'section_delete' => "The :0 section in the :1 form was deleted",
-
-			'tab_update' => "The :0 tab in the :1 form was updated",
-			'tab_create' => "The :0 tab was created in the :1 form",
-			'tab_delete' => "The :0 tab in the :1 form was deleted",
 		),
 
 		'position' => "The :0 :1 was :2",

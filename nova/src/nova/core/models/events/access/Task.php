@@ -1,15 +1,10 @@
 <?php namespace Nova\Core\Models\Events\Access;
 
 use SystemEvent;
+use BaseEventHandler;
 
-class Task {
+class Task extends BaseEventHandler {
 	
-	/**
-	 * After create event
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
 	public function afterCreate($model)
 	{
 		/**
@@ -18,12 +13,6 @@ class Task {
 		SystemEvent::addUserEvent('event.item', langConcat('access task'), $model->name, lang('action.created'));
 	}
 
-	/**
-	 * After update event
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
 	public function afterUpdate($model)
 	{
 		/**
@@ -32,12 +21,6 @@ class Task {
 		SystemEvent::addUserEvent('event.item', langConcat('access task'), $model->name, lang('action.updated'));
 	}
 
-	/**
-	 * Before delete event
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
 	public function beforeDelete($model)
 	{
 		/**

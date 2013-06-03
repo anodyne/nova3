@@ -303,19 +303,21 @@ return array(
 		'SystemRoute'				=> 'Nova\Core\Models\Entities\SystemRoute',
 
 		/**
-		 * Nova Model Events
+		 * Nova Model Event Handlers
 		 */
-		'AccessRoleHandler'			=> 'Nova\Core\Models\Events\Access\Role',
-		'AccessTaskHandler'			=> 'Nova\Core\Models\Events\Access\Task',
+		'AccessRoleEventHandler'	=> 'Nova\Core\Models\Events\Access\Role',
+		'AccessTaskEventHandler'	=> 'Nova\Core\Models\Events\Access\Task',
 
-		'NovaFormFieldHandler'		=> 'Nova\Core\Models\Events\Form\Field',
-		'NovaFormSectionHandler'	=> 'Nova\Core\Models\Events\Form\Section',
-		'NovaFormTabHandler'		=> 'Nova\Core\Models\Events\Form\Tab',
+		'FormEventHandler'			=> 'Nova\Core\Models\Events\Form',
+		'FormFieldEventHandler'		=> 'Nova\Core\Models\Events\Form\Field',
+		'FormSectionEventHandler'	=> 'Nova\Core\Models\Events\Form\Section',
+		'FormTabEventHandler'		=> 'Nova\Core\Models\Events\Form\Tab',
 
 		'RankGroupHandler'			=> 'Nova\Core\Models\Events\Rank\Group',
 		'RankInfoHandler'			=> 'Nova\Core\Models\Events\Rank\Info',
 		
 		'AppHandler'				=> 'Nova\Core\Models\Events\Application',
+		'BaseEventHandler'			=> 'Nova\Core\Models\Events\Base',
 		'CharacterHandler'			=> 'Nova\Core\Models\Events\Character',
 		'CommentHandler'			=> 'Nova\Core\Models\Events\Comment',
 		'PositionHandler'			=> 'Nova\Core\Models\Events\Position',
@@ -332,6 +334,7 @@ return array(
 		'AccessTaskValidator'		=> 'Nova\Core\Models\Validators\Access\Task',
 
 		'FormValidator'				=> 'Nova\Core\Models\Validators\Form',
+		'FormTabValidator'			=> 'Nova\Core\Models\Validators\Form\Tab',
 
 		'BaseValidator'				=> 'Nova\Core\Models\Validators\Base',
 		'SystemRouteValidator'		=> 'Nova\Core\Models\Validators\SystemRoute',
