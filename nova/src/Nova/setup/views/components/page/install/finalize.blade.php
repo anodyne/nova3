@@ -1,0 +1,1 @@
+<p>Expecting more steps? Sorry to disappoint you, but Nova is installed and ready to use. Head on over to your site now to get started.</p>
