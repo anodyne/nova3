@@ -10,14 +10,15 @@ class Form extends Model {
 	protected $table = 'forms';
 
 	protected $fillable = array(
-		'key', 'name', 'orientation', 'status', 'form_viewer', 'email_addresses',
+		'key', 'name', 'orientation', 'status', 'form_viewer', 'email_allowed',
+		'email_addresses',
 	);
 
 	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'key', 'name', 'orientation', 'status', 'protected', 'form_viewer',
-		'email_addresses', 'created_at', 'updated_at',
+		'email_allowed', 'email_addresses', 'created_at', 'updated_at',
 	);
 
 	/*
