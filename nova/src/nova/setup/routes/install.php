@@ -19,10 +19,10 @@ Route::group(['prefix' => 'setup/install', 'before' => 'configFileCheck|setupAut
 		set_time_limit(0);
 
 		// Run the migrations
-		Artisan::call('migrate', ['--path' => 'nova/src/Nova/Setup/database/migrations']);
+		Artisan::call('migrate', ['--path' => 'nova/src/nova/setup/database/migrations']);
 
 		// Get the session generator file
-		$fileContents = File::get(SRCPATH.'Setup/generators/session.php');
+		$fileContents = File::get(SRCPATH.'setup/generators/session.php');
 
 		// Make sure we have something
 		if ($fileContents !== false)
@@ -37,7 +37,7 @@ Route::group(['prefix' => 'setup/install', 'before' => 'configFileCheck|setupAut
 			// an exception and explain what to do in order to fix it.
 			if ( ! $write)
 			{
-				throw new Exception("The session config file couldn't be written to the server. Please manually create this file and upload it to app/config/".App::environment()."/session.php. The file should contain the contents from nova/src/Nova/Setup/generators/session.php with the #TYPE# placeholder changed to 'database'.");
+				throw new Exception("The session config file couldn't be written to the server. Please manually create this file and upload it to app/config/".App::environment()."/session.php. The file should contain the contents from nova/src/nova/setup/generators/session.php with the #TYPE# placeholder changed to 'database'.");
 			}
 		}
 

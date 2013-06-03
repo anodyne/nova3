@@ -21,7 +21,7 @@
 			</div>
 
 			<div id="loading" class="hide">
-				<h2><img src="{{ URL::asset('nova/src/Nova/Setup/views/design/images/loading.gif') }}" alt=""><small>Loading...</small></h2>
+				<h2><img src="{{ URL::asset('nova/src/nova/setup/views/design/images/loading.gif') }}" alt=""><small>Loading...</small></h2>
 			</div>
 		</div>
 		

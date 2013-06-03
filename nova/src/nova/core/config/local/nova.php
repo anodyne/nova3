@@ -2,7 +2,7 @@
 
 return array(
 
-	'version_check_path' => NOVAPATH.'src/Nova/Setup/assets/update/version.json',
+	'version_check_path' => NOVAPATH.'src/nova/setup/assets/update/version.json',
 
 	'use_dev_data' => false,
 

@@ -47,7 +47,7 @@ Route::filter('setupAuthorization', function()
 function setupTemplate($data)
 {
 	// Add the setup package to the list for this request
-	View::addLocation(SRCPATH.'Setup/views');
+	View::addLocation(SRCPATH.'setup/views');
 
 	// Build the structure
 	$template = View::make('components/structure/setup');

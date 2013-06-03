@@ -24,7 +24,7 @@ class Utility {
 	public function getIconIndex($skin)
 	{
 		// Load the icon index from the core first
-		$commonIndex = include SRCPATH.'Core/views/icons.php';
+		$commonIndex = include SRCPATH.'core/views/icons.php';
 
 		// Now load the icon index from the skin (if it has one)
 		$skinIndex = (File::exists(APPPATH."views/{$skin}/icons.php"))

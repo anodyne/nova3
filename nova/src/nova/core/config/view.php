@@ -14,11 +14,11 @@ return array(
 	*/
 
 	'paths' => array(
-		APPPATH.'module/override/views',
+		APPPATH.'modules/override/views',
 		APPPATH.'views',
-		SRCPATH.'Forum/views',
-		SRCPATH.'Wiki/views',
-		SRCPATH.'Core/views',
+		SRCPATH.'forum/views',
+		SRCPATH.'wiki/views',
+		SRCPATH.'core/views',
 	),
 
 	/*

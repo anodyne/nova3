@@ -26,9 +26,9 @@ class ConfigLoaderTest extends Nova\Core\Lib\TestCase {
 		$loader = $this->getLoader();
 		$expected = [
 			'app'	=> APPPATH.'config',
-			'wiki'	=> SRCPATH.'Wiki/config',
-			'forum'	=> SRCPATH.'Forum/config',
-			'core'	=> SRCPATH.'Core/config',
+			'wiki'	=> SRCPATH.'wiki/config',
+			'forum'	=> SRCPATH.'forum/config',
+			'core'	=> SRCPATH.'core/config',
 		];
 		$this->assertEquals($expected, $loader->getPaths());
 	}

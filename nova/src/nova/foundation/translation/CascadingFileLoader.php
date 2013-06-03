@@ -42,11 +42,11 @@ class CascadingFileLoader implements LoaderInterface {
 		// can't create problems by changing these paths.
 		$this->path = array(
 			'app'		=> APPPATH.'lang',
-			'wiki'		=> SRCPATH.'Wiki/lang',
-			'forum'		=> SRCPATH.'Forum/lang',
-			'sentry'	=> SRCPATH.'Sentry/lang',
-			'setup'		=> SRCPATH.'Setup/lang',
-			'core'		=> SRCPATH.'Core/lang',
+			'wiki'		=> SRCPATH.'wiki/lang',
+			'forum'		=> SRCPATH.'forum/lang',
+			'sentry'	=> SRCPATH.'sentry/lang',
+			'setup'		=> SRCPATH.'setup/lang',
+			'core'		=> SRCPATH.'core/lang',
 		);
 	}
 

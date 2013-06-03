@@ -5,8 +5,8 @@
 	<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
 <!--<![endif]-->
 
-<script type="text/javascript" src="<?php echo SRCURL;?>Assets/js/jquery.lazy.js"></script>
-<script type="text/javascript" src="<?php echo SRCURL;?>Assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo SRCURL;?>assets/js/jquery.lazy.js"></script>
+<script type="text/javascript" src="<?php echo SRCURL;?>assets/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	
 	$(document).ready(function(){

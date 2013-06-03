@@ -30,7 +30,7 @@ class NovaCreateDepartments extends Migration {
 		if ($explicitGenre)
 		{
 			// Pull in the genre data file
-			include SRCPATH."Setup/assets/install/genres/{$genre}.php";
+			include SRCPATH."setup/assets/install/genres/{$genre}.php";
 
 			// Loop through the departments and seed the data
 			foreach ($depts as $d)

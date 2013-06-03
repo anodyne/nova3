@@ -280,7 +280,7 @@ class Location {
 					return "app/views/{$this->skin}/design/images/{$this->file}";
 				}
 				
-				return "nova/src/Nova/".ucfirst($this->module)."/views/design/images/{$this->file}";
+				return "nova/src/nova/".strtolower($this->module)."/views/design/images/{$this->file}";
 			break;
 			
 			case 'rank':

@@ -10,17 +10,17 @@
 		<meta name="author" content="{{ $settings->meta_author }}">
 		
 		<!-- Bootstrap styles -->
-		{{ HTML::style('nova/src/Nova/Assets/css/bootstrap.min.css') }}
+		{{ HTML::style('nova/src/nova/assets/css/bootstrap.min.css') }}
 
 		<!-- Web fonts styles -->
-		{{ HTML::style('nova/src/Nova/Assets/css/fonts.css') }}
+		{{ HTML::style('nova/src/nova/assets/css/fonts.css') }}
 		
 		<!-- Nova's base styles and any user-defined styles -->
 		@if (is_file(APPPATH.'views/'.$skin.'/design/style.login.css'))
 			{{ HTML::style('app/views/'.$skin.'/design/style.login.css') }}
 		@else
-			{{ HTML::style('nova/src/Nova/Core/views/design/style.css') }}
-			{{ HTML::style('nova/src/Nova/Core/views/design/style.login.css') }}
+			{{ HTML::style('nova/src/nova/core/views/design/style.css') }}
+			{{ HTML::style('nova/src/nova/core/views/design/style.login.css') }}
 			
 			@if (is_file(APPPATH.'views/'.$skin.'/design/custom.login.css'))
 				{{ HTML::style('app/views/'.$skin.'/design/custom.login.css') }}
@@ -35,7 +35,7 @@
 		<![endif]-->
 		
 		<!-- Nova's core Javascript -->
-		<?php include SRCPATH.'Core/views/components/js/core/login_js.php';?>
+		<?php include SRCPATH.'core/views/components/js/core/login_js.php';?>
 
 		<!-- Nova's per-page Javascript -->
 		{{ $javascript }}

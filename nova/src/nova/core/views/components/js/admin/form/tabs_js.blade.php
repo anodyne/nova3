@@ -1,7 +1,7 @@
-<script type="text/javascript" src="{{ SRCURL }}Assets/js/jquery.ui.core.min.js"></script>
-<script type="text/javascript" src="{{ SRCURL }}Assets/js/jquery.ui.widget.min.js"></script>
-<script type="text/javascript" src="{{ SRCURL }}Assets/js/jquery.ui.mouse.min.js"></script>
-<script type="text/javascript" src="{{ SRCURL }}Assets/js/jquery.ui.sortable.min.js"></script>
+<script type="text/javascript" src="{{ SRCURL }}assets/js/jquery.ui.core.min.js"></script>
+<script type="text/javascript" src="{{ SRCURL }}assets/js/jquery.ui.widget.min.js"></script>
+<script type="text/javascript" src="{{ SRCURL }}assets/js/jquery.ui.mouse.min.js"></script>
+<script type="text/javascript" src="{{ SRCURL }}assets/js/jquery.ui.sortable.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		// Show the first tab

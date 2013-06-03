@@ -1,8 +1,8 @@
-<?php include_once SRCPATH.'Core/views/components/js/core/core_js.php';?>
+<?php include_once SRCPATH.'core/views/components/js/core/core_js.php';?>
 
-<!--<link rel="stylesheet" href="<?php echo SRCURL;?>/Assets/css/bootstrap-editable.css">
+<!--<link rel="stylesheet" href="<?php echo SRCURL;?>/assets/css/bootstrap-editable.css">
 
-<script type="text/javascript" src="<?php echo SRCURL;?>/Assets/js/bootstrap-editable.min.js"></script>-->
+<script type="text/javascript" src="<?php echo SRCURL;?>/assets/js/bootstrap-editable.min.js"></script>-->
 <script type="text/javascript">
 	$(document).ready(function(){
 		

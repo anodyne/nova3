@@ -47,7 +47,7 @@ class NovaCreateRanks extends Migration {
 		if ($explicitGenre)
 		{
 			// Pull in the genre data file
-			include SRCPATH."Setup/assets/install/genres/{$genre}.php";
+			include SRCPATH."setup/assets/install/genres/{$genre}.php";
 
 			foreach ($info as $i)
 			{

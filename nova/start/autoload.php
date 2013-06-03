@@ -7,7 +7,7 @@ define('BASEPATH',		__DIR__.'/../../');
 define('APPPATH',		BASEPATH.'app/');
 define('NOVAPATH',		BASEPATH.'nova/');
 define('VENDORPATH',	NOVAPATH.'vendor/');
-define('SRCPATH',		NOVAPATH.'src/Nova/');
+define('SRCPATH',		NOVAPATH.'src/nova/');
 
 /*
 |--------------------------------------------------------------------------

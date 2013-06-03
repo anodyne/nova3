@@ -19,7 +19,7 @@ Route::group(array('prefix' => 'setup/update', 'before' => 'configFileCheck|setu
 		set_time_limit(0);
 
 		// Get up to the latest migration
-		Artisan::call('migrate', array('--path' => 'nova/src/Nova/Setup/database/migrations'));
+		Artisan::call('migrate', array('--path' => 'nova/src/nova/setup/database/migrations'));
 
 		// Register
 		# TODO: need to figure out how we want to do registration
@@ -100,7 +100,7 @@ Route::group(array('prefix' => 'setup/update/rollback', 'before' => 'configFileC
 		set_time_limit(0);
 
 		// Get up to the latest migration
-		Artisan::call('migrate:rollback', array('--path' => 'nova/src/Nova/Setup/database/migrations'));
+		Artisan::call('migrate:rollback', array('--path' => 'nova/src/nova/setup/database/migrations'));
 
 		// Register
 		# TODO: need to figure out how we want to do registration

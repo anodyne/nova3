@@ -252,7 +252,7 @@ Route::group(['prefix' => 'setup', 'before' => 'configFileCheck|setupAuthorizati
 		$finder = new Symfony\Component\Finder\Finder();
 
 		// Set what we're looking for
-		$finder->files()->in(SRCPATH.'Setup/assets/install/genres')->name('*.php');
+		$finder->files()->in(SRCPATH.'setup/assets/install/genres')->name('*.php');
 
 		// Loop through the files in the genres directory
 		foreach ($finder as $f)
@@ -281,7 +281,7 @@ Route::group(['prefix' => 'setup', 'before' => 'configFileCheck|setupAuthorizati
 		$data->content->additional = (isset($additional)) ? $additional : false;
 		
 		// Set the loading image
-		$data->content->loading = HTML::image('nova/src/Nova/Setup/views/design/images/loading.gif', 'Processing');
+		$data->content->loading = HTML::image('nova/src/nova/setup/views/design/images/loading.gif', 'Processing');
 
 		return setupTemplate($data);
 	});
@@ -311,7 +311,7 @@ Route::group(['prefix' => 'setup/config/db', 'before' => 'configFileCheck|setupA
 		// Make sure we don't time out
 		set_time_limit(0);
 		
-		if ( ! File::exists(SRCPATH.'Setup/generators/database.php'))
+		if ( ! File::exists(SRCPATH.'setup/generators/database.php'))
 		{
 			$data->content->message = Lang::get('setup.config.noconfig', [
 				'type'	=> 'database connection',
@@ -496,7 +496,7 @@ Route::group(['prefix' => 'setup/config/db', 'before' => 'configFileCheck|setupA
 		$data->content->step = false;
 
 		// Get the file
-		$dbFileContents = File::get(SRCPATH.'Setup/generators/database.php');
+		$dbFileContents = File::get(SRCPATH.'setup/generators/database.php');
 
 		if ($dbFileContents !== false)
 		{
@@ -690,7 +690,7 @@ Route::group(['prefix' => 'setup/config/email', 'before' => 'configFileCheck|set
 		// Make sure we don't time out
 		set_time_limit(0);
 		
-		if ( ! File::exists(SRCPATH.'Setup/generators/mail.php'))
+		if ( ! File::exists(SRCPATH.'setup/generators/mail.php'))
 		{
 			$data->content->message = Lang::get('setup.config.noconfig', array(
 				'type'	=> 'email config',
@@ -794,7 +794,7 @@ Route::group(['prefix' => 'setup/config/email', 'before' => 'configFileCheck|set
 		Session::put('emailSend', $sendmailpath);
 
 		// Get the file
-		$emailFileContents = File::get(SRCPATH.'Setup/generators/mail.php');
+		$emailFileContents = File::get(SRCPATH.'setup/generators/mail.php');
 
 		if ($emailFileContents !== false)
 		{
