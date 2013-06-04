@@ -140,14 +140,13 @@
 			</div>
 		</div>
 	@else
-		<p class="alert">{{ lang('error.notFound', langConcat('tasks')) }}</p>
+		{{ partial('common/alert', ['content' => lang('error.notFound', lang('tasks'))]) }}
 	@endif
 
 	<div class="controls">
 		{{ Form::hidden('id') }}
 		{{ Form::hidden('action', $action) }}
 		{{ Form::token() }}
-		
 		{{ Form::button(ucfirst(lang('action.submit')), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
 	</div>
 {{ Form::close() }}

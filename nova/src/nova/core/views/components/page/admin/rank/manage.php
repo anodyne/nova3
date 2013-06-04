@@ -65,12 +65,12 @@
 						</tbody>
 					</table>
 				<?php else: ?>
-					<p class="alert"><?php echo lang('error.notFound', lang('ranks'));?></p>
+					{{ partial('common/alert', ['content' => lang('error.notFound', lang('ranks'))]) }}
 				<?php endif;?>
 			</div>
 		<?php endforeach;?>
 		</div>
 	</div>
 <?php else: ?>
-	<p class="alert"><?php echo lang('error.notFound', langConcat('rank groups'));?></p>
+	{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('rank groups'))]) }}
 <?php endif;?>

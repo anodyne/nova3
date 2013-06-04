@@ -66,6 +66,6 @@
 	</div>
 	
 	<div id="no-results" class="hide">
-		<p class="alert"><?php echo lang('error.notFound', lang('results'));?></p>
+		{{ partial('common/alert', ['content' => lang('error.notFound', lang('results'))]) }}
 	</div>
 </div>

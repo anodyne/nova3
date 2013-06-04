@@ -134,7 +134,7 @@
 				<?php endif;?>
 			<?php endforeach;?>
 		<?php else: ?>
-			<p class="alert"><?php echo lang('error.notFound', langConcat('application review history'));?></p>
+			{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('application review history'))]) }}
 		<?php endif;?>
 	</div>
 

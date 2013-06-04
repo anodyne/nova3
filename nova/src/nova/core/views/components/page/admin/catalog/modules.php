@@ -71,5 +71,5 @@
 		</tbody>
 	</table>
 <?php else: ?>
-	<p class="alert"><?php echo lang('error.notFound', lang('modules'));?></p>
+	{{ partial('common/alert', ['content' => lang('error.notFound', lang('modules'))]) }}
 <?php endif;?>

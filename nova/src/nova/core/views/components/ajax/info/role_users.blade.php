@@ -7,5 +7,5 @@
 	@endforeach
 	</dl>
 @else
-	<p class="alert">{{ lang('error.notFound', lang('users')) }}</p>
+	{{ partial('common/alert', ['content' => lang('error.notFound', lang('users'))]) }}
 @endif

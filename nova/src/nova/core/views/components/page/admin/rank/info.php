@@ -46,5 +46,5 @@
 		</table>
 	<?php endforeach;?>
 <?php else: ?>
-	<p class="alert"><?php echo lang('error.notFound', langConcat('rank info'));?></p>
+	{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('rank info'))]) }}
 <?php endif;?>

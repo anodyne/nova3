@@ -55,7 +55,7 @@
 				</tbody>
 			</table>
 		<?php else: ?>
-			<p class="alert"><?php echo lang('error.notFound', lang('sections')).' '.langConcat('for this tab');?></p>
+			{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('sections for this tab'))]) }}
 		<?php endif;?>
 		</div>
 	<?php endforeach;?>
@@ -93,6 +93,6 @@
 			</tbody>
 		</table>
 	<?php else: ?>
-		<p class="alert"><?php echo lang('error.notFound', langConcat('form sections'));?></p>
+		{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('form sections'))]) }}
 	<?php endif;?>
 <?php endif;?>

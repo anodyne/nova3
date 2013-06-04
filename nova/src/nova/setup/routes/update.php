@@ -80,12 +80,15 @@ Route::group(array('prefix' => 'setup/update/rollback', 'before' => 'configFileC
 					'name'	=> 'submit',
 					'type'	=> 'submit',
 				)).
-				//Form::token().
+				Form::token().
 				Form::close();
 		}
 		else
 		{
-			$data->content->message = '<p class="alert alert-danger">You cannot rollback to a previous version of Nova. <a href="'.URL::to('setup').'">Go back</a></p>';
+			$data->content->message = partial('common/alert', [
+				'class'		=> 'alert-danger',
+				'content'	=> 'You cannot rollback to a previous version of Nova. <a href="'.URL::to('setup').'">Go back</a>',
+			]);
 		}
 
 		return setupTemplate($data);

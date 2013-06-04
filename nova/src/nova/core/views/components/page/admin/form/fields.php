@@ -73,12 +73,12 @@
 							</tbody>
 						</table>
 					<?php else: ?>
-						<p class="alert"><?php echo lang('error.notFound', lang('fields')).' '.ucfirst(langConcat('for this section'));?></p>
+						{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('fields for this section'))]) }}
 					<?php endif;?>
 				</fieldset>
 			<?php endforeach;?>
 		<?php else: ?>
-			<p class="alert"><?php echo lang('error.notFound', lang('fields')).' '.ucfirst(langConcat('for this tab'));?></p>
+			{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('fields for this tab'))]) }}
 		<?php endif;?>
 		</div>
 	<?php endforeach;?>
@@ -130,7 +130,7 @@
 						</tbody>
 					</table>
 				<?php else: ?>
-					<p class="alert"><?php echo lang('error.notFound', lang('fields')).' '.ucfirst(langConcat('for this section'));?></p>
+					{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('fields for this section'))]) }}
 				<?php endif;?>
 			</fieldset>
 		<?php endforeach;?>
@@ -176,7 +176,7 @@
 				</tbody>
 			</table>
 		<?php else: ?>
-			<p class="alert"><?php echo lang('error.notFound', langConcat('form fields'));?></p>
+			{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('form fields'))]) }}
 		<?php endif;?>
 	<?php endif;?>
 <?php endif;?>

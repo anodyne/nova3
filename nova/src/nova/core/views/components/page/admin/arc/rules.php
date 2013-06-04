@@ -51,5 +51,5 @@
 		</tbody>
 	</table>
 <?php else: ?>
-	<p class="alert"><?php echo lang('error.notFound', langConcat('application rules'));?></p>
+	{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('application rules'))]) }}
 <?php endif;?>

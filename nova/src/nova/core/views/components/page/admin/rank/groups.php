@@ -54,5 +54,5 @@
 		</tbody>
 	</table>
 <?php else: ?>
-	<p class="alert"><?php echo lang('error.notFound', langConcat('rank groups'));?></p>
+	{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('rank groups'))]) }}
 <?php endif;?>

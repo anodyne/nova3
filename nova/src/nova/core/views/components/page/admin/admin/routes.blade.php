@@ -49,7 +49,7 @@
 				</tbody>
 			</table>
 		@else
-			<p class="alert">{{ lang('error.notFound', langConcat('user_created routes')) }}</p>
+			{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('user_created routes'))]) }}
 		@endif
 	</div>
 
@@ -84,7 +84,7 @@
 				</tbody>
 			</table>
 		@else
-			<p class="alert">{{ lang('error.notFound', langConcat('core routes')) }}</p>
+			{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('core routes'))]) }}
 		@endif
 	</div>
 </div>
