@@ -55,13 +55,10 @@ Form::macro('characters', function($name, $selected = null, $options = array(), 
 		return Form::select($name, $characterList, $selected, $options);
 	}
 
-	// Figure out the section
-	$section = (Request::segment(1) == 'admin') ? 'admin' : 'main';
-	
-	return View::make(Location::file('flash', Utility::getSkin($section), 'partial'))
-		->with('status', 'danger')
-		->with('message', lang('error.notFound', lang('base.characters')))
-		->render();
+	return partial('common/alert', [
+		'class'		=> 'alert-danger',
+		'content'	=> lang('error.notFound', lang('characters'))
+	]);
 });
 
 /**
@@ -435,20 +432,14 @@ Form::macro('users', function($name, $selected = null, $options = array(), $stat
 		return Form::select($name, $usersList, $selected, $options);
 	}
 
-	// Figure out the section
-	$section = (Request::segment(1) == 'admin') ? 'admin' : 'main';
-	
-	return View::make(Location::file('flash', Utility::getSkin($section), 'partial'))
-		->with('status', 'danger')
-		->with('message', lang('error.notFound', lang('base.users')))
-		->render();
+	return partial('common/alert', [
+		'class'		=> 'alert-danger',
+		'content'	=> lang('error.notFound', lang('base.users')),
+	]);
 });
 
 Form::macro('suggest', function($name, $data, $selected, $options)
 {
-	// Figure out the section
-	$section = (Request::segment(1) == 'admin') ? 'admin' : 'main';
-
 	// Set the attributes
 	$attributes = HTML::attributes(array(
 		'id' => (isset($options['id'])) ? $options['id'] : '',
@@ -457,6 +448,6 @@ Form::macro('suggest', function($name, $data, $selected, $options)
 		'value' => $selected,
 	));
 
-	return View::make(Location::file('common/magicsuggest', Utility::getSkin($section), 'partial'))
+	return View::make(Location::file('common/magicsuggest', Utility::getSkin(), 'partial'))
 		->with('attributes', $attributes);
 });

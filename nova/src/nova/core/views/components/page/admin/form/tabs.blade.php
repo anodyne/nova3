@@ -49,5 +49,5 @@
 		</tbody>
 	</table>
 @else
-	<p class="alert">{{ lang('error.notFound', langConcat('form tabs')) }}</p>
+	{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('form tabs'))]) }}
 @endif

@@ -11,4 +11,9 @@ Route::group(array('prefix' => 'test'), function()
 		//s($task->roles);
 		s(ucfirst(lang('short.alert.success.delete', langConcat('form tab'))));
 	});
+
+	Route::get('partial', function()
+	{
+		echo partial('common/label', ['class' => 'label-info', 'value' => lang('short.create', lang('form'))]);
+	});
 });

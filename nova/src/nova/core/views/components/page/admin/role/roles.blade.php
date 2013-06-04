@@ -43,5 +43,5 @@
 		</tbody>
 	</table>
 @else
-	<p class="alert">{{ lang('error.notFound', langConcat('access roles')) }}</p>
+	{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('access roles'))]) }}
 @endif

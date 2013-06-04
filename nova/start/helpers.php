@@ -85,3 +85,16 @@ if ( ! function_exists('langConcat'))
 		return implode(' ', $retval);
 	}
 }
+
+/**
+ * Generate a partial based on the parameters.
+ *
+ * @param	string	The view name
+ * @param	string	The section (main or admin)
+ * @param	mixed	The data to pass to the partial
+ * @return	string
+ */
+function partial($view, $data)
+{
+	return View::make(Location::file($view, Utility::getSkin(), 'partial'))->with($data);
+}

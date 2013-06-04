@@ -103,7 +103,7 @@ App::missing(function()
 	// Log the error
 	Log::error('404 Not Found. Could not find the page requested: '.Request::path());
 
-	return View::make(Location::file('404', Utility::getSkin('main'), 'error'))
+	return View::make(Location::file('404', Utility::getSkin(), 'error'))
 		->with('header', $messages[$rand]['header'])
 		->with('message', $messages[$rand]['message']);
 });

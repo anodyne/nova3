@@ -87,7 +87,7 @@ class Nav {
 				{
 					$output = View::make(Location::file('nav/classic', Utility::getSkin($this->section), 'partial'))
 						->with('items', $this->data[$this->type]['mainNavItems'][$this->category])
-						->with('name', Settings::getItems('sim_name'));
+						->with('name', Settings::getSettings('sim_name'));
 				}
 				else
 				{
@@ -100,7 +100,7 @@ class Nav {
 			default:
 				$output = View::make(Location::file('nav/dropdown', Utility::getSkin($this->section), 'partial'))
 					->with('items', $this->data)
-					->with('name', Settings::getItems('sim_name'))
+					->with('name', Settings::getSettings('sim_name'))
 					->with('userMenu', $this->userOutput)
 					->with('section', $this->section)
 					->with('category', $this->category);

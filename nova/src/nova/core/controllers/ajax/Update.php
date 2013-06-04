@@ -262,7 +262,7 @@ class Update extends AjaxBaseController {
 	{
 		if (\Sentry::check() and \Sentry::user()->hasLevel('user.update', 2))
 		{
-			echo \View::forge(\Location::file('update/link_character_to_user', \Utility::getSkin('admin'), 'ajax'));
+			echo \View::forge(\Location::file('update/link_character_to_user', \Utility::getSkin(), 'ajax'));
 		}
 	}
 
@@ -310,7 +310,7 @@ class Update extends AjaxBaseController {
 				$data['status'] = (int) $group->status;
 			}
 
-			echo \View::forge(\Location::file('update/rankgroup', \Utility::getSkin('admin'), 'ajax'), $data);
+			echo \View::forge(\Location::file('update/rankgroup', \Utility::getSkin(), 'ajax'), $data);
 		}
 	}
 
@@ -368,7 +368,7 @@ class Update extends AjaxBaseController {
 				$data['status'] = (int) $info->status;
 			}
 
-			echo \View::forge(\Location::file('update/rankinfo', \Utility::getSkin('admin'), 'ajax'), $data);
+			echo \View::forge(\Location::file('update/rankinfo', \Utility::getSkin(), 'ajax'), $data);
 		}
 	}
 
@@ -424,7 +424,7 @@ class Update extends AjaxBaseController {
 				// Set the action
 				$action = ($key > 0) ? 'update' : 'create';
 
-				echo View::make(Location::file('update/form', Utility::getSkin('admin'), 'ajax'))
+				echo View::make(Location::file('update/form', Utility::getSkin(), 'ajax'))
 					->with('form', $form)
 					->with('action', $action);
 			}
@@ -454,7 +454,7 @@ class Update extends AjaxBaseController {
 				// Set the action
 				$action = ($id > 0) ? 'update' : 'create';
 
-				echo View::make(Location::file('update/route', Utility::getSkin('admin'), 'ajax'))
+				echo View::make(Location::file('update/route', Utility::getSkin(), 'ajax'))
 					->with('route', $route)
 					->with('action', $action);
 			}

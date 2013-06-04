@@ -181,7 +181,7 @@ Route::group(['prefix' => 'setup/install', 'before' => 'configFileCheck|setupAut
 		}
 
 		// Update the sim name
-		$simName = Settings::getItems('sim_name', false);
+		$simName = Settings::getSettings('sim_name', false);
 		$simName->value = e(Input::get('sim_name'));
 		$simName->save();
 

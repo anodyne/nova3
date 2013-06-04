@@ -99,7 +99,7 @@ class Add extends AjaxBaseController {
 			// Get the original route
 			$route = \SystemRoute::find($id);
 
-			echo View::make(Location::file('add/route_duplicate', Utility::getSkin('admin'), 'ajax'))
+			echo View::make(Location::file('add/route_duplicate', Utility::getSkin(), 'ajax'))
 				->with('route', $route);
 		}
 	}
@@ -155,7 +155,7 @@ class Add extends AjaxBaseController {
 				}
 			}
 
-			echo \View::forge(\Location::file('add/rankgroup_duplicate', \Utility::getSkin('admin'), 'ajax'), $data);
+			echo \View::forge(\Location::file('add/rankgroup_duplicate', \Utility::getSkin(), 'ajax'), $data);
 		}
 	}
 
@@ -178,7 +178,7 @@ class Add extends AjaxBaseController {
 			$data['group'] = '';
 			$data['display'] = 1;
 
-			echo \View::forge(\Location::file('update/rankinfo', \Utility::getSkin('admin'), 'ajax'), $data);
+			echo \View::forge(\Location::file('update/rankinfo', \Utility::getSkin(), 'ajax'), $data);
 		}
 	}
 
@@ -198,7 +198,7 @@ class Add extends AjaxBaseController {
 			// Get the original role
 			$role = \AccessRole::find($id);
 
-			echo View::make(Location::file('add/role_duplicate', Utility::getSkin('admin'), 'ajax'))
+			echo View::make(Location::file('add/role_duplicate', Utility::getSkin(), 'ajax'))
 				->with('role', $role);
 		}
 	}
@@ -212,7 +212,7 @@ class Add extends AjaxBaseController {
 	{
 		if (\Sentry::check() and \Sentry::user()->hasAccess('user.create'))
 		{
-			echo \View::forge(\Location::file('add/user', \Utility::getSkin('admin'), 'ajax'));
+			echo \View::forge(\Location::file('add/user', \Utility::getSkin(), 'ajax'));
 		}
 	}
 

@@ -22,7 +22,7 @@ class Delete extends AjaxBaseController {
 					'id' => $rule->id,
 				);
 
-				echo \View::forge(\Location::file('delete/apprule', \Utility::getSkin('admin'), 'ajax'), $data);
+				echo \View::forge(\Location::file('delete/apprule', \Utility::getSkin(), 'ajax'), $data);
 			}
 		}
 	}
@@ -63,7 +63,7 @@ class Delete extends AjaxBaseController {
 					'id' => $field->id,
 				);
 
-				echo \View::forge(\Location::file('delete/field', \Utility::getSkin('admin'), 'ajax'), $data);
+				echo \View::forge(\Location::file('delete/field', \Utility::getSkin(), 'ajax'), $data);
 			}
 		}
 	}
@@ -106,7 +106,7 @@ class Delete extends AjaxBaseController {
 					'sections' => $sections,
 				);
 
-				echo \View::forge(\Location::file('delete/section', \Utility::getSkin('admin'), 'ajax'), $data);
+				echo \View::forge(\Location::file('delete/section', \Utility::getSkin(), 'ajax'), $data);
 			}
 		}
 	}
@@ -126,7 +126,7 @@ class Delete extends AjaxBaseController {
 
 			if ($tab !== null)
 			{
-				echo View::make(Location::file('delete/tab', Utility::getSkin('admin'), 'ajax'))
+				echo View::make(Location::file('delete/tab', Utility::getSkin(), 'ajax'))
 					->with('name', $tab->name)
 					->with('id', $tab->id)
 					->with('tabs', $tabs)
@@ -149,7 +149,7 @@ class Delete extends AjaxBaseController {
 					'id' => $rank->id,
 				);
 
-				echo \View::forge(\Location::file('delete/rank', \Utility::getSkin('admin'), 'ajax'), $data);
+				echo \View::forge(\Location::file('delete/rank', \Utility::getSkin(), 'ajax'), $data);
 			}
 		}
 	}
@@ -185,7 +185,7 @@ class Delete extends AjaxBaseController {
 					}
 				}
 
-				echo \View::forge(\Location::file('delete/rankgroup', \Utility::getSkin('admin'), 'ajax'), $data);
+				echo \View::forge(\Location::file('delete/rankgroup', \Utility::getSkin(), 'ajax'), $data);
 			}
 		}
 	}
@@ -223,7 +223,7 @@ class Delete extends AjaxBaseController {
 					}
 				}
 
-				echo \View::forge(\Location::file('delete/rankinfo', \Utility::getSkin('admin'), 'ajax'), $data);
+				echo \View::forge(\Location::file('delete/rankinfo', \Utility::getSkin(), 'ajax'), $data);
 			}
 		}
 	}
@@ -259,7 +259,7 @@ class Delete extends AjaxBaseController {
 					return ($r->id != $id);
 				});
 
-				echo View::make(Location::file('delete/role', Utility::getSkin('admin'), 'ajax'), $data);
+				echo View::make(Location::file('delete/role', Utility::getSkin(), 'ajax'), $data);
 			}
 		}
 	}
@@ -281,7 +281,7 @@ class Delete extends AjaxBaseController {
 
 			if ($task)
 			{
-				echo View::make(Location::file('delete/role_task', Utility::getSkin('admin'), 'ajax'))
+				echo View::make(Location::file('delete/role_task', Utility::getSkin(), 'ajax'))
 					->with('task', $task);
 			}
 		}
@@ -301,7 +301,7 @@ class Delete extends AjaxBaseController {
 					'id' => $user->id,
 				);
 
-				echo \View::forge(\Location::file('delete/user', \Utility::getSkin('admin'), 'ajax'), $data);
+				echo \View::forge(\Location::file('delete/user', \Utility::getSkin(), 'ajax'), $data);
 			}
 		}
 	}
@@ -315,7 +315,7 @@ class Delete extends AjaxBaseController {
 
 			if ($route)
 			{
-				echo View::make(Location::file('delete/route', Utility::getSkin('admin'), 'ajax'))
+				echo View::make(Location::file('delete/route', Utility::getSkin(), 'ajax'))
 					->with('route', $route);
 			}
 		}

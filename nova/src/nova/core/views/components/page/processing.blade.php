@@ -1,4 +1,4 @@
 <h4 class="text-center text-muted">
-	{{ Location::image('loading.gif', Utility::getSkin('admin')) }}<br>
+	{{ Location::image('loading.gif', Utility::getSkin()) }}<br>
 	Processing, please wait...
 </h4>

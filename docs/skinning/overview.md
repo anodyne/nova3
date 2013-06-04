@@ -15,7 +15,12 @@ These tutorials are meant for someone who has no experience with any type of web
 
 With a solid foundation from our 100-level tutorials, you can step up to learning more about how Nova 3 presents all its information to the user. You'll get an overview of how Nova 3 skins work, understanding seamless substitution for skins and using HTML, CSS and PHP to change the way your skin looks.
 
-- Anatomy of a Nova 3 skin
+- Intro to Skin Anatomy
+	- The design folder
+	- Custom.css
+	- Style.css
+	- Login changes
+	- Admin changes
 - Using CSS to make simple changes to a Nova site
 - Understanding seamless substitution for skins
 - Creating your own view files
@@ -23,6 +28,7 @@ With a solid foundation from our 100-level tutorials, you can step up to learnin
 - PHP
 - Custom 404 pages
 - QuickInstall for skins
+- Using partials
 
 ## 300-Level Tutorials
 
@@ -33,12 +39,17 @@ By now, you know your way around Nova 3's skins and you're looking to do some mo
 - Taming jQuery
 - Responsive design
 - Custom options for skins
+- Intermediate Skin Anatomy
+	- Pages
+	- Templates
 
 ## 400-Level Tutorials
 
 Not for the weak! These tutorials are the end-all-be-all of Nova 3 skinning. You'll learn how to leverage Nova's LESS files to make big changes to your skins quickly as well as tapping into some of Nova 3's core skinning architecture to make wide-ranging custom changes. There's no turning back now!
 
 - LESS: Empower Your Stylesheets
-- Changing structure files
-- Changing template files
+- Advanced Skin Anatomy
+	- Structures
+	- JS views
+	- Ajax views
 - Changing the way Nova processes its skin files

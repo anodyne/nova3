@@ -51,7 +51,7 @@ class Settings extends Model {
 	 * @param	bool	Whether to pull the value only (applies to single key requests only)
 	 * @return	mixed
 	 */
-	public static function getItems($keys = false, $valueOnly = true)
+	public static function getSettings($keys = false, $valueOnly = true)
 	{
 		// Check the cache
 		$items = Cache::get('nova.settings');

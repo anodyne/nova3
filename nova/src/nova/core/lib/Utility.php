@@ -50,7 +50,7 @@ class Utility {
 			return Sentry::getUser()->getPreferenceItem('rank');
 		}
 
-		return Settings::getItems('rank');
+		return Settings::getSettings('rank');
 	}
 
 	/**
@@ -60,14 +60,20 @@ class Utility {
 	 * @param	string	The section
 	 * @return	string
 	 */
-	public function getSkin($section)
+	public function getSkin($section = false)
 	{
+		if ($section === false)
+		{
+			// Figure out what section we're in
+			$section = (Request::is('admin/*')) ? 'admin' : 'main';
+		}
+
 		if (Sentry::check())
 		{
 			return Sentry::getUser()->getPreferenceItem("skin_{$section}");
 		}
 
-		return Settings::getItems("skin_{$section}");
+		return Settings::getSettings("skin_{$section}");
 	}
 
 	/**
@@ -96,7 +102,7 @@ class Utility {
 			if ($updateServer !== null)
 			{
 				// Grab the update setting preference
-				$updatePref = (int) Settings::getItems('updates');
+				$updatePref = (int) Settings::getSettings('updates');
 
 				// If the admin has ignored this version, stop execution
 				if (version_compare($updateServer->version, $sys->version_ignore, '=='))

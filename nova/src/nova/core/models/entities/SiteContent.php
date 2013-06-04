@@ -104,7 +104,7 @@ class SiteContent extends Model {
 					foreach ($arr[2] as $k => $v)
 					{
 						// Get the item from the settings table
-						$replace = \Settings::getItems($v);
+						$replace = \Settings::getSettings($v);
 						
 						// Set the new content
 						$content = str_replace($arr[0][$k], $replace, $content);

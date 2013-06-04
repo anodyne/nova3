@@ -53,5 +53,5 @@
 		</table>
 	@endforeach
 @else
-	<p class="alert">{{ lang('error.notFound', langConcat('access tasks')) }}</p>
+	{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('access tasks'))]) }}
 @endif
