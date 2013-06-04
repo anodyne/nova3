@@ -74,47 +74,16 @@ class Task extends Model {
 		parent::boot();
 
 		// Get all the aliases
-		$classes = Config::get('app.aliases');
+		$a = Config::get('app.aliases');
 
-		// Create event
-		Event::listen(
-			"eloquent.creating: {$classes['AccessTask']}",
-			"{$classes['AccessTaskEventHandler']}@beforeCreate"
-		);
-		Event::listen(
-			"eloquent.created: {$classes['AccessTask']}",
-			"{$classes['AccessTaskEventHandler']}@afterCreate"
-		);
-
-		// Update Event
-		Event::listen(
-			"eloquent.updating: {$classes['AccessTask']}",
-			"{$classes['AccessTaskEventHandler']}@beforeUpdate"
-		);
-		Event::listen(
-			"eloquent.updated: {$classes['AccessTask']}",
-			"{$classes['AccessTaskEventHandler']}@afterUpdate"
-		);
-
-		// Delete events
-		Event::listen(
-			"eloquent.deleting: {$classes['AccessTask']}",
-			"{$classes['AccessTaskEventHandler']}@beforeDelete"
-		);
-		Event::listen(
-			"eloquent.deleted: {$classes['AccessTask']}",
-			"{$classes['AccessTaskEventHandler']}@afterDelete"
-		);
-
-		// Save events
-		Event::listen(
-			"eloquent.saving: {$classes['AccessTask']}",
-			"{$classes['AccessTaskEventHandler']}@beforeSave"
-		);
-		Event::listen(
-			"eloquent.saved: {$classes['AccessTask']}",
-			"{$classes['AccessTaskEventHandler']}@afterSave"
-		);
+		Event::listen("eloquent.creating: {$a['AccessTask']}", "{$a['AccessTaskEventHandler']}@beforeCreate");
+		Event::listen("eloquent.created: {$a['AccessTask']}", "{$a['AccessTaskEventHandler']}@afterCreate");
+		Event::listen("eloquent.updating: {$a['AccessTask']}", "{$a['AccessTaskEventHandler']}@beforeUpdate");
+		Event::listen("eloquent.updated: {$a['AccessTask']}", "{$a['AccessTaskEventHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$a['AccessTask']}", "{$a['AccessTaskEventHandler']}@beforeDelete");
+		Event::listen("eloquent.deleted: {$a['AccessTask']}", "{$a['AccessTaskEventHandler']}@afterDelete");
+		Event::listen("eloquent.saving: {$a['AccessTask']}", "{$a['AccessTaskEventHandler']}@beforeSave");
+		Event::listen("eloquent.saved: {$a['AccessTask']}", "{$a['AccessTaskEventHandler']}@afterSave");
 	}
 
 }

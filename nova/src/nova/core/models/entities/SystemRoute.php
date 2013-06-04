@@ -35,13 +35,16 @@ class SystemRoute extends Model {
 		parent::boot();
 
 		// Get all the aliases
-		$classes = Config::get('app.aliases');
+		$a = Config::get('app.aliases');
 
-		Event::listen("eloquent.created: {$classes['SystemRoute']}", "{$classes['SystemRouteHandler']}@afterCreate");
-		Event::listen("eloquent.updated: {$classes['SystemRoute']}", "{$classes['SystemRouteHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$classes['SystemRoute']}", "{$classes['SystemRouteHandler']}@beforeDelete");
-		Event::listen("eloquent.saving: {$classes['SystemRoute']}", "{$classes['SystemRouteHandler']}@beforeSave");
-		Event::listen("eloquent.saved: {$classes['SystemRoute']}", "{$classes['SystemRouteHandler']}@afterSave");
+		Event::listen("eloquent.creating: {$a['SystemRoute']}", "{$a['SystemRouteHandler']}@beforeCreate");
+		Event::listen("eloquent.created: {$a['SystemRoute']}", "{$a['SystemRouteHandler']}@afterCreate");
+		Event::listen("eloquent.updating: {$a['SystemRoute']}", "{$a['SystemRouteHandler']}@beforeUpdate");
+		Event::listen("eloquent.updated: {$a['SystemRoute']}", "{$a['SystemRouteHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$a['SystemRoute']}", "{$a['SystemRouteHandler']}@beforeDelete");
+		Event::listen("eloquent.deleted: {$a['SystemRoute']}", "{$a['SystemRouteHandler']}@afterDelete");
+		Event::listen("eloquent.saving: {$a['SystemRoute']}", "{$a['SystemRouteHandler']}@beforeSave");
+		Event::listen("eloquent.saved: {$a['SystemRoute']}", "{$a['SystemRouteHandler']}@afterSave");
 	}
 
 	/**

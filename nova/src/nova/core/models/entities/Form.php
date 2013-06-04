@@ -67,47 +67,16 @@ class Form extends Model {
 		parent::boot();
 
 		// Get all the aliases
-		$classes = Config::get('app.aliases');
+		$a = Config::get('app.aliases');
 
-		// Create event
-		Event::listen(
-			"eloquent.creating: {$classes['NovaForm']}",
-			"{$classes['FormEventHandler']}@beforeCreate"
-		);
-		Event::listen(
-			"eloquent.created: {$classes['NovaForm']}",
-			"{$classes['FormEventHandler']}@afterCreate"
-		);
-
-		// Update Event
-		Event::listen(
-			"eloquent.updating: {$classes['NovaForm']}",
-			"{$classes['FormEventHandler']}@beforeUpdate"
-		);
-		Event::listen(
-			"eloquent.updated: {$classes['NovaForm']}",
-			"{$classes['FormEventHandler']}@afterUpdate"
-		);
-
-		// Delete events
-		Event::listen(
-			"eloquent.deleting: {$classes['NovaForm']}",
-			"{$classes['FormEventHandler']}@beforeDelete"
-		);
-		Event::listen(
-			"eloquent.deleted: {$classes['NovaForm']}",
-			"{$classes['FormEventHandler']}@afterDelete"
-		);
-
-		// Save events
-		Event::listen(
-			"eloquent.saving: {$classes['NovaForm']}",
-			"{$classes['FormEventHandler']}@beforeSave"
-		);
-		Event::listen(
-			"eloquent.saved: {$classes['NovaForm']}",
-			"{$classes['FormEventHandler']}@afterSave"
-		);
+		Event::listen("eloquent.creating: {$a['NovaForm']}", "{$a['FormEventHandler']}@beforeCreate");
+		Event::listen("eloquent.created: {$a['NovaForm']}", "{$a['FormEventHandler']}@afterCreate");
+		Event::listen("eloquent.updating: {$a['NovaForm']}", "{$a['FormEventHandler']}@beforeUpdate");
+		Event::listen("eloquent.updated: {$a['NovaForm']}", "{$a['FormEventHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$a['NovaForm']}", "{$a['FormEventHandler']}@beforeDelete");
+		Event::listen("eloquent.deleted: {$a['NovaForm']}", "{$a['FormEventHandler']}@afterDelete");
+		Event::listen("eloquent.saving: {$a['NovaForm']}", "{$a['FormEventHandler']}@beforeSave");
+		Event::listen("eloquent.saved: {$a['NovaForm']}", "{$a['FormEventHandler']}@afterSave");
 	}
 
 	/**

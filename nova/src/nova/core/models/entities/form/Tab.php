@@ -57,47 +57,16 @@ class Tab extends Model {
 		parent::boot();
 
 		// Get all the aliases
-		$classes = Config::get('app.aliases');
+		$a = Config::get('app.aliases');
 
-		// Create event
-		Event::listen(
-			"eloquent.creating: {$classes['NovaFormTab']}",
-			"{$classes['FormTabEventHandler']}@beforeCreate"
-		);
-		Event::listen(
-			"eloquent.created: {$classes['NovaFormTab']}",
-			"{$classes['FormTabEventHandler']}@afterCreate"
-		);
-
-		// Update Event
-		Event::listen(
-			"eloquent.updating: {$classes['NovaFormTab']}",
-			"{$classes['FormTabEventHandler']}@beforeUpdate"
-		);
-		Event::listen(
-			"eloquent.updated: {$classes['NovaFormTab']}",
-			"{$classes['FormTabEventHandler']}@afterUpdate"
-		);
-
-		// Delete events
-		Event::listen(
-			"eloquent.deleting: {$classes['NovaFormTab']}",
-			"{$classes['FormTabEventHandler']}@beforeDelete"
-		);
-		Event::listen(
-			"eloquent.deleted: {$classes['NovaFormTab']}",
-			"{$classes['FormTabEventHandler']}@afterDelete"
-		);
-
-		// Save events
-		Event::listen(
-			"eloquent.saving: {$classes['NovaFormTab']}",
-			"{$classes['FormTabEventHandler']}@beforeSave"
-		);
-		Event::listen(
-			"eloquent.saved: {$classes['NovaFormTab']}",
-			"{$classes['FormTabEventHandler']}@afterSave"
-		);
+		Event::listen("eloquent.creating: {$a['NovaFormTab']}", "{$a['FormTabEventHandler']}@beforeCreate");
+		Event::listen("eloquent.created: {$a['NovaFormTab']}", "{$a['FormTabEventHandler']}@afterCreate");
+		Event::listen("eloquent.updating: {$a['NovaFormTab']}", "{$a['FormTabEventHandler']}@beforeUpdate");
+		Event::listen("eloquent.updated: {$a['NovaFormTab']}", "{$a['FormTabEventHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$a['NovaFormTab']}", "{$a['FormTabEventHandler']}@beforeDelete");
+		Event::listen("eloquent.deleted: {$a['NovaFormTab']}", "{$a['FormTabEventHandler']}@afterDelete");
+		Event::listen("eloquent.saving: {$a['NovaFormTab']}", "{$a['FormTabEventHandler']}@beforeSave");
+		Event::listen("eloquent.saved: {$a['NovaFormTab']}", "{$a['FormTabEventHandler']}@afterSave");
 	}
 
 }

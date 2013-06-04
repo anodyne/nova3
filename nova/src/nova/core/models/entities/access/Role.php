@@ -82,47 +82,16 @@ class Role extends Model implements GroupInterface {
 		parent::boot();
 
 		// Get all the aliases
-		$classes = Config::get('app.aliases');
+		$a = Config::get('app.aliases');
 
-		// Create event
-		Event::listen(
-			"eloquent.creating: {$classes['AccessRole']}",
-			"{$classes['AccessRoleEventHandler']}@beforeCreate"
-		);
-		Event::listen(
-			"eloquent.created: {$classes['AccessRole']}",
-			"{$classes['AccessRoleEventHandler']}@afterCreate"
-		);
-
-		// Update Event
-		Event::listen(
-			"eloquent.updating: {$classes['AccessRole']}",
-			"{$classes['AccessRoleEventHandler']}@beforeUpdate"
-		);
-		Event::listen(
-			"eloquent.updated: {$classes['AccessRole']}",
-			"{$classes['AccessRoleEventHandler']}@afterUpdate"
-		);
-
-		// Delete events
-		Event::listen(
-			"eloquent.deleting: {$classes['AccessRole']}",
-			"{$classes['AccessRoleEventHandler']}@beforeDelete"
-		);
-		Event::listen(
-			"eloquent.deleted: {$classes['AccessRole']}",
-			"{$classes['AccessRoleEventHandler']}@afterDelete"
-		);
-
-		// Save events
-		Event::listen(
-			"eloquent.saving: {$classes['AccessRole']}",
-			"{$classes['AccessRoleEventHandler']}@beforeSave"
-		);
-		Event::listen(
-			"eloquent.saved: {$classes['AccessRole']}",
-			"{$classes['AccessRoleEventHandler']}@afterSave"
-		);
+		Event::listen("eloquent.creating: {$a['AccessRole']}", "{$a['AccessRoleEventHandler']}@beforeCreate");
+		Event::listen("eloquent.created: {$a['AccessRole']}", "{$a['AccessRoleEventHandler']}@afterCreate");
+		Event::listen("eloquent.updating: {$a['AccessRole']}", "{$a['AccessRoleEventHandler']}@beforeUpdate");
+		Event::listen("eloquent.updated: {$a['AccessRole']}", "{$a['AccessRoleEventHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$a['AccessRole']}", "{$a['AccessRoleEventHandler']}@beforeDelete");
+		Event::listen("eloquent.deleted: {$a['AccessRole']}", "{$a['AccessRoleEventHandler']}@afterDelete");
+		Event::listen("eloquent.saving: {$a['AccessRole']}", "{$a['AccessRoleEventHandler']}@beforeSave");
+		Event::listen("eloquent.saved: {$a['AccessRole']}", "{$a['AccessRoleEventHandler']}@afterSave");
 	}
 	
 	/**
