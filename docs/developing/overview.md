@@ -30,19 +30,31 @@ DevCenter is an exhaustive resource for everything about developing for Nova 3. 
 - Creating widgets
 - Creating modules
 - Routing
-
-## 300-level Tutorials
-
-- Migrations
+- The Location class
+- The Status class
 - Events
 - QuickInstall for developers
-- Caching
 
-## 400-level Tutorials
+## 300-level Tutorials
 
 - The Eloquent ORM
 	- Basic functions
 	- Collections
-- Entities, Events and Validators, Oh My! Understanding models in Nova 3
-- Model event handlers
+- Understanding models in Nova 3
+	- Entities
+	- Events
+	- Validators
+- Migrations
+- Caching
+	- APC and Memcache
+	- Leveraging caching for custom solutions
+- Access control
+
+## 400-level Tutorials
+
+- Utilizing model event handlers
 - Tapping in to Nova 3's interfaces
+	- Overview
+	- The Media interface
+	- The QuickInstall interface
+	- The Search interface
