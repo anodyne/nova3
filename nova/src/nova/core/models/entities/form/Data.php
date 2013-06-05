@@ -18,6 +18,14 @@ class Data extends Model {
 	);
 
 	/**
+	 * Belongs To: Field
+	 */
+	public function field()
+	{
+		return $this->belongsTo('NovaFormField', 'field_id');
+	}
+
+	/**
 	 * Get specific form data.
 	 *
 	 * @param	string	The form key

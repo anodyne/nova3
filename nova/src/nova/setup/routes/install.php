@@ -46,12 +46,6 @@ Route::group(['prefix' => 'setup/install', 'before' => 'configFileCheck|setupAut
 		RankCatalog::install();
 		SkinCatalog::install();
 		WidgetCatalog::install();
-
-		// Seed the database with dev data if necessary
-		if (Config::get('nova.use_dev_data'))
-		{
-			//Artisan::call('db:seed');
-		}
 		
 		// Clear the entire cache
 		Cache::flush();

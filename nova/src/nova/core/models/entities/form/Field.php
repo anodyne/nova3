@@ -47,6 +47,14 @@ class Field extends Model {
 		return $this->hasMany('NovaFormValue');
 	}
 
+	/**
+	 * Has Many: Data
+	 */
+	public function data()
+	{
+		return $this->hasMany('NovaFormData', 'field_id');
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Model Methods

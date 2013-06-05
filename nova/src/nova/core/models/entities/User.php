@@ -118,6 +118,14 @@ class User extends Model implements UserInterface {
 	}
 
 	/**
+	 * Has Many: User Data
+	 */
+	public function data()
+	{
+		return $this->hasMany('NovaFormData', 'data_id')->where('form_id', 2);
+	}
+
+	/**
 	 * Belongs To Many: Posts (through Post Authors)
 	 */
 	public function posts()
