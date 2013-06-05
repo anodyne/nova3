@@ -10,6 +10,10 @@ DevCenter is an exhaustive resource for everything about developing for Nova 3. 
 	- Arrays and objects
 	- Looping
 - PHP 201
+	- Functions
+	- Classes
+	- Object oriented programming
+- PHP 301
 	- Namespaces
 	- Using statements
 	- Late-static binding
