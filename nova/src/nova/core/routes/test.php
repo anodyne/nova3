@@ -4,9 +4,11 @@ Route::group(array('prefix' => 'test'), function()
 {
 	Route::get('index', function()
 	{
-		$char = Character::find(1);
+		//Cache::forever('nova.settings', Settings::get()->toSimpleObject('key', 'value'));
 
-		s($char->user);
+		s(Cache::get('nova.routes'));
+		s(Cache::get('nova.settings'));
+		//s(Settings::get()->toSimpleObject('key', 'value'));
 	});
 
 	Route::get('partial', function()
