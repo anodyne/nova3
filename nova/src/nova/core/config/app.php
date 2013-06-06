@@ -228,6 +228,7 @@ return array(
 		/**
 		 * Nova Interfaces
 		 */
+		'CacheInterface'			=> 'Nova\Core\Contracts\CacheInterface',
 		'MediaInterface'			=> 'Nova\Core\Contracts\MediaInterface',
 		'QuickInstallInterface'		=> 'Nova\Core\Contracts\QuickInstallInterface',
 		'SearchInterface'			=> 'Nova\Core\Contracts\SearchInterface',
