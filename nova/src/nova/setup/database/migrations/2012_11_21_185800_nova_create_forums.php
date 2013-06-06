@@ -11,10 +11,10 @@ class NovaCreateForums extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('forum_posts', function($t)
+		/*Schema::create('forum_posts', function($t)
 		{
 			$t->increments('id');
-		});
+		});*/
 	}
 
 	/**
@@ -24,7 +24,7 @@ class NovaCreateForums extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('forum_posts');
+		//Schema::drop('forum_posts');
 	}
 
 }

@@ -11,10 +11,10 @@ class NovaCreateWiki extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('wiki_pages', function($t)
+		/*Schema::create('wiki_pages', function($t)
 		{
 			$t->increments('id');
-		});
+		});*/
 	}
 
 	/**
@@ -24,7 +24,7 @@ class NovaCreateWiki extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('wiki_pages');
+		//Schema::drop('wiki_pages');
 	}
 
 }
