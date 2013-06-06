@@ -40,7 +40,7 @@ class Tab extends BaseEventHandler {
 				{
 					// Set the section to have the ID of the newly created tab
 					$section->tab_id = $model->id;
-					$s->save();
+					$section->save();
 				}
 			}
 			else

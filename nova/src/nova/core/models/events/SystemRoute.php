@@ -1,9 +1,10 @@
 <?php namespace Nova\Core\Models\Events;
 
 use SystemEvent;
+use BaseEventHandler;
 use SystemRoute as SystemRouteModel;
 
-class SystemRoute {
+class SystemRoute extends BaseEventHandler {
 	
 	/**
 	 * After create event
