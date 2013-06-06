@@ -4,6 +4,11 @@ class CharacterSeeder extends Seeder {
 
 	public function run()
 	{
+		$this->seedCharacters();
+	}
+
+	protected function seedCharacters()
+	{
 		$charNames = ['Melody Giddings', 'Barbara Cornwall', 'Alberta Shabazz', 'Alice Wiggins', 'Jacob Connors', 'Raymond Narvaez', 'Thomas Fletcher', 'Matt Pierre', 'Ellen Roland', 'Gregory Loeb', 'Mary Hendrix', 'Diana Herrick', 'Suzanne Green', 'Khalilah Gambrell', 'Mike Watson', 'Aimee Reed', 'Nicole Fontenot', 'Eugene Byler', 'Derrick Headrick', 'Walter Buenrostro', 'Armondo Foy', 'Isaac Gravitt', 'Arthur Hodges', 'Keith Shea', 'Gale Gould', 'Emily McCurry', 'Russell Anthony', 'Arthur Perry', 'Walter Greear', 'Amanda Jones', 'Grant Jaramillo', 'Dianne Soucy', 'Stella Olivares', 'Dominique Bogue', 'John Timmons', 'Brad Martini', 'Pauline Cook', 'Wendi Herb', 'Justin Spradlin', 'Dave Wilson', 'Shawn Noble', 'Nathan Williams', 'Frank Bess', 'Sarah Thompson', 'Edward Andrew', 'Kenneth Keffer', 'Deanna Gilmore', 'Francis Thornburg', 'Benjamin Roberson', 'James Dicky'];
 
 		// Run the loop and create 25 characters
@@ -30,6 +35,31 @@ class CharacterSeeder extends Seeder {
 			// Remove the used name
 			unset($charNames[$charKey]);
 		}
+	}
+
+	protected function seedCharacterPromotions()
+	{
+		# code...
+	}
+
+	protected function seedApplications()
+	{
+		# code...
+	}
+
+	protected function seedApplicationReviewers()
+	{
+		# code...
+	}
+
+	protected function seedApplicationRules()
+	{
+		# code...
+	}
+
+	protected function seedApplicationResponses()
+	{
+		# code...
 	}
 
 }

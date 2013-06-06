@@ -4,6 +4,12 @@ class UserSeeder extends Seeder {
 
 	public function run()
 	{
+		$this->seedUsers();
+		$this->seedUserLoas();
+	}
+
+	protected function seedUsers()
+	{
 		$userNames = ['Bennie Duran', 'Jeffery Holmes', 'Billy Williams', 'Tara Carver', 'Evengelina Lisle', 'Lea Johnson', 'Jeffrie Riojas', 'Vivian Valletta', 'Felicia Burnette', 'Nola Thorne', 'Kevin Waters', 'Phyllis Franklin', 'Sheri Starr', 'Richard Hayden', 'Gregory Wheat', 'Gerard Balmer', 'George Motley', 'Raymond Fraga', 'James Kohler', 'Donald Murray', 'Rick Olive', 'Susan Stanton', 'Julie Miller', 'Frank Morales', 'Ruby Stefanski', 'April Rogers', 'Tyrone Anderson', 'James Ali', 'Michael Davila', 'Donna Boyett', 'Rosemary Payne', 'Joyce Overcash', 'Arnold Wagnon', 'Andrew Frazier', 'Ana Lamb', 'Earl Nebel', 'Ronald Wright', 'Clarissa Worth', 'Bennie Rittenhouse', 'Mildred Dumas', 'Burl Terry', 'Mollie Williams', 'Brenda Sanchez', 'Frances Erby', 'Beverly Meeker', 'Bobbye Millard', 'Orlando Riggs', 'Lori Best', 'Kristin Ferguson', 'Phyllis Morales'];
 
 		$roleStatuses = [
@@ -67,6 +73,62 @@ class UserSeeder extends Seeder {
 
 			// Remove the used name
 			unset($userNames[$userKey]);
+		}
+	}
+
+	protected function seedUserLoas()
+	{
+		$loas = [
+			[
+				'user_id'		=> 2,
+				'start_date'	=> Date::createFromDate(2010, 04, 10, 'UTC'),
+				'end_date'		=> Date::createFromDate(2010, 04, 10, 'UTC')->addDays(6),
+				'duration'		=> '5 days',
+				'reason'		=> 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at risus est. Duis eget turpis a nunc dictum bibendum vitae in dui.',
+				'type'			=> 'loa',
+			],
+			[
+				'user_id'		=> 3,
+				'start_date'	=> Date::createFromDate(2010, 08, 22, 'UTC'),
+				'duration'		=> '2 weeks',
+				'reason'		=> 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at risus est. Duis eget turpis a nunc dictum bibendum vitae in dui.',
+				'type'			=> 'loa',
+			],
+			[
+				'user_id'		=> 4,
+				'start_date'	=> Date::createFromDate(2010, 12, 02, 'UTC'),
+				'end_date'		=> Date::createFromDate(2010, 12, 02, 'UTC')->addMonths(2),
+				'duration'		=> '2 months',
+				'reason'		=> 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at risus est. Duis eget turpis a nunc dictum bibendum vitae in dui.',
+				'type'			=> 'eloa',
+			],
+			[
+				'user_id'		=> 5,
+				'start_date'	=> Date::createFromDate(2011, 02, 05, 'UTC'),
+				'duration'		=> '6 months',
+				'reason'		=> 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at risus est. Duis eget turpis a nunc dictum bibendum vitae in dui.',
+				'type'			=> 'eloa',
+			],
+			[
+				'user_id'		=> 9,
+				'start_date'	=> Date::createFromDate(2011, 05, 01, 'UTC'),
+				'duration'		=> '10 days',
+				'reason'		=> 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at risus est. Duis eget turpis a nunc dictum bibendum vitae in dui.',
+				'type'			=> 'loa',
+			],
+			[
+				'user_id'		=> 14,
+				'start_date'	=> Date::createFromDate(2011, 07, 02, 'UTC'),
+				'end_date'		=> Date::createFromDate(2011, 07, 02, 'UTC')->addDays(6),
+				'duration'		=> 'A week',
+				'reason'		=> 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at risus est. Duis eget turpis a nunc dictum bibendum vitae in dui.',
+				'type'			=> 'loa',
+			],
+		];
+
+		foreach ($loas as $loa)
+		{
+			UserLoa::create($loa);
 		}
 	}
 
