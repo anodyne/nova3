@@ -4,8 +4,9 @@ use Cache;
 use Event;
 use Model;
 use Config;
+use CacheInterface;
 
-class SystemRoute extends Model {
+class SystemRoute extends Model implements CacheInterface {
 
 	public $timestamps = false;
 
@@ -47,13 +48,24 @@ class SystemRoute extends Model {
 		Event::listen("eloquent.saved: {$a['SystemRoute']}", "{$a['SystemRouteHandler']}@afterSave");
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| CacheInterface Implementation
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
-	 * Cache the routes.
+	 * Cache the items.
 	 *
+	 * @param	string	Name of the cache item
+	 * @param	mixed	Length (in minutes) to cache; false to cache for forever
 	 * @return	void
 	 */
-	public static function cache()
+	public static function cache($name = 'nova.routes', $length = false)
 	{
+		// Start by flushing the cache
+		static::clearCache($name);
+
 		// Start a new query
 		$query = static::startQuery();
 
@@ -76,11 +88,25 @@ class SystemRoute extends Model {
 			];
 		}
 
-		// Remove the cache
-		Cache::forget('nova.routes');
+		if ($length === false)
+		{
+			Cache::forever($name, $routes);
+		}
+		else
+		{
+			Cache::put($name, $routes, $length);
+		}
+	}
 
-		// Cache the routes
-		Cache::forever('nova.routes', $routes);
+	/**
+	 * Clear the cache items.
+	 *
+	 * @param	string	Name of the cache item to remove
+	 * @return	void
+	 */
+	public static function clearCache($name = 'nova.routes')
+	{
+		Cache::forget($name);
 	}
 
 }

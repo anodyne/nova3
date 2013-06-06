@@ -51,7 +51,7 @@ Route::group(['prefix' => 'setup/install', 'before' => 'configFileCheck|setupAut
 		Cache::flush();
 
 		// Cache the settings
-		Cache::forever('nova.settings', Settings::get()->toSimpleObject('key', 'value'));
+		Settings::cache();
 
 		// Cache the routes
 		SystemRoute::cache();

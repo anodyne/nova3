@@ -5,8 +5,9 @@ use Event;
 use Model;
 use Config;
 use stdClass;
+use CacheInterface;
  
-class Settings extends Model {
+class Settings extends Model implements CacheInterface {
 
 	public $timestamps = false;
 	
@@ -57,7 +58,7 @@ class Settings extends Model {
 		$items = Cache::get('nova.settings');
 
 		// If we have the cache, use it
-		if ($items !== null and $valueOnly)
+		if (($items !== null and $items !== false) and $valueOnly)
 		{
 			if (is_array($keys))
 			{
@@ -128,6 +129,35 @@ class Settings extends Model {
 				$record->save();
 			}
 		}
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| CacheInterface Implementation
+	|--------------------------------------------------------------------------
+	*/
+
+	public static function cache($name = 'nova.settings', $length = false)
+	{
+		// Start by flushing the cache
+		static::clearCache($name);
+
+		// Start a new query
+		$query = static::startQuery();
+
+		if ($length === false)
+		{
+			Cache::forever($name, $query->get()->toSimpleObject('key', 'value'));
+		}
+		else
+		{
+			Cache::put($name, $query->get()->toSimpleObject('key', 'value'), $length);
+		}
+	}
+
+	public static function clearCache($name = 'nova.settings')
+	{
+		Cache::forget($name);
 	}
 
 }
