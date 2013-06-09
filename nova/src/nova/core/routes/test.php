@@ -4,11 +4,7 @@ Route::group(array('prefix' => 'test'), function()
 {
 	Route::get('index', function()
 	{
-		//Cache::forever('nova.settings', Settings::get()->toSimpleObject('key', 'value'));
-
-		s(Cache::get('nova.routes'));
-		s(Cache::get('nova.settings'));
-		//s(Settings::get()->toSimpleObject('key', 'value'));
+		s(Config::get('mail'));
 	});
 
 	Route::get('partial', function()
