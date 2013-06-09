@@ -4,26 +4,20 @@ DevCenter is an exhaustive resource for everything about developing for Nova 3. 
 
 ## 100-level Tutorials
 
+These tutorials are meant for people who have little to no experience PHP and the underlying technologies in Nova 3. These articles should help you get your feet wet before you dive in to Nova 3 development.
+
 - PHP 101
-	- Variables
-	- Logic
-	- Arrays and objects
-	- Looping
+	- Learn about variables, logic, arrays, objects and looping in this basic introduction to PHP.
 - PHP 201
-	- Functions
-	- Classes
-	- Object oriented programming
+	- With some basic information under your belt, we dive into functions, classes and object-oriented programming in PHP.
 - PHP 301
-	- Namespaces
-	- Using statements
-	- Late-static binding
-	- Traits
-	- Closures
+	- The last of the PHP articles, this will delve into some more advanced PHP topics like namespaces, late-static binding, traits and closures to get you up to speed on some of PHP's newest toys.
 - The PSRs
-	- PSR-0
-	- PSR-1
+	- Learn about some of the PHP standards the wider PHP community is adopting.
 - Laravel 4
+	- This elegant, powerful framework is what powers Nova 3 and will give you the tools to do just about anything you want.
 - Composer
+	- Laravel 4 is built on top of many framework-agnostic components and you can use the same tool, Composer, to pull in dependencies for your own projects if you need.
 
 ## 200-level Tutorials
 
