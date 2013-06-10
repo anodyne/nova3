@@ -48,10 +48,13 @@ return array(
 	'decision' => 'decision',
 	'dependency' => "dependency",
 	'dependencies' => "dependencies",
+	'data' => "data",
 
 	'email_address' => "email address",
 	'email_short' => 'email',
 	'experience' => 'experience',
+	'entry' => "entry",
+	'entries' => "entries",
 
 	'field' => "field",
 	'fields' => "fields",

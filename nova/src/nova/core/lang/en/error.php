@@ -3,6 +3,10 @@
 return array(
 	
 	'notFound' => "No :0 found",
+
+	'admin' => [
+		'formViewerNotAllowed' => "This form does not allow using Form Viewer.",
+	],
 	
 	'email' => array(
 		'couldNotSend' => "The email could not be sent for unknown reasons. Please contact the game master.",
