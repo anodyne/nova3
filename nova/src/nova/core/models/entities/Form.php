@@ -53,6 +53,45 @@ class Form extends Model {
 
 	/*
 	|--------------------------------------------------------------------------
+	| Model Scopes
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Scope the query to forms allowing form viewer.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeFormViewer($query)
+	{
+		$query->where('form_viewer', (int) true);
+	}
+
+	/**
+	 * Scope the query to protected forms.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeProtected($query)
+	{
+		$query->where('protected', (int) true);
+	}
+
+	/**
+	 * Scope the query to unprotected forms.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeUnprotected($query)
+	{
+		$query->where('protected', (int) false);
+	}
+
+	/*
+	|--------------------------------------------------------------------------
 	| Model Methods
 	|--------------------------------------------------------------------------
 	*/
