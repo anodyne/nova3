@@ -17,6 +17,12 @@ class Data extends Model {
 		'updated_at',
 	);
 
+	/*
+	|--------------------------------------------------------------------------
+	| Relationships
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
 	 * Belongs To: Field
 	 */
@@ -25,20 +31,39 @@ class Data extends Model {
 		return $this->belongsTo('NovaFormField', 'field_id');
 	}
 
-	/**
-	 * Get specific form data.
-	 *
-	 * @param	string	The form key
-	 * @param	int		The ID of the item
-	 * @return	Collection
-	 */
-	public static function getData($form, $id)
-	{
-		/*// Start a new query
-		$query = static::startQuery();
+	/*
+	|--------------------------------------------------------------------------
+	| Model Scopes
+	|--------------------------------------------------------------------------
+	*/
 
-		return $query->where('form_key', $type)->where('data_id', $id)->get();*/
+	/**
+	 * Scope the query to form data by form.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeForm($query, $form)
+	{
+		$query->where('form_id', $form);
 	}
+
+	/**
+	 * Scope the query to form data by entry ID.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeEntry($query, $id)
+	{
+		$query->where('data_id', $id);
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
 	
 	/**
 	 * Update data in the data table.
