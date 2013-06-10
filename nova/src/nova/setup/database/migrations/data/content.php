@@ -138,6 +138,14 @@ return [
 		'section' => 'form',
 		'page' => 'tabs'
 	],
+	[
+		'key' => 'admin_form_view_header',
+		'label' => 'Form Viewer Header',
+		'content' => "Form Viewer",
+		'type' => 'header',
+		'section' => 'form',
+		'page' => 'view'
+	],
 
 	/**
 	 * admin/rank Headers
@@ -375,6 +383,14 @@ return [
 		'type' => 'title',
 		'section' => 'form',
 		'page' => 'tabs'
+	],
+	[
+		'key' => 'admin_form_view_title',
+		'label' => 'Form Viewer Page Title',
+		'content' => "Form Viewer",
+		'type' => 'title',
+		'section' => 'form',
+		'page' => 'view'
 	],
 
 	/**

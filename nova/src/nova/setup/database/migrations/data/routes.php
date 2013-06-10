@@ -174,6 +174,20 @@ return [
 		'resource'	=> 'Nova\Core\Controllers\Admin\Form@postFields',
 		'protected'	=> (int) true
 	],
+	[
+		'name'		=> 'admin/form/view',
+		'verb'		=> 'get',
+		'uri'		=> 'admin/form/view/{formKey?}',
+		'resource'	=> 'Nova\Core\Controllers\Admin\Form@getView',
+		'protected'	=> (int) true
+	],
+	[
+		'name'		=> 'admin/form/view/detail',
+		'verb'		=> 'get',
+		'uri'		=> 'admin/form/view/{formKey}/detail/{id?}',
+		'resource'	=> 'Nova\Core\Controllers\Admin\Form@getView',
+		'protected'	=> (int) true
+	],
 	
 	/**
 	 * admin/role
