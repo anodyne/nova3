@@ -107,7 +107,7 @@ return [
 	],
 	[
 		'key' => 'date_format',
-		'value' => '%d %B %Y',
+		'value' => 'd M Y',
 		'user_created' => (int) false
 	],
 	[
