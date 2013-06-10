@@ -244,6 +244,7 @@ abstract class Core extends Controller {
 		{
 			$this->layout->template->content = View::make(Location::file($this->_view, $this->skin, 'page'))
 				->with('_icons', $this->icons)
+				->with('_settings', $this->settings)
 				->with((array) $this->_data);
 		}
 		
