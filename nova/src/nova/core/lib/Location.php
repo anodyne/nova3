@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Lib;
 
 use URL;
-use Html;
+use HTML;
 use File;
 use View;
 use Config;
