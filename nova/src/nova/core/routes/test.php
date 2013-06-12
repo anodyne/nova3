@@ -4,7 +4,7 @@ Route::group(array('prefix' => 'test'), function()
 {
 	Route::get('index', function()
 	{
-		s(Config::get('mail'));
+		Cache::forget('nova.content.message.login');
 	});
 
 	Route::get('partial', function()
