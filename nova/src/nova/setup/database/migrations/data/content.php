@@ -509,7 +509,7 @@ return [
 	[
 		'key' => 'login_reset_message',
 		'label' => 'Reset Password Message',
-		'content' => "To reset your password, simply enter your email address. You'll receive an email shortly with a link to confirm your password reset. If you log in to the site before confirming your password reset, the reset will be cancelled.",
+		'content' => "To reset your password, enter your email address below. You'll receive an email with a link to confirm your password reset. If you log in to the site before confirming your password reset, the reset will be cancelled.",
 		'type' => 'message',
 		'section' => 'login',
 		'page' => 'reset',

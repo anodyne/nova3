@@ -36,14 +36,28 @@ return [
 	[
 		'name'		=> 'login',
 		'verb'		=> 'get',
-		'uri'		=> 'login/{error?}',
+		'uri'		=> 'login',
 		'resource'	=> 'Nova\Core\Controllers\Login@getIndex',
 		'protected'	=> (int) true
 	],
 	[
 		'name'		=> 'login',
 		'verb'		=> 'post',
-		'uri'		=> 'login/{error?}',
+		'uri'		=> 'login',
+		'resource'	=> 'Nova\Core\Controllers\Login@postIndex',
+		'protected'	=> (int) true
+	],
+	[
+		'name'		=> 'login/error',
+		'verb'		=> 'get',
+		'uri'		=> 'login/error/{error?}',
+		'resource'	=> 'Nova\Core\Controllers\Login@getIndex',
+		'protected'	=> (int) true
+	],
+	[
+		'name'		=> 'login/error',
+		'verb'		=> 'post',
+		'uri'		=> 'login/error/{error?}',
 		'resource'	=> 'Nova\Core\Controllers\Login@postIndex',
 		'protected'	=> (int) true
 	],
