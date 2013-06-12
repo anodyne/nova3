@@ -110,9 +110,16 @@ class SiteContent extends Model {
 						$content = str_replace($arr[0][$k], $replace, $content);
 					}
 				}
+
+				// Set the page
+				$page = $row->page;
+
+				// Clean it up
+				$page = str_replace('-', '', $page);
+				$page = str_replace('_', '', $page);
 				
 				// Set the items with the content
-				$values[$row->page] = $content;
+				$values[$page] = $content;
 			}
 			
 			// Cache the information
@@ -155,7 +162,7 @@ class SiteContent extends Model {
 			foreach ($type as $t)
 			{
 				// Delete the cached item
-				Cache::forget("content_{$t}_{$section}");
+				Cache::forget("nova.content.{$t}.{$section}");
 				
 				// Now grab that content again (which will automatically re-cache everything)
 				static::getSectionContent($t, $section);
