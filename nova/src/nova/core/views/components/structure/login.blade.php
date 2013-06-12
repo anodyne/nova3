@@ -14,12 +14,18 @@
 
 		<!-- Web fonts styles -->
 		{{ HTML::style('nova/src/nova/assets/css/fonts.css') }}
-		
+
 		<!-- Nova's base styles and any user-defined styles -->
+		@if (is_file(APPPATH.'views/'.$skin.'/design/style.css'))
+			{{ HTML::style('app/views/'.$skin.'/design/style.css') }}
+		@else
+			{{ HTML::style('nova/src/nova/core/views/design/style.css') }}
+		@endif
+		
+		<!-- Nova's base login styles and any user-defined styles -->
 		@if (is_file(APPPATH.'views/'.$skin.'/design/style.login.css'))
 			{{ HTML::style('app/views/'.$skin.'/design/style.login.css') }}
 		@else
-			{{ HTML::style('nova/src/nova/core/views/design/style.css') }}
 			{{ HTML::style('nova/src/nova/core/views/design/style.login.css') }}
 			
 			@if (is_file(APPPATH.'views/'.$skin.'/design/custom.login.css'))
@@ -30,10 +36,6 @@
 	<body>
 		{{ $template }}
 
-		<!--[if lt IE 9]>
-		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-		
 		<!-- Nova's core Javascript -->
 		<?php include SRCPATH.'core/views/components/js/core/login_js.php';?>
 

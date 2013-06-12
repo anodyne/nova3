@@ -1,26 +1,19 @@
 {{ Form::open() }}
-	<div class="control-group {{ ($errors->has('email')) ? 'has-error' : '' }}">
-		<label class="control-label">{{ ucwords(lang("email_address")) }}</label>
+	<div class="control-group">
 		<div class="controls">
-			{{ Form::email('email', null, array('class' => 'span6 input-with-feedback')) }}
-			{{ $errors->first('email', '<p class="text-danger">:message</p>') }}
+			{{ Form::email('email', null, ['placeholder' => ucwords(lang("email_address"))]) }}
 		</div>
 	</div>
 	
-	<div class="control-group {{ ($errors->has('password')) ? 'has-error' : '' }}">
-		<label class="control-label">{{ ucfirst(lang("password")) }}</label>
+	<div class="control-group">
 		<div class="controls">
-			{{ Form::password('password', array('class' => 'span6 input-with-feedback')) }}
-			{{ $errors->first('password', '<p class="text-danger">:message</p>') }}
+			{{ Form::password('password', ['placeholder' => lang("Password")]) }}
 		</div>
 	</div>
 
-	<div class="control-group">
-		<div class="controls">
-			{{ Form::button(ucwords(lang('action.login')), array('class' => 'btn btn-primary btn-block btn-large', 'type' => 'submit')) }}
-			{{ HTML::link('login/reset', lang("short.forgotPassword"), array('class' => 'btn btn-default btn-block')) }}
-			{{ HTML::link('/', lang("short.backToSite"), array('class' => 'btn btn-default btn-block')) }}
-		</div>
-	</div>
 	{{ Form::token() }}
+	{{ Form::button(ucwords(lang('action.login')), ['class' => 'btn btn-primary btn-block btn-large', 'type' => 'submit']) }}
+	
+	{{ HTML::link('login/reset', lang("short.forgotPassword"), ['class' => 'btn btn-default btn-block']) }}
+	{{ HTML::link('/', lang("short.backToSite"), ['class' => 'btn btn-default btn-block']) }}
 {{ Form::close() }}
