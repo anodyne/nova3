@@ -77,7 +77,8 @@ class Login extends LoginBaseController {
 			// Set the flash data
 			$this->_flash[] = array(
 				'status' 	=> $errorStatus,
-				'message' 	=> $errorMsg,
+				'content' 	=> $errorMsg,
+				'class'		=> 'alert-danger',
 			);
 		}
 	}
@@ -111,7 +112,7 @@ class Login extends LoginBaseController {
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
-			return Redirect::to('login/'.self::NOT_FOUND)->withInput();
+			return Redirect::to('login/error/'.self::NOT_FOUND)->withInput();
 		}
 		catch (\Cartalyst\Sentry\Throttling\UserSuspendedException $e)
 		{
@@ -125,13 +126,13 @@ class Login extends LoginBaseController {
 			// Get now
 			$now = Date::now('UTC');
 
-			return Redirect::to('login/'.self::SUSPENDED)
+			return Redirect::to('login/error/'.self::SUSPENDED)
 				->withInput()
 				->with('suspended_time', $suspendedAt->diffInMinutes($now));
 		}
 		catch (\Cartalyst\Sentry\Throttling\UserBannedException $e)
 		{
-			return Redirect::to('login/'.self::BANNED);
+			return Redirect::to('login/error/'.self::BANNED);
 		}
 	}
 
