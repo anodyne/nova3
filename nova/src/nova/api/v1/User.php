@@ -235,6 +235,22 @@ class User extends Base {
 			];
 		}
 
+		// Get the user data from the user form
+		$userForm = [];
+
+		// Loop through the user form and collect the data
+		foreach ($user->data as $d)
+		{
+			if ( ! empty($d->value))
+			{
+				// Set the key
+				$key = strtolower($d->field->label);
+				$key = str_replace(' ', '_', $key);
+
+				$userForm[$key] = $d->value;
+			}
+		}
+
 		// Set the data
 		$data = [
 			'id'				=> $user->id,
@@ -242,6 +258,8 @@ class User extends Base {
 			'email'				=> $user->email,
 			'status'			=> Status::toString($user->status),
 			'role'				=> $user->role->name,
+
+			'user_data'			=> $userForm,
 
 			'dates'				=> [
 				'last_post'		=> $user->last_post->toDateTimeString(),
