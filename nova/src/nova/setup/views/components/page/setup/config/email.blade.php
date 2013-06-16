@@ -7,7 +7,7 @@
 	
 	{{ Form::open(array('url' => 'setup/config/email/write')) }}
 		<div class="row">
-			<div class="col col-lg-3">
+			<div class="col-lg-12">
 				<div class="control-group">
 					<label class="control-label">Email Driver</label>
 					<div class="controls">
