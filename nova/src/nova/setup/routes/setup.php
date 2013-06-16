@@ -791,7 +791,7 @@ Route::group(['prefix' => 'setup/config/email', 'before' => 'configFileCheck|set
 		Session::put('emailPass', $password);
 		Session::put('emailUser', $username);
 		Session::put('emailEncr', $encryption);
-		Session::put('emailSend', $sendmailpath);
+		Session::put('emailSend', $sendmail);
 
 		// Get the file
 		$emailFileContents = File::get(SRCPATH.'setup/generators/mail.php');
