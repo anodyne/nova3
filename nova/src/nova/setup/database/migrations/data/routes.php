@@ -50,14 +50,14 @@ return [
 	[
 		'name'		=> 'login/error',
 		'verb'		=> 'get',
-		'uri'		=> 'login/error/{error?}',
+		'uri'		=> 'login/error/{error}',
 		'resource'	=> 'Nova\Core\Controllers\Login@getIndex',
 		'protected'	=> (int) true
 	],
 	[
 		'name'		=> 'login/error',
 		'verb'		=> 'post',
-		'uri'		=> 'login/error/{error?}',
+		'uri'		=> 'login/error/{error}',
 		'resource'	=> 'Nova\Core\Controllers\Login@postIndex',
 		'protected'	=> (int) true
 	],
@@ -135,14 +135,14 @@ return [
 	[
 		'name'		=> 'admin/form',
 		'verb'		=> 'get',
-		'uri'		=> 'admin/form',
+		'uri'		=> 'admin/form/{formKey?}',
 		'resource'	=> 'Nova\Core\Controllers\Admin\Form@getIndex',
 		'protected'	=> (int) true
 	],
 	[
 		'name'		=> 'admin/form',
 		'verb'		=> 'post',
-		'uri'		=> 'admin/form',
+		'uri'		=> 'admin/form/{formKey?}',
 		'resource'	=> 'Nova\Core\Controllers\Admin\Form@postIndex',
 		'protected'	=> (int) true
 	],
@@ -198,7 +198,7 @@ return [
 	[
 		'name'		=> 'admin/form/view/detail',
 		'verb'		=> 'get',
-		'uri'		=> 'admin/form/view/{formKey}/detail/{id?}',
+		'uri'		=> 'admin/form/view/{formKey}/detail/{id}',
 		'resource'	=> 'Nova\Core\Controllers\Admin\Form@getView',
 		'protected'	=> (int) true
 	],
