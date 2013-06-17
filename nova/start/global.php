@@ -116,11 +116,6 @@ App::error(function(Exception $exception, $code)
 	Log::error($exception);
 });
 
-/**
- * Disable Kint output.
- */
-Kint::enabled(false);
-
 /*
 |--------------------------------------------------------------------------
 | Maintenance Mode Handler
