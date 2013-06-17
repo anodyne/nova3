@@ -97,7 +97,7 @@ return [
 	[
 		'key' => 'admin_routes_header',
 		'label' => 'Route Manager Header',
-		'content' => "Route Manager",
+		'content' => "Routes Manager",
 		'type' => 'header',
 		'section' => 'admin',
 		'page' => 'routes'
