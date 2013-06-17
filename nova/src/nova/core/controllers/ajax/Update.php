@@ -50,37 +50,6 @@ class Update extends AjaxBaseController {
 	}
 
 	/**
-	 * Shows the modal dialog for updating a form.
-	 *
-	 * @param	string	the form key used to figure out which form to edit
-	 * @return	View
-	 */
-	public function action_form($key = '')
-	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('form.update'))
-		{
-			// get the form
-			$form = \Model_Form::getForm($key);
-
-			if ($form !== false)
-			{
-				$data = array(
-					'name' => $form->name,
-					'orientation' => $form->orientation,
-					'id' => $form->id,
-
-					'values' => array(
-						'vertical' => ucfirst(lang('vertical')),
-						'horizontal' => ucfirst(lang('horizontal'))
-					),
-				);
-
-				echo \View::forge(\Location::file('update/form', 'default', 'ajax'), $data);
-			}
-		}
-	}
-
-	/**
 	 * Updates the form field order when the sort function stops.
 	 *
 	 * @return	void
@@ -401,35 +370,6 @@ class Update extends AjaxBaseController {
 	/*****************************************/
 	/*****************************************/
 	/*****************************************/
-
-	/**
-	 * Handles the create and update modals for managing forms.
-	 *
-	 * @param	mixed	Form key
-	 */
-	public function getForm($key = 0)
-	{
-		// Make sure the user is logged in
-		if (Sentry::check())
-		{
-			// Get the user
-			$user = Sentry::getUser();
-
-			// Make sure the user is allowed to access this page
-			if ($user->hasAccess('form.create') or $user->hasAccess('form.update'))
-			{
-				// Get the form
-				$form = \NovaForm::getForm($key);
-
-				// Set the action
-				$action = ($key > 0) ? 'update' : 'create';
-
-				echo View::make(Location::file('update/form', Utility::getSkin(), 'ajax'))
-					->with('form', $form)
-					->with('action', $action);
-			}
-		}
-	}
 
 	/**
 	 * Handles the create and update modals for managing

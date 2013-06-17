@@ -1,6 +1,6 @@
 <div class="btn-group">
 	@if (Sentry::getUser()->hasAccess('form.create'))
-		<a href="#" class="btn btn-success icn-size-16 js-form-action" data-key="0" data-action="create">{{ $_icons['add'] }}</a>
+		<a href="{{ URL::to('admin/form/0') }}" class="btn btn-success icn-size-16">{{ $_icons['add'] }}</a>
 	@endif
 </div>
 
@@ -15,7 +15,7 @@
 						<ul class="dropdown-menu">
 							@if (Sentry::getUser()->hasAccess('form.update'))
 								<li>
-									<a href="#" class="js-form-action" data-key="{{ $form->key }}" data-action="update">
+									<a href="{{ URL::to('admin/form/'.$form->key) }}">
 										{{ lang('Short.edit', lang('form')) }}
 									</a>
 								</li>

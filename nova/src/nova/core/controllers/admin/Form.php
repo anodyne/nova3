@@ -24,33 +24,35 @@ class Form extends AdminBaseController {
 	/**
 	 * Manage dynamic forms.
 	 */
-	public function getIndex()
+	public function getIndex($formKey = false)
 	{
 		// Verify the user is allowed
 		Sentry::getUser()->allowed(['form.create', 'form.edit', 'form.delete'], true);
 
-		// Set the view files
-		$this->_view = 'admin/form/index';
+		// Set the JS view
 		$this->_jsView = 'admin/form/index_js';
 
-		// Get all the forms
-		$this->_data->forms = NovaForm::get();
+		if ($formKey !== false)
+		{
+			// Set the view
+			$this->_view = 'admin/form/form';
 
-		// Build the edit form modal
-		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
-			->with('modalId', 'updateForm')
-			->with('modalHeader', lang('Short.edit', lang('Form')))
-			->with('modalBody', '')
-			->with('modalFooter', false);
+			// Get the form
+			$this->_data->form = NovaForm::getForm($formKey);
 
-		// Build the create form modal
-		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
-			->with('modalId', 'createForm')
-			->with('modalHeader', lang('Short.create', lang('Form')))
-			->with('modalBody', '')
-			->with('modalFooter', false);
+			// Set the action
+			$this->_data->action = ($formKey === '0') ? 'create' : 'update';
+		}
+		else
+		{
+			// Set the view
+			$this->_view = 'admin/form/forms';
+
+			// Get all the forms
+			$this->_data->forms = NovaForm::get();
+		}
 	}
-	public function postIndex()
+	public function postIndex($formKey = false)
 	{
 		// Set up the validation service
 		$validator = new FormValidator;
