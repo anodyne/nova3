@@ -192,14 +192,14 @@ return [
 		'name'		=> 'admin/form/view',
 		'verb'		=> 'get',
 		'uri'		=> 'admin/form/view/{formKey?}',
-		'resource'	=> 'Nova\Core\Controllers\Admin\Form@getView',
+		'resource'	=> 'Nova\Core\Controllers\Admin\FormViewer@getView',
 		'protected'	=> (int) true
 	],
 	[
 		'name'		=> 'admin/form/view/detail',
 		'verb'		=> 'get',
 		'uri'		=> 'admin/form/view/{formKey}/detail/{id}',
-		'resource'	=> 'Nova\Core\Controllers\Admin\Form@getView',
+		'resource'	=> 'Nova\Core\Controllers\Admin\FormViewer@getView',
 		'protected'	=> (int) true
 	],
 	
@@ -316,6 +316,27 @@ return [
 		'resource'	=> 'Nova\Core\Controllers\Ajax\Delete@getFormTab',
 		'protected'	=> (int) true
 	],
+	[
+		'name'		=> 'ajax/delete/form_section',
+		'verb'		=> 'get',
+		'uri'		=> 'ajax/delete/form_section/{id}',
+		'resource'	=> 'Nova\Core\Controllers\Ajax\Delete@getFormSection',
+		'protected'	=> (int) true
+	],
+	[
+		'name'		=> 'ajax/delete/form_field',
+		'verb'		=> 'get',
+		'uri'		=> 'ajax/delete/form_field/{id}',
+		'resource'	=> 'Nova\Core\Controllers\Ajax\Delete@getFormField',
+		'protected'	=> (int) true
+	],
+	[
+		'name'		=> 'ajax/delete/form_value',
+		'verb'		=> 'get',
+		'uri'		=> 'ajax/delete/form_value/{id}',
+		'resource'	=> 'Nova\Core\Controllers\Ajax\Delete@getFormValue',
+		'protected'	=> (int) true
+	],
 
 	/**
 	 * ajax/update
@@ -339,6 +360,27 @@ return [
 		'verb'		=> 'post',
 		'uri'		=> 'ajax/update/form_tab_order',
 		'resource'	=> 'Nova\Core\Controllers\Ajax\Update@postFormTabOrder',
+		'protected'	=> (int) true
+	],
+	[
+		'name'		=> 'ajax/update/form_section_order',
+		'verb'		=> 'post',
+		'uri'		=> 'ajax/update/form_section_order',
+		'resource'	=> 'Nova\Core\Controllers\Ajax\Update@postFormSectionOrder',
+		'protected'	=> (int) true
+	],
+	[
+		'name'		=> 'ajax/update/form_field_order',
+		'verb'		=> 'post',
+		'uri'		=> 'ajax/update/form_field_order',
+		'resource'	=> 'Nova\Core\Controllers\Ajax\Update@postFormFieldOrder',
+		'protected'	=> (int) true
+	],
+	[
+		'name'		=> 'ajax/update/form_value_order',
+		'verb'		=> 'post',
+		'uri'		=> 'ajax/update/form_value_order',
+		'resource'	=> 'Nova\Core\Controllers\Ajax\Update@postFormValueOrder',
 		'protected'	=> (int) true
 	],
 ];
