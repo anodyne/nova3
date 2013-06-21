@@ -4,7 +4,7 @@ Route::group(array('prefix' => 'test'), function()
 {
 	Route::get('index', function()
 	{
-		Cache::forget('nova.content.message.login');
+		s(NovaFormSection::find(7)->fields->toArray());
 	});
 
 	Route::get('partial', function()
