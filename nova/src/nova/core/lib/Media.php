@@ -1,11 +1,28 @@
 <?php namespace Nova\Core\Lib;
 
+use Input;
+use Session;
 use Symfony\Component\Finder\Finder;
 
 class Media {
 	
 	/**
-	 * @var	object	An instance of the model being used
+	 * Acceptable MIME types.
+	 */
+	protected $mimes = [
+		'image/jpeg',
+		'image/png',
+		'image/gif',
+		'image/bmp',
+	];
+
+	/**
+	 * The file size limit in MB.
+	 */
+	protected $fileSizeLimit = 1;
+
+	/**
+	 * An instance of the model being used.
 	 */
 	protected $model;
 
@@ -19,11 +36,48 @@ class Media {
 	 * location and use the passed model to ensure the media
 	 * table has all the information it needs.
 	 *
-	 * @return void
+	 * @param	string	The name of the file
+	 * @return	void
 	 */
-	public function add()
+	public function add($filename)
 	{
-		# code...
+		if (Input::hasFile($filename))
+		{
+			// Get the uploaded file
+			$file = Input::file($filename);
+
+			// Make sure it's an acceptable file type
+			if (in_array($file->getMimeType(), $this->mimes))
+			{
+				// Make sure the file is under 1MB
+				if ($file->getSize() <= '')
+				{
+					// Add the media
+					$upload = $this->model->addMedia($file);
+				}
+				else
+				{
+					// File is too big
+					$flashStatus = 'danger';
+					$flashMessage = lang('error.media.fileTooBig', [$this->fileSizeLimit]);
+				}
+			}
+			else
+			{
+				// Not an acceptable file type
+				$flashStatus = 'danger';
+				$flashMessage = lang('error.media.badFileType');
+			}
+		}
+		else
+		{
+			// File couldn't be uploaded
+			$flashStatus = 'danger';
+			$flashMessage = lang('error.media.notUploaded');
+		}
+
+		Session::flash('flashStatus', $flashStatus);
+		Session::flash('flashMessage', $flashMessage);
 	}
 
 	/**

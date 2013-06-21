@@ -5,8 +5,9 @@ use Event;
 use Model;
 use Config;
 use Status;
+use MediaInterface;
 
-class Character extends Model {
+class Character extends Model implements MediaInterface {
 
 	protected $table = 'characters';
 
@@ -284,6 +285,18 @@ class Character extends Model {
 		}
 
 		return $query->get();
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| MediaInterface Implementation
+	|--------------------------------------------------------------------------
+	*/
+
+	public function addMedia($file)
+	{
+		// Move the file to the right location
+		$file->move(APPPATH.'assets/images/characters');
 	}
 
 }
