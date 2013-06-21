@@ -303,8 +303,8 @@ abstract class Core extends Controller {
 		if (Session::has('flashStatus'))
 		{
 			$this->_flash[] = [
-				'status'	=> Session::get('flashStatus'),
-				'message'	=> Session::get('flashMessage'),
+				'class'		=> 'alert-'.Session::get('flashStatus'),
+				'content'	=> Session::get('flashMessage'),
 			];
 		}
 		
@@ -313,8 +313,6 @@ abstract class Core extends Controller {
 		{
 			foreach ($this->_flash as $flash)
 			{
-				//$this->layout->template->flash.= View::make(Location::file('flash', $this->skin, 'partial'))
-					//->with($flash);
 				$this->layout->template->flash.= partial('common/alert', $flash);
 			}
 		}
