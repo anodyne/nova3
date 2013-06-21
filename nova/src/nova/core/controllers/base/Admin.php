@@ -110,7 +110,7 @@ abstract class Admin extends BaseController {
 
 		// Setup the layout and its data
 		$layout				= View::make(Location::file('admin', $this->skin, 'structure'))->with($vars);
-		$layout->title		= $this->settings->sim_name.' :: ';
+		$layout->title		= $this->settings->sim_name.' &bull; ';
 		$layout->javascript	= false;
 		
 		// Setup the template and its data
