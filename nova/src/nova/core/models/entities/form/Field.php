@@ -4,8 +4,11 @@ use Event;
 use Model;
 use Config;
 use Status;
+use FormTrait;
 
 class Field extends Model {
+
+	use FormTrait;
 	
 	protected $table = 'form_fields';
 
@@ -23,6 +26,12 @@ class Field extends Model {
 		'html_class', 'html_rows', 'placeholder', 'created_at', 'updated_at',
 	);
 
+	/*
+	|--------------------------------------------------------------------------
+	| Relationships
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
 	 * Belongs To: Form
 	 */
@@ -36,7 +45,7 @@ class Field extends Model {
 	 */
 	public function section()
 	{
-		return $this->belongsTo('NovaFormSection');
+		return $this->belongsTo('NovaFormSection', 'section_id');
 	}
 
 	/**
@@ -52,7 +61,7 @@ class Field extends Model {
 	 */
 	public function data()
 	{
-		return $this->hasMany('NovaFormData', 'field_id');
+		return $this->hasMany('NovaFormData');
 	}
 
 	/*
@@ -71,11 +80,16 @@ class Field extends Model {
 		parent::boot();
 
 		// Get all the aliases
-		$classes = Config::get('app.aliases');
+		$a = Config::get('app.aliases');
 
-		/*Event::listen("eloquent.created: {$classes['NovaFormField']}", "{$classes['NovaFormFieldHandler']}@afterCreate");
-		Event::listen("eloquent.updated: {$classes['NovaFormField']}", "{$classes['NovaFormFieldHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$classes['NovaFormField']}", "{$classes['NovaFormFieldHandler']}@beforeDelete");*/
+		Event::listen("eloquent.creating: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@beforeCreate");
+		Event::listen("eloquent.created: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@afterCreate");
+		Event::listen("eloquent.updating: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@beforeUpdate");
+		Event::listen("eloquent.updated: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@beforeDelete");
+		Event::listen("eloquent.deleted: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@afterDelete");
+		Event::listen("eloquent.saving: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@beforeSave");
+		Event::listen("eloquent.saved: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@afterSave");
 	}
 
 	/**

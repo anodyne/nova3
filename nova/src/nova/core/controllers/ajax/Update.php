@@ -54,26 +54,21 @@ class Update extends AjaxBaseController {
 	 *
 	 * @return	void
 	 */
-	public function action_formfield_order()
+	public function postFormFieldOrder()
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('form.update'))
+		if (Sentry::check() and Sentry::getUser()->hasAccess('form.update'))
 		{
-			// get and sanitize the input
-			$fields = \Security::xss_clean(\Input::post('field'));
+			// Get the fields
+			$fields = Input::get('field');
 
+			// Loop through the values
 			foreach ($fields as $key => $value)
 			{
-				// get the field record
-				$record = \Model_Form_Field::find($value);
-
-				// update the order
+				// Get and update the value record
+				$record = \NovaFormField::find($value);
 				$record->order = ($key + 1);
-
-				// save the record
 				$record->save();
 			}
-
-			\SystemEvent::add('user', '[[event.admin.form.field_update|{{'.$record->label.'}}|{{'.$key.'}}]]');
 		}
 	}
 
@@ -148,26 +143,21 @@ class Update extends AjaxBaseController {
 	 *
 	 * @return	void
 	 */
-	public function action_formfieldvalue_order()
+	public function postFormValueOrder()
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('form.update'))
+		if (Sentry::check() and Sentry::getUser()->hasAccess('form.update'))
 		{
-			// get and sanitize the input
-			$values = \Security::xss_clean(\Input::post('value'));
+			// Get the values
+			$values = Input::get('value');
 
+			// Loop through the values
 			foreach ($values as $key => $value)
 			{
-				// get the field record
-				$record = \Model_Form_Value::find($value);
-
-				// update the order
+				// Get and update the value record
+				$record = \NovaFormValue::find($value);
 				$record->order = ($key + 1);
-
-				// save the record
 				$record->save();
 			}
-
-			\SystemEvent::add('user', '[[event.admin.form.field_update|{{'.$record->field->label.'}}|{{'.$key.'}}]]');
 		}
 	}
 
@@ -176,26 +166,21 @@ class Update extends AjaxBaseController {
 	 *
 	 * @return	void
 	 */
-	public function action_formsection_order()
+	public function postFormSectionOrder()
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('form.update'))
+		if (Sentry::check() and Sentry::getUser()->hasAccess('form.update'))
 		{
-			// get and sanitize the input
-			$sections = \Security::xss_clean(\Input::post('section'));
+			// Get the sections
+			$sections = Input::get('section');
 
+			// Loop through the sections
 			foreach ($sections as $key => $value)
 			{
-				// get the field record
-				$record = \Model_Form_Section::find($value);
-
-				// update the order
+				// Get and update the section record
+				$record = \NovaFormSection::find($value);
 				$record->order = ($key + 1);
-
-				// save the record
 				$record->save();
 			}
-
-			\SystemEvent::add('user', '[[event.admin.form.section_update|{{'.$record->name.'}}|{{'.$key.'}}]]');
 		}
 	}
 

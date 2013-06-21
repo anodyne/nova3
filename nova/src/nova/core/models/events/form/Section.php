@@ -1,48 +1,50 @@
 <?php namespace Nova\Core\Models\Events\Form;
 
+/**
+ * Form section event handler.
+ *
+ * afterCreate
+ * When a new section is added, we need to check to see how many sections
+ * exist already. If there's only 1 (i.e. the one we just created) then we
+ * need to update all of the fields for that form to move them in to the
+ * newly created section otherwise we won't have access to edit the fields
+ * any more.
+ *
+ * When a new section is created, we need to check the containing tab's
+ * status to figure out if we should be activating/deactivating the tab.
+ *
+ * afterUpdate
+ * When a section is updated, we need to check that tab's sections to see
+ * how we should handle activating/deactivating tabs based on the sections.
+ *
+ * beforeDelete
+ * When a section is deleted, we need to loop through its tab sections
+ * and see if we should be activating/deactivating any tabs.
+ */
+
 use Status;
-use NovaFormTab;
 use SystemEvent;
-use NovaFormData;
-use NovaFormField;
 use NovaFormSection;
+use BaseEventHandler;
 
-class Section {
+class Section extends BaseEventHandler {
 
-	/**
-	 * When a new section is added, we need to check to see how many sections
-	 * exist already. If there's only 1 (i.e. the one we just created) then we
-	 * need to update all of the fields for that form to move them in to the
-	 * newly created section otherwise we won't have access to edit the fields
-	 * any more.
-	 *
-	 * When a new section is created, we need to check the containing tab's
-	 * status to figure out if we should be activating/deactivating the tab.
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
 	public function afterCreate($model)
 	{
 		// What form are we updating?
-		$form = $model->form_key;
+		$form = $model->form;
 
-		// Count how many sections we have in this key
-		$sections = NovaFormSection::getItems($form);
-
-		if (count($sections) == 1)
+		// We only have the section we just created
+		if ($form->sections->count() == 1)
 		{
-			// Get all the fields for this form
-			$fields = NovaFormField::getFormItems($form);
-
-			if (count($fields) > 0)
+			// We have some orphaned fields
+			if ($form->fields->count() > 0)
 			{
-				foreach ($fields as $f)
+				// Loop through the orphaned fields and add them to the
+				// section we just created
+				foreach ($form->fields as $f)
 				{
-					// Set the field to have the ID of the newly created section
 					$f->section_id = $model->id;
-
-					// Save the record
 					$f->save();
 				}
 			}
@@ -51,44 +53,43 @@ class Section {
 		/**
 		 * Tab cleanup
 		 */
-		$tab = NovaFormTab::find($model->tab_id);
-
-		if ($tab !== null)
+		
+		// The section is assigned to a tab
+		if ($model->tab_id !== null)
 		{
-			if ($tab->sections !== null)
+			// The tab has a section
+			if ($model->tab->sections->count() > 0)
 			{
-				// Loop through the sections and get the information about status
-				foreach ($tab->sections as $s)
+				// Loop through the sections in the tab and get the 
+				// information about their status
+				foreach ($model->tab->sections as $s)
 				{
 					$active[$s->id] = (int) $s->status;
 				}
 
 				// Get a count of the different values
-				$active_count = array_count_values($active);
+				$activeCount = array_count_values($active);
 
 				// If there are no active sections OR the number of actives is more than 0
 				if (in_array(Status::ACTIVE, $active) 
-						or (array_key_exists(1, $active_count) and $active_count[1] > 0))
+						or (array_key_exists(1, $activeCount) and $activeCount[1] > 0))
 				{
-					if ($tab->status === Status::INACTIVE)
+					// This tab was previous disabled, but we need to re-enable it now
+					if ($model->tab->status === Status::INACTIVE)
 					{
-						// There won't be any active sections left, so disable the tab
-						$tab->status = Status::ACTIVE;
-						
-						// Save the record
-						$tab->save();
+						$model->tab->status = Status::ACTIVE;
+						$model->tab->save();
 					}
 				}
 			}
 			else
 			{
-				if ($tab->status === Status::ACTIVE)
+				// The tab was previously enabled but needs to be disabled now
+				// because there are no longer sections in the tab
+				if ($model->tab->status === Status::ACTIVE)
 				{
-					// There are no sections in the tab, so disable it
-					$tab->status = Status::INACTIVE;
-					
-					// Save the record
-					$tab->save();
+					$model->tab->status = Status::INACTIVE;
+					$model->tab->save();
 				}
 			}
 		}
@@ -96,70 +97,65 @@ class Section {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.form.section_create', $model->name, $model->form_key);
+		SystemEvent::addUserEvent(
+			'event.admin.form.item',
+			$model->name,
+			langConcat('form section'),
+			$model->form->name,
+			lang('action.created')
+		);
 	}
 
-	/**
-	 * When a section is updated, we need to check that tab's sections to see
-	 * how we should handle activating/deactivating tabs based on the sections.
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
 	public function afterUpdate($model)
 	{
 		/**
 		 * Tab cleanup
 		 */
-		$tab = NovaFormTab::find($model->tab_id);
 
-		if ($tab !== null)
+		// The section is assigned to a tab
+		if ($model->tab_id !== null)
 		{
-			if ($tab->sections !== null)
+			// The tab has a section
+			if ($model->tab->sections->count() > 0)
 			{
-				// Loop through the sections and get the information about status
-				foreach ($tab->sections as $s)
+				// Loop through the sections and get the 
+				// information about its status
+				foreach ($model->tab->sections as $s)
 				{
 					$active[$s->id] = (int) $s->status;
 				}
 
 				// Get a count of the different values
-				$active_count = array_count_values($active);
+				$activeCount = array_count_values($active);
 
 				// If there are no active sections OR the number of actives is only 1
 				if ( ! in_array(Status::ACTIVE, $active) 
-						or (array_key_exists(1, $active_count) and $active_count[1] == 0))
+						or (array_key_exists(1, $activeCount) and $activeCount[1] == 0))
 				{
-					if ($tab->status === Status::ACTIVE)
+					// Disable a previously enabled tab
+					if ($model->tab->status === Status::ACTIVE)
 					{
-						// There won't be any active sections left, so disable the tab
-						$tab->status = Status::INACTIVE;
-						
-						// Save the record
-						$tab->save();
+						$model->tab->status = Status::INACTIVE;
+						$model->tab->save();
 					}
 				}
 				else
 				{
-					if ($tab->status === Status::INACTIVE)
+					// Enable a previously disabled tab
+					if ($model->tab->status === Status::INACTIVE)
 					{
-						// Make sure the tab is active
-						$tab->status = Status::ACTIVE;
-						
-						// Save the record
-						$tab->save();
+						$model->tab->status = Status::ACTIVE;
+						$model->tab->save();
 					}
 				}
 			}
 			else
 			{
-				if ($tab->status === Status::ACTIVE)
+				// Disable a previously enabled tab
+				if ($model->tab->status === Status::ACTIVE)
 				{
-					// There are no sections in the tab, so disable it
-					$tab->status = Status::INACTIVE;
-					
-					// Save the record
-					$tab->save();
+					$model->tab->status = Status::INACTIVE;
+					$model->tab->save();
 				}
 			}
 		}
@@ -167,60 +163,57 @@ class Section {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.form.section_update', $model->label, $model->form_key);
+		SystemEvent::addUserEvent(
+			'event.admin.form.item',
+			$model->name,
+			langConcat('form section'),
+			$model->form->name,
+			lang('action.updated')
+		);
 	}
 
-	/**
-	 * When a section is deleted, we need to loop through its tab sections
-	 * and see if we should be activating/deactivating any tabs.
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
 	public function beforeDelete($model)
 	{
 		/**
 		 * Tab cleanup
 		 */
-		$tab = NovaFormTab::find($model->tab_id);
 
-		if ($tab !== null)
+		// The section is assigned to a tab
+		if ($model->tab_id !== null)
 		{
-			if ($tab->sections !== null)
+			// The tab has sections
+			if ($model->tab->sections->count() > 0)
 			{
-				// Loop through the sections and get the information about status
-				foreach ($tab->sections as $s)
+				// Loop through the sections and get the
+				// information about its status
+				foreach ($model->tab->sections as $s)
 				{
 					$active[$s->id] = (int) $s->status;
 				}
 
 				// Get a count of the different values
-				$active_count = array_count_values($active);
+				$activeCount = array_count_values($active);
 
 				// If there are no active sections OR the number of actives is less
 				// than 2 (the current section removal would make it 0)
 				if ( ! in_array(Status::ACTIVE, $active) 
-						or (array_key_exists(1, $active_count) and $active_count[1] < 2))
+						or (array_key_exists(1, $activeCount) and $activeCount[1] < 2))
 				{
-					if ($tab->status === Status::ACTIVE)
+					// Disable and previously enabled tab
+					if ($model->tab->status === Status::ACTIVE)
 					{
-						// There won't be any active sections left, so disable the tab
-						$tab->status = Status::INACTIVE;
-						
-						// Save the record
-						$tab->save();
+						$model->tab->status = Status::INACTIVE;
+						$model->tab->save();
 					}
 				}
 			}
 			else
 			{
-				if ($tab->status === Status::ACTIVE)
+				// Disable a previously enabled tab
+				if ($model->tab->status === Status::ACTIVE)
 				{
-					// There are no sections in the tab, so disable it
-					$tab->status = Status::INACTIVE;
-					
-					// Save the record
-					$tab->save();
+					$model->tab->status = Status::INACTIVE;
+					$model->tab->save();
 				}
 			}
 		}
@@ -228,7 +221,13 @@ class Section {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.form.section_delete', $model->label, $model->form_key);
+		SystemEvent::addUserEvent(
+			'event.admin.form.item',
+			$model->name,
+			langConcat('form section'),
+			$model->form->name,
+			lang('action.deleted')
+		);
 	}
 
 }

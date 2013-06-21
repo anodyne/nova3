@@ -1,8 +1,8 @@
 <div class="btn-group">
-	<a href="{{ URL::to('admin/form/tabs/'.Request::segment(4)) }}" class="btn btn-default icn-size-16 tooltip-top" title="{{ lang('Short.back', lang('tabs')) }}">{{ $_icons['back'] }}</a>
+	<a href="{{ URL::to('admin/form/tabs/'.$formKey) }}" class="btn btn-default icn-size-16 tooltip-top" title="{{ lang('Short.back', lang('tabs')) }}">{{ $_icons['back'] }}</a>
 </div>
 
-{{ Form::model($tab, ['url' => 'admin/form/tabs/'.Request::segment(4)]) }}
+{{ Form::model($tab, ['url' => 'admin/form/tabs/'.$formKey]) }}
 	<div class="row">
 		<div class="col col-lg-4">
 			<div class="control-group">

@@ -6,6 +6,7 @@ return array(
 
 	'admin' => [
 		'formViewerNotAllowed' => "This form does not allow using Form Viewer.",
+		'protectedForm' => "This is a protected form and cannot be deleted.",
 	],
 	
 	'email' => array(
@@ -29,5 +30,11 @@ return array(
 			),
 		),
 	),
+
+	'media' => [
+		'badFileType' => "You're only allowed to upload JPEG, PNG, GIF and BMP files!",
+		'fileTooBig' => "Your image exceeds the :0 MB file size limit. Please edit your image or choose another.",
+		'notUploaded' => "Your image could not be uploaded.",
+	],
 
 );

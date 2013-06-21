@@ -38,17 +38,6 @@ class Data extends Model {
 	*/
 
 	/**
-	 * Scope the query to form data by form.
-	 *
-	 * @param	Builder		The query builder
-	 * @return	void
-	 */
-	public function scopeForm($query, $form)
-	{
-		$query->where('form_id', $form);
-	}
-
-	/**
 	 * Scope the query to form data by entry ID.
 	 *
 	 * @param	Builder		The query builder

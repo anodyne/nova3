@@ -4,9 +4,6 @@
 <script type="text/javascript" src="{{ SRCURL }}assets/js/jquery.ui.sortable.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		// Show the first tab
-		$('.nav-tabs a:first').tab('show');
-
 		// This fixes the issue where the row being dragged is compacted.
 		var fixHelper = function(e, ui){
 			ui.children().each(function(){
@@ -22,23 +19,25 @@
 			stop: function(event, ui){
 				$.ajax({
 					type: 'POST',
-					url: "{{ URL::to('ajax/update/formsection_order') }}",
+					url: "{{ URL::to('ajax/update/form_section_order') }}",
 					data: $(this).sortable('serialize')
 				});
 			}
 		}).disableSelection();
+	});
 
-		// What action to take when a section action is clicked
-		$(document).on('click', '.js-section-action', function(){
-			var doaction = $(this).data('action');
-			var id = $(this).data('id');
+	// What action to take when a section action is clicked
+	$(document).on('click', '.js-section-action', function(e){
+		var doaction = $(this).data('action');
+		var id = $(this).data('id');
 
-			if (doaction == 'delete')
-			{
-				//
-			}
+		if (doaction == 'delete')
+		{
+			$('#deleteSection').modal({
+				remote: "{{ URL::to('ajax/delete/form_section') }}/" + id
+			}).modal('show');
+		}
 
-			return false;
-		});
+		e.preventDefault();
 	});
 </script>

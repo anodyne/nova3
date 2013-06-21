@@ -8,9 +8,13 @@ use NovaForm;
 use Redirect;
 use NovaFormTab;
 use NovaFormData;
+use NovaFormField;
 use FormValidator;
+use NovaFormSection;
 use FormTabValidator;
+use FormFieldValidator;
 use AdminBaseController;
+use FormSectionValidator;
 
 class Form extends AdminBaseController {
 
@@ -86,8 +90,8 @@ class Form extends AdminBaseController {
 			// Set the flash info
 			$flashStatus = ($form) ? 'success' : 'danger';
 			$flashMessage = ($form) 
-				? ucfirst(lang('short.alert.success.create', lang('form')))
-				: ucfirst(lang('short.alert.failure.create', lang('form')));
+				? lang('Short.alert.success.create', lang('form'))
+				: lang('Short.alert.failure.create', lang('form'));
 		}
 
 		/**
@@ -108,8 +112,8 @@ class Form extends AdminBaseController {
 			// Set the flash info
 			$flashStatus = ($id) ? 'success' : 'danger';
 			$flashMessage = ($id) 
-				? ucfirst(lang('short.alert.success.update', lang('form')))
-				: ucfirst(lang('short.alert.failure.update', lang('form')));
+				? lang('Short.alert.success.update', lang('form'))
+				: lang('Short.alert.failure.update', lang('form'));
 		}
 
 		/**
@@ -126,17 +130,66 @@ class Form extends AdminBaseController {
 
 			if ($id and ! $form->protected)
 			{
-				// Remove all the tabs, sections, fields and values
+				// Remove all the field data, field values and fields
+				if ($form->fields->count() > 0)
+				{
+					foreach ($form->fields as $field)
+					{
+						// Remove any data
+						if ($field->data->count() > 0)
+						{
+							foreach ($field->data as $data)
+							{
+								$data->delete();
+							}
+						}
+
+						// Remove any field values
+						if ($field->values->count() > 0)
+						{
+							// Remove any values for the field
+							foreach ($field->values as $value)
+							{
+								$value->delete();
+							}
+						}
+
+						// Remove the field
+						$field->delete();
+					}
+				}
+
+				// Remove the field sections
+				if ($form->sections->count() > 0)
+				{
+					foreach ($form->sections as $section)
+					{
+						$section->delete();
+					}
+				}
+
+				// Remove the field tabs
+				if ($form->tabs->count() > 0)
+				{
+					foreach ($form->tabs as $tab)
+					{
+						$tab->delete();
+					}
+				}
 
 				// Delete the form
 				$item = $form->delete();
-			}
 
-			// Set the flash info
-			$flashStatus = ($id) ? 'success' : 'danger';
-			$flashMessage = ($id) 
-				? ucfirst(lang('short.alert.success.delete', lang('form')))
-				: ucfirst(lang('short.alert.failure.delete', lang('form')));
+				// Set the flash info
+				$flashStatus = 'success';
+				$flashMessage = lang('Short.alert.success.delete', lang('form'));
+			}
+			else
+			{
+				// Form is protected
+				$flashStatus = 'danger';
+				$flashMessage = lang('error.admin.protectedForm');
+			}
 		}
 
 		return Redirect::to('admin/form')
@@ -156,8 +209,8 @@ class Form extends AdminBaseController {
 		// Pass along the form key to the view
 		$this->_data->formKey = $formKey;
 
-		// Get the form
-		$form = NovaForm::getForm($formKey);
+		// Get the tabs
+		$tabs = NovaFormTab::key($formKey)->get();
 
 		// If there isn't an ID, show all the tabs
 		if ($id === false)
@@ -165,9 +218,9 @@ class Form extends AdminBaseController {
 			// Set up the variables
 			$this->_data->tabs = false;
 
-			if ($form->tabs->count() > 0)
+			if ($tabs->count() > 0)
 			{
-				foreach ($form->tabs as $tab)
+				foreach ($tabs as $tab)
 				{
 					$this->_data->tabs[] = $tab;
 				}
@@ -321,57 +374,334 @@ class Form extends AdminBaseController {
 			->with('flashMessage', $flashMessage);
 	}
 
-	public function getView($formKey = false, $id = false)
+	public function getSections($formKey, $id = false)
 	{
 		// Verify the user is allowed
 		Sentry::getUser()->allowed(['form.create', 'form.edit', 'form.delete'], true);
 
-		// Set the JS view
-		$this->_jsView = 'admin/form/view_js';
+		// Set the view files
+		$this->_view = 'admin/form/sections';
+		$this->_jsView = 'admin/form/sections_js';
 
-		// If we don't have a form, show all the forms
-		if ($formKey === false)
+		// Pass along the form key to the view
+		$this->_data->formKey = $formKey;
+
+		// Get the form sections
+		$sections = NovaFormSection::key($formKey)->get();
+
+		// If there isn't an ID, show all the sections
+		if ($id === false)
 		{
-			// Set the view file
-			$this->_view = 'admin/form/formviewer_all';
+			// Set up the variables
+			$this->_data->sections = false;
 
-			// Get all the forms
-			$this->_data->forms = NovaForm::formViewer()->get();
-		}
-
-		// If we do have a form, show all the records
-		if ($formKey !== false)
-		{
-			// Get the form
-			$this->_data->form = $form = NovaForm::getForm($formKey);
-
-			// If we don't have an ID, show all the records
-			if ($id === false)
+			if ($sections->count() > 0)
 			{
-				// Set the view file
-				$this->_view = 'admin/form/formviewer_one';
-
-				// Get the entries
-				$this->_data->entries = NovaFormData::form($form->id)
-					->group('data_id')
-					->orderDesc('created_at')
-					->get();
-			}
-
-			// If we have an ID, show that record
-			if ($id !== false)
-			{
-				// Set the view file
-				$this->_view = 'admin/form/formviewer_detail';
-
-				// Get the entry
-				$this->_data->entry = NovaFormData::form($form->id)->entry($id)->get();
+				foreach ($sections as $section)
+				{
+					$this->_data->sections[] = $section;
+				}
 			}
 		}
+		else
+		{
+			// Set the view
+			$this->_view = 'admin/form/sections_action';
+
+			// Get all the tabs
+			$this->_data->tabs = NovaFormTab::key($formKey)->get()->toSimpleArray('id', 'name');
+
+			// Get the section
+			$this->_data->section = NovaFormSection::find($id);
+
+			// Clear out the message for this page
+			$this->_data->message = false;
+
+			// ID 0 means a new section, anything else edits an existing section
+			if ((int) $id === 0)
+			{
+				// Set the action
+				$this->_data->action = 'create';
+			}
+			else
+			{
+				// Set the action
+				$this->_data->action = 'update';
+
+				// If we don't have a section, redirect to the creation screen
+				if ($this->_data->section === null)
+				{
+					Redirect::to("admin/form/sections/{$formKey}/0");
+				}
+
+				// If the section isn't part of this form, redirect them
+				if ($this->_data->section->form->key != $formKey)
+				{
+					Redirect::to("admin/form/sections/{$this->_data->section->form->key}/{$id}");
+				}
+			}
+		}
+
+		// Build the delete section modal
+		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+			->with('modalId', 'deleteSection')
+			->with('modalHeader', lang('Short.delete', langConcat('Form Section')))
+			->with('modalBody', '')
+			->with('modalFooter', false);
 	}
-	public function deleteView($formKey, $id)
+	public function postSections($formKey)
 	{
-		# code...
+		// Get the action
+		$action = e(Input::get('action'));
+
+		// Get the current user
+		$user = Sentry::getUser();
+
+		// Set up the validation service
+		$validator = new FormSectionValidator;
+
+		// If the validation fails, stop and go back
+		if ( ! $validator->passes())
+		{
+			if ($action == 'delete')
+			{
+				// Set the flash message
+				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
+				$flashMessage.= implode(' ', $validator->getErrors()->all());
+
+				return Redirect::to('admin/form/sections')
+					->with('flashStatus', 'danger')
+					->with('flashMessage', $flashMessage);
+			}
+			
+			return Redirect::back()->withInput()->withErrors($validator->getErrors());
+		}
+
+		// Get the form
+		$form = NovaForm::getForm($formKey);
+
+		/**
+		 * Create a form section.
+		 */
+		if ($user->hasAccess('form.create') and $action == 'create')
+		{
+			// Create the form section
+			$item = $form->sections()->save(new NovaFormSection(Input::all()));
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.create', langConcat('form section'))
+				: lang('Short.alert.failure.create', langConcat('form section'));
+		}
+
+		/**
+		 * Edit a form section.
+		 */
+		if ($user->hasAccess('form.update') and $action == 'update')
+		{
+			// Get the ID
+			$id = e(Input::get('id'));
+			$id = (is_numeric($id)) ? $id : false;
+
+			// Get the section
+			$section = NovaFormSection::find($id);
+
+			// Update the form section
+			$item = $section->update(Input::all());
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.update', langConcat('form section'))
+				: lang('Short.alert.failure.update', langConcat('form section'));
+		}
+
+		/**
+		 * Delete the form section.
+		 */
+		if ($user->hasAccess('form.delete') and $action == 'delete')
+		{
+			// Get the ID we're deleting
+			$id = e(Input::get('id'));
+
+			// Get the new section ID
+			$newSectionId = e(Input::get('new_section_id'));
+
+			// Get the section we're deleting
+			$section = NovaFormSection::find($id);
+
+			if ($section->fields->count() > 0)
+			{
+				// Loop through the fields and update them
+				foreach ($section->fields as $field)
+				{
+					// Update the section ID
+					$field->section_id = $newSectionId;
+					$field->save();
+				}
+			}
+
+			// Delete the section
+			$item = $section->delete();
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.delete', langConcat('form section'))
+				: lang('Short.alert.failure.delete', langConcat('form section'));
+		}
+
+		return Redirect::to("admin/form/sections/{$formKey}")
+			->with('flashStatus', $flashStatus)
+			->with('flashMessage', $flashMessage);
+	}
+
+	public function getFields($formKey, $id = false)
+	{
+		// Verify the user is allowed
+		Sentry::getUser()->allowed(['form.create', 'form.edit', 'form.delete'], true);
+
+		// Set the view files
+		$this->_view = 'admin/form/fields';
+		$this->_jsView = 'admin/form/fields_js';
+
+		// Pass along the form key to the view
+		$this->_data->formKey = $formKey;
+
+		// If there isn't an ID, show all the sections
+		if ($id === false)
+		{
+			// Get the form fields
+			$fields = NovaFormField::key($formKey)->get();
+
+			// Set up the variables
+			$this->_data->fields = false;
+
+			if ($fields->count() > 0)
+			{
+				foreach ($fields as $field)
+				{
+					$this->_data->fields[] = $field;
+				}
+			}
+		}
+		else
+		{
+			// Set the view
+			$this->_view = 'admin/form/sections_action';
+
+			// Get all the tabs
+			$this->_data->tabs = NovaFormTab::key($formKey)->get()->toSimpleArray('id', 'name');
+
+			// Get the section
+			$this->_data->section = NovaFormSection::find($id);
+
+			// Clear out the message for this page
+			$this->_data->message = false;
+
+			// ID 0 means a new section, anything else edits an existing section
+			if ((int) $id === 0)
+			{
+				// Set the action
+				$this->_data->action = 'create';
+			}
+			else
+			{
+				// Set the action
+				$this->_data->action = 'update';
+
+				// If we don't have a section, redirect to the creation screen
+				if ($this->_data->section === null)
+				{
+					Redirect::to("admin/form/sections/{$formKey}/0");
+				}
+
+				// If the section isn't part of this form, redirect them
+				if ($this->_data->section->form->key != $formKey)
+				{
+					Redirect::to("admin/form/sections/{$this->_data->section->form->key}/{$id}");
+				}
+			}
+		}
+
+		// Build the delete section modal
+		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+			->with('modalId', 'deleteField')
+			->with('modalHeader', lang('Short.delete', langConcat('Form Field')))
+			->with('modalBody', '')
+			->with('modalFooter', false);
+	}
+	public function postFields()
+	{
+		// get the action
+		$action = \Security::xss_clean(\Input::post('action'));
+
+		// get the ID from the POST
+		$field_id = \Security::xss_clean(\Input::post('id'));
+
+		if (\Sentry::user()->hasAccess('form.delete') and $action == 'delete')
+		{
+			// delete the field
+			$item = \Model_Form_Field::deleteItem($field_id);
+
+			if ($item)
+			{
+				$this->_flash[] = array(
+					'status' 	=> 'success',
+					'message' 	=> ucfirst(lang('short.alert.success.delete', lang('field'))),
+				);
+			}
+			else
+			{
+				$this->_flash[] = array(
+					'status' 	=> 'danger',
+					'message' 	=> ucfirst(lang('short.alert.failure.delete', lang('field'))),
+				);
+			}
+		}
+
+		if (\Sentry::user()->hasAccess('form.update') and $action == 'add')
+		{
+			// add the field
+			$item = \Model_Form_Field::createItem(\Input::post());
+
+			if ($item)
+			{
+				$this->_flash[] = array(
+					'status' 	=> 'success',
+					'message'	=> ucfirst(lang('short.alert.success.create', lang('field'))),
+				);
+			}
+			else
+			{
+				$this->_flash[] = array(
+					'status' 	=> 'danger',
+					'message'	=> ucfirst(lang('short.alert.failure.create', lang('field'))),
+				);
+			}
+		}
+
+		if (\Sentry::user()->hasAccess('form.update') and $action == 'update')
+		{
+			// update the field
+			$item = \Model_Form_Field::updateItem($field_id, \Input::post());
+
+			if ($item)
+			{
+				$this->_flash[] = array(
+					'status' 	=> 'success',
+					'message' 	=> ucfirst(lang('short.alert.success.update', lang('field'))),
+				);
+			}
+			else
+			{
+				$this->_flash[] = array(
+					'status' 	=> 'danger',
+					'message' 	=> ucfirst(lang('short.alert.failure.update', lang('field'))),
+				);
+			}
+		}
 	}
 
 }

@@ -19,4 +19,4 @@
 		{{ Form::hidden('id', $id) }}
 		{{ Form::hidden('action', 'delete') }}
 	</div>
-</form>
+{{ Form::close() }}

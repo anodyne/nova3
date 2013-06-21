@@ -85,28 +85,27 @@ class Delete extends AjaxBaseController {
 		}
 	}
 
-	public function action_formsection($id)
+	public function getFormSection($id)
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('form.delete'))
+		if (Sentry::check() and Sentry::getUser()->hasAccess('form.delete'))
 		{
-			// get the section
-			$section = \Model_Form_Section::find($id);
-
-			// get all the sections
-			$sections = \Model_Form_Section::getItems($section->form_key);
-
-			// remove the section we are deleting
-			unset($sections[$id]);
+			// Get the section we're deleting
+			$section = \NovaFormSection::find($id);
 
 			if ($section !== null)
 			{
-				$data = array(
-					'name' => $section->name,
-					'id' => $section->id,
-					'sections' => $sections,
-				);
+				// Get all the sections
+				$sections = $section->form->sections->toSimpleArray('id', 'name');
 
-				echo \View::forge(\Location::file('delete/section', \Utility::getSkin(), 'ajax'), $data);
+				// Remove the section we are deleting
+				unset($sections[$id]);
+
+				echo View::make(Location::file('delete/section', Utility::getSkin(), 'ajax'))
+					->with('name', $section->name)
+					->with('id', $section->id)
+					->with('fields', $section->fields->count())
+					->with('sections', $sections)
+					->with('formKey', $section->form->key);
 			}
 		}
 	}
@@ -118,14 +117,14 @@ class Delete extends AjaxBaseController {
 			// Get the tab we're deleting
 			$tab = \NovaFormTab::find($id);
 
-			// Get all the tabs
-			$tabs = $tab->form->tabs->toSimpleArray('id', 'name');
-
-			// Remove the tab we are deleting
-			unset($tabs[$id]);
-
 			if ($tab !== null)
 			{
+				// Get all the tabs
+				$tabs = $tab->form->tabs->toSimpleArray('id', 'name');
+
+				// Remove the tab we are deleting
+				unset($tabs[$id]);
+
 				echo View::make(Location::file('delete/tab', Utility::getSkin(), 'ajax'))
 					->with('name', $tab->name)
 					->with('id', $tab->id)

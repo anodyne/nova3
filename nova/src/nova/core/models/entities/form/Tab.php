@@ -3,8 +3,11 @@
 use Event;
 use Model;
 use Config;
+use FormTrait;
 
 class Tab extends Model {
+
+	use FormTrait;
 	
 	protected $table = 'form_tabs';
 

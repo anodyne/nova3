@@ -3,8 +3,11 @@
 use Event;
 use Model;
 use Config;
+use FormTrait;
 
 class Section extends Model {
+
+	use FormTrait;
 	
 	protected $table = 'form_sections';
 
@@ -19,10 +22,24 @@ class Section extends Model {
 		'updated_at',
 	);
 
+	/*
+	|--------------------------------------------------------------------------
+	| Relationships
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Belongs To: Form
+	 */
+	public function form()
+	{
+		return $this->belongsTo('NovaForm', 'form_id');
+	}
+
 	/**
 	 * Belongs To: Tab
 	 */
-	/*public function tab()
+	public function tab()
 	{
 		return $this->belongsTo('NovaFormTab', 'tab_id');
 	}
@@ -30,9 +47,9 @@ class Section extends Model {
 	/**
 	 * Has Many: Fields
 	 */
-	/*public function fields()
+	public function fields()
 	{
-		return $this->hasMany('NovaFormField', 'field_id');
+		return $this->hasMany('NovaFormField');
 	}
 
 	/*
@@ -46,32 +63,21 @@ class Section extends Model {
 	 *
 	 * @return	void
 	 */
-	/*public static function boot()
+	public static function boot()
 	{
 		parent::boot();
 
 		// Get all the aliases
-		$classes = Config::get('app.aliases');
+		$a = Config::get('app.aliases');
 
-		/*Event::listen("eloquent.created: {$classes['NovaFormSection']}", "{$classes['NovaFormSectionHandler']}@afterCreate");
-		Event::listen("eloquent.updated: {$classes['NovaFormSection']}", "{$classes['NovaFormSectionHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$classes['NovaFormSection']}", "{$classes['NovaFormSectionHandler']}@beforeDelete");*/
-	//}
-
-	/**
-	 * Get sections.
-	 *
-	 * @param	string	The form key
-	 * @return	array
-	 */
-	/*public static function getItems($key)
-	{
-		// Start a new query
-		$query = static::startQuery();
-
-		$items = $query->where('form_id', $key)->orderBy('name', 'asc')->get();
-
-		return $items->toSimpleArray();
-	}*/
+		Event::listen("eloquent.creating: {$a['NovaFormSection']}", "{$a['FormSectionEventHandler']}@beforeCreate");
+		Event::listen("eloquent.created: {$a['NovaFormSection']}", "{$a['FormSectionEventHandler']}@afterCreate");
+		Event::listen("eloquent.updating: {$a['NovaFormSection']}", "{$a['FormSectionEventHandler']}@beforeUpdate");
+		Event::listen("eloquent.updated: {$a['NovaFormSection']}", "{$a['FormSectionEventHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$a['NovaFormSection']}", "{$a['FormSectionEventHandler']}@beforeDelete");
+		Event::listen("eloquent.deleted: {$a['NovaFormSection']}", "{$a['FormSectionEventHandler']}@afterDelete");
+		Event::listen("eloquent.saving: {$a['NovaFormSection']}", "{$a['FormSectionEventHandler']}@beforeSave");
+		Event::listen("eloquent.saved: {$a['NovaFormSection']}", "{$a['FormSectionEventHandler']}@afterSave");
+	}
 
 }

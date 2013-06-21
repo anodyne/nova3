@@ -48,7 +48,8 @@ return array(
 			'useEmailHelp' => "When a user fills out the form, the results will be emailed to the addressed specified below.",
 			'emailAddresses' => "Email Addresses to Send Results To",
 			
-			'tabUpdateSections' => "Select the new tab that sections in the :0 tab will be moved to.",
+			'deleteUpdates' => "Select the new :0 that :1 in the :2 :0 will be moved to.",
+
 			'tabLinkId' => "Link IDs are used to link a tab with its content on the page. They must be unique and contain no spaces (camelCase is fine) (e.g. one, html, general, characterThings).",
 			'order' => "The order can also be changed by dragging-and-dropping the items on the previous page.",
 
@@ -102,6 +103,8 @@ return array(
 	'pleaseNote' => "please note",
 
 	'refresh' => "Please refresh the page to view your changes.",
+
+	'selectOne' => "Please select a :0",
 
 	'flash' => array(
 		'failure' => ":0 :1 failed, please try again.",

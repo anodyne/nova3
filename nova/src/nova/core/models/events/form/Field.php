@@ -1,24 +1,38 @@
 <?php namespace Nova\Core\Models\Events\Form;
 
-use User;
+/**
+ * Form field event handler.
+ *
+ * afterCreate
+ * When a field is created, we need to loop through the various pieces and
+ * make sure that data records are added.
+ *
+ * When a field is created, we need to check the containing section to see
+ * how we should handle activating/deactivating the section.
+ *
+ * afterUpdate
+ * When a field is updated, we need to grab the section and do some checks
+ * to see if we should be activating or deactivating the section because of
+ * the number of fields or the number of active fields.
+ *
+ * beforeDelete
+ * When a field is deleted, we need to loop through and remove all data
+ * associated with that field.
+ *
+ * When a field is deleted, we need to loop through and remove any values
+ * associated with that field.
+ *
+ * Check what deleting the field will do to the active count of fields
+ * in a section and activate/deactivate the section accordingly.
+ */
+
 use Status;
-use Character;
 use SystemEvent;
-use NovaFormData;
 use NovaFormSection;
+use BaseEventHandler;
 
-class Field {
+class Field extends BaseEventHandler {
 
-	/**
-	 * When a field is created, we need to loop through the various pieces and
-	 * make sure that data records are added.
-	 *
-	 * When a field is created, we need to check the containing section to see
-	 * how we should handle activating/deactivating the section.
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
 	public function afterCreate($model)
 	{
 		// What should be in the data?
@@ -105,17 +119,15 @@ class Field {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.form.field_create', $model->name, lang('action.created'));
+		SystemEvent::addUserEvent(
+			'event.admin.form.item',
+			$model->name,
+			langConcat('form field'),
+			$model->form->name,
+			lang('action.created')
+		);
 	}
 
-	/**
-	 * When a field is updated, we need to grab the section and do some checks
-	 * to see if we should be activating or deactivating the section because of
-	 * the number of fields or the number of active fields.
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
 	public function afterUpdate($model)
 	{
 		/**
@@ -180,22 +192,15 @@ class Field {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.form.field_update', $model->label, $model->form_key);
+		SystemEvent::addUserEvent(
+			'event.admin.form.item',
+			$model->name,
+			langConcat('form field'),
+			$model->form->name,
+			lang('action.updated')
+		);
 	}
 
-	/**
-	 * When a field is deleted, we need to loop through and remove all data
-	 * associated with that field.
-	 *
-	 * When a field is deleted, we need to loop through and remove any values
-	 * associated with that field.
-	 *
-	 * Check what deleting the field will do to the active count of fields
-	 * in a section and activate/deactivate the section accordingly.
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
 	public function beforeDelete($model)
 	{
 		/**
@@ -273,7 +278,13 @@ class Field {
 		/**
 		 * System Event
 		 */
-		SystemEvent::addUserEvent('event.admin.form.field_delete', $model->label, $model->form_key);
+		SystemEvent::addUserEvent(
+			'event.admin.form.item',
+			$model->name,
+			langConcat('form field'),
+			$model->form->name,
+			lang('action.deleted')
+		);
 	}
 
 }

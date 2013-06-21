@@ -4,8 +4,11 @@ use Event;
 use Model;
 use Config;
 use Status;
+use FormTrait;
 
 class Form extends Model {
+
+	use FormTrait;
 
 	protected $table = 'forms';
 
