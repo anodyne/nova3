@@ -12,14 +12,14 @@ class RefreshRoutes extends Command {
 	 *
 	 * @var string
 	 */
-	protected $name = 'nova:routes:refresh';
+	protected $name = 'nova:routes';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Refresh the routes cache.';
+	protected $description = 'Refresh the routes from the data migration file.';
 
 	/**
 	 * Create a new command instance.
@@ -38,6 +38,19 @@ class RefreshRoutes extends Command {
 	 */
 	public function fire()
 	{
+		// Clear out the system routes table
+		SystemRoute::where('name', '!=', '')->delete();
+
+		// Grab the routes data file
+		$routes = include SRCPATH.'setup/database/migrations/data/routes.php';
+
+		// Loop through the routes data file and insert the records
+		foreach ($routes as $r)
+		{
+			SystemRoute::create($r);
+		}
+
+		// Re-cache the routes
 		SystemRoute::cache();
 
 		$this->info('Routes cache refreshed!');
