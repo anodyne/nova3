@@ -230,10 +230,15 @@ return array(
 		/**
 		 * Nova Interfaces
 		 */
-		'CacheInterface'			=> 'Nova\Core\Contracts\CacheInterface',
-		'MediaInterface'			=> 'Nova\Core\Contracts\MediaInterface',
-		'QuickInstallInterface'		=> 'Nova\Core\Contracts\QuickInstallInterface',
-		'SearchInterface'			=> 'Nova\Core\Contracts\SearchInterface',
+		'CacheInterface'			=> 'Nova\Core\Interfaces\Cache',
+		'MediaInterface'			=> 'Nova\Core\Interfaces\Media',
+		'QuickInstallInterface'		=> 'Nova\Core\Interfaces\QuickInstall',
+		'SearchInterface'			=> 'Nova\Core\Interfaces\Search',
+
+		/**
+		 * Nova Traits
+		 */
+		'FormTrait'					=> 'Nova\Core\Traits\Form',
 
 		/**
 		 * Nova Model Entities
@@ -337,6 +342,8 @@ return array(
 		'AccessTaskValidator'		=> 'Nova\Core\Models\Validators\Access\Task',
 
 		'FormValidator'				=> 'Nova\Core\Models\Validators\Form',
+		'FormFieldValidator'		=> 'Nova\Core\Models\Validators\Form\Field',
+		'FormSectionValidator'		=> 'Nova\Core\Models\Validators\Form\Section',
 		'FormTabValidator'			=> 'Nova\Core\Models\Validators\Form\Tab',
 
 		'BaseValidator'				=> 'Nova\Core\Models\Validators\Base',
