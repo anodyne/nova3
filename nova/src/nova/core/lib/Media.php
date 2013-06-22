@@ -26,11 +26,6 @@ class Media {
 	 */
 	protected $model;
 
-	public function __construct(string $model)
-	{
-		$this->model = $this->createModel($model);
-	}
-
 	/**
 	 * Add a media item. Will upload the item to the appropriate
 	 * location and use the passed model to ensure the media
@@ -126,25 +121,12 @@ class Media {
 	/**
 	 * Set the model from outside the class.
 	 *
-	 * @param	string	The name of the model
+	 * @param	object	Model instance
 	 * @return	void
 	 */
 	public function setModel($value)
 	{
-		$this->model = $this->createModel($value);
-	}
-
-	/**
-	 * Create a new instance of the model.
-	 *
-	 * @param	string	The model name
-	 * @return	$model
-	 */
-	protected function createModel(string $model)
-	{
-		$class = '\\'.ltrim($model, '\\');
-
-		return new $class;
+		$this->model = $value;
 	}
 
 }

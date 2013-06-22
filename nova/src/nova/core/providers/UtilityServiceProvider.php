@@ -1,5 +1,6 @@
 <?php namespace Nova\Core\Providers;
 
+use Nova\Core\Lib\Media;
 use Nova\Core\Lib\Utility;
 use Nova\Core\Lib\Location;
 use Nova\Core\Lib\Markdown;
@@ -20,6 +21,7 @@ class UtilityServiceProvider extends ServiceProvider {
 		$this->registerMarkdown();
 		$this->registerSystemEvent();
 		$this->registerUtility();
+		$this->registerMedia();
 	}
 
 	protected function registerLocation()
@@ -51,6 +53,14 @@ class UtilityServiceProvider extends ServiceProvider {
 		$this->app['utility'] = $this->app->share(function()
 		{
 			return new Utility;
+		});
+	}
+
+	protected function registerMedia()
+	{
+		$this->app['media'] = $this->app->share(function()
+		{
+			return new Media;
 		});
 	}
 

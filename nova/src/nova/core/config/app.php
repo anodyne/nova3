@@ -215,7 +215,7 @@ return array(
 		'Email'			=> 'Nova\Core\Lib\Email',
 		'Location'		=> 'Nova\Core\Facades\Location',
 		'Markdown'		=> 'Nova\Core\Facades\Markdown',
-		'Media'			=> 'Nova\Core\Lib\Media',
+		'Media'			=> 'Nova\Core\Facades\Media',
 		'Model'			=> 'Nova\Foundation\Database\Eloquent\Model',
 		'Nav'			=> 'Nova\Core\Lib\Nav',
 		'Sentry' 		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
