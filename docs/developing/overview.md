@@ -10,6 +10,7 @@ These tutorials are meant for people who have little to no experience PHP and th
 	- Learn about variables, logic, arrays, objects and looping in this basic introduction to PHP.
 - PHP 201
 	- With some basic information under your belt, we dive into functions, classes and object-oriented programming in PHP.
+	- http://net.tutsplus.com/tutorials/php/from-procedural-to-object-oriented-php/
 - PHP 301
 	- The last of the PHP articles, this will delve into some more advanced PHP topics like namespaces, late-static binding, traits and closures to get you up to speed on some of PHP's newest toys.
 - The PSRs
