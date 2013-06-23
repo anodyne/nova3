@@ -279,7 +279,7 @@ class NovaSeedDatabase extends Migration {
 				'html_name' => 'age',
 				'html_id' => 'age',
 				'html_rows' => 0,
-				'html_class' => 'span1',
+				'html_class' => 'col-lg-1',
 				'label' => 'Age',
 				'placeholder' => 'Age',
 				'order' => 3
@@ -335,7 +335,7 @@ class NovaSeedDatabase extends Migration {
 				'html_name' => 'physical_desc',
 				'html_id' => 'physical_desc',
 				'html_rows' => 3,
-				'html_class' => 'span8',
+				'html_class' => 'col-lg-8',
 				'label' => 'Physical Description',
 				'placeholder' => 'Enter your physical description here',
 				'order' => 5
@@ -413,7 +413,7 @@ class NovaSeedDatabase extends Migration {
 				'html_name' => 'personality',
 				'html_id' => 'personality',
 				'html_rows' => 5,
-				'html_class' => 'span8',
+				'html_class' => 'col-lg-8',
 				'label' => 'General Overview',
 				'placeholder' => 'Enter your character\'s general personality overview here',
 				'order' => 1
@@ -425,7 +425,7 @@ class NovaSeedDatabase extends Migration {
 				'html_name' => 'strengths',
 				'html_id' => 'strengths',
 				'html_rows' => 5,
-				'html_class' => 'span8',
+				'html_class' => 'col-lg-8',
 				'label' => 'Strengths &amp; Weaknesses',
 				'placeholder' => 'Enter your character\'s strengths and weaknesses here',
 				'order' => 2
@@ -437,7 +437,7 @@ class NovaSeedDatabase extends Migration {
 				'html_name' => 'ambitions',
 				'html_id' => 'ambitions',
 				'html_rows' => 5,
-				'html_class' => 'span8',
+				'html_class' => 'col-lg-8',
 				'label' => 'Ambitions',
 				'placeholder' => 'Enter your character\'s ambitions here',
 				'order' => 3
@@ -449,7 +449,7 @@ class NovaSeedDatabase extends Migration {
 				'html_name' => 'hobbies',
 				'html_id' => 'hobbies',
 				'html_rows' => 5,
-				'html_class' => 'span8',
+				'html_class' => 'col-lg-8',
 				'label' => 'Hobbies &amp; Interests',
 				'placeholder' => 'Enter your character\'s hobbies and interests here',
 				'order' => 4
@@ -461,7 +461,7 @@ class NovaSeedDatabase extends Migration {
 				'html_name' => 'languages',
 				'html_id' => 'languages',
 				'html_rows' => 2,
-				'html_class' => 'span8',
+				'html_class' => 'col-lg-8',
 				'label' => 'Languages',
 				'placeholder' => 'Enter your character\'s known languages here',
 				'order' => 5
@@ -473,7 +473,7 @@ class NovaSeedDatabase extends Migration {
 				'html_name' => 'history',
 				'html_id' => 'history',
 				'html_rows' => 15,
-				'html_class' => 'span8',
+				'html_class' => 'col-lg-8',
 				'label' => 'History',
 				'placeholder' => 'Enter your character\'s personal history here',
 				'order' => 1
@@ -485,7 +485,7 @@ class NovaSeedDatabase extends Migration {
 				'html_name' => 'service_record',
 				'html_id' => 'service_record',
 				'html_rows' => 15,
-				'html_class' => 'span8',
+				'html_class' => 'col-lg-8',
 				'label' => 'Service Record',
 				'placeholder' => 'Enter your character\'s service record here',
 				'order' => 2
@@ -506,6 +506,7 @@ class NovaSeedDatabase extends Migration {
 				'html_name' => 'interests',
 				'html_id' => 'interests',
 				'html_rows' => 5,
+				'html_class' => 'col-lg-8',
 				'label' => 'Interests',
 				'placeholder' => 'Enter your interests here',
 				'order' => 1
@@ -516,6 +517,7 @@ class NovaSeedDatabase extends Migration {
 				'html_name' => 'bio',
 				'html_id' => 'bio',
 				'html_rows' => 5,
+				'html_class' => 'col-lg-8',
 				'label' => 'Bio',
 				'placeholder' => 'Enter your bio information here',
 				'order' => 2
@@ -526,7 +528,7 @@ class NovaSeedDatabase extends Migration {
 				'html_name' => 'experience',
 				'html_id' => 'experience',
 				'html_rows' => 5,
-				'html_class' => 'span5',
+				'html_class' => 'col-lg-5',
 				'label' => 'Simming Experience',
 				'order' => 0
 			],
@@ -535,7 +537,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'select',
 				'html_name' => 'hear_about',
 				'html_id' => 'hear_about',
-				'html_class' => 'span5',
+				'html_class' => 'col-lg-5',
 				'label' => 'Where Did You Hear About Us?',
 				'order' => 1
 			],
@@ -577,8 +579,14 @@ class NovaSeedDatabase extends Migration {
 			[
 				'form_id' => 1,
 				'tab_id' => 4,
-				'name' => '',
+				'name' => 'Personal History',
 				'order' => 0
+			],
+			[
+				'form_id' => 1,
+				'tab_id' => 4,
+				'name' => 'Service Record',
+				'order' => 1
 			],
 		];
 
@@ -594,25 +602,25 @@ class NovaSeedDatabase extends Migration {
 			[
 				'form_id' => 1,
 				'name' => 'Basic Info',
-				'link_id' => 'one',
+				'link_id' => 'BasicInfo',
 				'order' => 1
 			],
 			[
 				'form_id' => 1,
 				'name' => 'Personal Info',
-				'link_id' => 'two',
+				'link_id' => 'PersonalInfo',
 				'order' => 2
 			],
 			[
 				'form_id' => 1,
 				'name' => 'Personality',
-				'link_id' => 'three',
+				'link_id' => 'Personality',
 				'order' => 3
 			],
 			[
 				'form_id' => 1,
 				'name' => 'History',
-				'link_id' => 'four',
+				'link_id' => 'History',
 				'order' => 4
 			],
 		];
