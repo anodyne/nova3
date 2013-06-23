@@ -1,6 +1,6 @@
 <div class="btn-toolbar">
 	<div class="btn-group">
-		<a href="{{ URL::to('admin/form') }}" class="btn btn-default icn-size-16 tooltip-top" title="{{ langConcat('All forms') }}">{{ $_icons['back'] }}</a>
+		<a href="{{ URL::to('admin/form') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
 	</div>
 
 	@if (Sentry::getUser()->hasAccess('form.create'))
@@ -20,7 +20,7 @@
 		<tbody class="sort-body">
 		@foreach ($tabs as $t)
 			<tr id="tab_{{ $t->id }}">
-				<td class="alt-col-9">
+				<td class="col-alt-9">
 					<p>
 						<strong>{{ $t->name }}</strong>
 						@if ($t->status === Status::INACTIVE)
@@ -28,7 +28,7 @@
 						@endif
 					</p>
 				</td>
-				<td class="alt-col-2">
+				<td class="col-alt-2">
 					<div class="btn-toolbar pull-right">
 						@if (Sentry::getUser()->hasAccess('form.update'))
 							<div class="btn-group">
@@ -43,7 +43,11 @@
 						@endif
 					</div>
 				</td>
-				<td class="alt-col-1 reorder"></td>
+				<td class="col-alt-1">
+					<div class="btn-toolbar pull-right">
+						<div class="btn-group icn-opacity-50">{{ $_icons['move'] }}</div>
+					</div>
+				</td>
 			</tr>
 		@endforeach
 		</tbody>

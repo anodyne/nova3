@@ -24,6 +24,14 @@
 				});
 			}
 		}).disableSelection();
+
+		// Determine the actions when the type dropdown changes
+		$('[name="name"]').change(function(){
+			var value = $(this).val();
+			value = value.replace(/\s+/g, '');
+
+			$('[name="link_id"]').val(value);
+		});
 	});
 
 	// What action to take when a tab action is clicked

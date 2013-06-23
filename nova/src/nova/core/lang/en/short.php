@@ -50,7 +50,7 @@ return array(
 			
 			'deleteUpdates' => "Select the new :0 that :1 in the :2 :0 will be moved to.",
 
-			'tabLinkId' => "Link IDs are used to link a tab with its content on the page. They must be unique and contain no spaces (camelCase is fine) (e.g. one, html, general, characterThings).",
+			'tabLinkId' => "Link IDs are used to link a tab with its content on the page. They must be unique and contain no spaces (camelCase is fine) (e.g. one, html, general, characterThings). This will be generated for you based on the name of the tab, but you can change it to anything you'd like.",
 			'order' => "The order can also be changed by dragging-and-dropping the items on the previous page.",
 
 			'valueCreation' => "Dropdown menu values can be added once you've created the field.",
