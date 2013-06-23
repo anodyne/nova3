@@ -386,20 +386,38 @@ class Form extends AdminBaseController {
 		// Pass along the form key to the view
 		$this->_data->formKey = $formKey;
 
-		// Get the form sections
-		$sections = NovaFormSection::key($formKey)->get();
-
 		// If there isn't an ID, show all the sections
 		if ($id === false)
 		{
+			// Get the form
+			$form = NovaForm::key($formKey)->first();
+
+			// Get the form sections
+			$sections = $form->sections;
+
 			// Set up the variables
+			$this->_data->tabs = false;
 			$this->_data->sections = false;
 
+			// If we have tabs, get them
+			if ($form->tabs->count() > 0)
+			{
+				$this->_data->tabs = $form->tabs;
+			}
+
+			// If we have sections, get them
 			if ($sections->count() > 0)
 			{
 				foreach ($sections as $section)
 				{
-					$this->_data->sections[] = $section;
+					if ($section->tab_id !== null)
+					{
+						$this->_data->sections[$section->tab_id][] = $section;
+					}
+					else
+					{
+						$this->_data->sections[] = $section;
+					}
 				}
 			}
 		}
@@ -572,17 +590,52 @@ class Form extends AdminBaseController {
 		// If there isn't an ID, show all the sections
 		if ($id === false)
 		{
+			// Get the form
+			$form = NovaForm::key($formKey)->first();
+
 			// Get the form fields
-			$fields = NovaFormField::key($formKey)->get();
+			$fields = $form->fields;
 
 			// Set up the variables
+			$this->_data->tabs = false;
+			$this->_data->sections = false;
 			$this->_data->fields = false;
 
+			// If we have tabs, set them up
+			if ($form->tabs->count() > 0)
+			{
+				$this->_data->tabs = $form->tabs;
+			}
+
+			// If we have sections, set them up
+			if ($form->sections->count() > 0)
+			{
+				foreach ($form->sections as $section)
+				{
+					if ($section->tab_id !== null)
+					{
+						$this->_data->sections[$section->tab_id][] = $section;
+					}
+					else
+					{
+						$this->_data->sections[] = $section;
+					}
+				}
+			}
+
+			// If we have fields, set them up
 			if ($fields->count() > 0)
 			{
 				foreach ($fields as $field)
 				{
-					$this->_data->fields[] = $field;
+					if ($field->section_id !== null)
+					{
+						$this->_data->fields[$field->section_id][] = $field;
+					}
+					else
+					{
+						$this->_data->fields[] = $field;
+					}
 				}
 			}
 		}

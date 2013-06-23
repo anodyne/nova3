@@ -4,6 +4,9 @@
 <script type="text/javascript" src="{{ SRCURL }}assets/js/jquery.ui.sortable.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		// Activate the first tab
+		$('.nav-tabs a:first').tab('show');
+		
 		// This fixes the issue where the row being dragged is compacted.
 		var fixHelper = function(e, ui){
 			ui.children().each(function(){
@@ -37,7 +40,7 @@
 			}
 		}).disableSelection();
 
-		// determine the actions when the type dropdown changes
+		// Determine the actions when the type dropdown changes
 		$('[name="type"]').change(function(){
 
 			// find the selected value
@@ -130,7 +133,7 @@
 
 			$.ajax({
 				type: 'POST',
-				url: "{{ URL::to('ajax/add/formfield_value') }}",
+				url: "{{ URL::to('ajax/add/form_field_value') }}",
 				data: send,
 				dataType: 'html',
 				success: function(data){
