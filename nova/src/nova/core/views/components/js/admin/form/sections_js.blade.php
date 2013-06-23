@@ -4,6 +4,9 @@
 <script type="text/javascript" src="{{ SRCURL }}assets/js/jquery.ui.sortable.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		// Activate the first tab
+		$('.nav-tabs a:first').tab('show');
+
 		// This fixes the issue where the row being dragged is compacted.
 		var fixHelper = function(e, ui){
 			ui.children().each(function(){
