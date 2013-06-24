@@ -77,11 +77,22 @@ class Update extends AjaxBaseController {
 	 *
 	 * @return	View/string
 	 */
-	public function action_formfield_value($id)
+	public function getFormValue($id)
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('form.update'))
+		if (Sentry::check() and Sentry::getUser()->hasAccess('form.update'))
 		{
-			if (\Input::method() == 'POST')
+			// Get the value
+			$value = \NovaFormValue::find($id);
+
+			// Get the fields
+			$fields = \NovaFormField::key($value->field->form->key)
+				->dropdowns()->get()->toSimpleArray('id', 'label');
+
+			echo View::make(Location::file('update/form_value', Utility::getSkin(), 'ajax'))
+				->with('value', $value)
+				->with('fields', $fields);
+
+			/*if (\Input::method() == 'POST')
 			{
 				// get the value
 				$value = \Model_Form_Value::find($id);
@@ -134,7 +145,7 @@ class Update extends AjaxBaseController {
 
 					echo \View::forge(\Location::file('update/form_value', 'default', 'ajax'), $data);
 				}
-			}
+			}*/
 		}
 	}
 

@@ -66,6 +66,57 @@ class Field extends Model {
 
 	/*
 	|--------------------------------------------------------------------------
+	| Model Scopes
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Scope the query to a specific field type.
+	 *
+	 * @param	Builder		The query builder
+	 * @param	string		The field type
+	 * @return	void
+	 */
+	public function scopeType($query, $type)
+	{
+		$query->where('type', $type);
+	}
+
+	/**
+	 * Scope the query to dropdown menus.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeDropdowns($query)
+	{
+		$query->type('select');
+	}
+
+	/**
+	 * Scope the query to text fields.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeText($query)
+	{
+		$query->type('text');
+	}
+
+	/**
+	 * Scope the query to textarea fields.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeTextarea($query)
+	{
+		$query->type('textarea');
+	}
+
+	/*
+	|--------------------------------------------------------------------------
 	| Model Methods
 	|--------------------------------------------------------------------------
 	*/
@@ -91,33 +142,6 @@ class Field extends Model {
 		Event::listen("eloquent.saving: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@beforeSave");
 		Event::listen("eloquent.saved: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@afterSave");
 	}
-
-	/**
-	 * Get fields.
-	 *
-	 * @param	string	The form key
-	 * @param	int		The section ID
-	 * @param	int		The status to pull
-	 * @return	Collection
-	 */
-	/*public static function getItems($key, $section = false, $status = Status::ACTIVE)
-	{
-		// Start a new query
-		$query = static::startQuery();
-		$query->where('form_key', $key);
-
-		if ($section !== false)
-		{
-			$query->where('section_id', $section);
-		}
-
-		if ($status !== false)
-		{
-			$query->where('status', $status);
-		}
-
-		return $query->orderBy('order', 'asc')->get();
-	}*/
 
 	/**
 	 * Get any values for the current field. This is only used for

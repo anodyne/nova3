@@ -4,30 +4,29 @@ use View;
 use Input;
 use Sentry;
 use Location;
-use NovaForm;
 use Redirect;
+use AdminBaseController;
+use NovaForm;
 use NovaFormTab;
 use NovaFormData;
 use NovaFormField;
-use FormValidator;
+use NovaFormValue;
 use NovaFormSection;
+use FormValidator;
 use FormTabValidator;
 use FormFieldValidator;
-use AdminBaseController;
+use FormValueValidator;
 use FormSectionValidator;
 
 class Form extends AdminBaseController {
 
-	/**
-	 * Manage dynamic forms.
-	 */
 	public function getIndex($formKey = false)
 	{
 		// Verify the user is allowed
 		Sentry::getUser()->allowed(['form.create', 'form.edit', 'form.delete'], true);
 
 		// Set the JS view
-		$this->_jsView = 'admin/form/index_js';
+		$this->_jsView = 'admin/form/forms_js';
 
 		if ($formKey !== false)
 		{
@@ -631,17 +630,34 @@ class Form extends AdminBaseController {
 					}
 				}
 			}
+
+			// Build the delete field modal
+			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+				->with('modalId', 'deleteField')
+				->with('modalHeader', lang('Short.delete', langConcat('Form Field')))
+				->with('modalBody', '')
+				->with('modalFooter', false);
 		}
 		else
 		{
 			// Set the view
-			$this->_view = 'admin/form/sections_action';
+			$this->_view = 'admin/form/fields_action';
 
-			// Get all the tabs
-			$this->_data->tabs = NovaFormTab::key($formKey)->get()->toSimpleArray('id', 'name');
+			// Get the field
+			$field = NovaFormField::find($id);
 
-			// Get the section
-			$this->_data->section = NovaFormSection::find($id);
+			// Set the field types
+			$this->_data->types = [
+				'text'		=> lang('Text_field'),
+				'textarea'	=> lang('Text_area'),
+				'select'	=> lang('Dropdown'),
+			];
+
+			// Send the field to the view
+			$this->_data->field = $field;
+
+			// Get the sections
+			$this->_data->sections = NovaFormSection::key($formKey)->get()->toSimpleArray('id', 'name');
 
 			// Clear out the message for this page
 			$this->_data->message = false;
@@ -657,97 +673,173 @@ class Form extends AdminBaseController {
 				// Set the action
 				$this->_data->action = 'update';
 
-				// If we don't have a section, redirect to the creation screen
-				if ($this->_data->section === null)
+				// Get the field values
+				$this->_data->values = $field->values;
+
+				// If we don't have a field, redirect to the creation screen
+				if ($field === null)
 				{
-					Redirect::to("admin/form/sections/{$formKey}/0");
+					Redirect::to("admin/form/fields/{$formKey}/0");
 				}
 
-				// If the section isn't part of this form, redirect them
-				if ($this->_data->section->form->key != $formKey)
+				// If the field isn't part of this form, redirect them
+				if ($field->form->key != $formKey)
 				{
-					Redirect::to("admin/form/sections/{$this->_data->section->form->key}/{$id}");
+					Redirect::to("admin/form/fields/{$field->form->key}/{$id}");
 				}
+
+				// Build the update field value modal
+				$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+					->with('modalId', 'updateFormValue')
+					->with('modalHeader', lang('Short.update', langConcat('Form Field Value')))
+					->with('modalBody', '')
+					->with('modalFooter', false);
 			}
 		}
-
-		// Build the delete section modal
-		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
-			->with('modalId', 'deleteField')
-			->with('modalHeader', lang('Short.delete', langConcat('Form Field')))
-			->with('modalBody', '')
-			->with('modalFooter', false);
 	}
-	public function postFields()
+	public function postFields($formKey)
 	{
-		// get the action
-		$action = \Security::xss_clean(\Input::post('action'));
+		// Get the action
+		$action = e(Input::get('action'));
 
-		// get the ID from the POST
-		$field_id = \Security::xss_clean(\Input::post('id'));
+		// Get the current user
+		$user = Sentry::getUser();
 
-		if (\Sentry::user()->hasAccess('form.delete') and $action == 'delete')
+		if ($action == 'updateValue')
 		{
-			// delete the field
-			$item = \Model_Form_Field::deleteItem($field_id);
+			// Set up the validation service
+			$validator = new FormValueValidator;
 
-			if ($item)
+			// If the validation fails, stop and go back
+			if ( ! $validator->passes())
 			{
-				$this->_flash[] = array(
-					'status' 	=> 'success',
-					'message' 	=> ucfirst(lang('short.alert.success.delete', lang('field'))),
-				);
+				// Set the flash message
+				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
+				$flashMessage.= implode(' ', $validator->getErrors()->all());
+
+				return Redirect::to("admin/form/fields/{$formKey}")
+					->with('flashStatus', 'danger')
+					->with('flashMessage', $flashMessage);
 			}
-			else
+		}
+		else
+		{
+			// Set up the validation service
+			$validator = new FormFieldValidator;
+
+			// If the validation fails, stop and go back
+			if ( ! $validator->passes())
 			{
-				$this->_flash[] = array(
-					'status' 	=> 'danger',
-					'message' 	=> ucfirst(lang('short.alert.failure.delete', lang('field'))),
-				);
+				if ($action == 'delete')
+				{
+					// Set the flash message
+					$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
+					$flashMessage.= implode(' ', $validator->getErrors()->all());
+
+					return Redirect::to("admin/form/fields/{$formKey}")
+						->with('flashStatus', 'danger')
+						->with('flashMessage', $flashMessage);
+				}
+				
+				return Redirect::back()->withInput()->withErrors($validator->getErrors());
 			}
 		}
 
-		if (\Sentry::user()->hasAccess('form.update') and $action == 'add')
-		{
-			// add the field
-			$item = \Model_Form_Field::createItem(\Input::post());
+		// Get the form
+		$form = NovaForm::getForm($formKey);
 
-			if ($item)
-			{
-				$this->_flash[] = array(
-					'status' 	=> 'success',
-					'message'	=> ucfirst(lang('short.alert.success.create', lang('field'))),
-				);
-			}
-			else
-			{
-				$this->_flash[] = array(
-					'status' 	=> 'danger',
-					'message'	=> ucfirst(lang('short.alert.failure.create', lang('field'))),
-				);
-			}
+		/**
+		 * Create a form field.
+		 */
+		if ($user->hasAccess('form.create') and $action == 'create')
+		{
+			// Create the form field
+			$item = $form->fields()->save(new NovaFormField(Input::all()));
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.create', langConcat('form field'))
+				: lang('Short.alert.failure.create', langConcat('form field'));
 		}
 
-		if (\Sentry::user()->hasAccess('form.update') and $action == 'update')
+		/**
+		 * Edit a form field.
+		 */
+		if ($user->hasAccess('form.update') and $action == 'update')
 		{
-			// update the field
-			$item = \Model_Form_Field::updateItem($field_id, \Input::post());
+			// Get the ID
+			$id = e(Input::get('id'));
+			$id = (is_numeric($id)) ? $id : false;
 
-			if ($item)
-			{
-				$this->_flash[] = array(
-					'status' 	=> 'success',
-					'message' 	=> ucfirst(lang('short.alert.success.update', lang('field'))),
-				);
-			}
-			else
-			{
-				$this->_flash[] = array(
-					'status' 	=> 'danger',
-					'message' 	=> ucfirst(lang('short.alert.failure.update', lang('field'))),
-				);
-			}
+			// Get the field
+			$field = NovaFormField::find($id);
+
+			// Update the form field
+			$item = $field->update(Input::all());
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.update', langConcat('form field'))
+				: lang('Short.alert.failure.update', langConcat('form field'));
 		}
+
+		/**
+		 * Delete a form field.
+		 */
+		if ($user->hasAccess('form.delete') and $action == 'delete')
+		{
+			// Get the ID we're deleting
+			$id = e(Input::get('id'));
+
+			// Get the field we're deleting
+			$field = NovaFormField::find($id);
+
+			if ($field->data->count() > 0)
+			{
+				// Loop through the field data and delete it
+				foreach ($field->data as $data)
+				{
+					$data->delete();
+				}
+			}
+
+			// Delete the field
+			$item = $field->delete();
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.delete', langConcat('form field'))
+				: lang('Short.alert.failure.delete', langConcat('form field'));
+		}
+
+		/**
+		 * Edit a form field value.
+		 */
+		if ($user->hasAccess('form.update') and $action == 'updateValue')
+		{
+			// Get the ID
+			$id = e(Input::get('id'));
+			$id = (is_numeric($id)) ? $id : false;
+
+			// Get the value
+			$value = NovaFormValue::find($id);
+
+			// Update the form field value
+			$item = $value->update(Input::all());
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.update', langConcat('form field value'))
+				: lang('Short.alert.failure.update', langConcat('form field value'));
+		}
+
+		return Redirect::to("admin/form/fields/{$formKey}")
+			->with('flashStatus', $flashStatus)
+			->with('flashMessage', $flashMessage);
 	}
 
 }

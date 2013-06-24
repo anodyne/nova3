@@ -10,26 +10,24 @@
 			body {
 				background: #f2f2f2;
 				font-family: "Open Sans", helvetica, arial, sans-serif;
+				font-size: 16px;
+				line-height: 1.75;
 			}
 			.container {
 				width: 600px;
 			}
 			h1 {
-				line-height: 1.6;
 				color: #c00;
 				font-weight: 300;
 				font-size: 52px;
 				text-align: center;
-				text-shadow: 0 1px 0 #fff;
 			}
 			h1 small {
 				display: block;
 				margin-top: 20px;
-				line-height: 1.6;
 				color: #888;
 				font-weight: 400;
 				font-size: 18px;
-				text-shadow: 0 0 0 transparent;
 			}
 			.btn {
 				margin-top: 50px;

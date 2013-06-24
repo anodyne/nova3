@@ -31,10 +31,10 @@
 
 	// What action to take when a section action is clicked
 	$(document).on('click', '.js-section-action', function(e){
-		var doaction = $(this).data('action');
+		var action = $(this).data('action');
 		var id = $(this).data('id');
 
-		if (doaction == 'delete')
+		if (action == 'delete')
 		{
 			$('#deleteSection').modal({
 				remote: "{{ URL::to('ajax/delete/form_section') }}/" + id

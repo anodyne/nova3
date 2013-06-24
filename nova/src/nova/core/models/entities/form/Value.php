@@ -1,6 +1,8 @@
 <?php namespace Nova\Core\Models\Entities\Form;
 
+use Event;
 use Model;
+use Config;
 
 class Value extends Model {
 	
@@ -16,12 +18,18 @@ class Value extends Model {
 		'id', 'field_id', 'value', 'content', 'order', 'created_at', 'updated_at',
 	);
 
+	/*
+	|--------------------------------------------------------------------------
+	| Relationships
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
 	 * Belongs To: Field
 	 */
-	public function section()
+	public function field()
 	{
-		return $this->belongsTo('NovaFormField');
+		return $this->belongsTo('NovaFormField', 'field_id');
 	}
 
 	/**
@@ -32,18 +40,32 @@ class Value extends Model {
 		return $this->hasMany('NovaFormData');
 	}
 
-	/**
-	 * Get values.
-	 *
-	 * @param	int		The field ID
-	 * @return	Collection
-	 */
-	/*public static function getItems($field)
-	{
-		// Start a new query
-		$query = static::startQuery();
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
 
-		return $query->where('field_id', $field)->orderBy('order', 'asc')->get();
-	}*/
+	/**
+	 * Boot the model and define the event listeners.
+	 *
+	 * @return	void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		// Get all the aliases
+		$a = Config::get('app.aliases');
+
+		Event::listen("eloquent.creating: {$a['NovaFormValue']}", "{$a['FormValueEventHandler']}@beforeCreate");
+		Event::listen("eloquent.created: {$a['NovaFormValue']}", "{$a['FormValueEventHandler']}@afterCreate");
+		Event::listen("eloquent.updating: {$a['NovaFormValue']}", "{$a['FormValueEventHandler']}@beforeUpdate");
+		Event::listen("eloquent.updated: {$a['NovaFormValue']}", "{$a['FormValueEventHandler']}@afterUpdate");
+		Event::listen("eloquent.deleting: {$a['NovaFormValue']}", "{$a['FormValueEventHandler']}@beforeDelete");
+		Event::listen("eloquent.deleted: {$a['NovaFormValue']}", "{$a['FormValueEventHandler']}@afterDelete");
+		Event::listen("eloquent.saving: {$a['NovaFormValue']}", "{$a['FormValueEventHandler']}@beforeSave");
+		Event::listen("eloquent.saved: {$a['NovaFormValue']}", "{$a['FormValueEventHandler']}@afterSave");
+	}
 
 }

@@ -1,6 +1,8 @@
 <?php namespace Nova\Core\Controllers\Ajax;
 
+use Str;
 use View;
+use Input;
 use Sentry;
 use Request;
 use Utility;
@@ -39,30 +41,23 @@ class Add extends AjaxBaseController {
 	 *
 	 * @return	string
 	 */
-	public function getFormfield_value()
+	public function postFormValue()
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('form.update'))
+		if (Sentry::check() and Sentry::getUser()->hasAccess('form.update'))
 		{
-			// get the values
-			$content = \Security::xss_clean(\Input::post('content'));
-			$field = \Security::xss_clean(\Input::post('field'));
-			$order = \Security::xss_clean(\Input::post('order'));
+			$item = \NovaFormValue::create([
+				'value'		=> Str::lower(e(Input::get('content'))),
+				'content'	=> e(Input::get('content')),
+				'field_id'	=> e(Input::get('field')),
+				'order'		=> e(Input::get('order')),
+			]);
 
-			// create a new object and populate it with data
-			$item = \Model_Form_Value::forge();
-			$item->content = $content;
-			$item->value = $content;
-			$item->order = $order;
-			$item->field_id = $field;
-
-			// save the record
-			$record = $item->save();
-
-			\SystemEvent::add('user', '[[event.admin.form.field_update|{{'.$record->field->label.'}}|{{'.$record->field->form_key.'}}]]');
-
-			if ($record)
+			if ($item)
 			{
-				echo '<tr id="value_'.$item->id.'"><td>'.$item->content.'</td><td class="span2"><div class="btn-toolbar pull-right"><div class="btn-group"><a href="#" class="btn btn-mini value-action tooltip-top" title="'.lang('action.edit', 1).'" data-action="update" data-id="'.$item->id.'"><div class="icn icn-50" data-icon="p"></div></a></div><div class="btn-group"><a href="#" class="btn btn-mini value-action tooltip-top" title="'.lang('action.delete', 1).'" data-action="delete" data-id="'.$item->id.'"><div class="icn icn-50" data-icon="x"></div></a></div></div></td><td class="span1 reorder"></td></tr>';
+				// Get the items
+				$_icons = Utility::getIconIndex(Utility::getSkin());
+
+				echo '<tr id="value_'.$item->id.'"><td>'.$item->content.'</td><td class="col-alt-3"><div class="btn-toolbar"><div class="btn-group"><a href="#" class="btn btn-default btn-small js-value-action icn-size-16" data-action="update" data-id="'.$item->id.'">'.$_icons['edit'].'</a></div><div class="btn-group"><a href="#" class="btn btn-danger btn-small js-value-action icn-size-16" data-action="delete" data-id="'.$item->id.'">'. $_icons['remove'].'</a></div></div></td><td class="col-alt-1"><div class="btn-toolbar"><div class="btn-group icn-size-16 icn-opacity-50">'.$_icons['move'].'</div></div></td></tr>';
 			}
 		}
 	}

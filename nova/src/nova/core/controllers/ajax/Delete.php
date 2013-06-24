@@ -1,6 +1,7 @@
 <?php namespace Nova\Core\Controllers\Ajax;
 
 use View;
+use Input;
 use Sentry;
 use Utility;
 use Location;
@@ -68,23 +69,29 @@ class Delete extends AjaxBaseController {
 		}
 	}
 
-	public function action_formfield_value()
+	/**
+	 * Delete a form field value.
+	 *
+	 * @return	void
+	 */
+	public function postFormValue()
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('form.update'))
+		if (Sentry::check() and Sentry::getUser()->hasAccess('form.delete'))
 		{
-			// get the value
-			$id = \Security::xss_clean(\Input::post('id'));
+			// Get the value
+			$id = e(Input::get('id'));
 
-			// grab the value from the database
-			$value = \Model_Form_Value::find($id);
-
-			// delete it
-			$value->delete();
-
-			\SystemEvent::add('user', '[[event.admin.form.field_delete|{{'.$value->label.'}}|{{'.$value->form_key.'}}]]');
+			// Delete the value
+			\NovaFormValue::destroy($id);
 		}
 	}
 
+	/**
+	 * Show the delete form section modal.
+	 *
+	 * @param	int		ID to delete
+	 * @return	string
+	 */
 	public function getFormSection($id)
 	{
 		if (Sentry::check() and Sentry::getUser()->hasAccess('form.delete'))

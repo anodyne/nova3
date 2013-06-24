@@ -42,60 +42,55 @@
 
 		// Determine the actions when the type dropdown changes
 		$('[name="type"]').change(function(){
-
-			// find the selected value
 			var type = $('[name="type"] option:selected').val();
-
+			
 			if (type == 'text')
 			{
-				$('.field-rows').hide();
-				$('.field-placeholder').show();
-				$('.field-value').show();
-				$('.help-values').hide();
+				$('.field-rows').addClass('hide');
+				$('.field-placeholder').removeClass('hide');
+				$('.field-value').removeClass('hide');
 			}
 
 			if (type == 'textarea')
 			{
-				$('.field-rows').show();
-				$('.field-placeholder').show();
-				$('.field-value').show();
-				$('.help-values').hide();
+				$('.field-rows').removeClass('hide');
+				$('.field-placeholder').removeClass('hide');
+				$('.field-value').removeClass('hide');
 			}
 
 			if (type == 'select')
 			{
-				$('.field-rows').hide();
-				$('.field-placeholder').hide();
-				$('.field-value').hide();
-				$('.help-values').show();
+				$('.field-rows').addClass('hide');
+				$('.field-placeholder').addClass('hide');
+				$('.field-value').addClass('hide');
 			}
 		});
 	});
 
 	// What action to take when a field action is clicked
-	$(document).on('click', '.js-field-action', function(){
-		var doaction = $(this).data('action');
+	$(document).on('click', '.js-field-action', function(e){
+		var action = $(this).data('action');
 		var id = $(this).data('id');
 
-		if (doaction == 'delete')
+		if (action == 'delete')
 		{
 			//
 		}
 
-		return false;
+		e.preventDefault();
 	});
 
 	// What action to take when a value action is clicked
-	$(document).on('click', '.js-value-action', function(){
-		var doaction = $(this).data('action');
-		var id = $(this).data('id');
+	$(document).on('click', '.js-value-action', function(e){
+		var action = $(this).data('action');
 		var parent = $(this).closest('tr');
+		var id = $(this).data('id');
 
-		if (doaction == 'delete')
+		if (action == 'delete')
 		{
 			$.ajax({
 				type: 'POST',
-				url: "{{ URL::to('ajax/delete/formfield_value') }}",
+				url: "{{ URL::to('ajax/delete/form_value') }}",
 				data: { id: id },
 				success: function(){
 					parent.fadeOut();
@@ -103,12 +98,14 @@
 			});
 		}
 
-		if (doaction == 'update')
+		if (action == 'update')
 		{
-			//
+			$('#updateFormValue').modal({
+				remote: "{{ URL::to('ajax/update/form_value') }}/" + id
+			}).modal('show');
 		}
 
-		if (doaction == 'add')
+		if (action == 'add')
 		{
 			var send = {
 				content: $('[name="value-add-content"]').val(),
@@ -117,23 +114,23 @@
 
 			if ($('.sort-value tbody tr').length == 1 && $('.sort-value tbody tr:nth-child(1) td').length == 1)
 			{
-				// there are no values in the database
+				// There are no values in the database
 				send.order = 1;
 			}
 			else if ($('.sort-value tbody tr').length == 1 && $('.sort-value tbody tr:nth-child(1) td').length > 1)
 			{
-				// there is already 1 value in the database
+				// There is already 1 value in the database
 				send.order = 2;
 			}
 			else
 			{
-				// there's more than 1 value in the database
+				// There's more than 1 value in the database
 				send.order = $('.sort-value tbody tr').length + 1;
 			}
 
 			$.ajax({
 				type: 'POST',
-				url: "{{ URL::to('ajax/add/form_field_value') }}",
+				url: "{{ URL::to('ajax/add/form_value') }}",
 				data: send,
 				dataType: 'html',
 				success: function(data){
@@ -155,6 +152,6 @@
 			});
 		}
 
-		return false;
+		e.preventDefault();
 	});
 </script>

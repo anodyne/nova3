@@ -320,6 +320,7 @@ return array(
 		'FormFieldEventHandler'		=> 'Nova\Core\Models\Events\Form\Field',
 		'FormSectionEventHandler'	=> 'Nova\Core\Models\Events\Form\Section',
 		'FormTabEventHandler'		=> 'Nova\Core\Models\Events\Form\Tab',
+		'FormValueEventHandler'		=> 'Nova\Core\Models\Events\Form\Value',
 
 		'RankGroupHandler'			=> 'Nova\Core\Models\Events\Rank\Group',
 		'RankInfoHandler'			=> 'Nova\Core\Models\Events\Rank\Info',
@@ -345,6 +346,7 @@ return array(
 		'FormFieldValidator'		=> 'Nova\Core\Models\Validators\Form\Field',
 		'FormSectionValidator'		=> 'Nova\Core\Models\Validators\Form\Section',
 		'FormTabValidator'			=> 'Nova\Core\Models\Validators\Form\Tab',
+		'FormValueValidator'		=> 'Nova\Core\Models\Validators\Form\Value',
 
 		'BaseValidator'				=> 'Nova\Core\Models\Validators\Base',
 		'SystemRouteValidator'		=> 'Nova\Core\Models\Validators\SystemRoute',

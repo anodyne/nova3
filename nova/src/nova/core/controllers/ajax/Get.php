@@ -264,7 +264,7 @@ public function action_user()
 			// Get the role
 			$role = \AccessRole::find($id);
 
-			echo View::make(Location::file('info/role_users', Utility::getSkin(), 'ajax'))
+			echo View::make(Location::file('get/role_users', Utility::getSkin(), 'ajax'))
 				->with('users', $role->users);
 		}
 	}
@@ -308,7 +308,7 @@ public function action_user()
 
 			if ($format == 'html')
 			{
-				echo View::make(Location::file('info/task_roles', Utility::getSkin(), 'ajax'))
+				echo View::make(Location::file('get/task_roles', Utility::getSkin(), 'ajax'))
 					->with('roles', $task->roles);
 			}
 			else
