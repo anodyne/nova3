@@ -109,11 +109,25 @@ App::missing(function()
 });
 
 /**
+ * Runtime exception
+ */
+App::error(function(RuntimeException $ex, $code)
+{
+	switch ($ex->getMessage())
+	{
+		case 'Nova 3 requires PHP 5.4.0 or higher':
+			return View::make(Location::file('php_version', Utility::getSkin(), 'error'))
+				->with('env', App::make('env'));
+		break;
+	}
+});
+
+/**
  * General exception
  */
-App::error(function(Exception $exception, $code)
+App::error(function(Exception $ex, $code)
 {
-	Log::error($exception);
+	Log::error($ex);
 });
 
 /*

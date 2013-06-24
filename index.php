@@ -44,6 +44,20 @@ define('SRCURL',	BASEURL.'nova/src/Nova/');
 
 /*
 |--------------------------------------------------------------------------
+| PHP 5.4 Check
+|--------------------------------------------------------------------------
+|
+| Make sure we're running at least PHP 5.4.0 or higher, otherwise fail.
+|
+*/
+
+if (version_compare(PHP_VERSION, '5.4.0', '<'))
+{
+	throw new RuntimeException("Nova 3 requires PHP 5.4.0 or higher");
+}
+
+/*
+|--------------------------------------------------------------------------
 | Run The Application
 |--------------------------------------------------------------------------
 |
