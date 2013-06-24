@@ -143,10 +143,32 @@ abstract class Core extends Controller {
 	 */
 	protected $_stopExecution = false;
 
-	protected static $controllerName;
+	/**
+	 * The controller used for the current request.
+	 */
+	public $_controller;
+
+	/**
+	 * The action method used for the current request.
+	 */
+	public $_action;
+
+	/**
+	 * The controller used for the current request with namespace.
+	 */
+	public $_fullController;
+
+	/**
+	 * The action method used for the current request with HTTP verb.
+	 */
+	public $_fullAction;
 
 	public function __construct()
 	{
+		// Set the controller and action names
+		$this->getControllerName();
+		$this->getActionName();
+
 		// Get a copy of the controller
 		$me = $this;
 
@@ -223,9 +245,9 @@ abstract class Core extends Controller {
 				$me->_sectionInfo = new stdClass;
 
 				// Grab the content for the current section
-				$me->_headers	= SiteContent::getSectionContent('header', static::$controllerName);
-				$me->_messages	= SiteContent::getSectionContent('message', static::$controllerName);
-				$me->_titles	= SiteContent::getSectionContent('title', static::$controllerName);
+				$me->_headers	= SiteContent::getSectionContent('header', $me->_controller);
+				$me->_messages	= SiteContent::getSectionContent('message', $me->_controller);
+				$me->_titles	= SiteContent::getSectionContent('title', $me->_controller);
 			}
 		});
 	}
@@ -256,46 +278,40 @@ abstract class Core extends Controller {
 				->with((array) $this->_jsData);
 		}
 
-		// Get the action name
-		$actionName = $this->getActionName();
-
 		// Set the final title content
 		$this->layout->title.= (is_object($this->_data) and property_exists($this->_data, 'title')) 
 			? $this->_data->title 
-			: ((array_key_exists($actionName, $this->_titles)) 
-				? $this->_titles[$actionName] 
+			: ((array_key_exists($this->_action, $this->_titles)) 
+				? $this->_titles[$this->_action] 
 				: null
 		);
 		
 		// Set the final header content
 		$this->layout->template->header = (is_object($this->_data) and property_exists($this->_data, 'header')) 
 			? $this->_data->header 
-			: ((array_key_exists($actionName, $this->_headers)) 
-				? $this->_headers[$actionName] 
+			: ((array_key_exists($this->_action, $this->_headers)) 
+				? $this->_headers[$this->_action] 
 				: null
 		);
 		
 		// set the final message content
 		$this->layout->template->message = (is_object($this->_data) and property_exists($this->_data, 'message')) 
 			? Markdown::parse($this->_data->message)
-			: ((array_key_exists($actionName, $this->_messages)) 
-				? Markdown::parse($this->_messages[$actionName])
+			: ((array_key_exists($this->_action, $this->_messages)) 
+				? Markdown::parse($this->_messages[$this->_action])
 				: null
 		);
 
 		if ($this->_editable)
 		{
-			// Get the controller name from the Router and denamespace it
-			$controllerName = static::$controllerName;
-
 			// Set the final header content key
-			$this->layout->template->headerKey = (array_key_exists($actionName, $this->_headers)) 
-				? $controllerName.'_'.$actionName.'_header' 
+			$this->layout->template->headerKey = (array_key_exists($this->_action, $this->_headers)) 
+				? $this->_controller.'_'.$this->_action.'_header' 
 				: false;
 
 			// Set the final message content key
-			$this->layout->template->messageKey = (array_key_exists($actionName, $this->_messages)) 
-				? $controllerName.'_'.$actionName.'_message' 
+			$this->layout->template->messageKey = (array_key_exists($this->_action, $this->_messages)) 
+				? $this->_controller.'_'.$this->_action.'_message' 
 				: false;
 		}
 
@@ -385,19 +401,26 @@ abstract class Core extends Controller {
 	 */
 	protected function getActionName()
 	{
-		// Get the full route and de-namespace it
-		$actionName = Str::denamespace(Route::currentRouteAction());
+		// Set the fully qualified action name
+		$this->_fullAction = $actionName = Str::parseCallback(Route::currentRouteAction(), false)[1];
 
-		// Remove the controller class
-		$actionName = str_ireplace(static::$controllerName.'@', '', $actionName);
-		
 		// Remove the HTTP verb
 		$actionName = (substr($actionName, 0, 3) == 'get') ? substr_replace($actionName, '', 0, 3) : $actionName;
 		$actionName = (substr($actionName, 0, 3) == 'put') ? substr_replace($actionName, '', 0, 3) : $actionName;
 		$actionName = (substr($actionName, 0, 4) == 'post') ? substr_replace($actionName, '', 0, 4) : $actionName;
 		$actionName = (substr($actionName, 0, 6) == 'delete') ? substr_replace($actionName, '', 0, 6) : $actionName;
-		
-		return Str::lower($actionName);
+
+		// Set the short action name
+		$this->_action = Str::lower($actionName);
+	}
+
+	protected function getControllerName()
+	{
+		// Set the namespaced controller name
+		$this->_fullController = Str::parseCallback(Route::currentRouteAction(), false)[0];
+
+		// Set the controller name
+		$this->_controller = Str::denamespace($this->_fullController);
 	}
 
 }
