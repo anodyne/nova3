@@ -18,13 +18,6 @@ use FormSectionValidator;
 
 class Form extends AdminBaseController {
 
-	public function __construct()
-	{
-		parent::__construct();
-		
-		static::$controllerName = 'form';
-	}
-
 	/**
 	 * Manage dynamic forms.
 	 */

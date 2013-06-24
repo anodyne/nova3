@@ -17,13 +17,6 @@ class Admin extends AdminBaseController {
 	const OK 				= 0;
 	const NOT_ALLOWED 		= 1;
 
-	public function __construct()
-	{
-		parent::__construct();
-		
-		static::$controllerName = 'admin';
-	}
-
 	public function getIndex()
 	{
 		$this->_view = 'admin/admin/index';

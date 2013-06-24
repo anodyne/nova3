@@ -14,13 +14,6 @@ use AdminBaseController;
 
 class FormViewer extends AdminBaseController {
 
-	public function __construct()
-	{
-		parent::__construct();
-		
-		static::$controllerName = 'form';
-	}
-
 	public function getView($formKey = false, $id = false)
 	{
 		// Verify the user is allowed

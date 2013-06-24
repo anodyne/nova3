@@ -24,13 +24,6 @@ use LoginBaseController;
 
 class Login extends LoginBaseController {
 
-	public function __construct()
-	{
-		parent::__construct();
-		
-		static::$controllerName = 'login';
-	}
-
 	/**
 	 * Lets a user log in to the system. If their email address or password is wrong,
 	 * they're notified of the error. Also handles notifying the user if they've

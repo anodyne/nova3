@@ -14,13 +14,6 @@ use AdminBaseController;
 
 class Role extends AdminBaseController {
 
-	public function __construct()
-	{
-		parent::__construct();
-		
-		static::$controllerName = 'role';
-	}
-
 	/**
 	 * Manage access roles.
 	 */
