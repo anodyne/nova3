@@ -245,6 +245,13 @@ return [
 		'resource'	=> 'Nova\Core\Controllers\Ajax\Add@getRouteDuplicate',
 		'protected'	=> (int) true
 	],
+	[
+		'name'		=> 'ajax/add/form_value',
+		'verb'		=> 'post',
+		'uri'		=> 'ajax/add/form_value',
+		'resource'	=> 'Nova\Core\Controllers\Ajax\Add@postFormValue',
+		'protected'	=> (int) true
+	],
 
 	/**
 	 * ajax/get
@@ -332,9 +339,9 @@ return [
 	],
 	[
 		'name'		=> 'ajax/delete/form_value',
-		'verb'		=> 'get',
-		'uri'		=> 'ajax/delete/form_value/{id}',
-		'resource'	=> 'Nova\Core\Controllers\Ajax\Delete@getFormValue',
+		'verb'		=> 'post',
+		'uri'		=> 'ajax/delete/form_value',
+		'resource'	=> 'Nova\Core\Controllers\Ajax\Delete@postFormValue',
 		'protected'	=> (int) true
 	],
 
@@ -374,6 +381,13 @@ return [
 		'verb'		=> 'post',
 		'uri'		=> 'ajax/update/form_field_order',
 		'resource'	=> 'Nova\Core\Controllers\Ajax\Update@postFormFieldOrder',
+		'protected'	=> (int) true
+	],
+	[
+		'name'		=> 'ajax/update/form_value',
+		'verb'		=> 'get',
+		'uri'		=> 'ajax/update/form_value/{id}',
+		'resource'	=> 'Nova\Core\Controllers\Ajax\Update@getFormValue',
 		'protected'	=> (int) true
 	],
 	[
