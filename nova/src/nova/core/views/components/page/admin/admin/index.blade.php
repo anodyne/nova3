@@ -1,5 +1,8 @@
-{{ d(Sentry::getUser()) }}
-
+<div class="row">
 @foreach ($_icons as $key => $icon)
-	<p><button class="btn icn16">{{ $icon }}</button> {{ $key }}</p>
+	<div class="col-lg-2">
+		<button class="btn btn-default btn-block icn-size-16">{{ $icon }}</button>
+		<p class="text-muted text-center">{{ $key }}</p>
+	</div>
 @endforeach
+</div>
