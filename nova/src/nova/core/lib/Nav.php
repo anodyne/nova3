@@ -277,12 +277,12 @@ class Nav {
 				0 => array(
 					array(
 						'name' => ucwords(lang('cp')),
-						'url' => 'admin/main/index',
+						'url' => 'admin/index',
 						'extra' => array(),
 						'additional' => ''),
 					array(
 						'name' => ucfirst(Str::plural(lang('notification'))),
-						'url' => 'admin/main/notifications',
+						'url' => 'admin/notifications',
 						'extra' => array(),
 						'additional' => ''),
 				),
