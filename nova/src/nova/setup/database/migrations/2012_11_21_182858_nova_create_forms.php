@@ -83,7 +83,6 @@ class NovaCreateForms extends Migration {
 			$t->increments('id');
 			$t->integer('field_id')->unsigned();
 			$t->string('value');
-			$t->text('content');
 			$t->integer('order')->nullable();
 			$t->timestamps();
 		});

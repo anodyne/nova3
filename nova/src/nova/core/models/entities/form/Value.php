@@ -9,13 +9,13 @@ class Value extends Model {
 	protected $table = 'form_values';
 
 	protected $fillable = array(
-		'field_id', 'value', 'content', 'order',
+		'field_id', 'value', 'order',
 	);
 
 	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
-		'id', 'field_id', 'value', 'content', 'order', 'created_at', 'updated_at',
+		'id', 'field_id', 'value', 'order', 'created_at', 'updated_at',
 	);
 
 	/*

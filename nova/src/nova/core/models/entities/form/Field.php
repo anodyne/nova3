@@ -151,7 +151,7 @@ class Field extends Model {
 	 */
 	public function getValues()
 	{
-		return $this->values->toSimpleArray('value', 'content');
+		return $this->values->toSimpleArray('value', 'value');
 	}
 
 }

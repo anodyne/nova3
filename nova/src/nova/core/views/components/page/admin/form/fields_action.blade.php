@@ -16,19 +16,14 @@
 		<div class="tab-pane active" id="general">
 			<div class="row">
 				<div class="col-sm-4 col-lg-2">
-					<label class="control-label">{{ lang('Type') }}</label>
-					<div class="controls">
-						{{ Form::select('type', $types) }}
+					<div class="control-group">
+						<label class="control-label">{{ lang('Type') }}</label>
+						<div class="controls">
+							{{ Form::select('type', $types) }}
+						</div>
 					</div>
 				</div>
 			</div>
-			@if ($action == 'create')
-				<div class="row">
-					<div class="col-lg-12">
-						<p class="help-block">{{ lang('short.admin.forms.valueCreation') }}</p>
-					</div>
-				</div>
-			@endif
 
 			<div class="row">
 				<div class="col-sm-6 col-lg-4">
@@ -183,19 +178,12 @@
 							<div class="col-lg-6 input-group">
 								{{ Form::text('value-add-content', null, ['placeholder' => lang('Short.add', langConcat('Field Values')), 'class' => 'icn-size-16']) }}
 								<span class="input-group-btn">
-									{{ Form::button($_icons['add'], ['class' => 'btn btn-default js-value-action icn-size-16', 'data-action' => 'add']) }}
+									{{ Form::button($_icons['add'], ['class' => 'btn btn-default icn-size-16 js-value-action', 'data-action' => 'add']) }}
 								</span>
 							</div>
 						</div>
 
-						<table class="table table-bordered sort-value">
-							<thead>
-								<tr>
-									<th>{{ lang('Content') }}</th>
-									<th>{{ lang('Actions') }}</th>
-									<th></th>
-								</tr>
-							</thead>
+						<table class="table table-striped sort-value">
 							<tbody class="sort-body">
 							@if (count($values) == 0)
 								<tr>
@@ -206,22 +194,18 @@
 							@else
 								@foreach ($values as $v)
 									<tr id="value_{{ $v->id }}">
-										<td>{{ $v->content }}</td>
-										<td class="col-alt-3">
-											<div class="btn-toolbar">
-												<div class="btn-group">
-													<a href="#" class="btn btn-default btn-small js-value-action icn-size-16" data-action="update" data-id="{{ $v->id }}">{{ $_icons['edit'] }}</a>
-												</div>
+										<td>
+											<div class="input-group">
+												{{ Form::text('', $v->content, ['class' => 'icn-size-16']) }}
+												<span class="input-group-btn">
+													<a href="#" class="btn btn-default js-value-action icn-size-16 tooltip-top" title="{{ lang('Action.save') }}" data-action="update" data-id="{{ $v->id }}">{{ $_icons['check'] }}</a>
 
-												<div class="btn-group">
-													<a href="#" class="btn btn-danger btn-small js-value-action icn-size-16" data-action="delete" data-id="{{ $v->id }}">{{ $_icons['remove'] }}</a>
-												</div>
+													<a href="#" class="btn btn-danger js-value-action icn-size-16" data-action="delete" data-id="{{ $v->id }}">{{ $_icons['remove'] }}</a>
+												</span>
 											</div>
 										</td>
 										<td class="col-alt-1">
-											<div class="btn-toolbar">
-												<div class="btn-group icn-size-16 icn-opacity-50">{{ $_icons['move'] }}</div>
-											</div>
+											<div class="reorder icn-size-16 icn-opacity-50">{{ $_icons['move'] }}</div>
 										</td>
 									</tr>
 								@endforeach

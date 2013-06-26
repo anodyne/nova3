@@ -634,60 +634,15 @@ class NovaSeedDatabase extends Migration {
 	protected function seedFormValues()
 	{
 		$data = [
-			[
-				'field_id' => 1,
-				'value' => 'Male',
-				'content' => 'Male',
-				'order' => 1
-			],
-			[
-				'field_id' => 1,
-				'value' => 'Female',
-				'content' => 'Female',
-				'order' => 2
-			],
-			[
-				'field_id' => 1,
-				'value' => 'Hermaphrodite',
-				'content' => 'Hermaphrodite',
-				'order' => 3
-			],
-			[
-				'field_id' => 1,
-				'value' => 'Neuter',
-				'content' => 'Neuter',
-				'order' => 4
-			],
-			[
-				'field_id' => 26,
-				'value' => 'Friend',
-				'content' => 'A Friend',
-				'order' => 1
-			],
-			[
-				'field_id' => 26,
-				'value' => 'Member',
-				'content' => 'A Member of the Game',
-				'order' => 2
-			],
-			[
-				'field_id' => 26,
-				'value' => 'Organization',
-				'content' => 'An Organization',
-				'order' => 3
-			],
-			[
-				'field_id' => 26,
-				'value' => 'Advertisement',
-				'content' => 'An Advertisement',
-				'order' => 4
-			],
-			[
-				'field_id' => 26,
-				'value' => 'Search',
-				'content' => 'An Internet Search',
-				'order' => 5
-			],
+			['field_id' => 1, 'value' => 'Male', 'order' => 1],
+			['field_id' => 1, 'value' => 'Female', 'order' => 2],
+			['field_id' => 1, 'value' => 'Hermaphrodite', 'order' => 3],
+			['field_id' => 1, 'value' => 'Neuter', 'order' => 4],
+			['field_id' => 26, 'value' => 'A Friend', 'order' => 1],
+			['field_id' => 26, 'value' => 'A Member of the Game', 'order' => 2],
+			['field_id' => 26, 'value' => 'An Organization', 'order' => 3],
+			['field_id' => 26, 'value' => 'An Advertisement', 'order' => 4],
+			['field_id' => 26, 'value' => 'An Internet Search', 'order' => 5],
 		];
 
 		foreach ($data as $d)
