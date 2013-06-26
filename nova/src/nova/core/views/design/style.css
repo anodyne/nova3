@@ -132,3 +132,9 @@ h6 {
 .col-alt-12 {
   width: 100%;
 }
+.reorder {
+  margin-top: 10px;
+}
+input.icn-size-16 {
+  padding-bottom: 9px;
+}
