@@ -25,7 +25,7 @@ class Admin extends AdminBaseController {
 		$this->_data->message = false;
 
 		//s(Sentry::check());
-		s($_COOKIE);
+		//s($_COOKIE);
 	}
 
 	public function getError($code)
