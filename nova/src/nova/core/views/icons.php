@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
 	'add' => '<span class="icn" data-icon="+"></span>',
 
@@ -54,17 +54,4 @@ return array(
 
 	'yes' => '<span class="icn" data-icon="1"></span>',
 
-	/**
-	 * OLD
-	 */
-	'fields' => 'ui-text-field.png',
-
-	'groups' => 'zones.png',
-	
-	'rules' => 'clipboard-task.png',
-	
-	'sections' => 'ui-group-box.png',
-
-	'tabs' => 'ui-tab.png',
-
-);
+];
