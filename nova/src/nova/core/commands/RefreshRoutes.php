@@ -53,7 +53,7 @@ class RefreshRoutes extends Command {
 		// Re-cache the routes
 		SystemRoute::cache();
 
-		$this->info('Routes cache refreshed!');
+		$this->info('Routes refreshed!');
 	}
 
 }
