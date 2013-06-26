@@ -12,4 +12,5 @@
 */
 
 Artisan::add(new Nova\Core\Commands\RefreshRoutes);
+Artisan::add(new Nova\Core\Commands\RefreshContent);
 Artisan::add(new Nova\Core\Commands\Optimize($app['composer']));
