@@ -1,27 +1,9 @@
 @import "http://fonts.googleapis.com/css?family=Open+Sans:300,400,600";
 body {
-  padding-top: 40px;
+  padding-top: 30px;
   line-height: 1.75;
   font-family: "Open Sans", helvetica, arial, sans-serif;
   font-size: 16px;
-}
-.footer-content {
-  margin-top: 20px;
-}
-.btn-noclick:hover {
-  cursor: default;
-}
-.nav-tabs > .active > a,
-.nav-tabs > .active > a:hover,
-.btn:focus,
-a:focus {
-  outline: 0;
-}
-.text-small {
-  font-size: 13px;
-}
-strong {
-  font-weight: 600;
 }
 footer {
   margin: 15px 0;
@@ -37,12 +19,17 @@ footer a {
 footer a:hover {
   color: #555;
 }
-label.control-label {
-  font-weight: 600;
+footer .footer-content {
+  margin-top: 30px;
 }
-label.radio,
-label.checkbox {
-  font-weight: 400;
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover,
+.btn:focus,
+a:focus {
+  outline: 0;
+}
+.tab-pane {
+  margin: 15px 0;
 }
 h1 {
   font-weight: 300;
@@ -55,6 +42,19 @@ h5,
 h6 {
   font-family: "Open Sans", helvetica, arial, sans-serif;
 }
+.text-small {
+  font-size: 13px;
+}
+strong {
+  font-weight: 600;
+}
+label.control-label {
+  font-weight: 600;
+}
+label.radio,
+label.checkbox {
+  font-weight: 400;
+}
 .control-group {
   margin-bottom: 15px;
 }
@@ -63,14 +63,20 @@ h6 {
 }
 /* This will need to be styled a little bit better moving forward */
 .has-error .help-block {
-  color: #c00;
+  color: #d9534f;
+}
+.input-group {
+  margin-bottom: 15px;
+}
+input.icn-size-16 {
+  padding-bottom: 9px;
 }
 .btn-group,
 .btn-toolbar {
   margin: 15px 0;
 }
-.input-group {
-  margin-bottom: 15px;
+.btn-noclick:hover {
+  cursor: default;
 }
 .thumbnail {
   margin-bottom: 15px;
@@ -92,9 +98,6 @@ h6 {
 }
 .accordion-heading {
   font-weight: 600;
-}
-.tab-pane {
-  margin: 15px 0;
 }
 .col-alt-1 {
   width: 8.333333333333332%;
@@ -134,7 +137,4 @@ h6 {
 }
 .reorder {
   margin-top: 10px;
-}
-input.icn-size-16 {
-  padding-bottom: 9px;
 }

@@ -1,19 +1,35 @@
 @import "http://fonts.googleapis.com/css?family=Open+Sans:300,400,600";
+@import "mixins.less";
+@import "variables.less";
 
 body {
-	padding-top: 40px;
-	line-height: 1.75;
+	padding-top: @spacing-large;
+	line-height: @line-height;
 
-	font-family: "Open Sans", helvetica, arial, sans-serif;
-	font-size: 16px;
+	font-family: @font-base;
+	font-size: @font-size;
 }
 
-.footer-content {
-	margin-top: 20px;
-}
+footer {
+	margin: @spacing 0;
+	padding: @spacing 0;
 
-.btn-noclick:hover {
-	cursor: default;
+	color: #999;
+	font-size: @font-size-small;
+	border-top: 1px solid #eee;
+
+	a {
+		color: #777;
+		text-decoration: underline;
+
+		&:hover {
+			color: #555;
+		}
+	}
+
+	.footer-content {
+		margin-top: @spacing-large;
+	}
 }
 
 .nav-tabs > .active > a,
@@ -23,28 +39,23 @@ a:focus {
 	outline: 0;
 }
 
+.tab-pane {
+	margin: @spacing 0;
+}
+
+h1 {
+	font-weight: 300;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family: @font-base;
+}
+
 .text-small {
-	font-size: 13px;
+	font-size: @font-size-small;
 }
 
 strong {
 	font-weight: 600;
-}
-
-footer {
-	margin: 15px 0;
-	padding: 15px 0;
-
-	color: #999;
-	font-size: 13px;
-	border-top: 1px solid #eee;
-}
-footer a {
-	color: #777;
-	text-decoration: underline;
-}
-footer a:hover {
-	color: #555;
 }
 
 label.control-label {
@@ -55,37 +66,38 @@ label.checkbox {
 	font-weight: 400;
 }
 
-h1 {
-	font-weight: 300;
-}
-h1, h2, h3, h4, h5, h6 {
-	font-family: "Open Sans", helvetica, arial, sans-serif;
-}
-
 .control-group {
-	margin-bottom: 15px;
+	margin-bottom: @spacing;
 }
 
 .help-block {
-	font-size: 13px;
+	font-size: @font-size-small;
 }
 
 /* This will need to be styled a little bit better moving forward */
 .has-error .help-block {
-	color: #c00;
+	color: @color-danger;
+}
+
+.input-group {
+	margin-bottom: @spacing;
+}
+
+input.icn-size-16 {
+	padding-bottom: 9px;
 }
 
 .btn-group,
 .btn-toolbar {
-	margin: 15px 0;
+	margin: @spacing 0;
 }
 
-.input-group {
-	margin-bottom: 15px;
+.btn-noclick:hover {
+	cursor: default;
 }
 
 .thumbnail {
-	margin-bottom: 15px;
+	margin-bottom: @spacing;
 }
 
 /* This will probably need to be tweaked as we use it more */
@@ -97,21 +109,17 @@ h1, h2, h3, h4, h5, h6 {
 .modal-body .btn,
 .modal-body .btn-group,
 .modal-body .btn-toolbar {
-	margin-top: 15px;
+	margin-top: @spacing;
 }
 
 .well {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    padding: 15px;
+    margin-top: @spacing;
+    margin-bottom: @spacing;
+    padding: @spacing;
 }
 
 .accordion-heading {
     font-weight: 600;
-}
-
-.tab-pane {
-	margin: 15px 0;
 }
 
 .col-alt-1 { width: percentage((1 / 12)); }
@@ -129,8 +137,4 @@ h1, h2, h3, h4, h5, h6 {
 
 .reorder {
 	margin-top: 10px;
-}
-
-input.icn-size-16 {
-	padding-bottom: 9px;
 }
