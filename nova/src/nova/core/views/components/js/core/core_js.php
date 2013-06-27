@@ -53,6 +53,15 @@
 			placement: 'bottom',
 			html: true
 		});
+
+		$.lazy({
+			src: "<?php echo URL::to('nova/src/nova/assets/js/typeahead.min.js');?>",
+			name: 'typeahead',
+			dependencies: {
+				css: ["<?php echo URL::to('nova/src/nova/assets/css/typeahead.bootstrap.css');?>"]
+			},
+			cache: true
+		});
 	});
 
 	// Rank dropdown
