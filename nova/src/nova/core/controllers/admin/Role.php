@@ -31,7 +31,7 @@ class Role extends AdminBaseController {
 		if ($roleID !== false)
 		{
 			// Set the view
-			$this->_view = 'admin/role/role';
+			$this->_view = 'admin/role/roles_action';
 
 			// Get the role
 			$role = AccessRole::find($roleID);
@@ -324,7 +324,7 @@ class Role extends AdminBaseController {
 		if ($taskID !== false)
 		{
 			// Set the view
-			$this->_view = 'admin/role/task';
+			$this->_view = 'admin/role/tasks_action';
 
 			// Get the task
 			$this->_data->task = (is_numeric($taskID)) ? AccessTask::find($taskID) : false;
