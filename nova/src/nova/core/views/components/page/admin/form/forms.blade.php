@@ -37,10 +37,10 @@
 							@endif
 
 							@if (Sentry::getUser()->hasAccess('form.delete') and (bool) $form->protected === false)
+								<li class="divider"></li>
 								<li>
 									<a href="#" class="js-form-action" data-key="{{ $form->key }}" data-action="delete">
 										{{ lang('Short.delete', lang('form')) }}
-										<span class="icn-size-16 text-danger">{{ $_icons['warning'] }}</span>
 									</a>
 								</li>
 							@endif

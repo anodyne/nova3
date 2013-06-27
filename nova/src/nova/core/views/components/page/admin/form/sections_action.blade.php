@@ -15,7 +15,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-sm-6 col-lg-4">
+		<div class="col-sm-4 col-lg-2">
 			<label class="control-label">{{ lang('Order') }}</label>
 			<div class="controls">
 				{{ Form::text('order') }}
@@ -39,8 +39,6 @@
 				</div>
 			</div>
 		</div>
-	@else
-		{{ Form::hidden('tab_id', 0) }}
 	@endif
 
 	{{ Form::token() }}

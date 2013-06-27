@@ -57,7 +57,7 @@ class Add extends AjaxBaseController {
 				// Get the items
 				$_icons = Utility::getIconIndex(Utility::getSkin());
 
-				echo '<tr id="value_'.$item->id.'"><td>'.$item->content.'</td><td class="col-alt-3"><div class="btn-toolbar"><div class="btn-group"><a href="#" class="btn btn-default btn-small js-value-action icn-size-16" data-action="update" data-id="'.$item->id.'">'.$_icons['edit'].'</a></div><div class="btn-group"><a href="#" class="btn btn-danger btn-small js-value-action icn-size-16" data-action="delete" data-id="'.$item->id.'">'. $_icons['remove'].'</a></div></div></td><td class="col-alt-1"><div class="btn-toolbar"><div class="btn-group icn-size-16 icn-opacity-50">'.$_icons['move'].'</div></div></td></tr>';
+				echo '<tr id="value_'.$v->id.'"><td><div class="input-group">'.\Form::text('', $v->content, ['class' => 'icn-size-16']).'<span class="input-group-btn"><a href="#" class="btn btn-default js-value-action icn-size-16 tooltip-top" title="'.lang('Action.save').'" data-action="update" data-id="'.$v->id.'">'.$_icons['check'].'</a><a href="#" class="btn btn-danger js-value-action icn-size-16" data-action="delete" data-id="'.$v->id.'">'.$_icons['remove'].'</a></span></div></td><td class="col-alt-1"><div class="reorder icn-size-16 icn-opacity-50">'.$_icons['move'].'</div></td></tr>';
 			}
 		}
 	}

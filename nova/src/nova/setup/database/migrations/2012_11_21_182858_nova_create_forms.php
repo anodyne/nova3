@@ -44,7 +44,7 @@ class NovaCreateForms extends Migration {
 			$t->string('label');
 			$t->integer('order')->nullable();
 			$t->boolean('status')->default(Status::ACTIVE);
-			$t->integer('restriction')->nullable();
+			$t->text('restriction')->nullable();
 			$t->text('help')->nullable();
 			$t->string('selected', 50)->nullable();
 			$t->string('value')->nullable();

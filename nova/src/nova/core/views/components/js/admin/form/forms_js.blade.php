@@ -3,17 +3,10 @@
 		var key = $(this).data('key');
 		var action = $(this).data('action');
 
-		if (action == 'update')
+		if (action == 'delete')
 		{
-			$('#updateForm').modal({
-				remote: "{{ URL::to('ajax/update/form') }}/" + key
-			}).modal('show');
-		}
-
-		if (action == 'create')
-		{
-			$('#createForm').modal({
-				remote: "{{ URL::to('ajax/update/form') }}/" + key
+			$('#deleteForm').modal({
+				remote: "{{ URL::to('ajax/delete/form') }}/" + key
 			}).modal('show');
 		}
 

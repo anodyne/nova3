@@ -42,7 +42,7 @@
 		</div>
 	</div>
 
-	@if ((bool) $form->protected === false)
+	@if ($action == 'create' or ($action == 'update' and (bool) $form->protected === false))
 		<div class="row">
 			<div class="col-sm-6 col-lg-4">
 				<label class="control-label">{{ lang('short.admin.forms.useFormViewer') }}</label>

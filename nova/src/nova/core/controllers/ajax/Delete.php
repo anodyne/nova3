@@ -50,6 +50,27 @@ class Delete extends AjaxBaseController {
 		}
 	}
 
+	/**
+	 * Delete a form.
+	 *
+	 * @return	void
+	 */
+	public function getForm($formKey)
+	{
+		if (Sentry::check() and Sentry::getUser()->hasAccess('form.delete'))
+		{
+			// Get the form
+			$form = \NovaForm::key($formKey)->first();
+
+			// Only present the modal if we're allowed to delete it
+			if ((bool) $form->protected === false)
+			{
+				echo View::make(Location::file('delete/form', Utility::getSkin(), 'ajax'))
+					->with('form', $form);
+			}
+		}
+	}
+
 	public function action_formfield($id)
 	{
 		if (\Sentry::check() and \Sentry::user()->hasAccess('form.delete'))

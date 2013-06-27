@@ -1,6 +1,6 @@
 <div class="btn-toolbar">
 	<div class="btn-group">
-		<a href="{{ URL::to('admin/form/index') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
+		<a href="{{ URL::to('admin/form') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
 	</div>
 
 	@if (Sentry::getUser()->hasAccess('form.create'))

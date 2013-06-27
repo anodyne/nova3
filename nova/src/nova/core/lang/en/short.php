@@ -41,24 +41,19 @@ return array(
 
 	'admin' => [
 		'forms' => [
-			'changeFormKey' => "<strong>Warning:</strong> Changing a form key can cause issues with a form. Do so only if you know what you're doing!",
-			'useFormViewer' => "Use Form Viewer",
-			'useFormViewerHelp' => "Form Viewer allows users to view the content of submitted forms in one place.",
-			'useEmail' => "Send Results in Email",
-			'useEmailHelp' => "When a user fills out the form, the results will be emailed to the addressed specified below.",
-			'emailAddresses' => "Email Addresses to Send Results To",
-			
 			'deleteUpdates' => "Select the new :0 that :1 in the :2 :0 will be moved to.",
-
-			'tabLinkId' => "Link IDs are used to link a tab with its content on the page. They must be unique and contain no spaces (camelCase is fine) (e.g. one, html, general, characterThings). This will be generated for you based on the name of the tab, but you can change it to anything you'd like.",
 			'order' => "The order can also be changed by dragging-and-dropping the items on the previous page.",
 
-			'valueCreation' => "Dropdown menu values can be added once you've created the field.",
-			'valuesDropdownOnly' => "You can only move values from one dropdown menu to another.",
-			'valuesContent' => "The content is what will appear to the user in the dropdown menu.",
-			'valuesValue' => "The value is what will be stored in the database and appear on the page.",
-			'sectionUpdateFields' => "Select the new section you'd like any fields in the :0 section to be moved to.",
-			'fieldRestriction' => "Fields can be restricted so only someone with the above role (or anyone who has a role that inherits the above role) can edit the data.",
+			'changeFormKey' => "<strong>Warning:</strong> Changing a form key can cause issues with a form. Do so only if you know what you're doing!",
+			'useFormViewer' => "Use FormViewer",
+			'useFormViewerHelp' => "FormViewer allows users to submit created forms and view the content of submitted forms in one place.",
+			'useEmail' => "Send Results in Email",
+			'useEmailHelp' => "When a user fills out the form, the results will be emailed to the addresses specified below.",
+			'emailAddresses' => "Email Addresses to Send Results To",
+			
+			'tabLinkId' => "Link IDs are used to link a tab with its content on the page. They must be unique and contain no spaces (camelCase is fine) (e.g. one, html, general, characterThings). This will be generated for you based on the name of the tab, but you can change it to anything you'd like.",
+
+			'fieldRestriction' => "Fields can be restricted so only someone with the selected role(s) can edit the data.",
 		],
 
 		'pages' => [

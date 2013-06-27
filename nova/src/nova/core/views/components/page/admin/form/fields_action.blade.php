@@ -25,19 +25,32 @@
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="col-sm-6 col-lg-4">
-					<label class="control-label">{{ lang('Restrictions') }}</label>
-					<div class="controls">
-						{{ Form::select('restriction', $types) }}
+			@if ($accessRoles->count() > 0)
+				<div class="row">
+					<div class="col-lg-6">
+						<label class="control-label">{{ langConcat('Field Restrictions') }}</label>
+						<div class="controls">
+							<div class="row">
+							@foreach ($accessRoles as $role)
+								<div class="col-lg-6">
+									<div class="controls">
+										<label class="checkbox">
+											@if ($action == 'create')
+												{{ Form::checkbox('restriction[]', $role->id) }} {{ $role->name }}
+											@else
+												{{ Form::checkbox('restriction[]', $role->id, (in_array($role->id, $field->restriction))) }} {{ $role->name }}
+											@endif
+										</label>
+									</div>
+								</div>
+							@endforeach
+							</div>
+						</div>
+
+						<p class="help-block">{{ lang('short.admin.forms.fieldRestriction') }}</p>
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<p class="help-block">{{ lang('short.admin.forms.fieldRestriction') }}</p>
-				</div>
-			</div>
+			@endif
 
 			<div class="row">
 				<div class="col-sm-6 col-lg-4">

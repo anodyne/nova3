@@ -46,6 +46,13 @@ class Form extends AdminBaseController {
 
 			// Get all the forms
 			$this->_data->forms = NovaForm::get();
+
+			// Build the delete form modal
+			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+				->with('modalId', 'deleteForm')
+				->with('modalHeader', lang('Short.delete', lang('Form')))
+				->with('modalBody', '')
+				->with('modalFooter', false);
 		}
 	}
 	public function postIndex($formKey = false)
@@ -212,6 +219,12 @@ class Form extends AdminBaseController {
 
 			if ($tabs->count() > 0)
 			{
+				// Sort the tabs
+				$tabs = $tabs->sortBy(function($t)
+				{
+					return $t->order;
+				});
+
 				foreach ($tabs as $tab)
 				{
 					$this->_data->tabs[] = $tab;
@@ -394,15 +407,24 @@ class Form extends AdminBaseController {
 			// If we have tabs, get them
 			if ($form->tabs->count() > 0)
 			{
-				$this->_data->tabs = $form->tabs;
+				$this->_data->tabs = $form->tabs->sortBy(function($t)
+				{
+					return $t->order;
+				});
 			}
 
 			// If we have sections, get them
 			if ($sections->count() > 0)
 			{
+				// Sort the sections
+				$sections = $sections->sortBy(function($s)
+				{
+					return $s->order;
+				});
+
 				foreach ($sections as $section)
 				{
-					if ($section->tab_id !== null)
+					if ($section->tab_id > 0)
 					{
 						$this->_data->sections[$section->tab_id][] = $section;
 					}
@@ -579,7 +601,7 @@ class Form extends AdminBaseController {
 		// Pass along the form key to the view
 		$this->_data->formKey = $formKey;
 
-		// If there isn't an ID, show all the sections
+		// If there isn't an ID, show all the fields
 		if ($id === false)
 		{
 			// Get the form
@@ -596,15 +618,24 @@ class Form extends AdminBaseController {
 			// If we have tabs, set them up
 			if ($form->tabs->count() > 0)
 			{
-				$this->_data->tabs = $form->tabs;
+				$this->_data->tabs = $form->tabs->sortBy(function($t)
+				{
+					return $t->order;
+				});
 			}
 
 			// If we have sections, set them up
 			if ($form->sections->count() > 0)
 			{
-				foreach ($form->sections as $section)
+				// Sort the sections
+				$sections = $form->sections->sortBy(function($s)
 				{
-					if ($section->tab_id !== null)
+					return $s->order;
+				});
+
+				foreach ($sections as $section)
+				{
+					if ($section->tab_id > 0)
 					{
 						$this->_data->sections[$section->tab_id][] = $section;
 					}
@@ -618,9 +649,15 @@ class Form extends AdminBaseController {
 			// If we have fields, set them up
 			if ($fields->count() > 0)
 			{
+				// Sort the fields
+				$fields = $fields->sortBy(function($f)
+				{
+					return $f->order;
+				});
+
 				foreach ($fields as $field)
 				{
-					if ($field->section_id !== null)
+					if ($field->section_id > 0)
 					{
 						$this->_data->fields[$field->section_id][] = $field;
 					}
@@ -653,6 +690,9 @@ class Form extends AdminBaseController {
 				'select'	=> lang('Dropdown'),
 			];
 
+			// Set the access restrictions
+			$this->_data->accessRoles = \AccessRole::get();
+
 			// Send the field to the view
 			$this->_data->field = $field;
 
@@ -674,7 +714,10 @@ class Form extends AdminBaseController {
 				$this->_data->action = 'update';
 
 				// Get the field values
-				$this->_data->values = $field->values;
+				$this->_data->values = $field->values->sortBy(function($v)
+				{
+					return $v->order;
+				});
 
 				// If we don't have a field, redirect to the creation screen
 				if ($field === null)

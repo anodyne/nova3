@@ -66,6 +66,22 @@ class Field extends Model {
 
 	/*
 	|--------------------------------------------------------------------------
+	| Model Accessors
+	|--------------------------------------------------------------------------
+	*/
+
+	public function getRestrictionAttribute($value)
+	{
+		return explode(',', $value);
+	}
+
+	public function setRestrictionAttribute($value)
+	{
+		$this->attributes['restriction'] = (is_array($value)) ? implode(',', $value) : $value;
+	}
+
+	/*
+	|--------------------------------------------------------------------------
 	| Model Scopes
 	|--------------------------------------------------------------------------
 	*/
@@ -151,7 +167,10 @@ class Field extends Model {
 	 */
 	public function getValues()
 	{
-		return $this->values->toSimpleArray('value', 'value');
+		return $this->values->sortBy(function($v)
+		{
+			return $v->order;
+		})->toSimpleArray('value', 'value');
 	}
 
 }

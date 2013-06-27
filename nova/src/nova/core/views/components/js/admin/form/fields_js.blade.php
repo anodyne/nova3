@@ -6,7 +6,10 @@
 	$(document).ready(function(){
 		// Activate the first tab
 		$('.nav-tabs a:first').tab('show');
-		
+
+		// Set the HTML class
+		$('[name="html_class"]').val('col-lg-4');
+
 		// This fixes the issue where the row being dragged is compacted.
 		var fixHelper = function(e, ui){
 			ui.children().each(function(){
@@ -34,7 +37,7 @@
 			stop: function(event, ui){
 				$.ajax({
 					type: 'POST',
-					url: "{{ URL::to('ajax/update/form_value_order') }}",
+					url: "{{ URL::to('ajax/update/form_value/order') }}",
 					data: $(this).sortable('serialize')
 				});
 			}
@@ -49,6 +52,7 @@
 				$('.field-rows').addClass('hide');
 				$('.field-placeholder').removeClass('hide');
 				$('.field-value').removeClass('hide');
+				$('[name="html_class"]').val('col-lg-4');
 			}
 
 			if (type == 'textarea')
@@ -56,6 +60,7 @@
 				$('.field-rows').removeClass('hide');
 				$('.field-placeholder').removeClass('hide');
 				$('.field-value').removeClass('hide');
+				$('[name="html_class"]').val('col-lg-8');
 			}
 
 			if (type == 'select')
@@ -63,6 +68,7 @@
 				$('.field-rows').addClass('hide');
 				$('.field-placeholder').addClass('hide');
 				$('.field-value').addClass('hide');
+				$('[name="html_class"]').val('col-lg-4');
 			}
 		});
 	});
@@ -100,9 +106,31 @@
 
 		if (action == 'update')
 		{
-			$('#updateFormValue').modal({
-				remote: "{{ URL::to('ajax/update/form_value') }}/" + id
-			}).modal('show');
+			$.ajax({
+				type: 'POST',
+				url: "{{ URL::to('ajax/update/form_value/value') }}",
+				data: {
+					id: id,
+					value: $(this).closest('input[type=text]').val()
+				},
+				beforeSend: function(){
+					// Block the UI so they know what's going on
+					$.blockUI({
+						message: "<span class='text-small'>{{ lang('Action.processing') }}</span>",
+						css: {
+							padding: '5px',
+							border: 'none',
+							color: '#444',
+							'border-radius': '4px',
+							'font-weight': '600',
+							'box-shadow': '0 3px 7px rgba(0, 0, 0, 0.3)'
+						}
+					});
+				},
+				success: function(){
+					$.unblockUI;
+				}
+			});
 		}
 
 		if (action == 'add')

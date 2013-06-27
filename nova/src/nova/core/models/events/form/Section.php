@@ -113,7 +113,7 @@ class Section extends BaseEventHandler {
 		 */
 
 		// The section is assigned to a tab
-		if ($model->tab_id !== null)
+		if ($model->tab_id > 0)
 		{
 			// The tab has a section
 			if ($model->tab->sections->count() > 0)
@@ -179,7 +179,7 @@ class Section extends BaseEventHandler {
 		 */
 
 		// The section is assigned to a tab
-		if ($model->tab_id !== null)
+		if ($model->tab_id > 0)
 		{
 			// The tab has sections
 			if ($model->tab->sections->count() > 0)

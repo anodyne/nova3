@@ -317,6 +317,13 @@ return [
 		'protected'	=> (int) true
 	],
 	[
+		'name'		=> 'ajax/delete/form',
+		'verb'		=> 'get',
+		'uri'		=> 'ajax/delete/form/{formKey}',
+		'resource'	=> 'Nova\Core\Controllers\Ajax\Delete@getForm',
+		'protected'	=> (int) true
+	],
+	[
 		'name'		=> 'ajax/delete/form_tab',
 		'verb'		=> 'get',
 		'uri'		=> 'ajax/delete/form_tab/{id}',
@@ -356,13 +363,6 @@ return [
 		'protected'	=> (int) true
 	],
 	[
-		'name'		=> 'ajax/update/form',
-		'verb'		=> 'get',
-		'uri'		=> 'ajax/update/form/{key?}',
-		'resource'	=> 'Nova\Core\Controllers\Ajax\Update@getForm',
-		'protected'	=> (int) true
-	],
-	[
 		'name'		=> 'ajax/update/form_tab_order',
 		'verb'		=> 'post',
 		'uri'		=> 'ajax/update/form_tab_order',
@@ -385,16 +385,9 @@ return [
 	],
 	[
 		'name'		=> 'ajax/update/form_value',
-		'verb'		=> 'get',
-		'uri'		=> 'ajax/update/form_value/{id}',
-		'resource'	=> 'Nova\Core\Controllers\Ajax\Update@getFormValue',
-		'protected'	=> (int) true
-	],
-	[
-		'name'		=> 'ajax/update/form_value_order',
 		'verb'		=> 'post',
-		'uri'		=> 'ajax/update/form_value_order',
-		'resource'	=> 'Nova\Core\Controllers\Ajax\Update@postFormValueOrder',
+		'uri'		=> 'ajax/update/form_value',
+		'resource'	=> 'Nova\Core\Controllers\Ajax\Update@postFormValue',
 		'protected'	=> (int) true
 	],
 ];

@@ -66,108 +66,7 @@ class Update extends AjaxBaseController {
 			{
 				// Get and update the value record
 				$record = \NovaFormField::find($value);
-				$record->order = ($key + 1);
-				$record->save();
-			}
-		}
-	}
-
-	/**
-	 * Updates the value for a dropdown menu.
-	 *
-	 * @return	View/string
-	 */
-	public function getFormValue($id)
-	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('form.update'))
-		{
-			// Get the value
-			$value = \NovaFormValue::find($id);
-
-			// Get the fields
-			$fields = \NovaFormField::key($value->field->form->key)
-				->dropdowns()->get()->toSimpleArray('id', 'label');
-
-			echo View::make(Location::file('update/form_value', Utility::getSkin(), 'ajax'))
-				->with('value', $value)
-				->with('fields', $fields);
-
-			/*if (\Input::method() == 'POST')
-			{
-				// get the value
-				$value = \Model_Form_Value::find($id);
-
-				// remove the items we don't want
-				unset($_POST['id']);
-
-				// loop through and update the values
-				foreach (\Input::post() as $k => $v)
-				{
-					$value->{$k} = \Security::xss_clean($v);
-				}
-
-				// save the record
-				$value->save();
-
-				\SystemEvent::add('user', '[[event.admin.form.field_update|{{'.$value->field->label.'}}|{{'.$key.'}}]]');
-
-				echo '<h1>'.lang('action.edit value', 2).'</h1>';
-				echo '<p class="alert alert-success">'.lang('short.flash.success|value|action.updated', 1).' '.lang('short.refresh').'</p>';
-			}
-			else
-			{
-				// get the value
-				$value = \Model_Form_Value::find($id);
-
-				if ($value !== false)
-				{
-					$data = array(
-						'id' => $value->id,
-						'field' => $value->field_id,
-						'content' => $value->content,
-						'value' => $value->value,
-						'order' => $value->order,
-					);
-
-					// get the fields
-					$fields = \Model_Form_Field::getFormItems($value->field->form_key);
-
-					if (count($fields) > 0)
-					{
-						foreach ($fields as $f)
-						{
-							if ($f->type == 'select')
-							{
-								$data['fields'][$f->id] = $f->label;
-							}
-						}
-					}
-
-					echo \View::forge(\Location::file('update/form_value', 'default', 'ajax'), $data);
-				}
-			}*/
-		}
-	}
-
-	/**
-	 * Updates the form field value order when the sort function stops.
-	 *
-	 * @return	void
-	 */
-	public function postFormValueOrder()
-	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('form.update'))
-		{
-			// Get the values
-			$values = Input::get('value');
-
-			// Loop through the values
-			foreach ($values as $key => $value)
-			{
-				// Get and update the value record
-				$record = \NovaFormValue::find($value);
-				$record->order = ($key + 1);
-				$record->save();
+				$record->update(['order' => $key + 1]);
 			}
 		}
 	}
@@ -189,8 +88,7 @@ class Update extends AjaxBaseController {
 			{
 				// Get and update the section record
 				$record = \NovaFormSection::find($value);
-				$record->order = ($key + 1);
-				$record->save();
+				$record->update(['order' => $key + 1]);
 			}
 		}
 	}
@@ -212,8 +110,45 @@ class Update extends AjaxBaseController {
 			{
 				// Get and update the tab record
 				$record = \NovaFormTab::find($value);
-				$record->order = ($key + 1);
-				$record->save();
+				$record->update(['order' => $key + 1]);
+			}
+		}
+	}
+
+	/**
+	 * Updates a form field value.
+	 *
+	 * @return	void
+	 */
+	public function postFormValue($type)
+	{
+		if (Sentry::check() and Sentry::getUser()->hasAccess('form.update'))
+		{
+			switch ($type)
+			{
+				case 'order':
+					// Get the values
+					$values = Input::get('value');
+
+					// Loop through the values
+					foreach ($values as $key => $value)
+					{
+						// Get and update the value record
+						$record = \NovaFormValue::find($value);
+						$record->update(['order' => $key + 1]);
+					}
+				break;
+				
+				case 'value':
+				default:
+					// Get the POST values
+					$id = e(Input::get('id'));
+					$value = e(Input::get('value'));
+
+					// Get and update the value
+					$record = \NovaFormValue::find($id);
+					$record->update(['value' => $value]);
+				break;
 			}
 		}
 	}
@@ -363,15 +298,12 @@ class Update extends AjaxBaseController {
 		}
 	}
 
-	/*****************************************/
-	/*****************************************/
-	/*****************************************/
-
 	/**
 	 * Handles the create and update modals for managing
 	 * system page routes.
 	 *
 	 * @param	int		Page route ID
+	 * @return	void
 	 */
 	public function getRoute($id = 0)
 	{
