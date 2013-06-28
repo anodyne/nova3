@@ -6,33 +6,34 @@
 	});
 
 	$(document).on('click', '.js-route-action', function(){
-		var doaction = $(this).data('action');
+		var action = $(this).data('action');
 		var id = $(this).data('route');
+		alert('foo');
 
-		if (doaction == 'delete')
+		if (action == 'delete')
 		{
-			$('#deletePage').modal({
+			$('#deleteRoute').modal({
 				remote: "{{ URL::to('ajax/delete/route') }}/" + id
 			}).modal('show');
 		}
 
-		if (doaction == 'duplicate')
+		if (action == 'duplicate')
 		{
-			$('#duplicatePage').modal({
+			$('#duplicateRoute').modal({
 				remote: "{{ URL::to('ajax/add/duplicate_route') }}/" + id
 			}).modal('show');
 		}
 
-		if (doaction == 'add')
+		if (action == 'add')
 		{
-			$('#addPage').modal({
+			$('#addRoute').modal({
 				remote: "{{ URL::to('ajax/update/route') }}"
 			}).modal('show');
 		}
 
-		if (doaction == 'edit')
+		if (action == 'edit')
 		{
-			$('#editPage').modal({
+			$('#editRoute').modal({
 				remote: "{{ URL::to('ajax/update/route') }}/" + id
 			}).modal('show');
 		}

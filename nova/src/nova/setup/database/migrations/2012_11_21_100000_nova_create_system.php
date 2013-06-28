@@ -39,6 +39,7 @@ class NovaCreateSystem extends Migration {
 			$t->string('verb')->default('get');
 			$t->string('uri');
 			$t->string('resource');
+			$t->text('conditions')->nullable();
 			$t->boolean('protected')->default(0);
 		});
 

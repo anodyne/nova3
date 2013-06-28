@@ -32,7 +32,15 @@ else
 	{
 		foreach ($routes['get'] as $route)
 		{
-			Route::get($route['uri'], $route['resource']);
+			if ( ! empty($route['conditions']))
+			{
+				Route::get($route['uri'], $route['resource'])
+					->where(parseRouteConditions($route['conditions']));
+			}
+			else
+			{
+				Route::get($route['uri'], $route['resource']);
+			}
 		}
 	}
 
@@ -41,7 +49,15 @@ else
 	{
 		foreach ($routes['post'] as $route)
 		{
-			Route::post($route['uri'], $route['resource']);
+			if ( ! empty($route['conditions']))
+			{
+				Route::post($route['uri'], $route['resource'])
+					->where(parseRouteConditions($route['conditions']));
+			}
+			else
+			{
+				Route::post($route['uri'], $route['resource']);
+			}
 		}
 	}
 
@@ -50,7 +66,15 @@ else
 	{
 		foreach ($routes['put'] as $route)
 		{
-			Route::put($route['uri'], $route['resource']);
+			if ( ! empty($route['conditions']))
+			{
+				Route::put($route['uri'], $route['resource'])
+					->where(parseRouteConditions($route['conditions']));
+			}
+			else
+			{
+				Route::put($route['uri'], $route['resource']);
+			}
 		}
 	}
 
@@ -59,7 +83,15 @@ else
 	{
 		foreach ($routes['delete'] as $route)
 		{
-			Route::delete($route['uri'], $route['resource']);
+			if ( ! empty($route['conditions']))
+			{
+				Route::delete($route['uri'], $route['resource'])
+					->where(parseRouteConditions($route['conditions']));
+			}
+			else
+			{
+				Route::delete($route['uri'], $route['resource']);
+			}
 		}
 	}
 }

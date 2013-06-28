@@ -32,8 +32,16 @@
 		</div>
 	</div>
 
+	<div class="row">
+		<div class="col-lg-12">
+			<label class="control-label">{{ lang('Conditions') }}</label>
+			{{ Form::textarea('conditions', null, ['rows' => 3]) }}
+			<p class="help-block">{{ lang('short.admin.pages.conditions') }}</p>
+		</div>
+	</div>
+
 	{{ Form::token() }}
 	{{ Form::hidden('id') }}
 	{{ Form::hidden('action', $action) }}
-	{{ Form::button(ucfirst(lang('action.submit')), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
+	{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
 {{ Form::close() }}

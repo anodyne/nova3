@@ -98,3 +98,45 @@ function partial($view, $data)
 {
 	return View::make(Location::file($view, Utility::getSkin(), 'partial'))->with($data);
 }
+
+/**
+ * Parse route conditions.
+ *
+ * @param	string	The route conditions
+ * @return	array
+ */
+if ( ! function_exists('parseRouteConditions'))
+{
+	function parseRouteConditions($conditions)
+	{
+		// Create an empty array for storing conditions
+		$finalConditions = [];
+		
+		// We have a pipe, so we need to break things apart twice
+		if (Str::contains($conditions, '|'))
+		{
+			// Create an array of conditions
+			$conditionsArr = explode('|', $conditions);
+
+			// Loop through the conditions array
+			foreach ($conditionsArr as $c)
+			{
+				// Break the conditions up
+				list($name, $pattern) = explode('.', $c);
+
+				// Add the conditions to the final array
+				$finalConditions[] = [$name => $condition];
+			}
+		}
+		else
+		{
+			// Break the conditions up
+			list($name, $pattern) = explode('.', $conditions);
+
+			// Set the final conditions
+			$finalConditions[$name] = $pattern;
+		}
+
+		return $finalConditions;
+	}
+}

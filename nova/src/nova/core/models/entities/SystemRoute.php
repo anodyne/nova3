@@ -13,11 +13,11 @@ class SystemRoute extends Model implements CacheInterface {
 	protected $table = 'system_routes';
 
 	protected $fillable = array(
-		'name', 'verb', 'uri', 'resource',
+		'name', 'verb', 'uri', 'resource', 'conditions',
 	);
 	
 	protected static $properties = array(
-		'id', 'verb', 'name', 'uri', 'resource', 'protected',
+		'id', 'verb', 'name', 'uri', 'resource', 'conditions', 'protected',
 	);
 
 	/*
@@ -83,8 +83,9 @@ class SystemRoute extends Model implements CacheInterface {
 		foreach ($items as $item)
 		{
 			$routes[$item->verb][$item->name] = [
-				'uri'		=> $item->uri,
-				'resource'	=> $item->resource,
+				'uri'			=> $item->uri,
+				'resource'		=> $item->resource,
+				'conditions'	=> $item->conditions,
 			];
 		}
 
