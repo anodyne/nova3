@@ -1,1 +1,0 @@
-<?php echo partial('common/alert', ['content' => lang('error.notFound', langConcat('form tabs'))]);?>
