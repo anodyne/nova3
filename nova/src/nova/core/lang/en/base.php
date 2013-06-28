@@ -36,6 +36,8 @@ return array(
 	'comment' => 'comment',
 	'comments' => 'comments',
 	'component' => "component",
+	'condition' => "condition",
+	'conditions' => "conditions",
 	'core' => "core",
 
 	'display' => 'display',

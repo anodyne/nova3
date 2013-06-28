@@ -61,6 +61,7 @@ return array(
 			'uri' => "Optional URI parameters can be specified with a question mark: <code>{id?}</code>",
 			'resource' => "Resources must include the namespace: <code>App\Controllers\Foo@method</code>",
 			'name' => "If you are overriding an existing page, make sure the name matches exactly.",
+			'conditions' => "Conditions must contain a name and a pattern, separated by a period: <code>name.condition</code>. The name is the variable used in the URI field and the condition is a regular expression. Ensuring an ID is numeric would be: <code>id.[0-9]+</code>. In addition, you can create multiple conditions for a route by separating the conditions with a pipe <code>|</code>.",
 		],
 	],
 
