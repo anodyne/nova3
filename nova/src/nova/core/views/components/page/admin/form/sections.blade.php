@@ -55,7 +55,7 @@
 						</td>
 						<td class="col-alt-1">
 							<div class="btn-toolbar pull-right">
-								<div class="btn-group icn-opacity-50">{{ $_icons['move'] }}</div>
+								<div class="btn-group icn-opacity-50 reorder">{{ $_icons['move'] }}</div>
 							</div>
 						</td>
 					</tr>
@@ -99,7 +99,7 @@
 					</td>
 					<td class="col-alt-1">
 						<div class="btn-toolbar pull-right">
-							<div class="btn-group icn-opacity-50">{{ $_icons['move'] }}</div>
+							<div class="btn-group icn-opacity-50 reorder">{{ $_icons['move'] }}</div>
 						</div>
 					</td>
 				</tr>

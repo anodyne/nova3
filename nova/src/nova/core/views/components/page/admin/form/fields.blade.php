@@ -50,11 +50,11 @@
 											</label>
 											<div class="controls">
 												@if ($f->type == 'text')
-													{{ Form::text($f->html_name, $f->value, ['class' => $f->html_class, 'id' => $f->html_id, 'placeholder' => $f->placeholder]) }}
+													{{ Form::text($f->html_name, $f->value, ['placeholder' => $f->placeholder]) }}
 												@elseif ($f->type == 'textarea')
-													{{ Form::textarea($f->html_name, $f->value, ['class' => $f->html_class, 'id' => $f->html_id, 'placeholder' => $f->placeholder, 'rows' => $f->html_rows]) }}
+													{{ Form::textarea($f->html_name, $f->value, ['placeholder' => $f->placeholder, 'rows' => $f->html_rows]) }}
 												@elseif ($f->type == 'select')
-													{{ Form::select($f->html_name, $f->getValues(), $f->value, ['class' => $f->html_class, 'id' => $f->html_id]) }}
+													{{ Form::select($f->html_name, $f->getValues(), $f->value) }}
 												@endif
 											</div>
 										</div>
@@ -77,7 +77,7 @@
 								</td>
 								<td class="col-alt-1">
 									<div class="btn-toolbar pull-right">
-										<div class="btn-group icn-opacity-50">{{ $_icons['move'] }}</div>
+										<div class="btn-group icn-opacity-50 reorder">{{ $_icons['move'] }}</div>
 									</div>
 								</td>
 							</tr>
@@ -119,11 +119,11 @@
 									</label>
 									<div class="controls">
 										@if ($f->type == 'text')
-											{{ Form::text($f->html_name, $f->value, ['class' => $f->html_class, 'id' => $f->html_id, 'placeholder' => $f->placeholder]) }}
+											{{ Form::text($f->html_name, $f->value, ['placeholder' => $f->placeholder]) }}
 										@elseif ($f->type == 'textarea')
-											{{ Form::textarea($f->html_name, $f->value, ['class' => $f->html_class, 'id' => $f->html_id, 'placeholder' => $f->placeholder, 'rows' => $f->html_rows]) }}
+											{{ Form::textarea($f->html_name, $f->value, ['placeholder' => $f->placeholder, 'rows' => $f->html_rows]) }}
 										@elseif ($f->type == 'select')
-											{{ Form::select($f->html_name, $f->getValues(), $f->value, ['class' => $f->html_class, 'id' => $f->html_id]) }}
+											{{ Form::select($f->html_name, $f->getValues(), $f->value) }}
 										@endif
 									</div>
 								</div>
@@ -146,7 +146,7 @@
 						</td>
 						<td class="col-alt-1">
 							<div class="btn-toolbar pull-right">
-								<div class="btn-group icn-opacity-50">{{ $_icons['move'] }}</div>
+								<div class="btn-group icn-opacity-50 reorder">{{ $_icons['move'] }}</div>
 							</div>
 						</td>
 					</tr>

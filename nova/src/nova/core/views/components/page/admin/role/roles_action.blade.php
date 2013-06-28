@@ -1,10 +1,10 @@
 <div class="btn-group">
-	<a href="{{ URL::to('admin/role') }}" class="btn btn-default icn-size-16 tooltip-top" title="{{ ucfirst(lang('short.back', langConcat('access roles'))) }}">{{ $_icons['back'] }}</a>
+	<a href="{{ URL::to('admin/role') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
 </div>
 
 {{ Form::model($role, ['url' => 'admin/role']) }}
 	<div class="row">
-		<div class="col col-lg-4">
+		<div class="col-lg-4">
 			<div class="control-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
 				<label class="control-label">{{ ucwords(lang('name')) }}</label>
 				<div class="controls">
@@ -16,7 +16,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col col-lg-8">
+		<div class="col-lg-8">
 			<div class="control-group{{ ($errors->has('desc')) ? ' has-error' : '' }}">
 				<label class="control-label">{{ ucwords(lang('desc')) }}</label>
 				<div class="controls">
@@ -28,7 +28,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col col-lg-8">
+		<div class="col-lg-8">
 			<div class="control-group">
 				<label class="control-label">{{ ucwords(lang('action.inherits')) }}</label>
 				<div class="controls">
@@ -36,14 +36,14 @@
 					@foreach ($roles as $r)
 						@if ($action == 'update')
 							@if ($r->id != $role->id)
-								<div class="col col-lg-6">
+								<div class="col-lg-6">
 									<label class="checkbox">
 										{{ Form::checkbox('inherits[]', $r->id, (in_array($r->id, $role->inherits)), ['data-role' => $r->id, 'class' => 'js-inherited-roles']) }} {{ $r->name }}
 									</label>
 								</div>
 							@endif
 						@else
-							<div class="col col-lg-6">
+							<div class="col-lg-6">
 								<label class="checkbox">
 									{{ Form::checkbox('inherits[]', $r->id, null, ['data-role' => $r->id, 'class' => 'js-inherited-roles']) }} {{ $r->name }}
 								</label>
@@ -66,7 +66,7 @@
 
 					<div class="row">
 					@foreach ($task as $t)
-						<div class="col col-lg-4">
+						<div class="col-lg-4">
 							<label class="checkbox">
 								@if (array_key_exists($t->id, $inheritedTasks))
 									{{ Form::checkbox('tasks[]', $t->id, true, ['disabled' => 'disabled']) }}
@@ -95,7 +95,7 @@
 
 		<div class="visible-sm taskList">
 			<div class="row">
-				<div class="col col-sm-12">
+				<div class="col-sm-12">
 					<div class="accordion" id="accordion">
 						<?php $i = 1;?>
 						@foreach ($tasks as $component => $task)
@@ -143,10 +143,8 @@
 		{{ partial('common/alert', ['content' => lang('error.notFound', lang('tasks'))]) }}
 	@endif
 
-	<div class="controls">
-		{{ Form::hidden('id') }}
-		{{ Form::hidden('action', $action) }}
-		{{ Form::token() }}
-		{{ Form::button(ucfirst(lang('action.submit')), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
-	</div>
+	{{ Form::token() }}
+	{{ Form::hidden('id') }}
+	{{ Form::hidden('action', $action) }}
+	{{ Form::button(ucfirst(lang('action.submit')), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
 {{ Form::close() }}

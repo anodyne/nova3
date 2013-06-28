@@ -1,7 +1,7 @@
 <div class="btn-toolbar">
 	@if (Sentry::getUser()->hasAccess('role.create'))
 		<div class="btn-group">
-			<a href="{{ URL::to('admin/role/0') }}" class="btn btn-success icn-size-16 tooltip-top" title="{{ lang('Short.add', langConcat('access role')) }}">{{ $_icons['add'] }}</a>
+			<a href="{{ URL::to('admin/role/0') }}" class="btn btn-success icn-size-16">{{ $_icons['add'] }}</a>
 		</div>
 	@endif
 
@@ -15,25 +15,25 @@
 		<tbody>
 		@foreach ($roles as $r)
 			<tr>
-				<td class="alt-col-9">
+				<td class="col-alt-9">
 					<p><strong>{{ $r->name }}</strong></p>
 					<p class="text-muted text-small">{{ $r->desc }}</p>
 				</td>
-				<td class="alt-col-3">
+				<td class="col-alt-3">
 					<div class="btn-toolbar pull-right">
 						<div class="btn-group">
 							<a href="#" class="btn btn-default btn-small tooltip-top js-role-action icn-size-16" title="{{ lang('Short.view', langConcat('users with this role')) }}" data-action="view" data-id="{{ $r->id }}">{{ $_icons['view'] }}</a>
 							
-							<a href="{{ URL::to('admin/role/'.$r->id) }}" class="btn btn-default btn-small tooltip-top icn-size-16" title="{{ lang('Short.edit', lang('role')) }}">{{ $_icons['edit'] }}</a>
+							<a href="{{ URL::to('admin/role/'.$r->id) }}" class="btn btn-default btn-small icn-size-16">{{ $_icons['edit'] }}</a>
 
 							@if (Sentry::getUser()->hasAccess('role.create'))
-								<a href="#" class="btn btn-default btn-small tooltip-top js-role-action icn-size-16" title="{{ lang('Short.duplicate', lang('role')) }}" data-action="duplicate" data-id="{{ $r->id }}">{{ $_icons['duplicate'] }}</a>
+								<a href="#" class="btn btn-default btn-small js-role-action icn-size-16" title="{{ lang('Short.duplicate', lang('role')) }}" data-action="duplicate" data-id="{{ $r->id }}">{{ $_icons['duplicate'] }}</a>
 							@endif
 						</div>
 
 						@if (Sentry::getUser()->hasAccess('role.delete'))
 							<div class="btn-group">
-								<a href="#" class="btn btn-small btn-danger tooltip-top js-role-action icn-size-16" title="{{ lang('Short.delete', lang('role')) }}" data-action="delete" data-id="{{ $r->id }}">{{ $_icons['remove'] }}</a>
+								<a href="#" class="btn btn-small btn-danger js-role-action icn-size-16" data-action="delete" data-id="{{ $r->id }}">{{ $_icons['remove'] }}</a>
 							</div>
 						@endif
 					</div>

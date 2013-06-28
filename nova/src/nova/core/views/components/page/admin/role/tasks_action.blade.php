@@ -1,10 +1,10 @@
 <div class="btn-group">
-	<a href="{{ URL::to('admin/role/tasks') }}" class="btn btn-default icn-size-16 tooltip-top" title="{{ ucfirst(lang('short.back', langConcat('access tasks'))) }}">{{ $_icons['back'] }}</a>
+	<a href="{{ URL::to('admin/role/tasks') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
 </div>
 
 {{ Form::model($task) }}
 	<div class="row">
-		<div class="col col-lg-4">
+		<div class="col-lg-4">
 			<div class="control-group">
 				<label class="control-label">{{ ucfirst(lang('name')) }}</label>
 				<div class="controls">
@@ -15,7 +15,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col col-lg-6">
+		<div class="col-lg-6">
 			<div class="control-group">
 				<label class="control-label">{{ ucfirst(lang('desc')) }}</label>
 				<div class="controls">
@@ -26,7 +26,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col col-lg-4">
+		<div class="col-lg-4">
 			<div class="control-group">
 				<label class="control-label">{{ ucfirst(lang('component')) }}</label>
 				<div class="controls">
@@ -38,7 +38,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col col-lg-4">
+		<div class="col-lg-4">
 			<div class="control-group">
 				<label class="control-label">{{ ucfirst(lang('action_proper')) }}</label>
 				<div class="controls">
@@ -50,7 +50,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col col-lg-4">
+		<div class="col-lg-4">
 			<div class="control-group">
 				<label class="control-label">{{ ucfirst(lang('level')) }}</label>
 				<div class="controls">
@@ -61,11 +61,8 @@
 		</div>
 	</div>
 
-	<div class="controls">
-		{{ Form::button(ucfirst(lang('action.submit')), array('type' => 'submit', 'class' => 'btn btn-primary')) }}
-	</div>
-
+	{{ Form::token() }}
 	{{ Form::hidden('action', $action) }}
 	{{ Form::hidden('id') }}
-	{{ Form::token() }}
+	{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
 {{ Form::close() }}
