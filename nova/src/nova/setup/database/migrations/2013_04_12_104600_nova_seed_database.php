@@ -40,9 +40,9 @@ class NovaSeedDatabase extends Migration {
 		 * Form Seeds
 		 */
 		$this->seedForms();
-		$this->seedFormFields();
-		$this->seedFormSections();
 		$this->seedFormTabs();
+		$this->seedFormSections();
+		$this->seedFormFields();
 		$this->seedFormValues();
 
 		/**

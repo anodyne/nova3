@@ -28,8 +28,11 @@
 
 use Status;
 use SystemEvent;
+use NovaFormData;
 use NovaFormSection;
 use BaseEventHandler;
+use User as UserModel;
+use Character as CharacterModel;
 
 class Field extends BaseEventHandler {
 
@@ -46,7 +49,7 @@ class Field extends BaseEventHandler {
 		{
 			case 'character':
 				// Get all the active characters
-				$characters = Character::active()->get();
+				$characters = CharacterModel::active()->get();
 
 				if ($characters->count() > 0)
 				{
@@ -59,7 +62,7 @@ class Field extends BaseEventHandler {
 
 			case 'user':
 				// Get all the active users
-				$users = User::active()->get();
+				$users = UserModel::active()->get();
 
 				if ($users->count() > 0)
 				{

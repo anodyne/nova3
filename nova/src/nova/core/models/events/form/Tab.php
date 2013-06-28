@@ -4,12 +4,12 @@
  * Form tab event handler.
  *
  * afterCreate
- * When a new tab is created, we need to check to see how many tabs exist
- * already. If there's only 1 (i.e. the one we just created) then we need to
- * update all of the sections for that form to move them in to the newly
- * created tab. If there aren't any sections either, we need to create a 
- * blank section and move all the fields in to that section. If these steps 
- * aren't done, we could orphan fields and sections for the form.
+ * When a new tab is created, we need to check to see how many tabs are attached
+ * to the form already. If the tab we created is the only tab, we need to look 
+ * at the sections. In the event there are no sections, but there are fields 
+ * attached, we create a new section and put all the fields into the newly 
+ * created section. If there are sections, we'll take the first one and assign 
+ * all the fields to that section.
  *
  * afterUpdate
  * Create a system event. 
@@ -32,39 +32,47 @@ class Tab extends BaseEventHandler {
 		// We only have the tab we just created...
 		if ($form->tabs->count() == 1)
 		{
-			// There were no tabs before, so let's move all the sections
-			// into the tab we just created
+			// There were no tabs before, but there are sections
+			// attached to this form (not sure how that would
+			// happen, but let's account for it anyway)
 			if ($form->sections->count() > 0)
 			{
 				foreach ($form->sections as $section)
 				{
-					// Set the section to have the ID of the newly created tab
-					$section->tab_id = $model->id;
-					$section->save();
+					// Add the sections to the newly created tab
+					$section->update(['tab_id' => $model->id]);
 				}
 			}
-			else
+
+			// There are fields attached to this form
+			if ($form->fields->count() > 0)
 			{
-				// Create a new section
-				$newSection = new NovaFormSection([
-					'form_id'	=> $form->id,
-					'tab_id'	=> $model->id,
-					'name'		=> '',
-					'order'		=> 0
-				]);
-
-				// We don't have any sections, so let's create a blank one
-				$model->section()->save($newSection);
-
-				// We have fields...
-				if ($form->fields->count() > 0)
+				// We don't have any sections
+				if ($form->sections->count() == 0)
 				{
-					// Loop through the fields
+					// Create a new section
+					$newSection = new NovaFormSection([
+						'form_id'	=> $form->id,
+						'tab_id'	=> $model->id,
+						'name'		=> '',
+						'order'		=> 0
+					]);
+
+					// Attach the section to the tab
+					$model->sections->save($newSection);
+
 					foreach ($form->fields as $field)
 					{
-						// Update the field section
-						$field->section_id = $newSection->id;
-						$field->save();
+						// Add the fields to the newly created section
+						$field->update(['section_id' => $newSection->id]);
+					}
+				}
+				else
+				{
+					foreach ($form->fields as $field)
+					{
+						// Add the fields to the first section we find
+						$field->update(['section_id' => $model->sections->first()->id]);
 					}
 				}
 			}
