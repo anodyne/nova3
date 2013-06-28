@@ -44,6 +44,8 @@ class RefreshContent extends Command {
 		// Grab the content data file
 		$routes = include SRCPATH.'setup/database/migrations/data/content.php';
 
+		Eloquent::unguard();
+
 		// Loop through the contents data file and insert the records
 		foreach ($routes as $r)
 		{

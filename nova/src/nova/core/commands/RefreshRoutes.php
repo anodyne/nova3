@@ -1,5 +1,6 @@
 <?php namespace Nova\Core\Commands;
 
+use Eloquent;
 use SystemRoute;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
@@ -43,6 +44,8 @@ class RefreshRoutes extends Command {
 
 		// Grab the routes data file
 		$routes = include SRCPATH.'setup/database/migrations/data/routes.php';
+
+		Eloquent::unguard();
 
 		// Loop through the routes data file and insert the records
 		foreach ($routes as $r)
