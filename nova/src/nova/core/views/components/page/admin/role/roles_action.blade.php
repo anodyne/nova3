@@ -2,11 +2,11 @@
 	<a href="{{ URL::to('admin/role') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
 </div>
 
-{{ Form::model($role, ['url' => 'admin/role']) }}
+{{ Form::model($role) }}
 	<div class="row">
 		<div class="col-lg-4">
 			<div class="control-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
-				<label class="control-label">{{ ucwords(lang('name')) }}</label>
+				<label class="control-label">{{ lang('Name') }}</label>
 				<div class="controls">
 					{{ Form::text('name', null, ['class' => 'input-with-feedback']) }}
 					{{ $errors->first('name', '<p class="help-block">:message</p>') }}
@@ -17,11 +17,10 @@
 
 	<div class="row">
 		<div class="col-lg-8">
-			<div class="control-group{{ ($errors->has('desc')) ? ' has-error' : '' }}">
-				<label class="control-label">{{ ucwords(lang('desc')) }}</label>
+			<div class="control-group">
+				<label class="control-label">{{ lang('Desc') }}</label>
 				<div class="controls">
 					{{ Form::textarea('desc', null, ['class' => 'input-with-feedback', 'rows' => 4]) }}
-					{{ $errors->first('desc', '<p class="help-block">:message</p>') }}
 				</div>
 			</div>
 		</div>
@@ -30,7 +29,7 @@
 	<div class="row">
 		<div class="col-lg-8">
 			<div class="control-group">
-				<label class="control-label">{{ ucwords(lang('action.inherits')) }}</label>
+				<label class="control-label">{{ lang('Action.inherits') }}</label>
 				<div class="controls">
 					<div class="row">
 					@foreach ($roles as $r)

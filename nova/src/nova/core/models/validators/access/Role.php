@@ -5,8 +5,7 @@ use BaseValidator;
 class Role extends BaseValidator {
 
 	public static $rules = array(
-		'name'			=> 'required',
-		'desc'			=> 'required',
+		'name' => 'required',
 	);
 
 }

@@ -345,13 +345,19 @@ class Role extends AdminBaseController {
 			}
 
 			// Set the list of components
-			$this->_data->componentSource = json_encode($cs);
+			$this->_jsData->componentSource = json_encode($cs);
 
 			// Set the list of actions
-			$this->_data->actionSource = json_encode(array('create', 'read', 'update', 'delete'));
+			$this->_jsData->actionSource = json_encode(array('create', 'read', 'update', 'delete'));
 
 			// Set the action
 			$this->_data->action = ($taskID == 0) ? 'create' : 'update';
+
+			// Update the title and message
+			$this->_data->header = $this->_data->title = ($taskID == 0)
+				? lang('Short.create', langConcat('Access Role Task'))
+				: lang('Short.update', langConcat('Access Role Task'));
+			$this->_data->message = false;
 		}
 		else
 		{
@@ -394,7 +400,7 @@ class Role extends AdminBaseController {
 		}
 
 		// Get the action
-		$action = e(Input::get('action'));
+		$action = e(Input::get('formAction'));
 
 		// Get the current user
 		$user = Sentry::getUser();

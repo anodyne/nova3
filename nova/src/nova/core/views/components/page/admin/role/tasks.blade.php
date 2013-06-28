@@ -1,9 +1,3 @@
-@if (count($tasks) > 0)
-	<div class="controls pull-right">
-		{{ Form::text('user_search', null, ['class' => 'search-query', 'id' => 'userSearch', 'placeholder' => lang('Short.search', langConcat('for access tasks'))]) }}
-	</div>
-@endif
-
 <div class="btn-toolbar">
 	@if (Sentry::getUser()->hasAccess('role.create'))
 		<div class="btn-group">
@@ -19,6 +13,16 @@
 </div>
 
 @if (count($tasks) > 0)
+	<div class="row">
+		<div class="col-lg-4">
+			<div class="control-group">
+				<div class="controls">
+					{{ Form::text('user_search', null, ['class' => 'search-query', 'id' => 'userSearch', 'placeholder' => lang('Short.search', langConcat('for access tasks'))]) }}
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	@foreach ($tasks as $component => $task)
 		<h3>{{ ucfirst($component) }}</h3>
 

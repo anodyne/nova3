@@ -233,7 +233,7 @@ return [
 	[
 		'key' => 'admin_role_index_header',
 		'label' => 'Access Roles Header',
-		'content' => "Manage Access Roles",
+		'content' => "Access Roles",
 		'type' => 'header',
 		'section' => 'role',
 		'page' => 'index'
@@ -241,7 +241,7 @@ return [
 	[
 		'key' => 'admin_role_tasks_header',
 		'label' => 'Access Role Tasks Header',
-		'content' => "Manage Access Role Tasks",
+		'content' => "Access Role Tasks",
 		'type' => 'header',
 		'section' => 'role',
 		'page' => 'tasks'
@@ -659,7 +659,7 @@ return [
 	[
 		'key' => 'admin_role_tasks_message',
 		'label' => 'Access Roles Tasks Message',
-		'content' => "Access roles are made up of tasks. Each task defines something a user can do such as creating, updating, deleting or even seeing entries. When combined with a component, this system allows for granular control over what a user can and can't do in Nova. You can edit any tasks in system or even create your own for your own pages or MODs. Be careful when editing or deleting existing items as doing so could prevent you or others from accessing areas of Nova.",
+		'content' => "Access roles are made up of tasks. Each task defines something a user can do such as creating, updating, deleting or even seeing entries. When combined with a component, this system allows for granular control over what a user can and can't do in Nova. You can edit any task in the system or even create your own for your own pages or MODs. Be careful when editing or deleting existing items as doing so could prevent you or others from accessing areas of Nova.",
 		'type' => 'message',
 		'section' => 'role',
 		'page' => 'tasks'
