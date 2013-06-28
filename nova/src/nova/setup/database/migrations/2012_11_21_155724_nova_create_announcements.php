@@ -15,8 +15,8 @@ class NovaCreateAnnouncements extends Migration {
 		{
 			$t->increments('id');
 			$t->string('title')->default('');
-			$t->integer('user_id');
-			$t->integer('character_id');
+			$t->integer('user_id')->unsigned();
+			$t->integer('character_id')->unsigned();
 			$t->text('content');
 			$t->boolean('status')->default(Status::ACTIVE);
 			$t->boolean('private')->default((int) false);

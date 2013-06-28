@@ -24,17 +24,17 @@ class NovaCreateSystem extends Migration {
 
 		Schema::create('system_events', function($t)
 		{
-			$t->increments('id')->unsigned();
+			$t->bigIncrements('id');
 			$t->string('email', 100)->nullable();
 			$t->string('ip', 16);
-			$t->integer('user_id')->nullable();
+			$t->integer('user_id')->unsigned()->nullable();
 			$t->text('content');
 			$t->timestamps();
 		});
 
 		Schema::create('system_routes', function($t)
 		{
-			$t->increments('id')->unsigned();
+			$t->increments('id');
 			$t->string('name');
 			$t->string('verb')->default('get');
 			$t->string('uri');

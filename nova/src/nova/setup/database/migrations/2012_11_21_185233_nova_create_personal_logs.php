@@ -15,8 +15,8 @@ class NovaCreatePersonalLogs extends Migration {
 		{
 			$t->increments('id');
 			$t->string('title')->nullable();
-			$t->integer('user_id');
-			$t->integer('character_id');
+			$t->integer('user_id')->unsigned();
+			$t->integer('character_id')->unsigned();
 			$t->text('content')->nullable();
 			$t->boolean('status')->default(Status::ACTIVE);
 			$t->text('keywords')->nullable();

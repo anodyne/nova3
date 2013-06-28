@@ -23,8 +23,8 @@ class NovaCreateRoles extends Migration {
 		Schema::create('roles_tasks', function($t)
 		{
 			$t->increments('id');
-			$t->integer('role_id');
-			$t->integer('task_id');
+			$t->integer('role_id')->unsigned();
+			$t->integer('task_id')->unsigned();
 		});
 
 		Schema::create('tasks', function($t)
@@ -32,7 +32,7 @@ class NovaCreateRoles extends Migration {
 			$t->increments('id');
 			$t->string('name');
 			$t->string('desc')->nullable();
-			$t->string('component', 100);
+			$t->string('component');
 			$t->string('action', 11)->default('read');
 			$t->boolean('level')->default(0);
 		});

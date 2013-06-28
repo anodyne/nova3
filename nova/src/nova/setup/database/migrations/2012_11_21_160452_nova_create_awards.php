@@ -15,8 +15,8 @@ class NovaCreateAwards extends Migration {
 		{
 			$t->increments('id');
 			$t->string('name');
-			$t->integer('category_id')->nullable();
-			$t->string('image', 100)->nullable();
+			$t->integer('category_id')->unsigned()->nullable();
+			$t->string('image')->nullable();
 			$t->integer('order')->nullable();
 			$t->text('desc')->nullable();
 			$t->string('type')->default('ic');
@@ -33,11 +33,11 @@ class NovaCreateAwards extends Migration {
 
 		Schema::create('award_recipients', function($t)
 		{
-			$t->increments('id');
-			$t->integer('character_id');
-			$t->integer('user_id');
-			$t->integer('sender_user_id');
-			$t->integer('award_id');
+			$t->bigIncrements('id');
+			$t->integer('character_id')->unsigned();
+			$t->integer('user_id')->unsigned();
+			$t->integer('sender_user_id')->unsigned();
+			$t->integer('award_id')->unsigned();
 			$t->text('reason')->nullable();
 			$t->boolean('status')->default(Status::PENDING);
 			$t->timestamps();

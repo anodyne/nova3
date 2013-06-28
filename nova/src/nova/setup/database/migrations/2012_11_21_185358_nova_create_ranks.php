@@ -17,8 +17,8 @@ class NovaCreateRanks extends Migration {
 		Schema::create("ranks_{$genre}", function($t)
 		{
 			$t->increments('id');
-			$t->integer('info_id');
-			$t->integer('group_id');
+			$t->integer('info_id')->unsigned();
+			$t->integer('group_id')->unsigned();
 			$t->string('base');
 			$t->string('pip')->nullable();
 			$t->timestamps();

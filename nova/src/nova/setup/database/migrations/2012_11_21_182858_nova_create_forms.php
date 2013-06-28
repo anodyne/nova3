@@ -27,19 +27,19 @@ class NovaCreateForms extends Migration {
 
 		Schema::create('form_data', function($t)
 		{
-			$t->increments('id')->unsigned();
-			$t->integer('form_id');
+			$t->bigIncrements('id');
+			$t->integer('form_id')->unsigned();
 			$t->integer('field_id')->unsigned();
-			$t->integer('data_id');
+			$t->integer('data_id')->unsigned();
 			$t->text('value')->nullable();
 			$t->timestamps();
 		});
 
 		Schema::create('form_fields', function($t)
 		{
-			$t->increments('id')->unsigned();
-			$t->integer('form_id');
-			$t->integer('section_id')->nullable();
+			$t->increments('id');
+			$t->integer('form_id')->unsigned();
+			$t->integer('section_id')->unsigned()->nullable();
 			$t->string('type', 50)->default('text');
 			$t->string('label');
 			$t->integer('order')->nullable();
@@ -59,8 +59,8 @@ class NovaCreateForms extends Migration {
 		Schema::create('form_sections', function($t)
 		{
 			$t->increments('id');
-			$t->integer('form_id');
-			$t->integer('tab_id')->nullable();
+			$t->integer('form_id')->unsigned();
+			$t->integer('tab_id')->unsigned()->nullable();
 			$t->string('name')->nullable();
 			$t->integer('order');
 			$t->boolean('status')->default(Status::ACTIVE);
@@ -70,10 +70,10 @@ class NovaCreateForms extends Migration {
 		Schema::create('form_tabs', function($t)
 		{
 			$t->increments('id');
-			$t->integer('form_id');
+			$t->integer('form_id')->unsigned();
 			$t->string('name');
-			$t->string('link_id', 20)->nullable();
-			$t->integer('order')->nullable();
+			$t->string('link_id')->nullable();
+			$t->integer('order');
 			$t->boolean('status')->default(Status::ACTIVE);
 			$t->timestamps();
 		});
@@ -83,7 +83,7 @@ class NovaCreateForms extends Migration {
 			$t->increments('id');
 			$t->integer('field_id')->unsigned();
 			$t->string('value');
-			$t->integer('order')->nullable();
+			$t->integer('order');
 			$t->timestamps();
 		});
 	}

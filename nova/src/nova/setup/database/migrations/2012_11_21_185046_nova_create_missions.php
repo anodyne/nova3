@@ -16,10 +16,10 @@ class NovaCreateMissions extends Migration {
 			$t->increments('id');
 			$t->string('title');
 			$t->integer('order');
-			$t->integer('group_id');
+			$t->integer('group_id')->unsigned()->nullable();
 			$t->boolean('status')->default(Status::PENDING);
-			$t->date('start_date');
-			$t->date('end_date');
+			$t->date('start_date')->nullable();
+			$t->date('end_date')->nullable();
 			$t->text('desc');
 			$t->text('summary')->nullable();
 			$t->timestamps();
@@ -31,14 +31,14 @@ class NovaCreateMissions extends Migration {
 			$t->string('name');
 			$t->integer('order');
 			$t->text('desc')->nullable();
-			$t->integer('parent_id')->nullable();
+			$t->integer('parent_id')->unsigned()->nullable();
 			$t->timestamps();
 		});
 
 		Schema::create('mission_notes', function($t)
 		{
 			$t->increments('id');
-			$t->integer('mission_id');
+			$t->integer('mission_id')->unsigned();
 			$t->text('content');
 			$t->timestamps();
 		});

@@ -13,9 +13,9 @@ class NovaCreateMessages extends Migration {
 	{
 		Schema::create('messages', function($t)
 		{
-			$t->increments('id')->unsigned();
-			$t->integer('user_id');
-			$t->integer('character_id');
+			$t->bigIncrements('id');
+			$t->integer('user_id')->unsigned();
+			$t->integer('character_id')->unsigned();
 			$t->string('subject');
 			$t->text('content');
 			$t->boolean('status')->default(Status::ACTIVE);
@@ -24,10 +24,10 @@ class NovaCreateMessages extends Migration {
 
 		Schema::create('message_recipients', function($t)
 		{
-			$t->increments('id')->unsigned();
-			$t->integer('message_id');
-			$t->integer('user_id');
-			$t->integer('character_id');
+			$t->bigIncrements('id');
+			$t->integer('message_id')->unsigned();
+			$t->integer('user_id')->unsigned();
+			$t->integer('character_id')->unsigned();
 			$t->boolean('read')->default((int) false);
 			$t->boolean('status')->default(Status::ACTIVE);
 			$t->timestamps();

@@ -13,12 +13,12 @@ class NovaCreatePosts extends Migration {
 	{
 		Schema::create('posts', function($t)
 		{
-			$t->increments('id');
+			$t->bigIncrements('id');
 			$t->string('title')->nullable();
 			$t->string('location')->nullable();
 			$t->string('timeline')->nullable();
-			$t->integer('mission_id');
-			$t->integer('saved_user_id')->nullable();
+			$t->integer('mission_id')->unsigned();
+			$t->integer('saved_user_id')->unsigned()->nullable();
 			$t->boolean('status')->default(Status::ACTIVE);
 			$t->text('content')->nullable();
 			$t->text('keywords')->nullable();
@@ -27,25 +27,25 @@ class NovaCreatePosts extends Migration {
 
 		Schema::create('post_authors', function($t)
 		{
-			$t->increments('id');
-			$t->integer('post_id');
-			$t->integer('user_id');
-			$t->integer('character_id');
+			$t->bigIncrements('id');
+			$t->integer('post_id')->unsigned();
+			$t->integer('user_id')->unsigned();
+			$t->integer('character_id')->unsigned();
 		});
 
 		Schema::create('post_locks', function($t)
 		{
 			$t->increments('id');
-			$t->integer('post_id');
-			$t->integer('user_id');
+			$t->integer('post_id')->unsigned();
+			$t->integer('user_id')->unsigned();
 			$t->timestamps();
 		});
 
 		Schema::create('post_participants', function($t)
 		{
 			$t->increments('id');
-			$t->integer('post_id');
-			$t->integer('user_id');
+			$t->integer('post_id')->unsigned();
+			$t->integer('user_id')->unsigned();
 		});
 	}
 

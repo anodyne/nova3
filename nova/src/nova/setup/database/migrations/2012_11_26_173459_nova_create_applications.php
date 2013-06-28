@@ -14,9 +14,9 @@ class NovaCreateApplications extends Migration {
 		Schema::create('applications', function($t)
 		{
 			$t->increments('id');
-			$t->integer('user_id');
-			$t->integer('character_id');
-			$t->integer('position_id');
+			$t->integer('user_id')->unsigned();
+			$t->integer('character_id')->unsigned();
+			$t->integer('position_id')->unsigned();
 			$t->boolean('status')->default(Status::PENDING);
 			$t->text('sample_post')->nullable();
 			$t->timestamps();
@@ -24,9 +24,9 @@ class NovaCreateApplications extends Migration {
 
 		Schema::create('application_responses', function($t)
 		{
-			$t->increments('id');
-			$t->integer('app_id');
-			$t->integer('user_id');
+			$t->bigIncrements('id');
+			$t->integer('app_id')->unsigned();
+			$t->integer('user_id')->unsigned();
 			$t->boolean('type')->default(NovaAppResponse::COMMENT);
 			$t->text('content')->nullable();
 			$t->timestamps();
@@ -34,9 +34,9 @@ class NovaCreateApplications extends Migration {
 
 		Schema::create('application_reviewers', function($t)
 		{
-			$t->increments('id');
-			$t->integer('app_id');
-			$t->integer('user_id');
+			$t->bigIncrements('id');
+			$t->integer('app_id')->unsigned();
+			$t->integer('user_id')->unsigned();
 		});
 
 		Schema::create('application_rules', function($t)

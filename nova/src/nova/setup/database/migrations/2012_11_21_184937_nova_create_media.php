@@ -13,13 +13,13 @@ class NovaCreateMedia extends Migration {
 	{
 		Schema::create('media', function($t)
 		{
-			$t->increments('id')->unsigned();
-			$t->integer('imageable_id');
+			$t->bigIncrements('id');
+			$t->integer('imageable_id')->unsigned();
 			$t->string('imageable_type', 100);
 			$t->text('filename')->nullable();
 			$t->string('mime_type')->nullable();
 			$t->string('resource_type')->nullable();
-			$t->integer('user_id');
+			$t->integer('user_id')->unsigned();
 			$t->string('ip_address', 16);
 			$t->timestamps();
 		});

@@ -22,8 +22,8 @@ class NovaCreateDepartments extends Migration {
 			$t->integer('order')->nullable();
 			$t->boolean('status')->default(Status::ACTIVE);
 			$t->string('type')->default('playing');
-			$t->integer('parent_id')->default(0);
-			$t->integer('manifest_id')->default(1);
+			$t->integer('parent_id')->unsigned()->default(0);
+			$t->integer('manifest_id')->unsigned()->default(1);
 			$t->timestamps();
 		});
 

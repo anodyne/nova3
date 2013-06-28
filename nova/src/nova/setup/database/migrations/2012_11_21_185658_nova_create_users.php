@@ -18,8 +18,8 @@ class NovaCreateUsers extends Migration {
 			$t->string('name');
 			$t->string('email')->unique();
 			$t->string('password');
-			$t->integer('character_id')->nullable();
-			$t->integer('role_id')->default(AccessRole::USER);
+			$t->integer('character_id')->unsigned()->nullable();
+			$t->integer('role_id')->unsigned()->default(AccessRole::USER);
 			$t->string('reset_password_hash')->nullable();
 			$t->string('activation_hash')->nullable();
 			$t->string('persist_hash')->nullable();
@@ -33,8 +33,8 @@ class NovaCreateUsers extends Migration {
 
 		Schema::create('user_loas', function($t)
 		{
-			$t->increments('id')->unsigned();
-			$t->integer('user_id');
+			$t->increments('id');
+			$t->integer('user_id')->unsigned();
 			$t->date('start_date');
 			$t->date('end_date')->nullable();
 			$t->string('duration');
@@ -45,8 +45,8 @@ class NovaCreateUsers extends Migration {
 
 		Schema::create('user_preferences', function($t)
 		{
-			$t->increments('id')->unsigned();
-			$t->integer('user_id');
+			$t->bigIncrements('id');
+			$t->integer('user_id')->unsigned();
 			$t->string('key');
 			$t->text('value')->nullable();
 		});
@@ -54,7 +54,7 @@ class NovaCreateUsers extends Migration {
 		Schema::create('user_suspended', function($t)
 		{
 			$t->increments('id');
-			$t->integer('user_id');
+			$t->integer('user_id')->unsigned();
 			$t->string('ip_address')->nullable();
 			$t->integer('attempts')->default(0);
 			$t->boolean('suspended')->default(0);

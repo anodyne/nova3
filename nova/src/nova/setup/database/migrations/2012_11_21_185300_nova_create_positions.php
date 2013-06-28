@@ -19,7 +19,7 @@ class NovaCreatePositions extends Migration {
 			$t->increments('id');
 			$t->string('name');
 			$t->text('desc')->nullable();
-			$t->integer('dept_id');
+			$t->integer('dept_id')->unsigned();
 			$t->integer('order')->nullable();
 			$t->integer('open')->default(1);
 			$t->boolean('status')->default(Status::ACTIVE);

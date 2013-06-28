@@ -14,8 +14,8 @@ class NovaCreateModeration extends Migration {
 		Schema::create('moderation', function($t)
 		{
 			$t->increments('id');
-			$t->integer('user_id')->nullable();
-			$t->integer('character_id')->nullable();
+			$t->integer('user_id')->unsigned()->nullable();
+			$t->integer('character_id')->unsigned()->nullable();
 			$t->string('type', 100)->nullable();
 			$t->timestamps();
 		});
