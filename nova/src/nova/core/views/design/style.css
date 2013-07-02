@@ -75,6 +75,9 @@ input.icn-size-16 {
 .btn-toolbar {
   margin: 15px 0;
 }
+.btn-toolbar .btn-group {
+  margin: 0;
+}
 .btn-noclick:hover {
   cursor: default;
 }
@@ -137,4 +140,22 @@ input.icn-size-16 {
 }
 .reorder {
   margin-top: 10px;
+}
+/* Landscape phones and down */
+@media (max-width: 480px) {
+  button[type=submit] {
+    width: 100%;
+    padding: 15px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+}
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+  button[type=submit] {
+    width: 100%;
+    padding: 15px;
+    font-weight: 600;
+    font-size: 16px;
+  }
 }
