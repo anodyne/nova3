@@ -67,4 +67,22 @@ class FormViewer extends AdminBaseController {
 		# code...
 	}
 
+	public function getAdd($formKey)
+	{
+		# code...
+	}
+	public function postAdd($formKey)
+	{
+		# code...
+	}
+
+	public function getEdit($formKey, $id)
+	{
+		# code...
+	}
+	public function putEdit($formKey, $id)
+	{
+		# code...
+	}
+
 }
