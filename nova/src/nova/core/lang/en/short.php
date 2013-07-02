@@ -8,6 +8,7 @@ return array(
 	'delete' 	=> "delete :0",
 	'duplicate'	=> "duplicate :0",
 	'edit' 		=> "edit :0",
+	'fillout'	=> "fill out :0",
 	'manage' 	=> "manage :0",
 	'new' 		=> "new :0",
 	'remove'	=> "remove :0",
