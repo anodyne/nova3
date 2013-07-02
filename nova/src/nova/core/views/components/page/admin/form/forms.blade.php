@@ -7,7 +7,7 @@
 @if ($forms->count() > 0)
 	<div class="row">
 	@foreach ($forms as $form)
-		<div class="col col-lg-6">
+		<div class="col-lg-6">
 			<div class="thumbnail">
 				@if (Sentry::getUser()->hasAccess('form.update') or Sentry::getUser()->hasAccess('form.delete'))
 					<div class="btn-group pull-right dropdown">
@@ -20,11 +20,6 @@
 									</a>
 								</li>
 								<li>
-									<a href="{{ URL::to('admin/form/fields/'.$form->key) }}">
-										{{ lang('Short.edit', lang('fields')) }}
-									</a>
-								</li>
-								<li>
 									<a href="{{ URL::to('admin/form/tabs/'.$form->key) }}">
 										{{ lang('Short.edit', lang('tabs')) }}
 									</a>
@@ -34,6 +29,11 @@
 										{{ lang('Short.edit', lang('sections')) }}
 									</a>
 								</li>
+								<li>
+									<a href="{{ URL::to('admin/form/fields/'.$form->key) }}">
+										{{ lang('Short.edit', lang('fields')) }}
+									</a>
+								</li>
 							@endif
 
 							@if (Sentry::getUser()->hasAccess('form.delete') and (bool) $form->protected === false)
@@ -41,6 +41,20 @@
 								<li>
 									<a href="#" class="js-form-action" data-key="{{ $form->key }}" data-action="delete">
 										{{ lang('Short.delete', lang('form')) }}
+									</a>
+								</li>
+							@endif
+
+							@if ((bool) $form->form_viewer === true)
+								<li class="divider"></li>
+								<li>
+									<a href="{{ URL::to('admin/formviewer/add/'.$form->key) }}">
+										{{ lang('Short.fillout', lang('form')) }}
+									</a>
+								</li>
+								<li>
+									<a href="{{ URL::to('admin/formviewer/view/'.$form->key) }}">
+										{{ lang('Short.view', lang('form')) }}
 									</a>
 								</li>
 							@endif
