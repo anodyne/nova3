@@ -1,5 +1,13 @@
-<div class="btn-group">
-	<a href="{{ URL::to('admin/role') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
+<div class="btn-toolbar visible-lg">
+	<div class="btn-group">
+		<a href="{{ URL::to('admin/role') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
+	</div>
+</div>
+
+<div class="row hidden-lg">
+	<div class="col-6 col-sm-4">
+		<p><a href="{{ URL::to('admin/role') }}" class="btn btn-default btn-block icn-size-32">{{ $_icons['back'] }}</a></p>
+	</div>
 </div>
 
 {{ Form::model($role) }}
@@ -35,14 +43,14 @@
 					@foreach ($roles as $r)
 						@if ($action == 'update')
 							@if ($r->id != $role->id)
-								<div class="col-lg-6">
+								<div class="col-sm-6 col-lg-6">
 									<label class="checkbox">
 										{{ Form::checkbox('inherits[]', $r->id, (in_array($r->id, $role->inherits)), ['data-role' => $r->id, 'class' => 'js-inherited-roles']) }} {{ $r->name }}
 									</label>
 								</div>
 							@endif
 						@else
-							<div class="col-lg-6">
+							<div class="col-sm-6 col-lg-6">
 								<label class="checkbox">
 									{{ Form::checkbox('inherits[]', $r->id, null, ['data-role' => $r->id, 'class' => 'js-inherited-roles']) }} {{ $r->name }}
 								</label>
@@ -65,7 +73,7 @@
 
 					<div class="row">
 					@foreach ($task as $t)
-						<div class="col-lg-4">
+						<div class="col-sm-6 col-lg-4">
 							<label class="checkbox">
 								@if (array_key_exists($t->id, $inheritedTasks))
 									{{ Form::checkbox('tasks[]', $t->id, true, ['disabled' => 'disabled']) }}
@@ -142,8 +150,12 @@
 		{{ partial('common/alert', ['content' => lang('error.notFound', lang('tasks'))]) }}
 	@endif
 
-	{{ Form::token() }}
-	{{ Form::hidden('id') }}
-	{{ Form::hidden('action', $action) }}
-	{{ Form::button(ucfirst(lang('action.submit')), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
+	<div class="row">
+		<div class="col-lg-12">
+			{{ Form::token() }}
+			{{ Form::hidden('id') }}
+			{{ Form::hidden('action', $action) }}
+			{{ Form::button(ucfirst(lang('action.submit')), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
+		</div>
+	</div>
 {{ Form::close() }}

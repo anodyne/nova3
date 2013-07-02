@@ -1,5 +1,13 @@
-<div class="btn-group">
-	<a href="{{ URL::to('admin/role/tasks') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
+<div class="btn-toolbar visible-lg">
+	<div class="btn-group">
+		<a href="{{ URL::to('admin/role/tasks') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
+	</div>
+</div>
+
+<div class="row hidden-lg">
+	<div class="col-6 col-sm-4">
+		<p><a href="{{ URL::to('admin/role/tasks') }}" class="btn btn-default btn-block icn-size-32">{{ $_icons['back'] }}</a></p>
+	</div>
 </div>
 
 {{ Form::model($task) }}
