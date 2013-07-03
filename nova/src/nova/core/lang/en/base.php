@@ -51,6 +51,7 @@ return array(
 	'dependency' => "dependency",
 	'dependencies' => "dependencies",
 	'data' => "data",
+	'data_model' => "data model",
 
 	'email_address' => "email address",
 	'email_short' => 'email',

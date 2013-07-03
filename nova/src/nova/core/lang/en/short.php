@@ -51,10 +51,14 @@ return array(
 			'useEmail' => "Send Results in Email",
 			'useEmailHelp' => "When a user fills out the form, the results will be emailed to the addresses specified below.",
 			'emailAddresses' => "Email Addresses to Send Results To",
+			'dataModel' => "Enter the class alias (defined in the application config file) or full model name (with namespace and leading slashes) to the data model for this form. This should only be used for advanced forms that tie in to other database tables.",
 			
 			'tabLinkId' => "Link IDs are used to link a tab with its content on the page. They must be unique and contain no spaces (camelCase is fine) (e.g. one, html, general, characterThings). This will be generated for you based on the name of the tab, but you can change it to anything you'd like.",
 
 			'fieldRestriction' => "Fields can be restricted so only someone with the selected role(s) can edit the data.",
+
+			'dropdownCreation' => "Enter all values for this dropdown separated by commas.",
+			'nonDDValues' => "Values cannot be created for this field type.",
 		],
 
 		'pages' => [
