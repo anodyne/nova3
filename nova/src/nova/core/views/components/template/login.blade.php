@@ -1,12 +1,12 @@
 <div class="navbar navbar-fixed-top">
 	<div class="container">
-		{{ HTML::link('/', $settings->sim_name, ['class' => 'navbar-brand']) }}
+		<a href="{{ URL::to('/') }}" class="navbar-brand">{{ $settings->sim_name }}</a>
 	</div>
 </div>
 
 <div class="container">
 	<div class="row">
-		<div class="col-sm-6 col-lg-6 col-offset-3">
+		<div class="col-lg-6 col-offset-3">
 			<div class="page-header">
 				<h1>{{ $header }}</h1>
 			</div>
@@ -18,7 +18,7 @@
 			{{ $content }}
 
 			<footer>
-				&copy; {{ Date::now()->year }} Anodyne Productions
+				&copy; {{ Date::now()->year }} <a href="http://www.anodyne-productions.com" target="_blank">Anodyne Productions</a>
 			</footer>
 		</div>
 	</div>

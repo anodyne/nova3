@@ -5,18 +5,22 @@
 {{ $navmain }}
 
 <div class="container">
-	<div class="page-header">
-		<h1>{{ $header }}</h1>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="page-header">
+				<h1>{{ $header }}</h1>
+			</div>
+
+			{{ $flash }}
+
+			<div>{{ $message }}</div>
+
+			{{ $content }}
+			{{ $ajax }}
+
+			<footer>
+				{{ $footer }}
+			</footer>
+		</div>
 	</div>
-
-	{{ $flash }}
-
-	<div>{{ $message }}</div>
-
-	{{ $content }}
-	{{ $ajax }}
-
-	<footer>
-		{{ $footer }}
-	</footer>
 </div>
