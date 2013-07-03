@@ -1,5 +1,4 @@
 <div class="navbar navbar-fixed-top">
-<!--<div class="navbar">-->
 	<div class="container">
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
 			<span class="icon-bar"></span>
@@ -7,7 +6,7 @@
 			<span class="icon-bar"></span>
 		</button>
 
-		{{ HTML::link('/', $name, array('class' => 'navbar-brand')) }}
+		<a href="{{ URL::to('/') }}" class="navbar-brand">{{ $name }}</a>
 
 		<div class="nav-collapse collapse navbar-responsive-collapse">
 			{{ $userMenu }}
