@@ -1,4 +1,40 @@
 @import "http://fonts.googleapis.com/css?family=Open+Sans:300,400,600";
+/* Landscape phones and down */
+@media (max-width: 480px) {
+  footer .footer-extra {
+    display: block;
+    text-align: center;
+  }
+  footer .footer-content {
+    display: block;
+    text-align: center;
+  }
+  footer .footer-content .pull-right {
+    float: none;
+  }
+  button[type=submit] {
+    width: 100%;
+    padding: 15px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+}
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+  footer .footer-content {
+    display: block;
+    text-align: center;
+  }
+  footer .footer-content .pull-right {
+    float: none;
+  }
+  button[type=submit] {
+    width: 100%;
+    padding: 15px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+}
 body {
   padding-top: 30px;
   line-height: 1.75;
@@ -140,22 +176,4 @@ input.icn-size-16 {
 }
 .reorder {
   margin-top: 10px;
-}
-/* Landscape phones and down */
-@media (max-width: 480px) {
-  button[type=submit] {
-    width: 100%;
-    padding: 15px;
-    font-weight: 600;
-    font-size: 16px;
-  }
-}
-/* Landscape phone to portrait tablet */
-@media (max-width: 768px) {
-  button[type=submit] {
-    width: 100%;
-    padding: 15px;
-    font-weight: 600;
-    font-size: 16px;
-  }
 }

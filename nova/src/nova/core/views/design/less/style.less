@@ -1,6 +1,7 @@
 @import "http://fonts.googleapis.com/css?family=Open+Sans:300,400,600";
 @import "mixins.less";
 @import "variables.less";
+@import "responsive.less";
 
 body {
 	padding-top: @spacing-large;
@@ -140,30 +141,4 @@ input.icn-size-16 {
 
 .reorder {
 	margin-top: 10px;
-}
-
-/* Landscape phones and down */
-@media (max-width: 480px) {
-	
-	button[type=submit] {
-		width: 100%;
-		padding: @spacing;
-
-		font-weight: 600;
-		font-size: @font-size;
-	}
-
-}
-
-/* Landscape phone to portrait tablet */
-@media (max-width: 768px) {
-	
-	button[type=submit] {
-		width: 100%;
-		padding: @spacing;
-
-		font-weight: 600;
-		font-size: @font-size;
-	}
-
 }
