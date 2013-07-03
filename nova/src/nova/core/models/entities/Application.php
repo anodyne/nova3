@@ -6,8 +6,9 @@ use Model;
 use Config;
 use Sentry;
 use Status;
+use FormDataInterface;
 
-class Application extends Model {
+class Application extends Model implements FormDataInterface {
 
 	protected $table = 'applications';
 
@@ -252,6 +253,17 @@ class Application extends Model {
 			]);
 		}
 
+		return true;
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| FormDataInterface Implementation
+	|--------------------------------------------------------------------------
+	*/
+
+	public static function createFieldData(array $data)
+	{
 		return true;
 	}
 

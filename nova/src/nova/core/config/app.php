@@ -231,6 +231,7 @@ return array(
 		 * Nova Interfaces
 		 */
 		'CacheInterface'			=> 'Nova\Core\Interfaces\Cache',
+		'FormDataInterface'			=> 'Nova\Core\Interfaces\FormData',
 		'MediaInterface'			=> 'Nova\Core\Interfaces\Media',
 		'QuickInstallInterface'		=> 'Nova\Core\Interfaces\QuickInstall',
 		'SearchInterface'			=> 'Nova\Core\Interfaces\Search',

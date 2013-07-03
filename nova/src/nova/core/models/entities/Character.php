@@ -5,9 +5,11 @@ use Event;
 use Model;
 use Config;
 use Status;
+use NovaFormData;
 use MediaInterface;
+use FormDataInterface;
 
-class Character extends Model implements MediaInterface {
+class Character extends Model implements MediaInterface, FormDataInterface {
 
 	protected $table = 'characters';
 
@@ -297,6 +299,29 @@ class Character extends Model implements MediaInterface {
 	{
 		// Move the file to the right location
 		$file->move(APPPATH.'assets/images/characters');
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| FormDataInterface Implementation
+	|--------------------------------------------------------------------------
+	*/
+
+	public static function createFieldData(array $data)
+	{
+		// Start a new query
+		$query = static::startQuery();
+
+		// Get all the active characters
+		$characters = $query->get();
+
+		if ($characters->count() > 0)
+		{
+			foreach ($characters as $c)
+			{
+				NovaFormData::create(array_merge($data, ['data_id' => $c->id]));
+			}
+		}
 	}
 
 }

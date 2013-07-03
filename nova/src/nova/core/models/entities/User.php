@@ -14,11 +14,13 @@ use Exception;
 use UserPrefs;
 use AccessRole;
 use RankCatalog;
+use NovaFormData;
+use FormDataInterface;
 use SkinSectionCatalog;
 use Cartalyst\Sentry\Users\UserInterface;
 use Cartalyst\Sentry\Groups\GroupInterface;
 
-class User extends Model implements UserInterface {
+class User extends Model implements UserInterface, FormDataInterface {
 
 	protected $table = 'users';
 
@@ -1007,6 +1009,29 @@ class User extends Model implements UserInterface {
 	public function getHashableAttributes()
 	{
 		return $this->hashableAttributes;
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| FormDataInterface Implementation
+	|--------------------------------------------------------------------------
+	*/
+
+	public static function createFieldData(array $data)
+	{
+		// Start a new query
+		$query = static::startQuery();
+
+		// Get all the active characters
+		$users = $query->get();
+
+		if ($users->count() > 0)
+		{
+			foreach ($users as $u)
+			{
+				NovaFormData::create(array_merge($data, ['data_id' => $u->id]));
+			}
+		}
 	}
 	
 }
