@@ -31,7 +31,7 @@ class Form extends AdminBaseController {
 		if ($formKey !== false)
 		{
 			// Set the view
-			$this->_view = 'admin/form/form';
+			$this->_view = 'admin/form/forms_action';
 
 			// Get the form
 			$this->_data->form = NovaForm::getForm($formKey);
@@ -748,13 +748,13 @@ class Form extends AdminBaseController {
 		// Get the current user
 		$user = Sentry::getUser();
 
-		if ($action == 'updateValue')
-		{
-			// Set up the validation service
-			$validator = new FormValueValidator;
+		// Set up the validation service
+		$validator = new FormFieldValidator;
 
-			// If the validation fails, stop and go back
-			if ( ! $validator->passes())
+		// If the validation fails, stop and go back
+		if ( ! $validator->passes())
+		{
+			if ($action == 'delete')
 			{
 				// Set the flash message
 				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
@@ -764,28 +764,8 @@ class Form extends AdminBaseController {
 					->with('flashStatus', 'danger')
 					->with('flashMessage', $flashMessage);
 			}
-		}
-		else
-		{
-			// Set up the validation service
-			$validator = new FormFieldValidator;
-
-			// If the validation fails, stop and go back
-			if ( ! $validator->passes())
-			{
-				if ($action == 'delete')
-				{
-					// Set the flash message
-					$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
-					$flashMessage.= implode(' ', $validator->getErrors()->all());
-
-					return Redirect::to("admin/form/fields/{$formKey}")
-						->with('flashStatus', 'danger')
-						->with('flashMessage', $flashMessage);
-				}
-				
-				return Redirect::back()->withInput()->withErrors($validator->getErrors());
-			}
+			
+			return Redirect::back()->withInput()->withErrors($validator->getErrors());
 		}
 
 		// Get the form
@@ -798,6 +778,18 @@ class Form extends AdminBaseController {
 		{
 			// Create the form field
 			$item = $form->fields()->save(new NovaFormField(Input::all()));
+
+			if (Input::has('field_values'))
+			{
+				// Break the values into an array
+				$valuesArr = explode(',', Input::get('field_values'));
+
+				foreach ($valuesArr as $key => $value)
+				{
+					// Create a new form value for this field
+					$item->values()->save(new NovaFormValue(['value' => e(trim($value)), 'order' => $key]));
+				}
+			}
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -818,12 +810,15 @@ class Form extends AdminBaseController {
 			// Get the field
 			$field = NovaFormField::find($id);
 
-			// Update the form field
-			$item = $field->update(Input::all());
+			if ($field)
+			{
+				// Update the form field
+				$item = $field->update(Input::all());
+			}
 
 			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
+			$flashStatus = (isset($item)) ? 'success' : 'danger';
+			$flashMessage = (isset($item)) 
 				? lang('Short.alert.success.update', langConcat('form field'))
 				: lang('Short.alert.failure.update', langConcat('form field'));
 		}
@@ -839,45 +834,17 @@ class Form extends AdminBaseController {
 			// Get the field we're deleting
 			$field = NovaFormField::find($id);
 
-			if ($field->data->count() > 0)
+			if ($field)
 			{
-				// Loop through the field data and delete it
-				foreach ($field->data as $data)
-				{
-					$data->delete();
-				}
+				// Delete the field
+				$item = $field->delete();
 			}
 
-			// Delete the field
-			$item = $field->delete();
-
 			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
+			$flashStatus = (isset($item)) ? 'success' : 'danger';
+			$flashMessage = (isset($item)) 
 				? lang('Short.alert.success.delete', langConcat('form field'))
 				: lang('Short.alert.failure.delete', langConcat('form field'));
-		}
-
-		/**
-		 * Edit a form field value.
-		 */
-		if ($user->hasAccess('form.update') and $action == 'updateValue')
-		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
-			// Get the value
-			$value = NovaFormValue::find($id);
-
-			// Update the form field value
-			$item = $value->update(Input::all());
-
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.update', langConcat('form field value'))
-				: lang('Short.alert.failure.update', langConcat('form field value'));
 		}
 
 		return Redirect::to("admin/form/fields/{$formKey}")

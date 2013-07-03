@@ -112,6 +112,21 @@
 					</div>
 				</div>
 			</div>
+
+			@if ($action == 'create')
+				<div class="row field-value-list hide">
+					<div class="col-sm-8 col-lg-6">
+						<div class="control-group">
+							<label class="control-label">{{ ucwords(langConcat('dropdown values')) }}</label>
+							<div class="controls">
+								{{ Form::textarea('field_values', null, ['rows' => 4]) }}
+
+								<p class="help-block">{{ lang('short.admin.forms.dropdownCreation') }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			@endif
 		</div>
 
 		<div class="tab-pane" id="html">
@@ -185,48 +200,52 @@
 		@if ($action == 'update')
 			{{-- If the values table is updated, ajax/add/postFormValue has to be updated too --}}
 			<div class="tab-pane" id="values">
-				<div class="row">
-					<div class="col-lg-6">
-						<div class="row">
-							<div class="col-lg-6 input-group">
-								{{ Form::text('value-add-content', null, ['placeholder' => lang('Short.add', langConcat('Field Values')), 'class' => 'icn-size-16']) }}
-								<span class="input-group-btn">
-									{{ Form::button($_icons['add'], ['class' => 'btn btn-default icn-size-16 js-value-action', 'data-action' => 'add']) }}
-								</span>
+				@if ($field->type == 'select')
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="row">
+								<div class="col-lg-6 input-group">
+									{{ Form::text('value-add-content', null, ['placeholder' => lang('Short.add', langConcat('Field Values')), 'class' => 'icn-size-16']) }}
+									<span class="input-group-btn">
+										{{ Form::button($_icons['add'], ['class' => 'btn btn-default icn-size-16 js-value-action', 'data-action' => 'add']) }}
+									</span>
+								</div>
 							</div>
-						</div>
 
-						<table class="table table-striped sort-value">
-							<tbody class="sort-body">
-							@if (count($values) == 0)
-								<tr>
-									<td colspan="3">
-										<strong class="muted">{{ lang('error.notFound', langConcat('field values')) }}</strong>
-									</td>
-								</tr>
-							@else
-								@foreach ($values as $v)
-									<tr id="value_{{ $v->id }}">
-										<td>
-											<div class="input-group">
-												{{ Form::text('', $v->content, ['class' => 'icn-size-16']) }}
-												<span class="input-group-btn">
-													<a href="#" class="btn btn-default js-value-action icn-size-16 tooltip-top" title="{{ lang('Action.save') }}" data-action="update" data-id="{{ $v->id }}">{{ $_icons['check'] }}</a>
-
-													<a href="#" class="btn btn-danger js-value-action icn-size-16" data-action="delete" data-id="{{ $v->id }}">{{ $_icons['remove'] }}</a>
-												</span>
-											</div>
-										</td>
-										<td class="col-alt-1">
-											<div class="reorder icn-size-16 icn-opacity-50">{{ $_icons['move'] }}</div>
+							<table class="table table-striped sort-value">
+								<tbody class="sort-body">
+								@if (count($values) == 0)
+									<tr>
+										<td colspan="3">
+											<strong class="muted">{{ lang('error.notFound', langConcat('field values')) }}</strong>
 										</td>
 									</tr>
-								@endforeach
-							@endif
-							</tbody>
-						</table>
+								@else
+									@foreach ($values as $v)
+										<tr id="value_{{ $v->id }}">
+											<td>
+												<div class="input-group">
+													{{ Form::text('', $v->content, ['class' => 'icn-size-16']) }}
+													<span class="input-group-btn">
+														<a href="#" class="btn btn-default js-value-action icn-size-16 tooltip-top" title="{{ lang('Action.save') }}" data-action="update" data-id="{{ $v->id }}">{{ $_icons['check'] }}</a>
+
+														<a href="#" class="btn btn-danger js-value-action icn-size-16" data-action="delete" data-id="{{ $v->id }}">{{ $_icons['remove'] }}</a>
+													</span>
+												</div>
+											</td>
+											<td class="col-alt-1">
+												<div class="reorder icn-size-16 icn-opacity-50">{{ $_icons['move'] }}</div>
+											</td>
+										</tr>
+									@endforeach
+								@endif
+								</tbody>
+							</table>
+						</div>
 					</div>
-				</div>
+				@else
+					{{ partial('common/alert', ['content' => lang('short.admin.forms.nonDDValues')]) }}
+				@endif
 			</div>
 		@endif
 	</div>

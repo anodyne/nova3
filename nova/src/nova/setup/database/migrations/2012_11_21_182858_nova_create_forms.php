@@ -22,6 +22,7 @@ class NovaCreateForms extends Migration {
 			$t->boolean('form_viewer')->default(0);
 			$t->boolean('email_allowed')->default(0);
 			$t->text('email_addresses')->nullable();
+			$t->string('data_model')->nullable();
 			$t->timestamps();
 		});
 

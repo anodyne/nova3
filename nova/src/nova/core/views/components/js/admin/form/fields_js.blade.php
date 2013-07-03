@@ -29,7 +29,7 @@
 					data: $(this).sortable('serialize')
 				});
 			}
-		}).disableSelection();
+		});
 
 		// Makes the value list sortable and updates when the sort stops
 		$('.sort-value tbody.sort-body').sortable({
@@ -41,7 +41,7 @@
 					data: $(this).sortable('serialize')
 				});
 			}
-		}).disableSelection();
+		});
 
 		// Determine the actions when the type dropdown changes
 		$('[name="type"]').change(function(){
@@ -52,6 +52,7 @@
 				$('.field-rows').addClass('hide');
 				$('.field-placeholder').removeClass('hide');
 				$('.field-value').removeClass('hide');
+				$('.field-value-list').addClass('hide');
 				$('[name="html_class"]').val('col-lg-4');
 			}
 
@@ -60,6 +61,7 @@
 				$('.field-rows').removeClass('hide');
 				$('.field-placeholder').removeClass('hide');
 				$('.field-value').removeClass('hide');
+				$('.field-value-list').addClass('hide');
 				$('[name="html_class"]').val('col-lg-8');
 			}
 
@@ -68,6 +70,7 @@
 				$('.field-rows').addClass('hide');
 				$('.field-placeholder').addClass('hide');
 				$('.field-value').addClass('hide');
+				$('.field-value-list').removeClass('hide');
 				$('[name="html_class"]').val('col-lg-4');
 			}
 		});

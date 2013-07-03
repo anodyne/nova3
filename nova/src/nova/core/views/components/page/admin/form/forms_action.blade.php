@@ -19,7 +19,7 @@
 		</div>
 	</div>	
 	<div class="row">
-		<div class="col-lg-12 has-error">
+		<div class="col-sm-8 col-lg-6 has-error">
 			<p class="help-block">{{ lang('short.admin.forms.changeFormKey') }}</p>
 		</div>
 	</div>
@@ -39,6 +39,18 @@
 				<label class="control-label">{{ lang('Status') }}</label>
 				<div class="controls">{{ Form::select('status', [Status::ACTIVE => lang('Active'), Status::INACTIVE => lang('Inactive')]) }}</div>
 			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-6 col-lg-4">
+			<label class="control-label">{{ ucwords(lang('Data_model')) }}</label>
+			<div class="controls">{{ Form::text('data_model') }}</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-8 col-lg-6">
+			<p class="help-block">{{ lang('short.admin.forms.dataModel') }}</p>
 		</div>
 	</div>
 

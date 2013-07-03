@@ -26,10 +26,9 @@
  * in a section and activate/deactivate the section accordingly.
  */
 
+use Str;
 use Status;
 use SystemEvent;
-use NovaFormData;
-use NovaFormSection;
 use BaseEventHandler;
 use User as UserModel;
 use Character as CharacterModel;
@@ -38,50 +37,33 @@ class Field extends BaseEventHandler {
 
 	public function afterCreate($model)
 	{
-		// What should be in the data?
-		$data = [
-			'form_id'	=> $model->form->id,
-			'field_id'	=> $model->id,
-			'value'		=> '',
-		];
-
-		switch ($model->form->key)
+		if ( ! empty($model->form->data_model))
 		{
-			case 'character':
-				// Get all the active characters
-				$characters = CharacterModel::active()->get();
+			// What should be in the data?
+			$data = [
+				'form_id'	=> $model->form->id,
+				'field_id'	=> $model->id,
+				'value'		=> '',
+			];
 
-				if ($characters->count() > 0)
-				{
-					foreach ($characters as $c)
-					{
-						NovaFormData::create(['data_id' => $c->id]);
-					}
-				}
-			break;
-
-			case 'user':
-				// Get all the active users
-				$users = UserModel::active()->get();
-
-				if ($users->count() > 0)
-				{
-					foreach ($users as $u)
-					{
-						NovaFormData::create(['data_id' => $u->id]);
-					}
-				}
-			break;
+			// Figure out if we need to add leading slashes or not
+			$dataModel = (Str::contains($model->form->data_model, '\\'))
+				? $model->form->data_model
+				: '\\'.$model->form->data_model;
+			
+			// Call the createFieldData method on the data model
+			call_user_func_array([$dataModel, 'createFieldData'], $data);
 		}
 
 		/**
 		 * Section cleanup
 		 */
-		$section = NovaFormSection::find($model->section_id);
 
-		if ($section !== null)
+		$section = $model->section;
+
+		if ($section)
 		{
-			if ($section->fields !== null)
+			if ($section->fields->count() > 0)
 			{
 				// Loop through the fields and get the information about status
 				foreach ($section->fields as $f)
@@ -90,19 +72,16 @@ class Field extends BaseEventHandler {
 				}
 
 				// Get a count of the different values
-				$active_count = array_count_values($active);
+				$activeCount = array_count_values($active);
 
 				// If there are no active fields OR the number of actives is more than 0
 				if (in_array(Status::ACTIVE, $active) 
-						or (array_key_exists(1, $active_count) and $active_count[1] > 0))
+						or (array_key_exists(1, $activeCount) and $activeCount[1] > 0))
 				{
 					if ($section->status === Status::INACTIVE)
 					{
-						// There won't be any active fields left, so disable the section
-						$section->status = Status::ACTIVE;
-						
-						// Save the record
-						$section->save();
+						// Update the section
+						$section->update(['status' => Status::ACTIVE]);
 					}
 				}
 			}
@@ -110,11 +89,8 @@ class Field extends BaseEventHandler {
 			{
 				if ($section->status === Status::ACTIVE)
 				{
-					// There are no fields in the section, so disable it
-					$section->status = Status::INACTIVE;
-					
-					// Save the record
-					$section->save();
+					// Update the section
+					$section->update(['status' => Status::INACTIVE]);
 				}
 			}
 		}
@@ -136,11 +112,12 @@ class Field extends BaseEventHandler {
 		/**
 		 * Section cleanup
 		 */
-		$section = NovaFormSection::find($model->section_id);
 
-		if ($section !== null)
+		$section = $model->section;
+
+		if ($section)
 		{
-			if ($section->fields !== null)
+			if ($section->fields->count() > 0)
 			{
 				// Loop through the fields and get the information about status
 				foreach ($section->fields as $f)
@@ -149,20 +126,17 @@ class Field extends BaseEventHandler {
 				}
 
 				// Get a count of the different values
-				$active_count = array_count_values($active);
+				$activeCount = array_count_values($active);
 
 				// If there are no active fields OR the number of actives is 0
 				if ( ! in_array(Status::ACTIVE, $active) 
-						or (array_key_exists(1, $active_count) and $active_count[1] == 0))
+						or (array_key_exists(1, $activeCount) and $activeCount[1] == 0))
 				{
 					// Only do the update if the section is active
 					if ($section->status === Status::ACTIVE)
 					{
-						// There won't be any active fields left, so disable the section
-						$section->status = Status::INACTIVE;
-						
-						// Save the record
-						$section->save();
+						// Update the section
+						$section->update(['status' => Status::INACTIVE]);
 					}
 				}
 				else
@@ -170,11 +144,8 @@ class Field extends BaseEventHandler {
 					// Only do the update if the section is inactive
 					if ($section->status === Status::INACTIVE)
 					{
-						// Set the section to status
-						$section->status = Status::ACTIVE;
-						
-						// Save the record
-						$section->save();
+						// Update the section
+						$section->update(['status' => Status::ACTIVE]);
 					}
 				}
 			}
@@ -183,11 +154,8 @@ class Field extends BaseEventHandler {
 				// Only do the update if the section is active
 				if ($section->status === Status::ACTIVE)
 				{
-					// There are no fields in the section, so disable it
-					$section->status = Status::INACTIVE;
-					
-					// Save the record
-					$section->save();
+					// Update the section
+						$section->update(['status' => Status::INACTIVE]);
 				}
 			}
 		}
@@ -209,37 +177,38 @@ class Field extends BaseEventHandler {
 		/**
 		 * Value cleanup
 		 */
-		if ($model->values !== null)
+		
+		if ($model->values->count() > 0)
 		{
-			foreach ($model->values as $val)
+			foreach ($model->values as $value)
 			{
 				// Delete the value
-				$val->delete();
+				$value->delete();
 			}
 		}
 
 		/**
 		 * Data cleanup
 		 */
-		$data = NovaFormData::getData('field', $model->id);
 
-		if ($data !== null)
+		if ($model->data->count() > 0)
 		{
-			foreach ($data as $val)
+			foreach ($model->data as $data)
 			{
 				// Delete the data
-				$val->delete();
+				$data->delete();
 			}
 		}
 
 		/**
 		 * Section cleanup
 		 */
-		$section = NovaFormSection::find($model->section_id);
 
-		if ($model->section_id > 0 and $section !== null)
+		$section = $model->section;
+
+		if ($section)
 		{
-			if ($section->fields !== null)
+			if ($section->fields->count() > 0)
 			{
 				// Loop through the fields and get the information about status
 				foreach ($section->fields as $f)
@@ -248,20 +217,17 @@ class Field extends BaseEventHandler {
 				}
 
 				// Get a count of the different values
-				$active_count = array_count_values($active);
+				$activeCount = array_count_values($active);
 
 				// If there are no active fields OR the number of actives is
 				// less than 2 (the current field removal would make it 0)
 				if ( ! in_array(Status::ACTIVE, $active) 
-						or (array_key_exists(1, $active_count) and $active_count[1] < 2))
+						or (array_key_exists(1, $activeCount) and $activeCount[1] < 2))
 				{
 					if ($section->status === Status::ACTIVE)
 					{
-						// There won't be any active fields left, so disable the section
-						$section->status = Status::INACTIVE;
-						
-						// Save the record
-						$section->save();
+						// Update the section
+						$section->update(['status' => Status::INACTIVE]);
 					}
 				}
 			}
@@ -269,11 +235,8 @@ class Field extends BaseEventHandler {
 			{
 				if ($section->status === Status::ACTIVE)
 				{
-					// There are no fields in the section, so disable it
-					$section->status = Status::INACTIVE;
-					
-					// Save the record
-					$section->save();
+					// Update the section
+					$section->update(['status' => Status::INACTIVE]);
 				}
 			}
 		}

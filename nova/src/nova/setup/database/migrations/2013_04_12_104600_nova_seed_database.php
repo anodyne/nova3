@@ -226,19 +226,22 @@ class NovaSeedDatabase extends Migration {
 	{
 		$data = [
 			[
-				'key'		=> 'character',
-				'name'		=> 'Character Information',
-				'protected'	=> (int) true,
+				'key'			=> 'character',
+				'name'			=> 'Character Information',
+				'protected'		=> (int) true,
+				'data_model'	=> 'Character',
 			],
 			[
-				'key'		=> 'user',
-				'name'		=> 'User Information',
-				'protected'	=> (int) true,
+				'key'			=> 'user',
+				'name'			=> 'User Information',
+				'protected'		=> (int) true,
+				'data_model'	=> 'User',
 			],
 			[
-				'key'		=> 'app',
-				'name'		=> 'Application Information',
-				'protected'	=> (int) true,
+				'key'			=> 'app',
+				'name'			=> 'Application Information',
+				'protected'		=> (int) true,
+				'data_model'	=> 'NovaApp',
 			],
 		];
 
