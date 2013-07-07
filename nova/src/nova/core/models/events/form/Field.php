@@ -52,7 +52,7 @@ class Field extends BaseEventHandler {
 				: '\\'.$model->form->data_model;
 			
 			// Call the createFieldData method on the data model
-			call_user_func_array([$dataModel, 'createFieldData'], $data);
+			call_user_func_array([$dataModel, 'createFieldData'], [$data]);
 		}
 
 		/**

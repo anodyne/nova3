@@ -71,21 +71,25 @@ class Delete extends AjaxBaseController {
 		}
 	}
 
-	public function action_formfield($id)
+	/**
+	 * Show the delete form field modal.
+	 *
+	 * @param	int		ID to delete
+	 * @return	string
+	 */
+	public function getFormField($id)
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('form.delete'))
+		if (Sentry::check() and Sentry::getUser()->hasAccess('form.delete'))
 		{
-			// get the field
-			$field = \Model_Form_Field::find($id);
+			// Get the field we're deleting
+			$field = \NovaFormField::find($id);
 
 			if ($field !== null)
 			{
-				$data = array(
-					'name' => $field->label,
-					'id' => $field->id,
-				);
-
-				echo \View::forge(\Location::file('delete/field', \Utility::getSkin(), 'ajax'), $data);
+				echo View::make(Location::file('delete/field', Utility::getSkin(), 'ajax'))
+					->with('name', $field->label)
+					->with('id', $field->id)
+					->with('formKey', $field->form->key);
 			}
 		}
 	}

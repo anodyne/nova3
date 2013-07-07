@@ -83,7 +83,9 @@
 
 		if (action == 'delete')
 		{
-			//
+			$('#deleteField').modal({
+				remote: "{{ URL::to('ajax/delete/form_field') }}/" + id
+			}).modal('show');
 		}
 
 		e.preventDefault();

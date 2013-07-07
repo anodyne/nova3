@@ -70,7 +70,7 @@
 
 										@if (Sentry::getUser()->hasAccess('form.delete'))
 											<div class="btn-group">
-												<a href="{{ URL::to('admin/form/fields/'.$formKey);?>" class="btn btn-small btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $f->id }}">{{ $_icons['remove'] }}</a>
+												<a href="#" class="btn btn-small btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $f->id }}">{{ $_icons['remove'] }}</a>
 											</div>
 										@endif
 									</div>
