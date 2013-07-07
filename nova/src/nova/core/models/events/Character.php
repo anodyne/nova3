@@ -3,8 +3,9 @@
 use NovaForm;
 use SystemEvent;
 use NovaFormData;
+use BaseEventHandler;
 
-class Character {
+class Character extends BaseEventHandler {
 
 	/**
 	 * After create event
@@ -24,12 +25,12 @@ class Character {
 		
 		if ($form->fields->count() > 0)
 		{
-			foreach ($form->fields() as $field)
+			foreach ($form->fields as $field)
 			{
 				NovaFormData::create([
 					'form_id' 	=> $form->id,
 					'field_id' 	=> $field->id,
-					'data_id'	=> $model->id,
+					'data_id' 	=> $model->id,
 					'value' 	=> '',
 				]);
 			}
@@ -38,7 +39,7 @@ class Character {
 		/**
 		 * System Event
 		 */
-		//SystemEvent::addUserEvent('event.admin.rank.item', lang('action.created'));
+		SystemEvent::addUserEvent('event.item', lang('character'), $model->getName(), lang('action.created'));
 	}
 
 }

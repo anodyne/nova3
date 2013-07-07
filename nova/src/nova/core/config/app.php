@@ -328,14 +328,14 @@ return array(
 		
 		'AppHandler'				=> 'Nova\Core\Models\Events\Application',
 		'BaseEventHandler'			=> 'Nova\Core\Models\Events\Base',
-		'CharacterHandler'			=> 'Nova\Core\Models\Events\Character',
+		'CharacterEventHandler'		=> 'Nova\Core\Models\Events\Character',
 		'CommentHandler'			=> 'Nova\Core\Models\Events\Comment',
 		'PositionHandler'			=> 'Nova\Core\Models\Events\Position',
 		'RankHandler'				=> 'Nova\Core\Models\Events\Rank',
 		'SettingsHandler'			=> 'Nova\Core\Models\Events\Settings',
 		'SiteContentHandler'		=> 'Nova\Core\Models\Events\SiteContent',
 		'SystemRouteHandler'		=> 'Nova\Core\Models\Events\SystemRoute',
-		'UserHandler'				=> 'Nova\Core\Models\Events\User',
+		'UserEventHandler'			=> 'Nova\Core\Models\Events\User',
 
 		/**
 		 * Nova Model Validators

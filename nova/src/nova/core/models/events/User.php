@@ -3,8 +3,9 @@
 use NovaForm;
 use SystemEvent;
 use NovaFormData;
+use BaseEventHandler;
 
-class User {
+class User extends BaseEventHandler {
 
 	/**
 	 * When a user is created, we need to create blank data records
