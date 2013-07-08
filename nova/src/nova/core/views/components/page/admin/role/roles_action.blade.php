@@ -1,13 +1,5 @@
-<div class="btn-toolbar visible-lg">
-	<div class="btn-group">
-		<a href="{{ URL::to('admin/role') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
-	</div>
-</div>
-
-<div class="row hidden-lg">
-	<div class="col-6 col-sm-4">
-		<p><a href="{{ URL::to('admin/role') }}" class="btn btn-default btn-block icn-size-32">{{ $_icons['back'] }}</a></p>
-	</div>
+<div class="btn-group">
+	<a href="{{ URL::to('admin/role') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
 </div>
 
 {{ Form::model($role) }}
@@ -90,7 +82,7 @@
 								@endif
 
 								@if (array_key_exists($t->id, $inheritedTasks))
-									<span class="icn-opacity-50 tooltip-top" data-title="{{ lang('short.roles.inheritedTask', $inheritedTasks[$t->id]['role']) }}">{{ $_icons['info'] }}</span>
+									<span class="icn-opacity-50 tooltip-top" data-title="{{ lang('short.admin.roles.inheritedTask', $inheritedTasks[$t->id]['role']) }}">{{ $_icons['info'] }}</span>
 								@endif
 							</label>
 						</div>
@@ -133,7 +125,7 @@
 												@endif
 
 												@if (array_key_exists($t->id, $inheritedTasks))
-													<p class="text-small text-muted">{{ lang('short.roles.inheritedTask', $inheritedTasks[$t->id]['role']) }}</p>
+													<p class="text-small text-muted">{{ lang('short.admin.roles.inheritedTask', $inheritedTasks[$t->id]['role']) }}</p>
 												@endif
 											</label>
 										@endforeach

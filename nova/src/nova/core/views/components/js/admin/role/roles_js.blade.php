@@ -21,14 +21,9 @@
 			beforeSend: function(){
 				// Block the UI so they know what's going on
 				$.blockUI({
-					message: "<span class='text-small'>{{ lang('short.roles.inheritedTaskProcessing') }}</span>",
-					css: {
-						padding: '5px',
-						border: 'none',
-						color: '#444',
-						'border-radius': '4px',
-						'font-weight': '600',
-						'box-shadow': '0 3px 7px rgba(0, 0, 0, 0.3)'
+					message: "<span class='text-small'>{{ lang('short.admin.roles.inheritedTaskProcessing') }}</span>",
+					onBlock: function(){ 
+						$('.blockPage').addClass('blockUIModal');
 					}
 				});
 			},

@@ -1,13 +1,5 @@
-<div class="btn-toolbar visible-lg">
-	<div class="btn-group">
-		<a href="{{ URL::to('admin/role/tasks') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
-	</div>
-</div>
-
-<div class="row hidden-lg">
-	<div class="col-6 col-sm-4">
-		<p><a href="{{ URL::to('admin/role/tasks') }}" class="btn btn-default btn-block icn-size-32">{{ $_icons['back'] }}</a></p>
-	</div>
+<div class="btn-group">
+	<a href="{{ URL::to('admin/role/tasks') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
 </div>
 
 {{ Form::model($task) }}
@@ -47,7 +39,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			{{ $errors->first('component', '<p class="help-block text-danger">:message</p>') }}
-			<p class="help-block">{{ lang('short.roles.chooseTaskComponent') }}</p>
+			<p class="help-block">{{ lang('short.admin.roles.chooseTaskComponent') }}</p>
 		</div>
 	</div>
 
@@ -64,7 +56,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			{{ $errors->first('action', '<p class="help-block text-danger">:message</p>') }}
-			<p class="help-block">{{ lang('short.roles.chooseTaskAction') }}</p>
+			<p class="help-block">{{ lang('short.admin.roles.chooseTaskAction') }}</p>
 		</div>
 	</div>
 
@@ -81,7 +73,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			{{ $errors->first('level', '<p class="help-block text-danger">:message</p>') }}
-			<p class="help-block">{{ lang('short.roles.chooseTaskLevel') }}</p>
+			<p class="help-block">{{ lang('short.admin.roles.chooseTaskLevel') }}</p>
 		</div>
 	</div>
 

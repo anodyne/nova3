@@ -13,12 +13,12 @@
 <div class="row hidden-lg">
 	@if (Sentry::getUser()->hasAccess('role.create'))
 		<div class="col-6">
-			<p><a href="{{ URL::to('admin/role/0') }}" class="btn btn-success btn-block icn-size-32">{{ $_icons['add'] }}</a></p>
+			<p><a href="{{ URL::to('admin/role/0') }}" class="btn btn-success btn-block icn-size-16">{{ $_icons['add'] }}</a></p>
 		</div>
 	@endif
 
 	<div class="col-6">
-		<p><a href="{{ URL::to('admin/role/tasks') }}" class="btn btn-default btn-block icn-size-32">{{ $_icons['list'] }}</a></p>
+		<p><a href="{{ URL::to('admin/role/tasks') }}" class="btn btn-default btn-block icn-size-16">{{ $_icons['list'] }}</a></p>
 	</div>
 </div>
 

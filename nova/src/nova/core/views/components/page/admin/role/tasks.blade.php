@@ -15,13 +15,13 @@
 <div class="row hidden-lg">
 	@if (Sentry::getUser()->hasAccess('role.create'))
 		<div class="col-6">
-			<p><a href="{{ URL::to('admin/role/tasks/0') }}" class="btn btn-success btn-block icn-size-32">{{ $_icons['add'] }}</a></p>
+			<p><a href="{{ URL::to('admin/role/tasks/0') }}" class="btn btn-success btn-block icn-size-16">{{ $_icons['add'] }}</a></p>
 		</div>
 	@endif
 
 	@if (Sentry::getUser()->hasAccess('role.update'))
 		<div class="col-6">
-			<p><a href="{{ URL::to('admin/role') }}" class="btn btn-default btn-block icn-size-32">{{ $_icons['lock'] }}</a></p>
+			<p><a href="{{ URL::to('admin/role') }}" class="btn btn-default btn-block icn-size-16">{{ $_icons['lock'] }}</a></p>
 		</div>
 	@endif
 </div>

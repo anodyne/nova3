@@ -15,6 +15,7 @@ return array(
 	'search'	=> "search :0",
 	'show'		=> "show :0",
 	'update' 	=> "update :0",
+	'updating'	=> "updating :0",
 	'validate'	=> "validation :0",
 	'view'		=> "view :0",
 
@@ -41,6 +42,16 @@ return array(
 	),
 
 	'admin' => [
+		'arc' => [
+			'admin' => [
+				'users' => "Be careful not to remove a decision maker from the review.",
+			],
+			'addComment' => "Enter your :0 on the :1 here",
+			'email' => "You can send an email to the applicant to request additional information or tell them about the status of their application. This email will be added to the Review History and will be viewable by all members of the review.",
+			'involved' => ":0 involved in this review",
+			'voted' => ":0 voted :1 on this application.",
+		],
+
 		'forms' => [
 			'deleteUpdates' => "Select the new :0 that :1 in the :2 :0 will be moved to.",
 			'order' => "The order can also be changed by dragging-and-dropping the items on the previous page.",
@@ -58,7 +69,7 @@ return array(
 			'fieldRestriction' => "Fields can be restricted so only someone with the selected role(s) can edit the data.",
 
 			'dropdownCreation' => "Enter all values for this dropdown separated by commas.",
-			'nonDDValues' => "Values cannot be created for this field type.",
+			'dropdownUpdate' => "To create a new value for this field, enter the value and click :0. To update a value for this field, change the value and click the :1. To delete a value for this field, click :2 in the row you want to remove.",
 		],
 
 		'pages' => [
@@ -68,17 +79,31 @@ return array(
 			'name' => "If you are overriding an existing page, make sure the name matches exactly.",
 			'conditions' => "Conditions must contain a name and a pattern, separated by a period: <code>name.condition</code>. The name is the variable used in the URI field and the condition is a regular expression. Ensuring an ID is numeric would be: <code>id.[0-9]+</code>. In addition, you can create multiple conditions for a route by separating the conditions with a pipe <code>|</code>.",
 		],
-	],
 
-	'arc' => array(
-		'admin' => array(
-			'users' => "Be careful not to remove a decision maker from the review.",
-		),
-		'addComment' => "Enter your :0 on the :1 here",
-		'email' => "You can send an email to the applicant to request additional information or tell them about the status of their application. This email will be added to the Review History and will be viewable by all members of the review.",
-		'involved' => ":0 involved in this review",
-		'voted' => ":0 voted :1 on this application.",
-	),
+		'ranks' => [
+			'changeGroup' => "Select the new :0 group for any :1 currently in this :0 group.",
+			'changeInfo' => "Select the new :0 info item for any :1 currently using this :0 info record.",
+			'infoGroupExplain' => "Info groups are used solely for presentation purposes.",
+		],
+
+		'roles' => [
+			'duplicateSysAdminHeader' => "With Great Power Comes Great Responsibility!",
+			'duplicateSysAdminText' => "You are about to duplicate the System Administrator role. Make sure you understand the impact of assigning :0 to this role.",
+			'removeRole' => "Select the new role you would like any :0 in the :1 role to be moved to.",
+			'chooseTaskComponent' => "Choose from one of the existing task components or create your own.",
+			'chooseTaskAction' => "Choose from one of the existing task actions (create, read, update, delete) or create your own.",
+			'chooseTaskLevel' => "Task levels can be used to further differentiate access within an action.",
+			'inheritedTask' => "Inherited from the <strong>:0</strong> role.",
+			'inheritedTaskProcessing' => "Processing inherited role tasks. Please wait...",
+		],
+
+		'users' => [
+			'add' => "You can add a new :0 to the system by entering their :1 and :2 and clicking submit. During creation, a :3 will be generated for the :0 and emailed to them. Once the :0 is created, you can associate :4 with their account.",
+			'doneSearching' => "Done searching? Head <a href='#' rel='change_user_view' id='show_actives'>back</a> to the list of :0 :1.",
+			'remove' => "Are you sure you want to remove <strong>:0</strong>? In addition to removing :0, this will also remove all :1 associated with :0. This action is permanent and cannot be done. Are you sure you want to continue?",
+			'override' => "Overriding the existing associations will change the ownership of the :0 to the new :1.",
+		],
+	],
 
 	'backToIndex' => 'Back to index',
 	'backToSite' => 'Back to site',
@@ -116,30 +141,6 @@ return array(
 		'resetSuccess' => "Your password reset was accepted. You'll receive an email shortly with a confirmation link. Once you've confirmed your password reset, your new password will be active.",
 
 		'logout' => "You have successfully logged out. You can return to the <a href=':0'>main page</a> or <a href=':1'>log in</a> again.",
-	),
-
-	'ranks' => array(
-		'changeGroup' => "Select the new :0 group for any :1 currently in this :0 group.",
-		'changeInfo' => "Select the new :0 info item for any :1 currently using this :0 info record.",
-		'infoGroupExplain' => "Info groups are used solely for presentation purposes.",
-	),
-
-	'roles' => array(
-		'duplicateSysAdminHeader' => "With Great Power Comes Great Responsibility!",
-		'duplicateSysAdminText' => "You are about to duplicate the System Administrator role. Make sure you understand the impact of assigning :0 to this role.",
-		'removeRole' => "Select the new role you would like any :0 in the :1 role to be moved to.",
-		'chooseTaskComponent' => "Choose from one of the existing task components or create your own.",
-		'chooseTaskAction' => "Choose from one of the existing task actions (create, read, update, delete) or create your own.",
-		'chooseTaskLevel' => "Task levels can be used to further differentiate access within an action.",
-		'inheritedTask' => "Inherited from the <strong>:0</strong> role.",
-		'inheritedTaskProcessing' => "Processing inherited role tasks. Please wait...",
-	),
-
-	'users' => array(
-		'add' => "You can add a new :0 to the system by entering their :1 and :2 and clicking submit. During creation, a :3 will be generated for the :0 and emailed to them. Once the :0 is created, you can associate :4 with their account.",
-		'doneSearching' => "Done searching? Head <a href='#' rel='change_user_view' id='show_actives'>back</a> to the list of :0 :1.",
-		'remove' => "Are you sure you want to remove <strong>:0</strong>? In addition to removing :0, this will also remove all :1 associated with :0. This action is permanent and cannot be done. Are you sure you want to continue?",
-		'override' => "Overriding the existing associations will change the ownership of the :0 to the new :1.",
 	),
 
 	'help' => array(
