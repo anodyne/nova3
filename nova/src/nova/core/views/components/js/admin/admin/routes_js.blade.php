@@ -5,7 +5,7 @@
 		$('#searchCoreRoutes').quicksearch('#coreRoutes tbody tr');
 	});
 
-	$(document).on('click', '.js-route-action', function(){
+	$(document).on('click', '.js-route-action', function(e){
 		var action = $(this).data('action');
 		var id = $(this).data('route');
 		alert('foo');
@@ -38,7 +38,7 @@
 			}).modal('show');
 		}
 
-		return false;
+		e.preventDefault();
 	});
 
 </script>
