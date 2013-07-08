@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 	'config' => array(
 		'exists' => "The :type file already exists in the <code>app/config/:env</code> directory. If you need to change any of the items in this file, you can either manually edit the file or delete it and start over again.",
 		'noconfig' => "The :type file template located at <code>nova/src/nova/setup/generators/:file</code> couldn't be found. Please upload the file from the Nova zip archive and try again.",
@@ -36,8 +36,4 @@ return array(
 			),
 		),
 	),
-
-	'uninstall' => array(
-		'instructions' => "Whoa, hold up! Uninstalling Nova will remove all the data in the database tables (posts, logs, characters, etc.) as well as any MODs you've installed and cannot be undone. <strong>Make absolutely sure you want to do this before continuing.</strong>",
-	),
-);
+];

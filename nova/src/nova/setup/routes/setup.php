@@ -183,7 +183,6 @@ Route::group(['prefix' => 'setup', 'before' => 'configFileCheck|setupAuthorizati
 		$data->layout->label = 'Uninstall Nova';
 		$data->steps = false;
 		$data->content = new stdClass;
-		$data->content->message = Lang::get('setup.uninstall.instructions');
 
 		$data->controls = HTML::link('setup', "I don't want to do this, get me out of here", array(
 			'class' => 'pull-right'
@@ -205,15 +204,15 @@ Route::group(['prefix' => 'setup', 'before' => 'configFileCheck|setupAuthorizati
 		// Make sure we don't time out
 		set_time_limit(0);
 
-		// Remove the cache files
-		Cache::forget('nova.installed');
-		Cache::forget('nova.routes');
-
 		// Remove the app's session config file
 		File::delete(APPPATH.'config/'.App::environment().'/session.php');
 
 		// Set the session driver
 		Config::set('session.driver', 'native');
+
+		// Remove the cache files
+		Cache::forget('nova.installed');
+		Cache::forget('nova.routes');
 
 		// Do the QuickInstall removals
 		ModuleCatalog::uninstallAll();
