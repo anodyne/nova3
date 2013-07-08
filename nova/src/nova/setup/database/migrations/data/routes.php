@@ -387,7 +387,7 @@ return [
 	[
 		'name'			=> 'ajax/update/form_value',
 		'verb'			=> 'post',
-		'uri'			=> 'ajax/update/form_value',
+		'uri'			=> 'ajax/update/form_value/{type}',
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Update@postFormValue',
 		'protected'		=> (int) true
 	],
