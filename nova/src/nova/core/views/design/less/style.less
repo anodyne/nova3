@@ -33,6 +33,10 @@ footer {
 	}
 }
 
+p {
+	margin: 10px 0;
+}
+
 .nav-tabs > .active > a,
 .nav-tabs > .active > a:hover,
 .btn:focus,
@@ -141,4 +145,34 @@ input.icn-size-16 {
 
 .reorder {
 	margin-top: 10px;
+}
+.reorder-small {
+	margin-top: @spacing-small;
+}
+
+.blockUIModal {
+	padding: @spacing-small !important;
+
+	border: none !important;
+	color: #444 !important;
+	font-weight: 600;
+	font-family: @font-base;
+
+	.rounded(4px);
+	.box-shadow(~"0 3px 7px rgba(0, 0, 0, 0.3)");
+}
+
+.table {
+	margin-top: @spacing;
+	margin-bottom: @spacing;
+}
+
+.alert-block {
+	> p {
+		margin-top: 0;
+	}
+
+	> ul {
+		margin-top: 0;
+	}
 }
