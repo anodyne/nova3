@@ -1,5 +1,16 @@
-<div class="btn-group">
-	<a href="{{ URL::to('admin/form/tabs/'.$formKey) }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
+<div class="visible-lg">
+	<div class="btn-toolbar">
+		<div class="btn-group">
+			<a href="{{ URL::to('admin/form/tabs/'.$formKey) }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
+		</div>
+	</div>
+</div>
+<div class="hidden-lg">
+	<div class="row">
+		<div class="col-4">
+			<p><a href="{{ URL::to('admin/form/tabs/'.$formKey) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['back'] }}</a></p>
+		</div>
+	</div>
 </div>
 
 {{ Form::model($tab, ['url' => 'admin/form/tabs/'.$formKey]) }}
@@ -54,8 +65,12 @@
 		</div>
 	</div>
 
-	{{ Form::token() }}
-	{{ Form::hidden('id') }}
-	{{ Form::hidden('action', $action) }}
-	{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
+	<div class="row">
+		<div class="col-lg-12">
+			{{ Form::token() }}
+			{{ Form::hidden('id') }}
+			{{ Form::hidden('action', $action) }}
+			{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
+		</div>
+	</div>
 {{ Form::close() }}

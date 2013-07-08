@@ -6,6 +6,10 @@
 	$(document).ready(function(){
 		// Activate the first tab
 		$('.nav-tabs a:first').tab('show');
+		$('.nav-pills a:first').tab('show');
+
+		// Update the value tab
+		updateValuesTab();
 
 		// Set the HTML class
 		$('[name="html_class"]').val('col-lg-4');
@@ -54,6 +58,7 @@
 				$('.field-value').removeClass('hide');
 				$('.field-value-list').addClass('hide');
 				$('[name="html_class"]').val('col-lg-4');
+				$('.nav-tabs a:contains("<?php echo lang('Values');?>")').addClass('hide');
 			}
 
 			if (type == 'textarea')
@@ -63,6 +68,7 @@
 				$('.field-value').removeClass('hide');
 				$('.field-value-list').addClass('hide');
 				$('[name="html_class"]').val('col-lg-8');
+				$('.nav-tabs a:contains("<?php echo lang('Values');?>")').addClass('hide');
 			}
 
 			if (type == 'select')
@@ -72,6 +78,7 @@
 				$('.field-value').addClass('hide');
 				$('.field-value-list').removeClass('hide');
 				$('[name="html_class"]').val('col-lg-4');
+				$('.nav-tabs a:contains("<?php echo lang('Values');?>")').removeClass('hide');
 			}
 		});
 	});
@@ -116,24 +123,16 @@
 				url: "{{ URL::to('ajax/update/form_value/value') }}",
 				data: {
 					id: id,
-					value: $(this).closest('input[type=text]').val()
+					value: $(this).parent().parent().children('input[type="text"]').val()
 				},
 				beforeSend: function(){
 					// Block the UI so they know what's going on
 					$.blockUI({
-						message: "<span class='text-small'>{{ lang('Action.processing') }}</span>",
-						css: {
-							padding: '5px',
-							border: 'none',
-							color: '#444',
-							'border-radius': '4px',
-							'font-weight': '600',
-							'box-shadow': '0 3px 7px rgba(0, 0, 0, 0.3)'
+						message: "<span class='text-small'>{{ lang('Short.updating', langConcat('form field value')) }}...</span>",
+						onBlock: function(){ 
+							$('.blockPage').addClass('blockUIModal');
 						}
 					});
-				},
-				success: function(){
-					$.unblockUI;
 				}
 			});
 		}
@@ -170,16 +169,16 @@
 
 					if ($('.sort-value tbody tr').length == 1 && $('.sort-value tbody tr:nth-child(1) td').length == 1)
 					{
-						// if there's only 1 record AND only one column in the row, replace everything
+						// If there's only 1 record AND only one column in the row, replace everything
 						$('.sort-value .sort-body').html(data);
 					}
 					else
 					{
-						// all other times, we'll append to the end of the table
+						// All other times, we'll append to the end of the table
 						$('.sort-value .sort-body').append(data);
 					}
 
-					// finally, reset the add field to be blank
+					// Finally, reset the add field to be blank
 					$('[name="value-add-content"]').val('');
 				}
 			});
@@ -187,4 +186,17 @@
 
 		e.preventDefault();
 	});
+
+	// Unblock the UI only after all the Ajax requests have finished
+	$(document).ajaxStop($.unblockUI);
+
+	function updateValuesTab()
+	{
+		var fieldType = $('[name="type"] option:selected').val();
+
+		if (fieldType == 'select')
+			$('.nav-tabs a:contains("<?php echo lang('Values');?>")').removeClass('hide');
+		else
+			$('.nav-tabs a:contains("<?php echo lang('Values');?>")').addClass('hide');
+	}
 </script>

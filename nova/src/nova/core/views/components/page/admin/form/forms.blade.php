@@ -1,7 +1,17 @@
-<div class="btn-group">
+<div class="btn-toolbar visible-lg">
+	<div class="btn-group">
 	@if (Sentry::getUser()->hasAccess('form.create'))
 		<a href="{{ URL::to('admin/form/0') }}" class="btn btn-success icn-size-16">{{ $_icons['add'] }}</a>
 	@endif
+	</div>
+</div>
+
+<div class="row hidden-lg">
+	<div class="col-4">
+		@if (Sentry::getUser()->hasAccess('form.create'))
+			<p><a href="{{ URL::to('admin/form/0') }}" class="btn btn-success btn-block icn-size-16">{{ $_icons['add'] }}</a></p>
+		@endif
+	</div>
 </div>
 
 @if ($forms->count() > 0)

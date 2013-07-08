@@ -6,6 +6,7 @@
 	$(document).ready(function(){
 		// Activate the first tab
 		$('.nav-tabs a:first').tab('show');
+		$('.nav-pills a:first').tab('show');
 
 		// This fixes the issue where the row being dragged is compacted.
 		var fixHelper = function(e, ui){
