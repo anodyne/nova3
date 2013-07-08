@@ -14,16 +14,16 @@ class Field extends Model {
 
 	protected $fillable = array(
 		'form_id', 'section_id', 'type', 'label', 'order', 'status',
-		'restriction', 'help', 'selected', 'value', 'html_name', 'html_id',
-		'html_class', 'html_rows', 'placeholder',
+		'restriction', 'help', 'selected', 'value', 'html_id', 'html_class',
+		'html_rows', 'placeholder',
 	);
 
 	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'form_id', 'section_id', 'type', 'label', 'order', 'status', 
-		'restriction', 'help', 'selected', 'value', 'html_name', 'html_id', 
-		'html_class', 'html_rows', 'placeholder', 'created_at', 'updated_at',
+		'restriction', 'help', 'selected', 'value', 'html_id', 'html_class',
+		'html_rows', 'placeholder', 'created_at', 'updated_at',
 	);
 
 	/*

@@ -49,7 +49,6 @@ class NovaCreateForms extends Migration {
 			$t->text('help')->nullable();
 			$t->string('selected', 50)->nullable();
 			$t->string('value')->nullable();
-			$t->string('html_name')->nullable();
 			$t->string('html_id')->nullable();
 			$t->string('html_class')->nullable();
 			$t->integer('html_rows')->default(5);
