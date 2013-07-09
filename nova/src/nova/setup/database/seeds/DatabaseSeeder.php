@@ -9,13 +9,23 @@ class DatabaseSeeder extends Seeder {
 	 */
 	public function run()
 	{
-		Eloquent::unguard();
-		
-		$this->call('UserSeeder');
-		$this->command->info('User seeding completed');
+		if (App::environment() == 'local')
+		{
+			// Make sure we don't run out of time
+			set_time_limit(0);
+			
+			Eloquent::unguard();
+			
+			$this->call('UserSeeder');
+			$this->command->info('User seeding completed');
 
-		$this->call('CharacterSeeder');
-		$this->command->info('Character seeding completed');
+			$this->call('CharacterSeeder');
+			$this->command->info('Character seeding completed');
+		}
+		else
+		{
+			$this->command->info("Database seeding is not available for this environment");
+		}
 	}
 
 }
