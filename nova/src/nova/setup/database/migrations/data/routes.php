@@ -117,7 +117,7 @@ return [
 	[
 		'name'			=> 'admin/routes',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/routes',
+		'uri'			=> 'admin/routes/{id?}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\Admin@getRoutes',
 		'protected'		=> (int) true
 	],
@@ -356,13 +356,6 @@ return [
 	/**
 	 * ajax/update
 	 */
-	[
-		'name'			=> 'ajax/update/route',
-		'verb'			=> 'get',
-		'uri'			=> 'ajax/update/route/{id?}',
-		'resource'		=> 'Nova\Core\Controllers\Ajax\Update@getRoute',
-		'protected'		=> (int) true
-	],
 	[
 		'name'			=> 'ajax/update/form_tab_order',
 		'verb'			=> 'post',
