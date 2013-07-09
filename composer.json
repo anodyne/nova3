@@ -21,7 +21,8 @@
 		"phpunit/phpunit": "3.7.*",
 		"mockery/mockery": "0.7.*",
 		"way/laravel-test-helpers": "dev-master",
-		"raveren/kint": "dev-master"
+		"raveren/kint": "dev-master",
+		"fzaninotto/faker": "1.2.*"
 	},
 
 	"repositories": [
