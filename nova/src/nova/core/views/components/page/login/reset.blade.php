@@ -1,7 +1,7 @@
 {{ Form::open() }}
 	<div class="control-group">
 		<div class="controls">
-			{{ Form::email('email', null, ['class' => 'input-with-feedback', 'placeholder' => ucwords(lang("email_address"))]) }}
+			{{ Form::email('email', null, ['class' => 'input-with-feedback', 'placeholder' => ucwords(lang('email_address'))]) }}
 		</div>
 	</div>
 
