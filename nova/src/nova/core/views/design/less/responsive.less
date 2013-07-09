@@ -35,7 +35,7 @@
 			> a {
 				width: 100%;
 
-				.rounded(4px);
+				.rounded(@border-radius);
 
 				&:hover {
 					border-color: transparent;
@@ -46,8 +46,8 @@
 				> a:link,
 				> a:hover,
 				> a:visited {
-					border-bottom: 1px solid #ddd;
-					background: #fafafa;
+					border-bottom: 1px solid @color-lightgray;
+					background: @color-subtle;
 				}
 			}
 		}
