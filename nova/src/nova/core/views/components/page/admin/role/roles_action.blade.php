@@ -1,26 +1,32 @@
-<div class="btn-group">
-	<a href="{{ URL::to('admin/role') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
+<div class="btn-toolbar">
+	<div class="btn-group">
+		<a href="{{ URL::to('admin/role') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
+	</div>
 </div>
 
 {{ Form::model($role) }}
 	<div class="row">
-		<div class="col-lg-4">
-			<div class="control-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
+		<div class="col-sm-6 col-lg-4">
+			<div class="{{ ($errors->has('name')) ? 'control-group has-error' : '' }}">
 				<label class="control-label">{{ lang('Name') }}</label>
 				<div class="controls">
 					{{ Form::text('name', null, ['class' => 'input-with-feedback']) }}
-					{{ $errors->first('name', '<p class="help-block">:message</p>') }}
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			{{ $errors->first('name', '<p class="help-block">:message</p>') }}
+		</div>
+	</div>
 
 	<div class="row">
-		<div class="col-lg-8">
+		<div class="col-sm-10 col-lg-8">
 			<div class="control-group">
 				<label class="control-label">{{ lang('Desc') }}</label>
 				<div class="controls">
-					{{ Form::textarea('desc', null, ['class' => 'input-with-feedback', 'rows' => 4]) }}
+					{{ Form::textarea('desc', null, ['class' => 'input-with-feedback', 'rows' => 3]) }}
 				</div>
 			</div>
 		</div>
@@ -91,10 +97,9 @@
 				</fieldset>
 			@endforeach
 		</div>
-
 		<div class="visible-sm taskList">
 			<div class="row">
-				<div class="col-sm-12">
+				<div class="col-12">
 					<div class="accordion" id="accordion">
 						<?php $i = 1;?>
 						@foreach ($tasks as $component => $task)
@@ -147,7 +152,7 @@
 			{{ Form::token() }}
 			{{ Form::hidden('id') }}
 			{{ Form::hidden('action', $action) }}
-			{{ Form::button(ucfirst(lang('action.submit')), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
+			{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
 		</div>
 	</div>
 {{ Form::close() }}

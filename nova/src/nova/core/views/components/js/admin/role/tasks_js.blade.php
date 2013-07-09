@@ -12,13 +12,15 @@
 				local: <?php echo $actionSource;?>
 			});
 		<?php endif;?>
+
+		$('#searchTasks').quicksearch('#taskSearch .row');
 	});
 
 	$(document).on('click', '.js-task-action', function(){
-		var doaction = $(this).data('action');
+		var action = $(this).data('action');
 		var id = $(this).data('id');
 
-		if (doaction == 'delete')
+		if (action == 'delete')
 		{
 			$('#deleteTask').modal({
 				remote: "{{ URL::to('ajax/delete/role_task') }}/" + id,
@@ -26,7 +28,7 @@
 			}).modal('show');
 		}
 
-		if (doaction == 'view')
+		if (action == 'view')
 		{
 			$('#rolesWithTask').modal({
 				remote: "{{ URL::to('ajax/info/roles_with_task') }}/" + id,
