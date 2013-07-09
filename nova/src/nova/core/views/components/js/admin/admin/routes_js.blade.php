@@ -1,8 +1,8 @@
 <script type="text/javascript">
 	
 	$(document).ready(function(){
-		$('#searchUserRoutes').quicksearch('#userRoutes tbody tr');
-		$('#searchCoreRoutes').quicksearch('#coreRoutes tbody tr');
+		$('#searchUserRoutes').quicksearch('#userRoutes .row');
+		$('#searchCoreRoutes').quicksearch('#coreRoutes .row');
 	});
 
 	$(document).on('click', '.js-route-action', function(e){

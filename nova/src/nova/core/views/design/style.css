@@ -18,11 +18,27 @@
     font-weight: 600;
     font-size: 16px;
   }
-  .nav-pills li {
-    float: none;
+  .nav-tabs {
+    border: none;
   }
-  .nav-pills li a {
+  .nav-tabs > li {
+    float: none;
+    margin-bottom: 0;
+  }
+  .nav-tabs > li > a {
     width: 100%;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px 4px 4px 4px;
+  }
+  .nav-tabs > li > a:hover {
+    border-color: transparent;
+  }
+  .nav-tabs > li.active > a:link,
+  .nav-tabs > li.active > a:hover,
+  .nav-tabs > li.active > a:visited {
+    border-bottom: 1px solid #ddd;
+    background: #fafafa;
   }
 }
 /* Landscape phone to portrait tablet */
@@ -211,4 +227,32 @@ input.icn-size-16 {
 }
 .alert-block > ul {
   margin-top: 0;
+}
+.nv-data-table > .row {
+  margin-left: 0;
+  margin-right: 0;
+  border-top: 1px solid #eee;
+}
+.nv-data-table.nv-data-table-striped > .row:nth-child(odd) {
+  background: #fafafa;
+}
+.nv-data-table.nv-data-table-bordered {
+  border-bottom: 1px solid #eee;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px 4px 4px 4px;
+}
+.nv-data-table.nv-data-table-bordered > .row:first-child {
+  padding-top: 4px;
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+}
+.nv-data-table.nv-data-table-bordered > .row:last-child {
+  padding-bottom: 4px;
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
 }

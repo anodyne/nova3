@@ -176,3 +176,40 @@ input.icn-size-16 {
 		margin-top: 0;
 	}
 }
+
+.nv-data-table {
+	> .row {
+		margin-left: 0;
+		margin-right: 0;
+
+		border-top: 1px solid #eee;
+	}
+
+	&.nv-data-table-striped {
+		> .row {
+			&:nth-child(odd) {
+				background: #fafafa;
+			}
+		}
+	}
+
+	&.nv-data-table-bordered {
+		border-bottom: 1px solid #eee;
+		border-left: 1px solid #eee;
+		border-right: 1px solid #eee;
+
+		.rounded(4px);
+
+		> .row:first-child {
+			padding-top: 4px;
+
+			.border-radius(4px, 4px, 0, 0);
+		}
+
+		> .row:last-child {
+			padding-bottom: 4px;
+
+			.border-radius(0, 0, 4px, 4px);
+		}
+	}
+}

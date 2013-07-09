@@ -25,12 +25,30 @@
 		font-size: @font-size;
 	}
 
-	.nav-pills {
-		li {
+	.nav-tabs {
+		border: none;
+
+		> li {
 			float: none;
+			margin-bottom: 0;
 			
-			a {
+			> a {
 				width: 100%;
+
+				.rounded(4px);
+
+				&:hover {
+					border-color: transparent;
+				}
+			}
+
+			&.active {
+				> a:link,
+				> a:hover,
+				> a:visited {
+					border-bottom: 1px solid #ddd;
+					background: #fafafa;
+				}
 			}
 		}
 	}
