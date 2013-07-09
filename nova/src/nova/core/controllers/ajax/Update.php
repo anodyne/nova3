@@ -297,36 +297,5 @@ class Update extends AjaxBaseController {
 			}
 		}
 	}
-
-	/**
-	 * Handles the create and update modals for managing
-	 * system page routes.
-	 *
-	 * @param	int		Page route ID
-	 * @return	void
-	 */
-	public function getRoute($id = 0)
-	{
-		// Make sure the user is logged in
-		if (Sentry::check())
-		{
-			// Get the user
-			$user = Sentry::getUser();
-
-			// Make sure the user is allowed to access this page
-			if ($user->hasAccess('routes.create') or $user->hasAccess('routes.update'))
-			{
-				// Get the page route
-				$route = \SystemRoute::find($id);
-
-				// Set the action
-				$action = ($id > 0) ? 'update' : 'create';
-
-				echo View::make(Location::file('update/route', Utility::getSkin(), 'ajax'))
-					->with('route', $route)
-					->with('action', $action);
-			}
-		}
-	}
 	
 }

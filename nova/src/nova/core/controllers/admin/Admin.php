@@ -40,62 +40,62 @@ class Admin extends AdminBaseController {
 		}
 	}
 
-	public function getRoutes()
+	public function getRoutes($id = false)
 	{
 		// Verify the user is allowed
 		Sentry::getUser()->allowed(['routes.create', 'routes.update', 'routes.delete'], true);
 
-		$this->_view = 'admin/admin/routes';
 		$this->_jsView = 'admin/admin/routes_js';
 
-		// Get all the routes for the system
-		$routes = SystemRoute::get();
-
-		// Make sure we have routes
-		if ($routes->count() > 0)
+		if ($id !== false)
 		{
-			// Loop through the routes
-			foreach ($routes as $route)
+			$this->_view = 'admin/admin/routes_action';
+
+			// Get the route
+			$this->_data->route = SystemRoute::find($id);
+
+			// Set the action
+			$this->_data->action = ((int) $id === 0) ? 'create' : 'update';
+		}
+		else
+		{
+			$this->_view = 'admin/admin/routes';
+
+			// Get all the routes for the system
+			$routes = SystemRoute::get();
+
+			// Make sure we have routes
+			if ($routes->count() > 0)
 			{
-				// Separate the routes into CORE and USER routes
-				if ((bool) $route->protected === true)
+				// Loop through the routes
+				foreach ($routes as $route)
 				{
-					$this->_data->routes['core'][] = $route;
-				}
-				else
-				{
-					$this->_data->routes['user'][] = $route;
+					// Separate the routes into CORE and USER routes
+					if ((bool) $route->protected === true)
+					{
+						$this->_data->routes['core'][] = $route;
+					}
+					else
+					{
+						$this->_data->routes['user'][] = $route;
+					}
 				}
 			}
+
+			// Build the duplicate page modal
+			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+				->with('modalId', 'duplicateRoute')
+				->with('modalHeader', ucwords(lang('short.duplicate', langConcat('core route'))))
+				->with('modalBody', '')
+				->with('modalFooter', false);
+
+			// Build the delete page modal
+			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+				->with('modalId', 'deleteRoute')
+				->with('modalHeader', ucwords(lang('short.delete', lang('route'))))
+				->with('modalBody', '')
+				->with('modalFooter', false);
 		}
-
-		// Build the duplicate page modal
-		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
-			->with('modalId', 'duplicateRoute')
-			->with('modalHeader', ucwords(lang('short.duplicate', langConcat('core route'))))
-			->with('modalBody', '')
-			->with('modalFooter', false);
-
-		// Build the delete page modal
-		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
-			->with('modalId', 'deleteRoute')
-			->with('modalHeader', ucwords(lang('short.delete', lang('route'))))
-			->with('modalBody', '')
-			->with('modalFooter', false);
-
-		// Build the add page modal
-		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
-			->with('modalId', 'addRoute')
-			->with('modalHeader', ucwords(lang('short.add', lang('route'))))
-			->with('modalBody', '')
-			->with('modalFooter', false);
-
-		// Build the edit page modal
-		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
-			->with('modalId', 'editRoute')
-			->with('modalHeader', ucwords(lang('short.edit', lang('route'))))
-			->with('modalBody', '')
-			->with('modalFooter', false);
 	}
 	public function postRoutes()
 	{
@@ -167,8 +167,11 @@ class Admin extends AdminBaseController {
 
 			if ($id)
 			{
-				// Update the page route
-				$item = SystemRoute::where('id', $id)->update(Input::all());
+				// Get the route
+				$item = SystemRoute::find($id);
+
+				// Update the route
+				$item->update(Input::all());
 			}
 
 			// Set the flash info
