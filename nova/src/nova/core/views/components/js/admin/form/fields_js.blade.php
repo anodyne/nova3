@@ -3,16 +3,17 @@
 <script type="text/javascript" src="{{ SRCURL }}assets/js/jquery.ui.mouse.min.js"></script>
 <script type="text/javascript" src="{{ SRCURL }}assets/js/jquery.ui.sortable.min.js"></script>
 <script type="text/javascript">
+	
 	$(document).ready(function(){
 		// Activate the first tab
 		$('.nav-tabs a:first').tab('show');
-		$('.nav-pills a:first').tab('show');
 
 		// Update the value tab
 		updateValuesTab();
 
-		// Set the HTML class
-		$('[name="html_class"]').val('col-lg-4');
+		// Set the HTML class if it's empty
+		if ($('[name="html_class"]').val() == "")
+			$('[name="html_class"]').val('col-lg-4');
 
 		// This fixes the issue where the row being dragged is compacted.
 		var fixHelper = function(e, ui){
@@ -24,7 +25,7 @@
 		};
 
 		// Makes the field list sortable and updates when the sort stops
-		$('.sort-field tbody.sort-body').sortable({
+		$('#sortableFields').sortable({
 			helper: fixHelper,
 			stop: function(event, ui){
 				$.ajax({
@@ -36,7 +37,7 @@
 		});
 
 		// Makes the value list sortable and updates when the sort stops
-		$('.sort-value tbody.sort-body').sortable({
+		$('#sortableValues').sortable({
 			helper: fixHelper,
 			stop: function(event, ui){
 				$.ajax({
@@ -199,4 +200,5 @@
 		else
 			$('.nav-tabs a:contains("<?php echo lang('Values');?>")').addClass('hide');
 	}
+
 </script>
