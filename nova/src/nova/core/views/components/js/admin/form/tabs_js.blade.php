@@ -3,6 +3,7 @@
 <script type="text/javascript" src="{{ SRCURL }}assets/js/jquery.ui.mouse.min.js"></script>
 <script type="text/javascript" src="{{ SRCURL }}assets/js/jquery.ui.sortable.min.js"></script>
 <script type="text/javascript">
+	
 	$(document).ready(function(){
 		// This fixes the issue where the row being dragged is compacted.
 		var fixHelper = function(e, ui){
@@ -14,7 +15,7 @@
 		};
 
 		// Makes the tab list sortable and updates when the sort stops
-		$('.sort-tab tbody.sort-body').sortable({
+		$('#sortableTabs').sortable({
 			helper: fixHelper,
 			stop: function(event, ui){
 				$.ajax({
@@ -29,7 +30,6 @@
 		$('[name="name"]').change(function(){
 			var value = $(this).val();
 			value = value.replace(/\s+/g, '');
-
 			$('[name="link_id"]').val(value);
 		});
 	});
@@ -48,4 +48,5 @@
 
 		e.preventDefault();
 	});
+
 </script>
