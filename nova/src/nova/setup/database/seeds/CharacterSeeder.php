@@ -34,29 +34,4 @@ class CharacterSeeder extends Seeder {
 		}
 	}
 
-	protected function seedCharacterPromotions()
-	{
-		# code...
-	}
-
-	protected function seedApplications()
-	{
-		# code...
-	}
-
-	protected function seedApplicationReviewers()
-	{
-		# code...
-	}
-
-	protected function seedApplicationRules()
-	{
-		# code...
-	}
-
-	protected function seedApplicationResponses()
-	{
-		# code...
-	}
-
 }

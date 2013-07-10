@@ -21,6 +21,9 @@ class DatabaseSeeder extends Seeder {
 
 			$this->call('CharacterSeeder');
 			$this->command->info('Character seeding completed');
+
+			//$this->call('ApplicationSeeder');
+			//$this->command->info('ARC seeding completed');
 		}
 		else
 		{
