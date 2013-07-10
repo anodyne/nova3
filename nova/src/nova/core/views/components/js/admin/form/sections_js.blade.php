@@ -3,10 +3,10 @@
 <script type="text/javascript" src="{{ SRCURL }}assets/js/jquery.ui.mouse.min.js"></script>
 <script type="text/javascript" src="{{ SRCURL }}assets/js/jquery.ui.sortable.min.js"></script>
 <script type="text/javascript">
+
 	$(document).ready(function(){
 		// Activate the first tab
 		$('.nav-tabs a:first').tab('show');
-		$('.nav-pills a:first').tab('show');
 
 		// This fixes the issue where the row being dragged is compacted.
 		var fixHelper = function(e, ui){
@@ -18,7 +18,7 @@
 		};
 
 		// Makes the section list sortable and updates when the sort stops
-		$('.sort-section tbody.sort-body').sortable({
+		$('#sortableSections').sortable({
 			helper: fixHelper,
 			stop: function(event, ui){
 				$.ajax({
@@ -44,4 +44,5 @@
 
 		e.preventDefault();
 	});
+	
 </script>
