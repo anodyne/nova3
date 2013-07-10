@@ -1,4 +1,4 @@
-<div class="btn-toolbar visible-lg">
+<div class="btn-toolbar">
 	<div class="btn-group">
 	@if (Sentry::getUser()->hasAccess('form.create'))
 		<a href="{{ URL::to('admin/form/0') }}" class="btn btn-success icn-size-16">{{ $_icons['add'] }}</a>
@@ -6,16 +6,16 @@
 	</div>
 </div>
 
-<div class="row hidden-lg">
-	<div class="col-4">
-		@if (Sentry::getUser()->hasAccess('form.create'))
-			<p><a href="{{ URL::to('admin/form/0') }}" class="btn btn-success btn-block icn-size-16">{{ $_icons['add'] }}</a></p>
-		@endif
-	</div>
-</div>
-
 @if ($forms->count() > 0)
 	<div class="row">
+		<div class="col-12 col-sm-6 col-lg-4">
+			<div class="control-group">
+				{{ Form::text('', null, ['id' => 'searchForms', 'placeholder' => lang('Short.search', langConcat('for Form'))]) }}
+			</div>
+		</div>
+	</div>
+
+	<div class="row" id="formsSearch">
 	@foreach ($forms as $form)
 		<div class="col-lg-6">
 			<div class="thumbnail">
