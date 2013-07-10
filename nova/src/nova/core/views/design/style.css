@@ -219,6 +219,9 @@ input.icn-size-16 {
   margin-top: 15px;
   margin-bottom: 15px;
 }
+.nv-data-table {
+  margin: 15px 0;
+}
 .nv-data-table > .row {
   margin-left: 0;
   margin-right: 0;
