@@ -138,6 +138,10 @@ return [
 		'section' => 'form',
 		'page' => 'tabs'
 	],
+
+	/**
+	 * admin/formviewer Headers
+	 */
 	[
 		'key' => 'admin_form_view_header',
 		'label' => 'Form Viewer Header',
@@ -384,13 +388,17 @@ return [
 		'section' => 'form',
 		'page' => 'tabs'
 	],
+
+	/**
+	 * admin/formviewer Titles
+	 */
 	[
 		'key' => 'admin_form_view_title',
 		'label' => 'Form Viewer Page Title',
 		'content' => "Form Viewer",
 		'type' => 'title',
-		'section' => 'form',
-		'page' => 'view'
+		'section' => 'formviewer',
+		'page' => 'index'
 	],
 
 	/**
@@ -591,10 +599,26 @@ return [
 	[
 		'key' => 'admin_form_tabs_message',
 		'label' => 'Manage Form Tabs Message',
-		'content' => "You can edit any tab attached to this form by using the options below. If you want to change the order the tabs appear in, simply drag the row to where you want it by using the handle on the right.",
+		'content' => "You can edit any tab attached to this form by using the buttons below. If you want to change the order the tabs appear in, simply drag-and-drop the row to where you want it.",
 		'type' => 'message',
 		'section' => 'form',
 		'page' => 'tabs'
+	],
+	[
+		'key' => 'admin_form_sections_message',
+		'label' => 'Manage Form Sections Message',
+		'content' => "You can edit any section attached to this form by using the buttons below. If you want to change the order the sections appear in, simply drag-and-drop the row to where you want it. Sections cannot be moved between tabs using the drag-and-drop method. You will need to edit the section and change the attached tab from the edit screen.",
+		'type' => 'message',
+		'section' => 'form',
+		'page' => 'sections'
+	],
+	[
+		'key' => 'admin_form_fields_message',
+		'label' => 'Manage Form Fields Message',
+		'content' => "You can edit any field attached to this form by using the buttons below. If you want to change the order the fields appear in, simply drag-and-drop the row to where you want it. Fields cannot be moved between sections using the drag-and-drop method. You will need to edit the field and change the attached section from the edit screen.",
+		'type' => 'message',
+		'section' => 'form',
+		'page' => 'fields'
 	],
 
 	/**
