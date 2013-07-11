@@ -24,13 +24,13 @@ While the heading indicates that these are "minor" features, we consider them an
 
 ### Control Your Content
 
-Every page title, page header and page intro content is now stored in the database. This gives game masters complete control over the content shown on different pages. No page intro on a specific page? No problem, just create the record in the Site Content management page and it'll automatically show up there. We've strived to make this as easy as possible.
+Nearly every page title, page header page intro content and email is now stored in the database. This gives game masters complete control over the content shown on different pages and sent to users. No page intro on a specific page? No problem, just create the record in the Site Content management page and it'll automatically show up there. We've strived to make this as easy as possible.
 
 But that's not all. To make life even easier for game masters, you can edit page headers and page intro content _right on the page it's on._ Just click on the text, make your change and click Save. Done.
 
 ### New Rank System
 
-Together with Kuro-RPG, we've addressed one of the long-standing gripes with Nova (and SMS): the rank system. We started over and came up with a rank system that's a breeze to use and makes creating new ranks dead simple. Utilizing multiple images from Kuro-RPG, you can now select a base image and then overlay a pip image across the base. This means that we ship Nova with far fewer images and game masters can create new ranks of the same color or even different colors altogether with a few simple clicks. Don't take our word for it though, try it today and see how easy rank management can be!
+Together with Kuro-RPG, we've addressed one of the long-standing gripes with Nova (and SMS): the rank system. We started over and came up with a rank system that's a breeze to use and makes creating new ranks dead simple. Utilizing multiple images from Kuro-RPG, you can now select a base image and then overlay a pip image across the base. This means that we ship Nova with far fewer images and game masters can create new ranks of the same color or even different colors altogether with a few simple clicks.
 
 ### Manifest Views
 

@@ -40,3 +40,9 @@
 * Bootstrap Lightbox
 	* A simple lightbox plugin based on the bootstrap modal plugin.
 	* http://jbutz.github.io/bootstrap-lightbox/
+* TabDrop
+	* Very usefull script when your tabs do not fit in a single row. This script takes the not fitting tabs and makes a new dropdown tab. In the dropdown there are all the tabs that do not fit.
+	* http://www.eyecon.ro/bootstrap-tabdrop/
+* Flippant.js
+	* A mini js+css library for flipping things over.
+	* http://labs.mintchaos.com/flippant.js/
