@@ -49,7 +49,7 @@ class Section extends Model {
 	 */
 	public function fields()
 	{
-		return $this->hasMany('NovaFormField');
+		return $this->hasMany('NovaFormField')->orderAsc('order');
 	}
 
 	/*

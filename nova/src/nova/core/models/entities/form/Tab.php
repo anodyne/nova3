@@ -41,7 +41,15 @@ class Tab extends Model {
 	 */
 	public function sections()
 	{
-		return $this->hasMany('NovaFormSection');
+		return $this->hasMany('NovaFormSection')->orderAsc('order');
+	}
+
+	/**
+	 * Has Many: Fields
+	 */
+	public function fields()
+	{
+		return $this->hasMany('NovaFormField')->orderAsc('order');
 	}
 
 	/*

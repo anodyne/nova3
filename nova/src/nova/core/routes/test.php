@@ -11,4 +11,9 @@ Route::group(array('prefix' => 'test'), function()
 	{
 		echo partial('common/label', ['class' => 'label-info', 'value' => lang('short.create', lang('form'))]);
 	});
+
+	Route::get('forms', function()
+	{
+		echo DynamicForm::setup('character', 1, false)->build();
+	});
 });

@@ -39,6 +39,7 @@ return array(
 	'condition' => "condition",
 	'conditions' => "conditions",
 	'core' => "core",
+	'container' => "container",
 
 	'display' => 'display',
 	'dropdown' => 'dropdown menu',

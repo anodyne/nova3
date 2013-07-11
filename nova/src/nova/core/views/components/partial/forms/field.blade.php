@@ -1,39 +1,50 @@
-<?php $d = data($data, $f->id);?>
+<?php $d = displayFormData($data, $field->id);?>
 
 @if ($editable)
 	<div class="row">
-		<div class="{{ $f->html_class }}">
-			<div class="control-group">
-				<label class="control-label">{{ $f->label }}</label>
+		<div class="{{ $field->html_container_class }}">
+
+			@if ( ! empty($field->help))
+				<div class="control-group">
+			@endif
+
+				<label class="control-label">{{ $field->label }}</label>
 				<div class="controls">
-					@if (empty($f->restriction) or (Sentry::check() and Sentry::getUser()->hasRole($f->restriction)))
-						@if ($f->type == 'text')
-							{{ Form::text($f->id, $d, ['id' => $f->html_id, 'placeholder' => $f->placeholder]) }}
-						@elseif ($f->type == 'textarea')
-							{{ Form::textarea($f->id, $d, ['id' => $f->html_id, 'placeholder' => $f->placeholder, 'rows' => $f->html_rows]) }}
-						@elseif ($f->type == 'select')
-							{{ Form::select($f->id, $f->getValues(), $d, ['id' => $f->html_id]) }}
+					@if (empty($field->restriction) or (Sentry::check() and Sentry::getUser()->hasRole($field->restriction)))
+						@if ($field->type == 'text')
+							{{ Form::text($field->id, $d, ['id' => $field->html_id, 'placeholder' => $field->placeholder, 'class' => $field->html_class]) }}
+						@elseif ($field->type == 'textarea')
+							{{ Form::textarea($field->id, $d, ['id' => $field->html_id, 'placeholder' => $field->placeholder, 'rows' => $field->html_rows, 'class' => $field->html_class]) }}
+						@elseif ($field->type == 'select')
+							{{ Form::select($field->id, $field->getValues(), $d, ['id' => $field->html_id, 'class' => $field->html_class]) }}
 						@endif
 					@else
 						{{ $d }}
 					@endif
 				</div>
-			</div>
+			
+			@if ( ! empty($field->help))
+				</div>
+			@endif
 		</div>
 	</div>
 
-	@if ( ! empty($f->help))
+	@if ( ! empty($field->help))
 		<div class="row">
 			<div class="col-lg-12">
-				<p class="help-block">{{ $f->help }}</p>
+				<p class="help-block">{{ $field->help }}</p>
 			</div>
 		</div>
 	@endif
 @else
 	@if ( ! empty($d))
-		<div class="control-group">
-			<label class="control-label">{{ $f->label }}</label>
-			<div class="controls">{{ $d }}</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="control-group">
+					<label class="control-label">{{ $field->label }}</label>
+					<div class="controls">{{ $d }}</div>
+				</div>
+			</div>
 		</div>
 	@endif
 @endif

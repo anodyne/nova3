@@ -1,8 +1,11 @@
 <?php namespace Nova\Core\Models\Entities\Form;
 
 use Model;
+use FormTrait;
 
 class Data extends Model {
+
+	use FormTrait;
 	
 	protected $table = 'form_data';
 
@@ -41,11 +44,24 @@ class Data extends Model {
 	 * Scope the query to form data by entry ID.
 	 *
 	 * @param	Builder		The query builder
+	 * @param	int			Entry ID
 	 * @return	void
 	 */
 	public function scopeEntry($query, $id)
 	{
 		$query->where('data_id', $id);
+	}
+
+	/**
+	 * Scope the query to form data by form field.
+	 *
+	 * @param	Builder		The query builder
+	 * @param	int			Field ID
+	 * @return	void
+	 */
+	public function scopeFormField($query, $id)
+	{
+		$query->where('field_id', $id);
 	}
 
 	/*

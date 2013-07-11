@@ -35,7 +35,7 @@ class Form extends Model {
 	 */
 	public function tabs()
 	{
-		return $this->hasMany('NovaFormTab', 'form_id');
+		return $this->hasMany('NovaFormTab', 'form_id')->orderAsc('order');
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Form extends Model {
 	 */
 	public function sections()
 	{
-		return $this->hasMany('NovaFormSection', 'form_id');
+		return $this->hasMany('NovaFormSection', 'form_id')->orderAsc('order');
 	}
 
 	/**
@@ -51,7 +51,7 @@ class Form extends Model {
 	 */
 	public function fields()
 	{
-		return $this->hasMany('NovaFormField', 'form_id');
+		return $this->hasMany('NovaFormField', 'form_id')->orderAsc('order');
 	}
 
 	/*

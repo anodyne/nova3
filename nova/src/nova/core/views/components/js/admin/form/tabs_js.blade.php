@@ -26,11 +26,14 @@
 			}
 		}).disableSelection();
 
-		// Determine the actions when the type dropdown changes
+		// Populate the link_id field when the name changes
 		$('[name="name"]').change(function(){
-			var value = $(this).val();
-			value = value.replace(/\s+/g, '');
-			$('[name="link_id"]').val(value);
+			if ($('[name="link_id"]').val() == "")
+			{
+				var value = $(this).val();
+				value = value.replace(/\s+/g, '');
+				$('[name="link_id"]').val(value);
+			}
 		});
 	});
 

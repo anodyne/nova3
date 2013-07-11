@@ -427,6 +427,13 @@ return [
 		'name' => 'Delete Form',
 		'desc' => ''
 	],
+	[
+		'action' => 'read',
+		'component' => 'form',
+		'level' => 0,
+		'name' => 'Read Form',
+		'desc' => 'See any entries submitted for non-protected forms.'
+	],
 
 	/**
 	 * Navigation Actions

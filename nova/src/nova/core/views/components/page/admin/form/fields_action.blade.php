@@ -132,6 +132,20 @@
 		<div class="tab-pane" id="html">
 			<div class="row">
 				<div class="col-sm-6 col-lg-4">
+					<label class="control-label">{{ langConcat('Container Class') }}</label>
+					<div class="controls">
+						{{ Form::text('html_container_class') }}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<p class="help-block">{{ lang('short.admin.forms.containerClass') }}</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6 col-lg-4">
 					<div class="control-group">
 						<label class="control-label">{{ lang('id') }}</label>
 						<div class="controls">

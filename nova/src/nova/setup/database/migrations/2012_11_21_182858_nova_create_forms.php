@@ -40,6 +40,7 @@ class NovaCreateForms extends Migration {
 		{
 			$t->increments('id');
 			$t->integer('form_id')->unsigned();
+			$t->integer('tab_id')->unsigned()->nullable();
 			$t->integer('section_id')->unsigned()->nullable();
 			$t->string('type', 50)->default('text');
 			$t->string('label');
@@ -52,6 +53,7 @@ class NovaCreateForms extends Migration {
 			$t->string('html_id')->nullable();
 			$t->string('html_class')->nullable();
 			$t->integer('html_rows')->default(5);
+			$t->string('html_container_class')->default('col-lg-4')->nullable();
 			$t->text('placeholder')->nullable();
 			$t->timestamps();
 		});

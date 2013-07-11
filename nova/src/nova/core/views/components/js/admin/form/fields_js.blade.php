@@ -12,8 +12,8 @@
 		updateValuesTab();
 
 		// Set the HTML class if it's empty
-		if ($('[name="html_class"]').val() == "")
-			$('[name="html_class"]').val('col-lg-4');
+		if ($('[name="html_container_class"]').val() == "")
+			$('[name="html_container_class"]').val('col-lg-4');
 
 		// This fixes the issue where the row being dragged is compacted.
 		var fixHelper = function(e, ui){
@@ -58,7 +58,7 @@
 				$('.field-placeholder').removeClass('hide');
 				$('.field-value').removeClass('hide');
 				$('.field-value-list').addClass('hide');
-				$('[name="html_class"]').val('col-lg-4');
+				$('[name="html_container_class"]').val('col-lg-4');
 				$('.nav-tabs a:contains("<?php echo lang('Values');?>")').addClass('hide');
 			}
 
@@ -68,7 +68,7 @@
 				$('.field-placeholder').removeClass('hide');
 				$('.field-value').removeClass('hide');
 				$('.field-value-list').addClass('hide');
-				$('[name="html_class"]').val('col-lg-8');
+				$('[name="html_container_class"]').val('col-lg-8');
 				$('.nav-tabs a:contains("<?php echo lang('Values');?>")').addClass('hide');
 			}
 
@@ -78,7 +78,7 @@
 				$('.field-placeholder').addClass('hide');
 				$('.field-value').addClass('hide');
 				$('.field-value-list').removeClass('hide');
-				$('[name="html_class"]').val('col-lg-4');
+				$('[name="html_container_class"]').val('col-lg-4');
 				$('.nav-tabs a:contains("<?php echo lang('Values');?>")').removeClass('hide');
 			}
 		});

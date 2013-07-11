@@ -4,6 +4,7 @@ use Nova\Core\Lib\Media;
 use Nova\Core\Lib\Utility;
 use Nova\Core\Lib\Location;
 use Nova\Core\Lib\Markdown;
+use Nova\Core\Lib\DynamicForm;
 use Nova\Core\Lib\SystemEvent;
 use dflydev\markdown\MarkdownParser;
 use Illuminate\Support\ServiceProvider;
@@ -22,6 +23,7 @@ class UtilityServiceProvider extends ServiceProvider {
 		$this->registerSystemEvent();
 		$this->registerUtility();
 		$this->registerMedia();
+		$this->registerDynamicForm();
 	}
 
 	protected function registerLocation()
@@ -61,6 +63,14 @@ class UtilityServiceProvider extends ServiceProvider {
 		$this->app['media'] = $this->app->share(function()
 		{
 			return new Media;
+		});
+	}
+
+	protected function registerDynamicForm()
+	{
+		$this->app['nova.form'] = $this->app->share(function()
+		{
+			return new DynamicForm;
 		});
 	}
 

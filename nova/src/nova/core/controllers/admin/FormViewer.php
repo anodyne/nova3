@@ -1,15 +1,10 @@
 <?php namespace Nova\Core\Controllers\Admin;
 
-use View;
-use Input;
+use App;
 use Sentry;
-use Location;
 use NovaForm;
 use Redirect;
-use NovaFormTab;
 use NovaFormData;
-use FormValidator;
-use FormTabValidator;
 use AdminBaseController;
 
 class FormViewer extends AdminBaseController {
@@ -17,72 +12,45 @@ class FormViewer extends AdminBaseController {
 	public function getView($formKey = false, $id = false)
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['form.create', 'form.edit', 'form.delete'], true);
+		Sentry::getUser()->allowed(['form.read', 'form.create', 'form.edit', 'form.delete'], true);
 
 		// Set the JS view
-		$this->_jsView = 'admin/form/view_js';
+		//$this->_jsView = 'admin/formviewer/view_js';
 
-		// If we don't have a form, show all the forms
+		// If we don't have a form, throw a 404
 		if ($formKey === false)
 		{
-			// Set the view file
-			$this->_view = 'admin/form/formviewer_all';
-
-			// Get all the forms
-			$this->_data->forms = NovaForm::formViewer()->get();
+			App::abort(404, "Page not found");
 		}
-
-		// If we do have a form, show all the records
-		if ($formKey !== false)
+		else
 		{
 			// Get the form
-			$this->_data->form = $form = NovaForm::getForm($formKey);
+			$this->_data->form = $form = NovaForm::key($formKey)->first();
 
 			// If we don't have an ID, show all the records
 			if ($id === false)
 			{
 				// Set the view file
-				$this->_view = 'admin/form/formviewer_one';
+				$this->_view = 'admin/formviewer/entries';
 
 				// Get the entries
-				$this->_data->entries = NovaFormData::form($form->id)
+				$this->_data->entries = NovaFormData::key($formKey)
 					->group('data_id')
 					->orderDesc('created_at')
 					->get();
 			}
-
-			// If we have an ID, show that record
-			if ($id !== false)
+			else
 			{
 				// Set the view file
-				$this->_view = 'admin/form/formviewer_detail';
+				$this->_view = 'admin/formviewer/entries_action';
 
-				// Get the entry
-				$this->_data->entry = NovaFormData::form($form->id)->entry($id)->get();
+				// Get the entry data
+				$this->_data->entry = NovaFormData::key($formKey)->entry($id)->get();
+
+				// Set the action
+				$this->_data->action = ((int) $id === 0) ? 'create' : 'update';
 			}
 		}
-	}
-	public function deleteView($formKey, $id)
-	{
-		# code...
-	}
-
-	public function getAdd($formKey)
-	{
-		# code...
-	}
-	public function postAdd($formKey)
-	{
-		# code...
-	}
-
-	public function getEdit($formKey, $id)
-	{
-		# code...
-	}
-	public function putEdit($formKey, $id)
-	{
-		# code...
 	}
 
 }

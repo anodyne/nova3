@@ -212,6 +212,7 @@ return array(
 		 */
 		'API'			=> 'Cartalyst\Api\Facades\API',
 		'Date'			=> 'Carbon\Carbon',
+		'DynamicForm'	=> 'Nova\Core\Facades\DynamicForm',
 		'Email'			=> 'Nova\Core\Lib\Email',
 		'Location'		=> 'Nova\Core\Facades\Location',
 		'Markdown'		=> 'Nova\Core\Facades\Markdown',

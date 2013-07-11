@@ -143,7 +143,7 @@ return [
 	 * admin/formviewer Headers
 	 */
 	[
-		'key' => 'admin_form_view_header',
+		'key' => 'admin_formviewer_header',
 		'label' => 'Form Viewer Header',
 		'content' => "Form Viewer",
 		'type' => 'header',
@@ -393,7 +393,7 @@ return [
 	 * admin/formviewer Titles
 	 */
 	[
-		'key' => 'admin_form_view_title',
+		'key' => 'admin_formviewer_title',
 		'label' => 'Form Viewer Page Title',
 		'content' => "Form Viewer",
 		'type' => 'title',

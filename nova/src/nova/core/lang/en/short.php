@@ -67,6 +67,7 @@ return array(
 			'tabLinkId' => "Link IDs are used to link a tab with its content on the page. They must be unique and contain no spaces (camelCase is fine) (e.g. one, html, general, characterThings). This will be generated for you based on the name of the tab, but you can change it to anything you'd like.",
 
 			'fieldRestriction' => "Fields can be restricted so only someone with the selected role(s) can edit the data.",
+			'containerClass' => "All fields are wrapped in a container that controls their size. You can use any class that's part of the Bootstrap scaffold. We recommend <code>col-lg-4</code> for text fields and dropdowns and <code>col-lg-8</code> for textareas, though you can use whatever classes you want.",
 
 			'dropdownCreation' => "Enter all values for this dropdown separated by commas.",
 			'dropdownUpdate' => "To create a new value for this field, enter the value and click :0. To update a value for this field, change the value and click the :1. To delete a value for this field, click :2 in the row you want to remove.",

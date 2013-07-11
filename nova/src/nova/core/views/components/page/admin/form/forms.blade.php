@@ -58,13 +58,13 @@
 							@if ((bool) $form->form_viewer === true)
 								<li class="divider"></li>
 								<li>
-									<a href="{{ URL::to('admin/formviewer/add/'.$form->key) }}">
-										{{ lang('Short.fillout', lang('form')) }}
+									<a href="{{ URL::to('admin/formviewer/'.$form->key) }}">
+										{{ lang('Short.view', lang('form')) }}
 									</a>
 								</li>
 								<li>
-									<a href="{{ URL::to('admin/formviewer/view/'.$form->key) }}">
-										{{ lang('Short.view', lang('form')) }}
+									<a href="{{ URL::to('admin/formviewer/'.$form->key.'/0') }}">
+										{{ lang('Short.fillout', lang('form')) }}
 									</a>
 								</li>
 							@endif

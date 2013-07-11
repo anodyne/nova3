@@ -13,17 +13,17 @@ class Field extends Model {
 	protected $table = 'form_fields';
 
 	protected $fillable = array(
-		'form_id', 'section_id', 'type', 'label', 'order', 'status',
+		'form_id', 'tab_id', 'section_id', 'type', 'label', 'order', 'status',
 		'restriction', 'help', 'selected', 'value', 'html_id', 'html_class',
-		'html_rows', 'placeholder',
+		'html_rows', 'placeholder', 'html_container_class',
 	);
 
 	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
-		'id', 'form_id', 'section_id', 'type', 'label', 'order', 'status', 
+		'id', 'form_id', 'tab_id', 'section_id', 'type', 'label', 'order', 'status', 
 		'restriction', 'help', 'selected', 'value', 'html_id', 'html_class',
-		'html_rows', 'placeholder', 'created_at', 'updated_at',
+		'html_rows', 'placeholder', 'html_container_class', 'created_at', 'updated_at',
 	);
 
 	/*
@@ -38,6 +38,14 @@ class Field extends Model {
 	public function form()
 	{
 		return $this->belongsTo('NovaForm', 'form_id');
+	}
+
+	/**
+	 * Belongs To: Tab
+	 */
+	public function tab()
+	{
+		return $this->belongsTo('NovaFormTab', 'tab_id');
 	}
 
 	/**

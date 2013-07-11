@@ -189,16 +189,16 @@ return [
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'admin/form/view',
+		'name'			=> 'admin/formviewer',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/form/view/{formKey?}',
+		'uri'			=> 'admin/formviewer/{formKey}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\FormViewer@getView',
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'admin/form/view/detail',
+		'name'			=> 'admin/formviewer/detail',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/form/view/{formKey}/detail/{id}',
+		'uri'			=> 'admin/formviewer/{formKey}/detail/{id}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\FormViewer@getView',
 		'protected'		=> (int) true
 	],

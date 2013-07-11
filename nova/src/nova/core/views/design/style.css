@@ -89,6 +89,14 @@ a:focus {
 .tab-pane {
   margin: 15px 0;
 }
+.tab-pane .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.tab-pane fieldset {
+  margin-left: 15px;
+  margin-right: 15px;
+}
 h1 {
   font-weight: 300;
 }

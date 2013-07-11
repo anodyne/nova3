@@ -35,7 +35,7 @@
 							<div class="row" id="field_{{ $f->id }}">
 								<div class="col-12 col-sm-8 col-lg-9">
 									<div class="row">
-										<div class="{{ $f->html_class }}">
+										<div class="{{ $f->html_container_class }}">
 											<div class="control-group">
 												<label class="control-label">
 													{{ $f->label }}
@@ -112,7 +112,7 @@
 						<div class="row" id="field_{{ $f->id }}">
 							<div class="col-12 col-sm-8 col-lg-9">
 								<div class="row">
-									<div class="{{ $f->html_class }}">
+									<div class="{{ $f->html_container_class }}">
 										<div class="control-group">
 											<label class="control-label">
 												{{ $f->label }}
@@ -179,7 +179,7 @@
 					<div class="row" id="field_{{ $f->id }}">
 						<div class="col-12 col-sm-8 col-lg-9">
 							<div class="row">
-								<div class="{{ $f->html_class }}">
+								<div class="{{ $f->html_container_class }}">
 									<div class="control-group">
 										<label class="control-label">
 											{{ $f->label }}
