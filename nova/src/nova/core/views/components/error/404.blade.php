@@ -20,6 +20,7 @@
 				color: #c00;
 				font-weight: 300;
 				font-size: 52px;
+				font-family: "Open Sans", helvetica, arial, sans-serif;
 				text-align: center;
 			}
 			h1 small {
@@ -28,6 +29,7 @@
 				color: #888;
 				font-weight: 400;
 				font-size: 18px;
+				line-height: 1.75;
 			}
 			.btn {
 				margin-top: 50px;
