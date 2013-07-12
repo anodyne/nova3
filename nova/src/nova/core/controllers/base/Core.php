@@ -211,6 +211,8 @@ abstract class Core extends Controller {
 					}
 					catch (Exception $e)
 					{
+						$me->_stopExecution = true;
+						
 						// Nothing here, so the system isn't installed
 						return Redirect::to('setup');
 					}
