@@ -1,10 +1,10 @@
-<?php $d = displayFormData($data, $field->id);?>
+<?php $d = DynamicForm::displayData($data, $field->id);?>
 
 @if ($editable)
 	<div class="row">
 		<div class="{{ $field->html_container_class }}">
 
-			@if ( ! empty($field->help))
+			@if (empty($field->help))
 				<div class="control-group">
 			@endif
 
@@ -23,7 +23,7 @@
 					@endif
 				</div>
 			
-			@if ( ! empty($field->help))
+			@if (empty($field->help))
 				</div>
 			@endif
 		</div>

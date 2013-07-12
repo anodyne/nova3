@@ -5,6 +5,7 @@ use Input;
 use Sentry;
 use Location;
 use Redirect;
+use DynamicForm;
 use AdminBaseController;
 use NovaForm;
 use NovaFormTab;
@@ -604,69 +605,14 @@ class Form extends AdminBaseController {
 		// If there isn't an ID, show all the fields
 		if ($id === false)
 		{
-			// Get the form
-			$form = NovaForm::key($formKey)->first();
-
-			// Get the form fields
-			$fields = $form->fields;
+			// Setup the dynamic form and assemble the elements
+			$form = DynamicForm::setup($formKey, false, true);
+			$form->assemble();
 
 			// Set up the variables
-			$this->_data->tabs = false;
-			$this->_data->sections = false;
-			$this->_data->fields = false;
-
-			// If we have tabs, set them up
-			if ($form->tabs->count() > 0)
-			{
-				$this->_data->tabs = $form->tabs->sortBy(function($t)
-				{
-					return $t->order;
-				});
-			}
-
-			// If we have sections, set them up
-			if ($form->sections->count() > 0)
-			{
-				// Sort the sections
-				$sections = $form->sections->sortBy(function($s)
-				{
-					return $s->order;
-				});
-
-				foreach ($sections as $section)
-				{
-					if ($section->tab_id > 0)
-					{
-						$this->_data->sections[$section->tab_id][] = $section;
-					}
-					else
-					{
-						$this->_data->sections[] = $section;
-					}
-				}
-			}
-
-			// If we have fields, set them up
-			if ($fields->count() > 0)
-			{
-				// Sort the fields
-				$fields = $fields->sortBy(function($f)
-				{
-					return $f->order;
-				});
-
-				foreach ($fields as $field)
-				{
-					if ($field->section_id > 0)
-					{
-						$this->_data->fields[$field->section_id][] = $field;
-					}
-					else
-					{
-						$this->_data->fields[] = $field;
-					}
-				}
-			}
+			$this->_data->tabs = $form->getData('tabs');
+			$this->_data->sections = $form->getData('sections');
+			$this->_data->fields = $form->getData('fields');
 
 			// Build the delete field modal
 			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
@@ -696,8 +642,11 @@ class Form extends AdminBaseController {
 			// Send the field to the view
 			$this->_data->field = $field;
 
-			// Get the sections
-			$this->_data->sections = NovaFormSection::key($formKey)->get()->toSimpleArray('id', 'name');
+			// Get the tabs and sections
+			$this->_data->tabs[0] = lang('short.selectOne', lang('tab'));
+			$this->_data->tabs+= NovaFormTab::key($formKey)->get()->toSimpleArray('id', 'name');
+			$this->_data->sections[0] = lang('short.selectOne', lang('section'));
+			$this->_data->sections+= NovaFormSection::key($formKey)->get()->toSimpleArray('id', 'name');
 
 			// Clear out the message for this page
 			$this->_data->message = false;
@@ -730,13 +679,6 @@ class Form extends AdminBaseController {
 				{
 					Redirect::to("admin/form/fields/{$field->form->key}/{$id}");
 				}
-
-				// Build the update field value modal
-				$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
-					->with('modalId', 'updateFormValue')
-					->with('modalHeader', lang('Short.update', langConcat('Form Field Value')))
-					->with('modalBody', '')
-					->with('modalFooter', false);
 			}
 		}
 	}

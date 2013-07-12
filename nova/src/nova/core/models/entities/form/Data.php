@@ -73,36 +73,35 @@ class Data extends Model {
 	/**
 	 * Update data in the data table.
 	 *
-	 * @param	string	The form to update
 	 * @param	int		The ID to udpate
-	 * @param	array 	A data array of information to update
+	 * @param	array 	An array of data to use in the update
 	 * @return	bool
 	 */
-	public static function updateData($type, $id, array $data)
+	public static function updateData($formKey, $id, array $data)
 	{
-		$results = array();
-		
-		// Loop through the data array and make the changes
-		foreach ($data as $key => $value)
-		{
-			// Start a new query
-			$query = static::startQuery();
+		$results = [];
 
-			// Get the record
-			$record = $query->where('field_id', $key)->where('data_id', $id)->first();
-			
-			// Update the values
-			$record->value = \e($value);
-			$retval = $record->save();
-			
-			$results[] = ($retval !== false) ? true : $retval;
+		// Start a new query
+		$query = static::startQuery();
+
+		// Get all the records for this entry
+		$entries = $query->key($formKey)->entry($id)->get();
+
+		foreach ($entries as $entry)
+		{
+			if (array_key_exists($entry->field_id, $data))
+			{
+				$retval = $entry->update(['value' => trim(e($data[$entry->field_id]))]);
+
+				$results[] = $retval;
+			}
 		}
-		
+
 		if (in_array(false, $results))
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
 

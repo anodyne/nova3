@@ -68,9 +68,11 @@ return array(
 
 			'fieldRestriction' => "Fields can be restricted so only someone with the selected role(s) can edit the data.",
 			'containerClass' => "All fields are wrapped in a container that controls their size. You can use any class that's part of the Bootstrap scaffold. We recommend <code>col-lg-4</code> for text fields and dropdowns and <code>col-lg-8</code> for textareas, though you can use whatever classes you want.",
-
+			'associateField' => "Field Association",
+			'associateFieldHelp' => "Form fields can be standalone (the form has no tabs or sections) or can be associated with a tab or section. A tab can contain standalone fields and sections with fields. Any standalone fields in a tab will always be displayed above any of that tab's section(s).",
 			'dropdownCreation' => "Enter all values for this dropdown separated by commas.",
 			'dropdownUpdate' => "To create a new value for this field, enter the value and click :0. To update a value for this field, change the value and click the :1. To delete a value for this field, click :2 in the row you want to remove.",
+			'validation' => "You can set rules for the data entered into the field using any of the rules available in the <a href='http://laravel.com/docs/validation' target='_blank'>Laravel validation documentation</a>. Enter the rules and Nova will validate the data when the form is submitted. (e.g. <code>required|min:5</code>)",
 		],
 
 		'pages' => [

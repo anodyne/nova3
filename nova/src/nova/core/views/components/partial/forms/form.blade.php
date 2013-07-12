@@ -1,20 +1,3 @@
-<?php
-
-if ( ! function_exists('displayFormData'))
-{
-	function displayFormData($obj, $i)
-	{
-		if (is_array($obj))
-		{
-			return $obj[$i]->value;
-		}
-
-		return false;
-	}
-}
-
-?>
-
 @if (count($tabs) > 0)
 	<ul class="nav nav-tabs">
 	@foreach ($tabs as $t)

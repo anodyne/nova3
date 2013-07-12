@@ -6,6 +6,7 @@ class Field extends BaseValidator {
 
 	public static $rules = [
 		'form_id'		=> 'required|numeric',
+		'tab_id'		=> 'numeric',
 		'section_id'	=> 'numeric',
 		'status'		=> 'required|numeric',
 		'order'			=> 'numeric',

@@ -15,7 +15,7 @@ class Field extends Model {
 	protected $fillable = array(
 		'form_id', 'tab_id', 'section_id', 'type', 'label', 'order', 'status',
 		'restriction', 'help', 'selected', 'value', 'html_id', 'html_class',
-		'html_rows', 'placeholder', 'html_container_class',
+		'html_rows', 'placeholder', 'html_container_class', 'validation_rules',
 	);
 
 	protected $dates = array('created_at', 'updated_at');
@@ -23,7 +23,8 @@ class Field extends Model {
 	protected static $properties = array(
 		'id', 'form_id', 'tab_id', 'section_id', 'type', 'label', 'order', 'status', 
 		'restriction', 'help', 'selected', 'value', 'html_id', 'html_class',
-		'html_rows', 'placeholder', 'html_container_class', 'created_at', 'updated_at',
+		'html_rows', 'placeholder', 'html_container_class', 'validation_rules',
+		'created_at', 'updated_at',
 	);
 
 	/*

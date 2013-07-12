@@ -449,7 +449,7 @@ class NovaSeedDatabase extends Migration {
 			],
 			[
 				'form_id' => 1,
-				'section_id' => 5,
+				'tab_id' => 4,
 				'type' => 'textarea',
 				'html_id' => 'history',
 				'html_rows' => 15,
@@ -459,7 +459,7 @@ class NovaSeedDatabase extends Migration {
 			],
 			[
 				'form_id' => 1,
-				'section_id' => 5,
+				'tab_id' => 4,
 				'type' => 'textarea',
 				'html_id' => 'service_record',
 				'html_rows' => 15,
@@ -546,18 +546,6 @@ class NovaSeedDatabase extends Migration {
 				'tab_id' => 3,
 				'name' => 'Personality &amp; Traits',
 				'order' => 0
-			],
-			[
-				'form_id' => 1,
-				'tab_id' => 4,
-				'name' => 'Personal History',
-				'order' => 0
-			],
-			[
-				'form_id' => 1,
-				'tab_id' => 4,
-				'name' => 'Service Record',
-				'order' => 1
 			],
 		];
 

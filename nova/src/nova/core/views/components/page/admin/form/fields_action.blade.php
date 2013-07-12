@@ -75,8 +75,42 @@
 				</div>
 			</div>
 
-			@if (count($sections) > 0)
+			@if (count($sections) > 0 and count($tabs) > 0)
+				<?php $sectionsAndTabs = true;?>
 				<div class="row">
+					<div class="col-sm-6 col-lg-4">
+						<label class="control-label">{{ lang('short.admin.forms.associateField') }}</label>
+						<div class="controls">
+							<label class="radio-inline">
+								@if ($action == 'create')
+									{{ Form::radio('associate', 'tab') }}
+								@else
+									{{ Form::radio('associate', 'tab', ($field->tab_id > 0 and $field->section_id == 0)) }}
+								@endif
+
+								{{ lang('Tab') }}
+							</label>
+							<label class="radio-inline">
+								@if ($action == 'create')
+									{{ Form::radio('associate', 'section', true) }}
+								@else
+									{{ Form::radio('associate', 'section', ($field->tab_id == 0 and $field->section_id > 0)) }}
+								@endif
+
+								{{ lang('Section') }}
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<p class="help-block">{{ lang('short.admin.forms.associateFieldHelp') }}</p>
+					</div>
+				</div>
+			@endif
+
+			@if (count($sections) > 0)
+				<div class="row{{ isset($sectionsAndTabs) ? ' hide' : '' }}" id="associateSection">
 					<div class="col-sm-6 col-lg-4">
 						<div class="control-group">
 							<label class="control-label">{{ lang('Section') }}</label>
@@ -87,6 +121,33 @@
 					</div>
 				</div>
 			@endif
+
+			@if (count($tabs) > 0)
+				<div class="row{{ isset($sectionsAndTabs) ? ' hide' : '' }}" id="associateTab">
+					<div class="col-sm-6 col-lg-4">
+						<div class="control-group">
+							<label class="control-label">{{ lang('Tab') }}</label>
+							<div class="controls">
+								{{ Form::select('tab_id', $tabs) }}
+							</div>
+						</div>
+					</div>
+				</div>
+			@endif
+
+			<div class="row">
+				<div class="col-sm-6 col-lg-4">
+					<label class="control-label">{{ lang('Validation') }}</label>
+					<div class="controls">
+						{{ Form::text('validation_rules') }}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<p class="help-block">{{ lang('short.admin.forms.validation') }}</p>
+				</div>
+			</div>
 
 			<div class="row">
 				<div class="col-sm-2 col-lg-2">

@@ -11,9 +11,17 @@
 		// Update the value tab
 		updateValuesTab();
 
-		// Set the HTML class if it's empty
+		// Set the HTML container class if it's empty
 		if ($('[name="html_container_class"]').val() == "")
 			$('[name="html_container_class"]').val('col-lg-4');
+
+		// Show the tab container if the tab option is selected on load
+		if ($('[name="associate"]:checked').val() == "tab")
+			$('#associateTab').removeClass('hide');
+
+		// Show the section container if the tab option is selected on load
+		if ($('[name="associate"]:checked').val() == "section")
+			$('#associateSection').removeClass('hide');
 
 		// This fixes the issue where the row being dragged is compacted.
 		var fixHelper = function(e, ui){
@@ -25,7 +33,7 @@
 		};
 
 		// Makes the field list sortable and updates when the sort stops
-		$('#sortableFields').sortable({
+		$('.sortableFields').sortable({
 			helper: fixHelper,
 			stop: function(event, ui){
 				$.ajax({
@@ -80,6 +88,24 @@
 				$('.field-value-list').removeClass('hide');
 				$('[name="html_container_class"]').val('col-lg-4');
 				$('.nav-tabs a:contains("<?php echo lang('Values');?>")').removeClass('hide');
+			}
+		});
+	
+		// Determine what action to take when the associate field changes
+		$('[name="associate"]').change(function(){
+			var value = $('[name="associate"]:checked').val();
+
+			if (value == "tab")
+			{
+				$('#associateTab').removeClass('hide');
+				$('#associateSection').addClass('hide');
+				$('[name="section_id"]').val(0);
+			}
+			else if (value == "section")
+			{
+				$('#associateTab').addClass('hide');
+				$('#associateSection').removeClass('hide');
+				$('[name="tab_id"]').val(0);
 			}
 		});
 	});

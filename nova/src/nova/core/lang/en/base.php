@@ -217,6 +217,7 @@ return array(
 	'vote' => 'vote',
 	'votes' => 'votes',
 	'verb' => "verb",
+	'validation' => "validation",
 
 	'writing' => "writing",
 	'with' => "with",

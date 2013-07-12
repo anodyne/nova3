@@ -39,7 +39,6 @@ class DynamicForm {
 	public function setup($formKey, $id = false, $editable = true)
 	{
 		$this->formKey = $formKey;
-		
 		$this->form = $this->data['form'] = NovaForm::key($formKey)->first();
 		$this->id = $this->data['id'] = $id;
 		$this->data['editable'] = $editable;
@@ -48,11 +47,11 @@ class DynamicForm {
 	}
 
 	/**
-	 * Build the form.
+	 * Assemble the elements for the form.
 	 *
-	 * @return	string
+	 * @return	void
 	 */
-	public function build()
+	public function assemble()
 	{
 		// Assemble the tabs
 		$this->data['tabs'] = $this->assembleTabs($this->form);
@@ -62,12 +61,52 @@ class DynamicForm {
 
 		// Assemble the fields
 		$this->data['fields'] = $this->assembleFields($this->form);
+	}
 
-		//s($this->data['tabs']);
-		//s($this->data['sections']);
-		//sd($this->data['fields']);
+	/**
+	 * Build the form.
+	 *
+	 * @return	string
+	 */
+	public function build()
+	{
+		// Assemble the elements
+		$this->assemble();
 
-		return View::make(LocationLib::file('form', UtilityLib::getSkin(), 'partial'), $this->data);
+		return View::make(LocationLib::file('forms/form', UtilityLib::getSkin(), 'partial'), $this->data);
+	}
+
+	/**
+	 * Grab the data for the dynamic form.
+	 *
+	 * @param	object	Data object
+	 * @param	int		Field ID
+	 * @return	string|bool
+	 */
+	public function displayData($obj, $i)
+	{
+		if (is_array($obj))
+		{
+			return $obj[$i]->value;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Get the assembled data.
+	 *
+	 * @param	string	Type of data to retrieve
+	 * @return	array
+	 */
+	public function getData($type = false)
+	{
+		if ($type)
+		{
+			return $this->data[$type];
+		}
+
+		return $this->data;
 	}
 
 	/**
