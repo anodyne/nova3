@@ -3,6 +3,7 @@
 return array(
 	
 	'notFound' => "No :0 found",
+	'pageNotFound' => "Page not found",
 
 	'admin' => [
 		'formViewerNotAllowed' => "This form does not allow using Form Viewer.",
