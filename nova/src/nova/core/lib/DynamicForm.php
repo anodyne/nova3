@@ -85,7 +85,7 @@ class DynamicForm {
 	 */
 	public function displayData($obj, $i)
 	{
-		if (is_array($obj))
+		if (is_array($obj) and is_object($obj[$i]))
 		{
 			return $obj[$i]->value;
 		}
