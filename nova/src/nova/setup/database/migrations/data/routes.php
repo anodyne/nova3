@@ -188,18 +188,22 @@ return [
 		'resource'		=> 'Nova\Core\Controllers\Admin\Form@postFields',
 		'protected'		=> (int) true
 	],
+
+	/**
+	 * admin/formviewer
+	 */
 	[
 		'name'			=> 'admin/formviewer',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/formviewer/{formKey}',
+		'uri'			=> 'admin/formviewer/{formKey}/{formMode?}/{id?}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\FormViewer@getView',
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'admin/formviewer/detail',
-		'verb'			=> 'get',
-		'uri'			=> 'admin/formviewer/{formKey}/detail/{id}',
-		'resource'		=> 'Nova\Core\Controllers\Admin\FormViewer@getView',
+		'name'			=> 'admin/formviewer',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/formviewer/{formKey}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\FormViewer@postView',
 		'protected'		=> (int) true
 	],
 	
