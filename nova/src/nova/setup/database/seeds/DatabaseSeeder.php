@@ -2,6 +2,11 @@
 
 class DatabaseSeeder extends Seeder {
 
+	protected $seedUsers = false;
+	protected $seedCharacters = false;
+	protected $seedApplications = false;
+	protected $seedForms = true;
+
 	/**
 	 * Run the database seeds.
 	 *
@@ -16,14 +21,29 @@ class DatabaseSeeder extends Seeder {
 			
 			Eloquent::unguard();
 			
-			$this->call('UserSeeder');
-			$this->command->info('User seeding completed');
+			if ($this->seedUsers)
+			{
+				$this->call('UserSeeder');
+				$this->command->info('User seeding completed');
+			}
 
-			$this->call('CharacterSeeder');
-			$this->command->info('Character seeding completed');
+			if ($this->seedCharacters)
+			{
+				$this->call('CharacterSeeder');
+				$this->command->info('Character seeding completed');
+			}
 
-			//$this->call('ApplicationSeeder');
-			//$this->command->info('ARC seeding completed');
+			if ($this->seedApplications)
+			{
+				$this->call('ApplicationSeeder');
+				$this->command->info('ARC seeding completed');
+			}
+
+			if ($this->seedForms)
+			{
+				$this->call('FormSeeder');
+				$this->command->info('Dynamic form seeding completed');
+			}
 		}
 		else
 		{
