@@ -147,7 +147,7 @@ return [
 		'label' => 'Form Viewer Header',
 		'content' => "Form Viewer",
 		'type' => 'header',
-		'section' => 'form',
+		'section' => 'formviewer',
 		'page' => 'view'
 	],
 
@@ -398,7 +398,7 @@ return [
 		'content' => "Form Viewer",
 		'type' => 'title',
 		'section' => 'formviewer',
-		'page' => 'index'
+		'page' => 'view'
 	],
 
 	/**
