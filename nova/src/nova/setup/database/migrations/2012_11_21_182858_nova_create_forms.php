@@ -63,7 +63,7 @@ class NovaCreateForms extends Migration {
 		{
 			$t->increments('id');
 			$t->integer('form_id')->unsigned();
-			$t->integer('tab_id')->unsigned()->nullable();
+			$t->integer('tab_id')->unsigned()->default(0);
 			$t->string('name')->nullable();
 			$t->integer('order');
 			$t->boolean('status')->default(Status::ACTIVE);
