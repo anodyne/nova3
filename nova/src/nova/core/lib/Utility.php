@@ -152,52 +152,37 @@ class Utility {
 	 */
 	public function installed()
 	{
-		// Make sure the database config file is there first
-		if ( ! File::exists(APPPATH.'config/'.App::environment().'/database.php'))
+		// Get the system install status cache file
+		$status = Cache::get('nova.installed');
+
+		if ($status === null)
 		{
-			// Make sure we take in to account the controllers this needs to ignore
-			if ( ! Request::is('setup*'))
+			try
 			{
-				return Redirect::to('setup');
-			}
-		}
-		else
-		{
-			// Get the install status from the cache
-			$status = Cache::get('nova.installed');
+				// Grab the UID
+				$uid = System::getUniqueId();
 
-			// Wipe out the system install cache if we're in the setup module
-			if (Request::is('setup*') and $status !== null)
-			{
-				Cache::forget('nova.installed');
-			}
-
-			// If the status is null, we know it doesn't exist
-			if ($status === null)
-			{
-				try
+				// Only cache if we have a UID
+				if ( ! empty($uid))
 				{
-					// Grab the UID
-					$uid = System::getUniqueId();
+					Cache::forever('nova.installed', (int) true);
 
-					// Only cache if we have a UID
-					if ( ! empty($uid))
-					{
-						Cache::forever('nova.installed', (int) true);
-
-						return true;
-					}
-				}
-				catch (Exception $e)
-				{
-					return false;
+					return true;
 				}
 			}
+			catch (Exception $e)
+			{
+				// Make sure we take in to account the controllers this needs to ignore
+				if ( ! Request::is('setup*'))
+				{
+					return Redirect::to('setup');
+				}
 
-			return $status;
+				return false;
+			}
 		}
 
-		return false;
+		return (bool) $status;
 	}
 
 	/**
