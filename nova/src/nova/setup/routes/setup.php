@@ -204,6 +204,9 @@ Route::group(['prefix' => 'setup', 'before' => 'configFileCheck|setupAuthorizati
 		// Make sure we don't time out
 		set_time_limit(0);
 
+		// Remove the app's session config file
+		File::delete(APPPATH.'config/'.App::environment().'/session.php');
+
 		// Remove the cache files
 		Cache::forget('nova.installed');
 		Cache::forget('nova.routes');
@@ -216,6 +219,25 @@ Route::group(['prefix' => 'setup', 'before' => 'configFileCheck|setupAuthorizati
 
 		// Uninstall Nova
 		Artisan::call('migrate:reset');
+
+		return Redirect::to('setup/uninstall/cleanup');
+	});
+	Route::get('uninstall/cleanup', function()
+	{
+		$data = new stdClass;
+		$data->view = 'processing';
+		$data->jsView = false;
+		$data->title = 'Uninstall Nova';
+		$data->layout = new stdClass;
+		$data->layout->label = 'Uninstall Nova';
+		$data->steps = false;
+
+		// Drop the sessions and migrations tables
+		Schema::drop('sessions');
+		Schema::drop('migrations');
+
+		// Wait for it...
+		sleep(3);
 
 		return Redirect::to('setup');
 	});

@@ -21,6 +21,26 @@ Route::group(['prefix' => 'setup/install', 'before' => 'configFileCheck|setupAut
 		// Run the migrations
 		Artisan::call('migrate', ['--path' => 'nova/src/nova/setup/database/migrations']);
 
+		// Get the session generator file
+		$fileContents = File::get(SRCPATH.'setup/generators/session.php');
+
+		// Make sure we have something
+		if ($fileContents !== false)
+		{
+			// Replace the type placeholder
+			$contentToWrite = str_replace('#TYPE#', 'database', $fileContents);
+
+			// Write the contents of the file
+			$write = File::put(APPPATH.'config/'.App::environment().'/session.php', $contentToWrite);
+
+			// If for some reason we can't write the file, we need to throw
+			// an exception and explain what to do in order to fix it.
+			if ( ! $write)
+			{
+				throw new Exception("The session config file couldn't be written to the server. Please manually create this file and upload it to app/config/".App::environment()."/session.php. The file should contain the contents from nova/src/nova/setup/generators/session.php with the #TYPE# placeholder changed to 'database'.");
+			}
+		}
+
 		// Do the quick installs
 		ModuleCatalog::install();
 		RankCatalog::install();
