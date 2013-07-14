@@ -20,6 +20,8 @@ class NovaCreateForms extends Migration {
 			$t->boolean('status')->default(Status::ACTIVE);
 			$t->boolean('protected')->default(0);
 			$t->boolean('form_viewer')->default(0);
+			$t->text('form_viewer_message')->nullable();
+			$t->integer('form_viewer_display')->unsigned()->default(0);
 			$t->boolean('email_allowed')->default(0);
 			$t->text('email_addresses')->nullable();
 			$t->string('data_model')->nullable();
@@ -33,6 +35,7 @@ class NovaCreateForms extends Migration {
 			$t->integer('field_id')->unsigned();
 			$t->integer('data_id')->unsigned();
 			$t->text('value')->nullable();
+			$t->integer('created_by')->unsigned()->default(0);
 			$t->timestamps();
 		});
 
