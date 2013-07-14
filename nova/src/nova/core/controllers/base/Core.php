@@ -177,45 +177,28 @@ abstract class Core extends Controller {
 		 */
 		$this->beforeFilter(function() use(&$me)
 		{
-			// Resolve the environment out of the App container
-			$env = App::environment();
+			// Get the system install status cache file
+			$status = Cache::get('nova.installed');
 
-			// Get the path info from the Request object
-			$path = Route::getRequest()->getPathInfo();
-
-			// If the config file doesn't exist, bounce to the setup package
-			if ( ! File::exists(APPPATH."config/{$env}/database.php"))
+			if ($status === null)
 			{
-				$me->_stopExecution = true;
-
-				return Redirect::to('setup');
-			}
-			else
-			{
-				// Get the system install status cache file
-				$status = Cache::get('nova.installed');
-
-				// If the status is null, we know the cache file doesn't exist
-				if ($status === null)
+				try
 				{
-					try
-					{
-						// Grab the UID
-						$uid = System::getUniqueId();
+					// Grab the UID
+					$uid = System::getUniqueId();
 
-						// Only cache if we have a UID
-						if ( ! empty($uid))
-						{
-							Cache::forever('nova.installed', (int) true);
-						}
-					}
-					catch (Exception $e)
+					// Only cache if we have a UID
+					if ( ! empty($uid))
 					{
-						$me->_stopExecution = true;
-						
-						// Nothing here, so the system isn't installed
-						return Redirect::to('setup');
+						Cache::forever('nova.installed', (int) true);
 					}
+				}
+				catch (Exception $e)
+				{
+					$me->_stopExecution = true;
+					
+					// Nothing here, so the system isn't installed
+					return Redirect::to('setup');
 				}
 			}
 		});

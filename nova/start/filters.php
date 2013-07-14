@@ -89,42 +89,4 @@ Route::filter('csrf', function()
 | These custom filters are for use throughout Nova to perform various
 | actions.
 |
-| installed - Checks the install status of the system
-|
 */
-
-Route::filter('installed', function()
-{
-	// Resolve the environment out of the App container
-	$env = App::environment();
-
-	// Get the path info from the Request object
-	$path = Route::getRequest()->getPathInfo();
-
-	// If the config file doesn't exist, bounce over the config setup
-	if ( ! File::exists(APPPATH."config/{$env}/database.php"))
-	{
-		return Redirect::to('setup');
-	}
-
-	// Get the system install status cache file
-	$status = Cache::get('nova.installed');
-
-	// If the status is null, we know the cache file doesn't exist
-	if ($status === null)
-	{
-		// Grab the UID
-		$uid = System::getUniqueId();
-
-		// Only cache if we have a UID
-		if ( ! empty($uid))
-		{
-			Cache::forever('nova.installed', (int) true);
-		}
-		else
-		{
-			// Nothing here, so the system isn't installed
-			return Redirect::to('setup');
-		}
-	}
-});
