@@ -117,9 +117,16 @@ class SiteContent extends Model {
 				// Clean it up
 				$page = str_replace('-', '', $page);
 				$page = str_replace('_', '', $page);
-				
+
 				// Set the items with the content
-				$values[$page] = $content;
+				if ( ! empty($row->mode))
+				{
+					$values["{$page}.{$row->mode}"] = $content;
+				}
+				else
+				{
+					$values[$page] = $content;
+				}
 			}
 			
 			// Cache the information
@@ -128,7 +135,7 @@ class SiteContent extends Model {
 			return $values;
 		}
 
-		return array();
+		return [];
 	}
 	
 	/**

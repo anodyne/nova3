@@ -106,12 +106,12 @@ abstract class Core extends Controller {
 	/**
 	 * Array of flash messages
 	 */
-	public $_flash = array();
+	public $_flash = [];
 
 	/**
 	 * Array of ajax views
 	 */
-	public $_ajax = array();
+	public $_ajax = [];
 
 	/**
 	 * The skin section catalog object
@@ -121,17 +121,22 @@ abstract class Core extends Controller {
 	/**
 	 * Array of headers that can be used by the pages.
 	 */
-	public $_headers = array();
+	public $_headers = [];
 	
 	/**
 	 * Array of messages that can be used by the pages.
 	 */
-	public $_messages = array();
+	public $_messages = [];
 	
 	/**
 	 * Array of titles that can be used by the pages.
 	 */
-	public $_titles = array();
+	public $_titles = [];
+
+	/**
+	 * The current mode.
+	 */
+	public $_mode = false;
 
 	/**
 	 * Whether the header and message are editable.
@@ -272,12 +277,13 @@ abstract class Core extends Controller {
 		);
 		
 		// Set the final header content
-		$this->layout->template->header = (is_object($this->_data) and property_exists($this->_data, 'header')) 
+		/*$this->layout->template->header = (is_object($this->_data) and property_exists($this->_data, 'header')) 
 			? $this->_data->header 
 			: ((array_key_exists($this->_action, $this->_headers)) 
 				? $this->_headers[$this->_action] 
 				: null
-		);
+		);*/
+		$this->layout->template->header = $this->parseSiteContent('header', false);
 		
 		// set the final message content
 		$this->layout->template->message = (is_object($this->_data) and property_exists($this->_data, 'message')) 
@@ -406,6 +412,61 @@ abstract class Core extends Controller {
 
 		// Set the controller name
 		$this->_controller = Str::denamespace($this->_fullController);
+	}
+
+	protected function parseSiteContent($type, $markdown = false)
+	{
+		// If the data coming from the controller action has a
+		// title/header/message variable, use that instead of what we have
+		if (is_object($this->_data) and property_exists($this->_data, $type))
+		{
+			if ($markdown)
+			{
+				return Markdown::parse($this->_data->{$type});
+			}
+
+			return $this->_data->{$type};
+		}
+
+		// Figure out the variables we should be using based on the type
+		switch ($type)
+		{
+			case 'title':
+				$typeVar = '_titles';
+			break;
+
+			case 'header':
+				$typeVar = '_headers';
+			break;
+
+			case 'message':
+				$typeVar = '_messages';
+			break;
+		}
+
+		// Check if we have a mode
+		if ($this->_mode !== false and array_key_exists("{$this->_action}.{$this->_mode}", $this->{$typeVar}))
+		{
+			if ($markdown)
+			{
+				return Markdown::parse($this->{$typeVar}["{$this->_action}.{$this->_mode}"]);
+			}
+
+			return $this->{$typeVar}["{$this->_action}.{$this->_mode}"];
+		}
+
+		// Check if we have something already
+		if (array_key_exists($this->_action, $this->{$typeVar}))
+		{
+			if ($markdown)
+			{
+				return Markdown::parse($this->{$typeVar}[$this->_action]);
+			}
+
+			return $this->{$typeVar}[$this->_action];
+		}
+
+		return null;
 	}
 
 }
