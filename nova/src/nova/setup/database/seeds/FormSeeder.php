@@ -9,10 +9,14 @@ class FormSeeder extends Seeder {
 
 	protected function seedMissionIdeasForm()
 	{
+		// Create a new faker instance
+		$faker = Faker\Factory::create();
+
 		$form = NovaForm::create([
-			'key'			=> 'MissionIdeas',
-			'name'			=> 'Mission Ideas',
-			'form_viewer'	=> (int) true,
+			'key'					=> 'MissionIdeas',
+			'name'					=> 'Mission Ideas',
+			'form_viewer'			=> (int) true,
+			'form_viewer_message'	=> $faker->paragraph(),
 		]);
 
 		$sections = [
