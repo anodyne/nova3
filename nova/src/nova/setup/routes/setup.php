@@ -204,12 +204,6 @@ Route::group(['prefix' => 'setup', 'before' => 'configFileCheck|setupAuthorizati
 		// Make sure we don't time out
 		set_time_limit(0);
 
-		// Remove the app's session config file
-		File::delete(APPPATH.'config/'.App::environment().'/session.php');
-
-		// Set the session driver
-		Config::set('session.driver', 'native');
-
 		// Remove the cache files
 		Cache::forget('nova.installed');
 		Cache::forget('nova.routes');
