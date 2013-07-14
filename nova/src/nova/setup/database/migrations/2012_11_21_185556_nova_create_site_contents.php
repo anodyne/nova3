@@ -21,6 +21,7 @@ class NovaCreateSiteContents extends Migration {
 			$t->string('section', 50)->nullable();
 			$t->string('page', 100)->nullable();
 			$t->boolean('protected')->default((int) false);
+			$t->string('mode')->nullable();
 		});
 	}
 

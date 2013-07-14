@@ -12,11 +12,11 @@ class SiteContent extends Model {
 	protected $table = 'site_contents';
 
 	protected $fillable = array(
-		'key', 'label', 'content', 'type', 'section', 'page',
+		'key', 'label', 'content', 'type', 'section', 'page', 'mode',
 	);
 	
 	protected static $properties = array(
-		'id', 'key', 'label', 'content', 'type', 'section', 'page', 'protected',
+		'id', 'key', 'label', 'content', 'type', 'section', 'page', 'protected', 'mode',
 	);
 
 	/*
