@@ -14,14 +14,15 @@ class Form extends Model {
 
 	protected $fillable = array(
 		'key', 'name', 'orientation', 'status', 'form_viewer', 'email_allowed',
-		'email_addresses', 'data_model',
+		'email_addresses', 'data_model', 'form_viewer_message', 'form_viewer_display',
 	);
 
 	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
 		'id', 'key', 'name', 'orientation', 'status', 'protected', 'form_viewer',
-		'email_allowed', 'email_addresses', 'data_model', 'created_at', 'updated_at',
+		'email_allowed', 'email_addresses', 'data_model', 'form_viewer_message',
+		'form_viewer_display', 'created_at', 'updated_at',
 	);
 
 	/*
@@ -122,45 +123,26 @@ class Form extends Model {
 	}
 
 	/**
-	 * Get a form by key.
+	 * Get the field validation rules for the form.
 	 *
-	 * @param	string	The form key
-	 * @return	Form
+	 * @return	array
 	 */
-	public static function getForm($key)
+	public function getFieldValidationRules()
 	{
-		// Start a new Query Builder
-		$query = static::startQuery();
+		$rules = [];
 
-		return $query->where('key', $key)->first();
-	}
-
-	/**
-	 * Get all forms.
-	 *
-	 * @param	int		The status to pull
-	 * @param	bool	Get the full object (true) or a simple array (false)
-	 * @return	Collection|array
-	 */
-	public static function getForms($status = Status::ACTIVE, $returnObj = false)
-	{
-		// Start a new query builder
-		$query = static::startQuery();
-
-		if ( ! empty($status))
+		if ($this->fields->count() > 0)
 		{
-			$query->where('status', $status);
+			foreach ($this->fields as $field)
+			{
+				if ( ! empty($field->validation_rules))
+				{
+					$rules[$field->id] = $field->validation_rules;
+				}
+			}
 		}
 
-		// Get everything
-		$items = $query->get();
-
-		if ($returnObj)
-		{
-			return $items;
-		}
-
-		return $items->toSimpleArray('key', 'name');
+		return $rules;
 	}
 
 }

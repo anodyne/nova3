@@ -1,9 +1,11 @@
 <?php namespace Nova\Core\Controllers\Admin;
 
 use App;
+use Input;
 use Sentry;
 use NovaForm;
 use Redirect;
+use Validator;
 use DynamicForm;
 use NovaFormData;
 use AdminBaseController;
@@ -18,33 +20,44 @@ class FormViewer extends AdminBaseController {
 		// Set the JS view
 		//$this->_jsView = 'admin/formviewer/view_js';
 
+		// Get the form
+		$this->_data->form = $form = NovaForm::key($formKey)->first();
+		$this->_data->formKey = $formKey;
+		$this->_data->formMode = $formMode;
+
 		if ($formKey === false)
 		{
 			App::abort(404, lang('error.pageNotFound'));
 		}
 		else
 		{
-			// Get the form
-			$this->_data->form = $form = NovaForm::key($formKey)->first();
-
 			if ($formMode == 'view')
 			{
 				// Set the view file
 				$this->_view = 'admin/formviewer/entries';
 
+				// We use this to figure out what to display
+				$this->_data->hasDisplayField = false;
+
 				// Get the entries
-				$this->_data->entries = NovaFormData::key($formKey)
+				$entries = NovaFormData::key($formKey)
 					->group('data_id')
-					->orderDesc('created_at')
-					->get();
+					->orderDesc('created_at');
+
+				if ((int) $form->form_viewer_display > 0)
+				{
+					// We're going to use what the user specified
+					$this->_data->hasDisplayField = true;
+
+					$entries = $entries->where('field_id', $form->form_viewer_display);
+				}
+
+				$this->_data->entries = $entries->get();
 			}
 			else
 			{
 				// Set the view file
 				$this->_view = 'admin/formviewer/entries_action';
-
-				// Get the entry data
-				//$this->_data->entry = NovaFormData::key($formKey)->entry($id)->get();
 
 				// Set the ID
 				$this->_data->id = $id;
@@ -52,28 +65,47 @@ class FormViewer extends AdminBaseController {
 				// Set the action
 				$action = $this->_data->action = ($formMode == 'add') ? 'create' : 'update';
 
-				// Build the form
-				$this->_data->form = ($action == 'create')
-					? DynamicForm::setup($formKey, 0, true)->build()
-					: DynamicForm::setup($formKey, $id, true)->build();
+				// Setup the form
+				switch ($formMode)
+				{
+					case 'add':
+						$dynamicForm = DynamicForm::setup($formKey, 0, true);
+					break;
+
+					case 'edit':
+						$dynamicForm = DynamicForm::setup($formKey, $id, true);
+					break;
+
+					case 'detail':
+						$dynamicForm = DynamicForm::setup($formKey, $id, false);
+					break;
+				}
+
+				// Build the form and send it to the view
+				$this->_data->dynamicForm = $dynamicForm->build();
+
+				// Get a single entry
+				$this->_data->entry = NovaFormData::key($formKey)->entry($id)->first();
 			}
 		}
+
+		// Set the header, title and message
+		$this->_data->header = $form->name;
+		$this->_data->title.= $form->name;
+		$this->_data->message = ($formMode == 'add') ? $form->form_viewer_message : false;
 	}
 	public function postView($formKey = false)
 	{
-		// Set up the validation service
-		$validator = new FormValidator;
+		// Get the form
+		$form = NovaForm::key($formKey)->first();
+
+		// Set up the validator
+		$validator = Validator::make(Input::all(), $form->getFieldValidationRules());
 
 		// If the validation fails, stop and go back
-		if ( ! $validator->passes())
+		if ($validator->fails())
 		{
-			// Set the flash message
-			$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
-			$flashMessage.= implode(' ', $validator->getErrors()->all());
-
-			return Redirect::to('admin/form')
-				->with('flashStatus', 'danger')
-				->with('flashMessage', $flashMessage);
+			return Redirect::back()->withInput()->withErrors($validator->messages());
 		}
 
 		// Get the action
@@ -87,14 +119,47 @@ class FormViewer extends AdminBaseController {
 		 */
 		if ($user->hasAccess('form.read') and $action == 'create')
 		{
-			// Create the form
-			$form = NovaFormData::create(Input::all());
+			// Get the values from the POST
+			$input = Input::all();
+			$dataId = Input::get('id');
+
+			// If we're creating a new entry, we need to figure out what the ID should be
+			if ((int) $dataId === 0)
+			{
+				// Get all entries and order them by data ID
+				$entries = NovaFormData::key($formKey)->orderAsc('data_id')->get();
+
+				if ($entries->count() > 0)
+				{
+					// Grab the last entry in the collection
+					$lastEntry = $entries->last();
+
+					// Increment the data ID
+					$dataId = (int) $lastEntry->data_id + 1;
+				}
+				else
+				{
+					$dataId = 1;
+				}
+			}
+
+			foreach ($input as $field => $value)
+			{
+				if (is_numeric($field))
+				{
+					NovaFormData::create([
+						'form_id'		=> $form->id,
+						'field_id'		=> $field,
+						'data_id'		=> $dataId,
+						'value'			=> trim(e($value)),
+						'created_by'	=> Sentry::getUser()->id,
+					]);
+				}
+			}
 
 			// Set the flash info
-			$flashStatus = ($form) ? 'success' : 'danger';
-			$flashMessage = ($form) 
-				? lang('Short.alert.success.create', lang('form'))
-				: lang('Short.alert.failure.create', lang('form'));
+			$flashStatus = 'success';
+			$flashMessage = lang('Short.alert.success.create', langConcat('form entry'));
 		}
 
 		/**
@@ -102,21 +167,22 @@ class FormViewer extends AdminBaseController {
 		 */
 		if ($user->hasAccess('form.update') and $action == 'update')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
+			// Get the values from the POST
+			$input = Input::all();
+			$dataId = Input::get('id');
 
-			if ($id)
+			foreach ($input as $field => $value)
 			{
-				// Update the form
-				$form = NovaForm::where('id', $id)->update(Input::all());
+				if (is_numeric($field))
+				{
+					$data = NovaFormData::entry($dataId)->field($field)->first();
+					$data->update(['value' => trim(e($value))]);
+				}
 			}
 
 			// Set the flash info
-			$flashStatus = ($id) ? 'success' : 'danger';
-			$flashMessage = ($id) 
-				? lang('Short.alert.success.update', lang('form'))
-				: lang('Short.alert.failure.update', lang('form'));
+			$flashStatus = 'success';
+			$flashMessage = lang('Short.alert.success.update', lang('form'));
 		}
 
 		/**

@@ -128,6 +128,14 @@ class User extends Model implements UserInterface, FormDataInterface {
 	}
 
 	/**
+	 * Has Many: FormViewer Records
+	 */
+	public function formviewer()
+	{
+		return $this->hasMany('NovaFormData', 'created_by');
+	}
+
+	/**
 	 * Belongs To Many: Posts (through Post Authors)
 	 */
 	public function posts()

@@ -59,6 +59,11 @@ return array(
 			'changeFormKey' => "<strong>Warning:</strong> Changing a form key can cause issues with a form. Do so only if you know what you're doing!",
 			'useFormViewer' => "Use FormViewer",
 			'useFormViewerHelp' => "FormViewer allows users to submit created forms and view the content of submitted forms in one place.",
+			'formViewerMessage' => "FormViewer Message",
+			'formViewerMessageHelp' => "You can specify a message to be displayed when creating a new entry for this form through FormViewer.",
+			'formViewerDisplay' => "FormViewer Entries Display Field",
+			'formViewerDisplayHelp' => "You can specify the field whose data you want to use for displaying the full list of completed entries in FormViewer. If you don't select one, the date the record was created will be used.",
+
 			'useEmail' => "Send Results in Email",
 			'useEmailHelp' => "When a user fills out the form, the results will be emailed to the addresses specified below.",
 			'emailAddresses' => "Email Addresses to Send Results To",

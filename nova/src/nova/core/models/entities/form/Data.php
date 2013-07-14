@@ -10,14 +10,14 @@ class Data extends Model {
 	protected $table = 'form_data';
 
 	protected $fillable = array(
-		'form_id', 'field_id', 'data_id', 'value'
+		'form_id', 'field_id', 'data_id', 'value', 'created_by',
 	);
 
 	protected $dates = array('created_at', 'updated_at');
 	
 	protected static $properties = array(
-		'id', 'form_id', 'field_id', 'data_id', 'value', 'created_at', 
-		'updated_at',
+		'id', 'form_id', 'field_id', 'data_id', 'value', 'created_by',
+		'created_at', 'updated_at',
 	);
 
 	/*
@@ -32,6 +32,14 @@ class Data extends Model {
 	public function field()
 	{
 		return $this->belongsTo('NovaFormField', 'field_id');
+	}
+
+	/**
+	 * Belongs To: User
+	 */
+	public function author()
+	{
+		return $this->belongsTo('User', 'created_by');
 	}
 
 	/*

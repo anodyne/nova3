@@ -71,6 +71,36 @@
 		</div>
 
 		<div class="row">
+			<div class="col-sm-8 col-lg-6">
+				<label class="control-label">{{ lang('short.admin.forms.formViewerMessage') }}</label>
+				<div class="controls">
+					{{ Form::textarea('form_viewer_message', null, ['rows' => 3]) }}
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<p class="help-block">{{ lang('short.admin.forms.formViewerMessageHelp') }}</p>
+			</div>
+		</div>
+
+		@if ($action == 'update')
+			<div class="row">
+				<div class="col-sm-6 col-lg-4">
+					<label class="control-label">{{ lang('short.admin.forms.formViewerDisplay') }}</label>
+					<div class="controls">
+						{{ Form::select('form_viewer_display', $formFields) }}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<p class="help-block">{{ lang('short.admin.forms.formViewerDisplayHelp') }}</p>
+				</div>
+			</div>
+		@endif
+
+		<div class="row">
 			<div class="col-sm-6 col-lg-4">
 				<label class="control-label">{{ lang('short.admin.forms.useEmail') }}</label>
 				<div>
@@ -86,7 +116,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-sm-8 col-lg-6">
 				<div class="control-group">
 					<label class="control-label">{{ lang('short.admin.forms.emailAddresses') }}</label>
 					<div class="controls">

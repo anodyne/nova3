@@ -2,6 +2,10 @@
 	<div class="btn-group">
 		<a href="{{ URL::to('admin/form') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
 	</div>
+
+	<div class="btn-group">
+		<a href="{{ URL::to('admin/formviewer/'.$formKey.'/add') }}" class="btn btn-success icn-size-16">{{ $_icons['add'] }}</a>
+	</div>
 </div>
 
 @if ((bool) $form->protected === false)
@@ -10,7 +14,11 @@
 			@foreach ($entries as $e)
 				<div class="row">
 					<div class="col-12 col-sm-8 col-lg-9">
-						<p><strong>{{ $e->created_at }}</strong></p>
+						@if ($hasDisplayField)
+							<p><strong>{{ $e->value }}</strong></p>
+						@else
+							<p><strong>{{ $e->created_at }}</strong></p>
+						@endif
 					</div>
 					<div class="col-12 col-sm-4 col-lg-3">
 						<div class="hidden-sm">
@@ -34,15 +42,21 @@
 						</div>
 						<div class="visible-sm">
 							<div class="row">
+								@if (Sentry::getUser()->hasAccess('form.read'))
+									<div class="col-6">
+										<p><a href="{{ URL::to('admin/formviewer/'.$form->key.'/detail/'.$e->data_id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['view'] }}</a></p>
+									</div>
+								@endif
+
 								@if (Sentry::getUser()->hasAccess('form.update'))
 									<div class="col-6">
-										<p><a href="{{ URL::to('admin/form/tabs/'.$formKey.'/'.$t->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
+										<p><a href="{{ URL::to('admin/formviewer/'.$form->key.'/update/'.$e->data_id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 									</div>
 								@endif
 
 								@if (Sentry::getUser()->hasAccess('form.delete'))
-									<div class="col-6">
-										<p><a href="{{ URL::to('admin/form/tabs/'.$formKey) }}" class="btn btn-block btn-danger js-tab-action icn-size-16" data-action="delete" data-id="{{ $t->id }}">{{ $_icons['remove'] }}</a></p>
+									<div class="col-12">
+										<p><a href="#" class="btn btn-block btn-danger js-tab-action icn-size-16" data-action="delete" data-id="{{ $e->data_id }}">{{ $_icons['remove'] }}</a></p>
 									</div>
 								@endif
 							</div>

@@ -35,7 +35,14 @@ class Form extends AdminBaseController {
 			$this->_view = 'admin/form/forms_action';
 
 			// Get the form
-			$this->_data->form = NovaForm::getForm($formKey);
+			$this->_data->form = NovaForm::key($formKey)->first();
+
+			// Get the form fields
+			$this->_data->formFields[0] = lang('short.selectOne', langConcat('form field'));
+			$this->_data->formFields+= NovaFormField::key($formKey)->active()
+				->orderAsc('label')
+				->get()
+				->toSimpleArray('id', 'label');
 
 			// Set the action
 			$this->_data->action = ($formKey === '0') ? 'create' : 'update';
@@ -106,7 +113,8 @@ class Form extends AdminBaseController {
 			if ($id)
 			{
 				// Update the form
-				$form = NovaForm::where('id', $id)->update(Input::all());
+				$form = NovaForm::find($id);
+				$form->update(Input::all());
 			}
 
 			// Set the flash info
@@ -304,7 +312,7 @@ class Form extends AdminBaseController {
 		}
 
 		// Get the form
-		$form = NovaForm::getForm($formKey);
+		$form = NovaForm::key($formKey)->first();
 
 		/**
 		 * Create a form tab.
@@ -511,7 +519,7 @@ class Form extends AdminBaseController {
 		}
 
 		// Get the form
-		$form = NovaForm::getForm($formKey);
+		$form = NovaForm::key($formKey)->first();
 
 		/**
 		 * Create a form section.
@@ -711,7 +719,7 @@ class Form extends AdminBaseController {
 		}
 
 		// Get the form
-		$form = NovaForm::getForm($formKey);
+		$form = NovaForm::key($formKey)->first();
 
 		/**
 		 * Create a form field.
