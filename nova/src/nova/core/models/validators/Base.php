@@ -59,6 +59,17 @@ abstract class Base {
 	}
 
 	/**
+	 * Set the rules for the validator.
+	 *
+	 * @param	array	Array of rules
+	 * @return	void
+	 */
+	public function setRules(array $rules)
+	{
+		static::$rules = $rules;
+	}
+
+	/**
 	 * Cleanup the rules so that we don't try to validate fields
 	 * that aren't actually included.
 	 *
