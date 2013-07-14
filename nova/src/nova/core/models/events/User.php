@@ -25,7 +25,7 @@ class User extends BaseEventHandler {
 		/**
 		 * Fill the user rows for the dynamic form with blank data for editing later.
 		 */
-		$form = NovaForm::getForm('user');
+		$form = NovaForm::key('user')->first();
 		
 		if ($form->fields->count() > 0)
 		{

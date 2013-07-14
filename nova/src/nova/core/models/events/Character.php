@@ -21,7 +21,7 @@ class Character extends BaseEventHandler {
 		/**
 		 * Fill the character rows for the dynamic form with blank data for editing later.
 		 */
-		$form = NovaForm::getForm('character');
+		$form = NovaForm::key('character')->first();
 		
 		if ($form->fields->count() > 0)
 		{

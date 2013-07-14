@@ -18,7 +18,7 @@ trait Form {
 		else
 		{
 			// Get the form first
-			$form = \NovaForm::getForm($formKey);
+			$form = \NovaForm::key($formKey)->first();
 
 			// Query for the right form ID
 			$query->where('form_id', $form->id);
