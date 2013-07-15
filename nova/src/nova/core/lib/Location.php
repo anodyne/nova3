@@ -5,10 +5,8 @@ use HTML;
 use File;
 use View;
 use Config;
-use Request;
 use Exception;
 use RankCatalog;
-use Utility as UtilityLib;
 
 class Location {
 
@@ -31,6 +29,17 @@ class Location {
 	 * @var	string	The fallback module.
 	 */
 	protected $module;
+
+	/**
+	 * Find an ajax view.
+	 *
+	 * @param	string	File
+	 * @return	string
+	 */
+	public function ajax($file)
+	{
+		return $this->file($file, 'ajax');
+	}
 
 	/**
 	 * Finds and returns the path to an asset image. Asset images are not part
@@ -72,6 +81,17 @@ class Location {
 	}
 
 	/**
+	 * Find an error view.
+	 *
+	 * @param	string	File
+	 * @return	string
+	 */
+	public function error($file)
+	{
+		return $this->file($file, 'error');
+	}
+
+	/**
 	 * Searches to find where to pull the specified file from. If the file 
 	 * exists in the skin, it'll use that that one and stop searching. If the 
 	 * file exists in the override module (app/modules/override), it'll use that 
@@ -83,10 +103,10 @@ class Location {
 	 * @param	string	Type of file (structure, template, partial, pages, js)
 	 * @return	string
 	 */
-	public function file($file, $skin, $type)
+	public function file($file, $type)
 	{
 		$this->file = $file;
-		$this->skin = $skin;
+		$this->skin = $this->setSkin();
 		$this->type = $type;
 
 		return $this->findFile();
@@ -106,14 +126,47 @@ class Location {
 	 * @param	array 	An array of attributes to be used on the image
 	 * @return	string
 	 */
-	public function image($image, $skin, $return = 'image', $attr = array(), $module = 'core')
+	public function image($image, $return = 'image', $attr = array(), $module = 'core')
 	{
 		$this->file = $image;
-		$this->skin = $skin;
+		$this->skin = $this->setSkin();
 		$this->type = 'image';
 		$this->module = $module;
 
 		return $this->findImage($return, $attr);
+	}
+
+	/**
+	 * Find a js view.
+	 *
+	 * @param	string	File
+	 * @return	string
+	 */
+	public function js($file)
+	{
+		return $this->file($file, 'js');
+	}
+
+	/**
+	 * Find a page view.
+	 *
+	 * @param	string	File
+	 * @return	string
+	 */
+	public function page($file)
+	{
+		return $this->file($file, 'page');
+	}
+
+	/**
+	 * Find a partial.
+	 *
+	 * @param	string	File
+	 * @return	string
+	 */
+	public function partial($file)
+	{
+		return $this->file($file, 'partial');
 	}
 
 	/**
@@ -133,6 +186,28 @@ class Location {
 		$this->type = 'rank';
 
 		return $this->findRank($base, $pip, $location);
+	}
+
+	/**
+	 * Find a structure view.
+	 *
+	 * @param	string	File
+	 * @return	string
+	 */
+	public function structure($file)
+	{
+		return $this->file($file, 'structure');
+	}
+
+	/**
+	 * Find a template view.
+	 *
+	 * @param	string	File
+	 * @return	string
+	 */
+	public function template($file)
+	{
+		return $this->file($file, 'template');
 	}
 
 	/**
@@ -216,7 +291,7 @@ class Location {
 
 		// Get the rank catalog object
 		$catalog = ( ! $location)
-			? RankCatalog::getItems('location', UtilityLib::getRank())->first()
+			? RankCatalog::getItems('location', \Utility::getRank())->first()
 			: RankCatalog::getItems('location', $location)->first();
 
 		if (File::isDirectory(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/base") 
@@ -235,7 +310,7 @@ class Location {
 				'pip' => "background:transparent url({$pipImage}) no-repeat top left;",
 			);
 
-			return View::make($this->file('common/rank', $this->skin, 'partial'))
+			return View::make($this->partial('common/rank'))
 				->with('props', $properties)
 				->render();
 		}
@@ -260,7 +335,7 @@ class Location {
 	 *
 	 * @internal
 	 * @return	string	The path to the asset
-	 * @throws	NovaImageNotFoundException
+	 * @throws	Exception
 	 */
 	protected function findAssetPath()
 	{
@@ -291,6 +366,17 @@ class Location {
 				throw new Exception(lang('error.exception.invalid_image'));
 			break;
 		}
+	}
+
+	/**
+	 * Set the skin.
+	 *
+	 * @internal
+	 * @return	void
+	 */
+	protected function setSkin()
+	{
+		$this->skin = \Utility::getSkin();
 	}
 	
 }
