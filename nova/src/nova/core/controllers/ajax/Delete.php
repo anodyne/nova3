@@ -23,7 +23,7 @@ class Delete extends AjaxBaseController {
 					'id' => $rule->id,
 				);
 
-				echo \View::forge(\Location::file('delete/apprule', \Utility::getSkin(), 'ajax'), $data);
+				echo \View::forge(\Location::ajax('delete/apprule'), $data);
 			}
 		}
 	}
@@ -65,7 +65,7 @@ class Delete extends AjaxBaseController {
 			// Only present the modal if we're allowed to delete it
 			if ((bool) $form->protected === false)
 			{
-				echo View::make(Location::file('delete/form', Utility::getSkin(), 'ajax'))
+				echo View::make(Location::ajax('delete/form'))
 					->with('form', $form);
 			}
 		}
@@ -86,7 +86,7 @@ class Delete extends AjaxBaseController {
 
 			if ($field !== null)
 			{
-				echo View::make(Location::file('delete/field', Utility::getSkin(), 'ajax'))
+				echo View::make(Location::ajax('delete/field'))
 					->with('name', $field->label)
 					->with('id', $field->id)
 					->with('formKey', $field->form->key);
@@ -132,7 +132,7 @@ class Delete extends AjaxBaseController {
 				// Remove the section we are deleting
 				unset($sections[$id]);
 
-				echo View::make(Location::file('delete/section', Utility::getSkin(), 'ajax'))
+				echo View::make(Location::ajax('delete/section'))
 					->with('name', $section->name)
 					->with('id', $section->id)
 					->with('fields', $section->fields->count())
@@ -157,7 +157,7 @@ class Delete extends AjaxBaseController {
 				// Remove the tab we are deleting
 				unset($tabs[$id]);
 
-				echo View::make(Location::file('delete/tab', Utility::getSkin(), 'ajax'))
+				echo View::make(Location::ajax('delete/tab'))
 					->with('name', $tab->name)
 					->with('id', $tab->id)
 					->with('tabs', $tabs)
@@ -180,7 +180,7 @@ class Delete extends AjaxBaseController {
 					'id' => $rank->id,
 				);
 
-				echo \View::forge(\Location::file('delete/rank', \Utility::getSkin(), 'ajax'), $data);
+				echo \View::forge(\Location::ajax('delete/rank'), $data);
 			}
 		}
 	}
@@ -216,7 +216,7 @@ class Delete extends AjaxBaseController {
 					}
 				}
 
-				echo \View::forge(\Location::file('delete/rankgroup', \Utility::getSkin(), 'ajax'), $data);
+				echo \View::forge(\Location::ajax('delete/rankgroup'), $data);
 			}
 		}
 	}
@@ -254,7 +254,7 @@ class Delete extends AjaxBaseController {
 					}
 				}
 
-				echo \View::forge(\Location::file('delete/rankinfo', \Utility::getSkin(), 'ajax'), $data);
+				echo \View::forge(\Location::ajax('delete/rankinfo'), $data);
 			}
 		}
 	}
@@ -290,7 +290,7 @@ class Delete extends AjaxBaseController {
 					return ($r->id != $id);
 				});
 
-				echo View::make(Location::file('delete/role', Utility::getSkin(), 'ajax'), $data);
+				echo View::make(Location::ajax('delete/role'), $data);
 			}
 		}
 	}
@@ -312,7 +312,7 @@ class Delete extends AjaxBaseController {
 
 			if ($task)
 			{
-				echo View::make(Location::file('delete/role_task', Utility::getSkin(), 'ajax'))
+				echo View::make(Location::ajax('delete/role_task'))
 					->with('task', $task);
 			}
 		}
@@ -332,7 +332,7 @@ class Delete extends AjaxBaseController {
 					'id' => $user->id,
 				);
 
-				echo \View::forge(\Location::file('delete/user', \Utility::getSkin(), 'ajax'), $data);
+				echo \View::forge(\Location::ajax('delete/user'), $data);
 			}
 		}
 	}
@@ -346,7 +346,7 @@ class Delete extends AjaxBaseController {
 
 			if ($route)
 			{
-				echo View::make(Location::file('delete/route', Utility::getSkin(), 'ajax'))
+				echo View::make(Location::ajax('delete/route'))
 					->with('route', $route);
 			}
 		}

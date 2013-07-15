@@ -254,7 +254,7 @@ abstract class Core extends Controller {
 		// Set the content view (if it's been set)
 		if ( ! empty($this->_view))
 		{
-			$this->layout->template->content = View::make(Location::file($this->_view, $this->skin, 'page'))
+			$this->layout->template->content = View::make(Location::page($this->_view))
 				->with('_icons', $this->icons)
 				->with('_settings', $this->settings)
 				->with((array) $this->_data);
@@ -263,7 +263,7 @@ abstract class Core extends Controller {
 		// Set the javascript view (if it's been set)
 		if ( ! empty($this->_jsView))
 		{
-			$this->layout->javascript = View::make(Location::file($this->_jsView, $this->skin, 'js'))
+			$this->layout->javascript = View::make(Location::js($this->_jsView))
 				->with('_icons', $this->icons)
 				->with((array) $this->_jsData);
 		}

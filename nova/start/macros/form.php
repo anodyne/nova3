@@ -448,6 +448,6 @@ Form::macro('suggest', function($name, $data, $selected, $options)
 		'value' => $selected,
 	));
 
-	return View::make(Location::file('common/magicsuggest', Utility::getSkin(), 'partial'))
+	return View::make(Location::partial('common/magicsuggest'))
 		->with('attributes', $attributes);
 });

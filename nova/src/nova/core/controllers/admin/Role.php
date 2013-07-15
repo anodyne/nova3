@@ -85,21 +85,21 @@ class Role extends AdminBaseController {
 			$this->_view = 'admin/role/roles';
 
 			// Build the users with roles modal
-			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'usersWithRole')
 				->with('modalHeader', ucwords(langConcat('users with role')))
 				->with('modalBody', '')
 				->with('modalFooter', false);
 
 			// Build the delete roles modal
-			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'deleteRole')
 				->with('modalHeader', ucwords(lang('short.delete', langConcat('access role'))))
 				->with('modalBody', '')
 				->with('modalFooter', false);
 
 			// Build the duplicate role modal
-			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'duplicateRole')
 				->with('modalHeader', ucwords(lang('short.duplicate', langConcat('access role'))))
 				->with('modalBody', '')
@@ -374,14 +374,14 @@ class Role extends AdminBaseController {
 			}
 
 			// Build the delete task modal
-			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'deleteTask')
 				->with('modalHeader', ucwords(lang('short.delete', lang('task'))))
 				->with('modalBody', '')
 				->with('modalFooter', false);
 
 			// Build the roles with task modal
-			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'rolesWithTask')
 				->with('modalHeader', ucwords(langConcat('access roles with task')))
 				->with('modalBody', '')

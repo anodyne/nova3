@@ -96,7 +96,7 @@ if ( ! function_exists('langConcat'))
  */
 function partial($view, $data)
 {
-	return View::make(Location::file($view, Utility::getSkin(), 'partial'))->with($data);
+	return View::make(Location::partial($view))->with($data);
 }
 
 /**

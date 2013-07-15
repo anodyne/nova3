@@ -162,7 +162,7 @@ class Update extends AjaxBaseController {
 	{
 		if (\Sentry::check() and \Sentry::user()->hasLevel('user.update', 2))
 		{
-			echo \View::forge(\Location::file('update/link_character_to_user', \Utility::getSkin(), 'ajax'));
+			echo \View::forge(\Location::ajax('update/link_character_to_user'));
 		}
 	}
 
@@ -210,7 +210,7 @@ class Update extends AjaxBaseController {
 				$data['status'] = (int) $group->status;
 			}
 
-			echo \View::forge(\Location::file('update/rankgroup', \Utility::getSkin(), 'ajax'), $data);
+			echo \View::forge(\Location::ajax('update/rankgroup'), $data);
 		}
 	}
 
@@ -268,7 +268,7 @@ class Update extends AjaxBaseController {
 				$data['status'] = (int) $info->status;
 			}
 
-			echo \View::forge(\Location::file('update/rankinfo', \Utility::getSkin(), 'ajax'), $data);
+			echo \View::forge(\Location::ajax('update/rankinfo'), $data);
 		}
 	}
 

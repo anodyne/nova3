@@ -56,7 +56,7 @@ class Form extends AdminBaseController {
 			$this->_data->forms = NovaForm::get();
 
 			// Build the delete form modal
-			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'deleteForm')
 				->with('modalHeader', lang('Short.delete', lang('Form')))
 				->with('modalBody', '')
@@ -277,7 +277,7 @@ class Form extends AdminBaseController {
 		}
 
 		// Build the delete tab modal
-		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+		$this->_ajax[] = View::make(Location::partial('common/modal'))
 			->with('modalId', 'deleteTab')
 			->with('modalHeader', lang('Short.delete', langConcat('Form Tab')))
 			->with('modalBody', '')
@@ -484,7 +484,7 @@ class Form extends AdminBaseController {
 		}
 
 		// Build the delete section modal
-		$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+		$this->_ajax[] = View::make(Location::partial('common/modal'))
 			->with('modalId', 'deleteSection')
 			->with('modalHeader', lang('Short.delete', langConcat('Form Section')))
 			->with('modalBody', '')
@@ -623,7 +623,7 @@ class Form extends AdminBaseController {
 			$this->_data->fields = $form->getData('fields');
 
 			// Build the delete field modal
-			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'deleteField')
 				->with('modalHeader', lang('Short.delete', langConcat('Form Field')))
 				->with('modalBody', '')

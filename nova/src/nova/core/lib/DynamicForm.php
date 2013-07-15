@@ -73,7 +73,7 @@ class DynamicForm {
 		// Assemble the elements
 		$this->assemble();
 
-		return View::make(LocationLib::file('forms/form', UtilityLib::getSkin(), 'partial'), $this->data);
+		return View::make(LocationLib::partial('forms/form'), $this->data);
 	}
 
 	/**

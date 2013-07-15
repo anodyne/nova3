@@ -3,8 +3,6 @@
 use Str;
 use View;
 use Sentry;
-use Utility;
-use Location;
 use NavModel;
 use Settings;
 
@@ -85,20 +83,20 @@ class Nav {
 			case 'classic':
 				if ($this->type == 'main')
 				{
-					$output = View::make(Location::file('nav/classic', Utility::getSkin($this->section), 'partial'))
+					$output = View::make(\Location::partial('nav/classic'))
 						->with('items', $this->data[$this->type]['mainNavItems'][$this->category])
 						->with('name', Settings::getSettings('sim_name'));
 				}
 				else
 				{
-					$output = View::make(Location::file('nav/subnav', Utility::getSkin($this->section), 'partial'))
+					$output = View::make(\Location::partial('nav/subnav'))
 						->with('items', $this->data[$this->section][$this->category]);
 				}
 			break;
 			
 			case 'dropdown':
 			default:
-				$output = View::make(Location::file('nav/dropdown', Utility::getSkin($this->section), 'partial'))
+				$output = View::make(\Location::partial('nav/dropdown'))
 					->with('items', $this->data)
 					->with('name', Settings::getSettings('sim_name'))
 					->with('userMenu', $this->userOutput)
@@ -239,7 +237,7 @@ class Nav {
 	protected function setUserDataAndOutput()
 	{
 		// Start to build the output
-		$output = View::make(Location::file('nav/user', Utility::getSkin($this->section), 'partial'));
+		$output = View::make(\Location::partial('nav/user'));
 
 		if (Sentry::check())
 		{
@@ -262,12 +260,12 @@ class Nav {
 
 			// Figure out the outputs
 			$writingOutput = ($writingCount > 0) 
-				? View::make(Location::file('common/label', Utility::getSkin($this->section), 'partial'))
+				? View::make(\Location::partial('common/label'))
 					->with('class', $writingClass)
 					->with('value', $writingCount)
 				: false;
 			$messageOutput = ($messageCount > 0) 
-				? View::make(Location::file('common/label', Utility::getSkin($this->section), 'partial'))
+				? View::make(\Location::partial('common/label'))
 					->with('class', $messageClass)
 					->with('value', $messageCount)
 				: false;

@@ -83,14 +83,14 @@ class Admin extends AdminBaseController {
 			}
 
 			// Build the duplicate page modal
-			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'duplicateRoute')
 				->with('modalHeader', ucwords(lang('short.duplicate', langConcat('core route'))))
 				->with('modalBody', '')
 				->with('modalFooter', false);
 
 			// Build the delete page modal
-			$this->_ajax[] = View::make(Location::file('common/modal', $this->skin, 'partial'))
+			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'deleteRoute')
 				->with('modalHeader', ucwords(lang('short.delete', lang('route'))))
 				->with('modalBody', '')

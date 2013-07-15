@@ -103,7 +103,7 @@ App::missing(function()
 	// Log the error
 	Log::error('404 Not Found. Could not find the page requested: '.Request::path());
 
-	return View::make(Location::file('404', Utility::getSkin(), 'error'))
+	return View::make(Location::error('404'))
 		->with('header', $messages[$rand]['header'])
 		->with('message', $messages[$rand]['message']);
 });
@@ -116,7 +116,7 @@ App::error(function(RuntimeException $ex, $code)
 	switch ($ex->getMessage())
 	{
 		case 'Nova 3 requires PHP 5.4.0 or higher':
-			return View::make(Location::file('php_version', Utility::getSkin(), 'error'))
+			return View::make(Location::error('php_version'))
 				->with('env', App::make('env'));
 		break;
 	}

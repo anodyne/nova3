@@ -56,12 +56,12 @@ abstract class Login extends BaseController {
 		];
 
 		// Setup the layout and its data
-		$layout				= View::make(Location::file('login', $this->skin, 'structure'))->with($vars);
+		$layout				= View::make(Location::structure('login'))->with($vars);
 		$layout->title		= $this->settings->sim_name.' :: ';
 		$layout->javascript	= false;
 		
 		// Setup the template and its data
-		$layout->template			= View::make(Location::file('login', $this->skin, 'template'))->with($vars);
+		$layout->template			= View::make(Location::template('login'))->with($vars);
 		$layout->template->ajax		= false;
 		$layout->template->flash	= false;
 		$layout->template->content	= false;
