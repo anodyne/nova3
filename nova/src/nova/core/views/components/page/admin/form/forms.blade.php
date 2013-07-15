@@ -63,7 +63,7 @@
 									</a>
 								</li>
 								<li>
-									<a href="{{ URL::to('admin/formviewer/'.$form->key.'/0') }}">
+									<a href="{{ URL::to('admin/formviewer/'.$form->key.'/add') }}">
 										{{ lang('Short.fillout', lang('form')) }}
 									</a>
 								</li>

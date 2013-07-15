@@ -91,6 +91,7 @@ return array(
 	'in' => 'in',
 	'inactive' => 'inactive',
 	'in_progress' => 'in progress',
+	'instructions' => "instructions",
 
 	'joint' => 'joint',
 

@@ -57,16 +57,17 @@ return array(
 			'order' => "The order can also be changed by dragging-and-dropping the items on the previous page.",
 
 			'changeFormKey' => "<strong>Warning:</strong> Changing a form key can cause issues with a form. Do so only if you know what you're doing!",
+			'formViewer' => "FormViewer",
 			'useFormViewer' => "Use FormViewer",
 			'useFormViewerHelp' => "FormViewer allows users to submit created forms and view the content of submitted forms in one place.",
-			'formViewerMessage' => "FormViewer Message",
-			'formViewerMessageHelp' => "You can specify a message to be displayed when creating a new entry for this form through FormViewer.",
-			'formViewerDisplay' => "FormViewer Entries Display Field",
+			'formViewerMessageHelp' => "You can specify instructions to be displayed when creating a new entry for this form through FormViewer.",
+			'formViewerDisplay' => "Entries Display Field",
 			'formViewerDisplayHelp' => "You can specify the field whose data you want to use for displaying the full list of completed entries in FormViewer. If you don't select one, the date the record was created will be used.",
-
+			'formViewerEmail' => "Email Options",
 			'useEmail' => "Send Results in Email",
 			'useEmailHelp' => "When a user fills out the form, the results will be emailed to the addresses specified below.",
-			'emailAddresses' => "Email Addresses to Send Results To",
+			'emailAddresses' => "Send Results To",
+			'emailAddressesHelp' => "Enter the email addresses you want results sent to seperated by commas.",
 			'dataModel' => "Enter the class alias (defined in the application config file) or full model name (with namespace and leading slashes) to the data model for this form. This should only be used for advanced forms that tie in to other database tables.",
 			
 			'tabLinkId' => "Link IDs are used to link a tab with its content on the page. They must be unique and contain no spaces (camelCase is fine) (e.g. one, html, general, characterThings). This will be generated for you based on the name of the tab, but you can change it to anything you'd like.",

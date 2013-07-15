@@ -32,6 +32,6 @@ return array(
 	|
 	*/
 
-	'pagination' => 'pagination::slider',
+	'pagination' => Location::partial('common/paginator'),
 
 );

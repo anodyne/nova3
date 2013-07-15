@@ -18,7 +18,7 @@ class FormViewer extends AdminBaseController {
 		Sentry::getUser()->allowed(['form.read', 'form.create', 'form.edit', 'form.delete'], true);
 
 		// Set the JS view
-		//$this->_jsView = 'admin/formviewer/view_js';
+		$this->_jsView = 'admin/formviewer/entries_js';
 
 		// Get the form
 		$this->_data->form = $form = NovaForm::key($formKey)->first();
@@ -52,7 +52,7 @@ class FormViewer extends AdminBaseController {
 					$entries = $entries->where('field_id', $form->form_viewer_display);
 				}
 
-				$this->_data->entries = $entries->get();
+				$this->_data->entries = $entries->paginate(50);
 			}
 			else
 			{

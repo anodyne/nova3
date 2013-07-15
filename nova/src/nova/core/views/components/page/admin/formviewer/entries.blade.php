@@ -10,7 +10,15 @@
 
 @if ((bool) $form->protected === false)
 	@if ($entries->count() > 0)
-		<div class="nv-data-table nv-data-table-striped nv-data-table-bordered">
+		<div class="row">
+			<div class="col-12 col-sm-6 col-lg-4">
+				<div class="control-group">
+					{{ Form::text('', null, ['id' => 'searchEntries', 'placeholder' => lang('Short.search', langConcat('for Entry'))]) }}
+				</div>
+			</div>
+		</div>
+
+		<div class="nv-data-table nv-data-table-striped nv-data-table-bordered" id="entriesSearch">
 			@foreach ($entries as $e)
 				<div class="row">
 					<div class="col-12 col-sm-8 col-lg-9">
@@ -65,6 +73,8 @@
 				</div>
 			@endforeach
 		</div>
+
+		{{ $entries->links() }}
 	@else
 		{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('form entries'))]) }}
 	@endif
