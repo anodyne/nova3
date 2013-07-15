@@ -1,5 +1,6 @@
 <?php namespace Nova\Core\Commands;
 
+use Eloquent;
 use SiteContent;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
