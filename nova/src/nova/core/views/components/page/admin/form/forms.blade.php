@@ -21,7 +21,7 @@
 			<div class="thumbnail">
 				@if (Sentry::getUser()->hasAccess('form.update') or Sentry::getUser()->hasAccess('form.delete'))
 					<div class="btn-group pull-right dropdown">
-						<a class="btn btn-default btn-small icn-size-16 dropdown-toggle" data-toggle="dropdown" href="#">{{ $_icons['settings'] }}</a>
+						<a class="btn btn-small btn-default icn-size-16 dropdown-toggle" data-toggle="dropdown" href="#">{{ $_icons['settings'] }}</a>
 						<ul class="dropdown-menu">
 							@if (Sentry::getUser()->hasAccess('form.update'))
 								<li>
