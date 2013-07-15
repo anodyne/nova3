@@ -262,6 +262,73 @@ return [
 	],
 
 	/**
+	 * admin/catalog
+	 */
+	[
+		'name'			=> 'admin/catalog',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/catalog',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Catalog@getIndex',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/catalog/modules',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/catalog/modules',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Catalog@getModules',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/catalog/modules',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/catalog/modules',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Catalog@postModules',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/catalog/ranks',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/catalog/ranks',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Catalog@getRanks',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/catalog/ranks',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/catalog/ranks',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Catalog@postRanks',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/catalog/skins',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/catalog/skins',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Catalog@getSkins',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/catalog/skins',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/catalog/skins',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Catalog@postSkins',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/catalog/widgets',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/catalog/widgets',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Catalog@getWidgets',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/catalog/widgets',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/catalog/widgets',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Catalog@postWidgets',
+		'protected'		=> (int) true
+	],
+
+	/**
 	 * ajax/add
 	 */
 	[

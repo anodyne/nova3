@@ -375,24 +375,6 @@ return [
 		'category' => 'messages',
 		'access' => 'messages.read.0'
 	],*/
-	/*[
-		'name' => 'Site',
-		'group' => 0,
-		'order' => 0,
-		'url' => 'admin/site/index',
-		'type' => 'adminsub',
-		'category' => 'manage',
-		'access' => 'settings.read.0'
-	],
-	[
-		'name' => 'Data',
-		'group' => 1,
-		'order' => 0,
-		'url' => 'admin/data/index',
-		'type' => 'adminsub',
-		'category' => 'manage',
-		'access' => 'rank.read.0'
-	],*/
 	[
 		'name' => 'Routes Manager',
 		'group' => 0,
@@ -419,6 +401,15 @@ return [
 		'type' => 'adminsub',
 		'category' => 'manage',
 		'access' => 'form.read|form.create|form.update|form.delete'
+	],
+	[
+		'name' => 'Resource Catalogs',
+		'group' => 1,
+		'order' => 2,
+		'url' => 'admin/catalog',
+		'type' => 'adminsub',
+		'category' => 'manage',
+		'access' => 'catalog.create|catalog.update|catalog.delete'
 	],
 	/*[
 		'name' => 'Ranks',
@@ -492,17 +483,6 @@ return [
 		'access' => 'site/menus'
 	],
 	[
-		'name' => 'Access Roles',
-		'group' => 0,
-		'order' => 3,
-		'url' => 'site/roles',
-		'sim_type' => 1,
-		'type' => 'adminsub',
-		'category' => 'site',
-		'use_access' => 1,
-		'access' => 'site/roles'
-	],
-	[
 		'name' => 'Sim Types',
 		'group' => 2,
 		'order' => 0,
@@ -512,28 +492,6 @@ return [
 		'category' => 'site',
 		'use_access' => 1,
 		'access' => 'site/simtypes'
-	],
-	[
-		'name' => 'Rank Catalogue',
-		'group' => 2,
-		'order' => 1,
-		'url' => 'site/catalogueranks',
-		'sim_type' => 1,
-		'type' => 'adminsub',
-		'category' => 'site',
-		'use_access' => 1,
-		'access' => 'site/catalogueranks'
-	],
-	[
-		'name' => 'Skin Catalogue',
-		'group' => 2,
-		'order' => 2,
-		'url' => 'site/catalogueskins',
-		'sim_type' => 1,
-		'type' => 'adminsub',
-		'category' => 'site',
-		'use_access' => 1,
-		'access' => 'site/catalogueskins'
 	],
 	[
 		'name' => 'Awards',

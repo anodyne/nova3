@@ -251,6 +251,50 @@ return [
 		'page' => 'tasks'
 	],
 
+	/**
+	 * admin/catalog Headers
+	 */
+	[
+		'key' => 'admin_catalog_index_header',
+		'label' => 'Resource Catalogs Header',
+		'content' => "Resource Catalogs",
+		'type' => 'header',
+		'section' => 'catalog',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_catalog_ranks_header',
+		'label' => 'Rank Sets Catalog Header',
+		'content' => "Rank Sets Catalog",
+		'type' => 'header',
+		'section' => 'catalog',
+		'page' => 'ranks'
+	],
+	[
+		'key' => 'admin_catalog_skins_header',
+		'label' => 'Skin Catalog Header',
+		'content' => "Skins Catalog",
+		'type' => 'header',
+		'section' => 'catalog',
+		'page' => 'skins'
+	],
+	[
+		'key' => 'admin_catalog_modules_header',
+		'label' => 'Modules Catalog Header',
+		'content' => "Modules Catalog",
+		'type' => 'header',
+		'section' => 'catalog',
+		'page' => 'modules'
+	],
+	[
+		'key' => 'admin_catalog_widgets_header',
+		'label' => 'Widgets Catalog Header',
+		'content' => "Widgets Catalog",
+		'type' => 'header',
+		'section' => 'catalog',
+		'page' => 'widgets'
+	],
+
 	/*
 	|--------------------------------------------------------------------------
 	| PAGE TITLES
@@ -505,6 +549,50 @@ return [
 		'page' => 'tasks'
 	],
 
+	/**
+	 * admin/catalog Titles
+	 */
+	[
+		'key' => 'admin_catalog_index_title',
+		'label' => 'Resource Catalogs Title',
+		'content' => "Resource Catalogs",
+		'type' => 'title',
+		'section' => 'catalog',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_catalog_ranks_title',
+		'label' => 'Rank Sets Catalog Title',
+		'content' => "Rank Sets Catalog",
+		'type' => 'title',
+		'section' => 'catalog',
+		'page' => 'ranks'
+	],
+	[
+		'key' => 'admin_catalog_skins_title',
+		'label' => 'Skins Catalog Title',
+		'content' => "Skins Catalog",
+		'type' => 'title',
+		'section' => 'catalog',
+		'page' => 'skins'
+	],
+	[
+		'key' => 'admin_catalog_modules_title',
+		'label' => 'Modules Catalog Title',
+		'content' => "Modules Catalog",
+		'type' => 'title',
+		'section' => 'catalog',
+		'page' => 'modules'
+	],
+	[
+		'key' => 'admin_catalog_widgets_title',
+		'label' => 'Widgets Catalog Title',
+		'content' => "Widgets Catalog",
+		'type' => 'title',
+		'section' => 'catalog',
+		'page' => 'widgets'
+	],
+
 	/*
 	|--------------------------------------------------------------------------
 	| MESSAGES
@@ -687,6 +775,50 @@ return [
 		'type' => 'message',
 		'section' => 'role',
 		'page' => 'tasks'
+	],
+
+	/**
+	 * admin/catalog Messages
+	 */
+	[
+		'key' => 'admin_catalog_index_message',
+		'label' => 'Resource Catalogs Message',
+		'content' => "Resource Catalogs allow you to manage the various resources available throughout Nova such as skin, rank sets, modules and widgets.",
+		'type' => 'message',
+		'section' => 'catalog',
+		'page' => 'index'
+	],
+	[
+		'key' => 'admin_catalog_ranks_message',
+		'label' => 'Rank Sets Catalog Message',
+		'content' => "",
+		'type' => 'message',
+		'section' => 'catalog',
+		'page' => 'ranks'
+	],
+	[
+		'key' => 'admin_catalog_skins_message',
+		'label' => 'Skins Catalog Message',
+		'content' => "",
+		'type' => 'message',
+		'section' => 'catalog',
+		'page' => 'skins'
+	],
+	[
+		'key' => 'admin_catalog_modules_message',
+		'label' => 'Modules Catalog Message',
+		'content' => "",
+		'type' => 'message',
+		'section' => 'catalog',
+		'page' => 'modules'
+	],
+	[
+		'key' => 'admin_catalog_widgets_message',
+		'label' => 'Widgets Catalog Message',
+		'content' => "",
+		'type' => 'message',
+		'section' => 'catalog',
+		'page' => 'widgets'
 	],
 
 	/*

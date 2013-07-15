@@ -222,6 +222,8 @@ return array(
 
 	'writing' => "writing",
 	'with' => "with",
+	'widget' => "widget",
+	'widgets' => "widgets",
 
 	'yes' => 'yes',
 	'your' => 'your',
