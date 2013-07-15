@@ -2,13 +2,13 @@
 
 use Illuminate\Support\Facades\Facade;
 
-class Utility extends Facade {
+class Nova extends Facade {
 
 	/**
 	 * Get the registered name of the component.
 	 *
 	 * @return string
 	 */
-	protected static function getFacadeAccessor() { return 'utility'; }
+	protected static function getFacadeAccessor() { return 'nova.common'; }
 
 }

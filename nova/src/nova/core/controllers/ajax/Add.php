@@ -1,11 +1,11 @@
 <?php namespace Nova\Core\Controllers\Ajax;
 
 use Str;
+use Nova;
 use View;
 use Input;
 use Sentry;
 use Request;
-use Utility;
 use Location;
 use AjaxBaseController;
 
@@ -55,7 +55,7 @@ class Add extends AjaxBaseController {
 			if ($item)
 			{
 				// Get the items
-				$_icons = Utility::getIconIndex(Utility::getSkin());
+				$_icons = Nova::getIconIndex(Nova::getSkin());
 
 				echo '<tr id="value_'.$v->id.'"><td><div class="row"><div class="col-12 col-sm-9 col-lg-9">'.\Form::text('', $v->value).'</div><div class="col-6 col-sm-1 col-lg-1"><div class="hidden-sm"><a href="#" class="btn btn-small btn-default js-value-action icn-size-16 tooltip-top" title="'.lang('Action.save').'" data-action="update" data-id="'.$v->id.'">'.$_icons['check'].'</a></div><div class="visible-sm"><p><a href="#" class="btn btn-small btn-block btn-default js-value-action icn-size-16" data-action="update" data-id="'.$v->id.'">'.$_icons['check'].'</a></p></div></div><div class="col-6 col-sm-1 col-lg-1"><div class="hidden-sm"><a href="#" class="btn btn-small btn-danger js-value-action icn-size-16" data-action="delete" data-id="'.$v->id.'">'.$_icons['remove'].'</a></div><div class="visible-sm"><p><a href="#" class="btn btn-small btn-block btn-danger js-value-action icn-size-16" data-action="delete" data-id="'.$v->id.'">'.$_icons['remove'].'</a></p></div></div><div class="col-lg-1 visible-lg"><div class="reorder-small icn-size-16 icn-opacity-50 text-center">'.$_icons['move'].'</div></div></div></td></tr>';
 			}

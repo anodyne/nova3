@@ -88,7 +88,7 @@ Route::group(['prefix' => 'setup/install', 'before' => 'configFileCheck|setupAut
 
 		// Create the only item we need in the system events table
 		SystemEventModel::create([
-			'ip'		=> Utility::realIp(),
+			'ip'		=> Request::getClientIp(),
 			'content'	=> Config::get('nova.app.name')." was successfully installed.",
 		]);
 

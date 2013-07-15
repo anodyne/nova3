@@ -52,7 +52,7 @@ class NovaCreateSystem extends Migration {
 		]);
 
 		SystemEventModel::create([
-			'ip'		=> Utility::realIp(),
+			'ip'		=> Request::getClientIp(),
 			'content'	=> Config::get('nova.app.name')." was successfully installed.",
 		]);
 	}

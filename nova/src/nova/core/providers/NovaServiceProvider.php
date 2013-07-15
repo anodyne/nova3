@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Providers;
 
+use Nova\Core\Lib\Nova;
 use Nova\Core\Lib\Media;
-use Nova\Core\Lib\Utility;
 use Nova\Core\Lib\Location;
 use Nova\Core\Lib\Markdown;
 use Nova\Core\Lib\DynamicForm;
@@ -9,7 +9,7 @@ use Nova\Core\Lib\SystemEvent;
 use dflydev\markdown\MarkdownParser;
 use Illuminate\Support\ServiceProvider;
 
-class UtilityServiceProvider extends ServiceProvider {
+class NovaServiceProvider extends ServiceProvider {
 
 	/**
 	 * Register the service provider.
@@ -21,14 +21,14 @@ class UtilityServiceProvider extends ServiceProvider {
 		$this->registerLocation();
 		$this->registerMarkdown();
 		$this->registerSystemEvent();
-		$this->registerUtility();
+		$this->registerCommon();
 		$this->registerMedia();
 		$this->registerDynamicForm();
 	}
 
 	protected function registerLocation()
 	{
-		$this->app['location'] = $this->app->share(function()
+		$this->app['nova.location'] = $this->app->share(function()
 		{
 			return new Location;
 		});
@@ -50,17 +50,17 @@ class UtilityServiceProvider extends ServiceProvider {
 		});
 	}
 
-	protected function registerUtility()
+	protected function registerCommon()
 	{
-		$this->app['utility'] = $this->app->share(function()
+		$this->app['nova.common'] = $this->app->share(function()
 		{
-			return new Utility;
+			return new Nova;
 		});
 	}
 
 	protected function registerMedia()
 	{
-		$this->app['media'] = $this->app->share(function()
+		$this->app['nova.media'] = $this->app->share(function()
 		{
 			return new Media;
 		});

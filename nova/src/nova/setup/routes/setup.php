@@ -18,7 +18,7 @@ Route::group(['prefix' => 'setup', 'before' => 'configFileCheck|setupAuthorizati
 		$data->content = new stdClass;
 
 		// Do some checks to see what we should show
-		$installed = (bool) Utility::installed();
+		$installed = (bool) Setup::installed();
 		$data->content->db = (bool) File::exists(APPPATH.'config/'.App::environment().'/database.php');
 		$data->content->email = (bool) File::exists(APPPATH.'config/'.App::environment().'/mail.php');
 
@@ -47,8 +47,8 @@ Route::group(['prefix' => 'setup', 'before' => 'configFileCheck|setupAuthorizati
 		$data->content = new stdClass;
 
 		// Do some checks to see what we should show
-		$installed = (bool) Utility::installed();
-		$update = ($installed) ? Utility::getUpdates() : false;
+		$installed = (bool) Setup::installed();
+		$update = ($installed) ? Setup::getUpdates() : false;
 
 		if ($installed)
 		{

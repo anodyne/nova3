@@ -20,7 +20,7 @@ Route::filter('configFileCheck', function()
  */
 Route::filter('setupAuthorization', function()
 {
-	if (Utility::installed())
+	if (Setup::installed())
 	{
 		if (Sentry::check())
 		{

@@ -122,7 +122,8 @@ return array(
 		 * Nova Service Providers
 		 */
 		'Nova\Citadel\CitadelServiceProvider',
-		'Nova\Core\Providers\UtilityServiceProvider',
+		'Nova\Core\Providers\NovaServiceProvider',
+		'Nova\Setup\Providers\SetupServiceProvider',
 		'Nova\Foundation\Translation\TranslationServiceProvider',
 
 		'Cartalyst\Api\ApiServiceProvider',
@@ -219,10 +220,11 @@ return array(
 		'Media'			=> 'Nova\Core\Facades\Media',
 		'Model'			=> 'Nova\Foundation\Database\Eloquent\Model',
 		'Nav'			=> 'Nova\Core\Lib\Nav',
+		'Nova'			=> 'Nova\Core\Facades\Nova',
 		'Sentry' 		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+		'Setup'			=> 'Nova\Setup\Facades\Setup',
 		'Status'		=> 'Nova\Core\Lib\Status',
 		'SystemEvent'	=> 'Nova\Core\Facades\SystemEvent',
-		'Utility'		=> 'Nova\Core\Facades\Utility',
 
 		'Input'			=> 'Cartalyst\Api\Facades\Input',
 		'Request'		=> 'Cartalyst\Api\Facades\Request',

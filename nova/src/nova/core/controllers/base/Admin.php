@@ -14,10 +14,10 @@
  * @copyright	2013 Anodyne Productions
  */
 
+use Nova;
 use View;
 use Sentry;
 use Session;
-use Utility;
 use Location;
 use Redirect;
 use SiteContent;
@@ -60,8 +60,9 @@ abstract class Admin extends BaseController {
 				// Set the variables
 				$me->skin		= $user->getPreferenceItem('skin_admin');
 				$me->rank		= ($user->getPreferenceItem('rank')) ?: $me->settings->rank;
-				$me->timezone	= ($user->getPreferenceItem('timezone')) ?: $me->settings->timezone;
-				$me->icons		= Utility::getIconIndex($me->skin);
+			
+			$me->icons		= Nova::getIconIndex($me->skin);	$me->timezone	= ($user->getPreferenceItem('timezone')) ?: $me->settings->timezone;
+			
 
 				// Get the skin section info
 				$me->_sectionInfo = SkinSectionCatalog::getItems('skin', $me->skin)->first();

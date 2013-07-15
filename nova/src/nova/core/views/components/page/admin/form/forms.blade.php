@@ -59,7 +59,7 @@
 								<li class="divider"></li>
 								<li>
 									<a href="{{ URL::to('admin/formviewer/'.$form->key) }}">
-										{{ lang('Short.view', lang('form')) }}
+										{{ lang('Short.view', langConcat('form entries')) }}
 									</a>
 								</li>
 								<li>

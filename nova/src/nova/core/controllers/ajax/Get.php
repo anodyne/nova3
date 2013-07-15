@@ -1,10 +1,10 @@
 <?php namespace Nova\Core\Controllers\Ajax;
 
+use Nova;
 use View;
 use Input;
 use Sentry;
 use Request;
-use Utility;
 use Location;
 use Markdown;
 use AjaxBaseController;
@@ -194,8 +194,9 @@ public function action_user()
 		// Figure out what to output
 		switch ($return)
 		{
+			return Location::rank($rank->base, $rank->pip, Nova::getRank());
 			case 'image':
-				return Location::rank($rank->base, $rank->pip, Utility::getRank());
+			
 			break;
 
 			case 'json':

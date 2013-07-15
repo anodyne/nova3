@@ -16,10 +16,10 @@
  */
 
 use Date;
+use Nova;
 use View;
 use Sentry;
 use Session;
-use Utility;
 use Location;
 use SiteContent;
 use BaseController;
@@ -48,7 +48,7 @@ abstract class Main extends BaseController {
 				$me->skin		= (Sentry::check()) ? $user->getPreferenceItem('skin_main') : $me->settings->skin_main;
 				$me->rank		= (Sentry::check()) ? $user->getPreferenceItem('rank') : $me->settings->rank;
 				$me->timezone	= (Sentry::check()) ? $user->getPreferenceItem('timezone') : $me->settings->timezone;
-				$me->icons		= Utility::getIconIndex($me->skin);
+				$me->icons		= Nova::getIconIndex($me->skin);
 
 				// Get the skin section info
 				$me->_sectionInfo = SkinSectionCatalog::getItems('skin', $me->skin)->first();

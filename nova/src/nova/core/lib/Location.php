@@ -291,7 +291,7 @@ class Location {
 
 		// Get the rank catalog object
 		$catalog = ( ! $location)
-			? RankCatalog::getItems('location', \Utility::getRank())->first()
+			? RankCatalog::getItems('location', \Nova::getRank())->first()
 			: RankCatalog::getItems('location', $location)->first();
 
 		if (File::isDirectory(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/base") 
@@ -376,7 +376,7 @@ class Location {
 	 */
 	protected function setSkin()
 	{
-		$this->skin = \Utility::getSkin();
+		$this->skin = \Nova::getSkin();
 	}
 	
 }

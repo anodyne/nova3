@@ -9,6 +9,6 @@ class Location extends Facade {
 	 *
 	 * @return string
 	 */
-	protected static function getFacadeAccessor() { return 'location'; }
+	protected static function getFacadeAccessor() { return 'nova.location'; }
 
 }
