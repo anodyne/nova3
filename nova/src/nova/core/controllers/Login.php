@@ -206,7 +206,8 @@ class Login extends LoginBaseController {
 			$settings = $this->settings;
 
 			// Send the email
-			Mail::send(Location::email('login/reset', 'html'), $data, function($m) use($user, $settings)
+			Mail::send([Location::email('login/reset', 'html'), Location::email('login/reset', 'text')], 
+					$data, function($m) use($user, $settings)
 			{
 				$m->from($settings->email_address, $settings->email_name);
 				$m->to($user->email);
