@@ -1,4 +1,4 @@
-<p><?php echo lang('short.deleteConfirm', lang('section'), $name);?></p>
+<p>{{ lang('short.deleteConfirm', lang('section'), $name) }}</p>
 
 {{ Form::open(['url' => 'admin/form/sections/'.$formKey]) }}
 	@if (count($sections) > 0 and $fields > 0)
@@ -19,5 +19,5 @@
 	{{ Form::token() }}
 	{{ Form::hidden('id', $id) }}
 	{{ Form::hidden('action', 'delete') }}
-	{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
+	{{ Form::button(lang('Action.delete'), ['type' => 'submit', 'class' => 'btn btn-danger']) }}
 {{ Form::close() }}

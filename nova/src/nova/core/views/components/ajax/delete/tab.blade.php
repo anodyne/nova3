@@ -1,4 +1,4 @@
-<p><?php echo lang('short.deleteConfirm', lang('tab'), $name);?></p>
+<p>{{ lang('short.deleteConfirm', lang('tab'), $name) }}</p>
 
 {{ Form::open(['url' => 'admin/form/tabs/'.$formKey]) }}
 	@if (count($tabs) > 0)
@@ -19,5 +19,5 @@
 	{{ Form::token() }}
 	{{ Form::hidden('id', $id) }}
 	{{ Form::hidden('action', 'delete') }}
-	{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
+	{{ Form::button(lang('Action.delete'), ['type' => 'submit', 'class' => 'btn btn-danger']) }}
 {{ Form:: close() }}
