@@ -195,15 +195,36 @@ return [
 	[
 		'name'			=> 'admin/formviewer',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/formviewer/{formKey}/{formMode?}/{id?}',
-		'resource'		=> 'Nova\Core\Controllers\Admin\FormViewer@getView',
+		'uri'			=> 'admin/formviewer/{formKey}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\FormViewer@getIndex',
 		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'admin/formviewer',
 		'verb'			=> 'post',
 		'uri'			=> 'admin/formviewer/{formKey}',
-		'resource'		=> 'Nova\Core\Controllers\Admin\FormViewer@postView',
+		'resource'		=> 'Nova\Core\Controllers\Admin\FormViewer@postIndex',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/formviewer/add',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/formviewer/{formKey}/add',
+		'resource'		=> 'Nova\Core\Controllers\Admin\FormViewer@getAdd',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/formviewer/edit',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/formviewer/{formKey}/edit/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\FormViewer@getEdit',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/formviewer/detail',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/formviewer/{formKey}/detail/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\FormViewer@getDetail',
 		'protected'		=> (int) true
 	],
 	
@@ -354,6 +375,13 @@ return [
 		'verb'			=> 'post',
 		'uri'			=> 'ajax/delete/form_value',
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@postFormValue',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'ajax/delete/formviewer_entry',
+		'verb'			=> 'get',
+		'uri'			=> 'ajax/delete/formviewer_entry/{formKey}/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getFormViewerEntry',
 		'protected'		=> (int) true
 	],
 

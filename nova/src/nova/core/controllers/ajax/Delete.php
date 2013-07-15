@@ -166,6 +166,44 @@ class Delete extends AjaxBaseController {
 		}
 	}
 
+	/**
+	 * Delete an entry from FormViewer.
+	 *
+	 * @return	void
+	 */
+	public function getFormViewerEntry($formKey, $id)
+	{
+		if (Sentry::check() and Sentry::getUser()->hasAccess('form.delete'))
+		{
+			// Get the form we're deleting from
+			$form = \NovaForm::key($formKey)->first();
+
+			$useDisplayField = false;
+
+			// Start the query to get the entry
+			$entry = \NovaFormData::key($formKey)->entry($id);
+
+			// If we have a field to use for display purposes, grab that
+			if ((int) $form->form_viewer_display > 0)
+			{
+				$useDisplayField = true;
+
+				$entry = $entry->where('field_id', $form->form_viewer_display);
+			}
+
+			// Get the entry now
+			$entry = $entry->first();
+
+			if ($entry !== null)
+			{
+				echo View::make(Location::ajax('delete/formviewer_entry'))
+					->with('name', ($useDisplayField) ? $entry->value : $entry->created_at)
+					->with('id', $entry->data_id)
+					->with('formKey', $formKey);
+			}
+		}
+	}
+
 	public function action_rank($id)
 	{
 		if (\Sentry::check() and \Sentry::user()->hasAccess('rank.delete'))

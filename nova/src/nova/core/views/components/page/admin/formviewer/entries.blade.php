@@ -37,13 +37,13 @@
 									@endif
 
 									@if (Sentry::getUser()->hasAccess('form.update'))
-										<a href="{{ URL::to('admin/formviewer/'.$form->key.'/update/'.$e->data_id) }}" class="btn btn-small btn-default icn-size-16">{{ $_icons['edit'] }}</a>
+										<a href="{{ URL::to('admin/formviewer/'.$form->key.'/edit/'.$e->data_id) }}" class="btn btn-small btn-default icn-size-16">{{ $_icons['edit'] }}</a>
 									@endif
 								</div>
 
 								@if (Sentry::getUser()->hasAccess('form.delete'))
 									<div class="btn-group">
-										<a href="#" class="btn btn-small btn-danger js-tab-action icn-size-16" data-action="delete" data-id="{{ $e->data_id }}">{{ $_icons['remove'] }}</a>
+										<a href="#" class="btn btn-small btn-danger js-entry-action icn-size-16" data-action="delete" data-key="{{ $formKey }}" data-id="{{ $e->data_id }}">{{ $_icons['remove'] }}</a>
 									</div>
 								@endif
 							</div>
@@ -58,13 +58,13 @@
 
 								@if (Sentry::getUser()->hasAccess('form.update'))
 									<div class="col-6">
-										<p><a href="{{ URL::to('admin/formviewer/'.$form->key.'/update/'.$e->data_id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
+										<p><a href="{{ URL::to('admin/formviewer/'.$form->key.'/edit/'.$e->data_id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 									</div>
 								@endif
 
 								@if (Sentry::getUser()->hasAccess('form.delete'))
 									<div class="col-12">
-										<p><a href="#" class="btn btn-block btn-danger js-tab-action icn-size-16" data-action="delete" data-id="{{ $e->data_id }}">{{ $_icons['remove'] }}</a></p>
+										<p><a href="#" class="btn btn-block btn-danger js-entry-action icn-size-16" data-action="delete" data-key="{{ $formKey }}" data-id="{{ $e->data_id }}">{{ $_icons['remove'] }}</a></p>
 									</div>
 								@endif
 							</div>

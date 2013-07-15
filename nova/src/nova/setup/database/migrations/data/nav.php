@@ -418,7 +418,7 @@ return [
 		'url' => 'admin/form',
 		'type' => 'adminsub',
 		'category' => 'manage',
-		'access' => 'form.create|form.update|form.delete'
+		'access' => 'form.read|form.create|form.update|form.delete'
 	],
 	/*[
 		'name' => 'Ranks',

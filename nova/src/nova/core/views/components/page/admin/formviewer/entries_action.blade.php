@@ -1,11 +1,11 @@
 <div class="btn-toolbar">
 	<div class="btn-group">
-		<a href="{{ URL::to('admin/formviewer/'.$formKey.'/view') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
+		<a href="{{ URL::to('admin/formviewer/'.$formKey) }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
 	</div>
 </div>
 
 {{ Form::open(['url' => 'admin/formviewer/'.$formKey]) }}
-	@if ($formMode == 'edit' or $formMode == 'detail')
+	@if ($action == 'update' or $action == 'detail')
 		<dl>
 			@if ($entry->author !== null)
 				<dt>{{ langConcat('Action.created By') }}</dt>
@@ -19,7 +19,7 @@
 
 	{{ $dynamicForm }}
 
-	@if ($formMode == 'add' or $formMode == 'edit')
+	@if ($action == 'create' or $action == 'update')
 		<div class="row">
 			<div class="col-lg-12">
 				{{ Form::token() }}

@@ -42,7 +42,7 @@
 			<div class="col-lg-12">
 				<div class="control-group">
 					<label class="control-label">{{ $field->label }}</label>
-					<div class="controls">{{ $d }}</div>
+					<div class="controls">{{ Markdown::parse($d) }}</div>
 				</div>
 			</div>
 		</div>

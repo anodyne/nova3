@@ -750,4 +750,17 @@ return [
 		'content' => "Define your user rejection message through the Site Content page.",
 		'type' => 'email'
 	],
+	[
+		'key' => 'formviewer_results_subject',
+		'label' => 'FormViewer Results Subject',
+		'content' => "New :0 Submission",
+		'protected' => (int) true,
+		'type' => 'email'
+	],
+	[
+		'key' => 'formviewer_results_message',
+		'label' => 'FormViewer Results Message',
+		'content' => "",
+		'type' => 'email'
+	],
 ];
