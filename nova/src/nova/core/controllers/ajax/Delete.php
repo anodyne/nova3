@@ -3,7 +3,6 @@
 use View;
 use Input;
 use Sentry;
-use Utility;
 use Location;
 use AjaxBaseController;
 

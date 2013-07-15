@@ -1,7 +1,5 @@
 <?php namespace Nova\Core\Lib;
 
-use InvalidArgumentException;
-
 /**
  * Parse Markdown text into HTML using the MarkdownParser.
  *

@@ -4,7 +4,6 @@ use View;
 use Input;
 use Sentry;
 use Request;
-use Utility;
 use Location;
 use Markdown;
 use AjaxBaseController;

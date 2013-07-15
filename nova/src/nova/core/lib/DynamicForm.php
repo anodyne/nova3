@@ -3,8 +3,6 @@
 use View;
 use NovaForm;
 use NovaFormData;
-use Utility as UtilityLib;
-use Location as LocationLib;
 
 class DynamicForm {
 	
@@ -73,7 +71,7 @@ class DynamicForm {
 		// Assemble the elements
 		$this->assemble();
 
-		return View::make(LocationLib::partial('forms/form'), $this->data);
+		return View::make(\Location::partial('forms/form'), $this->data);
 	}
 
 	/**

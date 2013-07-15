@@ -26,7 +26,6 @@ use Config;
 use System;
 use Request;
 use Session;
-use Utility;
 use Location;
 use Markdown;
 use Redirect;
