@@ -6,6 +6,3 @@
  * event listeners here, though you should do so with caution since events
  * can impact the entire system.
  */
-
-// Pull in the core events
-require NOVAPATH.'start/events.php';
