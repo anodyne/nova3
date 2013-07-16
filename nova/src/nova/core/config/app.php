@@ -345,6 +345,8 @@ return array(
 		'AccessRoleValidator'		=> 'Nova\Core\Models\Validators\Access\Role',
 		'AccessTaskValidator'		=> 'Nova\Core\Models\Validators\Access\Task',
 
+		'RankCatalogValidator'		=> 'Nova\Core\Models\Validators\Catalog\Rank',
+
 		'FormValidator'				=> 'Nova\Core\Models\Validators\Form',
 		'FormFieldValidator'		=> 'Nova\Core\Models\Validators\Form\Field',
 		'FormSectionValidator'		=> 'Nova\Core\Models\Validators\Form\Section',
