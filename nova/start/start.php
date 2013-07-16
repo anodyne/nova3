@@ -11,7 +11,7 @@
 |
 */
 
-$app = new Nova\Foundation\Application;
+$app = new Nova\Extensions\Laravel\Application;
 
 $app->redirectIfTrailingSlash();
 
@@ -48,14 +48,21 @@ $env = $app->detectEnvironment(array(
 
 /*
 |--------------------------------------------------------------------------
-| Load the Bindings
+| Register Config Loader
 |--------------------------------------------------------------------------
 |
-| We bind several items during startup, so call that file in.
+| We need to register a new config loader that'll loop through the
+| different directories to get all the config files we need.
 |
 */
 
-require NOVAPATH.'start/bindings.php';
+$app->bind('config.loader', function($app)
+{
+	$filesystem = new Illuminate\Filesystem\Filesystem;
+
+	return new Nova\Extensions\Laravel\Config\ConfigCascadingFileLoader($filesystem, false);
+	
+}, true);
 
 /*
 |--------------------------------------------------------------------------
