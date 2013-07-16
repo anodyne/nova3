@@ -4,7 +4,7 @@
  * Get the routes from the cache and create them.
  */
 
-// Get all routes
+/*// Get all routes
 $routes = Cache::get('nova.routes');
 
 if ($routes === null)
@@ -94,7 +94,7 @@ else
 			}
 		}
 	}
-}
+}*/
 
 /**
  * Route includes from around the system.
@@ -107,7 +107,7 @@ require SRCPATH.'setup/routes.php';
 require SRCPATH.'wiki/routes.php';
 
 // Get the module list
-$modules = Cache::get('nova.modules', array());
+$modules = Cache::get('nova.modules', []);
 
 // Loop through the modules and include their route files
 foreach ($modules as $m)
