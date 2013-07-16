@@ -176,7 +176,7 @@ class NovaSeedDatabase extends Migration {
 		$genre = Config::get('nova.genre');
 
 		// Pull in the genre data file
-		include SRCPATH."setup/assets/install/genres/{$genre}.php";
+		include SRCPATH."setup/database/genres/{$genre}.php";
 
 		foreach ($catalog_ranks as $c)
 		{
@@ -662,7 +662,7 @@ class NovaSeedDatabase extends Migration {
 		$genre = Config::get('nova.genre');
 
 		// Pull in the genre data file
-		include SRCPATH."setup/assets/install/genres/{$genre}.php";
+		include SRCPATH."setup/database/genres/{$genre}.php";
 
 		// Loop through the departments and seed the data
 		foreach ($depts as $d)
@@ -677,7 +677,7 @@ class NovaSeedDatabase extends Migration {
 		$genre = Config::get('nova.genre');
 
 		// Pull in the genre data file
-		include SRCPATH."setup/assets/install/genres/{$genre}.php";
+		include SRCPATH."setup/database/genres/{$genre}.php";
 
 		foreach ($positions as $p)
 		{
@@ -691,7 +691,7 @@ class NovaSeedDatabase extends Migration {
 		$genre = Config::get('nova.genre');
 
 		// Pull in the genre data file
-		include SRCPATH."setup/assets/install/genres/{$genre}.php";
+		include SRCPATH."setup/database/genres/{$genre}.php";
 
 		foreach ($info as $i)
 		{
