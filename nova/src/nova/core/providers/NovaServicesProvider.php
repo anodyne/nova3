@@ -1,5 +1,6 @@
 <?php namespace Nova\Core\Providers;
 
+use App;
 use Nova\Core\Lib\Nova;
 use Nova\Core\Lib\Media;
 use Nova\Core\Lib\Location;
@@ -9,7 +10,7 @@ use Nova\Core\Lib\SystemEvent;
 use dflydev\markdown\MarkdownParser;
 use Illuminate\Support\ServiceProvider;
 
-class NovaServiceProvider extends ServiceProvider {
+class NovaServicesProvider extends ServiceProvider {
 
 	/**
 	 * Register the service provider.
@@ -28,7 +29,7 @@ class NovaServiceProvider extends ServiceProvider {
 
 	protected function registerLocation()
 	{
-		$this->app['nova.location'] = $this->app->share(function()
+		$this->app->singleton('nova.location', function()
 		{
 			return new Location;
 		});
@@ -36,7 +37,7 @@ class NovaServiceProvider extends ServiceProvider {
 
 	protected function registerMarkdown()
 	{
-		$this->app['markdown'] = $this->app->share(function()
+		$this->app->singleton('markdown', function()
 		{
 			return new Markdown(new MarkdownParser);
 		});
@@ -44,7 +45,7 @@ class NovaServiceProvider extends ServiceProvider {
 
 	protected function registerSystemEvent()
 	{
-		$this->app['nova.event'] = $this->app->share(function()
+		$this->app->singleton('nova.event', function()
 		{
 			return new SystemEvent;
 		});
@@ -52,7 +53,7 @@ class NovaServiceProvider extends ServiceProvider {
 
 	protected function registerCommon()
 	{
-		$this->app['nova.common'] = $this->app->share(function()
+		$this->app->singleton('nova.common', function()
 		{
 			return new Nova;
 		});
@@ -60,7 +61,7 @@ class NovaServiceProvider extends ServiceProvider {
 
 	protected function registerMedia()
 	{
-		$this->app['nova.media'] = $this->app->share(function()
+		$this->app->singleton('nova.media', function()
 		{
 			return new Media;
 		});
@@ -68,7 +69,7 @@ class NovaServiceProvider extends ServiceProvider {
 
 	protected function registerDynamicForm()
 	{
-		$this->app['nova.form'] = $this->app->share(function()
+		$this->app->singleton('nova.form', function()
 		{
 			return new DynamicForm;
 		});
