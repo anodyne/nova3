@@ -92,6 +92,7 @@ return array(
 	'inactive' => 'inactive',
 	'in_progress' => 'in progress',
 	'instructions' => "instructions",
+	'installed' => "installed",
 
 	'joint' => 'joint',
 
@@ -159,6 +160,8 @@ return array(
 	'readme' => 'readme',
 	'rank' => 'rank',
 	'ranks' => 'ranks',
+	'rank_set' => "rank set",
+	'rank_sets' => "rank sets",
 	'rejected' => 'rejected',
 	'review' => 'review',
 	'reviews' => 'reviews',

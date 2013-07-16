@@ -9,6 +9,7 @@ return array(
 	'duplicate'	=> "duplicate :0",
 	'edit' 		=> "edit :0",
 	'fillout'	=> "fill out :0",
+	'install'	=> "install :0",
 	'manage' 	=> "manage :0",
 	'new' 		=> "new :0",
 	'remove'	=> "remove :0",
@@ -25,6 +26,7 @@ return array(
 			'create' 	=> ":0 creation failed, please try again.",
 			'delete' 	=> ":0 deletion failed, please try again.",
 			'duplicate'	=> ":0 duplication failed, please try again.",
+			'install'	=> ":0 installation failed, please try again.",
 			'save'		=> ":0 save failed, please try again.",
 			'submit'	=> ":0 submission failed, please try again.",
 			'update'	=> ":0 update failed, please try again.",
@@ -34,6 +36,7 @@ return array(
 			'create' 	=> ":0 created.",
 			'delete' 	=> ":0 deleted.",
 			'duplicate'	=> ":0 duplicated.",
+			'install'	=> ":0 installed.",
 			'save'	 	=> ":0 saved.",
 			'sent'		=> ":0 sent.",
 			'submit'	=> ":0 submitted.",
@@ -50,6 +53,12 @@ return array(
 			'email' => "You can send an email to the applicant to request additional information or tell them about the status of their application. This email will be added to the Review History and will be viewable by all members of the review.",
 			'involved' => ":0 involved in this review",
 			'voted' => ":0 voted :1 on this application.",
+		],
+
+		'catalog' => [
+			'deleteUpdates' => "Select the new :0 that users currently using the <strong>:1</strong> :0 will be updated to.",
+
+			'pendingRanksMessage' => "The rank sets below were found in the appropriate ranks directory and have a QuickInstall file, but haven't been installed yet. To install these ranks and make them available to use, click the :0 icon.",
 		],
 
 		'forms' => [
@@ -125,6 +134,8 @@ return array(
 	'duplicateConfirm' => "This will duplicate the :0 <strong>:1</strong>. Are you sure you want to proceed?",
 
 	'forgotPassword' => "Forgot your password?",
+
+	'installConfirm' => "This will install the :0 <strong>:1</strong>. Are you sure you want to proceed?",
 
 	'javascript' => "You need to have Javascript turned on to use all of Nova 3's features.",
 

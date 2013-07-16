@@ -297,6 +297,37 @@ class Delete extends AjaxBaseController {
 	}
 
 	/**
+	 * Confirm the deletion of a rank set catalog.
+	 *
+	 * @param	int		Catalog ID
+	 * @return	string
+	 */
+	public function getRankSet($id)
+	{
+		if (Sentry::check() and Sentry::getUser()->hasAccess('catalog.delete'))
+		{
+			// Get the catalog we're deleting
+			$catalog = \RankCatalog::find($id);
+
+			if ($catalog !== null)
+			{
+				// Get the other active rank sets for this genre
+				$catalogs = \RankCatalog::active()->currentGenre()->get();
+
+				// Filter out the rank set we're deleting
+				$catalogs = $catalogs->filter(function($r) use($catalog)
+				{
+					return $r->location != $catalog->location;
+				})->toSimpleArray('location', 'name');
+
+				echo View::make(Location::ajax('delete/rankset'))
+					->with('rank', $catalog)
+					->with('ranks', $catalogs);
+			}
+		}
+	}
+
+	/**
 	 * Confirm the deletion of an access role.
 	 *
 	 * @return	string

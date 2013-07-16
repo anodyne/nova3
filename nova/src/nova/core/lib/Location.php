@@ -4,6 +4,7 @@ use URL;
 use HTML;
 use File;
 use View;
+use Setup;
 use Config;
 use Exception;
 use RankCatalog;
@@ -376,7 +377,7 @@ class Location {
 	 */
 	protected function setSkin()
 	{
-		$this->skin = \Nova::getSkin();
+		$this->skin = (Setup::installed()) ? \Nova::getSkin() : false;
 	}
 	
 }

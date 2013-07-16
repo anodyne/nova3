@@ -288,7 +288,7 @@ return [
 	[
 		'name'			=> 'admin/catalog/ranks',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/catalog/ranks',
+		'uri'			=> 'admin/catalog/ranks/{id?}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\Catalog@getRanks',
 		'protected'		=> (int) true
 	],
@@ -343,6 +343,13 @@ return [
 		'verb'			=> 'post',
 		'uri'			=> 'ajax/add/form_value',
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Add@postFormValue',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'ajax/add/rankset',
+		'verb'			=> 'get',
+		'uri'			=> 'ajax/add/rankset/{location}',
+		'resource'		=> 'Nova\Core\Controllers\Ajax\Add@getRankSet',
 		'protected'		=> (int) true
 	],
 
@@ -449,6 +456,13 @@ return [
 		'verb'			=> 'get',
 		'uri'			=> 'ajax/delete/formviewer_entry/{formKey}/{id}',
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getFormViewerEntry',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'ajax/delete/rankset',
+		'verb'			=> 'get',
+		'uri'			=> 'ajax/delete/rankset/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getRankSet',
 		'protected'		=> (int) true
 	],
 

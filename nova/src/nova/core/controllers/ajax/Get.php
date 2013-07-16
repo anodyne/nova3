@@ -194,9 +194,8 @@ public function action_user()
 		// Figure out what to output
 		switch ($return)
 		{
-			return Location::rank($rank->base, $rank->pip, Nova::getRank());
 			case 'image':
-			
+				return Location::rank($rank->base, $rank->pip, Nova::getRank());
 			break;
 
 			case 'json':

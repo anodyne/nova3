@@ -237,7 +237,7 @@ Route::group(['prefix' => 'setup', 'before' => 'configFileCheck|setupAuthorizati
 		Schema::drop('migrations');
 
 		// Wait for it...
-		sleep(3);
+		sleep(2);
 
 		return Redirect::to('setup');
 	});

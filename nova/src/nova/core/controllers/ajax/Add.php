@@ -1,9 +1,11 @@
 <?php namespace Nova\Core\Controllers\Ajax;
 
 use Str;
+use File;
 use Nova;
 use View;
 use Input;
+use Config;
 use Sentry;
 use Request;
 use Location;
@@ -78,6 +80,27 @@ class Add extends AjaxBaseController {
 
 			echo '<p class="alert alert-success">'.lang('[[short.flash.success|module|action.installed]]').'</p>';
 			echo '<div class="form-actions"><button class="btn close-dialog">'.lang('action.close', 1).'</button></div>';
+		}
+	}
+
+	/**
+	 * Confirm installing a rank set.
+	 *
+	 * @param	string	The location of the rank set
+	 * @return	void
+	 */
+	public function getRankSet($location)
+	{
+		if (Sentry::check() and Sentry::getUser()->hasAccess('catalog.create'))
+		{
+			// Get the genre
+			$genre = Config::get('nova.genre');
+
+			// Get the contents of the QuickInstall file
+			$rankContents = File::get(APPPATH."assets/common/{$genre}/ranks/{$location}/rank.json");
+
+			echo View::make(Location::ajax('add/rankset'))
+				->with('rank', json_decode($rankContents));
 		}
 	}
 

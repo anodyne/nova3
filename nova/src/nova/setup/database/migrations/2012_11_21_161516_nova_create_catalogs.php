@@ -29,12 +29,10 @@ class NovaCreateCatalogs extends Migration {
 			$t->increments('id');
 			$t->string('name');
 			$t->string('location');
-			$t->string('preview', 50)->default('preview.png');
 			$t->string('blank', 50)->default('blank.png');
 			$t->string('extension', 5)->default('.png');
 			$t->boolean('status')->default(Status::ACTIVE);
 			$t->text('credits')->nullable();
-			$t->boolean('default')->default((int) false);
 			$t->string('genre', 10);
 			$t->timestamps();
 		});
