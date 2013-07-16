@@ -1,17 +1,15 @@
-<?php
-
-namespace Nova\Citadel;
+<?php namespace Nova\Extensions\Cartalyst\Sentry;
 
 use Cartalyst\Sentry\Sentry;
 use Illuminate\Support\ServiceProvider;
-use Nova\Citadel\Hashing\CitadelHasher;
 use Cartalyst\Sentry\Cookies\IlluminateCookie;
 use Cartalyst\Sentry\Sessions\IlluminateSession;
-use Nova\Citadel\Users\Provider as UserProvider;
-use Nova\Citadel\Groups\Provider as GroupProvider;
-use Nova\Citadel\Throttling\Provider as ThrottleProvider;
+use Nova\Extensions\Cartalyst\Sentry\Hashing\NovaHasher;
+use Nova\Extensions\Cartalyst\Sentry\Users\Provider as UserProvider;
+use Nova\Extensions\Cartalyst\Sentry\Groups\Provider as GroupProvider;
+use Nova\Extensions\Cartalyst\Sentry\Throttling\Provider as ThrottleProvider;
 
-class CitadelServiceProvider extends ServiceProvider {
+class SentryServiceProvider extends ServiceProvider {
 
 	/**
 	 * Boot the service provider.
@@ -56,7 +54,7 @@ class CitadelServiceProvider extends ServiceProvider {
 	{
 		$this->app['sentry.hasher'] = $this->app->share(function($app)
 		{
-			return new CitadelHasher;
+			return new NovaHasher;
 		});
 	}
 

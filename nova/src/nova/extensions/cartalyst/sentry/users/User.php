@@ -1,6 +1,4 @@
-<?php
-
-namespace Nova\Citadel\Users;
+<?php namespace Nova\Extensions\Cartalyst\Sentry\Users;
 
 use Model;
 use Session;

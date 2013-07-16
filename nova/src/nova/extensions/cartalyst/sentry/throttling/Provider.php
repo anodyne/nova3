@@ -1,6 +1,4 @@
-<?php
-
-namespace Nova\Citadel\Throttling;
+<?php namespace Nova\Extensions\Cartalyst\Sentry\Throttling;
 
 use UserSuspendedModel;
 use Cartalyst\Sentry\Throttling\ThrottleInterface;

@@ -1,4 +1,4 @@
-<?php namespace Nova\Citadel\Throttling;
+<?php namespace Nova\Extensions\Cartalyst\Sentry\Throttling;
 
 use Model;
 use DateTime;

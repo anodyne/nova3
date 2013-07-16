@@ -1,23 +1,9 @@
-<?php
-/**
- * Citadel Hasher.
- *
- * This is nearly identical to the Sentry SHA256 hasher except that the salt we
- * create is based off the system UID generated during install.
- *
- * @package		Nova
- * @subpackage	Citadel
- * @category	Class
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
-
-namespace Nova\Citadel\Hashing;
+<?php namespace Nova\Extensions\Cartalyst\Sentry\Hashing;
 
 use System;
 use Cartalyst\Sentry\Hashing\HasherInterface;
 
-class CitadelHasher implements HasherInterface {
+class NovaHasher implements HasherInterface {
 
 	/**
 	 * Salt Length

@@ -1,6 +1,4 @@
-<?php
-
-namespace Nova\Citadel\Groups;
+<?php namespace Nova\Extensions\Cartalyst\Sentry\Groups;
 
 use Model;
 use Cartalyst\Sentry\Groups\NameRequiredException;

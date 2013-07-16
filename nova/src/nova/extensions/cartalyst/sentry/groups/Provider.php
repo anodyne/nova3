@@ -1,4 +1,4 @@
-<?php namespace Nova\Citadel\Groups;
+<?php namespace Nova\Extensions\Cartalyst\Sentry\Groups;
 
 use AccessRole;
 use Cartalyst\Sentry\Groups\GroupInterface;
