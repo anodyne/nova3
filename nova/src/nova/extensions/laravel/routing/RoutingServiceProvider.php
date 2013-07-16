@@ -1,14 +1,4 @@
-<?php namespace Nova\Foundation\Routing;
-
-/**
- * Service Provider for the Nova Routing component.
- *
- * @package		Nova
- * @subpackage	Foundation
- * @category	Class
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
+<?php namespace Nova\Extensions\Laravel\Routing;
 
 use Illuminate\Routing\RoutingServiceProvider as LaravelRoutingServiceProvider;
 

@@ -1,15 +1,4 @@
-<?php
-/**
- * Service Provider for the Nova language work.
- *
- * @package		Nova
- * @subpackage	Foundation
- * @category	Class
- * @author		Anodyne Productions
- * @copyright	2012 Anodyne Productions
- */
-
-namespace Nova\Foundation\Translation;
+<?php namespace Nova\Extensions\Laravel\Translation;
 
 use Illuminate\Translation\Translator;
 use Illuminate\Support\ServiceProvider;
@@ -58,7 +47,7 @@ class TranslationServiceProvider extends ServiceProvider {
 	{
 		$this->app['translation.loader'] = $this->app->share(function($app)
 		{
-			return new CascadingFileLoader($app['files'], false);
+			return new TranslationCascadingFileLoader($app['files'], false);
 		});
 	}
 

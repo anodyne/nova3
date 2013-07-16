@@ -1,21 +1,9 @@
-<?php namespace Nova\Foundation\Config;
-
-/**
- * Compiles config files from pre-determined locations and recursively merges
- * them together to allow admins to override config files from the app/config
- * directory.
- *
- * @package		Nova
- * @subpackage	Foundation
- * @category	Class
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
+<?php namespace Nova\Extensions\Laravel\Config;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Config\LoaderInterface;
 
-class CascadingFileLoader implements LoaderInterface {
+class ConfigCascadingFileLoader implements LoaderInterface {
 
 	/**
 	 * The filesystem instance.

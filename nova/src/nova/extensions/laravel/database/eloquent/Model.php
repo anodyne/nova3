@@ -1,4 +1,4 @@
-<?php namespace Nova\Foundation\Database\Eloquent;
+<?php namespace Nova\Extensions\Laravel\Database\Eloquent;
 
 /**
  * The model class is the foundation for all of Nova's models and provides core

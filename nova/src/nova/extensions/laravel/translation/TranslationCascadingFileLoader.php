@@ -1,9 +1,9 @@
-<?php namespace Nova\Foundation\Translation;
+<?php namespace Nova\Extensions\Laravel\Translation;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\LoaderInterface;
 
-class CascadingFileLoader implements LoaderInterface {
+class TranslationCascadingFileLoader implements LoaderInterface {
 
 	/**
 	 * The filesystem instance.

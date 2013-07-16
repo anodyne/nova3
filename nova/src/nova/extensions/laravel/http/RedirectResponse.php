@@ -1,4 +1,4 @@
-<?php namespace Nova\Foundation\Http;
+<?php namespace Nova\Extensions\Laravel\Http;
 
 use Illuminate\Http\RedirectResponse as LaravelRedirectResponse;
 

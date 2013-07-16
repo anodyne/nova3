@@ -1,16 +1,6 @@
-<?php namespace Nova\Foundation\Routing;
+<?php namespace Nova\Extensions\Laravel\Routing;
 
-/**
- * Redirector override.
- *
- * @package		Nova
- * @subpackage	Foundation
- * @category	Class
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
-
-use Nova\Foundation\Http\RedirectResponse;
+use Nova\Extensions\Http\RedirectResponse;
 use Illuminate\Routing\Redirector as LaravelRedirector;
 
 class Redirector extends LaravelRedirector {
