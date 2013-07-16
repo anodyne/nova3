@@ -1,8 +1,8 @@
-<?php namespace Nova\Setup\Facades;
+<?php namespace Nova\Setup;
 
 use Illuminate\Support\Facades\Facade;
 
-class Setup extends Facade {
+class SetupFacade extends Facade {
 
 	/**
 	 * Get the registered name of the component.

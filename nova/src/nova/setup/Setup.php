@@ -1,4 +1,4 @@
-<?php namespace Nova\Setup\Lib;
+<?php namespace Nova\Setup;
 
 use File;
 use Cache;

@@ -1,9 +1,8 @@
-<?php namespace Nova\Setup\Providers;
+<?php namespace Nova\Setup;
 
-use Nova\Setup\Lib\Setup;
 use Illuminate\Support\ServiceProvider;
 
-class SetupServiceProvider extends ServiceProvider {
+class SetupProvider extends ServiceProvider {
 
 	/**
 	 * Register the service provider.
@@ -17,7 +16,7 @@ class SetupServiceProvider extends ServiceProvider {
 
 	protected function registerSetup()
 	{
-		$this->app['nova.setup'] = $this->app->share(function()
+		$this->app->singleton('nova.setup', function()
 		{
 			return new Setup;
 		});
