@@ -1,0 +1,10 @@
+{
+	"name": "Pulsar",
+	"location": "default",
+	"nav": "dropdown",
+	"credits": "",
+	"version": "1.0",
+	"has_main": false,
+	"has_admin": false,
+	"has_login": false,
+}
