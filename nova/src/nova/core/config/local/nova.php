@@ -2,7 +2,7 @@
 
 return array(
 
-	'version_check_path' => NOVAPATH.'src/nova/setup/assets/update/version.json',
+	'version_check_path' => SRCPATH.'setup/version.json',
 
 	'registration_path' => '',
 
