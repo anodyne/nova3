@@ -194,32 +194,6 @@ class NovaSeedDatabase extends Migration {
 		{
 			SkinCatalog::create($s);
 		}
-
-		$skinSections = [
-			[
-				'section' => 'main',
-				'skin' => 'default',
-				'preview' => 'preview-main.jpg',
-				'default' => (int) true
-			],
-			[
-				'section' => 'login',
-				'skin' => 'default',
-				'preview' => 'preview-login.jpg',
-				'default' => (int) true
-			],
-			[
-				'section' => 'admin',
-				'skin' => 'default',
-				'preview' => 'preview-admin.jpg',
-				'default' => (int) true
-			],
-		];
-
-		foreach ($skinSections as $c)
-		{
-			SkinSectionCatalog::create($c);
-		}
 	}
 
 	protected function seedForms()

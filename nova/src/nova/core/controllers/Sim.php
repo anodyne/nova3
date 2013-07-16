@@ -24,7 +24,7 @@ class Sim extends MainBaseController {
 		// Do the final nav setup
 		$finalNavSetup = function() use(&$me)
 		{
-			if ($me->_sectionInfo->nav == 'classic')
+			if ($me->_skinInfo->nav == 'classic')
 			{
 				// Set the type and category
 				$me->nav->setType('sub')->setCategory('sim');

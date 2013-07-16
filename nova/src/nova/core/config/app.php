@@ -263,7 +263,6 @@ return array(
 		'ModuleCatalog'				=> 'Nova\Core\Models\Entities\Catalog\Module',
 		'RankCatalog'				=> 'Nova\Core\Models\Entities\Catalog\Rank',
 		'SkinCatalog'				=> 'Nova\Core\Models\Entities\Catalog\Skin',
-		'SkinSectionCatalog'		=> 'Nova\Core\Models\Entities\Catalog\SkinSection',
 		'WidgetCatalog'				=> 'Nova\Core\Models\Entities\Catalog\Widget',
 
 		'Character'					=> 'Nova\Core\Models\Entities\Character',

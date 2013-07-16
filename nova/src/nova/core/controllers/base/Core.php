@@ -231,7 +231,7 @@ abstract class Core extends Controller {
 				// Create empty objects for the data
 				$me->_data = new stdClass;
 				$me->_jsData = new stdClass;
-				$me->_sectionInfo = new stdClass;
+				$me->_skinInfo = new stdClass;
 
 				// Grab the content for the current section
 				$me->_headers	= SiteContent::getSectionContent('header', $me->_controller);

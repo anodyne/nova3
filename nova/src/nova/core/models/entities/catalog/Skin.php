@@ -6,37 +6,61 @@ use Status;
 use SplFileInfo;
 use QuickInstallInterface;
 use Symfony\Component\Finder\Finder;
-use SkinSectionCatalog as SkinSectionCatalogModel;
 
 class Skin extends Model implements QuickInstallInterface {
 
 	protected $table = 'catalog_skins';
 
-	protected $fillable = array(
-		'name', 'location', 'credits', 'version', 'status', 'options',
-	);
+	protected $fillable = [
+		'name', 'location', 'nav', 'preview', 'credits', 'version', 'status', 
+		'options', 'has_main', 'has_admin', 'has_login',
+	];
 
-	protected $dates = array('created_at', 'updated_at');
+	protected $dates = ['created_at', 'updated_at'];
 	
-	protected static $properties = array(
-		'id', 'name', 'location', 'credits', 'version', 'status', 'options',
-		'created_at', 'updated_at',
-	);
+	protected static $properties = [
+		'id', 'name', 'location', 'nav', 'preview', 'credits', 'version', 
+		'status', 'options', 'has_main', 'has_admin', 'has_login', 'created_at', 
+		'updated_at',
+	];
 
 	/*
 	|--------------------------------------------------------------------------
-	| Relationships
+	| Models Scopes
 	|--------------------------------------------------------------------------
 	*/
 
 	/**
-	 * Get the sections for this skin.
+	 * Scope the query to skins that have a main section.
 	 *
-	 * @return	Collection
+	 * @param	Builder		Query Builder
+	 * @return	void
 	 */
-	public function sections()
+	public function scopeHasMain($query)
 	{
-		return SkinSectionCatalogModel::where('skin', $this->location)->active()->get();
+		$query->where('has_main', (int) true);
+	}
+
+	/**
+	 * Scope the query to skins that have an admin section.
+	 *
+	 * @param	Builder		Query Builder
+	 * @return	void
+	 */
+	public function scopeHasAdmin($query)
+	{
+		$query->where('has_admin', (int) true);
+	}
+
+	/**
+	 * Scope the query to skins that have a log in section.
+	 *
+	 * @param	Builder		Query Builder
+	 * @return	void
+	 */
+	public function scopeHasLogin($query)
+	{
+		$query->where('has_login', (int) true);
 	}
 
 	/*
@@ -85,21 +109,12 @@ class Skin extends Model implements QuickInstallInterface {
 					static::create([
 						'name'		=> $data->name,
 						'location'	=> $data->location,
+						'nav'		=> $data->nav,
+						'preview'	=> $data->preview,
 						'credits'	=> $data->credits,
 						'version'	=> $data->version,
+						'status'	=> Status::ACTIVE,
 					]);
-					
-					// Loop through and add the sections
-					foreach ($data->sections as $s)
-					{
-						SkinSectionCatalogModel::create([
-							'section' 	=> $s->type,
-							'skin' 		=> $data->location,
-							'preview'	=> $s->preview,
-							'status' 	=> Status::ACTIVE,
-							'default' 	=> (int) false
-						]);
-					}
 				}
 			}
 		}
@@ -119,21 +134,12 @@ class Skin extends Model implements QuickInstallInterface {
 				static::create([
 					'name'		=> $data->name,
 					'location'	=> $data->location,
+					'nav'		=> $data->nav,
+					'preview'	=> $data->preview,
 					'credits'	=> $data->credits,
 					'version'	=> $data->version,
+					'status'	=> Status::ACTIVE,
 				]);
-				
-				// Loop through and add the sections
-				foreach ($data->sections as $s)
-				{
-					SkinSectionCatalogModel::create([
-						'section' 	=> $s->type,
-						'skin' 		=> $data->location,
-						'preview'	=> $s->preview,
-						'status' 	=> Status::ACTIVE,
-						'default' 	=> (int) false
-					]);
-				}
 			}
 		}
 	}
@@ -162,13 +168,6 @@ class Skin extends Model implements QuickInstallInterface {
 	 */
 	public function uninstall()
 	{
-		// Loop through the sections and remove them
-		foreach ($this->sections() as $section)
-		{
-			$section->delete();
-		}
-
-		// Now remove the skin
 		$this->delete();
 	}
 

@@ -16,7 +16,6 @@ use AccessRole;
 use RankCatalog;
 use NovaFormData;
 use FormDataInterface;
-use SkinSectionCatalog;
 use Cartalyst\Sentry\Users\UserInterface;
 use Cartalyst\Sentry\Groups\GroupInterface;
 
@@ -375,8 +374,8 @@ class User extends Model implements UserInterface, FormDataInterface {
 			'email_format'			=> 'html',
 			'language'				=> 'en',
 			'rank'					=> RankCatalog::getDefault(true),
-			'skin_main'				=> SkinSectionCatalog::getDefault('main', true),
-			'skin_admin'			=> SkinSectionCatalog::getDefault('admin', true),
+			'skin_main'				=> Settings::getSettings('skin_main'),
+			'skin_admin'			=> Settings::getSettings('skin_admin'),
 			'email_comments'		=> (int) true,
 			'email_messages'		=> (int) true,
 			'email_logs'			=> (int) true,

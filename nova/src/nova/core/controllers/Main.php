@@ -28,7 +28,7 @@ class Main extends MainBaseController {
 		{
 			if ( ! $me->_stopExecution)
 			{
-				if ($me->_sectionInfo->nav == 'classic')
+				if ($me->_skinInfo->nav == 'classic')
 				{
 					// Set the type and category
 					$me->nav->setType('sub')->setCategory('main');

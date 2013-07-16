@@ -21,8 +21,8 @@ use Session;
 use Location;
 use Redirect;
 use SiteContent;
+use SkinCatalog;
 use BaseController;
-use SkinSectionCatalog;
 
 abstract class Admin extends BaseController {
 
@@ -65,10 +65,10 @@ abstract class Admin extends BaseController {
 			
 
 				// Get the skin section info
-				$me->_sectionInfo = SkinSectionCatalog::getItems('skin', $me->skin)->first();
+				$me->_skinInfo = SkinCatalog::getItems('location', $me->skin)->first();
 
 				// Build the navigation
-				$me->nav->setStyle($me->_sectionInfo->nav)
+				$me->nav->setStyle($me->_skinInfo->nav)
 					->setSection('admin')
 					->setCategory('admin')
 					->setType('main');

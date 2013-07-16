@@ -3,8 +3,8 @@
 use View;
 use Session;
 use Location;
+use SkinCatalog;
 use BaseController;
-use SkinSectionCatalog;
 
 abstract class Login extends BaseController {
 
@@ -37,7 +37,7 @@ abstract class Login extends BaseController {
 			$me->timezone	= Session::get('timezone', $me->settings->timezone);
 
 			// Get the skin section info
-			$me->_sectionInfo = SkinSectionCatalog::getItems('skin', $me->skin)->first();
+			$me->_skinInfo	= SkinCatalog::getItems('location', $me->skin)->first();
 		});
 	}
 

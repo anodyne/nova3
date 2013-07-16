@@ -22,8 +22,8 @@ use Sentry;
 use Session;
 use Location;
 use SiteContent;
+use SkinCatalog;
 use BaseController;
-use SkinSectionCatalog;
 
 abstract class Main extends BaseController {
 
@@ -51,10 +51,10 @@ abstract class Main extends BaseController {
 				$me->icons		= Nova::getIconIndex($me->skin);
 
 				// Get the skin section info
-				$me->_sectionInfo = SkinSectionCatalog::getItems('skin', $me->skin)->first();
+				$me->_skinInfo	= SkinCatalog::getItems('location', $me->skin)->first();
 
 				// Build the navigation
-				$me->nav->setStyle($me->_sectionInfo->nav)
+				$me->nav->setStyle($me->_skinInfo->nav)
 					->setSection('main')
 					->setCategory('main')
 					->setType('main');

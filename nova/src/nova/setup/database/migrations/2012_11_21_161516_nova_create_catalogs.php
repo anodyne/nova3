@@ -44,22 +44,15 @@ class NovaCreateCatalogs extends Migration {
 			$t->increments('id');
 			$t->string('name');
 			$t->string('location');
+			$t->string('nav', 20)->default('dropdown');
+			$t->string('preview')->nullable();
 			$t->text('credits')->nullable();
 			$t->string('version', 10)->nullable();
 			$t->boolean('status')->default(Status::ACTIVE);
 			$t->text('options')->nullable();
-			$t->timestamps();
-		});
-
-		Schema::create('catalog_skin_sections', function($t)
-		{
-			$t->increments('id');
-			$t->string('section', 50);
-			$t->string('skin', 100);
-			$t->string('preview', 50)->nullable();
-			$t->boolean('status')->default(Status::ACTIVE);
-			$t->boolean('default')->default((int) false);
-			$t->string('nav', 20)->default('dropdown');
+			$t->boolean('has_main')->default((int) false);
+			$t->boolean('has_admin')->default((int) false);
+			$t->boolean('has_login')->default((int) false);
 			$t->timestamps();
 		});
 
@@ -86,7 +79,6 @@ class NovaCreateCatalogs extends Migration {
 		Schema::drop('catalog_modules');
 		Schema::drop('catalog_ranks');
 		Schema::drop('catalog_skins');
-		Schema::drop('catalog_skin_sections');
 		Schema::drop('catalog_widgets');
 	}
 

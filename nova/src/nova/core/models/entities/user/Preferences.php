@@ -2,7 +2,6 @@
 
 use Model;
 use RankCatalog;
-use SkinSectionCatalog;
 
 class Preferences extends Model {
 	
