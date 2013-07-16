@@ -10,10 +10,10 @@
 		<meta name="author" content="{{ $settings->meta_author }}">
 		
 		<!-- Bootstrap styles -->
-		{{ HTML::style('nova/src/nova/assets/css/bootstrap.min.css') }}
+		{{ HTML::style('nova/assets/css/bootstrap.min.css') }}
 
 		<!-- Web fonts styles -->
-		{{ HTML::style('nova/src/nova/assets/css/fonts.css') }}
+		{{ HTML::style('nova/assets/css/fonts.css') }}
 
 		<!-- Nova's base styles and any user-defined styles -->
 		@if (is_file(APPPATH.'views/'.$skin.'/design/style.css'))

@@ -10,10 +10,10 @@
 		<meta name="author" content="{{ $settings->meta_author }}">
 		
 		<!-- Bootstrap styles -->
-		{{ HTML::style('nova/src/nova/assets/css/bootstrap.min.css') }}
+		{{ HTML::style('nova/assets/css/bootstrap.min.css') }}
 
 		<!-- Web font stylesheet -->
-		{{ HTML::style('nova/src/nova/assets/css/fonts.css') }}
+		{{ HTML::style('nova/assets/css/fonts.css') }}
 		
 		<!-- Nova's base styles and any user-defined styles -->
 		@if (is_file(APPPATH.'views/'.$skin.'/design/style.admin.css'))
@@ -29,10 +29,6 @@
 	</head>
 	<body>
 		{{ $template }}
-
-		<!--[if lt IE 9]>
-		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
 		
 		<!-- Nova's core Javascript -->
 		<?php include SRCPATH.'core/views/components/js/core/admin_js.php';?>

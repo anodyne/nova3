@@ -16,8 +16,8 @@
 		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 		
-		<link rel="stylesheet" href="{{ SRCURL }}assets/css/bootstrap.min.css">
-		<link rel="stylesheet" href="{{ SRCURL }}assets/css/fonts.css">
+		<link rel="stylesheet" href="{{ NOVAURL }}assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="{{ NOVAURL }}assets/css/fonts.css">
 		<link rel="stylesheet" href="{{ SRCURL }}setup/views/design/style.css">
 
 		<!-- High pixel density displays -->
@@ -26,14 +26,9 @@
 	<body>
 		{{ $layout }}
 
-		<!--[if lt IE 9]>
-			<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-		<![endif]-->
-		<!--[if gte IE 9]><!-->
-			<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-		<!--<![endif]-->
+		<?php include_once SRCPATH.'core/views/components/js/core/jquery_js.php';?>
 
-		<script type="text/javascript" src="{{ SRCURL }}assets/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="{{ NOVAURL }}assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
 

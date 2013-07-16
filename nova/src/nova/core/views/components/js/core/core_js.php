@@ -1,12 +1,7 @@
-<!--[if lt IE 9]>
-	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-<![endif]-->
-<!--[if gte IE 9]><!-->
-	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-<!--<![endif]-->
+<?php include_once SRCPATH.'core/views/components/js/core/jquery_js.php';?>
 
-<script type="text/javascript" src="<?php echo SRCURL;?>assets/js/jquery.lazy.js"></script>
-<script type="text/javascript" src="<?php echo SRCURL;?>assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo NOVAURL;?>assets/js/jquery.lazy.js"></script>
+<script type="text/javascript" src="<?php echo NOVAURL;?>assets/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	
 	$(document).ready(function(){
@@ -55,10 +50,10 @@
 		});
 
 		$.lazy({
-			src: "<?php echo URL::to('nova/src/nova/assets/js/typeahead.min.js');?>",
+			src: "<?php echo URL::to('nova/assets/js/typeahead.min.js');?>",
 			name: 'typeahead',
 			dependencies: {
-				css: ["<?php echo URL::to('nova/src/nova/assets/css/typeahead.bootstrap.css');?>"]
+				css: ["<?php echo URL::to('nova/assets/css/typeahead.bootstrap.css');?>"]
 			},
 			cache: true
 		});

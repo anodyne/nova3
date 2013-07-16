@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<title>404</title>
 
-		<link rel="stylesheet" href="<?php echo SRCURL;?>assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="{{ NOVAURL }}assets/css/bootstrap.min.css">
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'>
 		<style>
 			body {
@@ -44,7 +44,7 @@
 	</head>
 	<body>
 		<div class="container">
-			<h1><?php echo $header;?><small><?php echo nl2br($message);?></small></h1>
+			<h1>{{ $header }}<small>{{ nl2br($message) }}</small></h1>
 
 			<a href="javascript: history.go(-1)" class="btn btn-large btn-block">Go Back</a>
 		</div>

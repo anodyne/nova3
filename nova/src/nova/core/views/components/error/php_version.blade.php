@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<title>Insufficient PHP Version</title>
 
-		<link rel="stylesheet" href="<?php echo SRCURL;?>assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="{{ NOVAURL }}assets/css/bootstrap.min.css">
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'>
 		<style>
 			body {

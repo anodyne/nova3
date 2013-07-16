@@ -40,6 +40,7 @@ require APPPATH.'macros.php';
 // Constants for URLs
 define('BASEURL',	$app->request->root().'/');
 define('APPURL',	BASEURL.'app/');
+define('NOVAURL',	BASEURL.'nova/');
 define('SRCURL',	BASEURL.'nova/src/Nova/');
 
 /*
