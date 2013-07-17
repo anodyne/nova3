@@ -15,6 +15,7 @@
  */
 
 use Date;
+use Event;
 use Config;
 use Status;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
@@ -394,6 +395,28 @@ class Model extends EloquentModel {
 		$query->orderBy('order', 'asc');
 
 		return $query->get();
+	}
+
+	/**
+	 * Setup the event listeners for the model.
+	 *
+	 * @param	string	The model
+	 * @param	string	The listener
+	 * @return	void
+	 */
+	public static function setupEventListeners($model, $listener)
+	{
+		$events = [
+			'creating', 'created',
+			'updating', 'updated',
+			'deleting', 'deleted',
+			'saving', 'saved',
+		];
+
+		foreach ($events as $e)
+		{
+			Event::listen("eloquent.{$e}: {$model}", "{$listener}@{$e}");
+		}
 	}
 
 }
