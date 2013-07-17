@@ -16,4 +16,18 @@ Route::group(array('prefix' => 'test'), function()
 	{
 		echo DynamicForm::setup('character', 1, false)->build();
 	});
+
+	Route::get('email', function()
+	{
+		$users = User::active()->get();
+
+		$final = $users->filter(function($u)
+		{
+			$emailPref = $u->getPreferenceItem('email_format');
+
+			return ($emailPref == 'html');
+		})->toSimpleArray('id', 'email');
+
+		sd($final);
+	});
 });
