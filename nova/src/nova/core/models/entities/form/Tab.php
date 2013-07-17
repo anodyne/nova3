@@ -70,14 +70,8 @@ class Tab extends Model {
 		// Get all the aliases
 		$a = Config::get('app.aliases');
 
-		Event::listen("eloquent.creating: {$a['NovaFormTab']}", "{$a['FormTabEventHandler']}@beforeCreate");
-		Event::listen("eloquent.created: {$a['NovaFormTab']}", "{$a['FormTabEventHandler']}@afterCreate");
-		Event::listen("eloquent.updating: {$a['NovaFormTab']}", "{$a['FormTabEventHandler']}@beforeUpdate");
-		Event::listen("eloquent.updated: {$a['NovaFormTab']}", "{$a['FormTabEventHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$a['NovaFormTab']}", "{$a['FormTabEventHandler']}@beforeDelete");
-		Event::listen("eloquent.deleted: {$a['NovaFormTab']}", "{$a['FormTabEventHandler']}@afterDelete");
-		Event::listen("eloquent.saving: {$a['NovaFormTab']}", "{$a['FormTabEventHandler']}@beforeSave");
-		Event::listen("eloquent.saved: {$a['NovaFormTab']}", "{$a['FormTabEventHandler']}@afterSave");
+		// Setup the listeners
+		static::setupEventListeners($a['NovaFormTab'], $a['NovaFormTabEventHandler']);
 	}
 
 }

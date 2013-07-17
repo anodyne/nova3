@@ -49,9 +49,10 @@ class Comment extends Model {
 		parent::boot();
 
 		// Get all the aliases
-		$classes = Config::get('app.aliases');
+		$a = Config::get('app.aliases');
 
-		Event::listen("eloquent.saving: {$classes['Comment']}", "{$classes['CommentHandler']}@beforeSave");
+		// Setup the listeners
+		static::setupEventListeners($a['Comment'], $a['CommentEventHandler']);
 	}
 
 }

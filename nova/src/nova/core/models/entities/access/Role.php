@@ -84,14 +84,8 @@ class Role extends Model implements GroupInterface {
 		// Get all the aliases
 		$a = Config::get('app.aliases');
 
-		Event::listen("eloquent.creating: {$a['AccessRole']}", "{$a['AccessRoleEventHandler']}@beforeCreate");
-		Event::listen("eloquent.created: {$a['AccessRole']}", "{$a['AccessRoleEventHandler']}@afterCreate");
-		Event::listen("eloquent.updating: {$a['AccessRole']}", "{$a['AccessRoleEventHandler']}@beforeUpdate");
-		Event::listen("eloquent.updated: {$a['AccessRole']}", "{$a['AccessRoleEventHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$a['AccessRole']}", "{$a['AccessRoleEventHandler']}@beforeDelete");
-		Event::listen("eloquent.deleted: {$a['AccessRole']}", "{$a['AccessRoleEventHandler']}@afterDelete");
-		Event::listen("eloquent.saving: {$a['AccessRole']}", "{$a['AccessRoleEventHandler']}@beforeSave");
-		Event::listen("eloquent.saved: {$a['AccessRole']}", "{$a['AccessRoleEventHandler']}@afterSave");
+		// Setup the listeners
+		static::setupEventListeners($a['AccessRole'], $a['AccessRoleEventHandler']);
 	}
 	
 	/**

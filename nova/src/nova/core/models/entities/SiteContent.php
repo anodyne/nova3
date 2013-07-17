@@ -35,12 +35,10 @@ class SiteContent extends Model {
 		parent::boot();
 
 		// Get all the aliases
-		$classes = Config::get('app.aliases');
+		$a = Config::get('app.aliases');
 
-		Event::listen("eloquent.created: {$classes['SiteContent']}", "{$classes['SiteContentHandler']}@afterCreate");
-		Event::listen("eloquent.updated: {$classes['SiteContent']}", "{$classes['SiteContentHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$classes['SiteContent']}", "{$classes['SiteContentHandler']}@beforeDelete");
-		Event::listen("eloquent.saved: {$classes['SiteContent']}", "{$classes['SiteContentHandler']}@afterSave");
+		// Setup the listeners
+		static::setupEventListeners($a['SiteContent'], $a['SiteContentEventHandler']);
 	}
 	
 	/**

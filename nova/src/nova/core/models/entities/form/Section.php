@@ -70,14 +70,8 @@ class Section extends Model {
 		// Get all the aliases
 		$a = Config::get('app.aliases');
 
-		Event::listen("eloquent.creating: {$a['NovaFormSection']}", "{$a['FormSectionEventHandler']}@beforeCreate");
-		Event::listen("eloquent.created: {$a['NovaFormSection']}", "{$a['FormSectionEventHandler']}@afterCreate");
-		Event::listen("eloquent.updating: {$a['NovaFormSection']}", "{$a['FormSectionEventHandler']}@beforeUpdate");
-		Event::listen("eloquent.updated: {$a['NovaFormSection']}", "{$a['FormSectionEventHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$a['NovaFormSection']}", "{$a['FormSectionEventHandler']}@beforeDelete");
-		Event::listen("eloquent.deleted: {$a['NovaFormSection']}", "{$a['FormSectionEventHandler']}@afterDelete");
-		Event::listen("eloquent.saving: {$a['NovaFormSection']}", "{$a['FormSectionEventHandler']}@beforeSave");
-		Event::listen("eloquent.saved: {$a['NovaFormSection']}", "{$a['FormSectionEventHandler']}@afterSave");
+		// Setup the listeners
+		static::setupEventListeners($a['NovaFormSection'], $a['NovaFormSectionEventHandler']);
 	}
 
 }

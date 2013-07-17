@@ -158,14 +158,8 @@ class Field extends Model {
 		// Get all the aliases
 		$a = Config::get('app.aliases');
 
-		Event::listen("eloquent.creating: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@beforeCreate");
-		Event::listen("eloquent.created: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@afterCreate");
-		Event::listen("eloquent.updating: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@beforeUpdate");
-		Event::listen("eloquent.updated: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@beforeDelete");
-		Event::listen("eloquent.deleted: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@afterDelete");
-		Event::listen("eloquent.saving: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@beforeSave");
-		Event::listen("eloquent.saved: {$a['NovaFormField']}", "{$a['FormFieldEventHandler']}@afterSave");
+		// Setup the listeners
+		static::setupEventListeners($a['NovaFormField'], $a['NovaFormFieldEventHandler']);
 	}
 
 	/**

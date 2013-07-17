@@ -112,14 +112,8 @@ class Form extends Model {
 		// Get all the aliases
 		$a = Config::get('app.aliases');
 
-		Event::listen("eloquent.creating: {$a['NovaForm']}", "{$a['FormEventHandler']}@beforeCreate");
-		Event::listen("eloquent.created: {$a['NovaForm']}", "{$a['FormEventHandler']}@afterCreate");
-		Event::listen("eloquent.updating: {$a['NovaForm']}", "{$a['FormEventHandler']}@beforeUpdate");
-		Event::listen("eloquent.updated: {$a['NovaForm']}", "{$a['FormEventHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$a['NovaForm']}", "{$a['FormEventHandler']}@beforeDelete");
-		Event::listen("eloquent.deleted: {$a['NovaForm']}", "{$a['FormEventHandler']}@afterDelete");
-		Event::listen("eloquent.saving: {$a['NovaForm']}", "{$a['FormEventHandler']}@beforeSave");
-		Event::listen("eloquent.saved: {$a['NovaForm']}", "{$a['FormEventHandler']}@afterSave");
+		// Setup the listeners
+		static::setupEventListeners($a['NovaForm'], $a['NovaFormEventHandler']);
 	}
 
 	/**

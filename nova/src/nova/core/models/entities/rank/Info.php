@@ -43,11 +43,10 @@ class Info extends Model {
 		parent::boot();
 
 		// Get all the aliases
-		$classes = Config::get('app.aliases');
+		$a = Config::get('app.aliases');
 
-		Event::listen("eloquent.created: {$classes['RankInfo']}", "{$classes['RankInfoHandler']}@afterCreate");
-		Event::listen("eloquent.updated: {$classes['RankInfo']}", "{$classes['RankInfoHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$classes['RankInfo']}", "{$classes['RankInfoHandler']}@beforeDelete");
+		// Setup the listeners
+		static::setupEventListeners($a['RankInfo'], $a['RankInfoEventHandler']);
 	}
 
 	/**

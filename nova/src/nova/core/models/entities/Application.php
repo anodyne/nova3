@@ -73,9 +73,10 @@ class Application extends Model implements FormDataInterface {
 		parent::boot();
 
 		// Get all the aliases
-		$classes = Config::get('app.aliases');
+		$a = Config::get('app.aliases');
 
-		Event::listen("eloquent.created: {$classes['NovaApp']}", "{$classes['AppHandler']}@afterCreate");
+		// Setup the listeners
+		static::setupEventListeners($a['NovaApp'], $a['NovaAppEventHandler']);
 	}
 
 	/**

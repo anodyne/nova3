@@ -161,14 +161,8 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 		// Get all the aliases
 		$a = Config::get('app.aliases');
 
-		Event::listen("eloquent.creating: {$a['Character']}", "{$a['CharacterEventHandler']}@beforeCreate");
-		Event::listen("eloquent.created: {$a['Character']}", "{$a['CharacterEventHandler']}@afterCreate");
-		Event::listen("eloquent.updating: {$a['Character']}", "{$a['CharacterEventHandler']}@beforeUpdate");
-		Event::listen("eloquent.updated: {$a['Character']}", "{$a['CharacterEventHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$a['Character']}", "{$a['CharacterEventHandler']}@beforeDelete");
-		Event::listen("eloquent.deleted: {$a['Character']}", "{$a['CharacterEventHandler']}@afterDelete");
-		Event::listen("eloquent.saving: {$a['Character']}", "{$a['CharacterEventHandler']}@beforeSave");
-		Event::listen("eloquent.saved: {$a['Character']}", "{$a['CharacterEventHandler']}@afterSave");
+		// Setup the listeners
+		static::setupEventListeners($a['Character'], $a['CharacterEventHandler']);
 	}
 
 	/**

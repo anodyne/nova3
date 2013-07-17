@@ -38,14 +38,8 @@ class SystemRoute extends Model implements CacheInterface {
 		// Get all the aliases
 		$a = Config::get('app.aliases');
 
-		Event::listen("eloquent.creating: {$a['SystemRoute']}", "{$a['SystemRouteHandler']}@beforeCreate");
-		Event::listen("eloquent.created: {$a['SystemRoute']}", "{$a['SystemRouteHandler']}@afterCreate");
-		Event::listen("eloquent.updating: {$a['SystemRoute']}", "{$a['SystemRouteHandler']}@beforeUpdate");
-		Event::listen("eloquent.updated: {$a['SystemRoute']}", "{$a['SystemRouteHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$a['SystemRoute']}", "{$a['SystemRouteHandler']}@beforeDelete");
-		Event::listen("eloquent.deleted: {$a['SystemRoute']}", "{$a['SystemRouteHandler']}@afterDelete");
-		Event::listen("eloquent.saving: {$a['SystemRoute']}", "{$a['SystemRouteHandler']}@beforeSave");
-		Event::listen("eloquent.saved: {$a['SystemRoute']}", "{$a['SystemRouteHandler']}@afterSave");
+		// Setup the listeners
+		static::setupEventListeners($a['SystemRoute'], $a['SystemRouteEventHandler']);
 	}
 
 	/*

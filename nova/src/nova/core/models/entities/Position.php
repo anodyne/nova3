@@ -71,11 +71,10 @@ class Position extends Model {
 		parent::boot();
 
 		// Get all the aliases
-		$classes = Config::get('app.aliases');
+		$a = Config::get('app.aliases');
 
-		Event::listen("eloquent.created: {$classes['Position']}", "{$classes['PositionHandler']}@afterCreate");
-		Event::listen("eloquent.updated: {$classes['Position']}", "{$classes['PositionHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$classes['Position']}", "{$classes['PositionHandler']}@beforeDelete");
+		// Setup the listeners
+		static::setupEventListeners($a['Position'], $a['PositionEventHandler']);
 	}
 	
 	/**

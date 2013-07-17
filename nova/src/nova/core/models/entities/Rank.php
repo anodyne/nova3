@@ -68,12 +68,10 @@ class Rank extends Model {
 		parent::boot();
 
 		// Get all the aliases
-		$classes = Config::get('app.aliases');
+		$a = Config::get('app.aliases');
 
-		Event::listen("eloquent.created: {$classes['Rank']}", "{$classes['RankHandler']}@afterCreate");
-		Event::listen("eloquent.updated: {$classes['Rank']}", "{$classes['RankHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$classes['Rank']}", "{$classes['RankHandler']}@beforeDelete");
-		Event::listen("eloquent.saving: {$classes['Rank']}", "{$classes['RankHandler']}@beforeSave");
+		// Setup the listeners
+		static::setupEventListeners($a['Rank'], $a['RankEventHandler']);
 	}
 
 }

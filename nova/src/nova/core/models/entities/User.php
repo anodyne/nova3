@@ -198,14 +198,8 @@ class User extends Model implements UserInterface, FormDataInterface {
 		// Get all the aliases
 		$a = Config::get('app.aliases');
 
-		Event::listen("eloquent.creating: {$a['User']}", "{$a['UserEventHandler']}@beforeCreate");
-		Event::listen("eloquent.created: {$a['User']}", "{$a['UserEventHandler']}@afterCreate");
-		Event::listen("eloquent.updating: {$a['User']}", "{$a['UserEventHandler']}@beforeUpdate");
-		Event::listen("eloquent.updated: {$a['User']}", "{$a['UserEventHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$a['User']}", "{$a['UserEventHandler']}@beforeDelete");
-		Event::listen("eloquent.deleted: {$a['User']}", "{$a['UserEventHandler']}@afterDelete");
-		Event::listen("eloquent.saving: {$a['User']}", "{$a['UserEventHandler']}@beforeSave");
-		Event::listen("eloquent.saved: {$a['User']}", "{$a['UserEventHandler']}@afterSave");
+		// Setup the listeners
+		static::setupEventListeners($a['User'], $a['UserEventHandler']);
 	}
 
 	/**

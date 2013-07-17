@@ -37,12 +37,10 @@ class Settings extends Model implements CacheInterface {
 		parent::boot();
 
 		// Get all the aliases
-		$classes = Config::get('app.aliases');
+		$a = Config::get('app.aliases');
 
-		Event::listen("eloquent.created: {$classes['Settings']}", "{$classes['SettingsHandler']}@afterCreate");
-		Event::listen("eloquent.updated: {$classes['Settings']}", "{$classes['SettingsHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$classes['Settings']}", "{$classes['SettingsHandler']}@beforeDelete");
-		Event::listen("eloquent.saved: {$classes['Settings']}", "{$classes['SettingsHandler']}@afterSave");
+		// Setup the listeners
+		static::setupEventListeners($a['Settings'], $a['SettingsEventHandler']);
 	}
 	
 	/**

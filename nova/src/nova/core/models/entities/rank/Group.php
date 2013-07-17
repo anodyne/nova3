@@ -43,11 +43,10 @@ class Group extends Model {
 		parent::boot();
 
 		// Get all the aliases
-		$classes = Config::get('app.aliases');
+		$a = Config::get('app.aliases');
 
-		Event::listen("eloquent.created: {$classes['RankGroup']}", "{$classes['RankGroupHandler']}@afterCreate");
-		Event::listen("eloquent.updated: {$classes['RankGroup']}", "{$classes['RankGroupHandler']}@afterUpdate");
-		Event::listen("eloquent.deleting: {$classes['RankGroup']}", "{$classes['RankGroupHandler']}@beforeDelete");
+		// Setup the listeners
+		static::setupEventListeners($a['RankGroup'], $a['RankGroupEventHandler']);
 	}
 
 	/**
