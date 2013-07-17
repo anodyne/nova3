@@ -12,7 +12,7 @@ class Comment {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function beforeSave($model)
+	public function saving($model)
 	{
 		$model->commentable_type = Str::denamespace($model->commentable_type);
 	}

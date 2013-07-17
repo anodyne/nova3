@@ -12,7 +12,7 @@ class Settings {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function afterCreate($model)
+	public function created($model)
 	{
 		/**
 		 * System Event
@@ -26,7 +26,7 @@ class Settings {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function afterUpdate($model)
+	public function updated($model)
 	{
 		/**
 		 * System Event
@@ -40,7 +40,7 @@ class Settings {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function beforeDelete($model)
+	public function deleting($model)
 	{
 		/**
 		 * System Event
@@ -55,7 +55,7 @@ class Settings {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function afterSave($model)
+	public function saved($model)
 	{
 		// Blow away the old cache
 		Cache::forget('nova.settings');

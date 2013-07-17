@@ -11,7 +11,7 @@ class Rank {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function afterCreate($model)
+	public function created($model)
 	{
 		/**
 		 * System Event
@@ -25,7 +25,7 @@ class Rank {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function afterUpdate($model)
+	public function updated($model)
 	{
 		/**
 		 * System Event
@@ -43,7 +43,7 @@ class Rank {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function beforeSave($model)
+	public function saving($model)
 	{
 		// Find if there's a hyphen in the base image name
 		if (Str::contains($model->base, '-'))
@@ -63,7 +63,7 @@ class Rank {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function beforeDelete($model)
+	public function deleting($model)
 	{
 		/**
 		 * System Event

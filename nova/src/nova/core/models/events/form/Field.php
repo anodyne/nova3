@@ -3,19 +3,19 @@
 /**
  * Form field event handler.
  *
- * afterCreate
+ * created
  * When a field is created, we need to loop through the various pieces and
  * make sure that data records are added.
  *
  * When a field is created, we need to check the containing section to see
  * how we should handle activating/deactivating the section.
  *
- * afterUpdate
+ * updated
  * When a field is updated, we need to grab the section and do some checks
  * to see if we should be activating or deactivating the section because of
  * the number of fields or the number of active fields.
  *
- * beforeDelete
+ * deleting
  * When a field is deleted, we need to loop through and remove all data
  * associated with that field.
  *
@@ -35,7 +35,7 @@ use Character as CharacterModel;
 
 class Field extends BaseEventHandler {
 
-	public function afterCreate($model)
+	public function created($model)
 	{
 		if ( ! empty($model->form->data_model))
 		{
@@ -107,7 +107,7 @@ class Field extends BaseEventHandler {
 		);
 	}
 
-	public function afterUpdate($model)
+	public function updated($model)
 	{
 		/**
 		 * Section cleanup
@@ -172,7 +172,7 @@ class Field extends BaseEventHandler {
 		);
 	}
 
-	public function beforeDelete($model)
+	public function deleting($model)
 	{
 		/**
 		 * Value cleanup

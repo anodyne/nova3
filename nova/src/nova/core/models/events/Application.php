@@ -21,7 +21,7 @@ class Application {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function afterCreate($model)
+	public function created($model)
 	{
 		// Start the array for who will get emailed
 		$emailUsers = array();

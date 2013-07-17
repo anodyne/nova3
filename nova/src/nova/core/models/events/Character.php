@@ -16,7 +16,7 @@ class Character extends BaseEventHandler {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function afterCreate($model)
+	public function created($model)
 	{
 		/**
 		 * Fill the character rows for the dynamic form with blank data for editing later.

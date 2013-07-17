@@ -3,7 +3,7 @@
 /**
  * Form section event handler.
  *
- * afterCreate
+ * created
  * When a new section is added, we need to check to see how many sections
  * exist already. If there's only 1 (i.e. the one we just created) then we
  * need to update all of the fields for that form to move them in to the
@@ -13,11 +13,11 @@
  * When a new section is created, we need to check the containing tab's
  * status to figure out if we should be activating/deactivating the tab.
  *
- * afterUpdate
+ * updated
  * When a section is updated, we need to check that tab's sections to see
  * how we should handle activating/deactivating tabs based on the sections.
  *
- * beforeDelete
+ * deleting
  * When a section is deleted, we need to loop through its tab sections
  * and see if we should be activating/deactivating any tabs.
  */
@@ -29,7 +29,7 @@ use BaseEventHandler;
 
 class Section extends BaseEventHandler {
 
-	public function afterCreate($model)
+	public function created($model)
 	{
 		// What form are we updating?
 		$form = $model->form;
@@ -106,7 +106,7 @@ class Section extends BaseEventHandler {
 		);
 	}
 
-	public function afterUpdate($model)
+	public function updated($model)
 	{
 		/**
 		 * Tab cleanup
@@ -172,7 +172,7 @@ class Section extends BaseEventHandler {
 		);
 	}
 
-	public function beforeDelete($model)
+	public function deleting($model)
 	{
 		/**
 		 * Tab cleanup

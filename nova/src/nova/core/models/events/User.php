@@ -15,7 +15,7 @@ class User extends BaseEventHandler {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function afterCreate($model)
+	public function created($model)
 	{
 		/**
 		 * Create the user settings.
@@ -52,7 +52,7 @@ class User extends BaseEventHandler {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function afterUpdate($model)
+	public function updated($model)
 	{
 		/**
 		 * System Event
@@ -66,7 +66,7 @@ class User extends BaseEventHandler {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function beforeDelete($model)
+	public function deleting($model)
 	{
 		/**
 		 * System Event

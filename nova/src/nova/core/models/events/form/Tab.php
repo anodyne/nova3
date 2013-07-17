@@ -3,7 +3,7 @@
 /**
  * Form tab event handler.
  *
- * afterCreate
+ * created
  * When a new tab is created, we need to check to see how many tabs are attached
  * to the form already. If the tab we created is the only tab, we need to look 
  * at the sections. In the event there are no sections, but there are fields 
@@ -11,10 +11,10 @@
  * created section. If there are sections, we'll take the first one and assign 
  * all the fields to that section.
  *
- * afterUpdate
+ * updated
  * Create a system event. 
  *
- * beforeDelete
+ * deleting
  * Create a system event.
  */
 
@@ -24,7 +24,7 @@ use BaseEventHandler;
 
 class Tab extends BaseEventHandler {
 
-	public function afterCreate($model)
+	public function created($model)
 	{
 		// What form are we updating?
 		$form = $model->form;
@@ -90,7 +90,7 @@ class Tab extends BaseEventHandler {
 		);
 	}
 
-	public function afterUpdate($model)
+	public function updated($model)
 	{
 		/**
 		 * System Event
@@ -104,7 +104,7 @@ class Tab extends BaseEventHandler {
 		);
 	}
 
-	public function beforeDelete($model)
+	public function deleting($model)
 	{
 		/**
 		 * System Event

@@ -12,7 +12,7 @@ class SystemRoute extends BaseEventHandler {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function afterCreate($model)
+	public function created($model)
 	{
 		/**
 		 * System Event
@@ -26,7 +26,7 @@ class SystemRoute extends BaseEventHandler {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function afterUpdate($model)
+	public function updated($model)
 	{
 		/**
 		 * System Event
@@ -40,7 +40,7 @@ class SystemRoute extends BaseEventHandler {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function beforeDelete($model)
+	public function deleting($model)
 	{
 		if ((bool) $model->protected === false)
 		{
@@ -60,7 +60,7 @@ class SystemRoute extends BaseEventHandler {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function beforeSave($model)
+	public function saving($model)
 	{
 		$model->verb = strtolower($model->verb);
 	}
@@ -72,7 +72,7 @@ class SystemRoute extends BaseEventHandler {
 	 * @param	$model	The current model
 	 * @return	void
 	 */
-	public function afterSave($model)
+	public function saved($model)
 	{
 		if ((bool) $model->protected === false)
 		{

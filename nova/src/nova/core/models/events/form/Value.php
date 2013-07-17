@@ -3,13 +3,13 @@
 /**
  * Form field value event handler.
  *
- * afterCreate
+ * created
  * Create a system event.
  *
- * afterUpdate
+ * updated
  * Create a system event. 
  *
- * beforeDelete
+ * deleting
  * Create a system event.
  */
 
@@ -18,7 +18,7 @@ use BaseEventHandler;
 
 class Value extends BaseEventHandler {
 
-	public function afterCreate($model)
+	public function created($model)
 	{
 		/**
 		 * System Event
@@ -32,7 +32,7 @@ class Value extends BaseEventHandler {
 		);
 	}
 
-	public function afterUpdate($model)
+	public function updated($model)
 	{
 		/**
 		 * System Event
@@ -46,7 +46,7 @@ class Value extends BaseEventHandler {
 		);
 	}
 
-	public function beforeDelete($model)
+	public function deleting($model)
 	{
 		/**
 		 * System Event

@@ -6,42 +6,42 @@
 
 class Base {
 
-	public function beforeSave($model)
+	public function saving($model)
 	{
 		# code...
 	}
 
-	public function beforeUpdate($model)
+	public function updating($model)
 	{
 		# code...
 	}
 
-	public function beforeCreate($model)
+	public function creating($model)
 	{
 		# code...
 	}
 
-	public function afterCreate($model)
+	public function created($model)
 	{
 		# code...
 	}
 
-	public function afterUpdate($model)
+	public function updated($model)
 	{
 		# code...
 	}
 
-	public function afterSave($model)
+	public function saved($model)
 	{
 		# code...
 	}
 
-	public function beforeDelete($model)
+	public function deleting($model)
 	{
 		# code...
 	}
 
-	public function afterDelete($model)
+	public function deleted($model)
 	{
 		# code...
 	}
