@@ -8,8 +8,9 @@ use PositionModel;
 use CharacterModel;
 use NovaAppRuleModel;
 use NovaAppReviewerModel;
+use BaseEventHandler;
 
-class Application {
+class Application extends BaseEventHandler {
 
 	/**
 	 * After create event

@@ -1,8 +1,9 @@
 <?php namespace Nova\Core\Models\Events;
 
 use SystemEvent;
+use BaseEventHandler;
 
-class Position {
+class Position extends BaseEventHandler {
 	
 	/**
 	 * After create event

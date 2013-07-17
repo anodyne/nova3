@@ -2,9 +2,9 @@
 
 use Cache;
 use SystemEvent;
-use Settings as SettingsModel;
+use BaseEventHandler;
 
-class Settings {
+class Settings extends BaseEventHandler {
 	
 	/**
 	 * After create event
@@ -61,7 +61,7 @@ class Settings {
 		Cache::forget('nova.settings');
 
 		// Re-cache everything
-		Cache::forever('nova.settings', SettingsModel::getItems(false, false));
+		Cache::forever('nova.settings', \Settings::getItems(false, false));
 	}
 
 }

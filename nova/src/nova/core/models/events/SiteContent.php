@@ -2,9 +2,9 @@
 
 use Cache;
 use SystemEvent;
-use SiteContent as SiteContentModel;
+use BaseEventHandler;
 
-class SiteContent {
+class SiteContent extends BaseEventHandler {
 	
 	/**
 	 * After create event
@@ -63,7 +63,7 @@ class SiteContent {
 		// Re-cache the section content
 		Cache::forever(
 			"nova.content.{$model->type}.{$model->section}", 
-			SiteContentModel::getSectionContent($model->type, $model->section)
+			\SiteContent::getSectionContent($model->type, $model->section)
 		);
 	}
 

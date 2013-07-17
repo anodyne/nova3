@@ -2,7 +2,6 @@
 
 use SystemEvent;
 use BaseEventHandler;
-use SystemRoute as SystemRouteModel;
 
 class SystemRoute extends BaseEventHandler {
 	
@@ -44,7 +43,7 @@ class SystemRoute extends BaseEventHandler {
 	{
 		if ((bool) $model->protected === false)
 		{
-			SystemRouteModel::cache();
+			\SystemRouteModel::cache();
 		}
 		
 		/**
@@ -76,7 +75,7 @@ class SystemRoute extends BaseEventHandler {
 	{
 		if ((bool) $model->protected === false)
 		{
-			SystemRouteModel::cache();
+			\SystemRouteModel::cache();
 		}
 	}
 

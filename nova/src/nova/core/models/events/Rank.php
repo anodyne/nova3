@@ -2,8 +2,9 @@
 
 use Str;
 use SystemEvent;
+use BaseEventHandler;
 
-class Rank {
+class Rank extends BaseEventHandler {
 
 	/**
 	 * After create event

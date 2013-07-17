@@ -1,8 +1,9 @@
 <?php namespace Nova\Core\Models\Events\Rank;
 
 use SystemEvent;
+use BaseEventHandler;
 
-class Info {
+class Info extends BaseEventHandler {
 
 	/**
 	 * Post-insert observer.
