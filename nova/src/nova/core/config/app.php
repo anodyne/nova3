@@ -315,28 +315,29 @@ return array(
 		/**
 		 * Nova Model Event Handlers
 		 */
-		'AccessRoleEventHandler'	=> 'Nova\Core\Models\Events\Access\Role',
-		'AccessTaskEventHandler'	=> 'Nova\Core\Models\Events\Access\Task',
+		'AccessRoleEventHandler'		=> 'Nova\Core\Models\Events\Access\Role',
+		'AccessTaskEventHandler'		=> 'Nova\Core\Models\Events\Access\Task',
 
-		'FormEventHandler'			=> 'Nova\Core\Models\Events\Form',
-		'FormFieldEventHandler'		=> 'Nova\Core\Models\Events\Form\Field',
-		'FormSectionEventHandler'	=> 'Nova\Core\Models\Events\Form\Section',
-		'FormTabEventHandler'		=> 'Nova\Core\Models\Events\Form\Tab',
-		'FormValueEventHandler'		=> 'Nova\Core\Models\Events\Form\Value',
+		'NovaAppEventHandler'			=> 'Nova\Core\Models\Events\Application',
 
-		'RankGroupHandler'			=> 'Nova\Core\Models\Events\Rank\Group',
-		'RankInfoHandler'			=> 'Nova\Core\Models\Events\Rank\Info',
+		'NovaFormEventHandler'			=> 'Nova\Core\Models\Events\Form',
+		'NovaFormFieldEventHandler'		=> 'Nova\Core\Models\Events\Form\Field',
+		'NovaFormSectionEventHandler'	=> 'Nova\Core\Models\Events\Form\Section',
+		'NovaFormTabEventHandler'		=> 'Nova\Core\Models\Events\Form\Tab',
+		'NovaFormValueEventHandler'		=> 'Nova\Core\Models\Events\Form\Value',
+
+		'RankEventHandler'				=> 'Nova\Core\Models\Events\Rank',
+		'RankGroupEventHandler'			=> 'Nova\Core\Models\Events\Rank\Group',
+		'RankInfoEventHandler'			=> 'Nova\Core\Models\Events\Rank\Info',
 		
-		'AppHandler'				=> 'Nova\Core\Models\Events\Application',
-		'BaseEventHandler'			=> 'Nova\Core\Models\Events\Base',
-		'CharacterEventHandler'		=> 'Nova\Core\Models\Events\Character',
-		'CommentHandler'			=> 'Nova\Core\Models\Events\Comment',
-		'PositionHandler'			=> 'Nova\Core\Models\Events\Position',
-		'RankHandler'				=> 'Nova\Core\Models\Events\Rank',
-		'SettingsHandler'			=> 'Nova\Core\Models\Events\Settings',
-		'SiteContentHandler'		=> 'Nova\Core\Models\Events\SiteContent',
-		'SystemRouteHandler'		=> 'Nova\Core\Models\Events\SystemRoute',
-		'UserEventHandler'			=> 'Nova\Core\Models\Events\User',
+		'BaseEventHandler'				=> 'Nova\Core\Models\Events\Base',
+		'CharacterEventHandler'			=> 'Nova\Core\Models\Events\Character',
+		'CommentEventHandler'			=> 'Nova\Core\Models\Events\Comment',
+		'PositionEventHandler'			=> 'Nova\Core\Models\Events\Position',
+		'SettingsEventHandler'			=> 'Nova\Core\Models\Events\Settings',
+		'SiteContentEventHandler'		=> 'Nova\Core\Models\Events\SiteContent',
+		'SystemRouteEventHandler'		=> 'Nova\Core\Models\Events\SystemRoute',
+		'UserEventHandler'				=> 'Nova\Core\Models\Events\User',
 
 		/**
 		 * Nova Model Validators
