@@ -19,7 +19,7 @@ class NovaProvider extends ServiceProvider {
 
 	public function boot()
 	{
-		$this->bootSystemRoutes();
+		//$this->bootSystemRoutes();
 		$this->bootEventListeners();
 	}
 

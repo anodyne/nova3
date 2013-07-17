@@ -4,7 +4,7 @@
  * Get the routes from the cache and create them.
  */
 
-/*// Get all routes
+// Get all routes
 $routes = Cache::get('nova.routes');
 
 if ($routes === null)
@@ -94,7 +94,7 @@ else
 			}
 		}
 	}
-}*/
+}
 
 /**
  * Route includes from around the system.
