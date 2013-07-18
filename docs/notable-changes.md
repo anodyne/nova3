@@ -28,3 +28,9 @@
 - All-new FormViewer lets you create forms and have users fill out a form without having to manually embed the form into a new page. You can also view, update and delete records for a form from FormViewer as well. (Protected forms, such as the forms that come with Nova, cannot use FormViewer.)
 
 ## Ranks
+
+## Resource Catalogs
+
+- Previously, the defaults for new users (both skins and ranks) were set from the catalog, but the defaults for the site were set from Site Settings. This created a lot of confusion. In Nova 3, everything comes off of Site Settings. If you set your default skin in Site Settings, then every new user after you change that will have that as their default.
+- Because of the new skinning architecture, we've been able to eliminate the idea of "skin sections" from the catalogs completely. This greatly simplifies how the skin catalog is built and managed.
+- Admins can now delete active skins and ranks. A dropdown will be displayed and they'll be able to change everyone (including Site Settings) who has the skin/rank being deleted.
