@@ -123,6 +123,7 @@ return array(
 		'Nova\Core\Providers\ErrorProvider',
 		'Nova\Core\Providers\NovaServicesProvider',
 		'Nova\Core\Providers\NovaProvider',
+		//'Nova\Core\Providers\SystemRouteProvider',
 		'Nova\Setup\SetupProvider',
 		'Nova\Extensions\Cartalyst\Sentry\SentryServiceProvider',
 		'Nova\Extensions\Laravel\Translation\TranslationServiceProvider',
