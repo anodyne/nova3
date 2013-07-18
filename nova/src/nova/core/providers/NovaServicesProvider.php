@@ -3,6 +3,7 @@
 use App;
 use Nova\Core\Lib\Nova;
 use Nova\Core\Lib\Media;
+use Ikimea\Browser\Browser;
 use Nova\Core\Lib\Location;
 use Nova\Core\Lib\Markdown;
 use Nova\Core\Lib\DynamicForm;
@@ -25,6 +26,7 @@ class NovaServicesProvider extends ServiceProvider {
 		$this->registerCommon();
 		$this->registerMedia();
 		$this->registerDynamicForm();
+		$this->registerBrowser();
 	}
 
 	protected function registerLocation()
@@ -72,6 +74,14 @@ class NovaServicesProvider extends ServiceProvider {
 		$this->app->singleton('nova.form', function()
 		{
 			return new DynamicForm;
+		});
+	}
+
+	protected function registerBrowser()
+	{
+		$this->app->singleton('nova.browser', function()
+		{
+			return new Browser;
 		});
 	}
 

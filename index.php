@@ -69,7 +69,13 @@ if (version_compare(PHP_VERSION, '5.4.0', '<'))
 |
 */
 
+// Fire the Nova start event
+Event::fire('nova.start');
+
 $app->run();
+
+// Fire the Nova shutdown event
+Event::fire('nova.shutdown');
 
 /*
 |--------------------------------------------------------------------------
