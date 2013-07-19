@@ -26,6 +26,7 @@ return array(
 	'base' => 'base',
 	'by' => 'by',
 	'basic' => 'basic',
+	'blank' => "blank",
 
 	'character'		=> 'character',
 	'characters'	=> 'characters',
@@ -40,6 +41,7 @@ return array(
 	'conditions' => "conditions",
 	'core' => "core",
 	'container' => "container",
+	'credits' => "credits",
 
 	'display' => 'display',
 	'dropdown' => 'dropdown menu',
@@ -59,6 +61,7 @@ return array(
 	'experience' => 'experience',
 	'entry' => "entry",
 	'entries' => "entries",
+	'extension' => "extension",
 
 	'field' => "field",
 	'fields' => "fields",
@@ -76,6 +79,7 @@ return array(
 	'group' => 'group',
 	'groups' => 'groups',
 	'global' => 'global',
+	'genre' => "genre",
 
 	'horizontal' => "horizontal",
 	'html' => 'HTML',
