@@ -1,6 +1,5 @@
 <?php namespace Nova\Core\Providers;
 
-use App;
 use Nova\Core\Lib\Nova;
 use Nova\Core\Lib\Media;
 use Ikimea\Browser\Browser;
@@ -31,7 +30,7 @@ class NovaServicesProvider extends ServiceProvider {
 
 	protected function registerLocation()
 	{
-		$this->app->singleton('nova.location', function()
+		$this->app['nova.location'] = $this->app->share(function($app)
 		{
 			return new Location;
 		});
@@ -39,7 +38,7 @@ class NovaServicesProvider extends ServiceProvider {
 
 	protected function registerMarkdown()
 	{
-		$this->app->singleton('markdown', function()
+		$this->app['markdown'] = $this->app->share(function($app)
 		{
 			return new Markdown(new MarkdownParser);
 		});
@@ -47,7 +46,7 @@ class NovaServicesProvider extends ServiceProvider {
 
 	protected function registerSystemEvent()
 	{
-		$this->app->singleton('nova.event', function()
+		$this->app['nova.event'] = $this->app->share(function($app)
 		{
 			return new SystemEvent;
 		});
@@ -55,7 +54,7 @@ class NovaServicesProvider extends ServiceProvider {
 
 	protected function registerCommon()
 	{
-		$this->app->singleton('nova.common', function()
+		$this->app['nova.common'] = $this->app->share(function($app)
 		{
 			return new Nova;
 		});
@@ -63,7 +62,7 @@ class NovaServicesProvider extends ServiceProvider {
 
 	protected function registerMedia()
 	{
-		$this->app->singleton('nova.media', function()
+		$this->app['nova.media'] = $this->app->share(function($app)
 		{
 			return new Media;
 		});
@@ -71,7 +70,7 @@ class NovaServicesProvider extends ServiceProvider {
 
 	protected function registerDynamicForm()
 	{
-		$this->app->singleton('nova.form', function()
+		$this->app['nova.form'] = $this->app->share(function($app)
 		{
 			return new DynamicForm;
 		});
@@ -79,7 +78,7 @@ class NovaServicesProvider extends ServiceProvider {
 
 	protected function registerBrowser()
 	{
-		$this->app->singleton('nova.browser', function()
+		$this->app['nova.browser'] = $this->app->share(function($app)
 		{
 			return new Browser;
 		});

@@ -16,7 +16,7 @@ class SetupProvider extends ServiceProvider {
 
 	protected function registerSetup()
 	{
-		$this->app->singleton('nova.setup', function()
+		$this->app['nova.setup'] = $this->app->share(function($app)
 		{
 			return new Setup;
 		});

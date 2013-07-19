@@ -1,13 +1,5 @@
 <?php namespace Nova\Core\Providers;
 
-use Str;
-use Nova\Core\Lib\Nova;
-use Nova\Core\Lib\Media;
-use Nova\Core\Lib\Location;
-use Nova\Core\Lib\Markdown;
-use Nova\Core\Lib\DynamicForm;
-use Nova\Core\Lib\SystemEvent;
-use dflydev\markdown\MarkdownParser;
 use Illuminate\Support\ServiceProvider;
 
 class NovaProvider extends ServiceProvider {
@@ -31,19 +23,17 @@ class NovaProvider extends ServiceProvider {
 		// Get the event config file
 		$events = $this->app['config']->get('events');
 
-		// Loop through the events
 		foreach ($events as $event => $handlers)
 		{
 			// Make sure the handlers is an array
 			$handlers = ( ! is_array($handlers)) ? array($handlers) : $handlers;
 
-			// Loop through the handler classes and set the listeners
 			foreach ($handlers as $h)
 			{
 				// Set the final class to use
 				$finalHandler = (array_key_exists($h, $aliases)) ? $aliases[$h] : $h;
 
-				// Listen to the event
+				// Listen for the event
 				$this->app['events']->listen($event, $finalHandler);
 			}
 		}

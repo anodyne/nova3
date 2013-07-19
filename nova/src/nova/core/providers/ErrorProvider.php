@@ -1,12 +1,5 @@
 <?php namespace Nova\Core\Providers;
 
-use App;
-use Log;
-use View;
-use Request;
-use Location;
-use Exception;
-use RuntimeException;
 use Illuminate\Support\ServiceProvider;
 
 class ErrorProvider extends ServiceProvider {
@@ -25,7 +18,7 @@ class ErrorProvider extends ServiceProvider {
 
 	protected function bootMissing()
 	{
-		App::missing(function()
+		$this->app->missing(function()
 		{
 			// Random headers and messages to use
 			$messages = [
@@ -80,9 +73,9 @@ class ErrorProvider extends ServiceProvider {
 			$rand = array_rand($messages);
 
 			// Log the error
-			Log::error('404 Not Found. Could not find the page requested: '.Request::path());
+			$this->app['log']->error('404 Not Found. Could not find the page requested: '.$this->app['request']->path());
 
-			return View::make(Location::error('404'))
+			return $this->app['view']->make($this->app['nova.location']->error('404'))
 				->with('header', $messages[$rand]['header'])
 				->with('message', $messages[$rand]['message']);
 		});
@@ -90,13 +83,13 @@ class ErrorProvider extends ServiceProvider {
 
 	protected function bootRuntimeException()
 	{
-		App::error(function(RuntimeException $ex, $code)
+		$this->app->error(function(\RuntimeException $ex, $code)
 		{
 			switch ($ex->getMessage())
 			{
 				case 'Nova 3 requires PHP 5.4.0 or higher':
-					return View::make(Location::error('php_version'))
-						->with('env', App::environment());
+					return $this->app['view']->make($this->app['nova.location']->error('php_version'))
+						->with('env', $this->app->environment());
 				break;
 			}
 		});
@@ -104,9 +97,9 @@ class ErrorProvider extends ServiceProvider {
 
 	protected function bootGeneralException()
 	{
-		App::error(function(Exception $ex, $code)
+		$this->app->error(function(\Exception $ex, $code)
 		{
-			Log::error($ex);
+			$this->app['log']->error($ex);
 		});
 	}
 
