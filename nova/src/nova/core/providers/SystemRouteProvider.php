@@ -14,10 +14,16 @@ class SystemRouteProvider extends ServiceProvider {
 
 	public function boot()
 	{
-		/*// Get all routes
-		$routes = $this->app['cache']->get('nova.routes');
+		$this->bootSystemRoutes();
+		$this->bootAdditionalRoutes();
+		$this->bootModuleRoutes();
+		$this->bootDevRoutes();
+	}
 
-		//sd($routes);
+	protected function bootSystemRoutes()
+	{
+		// Get all routes
+		$routes = $this->app['cache']->get('nova.routes');
 
 		if ($routes === null)
 		{
@@ -34,8 +40,6 @@ class SystemRouteProvider extends ServiceProvider {
 			$this->app['router']->get('admin/main/index', 'Nova\Core\Controllers\Admin\Main@getIndex');
 			$this->app['router']->get('admin/main/pages', 'Nova\Core\Controllers\Admin\Main@getPages');
 			$this->app['router']->post('admin/main/pages', 'Nova\Core\Controllers\Admin\Main@postPages');
-
-			// The other option is to run a custom Artisan task that will generate the routes for the user
 		}
 		else
 		{
@@ -60,7 +64,7 @@ class SystemRouteProvider extends ServiceProvider {
 			}
 
 			// POST routes
-			/*if (array_key_exists('post', $routes) and count($routes['post']) > 0)
+			if (array_key_exists('post', $routes) and count($routes['post']) > 0)
 			{
 				foreach ($routes['post'] as $route)
 				{
@@ -109,14 +113,43 @@ class SystemRouteProvider extends ServiceProvider {
 					}
 				}
 			}
-
-
-		}*/
-
-		$this->app['router']->get('foo', 'App\Controllers\Foo@getIndex');
+		}
 	}
 
-	/*private function parseRouteConditions($conditions)
+	protected function bootAdditionalRoutes()
+	{
+		// Pull in the core routes
+		require SRCPATH.'api/routes.php';
+		require SRCPATH.'forum/routes.php';
+		require SRCPATH.'setup/routes.php';
+		require SRCPATH.'wiki/routes.php';
+	}
+
+	protected function bootModuleRoutes()
+	{
+		// Get the module list
+		$modules = $this->app['cache']->get('nova.modules', []);
+
+		// Loop through the modules and include their route files
+		foreach ($modules as $m)
+		{
+			if ($this->app['file']->exists(APPPATH."modules/{$m}/routes.php"))
+			{
+				include APPPATH."modules/{$m}/routes.php";
+			}
+		}
+	}
+
+	protected function bootDevRoutes()
+	{
+		// Pull in the test routes if we're local
+		if ($this->app->environment() == 'local')
+		{
+			require SRCPATH.'core/routes/test.php';
+		}
+	}
+
+	private function parseRouteConditions($conditions)
 	{
 		// Create an empty array for storing conditions
 		$finalConditions = [];
@@ -147,6 +180,6 @@ class SystemRouteProvider extends ServiceProvider {
 		}
 
 		return $finalConditions;
-	}*/
+	}
 
 }
