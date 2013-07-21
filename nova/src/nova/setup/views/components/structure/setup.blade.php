@@ -24,7 +24,7 @@
 		<link rel='stylesheet' href='{{ SRCURL }}setup/views/design/retina.css' media='only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)'>
 	</head>
 	<body>
-		{{ $layout }}
+		{{ $template }}
 
 		<?php include_once SRCPATH.'core/views/components/js/core/jquery_js.php';?>
 

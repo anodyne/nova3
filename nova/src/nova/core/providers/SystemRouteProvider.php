@@ -121,7 +121,6 @@ class SystemRouteProvider extends ServiceProvider {
 		// Pull in the core routes
 		require SRCPATH.'api/routes.php';
 		require SRCPATH.'forum/routes.php';
-		require SRCPATH.'setup/routes.php';
 		require SRCPATH.'wiki/routes.php';
 	}
 

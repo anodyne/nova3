@@ -10,7 +10,7 @@
 			@if (isset($steps))
 				<div id="steps">{{ $steps }}</div>
 			@endif
-			<h1>{{ $label }}</h1>
+			<h1>{{ $header }}</h1>
 			<div style="clear:both;"></div>
 		</div>
 		
@@ -34,5 +34,5 @@
 </section>
 
 <footer>
-	&copy; {{ date('Y') }} Anodyne Productions
+	&copy; {{ Date::now()->year }} Anodyne Productions
 </footer>

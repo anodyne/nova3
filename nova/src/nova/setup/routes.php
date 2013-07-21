@@ -1,95 +1,71 @@
 <?php
 
 /**
- * Route filter to ensure the right database connection file is in place.
+ * Building database config file
  */
-Route::filter('configFileCheck', function()
+Route::group(['prefix' => 'setup/config/db', 'before' => 'csrf'], function()
 {
-	if ( ! File::exists(APPPATH.'config/'.App::environment().'/database.php'))
-	{
-		// Only redirect if we aren't on the config page(s)
-		if ( ! Request::is('setup/config/db*') and ! Request::is('setup'))
-		{
-			return Redirect::to('setup');
-		}
-	}
+	Route::get('/', 'Nova\Setup\Controllers\ConfigDb@getIndex');
+	Route::get('info', 'Nova\Setup\Controllers\ConfigDb@getInfo');
+
+	Route::post('check', 'Nova\Setup\Controllers\ConfigDb@postCheck');
+	Route::post('write', 'Nova\Setup\Controllers\ConfigDb@postWrite');
+	Route::post('verify', 'Nova\Setup\Controllers\ConfigDb@postVerify');
 });
 
 /**
- * Route filter to ensure the person is authorized to be here.
+ * Building email config file
  */
-Route::filter('setupAuthorization', function()
+Route::group(['prefix' => 'setup/config/email', 'before' => 'csrf'], function()
 {
-	if (Setup::installed())
-	{
-		if (Sentry::check())
-		{
-			// Not a system administrator? No soup for you!
-			if ( ! Sentry::getUser()->isAdmin())
-			{
-				//return Redirect::to('login/'.Nova\Core\Controllers\Login::NOT_ADMIN);
-			}
-		}
-		else
-		{
-			// No session? Send them away
-			//return Redirect::to('login/'.Nova\Core\Controllers\Login::NOT_LOGGED_IN);
-		}
-	}
-});
-
-/**
- * Setup template execution.
- *
- * @param	object	An object of data to use for the current request
- * @return	View
- */
-function setupTemplate($data)
-{
-	// Add the setup package to the list for this request
-	View::addLocation(SRCPATH.'setup/views');
-
-	// Build the structure
-	$template = View::make('components/structure/setup');
-	$template->title = $data->title;
-	$template->javascript = ( ! empty($data->jsView)) ? View::make("components/js/{$data->jsView}") : false;
-
-	// Build the layout
-	$template->layout = View::make('components/template/setup');
-	$template->layout->label = $data->layout->label;
-
-	// Build the steps indicator
-	if ( ! empty($data->steps))
-	{
-		$template->layout->steps = View::make("components/partial/{$data->steps}");
-	}
-	else
-	{
-		$template->layout->steps = false;
-	}
+	Route::get('/', 'Nova\Setup\Controllers\ConfigMail@getIndex');
+	Route::get('info', 'Nova\Setup\Controllers\ConfigMail@getIndex');
 	
-	// Build the flash message
-	if (isset($data->flash))
-	{
-		$template->layout->flash = View::make('components/partial/flash')
-			->with(json_decode(json_encode($data->flash), true));
-	}
-	else
-	{
-		$template->layout->flash = false;
-	}
+	Route::post('write', 'Nova\Setup\Controllers\ConfigMail@postWrite');
+	Route::post('verify', 'Nova\Setup\Controllers\ConfigMail@postVerify');
+});
 
-	// Build the content
-	$template->layout->content = View::make("components/page/{$data->view}")
-		->with(json_decode(json_encode($data->content), true));
+/**
+ * Setup ajax calls
+ */
+Route::group(array('prefix' => 'setup/ajax', 'before' => 'csrf'), function()
+{
+	Route::post('ignore_version', 'Nova\Setup\Controllers\Ajax@postIgnoreVersion');
+	Route::post('install_genre', 'Nova\Setup\Controllers\Ajax@postInstallGenre');
+	Route::post('uninstall_genre', 'Nova\Setup\Controllers\Ajax@postUninstallGenre');
+});
 
-	// Build the controls
-	$template->layout->controls = $data->controls;
+/**
+ * Fresh install
+ */
+Route::group(['prefix' => 'setup/install', 'before' => 'csrf'], function()
+{
+	Route::get('/', 'Nova\Setup\Controllers\Setup@getStart');
+	Route::get('settings', 'Nova\Setup\Controllers\Install@getSettings');
+	Route::get('finalize', 'Nova\Setup\Controllers\Install@getFinalize');
 
-	return $template;
-}
+	Route::post('/', 'Nova\Setup\Controllers\Install@postIndex');
+	Route::post('settings', 'Nova\Setup\Controllers\Install@postSettings');
+});
 
-require 'routes/setup.php';
-require 'routes/update.php';
-require 'routes/install.php';
-require 'routes/migrate.php';
+/**
+ * Migrate from Nova 2
+ */
+Route::group(['prefix' => 'setup/migrate', 'before' => 'csrf'], function()
+{
+	Route::get('/', 'Nova\Setup\Controllers\Setup@getStart');
+});
+
+/**
+ * Update Nova 3
+ */
+Route::group(array('prefix' => 'setup/update', 'before' => 'csrf'), function()
+{
+	Route::get('/', 'Nova\Setup\Controllers\Setup@getStart');
+	Route::get('finalize', 'Nova\Setup\Controllers\Update@getFinalize');
+	Route::get('rollback', 'Nova\Setup\Controllers\Update@getRollback');
+	Route::get('rollback/finalize', 'Nova\Setup\Controllers\Update@getRollbackFinalize');
+
+	Route::post('/', 'Nova\Setup\Controllers\Update@postIndex');
+	Route::post('rollback', 'Nova\Setup\Controllers\Update@postRollback');
+});
