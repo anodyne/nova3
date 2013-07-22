@@ -2,7 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class ErrorProvider extends ServiceProvider {
+class ErrorServiceProvider extends ServiceProvider {
 
 	public function register()
 	{

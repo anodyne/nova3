@@ -121,11 +121,10 @@ return array(
 		 * Nova Service Providers
 		 */
 		'Cartalyst\Api\ApiServiceProvider',
-		'Nova\Core\Providers\ErrorProvider',
-		'Nova\Core\Providers\NovaServicesProvider',
-		'Nova\Core\Providers\NovaProvider',
-		'Nova\Core\Providers\SystemRouteProvider',
-		'Nova\Setup\SetupProvider',
+		'Nova\Core\Providers\ErrorServiceProvider',
+		'Nova\Core\Providers\NovaServiceProvider',
+		'Nova\Core\Providers\SystemRouteServiceProvider',
+		'Nova\Setup\SetupServiceProvider',
 		'Nova\Extensions\Cartalyst\Sentry\SentryServiceProvider',
 		'Nova\Extensions\Laravel\Translation\TranslationServiceProvider',
 

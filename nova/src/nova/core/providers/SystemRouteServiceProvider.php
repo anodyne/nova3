@@ -3,7 +3,7 @@
 use Str;
 use Illuminate\Support\ServiceProvider;
 
-class SystemRouteProvider extends ServiceProvider {
+class SystemRouteServiceProvider extends ServiceProvider {
 
 	protected $defer = false;
 
