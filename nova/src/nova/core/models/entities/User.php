@@ -367,7 +367,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 			'timezone'				=> 'UTC',
 			'email_format'			=> 'html',
 			'language'				=> 'en',
-			'rank'					=> RankCatalog::getDefault(true),
+			'rank'					=> Settings::getSettings('rank'),
 			'skin_main'				=> Settings::getSettings('skin_main'),
 			'skin_admin'			=> Settings::getSettings('skin_admin'),
 			'email_comments'		=> (int) true,
