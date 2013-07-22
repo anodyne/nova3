@@ -29,6 +29,9 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->browserCheck();
 	}
 
+	/**
+	 * The Location class provides a way to find files within the file system.
+	 */
 	protected function registerLocation()
 	{
 		$this->app['nova.location'] = $this->app->share(function($app)
@@ -37,6 +40,9 @@ class NovaServiceProvider extends ServiceProvider {
 		});
 	}
 
+	/**
+	 * The Markdown class provides for parsing Markdown content to HTML.
+	 */
 	protected function registerMarkdown()
 	{
 		$this->app['markdown'] = $this->app->share(function($app)
@@ -45,6 +51,11 @@ class NovaServiceProvider extends ServiceProvider {
 		});
 	}
 
+	/**
+	 * The System Event classes provides system event logging to a database
+	 * table so that admins can see what kinds of actions are being taken within
+	 * Nova.
+	 */
 	protected function registerSystemEvent()
 	{
 		$this->app['nova.event'] = $this->app->share(function($app)
@@ -53,6 +64,10 @@ class NovaServiceProvider extends ServiceProvider {
 		});
 	}
 
+	/**
+	 * Common classes are the methods that don't belong in other classes and are
+	 * used throughout Nova.
+	 */
 	protected function registerCommon()
 	{
 		$this->app['nova.common'] = $this->app->share(function($app)
@@ -61,6 +76,10 @@ class NovaServiceProvider extends ServiceProvider {
 		});
 	}
 
+	/**
+	 * The Media class provides methods for uploading, deleting and retrieving
+	 * information about media.
+	 */
 	protected function registerMedia()
 	{
 		$this->app['nova.media'] = $this->app->share(function($app)
@@ -69,6 +88,10 @@ class NovaServiceProvider extends ServiceProvider {
 		});
 	}
 
+	/**
+	 * The Dynamic Form class provides a way to interact with Nova's dynamic
+	 * forms including rendering the form and filling its data.
+	 */
 	protected function registerDynamicForm()
 	{
 		$this->app['nova.form'] = $this->app->share(function($app)
@@ -77,6 +100,10 @@ class NovaServiceProvider extends ServiceProvider {
 		});
 	}
 
+	/**
+	 * The Browser class provides a way to get information about the current
+	 * user's browser.
+	 */
 	protected function registerBrowser()
 	{
 		$this->app['nova.browser'] = $this->app->share(function($app)
@@ -85,6 +112,10 @@ class NovaServiceProvider extends ServiceProvider {
 		});
 	}
 
+	/**
+	 * During the nova.start event, check to make sure that a user is using one
+	 * of the approved browsers.
+	 */
 	protected function browserCheck()
 	{
 		$this->app['events']->listen('nova.start', function()
@@ -93,6 +124,10 @@ class NovaServiceProvider extends ServiceProvider {
 		});
 	}
 
+	/**
+	 * Grab the events config file and loop through the items to create the
+	 * event listeners for all of Nova's events.
+	 */
 	protected function bootEventListeners()
 	{
 		// Get all the aliases

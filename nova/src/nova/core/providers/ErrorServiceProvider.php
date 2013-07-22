@@ -16,6 +16,9 @@ class ErrorServiceProvider extends ServiceProvider {
 		$this->bootGeneralException();
 	}
 
+	/**
+	 * What to do when a 404 error is encountered.
+	 */
 	protected function bootMissing()
 	{
 		$this->app->missing(function()
@@ -81,6 +84,9 @@ class ErrorServiceProvider extends ServiceProvider {
 		});
 	}
 
+	/**
+	 * What to do when a RuntimeException is encountered.
+	 */
 	protected function bootRuntimeException()
 	{
 		$this->app->error(function(\RuntimeException $ex, $code)
@@ -95,6 +101,9 @@ class ErrorServiceProvider extends ServiceProvider {
 		});
 	}
 
+	/**
+	 * What to do when a general exception is encountered.
+	 */
 	protected function bootGeneralException()
 	{
 		$this->app->error(function(\Exception $ex, $code)

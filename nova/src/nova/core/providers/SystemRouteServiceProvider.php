@@ -20,6 +20,11 @@ class SystemRouteServiceProvider extends ServiceProvider {
 		$this->bootDevRoutes();
 	}
 
+	/**
+	 * Grab the routes from the cache and create the route entries from that
+	 * information. If the routes aren't cached, create some basic routes so
+	 * that the user can get to some place where they can create the cache file.
+	 */
 	protected function bootSystemRoutes()
 	{
 		// Get all routes
@@ -116,6 +121,9 @@ class SystemRouteServiceProvider extends ServiceProvider {
 		}
 	}
 
+	/**
+	 * Pull in any additional routes files we need.
+	 */
 	protected function bootAdditionalRoutes()
 	{
 		// Pull in the core routes
@@ -124,6 +132,9 @@ class SystemRouteServiceProvider extends ServiceProvider {
 		require SRCPATH.'wiki/routes.php';
 	}
 
+	/**
+	 * Pull in the route files for all installed modules.
+	 */
 	protected function bootModuleRoutes()
 	{
 		// Get the module list
@@ -139,6 +150,9 @@ class SystemRouteServiceProvider extends ServiceProvider {
 		}
 	}
 
+	/**
+	 * If we're in development, pull in the test routes.
+	 */
 	protected function bootDevRoutes()
 	{
 		// Pull in the test routes if we're local
@@ -148,6 +162,13 @@ class SystemRouteServiceProvider extends ServiceProvider {
 		}
 	}
 
+	/**
+	 * Parse the route conditions into the proper format for use on the router.
+	 *
+	 * @internal
+	 * @param	string	The route conditions as a string
+	 * @return	array
+	 */
 	private function parseRouteConditions($conditions)
 	{
 		// Create an empty array for storing conditions

@@ -14,6 +14,10 @@ class SetupServiceProvider extends ServiceProvider {
 		$this->bootSetupRoutes();
 	}
 
+	/**
+	 * The Setup class provides methods for working with the base Nova setup
+	 * and for checking the install status and the availability of updates.
+	 */
 	protected function registerSetup()
 	{
 		$this->app['nova.setup'] = $this->app->share(function($app)
@@ -22,6 +26,9 @@ class SetupServiceProvider extends ServiceProvider {
 		});
 	}
 
+	/**
+	 * Setup the routes used by the setup package.
+	 */
 	protected function bootSetupRoutes()
 	{
 		/**
