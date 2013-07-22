@@ -1,6 +1,7 @@
 <?php namespace Nova\Core\Lib;
 
 use File;
+use Cache;
 use Sentry;
 use Request;
 use Settings;
@@ -54,18 +55,21 @@ class Nova {
 	 */
 	public function getSkin($section = false)
 	{
-		if ($section === false)
+		if (Cache::get('nova.installed') !== null)
 		{
-			// Figure out what section we're in
-			$section = (Request::is('admin/*')) ? 'admin' : 'main';
-		}
+			if ($section === false)
+			{
+				// Figure out what section we're in
+				$section = (Request::is('admin/*')) ? 'admin' : 'main';
+			}
 
-		if (Sentry::check())
-		{
-			return Sentry::getUser()->getPreferenceItem("skin_{$section}");
-		}
+			if (Sentry::check())
+			{
+				return Sentry::getUser()->getPreferenceItem("skin_{$section}");
+			}
 
-		return Settings::getSettings("skin_{$section}");
+			return Settings::getSettings("skin_{$section}");
+		}
 	}
 
 }
