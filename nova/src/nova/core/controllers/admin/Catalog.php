@@ -7,6 +7,7 @@ use Input;
 use Sentry;
 use Location;
 use Redirect;
+use Settings;
 use RankCatalog;
 use SplFileInfo;
 use AdminBaseController;
@@ -211,7 +212,7 @@ class Catalog extends AdminBaseController {
 				$pref = $user->preferences->filter(function($p)
 				{
 					return $p->key == 'rank';
-				});
+				})->first();
 
 				// Update the preference
 				$pref->update(['value' => $newRankSet]);

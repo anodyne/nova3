@@ -321,6 +321,8 @@ return array(
 
 		'NovaAppEventHandler'			=> 'Nova\Core\Models\Events\Application',
 
+		'RankCatalogEventHandler'		=> 'Nova\Core\Models\Events\Catalog\Rank',
+
 		'NovaFormEventHandler'			=> 'Nova\Core\Models\Events\Form',
 		'NovaFormFieldEventHandler'		=> 'Nova\Core\Models\Events\Form\Field',
 		'NovaFormSectionEventHandler'	=> 'Nova\Core\Models\Events\Form\Section',
