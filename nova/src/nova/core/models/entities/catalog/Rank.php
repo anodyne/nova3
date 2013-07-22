@@ -15,14 +15,14 @@ class Rank extends Model implements QuickInstallInterface {
 
 	protected $fillable = array(
 		'name', 'location', 'preview', 'blank', 'extension', 'status',
-		'credits', 'default', 'genre',
+		'credits', 'genre',
 	);
 
 	protected $dates = array('created_at', 'updated_at');
 
 	protected static $properties = array(
 		'id', 'name', 'location', 'preview', 'blank', 'extension', 'status', 
-		'credits', 'default', 'genre', 'created_at', 'updated_at',
+		'credits', 'genre', 'created_at', 'updated_at',
 	);
 
 	/*
@@ -43,45 +43,14 @@ class Rank extends Model implements QuickInstallInterface {
 	}
 
 	/**
-	 * Scope the query to the default item.
+	 * Scope the query to a skin by location.
 	 *
 	 * @param	Builder		The query builder
 	 * @return	void
 	 */
-	public function scopeDefault($query)
+	public function scopeLocation($query, $location)
 	{
-		$query->where('default', (int) true);
-	}
-
-	/*
-	|--------------------------------------------------------------------------
-	| Model Methods
-	|--------------------------------------------------------------------------
-	*/
-	
-	/**
-	 * Get the default rank catalog item.
-	 *
-	 * @param	bool	Only return the pertinent value?
-	 * @return	Collection
-	 * @throws	Exception
-	 */
-	public static function getDefault($valueOnly = false)
-	{
-		// Find the items
-		$result = static::active()->default()->currentGenre()->first();
-		
-		if ($result)
-		{
-			if ($valueOnly)
-			{
-				return $result->location;
-			}
-			
-			return $result;
-		}
-
-		throw new Exception(lang('error.exception.model.get.notFound'));
+		$query->where('location', $location);
 	}
 
 	/*
