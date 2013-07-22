@@ -29,6 +29,7 @@ class NovaCreateCatalogs extends Migration {
 			$t->increments('id');
 			$t->string('name');
 			$t->string('location');
+			$t->string('preview')->nullable();
 			$t->string('blank', 50)->default('blank.png');
 			$t->string('extension', 5)->default('.png');
 			$t->boolean('status')->default(Status::ACTIVE);

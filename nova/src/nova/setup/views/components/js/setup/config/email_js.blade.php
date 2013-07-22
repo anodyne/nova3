@@ -1,22 +1,23 @@
 <script type="text/javascript">
 	
-	$(document).on('change', '.js-email-driver', function(){
-		var checked = $('.js-email-driver:checked').val();
+	$(document).on('change', '[name="driver"]', function(){
+		var checked = $('[name="driver"]:checked').val();
 
 		if (checked == "smtp")
 		{
-			$('#sendmailOptions').hide();
-			$('#smtpOptions').show();
+			$('#sendmailOptions').addClass('hide');
+			$('#smtpOptions').removeClass('hide');
 		}
-		if (checked == "sendmail")
+		else if (checked == "sendmail")
 		{
-			$('#smtpOptions').hide();
-			$('#sendmailOptions').show();
+			$('#smtpOptions').addClass('hide');
+			$('#sendmailOptions').removeClass('hide');
 		}
 		else
 		{
-			$('#smtpOptions').hide();
-			$('#sendmailOptions').hide();
+			$('#smtpOptions').addClass('hide');
+			$('#sendmailOptions').addClass('hide');
+
 		}
 	});
 

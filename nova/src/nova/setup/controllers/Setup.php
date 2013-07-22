@@ -22,6 +22,9 @@ class Setup extends SetupBaseController {
 
 	public function getIndex()
 	{
+		// Set the view
+		$this->_view = 'setup/index';
+
 		// Set the title and header
 		$this->_title = "Setup Center";
 		$this->_header = "Nova Setup";
@@ -40,7 +43,8 @@ class Setup extends SetupBaseController {
 
 	public function getStart()
 	{
-		// Set the js view
+		// Set the views
+		$this->_view = 'setup/start';
 		$this->_jsView = 'setup/start_js';
 
 		// Set the title and header
@@ -171,7 +175,8 @@ class Setup extends SetupBaseController {
 
 	public function getUninstall()
 	{
-		// Set the js view
+		// Set the views
+		$this->_view = 'setup/uninstall';
 		$this->_jsView = 'setup/uninstall_js';
 
 		// Set the title and header
@@ -231,8 +236,9 @@ class Setup extends SetupBaseController {
 
 	public function getGenres()
 	{
-		// Set the js view
-		$this->_jsView = 'setup/genre_js';
+		// Set the views
+		$this->_view = 'setup/genres';
+		$this->_jsView = 'setup/genres_js';
 
 		// Set the title and header
 		$this->_title = $this->_header = 'The Genre Panel';

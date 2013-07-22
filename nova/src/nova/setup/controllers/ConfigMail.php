@@ -51,7 +51,7 @@ class ConfigMail extends SetupBaseController {
 				else
 				{
 
-					$this->_data->message = lang('setup.config.email.intro', App::environment();
+					$this->_data->message = lang('setup.config.email.intro', App::environment());
 					$this->_controls = HTML::link('setup/config/email/info', 'Start', ['class' => 'btn btn-primary']);
 				}
 			}

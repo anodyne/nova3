@@ -10,6 +10,10 @@ use SetupBaseController;
 
 class Update extends SetupBaseController {
 
+	public function getIndex()
+	{
+		return Redirect::to('setup');
+	}
 	public function postIndex()
 	{
 		// Make sure we don't time out
@@ -26,6 +30,9 @@ class Update extends SetupBaseController {
 
 	public function getFinalize()
 	{
+		// Set the view
+		$this->_view = 'update/finalize';
+
 		// Set the title and header
 		$this->_title = 'Setup Center';
 		$this->_header = 'Update Nova';
@@ -39,6 +46,9 @@ class Update extends SetupBaseController {
 
 	public function getRollback()
 	{
+		// Set the view
+		$this->_view = 'update/rollback';
+
 		// Set the title and header
 		$this->_title = $this->_header = 'Rollback Nova';
 

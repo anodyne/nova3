@@ -184,14 +184,12 @@ abstract class Setup extends Controller {
 	{
 		if ( ! is_object($this->layout)) return;
 
-		// Calculate the content view if it isn't set
-		$this->_view = (empty($this->_view)) 
-			? Str::lower($this->_controller).'/'.Str::lower($this->_action) 
-			: $this->_view;
-		
-		// Set the content view
-		$this->layout->template->content = View::make(Location::page($this->_view))
-			->with((array) $this->_data);
+		// Set the view (if it's been set)
+		if ( ! empty($this->_view))
+		{
+			$this->layout->template->content = View::make(Location::page($this->_view))
+				->with((array) $this->_data);
+		}
 		
 		// Set the javascript view (if it's been set)
 		if ( ! empty($this->_jsView))

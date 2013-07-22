@@ -884,6 +884,5 @@ $catalog_ranks = array(
 		'name' => 'DS9 Duty Uniform',
 		'location' => 'default',
 		'credits' => "The Deep Space Nine duty uniform rank set used in Nova were created by Kuro-chan of <a href='http://www.kuro-rpg.net' target='_blank''>Kuro-RPG</a>. Please do not modify the images in any way.",
-		'default' => (int) true,
 		'genre' => $g),
 );

@@ -449,6 +449,5 @@ $catalog_ranks = array(
 		'name' => 'U.S. Military',
 		'location' => 'default',
 		'credits' => "The Stargate ranks used in Nova are the US Military sets created by James Arnhem. The rankset can be found at <a href='http://www.kuro-rpg.net' target='_blank'>Kuro-RPG</a>. Please do not copy or modify the images.",
-		'default' => 1,
 		'genre' => $g)
 );

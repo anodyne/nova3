@@ -64,7 +64,7 @@ class SetupServiceProvider extends ServiceProvider {
 		$this->app['router']->group(['prefix' => 'setup/config/email', 'before' => 'csrf'], function()
 		{
 			$this->app['router']->get('/', 'Nova\Setup\Controllers\ConfigMail@getIndex');
-			$this->app['router']->get('info', 'Nova\Setup\Controllers\ConfigMail@getIndex');
+			$this->app['router']->get('info', 'Nova\Setup\Controllers\ConfigMail@getInfo');
 			
 			$this->app['router']->post('write', 'Nova\Setup\Controllers\ConfigMail@postWrite');
 			$this->app['router']->post('verify', 'Nova\Setup\Controllers\ConfigMail@postVerify');
@@ -75,7 +75,7 @@ class SetupServiceProvider extends ServiceProvider {
 		 */
 		$this->app['router']->group(['prefix' => 'setup/install', 'before' => 'csrf'], function()
 		{
-			$this->app['router']->get('/', 'Nova\Setup\Controllers\Setup@getStart');
+			$this->app['router']->get('/', 'Nova\Setup\Controllers\Install@getIndex');
 			$this->app['router']->get('settings', 'Nova\Setup\Controllers\Install@getSettings');
 			$this->app['router']->get('finalize', 'Nova\Setup\Controllers\Install@getFinalize');
 
@@ -96,7 +96,7 @@ class SetupServiceProvider extends ServiceProvider {
 		 */
 		$this->app['router']->group(['prefix' => 'setup/update', 'before' => 'csrf'], function()
 		{
-			$this->app['router']->get('/', 'Nova\Setup\Controllers\Setup@getStart');
+			$this->app['router']->get('/', 'Nova\Setup\Controllers\Update@getIndex');
 			$this->app['router']->get('finalize', 'Nova\Setup\Controllers\Update@getFinalize');
 			$this->app['router']->get('rollback', 'Nova\Setup\Controllers\Update@getRollback');
 			$this->app['router']->get('rollback/finalize', 'Nova\Setup\Controllers\Update@getRollbackFinalize');

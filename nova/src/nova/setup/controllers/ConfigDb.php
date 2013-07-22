@@ -7,6 +7,7 @@ use Form;
 use HTML;
 use Cache;
 use Input;
+use Config;
 use Schema;
 use Session;
 use Exception;
@@ -127,7 +128,8 @@ class ConfigDb extends SetupBaseController {
 			// Try to get the migration table
 			$hasTable = Schema::hasTable(Session::get('prefix')."migrations");
 			
-			// Write the message
+			// Write the header and message
+			$this->_header = 'Successful Connection';
 			$this->_data->message = lang('setup.config.db.check.success');
 			
 			// Write the controls
@@ -159,7 +161,7 @@ class ConfigDb extends SetupBaseController {
 			elseif (stripos($msg, 'Unknown database') !== false)
 			{
 				$this->_header = 'Database Not Found';
-				$this->_data->message = lang('setup.config.db.check.dbname', $dbName);
+				$this->_data->message = lang('setup.config.db.check.dbname', Session::get('dbName'));
 			}
 			else
 			{
@@ -333,7 +335,7 @@ return array(
 			elseif (stripos($msg, 'Unknown database') !== false)
 			{
 				$this->_header = 'Database Not Found';
-				$this->_data->message = lang('setup.config.db.check.dbname', $dbName);
+				$this->_data->message = lang('setup.config.db.check.dbname', Session::get('dbName'));
 			}
 			else
 			{

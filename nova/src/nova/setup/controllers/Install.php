@@ -6,6 +6,7 @@ use File;
 use Form;
 use HTML;
 use Rank;
+use User;
 use Cache;
 use Input;
 use Config;
@@ -14,6 +15,7 @@ use Artisan;
 use Location;
 use Redirect;
 use Settings;
+use Character;
 use Exception;
 use Validator;
 use AccessRole;
@@ -28,6 +30,10 @@ use SetupBaseController;
 
 class Install extends SetupBaseController {
 
+	public function getIndex()
+	{
+		return Redirect::to('setup');
+	}
 	public function postIndex()
 	{
 		// Make sure we don't time out
@@ -115,7 +121,8 @@ class Install extends SetupBaseController {
 
 	public function getSettings()
 	{
-		// Set the js view
+		// Set the views
+		$this->_view = 'install/settings';
 		$this->_jsView = 'install/settings_js';
 
 		// Set the title and header
@@ -129,7 +136,7 @@ class Install extends SetupBaseController {
 		$defaultRank = Settings::getSettings('rank');
 
 		// Get the default rank set
-		$rankSetLocation = RankCatalog::location($defaultRank)->first();
+		$rankSetLocation = RankCatalog::location($defaultRank)->first()->location;
 
 		// Get the rank item
 		$rank = Rank::find(1);
@@ -219,7 +226,8 @@ class Install extends SetupBaseController {
 
 	public function getFinalize()
 	{
-		// Set the js view
+		// Set the views
+		$this->_view = 'install/finalize';
 		$this->_jsView = 'install/finalize_js';
 
 		// Set the title and header

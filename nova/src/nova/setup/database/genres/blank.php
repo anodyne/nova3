@@ -54,6 +54,5 @@ $catalog_ranks = array(
 		'name' => 'Rank Catalogue',
 		'location' => 'default',
 		'credits' => "This is a blank rank catalogue record to be used as an example of what should be included in a rank catalogue record. Please edit this record to match your ranks or remove the record altogether.",
-		'default' => 1,
 		'genre' => $g),
 );

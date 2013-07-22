@@ -305,6 +305,5 @@ $catalog_ranks = array(
 		'name' => 'Duty Uniform',
 		'location' => 'default',
 		'credits' => "The Klingon rank sets was created by Kuro-chan of Kuro-RPG. The rankset (and others) can be found at <a href='http://www.kuro-rpg.net' target='_blank'>Kuro-RPG</a>. Please do not copy or modify the images.",
-		'default' => 1,
 		'genre' => $g)
 );
