@@ -63,8 +63,6 @@ class SystemRouteServiceProvider extends ServiceProvider {
 					{
 						$this->app['router']->get($route['uri'], $route['resource']);
 					}
-
-					\Log::info($route['uri']);
 				}
 			}
 
