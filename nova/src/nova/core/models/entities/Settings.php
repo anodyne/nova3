@@ -14,12 +14,29 @@ class Settings extends Model implements CacheInterface {
 	protected $table = 'settings';
 
 	protected $fillable = array(
-		'key', 'value', 'label', 'help',
+		'key', 'value', 'label', 'help', 'show_basic_settings',
 	);
 	
 	protected static $properties = array(
-		'id', 'key', 'value', 'label', 'help', 'user_created',
+		'id', 'key', 'value', 'label', 'help', 'user_created', 'show_basic_settings',
 	);
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Scopes
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Scope the query to settings selected to be shown in Basic Settings.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeBasicSettings($query)
+	{
+		$query->where('show_basic_settings', (int) true);
+	}
 
 	/*
 	|--------------------------------------------------------------------------

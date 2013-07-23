@@ -329,6 +329,38 @@ return [
 	],
 
 	/**
+	 * admin/settings
+	 */
+	[
+		'name'			=> 'admin/settings',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/settings',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Settings@getBasic',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/settings/advanced',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/settings/advanced',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Settings@getAdvanced',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/settings/create',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/settings/create',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Settings@getCreate',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/settings',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/settings/{type}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Settings@postSettings',
+		'protected'		=> (int) true
+	],
+
+	/**
 	 * ajax/add
 	 */
 	[

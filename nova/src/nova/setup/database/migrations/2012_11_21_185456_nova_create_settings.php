@@ -19,6 +19,7 @@ class NovaCreateSettings extends Migration {
 			$t->string('label')->nullable();
 			$t->text('help')->nullable();
 			$t->boolean('user_created')->default((int) true);
+			$t->boolean('show_basic_settings')->default((int) false);
 		});
 	}
 

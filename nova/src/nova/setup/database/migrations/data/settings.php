@@ -4,12 +4,14 @@ return [
 	[
 		'key' => 'sim_name',
 		'value' => '',
-		'user_created' => (int) false
+		'user_created' => (int) false,
+		'show_basic_settings' => (int) true
 	],
 	[
 		'key' => 'sim_year',
 		'value' => '',
-		'user_created' => (int) false
+		'user_created' => (int) false,
+		'show_basic_settings' => (int) true
 	],
 	[
 		'key' => 'sim_type',
@@ -25,22 +27,26 @@ return [
 	[
 		'key' => 'skin_main',
 		'value' => 'default',
-		'user_created' => (int) false
+		'user_created' => (int) false,
+		'show_basic_settings' => (int) true
 	],
 	[
 		'key' => 'skin_admin',
 		'value' => 'default',
-		'user_created' => (int) false
+		'user_created' => (int) false,
+		'show_basic_settings' => (int) true
 	],
 	[
 		'key' => 'skin_login',
 		'value' => 'default',
-		'user_created' => (int) false
+		'user_created' => (int) false,
+		'show_basic_settings' => (int) true
 	],
 	[
 		'key' => 'rank',
 		'value' => 'default',
-		'user_created' => (int) false
+		'user_created' => (int) false,
+		'show_basic_settings' => (int) true
 	],
 	[
 		'key' => 'email_status',
