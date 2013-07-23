@@ -4,7 +4,7 @@ Route::group(array('prefix' => 'test'), function()
 {
 	Route::get('index', function()
 	{
-		s(NovaFormSection::find(7)->fields->toArray());
+		sd(Status::PENDING);
 	});
 
 	Route::get('partial', function()
