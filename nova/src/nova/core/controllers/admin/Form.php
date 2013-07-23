@@ -24,7 +24,7 @@ class Form extends AdminBaseController {
 	public function getIndex($formKey = false)
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['form.create', 'form.edit', 'form.delete'], true);
+		Sentry::getUser()->allowed(['form.create', 'form.update', 'form.delete'], true);
 
 		// Set the JS view
 		$this->_jsView = 'admin/form/forms_js';
@@ -208,7 +208,7 @@ class Form extends AdminBaseController {
 	public function getTabs($formKey, $id = false)
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['form.create', 'form.edit', 'form.delete'], true);
+		Sentry::getUser()->allowed(['form.create', 'form.update', 'form.delete'], true);
 
 		// Set the view files
 		$this->_view = 'admin/form/tabs';
@@ -391,7 +391,7 @@ class Form extends AdminBaseController {
 	public function getSections($formKey, $id = false)
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['form.create', 'form.edit', 'form.delete'], true);
+		Sentry::getUser()->allowed(['form.create', 'form.update', 'form.delete'], true);
 
 		// Set the view files
 		$this->_view = 'admin/form/sections';
@@ -601,7 +601,7 @@ class Form extends AdminBaseController {
 	public function getFields($formKey, $id = false)
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['form.create', 'form.edit', 'form.delete'], true);
+		Sentry::getUser()->allowed(['form.create', 'form.update', 'form.delete'], true);
 
 		// Set the view files
 		$this->_view = 'admin/form/fields';
