@@ -16,15 +16,15 @@
 		</testsuite>
 
 		<testsuite name="core">
-			<directory>./nova/src/Nova/Core/tests/</directory>
+			<directory>./nova/src/nova/core/tests/</directory>
 		</testsuite>
 
 		<testsuite name="foundation">
-			<directory>./nova/src/Nova/Foundation/tests/</directory>
+			<directory>./nova/src/nova/extensions/tests/</directory>
 		</testsuite>
 
 		<testsuite name="setup">
-			<directory>./nova/src/Nova/Setup/tests/</directory>
+			<directory>./nova/src/nova/setup/tests/</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>
