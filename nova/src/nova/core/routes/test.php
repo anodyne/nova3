@@ -30,4 +30,9 @@ Route::group(array('prefix' => 'test'), function()
 
 		sd($final);
 	});
+
+	Route::get('location', function()
+	{
+		sd(Location::page('admin/form/forms'));
+	});
 });

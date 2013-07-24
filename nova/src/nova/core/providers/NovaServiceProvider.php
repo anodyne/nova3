@@ -36,7 +36,7 @@ class NovaServiceProvider extends ServiceProvider {
 	{
 		$this->app['nova.location'] = $this->app->share(function($app)
 		{
-			return new Location;
+			return new Location($app['html'], $app['files'], $app['url'], $app['view']);
 		});
 	}
 
