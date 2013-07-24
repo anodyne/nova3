@@ -94,9 +94,12 @@ if ( ! function_exists('langConcat'))
  * @param	mixed	The data to pass to the partial
  * @return	string
  */
-function partial($view, $data)
+if ( ! function_exists('partial'))
 {
-	return View::make(Location::partial($view))->with($data);
+	function partial($view, $data)
+	{
+		return View::make(Location::partial($view))->with($data);
+	}
 }
 
 /**
