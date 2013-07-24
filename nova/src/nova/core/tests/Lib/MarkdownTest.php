@@ -28,13 +28,4 @@ class MarkdownTest extends TestCase {
 		$this->assertSame($pExpects, $pActual);
 	}
 
-	/**
-	 * @covers				Markdown::parse
-	 * @expectedException	InvalidArgumentException
-	 */
-	public function testThrowsExceptionWhenNotStringOrBoolean()
-	{
-		$this->markdown->parse(new stdClass);
-	}
-
 }
