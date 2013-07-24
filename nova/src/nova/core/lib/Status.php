@@ -1,5 +1,7 @@
 <?php namespace Nova\Core\Lib;
 
+use Exception;
+
 class Status {
 
 	const PENDING		= 1;
@@ -45,7 +47,8 @@ class Status {
 			break;
 
 			default:
-				$final = lang('error.notFound', lang('status'));
+				$final = false;
+				throw new Exception("Unexpected input. {$status} is not a valid status code.");
 			break;
 		}
 
@@ -58,9 +61,9 @@ class Status {
 	 * @param	string	Text to translate
 	 * @return	int
 	 */
-	public static function toInt($str)
+	public static function toInt($status)
 	{
-		switch ($str)
+		switch ($status)
 		{
 			case 'active':
 			case 'current':
@@ -100,6 +103,11 @@ class Status {
 			case 'reject':
 			case 'rejected':
 				$final = self::REJECTED;
+			break;
+
+			default:
+				$final = false;
+				throw new Exception("Unexpected input. {$status} is not a valid status string.");
 			break;
 		}
 
