@@ -322,6 +322,7 @@ return array(
 		'NovaAppEventHandler'			=> 'Nova\Core\Models\Events\Application',
 
 		'RankCatalogEventHandler'		=> 'Nova\Core\Models\Events\Catalog\Rank',
+		'SkinCatalogEventHandler'		=> 'Nova\Core\Models\Events\Catalog\Skin',
 
 		'NovaFormEventHandler'			=> 'Nova\Core\Models\Events\Form',
 		'NovaFormFieldEventHandler'		=> 'Nova\Core\Models\Events\Form\Field',
@@ -349,6 +350,7 @@ return array(
 		'AccessTaskValidator'		=> 'Nova\Core\Models\Validators\Access\Task',
 
 		'RankCatalogValidator'		=> 'Nova\Core\Models\Validators\Catalog\Rank',
+		'SkinCatalogValidator'		=> 'Nova\Core\Models\Validators\Catalog\Skin',
 
 		'FormValidator'				=> 'Nova\Core\Models\Validators\Form',
 		'FormFieldValidator'		=> 'Nova\Core\Models\Validators\Form\Field',
