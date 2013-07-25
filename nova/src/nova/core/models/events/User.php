@@ -7,6 +7,9 @@ use BaseEventHandler;
 
 class User extends BaseEventHandler {
 
+	public static $lang = 'user';
+	public static $name = 'name';
+
 	/**
 	 * When a user is created, we need to create blank data records
 	 * to prevent errors being thrown when the user is updated and
@@ -40,38 +43,8 @@ class User extends BaseEventHandler {
 			}
 		}
 
-		/**
-		 * System Event
-		 */
-		SystemEvent::addUserEvent('event.item', lang('user'), $model->name, lang('action.created'));
-	}
-
-	/**
-	 * Post-update event.
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
-	public function updated($model)
-	{
-		/**
-		 * System Event
-		 */
-		SystemEvent::addUserEvent('event.item', lang('user'), $model->name, lang('action.updated'));
-	}
-
-	/**
-	 * Pre-delete event.
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
-	public function deleting($model)
-	{
-		/**
-		 * System Event
-		 */
-		SystemEvent::addUserEvent('event.item', lang('user'), $model->name, lang('action.deleted'));
+		// Call the parent
+		parent::created();
 	}
 
 }

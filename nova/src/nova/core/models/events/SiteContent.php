@@ -5,48 +5,9 @@ use SystemEvent;
 use BaseEventHandler;
 
 class SiteContent extends BaseEventHandler {
-	
-	/**
-	 * After create event
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
-	public function created($model)
-	{
-		/**
-		 * System Event
-		 */
-		SystemEvent::addUserEvent('event.item', lang('base.position'), $model->name, lang('action.created'));
-	}
 
-	/**
-	 * After update event
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
-	public function updated($model)
-	{
-		/**
-		 * System Event
-		 */
-		SystemEvent::addUserEvent('event.item', lang('base.position'), $model->name, lang('action.updated'));
-	}
-
-	/**
-	 * Before delete event
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
-	public function deleting($model)
-	{
-		/**
-		 * System Event
-		 */
-		SystemEvent::addUserEvent('event.item', lang('base.position'), $model->name, lang('action.deleted'));
-	}
+	public static $lang = 'site_content';
+	public static $name = 'label';
 
 	/**
 	 * After the model is saved, we need to blow away the old cache

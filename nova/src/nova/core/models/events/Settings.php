@@ -5,6 +5,9 @@ use SystemEvent;
 use BaseEventHandler;
 
 class Settings extends BaseEventHandler {
+
+	public static $lang = 'rank_set catalog';
+	public static $name = 'name';
 	
 	/**
 	 * After create event

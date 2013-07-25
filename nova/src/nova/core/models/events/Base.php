@@ -1,10 +1,15 @@
 <?php namespace Nova\Core\Models\Events;
 
+use SystemEvent;
+
 /**
  * Base event handler that sets all the different event methods.
  */
 
 class Base {
+
+	public static $lang = '';
+	public static $name = 'name';
 
 	public function saving($model)
 	{
@@ -23,12 +28,28 @@ class Base {
 
 	public function created($model)
 	{
-		# code...
+		/**
+		 * System Event
+		 */
+		SystemEvent::addUserEvent(
+			'event.item',
+			langConcat(static::$lang),
+			$model->{static::$name},
+			lang('action.created')
+		);
 	}
 
 	public function updated($model)
 	{
-		# code...
+		/**
+		 * System Event
+		 */
+		SystemEvent::addUserEvent(
+			'event.item',
+			langConcat(static::$lang),
+			$model->{static::$name},
+			lang('action.updated')
+		);
 	}
 
 	public function saved($model)
@@ -43,7 +64,15 @@ class Base {
 
 	public function deleted($model)
 	{
-		# code...
+		/**
+		 * System Event
+		 */
+		SystemEvent::addUserEvent(
+			'event.item',
+			langConcat(static::$lang),
+			$model->{static::$name},
+			lang('action.deleted')
+		);
 	}
 
 }

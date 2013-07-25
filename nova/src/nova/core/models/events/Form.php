@@ -2,4 +2,9 @@
 
 use BaseEventHandler;
 
-class Form extends BaseEventHandler {}
+class Form extends BaseEventHandler {
+
+	public static $lang = 'form';
+	public static $name = 'name';
+
+}

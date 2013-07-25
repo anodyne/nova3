@@ -4,34 +4,9 @@ use SystemEvent;
 use BaseEventHandler;
 
 class SystemRoute extends BaseEventHandler {
-	
-	/**
-	 * After create event
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
-	public function created($model)
-	{
-		/**
-		 * System Event
-		 */
-		SystemEvent::addUserEvent('event.item', langConcat('system page'), $model->name, lang('action.created'));
-	}
 
-	/**
-	 * After update event
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
-	public function updated($model)
-	{
-		/**
-		 * System Event
-		 */
-		SystemEvent::addUserEvent('event.item', langConcat('system page'), $model->name, lang('action.updated'));
-	}
+	public static $lang = 'system route';
+	public static $name = 'name';
 
 	/**
 	 * Before delete event
@@ -45,11 +20,6 @@ class SystemRoute extends BaseEventHandler {
 		{
 			\SystemRouteModel::cache();
 		}
-		
-		/**
-		 * System Event
-		 */
-		SystemEvent::addUserEvent('event.item', langConcat('system page'), $model->name, lang('action.deleted'));
 	}
 
 	/**

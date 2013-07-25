@@ -7,6 +7,9 @@ use BaseEventHandler;
 
 class Character extends BaseEventHandler {
 
+	public static $lang = 'character';
+	public static $name = 'last_name';
+
 	/**
 	 * After create event
 	 *
