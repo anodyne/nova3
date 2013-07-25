@@ -69,6 +69,18 @@ return array(
 				'extensionHelp' => "The file extension that all rank set images have.",
 				'genreHelp' => "<strong>Warning:</strong> Changing the genre can cause issues with your rank sets. Do so only if you know what you're doing!",
 			],
+
+			'skins' => [
+				'location' => "This is the name of the directory where the skin is located. (Skin are located in <code>app/views</code>.)",
+				'previewImage' => "Preview Image",
+				'previewImageHelp' => "The filename of the image you want to use as a preview for this rank set.",
+				'blankImage' => "Blank Image",
+				'blankImageHelp' => "The filename of the image you want to use for the \"blank\" image on the manifest.",
+				'extensionHelp' => "The file extension that all rank set images have.",
+				'genreHelp' => "<strong>Warning:</strong> Changing the genre can cause issues with your rank sets. Do so only if you know what you're doing!",
+				'pending' => "The skins below were found in the appropriate skins directory and have a QuickInstall file, but haven't been installed yet. To install these skins and make them available to use, click the :0 icon.",
+				'updateAvailable' => "An update is ready to be applied for this skin.",
+			],
 		],
 
 		'forms' => [

@@ -384,6 +384,13 @@ return [
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Add@getRankSet',
 		'protected'		=> (int) true
 	],
+	[
+		'name'			=> 'ajax/add/skin',
+		'verb'			=> 'get',
+		'uri'			=> 'ajax/add/skin/{location}',
+		'resource'		=> 'Nova\Core\Controllers\Ajax\Add@getSkin',
+		'protected'		=> (int) true
+	],
 
 	/**
 	 * ajax/get
@@ -495,6 +502,13 @@ return [
 		'verb'			=> 'get',
 		'uri'			=> 'ajax/delete/rankset/{id}',
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getRankSet',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'ajax/delete/skin',
+		'verb'			=> 'get',
+		'uri'			=> 'ajax/delete/skin/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getSkin',
 		'protected'		=> (int) true
 	],
 

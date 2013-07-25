@@ -65,6 +65,48 @@ class Skin extends Model implements QuickInstallInterface {
 
 	/*
 	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Check to see if the current skin has an updates available. This only
+	 * applies to skins that use QuickInstall.
+	 *
+	 * @return	bool
+	 */
+	public function checkForUpdate()
+	{
+		if (File::exists(APPPATH."views/{$this->location}/skin.json"))
+		{
+			// Get the contents of the QuickInstall file
+			$contents = File::get(APPPATH."views/{$this->location}/skin.json");
+
+			// Turn the contents into an object
+			$skin = json_decode($contents);
+
+			if (version_compare($this->version, $skin->version, '<'))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Apply an update to the current skin. This only applies to skins that use
+	 * QuickInstall.
+	 *
+	 * @return	bool
+	 */
+	public function applyUpdate()
+	{
+		return false;
+	}
+
+	/*
+	|--------------------------------------------------------------------------
 	| QuickInstall Implementation
 	|--------------------------------------------------------------------------
 	*/

@@ -222,6 +222,24 @@ class Add extends AjaxBaseController {
 	}
 
 	/**
+	 * Confirm installing a skin.
+	 *
+	 * @param	string	The location of the skin
+	 * @return	void
+	 */
+	public function getSkin($location)
+	{
+		if (Sentry::check() and Sentry::getUser()->hasAccess('catalog.create'))
+		{
+			// Get the contents of the QuickInstall file
+			$skinContents = File::get(APPPATH."views/{$location}/skin.json");
+
+			echo View::make(Location::ajax('add/skin'))
+				->with('skin', json_decode($skinContents));
+		}
+	}
+
+	/**
 	 * Create a user record.
 	 *
 	 * @return	void

@@ -9,6 +9,7 @@ use Location;
 use Redirect;
 use Settings;
 use RankCatalog;
+use SkinCatalog;
 use SplFileInfo;
 use AdminBaseController;
 use RankCatalogValidator;
@@ -64,17 +65,15 @@ class Catalog extends AdminBaseController {
 			$simpleRanks = $ranks->toSimpleArray('id', 'location');
 
 			// Get the listing of the current genre's ranks
-			$finder = Finder::create()
-				->directories()
-				->in(APPPATH."assets/common/{$this->genre}/ranks")
+			$finder = Finder::create()->directories()->in(APPPATH."assets/common/{$this->genre}/ranks")
 				->depth('== 0')
 				->filter(function(SplFileInfo $fileinfo) use ($simpleRanks)
+				{
+					if (in_array($fileinfo->getRelativePathName(), $simpleRanks))
 					{
-						if (in_array($fileinfo->getRelativePathName(), $simpleRanks))
-						{
-							return false;
-						}
-					});
+						return false;
+					}
+				});
 
 			// Start the list of pending ranks
 			$this->_data->pending = [];
@@ -239,13 +238,220 @@ class Catalog extends AdminBaseController {
 			->with('flashMessage', $flashMessage);
 	}
 
-	public function getSkins()
+	public function getSkins($id = false)
 	{
-		# code...
+		// Verify the user is allowed
+		Sentry::getUser()->allowed(['catalog.create', 'catalog.edit', 'catalog.delete'], true);
+
+		// Set the JS view
+		$this->_jsView = 'admin/catalog/skins_js';
+
+		if ($id !== false)
+		{
+			// Set the view
+			$this->_view = 'admin/catalog/skins_action';
+
+			// Get the rank set
+			$this->_data->rank = RankCatalog::find($id);
+
+			// Set the action
+			$this->_data->action = ((int) $id === 0) ? 'create' : 'update';
+		}
+		else
+		{
+			// Set the view
+			$this->_view = 'admin/catalog/skins';
+
+			// Get all the skins
+			$skins = $this->_data->skins = SkinCatalog::active()->get();
+
+			// Get a simple array of skins
+			$simpleSkins = $skins->toSimpleArray('id', 'location');
+
+			// Get the listing of the skins
+			$finder = Finder::create()->directories()->in(APPPATH."views")->depth('== 0')
+				->filter(function(SplFileInfo $fileinfo) use ($simpleSkins)
+				{
+					if (in_array($fileinfo->getRelativePathName(), $simpleSkins))
+					{
+						return false;
+					}
+				});
+
+			// Start the list of pending ranks
+			$this->_data->pending = [];
+
+			// Loop through the directories and get the info
+			foreach ($finder as $f)
+			{
+				// Get a shorter version of the relative path name
+				$relativePath = $f->getRelativePathName();
+
+				// If we have a QuickInstall file, add it to the pending list
+				if (File::exists(APPPATH."views/{$relativePath}/skin.json"))
+				{
+					// Get the contents of the QuickInstall file
+					$skinContents = File::get(APPPATH."views/{$relativePath}/skin.json");
+
+					$this->_data->pending[$relativePath] = json_decode($skinContents);
+				}
+			}
+
+			// Build the delete skin modal
+			$this->_ajax[] = View::make(Location::partial('common/modal'))
+				->with('modalId', 'deleteSkin')
+				->with('modalHeader', lang('Short.delete', lang('Skin')))
+				->with('modalBody', '')
+				->with('modalFooter', false);
+
+			// Build the install rank set modal
+			$this->_ajax[] = View::make(Location::partial('common/modal'))
+				->with('modalId', 'installSkin')
+				->with('modalHeader', lang('Short.install', lang('Skin')))
+				->with('modalBody', '')
+				->with('modalFooter', false);
+		}
 	}
 	public function postSkins()
 	{
-		# code...
+		// Get the action
+		$action = e(Input::get('action'));
+
+		// Get the current user
+		$user = Sentry::getUser();
+
+		// Set up the validation service
+		$validator = new SkinCatalogValidator;
+
+		// If the validation fails, stop and go back
+		if ( ! $validator->passes())
+		{
+			if ($action == 'delete' or $action == 'install')
+			{
+				// Set the flash message
+				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
+				$flashMessage.= implode(' ', $validator->getErrors()->all());
+
+				return Redirect::to('admin/catalog/skins')
+					->with('flashStatus', 'danger')
+					->with('flashMessage', $flashMessage);
+			}
+			
+			return Redirect::back()->withInput()->withErrors($validator->getErrors());
+		}
+
+		/**
+		 * Create a skin.
+		 */
+		if ($user->hasAccess('catalog.create') and $action == 'create')
+		{
+			// Create the skin
+			$item = SkinCatalog::create(Input::all());
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.create', lang('skin'))
+				: lang('Short.alert.failure.create', lang('skin'));
+		}
+
+		/**
+		 * Install a skin.
+		 */
+		if ($user->hasAccess('catalog.create') and $action == 'install')
+		{
+			// Install the rank set
+			$item = SkinCatalog::install(e(Input::get('location')));
+
+			// Set the flash info
+			$flashStatus = 'success';
+			$flashMessage = lang('Short.alert.success.install', lang('skin'));
+		}
+
+		/**
+		 * Edit a skin.
+		 */
+		if ($user->hasAccess('catalog.update') and $action == 'update')
+		{
+			// Get the ID
+			$id = e(Input::get('id'));
+			$id = (is_numeric($id)) ? $id : false;
+
+			// Get the skin
+			$skin = SkinCatalog::find($id);
+
+			// Update the skin
+			$item = $skin->update(Input::all());
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.update', lang('skin'))
+				: lang('Short.alert.failure.update', lang('skin'));
+		}
+
+		/**
+		 * Delete the skin.
+		 */
+		if ($user->hasAccess('catalog.delete') and $action == 'delete')
+		{
+			// Get the ID
+			$id = e(Input::get('id'));
+			$id = (is_numeric($id)) ? $id : false;
+
+			// Get the skin
+			$skin = RankCatalog::find($id);
+
+			// Get the new skin
+			$newSkin = e(Input::get('new_skin'));
+
+			// Get all users
+			$users = User::all();
+
+			foreach ($users as $user)
+			{
+				// Filter the preferences to just the main skin
+				$prefSkinMain = $user->preferences->filter(function($p)
+				{
+					return $p->key == 'skin_main';
+				})->first();
+
+				// Filter the preferences to just the admin skin
+				$prefSkinAdmin = $user->preferences->filter(function($p)
+				{
+					return $p->key == 'skin_admin';
+				})->first();
+
+				// Update the preference
+				$prefSkinMain->update(['value' => $newSkin]);
+				$prefSkinAdmin->update(['value' => $newSkin]);
+			}
+
+			// If the main skin default is what we're deleting, change that as well
+			if ($this->settings->skin_main == $skin->location)
+			{
+				Settings::updateItems(['skin_main' => $newSkin]);
+			}
+
+			// If the admin skin default is what we're deleting, change that as well
+			if ($this->settings->skin_admin == $skin->location)
+			{
+				Settings::updateItems(['skin_admin' => $newSkin]);
+			}
+
+			// Delete the skin
+			$item = $skin->delete();
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.delete', lang('skin'))
+				: lang('Short.alert.failure.delete', lang('skin'));
+		}
+
+		return Redirect::to("admin/catalog/skins")
+			->with('flashStatus', $flashStatus)
+			->with('flashMessage', $flashMessage);
 	}
 
 	public function getWidgets()

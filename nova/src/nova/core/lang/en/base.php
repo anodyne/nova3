@@ -199,6 +199,7 @@ return array(
 	'skin' => 'skin',
 	'skins' => 'skins',
 	'system' => "system",
+	'site_content' => "site content",
 
 	'tab' => "tab",
 	'tabs' => "tabs",
