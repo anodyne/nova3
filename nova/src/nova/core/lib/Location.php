@@ -1,31 +1,15 @@
 <?php namespace Nova\Core\Lib;
 
+use URL;
+use File;
+use HTML;
+use View;
 use Setup;
 use Config;
 use Exception;
 use RankCatalog;
 
 class Location {
-
-	/**
-	 * Filesystem instance.
-	 */
-	protected $filesystem;
-
-	/**
-	 * HTML Builder instance.
-	 */
-	protected $html;
-
-	/**
-	 * URL instance.
-	 */
-	protected $url;
-
-	/**
-	 * View instance.
-	 */
-	protected $view;
 
 	/**
 	 * @var	string	The file name.
@@ -46,14 +30,6 @@ class Location {
 	 * @var	string	The fallback module.
 	 */
 	protected $module;
-
-	public function __construct($html, $file, $url, $view)
-	{
-		$this->html			= $html;
-		$this->url			= $url;
-		$this->filesystem	= $file;
-		$this->view			= $view;
-	}
 
 	/**
 	 * Find an ajax view.
@@ -252,13 +228,13 @@ class Location {
 	 */
 	protected function findFile()
 	{
-		if ($this->filesystem->exists(APPPATH."modules/override/views/components/{$this->type}/{$this->file}.php")
-				or $this->filesystem->exists(APPPATH."modules/override/views/components/{$this->type}/{$this->file}.blade.php"))
+		if (File::exists(APPPATH."modules/override/views/components/{$this->type}/{$this->file}.php")
+				or File::exists(APPPATH."modules/override/views/components/{$this->type}/{$this->file}.blade.php"))
 		{
 			return "components/{$this->type}/{$this->file}";
 		}
-		elseif ($this->filesystem->exists(APPPATH."views/{$this->skin}/components/{$this->type}/{$this->file}.php")
-				or $this->filesystem->exists(APPPATH."views/{$this->skin}/components/{$this->type}/{$this->file}.blade.php"))
+		elseif (File::exists(APPPATH."views/{$this->skin}/components/{$this->type}/{$this->file}.php")
+				or File::exists(APPPATH."views/{$this->skin}/components/{$this->type}/{$this->file}.blade.php"))
 		{
 			return "{$this->skin}/components/{$this->type}/{$this->file}";
 		}
@@ -284,11 +260,11 @@ class Location {
 				// Set the ALT attribute to the image name if it isn't set already
 				$attributes['alt'] = ( ! array_key_exists('alt', $attributes)) ? $this->file : $attributes['alt'];
 
-				return $this->html->image($path, null, $attributes);
+				return HTML::image($path, null, $attributes);
 			break;
 
 			case 'urlpath':
-				return $this->url->asset($path);
+				return URL::asset($path);
 			break;
 
 			case 'abspath':
@@ -319,15 +295,15 @@ class Location {
 			? RankCatalog::getItems('location', \Nova::getRank())->first()
 			: RankCatalog::getItems('location', $location)->first();
 
-		if ($this->filesystem->isDirectory(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/base") 
-				and $this->filesystem->isDirectory(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/pips"))
+		if (File::isDirectory(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/base") 
+				and File::isDirectory(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/pips"))
 		{
 			// Set the base path for the ranks
 			$basePath = "app/assets/common/{$genre}/ranks/{$catalog->location}";
 
 			// Set the base and pip image paths
-			$baseImage = $this->url->asset("{$basePath}/base/{$base}{$catalog->extension}");
-			$pipImage = $this->url->asset("{$basePath}/pips/{$pip}{$catalog->extension}");
+			$baseImage = URL::asset("{$basePath}/base/{$base}{$catalog->extension}");
+			$pipImage = URL::asset("{$basePath}/pips/{$pip}{$catalog->extension}");
 			
 			// Set up the properties
 			$properties = array(
@@ -335,7 +311,7 @@ class Location {
 				'pip' => "background:transparent url({$pipImage}) no-repeat top left;",
 			);
 
-			return $this->view->make($this->partial('common/rank'))
+			return View::make($this->partial('common/rank'))
 				->with('props', $properties)
 				->render();
 		}
@@ -350,7 +326,7 @@ class Location {
 		$imageName = (empty($pip)) ? $base.$catalog->extension : $base."-".$pip.$catalog->extension;
 
 		// Return the old rank style
-		return $this->html->image("app/assets/common/{$genre}/ranks/{$catalog->location}/{$imageName}", null);
+		return HTML::image("app/assets/common/{$genre}/ranks/{$catalog->location}/{$imageName}", null);
 	}
 
 	/**
@@ -371,11 +347,11 @@ class Location {
 			break;
 			
 			case 'image':
-				if ($this->filesystem->exists(APPPATH."modules/override/views/design/images/{$this->file}"))
+				if (File::exists(APPPATH."modules/override/views/design/images/{$this->file}"))
 				{
 					return "app/modules/override/views/design/images/{$this->file}";
 				}
-				elseif ($this->filesystem->exists(APPPATH."views/{$this->skin}/design/images/{$this->file}"))
+				elseif (File::exists(APPPATH."views/{$this->skin}/design/images/{$this->file}"))
 				{
 					return "app/views/{$this->skin}/design/images/{$this->file}";
 				}
