@@ -44,7 +44,7 @@ class User extends BaseEventHandler {
 		}
 
 		// Call the parent
-		parent::created();
+		parent::created($model);
 	}
 
 }
