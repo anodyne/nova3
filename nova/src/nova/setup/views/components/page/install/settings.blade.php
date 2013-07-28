@@ -1,17 +1,15 @@
 <p>The database tables have been created and some basic data put into them. Now, just fill out the information below to update the system with it.</p>
 
-{{ Form::open() }}
+{{ Form::open(['url' => 'setup/install/settings']) }}
 	<fieldset>
 		<legend>Sim Information</legend>
 		
 		<div class="row">
 			<div class="col col-lg-6">
-				<div class="control-group{{ ($errors->has('sim_name')) ? ' has-error' : '' }}">
-					<label class="control-label">Sim Name</label>
-					<div class="controls">
-						{{ Form::text('sim_name', Input::old('sim_name'), array('class' => 'input-with-feedback')) }}
-						{{ $errors->first('sim_name', '<p class="help-block">:message</p>') }}
-					</div>
+				<div class="form-group{{ ($errors->has('sim_name')) ? ' has-error' : '' }}">
+					<label>Sim Name</label>
+					{{ Form::text('sim_name', Input::old('sim_name'), ['class' => 'form-control input-with-feedback']) }}
+					{{ $errors->first('sim_name', '<p class="help-block">:message</p>') }}
 				</div>
 			</div>
 		</div>
@@ -22,44 +20,36 @@
 		
 		<div class="row">
 			<div class="col col-lg-6">
-				<div class="control-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
-					<label class="control-label">Your Name</label>
-					<div class="controls">
-						{{ Form::text('name', Input::old('name'), array('class' => 'input-with-feedback')) }}
-						{{ $errors->first('name', '<p class="help-block">:message</p>') }}
-					</div>
+				<div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
+					<label>Your Name</label>
+					{{ Form::text('name', Input::old('name'), ['class' => 'form-control input-with-feedback']) }}
+					{{ $errors->first('name', '<p class="help-block">:message</p>') }}
 				</div>
 			</div>
 
 			<div class="col col-lg-6">
-				<div class="control-group{{ ($errors->has('email')) ? ' has-error' : '' }}">
-					<label class="control-label">Your Email Address</label>
-					<div class="controls">
-						{{ Form::email('email', Input::old('email'), array('class' => 'input-with-feedback')) }}
-						{{ $errors->first('email', '<p class="help-block">:message</p>') }}
-					</div>
+				<div class="form-group{{ ($errors->has('email')) ? ' has-error' : '' }}">
+					<label>Your Email Address</label>
+					{{ Form::email('email', Input::old('email'), ['class' => 'form-control input-with-feedback']) }}
+					{{ $errors->first('email', '<p class="help-block">:message</p>') }}
 				</div>
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col col-lg-6">
-				<div class="control-group{{ ($errors->has('password')) ? ' has-error' : '' }}">
-					<label class="control-label">Your Password</label>
-					<div class="controls">
-						{{ Form::password('password', array('class' => 'input-with-feedback', 'id' => 'password')) }}
-						{{ $errors->first('password', '<p class="help-block">:message</p>') }}
-					</div>
+				<div class="form-group{{ ($errors->has('password')) ? ' has-error' : '' }}">
+					<label>Your Password</label>
+					{{ Form::password('password', ['class' => 'form-control input-with-feedback', 'id' => 'password']) }}
+					{{ $errors->first('password', '<p class="help-block">:message</p>') }}
 				</div>
 			</div>
 			
 			<div class="col col-lg-6">
-				<div class="control-group{{ ($errors->has('password_confirm')) ? ' has-error' : '' }}">
-					<label class="control-label">Confirm Your Password</label>
-					<div class="controls">
-						{{ Form::password('password_confirm', array('class' => 'input-with-feedback')) }}
-						{{ $errors->first('password_confirm', '<p class="help-block">:message</p>') }}
-					</div>
+				<div class="form-group{{ ($errors->has('password_confirm')) ? ' has-error' : '' }}">
+					<label>Confirm Your Password</label>
+					{{ Form::password('password_confirm', ['class' => 'form-control input-with-feedback']) }}
+					{{ $errors->first('password_confirm', '<p class="help-block">:message</p>') }}
 				</div>
 			</div>
 		</div>
@@ -70,53 +60,45 @@
 		
 		<div class="row">
 			<div class="col col-lg-6">
-				<div class="control-group{{ ($errors->has('first_name')) ? ' has-error' : '' }}">
-					<label class="control-label">First Name</label>
-					<div class="controls">
-						{{ Form::text('first_name', Input::old('first_name'), array('class' => 'input-with-feedback')) }}
-						{{ $errors->first('first_name', '<p class="help-block">:message</p>') }}
-					</div>
+				<div class="form-group{{ ($errors->has('first_name')) ? ' has-error' : '' }}">
+					<label>First Name</label>
+					{{ Form::text('first_name', Input::old('first_name'), ['class' => 'form-control input-with-feedback']) }}
+					{{ $errors->first('first_name', '<p class="help-block">:message</p>') }}
 				</div>
 			</div>
 				
 			<div class="col col-lg-6">
-				<div class="control-group">
-					<label class="control-label">Last Name</label>
-					<div class="controls">
-						{{ Form::text('last_name', false) }}
-					</div>
+				<div class="form-group">
+					<label>Last Name</label>
+					{{ Form::text('last_name', false, ['class' => 'form-control']) }}
 				</div>
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col col-lg-6">
-				<div class="control-group{{ ($errors->has('position')) ? ' has-error' : '' }}">
-					<label class="control-label">Position</label>
-					<div class="controls">
-						{{ Form::position('position', Input::old('position'), array('class' => 'input-with-feedback', 'id' => 'positionDrop'), 'open.playing', true) }}
-						{{ $errors->first('position', '<p class="help-block">:message</p>') }}
-					</div>
+				<div class="form-group{{ ($errors->has('position')) ? ' has-error' : '' }}">
+					<label>Position</label>
+					{{ Form::position('position', Input::old('position'), ['class' => 'form-control input-with-feedback', 'id' => 'positionDrop'], 'open.playing', true) }}
+					{{ $errors->first('position', '<p class="help-block">:message</p>') }}
 				</div>
 			</div>
 			<div class="col col-lg-6 hide" id="positionDescPanel">
-				<label class="control-label">Position Description</label>
+				<label>Position Description</label>
 				<p id="positionDesc" class="text-muted font-small"></p>
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col col-lg-6">
-				<div class="control-group{{ ($errors->has('rank')) ? ' has-error' : '' }}">
-					<label class="control-label">Rank</label>
-					<div class="controls">
-						{{ Form::rank('rank', Input::old('rank'), array('class' => 'input-with-feedback', 'id' => 'rankDrop'), true) }}
-						{{ $errors->first('rank', '<p class="help-block">:message</p>') }}
-					</div>
+				<div class="form-group{{ ($errors->has('rank')) ? ' has-error' : '' }}">
+					<label>Rank</label>
+					{{ Form::rank('rank', Input::old('rank'), ['class' => 'form-control input-with-feedback', 'id' => 'rankDrop'], true) }}
+					{{ $errors->first('rank', '<p class="help-block">:message</p>') }}
 				</div>
 			</div>
 			<div class="col col-lg-6">
-				<label class="control-label">&nbsp;</label>
+				<label>&nbsp;</label>
 				<div id="rankImg">{{ $defaultRank }}</div>
 			</div>
 		</div>
