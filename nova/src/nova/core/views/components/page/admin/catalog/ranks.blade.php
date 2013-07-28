@@ -11,44 +11,46 @@
 </div>
 
 @if (count($pending) > 0 and Sentry::getUser()->hasAccess('catalog.create'))
-	<legend>{{ ucwords(langConcat('pending rank_sets')) }}</legend>
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title">{{ ucwords(langConcat('pending rank_sets')) }}</h3>
+		</div>
 
-	<p>{{ lang('short.admin.catalog.pendingRanksMessage', '<span class="icn-size-16 text-success">'.$_icons['add'].'</span>') }}</p>
+		<p>{{ lang('short.admin.catalog.pendingRanksMessage', '<span class="icn-size-16 text-success">'.$_icons['add'].'</span>') }}</p>
 
-	<div class="nv-data-table nv-data-table-striped nv-data-table-bordered">
-		@foreach ($pending as $dir => $info)
-			<div class="row">
-				<div class="col-12 col-sm-6 col-lg-5">
-					<p><strong>{{ $info->name }}</strong></p>
-					<p class="text-small">{{ $dir }}</p>
-				</div>
-				<div class="col-12 col-sm-3 col-lg-5">
-					<p>{{ HTML::image($rankPath.$dir.'/'.$info->preview) }}</p>
-				</div>
-				<div class="col-12 col-sm-3 col-lg-2">
-					<div class="hidden-sm">
-						<div class="btn-toolbar pull-right">
-							<div class="btn-group">
-								<a href="#" class="btn btn-small btn-success icn-size-16 js-rank-action" data-location="{{ $dir }}" data-action="install">{{ $_icons['add'] }}</a>
+		<div class="nv-data-table nv-data-table-striped nv-data-table-bordered">
+			@foreach ($pending as $dir => $info)
+				<div class="row">
+					<div class="col-12 col-sm-6 col-lg-5">
+						<p><strong>{{ $info->name }}</strong></p>
+						<p class="text-small">{{ $dir }}</p>
+					</div>
+					<div class="col-12 col-sm-3 col-lg-5">
+						<p>{{ HTML::image($rankPath.$dir.'/'.$info->preview) }}</p>
+					</div>
+					<div class="col-12 col-sm-3 col-lg-2">
+						<div class="hidden-sm">
+							<div class="btn-toolbar pull-right">
+								<div class="btn-group">
+									<a href="#" class="btn btn-small btn-success icn-size-16 js-rank-action" data-location="{{ $dir }}" data-action="install">{{ $_icons['add'] }}</a>
+								</div>
+							</div>
+						</div>
+						<div class="visible-sm">
+							<div class="row">
+								<div class="col-12">
+									<p><a href="#" class="btn btn-block btn-success icn-size-16 js-rank-action" data-location="{{ $dir }}" data-action="install">{{ $_icons['add'] }}</a></p>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="visible-sm">
-						<div class="row">
-							<div class="col-12">
-								<p><a href="#" class="btn btn-block btn-success icn-size-16 js-rank-action" data-location="{{ $dir }}" data-action="install">{{ $_icons['add'] }}</a></p>
-							</div>
-						</div>
-					</div>
 				</div>
-			</div>
-		@endforeach
+			@endforeach
+		</div>
 	</div>
 @endif
 
 @if ($ranks->count() > 0)
-	<legend>{{ ucwords(langConcat('installed rank_sets')) }}</legend>
-
 	<div class="nv-data-table nv-data-table-striped nv-data-table-bordered">
 		@foreach ($ranks as $rank)
 			<div class="row">
