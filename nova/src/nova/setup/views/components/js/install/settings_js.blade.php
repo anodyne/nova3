@@ -1,42 +1,46 @@
 <script type="text/javascript">
+	
 	$(document).ready(function(){
-		
-		$('#positionDrop').change(function(){
-			
+		$('#positionDrop').change(function(e)
+		{
+			e.preventDefault();
+
 			$.ajax({
 				type: "GET",
 				url: "{{ URL::to('ajax/get/position') }}/" + $('#positionDrop option:selected').val() + "/desc",
-				success: function(data){
+				success: function(data)
+				{
 					$('#positionDesc').html('');
 					$('#positionDesc').append(data);
 					$('#positionDescPanel').removeClass('hide');
 				}
 			});
-			
-			return false;
 		});
 		
-		$('#rankDrop').change(function(){
-			
+		$('#rankDrop').change(function(e)
+		{
+			e.preventDefault();
+
 			$.ajax({
 				type: "GET",
 				url: "{{ URL::to('ajax/get/rank') }}/" + $('#rankDrop option:selected').val() + "/image",
-				success: function(data){
+				success: function(data)
+				{
 					$('#rankImg').html('');
 					$('#rankImg').append(data);
 				}
 			});
-			
-			return false;
 		});
 
-		$('#next').click(function(){
-			
+		$('#next').click(function()
+		{
 			$('.lower').slideUp();
 
-			$('#loaded').fadeOut('fast', function(){
+			$('#loaded').fadeOut('fast', function()
+			{
 				$('#loading').removeClass('hide');
 			});
 		});
 	});
+	
 </script>

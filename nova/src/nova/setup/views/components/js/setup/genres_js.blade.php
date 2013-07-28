@@ -1,5 +1,8 @@
 <script type="text/javascript">
-	$(document).on('click', '.js-do-install', function(){
+
+	$(document).on('click', '.js-do-install', function(e)
+	{
+		e.preventDefault();
 
 		var $this = $(this);
 
@@ -37,12 +40,12 @@
 					$this.removeClass('hide');
 			}
 		});
-		
-		return false;
 	});
 	
-	$(document).on('click', '.js-do-uninstall', function(){
-		
+	$(document).on('click', '.js-do-uninstall', function(e)
+	{
+		e.preventDefault();
+
 		var $this = $(this);
 
 		$.ajax({
@@ -79,7 +82,6 @@
 					$this.removeClass('hide');
 			}
 		});
-		
-		return false;
 	});
+	
 </script>
