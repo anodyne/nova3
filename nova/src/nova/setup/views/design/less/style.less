@@ -165,12 +165,10 @@ section {
 		input[type="password"],
 		textarea,
 		select {
-			margin-bottom: 0;
-
 			font-family: @font-primary;
 		}
 
-		.control-label {
+		label {
 			font-weight: 600;
 			font-family: @font-primary;
 			color: #555;
@@ -185,7 +183,7 @@ section {
 		}
 
 		.has-error {
-			.control-label {
+			label {
 				color: @color-red;
 			}
 
@@ -202,8 +200,6 @@ section {
 
 	fieldset {
 		legend {
-			margin-bottom: 0;
-
 			border-color: @color-subtle;
 		}
 
