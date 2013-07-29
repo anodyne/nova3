@@ -18,7 +18,7 @@ class SystemRoute extends BaseEventHandler {
 	{
 		if ((bool) $model->protected === false)
 		{
-			\SystemRouteModel::cache();
+			\SystemRoute::cache();
 		}
 	}
 
@@ -45,7 +45,7 @@ class SystemRoute extends BaseEventHandler {
 	{
 		if ((bool) $model->protected === false)
 		{
-			\SystemRouteModel::cache();
+			\SystemRoute::cache();
 		}
 	}
 

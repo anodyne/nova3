@@ -112,8 +112,8 @@ return array(
 			'validation' => "You can set rules for the data entered into the field using any of the rules available in the <a href='http://laravel.com/docs/validation' target='_blank'>Laravel validation documentation</a>. Enter the rules and Nova will validate the data when the form is submitted. (e.g. <code>required|min:5</code>)",
 		],
 
-		'pages' => [
-			'removeConfirm' => "Are you sure you want to delete the :0 <strong>:1</strong>? While this won't remove any custom page, it will remove the ability to navigate to the page. If you want to restore the route to your custom page, you will need to create a new page route.",
+		'routes' => [
+			'removeConfirm' => "Are you sure you want to delete the :0 <strong>:1</strong>? While this won't remove the custom page, it will revert the route to point back toward the core route. If you want to restore the route to your custom page, you will need to create a new page route.",
 			'uri' => "Optional URI parameters can be specified with a question mark: <code>{id?}</code>",
 			'resource' => "Resources must include the namespace: <code>App\Controllers\Foo@method</code>",
 			'name' => "If you are overriding an existing page, make sure the name matches exactly.",

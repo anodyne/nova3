@@ -1,11 +1,15 @@
 <script type="text/javascript">
 	
-	$(document).ready(function(){
+	$(document).ready(function()
+	{
 		$('#searchUserRoutes').quicksearch('#userRoutes .row');
 		$('#searchCoreRoutes').quicksearch('#coreRoutes .row');
 	});
 
-	$(document).on('click', '.js-route-action', function(e){
+	$(document).on('click', '.js-route-action', function(e)
+	{
+		e.preventDefault();
+		
 		var action = $(this).data('action');
 		var id = $(this).data('route');
 
@@ -22,8 +26,6 @@
 				remote: "{{ URL::to('ajax/add/duplicate_route') }}/" + id
 			}).modal('show');
 		}
-
-		e.preventDefault();
 	});
 
 </script>

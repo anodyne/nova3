@@ -1,4 +1,4 @@
-<p>{{ lang('short.admin.pages.removeConfirm', lang('route'), $route->name) }}</p>
+<p>{{ lang('short.admin.routes.removeConfirm', lang('route'), $route->name) }}</p>
 
 {{ Form::model($route, ['url' => 'admin/routes']) }}
 	{{ Form::token() }}

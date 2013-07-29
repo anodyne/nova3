@@ -7,53 +7,51 @@
 {{ Form::model($route, ['url' => 'admin/routes']) }}
 	<div class="row">
 		<div class="col-sm-6 col-lg-4">
-			<label class="control-label">{{ lang('Name') }}</label>
-			<div class="controls">{{ Form::text('name') }}</div>
+			<label>{{ lang('Name') }}</label>
+			{{ Form::text('name', null, ['class' => 'form-control']) }}
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-12"><p class="help-block">{{ lang('short.admin.pages.name') }}</p></div>
+		<div class="col-lg-12"><p class="help-block">{{ lang('short.admin.routes.name') }}</p></div>
 	</div>
 
 	<div class="row">
 		<div class="col-6 col-sm-4 col-lg-2">
-			<div class="control-group">
-				<label class="control-label">{{ lang('Verb') }}</label>
-				<div class="controls">
-					{{ Form::select('verb', ['get' => 'GET', 'post' => 'POST', 'put' => 'PUT', 'delete' => 'DELETE']) }}
-				</div>
+			<div class="form-group">
+				<label>{{ lang('Verb') }}</label>
+				{{ Form::select('verb', ['get' => 'GET', 'post' => 'POST', 'put' => 'PUT', 'delete' => 'DELETE'], null, ['class' => 'form-control']) }}
 			</div>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-sm-6 col-lg-4">
-			<label class="control-label">{{ lang('uri') }}</label>
-			<div class="controls">{{ Form::text('uri') }}</div>
+			<label>{{ lang('uri') }}</label>
+			{{ Form::text('uri', null, ['class' => 'form-control']) }}
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-12"><p class="help-block">{{ lang('short.admin.pages.uri') }}</p></div>
+		<div class="col-lg-12"><p class="help-block">{{ lang('short.admin.routes.uri') }}</p></div>
 	</div>
 
 	<div class="row">
 		<div class="col-lg-4">
-			<label class="control-label">{{ lang('Resource') }}</label>
-			<div class="controls">{{ Form::text('resource') }}</div>
+			<label>{{ lang('Resource') }}</label>
+			{{ Form::text('resource', null, ['class' => 'form-control']) }}
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-12"><p class="help-block">{{ lang('short.admin.pages.resource') }}</p></div>
+		<div class="col-lg-12"><p class="help-block">{{ lang('short.admin.routes.resource') }}</p></div>
 	</div>
 
 	<div class="row">
 		<div class="col-lg-6">
-			<label class="control-label">{{ lang('Conditions') }}</label>
-			<div class="controls">{{ Form::textarea('conditions', null, ['rows' => 3]) }}</div>
+			<label>{{ lang('Conditions') }}</label>
+			{{ Form::textarea('conditions', null, ['rows' => 3, 'class' => 'form-control']) }}
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-12"><p class="help-block">{{ lang('short.admin.pages.conditions') }}</p></div>
+		<div class="col-lg-12"><p class="help-block">{{ lang('short.admin.routes.conditions') }}</p></div>
 	</div>
 
 	<div class="row">

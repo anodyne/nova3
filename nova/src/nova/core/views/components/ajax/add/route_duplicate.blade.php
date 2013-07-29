@@ -1,4 +1,4 @@
-<p><?php echo lang('short.duplicateConfirm', lang('route'), $route->name);?></p>
+<p>{{ lang('short.duplicateConfirm', lang('route'), $route->name) }}</p>
 
 {{ Form::model($route, ['url' => 'admin/routes']) }}
 	{{ Form::token() }}

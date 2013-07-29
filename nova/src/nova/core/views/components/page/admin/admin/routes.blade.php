@@ -16,8 +16,8 @@
 		@if (isset($routes['user']))
 			<div class="row">
 				<div class="col-12 col-sm-6 col-lg-4">
-					<div class="control-group">
-						{{ Form::text('', null, ['id' => 'searchUserRoutes', 'placeholder' => lang('Short.search', langConcat('User_created Routes'))]) }}
+					<div class="form-group">
+						{{ Form::text('', null, ['id' => 'searchUserRoutes', 'placeholder' => lang('Short.search', langConcat('User_created Routes')), 'class' => 'form-control']) }}
 					</div>
 				</div>
 			</div>
@@ -74,8 +74,8 @@
 		@if (isset($routes['core']))
 			<div class="row">
 				<div class="col-12 col-sm-6 col-lg-4">
-					<div class="control-group">
-						{{ Form::text('', null, ['id' => 'searchCoreRoutes', 'placeholder' => lang('Short.search', langConcat('Core Routes'))]) }}
+					<div class="form-group">
+						{{ Form::text('', null, ['id' => 'searchCoreRoutes', 'placeholder' => lang('Short.search', langConcat('Core Routes')), 'class' => 'form-control']) }}
 					</div>
 				</div>
 			</div>
