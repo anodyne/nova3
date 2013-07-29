@@ -1,8 +1,6 @@
 {{ Form::open() }}
-	<div class="control-group">
-		<div class="controls">
-			{{ Form::email('email', null, ['class' => 'input-with-feedback', 'placeholder' => ucwords(lang('email_address'))]) }}
-		</div>
+	<div class="form-group">
+		{{ Form::email('email', null, ['class' => 'input-with-feedback form-control', 'placeholder' => ucwords(lang('email_address'))]) }}
 	</div>
 
 	{{ Form::token() }}

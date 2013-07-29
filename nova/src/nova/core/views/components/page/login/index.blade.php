@@ -1,19 +1,17 @@
 {{ Form::open() }}
-	<div class="control-group">
-		<div class="controls">
-			{{ Form::email('email', null, ['placeholder' => ucwords(lang('email_address'))]) }}
-		</div>
+	<div class="form-group">
+		{{ Form::email('email', null, ['placeholder' => ucwords(lang('email_address')), 'class' => 'form-control']) }}
 	</div>
 	
-	<div class="control-group">
+	<div class="form-group">
 		<div class="controls">
-			{{ Form::password('password', ['placeholder' => lang('Password')]) }}
+			{{ Form::password('password', ['placeholder' => lang('Password'), 'class' => 'form-control']) }}
 		</div>
 	</div>
 
-	<div class="control-group">
+	<div class="form-group">
 		{{ Form::token() }}
-		{{ Form::button(ucwords(lang('action.login')), ['class' => 'btn btn-primary btn-block btn-large', 'type' => 'submit']) }}
+		{{ Form::button(lang('Action.login'), ['class' => 'btn btn-primary btn-block btn-large', 'type' => 'submit']) }}
 	</div>
 
 	<div class="row">
