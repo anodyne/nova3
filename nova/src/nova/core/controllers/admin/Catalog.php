@@ -251,11 +251,18 @@ class Catalog extends AdminBaseController {
 			// Set the view
 			$this->_view = 'admin/catalog/skins_action';
 
-			// Get the rank set
-			$this->_data->rank = RankCatalog::find($id);
+			// Get the skin
+			$skin = $this->_data->skin = SkinCatalog::find($id);
 
 			// Set the action
 			$this->_data->action = ((int) $id === 0) ? 'create' : 'update';
+
+			if (File::exists(APPPATH."views/{$skin->location}/options.json"))
+			{
+				$optionsContent = File::get(APPPATH."views/{$skin->location}/options.json");
+
+				$this->_data->options = json_decode($optionsContent);
+			}
 		}
 		else
 		{

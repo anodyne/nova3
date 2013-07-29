@@ -31,6 +31,7 @@ return array(
 	'character'		=> 'character',
 	'characters'	=> 'characters',
 	'class'			=> 'class',
+	'classic_menu'	=> 'classic menu',
 	'content'		=> 'content',
 	'cp'			=> 'control panel',
 	'catalog' => 'catalog',
@@ -227,6 +228,7 @@ return array(
 	'votes' => 'votes',
 	'verb' => "verb",
 	'validation' => "validation",
+	'version' => "version",
 
 	'writing' => "writing",
 	'with' => "with",

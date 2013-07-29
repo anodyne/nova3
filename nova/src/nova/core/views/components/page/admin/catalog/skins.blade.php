@@ -66,7 +66,7 @@
 								@endif
 
 								<div class="btn-group">
-									<a href="{{ URL::to('admin/catalog/ranks/'.$skin->id) }}" class="btn btn-small btn-default icn-size-16">{{ $_icons['edit'] }}</a>
+									<a href="{{ URL::to('admin/catalog/skins/'.$skin->id) }}" class="btn btn-small btn-default icn-size-16">{{ $_icons['edit'] }}</a>
 								</div>
 							@endif
 
@@ -87,7 +87,7 @@
 								@endif
 
 								<div class="col-6">
-									<p><a href="{{ URL::to('admin/catalog/ranks/'.$skin->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
+									<p><a href="{{ URL::to('admin/catalog/skins/'.$skin->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 								</div>
 							@endif
 

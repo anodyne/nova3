@@ -7,11 +7,9 @@
 {{ Form::model($rank, ['url' => 'admin/catalog/ranks']) }}
 	<div class="row">
 		<div class="col-sm-6 col-lg-4">
-			<div class="control-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
-				<label class="control-label">{{ lang('Name') }}</label>
-				<div class="controls">
-					{{ Form::text('name', null, ['class' => 'input-with-feedback']) }}
-				</div>
+			<div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
+				<label>{{ lang('Name') }}</label>
+				{{ Form::text('name', null, ['class' => 'input-with-feedback form-control']) }}
 			</div>
 		</div>
 	</div>
@@ -23,11 +21,9 @@
 
 	<div class="row">
 		<div class="col-sm-6 col-lg-4">
-			<div class="{{ ($errors->has('location')) ? 'control-group has-error' : '' }}">
-				<label class="control-label">{{ lang('Location') }}</label>
-				<div class="controls">
-					{{ Form::text('location', null, ['class' => 'input-with-feedback']) }}
-				</div>
+			<div class="{{ ($errors->has('location')) ? 'form-group has-error' : '' }}">
+				<label>{{ lang('Location') }}</label>
+				{{ Form::text('location', null, ['class' => 'input-with-feedback form-control']) }}
 			</div>
 		</div>
 	</div>
@@ -40,11 +36,9 @@
 
 	<div class="row">
 		<div class="col-sm-6 col-lg-4">
-			<div class="{{ ($errors->has('preview')) ? 'control-group has-error' : '' }}">
-				<label class="control-label">{{ lang('short.admin.catalog.ranks.previewImage') }}</label>
-				<div class="controls">
-					{{ Form::text('preview', null, ['class' => 'input-with-feedback']) }}
-				</div>
+			<div class="{{ ($errors->has('preview')) ? 'form-group has-error' : '' }}">
+				<label>{{ lang('short.admin.catalog.previewImage') }}</label>
+				{{ Form::text('preview', null, ['class' => 'input-with-feedback form-control']) }}
 			</div>
 		</div>
 	</div>
@@ -57,11 +51,9 @@
 
 	<div class="row">
 		<div class="col-sm-6 col-lg-4">
-			<div class="{{ ($errors->has('blank')) ? 'control-group has-error' : '' }}">
-				<label class="control-label">{{ lang('short.admin.catalog.ranks.blankImage') }}</label>
-				<div class="controls">
-					{{ Form::text('blank', null, ['class' => 'input-with-feedback']) }}
-				</div>
+			<div class="{{ ($errors->has('blank')) ? 'form-group has-error' : '' }}">
+				<label>{{ lang('short.admin.catalog.ranks.blankImage') }}</label>
+				{{ Form::text('blank', null, ['class' => 'input-with-feedback form-control']) }}
 			</div>
 		</div>
 	</div>
@@ -74,11 +66,9 @@
 
 	<div class="row">
 		<div class="col-sm-4 col-lg-2">
-			<div class="{{ ($errors->has('extension')) ? 'control-group has-error' : '' }}">
-				<label class="control-label">{{ lang('Extension') }}</label>
-				<div class="controls">
-					{{ Form::select('extension', ['.png' => 'PNG', '.jpg' => 'JPG', '.jpeg' => 'JPEG', '.gif' => 'GIF', '.bmp' => 'BMP'], null, ['class' => 'input-with-feedback']) }}
-				</div>
+			<div class="{{ ($errors->has('extension')) ? 'form-group has-error' : '' }}">
+				<label>{{ lang('Extension') }}</label>
+				{{ Form::select('extension', ['.png' => 'PNG', '.jpg' => 'JPG', '.jpeg' => 'JPEG', '.gif' => 'GIF', '.bmp' => 'BMP'], null, ['class' => 'input-with-feedback form-control']) }}
 			</div>
 		</div>
 	</div>
@@ -91,17 +81,17 @@
 
 	<div class="row">
 		<div class="col-sm-8 col-lg-6">
-			<div class="control-group">
-				<label class="control-label">{{ lang('Credits') }}</label>
-				<div class="controls">{{ Form::textarea('credits', null, ['rows' => 5]) }}</div>
+			<div class="form-group">
+				<label>{{ lang('Credits') }}</label>
+				{{ Form::textarea('credits', null, ['rows' => 5, 'class' => 'form-control']) }}
 			</div>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-sm-4 col-lg-2">
-			<label class="control-label">{{ lang('Genre') }}</label>
-			<div class="controls">{{ Form::text('genre') }}</div>
+			<label>{{ lang('Genre') }}</label>
+			{{ Form::text('genre', null, ['class' => 'form-control']) }}
 		</div>
 	</div>
 	<div class="row">
@@ -112,9 +102,9 @@
 
 	<div class="row">
 		<div class="col-sm-4 col-lg-2">
-			<div class="control-group{{ ($errors->has('status')) ? ' has-error' : '' }}">
-				<label class="control-label">{{ lang('Display') }}</label>
-				<div class="controls">
+			<div class="form-group{{ ($errors->has('status')) ? ' has-error' : '' }}">
+				<label>{{ lang('Display') }}</label>
+				<div>
 					<label class="radio-inline">{{ Form::radio('status', Status::ACTIVE) }} {{ lang('Yes') }}</label>
 					<label class="radio-inline">{{ Form::radio('status', Status::INACTIVE) }} {{ lang('No') }}</label>
 				</div>

@@ -302,7 +302,7 @@ return [
 	[
 		'name'			=> 'admin/catalog/skins',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/catalog/skins',
+		'uri'			=> 'admin/catalog/skins/{id?}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\Catalog@getSkins',
 		'protected'		=> (int) true
 	],

@@ -16,7 +16,7 @@
 			<h3 class="panel-title">{{ ucwords(langConcat('pending rank_sets')) }}</h3>
 		</div>
 
-		<p>{{ lang('short.admin.catalog.pendingRanksMessage', '<span class="icn-size-16 text-success">'.$_icons['add'].'</span>') }}</p>
+		<p>{{ lang('short.admin.catalog.ranks.pending', '<span class="icn-size-16 text-success">'.$_icons['add'].'</span>') }}</p>
 
 		<div class="nv-data-table nv-data-table-striped nv-data-table-bordered">
 			@foreach ($pending as $dir => $info)

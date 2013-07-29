@@ -57,29 +57,25 @@ return array(
 
 		'catalog' => [
 			'deleteUpdates' => "Select the new :0 that users currently using the <strong>:1</strong> :0 will be updated to.",
-
-			'pendingRanksMessage' => "The rank sets below were found in the appropriate ranks directory and have a QuickInstall file, but haven't been installed yet. To install these ranks and make them available to use, click the :0 icon.",
+			'previewImage' => "Preview Image",
 
 			'ranks' => [
 				'location' => "This is the name of the directory where the rank set is located. (Rank sets are located in <code>app/assets/common/{genre}/ranks</code>.)",
-				'previewImage' => "Preview Image",
 				'previewImageHelp' => "The filename of the image you want to use as a preview for this rank set.",
 				'blankImage' => "Blank Image",
 				'blankImageHelp' => "The filename of the image you want to use for the \"blank\" image on the manifest.",
 				'extensionHelp' => "The file extension that all rank set images have.",
 				'genreHelp' => "<strong>Warning:</strong> Changing the genre can cause issues with your rank sets. Do so only if you know what you're doing!",
+				'pending' => "The rank sets below were found in the appropriate ranks directory and have a QuickInstall file, but haven't been installed yet. To install these ranks and make them available to use, click the :0 icon.",
 			],
 
 			'skins' => [
-				'location' => "This is the name of the directory where the skin is located. (Skin are located in <code>app/views</code>.)",
-				'previewImage' => "Preview Image",
-				'previewImageHelp' => "The filename of the image you want to use as a preview for this rank set.",
-				'blankImage' => "Blank Image",
-				'blankImageHelp' => "The filename of the image you want to use for the \"blank\" image on the manifest.",
-				'extensionHelp' => "The file extension that all rank set images have.",
-				'genreHelp' => "<strong>Warning:</strong> Changing the genre can cause issues with your rank sets. Do so only if you know what you're doing!",
+				'location' => "This is the name of the directory where the skin is located. (Skins are located in <code>app/views</code>.)",
+				'previewImageHelp' => "The filename of the image you want to use as a preview for this skin.",
 				'pending' => "The skins below were found in the appropriate skins directory and have a QuickInstall file, but haven't been installed yet. To install these skins and make them available to use, click the :0 icon.",
 				'updateAvailable' => "An update is ready to be applied for this skin.",
+				'menuStyle' => "Menu Style",
+				'menuStyleHelp' => "Skins can use the classic Nova style (separate main and sub navigations) or the new dropdown style (combined main and sub navigations with dropdowns).",
 			],
 		],
 
