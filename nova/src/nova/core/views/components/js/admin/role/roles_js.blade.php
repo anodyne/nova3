@@ -101,7 +101,7 @@
 		if (action == 'view')
 		{
 			$('#usersWithRole').modal({
-				remote: "{{ URL::to('ajax/info/users_with_role') }}/" + id
+				remote: "{{ URL::to('ajax/get/users_with_role') }}/" + id
 			}).modal('show');
 		}
 

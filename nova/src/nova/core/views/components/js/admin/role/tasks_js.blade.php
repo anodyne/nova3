@@ -31,7 +31,7 @@
 		if (action == 'view')
 		{
 			$('#rolesWithTask').modal({
-				remote: "{{ URL::to('ajax/info/roles_with_task') }}/" + id,
+				remote: "{{ URL::to('ajax/get/roles_with_task') }}/" + id,
 				keyboard: true
 			}).modal('show');
 		}
