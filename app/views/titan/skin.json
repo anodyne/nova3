@@ -1,10 +1,9 @@
 {
-	"name": "Pulsar",
-	"location": "default",
+	"name": "Titan",
+	"location": "titan",
 	"nav": "dropdown",
-	"preview": "preview.jpg",
 	"credits": "Credits go here.",
-	"version": "1.1",
+	"version": "1.0",
 	"has_main": false,
 	"has_admin": false,
 	"has_login": false

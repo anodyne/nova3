@@ -332,13 +332,10 @@ class Delete extends AjaxBaseController {
 	 *
 	 * @return	string
 	 */
-	public function getRole()
+	public function getRole($id)
 	{
 		if (Sentry::check() and Sentry::getUser()->hasAccess('role.delete'))
 		{
-			// Get the ID
-			$id = e($this->request->segment(4));
-
 			// Get the role
 			$role = \AccessRole::find($id);
 
@@ -368,13 +365,10 @@ class Delete extends AjaxBaseController {
 	 *
 	 * @return	string
 	 */
-	public function getRole_task()
+	public function getRoleTask($id)
 	{
 		if (Sentry::check() and Sentry::getUser()->hasAccess('role.delete'))
 		{
-			// Get the ID
-			$id = e($this->request->segment(4));
-
 			// Get the task
 			$task = \AccessTask::find($id);
 
@@ -382,6 +376,37 @@ class Delete extends AjaxBaseController {
 			{
 				echo View::make(Location::ajax('delete/role_task'))
 					->with('task', $task);
+			}
+		}
+	}
+
+	/**
+	 * Confirm the deletion of a skin catalog.
+	 *
+	 * @param	int		Catalog ID
+	 * @return	string
+	 */
+	public function getSkin($id)
+	{
+		if (Sentry::check() and Sentry::getUser()->hasAccess('catalog.delete'))
+		{
+			// Get the catalog we're deleting
+			$catalog = \SkinCatalog::find($id);
+
+			if ($catalog !== null)
+			{
+				// Get the other active rank sets for this genre
+				$catalogs = \SkinCatalog::active()->get();
+
+				// Filter out the rank set we're deleting
+				$catalogs = $catalogs->filter(function($r) use($catalog)
+				{
+					return $r->location != $catalog->location;
+				})->toSimpleArray('location', 'name');
+
+				echo View::make(Location::ajax('delete/skin'))
+					->with('skin', $catalog)
+					->with('skins', $catalogs);
 			}
 		}
 	}

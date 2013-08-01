@@ -171,4 +171,29 @@ class Rank extends Model implements QuickInstallInterface {
 		$this->delete();
 	}
 
+	/**
+	 * Get the QuickInstall file.
+	 *
+	 * @param	string	File name
+	 * @return	stdClass|bool
+	 */
+	public function getQuickInstallFile($file = 'rank.json')
+	{
+		// Get the genre
+		$genre = Config::get('nova.genre');
+
+		// Set the filename
+		$filename = APPPATH."assets/common/{$genre}/ranks/{$this->location}/{$file}";
+		
+		if (File::exists($filename))
+		{
+			// Get the contents of the QuickInstall file
+			$contents = File::get($filename);
+
+			return json_decode($contents);
+		}
+
+		return false;
+	}
+
 }

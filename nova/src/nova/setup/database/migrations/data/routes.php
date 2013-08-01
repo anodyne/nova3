@@ -511,6 +511,20 @@ return [
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getSkin',
 		'protected'		=> (int) true
 	],
+	[
+		'name'			=> 'ajax/delete/role',
+		'verb'			=> 'get',
+		'uri'			=> 'ajax/delete/role/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getRole',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'ajax/delete/role_task',
+		'verb'			=> 'get',
+		'uri'			=> 'ajax/delete/role_task/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getRoleTask',
+		'protected'		=> (int) true
+	],
 
 	/**
 	 * ajax/update

@@ -239,6 +239,22 @@ class Add extends AjaxBaseController {
 		}
 	}
 
+	public function getSkinOptionImageUpload()
+	{
+		if (Sentry::check() and (Sentry::getUser()->hasAccess('catalog.create')
+				or Sentry::getUser()->hasAccess('catalog.update')))
+		{
+			if (Input::has('file'))
+			{
+				// Get the file
+				$file = Input::file('file');
+
+				// Move the file to the proper location
+				$file->move(APPPATH."views/{skin}/{destination}", "{filename}");
+			}
+		}
+	}
+
 	/**
 	 * Create a user record.
 	 *

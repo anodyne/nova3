@@ -2,6 +2,7 @@
 
 use File;
 use Model;
+use Config;
 use Status;
 use SplFileInfo;
 use QuickInstallInterface;
@@ -65,9 +66,54 @@ class Skin extends Model implements QuickInstallInterface {
 
 	/*
 	|--------------------------------------------------------------------------
+	| Model Accessors and Mutators
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * When the options attribute is called, unserialize the data and return it
+	 * as an array.
+	 *
+	 * @param	string	Attribute value
+	 * @return	array
+	 */
+	public function getOptionsAttribute($value)
+	{
+		return unserialize($value);
+	}
+
+	/**
+	 * When the options attribute is stored, serialize the data.
+	 *
+	 * @param	array	Options array
+	 * @return	void
+	 */
+	public function setOptionsAttribute($value)
+	{
+		$this->attributes['options'] = serialize($value);
+	}
+
+	/*
+	|--------------------------------------------------------------------------
 	| Model Methods
 	|--------------------------------------------------------------------------
 	*/
+
+	/**
+	 * Boot the model and define the event listeners.
+	 *
+	 * @return	void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		// Get all the aliases
+		$a = Config::get('app.aliases');
+
+		// Setup the listeners
+		static::setupEventListeners($a['SkinCatalog'], $a['SkinCatalogEventHandler']);
+	}
 
 	/**
 	 * Check to see if the current skin has an updates available. This only
@@ -77,14 +123,11 @@ class Skin extends Model implements QuickInstallInterface {
 	 */
 	public function checkForUpdate()
 	{
-		if (File::exists(APPPATH."views/{$this->location}/skin.json"))
+		// Get the skin object from the QuickInstall file
+		$skin = $this->getQuickInstallFile('skin.json');
+
+		if ($skin !== false)
 		{
-			// Get the contents of the QuickInstall file
-			$contents = File::get(APPPATH."views/{$this->location}/skin.json");
-
-			// Turn the contents into an object
-			$skin = json_decode($contents);
-
 			if (version_compare($this->version, $skin->version, '<'))
 			{
 				return true;
@@ -102,6 +145,44 @@ class Skin extends Model implements QuickInstallInterface {
 	 */
 	public function applyUpdate()
 	{
+		// Get the skin object from the QuickInstall file
+		$skin = $this->getQuickInstallFile('skin.json');
+
+		if ($skin !== false)
+		{
+			// Update the skin catalog record
+			$this->update([
+				'name'		=> $skin->name,
+				'location'	=> $skin->location,
+				'nav'		=> $skin->nav,
+				'preview'	=> $skin->preview,
+				'credits'	=> $skin->credits,
+				'version'	=> $skin->version,
+				'has_main'	=> (int) $skin->has_main,
+				'has_admin'	=> (int) $skin->has_admin,
+				'has_login'	=> (int) $skin->has_login,
+			]);
+
+			// Get the options
+			$options = $this->getQuickInstallFile('options.json');
+
+			if ($options !== false)
+			{
+				foreach ($this->options as $key => $option)
+				{
+					if ( ! property_exists($options, $key))
+					{
+						unset($this->options[$key]);
+					}
+				}
+
+				// Save the record
+				$this->save();
+			}
+
+			return true;
+		}
+
 		return false;
 	}
 
@@ -211,6 +292,28 @@ class Skin extends Model implements QuickInstallInterface {
 	public function uninstall()
 	{
 		$this->delete();
+	}
+
+	/**
+	 * Get the QuickInstall file.
+	 *
+	 * @param	string	File name
+	 * @return	stdClass|bool
+	 */
+	public function getQuickInstallFile($file)
+	{
+		// Set the filename
+		$filename = APPPATH."views/{$this->location}/{$file}";
+
+		if (File::exists($filename))
+		{
+			// Get the contents of the QuickInstall file
+			$contents = File::get($filename);
+
+			return json_decode($contents);
+		}
+
+		return false;
 	}
 
 }

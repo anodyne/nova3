@@ -60,6 +60,42 @@
 			</div>
 
 			<div class="row">
+				<div class="col-sm-4 col-lg-2">
+					<div class="form-group">
+						<label>{{ lang('short.admin.catalog.skins.hasMain') }}</label>
+						<div>
+							<label class="radio-inline">{{ Form::radio('has_main', (int) true) }} {{ lang('Yes') }}</label>
+							<label class="radio-inline">{{ Form::radio('has_main', (int) false) }} {{ lang('No') }}</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-4 col-lg-2">
+					<div class="form-group">
+						<label>{{ lang('short.admin.catalog.skins.hasAdmin') }}</label>
+						<div>
+							<label class="radio-inline">{{ Form::radio('has_admin', (int) true) }} {{ lang('Yes') }}</label>
+							<label class="radio-inline">{{ Form::radio('has_admin', (int) false) }} {{ lang('No') }}</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-4 col-lg-2">
+					<div class="form-group">
+						<label>{{ lang('short.admin.catalog.skins.hasLogin') }}</label>
+						<div>
+							<label class="radio-inline">{{ Form::radio('has_login', (int) true) }} {{ lang('Yes') }}</label>
+							<label class="radio-inline">{{ Form::radio('has_login', (int) false) }} {{ lang('No') }}</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
 				<div class="col-sm-8 col-lg-6">
 					<div class="form-group">
 						<label>{{ lang('Credits') }}</label>
@@ -107,13 +143,13 @@
 							<label>{{ $o->label }}</label>
 
 							@if ($o->type == "text")
-								{{ Form::text($o->key, null, ['class' => 'form-control']) }}
+								{{ Form::text('options['.$o->key.']', ((isset($skin->options[$o->key])) ? $skin->options[$o->key] : null), ['class' => 'form-control']) }}
 							@elseif ($o->type == "textarea")
-								{{ Form::textarea($o->key, null, ['rows' => 3, 'class' => 'form-control']) }}
+								{{ Form::textarea('options['.$o->key.']', ((isset($skin->options[$o->key])) ? $skin->options[$o->key] : null), ['rows' => 3, 'class' => 'form-control']) }}
 							@elseif ($o->type == "choice")
-								{{ Form::select($o->key, array_combine($o->options, $o->options), null, ['class' => 'form-control']) }}
+								{{ Form::select('options['.$o->key.']', array_combine($o->options, $o->options), ((isset($skin->options[$o->key])) ? $skin->options[$o->key] : null), ['class' => 'form-control']) }}
 							@elseif ($o->type == "image")
-
+								<div id="dropzone" class="well"></div>
 							@endif
 
 							@if (empty($o->help))

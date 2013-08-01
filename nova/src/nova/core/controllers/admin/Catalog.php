@@ -13,6 +13,7 @@ use SkinCatalog;
 use SplFileInfo;
 use AdminBaseController;
 use RankCatalogValidator;
+use SkinCatalogValidator;
 use Symfony\Component\Finder\Finder;
 
 class Catalog extends AdminBaseController {
@@ -257,7 +258,7 @@ class Catalog extends AdminBaseController {
 			// Set the action
 			$this->_data->action = ((int) $id === 0) ? 'create' : 'update';
 
-			if (File::exists(APPPATH."views/{$skin->location}/options.json"))
+			if ((int) $id !== 0 and File::exists(APPPATH."views/{$skin->location}/options.json"))
 			{
 				$optionsContent = File::get(APPPATH."views/{$skin->location}/options.json");
 
@@ -376,6 +377,26 @@ class Catalog extends AdminBaseController {
 		}
 
 		/**
+		 * Update to a newer version of a skin.
+		 */
+		if ($user->hasAccess('catalog.update') and $action == 'version')
+		{
+			// Get the ID
+			$id = e(Input::get('id'));
+			$id = (is_numeric($id)) ? $id : false;
+
+			// Get the skin
+			$skin = SkinCatalog::find($id);
+
+			// Update the skin
+			$skin->applyUpdate();
+
+			// Set the flash info
+			$flashStatus = 'success';
+			$flashMessage = lang('Short.alert.success.install', lang('skin'));
+		}
+
+		/**
 		 * Edit a skin.
 		 */
 		if ($user->hasAccess('catalog.update') and $action == 'update')
@@ -407,7 +428,7 @@ class Catalog extends AdminBaseController {
 			$id = (is_numeric($id)) ? $id : false;
 
 			// Get the skin
-			$skin = RankCatalog::find($id);
+			$skin = SkinCatalog::find($id);
 
 			// Get the new skin
 			$newSkin = e(Input::get('new_skin'));
@@ -444,6 +465,12 @@ class Catalog extends AdminBaseController {
 			if ($this->settings->skin_admin == $skin->location)
 			{
 				Settings::updateItems(['skin_admin' => $newSkin]);
+			}
+
+			// If the login skin default is what we're deleting, change that as well
+			if ($this->settings->skin_login == $skin->location)
+			{
+				Settings::updateItems(['skin_login' => $newSkin]);
 			}
 
 			// Delete the skin

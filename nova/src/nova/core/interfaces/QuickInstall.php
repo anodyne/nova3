@@ -23,4 +23,12 @@ interface QuickInstall {
 	 */
 	public function uninstall();
 
+	/**
+	 * Get the QuickInstall file.
+	 *
+	 * @param	string	File name
+	 * @return	stdClass|bool
+	 */
+	public function getQuickInstallFile($file);
+
 }

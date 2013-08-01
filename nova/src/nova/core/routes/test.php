@@ -4,7 +4,9 @@ Route::group(array('prefix' => 'test'), function()
 {
 	Route::get('index', function()
 	{
-		sd(Status::PENDING);
+		$skin = SkinCatalog::find(1);
+
+		sd($skin->options);
 	});
 
 	Route::get('partial', function()

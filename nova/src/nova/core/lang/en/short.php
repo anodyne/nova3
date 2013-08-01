@@ -76,6 +76,9 @@ return array(
 				'updateAvailable' => "An update is ready to be applied for this skin.",
 				'menuStyle' => "Menu Style",
 				'menuStyleHelp' => "Skins can use the classic Nova style (separate main and sub navigations) or the new dropdown style (combined main and sub navigations with dropdowns).",
+				'hasMain' => "Has Main Layout",
+				'hasAdmin' => "Has Admin Layout",
+				'hasLogin' => "Has Log In Layout",
 			],
 		],
 
