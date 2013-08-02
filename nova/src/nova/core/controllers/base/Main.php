@@ -93,6 +93,7 @@ abstract class Main extends BaseController {
 			// Set the values to be passed to the structure
 			$vars = array(
 				'skin'		=> $this->skin,
+				'skinInfo'	=> $this->_skinInfo,
 				'section'	=> 'main',
 				'settings'	=> $this->settings,
 			);

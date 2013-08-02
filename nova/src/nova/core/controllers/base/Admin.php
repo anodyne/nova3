@@ -105,6 +105,7 @@ abstract class Admin extends BaseController {
 		// Set the values to be passed to the structure
 		$vars = [
 			'skin'		=> $this->skin,
+			'skinInfo'	=> $this->_skinInfo,
 			'section'	=> 'admin',
 			'settings'	=> $this->settings,
 		];

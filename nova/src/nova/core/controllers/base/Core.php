@@ -115,7 +115,7 @@ abstract class Core extends Controller {
 	/**
 	 * The skin section catalog object
 	 */
-	public $_sectionInfo;
+	public $_skinInfo;
 	
 	/**
 	 * Array of headers that can be used by the pages.
