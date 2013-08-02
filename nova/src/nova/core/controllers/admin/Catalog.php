@@ -312,10 +312,17 @@ class Catalog extends AdminBaseController {
 				->with('modalBody', '')
 				->with('modalFooter', false);
 
-			// Build the install rank set modal
+			// Build the install skin modal
 			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'installSkin')
 				->with('modalHeader', lang('Short.install', lang('Skin')))
+				->with('modalBody', '')
+				->with('modalFooter', false);
+
+			// Build the update version skin modal
+			$this->_ajax[] = View::make(Location::partial('common/modal'))
+				->with('modalId', 'updateSkin')
+				->with('modalHeader', lang('Short.update', lang('Skin')))
 				->with('modalBody', '')
 				->with('modalFooter', false);
 		}
@@ -334,7 +341,7 @@ class Catalog extends AdminBaseController {
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
 		{
-			if ($action == 'delete' or $action == 'install')
+			if ($action == 'delete' or $action == 'install' or $action == 'version')
 			{
 				// Set the flash message
 				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';

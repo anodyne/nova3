@@ -61,7 +61,7 @@
 							@if (Sentry::getUser()->hasAccess('catalog.update'))
 								@if ($skin->checkForUpdate())
 									<div class="btn-group">
-										<a href="#" class="btn btn-small btn-warning icn-size-16 js-skin-action tooltip-top" title="{{ lang('short.admin.catalog.skins.updateAvailable') }}" data-action="update" data-location="{{ $skin->location }}">{{ $_icons['refresh'] }}</a>
+										<a href="#" class="btn btn-small btn-warning icn-size-16 js-skin-action tooltip-top" title="{{ lang('short.admin.catalog.skins.updateAvailable') }}" data-action="update" data-id="{{ $skin->id }}">{{ $_icons['refresh'] }}</a>
 									</div>
 								@endif
 

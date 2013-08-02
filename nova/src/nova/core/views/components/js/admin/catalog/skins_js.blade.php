@@ -28,6 +28,13 @@
 			}).modal('show');
 		}
 
+		if (action == 'update')
+		{
+			$('#updateSkin').modal({
+				remote: "{{ URL::to('ajax/update/skin') }}/" + id
+			}).modal('show');
+		}
+
 		e.preventDefault();
 	});
 

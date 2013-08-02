@@ -557,4 +557,11 @@ return [
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Update@postFormValue',
 		'protected'		=> (int) true
 	],
+	[
+		'name'			=> 'ajax/update/skin',
+		'verb'			=> 'get',
+		'uri'			=> 'ajax/update/skin/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Ajax\Update@getSkinVersionUpdate',
+		'protected'		=> (int) true
+	],
 ];

@@ -157,6 +157,7 @@ return array(
 	'forgotPassword' => "Forgot your password?",
 
 	'installConfirm' => "This will install the :0 <strong>:1</strong>. Are you sure you want to proceed?",
+	'updateConfirm' => "This will update the :0 <strong>:1</strong>. Are you sure you want to proceed?",
 
 	'javascript' => "You need to have Javascript turned on to use all of Nova 3's features.",
 

@@ -150,6 +150,37 @@ class Skin extends Model implements QuickInstallInterface {
 
 		if ($skin !== false)
 		{
+			// Get the options
+			$options = $this->getQuickInstallFile('options.json');
+
+			if ($options !== false)
+			{
+				// Get the options
+				$originalOptions = $this->options;
+
+				foreach ($originalOptions as $key => $option)
+				{
+					// Filter out everything but the key we're looking for
+					$search = array_filter($options->items, function($e) use($key)
+					{
+        				return $e->key == $key;
+					});
+
+					// If we have an empty array, it means the item is no longer
+					// in the options file, so we'll remove it from the database
+					if (count($search) == 0)
+					{
+						unset($originalOptions[$key]);
+					}
+				}
+
+				// Set the options
+				$this->options = $originalOptions;
+
+				// Save the record
+				$this->save();
+			}
+
 			// Update the skin catalog record
 			$this->update([
 				'name'		=> $skin->name,
@@ -162,23 +193,6 @@ class Skin extends Model implements QuickInstallInterface {
 				'has_admin'	=> (int) $skin->has_admin,
 				'has_login'	=> (int) $skin->has_login,
 			]);
-
-			// Get the options
-			$options = $this->getQuickInstallFile('options.json');
-
-			if ($options !== false)
-			{
-				foreach ($this->options as $key => $option)
-				{
-					if ( ! property_exists($options, $key))
-					{
-						unset($this->options[$key]);
-					}
-				}
-
-				// Save the record
-				$this->save();
-			}
 
 			return true;
 		}
@@ -225,8 +239,8 @@ class Skin extends Model implements QuickInstallInterface {
 				if (File::exists($dir."/skin.json"))
 				{
 					// Get the contents and decode the JSON
-					$content = file_get_contents($file);
-					$data = json_decode($content, true);
+					$content = file_get_contents($dir."/skin.json");
+					$data = json_decode($content);
 
 					// Add the skin record
 					static::create([
@@ -250,8 +264,8 @@ class Skin extends Model implements QuickInstallInterface {
 			if (File::exists($dir."/skin.json"))
 			{
 				// Get the contents and decode the JSON
-				$content = file_get_contents($file);
-				$data = json_decode($content, true);
+				$content = file_get_contents($dir."/skin.json");
+				$data = json_decode($content);
 				
 				// Add the skin record
 				static::create([

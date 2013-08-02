@@ -296,5 +296,26 @@ class Update extends AjaxBaseController {
 			}
 		}
 	}
+
+	/**
+	 * Confirm updating a skin.
+	 *
+	 * @param	string	The catalog ID
+	 * @return	void
+	 */
+	public function getSkinVersionUpdate($id)
+	{
+		if (Sentry::check() and Sentry::getUser()->hasAccess('catalog.update'))
+		{
+			// Get the catalog
+			$catalog = \SkinCatalog::find($id);
+
+			if ($catalog)
+			{
+				return View::make(Location::ajax('update/skin'))
+					->with('skin', $catalog);
+			}
+		}
+	}
 	
 }

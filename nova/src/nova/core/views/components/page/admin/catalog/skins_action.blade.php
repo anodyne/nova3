@@ -16,17 +16,21 @@
 		<div id="basicInfo" class="active tab-pane">
 			<div class="row">
 				<div class="col-sm-6 col-lg-4">
-					<div class="form-group">
-						<label>{{ lang('Name') }}</label>
+					<div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
+						<label class="control-label">{{ lang('Name') }}</label>
 						{{ Form::text('name', null, ['class' => 'form-control']) }}
+						{{ $errors->first('name', '<p class="help-block">:message</p>') }}
 					</div>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-sm-6 col-lg-4">
-					<label>{{ lang('Location') }}</label>
-					{{ Form::text('location', null, ['class' => 'form-control']) }}
+					<div class="{{ ($errors->has('location')) ? 'form-group has-error' : '' }}">
+						<label class="control-label">{{ lang('Location') }}</label>
+						{{ Form::text('location', null, ['class' => 'form-control']) }}
+						{{ $errors->first('location', '<p class="help-block">:message</p>') }}
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -37,8 +41,11 @@
 
 			<div class="row">
 				<div class="col-sm-6 col-lg-4">
-					<label>{{ lang('short.admin.catalog.skins.menuStyle') }}</label>
-					{{ Form::select('nav', ['dropdown' => lang('Dropdown'), 'classic' => lang('Classic_menu')], null, ['class' => 'form-control']) }}
+					<div class="{{ ($errors->has('nav')) ? 'form-group has-error' : '' }}">
+						<label class="control-label">{{ lang('short.admin.catalog.skins.menuStyle') }}</label>
+						{{ Form::select('nav', ['dropdown' => lang('Dropdown'), 'classic' => lang('Classic_menu')], null, ['class' => 'form-control']) }}
+						{{ $errors->first('nav', '<p class="help-block">:message</p>') }}
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -49,7 +56,7 @@
 
 			<div class="row">
 				<div class="col-sm-6 col-lg-4">
-					<label>{{ lang('short.admin.catalog.previewImage') }}</label>
+					<label class="control-label">{{ lang('short.admin.catalog.previewImage') }}</label>
 					{{ Form::text('preview', null, ['class' => 'form-control']) }}
 				</div>
 			</div>
@@ -62,7 +69,7 @@
 			<div class="row">
 				<div class="col-sm-4 col-lg-2">
 					<div class="form-group">
-						<label>{{ lang('short.admin.catalog.skins.hasMain') }}</label>
+						<label class="control-label">{{ lang('short.admin.catalog.skins.hasMain') }}</label>
 						<div>
 							<label class="radio-inline">{{ Form::radio('has_main', (int) true) }} {{ lang('Yes') }}</label>
 							<label class="radio-inline">{{ Form::radio('has_main', (int) false) }} {{ lang('No') }}</label>
@@ -74,7 +81,7 @@
 			<div class="row">
 				<div class="col-sm-4 col-lg-2">
 					<div class="form-group">
-						<label>{{ lang('short.admin.catalog.skins.hasAdmin') }}</label>
+						<label class="control-label">{{ lang('short.admin.catalog.skins.hasAdmin') }}</label>
 						<div>
 							<label class="radio-inline">{{ Form::radio('has_admin', (int) true) }} {{ lang('Yes') }}</label>
 							<label class="radio-inline">{{ Form::radio('has_admin', (int) false) }} {{ lang('No') }}</label>
@@ -86,7 +93,7 @@
 			<div class="row">
 				<div class="col-sm-4 col-lg-2">
 					<div class="form-group">
-						<label>{{ lang('short.admin.catalog.skins.hasLogin') }}</label>
+						<label class="control-label">{{ lang('short.admin.catalog.skins.hasLogin') }}</label>
 						<div>
 							<label class="radio-inline">{{ Form::radio('has_login', (int) true) }} {{ lang('Yes') }}</label>
 							<label class="radio-inline">{{ Form::radio('has_login', (int) false) }} {{ lang('No') }}</label>
@@ -98,7 +105,7 @@
 			<div class="row">
 				<div class="col-sm-8 col-lg-6">
 					<div class="form-group">
-						<label>{{ lang('Credits') }}</label>
+						<label class="control-label">{{ lang('Credits') }}</label>
 						{{ Form::textarea('credits', null, ['rows' => 5, 'class' => 'form-control']) }}
 					</div>
 				</div>
@@ -107,19 +114,20 @@
 			<div class="row">
 				<div class="col-sm-4 col-lg-2">
 					<div class="form-group">
-						<label>{{ lang('Version') }}</label>
+						<label class="control-label">{{ lang('Version') }}</label>
 						{{ Form::text('version', null, ['class' => 'form-control']) }}
 					</div>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col-sm-4 col-lg-2">
-					<div class="form-group">
-						<label>{{ lang('Display') }}</label>
+				<div class="col-sm-6 col-lg-4">
+					<div class="form-group{{ ($errors->has('status')) ? ' has-error' : '' }}">
+						<label class="control-label">{{ lang('Display') }}</label>
 						<div>
 							<label class="radio-inline">{{ Form::radio('status', Status::ACTIVE) }} {{ lang('Yes') }}</label>
 							<label class="radio-inline">{{ Form::radio('status', Status::INACTIVE) }} {{ lang('No') }}</label>
+							{{ $errors->first('status', '<p class="help-block">:message</p>') }}
 						</div>
 					</div>
 				</div>
@@ -140,7 +148,7 @@
 								<div class="form-group">
 							@endif
 
-							<label>{{ $o->label }}</label>
+							<label class="control-label">{{ $o->label }}</label>
 
 							@if ($o->type == "text")
 								{{ Form::text('options['.$o->key.']', ((isset($skin->options[$o->key])) ? $skin->options[$o->key] : null), ['class' => 'form-control']) }}

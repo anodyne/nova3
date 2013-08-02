@@ -114,7 +114,8 @@ h6 {
 strong {
   font-weight: 600;
 }
-label {
+label,
+.control-label {
   font-weight: 600;
 }
 label.radio,
@@ -123,10 +124,6 @@ label.checkbox {
 }
 .help-block {
   font-size: 13px;
-}
-/* This will need to be styled a little bit better moving forward */
-.has-error .help-block {
-  color: #d9534f;
 }
 .input-group {
   margin-bottom: 15px;
