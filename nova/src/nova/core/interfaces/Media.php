@@ -2,7 +2,7 @@
 
 interface Media {
 	
-	public function addMedia($file);
+	public function addMedia($file, $options);
 
 	//public function getAllMedia();
 

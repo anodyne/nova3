@@ -138,7 +138,7 @@
 			@if (isset($options))
 				@foreach ($options->items as $o)
 					<div class="row">
-						@if ($o->type == "text" or $o->type == "choice")
+						@if ($o->type != "textarea")
 							<div class="col-sm-6 col-lg-4">
 						@else
 							<div class="col-sm-8 col-lg-6">
@@ -157,7 +157,17 @@
 							@elseif ($o->type == "choice")
 								{{ Form::select('options['.$o->key.']', array_combine($o->options, $o->options), ((isset($skin->options[$o->key])) ? $skin->options[$o->key] : null), ['class' => 'form-control']) }}
 							@elseif ($o->type == "image")
-								<div id="dropzone" class="well"></div>
+								@if (isset($skin->options[$o->key]))
+									<p><code>{{ $skin->options[$o->key] }}</code></p>
+								@endif
+
+								<div class="well dropzone-upload" id="{{ $o->key }}">
+									<div class="icn-size-64 icn-opacity-25 text-center">{{ $_icons['upload'] }}</div>
+									<div class="icn-size-32 text-success text-center hide">{{ $_icons['check'] }}</div>
+									<div class="icn-size-32 text-danger text-center hide">{{ $_icons['warning'] }}</div>
+								</div>
+
+								<p class="help-block">{{ lang('short.admin.catalog.skins.imageUploadHelp') }}</p>
 							@endif
 
 							@if (empty($o->help))

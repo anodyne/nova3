@@ -314,6 +314,13 @@ return [
 		'protected'		=> (int) true
 	],
 	[
+		'name'			=> 'admin/catalog/skins_upload',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/catalog/skins_upload/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Catalog@postSkinsUpload',
+		'protected'		=> (int) true
+	],
+	[
 		'name'			=> 'admin/catalog/widgets',
 		'verb'			=> 'get',
 		'uri'			=> 'admin/catalog/widgets',

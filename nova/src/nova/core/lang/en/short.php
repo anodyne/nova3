@@ -79,6 +79,7 @@ return array(
 				'hasMain' => "Has Main Layout",
 				'hasAdmin' => "Has Admin Layout",
 				'hasLogin' => "Has Log In Layout",
+				'imageUploadHelp' => "Drop your image in the area above to upload it.",
 			],
 		],
 

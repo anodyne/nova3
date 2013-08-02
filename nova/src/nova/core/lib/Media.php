@@ -2,6 +2,9 @@
 
 use Input;
 use Session;
+use MediaNoInputException;
+use MediaFileTooBigException;
+use MediaBadFileTypeException;
 use Symfony\Component\Finder\Finder;
 
 class Media {
@@ -19,7 +22,7 @@ class Media {
 	/**
 	 * The file size limit in MB.
 	 */
-	protected $fileSizeLimit = 1;
+	protected $fileSizeLimit = 2;
 
 	/**
 	 * An instance of the model being used.
@@ -27,52 +30,57 @@ class Media {
 	protected $model;
 
 	/**
-	 * Add a media item. Will upload the item to the appropriate
-	 * location and use the passed model to ensure the media
-	 * table has all the information it needs.
+	 * Add a media item. Will upload the item to the appropriate location and 
+	 * use the passed model to ensure the media table has all the information 
+	 * it needs.
 	 *
-	 * @param	string	The name of the file
-	 * @return	void
+	 * @param	string	Final name of the file
+	 * @param	string	Destination of the file
+	 * @param	array	Additional options
+	 * @param	string	File upload field name
+	 * @return	bool
+	 * @throws	MediaFileTooBigException
+	 * @throws	MediaBadFileTypeException
+	 * @throws	MediaNoInputException
 	 */
-	public function add($filename)
+	public function add($filename, $destination, $options = array(), $field = 'file')
 	{
-		if (Input::hasFile($filename))
+		if (Input::hasFile($field))
 		{
 			// Get the uploaded file
-			$file = Input::file($filename);
+			$file = Input::file($field);
 
 			// Make sure it's an acceptable file type
 			if (in_array($file->getMimeType(), $this->mimes))
 			{
-				// Make sure the file is under 1MB
-				if ($file->getSize() <= '')
+				// Get the file size
+				$filesize = round($file->getSize() / 1024^2, 2);
+
+				// Make sure the file is under the limit
+				if ($filesize <= $this->fileSizeLimit)
 				{
+					// Upload the file
+					$upload = $file->move($destination, $filename);
+
 					// Add the media
-					$upload = $this->model->addMedia($file);
+					$databaseUpload = $this->model->addMedia($filename, $options);
 				}
 				else
 				{
-					// File is too big
-					$flashStatus = 'danger';
-					$flashMessage = lang('error.media.fileTooBig', [$this->fileSizeLimit]);
+					throw new MediaFileTooBigException;
 				}
 			}
 			else
 			{
-				// Not an acceptable file type
-				$flashStatus = 'danger';
-				$flashMessage = lang('error.media.badFileType');
+				throw new MediaBadFileTypeException;
 			}
 		}
 		else
 		{
-			// File couldn't be uploaded
-			$flashStatus = 'danger';
-			$flashMessage = lang('error.media.notUploaded');
+			throw new MediaNoInputException;
 		}
 
-		Session::flash('flashStatus', $flashStatus);
-		Session::flash('flashMessage', $flashMessage);
+		return true;
 	}
 
 	/**
@@ -86,9 +94,8 @@ class Media {
 	}
 
 	/**
-	 * Get the info about a media item. This will return the
-	 * information out of the database as well as provide file
-	 * information about the media item.
+	 * Get the info about a media item. This will return the information out of 
+	 * the database as well as provide file information about the media item.
 	 *
 	 * @return	void
 	 */
@@ -98,8 +105,8 @@ class Media {
 	}
 
 	/**
-	 * Remove a media item. Will remove the information from the
-	 * database and attempt to delete the file.
+	 * Remove a media item. Will remove the information from the database and 
+	 * attempt to delete the file.
 	 *
 	 * @return	void
 	 */
@@ -127,6 +134,32 @@ class Media {
 	public function setModel($value)
 	{
 		$this->model = $value;
+	}
+
+	/**
+	 * Get the maximum file upload size in MB.
+	 *
+	 * @return	int
+	 */
+	public function getFileSizeLimit()
+	{
+		return $this->fileSizeLimit;
+	}
+
+	/**
+	 * Get the acceptable MIME types for media uploads.
+	 *
+	 * @param	string	Output format (array, csv)
+	 * @return	mixed
+	 */
+	public function getFileFormats($format = 'array')
+	{
+		if ($format == 'csv')
+		{
+			return implode(',', $this->mimes);
+		}
+
+		return $this->mimes;
 	}
 
 }

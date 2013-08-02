@@ -5,10 +5,11 @@ use Model;
 use Config;
 use Status;
 use SplFileInfo;
+use MediaInterface;
 use QuickInstallInterface;
 use Symfony\Component\Finder\Finder;
 
-class Skin extends Model implements QuickInstallInterface {
+class Skin extends Model implements QuickInstallInterface, MediaInterface {
 
 	protected $table = 'catalog_skins';
 
@@ -328,6 +329,28 @@ class Skin extends Model implements QuickInstallInterface {
 		}
 
 		return false;
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Media Implementation
+	|--------------------------------------------------------------------------
+	*/
+
+	public function addMedia($file, $options)
+	{
+		if (isset($options['key']))
+		{
+			// Get the options out of the model
+			$originalOptions = $this->options;
+
+			// Update the appropriate option
+			$originalOptions[$options['key']] = $file;
+			
+			// Store the new options and save it
+			$this->options = $originalOptions;
+			$this->save();
+		}
 	}
 
 }

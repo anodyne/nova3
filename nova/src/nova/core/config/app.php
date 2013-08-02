@@ -245,6 +245,14 @@ return array(
 		'FormTrait'					=> 'Nova\Core\Traits\Form',
 
 		/**
+		 * Nova Exceptions
+		 */
+		'MediaBadFileTypeException'	=> 'Nova\Core\Exceptions\MediaBadFileTypeException',
+		'MediaFileTooBigException'	=> 'Nova\Core\Exceptions\MediaFileTooBigException',
+		'MediaNoInputException'		=> 'Nova\Core\Exceptions\MediaNoInputException',
+		'MediaNotUploadedException'	=> 'Nova\Core\Exceptions\MediaNotUploadedException',
+
+		/**
 		 * Nova Model Entities
 		 */
 		'AccessRole'				=> 'Nova\Core\Models\Entities\Access\Role',
@@ -299,7 +307,7 @@ return array(
 		'Comment'					=> 'Nova\Core\Models\Entities\Comment',
 		'Dept'						=> 'Nova\Core\Models\Entities\Department',
 		'Manifest'					=> 'Nova\Core\Models\Entities\Manifest',
-		'Media'						=> 'Nova\Core\Models\Entities\Media',
+		'MediaModel'				=> 'Nova\Core\Models\Entities\Media',
 		'Message'					=> 'Nova\Core\Models\Entities\Message',
 		'MessageRecipient'			=> 'Nova\Core\Models\Entities\MessageRecipient',
 		'Moderation'				=> 'Nova\Core\Models\Entities\Moderation',

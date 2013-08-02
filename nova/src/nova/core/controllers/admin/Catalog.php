@@ -4,6 +4,7 @@ use File;
 use User;
 use View;
 use Input;
+use Media;
 use Sentry;
 use Location;
 use Redirect;
@@ -246,6 +247,11 @@ class Catalog extends AdminBaseController {
 
 		// Set the JS view
 		$this->_jsView = 'admin/catalog/skins_js';
+
+		// Pass some data to the javascript view
+		$this->_jsData->id = $id;
+		$this->_jsData->uploadSize = Media::getFileSizeLimit();
+		$this->_jsData->acceptedFiles = Media::getFileFormats('csv');
 
 		if ($id !== false)
 		{
@@ -493,6 +499,56 @@ class Catalog extends AdminBaseController {
 		return Redirect::to("admin/catalog/skins")
 			->with('flashStatus', $flashStatus)
 			->with('flashMessage', $flashMessage);
+	}
+	public function postSkinsUpload($id)
+	{
+		// Get the current user
+		$user = Sentry::getUser();
+
+		if ($user->hasAccess('catalog.update'))
+		{
+			// Get the ID
+			$id = (is_numeric($id)) ? $id : false;
+
+			// Get the skin catalog
+			$skin = SkinCatalog::find($id);
+
+			if ($skin)
+			{
+				// Set the model we're using for uploading
+				Media::setModel($skin);
+
+				// Get the options from the file
+				$qiOptions = $skin->getQuickInstallFile('options.json');
+
+				if ($qiOptions !== false)
+				{
+					// Get the upload key header
+					$header = $this->request->header('Upload-Key');
+
+					// Get the option we're dealing with
+					$optionArr = array_filter($qiOptions->items, function($o) use($header)
+					{
+						return $o->key == $header;
+					});
+
+					if (count($optionArr) > 0)
+					{
+						// Get the first item
+						$item = reset($optionArr);
+
+						// Set where to put the file
+						$destination = APPPATH."views/{$skin->location}/";
+						$destination = (isset($item->location))
+							? $destination.$item->location
+							: $destination;
+
+						// Upload the file
+						$upload = Media::add($item->filename, $destination, ['key' => $header]);
+					}
+				}
+			}
+		}
 	}
 
 	public function getWidgets()

@@ -159,6 +159,12 @@ input.icn-size-16 {
   margin-bottom: 15px;
   padding: 15px;
 }
+.well-large {
+  padding: 30px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px 4px 4px 4px;
+}
 .accordion-heading {
   font-weight: 600;
 }
@@ -255,4 +261,8 @@ input.icn-size-16 {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px 4px 4px 4px;
+}
+.dropzone-upload-hover {
+  border-color: #5cb85c;
+  color: #5cb85c;
 }

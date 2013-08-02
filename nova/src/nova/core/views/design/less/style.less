@@ -123,6 +123,11 @@ input.icn-size-16 {
     margin-bottom: @spacing;
     padding: @spacing;
 }
+.well-large {
+	padding: @spacing * 2;
+
+	.rounded(@border-radius);
+}
 
 .accordion-heading {
     font-weight: 600;
@@ -209,4 +214,9 @@ input.icn-size-16 {
 			}
 		}
 	}
+}
+
+.dropzone-upload-hover {
+	border-color: @color-success;
+	color: @color-success;
 }
