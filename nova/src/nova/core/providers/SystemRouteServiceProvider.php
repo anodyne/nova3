@@ -53,7 +53,6 @@ class SystemRouteServiceProvider extends ServiceProvider {
 			{
 				foreach ($routes['get'] as $route)
 				{
-					//sd($route);
 					if ($route['conditions'] !== null)
 					{
 						$this->app['router']->get($route['uri'], $route['resource'])
