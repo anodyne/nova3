@@ -6,7 +6,14 @@ Route::group(array('prefix' => 'test'), function()
 	{
 		$skin = SkinCatalog::find(1);
 
-		sd($skin->options);
+		$file = $skin->getQuickInstallFile('options.json');
+
+		$search = array_filter($file->items, function($f)
+		{
+			return $f->key == 'banner_image';
+		});
+
+		sd(reset($search));
 	});
 
 	Route::get('partial', function()
