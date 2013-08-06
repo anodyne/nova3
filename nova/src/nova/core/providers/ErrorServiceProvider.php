@@ -93,9 +93,13 @@ class ErrorServiceProvider extends ServiceProvider {
 		{
 			switch ($ex->getMessage())
 			{
-				case 'Nova 3 requires PHP 5.4.0 or higher':
+				case "php 5.4 required":
 					return $this->app['view']->make($this->app['nova.location']->error('php_version'))
 						->with('env', $this->app->environment());
+				break;
+
+				case: "cache directory not writable":
+					return $this->app['view']->make($this->app['nova.location']->error('cache_dir'));
 				break;
 			}
 		});
