@@ -1,16 +1,19 @@
 <script type="text/javascript">
-	var delay = (function(){
+	var delay = (function()
+	{
 		var timer = 0;
-		return function(callback, ms){
+		
+		return function(callback, ms)
+		{
 			clearTimeout (timer);
 			timer = setTimeout(callback, ms);
 		};
 	})();
 
-	$(document).ready(function(){
-		
-		$('[rel="change_user_view"]').click(function(){
-			
+	$(document).ready(function()
+	{
+		$('[rel="change_user_view"]').click(function(e)
+		{
 			// get the view
 			var view = $(this).attr('id');
 
@@ -19,22 +22,26 @@
 			
 			if (view == 'show_all')
 			{
-				$('#actives').fadeOut('fast', function(){
+				$('#actives').fadeOut('fast', function()
+				{
 					$('#all').fadeIn('fast');
 				});
 			}
 			else
 			{
-				$('#all').fadeOut('fast', function(){
+				$('#all').fadeOut('fast', function()
+				{
 					$('#actives').fadeIn('fast');
 				});
 			}
 			
-			return false;
+			e.preventDefault();
 		});
 
-		$("#user-search").keyup(function(){
-			delay(function(){
+		$("#user-search").keyup(function()
+		{
+			delay(function()
+			{
 				$.ajax({
 					beforeSend: function(){
 						$('#no-results').hide();
@@ -53,22 +60,23 @@
 							$('#all').fadeIn('fast');
 						});
 					},
-					url: '<?php echo Uri::create("ajax/get/user_search");?>',
+					url: '{{ URL::to("ajax/get/user_search") }}',
 					type: 'GET',
 					dataType: 'json',
 					data: { query: $('#user-search').val() },
-					success: function(data){
-
+					success: function(data)
+					{
 						console.log(data);
 
 						// build the URL ahead of time
-						var url = '<?php echo Uri::create("admin/user/edit");?>/';
+						var url = '{{ URL::to("admin/user/edit") }}/';
 						
 						if ( ! $.isEmptyObject(data))
 						{
 							if ( ! $.isEmptyObject(data.name))
 							{
-								$.each(data.name, function(key, value){
+								$.each(data.name, function(key, value)
+								{
 									$('#results-name ul').append('<li><a href="' + url + value.id + '" class="btn btn-mini"><div class="icn icn-50" data-icon="p"></div></a>&nbsp;&nbsp;' + value.name + '</li>');
 								});
 								
@@ -77,7 +85,8 @@
 							
 							if ( ! $.isEmptyObject(data.email))
 							{
-								$.each(data.email, function(key, value){
+								$.each(data.email, function(key, value)
+								{
 									$('#results-email ul').append('<li><a href="' + url + value.id + '" class="btn btn-mini"><div class="icn icn-50" data-icon="p"></div></a>&nbsp;&nbsp;' + value.name + ' (' + value.email + ')' + '</li>');
 								});
 								
@@ -86,7 +95,8 @@
 							
 							if ( ! $.isEmptyObject(data.characters))
 							{
-								$.each(data.characters, function(key, value){
+								$.each(data.characters, function(key, value)
+								{
 									$('#results-characters ul').append('<li><a href="' + url + value.id + '" class="btn btn-mini"><div class="icn icn-50" data-icon="p"></div></a>&nbsp;&nbsp;' + value.name + ' (' + value.fname + ' ' + value.lname + ')' + '</li>');
 								});
 								
@@ -106,34 +116,35 @@
 	});
 
 	// what action to take when a rank group action is clicked
-	$('.user-action').on('click', function(){
+	$('.js-user-action').on('click', function(e)
+	{
 		var doaction = $(this).data('action');
 		var id = $(this).data('id');
 
 		if (doaction == 'delete')
 		{
 			$('<div/>').dialog2({
-				title: "<?php echo ucwords(lang('short.delete', lang('user')));?>",
-				content: "<?php echo Uri::create('ajax/delete/user');?>/" + id
+				title: "{{ ucwords(lang('short.delete', lang('user'))) }}",
+				content: "{{ URL::to('ajax/delete/user') }}/" + id
 			});
 		}
 
 		if (doaction == 'create')
 		{
 			$('<div/>').dialog2({
-				title: "<?php echo ucwords(lang('short.create', lang('user')));?>",
-				content: "<?php echo Uri::create('ajax/add/user');?>"
+				title: "{{ ucwords(lang('short.create', lang('user'))) }}",
+				content: "{{ URL::to('ajax/add/user') }}"
 			});
 		}
 
 		if (doaction == 'link')
 		{
 			$('<div/>').dialog2({
-				title: "<?php echo ucwords(langConcat('action.link character to user'));?>",
-				content: "<?php echo Uri::create('ajax/update/link_character');?>"
+				title: "{{ ucwords(langConcat('action.link character to user')) }}",
+				content: "{{ URL::to('ajax/update/link_character') }}"
 			});
 		}
 
-		return false;
+		e.preventDefault();
 	});
 </script>

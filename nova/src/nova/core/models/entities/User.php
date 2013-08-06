@@ -159,6 +159,18 @@ class User extends Model implements UserInterface, FormDataInterface {
 	*/
 
 	/**
+	 * Scope the query to user email address.
+	 *
+	 * @param	Builder		The query builder
+	 * @param	string		Email address
+	 * @return	void
+	 */
+	public function scopeEmail($query, $email)
+	{
+		$query->where('email', $email);
+	}
+
+	/**
 	 * Scope the query to pending users.
 	 *
 	 * @param	Builder		The query builder
@@ -384,6 +396,16 @@ class User extends Model implements UserInterface, FormDataInterface {
 		{
 			$this->preferences()->save(UserPrefs::create(['key' => $key, 'value' => $value]));
 		}
+	}
+
+	/**
+	 * Can this user be deleted?
+	 *
+	 * @return	bool
+	 */
+	public function canBeDeleted()
+	{
+		return true;
 	}
 
 	/*
