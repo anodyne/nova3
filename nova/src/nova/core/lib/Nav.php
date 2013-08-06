@@ -11,12 +11,12 @@ class Nav {
 	/**
 	 * @var	array	An array of nav data.
 	 */
-	protected $data = array();
+	protected $data = [];
 
 	/**
 	 * @var	array	An array of user data.
 	 */
-	protected $userData = array();
+	protected $userData = [];
 
 	/**
 	 * @var	string	The output of the final nav.
@@ -51,10 +51,10 @@ class Nav {
 	/**
 	 * Create a new Nav.
 	 *
-	 * @param	string	The style of nav (classic or dropdown)
-	 * @param	string	The type of nav (main, sub, admin or adminsub)
-	 * @param	string	The category of the nav (main, admin, messages, write, etc.)
-	 * @param	string	The section of the nav (main or admin)
+	 * @param	string	Style of nav (classic, dropdown)
+	 * @param	string	Type of nav (main, sub, admin, adminsub)
+	 * @param	string	Category of the nav (main, admin, messages, write, etc.)
+	 * @param	string	Section of the nav (main, admin)
 	 * @return	void
 	 */
 	public function __construct($style = 'dropdown', $type = 'main', $category = 'main', $section = 'main')
@@ -271,63 +271,72 @@ class Nav {
 				: false;
 
 			// Build the list of items that should be in the user nav
-			$this->userData = array(
-				0 => array(
-					array(
+			$this->userData = [
+				0 => [
+					[
 						'name' => ucwords(lang('cp')),
 						'url' => 'admin/index',
-						'extra' => array(),
-						'additional' => ''),
-					array(
-						'name' => ucfirst(Str::plural(lang('notification'))),
+						'extra' => [],
+						'additional' => ''
+					],
+					[
+						'name' => Str::plural(lang('Notification')),
 						'url' => 'admin/notifications',
-						'extra' => array(),
-						'additional' => ''),
-				),
-				1 => array(
-					array(
-						'name' => ucwords(lang('my', lang('account'))),
+						'extra' => [],
+						'additional' => ''
+					],
+				],
+				1 => [
+					[
+						'name' => lang('My', lang('Account')),
 						'url' => 'admin/user/edit/'.Sentry::getUser()->id,
-						'extra' => array(),
-						'additional' => ''),
-					array(
-						'name' => ucwords(lang('my', Str::plural(lang('character')))),
+						'extra' => [],
+						'additional' => ''
+					],
+					[
+						'name' => lang('My', Str::plural(lang('Character'))),
 						'url' => 'admin/character/edit',
-						'extra' => array(),
-						'additional' => ''),
-				),
-				2 => array(
-					array(
-						'name' => $messageOutput.ucfirst(Str::plural(lang('message'))),
-						'url' => 'admin/messages/index',
-						'extra' => array(),
-						'additional' => ''),
-					array(
+						'extra' => [],
+						'additional' => ''
+					],
+				],
+				2 => [
+					[
+						'name' => $messageOutput.Str::plural(lang('Message')),
+						'url' => 'admin/messages',
+						'extra' => [],
+						'additional' => ''
+					],
+					[
 						'name' => $writingOutput.lang('writing', 1),
-						'url' => 'admin/writing/index',
-						'extra' => array(),
-						'additional' => ''),
-				),
-				3 => array(
-					array(
-						'name' => ucfirst(langConcat('action.request loa')),
+						'url' => 'admin/writing',
+						'extra' => [],
+						'additional' => ''
+					],
+				],
+				3 => [
+					[
+						'name' => langConcat('Action.request loa'),
 						'url' => 'admin/user/loa',
-						'extra' => array(),
-						'additional' => ''),
-					array(
-						'name' => ucfirst(langConcat('action.nominate for award')),
+						'extra' => [],
+						'additional' => ''
+					],
+					[
+						'name' => langConcat('Action.nominate for award'),
 						'url' => 'admin/user/nominate',
-						'extra' => array(),
-						'additional' => ''),
-				),
-				4 => array(
-					array(
-						'name' => ucfirst(lang('action.logout')),
+						'extra' => [],
+						'additional' => ''
+					],
+				],
+				4 => [
+					[
+						'name' => lang('Action.logout'),
 						'url' => 'logout',
-						'extra' => array(),
-						'additional' => ''),
-				),
-			);
+						'extra' => [],
+						'additional' => ''
+					],
+				],
+			];
 
 			// Set the data for the output
 			$output->with('data', $this->userData)
@@ -340,7 +349,7 @@ class Nav {
 		{
 			// Set the data for the output
 			$output->with('loggedIn', false)
-			 ->with('loginText', ucwords(lang('action.login')));
+			 ->with('loginText', lang('Action.login'));
 		}
 
 		// Set the output render to the class variable
@@ -438,4 +447,5 @@ class Nav {
 
 		return $this;
 	}
+
 }
