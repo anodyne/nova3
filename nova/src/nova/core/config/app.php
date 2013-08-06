@@ -214,12 +214,12 @@ return array(
 		'API'			=> 'Cartalyst\Api\Facades\API',
 		'Date'			=> 'Carbon\Carbon',
 		'DynamicForm'	=> 'Nova\Core\Facades\DynamicForm',
-		'Email'			=> 'Nova\Core\Lib\Email',
 		'Location'		=> 'Nova\Core\Facades\Location',
 		'Markdown'		=> 'Nova\Core\Facades\Markdown',
 		'Media'			=> 'Nova\Core\Facades\Media',
 		'Model'			=> 'Nova\Extensions\Laravel\Database\Eloquent\Model',
 		'Nav'			=> 'Nova\Core\Lib\Nav',
+		'Notify'		=> 'Nova\Core\Facades\Notify',
 		'Nova'			=> 'Nova\Core\Facades\Nova',
 		'Sentry' 		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Setup'			=> 'Nova\Setup\SetupFacade',
@@ -247,10 +247,12 @@ return array(
 		/**
 		 * Nova Exceptions
 		 */
-		'MediaBadFileTypeException'	=> 'Nova\Core\Exceptions\MediaBadFileTypeException',
-		'MediaFileTooBigException'	=> 'Nova\Core\Exceptions\MediaFileTooBigException',
-		'MediaNoInputException'		=> 'Nova\Core\Exceptions\MediaNoInputException',
-		'MediaNotUploadedException'	=> 'Nova\Core\Exceptions\MediaNotUploadedException',
+		'MediaBadFileTypeException'		=> 'Nova\Core\Exceptions\MediaBadFileTypeException',
+		'MediaFileTooBigException'		=> 'Nova\Core\Exceptions\MediaFileTooBigException',
+		'MediaNoInputException'			=> 'Nova\Core\Exceptions\MediaNoInputException',
+		'MediaNotUploadedException'		=> 'Nova\Core\Exceptions\MediaNotUploadedException',
+		'NotifierNoContentException'	=> 'Nova\Core\Exceptions\NotifierNoContentException',
+		'NotifierNoSubjectException'	=> 'Nova\Core\Exceptions\NotifierNoSubjectException',
 
 		/**
 		 * Nova Model Entities
