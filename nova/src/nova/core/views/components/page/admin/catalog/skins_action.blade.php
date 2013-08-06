@@ -161,13 +161,13 @@
 									<p><code>{{ $skin->options[$o->key] }}</code></p>
 								@endif
 
-								<div class="well dropzone-upload" id="{{ $o->key }}">
+								<div class="well dropzone-upload visible-lg" id="{{ $o->key }}">
 									<div class="icn-size-64 icn-opacity-25 text-center">{{ $_icons['upload'] }}</div>
 									<div class="icn-size-32 text-success text-center hide">{{ $_icons['check'] }}</div>
 									<div class="icn-size-32 text-danger text-center hide">{{ $_icons['warning'] }}</div>
 								</div>
 
-								<p class="help-block">{{ lang('short.admin.catalog.skins.imageUploadHelp') }}</p>
+								<p class="help-block visible-lg">{{ lang('short.admin.catalog.skins.imageUploadHelp') }}</p>
 							@endif
 
 							@if (empty($o->help))
