@@ -93,13 +93,18 @@ require $framework.'/Illuminate/Foundation/start.php';
 
 /*
 |--------------------------------------------------------------------------
-| Sanity Checks
+| Check Cache Directory
 |--------------------------------------------------------------------------
+|
+| Here we check to make sure the cache directory is writable. If it isn't
+| we throw an exception since Nova 3 relies heavily on caching to be as
+| performant as possible.
+|
 */
 
 if ( ! File::isWritable($app['path.storage'].'/cache'))
 {
-	throw new Exception("The cache directory is not writable! Nova 3 relies heavily on caching. Make sure the app/storage/cache directory is writable and try again.");
+	throw new RuntimeException("cache directory not writable");
 }
 
 /*
