@@ -80,13 +80,3 @@ Route::filter('csrf', function()
 		}
 	}
 });
-
-/*
-|--------------------------------------------------------------------------
-| Nova Filters
-|--------------------------------------------------------------------------
-|
-| These custom filters are for use throughout Nova to perform various
-| actions.
-|
-*/
