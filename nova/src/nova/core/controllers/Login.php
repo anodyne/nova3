@@ -15,6 +15,7 @@ use Date;
 use Html;
 use Mail;
 use Input;
+use Notify;
 use Sentry;
 use Session;
 use Location;
@@ -68,11 +69,11 @@ class Login extends LoginBaseController {
 			}
 
 			// Set the flash data
-			$this->_flash[] = array(
+			$this->_flash[] = [
 				'status' 	=> $errorStatus,
 				'content' 	=> $errorMsg,
 				'class'		=> 'alert-danger',
-			);
+			];
 		}
 	}
 	public function postIndex()
@@ -93,10 +94,10 @@ class Login extends LoginBaseController {
 			$password = e(Input::get('password'));
 
 			// Attempt to log in
-			$user = Sentry::authenticateAndRemember(array(
+			$user = Sentry::authenticateAndRemember([
 				'email'		=> $email,
 				'password'	=> $password,
-			));
+			]);
 
 			// Get the Sentry cookie
 			$persistCookie = Sentry::getCookie()->getCookie();
@@ -162,18 +163,18 @@ class Login extends LoginBaseController {
 
 		if ($flash == 'success')
 		{
-			$this->_flash[] = array(
+			$this->_flash[] = [
 				'status' 	=> 'success',
 				'message' 	=> lang('login.reset.step1Success'),
-			);
+			];
 		}
 
 		if ($flash === 'failure')
 		{
-			$this->_flash[] = array(
+			$this->_flash[] = [
 				'status' 	=> 'danger',
 				'message' 	=> lang('login.reset.step1Failure'),
-			);
+			];
 		}
 	}
 	public function postReset()
@@ -198,29 +199,24 @@ class Login extends LoginBaseController {
 			// Get the password reset code
 			$resetCode = $user->getResetPasswordCode();
 
+			// Set the content keys
+			$contentKeys['subject'] = 'email.subject.password_reset';
+			$contentKeys['content'] = 'email.content.password_reset';
+
 			// Build the content for the email
-			$data['title'] = lang('email.subject.passwordReset');
-			$data['content'] = lang('email.content.passwordReset', URL::to("login/reset_confirm/{$user->id}/{$resetCode}"));
+			$data['to'] = $user->email;
+			$data['content'] = "\r\n\r\n".URL::to("login/reset_confirm/{$user->id}/{$resetCode}");
 
-			// Get the settings for use in the closure
-			$settings = $this->settings;
-
-			// Send the email
-			Mail::send([Location::email('login/reset', 'html'), Location::email('login/reset', 'text')], 
-					$data, function($m) use($user, $settings)
-			{
-				$m->from($settings->email_address, $settings->email_name);
-				$m->to($user->email);
-				$m->subject($settings->email_subject.' '.lang('email.subject.passwordReset'));
-			});
+			// Send the notification
+			Notify::send('basic', $data, $contentKeys);
 
 			// Set up the data to flash to the next request
-			$flashData = array('reset_step1' => 'success');
+			$flashData = ['reset_step1' => 'success'];
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
 			// Set up the data to flash to the next request
-			$flashData = array('reset_step1' => 'failure');
+			$flashData = ['reset_step1' => 'failure'];
 		}
 
 		return Redirect::to('login/reset')->with($flashData);
@@ -250,28 +246,28 @@ class Login extends LoginBaseController {
 		{
 			if ($reset === true)
 			{
-				$this->_flash[] = array(
+				$this->_flash[] = [
 					'status' 	=> 'success',
-					'message' 	=> lang('login.reset.step2Success', HTML::link('login', ucfirst(lang('action.login')))),
-				);
+					'message' 	=> lang('login.reset.step2Success', HTML::link('login', lang('Action.login'))),
+				];
 
 				$this->_data->confirmed = true;
 				$this->_data->message = false;
 			}
 			elseif ($reset === false)
 			{
-				$this->_flash[] = array(
+				$this->_flash[] = [
 					'status' 	=> 'danger',
 					'message' 	=> lang('login.reset.step2Failure'),
-				);
+				];
 			}
 		}
 		elseif ($confirm === false)
 		{
-			$this->_flash[] = array(
+			$this->_flash[] = [
 				'status' 	=> 'danger',
 				'message' 	=> lang('login.reset.confirmationFailed'),
-			);
+			];
 		}
 	}
 	public function postResetConfirm($id, $code)
@@ -300,34 +296,30 @@ class Login extends LoginBaseController {
 				if ($user->attemptResetPassword($code, $newPassword))
 				{
 					// Set up the data to flash to the next request
-					$flashData = array(
-						'reset_confirmation' => true,
-						'reset_step2' => true
-					);
+					$flashData = [
+						'reset_confirmation'	=> true,
+						'reset_step2'			=> true
+					];
 				}
 				else
 				{
 					// Set up the data to flash to the next request
-					$flashData = array(
-						'reset_confirmation' => true,
-						'reset_step2' => false
-					);
+					$flashData = [
+						'reset_confirmation'	=> true,
+						'reset_step2'			=> false
+					];
 				}
 			}
 			else
 			{
 				// Set up the data to flash to the next request
-				$flashData = array(
-					'reset_confirmation' => false,
-				);
+				$flashData = ['reset_confirmation' => false];
 			}
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
 			// Set up the data to flash to the next request
-			$flashData = array(
-				'reset_confirmation' => false,
-			);
+			$flashData = ['reset_confirmation' => false];
 		}
 
 		return Redirect::to('login/reset_confirm')->with($flashData);

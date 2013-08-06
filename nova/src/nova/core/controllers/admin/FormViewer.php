@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Controllers\Admin;
 
-use Mail;
 use View;
 use Input;
+use Notify;
 use Sentry;
 use Location;
 use NovaForm;
@@ -134,27 +134,20 @@ class FormViewer extends AdminBaseController {
 
 			if ((bool) $form->email_allowed === true)
 			{
-				// Set the data being passed to the email
-				$emailData = [
-					'intro'		=> SiteContent::getContentItem('formviewer_results_message'),
-					'content'	=> DynamicForm::setup($formKey, $dataId, false)->build(),
+				// Set the content keys
+				$contentKeys = [
+					'content' => 'email.content.formviewer_results'
 				];
 
-				// Get a copy of the settings to use in the closure
-				$settings = $this->settings;
+				// Set the data being passed to the email
+				$emailData = [
+					'to'		=> $form->email_addresses,
+					'content'	=> DynamicForm::setup($formKey, $dataId, false)->build(),
+					'subject'	=> str_replace(':0', $form->name, lang('email.subject.formviewer')),
+				];
 
-				// Send the email
-				Mail::send(
-						[Location::email('email', 'html'), Location::email('email', 'text')], 
-						$emailData, function($m) use($form, $settings)
-				{
-					// Set the subject
-					$subject = str_replace(':0', $form->name, SiteContent::getContentItem('formviewer_results_subject'));
-
-					$m->from($settings->email_address, $settings->email_name);
-					$m->to($form->email_addresses);
-					$m->subject($settings->email_subject.' '.$subject);
-				});
+				// Send the notification
+				Notify::send('basic', $emailData, $contentKeys);
 			}
 
 			// Set the flash info
