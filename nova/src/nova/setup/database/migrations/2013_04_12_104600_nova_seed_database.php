@@ -61,11 +61,6 @@ class NovaSeedDatabase extends Migration {
 		$this->seedSettings();
 
 		/**
-		 * Sim Type Seeds
-		 */
-		$this->seedSimType();
-
-		/**
 		 * Site Content Seeds
 		 */
 		$this->seedSiteContent();
@@ -621,27 +616,6 @@ class NovaSeedDatabase extends Migration {
 		foreach ($data as $d)
 		{
 			Settings::create($d);
-		}
-	}
-
-	protected function seedSimType()
-	{
-		// Data to seed the database with
-		$data = [
-			['name' => 'all'],
-			['name' => 'ship'],
-			['name' => 'base'],
-			['name' => 'colony'],
-			['name' => 'unit'],
-			['name' => 'realm'],
-			['name' => 'planet'],
-			['name' => 'organization'],
-		];
-
-		// Loop through the data and create it
-		foreach ($data as $d)
-		{
-			SimType::create($d);
 		}
 	}
 

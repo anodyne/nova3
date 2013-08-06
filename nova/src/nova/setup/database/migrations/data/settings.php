@@ -14,11 +14,6 @@ return [
 		'show_basic_settings' => (int) true
 	],
 	[
-		'key' => 'sim_type',
-		'value' => 2,
-		'user_created' => (int) false
-	],
-	[
 		'key' => 'maintenance',
 		'value' => 'off',
 		'help' => "Maintenance mode allows only admins to log in to the system while updates are being applied or other work is being done",
@@ -68,42 +63,6 @@ return [
 		'key' => 'email_address',
 		'value' => 'me@example.com',
 		'help' => "To avoid some email services marking emails from Nova as spam, use this email address to set a specific address. This defaults to an address that should prevent this issue.",
-		'user_created' => (int) false
-	],
-	[
-		'key' => 'email_protocol',
-		'value' => 'mail',
-		'user_created' => (int) false
-	],
-	[
-		'key' => 'email_smtp_server',
-		'value' => 'smtp.example.com',
-		'user_created' => (int) false
-	],
-	[
-		'key' => 'email_smtp_port',
-		'value' => 25,
-		'user_created' => (int) false
-	],
-	[
-		'key' => 'email_smtp_encryption',
-		'value' => '',
-		'help' => "Nova supports sending SMTP emails over SSL or TLS. If you aren't using encryption, leave this blank.",
-		'user_created' => (int) false
-	],
-	[
-		'key' => 'email_smtp_username',
-		'value' => 'username',
-		'user_created' => (int) false
-	],
-	[
-		'key' => 'email_smtp_password',
-		'value' => 'password',
-		'user_created' => (int) false
-	],
-	[
-		'key' => 'email_sendmail_path',
-		'value' => '/usr/sbin/sendmail -bs',
 		'user_created' => (int) false
 	],
 	[

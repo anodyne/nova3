@@ -434,7 +434,7 @@ return [
 		'name' => 'All Users',
 		'group' => 1,
 		'order' => 0,
-		'url' => 'admin/user/index',
+		'url' => 'admin/user',
 		'type' => 'adminsub',
 		'category' => 'users',
 		'access' => 'user.create|user.delete'

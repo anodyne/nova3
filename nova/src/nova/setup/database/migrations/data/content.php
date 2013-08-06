@@ -295,6 +295,34 @@ return [
 		'page' => 'widgets'
 	],
 
+	/**
+	 * admin/user Headers
+	 */
+	[
+		'key' => 'admin_user_all_header',
+		'label' => 'All Users Header',
+		'content' => "Users",
+		'type' => 'header',
+		'section' => 'user',
+		'page' => 'all'
+	],
+	[
+		'key' => 'admin_user_edit_header',
+		'label' => 'Edit User Header',
+		'content' => "Edit User",
+		'type' => 'header',
+		'section' => 'user',
+		'page' => 'edit'
+	],
+	[
+		'key' => 'admin_user_loa_header',
+		'label' => 'User LOA Header',
+		'content' => "Request LOA",
+		'type' => 'header',
+		'section' => 'user',
+		'page' => 'loa'
+	],
+
 	/*
 	|--------------------------------------------------------------------------
 	| PAGE TITLES
@@ -593,6 +621,34 @@ return [
 		'page' => 'widgets'
 	],
 
+	/**
+	 * admin/user Titles
+	 */
+	[
+		'key' => 'admin_user_all_title',
+		'label' => 'All Users Title',
+		'content' => "Users",
+		'type' => 'title',
+		'section' => 'user',
+		'page' => 'all'
+	],
+	[
+		'key' => 'admin_user_edit_title',
+		'label' => 'Edit User Title',
+		'content' => "Edit User",
+		'type' => 'title',
+		'section' => 'user',
+		'page' => 'edit'
+	],
+	[
+		'key' => 'admin_user_loa_title',
+		'label' => 'User LOA Title',
+		'content' => "Request LOA",
+		'type' => 'title',
+		'section' => 'user',
+		'page' => 'loa'
+	],
+
 	/*
 	|--------------------------------------------------------------------------
 	| MESSAGES
@@ -821,6 +877,26 @@ return [
 		'page' => 'widgets'
 	],
 
+	/**
+	 * admin/user Messages
+	 */
+	[
+		'key' => 'admin_user_all_message',
+		'label' => 'All Users Message',
+		'content' => "",
+		'type' => 'message',
+		'section' => 'user',
+		'page' => 'all'
+	],
+	[
+		'key' => 'admin_user_loa_message',
+		'label' => 'User LOA Message',
+		'content' => "",
+		'type' => 'message',
+		'section' => 'user',
+		'page' => 'loa'
+	],
+
 	/*
 	|--------------------------------------------------------------------------
 	| OTHER MESSAGES
@@ -882,17 +958,23 @@ return [
 		'content' => "Define your user rejection message through the Site Content page.",
 		'type' => 'email'
 	],
+	
 	[
-		'key' => 'formviewer_results_subject',
-		'label' => 'FormViewer Results Subject',
-		'content' => "New :0 Submission",
-		'protected' => (int) true,
+		'key' => 'email.content.formviewer_results',
+		'label' => 'FormViewer Results Message',
+		'content' => "",
 		'type' => 'email'
 	],
 	[
-		'key' => 'formviewer_results_message',
-		'label' => 'FormViewer Results Message',
-		'content' => "",
+		'key' => 'email.subject.password_reset',
+		'label' => 'Password Reset Subject Line',
+		'content' => "Confirm Password Reset",
+		'type' => 'email'
+	],
+	[
+		'key' => 'email.content.password_reset',
+		'label' => 'Password Reset Message',
+		'content' => "A password reset has been requested for the account associated with this email address. Since this is a two step process, you must now confirm your reset in order for your password to be changed. If you didn't request this reset, please contact the game master immediately and notify them of the issue. After doing so, log in to the site using your current password to cancel the reset request.",
 		'type' => 'email'
 	],
 ];

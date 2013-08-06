@@ -336,34 +336,41 @@ return [
 	],
 
 	/**
-	 * admin/settings
+	 * admin/user
 	 */
 	[
-		'name'			=> 'admin/settings',
+		'name'			=> 'admin/user',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/settings',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Settings@getBasic',
+		'uri'			=> 'admin/user',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@getAll',
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'admin/settings/advanced',
+		'name'			=> 'admin/user/edit',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/settings/advanced',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Settings@getAdvanced',
+		'uri'			=> 'admin/user/edit/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@getEdit',
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'admin/settings/create',
-		'verb'			=> 'get',
-		'uri'			=> 'admin/settings/create',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Settings@getCreate',
-		'protected'		=> (int) true
-	],
-	[
-		'name'			=> 'admin/settings',
+		'name'			=> 'admin/user/edit',
 		'verb'			=> 'post',
-		'uri'			=> 'admin/settings/{type}',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Settings@postSettings',
+		'uri'			=> 'admin/user/edit/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@postEdit',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/user/loa',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/user/loa',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@getLoa',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/user/loa',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/user/loa',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@postLoa',
 		'protected'		=> (int) true
 	],
 
