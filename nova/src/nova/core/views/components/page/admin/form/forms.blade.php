@@ -9,8 +9,8 @@
 @if ($forms->count() > 0)
 	<div class="row">
 		<div class="col-12 col-sm-6 col-lg-4">
-			<div class="control-group">
-				{{ Form::text('', null, ['id' => 'searchForms', 'placeholder' => lang('Short.search', langConcat('for Form'))]) }}
+			<div class="form-group">
+				{{ Form::text('', null, ['id' => 'searchForms', 'class' => 'form-control', 'placeholder' => lang('Short.search', langConcat('for Form'))]) }}
 			</div>
 		</div>
 	</div>
