@@ -8,7 +8,9 @@
  */
 
 /**
- * @param	string	The i18n key to translate
+ * Translate the language key into the appropriate language.
+ *
+ * @param	string	I18n key to translate
  * @param	string	Any values that need to be passed to the key as well
  * @return	string
  * @throws	Exception
@@ -87,59 +89,24 @@ if ( ! function_exists('langConcat'))
 }
 
 /**
- * Generate a partial based on the parameters.
+ * Generate a partial.
  *
  * @param	string	The view name
- * @param	string	The section (main or admin)
  * @param	mixed	The data to pass to the partial
  * @return	string
  */
 if ( ! function_exists('partial'))
 {
-	function partial($view, $data)
+	function partial($view, $data = false)
 	{
-		return View::make(Location::partial($view))->with($data);
-	}
-}
+		$viewObj = View::make(Location::partial($view));
 
-/**
- * Parse route conditions.
- *
- * @param	string	The route conditions
- * @return	array
- */
-if ( ! function_exists('parseRouteConditions'))
-{
-	function parseRouteConditions($conditions)
-	{
-		// Create an empty array for storing conditions
-		$finalConditions = [];
-		
-		// We have a pipe, so we need to break things apart twice
-		if (Str::contains($conditions, '|'))
+		// Make sure we have data before attaching it
+		if ($data !== false)
 		{
-			// Create an array of conditions
-			$conditionsArr = explode('|', $conditions);
-
-			// Loop through the conditions array
-			foreach ($conditionsArr as $c)
-			{
-				// Break the conditions up
-				list($name, $pattern) = explode('.', $c);
-
-				// Add the conditions to the final array
-				$finalConditions[] = [$name => $condition];
-			}
-		}
-		else
-		{
-			// Break the conditions up
-			list($name, $pattern) = explode('.', $conditions);
-
-			// Set the final conditions
-			$finalConditions[$name] = $pattern;
+			return $viewObj->with($data);
 		}
 
-		return $finalConditions;
+		return $viewObj;
 	}
 }
