@@ -2,6 +2,7 @@
 
 use Nova\Core\Lib\Nova;
 use Nova\Core\Lib\Media;
+use Nova\Core\Lib\Notify;
 use Ikimea\Browser\Browser;
 use Nova\Core\Lib\Location;
 use Nova\Core\Lib\Markdown;
@@ -21,6 +22,7 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->registerMedia();
 		$this->registerDynamicForm();
 		$this->registerBrowser();
+		$this->registerNotifier();
 	}
 
 	public function boot()
@@ -109,6 +111,18 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->app['nova.browser'] = $this->app->share(function($app)
 		{
 			return new Browser;
+		});
+	}
+
+	/**
+	 * The Notifier class provides a simple interface for sending email
+	 * notifications out to users.
+	 */
+	protected function registerNotifier()
+	{
+		$this->app['nova.notify'] = $this->app->share(function($app)
+		{
+			return new Notify($app);
 		});
 	}
 
