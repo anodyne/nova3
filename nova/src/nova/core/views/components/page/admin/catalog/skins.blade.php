@@ -81,7 +81,7 @@
 						<div class="row">
 							@if (Sentry::getUser()->hasAccess('catalog.update'))
 								@if ($skin->checkForUpdate())
-									<div class="col-6">
+									<div class="col-12">
 										<p><a href="#" class="btn btn-block btn-warning icn-size-16 js-skin-action" data-action="update" data-location="{{ $skin->location }}">{{ $_icons['refresh'] }}</a>
 									</div>
 								@endif
@@ -92,7 +92,7 @@
 							@endif
 
 							@if (Sentry::getUser()->hasAccess('catalog.delete'))
-								<div class="col-12">
+								<div class="col-6">
 									<p><a href="#" class="btn btn-block btn-danger icn-size-16 js-rank-action" data-id="{{ $skin->id }}" data-action="delete">{{ $_icons['remove'] }}</a></p>
 								</div>
 							@endif
