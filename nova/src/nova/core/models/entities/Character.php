@@ -296,7 +296,7 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 	|--------------------------------------------------------------------------
 	*/
 
-	public function addMedia($file)
+	public function addMedia($file, $options)
 	{
 		// Move the file to the right location
 		$file->move(APPPATH.'assets/images/characters');
