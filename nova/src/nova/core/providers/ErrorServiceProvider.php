@@ -98,7 +98,7 @@ class ErrorServiceProvider extends ServiceProvider {
 						->with('env', $this->app->environment());
 				break;
 
-				case: "cache directory not writable":
+				case "cache directory not writable":
 					return $this->app['view']->make($this->app['nova.location']->error('cache_dir'));
 				break;
 			}
