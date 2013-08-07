@@ -42,12 +42,9 @@ class Main extends MainBaseController {
 
 	public function getIndex()
 	{
-		// Set the view
+		// Set the views
 		$this->_view = 'main/index';
 		$this->_jsView = 'main/index_js';
-
-		//$this->_data->form = \DynamicForm::setup('MissionIdeas', 1, true)->build();
-		$this->_data->form = false;
 	}
 
 	public function getCredits()
