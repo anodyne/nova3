@@ -7,48 +7,44 @@
 {{ Form::model($role) }}
 	<div class="row">
 		<div class="col-sm-6 col-lg-4">
-			<div class="{{ ($errors->has('name')) ? 'control-group has-error' : '' }}">
+			<div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
 				<label class="control-label">{{ lang('Name') }}</label>
 				<div class="controls">
-					{{ Form::text('name', null, ['class' => 'input-with-feedback']) }}
+					{{ Form::text('name', null, ['class' => 'input-with-feedback form-control']) }}
+					{{ $errors->first('name', '<p class="help-block">:message</p>') }}
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-lg-12">
-			{{ $errors->first('name', '<p class="help-block">:message</p>') }}
-		</div>
-	</div>
 
 	<div class="row">
-		<div class="col-sm-10 col-lg-8">
-			<div class="control-group">
+		<div class="col-sm-8 col-lg-6">
+			<div class="form-group">
 				<label class="control-label">{{ lang('Desc') }}</label>
 				<div class="controls">
-					{{ Form::textarea('desc', null, ['class' => 'input-with-feedback', 'rows' => 3]) }}
+					{{ Form::textarea('desc', null, ['class' => 'form-control', 'rows' => 5]) }}
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-lg-8">
-			<div class="control-group">
+		<div class="col-lg-12">
+			<div class="form-group">
 				<label class="control-label">{{ lang('Action.inherits') }}</label>
 				<div class="controls">
 					<div class="row">
 					@foreach ($roles as $r)
 						@if ($action == 'update')
 							@if ($r->id != $role->id)
-								<div class="col-sm-6 col-lg-6">
+								<div class="col-sm-6 col-lg-4">
 									<label class="checkbox">
 										{{ Form::checkbox('inherits[]', $r->id, (in_array($r->id, $role->inherits)), ['data-role' => $r->id, 'class' => 'js-inherited-roles']) }} {{ $r->name }}
 									</label>
 								</div>
 							@endif
 						@else
-							<div class="col-sm-6 col-lg-6">
+							<div class="col-sm-6 col-lg-4">
 								<label class="checkbox">
 									{{ Form::checkbox('inherits[]', $r->id, null, ['data-role' => $r->id, 'class' => 'js-inherited-roles']) }} {{ $r->name }}
 								</label>
@@ -83,13 +79,15 @@
 
 								{{ $t->name }}
 								
+								<dl>
 								@if ( ! empty($t->desc))
-									<span class="icn-opacity-50 tooltip-top" data-title="{{ $t->desc }}">{{ $_icons['question'] }}</span>
+									<dd class="text-small text-muted">{{ $t->desc }}</dd>
 								@endif
 
 								@if (array_key_exists($t->id, $inheritedTasks))
-									<span class="icn-opacity-50 tooltip-top" data-title="{{ lang('short.admin.roles.inheritedTask', $inheritedTasks[$t->id]['role']) }}">{{ $_icons['info'] }}</span>
+									<dd class="text-small text-info">{{ lang('short.admin.roles.inheritedTask', $inheritedTasks[$t->id]['role']) }}</dd>
 								@endif
+								</dl>
 							</label>
 						</div>
 					@endforeach
@@ -130,7 +128,7 @@
 												@endif
 
 												@if (array_key_exists($t->id, $inheritedTasks))
-													<p class="text-small text-muted">{{ lang('short.admin.roles.inheritedTask', $inheritedTasks[$t->id]['role']) }}</p>
+													<p class="text-small text-info">{{ lang('short.admin.roles.inheritedTask', $inheritedTasks[$t->id]['role']) }}</p>
 												@endif
 											</label>
 										@endforeach
