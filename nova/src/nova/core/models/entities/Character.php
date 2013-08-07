@@ -290,6 +290,28 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 		return $query->get();
 	}
 
+	/**
+	 * Can this character be deleted?
+	 *
+	 * @return	bool
+	 */
+	public function canBeDeleted()
+	{
+		// Does the user have posts?
+		if ($this->posts->count() > 0) return false;
+
+		// Does the user have personal logs?
+		if ($this->logs->count() > 0) return false;
+
+		// Does the user have announcements?
+		if ($this->announcements->count() > 0) return false;
+
+		// Does the user have any awards?
+		if ($this->awards->count() > 0) return false;
+
+		return true;
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| MediaInterface Implementation
