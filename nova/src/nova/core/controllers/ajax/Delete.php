@@ -27,11 +27,6 @@ class Delete extends AjaxBaseController {
 		}
 	}
 
-	/**
-	 * Un-ban a user.
-	 *
-	 * @return	void
-	 */
 	public function action_arc_unbanuser($id)
 	{
 		if (\Sentry::check() and \Sentry::user()->hasAccess('ban.delete'))
@@ -50,9 +45,10 @@ class Delete extends AjaxBaseController {
 	}
 
 	/**
-	 * Delete a form.
+	 * Show the confirmation modal for deleting a form.
 	 *
-	 * @return	void
+	 * @param	string	Form key
+	 * @return	View
 	 */
 	public function getForm($formKey)
 	{
@@ -71,10 +67,10 @@ class Delete extends AjaxBaseController {
 	}
 
 	/**
-	 * Show the delete form field modal.
+	 * Show the confirmation modal for deleting a form field.
 	 *
-	 * @param	int		ID to delete
-	 * @return	string
+	 * @param	int		Form field ID
+	 * @return	View
 	 */
 	public function getFormField($id)
 	{
@@ -111,10 +107,10 @@ class Delete extends AjaxBaseController {
 	}
 
 	/**
-	 * Show the delete form section modal.
+	 * Show the confirmation modal for deleting a form section.
 	 *
-	 * @param	int		ID to delete
-	 * @return	string
+	 * @param	int		Form section ID
+	 * @return	View
 	 */
 	public function getFormSection($id)
 	{
@@ -141,6 +137,12 @@ class Delete extends AjaxBaseController {
 		}
 	}
 
+	/**
+	 * Show the confirmation modal for deleting a form tab.
+	 *
+	 * @param	int		Form tab ID
+	 * @return	View
+	 */
 	public function getFormTab($id)
 	{
 		if (Sentry::check() and Sentry::getUser()->hasAccess('form.delete'))
@@ -166,9 +168,11 @@ class Delete extends AjaxBaseController {
 	}
 
 	/**
-	 * Delete an entry from FormViewer.
+	 * Show the confirmation modal for deleting a FormViewer entry.
 	 *
-	 * @return	void
+	 * @param	string	Form key
+	 * @param	int		Entry ID
+	 * @return	View
 	 */
 	public function getFormViewerEntry($formKey, $id)
 	{
@@ -297,10 +301,10 @@ class Delete extends AjaxBaseController {
 	}
 
 	/**
-	 * Confirm the deletion of a rank set catalog.
+	 * Show the confirmation modal for deleting a rank catalog item.
 	 *
 	 * @param	int		Catalog ID
-	 * @return	string
+	 * @return	View
 	 */
 	public function getRankSet($id)
 	{
@@ -328,9 +332,10 @@ class Delete extends AjaxBaseController {
 	}
 
 	/**
-	 * Confirm the deletion of an access role.
+	 * Show the confirmation modal for deleting a role.
 	 *
-	 * @return	string
+	 * @param	int		Role ID
+	 * @return	View
 	 */
 	public function getRole($id)
 	{
@@ -361,15 +366,15 @@ class Delete extends AjaxBaseController {
 	}
 
 	/**
-	 * Confirm the deletion of an access role task.
+	 * Show the confirmation modal for deleting a role task.
 	 *
-	 * @return	string
+	 * @param	int		Role task ID
+	 * @return	View
 	 */
 	public function getRoleTask($id)
 	{
 		if (Sentry::check() and Sentry::getUser()->hasAccess('role.delete'))
 		{
-			// Get the task
 			$task = \AccessTask::find($id);
 
 			if ($task)
@@ -381,16 +386,35 @@ class Delete extends AjaxBaseController {
 	}
 
 	/**
-	 * Confirm the deletion of a skin catalog.
+	 * Show the confirmation modal for deleting a route.
+	 *
+	 * @param	int		Route ID
+	 * @return	View
+	 */
+	public function getRoute($id)
+	{
+		if (Sentry::check() and Sentry::getUser()->hasAccess('routes.delete'))
+		{
+			$route = \SystemRoute::find($id);
+
+			if ($route)
+			{
+				echo View::make(Location::ajax('delete/route'))
+					->with('route', $route);
+			}
+		}
+	}
+
+	/**
+	 * Show the confirmation modal for deleting a skin catalog item.
 	 *
 	 * @param	int		Catalog ID
-	 * @return	string
+	 * @return	View
 	 */
 	public function getSkin($id)
 	{
 		if (Sentry::check() and Sentry::getUser()->hasAccess('catalog.delete'))
 		{
-			// Get the catalog we're deleting
 			$catalog = \SkinCatalog::find($id);
 
 			if ($catalog !== null)
@@ -411,36 +435,27 @@ class Delete extends AjaxBaseController {
 		}
 	}
 
-	public function action_user($id)
+	/**
+	 * Show the confirmation modal for deleting a user.
+	 *
+	 * @param	int		User ID
+	 * @return	View
+	 */
+	public function getUser($id)
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('user.delete'))
+		if (Sentry::check() and Sentry::getUser()->hasAccess('user.delete'))
 		{
-			// get the user info
-			$user = \Model_User::find($id);
+			$user = \User::find($id);
 
-			if ($user !== null)
+			if ($user !== null and $user->canBeDeleted())
 			{
 				$data = array(
 					'name' => $user->name,
 					'id' => $user->id,
 				);
 
-				echo \View::forge(\Location::ajax('delete/user'), $data);
-			}
-		}
-	}
-
-	public function getRoute($id)
-	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('routes.delete'))
-		{
-			// Get the page route
-			$route = \SystemRoute::find($id);
-
-			if ($route)
-			{
-				echo View::make(Location::ajax('delete/route'))
-					->with('route', $route);
+				echo View::make(Location::ajax('delete/user'))
+					->with('user', $user);
 			}
 		}
 	}

@@ -20,6 +20,7 @@ return array(
 	'announcements' => 'announcements',
 	'and' => 'and',
 	'access' => "access",
+	'assigned' => "assigned",
 
 	'bio'	=> 'bio',
 	'ban' => 'ban',
@@ -220,6 +221,7 @@ return array(
 	'unlinked' => "unlinked",
 	'uri' => "URI",
 	'user_created' => "user-created",
+	'unassigned' => "unassigned",
 
 	'vertical' => "vertical",
 	'value' => 'value',

@@ -317,5 +317,29 @@ class Update extends AjaxBaseController {
 			}
 		}
 	}
+
+	/**
+	 * Show the confirmation modal for linking a character to a user.
+	 *
+	 * @param	int		User ID
+	 * @return	View
+	 */
+	public function getLinkToUser($id)
+	{
+		if (Sentry::check() and Sentry::getUser()->hasAccess('user.update'))
+		{
+			$user = \User::find($id);
+
+			if ($user)
+			{
+				// Get all characters who aren't assigned to a user
+				$characters = \Character::npc()->get();
+
+				return View::make(Location::ajax('update/link_to_user'))
+					->with('user', $user)
+					->with('characters', $characters);
+			}
+		}
+	}
 	
 }

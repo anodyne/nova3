@@ -1,4 +1,5 @@
 <script type="text/javascript">
+	
 	var delay = (function()
 	{
 		var timer = 0;
@@ -10,141 +11,135 @@
 		};
 	})();
 
-	$(document).ready(function()
+	$(document).on('keyup', '#user-search', function(e)
 	{
-		$('[rel="change_user_view"]').click(function(e)
+		delay(function()
 		{
-			// get the view
-			var view = $(this).attr('id');
+			$.ajax({
+				beforeSend: function(){
+					$('#no-results').addClass('hide');
+					$('#results').addClass('hide');
+					
+					$('#results-name').addClass('hide');
+					$('#results-name dl dd').remove();
+					
+					$('#results-email').addClass('hide');
+					$('#results-email dl dd').remove();
+					
+					$('#results-characters').addClass('hide');
+					$('#results-characters dl dd').remove();
 
-			// clear the search field
-			$('#user-search').val('').text('');
-			
-			if (view == 'show_all')
-			{
-				$('#actives').fadeOut('fast', function()
+					$('#activeUsers').addClass('hide');
+					$('#allUsers').removeClass('hide');
+
+					$('#searchComplete').addClass('hide');
+					$('#searching').removeClass('hide');
+				},
+				url: '{{ URL::to("ajax/get/user_search") }}',
+				type: 'POST',
+				dataType: 'json',
+				data: { query: $('#user-search').val() },
+				success: function(data)
 				{
-					$('#all').fadeIn('fast');
-				});
-			}
-			else
-			{
-				$('#all').fadeOut('fast', function()
-				{
-					$('#actives').fadeIn('fast');
-				});
-			}
-			
-			e.preventDefault();
-		});
-
-		$("#user-search").keyup(function()
-		{
-			delay(function()
-			{
-				$.ajax({
-					beforeSend: function(){
-						$('#no-results').hide();
-						$('#results').hide();
-						
-						$('#results-name').hide();
-						$('#results-name ul').empty();
-						
-						$('#results-email').hide();
-						$('#results-email ul').empty();
-						
-						$('#results-characters').hide();
-						$('#results-characters ul').empty();
-
-						$('#actives').fadeOut('fast', function(){
-							$('#all').fadeIn('fast');
-						});
-					},
-					url: '{{ URL::to("ajax/get/user_search") }}',
-					type: 'GET',
-					dataType: 'json',
-					data: { query: $('#user-search').val() },
-					success: function(data)
+					// Build the URL ahead of time
+					var url = '{{ URL::to("admin/user/edit") }}/';
+					
+					if ( ! $.isEmptyObject(data.name))
 					{
-						console.log(data);
-
-						// build the URL ahead of time
-						var url = '{{ URL::to("admin/user/edit") }}/';
+						$.each(data.name, function(key, value)
+						{
+							console.log(key);
+							console.log(value);
+							$('#results-name dl').append('<dd><a href="' + url + value.id + '" class="btn btn-small btn-default icn-size-16">{{ $_icons["edit"] }}</a>&nbsp;&nbsp;' + value.name + '</dd>');
+						});
 						
-						if ( ! $.isEmptyObject(data))
-						{
-							if ( ! $.isEmptyObject(data.name))
-							{
-								$.each(data.name, function(key, value)
-								{
-									$('#results-name ul').append('<li><a href="' + url + value.id + '" class="btn btn-mini"><div class="icn icn-50" data-icon="p"></div></a>&nbsp;&nbsp;' + value.name + '</li>');
-								});
-								
-								$('#results-name').show();
-							}
-							
-							if ( ! $.isEmptyObject(data.email))
-							{
-								$.each(data.email, function(key, value)
-								{
-									$('#results-email ul').append('<li><a href="' + url + value.id + '" class="btn btn-mini"><div class="icn icn-50" data-icon="p"></div></a>&nbsp;&nbsp;' + value.name + ' (' + value.email + ')' + '</li>');
-								});
-								
-								$('#results-email').show();
-							}
-							
-							if ( ! $.isEmptyObject(data.characters))
-							{
-								$.each(data.characters, function(key, value)
-								{
-									$('#results-characters ul').append('<li><a href="' + url + value.id + '" class="btn btn-mini"><div class="icn icn-50" data-icon="p"></div></a>&nbsp;&nbsp;' + value.name + ' (' + value.fname + ' ' + value.lname + ')' + '</li>');
-								});
-								
-								$('#results-characters').show();
-							}
-							
-							$('#results').show();
-						}
-						else
-						{
-							$('#no-results').show();
-						}
+						$('#results-name').removeClass('hide');
 					}
-				});
-			}, 500);
-		});
+					
+					if ( ! $.isEmptyObject(data.email))
+					{
+						$.each(data.email, function(key, value)
+						{
+							$('#results-email dl').append('<dd><a href="' + url + value.id + '" class="btn btn-small btn-default icn-size-16">{{ $_icons["edit"] }}</a>&nbsp;&nbsp;' + value.name + ' (' + value.email + ')' + '</dd>');
+						});
+						
+						$('#results-email').removeClass('hide');
+					}
+					
+					if ( ! $.isEmptyObject(data.characters))
+					{
+						$.each(data.characters, function(key, value)
+						{
+							$('#results-characters dl').append('<dd><a href="' + url + value.id + '" class="btn btn-small btn-default icn-size-16">{{ $_icons["edit"] }}</a>&nbsp;&nbsp;' + value.name + ' (' + value.first_name + ' ' + value.last_name + ')' + '</dd>');
+						});
+						
+						$('#results-characters').removeClass('hide');
+					}
+					
+					if ($.isEmptyObject(data.name) && $.isEmptyObject(data.email) 
+							&& $.isEmptyObject(data.characters))
+					{
+						$('#no-results').removeClass('hide');
+					}
+					else
+					{
+						$('#results').removeClass('hide');
+					}
+				}
+			});
+		}, 500);
 	});
 
-	// what action to take when a rank group action is clicked
-	$('.js-user-action').on('click', function(e)
+	$(document).on('click', '[rel="changeUserView"]', function(e)
 	{
-		var doaction = $(this).data('action');
+		// Get the view
+		var view = $(this).attr('id');
+
+		// Clear the search field
+		$('#user-search').val('').text('');
+		
+		if (view == 'showAll')
+		{
+			$('#activeUsers').addClass('hide');
+			$('#allUsers').removeClass('hide');
+		}
+		else
+		{
+			$('#activeUsers').removeClass('hide');
+			$('#allUsers').addClass('hide');
+		}
+
+		$('#searchComplete').addClass('hide');
+		
+		e.preventDefault();
+	});
+	
+	$(document).on('click', '.js-user-action', function(e)
+	{
+		var action = $(this).data('action');
 		var id = $(this).data('id');
 
-		if (doaction == 'delete')
+		if (action == 'delete')
 		{
-			$('<div/>').dialog2({
-				title: "{{ ucwords(lang('short.delete', lang('user'))) }}",
-				content: "{{ URL::to('ajax/delete/user') }}/" + id
-			});
+			$('#deleteUser').modal({
+				remote: "{{ URL::to('ajax/delete/user') }}/" + id
+			}).modal('show');
 		}
 
-		if (doaction == 'create')
+		if (action == 'link')
 		{
-			$('<div/>').dialog2({
-				title: "{{ ucwords(lang('short.create', lang('user'))) }}",
-				content: "{{ URL::to('ajax/add/user') }}"
-			});
-		}
-
-		if (doaction == 'link')
-		{
-			$('<div/>').dialog2({
-				title: "{{ ucwords(langConcat('action.link character to user')) }}",
-				content: "{{ URL::to('ajax/update/link_character') }}"
-			});
+			$('#linkUser').modal({
+				remote: "{{ URL::to('ajax/update/link_to_user') }}/" + id
+			}).modal('show');
 		}
 
 		e.preventDefault();
 	});
+
+	$(document).ajaxStop(function()
+	{
+		$('#searching').addClass('hide');
+		$('#searchComplete').removeClass('hide');
+	});
+
 </script>

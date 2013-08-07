@@ -254,21 +254,6 @@ public function action_user()
 		echo $output;
 	}
 
-	/**
-	 * Get the users who are assigned a given role.
-	 */
-	public function getUsersWithRole($id)
-	{
-		if (Sentry::check())
-		{
-			// Get the role
-			$role = \AccessRole::find($id);
-
-			echo View::make(Location::ajax('get/role_users'))
-				->with('users', $role->users);
-		}
-	}
-
 	public function postRoleInheritedTasks()
 	{
 		// Set the variable
@@ -315,6 +300,42 @@ public function action_user()
 			{
 				echo $task->roles->toJson();
 			}
+		}
+	}
+
+	public function postUserSearch()
+	{
+		if (Sentry::check() 
+				and Sentry::getUser()->allowed(['user.create', 'user.update', 'user.delete'], false))
+		{
+			// Get the query
+			$query = e(Input::get('query'));
+
+			// Find by name
+			$name = \User::searchName($query)->get();
+
+			// Find by email
+			$email = \User::searchEmail($query)->get();
+
+			return json_encode([
+				'name'	=> $name->toArray(),
+				'email'	=> $email->toArray()
+			]);
+		}
+	}
+
+	/**
+	 * Get the users who are assigned a given role.
+	 */
+	public function getUsersWithRole($id)
+	{
+		if (Sentry::check())
+		{
+			// Get the role
+			$role = \AccessRole::find($id);
+
+			echo View::make(Location::ajax('get/role_users'))
+				->with('users', $role->users);
 		}
 	}
 

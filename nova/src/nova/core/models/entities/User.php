@@ -171,6 +171,30 @@ class User extends Model implements UserInterface, FormDataInterface {
 	}
 
 	/**
+	 * Scope the query to find by email.
+	 *
+	 * @param	Builder		The query builder
+	 * @param	string		Email address
+	 * @return	void
+	 */
+	public function scopeSearchEmail($query, $value)
+	{
+		$query->where('email', 'like', $value);
+	}
+
+	/**
+	 * Scope the query to find by name.
+	 *
+	 * @param	Builder		The query builder
+	 * @param	string		Name
+	 * @return	void
+	 */
+	public function scopeSearchName($query, $value)
+	{
+		$query->where('name', 'like', $value);
+	}
+
+	/**
 	 * Scope the query to pending users.
 	 *
 	 * @param	Builder		The query builder
@@ -405,6 +429,21 @@ class User extends Model implements UserInterface, FormDataInterface {
 	 */
 	public function canBeDeleted()
 	{
+		// Does the user have posts?
+		if ($this->posts->count() > 0) return false;
+
+		// Does the user have personal logs?
+		if ($this->logs->count() > 0) return false;
+
+		// Does the user have announcements?
+		if ($this->announcements->count() > 0) return false;
+
+		// Does the user have any awards?
+		if ($this->awards->count() > 0) return false;
+
+		// Does the user have any app reviews?
+		//if ($this->appReviews->count() > 0) return false;
+
 		return true;
 	}
 

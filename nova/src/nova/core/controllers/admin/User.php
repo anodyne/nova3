@@ -14,11 +14,9 @@ class User extends AdminBaseController {
 		// Verify the user is allowed
 		Sentry::getUser()->allowed(['user.create', 'user.update', 'user.delete'], true);
 
-		// Set the JS view
-		$this->_jsView = 'admin/user/users_js';
-
-		// Set the view
+		// Set the views
 		$this->_view = 'admin/user/users';
+		$this->_jsView = 'admin/user/users_js';
 
 		// Get all the users
 		$this->_data->users = \User::active()->get();
@@ -27,6 +25,13 @@ class User extends AdminBaseController {
 		$this->_ajax[] = View::make(Location::partial('common/modal'))
 			->with('modalId', 'deleteUser')
 			->with('modalHeader', lang('Short.delete', lang('User')))
+			->with('modalBody', '')
+			->with('modalFooter', false);
+
+		// Build the link character modal
+		$this->_ajax[] = View::make(Location::partial('common/modal'))
+			->with('modalId', 'linkUser')
+			->with('modalHeader', lang('short.admin.users.link', lang('Character'), lang('User')))
 			->with('modalBody', '')
 			->with('modalFooter', false);
 	}

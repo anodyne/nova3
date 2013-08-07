@@ -26,6 +26,10 @@ Form::macro('characters', function($name, $selected = null, $options = array(), 
 		case Status::PENDING:
 			$characters = Character::pending()->get();
 		break;
+
+		case Status::UNASSIGNED:
+			$characters = Character::npc()->get();
+		break;
 		
 		default:
 			$characters = Character::get();
@@ -40,9 +44,7 @@ Form::macro('characters', function($name, $selected = null, $options = array(), 
 		{
 			if ($showLinked)
 			{
-				$sub = ($c->hasUser()) 
-					? ucwords(langConcat('base.linked base.characters')) 
-					: ucwords(langConcat('base.unlinked base.characters'));
+				$sub = ($c->hasUser()) ? langConcat('Linked Characters') : langConcat('Unlinked Characters');
 
 				$characterList[$sub][$c->id] = $c->getNameWithRank();
 			}

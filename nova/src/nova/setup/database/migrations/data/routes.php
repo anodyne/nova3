@@ -458,6 +458,13 @@ return [
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Get@getUsersWithRole',
 		'protected'		=> (int) true
 	],
+	[
+		'name'			=> 'ajax/get/user_search',
+		'verb'			=> 'post',
+		'uri'			=> 'ajax/get/user_search',
+		'resource'		=> 'Nova\Core\Controllers\Ajax\Get@postUserSearch',
+		'protected'		=> (int) true
+	],
 
 	/**
 	 * ajax/delete
@@ -539,6 +546,13 @@ return [
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getRoleTask',
 		'protected'		=> (int) true
 	],
+	[
+		'name'			=> 'ajax/delete/user',
+		'verb'			=> 'get',
+		'uri'			=> 'ajax/delete/user/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getUser',
+		'protected'		=> (int) true
+	],
 
 	/**
 	 * ajax/update
@@ -576,6 +590,13 @@ return [
 		'verb'			=> 'get',
 		'uri'			=> 'ajax/update/skin/{id}',
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Update@getSkinVersionUpdate',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'ajax/update/link_to_user',
+		'verb'			=> 'get',
+		'uri'			=> 'ajax/update/link_to_user/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Ajax\Update@getLinkToUser',
 		'protected'		=> (int) true
 	],
 ];

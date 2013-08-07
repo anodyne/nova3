@@ -11,6 +11,8 @@ class Status {
 	const IN_PROGRESS	= 5;
 	const APPROVED		= 6;
 	const REJECTED		= 7;
+	const ASSIGNED		= 8;
+	const UNASSIGNED	= 9;
 
 	/**
 	 * Translate a status into a string.
@@ -22,28 +24,36 @@ class Status {
 	{
 		switch ($status)
 		{
-			case self::PENDING:
+			case static::PENDING:
 				$final = lang('pending');
 			break;
 
-			case self::INACTIVE:
+			case static::INACTIVE:
 				$final = lang('inactive');
 			break;
 
-			case self::ACTIVE:
+			case static::ACTIVE:
 				$final = lang('active');
 			break;
 
-			case self::IN_PROGRESS:
+			case static::IN_PROGRESS:
 				$final = lang('in_progress');
 			break;
 
-			case self::APPROVED:
+			case static::APPROVED:
 				$final = lang('approved');
 			break;
 
-			case self::REJECTED:
+			case static::REJECTED:
 				$final = lang('rejected');
+			break;
+
+			case static::ASSIGNED:
+				$final = lang('assigned');
+			break;
+
+			case static::UNASSIGNED:
+				$final = lang('unassigned');
 			break;
 
 			default:
@@ -67,42 +77,50 @@ class Status {
 		{
 			case 'active':
 			case 'current':
-				$final = self::ACTIVE;
+				$final = static::ACTIVE;
 			break;
 
 			case 'removed':
 			case 'deleted':
 			case 'archived':
-				$final = self::REMOVED;
+				$final = static::REMOVED;
 			break;
 
 			case 'old':
 			case 'inactive':
 			case 'previous':
-				$final = self::INACTIVE;
+				$final = static::INACTIVE;
 			break;
 
 			case 'pending':
 			case 'applied':
 			case 'waiting':
-				$final = self::PENDING;
+				$final = static::PENDING;
 			break;
 
 			case 'work in progress':
 			case 'wip':
 			case 'saved':
 			case 'in progress':
-				$final = self::IN_PROGRESS;
+				$final = static::IN_PROGRESS;
 			break;
 
 			case 'approve':
 			case 'approved':
-				$final = self::APPROVED;
+				$final = static::APPROVED;
 			break;
 
 			case 'reject':
 			case 'rejected':
-				$final = self::REJECTED;
+				$final = static::REJECTED;
+			break;
+
+			case 'assigned':
+				$final = static::ASSIGNED;
+			break;
+
+			case 'unassigned':
+				$final = static::UNASSIGNED;
 			break;
 
 			default:
