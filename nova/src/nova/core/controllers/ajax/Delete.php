@@ -449,11 +449,6 @@ class Delete extends AjaxBaseController {
 
 			if ($user !== null and $user->canBeDeleted())
 			{
-				$data = array(
-					'name' => $user->name,
-					'id' => $user->id,
-				);
-
 				echo View::make(Location::ajax('delete/user'))
 					->with('user', $user);
 			}

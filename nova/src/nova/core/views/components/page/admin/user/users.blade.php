@@ -7,7 +7,7 @@
 
 	@if (Sentry::getUser()->allowed(['character.create', 'character.update', 'character.delete'], false))
 		<div class="btn-group">
-			<a href="{{ URL::to('admin/character/all') }}" class="btn btn-default icn-size-16 tooltip-top" title="{{ lang('Short.manage', lang('characters')) }}">{{ $_icons['user'] }}</a>
+			<a href="{{ URL::to('admin/character/all') }}" class="btn btn-default icn-size-16 tooltip-top" title="{{ lang('Short.manage', lang('characters')) }}">{{ $_icons['users'] }}</a>
 		</div>
 	@endif
 </div>
@@ -21,7 +21,7 @@
 	<div class="col-12 col-sm-2 col-lg-2">
 		<div id="searching" class="hide">{{ HTML::image(SRCURL.'core/views/design/images/loading.gif') }}</div>
 		<div id="searchComplete" class="hide">
-			<a class="btn btn-small btn-default icn-size-16" rel="changeUserView" id="showActive">{{ $_icons['close'] }}</a>
+			<a class="btn btn-small btn-default icn-size-16" rel="changeUserView" id="showActive">{{ $_icons['closeSmall'] }}</a>
 		</div>
 	</div>
 </div>

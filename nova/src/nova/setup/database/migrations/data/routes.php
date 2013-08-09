@@ -346,6 +346,20 @@ return [
 		'protected'		=> (int) true
 	],
 	[
+		'name'			=> 'admin/user',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/user',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@postAll',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/user/create',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/user/create',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@getCreate',
+		'protected'		=> (int) true
+	],
+	[
 		'name'			=> 'admin/user/edit',
 		'verb'			=> 'get',
 		'uri'			=> 'admin/user/edit/{id}',

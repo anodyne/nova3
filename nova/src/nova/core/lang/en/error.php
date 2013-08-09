@@ -8,6 +8,7 @@ return array(
 	'admin' => [
 		'formViewerNotAllowed' => "This form does not allow using Form Viewer.",
 		'protectedForm' => "This is a protected form and cannot be deleted.",
+		'cannotBeDeleted' => "This :0 cannot be deleted because there is content associated with it.",
 	],
 	
 	'email' => array(

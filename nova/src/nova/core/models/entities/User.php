@@ -171,6 +171,20 @@ class User extends Model implements UserInterface, FormDataInterface {
 	}
 
 	/**
+	 * Scope the query to find by character.
+	 *
+	 * @param	Builder		The query builder
+	 * @param	string		Character name
+	 * @return	void
+	 */
+	public function scopeSearchCharacters($query, $value)
+	{
+		$query->join('characters', 'users.id', '=', 'characters.id')
+			->where('characters.first_name', 'like', "%{$value}%")
+			->orWhere('characters.last_name', 'like', "%{$value}%");
+	}
+
+	/**
 	 * Scope the query to find by email.
 	 *
 	 * @param	Builder		The query builder

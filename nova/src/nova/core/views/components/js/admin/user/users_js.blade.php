@@ -138,8 +138,11 @@
 
 	$(document).ajaxStop(function()
 	{
-		$('#searching').addClass('hide');
-		$('#searchComplete').removeClass('hide');
+		if ($('#allUsers').is(':visible'))
+		{
+			$('#searching').addClass('hide');
+			$('#searchComplete').removeClass('hide');
+		}
 	});
 
 </script>

@@ -317,9 +317,13 @@ public function action_user()
 			// Find by email
 			$email = \User::searchEmail($query)->get();
 
+			// Find by character
+			$character = \User::searchCharacters($query)->get();
+
 			return json_encode([
-				'name'	=> $name->toArray(),
-				'email'	=> $email->toArray()
+				'name'			=> $name->toArray(),
+				'email'			=> $email->toArray(),
+				'characters'	=> $character->toArray(),
 			]);
 		}
 	}

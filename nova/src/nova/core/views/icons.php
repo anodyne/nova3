@@ -54,7 +54,7 @@ return [
 	'search' => '<span class="icn" data-icon="s"></span>',
 
 	'user' => '<span class="icn" data-icon="u"></span>',
-	'user' => '<span class="icn" data-icon=";"></span>',
+	'users' => '<span class="icn" data-icon=";"></span>',
 	'upload' => '<span class="icn" data-icon="^"></span>',
 	'refresh' => '<span class="icn" data-icon="/"></span>',
 

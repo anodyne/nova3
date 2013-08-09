@@ -17,6 +17,10 @@
 		</div>
 	</div>
 
+	@if (Character::npc()->count() == 0)
+		{{ Form::hidden('character_id') }}
+	@endif
+
 	{{ Form::token() }}
 	{{ Form::hidden('id') }}
 	{{ Form::hidden('action', 'link') }}
