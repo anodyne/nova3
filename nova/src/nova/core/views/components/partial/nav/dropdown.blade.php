@@ -9,8 +9,6 @@
 		<a href="{{ URL::to('/') }}" class="navbar-brand">{{ $name }}</a>
 
 		<div class="nav-collapse collapse navbar-responsive-collapse">
-			{{ $userMenu }}
-
 			<ul class="nav navbar-nav">
 			@foreach ($items[$section]['mainNavItems'] as $mainNavItem)
 
@@ -34,6 +32,8 @@
 
 			@endforeach
 			</ul>
+
+			{{ $userMenu }}
 		</div>
 	</div>
 </div>
