@@ -1,6 +1,6 @@
 # The Studio
 
-The Studio is an exhaustive resource for everything about skinning Nova 3. Here you'll everything from the simplest of tutorials (100-level) to intermediate instruction (200-level) and even highly advanced topics (300-level). This is the best place to start if you want to get into skinning Nova 3.
+The Studio is an exhaustive resource for everything about skinning Nova 3. Here you'll find everything from the simplest of tutorials (100-level) to intermediate instruction (200-level) and even highly advanced topics (300-level). This is the only place to go if you want to get into skinning Nova 3!
 
 ## 100-Level Tutorials
 
@@ -23,9 +23,8 @@ With a solid foundation from our 100-level tutorials, you can step up to learnin
 	- Admin changes
 - Using CSS to make simple changes to a Nova site
 - Understanding seamless substitution for skins
-- Creating your own view files
 - Blade templating
-- PHP
+- Creating your own view files
 - Custom 404 pages
 - QuickInstall for skins
 - Using partials
@@ -52,4 +51,4 @@ Not for the weak! These tutorials are the end-all-be-all of Nova 3 skinning. You
 	- Structures
 	- JS views
 	- Ajax views
-- Changing the way Nova processes its skin files
+- Changing the way Nova processes skin files

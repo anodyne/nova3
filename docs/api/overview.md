@@ -18,7 +18,7 @@ The API includes a basic information call that will return the API version, the 
 
 Some calls to the API require authenticating to the system, much like logging in to view admin functions. Anything that modifies the database requires that you authenticate to Nova. Doing so is easy.
 
-<pre>curl --user me@example.com:password localhost/nova3/api/v1/user`</pre>
+<pre>curl --user me@example.com:password localhost/nova3/api/v1/user</pre>
 
 Since an API is meant to be stateless, there is no way to be "remembered" by the API for future calls; you have to authenticate for each request you send that requires authentication. If you make a call to a protected API method and you don't authenticate, you'll get an "Unauthorized" response.
 

@@ -4,7 +4,7 @@ DevCenter is an exhaustive resource for everything about developing for Nova 3. 
 
 ## 100-level Tutorials
 
-These tutorials are meant for people who have little to no experience PHP and the underlying technologies in Nova 3. These articles should help you get your feet wet before you dive in to Nova 3 development.
+These tutorials are meant for people who have little to no experience with PHP and the underlying technologies in Nova 3. These articles should help you get your feet wet before you dive in to Nova 3 development.
 
 - PHP 101
 	- Learn about variables, logic, arrays, objects and looping in this basic introduction to PHP.
@@ -31,7 +31,6 @@ These tutorials are meant for people who have little to no experience PHP and th
 - Routing
 - The Location class
 - The Status class
-- Events
 - QuickInstall for developers
 
 ## 300-level Tutorials
@@ -48,6 +47,7 @@ These tutorials are meant for people who have little to no experience PHP and th
 	- APC and Memcache
 	- Leveraging caching for custom solutions
 - Access control
+- Events
 
 ## 400-level Tutorials
 
@@ -56,4 +56,3 @@ These tutorials are meant for people who have little to no experience PHP and th
 	- Overview
 	- The Media interface
 	- The QuickInstall interface
-	- The Search interface
