@@ -4,6 +4,7 @@ Route::group(array('prefix' => 'test'), function()
 {
 	Route::get('/', function()
 	{
-		sd(User::searchCharacters('daniela')->get()->toArray());
+		//Cache::forget('nova.content.header.role');
+		s(Cache::get('nova.content.header.admin'));
 	});
 });
