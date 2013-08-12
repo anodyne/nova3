@@ -68,7 +68,7 @@ class Role extends AdminBaseController {
 				}
 
 				// Set the action
-				$this->_data->action = 'update';
+				$this->_mode = $this->_data->action = 'update';
 			}
 			else
 			{
@@ -76,7 +76,7 @@ class Role extends AdminBaseController {
 				$this->_data->roleTasks = [];
 
 				// Set the action
-				$this->_data->action = 'create';
+				$this->_mode = $this->_data->action = 'create';
 			}
 		}
 		else
@@ -351,7 +351,7 @@ class Role extends AdminBaseController {
 			$this->_jsData->actionSource = json_encode(array('create', 'read', 'update', 'delete'));
 
 			// Set the action
-			$this->_data->action = ($taskID == 0) ? 'create' : 'update';
+			$this->_mode = $this->_data->action = ($taskID == 0) ? 'create' : 'update';
 
 			// Update the title and message
 			$this->_data->header = $this->_data->title = ($taskID == 0)

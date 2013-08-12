@@ -53,7 +53,7 @@ class Main extends MainBaseController {
 		$this->_view = 'main/credits';
 
 		// Get the permanent credits
-		$this->_data->permanentCredits = Markdown::parse(SiteContent::getContentItem('credits_perm'));
+		$this->_data->permanentCredits = Markdown::parse(SiteContent::getContentItem('other.credits'));
 	}
 
 }

@@ -45,7 +45,7 @@ class Form extends AdminBaseController {
 				->toSimpleArray('id', 'label');
 
 			// Set the action
-			$this->_data->action = ($formKey === '0') ? 'create' : 'update';
+			$this->_mode = $this->_data->action = ($formKey === '0') ? 'create' : 'update';
 		}
 		else
 		{
@@ -255,12 +255,12 @@ class Form extends AdminBaseController {
 			if ((int) $id === 0)
 			{
 				// Set the action
-				$this->_data->action = 'create';
+				$this->_mode = $this->_data->action = 'create';
 			}
 			else
 			{
 				// Set the action
-				$this->_data->action = 'update';
+				$this->_mode = $this->_data->action = 'update';
 
 				// If we don't have a tab, redirect to the creation screen
 				if ($this->_data->tab === null)
@@ -462,12 +462,12 @@ class Form extends AdminBaseController {
 			if ((int) $id === 0)
 			{
 				// Set the action
-				$this->_data->action = 'create';
+				$this->_mode = $this->_data->action = 'create';
 			}
 			else
 			{
 				// Set the action
-				$this->_data->action = 'update';
+				$this->_mode = $this->_data->action = 'update';
 
 				// If we don't have a section, redirect to the creation screen
 				if ($this->_data->section === null)
@@ -663,12 +663,12 @@ class Form extends AdminBaseController {
 			if ((int) $id === 0)
 			{
 				// Set the action
-				$this->_data->action = 'create';
+				$this->_mode = $this->_data->action = 'create';
 			}
 			else
 			{
 				// Set the action
-				$this->_data->action = 'update';
+				$this->_mode = $this->_data->action = 'update';
 
 				// Get the field values
 				$this->_data->values = $field->values->sortBy(function($v)

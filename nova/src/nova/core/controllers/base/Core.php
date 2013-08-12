@@ -283,7 +283,7 @@ abstract class Core extends Controller {
 				: null
 		);*/
 		$this->layout->template->header = $this->parseSiteContent('header', false);
-		
+
 		// set the final message content
 		$this->layout->template->message = (is_object($this->_data) and property_exists($this->_data, 'message')) 
 			? Markdown::parse($this->_data->message)

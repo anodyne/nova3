@@ -50,7 +50,7 @@ class Catalog extends AdminBaseController {
 			$this->_data->rank = RankCatalog::find($id);
 
 			// Set the action
-			$this->_data->action = ((int) $id === 0) ? 'create' : 'update';
+			$this->_mode = $this->_data->action = ((int) $id === 0) ? 'create' : 'update';
 		}
 		else
 		{
@@ -262,7 +262,7 @@ class Catalog extends AdminBaseController {
 			$skin = $this->_data->skin = SkinCatalog::find($id);
 
 			// Set the action
-			$this->_data->action = ((int) $id === 0) ? 'create' : 'update';
+			$this->_mode = $this->_data->action = ((int) $id === 0) ? 'create' : 'update';
 
 			if ((int) $id !== 0 and File::exists(APPPATH."views/{$skin->location}/options.json"))
 			{

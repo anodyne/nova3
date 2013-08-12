@@ -55,7 +55,7 @@ class Admin extends AdminBaseController {
 			$this->_data->route = SystemRoute::find($id);
 
 			// Set the action
-			$this->_data->action = ((int) $id === 0) ? 'create' : 'update';
+			$this->_mode = $this->_data->action = ((int) $id === 0) ? 'create' : 'update';
 		}
 		else
 		{

@@ -121,7 +121,7 @@ abstract class Main extends BaseController {
 
 			// Setup the footer
 			$layout->template->footer			= View::make(Location::partial('footer'));
-			$layout->template->footer->extra	= SiteContent::getContentItem('footer');
+			$layout->template->footer->extra	= SiteContent::getContentItem('other.footer');
 
 			// Pass everything back to the layout
 			$this->layout = $layout;
