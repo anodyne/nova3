@@ -4,7 +4,6 @@ use Input;
 use Status;
 use Response;
 use UserValidator;
-use User as UserModel;
 
 class User extends Base {
 
@@ -29,15 +28,15 @@ class User extends Base {
 		{
 			case 'active':
 			default:
-				$items = UserModel::active();
+				$items = \User::active();
 			break;
 
 			case 'inactive':
-				$items = UserModel::inactive();
+				$items = \User::inactive();
 			break;
 
 			case 'pending':
-				$items = UserModel::pending();
+				$items = \User::pending();
 			break;
 		}
 
@@ -96,7 +95,7 @@ class User extends Base {
 	public function show($id)
 	{
 		// Get the user
-		$user = UserModel::find($id);
+		$user = \User::find($id);
 
 		if ($user !== null)
 		{
@@ -118,7 +117,7 @@ class User extends Base {
 		$this->validateUser();
 
 		// Create a new user
-		$user = UserModel::create(Input::get());
+		$user = \User::create(Input::get());
 
 		return Response::api($this->collectUserData($user), 201);
 	}
@@ -133,7 +132,7 @@ class User extends Base {
 	public function update($id)
 	{
 		// Find the user
-		$user = UserModel::find($id);
+		$user = \User::find($id);
 
 		// If no article return a bad request because user ID is invalid
 		if ($user !== null)
@@ -160,13 +159,18 @@ class User extends Base {
 	public function destroy($id)
 	{
 		// Find the user
-		$user = UserModel::find($id);
+		$user = \User::find($id);
 
 		if ($user !== null)
 		{
-			$user->delete();
+			if ($user->canBeDeleted())
+			{
+				$user->delete();
 
-			return Response::api("User removed", 200);
+				return Response::api("User removed", 200);
+			}
+
+			return Response::api("User cannot be deleted", 403);
 		}
 
 		return Response::api("User not found", 400);
