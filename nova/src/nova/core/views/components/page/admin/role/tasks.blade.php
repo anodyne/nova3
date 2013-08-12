@@ -16,7 +16,7 @@
 	<div class="row">
 		<div class="col-12 col-sm-6 col-lg-4">
 			<div class="control-group">
-				{{ Form::text('', null, ['id' => 'searchTasks', 'placeholder' => lang('Short.search', langConcat('for Access Tasks'))]) }}
+				{{ Form::text('', null, ['id' => 'searchTasks', 'placeholder' => lang('Short.search', langConcat('for Access Tasks')), 'class' => 'form-control']) }}
 			</div>
 		</div>
 	</div>
