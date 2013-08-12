@@ -14,13 +14,13 @@ The Application Review Center is social application review. This new tool allows
 
 ### Nova Goes Mobile
 
-We live in a mobile world. Statistics indicate that in a few years, more people will access the Internet from a mobile device than do from a standard computer. Nova needed to adapt and did. Using responsive design techniques (and a very slick UI framework), Nova has been built to take advantage of mobile screen resolutions. No longer will you need to "pinch" and "swipe" your way around a Nova site. Instead, you'll see Nova 3 on your mobile device in a format that works best for that screen size.
+We live in a mobile world. Statistics indicate that in a few years, more people will access the Internet from a mobile device than do from a standard computer. Nova needed to adapt and did. Using responsive design techniques, Nova has been built to take advantage of mobile screen resolutions. No longer will you need to "pinch" and "swipe" your way around a Nova site. Instead, you'll see Nova 3 on your mobile device in a format that works best for that screen size.
 
-This isn't a baby version of your site either. No, this is your full site, optimized for phones, tables and computers. The best part is that you don't have to do anything, just launch your Nova site in your browser and use it like you normally would!
+This isn't a baby version of your site either. No, this is your full site, optimized for phones, tablets and computers. The best part is that you don't have to do anything, just launch your Nova site in your browser and use it like you normally would!
 
 ## Minor Features
 
-While the heading indicates that these are "minor" features, we consider them anything but minor. These are features that could easily prop up a minor release version of Nova, but we didn't want to make people wait. We've looked hard at every single line of code in Nova 3 to make sure it's better in every way. Here are some of the "minor" features included in Nova 3.
+While the heading indicates that these are "minor" features, we consider them anything but minor. These are features that could easily stand up a minor release version of Nova, but we didn't want to make people wait. We've looked hard at every single line of code in Nova 3 to make sure it's better in every way. Here are some of the "minor" features included in Nova 3.
 
 ### Control Your Content
 
@@ -36,6 +36,12 @@ Together with Kuro-RPG, we've addressed one of the long-standing gripes with Nov
 
 ### Changes to Dynamic Forms
 
+One of the coolest features of Nova 1 was dynamic forms and giving game masters complete control over how their character bio form was laid out. This was a huge step forward and provided more flexibility than ever before. People have used this feature to customize the bio form (as well as specs, tour and docking forms) to do exactly what their game needs. How do you improve on something people use so much and love its flexibility? You start over.
+
+Dynamic forms have been re-built from the ground up. You no longer need to go to multiple places to manage different forms, everything is done from one place. In addition, any form can now use tabs and sections to organize fields instead of only a select few forms. On top of this, we've included things like access role restrictions, inline help and basic validation on dynamic forms. Those are all fantastic features, but we didn't stop there.
+
+Now, admins can create entirely new forms and using a new feature called FormViewer, can provide users a way to fill out a form without having to touch a single line of code. The results of the form submission are stored in the database and can be easily viewed by anyone with permissions. In addition, admins can have the content of a form submission emailed to anyone they want. This new flexibility with dynamic forms takes them to a whole new level and makes them even more flexible and powerful than before.
+
 ### RESTful API
 
 ## Other Features
@@ -44,4 +50,4 @@ Together with Kuro-RPG, we've addressed one of the long-standing gripes with Nov
 
 ### Improved Access Control System
 
-While Nova has used a role-based access control system since day 1, there was never very much granularity available. In Nova 3, we've greated expanded the flexibility game masters have with the improved access control system. While still role-based, each role is now made up of _role tasks_ that define actions users can take on specific components. This means that game masters can assign users to be able to create new positions, but not editing or delete existing positions. This level of control is available with just about every component in Nova 3, meaning game masters now have full control over how their users access the system.
+While Nova has used a role-based access control system since day 1, there was never very much granularity involved. In Nova 3, we've greated expanded the flexibility game masters have with the improved access control system. While still role-based, each role is now made up of _tasks_ that define actions users can take on specific components. This means that game masters can assign users to be able to create new positions, but not editing or delete existing positions. This level of control is available with just about every component in Nova 3, meaning game masters now have full control over how their users access the system.
