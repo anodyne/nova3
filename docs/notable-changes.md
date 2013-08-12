@@ -38,7 +38,6 @@
 ## User Management
 
 - Users can be created from the management page. In previous versions of Nova, users could only be created by going through the join form.
-- Users can only be deleted if they don't have content associated with them. Contents that will prevent a user from being deleted are: announcements, personal logs, posts, received awards and application reviews.
-- Characters can be linked to a user account directly from User Management.
+- Users can only be deleted if they don't have content associated with them. Content that will prevent a user from being deleted are: announcements, personal logs, posts, received awards and application reviews.
 - By default, only active users are shown in User Management. The thinking here is that, generally, you will only be managing active users. If you need to do something with an inactive user, you can use the new search feature to find other users.
 - A new "live search" feature lets you find users by their name, email address or any character associated with their account.
