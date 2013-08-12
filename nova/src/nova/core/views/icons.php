@@ -14,7 +14,7 @@ return [
 	'closeSmall' => '<span class="icn" data-icon="="></span>',
 
 	'duplicate' => '<span class="icn" data-icon="_"></span>',
-	'refresh' => '<span class="icn" data-icon="9"></span>',
+	'down' => '<span class="icn" data-icon="9"></span>',
 	
 	'edit' => '<span class="icn" data-icon="p"></span>',
 	'email' => '<span class="icn" data-icon="e"></span>',
@@ -56,7 +56,7 @@ return [
 	'user' => '<span class="icn" data-icon="u"></span>',
 	'users' => '<span class="icn" data-icon=";"></span>',
 	'upload' => '<span class="icn" data-icon="^"></span>',
-	'refresh' => '<span class="icn" data-icon="/"></span>',
+	'up' => '<span class="icn" data-icon="/"></span>',
 
 	'view' => '<span class="icn" data-icon="0"></span>',
 
