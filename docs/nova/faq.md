@@ -12,4 +12,4 @@ Forms that ship with Nova by default (character, user, app) are protected forms 
 
 ### Why can I fill out some forms and not others?
 
-Admins can choose whether or not to allow FormViewer to be used a form (protected forms cannot use FormViewer). Only forms that are set to use FormViewer will show the option of fill out the form and view its entries.
+Admins can choose whether or not to allow FormViewer to be used a form (protected forms cannot use FormViewer). Only forms that are set to use FormViewer will show the option to fill out the form and view its entries.
