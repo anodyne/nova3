@@ -153,19 +153,6 @@ class Update extends AjaxBaseController {
 	}
 
 	/**
-	 * Create a user record.
-	 *
-	 * @return	void
-	 */
-	public function action_link_character()
-	{
-		if (\Sentry::check() and \Sentry::user()->hasLevel('user.update', 2))
-		{
-			echo \View::forge(\Location::ajax('update/link_character_to_user'));
-		}
-	}
-
-	/**
 	 * Runs the migrations for a module.
 	 *
 	 * @return	void
@@ -314,30 +301,6 @@ class Update extends AjaxBaseController {
 			{
 				return View::make(Location::ajax('update/skin'))
 					->with('skin', $catalog);
-			}
-		}
-	}
-
-	/**
-	 * Show the confirmation modal for linking a character to a user.
-	 *
-	 * @param	int		User ID
-	 * @return	View
-	 */
-	public function getLinkToUser($id)
-	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('user.update'))
-		{
-			$user = \User::find($id);
-
-			if ($user)
-			{
-				// Get all characters who aren't assigned to a user
-				$characters = \Character::npc()->get();
-
-				return View::make(Location::ajax('update/link_to_user'))
-					->with('user', $user)
-					->with('characters', $characters);
 			}
 		}
 	}

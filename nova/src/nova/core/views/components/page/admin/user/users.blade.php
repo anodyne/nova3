@@ -44,23 +44,37 @@
 			</div>
 
 			<div class="col-12 col-sm-4 col-lg-4">
-				<div class="btn-toolbar pull-right">
-					<div class="btn-group">
-						@if (Sentry::getUser()->hasLevel('user.update', 2))
-							<a href="#" class="btn btn-small btn-default icn-size-16 js-user-action" data-action="link" data-id="{{ $user->id }}">{{ $_icons['link'] }}</a>
-						@endif
-
+				<div class="hidden-sm">
+					<div class="btn-toolbar pull-right">
 						@if ((Sentry::getUser()->hasLevel('user.update', 1) and Sentry::getUser()->id == $user->id)
 								or Sentry::getUser()->hasLevel('user.update', 2))
-							<a href="{{ URL::to('admin/user/edit/'.$user->id) }}" class="btn btn-small btn-default icn-size-16">{{ $_icons['edit'] }}</a>
+							<div class="btn-group">
+								<a href="{{ URL::to('admin/user/edit/'.$user->id) }}" class="btn btn-small btn-default icn-size-16">{{ $_icons['edit'] }}</a>
+							</div>
+						@endif
+
+						@if (Sentry::getUser()->hasAccess('user.delete') and $user->canBeDeleted())
+							<div class="btn-group">
+								<a href="#" class="btn btn-small btn-danger js-user-action icn-size-16" data-action="delete" data-id="{{ $user->id }}">{{ $_icons['remove'] }}</a>
+							</div>
 						@endif
 					</div>
+				</div>
+				<div class="visible-sm">
+					<div class="row">
+						@if ((Sentry::getUser()->hasLevel('user.update', 1) and Sentry::getUser()->id == $user->id)
+								or Sentry::getUser()->hasLevel('user.update', 2))
+							<div class="col-6">
+								<a href="{{ URL::to('admin/user/edit/'.$user->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a>
+							</div>
+						@endif
 
-					@if (Sentry::getUser()->hasAccess('user.delete') and $user->canBeDeleted())
-						<div class="btn-group">
-							<a href="#" class="btn btn-small btn-danger js-user-action icn-size-16" data-action="delete" data-id="{{ $user->id }}">{{ $_icons['remove'] }}</a>
-						</div>
-					@endif
+						@if (Sentry::getUser()->hasAccess('user.delete') and $user->canBeDeleted())
+							<div class="col-6">
+								<a href="#" class="btn btn-block btn-danger js-user-action icn-size-16" data-action="delete" data-id="{{ $user->id }}">{{ $_icons['remove'] }}</a>
+							</div>
+						@endif
+					</div>
 				</div>
 			</div>
 		</div>

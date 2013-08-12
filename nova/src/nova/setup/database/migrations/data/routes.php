@@ -387,6 +387,20 @@ return [
 		'resource'		=> 'Nova\Core\Controllers\Admin\User@postLoa',
 		'protected'		=> (int) true
 	],
+	[
+		'name'			=> 'admin/user/link',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/user/link/{id?}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@getLink',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/user/link',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/user/link',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@postLink',
+		'protected'		=> (int) true
+	],
 
 	/**
 	 * ajax/add

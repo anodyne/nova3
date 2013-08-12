@@ -28,13 +28,6 @@ class User extends AdminBaseController {
 			->with('modalHeader', lang('Short.delete', lang('User')))
 			->with('modalBody', '')
 			->with('modalFooter', false);
-
-		// Build the link character modal
-		$this->_ajax[] = View::make(Location::partial('common/modal'))
-			->with('modalId', 'linkUser')
-			->with('modalHeader', lang('short.admin.users.link', lang('Character'), lang('User')))
-			->with('modalBody', '')
-			->with('modalFooter', false);
 	}
 	public function postAll()
 	{
@@ -72,33 +65,6 @@ class User extends AdminBaseController {
 			$flashMessage = ($user) 
 				? lang('Short.alert.success.create', lang('user'))
 				: lang('Short.alert.failure.create', lang('user'));
-		}
-
-		/**
-		 * Link a character to a user.
-		 */
-		if ($user->hasAccess('user.update') and $action == 'link')
-		{
-			// Get the user ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
-			if ($id)
-			{
-				// Get the character ID
-				$characterId = e(Input::get('character_id'));
-				$characterId = (is_numeric($characterId)) ? $characterId : false;
-				
-				// Update the user
-				$user = \User::find($id);
-				$user->update(['character_id' => $characterId]);
-			}
-
-			// Set the flash info
-			$flashStatus = ($id) ? 'success' : 'danger';
-			$flashMessage = ($id) 
-				? lang('Short.alert.success.update', lang('user'))
-				: lang('Short.alert.failure.update', lang('user'));
 		}
 
 		/**
@@ -160,6 +126,15 @@ class User extends AdminBaseController {
 		# code...
 	}
 	public function postLoa()
+	{
+		# code...
+	}
+
+	public function getLink($id = false)
+	{
+		# code...
+	}
+	public function postLink()
 	{
 		# code...
 	}
