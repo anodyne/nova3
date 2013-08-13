@@ -24,4 +24,4 @@ Since an API is meant to be stateless, there is no way to be "remembered" by the
 
 ## Authorization
 
-Some calls to the API require you to be authorized to take those actions. The authorization system used by the API is the same authorization system used throughout Nova. As a general rule of thumb, if you can do it in your browser, you can do it through the API (assuming the function is supported by the API).
+Some calls to the API require you to be authorized to take those actions. The authorization system used by the API is the same authorization system used throughout Nova. If you have permission to do something in the browser, you can do it through the API.

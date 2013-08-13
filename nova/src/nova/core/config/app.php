@@ -125,6 +125,7 @@ return array(
 		'Nova\Core\Providers\NovaServiceProvider',
 		'Nova\Core\Providers\SystemRouteServiceProvider',
 		'Nova\Setup\SetupServiceProvider',
+		'Nova\Api\ApiServiceProvider',
 		'Nova\Extensions\Cartalyst\Sentry\SentryServiceProvider',
 		'Nova\Extensions\Laravel\Translation\TranslationServiceProvider',
 

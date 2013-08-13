@@ -11,7 +11,7 @@ class User extends Base {
 	{
 		parent::__construct();
 
-		$this->beforeFilter('auth.api');
+		//$this->beforeFilter('auth.api');
 	}
 
 	/**
@@ -163,10 +163,12 @@ class User extends Base {
 
 		if ($user !== null)
 		{
-			if ($user->canBeDeleted())
-			{
-				$user->delete();
+			// Delete the user
+			$remove = $user->deleteUser();
 
+			// See which response to send
+			if ($remove)
+			{
 				return Response::api("User removed", 200);
 			}
 
