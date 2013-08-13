@@ -7,36 +7,40 @@
 {{ Form::model($user, ['url' => 'admin/user']) }}
 	<div class="row">
 		<div class="col-sm-6 col-lg-4">
-			<div class="form-group">
+			<div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
 				<label class="control-label">{{ lang('Name') }}</label>
-				{{ Form::text('name', null, ['class' => 'form-control']) }}
+				{{ Form::text('name', null, ['class' => 'form-control input-with-feedback']) }}
+				{{ $errors->first('name', '<p class="help-block">:message</p>') }}
 			</div>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-sm-6 col-lg-4">
-			<div class="form-group">
+			<div class="form-group{{ ($errors->has('email')) ? ' has-error' : '' }}">
 				<label class="control-label">{{ ucwords(lang('email_address')) }}</label>
-				{{ Form::email('email', null, ['class' => 'form-control']) }}
+				{{ Form::email('email', null, ['class' => 'form-control input-with-feedback']) }}
+				{{ $errors->first('email', '<p class="help-block">:message</p>') }}
 			</div>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-sm-6 col-lg-4">
-			<div class="form-group">
+			<div class="form-group{{ ($errors->has('password')) ? ' has-error' : '' }}">
 				<label class="control-label">{{ lang('Password') }}</label>
-				{{ Form::password('password', ['class' => 'form-control']) }}
+				{{ Form::password('password', ['class' => 'form-control input-with-feedback']) }}
+				{{ $errors->first('password', '<p class="help-block">:message</p>') }}
 			</div>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-sm-6 col-lg-4">
-			<div class="form-group">
+			<div class="form-group{{ ($errors->has('password_confirm')) ? ' has-error' : '' }}">
 				<label class="control-label">{{ langConcat('Action.confirm Password') }}</label>
-				{{ Form::password('password_confirm', ['class' => 'form-control']) }}
+				{{ Form::password('password_confirm', ['class' => 'form-control input-with-feedback']) }}
+				{{ $errors->first('password_confirm', '<p class="help-block">:message</p>') }}
 			</div>
 		</div>
 	</div>
@@ -53,5 +57,15 @@
 				<p class="help-block">{{ lang('short.admin.users.choosePrimaryCharacter') }}</p>
 			</div>
 		</div>
+	@else
+		{{ Form::hidden('character_id', 0) }}
 	@endif
+
+	<div class="row">
+		<div class="col-lg-12">
+			{{ Form::token() }}
+			{{ Form::hidden('action', 'create') }}
+			{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
+		</div>
+	</div>
 {{ Form::close() }}
