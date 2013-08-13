@@ -79,27 +79,14 @@ class User extends AdminBaseController {
 			// Get the user
 			$user = \User::find($id);
 
-			if ($user->canBeDeleted())
-			{
-				// Delete all characters associated with the user
-				foreach ($user->characters as $character)
-				{
-					$character->delete();
-				}
+			// Delete the user
+			$remove = $user->deleteUser();
 
-				// Delete the user
-				$user->delete();
-
-				// Set the flash info
-				$flashStatus = 'success';
-				$flashMessage = lang('Short.alert.success.delete', lang('user'));
-			}
-			else
-			{
-				// User cannot be deleted
-				$flashStatus = 'danger';
-				$flashMessage = lang('error.admin.cannotBeDeleted', lang('user'));
-			}
+			// Set the flash info
+			$flashStatus = ($remove) ? 'success' : 'danger';
+			$flashMessage = ($remove) 
+				? lang('Short.alert.success.delete', lang('user'))
+				: lang('error.admin.cannotBeDeleted', lang('user'));
 		}
 
 		return Redirect::to('admin/user')
