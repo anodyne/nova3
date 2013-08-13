@@ -461,6 +461,33 @@ class User extends Model implements UserInterface, FormDataInterface {
 		return true;
 	}
 
+	/**
+	 * Delete a user.
+	 *
+	 * In addition to deleting the user, this will also delete all characters
+	 * associated with the user.
+	 *
+	 * @return	bool
+	 */
+	public function deleteUser()
+	{
+		if ($this->canBeDeleted())
+		{
+			// Delete all characters associated with the user
+			foreach ($this->characters as $character)
+			{
+				$character->delete();
+			}
+
+			// Delete the user
+			$this->delete();
+
+			return true;
+		}
+
+		return false;
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Sentry User Interface Methods
