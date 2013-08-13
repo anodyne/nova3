@@ -146,6 +146,7 @@ return array(
 			'link' => "Link :0 to :1",
 			'noPrimaryCharacter' => "No primary character assigned",
 			'searchPlaceholder' => "Starting typing to search for users",
+			'choosePrimaryCharacter' => "You can choose the primary character associated with this user from the dropdown. The dropdown only pulls back unassigned characters (NPCs). If you want to do more advanced assignment, use the User/Character Link Management page.",
 		],
 	],
 

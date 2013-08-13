@@ -86,7 +86,7 @@ class User extends AdminBaseController {
 			$flashStatus = ($remove) ? 'success' : 'danger';
 			$flashMessage = ($remove) 
 				? lang('Short.alert.success.delete', lang('user'))
-				: lang('error.admin.cannotBeDeleted', lang('user'));
+				: lang('Short.alert.failure.delete', lang('user'));
 		}
 
 		return Redirect::to('admin/user')
@@ -96,7 +96,11 @@ class User extends AdminBaseController {
 
 	public function getCreate()
 	{
-		# code...
+		// Set the views
+		$this->_view = 'admin/user/create';
+
+		// Set the user
+		$this->_data->user = false;
 	}
 
 	public function getEdit($id)
