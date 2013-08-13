@@ -2,5 +2,5 @@
 
 <div class="footer-content">
 	<div class="pull-right">&copy; {{ Date::now()->year }} <a href="http://www.anodyne-productions.com" target="_blank">Anodyne Productions</a></div>
-	Powered by Nova | <a href="{{ URL::to('main/credits') }}">Site Credits</a>
+	Powered by Nova | <a href="{{ URL::to('credits') }}">Site Credits</a>
 </div>
