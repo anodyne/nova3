@@ -34,15 +34,22 @@ class Form extends AdminBaseController {
 			// Set the view
 			$this->_view = 'admin/form/forms_action';
 
-			// Get the form
-			$this->_data->form = NovaForm::key($formKey)->first();
+			if ($formKey !== "0")
+			{
+				// Get the form
+				$this->_data->form = NovaForm::key($formKey)->first();
 
-			// Get the form fields
-			$this->_data->formFields[0] = lang('short.selectOne', langConcat('form field'));
-			$this->_data->formFields+= NovaFormField::key($formKey)->active()
-				->orderAsc('label')
-				->get()
-				->toSimpleArray('id', 'label');
+				// Get the form fields
+				$this->_data->formFields[0] = lang('short.selectOne', langConcat('form field'));
+				$this->_data->formFields+= NovaFormField::key($formKey)->active()
+					->orderAsc('label')
+					->get()
+					->toSimpleArray('id', 'label');
+			}
+			else
+			{
+				$this->_data->form = false;
+			}
 
 			// Set the action
 			$this->_mode = $this->_data->action = ($formKey === '0') ? 'create' : 'update';
