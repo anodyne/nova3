@@ -7,9 +7,9 @@
 {{ Form::model($form, ['url' => 'admin/form']) }}
 	<div class="row">
 		<div class="col-sm-6 col-lg-4">
-			<div class="control-group">
+			<div class="form-group">
 				<label class="control-label">{{ lang('Name') }}</label>
-				<div class="controls">{{ Form::text('name') }}</div>
+				{{ Form::text('name', null, ['class' => 'form-control']) }}
 			</div>
 		</div>
 	</div>
@@ -17,7 +17,7 @@
 	<div class="row">
 		<div class="col-sm-6 col-lg-4">
 			<label class="control-label">{{ langConcat('Form Key') }}</label>
-			<div class="controls">{{ Form::text('key') }}</div>
+			{{ Form::text('key', null, ['class' => 'form-control']) }}
 		</div>
 	</div>	
 	<div class="row">
@@ -28,18 +28,18 @@
 
 	<div class="row">
 		<div class="col-sm-5 col-lg-3">
-			<div class="control-group">
+			<div class="form-group">
 				<label class="control-label">{{ lang('Orientation') }}</label>
-				<div class="controls">{{ Form::select('orientation', ['vertical' => lang('Vertical'), 'horizontal' => lang('Horizontal')]) }}</div>
+				{{ Form::select('orientation', ['vertical' => lang('Vertical'), 'horizontal' => lang('Horizontal')], null, ['class' => 'form-control']) }}
 			</div>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-sm-5 col-lg-3">
-			<div class="control-group">
+			<div class="form-group">
 				<label class="control-label">{{ lang('Status') }}</label>
-				<div class="controls">{{ Form::select('status', [Status::ACTIVE => lang('Active'), Status::INACTIVE => lang('Inactive')]) }}</div>
+				{{ Form::select('status', [Status::ACTIVE => lang('Active'), Status::INACTIVE => lang('Inactive')], null, ['class' => 'form-control']) }}
 			</div>
 		</div>
 	</div>
@@ -47,7 +47,7 @@
 	<div class="row">
 		<div class="col-sm-6 col-lg-4">
 			<label class="control-label">{{ ucwords(lang('Data_model')) }}</label>
-			<div class="controls">{{ Form::text('data_model') }}</div>
+			{{ Form::text('data_model', null, ['class' => 'form-control']) }}
 		</div>
 	</div>
 	<div class="row">
@@ -63,7 +63,7 @@
 			<div class="row">
 				<div class="col-sm-6 col-lg-4">
 					<label class="control-label">{{ lang('short.admin.forms.useFormViewer') }}</label>
-					<div class="controls">
+					<div>
 						<label class="radio-inline">{{ Form::radio('form_viewer', 1) }} {{ lang('Yes') }}</label>
 						<label class="radio-inline">{{ Form::radio('form_viewer', 0) }} {{ lang('No') }}</label>
 					</div>
@@ -78,9 +78,7 @@
 			<div class="row">
 				<div class="col-sm-8 col-lg-6">
 					<label class="control-label">{{ lang('Instructions') }}</label>
-					<div class="controls">
-						{{ Form::textarea('form_viewer_message', null, ['rows' => 5]) }}
-					</div>
+					{{ Form::textarea('form_viewer_message', null, ['rows' => 5, 'class' => 'form-control']) }}
 				</div>
 			</div>
 			<div class="row">
@@ -93,9 +91,7 @@
 				<div class="row">
 					<div class="col-sm-6 col-lg-4">
 						<label class="control-label">{{ lang('short.admin.forms.formViewerDisplay') }}</label>
-						<div class="controls">
-							{{ Form::select('form_viewer_display', $formFields) }}
-						</div>
+						{{ Form::select('form_viewer_display', $formFields, null, ['class' => 'form-control']) }}
 					</div>
 				</div>
 				<div class="row">
@@ -112,7 +108,7 @@
 			<div class="row">
 				<div class="col-sm-6 col-lg-4">
 					<label class="control-label">{{ lang('short.admin.forms.useEmail') }}</label>
-					<div class="controls">
+					<div>
 						<label class="radio-inline">{{ Form::radio('email_allowed', 1) }} {{ lang('Yes') }}</label>
 						<label class="radio-inline">{{ Form::radio('email_allowed', 0) }} {{ lang('No') }}</label>
 					</div>
@@ -127,9 +123,7 @@
 			<div class="row">
 				<div class="col-sm-8 col-lg-6">
 					<label class="control-label">{{ lang('short.admin.forms.emailAddresses') }}</label>
-					<div class="controls">
-						{{ Form::textarea('email_addresses', null, ['rows' => 2]) }}
-					</div>
+					{{ Form::textarea('email_addresses', null, ['rows' => 2, 'class' => 'form-control']) }}
 				</div>
 			</div>
 			<div class="row">

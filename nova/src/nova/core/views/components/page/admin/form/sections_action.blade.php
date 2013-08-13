@@ -7,11 +7,9 @@
 {{ Form::model($section, ['url' => 'admin/form/sections/'.$formKey]) }}
 	<div class="row">
 		<div class="col-sm-6 col-lg-4">
-			<div class="control-group">
+			<div class="form-group">
 				<label class="control-label">{{ lang('Name') }}</label>
-				<div class="controls">
-					{{ Form::text('name') }}
-				</div>
+				{{ Form::text('name', null, ['class' => 'form-control']) }}
 			</div>
 		</div>
 	</div>
@@ -19,25 +17,21 @@
 	<div class="row">
 		<div class="col-sm-2 col-lg-2">
 			<label class="control-label">{{ lang('Order') }}</label>
-			<div class="controls">
-				{{ Form::text('order') }}
-			</div>
+			{{ Form::text('order', null, ['class' => 'form-control']) }}
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-lg-12">
-			<p class="help-block"><?php echo lang('short.admin.forms.order');?></p>
+			<p class="help-block">{{ lang('short.admin.forms.order') }}</p>
 		</div>
 	</div>
 
 	@if (count($tabs) > 0)
 		<div class="row">
 			<div class="col-sm-6 col-lg-4">
-				<div class="control-group">
+				<div class="form-group">
 					<label class="control-label">{{ lang('Tab') }}</label>
-					<div class="controls">
-						{{ Form::select('tab_id', $tabs) }}
-					</div>
+					{{ Form::select('tab_id', $tabs, null, ['class' => 'form-control']) }}
 				</div>
 			</div>
 		</div>

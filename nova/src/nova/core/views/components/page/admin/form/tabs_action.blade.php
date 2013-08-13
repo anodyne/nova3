@@ -7,11 +7,9 @@
 {{ Form::model($tab, ['url' => 'admin/form/tabs/'.$formKey]) }}
 	<div class="row">
 		<div class="col-sm-6 col-lg-4">
-			<div class="control-group">
+			<div class="form-group">
 				<label class="control-label">{{ lang('Name') }}</label>
-				<div class="controls">
-					{{ Form::text('name') }}
-				</div>
+				{{ Form::text('name', null, ['class' => 'form-control']) }}
 			</div>
 		</div>
 	</div>
@@ -19,9 +17,7 @@
 	<div class="row">
 		<div class="col-sm-2 col-lg-2">
 			<label class="control-label">{{ lang('Order') }}</label>
-			<div class="controls">
-				{{ Form::text('order') }}
-			</div>
+			{{ Form::text('order', null, ['class' => 'form-control']) }}
 		</div>
 	</div>
 	<div class="row">
@@ -33,9 +29,7 @@
 	<div class="row">
 		<div class="col-sm-4 col-lg-4">
 			<label class="control-label">{{ langConcat('Link id') }}</label>
-			<div class="controls">
-				{{ Form::text('link_id') }}
-			</div>
+			{{ Form::text('link_id', null, ['class' => 'form-control']) }}
 		</div>
 	</div>
 	<div class="row">
@@ -46,9 +40,9 @@
 
 	<div class="row">
 		<div class="col-sm-4 col-lg-2">
-			<div class="control-group">
+			<div class="form-group">
 				<label class="control-label">{{ lang('Display') }}</label>
-				<div class="controls">
+				<div>
 					<label class="radio-inline">{{ Form::radio('status', Status::ACTIVE) }} {{ lang('Yes') }}</label>
 					<label class="radio-inline">{{ Form::radio('status', Status::INACTIVE) }} {{ lang('No') }}</label>
 				</div>

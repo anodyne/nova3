@@ -32,22 +32,20 @@
 							<div class="col-12 col-sm-8 col-lg-9">
 								<div class="row">
 									<div class="{{ $field->html_container_class }}">
-										<div class="control-group">
+										<div class="form-group">
 											<label class="control-label">
 												{{ $field->label }}
 												@if ($field->status === Status::INACTIVE)
 													<span class="label label-danger">({{ lang('Inactive') }})</span>
 												@endif
 											</label>
-											<div class="controls">
-												@if ($field->type == 'text')
-													{{ Form::text($field->id, $field->value, ['placeholder' => $field->placeholder]) }}
-												@elseif ($field->type == 'textarea')
-													{{ Form::textarea($field->id, $field->value, ['placeholder' => $field->placeholder, 'rows' => $field->html_rows]) }}
-												@elseif ($field->type == 'select')
-													{{ Form::select($field->id, $field->getValues(), $field->value) }}
-												@endif
-											</div>
+											@if ($field->type == 'text')
+												{{ Form::text($field->id, $field->value, ['placeholder' => $field->placeholder, 'class' => 'form-control']) }}
+											@elseif ($field->type == 'textarea')
+												{{ Form::textarea($field->id, $field->value, ['placeholder' => $field->placeholder, 'rows' => $field->html_rows, 'class' => 'form-control']) }}
+											@elseif ($field->type == 'select')
+												{{ Form::select($field->id, $field->getValues(), $field->value, ['class' => 'form-control']) }}
+											@endif
 										</div>
 									</div>
 								</div>
@@ -99,22 +97,20 @@
 								<div class="col-12 col-sm-8 col-lg-9">
 									<div class="row">
 										<div class="{{ $field->html_container_class }}">
-											<div class="control-group">
+											<div class="form-group">
 												<label class="control-label">
 													{{ $field->label }}
 													@if ($field->status === Status::INACTIVE)
 														<span class="label label-danger">({{ lang('Inactive') }})</span>
 													@endif
 												</label>
-												<div class="controls">
-													@if ($field->type == 'text')
-														{{ Form::text($field->id, $field->value, ['placeholder' => $field->placeholder]) }}
-													@elseif ($field->type == 'textarea')
-														{{ Form::textarea($field->id, $field->value, ['placeholder' => $field->placeholder, 'rows' => $field->html_rows]) }}
-													@elseif ($field->type == 'select')
-														{{ Form::select($field->id, $field->getValues(), $field->value) }}
-													@endif
-												</div>
+												@if ($field->type == 'text')
+													{{ Form::text($field->id, $field->value, ['placeholder' => $field->placeholder, 'class' => 'form-control']) }}
+												@elseif ($field->type == 'textarea')
+													{{ Form::textarea($field->id, $field->value, ['placeholder' => $field->placeholder, 'rows' => $field->html_rows, 'class' => 'form-control']) }}
+												@elseif ($field->type == 'select')
+													{{ Form::select($field->id, $field->getValues(), $field->value, ['class' => 'form-control']) }}
+												@endif
 											</div>
 										</div>
 									</div>
@@ -174,22 +170,20 @@
 					<div class="col-12 col-sm-8 col-lg-9">
 						<div class="row">
 							<div class="{{ $field->html_container_class }}">
-								<div class="control-group">
+								<div class="form-group">
 									<label class="control-label">
 										{{ $field->label }}
 										@if ($field->status === Status::INACTIVE)
 											<span class="label label-danger">({{ lang('Inactive') }})</span>
 										@endif
 									</label>
-									<div class="controls">
-										@if ($field->type == 'text')
-											{{ Form::text($field->id, $field->value, ['placeholder' => $field->placeholder]) }}
-										@elseif ($field->type == 'textarea')
-											{{ Form::textarea($field->id, $field->value, ['placeholder' => $field->placeholder, 'rows' => $field->html_rows]) }}
-										@elseif ($field->type == 'select')
-											{{ Form::select($field->id, $field->getValues(), $field->value) }}
-										@endif
-									</div>
+									@if ($field->type == 'text')
+										{{ Form::text($field->id, $field->value, ['placeholder' => $field->placeholder, 'class' => 'form-control']) }}
+									@elseif ($field->type == 'textarea')
+										{{ Form::textarea($field->id, $field->value, ['placeholder' => $field->placeholder, 'rows' => $field->html_rows, 'class' => 'form-control']) }}
+									@elseif ($field->type == 'select')
+										{{ Form::select($field->id, $field->getValues(), $field->value, ['class' => 'form-control']) }}
+									@endif
 								</div>
 							</div>
 						</div>
@@ -238,22 +232,20 @@
 						<div class="col-12 col-sm-8 col-lg-9">
 							<div class="row">
 								<div class="{{ $f['field']->html_container_class }}">
-									<div class="control-group">
+									<div class="form-group">
 										<label class="control-label">
 											{{ $f['field']->label }}
 											@if ($f['field']->status === Status::INACTIVE)
 												<span class="label label-danger">({{ lang('Inactive') }})</span>
 											@endif
 										</label>
-										<div class="controls">
-											@if ($f['field']->type == 'text')
-												{{ Form::text($f['field']->id, $f['field']->value, ['placeholder' => $f['field']->placeholder]) }}
-											@elseif ($f['field']->type == 'textarea')
-												{{ Form::textarea($f['field']->id, $f['field']->value, ['placeholder' => $f['field']->placeholder, 'rows' => $f['field']->html_rows]) }}
-											@elseif ($f['field']->type == 'select')
-												{{ Form::select($f['field']->id, $f['field']->getValues(), $f['field']->value) }}
-											@endif
-										</div>
+										@if ($field->type == 'text')
+											{{ Form::text($field->id, $field->value, ['placeholder' => $field->placeholder, 'class' => 'form-control']) }}
+										@elseif ($field->type == 'textarea')
+											{{ Form::textarea($field->id, $field->value, ['placeholder' => $field->placeholder, 'rows' => $field->html_rows, 'class' => 'form-control']) }}
+										@elseif ($field->type == 'select')
+											{{ Form::select($field->id, $field->getValues(), $field->value, ['class' => 'form-control']) }}
+										@endif
 									</div>
 								</div>
 							</div>
