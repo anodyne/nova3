@@ -16,6 +16,12 @@ class Preferences extends Model {
 	protected static $properties = array(
 		'id', 'user_id', 'key', 'value',
 	);
+
+	/*
+	|--------------------------------------------------------------------------
+	| Relationships
+	|--------------------------------------------------------------------------
+	*/
 	
 	/**
 	 * Belongs To: User
@@ -26,6 +32,30 @@ class Preferences extends Model {
 	{
 		return $this->belongsTo('User', 'user_id');
 	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Scopes
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Scope the query to user email address.
+	 *
+	 * @param	Builder		The query builder
+	 * @param	string		Email address
+	 * @return	void
+	 */
+	public function scopeKey($query, $key)
+	{
+		$query->where('key', $key);
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
 	
 	/**
 	 * Update the user preferences.
