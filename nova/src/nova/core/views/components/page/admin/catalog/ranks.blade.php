@@ -25,21 +25,21 @@
 						<p><strong>{{ $info->name }}</strong></p>
 						<p class="text-small">{{ $dir }}</p>
 					</div>
-					<div class="col-12 col-sm-3 col-lg-5">
+					<div class="col-12 col-sm-4 col-lg-5">
 						<p>{{ HTML::image($rankPath.$dir.'/'.$info->preview) }}</p>
 					</div>
-					<div class="col-12 col-sm-3 col-lg-2">
-						<div class="hidden-sm">
+					<div class="col-12 col-sm-2 col-lg-2">
+						<div class="visible-lg">
 							<div class="btn-toolbar pull-right">
 								<div class="btn-group">
 									<a href="#" class="btn btn-small btn-success icn-size-16 js-rank-action" data-location="{{ $dir }}" data-action="install">{{ $_icons['add'] }}</a>
 								</div>
 							</div>
 						</div>
-						<div class="visible-sm">
+						<div class="hidden-lg">
 							<div class="row">
-								<div class="col-12">
-									<p><a href="#" class="btn btn-block btn-success icn-size-16 js-rank-action" data-location="{{ $dir }}" data-action="install">{{ $_icons['add'] }}</a></p>
+								<div class="col-12 col-sm-12">
+									<p><a href="#" class="btn btn-large btn-block btn-success icn-size-16 js-rank-action" data-location="{{ $dir }}" data-action="install">{{ $_icons['add'] }}</a></p>
 								</div>
 							</div>
 						</div>
@@ -58,11 +58,11 @@
 					<p><strong>{{ $rank->name }}</strong></p>
 					<p class="text-small">{{ $rank->location }}</p>
 				</div>
-				<div class="col-12 col-sm-3 col-lg-5">
+				<div class="col-12 col-sm-6 col-lg-5">
 					<p>{{ HTML::image($rankPath.$rank->location.'/preview'.$rank->extension) }}</p>
 				</div>
-				<div class="col-12 col-sm-3 col-lg-2">
-					<div class="hidden-sm">
+				<div class="col-12 col-sm-12 col-lg-2">
+					<div class="visible-lg">
 						<div class="btn-toolbar pull-right">
 							@if (Sentry::getUser()->hasAccess('catalog.update'))
 								<div class="btn-group">
@@ -77,17 +77,17 @@
 							@endif
 						</div>
 					</div>
-					<div class="visible-sm">
+					<div class="hidden-lg">
 						<div class="row">
 							@if (Sentry::getUser()->hasAccess('catalog.update'))
-								<div class="col-6">
-									<p><a href="{{ URL::to('admin/catalog/ranks/'.$rank->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
+								<div class="col-6 col-sm-6">
+									<p><a href="{{ URL::to('admin/catalog/ranks/'.$rank->id) }}" class="btn btn-large btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 								</div>
 							@endif
 
 							@if (Sentry::getUser()->hasAccess('catalog.delete'))
-								<div class="col-6">
-									<p><a href="#" class="btn btn-block btn-danger icn-size-16 js-rank-action" data-id="{{ $rank->id }}" data-action="delete">{{ $_icons['remove'] }}</a></p>
+								<div class="col-6 col-sm-6">
+									<p><a href="#" class="btn btn-large btn-block btn-danger icn-size-16 js-rank-action" data-id="{{ $rank->id }}" data-action="delete">{{ $_icons['remove'] }}</a></p>
 								</div>
 							@endif
 						</div>

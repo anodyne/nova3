@@ -26,14 +26,14 @@
 						<p class="text-small">{{ $dir }}</p>
 					</div>
 					<div class="col-12 col-sm-3 col-lg-2">
-						<div class="hidden-sm">
+						<div class="visible-lg">
 							<div class="btn-toolbar pull-right">
 								<div class="btn-group">
 									<a href="#" class="btn btn-small btn-success icn-size-16 js-skin-action" data-location="{{ $dir }}" data-action="install">{{ $_icons['add'] }}</a>
 								</div>
 							</div>
 						</div>
-						<div class="visible-sm">
+						<div class="hidden-lg">
 							<div class="row">
 								<div class="col-12">
 									<p><a href="#" class="btn btn-block btn-success icn-size-16 js-skin-action" data-location="{{ $dir }}" data-action="install">{{ $_icons['add'] }}</a></p>
@@ -51,12 +51,12 @@
 	<div class="nv-data-table nv-data-table-striped nv-data-table-bordered">
 		@foreach ($skins as $skin)
 			<div class="row">
-				<div class="col-12 col-sm-9 col-lg-10">
+				<div class="col-12 col-sm-12 col-lg-10">
 					<p><strong>{{ $skin->name }}</strong></p>
 					<p class="text-small">{{ $skin->location }}</p>
 				</div>
-				<div class="col-12 col-sm-3 col-lg-2">
-					<div class="hidden-sm">
+				<div class="col-12 col-sm-12 col-lg-2">
+					<div class="visible-lg">
 						<div class="btn-toolbar pull-right">
 							@if (Sentry::getUser()->hasAccess('catalog.update'))
 								@if ($skin->checkForUpdate())
@@ -77,23 +77,23 @@
 							@endif
 						</div>
 					</div>
-					<div class="visible-sm">
+					<div class="hidden-lg">
 						<div class="row">
 							@if (Sentry::getUser()->hasAccess('catalog.update'))
 								@if ($skin->checkForUpdate())
-									<div class="col-12">
-										<p><a href="#" class="btn btn-block btn-warning icn-size-16 js-skin-action" data-action="update" data-location="{{ $skin->location }}">{{ $_icons['refresh'] }}</a>
+									<div class="col-12 col-sm-12">
+										<p><a href="#" class="btn btn-large btn-block btn-warning icn-size-16 js-skin-action" data-action="update" data-location="{{ $skin->location }}">{{ $_icons['refresh'] }}</a>
 									</div>
 								@endif
 
-								<div class="col-6">
-									<p><a href="{{ URL::to('admin/catalog/skins/'.$skin->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
+								<div class="col-6 col-sm-6">
+									<p><a href="{{ URL::to('admin/catalog/skins/'.$skin->id) }}" class="btn btn-large btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 								</div>
 							@endif
 
 							@if (Sentry::getUser()->hasAccess('catalog.delete'))
-								<div class="col-6">
-									<p><a href="#" class="btn btn-block btn-danger icn-size-16 js-rank-action" data-id="{{ $skin->id }}" data-action="delete">{{ $_icons['remove'] }}</a></p>
+								<div class="col-6 col-sm-6">
+									<p><a href="#" class="btn btn-large btn-block btn-danger icn-size-16 js-rank-action" data-id="{{ $skin->id }}" data-action="delete">{{ $_icons['remove'] }}</a></p>
 								</div>
 							@endif
 						</div>
