@@ -180,6 +180,8 @@ class User extends Model implements UserInterface, FormDataInterface {
 	public function scopeSearchCharacters($query, $value)
 	{
 		$query->join('characters', 'users.id', '=', 'characters.id')
+			->where('characters.status', '!=', Status::REMOVED)
+			->orWhere('characters.status', '!=', Status::PENDING)
 			->where('characters.first_name', 'like', "%{$value}%")
 			->orWhere('characters.last_name', 'like', "%{$value}%");
 	}
