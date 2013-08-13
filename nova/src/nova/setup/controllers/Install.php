@@ -204,6 +204,12 @@ class Install extends SetupBaseController {
 			'activated_at'	=> Date::now(),
 		]);
 
+		// Update the preferences
+		$user->updateUserPreferences([
+			'is_sysadmin'		=> (int) true,
+			'is_game_master'	=> (int) true,
+		]);
+
 		// Create the character
 		$character = Character::create([
 			'user_id'		=> $user->id,
