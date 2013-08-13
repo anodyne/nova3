@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 'driver' => '#DRIVER#',
 'host' => '#HOSTNAME#',
 'port' => '#PORT#',
@@ -8,4 +8,4 @@ return array(
 'username' => '#USERNAME#',
 'password' => '#PASSWORD#',
 'sendmail' => '#SENDMAILPATH#',
-);
+];
