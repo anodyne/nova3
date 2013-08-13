@@ -264,6 +264,35 @@ class User extends Model implements UserInterface, FormDataInterface {
 	}
 
 	/**
+	 * Can this user be deleted?
+	 *
+	 * @return	bool
+	 */
+	public function canBeDeleted()
+	{
+		// Does the user have posts?
+		if ($this->posts->count() > 0) return false;
+
+		// Does the user have personal logs?
+		if ($this->logs->count() > 0) return false;
+
+		// Does the user have announcements?
+		if ($this->announcements->count() > 0) return false;
+
+		// Does the user have any awards?
+		if ($this->awards->count() > 0) return false;
+
+		// Does the user have any app reviews?
+		//if ($this->appReviews->count() > 0) return false;
+
+		// Forum posts
+
+		// Wiki pages
+
+		return true;
+	}
+
+	/**
 	 * Get the user's application reviews.
 	 *
 	 * @param	int		Specific status to pull back
@@ -276,7 +305,6 @@ class User extends Model implements UserInterface, FormDataInterface {
 
 		if ($this->appReviews)
 		{
-			// Loop through the user's reviews
 			foreach ($this->appReviews as $r)
 			{
 				$reviews[$r->status][] = $r;
@@ -317,6 +345,19 @@ class User extends Model implements UserInterface, FormDataInterface {
 	}
 
 	/**
+	 * Repopulate the session data.
+	 *
+	 * @return	void
+	 */
+	public function populateSession()
+	{
+		foreach ($this->preferences as $pref)
+		{
+			Session::put($pref->key, $pref->value);
+		}
+	}
+
+	/**
 	 * Update the status of the user.
 	 *
 	 * @param	string	Status to change to
@@ -343,66 +384,6 @@ class User extends Model implements UserInterface, FormDataInterface {
 	}
 
 	/**
-	 * Update a user.
-	 *
-	 * @param	int		The user ID to update, if nothing is provided, it will update all users
-	 * @param	array 	A data array to use for updating the record
-	 * @return	User|void
-	 */
-	public static function updateUser($user, array $data)
-	{
-		// Start a new Query Builder
-		$query = static::startQuery();
-
-		if ($user !== null)
-		{
-			// Get the user
-			$record = $query->find($user);
-			
-			// Loop through the data array and make the changes
-			foreach ($data as $key => $value)
-			{
-				$record->$key = $value;
-			}
-			
-			$record->save();
-			
-			return $record;
-		}
-		else
-		{
-			// Pull everything from the table
-			$records = $query->get();
-			
-			// Loop through all the records
-			foreach ($records as $r)
-			{
-				// Loop through the data and make the changes
-				foreach ($data as $key => $value)
-				{
-					$r->$key = $value;
-				}
-				
-				$r->save();
-			}
-		}
-	}
-
-	/**
-	 * Repopulate the session data.
-	 *
-	 * @return	void
-	 */
-	public function populateSession()
-	{
-		// Loop through the prefs and put them into the session
-		foreach ($this->preferences as $pref)
-		{
-			Session::put($pref->key, $pref->value);
-		}
-	}
-
-	/**
 	 * Create the default user settings.
 	 *
 	 * @return	void
@@ -412,14 +393,13 @@ class User extends Model implements UserInterface, FormDataInterface {
 		$insert = [
 			'is_sysadmin'			=> (int) false,
 			'is_game_master'		=> (int) false,
-			'is_firstlaunch'		=> (int) true,
 			'loa'					=> 'active',
 			'timezone'				=> 'UTC',
-			'email_format'			=> 'html',
 			'language'				=> 'en',
 			'rank'					=> Settings::getSettings('rank'),
 			'skin_main'				=> Settings::getSettings('skin_main'),
 			'skin_admin'			=> Settings::getSettings('skin_admin'),
+			'email_format'			=> 'html',
 			'email_comments'		=> (int) true,
 			'email_messages'		=> (int) true,
 			'email_logs'			=> (int) true,
@@ -429,10 +409,48 @@ class User extends Model implements UserInterface, FormDataInterface {
 			'email_posts_delete'	=> (int) true,
 		];
 
-		// Loop through the items that should be created
 		foreach ($insert as $key => $value)
 		{
 			$this->preferences()->save(UserPrefs::create(['key' => $key, 'value' => $value]));
+		}
+	}
+
+	/**
+	 * Delete a user.
+	 *
+	 * In addition to deleting the user, this will also delete all characters
+	 * associated with the user.
+	 *
+	 * @return	bool
+	 */
+	public function deleteUser()
+	{
+		if ($this->canBeDeleted())
+		{
+			// Delete all characters associated with the user
+			foreach ($this->characters as $character)
+			{
+				$character->deleteCharacter();
+			}
+
+			// Delete the user
+			$this->delete();
+
+			return true;
+		}
+		else
+		{
+			// Delete all characters associated with the user
+			foreach ($this->characters as $character)
+			{
+				$character->deleteCharacter();
+			}
+
+			// The user can't be deleted, so we'll just hide them
+			$this->status = Status::REMOVED;
+			$this->save();
+
+			return true;
 		}
 	}
 
@@ -454,68 +472,33 @@ class User extends Model implements UserInterface, FormDataInterface {
 		}
 	}
 
-	/**
-	 * Can this user be deleted?
-	 *
-	 * @return	bool
-	 */
-	public function canBeDeleted()
+	/*
+	|--------------------------------------------------------------------------
+	| FormDataInterface Implementation
+	|--------------------------------------------------------------------------
+	*/
+
+	public static function createFieldData(array $data)
 	{
-		// Does the user have posts?
-		if ($this->posts->count() > 0) return false;
+		// Start a new query
+		$query = static::startQuery();
 
-		// Does the user have personal logs?
-		if ($this->logs->count() > 0) return false;
+		// Get all the active characters
+		$users = $query->get();
 
-		// Does the user have announcements?
-		if ($this->announcements->count() > 0) return false;
-
-		// Does the user have any awards?
-		if ($this->awards->count() > 0) return false;
-
-		// Does the user have any app reviews?
-		//if ($this->appReviews->count() > 0) return false;
-
-		return true;
-	}
-
-	/**
-	 * Delete a user.
-	 *
-	 * In addition to deleting the user, this will also delete all characters
-	 * associated with the user.
-	 *
-	 * @return	bool
-	 */
-	public function deleteUser()
-	{
-		if ($this->canBeDeleted())
+		if ($users->count() > 0)
 		{
-			// Delete all characters associated with the user
-			foreach ($this->characters as $character)
+			foreach ($users as $u)
 			{
-				$character->delete();
+				NovaFormData::create(array_merge($data, ['data_id' => $u->id]));
 			}
-
-			// Delete the user
-			$this->delete();
-
-			return true;
 		}
-
-		return false;
 	}
 
 	/*
 	|--------------------------------------------------------------------------
-	| Sentry User Interface Methods
+	| Sentry UserInterface Implementation
 	|--------------------------------------------------------------------------
-	|
-	| Sentry provides an interface of methods that need to be implemented by
-	| the model. In Nova's case, some of these aren't applicable, and in those
-	| situations, we simply throw exceptions. In others, we do things the way
-	| we've chosen to setup our authorization system.
-	|
 	*/
 	
 	/**
@@ -618,8 +601,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 	 */
 	public function delete()
 	{
-		$this->status = Status::REMOVED;
-		$this->save();
+		$this->deleteUser();
 
 		return true;
 	}
@@ -1138,29 +1120,6 @@ class User extends Model implements UserInterface, FormDataInterface {
 	public function getHashableAttributes()
 	{
 		return $this->hashableAttributes;
-	}
-
-	/*
-	|--------------------------------------------------------------------------
-	| FormDataInterface Implementation
-	|--------------------------------------------------------------------------
-	*/
-
-	public static function createFieldData(array $data)
-	{
-		// Start a new query
-		$query = static::startQuery();
-
-		// Get all the active characters
-		$users = $query->get();
-
-		if ($users->count() > 0)
-		{
-			foreach ($users as $u)
-			{
-				NovaFormData::create(array_merge($data, ['data_id' => $u->id]));
-			}
-		}
 	}
 	
 }

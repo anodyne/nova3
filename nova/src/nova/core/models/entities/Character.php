@@ -259,38 +259,6 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 	}
 
 	/**
-	 * Get all characters from the database.
-	 *
-	 * @param	string	Status of characters to pull back
-	 * @return	Collection
-	 */
-	public static function getCharacters($scope = 'active')
-	{
-		// Start a new Query Builder
-		$query = static::startQuery();
-
-		switch ($scope)
-		{
-			case 'active':
-			case 'inactive':
-			case 'pending':
-			default:
-				$query = $query->where('status', Status::toInt($scope));
-			break;
-			
-			case 'npc':
-				$query = $query->where('status', Status::ACTIVE)->where('user_id', 0);
-			break;
-			
-			case '':
-				$query = $query->where('status', '!=', Status::REMOVED);
-			break;
-		}
-
-		return $query->get();
-	}
-
-	/**
 	 * Can this character be deleted?
 	 *
 	 * @return	bool
@@ -310,6 +278,30 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 		if ($this->awards->count() > 0) return false;
 
 		return true;
+	}
+
+	/**
+	 * Delete a character.
+	 *
+	 * @return	bool
+	 */
+	public function deleteCharacter()
+	{
+		if ($this->canBeDeleted())
+		{
+			// Delete the user
+			$this->delete();
+
+			return true;
+		}
+		else
+		{
+			// The character can't be deleted, so we'll just hide them
+			$this->status = Status::REMOVED;
+			$this->save();
+
+			return true;
+		}
 	}
 
 	/*
