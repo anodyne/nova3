@@ -85,7 +85,7 @@ class Setup {
 	 *
 	 * @return	bool
 	 */
-	public function installed()
+	public function installed($cache = true)
 	{
 		// Get the system install status cache file
 		$status = Cache::get('nova.installed');
@@ -98,12 +98,12 @@ class Setup {
 				$uid = System::getUniqueId();
 
 				// Only cache if we have a UID
-				if ( ! empty($uid))
+				if ( ! empty($uid) and $cache === true)
 				{
 					Cache::forever('nova.installed', (int) true);
-
-					return true;
 				}
+
+				return true;
 			}
 			catch (Exception $e)
 			{
