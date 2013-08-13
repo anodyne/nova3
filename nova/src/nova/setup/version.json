@@ -6,5 +6,5 @@
 	"severity": 3,
 	"notes": "Nova 3.0.1 is the first maintenance release for Nova 3 and addresses several launch day issues that came up. Among the bugs fixed are a random display issue where a sparkling pink dolphin may appear on random pages. The damned thing got loose at the end of development and we couldn't capture it before release. But, we finally captured it and you shouldn't see him any more.",
 	"date": "30 April 2012",
-	"link": "http://www.anodyne-productions.com/nova"
+	"link": "http://anodyne-productions.com/nova"
 }
