@@ -110,7 +110,7 @@ return [
 	[
 		'key'		=> 'header.admin.routes.create',
 		'label'		=> 'Create Route Header',
-		'content'	=> "New Route",
+		'content'	=> "Create New Route",
 		'type'		=> $type,
 		'section'	=> 'admin',
 		'page'		=> 'routes',
@@ -140,7 +140,7 @@ return [
 	[
 		'key'		=> 'header.admin.form.create',
 		'label'		=> 'Create Form Header',
-		'content'	=> "New Form",
+		'content'	=> "Create New Form",
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'index',
@@ -166,7 +166,7 @@ return [
 	[
 		'key'		=> 'header.admin.form.fields.create',
 		'label'		=> 'Create Form Field Header',
-		'content'	=> "New Form Field",
+		'content'	=> "Create New Form Field",
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'fields',
@@ -192,7 +192,7 @@ return [
 	[
 		'key'		=> 'header.admin.form.sections.create',
 		'label'		=> 'Create Form Section Header',
-		'content'	=> "New Form Section",
+		'content'	=> "Create New Form Section",
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'sections',
@@ -218,7 +218,7 @@ return [
 	[
 		'key'		=> 'header.admin.form.tabs.create',
 		'label'		=> 'Create Form Tab Header',
-		'content'	=> "New Form Tab",
+		'content'	=> "Create New Form Tab",
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'tabs',
@@ -332,7 +332,7 @@ return [
 	[
 		'key'		=> 'header.admin.role.create',
 		'label'		=> 'Create Access Role Header',
-		'content'	=> "New Access Role",
+		'content'	=> "Create New Access Role",
 		'type'		=> $type,
 		'section'	=> 'role',
 		'page'		=> 'index',
@@ -358,7 +358,7 @@ return [
 	[
 		'key'		=> 'header.admin.role.tasks.create',
 		'label'		=> 'Create Access Role Task Header',
-		'content'	=> "New Access Role Task",
+		'content'	=> "Create New Access Role Task",
 		'type'		=> $type,
 		'section'	=> 'role',
 		'page'		=> 'tasks',
@@ -396,7 +396,7 @@ return [
 	[
 		'key'		=> 'header.admin.catalog.ranks.create',
 		'label'		=> 'Create Rank Set Catalog Header',
-		'content'	=> "New Rank Set",
+		'content'	=> "Create New Rank Set",
 		'type'		=> $type,
 		'section'	=> 'catalog',
 		'page'		=> 'ranks',
@@ -422,7 +422,7 @@ return [
 	[
 		'key'		=> 'header.admin.catalog.skins.create',
 		'label'		=> 'Create Skin Catalog Header',
-		'content'	=> "New Skin",
+		'content'	=> "Create New Skin",
 		'type'		=> $type,
 		'section'	=> 'catalog',
 		'page'		=> 'skins',
@@ -448,7 +448,7 @@ return [
 	[
 		'key'		=> 'header.admin.catalog.modules.create',
 		'label'		=> 'Create Module Catalog Header',
-		'content'	=> "New Module",
+		'content'	=> "Create New Module",
 		'type'		=> $type,
 		'section'	=> 'catalog',
 		'page'		=> 'modules',
@@ -474,7 +474,7 @@ return [
 	[
 		'key'		=> 'header.admin.catalog.widgets.create',
 		'label'		=> 'Create Widget Catalog Header',
-		'content'	=> "New Widget",
+		'content'	=> "Create New Widget",
 		'type'		=> $type,
 		'section'	=> 'catalog',
 		'page'		=> 'widgets',
@@ -504,7 +504,7 @@ return [
 	[
 		'key'		=> 'header.admin.user.create',
 		'label'		=> 'Create User Header',
-		'content'	=> "New User",
+		'content'	=> "Create New User",
 		'type'		=> $type,
 		'section'	=> 'user',
 		'page'		=> 'create'

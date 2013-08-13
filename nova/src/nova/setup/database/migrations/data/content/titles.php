@@ -305,8 +305,8 @@ return [
 	],
 	[
 		'key'		=> 'title.admin.user.create',
-		'label'		=> 'New User Title',
-		'content'	=> "New User",
+		'label'		=> 'Create New User Title',
+		'content'	=> "Create New User",
 		'type'		=> $type,
 		'section'	=> 'user',
 		'page'		=> 'create'

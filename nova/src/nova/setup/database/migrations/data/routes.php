@@ -2,31 +2,38 @@
 
 return [
 	[
-		'name'			=> 'main/index',
+		'name'			=> 'home',
 		'verb'			=> 'get',
 		'uri'			=> '/',
 		'resource'		=> 'Nova\Core\Controllers\Main@getIndex',
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'main/credits',
+		'name'			=> 'credits',
 		'verb'			=> 'get',
-		'uri'			=> 'main/credits',
+		'uri'			=> 'credits',
 		'resource'		=> 'Nova\Core\Controllers\Main@getCredits',
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'main/contact',
+		'name'			=> 'contact',
 		'verb'			=> 'get',
-		'uri'			=> 'main/contact',
+		'uri'			=> 'contact',
 		'resource'		=> 'Nova\Core\Controllers\Main@getContact',
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'main/contact',
+		'name'			=> 'contact',
 		'verb'			=> 'post',
-		'uri'			=> 'main/contact',
+		'uri'			=> 'contact',
 		'resource'		=> 'Nova\Core\Controllers\Main@postContact',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'join',
+		'verb'			=> 'get',
+		'uri'			=> 'join',
+		'resource'		=> 'Nova\Core\Controllers\Main@getJoin',
 		'protected'		=> (int) true
 	],
 
@@ -101,9 +108,9 @@ return [
 	 * admin/admin
 	 */
 	[
-		'name'			=> 'admin/index',
+		'name'			=> 'admin',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/index',
+		'uri'			=> 'admin',
 		'resource'		=> 'Nova\Core\Controllers\Admin\Admin@getIndex',
 		'protected'		=> (int) true
 	],

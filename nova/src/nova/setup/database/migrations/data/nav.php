@@ -71,7 +71,7 @@ return [
 		'name' => 'Announcements',
 		'group' => 0,
 		'order' => 1,
-		'url' => 'main/announcements',
+		'url' => 'announcements',
 		'type' => 'sub',
 		'category' => 'main'
 	],
@@ -79,7 +79,7 @@ return [
 		'name' => 'Contact',
 		'group' => 0,
 		'order' => 2,
-		'url' => 'main/contact',
+		'url' => 'contact',
 		'type' => 'sub',
 		'category' => 'main'
 	],*/
@@ -87,23 +87,23 @@ return [
 		'name' => 'Credits',
 		'group' => 0,
 		'order' => 3,
-		'url' => 'main/credits',
+		'url' => 'credits',
 		'type' => 'sub',
 		'category' => 'main'
 	],
-	[
+	/*[
 		'name' => 'Join',
-		'group' => 0,
-		'order' => 4,
-		'url' => 'main/join',
+		'group' => 1,
+		'order' => 0,
+		'url' => 'join',
 		'type' => 'sub',
 		'category' => 'main'
 	],
 	/*[
 		'name' => 'Search',
-		'group' => 1,
+		'group' => 2,
 		'order' => 0,
-		'url' => 'search/index',
+		'url' => 'search',
 		'type' => 'sub',
 		'category' => 'main'
 	],
@@ -263,11 +263,11 @@ return [
 	/**
 	 * Admin Main Navigation
 	 */
-	[
+	/*[
 		'name' => 'Control Panel',
 		'group' => 0,
 		'order' => 0,
-		'url' => 'admin/main/index',
+		'url' => 'admin',
 		'type' => 'admin',
 		'category' => 'admin'
 	],
@@ -376,7 +376,7 @@ return [
 		'access' => 'messages.read.0'
 	],*/
 	[
-		'name' => 'Routes Manager',
+		'name' => 'Routes',
 		'group' => 0,
 		'order' => 0,
 		'url' => 'admin/routes',
@@ -384,6 +384,33 @@ return [
 		'category' => 'manage',
 		'access' => 'routes.create|routes.update|routes.delete'
 	],
+	/*[
+		'name' => 'Settings',
+		'group' => 0,
+		'order' => 1,
+		'url' => 'admin/settings',
+		'type' => 'adminsub',
+		'category' => 'manage',
+		'access' => 'settings.create|settings.update|settings.delete'
+	],
+	[
+		'name' => 'Site Content',
+		'group' => 0,
+		'order' => 2,
+		'url' => 'admin/sitecontent',
+		'type' => 'adminsub',
+		'category' => 'manage',
+		'access' => 'content.create|content.update|content.delete'
+	],
+	[
+		'name' => 'Navigation',
+		'group' => 0,
+		'order' => 3,
+		'url' => 'admin/navigation',
+		'type' => 'adminsub',
+		'category' => 'manage',
+		'access' => 'nav.create|nav.update|nav.delete'
+	],*/
 	[
 		'name' => 'Access Roles',
 		'group' => 1,
@@ -421,24 +448,24 @@ return [
 		'access' => 'rank.create|rank.update|rank.delete'
 	],*/
 
-	/*[
-		'name' => 'All Characters',
-		'group' => 0,
-		'order' => 0,
-		'url' => 'admin/character/index',
-		'type' => 'adminsub',
-		'category' => 'users',
-		'access' => 'character.create|character.delete'
-	],*/
 	[
 		'name' => 'All Users',
-		'group' => 1,
+		'group' => 0,
 		'order' => 0,
 		'url' => 'admin/user',
 		'type' => 'adminsub',
 		'category' => 'users',
 		'access' => 'user.create|user.delete'
 	],
+	/*[
+		'name' => 'All Characters',
+		'group' => 1,
+		'order' => 0,
+		'url' => 'admin/character/index',
+		'type' => 'adminsub',
+		'category' => 'users',
+		'access' => 'character.create|character.delete'
+	],*/
 	/*[
 		'name' => 'Application Review',
 		'group' => 2,
@@ -448,51 +475,7 @@ return [
 		'category' => 'users',
 		'access' => ''
 	],*/
-	/*	
-	[
-		'name' => 'Settings',
-		'group' => 0,
-		'order' => 0,
-		'url' => 'site/settings',
-		'sim_type' => 1,
-		'type' => 'adminsub',
-		'category' => 'site',
-		'use_access' => 1,
-		'access' => 'site/settings'
-	],
-	[
-		'name' => 'Messages &amp; Titles',
-		'group' => 0,
-		'order' => 1,
-		'url' => 'site/messages',
-		'sim_type' => 1,
-		'type' => 'adminsub',
-		'category' => 'site',
-		'use_access' => 1,
-		'access' => 'site/messages'
-	],
-	[
-		'name' => 'Menu Items',
-		'group' => 0,
-		'order' => 2,
-		'url' => 'site/menus',
-		'sim_type' => 1,
-		'type' => 'adminsub',
-		'category' => 'site',
-		'use_access' => 1,
-		'access' => 'site/menus'
-	],
-	[
-		'name' => 'Sim Types',
-		'group' => 2,
-		'order' => 0,
-		'url' => 'site/simtypes',
-		'sim_type' => 1,
-		'type' => 'adminsub',
-		'category' => 'site',
-		'use_access' => 1,
-		'access' => 'site/simtypes'
-	],
+	/*
 	[
 		'name' => 'Awards',
 		'group' => 0,
