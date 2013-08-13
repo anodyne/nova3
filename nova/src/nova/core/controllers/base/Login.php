@@ -18,6 +18,7 @@ abstract class Login extends BaseController {
 	const NOT_FOUND			= 4;
 	const SUSPENDED			= 5;
 	const BANNED			= 6;
+	const NOT_ADMIN			= 7;
 
 	public function __construct()
 	{

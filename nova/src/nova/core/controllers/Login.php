@@ -15,6 +15,7 @@ use Date;
 use Html;
 use Mail;
 use Input;
+use Cookie;
 use Notify;
 use Sentry;
 use Session;
@@ -66,6 +67,10 @@ class Login extends LoginBaseController {
 				case self::BANNED:
 					$errorMsg = lang("login.error.banned");
 				break;
+
+				case self::NOT_ADMIN:
+					$errorMsg = lang("login.error.notAdmin");
+				break;
 			}
 
 			// Set the flash data
@@ -102,7 +107,15 @@ class Login extends LoginBaseController {
 			// Get the Sentry cookie
 			$persistCookie = Sentry::getCookie()->getCookie();
 
-			return Redirect::to('admin/index')->withCookie($persistCookie);
+			// If the user was redirected, send them to where they were trying to go
+			if (Session::has('url.intended'))
+			{
+				return Redirect::intended('admin/index')->withCookie($persistCookie);
+			}
+			else
+			{
+				return Redirect::to('admin/index')->withCookie($persistCookie);
+			}
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
@@ -142,7 +155,10 @@ class Login extends LoginBaseController {
 		// Flush the session for safe measure
 		Session::flush();
 
-		return Redirect::to('/');
+		// Get the Sentry cookie
+		$persistCookie = Sentry::getCookie()->getCookie();
+
+		return Redirect::to('/')->withCookie($persistCookie);
 	}
 
 	/**
