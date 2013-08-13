@@ -110,11 +110,11 @@ class Login extends LoginBaseController {
 			// If the user was redirected, send them to where they were trying to go
 			if (Session::has('url.intended'))
 			{
-				return Redirect::intended('admin/index')->withCookie($persistCookie);
+				return Redirect::intended('admin')->withCookie($persistCookie);
 			}
 			else
 			{
-				return Redirect::to('admin/index')->withCookie($persistCookie);
+				return Redirect::to('admin')->withCookie($persistCookie);
 			}
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)

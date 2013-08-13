@@ -275,7 +275,7 @@ class Nav {
 				0 => [
 					[
 						'name' => ucwords(lang('cp')),
-						'url' => 'admin/index',
+						'url' => 'admin',
 						'extra' => [],
 						'additional' => ''
 					],
