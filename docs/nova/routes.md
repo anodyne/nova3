@@ -27,7 +27,7 @@ Now that we've explained how the routing system works, it's important everyone i
 
 ### Route
 
-Simply put, a route is an instruction to Nova's underlying framework about what class and method to use when a specific URL is visited. When someone goes to your site's `main/credits` page, Nova checks the declared routes to figure out what class and what method to use then calls those items and renders the output to the user's browser.
+Simply put, a route is an instruction to Nova's underlying framework about what class and method to use when a specific URL is visited. When someone goes to your site's `credits` page, Nova checks the declared routes to figure out what class and what method to use then calls those items and renders the output to the user's browser.
 
 ### HTTP Verb
 

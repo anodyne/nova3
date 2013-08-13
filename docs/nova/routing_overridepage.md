@@ -24,7 +24,7 @@ Believe it or not, that's actually all we need in the controller. Nova takes car
 
 Done.
 
-The beautiful part about some of Nova's new features is that your page automatically gets the site content from the core page, so your page title, header and intro message will all be the same. We're not done yet though, because Nova doesn't know when to call this controller action. In order to tell Nova how to do that, we're going to duplicate the `main/index` route from the Routes Manager (in the Core Routes tab). When the page refreshes, you'll see the `main/index` route in your user-created routes. Edit the route and change the following information:
+The beautiful part about some of Nova's new features is that your page automatically gets the site content from the core page, so your page title, header and intro message will all be the same. We're not done yet though, because Nova doesn't know when to call this controller action. In order to tell Nova how to do that, we're going to duplicate the `home` route from the Routes Manager (in the Core Routes tab). When the page refreshes, you'll see the `home` route in your user-created routes. Edit the route and change the following information:
 
 - Resource: App\Controllers\Enterprise@getMainPage
 
