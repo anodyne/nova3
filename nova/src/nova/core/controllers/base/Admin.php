@@ -14,6 +14,7 @@
  * @copyright	2013 Anodyne Productions
  */
 
+use App;
 use Nova;
 use View;
 use Sentry;
@@ -41,7 +42,10 @@ abstract class Admin extends BaseController {
 			 */
 			$this->beforeFilter(function()
 			{
-				return Redirect::to('login/'.\Nova\Core\Controllers\Login::NOT_LOGGED_IN);
+				// Put the intended desintation into the session
+				Session::put('url.intended', App::make('url')->full());
+
+				return Redirect::to('login/error/'.\Nova\Core\Controllers\Login::NOT_LOGGED_IN);
 			});
 		}
 		else
