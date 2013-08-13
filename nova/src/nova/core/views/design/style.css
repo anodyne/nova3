@@ -141,6 +141,11 @@ input.icn-size-16 {
 .btn-noclick:hover {
   cursor: default;
 }
+.btn-large {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px 4px 4px 4px;
+}
 .thumbnail {
   margin-bottom: 15px;
 }
