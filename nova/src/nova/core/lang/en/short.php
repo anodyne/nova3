@@ -9,6 +9,7 @@ return array(
 	'duplicate'	=> "duplicate :0",
 	'edit' 		=> "edit :0",
 	'fillout'	=> "fill out :0",
+	'go'		=> "go to :0",
 	'install'	=> "install :0",
 	'manage' 	=> "manage :0",
 	'new' 		=> "new :0",

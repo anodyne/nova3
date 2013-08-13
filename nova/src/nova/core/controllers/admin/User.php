@@ -3,6 +3,7 @@
 use View;
 use Input;
 use Sentry;
+use Status;
 use Location;
 use Redirect;
 use UserValidator;
@@ -22,6 +23,9 @@ class User extends AdminBaseController {
 		// Get all the users
 		$this->_data->users = \User::active()->get();
 
+		// Get the pending users
+		$this->_data->pending = \User::pending()->get();
+
 		// Build the delete user modal
 		$this->_ajax[] = View::make(Location::partial('common/modal'))
 			->with('modalId', 'deleteUser')
@@ -34,20 +38,25 @@ class User extends AdminBaseController {
 		// Set up the validation service
 		$validator = new UserValidator;
 
+		// Get the action
+		$action = e(Input::get('action'));
+
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
 		{
-			// Set the flash message
-			$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
-			$flashMessage.= implode(' ', $validator->getErrors()->all());
+			if ($action == 'delete')
+			{
+				// Set the flash message
+				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
+				$flashMessage.= implode(' ', $validator->getErrors()->all());
 
-			return Redirect::to('admin/user')
-				->with('flashStatus', 'danger')
-				->with('flashMessage', $flashMessage);
+				return Redirect::to('admin/user')
+					->with('flashStatus', 'danger')
+					->with('flashMessage', $flashMessage);
+			}
+
+			return Redirect::back()->withInput()->withErrors($validator->getErrors());
 		}
-
-		// Get the action
-		$action = e(Input::get('action'));
 
 		// Get the current user
 		$user = Sentry::getUser();
@@ -58,7 +67,7 @@ class User extends AdminBaseController {
 		if ($user->hasAccess('user.create') and $action == 'create')
 		{
 			// Create the user
-			$user = \User::create(Input::all());
+			$user = \User::create(array_merge(Input::all(), ['status' => Status::ACTIVE]));
 
 			// Set the flash info
 			$flashStatus = ($user) ? 'success' : 'danger';

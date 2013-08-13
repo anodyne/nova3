@@ -21,6 +21,8 @@ return array(
 	'and' => 'and',
 	'access' => "access",
 	'assigned' => "assigned",
+	'application_review_center' => "Application Review Center",
+	'arc' => "ARC",
 
 	'bio'	=> 'bio',
 	'ban' => 'ban',
