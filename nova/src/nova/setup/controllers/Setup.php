@@ -30,7 +30,7 @@ class Setup extends SetupBaseController {
 		$this->_header = "Nova Setup";
 
 		// Do some checks to see what we should show
-		$installed = (bool) \Setup::installed();
+		$installed = (bool) \Setup::installed(false);
 		$this->_data->db = (bool) File::exists(APPPATH.'config/'.App::environment().'/database.php');
 		$this->_data->email = (bool) File::exists(APPPATH.'config/'.App::environment().'/mail.php');
 
@@ -52,7 +52,7 @@ class Setup extends SetupBaseController {
 		$this->_header = 'Nova Setup';
 
 		// Do some checks to see what we should show
-		$installed = (bool) \Setup::installed();
+		$installed = (bool) \Setup::installed(false);
 		$update = ($installed) ? \Setup::getUpdates() : false;
 
 		if ($installed)

@@ -137,22 +137,37 @@ abstract class Setup extends Controller {
 		 */
 		$this->beforeFilter(function() use(&$me)
 		{
+			// Grab the URL generator from the container
+			$url = App::make('url');
+
 			if ( ! $me->_stopExecution)
 			{
-				if (\Setup::installed())
+				if (\Setup::installed(false))
 				{
-					if (Sentry::check())
+					\Log::info(\Setup::installed(false));
+					\Log::info(Cache::get('nova.installed'));
+					
+					if (Cache::get('nova.installed') !== null)
 					{
-						// Not a system administrator? No soup for you!
-						if ( ! Sentry::getUser()->isAdmin())
+						if (Sentry::check())
 						{
-							//return Redirect::to('login/'.Nova\Core\Controllers\Login::NOT_ADMIN);
+							// Not a system administrator? No soup for you!
+							if ( ! Sentry::getUser()->isAdmin())
+							{
+								// Put the intended desintation into the session
+								Session::put('url.intended', $url->full());
+
+								return Redirect::to('login/error/'.\Nova\Core\Controllers\Login::NOT_ADMIN);
+							}
 						}
-					}
-					else
-					{
-						// No session? Send them away
-						//return Redirect::to('login/'.Nova\Core\Controllers\Login::NOT_LOGGED_IN);
+						else
+						{
+							// Put the intended desintation into the session
+							Session::put('url.intended', $url->full());
+
+							// No session? Send them away
+							return Redirect::to('login/error/'.\Nova\Core\Controllers\Login::NOT_LOGGED_IN);
+						}
 					}
 				}
 			}
