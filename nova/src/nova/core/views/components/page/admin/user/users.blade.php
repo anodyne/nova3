@@ -53,7 +53,7 @@
 							</div>
 						@endif
 
-						@if (Sentry::getUser()->hasAccess('user.delete') and $user->canBeDeleted())
+						@if (Sentry::getUser()->hasAccess('user.delete'))
 							<div class="btn-group">
 								<a href="#" class="btn btn-small btn-danger js-user-action icn-size-16" data-action="delete" data-id="{{ $user->id }}">{{ $_icons['remove'] }}</a>
 							</div>
@@ -69,7 +69,7 @@
 							</div>
 						@endif
 
-						@if (Sentry::getUser()->hasAccess('user.delete') and $user->canBeDeleted())
+						@if (Sentry::getUser()->hasAccess('user.delete'))
 							<div class="col-6">
 								<a href="#" class="btn btn-block btn-danger js-user-action icn-size-16" data-action="delete" data-id="{{ $user->id }}">{{ $_icons['remove'] }}</a>
 							</div>
