@@ -1,6 +1,6 @@
 <?php
 
-Route::group(array('prefix' => 'test'), function()
+Route::group(array('prefix' => 'dev'), function()
 {
 	Route::get('/', function()
 	{

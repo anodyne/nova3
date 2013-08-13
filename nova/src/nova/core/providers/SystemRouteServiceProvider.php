@@ -33,18 +33,16 @@ class SystemRouteServiceProvider extends ServiceProvider {
 		if ($routes === null)
 		{
 			$this->app['router']->get('/', 'Nova\Core\Controllers\Main@getIndex');
-			$this->app['router']->get('main/index', 'Nova\Core\Controllers\Main@getIndex');
 
 			$this->app['router']->get('ajax/get/rank/image/{id}/{return}', 'Nova\Core\Controllers\Ajax\Get@getRank');
 			$this->app['router']->get('ajax/get/position/{id}/{return}', 'Nova\Core\Controllers\Ajax\Get@getPosition');
 
 			$this->app['router']->get('login', 'Nova\Core\Controllers\Login@getIndex');
-			$this->app['router']->get('login/index', 'Nova\Core\Controllers\Login@getIndex');
-			$this->app['router']->post('login/index', 'Nova\Core\Controllers\Login@postIndex');
+			$this->app['router']->post('login', 'Nova\Core\Controllers\Login@postIndex');
 
-			$this->app['router']->get('admin/main/index', 'Nova\Core\Controllers\Admin\Main@getIndex');
-			$this->app['router']->get('admin/main/pages', 'Nova\Core\Controllers\Admin\Main@getPages');
-			$this->app['router']->post('admin/main/pages', 'Nova\Core\Controllers\Admin\Main@postPages');
+			$this->app['router']->get('admin', 'Nova\Core\Controllers\Admin\Admin@getIndex');
+			$this->app['router']->get('admin/routes', 'Nova\Core\Controllers\Admin\Main@getRoutes');
+			$this->app['router']->post('admin/routes', 'Nova\Core\Controllers\Admin\Main@postRoutes');
 		}
 		else
 		{
@@ -151,10 +149,10 @@ class SystemRouteServiceProvider extends ServiceProvider {
 	 */
 	protected function bootDevRoutes()
 	{
-		// Pull in the test routes if we're local
+		// Pull in the dev routes if we're local
 		if ($this->app->environment() == 'local')
 		{
-			require SRCPATH.'core/routes/test.php';
+			require SRCPATH.'core/routes/dev.php';
 		}
 	}
 
