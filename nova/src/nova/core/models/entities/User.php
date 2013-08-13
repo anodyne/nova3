@@ -405,7 +405,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 	/**
 	 * Create the default user settings.
 	 *
-	 * @return	Preferences
+	 * @return	void
 	 */
 	public function createUserPreferences()
 	{
@@ -433,6 +433,24 @@ class User extends Model implements UserInterface, FormDataInterface {
 		foreach ($insert as $key => $value)
 		{
 			$this->preferences()->save(UserPrefs::create(['key' => $key, 'value' => $value]));
+		}
+	}
+
+	/**
+	 * Update user preferences.
+	 *
+	 * @param	array	Key-value pair for updating preferences
+	 * @return	void
+	 */
+	public function updateUserPreferences(array $values)
+	{
+		foreach ($values as $key => $value)
+		{
+			// Find the preference
+			$pref = UserPrefs::key($key)->first();
+
+			// Update the preference
+			$pref->update(['value' => $value]);
 		}
 	}
 
@@ -1020,7 +1038,10 @@ class User extends Model implements UserInterface, FormDataInterface {
 		// Check the login
 		if ( ! Sentry::check() and $redirect)
 		{
-			return Redirect::to('login/'.\Nova\Core\Controllers\Login::NOT_LOGGED_IN);
+			// Put the intended desintation into the session
+			Session::put('url.intended', App::make('url')->full());
+
+			return Redirect::to('login/error/'.\Nova\Core\Controllers\Login::NOT_LOGGED_IN);
 		}
 		else
 		{
