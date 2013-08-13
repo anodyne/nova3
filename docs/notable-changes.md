@@ -1,15 +1,18 @@
-# Notable Changes since Nova 2
+# Notable Changes
 
 ## Logging In
 
 - All users are "remembered" when logging in. If you're on a public computer, make sure you explicitly log out when you're done using Nova.
+- Resetting passwords has been changed to a 2-step process. The first step involves entering your email address. From there, an email is sent to you with a confirmation code. Going to that link will prompt you to change your password. If at any point you get prompted to reset a password without you initiating it, you can simply log in to your account to cancel the reset process.
+- Logging in is immediate. No more sitting on a "Logging In" screen for 5 seconds before being pushed to the admin control panel.
+- When you try to hit a page that requires authentication and you aren't logged in, you'll be prompted to log in and then bounced to the page you were trying to get to once you've successfully authenticated.
 
 ## Setup
 
 - We no longer provide the ability to upgrade from SMS.
 - We no longer provide the ability to upgrade from Nova 1.
-- The database change panel has been removed. Instead of this, developers should be writing migrations to install (and uninstall) their MODs.
-- We no longer require entering a password at various spots throughout the Setup Center. Instead, you must be logged in and be an administrator in order to make changes once the system is installed. If you aren't, you'll be kicked over to the log in page.
+- The database change panel has been removed. Instead of this, developers should be writing migrations to install (and uninstall) their MODs through the module catalog.
+- We no longer require entering a password at various spots throughout the Setup Center. Instead, you must be logged in and be an administrator in order to make changes once the system is installed. If you aren't, you'll be kicked over to the log in page. Once you've been logged in, you'll be redirected back to the Setup Center.
 
 ## Access Control
 
