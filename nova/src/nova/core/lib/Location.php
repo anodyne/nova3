@@ -377,7 +377,7 @@ class Location {
 	 */
 	protected function setSkin()
 	{
-		$this->skin = (Setup::installed()) ? \Nova::getSkin() : false;
+		$this->skin = (Setup::installed(false)) ? \Nova::getSkin() : false;
 	}
 	
 }
