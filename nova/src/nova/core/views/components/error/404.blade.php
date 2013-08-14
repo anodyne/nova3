@@ -46,7 +46,7 @@
 		<div class="container">
 			<h1>{{ $header }}<small>{{ nl2br($message) }}</small></h1>
 
-			<a href="javascript: history.go(-1)" class="btn btn-large btn-block">Go Back</a>
+			<a href="javascript: history.go(-1)" class="btn btn-lg btn-block">Go Back</a>
 		</div>
 	</body>
 </html>

@@ -1,4 +1,4 @@
-<ul class="nav navbar-nav pull-right">
+<ul class="nav navbar-nav navbar-right">
 	@if ($loggedIn)
 		<li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">

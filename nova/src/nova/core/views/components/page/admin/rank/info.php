@@ -29,12 +29,12 @@
 					<td class="span2">
 						<div class="btn-toolbar pull-right">
 							<div class="btn-group">
-								<a href="#" class="btn btn-small tooltip-top rankinfo-action icn16" title="<?php echo ucfirst(lang('action.edit'));?>" data-action="update" data-id="<?php echo $i->id;?>"><div class="icn icn-50" data-icon="p"></div></a>
+								<a href="#" class="btn btn-sm tooltip-top rankinfo-action icn16" title="<?php echo ucfirst(lang('action.edit'));?>" data-action="update" data-id="<?php echo $i->id;?>"><div class="icn icn-50" data-icon="p"></div></a>
 							</div>
 
 							<?php if (Sentry::user()->hasAccess('rank.delete')): ?>
 								<div class="btn-group">
-									<a href="#" class="btn btn-danger btn-small tooltip-top rankinfo-action icn16" title="<?php echo ucfirst(lang('action.delete'));?>" data-action="delete" data-id="<?php echo $i->id;?>"><div class="icn icn-50" data-icon="t"></div></a>
+									<a href="#" class="btn btn-danger btn-sm tooltip-top rankinfo-action icn16" title="<?php echo ucfirst(lang('action.delete'));?>" data-action="delete" data-id="<?php echo $i->id;?>"><div class="icn icn-50" data-icon="t"></div></a>
 								</div>
 							<?php endif;?>
 						</div>

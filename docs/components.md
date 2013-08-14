@@ -13,7 +13,7 @@
 * Bootstrap
 	* Sleek, intuitive, and powerful front-end framework for faster and easier web development.
 	* http://twitter.github.io/bootstrap/
-	* Version: 3.0-RC1
+	* Version: 3.0-RC2
 * jQuery Lazy
 	* Lazy-load plugins and their dependencies.
 	* http://unwrongest.com/projects/lazy/

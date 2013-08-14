@@ -60,7 +60,7 @@
 	<h2>{{ ucwords(langConcat('role tasks')) }}</h2>
 		
 	@if (count($tasks) > 0)
-		<div class="hidden-sm taskList">
+		<div class="hidden-xs taskList">
 			@foreach ($tasks as $component => $task)
 				<fieldset>
 					<legend>{{ ucfirst($component) }}</legend>
@@ -95,9 +95,9 @@
 				</fieldset>
 			@endforeach
 		</div>
-		<div class="visible-sm taskList">
+		<div class="visible-xs taskList">
 			<div class="row">
-				<div class="col-12">
+				<div class="col-xs-12">
 					<div class="accordion" id="accordion">
 						<?php $i = 1;?>
 						@foreach ($tasks as $component => $task)

@@ -16,7 +16,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-6 col-sm-4 col-lg-2">
+		<div class="col-xs-6 col-sm-4 col-lg-2">
 			<div class="form-group">
 				<label>{{ lang('Verb') }}</label>
 				{{ Form::select('verb', ['get' => 'GET', 'post' => 'POST', 'put' => 'PUT', 'delete' => 'DELETE'], null, ['class' => 'form-control']) }}

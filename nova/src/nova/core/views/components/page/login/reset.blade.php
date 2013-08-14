@@ -4,7 +4,7 @@
 	</div>
 
 	{{ Form::token() }}
-	{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary btn-large btn-block']) }}
+	{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary btn-lg btn-block']) }}
 	
 	{{ HTML::link('login', lang('short.cancelPasswordReset'), ['class' => 'btn btn-default btn-block']) }}
 {{ Form::close() }}

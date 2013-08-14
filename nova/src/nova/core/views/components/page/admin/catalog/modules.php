@@ -3,7 +3,7 @@
 		<?php $location = str_replace(DS, '', $dir);?>
 		<?php $has_readme = file_exists(APPPATH.'modules/'.$location.'/readme.md');?>
 
-		<div class="alert alert-block">
+		<div class="alert">
 			<div class="btn-group pull-right">
 				<a class="btn btn-mini btn-icon tooltip-top install" title="<?php echo ucfirst(lang('action.install'));?>" href="#" data-location="<?php echo $location;?>"><i class="icon-ok-sign icon-50"></i></a>
 				<?php if ($has_readme): ?>
@@ -23,7 +23,7 @@
 	<?php foreach ($update as $u): ?>
 		<?php $has_readme = file_exists(APPPATH.'modules/'.$u->location.'/readme.md');?>
 
-		<div class="alert alert-info alert-block">
+		<div class="alert alert-info">
 			<div class="btn-group pull-right">
 				<a class="btn btn-mini btn-icon tooltip-top update" title="<?php echo ucfirst(lang('action.update'));?>" href="#" data-location="<?php echo $u->location;?>"><i class="icon-circle-arrow-up icon-50"></i></a>
 				<?php if ($has_readme): ?>

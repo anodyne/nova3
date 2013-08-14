@@ -37,13 +37,13 @@
 				<td class="span2">
 					<div class="btn-toolbar">
 						<div class="btn-group">
-							<a href="<?php echo Uri::create('admin/rank/groups/'.$g->id);?>" class="btn btn-small tooltip-top rankgroup-action icn16" title="<?php echo ucfirst(lang('action.edit'));?>" data-action="update" data-id="<?php echo $g->id;?>"><div class="icn icn-50" data-icon="p"></div></a>
-							<a href="<?php echo Uri::create('admin/rank/groups/'.$g->id);?>" class="btn btn-small tooltip-top rankgroup-action icn16" title="<?php echo ucfirst(lang('action.duplicate'));?>" data-action="duplicate" data-id="<?php echo $g->id;?>"><div class="icn icn-50" data-icon="_"></div></a>
+							<a href="<?php echo Uri::create('admin/rank/groups/'.$g->id);?>" class="btn btn-sm tooltip-top rankgroup-action icn16" title="<?php echo ucfirst(lang('action.edit'));?>" data-action="update" data-id="<?php echo $g->id;?>"><div class="icn icn-50" data-icon="p"></div></a>
+							<a href="<?php echo Uri::create('admin/rank/groups/'.$g->id);?>" class="btn btn-sm tooltip-top rankgroup-action icn16" title="<?php echo ucfirst(lang('action.duplicate'));?>" data-action="duplicate" data-id="<?php echo $g->id;?>"><div class="icn icn-50" data-icon="_"></div></a>
 						</div>
 
 						<?php if (Sentry::user()->hasAccess('rank.delete')): ?>
 							<div class="btn-group">
-								<a href="<?php echo Uri::create('admin/rank/groups');?>" class="btn btn-danger btn-small tooltip-top rankgroup-action icn16" title="<?php echo ucfirst(lang('action.delete'));?>" data-action="delete" data-id="<?php echo $g->id;?>"><div class="icn icn-50" data-icon="x"></div></a>
+								<a href="<?php echo Uri::create('admin/rank/groups');?>" class="btn btn-danger btn-sm tooltip-top rankgroup-action icn16" title="<?php echo ucfirst(lang('action.delete'));?>" data-action="delete" data-id="<?php echo $g->id;?>"><div class="icn icn-50" data-icon="x"></div></a>
 							</div>
 						<?php endif;?>
 					</div>

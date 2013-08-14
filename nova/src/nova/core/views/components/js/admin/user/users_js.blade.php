@@ -50,7 +50,7 @@
 						{
 							console.log(key);
 							console.log(value);
-							$('#results-name dl').append('<dd><a href="' + url + value.id + '" class="btn btn-small btn-default icn-size-16">{{ $_icons["edit"] }}</a>&nbsp;&nbsp;' + value.name + '</dd>');
+							$('#results-name dl').append('<dd><a href="' + url + value.id + '" class="btn btn-sm btn-default icn-size-16">{{ $_icons["edit"] }}</a>&nbsp;&nbsp;' + value.name + '</dd>');
 						});
 						
 						$('#results-name').removeClass('hide');
@@ -60,7 +60,7 @@
 					{
 						$.each(data.email, function(key, value)
 						{
-							$('#results-email dl').append('<dd><a href="' + url + value.id + '" class="btn btn-small btn-default icn-size-16">{{ $_icons["edit"] }}</a>&nbsp;&nbsp;' + value.name + ' (' + value.email + ')' + '</dd>');
+							$('#results-email dl').append('<dd><a href="' + url + value.id + '" class="btn btn-sm btn-default icn-size-16">{{ $_icons["edit"] }}</a>&nbsp;&nbsp;' + value.name + ' (' + value.email + ')' + '</dd>');
 						});
 						
 						$('#results-email').removeClass('hide');
@@ -70,7 +70,7 @@
 					{
 						$.each(data.characters, function(key, value)
 						{
-							$('#results-characters dl').append('<dd><a href="' + url + value.id + '" class="btn btn-small btn-default icn-size-16">{{ $_icons["edit"] }}</a>&nbsp;&nbsp;' + value.name + ' (' + value.first_name + ' ' + value.last_name + ')' + '</dd>');
+							$('#results-characters dl').append('<dd><a href="' + url + value.id + '" class="btn btn-sm btn-default icn-size-16">{{ $_icons["edit"] }}</a>&nbsp;&nbsp;' + value.name + ' (' + value.first_name + ' ' + value.last_name + ')' + '</dd>');
 						});
 						
 						$('#results-characters').removeClass('hide');

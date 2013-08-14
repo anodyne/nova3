@@ -243,7 +243,7 @@
 								{{ Form::text('value-add-content', null, ['placeholder' => lang('Short.add', langConcat('Field Values')), 'class' => 'icn-size-16 form-control']) }}
 							</div>
 							<div class="col-1 col-lg-1">
-								{{ Form::button($_icons['add'], ['class' => 'btn btn-small btn-default icn-size-16 js-value-action', 'data-action' => 'add']) }}
+								{{ Form::button($_icons['add'], ['class' => 'btn btn-sm btn-default icn-size-16 js-value-action', 'data-action' => 'add']) }}
 							</div>
 						</div>
 
@@ -251,22 +251,22 @@
 							<div class="nv-data-table nv-data-table-striped nv-data-table-bordered" id="sortableValues">
 								@foreach ($values as $v)
 									<div class="row">
-										<div class="col-12 col-sm-8 col-lg-8">
+										<div class="col-xs-12 col-sm-8 col-lg-8">
 											<p>{{ Form::text('', $v->value, ['class' => 'form-control']) }}</p>
 										</div>
-										<div class="col-6 col-sm-2 col-lg-2">
-											<div class="hidden-sm">
-												<p class="pull-right"><a href="#" class="btn btn-small btn-default js-value-action icn-size-16 tooltip-top" title="{{ lang('Action.save') }}" data-action="update" data-id="{{ $v->id }}">{{ $_icons['check'] }}</a></p>
+										<div class="col-xs-6 col-sm-2 col-lg-2">
+											<div class="hidden-xs">
+												<p class="pull-right"><a href="#" class="btn btn-sm btn-default js-value-action icn-size-16 tooltip-top" title="{{ lang('Action.save') }}" data-action="update" data-id="{{ $v->id }}">{{ $_icons['check'] }}</a></p>
 											</div>
-											<div class="visible-sm">
+											<div class="visible-xs">
 												<p><a href="#" class="btn btn-block btn-default js-value-action icn-size-16" data-action="update" data-id="{{ $v->id }}">{{ $_icons['check'] }}</a></p>
 											</div>
 										</div>
-										<div class="col-6 col-sm-2 col-lg-2">
-											<div class="hidden-sm">
-												<p><a href="#" class="btn btn-small btn-danger js-value-action icn-size-16" data-action="delete" data-id="{{ $v->id }}">{{ $_icons['remove'] }}</a></p>
+										<div class="col-xs-6 col-sm-2 col-lg-2">
+											<div class="hidden-xs">
+												<p><a href="#" class="btn btn-sm btn-danger js-value-action icn-size-16" data-action="delete" data-id="{{ $v->id }}">{{ $_icons['remove'] }}</a></p>
 											</div>
-											<div class="visible-sm">
+											<div class="visible-xs">
 												<p><a href="#" class="btn btn-block btn-danger js-value-action icn-size-16" data-action="delete" data-id="{{ $v->id }}">{{ $_icons['remove'] }}</a></p>
 											</div>
 										</div>

@@ -9,7 +9,7 @@
 		</div>
 
 		{{ Form::token() }}
-		{{ Form::button(langConcat('Action.confirm Password Action.reset'), ['type' => 'submit', 'class' => 'btn btn-primary btn-large btn-block']) }}
+		{{ Form::button(langConcat('Action.confirm Password Action.reset'), ['type' => 'submit', 'class' => 'btn btn-primary btn-lg btn-block']) }}
 				
 		{{ HTML::link('login', ucwords(lang('action.login')), ['class' => 'btn btn-default btn-block']) }}
 	{{ Form::close() }}

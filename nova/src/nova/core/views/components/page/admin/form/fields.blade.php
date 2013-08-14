@@ -29,7 +29,7 @@
 					<div class="nv-data-table nv-data-table-striped nv-data-table-bordered sortableFields">
 					@foreach ($t['fields'] as $field)
 						<div class="row" id="field_{{ $field->id }}">
-							<div class="col-12 col-sm-8 col-lg-9">
+							<div class="col-xs-12 col-sm-8 col-lg-9">
 								<div class="row">
 									<div class="{{ $field->html_container_class }}">
 										<div class="form-group">
@@ -50,32 +50,32 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 col-sm-4 col-lg-3">
-								<div class="hidden-sm">
+							<div class="col-xs-12 col-sm-4 col-lg-3">
+								<div class="hidden-xs">
 									<div class="btn-toolbar pull-right">
 										@if (Sentry::getUser()->hasAccess('form.update'))
 											<div class="btn-group">
-												<a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$field->id) }}" class="btn btn-small btn-default icn-size-16">{{ $_icons['edit'] }}</a>
+												<a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$field->id) }}" class="btn btn-sm btn-default icn-size-16">{{ $_icons['edit'] }}</a>
 											</div>
 										@endif
 
 										@if (Sentry::getUser()->hasAccess('form.delete'))
 											<div class="btn-group">
-												<a href="#" class="btn btn-small btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $field->id }}">{{ $_icons['remove'] }}</a>
+												<a href="#" class="btn btn-sm btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $field->id }}">{{ $_icons['remove'] }}</a>
 											</div>
 										@endif
 									</div>
 								</div>
-								<div class="visible-sm">
+								<div class="visible-xs">
 									<div class="row">
 										@if (Sentry::getUser()->hasAccess('form.update'))
-											<div class="col-6">
+											<div class="col-xs-6">
 												<p><a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$field->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 											</div>
 										@endif
 
 										@if (Sentry::getUser()->hasAccess('form.delete'))
-											<div class="col-6">
+											<div class="col-xs-6">
 												<p><a href="#" class="btn btn-block btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $field->id }}">{{ $_icons['remove'] }}</a></p>
 											</div>
 										@endif
@@ -94,7 +94,7 @@
 						<div class="nv-data-table nv-data-table-striped nv-data-table-bordered sortableFields">
 						@foreach ($section->fields as $field)
 							<div class="row" id="field_{{ $field->id }}">
-								<div class="col-12 col-sm-8 col-lg-9">
+								<div class="col-xs-12 col-sm-8 col-lg-9">
 									<div class="row">
 										<div class="{{ $field->html_container_class }}">
 											<div class="form-group">
@@ -115,32 +115,32 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-12 col-sm-4 col-lg-3">
-									<div class="hidden-sm">
+								<div class="col-xs-12 col-sm-4 col-lg-3">
+									<div class="hidden-xs">
 										<div class="btn-toolbar pull-right">
 											@if (Sentry::getUser()->hasAccess('form.update'))
 												<div class="btn-group">
-													<a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$field->id) }}" class="btn btn-small btn-default icn-size-16">{{ $_icons['edit'] }}</a>
+													<a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$field->id) }}" class="btn btn-sm btn-default icn-size-16">{{ $_icons['edit'] }}</a>
 												</div>
 											@endif
 
 											@if (Sentry::getUser()->hasAccess('form.delete'))
 												<div class="btn-group">
-													<a href="#" class="btn btn-small btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $field->id }}">{{ $_icons['remove'] }}</a>
+													<a href="#" class="btn btn-sm btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $field->id }}">{{ $_icons['remove'] }}</a>
 												</div>
 											@endif
 										</div>
 									</div>
-									<div class="visible-sm">
+									<div class="visible-xs">
 										<div class="row">
 											@if (Sentry::getUser()->hasAccess('form.update'))
-												<div class="col-6">
+												<div class="col-xs-6">
 													<p><a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$field->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 												</div>
 											@endif
 
 											@if (Sentry::getUser()->hasAccess('form.delete'))
-												<div class="col-6">
+												<div class="col-xs-6">
 													<p><a href="#" class="btn btn-block btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $field->id }}">{{ $_icons['remove'] }}</a></p>
 												</div>
 											@endif
@@ -167,7 +167,7 @@
 			<div class="nv-data-table nv-data-table-striped nv-data-table-bordered sortableFields">
 			@foreach ($s['fields'] as $field)
 				<div class="row" id="field_{{ $field->id }}">
-					<div class="col-12 col-sm-8 col-lg-9">
+					<div class="col-xs-12 col-sm-8 col-lg-9">
 						<div class="row">
 							<div class="{{ $field->html_container_class }}">
 								<div class="form-group">
@@ -188,32 +188,32 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-12 col-sm-4 col-lg-3">
-						<div class="hidden-sm">
+					<div class="col-xs-12 col-sm-4 col-lg-3">
+						<div class="hidden-xs">
 							<div class="btn-toolbar pull-right">
 								@if (Sentry::getUser()->hasAccess('form.update'))
 									<div class="btn-group">
-										<a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$field->id) }}" class="btn btn-small btn-default icn-size-16">{{ $_icons['edit'] }}</a>
+										<a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$field->id) }}" class="btn btn-sm btn-default icn-size-16">{{ $_icons['edit'] }}</a>
 									</div>
 								@endif
 
 								@if (Sentry::getUser()->hasAccess('form.delete'))
 									<div class="btn-group">
-										<a href="#" class="btn btn-small btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $field->id }}">{{ $_icons['remove'] }}</a>
+										<a href="#" class="btn btn-sm btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $field->id }}">{{ $_icons['remove'] }}</a>
 									</div>
 								@endif
 							</div>
 						</div>
-						<div class="visible-sm">
+						<div class="visible-xs">
 							<div class="row">
 								@if (Sentry::getUser()->hasAccess('form.update'))
-									<div class="col-6">
+									<div class="col-xs-6">
 										<p><a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$field->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 									</div>
 								@endif
 
 								@if (Sentry::getUser()->hasAccess('form.delete'))
-									<div class="col-6">
+									<div class="col-xs-6">
 										<p><a href="#" class="btn btn-block btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $field->id }}">{{ $_icons['remove'] }}</a></p>
 									</div>
 								@endif
@@ -229,7 +229,7 @@
 			<div class="nv-data-table nv-data-table-striped nv-data-table-bordered" id="sortableFields">
 				@foreach ($fields as $f)
 					<div class="row" id="field_{{ $f['field']->id }}">
-						<div class="col-12 col-sm-8 col-lg-9">
+						<div class="col-xs-12 col-sm-8 col-lg-9">
 							<div class="row">
 								<div class="{{ $f['field']->html_container_class }}">
 									<div class="form-group">
@@ -250,32 +250,32 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-12 col-sm-4 col-lg-3">
-							<div class="hidden-sm">
+						<div class="col-xs-12 col-sm-4 col-lg-3">
+							<div class="hidden-xs">
 								<div class="btn-toolbar pull-right">
 									@if (Sentry::getUser()->hasAccess('form.update'))
 										<div class="btn-group">
-											<a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$f['field']->id) }}" class="btn btn-small btn-default icn-size-16">{{ $_icons['edit'] }}</a>
+											<a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$f['field']->id) }}" class="btn btn-sm btn-default icn-size-16">{{ $_icons['edit'] }}</a>
 										</div>
 									@endif
 
 									@if (Sentry::getUser()->hasAccess('form.delete'))
 										<div class="btn-group">
-											<a href="#" class="btn btn-small btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $f['field']->id }}">{{ $_icons['remove'] }}</a>
+											<a href="#" class="btn btn-sm btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $f['field']->id }}">{{ $_icons['remove'] }}</a>
 										</div>
 									@endif
 								</div>
 							</div>
-							<div class="visible-sm">
+							<div class="visible-xs">
 								<div class="row">
 									@if (Sentry::getUser()->hasAccess('form.update'))
-										<div class="col-6">
+										<div class="col-xs-6">
 											<p><a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$f['field']->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 										</div>
 									@endif
 
 									@if (Sentry::getUser()->hasAccess('form.delete'))
-										<div class="col-6">
+										<div class="col-xs-6">
 											<p><a href="#" class="btn btn-block btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $f['field']->id }}">{{ $_icons['remove'] }}</a></p>
 										</div>
 									@endif

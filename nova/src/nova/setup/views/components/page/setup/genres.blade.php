@@ -27,7 +27,7 @@
 
 					<span class="label label-info {{ $activeHide }}">Active Genre</span>
 					<span class="label label-success {{ $installHide }}">Installed</span>
-					<span class="label {{ $uninstallHide }}">Not Installed</span>
+					<span class="label label-default {{ $uninstallHide }}">Not Installed</span>
 				</p>
 
 				<div style="clear:both"></div>
@@ -63,7 +63,7 @@
 
 						<span class="label label-info {{ $activeHide }}">Active Genre</span>
 						<span class="label label-success {{ $installHide }}">Installed</span>
-						<span class="label {{ $uninstallHide }}">Not Installed</span>
+						<span class="label label-default {{ $uninstallHide }}">Not Installed</span>
 					</p>
 
 					<div style="clear:both"></div>

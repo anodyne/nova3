@@ -23,7 +23,7 @@
 					</div>
 
 					<div class="controls=">
-						<button class="btn btn-small"><?php echo ucfirst(lang('action.submit'));?></button>
+						<button class="btn btn-sm"><?php echo ucfirst(lang('action.submit'));?></button>
 					</div>
 
 					<?php echo Form::hidden('action', 'comment');?>
@@ -122,12 +122,12 @@
 						<p class="alert alert-danger"><?php echo lang('short.arc.voted', $res->user->name, lang('no'));?></p>
 					<?php endif;?>
 				<?php elseif ($res->type == \Model_Application_Response::RESPONSE): ?>
-					<div class="alert alert-block alert-info">
+					<div class="alert alert-info">
 						<h4 class="alert-heading"><?php echo ucwords(langConcat('final response'));?></h4>
 						<?php echo Markdown::parse($res->content);?>
 					</div>
 				<?php elseif ($res->type == \Model_Application_Response::EMAIL): ?>
-					<div class="alert alert-block">
+					<div class="alert">
 						<h4 class="alert-heading"><?php echo ucwords(langConcat('action.email to applicant'));?></h4>
 						<?php echo Markdown::parse($res->content);?>
 					</div>

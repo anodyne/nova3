@@ -15,7 +15,7 @@
 	<div id="routesUser" class="tab-pane active">
 		@if (isset($routes['user']))
 			<div class="row">
-				<div class="col-12 col-sm-6 col-lg-4">
+				<div class="col-xs-12 col-sm-6 col-lg-4">
 					<div class="form-group">
 						{{ Form::text('', null, ['id' => 'searchUserRoutes', 'placeholder' => lang('Short.search', langConcat('User_created Routes')), 'class' => 'form-control']) }}
 					</div>
@@ -25,37 +25,37 @@
 			<div class="nv-data-table nv-data-table-striped nv-data-table-bordered" id="userRoutes">
 			@foreach ($routes['user'] as $route)
 				<div class="row">
-					<div class="col-12 col-sm-9 col-lg-10">
+					<div class="col-xs-12 col-sm-9 col-lg-10">
 						<p><strong>{{ $route->uri }}</strong></p>
 						<p class="text-small">{{ Str::upper($route->verb) }}</p>
 						<p class="text-small">{{ $route->resource }}</p>
 					</div>
-					<div class="col-12 col-sm-3 col-lg-2">
-						<div class="hidden-sm">
+					<div class="col-xs-12 col-sm-3 col-lg-2">
+						<div class="hidden-xs">
 							<div class="btn-toolbar pull-right">
 								@if (Sentry::getUser()->hasAccess('routes.update'))
 									<div class="btn-group">
-										<a href="{{ URL::to('admin/routes/'.$route->id) }}" class="btn btn-small btn-default icn-size-16">{{ $_icons['edit'] }}</a>
+										<a href="{{ URL::to('admin/routes/'.$route->id) }}" class="btn btn-sm btn-default icn-size-16">{{ $_icons['edit'] }}</a>
 									</div>
 								@endif
 
 								@if (Sentry::getUser()->hasAccess('routes.delete'))
 									<div class="btn-group">
-										<a href="#" class="btn btn-small btn-danger icn-size-16 js-route-action" data-route="{{ $route->id }}" data-action="delete">{{ $_icons['remove'] }}</a>
+										<a href="#" class="btn btn-sm btn-danger icn-size-16 js-route-action" data-route="{{ $route->id }}" data-action="delete">{{ $_icons['remove'] }}</a>
 									</div>
 								@endif
 							</div>
 						</div>
-						<div class="visible-sm">
+						<div class="visible-xs">
 							<div class="row">
 								@if (Sentry::getUser()->hasAccess('routes.update'))
-									<div class="col-6">
+									<div class="col-xs-6">
 										<p><a href="{{ URL::to('admin/routes/'.$route->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 									</div>
 								@endif
 
 								@if (Sentry::getUser()->hasAccess('routes.delete'))
-									<div class="col-6">
+									<div class="col-xs-6">
 										<p><a href="#" class="btn btn-block btn-danger icn-size-16 js-route-action" data-route="{{ $route->id }}" data-action="delete">{{ $_icons['remove'] }}</a></p>
 									</div>
 								@endif
@@ -73,7 +73,7 @@
 	<div id="routesCore" class="tab-pane">
 		@if (isset($routes['core']))
 			<div class="row">
-				<div class="col-12 col-sm-6 col-lg-4">
+				<div class="col-xs-12 col-sm-6 col-lg-4">
 					<div class="form-group">
 						{{ Form::text('', null, ['id' => 'searchCoreRoutes', 'placeholder' => lang('Short.search', langConcat('Core Routes')), 'class' => 'form-control']) }}
 					</div>
@@ -83,17 +83,17 @@
 			<div class="nv-data-table nv-data-table-striped nv-data-table-bordered" id="coreRoutes">
 			@foreach ($routes['core'] as $route)
 				<div class="row">
-					<div class="col-12 col-sm-10 col-lg-11">
+					<div class="col-xs-12 col-sm-10 col-lg-11">
 						<p><strong>{{ $route->uri }}</strong></p>
 						<p class="text-small">{{ Str::upper($route->verb) }}</p>
 						<p class="text-small">{{ $route->resource }}</p>
 					</div>
-					<div class="col-12 col-sm-2 col-lg-1">
+					<div class="col-xs-12 col-sm-2 col-lg-1">
 						@if (Sentry::getUser()->hasAccess('routes.create'))
-							<div class="btn-group pull-right hidden-sm">
+							<div class="btn-group pull-right hidden-xs">
 								<a href="#" class="btn btn-default icn-size-16 js-route-action" data-route="{{ $route->id }}" data-action="duplicate">{{ $_icons['duplicate'] }}</a>
 							</div>
-							<p class="visible-sm">
+							<p class="visible-xs">
 								<a href="#" class="btn btn-block btn-default icn-size-16 js-route-action" data-route="{{ $route->id }}" data-action="duplicate">{{ $_icons['duplicate'] }}</a>
 							</p>
 						@endif

@@ -15,8 +15,8 @@ if ( ! function_exists('joinData'))
 
 ?><form method="post" id="joinForm">
 	<div class="btn-group pull-right hidden-phone">
-		<a href="#" class="btn btn-small icn16 joinNavButton tooltip-top" data-direction="prev" title="<?php echo ucfirst(langConcat('previous step'));?>"><div class="icn icn-50" data-icon="<"></div></a>
-		<a href="#" class="btn btn-small icn16 joinNavButton tooltip-top" data-direction="next" title="<?php echo ucfirst(langConcat('next step'));?>"><div class="icn icn-50" data-icon=">"></div></a>
+		<a href="#" class="btn btn-sm icn16 joinNavButton tooltip-top" data-direction="prev" title="<?php echo ucfirst(langConcat('previous step'));?>"><div class="icn icn-50" data-icon="<"></div></a>
+		<a href="#" class="btn btn-sm icn16 joinNavButton tooltip-top" data-direction="next" title="<?php echo ucfirst(langConcat('next step'));?>"><div class="icn icn-50" data-icon=">"></div></a>
 	</div>
 
 	<ul id="joinTabs" class="nav nav-pills hidden-phone">
@@ -42,12 +42,12 @@ if ( ! function_exists('joinData'))
 
 	<div class="pill-content">
 		<div id="user" class="pill-pane active">
-			<div class="alert alert-info alert-block">
+			<div class="alert alert-info">
 				<h4><?php echo ucwords(lang('short.pleaseNote'));?></h4>
 				<p><?php echo ucfirst(lang('short.join.userInfo', lang('user'), lang('name'), lang('email_address'), lang('sim')));?></p>
 			</div>
 
-			<div class="alert alert-info alert-block hide" id="welcomeBack">
+			<div class="alert alert-info hide" id="welcomeBack">
 				<h4><?php echo ucwords(lang('short.join.welcomeBack'));?></h4>
 				<p><?php echo lang('short.join.userFound', lang('user'), lang('character'), lang('game_master'));?></p>
 				<p><?php echo lang('short.join.userFormReset', lang('user'));?></p>
@@ -149,8 +149,8 @@ if ( ! function_exists('joinData'))
 			</div>
 
 			<div class="btn-group">
-				<a href="#" class="btn btn-small icn16 joinNavButton tooltip-top" data-direction="prev" title="<?php echo ucfirst(langConcat('previous step'));?>"><div class="icn icn-50" data-icon="<"></div></a>
-				<a href="#" class="btn btn-small icn16 joinNavButton tooltip-top" data-direction="next" title="<?php echo ucfirst(langConcat('next step'));?>"><div class="icn icn-50" data-icon=">"></div></a>
+				<a href="#" class="btn btn-sm icn16 joinNavButton tooltip-top" data-direction="prev" title="<?php echo ucfirst(langConcat('previous step'));?>"><div class="icn icn-50" data-icon="<"></div></a>
+				<a href="#" class="btn btn-sm icn16 joinNavButton tooltip-top" data-direction="next" title="<?php echo ucfirst(langConcat('next step'));?>"><div class="icn icn-50" data-icon=">"></div></a>
 			</div>
 		</div>
 	</div>

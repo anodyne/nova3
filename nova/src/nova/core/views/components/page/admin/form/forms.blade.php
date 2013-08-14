@@ -8,7 +8,7 @@
 
 @if ($forms->count() > 0)
 	<div class="row">
-		<div class="col-12 col-sm-6 col-lg-4">
+		<div class="col-xs-12 col-sm-6 col-lg-4">
 			<div class="form-group">
 				{{ Form::text('', null, ['id' => 'searchForms', 'class' => 'form-control', 'placeholder' => lang('Short.search', langConcat('for Form'))]) }}
 			</div>
@@ -21,7 +21,7 @@
 			<div class="thumbnail">
 				@if (Sentry::getUser()->hasAccess('form.update') or Sentry::getUser()->hasAccess('form.delete'))
 					<div class="btn-group pull-right dropdown">
-						<a class="btn btn-small btn-default icn-size-16 dropdown-toggle" data-toggle="dropdown" href="#">{{ $_icons['settings'] }}</a>
+						<a class="btn btn-sm btn-default icn-size-16 dropdown-toggle" data-toggle="dropdown" href="#">{{ $_icons['settings'] }}</a>
 						<ul class="dropdown-menu">
 							@if (Sentry::getUser()->hasAccess('form.update'))
 								<li>

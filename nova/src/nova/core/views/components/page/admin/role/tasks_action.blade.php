@@ -63,7 +63,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-6 col-sm-2 col-lg-2">
+		<div class="col-xs-6 col-sm-2 col-lg-2">
 			<div class="{{ ($errors->has('level')) ? 'form-group has-error' : '' }}">
 				<label class="control-label">{{ lang('Level') }}</label>
 				<div class="controls">

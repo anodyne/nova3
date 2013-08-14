@@ -17,7 +17,7 @@ if (isset($characters) and Uri::segment(4) === false): ?>
 			<div class="thumbnail">
 				<div class="caption">
 					<div class="btn-group pull-right">
-						<a href="<?php echo Uri::create('admin/character/edit/'.$c->id);?>" class="btn btn-small"><?php echo ucfirst(lang('action.edit'));?></a>
+						<a href="<?php echo Uri::create('admin/character/edit/'.$c->id);?>" class="btn btn-sm"><?php echo ucfirst(lang('action.edit'));?></a>
 					</div>
 
 					<h3><?php echo $c->getName(true, true);?></h3>

@@ -1,14 +1,16 @@
 <div class="navbar">
 	<div class="container">
-		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		</button>
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
 
-		<a href="{{ URL::to('/') }}" class="navbar-brand">{{ $name }}</a>
+			<a href="{{ URL::to('/') }}" class="navbar-brand">{{ $name }}</a>
+		</div>
 
-		<div class="nav-collapse collapse navbar-responsive-collapse">
+		<div class="navbar-collapse collapse navbar-responsive-collapse">
 			<ul class="nav navbar-nav">
 			@foreach ($items as $item)
 				<?php
