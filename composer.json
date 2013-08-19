@@ -1,13 +1,28 @@
 {
+	"name": "anodyne/nova3",
+	"version": "3.0.0-alpha2",
+	"description": "Nova 3 RPG Management",
+	"homepage": "http://anodyne-productions.com",
+	"keywords": ["cms", "anodyne", "nova", "nova3"],
+	"type": "project",
+	"license": "Apache-2.0",
+	"authors": [
+		{
+			"name": "David VanScott",
+			"email": "davidv@anodyne-productions.com",
+			"role": "Developer"
+		}
+	],
+
 	"config": {
 		"vendor-dir": "nova/vendor",
 		"bin-dir": "nova/vendor/bin",
-		"preferred-install": "dist"
+		"preferred-install": "dist",
+		"process-timeout": 500
 	},
 
 	"require": {
 		"php": ">=5.4.0",
-
 		"laravel/framework": "4.0.*",
 		"dflydev/markdown": "1.*",
 		"ikimea/browser": "1.*",
@@ -21,7 +36,7 @@
 		"mockery/mockery": "0.7.*",
 		"way/laravel-test-helpers": "dev-master",
 		"raveren/kint": "dev-master",
-		"fzaninotto/faker": "1.2.*"
+		"fzaninotto/faker": "1.*"
 	},
 
 	"repositories": [
