@@ -336,21 +336,20 @@ return [
 	[
 		'key'		=> 'other.credits',
 		'label'		=> 'Permanent Credits',
-		'content'	=> "The Nova 3 experience can be summed up as \"smarter and better\". From the top down, Nova is faster, simpler, smarter and more flexible than before. This is accomplished in no small part by the elegant and powerful PHP 5.3 foundation of <a href='http://laravel.com/' target='.blank'>Laravel</a>. The icons found throughout Nova are from the <a href='http://icomoon.io/' target='.blank'>IcoMoon</a> icon font.",
+		'content'	=> "The Nova 3 experience can be summed up as \"smarter and better\". From the bottom up, Nova is faster, simpler, smarter and more flexible than ever before. This is accomplished in no small part by the elegant and powerful foundation of <a href='http://laravel.com/' target='.blank'>Laravel</a> and other components. Icons found throughout Nova are from the <a href='http://icomoon.io/' target='.blank'>IcoMoon</a> icon font.",
 		'protected' => (int) true,
 		'type'		=> 'other'
 	],
 	[
 		'key'		=> 'other.footer',
 		'label'		=> 'Additional Footer Information',
-		'content'	=> "New to Nova 3 is the ability to add additional information to the footer, like banner exchanges, without having to edit any files. Just plug your code/message into the 'Additional Footer Information' site content item!",
+		'content'	=> "New to Nova 3 is the ability to add additional information to the footer, like banner exchanges, without having to edit any files. Just paste your code/message into the 'Additional Footer Information' site content item.",
 		'type'		=> 'other'
 	],
 	[
 		'key'		=> 'other.join',
 		'label'		=> 'Join Disclaimer',
-		'content'	=> "Members are expected to follow the rules and regulations of both the sim and fleet at all times, both in character and out of character. By continuing, you affirm that you will sim in a proper and adequate manner. Members who choose to make ultra short posts, post very infrequently, or post posts with explicit content (above PG-13) will be removed immediately, and by continuing, you agree to this. In addition, in compliance with the Children's Online Privacy Protection Act of 1998 (COPPA
-	], we do not accept players under the age of 13.  Any players found to be under the age of 13 will be immediately removed without question.  By agreeing to these terms, you are also saying that you are above the age of 13.",
+		'content'	=> "Members are expected to follow the rules and regulations of both the sim and fleet at all times, both in character and out of character. By continuing, you affirm that you will sim in a proper and adequate manner. Members who choose to make ultra short posts, post very infrequently, or post posts with explicit content (above PG-13) will be removed immediately, and by continuing, you agree to this. In addition, in compliance with the Children's Online Privacy Protection Act of 1998 (COPPA), we do not accept players under the age of 13.  Any players found to be under the age of 13 will be immediately removed without question.  By agreeing to these terms, you are also saying that you are above the age of 13.",
 		'type'		=> 'other'
 	],
 	[
