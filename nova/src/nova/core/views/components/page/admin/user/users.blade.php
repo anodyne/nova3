@@ -33,40 +33,42 @@
 				<h3 class="panel-title">{{ langConcat('Pending Users') }}</h3>
 			</div>
 
-			<div class="nv-data-table nv-data-table-striped nv-data-table-bordered">
-			@foreach($pending as $p)
-				<div class="row">
-					<div class="col-xs-12 col-sm-5 col-lg-4">
-						<p><strong>{{ $p->name }}</strong></p>
-						<p class="text-muted text-small">{{ $p->email }}</p>
-					</div>
+			<div class="panel-body">
+				<div class="nv-data-table nv-data-table-striped nv-data-table-bordered">
+				@foreach($pending as $p)
+					<div class="row">
+						<div class="col-xs-12 col-sm-5 col-lg-4">
+							<p><strong>{{ $p->name }}</strong></p>
+							<p class="text-muted text-small">{{ $p->email }}</p>
+						</div>
 
-					<div class="col-xs-12 col-sm-5 col-lg-4">
-						@if ($p->getPrimaryCharacter() !== null)
-							<p><strong>{{ $p->getPrimaryCharacter()->getNameWithRank() }}</strong></p>
-						@else
-							<p class="text-danger"><strong>{{ lang('short.admin.users.noPrimaryCharacter') }}</strong></p>
-						@endif
-					</div>
+						<div class="col-xs-12 col-sm-5 col-lg-4">
+							@if ($p->getPrimaryCharacter() !== null)
+								<p><strong>{{ $p->getPrimaryCharacter()->getNameWithRank() }}</strong></p>
+							@else
+								<p class="text-danger"><strong>{{ lang('short.admin.users.noPrimaryCharacter') }}</strong></p>
+							@endif
+						</div>
 
-					<div class="col-xs-12 col-sm-2 col-lg-4">
-						<div class="visible-lg">
-							<div class="btn-toolbar pull-right">
-								<div class="btn-group">
-									<a href="{{ URL::to('admin/arc/') }}" class="btn btn-sm btn-default icn-size-16 tooltip-top" title="{{ lang('Short.go', lang('application_review_center')) }}">{{ $_icons['inProgress'] }}</a>
+						<div class="col-xs-12 col-sm-2 col-lg-4">
+							<div class="visible-lg">
+								<div class="btn-toolbar pull-right">
+									<div class="btn-group">
+										<a href="{{ URL::to('admin/arc/') }}" class="btn btn-sm btn-default icn-size-16 tooltip-top" title="{{ lang('Short.go', lang('application_review_center')) }}">{{ $_icons['inProgress'] }}</a>
+									</div>
+								</div>
+							</div>
+							<div class="hidden-lg">
+								<div class="row">
+									<div class="col-xs-12">
+										<p><a href="{{ URL::to('admin/arc/') }}" class="btn btn-lg btn-block btn-default icn-size-16">{{ $_icons['inProgress'] }}</a></p>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="hidden-lg">
-							<div class="row">
-								<div class="col-xs-12">
-									<p><a href="{{ URL::to('admin/arc/') }}" class="btn btn-lg btn-block btn-default icn-size-16">{{ $_icons['inProgress'] }}</a></p>
-								</div>
-							</div>
-						</div>
 					</div>
+				@endforeach
 				</div>
-			@endforeach
 			</div>
 		</div>
 	@endif
@@ -85,6 +87,7 @@
 				@else
 					<p class="text-danger"><strong>{{ lang('short.admin.users.noPrimaryCharacter') }}</strong></p>
 				@endif
+				<p>&nbsp;</p>
 			</div>
 
 			<div class="col-xs-12 col-sm-12 col-lg-4">

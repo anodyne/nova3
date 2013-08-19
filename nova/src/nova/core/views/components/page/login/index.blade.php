@@ -1,11 +1,11 @@
 {{ Form::open() }}
 	<div class="form-group">
-		{{ Form::email('email', null, ['placeholder' => ucwords(lang('email_address')), 'class' => 'form-control']) }}
+		{{ Form::email('email', null, ['placeholder' => ucwords(lang('email_address')), 'class' => 'form-control input-lg']) }}
 	</div>
 	
 	<div class="form-group">
 		<div class="controls">
-			{{ Form::password('password', ['placeholder' => lang('Password'), 'class' => 'form-control']) }}
+			{{ Form::password('password', ['placeholder' => lang('Password'), 'class' => 'form-control input-lg']) }}
 		</div>
 	</div>
 

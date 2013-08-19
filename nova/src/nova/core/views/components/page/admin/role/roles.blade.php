@@ -14,12 +14,12 @@
 	<div class="nv-data-table nv-data-table-striped nv-data-table-bordered">
 		@foreach ($roles as $r)
 			<div class="row">
-				<div class="col-xs-12 col-sm-8 col-lg-9">
+				<div class="col-xs-12 col-sm-12 col-lg-9">
 					<p><strong>{{ $r->name }}</strong></p>
 					<p class="text-muted text-small">{{ $r->desc }}</p>
 				</div>
-				<div class="col-xs-12 col-sm-4 col-lg-3">
-					<div class="hidden-xs">
+				<div class="col-xs-12 col-sm-12 col-lg-3">
+					<div class="visible-lg">
 						<div class="btn-toolbar pull-right">
 							<div class="btn-group">
 								<a href="#" class="btn btn-sm btn-default tooltip-top js-role-action icn-size-16" title="{{ lang('Short.view', langConcat('users with this role')) }}" data-action="view" data-id="{{ $r->id }}">{{ $_icons['view'] }}</a>
@@ -40,26 +40,26 @@
 							@endif
 						</div>
 					</div>
-					<div class="visible-xs">
+					<div class="hidden-lg">
 						<div class="row">
-							<div class="col-xs-6">
+							<div class="col-xs-12 col-sm-3">
 								<p><a href="#" class="btn btn-block btn-default js-role-action icn-size-16" data-action="view" data-id="{{ $r->id }}">{{ $_icons['view'] }}</a></p>
 							</div>
 								
 							@if (Sentry::getUser()->hasAccess('role.update'))
-								<div class="col-xs-6">
+								<div class="col-xs-12 col-sm-3">
 									<p><a href="{{ URL::to('admin/role/'.$r->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 								</div>
 							@endif
 
 							@if (Sentry::getUser()->hasAccess('role.create'))
-								<div class="col-xs-6">
+								<div class="col-xs-12 col-sm-3">
 									<p><a href="#" class="btn btn-block btn-default js-role-action icn-size-16"  data-action="duplicate" data-id="{{ $r->id }}">{{ $_icons['duplicate'] }}</a></p>
 								</div>
 							@endif
 
 							@if (Sentry::getUser()->hasAccess('role.delete'))
-								<div class="col-xs-6">
+								<div class="col-xs-12 col-sm-3">
 									<p><a href="#" class="btn btn-block btn-danger js-role-action icn-size-16" data-action="delete" data-id="{{ $r->id }}">{{ $_icons['remove'] }}</a></p>
 								</div>
 							@endif

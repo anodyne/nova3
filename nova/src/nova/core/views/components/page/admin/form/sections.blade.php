@@ -29,7 +29,7 @@
 			<div class="nv-data-table nv-data-table-striped nv-data-table-bordered" id="sortableSections">
 				@foreach ($sections[$tab->id] as $s)
 					<div class="row" id="section_{{ $s->id }}">
-						<div class="col-xs-12 col-sm-8 col-lg-9">
+						<div class="col-xs-12 col-sm-12 col-lg-9">
 							<p>
 								<strong>{{ $s->name }}</strong>
 								@if ($s->status === Status::INACTIVE)
@@ -37,8 +37,8 @@
 								@endif
 							</p>
 						</div>
-						<div class="col-xs-12 col-sm-4 col-lg-3">
-							<div class="hidden-xs">
+						<div class="col-xs-12 col-sm-12 col-lg-3">
+							<div class="visible-lg">
 								<div class="btn-toolbar pull-right">
 									@if (Sentry::getUser()->hasAccess('form.update'))
 										<div class="btn-group">
@@ -53,16 +53,16 @@
 									@endif
 								</div>
 							</div>
-							<div class="visible-xs">
+							<div class="hidden-lg">
 								<div class="row">
 									@if (Sentry::getUser()->hasAccess('form.update'))
-										<div class="col-xs-6">
+										<div class="col-xs-12 col-sm-6">
 											<p><a href="{{ URL::to('admin/form/sections/'.$formKey.'/'.$s->id) }}" class="btn btn-block btn-default icn-size-16" >{{ $_icons['edit'] }}</a></p>
 										</div>
 									@endif
 
 									@if (Sentry::getUser()->hasAccess('form.delete'))
-										<div class="col-xs-6">
+										<div class="col-xs-12 col-sm-6">
 											<p><a href="{{ URL::to('admin/form/sections/'.$formKey) }}" class="btn btn-block btn-danger js-section-action icn-size-16" data-action="delete" data-id="{{ $s->id }}">{{ $_icons['remove'] }}</a></p>
 										</div>
 									@endif
@@ -83,7 +83,7 @@
 		<div class="nv-data-table nv-data-table-striped nv-data-table-bordered" id="sortableSections">
 			@foreach ($sections as $s)
 				<div class="row" id="section_{{ $s->id }}">
-					<div class="col-xs-12 col-sm-8 col-lg-9">
+					<div class="col-xs-12 col-sm-12 col-lg-9">
 						<p>
 							<strong>{{ $s->name }}</strong>
 							@if ($s->status === Status::INACTIVE)
@@ -91,8 +91,8 @@
 							@endif
 						</p>
 					</div>
-					<div class="col-xs-12 col-sm-4 col-lg-3">
-						<div class="hidden-xs">
+					<div class="col-xs-12 col-sm-12 col-lg-3">
+						<div class="visible-lg">
 							<div class="btn-toolbar pull-right">
 								@if (Sentry::getUser()->hasAccess('form.update'))
 									<div class="btn-group">
@@ -107,16 +107,16 @@
 								@endif
 							</div>
 						</div>
-						<div class="visible-xs">
+						<div class="hidden-lg">
 							<div class="row">
 								@if (Sentry::getUser()->hasAccess('form.update'))
-									<div class="col-xs-6">
+									<div class="col-xs-12 col-sm-6">
 										<p><a href="{{ URL::to('admin/form/sections/'.$formKey.'/'.$s->id) }}" class="btn btn-block btn-default icn-size-16" >{{ $_icons['edit'] }}</a></p>
 									</div>
 								@endif
 
 								@if (Sentry::getUser()->hasAccess('form.delete'))
-									<div class="col-xs-6">
+									<div class="col-xs-12 col-sm-6">
 										<p><a href="{{ URL::to('admin/form/sections/'.$formKey) }}" class="btn btn-block btn-danger js-section-action icn-size-16" data-action="delete" data-id="{{ $s->id }}">{{ $_icons['remove'] }}</a></p>
 									</div>
 								@endif

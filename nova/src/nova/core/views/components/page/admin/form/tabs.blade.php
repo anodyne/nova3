@@ -19,7 +19,7 @@
 	<div class="nv-data-table nv-data-table-striped nv-data-table-bordered" id="sortableTabs">
 		@foreach ($tabs as $t)
 			<div class="row" id="tab_{{ $t->id }}">
-				<div class="col-xs-12 col-sm-8 col-lg-9">
+				<div class="col-xs-12 col-sm-12 col-lg-9">
 					<p>
 						<strong>{{ $t->name }}</strong>
 						@if ($t->status === Status::INACTIVE)
@@ -27,8 +27,8 @@
 						@endif
 					</p>
 				</div>
-				<div class="col-xs-12 col-sm-4 col-lg-3">
-					<div class="hidden-xs">
+				<div class="col-xs-12 col-sm-12 col-lg-3">
+					<div class="visible-lg">
 						<div class="btn-toolbar pull-right">
 							@if (Sentry::getUser()->hasAccess('form.update'))
 								<div class="btn-group">
@@ -43,16 +43,16 @@
 							@endif
 						</div>
 					</div>
-					<div class="visible-xs">
+					<div class="hidden-lg">
 						<div class="row">
 							@if (Sentry::getUser()->hasAccess('form.update'))
-								<div class="col-xs-6">
+								<div class="col-xs-12 col-sm-6">
 									<p><a href="{{ URL::to('admin/form/tabs/'.$formKey.'/'.$t->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 								</div>
 							@endif
 
 							@if (Sentry::getUser()->hasAccess('form.delete'))
-								<div class="col-xs-6">
+								<div class="col-xs-12 col-sm-6">
 									<p><a href="{{ URL::to('admin/form/tabs/'.$formKey) }}" class="btn btn-block btn-danger js-tab-action icn-size-16" data-action="delete" data-id="{{ $t->id }}">{{ $_icons['remove'] }}</a></p>
 								</div>
 							@endif

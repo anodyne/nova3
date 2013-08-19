@@ -60,7 +60,7 @@
 	<h2>{{ ucwords(langConcat('role tasks')) }}</h2>
 		
 	@if (count($tasks) > 0)
-		<div class="hidden-xs taskList">
+		<div class="visible-lg taskList">
 			@foreach ($tasks as $component => $task)
 				<fieldset>
 					<legend>{{ ucfirst($component) }}</legend>
@@ -95,43 +95,46 @@
 				</fieldset>
 			@endforeach
 		</div>
-		<div class="visible-xs taskList">
+		<div class="hidden-lg taskList">
 			<div class="row">
 				<div class="col-xs-12">
-					<div class="accordion" id="accordion">
+					<div class="panel-group" id="accordion">
 						<?php $i = 1;?>
 						@foreach ($tasks as $component => $task)
-							<div class="accordion-group">
-								<div class="accordion-heading">
+							<div class="panel">
+								<div class="panel-heading">
 									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $i }}">
-										<div class="pull-right glyphicon glyphicon-chevron-down"></div>
-										{{ ucfirst($component) }}
+										<h4 class="panel-title">{{ ucfirst($component) }}</h4>
 									</a>
 								</div>
 
-								<div id="collapse{{ $i }}" class="accordion-body collapse">
-									<div class="accordion-inner">
+								<div id="collapse{{ $i }}" class="panel-collapse collapse">
+									<div class="panel-body">
+										<div class="row">
 										@foreach ($task as $t)
-											<label class="checkbox">
-												@if (array_key_exists($t->id, $inheritedTasks))
-													{{ Form::checkbox('tasks[]', $t->id, true, ['disabled' => 'disabled']) }}
-												@elseif (array_key_exists($t->id, $roleTasks))
-													{{ Form::checkbox('tasks[]', $t->id, true) }}
-												@else
-													{{ Form::checkbox('tasks[]', $t->id) }}
-												@endif
+											<div class="col-xs-12 col-sm-6">
+												<label class="checkbox">
+													@if (array_key_exists($t->id, $inheritedTasks))
+														{{ Form::checkbox('tasks[]', $t->id, true, ['disabled' => 'disabled']) }}
+													@elseif (array_key_exists($t->id, $roleTasks))
+														{{ Form::checkbox('tasks[]', $t->id, true) }}
+													@else
+														{{ Form::checkbox('tasks[]', $t->id) }}
+													@endif
 
-												{{ $t->name }}
-												
-												@if ( ! empty($t->desc))
-													<p class="text-small text-muted">{{ $t->desc }}</p>
-												@endif
+													{{ $t->name }}
+													
+													@if ( ! empty($t->desc))
+														<p class="text-small text-muted">{{ $t->desc }}</p>
+													@endif
 
-												@if (array_key_exists($t->id, $inheritedTasks))
-													<p class="text-small text-info">{{ lang('short.admin.roles.inheritedTask', $inheritedTasks[$t->id]['role']) }}</p>
-												@endif
-											</label>
+													@if (array_key_exists($t->id, $inheritedTasks))
+														<p class="text-small text-info">{{ lang('short.admin.roles.inheritedTask', $inheritedTasks[$t->id]['role']) }}</p>
+													@endif
+												</label>
+											</div>
 										@endforeach
+										</div>
 									</div>
 								</div>
 							</div>
@@ -140,6 +143,8 @@
 					</div>
 				</div>
 			</div>
+
+			<hr>
 		</div>
 	@else
 		{{ partial('common/alert', ['content' => lang('error.notFound', lang('tasks'))]) }}
