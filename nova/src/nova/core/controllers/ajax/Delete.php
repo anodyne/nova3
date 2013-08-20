@@ -47,7 +47,7 @@ class Delete extends AjaxBaseController {
 	/**
 	 * Show the confirmation modal for deleting a form.
 	 *
-	 * @param	string	Form key
+	 * @param	string	$formKey	Form key
 	 * @return	View
 	 */
 	public function getForm($formKey)
@@ -69,7 +69,7 @@ class Delete extends AjaxBaseController {
 	/**
 	 * Show the confirmation modal for deleting a form field.
 	 *
-	 * @param	int		Form field ID
+	 * @param	int		$id		Form field ID
 	 * @return	View
 	 */
 	public function getFormField($id)
@@ -109,7 +109,7 @@ class Delete extends AjaxBaseController {
 	/**
 	 * Show the confirmation modal for deleting a form section.
 	 *
-	 * @param	int		Form section ID
+	 * @param	int		$id		Form section ID
 	 * @return	View
 	 */
 	public function getFormSection($id)
@@ -140,7 +140,7 @@ class Delete extends AjaxBaseController {
 	/**
 	 * Show the confirmation modal for deleting a form tab.
 	 *
-	 * @param	int		Form tab ID
+	 * @param	int		$id		Form tab ID
 	 * @return	View
 	 */
 	public function getFormTab($id)
@@ -170,8 +170,8 @@ class Delete extends AjaxBaseController {
 	/**
 	 * Show the confirmation modal for deleting a FormViewer entry.
 	 *
-	 * @param	string	Form key
-	 * @param	int		Entry ID
+	 * @param	string	$formKey	Form key
+	 * @param	int		$id			Entry ID
 	 * @return	View
 	 */
 	public function getFormViewerEntry($formKey, $id)
@@ -303,7 +303,7 @@ class Delete extends AjaxBaseController {
 	/**
 	 * Show the confirmation modal for deleting a rank catalog item.
 	 *
-	 * @param	int		Catalog ID
+	 * @param	int		$id		Catalog ID
 	 * @return	View
 	 */
 	public function getRankSet($id)
@@ -313,20 +313,24 @@ class Delete extends AjaxBaseController {
 			// Get the catalog we're deleting
 			$catalog = \RankCatalog::find($id);
 
-			if ($catalog !== null)
+			if ($catalog)
 			{
 				// Get the other active rank sets for this genre
 				$catalogs = \RankCatalog::active()->currentGenre()->get();
 
 				// Filter out the rank set we're deleting
-				$catalogs = $catalogs->filter(function($r) use($catalog)
+				$catalogs = $catalogs->filter(function($c) use($catalog)
 				{
-					return $r->location != $catalog->location;
+					return $c->location != $catalog->location;
 				})->toSimpleArray('location', 'name');
 
-				echo View::make(Location::ajax('delete/rankset'))
-					->with('rank', $catalog)
-					->with('ranks', $catalogs);
+				return partial('common/modal_content', [
+					'modalHeader'	=> lang('Short.delete', ucwords(lang('rank_set'))),
+					'modalBody'		=> View::make(Location::ajax('delete/rankset'))
+										->with('rank', $catalog)
+										->with('ranks', $catalogs),
+					'modalFooter'	=> false,
+				]);
 			}
 		}
 	}
@@ -334,7 +338,7 @@ class Delete extends AjaxBaseController {
 	/**
 	 * Show the confirmation modal for deleting a role.
 	 *
-	 * @param	int		Role ID
+	 * @param	int		$id		Role ID
 	 * @return	View
 	 */
 	public function getRole($id)
@@ -388,7 +392,7 @@ class Delete extends AjaxBaseController {
 	/**
 	 * Show the confirmation modal for deleting a route.
 	 *
-	 * @param	int		Route ID
+	 * @param	int		$id		Route ID
 	 * @return	View
 	 */
 	public function getRoute($id)
@@ -399,8 +403,11 @@ class Delete extends AjaxBaseController {
 
 			if ($route)
 			{
-				echo View::make(Location::ajax('delete/route'))
-					->with('route', $route);
+				return partial('common/modal_content', [
+					'modalHeader'	=> ucwords(lang('short.delete', lang('route'))),
+					'modalBody'		=> View::make(Location::ajax('delete/route'))->with('route', $route),
+					'modalFooter'	=> false,
+				]);
 			}
 		}
 	}
@@ -408,7 +415,7 @@ class Delete extends AjaxBaseController {
 	/**
 	 * Show the confirmation modal for deleting a skin catalog item.
 	 *
-	 * @param	int		Catalog ID
+	 * @param	int		$id		Catalog ID
 	 * @return	View
 	 */
 	public function getSkin($id)
@@ -417,20 +424,24 @@ class Delete extends AjaxBaseController {
 		{
 			$catalog = \SkinCatalog::find($id);
 
-			if ($catalog !== null)
+			if ($catalog)
 			{
 				// Get the other active rank sets for this genre
 				$catalogs = \SkinCatalog::active()->get();
 
 				// Filter out the rank set we're deleting
-				$catalogs = $catalogs->filter(function($r) use($catalog)
+				$catalogs = $catalogs->filter(function($s) use($catalog)
 				{
-					return $r->location != $catalog->location;
+					return $s->location != $catalog->location;
 				})->toSimpleArray('location', 'name');
 
-				echo View::make(Location::ajax('delete/skin'))
-					->with('skin', $catalog)
-					->with('skins', $catalogs);
+				return partial('common/modal_content', [
+					'modalHeader'	=> lang('Short.delete', lang('Skin')),
+					'modalBody'		=> View::make(Location::ajax('delete/skin'))
+										->with('skin', $catalog)
+										->with('skins', $catalogs),
+					'modalFooter'	=> false,
+				]);
 			}
 		}
 	}
@@ -438,7 +449,7 @@ class Delete extends AjaxBaseController {
 	/**
 	 * Show the confirmation modal for deleting a user.
 	 *
-	 * @param	int		User ID
+	 * @param	int		$id		User ID
 	 * @return	View
 	 */
 	public function getUser($id)

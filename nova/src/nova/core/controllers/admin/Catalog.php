@@ -46,6 +46,9 @@ class Catalog extends AdminBaseController {
 			// Set the view
 			$this->_view = 'admin/catalog/ranks_action';
 
+			// Set the ID
+			$id = (is_numeric($id)) ? $id : 0;
+
 			// Get the rank set
 			$this->_data->rank = RankCatalog::find($id);
 
@@ -100,14 +103,14 @@ class Catalog extends AdminBaseController {
 			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'deleteRankSet')
 				->with('modalHeader', lang('Short.delete', ucwords(lang('rank_set'))))
-				->with('modalBody', '')
+				->with('modalBody', false)
 				->with('modalFooter', false);
 
 			// Build the install rank set modal
 			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'installRankSet')
 				->with('modalHeader', lang('Short.install', ucwords(lang('rank_set'))))
-				->with('modalBody', '')
+				->with('modalBody', false)
 				->with('modalFooter', false);
 		}
 	}
@@ -258,6 +261,9 @@ class Catalog extends AdminBaseController {
 			// Set the view
 			$this->_view = 'admin/catalog/skins_action';
 
+			// Set the ID
+			$id = (is_numeric($id)) ? $id : 0;
+
 			// Get the skin
 			$skin = $this->_data->skin = SkinCatalog::find($id);
 
@@ -315,21 +321,14 @@ class Catalog extends AdminBaseController {
 			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'deleteSkin')
 				->with('modalHeader', lang('Short.delete', lang('Skin')))
-				->with('modalBody', '')
+				->with('modalBody', false)
 				->with('modalFooter', false);
 
 			// Build the install skin modal
 			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'installSkin')
 				->with('modalHeader', lang('Short.install', lang('Skin')))
-				->with('modalBody', '')
-				->with('modalFooter', false);
-
-			// Build the update version skin modal
-			$this->_ajax[] = View::make(Location::partial('common/modal'))
-				->with('modalId', 'updateSkin')
-				->with('modalHeader', lang('Short.update', lang('Skin')))
-				->with('modalBody', '')
+				->with('modalBody', false)
 				->with('modalFooter', false);
 		}
 	}

@@ -1,7 +1,7 @@
 @if (Sentry::getUser()->hasAccess('routes.create'))
 	<div class="btn-toolbar">
 		<div class="btn-group">
-			<a href="{{ URL::to('admin/routes/0') }}" class="btn btn-success icn-size-16">{{ $_icons['add'] }}</a>
+			<a href="{{ URL::to('admin/routes/create') }}" class="btn btn-success icn-size-16">{{ $_icons['add'] }}</a>
 		</div>
 	</div>
 @endif
@@ -83,12 +83,12 @@
 			<div class="nv-data-table nv-data-table-striped nv-data-table-bordered" id="coreRoutes">
 			@foreach ($routes['core'] as $route)
 				<div class="row">
-					<div class="col-xs-12 col-sm-9 col-lg-11">
+					<div class="col-xs-12 col-sm-12 col-lg-11">
 						<p><strong>{{ $route->uri }}</strong></p>
 						<p class="text-small">{{ Str::upper($route->verb) }}</p>
 						<p class="text-small">{{ $route->resource }}</p>
 					</div>
-					<div class="col-xs-12 col-sm-3 col-lg-1">
+					<div class="col-xs-12 col-sm-12 col-lg-1">
 						@if (Sentry::getUser()->hasAccess('routes.create'))
 							<div class="btn-group pull-right visible-lg">
 								<a href="#" class="btn btn-default icn-size-16 js-route-action" data-route="{{ $route->id }}" data-action="duplicate">{{ $_icons['duplicate'] }}</a>

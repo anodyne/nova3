@@ -5,7 +5,7 @@
 
 	@if (Sentry::getUser()->hasAccess('catalog.create'))
 		<div class="btn-group">
-			<a href="{{ URL::to('admin/catalog/ranks/0') }}" class="btn btn-success icn-size-16">{{ $_icons['add'] }}</a>
+			<a href="{{ URL::to('admin/catalog/ranks/create') }}" class="btn btn-success icn-size-16">{{ $_icons['add'] }}</a>
 		</div>
 	@endif
 </div>

@@ -1,6 +1,7 @@
 <script type="text/javascript">
 
-	$(document).on('click', '.js-rank-action', function(e){
+	$(document).on('click', '.js-rank-action', function(e)
+	{
 		var id = $(this).data('id');
 		var action = $(this).data('action');
 		var location = $(this).data('location');

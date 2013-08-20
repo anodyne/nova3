@@ -86,7 +86,7 @@ class Add extends AjaxBaseController {
 	/**
 	 * Confirm installing a rank set.
 	 *
-	 * @param	string	The location of the rank set
+	 * @param	string	$location	The location of the rank set
 	 * @return	void
 	 */
 	public function getRankSet($location)
@@ -99,16 +99,20 @@ class Add extends AjaxBaseController {
 			// Get the contents of the QuickInstall file
 			$rankContents = File::get(APPPATH."assets/common/{$genre}/ranks/{$location}/rank.json");
 
-			echo View::make(Location::ajax('add/rankset'))
-				->with('rank', json_decode($rankContents));
+			return partial('common/modal_content', [
+				'modalHeader'	=> lang('Short.install', ucwords(lang('rank_set'))),
+				'modalBody'		=> View::make(Location::ajax('add/rankset'))
+									->with('rank', json_decode($rankContents)),
+				'modalFooter'	=> false,
+			]);
 		}
 	}
 
 	/**
-	 * Duplicate a core route.
+	 * Show the confirmation modal for duplicating a route.
 	 *
-	 * @param	int		The ID of the route being duplicated
-	 * @return	void
+	 * @param	int		$id		The ID of the route being duplicated
+	 * @return	View
 	 */
 	public function getRouteDuplicate($id)
 	{
@@ -117,8 +121,14 @@ class Add extends AjaxBaseController {
 			// Get the original route
 			$route = \SystemRoute::find($id);
 
-			echo View::make(Location::ajax('add/route_duplicate'))
-				->with('route', $route);
+			if ($route)
+			{
+				return partial('common/modal_content', [
+					'modalHeader'	=> ucwords(lang('short.duplicate', langConcat('core route'))),
+					'modalBody'		=> View::make(Location::ajax('add/route_duplicate'))->with('route', $route),
+					'modalFooter'	=> false,
+				]);
+			}
 		}
 	}
 
@@ -224,8 +234,8 @@ class Add extends AjaxBaseController {
 	/**
 	 * Confirm installing a skin.
 	 *
-	 * @param	string	The location of the skin
-	 * @return	void
+	 * @param	string	$location	The location of the skin
+	 * @return	View
 	 */
 	public function getSkin($location)
 	{
@@ -234,8 +244,12 @@ class Add extends AjaxBaseController {
 			// Get the contents of the QuickInstall file
 			$skinContents = File::get(APPPATH."views/{$location}/skin.json");
 
-			echo View::make(Location::ajax('add/skin'))
-				->with('skin', json_decode($skinContents));
+			return partial('common/modal_content', [
+				'modalHeader'	=> lang('Short.install', lang('Skin')),
+				'modalBody'		=> View::make(Location::ajax('add/skin'))
+									->with('skin', json_decode($skinContents)),
+				'modalFooter'	=> false,
+			]);
 		}
 	}
 
