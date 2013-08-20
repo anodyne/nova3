@@ -88,7 +88,7 @@ return [
 	[
 		'key'		=> 'message.admin.routes',
 		'label'		=> 'Routes Manager Message',
-		'content'	=> "Routes are the way Nova knows what to do when a specific URI is called. All of Nova's routes can be managed from this page. Routes specified as core routes cannot be edited directly, but you can duplicate them and edit your duplicate to point to a different resource. Doing so will tell Nova that you want a specific URI to use a different resource than what's in the core.",
+		'content'	=> "Routes are Nova's traffic cops. When a user types an address into their browser, Nova takes that information (called a URI) and determines what controller and action it should use. Instead of doing that automatically, Nova keeps a master list of those routes and resources. From here, you can manage all of Nova's routes and even tell Nova to point a route to a different resource altogether.\r\n\r\nWhile you can't edit the core routes, you can duplicate routes and change the information associated with it. Nova will use your version of the route instead of the one in the core.",
 		'type'		=> $type,
 		'section'	=> 'admin',
 		'page'		=> 'routes'
