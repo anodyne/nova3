@@ -1,4 +1,4 @@
-<div class="navbar">
+<div class="navbar navbar-default">
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">

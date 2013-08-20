@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
 			<a href="{{ URL::to('/') }}" class="navbar-brand">{{ $settings->sim_name }}</a>

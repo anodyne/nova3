@@ -101,7 +101,7 @@
 					<div class="panel-group" id="accordion">
 						<?php $i = 1;?>
 						@foreach ($tasks as $component => $task)
-							<div class="panel">
+							<div class="panel panel-default">
 								<div class="panel-heading">
 									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $i }}">
 										<h4 class="panel-title">{{ ucfirst($component) }}</h4>
