@@ -58,10 +58,13 @@ class Delete extends AjaxBaseController {
 			$form = \NovaForm::key($formKey)->first();
 
 			// Only present the modal if we're allowed to delete it
-			if ((bool) $form->protected === false)
+			if ($form and (bool) $form->protected === false)
 			{
-				echo View::make(Location::ajax('delete/form'))
-					->with('form', $form);
+				return partial('common/modal_content', [
+					'modalHeader'	=> lang('Short.delete', lang('Form')),
+					'modalBody'		=> View::make(Location::ajax('delete/form'))->with('form', $form),
+					'modalFooter'	=> false,
+				]);
 			}
 		}
 	}
