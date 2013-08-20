@@ -23,18 +23,6 @@ class SystemRoute extends BaseEventHandler {
 	}
 
 	/**
-	 * Before the model is saved, we need to make sure the data is
-	 * stored properly.
-	 *
-	 * @param	$model	The current model
-	 * @return	void
-	 */
-	public function saving($model)
-	{
-		$model->verb = strtolower($model->verb);
-	}
-
-	/**
 	 * After the model is saved, we need to re-cache the routes,
 	 * but only if we're adding an unprotected route (user-created).
 	 *

@@ -217,10 +217,10 @@ class Section extends BaseEventHandler {
 				}
 			}
 		}
+	}
 
-		/**
-		 * System Event
-		 */
+	public function deleted($model)
+	{
 		SystemEvent::addUserEvent(
 			'event.admin.form.item',
 			$model->name,

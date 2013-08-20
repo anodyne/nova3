@@ -46,7 +46,7 @@ class Value extends BaseEventHandler {
 		);
 	}
 
-	public function deleting($model)
+	public function deleted($model)
 	{
 		/**
 		 * System Event

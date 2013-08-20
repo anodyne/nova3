@@ -1,0 +1,84 @@
+# Core Model Events
+
+At first glance, it can look like Nova is conjuring some black magic when certain things happen. This can be especially frustrating if you're trying to figure out why Y happened when you did X. One of the places to start is with Nova's model events. At certain points during the execution of the model, things happen behind the scenes.
+
+Below is an exhaustive list of what happens with different models and the events on those models.
+
+- Application
+- Base
+	- created
+		- enters the default system event message
+	- updated
+		- enters the default system event message
+	- deleted
+		- enters the default system event message
+- Character
+	- created
+		- create blank records in the `form_data` table with any fields in the character form
+		- override the default system event call to make sure the character information is properly entered
+- Comment
+	- saving
+		- make sure the `commentable_type` is a non-namespaced version of the class (essentially just the alias)
+- Form
+	- deleting
+		- if the form isn't protected, delete everything related to that particular form (data, field values, fields, sections and tabs)
+- Form\Field
+	- created
+		- if we have a data model specified in the form, we'll call the `createFieldData` method to create blank field data for the field
+		- determine if the section the field is part of needs to be activated or deactivated
+		- override the default system event call to make sure the form field information is properly entered
+	- updated
+		- determine if the section the field is part of needs to be activated or deactivated
+		- override the default system event call to make sure the form field information is properly entered
+	- deleting
+		- clean up any form data and form values associated with the field being deleted
+		- determine if the section the field was part of needs to be activated or deactivated
+	- deleted
+		- override the default system event call to make sure the form field information is properly entered
+- Form\Section
+	- created
+		- if we already have fields for this form and no sections, automatically add the fields to the section that we just created
+		- determine if the tab the section is part of needs to be activated or deactivated
+		- override the default system event call to make sure the form section information is properly entered
+	- updated
+		- determine if the tab the section is part of needs to be activated or deactivated
+		- override the default system event call to make sure the form section information is properly entered
+	- deleting
+		- determine if the tab the section was part of needs to be activated or deactivated
+	- deleted
+		- override the default system event call to make sure the form section information is properly entered
+- Form\Tab
+	- created
+		- if we already have sections for this form and no tabs, automatically add the sections to the tab that we just created
+		- if we already have fields for this form and no sections, automatically add a section and add the fields to the newly created section, otherwise add the fields to the first section
+		- override the default system event call to make sure the form tab information is properly entered
+	- updated
+		- override the default system event call to make sure the form tab information is properly entered
+	- deleted
+		- override the default system event call to make sure the form tab information is properly entered
+- Form\Value
+	- created
+		- override the default system event call to make sure the form tab information is properly entered
+	- updated
+		- override the default system event call to make sure the form tab information is properly entered
+	- deleted
+		- override the default system event call to make sure the form tab information is properly entered
+- Position
+- Rank
+- Rank\Group
+- Rank\Info
+- Settings
+	- saved
+		- clear the settings cache and re-cache everything
+- SiteContent
+	- saved
+		- clear the content cache for the type and section that was just saved and re-cache the content
+- SystemRoute
+	- deleting
+		- if the route isn't protected, re-cache all the routes
+	- saved
+		- if the route isn't protected, re-cache all the routes
+- User
+	- created
+		- create blank records in the `form_data` table with any fields in the user form
+		- user preferences are created
