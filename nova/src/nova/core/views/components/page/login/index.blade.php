@@ -15,11 +15,11 @@
 	</div>
 
 	<div class="row">
-		<div class="col-xs-12 col-sm-6 col-lg-6">
-			<p><a href="{{ URL::to('login/reset') }}" class="btn btn-block btn-default">{{ lang('short.forgotPassword') }}</a></p>
+		<div class="col-xs-12 col-sm-12 col-lg-12">
+			<p><a href="{{ URL::to('login/reset') }}" class="btn btn-block btn-link">{{ lang('short.forgotPassword') }}</a></p>
 		</div>
-		<div class="col-xs-12 col-sm-6 col-lg-6">
-			<p><a href="{{ URL::to('/') }}" class="btn btn-block btn-default">{{ lang('short.backToSite') }}</a></p>
+		<div class="col-xs-12 col-sm-12 col-lg-12">
+			<p><a href="{{ URL::to('/') }}" class="btn btn-block btn-link">{{ lang('short.backToSite') }}</a></p>
 		</div>
 	</div>
 {{ Form::close() }}

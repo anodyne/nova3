@@ -5,6 +5,5 @@
 
 	{{ Form::token() }}
 	{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-lg btn-block btn-primary']) }}
-	
-	{{ HTML::link('login', lang('short.cancelPasswordReset'), ['class' => 'btn btn-block btn-default']) }}
+	{{ HTML::link('login', lang('short.cancelPasswordReset'), ['class' => 'btn btn-block btn-link']) }}
 {{ Form::close() }}
