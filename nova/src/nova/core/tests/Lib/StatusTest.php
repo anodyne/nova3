@@ -1,8 +1,8 @@
 <?php
 
 use Mockery as m;
-use Nova\Core\Lib\Status;
-use Nova\Core\Lib\TestCase;
+use nova\core\lib\Status;
+use nova\core\lib\TestCase;
 
 class StatusTest extends TestCase {
 

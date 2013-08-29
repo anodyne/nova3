@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Events\Form;
+<?php namespace nova\core\models\events\form;
 
 /**
  * Form field event handler.

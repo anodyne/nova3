@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Entities\Application;
+<?php namespace nova\core\models\entities\application;
 
 use Model;
 

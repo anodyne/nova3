@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Providers;
+<?php namespace nova\core\providers;
 
 use Illuminate\Support\ServiceProvider;
 

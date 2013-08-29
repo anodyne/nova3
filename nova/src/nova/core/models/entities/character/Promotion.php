@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Entities\Character;
+<?php namespace nova\core\models\entities\character;
 
 use Model;
 

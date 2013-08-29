@@ -1,13 +1,13 @@
-<?php namespace Nova\Extensions\Cartalyst\Sentry;
+<?php namespace nova\extensions\cartalyst\sentry;
 
 use Cartalyst\Sentry\Sentry;
 use Illuminate\Support\ServiceProvider;
 use Cartalyst\Sentry\Cookies\IlluminateCookie;
 use Cartalyst\Sentry\Sessions\IlluminateSession;
-use Nova\Extensions\Cartalyst\Sentry\Hashing\NovaHasher;
-use Nova\Extensions\Cartalyst\Sentry\Users\Provider as UserProvider;
-use Nova\Extensions\Cartalyst\Sentry\Groups\Provider as GroupProvider;
-use Nova\Extensions\Cartalyst\Sentry\Throttling\Provider as ThrottleProvider;
+use nova\extensions\cartalyst\sentry\hashing\NovaHasher;
+use nova\extensions\cartalyst\sentry\users\Provider as UserProvider;
+use nova\extensions\cartalyst\sentry\groups\Provider as GroupProvider;
+use nova\extensions\cartalyst\sentry\throttling\Provider as ThrottleProvider;
 
 class SentryServiceProvider extends ServiceProvider {
 

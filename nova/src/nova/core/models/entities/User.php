@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Entities;
+<?php namespace nova\core\models\entities;
 
 use App;
 use Str;
@@ -1031,7 +1031,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 			// Put the intended desintation into the session
 			Session::put('url.intended', App::make('url')->full());
 
-			return Redirect::to('login/error/'.\Nova\Core\Controllers\Login::NOT_LOGGED_IN);
+			return Redirect::to('login/error/'.\nova\core\controllers\Login::NOT_LOGGED_IN);
 		}
 		else
 		{
@@ -1052,7 +1052,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 
 			if ($redirect and ! in_array(true, $allowed))
 			{
-				return Redirect::to('admin/error/'.\Nova\Core\Controllers\Admin\Main::NOT_ALLOWED);
+				return Redirect::to('admin/error/'.\nova\core\controllers\Admin\Main::NOT_ALLOWED);
 			}
 			
 			return (in_array(true, $allowed));

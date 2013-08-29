@@ -1,4 +1,4 @@
-<?php namespace Nova\Extensions\Laravel\Translation;
+<?php namespace nova\extensions\laravel\translation;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\LoaderInterface;

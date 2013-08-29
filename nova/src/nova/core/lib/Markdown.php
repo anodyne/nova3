@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Lib;
+<?php namespace nova\core\lib;
 
 /**
  * Parse Markdown text into HTML using the MarkdownParser.

@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Lib;
+<?php namespace nova\core\lib;
 
 use User;
 use Status;
@@ -6,8 +6,8 @@ use Settings;
 use SiteContent;
 use NotifierNoContentException;
 use NotifierNoSubjectException;
-use Nova\Extensions\Laralve\Application;
-use Nova\Extensions\Laravel\Database\Eloquent\Collection;
+use nova\extensions\laravel\Application;
+use nova\extensions\laravel\database\eloquent\Collection;
 
 class Notify {
 

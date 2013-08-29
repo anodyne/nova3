@@ -1,4 +1,4 @@
-<?php namespace Nova\Extensions\Laravel\Database\Eloquent;
+<?php namespace nova\extensions\laravel\database\eloquent;
 
 use stdClass;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;

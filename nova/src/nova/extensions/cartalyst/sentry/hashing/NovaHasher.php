@@ -1,4 +1,4 @@
-<?php namespace Nova\Extensions\Cartalyst\Sentry\Hashing;
+<?php namespace nova\extensions\cartalyst\sentry\hashing;
 
 use System;
 use Cartalyst\Sentry\Hashing\HasherInterface;

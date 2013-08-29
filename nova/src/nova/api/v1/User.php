@@ -1,4 +1,4 @@
-<?php namespace Nova\Api\V1;
+<?php namespace nova\api\v1;
 
 use Input;
 use Status;

@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Controllers\Ajax;
+<?php namespace nova\core\controllers\ajax;
 
 use Str;
 use File;

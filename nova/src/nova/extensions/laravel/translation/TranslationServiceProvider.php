@@ -1,4 +1,4 @@
-<?php namespace Nova\Extensions\Laravel\Translation;
+<?php namespace nova\extensions\laravel\translation;
 
 use Illuminate\Translation\Translator;
 use Illuminate\Support\ServiceProvider;

@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Controllers\Base;
+<?php namespace nova\core\controllers\base;
 
 /**
  * All controllers in main sections of Nova (main, personnel, sim) extend from 

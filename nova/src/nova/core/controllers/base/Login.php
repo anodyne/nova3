@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Controllers\Base;
+<?php namespace nova\core\controllers\base;
 
 use View;
 use Session;

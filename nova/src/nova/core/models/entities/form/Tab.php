@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Entities\Form;
+<?php namespace nova\core\models\entities\form;
 
 use Event;
 use Model;

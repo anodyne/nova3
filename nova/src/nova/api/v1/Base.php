@@ -1,4 +1,4 @@
-<?php namespace Nova\Api\V1;
+<?php namespace nova\api\v1;
 
 /**
  * All API controllers in Nova extend from this base controller.

@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Entities\Access;
+<?php namespace nova\core\models\entities\access;
 
 use Event;
 use Model;

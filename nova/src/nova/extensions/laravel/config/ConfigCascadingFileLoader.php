@@ -1,4 +1,4 @@
-<?php namespace Nova\Extensions\Laravel\Config;
+<?php namespace nova\extensions\laravel\config;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Config\LoaderInterface;

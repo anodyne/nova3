@@ -1,4 +1,4 @@
-<?php namespace Nova\Wiki\Controllers\Base;
+<?php namespace nova\wiki\controllers\base;
 
 use BaseController;
 

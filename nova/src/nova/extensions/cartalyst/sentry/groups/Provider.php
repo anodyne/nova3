@@ -1,4 +1,4 @@
-<?php namespace Nova\Extensions\Cartalyst\Sentry\Groups;
+<?php namespace nova\extensions\cartalyst\sentry\groups;
 
 use AccessRole;
 use Cartalyst\Sentry\Groups\GroupInterface;

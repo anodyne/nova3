@@ -11,7 +11,7 @@
 |
 */
 
-$app = new Nova\Extensions\Laravel\Application;
+$app = new nova\extensions\laravel\Application;
 
 $app->redirectIfTrailingSlash();
 
@@ -60,7 +60,7 @@ $app->bind('config.loader', function($app)
 {
 	$filesystem = new Illuminate\Filesystem\Filesystem;
 
-	return new Nova\Extensions\Laravel\Config\ConfigCascadingFileLoader($filesystem, false);
+	return new nova\extensions\laravel\config\ConfigCascadingFileLoader($filesystem, false);
 	
 }, true);
 

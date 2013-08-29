@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Entities\Rank;
+<?php namespace nova\core\models\entities\rank;
 
 use Event;
 use Model;

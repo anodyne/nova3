@@ -1,4 +1,4 @@
-<?php namespace Nova\Extensions\Cartalyst\Sentry\Users;
+<?php namespace nova\extensions\cartalyst\sentry\users;
 
 use Model;
 use Session;

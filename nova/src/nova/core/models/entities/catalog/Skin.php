@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Entities\Catalog;
+<?php namespace nova\core\models\entities\catalog;
 
 use File;
 use Model;

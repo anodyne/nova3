@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Entities\Award;
+<?php namespace nova\core\models\entities\award;
 
 use Model;
 

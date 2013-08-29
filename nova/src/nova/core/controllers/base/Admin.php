@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Controllers\Base;
+<?php namespace nova\core\controllers\base;
 
 /**
  * All controllers in admin sections of Nova extend from this base controller. 
@@ -45,7 +45,7 @@ abstract class Admin extends BaseController {
 				// Put the intended desintation into the session
 				Session::put('url.intended', App::make('url')->full());
 
-				return Redirect::to('login/error/'.\Nova\Core\Controllers\Login::NOT_LOGGED_IN);
+				return Redirect::to('login/error/'.\nova\core\controllers\Login::NOT_LOGGED_IN);
 			});
 		}
 		else

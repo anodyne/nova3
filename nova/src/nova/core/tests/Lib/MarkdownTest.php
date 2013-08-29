@@ -1,7 +1,7 @@
 <?php
 
-use Nova\Core\Lib\Markdown;
-use Nova\Core\Lib\TestCase;
+use nova\core\lib\Markdown;
+use nova\core\lib\TestCase;
 use dflydev\markdown\MarkdownParser;
 
 class MarkdownTest extends TestCase {

@@ -1,13 +1,13 @@
-<?php namespace Nova\Core\Providers;
+<?php namespace nova\core\providers;
 
-use Nova\Core\Lib\Nova;
-use Nova\Core\Lib\Media;
-use Nova\Core\Lib\Notify;
+use nova\core\lib\Nova;
+use nova\core\lib\Media;
+use nova\core\lib\Notify;
 use Ikimea\Browser\Browser;
-use Nova\Core\Lib\Location;
-use Nova\Core\Lib\Markdown;
-use Nova\Core\Lib\DynamicForm;
-use Nova\Core\Lib\SystemEvent;
+use nova\core\lib\Location;
+use nova\core\lib\Markdown;
+use nova\core\lib\DynamicForm;
+use nova\core\lib\SystemEvent;
 use dflydev\markdown\MarkdownParser;
 use Illuminate\Support\ServiceProvider;
 

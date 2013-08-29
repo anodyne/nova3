@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Traits;
+<?php namespace nova\core\traits;
 
 trait Form {
 

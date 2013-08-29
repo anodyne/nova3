@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Exceptions;
+<?php namespace nova\core\exceptions;
 
 use Exception;
 

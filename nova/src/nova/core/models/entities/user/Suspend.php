@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Entities\User;
+<?php namespace nova\core\models\entities\user;
 
 use Date;
 use Model;

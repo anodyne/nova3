@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Commands;
+<?php namespace nova\core\commands;
 
 use Eloquent;
 use SiteContent;

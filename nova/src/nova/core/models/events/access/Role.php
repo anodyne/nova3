@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Events\Access;
+<?php namespace nova\core\models\events\access;
 
 use SystemEvent;
 use BaseEventHandler;

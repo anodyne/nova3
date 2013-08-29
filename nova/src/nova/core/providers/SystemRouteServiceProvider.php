@@ -1,6 +1,7 @@
-<?php namespace Nova\Core\Providers;
+<?php namespace nova\core\providers;
 
 use Str;
+use Route;
 use Illuminate\Support\ServiceProvider;
 
 class SystemRouteServiceProvider extends ServiceProvider {
@@ -32,17 +33,17 @@ class SystemRouteServiceProvider extends ServiceProvider {
 
 		if ($routes === null)
 		{
-			$this->app['router']->get('/', 'Nova\Core\Controllers\Main@getIndex');
+			Route::get('/', 'nova\core\controllers\Main@getIndex');
 
-			$this->app['router']->get('ajax/get/rank/image/{id}/{return}', 'Nova\Core\Controllers\Ajax\Get@getRank');
-			$this->app['router']->get('ajax/get/position/{id}/{return}', 'Nova\Core\Controllers\Ajax\Get@getPosition');
+			Route::get('ajax/get/rank/image/{id}/{return}', 'nova\core\controllers\ajax\Get@getRank');
+			Route::get('ajax/get/position/{id}/{return}', 'nova\core\controllers\ajax\Get@getPosition');
 
-			$this->app['router']->get('login', 'Nova\Core\Controllers\Login@getIndex');
-			$this->app['router']->post('login', 'Nova\Core\Controllers\Login@postIndex');
+			Route::get('login', 'nova\core\controllers\Login@getIndex');
+			Route::post('login', 'nova\core\controllers\Login@postIndex');
 
-			$this->app['router']->get('admin', 'Nova\Core\Controllers\Admin\Admin@getIndex');
-			$this->app['router']->get('admin/routes', 'Nova\Core\Controllers\Admin\Main@getRoutes');
-			$this->app['router']->post('admin/routes', 'Nova\Core\Controllers\Admin\Main@postRoutes');
+			Route::get('admin', 'nova\core\controllers\admin\Admin@getIndex');
+			Route::get('admin/routes', 'nova\core\controllers\admin\Main@getRoutes');
+			Route::post('admin/routes', 'nova\core\controllers\admin\Main@postRoutes');
 		}
 		else
 		{
@@ -53,12 +54,12 @@ class SystemRouteServiceProvider extends ServiceProvider {
 				{
 					if ($route['conditions'] !== null)
 					{
-						$this->app['router']->get($route['uri'], $route['resource'])
+						Route::get($route['uri'], $route['resource'])
 							->where($this->parseRouteConditions($route['conditions']));
 					}
 					else
 					{
-						$this->app['router']->get($route['uri'], $route['resource']);
+						Route::get($route['uri'], $route['resource']);
 					}
 				}
 			}
@@ -70,12 +71,12 @@ class SystemRouteServiceProvider extends ServiceProvider {
 				{
 					if ( ! empty($route['conditions']))
 					{
-						$this->app['router']->post($route['uri'], $route['resource'])
+						Route::post($route['uri'], $route['resource'])
 							->where($this->parseRouteConditions($route['conditions']));
 					}
 					else
 					{
-						$this->app['router']->post($route['uri'], $route['resource']);
+						Route::post($route['uri'], $route['resource']);
 					}
 				}
 			}
@@ -87,12 +88,12 @@ class SystemRouteServiceProvider extends ServiceProvider {
 				{
 					if ( ! empty($route['conditions']))
 					{
-						$this->app['router']->put($route['uri'], $route['resource'])
+						Route::put($route['uri'], $route['resource'])
 							->where($this->parseRouteConditions($route['conditions']));
 					}
 					else
 					{
-						$this->app['router']->put($route['uri'], $route['resource']);
+						Route::put($route['uri'], $route['resource']);
 					}
 				}
 			}
@@ -104,12 +105,12 @@ class SystemRouteServiceProvider extends ServiceProvider {
 				{
 					if ( ! empty($route['conditions']))
 					{
-						$this->app['router']->delete($route['uri'], $route['resource'])
+						Route::delete($route['uri'], $route['resource'])
 							->where($this->parseRouteConditions($route['conditions']));
 					}
 					else
 					{
-						$this->app['router']->delete($route['uri'], $route['resource']);
+						Route::delete($route['uri'], $route['resource']);
 					}
 				}
 			}

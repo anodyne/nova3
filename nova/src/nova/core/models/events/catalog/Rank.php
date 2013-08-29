@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Events\Catalog;
+<?php namespace nova\core\models\events\catalog;
 
 use SystemEvent;
 use BaseEventHandler;

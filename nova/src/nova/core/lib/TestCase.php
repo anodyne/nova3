@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Lib;
+<?php namespace nova\core\lib;
 
 use Illuminate\Foundation\Testing\TestCase as LaravelTestCase;
 

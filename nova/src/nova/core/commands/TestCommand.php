@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Commands;
+<?php namespace nova\core\commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
