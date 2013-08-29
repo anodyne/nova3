@@ -54,9 +54,9 @@
 		],
 
 		"psr-0": {
-			"App\\": "",
-			"Modules\\": "app/",
-			"Nova\\": "nova/src/"
+			"app\\": "",
+			"modules\\": "app/",
+			"nova\\": "nova/src/"
 		}
 	},
 	
