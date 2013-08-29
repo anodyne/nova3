@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
 	/*
 	|--------------------------------------------------------------------------
@@ -13,13 +13,13 @@ return array(
 	|
 	*/
 
-	'paths' => array(
+	'paths' => [
 		APPPATH.'modules/override/views',
 		APPPATH.'views',
 		SRCPATH.'forum/views',
 		SRCPATH.'wiki/views',
 		SRCPATH.'core/views',
-	),
+	],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -34,4 +34,4 @@ return array(
 
 	'pagination' => Location::partial('common/paginator'),
 
-);
+];

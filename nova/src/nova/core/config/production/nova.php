@@ -1,9 +1,9 @@
 <?php
 
-return array(
+return [
 
-	'version_check_path' => 'http://www.anodyne-productions.com/updates/version.json',
+	'version_check_path' => 'http://anodyne-productions.com/updates/version.json',
 
 	'registration_path' => '',
 
-);
+];

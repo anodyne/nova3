@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return array(
 	|
 	*/
 
-	'providers' => array(
+	'providers' => [
 
 		/**
 		 * Illuminate Service Providers
@@ -129,7 +129,7 @@ return array(
 		'nova\extensions\cartalyst\sentry\SentryServiceProvider',
 		'nova\extensions\laravel\translation\TranslationServiceProvider',
 
-	),
+	],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -155,7 +155,7 @@ return array(
 	|
 	*/
 
-	'aliases' => array(
+	'aliases' => [
 
 		/**
 		 * Illuminate Core Classes
@@ -258,71 +258,71 @@ return array(
 		/**
 		 * Nova Model Entities
 		 */
-		'AccessRole'				=> 'nova\core\nodels\entities\access\Role',
-		'AccessRoleTask'			=> 'nova\core\nodels\entities\access\RoleTask',
-		'AccessTask'				=> 'nova\core\nodels\entities\access\Task',
+		'AccessRole'				=> 'nova\core\models\entities\access\Role',
+		'AccessRoleTask'			=> 'nova\core\models\entities\access\RoleTask',
+		'AccessTask'				=> 'nova\core\models\entities\access\Task',
 
-		'NovaApp'					=> 'nova\core\nodels\entities\Application',
-		'NovaAppResponse'			=> 'nova\core\nodels\entities\application\Response',
-		'NovaAppReviewer'			=> 'nova\core\nodels\entities\application\Reviewer',
-		'NovaAppRule'				=> 'nova\core\nodels\entities\application\Rule',
+		'NovaApp'					=> 'nova\core\models\entities\Application',
+		'NovaAppResponse'			=> 'nova\core\models\entities\application\Response',
+		'NovaAppReviewer'			=> 'nova\core\models\entities\application\Reviewer',
+		'NovaAppRule'				=> 'nova\core\models\entities\application\Rule',
 
-		'Award'						=> 'nova\core\nodels\entities\Award',
-		'AwardCategory'				=> 'nova\core\nodels\entities\award\Category',
-		'AwardRecipient'			=> 'nova\core\nodels\entities\award\Recipient',
+		'Award'						=> 'nova\core\models\entities\Award',
+		'AwardCategory'				=> 'nova\core\models\entities\award\Category',
+		'AwardRecipient'			=> 'nova\core\models\entities\award\Recipient',
 		
-		'ModuleCatalog'				=> 'nova\core\nodels\entities\catalog\Module',
-		'RankCatalog'				=> 'nova\core\nodels\entities\catalog\Rank',
-		'SkinCatalog'				=> 'nova\core\nodels\entities\catalog\Skin',
-		'WidgetCatalog'				=> 'nova\core\nodels\entities\catalog\Widget',
+		'ModuleCatalog'				=> 'nova\core\models\entities\catalog\Module',
+		'RankCatalog'				=> 'nova\core\models\entities\catalog\Rank',
+		'SkinCatalog'				=> 'nova\core\models\entities\catalog\Skin',
+		'WidgetCatalog'				=> 'nova\core\models\entities\catalog\Widget',
 
-		'Character'					=> 'nova\core\nodels\entities\Character',
-		'CharacterPosition'			=> 'nova\core\nodels\entities\character\Positions',
-		'CharacterPromotion'		=> 'nova\core\nodels\entities\character\Promotion',
+		'Character'					=> 'nova\core\models\entities\Character',
+		'CharacterPosition'			=> 'nova\core\models\entities\character\Positions',
+		'CharacterPromotion'		=> 'nova\core\models\entities\character\Promotion',
 
-		'NovaForm'					=> 'nova\core\nodels\entities\Form',
-		'NovaFormData'				=> 'nova\core\nodels\entities\form\Data',
-		'NovaFormField'				=> 'nova\core\nodels\entities\form\Field',
-		'NovaFormSection'			=> 'nova\core\nodels\entities\form\Section',
-		'NovaFormTab'				=> 'nova\core\nodels\entities\form\Tab',
-		'NovaFormValue'				=> 'nova\core\nodels\entities\form\Value',
+		'NovaForm'					=> 'nova\core\models\entities\Form',
+		'NovaFormData'				=> 'nova\core\models\entities\form\Data',
+		'NovaFormField'				=> 'nova\core\models\entities\form\Field',
+		'NovaFormSection'			=> 'nova\core\models\entities\form\Section',
+		'NovaFormTab'				=> 'nova\core\models\entities\form\Tab',
+		'NovaFormValue'				=> 'nova\core\models\entities\form\Value',
 
-		'Mission'					=> 'nova\core\nodels\entities\Mission',
-		'MissionGroup'				=> 'nova\core\nodels\entities\mission\Group',
-		'MissionNote'				=> 'nova\core\nodels\entities\mission\Note',
+		'Mission'					=> 'nova\core\models\entities\Mission',
+		'MissionGroup'				=> 'nova\core\models\entities\mission\Group',
+		'MissionNote'				=> 'nova\core\models\entities\mission\Note',
 
-		'Post'						=> 'nova\core\nodels\entities\Post',
-		'PostAuthor'				=> 'nova\core\nodels\entities\post\Author',
-		'PostLock'					=> 'nova\core\nodels\entities\post\Lock',
-		'PostParticipant'			=> 'nova\core\nodels\entities\post\Participant',
+		'Post'						=> 'nova\core\models\entities\Post',
+		'PostAuthor'				=> 'nova\core\models\entities\post\Author',
+		'PostLock'					=> 'nova\core\models\entities\post\Lock',
+		'PostParticipant'			=> 'nova\core\models\entities\post\Participant',
 
-		'Rank'						=> 'nova\core\nodels\entities\Rank',
-		'RankGroup'					=> 'nova\core\nodels\entities\rank\Group',
-		'RankInfo'					=> 'nova\core\nodels\entities\rank\Info',
+		'Rank'						=> 'nova\core\models\entities\Rank',
+		'RankGroup'					=> 'nova\core\models\entities\rank\Group',
+		'RankInfo'					=> 'nova\core\models\entities\rank\Info',
 
-		'User'						=> 'nova\core\nodels\entities\User',
-		'UserLoa'					=> 'nova\core\nodels\entities\user\Loa',
-		'UserPrefs'					=> 'nova\core\nodels\entities\user\Preferences',
-		'UserSuspend'				=> 'nova\core\nodels\entities\user\Suspend',
+		'User'						=> 'nova\core\models\entities\User',
+		'UserLoa'					=> 'nova\core\models\entities\user\Loa',
+		'UserPrefs'					=> 'nova\core\models\entities\user\Preferences',
+		'UserSuspend'				=> 'nova\core\models\entities\user\Suspend',
 
-		'Announcement'				=> 'nova\core\nodels\entities\Announcement',
-		'Ban'						=> 'nova\core\nodels\entities\Ban',
-		'Comment'					=> 'nova\core\nodels\entities\Comment',
-		'Dept'						=> 'nova\core\nodels\entities\Department',
-		'Manifest'					=> 'nova\core\nodels\entities\Manifest',
-		'MediaModel'				=> 'nova\core\nodels\entities\Media',
-		'Message'					=> 'nova\core\nodels\entities\Message',
-		'MessageRecipient'			=> 'nova\core\nodels\entities\MessageRecipient',
-		'Moderation'				=> 'nova\core\nodels\entities\Moderation',
-		'NavModel'					=> 'nova\core\nodels\entities\Nav',
-		'PersonalLog'				=> 'nova\core\nodels\entities\PersonalLog',
-		'Position'					=> 'nova\core\nodels\entities\Position',
-		'Settings'					=> 'nova\core\nodels\entities\Settings',
-		'SimType'					=> 'nova\core\nodels\entities\SimType',
-		'SiteContent'				=> 'nova\core\nodels\entities\SiteContent',
-		'System'					=> 'nova\core\nodels\entities\System',
-		'SystemEventModel'			=> 'nova\core\nodels\entities\SystemEvent',
-		'SystemRoute'				=> 'nova\core\nodels\entities\SystemRoute',
+		'Announcement'				=> 'nova\core\models\entities\Announcement',
+		'Ban'						=> 'nova\core\models\entities\Ban',
+		'Comment'					=> 'nova\core\models\entities\Comment',
+		'Dept'						=> 'nova\core\models\entities\Department',
+		'Manifest'					=> 'nova\core\models\entities\Manifest',
+		'MediaModel'				=> 'nova\core\models\entities\Media',
+		'Message'					=> 'nova\core\models\entities\Message',
+		'MessageRecipient'			=> 'nova\core\models\entities\MessageRecipient',
+		'Moderation'				=> 'nova\core\models\entities\Moderation',
+		'NavModel'					=> 'nova\core\models\entities\Nav',
+		'PersonalLog'				=> 'nova\core\models\entities\PersonalLog',
+		'Position'					=> 'nova\core\models\entities\Position',
+		'Settings'					=> 'nova\core\models\entities\Settings',
+		'SimType'					=> 'nova\core\models\entities\SimType',
+		'SiteContent'				=> 'nova\core\models\entities\SiteContent',
+		'System'					=> 'nova\core\models\entities\System',
+		'SystemEventModel'			=> 'nova\core\models\entities\SystemEvent',
+		'SystemRoute'				=> 'nova\core\models\entities\SystemRoute',
 
 		/**
 		 * Nova Model Event Handlers
@@ -373,6 +373,6 @@ return array(
 		'SystemRouteValidator'		=> 'nova\core\models\validators\SystemRoute',
 		'UserValidator'				=> 'nova\core\models\validators\User',
 
-	),
+	],
 
-);
+];

@@ -1,11 +1,11 @@
 <?php
 
-return array(
+return [
 	
 	/**
 	 * General information about Nova.
 	 */
-	'app' => array(
+	'app' => [
 
 		'name' => 'Nova',
 		'version' => '3.0',
@@ -13,12 +13,12 @@ return array(
 		'version_minor' => 0,
 		'version_update' => 0,
 
-	),
+	],
 	
 	/**
 	 * Information about the wiki.
 	 */
-	'wiki' => array(
+	'wiki' => [
 
 		'name' => 'Thresher',
 		'version' => 'Release 3',
@@ -26,12 +26,12 @@ return array(
 		'version_minor' => 0,
 		'version_update' => 0,
 
-	),
+	],
 	
 	/**
 	 * Information about the forum.
 	 */
-	'forum' => array(
+	'forum' => [
 
 		'name' => 'Mako',
 		'version' => 'Release 1',
@@ -39,21 +39,21 @@ return array(
 		'version_minor' => 0,
 		'version_update' => 0,
 
-	),
+	],
 
 	/**
 	 * Information about the API.
 	 */
-	'api' => array(
+	'api' => [
 
 		'version' => 'v1',
 		'version_major' => 1,
 		'version_minor' => 0,
 		'version_update' => 0,
 
-	),
+	],
 
-	'genres' => array(
+	'genres' => [
 
 		'st22'	=> "Star Trek: 22nd Century",
 		'st23'	=> "Star Trek: 23rd Century",
@@ -69,6 +69,6 @@ return array(
 		'sg1'	=> "Stargate SG-1",
 		'sga'	=> "Stargate Atlantis",
 
-	),
+	],
 
-);
+];

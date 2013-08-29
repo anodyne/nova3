@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
 	/*
 	|--------------------------------------------------------------------------
@@ -28,33 +28,33 @@ return array(
 	|
 	*/
 
-	'connections' => array(
+	'connections' => [
 
-		'sync' => array(
+		'sync' => [
 			'driver' => 'sync',
-		),
+		],
 
-		'beanstalkd' => array(
+		'beanstalkd' => [
 			'driver' => 'beanstalkd',
 			'host'   => 'localhost',
 			'queue'  => 'default',
-		),
+		],
 
-		'sqs' => array(
+		'sqs' => [
 			'driver' => 'sqs',
 			'key'    => 'your-public-key',
 			'secret' => 'your-secret-key',
 			'queue'  => 'your-queue-url',
 			'region' => 'us-east-1',
-		),
+		],
 
-		'iron' => array(
+		'iron' => [
 			'driver'  => 'iron',
 			'project' => 'your-project-id',
 			'token'   => 'your-token',
 			'queue'   => 'your-queue-name',
-		),
+		],
 
-	),
+	],
 
-);
+];
