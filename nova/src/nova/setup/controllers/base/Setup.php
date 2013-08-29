@@ -1,4 +1,4 @@
-<?php namespace Nova\Setup\Controllers\Base;
+<?php namespace nova\setup\controllers\base;
 
 use App;
 use Str;

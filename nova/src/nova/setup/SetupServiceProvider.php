@@ -1,5 +1,6 @@
-<?php namespace Nova\Setup;
+<?php namespace nova\setup;
 
+use Route;
 use Illuminate\Support\ServiceProvider;
 
 class SetupServiceProvider extends ServiceProvider {
@@ -34,85 +35,85 @@ class SetupServiceProvider extends ServiceProvider {
 		/**
 		 * Setup Center
 		 */
-		$this->app['router']->group(['prefix' => 'setup', 'before' => 'csrf'], function()
+		Route::group(['prefix' => 'setup', 'before' => 'csrf'], function()
 		{
-			$this->app['router']->get('/', 'Nova\Setup\Controllers\Setup@getIndex');
-			$this->app['router']->get('start', 'Nova\Setup\Controllers\Setup@getStart');
-			$this->app['router']->get('uninstall', 'Nova\Setup\Controllers\Setup@getUninstall');
-			$this->app['router']->get('uninstall/cleanup', 'Nova\Setup\Controllers\Setup@getUninstallCleanup');
-			$this->app['router']->get('genres', 'Nova\Setup\Controllers\Setup@getGenres');
+			Route::get('/', 'nova\setup\controllers\Setup@getIndex');
+			Route::get('start', 'nova\setup\controllers\Setup@getStart');
+			Route::get('uninstall', 'nova\setup\controllers\Setup@getUninstall');
+			Route::get('uninstall/cleanup', 'nova\setup\controllers\Setup@getUninstallCleanup');
+			Route::get('genres', 'nova\setup\controllers\Setup@getGenres');
 
-			$this->app['router']->post('uninstall', 'Nova\Setup\Controllers\Setup@postUninstall');
+			Route::post('uninstall', 'nova\setup\controllers\Setup@postUninstall');
 		});
 
 		/**
 		 * Building database config file
 		 */
-		$this->app['router']->group(['prefix' => 'setup/config/db', 'before' => 'csrf'], function()
+		Route::group(['prefix' => 'setup/config/db', 'before' => 'csrf'], function()
 		{
-			$this->app['router']->get('/', 'Nova\Setup\Controllers\ConfigDb@getIndex');
-			$this->app['router']->get('info', 'Nova\Setup\Controllers\ConfigDb@getInfo');
+			Route::get('/', 'nova\setup\controllers\ConfigDb@getIndex');
+			Route::get('info', 'nova\setup\controllers\ConfigDb@getInfo');
 
-			$this->app['router']->post('check', 'Nova\Setup\Controllers\ConfigDb@postCheck');
-			$this->app['router']->post('write', 'Nova\Setup\Controllers\ConfigDb@postWrite');
-			$this->app['router']->post('verify', 'Nova\Setup\Controllers\ConfigDb@postVerify');
+			Route::post('check', 'nova\setup\controllers\ConfigDb@postCheck');
+			Route::post('write', 'nova\setup\controllers\ConfigDb@postWrite');
+			Route::post('verify', 'nova\setup\controllers\ConfigDb@postVerify');
 		});
 
 		/**
 		 * Building email config file
 		 */
-		$this->app['router']->group(['prefix' => 'setup/config/email', 'before' => 'csrf'], function()
+		Route::group(['prefix' => 'setup/config/email', 'before' => 'csrf'], function()
 		{
-			$this->app['router']->get('/', 'Nova\Setup\Controllers\ConfigMail@getIndex');
-			$this->app['router']->get('info', 'Nova\Setup\Controllers\ConfigMail@getInfo');
+			Route::get('/', 'nova\setup\controllers\ConfigMail@getIndex');
+			Route::get('info', 'nova\setup\controllers\ConfigMail@getInfo');
 			
-			$this->app['router']->post('write', 'Nova\Setup\Controllers\ConfigMail@postWrite');
-			$this->app['router']->post('verify', 'Nova\Setup\Controllers\ConfigMail@postVerify');
+			Route::post('write', 'nova\setup\controllers\ConfigMail@postWrite');
+			Route::post('verify', 'nova\setup\controllers\ConfigMail@postVerify');
 		});
 
 		/**
 		 * Fresh install
 		 */
-		$this->app['router']->group(['prefix' => 'setup/install', 'before' => 'csrf'], function()
+		Route::group(['prefix' => 'setup/install', 'before' => 'csrf'], function()
 		{
-			$this->app['router']->get('/', 'Nova\Setup\Controllers\Install@getIndex');
-			$this->app['router']->get('settings', 'Nova\Setup\Controllers\Install@getSettings');
-			$this->app['router']->get('finalize', 'Nova\Setup\Controllers\Install@getFinalize');
+			Route::get('/', 'nova\setup\controllers\Install@getIndex');
+			Route::get('settings', 'nova\setup\controllers\Install@getSettings');
+			Route::get('finalize', 'nova\setup\controllers\Install@getFinalize');
 
-			$this->app['router']->post('/', 'Nova\Setup\Controllers\Install@postIndex');
-			$this->app['router']->post('settings', 'Nova\Setup\Controllers\Install@postSettings');
+			Route::post('/', 'nova\setup\controllers\Install@postIndex');
+			Route::post('settings', 'nova\setup\controllers\Install@postSettings');
 		});
 
 		/**
 		 * Migrate from Nova 2
 		 */
-		$this->app['router']->group(['prefix' => 'setup/migrate', 'before' => 'csrf'], function()
+		Route::group(['prefix' => 'setup/migrate', 'before' => 'csrf'], function()
 		{
-			$this->app['router']->get('/', 'Nova\Setup\Controllers\Setup@getStart');
+			Route::get('/', 'nova\setup\controllers\Setup@getStart');
 		});
 
 		/**
 		 * Update Nova 3
 		 */
-		$this->app['router']->group(['prefix' => 'setup/update', 'before' => 'csrf'], function()
+		Route::group(['prefix' => 'setup/update', 'before' => 'csrf'], function()
 		{
-			$this->app['router']->get('/', 'Nova\Setup\Controllers\Update@getIndex');
-			$this->app['router']->get('finalize', 'Nova\Setup\Controllers\Update@getFinalize');
-			$this->app['router']->get('rollback', 'Nova\Setup\Controllers\Update@getRollback');
-			$this->app['router']->get('rollback/finalize', 'Nova\Setup\Controllers\Update@getRollbackFinalize');
+			Route::get('/', 'nova\setup\controllers\Update@getIndex');
+			Route::get('finalize', 'nova\setup\controllers\Update@getFinalize');
+			Route::get('rollback', 'nova\setup\controllers\Update@getRollback');
+			Route::get('rollback/finalize', 'nova\setup\controllers\Update@getRollbackFinalize');
 
-			$this->app['router']->post('/', 'Nova\Setup\Controllers\Update@postIndex');
-			$this->app['router']->post('rollback', 'Nova\Setup\Controllers\Update@postRollback');
+			Route::post('/', 'nova\setup\controllers\Update@postIndex');
+			Route::post('rollback', 'nova\setup\controllers\Update@postRollback');
 		});
 
 		/**
 		 * Setup ajax calls
 		 */
-		$this->app['router']->group(['prefix' => 'setup/ajax', 'before' => 'csrf'], function()
+		Route::group(['prefix' => 'setup/ajax', 'before' => 'csrf'], function()
 		{
-			$this->app['router']->post('ignore_version', 'Nova\Setup\Controllers\Ajax@postIgnoreVersion');
-			$this->app['router']->post('install_genre', 'Nova\Setup\Controllers\Ajax@postInstallGenre');
-			$this->app['router']->post('uninstall_genre', 'Nova\Setup\Controllers\Ajax@postUninstallGenre');
+			Route::post('ignore_version', 'nova\setup\controllers\Ajax@postIgnoreVersion');
+			Route::post('install_genre', 'nova\setup\controllers\Ajax@postInstallGenre');
+			Route::post('uninstall_genre', 'nova\setup\controllers\Ajax@postUninstallGenre');
 		});
 	}
 

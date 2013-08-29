@@ -1,4 +1,4 @@
-<?php namespace Nova\Setup\Controllers;
+<?php namespace nova\setup\controllers;
 
 use DB;
 use Schema;
