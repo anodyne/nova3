@@ -66,14 +66,14 @@ return [
 		'component' => 'character',
 		'level' => 1,
 		'name' => 'Create Character (Level 1)',
-		'desc' => 'Create a new non-playing character.'
+		'desc' => 'Create a new character.'
 	],
 	[
 		'action' => 'create',
 		'component' => 'character',
 		'level' => 2,
 		'name' => 'Create Character (Level 2)',
-		'desc' => 'Create a new character (playing and non-playing) and accept or reject new characters.'
+		'desc' => 'Create a new character and accept or reject new applications.'
 	],
 	[
 		'action' => 'update',
@@ -87,14 +87,14 @@ return [
 		'component' => 'character',
 		'level' => 2,
 		'name' => 'Edit Character (Level 2)',
-		'desc' => 'Update any non-playing character bio.'
+		'desc' => 'Update any non-assigned character bio.'
 	],
 	[
 		'action' => 'update',
 		'component' => 'character',
 		'level' => 3,
 		'name' => 'Edit Character (Level 3)',
-		'desc' => 'Update any character bio.'
+		'desc' => 'Update any character bio and assign users to a character.'
 	],
 	[
 		'action' => 'delete',
@@ -117,8 +117,15 @@ return [
 	[
 		'action' => 'read',
 		'component' => 'post',
-		'level' => 0,
-		'name' => 'View Mission Posts',
+		'level' => 1,
+		'name' => 'View Mission Posts (Level 1)',
+		'desc' => 'See your own non-activated mission posts.'
+	],
+	[
+		'action' => 'read',
+		'component' => 'post',
+		'level' => 2,
+		'name' => 'View Mission Posts (Level 2)',
 		'desc' => 'See all non-activated mission posts.'
 	],
 	[
@@ -156,8 +163,15 @@ return [
 	[
 		'action' => 'read',
 		'component' => 'log',
-		'level' => 0,
-		'name' => 'View Personal Logs',
+		'level' => 1,
+		'name' => 'View Personal Logs (Level 1)',
+		'desc' => 'See your own non-activated personal logs.'
+	],
+	[
+		'action' => 'read',
+		'component' => 'log',
+		'level' => 2,
+		'name' => 'View Personal Logs (Level 2)',
 		'desc' => 'See all non-activated personal logs.'
 	],
 	[
@@ -195,8 +209,15 @@ return [
 	[
 		'action' => 'read',
 		'component' => 'announcement',
-		'level' => 0,
-		'name' => 'View Announcements',
+		'level' => 1,
+		'name' => 'View Announcements (Level 1)',
+		'desc' => 'See your own non-activated announcements.'
+	],
+	[
+		'action' => 'read',
+		'component' => 'announcement',
+		'level' => 2,
+		'name' => 'View Announcements (Level 2)',
 		'desc' => 'See all non-activated announcements.'
 	],
 	[
@@ -251,28 +272,28 @@ return [
 	 */
 	[
 		'action' => 'read',
-		'component' => 'report',
+		'component' => 'reports',
 		'level' => 1,
 		'name' => 'View Reports (Level 1)',
 		'desc' => 'See the sim stats and milestone reports.'
 	],
 	[
 		'action' => 'read',
-		'component' => 'report',
+		'component' => 'reports',
 		'level' => 2,
 		'name' => 'View Reports (Level 2)',
 		'desc' => 'See the crew activity and posting reports as well as all level 1 reports.'
 	],
 	[
 		'action' => 'read',
-		'component' => 'report',
+		'component' => 'reports',
 		'level' => 3,
 		'name' => 'View Reports (Level 3)',
 		'desc' => 'See the LOA and award nomination reports as well as all level 1 and 2 reports.'
 	],
 	[
 		'action' => 'read',
-		'component' => 'report',
+		'component' => 'reports',
 		'level' => 4,
 		'name' => 'View Reports (Level 4)',
 		'desc' => 'See all reports.'
@@ -493,14 +514,14 @@ return [
 		'component' => 'content',
 		'level' => 0,
 		'name' => 'Create Content',
-		'desc' => ''
+		'desc' => 'Create new site content to be used by Nova.'
 	],
 	[
 		'action' => 'update',
 		'component' => 'content',
 		'level' => 0,
 		'name' => 'Edit Content',
-		'desc' => ''
+		'desc' => 'Edit any site content message.'
 	],
 	[
 		'action' => 'delete',
@@ -518,21 +539,21 @@ return [
 		'component' => 'settings',
 		'level' => 0,
 		'name' => 'Create Setting',
-		'desc' => ''
+		'desc' => 'Create a new setting for use throughout Nova.'
 	],
 	[
 		'action' => 'update',
 		'component' => 'settings',
 		'level' => 0,
 		'name' => 'Edit Setting',
-		'desc' => ''
+		'desc' => 'Edit any setting in the system, including user-created settings.'
 	],
 	[
 		'action' => 'delete',
 		'component' => 'settings',
 		'level' => 0,
 		'name' => 'Delete Setting',
-		'desc' => ''
+		'desc' => 'Delete any user-created setting.'
 	],
 
 	/**
@@ -543,20 +564,20 @@ return [
 		'component' => 'routes',
 		'level' => 0,
 		'name' => 'Create Route',
-		'desc' => ''
+		'desc' => 'Create new routes and duplicating core routes for editing.'
 	],
 	[
 		'action' => 'update',
 		'component' => 'routes',
 		'level' => 0,
 		'name' => 'Edit Route',
-		'desc' => ''
+		'desc' => 'Edit any routes that have been created or duplicated.'
 	],
 	[
 		'action' => 'delete',
 		'component' => 'routes',
 		'level' => 0,
 		'name' => 'Delete Route',
-		'desc' => ''
+		'desc' => 'Remote a user-created route and fallback to the core route.'
 	],
 ];

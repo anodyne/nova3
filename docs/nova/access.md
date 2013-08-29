@@ -53,3 +53,79 @@ As another example, creating a new announcement requires the _Power User_ role. 
 ## For Developers
 
 More information about access control is available as part of the Dev Center where we talk about integrating access control into your custom solutions as well as describing Sentry and Citadel, the access control components built in to the Nova core.
+
+## Default Tasks
+
+### Inactive User
+
+The inactive user role has no permissions.
+
+### User
+
+- messages.*
+- user.update.1
+
+### Active User
+
+_Inherits from the __User__ role._
+
+- character.update.1
+- character.create.1
+- post.create
+- post.read.1
+- post.update.1
+- log.create
+- log.read.1
+- log.update.1
+- comment.create
+- reports.read.1
+- form.read
+
+### Power User
+
+_Inherits from the __User__ and __Active User__ roles._
+
+- character.update.2
+- post.read.2
+- log.read.2
+- announcement.create
+- announcement.read.1
+- announcement.update.1
+- reports.read.2
+
+### Administrator
+
+_Inherits from the __User__, __Active User__ and __Power User__ roles._
+
+- post.update.2
+- log.update.2
+- announcement.read.2
+- announcement.update.2
+- character.update.3
+- character.delete
+- user.update.2
+- comment.update
+- comment.delete
+- reports.read.3
+
+### System Administrator
+
+_Inherits from the __User__, __Active User__, __Power User__ and __Administrator__ roles._
+
+- user.create
+- user.delete
+- character.create.2
+- reports.read.4
+- ban.*
+- position.*
+- rank.*
+- department.*
+- catalog.*
+- form.create
+- form.update
+- form.delete
+- nav.*
+- role.*
+- content.*
+- settings.*
+- routes.*
