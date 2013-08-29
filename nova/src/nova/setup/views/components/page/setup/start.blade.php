@@ -97,7 +97,7 @@
 		<div class="col col-lg-6">
 			<h3><span class="icn icn24 text-warning" data-icon="g"></span> The Genre Panel</h3>
 
-			<p>A flexible genre system allows Nova to be used for a wide range of games. Using the Genre Panel you can change your game's genre to one of the other provided genres. Changing the genre will require manual work to change your characters to use the proper positions and ranks.</p>
+			<p>A flexible genre system allows Nova to be used for a wide range of games. Using the Genre Panel you can change your game's genre to one of the other provided genres. Changing the genre will require manual work to update your characters.</p>
 
 			<a href="{{ URL::to('setup/genres') }}" class="btn btn-block">The Genre Panel</a>
 		</div>
