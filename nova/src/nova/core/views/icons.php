@@ -2,6 +2,7 @@
 
 return [
 
+	'actions' => '<span class="icn" data-icon="a"></span>',
 	'add' => '<span class="icn" data-icon="+"></span>',
 
 	'back' => '<span class="icn" data-icon="<"></span>',
@@ -48,7 +49,6 @@ return [
 	'rank' => '<span class="icn" data-icon="@"></span>',
 
 	'settings' => '<span class="icn" data-icon=")"></span>',
-	'share' => '<span class="icn" data-icon="a"></span>',
 	'star' => '<span class="icn" data-icon="5"></span>',
 	'starHollow' => '<span class="icn" data-icon="6"></span>',
 	'search' => '<span class="icn" data-icon="s"></span>',
