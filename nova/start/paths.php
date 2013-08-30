@@ -52,6 +52,6 @@ return array(
 	|
 	*/
 
-	'storage' => APPPATH.'storage',
+	'storage' => NOVAPATH.'storage',
 
 );
