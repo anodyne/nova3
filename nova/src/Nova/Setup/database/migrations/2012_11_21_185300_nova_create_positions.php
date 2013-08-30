@@ -30,7 +30,7 @@ class NovaCreatePositions extends Migration {
 		if ($explicitGenre)
 		{
 			// Pull in the genre data file
-			include SRCPATH."setup/assets/install/genres/{$genre}.php";
+			include SRCPATH."Setup/database/genres/{$genre}.php";
 
 			foreach ($positions as $p)
 			{

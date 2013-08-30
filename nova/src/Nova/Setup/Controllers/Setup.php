@@ -256,7 +256,7 @@ class Setup extends SetupBaseController {
 		$finder = new Finder();
 
 		// Set what we're looking for
-		$finder->files()->in(SRCPATH.'setup/database/genres')->name('*.php');
+		$finder->files()->in(SRCPATH.'Setup/database/genres')->name('*.php');
 
 		// Loop through the files in the genres directory
 		foreach ($finder as $f)

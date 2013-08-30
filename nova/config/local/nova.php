@@ -2,7 +2,7 @@
 
 return [
 
-	'version_check_path' => SRCPATH.'setup/version.json',
+	'version_check_path' => SRCPATH.'Setup/version.json',
 
 	'registration_path' => '',
 

@@ -154,7 +154,7 @@ abstract class Setup extends Controller {
 								// Put the intended desintation into the session
 								Session::put('url.intended', $url->full());
 
-								return Redirect::to('login/error/'.\nova\core\controllers\Login::NOT_ADMIN);
+								return Redirect::to('login/error/'.\Nova\Core\Controllers\Login::NOT_ADMIN);
 							}
 						}
 						else
@@ -163,7 +163,7 @@ abstract class Setup extends Controller {
 							Session::put('url.intended', $url->full());
 
 							// No session? Send them away
-							return Redirect::to('login/error/'.\nova\core\controllers\Login::NOT_LOGGED_IN);
+							return Redirect::to('login/error/'.\Nova\Core\Controllers\Login::NOT_LOGGED_IN);
 						}
 					}
 				}

@@ -16,7 +16,7 @@ Let's dig in to our controller now. Open up the `Sim.php` file and paste the fol
 use File;
 use Markdown;
 
-class Sim extends \nova\core\controllers\Sim {
+class Sim extends \Nova\Core\Controllers\Sim {
 	
 	public function getRules()
 	{

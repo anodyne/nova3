@@ -1,4 +1,4 @@
-<?php include_once SRCPATH.'core/views/components/js/core/core_js.php';?>
+<?php include_once NOVAPATH.'views/components/js/core/core_js.php';?>
 
 <script type="text/javascript" src="<?php echo NOVAURL;?>assets/js/jquery.blockUI.min.js"></script>
 

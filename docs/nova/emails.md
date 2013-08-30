@@ -1,6 +1,6 @@
 # Emails Sent by Nova 3
 
 - Resetting a password
-	- nova\core\controllers\Login@postReset
+	- Nova\Core\Controllers\Login@postReset
 - Creating a new entry in FormViewer
-	- nova\core\controllers\admin\FormViewer@postIndex
+	- Nova\Core\Controllers\Admin\FormViewer@postIndex
