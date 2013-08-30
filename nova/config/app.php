@@ -124,7 +124,7 @@ return [
 		'nova\core\providers\ErrorServiceProvider',
 		'nova\core\providers\NovaServiceProvider',
 		'nova\core\providers\SystemRouteServiceProvider',
-		'nova\setup\SetupServiceProvider',
+		'Nova\Setup\SetupServiceProvider',
 		'nova\api\ApiServiceProvider',
 		'nova\extensions\cartalyst\sentry\SentryServiceProvider',
 		'nova\extensions\laravel\translation\TranslationServiceProvider',
@@ -207,7 +207,7 @@ return [
 		'AjaxBaseController'	=> 'nova\core\controllers\base\Ajax',
 		'WikiBaseController'	=> 'nova\wiki\controllers\base\Wiki',
 		'ForumBaseController'	=> 'nova\forum\controllers\base\Forum',
-		'SetupBaseController'	=> 'nova\setup\controllers\base\Setup',
+		'SetupBaseController'	=> 'Nova\Setup\Controllers\Base\Setup',
 
 		/**
 		 * Nova Classes
@@ -223,7 +223,7 @@ return [
 		'Notify'		=> 'nova\core\facades\Notify',
 		'Nova'			=> 'nova\core\facades\Nova',
 		'Sentry' 		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
-		'Setup'			=> 'nova\setup\SetupFacade',
+		'Setup'			=> 'Nova\Setup\SetupFacade',
 		'Status'		=> 'nova\core\lib\Status',
 		'SystemEvent'	=> 'nova\core\facades\SystemEvent',
 

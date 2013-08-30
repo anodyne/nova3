@@ -24,7 +24,7 @@
 		</testsuite>
 
 		<testsuite name="setup">
-			<directory>./nova/src/nova/setup/tests/</directory>
+			<directory>./nova/src/Nova/Setup/tests/</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>

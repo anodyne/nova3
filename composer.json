@@ -49,14 +49,14 @@
 	"autoload": {
 		"classmap": [
 			"app/database/migrations",
-			"nova/src/nova/setup/database/migrations",
-			"nova/src/nova/setup/database/seeds"
+			"nova/src/Nova/Setup/database/migrations",
+			"nova/src/Nova/Setup/database/seeds"
 		],
 
 		"psr-0": {
 			"app\\": "",
-			"modules\\": "app/",
-			"nova\\": "nova/src/"
+			"Modules\\": "app/",
+			"Nova\\": "nova/src/"
 		}
 	},
 	
