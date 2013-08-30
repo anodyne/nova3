@@ -47,7 +47,7 @@
 	<div class="row">
 		<div class="col-lg-6">
 			<label>{{ lang('Conditions') }}</label>
-			{{ Form::textarea('conditions', null, ['rows' => 3, 'class' => 'form-control']) }}
+			{{ Form::textarea('conditions', null, ['rows' => 5, 'class' => 'form-control']) }}
 		</div>
 	</div>
 	<div class="row">

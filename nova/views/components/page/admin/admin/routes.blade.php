@@ -25,10 +25,12 @@
 			<div class="nv-data-table nv-data-table-striped nv-data-table-bordered" id="userRoutes">
 			@foreach ($routes['user'] as $route)
 				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-lg-10">
+					<div class="col-xs-12 col-sm-12 col-lg-5">
 						<p><strong>{{ $route->uri }}</strong></p>
 						<p class="text-small">{{ Str::upper($route->verb) }}</p>
-						<p class="text-small">{{ $route->resource }}</p>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-lg-5">
+						<p>{{ $route->resource }}</p>
 					</div>
 					<div class="col-xs-12 col-sm-12 col-lg-2">
 						<div class="visible-lg">
@@ -83,10 +85,12 @@
 			<div class="nv-data-table nv-data-table-striped nv-data-table-bordered" id="coreRoutes">
 			@foreach ($routes['core'] as $route)
 				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-lg-11">
+					<div class="col-xs-12 col-sm-12 col-lg-5">
 						<p><strong>{{ $route->uri }}</strong></p>
 						<p class="text-small">{{ Str::upper($route->verb) }}</p>
-						<p class="text-small">{{ $route->resource }}</p>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-lg-6">
+						<p>{{ $route->resource }}</p>
 					</div>
 					<div class="col-xs-12 col-sm-12 col-lg-1">
 						@if (Sentry::getUser()->hasAccess('routes.create'))

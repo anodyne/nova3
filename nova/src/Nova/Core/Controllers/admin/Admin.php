@@ -52,13 +52,13 @@ class Admin extends AdminBaseController {
 			$this->_view = 'admin/admin/routes_action';
 
 			// Set the ID
-			$id = (is_numeric($id)) ? $id : 0;
+			$routeId = (is_numeric($id)) ? $id : 0;
 
 			// Get the route
-			$this->_data->route = SystemRoute::find($id);
+			$this->_data->route = SystemRoute::find($routeId);
 
 			// Set the action
-			$this->_mode = $this->_data->action = ((int) $id === 0) ? 'create' : 'update';
+			$this->_mode = $this->_data->action = ((int) $routeId === 0) ? 'create' : 'update';
 		}
 		else
 		{
@@ -88,14 +88,14 @@ class Admin extends AdminBaseController {
 			// Build the duplicate page modal
 			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'duplicateRoute')
-				->with('modalHeader', ucwords(lang('short.duplicate', langConcat('core route'))))
+				->with('modalHeader', lang('Short.duplicate', langConcat('Core Route')))
 				->with('modalBody', false)
 				->with('modalFooter', false);
 
 			// Build the delete page modal
 			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'deleteRoute')
-				->with('modalHeader', ucwords(lang('short.delete', lang('route'))))
+				->with('modalHeader', lang('Short.delete', lang('Route')))
 				->with('modalBody', false)
 				->with('modalFooter', false);
 		}
