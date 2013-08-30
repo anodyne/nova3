@@ -236,12 +236,16 @@ Form::macro('position', function($name, $selected = null, $options = array(), $t
 		}
 
 		// Merge the user options into what should be there
-		$options = array_merge(array('id' => 'positionDrop', 'class' => 'col col-lg-4'), $options);
+		$options = array_merge(['id' => 'positionDrop', 'class' => 'form-control'], $options);
 
 		// Build the output
-		$output = '<div class="control-group"><label class="control-label">'.ucfirst(lang('base.position')).'</label><div class="controls">';
+		$output = '<div class="row"><div class="col-sm-6 col-lg-4">';
+		$output.= '<div class="form-group"><label class="control-label">'.lang('Position').'</label>';
 		$output.= Form::select($name, $list, $selected, $options);
-		$output.= '<div id="positionDesc" class="help-block">';
+		$output.= '</div></div><div class="col-sm-6 col-lg-8">';
+		$output.= '<div id="positionDesc" class="help-block"><label class="control-label">&nbsp;</label>';
+		$output.= '<div id="positionDescInner"></div>';
+		$output.= '<div class="hide" id="positionLoader">'.HTML::image('nova/views/design/images/loading.gif').'</div>';
 
 		if (is_numeric($selected))
 		{

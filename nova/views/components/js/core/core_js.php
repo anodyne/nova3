@@ -60,7 +60,8 @@
 	});
 
 	// Rank dropdown
-	$('#rankDrop').on('change', function(){
+	$('#rankDrop').on('change', function(e)
+	{
 		$.ajax({
 			type: "GET",
 			url: "<?php echo URL::to('ajax/get/rank');?>/" + $('#rankDrop option:selected').val() + "/image",
@@ -70,25 +71,33 @@
 			}
 		});
 		
-		return false;
+		e.preventDefault();
 	});
 
 	// Position dropdown
-	$('#positionDrop').on('change', function(){
+	$('#positionDrop').on('change', function()
+	{
 		$.ajax({
 			type: "GET",
 			url: "<?php echo URL::to('ajax/get/position');?>/" + $('#positionDrop option:selected').val() + "/desc",
-			success: function(data){
-				$('#positionDesc').html('');
-				$('#positionDesc').append(data);
+			beforeSend: function()
+			{
+				$('#positionLoader').removeClass('hide');
+			},
+			success: function(data)
+			{
+				$('#positionDescInner').html('');
+				$('#positionDescInner').append(data);
+				$('#positionLoader').addClass('hide');
 			}
 		});
 		
-		return false;
+		e.preventDefault();
 	});
 
 	// Access role dropdown
-	$('#roleDrop').on('change', function(){
+	$('#roleDrop').on('change', function()
+	{
 		$.ajax({
 			type: "POST",
 			url: "<?php echo URL::to('ajax/info/role_desc');?>",
@@ -99,7 +108,7 @@
 			}
 		});
 		
-		return false;
+		e.preventDefault();
 	});
 
 	// Destroy all modals when they're hidden

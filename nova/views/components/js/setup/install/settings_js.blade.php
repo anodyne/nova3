@@ -8,10 +8,16 @@
 			$.ajax({
 				type: "GET",
 				url: "{{ URL::to('ajax/get/position') }}/" + $('#positionDrop option:selected').val() + "/desc",
+				beforeSend: function()
+				{
+					$('#positionDescPanel').addClass('hide');
+					$('#positionLoader').removeClass('hide');
+				},
 				success: function(data)
 				{
 					$('#positionDesc').html('');
 					$('#positionDesc').append(data);
+					$('#positionLoader').addClass('hide');
 					$('#positionDescPanel').removeClass('hide');
 				}
 			});
