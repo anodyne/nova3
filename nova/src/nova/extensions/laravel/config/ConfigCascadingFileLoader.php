@@ -50,9 +50,7 @@ class ConfigCascadingFileLoader implements LoaderInterface {
 		// can't create problems by changing these paths.
 		$this->defaultPath = array(
 			'app'		=> APPPATH.'config',
-			'wiki'		=> SRCPATH.'wiki/config',
-			'forum'		=> SRCPATH.'forum/config',
-			'core'		=> SRCPATH.'core/config',
+			'core'		=> NOVAPATH.'config',
 		);
 	}
 
