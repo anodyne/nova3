@@ -30,7 +30,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			{{ $errors->first('location', '<p class="help-block text-danger">:message</p>') }}
-			<p class="help-block">{{ lang('short.admin.catalog.ranks.location') }}</p>
+			<p class="help-block">{{ lang('short.admin.catalog.ranks.location', Config::get('nova.genre')) }}</p>
 		</div>
 	</div>
 

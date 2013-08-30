@@ -270,9 +270,9 @@ class Catalog extends AdminBaseController {
 			// Set the action
 			$this->_mode = $this->_data->action = ((int) $id === 0) ? 'create' : 'update';
 
-			if ((int) $id !== 0 and File::exists(APPPATH."views/{$skin->location}/options.json"))
+			if ((int) $id !== 0 and File::exists(APPPATH."skins/{$skin->location}/options.json"))
 			{
-				$optionsContent = File::get(APPPATH."views/{$skin->location}/options.json");
+				$optionsContent = File::get(APPPATH."skins/{$skin->location}/options.json");
 
 				$this->_data->options = json_decode($optionsContent);
 			}
@@ -289,7 +289,7 @@ class Catalog extends AdminBaseController {
 			$simpleSkins = $skins->toSimpleArray('id', 'location');
 
 			// Get the listing of the skins
-			$finder = Finder::create()->directories()->in(APPPATH."views")->depth('== 0')
+			$finder = Finder::create()->directories()->in(APPPATH."skins")->depth('== 0')
 				->filter(function(SplFileInfo $fileinfo) use ($simpleSkins)
 				{
 					if (in_array($fileinfo->getRelativePathName(), $simpleSkins))
@@ -308,10 +308,10 @@ class Catalog extends AdminBaseController {
 				$relativePath = $f->getRelativePathName();
 
 				// If we have a QuickInstall file, add it to the pending list
-				if (File::exists(APPPATH."views/{$relativePath}/skin.json"))
+				if (File::exists(APPPATH."skins/{$relativePath}/skin.json"))
 				{
 					// Get the contents of the QuickInstall file
-					$skinContents = File::get(APPPATH."views/{$relativePath}/skin.json");
+					$skinContents = File::get(APPPATH."skins/{$relativePath}/skin.json");
 
 					$this->_data->pending[$relativePath] = json_decode($skinContents);
 				}
@@ -537,7 +537,7 @@ class Catalog extends AdminBaseController {
 						$item = reset($optionArr);
 
 						// Set where to put the file
-						$destination = APPPATH."views/{$skin->location}/";
+						$destination = APPPATH."skins/{$skin->location}/";
 						$destination = (isset($item->location))
 							? $destination.$item->location
 							: $destination;
