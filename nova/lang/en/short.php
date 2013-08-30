@@ -61,7 +61,7 @@ return array(
 			'previewImage' => "Preview Image",
 
 			'ranks' => [
-				'location' => "This is the name of the directory where the rank set is located. (Rank sets are located in <code>app/assets/common/{genre}/ranks</code>.)",
+				'location' => "This is the name of the directory where the rank set is located. (Rank sets are located in <code>app/assets/common/:0/ranks</code>.)",
 				'previewImageHelp' => "The filename of the image you want to use as a preview for this rank set.",
 				'blankImage' => "Blank Image",
 				'blankImageHelp' => "The filename of the image you want to use for the \"blank\" image on the manifest.",
@@ -71,7 +71,7 @@ return array(
 			],
 
 			'skins' => [
-				'location' => "This is the name of the directory where the skin is located. (Skins are located in <code>app/views</code>.)",
+				'location' => "This is the name of the directory where the skin is located. (Skins are located in <code>app/skins</code>.)",
 				'previewImageHelp' => "The filename of the image you want to use as a preview for this skin.",
 				'pending' => "The skins below were found in the appropriate skins directory and have a QuickInstall file, but haven't been installed yet. To install these skins and make them available to use, click the :0 icon.",
 				'updateAvailable' => "An update is ready to be applied for this skin.",
@@ -113,14 +113,6 @@ return array(
 			'validation' => "You can set rules for the data entered into the field using any of the rules available in the <a href='http://laravel.com/docs/validation' target='_blank'>Laravel validation documentation</a>. Enter the rules and Nova will validate the data when the form is submitted. (e.g. <code>required|min:5</code>)",
 		],
 
-		'routes' => [
-			'removeConfirm' => "Are you sure you want to delete the :0 <strong>:1</strong>? While this won't remove the custom page, it will revert the route to point back toward the core route. If you want to restore the route to your custom page, you will need to create a new page route.",
-			'uri' => "Optional URI parameters can be specified with a question mark: <code>{id?}</code>",
-			'resource' => "Resources must include the namespace: <code>App\Controllers\Foo@method</code>",
-			'name' => "If you are overriding an existing page, make sure the name matches exactly.",
-			'conditions' => "Conditions must contain a name and a pattern, separated by a period: <code>name.condition</code>. The name is the variable used in the URI field and the condition is a regular expression. Ensuring an ID is numeric would be: <code>id.[0-9]+</code>. In addition, you can create multiple conditions for a route by separating the conditions with a pipe <code>|</code>.",
-		],
-
 		'ranks' => [
 			'changeGroup' => "Select the new :0 group for any :1 currently in this :0 group.",
 			'changeInfo' => "Select the new :0 info item for any :1 currently using this :0 info record.",
@@ -131,11 +123,19 @@ return array(
 			'duplicateSysAdminHeader' => "With Great Power Comes Great Responsibility!",
 			'duplicateSysAdminText' => "You are about to duplicate the System Administrator role. Make sure you understand the impact of assigning :0 to this role.",
 			'removeRole' => "Select the new role you would like any :0 in the :1 role to be moved to.",
-			'chooseTaskComponent' => "Choose from one of the existing task components or create your own.",
-			'chooseTaskAction' => "Choose from one of the existing task actions (create, read, update, delete) or create your own.",
+			'chooseTaskComponent' => "Start typing to see a list of the existing task components or create your own.",
+			'chooseTaskAction' => "Start typing to choose from one of the existing task actions (create, read, update, delete) or create your own.",
 			'chooseTaskLevel' => "Task levels can be used to further differentiate access within an action.",
 			'inheritedTask' => "Inherited from the <strong>:0</strong> role.",
 			'inheritedTaskProcessing' => "Processing inherited role tasks. Please wait...",
+		],
+
+		'routes' => [
+			'removeConfirm' => "Are you sure you want to delete the :0 <strong>:1</strong>? While this won't remove the custom page, it will revert the route to point back toward the core route. If you want to restore the route to your custom page, you will need to create a new page route.",
+			'uri' => "URI parameters are specified with brackets: <code>{id}</code>. Optional URI parameters specified with a trailing question mark: <code>{page?}</code>",
+			'resource' => "Resources must include the full namespace: <code>Modules\Anodyne\Controllers\Foo@getMethod</code>",
+			'name' => "If you are overriding an existing page, make sure the name matches exactly.",
+			'conditions' => "Conditions must contain a name and a pattern, separated by a period: <code>name.condition</code>. The name is the variable used in the URI field and the condition is a regular expression. Ensuring an ID is numeric would be: <code>id.[0-9]+</code>. In addition, you can create multiple conditions for a route by separating the conditions with a pipe <code>|</code>.",
 		],
 
 		'users' => [
