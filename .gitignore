@@ -6,4 +6,5 @@ composer.lock
 
 app/config/local/*
 
-nova3.sublime-project
+*.sublime-project
+*.sublime-workspace
