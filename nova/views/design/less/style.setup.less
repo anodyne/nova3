@@ -1,12 +1,12 @@
 @import "http://fonts.googleapis.com/css?family=Open+Sans:300,400,600";
-@import "variables.setup.less";
+@import "variables.less";
 @import "mixins.less";
 
 body {
 	line-height: @line-height;
 
 	background: #e9eef4;
-	font-family: @font-primary;
+	font-family: @font-base;
 	color: #303234;
 }
 
@@ -47,16 +47,15 @@ header {
 		.step {
 			padding: 0 3px;
 
-			color: @color-muted;
+			color: @color-setup-muted;
 			font-weight: normal;
-			/*text-shadow: 0 1px 0 @color-white;*/
 
 			&.step-complete {
 				color: #086baf;
 			}
 
 			&.step-active {
-				color: @color-orange;
+				color: @color-setup-orange;
 			}
 		}
 	}
@@ -67,7 +66,7 @@ section {
 	border-top: 1px solid #f6f7fa;
 
 	a {
-		color: @color-muted;
+		color: @color-setup-muted;
 		text-decoration: none;
 		border-bottom: 1px solid;
 		outline: none;
@@ -82,7 +81,7 @@ section {
 		margin: 12px 0;
 
 		font-weight: 600;
-		color: darken(@color-muted, 20%);
+		color: darken(@color-setup-muted, 20%);
 	}
 	h3 {
 		font-size: 28px;
@@ -94,26 +93,22 @@ section {
 		font-size: @font-size;
 	}
 
-	.icn {
-		/*text-shadow: 0 1px 0 rgba(255, 255, 255, .75);*/
-	}
-
 	blockquote {
 		margin: 15px 0;
 
-		border-color: @color-subtle;
+		border-color: @color-setup-subtle;
 
 		h4 {
 			font-weight: 600;
 			font-size: 20px;
-			color: darken(@color-muted, 20%);
+			color: darken(@color-setup-muted, 20%);
 		}
 
 		p {
 			line-height: @line-height;
 			margin: 10px 0;
 
-			color: darken(@color-muted, 10%);
+			color: darken(@color-setup-muted, 10%);
 			font-weight: 300;
 			font-size: @font-size;
 		}
@@ -125,10 +120,10 @@ section {
 		display: block;
 
 		color: #667484;
-		border-top: 1px solid @color-subtle;
+		border-top: 1px solid @color-setup-subtle;
 
 		a.pull-right {
-			color: @color-muted;
+			color: @color-setup-muted;
 			text-decoration: none;
 			border-bottom: 1px solid;
 			font-size: @font-size-small;
@@ -141,7 +136,7 @@ section {
 	}
 
 	hr {
-		border-top: 1px solid @color-subtle;
+		border-top: 1px solid @color-setup-subtle;
 		border-bottom: 1px solid rgba(255, 255, 255, .75);
 	}
 
@@ -154,12 +149,12 @@ section {
 		input[type="password"],
 		textarea,
 		select {
-			font-family: @font-primary;
+			font-family: @font-base;
 		}
 
 		label {
 			font-weight: 600;
-			font-family: @font-primary;
+			font-family: @font-base;
 			color: #555;
 			font-size: @font-size;
 		}
@@ -167,21 +162,21 @@ section {
 		.help-block {
 			margin: 0 0 10px 0;
 
-			color: @color-muted;
+			color: @color-setup-muted;
 			font-size: @font-size-small;
 		}
 
 		.has-error {
 			label {
-				color: @color-red;
+				color: @color-setup-red;
 			}
 
 			.input-with-feedback {
-				border-color: @color-red;
+				border-color: @color-setup-red;
 			}
 
 			.help-block {
-				color: @color-red;
+				color: @color-setup-red;
 				font-weight: 600;
 			}
 		}
@@ -189,7 +184,7 @@ section {
 
 	fieldset {
 		legend {
-			border-color: @color-subtle;
+			border-color: @color-setup-subtle;
 		}
 
 		legend + .control-group {
@@ -198,16 +193,16 @@ section {
 	}
 
 	.text-info {
-		color: @color-blue;
+		color: @color-setup-blue;
 	}
 	.text-error {
-		color: @color-red;
+		color: @color-setup-red;
 	}
 	.text-success {
-		color: @color-green;
+		color: @color-setup-green;
 	}
 	.text-warning {
-		color: @color-orange;
+		color: @color-setup-orange;
 	}
 
 	.label {
@@ -216,19 +211,19 @@ section {
 		.rounded;
 
 		&.label-success {
-			background: @color-green;
+			background: @color-setup-green;
 		}
 
 		&.label-error {
-			background: @color-red;
+			background: @color-setup-red;
 		}
 
 		&.label-warning {
-			background: @color-orange;
+			background: @color-setup-orange;
 		}
 
 		&.label-info {
-			background: @color-blue;
+			background: @color-setup-blue;
 		}
 	}
 
@@ -240,7 +235,7 @@ section {
 		border-bottom-color: #87919c;
 		color: #315784;
 		text-shadow: 0 1px 0 @color-white;
-		font-family: @font-primary;
+		font-family: @font-base;
 		font-weight: 600;
 		font-size: @font-size;
 		outline: none !important;
@@ -324,7 +319,6 @@ section {
 
 			font-size: 64px;
 			text-align: center;
-			/*text-shadow: 0 1px 0 @color-white;*/
 		}
 
 		h4 {
@@ -341,7 +335,7 @@ section {
 footer {
 	text-align: center;
 	font-size: @font-size-small;
-	color: @color-muted;
+	color: @color-setup-muted;
 }
 
 #loading {
@@ -361,25 +355,6 @@ footer {
 	font-size: @font-size-small;
 }
 
-.icn {
-	font-family: 'icomoon';
-	speak: none;
-	font-weight: normal !important;
-}
-.icn16 {
-	font-size: 16px !important;
-}
-.icn24 {
-	font-size: 24px !important;
-}
-.icn32 {
-	font-size: 32px !important;
-}
-
-[data-icon]:before {
-	content: attr(data-icon);
-}
-
 h1, h2, h3, h4, h5, h6 {
-	font-family: @font-primary;
+	font-family: @font-base;
 }
