@@ -206,7 +206,7 @@ return [
 		'AdminBaseController'	=> 'nova\core\controllers\base\Admin',
 		'AjaxBaseController'	=> 'nova\core\controllers\base\Ajax',
 		'WikiBaseController'	=> 'Nova\Wiki\Controllers\Base\Wiki',
-		'ForumBaseController'	=> 'nova\forum\controllers\base\Forum',
+		'ForumBaseController'	=> 'Nova\Forum\Controllers\Base\Forum',
 		'SetupBaseController'	=> 'Nova\Setup\Controllers\Base\Setup',
 
 		/**
