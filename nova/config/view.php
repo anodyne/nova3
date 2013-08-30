@@ -16,9 +16,7 @@ return [
 	'paths' => [
 		APPPATH.'modules/override/views',
 		APPPATH.'views',
-		SRCPATH.'forum/views',
-		SRCPATH.'wiki/views',
-		SRCPATH.'core/views',
+		NOVAPATH.'views',
 	],
 
 	/*
