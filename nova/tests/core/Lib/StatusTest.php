@@ -26,7 +26,7 @@ class StatusTest extends TestCase {
 	 * @covers				Status::toInt
 	 * @expectedException	Exception
 	 */
-	public function testConvertsToIntThrowsExceptionOnBadStatus()
+	public function testConvertsToIntThrowsExceptionOnNonString()
 	{
 		// The expected output
 		$expected = 1;
@@ -43,7 +43,7 @@ class StatusTest extends TestCase {
 	 * @covers				Status::toInt
 	 * @expectedException	Exception
 	 */
-	public function testConvertsToIntThrowsExceptionOnNonString()
+	public function testConvertsToIntThrowsExceptionOnBadStatus()
 	{
 		// The expected output
 		$expected = 1;
