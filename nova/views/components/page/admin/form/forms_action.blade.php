@@ -123,7 +123,7 @@
 			<div class="row">
 				<div class="col-sm-8 col-lg-6">
 					<label class="control-label">{{ lang('short.admin.forms.emailAddresses') }}</label>
-					{{ Form::textarea('email_addresses', null, ['rows' => 2, 'class' => 'form-control']) }}
+					{{ Form::textarea('email_addresses', null, ['rows' => 5, 'class' => 'form-control']) }}
 				</div>
 			</div>
 			<div class="row">
