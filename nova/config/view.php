@@ -15,7 +15,7 @@ return [
 
 	'paths' => [
 		APPPATH.'modules/override/views',
-		APPPATH.'views',
+		APPPATH.'skins',
 		NOVAPATH.'views',
 	],
 
