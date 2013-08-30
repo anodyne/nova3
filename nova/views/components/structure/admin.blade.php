@@ -14,6 +14,7 @@
 
 		<!-- Web font stylesheet -->
 		{{ HTML::style('nova/assets/css/fonts.css') }}
+		{{ HTML::style('nova/assets/css/fonts.core.css') }}
 		
 		<!-- Nova's base styles and any user-defined styles -->
 		@if (is_file(APPPATH.'views/'.$skin.'/design/style.admin.css'))
