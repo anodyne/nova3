@@ -19,8 +19,8 @@
 			<directory>./nova/src/nova/core/tests/</directory>
 		</testsuite>
 
-		<testsuite name="foundation">
-			<directory>./nova/src/nova/extensions/tests/</directory>
+		<testsuite name="extensions">
+			<directory>./nova/src/Nova/Extensions/tests/</directory>
 		</testsuite>
 
 		<testsuite name="setup">

@@ -126,8 +126,8 @@ return [
 		'nova\core\providers\SystemRouteServiceProvider',
 		'Nova\Setup\SetupServiceProvider',
 		'Nova\Api\ApiServiceProvider',
-		'nova\extensions\cartalyst\sentry\SentryServiceProvider',
-		'nova\extensions\laravel\translation\TranslationServiceProvider',
+		'Nova\Extensions\Cartalyst\Sentry\SentryServiceProvider',
+		'Nova\Extensions\Laravel\Translation\TranslationServiceProvider',
 
 	],
 
