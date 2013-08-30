@@ -205,7 +205,7 @@ return [
 		'LoginBaseController'	=> 'nova\core\controllers\base\Login',
 		'AdminBaseController'	=> 'nova\core\controllers\base\Admin',
 		'AjaxBaseController'	=> 'nova\core\controllers\base\Ajax',
-		'WikiBaseController'	=> 'nova\wiki\controllers\base\Wiki',
+		'WikiBaseController'	=> 'Nova\Wiki\Controllers\Base\Wiki',
 		'ForumBaseController'	=> 'nova\forum\controllers\base\Forum',
 		'SetupBaseController'	=> 'Nova\Setup\Controllers\Base\Setup',
 
