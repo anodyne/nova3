@@ -11,12 +11,8 @@
 		 syntaxCheck="false"
 >
 	<testsuites>
-		<testsuite name="app">
-			<directory>./app/tests/</directory>
-		</testsuite>
-
 		<testsuite name="core">
-			<directory>./nova/src/nova/core/tests/</directory>
+			<directory>./nova/src/Nova/Core/tests/</directory>
 		</testsuite>
 
 		<testsuite name="extensions">
