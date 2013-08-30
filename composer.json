@@ -48,7 +48,6 @@
 
 	"autoload": {
 		"classmap": [
-			"app/database/migrations",
 			"nova/src/Nova/Setup/database/migrations",
 			"nova/src/Nova/Setup/database/seeds"
 		],
