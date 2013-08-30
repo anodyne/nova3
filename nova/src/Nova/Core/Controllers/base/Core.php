@@ -268,29 +268,13 @@ abstract class Core extends Controller {
 		}
 
 		// Set the final title content
-		$this->layout->title.= (is_object($this->_data) and property_exists($this->_data, 'title')) 
-			? $this->_data->title 
-			: ((array_key_exists($this->_action, $this->_titles)) 
-				? $this->_titles[$this->_action] 
-				: null
-		);
+		$this->layout->title.= $this->parseSiteContent('title', false);
 		
 		// Set the final header content
-		/*$this->layout->template->header = (is_object($this->_data) and property_exists($this->_data, 'header')) 
-			? $this->_data->header 
-			: ((array_key_exists($this->_action, $this->_headers)) 
-				? $this->_headers[$this->_action] 
-				: null
-		);*/
 		$this->layout->template->header = $this->parseSiteContent('header', false);
 
-		// set the final message content
-		$this->layout->template->message = (is_object($this->_data) and property_exists($this->_data, 'message')) 
-			? Markdown::parse($this->_data->message)
-			: ((array_key_exists($this->_action, $this->_messages)) 
-				? Markdown::parse($this->_messages[$this->_action])
-				: null
-		);
+		// Set the final message content
+		$this->layout->template->message = $this->parseSiteContent('message', true);
 
 		if ($this->_editable)
 		{
