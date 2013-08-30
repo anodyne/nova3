@@ -218,7 +218,7 @@ return [
 		'Location'		=> 'Nova\Core\Facades\Location',
 		'Markdown'		=> 'Nova\Core\Facades\Markdown',
 		'Media'			=> 'Nova\Core\Facades\Media',
-		'Model'			=> 'nova\extensions\laravel\database\eloquent\Model',
+		'Model'			=> 'Nova\Extensions\Laravel\Database\Eloquent\Model',
 		'Nav'			=> 'Nova\Core\Lib\Nav',
 		'Notify'		=> 'Nova\Core\Facades\Notify',
 		'Nova'			=> 'Nova\Core\Facades\Nova',
