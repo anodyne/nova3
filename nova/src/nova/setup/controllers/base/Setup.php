@@ -108,9 +108,6 @@ abstract class Setup extends Controller {
 		$this->getControllerName();
 		$this->getActionName();
 
-		// Add the setup package to the list for this request
-		View::addLocation(SRCPATH.'setup/views');
-
 		// Get a copy of the controller
 		$me = $this;
 

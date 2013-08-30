@@ -122,15 +122,15 @@ class Install extends SetupBaseController {
 	public function getSettings()
 	{
 		// Set the views
-		$this->_view = 'install/settings';
-		$this->_jsView = 'install/settings_js';
+		$this->_view = 'setup/install/settings';
+		$this->_jsView = 'setup/install/settings_js';
 
 		// Set the title and header
 		$this->_title = 'Setup Center';
 		$this->_header = 'Nova Setup';
 
 		// Set the steps
-		$this->_steps = 'steps_install';
+		$this->_steps = 'setup/steps_install';
 
 		// Get the rank we're using by default
 		$defaultRank = Settings::getSettings('rank');
@@ -233,15 +233,15 @@ class Install extends SetupBaseController {
 	public function getFinalize()
 	{
 		// Set the views
-		$this->_view = 'install/finalize';
-		$this->_jsView = 'install/finalize_js';
+		$this->_view = 'setup/install/finalize';
+		$this->_jsView = 'setup/install/finalize_js';
 
 		// Set the title and header
 		$this->_title = 'Setup Center';
 		$this->_header = 'Nova Setup';
 
 		// Set the steps
-		$this->_steps = 'steps_install';
+		$this->_steps = 'setup/steps_install';
 
 		// Set the controls
 		$this->_controls = HTML::link('/', 'Go to Main Page', ['class' => 'btn btn-primary']);

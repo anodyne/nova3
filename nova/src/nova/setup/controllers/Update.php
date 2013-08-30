@@ -31,14 +31,14 @@ class Update extends SetupBaseController {
 	public function getFinalize()
 	{
 		// Set the view
-		$this->_view = 'update/finalize';
+		$this->_view = 'setup/update/finalize';
 
 		// Set the title and header
 		$this->_title = 'Setup Center';
 		$this->_header = 'Update Nova';
 
 		// Set the steps
-		$this->_steps = 'steps_update';
+		$this->_steps = 'setup/steps_update';
 
 		// Set the controls
 		$this->_controls = HTML::link('/', 'Back to Site', ['class' => 'btn btn-primary']);
@@ -47,7 +47,7 @@ class Update extends SetupBaseController {
 	public function getRollback()
 	{
 		// Set the view
-		$this->_view = 'update/rollback';
+		$this->_view = 'setup/update/rollback';
 
 		// Set the title and header
 		$this->_title = $this->_header = 'Rollback Nova';
@@ -93,7 +93,7 @@ class Update extends SetupBaseController {
 	public function getRollbackFinalize()
 	{
 		// Set the view
-		$this->_view = 'update/finalize_rollback';
+		$this->_view = 'setup/update/finalize_rollback';
 
 		// Set the title and header
 		$this->_title = $this->_header = 'Rollback Nova';
