@@ -5,29 +5,33 @@ use Cache;
 use Sentry;
 use Request;
 use Settings;
+use Nova\Extensions\Laravel\Application;
 
 class Nova {
+
+	public function __construct(Application $app)
+	{
+		$this->app = $app;
+	}
 	
 	/**
 	 * Pulls the web font index arrays from the base as well as the current skin.
 	 *
-	 * @param	string	The current skin
+	 * @param	string	$skin	The current skin
 	 * @return 	array
 	 */
 	public function getIconIndex($skin)
 	{
 		// Load the icon index from the core first
-		$commonIndex = include NOVAPATH.'views/icons.php';
+		$commonIndex = $this->app['files']->getRequire(NOVAPATH.'views/icons.php');
 
 		// Now load the icon index from the skin (if it has one)
-		$skinIndex = (File::exists(APPPATH."views/{$skin}/icons.php"))
-			? include_once APPPATH."views/{$skin}/icons.php"
-			: array();
+		$skinIndex = ($this->app['files']->exists(APPPATH."skins/{$skin}/icons.php"))
+			? $this->app['files']->getRequire(APPPATH."views/{$skin}/icons.php")
+			: [];
 		
 		// Merge the files into an array
-		$iconIndex = array_merge((array) $commonIndex, (array) $skinIndex);
-		
-		return $iconIndex;
+		return array_merge((array) $commonIndex, (array) $skinIndex);
 	}
 
 	/**

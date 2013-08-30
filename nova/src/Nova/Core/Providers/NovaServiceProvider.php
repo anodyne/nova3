@@ -74,7 +74,7 @@ class NovaServiceProvider extends ServiceProvider {
 	{
 		$this->app['nova.common'] = $this->app->share(function($app)
 		{
-			return new Nova;
+			return new Nova($app);
 		});
 	}
 
