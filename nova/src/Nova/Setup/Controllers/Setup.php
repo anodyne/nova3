@@ -79,7 +79,7 @@ class Setup extends SetupBaseController {
 					Form::close();
 
 				// Pull in the steps indicators
-				$this->_steps = 'steps_update';
+				$this->_steps = 'setup/steps_update';
 
 				// Send the update information over
 				$this->_data->update = new stdClass;
@@ -137,7 +137,7 @@ class Setup extends SetupBaseController {
 					$this->_header = 'Migrate From Nova 2';
 
 					// Pull in the steps indicators
-					$this->_steps = 'steps_migrate';
+					$this->_steps = 'setup/steps_migrate';
 				}
 				
 				// Nova 1 means they can't do the migration
@@ -168,7 +168,7 @@ class Setup extends SetupBaseController {
 				$this->_header = 'Install Nova 3';
 
 				// Pull in the steps indicators
-				$this->_steps = 'steps_install';
+				$this->_steps = 'setup/steps_install';
 			}
 		}
 	}
