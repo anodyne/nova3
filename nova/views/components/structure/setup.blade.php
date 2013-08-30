@@ -27,7 +27,7 @@
 	<body>
 		{{ $template }}
 
-		<?php include_once SRCPATH.'core/views/components/js/core/jquery_js.php';?>
+		<?php include_once NOVAPATH.'views/components/js/core/jquery_js.php';?>
 
 		<script type="text/javascript" src="{{ NOVAURL }}assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript">

@@ -19,14 +19,14 @@
 		@if (is_file(APPPATH.'views/'.$skin.'/design/style.css'))
 			{{ HTML::style('app/views/'.$skin.'/design/style.css') }}
 		@else
-			{{ HTML::style('nova/src/nova/core/views/design/style.css') }}
+			{{ HTML::style('nova/views/design/style.css') }}
 		@endif
 		
 		<!-- Nova's base login styles and any user-defined styles -->
 		@if (is_file(APPPATH.'views/'.$skin.'/design/style.login.css'))
 			{{ HTML::style('app/views/'.$skin.'/design/style.login.css') }}
 		@else
-			{{ HTML::style('nova/src/nova/core/views/design/style.login.css') }}
+			{{ HTML::style('nova/views/design/style.login.css') }}
 			
 			@if (is_file(APPPATH.'views/'.$skin.'/design/custom.login.css'))
 				{{ HTML::style('app/views/'.$skin.'/design/custom.login.css') }}
@@ -37,7 +37,7 @@
 		{{ $template }}
 
 		<!-- Nova's core Javascript -->
-		<?php include SRCPATH.'core/views/components/js/core/login_js.php';?>
+		<?php include NOVAPATH.'views/components/js/core/login_js.php';?>
 
 		<!-- Nova's per-page Javascript -->
 		{{ $javascript }}

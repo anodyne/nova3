@@ -19,7 +19,7 @@
 		@if (is_file(APPPATH.'views/'.$skin.'/design/style.css'))
 			{{ HTML::style('app/views/'.$skin.'/design/style.css') }}
 		@else
-			{{ HTML::style('nova/src/nova/core/views/design/style.css') }}
+			{{ HTML::style('nova/views/design/style.css') }}
 			
 			@if (is_file(APPPATH.'views/'.$skin.'/design/custom.css'))
 				{{ HTML::style('app/views/'.$skin.'/design/custom.css') }}
@@ -30,7 +30,7 @@
 		{{ $template }}
 		
 		<!-- Nova's core Javascript -->
-		<?php include SRCPATH.'core/views/components/js/core/main_js.php';?>
+		<?php include NOVAPATH.'views/components/js/core/main_js.php';?>
 
 		<!-- Nova's per-page Javascript -->
 		{{ $javascript }}

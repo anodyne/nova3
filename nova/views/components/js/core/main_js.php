@@ -1,4 +1,4 @@
-<?php include_once SRCPATH.'core/views/components/js/core/core_js.php';?>
+<?php include_once NOVAPATH.'views/components/js/core/core_js.php';?>
 
 <!--<link rel="stylesheet" href="<?php echo SRCURL;?>/assets/css/bootstrap-editable.css">
 
