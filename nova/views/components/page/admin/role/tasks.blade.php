@@ -36,11 +36,13 @@
 							<div class="btn-toolbar pull-right">
 								<div class="btn-group">
 									<a href="#" class="btn btn-sm btn-default tooltip-top js-task-action icn-size-16" title="{{ ucfirst(lang('short.view', langConcat('roles with this task'))) }}" data-action="view" data-id="{{ $t->id }}">{{ $_icons['view'] }}</a>
-									
-									@if (Sentry::getUser()->hasAccess('role.update'))
-										<a href="{{ URL::to('admin/role/tasks/'.$t->id) }}" class="btn btn-sm btn-default icn-size-16">{{ $_icons['edit'] }}</a>
-									@endif
 								</div>
+
+								@if (Sentry::getUser()->hasAccess('role.update'))
+									<div class="btn-group">
+										<a href="{{ URL::to('admin/role/tasks/'.$t->id) }}" class="btn btn-sm btn-default icn-size-16">{{ $_icons['edit'] }}</a>
+									</div>
+								@endif
 
 								@if (Sentry::getUser()->hasAccess('role.delete'))
 									<div class="btn-group">

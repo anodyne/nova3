@@ -6,7 +6,7 @@
 	@endif
 
 	<div class="btn-group">
-		<a href="{{ URL::to('admin/role/tasks') }}" class="btn btn-default icn-size-16 tooltip-top" title="{{ lang('Short.manage', langConcat('access tasks')) }}">{{ $_icons['list'] }}</a>
+		<a href="{{ URL::to('admin/role/tasks') }}" class="btn btn-default icn-size-16 tooltip-top" title="{{ lang('Short.manage', langConcat('access role tasks')) }}">{{ $_icons['list'] }}</a>
 	</div>
 </div>
 
@@ -23,13 +23,15 @@
 						<div class="btn-toolbar pull-right">
 							<div class="btn-group">
 								<a href="#" class="btn btn-sm btn-default tooltip-top js-role-action icn-size-16" title="{{ lang('Short.view', langConcat('users with this role')) }}" data-action="view" data-id="{{ $r->id }}">{{ $_icons['view'] }}</a>
-								
-								@if (Sentry::getUser()->hasAccess('role.update'))
-									<a href="{{ URL::to('admin/role/'.$r->id) }}" class="btn btn-sm btn-default icn-size-16">{{ $_icons['edit'] }}</a>
-								@endif
 
 								@if (Sentry::getUser()->hasAccess('role.create'))
 									<a href="#" class="btn btn-sm btn-default js-role-action icn-size-16 tooltip-top" title="{{ lang('Short.duplicate', lang('role')) }}" data-action="duplicate" data-id="{{ $r->id }}">{{ $_icons['duplicate'] }}</a>
+								@endif
+							</div>
+
+							<div class="btn-group">
+								@if (Sentry::getUser()->hasAccess('role.update'))
+									<a href="{{ URL::to('admin/role/'.$r->id) }}" class="btn btn-sm btn-default icn-size-16">{{ $_icons['edit'] }}</a>
 								@endif
 							</div>
 
