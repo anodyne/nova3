@@ -221,7 +221,7 @@ class Skin extends Model implements QuickInstallInterface, MediaInterface {
 			$skins = static::active()->get()->toSimpleArray('id', 'location');
 
 			// Create a new finder and filter the results
-			$finder = Finder::create()->directories()->in(APPPATH."views")
+			$finder = Finder::create()->directories()->in(APPPATH."skins")
 				->filter(function(SplFileInfo $fileinfo) use ($skins)
 				{
 					if (in_array($fileinfo->getRelativePathName(), $skins))
@@ -234,7 +234,7 @@ class Skin extends Model implements QuickInstallInterface, MediaInterface {
 			foreach ($finder as $f)
 			{
 				// Assign our path to a variable
-				$dir = APPPATH."views/".$f->getRelativePathName();
+				$dir = APPPATH."skins/".$f->getRelativePathName();
 
 				// Make sure the file exists first
 				if (File::exists($dir."/skin.json"))
@@ -259,7 +259,7 @@ class Skin extends Model implements QuickInstallInterface, MediaInterface {
 		else
 		{
 			// Assign our path to a variable
-			$dir = APPPATH."views/".$location;
+			$dir = APPPATH."skins/".$location;
 
 			// Make sure the file exists first
 			if (File::exists($dir."/skin.json"))
@@ -318,7 +318,7 @@ class Skin extends Model implements QuickInstallInterface, MediaInterface {
 	public function getQuickInstallFile($file)
 	{
 		// Set the filename
-		$filename = APPPATH."views/{$this->location}/{$file}";
+		$filename = APPPATH."skins/{$this->location}/{$file}";
 
 		if (File::exists($filename))
 		{
