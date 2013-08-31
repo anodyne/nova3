@@ -371,33 +371,6 @@ class Model extends EloquentModel {
 	}
 
 	/**
-	 * Find a form item based on the form key.
-	 *
-	 * @param	string	Form key
-	 * @param	bool	Get only active items?
-	 * @return	Collection
-	 */
-	public static function getFormItems($key, $getOnlyActive = false)
-	{
-		// Start a new Query Builder
-		$query = static::startQuery();
-
-		// Make sure we're pulling back the right form
-		$query->where('form_key', $key);
-
-		// Should we be getting all items or just enabled ones?
-		if ($getOnlyActive)
-		{
-			$query->where('status', Status::ACTIVE);
-		}
-
-		// Order the items
-		$query->orderBy('order', 'asc');
-
-		return $query->get();
-	}
-
-	/**
 	 * Setup the event listeners for the model.
 	 *
 	 * @param	string	The model
