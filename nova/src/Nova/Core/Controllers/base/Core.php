@@ -9,7 +9,7 @@
  *
  * @package		Nova
  * @subpackage	Core
- * @category	Controller
+ * @category	Controllers
  * @author		Anodyne Productions
  * @copyright	2013 Anodyne Productions
  */
@@ -72,6 +72,11 @@ abstract class Core extends Controller {
 	 * The current timezone.
 	 */
 	public $timezone;
+
+	/**
+	 * The currently logged in user.
+	 */
+	public $user;
 
 	/**
 	 * The Nav object.
@@ -168,15 +173,10 @@ abstract class Core extends Controller {
 	 */
 	public $_fullAction;
 
-	/**
-	 * Currently logged in user.
-	 */
-	public $_currentUser;
-
 	public function __construct()
 	{
 		// Set the current user
-		$this->_currentUser = Sentry::getUser();
+		$this->user = Sentry::getUser();
 
 		// Set the controller and action names
 		$this->getControllerName();
@@ -232,7 +232,7 @@ abstract class Core extends Controller {
 				// Load all of the settings
 				$me->settings = Settings::get()->toSimpleObject('key', 'value');
 
-				// TODO: need to figure out how we're going to handle languages
+				# TODO: need to figure out how we're going to handle languages
 
 				// Create a new Nav object
 				$me->nav = new Nav;
@@ -382,7 +382,7 @@ abstract class Core extends Controller {
 	/**
 	 * Make sure the action name is setup properly.
 	 *
-	 * @return	string
+	 * @return	void
 	 */
 	protected function getActionName()
 	{
@@ -390,15 +390,28 @@ abstract class Core extends Controller {
 		$this->_fullAction = $actionName = Str::parseCallback(Route::currentRouteAction(), false)[1];
 
 		// Remove the HTTP verb
-		$actionName = (substr($actionName, 0, 3) == 'get') ? substr_replace($actionName, '', 0, 3) : $actionName;
-		$actionName = (substr($actionName, 0, 3) == 'put') ? substr_replace($actionName, '', 0, 3) : $actionName;
-		$actionName = (substr($actionName, 0, 4) == 'post') ? substr_replace($actionName, '', 0, 4) : $actionName;
-		$actionName = (substr($actionName, 0, 6) == 'delete') ? substr_replace($actionName, '', 0, 6) : $actionName;
+		$actionName = (substr($actionName, 0, 3) == 'get')
+			? substr_replace($actionName, '', 0, 3)
+			: $actionName;
+		$actionName = (substr($actionName, 0, 3) == 'put')
+			? substr_replace($actionName, '', 0, 3)
+			: $actionName;
+		$actionName = (substr($actionName, 0, 4) == 'post')
+			? substr_replace($actionName, '', 0, 4)
+			: $actionName;
+		$actionName = (substr($actionName, 0, 6) == 'delete')
+			? substr_replace($actionName, '', 0, 6)
+			: $actionName;
 
 		// Set the short action name
 		$this->_action = Str::lower($actionName);
 	}
 
+	/**
+	 * Make sure the controller name is setup properly.
+	 *
+	 * @return	void
+	 */
 	protected function getControllerName()
 	{
 		// Set the namespaced controller name
@@ -408,6 +421,13 @@ abstract class Core extends Controller {
 		$this->_controller = Str::denamespace($this->_fullController);
 	}
 
+	/**
+	 * Parse the site content for the titles, headers and messages.
+	 *
+	 * @param	string	$type		The type of content we're parsing
+	 * @param	bool	$markdown	Are we parsing markdown?
+	 * @return	string
+	 */
 	protected function parseSiteContent($type, $markdown = false)
 	{
 		// If the data coming from the controller action has a

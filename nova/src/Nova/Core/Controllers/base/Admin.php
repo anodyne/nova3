@@ -9,7 +9,7 @@
  *
  * @package		Nova
  * @subpackage	Core
- * @category	Controller
+ * @category	Controllers
  * @author		Anodyne Productions
  * @copyright	2013 Anodyne Productions
  */
@@ -62,11 +62,10 @@ abstract class Admin extends BaseController {
 				$user = Sentry::getUser();
 
 				// Set the variables
-				$me->skin		= $user->getPreferenceItem('skin_admin');
-				$me->rank		= ($user->getPreferenceItem('rank')) ?: $me->settings->rank;
-			
-			$me->icons		= Nova::getIconIndex($me->skin);	$me->timezone	= ($user->getPreferenceItem('timezone')) ?: $me->settings->timezone;
-			
+				$me->skin		= $me->user->getPreferenceItem('skin_admin');
+				$me->rank		= ($me->user->getPreferenceItem('rank')) ?: $me->settings->rank;
+				$me->icons		= Nova::getIconIndex($me->skin);
+				$me->timezone	= ($me->user->getPreferenceItem('timezone')) ?: $me->settings->timezone;
 
 				// Get the skin section info
 				$me->_skinInfo = SkinCatalog::getItems('location', $me->skin)->first();
@@ -80,8 +79,8 @@ abstract class Admin extends BaseController {
 				if (Sentry::check())
 				{
 					// Has the user's role been updated since their last login?
-					$lastLogin = $user->last_login->diffInMinutes($user->role->updated_at, false);
-					$lastUpdate = $user->updated_at->diffInMinutes($user->role->updated_at, false);
+					$lastLogin = $me->user->last_login->diffInMinutes($me->user->role->updated_at, false);
+					$lastUpdate = $me->user->updated_at->diffInMinutes($me->user->role->updated_at, false);
 
 					if ($lastLogin > 0 and $lastUpdate > 0)
 					{
@@ -92,7 +91,7 @@ abstract class Admin extends BaseController {
 						Session::forget('role');
 
 						// Update the access info in the session
-						$user->getPermissions();
+						$me->user->getPermissions();
 					}
 				}
 			});

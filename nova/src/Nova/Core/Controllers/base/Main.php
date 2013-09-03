@@ -10,12 +10,11 @@
  *
  * @package		Nova
  * @subpackage	Core
- * @category	Controller
+ * @category	Controllers
  * @author		Anodyne Productions
  * @copyright	2013 Anodyne Productions
  */
 
-use Date;
 use Nova;
 use View;
 use Sentry;
@@ -41,14 +40,17 @@ abstract class Main extends BaseController {
 		{
 			if ( ! $me->_stopExecution)
 			{
-				// Get the user
-				$user = Sentry::getUser();
-
 				// Set the variables
-				$me->skin		= (Sentry::check()) ? $user->getPreferenceItem('skin_main') : $me->settings->skin_main;
-				$me->rank		= (Sentry::check()) ? $user->getPreferenceItem('rank') : $me->settings->rank;
-				$me->timezone	= (Sentry::check()) ? $user->getPreferenceItem('timezone') : $me->settings->timezone;
-				$me->icons		= Nova::getIconIndex($me->skin);
+				$me->skin = (Sentry::check())
+					? $me->user->getPreferenceItem('skin_main')
+					: $me->settings->skin_main;
+				$me->rank = (Sentry::check())
+					? $me->user->getPreferenceItem('rank')
+					: $me->settings->rank;
+				$me->timezone = (Sentry::check())
+					? $me->user->getPreferenceItem('timezone')
+					: $me->settings->timezone;
+				$me->icons = Nova::getIconIndex($me->skin);
 
 				// Get the skin section info
 				$me->_skinInfo	= SkinCatalog::getItems('location', $me->skin)->first();
@@ -62,8 +64,8 @@ abstract class Main extends BaseController {
 				if (Sentry::check())
 				{
 					// Has the user's role been updated since their last login?
-					$lastLogin = $user->last_login->diffInMinutes($user->role->updated_at, false);
-					$lastUpdate = $user->updated_at->diffInMinutes($user->role->updated_at, false);
+					$lastLogin = $me->user->last_login->diffInMinutes($me->user->role->updated_at, false);
+					$lastUpdate = $me->user->updated_at->diffInMinutes($me->user->role->updated_at, false);
 
 					if ($lastLogin > 0 and $lastUpdate > 0)
 					{
@@ -74,7 +76,7 @@ abstract class Main extends BaseController {
 						Session::forget('role');
 
 						// Update the access info in the session
-						$user->getPermissions();
+						$me->user->getPermissions();
 					}
 				}
 			}
