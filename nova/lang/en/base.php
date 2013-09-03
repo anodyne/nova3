@@ -46,6 +46,7 @@ return array(
 	'core' => "core",
 	'container' => "container",
 	'credits' => "credits",
+	'current' => "current",
 
 	'display' => 'display',
 	'dropdown' => 'dropdown menu',

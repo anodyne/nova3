@@ -13,7 +13,7 @@ return array(
 		'formviewer' => "New :0 Submission",
 
 		'user' => array(
-			'add' => "User Record Created",
+			'create' => "User Record Created",
 		),
 	),
 
@@ -24,7 +24,7 @@ return array(
 		),
 
 		'user' => array(
-			'add' => "A :0 record has been manually created for you on the :1 RPG (:2). Your :3 details are below:\r\n\r\nName: :4\r\nPassword: :5",
+			'create' => "A :0 record has been manually created for you on the :1 RPG (:2). Make sure you change your password to something you can easily remember when you first log in! Your details are below:\r\n\r\nName: :3\r\nPassword: :4\r\n\r\nIf this account has been created in error, please contact the game master of the :1 RPG.",
 		),
 	),
 
