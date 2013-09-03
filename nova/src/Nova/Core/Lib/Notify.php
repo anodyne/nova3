@@ -1,27 +1,24 @@
 <?php namespace Nova\Core\Lib;
 
+use Mail;
+use View;
 use User;
 use Status;
 use Settings;
 use SiteContent;
 use NotifierNoContentException;
 use NotifierNoSubjectException;
-use nova\extensions\laravel\Application;
-use nova\extensions\laravel\database\eloquent\Collection;
+use Nova\Extensions\Laravel\Application;
+use Nova\Extensions\Laravel\Database\Eloquent\Collection;
 
 class Notify {
-
-	public function __construct(Application $app)
-	{
-		$this->app = $app;
-	}
 
 	/**
 	 * Send the notification.
 	 *
-	 * @param	string	Name of the view to use
-	 * @param	array	Data to use in the email
-	 * @param	array	SiteContent keys
+	 * @param	string	$view	Name of the view to use
+	 * @param	array	$data	Data to use in the email
+	 * @param	array	$keys	SiteContent keys
 	 * @return	array
 	 */
 	public function send($view, array $data, array $keys)
@@ -72,24 +69,16 @@ class Notify {
 			}
 
 			// Build the HTML view
-			$htmlView = $this->app['view']->make($this->app['location']->email($view, 'html'));
+			$htmlView = View::make(\Location::email($view, 'html'));
 
 			// Build the TEXT view
-			$textView = $this->app['view']->make($this->app['location']->email($view, 'text'));
+			$textView = View::make(\Location::email($view, 'text'));
 
 			// Send the HTML emails
-			$send['html'] = $this->app['mailer']->send(
-				$htmlView,
-				$data,
-				$this->buildMessage($data, $options, $keys, 'html')
-			);
+			$send['html'] = Mail::send($htmlView, $data, $this->buildMessage($data, $options, $keys, 'html'));
 
 			// Send the text emails
-			$send['text'] = $this->app['mailer']->send(
-				$textView,
-				$data,
-				$this->buildMessage($data, $options, $keys, 'text')
-			);
+			$send['text'] = Mail::send($textView, $data, $this->buildMessage($data, $options, $keys, 'text'));
 
 			return $send;
 		}
@@ -101,10 +90,10 @@ class Notify {
 	 * Build the mailer callback.
 	 *
 	 * @internal
-	 * @param	array	Data to use
-	 * @param	object	Email settings
-	 * @param	array	Site content keys
-	 * @param	string	Type of message to build (html, text)
+	 * @param	array	$data		Data to use
+	 * @param	object	$options	Email settings
+	 * @param	array	$keys		Site content keys
+	 * @param	string	$type		Type of message to build (html, text)
 	 * @return	Closure
 	 */
 	protected function buildMessage(array $data, $options, array $keys, $type = 'html')
@@ -157,7 +146,7 @@ class Notify {
 	 * Take the recipients and split them up based on their email format preference.
 	 *
 	 * @internal
-	 * @param	mixed	Users (An array of IDs or a Collection of users)
+	 * @param	mixed	$users	Users (An array of IDs or a Collection of users)
 	 * @return	array
 	 */
 	protected function splitUsers($users)

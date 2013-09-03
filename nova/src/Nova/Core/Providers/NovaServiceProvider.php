@@ -122,7 +122,7 @@ class NovaServiceProvider extends ServiceProvider {
 	{
 		$this->app['nova.notify'] = $this->app->share(function($app)
 		{
-			return new Notify($app);
+			return new Notify;
 		});
 	}
 
