@@ -316,7 +316,7 @@ return [
 	[
 		'key'		=> 'message.admin.user.all.create',
 		'label'		=> 'New User Message',
-		'content'	=> "You can create a new user using the fields below. The password you enter will be emailed to the user. The user should change the password to something of their own choosing as soon as the log in the first time!",
+		'content'	=> "You can create a new user using the fields below. The password you enter will be emailed to the user. The user should change the password to something of their own choosing as soon as they log in the first time!",
 		'type'		=> $type,
 		'section'	=> 'user',
 		'page'		=> 'create'

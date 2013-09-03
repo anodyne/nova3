@@ -26,6 +26,12 @@ return [
 		'type' => 'email'
 	],
 	[
+		'key' => 'email.content.user_create',
+		'label' => 'Create User Message',
+		'content' => "",
+		'type' => 'email'
+	],
+	[
 		'key' => 'email.subject.password_reset',
 		'label' => 'Password Reset Subject Line',
 		'content' => "Confirm Password Reset",

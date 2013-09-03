@@ -1,13 +1,17 @@
 <?php namespace Nova\Core\Controllers\Admin;
 
+use App;
 use View;
 use Input;
+use Notify;
 use Sentry;
 use Status;
 use Location;
 use Redirect;
+use DynamicForm;
 use UserValidator;
 use AdminBaseController;
+use Symfony\Component\Finder\Finder;
 
 class User extends AdminBaseController {
 
@@ -35,11 +39,14 @@ class User extends AdminBaseController {
 	}
 	public function postAll()
 	{
-		// Set up the validation service
-		$validator = new UserValidator;
-
 		// Get the action
 		$action = e(Input::get('action'));
+
+		// Get the current user
+		$user = Sentry::getUser();
+
+		// Set up the validation service
+		$validator = new UserValidator;
 
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
@@ -58,20 +65,37 @@ class User extends AdminBaseController {
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
 		}
 
-		// Get the current user
-		$user = Sentry::getUser();
-
 		/**
 		 * Create a user.
 		 */
 		if ($user->hasAccess('user.create') and $action == 'create')
 		{
 			// Create the user
-			$user = \User::create(array_merge(Input::all(), ['status' => Status::ACTIVE]));
+			$item = \User::create(array_merge(Input::all(), ['status' => Status::ACTIVE]));
+
+			// Set the content keys
+			$contentKeys = [
+				'content' => 'email.content.user_create'
+			];
+
+			// Set the data being passed to the email
+			$emailData = [
+				'to'		=> $item->email,
+				'content'	=> lang('email.content.user.create', 
+								lang('user'),
+								$this->settings->sim_name,
+								$this->request->root(),
+								Input::get('name'),
+								Input::get('password')),
+				'subject'	=> lang('email.subject.user.create'),
+			];
+
+			// Send the notification
+			Notify::send('basic', $emailData, $contentKeys);
 
 			// Set the flash info
-			$flashStatus = ($user) ? 'success' : 'danger';
-			$flashMessage = ($user) 
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
 				? lang('Short.alert.success.create', lang('user'))
 				: lang('Short.alert.failure.create', lang('user'));
 		}
@@ -86,10 +110,10 @@ class User extends AdminBaseController {
 			$id = (is_numeric($id)) ? $id : false;
 
 			// Get the user
-			$user = \User::find($id);
+			$item = \User::find($id);
 
 			// Delete the user
-			$remove = $user->deleteUser();
+			$remove = $item->deleteUser();
 
 			// Set the flash info
 			$flashStatus = ($remove) ? 'success' : 'danger';
@@ -114,11 +138,128 @@ class User extends AdminBaseController {
 
 	public function getEdit($id)
 	{
-		# code...
+		// Set the views
+		$this->_view = 'admin/user/edit';
+
+		// Set the user
+		$this->_data->user = \User::find($id);
+
+		// Build the user form
+		$this->_data->userForm = DynamicForm::setup('user', $id, true)->build();
+
+		// Get the language directory listing
+		$this->_data->languageDir = Finder::create()->directories()->in(APPPATH."lang");
+
+		$this->_data->ranks = [];
+		$this->_data->skinMain = [];
+		$this->_data->skinAdmin = [];
 	}
 	public function postEdit($id)
 	{
-		# code...
+		// Get the action
+		$action = e(Input::get('action'));
+
+		// Get the current user
+		$user = Sentry::getUser();
+
+		// Set up the validation service
+		$validator = new UserValidator;
+
+		// If the validation fails, stop and go back
+		if ( ! $validator->passes())
+		{
+			if ($action == 'delete')
+			{
+				// Set the flash message
+				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
+				$flashMessage.= implode(' ', $validator->getErrors()->all());
+
+				return Redirect::to('admin/user')
+					->with('flashStatus', 'danger')
+					->with('flashMessage', $flashMessage);
+			}
+
+			return Redirect::back()->withInput()->withErrors($validator->getErrors());
+		}
+
+		/**
+		 * Update the user.
+		 */
+		if ($user->hasAccess('user.update'))
+		{
+			// Get the user id
+			$userId = (is_numeric(Input::get('id'))) ? e(Input::get('id')) : false;
+
+			// Get the user
+			$item = \User::find($userId);
+
+			if (($user->hasLevel('user.update', 1) and $item == $user) or $user->hasLevel('user.update', 2))
+			{
+				if ($action == 'basic')
+				{
+					if (empty(Input::get('password')))
+					{
+						// Do the update
+						$item->update(Input::all());
+
+						$flashStatus = 'success';
+						$flashMessage = lang('Short.alert.success.update', lang('user'));
+					}
+					else
+					{
+						// Make sure their current password is right
+						if (App::make('sentry.hasher')->hash(Input::get('password')) == $item->password)
+						{
+							// Make sure the new password matches the confirmation
+							if (Input::get('password_new') == Input::get('password_new_confirm'))
+							{
+								// Do the update
+								$item->update(array_merge(Input::all(), ['password' => e(Input::get('password_new'))]));
+							}
+							else
+							{
+								$flashStatus = 'danger';
+								$flashMessage = lang('error.admin.user.passwordsNotMatching');
+							}
+						}
+						else
+						{
+							$flashStatus = 'danger';
+							$flashMessage = lang('error.admin.user.wrongPassword');
+						}
+					}
+				}
+
+				if ($action == 'bio')
+				{
+					//
+				}
+
+				if ($action == 'preferences')
+				{
+					//
+				}
+
+				if ($action == 'notifications')
+				{
+					//
+				}
+
+				if ($action == 'admin')
+				{
+					//
+				}
+			}
+			else
+			{
+				$flashStatus = 'danger';
+				$flashMessage = lang('error.admin.user.notAuthorized');
+			}
+		}
+
+		return Redirect::to("admin/user/edit/{$id}")
+			->with('flashStatus', $flashStatus)
+			->with('flashMessage', $flashMessage);
 	}
 
 	public function getLoa()
