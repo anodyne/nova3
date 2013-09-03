@@ -66,6 +66,9 @@ class FormViewer extends AdminBaseController {
 		// Get the action
 		$action = e(Input::get('action'));
 
+		// Get the current user
+		$user = Sentry::getUser();
+
 		// Set up the validator
 		$validator = Validator::make(Input::all(), $form->getFieldValidationRules());
 
@@ -85,9 +88,6 @@ class FormViewer extends AdminBaseController {
 			
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
 		}
-
-		// Get the current user
-		$user = Sentry::getUser();
 
 		/**
 		 * Create the form entry.
