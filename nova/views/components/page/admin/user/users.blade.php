@@ -1,11 +1,11 @@
 <div class="btn-toolbar">
-	@if (Sentry::getUser()->hasAccess('user.create'))
+	@if ($_user->hasAccess('user.create'))
 		<div class="btn-group">
 			<a href="{{ URL::to('admin/user/create') }}" class="btn btn-success icn-size-16">{{ $_icons['add'] }}</a>
 		</div>
 	@endif
 
-	@if (Sentry::getUser()->allowed(['character.create', 'character.update', 'character.delete'], false))
+	@if ($_user->allowed(['character.create', 'character.update', 'character.delete'], false))
 		<!--<div class="btn-group">
 			<a href="{{ URL::to('admin/character/all') }}" class="btn btn-default icn-size-16 tooltip-top" title="{{ lang('Short.manage', lang('characters')) }}">{{ $_icons['users'] }}</a>
 		</div>-->
@@ -93,14 +93,14 @@
 			<div class="col-xs-12 col-sm-12 col-lg-4">
 				<div class="visible-lg">
 					<div class="btn-toolbar pull-right">
-						@if ((Sentry::getUser()->hasLevel('user.update', 1) and Sentry::getUser()->id == $user->id)
-								or Sentry::getUser()->hasLevel('user.update', 2))
+						@if (($_user->hasLevel('user.update', 1) and $_user->id == $user->id)
+								or $_user->hasLevel('user.update', 2))
 							<div class="btn-group">
 								<a href="{{ URL::to('admin/user/edit/'.$user->id) }}" class="btn btn-sm btn-default icn-size-16">{{ $_icons['edit'] }}</a>
 							</div>
 						@endif
 
-						@if (Sentry::getUser()->hasAccess('user.delete'))
+						@if ($_user->hasAccess('user.delete'))
 							<div class="btn-group">
 								<a href="#" class="btn btn-sm btn-danger js-user-action icn-size-16" data-action="delete" data-id="{{ $user->id }}">{{ $_icons['remove'] }}</a>
 							</div>
@@ -109,14 +109,14 @@
 				</div>
 				<div class="hidden-lg">
 					<div class="row">
-						@if ((Sentry::getUser()->hasLevel('user.update', 1) and Sentry::getUser()->id == $user->id)
-								or Sentry::getUser()->hasLevel('user.update', 2))
+						@if (($_user->hasLevel('user.update', 1) and $_user->id == $user->id)
+								or $_user->hasLevel('user.update', 2))
 							<div class="col-xs-6 col-sm-6">
 								<p><a href="{{ URL::to('admin/user/edit/'.$user->id) }}" class="btn btn-lg btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 							</div>
 						@endif
 
-						@if (Sentry::getUser()->hasAccess('user.delete'))
+						@if ($_user->hasAccess('user.delete'))
 							<div class="col-xs-6 col-sm-6">
 								<p><a href="#" class="btn btn-lg btn-block btn-danger js-user-action icn-size-16" data-action="delete" data-id="{{ $user->id }}">{{ $_icons['remove'] }}</a></p>
 							</div>

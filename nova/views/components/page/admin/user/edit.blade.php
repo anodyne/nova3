@@ -26,7 +26,7 @@
 			<li><a href="#userPrefs" data-toggle="pill">{{ lang('Preferences') }}</a></li>
 			<li><a href="#emailNotifications" data-toggle="pill">{{ langConcat('Email_short Notifications') }}</a></li>
 
-			@if (Sentry::getUser()->hasLevel('user.update', 2))
+			@if ($_user->hasLevel('user.update', 2))
 				<li><a href="#userAdmin" data-toggle="pill">{{ lang('Admin') }}</a></li>
 			@endif
 		</ul>
@@ -322,7 +322,7 @@
 				{{ Form::close() }}
 			</div>
 
-			@if (Sentry::getUser()->hasLevel('user.update', 2))
+			@if ($_user->hasLevel('user.update', 2))
 				<div id="userAdmin" class="pill-pane"></div>
 			@endif
 		</div>
