@@ -5,23 +5,21 @@
 		<div class="{{ $field->html_container_class }}">
 
 			@if (empty($field->help))
-				<div class="control-group">
+				<div class="form-group">
 			@endif
 
 				<label class="control-label">{{ $field->label }}</label>
-				<div class="controls">
-					@if (empty($field->restriction) or (Sentry::check() and Sentry::getUser()->hasRole($field->restriction)))
-						@if ($field->type == 'text')
-							{{ Form::text($field->id, $d, ['id' => $field->html_id, 'placeholder' => $field->placeholder, 'class' => $field->html_class]) }}
-						@elseif ($field->type == 'textarea')
-							{{ Form::textarea($field->id, $d, ['id' => $field->html_id, 'placeholder' => $field->placeholder, 'rows' => $field->html_rows, 'class' => $field->html_class]) }}
-						@elseif ($field->type == 'select')
-							{{ Form::select($field->id, $field->getValues(), $d, ['id' => $field->html_id, 'class' => $field->html_class]) }}
-						@endif
-					@else
-						{{ $d }}
+				@if (empty($field->restriction) or (Sentry::check() and Sentry::getUser()->hasRole($field->restriction)))
+					@if ($field->type == 'text')
+						{{ Form::text($field->id, $d, ['id' => $field->html_id, 'placeholder' => $field->placeholder, 'class' => "{$field->html_class} form-control"]) }}
+					@elseif ($field->type == 'textarea')
+						{{ Form::textarea($field->id, $d, ['id' => $field->html_id, 'placeholder' => $field->placeholder, 'rows' => $field->html_rows, 'class' => "{$field->html_class} form-control"]) }}
+					@elseif ($field->type == 'select')
+						{{ Form::select($field->id, $field->getValues(), $d, ['id' => $field->html_id, 'class' => "{$field->html_class} form-control"]) }}
 					@endif
-				</div>
+				@else
+					{{ $d }}
+				@endif
 			
 			@if (empty($field->help))
 				</div>
@@ -40,9 +38,9 @@
 	@if ( ! empty($d))
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="control-group">
+				<div class="form-group">
 					<label class="control-label">{{ $field->label }}</label>
-					<div class="controls">{{ Markdown::parse($d) }}</div>
+					{{ Markdown::parse($d) }}
 				</div>
 			</div>
 		</div>
