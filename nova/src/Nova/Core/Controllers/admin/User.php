@@ -149,10 +149,6 @@ class User extends AdminBaseController {
 
 		// Get the language directory listing
 		$this->_data->languageDir = Finder::create()->directories()->in(APPPATH."lang");
-
-		$this->_data->ranks = [];
-		$this->_data->skinMain = [];
-		$this->_data->skinAdmin = [];
 	}
 	public function postEdit($id)
 	{
@@ -197,7 +193,7 @@ class User extends AdminBaseController {
 			{
 				if ($action == 'basic')
 				{
-					if (empty(Input::get('password')))
+					if (Input::has('password'))
 					{
 						// Do the update
 						$item->update(Input::all());
