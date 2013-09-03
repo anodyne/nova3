@@ -23,6 +23,7 @@ use Cache;
 use Event;
 use Route;
 use Config;
+use Sentry;
 use System;
 use Request;
 use Session;
@@ -167,8 +168,16 @@ abstract class Core extends Controller {
 	 */
 	public $_fullAction;
 
+	/**
+	 * Currently logged in user.
+	 */
+	public $_currentUser;
+
 	public function __construct()
 	{
+		// Set the current user
+		$this->_currentUser = Sentry::getUser();
+
 		// Set the controller and action names
 		$this->getControllerName();
 		$this->getActionName();
@@ -256,6 +265,7 @@ abstract class Core extends Controller {
 			$this->layout->template->content = View::make(Location::page($this->_view))
 				->with('_icons', $this->icons)
 				->with('_settings', $this->settings)
+				->with('_user', $this->_currentUser)
 				->with((array) $this->_data);
 		}
 		
@@ -264,6 +274,7 @@ abstract class Core extends Controller {
 		{
 			$this->layout->javascript = View::make(Location::js($this->_jsView))
 				->with('_icons', $this->icons)
+				->with('_user', $this->_currentUser)
 				->with((array) $this->_jsData);
 		}
 
