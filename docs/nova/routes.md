@@ -41,7 +41,7 @@ While less common on the web today (mainly because some browsers don't fully sup
 
 ### Resource
 
-There are two pieces to every route: the class and the method. These two items are pieced together with a simple `@` to tell the framework where the class ends and the method begins. If you have a controller named `Foo` in the `app/controllers` directory and a method called `getIndex` in that controller, your resource would be `App\Controllers\Foo@getIndex`.
+There are two pieces to every route: the class and the method. These two items are pieced together with a simple `@` to tell the framework where the class ends and the method begins. If you have a controller named `Foo` in the `app/src/App/Controllers` directory and a method called `getIndex` in that controller, your resource would be `App\Controllers\Foo@getIndex`.
 
 #### Class
 

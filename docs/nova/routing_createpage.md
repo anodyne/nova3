@@ -2,7 +2,7 @@
 
 Let's say you want to create a brand new page to display the awards your game has received over the last year. Using the Routes Manager, you can easily create a new page to do just that.
 
-The first thing we need to do is create a new controller. For simplicity, we'll just create it in the `app/controllers` directory and name it with the name of our game.
+The first thing we need to do is create a new controller. For simplicity, we'll just create it in the `app/src/App/Controllers` directory and name it with the name of our game.
 
 <pre>&lt;?php namespace App\Controllers;
 
@@ -18,7 +18,7 @@ class Enterprise extends MainBaseController {
 }
 </pre>
 
-Believe it or not, that's actually all we need in the controller. Nova takes care of everything else for us. The only thing we need to do now is to create our view file. In `app/modules/override/views/components/page` we're going to create a new directory called `enterprise` and in there, create `awards.blade.php`.
+Believe it or not, that's actually all we need in the controller. Nova takes care of everything else for us. The only thing we need to do now is to create our view file. In `app/src/Modules/Override/views/components/page` we're going to create a new directory called `enterprise` and in there, create `awards.blade.php`.
 
 <pre>&lt;!-- List out your awards here--></pre>
 
