@@ -5,7 +5,7 @@
  *
  * @package		Nova
  * @subpackage	Core
- * @category	Controller
+ * @category	Controllers
  * @author		Anodyne Productions
  * @copyright	2013 Anodyne Productions
  */
