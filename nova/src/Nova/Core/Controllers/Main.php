@@ -11,14 +11,16 @@
  */
 
 use Markdown;
-use SiteContent;
 use MainBaseController;
+use SiteContentRepositoryInterface;
 
 class Main extends MainBaseController {
 
-	public function __construct()
+	public function __construct(SiteContentRepositoryInterface $content)
 	{
-		parent::__construct();
+		parent::__construct($content);
+
+		$this->content = $content;
 
 		// Get a copy of the controller
 		$me = $this;
@@ -53,7 +55,7 @@ class Main extends MainBaseController {
 		$this->_view = 'main/credits';
 
 		// Get the permanent credits
-		$this->_data->permanentCredits = Markdown::parse(SiteContent::getContentItem('other.credits'));
+		$this->_data->permanentCredits = Markdown::parse($this->content->findByKey('other.credits'));
 	}
 
 }

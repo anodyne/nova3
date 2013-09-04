@@ -55,6 +55,14 @@ class Form extends Model {
 		return $this->hasMany('NovaFormField', 'form_id')->orderAsc('order');
 	}
 
+	/**
+	 * Has Many: Data
+	 */
+	public function data()
+	{
+		return $this->hasMany('NovaFormData', 'form_id')->orderAsc('field_id');
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Model Scopes

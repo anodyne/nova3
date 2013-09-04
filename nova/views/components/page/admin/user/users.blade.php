@@ -1,11 +1,11 @@
 <div class="btn-toolbar">
-	@if ($_user->hasAccess('user.create'))
+	@if ($_currentUser->hasAccess('user.create'))
 		<div class="btn-group">
 			<a href="{{ URL::to('admin/user/create') }}" class="btn btn-success icn-size-16">{{ $_icons['add'] }}</a>
 		</div>
 	@endif
 
-	@if ($_user->allowed(['character.create', 'character.update', 'character.delete'], false))
+	@if ($_currentUser->allowed(['character.create', 'character.update', 'character.delete'], false))
 		<!--<div class="btn-group">
 			<a href="{{ URL::to('admin/character/all') }}" class="btn btn-default icn-size-16 tooltip-top" title="{{ lang('Short.manage', lang('characters')) }}">{{ $_icons['users'] }}</a>
 		</div>-->
@@ -93,14 +93,14 @@
 			<div class="col-xs-12 col-sm-12 col-lg-4">
 				<div class="visible-lg">
 					<div class="btn-toolbar pull-right">
-						@if (($_user->hasLevel('user.update', 1) and $_user->id == $user->id)
-								or $_user->hasLevel('user.update', 2))
+						@if (($_currentUser->hasLevel('user.update', 1) and $_currentUser->id == $user->id)
+								or $_currentUser->hasLevel('user.update', 2))
 							<div class="btn-group">
 								<a href="{{ URL::to('admin/user/edit/'.$user->id) }}" class="btn btn-sm btn-default icn-size-16">{{ $_icons['edit'] }}</a>
 							</div>
 						@endif
 
-						@if ($_user->hasAccess('user.delete'))
+						@if ($_currentUser->hasAccess('user.delete'))
 							<div class="btn-group">
 								<a href="#" class="btn btn-sm btn-danger js-user-action icn-size-16" data-action="delete" data-id="{{ $user->id }}">{{ $_icons['remove'] }}</a>
 							</div>
@@ -109,14 +109,14 @@
 				</div>
 				<div class="hidden-lg">
 					<div class="row">
-						@if (($_user->hasLevel('user.update', 1) and $_user->id == $user->id)
-								or $_user->hasLevel('user.update', 2))
+						@if (($_currentUser->hasLevel('user.update', 1) and $_currentUser->id == $user->id)
+								or $_currentUser->hasLevel('user.update', 2))
 							<div class="col-xs-6 col-sm-6">
 								<p><a href="{{ URL::to('admin/user/edit/'.$user->id) }}" class="btn btn-lg btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 							</div>
 						@endif
 
-						@if ($_user->hasAccess('user.delete'))
+						@if ($_currentUser->hasAccess('user.delete'))
 							<div class="col-xs-6 col-sm-6">
 								<p><a href="#" class="btn btn-lg btn-block btn-danger js-user-action icn-size-16" data-action="delete" data-id="{{ $user->id }}">{{ $_icons['remove'] }}</a></p>
 							</div>

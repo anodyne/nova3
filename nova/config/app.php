@@ -234,26 +234,28 @@ return [
 		/**
 		 * Nova Interfaces
 		 */
-		'CacheInterface'			=> 'Nova\Core\Interfaces\Cache',
-		'FormDataInterface'			=> 'Nova\Core\Interfaces\FormData',
-		'MediaInterface'			=> 'Nova\Core\Interfaces\Media',
-		'QuickInstallInterface'		=> 'Nova\Core\Interfaces\QuickInstall',
-		'SearchInterface'			=> 'Nova\Core\Interfaces\Search',
+		'CacheInterface'			=> "Nova\\Core\\Interfaces\\CacheInterface",
+		'FormDataInterface'			=> "Nova\\Core\\Interfaces\\FormDataInterface",
+		'MediaInterface'			=> "Nova\\Core\\Interfaces\\MediaInterface",
+		'QuickInstallInterface'		=> "Nova\\Core\\Interfaces\\QuickInstallInterface",
+		'SearchInterface'			=> "Nova\\Core\\Interfaces\\SearchInterface",
 
 		/**
 		 * Nova Traits
 		 */
-		'FormTrait'					=> 'Nova\Core\Traits\Form',
+		'FormTrait'					=> "Nova\\Core\\Traits\\FormTrait",
+		'SecurityTrait'				=> "Nova\\Core\\Traits\\SecurityTrait",
 
 		/**
 		 * Nova Exceptions
 		 */
-		'MediaBadFileTypeException'		=> 'Nova\Core\Exceptions\MediaBadFileTypeException',
-		'MediaFileTooBigException'		=> 'Nova\Core\Exceptions\MediaFileTooBigException',
-		'MediaNoInputException'			=> 'Nova\Core\Exceptions\MediaNoInputException',
-		'MediaNotUploadedException'		=> 'Nova\Core\Exceptions\MediaNotUploadedException',
-		'NotifierNoContentException'	=> 'Nova\Core\Exceptions\NotifierNoContentException',
-		'NotifierNoSubjectException'	=> 'Nova\Core\Exceptions\NotifierNoSubjectException',
+		'FormProtectedException'		=> "Nova\\Core\\Exceptions\\FormProtectedException",
+		'MediaBadFileTypeException'		=> "Nova\\Core\\Exceptions\\MediaBadFileTypeException",
+		'MediaFileTooBigException'		=> "Nova\\Core\\Exceptions\\MediaFileTooBigException",
+		'MediaNoInputException'			=> "Nova\\Core\\Exceptions\\MediaNoInputException",
+		'MediaNotUploadedException'		=> "Nova\\Core\\Exceptions\\MediaNotUploadedException",
+		'NotifierNoContentException'	=> "Nova\\Core\\Exceptions\\NotifierNoContentException",
+		'NotifierNoSubjectException'	=> "Nova\\Core\\Exceptions\\NotifierNoSubjectException",
 
 		/**
 		 * Nova Model Entities
@@ -372,6 +374,28 @@ return [
 		'BaseValidator'				=> 'Nova\Core\Models\Validators\Base',
 		'SystemRouteValidator'		=> 'Nova\Core\Models\Validators\SystemRoute',
 		'UserValidator'				=> 'Nova\Core\Models\Validators\User',
+
+		/**
+		 * Repositories
+		 */
+		'AccessRoleRepository'	=> "Nova\\Core\\Repositories\\Eloquent\\AccessRoleRepository",
+		'CatalogRepository'		=> "Nova\\Core\\Repositories\\Eloquent\\CatalogRepository",
+		'FormRepository'		=> "Nova\\Core\\Repositories\\Eloquent\\FormRepository",
+		'SiteContentRepository'	=> "Nova\\Core\\Repositories\\Eloquent\\SiteContentRepository",
+		'SystemRouteRepository'	=> "Nova\\Core\\Repositories\\Eloquent\\SystemRouteRepository",
+		'UserRepository'		=> "Nova\\Core\\Repositories\\Eloquent\\UserRepository",
+
+		/**
+		 * Repository Interfaces
+		 */
+		'BaseRepositoryInterface'			=> "Nova\\Core\\Interfaces\\BaseRepositoryInterface",
+
+		'AccessRoleRepositoryInterface'		=> "Nova\\Core\\Interfaces\\Repositories\\AccessRoleRepositoryInterface",
+		'CatalogRepositoryInterface'		=> "Nova\\Core\\Interfaces\\Repositories\\CatalogRepositoryInterface",
+		'FormRepositoryInterface'			=> "Nova\\Core\\Interfaces\\Repositories\\FormRepositoryInterface",
+		'SiteContentRepositoryInterface'	=> "Nova\\Core\\Interfaces\\Repositories\\SiteContentRepositoryInterface",
+		'SystemRouteRepositoryInterface'	=> "Nova\\Core\\Interfaces\\Repositories\\SystemRouteRepositoryInterface",
+		'UserRepositoryInterface'			=> "Nova\\Core\\Interfaces\\Repositories\\UserRepositoryInterface",
 
 	],
 

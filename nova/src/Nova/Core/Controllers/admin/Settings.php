@@ -2,7 +2,6 @@
 
 use View;
 use Input;
-use Sentry;
 use Location;
 use Redirect;
 use AdminBaseController;
@@ -12,7 +11,7 @@ class Settings extends AdminBaseController {
 	public function getBasic()
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['settings.create', 'settings.update', 'settings.delete'], true);
+		$this->currentUser->allowed(['settings.create', 'settings.update', 'settings.delete'], true);
 
 		// Set the view
 		$this->_view = 'admin/settings/basic';
@@ -24,7 +23,7 @@ class Settings extends AdminBaseController {
 	public function getAdvanced()
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['settings.create', 'settings.update', 'settings.delete'], true);
+		$this->currentUser->allowed(['settings.create', 'settings.update', 'settings.delete'], true);
 
 		// Set the view
 		$this->_view = 'admin/settings/advanced';

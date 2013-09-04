@@ -2,9 +2,7 @@
 
 use View;
 use Input;
-use Sentry;
 use Location;
-use NovaForm;
 use Redirect;
 use DynamicForm;
 use AdminBaseController;
@@ -13,13 +11,24 @@ use FormTabValidator;
 use FormFieldValidator;
 use FormValueValidator;
 use FormSectionValidator;
+use FormRepositoryInterface;
+use AccessRoleRepositoryInterface;
 
 class Form extends AdminBaseController {
+
+	public function __construct(FormRepositoryInterface $form, 
+			AccessRoleRepositoryInterface $role)
+	{
+		parent::__construct();
+
+		$this->form = $form;
+		$this->role = $role;
+	}
 
 	public function getIndex($formKey = false)
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['form.create', 'form.update', 'form.delete'], true);
+		$this->currentUser->allowed(['form.create', 'form.update', 'form.delete'], true);
 
 		// Set the JS view
 		$this->_jsView = 'admin/form/forms_js';
@@ -32,7 +41,7 @@ class Form extends AdminBaseController {
 			if ($formKey !== "0")
 			{
 				// Get the form
-				$form = $this->_data->form = NovaForm::key($formKey)->first();
+				$form = $this->_data->form = $this->form->findByKey($formKey);
 
 				// Get the form fields
 				$this->_data->formFields[0] = lang('short.selectOne', langConcat('form field'));
@@ -56,7 +65,7 @@ class Form extends AdminBaseController {
 			$this->_view = 'admin/form/forms';
 
 			// Get all the forms
-			$form = $this->_data->forms = NovaForm::all();
+			$form = $this->_data->forms = $this->form->all();
 
 			// Build the delete form modal
 			$this->_ajax[] = View::make(Location::partial('common/modal'))
@@ -69,10 +78,7 @@ class Form extends AdminBaseController {
 	public function postIndex($formKey = false)
 	{
 		// Get the action
-		$action = e(Input::get('action'));
-
-		// Get the current user
-		$user = Sentry::getUser();
+		$action = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new FormValidator;
@@ -92,14 +98,14 @@ class Form extends AdminBaseController {
 		/**
 		 * Create the form.
 		 */
-		if ($user->hasAccess('form.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('form.create') and $action == 'create')
 		{
 			// Create the form
-			$form = NovaForm::create(Input::all());
+			$item = $this->form->create(Input::all());
 
 			// Set the flash info
-			$flashStatus = ($form) ? 'success' : 'danger';
-			$flashMessage = ($form) 
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
 				? lang('Short.alert.success.create', lang('form'))
 				: lang('Short.alert.failure.create', lang('form'));
 		}
@@ -107,22 +113,14 @@ class Form extends AdminBaseController {
 		/**
 		 * Update the form.
 		 */
-		if ($user->hasAccess('form.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('form.update') and $action == 'update')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
-			if ($id)
-			{
-				// Update the form
-				$form = NovaForm::find($id);
-				$form->update(Input::all());
-			}
+			// Update the form
+			$item = $this->form->update(Input::get('id'), Input::all());
 
 			// Set the flash info
-			$flashStatus = ($id) ? 'success' : 'danger';
-			$flashMessage = ($id) 
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
 				? lang('Short.alert.success.update', lang('form'))
 				: lang('Short.alert.failure.update', lang('form'));
 		}
@@ -130,25 +128,20 @@ class Form extends AdminBaseController {
 		/**
 		 * Delete the form.
 		 */
-		if ($user->hasAccess('form.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('form.delete') and $action == 'delete')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
-			// Get the form
-			$form = NovaForm::find($id);
-
-			if ($form and ! $form->protected)
+			// Delete the form
+			try
 			{
-				// Delete the form
-				$item = $form->delete();
+				$item = $this->form->delete(Input::get('id'));
 
 				// Set the flash info
-				$flashStatus = 'success';
-				$flashMessage = lang('Short.alert.success.delete', lang('form'));
+				$flashStatus = ($item) ? 'success' : 'danger';
+				$flashMessage = ($item)
+					? lang('Short.alert.success.delete', lang('form'))
+					: lang('Short.alert.failure.delete', lang('form'));
 			}
-			else
+			catch (\FormProtectedException $e)
 			{
 				// Form is protected
 				$flashStatus = 'danger';
@@ -164,7 +157,7 @@ class Form extends AdminBaseController {
 	public function getTabs($formKey, $id = false)
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['form.create', 'form.update', 'form.delete'], true);
+		$this->currentUser->allowed(['form.create', 'form.update', 'form.delete'], true);
 
 		// Set the view files
 		$this->_view = 'admin/form/tabs';
@@ -174,7 +167,7 @@ class Form extends AdminBaseController {
 		$this->_data->formKey = $formKey;
 
 		// Get the form and pass it along to the view
-		$form = $this->_data->form = NovaForm::key($formKey)->first();
+		$form = $this->_data->form = $this->form->findByKey($formKey);
 
 		// Get the tabs
 		$tabs = $form->tabs;
@@ -245,10 +238,7 @@ class Form extends AdminBaseController {
 	public function postTabs($formKey)
 	{
 		// Get the action
-		$action = e(Input::get('action'));
-
-		// Get the current user
-		$user = Sentry::getUser();
+		$action = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new FormTabValidator;
@@ -271,16 +261,15 @@ class Form extends AdminBaseController {
 		}
 
 		// Get the form
-		$form = NovaForm::key($formKey)->first();
+		$form = $this->form->findByKey($formKey);
 
 		/**
 		 * Create a form tab.
 		 */
-		if ($user->hasAccess('form.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('form.create') and $action == 'create')
 		{
 			// Create the form tab
-			$newTab = $form->tabs()->getModel()->newInstance(Input::all());
-			$item = $form->tabs()->save($newTab);
+			$item = $this->form->createTab(Input::all(), $form);
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -292,15 +281,10 @@ class Form extends AdminBaseController {
 		/**
 		 * Edit a form tab.
 		 */
-		if ($user->hasAccess('form.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('form.update') and $action == 'update')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
 			// Update the tab
-			$tab = $form->tabs()->find($id);
-			$item = $tab->update(Input::all());
+			$item = $this->form->updateTab(Input::get('id'), Input::all(), $form);
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -312,27 +296,10 @@ class Form extends AdminBaseController {
 		/**
 		 * Delete the form tab.
 		 */
-		if ($user->hasAccess('form.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('form.delete') and $action == 'delete')
 		{
-			// Get the tab ID we're deleting
-			$id = e(Input::get('id'));
-
-			// Get the new tab ID
-			$newTabId = e(Input::get('new_tab_id'));
-
-			// Get the tab we're deleting
-			$tab = $form->tabs()->find($id);
-
-			// Loop through the sections and update them
-			foreach ($tab->sections as $section)
-			{
-				// Update the tab ID
-				$section->tab_id = $newTabId;
-				$section->save();
-			}
-
 			// Delete the tab
-			$item = $tab->delete();
+			$item = $this->form->deleteTab(Input::get('id'), Input::get('new_tab_id'));
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -349,7 +316,7 @@ class Form extends AdminBaseController {
 	public function getSections($formKey, $id = false)
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['form.create', 'form.update', 'form.delete'], true);
+		$this->currentUser->allowed(['form.create', 'form.update', 'form.delete'], true);
 
 		// Set the view files
 		$this->_view = 'admin/form/sections';
@@ -359,7 +326,7 @@ class Form extends AdminBaseController {
 		$this->_data->formKey = $formKey;
 
 		// Get the form and pass it along to the view
-		$form = $this->_data->form = NovaForm::key($formKey)->first();
+		$form = $this->_data->form = $this->form->findByKey($formKey);
 
 		// If there isn't an ID, show all the sections
 		if ($id === false)
@@ -451,10 +418,7 @@ class Form extends AdminBaseController {
 	public function postSections($formKey)
 	{
 		// Get the action
-		$action = e(Input::get('action'));
-
-		// Get the current user
-		$user = Sentry::getUser();
+		$action = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new FormSectionValidator;
@@ -477,16 +441,15 @@ class Form extends AdminBaseController {
 		}
 
 		// Get the form
-		$form = NovaForm::key($formKey)->first();
+		$form = $this->form->findByKey($formKey);
 
 		/**
 		 * Create a form section.
 		 */
-		if ($user->hasAccess('form.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('form.create') and $action == 'create')
 		{
-			// Create the form section
-			$newSection = $form->sections()->getModel()->newInstance(Input::all());
-			$item = $form->sections()->save($newSection);
+			// Create the section
+			$item = $this->form->createSection(Input::all(), $form);
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -498,15 +461,10 @@ class Form extends AdminBaseController {
 		/**
 		 * Edit a form section.
 		 */
-		if ($user->hasAccess('form.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('form.update') and $action == 'update')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
 			// Update the section
-			$section = $form->sections()->find($id);
-			$item = $section->update(Input::all());
+			$item = $this->form->updateSection(Input::get('id'), Input::all(), $form);
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -518,30 +476,10 @@ class Form extends AdminBaseController {
 		/**
 		 * Delete the form section.
 		 */
-		if ($user->hasAccess('form.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('form.delete') and $action == 'delete')
 		{
-			// Get the ID we're deleting
-			$id = e(Input::get('id'));
-
-			// Get the new section ID
-			$newSectionId = e(Input::get('new_section_id'));
-
-			// Get the section we're deleting
-			$section = $form->sections()->find($id);
-
-			if ($section->fields->count() > 0)
-			{
-				// Loop through the fields and update them
-				foreach ($section->fields as $field)
-				{
-					// Update the section ID
-					$field->section_id = $newSectionId;
-					$field->save();
-				}
-			}
-
 			// Delete the section
-			$item = $section->delete();
+			$item = $this->form->deleteSection(Input::get('id'), Input::get('new_section_id'), $form);
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -558,7 +496,7 @@ class Form extends AdminBaseController {
 	public function getFields($formKey, $id = false)
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['form.create', 'form.update', 'form.delete'], true);
+		$this->currentUser->allowed(['form.create', 'form.update', 'form.delete'], true);
 
 		// Set the view files
 		$this->_view = 'admin/form/fields';
@@ -568,7 +506,7 @@ class Form extends AdminBaseController {
 		$this->_data->formKey = $formKey;
 
 		// Get the form and pass it along
-		$form = $this->_data->form = NovaForm::key($formKey)->first();
+		$form = $this->_data->form = $this->form->findByKey($formKey);
 
 		// If there isn't an ID, show all the fields
 		if ($id === false)
@@ -605,7 +543,7 @@ class Form extends AdminBaseController {
 			];
 
 			// Set the access restrictions
-			$this->_data->accessRoles = \AccessRole::get();
+			$this->_data->accessRoles = $this->role->all();
 
 			// Get the tabs and sections
 			$this->_data->tabs[0] = lang('short.selectOne', lang('tab'));
@@ -650,10 +588,7 @@ class Form extends AdminBaseController {
 	public function postFields($formKey)
 	{
 		// Get the action
-		$action = e(Input::get('action'));
-
-		// Get the current user
-		$user = Sentry::getUser();
+		$action = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new FormFieldValidator;
@@ -676,32 +611,15 @@ class Form extends AdminBaseController {
 		}
 
 		// Get the form
-		$form = NovaForm::key($formKey)->first();
+		$form = $this->form->findByKey($formKey);
 
 		/**
 		 * Create a form field.
 		 */
-		if ($user->hasAccess('form.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('form.create') and $action == 'create')
 		{
-			// Create the form field
-			$newField = $form->fields()->getModel()->newInstance(Input::all());
-			$item = $form->fields()->save($newField);
-
-			if (Input::has('field_values'))
-			{
-				// Break the values into an array
-				$valuesArr = explode(',', Input::get('field_values'));
-
-				foreach ($valuesArr as $key => $value)
-				{
-					// Create a new form value for this field
-					$newValue = $item->values()->getModel()->newInstance([
-						'value' => e(trim($value)),
-						'order' => $key
-					]);
-					$item->values()->save($newValue);
-				}
-			}
+			// Create the field
+			$item = $this->form->createField(Input::all(), $form);
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -713,19 +631,14 @@ class Form extends AdminBaseController {
 		/**
 		 * Edit a form field.
 		 */
-		if ($user->hasAccess('form.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('form.update') and $action == 'update')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
 			// Update the field
-			$field = $form->fields()->find($id);
-			$item = $field->update(Input::all());
+			$item = $this->form->updateField(Input::get('id'), $form);
 
 			// Set the flash info
-			$flashStatus = (isset($item)) ? 'success' : 'danger';
-			$flashMessage = (isset($item)) 
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
 				? lang('Short.alert.success.update', langConcat('form field'))
 				: lang('Short.alert.failure.update', langConcat('form field'));
 		}
@@ -733,18 +646,14 @@ class Form extends AdminBaseController {
 		/**
 		 * Delete a form field.
 		 */
-		if ($user->hasAccess('form.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('form.delete') and $action == 'delete')
 		{
-			// Get the ID we're deleting
-			$id = e(Input::get('id'));
-
 			// Delete the field
-			$field = $form->fields()->find($id);
-			$item = $field->delete();
+			$item = $this->form->deleteField(Input::get('id'), $form);
 
 			// Set the flash info
-			$flashStatus = (isset($item)) ? 'success' : 'danger';
-			$flashMessage = (isset($item)) 
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
 				? lang('Short.alert.success.delete', langConcat('form field'))
 				: lang('Short.alert.failure.delete', langConcat('form field'));
 		}

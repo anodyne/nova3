@@ -4,31 +4,38 @@ use App;
 use View;
 use Input;
 use Notify;
-use Sentry;
 use Status;
 use Location;
 use Redirect;
 use DynamicForm;
 use UserValidator;
 use AdminBaseController;
+use UserRepositoryInterface;
 use Symfony\Component\Finder\Finder;
 
 class User extends AdminBaseController {
 
+	public function __construct(UserRepositoryInterface $user)
+	{
+		parent::__construct();
+
+		$this->user = $user;
+	}
+
 	public function getAll()
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['user.create', 'user.update', 'user.delete'], true);
+		$this->currentUser->allowed(['user.create', 'user.update', 'user.delete'], true);
 
 		// Set the views
 		$this->_view = 'admin/user/users';
 		$this->_jsView = 'admin/user/users_js';
 
 		// Get all the users
-		$this->_data->users = \User::active()->get();
+		$this->_data->users = $this->user->active();
 
 		// Get the pending users
-		$this->_data->pending = \User::pending()->get();
+		$this->_data->pending = $this->user->pending();
 
 		// Build the delete user modal
 		$this->_ajax[] = View::make(Location::partial('common/modal'))
@@ -40,10 +47,7 @@ class User extends AdminBaseController {
 	public function postAll()
 	{
 		// Get the action
-		$action = e(Input::get('action'));
-
-		// Get the current user
-		$user = Sentry::getUser();
+		$action = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new UserValidator;
@@ -68,10 +72,10 @@ class User extends AdminBaseController {
 		/**
 		 * Create a user.
 		 */
-		if ($user->hasAccess('user.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('user.create') and $action == 'create')
 		{
 			// Create the user
-			$item = \User::create(array_merge(Input::all(), ['status' => Status::ACTIVE]));
+			$item = $this->user->create(array_merge(Input::all(), ['status' => Status::ACTIVE]));
 
 			// Set the content keys
 			$contentKeys = [
@@ -103,17 +107,10 @@ class User extends AdminBaseController {
 		/**
 		 * Delete a user.
 		 */
-		if ($user->hasAccess('user.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('user.delete') and $action == 'delete')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
-			// Get the user
-			$item = \User::find($id);
-
 			// Delete the user
-			$remove = $item->deleteUser();
+			$item = $this->user->delete(Input::get('id'));
 
 			// Set the flash info
 			$flashStatus = ($remove) ? 'success' : 'danger';
@@ -129,6 +126,9 @@ class User extends AdminBaseController {
 
 	public function getCreate()
 	{
+		// Verify the user is allowed
+		$this->currentUser->allowed('user.create', true);
+
 		// Set the views
 		$this->_view = 'admin/user/create';
 
@@ -138,11 +138,14 @@ class User extends AdminBaseController {
 
 	public function getEdit($id)
 	{
+		// Verify the user is allowed
+		$this->currentUser->allowed('user.update', true);
+
 		// Set the views
 		$this->_view = 'admin/user/edit';
 
 		// Set the user
-		$this->_data->user = \User::find($id);
+		$this->_data->user = $this->user->find($id);
 
 		// Build the user form
 		$this->_data->userForm = DynamicForm::setup('user', $id, true)->build();
@@ -153,10 +156,7 @@ class User extends AdminBaseController {
 	public function postEdit($id)
 	{
 		// Get the action
-		$action = e(Input::get('action'));
-
-		// Get the current user
-		$user = Sentry::getUser();
+		$action = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new UserValidator;
@@ -181,22 +181,23 @@ class User extends AdminBaseController {
 		/**
 		 * Update the user.
 		 */
-		if ($user->hasAccess('user.update'))
+		if ($this->currentUser->hasAccess('user.update'))
 		{
 			// Get the user id
 			$userId = (is_numeric(Input::get('id'))) ? e(Input::get('id')) : false;
 
 			// Get the user
-			$item = \User::find($userId);
+			$user = $this->user->find($userId);
 
-			if (($user->hasLevel('user.update', 1) and $item == $user) or $user->hasLevel('user.update', 2))
+			if (($this->currentUser->hasLevel('user.update', 1) and $user == $this->currentUser)
+					or $this->currentUser->hasLevel('user.update', 2))
 			{
 				if ($action == 'basic')
 				{
 					if (Input::has('password'))
 					{
 						// Do the update
-						$item->update(Input::all());
+						$user->update(Input::all());
 
 						$flashStatus = 'success';
 						$flashMessage = lang('Short.alert.success.update', lang('user'));
@@ -204,13 +205,13 @@ class User extends AdminBaseController {
 					else
 					{
 						// Make sure their current password is right
-						if (App::make('sentry.hasher')->hash(Input::get('password')) == $item->password)
+						if (App::make('sentry.hasher')->hash(Input::get('password')) == $user->password)
 						{
 							// Make sure the new password matches the confirmation
 							if (Input::get('password_new') == Input::get('password_new_confirm'))
 							{
 								// Do the update
-								$item->update(array_merge(Input::all(), ['password' => e(Input::get('password_new'))]));
+								$user->update(array_merge(Input::all(), ['password' => e(Input::get('password_new'))]));
 							}
 							else
 							{
@@ -271,7 +272,7 @@ class User extends AdminBaseController {
 	{
 		# code...
 	}
-	public function postLink()
+	public function postLink($id = false)
 	{
 		# code...
 	}

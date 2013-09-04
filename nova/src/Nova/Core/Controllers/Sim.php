@@ -5,18 +5,21 @@
  *
  * @package		Nova
  * @subpackage	Core
- * @category	Controller
+ * @category	Controllers
  * @author		Anodyne Productions
  * @copyright	2013 Anodyne Productions
  */
 
 use MainBaseController;
+use SiteContentRepositoryInterface;
 
 class Sim extends MainBaseController {
 
-	public function __construct()
+	public function __construct(SiteContentRepositoryInterface $content)
 	{
-		parent::__construct();
+		parent::__construct($content);
+
+		$this->content = $content;
 
 		// Get a copy of the controller
 		$me = $this;
@@ -38,7 +41,6 @@ class Sim extends MainBaseController {
 		$this->beforeFilter($finalNavSetup());
 	}
 
-	public function getIndex()
-	{}
+	public function getIndex() {}
 
 }

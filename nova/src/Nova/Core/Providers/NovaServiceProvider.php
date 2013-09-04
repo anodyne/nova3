@@ -29,6 +29,7 @@ class NovaServiceProvider extends ServiceProvider {
 	{
 		$this->bootEventListeners();
 		$this->browserCheck();
+		$this->setupRepositoryBindings();
 	}
 
 	/**
@@ -164,6 +165,22 @@ class NovaServiceProvider extends ServiceProvider {
 				$this->app['events']->listen($event, $finalHandler);
 			}
 		}
+	}
+
+	/**
+	 * Setup the interface bindings to their repositories.
+	 */
+	protected function setupRepositoryBindings()
+	{
+		// Get the aliases
+		$a = $this->app['config']->get('app.aliases');
+
+		$this->app->bind($a['AccessRoleRepositoryInterface'], $a['AccessRoleRepository']);
+		$this->app->bind($a['CatalogRepositoryInterface'], $a['CatalogRepository']);
+		$this->app->bind($a['FormRepositoryInterface'], $a['FormRepository']);
+		$this->app->bind($a['SiteContentRepositoryInterface'], $a['SiteContentRepository']);
+		$this->app->bind($a['SystemRouteRepositoryInterface'], $a['SystemRouteRepository']);
+		$this->app->bind($a['UserRepositoryInterface'], $a['UserRepository']);
 	}
 
 }

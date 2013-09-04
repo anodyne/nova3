@@ -2,12 +2,11 @@
 
 use View;
 use Input;
-use Sentry;
 use Location;
 use Redirect;
-use SystemRoute;
 use AdminBaseController;
 use SystemRouteValidator;
+use SystemRouteRepositoryInterface;
 
 class Admin extends AdminBaseController {
 
@@ -17,15 +16,19 @@ class Admin extends AdminBaseController {
 	const OK 				= 0;
 	const NOT_ALLOWED 		= 1;
 
+	public function __construct(SystemRouteRepositoryInterface $route)
+	{
+		parent::__construct();
+
+		$this->route = $route;
+	}
+
 	public function getIndex()
 	{
 		$this->_view = 'admin/admin/index';
 
 		$this->_data->header = 'Control Panel';
 		$this->_data->message = false;
-
-		//s(Sentry::check());
-		//s($_COOKIE);
 	}
 
 	public function getError($code)
@@ -43,7 +46,7 @@ class Admin extends AdminBaseController {
 	public function getRoutes($id = false)
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['routes.create', 'routes.update', 'routes.delete'], true);
+		$this->currentUser->allowed(['routes.create', 'routes.update', 'routes.delete'], true);
 
 		$this->_jsView = 'admin/admin/routes_js';
 
@@ -55,7 +58,7 @@ class Admin extends AdminBaseController {
 			$routeId = (is_numeric($id)) ? $id : 0;
 
 			// Get the route
-			$this->_data->route = SystemRoute::find($routeId);
+			$route = $this->_data->route = $this->route->find($routeId);
 
 			// Set the action
 			$this->_mode = $this->_data->action = ((int) $routeId === 0) ? 'create' : 'update';
@@ -65,7 +68,7 @@ class Admin extends AdminBaseController {
 			$this->_view = 'admin/admin/routes';
 
 			// Get all the routes for the system
-			$routes = SystemRoute::get();
+			$routes = $this->route->all();
 
 			// Make sure we have routes
 			if ($routes->count() > 0)
@@ -102,6 +105,9 @@ class Admin extends AdminBaseController {
 	}
 	public function postRoutes()
 	{
+		// Get the action
+		$action = e(Input::get('formAction'));
+
 		// Set up the validation service
 		$validator = new SystemRouteValidator;
 
@@ -111,19 +117,13 @@ class Admin extends AdminBaseController {
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
 		}
 
-		// Get the action
-		$action = e(Input::get('action'));
-
-		// Get the current user
-		$user = Sentry::getUser();
-
 		/**
 		 * Create a new route.
 		 */
-		if ($user->hasAccess('routes.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('routes.create') and $action == 'create')
 		{
 			// Create the new page route
-			$item = SystemRoute::create(Input::all());
+			$item = $this->route->create(Input::all());
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -135,22 +135,10 @@ class Admin extends AdminBaseController {
 		/**
 		 * Duplicate a core route.
 		 */
-		if ($user->hasAccess('routes.create') and $action == 'duplicate')
+		if ($this->currentUser->hasAccess('routes.create') and $action == 'duplicate')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
-			// Get the route we're duplicating
-			$route = SystemRoute::find($id);
-
-			// Create the item
-			$item = SystemRoute::create([
-				'name'		=> $route->name,
-				'verb'		=> $route->verb,
-				'uri'		=> $route->uri,
-				'resource'	=> $route->resource,
-			]);
+			// Duplicate the route
+			$item = $this->route->duplicate(Input::get('id'));
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -162,20 +150,10 @@ class Admin extends AdminBaseController {
 		/**
 		 * Update a route.
 		 */
-		if ($user->hasAccess('routes.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('routes.update') and $action == 'update')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
-			if ($id)
-			{
-				// Get the route
-				$item = SystemRoute::find($id);
-
-				// Update the route
-				$item->update(Input::all());
-			}
+			// Update the route
+			$item = $this->route->update(Input::get('id'), Input::all());
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -187,27 +165,16 @@ class Admin extends AdminBaseController {
 		/**
 		 * Delete a route.
 		 */
-		if ($user->hasAccess('routes.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('routes.delete') and $action == 'delete')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
+			// Delete the route
+			$item = $this->route->delete(Input::get('id'));
 
-			if ($id)
-			{
-				// Delete the route
-				SystemRoute::destroy($id);
-
-				// Set the flash info
-				$flashStatus = 'success';
-				$flashMessage = ucfirst(lang('short.alert.success.delete', lang('route')));
-			}
-			else
-			{
-				// Set the flash info
-				$flashStatus = 'danger';
-				$flashMessage = ucfirst(lang('short.alert.failure.delete', lang('route')));
-			}
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? ucfirst(lang('short.alert.success.delete', lang('route')))
+				: ucfirst(lang('short.alert.failure.delete', lang('route')));
 		}
 
 		return Redirect::to('admin/routes')

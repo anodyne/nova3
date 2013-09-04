@@ -27,6 +27,14 @@ class Data extends Model {
 	*/
 
 	/**
+	 * Belongs To: Form
+	 */
+	public function form()
+	{
+		return $this->belongsTo('NovaForm', 'form_id');
+	}
+
+	/**
 	 * Belongs To: Field
 	 */
 	public function field()

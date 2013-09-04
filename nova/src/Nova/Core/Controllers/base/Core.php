@@ -76,7 +76,7 @@ abstract class Core extends Controller {
 	/**
 	 * The currently logged in user.
 	 */
-	public $user;
+	public $currentUser;
 
 	/**
 	 * The Nav object.
@@ -176,7 +176,7 @@ abstract class Core extends Controller {
 	public function __construct()
 	{
 		// Set the current user
-		$this->user = Sentry::getUser();
+		$this->currentUser = Sentry::getUser();
 
 		// Set the controller and action names
 		$this->getControllerName();
@@ -265,7 +265,7 @@ abstract class Core extends Controller {
 			$this->layout->template->content = View::make(Location::page($this->_view))
 				->with('_icons', $this->icons)
 				->with('_settings', $this->settings)
-				->with('_user', $this->user)
+				->with('_currentUser', $this->currentUser)
 				->with((array) $this->_data);
 		}
 		
@@ -274,7 +274,7 @@ abstract class Core extends Controller {
 		{
 			$this->layout->javascript = View::make(Location::js($this->_jsView))
 				->with('_icons', $this->icons)
-				->with('_user', $this->user)
+				->with('_currentUser', $this->currentUser)
 				->with((array) $this->_jsData);
 		}
 

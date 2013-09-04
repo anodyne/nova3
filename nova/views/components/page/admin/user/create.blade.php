@@ -64,7 +64,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			{{ Form::token() }}
-			{{ Form::hidden('action', 'create') }}
+			{{ Form::hidden('formAction', 'create') }}
 			{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
 		</div>
 	</div>

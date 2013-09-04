@@ -26,7 +26,7 @@
 			<li><a href="#userPrefs" data-toggle="pill">{{ lang('Preferences') }}</a></li>
 			<li><a href="#emailNotifications" data-toggle="pill">{{ langConcat('Email_short Notifications') }}</a></li>
 
-			@if ($_user->hasLevel('user.update', 2))
+			@if ($_currentUser->hasLevel('user.update', 2))
 				<li><a href="#userAdmin" data-toggle="pill">{{ lang('Admin') }}</a></li>
 			@endif
 		</ul>
@@ -82,7 +82,7 @@
 						<div class="col-lg-12">
 							{{ Form::token() }}
 							{{ Form::hidden('id') }}
-							{{ Form::hidden('action', 'basic') }}
+							{{ Form::hidden('formAction', 'basic') }}
 							
 							{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
 						</div>
@@ -98,7 +98,7 @@
 						<div class="col-lg-12">
 							{{ Form::token() }}
 							{{ Form::hidden('id') }}
-							{{ Form::hidden('action', 'bio') }}
+							{{ Form::hidden('formAction', 'bio') }}
 							
 							{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
 						</div>
@@ -188,7 +188,7 @@
 						<div class="col-lg-12">
 							{{ Form::token() }}
 							{{ Form::hidden('id') }}
-							{{ Form::hidden('action', 'preferences') }}
+							{{ Form::hidden('formAction', 'preferences') }}
 
 							{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
 						</div>
@@ -314,7 +314,7 @@
 						<div class="col-lg-12">
 							{{ Form::token() }}
 							{{ Form::hidden('id') }}
-							{{ Form::hidden('action', 'notifications') }}
+							{{ Form::hidden('formAction', 'notifications') }}
 
 							{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
 						</div>
@@ -322,7 +322,7 @@
 				{{ Form::close() }}
 			</div>
 
-			@if ($_user->hasLevel('user.update', 2))
+			@if ($_currentUser->hasLevel('user.update', 2))
 				<div id="userAdmin" class="pill-pane"></div>
 			@endif
 		</div>

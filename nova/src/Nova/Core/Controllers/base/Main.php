@@ -23,12 +23,15 @@ use Location;
 use SiteContent;
 use SkinCatalog;
 use BaseController;
+use SiteContentRepositoryInterface;
 
 abstract class Main extends BaseController {
 
-	public function __construct()
+	public function __construct(SiteContentRepositoryInterface $content)
 	{
 		parent::__construct();
+
+		$this->content = $content;
 
 		// Get a copy of the controller
 		$me = $this;
@@ -42,13 +45,13 @@ abstract class Main extends BaseController {
 			{
 				// Set the variables
 				$me->skin = (Sentry::check())
-					? $me->user->getPreferenceItem('skin_main')
+					? $me->currentUser->getPreferenceItem('skin_main')
 					: $me->settings->skin_main;
 				$me->rank = (Sentry::check())
-					? $me->user->getPreferenceItem('rank')
+					? $me->currentUser->getPreferenceItem('rank')
 					: $me->settings->rank;
 				$me->timezone = (Sentry::check())
-					? $me->user->getPreferenceItem('timezone')
+					? $me->currentUser->getPreferenceItem('timezone')
 					: $me->settings->timezone;
 				$me->icons = Nova::getIconIndex($me->skin);
 
@@ -64,8 +67,8 @@ abstract class Main extends BaseController {
 				if (Sentry::check())
 				{
 					// Has the user's role been updated since their last login?
-					$lastLogin = $me->user->last_login->diffInMinutes($me->user->role->updated_at, false);
-					$lastUpdate = $me->user->updated_at->diffInMinutes($me->user->role->updated_at, false);
+					$lastLogin = $me->currentUser->last_login->diffInMinutes($me->currentUser->role->updated_at, false);
+					$lastUpdate = $me->currentUser->updated_at->diffInMinutes($me->currentUser->role->updated_at, false);
 
 					if ($lastLogin > 0 and $lastUpdate > 0)
 					{
@@ -76,7 +79,7 @@ abstract class Main extends BaseController {
 						Session::forget('role');
 
 						// Update the access info in the session
-						$me->user->getPermissions();
+						$me->currentUser->getPermissions();
 					}
 				}
 			}
@@ -123,7 +126,7 @@ abstract class Main extends BaseController {
 
 			// Setup the footer
 			$layout->template->footer			= View::make(Location::partial('footer'));
-			$layout->template->footer->extra	= SiteContent::getContentItem('other.footer');
+			$layout->template->footer->extra	= $this->content->findByKey('other.footer');
 
 			// Pass everything back to the layout
 			$this->layout = $layout;

@@ -1,23 +1,26 @@
 <?php namespace Nova\Core\Controllers\Admin;
 
 use File;
-use User;
 use View;
 use Input;
 use Media;
-use Sentry;
 use Location;
 use Redirect;
-use Settings;
-use RankCatalog;
-use SkinCatalog;
 use SplFileInfo;
 use AdminBaseController;
 use RankCatalogValidator;
 use SkinCatalogValidator;
+use CatalogRepositoryInterface;
 use Symfony\Component\Finder\Finder;
 
 class Catalog extends AdminBaseController {
+
+	public function __construct(CatalogRepositoryInterface $catalog)
+	{
+		parent::__construct();
+
+		$this->catalog = $catalog;
+	}
 
 	public function getIndex()
 	{
@@ -36,7 +39,7 @@ class Catalog extends AdminBaseController {
 	public function getRanks($id = false)
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['catalog.create', 'catalog.edit', 'catalog.delete'], true);
+		$this->currentUser->allowed(['catalog.create', 'catalog.edit', 'catalog.delete'], true);
 
 		// Set the JS view
 		$this->_jsView = 'admin/catalog/ranks_js';
@@ -50,7 +53,7 @@ class Catalog extends AdminBaseController {
 			$id = (is_numeric($id)) ? $id : 0;
 
 			// Get the rank set
-			$this->_data->rank = RankCatalog::find($id);
+			$this->_data->rank = $this->catalog->findRank($id);
 
 			// Set the action
 			$this->_mode = $this->_data->action = ((int) $id === 0) ? 'create' : 'update';
@@ -64,7 +67,7 @@ class Catalog extends AdminBaseController {
 			$this->_data->rankPath = "app/assets/common/{$this->genre}/ranks/";
 
 			// Get all the ranks for the current genre
-			$ranks = $this->_data->ranks = RankCatalog::currentGenre()->get();
+			$ranks = $this->_data->ranks = $this->catalog->allRanks();
 
 			// Get a simple array of ranks
 			$simpleRanks = $ranks->toSimpleArray('id', 'location');
@@ -117,10 +120,7 @@ class Catalog extends AdminBaseController {
 	public function postRanks()
 	{
 		// Get the action
-		$action = e(Input::get('action'));
-
-		// Get the current user
-		$user = Sentry::getUser();
+		$action = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new RankCatalogValidator;
@@ -145,10 +145,10 @@ class Catalog extends AdminBaseController {
 		/**
 		 * Create a rank set.
 		 */
-		if ($user->hasAccess('catalog.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('catalog.create') and $action == 'create')
 		{
 			// Create the rank set
-			$item = RankCatalog::create(Input::all());
+			$item = $this->catalog->create(Input::all());
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -160,10 +160,10 @@ class Catalog extends AdminBaseController {
 		/**
 		 * Install a rank set.
 		 */
-		if ($user->hasAccess('catalog.create') and $action == 'install')
+		if ($this->currentUser->hasAccess('catalog.create') and $action == 'install')
 		{
 			// Install the rank set
-			$item = RankCatalog::install(e(Input::get('location')));
+			$item = $this->catalog->installRank(Input::get('location'));
 
 			// Set the flash info
 			$flashStatus = 'success';
@@ -173,17 +173,10 @@ class Catalog extends AdminBaseController {
 		/**
 		 * Edit a rank set.
 		 */
-		if ($user->hasAccess('catalog.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('catalog.update') and $action == 'update')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
-			// Get the rank set
-			$rank = RankCatalog::find($id);
-
 			// Update the rank set
-			$item = $rank->update(Input::all());
+			$item = $this->catalog->updateRank(Input::get('id'), Input::all());
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -195,41 +188,10 @@ class Catalog extends AdminBaseController {
 		/**
 		 * Delete the rank set.
 		 */
-		if ($user->hasAccess('catalog.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('catalog.delete') and $action == 'delete')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
-			// Get the rank set
-			$rank = RankCatalog::find($id);
-
-			// Get the new rank set
-			$newRankSet = e(Input::get('new_rank_set'));
-
-			// Get all users
-			$users = User::all();
-
-			foreach ($users as $user)
-			{
-				// Filter the preferences to just the rank
-				$pref = $user->preferences->filter(function($p)
-				{
-					return $p->key == 'rank';
-				})->first();
-
-				// Update the preference
-				$pref->update(['value' => $newRankSet]);
-			}
-
-			// If the rank default is what we're deleting, change that as well
-			if ($this->settings->rank == $rank->location)
-			{
-				Settings::updateItems(['rank' => $newRankSet]);
-			}
-
 			// Delete the rank set
-			$item = $rank->delete();
+			$item = $this->catalog->deleteRank(Input::get('id'), Input::get('new_rank_set'));
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -246,7 +208,7 @@ class Catalog extends AdminBaseController {
 	public function getSkins($id = false)
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['catalog.create', 'catalog.edit', 'catalog.delete'], true);
+		$this->currentUser->allowed(['catalog.create', 'catalog.edit', 'catalog.delete'], true);
 
 		// Set the JS view
 		$this->_jsView = 'admin/catalog/skins_js';
@@ -265,7 +227,7 @@ class Catalog extends AdminBaseController {
 			$id = (is_numeric($id)) ? $id : 0;
 
 			// Get the skin
-			$skin = $this->_data->skin = SkinCatalog::find($id);
+			$skin = $this->_data->skin = $this->catalog->findSkin($id);
 
 			// Set the action
 			$this->_mode = $this->_data->action = ((int) $id === 0) ? 'create' : 'update';
@@ -283,7 +245,7 @@ class Catalog extends AdminBaseController {
 			$this->_view = 'admin/catalog/skins';
 
 			// Get all the skins
-			$skins = $this->_data->skins = SkinCatalog::active()->get();
+			$skins = $this->_data->skins = $this->catalog->allSkins();
 
 			// Get a simple array of skins
 			$simpleSkins = $skins->toSimpleArray('id', 'location');
@@ -335,10 +297,7 @@ class Catalog extends AdminBaseController {
 	public function postSkins()
 	{
 		// Get the action
-		$action = e(Input::get('action'));
-
-		// Get the current user
-		$user = Sentry::getUser();
+		$action = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new SkinCatalogValidator;
@@ -363,10 +322,10 @@ class Catalog extends AdminBaseController {
 		/**
 		 * Create a skin.
 		 */
-		if ($user->hasAccess('catalog.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('catalog.create') and $action == 'create')
 		{
 			// Create the skin
-			$item = SkinCatalog::create(Input::all());
+			$item = $this->catalog->createSkin(Input::all());
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -378,10 +337,10 @@ class Catalog extends AdminBaseController {
 		/**
 		 * Install a skin.
 		 */
-		if ($user->hasAccess('catalog.create') and $action == 'install')
+		if ($this->currentUser->hasAccess('catalog.create') and $action == 'install')
 		{
 			// Install the rank set
-			$item = SkinCatalog::install(e(Input::get('location')));
+			$item = $this->catalog->installSkin(Input::get('location'));
 
 			// Set the flash info
 			$flashStatus = 'success';
@@ -391,17 +350,10 @@ class Catalog extends AdminBaseController {
 		/**
 		 * Update to a newer version of a skin.
 		 */
-		if ($user->hasAccess('catalog.update') and $action == 'version')
+		if ($this->currentUser->hasAccess('catalog.update') and $action == 'version')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
-			// Get the skin
-			$skin = SkinCatalog::find($id);
-
-			// Update the skin
-			$skin->applyUpdate();
+			// Update the version of the skin
+			$this->catalog->updateSkinVersion(Input::get('id'));
 
 			// Set the flash info
 			$flashStatus = 'success';
@@ -411,17 +363,10 @@ class Catalog extends AdminBaseController {
 		/**
 		 * Edit a skin.
 		 */
-		if ($user->hasAccess('catalog.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('catalog.update') and $action == 'update')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
-			// Get the skin
-			$skin = SkinCatalog::find($id);
-
 			// Update the skin
-			$item = $skin->update(Input::all());
+			$item = $this->catalog->updateSkin(Input::get('id'), Input::all());
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -433,60 +378,10 @@ class Catalog extends AdminBaseController {
 		/**
 		 * Delete the skin.
 		 */
-		if ($user->hasAccess('catalog.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('catalog.delete') and $action == 'delete')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
-			// Get the skin
-			$skin = SkinCatalog::find($id);
-
-			// Get the new skin
-			$newSkin = e(Input::get('new_skin'));
-
-			// Get all users
-			$users = User::all();
-
-			foreach ($users as $user)
-			{
-				// Filter the preferences to just the main skin
-				$prefSkinMain = $user->preferences->filter(function($p)
-				{
-					return $p->key == 'skin_main';
-				})->first();
-
-				// Filter the preferences to just the admin skin
-				$prefSkinAdmin = $user->preferences->filter(function($p)
-				{
-					return $p->key == 'skin_admin';
-				})->first();
-
-				// Update the preference
-				$prefSkinMain->update(['value' => $newSkin]);
-				$prefSkinAdmin->update(['value' => $newSkin]);
-			}
-
-			// If the main skin default is what we're deleting, change that as well
-			if ($this->settings->skin_main == $skin->location)
-			{
-				Settings::updateItems(['skin_main' => $newSkin]);
-			}
-
-			// If the admin skin default is what we're deleting, change that as well
-			if ($this->settings->skin_admin == $skin->location)
-			{
-				Settings::updateItems(['skin_admin' => $newSkin]);
-			}
-
-			// If the login skin default is what we're deleting, change that as well
-			if ($this->settings->skin_login == $skin->location)
-			{
-				Settings::updateItems(['skin_login' => $newSkin]);
-			}
-
 			// Delete the skin
-			$item = $skin->delete();
+			$item = $this->catalog->deleteSkin(Input::get('id'), Input::get('new_skin'));
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -501,16 +396,13 @@ class Catalog extends AdminBaseController {
 	}
 	public function postSkinsUpload($id)
 	{
-		// Get the current user
-		$user = Sentry::getUser();
-
-		if ($user->hasAccess('catalog.update'))
+		if ($this->currentUser->hasAccess('catalog.update'))
 		{
 			// Get the ID
 			$id = (is_numeric($id)) ? $id : false;
 
 			// Get the skin catalog
-			$skin = SkinCatalog::find($id);
+			$skin = $this->catalog->find($id);
 
 			if ($skin)
 			{

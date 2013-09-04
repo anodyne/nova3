@@ -3,42 +3,47 @@
 use Form;
 use View;
 use Input;
-use Sentry;
 use Location;
 use Redirect;
-use AccessRole;
-use AccessTask;
 use AccessRoleValidator;
 use AccessTaskValidator;
 use AdminBaseController;
+use AccessRoleRepositoryInterface;
+use AccessTaskRepositoryInterface;
 
 class Role extends AdminBaseController {
+
+	public function __construct(AccessRoleRepositoryInterface $role)
+	{
+		parent::__construct();
+
+		$this->role = $role;
+	}
 
 	/**
 	 * Manage access roles.
 	 */
-	public function getIndex($roleID = false)
+	public function getIndex($roleId = false)
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['role.create', 'role.edit', 'role.delete'], true);
+		$this->currentUser->allowed(['role.create', 'role.edit', 'role.delete'], true);
 
 		// Set the JS view
 		$this->_jsView = 'admin/role/roles_js';
 
 		// Get all the roles
-		$this->_data->roles = AccessRole::get();
+		$roles = $this->_data->roles = $this->role->all();
 
-		if ($roleID !== false)
+		if ($roleId !== false)
 		{
 			// Set the view
 			$this->_view = 'admin/role/roles_action';
 
 			// Get the role
-			$role = AccessRole::find($roleID);
-			$this->_data->role = $role;
+			$role = $this->_data->role = $this->role->find($roleId);
 
 			// Get all the tasks
-			$tasks = AccessTask::get();
+			$tasks = $this->role->allTasks();
 
 			// Loop through the tasks and group them by component
 			foreach ($tasks as $t)
@@ -47,7 +52,7 @@ class Role extends AdminBaseController {
 			}
 
 			// If we're editing, grab all the tasks for this role
-			if ($roleID > 0)
+			if ($roleId > 0)
 			{
 				// Get the tasks for the role we're editing
 				$this->_data->roleTasks = $role->getTasks(false)->toSimpleArray();
@@ -87,27 +92,30 @@ class Role extends AdminBaseController {
 			// Build the users with roles modal
 			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'usersWithRole')
-				->with('modalHeader', ucwords(langConcat('users with role')))
+				->with('modalHeader', langConcat('Users with Role'))
 				->with('modalBody', '')
 				->with('modalFooter', false);
 
 			// Build the delete roles modal
 			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'deleteRole')
-				->with('modalHeader', ucwords(lang('short.delete', langConcat('access role'))))
+				->with('modalHeader', lang('Short.delete', langConcat('Access Role')))
 				->with('modalBody', '')
 				->with('modalFooter', false);
 
 			// Build the duplicate role modal
 			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'duplicateRole')
-				->with('modalHeader', ucwords(lang('short.duplicate', langConcat('access role'))))
+				->with('modalHeader', lang('Short.duplicate', langConcat('Access Role')))
 				->with('modalBody', '')
 				->with('modalFooter', false);
 		}
 	}
 	public function postIndex()
 	{
+		// Get the action
+		$action = e(Input::get('formAction'));
+
 		// Set up the validation service
 		$validator = new AccessRoleValidator;
 
@@ -117,49 +125,13 @@ class Role extends AdminBaseController {
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
 		}
 
-		// Get the action
-		$action = e(Input::get('action'));
-
-		// Get the current user
-		$user = Sentry::getUser();
-
 		/**
 		 * Create a role.
 		 */
-		if ($user->hasAccess('role.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('role.create') and $action == 'create')
 		{
 			// Create the item
-			$item = AccessRole::create(Input::all());
-
-			// Set the inherited tasks array
-			$inheritedTasks = [];
-
-			// Loop through the inherited tasks and get those
-			foreach ($item->getInheritedTasks() as $tasks)
-			{
-				foreach ($tasks as $task)
-				{
-					$inheritedTasks[] = $task->id;
-				}
-			}
-
-			// Get the tasks from the POST
-			$tasks = Input::get('tasks');
-
-			if (isset($tasks) and is_array($tasks))
-			{
-				// Remove the inherited items from the list
-				foreach ($tasks as $task)
-				{
-					if (in_array($task, $inheritedTasks))
-					{
-						unset($tasks[$task]);
-					}
-				}
-
-				// Sync the roles_tasks table
-				$item->tasks()->sync($tasks);
-			}
+			$item = $this->role->create(Input::all());
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -171,28 +143,10 @@ class Role extends AdminBaseController {
 		/**
 		 * Duplicate a role.
 		 */
-		if ($user->hasAccess('role.create') and $action == 'duplicate')
+		if ($this->currentUser->hasAccess('role.create') and $action == 'duplicate')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
-			// Get the role we're duplicating
-			$role = AccessRole::find($id);
-
-			// Create the item
-			$item = AccessRole::create([
-				'name'		=> e(Input::get('name')),
-				'desc'		=> $role->desc,
-				'inherits'	=> $role->inherits,
-			]);
-
-			// Get the original tasks
-			$originalTasks = $role->tasks->toSimpleArray();
-			$originalTasks = array_keys($originalTasks);
-
-			// Put the tasks into the new role
-			$item->tasks()->sync($originalTasks);
+			// Duplicate the role
+			$item = $this->role->duplicate($id, Input::all());
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -204,57 +158,14 @@ class Role extends AdminBaseController {
 		/**
 		 * Update the role.
 		 */
-		if ($user->hasAccess('role.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('role.update') and $action == 'update')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
-			if ($id)
-			{
-				// Get the role
-				$role = AccessRole::find($id);
-
-				// Update the role information
-				$role->name = e(Input::get('name'));
-				$role->desc = e(Input::get('desc'));
-				$role->inherits = (Input::get('inherits')) ? implode(',', Input::get('inherits')) : '';
-				$role->save();
-
-				// Set the inherited tasks array
-				$inheritedTasks = [];
-
-				// Loop through the inherited tasks and get those
-				foreach ($role->getInheritedTasks() as $tasks)
-				{
-					foreach ($tasks as $task)
-					{
-						$inheritedTasks[] = $task->id;
-					}
-				}
-
-				// Get the tasks from the POST
-				$tasks = Input::get('tasks');
-
-				if (isset($tasks) and is_array($tasks))
-				{
-					// Remove the inherited items from the list
-					foreach ($tasks as $task)
-					{
-						if (in_array($task, $inheritedTasks))
-						{
-							unset($tasks[$task]);
-						}
-					}
-
-					// Sync the roles_tasks table
-					$role->tasks()->sync($tasks);
-				}
-			}
+			// Update the role
+			$item = $this->role->update(Input::get('id'), Input::all());
 
 			// Set the flash info
-			$flashStatus = ($id) ? 'success' : 'danger';
-			$flashMessage = ($id) 
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
 				? ucfirst(lang('short.alert.success.update', langConcat('access role')))
 				: ucfirst(lang('short.alert.failure.update', langConcat('access role')));
 		}
@@ -262,44 +173,16 @@ class Role extends AdminBaseController {
 		/**
 		 * Delete the role.
 		 */
-		if ($user->hasAccess('role.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('role.delete') and $action == 'delete')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
+			// Delete the role
+			$item = $this->role->delete(Input::get('id'), Input::get('new_role_id'));
 
-			// Get the new ID
-			$newRoleId = e(Input::get('new_role_id'));
-			$newRoleId = (is_numeric($newRoleId)) ? $newRoleId : false;
-
-			if ($id and $newRoleId)
-			{
-				// Get the role
-				$role = AccessRole::find($id);
-
-				// Update all users with this role
-				foreach ($role->users as $user)
-				{
-					$user->role_id = $newRoleId;
-					$user->save();
-				}
-
-				// Delete the records from the pivot table
-				$role->tasks()->detach();
-
-				// Now delete the role
-				$role->delete();
-
-				// Set the flash info
-				$flashStatus = 'success';
-				$flashMessage = ucfirst(lang('short.alert.success.delete', langConcat('access role')));
-			}
-			else
-			{
-				// Set the flash info
-				$flashStatus = 'danger';
-				$flashMessage = ucfirst(lang('short.alert.failure.delete', langConcat('access role')));
-			}
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? ucfirst(lang('short.alert.success.delete', langConcat('access role')))
+				: ucfirst(lang('short.alert.failure.delete', langConcat('access role')));
 		}
 
 		return Redirect::to('admin/role')
@@ -310,27 +193,24 @@ class Role extends AdminBaseController {
 	/**
 	 * Manage tasks associated with access roles.
 	 */
-	public function getTasks()
+	public function getTasks($taskId = false)
 	{
 		// Verify the user is allowed
-		Sentry::getUser()->allowed(['role.create', 'role.edit', 'role.delete'], true);
+		$this->currentUser->allowed(['role.create', 'role.edit', 'role.delete'], true);
 
 		// Set the JS view
 		$this->_jsView = 'admin/role/tasks_js';
 
-		// Get the task ID from the URI
-		$taskID = $this->request->segment(4, false);
-
-		if ($taskID !== false)
+		if ($taskId !== false)
 		{
 			// Set the view
 			$this->_view = 'admin/role/tasks_action';
 
 			// Get the task
-			$this->_data->task = (is_numeric($taskID)) ? AccessTask::find($taskID) : false;
+			$task = $this->_data->task = (is_numeric($taskId)) ? $this->role->findTask($taskId) : false;
 
 			// Get all the task components
-			$components = AccessTask::group('component')->get();
+			$components = $this->role->getTaskComponents();
 
 			// Storage array
 			$cs = [];
@@ -348,16 +228,10 @@ class Role extends AdminBaseController {
 			$this->_jsData->componentSource = json_encode($cs);
 
 			// Set the list of actions
-			$this->_jsData->actionSource = json_encode(array('create', 'read', 'update', 'delete'));
+			$this->_jsData->actionSource = json_encode(['create', 'read', 'update', 'delete']);
 
 			// Set the action
-			$this->_mode = $this->_data->action = ($taskID == 0) ? 'create' : 'update';
-
-			// Update the title and message
-			$this->_data->header = $this->_data->title = ($taskID == 0)
-				? lang('Short.create', langConcat('Access Role Task'))
-				: lang('Short.update', langConcat('Access Role Task'));
-			$this->_data->message = false;
+			$this->_mode = $this->_data->action = ($taskId == 0) ? 'create' : 'update';
 		}
 		else
 		{
@@ -365,7 +239,7 @@ class Role extends AdminBaseController {
 			$this->_view = 'admin/role/tasks';
 
 			// Get all the tasks
-			$tasks = AccessTask::get();
+			$tasks = $this->role->allTasks();
 
 			// Loop through the tasks and group them by component
 			foreach ($tasks as $t)
@@ -376,20 +250,23 @@ class Role extends AdminBaseController {
 			// Build the delete task modal
 			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'deleteTask')
-				->with('modalHeader', ucwords(lang('short.delete', lang('task'))))
+				->with('modalHeader', lang('Short.delete', lang('Task')))
 				->with('modalBody', '')
 				->with('modalFooter', false);
 
 			// Build the roles with task modal
 			$this->_ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'rolesWithTask')
-				->with('modalHeader', ucwords(langConcat('access roles with task')))
+				->with('modalHeader', langConcat('Access Roles with Task'))
 				->with('modalBody', '')
 				->with('modalFooter', false);
 		}
 	}
 	public function postTasks()
 	{
+		// Get the action
+		$action = e(Input::get('formAction'));
+
 		// Set up the validation service
 		$validator = new AccessTaskValidator;
 
@@ -399,19 +276,13 @@ class Role extends AdminBaseController {
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
 		}
 
-		// Get the action
-		$action = e(Input::get('formAction'));
-
-		// Get the current user
-		$user = Sentry::getUser();
-
 		/**
 		 * Create new task.
 		 */
-		if ($user->hasAccess('role.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('role.create') and $action == 'create')
 		{
 			// Create the item
-			$item = AccessTask::create(Input::all());
+			$item = $this->role->createTask(Input::all());
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -423,21 +294,14 @@ class Role extends AdminBaseController {
 		/**
 		 * Update task.
 		 */
-		if ($user->hasAccess('role.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('role.update') and $action == 'update')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
-
-			if ($id)
-			{
-				// Update the task
-				$item = AccessTask::where('id', $id)->update(Input::all());
-			}
+			// Update the task
+			$item = $this->role->updateTask(Input::get('id'), Input::all());
 
 			// Set the flash info
-			$flashStatus = ($id) ? 'success' : 'danger';
-			$flashMessage = ($id) 
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
 				? ucfirst(lang('short.alert.success.update', langConcat('access task')))
 				: ucfirst(lang('short.alert.failure.update', langConcat('access task')));
 		}
@@ -445,34 +309,16 @@ class Role extends AdminBaseController {
 		/**
 		 * Delete task.
 		 */
-		if ($user->hasAccess('role.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('role.delete') and $action == 'delete')
 		{
-			// Get the ID
-			$id = e(Input::get('id'));
-			$id = (is_numeric($id)) ? $id : false;
+			// Delete the task
+			$item = $this->role->deleteTask(Input::get('id'));
 
-			// We have a task ID, so continue...
-			if ($id)
-			{
-				// Get the task
-				$task = AccessTask::find($id);
-
-				// Delete the records from the pivot table
-				$task->roles()->detach();
-
-				// Now delete the task
-				$task->delete();
-
-				// Set the flash info
-				$flashStatus = 'success';
-				$flashMessage = ucfirst(lang('short.alert.success.delete', langConcat('access task')));
-			}
-			else
-			{
-				// Set the flash info
-				$flashStatus = 'danger';
-				$flashMessage = ucfirst(lang('short.alert.failure.delete', langConcat('access task')));
-			}
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? ucfirst(lang('short.alert.success.delete', langConcat('access task')))
+				: ucfirst(lang('short.alert.failure.delete', langConcat('access task')));
 		}
 
 		return Redirect::to('admin/role/tasks')

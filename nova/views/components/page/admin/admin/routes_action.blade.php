@@ -58,7 +58,7 @@
 		<div class="col-lg-12">
 			{{ Form::token() }}
 			{{ Form::hidden('id') }}
-			{{ Form::hidden('action', $action) }}
+			{{ Form::hidden('formAction', $action) }}
 			{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
 		</div>
 	</div>
