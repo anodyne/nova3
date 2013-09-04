@@ -265,7 +265,7 @@ abstract class Core extends Controller {
 			$this->layout->template->content = View::make(Location::page($this->_view))
 				->with('_icons', $this->icons)
 				->with('_settings', $this->settings)
-				->with('_user', $this->_currentUser)
+				->with('_user', $this->user)
 				->with((array) $this->_data);
 		}
 		
@@ -274,7 +274,7 @@ abstract class Core extends Controller {
 		{
 			$this->layout->javascript = View::make(Location::js($this->_jsView))
 				->with('_icons', $this->icons)
-				->with('_user', $this->_currentUser)
+				->with('_user', $this->user)
 				->with((array) $this->_jsData);
 		}
 
