@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Interfaces;
 
-interface Cache {
+interface CacheInterface {
 
 	/**
 	 * Cache the items.

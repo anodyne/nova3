@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Interfaces;
 
-interface Media {
+interface MediaInterface {
 	
 	public function addMedia($file, $options);
 

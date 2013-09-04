@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Interfaces;
 
-interface Search {
+interface SearchInterface {
 	
 	public function search($term);
 

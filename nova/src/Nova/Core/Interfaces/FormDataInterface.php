@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Interfaces;
 
-interface FormData {
+interface FormDataInterface {
 
 	/**
 	 * Create field data values for the different entries

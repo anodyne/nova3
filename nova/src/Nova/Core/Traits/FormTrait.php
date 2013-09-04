@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Traits;
 
-trait Form {
+trait FormTrait {
 
 	/**
 	 * Scope the query to a specific form key.
