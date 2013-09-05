@@ -45,7 +45,7 @@ class Add extends AjaxBaseController {
 	 */
 	public function postFormValue()
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('form.update'))
+		if (Sentry::check() and $this->currentUser->hasAccess('form.update'))
 		{
 			$item = \NovaFormValue::create([
 				'value'		=> Str::lower(e(Input::get('content'))),
@@ -56,10 +56,11 @@ class Add extends AjaxBaseController {
 
 			if ($item)
 			{
-				// Get the items
-				$_icons = Nova::getIconIndex(Nova::getSkin());
-
-				echo '<tr id="value_'.$v->id.'"><td><div class="row"><div class="col-xs-12 col-sm-9 col-lg-9">'.\Form::text('', $v->value, ['class' => 'form-control']).'</div><div class="col-xs-6 col-sm-1 col-lg-1"><div class="hidden-xs"><a href="#" class="btn btn-sm btn-default js-value-action icn-size-16 tooltip-top" title="'.lang('Action.save').'" data-action="update" data-id="'.$v->id.'">'.$_icons['check'].'</a></div><div class="visible-xs"><p><a href="#" class="btn btn-sm btn-block btn-default js-value-action icn-size-16" data-action="update" data-id="'.$v->id.'">'.$_icons['check'].'</a></p></div></div><div class="col-xs-6 col-sm-1 col-lg-1"><div class="hidden-xs"><a href="#" class="btn btn-sm btn-danger js-value-action icn-size-16" data-action="delete" data-id="'.$v->id.'">'.$_icons['remove'].'</a></div><div class="visible-xs"><p><a href="#" class="btn btn-sm btn-block btn-danger js-value-action icn-size-16" data-action="delete" data-id="'.$v->id.'">'.$_icons['remove'].'</a></p></div></div><div class="col-lg-1 visible-lg"><div class="reorder-small icn-size-16 icn-opacity-50 text-center">'.$_icons['move'].'</div></div></div></td></tr>';
+				return partial('forms/field_value', [
+					'value'	=> $item->value,
+					'id'	=> $item->id,
+					'icons'	=> Nova::getIconIndex(Nova::getSkin()),
+				]);
 			}
 		}
 	}
@@ -91,7 +92,7 @@ class Add extends AjaxBaseController {
 	 */
 	public function getRankSet($location)
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('catalog.create'))
+		if (Sentry::check() and $this->currentUser->hasAccess('catalog.create'))
 		{
 			// Get the genre
 			$genre = Config::get('nova.genre');
@@ -221,7 +222,7 @@ class Add extends AjaxBaseController {
 	 */
 	public function getRole_duplicate()
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('role.create'))
+		if (Sentry::check() and $this->currentUser->hasAccess('role.create'))
 		{
 			// Clean the variable
 			$id = e(Request::segment(4, false));
@@ -242,7 +243,7 @@ class Add extends AjaxBaseController {
 	 */
 	public function getSkin($location)
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('catalog.create'))
+		if (Sentry::check() and $this->currentUser->hasAccess('catalog.create'))
 		{
 			// Get the contents of the QuickInstall file
 			$skinContents = File::get(APPPATH."views/{$location}/skin.json");
@@ -258,8 +259,8 @@ class Add extends AjaxBaseController {
 
 	public function getSkinOptionImageUpload()
 	{
-		if (Sentry::check() and (Sentry::getUser()->hasAccess('catalog.create')
-				or Sentry::getUser()->hasAccess('catalog.update')))
+		if (Sentry::check() and ($this->currentUser->hasAccess('catalog.create')
+				or $this->currentUser->hasAccess('catalog.update')))
 		{
 			if (Input::has('file'))
 			{

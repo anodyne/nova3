@@ -232,7 +232,6 @@
 		</div>
 		
 		@if ($action == 'update')
-			{{-- If the values table is updated, ajax/add/postFormValue has to be updated too --}}
 			<div class="tab-pane" id="values">
 				<p>{{ lang('short.admin.forms.dropdownUpdate', '<span class="text-success">'.$_icons['add'].'</span>', '<span class="text-success">'.$_icons['check'].'</span>', '<span class="text-danger">'.$_icons['remove'].'</span>') }}</p>
 				
@@ -250,27 +249,7 @@
 						@if (count($values) > 0)
 							<div class="nv-data-table nv-data-table-striped nv-data-table-bordered" id="sortableValues">
 								@foreach ($values as $v)
-									<div class="row">
-										<div class="col-xs-12 col-sm-8 col-lg-8">
-											<p>{{ Form::text('', $v->value, ['class' => 'form-control']) }}</p>
-										</div>
-										<div class="col-xs-6 col-sm-2 col-lg-2">
-											<div class="visible-lg">
-												<p class="pull-right"><a href="#" class="btn btn-sm btn-default js-value-action icn-size-16 tooltip-top" title="{{ lang('Action.save') }}" data-action="update" data-id="{{ $v->id }}">{{ $_icons['check'] }}</a></p>
-											</div>
-											<div class="hidden-lg">
-												<p><a href="#" class="btn btn-block btn-default js-value-action icn-size-16" data-action="update" data-id="{{ $v->id }}">{{ $_icons['check'] }}</a></p>
-											</div>
-										</div>
-										<div class="col-xs-6 col-sm-2 col-lg-2">
-											<div class="visible-lg">
-												<p><a href="#" class="btn btn-sm btn-danger js-value-action icn-size-16" data-action="delete" data-id="{{ $v->id }}">{{ $_icons['remove'] }}</a></p>
-											</div>
-											<div class="hidden-lg">
-												<p><a href="#" class="btn btn-block btn-danger js-value-action icn-size-16" data-action="delete" data-id="{{ $v->id }}">{{ $_icons['remove'] }}</a></p>
-											</div>
-										</div>
-									</div>
+									{{ partial('forms/field_value', ['value' => $v->value, 'id' => $v->id, 'icons' => $_icons]) }}
 								@endforeach
 							</div>
 						@else
