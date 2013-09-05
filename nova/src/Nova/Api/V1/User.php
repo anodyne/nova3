@@ -7,9 +7,11 @@ use UserValidator;
 
 class User extends Base {
 
-	public function __construct()
+	public function __construct(UserRepositoryInterface $user)
 	{
 		parent::__construct();
+
+		$this->user = $user;
 
 		//$this->beforeFilter('auth.api');
 	}
@@ -17,8 +19,8 @@ class User extends Base {
 	/**
 	 * Display all active users.
 	 *
-	 * @param	string	Type of users to pull (active, inactive, pending)
-	 * @param	int		Page number
+	 * @param	string	$type	Type of users to pull (active, inactive, pending)
+	 * @param	int		$page	Page number
 	 * @return	JSON
 	 */
 	public function index($type = 'active', $page = 1)
@@ -28,20 +30,23 @@ class User extends Base {
 		{
 			case 'active':
 			default:
-				$items = \User::active();
+				$items = $this->user->active();
 			break;
 
 			case 'inactive':
-				$items = \User::inactive();
+				$items = $this->user->inactive();
 			break;
 
 			case 'pending':
-				$items = \User::pending();
+				$items = $this->user->pending();
 			break;
 		}
 
 		// Set up the paging
-		if ($page > 1) $items->skip(--$page * $this->resultsPerPage);
+		if ($page > 1)
+			$items->skip(--$page * $this->resultsPerPage);
+		
+		// Break the results up by page
 		$items->take($this->resultsPerPage);
 
 		// Execute the query
@@ -89,18 +94,16 @@ class User extends Base {
 	/**
 	 * Show a specific user.
 	 *
-	 * @param	int		The user ID
+	 * @param	int		$id		User ID
 	 * @return	JSON
 	 */
 	public function show($id)
 	{
 		// Get the user
-		$user = \User::find($id);
+		$user = $this->user->find($id);
 
-		if ($user !== null)
-		{
+		if ($user)
 			return Response::api($this->collectUserData($user), 200);
-		}
 
 		return Response::api("User not found", 400);
 	}
@@ -117,7 +120,7 @@ class User extends Base {
 		$this->validateUser();
 
 		// Create a new user
-		$user = \User::create(Input::get());
+		$user = $this->user->create(Input::get());
 
 		return Response::api($this->collectUserData($user), 201);
 	}
@@ -125,17 +128,16 @@ class User extends Base {
 	/**
 	 * Update a user.
 	 *
-	 * @param	int		The user ID
+	 * @param	int		$id		User ID
 	 * @return	JSON
 	 * @todo	Authorization
 	 */
 	public function update($id)
 	{
 		// Find the user
-		$user = \User::find($id);
+		$user = $this->user->find($id);
 
-		// If no article return a bad request because user ID is invalid
-		if ($user !== null)
+		if ($user)
 		{
 			// Validate the user
 			$this->validateUser();
@@ -152,25 +154,23 @@ class User extends Base {
 	/**
 	 * Remove a user.
 	 *
-	 * @param	int		The ID
+	 * @param	int		$id		User ID
 	 * @return	JSON
 	 * @todo	Authorization
 	 */
 	public function destroy($id)
 	{
 		// Find the user
-		$user = \User::find($id);
+		$user = $this->user->find($id);
 
-		if ($user !== null)
+		if ($user)
 		{
 			// Delete the user
 			$remove = $user->deleteUser();
 
 			// See which response to send
 			if ($remove)
-			{
 				return Response::api("User removed", 200);
-			}
 
 			return Response::api("User cannot be deleted", 403);
 		}
@@ -181,7 +181,7 @@ class User extends Base {
 	/**
 	 * Pull all the user data together.
 	 *
-	 * @param	User	The user
+	 * @param	User	$user	User object
 	 * @return	array
 	 */
 	protected function collectUserData($user)

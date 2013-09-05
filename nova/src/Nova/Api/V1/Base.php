@@ -7,7 +7,7 @@
  *
  * @package		Nova
  * @subpackage	Api
- * @category	Controller
+ * @category	Controllers
  * @author		Anodyne Productions
  * @copyright	2013 Anodyne Productions
  */
