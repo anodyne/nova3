@@ -65,6 +65,17 @@ class Skin extends Model implements QuickInstallInterface, MediaInterface {
 		$query->where('has_login', (int) true);
 	}
 
+	/**
+	 * Scope the query to a skin by location.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeLocation($query, $location)
+	{
+		$query->where('location', $location);
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Model Accessors and Mutators
