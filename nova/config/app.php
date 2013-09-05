@@ -80,9 +80,6 @@ return [
 
 	'providers' => [
 
-		/**
-		 * Illuminate Service Providers
-		 */
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		'Illuminate\Auth\AuthServiceProvider',
 		'Illuminate\Cache\CacheServiceProvider',
@@ -117,9 +114,6 @@ return [
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
-		/**
-		 * Nova Service Providers
-		 */
 		'Cartalyst\Api\ApiServiceProvider',
 		'Nova\Core\Providers\ErrorServiceProvider',
 		'Nova\Core\Providers\NovaServiceProvider',
@@ -157,9 +151,6 @@ return [
 
 	'aliases' => [
 
-		/**
-		 * Illuminate Core Classes
-		 */
 		'App'             => 'Illuminate\Support\Facades\App',
 		'Artisan'         => 'Illuminate\Support\Facades\Artisan',
 		'Auth'            => 'Illuminate\Support\Facades\Auth',
@@ -198,7 +189,7 @@ return [
 		'View'            => 'Illuminate\Support\Facades\View',
 
 		/**
-		 * Nova Base Controllers
+		 * Base Controllers
 		 */
 		'BaseController'		=> 'Nova\Core\Controllers\Base\Core',
 		'MainBaseController'	=> 'Nova\Core\Controllers\Base\Main',
@@ -261,120 +252,120 @@ return [
 		/**
 		 * Nova Model Entities
 		 */
-		'AccessRole'				=> 'Nova\Core\Models\Entities\Access\Role',
-		'AccessRoleTask'			=> 'Nova\Core\Models\Entities\Access\RoleTask',
-		'AccessTask'				=> 'Nova\Core\Models\Entities\Access\Task',
+		'AccessRole'				=> "Nova\\Core\\Models\\Entities\\Access\\Role",
+		'AccessRoleTask'			=> "Nova\\Core\\Models\\Entities\\Access\\RoleTask",
+		'AccessTask'				=> "Nova\\Core\\Models\\Entities\\Access\\Task",
 
-		'NovaApp'					=> 'Nova\Core\Models\Entities\Application',
-		'NovaAppResponse'			=> 'Nova\Core\Models\Entities\Application\Response',
-		'NovaAppReviewer'			=> 'Nova\Core\Models\Entities\Application\Reviewer',
-		'NovaAppRule'				=> 'Nova\Core\Models\Entities\Application\Rule',
+		'NovaApp'					=> "Nova\\Core\\Models\\Entities\\Application",
+		'NovaAppResponse'			=> "Nova\\Core\\Models\\Entities\\Application\\Response",
+		'NovaAppReviewer'			=> "Nova\\Core\\Models\\Entities\\Application\\Reviewer",
+		'NovaAppRule'				=> "Nova\\Core\\Models\\Entities\\Application\\Rule",
 
-		'Award'						=> 'Nova\Core\Models\Entities\Award',
-		'AwardCategory'				=> 'Nova\Core\Models\Entities\Award\Category',
-		'AwardRecipient'			=> 'Nova\Core\Models\Entities\Award\Recipient',
+		'Award'						=> "Nova\\Core\\Models\\Entities\\Award",
+		'AwardCategory'				=> "Nova\\Core\\Models\\Entities\\Award\\Category",
+		'AwardRecipient'			=> "Nova\\Core\\Models\\Entities\\Award\\Recipient",
 		
-		'ModuleCatalog'				=> 'Nova\Core\Models\Entities\Catalog\Module',
-		'RankCatalog'				=> 'Nova\Core\Models\Entities\Catalog\Rank',
-		'SkinCatalog'				=> 'Nova\Core\Models\Entities\Catalog\Skin',
-		'WidgetCatalog'				=> 'Nova\Core\Models\Entities\Catalog\Widget',
+		'ModuleCatalog'				=> "Nova\\Core\\Models\\Entities\\Catalog\\Module",
+		'RankCatalog'				=> "Nova\\Core\\Models\\Entities\\Catalog\\Rank",
+		'SkinCatalog'				=> "Nova\\Core\\Models\\Entities\\Catalog\\Skin",
+		'WidgetCatalog'				=> "Nova\\Core\\Models\\Entities\\Catalog\\Widget",
 
-		'Character'					=> 'Nova\Core\Models\Entities\Character',
-		'CharacterPosition'			=> 'Nova\Core\Models\Entities\Character\Positions',
-		'CharacterPromotion'		=> 'Nova\Core\Models\Entities\Character\Promotion',
+		'Character'					=> "Nova\\Core\\Models\\Entities\\Character",
+		'CharacterPosition'			=> "Nova\\Core\\Models\\Entities\\Character\\Positions",
+		'CharacterPromotion'		=> "Nova\\Core\\Models\\Entities\\Character\\Promotion",
 
-		'NovaForm'					=> 'Nova\Core\Models\Entities\Form',
-		'NovaFormData'				=> 'Nova\Core\Models\Entities\Form\Data',
-		'NovaFormField'				=> 'Nova\Core\Models\Entities\Form\Field',
-		'NovaFormSection'			=> 'Nova\Core\Models\Entities\Form\Section',
-		'NovaFormTab'				=> 'Nova\Core\Models\Entities\Form\Tab',
-		'NovaFormValue'				=> 'Nova\Core\Models\Entities\Form\Value',
+		'NovaForm'					=> "Nova\\Core\\Models\\Entities\\Form",
+		'NovaFormData'				=> "Nova\\Core\\Models\\Entities\\Form\\Data",
+		'NovaFormField'				=> "Nova\\Core\\Models\\Entities\\Form\\Field",
+		'NovaFormSection'			=> "Nova\\Core\\Models\\Entities\\Form\\Section",
+		'NovaFormTab'				=> "Nova\\Core\\Models\\Entities\\Form\\Tab",
+		'NovaFormValue'				=> "Nova\\Core\\Models\\Entities\\Form\\Value",
 
-		'Mission'					=> 'Nova\Core\Models\Entities\Mission',
-		'MissionGroup'				=> 'Nova\Core\Models\Entities\Mission\Group',
-		'MissionNote'				=> 'Nova\Core\Models\Entities\Mission\Note',
+		'Mission'					=> "Nova\\Core\\Models\\Entities\\Mission",
+		'MissionGroup'				=> "Nova\\Core\\Models\\Entities\\Mission\\Group",
+		'MissionNote'				=> "Nova\\Core\\Models\\Entities\\Mission\\Note",
 
-		'Post'						=> 'Nova\Core\Models\Entities\Post',
-		'PostAuthor'				=> 'Nova\Core\Models\Entities\Post\Author',
-		'PostLock'					=> 'Nova\Core\Models\Entities\Post\Lock',
-		'PostParticipant'			=> 'Nova\Core\Models\Entities\Post\Participant',
+		'Post'						=> "Nova\\Core\\Models\\Entities\\Post",
+		'PostAuthor'				=> "Nova\\Core\\Models\\Entities\\Post\\Author",
+		'PostLock'					=> "Nova\\Core\\Models\\Entities\\Post\\Lock",
+		'PostParticipant'			=> "Nova\\Core\\Models\\Entities\\Post\\Participant",
 
-		'Rank'						=> 'Nova\Core\Models\Entities\Rank',
-		'RankGroup'					=> 'Nova\Core\Models\Entities\Rank\Group',
-		'RankInfo'					=> 'Nova\Core\Models\Entities\Rank\Info',
+		'Rank'						=> "Nova\\Core\\Models\\Entities\\Rank",
+		'RankGroup'					=> "Nova\\Core\\Models\\Entities\\Rank\\Group",
+		'RankInfo'					=> "Nova\\Core\\Models\\Entities\\Rank\\Info",
 
-		'User'						=> 'Nova\Core\Models\Entities\User',
-		'UserLoa'					=> 'Nova\Core\Models\Entities\User\Loa',
-		'UserPrefs'					=> 'Nova\Core\Models\Entities\User\Preferences',
-		'UserSuspend'				=> 'Nova\Core\Models\Entities\User\Suspend',
+		'User'						=> "Nova\\Core\\Models\\Entities\\User",
+		'UserLoa'					=> "Nova\\Core\\Models\\Entities\\User\\Loa",
+		'UserPrefs'					=> "Nova\\Core\\Models\\Entities\\User\\Preferences",
+		'UserSuspend'				=> "Nova\\Core\\Models\\Entities\\User\\Suspend",
 
-		'Announcement'				=> 'Nova\Core\Models\Entities\Announcement',
-		'Ban'						=> 'Nova\Core\Models\Entities\Ban',
-		'Comment'					=> 'Nova\Core\Models\Entities\Comment',
-		'Dept'						=> 'Nova\Core\Models\Entities\Department',
-		'Manifest'					=> 'Nova\Core\Models\Entities\Manifest',
-		'MediaModel'				=> 'Nova\Core\Models\Entities\Media',
-		'Message'					=> 'Nova\Core\Models\Entities\Message',
-		'MessageRecipient'			=> 'Nova\Core\Models\Entities\MessageRecipient',
-		'Moderation'				=> 'Nova\Core\Models\Entities\Moderation',
-		'NavModel'					=> 'Nova\Core\Models\Entities\Nav',
-		'PersonalLog'				=> 'Nova\Core\Models\Entities\PersonalLog',
-		'Position'					=> 'Nova\Core\Models\Entities\Position',
-		'Settings'					=> 'Nova\Core\Models\Entities\Settings',
-		'SimType'					=> 'Nova\Core\Models\Entities\SimType',
-		'SiteContent'				=> 'Nova\Core\Models\Entities\SiteContent',
-		'System'					=> 'Nova\Core\Models\Entities\System',
-		'SystemEventModel'			=> 'Nova\Core\Models\Entities\SystemEvent',
-		'SystemRoute'				=> 'Nova\Core\Models\Entities\SystemRoute',
+		'Announcement'				=> "Nova\\Core\\Models\\Entities\\Announcement",
+		'Ban'						=> "Nova\\Core\\Models\\Entities\\Ban",
+		'Comment'					=> "Nova\\Core\\Models\\Entities\\Comment",
+		'Dept'						=> "Nova\\Core\\Models\\Entities\\Department",
+		'Manifest'					=> "Nova\\Core\\Models\\Entities\\Manifest",
+		'MediaModel'				=> "Nova\\Core\\Models\\Entities\\Media",
+		'Message'					=> "Nova\\Core\\Models\\Entities\\Message",
+		'MessageRecipient'			=> "Nova\\Core\\Models\\Entities\\MessageRecipient",
+		'Moderation'				=> "Nova\\Core\\Models\\Entities\\Moderation",
+		'NavModel'					=> "Nova\\Core\\Models\\Entities\\Nav",
+		'PersonalLog'				=> "Nova\\Core\\Models\\Entities\\PersonalLog",
+		'Position'					=> "Nova\\Core\\Models\\Entities\\Position",
+		'Settings'					=> "Nova\\Core\\Models\\Entities\\Settings",
+		'SimType'					=> "Nova\\Core\\Models\\Entities\\SimType",
+		'SiteContent'				=> "Nova\\Core\\Models\\Entities\\SiteContent",
+		'System'					=> "Nova\\Core\\Models\\Entities\\System",
+		'SystemEventModel'			=> "Nova\\Core\\Models\\Entities\\SystemEvent",
+		'SystemRoute'				=> "Nova\\Core\\Models\\Entities\\SystemRoute",
 
 		/**
 		 * Nova Model Event Handlers
 		 */
-		'AccessRoleEventHandler'		=> 'Nova\Core\Models\Events\Access\Role',
-		'AccessTaskEventHandler'		=> 'Nova\Core\Models\Events\Access\Task',
+		'AccessRoleEventHandler'		=> "Nova\\Core\\Models\\Events\\Access\\Role",
+		'AccessTaskEventHandler'		=> "Nova\\Core\\Models\\Events\\Access\\Task",
 
-		'NovaAppEventHandler'			=> 'Nova\Core\Models\Events\Application',
+		'NovaAppEventHandler'			=> "Nova\\Core\\Models\\Events\\Application",
 
-		'RankCatalogEventHandler'		=> 'Nova\Core\Models\Events\Catalog\Rank',
-		'SkinCatalogEventHandler'		=> 'Nova\Core\Models\Events\Catalog\Skin',
+		'RankCatalogEventHandler'		=> "Nova\\Core\\Models\\Events\\Catalog\\Rank",
+		'SkinCatalogEventHandler'		=> "Nova\\Core\\Models\\Events\\Catalog\\Skin",
 
-		'NovaFormEventHandler'			=> 'Nova\Core\Models\Events\Form',
-		'NovaFormFieldEventHandler'		=> 'Nova\Core\Models\Events\Form\Field',
-		'NovaFormSectionEventHandler'	=> 'Nova\Core\Models\Events\Form\Section',
-		'NovaFormTabEventHandler'		=> 'Nova\Core\Models\Events\Form\Tab',
-		'NovaFormValueEventHandler'		=> 'Nova\Core\Models\Events\Form\Value',
+		'NovaFormEventHandler'			=> "Nova\\Core\\Models\\Events\\Form",
+		'NovaFormFieldEventHandler'		=> "Nova\\Core\\Models\\Events\\Form\\Field",
+		'NovaFormSectionEventHandler'	=> "Nova\\Core\\Models\\Events\\Form\\Section",
+		'NovaFormTabEventHandler'		=> "Nova\\Core\\Models\\Events\\Form\\Tab",
+		'NovaFormValueEventHandler'		=> "Nova\\Core\\Models\\Events\\Form\\Value",
 
-		'RankEventHandler'				=> 'Nova\Core\Models\Events\Rank',
-		'RankGroupEventHandler'			=> 'Nova\Core\Models\Events\Rank\Group',
-		'RankInfoEventHandler'			=> 'Nova\Core\Models\Events\Rank\Info',
+		'RankEventHandler'				=> "Nova\\Core\\Models\\Events\\Rank",
+		'RankGroupEventHandler'			=> "Nova\\Core\\Models\\Events\\Rank\\Group",
+		'RankInfoEventHandler'			=> "Nova\\Core\\Models\\Events\\Rank\\Info",
 		
-		'BaseEventHandler'				=> 'Nova\Core\Models\Events\Base',
-		'CharacterEventHandler'			=> 'Nova\Core\Models\Events\Character',
-		'CommentEventHandler'			=> 'Nova\Core\Models\Events\Comment',
-		'PositionEventHandler'			=> 'Nova\Core\Models\Events\Position',
-		'SettingsEventHandler'			=> 'Nova\Core\Models\Events\Settings',
-		'SiteContentEventHandler'		=> 'Nova\Core\Models\Events\SiteContent',
-		'SystemRouteEventHandler'		=> 'Nova\Core\Models\Events\SystemRoute',
-		'UserEventHandler'				=> 'Nova\Core\Models\Events\User',
+		'BaseEventHandler'				=> "Nova\\Core\\Models\\Events\\Base",
+		'CharacterEventHandler'			=> "Nova\\Core\\Models\\Events\\Character",
+		'CommentEventHandler'			=> "Nova\\Core\\Models\\Events\\Comment",
+		'PositionEventHandler'			=> "Nova\\Core\\Models\\Events\\Position",
+		'SettingsEventHandler'			=> "Nova\\Core\\Models\\Events\\Settings",
+		'SiteContentEventHandler'		=> "Nova\\Core\\Models\\Events\\SiteContent",
+		'SystemRouteEventHandler'		=> "Nova\\Core\\Models\\Events\\SystemRoute",
+		'UserEventHandler'				=> "Nova\\Core\\Models\\Events\\User",
 
 		/**
 		 * Nova Model Validators
 		 */
-		'AccessRoleValidator'		=> 'Nova\Core\Models\Validators\Access\Role',
-		'AccessTaskValidator'		=> 'Nova\Core\Models\Validators\Access\Task',
+		'AccessRoleValidator'		=> "Nova\\Core\\Models\\Validators\\Access\\Role",
+		'AccessTaskValidator'		=> "Nova\\Core\\Models\\Validators\\Access\\Task",
 
-		'RankCatalogValidator'		=> 'Nova\Core\Models\Validators\Catalog\Rank',
-		'SkinCatalogValidator'		=> 'Nova\Core\Models\Validators\Catalog\Skin',
+		'RankCatalogValidator'		=> "Nova\\Core\\Models\\Validators\\Catalog\\Rank",
+		'SkinCatalogValidator'		=> "Nova\\Core\\Models\\Validators\\Catalog\\Skin",
 
-		'FormValidator'				=> 'Nova\Core\Models\Validators\Form',
-		'FormFieldValidator'		=> 'Nova\Core\Models\Validators\Form\Field',
-		'FormSectionValidator'		=> 'Nova\Core\Models\Validators\Form\Section',
-		'FormTabValidator'			=> 'Nova\Core\Models\Validators\Form\Tab',
-		'FormValueValidator'		=> 'Nova\Core\Models\Validators\Form\Value',
+		'FormValidator'				=> "Nova\\Core\\Models\\Validators\\Form",
+		'FormFieldValidator'		=> "Nova\\Core\\Models\\Validators\\Form\\Field",
+		'FormSectionValidator'		=> "Nova\\Core\\Models\\Validators\\Form\\Section",
+		'FormTabValidator'			=> "Nova\\Core\\Models\\Validators\\Form\\Tab",
+		'FormValueValidator'		=> "Nova\\Core\\Models\\Validators\\Form\\Value",
 
-		'BaseValidator'				=> 'Nova\Core\Models\Validators\Base',
-		'SystemRouteValidator'		=> 'Nova\Core\Models\Validators\SystemRoute',
-		'UserValidator'				=> 'Nova\Core\Models\Validators\User',
+		'BaseValidator'				=> "Nova\\Core\\Models\\Validators\\Base",
+		'SystemRouteValidator'		=> "Nova\\Core\\Models\\Validators\\SystemRoute",
+		'UserValidator'				=> "Nova\\Core\\Models\\Validators\\User",
 
 		/**
 		 * Repositories
