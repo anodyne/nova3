@@ -215,6 +215,7 @@ return [
 		'API'			=> 'Cartalyst\Api\Facades\API',
 		'Date'			=> 'Carbon\Carbon',
 		'DynamicForm'	=> 'Nova\Core\Facades\DynamicForm',
+		'ErrorCode'		=> 'Nova\Core\Lib\ErrorCode',
 		'Location'		=> 'Nova\Core\Facades\Location',
 		'Markdown'		=> 'Nova\Core\Facades\Markdown',
 		'Media'			=> 'Nova\Core\Facades\Media',

@@ -10,6 +10,7 @@ use Status;
 use Sentry;
 use Session;
 use Redirect;
+use ErrorCode;
 use Exception;
 use UserPrefs;
 use AccessRole;
@@ -1031,7 +1032,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 			// Put the intended desintation into the session
 			Session::put('url.intended', App::make('url')->full());
 
-			return Redirect::to('login/error/'.\Nova\Core\Controllers\Login::NOT_LOGGED_IN);
+			return Redirect::to('login/error/'.ErrorCode::LOGIN_NOT_LOGGED_IN);
 		}
 		else
 		{

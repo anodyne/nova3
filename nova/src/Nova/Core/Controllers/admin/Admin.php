@@ -4,18 +4,13 @@ use View;
 use Input;
 use Location;
 use Redirect;
+use ErrorCode;
 use AdminBaseController;
 use SystemRouteValidator;
 use SiteContentRepositoryInterface;
 use SystemRouteRepositoryInterface;
 
 class Admin extends AdminBaseController {
-
-	/**
-	 * Error Codes
-	 */
-	const OK 				= 0;
-	const NOT_ALLOWED 		= 1;
 
 	public function __construct(SiteContentRepositoryInterface $content,
 			SystemRouteRepositoryInterface $route)
@@ -39,7 +34,7 @@ class Admin extends AdminBaseController {
 		// Set the data
 		switch ($code)
 		{
-			case self::NOT_ALLOWED:
+			case ErrorCode::ADMIN_NOT_ALLOWED:
 				$this->_data->header = "Not Allowed";
 				$this->_data->message = "You don't have permission to view that page.";
 			break;

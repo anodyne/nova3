@@ -12,6 +12,7 @@ use Session;
 use Location;
 use Redirect;
 use stdClass;
+use ErrorCode;
 use Exception;
 use Controller;
 
@@ -154,7 +155,7 @@ abstract class Setup extends Controller {
 								// Put the intended desintation into the session
 								Session::put('url.intended', $url->full());
 
-								return Redirect::to('login/error/'.\Nova\Core\Controllers\Login::NOT_ADMIN);
+								return Redirect::to('login/error/'.ErrorCode::LOGIN_NOT_ADMIN);
 							}
 						}
 						else
@@ -163,7 +164,7 @@ abstract class Setup extends Controller {
 							Session::put('url.intended', $url->full());
 
 							// No session? Send them away
-							return Redirect::to('login/error/'.\Nova\Core\Controllers\Login::NOT_LOGGED_IN);
+							return Redirect::to('login/error/'.ErrorCode::LOGIN_NOT_LOGGED_IN);
 						}
 					}
 				}

@@ -21,6 +21,7 @@ use Sentry;
 use Session;
 use Location;
 use Redirect;
+use ErrorCode;
 use SiteContent;
 use BaseController;
 use SiteContentRepositoryInterface;
@@ -45,7 +46,7 @@ abstract class Admin extends BaseController {
 				// Put the intended desintation into the session
 				Session::put('url.intended', App::make('url')->full());
 
-				return Redirect::to('login/error/'.\Nova\Core\Controllers\Login::NOT_LOGGED_IN);
+				return Redirect::to('login/error/'.ErrorCode::LOGIN_NOT_LOGGED_IN);
 			});
 		}
 		else

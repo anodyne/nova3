@@ -21,6 +21,7 @@ use Sentry;
 use Session;
 use Location;
 use Redirect;
+use ErrorCode;
 use UserValidator;
 use LoginBaseController;
 use Cartalyst\Sentry\Users\UserNotFoundException;
@@ -34,44 +35,44 @@ class Login extends LoginBaseController {
 	 * they're notified of the error. Also handles notifying the user if they've
 	 * been locked out of the system for too many log in attempts.
 	 */
-	public function getIndex($error = self::OK)
+	public function getIndex($error = ErrorCode::LOGIN_OK)
 	{
 		// Set the view
 		$this->_view = 'login/index';
 
 		// Only show the error messages when there's something wrong
-		if ($error > self::OK)
+		if ($error > ErrorCode::LOGIN_OK)
 		{
 			// Set the error class
 			$errorStatus = 'danger';
 
 			switch ($error)
 			{
-				case self::NOT_LOGGED_IN:
+				case ErrorCode::LOGIN_NOT_LOGGED_IN:
 					$errorMsg = lang("login.error.notLoggedIn");
 				break;
 
-				case self::NO_EMAIL:
+				case ErrorCode::LOGIN_NO_EMAIL:
 					$errorMsg = lang("login.error.noEmail");
 				break;
 
-				case self::NO_PASSWORD:
+				case ErrorCode::LOGIN_NO_PASSWORD:
 					$errorMsg = lang("login.error.noPassword");
 				break;
 
-				case self::NOT_FOUND:
+				case ErrorCode::LOGIN_NOT_FOUND:
 					$errorMsg = lang("login.error.notFound");
 				break;
 
-				case self::SUSPENDED:
+				case ErrorCode::LOGIN_SUSPENDED:
 					$errorMsg = lang("login.error.suspended", Session::get('suspended_time'));
 				break;
 
-				case self::BANNED:
+				case ErrorCode::LOGIN_BANNED:
 					$errorMsg = lang("login.error.banned");
 				break;
 
-				case self::NOT_ADMIN:
+				case ErrorCode::LOGIN_NOT_ADMIN:
 					$errorMsg = lang("login.error.notAdmin");
 				break;
 			}
@@ -121,7 +122,7 @@ class Login extends LoginBaseController {
 		}
 		catch (UserNotFoundException $e)
 		{
-			return Redirect::to('login/error/'.self::NOT_FOUND)->withInput();
+			return Redirect::to('login/error/'.ErrorCode::LOGIN_NOT_FOUND)->withInput();
 		}
 		catch (UserSuspendedException $e)
 		{
@@ -135,13 +136,13 @@ class Login extends LoginBaseController {
 			// Get now
 			$now = Date::now('UTC');
 
-			return Redirect::to('login/error/'.self::SUSPENDED)
+			return Redirect::to('login/error/'.ErrorCode::LOGIN_SUSPENDED)
 				->withInput()
 				->with('suspended_time', $suspendedAt->diffInMinutes($now));
 		}
 		catch (UserBannedException $e)
 		{
-			return Redirect::to('login/error/'.self::BANNED);
+			return Redirect::to('login/error/'.ErrorCode::LOGIN_BANNED);
 		}
 	}
 

@@ -3,26 +3,14 @@
 use View;
 use Session;
 use Location;
-use SkinCatalog;
 use BaseController;
+use SiteContentRepositoryInterface;
 
 abstract class Login extends BaseController {
 
-	/**
-	 * Log In Error Codes
-	 */
-	const OK 				= 0;
-	const NOT_LOGGED_IN 	= 1;
-	const NO_EMAIL 			= 2;
-	const NO_PASSWORD		= 3;
-	const NOT_FOUND			= 4;
-	const SUSPENDED			= 5;
-	const BANNED			= 6;
-	const NOT_ADMIN			= 7;
-
-	public function __construct()
+	public function __construct(SiteContentRepositoryInterface $content)
 	{
-		parent::__construct();
+		parent::__construct($content);
 
 		// Get a copy of the controller
 		$me = $this;
@@ -37,8 +25,11 @@ abstract class Login extends BaseController {
 			$me->rank		= Session::get('rank', $me->settings->rank);
 			$me->timezone	= Session::get('timezone', $me->settings->timezone);
 
+			// Resolve the catalog interface
+			$catalog = $me->resolveBinding('CatalogRepositoryInterface');
+
 			// Get the skin section info
-			$me->_skinInfo	= SkinCatalog::getItems('location', $me->skin)->first();
+			$me->_skinInfo	= $catalog->findSkinByLocation($me->skin);
 		});
 	}
 
