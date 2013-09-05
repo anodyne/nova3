@@ -23,6 +23,9 @@ use Location;
 use Redirect;
 use UserValidator;
 use LoginBaseController;
+use Cartalyst\Sentry\Users\UserNotFoundException;
+use Cartalyst\Sentry\Throttling\UserBannedException;
+use Cartalyst\Sentry\Throttling\UserSuspendedException;
 
 class Login extends LoginBaseController {
 
@@ -75,9 +78,8 @@ class Login extends LoginBaseController {
 
 			// Set the flash data
 			$this->_flash[] = [
-				'status' 	=> $errorStatus,
 				'content' 	=> $errorMsg,
-				'class'		=> 'alert-danger',
+				'class'		=> "alert-{$errorStatus}",
 			];
 		}
 	}
@@ -98,7 +100,7 @@ class Login extends LoginBaseController {
 			$email = e(Input::get('email'));
 			$password = e(Input::get('password'));
 
-			// Attempt to log in
+			// Attempt log in
 			$user = Sentry::authenticateAndRemember([
 				'email'		=> $email,
 				'password'	=> $password,
@@ -117,11 +119,11 @@ class Login extends LoginBaseController {
 				return Redirect::to('admin')->withCookie($persistCookie);
 			}
 		}
-		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
+		catch (UserNotFoundException $e)
 		{
 			return Redirect::to('login/error/'.self::NOT_FOUND)->withInput();
 		}
-		catch (\Cartalyst\Sentry\Throttling\UserSuspendedException $e)
+		catch (UserSuspendedException $e)
 		{
 			// Get the throttle record
 			$throttle = Sentry::getThrottleProvider()->findByLogin($email);
@@ -137,7 +139,7 @@ class Login extends LoginBaseController {
 				->withInput()
 				->with('suspended_time', $suspendedAt->diffInMinutes($now));
 		}
-		catch (\Cartalyst\Sentry\Throttling\UserBannedException $e)
+		catch (UserBannedException $e)
 		{
 			return Redirect::to('login/error/'.self::BANNED);
 		}
@@ -180,7 +182,7 @@ class Login extends LoginBaseController {
 		if ($flash == 'success')
 		{
 			$this->_flash[] = [
-				'status' 	=> 'success',
+				'class' 	=> 'alert-success',
 				'message' 	=> lang('login.reset.step1Success'),
 			];
 		}
@@ -188,7 +190,7 @@ class Login extends LoginBaseController {
 		if ($flash === 'failure')
 		{
 			$this->_flash[] = [
-				'status' 	=> 'danger',
+				'class' 	=> 'alert-danger',
 				'message' 	=> lang('login.reset.step1Failure'),
 			];
 		}
@@ -216,12 +218,16 @@ class Login extends LoginBaseController {
 			$resetCode = $user->getResetPasswordCode();
 
 			// Set the content keys
-			$contentKeys['subject'] = 'email.subject.password_reset';
-			$contentKeys['content'] = 'email.content.password_reset';
+			$contentKeys = [
+				'subject'	=> 'email.subject.password_reset',
+				'content'	=> 'email.content.password_reset',
+			];
 
 			// Build the content for the email
-			$data['to'] = $user->email;
-			$data['content'] = "\r\n\r\n".URL::to("login/reset_confirm/{$user->id}/{$resetCode}");
+			$data = [
+				'to'		=> $user->email,
+				'content'	=> "\r\n\r\n".URL::to("login/reset_confirm/{$user->id}/{$resetCode}");
+			];
 
 			// Send the notification
 			Notify::send('basic', $data, $contentKeys);
@@ -229,7 +235,7 @@ class Login extends LoginBaseController {
 			// Set up the data to flash to the next request
 			$flashData = ['reset_step1' => 'success'];
 		}
-		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
+		catch (UserNotFoundException $e)
 		{
 			// Set up the data to flash to the next request
 			$flashData = ['reset_step1' => 'failure'];
@@ -239,7 +245,7 @@ class Login extends LoginBaseController {
 	}
 
 	// TODO: need some kind of procedure for how to handle if the email doesn't go out
-	// TODO: need something in the admin side of things here a GM can manually confirm a password reset
+	// TODO: need something in the admin side of things where a GM can manually confirm a password reset
 
 	/**
 	 * Confirms a user's request to reset their password.
@@ -263,7 +269,7 @@ class Login extends LoginBaseController {
 			if ($reset === true)
 			{
 				$this->_flash[] = [
-					'status' 	=> 'success',
+					'class' 	=> 'alert-success',
 					'message' 	=> lang('login.reset.step2Success', HTML::link('login', lang('Action.login'))),
 				];
 
@@ -273,7 +279,7 @@ class Login extends LoginBaseController {
 			elseif ($reset === false)
 			{
 				$this->_flash[] = [
-					'status' 	=> 'danger',
+					'class' 	=> 'alert-danger',
 					'message' 	=> lang('login.reset.step2Failure'),
 				];
 			}
@@ -281,7 +287,7 @@ class Login extends LoginBaseController {
 		elseif ($confirm === false)
 		{
 			$this->_flash[] = [
-				'status' 	=> 'danger',
+				'class' 	=> 'alert-danger',
 				'message' 	=> lang('login.reset.confirmationFailed'),
 			];
 		}
@@ -332,7 +338,7 @@ class Login extends LoginBaseController {
 				$flashData = ['reset_confirmation' => false];
 			}
 		}
-		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
+		catch (UserNotFoundException $e)
 		{
 			// Set up the data to flash to the next request
 			$flashData = ['reset_confirmation' => false];
