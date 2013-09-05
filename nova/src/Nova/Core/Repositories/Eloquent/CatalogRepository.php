@@ -1,15 +1,23 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use User;
 use Settings;
 use RankCatalog;
 use SkinCatalog;
 use SecurityTrait;
+use UserRepositoryInterface;
 use CatalogRepositoryInterface;
+use SettingsRepositoryInterface;
 
 class CatalogRepository implements CatalogRepositoryInterface {
 
 	use SecurityTrait;
+
+	public function __construct(UserRepositoryInterface $user,
+			SettingsRepositoryInterface $settings)
+	{
+		$this->user = $user;
+		$this->settings = $settings;
+	}
 
 	public function allRanks()
 	{
@@ -46,7 +54,7 @@ class CatalogRepository implements CatalogRepositoryInterface {
 				return false;
 
 			// Get all users
-			$users = User::all();
+			$users = $this->user->all();
 
 			foreach ($users as $user)
 			{
@@ -87,7 +95,7 @@ class CatalogRepository implements CatalogRepositoryInterface {
 				return false;
 
 			// Get all users
-			$users = User::all();
+			$users = $this->user->all();
 
 			foreach ($users as $user)
 			{
