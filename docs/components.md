@@ -33,11 +33,11 @@
 * BlockUI
 	* The jQuery BlockUI Plugin lets you simulate synchronous behavior when using AJAX, without locking the browser.
 	* http://www.malsup.com/jquery/block/
-	* Version: 2.64.0-2013.07.18
+	* Version: 2.65.0-2013.09.02
 * DropzoneJS
 	* DropzoneJS is an open source library that provides drag-n-drop file uploads with image previews.
 	* http://www.dropzonejs.com/
-	* Version: 3.7.0
+	* Version: 3.7.1
 
 ## Under Review
 
