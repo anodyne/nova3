@@ -178,6 +178,7 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->app->bind($a['AccessRoleRepositoryInterface'], $a['AccessRoleRepository']);
 		$this->app->bind($a['CatalogRepositoryInterface'], $a['CatalogRepository']);
 		$this->app->bind($a['FormRepositoryInterface'], $a['FormRepository']);
+		$this->app->bind($a['SettingsRepositoryInterface'], $a['SettingsRepository']);
 		$this->app->bind($a['SiteContentRepositoryInterface'], $a['SiteContentRepository']);
 		$this->app->bind($a['SystemRouteRepositoryInterface'], $a['SystemRouteRepository']);
 		$this->app->bind($a['UserRepositoryInterface'], $a['UserRepository']);
