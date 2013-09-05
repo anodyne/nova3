@@ -116,15 +116,18 @@ class Add extends AjaxBaseController {
 	 */
 	public function getRouteDuplicate($id)
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('routes.create'))
+		if (Sentry::check() and $this->currentUser->hasAccess('routes.create'))
 		{
+			// Resolve the class out of the IoC
+			$class = $this->resolveBinding('SystemRouteRepositoryInterface');
+			
 			// Get the original route
-			$route = \SystemRoute::find($id);
+			$route = $class->find($id);
 
 			if ($route)
 			{
 				return partial('common/modal_content', [
-					'modalHeader'	=> ucwords(lang('short.duplicate', langConcat('core route'))),
+					'modalHeader'	=> lang('Short.duplicate', langConcat('Core Route')),
 					'modalBody'		=> View::make(Location::ajax('add/route_duplicate'))->with('route', $route),
 					'modalFooter'	=> false,
 				]);

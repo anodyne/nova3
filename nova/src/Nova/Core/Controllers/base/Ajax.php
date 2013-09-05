@@ -8,11 +8,14 @@
  *
  * @package		Nova
  * @subpackage	Core
- * @category	Controller
+ * @category	Controllers
  * @author		Anodyne Productions
  * @copyright	2013 Anodyne Productions
  */
 
+use App;
+use Config;
+use Sentry;
 use Request;
 use Controller;
 
@@ -23,10 +26,32 @@ abstract class Ajax extends Controller {
 	 */
 	protected $request;
 
+	/**
+	 * The current logged in user.
+	 */
+	protected $currentUser;
+
 	public function __construct()
 	{
 		// Get the request instance
 		$this->request = Request::instance();
+
+		// Get the current user
+		$this->currentUser = Sentry::getUser();
+	}
+
+	/**
+	 * Resolve bindings out of the container.
+	 *
+	 * @param	string	$alias	The alias to resolve
+	 * @return	object
+	 */
+	protected function resolveBinding($alias)
+	{
+		// Get the aliases
+		$classes = Config::get('app.aliases');
+
+		return App::make($classes[$alias]);
 	}
 
 }
