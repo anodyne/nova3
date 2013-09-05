@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<title>Nova 3 Environment Tests</title>
 
-		<link rel="stylesheet" href="nova/assets/css/bootstrap.min.css">
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 		<style>
 			@import "http://fonts.googleapis.com/css?family=Open+Sans:300,400,600";
 
