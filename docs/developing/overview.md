@@ -23,8 +23,10 @@ These tutorials are meant for people who have little to no experience with PHP a
 ## 200-level Tutorials
 
 - Anatomy of Nova 3
+	- Learn about how Nova is put together, how things are executed and get a high-level tour under the hood of Nova 3.
 - Seamless substitution for developers
 - The Nova Po-Po: Understanding controllers in Nova 3
+	- While controllers have stayed mostly the same between versions of Nova, 3.0 offers some unique changes. This will show you how to leverage controllers to get the most out of Nova 3.
 - Emails
 - Creating widgets
 - Creating modules
@@ -48,6 +50,8 @@ These tutorials are meant for people who have little to no experience with PHP a
 	- Leveraging caching for custom solutions
 - Access control
 - Events
+- Interfaces, Implementations and Injection
+	- Learn how Nova injects interfaces into controllers and other classes to make huge parts of the system oblivious to where the data is coming from. This pattern makes Nova more flexible than ever before.
 
 ## 400-level Tutorials
 

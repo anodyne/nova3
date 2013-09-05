@@ -4,17 +4,17 @@ It seems that just about everyone has a smartphone today. In fact, some statisti
 
 ## Targeting Mobile Phones for your Skins
 
-If you want to hide something from being seen on a mobile phone, you can use the `hidden-sm` class. If you want to show something just on a mobile phone, you can use the `visible-sm` class.
+If you want to hide something from being seen on a mobile phone, you can use the `hidden-xs` class. If you want to show something just on a mobile phone, you can use the `visible-xs` class.
 
-Bootstrap's grid system also has triggers for creating columns on a mobile phone. In most cases, you'll want to avoid creating too many columns because of the constrained space on a mobile phone's screen. To create a column on a mobile phone, use the `col-*` classes.
+Bootstrap's grid system also has triggers for creating columns on a mobile phone. In most cases, you'll want to avoid creating too many columns because of the constrained space on a mobile phone's screen. To create a column on a mobile phone, use the `col-xs-*` classes.
 
 <pre>&lt;div class="row">
-	&lt;div class="col-6">&lt;/div>
-	&lt;div class="col-6">&lt;/div>
+	&lt;div class="col-xs-6">&lt;/div>
+	&lt;div class="col-xs-6">&lt;/div>
 &lt;/div>
 
 &lt;div class="row">
-	&lt;div class="col-12">&lt;/div>
+	&lt;div class="col-xs-12">&lt;/div>
 &lt;/div></pre>
 
 ## Phone-Specific Changes in Nova 3

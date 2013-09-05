@@ -30,3 +30,12 @@ This all depends on the activity level of your game. In general though, an avera
 ## The Old Way
 
 There are some people who may not have any issues using PHP's built-in `mail()` function. We still provide that functionality which you can select during the setup process when configuring your email options. We recommend using an SMTP service instead of PHP's `mail()` function though.
+
+## Emails Sent by Nova 3
+
+- Resetting a password
+	- Nova\Core\Controllers\Login@postReset
+- Creating a new entry in FormViewer
+	- Nova\Core\Controllers\Admin\FormViewer@postIndex
+- Manually creating a user record
+	- Nova\Core\Controllers\Admin\User@postAll

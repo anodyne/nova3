@@ -1,4 +1,4 @@
-# Nova 3 API
+# The Nova API
 
 Nova 3 includes a RESTful API that developers can use to tap in to Nova's data and even create, edit and delete data as well. The use cases for a full RESTful API are broad and we're sure developers will come up with some creative ways to use it!
 
