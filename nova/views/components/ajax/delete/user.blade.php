@@ -13,6 +13,6 @@
 {{ Form::model($user, ['url' => 'admin/user']) }}
 	{{ Form::token() }}
 	{{ Form::hidden('id') }}
-	{{ Form::hidden('action', 'delete') }}
+	{{ Form::hidden('formAction', 'delete') }}
 	{{ Form::button(lang('Action.delete'), ['type' => 'submit', 'class' => 'btn btn-danger']) }}
 {{ Form::close() }}

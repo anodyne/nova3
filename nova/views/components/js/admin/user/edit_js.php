@@ -8,10 +8,10 @@
 			errorElement: 'p',
 			errorClass: 'help-block',
 			highlight: function(element, errorClass) {
-				$(element).closest('.control-group').addClass('error');
+				$(element).closest('.form-group').addClass('error');
 			},
 			unhighlight: function(element, errorClass) {
-				$(element).closest('.control-group').removeClass('error');
+				$(element).closest('.form-group').removeClass('error');
 			},
 			errorPlacement: function(error, element) {
 				error.insertAfter(element);

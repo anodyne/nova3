@@ -21,19 +21,19 @@
 
 		<div id="smtpOptions">
 			<div class="row">
-				<div class="col col-lg-6">
+				<div class="col-lg-6">
 					<label>SMTP Host</label>
 					<input type="text" class="form-control" name="hostname" value="{{ Session::get('hostname', '') }}">
 					<p class="help-block">The name of the SMTP server you'd like to use</p>
 				</div>
 
-				<div class="col col-lg-3">
+				<div class="col-lg-3">
 					<label>SMTP Port</label>
 					<input type="text" class="form-control" name="port" value="{{ Session::get('port', '25') }}">
 					<p class="help-block">The port to use for SMTP</p>
 				</div>
 
-				<div class="col col-lg-3">
+				<div class="col-lg-3">
 					<label>Encryption Protocol</label>
 					<input type="text" class="form-control" name="encryption" value="{{ Session::get('encryption', 'tls') }}">
 					<p class="help-block">The encryption protocol to use</p>
@@ -41,13 +41,13 @@
 			</div>
 
 			<div class="row">
-				<div class="col col-lg-6">
+				<div class="col-lg-6">
 					<label>Username</label>
 					<input type="text" class="form-control" name="username" value="{{ Session::get('username', '') }}">
 					<p class="help-block">Your SMTP username</p>
 				</div>
 
-				<div class="col col-lg-6">
+				<div class="col-lg-6">
 					<label>Password</label>
 					<input type="text" class="form-control" name="password" value="{{ Session::get('password', '') }}">
 					<p class="help-block">Your SMTP password</p>
@@ -57,7 +57,7 @@
 
 		<div id="sendmailOptions" class="hide">
 			<div class="row">
-				<div class="col col-lg-4">
+				<div class="col-lg-4">
 					<label>Sendmail Path</label>
 					<input type="text" class="form-control" name="sendmailpath" value="{{ Session::get('sendmailpath', '/usr/sbin/sendmail -bs') }}">
 					<p class="help-block">The path to Sendmail on the server</p>

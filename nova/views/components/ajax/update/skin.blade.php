@@ -3,6 +3,6 @@
 {{ Form::open(['url' => 'admin/catalog/skins']) }}
 	{{ Form::token() }}
 	{{ Form::hidden('id', $skin->id) }}
-	{{ Form::hidden('action', 'version') }}
+	{{ Form::hidden('formAction', 'version') }}
 	{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
 {{ Form::close() }}

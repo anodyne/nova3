@@ -4,5 +4,5 @@
 	{{ Form::button(lang('Action.delete'), ['type' => 'submit', 'class' => 'btn btn-danger']) }}
 	{{ Form::token() }}
 	{{ Form::hidden('id') }}
-	{{ Form::hidden('action', 'delete') }}
+	{{ Form::hidden('formAction', 'delete') }}
 {{ Form::close() }}

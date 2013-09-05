@@ -16,6 +16,6 @@
 
 	{{ Form::token() }}
 	{{ Form::hidden('id', $skin->id) }}
-	{{ Form::hidden('action', 'delete') }}
+	{{ Form::hidden('formAction', 'delete') }}
 	{{ Form::button(lang('Action.delete'), ['type' => 'submit', 'class' => 'btn btn-danger']) }}
 {{ Form:: close() }}

@@ -12,8 +12,8 @@
 	@if ($entries->count() > 0)
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 col-lg-4">
-				<div class="control-group">
-					{{ Form::text('', null, ['id' => 'searchEntries', 'placeholder' => lang('Short.search', langConcat('for Entry'))]) }}
+				<div class="form-group">
+					{{ Form::text('', null, ['class' => 'form-control', 'id' => 'searchEntries', 'placeholder' => lang('Short.search', langConcat('for Entry'))]) }}
 				</div>
 			</div>
 		</div>

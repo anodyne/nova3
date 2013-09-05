@@ -2,12 +2,10 @@
 
 {{ Form::open(['url' => 'admin/role']) }}
 	@if (count($roles) > 0)
-		<div class="control-group">
+		<div class="form-group">
 			<label class="control-label"></label>
-			<div class="controls">
-				{{ Form::select('new_role_id', $roles->toSimpleArray()) }}
-				<p class="help-block">{{ lang('short.admin.roles.removeRole', lang('users'), $name) }}</p>
-			</div>
+			{{ Form::select('new_role_id', $roles->toSimpleArray(), null, ['class' => 'form-control']) }}
+			<p class="help-block">{{ lang('short.admin.roles.removeRole', lang('users'), $name) }}</p>
 		</div>
 	@else
 		{{ Form::hidden('new_role_id', 0) }}
@@ -15,6 +13,6 @@
 
 	{{ Form::token() }}
 	{{ Form::hidden('id', $id) }}
-	{{ Form::hidden('action', 'delete') }}
+	{{ Form::hidden('formAction', 'delete') }}
 	{{ Form::button(lang('Action.delete'), ['type' => 'submit', 'class' => 'btn btn-danger']) }}
 {{ Form::close() }}

@@ -10,14 +10,14 @@
 </script>
 
 <form method="post">
-	<div class="control-group">
+	<div class="form-group">
 		<label class="control-label"><?php echo ucfirst(lang('name'));?></label>
 		<div class="controls">
 			<input type="text" name="name" class="span4">
 		</div>
 	</div>
 
-	<div class="control-group">
+	<div class="form-group">
 		<label class="control-label"><?php echo ucwords(langConcat('new base image'));?></label>
 		<div class="controls">
 			<?php echo Form::select('base', 0, $bases, array('class' => 'span4', 'id' => 'baseDrop'));?>

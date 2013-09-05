@@ -44,28 +44,28 @@ if (isset($characters) and Uri::segment(4) === false): ?>
 					<div id="c-basic" class="pill-pane active">
 						<div class="row">
 							<div class="span4">
-								<div class="control-group">
+								<div class="form-group">
 									<label class="control-label"><?php echo ucwords(langConcat('first name'));?></label>
 									<div class="controls">
 										<?php echo Form::input('first_name', $character->first_name, array('class' => 'span3'));?>
 									</div>
 								</div>
 
-								<div class="control-group">
+								<div class="form-group">
 									<label class="control-label"><?php echo ucwords(langConcat('middle name'));?></label>
 									<div class="controls">
 										<?php echo Form::input('middle_name', $character->middle_name, array('class' => 'span3'));?>
 									</div>
 								</div>
 
-								<div class="control-group">
+								<div class="form-group">
 									<label class="control-label"><?php echo ucwords(langConcat('last name'));?></label>
 									<div class="controls">
 										<?php echo Form::input('last_name', $character->last_name, array('class' => 'span3'));?>
 									</div>
 								</div>
 
-								<div class="control-group">
+								<div class="form-group">
 									<label class="control-label"><?php echo ucfirst(lang('suffix'));?></label>
 									<div class="controls">
 										<?php echo Form::input('suffix', $character->suffix, array('class' => 'span1'));?>
@@ -74,14 +74,14 @@ if (isset($characters) and Uri::segment(4) === false): ?>
 							</div>
 
 							<div class="span4">
-								<div class="control-group">
+								<div class="form-group">
 									<label class="control-label"><?php echo ucfirst(lang('rank'));?></label>
 									<div class="controls">
 										<?php echo NovaForm::rank('rank_id', $character->rank_id, array('class' => 'span4 chzn'));?>
 									</div>
 								</div>
 
-								<div class="control-group">
+								<div class="form-group">
 									<label class="control-label"><?php echo ucfirst(lang('positions'));?></label>
 									<div class="controls">
 										<?php echo NovaForm::position('position_id', array(1,5), array('class' => 'span4 chzn', 'multiple' => 'multiple'));?>

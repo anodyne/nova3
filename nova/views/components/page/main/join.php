@@ -55,28 +55,28 @@ if ( ! function_exists('joinData'))
 
 			<div class="row">
 				<div id="userInfo" class="span6">
-					<div class="control-group">
+					<div class="form-group">
 						<label class="control-label"><?php echo ucwords(lang('email_address'));?></label>
 						<div class="controls">
 							<input type="email" name="user[email]" id="emailField" class="span4" value="<?php echo joinData('email');?>">
 						</div>
 					</div>
 
-					<div class="control-group">
+					<div class="form-group">
 						<label class="control-label"><?php echo ucfirst(lang('name'));?></label>
 						<div class="controls">
 							<input type="text" name="user[name]" class="span4" value="<?php echo joinData('name');?>">
 						</div>
 					</div>
 
-					<div class="control-group">
+					<div class="form-group">
 						<label class="control-label"><?php echo ucfirst(lang('password'));?></label>
 						<div class="controls">
 							<input type="password" name="user[password]" class="span4">
 						</div>
 					</div>
 
-					<div class="control-group">
+					<div class="form-group">
 						<label class="control-label"><?php echo ucwords(langConcat('action.confirm password'));?></label>
 						<div class="controls">
 							<input type="password" name="user[confirm_password]" class="span4">
@@ -93,28 +93,28 @@ if ( ! function_exists('joinData'))
 		<div id="characterInfo" class="pill-pane">
 			<div class="row">
 				<div class="span6">
-					<div class="control-group">
+					<div class="form-group">
 						<label class="control-label"><?php echo ucwords(langConcat('first name'));?></label>
 						<div class="controls">
 							<input type="text" name="character[first_name]" class="span4">
 						</div>
 					</div>
 
-					<div class="control-group">
+					<div class="form-group">
 						<label class="control-label"><?php echo ucwords(langConcat('middle name'));?></label>
 						<div class="controls">
 							<input type="text" name="character[middle_name]" class="span4">
 						</div>
 					</div>
 
-					<div class="control-group">
+					<div class="form-group">
 						<label class="control-label"><?php echo ucwords(langConcat('last name'));?></label>
 						<div class="controls">
 							<input type="text" name="character[last_name]" class="span4">
 						</div>
 					</div>
 
-					<div class="control-group">
+					<div class="form-group">
 						<label class="control-label"><?php echo ucfirst(lang('suffix'));?></label>
 						<div class="controls">
 							<input type="text" name="character[suffix]" class="span2">
@@ -132,7 +132,7 @@ if ( ! function_exists('joinData'))
 
 		<?php if ( ! empty($samplePostContent)): ?>
 			<div id="samplePost" class="pill-pane">
-				<div class="control-group">
+				<div class="form-group">
 					<label class="control-label"><?php echo Markdown::parse($samplePostContent);?></label>
 					<div class="controls">
 						<textarea name="sample_post" rows="15" class="span12"></textarea>

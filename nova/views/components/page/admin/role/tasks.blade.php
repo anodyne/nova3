@@ -15,7 +15,7 @@
 @if (count($tasks) > 0)
 	<div class="row">
 		<div class="col-xs-12 col-sm-6 col-lg-4">
-			<div class="control-group">
+			<div class="form-group">
 				{{ Form::text('', null, ['id' => 'searchTasks', 'placeholder' => lang('Short.search', langConcat('for Access Tasks')), 'class' => 'form-control']) }}
 			</div>
 		</div>

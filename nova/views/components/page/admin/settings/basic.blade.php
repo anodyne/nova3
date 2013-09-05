@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-sm-6 col-lg-4">
 				@if (empty($s->help))
-					<div class="control-group">
+					<div class="form-group">
 				@endif
 
 				<label class="control-label">{{ $s->label }}</label>

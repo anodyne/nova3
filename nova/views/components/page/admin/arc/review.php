@@ -16,7 +16,7 @@
 				<hr>
 
 				<form method="post">
-					<div class="control-group">
+					<div class="form-group">
 						<div class="controls">
 							<textarea name="content" rows="5" class="span9" placeholder="<?php echo lang('short.arc.addComment', lang('comments'), lang('application'));?>"></textarea>
 						</div>
@@ -55,7 +55,7 @@
 		<?php endif;?>
 
 		<?php if ($votes->mine): ?>
-			<div class="control-group">
+			<div class="form-group">
 				<label class="control-label"><?php echo ucwords(langConcat('your vote'));?></label>
 				<p class="help-block"><?php echo ucfirst($votes->mine->content);?></p>
 			</div>
@@ -66,7 +66,7 @@
 		<?php endif;?>
 
 		<?php if ($votes->yes > 0): ?>
-			<div class="control-group success">
+			<div class="form-group success">
 				<label class="control-label"><?php echo ucfirst(lang('yes'));?></label>
 				<p class="help-block">
 					<?php echo ceil(($votes->yes/$votes->all) * 100);?>%
@@ -77,7 +77,7 @@
 		<?php endif;?>
 
 		<?php if ($votes->no > 0): ?>
-			<div class="control-group error">
+			<div class="form-group error">
 				<label class="control-label"><?php echo ucfirst(lang('no'));?></label>
 				<p class="help-block">
 					<?php echo floor(($votes->no/$votes->all) * 100);?>%
@@ -144,21 +144,21 @@
 		<div id="userForm" class="pill-pane">
 			<div class="row">
 				<div class="span6">
-					<div class="control-group">
+					<div class="form-group">
 						<label class="control-label"><?php echo ucfirst(lang('name'));?></label>
 						<div class="controls">
 							<p><?php echo $app->user->name;?></p>
 						</div>
 					</div>
 
-					<div class="control-group">
+					<div class="form-group">
 						<label class="control-label"><?php echo ucwords(lang('email_address'));?></label>
 						<div class="controls">
 							<p><?php echo $app->user->email;?></p>
 						</div>
 					</div>
 
-					<div class="control-group">
+					<div class="form-group">
 						<label class="control-label"><?php echo ucwords(langConcat('action.applied on'));?></label>
 						<div class="controls">
 							<p><?php echo $applied_date;?></p>
@@ -184,7 +184,7 @@
 					<div class="tab-content">
 						<div id="adminUsers" class="tab-pane active">
 							<form method="post">
-								<div class="control-group">
+								<div class="form-group">
 									<div class="controls">
 										<?php echo NovaForm::users('reviewUsers[]', $reviewerArray, array('class' => 'span6 chzn', 'multiple' => 'multiple'));?>
 										<p class="help-block"><?php echo lang('short.arc.admin.users');?></p>
@@ -204,7 +204,7 @@
 							<p><?php echo lang('short.arc.email');?></p>
 
 							<form method="post">
-								<div class="control-group">
+								<div class="form-group">
 									<label class="control-label"><?php echo ucfirst(lang('message'));?></label>
 									<div class="controls">
 										<textarea name="message" class="span8" rows="10"></textarea>
@@ -222,7 +222,7 @@
 
 						<div id="adminResponse" class="tab-pane">
 							<form method="post">
-								<div class="control-group">
+								<div class="form-group">
 									<label class="control-label"><?php echo ucfirst(lang('decision'));?></label>
 									<div class="controls">
 										<?php echo Form::select('decision', false, array('approve' => ucfirst(lang('action.approve')), 'reject' => ucfirst(lang('action.reject'))), array('class' => 'span2', 'id' => 'decisionDrop'));?>
@@ -237,7 +237,7 @@
 									<?php echo NovaForm::roles('role', Model_Access_Role::ACTIVE);?>
 								</div>
 
-								<div class="control-group">
+								<div class="form-group">
 									<label class="control-label"><?php echo ucfirst(lang('message'));?></label>
 									<div class="controls">
 										<textarea name="message" class="span8" rows="10"><?php echo Model_SiteContent::getContent("accept_message");?></textarea>

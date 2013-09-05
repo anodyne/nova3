@@ -5,7 +5,7 @@
 @if (isset($genres))
 	<div class="row">
 	@foreach ($genres as $key => $genre)
-		<div class="col col-lg-4">
+		<div class="col-lg-4">
 			<div class="thumbnail">
 				<h4>{{ $genre['name'] }} <small>{{ strtoupper($key) }}</small></h4>
 
@@ -41,7 +41,7 @@
 
 		<div class="row">
 		@foreach ($additional as $key => $genre)
-			<div class="col col-lg-4">
+			<div class="col-lg-4">
 				<div class="thumbnail">
 					<h4>{{ $genre['name'] }}</h4>
 
