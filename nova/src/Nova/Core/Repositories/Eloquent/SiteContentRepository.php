@@ -50,6 +50,18 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 		return SiteContent::getContentItem($key, $valueOnly);
 	}
 
+	/**
+	 * Find content by the section and controller.
+	 *
+	 * @param	string	$section	The section to get
+	 * @param	string	$controller	The controller to get
+	 * @return	Collection
+	 */
+	public function findBySection($section, $controller)
+	{
+		return SiteContent::getSectionContent($section, $controller);
+	}
+
 	public function update($id, array $data)
 	{
 		$id = $this->sanitizeInt($id);

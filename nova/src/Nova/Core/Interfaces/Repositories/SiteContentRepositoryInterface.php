@@ -13,4 +13,13 @@ interface SiteContentRepositoryInterface extends BaseRepositoryInterface {
 	 */
 	public function findByKey($key, $valueOnly = true);
 
+	/**
+	 * Find content by the section and controller.
+	 *
+	 * @param	string	$section	The section to get
+	 * @param	string	$controller	The controller to get
+	 * @return	Collection
+	 */
+	public function findBySection($section, $controller);
+
 }
