@@ -11,14 +11,17 @@ use AdminBaseController;
 use RankCatalogValidator;
 use SkinCatalogValidator;
 use CatalogRepositoryInterface;
+use SiteContentRepositoryInterface;
 use Symfony\Component\Finder\Finder;
 
 class Catalog extends AdminBaseController {
 
-	public function __construct(CatalogRepositoryInterface $catalog)
+	public function __construct(SiteContentRepositoryInterface $content,
+			CatalogRepositoryInterface $catalog)
 	{
-		parent::__construct();
+		parent::__construct($content);
 
+		// Set the injected interfaces
 		$this->catalog = $catalog;
 	}
 

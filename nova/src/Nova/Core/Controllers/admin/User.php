@@ -11,14 +11,17 @@ use DynamicForm;
 use UserValidator;
 use AdminBaseController;
 use UserRepositoryInterface;
+use SiteContentRepositoryInterface;
 use Symfony\Component\Finder\Finder;
 
 class User extends AdminBaseController {
 
-	public function __construct(UserRepositoryInterface $user)
+	public function __construct(SiteContentRepositoryInterface $content,
+			UserRepositoryInterface $user)
 	{
-		parent::__construct();
+		parent::__construct($content);
 
+		// Set the injected interfaces
 		$this->user = $user;
 	}
 

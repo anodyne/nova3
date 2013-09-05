@@ -9,13 +9,16 @@ use Validator;
 use DynamicForm;
 use AdminBaseController;
 use FormRepositoryInterface;
+use SiteContentRepositoryInterface;
 
 class FormViewer extends AdminBaseController {
 
-	public function __construct(FormRepositoryInterface $form)
+	public function __construct(SiteContentRepositoryInterface $content,
+			FormRepositoryInterface $form)
 	{
-		parent::__construct();
+		parent::__construct($content);
 
+		// Set the injected interfaces
 		$this->form = $form;
 	}
 

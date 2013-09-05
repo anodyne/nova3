@@ -10,13 +10,16 @@ use AccessTaskValidator;
 use AdminBaseController;
 use AccessRoleRepositoryInterface;
 use AccessTaskRepositoryInterface;
+use SiteContentRepositoryInterface;
 
 class Role extends AdminBaseController {
 
-	public function __construct(AccessRoleRepositoryInterface $role)
+	public function __construct(SiteContentRepositoryInterface $content,
+			AccessRoleRepositoryInterface $role)
 	{
-		parent::__construct();
+		parent::__construct($content);
 
+		// Set the injected interfaces
 		$this->role = $role;
 	}
 

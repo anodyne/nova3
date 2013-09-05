@@ -20,18 +20,15 @@ use View;
 use Sentry;
 use Session;
 use Location;
-use SiteContent;
-use SkinCatalog;
 use BaseController;
+use CatalogRepositoryInterface;
 use SiteContentRepositoryInterface;
 
 abstract class Main extends BaseController {
 
 	public function __construct(SiteContentRepositoryInterface $content)
 	{
-		parent::__construct();
-
-		$this->content = $content;
+		parent::__construct($content);
 
 		// Get a copy of the controller
 		$me = $this;
@@ -55,8 +52,11 @@ abstract class Main extends BaseController {
 					: $me->settings->timezone;
 				$me->icons = Nova::getIconIndex($me->skin);
 
+				// Resolve the catalog repository interface
+				$skin = $me->resolveBinding('CatalogRepositoryInterface');
+
 				// Get the skin section info
-				$me->_skinInfo	= SkinCatalog::getItems('location', $me->skin)->first();
+				$me->_skinInfo = $skin->findSkinByLocation($me->skin);
 
 				// Build the navigation
 				$me->nav->setStyle($me->_skinInfo->nav)

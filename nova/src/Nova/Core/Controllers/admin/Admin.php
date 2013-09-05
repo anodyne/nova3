@@ -6,6 +6,7 @@ use Location;
 use Redirect;
 use AdminBaseController;
 use SystemRouteValidator;
+use SiteContentRepositoryInterface;
 use SystemRouteRepositoryInterface;
 
 class Admin extends AdminBaseController {
@@ -16,10 +17,12 @@ class Admin extends AdminBaseController {
 	const OK 				= 0;
 	const NOT_ALLOWED 		= 1;
 
-	public function __construct(SystemRouteRepositoryInterface $route)
+	public function __construct(SiteContentRepositoryInterface $content,
+			SystemRouteRepositoryInterface $route)
 	{
-		parent::__construct();
+		parent::__construct($content);
 
+		// Set the injected interfaces
 		$this->route = $route;
 	}
 

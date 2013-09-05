@@ -34,7 +34,7 @@ use Settings;
 use stdClass;
 use Exception;
 use Controller;
-use SiteContent;
+use SiteContentRepositoryInterface;
 
 abstract class Core extends Controller {
 
@@ -149,11 +149,6 @@ abstract class Core extends Controller {
 	public $_editable = true;
 
 	/**
-	 * Stop execution (used specifically for filters)
-	 */
-	protected $_stopExecution = false;
-
-	/**
 	 * The controller used for the current request.
 	 */
 	public $_controller;
@@ -173,7 +168,12 @@ abstract class Core extends Controller {
 	 */
 	public $_fullAction;
 
-	public function __construct()
+	/**
+	 * Stop execution (used specifically for filters)
+	 */
+	protected $_stopExecution = false;
+
+	public function __construct(SiteContentRepositoryInterface $content)
 	{
 		// Set the current user
 		$this->currentUser = Sentry::getUser();
@@ -181,6 +181,9 @@ abstract class Core extends Controller {
 		// Set the controller and action names
 		$this->getControllerName();
 		$this->getActionName();
+
+		// Set the injected interfaces
+		$this->content = $content;
 
 		// Get a copy of the controller
 		$me = $this;
@@ -229,8 +232,11 @@ abstract class Core extends Controller {
 				// Set the genre
 				$me->genre = Config::get('nova.genre');
 
+				// Resolve the interfaces
+				$settings = $me->resolveBinding('SettingsRepositoryInterface');
+
 				// Load all of the settings
-				$me->settings = Settings::get()->toSimpleObject('key', 'value');
+				$me->settings = $settings->all()->toSimpleObject('key', 'value');
 
 				# TODO: need to figure out how we're going to handle languages
 
@@ -243,9 +249,9 @@ abstract class Core extends Controller {
 				$me->_skinInfo = new stdClass;
 
 				// Grab the content for the current section
-				$me->_headers	= SiteContent::getSectionContent('header', $me->_controller);
-				$me->_messages	= SiteContent::getSectionContent('message', $me->_controller);
-				$me->_titles	= SiteContent::getSectionContent('title', $me->_controller);
+				$me->_headers	= $me->content->findBySection('header', $me->_controller);
+				$me->_messages	= $me->content->findBySection('message', $me->_controller);
+				$me->_titles	= $me->content->findBySection('title', $me->_controller);
 			}
 		});
 	}
@@ -481,6 +487,20 @@ abstract class Core extends Controller {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Resolve bindings out of the container.
+	 *
+	 * @param	string	$alias	The alias to resolve
+	 * @return	object
+	 */
+	protected function resolveBinding($alias)
+	{
+		// Get the aliases
+		$classes = Config::get('app.aliases');
+
+		return App::make($classes[$alias]);
 	}
 
 }

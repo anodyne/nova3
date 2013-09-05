@@ -22,14 +22,14 @@ use Session;
 use Location;
 use Redirect;
 use SiteContent;
-use SkinCatalog;
 use BaseController;
+use SiteContentRepositoryInterface;
 
 abstract class Admin extends BaseController {
 
-	public function __construct()
+	public function __construct(SiteContentRepositoryInterface $content)
 	{
-		parent::__construct();
+		parent::__construct($content);
 
 		/**
 		 * Before any of the before filters run, check to make sure the user is
@@ -64,8 +64,11 @@ abstract class Admin extends BaseController {
 				$me->icons		= Nova::getIconIndex($me->skin);
 				$me->timezone	= ($me->currentUser->getPreferenceItem('timezone')) ?: $me->settings->timezone;
 
+				// Resolve the catalog repository interface
+				$skin = $me->resolveBinding('CatalogRepositoryInterface');
+
 				// Get the skin section info
-				$me->_skinInfo = SkinCatalog::getItems('location', $me->skin)->first();
+				$me->_skinInfo = $skin->findSkinByLocation($me->skin);
 
 				// Build the navigation
 				$me->nav->setStyle($me->_skinInfo->nav)
@@ -133,7 +136,7 @@ abstract class Admin extends BaseController {
 
 		// Setup the footer
 		$layout->template->footer			= View::make(Location::partial('footer'));
-		$layout->template->footer->extra	= SiteContent::getContentItem('other.footer');
+		$layout->template->footer->extra	= $this->content->findByKey('other.footer');
 
 		// Pass everything back to the layout
 		$this->layout = $layout;

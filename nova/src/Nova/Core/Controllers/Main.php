@@ -20,8 +20,6 @@ class Main extends MainBaseController {
 	{
 		parent::__construct($content);
 
-		$this->content = $content;
-
 		// Get a copy of the controller
 		$me = $this;
 
