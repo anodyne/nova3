@@ -1,10 +1,11 @@
 <?php include_once NOVAPATH.'views/components/js/core/jquery_js.php';?>
 
-<script type="text/javascript" src="<?php echo NOVAURL;?>assets/js/jquery.lazy.js"></script>
-<script type="text/javascript" src="<?php echo NOVAURL;?>assets/js/bootstrap.min.js"></script>
-<script type="text/javascript">
+<script src="<?php echo NOVAURL;?>assets/js/jquery.lazy.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script>
 	
-	$(document).ready(function(){
+	$(document).ready(function()
+	{
 		/**
 		 * Bootstrap Tooltips
 		 */
@@ -112,7 +113,8 @@
 	});
 
 	// Destroy all modals when they're hidden
-	$('.modal').on('hidden.bs.modal', function(){
+	$('.modal').on('hidden.bs.modal', function()
+	{
 		$('.modal').removeData('bs.modal');
 	});
 

@@ -2,10 +2,11 @@
 
 <!--<link rel="stylesheet" href="<?php echo SRCURL;?>/assets/css/bootstrap-editable.css">
 
-<script type="text/javascript" src="<?php echo SRCURL;?>/assets/js/bootstrap-editable.min.js"></script>-->
-<script type="text/javascript">
-	$(document).ready(function(){
-		
+<script src="<?php echo SRCURL;?>/assets/js/bootstrap-editable.min.js"></script>-->
+<script>
+	
+	$(document).ready(function()
+	{
 		<?php /*if (Sentry::check() and Sentry::getUser()->hasAccess('content.update')): ?>
 
 			$('.editable-single').editable("<?php echo URL::to('ajax/update/content_save');?>", {
@@ -28,4 +29,5 @@
 
 		<?php endif;*/?>
 	});
+
 </script>

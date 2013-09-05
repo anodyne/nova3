@@ -16,7 +16,7 @@
 		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 		
-		<link rel="stylesheet" href="{{ NOVAURL }}assets/css/bootstrap.min.css">
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="{{ NOVAURL }}assets/css/fonts.css">
 		<link rel="stylesheet" href="{{ NOVAURL }}assets/css/fonts.setup.css">
 		<link rel="stylesheet" href="{{ NOVAURL }}views/design/style.setup.css">
@@ -29,14 +29,15 @@
 
 		<?php include_once NOVAPATH.'views/components/js/core/jquery_js.php';?>
 
-		<script type="text/javascript" src="{{ NOVAURL }}assets/js/bootstrap.min.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function(){
-
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+		<script>
+			
+			$(document).ready(function()
+			{
 				$('.tip-above').tooltip();
 				$('.tip-below').tooltip({ placement: 'bottom' });
-				
 			});
+
 		</script>
 		{{ $javascript }}
 	</body>
