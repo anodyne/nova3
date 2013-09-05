@@ -36,7 +36,8 @@
 		"mockery/mockery": "0.7.*",
 		"way/laravel-test-helpers": "dev-master",
 		"raveren/kint": "dev-master",
-		"fzaninotto/faker": "1.*"
+		"fzaninotto/faker": "1.*",
+		"loic-sharma/profiler": "1.*"
 	},
 
 	"repositories": [
