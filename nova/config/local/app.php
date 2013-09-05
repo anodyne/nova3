@@ -1,8 +1,5 @@
 <?php
 
-return [];
-
-/*
 return [
 
 	'providers' => [
@@ -17,4 +14,4 @@ return [
 
 	],
 
-];*/
+];
