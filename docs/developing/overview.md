@@ -4,9 +4,9 @@ DevCenter is an exhaustive resource for everything about developing for Nova 3. 
 
 ## Development 101
 
-This course is meant for people who have little to no experience with PHP. Through several lessons, you'll learn about what PHP is, what it can do, how to write it and move all the way up to some of the more advanced features of the language.
+This track is meant for people who have little to no experience with PHP. Through several courses, you'll learn about what PHP is, what it can do, how to write it and move all the way up to some of the more advanced features of the language.
 
-- Basic PHP
+- Intro to PHP
 	- What is PHP?
 	- Declaring variables
 	- Arrays
@@ -44,10 +44,10 @@ With a more complete understanding of PHP, it's time to step up to some of the u
 	- Composer update
 	- Using Composer components
 
-## Nova - Level 1
+## Nova Level 1
 
 - Anatomy of Nova 3
-	- How it's put together
+	- How it's all put together
 	- Application flow
 	- Under the hood
 - Seamless substitution for developers
@@ -61,12 +61,12 @@ With a more complete understanding of PHP, it's time to step up to some of the u
 	- Status
 - QuickInstall for developers
 
-## 300-level Tutorials
+## Nova Level 2
 
-- The Eloquent ORM
-	- Basic functions
-	- Collections
-- Understanding models in Nova 3
+- Understanding database interaction in Nova 3
+	- The Eloquent ORM
+		- Basic functions
+		- Collections
 	- Entities
 	- Events
 	- Validators
@@ -79,10 +79,14 @@ With a more complete understanding of PHP, it's time to step up to some of the u
 - Interfaces, Implementations and Injection
 	- Learn how Nova injects interfaces into controllers and other classes to make huge parts of the system oblivious to where the data is coming from. This pattern makes Nova more flexible than ever before.
 
-## 400-level Tutorials
+## Nova Level 3
 
-- Utilizing model event handlers
-- Tapping in to Nova 3's interfaces
+- Advanced database interaction
+	- Utilizing model event handlers
+	- Customizing model entities
+- Interfaces
 	- Overview
 	- The Media interface
 	- The QuickInstall interface
+- Dynamic Forms
+	- So you want to hook your dynamic form into a custom database table?
