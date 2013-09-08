@@ -29,6 +29,8 @@ The index file is the entry point into Nova. Everything starts and ends with the
 
 ### src
 
+This is where your custom source code lives. There are folders for the app and for modules.
+
 ### start
 
 As Laravel starts up, several files are called to help setup the system and boot the framework. If you need to change the way Laravel boots up or add service providers or anything else, you can do so in these files _after_ the `require` statements (these pull in base files from the Nova core).

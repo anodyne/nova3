@@ -68,8 +68,8 @@ With a more complete understanding of PHP, it's time to step up to some of the u
 		- Basic functions
 		- Collections
 	- Entities
-	- Events
-	- Validators
+	- Events (just the basics)
+	- Validators (just the basics)
 - Migrations
 - Caching
 	- APC and Memcache
@@ -90,3 +90,5 @@ With a more complete understanding of PHP, it's time to step up to some of the u
 	- The QuickInstall interface
 - Dynamic Forms
 	- So you want to hook your dynamic form into a custom database table?
+
+## The Nova API

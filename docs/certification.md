@@ -8,23 +8,19 @@ For community members who want to help support Nova on the forums and within the
 
 ### Silver Level
 
-In order to achieve Silver Level certification, you must complete 2 of the following tracks with a combined score of 70 or better:
+In order to achieve Silver Level certification, you must complete the following tracks with a combined score of 70 or better:
 
 - DevCenter, Nova Level 1
-- DevCenter, Nova Level 2
 - Skin Studio, Nova Skinning Level 1
-- Skin Studio, Nova Skinning Level 2
 
 ### Gold Level
 
-In order to achieve Gold Level Certification, you must complete 4 of the following tracks with a combined score of 80 or better:
+In order to achieve Gold Level certification, you must complete the following tracks with a combined score of 70 or better:
 
 - DevCenter, Nova Level 1
 - DevCenter, Nova Level 2
-- DevCenter, Nova Level 3
 - Skin Studio, Nova Skinning Level 1
 - Skin Studio, Nova Skinning Level 2
-- Skin Studio, Nova Skinning Level 3
 
 ### Platinum Level
 
