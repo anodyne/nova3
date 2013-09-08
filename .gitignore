@@ -8,4 +8,3 @@ app/config/local/*
 !app/config/local/app.php
 
 *.sublime-project
-*.sublime-workspace
