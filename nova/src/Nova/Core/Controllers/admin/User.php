@@ -11,21 +11,19 @@ use DynamicForm;
 use UserValidator;
 use AdminBaseController;
 use UserRepositoryInterface;
-use SiteContentRepositoryInterface;
 use Symfony\Component\Finder\Finder;
 
 class User extends AdminBaseController {
 
-	public function __construct(SiteContentRepositoryInterface $content,
-			UserRepositoryInterface $user)
+	public function __construct(UserRepositoryInterface $user)
 	{
-		parent::__construct($content);
+		parent::__construct();
 
 		// Set the injected interfaces
 		$this->user = $user;
 	}
 
-	public function getAll()
+	public function getUsers()
 	{
 		// Verify the user is allowed
 		$this->currentUser->allowed(['user.create', 'user.update', 'user.delete'], true);
@@ -47,7 +45,7 @@ class User extends AdminBaseController {
 			->with('modalBody', '')
 			->with('modalFooter', false);
 	}
-	public function postAll()
+	public function postUsers()
 	{
 		// Get the action
 		$action = e(Input::get('formAction'));

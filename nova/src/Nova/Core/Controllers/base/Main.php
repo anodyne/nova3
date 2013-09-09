@@ -22,13 +22,12 @@ use Session;
 use Location;
 use BaseController;
 use CatalogRepositoryInterface;
-use SiteContentRepositoryInterface;
 
 abstract class Main extends BaseController {
 
-	public function __construct(SiteContentRepositoryInterface $content)
+	public function __construct()
 	{
-		parent::__construct($content);
+		parent::__construct();
 
 		// Get a copy of the controller
 		$me = $this;

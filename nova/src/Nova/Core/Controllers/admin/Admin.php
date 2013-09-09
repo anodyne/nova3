@@ -7,15 +7,13 @@ use Redirect;
 use ErrorCode;
 use AdminBaseController;
 use SystemRouteValidator;
-use SiteContentRepositoryInterface;
 use SystemRouteRepositoryInterface;
 
 class Admin extends AdminBaseController {
 
-	public function __construct(SiteContentRepositoryInterface $content,
-			SystemRouteRepositoryInterface $route)
+	public function __construct(SystemRouteRepositoryInterface $route)
 	{
-		parent::__construct($content);
+		parent::__construct();
 
 		// Set the injected interfaces
 		$this->route = $route;

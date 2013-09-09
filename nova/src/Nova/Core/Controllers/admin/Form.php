@@ -13,15 +13,13 @@ use FormValueValidator;
 use FormSectionValidator;
 use FormRepositoryInterface;
 use AccessRoleRepositoryInterface;
-use SiteContentRepositoryInterface;
 
 class Form extends AdminBaseController {
 
-	public function __construct(SiteContentRepositoryInterface $content,
-			FormRepositoryInterface $form, 
+	public function __construct(FormRepositoryInterface $form, 
 			AccessRoleRepositoryInterface $role)
 	{
-		parent::__construct($content);
+		parent::__construct();
 
 		// Set the injected interfaces
 		$this->form = $form;

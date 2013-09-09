@@ -12,13 +12,12 @@
 
 use Markdown;
 use MainBaseController;
-use SiteContentRepositoryInterface;
 
 class Main extends MainBaseController {
 
-	public function __construct(SiteContentRepositoryInterface $content)
+	public function __construct()
 	{
-		parent::__construct($content);
+		parent::__construct();
 
 		// Get a copy of the controller
 		$me = $this;

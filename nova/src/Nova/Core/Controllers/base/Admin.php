@@ -24,13 +24,12 @@ use Redirect;
 use ErrorCode;
 use SiteContent;
 use BaseController;
-use SiteContentRepositoryInterface;
 
 abstract class Admin extends BaseController {
 
-	public function __construct(SiteContentRepositoryInterface $content)
+	public function __construct()
 	{
-		parent::__construct($content);
+		parent::__construct();
 
 		/**
 		 * Before any of the before filters run, check to make sure the user is

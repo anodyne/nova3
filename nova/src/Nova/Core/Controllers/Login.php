@@ -227,7 +227,7 @@ class Login extends LoginBaseController {
 			// Build the content for the email
 			$data = [
 				'to'		=> $user->email,
-				'content'	=> "\r\n\r\n".URL::to("login/reset_confirm/{$user->id}/{$resetCode}");
+				'content'	=> "\r\n\r\n".URL::to("login/reset_confirm/{$user->id}/{$resetCode}"),
 			];
 
 			// Send the notification

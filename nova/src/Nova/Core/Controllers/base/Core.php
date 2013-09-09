@@ -34,7 +34,6 @@ use Settings;
 use stdClass;
 use Exception;
 use Controller;
-use SiteContentRepositoryInterface;
 
 abstract class Core extends Controller {
 
@@ -47,6 +46,11 @@ abstract class Core extends Controller {
 	 * All of the setting values from the database.
 	 */
 	public $settings;
+
+	/**
+	 * The Site Content repository.
+	 */
+	public $content;
 	
 	/**
 	 * Icon information from the icon indices.
@@ -173,7 +177,7 @@ abstract class Core extends Controller {
 	 */
 	protected $_stopExecution = false;
 
-	public function __construct(SiteContentRepositoryInterface $content)
+	public function __construct()
 	{
 		// Set the current user
 		$this->currentUser = Sentry::getUser();
@@ -183,7 +187,7 @@ abstract class Core extends Controller {
 		$this->getActionName();
 
 		// Set the injected interfaces
-		$this->content = $content;
+		$this->content = $this->resolveBinding('SiteContentRepositoryInterface');
 
 		// Get a copy of the controller
 		$me = $this;
@@ -249,9 +253,9 @@ abstract class Core extends Controller {
 				$me->_skinInfo = new stdClass;
 
 				// Grab the content for the current section
-				$me->_headers	= $me->content->findBySection('header', $me->_controller);
-				$me->_messages	= $me->content->findBySection('message', $me->_controller);
-				$me->_titles	= $me->content->findBySection('title', $me->_controller);
+				$me->_headers	= $me->content->findBySection('header', Str::lower($me->_controller));
+				$me->_messages	= $me->content->findBySection('message', Str::lower($me->_controller));
+				$me->_titles	= $me->content->findBySection('title', Str::lower($me->_controller));
 			}
 		});
 	}
@@ -436,6 +440,7 @@ abstract class Core extends Controller {
 	 */
 	protected function parseSiteContent($type, $markdown = false)
 	{
+		//s($this->_headers);
 		// If the data coming from the controller action has a
 		// title/header/message variable, use that instead of what we have
 		if (is_object($this->_data) and property_exists($this->_data, $type))
