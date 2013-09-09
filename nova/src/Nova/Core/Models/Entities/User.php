@@ -1053,7 +1053,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 
 			if ($redirect and ! in_array(true, $allowed))
 			{
-				return Redirect::to('admin/error/'.\Nova\Core\Controllers\Admin\Main::NOT_ALLOWED);
+				return Redirect::to('admin/error/'.ErrorCode::ADMIN_NOT_ALLOWED);
 			}
 			
 			return (in_array(true, $allowed));
