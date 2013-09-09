@@ -31,6 +31,16 @@ class SystemRouteServiceProvider extends ServiceProvider {
 		// Get all routes
 		$routes = $this->app['cache']->get('nova.routes');
 
+		// We don't have any routes, but the system is installed
+		if ($routes === null and $this->app['nova.setup']->installed())
+		{
+			// Cache the system routes
+			\SystemRoute::cache();
+
+			// Retrieve the routes again
+			$routes = $this->app['cache']->get('nova.routes');
+		}
+
 		if ($routes === null)
 		{
 			Route::get('/', 'Nova\Core\Controllers\Main@getIndex');
@@ -42,8 +52,8 @@ class SystemRouteServiceProvider extends ServiceProvider {
 			Route::post('login', 'Nova\Core\Controllers\Login@postIndex');
 
 			Route::get('admin', 'Nova\Core\Controllers\Admin\Admin@getIndex');
-			Route::get('admin/routes', 'Nova\Core\Controllers\Admin\Main@getRoutes');
-			Route::post('admin/routes', 'Nova\Core\Controllers\Admin\Main@postRoutes');
+			Route::get('admin/routes', 'Nova\Core\Controllers\Admin\Admin@getRoutes');
+			Route::post('admin/routes', 'Nova\Core\Controllers\Admin\Admin@postRoutes');
 		}
 		else
 		{
@@ -138,9 +148,9 @@ class SystemRouteServiceProvider extends ServiceProvider {
 		// Loop through the modules and include their route files
 		foreach ($modules as $m)
 		{
-			if ($this->app['file']->exists(APPPATH."modules/{$m}/routes.php"))
+			if ($this->app['file']->exists(APPPATH."src/Modules/{$m}/routes.php"))
 			{
-				include APPPATH."modules/{$m}/routes.php";
+				include APPPATH."src/Modules/{$m}/routes.php";
 			}
 		}
 	}
