@@ -18,8 +18,11 @@ interface SiteContentRepositoryInterface extends BaseRepositoryInterface {
 	 *
 	 * @param	string	$section	The section to get
 	 * @param	string	$controller	The controller to get
+	 * @param	bool	$clean		Ignore the cache
 	 * @return	Collection
 	 */
-	public function findBySection($section, $controller);
+	public function findBySection($section, $controller, $clean = false);
+
+	public function updateByKey(array $data);
 
 }
