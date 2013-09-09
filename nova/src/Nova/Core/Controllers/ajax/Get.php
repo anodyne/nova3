@@ -11,13 +11,12 @@ use AjaxBaseController;
 
 class Get extends AjaxBaseController {
 
-	public function action_content_load()
+	public function postSiteContent()
 	{
-		// get the content key
-		$key = \Input::get('key');
+		// Resolve the binding
+		$content = $this->resolveBindings('SiteContentRepositoryInterface');
 
-		// load and return the content from the database
-		echo \Model_SiteContent::getContent($key);
+		echo $content->findByKey(Input::get('key'));
 	}
 
 public function action_user()

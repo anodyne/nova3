@@ -16,34 +16,37 @@ class Update extends AjaxBaseController {
 	 *
 	 * @return	string
 	 */
-	public function action_content_save()
+	public function postSiteContent()
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('content.update'))
+		if (Sentry::check() and $this->currentUser->hasAccess('content.update'))
 		{
-			// get the POST information
-			$key = \Security::xss_clean(\Input::post('key'));
-			$value = \Security::xss_clean(\Input::post('value'));
+			// Resolve the binding
+			$contentRepo = $this->resolveBindings('SiteContentRepositoryInterface');
 
-			// break the key up into an array
+			// Get the POST information
+			$key = e(Input::get('key'));
+			$value = e(Input::get('value'));
+
+			// Break the key up into an array
 			$pieces = explode('_', $key);
 
-			// flip the array around
+			// Flip the array around
 			$pieces = array_reverse($pieces);
 
-			// make sure we don't have any tags in the headers
-			$content = ($pieces[0] == 'header') ? strip_tags(\Markdown::parse($value)) : $value;
+			// Make sure we don't have any tags in the headers
+			$content = ($pieces[0] == 'header') ? strip_tags(Markdown::parse($value)) : $value;
 
-			// save the content
-			\Model_SiteContent::updateSiteContent(array($key => $content));
+			// Save the content
+			$contentRepo->updateByKey([$key => $content]);
 
-			// if it's a header, show the content, otherwise we need to parse the Markdown
+			// If it's a header, show the content, otherwise we need to parse the Markdown
 			if ($pieces[0] == 'header')
 			{
 				echo $content;
 			}
 			else
 			{
-				echo \Markdown::parse($content);
+				echo Markdown::parse($content);
 			}
 		}
 	}
