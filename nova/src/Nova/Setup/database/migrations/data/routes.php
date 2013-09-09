@@ -349,14 +349,14 @@ return [
 		'name'			=> 'admin/user',
 		'verb'			=> 'get',
 		'uri'			=> 'admin/user',
-		'resource'		=> 'Nova\Core\Controllers\Admin\User@getAll',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@getUsers',
 		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'admin/user',
 		'verb'			=> 'post',
 		'uri'			=> 'admin/user',
-		'resource'		=> 'Nova\Core\Controllers\Admin\User@postAll',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@postUsers',
 		'protected'		=> (int) true
 	],
 	[
@@ -406,6 +406,24 @@ return [
 		'verb'			=> 'post',
 		'uri'			=> 'admin/user/link',
 		'resource'		=> 'Nova\Core\Controllers\Admin\User@postLink',
+		'protected'		=> (int) true
+	],
+
+	/**
+	 * admin/manage
+	 */
+	[
+		'name'			=> 'admin/manage/sitecontent',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/manage/sitecontent/{id?}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@getSiteContent',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/manage/sitecontent',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/manage/sitecontent',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@postSiteContent',
 		'protected'		=> (int) true
 	],
 
@@ -498,6 +516,13 @@ return [
 		'verb'			=> 'post',
 		'uri'			=> 'ajax/get/user_search',
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Get@postUserSearch',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'ajax/get/sitecontent',
+		'verb'			=> 'post',
+		'uri'			=> 'ajax/get/sitecontent',
+		'resource'		=> 'Nova\Core\Controllers\Ajax\Get@postSiteContent',
 		'protected'		=> (int) true
 	],
 
@@ -632,6 +657,13 @@ return [
 		'verb'			=> 'get',
 		'uri'			=> 'ajax/update/link_to_user/{id}',
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Update@getLinkToUser',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'ajax/update/sitecontent',
+		'verb'			=> 'post',
+		'uri'			=> 'ajax/update/sitecontent',
+		'resource'		=> 'Nova\Core\Controllers\Ajax\Update@postSiteContent',
 		'protected'		=> (int) true
 	],
 ];

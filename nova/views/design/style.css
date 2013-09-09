@@ -282,3 +282,6 @@ input.icn-size-16 {
   border-color: #5cb85c;
   color: #5cb85c;
 }
+.typeahead-block {
+  margin-top: 15px;
+}

@@ -392,17 +392,17 @@ return [
 		'type' => 'adminsub',
 		'category' => 'manage',
 		'access' => 'settings.create|settings.update|settings.delete'
-	],
+	],*/
 	[
 		'name' => 'Site Content',
 		'group' => 0,
 		'order' => 2,
-		'url' => 'admin/sitecontent',
+		'url' => 'admin/manage/sitecontent',
 		'type' => 'adminsub',
 		'category' => 'manage',
 		'access' => 'content.create|content.update|content.delete'
 	],
-	[
+	/*[
 		'name' => 'Navigation',
 		'group' => 0,
 		'order' => 3,

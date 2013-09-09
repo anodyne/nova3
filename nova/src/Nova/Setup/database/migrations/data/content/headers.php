@@ -499,7 +499,7 @@ return [
 		'content'	=> "Users",
 		'type'		=> $type,
 		'section'	=> 'user',
-		'page'		=> 'all'
+		'page'		=> 'users'
 	],
 	[
 		'key'		=> 'header.admin.user.create',
@@ -524,6 +524,39 @@ return [
 		'type'		=> $type,
 		'section'	=> 'user',
 		'page'		=> 'loa'
+	],
+
+	/**
+	 * admin/manage Headers
+	 */
+	[
+		'key'		=> 'header.admin.manage.content',
+		'label'		=> 'Manage Site Content Header',
+		'content'	=> "Site Content",
+		'type'		=> $type,
+		'section'	=> 'manage',
+		'page'		=> 'sitecontent',
+		'uri'		=> 'admin/manage/sitecontent'
+	],
+	[
+		'key'		=> 'header.admin.manage.content.create',
+		'label'		=> 'Create New Site Content Header',
+		'content'	=> "Create New Site Content",
+		'type'		=> $type,
+		'section'	=> 'manage',
+		'page'		=> 'sitecontent',
+		'uri'		=> 'admin/manage/sitecontent',
+		'mode'		=> 'create'
+	],
+	[
+		'key'		=> 'header.admin.manage.content.update',
+		'label'		=> 'Edit New Site Content Header',
+		'content'	=> "Edit Site Content",
+		'type'		=> $type,
+		'section'	=> 'manage',
+		'page'		=> 'sitecontent',
+		'uri'		=> 'admin/manage/sitecontent',
+		'mode'		=> 'update'
 	],
 
 ];

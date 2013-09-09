@@ -89,6 +89,7 @@ return array(
 	'horizontal' => "horizontal",
 	'html' => 'HTML',
 	'history' => 'history',
+	'header' => "header",
 
 	'id' => 'ID',
 	'inline_help' => 'inline help',
@@ -129,6 +130,7 @@ return array(
 	'mission_posts' => "mission posts",
 	'message' => 'message',
 	'messages' => 'messages',
+	'mode' => "mode",
 
 	'name' => "name",
 	'notification' => "notification",
@@ -143,6 +145,7 @@ return array(
 	'on' => 'on',
 	'off' => 'off',
 	'original' => "original",
+	'other' => "other",
 	
 	'password' => "password",
 	'preference' => "preference",
@@ -218,6 +221,7 @@ return array(
 	'the' => 'the',
 	'timezone' => 'timezone',
 	'text' => 'text',
+	'title' => "title",
 
 	'user' => 'user',
 	'users' => 'users',

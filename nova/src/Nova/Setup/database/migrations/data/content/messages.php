@@ -331,6 +331,19 @@ return [
 	],
 
 	/**
+	 * admin/manage Messages
+	 */
+	[
+		'key'		=> 'message.admin.manage.content',
+		'label'		=> 'Manage Site Content Message',
+		'content'	=> "",
+		'type'		=> $type,
+		'section'	=> 'manage',
+		'page'		=> 'sitecontent',
+		'uri'		=> 'admin/manage/sitecontent'
+	],
+
+	/**
 	 * Others
 	 */
 	[

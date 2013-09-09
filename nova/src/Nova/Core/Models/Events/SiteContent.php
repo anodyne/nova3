@@ -3,11 +3,17 @@
 use Cache;
 use SystemEvent;
 use BaseEventHandler;
+use SiteContentRepositoryInterface;
 
 class SiteContent extends BaseEventHandler {
 
 	public static $lang = 'site_content';
 	public static $name = 'label';
+
+	public function __construct(SiteContentRepositoryInterface $content)
+	{
+		$this->content = $content;
+	}
 
 	/**
 	 * After the model is saved, we need to blow away the old cache
@@ -21,11 +27,8 @@ class SiteContent extends BaseEventHandler {
 		// Blow away the old cache
 		Cache::forget("nova.content.{$model->type}.{$model->section}");
 
-		// Re-cache the section content
-		Cache::forever(
-			"nova.content.{$model->type}.{$model->section}", 
-			\SiteContent::getSectionContent($model->type, $model->section)
-		);
+		// Get the section content (which will cache it)
+		$this->content->findBySection($model->type, $model->section, true);
 	}
 
 }

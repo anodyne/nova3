@@ -328,4 +328,17 @@ return [
 		'page'		=> 'loa'
 	],
 
+	/**
+	 * admin/manage Titles
+	 */
+	[
+		'key'		=> 'title.admin.manage.content',
+		'label'		=> 'Manage Site Content Title',
+		'content'	=> "Site Content",
+		'type'		=> $type,
+		'section'	=> 'manage',
+		'page'		=> 'sitecontent',
+		'uri'		=> 'admin/manage/sitecontent'
+	],
+
 ];

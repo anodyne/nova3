@@ -364,6 +364,7 @@ return [
 		'FormValueValidator'		=> "Nova\\Core\\Models\\Validators\\Form\\Value",
 
 		'BaseValidator'				=> "Nova\\Core\\Models\\Validators\\Base",
+		'SiteContentValidator'		=> "Nova\\Core\\Models\\Validators\\SiteContent",
 		'SystemRouteValidator'		=> "Nova\\Core\\Models\\Validators\\SystemRoute",
 		'UserValidator'				=> "Nova\\Core\\Models\\Validators\\User",
 

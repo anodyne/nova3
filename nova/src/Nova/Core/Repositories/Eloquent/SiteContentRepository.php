@@ -55,11 +55,12 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 	 *
 	 * @param	string	$section	The section to get
 	 * @param	string	$controller	The controller to get
+	 * @param	bool	$clean		Ignore the cache
 	 * @return	Collection
 	 */
-	public function findBySection($section, $controller)
+	public function findBySection($section, $controller, $clean = false)
 	{
-		return SiteContent::getSectionContent($section, $controller);
+		return SiteContent::getSectionContent($section, $controller, $clean);
 	}
 
 	public function update($id, array $data)
@@ -73,6 +74,16 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 			return $item->update($data);
 
 		return false;
+	}
+
+	/**
+	 * Update the site content with a simple array.
+	 *
+	 * @param	array	$data	Data for the update
+	 */
+	public function updateByKey(array $data)
+	{
+		return SiteContent::updateSiteContent($data);
 	}
 
 }

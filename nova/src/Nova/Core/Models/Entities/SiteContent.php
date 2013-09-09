@@ -1,5 +1,6 @@
 <?php namespace Nova\Core\Models\Entities;
 
+use Str;
 use Cache;
 use Event;
 use Model;
@@ -11,13 +12,46 @@ class SiteContent extends Model {
 
 	protected $table = 'site_contents';
 
-	protected $fillable = array(
-		'key', 'label', 'content', 'type', 'section', 'page', 'mode',
-	);
+	protected $fillable = [
+		'key', 'label', 'content', 'type', 'section', 'page', 'mode', 'uri',
+	];
 	
-	protected static $properties = array(
-		'id', 'key', 'label', 'content', 'type', 'section', 'page', 'protected', 'mode',
-	);
+	protected static $properties = [
+		'id', 'key', 'label', 'content', 'type', 'section', 'page', 'protected', 
+		'mode', 'uri',
+	];
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Accessors
+	|--------------------------------------------------------------------------
+	*/
+
+	public function setUriAttribute($value)
+	{
+		if ($this->type == 'header' or $this->type == 'title' or $this->type == 'message')
+		{
+			// Find the record that matches the URI
+			$route = \SystemRoute::name($value)->get();
+
+			// Get the final route to use
+			$finalRoute = ($route->count() > 1)
+				? $route->filter(function($r){ return (bool) $r->protected === true; })->first()
+				: $route->first();
+
+			// Parse the route URI
+			$routeUri = Str::parseCallback($finalRoute->resource, false);
+
+			// Set the section and page
+			$this->attributes['section'] = strtolower(Str::denamespace($routeUri[0]));
+			$this->attributes['page'] = (substr($routeUri[1], 0, 3) == 'get')
+				? strtolower(substr_replace($routeUri[1], '', 0, 3))
+				: strtolower($routeUri[1]);
+		}
+		
+		// Set the URI
+		$this->attributes['uri'] = $value;
+	}
 
 	/*
 	|--------------------------------------------------------------------------
@@ -66,12 +100,13 @@ class SiteContent extends Model {
 	 *
 	 * @param	string	The type of message to pull
 	 * @param	string	The section to pull for
+	 * @param	bool	Ignore the cache
 	 * @return	array
 	 */
-	public static function getSectionContent($type, $section)
+	public static function getSectionContent($type, $section, $clean = false)
 	{
 		// Try to get the cache first
-		$cache = Cache::get("nova.content.{$type}.{$section}");
+		$cache = ( ! $clean) ? Cache::get("nova.content.{$type}.{$section}") : null;
 
 		// If we have something in the cache, return it instead of querying
 		if ($cache !== null)
@@ -129,7 +164,7 @@ class SiteContent extends Model {
 			
 			// Cache the information
 			Cache::forever("nova.content.{$type}.{$section}", $values);
-			
+
 			return $values;
 		}
 

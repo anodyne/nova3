@@ -22,6 +22,24 @@ class SystemRoute extends Model implements CacheInterface {
 
 	/*
 	|--------------------------------------------------------------------------
+	| Model Scopes
+	|--------------------------------------------------------------------------
+	*/
+
+	public function scopeName($query, $name)
+	{
+		$query->where('name', $name)
+			->where('verb', 'get');
+	}
+
+	public function scopeUri($query, $uri)
+	{
+		$query->where('uri', $uri)
+			->where('verb', 'get');
+	}
+
+	/*
+	|--------------------------------------------------------------------------
 	| Model Accessors
 	|--------------------------------------------------------------------------
 	*/
@@ -29,6 +47,11 @@ class SystemRoute extends Model implements CacheInterface {
 	public function setVerbAttribute($value)
 	{
 		$this->attributes['verb'] = strtolower($value);
+	}
+
+	public function setConditionsAttribute($value)
+	{
+		$this->attributes['conditions'] = (empty($value)) ? null : $value;
 	}
 
 	/*

@@ -84,6 +84,10 @@ return array(
 			],
 		],
 
+		'content' => [
+			'noMode' => "No mode",
+		],
+
 		'forms' => [
 			'deleteUpdates' => "Select the new :0 that :1 in the :2 :0 will be moved to.",
 			'order' => "The order can also be changed by dragging-and-dropping the items on the previous page.",

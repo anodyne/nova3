@@ -15,9 +15,10 @@ class NovaCreateSiteContents extends Migration {
 		{
 			$t->increments('id');
 			$t->string('key')->unique();
-			$t->string('label')->nullable();
+			$t->string('label');
 			$t->text('content')->nullable();
 			$t->string('type');
+			$t->string('uri')->nullable();
 			$t->string('section', 50)->nullable();
 			$t->string('page', 100)->nullable();
 			$t->boolean('protected')->default((int) false);
