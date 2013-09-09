@@ -44,7 +44,7 @@ class Module extends Model implements QuickInstallInterface {
 			$modules = static::active()->get()->toSimpleArray('id', 'location');
 
 			// Create a new finder and filter the results
-			$finder = Finder::create()->directories()->in(APPPATH."modules")
+			$finder = Finder::create()->directories()->in(static::getPath())
 				->filter(function(SplFileInfo $fileinfo) use ($modules)
 				{
 					if (in_array($fileinfo->getRelativePathName(), $modules))
@@ -57,7 +57,7 @@ class Module extends Model implements QuickInstallInterface {
 			foreach ($finder as $f)
 			{
 				// Assign our path to a variable
-				$dir = APPPATH."modules/".$f->getRelativePathName();
+				$dir = static::getPath().$f->getRelativePathName();
 
 				// Run the migrations if they exist
 				if (File::isDirectory($dir."/database/migrations"))
@@ -80,7 +80,7 @@ class Module extends Model implements QuickInstallInterface {
 		else
 		{
 			// Assign our path to a variable
-			$dir = APPPATH."modules/".$location;
+			$dir = static::getPath().$location;
 
 			// Run the migrations if they exist
 			if (File::isDirectory($dir."/database/migrations"))
@@ -89,7 +89,7 @@ class Module extends Model implements QuickInstallInterface {
 			}
 
 			// Make sure the file exists first
-			if (File::exists($dir."/rank.json"))
+			if (File::exists($dir."/module.json"))
 			{
 				// Get the contents and decode the JSON
 				$content = file_get_contents($file);
@@ -126,7 +126,7 @@ class Module extends Model implements QuickInstallInterface {
 	public function uninstall()
 	{
 		// Assign our path to a variable
-		$dir = APPPATH."modules/".$this->location;
+		$dir = static::getPath().$this->location;
 
 		// Reset the migrations if they exist
 		if (File::isDirectory($dir."/database/migrations"))
@@ -147,7 +147,7 @@ class Module extends Model implements QuickInstallInterface {
 	public function getQuickInstallFile($file = 'module.json')
 	{
 		// Set the filename
-		$filename = APPPATH."modules/{$this->location}/{$file}";
+		$filename = static::getPath()."{$this->location}/{$file}";
 		
 		if (File::exists($filename))
 		{
@@ -158,6 +158,16 @@ class Module extends Model implements QuickInstallInterface {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Get the path to where this resource is located.
+	 *
+	 * @return	string
+	 */
+	public static function getPath()
+	{
+		return APPPATH."src/Modules/";
 	}
 
 }

@@ -89,16 +89,13 @@ class Rank extends Model implements QuickInstallInterface {
 	 */
 	public static function install($location = false)
 	{
-		// Get the genre
-		$genre = Config::get('nova.genre');
-
 		if ( ! $location)
 		{
 			// Get all the rank set locations
 			$ranks = static::active()->currentGenre()->get()->toSimpleArray('id', 'location');
 
 			// Create a new finder and filter the results
-			$finder = Finder::create()->directories()->in(APPPATH."assets/common/{$genre}/ranks")
+			$finder = Finder::create()->directories()->in(static::getPath())
 				->filter(function(SplFileInfo $fileinfo) use ($ranks)
 				{
 					if (in_array($fileinfo->getRelativePathName(), $ranks))
@@ -111,7 +108,7 @@ class Rank extends Model implements QuickInstallInterface {
 			foreach ($finder as $f)
 			{
 				// Assign our path to a variable
-				$file = APPPATH."assets/common/{$genre}/ranks/".$f->getRelativePathName()."/rank.json";
+				$file = static::getPath().$f->getRelativePathName()."/rank.json";
 
 				// Make sure the file exists first
 				if (File::exists($file))
@@ -128,7 +125,7 @@ class Rank extends Model implements QuickInstallInterface {
 		else
 		{
 			// Assign our path to a variable
-			$file = APPPATH."assets/common/{$genre}/ranks/{$location}/rank.json";
+			$file = static::getPath()."{$location}/rank.json";
 			
 			// Make sure the file exists first
 			if (File::exists($file))
@@ -179,11 +176,8 @@ class Rank extends Model implements QuickInstallInterface {
 	 */
 	public function getQuickInstallFile($file = 'rank.json')
 	{
-		// Get the genre
-		$genre = Config::get('nova.genre');
-
 		// Set the filename
-		$filename = APPPATH."assets/common/{$genre}/ranks/{$this->location}/{$file}";
+		$filename = static::getPath()."{$this->location}/{$file}";
 		
 		if (File::exists($filename))
 		{
@@ -194,6 +188,19 @@ class Rank extends Model implements QuickInstallInterface {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Get the path to where this resource is located.
+	 *
+	 * @return	string
+	 */
+	public static function getPath()
+	{
+		// Get the genre
+		$genre = Config::get('nova.genre');
+
+		return APPPATH."assets/common/{$genre}/ranks/";
 	}
 
 }

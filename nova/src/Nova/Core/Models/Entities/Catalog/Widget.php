@@ -42,7 +42,7 @@ class Widget extends Model implements QuickInstallInterface {
 			$widgets = static::active()->get()->toSimpleArray('id', 'location');
 
 			// Create a new finder and filter the results
-			$finder = Finder::create()->directories()->in(APPPATH."widgets")
+			$finder = Finder::create()->directories()->in(static::getPath())
 				->filter(function(SplFileInfo $fileinfo) use ($widgets)
 				{
 					if (in_array($fileinfo->getRelativePathName(), $widgets))
@@ -55,7 +55,7 @@ class Widget extends Model implements QuickInstallInterface {
 			foreach ($finder as $f)
 			{
 				// Assign our path to a variable
-				$file = APPPATH."widgets/".$f->getRelativePathName()."/widget.json";
+				$file = static::getPath().$f->getRelativePathName()."/widget.json";
 
 				// Make sure the file exists first
 				if (File::exists($file))
@@ -79,7 +79,7 @@ class Widget extends Model implements QuickInstallInterface {
 		else
 		{
 			// Assign our path to a variable
-			$file = APPPATH."widgets/{$location}/widget.json";
+			$file = static::getPath()."{$location}/widget.json";
 			
 			// Make sure the file exists first
 			if (File::exists($file))
@@ -138,7 +138,7 @@ class Widget extends Model implements QuickInstallInterface {
 	public function getQuickInstallFile($file = 'widget.json')
 	{
 		// Set the filename
-		$filename = APPPATH."widgets/{$this->location}/{$file}";
+		$filename = static::getPath()."{$this->location}/{$file}";
 		
 		if (File::exists($filename))
 		{
@@ -149,6 +149,16 @@ class Widget extends Model implements QuickInstallInterface {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Get the path to where this resource is located.
+	 *
+	 * @return	string
+	 */
+	public static function getPath()
+	{
+		return APPPATH."widgets/";
 	}
 
 }
