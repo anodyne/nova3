@@ -228,6 +228,10 @@ class Setup extends SetupBaseController {
 		Schema::drop('sessions');
 		Schema::drop('migrations');
 
+		// Remove the cache files
+		Cache::forget('nova.installed');
+		Cache::forget('nova.routes');
+
 		// Wait for it...
 		sleep(2);
 
