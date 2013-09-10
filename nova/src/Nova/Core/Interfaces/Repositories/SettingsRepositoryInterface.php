@@ -2,4 +2,8 @@
 
 use BaseRepositoryInterface;
 
-interface SettingsRepositoryInterface extends BaseRepositoryInterface {}
+interface SettingsRepositoryInterface extends BaseRepositoryInterface {
+
+	public function findByKey($key);
+	
+}

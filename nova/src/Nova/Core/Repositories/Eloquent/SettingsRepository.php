@@ -38,6 +38,11 @@ class SettingsRepository implements SettingsRepositoryInterface {
 		return Settings::find($id);
 	}
 
+	public function findByKey($key)
+	{
+		return Settings::getSettings($key);
+	}
+
 	public function update($id, array $data)
 	{
 		$id = $this->sanitizeInt($id);
