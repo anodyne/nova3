@@ -2,67 +2,45 @@
 
 use Str;
 use View;
-use Sentry;
 use NavModel;
 use Settings;
 
 class Nav {
 	
 	/**
-	 * @var	array	An array of nav data.
+	 * An array of nav data.
 	 */
 	protected $data = [];
 
 	/**
-	 * @var	array	An array of user data.
+	 * An array of user data.
 	 */
 	protected $userData = [];
 
 	/**
-	 * @var	string	The output of the final nav.
+	 * The output of the final nav.
 	 */
 	protected $output;
 
 	/**
-	 * @var	string	The output of the final user nav.
+	 * The output of the final user nav.
 	 */
 	protected $userOutput;
 
 	/**
-	 * @var	string	The nav style.
-	 */
-	protected $style;
-
-	/**
-	 * @var	string	The nav type.
-	 */
-	protected $type;
-
-	/**
-	 * @var	string	The nav category.
-	 */
-	protected $category;
-
-	/**
-	 * @var	string	The nav section.
-	 */
-	protected $section;
-
-	/**
 	 * Create a new Nav.
 	 *
-	 * @param	string	Style of nav (classic, dropdown)
-	 * @param	string	Type of nav (main, sub, admin, adminsub)
-	 * @param	string	Category of the nav (main, admin, messages, write, etc.)
-	 * @param	string	Section of the nav (main, admin)
+	 * @param	array	$options	Array of options
 	 * @return	void
 	 */
-	public function __construct($style = 'dropdown', $type = 'main', $category = 'main', $section = 'main')
+	public function __construct(array $options = [])
 	{
-		$this->style	= $style;
-		$this->type		= $type;
-		$this->category	= $category;
-		$this->section	= $section;
+		$this->auth			= \Nova::resolveBinding('NovaAuthInterface');
+		$this->style		= (array_key_exists('style', $options)) ? $options['style'] : 'dropdown';
+		$this->type			= (array_key_exists('type', $options)) ? $options['type'] : 'main';
+		$this->category		= (array_key_exists('category', $options)) ? $options['category'] : 'main';
+		$this->section		= (array_key_exists('section', $options)) ? $options['section'] : 'main';
+		$this->currentUser	= $this->auth->getUser();
 
 		// Set the nav data
 		$this->setData();
@@ -156,7 +134,7 @@ class Nav {
 			$retval[$type][$cat][$item->id] = $item;
 
 			// Figure out if things needs to be removed from the return array
-			if (($item->needs_login == 'y' and ! Sentry::check()) or ($item->needs_login == 'n' and Sentry::check()))
+			if (($item->needs_login == 'y' and ! $this->auth->check()) or ($item->needs_login == 'n' and $this->auth->check()))
 			{
 				unset($retval[$type][$cat][$item->id]);
 				unset($retval[$type][$cat][$item->category][$item->id]);
@@ -189,13 +167,10 @@ class Nav {
 					$navaccess = "{$navAccessArray[0]}.{$navAccessArray[1]}";
 				}
 
-				// Get the user
-				$user = Sentry::getUser();
-
-				if ($user)
+				if ($this->currentUser)
 				{
 					// Remove items from the return array if they shouldn't be there based on access
-					if ( ! $user->allowed($navaccess))
+					if ( ! $this->currentUser->allowed($navaccess))
 					{
 						unset($retval[$type][$cat][$item->id]);
 						unset($retval[$type][$cat][$item->category][$item->id]);
@@ -239,11 +214,8 @@ class Nav {
 		// Start to build the output
 		$output = View::make(\Location::partial('nav/user'));
 
-		if (Sentry::check())
+		if ($this->auth->check())
 		{
-			// Get the user
-			$user = Sentry::getUser();
-
 			// Get the message count
 			$messageCount = 0;
 
@@ -279,28 +251,28 @@ class Nav {
 						'extra' => [],
 						'additional' => ''
 					],
-					[
+					/*[
 						'name' => Str::plural(lang('Notification')),
 						'url' => 'admin/notifications',
 						'extra' => [],
 						'additional' => ''
-					],
+					],*/
 				],
 				1 => [
 					[
 						'name' => lang('My', lang('Account')),
-						'url' => 'admin/user/edit/'.Sentry::getUser()->id,
+						'url' => "admin/user/edit/{$this->currentUser->id}",
 						'extra' => [],
 						'additional' => ''
 					],
-					[
+					/*[
 						'name' => lang('My', Str::plural(lang('Character'))),
 						'url' => 'admin/character/edit',
 						'extra' => [],
 						'additional' => ''
-					],
+					],*/
 				],
-				2 => [
+				/*2 => [
 					[
 						'name' => $messageOutput.Str::plural(lang('Message')),
 						'url' => 'admin/messages',
@@ -327,7 +299,7 @@ class Nav {
 						'extra' => [],
 						'additional' => ''
 					],
-				],
+				],*/
 				4 => [
 					[
 						'name' => lang('Action.logout'),
@@ -340,7 +312,7 @@ class Nav {
 
 			// Set the data for the output
 			$output->with('data', $this->userData)
-				->with('name', Sentry::getUser()->name)
+				->with('name', $this->currentUser->name)
 				->with('notifyClass', $totalClass)
 				->with('notifyTotal', $total)
 				->with('loggedIn', true);
@@ -348,8 +320,7 @@ class Nav {
 		else
 		{
 			// Set the data for the output
-			$output->with('loggedIn', false)
-			 ->with('loginText', lang('Action.login'));
+			$output->with('loggedIn', false)->with('loginText', lang('Action.login'));
 		}
 
 		// Set the output render to the class variable

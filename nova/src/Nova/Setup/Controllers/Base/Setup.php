@@ -6,7 +6,6 @@ use File;
 use View;
 use Cache;
 use Route;
-use Sentry;
 use Request;
 use Session;
 use Location;
@@ -15,6 +14,7 @@ use stdClass;
 use ErrorCode;
 use Exception;
 use Controller;
+use NovaAuthInterface;
 
 abstract class Setup extends Controller {
 
@@ -103,8 +103,10 @@ abstract class Setup extends Controller {
 	 */
 	public $_fullAction;
 
-	public function __construct()
+	public function __construct(NovaAuthInterface $auth)
 	{
+		$this->auth = $auth;
+
 		// Set the controller and action names
 		$this->getControllerName();
 		$this->getActionName();
@@ -147,10 +149,10 @@ abstract class Setup extends Controller {
 					
 					if (Cache::get('nova.installed') !== null)
 					{
-						if (Sentry::check())
+						if ($me->auth->check())
 						{
 							// Not a system administrator? No soup for you!
-							if ( ! Sentry::getUser()->isAdmin())
+							if ( ! $me->auth->getUser()->isAdmin())
 							{
 								// Put the intended desintation into the session
 								Session::put('url.intended', $url->full());

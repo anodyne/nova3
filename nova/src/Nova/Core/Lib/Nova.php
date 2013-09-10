@@ -1,17 +1,18 @@
 <?php namespace Nova\Core\Lib;
 
+use App;
 use File;
 use Cache;
-use Sentry;
+use Config;
 use Request;
-use Settings;
-use Nova\Extensions\Laravel\Application;
 
 class Nova {
 
-	public function __construct(Application $app)
+	public function __construct()
 	{
-		$this->app = $app;
+		$this->auth			= $this->resolveBinding('NovaAuthInterface');
+		$this->settings		= $this->resolveBinding('SettingsRepositoryInterface');
+		$this->currentUser	= $this->auth->getUser();
 	}
 	
 	/**
@@ -23,11 +24,11 @@ class Nova {
 	public function getIconIndex($skin)
 	{
 		// Load the icon index from the core first
-		$commonIndex = $this->app['files']->getRequire(NOVAPATH.'views/icons.php');
+		$commonIndex = File::getRequire(NOVAPATH.'views/icons.php');
 
 		// Now load the icon index from the skin (if it has one)
-		$skinIndex = ($this->app['files']->exists(APPPATH."skins/{$skin}/icons.php"))
-			? $this->app['files']->getRequire(APPPATH."views/{$skin}/icons.php")
+		$skinIndex = (File::exists(APPPATH."skins/{$skin}/icons.php"))
+			? File::getRequire(APPPATH."skins/{$skin}/icons.php")
 			: [];
 		
 		// Merge the files into an array
@@ -42,12 +43,12 @@ class Nova {
 	 */
 	public function getRank()
 	{
-		if (Sentry::check())
+		if ($this->auth->check())
 		{
-			return Sentry::getUser()->getPreferenceItem('rank');
+			return $this->currentUser->getPreferenceItem('rank');
 		}
 
-		return Settings::getSettings('rank');
+		return $this->settings->findByKey('rank');
 	}
 
 	/**
@@ -67,13 +68,27 @@ class Nova {
 				$section = (Request::is('admin/*')) ? 'admin' : 'main';
 			}
 
-			if (Sentry::check())
+			if ($this->auth->check())
 			{
-				return Sentry::getUser()->getPreferenceItem("skin_{$section}");
+				return $this->currentUser->getPreferenceItem("skin_{$section}");
 			}
 
-			return Settings::getSettings("skin_{$section}");
+			return $this->settings->findByKey("skin_{$section}");
 		}
+	}
+
+	/**
+	 * Resolve a binding out of the Application container.
+	 *
+	 * @param	string	$alias	The interface alias
+	 * @return	object
+	 */
+	public function resolveBinding($alias)
+	{
+		// Get the aliases
+		$classes = Config::get('app.aliases');
+
+		return App::make($classes[$alias]);
 	}
 
 }

@@ -214,6 +214,7 @@ return [
 		'Nav'			=> 'Nova\Core\Lib\Nav',
 		'Notify'		=> 'Nova\Core\Facades\Notify',
 		'Nova'			=> 'Nova\Core\Facades\Nova',
+		'NovaAuth'		=> 'Nova\Core\Lib\Auth',
 		'Sentry' 		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Setup'			=> 'Nova\Setup\SetupFacade',
 		'Status'		=> 'Nova\Core\Lib\Status',
@@ -229,6 +230,7 @@ return [
 		'CacheInterface'			=> "Nova\\Core\\Interfaces\\CacheInterface",
 		'FormDataInterface'			=> "Nova\\Core\\Interfaces\\FormDataInterface",
 		'MediaInterface'			=> "Nova\\Core\\Interfaces\\MediaInterface",
+		'NovaAuthInterface'			=> "Nova\\Core\\Interfaces\\NovaAuthInterface",
 		'QuickInstallInterface'		=> "Nova\\Core\\Interfaces\\QuickInstallInterface",
 		'SearchInterface'			=> "Nova\\Core\\Interfaces\\SearchInterface",
 
