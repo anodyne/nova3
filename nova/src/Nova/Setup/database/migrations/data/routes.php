@@ -121,20 +121,6 @@ return [
 		'resource'		=> 'Nova\Core\Controllers\Admin\Admin@getError',
 		'protected'		=> (int) true
 	],
-	[
-		'name'			=> 'admin/routes',
-		'verb'			=> 'get',
-		'uri'			=> 'admin/routes/{id?}',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Admin@getRoutes',
-		'protected'		=> (int) true
-	],
-	[
-		'name'			=> 'admin/routes',
-		'verb'			=> 'post',
-		'uri'			=> 'admin/routes',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Admin@postRoutes',
-		'protected'		=> (int) true
-	],
 
 	/**
 	 * admin/form
@@ -413,16 +399,30 @@ return [
 	 * admin/manage
 	 */
 	[
-		'name'			=> 'admin/manage/sitecontent',
+		'name'			=> 'admin/routes',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/manage/sitecontent/{id?}',
+		'uri'			=> 'admin/routes/{id?}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@getRoutes',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/routes',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/routes',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@postRoutes',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/sitecontent',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/sitecontent/{id?}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@getSiteContent',
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'admin/manage/sitecontent',
+		'name'			=> 'admin/sitecontent',
 		'verb'			=> 'post',
-		'uri'			=> 'admin/manage/sitecontent',
+		'uri'			=> 'admin/sitecontent',
 		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@postSiteContent',
 		'protected'		=> (int) true
 	],
@@ -611,6 +611,13 @@ return [
 		'verb'			=> 'get',
 		'uri'			=> 'ajax/delete/user/{id}',
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getUser',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'ajax/delete/sitecontent',
+		'verb'			=> 'get',
+		'uri'			=> 'ajax/delete/sitecontent/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getSiteContent',
 		'protected'		=> (int) true
 	],
 

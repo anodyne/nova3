@@ -103,6 +103,7 @@ return array(
 	'in_progress' => 'in progress',
 	'instructions' => "instructions",
 	'installed' => "installed",
+	'item' => "item",
 
 	'joint' => 'joint',
 

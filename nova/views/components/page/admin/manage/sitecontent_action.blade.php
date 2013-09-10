@@ -1,10 +1,10 @@
 <div class="btn-toolbar">
 	<div class="btn-group">
-		<a href="{{ URL::to('admin/manage/sitecontent') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
+		<a href="{{ URL::to('admin/sitecontent') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
 	</div>
 </div>
 
-{{ Form::model($content, ['url' => 'admin/manage/sitecontent']) }}
+{{ Form::model($content, ['url' => 'admin/sitecontent']) }}
 	<div class="row">
 		<div class="col-lg-2">
 			<div class="form-group">

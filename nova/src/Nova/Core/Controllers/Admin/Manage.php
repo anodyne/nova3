@@ -7,6 +7,7 @@ use Location;
 use Redirect;
 use AdminBaseController;
 use SiteContentValidator;
+use SystemRouteValidator;
 use SystemRouteRepositoryInterface;
 
 class Manage extends AdminBaseController {
@@ -15,7 +16,147 @@ class Manage extends AdminBaseController {
 	{
 		parent::__construct();
 
+		// Set the injected interfaces
 		$this->routes = $routes;
+	}
+
+	public function getRoutes($id = false)
+	{
+		// Verify the user is allowed
+		$this->currentUser->allowed(['routes.create', 'routes.update', 'routes.delete'], true);
+
+		$this->_jsView = 'admin/manage/routes_js';
+
+		if ($id !== false)
+		{
+			$this->_view = 'admin/manage/routes_action';
+
+			// Set the ID
+			$routeId = (is_numeric($id)) ? $id : 0;
+
+			// Get the route
+			$route = $this->_data->route = $this->routes->find($routeId);
+
+			// Set the action
+			$this->_mode = $this->_data->action = ((int) $routeId === 0) ? 'create' : 'update';
+		}
+		else
+		{
+			$this->_view = 'admin/manage/routes';
+
+			// Get all the routes for the system
+			$routes = $this->routes->all();
+
+			// Make sure we have routes
+			if ($routes->count() > 0)
+			{
+				// Loop through the routes
+				foreach ($routes as $route)
+				{
+					// Separate the routes into CORE and USER routes
+					if ((bool) $route->protected === true)
+					{
+						$this->_data->routes['core'][] = $route;
+					}
+					else
+					{
+						$this->_data->routes['user'][] = $route;
+					}
+				}
+			}
+
+			// Build the duplicate page modal
+			$this->_ajax[] = View::make(Location::partial('common/modal'))
+				->with('modalId', 'duplicateRoute')
+				->with('modalHeader', lang('Short.duplicate', langConcat('Core Route')))
+				->with('modalBody', false)
+				->with('modalFooter', false);
+
+			// Build the delete page modal
+			$this->_ajax[] = View::make(Location::partial('common/modal'))
+				->with('modalId', 'deleteRoute')
+				->with('modalHeader', lang('Short.delete', lang('Route')))
+				->with('modalBody', false)
+				->with('modalFooter', false);
+		}
+	}
+	public function postRoutes()
+	{
+		// Get the action
+		$action = e(Input::get('formAction'));
+
+		// Set up the validation service
+		$validator = new SystemRouteValidator;
+
+		// If the validation fails, stop and go back
+		if ( ! $validator->passes())
+		{
+			return Redirect::back()->withInput()->withErrors($validator->getErrors());
+		}
+
+		/**
+		 * Create a new route.
+		 */
+		if ($this->currentUser->hasAccess('routes.create') and $action == 'create')
+		{
+			// Create the new page route
+			$item = $this->routes->create(Input::all());
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.create', lang('route'))
+				: lang('Short.alert.failure.create', lang('route'));
+		}
+
+		/**
+		 * Duplicate a core route.
+		 */
+		if ($this->currentUser->hasAccess('routes.create') and $action == 'duplicate')
+		{
+			// Duplicate the route
+			$item = $this->routes->duplicate(Input::get('id'));
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.duplicate', langConcat('core route'))
+				: lang('Short.alert.failure.duplicate', langConcat('core route'));
+		}
+
+		/**
+		 * Update a route.
+		 */
+		if ($this->currentUser->hasAccess('routes.update') and $action == 'update')
+		{
+			// Update the route
+			$item = $this->routes->update(Input::get('id'), Input::all());
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('short.alert.success.update', lang('route'))
+				: lang('short.alert.failure.update', lang('route'));
+		}
+
+		/**
+		 * Delete a route.
+		 */
+		if ($this->currentUser->hasAccess('routes.delete') and $action == 'delete')
+		{
+			// Delete the route
+			$item = $this->routes->delete(Input::get('id'));
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.delete', lang('route'))
+				: lang('Short.alert.failure.delete', lang('route'));
+		}
+
+		return Redirect::to('admin/routes')
+			->with('flashStatus', $flashStatus)
+			->with('flashMessage', $flashMessage);
 	}
 
 	public function getSiteContent($id = false)
@@ -71,6 +212,13 @@ class Manage extends AdminBaseController {
 				// Get the content
 				$this->_data->content[$content->type][] = $content;
 			}
+
+			// Build the delete content modal
+			$this->_ajax[] = View::make(Location::partial('common/modal'))
+				->with('modalId', 'deleteSiteContent')
+				->with('modalHeader', lang('Short.delete', langConcat('Site Content')))
+				->with('modalBody', '')
+				->with('modalFooter', false);
 		}
 	}
 	public function postSiteContent()
@@ -117,7 +265,22 @@ class Manage extends AdminBaseController {
 				: lang('Short.alert.failure.update', langConcat('site content'));
 		}
 
-		return Redirect::to('admin/manage/sitecontent')
+		/**
+		 * Delete the site content.
+		 */
+		if ($this->currentUser->hasAccess('content.delete') and $action == 'delete')
+		{
+			// Delete the site content item
+			$item = $this->content->delete(Input::get('id'));
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.delete', langConcat('site content'))
+				: lang('Short.alert.failure.delete', langConcat('site content'));
+		}
+
+		return Redirect::to('admin/sitecontent')
 			->with('flashStatus', $flashStatus)
 			->with('flashMessage', $flashMessage);
 	}
