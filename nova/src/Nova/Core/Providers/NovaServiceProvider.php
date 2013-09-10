@@ -15,6 +15,8 @@ class NovaServiceProvider extends ServiceProvider {
 
 	public function register()
 	{
+		$this->setupBindings();
+		
 		$this->registerLocation();
 		$this->registerMarkdown();
 		$this->registerSystemEvent();
@@ -29,7 +31,6 @@ class NovaServiceProvider extends ServiceProvider {
 	{
 		$this->bootEventListeners();
 		$this->browserCheck();
-		$this->setupRepositoryBindings();
 	}
 
 	/**
@@ -75,7 +76,7 @@ class NovaServiceProvider extends ServiceProvider {
 	{
 		$this->app['nova.common'] = $this->app->share(function($app)
 		{
-			return new Nova($app);
+			return new Nova;
 		});
 	}
 
@@ -170,11 +171,14 @@ class NovaServiceProvider extends ServiceProvider {
 	/**
 	 * Setup the interface bindings to their repositories.
 	 */
-	protected function setupRepositoryBindings()
+	protected function setupBindings()
 	{
 		// Get the aliases
 		$a = $this->app['config']->get('app.aliases');
 
+		/**
+		 * Repository interface bindings
+		 */
 		$this->app->bind($a['AccessRoleRepositoryInterface'], $a['AccessRoleRepository']);
 		$this->app->bind($a['CatalogRepositoryInterface'], $a['CatalogRepository']);
 		$this->app->bind($a['FormRepositoryInterface'], $a['FormRepository']);
@@ -182,6 +186,11 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->app->bind($a['SiteContentRepositoryInterface'], $a['SiteContentRepository']);
 		$this->app->bind($a['SystemRouteRepositoryInterface'], $a['SystemRouteRepository']);
 		$this->app->bind($a['UserRepositoryInterface'], $a['UserRepository']);
+
+		/**
+		 * Other interface bindings
+		 */
+		$this->app->bind($a['NovaAuthInterface'], $a['NovaAuth']);
 	}
 
 }
