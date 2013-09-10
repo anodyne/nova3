@@ -45,3 +45,4 @@ Not for the weak! These tutorials are the end-all-be-all of Nova 3 skinning. You
 	- JS views
 	- Ajax views
 - Changing the way Nova processes skin files
+- Customizing the look and feel of Typeahead
