@@ -102,13 +102,13 @@ class Login extends LoginBaseController {
 			$password = e(Input::get('password'));
 
 			// Attempt log in
-			$user = Sentry::authenticateAndRemember([
+			$user = $this->auth->authenticateAndRemember([
 				'email'		=> $email,
 				'password'	=> $password,
 			]);
 
 			// Get the Sentry cookie
-			$persistCookie = Sentry::getCookie()->getCookie();
+			$persistCookie = $this->auth->getCookie();
 
 			// If the user was redirected, send them to where they were trying to go
 			if (Session::has('url.intended'))
@@ -127,7 +127,7 @@ class Login extends LoginBaseController {
 		catch (UserSuspendedException $e)
 		{
 			// Get the throttle record
-			$throttle = Sentry::getThrottleProvider()->findByLogin($email);
+			$throttle = $this->auth->getThrottleProvider()->findByLogin($email);
 
 			// Get the suspended date into a usable format
 			$suspendedAt = Date::instance($throttle->suspended_at)
@@ -153,13 +153,10 @@ class Login extends LoginBaseController {
 	public function getLogout()
 	{
 		// Do the logout
-		Sentry::logout();
-
-		// Flush the session for safe measure
-		Session::flush();
+		$this->auth->logout();
 
 		// Get the Sentry cookie
-		$persistCookie = Sentry::getCookie()->getCookie();
+		$persistCookie = $this->auth->getCookie();
 
 		return Redirect::to('/')->withCookie($persistCookie);
 	}
@@ -213,7 +210,7 @@ class Login extends LoginBaseController {
 			$email = e(Input::get('email'));
 
 			// Get the user
-			$user = Sentry::getUserProvider()->findByLogin($email);
+			$user = $this->auth->getUserProvider()->findByLogin($email);
 
 			// Get the password reset code
 			$resetCode = $user->getResetPasswordCode();
@@ -310,7 +307,7 @@ class Login extends LoginBaseController {
 			$newPassword = Input::get('password');
 
 			// Get the user
-			$user = Sentry::getUserProvider()->findById($id);
+			$user = $this->auth->getUserProvider()->findById($id);
 
 			// Check the reset code against what we have in the database
 			if ($user->checkResetPasswordCode($code))

@@ -13,6 +13,7 @@
  * @copyright	2013 Anodyne Productions
  */
 
+use Nova;
 use View;
 use Session;
 use Location;
@@ -38,7 +39,7 @@ abstract class Login extends BaseController {
 			$me->timezone	= Session::get('timezone', $me->settings->timezone);
 
 			// Resolve the catalog interface
-			$catalog = $me->resolveBinding('CatalogRepositoryInterface');
+			$catalog = Nova::resolveBinding('CatalogRepositoryInterface');
 
 			// Get the skin section info
 			$me->_skinInfo	= $catalog->findSkinByLocation($me->skin);

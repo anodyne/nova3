@@ -48,7 +48,7 @@ class User extends AdminBaseController {
 	public function postUsers()
 	{
 		// Get the action
-		$action = e(Input::get('formAction'));
+		$formAction = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new UserValidator;
@@ -56,7 +56,7 @@ class User extends AdminBaseController {
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
 		{
-			if ($action == 'delete')
+			if ($formAction == 'delete')
 			{
 				// Set the flash message
 				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
@@ -73,7 +73,7 @@ class User extends AdminBaseController {
 		/**
 		 * Create a user.
 		 */
-		if ($this->currentUser->hasAccess('user.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('user.create') and $formAction == 'create')
 		{
 			// Create the user
 			$item = $this->user->create(array_merge(Input::all(), ['status' => Status::ACTIVE]));
@@ -108,7 +108,7 @@ class User extends AdminBaseController {
 		/**
 		 * Delete a user.
 		 */
-		if ($this->currentUser->hasAccess('user.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('user.delete') and $formAction == 'delete')
 		{
 			// Delete the user
 			$item = $this->user->delete(Input::get('id'));
@@ -157,7 +157,7 @@ class User extends AdminBaseController {
 	public function postEdit($id)
 	{
 		// Get the action
-		$action = e(Input::get('formAction'));
+		$formAction = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new UserValidator;
@@ -165,7 +165,7 @@ class User extends AdminBaseController {
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
 		{
-			if ($action == 'delete')
+			if ($formAction == 'delete')
 			{
 				// Set the flash message
 				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
@@ -193,7 +193,7 @@ class User extends AdminBaseController {
 			if (($this->currentUser->hasLevel('user.update', 1) and $user == $this->currentUser)
 					or $this->currentUser->hasLevel('user.update', 2))
 			{
-				if ($action == 'basic')
+				if ($formAction == 'basic')
 				{
 					if (Input::has('password'))
 					{
@@ -228,22 +228,22 @@ class User extends AdminBaseController {
 					}
 				}
 
-				if ($action == 'bio')
+				if ($formAction == 'bio')
 				{
 					//
 				}
 
-				if ($action == 'preferences')
+				if ($formAction == 'preferences')
 				{
 					//
 				}
 
-				if ($action == 'notifications')
+				if ($formAction == 'notifications')
 				{
 					//
 				}
 
-				if ($action == 'admin')
+				if ($formAction == 'admin')
 				{
 					//
 				}

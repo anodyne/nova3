@@ -17,7 +17,6 @@
 
 use Nova;
 use View;
-use Sentry;
 use Session;
 use Location;
 use BaseController;
@@ -40,19 +39,19 @@ abstract class Main extends BaseController {
 			if ( ! $me->_stopExecution)
 			{
 				// Set the variables
-				$me->skin = (Sentry::check())
+				$me->skin = ($this->auth->check())
 					? $me->currentUser->getPreferenceItem('skin_main')
 					: $me->settings->skin_main;
-				$me->rank = (Sentry::check())
+				$me->rank = ($this->auth->check())
 					? $me->currentUser->getPreferenceItem('rank')
 					: $me->settings->rank;
-				$me->timezone = (Sentry::check())
+				$me->timezone = ($this->auth->check())
 					? $me->currentUser->getPreferenceItem('timezone')
 					: $me->settings->timezone;
 				$me->icons = Nova::getIconIndex($me->skin);
 
 				// Resolve the catalog repository interface
-				$skin = $me->resolveBinding('CatalogRepositoryInterface');
+				$skin = Nova::resolveBinding('CatalogRepositoryInterface');
 
 				// Get the skin section info
 				$me->_skinInfo = $skin->findSkinByLocation($me->skin);
@@ -63,7 +62,7 @@ abstract class Main extends BaseController {
 					->setCategory('main')
 					->setType('main');
 
-				if (Sentry::check())
+				if ($this->auth->check())
 				{
 					// Has the user's role been updated since their last login?
 					$lastLogin = $me->currentUser->last_login->diffInMinutes($me->currentUser->role->updated_at, false);

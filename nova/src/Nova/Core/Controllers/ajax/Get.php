@@ -3,7 +3,6 @@
 use Nova;
 use View;
 use Input;
-use Sentry;
 use Request;
 use Location;
 use Markdown;
@@ -14,12 +13,12 @@ class Get extends AjaxBaseController {
 	public function postSiteContent()
 	{
 		// Resolve the binding
-		$content = $this->resolveBindings('SiteContentRepositoryInterface');
+		$content = Nova::resolveBinding('SiteContentRepositoryInterface');
 
 		echo $content->findByKey(Input::get('key'));
 	}
 
-public function action_user()
+	public function action_user()
 	{
 		// set the field and values
 		$field = false;
@@ -59,7 +58,7 @@ public function action_user()
 
 	public function action_user_search()
 	{
-		if (\Sentry::check())
+		if ($this->auth->check())
 		{
 			// sanitize the input
 			$query = \Security::xss_clean(\Input::get('query'));
@@ -279,7 +278,7 @@ public function action_user()
 	 */
 	public function postRolesWithTask($id, $format = 'html')
 	{
-		if (Sentry::check())
+		if ($this->auth->check())
 		{
 			// What type of request is it?
 			$format = e($format);
@@ -304,8 +303,8 @@ public function action_user()
 
 	public function postUserSearch()
 	{
-		if (Sentry::check() 
-				and Sentry::getUser()->allowed(['user.create', 'user.update', 'user.delete'], false))
+		if ($this->auth->check() 
+				and $this->currentUser->allowed(['user.create', 'user.update', 'user.delete'], false))
 		{
 			// Get the query
 			$query = e(Input::get('query'));
@@ -332,7 +331,7 @@ public function action_user()
 	 */
 	public function getUsersWithRole($id)
 	{
-		if (Sentry::check())
+		if ($this->auth->check())
 		{
 			// Get the role
 			$role = \AccessRole::find($id);

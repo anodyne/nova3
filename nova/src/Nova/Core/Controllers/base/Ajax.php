@@ -13,11 +13,9 @@
  * @copyright	2013 Anodyne Productions
  */
 
-use App;
-use Config;
-use Sentry;
 use Request;
 use Controller;
+use NovaAuthInterface;
 
 abstract class Ajax extends Controller {
 
@@ -31,27 +29,16 @@ abstract class Ajax extends Controller {
 	 */
 	protected $currentUser;
 
-	public function __construct()
+	public function __construct(NovaAuthInterface $auth)
 	{
+		// Set the auth interface
+		$this->auth = $auth;
+		
 		// Get the request instance
 		$this->request = Request::instance();
 
 		// Get the current user
-		$this->currentUser = Sentry::getUser();
-	}
-
-	/**
-	 * Resolve bindings out of the container.
-	 *
-	 * @param	string	$alias	The alias to resolve
-	 * @return	object
-	 */
-	protected function resolveBinding($alias)
-	{
-		// Get the aliases
-		$classes = Config::get('app.aliases');
-
-		return App::make($classes[$alias]);
+		$this->currentUser = $this->auth->getUser();
 	}
 
 }

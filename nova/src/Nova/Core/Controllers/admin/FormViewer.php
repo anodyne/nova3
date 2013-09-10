@@ -58,7 +58,7 @@ class FormViewer extends AdminBaseController {
 		$form = $this->form->findByKey($formKey);
 
 		// Get the action
-		$action = e(Input::get('formAction'));
+		$formAction = e(Input::get('formAction'));
 
 		// Set up the validator
 		$validator = Validator::make(Input::all(), $form->getFieldValidationRules());
@@ -66,7 +66,7 @@ class FormViewer extends AdminBaseController {
 		// If the validation fails, stop and go back
 		if ($validator->fails())
 		{
-			if ($action == 'delete')
+			if ($formAction == 'delete')
 			{
 				// Set the flash message
 				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
@@ -83,7 +83,7 @@ class FormViewer extends AdminBaseController {
 		/**
 		 * Create the form entry.
 		 */
-		if ($this->currentUser->hasAccess('form.read') and $action == 'create')
+		if ($this->currentUser->hasAccess('form.read') and $formAction == 'create')
 		{
 			// Create the entry
 			$this->form->createFormViewerEntry(Input::get('id'), Input::all(), $form, $this->currentUser);
@@ -114,7 +114,7 @@ class FormViewer extends AdminBaseController {
 		/**
 		 * Update the form.
 		 */
-		if ($this->currentUser->hasAccess('form.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('form.update') and $formAction == 'update')
 		{
 			// Update the entry
 			$this->form->updateFormViewerEntry(Input::get('id'), Input::all(), $form);
@@ -127,7 +127,7 @@ class FormViewer extends AdminBaseController {
 		/**
 		 * Delete the form.
 		 */
-		if ($this->currentUser->hasAccess('form.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('form.delete') and $formAction == 'delete')
 		{
 			// Delete the entry
 			$this->form->deleteFormViewerEntry(Input::get('id'), $form);

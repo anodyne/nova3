@@ -83,7 +83,7 @@ class Manage extends AdminBaseController {
 	public function postRoutes()
 	{
 		// Get the action
-		$action = e(Input::get('formAction'));
+		$formAction = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new SystemRouteValidator;
@@ -91,13 +91,24 @@ class Manage extends AdminBaseController {
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
 		{
+			if ($formAction == 'delete' or $formAction == 'duplicate')
+			{
+				// Set the flash message
+				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
+				$flashMessage.= implode(' ', $validator->getErrors()->all());
+
+				return Redirect::to('admin/routes')
+					->with('flashStatus', 'danger')
+					->with('flashMessage', $flashMessage);
+			}
+
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
 		}
 
 		/**
 		 * Create a new route.
 		 */
-		if ($this->currentUser->hasAccess('routes.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('routes.create') and $formAction == 'create')
 		{
 			// Create the new page route
 			$item = $this->routes->create(Input::all());
@@ -112,7 +123,7 @@ class Manage extends AdminBaseController {
 		/**
 		 * Duplicate a core route.
 		 */
-		if ($this->currentUser->hasAccess('routes.create') and $action == 'duplicate')
+		if ($this->currentUser->hasAccess('routes.create') and $formAction == 'duplicate')
 		{
 			// Duplicate the route
 			$item = $this->routes->duplicate(Input::get('id'));
@@ -127,7 +138,7 @@ class Manage extends AdminBaseController {
 		/**
 		 * Update a route.
 		 */
-		if ($this->currentUser->hasAccess('routes.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('routes.update') and $formAction == 'update')
 		{
 			// Update the route
 			$item = $this->routes->update(Input::get('id'), Input::all());
@@ -142,7 +153,7 @@ class Manage extends AdminBaseController {
 		/**
 		 * Delete a route.
 		 */
-		if ($this->currentUser->hasAccess('routes.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('routes.delete') and $formAction == 'delete')
 		{
 			// Delete the route
 			$item = $this->routes->delete(Input::get('id'));
@@ -224,7 +235,7 @@ class Manage extends AdminBaseController {
 	public function postSiteContent()
 	{
 		// Get the action
-		$action = e(Input::get('formAction'));
+		$formAction = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new SiteContentValidator;
@@ -232,13 +243,24 @@ class Manage extends AdminBaseController {
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
 		{
+			if ($formAction == 'delete')
+			{
+				// Set the flash message
+				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
+				$flashMessage.= implode(' ', $validator->getErrors()->all());
+
+				return Redirect::to('admin/sitecontent')
+					->with('flashStatus', 'danger')
+					->with('flashMessage', $flashMessage);
+			}
+
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
 		}
 
 		/**
 		 * Create the new site content.
 		 */
-		if ($this->currentUser->hasAccess('content.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('content.create') and $formAction == 'create')
 		{
 			// Create the item
 			$item = $this->content->create(Input::all());
@@ -253,7 +275,7 @@ class Manage extends AdminBaseController {
 		/**
 		 * Update the site content.
 		 */
-		if ($this->currentUser->hasAccess('content.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('content.update') and $formAction == 'update')
 		{
 			// Update the item
 			$item = $this->content->update(Input::get('id'), Input::all());
@@ -268,7 +290,7 @@ class Manage extends AdminBaseController {
 		/**
 		 * Delete the site content.
 		 */
-		if ($this->currentUser->hasAccess('content.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('content.delete') and $formAction == 'delete')
 		{
 			// Delete the site content item
 			$item = $this->content->delete(Input::get('id'));

@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Controllers\Ajax;
 
+use Nova;
 use View;
 use Input;
-use Sentry;
 use Request;
 use Location;
 use Markdown;
@@ -18,10 +18,10 @@ class Update extends AjaxBaseController {
 	 */
 	public function postSiteContent()
 	{
-		if (Sentry::check() and $this->currentUser->hasAccess('content.update'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('content.update'))
 		{
 			// Resolve the binding
-			$contentRepo = $this->resolveBindings('SiteContentRepositoryInterface');
+			$contentRepo = Nova::resolveBinding('SiteContentRepositoryInterface');
 
 			// Get the POST information
 			$key = e(Input::get('key'));
@@ -58,7 +58,7 @@ class Update extends AjaxBaseController {
 	 */
 	public function postFormFieldOrder()
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('form.update'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('form.update'))
 		{
 			// Get the fields
 			$fields = Input::get('field');
@@ -80,7 +80,7 @@ class Update extends AjaxBaseController {
 	 */
 	public function postFormSectionOrder()
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('form.update'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('form.update'))
 		{
 			// Get the sections
 			$sections = Input::get('section');
@@ -102,7 +102,7 @@ class Update extends AjaxBaseController {
 	 */
 	public function postFormTabOrder()
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('form.update'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('form.update'))
 		{
 			// Get the tabs
 			$tabs = Input::get('tab');
@@ -124,7 +124,7 @@ class Update extends AjaxBaseController {
 	 */
 	public function postFormValue($type)
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('form.update'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('form.update'))
 		{
 			switch ($type)
 			{
@@ -162,7 +162,7 @@ class Update extends AjaxBaseController {
 	 */
 	public function action_module($module)
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('catalog.update'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('catalog.update'))
 		{
 			// move up to the latest migration
 			\Migrate::latest($module, 'module');
@@ -182,7 +182,7 @@ class Update extends AjaxBaseController {
 	 */
 	public function action_rankgroup($id)
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('rank.update'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('rank.update'))
 		{
 			$id = \Security::xss_clean($id);
 
@@ -210,7 +210,7 @@ class Update extends AjaxBaseController {
 	 */
 	public function action_rankgroup_order()
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('rank.update'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('rank.update'))
 		{
 			// get and sanitize the input
 			$sets = \Security::xss_clean(\Input::post('group'));
@@ -237,7 +237,7 @@ class Update extends AjaxBaseController {
 	 */
 	public function action_rankinfo($id)
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('rank.update'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('rank.update'))
 		{
 			$id = \Security::xss_clean($id);
 
@@ -268,7 +268,7 @@ class Update extends AjaxBaseController {
 	 */
 	public function action_rankinfo_order()
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('rank.update'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('rank.update'))
 		{
 			// get and sanitize the input
 			$info = \Security::xss_clean(\Input::post('info'));
@@ -295,7 +295,7 @@ class Update extends AjaxBaseController {
 	 */
 	public function getSkinVersionUpdate($id)
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('catalog.update'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('catalog.update'))
 		{
 			// Get the catalog
 			$catalog = \SkinCatalog::find($id);

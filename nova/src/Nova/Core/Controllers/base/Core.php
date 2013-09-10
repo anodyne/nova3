@@ -14,23 +14,19 @@
  * @copyright	2013 Anodyne Productions
  */
 
-use App;
 use Nav;
 use Str;
-use File;
+use Nova;
 use View;
 use Cache;
-use Event;
 use Route;
 use Config;
-use Sentry;
 use System;
 use Request;
 use Session;
 use Location;
 use Markdown;
 use Redirect;
-use Settings;
 use stdClass;
 use Exception;
 use Controller;
@@ -76,6 +72,11 @@ abstract class Core extends Controller {
 	 * The current timezone.
 	 */
 	public $timezone;
+
+	/**
+	 * The auth binding.
+	 */
+	public $auth;
 
 	/**
 	 * The currently logged in user.
@@ -179,15 +180,18 @@ abstract class Core extends Controller {
 
 	public function __construct()
 	{
+		// Resolve the auth binding
+		$this->auth = Nova::resolveBinding('NovaAuthInterface');
+
 		// Set the current user
-		$this->currentUser = Sentry::getUser();
+		$this->currentUser = $this->auth->getUser();
 
 		// Set the controller and action names
 		$this->getControllerName();
 		$this->getActionName();
 
 		// Set the injected interfaces
-		$this->content = $this->resolveBinding('SiteContentRepositoryInterface');
+		$this->content = Nova::resolveBinding('SiteContentRepositoryInterface');
 
 		// Get a copy of the controller
 		$me = $this;
@@ -237,7 +241,7 @@ abstract class Core extends Controller {
 				$me->genre = Config::get('nova.genre');
 
 				// Resolve the interfaces
-				$settings = $me->resolveBinding('SettingsRepositoryInterface');
+				$settings = Nova::resolveBinding('SettingsRepositoryInterface');
 
 				// Load all of the settings
 				$me->settings = $settings->all()->toSimpleObject('key', 'value');
@@ -276,6 +280,7 @@ abstract class Core extends Controller {
 				->with('_icons', $this->icons)
 				->with('_settings', $this->settings)
 				->with('_currentUser', $this->currentUser)
+				->with('_auth', $this->auth)
 				->with((array) $this->_data);
 		}
 		
@@ -285,6 +290,7 @@ abstract class Core extends Controller {
 			$this->layout->javascript = View::make(Location::js($this->_jsView))
 				->with('_icons', $this->icons)
 				->with('_currentUser', $this->currentUser)
+				->with('_auth', $this->auth)
 				->with((array) $this->_jsData);
 		}
 
@@ -492,20 +498,6 @@ abstract class Core extends Controller {
 		}
 
 		return null;
-	}
-
-	/**
-	 * Resolve bindings out of the container.
-	 *
-	 * @param	string	$alias	The alias to resolve
-	 * @return	object
-	 */
-	protected function resolveBinding($alias)
-	{
-		// Get the aliases
-		$classes = Config::get('app.aliases');
-
-		return App::make($classes[$alias]);
 	}
 
 }

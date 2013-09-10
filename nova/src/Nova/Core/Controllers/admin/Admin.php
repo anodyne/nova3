@@ -15,7 +15,6 @@ class Admin extends AdminBaseController {
 
 	public function getError($code)
 	{
-		// Set the data
 		switch ($code)
 		{
 			case ErrorCode::ADMIN_NOT_ALLOWED:

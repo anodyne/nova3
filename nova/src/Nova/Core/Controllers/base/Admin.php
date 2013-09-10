@@ -14,10 +14,9 @@
  * @copyright	2013 Anodyne Productions
  */
 
-use App;
+use URL;
 use Nova;
 use View;
-use Sentry;
 use Session;
 use Location;
 use Redirect;
@@ -35,7 +34,7 @@ abstract class Admin extends BaseController {
 		 * Before any of the before filters run, check to make sure the user is
 		 * logged in. If they aren't, send them over to the log in page.
 		 */
-		if ( ! Sentry::check())
+		if ( ! $this->auth->check())
 		{
 			/**
 			 * Before filter that redirects if the user isn't logged in.
@@ -43,7 +42,7 @@ abstract class Admin extends BaseController {
 			$this->beforeFilter(function()
 			{
 				// Put the intended desintation into the session
-				Session::put('url.intended', App::make('url')->full());
+				Session::put('url.intended', URL::full());
 
 				return Redirect::to('login/error/'.ErrorCode::LOGIN_NOT_LOGGED_IN);
 			});
@@ -65,7 +64,7 @@ abstract class Admin extends BaseController {
 				$me->timezone	= ($me->currentUser->getPreferenceItem('timezone')) ?: $me->settings->timezone;
 
 				// Resolve the catalog repository interface
-				$skin = $me->resolveBinding('CatalogRepositoryInterface');
+				$skin = Nova::resolveBinding('CatalogRepositoryInterface');
 
 				// Get the skin section info
 				$me->_skinInfo = $skin->findSkinByLocation($me->skin);
@@ -76,7 +75,7 @@ abstract class Admin extends BaseController {
 					->setCategory('admin')
 					->setType('main');
 
-				if (Sentry::check())
+				if ($this->auth->check())
 				{
 					// Has the user's role been updated since their last login?
 					$lastLogin = $me->currentUser->last_login->diffInMinutes($me->currentUser->role->updated_at, false);

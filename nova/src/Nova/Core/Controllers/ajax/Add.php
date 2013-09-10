@@ -6,7 +6,6 @@ use Nova;
 use View;
 use Input;
 use Config;
-use Sentry;
 use Request;
 use Location;
 use AjaxBaseController;
@@ -20,7 +19,7 @@ class Add extends AjaxBaseController {
 	 */
 	public function getArc_banuser($id)
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('ban.create'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('ban.create'))
 		{
 			// get the user
 			$user = \Model_User::find(\Security::xss_clean($id));
@@ -45,7 +44,7 @@ class Add extends AjaxBaseController {
 	 */
 	public function postFormValue()
 	{
-		if (Sentry::check() and $this->currentUser->hasAccess('form.update'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('form.update'))
 		{
 			$item = \NovaFormValue::create([
 				'value'		=> Str::lower(e(Input::get('content'))),
@@ -72,7 +71,7 @@ class Add extends AjaxBaseController {
 	 */
 	public function getModule($module)
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('catalog.create'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('catalog.create'))
 		{
 			// Do the quick install
 			\Model_Catalog_Module::install($module);
@@ -92,7 +91,7 @@ class Add extends AjaxBaseController {
 	 */
 	public function getRankSet($location)
 	{
-		if (Sentry::check() and $this->currentUser->hasAccess('catalog.create'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('catalog.create'))
 		{
 			// Get the genre
 			$genre = Config::get('nova.genre');
@@ -117,10 +116,10 @@ class Add extends AjaxBaseController {
 	 */
 	public function getRouteDuplicate($id)
 	{
-		if (Sentry::check() and $this->currentUser->hasAccess('routes.create'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('routes.create'))
 		{
 			// Resolve the class out of the IoC
-			$class = $this->resolveBinding('SystemRouteRepositoryInterface');
+			$class = Nova::resolveBinding('SystemRouteRepositoryInterface');
 			
 			// Get the original route
 			$route = $class->find($id);
@@ -144,7 +143,7 @@ class Add extends AjaxBaseController {
 	 */
 	public function getRankgroup_duplicate($id)
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('rank.create'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('rank.create'))
 		{
 			$data['id'] = $id;
 			$data['rank'] = \Model_Settings::getItems('rank');
@@ -198,7 +197,7 @@ class Add extends AjaxBaseController {
 	 */
 	public function getRankinfo()
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('rank.create'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('rank.create'))
 		{
 			// set the data
 			$data['id'] = 0;
@@ -222,7 +221,7 @@ class Add extends AjaxBaseController {
 	 */
 	public function getRole_duplicate()
 	{
-		if (Sentry::check() and $this->currentUser->hasAccess('role.create'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('role.create'))
 		{
 			// Clean the variable
 			$id = e(Request::segment(4, false));
@@ -243,7 +242,7 @@ class Add extends AjaxBaseController {
 	 */
 	public function getSkin($location)
 	{
-		if (Sentry::check() and $this->currentUser->hasAccess('catalog.create'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('catalog.create'))
 		{
 			// Get the contents of the QuickInstall file
 			$skinContents = File::get(APPPATH."views/{$location}/skin.json");
@@ -259,7 +258,7 @@ class Add extends AjaxBaseController {
 
 	public function getSkinOptionImageUpload()
 	{
-		if (Sentry::check() and ($this->currentUser->hasAccess('catalog.create')
+		if ($this->auth->check() and ($this->currentUser->hasAccess('catalog.create')
 				or $this->currentUser->hasAccess('catalog.update')))
 		{
 			if (Input::has('file'))
@@ -280,7 +279,7 @@ class Add extends AjaxBaseController {
 	 */
 	public function getUser()
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('user.create'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('user.create'))
 		{
 			echo \View::forge(\Location::ajax('add/user'));
 		}

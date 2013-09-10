@@ -1,29 +1,27 @@
 <?php namespace Nova\Core\Controllers\Admin;
 
+use Nova;
 use View;
 use Input;
 use Location;
 use Redirect;
 use DynamicForm;
-use AdminBaseController;
 use FormValidator;
 use FormTabValidator;
 use FormFieldValidator;
 use FormValueValidator;
+use AdminBaseController;
 use FormSectionValidator;
 use FormRepositoryInterface;
-use AccessRoleRepositoryInterface;
 
 class Form extends AdminBaseController {
 
-	public function __construct(FormRepositoryInterface $form, 
-			AccessRoleRepositoryInterface $role)
+	public function __construct(FormRepositoryInterface $form)
 	{
 		parent::__construct();
 
 		// Set the injected interfaces
 		$this->form = $form;
-		$this->role = $role;
 	}
 
 	public function getIndex($formKey = false)
@@ -79,7 +77,7 @@ class Form extends AdminBaseController {
 	public function postIndex($formKey = false)
 	{
 		// Get the action
-		$action = e(Input::get('formAction'));
+		$formAction = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new FormValidator;
@@ -99,7 +97,7 @@ class Form extends AdminBaseController {
 		/**
 		 * Create the form.
 		 */
-		if ($this->currentUser->hasAccess('form.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('form.create') and $formAction == 'create')
 		{
 			// Create the form
 			$item = $this->form->create(Input::all());
@@ -114,7 +112,7 @@ class Form extends AdminBaseController {
 		/**
 		 * Update the form.
 		 */
-		if ($this->currentUser->hasAccess('form.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('form.update') and $formAction == 'update')
 		{
 			// Update the form
 			$item = $this->form->update(Input::get('id'), Input::all());
@@ -129,7 +127,7 @@ class Form extends AdminBaseController {
 		/**
 		 * Delete the form.
 		 */
-		if ($this->currentUser->hasAccess('form.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('form.delete') and $formAction == 'delete')
 		{
 			// Delete the form
 			try
@@ -239,7 +237,7 @@ class Form extends AdminBaseController {
 	public function postTabs($formKey)
 	{
 		// Get the action
-		$action = e(Input::get('formAction'));
+		$formAction = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new FormTabValidator;
@@ -247,7 +245,7 @@ class Form extends AdminBaseController {
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
 		{
-			if ($action == 'delete')
+			if ($formAction == 'delete')
 			{
 				// Set the flash message
 				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
@@ -267,7 +265,7 @@ class Form extends AdminBaseController {
 		/**
 		 * Create a form tab.
 		 */
-		if ($this->currentUser->hasAccess('form.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('form.create') and $formAction == 'create')
 		{
 			// Create the form tab
 			$item = $this->form->createTab(Input::all(), $form);
@@ -282,7 +280,7 @@ class Form extends AdminBaseController {
 		/**
 		 * Edit a form tab.
 		 */
-		if ($this->currentUser->hasAccess('form.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('form.update') and $formAction == 'update')
 		{
 			// Update the tab
 			$item = $this->form->updateTab(Input::get('id'), Input::all(), $form);
@@ -297,7 +295,7 @@ class Form extends AdminBaseController {
 		/**
 		 * Delete the form tab.
 		 */
-		if ($this->currentUser->hasAccess('form.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('form.delete') and $formAction == 'delete')
 		{
 			// Delete the tab
 			$item = $this->form->deleteTab(Input::get('id'), Input::get('new_tab_id'));
@@ -419,7 +417,7 @@ class Form extends AdminBaseController {
 	public function postSections($formKey)
 	{
 		// Get the action
-		$action = e(Input::get('formAction'));
+		$formAction = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new FormSectionValidator;
@@ -427,7 +425,7 @@ class Form extends AdminBaseController {
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
 		{
-			if ($action == 'delete')
+			if ($formAction == 'delete')
 			{
 				// Set the flash message
 				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
@@ -447,7 +445,7 @@ class Form extends AdminBaseController {
 		/**
 		 * Create a form section.
 		 */
-		if ($this->currentUser->hasAccess('form.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('form.create') and $formAction == 'create')
 		{
 			// Create the section
 			$item = $this->form->createSection(Input::all(), $form);
@@ -462,7 +460,7 @@ class Form extends AdminBaseController {
 		/**
 		 * Edit a form section.
 		 */
-		if ($this->currentUser->hasAccess('form.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('form.update') and $formAction == 'update')
 		{
 			// Update the section
 			$item = $this->form->updateSection(Input::get('id'), Input::all(), $form);
@@ -477,7 +475,7 @@ class Form extends AdminBaseController {
 		/**
 		 * Delete the form section.
 		 */
-		if ($this->currentUser->hasAccess('form.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('form.delete') and $formAction == 'delete')
 		{
 			// Delete the section
 			$item = $this->form->deleteSection(Input::get('id'), Input::get('new_section_id'), $form);
@@ -543,8 +541,11 @@ class Form extends AdminBaseController {
 				'select'	=> lang('Dropdown'),
 			];
 
+			// Resolve the binding
+			$role = Nova::resolveBinding('AccessRoleRepositoryInterface');
+
 			// Set the access restrictions
-			$this->_data->accessRoles = $this->role->all();
+			$this->_data->accessRoles = $role->all();
 
 			// Get the tabs and sections
 			$this->_data->tabs[0] = lang('short.selectOne', lang('tab'));
@@ -589,7 +590,7 @@ class Form extends AdminBaseController {
 	public function postFields($formKey)
 	{
 		// Get the action
-		$action = e(Input::get('formAction'));
+		$formAction = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new FormFieldValidator;
@@ -597,7 +598,7 @@ class Form extends AdminBaseController {
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
 		{
-			if ($action == 'delete')
+			if ($formAction == 'delete')
 			{
 				// Set the flash message
 				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
@@ -617,7 +618,7 @@ class Form extends AdminBaseController {
 		/**
 		 * Create a form field.
 		 */
-		if ($this->currentUser->hasAccess('form.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('form.create') and $formAction == 'create')
 		{
 			// Create the field
 			$item = $this->form->createField(Input::all(), $form);
@@ -632,7 +633,7 @@ class Form extends AdminBaseController {
 		/**
 		 * Edit a form field.
 		 */
-		if ($this->currentUser->hasAccess('form.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('form.update') and $formAction == 'update')
 		{
 			// Update the field
 			$item = $this->form->updateField(Input::get('id'), $form);
@@ -647,7 +648,7 @@ class Form extends AdminBaseController {
 		/**
 		 * Delete a form field.
 		 */
-		if ($this->currentUser->hasAccess('form.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('form.delete') and $formAction == 'delete')
 		{
 			// Delete the field
 			$item = $this->form->deleteField(Input::get('id'), $form);

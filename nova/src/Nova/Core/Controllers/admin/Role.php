@@ -114,7 +114,7 @@ class Role extends AdminBaseController {
 	public function postIndex()
 	{
 		// Get the action
-		$action = e(Input::get('formAction'));
+		$formAction = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new AccessRoleValidator;
@@ -122,13 +122,24 @@ class Role extends AdminBaseController {
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
 		{
+			if ($formAction == 'delete' or $formAction == 'duplicate')
+			{
+				// Set the flash message
+				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
+				$flashMessage.= implode(' ', $validator->getErrors()->all());
+
+				return Redirect::to('admin/role')
+					->with('flashStatus', 'danger')
+					->with('flashMessage', $flashMessage);
+			}
+
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
 		}
 
 		/**
 		 * Create a role.
 		 */
-		if ($this->currentUser->hasAccess('role.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('role.create') and $formAction == 'create')
 		{
 			// Create the item
 			$item = $this->role->create(Input::all());
@@ -136,14 +147,14 @@ class Role extends AdminBaseController {
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
 			$flashMessage = ($item) 
-				? ucfirst(lang('short.alert.success.create', langConcat('access role')))
-				: ucfirst(lang('short.alert.failure.create', langConcat('access role')));
+				? lang('Short.alert.success.create', langConcat('access role'))
+				: lang('Short.alert.failure.create', langConcat('access role'));
 		}
 
 		/**
 		 * Duplicate a role.
 		 */
-		if ($this->currentUser->hasAccess('role.create') and $action == 'duplicate')
+		if ($this->currentUser->hasAccess('role.create') and $formAction == 'duplicate')
 		{
 			// Duplicate the role
 			$item = $this->role->duplicate($id, Input::all());
@@ -151,14 +162,14 @@ class Role extends AdminBaseController {
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
 			$flashMessage = ($item) 
-				? ucfirst(lang('short.alert.success.create', langConcat('access role')))
-				: ucfirst(lang('short.alert.failure.create', langConcat('access role')));
+				? lang('Short.alert.success.create', langConcat('access role'))
+				: lang('Short.alert.failure.create', langConcat('access role'));
 		}
 
 		/**
 		 * Update the role.
 		 */
-		if ($this->currentUser->hasAccess('role.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('role.update') and $formAction == 'update')
 		{
 			// Update the role
 			$item = $this->role->update(Input::get('id'), Input::all());
@@ -166,14 +177,14 @@ class Role extends AdminBaseController {
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
 			$flashMessage = ($item) 
-				? ucfirst(lang('short.alert.success.update', langConcat('access role')))
-				: ucfirst(lang('short.alert.failure.update', langConcat('access role')));
+				? lang('Short.alert.success.update', langConcat('access role'))
+				: lang('Short.alert.failure.update', langConcat('access role'));
 		}
 
 		/**
 		 * Delete the role.
 		 */
-		if ($this->currentUser->hasAccess('role.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('role.delete') and $formAction == 'delete')
 		{
 			// Delete the role
 			$item = $this->role->delete(Input::get('id'), Input::get('new_role_id'));
@@ -181,8 +192,8 @@ class Role extends AdminBaseController {
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
 			$flashMessage = ($item) 
-				? ucfirst(lang('short.alert.success.delete', langConcat('access role')))
-				: ucfirst(lang('short.alert.failure.delete', langConcat('access role')));
+				? lang('Short.alert.success.delete', langConcat('access role'))
+				: lang('Short.alert.failure.delete', langConcat('access role'));
 		}
 
 		return Redirect::to('admin/role')
@@ -265,7 +276,7 @@ class Role extends AdminBaseController {
 	public function postTasks()
 	{
 		// Get the action
-		$action = e(Input::get('formAction'));
+		$formAction = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new AccessTaskValidator;
@@ -273,13 +284,24 @@ class Role extends AdminBaseController {
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
 		{
+			if ($formAction == 'delete')
+			{
+				// Set the flash message
+				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
+				$flashMessage.= implode(' ', $validator->getErrors()->all());
+
+				return Redirect::to('admin/role/tasks')
+					->with('flashStatus', 'danger')
+					->with('flashMessage', $flashMessage);
+			}
+
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
 		}
 
 		/**
 		 * Create new task.
 		 */
-		if ($this->currentUser->hasAccess('role.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('role.create') and $formAction == 'create')
 		{
 			// Create the item
 			$item = $this->role->createTask(Input::all());
@@ -287,14 +309,14 @@ class Role extends AdminBaseController {
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
 			$flashMessage = ($item) 
-				? ucfirst(lang('short.alert.success.create', langConcat('access task')))
-				: ucfirst(lang('short.alert.failure.create', langConcat('access task')));
+				? lang('Short.alert.success.create', langConcat('access task'))
+				: lang('Short.alert.failure.create', langConcat('access task'));
 		}
 
 		/**
 		 * Update task.
 		 */
-		if ($this->currentUser->hasAccess('role.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('role.update') and $formAction == 'update')
 		{
 			// Update the task
 			$item = $this->role->updateTask(Input::get('id'), Input::all());
@@ -302,14 +324,14 @@ class Role extends AdminBaseController {
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
 			$flashMessage = ($item) 
-				? ucfirst(lang('short.alert.success.update', langConcat('access task')))
-				: ucfirst(lang('short.alert.failure.update', langConcat('access task')));
+				? lang('Short.alert.success.update', langConcat('access task'))
+				: lang('Short.alert.failure.update', langConcat('access task'));
 		}
 
 		/**
 		 * Delete task.
 		 */
-		if ($this->currentUser->hasAccess('role.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('role.delete') and $formAction == 'delete')
 		{
 			// Delete the task
 			$item = $this->role->deleteTask(Input::get('id'));
@@ -317,8 +339,8 @@ class Role extends AdminBaseController {
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
 			$flashMessage = ($item) 
-				? ucfirst(lang('short.alert.success.delete', langConcat('access task')))
-				: ucfirst(lang('short.alert.failure.delete', langConcat('access task')));
+				? lang('Short.alert.success.delete', langConcat('access task'))
+				: lang('Short.alert.failure.delete', langConcat('access task'));
 		}
 
 		return Redirect::to('admin/role/tasks')

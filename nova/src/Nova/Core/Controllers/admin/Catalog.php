@@ -121,7 +121,7 @@ class Catalog extends AdminBaseController {
 	public function postRanks()
 	{
 		// Get the action
-		$action = e(Input::get('formAction'));
+		$formAction = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new RankCatalogValidator;
@@ -129,7 +129,7 @@ class Catalog extends AdminBaseController {
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
 		{
-			if ($action == 'delete' or $action == 'install')
+			if ($formAction == 'delete' or $formAction == 'install')
 			{
 				// Set the flash message
 				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
@@ -144,12 +144,12 @@ class Catalog extends AdminBaseController {
 		}
 
 		/**
-		 * Create a rank set.
+		 * Create a rank set catalog.
 		 */
-		if ($this->currentUser->hasAccess('catalog.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('catalog.create') and $formAction == 'create')
 		{
-			// Create the rank set
-			$item = $this->catalog->create(Input::all());
+			// Create the rank set catalog
+			$item = $this->catalog->createRank(Input::all());
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -159,11 +159,11 @@ class Catalog extends AdminBaseController {
 		}
 
 		/**
-		 * Install a rank set.
+		 * Install a rank set catalog.
 		 */
-		if ($this->currentUser->hasAccess('catalog.create') and $action == 'install')
+		if ($this->currentUser->hasAccess('catalog.create') and $formAction == 'install')
 		{
-			// Install the rank set
+			// Install the rank set catalog
 			$item = $this->catalog->installRank(Input::get('location'));
 
 			// Set the flash info
@@ -174,7 +174,7 @@ class Catalog extends AdminBaseController {
 		/**
 		 * Edit a rank set.
 		 */
-		if ($this->currentUser->hasAccess('catalog.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('catalog.update') and $formAction == 'update')
 		{
 			// Update the rank set
 			$item = $this->catalog->updateRank(Input::get('id'), Input::all());
@@ -189,7 +189,7 @@ class Catalog extends AdminBaseController {
 		/**
 		 * Delete the rank set.
 		 */
-		if ($this->currentUser->hasAccess('catalog.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('catalog.delete') and $formAction == 'delete')
 		{
 			// Delete the rank set
 			$item = $this->catalog->deleteRank(Input::get('id'), Input::get('new_rank_set'));
@@ -298,7 +298,7 @@ class Catalog extends AdminBaseController {
 	public function postSkins()
 	{
 		// Get the action
-		$action = e(Input::get('formAction'));
+		$formAction = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new SkinCatalogValidator;
@@ -306,7 +306,7 @@ class Catalog extends AdminBaseController {
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
 		{
-			if ($action == 'delete' or $action == 'install' or $action == 'version')
+			if ($formAction == 'delete' or $formAction == 'install' or $formAction == 'version')
 			{
 				// Set the flash message
 				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
@@ -323,7 +323,7 @@ class Catalog extends AdminBaseController {
 		/**
 		 * Create a skin.
 		 */
-		if ($this->currentUser->hasAccess('catalog.create') and $action == 'create')
+		if ($this->currentUser->hasAccess('catalog.create') and $formAction == 'create')
 		{
 			// Create the skin
 			$item = $this->catalog->createSkin(Input::all());
@@ -338,7 +338,7 @@ class Catalog extends AdminBaseController {
 		/**
 		 * Install a skin.
 		 */
-		if ($this->currentUser->hasAccess('catalog.create') and $action == 'install')
+		if ($this->currentUser->hasAccess('catalog.create') and $formAction == 'install')
 		{
 			// Install the rank set
 			$item = $this->catalog->installSkin(Input::get('location'));
@@ -351,7 +351,7 @@ class Catalog extends AdminBaseController {
 		/**
 		 * Update to a newer version of a skin.
 		 */
-		if ($this->currentUser->hasAccess('catalog.update') and $action == 'version')
+		if ($this->currentUser->hasAccess('catalog.update') and $formAction == 'version')
 		{
 			// Update the version of the skin
 			$this->catalog->updateSkinVersion(Input::get('id'));
@@ -364,7 +364,7 @@ class Catalog extends AdminBaseController {
 		/**
 		 * Edit a skin.
 		 */
-		if ($this->currentUser->hasAccess('catalog.update') and $action == 'update')
+		if ($this->currentUser->hasAccess('catalog.update') and $formAction == 'update')
 		{
 			// Update the skin
 			$item = $this->catalog->updateSkin(Input::get('id'), Input::all());
@@ -379,7 +379,7 @@ class Catalog extends AdminBaseController {
 		/**
 		 * Delete the skin.
 		 */
-		if ($this->currentUser->hasAccess('catalog.delete') and $action == 'delete')
+		if ($this->currentUser->hasAccess('catalog.delete') and $formAction == 'delete')
 		{
 			// Delete the skin
 			$item = $this->catalog->deleteSkin(Input::get('id'), Input::get('new_skin'));

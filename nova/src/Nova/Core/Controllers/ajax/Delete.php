@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Controllers\Ajax;
 
+use Nova;
 use View;
 use Input;
-use Sentry;
 use Location;
 use AjaxBaseController;
 
@@ -10,7 +10,7 @@ class Delete extends AjaxBaseController {
 
 	public function action_apprule($id)
 	{
-		if (\Sentry::check() and \Sentry::user()->hasLevel('character.create', 2))
+		if ($this->auth->check() and $this->currentUser->hasLevel('character.create', 2))
 		{
 			// get the rule
 			$rule = \Model_Application_Rule::find($id);
@@ -29,7 +29,7 @@ class Delete extends AjaxBaseController {
 
 	public function action_arc_unbanuser($id)
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('ban.delete'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('ban.delete'))
 		{
 			// get the user
 			$user = \Model_User::find(\Security::xss_clean($id));
@@ -52,7 +52,7 @@ class Delete extends AjaxBaseController {
 	 */
 	public function getForm($formKey)
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('form.delete'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('form.delete'))
 		{
 			// Get the form
 			$form = \NovaForm::key($formKey)->first();
@@ -77,7 +77,7 @@ class Delete extends AjaxBaseController {
 	 */
 	public function getFormField($id)
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('form.delete'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('form.delete'))
 		{
 			// Get the field we're deleting
 			$field = \NovaFormField::find($id);
@@ -99,7 +99,7 @@ class Delete extends AjaxBaseController {
 	 */
 	public function postFormValue()
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('form.delete'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('form.delete'))
 		{
 			// Get the value
 			$id = e(Input::get('id'));
@@ -117,7 +117,7 @@ class Delete extends AjaxBaseController {
 	 */
 	public function getFormSection($id)
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('form.delete'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('form.delete'))
 		{
 			// Get the section we're deleting
 			$section = \NovaFormSection::find($id);
@@ -148,7 +148,7 @@ class Delete extends AjaxBaseController {
 	 */
 	public function getFormTab($id)
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('form.delete'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('form.delete'))
 		{
 			// Get the tab we're deleting
 			$tab = \NovaFormTab::find($id);
@@ -179,7 +179,7 @@ class Delete extends AjaxBaseController {
 	 */
 	public function getFormViewerEntry($formKey, $id)
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('form.delete'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('form.delete'))
 		{
 			// Get the form we're deleting from
 			$form = \NovaForm::key($formKey)->first();
@@ -212,7 +212,7 @@ class Delete extends AjaxBaseController {
 
 	public function action_rank($id)
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('rank.delete'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('rank.delete'))
 		{
 			// get the rank info
 			$rank = \Model_Rank::find($id);
@@ -231,7 +231,7 @@ class Delete extends AjaxBaseController {
 
 	public function action_rankgroup($id)
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('rank.delete'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('rank.delete'))
 		{
 			// get the rank group
 			$group = \Model_Rank_Group::find($id);
@@ -267,7 +267,7 @@ class Delete extends AjaxBaseController {
 
 	public function action_rankinfo($id)
 	{
-		if (\Sentry::check() and \Sentry::user()->hasAccess('rank.delete'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('rank.delete'))
 		{
 			// get the rank info
 			$info = \Model_Rank_Info::find($id);
@@ -311,7 +311,7 @@ class Delete extends AjaxBaseController {
 	 */
 	public function getRankSet($id)
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('catalog.delete'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('catalog.delete'))
 		{
 			// Get the catalog we're deleting
 			$catalog = \RankCatalog::find($id);
@@ -346,7 +346,7 @@ class Delete extends AjaxBaseController {
 	 */
 	public function getRole($id)
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('role.delete'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('role.delete'))
 		{
 			// Get the role
 			$role = \AccessRole::find($id);
@@ -380,7 +380,7 @@ class Delete extends AjaxBaseController {
 	 */
 	public function getRoleTask($id)
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('role.delete'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('role.delete'))
 		{
 			$task = \AccessTask::find($id);
 
@@ -400,7 +400,7 @@ class Delete extends AjaxBaseController {
 	 */
 	public function getRoute($id)
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('routes.delete'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('routes.delete'))
 		{
 			$route = \SystemRoute::find($id);
 
@@ -423,10 +423,10 @@ class Delete extends AjaxBaseController {
 	 */
 	public function getSiteContent($id)
 	{
-		if (Sentry::check() and $this->currentUser->hasAccess('content.delete'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('content.delete'))
 		{
 			// Resolve the bindings
-			$content = $this->resolveBinding('SiteContentRepositoryInterface');
+			$content = Nova::resolveBinding('SiteContentRepositoryInterface');
 
 			// Get the content item
 			$item = $content->find($id);
@@ -451,7 +451,7 @@ class Delete extends AjaxBaseController {
 	 */
 	public function getSkin($id)
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('catalog.delete'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('catalog.delete'))
 		{
 			$catalog = \SkinCatalog::find($id);
 
@@ -485,7 +485,7 @@ class Delete extends AjaxBaseController {
 	 */
 	public function getUser($id)
 	{
-		if (Sentry::check() and Sentry::getUser()->hasAccess('user.delete'))
+		if ($this->auth->check() and $this->currentUser->hasAccess('user.delete'))
 		{
 			$user = \User::find($id);
 
