@@ -56,3 +56,11 @@
 .twitter-typeahead input {
 	padding: 8px 12px;
 }
+.twitter-typeahead .tt-hint {
+	display: block;
+	height: 34px;
+	padding: 5px 12px;
+	font-size: 14px;
+	line-height: 1.428571429;
+	border: 1px solid transparent;
+}
