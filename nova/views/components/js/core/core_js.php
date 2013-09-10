@@ -53,9 +53,6 @@
 		$.lazy({
 			src: "<?php echo URL::to('nova/assets/js/typeahead.min.js');?>",
 			name: 'typeahead',
-			dependencies: {
-				css: ["<?php echo URL::to('nova/assets/css/typeahead.bootstrap.css');?>"]
-			},
 			cache: true
 		});
 	});
