@@ -536,7 +536,7 @@ return [
 		'type'		=> $type,
 		'section'	=> 'manage',
 		'page'		=> 'sitecontent',
-		'uri'		=> 'admin/manage/sitecontent'
+		'uri'		=> 'admin/sitecontent'
 	],
 	[
 		'key'		=> 'header.admin.manage.content.create',
@@ -545,7 +545,7 @@ return [
 		'type'		=> $type,
 		'section'	=> 'manage',
 		'page'		=> 'sitecontent',
-		'uri'		=> 'admin/manage/sitecontent',
+		'uri'		=> 'admin/sitecontent',
 		'mode'		=> 'create'
 	],
 	[
@@ -555,7 +555,7 @@ return [
 		'type'		=> $type,
 		'section'	=> 'manage',
 		'page'		=> 'sitecontent',
-		'uri'		=> 'admin/manage/sitecontent',
+		'uri'		=> 'admin/sitecontent',
 		'mode'		=> 'update'
 	],
 

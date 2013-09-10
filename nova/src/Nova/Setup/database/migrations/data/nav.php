@@ -397,7 +397,7 @@ return [
 		'name' => 'Site Content',
 		'group' => 0,
 		'order' => 2,
-		'url' => 'admin/manage/sitecontent',
+		'url' => 'admin/sitecontent',
 		'type' => 'adminsub',
 		'category' => 'manage',
 		'access' => 'content.create|content.update|content.delete'

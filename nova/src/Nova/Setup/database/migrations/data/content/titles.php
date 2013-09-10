@@ -338,7 +338,7 @@ return [
 		'type'		=> $type,
 		'section'	=> 'manage',
 		'page'		=> 'sitecontent',
-		'uri'		=> 'admin/manage/sitecontent'
+		'uri'		=> 'admin/sitecontent'
 	],
 
 ];
