@@ -36,10 +36,10 @@ class DynamicForm {
 	 */
 	public function setup($formKey, $id = false, $editable = true)
 	{
-		$this->formKey = $formKey;
-		$this->form = $this->data['form'] = NovaForm::key($formKey)->first();
-		$this->id = $this->data['id'] = $id;
-		$this->data['editable'] = $editable;
+		$this->formKey			= $formKey;
+		$this->form				= $this->data['form'] = NovaForm::key($formKey)->first();
+		$this->id				= $this->data['id'] = $id;
+		$this->data['editable']	= $editable;
 
 		return $this;
 	}
