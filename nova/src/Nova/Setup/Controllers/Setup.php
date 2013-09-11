@@ -235,7 +235,11 @@ class Setup extends SetupBaseController {
 		// Wait for it...
 		sleep(2);
 
-		return Redirect::to('setup');
+		return Redirect::to('setup', 302, [
+			'Cache-Control'	=> 'no-cache, no-store, must-revalidate',
+			'Pragma'		=> 'no-cache',
+			'Expires'		=> 0
+		]);
 	}
 
 	public function getGenres()
