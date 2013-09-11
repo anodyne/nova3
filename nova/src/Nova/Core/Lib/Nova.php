@@ -45,7 +45,7 @@ class Nova {
 	{
 		if ($this->auth->check())
 		{
-			return $this->currentUser->getPreferenceItem('rank');
+			return $this->auth->getUser()->getPreferenceItem('rank');
 		}
 
 		return $this->settings->findByKey('rank');
@@ -70,7 +70,7 @@ class Nova {
 
 			if ($this->auth->check())
 			{
-				return $this->currentUser->getPreferenceItem("skin_{$section}");
+				return $this->auth->getUser()->getPreferenceItem("skin_{$section}");
 			}
 
 			return $this->settings->findByKey("skin_{$section}");
