@@ -20,19 +20,19 @@ class Manage extends AdminBaseController {
 		$this->routes = $routes;
 	}
 
-	public function getRoutes($id = false)
+	public function getRoutes($routeId = false)
 	{
 		// Verify the user is allowed
 		$this->currentUser->allowed(['routes.create', 'routes.update', 'routes.delete'], true);
 
 		$this->_jsView = 'admin/manage/routes_js';
 
-		if ($id !== false)
+		if ($routeId !== false)
 		{
 			$this->_view = 'admin/manage/routes_action';
 
 			// Set the ID
-			$routeId = (is_numeric($id)) ? $id : 0;
+			$routeId = (is_numeric($routeId)) ? $routeId : 0;
 
 			// Get the route
 			$route = $this->_data->route = $this->routes->find($routeId);
@@ -82,8 +82,11 @@ class Manage extends AdminBaseController {
 	}
 	public function postRoutes()
 	{
+		// Get the input
+		$input = Input::all();
+
 		// Get the action
-		$formAction = e(Input::get('formAction'));
+		$formAction = e($input['formAction']);
 
 		// Set up the validation service
 		$validator = new SystemRouteValidator;
@@ -110,14 +113,7 @@ class Manage extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('routes.create') and $formAction == 'create')
 		{
-			// Create the new page route
-			$item = $this->routes->create(Input::all());
-
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.create', lang('route'))
-				: lang('Short.alert.failure.create', lang('route'));
+			$return = $this->performRoutesCreate($input);
 		}
 
 		/**
@@ -125,14 +121,7 @@ class Manage extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('routes.create') and $formAction == 'duplicate')
 		{
-			// Duplicate the route
-			$item = $this->routes->duplicate(Input::get('id'));
-
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.duplicate', langConcat('core route'))
-				: lang('Short.alert.failure.duplicate', langConcat('core route'));
+			$return = $this->performRoutesDuplicate($input);
 		}
 
 		/**
@@ -140,14 +129,7 @@ class Manage extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('routes.update') and $formAction == 'update')
 		{
-			// Update the route
-			$item = $this->routes->update(Input::get('id'), Input::all());
-
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('short.alert.success.update', lang('route'))
-				: lang('short.alert.failure.update', lang('route'));
+			$return = $this->performRoutesUpdate($input);
 		}
 
 		/**
@@ -155,22 +137,15 @@ class Manage extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('routes.delete') and $formAction == 'delete')
 		{
-			// Delete the route
-			$item = $this->routes->delete(Input::get('id'));
-
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.delete', lang('route'))
-				: lang('Short.alert.failure.delete', lang('route'));
+			$return = $this->performRoutesDelete($input);
 		}
 
 		return Redirect::to('admin/routes')
-			->with('flashStatus', $flashStatus)
-			->with('flashMessage', $flashMessage);
+			->with('flashStatus', $return['status'])
+			->with('flashMessage', $return['message']);
 	}
 
-	public function getSiteContent($id = false)
+	public function getSiteContent($contentId = false)
 	{
 		// Verify the user is allowed
 		$this->currentUser->allowed(['content.create', 'content.update', 'content.delete'], true);
@@ -178,13 +153,13 @@ class Manage extends AdminBaseController {
 		// Set the views
 		$this->_jsView = 'admin/manage/sitecontent_js';
 
-		if ($id !== false)
+		if ($contentId !== false)
 		{
 			// Set the view
 			$this->_view = 'admin/manage/sitecontent_action';
 
 			// Get the content item
-			$content = $this->_data->content = $this->content->find($id);
+			$content = $this->_data->content = $this->content->find($contentId);
 
 			// Get all the routes
 			$routes = $this->routes->all();
@@ -234,8 +209,11 @@ class Manage extends AdminBaseController {
 	}
 	public function postSiteContent()
 	{
+		// Get the input
+		$input = Input::all();
+
 		// Get the action
-		$formAction = e(Input::get('formAction'));
+		$formAction = e($input['formAction']);
 
 		// Set up the validation service
 		$validator = new SiteContentValidator;
@@ -262,14 +240,7 @@ class Manage extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('content.create') and $formAction == 'create')
 		{
-			// Create the item
-			$item = $this->content->create(Input::all());
-
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.create', langConcat('site content'))
-				: lang('Short.alert.failure.create', langConcat('site content'));
+			$return = $this->performSiteContentCreate($input);
 		}
 
 		/**
@@ -277,14 +248,7 @@ class Manage extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('content.update') and $formAction == 'update')
 		{
-			// Update the item
-			$item = $this->content->update(Input::get('id'), Input::all());
-
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.update', langConcat('site content'))
-				: lang('Short.alert.failure.update', langConcat('site content'));
+			$return = $this->performSiteContentUpdate($input);
 		}
 
 		/**
@@ -292,19 +256,104 @@ class Manage extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('content.delete') and $formAction == 'delete')
 		{
-			// Delete the site content item
-			$item = $this->content->delete(Input::get('id'));
-
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.delete', langConcat('site content'))
-				: lang('Short.alert.failure.delete', langConcat('site content'));
+			$return = $this->performSiteContentDelete($input);
 		}
 
 		return Redirect::to('admin/sitecontent')
-			->with('flashStatus', $flashStatus)
-			->with('flashMessage', $flashMessage);
+			->with('flashStatus', $return['status'])
+			->with('flashMessage', $return['message']);
+	}
+
+	/**
+	 * Routes actions.
+	 */
+	protected function performRoutesCreate(array $input)
+	{
+		// Create the new page route
+		$item = $this->routes->create($input);
+
+		return [
+			'status'	=> ($item) ? 'success' : 'danger',
+			'message'	=> ($item) 
+				? lang('Short.alert.success.create', lang('route'))
+				: lang('Short.alert.failure.create', lang('route'))
+		];
+	}
+	protected function performRoutesDuplicate(array $input)
+	{
+		// Duplicate the route
+		$item = $this->routes->duplicate($input['id']);
+
+		return [
+			'status'	=> ($item) ? 'success' : 'danger',
+			'message'	=> ($item) 
+				? lang('Short.alert.success.duplicate', langConcat('core route'))
+				: lang('Short.alert.failure.duplicate', langConcat('core route'))
+		];
+	}
+	protected function performRoutesUpdate(array $input)
+	{
+		// Update the route
+		$item = $this->routes->update($input['id'], $input);
+
+		return [
+			'status'	=> ($item) ? 'success' : 'danger',
+			'message'	=> ($item) 
+				? lang('Short.alert.success.update', lang('route'))
+				: lang('Short.alert.failure.update', lang('route'))
+		];
+	}
+	protected function performRoutesDelete(array $input)
+	{
+		// Delete the route
+		$item = $this->routes->delete($input['id']);
+
+		return [
+			'status'	=> ($item) ? 'success' : 'danger',
+			'message'	=> ($item) 
+				? lang('Short.alert.success.delete', lang('route'))
+				: lang('Short.alert.failure.delete', lang('route'))
+		];
+	}
+
+	/**
+	 * Site contents actions.
+	 */
+	protected function performSiteContentCreate(array $input)
+	{
+		// Create the item
+		$item = $this->content->create($input);
+
+		return [
+			'status'	=> ($item) ? 'success' : 'danger',
+			'message'	=> ($item) 
+				? lang('Short.alert.success.create', langConcat('site content'))
+				: lang('Short.alert.failure.create', langConcat('site content'))
+		];
+	}
+	protected function performSiteContentUpdate(array $input)
+	{
+		// Update the item
+		$item = $this->content->update($input['id'], $input);
+
+		return [
+			'status'	=> ($item) ? 'success' : 'danger',
+			'message'	=> ($item) 
+				? lang('Short.alert.success.update', langConcat('site content'))
+				: lang('Short.alert.failure.update', langConcat('site content'))
+		];
+	}
+	protected function performSiteContentDelete(array $input)
+	{
+		// Delete the site content item
+		$item = $this->content->delete($input['id']);
+
+		return [
+			'status'	=> ($item) ? 'success' : 'danger',
+			'message'	=> ($item) 
+				? lang('Short.alert.success.delete', langConcat('site content'))
+				: lang('Short.alert.failure.delete', langConcat('site content'))
+		];
 	}
 
 }

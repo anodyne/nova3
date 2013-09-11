@@ -401,7 +401,7 @@ return [
 	[
 		'name'			=> 'admin/routes',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/routes/{id?}',
+		'uri'			=> 'admin/routes/{routeId?}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@getRoutes',
 		'protected'		=> (int) true
 	],
@@ -415,7 +415,7 @@ return [
 	[
 		'name'			=> 'admin/sitecontent',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/sitecontent/{id?}',
+		'uri'			=> 'admin/sitecontent/{contentId?}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@getSiteContent',
 		'protected'		=> (int) true
 	],
