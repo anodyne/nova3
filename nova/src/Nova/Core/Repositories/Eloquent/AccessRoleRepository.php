@@ -97,12 +97,13 @@ class AccessRoleRepository implements AccessRoleRepositoryInterface {
 	/**
 	 * Delete an access role.
 	 *
-	 * @param	array	$data	Data to use for deletion
+	 * @param	int		$id		The ID to delete
+	 * @param	int		$newId	The new ID to use
 	 * @return	bool
 	 */
-	public function delete(array $data)
+	public function delete($id, $newId = false)
 	{
-		$id = $this->sanitizeInt($data['id']);
+		$id = $this->sanitizeInt($id);
 		
 		// Get the role
 		$item = $this->find($id);
@@ -110,7 +111,7 @@ class AccessRoleRepository implements AccessRoleRepositoryInterface {
 		if ($item)
 		{
 			// Sanitize the new ID
-			$newId = $this->sanitizeInt($data['new_role_id']);
+			$newId = $this->sanitizeInt($newId);
 
 			if ( ! $newId)
 				return false;
@@ -133,12 +134,12 @@ class AccessRoleRepository implements AccessRoleRepositoryInterface {
 	/**
 	 * Delete a task.
 	 *
-	 * @param	array	$data	Data to use for deletion
+	 * @param	int		$id		ID to delete
 	 * @return	bool
 	 */
-	public function deleteTask(array $data)
+	public function deleteTask($id)
 	{
-		$id = $this->sanitizeInt($data['id']);
+		$id = $this->sanitizeInt($id);
 
 		// Get the task
 		$item = $this->findTask($id);
@@ -157,12 +158,13 @@ class AccessRoleRepository implements AccessRoleRepositoryInterface {
 	/**
 	 * Duplicate an access role.
 	 *
-	 * @param	array	$data	Data for the duplicated role
+	 * @param	int		$id		Role ID to duplicate
+	 * @param	array	$data	Additional data for the duplicated role
 	 * @return	AccessRole
 	 */
-	public function duplicate(array $data)
+	public function duplicate($id, array $data)
 	{
-		$id = $this->sanitizeInt($data['id']);
+		$id = $this->sanitizeInt($id);
 
 		// Get the role
 		$item = $this->find($id);
@@ -230,12 +232,13 @@ class AccessRoleRepository implements AccessRoleRepositoryInterface {
 	/**
 	 * Update an item.
 	 *
+	 * @param	int		$id		ID to update
 	 * @param	array	$data	Data to use for update
 	 * @return	AccessRole
 	 */
-	public function update(array $data)
+	public function update($id, array $data)
 	{
-		$id = $this->sanitizeInt($data['id']);
+		$id = $this->sanitizeInt($id);
 
 		// Get the role
 		$item = $this->find($id);
@@ -285,12 +288,13 @@ class AccessRoleRepository implements AccessRoleRepositoryInterface {
 	/**
 	 * Update a role task.
 	 *
+	 * @param	int		$id		ID to update
 	 * @param	array	$data	Data to use for update
 	 * @return	AccessTask
 	 */
-	public function updateTask(array $data)
+	public function updateTask($id, array $data)
 	{
-		$id = $this->sanitizeInt($data['id']);
+		$id = $this->sanitizeInt($id);
 
 		// Get the task
 		$item = $this->findTask($id);

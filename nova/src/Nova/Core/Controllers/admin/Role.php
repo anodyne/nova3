@@ -319,7 +319,7 @@ class Role extends AdminBaseController {
 	protected function performRoleDuplicate(array $input)
 	{
 		// Duplicate the role
-		$item = $this->role->duplicate($input);
+		$item = $this->role->duplicate($input['id'], $input);
 
 		return [
 			'status'	=> ($item) ? 'success' : 'danger',
@@ -331,7 +331,7 @@ class Role extends AdminBaseController {
 	protected function performRoleUpdate(array $input)
 	{
 		// Update the role
-		$item = $this->role->update($input);
+		$item = $this->role->update($input['id'], $input);
 
 		return [
 			'status'	=> ($item) ? 'success' : 'danger',
@@ -343,7 +343,7 @@ class Role extends AdminBaseController {
 	protected function performRoleDelete(array $input)
 	{
 		// Delete the role
-		$item = $this->role->delete($input);
+		$item = $this->role->delete($input['id'], $input['new_role_id']);
 
 		return [
 			'status'	=> ($item) ? 'success' : 'danger',
@@ -371,7 +371,7 @@ class Role extends AdminBaseController {
 	protected function performTaskUpdate(array $input)
 	{
 		// Update the role
-		$item = $this->role->updateTask($input);
+		$item = $this->role->updateTask($input['id'], $input);
 
 		return [
 			'status'	=> ($item) ? 'success' : 'danger',
@@ -383,7 +383,7 @@ class Role extends AdminBaseController {
 	protected function performTaskDelete(array $input)
 	{
 		// Delete the role
-		$item = $this->role->deleteTask($input);
+		$item = $this->role->deleteTask($input['id']);
 
 		return [
 			'status'	=> ($item) ? 'success' : 'danger',

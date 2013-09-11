@@ -20,10 +20,10 @@ interface BaseRepositoryInterface {
 	/**
 	 * Delete an item.
 	 *
-	 * @param	array	$data	Data to use for delete
+	 * @param	int		$id		ID to delete
 	 * @return	bool
 	 */
-	public function delete(array $data);
+	public function delete($id);
 
 	/**
 	 * Find an item by ID.
@@ -36,9 +36,10 @@ interface BaseRepositoryInterface {
 	/**
 	 * Update an item.
 	 *
+	 * @param	int		$id		ID to update
 	 * @param	array	$data	Data to use for update
 	 * @return	object
 	 */
-	public function update(array $data);
+	public function update($id, array $data);
 
 }
