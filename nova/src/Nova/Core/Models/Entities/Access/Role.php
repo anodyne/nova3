@@ -16,17 +16,17 @@ class Role extends Model implements GroupInterface {
 	
 	protected $table = 'roles';
 
-	protected $fillable = array(
+	protected $fillable = [
 		'name', 'desc', 'inherits',
-	);
+	];
 
-	protected $dates = array(
+	protected $dates = [
 		'created_at', 'updated_at',
-	);
+	];
 	
-	protected static $properties = array(
+	protected static $properties = [
 		'id', 'name', 'desc', 'inherits', 'created_at', 'updated_at',
-	);
+	];
 
 	/*
 	|--------------------------------------------------------------------------
@@ -97,7 +97,7 @@ class Role extends Model implements GroupInterface {
 	public function getTasks($getInherited = true)
 	{
 		// Start the array for holding
-		$groups = array();
+		$groups = [];
 		
 		// Loop through this role's tasks
 		foreach ($this->tasks as $task)
@@ -123,7 +123,7 @@ class Role extends Model implements GroupInterface {
 	public function getInheritedTasks($returnArray = false)
 	{
 		// Make a temporary group holder
-		$groups = array();
+		$groups = [];
 
 		if (count($this->inherits) > 0)
 		{

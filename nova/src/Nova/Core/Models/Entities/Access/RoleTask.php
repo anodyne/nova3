@@ -8,12 +8,12 @@ class RoleTask extends Model {
 	
 	protected $table = 'roles_tasks';
 
-	protected $fillable = array(
+	protected $fillable = [
 		'role_id', 'task_id',
-	);
+	];
 	
-	protected static $properties = array(
+	protected static $properties = [
 		'id', 'role_id', 'task_id',
-	);
+	];
 
 }

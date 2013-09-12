@@ -16,7 +16,7 @@ class Role extends AdminBaseController {
 		parent::__construct();
 
 		// Set the injected interfaces
-		$this->role = $role;
+		$this->roles = $role;
 	}
 
 	/**
@@ -31,7 +31,7 @@ class Role extends AdminBaseController {
 		$this->_jsView = 'admin/role/roles_js';
 
 		// Get all the roles
-		$roles = $this->_data->roles = $this->role->all();
+		$this->_data->roles = $this->roles->all();
 
 		if ($roleId !== false)
 		{
@@ -39,22 +39,18 @@ class Role extends AdminBaseController {
 			$this->_view = 'admin/role/roles_action';
 
 			// Get the role
-			$role = $this->_data->role = $this->role->find($roleId);
+			$role = $this->_data->role = $this->roles->find($roleId);
 
 			// Get all the tasks
-			$tasks = $this->role->allTasks();
-
-			// Loop through the tasks and group them by component
-			foreach ($tasks as $t)
-			{
-				$this->_data->tasks[$t->component][] = $t;
-			}
+			$this->_data->tasks = $this->roles->allTasks()->toMultiArray('component');
 
 			// If we're editing, grab all the tasks for this role
-			if ($roleId > 0)
+			if ((int) $roleId > 0)
 			{
 				// Get the tasks for the role we're editing
 				$this->_data->roleTasks = $role->getTasks(false)->toSimpleArray();
+
+				# TODO: need to clean this up
 
 				// Set the inherited tasks array
 				$this->_data->inheritedTasks = [];
@@ -89,34 +85,28 @@ class Role extends AdminBaseController {
 			$this->_view = 'admin/role/roles';
 
 			// Build the users with roles modal
-			$this->_ajax[] = View::make(Location::partial('common/modal'))
-				->with('modalId', 'usersWithRole')
-				->with('modalHeader', langConcat('Users with Role'))
-				->with('modalBody', '')
-				->with('modalFooter', false);
+			$this->_ajax[] = modal([
+				'id'		=> 'usersWithRole',
+				'header'	=> langConcat('Users with Role')
+			]);
 
 			// Build the delete roles modal
-			$this->_ajax[] = View::make(Location::partial('common/modal'))
-				->with('modalId', 'deleteRole')
-				->with('modalHeader', lang('Short.delete', langConcat('Access Role')))
-				->with('modalBody', '')
-				->with('modalFooter', false);
+			$this->_ajax[] = modal([
+				'id'		=> 'deleteRole',
+				'header'	=> lang('Short.delete', langConcat('Access Role'))
+			]);
 
 			// Build the duplicate role modal
-			$this->_ajax[] = View::make(Location::partial('common/modal'))
-				->with('modalId', 'duplicateRole')
-				->with('modalHeader', lang('Short.duplicate', langConcat('Access Role')))
-				->with('modalBody', '')
-				->with('modalFooter', false);
+			$this->_ajax[] = modal([
+				'id'		=> 'duplicateRole',
+				'header'	=> lang('Short.duplicate', langConcat('Access Role'))
+			]);
 		}
 	}
 	public function postIndex()
 	{
-		// Get the input
-		$input = Input::all();
-
 		// Get the action
-		$formAction = e($input['formAction']);
+		$formAction = e(Input::get('formAction'));
 
 		// Set up the validation service
 		$validator = new AccessRoleValidator;
@@ -143,7 +133,14 @@ class Role extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('role.create') and $formAction == 'create')
 		{
-			$return = $this->performRoleCreate($input);
+			// Create the item
+			$item = $this->role->create(Input::all());
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.create', langConcat('access role'))
+				: lang('Short.alert.failure.create', langConcat('access role'));
 		}
 
 		/**
@@ -151,7 +148,14 @@ class Role extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('role.create') and $formAction == 'duplicate')
 		{
-			$return = $this->performRoleDuplicate($input);
+			// Duplicate the role
+			$item = $this->role->duplicate(Input::get('id'), Input::all());
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.create', langConcat('access role'))
+				: lang('Short.alert.failure.create', langConcat('access role'));
 		}
 
 		/**
@@ -159,7 +163,14 @@ class Role extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('role.update') and $formAction == 'update')
 		{
-			$return = $this->performRoleUpdate($input);
+			// Update the role
+			$item = $this->role->update(Input::get('id'), Input::all());
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.update', langConcat('access role'))
+				: lang('Short.alert.failure.update', langConcat('access role'));
 		}
 
 		/**
@@ -167,12 +178,19 @@ class Role extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('role.delete') and $formAction == 'delete')
 		{
-			$return = $this->performRoleDelete($input);
+			// Delete the role
+			$item = $this->role->delete(Input::get('id'), Input::get('new_role_id'));
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.delete', langConcat('access role'))
+				: lang('Short.alert.failure.delete', langConcat('access role'));
 		}
 
 		return Redirect::to('admin/role')
-			->with('flashStatus', $return['status'])
-			->with('flashMessage', $return['message']);
+			->with('flashStatus', $flashStatus)
+			->with('flashMessage', $flashMessage);
 	}
 
 	/**
@@ -192,31 +210,19 @@ class Role extends AdminBaseController {
 			$this->_view = 'admin/role/tasks_action';
 
 			// Get the task
-			$task = $this->_data->task = (is_numeric($taskId)) ? $this->role->findTask($taskId) : false;
+			$this->_data->task = $this->roles->findTask($taskId);
 
 			// Get all the task components
-			$components = $this->role->getTaskComponents();
-
-			// Storage array
-			$cs = [];
-
-			// Loop through the tasks and get the components
-			foreach ($components as $c)
-			{
-				if ( ! in_array($c->component, $cs))
-				{
-					$cs[] = $c->component;
-				}
-			}
+			$components = $this->roles->getTaskComponents();
 
 			// Set the list of components
-			$this->_jsData->componentSource = json_encode($cs);
+			$this->_jsData->componentSource = json_encode($components->toSimpleArray(false, 'component'));
 
 			// Set the list of actions
 			$this->_jsData->actionSource = json_encode(['create', 'read', 'update', 'delete']);
 
 			// Set the action
-			$this->_mode = $this->_data->action = ($taskId == 0) ? 'create' : 'update';
+			$this->_mode = $this->_data->action = ((int) $taskId == 0) ? 'create' : 'update';
 		}
 		else
 		{
@@ -224,27 +230,19 @@ class Role extends AdminBaseController {
 			$this->_view = 'admin/role/tasks';
 
 			// Get all the tasks
-			$tasks = $this->role->allTasks();
-
-			// Loop through the tasks and group them by component
-			foreach ($tasks as $t)
-			{
-				$this->_data->tasks[$t->component][] = $t;
-			}
+			$this->_data->tasks = $this->roles->allTasks()->toMultiArray('component');
 
 			// Build the delete task modal
-			$this->_ajax[] = View::make(Location::partial('common/modal'))
-				->with('modalId', 'deleteTask')
-				->with('modalHeader', lang('Short.delete', lang('Task')))
-				->with('modalBody', '')
-				->with('modalFooter', false);
+			$this->_ajax[] = modal([
+				'id'		=> 'deleteTask',
+				'header'	=> lang('Short.delete', lang('Task'))
+			]);
 
 			// Build the roles with task modal
-			$this->_ajax[] = View::make(Location::partial('common/modal'))
-				->with('modalId', 'rolesWithTask')
-				->with('modalHeader', langConcat('Access Roles with Task'))
-				->with('modalBody', '')
-				->with('modalFooter', false);
+			$this->_ajax[] = modal([
+				'id'		=> 'rolesWithTask',
+				'header'	=> langConcat('Access Roles with Task')
+			]);
 		}
 	}
 	public function postTasks()
@@ -277,7 +275,14 @@ class Role extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('role.create') and $formAction == 'create')
 		{
-			$return = $this->performTaskCreate($input);
+			// Create the item
+			$item = $this->role->createTask(Input::all());
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.create', langConcat('access task'))
+				: lang('Short.alert.failure.create', langConcat('access task'));
 		}
 
 		/**
@@ -285,7 +290,14 @@ class Role extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('role.update') and $formAction == 'update')
 		{
-			$return = $this->performTaskUpdate($input);
+			// Update the task
+			$item = $this->role->updateTask(Input::get('id'), Input::all());
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.update', langConcat('access task'))
+				: lang('Short.alert.failure.update', langConcat('access task'));
 		}
 
 		/**
@@ -293,104 +305,19 @@ class Role extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('role.delete') and $formAction == 'delete')
 		{
-			$return = $this->performTaskDelete($input);
+			// Delete the task
+			$item = $this->role->deleteTask(Input::get('id'));
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.delete', langConcat('access task'))
+				: lang('Short.alert.failure.delete', langConcat('access task'));
 		}
 
 		return Redirect::to('admin/role/tasks')
-			->with('flashStatus', $return['status'])
-			->with('flashMessage', $return['message']);
-	}
-
-	/**
-	 * Access role actions.
-	 */
-	protected function performRoleCreate(array $input)
-	{
-		// Create the item
-		$item = $this->role->create($input);
-
-		return [
-			'status'	=> ($item) ? 'success' : 'danger',
-			'message'	=> ($item) 
-				? lang('Short.alert.success.create', langConcat('access role'))
-				: lang('Short.alert.failure.create', langConcat('access role'))
-		];
-	}
-	protected function performRoleDuplicate(array $input)
-	{
-		// Duplicate the role
-		$item = $this->role->duplicate($input['id'], $input);
-
-		return [
-			'status'	=> ($item) ? 'success' : 'danger',
-			'message'	=> ($item) 
-				? lang('Short.alert.success.duplicate', langConcat('access role'))
-				: lang('Short.alert.failure.duplicate', langConcat('access role'))
-		];
-	}
-	protected function performRoleUpdate(array $input)
-	{
-		// Update the role
-		$item = $this->role->update($input['id'], $input);
-
-		return [
-			'status'	=> ($item) ? 'success' : 'danger',
-			'message'	=> ($item) 
-				? lang('Short.alert.success.update', langConcat('access role'))
-				: lang('Short.alert.failure.update', langConcat('access role'))
-		];
-	}
-	protected function performRoleDelete(array $input)
-	{
-		// Delete the role
-		$item = $this->role->delete($input['id'], $input['new_role_id']);
-
-		return [
-			'status'	=> ($item) ? 'success' : 'danger',
-			'message'	=> ($item) 
-				? lang('Short.alert.success.delete', langConcat('access role'))
-				: lang('Short.alert.failure.delete', langConcat('access role'))
-		];
-	}
-
-	/**
-	 * Access role task actions.
-	 */
-	protected function performTaskCreate(array $input)
-	{
-		// Create the item
-		$item = $this->role->createTask($input);
-
-		return [
-			'status'	=> ($item) ? 'success' : 'danger',
-			'message'	=> ($item) 
-				? lang('Short.alert.success.create', langConcat('access task'))
-				: lang('Short.alert.failure.create', langConcat('access task'))
-		];
-	}
-	protected function performTaskUpdate(array $input)
-	{
-		// Update the role
-		$item = $this->role->updateTask($input['id'], $input);
-
-		return [
-			'status'	=> ($item) ? 'success' : 'danger',
-			'message'	=> ($item) 
-				? lang('Short.alert.success.update', langConcat('access task'))
-				: lang('Short.alert.failure.update', langConcat('access task'))
-		];
-	}
-	protected function performTaskDelete(array $input)
-	{
-		// Delete the role
-		$item = $this->role->deleteTask($input['id']);
-
-		return [
-			'status'	=> ($item) ? 'success' : 'danger',
-			'message'	=> ($item) 
-				? lang('Short.alert.success.delete', langConcat('access task'))
-				: lang('Short.alert.failure.delete', langConcat('access task'))
-		];
+			->with('flashStatus', $flashStatus)
+			->with('flashMessage', $flashMessage);
 	}
 
 }

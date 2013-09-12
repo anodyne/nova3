@@ -10,13 +10,13 @@ class Task extends Model {
 	
 	protected $table = 'tasks';
 
-	protected $fillable = array(
+	protected $fillable = [
 		'name', 'desc', 'component', 'action', 'level',
-	);
+	];
 	
-	protected static $properties = array(
+	protected static $properties = [
 		'id', 'name', 'desc', 'component', 'action', 'level',
-	);
+	];
 
 	/*
 	|--------------------------------------------------------------------------
