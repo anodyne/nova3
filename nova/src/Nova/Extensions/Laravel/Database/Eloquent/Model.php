@@ -8,8 +8,8 @@
  * if not done properly.
  *
  * @package		Nova
- * @subpackage	Core
- * @category	Model
+ * @subpackage	Extensions
+ * @category	Lib
  * @author		Anodyne Productions
  * @copyright	2013 Anodyne Productions
  */
@@ -21,7 +21,7 @@ use Status;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class Model extends EloquentModel {
-	
+
 	/*
 	|--------------------------------------------------------------------------
 	| Eloquent Model Method Overrides
