@@ -8,17 +8,32 @@ class Collection extends EloquentCollection {
 	/**
 	 * Convert a collection to a simple array.
 	 *
-	 * @param	string	The column to use for the key
-	 * @param	string	The column to use for the value
+	 * @param	string	$key	The column to use for the key
+	 * @param	string	$value	The column to use for the value
 	 * @return	array
 	 */
 	public function toSimpleArray($key = 'id', $value = 'name')
 	{
-		$final = array();
+		$final = [];
 
 		foreach ($this->items as $item)
 		{
-			$final[$item->{$key}] = $item->{$value};
+			if (empty($key))
+				$final[] = $item->{$value};
+			else
+				$final[$item->{$key}] = $item->{$value};
+		}
+
+		return $final;
+	}
+
+	public function toMultiArray($key)
+	{
+		$final = [];
+
+		foreach ($this->items as $item)
+		{
+			$final[$item->{$key}][] = $item;
 		}
 
 		return $final;
