@@ -23,6 +23,17 @@ class SiteContent extends Model {
 
 	/*
 	|--------------------------------------------------------------------------
+	| Model Scopes
+	|--------------------------------------------------------------------------
+	*/
+
+	public function scopeUri($query, $uri)
+	{
+		$query->where('uri', $uri);
+	}
+
+	/*
+	|--------------------------------------------------------------------------
 	| Model Accessors
 	|--------------------------------------------------------------------------
 	*/
@@ -36,7 +47,7 @@ class SiteContent extends Model {
 
 			// Get the final route to use
 			$finalRoute = ($route->count() > 1)
-				? $route->filter(function($r){ return (bool) $r->protected === true; })->first()
+				? $route->filter(function($r){ return (bool) $r->protected === false; })->first()
 				: $route->first();
 
 			// Parse the route URI
