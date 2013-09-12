@@ -18,7 +18,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'login',
 		'page'		=> 'reset',
-		'protected'	=> (int) true
+		'protected'	=> (int) true,
+		'uri'		=> 'login'
 	],
 	[
 		'key'		=> 'message.login.reset_confirm',
@@ -27,7 +28,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'login',
 		'page'		=> 'reset_confirm',
-		'protected'	=> (int) true
+		'protected'	=> (int) true,
+		'uri'		=> 'login/reset_confirm'
 	],
 
 	/**
@@ -39,7 +41,8 @@ return [
 		'content'	=> "Define your welcome message and welcome page header through the Site Content page.",
 		'type'		=> $type,
 		'section'	=> 'main',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'home'
 	],
 	[
 		'key'		=> 'message.main.credits',
@@ -47,15 +50,17 @@ return [
 		'content'	=> "Define your site credits through the Site Messages page.",
 		'type'		=> $type,
 		'section'	=> 'main',
-		'page'		=> 'credits'
+		'page'		=> 'credits',
+		'uri'		=> 'credits'
 	],
 	[
 		'key'		=> 'message.main.join',
 		'label'		=> 'Join Message',
 		'content'	=> "Define your join message through the Site Messages page.",
 		'type'		=> $type,
-		'section'	=> '',
-		'page'		=> ''
+		'section'	=> 'main',
+		'page'		=> 'join',
+		'uri'		=> 'join'
 	],
 
 	/**
@@ -67,7 +72,8 @@ return [
 		'content'	=> "Define your sim message through the Site Content page.",
 		'type'		=> $type,
 		'section'	=> 'sim',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'sim'
 	],
 
 	/**
@@ -83,33 +89,8 @@ return [
 		'content'	=> "Define your admin control panel through the Site Content page.",
 		'type'		=> $type,
 		'section'	=> 'admin',
-		'page'		=> 'index'
-	],
-	[
-		'key'		=> 'message.admin.routes',
-		'label'		=> 'Routes Manager Message',
-		'content'	=> "Routes are Nova's traffic cops. When a user types an address into their browser, Nova takes that information (called a URI) and determines what controller and action it should use. For performance reasons, Nova does not do this on-the-fly, opting instead to keep a master list of all the routes and their resources. From here, you can manage all of Nova's routes and even tell Nova to use different resources for routes.\r\n\r\nWhile you can't edit the core routes, you can duplicate routes and change the information associated with it. Nova will use your version of the route instead of the one in the core.",
-		'type'		=> $type,
-		'section'	=> 'admin',
-		'page'		=> 'routes'
-	],
-	[
-		'key'		=> 'message.admin.routes.create',
-		'label'		=> 'Create Route Message',
-		'content'	=> "",
-		'type'		=> $type,
-		'section'	=> 'admin',
-		'page'		=> 'routes',
-		'mode'		=> 'create'
-	],
-	[
-		'key'		=> 'message.admin.routes.edit',
-		'label'		=> 'Edit Route Message',
-		'content'	=> "",
-		'type'		=> $type,
-		'section'	=> 'admin',
-		'page'		=> 'routes',
-		'mode'		=> 'update'
+		'page'		=> 'index',
+		'uri'		=> 'admin'
 	],
 
 	/**
@@ -121,7 +102,8 @@ return [
 		'content'	=> "You can edit any tab attached to this form by using the options below. If you want to change the order the tabs appear in, simply drag-and-drop the row to where you want it.",
 		'type'		=> $type,
 		'section'	=> 'form',
-		'page'		=> 'tabs'
+		'page'		=> 'tabs',
+		'uri'		=> 'admin/form/tabs'
 	],
 	[
 		'key'		=> 'message.admin.form.tabs.create',
@@ -130,7 +112,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'tabs',
-		'mode'		=> 'create'
+		'mode'		=> 'create',
+		'uri'		=> 'admin/form/tabs'
 	],
 	[
 		'key'		=> 'message.admin.form.tabs.edit',
@@ -139,7 +122,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'tabs',
-		'mode'		=> 'update'
+		'mode'		=> 'update',
+		'uri'		=> 'admin/form/tabs'
 	],
 	[
 		'key'		=> 'message.admin.form.sections',
@@ -147,7 +131,8 @@ return [
 		'content'	=> "You can edit any section attached to this form by using the options below. If you want to change the order the sections appear in, simply drag-and-drop the row to where you want it. Sections cannot be moved between tabs using the drag-and-drop method. You will need to edit the section and change the attached tab from the edit screen.",
 		'type'		=> $type,
 		'section'	=> 'form',
-		'page'		=> 'sections'
+		'page'		=> 'sections',
+		'uri'		=> 'admin/form/sections'
 	],
 	[
 		'key'		=> 'message.admin.form.sections.create',
@@ -156,7 +141,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'sections',
-		'mode'		=> 'create'
+		'mode'		=> 'create',
+		'uri'		=> 'admin/form/sections'
 	],
 	[
 		'key'		=> 'message.admin.form.sections.edit',
@@ -165,7 +151,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'sections',
-		'mode'		=> 'update'
+		'mode'		=> 'update',
+		'uri'		=> 'admin/form/sections'
 	],
 	[
 		'key'		=> 'message.admin.form.fields',
@@ -173,7 +160,8 @@ return [
 		'content'	=> "You can edit any field attached to this form by using the options below. If you want to change the order the fields appear in, simply drag-and-drop the row to where you want it. Fields cannot be moved between sections using the drag-and-drop method. You will need to edit the field and change the attached section from the edit screen.",
 		'type'		=> $type,
 		'section'	=> 'form',
-		'page'		=> 'fields'
+		'page'		=> 'fields',
+		'uri'		=> 'admin/form/fields'
 	],
 	[
 		'key'		=> 'message.admin.form.fields.create',
@@ -182,7 +170,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'fields',
-		'mode'		=> 'create'
+		'mode'		=> 'create',
+		'uri'		=> 'admin/form/fields'
 	],
 	[
 		'key'		=> 'message.admin.form.fields.edit',
@@ -191,7 +180,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'fields',
-		'mode'		=> 'update'
+		'mode'		=> 'update',
+		'uri'		=> 'admin/form/fields'
 	],
 
 	/**
@@ -203,7 +193,8 @@ return [
 		'content'	=> "Rank groups are a simple way to organize ranks into logical groupings. Every rank in the system belongs to a rank group, allowing admins to easily add new groups of ranks. Nova comes with several rank groups already, but you can easily create new groups and add ranks to them from rank management.",
 		'type'		=> $type,
 		'section'	=> 'rank',
-		'page'		=> 'groups'
+		'page'		=> 'groups',
+		'uri'		=> 'admin/rank/groups'
 	],
 	[
 		'key'		=> 'message.admin.ranks.info',
@@ -211,7 +202,8 @@ return [
 		'content'	=> "Rank info contains all of the basic information about ranks that's repeated across multiple ranks, like name, short name, and order. Every rank in the system references one of the rank info records below, meaning that several ranks can be updated simultaneously by changing one of the info records. You can easily create new info records and use them with ranks or edit existing items.",
 		'type'		=> $type,
 		'section'	=> 'rank',
-		'page'		=> 'info'
+		'page'		=> 'info',
+		'uri'		=> 'admin/rank/info'
 	],
 	[
 		'key'		=> 'message.admin.ranks.manage',
@@ -219,7 +211,8 @@ return [
 		'content'	=> "Ranks are made up of several different componets to keep things as flexible as possible. The ranks records below are composed of a rank info, a rank group, a base image, and a pip image. From here, you can change any and all of those pieces to customize your ranks to your liking.",
 		'type'		=> $type,
 		'section'	=> 'rank',
-		'page'		=> 'manage'
+		'page'		=> 'manage',
+		'uri'		=> 'admin/rank/manage'
 	],
 
 	/**
@@ -231,7 +224,8 @@ return [
 		'content'	=> "",
 		'type'		=> $type,
 		'section'	=> 'application',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'admin/arc'
 	],
 	[
 		'key'		=> 'message.admin.arc.rules',
@@ -239,7 +233,8 @@ return [
 		'content'	=> "Application review rules are a way to automatically add specific users or users who hold specific positions to a review when an application is received. You can create as many rules as you want that will be evaluated and run on every new application. Rules whose conditions cannot be met will be ignored.",
 		'type'		=> $type,
 		'section'	=> 'application',
-		'page'		=> 'rules'
+		'page'		=> 'rules',
+		'uri'		=> 'admin/arc/rules'
 	],
 
 	/**
@@ -251,7 +246,8 @@ return [
 		'content'	=> "Access roles control exactly what a user can and can't do in Nova. Some sensible defaults are included for managing your users, but you're free to create and edit these roles to fit your own game. Be careful when editing or deleting existing roles as doing so could prevent you or others from accessing areas of Nova.",
 		'type'		=> $type,
 		'section'	=> 'role',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'admin/role'
 	],
 	[
 		'key'		=> 'message.admin.role.create',
@@ -260,7 +256,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'role',
 		'page'		=> 'index',
-		'mode'		=> 'create'
+		'mode'		=> 'create',
+		'uri'		=> 'admin/role'
 	],
 	[
 		'key'		=> 'message.admin.role.edit',
@@ -269,7 +266,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'role',
 		'page'		=> 'index',
-		'mode'		=> 'update'
+		'mode'		=> 'update',
+		'uri'		=> 'admin/role'
 	],
 	[
 		'key'		=> 'message.admin.role.tasks',
@@ -277,7 +275,8 @@ return [
 		'content'	=> "Access roles are made up of tasks. Each task defines something a user can do such as creating, updating, deleting or even seeing entries. When combined with a component, this system allows for granular control over what a user can and can't do in Nova. You can edit any task in the system or even create your own for your own pages or MODs. Be careful when editing or deleting existing items as doing so could prevent you or others from accessing areas of Nova.",
 		'type'		=> $type,
 		'section'	=> 'role',
-		'page'		=> 'tasks'
+		'page'		=> 'tasks',
+		'uri'		=> 'admin/role/tasks'
 	],
 	[
 		'key'		=> 'message.admin.role.tasks.create',
@@ -286,7 +285,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'role',
 		'page'		=> 'tasks',
-		'mode'		=> 'create'
+		'mode'		=> 'create',
+		'uri'		=> 'admin/role/tasks'
 	],
 	[
 		'key'		=> 'message.admin.role.tasks.edit',
@@ -295,7 +295,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'role',
 		'page'		=> 'tasks',
-		'mode'		=> 'update'
+		'mode'		=> 'update',
+		'uri'		=> 'admin/role/tasks'
 	],
 
 	/**
@@ -307,7 +308,8 @@ return [
 		'content'	=> "Resource Catalogs allow you to manage the various resources available throughout Nova such as skins, rank sets, modules and widgets.",
 		'type'		=> $type,
 		'section'	=> 'catalog',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'admin/catalog'
 	],
 
 	/**
@@ -319,7 +321,8 @@ return [
 		'content'	=> "You can create a new user using the fields below. The password you enter will be emailed to the user. The user should change the password to something of their own choosing as soon as they log in the first time!",
 		'type'		=> $type,
 		'section'	=> 'user',
-		'page'		=> 'create'
+		'page'		=> 'create',
+		'uri'		=> 'admin/user/create'
 	],
 	[
 		'key'		=> 'message.admin.user.loa',
@@ -327,12 +330,42 @@ return [
 		'content'	=> "",
 		'type'		=> $type,
 		'section'	=> 'user',
-		'page'		=> 'loa'
+		'page'		=> 'loa',
+		'uri'		=> 'admin/user/loa'
 	],
 
 	/**
 	 * admin/manage Messages
 	 */
+	[
+		'key'		=> 'message.admin.routes',
+		'label'		=> 'Routes Manager Message',
+		'content'	=> "Routes are Nova's traffic cops. When a user types an address into their browser, Nova takes that information (called a URI) and determines what controller and action it should use. For performance reasons, Nova does not do this on-the-fly, opting instead to keep a master list of all the routes and their resources. From here, you can manage all of Nova's routes and even tell Nova to use different resources for routes.\r\n\r\nWhile you can't edit the core routes, you can duplicate routes and change the information associated with it. Nova will use your version of the route instead of the one in the core.",
+		'type'		=> $type,
+		'section'	=> 'manage',
+		'page'		=> 'routes',
+		'uri'		=> 'admin/routes'
+	],
+	[
+		'key'		=> 'message.admin.routes.create',
+		'label'		=> 'Create Route Message',
+		'content'	=> "",
+		'type'		=> $type,
+		'section'	=> 'manage',
+		'page'		=> 'routes',
+		'mode'		=> 'create',
+		'uri'		=> 'admin/routes'
+	],
+	[
+		'key'		=> 'message.admin.routes.edit',
+		'label'		=> 'Edit Route Message',
+		'content'	=> "",
+		'type'		=> $type,
+		'section'	=> 'manage',
+		'page'		=> 'routes',
+		'mode'		=> 'update',
+		'uri'		=> 'admin/routes'
+	],
 	[
 		'key'		=> 'message.admin.manage.content',
 		'label'		=> 'Manage Site Content Message',

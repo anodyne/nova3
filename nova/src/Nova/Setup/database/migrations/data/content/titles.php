@@ -17,7 +17,8 @@ return [
 		'content'	=> "Log In",
 		'type'		=> $type,
 		'section'	=> 'login',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'login'
 	],
 	[
 		'key'		=> 'title.login.reset',
@@ -25,7 +26,8 @@ return [
 		'content'	=> "Reset Password",
 		'type'		=> $type,
 		'section'	=> 'login',
-		'page'		=> 'reset'
+		'page'		=> 'reset',
+		'uri'		=> 'login/reset'
 	],
 	[
 		'key'		=> 'title.login.reset_confirm',
@@ -33,7 +35,8 @@ return [
 		'content'	=> "Confirm Password Reset",
 		'type'		=> $type,
 		'section'	=> 'login',
-		'page'		=> 'reset_confirm'
+		'page'		=> 'reset_confirm',
+		'uri'		=> 'login/reset_confirm'
 	],
 	[
 		'key'		=> 'title.login.logout',
@@ -41,7 +44,8 @@ return [
 		'content'	=> "Logout",
 		'type'		=> $type,
 		'section'	=> 'login',
-		'page'		=> 'logout'
+		'page'		=> 'logout',
+		'uri'		=> 'logout'
 	],
 
 	/**
@@ -53,7 +57,8 @@ return [
 		'content'	=> "Main",
 		'type'		=> $type,
 		'section'	=> 'main',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'home'
 	],
 	[
 		'key'		=> 'title.main.credits',
@@ -61,7 +66,8 @@ return [
 		'content'	=> 'Site Credits',
 		'type'		=> $type,
 		'section'	=> 'main',
-		'page'		=> 'credits'
+		'page'		=> 'credits',
+		'uri'		=> 'credits'
 	],
 	[
 		'key'		=> 'title.main.join',
@@ -69,7 +75,8 @@ return [
 		'content'	=> 'Join',
 		'type'		=> $type,
 		'section'	=> 'main',
-		'page'		=> 'join'
+		'page'		=> 'join',
+		'uri'		=> 'join'
 	],
 
 	/**
@@ -81,7 +88,8 @@ return [
 		'content'	=> "The Sim",
 		'type'		=> $type,
 		'section'	=> 'sim',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'sim'
 	],
 
 	/**
@@ -97,15 +105,8 @@ return [
 		'content'	=> "Control Panel",
 		'type'		=> $type,
 		'section'	=> 'admin',
-		'page'		=> 'index'
-	],
-	[
-		'key'		=> 'title.admin.routes',
-		'label'		=> 'Routes Manager Page Title',
-		'content'	=> "Routes Manager",
-		'type'		=> $type,
-		'section'	=> 'admin',
-		'page'		=> 'routes'
+		'page'		=> 'index',
+		'uri'		=> 'admin'
 	],
 
 	/**
@@ -117,7 +118,8 @@ return [
 		'content'	=> "Forms",
 		'type'		=> $type,
 		'section'	=> 'form',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'admin/form'
 	],
 	[
 		'key'		=> 'title.admin.form.fields',
@@ -125,7 +127,8 @@ return [
 		'content'	=> "Form Fields",
 		'type'		=> $type,
 		'section'	=> 'form',
-		'page'		=> 'fields'
+		'page'		=> 'fields',
+		'uri'		=> 'admin/form/fields'
 	],
 	[
 		'key'		=> 'title.admin.form.sections',
@@ -133,7 +136,8 @@ return [
 		'content'	=> "Form Sections",
 		'type'		=> $type,
 		'section'	=> 'form',
-		'page'		=> 'sections'
+		'page'		=> 'sections',
+		'uri'		=> 'admin/form/sections'
 	],
 	[
 		'key'		=> 'title.admin.form.tabs',
@@ -141,7 +145,8 @@ return [
 		'content'	=> "Form Tabs",
 		'type'		=> $type,
 		'section'	=> 'form',
-		'page'		=> 'tabs'
+		'page'		=> 'tabs',
+		'uri'		=> 'admin/form/tabs'
 	],
 
 	/**
@@ -153,7 +158,8 @@ return [
 		'content'	=> "Form Viewer",
 		'type'		=> $type,
 		'section'	=> 'formviewer',
-		'page'		=> 'view'
+		'page'		=> 'view',
+		'uri'		=> 'admin/formviewer'
 	],
 
 	/**
@@ -165,7 +171,8 @@ return [
 		'content'	=> "Ranks",
 		'type'		=> $type,
 		'section'	=> 'rank',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'admin/rank'
 	],
 	[
 		'key'		=> 'title.admin.ranks.groups',
@@ -173,7 +180,8 @@ return [
 		'content'	=> "Rank Groups",
 		'type'		=> $type,
 		'section'	=> 'rank',
-		'page'		=> 'groups'
+		'page'		=> 'groups',
+		'uri'		=> 'admin/rank/groups'
 	],
 	[
 		'key'		=> 'title.admin.ranks.info',
@@ -181,7 +189,8 @@ return [
 		'content'	=> "Rank Info",
 		'type'		=> $type,
 		'section'	=> 'rank',
-		'page'		=> 'info'
+		'page'		=> 'info',
+		'uri'		=> 'admin/rank/info'
 	],
 	[
 		'key'		=> 'title.admin.ranks.manage',
@@ -189,7 +198,8 @@ return [
 		'content'	=> "Ranks",
 		'type'		=> $type,
 		'section'	=> 'rank',
-		'page'		=> 'manage'
+		'page'		=> 'manage',
+		'uri'		=> 'admin/rank/manage'
 	],
 
 	/**
@@ -201,7 +211,8 @@ return [
 		'content'	=> "Application Review Center",
 		'type'		=> $type,
 		'section'	=> 'application',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'admin/arc'
 	],
 	[
 		'key'		=> 'title.admin.arc.rules',
@@ -209,7 +220,8 @@ return [
 		'content'	=> "Application Review Rules",
 		'type'		=> $type,
 		'section'	=> 'application',
-		'page'		=> 'rules'
+		'page'		=> 'rules',
+		'uri'		=> 'admin/arc/rules'
 	],
 	[
 		'key'		=> 'title.admin.arc.history',
@@ -217,7 +229,8 @@ return [
 		'content'	=> "Application History",
 		'type'		=> $type,
 		'section'	=> 'application',
-		'page'		=> 'history'
+		'page'		=> 'history',
+		'uri'		=> 'admin/arc/history'
 	],
 	[
 		'key'		=> 'title.admin.arc.review',
@@ -225,7 +238,8 @@ return [
 		'content'	=> "Application Review",
 		'type'		=> $type,
 		'section'	=> 'application',
-		'page'		=> 'review'
+		'page'		=> 'review',
+		'uri'		=> 'admin/arc/review'
 	],
 
 	/**
@@ -237,7 +251,8 @@ return [
 		'content'	=> "Access Roles",
 		'type'		=> $type,
 		'section'	=> 'role',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'admin/role'
 	],
 	[
 		'key'		=> 'title.admin.role.tasks',
@@ -245,7 +260,8 @@ return [
 		'content'	=> "Access Role Tasks",
 		'type'		=> $type,
 		'section'	=> 'role',
-		'page'		=> 'tasks'
+		'page'		=> 'tasks',
+		'uri'		=> 'admin/role/tasks'
 	],
 
 	/**
@@ -257,7 +273,8 @@ return [
 		'content'	=> "Resource Catalogs",
 		'type'		=> $type,
 		'section'	=> 'catalog',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'admin/catalog'
 	],
 	[
 		'key'		=> 'title.admin.catalog.ranks',
@@ -265,7 +282,8 @@ return [
 		'content'	=> "Rank Sets",
 		'type'		=> $type,
 		'section'	=> 'catalog',
-		'page'		=> 'ranks'
+		'page'		=> 'ranks',
+		'uri'		=> 'admin/catalog/ranks'
 	],
 	[
 		'key'		=> 'title.admin.catalog.skins',
@@ -273,7 +291,8 @@ return [
 		'content'	=> "Skins",
 		'type'		=> $type,
 		'section'	=> 'catalog',
-		'page'		=> 'skins'
+		'page'		=> 'skins',
+		'uri'		=> 'admin/catalog/skins'
 	],
 	[
 		'key'		=> 'title.admin.catalog.modules',
@@ -281,7 +300,8 @@ return [
 		'content'	=> "Modules",
 		'type'		=> $type,
 		'section'	=> 'catalog',
-		'page'		=> 'modules'
+		'page'		=> 'modules',
+		'uri'		=> 'admin/catalog/modules'
 	],
 	[
 		'key'		=> 'title.admin.catalog.widgets',
@@ -289,7 +309,8 @@ return [
 		'content'	=> "Widgets",
 		'type'		=> $type,
 		'section'	=> 'catalog',
-		'page'		=> 'widgets'
+		'page'		=> 'widgets',
+		'uri'		=> 'admin/catalog/widgets'
 	],
 
 	/**
@@ -301,7 +322,8 @@ return [
 		'content'	=> "Users",
 		'type'		=> $type,
 		'section'	=> 'user',
-		'page'		=> 'all'
+		'page'		=> 'users',
+		'uri'		=> 'admin/user'
 	],
 	[
 		'key'		=> 'title.admin.user.create',
@@ -309,7 +331,8 @@ return [
 		'content'	=> "Create New User",
 		'type'		=> $type,
 		'section'	=> 'user',
-		'page'		=> 'create'
+		'page'		=> 'create',
+		'uri'		=> 'admin/user/create'
 	],
 	[
 		'key'		=> 'title.admin.user.edit',
@@ -317,7 +340,8 @@ return [
 		'content'	=> "Edit User",
 		'type'		=> $type,
 		'section'	=> 'user',
-		'page'		=> 'edit'
+		'page'		=> 'edit',
+		'uri'		=> 'admin/user/edit'
 	],
 	[
 		'key'		=> 'title.admin.user.loa',
@@ -325,12 +349,22 @@ return [
 		'content'	=> "Request LOA",
 		'type'		=> $type,
 		'section'	=> 'user',
-		'page'		=> 'loa'
+		'page'		=> 'loa',
+		'uri'		=> 'admin/user/loa'
 	],
 
 	/**
 	 * admin/manage Titles
 	 */
+	[
+		'key'		=> 'title.admin.routes',
+		'label'		=> 'Routes Manager Page Title',
+		'content'	=> "Routes Manager",
+		'type'		=> $type,
+		'section'	=> 'manage',
+		'page'		=> 'routes',
+		'uri'		=> 'admin/routes'
+	],
 	[
 		'key'		=> 'title.admin.manage.content',
 		'label'		=> 'Manage Site Content Title',

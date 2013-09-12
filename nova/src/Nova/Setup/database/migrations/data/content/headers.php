@@ -17,7 +17,8 @@ return [
 		'content'	=> "Log In",
 		'type'		=> $type,
 		'section'	=> 'login',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'login'
 	],
 	[
 		'key'		=> 'header.login.reset',
@@ -25,7 +26,8 @@ return [
 		'content'	=> "Reset Password",
 		'type'		=> $type,
 		'section'	=> 'login',
-		'page'		=> 'reset'
+		'page'		=> 'reset',
+		'uri'		=> 'login/reset'
 	],
 	[
 		'key'		=> 'header.login.reset_confirm',
@@ -33,7 +35,8 @@ return [
 		'content'	=> "Confirm Password Reset",
 		'type'		=> $type,
 		'section'	=> 'login',
-		'page'		=> 'reset_confirm'
+		'page'		=> 'reset_confirm',
+		'uri'		=> 'login/reset_confirm'
 	],
 	[
 		'key'		=> 'header.login.logout',
@@ -41,7 +44,8 @@ return [
 		'content'	=> "Logout",
 		'type'		=> $type,
 		'section'	=> 'login',
-		'page'		=> 'logout'
+		'page'		=> 'logout',
+		'uri'		=> 'logout'
 	],
 
 	/**
@@ -53,7 +57,8 @@ return [
 		'content'	=> "Welcome to Nova!",
 		'type'		=> $type,
 		'section'	=> 'main',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'home'
 	],
 	[
 		'key'		=> 'header.main.credits',
@@ -61,7 +66,8 @@ return [
 		'content'	=> "Site Credits",
 		'type'		=> $type,
 		'section'	=> 'main',
-		'page'		=> 'credits'
+		'page'		=> 'credits',
+		'uri'		=> 'credits'
 	],
 	[
 		'key'		=> 'header.main.join',
@@ -69,7 +75,8 @@ return [
 		'content'	=> "Join",
 		'type'		=> $type,
 		'section'	=> 'main',
-		'page'		=> 'join'
+		'page'		=> 'join',
+		'uri'		=> 'join'
 	],
 
 	/**
@@ -85,7 +92,8 @@ return [
 		'content'	=> "The Sim",
 		'type'		=> $type,
 		'section'	=> 'sim',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'sim'
 	],
 
 	/**
@@ -97,33 +105,37 @@ return [
 		'content'	=> "Control Panel",
 		'type'		=> $type,
 		'section'	=> 'admin',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'admin'
 	],
 	[
 		'key'		=> 'header.admin.routes',
 		'label'		=> 'Route Manager Header',
 		'content'	=> "Routes Manager",
 		'type'		=> $type,
-		'section'	=> 'admin',
-		'page'		=> 'routes'
+		'section'	=> 'manage',
+		'page'		=> 'routes',
+		'uri'		=> 'admin/routes'
 	],
 	[
 		'key'		=> 'header.admin.routes.create',
 		'label'		=> 'Create Route Header',
 		'content'	=> "Create New Route",
 		'type'		=> $type,
-		'section'	=> 'admin',
+		'section'	=> 'manage',
 		'page'		=> 'routes',
-		'mode'		=> 'create'
+		'mode'		=> 'create',
+		'uri'		=> 'admin/routes'
 	],
 	[
 		'key'		=> 'header.admin.routes.edit',
 		'label'		=> 'Edit Route Header',
 		'content'	=> "Edit Route",
 		'type'		=> $type,
-		'section'	=> 'admin',
+		'section'	=> 'manage',
 		'page'		=> 'routes',
-		'mode'		=> 'update'
+		'mode'		=> 'update',
+		'uri'		=> 'admin/routes'
 	],
 
 	/**
@@ -135,7 +147,8 @@ return [
 		'content'	=> "Forms",
 		'type'		=> $type,
 		'section'	=> 'form',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'admin/form'
 	],
 	[
 		'key'		=> 'header.admin.form.create',
@@ -144,7 +157,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'index',
-		'mode'		=> 'create'
+		'mode'		=> 'create',
+		'uri'		=> 'admin/form'
 	],
 	[
 		'key'		=> 'header.admin.form.edit',
@@ -153,7 +167,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'index',
-		'mode'		=> 'update'
+		'mode'		=> 'update',
+		'uri'		=> 'admin/form'
 	],
 	[
 		'key'		=> 'header.admin.form.fields',
@@ -161,7 +176,8 @@ return [
 		'content'	=> "Form Fields",
 		'type'		=> $type,
 		'section'	=> 'form',
-		'page'		=> 'fields'
+		'page'		=> 'fields',
+		'uri'		=> 'admin/form/fields'
 	],
 	[
 		'key'		=> 'header.admin.form.fields.create',
@@ -170,7 +186,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'fields',
-		'mode'		=> 'create'
+		'mode'		=> 'create',
+		'uri'		=> 'admin/form/fields'
 	],
 	[
 		'key'		=> 'header.admin.form.fields.edit',
@@ -179,7 +196,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'fields',
-		'mode'		=> 'update'
+		'mode'		=> 'update',
+		'uri'		=> 'admin/form/fields'
 	],
 	[
 		'key'		=> 'header.admin.form.sections',
@@ -187,7 +205,8 @@ return [
 		'content'	=> "Form Sections",
 		'type'		=> $type,
 		'section'	=> 'form',
-		'page'		=> 'sections'
+		'page'		=> 'sections',
+		'uri'		=> 'admin/form/sections'
 	],
 	[
 		'key'		=> 'header.admin.form.sections.create',
@@ -196,7 +215,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'sections',
-		'mode'		=> 'create'
+		'mode'		=> 'create',
+		'uri'		=> 'admin/form/sections'
 	],
 	[
 		'key'		=> 'header.admin.form.sections.edit',
@@ -205,7 +225,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'sections',
-		'mode'		=> 'update'
+		'mode'		=> 'update',
+		'uri'		=> 'admin/form/sections'
 	],
 	[
 		'key'		=> 'header.admin.form.tabs',
@@ -213,7 +234,8 @@ return [
 		'content'	=> "Form Tabs",
 		'type'		=> $type,
 		'section'	=> 'form',
-		'page'		=> 'tabs'
+		'page'		=> 'tabs',
+		'uri'		=> 'admin/form/tabs'
 	],
 	[
 		'key'		=> 'header.admin.form.tabs.create',
@@ -222,7 +244,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'tabs',
-		'mode'		=> 'create'
+		'mode'		=> 'create',
+		'uri'		=> 'admin/form/tabs'
 	],
 	[
 		'key'		=> 'header.admin.form.tabs.edit',
@@ -231,7 +254,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'tabs',
-		'mode'		=> 'update'
+		'mode'		=> 'update',
+		'uri'		=> 'admin/form/tabs'
 	],
 
 	/**
@@ -243,7 +267,8 @@ return [
 		'content'	=> "Form Viewer",
 		'type'		=> $type,
 		'section'	=> 'formviewer',
-		'page'		=> 'view'
+		'page'		=> 'index',
+		'uri'		=> 'admin/formviewer'
 	],
 
 	/**
@@ -255,7 +280,8 @@ return [
 		'content'	=> "Ranks",
 		'type'		=> $type,
 		'section'	=> 'rank',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'admin/rank'
 	],
 	[
 		'key'		=> 'header.admin.ranks.groups',
@@ -263,7 +289,8 @@ return [
 		'content'	=> "Rank Groups",
 		'type'		=> $type,
 		'section'	=> 'rank',
-		'page'		=> 'groups'
+		'page'		=> 'groups',
+		'uri'		=> 'admin/rank/groups'
 	],
 	[
 		'key'		=> 'header.admin.ranks.info',
@@ -271,7 +298,8 @@ return [
 		'content'	=> "Rank Info",
 		'type'		=> $type,
 		'section'	=> 'rank',
-		'page'		=> 'info'
+		'page'		=> 'info',
+		'uri'		=> 'admin/rank/info'
 	],
 	[
 		'key'		=> 'header.admin.ranks.manage',
@@ -279,7 +307,8 @@ return [
 		'content'	=> "Ranks",
 		'type'		=> $type,
 		'section'	=> 'rank',
-		'page'		=> 'manage'
+		'page'		=> 'manage',
+		'uri'		=> 'admin/rank/manage'
 	],
 
 	/**
@@ -291,7 +320,8 @@ return [
 		'content'	=> "Application Review Center",
 		'type'		=> $type,
 		'section'	=> 'application',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'admin/arc'
 	],
 	[
 		'key'		=> 'header.admin.arc.rules',
@@ -299,7 +329,8 @@ return [
 		'content'	=> "Application Review Rules",
 		'type'		=> $type,
 		'section'	=> 'application',
-		'page'		=> 'rules'
+		'page'		=> 'rules',
+		'uri'		=> 'admin/arc/rules'
 	],
 	[
 		'key'		=> 'header.admin.arc.history',
@@ -307,7 +338,8 @@ return [
 		'content'	=> "Application History",
 		'type'		=> $type,
 		'section'	=> 'application',
-		'page'		=> 'history'
+		'page'		=> 'history',
+		'uri'		=> 'admin/arc/history'
 	],
 	[
 		'key'		=> 'header.admin.arc.review',
@@ -315,7 +347,8 @@ return [
 		'content'	=> "Application Review",
 		'type'		=> $type,
 		'section'	=> 'application',
-		'page'		=> 'review'
+		'page'		=> 'review',
+		'uri'		=> 'admin/arc/review'
 	],
 
 	/**
@@ -327,7 +360,8 @@ return [
 		'content'	=> "Access Roles",
 		'type'		=> $type,
 		'section'	=> 'role',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'admin/role'
 	],
 	[
 		'key'		=> 'header.admin.role.create',
@@ -336,7 +370,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'role',
 		'page'		=> 'index',
-		'mode'		=> 'create'
+		'mode'		=> 'create',
+		'uri'		=> 'admin/role'
 	],
 	[
 		'key'		=> 'header.admin.role.edit',
@@ -345,7 +380,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'role',
 		'page'		=> 'index',
-		'mode'		=> 'update'
+		'mode'		=> 'update',
+		'uri'		=> 'admin/role'
 	],
 	[
 		'key'		=> 'header.admin.role.tasks',
@@ -353,7 +389,8 @@ return [
 		'content'	=> "Access Role Tasks",
 		'type'		=> $type,
 		'section'	=> 'role',
-		'page'		=> 'tasks'
+		'page'		=> 'tasks',
+		'uri'		=> 'admin/role/tasks'
 	],
 	[
 		'key'		=> 'header.admin.role.tasks.create',
@@ -362,7 +399,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'role',
 		'page'		=> 'tasks',
-		'mode'		=> 'create'
+		'mode'		=> 'create',
+		'uri'		=> 'admin/role/tasks'
 	],
 	[
 		'key'		=> 'header.admin.role.tasks.edit',
@@ -371,7 +409,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'role',
 		'page'		=> 'tasks',
-		'mode'		=> 'update'
+		'mode'		=> 'update',
+		'uri'		=> 'admin/role/tasks'
 	],
 
 	/**
@@ -383,7 +422,8 @@ return [
 		'content'	=> "Resource Catalogs",
 		'type'		=> $type,
 		'section'	=> 'catalog',
-		'page'		=> 'index'
+		'page'		=> 'index',
+		'uri'		=> 'admin/catalog'
 	],
 	[
 		'key'		=> 'header.admin.catalog.ranks',
@@ -391,7 +431,8 @@ return [
 		'content'	=> "Rank Sets",
 		'type'		=> $type,
 		'section'	=> 'catalog',
-		'page'		=> 'ranks'
+		'page'		=> 'ranks',
+		'uri'		=> 'admin/catalog/ranks'
 	],
 	[
 		'key'		=> 'header.admin.catalog.ranks.create',
@@ -400,7 +441,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'catalog',
 		'page'		=> 'ranks',
-		'mode'		=> 'create'
+		'mode'		=> 'create',
+		'uri'		=> 'admin/catalog/ranks'
 	],
 	[
 		'key'		=> 'header.admin.catalog.ranks.edit',
@@ -409,7 +451,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'catalog',
 		'page'		=> 'ranks',
-		'mode'		=> 'update'
+		'mode'		=> 'update',
+		'uri'		=> 'admin/catalog/ranks'
 	],
 	[
 		'key'		=> 'header.admin.catalog.skins',
@@ -417,7 +460,8 @@ return [
 		'content'	=> "Skins",
 		'type'		=> $type,
 		'section'	=> 'catalog',
-		'page'		=> 'skins'
+		'page'		=> 'skins',
+		'uri'		=> 'admin/catalog/skins'
 	],
 	[
 		'key'		=> 'header.admin.catalog.skins.create',
@@ -426,7 +470,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'catalog',
 		'page'		=> 'skins',
-		'mode'		=> 'create'
+		'mode'		=> 'create',
+		'uri'		=> 'admin/catalog/skins'
 	],
 	[
 		'key'		=> 'header.admin.catalog.skins.edit',
@@ -435,7 +480,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'catalog',
 		'page'		=> 'skins',
-		'mode'		=> 'update'
+		'mode'		=> 'update',
+		'uri'		=> 'admin/catalog/skins'
 	],
 	[
 		'key'		=> 'header.admin.catalog.modules',
@@ -443,7 +489,8 @@ return [
 		'content'	=> "Modules",
 		'type'		=> $type,
 		'section'	=> 'catalog',
-		'page'		=> 'modules'
+		'page'		=> 'modules',
+		'uri'		=> 'admin/catalog/modules'
 	],
 	[
 		'key'		=> 'header.admin.catalog.modules.create',
@@ -452,7 +499,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'catalog',
 		'page'		=> 'modules',
-		'mode'		=> 'create'
+		'mode'		=> 'create',
+		'uri'		=> 'admin/catalog/modules'
 	],
 	[
 		'key'		=> 'header.admin.catalog.modules.edit',
@@ -461,7 +509,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'catalog',
 		'page'		=> 'modules',
-		'mode'		=> 'update'
+		'mode'		=> 'update',
+		'uri'		=> 'admin/catalog/modules'
 	],
 	[
 		'key'		=> 'header.admin.catalog.widgets',
@@ -469,7 +518,8 @@ return [
 		'content'	=> "Widgets",
 		'type'		=> $type,
 		'section'	=> 'catalog',
-		'page'		=> 'widgets'
+		'page'		=> 'widgets',
+		'uri'		=> 'admin/catalog/widgets'
 	],
 	[
 		'key'		=> 'header.admin.catalog.widgets.create',
@@ -478,7 +528,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'catalog',
 		'page'		=> 'widgets',
-		'mode'		=> 'create'
+		'mode'		=> 'create',
+		'uri'		=> 'admin/catalog/widgets'
 	],
 	[
 		'key'		=> 'header.admin.catalog.widgets.edit',
@@ -487,7 +538,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'catalog',
 		'page'		=> 'widgets',
-		'mode'		=> 'update'
+		'mode'		=> 'update',
+		'uri'		=> 'admin/catalog/widgets'
 	],
 
 	/**
@@ -499,7 +551,8 @@ return [
 		'content'	=> "Users",
 		'type'		=> $type,
 		'section'	=> 'user',
-		'page'		=> 'users'
+		'page'		=> 'users',
+		'uri'		=> 'admin/user'
 	],
 	[
 		'key'		=> 'header.admin.user.create',
@@ -507,7 +560,8 @@ return [
 		'content'	=> "Create New User",
 		'type'		=> $type,
 		'section'	=> 'user',
-		'page'		=> 'create'
+		'page'		=> 'create',
+		'uri'		=> 'admin/user/create'
 	],
 	[
 		'key'		=> 'header.admin.user.edit',
@@ -515,7 +569,8 @@ return [
 		'content'	=> "Edit User",
 		'type'		=> $type,
 		'section'	=> 'user',
-		'page'		=> 'edit'
+		'page'		=> 'edit',
+		'uri'		=> 'admin/user/edit'
 	],
 	[
 		'key'		=> 'header.admin.user.loa',
@@ -523,7 +578,8 @@ return [
 		'content'	=> "Request LOA",
 		'type'		=> $type,
 		'section'	=> 'user',
-		'page'		=> 'loa'
+		'page'		=> 'loa',
+		'uri'		=> 'admin/user/loa'
 	],
 
 	/**
@@ -545,8 +601,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'manage',
 		'page'		=> 'sitecontent',
-		'uri'		=> 'admin/sitecontent',
-		'mode'		=> 'create'
+		'mode'		=> 'create',
+		'uri'		=> 'admin/sitecontent'
 	],
 	[
 		'key'		=> 'header.admin.manage.content.update',
@@ -555,8 +611,8 @@ return [
 		'type'		=> $type,
 		'section'	=> 'manage',
 		'page'		=> 'sitecontent',
+		'mode'		=> 'update',
 		'uri'		=> 'admin/sitecontent',
-		'mode'		=> 'update'
 	],
 
 ];
