@@ -110,3 +110,27 @@ if ( ! function_exists('partial'))
 		return $viewObj;
 	}
 }
+
+/**
+ * Generate a modal.
+ *
+ * @param	array	The data to pass to the modal
+ * @return	string
+ */
+if ( ! function_exists('modal'))
+{
+	function modal(array $data = [])
+	{
+		// Set the variables
+		$id		= (array_key_exists('id', $data)) ? $data['id'] : false;
+		$header	= (array_key_exists('header', $data)) ? $data['header'] : false;
+		$body	= (array_key_exists('body', $data)) ? $data['body'] : false;
+		$footer	= (array_key_exists('footer', $data)) ? $data['footer'] : false;
+
+		return View::make(Location::partial('common/modal'))
+			->with('modalId', $id)
+			->with('modalHeader', $header)
+			->with('modalBody', $body)
+			->with('modalFooter', $footer);
+	}
+}
