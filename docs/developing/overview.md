@@ -63,27 +63,31 @@ With a more complete understanding of PHP, it's time to step up to some of the u
 
 ## Nova Level 2
 
-- Understanding database interaction in Nova 3
+- Intro to Models
 	- The Eloquent ORM
 		- Basic functions
 		- Collections
 	- Entities
-	- Events (just the basics)
-	- Validators (just the basics)
+	- Repositories and Interfaces (just the basics)
 - Migrations
 - Caching
 	- APC and Memcache
 	- Leveraging caching for custom solutions
 - Access control
 - Events
-- Interfaces, Implementations and Injection
-	- Learn how Nova injects interfaces into controllers and other classes to make huge parts of the system oblivious to where the data is coming from. This pattern makes Nova more flexible than ever before.
 
 ## Nova Level 3
 
-- Advanced database interaction
-	- Utilizing model event handlers
-	- Customizing model entities
+- Advanced Controllers
+	- Injecting dependencies
+	- Filters
+	- Interfaces, Implementations and Injection
+- Advanced Models
+	- Model events
+	- Creating new model entities
+	- Overriding existing model entities
+	- Validators
+	- Repositories and Interfaces
 - Interfaces
 	- Overview
 	- The Media interface
