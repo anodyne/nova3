@@ -17,6 +17,7 @@ This track is meant for people who have little to no experience with PHP. Throug
 	- Functions
 	- Objects and Classes
 	- Object-oriented programming
+	- Using databases
 - Advanced PHP
 	- Intro
 	- Namespaces

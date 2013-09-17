@@ -66,3 +66,5 @@ As seen in the examples above, there are several ways to compare data. Here are 
 
 ($result <= 70)
 // Result is less than or equal to 70</pre>
+
+// Switch statements
