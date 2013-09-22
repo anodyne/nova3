@@ -7,8 +7,8 @@ DevCenter is an exhaustive resource for everything about developing for Nova 3. 
 This track is meant for people who have little to no experience with PHP. Through several courses, you'll learn about what PHP is, what it can do, how to write it and move all the way up to some of the more advanced features of the language.
 
 - Intro to PHP
-	- What is PHP?
-	- Declaring variables
+	- [What is PHP?](development-101/php-1/1-intro.md)
+	- [Declaring variables](development-101/php-1/2-variables.md)
 	- Arrays
 	- Comparisons
 	- Looping
