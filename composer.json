@@ -27,7 +27,7 @@
 		"dflydev/markdown": "1.*",
 		"ikimea/browser": "1.*",
 		"baum/baum": "1.*",
-		"cartalyst/sentry": "dev-master",
+		"cartalyst/sentry": "2.*",
 		"cartalyst/api": "1.*"
 	},
 
