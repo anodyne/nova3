@@ -1,51 +1,55 @@
-# Releases
+# Releases and Versioning
 
-Anodyne manages its releases through a time-based model; a new Nova release will be available every 6 months: one in June and one in December.
+## Types of Releases
 
-## Development
+Beginning with Nova 3, we will differentiate between 3 different types of releases:
+
+- Feature Release: a feature release will introduce new functionality and may also address existing issues and security issues with previous versions of Nova. A feature release will bump the major and/or minor version of Nova.
+- Issue Release: an issue release will address known issues with the software. Backwards compatability will never be broken with an issue release. An issue release will bump the patch number of the current version. No new functionality will be added through these releases.
+- Security Release: a security release will address any issues that relate solely to the security of the software. Just because a security release is made available does not mean there is a security vulnerability in the software that users should be worried about. Due to the nature of security releases, Anodyne will not make a changelog available. Security releases will bump the patch number of the current version. No new functionality will be added and existing issues that aren't related to security will not be addressed.
+
+## Versions
+
+We version under the [Semantic Versioning](http://semver.org/) guidelines as much as possible.
+
+Releases will be numbered with the following format:
+
+`<major>.<minor>.<patch>`
+
+And constructed with the following guidelines:
+
+- Architectural changes and anything that significantly breaks backward compatibility bumps the major (and resets the minor and patch)
+- New additions without significantly breaking backward compatibility bumps the minor (and resets the patch)
+- Issue fixes and miscellaneous changes bumps the patch
+
+## Release Timeline
+
+Beginning with Nova 3, Anodyne will manages releases through a time-based model. New Nova releases will be available every 6 months: one in January and one in July. The decision to move to this schedule provides more predictability to when Nova 3 updates are released.
 
 The 6-month period is divided into two phases:
 
 - Development: 4 months to add new features and to enhance existing ones;
-- Stabilization: 2 months to fix bugs, test and prepare the release, and wait for the community (3rd-party libraries, modules, and skins) to catch up.
-
-During the development phase, any new feature can be reverted if it won't be finished in time or won't be stable enough to be included in the next release.
+- Stabilization: 2 months to fix bugs, test and prepare the release, and give the community (3rd-party libraries, modules, and skins) a chance to catch up.
 
 ## Maintenance
 
-Each Nova version is maintained for a fixed period of time. We have two maintenance periods:
-
-- Bug fixes and security fixes: During this period, all issues can be fixed. The end of this period is referenced as being the end of maintenance of a release. Nova releases will stay in this period for the 6 months between release and the release of a new version.
-- Security fixes only: During this period, only security related issues can be fixed. The end of this period is referenced as being the end of life of a release. Nova releases will stay in this period for 6 months beyond the end of the previous period.
-
-Simply put, bug fixes will be made to a release for 6 months and for the following 6 months, only security fixes will be made. This ensures that a version of Nova is maintained for 1 year following its release.
+Beginning with Nova 3, every version will be maintained for 1 year following its release. For the first 6 months, bug fixes will be made. The release of a new minor version marks the end of maintenance for that release. For the second 6 months, only security fixes will be made. A Nova 3 release is considered "end of life" after 2 new versions have been released.
 
 ## Schedule
 
 - 3.0
-	- Release: 6/2015
-	- End of Maintenance: 12/2015
-	- End of Life: 6/2016
+	- Feature Release: 31 July 2015
+	- Issue Releases Until: 31 January 2016
+	- Security Releases Until: 31 July 2016
 - 3.1
-	- Release: 12/2015
-	- End of Maintenance: 6/2016
-	- End of Life: 12/2016
+	- Feature Release: 31 January 2016
+	- Issue Releases Until: 31 July 2016
+	- Security Releases Until: 31 January 2017
 - 3.2
-	- Release: 6/2016
-	- End of Maintenance: 12/2016
-	- End of Life: 6/2017
+	- Feature Release: 31 July 2016
+	- Issue Releases Until: 31 January 2017
+	- Security Releases Until: 31 July 2017
 - 3.3
-	- Release: 12/2016
-	- End of Maintenance: 6/2017
-	- End of Life: 12/2017
-
-## Rationale
-
-This release process was adopted to give more predictability and transparency. It has the following goals:
-
-- Shorten the release cycle (allow games and developers to benefit from the new features faster);
-- Improve the experience of games using Nova: everyone knows when a feature might be available in Nova;
-- Coordinate the Nova timeline with projects that Nova is built on top of (namely Symfony and Laravel which have a May/November release timeframe);
-- Give time to the community to catch up with the new versions (module authors, documentation writers, translators, skin developers, ...).
-
-The six month period was chosen as two releases fit in a year. It also allows for plenty of time to work on new features and it allows for non-ready features to be postponed to the next version without having to wait too long for the next cycle.
+	- Feature Release: 31 January 2017
+	- Issue Releases Until: 31 July 2017
+	- Security Releases Until: 31 January 2018
