@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Interfaces\Repositories;
+<?php namespace Nova\Core\Interfaces;
 
 interface BaseRepositoryInterface {
 

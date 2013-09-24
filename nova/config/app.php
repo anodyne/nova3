@@ -386,7 +386,7 @@ return [
 		/**
 		 * Repository Interfaces
 		 */
-		'BaseRepositoryInterface'			=> "Nova\\Core\\Interfaces\\Repositories\\BaseRepositoryInterface",
+		'BaseRepositoryInterface'			=> "Nova\\Core\\Interfaces\\BaseRepositoryInterface",
 
 		'AccessRoleRepositoryInterface'		=> "Nova\\Core\\Interfaces\\Repositories\\AccessRoleRepositoryInterface",
 		'CatalogRepositoryInterface'		=> "Nova\\Core\\Interfaces\\Repositories\\CatalogRepositoryInterface",
