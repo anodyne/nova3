@@ -237,8 +237,8 @@ return [
 		/**
 		 * Nova Traits
 		 */
-		'FormTrait'					=> "Nova\\Core\\Traits\\FormTrait",
-		'SecurityTrait'				=> "Nova\\Core\\Traits\\SecurityTrait",
+		'FormTrait'			=> "Nova\\Core\\Traits\\FormTrait",
+		'SecurityTrait'		=> "Nova\\Core\\Traits\\SecurityTrait",
 
 		/**
 		 * Nova Exceptions
@@ -252,139 +252,142 @@ return [
 		'NotifierNoSubjectException'	=> "Nova\\Core\\Exceptions\\NotifierNoSubjectException",
 
 		/**
-		 * Nova Model Entities
+		 * Models
 		 */
-		'AccessRole'				=> "Nova\\Core\\Models\\Entities\\Access\\Role",
-		'AccessRoleTask'			=> "Nova\\Core\\Models\\Entities\\Access\\RoleTask",
-		'AccessTask'				=> "Nova\\Core\\Models\\Entities\\Access\\Task",
+		'AccessRole'				=> "Nova\\Core\\Models\\Eloquent\\Access\\Role",
+		'AccessRoleTask'			=> "Nova\\Core\\Models\\Eloquent\\Access\\RoleTask",
+		'AccessTask'				=> "Nova\\Core\\Models\\Eloquent\\Access\\Task",
 
-		'NovaApp'					=> "Nova\\Core\\Models\\Entities\\Application",
-		'NovaAppResponse'			=> "Nova\\Core\\Models\\Entities\\Application\\Response",
-		'NovaAppReviewer'			=> "Nova\\Core\\Models\\Entities\\Application\\Reviewer",
-		'NovaAppRule'				=> "Nova\\Core\\Models\\Entities\\Application\\Rule",
+		'NovaApp'					=> "Nova\\Core\\Models\\Eloquent\\Application",
+		'NovaAppResponse'			=> "Nova\\Core\\Models\\Eloquent\\Application\\Response",
+		'NovaAppReviewer'			=> "Nova\\Core\\Models\\Eloquent\\Application\\Reviewer",
+		'NovaAppRule'				=> "Nova\\Core\\Models\\Eloquent\\Application\\Rule",
 
-		'Award'						=> "Nova\\Core\\Models\\Entities\\Award",
-		'AwardCategory'				=> "Nova\\Core\\Models\\Entities\\Award\\Category",
-		'AwardRecipient'			=> "Nova\\Core\\Models\\Entities\\Award\\Recipient",
+		'Award'						=> "Nova\\Core\\Models\\Eloquent\\Award",
+		'AwardCategory'				=> "Nova\\Core\\Models\\Eloquent\\Award\\Category",
+		'AwardRecipient'			=> "Nova\\Core\\Models\\Eloquent\\Award\\Recipient",
 		
-		'ModuleCatalog'				=> "Nova\\Core\\Models\\Entities\\Catalog\\Module",
-		'RankCatalog'				=> "Nova\\Core\\Models\\Entities\\Catalog\\Rank",
-		'SkinCatalog'				=> "Nova\\Core\\Models\\Entities\\Catalog\\Skin",
-		'WidgetCatalog'				=> "Nova\\Core\\Models\\Entities\\Catalog\\Widget",
+		'ModuleCatalog'				=> "Nova\\Core\\Models\\Eloquent\\Catalog\\Module",
+		'RankCatalog'				=> "Nova\\Core\\Models\\Eloquent\\Catalog\\Rank",
+		'SkinCatalog'				=> "Nova\\Core\\Models\\Eloquent\\Catalog\\Skin",
+		'WidgetCatalog'				=> "Nova\\Core\\Models\\Eloquent\\Catalog\\Widget",
 
-		'Character'					=> "Nova\\Core\\Models\\Entities\\Character",
-		'CharacterPosition'			=> "Nova\\Core\\Models\\Entities\\Character\\Positions",
-		'CharacterPromotion'		=> "Nova\\Core\\Models\\Entities\\Character\\Promotion",
+		'Character'					=> "Nova\\Core\\Models\\Eloquent\\Character",
+		'CharacterPosition'			=> "Nova\\Core\\Models\\Eloquent\\Character\\Positions",
+		'CharacterPromotion'		=> "Nova\\Core\\Models\\Eloquent\\Character\\Promotion",
 
-		'NovaForm'					=> "Nova\\Core\\Models\\Entities\\Form",
-		'NovaFormData'				=> "Nova\\Core\\Models\\Entities\\Form\\Data",
-		'NovaFormField'				=> "Nova\\Core\\Models\\Entities\\Form\\Field",
-		'NovaFormSection'			=> "Nova\\Core\\Models\\Entities\\Form\\Section",
-		'NovaFormTab'				=> "Nova\\Core\\Models\\Entities\\Form\\Tab",
-		'NovaFormValue'				=> "Nova\\Core\\Models\\Entities\\Form\\Value",
+		'NovaForm'					=> "Nova\\Core\\Models\\Eloquent\\Form",
+		'NovaFormData'				=> "Nova\\Core\\Models\\Eloquent\\Form\\Data",
+		'NovaFormField'				=> "Nova\\Core\\Models\\Eloquent\\Form\\Field",
+		'NovaFormSection'			=> "Nova\\Core\\Models\\Eloquent\\Form\\Section",
+		'NovaFormTab'				=> "Nova\\Core\\Models\\Eloquent\\Form\\Tab",
+		'NovaFormValue'				=> "Nova\\Core\\Models\\Eloquent\\Form\\Value",
 
-		'Mission'					=> "Nova\\Core\\Models\\Entities\\Mission",
-		'MissionGroup'				=> "Nova\\Core\\Models\\Entities\\Mission\\Group",
-		'MissionNote'				=> "Nova\\Core\\Models\\Entities\\Mission\\Note",
+		'Mission'					=> "Nova\\Core\\Models\\Eloquent\\Mission",
+		'MissionGroup'				=> "Nova\\Core\\Models\\Eloquent\\Mission\\Group",
+		'MissionNote'				=> "Nova\\Core\\Models\\Eloquent\\Mission\\Note",
 
-		'Post'						=> "Nova\\Core\\Models\\Entities\\Post",
-		'PostAuthor'				=> "Nova\\Core\\Models\\Entities\\Post\\Author",
-		'PostLock'					=> "Nova\\Core\\Models\\Entities\\Post\\Lock",
-		'PostParticipant'			=> "Nova\\Core\\Models\\Entities\\Post\\Participant",
+		'Post'						=> "Nova\\Core\\Models\\Eloquent\\Post",
+		'PostAuthor'				=> "Nova\\Core\\Models\\Eloquent\\Post\\Author",
+		'PostLock'					=> "Nova\\Core\\Models\\Eloquent\\Post\\Lock",
+		'PostParticipant'			=> "Nova\\Core\\Models\\Eloquent\\Post\\Participant",
 
-		'Rank'						=> "Nova\\Core\\Models\\Entities\\Rank",
-		'RankGroup'					=> "Nova\\Core\\Models\\Entities\\Rank\\Group",
-		'RankInfo'					=> "Nova\\Core\\Models\\Entities\\Rank\\Info",
+		'Rank'						=> "Nova\\Core\\Models\\Eloquent\\Rank",
+		'RankGroup'					=> "Nova\\Core\\Models\\Eloquent\\Rank\\Group",
+		'RankInfo'					=> "Nova\\Core\\Models\\Eloquent\\Rank\\Info",
 
-		'User'						=> "Nova\\Core\\Models\\Entities\\User",
-		'UserLoa'					=> "Nova\\Core\\Models\\Entities\\User\\Loa",
-		'UserPrefs'					=> "Nova\\Core\\Models\\Entities\\User\\Preferences",
-		'UserSuspend'				=> "Nova\\Core\\Models\\Entities\\User\\Suspend",
+		'User'						=> "Nova\\Core\\Models\\Eloquent\\User",
+		'UserLoa'					=> "Nova\\Core\\Models\\Eloquent\\User\\Loa",
+		'UserPrefs'					=> "Nova\\Core\\Models\\Eloquent\\User\\Preferences",
+		'UserSuspend'				=> "Nova\\Core\\Models\\Eloquent\\User\\Suspend",
 
-		'Announcement'				=> "Nova\\Core\\Models\\Entities\\Announcement",
-		'Ban'						=> "Nova\\Core\\Models\\Entities\\Ban",
-		'Comment'					=> "Nova\\Core\\Models\\Entities\\Comment",
-		'Dept'						=> "Nova\\Core\\Models\\Entities\\Department",
-		'Manifest'					=> "Nova\\Core\\Models\\Entities\\Manifest",
-		'MediaModel'				=> "Nova\\Core\\Models\\Entities\\Media",
-		'Message'					=> "Nova\\Core\\Models\\Entities\\Message",
-		'MessageRecipient'			=> "Nova\\Core\\Models\\Entities\\MessageRecipient",
-		'Moderation'				=> "Nova\\Core\\Models\\Entities\\Moderation",
-		'NavModel'					=> "Nova\\Core\\Models\\Entities\\Nav",
-		'PersonalLog'				=> "Nova\\Core\\Models\\Entities\\PersonalLog",
-		'Position'					=> "Nova\\Core\\Models\\Entities\\Position",
-		'Settings'					=> "Nova\\Core\\Models\\Entities\\Settings",
-		'SimType'					=> "Nova\\Core\\Models\\Entities\\SimType",
-		'SiteContent'				=> "Nova\\Core\\Models\\Entities\\SiteContent",
-		'System'					=> "Nova\\Core\\Models\\Entities\\System",
-		'SystemEventModel'			=> "Nova\\Core\\Models\\Entities\\SystemEvent",
-		'SystemRoute'				=> "Nova\\Core\\Models\\Entities\\SystemRoute",
+		'Announcement'				=> "Nova\\Core\\Models\\Eloquent\\Announcement",
+		'Ban'						=> "Nova\\Core\\Models\\Eloquent\\Ban",
+		'Comment'					=> "Nova\\Core\\Models\\Eloquent\\Comment",
+		'Dept'						=> "Nova\\Core\\Models\\Eloquent\\Department",
+		'Manifest'					=> "Nova\\Core\\Models\\Eloquent\\Manifest",
+		'MediaModel'				=> "Nova\\Core\\Models\\Eloquent\\Media",
+		'Message'					=> "Nova\\Core\\Models\\Eloquent\\Message",
+		'MessageRecipient'			=> "Nova\\Core\\Models\\Eloquent\\MessageRecipient",
+		'Moderation'				=> "Nova\\Core\\Models\\Eloquent\\Moderation",
+		'NavModel'					=> "Nova\\Core\\Models\\Eloquent\\Nav",
+		'PersonalLog'				=> "Nova\\Core\\Models\\Eloquent\\PersonalLog",
+		'Position'					=> "Nova\\Core\\Models\\Eloquent\\Position",
+		'Settings'					=> "Nova\\Core\\Models\\Eloquent\\Settings",
+		'SimType'					=> "Nova\\Core\\Models\\Eloquent\\SimType",
+		'SiteContent'				=> "Nova\\Core\\Models\\Eloquent\\SiteContent",
+		'System'					=> "Nova\\Core\\Models\\Eloquent\\System",
+		'SystemEventModel'			=> "Nova\\Core\\Models\\Eloquent\\SystemEvent",
+		'SystemRoute'				=> "Nova\\Core\\Models\\Eloquent\\SystemRoute",
 
 		/**
-		 * Nova Model Event Handlers
+		 * Event Handlers
 		 */
-		'AccessRoleEventHandler'		=> "Nova\\Core\\Models\\Events\\Access\\Role",
-		'AccessTaskEventHandler'		=> "Nova\\Core\\Models\\Events\\Access\\Task",
+		'UserEventHandler'				=> "Nova\\Core\\Events\\User",
 
-		'NovaAppEventHandler'			=> "Nova\\Core\\Models\\Events\\Application",
+		'AccessRoleModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Access\\Role",
+		'AccessTaskModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Access\\Task",
 
-		'RankCatalogEventHandler'		=> "Nova\\Core\\Models\\Events\\Catalog\\Rank",
-		'SkinCatalogEventHandler'		=> "Nova\\Core\\Models\\Events\\Catalog\\Skin",
+		'ApplicationModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Application",
 
-		'NovaFormEventHandler'			=> "Nova\\Core\\Models\\Events\\Form",
-		'NovaFormFieldEventHandler'		=> "Nova\\Core\\Models\\Events\\Form\\Field",
-		'NovaFormSectionEventHandler'	=> "Nova\\Core\\Models\\Events\\Form\\Section",
-		'NovaFormTabEventHandler'		=> "Nova\\Core\\Models\\Events\\Form\\Tab",
-		'NovaFormValueEventHandler'		=> "Nova\\Core\\Models\\Events\\Form\\Value",
+		'RankCatalogModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Catalog\\Rank",
+		'SkinCatalogModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Catalog\\Skin",
 
-		'RankEventHandler'				=> "Nova\\Core\\Models\\Events\\Rank",
-		'RankGroupEventHandler'			=> "Nova\\Core\\Models\\Events\\Rank\\Group",
-		'RankInfoEventHandler'			=> "Nova\\Core\\Models\\Events\\Rank\\Info",
+		'FormModelEventHandler'			=> "Nova\\Core\\Events\\Models\\Form",
+		'FormFieldModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Form\\Field",
+		'FormSectionModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Form\\Section",
+		'FormTabModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Form\\Tab",
+		'FormValueModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Form\\Value",
+
+		'RankModelEventHandler'			=> "Nova\\Core\\Events\\Models\\Rank",
+		'RankGroupModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Rank\\Group",
+		'RankInfoModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Rank\\Info",
 		
-		'BaseEventHandler'				=> "Nova\\Core\\Models\\Events\\Base",
-		'CharacterEventHandler'			=> "Nova\\Core\\Models\\Events\\Character",
-		'CommentEventHandler'			=> "Nova\\Core\\Models\\Events\\Comment",
-		'PositionEventHandler'			=> "Nova\\Core\\Models\\Events\\Position",
-		'SettingsEventHandler'			=> "Nova\\Core\\Models\\Events\\Settings",
-		'SiteContentEventHandler'		=> "Nova\\Core\\Models\\Events\\SiteContent",
-		'SystemRouteEventHandler'		=> "Nova\\Core\\Models\\Events\\SystemRoute",
-		'UserEventHandler'				=> "Nova\\Core\\Models\\Events\\User",
+		'BaseModelEventHandler'			=> "Nova\\Core\\Events\\Models\\Base",
+		'CharacterModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Character",
+		'CommentModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Comment",
+		'PositionModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Position",
+		'SettingsModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Settings",
+		'SiteContentModelEventHandler'	=> "Nova\\Core\\Events\\Models\\SiteContent",
+		'SystemRouteModelEventHandler'	=> "Nova\\Core\\Events\\Models\\SystemRoute",
+		'UserModelEventHandler'			=> "Nova\\Core\\Events\\Models\\User",
 
 		/**
-		 * Nova Model Validators
+		 * Validators
 		 */
-		'AccessRoleValidator'		=> "Nova\\Core\\Models\\Validators\\Access\\Role",
-		'AccessTaskValidator'		=> "Nova\\Core\\Models\\Validators\\Access\\Task",
+		
+		'AccessRoleValidator'		=> "Nova\\Core\\Validators\\Access\\Role",
+		'AccessTaskValidator'		=> "Nova\\Core\\Validators\\Access\\Task",
 
-		'RankCatalogValidator'		=> "Nova\\Core\\Models\\Validators\\Catalog\\Rank",
-		'SkinCatalogValidator'		=> "Nova\\Core\\Models\\Validators\\Catalog\\Skin",
+		'RankCatalogValidator'		=> "Nova\\Core\\Validators\\Catalog\\Rank",
+		'SkinCatalogValidator'		=> "Nova\\Core\\Validators\\Catalog\\Skin",
 
-		'FormValidator'				=> "Nova\\Core\\Models\\Validators\\Form",
-		'FormFieldValidator'		=> "Nova\\Core\\Models\\Validators\\Form\\Field",
-		'FormSectionValidator'		=> "Nova\\Core\\Models\\Validators\\Form\\Section",
-		'FormTabValidator'			=> "Nova\\Core\\Models\\Validators\\Form\\Tab",
-		'FormValueValidator'		=> "Nova\\Core\\Models\\Validators\\Form\\Value",
+		'FormValidator'				=> "Nova\\Core\\Validators\\Form",
+		'FormFieldValidator'		=> "Nova\\Core\\Validators\\Form\\Field",
+		'FormSectionValidator'		=> "Nova\\Core\\Validators\\Form\\Section",
+		'FormTabValidator'			=> "Nova\\Core\\Validators\\Form\\Tab",
+		'FormValueValidator'		=> "Nova\\Core\\Validators\\Form\\Value",
 
-		'BaseValidator'				=> "Nova\\Core\\Models\\Validators\\Base",
-		'SiteContentValidator'		=> "Nova\\Core\\Models\\Validators\\SiteContent",
-		'SystemRouteValidator'		=> "Nova\\Core\\Models\\Validators\\SystemRoute",
-		'UserValidator'				=> "Nova\\Core\\Models\\Validators\\User",
+		'BaseValidator'				=> "Nova\\Core\\Validators\\Base",
+		'SiteContentValidator'		=> "Nova\\Core\\Validators\\SiteContent",
+		'SystemRouteValidator'		=> "Nova\\Core\\Validators\\SystemRoute",
+		'UserValidator'				=> "Nova\\Core\\Validators\\User",
 
 		/**
 		 * Repositories
 		 */
-		'AccessRoleRepository'	=> "Nova\\Core\\Repositories\\Eloquent\\AccessRoleRepository",
-		'CatalogRepository'		=> "Nova\\Core\\Repositories\\Eloquent\\CatalogRepository",
-		'FormRepository'		=> "Nova\\Core\\Repositories\\Eloquent\\FormRepository",
-		'SettingsRepository'	=> "Nova\\Core\\Repositories\\Eloquent\\SettingsRepository",
-		'SiteContentRepository'	=> "Nova\\Core\\Repositories\\Eloquent\\SiteContentRepository",
-		'SystemRouteRepository'	=> "Nova\\Core\\Repositories\\Eloquent\\SystemRouteRepository",
-		'UserRepository'		=> "Nova\\Core\\Repositories\\Eloquent\\UserRepository",
+		'AccessRoleRepository'		=> "Nova\\Core\\Repositories\\Eloquent\\AccessRoleRepository",
+		'CatalogRepository'			=> "Nova\\Core\\Repositories\\Eloquent\\CatalogRepository",
+		'FormRepository'			=> "Nova\\Core\\Repositories\\Eloquent\\FormRepository",
+		'SettingsRepository'		=> "Nova\\Core\\Repositories\\Eloquent\\SettingsRepository",
+		'SiteContentRepository'		=> "Nova\\Core\\Repositories\\Eloquent\\SiteContentRepository",
+		'SystemRouteRepository'		=> "Nova\\Core\\Repositories\\Eloquent\\SystemRouteRepository",
+		'UserRepository'			=> "Nova\\Core\\Repositories\\Eloquent\\UserRepository",
 
 		/**
 		 * Repository Interfaces
 		 */
-		'BaseRepositoryInterface'			=> "Nova\\Core\\Interfaces\\BaseRepositoryInterface",
+		'BaseRepositoryInterface'			=> "Nova\\Core\\Interfaces\\Repositories\\BaseRepositoryInterface",
 
 		'AccessRoleRepositoryInterface'		=> "Nova\\Core\\Interfaces\\Repositories\\AccessRoleRepositoryInterface",
 		'CatalogRepositoryInterface'		=> "Nova\\Core\\Interfaces\\Repositories\\CatalogRepositoryInterface",
