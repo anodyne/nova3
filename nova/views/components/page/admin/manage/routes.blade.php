@@ -1,4 +1,4 @@
-@if (Sentry::getUser()->hasAccess('routes.create'))
+@if ($_currentUser->hasAccess('routes.create'))
 	<div class="btn-toolbar">
 		<div class="btn-group">
 			<a href="{{ URL::to('admin/routes/create') }}" class="btn btn-success icn-size-16">{{ $_icons['add'] }}</a>
@@ -35,13 +35,13 @@
 					<div class="col-xs-12 col-sm-12 col-lg-2">
 						<div class="visible-lg">
 							<div class="btn-toolbar pull-right">
-								@if (Sentry::getUser()->hasAccess('routes.update'))
+								@if ($_currentUser->hasAccess('routes.update'))
 									<div class="btn-group">
 										<a href="{{ URL::to('admin/routes/'.$route->id) }}" class="btn btn-sm btn-default icn-size-16">{{ $_icons['edit'] }}</a>
 									</div>
 								@endif
 
-								@if (Sentry::getUser()->hasAccess('routes.delete'))
+								@if ($_currentUser->hasAccess('routes.delete'))
 									<div class="btn-group">
 										<a href="#" class="btn btn-sm btn-danger icn-size-16 js-route-action" data-route="{{ $route->id }}" data-action="delete">{{ $_icons['remove'] }}</a>
 									</div>
@@ -51,13 +51,13 @@
 						<div class="hidden-lg">
 							<div class="row">
 								<div class="col-xs-12 col-sm-6">
-									@if (Sentry::getUser()->hasAccess('routes.update'))
+									@if ($_currentUser->hasAccess('routes.update'))
 										<p><a href="{{ URL::to('admin/routes/'.$route->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 									@endif
 								</div>
 
 								<div class="col-xs-12 col-sm-6">
-									@if (Sentry::getUser()->hasAccess('routes.delete'))
+									@if ($_currentUser->hasAccess('routes.delete'))
 										<p><a href="#" class="btn btn-block btn-danger icn-size-16 js-route-action" data-route="{{ $route->id }}" data-action="delete">{{ $_icons['remove'] }}</a></p>
 									@endif
 								</div>
@@ -93,7 +93,7 @@
 						<p>{{ $route->resource }}</p>
 					</div>
 					<div class="col-xs-12 col-sm-12 col-lg-1">
-						@if (Sentry::getUser()->hasAccess('routes.create'))
+						@if ($_currentUser->hasAccess('routes.create'))
 							<div class="btn-group pull-right visible-lg">
 								<a href="#" class="btn btn-default icn-size-16 js-route-action" data-route="{{ $route->id }}" data-action="duplicate">{{ $_icons['duplicate'] }}</a>
 							</div>

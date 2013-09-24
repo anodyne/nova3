@@ -1,9 +1,7 @@
 <?php namespace Nova\Core\Controllers\Admin;
 
 use Str;
-use View;
 use Input;
-use Location;
 use Redirect;
 use AdminBaseController;
 use SiteContentValidator;
@@ -35,7 +33,7 @@ class Manage extends AdminBaseController {
 			$routeId = (is_numeric($routeId)) ? $routeId : 0;
 
 			// Get the route
-			$route = $this->_data->route = $this->routes->find($routeId);
+			$this->_data->route = $this->routes->find($routeId);
 
 			// Set the action
 			$this->_mode = $this->_data->action = ((int) $routeId === 0) ? 'create' : 'update';
@@ -45,48 +43,25 @@ class Manage extends AdminBaseController {
 			$this->_view = 'admin/manage/routes';
 
 			// Get all the routes for the system
-			$routes = $this->routes->all();
-
-			// Make sure we have routes
-			if ($routes->count() > 0)
-			{
-				// Loop through the routes
-				foreach ($routes as $route)
-				{
-					// Separate the routes into CORE and USER routes
-					if ((bool) $route->protected === true)
-					{
-						$this->_data->routes['core'][] = $route;
-					}
-					else
-					{
-						$this->_data->routes['user'][] = $route;
-					}
-				}
-			}
+			$this->_data->routes = $this->routes->all();
 
 			// Build the duplicate page modal
-			$this->_ajax[] = View::make(Location::partial('common/modal'))
-				->with('modalId', 'duplicateRoute')
-				->with('modalHeader', lang('Short.duplicate', langConcat('Core Route')))
-				->with('modalBody', false)
-				->with('modalFooter', false);
+			$this->_ajax[] = modal([
+				'id'		=> 'duplicateRoute',
+				'header'	=> lang('Short.duplicate', langConcat('Core Route'))
+			]);
 
 			// Build the delete page modal
-			$this->_ajax[] = View::make(Location::partial('common/modal'))
-				->with('modalId', 'deleteRoute')
-				->with('modalHeader', lang('Short.delete', lang('Route')))
-				->with('modalBody', false)
-				->with('modalFooter', false);
+			$this->_ajax[] = modal([
+				'id'		=> 'deleteRoute',
+				'header'	=> lang('Short.delete', lang('Route'))
+			]);
 		}
 	}
 	public function postRoutes()
 	{
-		// Get the input
-		$input = Input::all();
-
 		// Get the action
-		$formAction = e($input['formAction']);
+		$formAction = Input::get('formAction');
 
 		// Set up the validation service
 		$validator = new SystemRouteValidator;
@@ -113,7 +88,14 @@ class Manage extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('routes.create') and $formAction == 'create')
 		{
-			$return = $this->performRoutesCreate($input);
+			// Create the new page route
+			$item = $this->routes->create(Input::all());
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.create', langConcat('route'))
+				: lang('Short.alert.failure.create', langConcat('route'));
 		}
 
 		/**
@@ -121,7 +103,14 @@ class Manage extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('routes.create') and $formAction == 'duplicate')
 		{
-			$return = $this->performRoutesDuplicate($input);
+			// Duplicate the route
+			$item = $this->routes->duplicate(Input::get('id'));
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.duplicate', langConcat('core route'))
+				: lang('Short.alert.failure.duplicate', langConcat('core route'));
 		}
 
 		/**
@@ -129,7 +118,14 @@ class Manage extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('routes.update') and $formAction == 'update')
 		{
-			$return = $this->performRoutesUpdate($input);
+			// Update the route
+			$item = $this->routes->update(Input::get('id'), Input::all());
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.update', langConcat('route'))
+				: lang('Short.alert.failure.update', langConcat('route'));
 		}
 
 		/**
@@ -137,12 +133,19 @@ class Manage extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('routes.delete') and $formAction == 'delete')
 		{
-			$return = $this->performRoutesDelete($input);
+			// Delete the route
+			$item = $this->routes->delete(Input::get('id'));
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.delete', langConcat('route'))
+				: lang('Short.alert.failure.delete', langConcat('route'));
 		}
 
 		return Redirect::to('admin/routes')
-			->with('flashStatus', $return['status'])
-			->with('flashMessage', $return['message']);
+			->with('flashStatus', $flashStatus)
+			->with('flashMessage', $flashMessage);
 	}
 
 	public function getSiteContent($contentId = false)
@@ -200,11 +203,10 @@ class Manage extends AdminBaseController {
 			}
 
 			// Build the delete content modal
-			$this->_ajax[] = View::make(Location::partial('common/modal'))
-				->with('modalId', 'deleteSiteContent')
-				->with('modalHeader', lang('Short.delete', langConcat('Site Content')))
-				->with('modalBody', '')
-				->with('modalFooter', false);
+			$this->_ajax[] = modal([
+				'id'		=> 'deleteSiteContent',
+				'header'	=> lang('Short.delete', langConcat('Site Content'))
+			]);
 		}
 	}
 	public function postSiteContent()
@@ -262,58 +264,6 @@ class Manage extends AdminBaseController {
 		return Redirect::to('admin/sitecontent')
 			->with('flashStatus', $return['status'])
 			->with('flashMessage', $return['message']);
-	}
-
-	/**
-	 * Routes actions.
-	 */
-	protected function performRoutesCreate(array $input)
-	{
-		// Create the new page route
-		$item = $this->routes->create($input);
-
-		return [
-			'status'	=> ($item) ? 'success' : 'danger',
-			'message'	=> ($item) 
-				? lang('Short.alert.success.create', lang('route'))
-				: lang('Short.alert.failure.create', lang('route'))
-		];
-	}
-	protected function performRoutesDuplicate(array $input)
-	{
-		// Duplicate the route
-		$item = $this->routes->duplicate($input['id']);
-
-		return [
-			'status'	=> ($item) ? 'success' : 'danger',
-			'message'	=> ($item) 
-				? lang('Short.alert.success.duplicate', langConcat('core route'))
-				: lang('Short.alert.failure.duplicate', langConcat('core route'))
-		];
-	}
-	protected function performRoutesUpdate(array $input)
-	{
-		// Update the route
-		$item = $this->routes->update($input['id'], $input);
-
-		return [
-			'status'	=> ($item) ? 'success' : 'danger',
-			'message'	=> ($item) 
-				? lang('Short.alert.success.update', lang('route'))
-				: lang('Short.alert.failure.update', lang('route'))
-		];
-	}
-	protected function performRoutesDelete(array $input)
-	{
-		// Delete the route
-		$item = $this->routes->delete($input['id']);
-
-		return [
-			'status'	=> ($item) ? 'success' : 'danger',
-			'message'	=> ($item) 
-				? lang('Short.alert.success.delete', lang('route'))
-				: lang('Short.alert.failure.delete', lang('route'))
-		];
 	}
 
 	/**
