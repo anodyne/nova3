@@ -13,7 +13,7 @@ trait SecurityTrait {
 		if ( ! is_numeric($num))
 			return false;
 		
-		return e($num);
+		return $num;
 	}
 
 	/**
@@ -27,7 +27,7 @@ trait SecurityTrait {
 		if ( ! is_string($str))
 			return false;
 		
-		return e($str);
+		return $str;
 	}
 
 }

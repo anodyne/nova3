@@ -1,19 +1,13 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
+use SecurityTrait;
 use AccessRoleModel;
 use AccessTaskModel;
-use SecurityTrait;
 use AccessRoleRepositoryInterface;
 
 class AccessRoleRepository implements AccessRoleRepositoryInterface {
 
 	use SecurityTrait;
-
-	/*
-	|--------------------------------------------------------------------------
-	| BaseRepositoryInterface Implementation
-	|--------------------------------------------------------------------------
-	*/
 	
 	/**
 	 * Get everything out of the database.

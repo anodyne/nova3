@@ -1,6 +1,7 @@
 <script type="text/javascript">
 
-	$(document).ready(function(){
+	$(document).ready(function()
+	{
 		<?php if (isset($componentSource) and isset($actionSource)): ?>
 			$('[name="component"]').typeahead({
 				name: 'component',
@@ -16,7 +17,10 @@
 		$('#searchTasks').quicksearch('#taskSearch .row');
 	});
 
-	$(document).on('click', '.js-task-action', function(){
+	$(document).on('click', '.js-task-action', function(e)
+	{
+		e.preventDefault();
+
 		var action = $(this).data('action');
 		var id = $(this).data('id');
 
@@ -35,8 +39,6 @@
 				keyboard: true
 			}).modal('show');
 		}
-
-		return false;
 	});
 
 </script>

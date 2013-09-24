@@ -4,7 +4,7 @@
 	</div>
 </div>
 
-{{ Form::model($task) }}
+{{ Form::model($task, ['url' => 'admin/role/tasks']) }}
 	<div class="row">
 		<div class="col-sm-6 col-lg-4">
 			<div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
@@ -81,7 +81,6 @@
 
 	<div class="row">
 		<div class="col-lg-12">
-			{{ Form::token() }}
 			{{ Form::hidden('formAction', $action) }}
 			{{ Form::hidden('id') }}
 			{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}

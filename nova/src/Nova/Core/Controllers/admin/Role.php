@@ -1,8 +1,6 @@
 <?php namespace Nova\Core\Controllers\Admin;
 
-use View;
 use Input;
-use Location;
 use Redirect;
 use AccessRoleValidator;
 use AccessTaskValidator;
@@ -49,8 +47,6 @@ class Role extends AdminBaseController {
 			{
 				// Get the tasks for the role we're editing
 				$this->_data->roleTasks = $role->getTasks(false)->toSimpleArray();
-
-				# TODO: need to clean this up
 
 				// Set the inherited tasks array
 				$this->_data->inheritedTasks = [];
@@ -106,7 +102,7 @@ class Role extends AdminBaseController {
 	public function postIndex()
 	{
 		// Get the action
-		$formAction = e(Input::get('formAction'));
+		$formAction = Input::get('formAction');
 
 		// Set up the validation service
 		$validator = new AccessRoleValidator;
@@ -248,7 +244,7 @@ class Role extends AdminBaseController {
 	public function postTasks()
 	{
 		// Get the action
-		$formAction = e(Input::get('formAction'));
+		$formAction = Input::get('formAction');
 
 		// Set up the validation service
 		$validator = new AccessTaskValidator;
