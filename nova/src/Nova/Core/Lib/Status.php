@@ -17,7 +17,7 @@ class Status {
 	/**
 	 * Translate a status into a string.
 	 *
-	 * @param	int		Status to translate
+	 * @param	int		$status		Status to translate
 	 * @return	string
 	 */
 	public static function toString($status)
@@ -68,7 +68,7 @@ class Status {
 	/**
 	 * Translate a string into a status.
 	 *
-	 * @param	string	Text to translate
+	 * @param	string	$status		Text to translate
 	 * @return	int
 	 */
 	public static function toInt($status)

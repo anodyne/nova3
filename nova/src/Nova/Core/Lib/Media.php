@@ -34,16 +34,16 @@ class Media {
 	 * use the passed model to ensure the media table has all the information 
 	 * it needs.
 	 *
-	 * @param	string	Final name of the file
-	 * @param	string	Destination of the file
-	 * @param	array	Additional options
-	 * @param	string	File upload field name
+	 * @param	string	$filename		Final name of the file
+	 * @param	string	$destination	Destination of the file
+	 * @param	array	$options		Additional options
+	 * @param	string	$field			File upload field name
 	 * @return	bool
 	 * @throws	MediaFileTooBigException
 	 * @throws	MediaBadFileTypeException
 	 * @throws	MediaNoInputException
 	 */
-	public function add($filename, $destination, $options = array(), $field = 'file')
+	public function add($filename, $destination, array $options = [], $field = 'file')
 	{
 		if (Input::hasFile($field))
 		{
@@ -128,7 +128,7 @@ class Media {
 	/**
 	 * Set the model from outside the class.
 	 *
-	 * @param	object	Model instance
+	 * @param	object	$value	Model instance
 	 * @return	void
 	 */
 	public function setModel($value)
@@ -149,7 +149,7 @@ class Media {
 	/**
 	 * Get the acceptable MIME types for media uploads.
 	 *
-	 * @param	string	Output format (array, csv)
+	 * @param	string	$format		Output format (array, csv)
 	 * @return	mixed
 	 */
 	public function getFileFormats($format = 'array')

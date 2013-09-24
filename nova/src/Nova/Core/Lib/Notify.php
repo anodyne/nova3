@@ -3,7 +3,6 @@
 use Mail;
 use View;
 use UserModel;
-use Status;
 use SettingsModel;
 use SiteContentModel;
 use NotifierNoContentException;
@@ -31,7 +30,7 @@ class Notify {
 			'email_status'
 		]);
 
-		if ($options->email_status == Status::ACTIVE)
+		if ($options->email_status == \Status::ACTIVE)
 		{
 			// We have to have a TO index
 			if ( ! array_key_exists('to', $data))

@@ -1,15 +1,5 @@
 <?php namespace Nova\Core\Lib;
 
-/**
- * Parse Markdown text into HTML using the MarkdownParser.
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Lib
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
-
 use dflydev\markdown\MarkdownParser;
 
 class Markdown {
@@ -24,7 +14,7 @@ class Markdown {
 	/**
 	 * Parse the string from Markdown to HTML.
 	 *
-	 * @param	string	The string to parse
+	 * @param	string	$str	The string to parse
 	 * @return	string
 	 */
 	public function parse($str)

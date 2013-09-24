@@ -29,9 +29,9 @@ class DynamicForm {
 	/**
 	 * Setup for building the form.
 	 *
-	 * @param	string	Form key
-	 * @param	int		Entry ID
-	 * @param	bool	Editable or not
+	 * @param	string	$formKey	Form key
+	 * @param	int		$id			Entry ID
+	 * @param	bool	$editable	Editable or not
 	 * @return	DynamicForm
 	 */
 	public function setup($formKey, $id = false, $editable = true)
@@ -77,8 +77,8 @@ class DynamicForm {
 	/**
 	 * Grab the data for the dynamic form.
 	 *
-	 * @param	object	Data object
-	 * @param	int		Field ID
+	 * @param	object	$obj	Data object
+	 * @param	int		$i		Field ID
 	 * @return	string|bool
 	 */
 	public function displayData($obj, $i)
@@ -94,7 +94,7 @@ class DynamicForm {
 	/**
 	 * Get the assembled data.
 	 *
-	 * @param	string	Type of data to retrieve
+	 * @param	string	$type	Type of data to retrieve
 	 * @return	array
 	 */
 	public function getData($type = false)
@@ -110,7 +110,7 @@ class DynamicForm {
 	/**
 	 * Pull together all the tab data.
 	 *
-	 * @param	Collection	Form collection
+	 * @param	Collection	$form	Form collection
 	 * @return	array
 	 */
 	protected function assembleTabs($form)
@@ -136,7 +136,7 @@ class DynamicForm {
 	/**
 	 * Pull together all the section data.
 	 *
-	 * @param	Collection	Form collection
+	 * @param	Collection	$form	Form collection
 	 * @return	array
 	 */
 	protected function assembleSections($form)
@@ -161,7 +161,7 @@ class DynamicForm {
 	/**
 	 * Pull together all the field data.
 	 *
-	 * @param	Collection	Form collection
+	 * @param	Collection	$form	Form collection
 	 * @return	array
 	 */
 	protected function assembleFields($form)
@@ -187,7 +187,7 @@ class DynamicForm {
 	/**
 	 * Pull together all the entry data.
 	 *
-	 * @param	Collection	A collection of all the fields
+	 * @param	Collection	$fields	A collection of all the fields
 	 * @return	array
 	 */
 	protected function assembleData($fields)
