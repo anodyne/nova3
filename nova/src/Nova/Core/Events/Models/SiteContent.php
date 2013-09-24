@@ -1,11 +1,10 @@
-<?php namespace Nova\Core\Models\Events;
+<?php namespace Nova\Core\Events\Models;
 
 use Cache;
-use SystemEvent;
-use BaseEventHandler;
+use BaseModelEventHandler;
 use SiteContentRepositoryInterface;
 
-class SiteContent extends BaseEventHandler {
+class SiteContent extends BaseModelEventHandler {
 
 	public static $lang = 'site_content';
 	public static $name = 'label';

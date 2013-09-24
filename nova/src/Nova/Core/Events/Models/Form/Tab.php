@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Events\Form;
+<?php namespace Nova\Core\Events\Models\Form;
 
 /**
  * Form tab event handler.
@@ -20,9 +20,9 @@
 
 use SystemEvent;
 use NovaFormSection;
-use BaseEventHandler;
+use BaseModelEventHandler;
 
-class Tab extends BaseEventHandler {
+class Tab extends BaseModelEventHandler {
 
 	public function created($model)
 	{

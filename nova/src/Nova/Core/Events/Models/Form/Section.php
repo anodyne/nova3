@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Events\Form;
+<?php namespace Nova\Core\Events\Models\Form;
 
 /**
  * Form section event handler.
@@ -25,9 +25,9 @@
 use Status;
 use SystemEvent;
 use NovaFormSection;
-use BaseEventHandler;
+use BaseModelEventHandler;
 
-class Section extends BaseEventHandler {
+class Section extends BaseModelEventHandler {
 
 	public function created($model)
 	{

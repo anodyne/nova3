@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Events;
+<?php namespace Nova\Core\Events\Models;
 
 use Status;
 use Sentry;
@@ -8,9 +8,9 @@ use PositionModel;
 use CharacterModel;
 use NovaAppRuleModel;
 use NovaAppReviewerModel;
-use BaseEventHandler;
+use BaseModelEventHandler;
 
-class Application extends BaseEventHandler {
+class Application extends BaseModelEventHandler {
 
 	/**
 	 * After create event

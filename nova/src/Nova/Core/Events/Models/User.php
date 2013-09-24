@@ -1,11 +1,10 @@
-<?php namespace Nova\Core\Models\Events;
+<?php namespace Nova\Core\Events\Models;
 
 use NovaForm;
-use SystemEvent;
 use NovaFormData;
-use BaseEventHandler;
+use BaseModelEventHandler;
 
-class User extends BaseEventHandler {
+class User extends BaseModelEventHandler {
 
 	public static $lang = 'user';
 	public static $name = 'name';

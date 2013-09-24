@@ -1,8 +1,8 @@
-<?php namespace Nova\Core\Models\Events;
+<?php namespace Nova\Core\Events\Models;
 
-use BaseEventHandler;
+use BaseModelEventHandler;
 
-class Form extends BaseEventHandler {
+class Form extends BaseModelEventHandler {
 
 	public static $lang = 'form';
 	public static $name = 'name';

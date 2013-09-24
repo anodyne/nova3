@@ -1,10 +1,10 @@
-<?php namespace Nova\Core\Models\Events;
+<?php namespace Nova\Core\Events\Models;
 
 use Str;
 use SystemEvent;
-use BaseEventHandler;
+use BaseModelEventHandler;
 
-class Rank extends BaseEventHandler {
+class Rank extends BaseModelEventHandler {
 
 	/**
 	 * After create event

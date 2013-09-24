@@ -1,9 +1,9 @@
-<?php namespace Nova\Core\Models\Events;
+<?php namespace Nova\Core\Events\Models;
 
 use Str;
-use BaseEventHandler;
+use BaseModelEventHandler;
 
-class Comment extends BaseEventHandler {
+class Comment extends BaseModelEventHandler {
 
 	/**
 	 * Before the model is saved, we need to make sure the

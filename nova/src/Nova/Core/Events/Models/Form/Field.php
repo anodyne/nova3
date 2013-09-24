@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Events\Form;
+<?php namespace Nova\Core\Events\Models\Form;
 
 /**
  * Form field event handler.
@@ -29,11 +29,11 @@
 use Str;
 use Status;
 use SystemEvent;
-use BaseEventHandler;
+use BaseModelEventHandler;
 use User as UserModel;
 use Character as CharacterModel;
 
-class Field extends BaseEventHandler {
+class Field extends BaseModelEventHandler {
 
 	public function created($model)
 	{

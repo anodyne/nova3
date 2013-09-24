@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Events;
+<?php namespace Nova\Core\Events\Models;
 
 use SystemEvent;
 

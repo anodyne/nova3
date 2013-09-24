@@ -1,9 +1,8 @@
-<?php namespace Nova\Core\Models\Events;
+<?php namespace Nova\Core\Events\Models;
 
-use SystemEvent;
-use BaseEventHandler;
+use BaseModelEventHandler;
 
-class SystemRoute extends BaseEventHandler {
+class SystemRoute extends BaseModelEventHandler {
 
 	public static $lang = 'system route';
 	public static $name = 'name';
