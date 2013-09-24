@@ -24,7 +24,7 @@ class Response extends Model {
 	 */
 	public function app()
 	{
-		return $this->belongsTo('NovaApp');
+		return $this->belongsTo('ApplicationModel');
 	}
 
 	/**
@@ -32,7 +32,7 @@ class Response extends Model {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('User');
+		return $this->belongsTo('UserModel');
 	}
 	
 }

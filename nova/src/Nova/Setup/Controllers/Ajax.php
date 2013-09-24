@@ -2,7 +2,7 @@
 
 use DB;
 use Schema;
-use System;
+use SystemModel;
 use Controller;
 use SystemEvent;
 use NovaCreateRanks;
@@ -14,7 +14,7 @@ class Ajax extends Controller {
 	public function postIgnoreVersion()
 	{
 		// Update the system information table with the ignore version
-		System::updateInfo(['ignore' => e(Input::get('version'))]);
+		SystemModel::updateInfo(['ignore' => e(Input::get('version'))]);
 	}
 
 	public function postInstallGenre()

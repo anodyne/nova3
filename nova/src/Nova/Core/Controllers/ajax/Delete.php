@@ -32,10 +32,10 @@ class Delete extends AjaxBaseController {
 		if ($this->auth->check() and $this->currentUser->hasAccess('ban.delete'))
 		{
 			// get the user
-			$user = \Model_User::find(\Security::xss_clean($id));
+			$user = \UserModel::find(\Security::xss_clean($id));
 
 			// delete the ban
-			\Model_Ban::deleteItem(array('email' => $user->email));
+			\BanModel::deleteItem(array('email' => $user->email));
 
 			\SystemEvent::add('user', '[[event.admin.arc.unban_user|{{'.$user->email.'}}]]');
 
@@ -55,7 +55,7 @@ class Delete extends AjaxBaseController {
 		if ($this->auth->check() and $this->currentUser->hasAccess('form.delete'))
 		{
 			// Get the form
-			$form = \NovaForm::key($formKey)->first();
+			$form = \FormModel::key($formKey)->first();
 
 			// Only present the modal if we're allowed to delete it
 			if ($form and (bool) $form->protected === false)
@@ -80,7 +80,7 @@ class Delete extends AjaxBaseController {
 		if ($this->auth->check() and $this->currentUser->hasAccess('form.delete'))
 		{
 			// Get the field we're deleting
-			$field = \NovaFormField::find($id);
+			$field = \FormFieldModel::find($id);
 
 			if ($field !== null)
 			{
@@ -105,7 +105,7 @@ class Delete extends AjaxBaseController {
 			$id = e(Input::get('id'));
 
 			// Delete the value
-			\NovaFormValue::destroy($id);
+			\FormValueModel::destroy($id);
 		}
 	}
 
@@ -120,7 +120,7 @@ class Delete extends AjaxBaseController {
 		if ($this->auth->check() and $this->currentUser->hasAccess('form.delete'))
 		{
 			// Get the section we're deleting
-			$section = \NovaFormSection::find($id);
+			$section = \FormSectionModel::find($id);
 
 			if ($section !== null)
 			{
@@ -151,7 +151,7 @@ class Delete extends AjaxBaseController {
 		if ($this->auth->check() and $this->currentUser->hasAccess('form.delete'))
 		{
 			// Get the tab we're deleting
-			$tab = \NovaFormTab::find($id);
+			$tab = \FormTabModel::find($id);
 
 			if ($tab !== null)
 			{
@@ -182,12 +182,12 @@ class Delete extends AjaxBaseController {
 		if ($this->auth->check() and $this->currentUser->hasAccess('form.delete'))
 		{
 			// Get the form we're deleting from
-			$form = \NovaForm::key($formKey)->first();
+			$form = \FormModel::key($formKey)->first();
 
 			$useDisplayField = false;
 
 			// Start the query to get the entry
-			$entry = \NovaFormData::key($formKey)->entry($id);
+			$entry = \FormDataModel::key($formKey)->entry($id);
 
 			// If we have a field to use for display purposes, grab that
 			if ((int) $form->form_viewer_display > 0)
@@ -215,7 +215,7 @@ class Delete extends AjaxBaseController {
 		if ($this->auth->check() and $this->currentUser->hasAccess('rank.delete'))
 		{
 			// get the rank info
-			$rank = \Model_Rank::find($id);
+			$rank = \RankModel::find($id);
 
 			if ($rank !== null)
 			{
@@ -314,12 +314,12 @@ class Delete extends AjaxBaseController {
 		if ($this->auth->check() and $this->currentUser->hasAccess('catalog.delete'))
 		{
 			// Get the catalog we're deleting
-			$catalog = \RankCatalog::find($id);
+			$catalog = \RankCatalogModel::find($id);
 
 			if ($catalog)
 			{
 				// Get the other active rank sets for this genre
-				$catalogs = \RankCatalog::active()->currentGenre()->get();
+				$catalogs = \RankCatalogModel::active()->currentGenre()->get();
 
 				// Filter out the rank set we're deleting
 				$catalogs = $catalogs->filter(function($c) use($catalog)
@@ -349,7 +349,7 @@ class Delete extends AjaxBaseController {
 		if ($this->auth->check() and $this->currentUser->hasAccess('role.delete'))
 		{
 			// Get the role
-			$role = \AccessRole::find($id);
+			$role = \AccessRoleModel::find($id);
 
 			if ($role)
 			{
@@ -359,7 +359,7 @@ class Delete extends AjaxBaseController {
 				);
 
 				// Get all the roles
-				$allRoles = \AccessRole::get();
+				$allRoles = \AccessRoleModel::get();
 
 				// Filter out the role we're deleting
 				$data['roles'] = $allRoles->filter(function($r) use($id)
@@ -382,7 +382,7 @@ class Delete extends AjaxBaseController {
 	{
 		if ($this->auth->check() and $this->currentUser->hasAccess('role.delete'))
 		{
-			$task = \AccessTask::find($id);
+			$task = \AccessTaskModel::find($id);
 
 			if ($task)
 			{
@@ -402,7 +402,7 @@ class Delete extends AjaxBaseController {
 	{
 		if ($this->auth->check() and $this->currentUser->hasAccess('routes.delete'))
 		{
-			$route = \SystemRoute::find($id);
+			$route = \SystemRouteModel::find($id);
 
 			if ($route)
 			{
@@ -453,12 +453,12 @@ class Delete extends AjaxBaseController {
 	{
 		if ($this->auth->check() and $this->currentUser->hasAccess('catalog.delete'))
 		{
-			$catalog = \SkinCatalog::find($id);
+			$catalog = \SkinCatalogModel::find($id);
 
 			if ($catalog)
 			{
 				// Get the other active rank sets for this genre
-				$catalogs = \SkinCatalog::active()->get();
+				$catalogs = \SkinCatalogModel::active()->get();
 
 				// Filter out the rank set we're deleting
 				$catalogs = $catalogs->filter(function($s) use($catalog)
@@ -487,7 +487,7 @@ class Delete extends AjaxBaseController {
 	{
 		if ($this->auth->check() and $this->currentUser->hasAccess('user.delete'))
 		{
-			$user = \User::find($id);
+			$user = \UserModel::find($id);
 
 			if ($user !== null and $user->canBeDeleted())
 			{

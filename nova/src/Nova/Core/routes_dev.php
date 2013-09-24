@@ -5,7 +5,7 @@ Route::group(['prefix' => 'dev'], function()
 	Route::get('/{string?}', function()
 	{
 		// Find the record that matches the URI
-		$route = SystemRoute::name('home')->get();
+		$route = SystemRouteModel::name('home')->get();
 
 		// Get the final route to use
 		$finalRoute = ($route->count() > 1)

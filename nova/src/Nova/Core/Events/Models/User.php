@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Events\Models;
 
-use NovaForm;
-use NovaFormData;
+use FormModel;
+use FormDataModel;
 use BaseModelEventHandler;
 
 class User extends BaseModelEventHandler {
@@ -27,13 +27,13 @@ class User extends BaseModelEventHandler {
 		/**
 		 * Fill the user rows for the dynamic form with blank data for editing later.
 		 */
-		$form = NovaForm::key('user')->first();
+		$form = FormModel::key('user')->first();
 		
 		if ($form->fields->count() > 0)
 		{
 			foreach ($form->fields as $field)
 			{
-				NovaFormData::create([
+				FormDataModel::create([
 					'form_id' 	=> $form->id,
 					'field_id' 	=> $field->id,
 					'data_id' 	=> $model->id,

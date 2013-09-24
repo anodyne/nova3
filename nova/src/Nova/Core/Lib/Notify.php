@@ -2,10 +2,10 @@
 
 use Mail;
 use View;
-use User;
+use UserModel;
 use Status;
-use Settings;
-use SiteContent;
+use SettingsModel;
+use SiteContentModel;
 use NotifierNoContentException;
 use NotifierNoSubjectException;
 use Nova\Extensions\Laravel\Application;
@@ -24,7 +24,7 @@ class Notify {
 	public function send($view, array $data, array $keys)
 	{
 		// Get the email preferences
-		$options = Settings::getItems([
+		$options = SettingsModel::getItems([
 			'email_subject',
 			'email_name',
 			'email_address',
@@ -36,7 +36,7 @@ class Notify {
 			// We have to have a TO index
 			if ( ! array_key_exists('to', $data))
 			{
-				$data['to'] = User::active()->get();
+				$data['to'] = UserModel::active()->get();
 			}
 
 			// We have to have a SUBJECT index
@@ -51,7 +51,7 @@ class Notify {
 				// If we have a content key, use that
 				if (array_key_exists('content', $keys))
 				{
-					$data['content'] = SiteContent::getContentItem($keys['content']);
+					$data['content'] = SiteContentModel::getContentItem($keys['content']);
 				}
 				else
 				{
@@ -63,7 +63,7 @@ class Notify {
 				// If we have a content key, prepend it
 				if (array_key_exists('content', $keys))
 				{
-					$content = SiteContent::getContentItem($keys['content']) + $data['content'];
+					$content = SiteContentModel::getContentItem($keys['content']) + $data['content'];
 					$data['content'] = $content;
 				}
 			}
@@ -103,7 +103,7 @@ class Notify {
 		{
 			// Set the subject
 			$subject = (array_key_exists('subject', $keys))
-				? SiteContent::getContentItem($keys['subject'])
+				? SiteContentModel::getContentItem($keys['subject'])
 				: $data['subject'];
 
 			// Get the recipient lists
@@ -173,8 +173,8 @@ class Notify {
 			foreach ($users as $user)
 			{
 				$u = (is_numeric($user)) 
-					? User::find($user) 
-					: User::email($user)->first();
+					? UserModel::find($user) 
+					: UserModel::email($user)->first();
 
 				// Break the users out based on mail format preference
 				$final[$u->getPreferences('email_format')][] = $u->email;

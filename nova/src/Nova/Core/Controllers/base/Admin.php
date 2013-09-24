@@ -21,7 +21,6 @@ use Session;
 use Location;
 use Redirect;
 use ErrorCode;
-use SiteContent;
 use BaseController;
 
 abstract class Admin extends BaseController {

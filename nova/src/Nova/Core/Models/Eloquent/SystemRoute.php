@@ -73,7 +73,7 @@ class SystemRoute extends Model implements CacheInterface {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['SystemRoute'], $a['SystemRouteModelEventHandler']);
+		static::setupEventListeners($a['SystemRouteModel'], $a['SystemRouteModelEventHandler']);
 	}
 
 	/*

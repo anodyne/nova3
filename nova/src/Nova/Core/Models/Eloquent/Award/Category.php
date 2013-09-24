@@ -21,7 +21,7 @@ class Category extends Model {
 	 */
 	public function awards()
 	{
-		return $this->hasMany('Award');
+		return $this->hasMany('AwardModel');
 	}
 
 }

@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Commands;
 
 use Eloquent;
-use SystemRoute;
+use SystemRouteModel;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -40,7 +40,7 @@ class RefreshRoutes extends Command {
 	public function fire()
 	{
 		// Clear out the system routes table
-		SystemRoute::where('name', '!=', '')->delete();
+		SystemRouteModel::where('name', '!=', '')->delete();
 
 		// Grab the routes data file
 		$routes = include SRCPATH.'Setup/database/migrations/data/routes.php';
@@ -50,11 +50,11 @@ class RefreshRoutes extends Command {
 		// Loop through the routes data file and insert the records
 		foreach ($routes as $r)
 		{
-			SystemRoute::create($r);
+			SystemRouteModel::create($r);
 		}
 
 		// Re-cache the routes
-		SystemRoute::cache();
+		SystemRouteModel::cache();
 
 		$this->info('Routes refreshed!');
 	}

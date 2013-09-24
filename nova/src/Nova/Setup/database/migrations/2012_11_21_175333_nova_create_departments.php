@@ -35,7 +35,7 @@ class NovaCreateDepartments extends Migration {
 			// Loop through the departments and seed the data
 			foreach ($depts as $d)
 			{
-				Dept::create($d);
+				DeptModel::create($d);
 			}
 		}
 	}

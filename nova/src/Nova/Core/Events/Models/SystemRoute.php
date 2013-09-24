@@ -17,7 +17,7 @@ class SystemRoute extends BaseModelEventHandler {
 	{
 		if ((bool) $model->protected === false)
 		{
-			\SystemRoute::cache();
+			\SystemRouteModel::cache();
 
 			// Update the site contents for this URI
 			$this->refreshSiteContent($model->name);
@@ -37,7 +37,7 @@ class SystemRoute extends BaseModelEventHandler {
 	{
 		if ((bool) $model->protected === false)
 		{
-			\SystemRoute::cache();
+			\SystemRouteModel::cache();
 		}
 	}
 
@@ -65,7 +65,7 @@ class SystemRoute extends BaseModelEventHandler {
 	protected function refreshSiteContent($uri)
 	{
 		// Get all the site content that uses the URI
-		$items = \SiteContent::uri($uri)->get();
+		$items = \SiteContentModel::uri($uri)->get();
 
 		if ($items->count() > 0)
 		{

@@ -30,8 +30,8 @@ use Str;
 use Status;
 use SystemEvent;
 use BaseModelEventHandler;
-use User as UserModel;
-use Character as CharacterModel;
+use UserModel;
+use CharacterModel;
 
 class Field extends BaseModelEventHandler {
 

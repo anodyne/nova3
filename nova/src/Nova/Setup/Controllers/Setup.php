@@ -11,10 +11,10 @@ use Schema;
 use Artisan;
 use Redirect;
 use Exception;
-use RankCatalog;
-use SkinCatalog;
-use ModuleCatalog;
-use WidgetCatalog;
+use RankCatalogModel;
+use SkinCatalogModel;
+use ModuleCatalogModel;
+use WidgetCatalogModel;
 use SetupBaseController;
 use Symfony\Component\Finder\Finder;
 
@@ -206,10 +206,10 @@ class Setup extends SetupBaseController {
 		Cache::forget('nova.routes');
 
 		// Do the QuickInstall removals
-		ModuleCatalog::uninstallAll();
-		RankCatalog::uninstallAll();
-		SkinCatalog::uninstallAll();
-		WidgetCatalog::uninstallAll();
+		ModuleCatalogModel::uninstallAll();
+		RankCatalogModel::uninstallAll();
+		SkinCatalogModel::uninstallAll();
+		WidgetCatalogModel::uninstallAll();
 
 		// Uninstall Nova
 		Artisan::call('migrate:reset');

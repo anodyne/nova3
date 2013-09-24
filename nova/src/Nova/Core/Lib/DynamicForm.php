@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Lib;
 
 use View;
-use NovaForm;
-use NovaFormData;
+use FormModel;
+use FormDataModel;
 
 class DynamicForm {
 	
@@ -37,7 +37,7 @@ class DynamicForm {
 	public function setup($formKey, $id = false, $editable = true)
 	{
 		$this->formKey			= $formKey;
-		$this->form				= $this->data['form'] = NovaForm::key($formKey)->first();
+		$this->form				= $this->data['form'] = FormModel::key($formKey)->first();
 		$this->id				= $this->data['id'] = $id;
 		$this->data['editable']	= $editable;
 
@@ -198,7 +198,7 @@ class DynamicForm {
 		{
 			foreach ($fields as $field)
 			{
-				$final[$field->id] = NovaFormData::key($field->form->key)
+				$final[$field->id] = FormDataModel::key($field->form->key)
 					->entry($this->id)
 					->formField($field->id)
 					->first();

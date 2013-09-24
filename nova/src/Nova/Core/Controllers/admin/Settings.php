@@ -17,7 +17,7 @@ class Settings extends AdminBaseController {
 		$this->_view = 'admin/settings/basic';
 
 		// Send the settings to the view
-		$this->_data->settings = \Settings::basicSettings()->get();
+		$this->_data->settings = \SettingsModel::basicSettings()->get();
 	}
 
 	public function getAdvanced()
@@ -29,7 +29,7 @@ class Settings extends AdminBaseController {
 		$this->_view = 'admin/settings/advanced';
 
 		// Send the settings to the view
-		$this->_data->settings = \Settings::basicSettings()->get();
+		$this->_data->settings = \SettingsModel::basicSettings()->get();
 	}
 
 	public function getCreate()

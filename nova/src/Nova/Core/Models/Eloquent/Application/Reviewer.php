@@ -21,7 +21,7 @@ class Reviewer extends Model {
 	 */
 	public function app()
 	{
-		return $this->belongsTo('NovaApp');
+		return $this->belongsTo('ApplicationModel');
 	}
 
 }

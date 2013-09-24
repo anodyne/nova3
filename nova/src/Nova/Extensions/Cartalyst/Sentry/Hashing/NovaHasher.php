@@ -1,6 +1,6 @@
 <?php namespace Nova\Extensions\Cartalyst\Sentry\Hashing;
 
-use System;
+use SystemModel;
 use Cartalyst\Sentry\Hashing\HasherInterface;
 
 class NovaHasher implements HasherInterface {
@@ -47,7 +47,7 @@ class NovaHasher implements HasherInterface {
 	 */
 	protected function createSalt()
 	{
-		return System::getUniqueId();
+		return SystemModel::getUniqueId();
 	}
 	
 }

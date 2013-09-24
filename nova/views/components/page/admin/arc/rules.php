@@ -21,13 +21,13 @@
 						
 					<?php if (property_exists($users, 'position')):?>
 						<?php foreach ($users->position as $p): ?>
-							<span class="badge badge-info"><?php echo Model_Position::find($p)->name;?></span>
+							<span class="badge badge-info"><?php echo PositionModel::find($p)->name;?></span>
 						<?php endforeach;?>
 					<?php endif;?>
 
 					<?php if (property_exists($users, 'user')):?>
 						<?php foreach ($users->user as $u): ?>
-							<span class="badge badge-important"><?php echo Model_User::find($u)->name;?></span>
+							<span class="badge badge-important"><?php echo UserModel::find($u)->name;?></span>
 						<?php endforeach;?>
 					<?php endif;?>
 

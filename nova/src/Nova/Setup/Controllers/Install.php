@@ -6,7 +6,7 @@ use File;
 use Form;
 use HTML;
 use Rank;
-use User;
+use UserModel;
 use Cache;
 use Input;
 use Config;
@@ -14,17 +14,17 @@ use Status;
 use Artisan;
 use Location;
 use Redirect;
-use Settings;
-use Character;
+use SettingsModel;
+use CharacterModel;
 use Exception;
 use Validator;
-use AccessRole;
-use SiteContent;
-use SystemRoute;
-use RankCatalog;
-use SkinCatalog;
-use ModuleCatalog;
-use WidgetCatalog;
+use AccessRoleModel;
+use SiteContentModel;
+use SystemRouteModel;
+use RankCatalogModel;
+use SkinCatalogModel;
+use ModuleCatalogModel;
+use WidgetCatalogModel;
 use SystemEventModel;
 use SetupBaseController;
 
@@ -63,40 +63,40 @@ class Install extends SetupBaseController {
 		}
 
 		// Do the quick installs
-		ModuleCatalog::install();
-		RankCatalog::install();
-		SkinCatalog::install();
-		WidgetCatalog::install();
+		ModuleCatalogModel::install();
+		RankCatalogModel::install();
+		SkinCatalogModel::install();
+		WidgetCatalogModel::install();
 		
 		// Clear the entire cache
 		Cache::flush();
 
 		// Cache the settings
-		Settings::cache();
+		SettingsModel::cache();
 
 		// Cache the routes
-		SystemRoute::cache();
+		SystemRouteModel::cache();
 
 		// Cache the headers
-		SiteContent::getSectionContent('header', 'main');
-		SiteContent::getSectionContent('header', 'sim');
-		SiteContent::getSectionContent('header', 'personnel');
-		SiteContent::getSectionContent('header', 'search');
-		SiteContent::getSectionContent('header', 'login');
+		SiteContentModel::getSectionContent('header', 'main');
+		SiteContentModel::getSectionContent('header', 'sim');
+		SiteContentModel::getSectionContent('header', 'personnel');
+		SiteContentModel::getSectionContent('header', 'search');
+		SiteContentModel::getSectionContent('header', 'login');
 		
 		// Cache the titles
-		SiteContent::getSectionContent('title', 'main');
-		SiteContent::getSectionContent('title', 'sim');
-		SiteContent::getSectionContent('title', 'personnel');
-		SiteContent::getSectionContent('title', 'search');
-		SiteContent::getSectionContent('title', 'login');
+		SiteContentModel::getSectionContent('title', 'main');
+		SiteContentModel::getSectionContent('title', 'sim');
+		SiteContentModel::getSectionContent('title', 'personnel');
+		SiteContentModel::getSectionContent('title', 'search');
+		SiteContentModel::getSectionContent('title', 'login');
 		
 		// Cache the messages
-		SiteContent::getSectionContent('message', 'main');
-		SiteContent::getSectionContent('message', 'sim');
-		SiteContent::getSectionContent('message', 'personnel');
-		SiteContent::getSectionContent('message', 'search');
-		SiteContent::getSectionContent('message', 'login');
+		SiteContentModel::getSectionContent('message', 'main');
+		SiteContentModel::getSectionContent('message', 'sim');
+		SiteContentModel::getSectionContent('message', 'personnel');
+		SiteContentModel::getSectionContent('message', 'search');
+		SiteContentModel::getSectionContent('message', 'login');
 
 		// Get all the records from the system events table
 		$events = SystemEventModel::get();
@@ -133,13 +133,13 @@ class Install extends SetupBaseController {
 		$this->_steps = 'setup/steps_install';
 
 		// Get the rank we're using by default
-		$defaultRank = Settings::getSettings('rank');
+		$defaultRank = SettingsModel::getSettings('rank');
 
 		// Get the default rank set
-		$rankSetLocation = RankCatalog::location($defaultRank)->first()->location;
+		$rankSetLocation = RankCatalogModel::location($defaultRank)->first()->location;
 
 		// Get the rank item
-		$rank = Rank::find(1);
+		$rank = RankModel::find(1);
 
 		// Build the rank image
 		$this->_data->defaultRank = Location::rank($rank->base, $rank->pip, $rankSetLocation);
@@ -191,16 +191,16 @@ class Install extends SetupBaseController {
 		}
 
 		// Update the sim name
-		$simName = Settings::getSettings('sim_name', false);
+		$simName = SettingsModel::getSettings('sim_name', false);
 		$simName->update(['value' => e(Input::get('sim_name'))]);
 
 		// Create the user
-		$user = User::create([
+		$user = UserModel::create([
 			'status'		=> Status::ACTIVE,
 			'name'			=> e(Input::get('name')),
 			'email'			=> e(Input::get('email')),
 			'password'		=> e(Input::get('password')),
-			'role_id'		=> AccessRole::SYSADMIN,
+			'role_id'		=> AccessRoleModel::SYSADMIN,
 			'activated_at'	=> Date::now(),
 		]);
 
@@ -211,7 +211,7 @@ class Install extends SetupBaseController {
 		]);
 
 		// Create the character
-		$character = Character::create([
+		$character = CharacterModel::create([
 			'user_id'		=> $user->id,
 			'status'		=> Status::ACTIVE,
 			'first_name'	=> e(Input::get('first_name')),

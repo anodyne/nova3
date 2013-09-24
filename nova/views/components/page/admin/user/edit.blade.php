@@ -148,7 +148,7 @@
 							<div class="col-md-8 col-lg-6">
 								<div class="form-group">
 									<label class="control-label">{{ lang('Rank') }}</label>
-									{{ Form::select('rank', RankCatalog::active()->get()->toSimpleArray('location', 'name'), $user->getPreferenceItem('rank'), ['class' => 'form-control', 'id' => 'rankSet']) }}
+									{{ Form::select('rank', RankCatalogModel::active()->get()->toSimpleArray('location', 'name'), $user->getPreferenceItem('rank'), ['class' => 'form-control', 'id' => 'rankSet']) }}
 								</div>
 							</div>
 							<div class="col-md-4 col-lg-6">
@@ -161,7 +161,7 @@
 							<div class="col-md-8 col-lg-6">
 								<div class="form-group">
 									<label class="control-label">{{ langConcat('Main Skin') }}</label>
-									{{ Form::select('skin_main', SkinCatalog::active()->hasMain()->get()->toSimpleArray('location', 'name'), $user->getPreferenceItem('skin_main'), ['class' => 'form-control', 'id' => 'skinMain']) }}
+									{{ Form::select('skin_main', SkinCatalogModel::active()->hasMain()->get()->toSimpleArray('location', 'name'), $user->getPreferenceItem('skin_main'), ['class' => 'form-control', 'id' => 'skinMain']) }}
 								</div>
 							</div>
 							<div class="col-md-4 col-lg-6">
@@ -174,7 +174,7 @@
 							<div class="col-md-8 col-lg-6">
 								<div class="form-group">
 									<label class="control-label">{{ langConcat('Admin Skin') }}</label>
-									{{ Form::select('skin_admin', SkinCatalog::active()->hasAdmin()->get()->toSimpleArray('location', 'name'), $user->getPreferenceItem('skin_admin'), ['class' => 'form-control', 'id' => 'skinAdmin']) }}
+									{{ Form::select('skin_admin', SkinCatalogModel::active()->hasAdmin()->get()->toSimpleArray('location', 'name'), $user->getPreferenceItem('skin_admin'), ['class' => 'form-control', 'id' => 'skinAdmin']) }}
 								</div>
 							</div>
 							<div class="col-md-4 col-lg-6">

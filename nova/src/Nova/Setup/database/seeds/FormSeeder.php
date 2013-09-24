@@ -12,7 +12,7 @@ class FormSeeder extends Seeder {
 		// Create a new faker instance
 		$faker = Faker\Factory::create();
 
-		$form = NovaForm::create([
+		$form = FormModel::create([
 			'key'					=> 'MissionIdeas',
 			'name'					=> 'Mission Ideas',
 			'form_viewer'			=> (int) true,
@@ -28,7 +28,7 @@ class FormSeeder extends Seeder {
 
 		foreach ($sections as $s)
 		{
-			$newSection = NovaFormSection::create($s);
+			$newSection = FormSectionModel::create($s);
 
 			$sectionIds[] = $newSection->id;
 		}
@@ -88,7 +88,7 @@ class FormSeeder extends Seeder {
 
 		foreach ($fields as $f)
 		{
-			NovaFormField::create($f);
+			FormFieldModel::create($f);
 		}
 	}
 

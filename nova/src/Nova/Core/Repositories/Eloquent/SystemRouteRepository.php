@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use SystemRoute;
+use SystemRouteModel;
 use SecurityTrait;
 use SystemRouteRepositoryInterface;
 
@@ -21,7 +21,7 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 	 */
 	public function all()
 	{
-		return SystemRoute::all();
+		return SystemRouteModel::all();
 	}
 	
 	/**
@@ -32,7 +32,7 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 	 */
 	public function create(array $data)
 	{
-		return SystemRoute::create($data);
+		return SystemRouteModel::create($data);
 	}
 
 	/**
@@ -63,7 +63,7 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 	{
 		$id = $this->sanitizeInt($id);
 
-		return SystemRoute::find($id);
+		return SystemRouteModel::find($id);
 	}
 
 	/**

@@ -29,7 +29,7 @@ class Task extends Model {
 	 */
 	public function roles()
 	{
-		return $this->belongsToMany('AccessRole', 'roles_tasks');
+		return $this->belongsToMany('AccessRoleModel', 'roles_tasks');
 	}
 
 	/*
@@ -77,7 +77,7 @@ class Task extends Model {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['AccessTask'], $a['AccessTaskModelEventHandler']);
+		static::setupEventListeners($a['AccessTaskModel'], $a['AccessTaskModelEventHandler']);
 	}
 
 }

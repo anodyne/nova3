@@ -23,7 +23,7 @@ class Mission extends Model {
 	 */
 	public function group()
 	{
-		return $this->belongsTo('MissionGroup');
+		return $this->belongsTo('MissionGroupModel');
 	}
 
 	/**
@@ -31,7 +31,7 @@ class Mission extends Model {
 	 */
 	public function notes()
 	{
-		return $this->hasMany('MissionNote');
+		return $this->hasMany('MissionNoteModel');
 	}
 
 	/**
@@ -39,7 +39,7 @@ class Mission extends Model {
 	 */
 	public function posts()
 	{
-		return $this->hasMany('Post');
+		return $this->hasMany('PostModel');
 	}
 
 	/**

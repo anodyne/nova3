@@ -43,7 +43,7 @@ class SiteContent extends Model {
 		if ($this->type == 'header' or $this->type == 'title' or $this->type == 'message')
 		{
 			// Find the record that matches the URI
-			$route = \SystemRoute::name($value)->get();
+			$route = \SystemRouteModel::name($value)->get();
 
 			// Get the final route to use
 			$finalRoute = ($route->count() > 1)
@@ -83,7 +83,7 @@ class SiteContent extends Model {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['SiteContent'], $a['SiteContentModelEventHandler']);
+		static::setupEventListeners($a['SiteContentModel'], $a['SiteContentModelEventHandler']);
 	}
 	
 	/**
@@ -148,7 +148,7 @@ class SiteContent extends Model {
 					foreach ($arr[2] as $k => $v)
 					{
 						// Get the item from the settings table
-						$replace = \Settings::getSettings($v);
+						$replace = \SettingsModel::getSettings($v);
 						
 						// Set the new content
 						$content = str_replace($arr[0][$k], $replace, $content);

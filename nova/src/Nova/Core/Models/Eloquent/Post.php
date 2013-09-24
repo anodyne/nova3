@@ -30,7 +30,7 @@ class Post extends Model {
 	 */
 	public function mission()
 	{
-		return $this->belongsTo('Mission');
+		return $this->belongsTo('MissionModel');
 	}
 
 	/**
@@ -38,7 +38,7 @@ class Post extends Model {
 	 */
 	public function lock()
 	{
-		return $this->hasOne('PostLock');
+		return $this->hasOne('PostLockModel');
 	}
 
 	/**
@@ -46,7 +46,7 @@ class Post extends Model {
 	 */
 	public function participants()
 	{
-		return $this->hasMany('PostParticipant');
+		return $this->hasMany('PostParticipantModel');
 	}
 
 	/**
@@ -54,7 +54,7 @@ class Post extends Model {
 	 */
 	public function userAuthors()
 	{
-		return $this->belongsToMany('User', 'post_authors');
+		return $this->belongsToMany('UserModel', 'post_authors');
 	}
 
 	/**
@@ -62,7 +62,7 @@ class Post extends Model {
 	 */
 	public function characterAuthors()
 	{
-		return $this->belongsToMany('Character', 'post_authors');
+		return $this->belongsToMany('CharacterModel', 'post_authors');
 	}
 
 	/**
@@ -70,7 +70,7 @@ class Post extends Model {
 	 */
 	public function comments()
 	{
-		return $this->morphMany('Comment', 'commentable');
+		return $this->morphMany('CommentModel', 'commentable');
 	}
 
 	/*

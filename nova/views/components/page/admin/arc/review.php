@@ -186,7 +186,7 @@
 							<form method="post">
 								<div class="form-group">
 									<div class="controls">
-										<?php echo NovaForm::users('reviewUsers[]', $reviewerArray, array('class' => 'span6 chzn', 'multiple' => 'multiple'));?>
+										<?php echo Form::users('reviewUsers[]', $reviewerArray, array('class' => 'span6 chzn', 'multiple' => 'multiple'));?>
 										<p class="help-block"><?php echo lang('short.arc.admin.users');?></p>
 									</div>
 								</div>
@@ -230,17 +230,17 @@
 								</div>
 
 								<div id="approveOptions">
-									<?php echo NovaForm::position('position', $app->position->id, array(), 'open_playing');?>
+									<?php echo Form::position('position', $app->position->id, array(), 'open_playing');?>
 
-									<?php echo NovaForm::rank('rank');?>
+									<?php echo Form::rank('rank');?>
 
-									<?php echo NovaForm::roles('role', Model_Access_Role::ACTIVE);?>
+									<?php echo Form::roles('role', Model_Access_Role::ACTIVE);?>
 								</div>
 
 								<div class="form-group">
 									<label class="control-label"><?php echo ucfirst(lang('message'));?></label>
 									<div class="controls">
-										<textarea name="message" class="span8" rows="10"><?php echo Model_SiteContent::getContent("accept_message");?></textarea>
+										<textarea name="message" class="span8" rows="10"><?php echo SiteContentModel::getContent("accept_message");?></textarea>
 									</div>
 								</div>
 

@@ -14,12 +14,12 @@ class UserSeeder extends Seeder {
 	protected function seedUsers()
 	{
 		$roleStatuses = [
-			AccessRole::INACTIVE	=> [Status::INACTIVE],
-			AccessRole::USER		=> [Status::PENDING, Status::REMOVED],
-			AccessRole::ACTIVE		=> [Status::ACTIVE],
-			AccessRole::POWERUSER	=> [Status::ACTIVE],
-			AccessRole::ADMIN		=> [Status::ACTIVE],
-			AccessRole::SYSADMIN	=> [Status::ACTIVE],
+			AccessRoleModel::INACTIVE	=> [Status::INACTIVE],
+			AccessRoleModel::USER		=> [Status::PENDING, Status::REMOVED],
+			AccessRoleModel::ACTIVE		=> [Status::ACTIVE],
+			AccessRoleModel::POWERUSER	=> [Status::ACTIVE],
+			AccessRoleModel::ADMIN		=> [Status::ACTIVE],
+			AccessRoleModel::SYSADMIN	=> [Status::ACTIVE],
 		];
 
 		// Create a new faker instance
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder {
 				: $roleStatuses[$role][array_rand($roleStatuses[$role])];
 
 			// Create a new user
-			$u = User::create([
+			$u = UserModel::create([
 				'name'			=> $faker->firstName.' '.$faker->lastName,
 				'email'			=> $faker->safeEmail,
 				'character_id'	=> $i,
@@ -108,7 +108,7 @@ class UserSeeder extends Seeder {
 			}
 
 			// Create the LOA records
-			UserLoa::create([
+			UserLoaModel::create([
 				'user_id'		=> rand(2, ($this->userCount + 1)),
 				'start_date'	=> $startDate,
 				'end_date'		=> $endDate,

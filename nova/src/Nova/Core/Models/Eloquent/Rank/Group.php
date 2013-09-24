@@ -24,7 +24,7 @@ class Group extends Model {
 	 */
 	public function ranks()
 	{
-		return $this->hasMany('Rank');
+		return $this->hasMany('RankModel');
 	}
 
 	/*
@@ -46,7 +46,7 @@ class Group extends Model {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['RankGroup'], $a['RankGroupModelEventHandler']);
+		static::setupEventListeners($a['RankGroupModel'], $a['RankGroupModelEventHandler']);
 	}
 
 	/**

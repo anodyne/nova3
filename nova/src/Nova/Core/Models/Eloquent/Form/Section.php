@@ -33,7 +33,7 @@ class Section extends Model {
 	 */
 	public function form()
 	{
-		return $this->belongsTo('NovaForm', 'form_id');
+		return $this->belongsTo('FormModel', 'form_id');
 	}
 
 	/**
@@ -41,7 +41,7 @@ class Section extends Model {
 	 */
 	public function tab()
 	{
-		return $this->belongsTo('NovaFormTab', 'tab_id');
+		return $this->belongsTo('FormTabModel', 'tab_id');
 	}
 
 	/**
@@ -49,7 +49,7 @@ class Section extends Model {
 	 */
 	public function fields()
 	{
-		return $this->hasMany('NovaFormField')->orderAsc('order');
+		return $this->hasMany('FormFieldModel')->orderAsc('order');
 	}
 
 	/*
@@ -71,7 +71,7 @@ class Section extends Model {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['NovaFormSection'], $a['FormSectionModelEventHandler']);
+		static::setupEventListeners($a['FormSectionModel'], $a['FormSectionModelEventHandler']);
 	}
 
 }

@@ -5,10 +5,10 @@ Model scopes allow you to easily limit the data being returned by a model.
 ## Examples
 
 <pre>// Get all active users
-User::active()->get();
+UserModel::active()->get();
 
 // Get all pending users
-User::pending()->get();</pre>
+UserModel::pending()->get();</pre>
 
 ## Identifying Scopes
 
@@ -20,7 +20,7 @@ Creating new scopes for your models or extending existing models with new scopes
 
 <pre>public function scopeIsSysAdmin($query)
 {
-	$query->where('role_id', AccessRole::SYSADMIN);
+	$query->where('role_id', AccessRoleModel::SYSADMIN);
 }
 
 public function scopeHasRole($query, $role)
@@ -35,15 +35,15 @@ public function scopeHasAtLeastRole($query, $role)
 
 You would use these scopes by simplying calling them on the User model.
 
-<pre>User::isSysAdmin()->get();
+<pre>UserModel::isSysAdmin()->get();
 
-User::hasRole(AccessRole::USER)->get();
+UserModel::hasRole(AccessRoleModel::USER)->get();
 
-User::hasAtLeastRole(AccessRole::POWERUSER)->get();</pre>
+UserModel::hasAtLeastRole(AccessRoleModel::POWERUSER)->get();</pre>
 
 You can even chain scopes, so if you wanted to get all active system administrators, you could do this now:
 
-<pre>User::active()->isSysAdmin()->get();</pre>
+<pre>UserModel::active()->isSysAdmin()->get();</pre>
 
 <p class="alert alert-info"><strong>Note:</strong> The above examples are meant to illustrate some of the things you can do with model scopes. Practically speaking, Sentry provides a better interface for interacting with users and their roles and permissions.</p>
 

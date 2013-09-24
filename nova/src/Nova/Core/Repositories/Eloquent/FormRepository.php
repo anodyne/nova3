@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use NovaForm;
-use NovaFormData;
+use FormModel;
+use FormDataModel;
 use SecurityTrait;
 use FormProtectedException;
 use FormRepositoryInterface;
@@ -23,7 +23,7 @@ class FormRepository implements FormRepositoryInterface {
 	 */
 	public function all()
 	{
-		return NovaForm::all();
+		return FormModel::all();
 	}
 	
 	/**
@@ -34,7 +34,7 @@ class FormRepository implements FormRepositoryInterface {
 	 */
 	public function create(array $data)
 	{
-		return NovaForm::create($data);
+		return FormModel::create($data);
 	}
 
 	/**
@@ -71,7 +71,7 @@ class FormRepository implements FormRepositoryInterface {
 	{
 		$id = $this->sanitizeInt($id);
 
-		return NovaForm::find($id);
+		return FormModel::find($id);
 	}
 
 	/**
@@ -174,7 +174,7 @@ class FormRepository implements FormRepositoryInterface {
 		{
 			if (is_numeric($field))
 			{
-				NovaFormData::create([
+				FormDataModel::create([
 					'form_id'		=> $form->id,
 					'field_id'		=> $field,
 					'data_id'		=> $id,
@@ -249,7 +249,7 @@ class FormRepository implements FormRepositoryInterface {
 		$id = $this->sanitizeInt($id);
 
 		// Get the entries
-		$entries = NovaFormData::key($form->key)->entry($id)->get();
+		$entries = FormDataModel::key($form->key)->entry($id)->get();
 
 		if ($entries->count() > 0)
 		{
@@ -344,7 +344,7 @@ class FormRepository implements FormRepositoryInterface {
 	{
 		$key = $this->sanitizeString($key);
 
-		return NovaForm::key($key)->first();
+		return FormModel::key($key)->first();
 	}
 
 	/**
@@ -355,7 +355,7 @@ class FormRepository implements FormRepositoryInterface {
 	 */
 	public function getFormViewerDataEntries($form)
 	{
-		return NovaFormData::key($form->key)->orderAsc('data_id')->get();
+		return FormDataModel::key($form->key)->orderAsc('data_id')->get();
 	}
 
 	/**
@@ -371,7 +371,7 @@ class FormRepository implements FormRepositoryInterface {
 		if ( ! $id)
 			return false;
 
-		return NovaFormData::key($form->key)->entry($id)->first();
+		return FormDataModel::key($form->key)->entry($id)->first();
 	}
 
 	/**
@@ -384,7 +384,7 @@ class FormRepository implements FormRepositoryInterface {
 	public function getPaginatedFormViewerEntries($form, $perPage = 50)
 	{
 		// Start grabbing the entries
-		$entries = NovaFormData::key($form->key)->group('data_id')->orderDesc('created_at');
+		$entries = FormDataModel::key($form->key)->group('data_id')->orderDesc('created_at');
 
 		// Make sure we take into account what we want to use as a display
 		if ((int) $form->form_viewer_display > 0)
@@ -435,7 +435,7 @@ class FormRepository implements FormRepositoryInterface {
 		{
 			if (is_numeric($field))
 			{
-				$data = NovaFormData::key($form->key)->entry($id)->formField($field)->first();
+				$data = FormDataModel::key($form->key)->entry($id)->formField($field)->first();
 				$data->update(['value' => trim(e($value))]);
 			}
 		}

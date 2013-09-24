@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Events\Models;
 
-use NovaForm;
+use FormModel;
 use SystemEvent;
-use NovaFormData;
+use FormDataModel;
 use BaseModelEventHandler;
 
 class Character extends BaseModelEventHandler {
@@ -24,13 +24,13 @@ class Character extends BaseModelEventHandler {
 		/**
 		 * Fill the character rows for the dynamic form with blank data for editing later.
 		 */
-		$form = NovaForm::key('character')->first();
+		$form = FormModel::key('character')->first();
 		
 		if ($form->fields->count() > 0)
 		{
 			foreach ($form->fields as $field)
 			{
-				NovaFormData::create([
+				FormDataModel::create([
 					'form_id' 	=> $form->id,
 					'field_id' 	=> $field->id,
 					'data_id' 	=> $model->id,

@@ -31,7 +31,7 @@ class Data extends Model {
 	 */
 	public function form()
 	{
-		return $this->belongsTo('NovaForm', 'form_id');
+		return $this->belongsTo('FormModel', 'form_id');
 	}
 
 	/**
@@ -39,7 +39,7 @@ class Data extends Model {
 	 */
 	public function field()
 	{
-		return $this->belongsTo('NovaFormField', 'field_id');
+		return $this->belongsTo('FormFieldModel', 'field_id');
 	}
 
 	/**
@@ -47,7 +47,7 @@ class Data extends Model {
 	 */
 	public function author()
 	{
-		return $this->belongsTo('User', 'created_by');
+		return $this->belongsTo('UserModel', 'created_by');
 	}
 
 	/*

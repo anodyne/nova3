@@ -21,7 +21,7 @@ class Note extends Model {
 	 */
 	public function mission()
 	{
-		return $this->belongsTo('Mission');
+		return $this->belongsTo('MissionModel');
 	}
 
 }

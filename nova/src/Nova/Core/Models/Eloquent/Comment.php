@@ -52,7 +52,7 @@ class Comment extends Model {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['Comment'], $a['CommentModelEventHandler']);
+		static::setupEventListeners($a['CommentModel'], $a['CommentModelEventHandler']);
 	}
 
 }

@@ -24,7 +24,6 @@
 
 use Status;
 use SystemEvent;
-use NovaFormSection;
 use BaseModelEventHandler;
 
 class Section extends BaseModelEventHandler {

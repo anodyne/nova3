@@ -73,7 +73,7 @@ class Model_Wiki_Page extends \Model
 	 */
 	public function getComments($status = 'activated')
 	{
-		return \Model_Comment::find('all', array(
+		return \CommentModel::find('all', array(
 			'where' => array(
 				array('type', 'wiki'),
 				array('status', $status),

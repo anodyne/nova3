@@ -124,7 +124,7 @@ class Skin extends Model implements QuickInstallInterface, MediaInterface {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['SkinCatalog'], $a['SkinCatalogModelEventHandler']);
+		static::setupEventListeners($a['SkinCatalogModel'], $a['SkinCatalogModelEventHandler']);
 	}
 
 	/**

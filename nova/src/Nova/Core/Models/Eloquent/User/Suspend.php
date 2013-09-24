@@ -58,7 +58,7 @@ class Suspend extends Model implements ThrottleInterface {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('User', 'user_id');
+		return $this->belongsTo('UserModel', 'user_id');
 	}
 
 	/*

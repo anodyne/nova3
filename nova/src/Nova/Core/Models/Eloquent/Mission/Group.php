@@ -21,7 +21,7 @@ class Group extends Model {
 	 */
 	public function group()
 	{
-		return $this->belongsTo('MissionGroup', 'parent_id');
+		return $this->belongsTo('MissionGroupModel', 'parent_id');
 	}
 
 	/**
@@ -29,7 +29,7 @@ class Group extends Model {
 	 */
 	public function missions()
 	{
-		return $this->hasMany('Mission');
+		return $this->hasMany('MissionModel');
 	}
 
 }

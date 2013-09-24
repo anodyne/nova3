@@ -24,7 +24,7 @@ class Info extends Model {
 	 */
 	public function ranks()
 	{
-		return $this->hasMany('Rank');
+		return $this->hasMany('RankModel');
 	}
 
 	/*
@@ -46,7 +46,7 @@ class Info extends Model {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['RankInfo'], $a['RankInfoModelEventHandler']);
+		static::setupEventListeners($a['RankInfoModel'], $a['RankInfoModelEventHandler']);
 	}
 
 	/**

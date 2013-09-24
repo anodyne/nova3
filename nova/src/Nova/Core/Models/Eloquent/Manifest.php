@@ -21,7 +21,7 @@ class Manifest extends Model {
 	 */
 	public function departments()
 	{
-		return $this->hasMany('Dept');
+		return $this->hasMany('DeptModel');
 	}
 
 }

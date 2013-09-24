@@ -19,7 +19,7 @@ class NovaCreateUsers extends Migration {
 			$t->string('email')->unique();
 			$t->string('password');
 			$t->integer('character_id')->unsigned()->nullable();
-			$t->integer('role_id')->unsigned()->default(AccessRole::USER);
+			$t->integer('role_id')->unsigned()->default(AccessRoleModel::USER);
 			$t->string('reset_password_hash')->nullable();
 			$t->string('activation_hash')->nullable();
 			$t->string('persist_hash')->nullable();

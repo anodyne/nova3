@@ -19,7 +19,7 @@
  */
 
 use SystemEvent;
-use NovaFormSection;
+use FormSectionModel;
 use BaseModelEventHandler;
 
 class Tab extends BaseModelEventHandler {
@@ -51,7 +51,7 @@ class Tab extends BaseModelEventHandler {
 				if ($form->sections->count() == 0)
 				{
 					// Create a new section
-					$newSection = new NovaFormSection([
+					$newSection = new FormSectionModel([
 						'form_id'	=> $form->id,
 						'tab_id'	=> $model->id,
 						'name'		=> '',

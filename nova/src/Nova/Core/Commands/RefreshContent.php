@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Commands;
 
 use Eloquent;
-use SiteContent;
+use SiteContentModel;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -40,7 +40,7 @@ class RefreshContent extends Command {
 	public function fire()
 	{
 		// Clear out the content table
-		SiteContent::where('key', '!=', '')->delete();
+		SiteContentModel::where('key', '!=', '')->delete();
 
 		// Grab the content data file
 		$routes = include SRCPATH.'Setup/database/migrations/data/content.php';
@@ -50,7 +50,7 @@ class RefreshContent extends Command {
 		// Loop through the contents data file and insert the records
 		foreach ($routes as $r)
 		{
-			SiteContent::create($r);
+			SiteContentModel::create($r);
 		}
 
 		$this->info('Site content refreshed!');

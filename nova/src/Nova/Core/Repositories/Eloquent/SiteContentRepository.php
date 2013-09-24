@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use SiteContent;
+use SiteContentModel;
 use SecurityTrait;
 use SiteContentRepositoryInterface;
 
@@ -10,12 +10,12 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 
 	public function all()
 	{
-		return SiteContent::all();
+		return SiteContentModel::all();
 	}
 
 	public function create(array $data)
 	{
-		return SiteContent::create($data);
+		return SiteContentModel::create($data);
 	}
 
 	public function delete($id)
@@ -35,7 +35,7 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 	{
 		$id = $this->sanitizeInt($id);
 
-		return SiteContent::find($id);
+		return SiteContentModel::find($id);
 	}
 
 	/**
@@ -47,7 +47,7 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 	 */
 	public function findByKey($key, $valueOnly = true)
 	{
-		return SiteContent::getContentItem($key, $valueOnly);
+		return SiteContentModel::getContentItem($key, $valueOnly);
 	}
 
 	/**
@@ -60,7 +60,7 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 	 */
 	public function findBySection($section, $controller, $clean = false)
 	{
-		return SiteContent::getSectionContent($section, $controller, $clean);
+		return SiteContentModel::getSectionContent($section, $controller, $clean);
 	}
 
 	public function update($id, array $data)
@@ -83,7 +83,7 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 	 */
 	public function updateByKey(array $data)
 	{
-		return SiteContent::updateSiteContent($data);
+		return SiteContentModel::updateSiteContent($data);
 	}
 
 }

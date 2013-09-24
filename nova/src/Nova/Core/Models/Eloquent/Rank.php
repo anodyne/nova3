@@ -23,7 +23,7 @@ class Rank extends Model {
 	 */
 	public function info()
 	{
-		return $this->belongsTo('RankInfo', 'info_id');
+		return $this->belongsTo('RankInfoModel', 'info_id');
 	}
 
 	/**
@@ -31,7 +31,7 @@ class Rank extends Model {
 	 */
 	public function group()
 	{
-		return $this->belongsTo('RankGroup', 'group_id');
+		return $this->belongsTo('RankGroupModel', 'group_id');
 	}
 
 	/**
@@ -39,7 +39,7 @@ class Rank extends Model {
 	 */
 	public function characters()
 	{
-		return $this->hasMany('Character');
+		return $this->hasMany('CharacterModel');
 	}
 
 	/**
@@ -71,7 +71,7 @@ class Rank extends Model {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['Rank'], $a['RankModelEventHandler']);
+		static::setupEventListeners($a['RankModel'], $a['RankModelEventHandler']);
 	}
 
 }

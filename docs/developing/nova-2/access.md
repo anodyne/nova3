@@ -82,7 +82,7 @@ Sometimes though, tapping in to existing access keys doesn't quite cut it. In th
 
 In your migration's `up()` method, you can create a new access key like this:
 
-<pre>AccessTask::create([
+<pre>AccessTaskModel::create([
 	'action'	=> 'read',
 	'component'	=> 'reportGen',
 	'level'		=> 0,
@@ -97,7 +97,7 @@ You can create as many new keys as you want in a similar way including more acti
 The inverse is just as important. In your migration's `down()` method, you __must__ remove those access keys in the event your custom solution is uninstalled.
 
 <pre>// Get all the tasks in the reportGen component
-$tasks = AccessTask::where('component', 'reportGen')->get();
+$tasks = AccessTaskModel::where('component', 'reportGen')->get();
 
 // This will remove the tasks for any roles they're attached to
 $tasks->roles()->detach();

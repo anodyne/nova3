@@ -6,8 +6,8 @@ use UserModel;
 use SystemEvent;
 use PositionModel;
 use CharacterModel;
-use NovaAppRuleModel;
-use NovaAppReviewerModel;
+use ApplicationRuleModel;
+use ApplicationReviewerModel;
 use BaseModelEventHandler;
 
 class Application extends BaseModelEventHandler {
@@ -41,7 +41,7 @@ class Application extends BaseModelEventHandler {
 		foreach ($decisionMakers as $dm)
 		{
 			// Add the reviewer record
-			NovaAppReviewerModel::create([
+			ApplicationReviewerModel::create([
 				'app_id'	=> $model->id,
 				'user_id'	=> $dm->id,
 			]);
@@ -55,7 +55,7 @@ class Application extends BaseModelEventHandler {
 		 */
 		
 		// Get all the active application rules
-		$rules = NovaAppRuleModel::all();
+		$rules = ApplicationRuleModel::all();
 
 		if (count($rules) > 0)
 		{
@@ -73,7 +73,7 @@ class Application extends BaseModelEventHandler {
 							foreach ($data->user as $user)
 							{
 								// Add the reviewer record
-								NovaAppReviewerModel::create([
+								ApplicationReviewerModel::create([
 									'app_id'	=> $model->id,
 									'user_id'	=> $user,
 								]);
@@ -99,7 +99,7 @@ class Application extends BaseModelEventHandler {
 									if ($char->status == Status::ACTIVE and $char->user !== null)
 									{
 										// Add the reviewer record
-										NovaAppReviewerModel::create([
+										ApplicationReviewerModel::create([
 											'app_id'	=> $model->id,
 											'user_id'	=> $char->user->id,
 										]);
@@ -124,7 +124,7 @@ class Application extends BaseModelEventHandler {
 								foreach ($data->user as $user)
 								{
 									// Add the reviewer record
-									NovaAppReviewerModel::create([
+									ApplicationReviewerModel::create([
 										'app_id'	=> $model->id,
 										'user_id'	=> $user,
 									]);
@@ -150,7 +150,7 @@ class Application extends BaseModelEventHandler {
 										if ($char->status == Status::ACTIVE and $char->user !== null)
 										{
 											// Add the reviewer record
-											NovaAppReviewerModel::create([
+											ApplicationReviewerModel::create([
 												'app_id'	=> $model->id,
 												'user_id'	=> $char->user->id,
 											]);

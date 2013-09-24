@@ -26,7 +26,7 @@ class Position extends Model {
 	 */
 	public function dept()
 	{
-		return $this->belongsTo('Dept', 'dept_id');
+		return $this->belongsTo('DeptModel', 'dept_id');
 	}
 
 	/**
@@ -34,7 +34,7 @@ class Position extends Model {
 	 */
 	public function applicants()
 	{
-		return $this->hasMany('NovaApp');
+		return $this->hasMany('ApplicationModel');
 	}
 
 	/**
@@ -42,7 +42,7 @@ class Position extends Model {
 	 */
 	public function characters()
 	{
-		return $this->belongsToMany('Character', 'character_positions');
+		return $this->belongsToMany('CharacterModel', 'character_positions');
 	}
 
 	/**
@@ -74,7 +74,7 @@ class Position extends Model {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['Position'], $a['PositionModelEventHandler']);
+		static::setupEventListeners($a['PositionModel'], $a['PositionModelEventHandler']);
 	}
 	
 	/**

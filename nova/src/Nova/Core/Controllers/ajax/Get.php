@@ -32,7 +32,7 @@ class Get extends AjaxBaseController {
 		}
 
 		// Find the user
-		$user = \Model_User::query()->where($field, $value)->get_one();
+		$user = \UserModel::query()->where($field, $value)->get_one();
 
 		if ($user)
 		{
@@ -49,7 +49,7 @@ class Get extends AjaxBaseController {
 		// get the POST data
 		$data = \Input::post();
 
-		echo \NovaForm::build(
+		echo \FormModel::build(
 			'user', 
 			\Security::xss_clean(\Input::post('skin')),
 			\Security::xss_clean(\Input::post('user'))
@@ -71,7 +71,7 @@ class Get extends AjaxBaseController {
 				$only_search_email = (bool) preg_match('(@)', $query);
 
 				// search for any users with the email address
-				$email = \Model_User::getItem("%$query%", 'email', true);
+				$email = \UserModel::getItem("%$query%", 'email', true);
 
 				if (count($email) > 0)
 				{
@@ -88,7 +88,7 @@ class Get extends AjaxBaseController {
 				if ( ! $only_search_email)
 				{
 					// search for any users with the name
-					$name = \Model_User::getItem("%$query%", 'name', true);
+					$name = \UserModel::getItem("%$query%", 'name', true);
 
 					if (count($name) > 0)
 					{
@@ -103,7 +103,7 @@ class Get extends AjaxBaseController {
 					}
 
 					// search for first names
-					$first_name = \Model_Character::getItem("%$query%", 'first_name', true);
+					$first_name = \CharacterModel::getItem("%$query%", 'first_name', true);
 
 					if (count($first_name) > 0)
 					{
@@ -120,7 +120,7 @@ class Get extends AjaxBaseController {
 					}
 
 					// search for last names
-					$last_name = \Model_Character::getItem("%$query%", 'last_name', true);
+					$last_name = \CharacterModel::getItem("%$query%", 'last_name', true);
 
 					if (count($last_name) > 0)
 					{
@@ -155,7 +155,7 @@ class Get extends AjaxBaseController {
 		$id = ( ! is_numeric($id)) ? false : $id;
 
 		// Get the position
-		$position = \Position::with('dept')->where('id', $id)->first();
+		$position = \PositionModel::with('dept')->where('id', $id)->first();
 
 		// Figure out what to output
 		switch ($return)
@@ -187,7 +187,7 @@ class Get extends AjaxBaseController {
 		$id = ( ! is_numeric($id)) ? false : $id;
 
 		// Get the rank
-		$rank = \Rank::with('info')->where('id', $id)->first();
+		$rank = \RankModel::with('info')->where('id', $id)->first();
 
 		// Figure out what to output
 		switch ($return)
@@ -259,7 +259,7 @@ class Get extends AjaxBaseController {
 		$role = (is_numeric($role)) ? $role : false;
 
 		// Get the role
-		$item = \AccessRole::find($role);
+		$item = \AccessRoleModel::find($role);
 
 		// Start a holding array
 		$retval = array();
@@ -287,7 +287,7 @@ class Get extends AjaxBaseController {
 			$id = e($id);
 
 			// Get the task
-			$task = \AccessTask::find($id);
+			$task = \AccessTaskModel::find($id);
 
 			if ($format == 'html')
 			{
@@ -310,13 +310,13 @@ class Get extends AjaxBaseController {
 			$query = e(Input::get('query'));
 
 			// Find by name
-			$name = \User::searchName($query)->get();
+			$name = \UserModel::searchName($query)->get();
 
 			// Find by email
-			$email = \User::searchEmail($query)->get();
+			$email = \UserModel::searchEmail($query)->get();
 
 			// Find by character
-			$character = \User::searchCharacters($query)->get();
+			$character = \UserModel::searchCharacters($query)->get();
 
 			return json_encode([
 				'name'			=> $name->toArray(),
@@ -334,7 +334,7 @@ class Get extends AjaxBaseController {
 		if ($this->auth->check())
 		{
 			// Get the role
-			$role = \AccessRole::find($id);
+			$role = \AccessRoleModel::find($id);
 
 			echo View::make(Location::ajax('get/role_users'))
 				->with('users', $role->users);

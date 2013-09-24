@@ -1,4 +1,4 @@
-@if ($role->id == AccessRole::SYSADMIN)
+@if ($role->id == AccessRoleModel::SYSADMIN)
 	{{ partial('common/alert', ['class' => 'alert-danger', 'heading' => lang('short.admin.roles.duplicateSysAdminHeader'), 'content' => lang('short.admin.roles.duplicateSysAdminText', lang('users'))]) }}
 @endif
 {{ Form::open(['url' => 'admin/role']) }}

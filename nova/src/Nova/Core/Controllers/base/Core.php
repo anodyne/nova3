@@ -21,7 +21,7 @@ use View;
 use Cache;
 use Route;
 use Config;
-use System;
+use SystemModel;
 use Request;
 use Session;
 use Location;
@@ -209,7 +209,7 @@ abstract class Core extends Controller {
 				try
 				{
 					// Grab the UID
-					$uid = System::getUniqueId();
+					$uid = SystemModel::getUniqueId();
 
 					// Only cache if we have a UID
 					if ( ! empty($uid))

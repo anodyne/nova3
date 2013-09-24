@@ -22,7 +22,7 @@ class MessageRecipient extends Model {
 	 */
 	public function message()
 	{
-		return $this->hasMany('Message');
+		return $this->hasMany('MessageModel');
 	}
 
 }

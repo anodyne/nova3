@@ -67,7 +67,7 @@ class Update extends AjaxBaseController {
 			foreach ($fields as $key => $value)
 			{
 				// Get and update the value record
-				$record = \NovaFormField::find($value);
+				$record = \FormFieldModel::find($value);
 				$record->update(['order' => $key + 1]);
 			}
 		}
@@ -89,7 +89,7 @@ class Update extends AjaxBaseController {
 			foreach ($sections as $key => $value)
 			{
 				// Get and update the section record
-				$record = \NovaFormSection::find($value);
+				$record = \FormSectionModel::find($value);
 				$record->update(['order' => $key + 1]);
 			}
 		}
@@ -111,7 +111,7 @@ class Update extends AjaxBaseController {
 			foreach ($tabs as $key => $value)
 			{
 				// Get and update the tab record
-				$record = \NovaFormTab::find($value);
+				$record = \FormTabModel::find($value);
 				$record->update(['order' => $key + 1]);
 			}
 		}
@@ -136,7 +136,7 @@ class Update extends AjaxBaseController {
 					foreach ($values as $key => $value)
 					{
 						// Get and update the value record
-						$record = \NovaFormValue::find($value);
+						$record = \FormValueModel::find($value);
 						$record->update(['order' => $key + 1]);
 					}
 				break;
@@ -148,7 +148,7 @@ class Update extends AjaxBaseController {
 					$value = e(Input::get('value'));
 
 					// Get and update the value
-					$record = \NovaFormValue::find($id);
+					$record = \FormValueModel::find($id);
 					$record->update(['value' => $value]);
 				break;
 			}
@@ -298,7 +298,7 @@ class Update extends AjaxBaseController {
 		if ($this->auth->check() and $this->currentUser->hasAccess('catalog.update'))
 		{
 			// Get the catalog
-			$catalog = \SkinCatalog::find($id);
+			$catalog = \SkinCatalogModel::find($id);
 
 			if ($catalog)
 			{

@@ -7,7 +7,7 @@ use View;
 use Setup;
 use Config;
 use Exception;
-use RankCatalog;
+use RankCatalogModel;
 
 class Location {
 
@@ -292,8 +292,8 @@ class Location {
 
 		// Get the rank catalog object
 		$catalog = ( ! $location)
-			? RankCatalog::getItems('location', \Nova::getRank())->first()
-			: RankCatalog::getItems('location', $location)->first();
+			? RankCatalogModel::getItems('location', \Nova::getRank())->first()
+			: RankCatalogModel::getItems('location', $location)->first();
 
 		if (File::isDirectory(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/base") 
 				and File::isDirectory(APPPATH."assets/common/{$genre}/ranks/{$catalog->location}/pips"))

@@ -40,7 +40,7 @@ class Department extends Model {
 	 */
 	public function manifest()
 	{
-		return $this->belongsTo('Manifest');
+		return $this->belongsTo('ManifestModel');
 	}
 
 	/**
@@ -48,7 +48,7 @@ class Department extends Model {
 	 */
 	public function positions()
 	{
-		return $this->hasMany('Position', 'dept_id');
+		return $this->hasMany('PositionModel', 'dept_id');
 	}
 	
 }

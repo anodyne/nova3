@@ -57,7 +57,7 @@ class Settings extends Model implements CacheInterface {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['Settings'], $a['SettingsModelEventHandler']);
+		static::setupEventListeners($a['SettingsModel'], $a['SettingsModelEventHandler']);
 	}
 	
 	/**

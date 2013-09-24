@@ -35,7 +35,7 @@ class SystemRouteServiceProvider extends ServiceProvider {
 		if ($routes === null and $this->app['nova.setup']->installed())
 		{
 			// Cache the system routes
-			\SystemRoute::cache();
+			\SystemRouteModel::cache();
 
 			// Retrieve the routes again
 			$routes = $this->app['cache']->get('nova.routes');

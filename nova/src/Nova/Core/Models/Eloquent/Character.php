@@ -6,7 +6,7 @@ use Model;
 use Config;
 use Status;
 use DynamicForm;
-use NovaFormData;
+use FormDataModel;
 use MediaInterface;
 use FormDataInterface;
 
@@ -40,7 +40,7 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 	 */
 	public function rank()
 	{
-		return $this->belongsTo('Rank', 'rank_id');
+		return $this->belongsTo('RankModel', 'rank_id');
 	}
 
 	/**
@@ -48,7 +48,7 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('User', 'user_id');
+		return $this->belongsTo('UserModel', 'user_id');
 	}
 
 	/**
@@ -56,7 +56,7 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 	 */
 	public function app()
 	{
-		return $this->hasOne('NovaApp');
+		return $this->hasOne('ApplicationModel');
 	}
 
 	/**
@@ -64,7 +64,7 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 	 */
 	public function logs()
 	{
-		return $this->hasMany('PersonalLog');
+		return $this->hasMany('PersonalLogModel');
 	}
 
 	/**
@@ -72,7 +72,7 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 	 */
 	public function announcements()
 	{
-		return $this->hasMany('Announcement');
+		return $this->hasMany('AnnouncementModel');
 	}
 
 	/**
@@ -80,7 +80,7 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 	 */
 	public function promotions()
 	{
-		return $this->hasMany('CharacterPromotion');
+		return $this->hasMany('CharacterPromotionModel');
 	}
 
 	/**
@@ -88,7 +88,7 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 	 */
 	public function awards()
 	{
-		return $this->hasMany('AwardRecipient');
+		return $this->hasMany('AwardRecipientModel');
 	}
 
 	/**
@@ -96,7 +96,7 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 	 */
 	public function posts()
 	{
-		return $this->belongsToMany('Post', 'post_authors');
+		return $this->belongsToMany('PostModel', 'post_authors');
 	}
 
 	/**
@@ -104,7 +104,7 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 	 */
 	public function positions()
 	{
-		return $this->belongsToMany('Position', 'character_positions')
+		return $this->belongsToMany('PositionModel', 'character_positions')
 			->withPivot('primary');
 	}
 
@@ -163,7 +163,7 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['Character'], $a['CharacterModelEventHandler']);
+		static::setupEventListeners($a['CharacterModel'], $a['CharacterModelEventHandler']);
 	}
 
 	/**
@@ -263,7 +263,7 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 		}
 
 		// Get the position record
-		$position = CharacterPosition::getItems($args);
+		$position = CharacterPositionModel::getItems($args);
 
 		// Update to the new position
 		$position->position_id = $newId;
@@ -346,7 +346,7 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 		{
 			foreach ($characters as $c)
 			{
-				NovaFormData::create(array_merge($data, ['data_id' => $c->id]));
+				FormDataModel::create(array_merge($data, ['data_id' => $c->id]));
 			}
 		}
 	}

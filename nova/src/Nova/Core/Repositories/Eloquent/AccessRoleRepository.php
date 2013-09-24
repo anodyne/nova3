@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use AccessRole;
-use AccessTask;
+use AccessRoleModel;
+use AccessTaskModel;
 use SecurityTrait;
 use AccessRoleRepositoryInterface;
 
@@ -22,7 +22,7 @@ class AccessRoleRepository implements AccessRoleRepositoryInterface {
 	 */
 	public function all()
 	{
-		return AccessRole::all();
+		return AccessRoleModel::all();
 	}
 
 	/**
@@ -32,7 +32,7 @@ class AccessRoleRepository implements AccessRoleRepositoryInterface {
 	 */
 	public function allTasks()
 	{
-		return AccessTask::all();
+		return AccessTaskModel::all();
 	}
 	
 	/**
@@ -43,7 +43,7 @@ class AccessRoleRepository implements AccessRoleRepositoryInterface {
 	 */
 	public function create(array $data)
 	{
-		$item = AccessRole::create($data);
+		$item = AccessRoleModel::create($data);
 
 		if ($item)
 		{
@@ -91,7 +91,7 @@ class AccessRoleRepository implements AccessRoleRepositoryInterface {
 	 */
 	public function createTask(array $data)
 	{
-		return AccessTask::create($data);
+		return AccessTaskModel::create($data);
 	}
 
 	/**
@@ -203,7 +203,7 @@ class AccessRoleRepository implements AccessRoleRepositoryInterface {
 	{
 		$id = $this->sanitizeInt($id);
 		
-		return AccessRole::find($id);
+		return AccessRoleModel::find($id);
 	}
 
 	/**
@@ -216,7 +216,7 @@ class AccessRoleRepository implements AccessRoleRepositoryInterface {
 	{
 		$id = $this->sanitizeInt($id);
 		
-		return AccessTask::find($id);
+		return AccessTaskModel::find($id);
 	}
 
 	/**
@@ -226,7 +226,7 @@ class AccessRoleRepository implements AccessRoleRepositoryInterface {
 	 */
 	public function getTaskComponents()
 	{
-		return AccessTask::group('component')->get();
+		return AccessTaskModel::group('component')->get();
 	}
 
 	/**

@@ -17,7 +17,7 @@ Here are the items that Nova caches as well as the reasons for being cached and 
 * Settings
 	* Cache key: `nova.settings`
 	* All settings are stored in the cache for quick access since the entire settings table is available on each request.
-	* `Settings::getItems()` will check the cache first before querying the database.
+	* `SettingsModel::getItems()` will check the cache first before querying the database.
 * Site Content
 	* Cache key: `nova.content.{type}.{section}`
 		* Type can be "header", "title", "message" or "other"

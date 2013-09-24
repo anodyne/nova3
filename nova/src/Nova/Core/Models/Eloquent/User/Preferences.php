@@ -1,7 +1,6 @@
 <?php namespace Nova\Core\Models\Eloquent\User;
 
 use Model;
-use RankCatalog;
 
 class Preferences extends Model {
 	
@@ -30,7 +29,7 @@ class Preferences extends Model {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('User', 'user_id');
+		return $this->belongsTo('UserModel', 'user_id');
 	}
 
 	/*

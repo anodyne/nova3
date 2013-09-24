@@ -23,7 +23,7 @@ class Recipient extends Model {
 	 */
 	public function award()
 	{
-		return $this->belongsTo('Award');
+		return $this->belongsTo('AwardModel');
 	}
 
 	/**
@@ -31,7 +31,7 @@ class Recipient extends Model {
 	 */
 	public function character()
 	{
-		return $this->belongsTo('Character');
+		return $this->belongsTo('CharacterModel');
 	}
 
 	/**
@@ -39,7 +39,7 @@ class Recipient extends Model {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('User');
+		return $this->belongsTo('UserModel');
 	}
 
 }

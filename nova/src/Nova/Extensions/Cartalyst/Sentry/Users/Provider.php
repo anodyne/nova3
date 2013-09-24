@@ -1,6 +1,6 @@
 <?php namespace Nova\Extensions\Cartalyst\Sentry\Users;
 
-use User;
+use UserModel;
 use Cartalyst\Sentry\Hashing\HasherInterface;
 use Cartalyst\Sentry\Groups\GroupInterface;
 use Cartalyst\Sentry\Users\ProviderInterface;
@@ -15,7 +15,7 @@ class Provider implements ProviderInterface {
 	 *
 	 * @var string
 	 */
-	protected $model = 'User';
+	protected $model = 'UserModel';
 
 	/**
 	 * The hasher for the model.
@@ -143,7 +143,7 @@ class Provider implements ProviderInterface {
 	 */
 	public function findByActivationCode($code)
 	{
-		return User::where('activation_hash', $code)->first();
+		return UserModel::where('activation_hash', $code)->first();
 	}
 
 	/**
@@ -156,7 +156,7 @@ class Provider implements ProviderInterface {
 	 */
 	public function findByResetPasswordCode($code)
 	{
-		return User::where('reset_password_hash', $code)->first();
+		return UserModel::where('reset_password_hash', $code)->first();
 	}
 
 	/**

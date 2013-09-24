@@ -1,6 +1,6 @@
 <?php namespace Nova\Extensions\Cartalyst\Sentry\Throttling;
 
-use UserSuspendedModel;
+use UserSuspendModel;
 use Cartalyst\Sentry\Throttling\ThrottleInterface;
 use Cartalyst\Sentry\Throttling\ProviderInterface;
 use Cartalyst\Sentry\Users\ProviderInterface as UserProviderInterface;
@@ -12,7 +12,7 @@ class Provider implements ProviderInterface {
 	 *
 	 * @var string
 	 */
-	protected $model = 'UserSuspend';
+	protected $model = 'UserSuspendModel';
 
 	/**
 	 * The user provider used for finding users

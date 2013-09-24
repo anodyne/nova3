@@ -12,11 +12,10 @@ use Session;
 use Redirect;
 use ErrorCode;
 use Exception;
-use UserPrefs;
-use AccessRole;
+use UserPrefsModel;
+use AccessRoleModel;
 use DynamicForm;
-use RankCatalog;
-use NovaFormData;
+use FormDataModel;
 use FormDataInterface;
 use Cartalyst\Sentry\Users\UserInterface;
 use Cartalyst\Sentry\Groups\GroupInterface;
@@ -61,7 +60,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 	 */
 	public function role()
 	{
-		return $this->belongsTo('AccessRole', 'role_id');
+		return $this->belongsTo('AccessRoleModel', 'role_id');
 	}
 
 	/**
@@ -69,7 +68,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 	 */
 	public function app()
 	{
-		return $this->hasOne('NovaApp', 'user_id');
+		return $this->hasOne('ApplicationModel', 'user_id');
 	}
 
 	/**
@@ -77,7 +76,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 	 */
 	public function characters()
 	{
-		return $this->hasMany('Character', 'user_id');
+		return $this->hasMany('CharacterModel', 'user_id');
 	}
 
 	/**
@@ -85,7 +84,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 	 */
 	public function logs()
 	{
-		return $this->hasMany('PersonalLog', 'user_id');
+		return $this->hasMany('PersonalLogModel', 'user_id');
 	}
 
 	/**
@@ -93,7 +92,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 	 */
 	public function announcements()
 	{
-		return $this->hasMany('Announcement', 'user_id');
+		return $this->hasMany('AnnouncementModel', 'user_id');
 	}
 
 	/**
@@ -101,7 +100,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 	 */
 	public function preferences()
 	{
-		return $this->hasMany('UserPrefs', 'user_id');
+		return $this->hasMany('UserPrefsModel', 'user_id');
 	}
 
 	/**
@@ -109,7 +108,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 	 */
 	public function throttles()
 	{
-		return $this->hasMany('UserSuspend', 'user_id');
+		return $this->hasMany('UserSuspendModel', 'user_id');
 	}
 
 	/**
@@ -117,7 +116,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 	 */
 	public function awards()
 	{
-		return $this->hasMany('AwardRecipient', 'user_id');
+		return $this->hasMany('AwardRecipientModel', 'user_id');
 	}
 
 	/**
@@ -125,7 +124,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 	 */
 	public function data()
 	{
-		return $this->hasMany('NovaFormData', 'data_id')->where('form_id', 2);
+		return $this->hasMany('FormDataModel', 'data_id')->where('form_id', 2);
 	}
 
 	/**
@@ -133,7 +132,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 	 */
 	public function formviewer()
 	{
-		return $this->hasMany('NovaFormData', 'created_by');
+		return $this->hasMany('FormDataModel', 'created_by');
 	}
 
 	/**
@@ -141,7 +140,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 	 */
 	public function posts()
 	{
-		return $this->belongsToMany('Post', 'post_authors');
+		return $this->belongsToMany('PostModel', 'post_authors');
 	}
 
 	/**
@@ -151,7 +150,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 	 */
 	public function appReviews()
 	{
-		return $this->belongsToMany('NovaApp', 'application_reviewers');
+		return $this->belongsToMany('ApplicationModel', 'application_reviewers');
 	}
 
 	/*
@@ -259,7 +258,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['User'], $a['UserModelEventHandler']);
+		static::setupEventListeners($a['UserModel'], $a['UserModelEventHandler']);
 	}
 
 	/**
@@ -417,9 +416,9 @@ class User extends Model implements UserInterface, FormDataInterface {
 			'loa'					=> 'active',
 			'timezone'				=> 'UTC',
 			'language'				=> 'en',
-			'rank'					=> Settings::getSettings('rank'),
-			'skin_main'				=> Settings::getSettings('skin_main'),
-			'skin_admin'			=> Settings::getSettings('skin_admin'),
+			'rank'					=> SettingsModel::getSettings('rank'),
+			'skin_main'				=> SettingsModel::getSettings('skin_main'),
+			'skin_admin'			=> SettingsModel::getSettings('skin_admin'),
 			'email_format'			=> 'html',
 			'email_comments'		=> (int) true,
 			'email_messages'		=> (int) true,
@@ -432,7 +431,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 
 		foreach ($insert as $key => $value)
 		{
-			$this->preferences()->save(UserPrefs::create(['key' => $key, 'value' => $value]));
+			$this->preferences()->save(UserPrefsModel::create(['key' => $key, 'value' => $value]));
 		}
 	}
 
@@ -485,7 +484,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 		foreach ($values as $key => $value)
 		{
 			// Find the preference
-			$pref = UserPrefs::key($key)->first();
+			$pref = UserPrefsModel::key($key)->first();
 
 			// Update the preference
 			$pref->update(['value' => $value]);
@@ -510,7 +509,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 		{
 			foreach ($users as $u)
 			{
-				NovaFormData::create(array_merge($data, ['data_id' => $u->id]));
+				FormDataModel::create(array_merge($data, ['data_id' => $u->id]));
 			}
 		}
 	}
@@ -841,7 +840,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 				if ($i > 0 and $i !== null)
 				{
 					// Get the role
-					$r = AccessRole::find($i);
+					$r = AccessRoleModel::find($i);
 					
 					// Loop through the role's tasks and add them
 					foreach ($r->tasks as $t)

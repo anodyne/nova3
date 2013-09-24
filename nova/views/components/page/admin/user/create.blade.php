@@ -45,7 +45,7 @@
 		</div>
 	</div>
 
-	@if (Character::npc()->count() > 0)
+	@if (CharacterModel::npc()->count() > 0)
 		<div class="row">
 			<div class="col-sm-8 col-lg-6">
 				<label class="control-label">{{ langConcat('Primary Character') }}</label>

@@ -3,7 +3,7 @@
 use Str;
 use View;
 use NavModel;
-use Settings;
+use SettingsModel;
 
 class Nav {
 	
@@ -63,7 +63,7 @@ class Nav {
 				{
 					$output = View::make(\Location::partial('nav/classic'))
 						->with('items', $this->data[$this->type]['mainNavItems'][$this->category])
-						->with('name', Settings::getSettings('sim_name'));
+						->with('name', SettingsModel::getSettings('sim_name'));
 				}
 				else
 				{
@@ -76,7 +76,7 @@ class Nav {
 			default:
 				$output = View::make(\Location::partial('nav/dropdown'))
 					->with('items', $this->data)
-					->with('name', Settings::getSettings('sim_name'))
+					->with('name', SettingsModel::getSettings('sim_name'))
 					->with('userMenu', $this->userOutput)
 					->with('section', $this->section)
 					->with('category', $this->category);

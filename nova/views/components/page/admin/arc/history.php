@@ -53,7 +53,7 @@
 					<div class="btn-toolbar pull-right">
 						<?php if ($r->status == Status::REJECTED): ?>
 							<div class="btn-group">
-								<?php if (Model_Ban::getItems($r->user->email)): ?>
+								<?php if (BanModel::getItems($r->user->email)): ?>
 									<a href="#" class="btn btn-sm btn-danger tooltip-top unban-user icn16" title="<?php echo ucfirst(lang('short.remove', langConcat('user ban')));?>" data-user="<?php echo $r->user->id;?>"><div class="icn icn-50" data-icon="2"></div></a>
 								<?php else:?>
 									<a href="#" class="btn btn-sm btn-danger tooltip-top ban-user icn16" title="<?php echo ucfirst(langConcat('action.ban user'));?>" data-user="<?php echo $r->user->id;?>"><div class="icn icn-50" data-icon="2"></div></a>

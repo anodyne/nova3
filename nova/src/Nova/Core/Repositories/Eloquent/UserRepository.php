@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use User;
+use UserModel;
 use SecurityTrait;
 use UserRepositoryInterface;
 
@@ -16,12 +16,12 @@ class UserRepository implements UserRepositoryInterface {
 	
 	public function all()
 	{
-		return User::all();
+		return UserModel::all();
 	}
 	
 	public function create(array $data)
 	{
-		return User::create($data);
+		return UserModel::create($data);
 	}
 
 	public function delete($id)
@@ -41,7 +41,7 @@ class UserRepository implements UserRepositoryInterface {
 	{
 		$id = $this->sanitizeInt($id);
 
-		return User::find($id);
+		return UserModel::find($id);
 	}
 
 	public function update($id, array $data)
@@ -70,7 +70,7 @@ class UserRepository implements UserRepositoryInterface {
 	 */
 	public function active()
 	{
-		return User::active()->get();
+		return UserModel::active()->get();
 	}
 
 	/**
@@ -83,7 +83,7 @@ class UserRepository implements UserRepositoryInterface {
 	{
 		$email = $this->sanitizeString($email);
 
-		return User::email($email)->first();
+		return UserModel::email($email)->first();
 	}
 
 	/**
@@ -96,7 +96,7 @@ class UserRepository implements UserRepositoryInterface {
 	{
 		$name = $this->sanitizeString($name);
 
-		return User::searchName($name)->get();
+		return UserModel::searchName($name)->get();
 	}
 
 	/**
@@ -106,7 +106,7 @@ class UserRepository implements UserRepositoryInterface {
 	 */
 	public function inactive()
 	{
-		return User::inactive()->get();
+		return UserModel::inactive()->get();
 	}
 
 	/**
@@ -116,7 +116,7 @@ class UserRepository implements UserRepositoryInterface {
 	 */
 	public function pending()
 	{
-		return User::pending()->get();
+		return UserModel::pending()->get();
 	}
 
 }

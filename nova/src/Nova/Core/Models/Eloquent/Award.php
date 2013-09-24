@@ -21,7 +21,7 @@ class Award extends Model {
 	 */
 	public function category()
 	{
-		return $this->belongsTo('AwardCategory');
+		return $this->belongsTo('AwardCategoryModel');
 	}
 
 	/**
@@ -29,7 +29,7 @@ class Award extends Model {
 	 */
 	public function recipients()
 	{
-		return $this->hasMany('AwardRecipient');
+		return $this->hasMany('AwardRecipientModel');
 	}
 
 }

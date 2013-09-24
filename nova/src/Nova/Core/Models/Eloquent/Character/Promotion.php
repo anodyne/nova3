@@ -22,7 +22,7 @@ class Promotion extends Model {
 	 */
 	public function character()
 	{
-		return $this->belongsTo('Character');
+		return $this->belongsTo('CharacterModel');
 	}
 
 }

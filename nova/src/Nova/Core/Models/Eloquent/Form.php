@@ -36,7 +36,7 @@ class Form extends Model {
 	 */
 	public function tabs()
 	{
-		return $this->hasMany('NovaFormTab', 'form_id')->orderAsc('order');
+		return $this->hasMany('FormTabModel', 'form_id')->orderAsc('order');
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Form extends Model {
 	 */
 	public function sections()
 	{
-		return $this->hasMany('NovaFormSection', 'form_id')->orderAsc('order');
+		return $this->hasMany('FormSectionModel', 'form_id')->orderAsc('order');
 	}
 
 	/**
@@ -52,7 +52,7 @@ class Form extends Model {
 	 */
 	public function fields()
 	{
-		return $this->hasMany('NovaFormField', 'form_id')->orderAsc('order');
+		return $this->hasMany('FormFieldModel', 'form_id')->orderAsc('order');
 	}
 
 	/**
@@ -60,7 +60,7 @@ class Form extends Model {
 	 */
 	public function data()
 	{
-		return $this->hasMany('NovaFormData', 'form_id')->orderAsc('field_id');
+		return $this->hasMany('FormDataModel', 'form_id')->orderAsc('field_id');
 	}
 
 	/*
@@ -121,7 +121,7 @@ class Form extends Model {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['NovaForm'], $a['FormModelEventHandler']);
+		static::setupEventListeners($a['FormModel'], $a['FormModelEventHandler']);
 	}
 
 	/**

@@ -16,23 +16,23 @@ Form::macro('characters', function($name, $selected = null, $options = array(), 
 	switch ($status)
 	{
 		case Status::ACTIVE:
-			$characters = Character::active()->get();
+			$characters = CharacterModel::active()->get();
 		break;
 
 		case Status::INACTIVE:
-			$characters = Character::inactive()->get();
+			$characters = CharacterModel::inactive()->get();
 		break;
 
 		case Status::PENDING:
-			$characters = Character::pending()->get();
+			$characters = CharacterModel::pending()->get();
 		break;
 
 		case Status::UNASSIGNED:
-			$characters = Character::npc()->get();
+			$characters = CharacterModel::npc()->get();
 		break;
 		
 		default:
-			$characters = Character::get();
+			$characters = CharacterModel::get();
 		break;
 	}
 	
@@ -75,7 +75,7 @@ Form::macro('characters', function($name, $selected = null, $options = array(), 
 Form::macro('department', function($name, $selected = null, $options = array())
 {
 	// Grab the departments
-	$depts = Dept::all();
+	$depts = DeptModel::all();
 
 	// Make sure we have items
 	if ($depts->count() > 0)
@@ -201,15 +201,15 @@ Form::macro('position', function($name, $selected = null, $options = array(), $t
 {
 	if (is_numeric($type))
 	{
-		$positions = Position::getItems('all', $type);
+		$positions = PositionModel::getItems('all', $type);
 	}
 	elseif (is_string($type))
 	{
-		$positions = Position::getItems($type);
+		$positions = PositionModel::getItems($type);
 	}
 	else
 	{
-		$positions = Position::getItems();
+		$positions = PositionModel::getItems();
 	}
 
 	if ($positions->count() > 0)
@@ -249,7 +249,7 @@ Form::macro('position', function($name, $selected = null, $options = array(), $t
 
 		if (is_numeric($selected))
 		{
-			$output.= Markdown::parse(Position::find($selected)->desc);
+			$output.= Markdown::parse(PositionModel::find($selected)->desc);
 		}
 
 		$output.= '</div></div></div>';
@@ -273,7 +273,7 @@ Form::macro('position', function($name, $selected = null, $options = array(), $t
 Form::macro('rank', function($name, $selected = null, $options = array(), $selectOnly = false)
 {
 	// Grab the rank groups
-	$groups = RankGroup::active()->orderAsc('order')->get();
+	$groups = RankGroupModel::active()->orderAsc('order')->get();
 
 	if ($groups->count() > 0)
 	{
@@ -301,7 +301,7 @@ Form::macro('rank', function($name, $selected = null, $options = array(), $selec
 		if (is_numeric($selected))
 		{
 			// Get the rank
-			$rank = Rank::find($selected);
+			$rank = RankModel::find($selected);
 
 			$output.= Location::rank($rank->base, $rank->pip);
 		}
@@ -327,7 +327,7 @@ Form::macro('rank', function($name, $selected = null, $options = array(), $selec
 Form::macro('roles', function($name, $selected = null, $options = array(), $selectOnly = false)
 {
 	// Get the access roles
-	$roles = AccessRole::get()->toSimpleArray('id', 'name');
+	$roles = AccessRoleModel::get()->toSimpleArray('id', 'name');
 
 	if (count($roles) > 0)
 	{
@@ -346,7 +346,7 @@ Form::macro('roles', function($name, $selected = null, $options = array(), $sele
 
 		if (is_numeric($selected))
 		{
-			$output.= Markdown::parse(AccessRole::find($selected)->desc);
+			$output.= Markdown::parse(AccessRoleModel::find($selected)->desc);
 		}
 
 		$output.= '</div></div></div>';
@@ -412,19 +412,19 @@ Form::macro('users', function($name, $selected = null, $options = array(), $stat
 	switch ($status)
 	{
 		case Status::ACTIVE:
-			$users = User::active()->get()->toSimpleArray('id', 'name');
+			$users = UserModel::active()->get()->toSimpleArray('id', 'name');
 		break;
 
 		case Status::INACTIVE:
-			$users = User::inactive()->get()->toSimpleArray('id', 'name');
+			$users = UserModel::inactive()->get()->toSimpleArray('id', 'name');
 		break;
 
 		case Status::PENDING:
-			$users = User::pending()->get()->toSimpleArray('id', 'name');
+			$users = UserModel::pending()->get()->toSimpleArray('id', 'name');
 		break;
 		
 		default:
-			$users = User::get()->toSimpleArray('id', 'name');
+			$users = UserModel::get()->toSimpleArray('id', 'name');
 		break;
 	}
 

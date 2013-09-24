@@ -64,7 +64,7 @@ class Settings extends BaseModelEventHandler {
 		Cache::forget('nova.settings');
 
 		// Re-cache everything
-		Cache::forever('nova.settings', \Settings::getItems(false, false));
+		Cache::forever('nova.settings', \SettingsModel::getItems(false, false));
 	}
 
 }

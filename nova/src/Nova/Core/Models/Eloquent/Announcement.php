@@ -30,7 +30,7 @@ class Announcement extends Model {
 	 */
 	public function character()
 	{
-		return $this->belongsTo('Character');
+		return $this->belongsTo('CharacterModel');
 	}
 
 	/**
@@ -38,7 +38,7 @@ class Announcement extends Model {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('User');
+		return $this->belongsTo('UserModel');
 	}
 
 	/**
@@ -46,7 +46,7 @@ class Announcement extends Model {
 	 */
 	public function comments()
 	{
-		return $this->morphMany('Comment', 'commentable');
+		return $this->morphMany('CommentModel', 'commentable');
 	}
 
 	/*

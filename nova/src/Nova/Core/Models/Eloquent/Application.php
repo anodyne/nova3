@@ -28,7 +28,7 @@ class Application extends Model implements FormDataInterface {
 	 */
 	public function character()
 	{
-		return $this->belongsTo('Character');
+		return $this->belongsTo('CharacterModel');
 	}
 
 	/**
@@ -36,7 +36,7 @@ class Application extends Model implements FormDataInterface {
 	 */
 	public function position()
 	{
-		return $this->belongsTo('Position');
+		return $this->belongsTo('PositionModel');
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Application extends Model implements FormDataInterface {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('User');
+		return $this->belongsTo('UserModel');
 	}
 
 	/**
@@ -52,7 +52,7 @@ class Application extends Model implements FormDataInterface {
 	 */
 	public function responses()
 	{
-		return $this->hasMany('NovaAppResponse');
+		return $this->hasMany('ApplicationResponseModel');
 	}
 
 	/**
@@ -60,7 +60,7 @@ class Application extends Model implements FormDataInterface {
 	 */
 	public function reviewers()
 	{
-		return $this->belongsToMany('User', 'application_reviewers');
+		return $this->belongsToMany('UserModel', 'application_reviewers');
 	}
 
 	/**
@@ -76,7 +76,7 @@ class Application extends Model implements FormDataInterface {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['NovaApp'], $a['ApplicationModelEventHandler']);
+		static::setupEventListeners($a['ApplicationModel'], $a['ApplicationModelEventHandler']);
 	}
 
 	/**
@@ -150,7 +150,7 @@ class Application extends Model implements FormDataInterface {
 			'character'	=> $this->character->getName(false),
 			'position'	=> $this->position->name,
 			'rank'		=> $this->character->rank->info->name,
-			'sim'		=> \Model_Settings::getItems('sim_name'),
+			'sim'		=> \SettingsModel::getItems('sim_name'),
 		);
 
 		// Loop through all the arguments and replace it if it's in the message

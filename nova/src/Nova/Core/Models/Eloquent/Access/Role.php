@@ -39,7 +39,7 @@ class Role extends Model implements GroupInterface {
 	 */
 	public function users()
 	{
-		return $this->hasMany('User', 'id');
+		return $this->hasMany('UserModel', 'id');
 	}
 
 	/**
@@ -47,7 +47,7 @@ class Role extends Model implements GroupInterface {
 	 */
 	public function tasks()
 	{
-		return $this->belongsToMany('AccessTask', 'roles_tasks');
+		return $this->belongsToMany('AccessTaskModel', 'roles_tasks');
 	}
 
 	/*
@@ -85,7 +85,7 @@ class Role extends Model implements GroupInterface {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['AccessRole'], $a['AccessRoleModelEventHandler']);
+		static::setupEventListeners($a['AccessRoleModel'], $a['AccessRoleModelEventHandler']);
 	}
 	
 	/**

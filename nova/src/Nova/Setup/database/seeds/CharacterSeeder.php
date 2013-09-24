@@ -21,12 +21,12 @@ class CharacterSeeder extends Seeder {
 		for ($i=2; $i <= $total; $i++)
 		{ 
 			// Create a new character
-			$c = Character::create([
+			$c = CharacterModel::create([
 				'user_id'		=> $i,
 				'first_name'	=> $faker->firstName,
 				'last_name'		=> $faker->lastName,
 				'rank_id'		=> rand(1, 150),
-				'status'		=> User::find($i)->status,
+				'status'		=> UserModel::find($i)->status,
 			]);
 
 			// Set the position

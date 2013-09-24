@@ -15,12 +15,12 @@
 		if (selected == 'approve')
 		{
 			$('#approveOptions').show();
-			$('#adminResponse [name="message"]').val('<?php echo Model_SiteContent::getContent("accept_message");?>');
+			$('#adminResponse [name="message"]').val('<?php echo SiteContentModel::getContent("accept_message");?>');
 		}
 		else
 		{
 			$('#approveOptions').hide();
-			$('#adminResponse [name="message"]').val('<?php echo Model_SiteContent::getContent("reject_message");?>');
+			$('#adminResponse [name="message"]').val('<?php echo SiteContentModel::getContent("reject_message");?>');
 		}
 	});
 </script>

@@ -29,7 +29,7 @@ class Value extends Model {
 	 */
 	public function field()
 	{
-		return $this->belongsTo('NovaFormField', 'field_id');
+		return $this->belongsTo('FormFieldModel', 'field_id');
 	}
 
 	/**
@@ -37,7 +37,7 @@ class Value extends Model {
 	 */
 	public function data()
 	{
-		return $this->hasMany('NovaFormData');
+		return $this->hasMany('FormDataModel');
 	}
 
 	/*
@@ -59,7 +59,7 @@ class Value extends Model {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['NovaFormValue'], $a['FormValueModelEventHandler']);
+		static::setupEventListeners($a['FormValueModel'], $a['FormValueModelEventHandler']);
 	}
 
 }

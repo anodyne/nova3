@@ -38,7 +38,7 @@ class Field extends Model {
 	 */
 	public function form()
 	{
-		return $this->belongsTo('NovaForm', 'form_id');
+		return $this->belongsTo('FormModel', 'form_id');
 	}
 
 	/**
@@ -46,7 +46,7 @@ class Field extends Model {
 	 */
 	public function tab()
 	{
-		return $this->belongsTo('NovaFormTab', 'tab_id');
+		return $this->belongsTo('FormTabModel', 'tab_id');
 	}
 
 	/**
@@ -54,7 +54,7 @@ class Field extends Model {
 	 */
 	public function section()
 	{
-		return $this->belongsTo('NovaFormSection', 'section_id');
+		return $this->belongsTo('FormSectionModel', 'section_id');
 	}
 
 	/**
@@ -62,7 +62,7 @@ class Field extends Model {
 	 */
 	public function values()
 	{
-		return $this->hasMany('NovaFormValue');
+		return $this->hasMany('FormValueModel');
 	}
 
 	/**
@@ -70,7 +70,7 @@ class Field extends Model {
 	 */
 	public function data()
 	{
-		return $this->hasMany('NovaFormData');
+		return $this->hasMany('FormDataModel');
 	}
 
 	/*
@@ -159,7 +159,7 @@ class Field extends Model {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['NovaFormField'], $a['FormFieldModelEventHandler']);
+		static::setupEventListeners($a['FormFieldModel'], $a['FormFieldModelEventHandler']);
 	}
 
 	/**

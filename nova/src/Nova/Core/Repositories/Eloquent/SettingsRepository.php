@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use Settings;
+use SettingsModel;
 use SecurityTrait;
 use SettingsRepositoryInterface;
 
@@ -10,12 +10,12 @@ class SettingsRepository implements SettingsRepositoryInterface {
 
 	public function all()
 	{
-		return Settings::all();
+		return SettingsModel::all();
 	}
 
 	public function create(array $data)
 	{
-		return Settings::create($data);
+		return SettingsModel::create($data);
 	}
 
 	public function delete($id)
@@ -35,12 +35,12 @@ class SettingsRepository implements SettingsRepositoryInterface {
 	{
 		$id = $this->sanitizeInt($id);
 
-		return Settings::find($id);
+		return SettingsModel::find($id);
 	}
 
 	public function findByKey($key)
 	{
-		return Settings::getSettings($key);
+		return SettingsModel::getSettings($key);
 	}
 
 	public function update($id, array $data)

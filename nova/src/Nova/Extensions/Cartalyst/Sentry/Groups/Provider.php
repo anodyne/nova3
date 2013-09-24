@@ -1,6 +1,6 @@
 <?php namespace Nova\Extensions\Cartalyst\Sentry\Groups;
 
-use AccessRole;
+use AccessRoleModel;
 use Cartalyst\Sentry\Groups\GroupInterface;
 use Cartalyst\Sentry\Groups\GroupNotFoundException;
 use Cartalyst\Sentry\Groups\ProviderInterface;
@@ -12,7 +12,7 @@ class Provider implements ProviderInterface {
 	 *
 	 * @var string
 	 */
-	protected $model = 'AccessRole';
+	protected $model = 'AccessRoleModel';
 
 	/**
 	 * Create a new Eloquent Group provider.

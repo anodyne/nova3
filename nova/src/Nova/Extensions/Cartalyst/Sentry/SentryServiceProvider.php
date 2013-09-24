@@ -93,7 +93,7 @@ class SentryServiceProvider extends ServiceProvider {
 	{
 		$this->app['sentry.group'] = $this->app->share(function($app)
 		{
-			return new GroupProvider('AccessRole');
+			return new GroupProvider('AccessRoleModel');
 		});
 	}
 
@@ -106,7 +106,7 @@ class SentryServiceProvider extends ServiceProvider {
 	{
 		$this->app['sentry.user'] = $this->app->share(function($app)
 		{
-			$model = 'User';
+			$model = 'UserModel';
 
 			// We will never be accessing a user in Sentry without accessing
 			// the user provider first. So, we can lazily setup our user
@@ -136,7 +136,7 @@ class SentryServiceProvider extends ServiceProvider {
 	{
 		$this->app['sentry.throttle'] = $this->app->share(function($app)
 		{
-			return new ThrottleProvider($app['sentry.user'], 'UserSuspend');
+			return new ThrottleProvider($app['sentry.user'], 'UserSuspendModel');
 		});
 	}
 

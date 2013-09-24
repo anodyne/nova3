@@ -22,10 +22,10 @@ class Add extends AjaxBaseController {
 		if ($this->auth->check() and $this->currentUser->hasAccess('ban.create'))
 		{
 			// get the user
-			$user = \Model_User::find(\Security::xss_clean($id));
+			$user = \UserModel::find(\Security::xss_clean($id));
 
 			// create the ban
-			\Model_Ban::createItem(array(
+			\BanModel::createItem(array(
 				'level' => 1,
 				'email' => $user->email,
 			));
@@ -46,7 +46,7 @@ class Add extends AjaxBaseController {
 	{
 		if ($this->auth->check() and $this->currentUser->hasAccess('form.update'))
 		{
-			$item = \NovaFormValue::create([
+			$item = \FormValueModel::create([
 				'value'		=> Str::lower(e(Input::get('content'))),
 				'content'	=> e(Input::get('content')),
 				'field_id'	=> e(Input::get('field')),
@@ -146,7 +146,7 @@ class Add extends AjaxBaseController {
 		if ($this->auth->check() and $this->currentUser->hasAccess('rank.create'))
 		{
 			$data['id'] = $id;
-			$data['rank'] = \Model_Settings::getItems('rank');
+			$data['rank'] = \SettingsModel::getItems('rank');
 			$data['genre'] = \Config::get('nova.genre');
 
 			// read the directory for the dropdown
@@ -227,7 +227,7 @@ class Add extends AjaxBaseController {
 			$id = e(Request::segment(4, false));
 
 			// Get the original role
-			$role = \AccessRole::find($id);
+			$role = \AccessRoleModel::find($id);
 
 			echo View::make(Location::ajax('add/role_duplicate'))
 				->with('role', $role);

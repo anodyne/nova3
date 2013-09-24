@@ -27,7 +27,7 @@ class NovaCreateApplications extends Migration {
 			$t->bigIncrements('id');
 			$t->integer('app_id')->unsigned();
 			$t->integer('user_id')->unsigned();
-			$t->boolean('type')->default(NovaAppResponse::COMMENT);
+			$t->boolean('type')->default(ApplicationResponseModel::COMMENT);
 			$t->text('content')->nullable();
 			$t->timestamps();
 		});

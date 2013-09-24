@@ -3,9 +3,9 @@
 use File;
 use Cache;
 use Config;
-use System;
+use SystemModel;
 use Request;
-use Settings;
+use SettingsModel;
 use Redirect;
 use Exception;
 
@@ -26,7 +26,7 @@ class Setup {
 		if (ini_get('allow_url_fopen'))
 		{
 			// Get the ignore version info
-			$sys = System::first();
+			$sys = SystemModel::first();
 
 			// Load the data
 			$content = File::getRemote(Config::get('nova.version_check_path'));
@@ -37,7 +37,7 @@ class Setup {
 			if ($updateServer !== null)
 			{
 				// Grab the update setting preference
-				$updatePref = (int) Settings::getSettings('updates');
+				$updatePref = (int) SettingsModel::getSettings('updates');
 
 				// If the admin has ignored this version, stop execution
 				if (version_compare($updateServer->version, $sys->version_ignore, '=='))
@@ -52,7 +52,7 @@ class Setup {
 				if (version_compare($sysVersion, $updateServer->version, '<'))
 				{
 					// Get the ignore version
-					$ignoreVersion = System::first()->ignore;
+					$ignoreVersion = SystemModel::first()->ignore;
 
 					// If the admin wants to ignore this version, bail
 					if (version_compare($ignoreVersion, $updateServer->version, '=='))
@@ -95,7 +95,7 @@ class Setup {
 			try
 			{
 				// Grab the UID
-				$uid = System::getUniqueId();
+				$uid = SystemModel::getUniqueId();
 
 				// Only cache if we have a UID
 				if ( ! empty($uid) and $cache === true)

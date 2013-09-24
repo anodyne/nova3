@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use Settings;
-use RankCatalog;
-use SkinCatalog;
+use SettingsModel;
+use RankCatalogModel;
+use SkinCatalogModel;
 use SecurityTrait;
 use UserRepositoryInterface;
 use CatalogRepositoryInterface;
@@ -21,22 +21,22 @@ class CatalogRepository implements CatalogRepositoryInterface {
 
 	public function allRanks()
 	{
-		return RankCatalog::currentGenre()->get();
+		return RankCatalogModel::currentGenre()->get();
 	}
 
 	public function allSkins()
 	{
-		return SkinCatalog::active()->get();
+		return SkinCatalogModel::active()->get();
 	}
 
 	public function createRank(array $data)
 	{
-		return RankCatalog::create($data);
+		return RankCatalogModel::create($data);
 	}
 
 	public function createSkin(array $data)
 	{
-		return SkinCatalog::create($data);
+		return SkinCatalogModel::create($data);
 	}
 
 	public function deleteRank($id, $newRank)
@@ -69,9 +69,9 @@ class CatalogRepository implements CatalogRepositoryInterface {
 			}
 
 			// If the rank default is what we're deleting, change that as well
-			if (Settings::getSettings('rank') == $item->location)
+			if (SettingsModel::getSettings('rank') == $item->location)
 			{
-				Settings::updateItems(['rank' => $newRank]);
+				SettingsModel::updateItems(['rank' => $newRank]);
 			}
 
 			return $item->delete();
@@ -117,21 +117,21 @@ class CatalogRepository implements CatalogRepositoryInterface {
 			}
 
 			// If the main skin default is what we're deleting, change that as well
-			if (Settings::getSettings('skin_main') == $item->location)
+			if (SettingsModel::getSettings('skin_main') == $item->location)
 			{
-				Settings::updateItems(['skin_main' => $newSkin]);
+				SettingsModel::updateItems(['skin_main' => $newSkin]);
 			}
 
 			// If the admin skin default is what we're deleting, change that as well
-			if (Settings::getSettings('skin_admin') == $item->location)
+			if (SettingsModel::getSettings('skin_admin') == $item->location)
 			{
-				Settings::updateItems(['skin_admin' => $newSkin]);
+				SettingsModel::updateItems(['skin_admin' => $newSkin]);
 			}
 
 			// If the login skin default is what we're deleting, change that as well
-			if (Settings::getSettings('skin_login') == $item->location)
+			if (SettingsModel::getSettings('skin_login') == $item->location)
 			{
-				Settings::updateItems(['skin_login' => $newSkin]);
+				SettingsModel::updateItems(['skin_login' => $newSkin]);
 			}
 
 			return $item->delete();
@@ -144,42 +144,42 @@ class CatalogRepository implements CatalogRepositoryInterface {
 	{
 		$id = $this->sanitizeInt($id);
 
-		return RankCatalog::find($id);
+		return RankCatalogModel::find($id);
 	}
 
 	public function findRankByLocation($location)
 	{
 		$location = $this->sanitizeString($location);
 
-		return RankCatalog::currentGenre()->location($location)->first();
+		return RankCatalogModel::currentGenre()->location($location)->first();
 	}
 
 	public function findSkin($id)
 	{
 		$id = $this->sanitizeInt($id);
 
-		return SkinCatalog::find($id);
+		return SkinCatalogModel::find($id);
 	}
 
 	public function findSkinByLocation($location)
 	{
 		$location = $this->sanitizeString($location);
 
-		return SkinCatalog::location($location)->first();
+		return SkinCatalogModel::location($location)->first();
 	}
 
 	public function installRank($location)
 	{
 		$location = $this->sanitizeString($location);
 
-		return RankCatalog::install($location);
+		return RankCatalogModel::install($location);
 	}
 
 	public function installSkin($location)
 	{
 		$location = $this->sanitizeString($location);
 
-		return SkinCatalog::install($location);
+		return SkinCatalogModel::install($location);
 	}
 
 	public function updateRank($id, array $data)
