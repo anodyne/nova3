@@ -1,3 +1,7 @@
 <?php
 
-return [];
+return [
+
+	'nova.user.created' => ['UserEventHandler@onUserCreated'],
+
+];
