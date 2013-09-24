@@ -74,19 +74,6 @@ class UserRepository implements UserRepositoryInterface {
 	}
 
 	/**
-	 * Find a user by their name.
-	 *
-	 * @param	string	$name	Name to find
-	 * @return	Collection
-	 */
-	public function findByName($name)
-	{
-		$name = $this->sanitizeString($name);
-
-		return User::searchName($name)->get();
-	}
-
-	/**
 	 * Find a user by their email address.
 	 *
 	 * @param	string	$email	Email to find
@@ -97,6 +84,19 @@ class UserRepository implements UserRepositoryInterface {
 		$email = $this->sanitizeString($email);
 
 		return User::email($email)->first();
+	}
+
+	/**
+	 * Find a user by their name.
+	 *
+	 * @param	string	$name	Name to find
+	 * @return	Collection
+	 */
+	public function findByName($name)
+	{
+		$name = $this->sanitizeString($name);
+
+		return User::searchName($name)->get();
 	}
 
 	/**

@@ -92,7 +92,7 @@
 
 			<div id="userBio" class="pill-pane">
 				{{ Form::model($user, ['url' => "admin/user/edit/{$user->id}", 'id' => 'userInfoForm']) }}
-					{{ $userForm }}
+					{{ $user->getDynamicForm(true) }}
 
 					<div class="row">
 						<div class="col-lg-12">

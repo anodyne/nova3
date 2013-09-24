@@ -1,13 +1,11 @@
 <?php namespace Nova\Core\Controllers\Admin;
 
 use App;
-use View;
+use Event;
 use Input;
 use Notify;
 use Status;
-use Location;
 use Redirect;
-use DynamicForm;
 use UserValidator;
 use AdminBaseController;
 use UserRepositoryInterface;
@@ -39,16 +37,15 @@ class User extends AdminBaseController {
 		$this->_data->pending = $this->user->pending();
 
 		// Build the delete user modal
-		$this->_ajax[] = View::make(Location::partial('common/modal'))
-			->with('modalId', 'deleteUser')
-			->with('modalHeader', lang('Short.delete', lang('User')))
-			->with('modalBody', '')
-			->with('modalFooter', false);
+		$this->_ajax[] = modal([
+			'id'		=> 'deleteUser',
+			'header'	=> lang('Short.delete', lang('User'))
+		]);
 	}
 	public function postUsers()
 	{
 		// Get the action
-		$formAction = e(Input::get('formAction'));
+		$formAction = Input::get('formAction');
 
 		// Set up the validation service
 		$validator = new UserValidator;
@@ -78,12 +75,7 @@ class User extends AdminBaseController {
 			// Create the user
 			$item = $this->user->create(array_merge(Input::all(), ['status' => Status::ACTIVE]));
 
-			// Set the content keys
-			$contentKeys = [
-				'content' => 'email.content.user_create'
-			];
-
-			// Set the data being passed to the email
+			// Set the data that'll be used by the email
 			$emailData = [
 				'to'		=> $item->email,
 				'content'	=> lang('email.content.user.create', 
@@ -95,8 +87,8 @@ class User extends AdminBaseController {
 				'subject'	=> lang('email.subject.user.create'),
 			];
 
-			// Send the notification
-			Notify::send('basic', $emailData, $contentKeys);
+			// Fire the user created event
+			Event::fire('nova.user.created', $emailData);
 
 			// Set the flash info
 			$flashStatus = ($item) ? 'success' : 'danger';
@@ -148,16 +140,13 @@ class User extends AdminBaseController {
 		// Set the user
 		$this->_data->user = $this->user->find($id);
 
-		// Build the user form
-		$this->_data->userForm = DynamicForm::setup('user', $id, true)->build();
-
 		// Get the language directory listing
 		$this->_data->languageDir = Finder::create()->directories()->in(APPPATH."lang");
 	}
 	public function postEdit($id)
 	{
 		// Get the action
-		$formAction = e(Input::get('formAction'));
+		$formAction = Input::get('formAction');
 
 		// Set up the validation service
 		$validator = new UserValidator;
@@ -185,7 +174,7 @@ class User extends AdminBaseController {
 		if ($this->currentUser->hasAccess('user.update'))
 		{
 			// Get the user id
-			$userId = (is_numeric(Input::get('id'))) ? e(Input::get('id')) : false;
+			$userId = (is_numeric(Input::get('id'))) ? Input::get('id') : false;
 
 			// Get the user
 			$user = $this->user->find($userId);
@@ -212,7 +201,7 @@ class User extends AdminBaseController {
 							if (Input::get('password_new') == Input::get('password_new_confirm'))
 							{
 								// Do the update
-								$user->update(array_merge(Input::all(), ['password' => e(Input::get('password_new'))]));
+								$user->update(array_merge(Input::all(), ['password' => Input::get('password_new')]));
 							}
 							else
 							{

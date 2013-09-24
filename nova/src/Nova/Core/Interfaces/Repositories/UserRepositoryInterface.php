@@ -12,20 +12,20 @@ interface UserRepositoryInterface extends BaseRepositoryInterface {
 	public function active();
 
 	/**
-	 * Find a user by their name.
-	 *
-	 * @param	string	$name	Name to find
-	 * @return	Collection
-	 */
-	public function findByName($name);
-
-	/**
 	 * Find a user by their email address.
 	 *
 	 * @param	string	$email	Email to find
 	 * @return	User
 	 */
 	public function findByEmail($email);
+
+	/**
+	 * Find a user by their name.
+	 *
+	 * @param	string	$name	Name to find
+	 * @return	Collection
+	 */
+	public function findByName($name);
 
 	/**
 	 * Get all inactive users.
