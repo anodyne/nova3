@@ -44,11 +44,6 @@
 * Updated `nova/start.php` to pull in the Nova helpers.
 * Removed `app/controllers` directory.
 
-## Questions
-
-* What's the right place to call customized config loaders?
-* What's the right place to call customized language loaders?
-
 ## Phing Job
 
 * Pull from Github

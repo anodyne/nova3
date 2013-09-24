@@ -10,21 +10,23 @@ For community members who want to help support Nova on the forums and within the
 
 In order to achieve Silver Level certification, you must complete the following tracks with a combined score of 70 or better:
 
-- DevCenter, Nova Level 1
+- DevCenter, Nova Development Level 1
 - Skin Studio, Nova Skinning Level 1
 
 ### Gold Level
 
 In order to achieve Gold Level certification, you must complete the following tracks with a combined score of 70 or better:
 
-- DevCenter, Nova Level 1
-- DevCenter, Nova Level 2
+- DevCenter, Nova Development Level 1
+- DevCenter, Nova Development Level 2
 - Skin Studio, Nova Skinning Level 1
 - Skin Studio, Nova Skinning Level 2
 
 ### Platinum Level
 
-The Platinum Level Certification is reserved for members of the community who go above and beyond to help people with Nova in any way they can. This isn't always through development of modules or skins, but can even be answering questions and directing people to the right place. The Platinum Level Certification cannot be achieved through courses, but must be given to a community member by Anodyne directly.
+The Platinum Level Certification is reserved for members of the community who go above and beyond to help people with Nova in any way they can. This most often will come in the way of answering questions and directing people to the right place on the official forums.
+
+The Platinum Level Certification cannot be achieved through courses, but must be given to a community member by Anodyne directly.
 
 ## Nova Development Certification
 
@@ -36,7 +38,7 @@ In order to achieve Silver Level certification, you must complete the following 
 
 - DevCenter, Development 101
 - DevCenter, Development 201
-- DevCenter, Nova Level 1
+- DevCenter, Nova Development Level 1
 
 ### Gold Level
 
