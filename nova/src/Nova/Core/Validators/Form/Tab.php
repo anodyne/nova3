@@ -1,13 +1,13 @@
-<?php namespace Nova\Core\Models\Validators\Form;
+<?php namespace Nova\Core\Validators\Form;
 
 use BaseValidator;
 
 class Tab extends BaseValidator {
 
-	public static $rules = array(
+	public static $rules = [
 		'form_id'		=> 'required|numeric',
 		'name'			=> 'required',
 		'status'		=> 'required|numeric',
-	);
+	];
 
 }

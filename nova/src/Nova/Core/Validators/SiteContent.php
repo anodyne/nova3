@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Validators;
+<?php namespace Nova\Core\Validators;
 
 use BaseValidator;
 

@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Validators\Catalog;
+<?php namespace Nova\Core\Validators\Catalog;
 
 use BaseValidator;
 
