@@ -27,8 +27,8 @@
 		"dflydev/markdown": "1.*",
 		"ikimea/browser": "1.*",
 		"baum/baum": "1.*",
-		"cartalyst/sentry": "2.*",
-		"cartalyst/api": "1.*"
+		"cartalyst/sentry": "2.0.*",
+		"cartalyst/api": "1.0.*"
 	},
 
 	"require-dev": {
@@ -36,8 +36,7 @@
 		"mockery/mockery": "0.7.*",
 		"way/laravel-test-helpers": "dev-master",
 		"raveren/kint": "dev-master",
-		"fzaninotto/faker": "1.*",
-		"loic-sharma/profiler": "1.*"
+		"fzaninotto/faker": "1.*"
 	},
 
 	"repositories": [
