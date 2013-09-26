@@ -80,45 +80,4 @@ class Data extends Model {
 		$query->where('field_id', $id);
 	}
 
-	/*
-	|--------------------------------------------------------------------------
-	| Model Methods
-	|--------------------------------------------------------------------------
-	*/
-	
-	/**
-	 * Update data in the data table.
-	 *
-	 * @param	int		The ID to udpate
-	 * @param	array 	An array of data to use in the update
-	 * @return	bool
-	 */
-	public static function updateData($formKey, $id, array $data)
-	{
-		$results = [];
-
-		// Start a new query
-		$query = static::startQuery();
-
-		// Get all the records for this entry
-		$entries = $query->key($formKey)->entry($id)->get();
-
-		foreach ($entries as $entry)
-		{
-			if (array_key_exists($entry->field_id, $data))
-			{
-				$retval = $entry->update(['value' => trim(e($data[$entry->field_id]))]);
-
-				$results[] = $retval;
-			}
-		}
-
-		if (in_array(false, $results))
-		{
-			return false;
-		}
-
-		return true;
-	}
-
 }
