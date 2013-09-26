@@ -23,6 +23,7 @@ return array(
 	'assigned' => "assigned",
 	'application_review_center' => "Application Review Center",
 	'arc' => "ARC",
+	'avatar' => 'avatar',
 
 	'bio'	=> 'bio',
 	'ban' => 'ban',

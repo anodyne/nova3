@@ -15,7 +15,14 @@
 		<p class="visible-md text-center"><img alt="" src="http://placehold.it/200x200" class="img-circle"></p>
 
 		<div class="visible-md visible-lg">
-			<a href="#" class="btn btn-default btn-block">{{ lang('Short.edit', lang('Image')) }}</a>
+			<div class="row">
+				<div class="col-lg-6">
+					<a href="{{ URL::to('admin/user/upload') }}" class="btn btn-default btn-block icn-size-16 tooltip-top" title="{{ langConcat('Action.upload New Image') }}">{{ $_icons['upload'] }}</a>
+				</div>
+				<div class="col-lg-6">
+					<a href="{{ URL::to('admin/user/avatar') }}" class="btn btn-default btn-block icn-size-16 tooltip-top" title="{{ langConcat('Action.update Avatar') }}">{{ $_icons['image'] }}</a>
+				</div>
+			</div>
 		</div>
 	</div>
 

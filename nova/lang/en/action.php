@@ -74,6 +74,7 @@ return array(
 
 	'update' => 'update',
 	'updated' => 'updated',
+	'upload' => 'upload',
 	'uninstall' => 'uninstall',
 	'uninstalled' => 'uninstalled',
 

@@ -394,6 +394,34 @@ return [
 		'resource'		=> 'Nova\Core\Controllers\Admin\User@postLink',
 		'protected'		=> (int) true
 	],
+	[
+		'name'			=> 'admin/user/upload',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/user/upload',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@getUploadUserImage',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/user/upload',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/user/upload',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@postUploadUserImage',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/user/avatar',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/user/avatar',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@getSetUserAvatar',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/user/avatar',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/user/avatar',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@postSetUserAvatar',
+		'protected'		=> (int) true
+	],
 
 	/**
 	 * admin/manage

@@ -24,30 +24,30 @@ class User extends Model implements UserInterface, FormDataInterface {
 
 	protected $table = 'users';
 
-	protected $fillable = array(
+	protected $fillable = [
 		'status', 'name', 'email', 'password', 'character_id', 'role_id',
 		'reset_password_hash', 'activation_hash', 'persist_hash', 'ip_address',
 		'leave_date', 'last_post', 'last_login',
-	);
+	];
 
-	protected $hidden = array(
+	protected $hidden = [
 		'password', 'reset_password_hash', 'activation_hash', 'persist_hash',
 		'ip_address',
-	);
+	];
 
-	protected $hashableAttributes = array('password', 'persist_code');
+	protected $hashableAttributes = ['password', 'persist_code'];
 
-	protected $dates = array(
+	protected $dates = [
 		'created_at', 'updated_at', 'leave_date', 'last_post', 'last_login',
 		'activated_at',
-	);
+	];
 	
-	protected static $properties = array(
+	protected static $properties = [
 		'id', 'status', 'name', 'email', 'password', 'character_id', 'role_id', 
 		'reset_password_hash', 'activation_hash', 'persist_hash', 'ip_address', 
 		'leave_date', 'last_post', 'last_login', 'created_at', 'updated_at',
 		'activated_at',
-	);
+	];
 
 	/*
 	|--------------------------------------------------------------------------
@@ -151,6 +151,11 @@ class User extends Model implements UserInterface, FormDataInterface {
 	public function appReviews()
 	{
 		return $this->belongsToMany('ApplicationModel', 'application_reviewers');
+	}
+
+	public function media()
+	{
+		return $this->morphOne('MediaModel', 'imageable');
 	}
 
 	/*
@@ -328,6 +333,11 @@ class User extends Model implements UserInterface, FormDataInterface {
 		}
 
 		return false;
+	}
+
+	public function getAvatar()
+	{
+		return $this->media->getImageTag('users');
 	}
 
 	/**

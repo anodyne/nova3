@@ -281,4 +281,22 @@ class User extends AdminBaseController {
 		# code...
 	}
 
+	public function getUploadUserImage()
+	{
+		# code...
+	}
+	public function postUploadUserImage()
+	{
+		# code...
+	}
+
+	public function getSetUserAvatar()
+	{
+		# code...
+	}
+	public function postSetUserAvatar()
+	{
+		# code...
+	}
+
 }
