@@ -211,11 +211,8 @@ class Manage extends AdminBaseController {
 	}
 	public function postSiteContent()
 	{
-		// Get the input
-		$input = Input::all();
-
 		// Get the action
-		$formAction = e($input['formAction']);
+		$formAction = Input::get('formAction');
 
 		// Set up the validation service
 		$validator = new SiteContentValidator;
@@ -242,7 +239,14 @@ class Manage extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('content.create') and $formAction == 'create')
 		{
-			$return = $this->performSiteContentCreate($input);
+			// Create the item
+			$item = $this->content->create(Input::all());
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.create', langConcat('site content'))
+				: lang('Short.alert.failure.create', langConcat('site content'));
 		}
 
 		/**
@@ -250,7 +254,14 @@ class Manage extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('content.update') and $formAction == 'update')
 		{
-			$return = $this->performSiteContentUpdate($input);
+			// Update the item
+			$item = $this->content->update(Input::get('id'), Input::all());
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.update', langConcat('site content'))
+				: lang('Short.alert.failure.update', langConcat('site content'));
 		}
 
 		/**
@@ -258,52 +269,19 @@ class Manage extends AdminBaseController {
 		 */
 		if ($this->currentUser->hasAccess('content.delete') and $formAction == 'delete')
 		{
-			$return = $this->performSiteContentDelete($input);
+			// Delete the site content item
+			$item = $this->content->delete(Input::get('id'));
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.delete', langConcat('site content'))
+				: lang('Short.alert.failure.delete', langConcat('site content'));
 		}
 
 		return Redirect::to('admin/sitecontent')
-			->with('flashStatus', $return['status'])
-			->with('flashMessage', $return['message']);
-	}
-
-	/**
-	 * Site contents actions.
-	 */
-	protected function performSiteContentCreate(array $input)
-	{
-		// Create the item
-		$item = $this->content->create($input);
-
-		return [
-			'status'	=> ($item) ? 'success' : 'danger',
-			'message'	=> ($item) 
-				? lang('Short.alert.success.create', langConcat('site content'))
-				: lang('Short.alert.failure.create', langConcat('site content'))
-		];
-	}
-	protected function performSiteContentUpdate(array $input)
-	{
-		// Update the item
-		$item = $this->content->update($input['id'], $input);
-
-		return [
-			'status'	=> ($item) ? 'success' : 'danger',
-			'message'	=> ($item) 
-				? lang('Short.alert.success.update', langConcat('site content'))
-				: lang('Short.alert.failure.update', langConcat('site content'))
-		];
-	}
-	protected function performSiteContentDelete(array $input)
-	{
-		// Delete the site content item
-		$item = $this->content->delete($input['id']);
-
-		return [
-			'status'	=> ($item) ? 'success' : 'danger',
-			'message'	=> ($item) 
-				? lang('Short.alert.success.delete', langConcat('site content'))
-				: lang('Short.alert.failure.delete', langConcat('site content'))
-		];
+			->with('flashStatus', $flashStatus)
+			->with('flashMessage', $flashMessage);
 	}
 
 }

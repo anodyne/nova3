@@ -33,7 +33,10 @@
 			$('#uriField').removeClass('hide');
 	});
 
-	$(document).on('click', '.js-sitecontent-action', function(){
+	$(document).on('click', '.js-sitecontent-action', function(e)
+	{
+		e.preventDefault();
+
 		var action = $(this).data('action');
 		var id = $(this).data('id');
 
@@ -43,8 +46,6 @@
 				remote: "{{ URL::to('ajax/delete/sitecontent') }}/" + id
 			}).modal('show');
 		}
-
-		return false;
 	});
 
 </script>

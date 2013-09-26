@@ -64,7 +64,6 @@
 
 	<div class="row">
 		<div class="col-lg-12">
-			{{ Form::token() }}
 			{{ Form::hidden('id') }}
 			{{ Form::hidden('formAction', $action) }}
 			{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
