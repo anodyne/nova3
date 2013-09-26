@@ -355,14 +355,14 @@ return [
 	[
 		'name'			=> 'admin/user/edit',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/user/edit/{id}',
+		'uri'			=> 'admin/user/edit/{userId}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\User@getEdit',
 		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'admin/user/edit',
 		'verb'			=> 'post',
-		'uri'			=> 'admin/user/edit/{id}',
+		'uri'			=> 'admin/user/edit/{userId}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\User@postEdit',
 		'protected'		=> (int) true
 	],
@@ -383,7 +383,7 @@ return [
 	[
 		'name'			=> 'admin/user/link',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/user/link/{id?}',
+		'uri'			=> 'admin/user/link/{userId?}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\User@getLink',
 		'protected'		=> (int) true
 	],

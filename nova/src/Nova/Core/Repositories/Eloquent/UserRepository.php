@@ -7,23 +7,44 @@ use UserRepositoryInterface;
 class UserRepository implements UserRepositoryInterface {
 
 	use SecurityTrait;
-
-	/*
-	|--------------------------------------------------------------------------
-	| BaseRepositoryInterface Implementation
-	|--------------------------------------------------------------------------
-	*/
 	
+	/**
+	 * Get all active users.
+	 *
+	 * @return	Collection
+	 */
+	public function active()
+	{
+		return UserModel::active()->get();
+	}
+
+	/**
+	 * Get everything out of the database.
+	 *
+	 * @return	Collection
+	 */
 	public function all()
 	{
 		return UserModel::all();
 	}
 	
+	/**
+	 * Create a new item.
+	 *
+	 * @param	array	$data	Data to use for creation
+	 * @return	User
+	 */
 	public function create(array $data)
 	{
 		return UserModel::create($data);
 	}
 
+	/**
+	 * Delete an item.
+	 *
+	 * @param	int		$id		ID to delete
+	 * @return	bool
+	 */
 	public function delete($id)
 	{
 		$id = $this->sanitizeInt($id);
@@ -37,40 +58,17 @@ class UserRepository implements UserRepositoryInterface {
 		return false;
 	}
 
+	/**
+	 * Find an item by ID.
+	 *
+	 * @param	int		$id		ID to find
+	 * @return	User
+	 */
 	public function find($id)
 	{
 		$id = $this->sanitizeInt($id);
 
 		return UserModel::find($id);
-	}
-
-	public function update($id, array $data)
-	{
-		$id = $this->sanitizeInt($id);
-		
-		// Get the user
-		$item = $this->find($id);
-
-		if ($item)
-			return $item->update($data);
-
-		return false;
-	}
-
-	/*
-	|--------------------------------------------------------------------------
-	| UserRepositoryInterface Implementation
-	|--------------------------------------------------------------------------
-	*/
-
-	/**
-	 * Get all active users.
-	 *
-	 * @return	Collection
-	 */
-	public function active()
-	{
-		return UserModel::active()->get();
 	}
 
 	/**
@@ -117,6 +115,86 @@ class UserRepository implements UserRepositoryInterface {
 	public function pending()
 	{
 		return UserModel::pending()->get();
+	}
+
+	/**
+	 * Update an item.
+	 *
+	 * @param	int		$id		ID to update
+	 * @param	array	$data	Data to use for update
+	 * @return	User
+	 */
+	public function update($id, array $data)
+	{
+		$id = $this->sanitizeInt($id);
+		
+		// Get the user
+		$item = $this->find($id);
+
+		if ($item)
+			return $item->update($data);
+
+		return false;
+	}
+
+	/**
+	 * Update the user form data.
+	 *
+	 * @param	int		$id		The user being updated
+	 * @param	array	$data	Data used in the update
+	 * @return	bool
+	 */
+	public function updateFormData($id, array $data)
+	{
+		// Get the user
+		$user = $this->find($id);
+
+		if ($user)
+		{
+			foreach ($user->data as $formData)
+			{
+				// Make sure the data array has this item
+				if (array_key_exists($formData->field_id, $data))
+				{
+					// Update the record
+					$formData->update(['value' => $data[$formData->field_id]]);
+				}
+			}
+
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Update the user's preferences.
+	 *
+	 * @param	int		$id		The user being updated
+	 * @param	array	$data	Data used in the update
+	 * @return	bool
+	 */
+	public function updatePreferences($id, array $data)
+	{
+		// Get the user
+		$user = $this->find($id);
+
+		if ($user)
+		{
+			foreach ($user->preferences as $pref)
+			{
+				// Make sure the data array has this item
+				if (array_key_exists($pref->key, $data))
+				{
+					// Update the record
+					$pref->update(['value' => $data[$pref->key]]);
+				}
+			}
+
+			return true;
+		}
+
+		return false;
 	}
 
 }

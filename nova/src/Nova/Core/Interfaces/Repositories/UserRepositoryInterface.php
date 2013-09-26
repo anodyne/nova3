@@ -41,4 +41,22 @@ interface UserRepositoryInterface extends BaseRepositoryInterface {
 	 */
 	public function pending();
 
+	/**
+	 * Update the user form data.
+	 *
+	 * @param	int		$id		The user being updated
+	 * @param	array	$data	Data used in the update
+	 * @return	bool
+	 */
+	public function updateFormData($id, array $data);
+
+	/**
+	 * Update the user's preferences.
+	 *
+	 * @param	int		$id		The user being updated
+	 * @param	array	$data	Data used in the update
+	 * @return	bool
+	 */
+	public function updatePreferences($id, array $data);
+
 }

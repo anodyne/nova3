@@ -3,7 +3,6 @@
 use App;
 use Event;
 use Input;
-use Notify;
 use Status;
 use Redirect;
 use UserValidator;
@@ -129,7 +128,7 @@ class User extends AdminBaseController {
 		$this->_data->user = false;
 	}
 
-	public function getEdit($id)
+	public function getEdit($userId)
 	{
 		// Verify the user is allowed
 		$this->currentUser->allowed('user.update', true);
@@ -138,12 +137,12 @@ class User extends AdminBaseController {
 		$this->_view = 'admin/user/edit';
 
 		// Set the user
-		$this->_data->user = $this->user->find($id);
+		$this->_data->user = $this->user->find($userId);
 
 		// Get the language directory listing
 		$this->_data->languageDir = Finder::create()->directories()->in(APPPATH."lang");
 	}
-	public function postEdit($id)
+	public function postEdit($userId)
 	{
 		// Get the action
 		$formAction = Input::get('formAction');
@@ -187,7 +186,7 @@ class User extends AdminBaseController {
 					if (Input::has('password'))
 					{
 						// Do the update
-						$user->update(Input::all());
+						$this->user->update(Input::get('id'), Input::all());
 
 						$flashStatus = 'success';
 						$flashMessage = lang('Short.alert.success.update', lang('user'));
@@ -201,7 +200,7 @@ class User extends AdminBaseController {
 							if (Input::get('password_new') == Input::get('password_new_confirm'))
 							{
 								// Do the update
-								$user->update(array_merge(Input::all(), ['password' => Input::get('password_new')]));
+								$this->user->update(Input::get('id'), array_merge(Input::all(), ['password' => Input::get('password_new')]));
 							}
 							else
 							{
@@ -217,19 +216,34 @@ class User extends AdminBaseController {
 					}
 				}
 
-				if ($formAction == 'bio')
+				if ($formAction == 'bio' or $formAction == 'preferences' or $formAction == 'notifications')
 				{
-					//
-				}
+					// Do the update
+					switch ($formAction)
+					{
+						case 'bio':
+							$item = $this->user->updateFormData(Input::get('id'), Input::all());
 
-				if ($formAction == 'preferences')
-				{
-					//
-				}
+							$text = 'user bio';
+						break;
 
-				if ($formAction == 'notifications')
-				{
-					//
+						case 'preferences':
+						case 'notifications':
+							$item = $this->user->updatePreferences(Input::get('id'), Input::all());
+
+							if ($formAction == 'preferences')
+								$text = 'user preferences';
+
+							if ($formAction == 'notifications')
+								$text = 'user notification preferences';
+						break;
+					}
+
+					// Set the flash info
+					$flashStatus = ($item) ? 'success' : 'danger';
+					$flashMessage = ($item) 
+						? lang('Short.alert.success.update', langConcat($text))
+						: lang('Short.alert.failure.update', langConcat($text));
 				}
 
 				if ($formAction == 'admin')
@@ -244,7 +258,7 @@ class User extends AdminBaseController {
 			}
 		}
 
-		return Redirect::to("admin/user/edit/{$id}")
+		return Redirect::to("admin/user/edit/{$userId}")
 			->with('flashStatus', $flashStatus)
 			->with('flashMessage', $flashMessage);
 	}
@@ -258,11 +272,11 @@ class User extends AdminBaseController {
 		# code...
 	}
 
-	public function getLink($id = false)
+	public function getLink($userId = false)
 	{
 		# code...
 	}
-	public function postLink($id = false)
+	public function postLink($userId = false)
 	{
 		# code...
 	}

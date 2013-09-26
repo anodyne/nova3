@@ -80,7 +80,6 @@
 
 					<div class="row">
 						<div class="col-lg-12">
-							{{ Form::token() }}
 							{{ Form::hidden('id') }}
 							{{ Form::hidden('formAction', 'basic') }}
 							
@@ -96,7 +95,6 @@
 
 					<div class="row">
 						<div class="col-lg-12">
-							{{ Form::token() }}
 							{{ Form::hidden('id') }}
 							{{ Form::hidden('formAction', 'bio') }}
 							
@@ -186,7 +184,6 @@
 
 					<div class="row">
 						<div class="col-lg-12">
-							{{ Form::token() }}
 							{{ Form::hidden('id') }}
 							{{ Form::hidden('formAction', 'preferences') }}
 
@@ -204,10 +201,10 @@
 								<label class="control-label">{{ lang('Comments') }}</label>
 								<div>
 									<label class="radio-inline">
-										{{ Form::radio('email_comments', (int) true, $user->getPreferenceItem('email_comments')).' '.lang('Yes') }}
+										{{ Form::radio('email_comments', (int) true, ((int) $user->getPreferenceItem('email_comments') === 1)).' '.lang('Yes') }}
 									</label>
 									<label class="radio-inline">
-										{{ Form::radio('email_comments', (int) false, $user->getPreferenceItem('email_comments')).' '.lang('No') }}
+										{{ Form::radio('email_comments', (int) false, ((int) $user->getPreferenceItem('email_comments') === 0)).' '.lang('No') }}
 									</label>
 								</div>
 							</div>
@@ -220,10 +217,10 @@
 								<label class="control-label">{{ lang('Messages') }}</label>
 								<div>
 									<label class="radio-inline">
-										{{ Form::radio('email_messages', (int) true, $user->getPreferenceItem('email_messages')).' '.lang('Yes') }}
+										{{ Form::radio('email_messages', (int) true, ((int) $user->getPreferenceItem('email_messages') === 1)).' '.lang('Yes') }}
 									</label>
 									<label class="radio-inline">
-										{{ Form::radio('email_messages', (int) false, $user->getPreferenceItem('email_messages')).' '.lang('No') }}
+										{{ Form::radio('email_messages', (int) false, ((int) $user->getPreferenceItem('email_messages') === 0)).' '.lang('No') }}
 									</label>
 								</div>
 							</div>
@@ -236,10 +233,10 @@
 								<label class="control-label">{{ ucwords(lang('personal_logs')) }}</label>
 								<div>
 									<label class="radio-inline">
-										{{ Form::radio('email_logs', (int) true, $user->getPreferenceItem('email_logs')).' '.lang('Yes') }}
+										{{ Form::radio('email_logs', (int) true, ((int) $user->getPreferenceItem('email_logs') === 1)).' '.lang('Yes') }}
 									</label>
 									<label class="radio-inline">
-										{{ Form::radio('email_logs', (int) false, $user->getPreferenceItem('email_logs')).' '.lang('No') }}
+										{{ Form::radio('email_logs', (int) false, ((int) $user->getPreferenceItem('email_logs') === 0)).' '.lang('No') }}
 									</label>
 								</div>
 							</div>
@@ -252,10 +249,10 @@
 								<label class="control-label">{{ lang('Announcements') }}</label>
 								<div>
 									<label class="radio-inline">
-										{{ Form::radio('email_announcements', (int) true, $user->getPreferenceItem('email_announcements')).' '.lang('Yes') }}
+										{{ Form::radio('email_announcements', (int) true, ((int) $user->getPreferenceItem('email_announcements') === 1)).' '.lang('Yes') }}
 									</label>
 									<label class="radio-inline">
-										{{ Form::radio('email_announcements', (int) false, $user->getPreferenceItem('email_announcements')).' '.lang('No') }}
+										{{ Form::radio('email_announcements', (int) false, ((int) $user->getPreferenceItem('email_announcements') === 0)).' '.lang('No') }}
 									</label>
 								</div>
 							</div>
@@ -268,10 +265,10 @@
 								<label class="control-label">{{ ucwords(lang('mission_posts')) }}</label>
 								<div>
 									<label class="radio-inline">
-										{{ Form::radio('email_posts', (int) true, $user->getPreferenceItem('email_posts')).' '.lang('Yes') }}
+										{{ Form::radio('email_posts', (int) true, ((int) $user->getPreferenceItem('email_posts') === 1)).' '.lang('Yes') }}
 									</label>
 									<label class="radio-inline">
-										{{ Form::radio('email_posts', (int) false, $user->getPreferenceItem('email_posts')).' '.lang('No') }}
+										{{ Form::radio('email_posts', (int) false, ((int) $user->getPreferenceItem('email_posts') === 0)).' '.lang('No') }}
 									</label>
 								</div>
 							</div>
@@ -284,10 +281,10 @@
 								<label class="control-label">{{ ucwords(langConcat('joint mission_posts action.saved')) }}</label>
 								<div>
 									<label class="radio-inline">
-										{{ Form::radio('email_posts_save', (int) true, $user->getPreferenceItem('email_posts_save')).' '.lang('Yes') }}
+										{{ Form::radio('email_posts_save', (int) true, ((int) $user->getPreferenceItem('email_posts_save') === 1)).' '.lang('Yes') }}
 									</label>
 									<label class="radio-inline">
-										{{ Form::radio('email_posts_save', (int) false, $user->getPreferenceItem('email_posts_save')).' '.lang('No') }}
+										{{ Form::radio('email_posts_save', (int) false, ((int) $user->getPreferenceItem('email_posts_save') === 0)).' '.lang('No') }}
 									</label>
 								</div>
 							</div>
@@ -300,10 +297,10 @@
 								<label class="control-label">{{ ucwords(langConcat('joint mission_posts action.deleted')) }}</label>
 								<div>
 									<label class="radio-inline">
-										{{ Form::radio('email_posts_delete', (int) true, $user->getPreferenceItem('email_posts_delete')).' '.lang('Yes') }}
+										{{ Form::radio('email_posts_delete', (int) true, ((int) $user->getPreferenceItem('email_posts_delete') === 1)).' '.lang('Yes') }}
 									</label>
 									<label class="radio-inline">
-										{{ Form::radio('email_posts_delete', (int) false, $user->getPreferenceItem('email_posts_delete')).' '.lang('No') }}
+										{{ Form::radio('email_posts_delete', (int) false, ((int) $user->getPreferenceItem('email_posts_delete') === 0)).' '.lang('No') }}
 									</label>
 								</div>
 							</div>
@@ -312,7 +309,6 @@
 
 					<div class="row">
 						<div class="col-lg-12">
-							{{ Form::token() }}
 							{{ Form::hidden('id') }}
 							{{ Form::hidden('formAction', 'notifications') }}
 
