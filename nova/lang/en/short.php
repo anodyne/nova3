@@ -152,6 +152,8 @@ return array(
 			'noPrimaryCharacter' => "No primary character assigned",
 			'searchPlaceholder' => "Starting typing to search for users",
 			'choosePrimaryCharacter' => "You can choose the primary character associated with this user from the dropdown. The dropdown only pulls back unassigned characters (NPCs). If you want to do more advanced assignment, use the User/Character Link Management page.",
+			'useGravatar' => "Use Gravatar",
+			'useGravatarHelp' => "Nova allows you to create a user avatar for use throughout the system. (An \"avatar\" is an image that represents you online.) You can choose to upload an image to the Nova site or use the Gravatar service. A Gravatar is a Globally Recognized Avatar. You upload it and create your profile just once, and then when you participate in any Gravatar-enabled site, your Gravatar image will automatically follow you there. More information and sign-up is available on the <a href='https://en.gravatar.com/' target='_blank'>Gravatar site</a>.",
 		],
 	],
 

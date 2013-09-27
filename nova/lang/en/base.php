@@ -86,6 +86,7 @@ return array(
 	'groups' => 'groups',
 	'global' => 'global',
 	'genre' => "genre",
+	'gravatar' => 'gravatar',
 
 	'horizontal' => "horizontal",
 	'html' => 'HTML',
@@ -133,6 +134,7 @@ return array(
 	'message' => 'message',
 	'messages' => 'messages',
 	'mode' => "mode",
+	'media' => 'media',
 
 	'name' => "name",
 	'notification' => "notification",
