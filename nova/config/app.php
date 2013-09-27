@@ -122,6 +122,7 @@ return [
 		'Nova\Api\ApiServiceProvider',
 		'Nova\Extensions\Cartalyst\Sentry\SentryServiceProvider',
 		'Nova\Extensions\Laravel\Translation\TranslationServiceProvider',
+		'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
 
 	],
 
@@ -207,6 +208,7 @@ return [
 		'Date'			=> 'Carbon\Carbon',
 		'DynamicForm'	=> 'Nova\Core\Facades\DynamicForm',
 		'ErrorCode'		=> 'Nova\Core\Lib\ErrorCode',
+		'Gravatar'		=> 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
 		'Location'		=> 'Nova\Core\Facades\Location',
 		'Markdown'		=> 'Nova\Core\Facades\Markdown',
 		'Media'			=> 'Nova\Core\Facades\Media',
@@ -345,6 +347,7 @@ return [
 		'BaseModelEventHandler'			=> "Nova\\Core\\Events\\Models\\Base",
 		'CharacterModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Character",
 		'CommentModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Comment",
+		'MediaModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Media",
 		'PositionModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Position",
 		'SettingsModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Settings",
 		'SiteContentModelEventHandler'	=> "Nova\\Core\\Events\\Models\\SiteContent",
