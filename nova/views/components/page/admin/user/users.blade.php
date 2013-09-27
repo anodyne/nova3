@@ -76,7 +76,10 @@
 	<div class="nv-data-table nv-data-table-striped nv-data-table-bordered">
 	@foreach($users as $user)
 		<div class="row">
-			<div class="col-xs-12 col-sm-6 col-lg-4">
+			<div class="col-xs-12 col-sm-2 col-lg-1">
+				<p class="text-center">{{ partial('common/avatar', ['image' => $user->getAvatar('md'), 'alt' => $user->name]) }}</p>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-lg-4">
 				<p><strong>{{ $user->name }}</strong></p>
 				<p class="text-muted text-small">{{ $user->email }}</p>
 			</div>
@@ -90,7 +93,7 @@
 				<p>&nbsp;</p>
 			</div>
 
-			<div class="col-xs-12 col-sm-12 col-lg-4">
+			<div class="col-xs-12 col-sm-12 col-lg-3">
 				<div class="visible-lg">
 					<div class="btn-toolbar pull-right">
 						@if (($_currentUser->hasLevel('user.update', 1) and $_currentUser->id == $user->id)

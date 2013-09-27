@@ -10,20 +10,28 @@
 
 <div class="row">
 	<div class="col-md-3 col-lg-3 col-md-push-9 col-lg-push-9">
-		<p class="visible-xs visible-sm visible-lg text-center"><img alt="" src="http://placehold.it/260x260" class="img-circle"></p>
+		<p class="text-center">
+			{{ partial('common/avatar', ['image' => $user->getAvatar('lg'), 'alt' => '']) }}
+		</p>
 
-		<p class="visible-md text-center"><img alt="" src="http://placehold.it/200x200" class="img-circle"></p>
-
-		<div class="visible-md visible-lg">
-			<div class="row">
-				<div class="col-lg-6">
-					<a href="{{ URL::to('admin/user/upload') }}" class="btn btn-default btn-block icn-size-16 tooltip-top" title="{{ langConcat('Action.upload New Image') }}">{{ $_icons['upload'] }}</a>
-				</div>
-				<div class="col-lg-6">
-					<a href="{{ URL::to('admin/user/avatar') }}" class="btn btn-default btn-block icn-size-16 tooltip-top" title="{{ langConcat('Action.update Avatar') }}">{{ $_icons['image'] }}</a>
+		@if ((bool) $user->getPreferenceItem('use_gravatar') === false)
+			<div class="visible-md visible-lg">
+				<div class="row">
+					<div class="col-lg-6">
+						<p><a href="{{ URL::to('admin/user/upload') }}" class="btn btn-default btn-block icn-size-16 tooltip-top" title="{{ langConcat('Action.upload New Avatar') }}">{{ $_icons['upload'] }}</a></p>
+					</div>
+					<div class="col-lg-6">
+						<p><a href="#" class="btn btn-danger btn-block icn-size-16 tooltip-top" title="{{ langConcat('Action.remove Avatar') }}">{{ $_icons['close'] }}</a></p>
+					</div>
 				</div>
 			</div>
-		</div>
+		@else
+			<div class="row">
+				<div class="col-lg-6 col-lg-push-3">
+					<p><a href="https://en.gravatar.com/" target="_blank" class="btn btn-default btn-block icn-size-16 tooltip-top" title="{{ langConcat('Action.change Gravatar') }}">{{ $_icons['image'] }}</a></p>
+				</div>
+			</div>
+		@endif
 	</div>
 
 	<div class="col-md-9 col-lg-9 col-md-pull-3 col-lg-pull-3">
@@ -89,7 +97,6 @@
 						<div class="col-lg-12">
 							{{ Form::hidden('id') }}
 							{{ Form::hidden('formAction', 'basic') }}
-							
 							{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
 						</div>
 					</div>
@@ -104,7 +111,6 @@
 						<div class="col-lg-12">
 							{{ Form::hidden('id') }}
 							{{ Form::hidden('formAction', 'bio') }}
-							
 							{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
 						</div>
 					</div>
@@ -151,6 +157,25 @@
 
 						<div class="row">
 							<div class="col-md-8 col-lg-6">
+								<label class="control-label">{{ lang('short.admin.users.useGravatar') }}</label>
+								<div>
+									<label class="radio-inline">
+										{{ Form::radio('use_gravatar', (int) true, ((int) $user->getPreferenceItem('use_gravatar') === 1)).' '.lang('Yes') }}
+									</label>
+									<label class="radio-inline">
+										{{ Form::radio('use_gravatar', (int) false, ((int) $user->getPreferenceItem('use_gravatar') === 0)).' '.lang('No') }}
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-10">
+								<p class="help-block">{{ lang('short.admin.users.useGravatarHelp') }}</p>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-8 col-lg-6">
 								<div class="form-group">
 									<label class="control-label">{{ lang('Rank') }}</label>
 									{{ Form::select('rank', RankCatalogModel::active()->get()->toSimpleArray('location', 'name'), $user->getPreferenceItem('rank'), ['class' => 'form-control', 'id' => 'rankSet']) }}
@@ -193,7 +218,6 @@
 						<div class="col-lg-12">
 							{{ Form::hidden('id') }}
 							{{ Form::hidden('formAction', 'preferences') }}
-
 							{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
 						</div>
 					</div>

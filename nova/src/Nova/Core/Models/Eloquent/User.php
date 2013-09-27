@@ -2,20 +2,24 @@
 
 use App;
 use Str;
+use URL;
 use Date;
 use Model;
 use Event;
 use Config;
 use Status;
 use Sentry;
+use Request;
 use Session;
+use Gravatar;
 use Redirect;
 use ErrorCode;
 use Exception;
-use UserPrefsModel;
-use AccessRoleModel;
+use MediaModel;
 use DynamicForm;
 use FormDataModel;
+use UserPrefsModel;
+use AccessRoleModel;
 use FormDataInterface;
 use Cartalyst\Sentry\Users\UserInterface;
 use Cartalyst\Sentry\Groups\GroupInterface;
@@ -151,11 +155,6 @@ class User extends Model implements UserInterface, FormDataInterface {
 	public function appReviews()
 	{
 		return $this->belongsToMany('ApplicationModel', 'application_reviewers');
-	}
-
-	public function media()
-	{
-		return $this->morphOne('MediaModel', 'imageable');
 	}
 
 	/*
@@ -306,6 +305,18 @@ class User extends Model implements UserInterface, FormDataInterface {
 		return true;
 	}
 
+	public function createMedia($file)
+	{
+		// Create a new media object
+		return MediaModel::create([
+			'type'			=> 'user',
+			'entry_id'		=> $this->id,
+			'filename'		=> $file->getClientOriginalName(),
+			'mime_type'		=> $file->getMimeType(),
+			'ip_address'	=> Request::getClientIp(),
+		]);
+	}
+
 	/**
 	 * Get the user's application reviews.
 	 *
@@ -335,9 +346,29 @@ class User extends Model implements UserInterface, FormDataInterface {
 		return false;
 	}
 
-	public function getAvatar()
+	/**
+	 * Get the avatar source for use in a partial.
+	 *
+	 * @param	string	$size	The size of the avatar (lg, sm)
+	 * @return	string
+	 */
+	public function getAvatar($size = 'lg')
 	{
-		return $this->media->getImageTag('users');
+		if ((bool) $this->getPreferenceItem('use_gravatar'))
+			if ($size == 'lg')
+				return Gravatar::src($this->email, 200);
+			elseif ($size == 'md')
+				return Gravatar::src($this->email, 64);
+			else
+				return Gravatar::src($this->email, 32);
+
+		// Get the media object
+		$media = $this->getMedia();
+
+		if ($media)
+			return $this->getMedia()->getPathWithUrl('users', $size);
+
+		return URL::to("nova/assets/img/avatar-{$size}.png");
 	}
 
 	/**
@@ -349,6 +380,16 @@ class User extends Model implements UserInterface, FormDataInterface {
 	public function getDynamicForm($editable = false)
 	{
 		return DynamicForm::setup('user', $this->id, $editable)->build();
+	}
+
+	/**
+	 * Get the media object for the user.
+	 *
+	 * @return	Media
+	 */
+	public function getMedia()
+	{
+		return MediaModel::type('user')->entry($this->id)->get()->last();
 	}
 
 	/**
@@ -429,6 +470,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 			'rank'					=> SettingsModel::getSettings('rank'),
 			'skin_main'				=> SettingsModel::getSettings('skin_main'),
 			'skin_admin'			=> SettingsModel::getSettings('skin_admin'),
+			'use_gravatar'			=> (int) false,
 			'email_format'			=> 'html',
 			'email_comments'		=> (int) true,
 			'email_messages'		=> (int) true,

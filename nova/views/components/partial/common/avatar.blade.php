@@ -1,0 +1,1 @@
+<img src="{{ $image }}" alt="{{ $alt }}" class="img-circle">

@@ -283,7 +283,14 @@ class User extends AdminBaseController {
 
 	public function getUploadUserImage()
 	{
-		# code...
+		// Upload a 32 pixel version to assets/images/users/sm
+		// Upload a 64 pixel version to assets/images/users/sm with @2x
+
+		// Upload a 64 pixel version to assets/images/users/md
+		// Upload a 96 pixel version to assets/images/users/md with @2x
+
+		// Upload a 200 pixel version to assets/images/users/lg
+		// Upload a 400 pixel version (if possible) to assets/images/users/lg with @2x
 	}
 	public function postUploadUserImage()
 	{

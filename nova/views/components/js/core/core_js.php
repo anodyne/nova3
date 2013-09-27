@@ -60,6 +60,8 @@
 	// Rank dropdown
 	$('#rankDrop').on('change', function(e)
 	{
+		e.preventDefault();
+		
 		$.ajax({
 			type: "GET",
 			url: "<?php echo URL::to('ajax/get/rank');?>/" + $('#rankDrop option:selected').val() + "/image",
@@ -68,13 +70,13 @@
 				$('#rankImg').append(data);
 			}
 		});
-		
-		e.preventDefault();
 	});
 
 	// Position dropdown
-	$('#positionDrop').on('change', function()
+	$('#positionDrop').on('change', function(e)
 	{
+		e.preventDefault();
+
 		$.ajax({
 			type: "GET",
 			url: "<?php echo URL::to('ajax/get/position');?>/" + $('#positionDrop option:selected').val() + "/desc",
@@ -89,13 +91,13 @@
 				$('#positionLoader').addClass('hide');
 			}
 		});
-		
-		e.preventDefault();
 	});
 
 	// Access role dropdown
-	$('#roleDrop').on('change', function()
+	$('#roleDrop').on('change', function(e)
 	{
+		e.preventDefault();
+
 		$.ajax({
 			type: "POST",
 			url: "<?php echo URL::to('ajax/info/role_desc');?>",
@@ -105,8 +107,6 @@
 				$('#roleDesc').append(data);
 			}
 		});
-		
-		e.preventDefault();
 	});
 
 	// Destroy all modals when they're hidden
@@ -116,3 +116,5 @@
 	});
 
 </script>
+
+<script src="<?php echo NOVAURL;?>assets/js/retina-1.1.0.min.js"></script>

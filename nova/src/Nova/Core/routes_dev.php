@@ -24,7 +24,8 @@ Route::group(['prefix' => 'dev'], function()
 
 		//$media = $user->media()->create(['filename' => 'moreno.jpg', 'user_id' => $user->id]);
 
-		sd($user->getAvatar());
+		sd($user->media());
+		//sd($user->getAvatar('lg'));
 
 		return 'done!';
 	});
