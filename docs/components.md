@@ -38,6 +38,14 @@
 	* DropzoneJS is an open source library that provides drag-n-drop file uploads with image previews.
 	* http://www.dropzonejs.com/
 	* Version: 3.7.1
+* Jcrop
+	* Jcrop is the quick and easy way to add image cropping functionality to your web application. It combines the ease-of-use of a typical jQuery plugin with a powerful cross-platform DHTML cropping engine that is faithful to familiar desktop graphics applications.
+	* http://deepliquid.com/content/Jcrop.html
+	* Version: 0.9.12
+* Retina.js
+	* retina.js is an open source script that makes it easy to serve high-resolution images to devices with retina displays.
+	* http://retinajs.com/
+	* Version: 1.1.0
 
 ## Under Review
 

@@ -49,3 +49,4 @@
 - Users can only be deleted if they don't have content associated with them. Content that will prevent a user from being deleted are: announcements, personal logs, posts, received awards and application reviews. If a user has content associated with them, their status will be set to REMOVED instead of being deleted altogether.
 - By default, only active users are shown in User Management. The thinking here is that, generally, you will only be managing active users. If you need to do something with an inactive user, you can use the new search feature to find other users.
 - A new "live search" feature lets you find users by their name, email address or any character associated with their account.
+- Users can now upload an avatar for their user account or use the Gravatar service instead.
