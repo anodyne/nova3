@@ -136,6 +136,22 @@
 							<?php endif;?>
 						</td>
 					</tr>
+
+					<?php if (function_exists('gd_info')): ?>
+						<tr>
+					<?php else: ?>
+						<tr class="warning">
+					<?php endif;?>
+						<td><p class="lead">GD</p></td>
+						<td><p>In order to crop uploaded user/characters images to create avatars, Nova uses the GD library found in PHP. While this isn't a requirement for using Nova, it certainly is a nice to have. If GD isn't enabled on your server, you can contact your host about getting it enabled.</p></td>
+						<td class="text-center">
+							<?php if (function_exists('gd_info')): ?>
+								<i class="glyphicon glyphicon-ok text-success"></i>
+							<?php else: ?>
+								<i class="glyphicon glyphicon-exclamation-sign text-warning"></i>
+							<?php endif;?>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
