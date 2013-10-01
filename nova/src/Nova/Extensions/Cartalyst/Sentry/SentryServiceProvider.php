@@ -67,7 +67,7 @@ class SentryServiceProvider extends ServiceProvider {
 	{
 		$this->app['sentry.session'] = $this->app->share(function($app)
 		{
-			return new IlluminateSession($app['session']);
+			return new IlluminateSession($app['session.store']);
 		});
 	}
 
