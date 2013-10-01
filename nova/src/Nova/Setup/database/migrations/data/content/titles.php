@@ -352,6 +352,15 @@ return [
 		'page'		=> 'loa',
 		'uri'		=> 'admin/user/loa'
 	],
+	[
+		'key'		=> 'title.admin.user.upload',
+		'label'		=> 'User Image Upload Title',
+		'content'	=> "Upload User Image",
+		'type'		=> $type,
+		'section'	=> 'user',
+		'page'		=> 'uploadUserImage',
+		'uri'		=> 'admin/user/upload'
+	],
 
 	/**
 	 * admin/manage Titles

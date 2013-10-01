@@ -198,13 +198,13 @@ class NovaSeedDatabase extends Migration {
 				'key'			=> 'character',
 				'name'			=> 'Character Information',
 				'protected'		=> (int) true,
-				'data_model'	=> 'Character',
+				'data_model'	=> 'CharacterModel',
 			],
 			[
 				'key'			=> 'user',
 				'name'			=> 'User Information',
 				'protected'		=> (int) true,
-				'data_model'	=> 'User',
+				'data_model'	=> 'UserModel',
 			],
 			[
 				'key'			=> 'app',

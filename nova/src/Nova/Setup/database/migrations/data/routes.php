@@ -397,29 +397,36 @@ return [
 	[
 		'name'			=> 'admin/user/upload',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/user/upload',
+		'uri'			=> 'admin/user/upload/{userId}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\User@getUploadUserImage',
 		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'admin/user/upload',
 		'verb'			=> 'post',
-		'uri'			=> 'admin/user/upload',
+		'uri'			=> 'admin/user/upload/{userId}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\User@postUploadUserImage',
 		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'admin/user/avatar',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/user/avatar',
-		'resource'		=> 'Nova\Core\Controllers\Admin\User@getSetUserAvatar',
+		'uri'			=> 'admin/user/avatar/{userId}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@getUserAvatar',
 		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'admin/user/avatar',
 		'verb'			=> 'post',
 		'uri'			=> 'admin/user/avatar',
-		'resource'		=> 'Nova\Core\Controllers\Admin\User@postSetUserAvatar',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@postUserAvatar',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/user/avatar',
+		'verb'			=> 'delete',
+		'uri'			=> 'admin/user/avatar',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@deleteUserAvatar',
 		'protected'		=> (int) true
 	],
 
@@ -639,6 +646,13 @@ return [
 		'verb'			=> 'get',
 		'uri'			=> 'ajax/delete/user/{id}',
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getUser',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'ajax/delete/user_avatar',
+		'verb'			=> 'get',
+		'uri'			=> 'ajax/delete/user_avatar/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getUserAvatar',
 		'protected'		=> (int) true
 	],
 	[

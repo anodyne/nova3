@@ -581,6 +581,15 @@ return [
 		'page'		=> 'loa',
 		'uri'		=> 'admin/user/loa'
 	],
+	[
+		'key'		=> 'header.admin.user.upload',
+		'label'		=> 'User Image Upload Header',
+		'content'	=> "Upload User Image",
+		'type'		=> $type,
+		'section'	=> 'user',
+		'page'		=> 'uploadUserImage',
+		'uri'		=> 'admin/user/upload'
+	],
 
 	/**
 	 * admin/manage Headers

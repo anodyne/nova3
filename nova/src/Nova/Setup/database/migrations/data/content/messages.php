@@ -19,7 +19,7 @@ return [
 		'section'	=> 'login',
 		'page'		=> 'reset',
 		'protected'	=> (int) true,
-		'uri'		=> 'login'
+		'uri'		=> 'login/reset'
 	],
 	[
 		'key'		=> 'message.login.reset_confirm',
@@ -332,6 +332,15 @@ return [
 		'section'	=> 'user',
 		'page'		=> 'loa',
 		'uri'		=> 'admin/user/loa'
+	],
+	[
+		'key'		=> 'message.admin.user.upload',
+		'label'		=> 'User Image Upload Message',
+		'content'	=> "You can upload an image to use for your user avatar throughout Nova by dragging-and-dropping an image onto the area below. Once uploaded, you'll be able to crop the image to what you want.",
+		'type'		=> $type,
+		'section'	=> 'user',
+		'page'		=> 'uploadUserImage',
+		'uri'		=> 'admin/user/upload'
 	],
 
 	/**
