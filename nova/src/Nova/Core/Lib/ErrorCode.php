@@ -19,5 +19,7 @@ class ErrorCode {
 	 */
 	const ADMIN_OK 				= 200;
 	const ADMIN_NOT_ALLOWED 	= 201;
+	const USER_CANNOT_EDIT		= 210;
+	const CHAR_CANNOT_EDIT		= 220;
 
 }
