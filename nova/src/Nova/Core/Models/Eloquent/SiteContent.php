@@ -45,19 +45,22 @@ class SiteContent extends Model {
 			// Find the record that matches the URI
 			$route = \SystemRouteModel::name($value)->get();
 
-			// Get the final route to use
-			$finalRoute = ($route->count() > 1)
-				? $route->filter(function($r){ return (bool) $r->protected === false; })->first()
-				: $route->first();
+			if ($route->count() > 0)
+			{
+				// Get the final route to use
+				$finalRoute = ($route->count() > 1)
+					? $route->filter(function($r){ return (bool) $r->protected === false; })->first()
+					: $route->first();
 
-			// Parse the route URI
-			$routeUri = Str::parseCallback($finalRoute->resource, false);
+				// Parse the route URI
+				$routeUri = Str::parseCallback($finalRoute->resource, false);
 
-			// Set the section and page
-			$this->attributes['section'] = strtolower(Str::denamespace($routeUri[0]));
-			$this->attributes['page'] = (substr($routeUri[1], 0, 3) == 'get')
-				? strtolower(substr_replace($routeUri[1], '', 0, 3))
-				: strtolower($routeUri[1]);
+				// Set the section and page
+				$this->attributes['section'] = strtolower(Str::denamespace($routeUri[0]));
+				$this->attributes['page'] = (substr($routeUri[1], 0, 3) == 'get')
+					? strtolower(substr_replace($routeUri[1], '', 0, 3))
+					: strtolower($routeUri[1]);
+			}
 		}
 		
 		// Set the URI
