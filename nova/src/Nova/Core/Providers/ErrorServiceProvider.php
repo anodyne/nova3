@@ -14,6 +14,7 @@ class ErrorServiceProvider extends ServiceProvider {
 		$this->bootMissing();
 		$this->bootRuntimeException();
 		$this->bootGeneralException();
+		$this->bootNovaException();
 	}
 
 	/**
@@ -113,6 +114,20 @@ class ErrorServiceProvider extends ServiceProvider {
 		$this->app->error(function(\Exception $ex, $code)
 		{
 			$this->app['log']->error($ex);
+		});
+	}
+
+	/**
+	 * What to do when a Nova general exception is encountered.
+	 */
+	protected function bootNovaException()
+	{
+		$this->app->error(function(\NovaGeneralException $ex, $code)
+		{
+			$this->app['log']->error($ex);
+
+			return $this->app['view']->make($this->app['nova.location']->error('nova_general'))
+				->with('message', $ex->getMessage());
 		});
 	}
 

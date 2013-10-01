@@ -252,6 +252,7 @@ return [
 		'MediaNotUploadedException'		=> "Nova\\Core\\Exceptions\\MediaNotUploadedException",
 		'NotifierNoContentException'	=> "Nova\\Core\\Exceptions\\NotifierNoContentException",
 		'NotifierNoSubjectException'	=> "Nova\\Core\\Exceptions\\NotifierNoSubjectException",
+		'NovaGeneralException'			=> "Nova\\Core\\Exceptions\\NovaGeneralException",
 
 		/**
 		 * Models
