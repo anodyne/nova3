@@ -7,5 +7,7 @@ composer.lock
 app/config/local/*
 !app/config/local/app.php
 
+app/assets/images/users/*
+
 *.sublime-project
 *.sublime-workspace
