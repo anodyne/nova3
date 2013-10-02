@@ -145,8 +145,9 @@ return array(
 		'users' => [
 			'add' => "You can add a new :0 to the system by entering their :1 and :2 and clicking submit. During creation, a :3 will be generated for the :0 and emailed to them. Once the :0 is created, you can associate :4 with their account.",
 			'doneSearching' => "Done searching? Head <a href='#' rel='changeUserView' id='showActives'>back</a> to the list of :0 :1.",
-			'remove' => "Are you sure you want to remove <strong>:0</strong>? In addition to removing :0, this will also remove all :1 associated with :0. This action is permanent and cannot be done. Are you sure you want to continue?",
+			'remove' => "Are you sure you want to remove <strong>:0</strong>? In addition to removing :0, this will also remove all :1 associated with :0. This action is permanent and cannot be undone. Are you sure you want to continue?",
 			'removeCharacters' => "The following characters will be removed from the database by deleting this user:",
+			'removeAvatar' => "Are you sure you want to remove the :0 avatar for <strong>:1</strong>? This action is permanent and cannot be undone. Are you sure you want to continue?",
 			'override' => "Overriding the existing associations will change the ownership of the :0 to the new :1.",
 			'link' => "Link :0 to :1",
 			'noPrimaryCharacter' => "No primary character assigned",

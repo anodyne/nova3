@@ -344,3 +344,8 @@ input.icn-size-16 {
 .typeahead-block {
   margin-top: 15px;
 }
+#preview-pane .preview-container {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+}

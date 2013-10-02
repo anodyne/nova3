@@ -15,14 +15,12 @@
 		</p>
 
 		@if ((bool) $user->getPreferenceItem('use_gravatar') === false)
-			<div class="visible-md visible-lg">
-				<div class="row">
-					<div class="col-lg-6">
-						<p><a href="{{ URL::to('admin/user/upload') }}" class="btn btn-default btn-block icn-size-16 tooltip-top" title="{{ langConcat('Action.upload New Avatar') }}">{{ $_icons['upload'] }}</a></p>
-					</div>
-					<div class="col-lg-6">
-						<p><a href="#" class="btn btn-danger btn-block icn-size-16 tooltip-top" title="{{ langConcat('Action.remove Avatar') }}">{{ $_icons['close'] }}</a></p>
-					</div>
+			<div class="row">
+				<div class="col-lg-6 visible-md visible-lg">
+					<p><a href="{{ URL::to('admin/user/upload/'.$user->id) }}" class="btn btn-default btn-block icn-size-16 tooltip-top" title="{{ langConcat('Action.upload New Avatar') }}">{{ $_icons['upload'] }}</a></p>
+				</div>
+				<div class="col-lg-6">
+					<p><a href="#" class="btn btn-danger btn-block icn-size-16 tooltip-top js-user-action" title="{{ langConcat('Action.remove Avatar') }}" data-action="deleteAvatar" data-id="{{ $user->id }}">{{ $_icons['close'] }}</a></p>
 				</div>
 			</div>
 		@else

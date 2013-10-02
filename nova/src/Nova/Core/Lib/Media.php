@@ -1,5 +1,6 @@
 <?php namespace Nova\Core\Lib;
 
+use File;
 use Input;
 use Session;
 use MediaNoInputException;
@@ -54,7 +55,7 @@ class Media {
 			if (in_array($file->getMimeType(), $this->mimes))
 			{
 				// Get the file size
-				$filesize = round($file->getSize() / 1024^2, 2);
+				$filesize = round($file->getSize() / pow(1024, 2), 2);
 
 				// Make sure the file is under the limit
 				if ($filesize <= $this->fileSizeLimit)
@@ -108,11 +109,31 @@ class Media {
 	 * Remove a media item. Will remove the information from the database and 
 	 * attempt to delete the file.
 	 *
-	 * @return	void
+	 * @param	Media	$media	The media object
+	 * @return	bool
 	 */
-	public function remove()
+	public function remove($media)
 	{
-		# code...
+		if ($media)
+		{
+			$finder = new Finder;
+			
+			// Set the criteria for finding the image(s)
+			$finder->files()->in(APPPATH.'assets/images/*')->name($media->filename);
+
+			foreach ($finder as $f)
+			{
+				// Remove the file
+				File::delete($f->getRealPath());
+			}
+
+			// Remove the database record
+			$media->delete();
+
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

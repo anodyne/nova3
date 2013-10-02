@@ -3,6 +3,7 @@
 use URL;
 use File;
 use Model;
+use Location;
 
 class Media extends Model {
 

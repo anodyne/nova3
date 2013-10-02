@@ -1,12 +1,15 @@
 <?php namespace Nova\Core\Controllers\Admin;
 
 use App;
+use Str;
 use Event;
 use Input;
+use Media;
 use Status;
 use Redirect;
 use UserValidator;
 use AdminBaseController;
+use NovaGeneralException;
 use UserRepositoryInterface;
 use Symfony\Component\Finder\Finder;
 
@@ -135,12 +138,24 @@ class User extends AdminBaseController {
 
 		// Set the views
 		$this->_view = 'admin/user/edit';
+		$this->_jsView = 'admin/user/edit_js';
 
 		// Set the user
-		$this->_data->user = $this->user->find($userId);
+		$user = $this->_data->user = $this->user->find($userId);
 
 		// Get the language directory listing
 		$this->_data->languageDir = Finder::create()->directories()->in(APPPATH."lang");
+
+		// Build the delete user modal
+		$this->_ajax[] = modal([
+			'id'		=> 'deleteAvatar',
+			'header'	=> lang('Short.delete', langConcat('User Avatar'))
+		]);
+
+		if ( ! $this->currentUser->canEditUser($user))
+		{
+			throw new NovaGeneralException(lang('error.admin.user.notAuthorized'));
+		}
 	}
 	public function postEdit($userId)
 	{
@@ -178,8 +193,7 @@ class User extends AdminBaseController {
 			// Get the user
 			$user = $this->user->find($userId);
 
-			if (($this->currentUser->hasLevel('user.update', 1) and $user == $this->currentUser)
-					or $this->currentUser->hasLevel('user.update', 2))
+			if ($this->currentUser->canEditUser($user))
 			{
 				if ($formAction == 'basic')
 				{
@@ -281,29 +295,79 @@ class User extends AdminBaseController {
 		# code...
 	}
 
-	public function getUploadUserImage()
+	public function getUploadUserImage($userId = false)
+	{
+		// Set the view files
+		$this->_view = 'admin/user/upload';
+		$this->_jsView = 'admin/user/upload_js';
+
+		$this->_data->id = $this->_jsData->id = $userId;
+		$this->_jsData->uploadSize = Media::getFileSizeLimit();
+		$this->_jsData->acceptedFiles = Media::getFileFormats('csv');
+	}
+	public function postUploadUserImage($userId = false)
+	{
+		// Get the user
+		$user = $this->user->find($userId);
+
+		if ($this->currentUser->canEditUser($user))
+		{
+			// Set the model we're using for uploading
+			Media::setModel($user);
+
+			// Get the file we're uploading
+			$file = Input::file('file');
+
+			// Set the filename
+			$filename = Str::random(32).'.'.$file->getClientOriginalExtension();
+
+			// Upload the file
+			$upload = Media::add(
+				$filename,
+				APPPATH."assets/images/users",
+				['mime_type' => $file->getMimeType(), 'uploader' => $this->currentUser->id]
+			);
+		}
+	}
+
+	public function getUserAvatar($userId = false)
 	{
 		// Upload a 32 pixel version to assets/images/users/sm
 		// Upload a 64 pixel version to assets/images/users/sm with @2x
 
 		// Upload a 64 pixel version to assets/images/users/md
-		// Upload a 96 pixel version to assets/images/users/md with @2x
+		// Upload a 128 pixel version to assets/images/users/md with @2x
 
 		// Upload a 200 pixel version to assets/images/users/lg
 		// Upload a 400 pixel version (if possible) to assets/images/users/lg with @2x
-	}
-	public function postUploadUserImage()
-	{
-		# code...
-	}
 
-	public function getSetUserAvatar()
+		$this->_view = 'admin/user/avatar';
+		$this->_jsView = 'admin/user/avatar_js';
+
+		$this->_data->user = $this->user->find($userId);
+	}
+	public function postUserAvatar()
 	{
 		# code...
 	}
-	public function postSetUserAvatar()
+	public function deleteUserAvatar()
 	{
-		# code...
+		// Get the user
+		$user = $this->user->find(Input::get('id'));
+
+		if ($this->currentUser->canEditUser($user))
+		{
+			// Remove the user avatar
+			$media = Media::remove($user->getMedia());
+
+			return Redirect::to("admin/user/edit/{$user->id}")
+				->with('flashStatus', 'success')
+				->with('flashMessage', lang('Short.alert.success.delete', langConcat('user avatar')));
+		}
+
+		return Redirect::to("admin/user/edit/{$user->id}")
+			->with('flashStatus', 'danger')
+			->with('flashMessage', lang('error.admin.user.notAuthorized'));
 	}
 
 }

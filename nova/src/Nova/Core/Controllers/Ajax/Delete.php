@@ -497,4 +497,25 @@ class Delete extends AjaxBaseController {
 		}
 	}
 
+	/**
+	 * Show the confirmation modal for deleting a user avatar.
+	 *
+	 * @param	int		$id		User ID
+	 * @return	View
+	 */
+	public function getUserAvatar($id)
+	{
+		$user = \UserModel::find($id);
+
+		if ($this->auth->check() and $this->currentUser->canEditUser($user))
+		{
+			return partial('common/modal_content', [
+				'modalHeader'	=> lang('Short.delete', langConcat('User Avatar')),
+				'modalBody'		=> View::make(Location::ajax('delete/user_avatar'))
+									->with('user', $user),
+				'modalFooter'	=> false,
+			]);
+		}
+	}
+
 }

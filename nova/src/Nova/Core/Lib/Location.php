@@ -127,7 +127,7 @@ class Location {
 	 * @param	array 	An array of attributes to be used on the image
 	 * @return	string
 	 */
-	public function image($image, $return = 'image', $attr = array(), $module = 'core')
+	public function image($image, $return = 'image', $attr = [], $module = 'core')
 	{
 		$this->file = $image;
 		$this->skin = $this->setSkin();
@@ -245,11 +245,11 @@ class Location {
 	/**
 	 * Find the right path to an image.
 	 *
-	 * @param	string	What to return (image, urlpath, abspath, path)
-	 * @param	array	Attributes for the image return type
+	 * @param	string	$return		What to return (image, urlpath, abspath, path)
+	 * @param	array	$attributes	Attributes for the image return type
 	 * @return	string
 	 */
-	protected function findImage($return = 'path', $attributes = array())
+	protected function findImage($return = 'path', $attributes = [])
 	{
 		// Find the path to the image
 		$path = $this->findAssetPath();
@@ -343,20 +343,19 @@ class Location {
 		switch ($this->type)
 		{
 			case 'asset':
-				return "app/assets/images/{$this->file}";
+				if (File::exists(APPPATH."assets/images/{$this->file}"))
+					return "app/assets/images/{$this->file}";
+				else
+					return "nova/assets/img/{$this->file}";
 			break;
 			
 			case 'image':
-				if (File::exists(APPPATH."modules/override/views/design/images/{$this->file}"))
-				{
-					return "app/modules/override/views/design/images/{$this->file}";
-				}
-				elseif (File::exists(APPPATH."views/{$this->skin}/design/images/{$this->file}"))
-				{
-					return "app/views/{$this->skin}/design/images/{$this->file}";
-				}
-				
-				return "nova/src/nova/".strtolower($this->module)."/views/design/images/{$this->file}";
+				if (File::exists(APPPATH."src/Modules/Override/views/design/images/{$this->file}"))
+					return "app/src/Modules/Override/views/design/images/{$this->file}";
+				elseif (File::exists(APPPATH."skins/{$this->skin}/design/images/{$this->file}"))
+					return "app/skins/{$this->skin}/design/images/{$this->file}";
+				else
+					return "nova/views/design/images/{$this->file}";
 			break;
 			
 			case 'rank':

@@ -2,7 +2,6 @@
 
 use App;
 use Str;
-use URL;
 use Date;
 use Model;
 use Event;
@@ -12,19 +11,22 @@ use Sentry;
 use Request;
 use Session;
 use Gravatar;
+use Location;
 use Redirect;
 use ErrorCode;
 use Exception;
 use MediaModel;
 use DynamicForm;
 use FormDataModel;
+use SettingsModel;
+use MediaInterface;
 use UserPrefsModel;
 use AccessRoleModel;
 use FormDataInterface;
 use Cartalyst\Sentry\Users\UserInterface;
 use Cartalyst\Sentry\Groups\GroupInterface;
 
-class User extends Model implements UserInterface, FormDataInterface {
+class User extends Model implements UserInterface, FormDataInterface, MediaInterface {
 
 	protected $table = 'users';
 
@@ -305,6 +307,45 @@ class User extends Model implements UserInterface, FormDataInterface {
 		return true;
 	}
 
+	/**
+	 * Can this user update a specific character?
+	 *
+	 * @param	Character	$character	The character attempting to be edited
+	 * @return	bool
+	 */
+	public function canEditCharacter($character)
+	{
+		if ($this->hasLevel('character.update', 3))
+			return true;
+
+		// level 2
+
+		if ($this->hasLevel('character.update', 1) and $user->getPrimaryCharacter()->id === $character->id)
+			return true;
+
+		return false;
+	}
+
+	/**
+	 * Can this user update a specific user?
+	 *
+	 * @param	User	$user	The user attempting to be edited
+	 * @return	bool
+	 */
+	public function canEditUser($user)
+	{
+		if ($this->hasLevel('user.update', 2))
+			return true;
+
+		if ($this->hasLevel('user.update', 1))
+			if (is_numeric($user) and $user == $this->id)
+				return true;
+			elseif ($user->id == $this->id)
+				return true;
+
+		return false;
+	}
+
 	public function createMedia($file)
 	{
 		// Create a new media object
@@ -368,7 +409,7 @@ class User extends Model implements UserInterface, FormDataInterface {
 		if ($media)
 			return $this->getMedia()->getPathWithUrl('users', $size);
 
-		return URL::to("nova/assets/img/avatar-{$size}.png");
+		return Location::image("avatar-{$size}.png", 'urlpath');
 	}
 
 	/**
@@ -564,6 +605,24 @@ class User extends Model implements UserInterface, FormDataInterface {
 				FormDataModel::create(array_merge($data, ['data_id' => $u->id]));
 			}
 		}
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Media Implementation
+	|--------------------------------------------------------------------------
+	*/
+
+	public function addMedia($file, $options)
+	{
+		return MediaModel::create([
+			'type'			=> 'user',
+			'entry_id'		=> $this->id,
+			'filename'		=> $file,
+			'mime_type'		=> $options['mime_type'],
+			'user_id'		=> $options['uploader'],
+			'ip_address'	=> Request::getClientIp(),
+		]);
 	}
 
 	/*
