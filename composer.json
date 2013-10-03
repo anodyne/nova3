@@ -29,8 +29,7 @@
 		"baum/baum": "1.*",
 		"cartalyst/sentry": "2.0.*",
 		"cartalyst/api": "1.0.*",
-		"thomaswelton/laravel-gravatar": "dev-master",
-		"imagine/imagine": "dev-master"
+		"thomaswelton/laravel-gravatar": "dev-master"
 	},
 
 	"require-dev": {
