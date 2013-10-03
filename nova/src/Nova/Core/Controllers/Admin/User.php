@@ -3,6 +3,7 @@
 use App;
 use Str;
 use Event;
+use Image;
 use Input;
 use Media;
 use Status;
@@ -297,13 +298,27 @@ class User extends AdminBaseController {
 
 	public function getUploadUserImage($userId = false)
 	{
+		// Verify the user is allowed
+		$this->currentUser->allowed('user.update', true);
+
 		// Set the view files
 		$this->_view = 'admin/user/upload';
 		$this->_jsView = 'admin/user/upload_js';
 
+		// Get the user
+		$user = $this->user->find($userId);
+
+		// Set the data
 		$this->_data->id = $this->_jsData->id = $userId;
 		$this->_jsData->uploadSize = Media::getFileSizeLimit();
 		$this->_jsData->acceptedFiles = Media::getFileFormats('csv');
+
+		if ( ! $this->currentUser->canEditUser($user))
+		{
+			return Redirect::to("admin/user")
+				->with('flashStatus', 'danger')
+				->with('flashMessage', lang('error.admin.user.notAuthorized'));
+		}
 	}
 	public function postUploadUserImage($userId = false)
 	{
@@ -332,23 +347,56 @@ class User extends AdminBaseController {
 
 	public function getUserAvatar($userId = false)
 	{
-		// Upload a 32 pixel version to assets/images/users/sm
-		// Upload a 64 pixel version to assets/images/users/sm with @2x
+		// Verify the user is allowed
+		$this->currentUser->allowed('user.update', true);
 
-		// Upload a 64 pixel version to assets/images/users/md
-		// Upload a 128 pixel version to assets/images/users/md with @2x
-
-		// Upload a 200 pixel version to assets/images/users/lg
-		// Upload a 400 pixel version (if possible) to assets/images/users/lg with @2x
-
+		// Set the views
 		$this->_view = 'admin/user/avatar';
 		$this->_jsView = 'admin/user/avatar_js';
 
-		$this->_data->user = $this->user->find($userId);
+		// Get the user
+		$user = $this->_data->user = $this->user->find($userId);
+
+		if ( ! $this->currentUser->canEditUser($user))
+		{
+			return Redirect::to("admin/user")
+				->with('flashStatus', 'danger')
+				->with('flashMessage', lang('error.admin.user.notAuthorized'));
+		}
 	}
-	public function postUserAvatar()
+	public function postUserAvatar($userId = false)
 	{
-		# code...
+		// Get the user
+		$user = $this->user->find($userId);
+
+		if ($this->currentUser->canEditUser($user))
+		{
+			// Get the file info and break it apart
+			$fileInfo = explode('.', $user->getMedia()->filename);
+			$filename = $fileInfo[0];
+			$extension = '.'.$fileInfo[1];
+
+			// Create a new image object
+			$image = new Image(APPPATH."assets/images/users/{$filename}{$extension}", Input::all());
+
+			$image->crop(32, 32, APPPATH.'assets/images/users/sm/'.$filename.$extension);
+			$image->crop(64, 64, APPPATH.'assets/images/users/sm/'.$filename.'@2x'.$extension);
+			$image->crop(64, 64, APPPATH.'assets/images/users/md/'.$filename.$extension);
+			$image->crop(128, 128, APPPATH.'assets/images/users/md/'.$filename.'@2x'.$extension);
+			$image->crop(200, 200, APPPATH.'assets/images/users/lg/'.$filename.$extension);
+
+			// Only create a large avatar if the crop is big enough
+			if ((int) Input::get('height') >= 400)
+				$image->crop(400, 400, APPPATH.'assets/images/users/lg/'.$filename.'@2x'.$extension);
+
+			return Redirect::to("admin/user/edit/{$user->id}")
+				->with('flashStatus', 'succcess')
+				->with('flashMessage', lang('Short.alert.success.update', langConcat('user avatar')));
+		}
+
+		return Redirect::to("admin/user")
+			->with('flashStatus', 'danger')
+			->with('flashMessage', lang('error.admin.user.notAuthorized'));
 	}
 	public function deleteUserAvatar()
 	{
@@ -365,7 +413,7 @@ class User extends AdminBaseController {
 				->with('flashMessage', lang('Short.alert.success.delete', langConcat('user avatar')));
 		}
 
-		return Redirect::to("admin/user/edit/{$user->id}")
+		return Redirect::to("admin/user")
 			->with('flashStatus', 'danger')
 			->with('flashMessage', lang('error.admin.user.notAuthorized'));
 	}

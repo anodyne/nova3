@@ -22,6 +22,7 @@ return array(
 	'choose' => 'choose',
 	'change' => 'change',
 	'clear' => 'clear',
+	'crop' => "crop",
 	
 	'delete' => 'delete',
 	'deleted' => 'deleted',
@@ -62,6 +63,7 @@ return array(
 	'rejected' => 'rejected',
 	'remove' => 'remove',
 	'removed' => 'removed',
+	'recrop' => "recrop",
 
 	'submit' => 'submit',
 	'submitted' => 'submitted',

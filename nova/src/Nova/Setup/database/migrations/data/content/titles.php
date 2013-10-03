@@ -361,6 +361,15 @@ return [
 		'page'		=> 'uploadUserImage',
 		'uri'		=> 'admin/user/upload'
 	],
+	[
+		'key'		=> 'title.admin.user.avatar',
+		'label'		=> 'User Avatar Crop Title',
+		'content'	=> "Crop User Avatar",
+		'type'		=> $type,
+		'section'	=> 'user',
+		'page'		=> 'userAvatar',
+		'uri'		=> 'admin/user/avatar'
+	],
 
 	/**
 	 * admin/manage Titles

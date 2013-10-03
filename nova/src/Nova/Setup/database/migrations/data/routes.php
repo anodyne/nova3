@@ -418,7 +418,7 @@ return [
 	[
 		'name'			=> 'admin/user/avatar',
 		'verb'			=> 'post',
-		'uri'			=> 'admin/user/avatar',
+		'uri'			=> 'admin/user/avatar/{userId}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\User@postUserAvatar',
 		'protected'		=> (int) true
 	],

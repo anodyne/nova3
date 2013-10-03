@@ -36,6 +36,7 @@
 			var container = this.element.id;
 
 			$('#' + container + ' .text-success').removeClass('hide');
+			$('#crop').removeClass('hide');
 		});
 
 		// Error event

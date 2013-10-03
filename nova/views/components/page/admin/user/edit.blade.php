@@ -6,6 +6,18 @@
 	<div class="btn-group">
 		<a href="#" class="btn btn-default tooltip-top icn-size-16" title="{{ langConcat('Action.request loa') }}">{{ $_icons['clock'] }}</a>
 	</div>
+
+	@if ($_currentUser->hasLevel('user.update', 2))
+		<div class="btn-group">
+			@if ($user->status == Status::ACTIVE)
+				<a href="#" class="btn btn-default tooltip-top icn-size-16" title="{{ lang('Short.deactivate', lang('User')) }}">{{ $_icons['reject'] }}</a>
+			@endif
+
+			@if ($user->status == Status::INACTIVE)
+				<a href="#" class="btn btn-default tooltip-top icn-size-16" title="{{ lang('Short.activate', lang('User')) }}">{{ $_icons['check'] }}</a>
+			@endif
+		</div>
+	@endif
 </div>
 
 <div class="row">
@@ -16,10 +28,13 @@
 
 		@if ((bool) $user->getPreferenceItem('use_gravatar') === false)
 			<div class="row">
-				<div class="col-lg-6 visible-md visible-lg">
+				<div class="col-lg-4 visible-md visible-lg">
 					<p><a href="{{ URL::to('admin/user/upload/'.$user->id) }}" class="btn btn-default btn-block icn-size-16 tooltip-top" title="{{ langConcat('Action.upload New Avatar') }}">{{ $_icons['upload'] }}</a></p>
 				</div>
-				<div class="col-lg-6">
+				<div class="col-lg-4 visible-md visible-lg">
+					<p><a href="{{ URL::to('admin/user/avatar/'.$user->id) }}" class="btn btn-default btn-block icn-size-16 tooltip-top" title="{{ langConcat('Action.recrop Avatar') }}">{{ $_icons['crop'] }}</a></p>
+				</div>
+				<div class="col-lg-4">
 					<p><a href="#" class="btn btn-danger btn-block icn-size-16 tooltip-top js-user-action" title="{{ langConcat('Action.remove Avatar') }}" data-action="deleteAvatar" data-id="{{ $user->id }}">{{ $_icons['close'] }}</a></p>
 				</div>
 			</div>

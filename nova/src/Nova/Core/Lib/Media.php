@@ -17,7 +17,6 @@ class Media {
 		'image/jpeg',
 		'image/png',
 		'image/gif',
-		'image/bmp',
 	];
 
 	/**

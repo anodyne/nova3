@@ -34,7 +34,12 @@ Route::group(['prefix' => 'dev'], function()
 
 	Route::get('images', function()
 	{
-		sd(function_exists('gd_info'));
-		sd(gd_info());
+		$user = UserModel::find(1);
+
+		$fileInfo = explode('.', $user->getMedia()->filename);
+		$filename = $fileInfo[0];
+		$extension = $fileInfo[1];
+
+		sd($fileInfo);
 	});
 });

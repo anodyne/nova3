@@ -8,12 +8,23 @@
 	</div>
 </div>
 
-<div>{{ HTML::image('app/assets/images/users/'.$user->getMedia()->filename, false, ['id' => 'jcrop']) }}</div>
-
-<div id="preview-pane">
-	<div class="preview-container">
-		{{ HTML::image('app/assets/images/users/'.$user->getMedia()->filename, false, ['class' => 'jcrop-preview']) }}
+<div class="row">
+	<div class="col-lg-12">
+		{{ HTML::image('app/assets/images/users/'.$user->getMedia()->filename, false, ['id' => 'jcrop']) }}
 	</div>
 </div>
 
-<p><a href="#" class="btn btn-primary">Crop</a></p>
+<div class="row">
+	<div class="col-lg-12">
+		{{ Form::open(['url' => 'admin/user/avatar/'.$user->id, 'id' => 'coordinates']) }}
+			{{ Form::hidden('x1', '') }}
+			{{ Form::hidden('x2', '') }}
+			{{ Form::hidden('y1', '') }}
+			{{ Form::hidden('y2', '') }}
+			{{ Form::hidden('width', '') }}
+			{{ Form::hidden('height', '') }}
+
+			{{ Form::button(lang('Action.crop'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
+		{{ Form::close() }}
+	</div>
+</div>

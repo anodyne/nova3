@@ -336,11 +336,20 @@ return [
 	[
 		'key'		=> 'message.admin.user.upload',
 		'label'		=> 'User Image Upload Message',
-		'content'	=> "You can upload an image to use for your user avatar throughout Nova by dragging-and-dropping an image onto the area below. Once uploaded, you'll be able to crop the image to what you want.",
+		'content'	=> "You can upload an image to use for your user avatar throughout Nova by dragging-and-dropping an image onto the area below. The larger the image you upload, the better an avatar you'll be able to crop once the file has been uploaded.",
 		'type'		=> $type,
 		'section'	=> 'user',
 		'page'		=> 'uploadUserImage',
 		'uri'		=> 'admin/user/upload'
+	],
+	[
+		'key'		=> 'message.admin.user.avatar',
+		'label'		=> 'Crop User Avatar Message',
+		'content'	=> "Using the image below, you can drag a box around the area you'd like to crop and make your user avatar. This will create a small avatar (32 pixels square), a medium avatar (64 pixels square) and a large avatar (200 pixels square) for use throughout the system.",
+		'type'		=> $type,
+		'section'	=> 'user',
+		'page'		=> 'userAvatar',
+		'uri'		=> 'admin/user/avatar'
 	],
 
 	/**

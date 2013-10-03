@@ -209,6 +209,7 @@ return [
 		'DynamicForm'	=> 'Nova\Core\Facades\DynamicForm',
 		'ErrorCode'		=> 'Nova\Core\Lib\ErrorCode',
 		'Gravatar'		=> 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
+		'Image'			=> 'Nova\Core\Lib\Image',
 		'Location'		=> 'Nova\Core\Facades\Location',
 		'Markdown'		=> 'Nova\Core\Facades\Markdown',
 		'Media'			=> 'Nova\Core\Facades\Media',
