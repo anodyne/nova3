@@ -14,6 +14,7 @@
  * @copyright	2013 Anodyne Productions
  */
 
+use App;
 use Nav;
 use Str;
 use Nova;
@@ -21,7 +22,6 @@ use View;
 use Cache;
 use Route;
 use Config;
-use SystemModel;
 use Request;
 use Session;
 use Location;
@@ -30,8 +30,14 @@ use Redirect;
 use stdClass;
 use Exception;
 use Controller;
+use SystemModel;
 
 abstract class Core extends Controller {
+
+	/**
+	 * The application container.
+	 */
+	protected $app;
 
 	/**
 	 * A View object for storing the template.
@@ -185,6 +191,9 @@ abstract class Core extends Controller {
 
 		// Set the current user
 		$this->currentUser = $this->auth->getUser();
+
+		// Get the application container
+		$this->app = App::make('app');
 
 		// Set the controller and action names
 		$this->getControllerName();
