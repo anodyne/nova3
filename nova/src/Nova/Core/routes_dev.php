@@ -42,4 +42,11 @@ Route::group(['prefix' => 'dev'], function()
 
 		sd($fileInfo);
 	});
+
+	Route::get('app', function()
+	{
+		$app = App::make('app');
+
+		sd($app->make('nova.location'));
+	});
 });
