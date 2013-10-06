@@ -5,11 +5,28 @@ use BaseRepositoryInterface;
 interface UserRepositoryInterface extends BaseRepositoryInterface {
 
 	/**
+	 * Activate a user and associate a primary character for them.
+	 *
+	 * @param	int		$id				User ID
+	 * @param	int		$characterId	Character ID
+	 * @return	User
+	 */
+	public function activate($id, $characterId);
+
+	/**
 	 * Get all active users.
 	 *
 	 * @return	Collection
 	 */
 	public function active();
+
+	/**
+	 * Deactivate a user.
+	 *
+	 * @param	int		$id		User ID
+	 * @return	User
+	 */
+	public function deactivate($id);
 
 	/**
 	 * Find a user by their email address.

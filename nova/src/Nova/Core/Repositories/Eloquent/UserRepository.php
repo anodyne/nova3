@@ -1,5 +1,6 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
+use Status;
 use UserModel;
 use SecurityTrait;
 use UserRepositoryInterface;
@@ -7,6 +8,23 @@ use UserRepositoryInterface;
 class UserRepository implements UserRepositoryInterface {
 
 	use SecurityTrait;
+
+	/**
+	 * Activate a user and associate a primary character for them.
+	 *
+	 * @param	int		$id				User ID
+	 * @param	int		$characterId	Character ID
+	 * @return	User
+	 */
+	public function activate($id, $characterId)
+	{
+		// Update the user
+		$item = $this->update($id, ['status' => Status::ACTIVE]);
+
+		# TODO: activate the character
+
+		return $item;
+	}
 	
 	/**
 	 * Get all active users.
@@ -37,6 +55,30 @@ class UserRepository implements UserRepositoryInterface {
 	public function create(array $data)
 	{
 		return UserModel::create($data);
+	}
+
+	/**
+	 * Deactivate a user.
+	 *
+	 * @param	int		$id		User ID
+	 * @return	User
+	 */
+	public function deactivate($id)
+	{
+		// Update the user record
+		$item = $this->update($id, ['status' => Status::INACTIVE]);
+
+		// If the user has characters, deactivate them
+		if ($item->characters->count() > 0)
+		{
+			foreach ($item->characters as $character)
+			{
+				if ($character->status == Status::ACTIVE)
+					$character->update(['status' => Status::INACTIVE]);
+			}
+		}
+
+		return $item;
 	}
 
 	/**
