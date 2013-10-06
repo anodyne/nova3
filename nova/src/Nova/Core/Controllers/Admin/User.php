@@ -1,6 +1,5 @@
 <?php namespace Nova\Core\Controllers\Admin;
 
-use App;
 use Str;
 use Event;
 use Image;
@@ -115,6 +114,22 @@ class User extends AdminBaseController {
 				: lang('Short.alert.failure.delete', lang('user'));
 		}
 
+		/**
+		 * Update a user.
+		 */
+		if ($this->currentUser->hasAccess('user.update'))
+		{
+			if ($formAction == 'deactivate')
+			{
+				//
+			}
+
+			if ($formAction == 'activate')
+			{
+				//
+			}
+		}
+
 		return Redirect::to('admin/user')
 			->with('flashStatus', $flashStatus)
 			->with('flashMessage', $flashMessage);
@@ -196,9 +211,11 @@ class User extends AdminBaseController {
 
 			if ($this->currentUser->canEditUser($user))
 			{
+				# FIXME: issues with password fields being empty
+
 				if ($formAction == 'basic')
 				{
-					if (Input::has('password'))
+					if ( ! Input::has('password'))
 					{
 						// Do the update
 						$this->user->update(Input::get('id'), Input::all());
@@ -209,7 +226,7 @@ class User extends AdminBaseController {
 					else
 					{
 						// Make sure their current password is right
-						if (App::make('sentry.hasher')->hash(Input::get('password')) == $user->password)
+						if ($this->app->make('sentry.hasher')->hash(Input::get('password')) == $user->password)
 						{
 							// Make sure the new password matches the confirmation
 							if (Input::get('password_new') == Input::get('password_new_confirm'))
@@ -263,7 +280,13 @@ class User extends AdminBaseController {
 
 				if ($formAction == 'admin')
 				{
-					//
+					// Moderation
+
+					// Change access level
+
+					// Is system admin
+
+					// Is game master
 				}
 			}
 			else
@@ -315,9 +338,7 @@ class User extends AdminBaseController {
 
 		if ( ! $this->currentUser->canEditUser($user))
 		{
-			return Redirect::to("admin/user")
-				->with('flashStatus', 'danger')
-				->with('flashMessage', lang('error.admin.user.notAuthorized'));
+			throw new NovaGeneralException(lang('error.admin.user.notAuthorized'));
 		}
 	}
 	public function postUploadUserImage($userId = false)
@@ -325,7 +346,11 @@ class User extends AdminBaseController {
 		// Get the user
 		$user = $this->user->find($userId);
 
-		if ($this->currentUser->canEditUser($user))
+		if ( ! $this->currentUser->canEditUser($user))
+		{
+			throw new NovaGeneralException(lang('error.admin.user.notAuthorized'));
+		}
+		else
 		{
 			// Set the model we're using for uploading
 			Media::setModel($user);
@@ -359,9 +384,7 @@ class User extends AdminBaseController {
 
 		if ( ! $this->currentUser->canEditUser($user))
 		{
-			return Redirect::to("admin/user")
-				->with('flashStatus', 'danger')
-				->with('flashMessage', lang('error.admin.user.notAuthorized'));
+			throw new NovaGeneralException(lang('error.admin.user.notAuthorized'));
 		}
 	}
 	public function postUserAvatar($userId = false)
@@ -369,7 +392,11 @@ class User extends AdminBaseController {
 		// Get the user
 		$user = $this->user->find($userId);
 
-		if ($this->currentUser->canEditUser($user))
+		if ( ! $this->currentUser->canEditUser($user))
+		{
+			throw new NovaGeneralException(lang('error.admin.user.notAuthorized'));
+		}
+		else
 		{
 			// Get the file info and break it apart
 			$fileInfo = explode('.', $user->getMedia()->filename);
@@ -393,17 +420,17 @@ class User extends AdminBaseController {
 				->with('flashStatus', 'succcess')
 				->with('flashMessage', lang('Short.alert.success.update', langConcat('user avatar')));
 		}
-
-		return Redirect::to("admin/user")
-			->with('flashStatus', 'danger')
-			->with('flashMessage', lang('error.admin.user.notAuthorized'));
 	}
 	public function deleteUserAvatar()
 	{
 		// Get the user
 		$user = $this->user->find(Input::get('id'));
 
-		if ($this->currentUser->canEditUser($user))
+		if ( ! $this->currentUser->canEditUser($user))
+		{
+			throw new NovaGeneralException(lang('error.admin.user.notAuthorized'));
+		}
+		else
 		{
 			// Remove the user avatar
 			$media = Media::remove($user->getMedia());
@@ -412,10 +439,6 @@ class User extends AdminBaseController {
 				->with('flashStatus', 'success')
 				->with('flashMessage', lang('Short.alert.success.delete', langConcat('user avatar')));
 		}
-
-		return Redirect::to("admin/user")
-			->with('flashStatus', 'danger')
-			->with('flashMessage', lang('error.admin.user.notAuthorized'));
 	}
 
 }
