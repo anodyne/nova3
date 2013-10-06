@@ -22,21 +22,26 @@
 
 <div class="row">
 	<div class="col-md-3 col-lg-3 col-md-push-9 col-lg-push-9">
-		<p class="text-center">
-			{{ partial('common/avatar', ['image' => $user->getAvatar('lg'), 'alt' => '']) }}
-		</p>
+		<div class="text-center">
+			<h3 class="text-muted">{{ $user->name }}</h3>
+
+			<p>{{ partial('common/avatar', ['image' => $user->getAvatar('lg'), 'alt' => '']) }}</p>
+		</div>
 
 		@if ((bool) $user->getPreferenceItem('use_gravatar') === false)
 			<div class="row">
-				<div class="col-lg-4 visible-md visible-lg">
+				<div class="col-lg-12 visible-md visible-lg">
 					<p><a href="{{ URL::to('admin/user/upload/'.$user->id) }}" class="btn btn-default btn-block icn-size-16 tooltip-top" title="{{ langConcat('Action.upload New Avatar') }}">{{ $_icons['upload'] }}</a></p>
 				</div>
-				<div class="col-lg-4 visible-md visible-lg">
-					<p><a href="{{ URL::to('admin/user/avatar/'.$user->id) }}" class="btn btn-default btn-block icn-size-16 tooltip-top" title="{{ langConcat('Action.recrop Avatar') }}">{{ $_icons['crop'] }}</a></p>
-				</div>
-				<div class="col-lg-4">
-					<p><a href="#" class="btn btn-danger btn-block icn-size-16 tooltip-top js-user-action" title="{{ langConcat('Action.remove Avatar') }}" data-action="deleteAvatar" data-id="{{ $user->id }}">{{ $_icons['close'] }}</a></p>
-				</div>
+
+				@if ($user->getMedia() !== null)
+					<div class="col-lg-6 visible-md visible-lg">
+						<p><a href="{{ URL::to('admin/user/avatar/'.$user->id) }}" class="btn btn-default btn-block icn-size-16 tooltip-top" title="{{ langConcat('Action.recrop Avatar') }}">{{ $_icons['crop'] }}</a></p>
+					</div>
+					<div class="col-lg-6">
+						<p><a href="#" class="btn btn-danger btn-block icn-size-16 tooltip-top js-user-action" title="{{ langConcat('Action.remove Avatar') }}" data-action="deleteAvatar" data-id="{{ $user->id }}">{{ $_icons['close'] }}</a></p>
+					</div>
+				@endif
 			</div>
 		@else
 			<div class="row">
