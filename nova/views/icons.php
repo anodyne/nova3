@@ -13,7 +13,7 @@ return [
 	'clock' => '<span class="icn" data-icon="h"></span>',
 	'close' => '<span class="icn" data-icon="x"></span>',
 	'closeSmall' => '<span class="icn" data-icon="="></span>',
-	'crop' => '<span class="icn" data-icon="m"></span>',
+	'crop' => '<span class="icn" data-icon="o"></span>',
 
 	'duplicate' => '<span class="icn" data-icon="_"></span>',
 	'down' => '<span class="icn" data-icon="9"></span>',
