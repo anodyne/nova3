@@ -30,21 +30,21 @@ class Form extends AdminBaseController {
 		$this->currentUser->allowed(['form.create', 'form.update', 'form.delete'], true);
 
 		// Set the JS view
-		$this->_jsView = 'admin/form/forms_js';
+		$this->jsView = 'admin/form/forms_js';
 
 		if ($formKey !== false)
 		{
 			// Set the view
-			$this->_view = 'admin/form/forms_action';
+			$this->view = 'admin/form/forms_action';
 
 			if ($formKey !== "0")
 			{
 				// Get the form
-				$form = $this->_data->form = $this->form->findByKey($formKey);
+				$form = $this->data->form = $this->form->findByKey($formKey);
 
 				// Get the form fields
-				$this->_data->formFields[0] = lang('short.selectOne', langConcat('form field'));
-				$this->_data->formFields+= $form->fields()
+				$this->data->formFields[0] = lang('short.selectOne', langConcat('form field'));
+				$this->data->formFields+= $form->fields()
 					->active()
 					->orderAsc('label')
 					->get()
@@ -52,19 +52,19 @@ class Form extends AdminBaseController {
 			}
 			else
 			{
-				$this->_data->form = false;
+				$this->data->form = false;
 			}
 
 			// Set the action
-			$this->_mode = $this->_data->action = ($formKey === '0') ? 'create' : 'update';
+			$this->mode = $this->data->action = ($formKey === '0') ? 'create' : 'update';
 		}
 		else
 		{
 			// Set the view
-			$this->_view = 'admin/form/forms';
+			$this->view = 'admin/form/forms';
 
 			// Get all the forms
-			$form = $this->_data->forms = $this->form->all();
+			$form = $this->data->forms = $this->form->all();
 
 			// Build the delete form modal
 			$this->_ajax[] = View::make(Location::partial('common/modal'))
@@ -159,14 +159,14 @@ class Form extends AdminBaseController {
 		$this->currentUser->allowed(['form.create', 'form.update', 'form.delete'], true);
 
 		// Set the view files
-		$this->_view = 'admin/form/tabs';
-		$this->_jsView = 'admin/form/tabs_js';
+		$this->view = 'admin/form/tabs';
+		$this->jsView = 'admin/form/tabs_js';
 
 		// Pass along the form key to the view
-		$this->_data->formKey = $formKey;
+		$this->data->formKey = $formKey;
 
 		// Get the form and pass it along to the view
-		$form = $this->_data->form = $this->form->findByKey($formKey);
+		$form = $this->data->form = $this->form->findByKey($formKey);
 
 		// Get the tabs
 		$tabs = $form->tabs;
@@ -175,7 +175,7 @@ class Form extends AdminBaseController {
 		if ($id === false)
 		{
 			// Set up the variables
-			$this->_data->tabs = false;
+			$this->data->tabs = false;
 
 			if ($tabs->count() > 0)
 			{
@@ -187,34 +187,34 @@ class Form extends AdminBaseController {
 
 				foreach ($tabs as $tab)
 				{
-					$this->_data->tabs[] = $tab;
+					$this->data->tabs[] = $tab;
 				}
 			}
 		}
 		else
 		{
 			// Set the view
-			$this->_view = 'admin/form/tabs_action';
+			$this->view = 'admin/form/tabs_action';
 
 			// Get the tab
-			$tab = $this->_data->tab = $form->tabs()->find($id);
+			$tab = $this->data->tab = $form->tabs()->find($id);
 
 			// Clear out the message for this page
-			$this->_data->message = false;
+			$this->data->message = false;
 
 			// ID 0 means a new tab, anything else edits an existing tab
 			if ((int) $id === 0)
 			{
 				// Set the action
-				$this->_mode = $this->_data->action = 'create';
+				$this->mode = $this->data->action = 'create';
 			}
 			else
 			{
 				// Set the action
-				$this->_mode = $this->_data->action = 'update';
+				$this->mode = $this->data->action = 'update';
 
 				// If we don't have a tab, redirect to the creation screen
-				if ($this->_data->tab === null)
+				if ($this->data->tab === null)
 				{
 					Redirect::to("admin/form/tabs/{$formKey}/0");
 				}
@@ -318,14 +318,14 @@ class Form extends AdminBaseController {
 		$this->currentUser->allowed(['form.create', 'form.update', 'form.delete'], true);
 
 		// Set the view files
-		$this->_view = 'admin/form/sections';
-		$this->_jsView = 'admin/form/sections_js';
+		$this->view = 'admin/form/sections';
+		$this->jsView = 'admin/form/sections_js';
 
 		// Pass along the form key to the view
-		$this->_data->formKey = $formKey;
+		$this->data->formKey = $formKey;
 
 		// Get the form and pass it along to the view
-		$form = $this->_data->form = $this->form->findByKey($formKey);
+		$form = $this->data->form = $this->form->findByKey($formKey);
 
 		// If there isn't an ID, show all the sections
 		if ($id === false)
@@ -334,13 +334,13 @@ class Form extends AdminBaseController {
 			$sections = $form->sections;
 
 			// Set up the variables
-			$this->_data->tabs = false;
-			$this->_data->sections = false;
+			$this->data->tabs = false;
+			$this->data->sections = false;
 
 			// If we have tabs, get them
 			if ($form->tabs->count() > 0)
 			{
-				$this->_data->tabs = $form->tabs->sortBy(function($t)
+				$this->data->tabs = $form->tabs->sortBy(function($t)
 				{
 					return $t->order;
 				});
@@ -359,11 +359,11 @@ class Form extends AdminBaseController {
 				{
 					if ($section->tab_id > 0)
 					{
-						$this->_data->sections[$section->tab_id][] = $section;
+						$this->data->sections[$section->tab_id][] = $section;
 					}
 					else
 					{
-						$this->_data->sections[] = $section;
+						$this->data->sections[] = $section;
 					}
 				}
 			}
@@ -371,36 +371,36 @@ class Form extends AdminBaseController {
 		else
 		{
 			// Set the view
-			$this->_view = 'admin/form/sections_action';
+			$this->view = 'admin/form/sections_action';
 
 			// Get all the tabs
-			$tabs = $this->_data->tabs = $form->tabs->toSimpleArray('id', 'name');
+			$tabs = $this->data->tabs = $form->tabs->toSimpleArray('id', 'name');
 
 			// Get the section
-			$section = $this->_data->section = $form->sections()->find($id);
+			$section = $this->data->section = $form->sections()->find($id);
 
 			// Clear out the message for this page
-			$this->_data->message = false;
+			$this->data->message = false;
 
 			// ID 0 means a new section, anything else edits an existing section
 			if ((int) $id === 0)
 			{
 				// Set the action
-				$this->_mode = $this->_data->action = 'create';
+				$this->mode = $this->data->action = 'create';
 			}
 			else
 			{
 				// Set the action
-				$this->_mode = $this->_data->action = 'update';
+				$this->mode = $this->data->action = 'update';
 
 				// If we don't have a section, redirect to the creation screen
-				if ($this->_data->section === null)
+				if ($this->data->section === null)
 				{
 					Redirect::to("admin/form/sections/{$formKey}/0");
 				}
 
 				// If the section isn't part of this form, redirect them
-				if ($this->_data->section->form->key != $formKey)
+				if ($this->data->section->form->key != $formKey)
 				{
 					Redirect::to("admin/form/sections/{$section->form->key}/{$id}");
 				}
@@ -498,14 +498,14 @@ class Form extends AdminBaseController {
 		$this->currentUser->allowed(['form.create', 'form.update', 'form.delete'], true);
 
 		// Set the view files
-		$this->_view = 'admin/form/fields';
-		$this->_jsView = 'admin/form/fields_js';
+		$this->view = 'admin/form/fields';
+		$this->jsView = 'admin/form/fields_js';
 
 		// Pass along the form key to the view
-		$this->_data->formKey = $formKey;
+		$this->data->formKey = $formKey;
 
 		// Get the form and pass it along
-		$form = $this->_data->form = $this->form->findByKey($formKey);
+		$form = $this->data->form = $this->form->findByKey($formKey);
 
 		// If there isn't an ID, show all the fields
 		if ($id === false)
@@ -515,9 +515,9 @@ class Form extends AdminBaseController {
 			$formOutput->assemble();
 
 			// Set up the variables
-			$this->_data->tabs = $formOutput->getData('tabs');
-			$this->_data->sections = $formOutput->getData('sections');
-			$this->_data->fields = $formOutput->getData('fields');
+			$this->data->tabs = $formOutput->getData('tabs');
+			$this->data->sections = $formOutput->getData('sections');
+			$this->data->fields = $formOutput->getData('fields');
 
 			// Build the delete field modal
 			$this->_ajax[] = View::make(Location::partial('common/modal'))
@@ -529,13 +529,13 @@ class Form extends AdminBaseController {
 		else
 		{
 			// Set the view
-			$this->_view = 'admin/form/fields_action';
+			$this->view = 'admin/form/fields_action';
 
 			// Get the field
-			$field = $this->_data->field = $form->fields()->find($id);
+			$field = $this->data->field = $form->fields()->find($id);
 
 			// Set the field types
-			$this->_data->types = [
+			$this->data->types = [
 				'text'		=> lang('Text_field'),
 				'textarea'	=> lang('Text_area'),
 				'select'	=> lang('Dropdown'),
@@ -545,30 +545,30 @@ class Form extends AdminBaseController {
 			$role = Nova::resolveBinding('AccessRoleRepositoryInterface');
 
 			// Set the access restrictions
-			$this->_data->accessRoles = $role->all();
+			$this->data->accessRoles = $role->all();
 
 			// Get the tabs and sections
-			$this->_data->tabs[0] = lang('short.selectOne', lang('tab'));
-			$this->_data->tabs+= $form->tabs->toSimpleArray('id', 'name');
-			$this->_data->sections[0] = lang('short.selectOne', lang('section'));
-			$this->_data->sections+= $form->sections->toSimpleArray('id', 'name');
+			$this->data->tabs[0] = lang('short.selectOne', lang('tab'));
+			$this->data->tabs+= $form->tabs->toSimpleArray('id', 'name');
+			$this->data->sections[0] = lang('short.selectOne', lang('section'));
+			$this->data->sections+= $form->sections->toSimpleArray('id', 'name');
 
 			// Clear out the message for this page
-			$this->_data->message = false;
+			$this->data->message = false;
 
 			// ID 0 means a new section, anything else edits an existing section
 			if ((int) $id === 0)
 			{
 				// Set the action
-				$this->_mode = $this->_data->action = 'create';
+				$this->mode = $this->data->action = 'create';
 			}
 			else
 			{
 				// Set the action
-				$this->_mode = $this->_data->action = 'update';
+				$this->mode = $this->data->action = 'update';
 
 				// Get the field values
-				$this->_data->values = $field->values->sortBy(function($v)
+				$this->data->values = $field->values->sortBy(function($v)
 				{
 					return $v->order;
 				});

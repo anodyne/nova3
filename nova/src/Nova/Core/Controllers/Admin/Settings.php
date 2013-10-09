@@ -14,10 +14,10 @@ class Settings extends AdminBaseController {
 		$this->currentUser->allowed(['settings.create', 'settings.update', 'settings.delete'], true);
 
 		// Set the view
-		$this->_view = 'admin/settings/basic';
+		$this->view = 'admin/settings/basic';
 
 		// Send the settings to the view
-		$this->_data->settings = \SettingsModel::basicSettings()->get();
+		$this->data->settings = \SettingsModel::basicSettings()->get();
 	}
 
 	public function getAdvanced()
@@ -26,10 +26,10 @@ class Settings extends AdminBaseController {
 		$this->currentUser->allowed(['settings.create', 'settings.update', 'settings.delete'], true);
 
 		// Set the view
-		$this->_view = 'admin/settings/advanced';
+		$this->view = 'admin/settings/advanced';
 
 		// Send the settings to the view
-		$this->_data->settings = \SettingsModel::basicSettings()->get();
+		$this->data->settings = \SettingsModel::basicSettings()->get();
 	}
 
 	public function getCreate()

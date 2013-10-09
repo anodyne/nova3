@@ -102,22 +102,22 @@ abstract class Core extends Controller {
 	/**
 	 * Name of the view file to use.
 	 */
-	public $_view = 'processing';
+	protected $view = 'processing';
 	
 	/**
 	 * Controller action data.
 	 */
-	public $_data;
+	protected $data;
 	
 	/**
 	 * Name of the JavaScript view file to use.
 	 */
-	public $_jsView;
+	protected $jsView;
 	
 	/**
 	 * Controller action data for the JavaScript view.
 	 */
-	public $_jsData;
+	protected $_jsData;
 
 	/**
 	 * Array of flash messages
@@ -152,32 +152,32 @@ abstract class Core extends Controller {
 	/**
 	 * The current mode.
 	 */
-	public $_mode = false;
+	protected $mode = false;
 
 	/**
 	 * Whether the header and message are editable.
 	 */
-	public $_editable = true;
+	protected $editable = true;
 
 	/**
 	 * The controller used for the current request.
 	 */
-	public $_controller;
+	protected $controller;
 
 	/**
 	 * The action method used for the current request.
 	 */
-	public $_action;
+	protected $action;
 
 	/**
 	 * The controller used for the current request with namespace.
 	 */
-	public $_fullController;
+	protected $fullController;
 
 	/**
 	 * The action method used for the current request with HTTP verb.
 	 */
-	public $_fullAction;
+	protected $fullAction;
 
 	/**
 	 * Stop execution (used specifically for filters)
@@ -261,8 +261,8 @@ abstract class Core extends Controller {
 				$me->nav = new Nav;
 
 				// Create empty objects for the data
-				$me->_data = new stdClass;
-				$me->_jsData = new stdClass;
+				$me->data = new stdClass;
+				$me->jsData = new stdClass;
 				$me->_skinInfo = new stdClass;
 
 				// Grab the content for the current section
@@ -283,24 +283,24 @@ abstract class Core extends Controller {
 		if ( ! is_object($this->layout)) return;
 
 		// Set the content view (if it's been set)
-		if ( ! empty($this->_view))
+		if ( ! empty($this->view))
 		{
-			$this->layout->template->content = View::make(Location::page($this->_view))
+			$this->layout->template->content = View::make(Location::page($this->view))
 				->with('_icons', $this->icons)
 				->with('_settings', $this->settings)
 				->with('_currentUser', $this->currentUser)
 				->with('_auth', $this->auth)
-				->with((array) $this->_data);
+				->with((array) $this->data);
 		}
 		
 		// Set the javascript view (if it's been set)
-		if ( ! empty($this->_jsView))
+		if ( ! empty($this->jsView))
 		{
-			$this->layout->javascript = View::make(Location::js($this->_jsView))
+			$this->layout->javascript = View::make(Location::js($this->jsView))
 				->with('_icons', $this->icons)
 				->with('_currentUser', $this->currentUser)
 				->with('_auth', $this->auth)
-				->with((array) $this->_jsData);
+				->with((array) $this->jsData);
 		}
 
 		// Set the final title content
@@ -312,16 +312,16 @@ abstract class Core extends Controller {
 		// Set the final message content
 		$this->layout->template->message = $this->parseSiteContent('message', true);
 
-		if ($this->_editable)
+		if ($this->editable)
 		{
 			// Set the final header content key
-			$this->layout->template->headerKey = (array_key_exists($this->_action, $this->_headers)) 
-				? $this->_controller.'_'.$this->_action.'_header' 
+			$this->layout->template->headerKey = (array_key_exists($this->action, $this->_headers)) 
+				? $this->controller.'_'.$this->action.'_header' 
 				: false;
 
 			// Set the final message content key
-			$this->layout->template->messageKey = (array_key_exists($this->_action, $this->_messages)) 
-				? $this->_controller.'_'.$this->_action.'_message' 
+			$this->layout->template->messageKey = (array_key_exists($this->action, $this->_messages)) 
+				? $this->controller.'_'.$this->action.'_message' 
 				: false;
 		}
 
@@ -412,7 +412,7 @@ abstract class Core extends Controller {
 	protected function getActionName()
 	{
 		// Set the fully qualified action name
-		$this->_fullAction = $actionName = Str::parseCallback(Route::currentRouteAction(), false)[1];
+		$this->fullAction = $actionName = Str::parseCallback(Route::currentRouteAction(), false)[1];
 
 		// Remove the HTTP verb
 		$actionName = (substr($actionName, 0, 3) == 'get')
@@ -429,7 +429,7 @@ abstract class Core extends Controller {
 			: $actionName;
 
 		// Set the short action name
-		$this->_action = Str::lower($actionName);
+		$this->action = Str::lower($actionName);
 	}
 
 	/**
@@ -440,10 +440,10 @@ abstract class Core extends Controller {
 	protected function getControllerName()
 	{
 		// Set the namespaced controller name
-		$this->_fullController = Str::parseCallback(Route::currentRouteAction(), false)[0];
+		$this->fullController = Str::parseCallback(Route::currentRouteAction(), false)[0];
 
 		// Set the controller name
-		$this->_controller = Str::denamespace($this->_fullController);
+		$this->controller = Str::denamespace($this->fullController);
 	}
 
 	/**
@@ -458,14 +458,14 @@ abstract class Core extends Controller {
 		//s($this->_headers);
 		// If the data coming from the controller action has a
 		// title/header/message variable, use that instead of what we have
-		if (is_object($this->_data) and property_exists($this->_data, $type))
+		if (is_object($this->data) and property_exists($this->data, $type))
 		{
 			if ($markdown)
 			{
-				return Markdown::parse($this->_data->{$type});
+				return Markdown::parse($this->data->{$type});
 			}
 
-			return $this->_data->{$type};
+			return $this->data->{$type};
 		}
 
 		// Figure out the variables we should be using based on the type
@@ -485,25 +485,25 @@ abstract class Core extends Controller {
 		}
 
 		// Check if we have a mode
-		if ($this->_mode !== false and array_key_exists("{$this->_action}.{$this->_mode}", $this->{$typeVar}))
+		if ($this->mode !== false and array_key_exists("{$this->action}.{$this->mode}", $this->{$typeVar}))
 		{
 			if ($markdown)
 			{
-				return Markdown::parse($this->{$typeVar}["{$this->_action}.{$this->_mode}"]);
+				return Markdown::parse($this->{$typeVar}["{$this->action}.{$this->mode}"]);
 			}
 
-			return $this->{$typeVar}["{$this->_action}.{$this->_mode}"];
+			return $this->{$typeVar}["{$this->action}.{$this->mode}"];
 		}
 
 		// Check if we have something already
-		if (array_key_exists($this->_action, $this->{$typeVar}))
+		if (array_key_exists($this->action, $this->{$typeVar}))
 		{
 			if ($markdown)
 			{
-				return Markdown::parse($this->{$typeVar}[$this->_action]);
+				return Markdown::parse($this->{$typeVar}[$this->action]);
 			}
 
-			return $this->{$typeVar}[$this->_action];
+			return $this->{$typeVar}[$this->action];
 		}
 
 		return null;

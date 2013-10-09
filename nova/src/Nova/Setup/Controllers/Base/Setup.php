@@ -31,22 +31,22 @@ abstract class Setup extends Controller {
 	/**
 	 * Name of the view file to use.
 	 */
-	public $_view;
+	protected $view;
 	
 	/**
 	 * Controller action data.
 	 */
-	public $_data;
+	protected $data;
 	
 	/**
 	 * Name of the JavaScript view file to use.
 	 */
-	public $_jsView;
+	protected $jsView;
 	
 	/**
 	 * Controller action data for the JavaScript view.
 	 */
-	public $_jsData;
+	protected $jsData;
 
 	/**
 	 * Page title.
@@ -86,22 +86,22 @@ abstract class Setup extends Controller {
 	/**
 	 * The controller used for the current request.
 	 */
-	public $_controller;
+	protected $controller;
 
 	/**
 	 * The action method used for the current request.
 	 */
-	public $_action;
+	protected $action;
 
 	/**
 	 * The controller used for the current request with namespace.
 	 */
-	public $_fullController;
+	protected $fullController;
 
 	/**
 	 * The action method used for the current request with HTTP verb.
 	 */
-	public $_fullAction;
+	protected $fullAction;
 
 	public function __construct(NovaAuthInterface $auth)
 	{
@@ -184,8 +184,8 @@ abstract class Setup extends Controller {
 				$me->request = Request::instance();
 
 				// Create empty objects for the data
-				$me->_data = new stdClass;
-				$me->_jsData = new stdClass;
+				$me->data = new stdClass;
+				$me->jsData = new stdClass;
 			}
 		});
 	}
@@ -200,17 +200,17 @@ abstract class Setup extends Controller {
 		if ( ! is_object($this->layout)) return;
 
 		// Set the view (if it's been set)
-		if ( ! empty($this->_view))
+		if ( ! empty($this->view))
 		{
-			$this->layout->template->content = View::make(Location::page($this->_view))
-				->with((array) $this->_data);
+			$this->layout->template->content = View::make(Location::page($this->view))
+				->with((array) $this->data);
 		}
 		
 		// Set the javascript view (if it's been set)
-		if ( ! empty($this->_jsView))
+		if ( ! empty($this->jsView))
 		{
-			$this->layout->javascript = View::make(Location::js($this->_jsView))
-				->with((array) $this->_jsData);
+			$this->layout->javascript = View::make(Location::js($this->jsView))
+				->with((array) $this->jsData);
 		}
 
 		// Steps indicator
@@ -310,7 +310,7 @@ abstract class Setup extends Controller {
 	protected function getActionName()
 	{
 		// Set the fully qualified action name
-		$this->_fullAction = $actionName = Str::parseCallback(Route::currentRouteAction(), false)[1];
+		$this->fullAction = $actionName = Str::parseCallback(Route::currentRouteAction(), false)[1];
 
 		// Remove the HTTP verb
 		$actionName = (substr($actionName, 0, 3) == 'get') ? substr_replace($actionName, '', 0, 3) : $actionName;
@@ -319,16 +319,16 @@ abstract class Setup extends Controller {
 		$actionName = (substr($actionName, 0, 6) == 'delete') ? substr_replace($actionName, '', 0, 6) : $actionName;
 
 		// Set the short action name
-		$this->_action = Str::lower($actionName);
+		$this->action = Str::lower($actionName);
 	}
 
 	protected function getControllerName()
 	{
 		// Set the namespaced controller name
-		$this->_fullController = Str::parseCallback(Route::currentRouteAction(), false)[0];
+		$this->fullController = Str::parseCallback(Route::currentRouteAction(), false)[0];
 
 		// Set the controller name
-		$this->_controller = Str::denamespace($this->_fullController);
+		$this->controller = Str::denamespace($this->fullController);
 	}
 
 }

@@ -12,7 +12,7 @@ class Enterprise extends MainBaseController {
 	
 	public function getAwards()
 	{
-		$this->_view = 'enterprise/awards';
+		$this->view = 'enterprise/awards';
 	}
 	
 }
@@ -51,9 +51,9 @@ Next, we're going to add the year parameter to our controller method and then pa
 
 <pre>public function getAwards($year = 2013)
 {
-	$this->_view = 'enterprise/awards';
+	$this->view = 'enterprise/awards';
 
-	$this->_data->year = $year;
+	$this->data->year = $year;
 }</pre>
 
 Now that our view knows about the year variable, we can change the view to use it.

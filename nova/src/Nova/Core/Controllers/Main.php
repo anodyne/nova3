@@ -42,17 +42,17 @@ class Main extends MainBaseController {
 	public function getIndex()
 	{
 		// Set the views
-		$this->_view = 'main/index';
-		$this->_jsView = 'main/index_js';
+		$this->view = 'main/index';
+		$this->jsView = 'main/index_js';
 	}
 
 	public function getCredits()
 	{
 		// Set the view
-		$this->_view = 'main/credits';
+		$this->view = 'main/credits';
 
 		// Get the permanent credits
-		$this->_data->permanentCredits = Markdown::parse($this->content->findByKey('other.credits'));
+		$this->data->permanentCredits = Markdown::parse($this->content->findByKey('other.credits'));
 	}
 
 }

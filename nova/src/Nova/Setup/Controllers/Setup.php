@@ -23,7 +23,7 @@ class Setup extends SetupBaseController {
 	public function getIndex()
 	{
 		// Set the view
-		$this->_view = 'setup/index';
+		$this->view = 'setup/index';
 
 		// Set the title and header
 		$this->_title = "Setup Center";
@@ -31,8 +31,8 @@ class Setup extends SetupBaseController {
 
 		// Do some checks to see what we should show
 		$installed = (bool) \Setup::installed(false);
-		$this->_data->db = (bool) File::exists(APPPATH.'config/'.App::environment().'/database.php');
-		$this->_data->email = (bool) File::exists(APPPATH.'config/'.App::environment().'/mail.php');
+		$this->data->db = (bool) File::exists(APPPATH.'config/'.App::environment().'/database.php');
+		$this->data->email = (bool) File::exists(APPPATH.'config/'.App::environment().'/mail.php');
 
 		// If the system is installed, kick them forward
 		if ($installed)
@@ -44,8 +44,8 @@ class Setup extends SetupBaseController {
 	public function getStart()
 	{
 		// Set the views
-		$this->_view = 'setup/start';
-		$this->_jsView = 'setup/start_js';
+		$this->view = 'setup/start';
+		$this->jsView = 'setup/start_js';
 
 		// Set the title and header
 		$this->_title = 'Setup Center';
@@ -62,7 +62,7 @@ class Setup extends SetupBaseController {
 				/**
 				 * Nova is installed and an update is available.
 				 */
-				$this->_data->option = 3;
+				$this->data->option = 3;
 				$this->_header = 'Update Nova 3';
 				$this->_controls = HTML::link('#', 'Ignore this version', [
 					'class' => 'pull-right js-ignoreVersion',
@@ -82,9 +82,9 @@ class Setup extends SetupBaseController {
 				$this->_steps = 'setup/steps_update';
 
 				// Send the update information over
-				$this->_data->update = new stdClass;
-				$this->_data->update->version = "Nova {$update->version}";
-				$this->_data->update->description = $update->notes;
+				$this->data->update = new stdClass;
+				$this->data->update->version = "Nova {$update->version}";
+				$this->data->update->description = $update->notes;
 			}
 			else
 			{
@@ -92,7 +92,7 @@ class Setup extends SetupBaseController {
 				 * Nova is installed and there are no updates available. Show the
 				 * admin the list of utilities they can use.
 				 */
-				$this->_data->option = 4;
+				$this->data->option = 4;
 				$this->_header = 'Nova Setup Utilities';
 				$this->_controls = HTML::link('/', 'Back to Site', ['class' => 'pull-right']);
 			}
@@ -117,10 +117,10 @@ class Setup extends SetupBaseController {
 					->sys_version_major;
 
 				// Set the option
-				$this->_data->option = ((int) $version == 2) ? 2 : 5;
+				$this->data->option = ((int) $version == 2) ? 2 : 5;
 
 				// Nova 2 means they can do the migration
-				if ($this->_data->option == 2)
+				if ($this->data->option == 2)
 				{
 					$this->_controls = HTML::link('setup/install', "I'd like to do a Fresh Install", [
 						'class' => 'pull-right',
@@ -141,7 +141,7 @@ class Setup extends SetupBaseController {
 				}
 				
 				// Nova 1 means they can't do the migration
-				if ($this->_data->option == 5)
+				if ($this->data->option == 5)
 				{
 					$this->_controls = HTML::link('setup/install', "I'd like to do a Fresh Install", [
 						'class' => 'pull-right',
@@ -155,7 +155,7 @@ class Setup extends SetupBaseController {
 				 * The database is empty which means the only thing we can do
 				 * is a fresh install of Nova 3.
 				 */
-				$this->_data->option = 1;
+				$this->data->option = 1;
 				$this->_controls = Form::open(['url' => 'setup/install']).
 					Form::button('Start Install', [
 						'class'	=> 'btn btn-primary',
@@ -176,8 +176,8 @@ class Setup extends SetupBaseController {
 	public function getUninstall()
 	{
 		// Set the views
-		$this->_view = 'setup/uninstall';
-		$this->_jsView = 'setup/uninstall_js';
+		$this->view = 'setup/uninstall';
+		$this->jsView = 'setup/uninstall_js';
 
 		// Set the title and header
 		$this->_title = $this->_header = 'Uninstall Nova';
@@ -219,7 +219,7 @@ class Setup extends SetupBaseController {
 	public function getUninstallCleanup()
 	{
 		// Set the view
-		$this->_view = 'processing';
+		$this->view = 'processing';
 
 		// Set the title and head
 		$this->_title = $this->_header = 'Uninstall Nova';
@@ -245,8 +245,8 @@ class Setup extends SetupBaseController {
 	public function getGenres()
 	{
 		// Set the views
-		$this->_view = 'setup/genres';
-		$this->_jsView = 'setup/genres_js';
+		$this->view = 'setup/genres';
+		$this->jsView = 'setup/genres_js';
 
 		// Set the title and header
 		$this->_title = $this->_header = 'The Genre Panel';
@@ -289,11 +289,11 @@ class Setup extends SetupBaseController {
 		}
 		
 		// Set the genres list
-		$this->_data->genres = (isset($genres)) ? $genres : false;
-		$this->_data->additional = (isset($additional)) ? $additional : false;
+		$this->data->genres = (isset($genres)) ? $genres : false;
+		$this->data->additional = (isset($additional)) ? $additional : false;
 		
 		// Set the loading image
-		$this->_data->loading = HTML::image('nova/views/design/images/loading.gif', 'Processing');
+		$this->data->loading = HTML::image('nova/views/design/images/loading.gif', 'Processing');
 	}
 
 }

@@ -7,10 +7,10 @@ class Admin extends AdminBaseController {
 
 	public function getIndex()
 	{
-		$this->_view = 'admin/admin/index';
+		$this->view = 'admin/admin/index';
 
-		$this->_data->header = 'Control Panel';
-		$this->_data->message = false;
+		$this->data->header = 'Control Panel';
+		$this->data->message = false;
 	}
 
 	public function getError($code)
@@ -18,8 +18,8 @@ class Admin extends AdminBaseController {
 		switch ($code)
 		{
 			case ErrorCode::ADMIN_NOT_ALLOWED:
-				$this->_data->header = "Not Allowed";
-				$this->_data->message = "You don't have permission to view that page.";
+				$this->data->header = "Not Allowed";
+				$this->data->message = "You don't have permission to view that page.";
 			break;
 		}
 	}

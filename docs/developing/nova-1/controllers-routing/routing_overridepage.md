@@ -12,7 +12,7 @@ class Enterprise extends MainBaseController {
 	
 	public function getMainPage()
 	{
-		$this->_view = 'enterprise/main';
+		$this->view = 'enterprise/main';
 	}
 	
 }
@@ -28,4 +28,4 @@ The beautiful part about some of Nova's new features is that your page automatic
 
 - Resource: App\Controllers\Enterprise@getMainPage
 
-Head over to your browser and go to `http://yoursite/`. If all goes well, you should see the changes you made in your view file. You can also do any PHP calculations or database calls you want in the controller and pass them to the view through the `$this->_data` object.
+Head over to your browser and go to `http://yoursite/`. If all goes well, you should see the changes you made in your view file. You can also do any PHP calculations or database calls you want in the controller and pass them to the view through the `$this->data` object.

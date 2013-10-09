@@ -23,27 +23,27 @@ class Manage extends AdminBaseController {
 		// Verify the user is allowed
 		$this->currentUser->allowed(['routes.create', 'routes.update', 'routes.delete'], true);
 
-		$this->_jsView = 'admin/manage/routes_js';
+		$this->jsView = 'admin/manage/routes_js';
 
 		if ($routeId !== false)
 		{
-			$this->_view = 'admin/manage/routes_action';
+			$this->view = 'admin/manage/routes_action';
 
 			// Set the ID
 			$routeId = (is_numeric($routeId)) ? $routeId : 0;
 
 			// Get the route
-			$this->_data->route = $this->routes->find($routeId);
+			$this->data->route = $this->routes->find($routeId);
 
 			// Set the action
-			$this->_mode = $this->_data->action = ((int) $routeId === 0) ? 'create' : 'update';
+			$this->mode = $this->data->action = ((int) $routeId === 0) ? 'create' : 'update';
 		}
 		else
 		{
-			$this->_view = 'admin/manage/routes';
+			$this->view = 'admin/manage/routes';
 
 			// Get all the routes for the system
-			$this->_data->routes = $this->routes->all();
+			$this->data->routes = $this->routes->all();
 
 			// Build the duplicate page modal
 			$this->_ajax[] = modal([
@@ -154,15 +154,15 @@ class Manage extends AdminBaseController {
 		$this->currentUser->allowed(['content.create', 'content.update', 'content.delete'], true);
 
 		// Set the views
-		$this->_jsView = 'admin/manage/sitecontent_js';
+		$this->jsView = 'admin/manage/sitecontent_js';
 
 		if ($contentId !== false)
 		{
 			// Set the view
-			$this->_view = 'admin/manage/sitecontent_action';
+			$this->view = 'admin/manage/sitecontent_action';
 
 			// Get the content item
-			$content = $this->_data->content = $this->content->find($contentId);
+			$content = $this->data->content = $this->content->find($contentId);
 
 			// Get all the routes
 			$routes = $this->routes->all();
@@ -180,15 +180,15 @@ class Manage extends AdminBaseController {
 			}
 
 			// Pass the final route list over to the JS view
-			$this->_jsData->routeSource = json_encode($routeList);
+			$this->jsData->routeSource = json_encode($routeList);
 
 			// Set the mode and form action
-			$this->_mode = $this->_data->action = ($id == 'create') ? 'create' : 'update';
+			$this->mode = $this->data->action = ($id == 'create') ? 'create' : 'update';
 		}
 		else
 		{
 			// Set the view
-			$this->_view = 'admin/manage/sitecontent';
+			$this->view = 'admin/manage/sitecontent';
 
 			// Get all the site content
 			$contents = $this->content->all();
@@ -196,10 +196,10 @@ class Manage extends AdminBaseController {
 			foreach ($contents as $content)
 			{
 				// Get the type
-				$this->_data->contentTypes[$content->type] = ucfirst(Str::plural($content->type));
+				$this->data->contentTypes[$content->type] = ucfirst(Str::plural($content->type));
 
 				// Get the content
-				$this->_data->content[$content->type][] = $content;
+				$this->data->content[$content->type][] = $content;
 			}
 
 			// Build the delete content modal

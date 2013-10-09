@@ -25,7 +25,7 @@ class Catalog extends AdminBaseController {
 
 	public function getIndex()
 	{
-		$this->_view = 'admin/catalog/catalogs';
+		$this->view = 'admin/catalog/catalogs';
 	}
 
 	public function getModules()
@@ -43,32 +43,32 @@ class Catalog extends AdminBaseController {
 		$this->currentUser->allowed(['catalog.create', 'catalog.edit', 'catalog.delete'], true);
 
 		// Set the JS view
-		$this->_jsView = 'admin/catalog/ranks_js';
+		$this->jsView = 'admin/catalog/ranks_js';
 
 		if ($id !== false)
 		{
 			// Set the view
-			$this->_view = 'admin/catalog/ranks_action';
+			$this->view = 'admin/catalog/ranks_action';
 
 			// Set the ID
 			$id = (is_numeric($id)) ? $id : 0;
 
 			// Get the rank set
-			$this->_data->rank = $this->catalog->findRank($id);
+			$this->data->rank = $this->catalog->findRank($id);
 
 			// Set the action
-			$this->_mode = $this->_data->action = ((int) $id === 0) ? 'create' : 'update';
+			$this->mode = $this->data->action = ((int) $id === 0) ? 'create' : 'update';
 		}
 		else
 		{
 			// Set the view
-			$this->_view = 'admin/catalog/ranks';
+			$this->view = 'admin/catalog/ranks';
 
 			// Set the path to the ranks
-			$this->_data->rankPath = "app/assets/common/{$this->genre}/ranks/";
+			$this->data->rankPath = "app/assets/common/{$this->genre}/ranks/";
 
 			// Get all the ranks for the current genre
-			$ranks = $this->_data->ranks = $this->catalog->allRanks();
+			$ranks = $this->data->ranks = $this->catalog->allRanks();
 
 			// Get a simple array of ranks
 			$simpleRanks = $ranks->toSimpleArray('id', 'location');
@@ -85,7 +85,7 @@ class Catalog extends AdminBaseController {
 				});
 
 			// Start the list of pending ranks
-			$this->_data->pending = [];
+			$this->data->pending = [];
 
 			// Loop through the directories and get the info
 			foreach ($finder as $f)
@@ -99,7 +99,7 @@ class Catalog extends AdminBaseController {
 					// Get the contents of the QuickInstall file
 					$rankContents = File::get(APPPATH."assets/common/{$this->genre}/ranks/{$relativePath}/rank.json");
 
-					$this->_data->pending[$relativePath] = json_decode($rankContents);
+					$this->data->pending[$relativePath] = json_decode($rankContents);
 				}
 			}
 
@@ -212,41 +212,41 @@ class Catalog extends AdminBaseController {
 		$this->currentUser->allowed(['catalog.create', 'catalog.edit', 'catalog.delete'], true);
 
 		// Set the JS view
-		$this->_jsView = 'admin/catalog/skins_js';
+		$this->jsView = 'admin/catalog/skins_js';
 
 		// Pass some data to the javascript view
-		$this->_jsData->id = $id;
-		$this->_jsData->uploadSize = Media::getFileSizeLimit();
-		$this->_jsData->acceptedFiles = Media::getFileFormats('csv');
+		$this->jsData->id = $id;
+		$this->jsData->uploadSize = Media::getFileSizeLimit();
+		$this->jsData->acceptedFiles = Media::getFileFormats('csv');
 
 		if ($id !== false)
 		{
 			// Set the view
-			$this->_view = 'admin/catalog/skins_action';
+			$this->view = 'admin/catalog/skins_action';
 
 			// Set the ID
 			$id = (is_numeric($id)) ? $id : 0;
 
 			// Get the skin
-			$skin = $this->_data->skin = $this->catalog->findSkin($id);
+			$skin = $this->data->skin = $this->catalog->findSkin($id);
 
 			// Set the action
-			$this->_mode = $this->_data->action = ((int) $id === 0) ? 'create' : 'update';
+			$this->mode = $this->data->action = ((int) $id === 0) ? 'create' : 'update';
 
 			if ((int) $id !== 0 and File::exists(APPPATH."skins/{$skin->location}/options.json"))
 			{
 				$optionsContent = File::get(APPPATH."skins/{$skin->location}/options.json");
 
-				$this->_data->options = json_decode($optionsContent);
+				$this->data->options = json_decode($optionsContent);
 			}
 		}
 		else
 		{
 			// Set the view
-			$this->_view = 'admin/catalog/skins';
+			$this->view = 'admin/catalog/skins';
 
 			// Get all the skins
-			$skins = $this->_data->skins = $this->catalog->allSkins();
+			$skins = $this->data->skins = $this->catalog->allSkins();
 
 			// Get a simple array of skins
 			$simpleSkins = $skins->toSimpleArray('id', 'location');
@@ -262,7 +262,7 @@ class Catalog extends AdminBaseController {
 				});
 
 			// Start the list of pending ranks
-			$this->_data->pending = [];
+			$this->data->pending = [];
 
 			// Loop through the directories and get the info
 			foreach ($finder as $f)
@@ -276,7 +276,7 @@ class Catalog extends AdminBaseController {
 					// Get the contents of the QuickInstall file
 					$skinContents = File::get(APPPATH."skins/{$relativePath}/skin.json");
 
-					$this->_data->pending[$relativePath] = json_decode($skinContents);
+					$this->data->pending[$relativePath] = json_decode($skinContents);
 				}
 			}
 

@@ -29,14 +29,14 @@ class User extends AdminBaseController {
 		$this->currentUser->allowed(['user.create', 'user.update', 'user.delete'], true);
 
 		// Set the views
-		$this->_view = 'admin/user/users';
-		$this->_jsView = 'admin/user/users_js';
+		$this->view = 'admin/user/users';
+		$this->jsView = 'admin/user/users_js';
 
 		// Get all the users
-		$this->_data->users = $this->user->active();
+		$this->data->users = $this->user->active();
 
 		// Get the pending users
-		$this->_data->pending = $this->user->pending();
+		$this->data->pending = $this->user->pending();
 
 		// Build the delete user modal
 		$this->_ajax[] = modal([
@@ -141,10 +141,10 @@ class User extends AdminBaseController {
 		$this->currentUser->allowed('user.create', true);
 
 		// Set the views
-		$this->_view = 'admin/user/create';
+		$this->view = 'admin/user/create';
 
 		// Set the user
-		$this->_data->user = false;
+		$this->data->user = false;
 	}
 
 	public function getEdit($userId)
@@ -153,14 +153,14 @@ class User extends AdminBaseController {
 		$this->currentUser->allowed('user.update', true);
 
 		// Set the views
-		$this->_view = 'admin/user/edit';
-		$this->_jsView = 'admin/user/edit_js';
+		$this->view = 'admin/user/edit';
+		$this->jsView = 'admin/user/edit_js';
 
 		// Set the user
-		$user = $this->_data->user = $this->user->find($userId);
+		$user = $this->data->user = $this->user->find($userId);
 
 		// Get the language directory listing
-		$this->_data->languageDir = Finder::create()->directories()->in(APPPATH."lang");
+		$this->data->languageDir = Finder::create()->directories()->in(APPPATH."lang");
 
 		// Build the delete user modal
 		$this->_ajax[] = modal([
@@ -325,16 +325,16 @@ class User extends AdminBaseController {
 		$this->currentUser->allowed('user.update', true);
 
 		// Set the view files
-		$this->_view = 'admin/user/upload';
-		$this->_jsView = 'admin/user/upload_js';
+		$this->view = 'admin/user/upload';
+		$this->jsView = 'admin/user/upload_js';
 
 		// Get the user
 		$user = $this->user->find($userId);
 
 		// Set the data
-		$this->_data->id = $this->_jsData->id = $userId;
-		$this->_jsData->uploadSize = Media::getFileSizeLimit();
-		$this->_jsData->acceptedFiles = Media::getFileFormats('csv');
+		$this->data->id = $this->jsData->id = $userId;
+		$this->jsData->uploadSize = Media::getFileSizeLimit();
+		$this->jsData->acceptedFiles = Media::getFileFormats('csv');
 
 		if ( ! $this->currentUser->canEditUser($user))
 		{
@@ -376,11 +376,11 @@ class User extends AdminBaseController {
 		$this->currentUser->allowed('user.update', true);
 
 		// Set the views
-		$this->_view = 'admin/user/avatar';
-		$this->_jsView = 'admin/user/avatar_js';
+		$this->view = 'admin/user/avatar';
+		$this->jsView = 'admin/user/avatar_js';
 
 		// Get the user
-		$user = $this->_data->user = $this->user->find($userId);
+		$user = $this->data->user = $this->user->find($userId);
 
 		if ( ! $this->currentUser->canEditUser($user))
 		{

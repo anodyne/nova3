@@ -38,7 +38,7 @@ class Login extends LoginBaseController {
 	public function getIndex($error = ErrorCode::LOGIN_OK)
 	{
 		// Set the view
-		$this->_view = 'login/index';
+		$this->view = 'login/index';
 
 		// Only show the error messages when there's something wrong
 		if ($error > ErrorCode::LOGIN_OK)
@@ -172,7 +172,7 @@ class Login extends LoginBaseController {
 	public function getReset()
 	{
 		// Set the view
-		$this->_view = 'login/reset';
+		$this->view = 'login/reset';
 
 		// Get the reset success message
 		$flash = Session::get('reset_step1', null);
@@ -245,12 +245,12 @@ class Login extends LoginBaseController {
 	public function getResetConfirm($id, $code)
 	{
 		// Set the view
-		$this->_view = 'login/reset_confirm';
+		$this->view = 'login/reset_confirm';
 
 		// Set the data
-		$this->_data->user = $id;
-		$this->_data->code = $code;
-		$this->_data->confirmed = false;
+		$this->data->user = $id;
+		$this->data->code = $code;
+		$this->data->confirmed = false;
 
 		// Get the reset triggers
 		$confirm = Session::get('reset_confirmation', null);
@@ -265,8 +265,8 @@ class Login extends LoginBaseController {
 					'message' 	=> lang('login.reset.step2Success', HTML::link('login', lang('Action.login'))),
 				];
 
-				$this->_data->confirmed = true;
-				$this->_data->message = false;
+				$this->data->confirmed = true;
+				$this->data->message = false;
 			}
 			elseif ($reset === false)
 			{

@@ -31,7 +31,7 @@ class Update extends SetupBaseController {
 	public function getFinalize()
 	{
 		// Set the view
-		$this->_view = 'setup/update/finalize';
+		$this->view = 'setup/update/finalize';
 
 		// Set the title and header
 		$this->_title = 'Setup Center';
@@ -47,7 +47,7 @@ class Update extends SetupBaseController {
 	public function getRollback()
 	{
 		// Set the view
-		$this->_view = 'setup/update/rollback';
+		$this->view = 'setup/update/rollback';
 
 		// Set the title and header
 		$this->_title = $this->_header = 'Rollback Nova';
@@ -70,7 +70,7 @@ class Update extends SetupBaseController {
 		}
 		else
 		{
-			$this->_data->message = partial('common/alert', [
+			$this->data->message = partial('common/alert', [
 				'class'		=> 'alert-danger',
 				'content'	=> 'You cannot rollback to a previous version of Nova. <a href="'.URL::to('setup').'">Go back</a>',
 			]);
@@ -93,7 +93,7 @@ class Update extends SetupBaseController {
 	public function getRollbackFinalize()
 	{
 		// Set the view
-		$this->_view = 'setup/update/finalize_rollback';
+		$this->view = 'setup/update/finalize_rollback';
 
 		// Set the title and header
 		$this->_title = $this->_header = 'Rollback Nova';

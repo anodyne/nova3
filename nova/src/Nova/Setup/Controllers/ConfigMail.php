@@ -14,13 +14,13 @@ class ConfigMail extends SetupBaseController {
 	public function getIndex()
 	{
 		// Set the view file
-		$this->_view = 'setup/config/email';
+		$this->view = 'setup/config/email';
 
 		// Set the title and header
 		$this->_title = $this->_header = 'Email Setup';
 
 		// Pass the step along
-		$this->_data->step = false;
+		$this->data->step = false;
 
 		// Clear the installed status cache
 		Cache::forget('nova.installed');
@@ -30,7 +30,7 @@ class ConfigMail extends SetupBaseController {
 		
 		if ( ! File::exists(SRCPATH.'Setup/generators/mail.php'))
 		{
-			$this->_data->message = lang('setup.config.noconfig', 'email config', 'mail');
+			$this->data->message = lang('setup.config.noconfig', 'email config', 'mail');
 			$this->_header = 'File Not Found';
 			$this->_controls = HTML::link('setup/config/email', 'Try Again', ['class' => 'pull-right']);
 		}
@@ -38,20 +38,20 @@ class ConfigMail extends SetupBaseController {
 		{
 			if (File::exists(APPPATH.'config/'.App::environment().'/mail.php'))
 			{
-				$this->_data->message = lang('setup.config.exists', 'email config', App::environment());
+				$this->data->message = lang('setup.config.exists', 'email config', App::environment());
 				$this->_controls = HTML::link('setup', 'Back to Setup Center', ['class' => 'pull-right']);
 			}
 			else
 			{
 				if (version_compare(PHP_VERSION, '5.4.0', '<'))
 				{
-					$this->_data->message = lang('setup.config.php', PHP_VERSION);
+					$this->data->message = lang('setup.config.php', PHP_VERSION);
 					$this->_header = 'Installation Cannot Continue';
 				}
 				else
 				{
 
-					$this->_data->message = lang('setup.config.email.intro', App::environment());
+					$this->data->message = lang('setup.config.email.intro', App::environment());
 					$this->_controls = HTML::link('setup/config/email/info', 'Start', ['class' => 'btn btn-primary']);
 				}
 			}
@@ -61,17 +61,17 @@ class ConfigMail extends SetupBaseController {
 	public function getInfo()
 	{
 		// Set the view files
-		$this->_view = 'setup/config/email';
-		$this->_jsView = 'setup/config/email_js';
+		$this->view = 'setup/config/email';
+		$this->jsView = 'setup/config/email_js';
 
 		// Set the title and header
 		$this->_title = 'Email Setup';
 		$this->_header = 'Email Info <small>Email Setup</small>';
 
 		// Pass the step along
-		$this->_data->step = 'info';
+		$this->data->step = 'info';
 
-		$this->_data->message = lang('setup.config.email.info');
+		$this->data->message = lang('setup.config.email.info');
 		$this->_controls = Form::button('Write Config File', array(
 				'name'	=> 'next',
 				'class'	=> 'btn btn-primary',
@@ -85,14 +85,14 @@ class ConfigMail extends SetupBaseController {
 	public function postWrite()
 	{
 		// Set the view
-		$this->_view = 'setup/config/email';
+		$this->view = 'setup/config/email';
 
 		// Set the title and header
 		$this->_title = 'Email Setup';
 		$this->_header = 'Write Email Config <small>Email Setup</small>';
 
 		// Set the step
-		$this->_data->step = false;
+		$this->data->step = false;
 
 		// Set the session variables
 		Session::put('emailDrvr', trim(e(Input::get('driver'))));
@@ -137,7 +137,7 @@ class ConfigMail extends SetupBaseController {
 				chmod(APPPATH.'config/'.App::environment().'/mail.php', 0666);
 
 				// Set the success message
-				$this->_data->message = lang('setup.config.email.write.success');
+				$this->data->message = lang('setup.config.email.write.success');
 				
 				// Wipe out the session data
 				Session::flush();
@@ -148,7 +148,7 @@ class ConfigMail extends SetupBaseController {
 			else
 			{
 				// Dump the code to a variable
-				$this->_data->code = e("<?php
+				$this->data->code = e("<?php
 
 return array(
 'driver' => '".Session::get('emailDrvr')."',
@@ -161,7 +161,7 @@ return array(
 );");
 			
 				// Set the message
-				$this->_data->message = lang('setup.config.email.write.failure', App::environment());
+				$this->data->message = lang('setup.config.email.write.failure', App::environment());
 				
 				// Write the controls
 				$this->_controls = Form::open(['url' => 'setup/config/email/verify']).
@@ -178,7 +178,7 @@ return array(
 		else
 		{
 			// Dump the code to a variable
-			$this->_data->code = e("<?php
+			$this->data->code = e("<?php
 
 return array(
 'driver' => '".Session::get('emailDrvr')."',
@@ -191,7 +191,7 @@ return array(
 );");
 		
 			// Set the message
-			$this->_data->message = lang('setup.config.email.write.failure', App::environment());
+			$this->data->message = lang('setup.config.email.write.failure', App::environment());
 			
 			// Write the controls
 			$this->_controls = Form::open(['url' => 'setup/config/email/verify']).
@@ -209,14 +209,14 @@ return array(
 	public function getVerify()
 	{
 		// Set the view
-		$this->_view = 'setup/config/email';
+		$this->view = 'setup/config/email';
 
 		// Set the title and header
 		$this->_title = 'Email Setup';
 		$this->_header = 'Verify Email Config <small>Email Setup</small>';
 
 		// Set the step
-		$this->_data_step = false;
+		$this->data_step = false;
 
 		if (File::exists(APPPATH.'config/'.App::environment().'/mail.php'))
 		{
@@ -224,7 +224,7 @@ return array(
 			Session::flush();
 
 			// Write the message
-			$this->_data->message = lang('setup.config.email.verify.success');
+			$this->data->message = lang('setup.config.email.verify.success');
 			
 			// Write the controls
 			$this->_controls = HTML::link('setup', 'Back to Setup Center', ['class' => 'btn btn-primary']);
@@ -232,7 +232,7 @@ return array(
 		else
 		{
 			$this->_header = 'Email Config File Not Found';
-			$this->_data->message = lang('setup.config.email.verify.failure');
+			$this->data->message = lang('setup.config.email.verify.failure');
 
 			// Write the controls
 			$this->_controls = HTML::link('setup/config/email/info', 'Start Over', ['class' => 'btn btn-primary']);

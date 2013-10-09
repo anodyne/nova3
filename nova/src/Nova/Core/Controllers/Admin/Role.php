@@ -26,37 +26,37 @@ class Role extends AdminBaseController {
 		$this->currentUser->allowed(['role.create', 'role.edit', 'role.delete'], true);
 
 		// Set the JS view
-		$this->_jsView = 'admin/role/roles_js';
+		$this->jsView = 'admin/role/roles_js';
 
 		// Get all the roles
-		$this->_data->roles = $this->roles->all();
+		$this->data->roles = $this->roles->all();
 
 		if ($roleId !== false)
 		{
 			// Set the view
-			$this->_view = 'admin/role/roles_action';
+			$this->view = 'admin/role/roles_action';
 
 			// Get the role
-			$role = $this->_data->role = $this->roles->find($roleId);
+			$role = $this->data->role = $this->roles->find($roleId);
 
 			// Get all the tasks
-			$this->_data->tasks = $this->roles->allTasks()->toMultiArray('component');
+			$this->data->tasks = $this->roles->allTasks()->toMultiArray('component');
 
 			// If we're editing, grab all the tasks for this role
 			if ((int) $roleId > 0)
 			{
 				// Get the tasks for the role we're editing
-				$this->_data->roleTasks = $role->getTasks(false)->toSimpleArray();
+				$this->data->roleTasks = $role->getTasks(false)->toSimpleArray();
 
 				// Set the inherited tasks array
-				$this->_data->inheritedTasks = [];
+				$this->data->inheritedTasks = [];
 
 				// Now loop through the inherited tasks and get those
 				foreach ($role->getInheritedTasks() as $tasks)
 				{
 					foreach ($tasks as $task)
 					{
-						$this->_data->inheritedTasks[$task->id] = [
+						$this->data->inheritedTasks[$task->id] = [
 							'name' => $task->name,
 							'role' => $task->roles()->first()->name,
 						];
@@ -64,21 +64,21 @@ class Role extends AdminBaseController {
 				}
 
 				// Set the action
-				$this->_mode = $this->_data->action = 'update';
+				$this->mode = $this->data->action = 'update';
 			}
 			else
 			{
-				$this->_data->inheritedTasks = [];
-				$this->_data->roleTasks = [];
+				$this->data->inheritedTasks = [];
+				$this->data->roleTasks = [];
 
 				// Set the action
-				$this->_mode = $this->_data->action = 'create';
+				$this->mode = $this->data->action = 'create';
 			}
 		}
 		else
 		{
 			// Set the view
-			$this->_view = 'admin/role/roles';
+			$this->view = 'admin/role/roles';
 
 			// Build the users with roles modal
 			$this->_ajax[] = modal([
@@ -198,35 +198,35 @@ class Role extends AdminBaseController {
 		$this->currentUser->allowed(['role.create', 'role.edit', 'role.delete'], true);
 
 		// Set the JS view
-		$this->_jsView = 'admin/role/tasks_js';
+		$this->jsView = 'admin/role/tasks_js';
 
 		if ($taskId !== false)
 		{
 			// Set the view
-			$this->_view = 'admin/role/tasks_action';
+			$this->view = 'admin/role/tasks_action';
 
 			// Get the task
-			$this->_data->task = $this->roles->findTask($taskId);
+			$this->data->task = $this->roles->findTask($taskId);
 
 			// Get all the task components
 			$components = $this->roles->getTaskComponents();
 
 			// Set the list of components
-			$this->_jsData->componentSource = json_encode($components->toSimpleArray(false, 'component'));
+			$this->jsData->componentSource = json_encode($components->toSimpleArray(false, 'component'));
 
 			// Set the list of actions
-			$this->_jsData->actionSource = json_encode(['create', 'read', 'update', 'delete']);
+			$this->jsData->actionSource = json_encode(['create', 'read', 'update', 'delete']);
 
 			// Set the action
-			$this->_mode = $this->_data->action = ((int) $taskId == 0) ? 'create' : 'update';
+			$this->mode = $this->data->action = ((int) $taskId == 0) ? 'create' : 'update';
 		}
 		else
 		{
 			// Set the view
-			$this->_view = 'admin/role/tasks';
+			$this->view = 'admin/role/tasks';
 
 			// Get all the tasks
-			$this->_data->tasks = $this->roles->allTasks()->toMultiArray('component');
+			$this->data->tasks = $this->roles->allTasks()->toMultiArray('component');
 
 			// Build the delete task modal
 			$this->_ajax[] = modal([

@@ -122,8 +122,8 @@ class Install extends SetupBaseController {
 	public function getSettings()
 	{
 		// Set the views
-		$this->_view = 'setup/install/settings';
-		$this->_jsView = 'setup/install/settings_js';
+		$this->view = 'setup/install/settings';
+		$this->jsView = 'setup/install/settings_js';
 
 		// Set the title and header
 		$this->_title = 'Setup Center';
@@ -142,7 +142,7 @@ class Install extends SetupBaseController {
 		$rank = RankModel::find(1);
 
 		// Build the rank image
-		$this->_data->defaultRank = Location::rank($rank->base, $rank->pip, $rankSetLocation);
+		$this->data->defaultRank = Location::rank($rank->base, $rank->pip, $rankSetLocation);
 
 		// Set the controls
 		$this->_controls = Form::button('Submit', [
@@ -233,8 +233,8 @@ class Install extends SetupBaseController {
 	public function getFinalize()
 	{
 		// Set the views
-		$this->_view = 'setup/install/finalize';
-		$this->_jsView = 'setup/install/finalize_js';
+		$this->view = 'setup/install/finalize';
+		$this->jsView = 'setup/install/finalize_js';
 
 		// Set the title and header
 		$this->_title = 'Setup Center';

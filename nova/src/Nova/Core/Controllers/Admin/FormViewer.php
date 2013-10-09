@@ -26,24 +26,24 @@ class FormViewer extends AdminBaseController {
 		$this->currentUser->allowed(['form.read', 'form.create', 'form.edit', 'form.delete'], true);
 
 		// Set the JS view
-		$this->_jsView = 'admin/formviewer/entries_js';
+		$this->jsView = 'admin/formviewer/entries_js';
 
 		// Get the form
-		$form = $this->_data->form = $this->form->findByKey($formKey);
-		$this->_data->formKey = $formKey;
+		$form = $this->data->form = $this->form->findByKey($formKey);
+		$this->data->formKey = $formKey;
 
 		// Set the view file
-		$this->_view = 'admin/formviewer/entries';
+		$this->view = 'admin/formviewer/entries';
 
 		// We use this to figure out what to display
-		$this->_data->hasDisplayField = ((int) $form->form_viewer_display > 0) ? true : false;
+		$this->data->hasDisplayField = ((int) $form->form_viewer_display > 0) ? true : false;
 
 		// Get the paginated results
-		$this->_data->entries = $this->form->getPaginatedFormViewerEntries($form);
+		$this->data->entries = $this->form->getPaginatedFormViewerEntries($form);
 
 		// Set the header, title and message
-		$this->_data->header = $form->name;
-		$this->_data->title.= $form->name;
+		$this->data->header = $form->name;
+		$this->data->title.= $form->name;
 
 		// Build the delete form modal
 		$this->_ajax[] = View::make(Location::partial('common/modal'))
@@ -140,70 +140,70 @@ class FormViewer extends AdminBaseController {
 	public function getAdd($formKey)
 	{
 		// Set the view file
-		$this->_view = 'admin/formviewer/entries_action';
+		$this->view = 'admin/formviewer/entries_action';
 
 		// Get the form
-		$form = $this->_data->form = $this->form->findByKey($formKey);
-		$this->_data->formKey = $formKey;
-		$this->_data->id = 0;
+		$form = $this->data->form = $this->form->findByKey($formKey);
+		$this->data->formKey = $formKey;
+		$this->data->id = 0;
 
 		// Set the action
-		$this->_data->action = 'create';
+		$this->data->action = 'create';
 
 		// Build the form and send it to the view
-		$this->_data->dynamicForm = DynamicForm::setup($formKey, 0, true)->build();
+		$this->data->dynamicForm = DynamicForm::setup($formKey, 0, true)->build();
 
 		// Set the header, title and message
-		$this->_data->header = $form->name;
-		$this->_data->title.= $form->name;
-		$this->_data->message = $form->form_viewer_message;
+		$this->data->header = $form->name;
+		$this->data->title.= $form->name;
+		$this->data->message = $form->form_viewer_message;
 	}
 
 	public function getEdit($formKey, $id)
 	{
 		// Set the view file
-		$this->_view = 'admin/formviewer/entries_action';
+		$this->view = 'admin/formviewer/entries_action';
 
 		// Get the form
-		$form = $this->_data->form = $this->form->findByKey($formKey);
-		$this->_data->formKey = $formKey;
-		$this->_data->id = $id;
+		$form = $this->data->form = $this->form->findByKey($formKey);
+		$this->data->formKey = $formKey;
+		$this->data->id = $id;
 
 		// Set the action
-		$this->_data->action = 'update';
+		$this->data->action = 'update';
 
 		// Build the form and send it to the view
-		$this->_data->dynamicForm = DynamicForm::setup($formKey, $id, true)->build();
+		$this->data->dynamicForm = DynamicForm::setup($formKey, $id, true)->build();
 
 		// Get a single entry
-		$this->_data->entry = $this->form->getFormViewerEntry($id);
+		$this->data->entry = $this->form->getFormViewerEntry($id);
 
 		// Set the header, title and message
-		$this->_data->header = $form->name;
-		$this->_data->title.= $form->name;
+		$this->data->header = $form->name;
+		$this->data->title.= $form->name;
 	}
 
 	public function getDetail($formKey, $id)
 	{
 		// Set the view file
-		$this->_view = 'admin/formviewer/entries_action';
+		$this->view = 'admin/formviewer/entries_action';
 
 		// Get the form
-		$form = $this->_data->form = $this->form->findByKey($formKey);
-		$this->_data->formKey = $formKey;
+		$form = $this->data->form = $this->form->findByKey($formKey);
+		$this->data->formKey = $formKey;
 
 		// Set the action
-		$this->_data->action = 'detail';
+		$this->data->action = 'detail';
 
 		// Build the form and send it to the view
-		$this->_data->dynamicForm = DynamicForm::setup($formKey, $id, false)->build();
+		$this->data->dynamicForm = DynamicForm::setup($formKey, $id, false)->build();
 
 		// Get a single entry
-		$this->_data->entry = $this->form->getFormViewerEntry($id, $form);
+		$this->data->entry = $this->form->getFormViewerEntry($id, $form);
 
 		// Set the header, title and message
-		$this->_data->header = $form->name;
-		$this->_data->title.= $form->name;
+		$this->data->header = $form->name;
+		$this->data->title.= $form->name;
 	}
 
 }

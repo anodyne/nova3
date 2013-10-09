@@ -21,13 +21,13 @@ class Sim extends \Nova\Core\Controllers\Sim {
 	public function getRules()
 	{
 		// Set the view file
-		$this->_view = 'sim/rules';
+		$this->view = 'sim/rules';
 
 		// Get the text file from the fleet server
 		$rulesFile = File::getRemote('http://example.com/files/fleet_rules.txt');
 
 		// Run the text through the Markdown parser
-		$this->_data->rules = Markdown::parse($rulesFile);
+		$this->data->rules = Markdown::parse($rulesFile);
 	}
 
 }</pre>
