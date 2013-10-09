@@ -129,7 +129,7 @@ class Position extends Model {
 		{
 			case 'playing':
 			case 'nonplaying':
-				$items = $items->join("departments_{$genre}", function($join) use($genre)
+				$items = $items->join("departments_{$genre}", function($join) use ($genre)
 						{
 							$join->on("positions_{$genre}.dept_id", '=', "departments_{$genre}.id");
 						})

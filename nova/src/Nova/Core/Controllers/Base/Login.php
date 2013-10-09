@@ -31,7 +31,7 @@ abstract class Login extends BaseController {
 		/**
 		 * Before filter that populates some of the variables with data.
 		 */
-		$this->beforeFilter(function() use(&$me)
+		$this->beforeFilter(function() use (&$me)
 		{
 			// Set the variables
 			$me->skin		= Session::get('skin_login', $me->settings->skin_login);

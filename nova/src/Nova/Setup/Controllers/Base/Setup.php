@@ -117,7 +117,7 @@ abstract class Setup extends Controller {
 		/**
 		 * Before closure that checks for the database config file.
 		 */
-		$this->beforeFilter(function() use(&$me)
+		$this->beforeFilter(function() use (&$me)
 		{
 			if ( ! File::exists(APPPATH.'config/'.App::environment().'/database.php'))
 			{
@@ -135,7 +135,7 @@ abstract class Setup extends Controller {
 		/**
 		 * Before closure that checks if the user is allowed to be here.
 		 */
-		$this->beforeFilter(function() use(&$me)
+		$this->beforeFilter(function() use (&$me)
 		{
 			// Grab the URL generator from the container
 			$url = App::make('url');
@@ -176,7 +176,7 @@ abstract class Setup extends Controller {
 		/**
 		 * Before closure that handles the setup of each request.
 		 */
-		$this->beforeFilter(function() use(&$me)
+		$this->beforeFilter(function() use (&$me)
 		{
 			if ( ! $me->_stopExecution)
 			{

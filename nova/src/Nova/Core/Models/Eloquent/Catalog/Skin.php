@@ -173,7 +173,7 @@ class Skin extends Model implements QuickInstallInterface, MediaInterface {
 				foreach ($originalOptions as $key => $option)
 				{
 					// Filter out everything but the key we're looking for
-					$search = array_filter($options->items, function($e) use($key)
+					$search = array_filter($options->items, function($e) use ($key)
 					{
         				return $e->key == $key;
 					});

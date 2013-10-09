@@ -98,7 +98,7 @@ class Notify {
 	protected function buildMessage(array $data, $options, array $keys, $type = 'html')
 	{
 		// Build the message callback
-		$message = function($m) use($data, $options, $keys)
+		$message = function($m) use ($data, $options, $keys)
 		{
 			// Set the subject
 			$subject = (array_key_exists('subject', $keys))

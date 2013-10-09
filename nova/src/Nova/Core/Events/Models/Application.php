@@ -167,7 +167,7 @@ class Application extends BaseModelEventHandler {
 			}
 			
 			// Send the email
-			Mail::send('arc_review_start', function($m) use($emailUsers)
+			Mail::send('arc_review_start', function($m) use ($emailUsers)
 			{
 				$m->subject(lang('email.subject.arc.reviewStart'));
 				$m->to(array_keys($emailUsers));

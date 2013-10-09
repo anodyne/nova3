@@ -192,7 +192,7 @@ class User extends Model implements UserInterface, FormDataInterface, MediaInter
 				$q->where('characters.status', '=', Status::ACTIVE)
 					->orWhere('characters.status', '=', Status::INACTIVE);
 			})
-			->where(function($q) use($value)
+			->where(function($q) use ($value)
 			{
 				$q->where('characters.first_name', 'like', "%{$value}%")
 					->orWhere('characters.last_name', 'like', "%{$value}%");

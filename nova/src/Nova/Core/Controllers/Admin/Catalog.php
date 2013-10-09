@@ -419,7 +419,7 @@ class Catalog extends AdminBaseController {
 					$header = $this->request->header('Upload-Key');
 
 					// Get the option we're dealing with
-					$optionArr = array_filter($qiOptions->items, function($o) use($header)
+					$optionArr = array_filter($qiOptions->items, function($o) use ($header)
 					{
 						return $o->key == $header;
 					});

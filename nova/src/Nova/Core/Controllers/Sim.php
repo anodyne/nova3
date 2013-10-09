@@ -22,7 +22,7 @@ class Sim extends MainBaseController {
 		$me = $this;
 
 		// Do the final nav setup
-		$finalNavSetup = function() use(&$me)
+		$finalNavSetup = function() use (&$me)
 		{
 			if ($me->_skinInfo->nav == 'classic')
 			{

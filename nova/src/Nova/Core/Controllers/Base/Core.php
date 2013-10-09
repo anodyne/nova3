@@ -117,7 +117,7 @@ abstract class Core extends Controller {
 	/**
 	 * Controller action data for the JavaScript view.
 	 */
-	protected $_jsData;
+	protected $jsData;
 
 	/**
 	 * Array of flash messages
@@ -186,8 +186,9 @@ abstract class Core extends Controller {
 
 	public function __construct()
 	{
-		// Resolve the auth binding
+		// Resolve the bindings
 		$this->auth = Nova::resolveBinding('NovaAuthInterface');
+		$this->content = Nova::resolveBinding('SiteContentRepositoryInterface');
 
 		// Set the current user
 		$this->currentUser = $this->auth->getUser();
@@ -199,16 +200,13 @@ abstract class Core extends Controller {
 		$this->getControllerName();
 		$this->getActionName();
 
-		// Set the injected interfaces
-		$this->content = Nova::resolveBinding('SiteContentRepositoryInterface');
-
 		// Get a copy of the controller
 		$me = $this;
 
 		/**
 		 * Before closure that checks the install status.
 		 */
-		$this->beforeFilter(function() use(&$me)
+		$this->beforeFilter(function() use (&$me)
 		{
 			// Get the system install status cache file
 			$status = Cache::get('nova.installed');
@@ -239,7 +237,7 @@ abstract class Core extends Controller {
 		/**
 		 * Before closure that handles the setup of each request.
 		 */
-		$this->beforeFilter(function() use(&$me)
+		$this->beforeFilter(function() use (&$me)
 		{
 			if ( ! $me->_stopExecution)
 			{

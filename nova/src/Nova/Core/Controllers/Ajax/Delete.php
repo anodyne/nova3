@@ -322,7 +322,7 @@ class Delete extends AjaxBaseController {
 				$catalogs = \RankCatalogModel::active()->currentGenre()->get();
 
 				// Filter out the rank set we're deleting
-				$catalogs = $catalogs->filter(function($c) use($catalog)
+				$catalogs = $catalogs->filter(function($c) use ($catalog)
 				{
 					return $c->location != $catalog->location;
 				})->toSimpleArray('location', 'name');
@@ -362,7 +362,7 @@ class Delete extends AjaxBaseController {
 				$allRoles = \AccessRoleModel::get();
 
 				// Filter out the role we're deleting
-				$data['roles'] = $allRoles->filter(function($r) use($id)
+				$data['roles'] = $allRoles->filter(function($r) use ($id)
 				{
 					return ($r->id != $id);
 				});
@@ -461,7 +461,7 @@ class Delete extends AjaxBaseController {
 				$catalogs = \SkinCatalogModel::active()->get();
 
 				// Filter out the rank set we're deleting
-				$catalogs = $catalogs->filter(function($s) use($catalog)
+				$catalogs = $catalogs->filter(function($s) use ($catalog)
 				{
 					return $s->location != $catalog->location;
 				})->toSimpleArray('location', 'name');

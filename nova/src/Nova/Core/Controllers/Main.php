@@ -23,7 +23,7 @@ class Main extends MainBaseController {
 		$me = $this;
 
 		// Do the final nav setup
-		$this->beforeFilter(function() use(&$me)
+		$this->beforeFilter(function() use (&$me)
 		{
 			if ( ! $me->_stopExecution)
 			{
