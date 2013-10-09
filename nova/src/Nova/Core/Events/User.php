@@ -1,18 +1,24 @@
 <?php namespace Nova\Core\Events;
 
-use Notify;
+use UseMailer as Mailer;
 
 class User {
 
+	protected $mailer;
+
+	public function __construct(Mailer $mailer)
+	{
+		$this->mailer = $mailer;
+	}
+
 	public function onUserCreated($data)
 	{
-		// Set the content keys
-		$contentKeys = [
-			'content' => 'email.content.user_create'
-		];
+		$this->mailer->created($data);
+	}
 
-		// Send the notification
-		Notify::send('basic', $data, $contentKeys);
+	public function onPasswordReset($data)
+	{
+		$this->mailer->passwordReset($data);
 	}
 
 }

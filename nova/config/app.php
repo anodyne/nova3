@@ -215,7 +215,6 @@ return [
 		'Media'			=> 'Nova\Core\Facades\Media',
 		'Model'			=> 'Nova\Extensions\Laravel\Database\Eloquent\Model',
 		'Nav'			=> 'Nova\Core\Lib\Nav',
-		'Notify'		=> 'Nova\Core\Facades\Notify',
 		'Nova'			=> 'Nova\Core\Facades\Nova',
 		'NovaAuth'		=> 'Nova\Core\Lib\Auth',
 		'Sentry' 		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
@@ -242,6 +241,13 @@ return [
 		 */
 		'FormTrait'			=> "Nova\\Core\\Traits\\FormTrait",
 		'SecurityTrait'		=> "Nova\\Core\\Traits\\SecurityTrait",
+
+		/**
+		 * Nova Mailers
+		 */
+		'BaseMailer'		=> "Nova\\Core\\Mailers\\Base",
+		'FormViewerMailer'	=> "Nova\\Core\\Mailers\\FormViewer",
+		'UserMailer'		=> "Nova\\Core\\Mailers\\User",
 
 		/**
 		 * Nova Exceptions
@@ -326,6 +332,7 @@ return [
 		/**
 		 * Event Handlers
 		 */
+		'FormViewerEventHandler'		=> "Nova\\Core\\Events\\FormViewer",
 		'UserEventHandler'				=> "Nova\\Core\\Events\\User",
 
 		'AccessRoleModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Access\\Role",

@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Controllers\Admin;
 
 use View;
+use Event;
 use Input;
-use Notify;
 use Location;
 use Redirect;
 use Validator;
@@ -90,11 +90,6 @@ class FormViewer extends AdminBaseController {
 
 			if ((bool) $form->email_allowed === true)
 			{
-				// Set the content keys
-				$contentKeys = [
-					'content' => 'email.content.formviewer_results'
-				];
-
 				// Set the data being passed to the email
 				$emailData = [
 					'to'		=> $form->email_addresses,
@@ -102,8 +97,8 @@ class FormViewer extends AdminBaseController {
 					'subject'	=> str_replace(':0', $form->name, lang('email.subject.formviewer')),
 				];
 
-				// Send the notification
-				Notify::send('basic', $emailData, $contentKeys);
+				// Fire a new event
+				Event::fire('nova.formviewer.created', $emailData);
 			}
 
 			// Set the flash info

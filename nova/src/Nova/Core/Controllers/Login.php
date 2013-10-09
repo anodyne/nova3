@@ -14,9 +14,9 @@ use URL;
 use Date;
 use Html;
 use Mail;
+use Event;
 use Input;
 use Cookie;
-use Notify;
 use Sentry;
 use Session;
 use Location;
@@ -215,20 +215,14 @@ class Login extends LoginBaseController {
 			// Get the password reset code
 			$resetCode = $user->getResetPasswordCode();
 
-			// Set the content keys
-			$contentKeys = [
-				'subject'	=> 'email.subject.password_reset',
-				'content'	=> 'email.content.password_reset',
-			];
-
 			// Build the content for the email
 			$data = [
 				'to'		=> $user->email,
 				'content'	=> "\r\n\r\n".URL::to("login/reset_confirm/{$user->id}/{$resetCode}"),
 			];
 
-			// Send the notification
-			Notify::send('basic', $data, $contentKeys);
+			// Fire a new event
+			Event::fire('nova.user.passwordReset');
 
 			// Set up the data to flash to the next request
 			$flashData = ['reset_step1' => 'success'];
