@@ -66,10 +66,10 @@ abstract class Admin extends BaseController {
 				$skin = Nova::resolveBinding('CatalogRepositoryInterface');
 
 				// Get the skin section info
-				$me->_skinInfo = $skin->findSkinByLocation($me->skin);
+				$me->skinInfo = $skin->findSkinByLocation($me->skin);
 
 				// Build the navigation
-				$me->nav->setStyle($me->_skinInfo->nav)
+				$me->nav->setStyle($me->skinInfo->nav)
 					->setSection('admin')
 					->setCategory('admin')
 					->setType('main');
@@ -106,7 +106,7 @@ abstract class Admin extends BaseController {
 		// Set the values to be passed to the structure
 		$vars = [
 			'skin'		=> $this->skin,
-			'skinInfo'	=> $this->_skinInfo,
+			'skinInfo'	=> $this->skinInfo,
 			'section'	=> 'admin',
 			'settings'	=> $this->settings,
 		];

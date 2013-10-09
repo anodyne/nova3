@@ -25,9 +25,9 @@ class Main extends MainBaseController {
 		// Do the final nav setup
 		$this->beforeFilter(function() use (&$me)
 		{
-			if ( ! $me->_stopExecution)
+			if ( ! $me->stopExecution)
 			{
-				if ($me->_skinInfo->nav == 'classic')
+				if ($me->skinInfo->nav == 'classic')
 				{
 					// Set the type and category
 					$me->nav->setType('sub')->setCategory('main');

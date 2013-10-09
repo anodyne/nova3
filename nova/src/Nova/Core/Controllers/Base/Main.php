@@ -36,7 +36,7 @@ abstract class Main extends BaseController {
 		 */
 		$this->beforeFilter(function() use (&$me)
 		{
-			if ( ! $me->_stopExecution)
+			if ( ! $me->stopExecution)
 			{
 				// Set the variables
 				$me->skin = ($this->auth->check())
@@ -54,10 +54,10 @@ abstract class Main extends BaseController {
 				$skin = Nova::resolveBinding('CatalogRepositoryInterface');
 
 				// Get the skin section info
-				$me->_skinInfo = $skin->findSkinByLocation($me->skin);
+				$me->skinInfo = $skin->findSkinByLocation($me->skin);
 
 				// Build the navigation
-				$me->nav->setStyle($me->_skinInfo->nav)
+				$me->nav->setStyle($me->skinInfo->nav)
 					->setSection('main')
 					->setCategory('main')
 					->setType('main');
@@ -91,12 +91,12 @@ abstract class Main extends BaseController {
 	 */
 	protected function setupLayout()
 	{
-		if ( ! $this->_stopExecution)
+		if ( ! $this->stopExecution)
 		{
 			// Set the values to be passed to the structure
 			$vars = array(
 				'skin'		=> $this->skin,
-				'skinInfo'	=> $this->_skinInfo,
+				'skinInfo'	=> $this->skinInfo,
 				'section'	=> 'main',
 				'settings'	=> $this->settings,
 			);

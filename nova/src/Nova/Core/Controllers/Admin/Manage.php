@@ -46,13 +46,13 @@ class Manage extends AdminBaseController {
 			$this->data->routes = $this->routes->all();
 
 			// Build the duplicate page modal
-			$this->_ajax[] = modal([
+			$this->ajax[] = modal([
 				'id'		=> 'duplicateRoute',
 				'header'	=> lang('Short.duplicate', langConcat('Core Route'))
 			]);
 
 			// Build the delete page modal
-			$this->_ajax[] = modal([
+			$this->ajax[] = modal([
 				'id'		=> 'deleteRoute',
 				'header'	=> lang('Short.delete', lang('Route'))
 			]);
@@ -203,7 +203,7 @@ class Manage extends AdminBaseController {
 			}
 
 			// Build the delete content modal
-			$this->_ajax[] = modal([
+			$this->ajax[] = modal([
 				'id'		=> 'deleteSiteContent',
 				'header'	=> lang('Short.delete', langConcat('Site Content'))
 			]);

@@ -81,19 +81,19 @@ class Role extends AdminBaseController {
 			$this->view = 'admin/role/roles';
 
 			// Build the users with roles modal
-			$this->_ajax[] = modal([
+			$this->ajax[] = modal([
 				'id'		=> 'usersWithRole',
 				'header'	=> langConcat('Users with Role')
 			]);
 
 			// Build the delete roles modal
-			$this->_ajax[] = modal([
+			$this->ajax[] = modal([
 				'id'		=> 'deleteRole',
 				'header'	=> lang('Short.delete', langConcat('Access Role'))
 			]);
 
 			// Build the duplicate role modal
-			$this->_ajax[] = modal([
+			$this->ajax[] = modal([
 				'id'		=> 'duplicateRole',
 				'header'	=> lang('Short.duplicate', langConcat('Access Role'))
 			]);
@@ -229,13 +229,13 @@ class Role extends AdminBaseController {
 			$this->data->tasks = $this->roles->allTasks()->toMultiArray('component');
 
 			// Build the delete task modal
-			$this->_ajax[] = modal([
+			$this->ajax[] = modal([
 				'id'		=> 'deleteTask',
 				'header'	=> lang('Short.delete', lang('Task'))
 			]);
 
 			// Build the roles with task modal
-			$this->_ajax[] = modal([
+			$this->ajax[] = modal([
 				'id'		=> 'rolesWithTask',
 				'header'	=> langConcat('Access Roles with Task')
 			]);

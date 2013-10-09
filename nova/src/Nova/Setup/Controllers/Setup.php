@@ -26,8 +26,8 @@ class Setup extends SetupBaseController {
 		$this->view = 'setup/index';
 
 		// Set the title and header
-		$this->_title = "Setup Center";
-		$this->_header = "Nova Setup";
+		$this->title = "Setup Center";
+		$this->header = "Nova Setup";
 
 		// Do some checks to see what we should show
 		$installed = (bool) \Setup::installed(false);
@@ -48,8 +48,8 @@ class Setup extends SetupBaseController {
 		$this->jsView = 'setup/start_js';
 
 		// Set the title and header
-		$this->_title = 'Setup Center';
-		$this->_header = 'Nova Setup';
+		$this->title = 'Setup Center';
+		$this->header = 'Nova Setup';
 
 		// Do some checks to see what we should show
 		$installed = (bool) \Setup::installed(false);
@@ -63,12 +63,12 @@ class Setup extends SetupBaseController {
 				 * Nova is installed and an update is available.
 				 */
 				$this->data->option = 3;
-				$this->_header = 'Update Nova 3';
-				$this->_controls = HTML::link('#', 'Ignore this version', [
+				$this->header = 'Update Nova 3';
+				$this->controls = HTML::link('#', 'Ignore this version', [
 					'class' => 'pull-right js-ignoreVersion',
 					'data-version' => $update->version,
 				]);
-				$this->_controls.= Form::open(['url' => 'setup/update']).
+				$this->controls.= Form::open(['url' => 'setup/update']).
 					Form::button('Start Update', [
 						'class'	=> 'btn btn-primary',
 						'id'	=> 'next',
@@ -79,7 +79,7 @@ class Setup extends SetupBaseController {
 					Form::close();
 
 				// Pull in the steps indicators
-				$this->_steps = 'setup/steps_update';
+				$this->steps = 'setup/steps_update';
 
 				// Send the update information over
 				$this->data->update = new stdClass;
@@ -93,8 +93,8 @@ class Setup extends SetupBaseController {
 				 * admin the list of utilities they can use.
 				 */
 				$this->data->option = 4;
-				$this->_header = 'Nova Setup Utilities';
-				$this->_controls = HTML::link('/', 'Back to Site', ['class' => 'pull-right']);
+				$this->header = 'Nova Setup Utilities';
+				$this->controls = HTML::link('/', 'Back to Site', ['class' => 'pull-right']);
 			}
 		}
 		else
@@ -122,10 +122,10 @@ class Setup extends SetupBaseController {
 				// Nova 2 means they can do the migration
 				if ($this->data->option == 2)
 				{
-					$this->_controls = HTML::link('setup/install', "I'd like to do a Fresh Install", [
+					$this->controls = HTML::link('setup/install', "I'd like to do a Fresh Install", [
 						'class' => 'pull-right',
 					]);
-					$this->_controls.= Form::open(['url' => 'setup/migrate']).
+					$this->controls.= Form::open(['url' => 'setup/migrate']).
 						Form::button('Start Migration', [
 							'class'	=> 'btn btn-primary',
 							'id'	=> 'next',
@@ -134,19 +134,19 @@ class Setup extends SetupBaseController {
 						]).
 						Form::token().
 						Form::close();
-					$this->_header = 'Migrate From Nova 2';
+					$this->header = 'Migrate From Nova 2';
 
 					// Pull in the steps indicators
-					$this->_steps = 'setup/steps_migrate';
+					$this->steps = 'setup/steps_migrate';
 				}
 				
 				// Nova 1 means they can't do the migration
 				if ($this->data->option == 5)
 				{
-					$this->_controls = HTML::link('setup/install', "I'd like to do a Fresh Install", [
+					$this->controls = HTML::link('setup/install', "I'd like to do a Fresh Install", [
 						'class' => 'pull-right',
 					]);
-					$this->_header = 'Unable to Migrate to Nova 3';
+					$this->header = 'Unable to Migrate to Nova 3';
 				}
 			}
 			catch (Exception $e)
@@ -156,7 +156,7 @@ class Setup extends SetupBaseController {
 				 * is a fresh install of Nova 3.
 				 */
 				$this->data->option = 1;
-				$this->_controls = Form::open(['url' => 'setup/install']).
+				$this->controls = Form::open(['url' => 'setup/install']).
 					Form::button('Start Install', [
 						'class'	=> 'btn btn-primary',
 						'id'	=> 'next',
@@ -165,10 +165,10 @@ class Setup extends SetupBaseController {
 					]).
 					Form::token().
 					Form::close();
-				$this->_header = 'Install Nova 3';
+				$this->header = 'Install Nova 3';
 
 				// Pull in the steps indicators
-				$this->_steps = 'setup/steps_install';
+				$this->steps = 'setup/steps_install';
 			}
 		}
 	}
@@ -180,10 +180,10 @@ class Setup extends SetupBaseController {
 		$this->jsView = 'setup/uninstall_js';
 
 		// Set the title and header
-		$this->_title = $this->_header = 'Uninstall Nova';
+		$this->title = $this->header = 'Uninstall Nova';
 
-		$this->_controls = HTML::link('setup', "I don't want to do this, get me out of here", ['class' => 'pull-right']);
-		$this->_controls.= Form::open(['url' => 'setup/uninstall']).
+		$this->controls = HTML::link('setup', "I don't want to do this, get me out of here", ['class' => 'pull-right']);
+		$this->controls.= Form::open(['url' => 'setup/uninstall']).
 			Form::button('Uninstall', [
 				'class'	=> 'btn btn-danger',
 				'id'	=> 'next',
@@ -222,7 +222,7 @@ class Setup extends SetupBaseController {
 		$this->view = 'processing';
 
 		// Set the title and head
-		$this->_title = $this->_header = 'Uninstall Nova';
+		$this->title = $this->header = 'Uninstall Nova';
 
 		// Drop the sessions and migrations tables
 		Schema::drop('sessions');
@@ -249,10 +249,10 @@ class Setup extends SetupBaseController {
 		$this->jsView = 'setup/genres_js';
 
 		// Set the title and header
-		$this->_title = $this->_header = 'The Genre Panel';
+		$this->title = $this->header = 'The Genre Panel';
 
 		// Set the controls
-		$this->_controls = HTML::link('setup', 'Back to Setup Center', ['class' => 'pull-right']);
+		$this->controls = HTML::link('setup', 'Back to Setup Center', ['class' => 'pull-right']);
 
 		// Get the genre info
 		$info = Config::get('nova.genres');

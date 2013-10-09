@@ -104,14 +104,14 @@ class Catalog extends AdminBaseController {
 			}
 
 			// Build the delete rank set modal
-			$this->_ajax[] = View::make(Location::partial('common/modal'))
+			$this->ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'deleteRankSet')
 				->with('modalHeader', lang('Short.delete', ucwords(lang('rank_set'))))
 				->with('modalBody', false)
 				->with('modalFooter', false);
 
 			// Build the install rank set modal
-			$this->_ajax[] = View::make(Location::partial('common/modal'))
+			$this->ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'installRankSet')
 				->with('modalHeader', lang('Short.install', ucwords(lang('rank_set'))))
 				->with('modalBody', false)
@@ -281,14 +281,14 @@ class Catalog extends AdminBaseController {
 			}
 
 			// Build the delete skin modal
-			$this->_ajax[] = View::make(Location::partial('common/modal'))
+			$this->ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'deleteSkin')
 				->with('modalHeader', lang('Short.delete', lang('Skin')))
 				->with('modalBody', false)
 				->with('modalFooter', false);
 
 			// Build the install skin modal
-			$this->_ajax[] = View::make(Location::partial('common/modal'))
+			$this->ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'installSkin')
 				->with('modalHeader', lang('Short.install', lang('Skin')))
 				->with('modalBody', false)

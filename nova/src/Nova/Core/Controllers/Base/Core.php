@@ -47,57 +47,57 @@ abstract class Core extends Controller {
 	/**
 	 * All of the setting values from the database.
 	 */
-	public $settings;
+	protected $settings;
 
 	/**
 	 * The Site Content repository.
 	 */
-	public $content;
+	protected $content;
 	
 	/**
 	 * Icon information from the icon indices.
 	 */
-	public $icons;
+	protected $icons;
 
 	/**
 	 * The genre.
 	 */
-	public $genre;
+	protected $genre;
 	
 	/**
 	 * The current skin.
 	 */
-	public $skin;
+	protected $skin;
 	
 	/**
 	 * The current rank set.
 	 */
-	public $rank;
+	protected $rank;
 	
 	/**
 	 * The current timezone.
 	 */
-	public $timezone;
+	protected $timezone;
 
 	/**
 	 * The auth binding.
 	 */
-	public $auth;
+	protected $auth;
 
 	/**
 	 * The currently logged in user.
 	 */
-	public $currentUser;
+	protected $currentUser;
 
 	/**
 	 * The Nav object.
 	 */
-	public $nav;
+	protected $nav;
 
 	/**
 	 * The Request instance.
 	 */
-	public $request;
+	protected $request;
 
 	/**
 	 * Name of the view file to use.
@@ -122,32 +122,32 @@ abstract class Core extends Controller {
 	/**
 	 * Array of flash messages
 	 */
-	public $_flash = [];
+	protected $flash = [];
 
 	/**
 	 * Array of ajax views
 	 */
-	public $_ajax = [];
+	protected $ajax = [];
 
 	/**
 	 * The skin section catalog object
 	 */
-	public $_skinInfo;
+	protected $skinInfo;
 	
 	/**
 	 * Array of headers that can be used by the pages.
 	 */
-	public $_headers = [];
+	protected $headers = [];
 	
 	/**
 	 * Array of messages that can be used by the pages.
 	 */
-	public $_messages = [];
+	protected $messages = [];
 	
 	/**
 	 * Array of titles that can be used by the pages.
 	 */
-	public $_titles = [];
+	protected $titles = [];
 
 	/**
 	 * The current mode.
@@ -182,7 +182,7 @@ abstract class Core extends Controller {
 	/**
 	 * Stop execution (used specifically for filters)
 	 */
-	protected $_stopExecution = false;
+	protected $stopExecution = false;
 
 	public function __construct()
 	{
@@ -226,7 +226,7 @@ abstract class Core extends Controller {
 				}
 				catch (Exception $e)
 				{
-					$me->_stopExecution = true;
+					$me->stopExecution = true;
 					
 					// Nothing here, so the system isn't installed
 					return Redirect::to('setup');
@@ -239,7 +239,7 @@ abstract class Core extends Controller {
 		 */
 		$this->beforeFilter(function() use (&$me)
 		{
-			if ( ! $me->_stopExecution)
+			if ( ! $me->stopExecution)
 			{
 				// Set the Request instance
 				$me->request = Request::instance();
@@ -261,12 +261,12 @@ abstract class Core extends Controller {
 				// Create empty objects for the data
 				$me->data = new stdClass;
 				$me->jsData = new stdClass;
-				$me->_skinInfo = new stdClass;
+				$me->skinInfo = new stdClass;
 
 				// Grab the content for the current section
-				$me->_headers	= $me->content->findBySection('header', Str::lower($me->_controller));
-				$me->_messages	= $me->content->findBySection('message', Str::lower($me->_controller));
-				$me->_titles	= $me->content->findBySection('title', Str::lower($me->_controller));
+				$me->headers	= $me->content->findBySection('header', Str::lower($me->controller));
+				$me->messages	= $me->content->findBySection('message', Str::lower($me->controller));
+				$me->titles	= $me->content->findBySection('title', Str::lower($me->controller));
 			}
 		});
 	}
@@ -313,12 +313,12 @@ abstract class Core extends Controller {
 		if ($this->editable)
 		{
 			// Set the final header content key
-			$this->layout->template->headerKey = (array_key_exists($this->action, $this->_headers)) 
+			$this->layout->template->headerKey = (array_key_exists($this->action, $this->headers)) 
 				? $this->controller.'_'.$this->action.'_header' 
 				: false;
 
 			// Set the final message content key
-			$this->layout->template->messageKey = (array_key_exists($this->action, $this->_messages)) 
+			$this->layout->template->messageKey = (array_key_exists($this->action, $this->messages)) 
 				? $this->controller.'_'.$this->action.'_message' 
 				: false;
 		}
@@ -326,25 +326,25 @@ abstract class Core extends Controller {
 		// If there's flash data in the session, grab it
 		if (Session::has('flashStatus'))
 		{
-			$this->_flash[] = [
+			$this->flash[] = [
 				'class'		=> 'alert-'.Session::get('flashStatus'),
 				'content'	=> Session::get('flashMessage'),
 			];
 		}
 		
 		// Flash messages
-		if (count($this->_flash) > 0)
+		if (count($this->flash) > 0)
 		{
-			foreach ($this->_flash as $flash)
+			foreach ($this->flash as $flash)
 			{
 				$this->layout->template->flash.= partial('common/alert', $flash);
 			}
 		}
 
 		// Ajax views
-		if (count($this->_ajax) > 0)
+		if (count($this->ajax) > 0)
 		{
-			foreach ($this->_ajax as $ajax)
+			foreach ($this->ajax as $ajax)
 			{
 				$this->layout->template->ajax.= $ajax;
 			}
@@ -453,7 +453,7 @@ abstract class Core extends Controller {
 	 */
 	protected function parseSiteContent($type, $markdown = false)
 	{
-		//s($this->_headers);
+		//s($this->headers);
 		// If the data coming from the controller action has a
 		// title/header/message variable, use that instead of what we have
 		if (is_object($this->data) and property_exists($this->data, $type))
@@ -470,15 +470,15 @@ abstract class Core extends Controller {
 		switch ($type)
 		{
 			case 'title':
-				$typeVar = '_titles';
+				$typeVar = 'titles';
 			break;
 
 			case 'header':
-				$typeVar = '_headers';
+				$typeVar = 'headers';
 			break;
 
 			case 'message':
-				$typeVar = '_messages';
+				$typeVar = 'messages';
 			break;
 		}
 

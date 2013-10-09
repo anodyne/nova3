@@ -19,6 +19,11 @@ use NovaAuthInterface;
 abstract class Setup extends Controller {
 
 	/**
+	 * The application container.
+	 */
+	protected $app;
+
+	/**
 	 * A View object for storing the template.
 	 */
 	public $template;
@@ -26,7 +31,7 @@ abstract class Setup extends Controller {
 	/**
 	 * The Request instance.
 	 */
-	public $request;
+	protected $request;
 
 	/**
 	 * Name of the view file to use.
@@ -51,37 +56,37 @@ abstract class Setup extends Controller {
 	/**
 	 * Page title.
 	 */
-	public $_title;
+	protected $title;
 
 	/**
 	 * Page header.
 	 */
-	public $_header;
+	protected $header;
 
 	/**
 	 * Controls for the page.
 	 */
-	public $_controls = false;
+	protected $controls = false;
 
 	/**
 	 * Steps indicator for the page.
 	 */
-	public $_steps = false;
+	protected $steps = false;
 
 	/**
 	 * Array of flash messages
 	 */
-	public $_flash = [];
+	protected $flash = [];
 
 	/**
 	 * Array of ajax views
 	 */
-	public $_ajax = [];
+	protected $ajax = [];
 
 	/**
 	 * Stop execution (used specifically for filters)
 	 */
-	protected $_stopExecution = false;
+	protected $stopExecution = false;
 
 	/**
 	 * The controller used for the current request.
@@ -107,6 +112,9 @@ abstract class Setup extends Controller {
 	{
 		$this->auth = $auth;
 
+		// Get the application container
+		$this->app = App::make('app');
+
 		// Set the controller and action names
 		$this->getControllerName();
 		$this->getActionName();
@@ -119,13 +127,13 @@ abstract class Setup extends Controller {
 		 */
 		$this->beforeFilter(function() use (&$me)
 		{
-			if ( ! File::exists(APPPATH.'config/'.App::environment().'/database.php'))
+			if ( ! File::exists(APPPATH.'config/'.$this->app->environment().'/database.php'))
 			{
 				// Only redirect if we aren't on the config page(s)
 				if ( ! Request::is('setup/config/db*') and ! Request::is('setup'))
 				{
 					// Stop the execution
-					$me->_stopExecution = true;
+					$me->stopExecution = true;
 
 					return Redirect::to('setup');
 				}
@@ -138,9 +146,9 @@ abstract class Setup extends Controller {
 		$this->beforeFilter(function() use (&$me)
 		{
 			// Grab the URL generator from the container
-			$url = App::make('url');
+			$url = $this->app['url'];
 
-			if ( ! $me->_stopExecution)
+			if ( ! $me->stopExecution)
 			{
 				if (\Setup::installed(false))
 				{
@@ -178,7 +186,7 @@ abstract class Setup extends Controller {
 		 */
 		$this->beforeFilter(function() use (&$me)
 		{
-			if ( ! $me->_stopExecution)
+			if ( ! $me->stopExecution)
 			{
 				// Set the Request instance
 				$me->request = Request::instance();
@@ -214,42 +222,42 @@ abstract class Setup extends Controller {
 		}
 
 		// Steps indicator
-		if ( ! empty($this->_steps))
+		if ( ! empty($this->steps))
 		{
-			$this->layout->template->steps = View::make(Location::partial($this->_steps));
+			$this->layout->template->steps = View::make(Location::partial($this->steps));
 		}
 
 		// Build the controls
-		$this->layout->template->controls = $this->_controls;
+		$this->layout->template->controls = $this->controls;
 
 		// Set the title
-		$this->layout->title = $this->_title;
+		$this->layout->title = $this->title;
 
 		// Set the header
-		$this->layout->template->header = $this->_header;
+		$this->layout->template->header = $this->header;
 
 		// If there's flash data in the session, grab it
 		if (Session::has('flashStatus'))
 		{
-			$this->_flash[] = [
+			$this->flash[] = [
 				'class'		=> 'alert-'.Session::get('flashStatus'),
 				'content'	=> Session::get('flashMessage'),
 			];
 		}
 		
 		// Flash messages
-		if (count($this->_flash) > 0)
+		if (count($this->flash) > 0)
 		{
-			foreach ($this->_flash as $flash)
+			foreach ($this->flash as $flash)
 			{
 				$this->layout->template->flash.= partial('common/alert', $flash);
 			}
 		}
 
 		// Ajax views
-		if (count($this->_ajax) > 0)
+		if (count($this->ajax) > 0)
 		{
-			foreach ($this->_ajax as $ajax)
+			foreach ($this->ajax as $ajax)
 			{
 				$this->layout->template->ajax.= $ajax;
 			}
@@ -263,7 +271,7 @@ abstract class Setup extends Controller {
 	 */
 	protected function setupLayout()
 	{
-		if ( ! $this->_stopExecution)
+		if ( ! $this->stopExecution)
 		{
 			// Setup the layout and its data
 			$layout				= View::make(Location::structure('setup'));

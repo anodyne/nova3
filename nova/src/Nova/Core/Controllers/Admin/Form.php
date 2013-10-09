@@ -67,7 +67,7 @@ class Form extends AdminBaseController {
 			$form = $this->data->forms = $this->form->all();
 
 			// Build the delete form modal
-			$this->_ajax[] = View::make(Location::partial('common/modal'))
+			$this->ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'deleteForm')
 				->with('modalHeader', lang('Short.delete', lang('Form')))
 				->with('modalBody', false)
@@ -228,7 +228,7 @@ class Form extends AdminBaseController {
 		}
 
 		// Build the delete tab modal
-		$this->_ajax[] = View::make(Location::partial('common/modal'))
+		$this->ajax[] = View::make(Location::partial('common/modal'))
 			->with('modalId', 'deleteTab')
 			->with('modalHeader', lang('Short.delete', langConcat('Form Tab')))
 			->with('modalBody', '')
@@ -408,7 +408,7 @@ class Form extends AdminBaseController {
 		}
 
 		// Build the delete section modal
-		$this->_ajax[] = View::make(Location::partial('common/modal'))
+		$this->ajax[] = View::make(Location::partial('common/modal'))
 			->with('modalId', 'deleteSection')
 			->with('modalHeader', lang('Short.delete', langConcat('Form Section')))
 			->with('modalBody', '')
@@ -520,7 +520,7 @@ class Form extends AdminBaseController {
 			$this->data->fields = $formOutput->getData('fields');
 
 			// Build the delete field modal
-			$this->_ajax[] = View::make(Location::partial('common/modal'))
+			$this->ajax[] = View::make(Location::partial('common/modal'))
 				->with('modalId', 'deleteField')
 				->with('modalHeader', lang('Short.delete', langConcat('Form Field')))
 				->with('modalBody', '')

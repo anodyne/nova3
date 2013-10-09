@@ -78,7 +78,7 @@ class Login extends LoginBaseController {
 			}
 
 			// Set the flash data
-			$this->_flash[] = [
+			$this->flash[] = [
 				'content' 	=> $errorMsg,
 				'class'		=> "alert-{$errorStatus}",
 			];
@@ -179,7 +179,7 @@ class Login extends LoginBaseController {
 
 		if ($flash == 'success')
 		{
-			$this->_flash[] = [
+			$this->flash[] = [
 				'class' 	=> 'alert-success',
 				'message' 	=> lang('login.reset.step1Success'),
 			];
@@ -187,7 +187,7 @@ class Login extends LoginBaseController {
 
 		if ($flash === 'failure')
 		{
-			$this->_flash[] = [
+			$this->flash[] = [
 				'class' 	=> 'alert-danger',
 				'message' 	=> lang('login.reset.step1Failure'),
 			];
@@ -260,7 +260,7 @@ class Login extends LoginBaseController {
 		{
 			if ($reset === true)
 			{
-				$this->_flash[] = [
+				$this->flash[] = [
 					'class' 	=> 'alert-success',
 					'message' 	=> lang('login.reset.step2Success', HTML::link('login', lang('Action.login'))),
 				];
@@ -270,7 +270,7 @@ class Login extends LoginBaseController {
 			}
 			elseif ($reset === false)
 			{
-				$this->_flash[] = [
+				$this->flash[] = [
 					'class' 	=> 'alert-danger',
 					'message' 	=> lang('login.reset.step2Failure'),
 				];
@@ -278,7 +278,7 @@ class Login extends LoginBaseController {
 		}
 		elseif ($confirm === false)
 		{
-			$this->_flash[] = [
+			$this->flash[] = [
 				'class' 	=> 'alert-danger',
 				'message' 	=> lang('login.reset.confirmationFailed'),
 			];

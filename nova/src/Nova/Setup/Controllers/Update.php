@@ -34,14 +34,14 @@ class Update extends SetupBaseController {
 		$this->view = 'setup/update/finalize';
 
 		// Set the title and header
-		$this->_title = 'Setup Center';
-		$this->_header = 'Update Nova';
+		$this->title = 'Setup Center';
+		$this->header = 'Update Nova';
 
 		// Set the steps
-		$this->_steps = 'setup/steps_update';
+		$this->steps = 'setup/steps_update';
 
 		// Set the controls
-		$this->_controls = HTML::link('/', 'Back to Site', ['class' => 'btn btn-primary']);
+		$this->controls = HTML::link('/', 'Back to Site', ['class' => 'btn btn-primary']);
 	}
 
 	public function getRollback()
@@ -50,15 +50,15 @@ class Update extends SetupBaseController {
 		$this->view = 'setup/update/rollback';
 
 		// Set the title and header
-		$this->_title = $this->_header = 'Rollback Nova';
+		$this->title = $this->header = 'Rollback Nova';
 
 		if (version_compare(Config::get('nova.app.version'), '3.0.0', '>'))
 		{
 			// Set the controls
-			$this->_controls = HTML::link('setup', "I don't want to do this, get me out of here", [
+			$this->controls = HTML::link('setup', "I don't want to do this, get me out of here", [
 				'class' => 'pull-right'
 			]);
-			$this->_controls.= Form::open(['url' => 'setup/update/rollback']).
+			$this->controls.= Form::open(['url' => 'setup/update/rollback']).
 				Form::button('Rollback', [
 					'class'	=> 'btn btn-danger',
 					'id'	=> 'next',
@@ -96,11 +96,11 @@ class Update extends SetupBaseController {
 		$this->view = 'setup/update/finalize_rollback';
 
 		// Set the title and header
-		$this->_title = $this->_header = 'Rollback Nova';
+		$this->title = $this->header = 'Rollback Nova';
 
 		// Set the controls
-		$this->_controls = HTML::link('setup', "Back to Setup Center", ['class' => 'pull-right']);
-		$this->_controls.= HTML::link('/', 'Back to Site', ['class' => 'btn btn-primary']);
+		$this->controls = HTML::link('setup', "Back to Setup Center", ['class' => 'pull-right']);
+		$this->controls.= HTML::link('/', 'Back to Site', ['class' => 'btn btn-primary']);
 	}
 
 }

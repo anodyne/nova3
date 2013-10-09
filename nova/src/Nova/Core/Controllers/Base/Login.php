@@ -42,7 +42,7 @@ abstract class Login extends BaseController {
 			$catalog = Nova::resolveBinding('CatalogRepositoryInterface');
 
 			// Get the skin section info
-			$me->_skinInfo	= $catalog->findSkinByLocation($me->skin);
+			$me->skinInfo	= $catalog->findSkinByLocation($me->skin);
 		});
 	}
 
@@ -56,7 +56,7 @@ abstract class Login extends BaseController {
 		// Set the values to be passed to the structure
 		$vars = [
 			'skin'		=> $this->skin,
-			'skinInfo'	=> $this->_skinInfo,
+			'skinInfo'	=> $this->skinInfo,
 			'section'	=> 'login',
 			'settings'	=> $this->settings,
 		];

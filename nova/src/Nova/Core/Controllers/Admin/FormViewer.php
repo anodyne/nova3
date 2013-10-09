@@ -46,7 +46,7 @@ class FormViewer extends AdminBaseController {
 		$this->data->title.= $form->name;
 
 		// Build the delete form modal
-		$this->_ajax[] = View::make(Location::partial('common/modal'))
+		$this->ajax[] = View::make(Location::partial('common/modal'))
 			->with('modalId', 'deleteEntry')
 			->with('modalHeader', lang('Short.delete', langConcat('Form Entry')))
 			->with('modalBody', '')

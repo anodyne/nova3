@@ -39,7 +39,7 @@ class User extends AdminBaseController {
 		$this->data->pending = $this->user->pending();
 
 		// Build the delete user modal
-		$this->_ajax[] = modal([
+		$this->ajax[] = modal([
 			'id'		=> 'deleteUser',
 			'header'	=> lang('Short.delete', lang('User'))
 		]);
@@ -163,7 +163,7 @@ class User extends AdminBaseController {
 		$this->data->languageDir = Finder::create()->directories()->in(APPPATH."lang");
 
 		// Build the delete user modal
-		$this->_ajax[] = modal([
+		$this->ajax[] = modal([
 			'id'		=> 'deleteAvatar',
 			'header'	=> lang('Short.delete', langConcat('User Avatar'))
 		]);
