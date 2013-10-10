@@ -200,29 +200,18 @@ class Login extends LoginBaseController {
 
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
-		{
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
-		}
 
 		try
 		{
 			// Grab the credentials
-			$email = e(Input::get('email'));
+			$email = Input::get('email');
 
 			// Get the user
 			$user = $this->auth->getUserProvider()->findByLogin($email);
 
-			// Get the password reset code
-			$resetCode = $user->getResetPasswordCode();
-
-			// Build the content for the email
-			$data = [
-				'to'		=> $user->email,
-				'content'	=> "\r\n\r\n".URL::to("login/reset_confirm/{$user->id}/{$resetCode}"),
-			];
-
-			// Fire a new event
-			Event::fire('nova.user.passwordReset');
+			// Fire the user password reset event
+			Event::fire('nova.user.resetPassword', $user);
 
 			// Set up the data to flash to the next request
 			$flashData = ['reset_step1' => 'success'];
