@@ -58,9 +58,13 @@ $env = $app->detectEnvironment(array(
 
 $app->bind('config.loader', function($app)
 {
+	// Get the filesystem
 	$filesystem = new Illuminate\Filesystem\Filesystem;
 
-	return new Nova\Extensions\Laravel\Config\ConfigCascadingFileLoader($filesystem, false);
+	// Get the cache
+	$cache = new Illuminate\Cache\FileStore($filesystem, $app['path.storage'].'/cache');
+
+	return new Nova\Extensions\Laravel\Config\ConfigCascadingFileLoader($filesystem, $cache, false);
 	
 }, true);
 
