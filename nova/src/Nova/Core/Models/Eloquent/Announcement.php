@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Entities;
+<?php namespace Nova\Core\Models\Eloquent;
 
 use Model;
 use Status;
