@@ -5,13 +5,15 @@ use View;
 use Status;
 use Location;
 use UserModel;
-use Collection;
 use SettingsModel;
 use SiteContentModel;
 use NotifierNoContentException;
 use NotifierNoSubjectException;
+use Nova\Extensions\Laravel\Database\Eloquent\Collection;
 
 abstract class Base {
+
+	protected $settings;
 
 	public function send($view, array $data, array $keys)
 	{

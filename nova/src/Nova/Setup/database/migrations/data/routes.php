@@ -346,10 +346,24 @@ return [
 		'protected'		=> (int) true
 	],
 	[
+		'name'			=> 'admin/user',
+		'verb'			=> 'delete',
+		'uri'			=> 'admin/user',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@deleteUsers',
+		'protected'		=> (int) true
+	],
+	[
 		'name'			=> 'admin/user/create',
 		'verb'			=> 'get',
 		'uri'			=> 'admin/user/create',
 		'resource'		=> 'Nova\Core\Controllers\Admin\User@getCreate',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/user/create',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/user/create',
+		'resource'		=> 'Nova\Core\Controllers\Admin\User@postCreate',
 		'protected'		=> (int) true
 	],
 	[

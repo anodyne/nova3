@@ -491,8 +491,12 @@ class Delete extends AjaxBaseController {
 
 			if ($user !== null and $user->canBeDeleted())
 			{
-				echo View::make(Location::ajax('delete/user'))
-					->with('user', $user);
+				return partial('common/modal_content', [
+					'modalHeader'	=> lang('Short.delete', lang('User')),
+					'modalBody'		=> View::make(Location::ajax('delete/user'))
+										->with('user', $user),
+					'modalFooter'	=> false,
+				]);
 			}
 		}
 	}

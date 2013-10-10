@@ -14,7 +14,7 @@ class User extends BaseMailer {
 		return $this->send('basic', $data, $contentKeys);
 	}
 
-	public function passwordReset($data)
+	public function resetPassword($data)
 	{
 		$contentKeys = [
 			'subject'	=> 'email.subject.password_reset',

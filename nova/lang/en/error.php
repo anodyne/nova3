@@ -11,7 +11,7 @@ return array(
 		'cannotBeDeleted' => "This :0 cannot be deleted because there is content associated with it.",
 
 		'user' => [
-			'notAuthorized' => "You are not authorized to update this user.",
+			'notAuthorized' => "You are not authorized to :0 this user.",
 			'wrongPassword' => "The password you entered is wrong. Please try again.",
 			'passwordsNotMatching' => "The new password you entered doesn't match the password confirmation. Please try again.",
 		],

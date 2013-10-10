@@ -1,12 +1,16 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
+use App;
 use Status;
+use Session;
 use UserModel;
+use UtilityTrait;
 use SecurityTrait;
 use UserRepositoryInterface;
 
 class UserRepository implements UserRepositoryInterface {
 
+	use UtilityTrait;
 	use SecurityTrait;
 
 	/**
@@ -54,7 +58,16 @@ class UserRepository implements UserRepositoryInterface {
 	 */
 	public function create(array $data)
 	{
-		return UserModel::create($data);
+		$user = UserModel::create($data);
+
+		$flashStatus = ($user) ? 'success' : 'danger';
+		$flashMessage = ($user) 
+			? lang('Short.alert.success.create', lang('user'))
+			: lang('Short.alert.failure.create', lang('user'));
+
+		$this->setFlashMessage($flashStatus, $flashMessage);
+
+		return $user;
 	}
 
 	/**
@@ -85,19 +98,27 @@ class UserRepository implements UserRepositoryInterface {
 	 * Delete an item.
 	 *
 	 * @param	int		$id		ID to delete
-	 * @return	bool
+	 * @return	User
 	 */
 	public function delete($id)
 	{
 		$id = $this->sanitizeInt($id);
 
 		// Get the user
-		$item = $this->find($id);
+		$user = $this->find($id);
 
-		if ($item)
-			return $item->deleteUser();
+		if ($user)
+			$user->deleteUser();
 
-		return false;
+		// Set the flash info
+		$flashStatus = ($user) ? 'success' : 'danger';
+		$flashMessage = ($user) 
+			? lang('Short.alert.success.delete', lang('user'))
+			: lang('Short.alert.failure.delete', lang('user'));
+
+		$this->setFlashMessage($flashStatus, $flashMessage);
+
+		return $user;
 	}
 
 	/**
@@ -171,12 +192,89 @@ class UserRepository implements UserRepositoryInterface {
 		$id = $this->sanitizeInt($id);
 		
 		// Get the user
-		$item = $this->find($id);
+		$user = $this->find($id);
 
-		if ($item)
-			return $item->update($data);
+		// Get the type of update we're making
+		$formAction = $data['formAction'];
 
-		return false;
+		if ($formAction == 'basic')
+		{
+			if (array_key_exists('password', $data))
+			{
+				// Do the update
+				$item = $user->update($data);
+
+				$flashStatus = 'success';
+				$flashMessage = lang('Short.alert.success.update', lang('user'));
+			}
+			else
+			{
+				// Make sure their current password is right
+				if (App::make('sentry.hasher')->hash($data['password']) == $user->password)
+				{
+					// Make sure the new password matches the confirmation
+					if ($data['password_new'] == $data['password_new_confirm'])
+						$item = $user->update(array_merge($data, ['password' => $data['password_new']]));
+					
+					else
+					{
+						$flashStatus = 'danger';
+						$flashMessage = lang('error.admin.user.passwordsNotMatching');
+					}
+				}
+				else
+				{
+					$flashStatus = 'danger';
+					$flashMessage = lang('error.admin.user.wrongPassword');
+				}
+			}
+		}
+
+		if ($formAction == 'bio' or $formAction == 'preferences' or $formAction == 'notifications')
+		{
+			// Do the update
+			switch ($formAction)
+			{
+				case 'bio':
+					$item = $this->updateFormData($user->id, $data);
+
+					$text = 'user bio';
+				break;
+
+				case 'preferences':
+				case 'notifications':
+					$item = $this->updatePreferences($user->id, $data);
+
+					if ($formAction == 'preferences')
+						$text = 'user preferences';
+
+					if ($formAction == 'notifications')
+						$text = 'user notification preferences';
+				break;
+			}
+
+			// Set the flash info
+			$flashStatus = ($item) ? 'success' : 'danger';
+			$flashMessage = ($item) 
+				? lang('Short.alert.success.update', langConcat($text))
+				: lang('Short.alert.failure.update', langConcat($text));
+		}
+
+		if ($formAction == 'admin')
+		{
+			// Moderation
+
+			// Change access level
+
+			// Is system admin
+
+			// Is game master
+		}
+
+		// Set the flash message
+		$this->setFlashMessage($flashStatus, $flashMessage);
+
+		return $user;
 	}
 
 	/**

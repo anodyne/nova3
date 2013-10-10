@@ -373,3 +373,5 @@
 		</div>
 	</div>
 </div>
+
+{{ modal(['id' => 'deleteAvatar', 'header' => lang('Short.delete', langConcat('User Avatar'))]) }}

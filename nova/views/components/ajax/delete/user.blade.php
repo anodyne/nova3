@@ -10,9 +10,7 @@
 	</ul>
 @endif
 
-{{ Form::model($user, ['url' => 'admin/user']) }}
-	{{ Form::token() }}
+{{ Form::model($user, ['url' => 'admin/user', 'method' => 'delete']) }}
 	{{ Form::hidden('id') }}
-	{{ Form::hidden('formAction', 'delete') }}
 	{{ Form::button(lang('Action.delete'), ['type' => 'submit', 'class' => 'btn btn-danger']) }}
 {{ Form::close() }}

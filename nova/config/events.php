@@ -2,9 +2,9 @@
 
 return [
 
-	'nova.formviewer.created' => ['FormViewerEventHandler@onFormViewerCreated'],
+	'nova.form.entryCreated'	=> ['FormViewerEventHandler@onFormViewerCreated'],
 
-	'nova.user.created' => ['UserEventHandler@onUserCreated'],
-	'nova.user.passwordReset' => ['UserEventHandler@onPasswordReset'],
+	'nova.user.created'			=> ['UserEventHandler@onUserCreated'],
+	'nova.user.resetPassword'	=> ['UserEventHandler@onUserResetPassword'],
 
 ];

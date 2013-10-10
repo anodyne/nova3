@@ -183,3 +183,5 @@
 		{{ partial('common/alert', ['content' => lang('error.notFound', lang('results'))]) }}
 	</div>
 </div>
+
+{{ modal(['id' => 'deleteUser', 'header' => lang('Short.delete', lang('User'))]) }}
