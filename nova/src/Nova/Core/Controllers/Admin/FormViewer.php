@@ -98,7 +98,7 @@ class FormViewer extends AdminBaseController {
 				];
 
 				// Fire a new event
-				Event::fire('nova.formviewer.created', $emailData);
+				Event::fire('nova.form.entryCreated', $emailData);
 			}
 
 			// Set the flash info
