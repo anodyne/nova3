@@ -241,6 +241,7 @@ return [
 		 */
 		'FormTrait'			=> "Nova\\Core\\Traits\\FormTrait",
 		'SecurityTrait'		=> "Nova\\Core\\Traits\\SecurityTrait",
+		'UtilityTrait'		=> "Nova\\Core\\Traits\\UtilityTrait",
 
 		/**
 		 * Nova Mailers
