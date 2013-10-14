@@ -3,7 +3,7 @@
 use URL;
 use Request;
 use UserModel;
-use UseMailer as Mailer;
+use UserMailer as Mailer;
 use SettingsRepositoryInterface;
 
 class User {
