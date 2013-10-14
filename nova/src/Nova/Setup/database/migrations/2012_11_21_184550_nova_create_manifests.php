@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateManifests extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateManifests extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('manifests', function($t)
+		Schema::create('manifests', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('name');

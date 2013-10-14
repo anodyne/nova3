@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateComments extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateComments extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('comments', function($t)
+		Schema::create('comments', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('commentable_id')->unsigned();

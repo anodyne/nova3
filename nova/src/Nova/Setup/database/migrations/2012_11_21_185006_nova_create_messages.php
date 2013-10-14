@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateMessages extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateMessages extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('messages', function($t)
+		Schema::create('messages', function(Blueprint $t)
 		{
 			$t->bigIncrements('id');
 			$t->integer('user_id')->unsigned();
@@ -22,7 +23,7 @@ class NovaCreateMessages extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('message_recipients', function($t)
+		Schema::create('message_recipients', function(Blueprint $t)
 		{
 			$t->bigIncrements('id');
 			$t->integer('message_id')->unsigned();

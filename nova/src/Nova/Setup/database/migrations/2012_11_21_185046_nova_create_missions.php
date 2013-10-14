@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateMissions extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateMissions extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('missions', function($t)
+		Schema::create('missions', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('title');
@@ -25,7 +26,7 @@ class NovaCreateMissions extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('mission_groups', function($t)
+		Schema::create('mission_groups', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('name');
@@ -35,7 +36,7 @@ class NovaCreateMissions extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('mission_notes', function($t)
+		Schema::create('mission_notes', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('mission_id')->unsigned();

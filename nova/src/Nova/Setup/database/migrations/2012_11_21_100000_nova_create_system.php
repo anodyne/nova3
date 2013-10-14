@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateSystem extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateSystem extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('system_info', function($t)
+		Schema::create('system_info', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('uid', 32);
@@ -22,7 +23,7 @@ class NovaCreateSystem extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('system_events', function($t)
+		Schema::create('system_events', function(Blueprint $t)
 		{
 			$t->bigIncrements('id');
 			$t->string('email', 100)->nullable();
@@ -32,7 +33,7 @@ class NovaCreateSystem extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('system_routes', function($t)
+		Schema::create('system_routes', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('name');

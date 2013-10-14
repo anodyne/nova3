@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateForms extends Migration {
@@ -11,10 +12,10 @@ class NovaCreateForms extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('forms', function($t)
+		Schema::create('forms', function(Blueprint $t)
 		{
 			$t->increments('id');
-			$t->string('key', 20);
+			$t->string('key', 20)->unique();
 			$t->string('name');
 			$t->string('orientation', 50)->default('vertical');
 			$t->boolean('status')->default(Status::ACTIVE);
@@ -28,7 +29,7 @@ class NovaCreateForms extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('form_data', function($t)
+		Schema::create('form_data', function(Blueprint $t)
 		{
 			$t->bigIncrements('id');
 			$t->integer('form_id')->unsigned();
@@ -39,7 +40,7 @@ class NovaCreateForms extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('form_fields', function($t)
+		Schema::create('form_fields', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('form_id')->unsigned();
@@ -62,7 +63,7 @@ class NovaCreateForms extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('form_sections', function($t)
+		Schema::create('form_sections', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('form_id')->unsigned();
@@ -73,7 +74,7 @@ class NovaCreateForms extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('form_tabs', function($t)
+		Schema::create('form_tabs', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('form_id')->unsigned();
@@ -84,7 +85,7 @@ class NovaCreateForms extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('form_values', function($t)
+		Schema::create('form_values', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('field_id')->unsigned();

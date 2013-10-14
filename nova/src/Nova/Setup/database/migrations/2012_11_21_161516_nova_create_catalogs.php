@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateCatalogs extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateCatalogs extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('catalog_modules', function($t)
+		Schema::create('catalog_modules', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('name');
@@ -24,7 +25,7 @@ class NovaCreateCatalogs extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('catalog_ranks', function($t)
+		Schema::create('catalog_ranks', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('name');
@@ -38,7 +39,7 @@ class NovaCreateCatalogs extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('catalog_skins', function($t)
+		Schema::create('catalog_skins', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('name');
@@ -55,7 +56,7 @@ class NovaCreateCatalogs extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('catalog_widgets', function($t)
+		Schema::create('catalog_widgets', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('name');

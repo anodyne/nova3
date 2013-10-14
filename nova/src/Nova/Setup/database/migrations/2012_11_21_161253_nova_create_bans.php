@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateBans extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateBans extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('bans', function($t)
+		Schema::create('bans', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('level')->default(1);

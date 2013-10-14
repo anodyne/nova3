@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateNavigation extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateNavigation extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('navigation', function($t)
+		Schema::create('navigation', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('name');

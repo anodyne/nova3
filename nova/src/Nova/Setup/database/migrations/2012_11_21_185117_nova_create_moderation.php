@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateModeration extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateModeration extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('moderation', function($t)
+		Schema::create('moderation', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('user_id')->unsigned()->nullable();

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateApplications extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateApplications extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('applications', function($t)
+		Schema::create('applications', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('user_id')->unsigned();
@@ -22,7 +23,7 @@ class NovaCreateApplications extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('application_responses', function($t)
+		Schema::create('application_responses', function(Blueprint $t)
 		{
 			$t->bigIncrements('id');
 			$t->integer('app_id')->unsigned();
@@ -32,14 +33,14 @@ class NovaCreateApplications extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('application_reviewers', function($t)
+		Schema::create('application_reviewers', function(Blueprint $t)
 		{
 			$t->bigIncrements('id');
 			$t->integer('app_id')->unsigned();
 			$t->integer('user_id')->unsigned();
 		});
 
-		Schema::create('application_rules', function($t)
+		Schema::create('application_rules', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('type', 50)->default('global');

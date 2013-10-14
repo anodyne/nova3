@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateSessions extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateSessions extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('sessions', function($t)
+		Schema::create('sessions', function(Blueprint $t)
 		{
 			$t->string('id')->unique();
 			$t->text('payload');

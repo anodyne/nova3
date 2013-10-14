@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateWiki extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateWiki extends Migration {
 	 */
 	public function up()
 	{
-		/*Schema::create('wiki_pages', function($t)
+		/*Schema::create('wiki_pages', function(Blueprint $t)
 		{
 			$t->increments('id');
 		});*/

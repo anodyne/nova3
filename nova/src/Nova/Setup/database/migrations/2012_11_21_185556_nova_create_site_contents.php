@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateSiteContents extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateSiteContents extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('site_contents', function($t)
+		Schema::create('site_contents', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('key')->unique();

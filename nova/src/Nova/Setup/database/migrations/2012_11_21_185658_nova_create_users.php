@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateUsers extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateUsers extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('users', function($t)
+		Schema::create('users', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('status')->default(Status::PENDING);
@@ -31,7 +32,7 @@ class NovaCreateUsers extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('user_loas', function($t)
+		Schema::create('user_loas', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('user_id')->unsigned();
@@ -43,7 +44,7 @@ class NovaCreateUsers extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('user_preferences', function($t)
+		Schema::create('user_preferences', function(Blueprint $t)
 		{
 			$t->bigIncrements('id');
 			$t->integer('user_id')->unsigned();
@@ -51,7 +52,7 @@ class NovaCreateUsers extends Migration {
 			$t->text('value')->nullable();
 		});
 
-		Schema::create('user_suspended', function($t)
+		Schema::create('user_suspended', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('user_id')->unsigned();

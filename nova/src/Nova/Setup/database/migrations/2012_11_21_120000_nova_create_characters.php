@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateCharacters extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateCharacters extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('characters', function($t)
+		Schema::create('characters', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('user_id')->unsigned()->default(0);
@@ -27,7 +28,7 @@ class NovaCreateCharacters extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('character_positions', function($t)
+		Schema::create('character_positions', function(Blueprint $t)
 		{
 			$t->bigIncrements('id');
 			$t->integer('character_id')->unsigned();
@@ -35,7 +36,7 @@ class NovaCreateCharacters extends Migration {
 			$t->boolean('primary')->default((int) false);
 		});
 
-		Schema::create('character_promotions', function($t)
+		Schema::create('character_promotions', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('character_id')->unsigned();

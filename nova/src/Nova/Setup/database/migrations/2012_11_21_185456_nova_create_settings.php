@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateSettings extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateSettings extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('settings', function($t)
+		Schema::create('settings', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('key', 100);

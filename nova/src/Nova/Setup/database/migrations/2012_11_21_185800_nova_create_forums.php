@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateForums extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateForums extends Migration {
 	 */
 	public function up()
 	{
-		/*Schema::create('forum_posts', function($t)
+		/*Schema::create('forum_posts', function(Blueprint $t)
 		{
 			$t->increments('id');
 		});*/

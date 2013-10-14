@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateAnnouncements extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateAnnouncements extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('announcements', function($t)
+		Schema::create('announcements', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('title')->default('');

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateRanks extends Migration {
@@ -14,7 +15,7 @@ class NovaCreateRanks extends Migration {
 		// Get the genre
 		$genre = ($explicitGenre) ?: Config::get('nova.genre');
 
-		Schema::create("ranks_{$genre}", function($t)
+		Schema::create("ranks_{$genre}", function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('info_id')->unsigned();
@@ -24,7 +25,7 @@ class NovaCreateRanks extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create("ranks_groups_{$genre}", function($t)
+		Schema::create("ranks_groups_{$genre}", function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('name');
@@ -33,7 +34,7 @@ class NovaCreateRanks extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create("ranks_info_{$genre}", function($t)
+		Schema::create("ranks_info_{$genre}", function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('name');

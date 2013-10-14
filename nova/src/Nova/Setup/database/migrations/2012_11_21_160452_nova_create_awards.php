@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateAwards extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateAwards extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('awards', function($t)
+		Schema::create('awards', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('name');
@@ -23,7 +24,7 @@ class NovaCreateAwards extends Migration {
 			$t->boolean('status')->default(Status::ACTIVE);
 		});
 
-		Schema::create('award_categories', function($t)
+		Schema::create('award_categories', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('name');
@@ -31,7 +32,7 @@ class NovaCreateAwards extends Migration {
 			$t->boolean('status')->default(Status::ACTIVE);
 		});
 
-		Schema::create('award_recipients', function($t)
+		Schema::create('award_recipients', function(Blueprint $t)
 		{
 			$t->bigIncrements('id');
 			$t->integer('character_id')->unsigned();

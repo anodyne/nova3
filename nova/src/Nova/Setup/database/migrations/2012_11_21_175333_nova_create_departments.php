@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateDepartments extends Migration {
@@ -14,7 +15,7 @@ class NovaCreateDepartments extends Migration {
 		// Get the genre
 		$genre = ($explicitGenre) ?: Config::get('nova.genre');
 
-		Schema::create("departments_{$genre}", function($t)
+		Schema::create("departments_{$genre}", function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('name');

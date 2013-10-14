@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateMedia extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateMedia extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('media', function($t)
+		Schema::create('media', function(Blueprint $t)
 		{
 			$t->bigIncrements('id');
 			$t->integer('entry_id')->unsigned();

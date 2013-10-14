@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreateRoles extends Migration {
@@ -11,7 +12,7 @@ class NovaCreateRoles extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('roles', function($t)
+		Schema::create('roles', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('name');
@@ -20,14 +21,14 @@ class NovaCreateRoles extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('roles_tasks', function($t)
+		Schema::create('roles_tasks', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('role_id')->unsigned();
 			$t->integer('task_id')->unsigned();
 		});
 
-		Schema::create('tasks', function($t)
+		Schema::create('tasks', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->string('name');

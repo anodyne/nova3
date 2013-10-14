@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class NovaCreatePosts extends Migration {
@@ -11,7 +12,7 @@ class NovaCreatePosts extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('posts', function($t)
+		Schema::create('posts', function(Blueprint $t)
 		{
 			$t->bigIncrements('id');
 			$t->string('title')->nullable();
@@ -25,7 +26,7 @@ class NovaCreatePosts extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('post_authors', function($t)
+		Schema::create('post_authors', function(Blueprint $t)
 		{
 			$t->bigIncrements('id');
 			$t->integer('post_id')->unsigned();
@@ -33,7 +34,7 @@ class NovaCreatePosts extends Migration {
 			$t->integer('character_id')->unsigned();
 		});
 
-		Schema::create('post_locks', function($t)
+		Schema::create('post_locks', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('post_id')->unsigned();
@@ -41,7 +42,7 @@ class NovaCreatePosts extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('post_participants', function($t)
+		Schema::create('post_participants', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('post_id')->unsigned();
