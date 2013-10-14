@@ -38,33 +38,6 @@ class Add extends AjaxBaseController {
 	}
 
 	/**
-	 * Add a field value to the database.
-	 *
-	 * @return	string
-	 */
-	public function postFormValue()
-	{
-		if ($this->auth->check() and $this->currentUser->hasAccess('form.update'))
-		{
-			$item = \FormValueModel::create([
-				'value'		=> Str::lower(e(Input::get('content'))),
-				'content'	=> e(Input::get('content')),
-				'field_id'	=> e(Input::get('field')),
-				'order'		=> e(Input::get('order')),
-			]);
-
-			if ($item)
-			{
-				return partial('forms/field_value', [
-					'value'	=> $item->value,
-					'id'	=> $item->id,
-					'icons'	=> Nova::getIconIndex(Nova::getSkin()),
-				]);
-			}
-		}
-	}
-
-	/**
 	 * Runs the QuickInstall for a module.
 	 *
 	 * @return	void

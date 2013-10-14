@@ -1,23 +1,23 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
 use FormModel;
+use FormTabModel;
+use UtilityTrait;
 use FormDataModel;
 use SecurityTrait;
+use FormFieldModel;
+use FormValueModel;
+use FormSectionModel;
 use FormProtectedException;
 use FormRepositoryInterface;
 
 class FormRepository implements FormRepositoryInterface {
 
+	use UtilityTrait;
 	use SecurityTrait;
 
-	/*
-	|--------------------------------------------------------------------------
-	| BaseRepositoryInterface Implementation
-	|--------------------------------------------------------------------------
-	*/
-
 	/**
-	 * Get everything out of the database.
+	 * Get all the forms.
 	 *
 	 * @return	Collection
 	 */
@@ -27,87 +27,41 @@ class FormRepository implements FormRepositoryInterface {
 	}
 	
 	/**
-	 * Create a new item.
+	 * Create a new form.
 	 *
-	 * @param	array	$data	Data to use for creation
+	 * @param	array	$data		Data to use for creation
+	 * @param	bool	$setFlash	Set a flash message?
 	 * @return	Form
 	 */
-	public function create(array $data)
+	public function create(array $data, $setFlash = true)
 	{
-		return FormModel::create($data);
-	}
+		// Create the form
+		$form = FormModel::create($data);
 
-	/**
-	 * Delete an item.
-	 *
-	 * @param	int		$id		ID to delete
-	 * @return	bool
-	 */
-	public function delete($id)
-	{
-		$id = $this->sanitizeInt($id);
-
-		// Get the form
-		$item = $this->find($id);
-
-		if ($item)
+		if ($setFlash)
 		{
-			if ($item->protected)
-				throw new FormProtectedException;
+			// Set the flash info
+			$status = ($form) ? 'success' : 'danger';
+			$message = ($form) 
+				? lang('Short.alert.success.create', lang('form'))
+				: lang('Short.alert.failure.create', lang('form'));
 
-			return $item->delete();
+			// Flash the session
+			$this->setFlashMessage($status, $message);
 		}
 
-		return false;
+		return $form;
 	}
-
-	/**
-	 * Find an item by ID.
-	 *
-	 * @param	int		$id		ID to find
-	 * @return	object
-	 */
-	public function find($id)
-	{
-		$id = $this->sanitizeInt($id);
-
-		return FormModel::find($id);
-	}
-
-	/**
-	 * Update an item.
-	 *
-	 * @param	int		$id		ID to update
-	 * @param	array	$data	Data to use for update
-	 * @return	object
-	 */
-	public function update($id, array $data)
-	{
-		$id = $this->sanitizeInt($id);
-
-		// Get the form
-		$item = $this->find($id);
-
-		if ($item)
-			return $item->update($data);
-
-		return false;
-	}
-
-	/*
-	|--------------------------------------------------------------------------
-	| FormRepositoryInterface Implementation
-	|--------------------------------------------------------------------------
-	*/
 
 	/**
 	 * Create a form field.
 	 *
-	 * @param	array	$data	Data to use for creating the field
-	 * @param	Form	$form	The Form object
-	 * @return	Form
+	 * @param	array	$data		Data to use for creating the field
+	 * @param	Form	$form		The Form object
+	 * @param	bool	$setFlash	Set a flash message?
+	 * @return	Field
 	 */
-	public function createField(array $data, $form)
+	public function createField(array $data, $form, $setFlash = true)
 	{
 		// Create the field
 		$newField = $form->fields()->getModel()->newInstance($data);
@@ -115,6 +69,7 @@ class FormRepository implements FormRepositoryInterface {
 		// Attach the field to the form
 		$item = $form->fields()->save($newField);
 
+		// If we have values for the field, make sure to add them
 		if (array_key_exists('field_values', $data))
 		{
 			// Break the values into an array
@@ -124,14 +79,59 @@ class FormRepository implements FormRepositoryInterface {
 			{
 				// Create a new form value for this field
 				$newValue = $item->values()->getModel()->newInstance([
-					'value' => e(trim($value)),
+					'value' => trim($value),
 					'order' => $key
 				]);
 				$item->values()->save($newValue);
 			}
 		}
 
+		if ($setFlash)
+		{
+			// Set the flash info
+			$status = ($item) ? 'success' : 'danger';
+			$message = ($item) 
+				? lang('Short.alert.success.create', langConcat('form field'))
+				: lang('Short.alert.failure.create', langConcat('form field'));
+
+			// Flash the session
+			$this->setFlashMessage($status, $message);
+		}
+
 		return $item;
+	}
+
+	/**
+	 * Create a form field value.
+	 *
+	 * @param	array	$data		Data to use for creating the form field value
+	 * @param	string	$formKey	The form key
+	 * @param	int		$fieldId	Field ID of the value being added
+	 * @return	Value
+	 */
+	public function createFieldValue(array $data, $formKey, $fieldId)
+	{
+		// Get the form
+		$form = $this->findByKey($formKey);
+
+		// Get the field
+		$field = $form->fields()->find($fieldId);
+
+		if ($field)
+		{
+			// Set a new instance
+			$value = $field->values()->getModel()->newInstance([
+				'value'		=> strtolower($data['content']),
+				'content'	=> $data['content'],
+				'field_id'	=> $fieldId,
+				'order'		=> $data['order']
+			]);
+
+			// Save the value
+			return $field->values()->save($value);
+		}
+
+		return false;
 	}
 
 	/**
@@ -178,7 +178,7 @@ class FormRepository implements FormRepositoryInterface {
 					'form_id'		=> $form->id,
 					'field_id'		=> $field,
 					'data_id'		=> $id,
-					'value'			=> trim(e($value)),
+					'value'			=> trim($value),
 					'created_by'	=> $currentUser->id,
 				]);
 			}
@@ -188,53 +188,139 @@ class FormRepository implements FormRepositoryInterface {
 	/**
 	 * Create a form section.
 	 *
-	 * @param	array	$data	Data to use for creating the section
-	 * @param	Form	$form	The Form object
-	 * @return	Form
+	 * @param	array	$data		Data to use for creating the section
+	 * @param	Form	$form		The Form object
+	 * @param	bool	$setFlash	Set a flash message?
+	 * @return	Section
 	 */
-	public function createSection(array $data, $form)
+	public function createSection(array $data, $form, $setFlash = true)
 	{
 		// Create the section
 		$newSection = $form->sections()->getModel()->newInstance($data);
 		
 		// Attach it to the form
-		return $form->sections()->save($newSection);
+		$section = $form->sections()->save($newSection);
+
+		if ($setFlash)
+		{
+			// Set the flash info
+			$status = ($section) ? 'success' : 'danger';
+			$message = ($section) 
+				? lang('Short.alert.success.create', langConcat('form section'))
+				: lang('Short.alert.failure.create', langConcat('form section'));
+
+			// Flash the session
+			$this->setFlashMessage($status, $message);
+		}
+
+		return $section;
 	}
 
 	/**
 	 * Create a form tab.
 	 *
-	 * @param	array	$data	Data to use for creating the tab
-	 * @param	Form	$form	The Form object
-	 * @return	Form
+	 * @param	array	$data		Data to use for creating the tab
+	 * @param	Form	$form		The Form object
+	 * @param	bool	$setFlash	Set a flash message?
+	 * @return	Tab
 	 */
-	public function createTab(array $data, $form)
+	public function createTab(array $data, $form, $setFlash = true)
 	{
 		// Create the tab
 		$newTab = $form->tabs()->getModel()->newInstance($data);
 
 		// Attach it to the form
-		return $form->tabs()->save($newTab);
+		$tab = $form->tabs()->save($newTab);
+
+		if ($setFlash)
+		{
+			// Set the flash info
+			$status = ($tab) ? 'success' : 'danger';
+			$message = ($tab) 
+				? lang('Short.alert.success.create', langConcat('form tab'))
+				: lang('Short.alert.failure.create', langConcat('form tab'));
+
+			// Flash the session
+			$this->setFlashMessage($status, $message);
+		}
+
+		return $tab;
+	}
+
+	/**
+	 * Delete a form.
+	 *
+	 * @param	int		$id			ID to delete
+	 * @param	bool	$setFlash	Set a flash message?
+	 * @return	bool
+	 */
+	public function delete($id, $setFlash = true)
+	{
+		// Get the form
+		$form = $this->find($id);
+
+		if ($form)
+		{
+			if ((bool) $form->protected)
+				throw new FormProtectedException;
+
+			// Delete the form
+			$delete = $form->delete();
+
+			if ($setFlash)
+			{
+				// Set the flash info
+				$status = ($delete) ? 'success' : 'danger';
+				$message = ($delete)
+					? lang('Short.alert.success.delete', lang('form'))
+					: lang('Short.alert.failure.delete', lang('form'));
+
+				// Flash the session
+				$this->setFlashMessage($status, $message);
+			}
+
+			return $delete;
+		}
+
+		return false;
 	}
 
 	/**
 	 * Delete a form field.
 	 *
-	 * @param	int		$id		Field ID to delete
-	 * @param	Form	$form	The Form object
+	 * @param	int		$id			Field ID to delete
+	 * @param	bool	$setFlash	Set a flash message?
 	 * @return	bool
 	 */
-	public function deleteField($id, $form)
+	public function deleteField($id, $setFlash = true)
 	{
-		$id = $this->sanitizeInt($id);
+		// Delete the field
+		$delete = FormFieldModel::destroy($id);
 
-		// Get the field
-		$item = $form->fields()->find($id);
+		if ($setFlash)
+		{
+			// Set the flash info
+			$status = ($delete) ? 'success' : 'danger';
+			$message = ($delete) 
+				? lang('Short.alert.success.delete', langConcat('form field'))
+				: lang('Short.alert.failure.delete', langConcat('form field'));
 
-		if ($item)
-			return $item->delete();
+			// Flash the session
+			$this->setFlashMessage($status, $message);
+		}
 
-		return false;
+		return $delete;
+	}
+
+	/**
+	 * Delete a form field value.
+	 *
+	 * @param	int		$id		Field value ID to delete
+	 * @return	bool
+	 */
+	public function deleteFieldValue($id)
+	{
+		return FormValueModel::destroy($id);
 	}
 
 	/**
@@ -263,35 +349,46 @@ class FormRepository implements FormRepositoryInterface {
 	/**
 	 * Delete a form section.
 	 *
-	 * @param	int		$id		Section ID to delete
-	 * @param	int		$newId	New section to use
-	 * @param	Form	$form	The Form object
+	 * @param	int		$id			Section ID to delete
+	 * @param	int		$newId		New section to use
+	 * @param	Form	$form		The Form object
+	 * @param	bool	$setFlash	Set a flash message?
 	 * @return	bool
 	 */
-	public function deleteSection($id, $newId, $form)
+	public function deleteSection($id, $newId, $form, $setFlash = true)
 	{
-		$id = $this->sanitizeInt($id);
-
 		// Get the section
-		$item = $form->sections()->find($id);
+		$section = $form->sections()->find($this->sanitizeInt($id));
 
-		if ($item)
+		if ($section)
 		{
 			// Sanitize the new ID
 			$newId = $this->sanitizeInt($newId);
 
-			if ( ! $newId)
-				return false;
-
-			if ($item->fields->count() > 0)
+			if ($section->fields->count() > 0)
 			{
-				foreach ($item->fields as $field)
+				foreach ($section->fields as $field)
 				{
 					$field->update(['section_id' => $newId]);
 				}
 			}
 
-			return $item->delete();
+			// Delete the section
+			$delete = $section->delete();
+
+			if ($setFlash)
+			{
+				// Set the flash info
+				$status = ($delete) ? 'success' : 'danger';
+				$message = ($delete) 
+					? lang('Short.alert.success.delete', langConcat('form section'))
+					: lang('Short.alert.failure.delete', langConcat('form section'));
+
+				// Flash the session
+				$this->setFlashMessage($status, $message);
+			}
+
+			return $delete;
 		}
 
 		return false;
@@ -300,38 +397,60 @@ class FormRepository implements FormRepositoryInterface {
 	/**
 	 * Delete a form tab.
 	 *
-	 * @param	int		$id		Tab ID to delete
-	 * @param	int		$newId	New tab to use
-	 * @param	Form	$form	The Form object
+	 * @param	int		$id			Tab ID to delete
+	 * @param	int		$newId		New tab to use
+	 * @param	Form	$form		The Form object
+	 * @param	bool	$setFlash	Set flash message?
 	 * @return	bool
 	 */
-	public function deleteTab($id, $newId, $form)
+	public function deleteTab($id, $newId, $form, $setFlash = true)
 	{
-		$id = $this->sanitizeInt($id);
-
 		// Get the tab
-		$item = $form->tabs()->find($id);
+		$tab = $form->tabs()->find($this->sanitizeInt($id));
 
-		if ($item)
+		if ($tab)
 		{
 			// Sanitize the new ID
 			$newId = $this->sanitizeInt($newId);
 
-			if ( ! $newId)
-				return false;
-
-			if ($item->sections->count() > 0)
+			if ($tab->sections->count() > 0)
 			{
-				foreach ($item->sections as $section)
+				foreach ($tab->sections as $section)
 				{
 					$section->update(['tab_id' => $newId]);
 				}
 			}
 
-			return $item->delete();
+			// Delete the tab
+			$delete = $tab->delete();
+
+			if ($setFlash)
+			{
+				// Set the flash info
+				$status = ($delete) ? 'success' : 'danger';
+				$message = ($delete) 
+					? lang('Short.alert.success.delete', langConcat('form tab'))
+					: lang('Short.alert.failure.delete', langConcat('form tab'));
+
+				// Flash the session
+				$this->setFlashMessage($status, $message);
+			}
+
+			return $delete;
 		}
 
 		return false;
+	}
+
+	/**
+	 * Find a form.
+	 *
+	 * @param	int		$id		ID to find
+	 * @return	Form
+	 */
+	public function find($id)
+	{
+		return FormModel::find($this->sanitizeInt($id));
 	}
 
 	/**
@@ -342,9 +461,156 @@ class FormRepository implements FormRepositoryInterface {
 	 */
 	public function findByKey($key)
 	{
-		$key = $this->sanitizeString($key);
+		return FormModel::key($this->sanitizeString($key))->first();
+	}
 
-		return FormModel::key($key)->first();
+	/**
+	 * Find a form field.
+	 *
+	 * @param	int		$id		Field ID
+	 * @return	Field
+	 */
+	public function findField($id)
+	{
+		return FormFieldModel::find($this->sanitizeInt($value));
+	}
+
+	/**
+	 * Find a form field value.
+	 *
+	 * @param	int		$id		Field value ID
+	 * @return	Value
+	 */
+	public function findFieldValue($id)
+	{
+		return FormValueModel::find($this->sanitizeInt($id));
+	}
+
+	/**
+	 * Find a form section.
+	 *
+	 * @param	int		$id		Section ID
+	 * @return	Section
+	 */
+	public function findSection($id)
+	{
+		return FormSectionModel::find($this->sanitizeInt($id));
+	}
+
+	/**
+	 * Find a form tab.
+	 *
+	 * @param	int		$id		Tab ID
+	 * @return	Tab
+	 */
+	public function findTab($id)
+	{
+		return FormTabModel::find($this->sanitizeInt($id));
+	}
+
+	/**
+	 * Get all the form fields for a form.
+	 *
+	 * @param	string	$formKey	Form key
+	 * @return	Collection
+	 */
+	public function getFormFields($formKey)
+	{
+		$form = $this->findByKey($formKey);
+
+		return $form->fields;
+	}
+
+	/**
+	 * Get all of a form's fields and order them by label.
+	 *
+	 * @param	string	$formKey	Form key
+	 * @param	string	$key		Field to use as the array key
+	 * @param	string	$value		Field to use as the array value
+	 * @return	array
+	 */
+	public function getFormFieldsForDropdown($formKey, $key, $value)
+	{
+		// Get the form
+		$form = $this->findByKey($formKey);
+
+		// Start the fields array
+		$fields[0] = lang('short.selectOne', langConcat('form field'));
+		$fields += $form->fields()->active()
+			->orderAsc('label')->get()
+			->toSimpleArray($key, $value);
+
+		return $fields;
+	}
+
+	/**
+	 * Get all the form sections for a form.
+	 *
+	 * @param	string	$formKey	Form key
+	 * @return	Collection
+	 */
+	public function getFormSections($formKey)
+	{
+		$form = $this->findByKey($formKey);
+
+		return $form->sections;
+	}
+
+	/**
+	 * Get all of a form's sections and put them into an array.
+	 *
+	 * @param	string	$formKey	Form key
+	 * @param	string	$key		Field to use as the array key
+	 * @param	string	$value		Field to use as the array value
+	 * @return	array
+	 */
+	public function getFormSectionsForDropdown($formKey, $key, $value)
+	{
+		// Get the form
+		$form = $this->findByKey($formKey);
+
+		// Start the sections array
+		$sections[0] = lang('short.selectOne', langConcat('form section'));
+		$sections += $form->sections()->active()
+			->orderAsc('name')->get()
+			->toSimpleArray($key, $value);
+
+		return $sections;
+	}
+
+	/**
+	 * Get all the form tabs for a form.
+	 *
+	 * @param	string	$formKey	Form key
+	 * @return	Collection
+	 */
+	public function getFormTabs($formKey)
+	{
+		$form = $this->findByKey($formKey);
+
+		return $form->tabs;
+	}
+
+	/**
+	 * Get all of a form's tabs and put them into an array.
+	 *
+	 * @param	string	$formKey	Form key
+	 * @param	string	$key		Field to use as the array key
+	 * @param	string	$value		Field to use as the array value
+	 * @return	array
+	 */
+	public function getFormTabsForDropdown($formKey, $key, $value)
+	{
+		// Get the form
+		$form = $this->findByKey($formKey);
+
+		// Start the tabs array
+		$tabs[0] = lang('short.selectOne', langConcat('form tab'));
+		$tabs += $form->tabs()->active()
+			->orderAsc('name')->get()
+			->toSimpleArray($key, $value);
+
+		return $tabs;
 	}
 
 	/**
@@ -396,24 +662,77 @@ class FormRepository implements FormRepositoryInterface {
 	}
 
 	/**
-	 * Update a form field.
+	 * Update a form.
 	 *
-	 * @param	int		$id		Field ID to update
-	 * @param	array	$data	Data to use for the update
-	 * @param	Form	$form	The Form object
+	 * @param	int		$id		ID to update
+	 * @param	array	$data	Data to use for update
 	 * @return	Form
 	 */
-	public function updateField($id, array $data, $form)
+	public function update($id, array $data)
 	{
-		$id = $this->sanitizeInt($id);
+		// Get the form
+		$form = $this->find($id);
 
+		if ($form)
+			$item = $form->update($data);
+
+		// Set the flash info
+		$flashStatus = ($form) ? 'success' : 'danger';
+		$flashMessage = ($form) 
+			? lang('Short.alert.success.update', lang('form'))
+			: lang('Short.alert.failure.update', lang('form'));
+
+		// Flash the session
+		$this->setFlashMessage($flashStatus, $flashMessage);
+
+		return $item;
+	}
+
+	/**
+	 * Update a form field.
+	 *
+	 * @param	int		$id			Field ID to update
+	 * @param	array	$data		Data to use for the update
+	 * @param	bool	$setFlash	Set a flash message?
+	 * @return	Field
+	 */
+	public function updateField($id, array $data, $setFlash = true)
+	{
 		// Get the field
-		$item = $form->fields()->find($id);
+		$field = $this->findField($id);
 
-		if ($item)
-			return $item->update($data);
+		// Update the field
+		$update = $field->update($data);
 
-		return false;
+		if ($setFlash)
+		{
+			// Set the flash info
+			$status = ($update) ? 'success' : 'danger';
+			$message = ($update) 
+				? lang('Short.alert.success.update', langConcat('form field'))
+				: lang('Short.alert.failure.update', langConcat('form field'));
+
+			// Flash the session
+			$this->setFlashMessage($status, $message);
+		}
+
+		return $update;
+	}
+
+	/**
+	 * Update a form field value.
+	 *
+	 * @param	int		$id		Value ID to update
+	 * @param	array	$data	Data to use for the update
+	 * @return	Value
+	 */
+	public function updateFieldValue($id, array $data)
+	{
+		// Get the field value
+		$value = $this->findFieldValue($id);
+
+		// Update the field value
+		return $value->update($data);
 	}
 
 	/**
@@ -444,43 +763,63 @@ class FormRepository implements FormRepositoryInterface {
 	/**
 	 * Update a form section.
 	 *
-	 * @param	int		$id		Section ID to update
-	 * @param	array	$data	Data to use for the update
-	 * @param	Form	$form	The Form object
-	 * @return	Form
+	 * @param	int		$id			Section ID to update
+	 * @param	array	$data		Data to use for the update
+	 * @param	bool	$setFlash	Set a flash message?
+	 * @return	Section
 	 */
-	public function updateSection($id, array $data, $form)
+	public function updateSection($id, array $data, $setFlash = true)
 	{
-		$id = $this->sanitizeInt($id);
-
 		// Get the section
-		$item = $form->sections()->find($id);
+		$section = $this->findSection($id);
 
-		if ($item)
-			return $item->update($data);
+		// Update the section
+		$update = $section->update($data);
 
-		return false;
+		if ($setFlash)
+		{
+			// Set the flash info
+			$status = ($update) ? 'success' : 'danger';
+			$message = ($update) 
+				? lang('Short.alert.success.update', langConcat('form section'))
+				: lang('Short.alert.failure.update', langConcat('form section'));
+
+			// Flash the session
+			$this->setFlashMessage($status, $message);
+		}
+
+		return $update;
 	}
 
 	/**
 	 * Update a form tab.
 	 *
-	 * @param	int		$id		Tab ID to update
-	 * @param	array	$data	Data to use for the update
-	 * @param	Form	$form	The Form object
-	 * @return	Form
+	 * @param	int		$id			Tab ID to update
+	 * @param	array	$data		Data to use for the update
+	 * @param	bool	$setFlash	Set a flash message?
+	 * @return	Tab
 	 */
-	public function updateTab($id, array $data, $form)
+	public function updateTab($id, array $data, $setFlash = true)
 	{
-		$id = $this->sanitizeInt($id);
-
 		// Get the tab
-		$item = $form->tabs()->find($id);
+		$tab = $this->findTab($id);
 
-		if ($item)
-			return $item->update($data);
+		// Update the tab
+		$update = $tab->update($data);
 
-		return false;
+		if ($setFlash)
+		{
+			// Set the flash info
+			$status = ($update) ? 'success' : 'danger';
+			$message = ($update) 
+				? lang('Short.alert.success.update', langConcat('form tab'))
+				: lang('Short.alert.failure.update', langConcat('form tab'));
+
+			// Flash the session
+			$this->setFlashMessage($status, $message);
+		}
+
+		return $update;
 	}
 
 }

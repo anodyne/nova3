@@ -7,78 +7,85 @@ interface FormRepositoryInterface extends BaseRepositoryInterface {
 	/**
 	 * Create a form field.
 	 *
-	 * @param	array	$data	Data to use for creating the field
-	 * @param	Form	$form	The Form object
-	 * @return	Form
+	 * @param	array	$data		Data to use for creating the field
+	 * @param	Form	$form		The Form object
+	 * @param	bool	$setFlash	Set a flash message?
+	 * @return	Field
 	 */
-	public function createField(array $data, $form);
+	public function createField(array $data, $form, $setFlash = true);
 
 	/**
-	 * Create a new FormViewer entry.
+	 * Create a form field value.
 	 *
-	 * @param	int		$id				The data ID to use
-	 * @param	array	$data			Data to use creating the entry
-	 * @param	Form	$form			Form object
-	 * @param	User	$currentUser	The current user
-	 * @return	void
+	 * @param	array	$data		Data to use for creating the form field value
+	 * @param	string	$formKey	The form key
+	 * @param	int		$fieldId	Field ID of the value being added
+	 * @return	Value
 	 */
+	public function createFieldValue(array $data, $formKey, $fieldId);
+
 	public function createFormViewerEntry($id, array $data, $form, $currentUser);
 
 	/**
 	 * Create a form section.
 	 *
-	 * @param	array	$data	Data to use for creating the section
-	 * @param	Form	$form	The Form object
-	 * @return	Form
+	 * @param	array	$data		Data to use for creating the section
+	 * @param	Form	$form		The Form object
+	 * @param	bool	$setFlash	Set a flash message?
+	 * @return	Section
 	 */
-	public function createSection(array $data, $form);
+	public function createSection(array $data, $form, $setFlash = true);
 
 	/**
 	 * Create a form tab.
 	 *
-	 * @param	array	$data	Data to use for creating the tab
-	 * @param	Form	$form	The Form object
-	 * @return	Form
+	 * @param	array	$data		Data to use for creating the tab
+	 * @param	Form	$form		The Form object
+	 * @param	bool	$setFlash	Set a flash message?
+	 * @return	Tab
 	 */
-	public function createTab(array $data, $form);
+	public function createTab(array $data, $form, $setFlash = true);
 
 	/**
 	 * Delete a form field.
 	 *
-	 * @param	int		$id		Field ID to delete
-	 * @param	Form	$form	The Form object
+	 * @param	int		$id			Field ID to delete
+	 * @param	bool	$setFlash	Set a flash message?
 	 * @return	bool
 	 */
-	public function deleteField($id, $form);
+	public function deleteField($id, $setFlash = true);
 
 	/**
-	 * Delete a FormViewer entry.
+	 * Delete a form field value.
 	 *
-	 * @param	int		$id		Data ID to delete
-	 * @param	Form	$form	The Form object
+	 * @param	int		$id		Field value ID to delete
 	 * @return	bool
 	 */
+	public function deleteFieldValue($id);
+
 	public function deleteFormViewerEntry($id, $form);
 
 	/**
 	 * Delete a form section.
 	 *
-	 * @param	int		$id		Section ID to delete
-	 * @param	int		$newId	New section to use
-	 * @param	Form	$form	The Form object
+	 * @param	int		$id			Section ID to delete
+	 * @param	int		$newId		New section to use
+	 * @param	Form	$form		The Form object
+	 * @param	bool	$setFlash	Set a flash message?
 	 * @return	bool
 	 */
-	public function deleteSection($id, $newId, $form);
+	public function deleteSection($id, $newId, $form, $setFlash = true);
 
 	/**
 	 * Delete a form tab.
 	 *
-	 * @param	int		$id		Tab ID to delete
-	 * @param	int		$newId	New tab to use
-	 * @param	Form	$form	The Form object
+	 * @param	int		$id			Tab ID to delete
+	 * @param	int		$newId		New tab to use
+	 * @param	Form	$form		The Form object
+	 * @param	bool	$setFlash	Set flash message?
 	 * @return	bool
 	 */
-	public function deleteTab($id, $newId, $form);
+	public function deleteTab($id, $newId, $form, $setFlash = true);
 
 	/**
 	 * Find a form by its form key.
@@ -89,68 +96,140 @@ interface FormRepositoryInterface extends BaseRepositoryInterface {
 	public function findByKey($key);
 
 	/**
-	 * Get a form's data entries.
+	 * Find a form field.
 	 *
-	 * @param	Form	$form	Form object
+	 * @param	int		$id		Field ID
+	 * @return	Field
+	 */
+	public function findField($id);
+	//public function findFieldByLabel($value);
+	//public function findFieldByName($value);
+
+	/**
+	 * Find a form field value.
+	 *
+	 * @param	int		$id		Field value ID
+	 * @return	Value
+	 */
+	public function findFieldValue($id);
+
+	/**
+	 * Find a form section.
+	 *
+	 * @param	int		$id		Section ID
+	 * @return	Section
+	 */
+	public function findSection($id);
+	//public function findSectionByName($value);
+
+	/**
+	 * Find a form tab.
+	 *
+	 * @param	int		$id		Tab ID
+	 * @return	Tab
+	 */
+	public function findTab($id);
+	//public function findTabByName($value);
+
+	/**
+	 * Get all the form fields for a form.
+	 *
+	 * @param	string	$formKey	Form key
 	 * @return	Collection
 	 */
+	public function getFormFields($formKey);
+
+	/**
+	 * Get all of a form's fields and order them by label.
+	 *
+	 * @param	string	$formKey	Form key
+	 * @param	string	$key		Field to use as the array key
+	 * @param	string	$value		Field to use as the array value
+	 * @return	array
+	 */
+	public function getFormFieldsForDropdown($formKey, $key, $value);
+
+	/**
+	 * Get all the form sections for a form.
+	 *
+	 * @param	string	$formKey	Form key
+	 * @return	Collection
+	 */
+	public function getFormSections($formKey);
+
+	/**
+	 * Get all of a form's sections and put them into an array.
+	 *
+	 * @param	string	$formKey	Form key
+	 * @param	string	$key		Field to use as the array key
+	 * @param	string	$value		Field to use as the array value
+	 * @return	array
+	 */
+	public function getFormSectionsForDropdown($formKey, $key, $value);
+
+	/**
+	 * Get all the form tabs for a form.
+	 *
+	 * @param	string	$formKey	Form key
+	 * @return	Collection
+	 */
+	public function getFormTabs($formKey);
+
+	/**
+	 * Get all of a form's tabs and put them into an array.
+	 *
+	 * @param	string	$formKey	Form key
+	 * @param	string	$key		Field to use as the array key
+	 * @param	string	$value		Field to use as the array value
+	 * @return	array
+	 */
+	public function getFormTabsForDropdown($formKey, $key, $value);
+
 	public function getFormViewerDataEntries($form);
 
-	/**
-	 * Get a specific FormViewer entry.
-	 *
-	 * @param	int		$id		Data entry to get
-	 * @param	Form	$form	Form object
-	 */
 	public function getFormViewerEntry($id, $form);
 
-	/**
-	 * Get a form's data entries as a paginated result set.
-	 *
-	 * @param	Form	$form		Form object
-	 * @param	int		$perPage	Number of results per page
-	 * @return	Collection
-	 */
 	public function getPaginatedFormViewerEntries($form, $perPage = 50);
 
 	/**
 	 * Update a form field.
 	 *
-	 * @param	int		$id		Field ID to update
-	 * @param	array	$data	Data to use for the update
-	 * @param	Form	$form	The Form object
-	 * @return	Form
+	 * @param	int		$id			Field ID to update
+	 * @param	array	$data		Data to use for the update
+	 * @param	bool	$setFlash	Set a flash message?
+	 * @return	Field
 	 */
-	public function updateField($id, array $data, $form);
+	public function updateField($id, array $data, $setFlash = true);
 
 	/**
-	 * Update a FormViewer entry.
+	 * Update a form field value.
 	 *
-	 * @param	int		$id		The data ID to use
-	 * @param	array	$data	Data to use updating the entry
-	 * @param	Form	$form	Form object
-	 * @return	void
+	 * @param	int		$id		Value ID to update
+	 * @param	array	$data	Data to use for the update
+	 * @return	Value
 	 */
+	public function updateFieldValue($id, array $data);
+
 	public function updateFormViewerEntry($id, array $data, $form);
 
 	/**
 	 * Update a form section.
 	 *
-	 * @param	int		$id		Section ID to update
-	 * @param	array	$data	Data to use for the update
-	 * @param	Form	$form	The Form object
-	 * @return	Form
+	 * @param	int		$id			Section ID to update
+	 * @param	array	$data		Data to use for the update
+	 * @param	bool	$setFlash	Set a flash message?
+	 * @return	Section
 	 */
-	public function updateSection($id, array $data, $form);
+	public function updateSection($id, array $data, $setFlash = true);
 
 	/**
 	 * Update a form tab.
 	 *
-	 * @param	int		$id		Tab ID to update
-	 * @param	array	$data	Data to use for the update
-	 * @param	Form	$form	The Form object
-	 * @return	Form
+	 * @param	int		$id			Tab ID to update
+	 * @param	array	$data		Data to use for the update
+	 * @param	bool	$setFlash	Set a flash message?
+	 * @return	Tab
 	 */
-	public function updateTab($id, array $data, $form);
+	public function updateTab($id, array $data, $setFlash = true);
 
 }

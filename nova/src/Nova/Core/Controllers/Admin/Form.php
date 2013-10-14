@@ -3,6 +3,7 @@
 use Nova;
 use View;
 use Input;
+use Session;
 use Location;
 use Redirect;
 use DynamicForm;
@@ -20,11 +21,11 @@ class Form extends AdminBaseController {
 	{
 		parent::__construct();
 
-		// Set the injected interfaces
+		// Set the injected interface
 		$this->form = $form;
 	}
 
-	public function getIndex($formKey = false)
+	public function getForms($formKey = false)
 	{
 		// Verify the user is allowed
 		$this->currentUser->allowed(['form.create', 'form.update', 'form.delete'], true);
@@ -43,12 +44,7 @@ class Form extends AdminBaseController {
 				$form = $this->data->form = $this->form->findByKey($formKey);
 
 				// Get the form fields
-				$this->data->formFields[0] = lang('short.selectOne', langConcat('form field'));
-				$this->data->formFields+= $form->fields()
-					->active()
-					->orderAsc('label')
-					->get()
-					->toSimpleArray('id', 'label');
+				$this->data->formFields = $this->form->getFormFieldsForDropdown($formKey, 'id', 'label');
 			}
 			else
 			{
@@ -65,95 +61,47 @@ class Form extends AdminBaseController {
 
 			// Get all the forms
 			$form = $this->data->forms = $this->form->all();
-
-			// Build the delete form modal
-			$this->ajax[] = View::make(Location::partial('common/modal'))
-				->with('modalId', 'deleteForm')
-				->with('modalHeader', lang('Short.delete', lang('Form')))
-				->with('modalBody', false)
-				->with('modalFooter', false);
 		}
 	}
-	public function postIndex($formKey = false)
+	public function postForms($formKey = false)
 	{
 		// Get the action
-		$formAction = e(Input::get('formAction'));
+		$formAction = Input::get('formAction');
 
 		// Set up the validation service
 		$validator = new FormValidator;
 
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
-		{
-			// Set the flash message
-			$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
-			$flashMessage.= implode(' ', $validator->getErrors()->all());
+			return Redirect::back()->withInput()->withErrors($validator->getErrors());
 
-			return Redirect::to('admin/form')
-				->with('flashStatus', 'danger')
-				->with('flashMessage', $flashMessage);
-		}
-
-		/**
-		 * Create the form.
-		 */
+		// Create the form
 		if ($this->currentUser->hasAccess('form.create') and $formAction == 'create')
-		{
-			// Create the form
-			$item = $this->form->create(Input::all());
+			$this->form->create(Input::all());
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.create', lang('form'))
-				: lang('Short.alert.failure.create', lang('form'));
-		}
-
-		/**
-		 * Update the form.
-		 */
+		// Update the form
 		if ($this->currentUser->hasAccess('form.update') and $formAction == 'update')
-		{
-			// Update the form
-			$item = $this->form->update(Input::get('id'), Input::all());
+			$this->form->update(Input::get('id'), Input::all());
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.update', lang('form'))
-				: lang('Short.alert.failure.update', lang('form'));
-		}
-
-		/**
-		 * Delete the form.
-		 */
+		// Delete the form
 		if ($this->currentUser->hasAccess('form.delete') and $formAction == 'delete')
 		{
-			// Delete the form
 			try
 			{
-				$item = $this->form->delete(Input::get('id'));
-
-				// Set the flash info
-				$flashStatus = ($item) ? 'success' : 'danger';
-				$flashMessage = ($item)
-					? lang('Short.alert.success.delete', lang('form'))
-					: lang('Short.alert.failure.delete', lang('form'));
+				// Delete the form
+				$this->form->delete(Input::get('id'));
 			}
 			catch (\FormProtectedException $e)
 			{
-				// Form is protected
-				$flashStatus = 'danger';
-				$flashMessage = lang('error.admin.protectedForm');
+				Session::flash('flashStatus', 'danger');
+				Session::flash('flashMessage', lang('error.admin.protectedForm'));
 			}
 		}
 
-		return Redirect::to('admin/form')
-			->with('flashStatus', $flashStatus)
-			->with('flashMessage', $flashMessage);
+		return Redirect::to('admin/form');
 	}
 
-	public function getTabs($formKey, $id = false)
+	public function getTabs($formKey, $tabId = false)
 	{
 		// Verify the user is allowed
 		$this->currentUser->allowed(['form.create', 'form.update', 'form.delete'], true);
@@ -172,7 +120,7 @@ class Form extends AdminBaseController {
 		$tabs = $form->tabs;
 
 		// If there isn't an ID, show all the tabs
-		if ($id === false)
+		if ($tabId === false)
 		{
 			// Set up the variables
 			$this->data->tabs = false;
@@ -180,15 +128,10 @@ class Form extends AdminBaseController {
 			if ($tabs->count() > 0)
 			{
 				// Sort the tabs
-				$tabs = $tabs->sortBy(function($t)
+				$this->data->tabs = $tabs->sortBy(function($t)
 				{
 					return $t->order;
 				});
-
-				foreach ($tabs as $tab)
-				{
-					$this->data->tabs[] = $tab;
-				}
 			}
 		}
 		else
@@ -197,13 +140,10 @@ class Form extends AdminBaseController {
 			$this->view = 'admin/form/tabs_action';
 
 			// Get the tab
-			$tab = $this->data->tab = $form->tabs()->find($id);
-
-			// Clear out the message for this page
-			$this->data->message = false;
+			$tab = $this->data->tab = $form->tabs()->find($tabId);
 
 			// ID 0 means a new tab, anything else edits an existing tab
-			if ((int) $id === 0)
+			if ((int) $tabId === 0)
 			{
 				// Set the action
 				$this->mode = $this->data->action = 'create';
@@ -222,97 +162,42 @@ class Form extends AdminBaseController {
 				// If the tab isn't part of this form, redirect them
 				if ($tab->form->key != $formKey)
 				{
-					Redirect::to("admin/form/tabs/{$tab->form->key}/{$id}");
+					Redirect::to("admin/form/tabs/{$tab->form->key}/{$tabId}");
 				}
 			}
 		}
-
-		// Build the delete tab modal
-		$this->ajax[] = View::make(Location::partial('common/modal'))
-			->with('modalId', 'deleteTab')
-			->with('modalHeader', lang('Short.delete', langConcat('Form Tab')))
-			->with('modalBody', '')
-			->with('modalFooter', false);
 	}
 	public function postTabs($formKey)
 	{
 		// Get the action
-		$formAction = e(Input::get('formAction'));
+		$formAction = Input::get('formAction');
 
 		// Set up the validation service
 		$validator = new FormTabValidator;
 
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
-		{
-			if ($formAction == 'delete')
-			{
-				// Set the flash message
-				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
-				$flashMessage.= implode(' ', $validator->getErrors()->all());
-
-				return Redirect::to('admin/form/tabs')
-					->with('flashStatus', 'danger')
-					->with('flashMessage', $flashMessage);
-			}
-			
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
-		}
 
 		// Get the form
 		$form = $this->form->findByKey($formKey);
 
-		/**
-		 * Create a form tab.
-		 */
+		// Create a tab
 		if ($this->currentUser->hasAccess('form.create') and $formAction == 'create')
-		{
-			// Create the form tab
-			$item = $this->form->createTab(Input::all(), $form);
+			$this->form->createTab(Input::all(), $form);
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.create', langConcat('form tab'))
-				: lang('Short.alert.failure.create', langConcat('form tab'));
-		}
-
-		/**
-		 * Edit a form tab.
-		 */
+		// Update a tab
 		if ($this->currentUser->hasAccess('form.update') and $formAction == 'update')
-		{
-			// Update the tab
-			$item = $this->form->updateTab(Input::get('id'), Input::all(), $form);
+			$this->form->updateTab(Input::get('id'), Input::all());
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.update', langConcat('form tab'))
-				: lang('Short.alert.failure.update', langConcat('form tab'));
-		}
-
-		/**
-		 * Delete the form tab.
-		 */
+		// Delete a tab
 		if ($this->currentUser->hasAccess('form.delete') and $formAction == 'delete')
-		{
-			// Delete the tab
-			$item = $this->form->deleteTab(Input::get('id'), Input::get('new_tab_id'));
+			$this->form->deleteTab(Input::get('id'), Input::get('new_tab_id'));
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.delete', langConcat('form tab'))
-				: lang('Short.alert.failure.delete', langConcat('form tab'));
-		}
-
-		return Redirect::to("admin/form/tabs/{$formKey}")
-			->with('flashStatus', $flashStatus)
-			->with('flashMessage', $flashMessage);
+		return Redirect::to("admin/form/tabs/{$formKey}");
 	}
 
-	public function getSections($formKey, $id = false)
+	public function getSections($formKey, $sectionId = false)
 	{
 		// Verify the user is allowed
 		$this->currentUser->allowed(['form.create', 'form.update', 'form.delete'], true);
@@ -328,7 +213,7 @@ class Form extends AdminBaseController {
 		$form = $this->data->form = $this->form->findByKey($formKey);
 
 		// If there isn't an ID, show all the sections
-		if ($id === false)
+		if ($sectionId === false)
 		{
 			// Get the form sections
 			$sections = $form->sections;
@@ -377,13 +262,10 @@ class Form extends AdminBaseController {
 			$tabs = $this->data->tabs = $form->tabs->toSimpleArray('id', 'name');
 
 			// Get the section
-			$section = $this->data->section = $form->sections()->find($id);
-
-			// Clear out the message for this page
-			$this->data->message = false;
+			$section = $this->data->section = $form->sections()->find($sectionId);
 
 			// ID 0 means a new section, anything else edits an existing section
-			if ((int) $id === 0)
+			if ((int) $sectionId === 0)
 			{
 				// Set the action
 				$this->mode = $this->data->action = 'create';
@@ -402,97 +284,42 @@ class Form extends AdminBaseController {
 				// If the section isn't part of this form, redirect them
 				if ($this->data->section->form->key != $formKey)
 				{
-					Redirect::to("admin/form/sections/{$section->form->key}/{$id}");
+					Redirect::to("admin/form/sections/{$section->form->key}/{$sectionId}");
 				}
 			}
 		}
-
-		// Build the delete section modal
-		$this->ajax[] = View::make(Location::partial('common/modal'))
-			->with('modalId', 'deleteSection')
-			->with('modalHeader', lang('Short.delete', langConcat('Form Section')))
-			->with('modalBody', '')
-			->with('modalFooter', false);
 	}
 	public function postSections($formKey)
 	{
 		// Get the action
-		$formAction = e(Input::get('formAction'));
+		$formAction = Input::get('formAction');
 
 		// Set up the validation service
 		$validator = new FormSectionValidator;
 
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
-		{
-			if ($formAction == 'delete')
-			{
-				// Set the flash message
-				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
-				$flashMessage.= implode(' ', $validator->getErrors()->all());
-
-				return Redirect::to('admin/form/sections')
-					->with('flashStatus', 'danger')
-					->with('flashMessage', $flashMessage);
-			}
-			
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
-		}
 
 		// Get the form
 		$form = $this->form->findByKey($formKey);
 
-		/**
-		 * Create a form section.
-		 */
+		// Create a section
 		if ($this->currentUser->hasAccess('form.create') and $formAction == 'create')
-		{
-			// Create the section
-			$item = $this->form->createSection(Input::all(), $form);
+			$this->form->createSection(Input::all(), $form);
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.create', langConcat('form section'))
-				: lang('Short.alert.failure.create', langConcat('form section'));
-		}
-
-		/**
-		 * Edit a form section.
-		 */
+		// Update a section
 		if ($this->currentUser->hasAccess('form.update') and $formAction == 'update')
-		{
-			// Update the section
-			$item = $this->form->updateSection(Input::get('id'), Input::all(), $form);
+			$this->form->updateSection(Input::get('id'), Input::all());
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.update', langConcat('form section'))
-				: lang('Short.alert.failure.update', langConcat('form section'));
-		}
-
-		/**
-		 * Delete the form section.
-		 */
+		// Delete a section
 		if ($this->currentUser->hasAccess('form.delete') and $formAction == 'delete')
-		{
-			// Delete the section
-			$item = $this->form->deleteSection(Input::get('id'), Input::get('new_section_id'), $form);
+			$this->form->deleteSection(Input::get('id'), Input::get('new_section_id'), $form);
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.delete', langConcat('form section'))
-				: lang('Short.alert.failure.delete', langConcat('form section'));
-		}
-
-		return Redirect::to("admin/form/sections/{$formKey}")
-			->with('flashStatus', $flashStatus)
-			->with('flashMessage', $flashMessage);
+		return Redirect::to("admin/form/sections/{$formKey}");
 	}
 
-	public function getFields($formKey, $id = false)
+	public function getFields($formKey, $fieldId = false)
 	{
 		// Verify the user is allowed
 		$this->currentUser->allowed(['form.create', 'form.update', 'form.delete'], true);
@@ -508,7 +335,7 @@ class Form extends AdminBaseController {
 		$form = $this->data->form = $this->form->findByKey($formKey);
 
 		// If there isn't an ID, show all the fields
-		if ($id === false)
+		if ($fieldId === false)
 		{
 			// Setup the dynamic form and assemble the elements
 			$formOutput = DynamicForm::setup($formKey, false, true);
@@ -518,13 +345,6 @@ class Form extends AdminBaseController {
 			$this->data->tabs = $formOutput->getData('tabs');
 			$this->data->sections = $formOutput->getData('sections');
 			$this->data->fields = $formOutput->getData('fields');
-
-			// Build the delete field modal
-			$this->ajax[] = View::make(Location::partial('common/modal'))
-				->with('modalId', 'deleteField')
-				->with('modalHeader', lang('Short.delete', langConcat('Form Field')))
-				->with('modalBody', '')
-				->with('modalFooter', false);
 		}
 		else
 		{
@@ -532,7 +352,7 @@ class Form extends AdminBaseController {
 			$this->view = 'admin/form/fields_action';
 
 			// Get the field
-			$field = $this->data->field = $form->fields()->find($id);
+			$field = $this->data->field = $form->fields()->find($fieldId);
 
 			// Set the field types
 			$this->data->types = [
@@ -557,7 +377,7 @@ class Form extends AdminBaseController {
 			$this->data->message = false;
 
 			// ID 0 means a new section, anything else edits an existing section
-			if ((int) $id === 0)
+			if ((int) $fieldId === 0)
 			{
 				// Set the action
 				$this->mode = $this->data->action = 'create';
@@ -582,7 +402,7 @@ class Form extends AdminBaseController {
 				// If the field isn't part of this form, redirect them
 				if ($field->form->key != $formKey)
 				{
-					Redirect::to("admin/form/fields/{$field->form->key}/{$id}");
+					Redirect::to("admin/form/fields/{$field->form->key}/{$fieldId}");
 				}
 			}
 		}
@@ -615,54 +435,205 @@ class Form extends AdminBaseController {
 		// Get the form
 		$form = $this->form->findByKey($formKey);
 
-		/**
-		 * Create a form field.
-		 */
+		// Create a form field
 		if ($this->currentUser->hasAccess('form.create') and $formAction == 'create')
-		{
-			// Create the field
-			$item = $this->form->createField(Input::all(), $form);
+			$this->form->createField(Input::all(), $form);
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.create', langConcat('form field'))
-				: lang('Short.alert.failure.create', langConcat('form field'));
-		}
-
-		/**
-		 * Edit a form field.
-		 */
+		// Update a form field
 		if ($this->currentUser->hasAccess('form.update') and $formAction == 'update')
-		{
-			// Update the field
-			$item = $this->form->updateField(Input::get('id'), $form);
+			$this->form->updateField(Input::get('id'), Input::all());
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.update', langConcat('form field'))
-				: lang('Short.alert.failure.update', langConcat('form field'));
-		}
-
-		/**
-		 * Delete a form field.
-		 */
+		// Delete a form field
 		if ($this->currentUser->hasAccess('form.delete') and $formAction == 'delete')
-		{
-			// Delete the field
-			$item = $this->form->deleteField(Input::get('id'), $form);
+			$this->form->deleteField(Input::get('id'), $form);
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.delete', langConcat('form field'))
-				: lang('Short.alert.failure.delete', langConcat('form field'));
+		return Redirect::to("admin/form/fields/{$formKey}");
+	}
+
+	public function postAjaxAddFormValue()
+	{
+		if ($this->currentUser->hasAccess('form.update'))
+		{
+			// Create the field value
+			$item = $this->form->createFieldValue(Input::all(), Input::get('form'), Input::get('field'));
+
+			if ($item)
+			{
+				return partial('forms/field_value', [
+					'value'	=> $item->value,
+					'id'	=> $item->id,
+					'icons'	=> Nova::getIconIndex($this->skin),
+				]);
+			}
+		}
+	}
+
+	public function getAjaxDeleteForm($formKey)
+	{
+		if ($this->currentUser->hasAccess('form.delete'))
+		{
+			// Get the form
+			$form = $this->form->findByKey($formKey);
+
+			// Only present the modal if we're allowed to delete it
+			if ($form and (bool) $form->protected === false)
+			{
+				return partial('common/modal_content', [
+					'modalHeader'	=> lang('Short.delete', lang('Form')),
+					'modalBody'		=> View::make(Location::ajax('delete/form'))
+										->with('form', $form),
+					'modalFooter'	=> false,
+				]);
+			}
+		}
+	}
+
+	public function getAjaxDeleteFormField($id)
+	{
+		if ($this->currentUser->hasAccess('form.delete'))
+		{
+			// Get the field we're deleting
+			$field = $this->form->findField($id);
+
+			if ($field)
+			{
+				return partial('common/modal_content', [
+					'modalHeader'	=> lang('Short.delete', langConcat('Form Field')),
+					'modalBody'		=> View::make(Location::ajax('delete/field'))
+										->with('name', $field->label)
+										->with('id', $field->id)
+										->with('formKey', $field->form->key),
+					'modalFooter'	=> false,
+				]);
+			}
+		}
+	}
+
+	public function getAjaxDeleteFormSection($id)
+	{
+		if ($this->currentUser->hasAccess('form.delete'))
+		{
+			// Get the section we're deleting
+			$section = $this->form->findSection($id);
+
+			if ($section)
+			{
+				// Get all the sections
+				$sections = $this->form->getFormSectionsForDropdown($section->form->key, 'id', 'name');
+
+				// Remove the section we are deleting
+				unset($sections[$id]);
+
+				return partial('common/modal_content', [
+					'modalHeader'	=> lang('Short.delete', langConcat('Form Section')),
+					'modalBody'		=> View::make(Location::ajax('delete/section'))
+										->with('name', $section->name)
+										->with('id', $section->id)
+										->with('fields', $section->fields->count())
+										->with('sections', $sections)
+										->with('formKey', $section->form->key),
+					'modalFooter'	=> false,
+				]);
+			}
+		}
+	}
+
+	public function getAjaxDeleteFormTab($id)
+	{
+		if ($this->currentUser->hasAccess('form.delete'))
+		{
+			// Get the tab we're deleting
+			$tab = $this->form->findTab($id);
+
+			if ($tab)
+			{
+				// Get all the tabs
+				$tabs = $this->form->getFormTabsForDropdown($tab->form->key, 'id', 'name');
+
+				// Remove the tab we're deleting
+				unset($tabs[$id]);
+
+				return partial('common/modal_content', [
+					'modalHeader'	=> lang('Short.delete', langConcat('Form Tab')),
+					'modalBody'		=> View::make(Location::ajax('delete/tab'))
+										->with('name', $tab->name)
+										->with('id', $tab->id)
+										->with('tabs', $tabs)
+										->with('formKey', $tab->form->key),
+					'modalFooter'	=> false,
+				]);
+			}
+		}
+	}
+
+	public function postAjaxDeleteFormValue()
+	{
+		if ($this->currentUser->hasAccess('form.delete'))
+			$this->form->deleteFieldValue(Input::get('id'));
+
+		return '';
+	}
+
+	public function postAjaxUpdateFormFieldOrder()
+	{
+		if ($this->currentUser->hasAccess('form.update'))
+		{
+			foreach (Input::get('field') as $key => $value)
+			{
+				$this->form->updateField($value, ['order' => $key + 1], false);
+			}
 		}
 
-		return Redirect::to("admin/form/fields/{$formKey}")
-			->with('flashStatus', $flashStatus)
-			->with('flashMessage', $flashMessage);
+		return '';
+	}
+
+	public function postAjaxUpdateFormSectionOrder()
+	{
+		if ($this->currentUser->hasAccess('form.update'))
+		{
+			foreach (Input::get('section') as $key => $value)
+			{
+				$this->form->updateSection($value, ['order' => $key + 1], false);
+			}
+		}
+
+		return '';
+	}
+
+	public function postAjaxUpdateFormTabOrder()
+	{
+		if ($this->currentUser->hasAccess('form.update'))
+		{
+			foreach (Input::get('tab') as $key => $value)
+			{
+				$this->form->updateTab($value, ['order' => $key + 1], false);
+			}
+		}
+
+		return '';
+	}
+
+	public function postAjaxUpdateFormValue($type)
+	{
+		if ($this->currentUser->hasAccess('form.update'))
+		{
+			switch ($type)
+			{
+				case 'order':
+					foreach (Input::get('value') as $key => $value)
+					{
+						$this->form->updateFieldValue($value, ['order' => $key + 1]);
+					}
+				break;
+				
+				case 'value':
+				default:
+					$this->form->updateFieldValue(Input::get('id'), ['value' => Input::get('value')]);
+				break;
+			}
+		}
+
+		return '';
 	}
 
 }

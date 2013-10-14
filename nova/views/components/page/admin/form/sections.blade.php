@@ -130,3 +130,5 @@
 		{{ partial('common/alert', ['content' => lang('error.notFound', langConcat('form sections'))]) }}
 	@endif
 @endif
+
+{{ modal(['id' => 'deleteSection', 'header' => lang('Short.delete', langConcat('Form Section'))]) }}

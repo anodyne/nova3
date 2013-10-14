@@ -16,7 +16,6 @@
 		{{ Form::hidden('new_tab_id', 0) }}
 	@endif
 
-	{{ Form::token() }}
 	{{ Form::hidden('id', $id) }}
 	{{ Form::hidden('formAction', 'delete') }}
 	{{ Form::button(lang('Action.delete'), ['type' => 'submit', 'class' => 'btn btn-danger']) }}

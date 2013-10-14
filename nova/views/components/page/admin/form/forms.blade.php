@@ -78,3 +78,5 @@
 	@endforeach
 	</div>
 @endif
+
+{{ modal(['id' => 'deleteForm', 'header' => lang('Short.delete', lang('Form'))]) }}

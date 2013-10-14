@@ -129,20 +129,20 @@ return [
 		'name'			=> 'admin/form',
 		'verb'			=> 'get',
 		'uri'			=> 'admin/form/{formKey?}',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Form@getIndex',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Form@getForms',
 		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'admin/form',
 		'verb'			=> 'post',
 		'uri'			=> 'admin/form/{formKey?}',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Form@postIndex',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Form@postForms',
 		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'admin/form/tabs',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/form/tabs/{formKey}/{id?}',
+		'uri'			=> 'admin/form/tabs/{formKey}/{tabId?}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\Form@getTabs',
 		'protected'		=> (int) true
 	],
@@ -156,29 +156,99 @@ return [
 	[
 		'name'			=> 'admin/form/sections',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/form/sections/{formKey}/{id?}',
+		'uri'			=> 'admin/form/sections/{formKey}/{sectionId?}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\Form@getSections',
 		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'admin/form/sections',
 		'verb'			=> 'post',
-		'uri'			=> 'admin/form/sections/{formKey}/{id?}',
+		'uri'			=> 'admin/form/sections/{formKey}/{sectionId?}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\Form@postSections',
 		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'admin/form/fields',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/form/fields/{formKey}/{id?}',
+		'uri'			=> 'admin/form/fields/{formKey}/{fieldId?}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\Form@getFields',
 		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'admin/form/fields',
 		'verb'			=> 'post',
-		'uri'			=> 'admin/form/fields/{formKey}/{id?}',
+		'uri'			=> 'admin/form/fields/{formKey}/{fieldId?}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\Form@postFields',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/form/ajax/add/form_value',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/form/ajax/add/form_value',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Form@postAjaxAddFormValue',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/form/ajax/delete/form',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/form/ajax/delete/form/{formKey}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Form@getAjaxDeleteForm',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/form/ajax/delete/form_tab',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/form/ajax/delete/form_tab/{formKey}/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Form@getAjaxDeleteFormTab',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/form/ajax/delete/form_section',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/form/ajax/delete/form_section/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Form@getAjaxDeleteFormSection',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/form/ajax/delete/form_field',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/form/ajax/delete/form_field/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Form@getAjaxDeleteFormField',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/form/ajax/delete/form_value',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/form/ajax/delete/form_value',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Form@postAjaxDeleteFormValue',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/form/ajax/update/form_tab_order',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/form/ajax/update/form_tab_order',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Form@postAjaxUpdateFormTabOrder',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/form/ajax/update/form_section_order',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/form/ajax/update/form_section_order',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Form@postAjaxUpdateFormSectionOrder',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/form/ajax/update/form_field_order',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/form/ajax/update/form_field_order',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Form@postAjaxUpdateFormFieldOrder',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/form/ajax/update/form_value',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/form/ajax/update/form_value/{type}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Form@postAjaxUpdateFormValue',
 		'protected'		=> (int) true
 	],
 
@@ -487,13 +557,6 @@ return [
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'ajax/add/form_value',
-		'verb'			=> 'post',
-		'uri'			=> 'ajax/add/form_value',
-		'resource'		=> 'Nova\Core\Controllers\Ajax\Add@postFormValue',
-		'protected'		=> (int) true
-	],
-	[
 		'name'			=> 'ajax/add/rankset',
 		'verb'			=> 'get',
 		'uri'			=> 'ajax/add/rankset/{location}',
@@ -586,41 +649,6 @@ return [
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'ajax/delete/form',
-		'verb'			=> 'get',
-		'uri'			=> 'ajax/delete/form/{formKey}',
-		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getForm',
-		'protected'		=> (int) true
-	],
-	[
-		'name'			=> 'ajax/delete/form_tab',
-		'verb'			=> 'get',
-		'uri'			=> 'ajax/delete/form_tab/{id}',
-		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getFormTab',
-		'protected'		=> (int) true
-	],
-	[
-		'name'			=> 'ajax/delete/form_section',
-		'verb'			=> 'get',
-		'uri'			=> 'ajax/delete/form_section/{id}',
-		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getFormSection',
-		'protected'		=> (int) true
-	],
-	[
-		'name'			=> 'ajax/delete/form_field',
-		'verb'			=> 'get',
-		'uri'			=> 'ajax/delete/form_field/{id}',
-		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getFormField',
-		'protected'		=> (int) true
-	],
-	[
-		'name'			=> 'ajax/delete/form_value',
-		'verb'			=> 'post',
-		'uri'			=> 'ajax/delete/form_value',
-		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@postFormValue',
-		'protected'		=> (int) true
-	],
-	[
 		'name'			=> 'ajax/delete/formviewer_entry',
 		'verb'			=> 'get',
 		'uri'			=> 'ajax/delete/formviewer_entry/{formKey}/{id}',
@@ -680,34 +708,6 @@ return [
 	/**
 	 * ajax/update
 	 */
-	[
-		'name'			=> 'ajax/update/form_tab_order',
-		'verb'			=> 'post',
-		'uri'			=> 'ajax/update/form_tab_order',
-		'resource'		=> 'Nova\Core\Controllers\Ajax\Update@postFormTabOrder',
-		'protected'		=> (int) true
-	],
-	[
-		'name'			=> 'ajax/update/form_section_order',
-		'verb'			=> 'post',
-		'uri'			=> 'ajax/update/form_section_order',
-		'resource'		=> 'Nova\Core\Controllers\Ajax\Update@postFormSectionOrder',
-		'protected'		=> (int) true
-	],
-	[
-		'name'			=> 'ajax/update/form_field_order',
-		'verb'			=> 'post',
-		'uri'			=> 'ajax/update/form_field_order',
-		'resource'		=> 'Nova\Core\Controllers\Ajax\Update@postFormFieldOrder',
-		'protected'		=> (int) true
-	],
-	[
-		'name'			=> 'ajax/update/form_value',
-		'verb'			=> 'post',
-		'uri'			=> 'ajax/update/form_value/{type}',
-		'resource'		=> 'Nova\Core\Controllers\Ajax\Update@postFormValue',
-		'protected'		=> (int) true
-	],
 	[
 		'name'			=> 'ajax/update/skin',
 		'verb'			=> 'get',

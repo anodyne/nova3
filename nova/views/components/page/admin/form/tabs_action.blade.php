@@ -9,7 +9,7 @@
 		<div class="col-sm-6 col-lg-4">
 			<div class="form-group">
 				<label class="control-label">{{ lang('Name') }}</label>
-				{{ Form::text('name', null, ['class' => 'form-control']) }}
+				{{ Form::text('name', null, ['class' => 'form-control js-name-change']) }}
 			</div>
 		</div>
 	</div>

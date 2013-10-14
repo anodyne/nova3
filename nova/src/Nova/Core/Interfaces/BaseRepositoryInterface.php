@@ -12,18 +12,20 @@ interface BaseRepositoryInterface {
 	/**
 	 * Create a new item.
 	 *
-	 * @param	array	$data	Data to use for creation
+	 * @param	array	$data		Data to use for creation
+	 * @param	bool	$setFlash	Set a flash message?
 	 * @return	object
 	 */
-	public function create(array $data);
+	public function create(array $data, $setFlash = true);
 
 	/**
 	 * Delete an item.
 	 *
-	 * @param	int		$id		ID to delete
+	 * @param	int		$id			ID to delete
+	 * @param	bool	$setFlash	Set a flash message?
 	 * @return	bool
 	 */
-	public function delete($id);
+	public function delete($id, $setFlash = true);
 
 	/**
 	 * Find an item by ID.

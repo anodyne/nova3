@@ -3,7 +3,7 @@
 		<a href="{{ URL::to('admin/form') }}" class="btn btn-default icn-size-16">{{ $_icons['back'] }}</a>
 	</div>
 
-	@if (Sentry::getUser()->hasAccess('form.create'))
+	@if ($_currentUser->hasAccess('form.create'))
 		<div class="btn-group">
 			<a href="{{ URL::to('admin/form/fields/'.$formKey.'/0') }}" class="btn btn-success icn-size-16">{{ $_icons['add'] }}</a>
 		</div>
@@ -53,13 +53,13 @@
 							<div class="col-xs-12 col-sm-12 col-lg-3">
 								<div class="visible-lg">
 									<div class="btn-toolbar pull-right">
-										@if (Sentry::getUser()->hasAccess('form.update'))
+										@if ($_currentUser->hasAccess('form.update'))
 											<div class="btn-group">
 												<a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$field->id) }}" class="btn btn-sm btn-default icn-size-16">{{ $_icons['edit'] }}</a>
 											</div>
 										@endif
 
-										@if (Sentry::getUser()->hasAccess('form.delete'))
+										@if ($_currentUser->hasAccess('form.delete'))
 											<div class="btn-group">
 												<a href="#" class="btn btn-sm btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $field->id }}">{{ $_icons['remove'] }}</a>
 											</div>
@@ -68,13 +68,13 @@
 								</div>
 								<div class="hidden-lg">
 									<div class="row">
-										@if (Sentry::getUser()->hasAccess('form.update'))
+										@if ($_currentUser->hasAccess('form.update'))
 											<div class="col-xs-12 col-sm-6">
 												<p><a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$field->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 											</div>
 										@endif
 
-										@if (Sentry::getUser()->hasAccess('form.delete'))
+										@if ($_currentUser->hasAccess('form.delete'))
 											<div class="col-xs-12 col-sm-6">
 												<p><a href="#" class="btn btn-block btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $field->id }}">{{ $_icons['remove'] }}</a></p>
 											</div>
@@ -118,13 +118,13 @@
 								<div class="col-xs-12 col-sm-12 col-lg-3">
 									<div class="visible-lg">
 										<div class="btn-toolbar pull-right">
-											@if (Sentry::getUser()->hasAccess('form.update'))
+											@if ($_currentUser->hasAccess('form.update'))
 												<div class="btn-group">
 													<a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$field->id) }}" class="btn btn-sm btn-default icn-size-16">{{ $_icons['edit'] }}</a>
 												</div>
 											@endif
 
-											@if (Sentry::getUser()->hasAccess('form.delete'))
+											@if ($_currentUser->hasAccess('form.delete'))
 												<div class="btn-group">
 													<a href="#" class="btn btn-sm btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $field->id }}">{{ $_icons['remove'] }}</a>
 												</div>
@@ -133,13 +133,13 @@
 									</div>
 									<div class="hidden-lg">
 										<div class="row">
-											@if (Sentry::getUser()->hasAccess('form.update'))
+											@if ($_currentUser->hasAccess('form.update'))
 												<div class="col-xs-12 col-sm-6">
 													<p><a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$field->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 												</div>
 											@endif
 
-											@if (Sentry::getUser()->hasAccess('form.delete'))
+											@if ($_currentUser->hasAccess('form.delete'))
 												<div class="col-xs-12 col-sm-6">
 													<p><a href="#" class="btn btn-block btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $field->id }}">{{ $_icons['remove'] }}</a></p>
 												</div>
@@ -191,13 +191,13 @@
 					<div class="col-xs-12 col-sm-12 col-lg-3">
 						<div class="visible-lg">
 							<div class="btn-toolbar pull-right">
-								@if (Sentry::getUser()->hasAccess('form.update'))
+								@if ($_currentUser->hasAccess('form.update'))
 									<div class="btn-group">
 										<a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$field->id) }}" class="btn btn-sm btn-default icn-size-16">{{ $_icons['edit'] }}</a>
 									</div>
 								@endif
 
-								@if (Sentry::getUser()->hasAccess('form.delete'))
+								@if ($_currentUser->hasAccess('form.delete'))
 									<div class="btn-group">
 										<a href="#" class="btn btn-sm btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $field->id }}">{{ $_icons['remove'] }}</a>
 									</div>
@@ -206,13 +206,13 @@
 						</div>
 						<div class="hidden-lg">
 							<div class="row">
-								@if (Sentry::getUser()->hasAccess('form.update'))
+								@if ($_currentUser->hasAccess('form.update'))
 									<div class="col-xs-12 col-sm-6">
 										<p><a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$field->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 									</div>
 								@endif
 
-								@if (Sentry::getUser()->hasAccess('form.delete'))
+								@if ($_currentUser->hasAccess('form.delete'))
 									<div class="col-xs-12 col-sm-6">
 										<p><a href="#" class="btn btn-block btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $field->id }}">{{ $_icons['remove'] }}</a></p>
 									</div>
@@ -253,13 +253,13 @@
 						<div class="col-xs-12 col-sm-12 col-lg-3">
 							<div class="visible-lg">
 								<div class="btn-toolbar pull-right">
-									@if (Sentry::getUser()->hasAccess('form.update'))
+									@if ($_currentUser->hasAccess('form.update'))
 										<div class="btn-group">
 											<a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$f['field']->id) }}" class="btn btn-sm btn-default icn-size-16">{{ $_icons['edit'] }}</a>
 										</div>
 									@endif
 
-									@if (Sentry::getUser()->hasAccess('form.delete'))
+									@if ($_currentUser->hasAccess('form.delete'))
 										<div class="btn-group">
 											<a href="#" class="btn btn-sm btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $f['field']->id }}">{{ $_icons['remove'] }}</a>
 										</div>
@@ -268,13 +268,13 @@
 							</div>
 							<div class="hidden-lg">
 								<div class="row">
-									@if (Sentry::getUser()->hasAccess('form.update'))
+									@if ($_currentUser->hasAccess('form.update'))
 										<div class="col-xs-12 col-sm-6">
 											<p><a href="{{ URL::to('admin/form/fields/'.$formKey.'/'.$f['field']->id) }}" class="btn btn-block btn-default icn-size-16">{{ $_icons['edit'] }}</a></p>
 										</div>
 									@endif
 
-									@if (Sentry::getUser()->hasAccess('form.delete'))
+									@if ($_currentUser->hasAccess('form.delete'))
 										<div class="col-xs-12 col-sm-6">
 											<p><a href="#" class="btn btn-block btn-danger js-field-action icn-size-16" data-action="delete" data-id="{{ $f['field']->id }}">{{ $_icons['remove'] }}</a></p>
 										</div>
@@ -290,3 +290,5 @@
 		@endif
 	@endif
 @endif
+
+{{ modal(['id' => 'deleteField', 'header' => lang('Short.delete', langConcat('Form Field'))]) }}

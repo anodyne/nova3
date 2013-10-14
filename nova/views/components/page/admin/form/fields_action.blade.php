@@ -16,10 +16,10 @@
 	<div class="tab-content">
 		<div class="tab-pane active" id="general">
 			<div class="row">
-				<div class="col-sm-4 col-lg-2">
+				<div class="col-sm-6 col-lg-3">
 					<div class="form-group">
 						<label class="control-label">{{ lang('Type') }}</label>
-						{{ Form::select('type', $types, null, ['class' => 'form-control']) }}
+						{{ Form::select('type', $types, null, ['class' => 'form-control js-type-change']) }}
 					</div>
 				</div>
 			</div>
@@ -30,16 +30,14 @@
 						<label class="control-label">{{ langConcat('Field Restrictions') }}</label>
 						<div class="row">
 						@foreach ($accessRoles as $role)
-							<div class="col-lg-6">
-								<div class="controls">
-									<label class="checkbox">
-										@if ($action == 'create')
-											{{ Form::checkbox('restriction[]', $role->id) }} {{ $role->name }}
-										@else
-											{{ Form::checkbox('restriction[]', $role->id, (in_array($role->id, $field->restriction))) }} {{ $role->name }}
-										@endif
-									</label>
-								</div>
+							<div class="col-sm-6 col-lg-6">
+								<label class="checkbox">
+									@if ($action == 'create')
+										{{ Form::checkbox('restriction[]', $role->id) }} {{ $role->name }}
+									@else
+										{{ Form::checkbox('restriction[]', $role->id, (in_array($role->id, $field->restriction))) }} {{ $role->name }}
+									@endif
+								</label>
 							</div>
 						@endforeach
 						</div>
@@ -75,18 +73,18 @@
 						<div>
 							<label class="radio-inline">
 								@if ($action == 'create')
-									{{ Form::radio('associate', 'tab') }}
+									{{ Form::radio('associate', 'tab', false, ['class' => 'js-associate-change']) }}
 								@else
-									{{ Form::radio('associate', 'tab', ($field->tab_id > 0 and $field->section_id == 0)) }}
+									{{ Form::radio('associate', 'tab', ($field->tab_id > 0 and $field->section_id == 0), ['class' => 'js-associate-change']) }}
 								@endif
 
 								{{ lang('Tab') }}
 							</label>
 							<label class="radio-inline">
 								@if ($action == 'create')
-									{{ Form::radio('associate', 'section', true) }}
+									{{ Form::radio('associate', 'section', true, ['class' => 'js-associate-change']) }}
 								@else
-									{{ Form::radio('associate', 'section', ($field->tab_id == 0 and $field->section_id > 0)) }}
+									{{ Form::radio('associate', 'section', ($field->tab_id == 0 and $field->section_id > 0), ['class' => 'js-associate-change']) }}
 								@endif
 
 								{{ lang('Section') }}
@@ -233,7 +231,7 @@
 		
 		@if ($action == 'update')
 			<div class="tab-pane" id="values">
-				<p>{{ lang('short.admin.forms.dropdownUpdate', '<span class="text-success">'.$_icons['add'].'</span>', '<span class="text-success">'.$_icons['check'].'</span>', '<span class="text-danger">'.$_icons['remove'].'</span>') }}</p>
+				<p>{{ lang('short.admin.forms.dropdownUpdate', '<span class="icn-size-16">'.$_icons['add'].'</span>', '<span class="icn-size-16">'.$_icons['check'].'</span>', '<span class="icn-size-16">'.$_icons['remove'].'</span>') }}</p>
 				
 				<div class="row">
 					<div class="col-lg-6">
@@ -263,7 +261,6 @@
 
 	<div class="row">
 		<div class="col-lg-12">
-			{{ Form::token() }}
 			{{ Form::hidden('id') }}
 			{{ Form::hidden('formAction', $action) }}
 			{{ Form::button(lang('Action.submit'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
