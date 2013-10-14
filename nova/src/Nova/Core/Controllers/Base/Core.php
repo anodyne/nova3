@@ -411,6 +411,7 @@ abstract class Core extends Controller {
 	{
 		// Set the fully qualified action name
 		$this->fullAction = $actionName = Str::parseCallback(Route::currentRouteAction(), false)[1];
+		//$this->fullAction = $actionName = Str::parseCallback(Route::current()->getAction(), false)[1];
 
 		// Remove the HTTP verb
 		$actionName = (substr($actionName, 0, 3) == 'get')
@@ -439,6 +440,7 @@ abstract class Core extends Controller {
 	{
 		// Set the namespaced controller name
 		$this->fullController = Str::parseCallback(Route::currentRouteAction(), false)[0];
+		//$this->fullController = Str::parseCallback(Route::current()->getAction(), false)[0];
 
 		// Set the controller name
 		$this->controller = Str::denamespace($this->fullController);
