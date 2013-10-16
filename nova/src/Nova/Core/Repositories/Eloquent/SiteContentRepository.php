@@ -13,12 +13,12 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 		return SiteContentModel::all();
 	}
 
-	public function create(array $data)
+	public function create(array $data, $setFlash = true)
 	{
 		return SiteContentModel::create($data);
 	}
 
-	public function delete($id)
+	public function delete($id, $setFlash = true)
 	{
 		$id = $this->sanitizeInt($id);
 
@@ -63,7 +63,7 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 		return SiteContentModel::getSectionContent($section, $controller, $clean);
 	}
 
-	public function update($id, array $data)
+	public function update($id, array $data, $setFlash = true)
 	{
 		$id = $this->sanitizeInt($id);
 

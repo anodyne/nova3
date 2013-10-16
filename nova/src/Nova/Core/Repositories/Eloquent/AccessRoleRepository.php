@@ -35,7 +35,7 @@ class AccessRoleRepository implements AccessRoleRepositoryInterface {
 	 * @param	array	$data	Data to use for creation
 	 * @return	AccessRole
 	 */
-	public function create(array $data)
+	public function create(array $data, $setFlash = true)
 	{
 		$item = AccessRoleModel::create($data);
 
@@ -230,7 +230,7 @@ class AccessRoleRepository implements AccessRoleRepositoryInterface {
 	 * @param	array	$data	Data to use for update
 	 * @return	AccessRole
 	 */
-	public function update($id, array $data)
+	public function update($id, array $data, $setFlash = true)
 	{
 		$id = $this->sanitizeInt($id);
 

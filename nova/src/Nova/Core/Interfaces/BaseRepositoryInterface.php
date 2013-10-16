@@ -38,10 +38,11 @@ interface BaseRepositoryInterface {
 	/**
 	 * Update an item.
 	 *
-	 * @param	int		$id		ID to update
-	 * @param	array	$data	Data to use for update
+	 * @param	int		$id			ID to update
+	 * @param	array	$data		Data to use for update
+	 * @param	bool	$setFlash	Set flash message?
 	 * @return	object
 	 */
-	public function update($id, array $data);
+	public function update($id, array $data, $setFlash = true);
 
 }

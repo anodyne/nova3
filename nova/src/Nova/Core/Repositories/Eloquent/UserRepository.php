@@ -56,7 +56,7 @@ class UserRepository implements UserRepositoryInterface {
 	 * @param	array	$data	Data to use for creation
 	 * @return	User
 	 */
-	public function create(array $data)
+	public function create(array $data, $setFlash = true)
 	{
 		$user = UserModel::create($data);
 
@@ -100,7 +100,7 @@ class UserRepository implements UserRepositoryInterface {
 	 * @param	int		$id		ID to delete
 	 * @return	User
 	 */
-	public function delete($id)
+	public function delete($id, $setFlash = true)
 	{
 		$id = $this->sanitizeInt($id);
 
@@ -187,7 +187,7 @@ class UserRepository implements UserRepositoryInterface {
 	 * @param	array	$data	Data to use for update
 	 * @return	User
 	 */
-	public function update($id, array $data)
+	public function update($id, array $data, $setFlash = true)
 	{
 		$id = $this->sanitizeInt($id);
 		
