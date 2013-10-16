@@ -91,20 +91,14 @@ class Login extends LoginBaseController {
 
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
-		{
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
-		}
 
 		try
 		{
-			// Grab the credentials
-			$email = e(Input::get('email'));
-			$password = e(Input::get('password'));
-
 			// Attempt log in
 			$user = $this->auth->authenticateAndRemember([
-				'email'		=> $email,
-				'password'	=> $password,
+				'email'		=> Input::get('email'),
+				'password'	=> Input::get('password'),
 			]);
 
 			// Get the Sentry cookie
@@ -112,13 +106,9 @@ class Login extends LoginBaseController {
 
 			// If the user was redirected, send them to where they were trying to go
 			if (Session::has('url.intended'))
-			{
 				return Redirect::intended('admin')->withCookie($persistCookie);
-			}
 			else
-			{
 				return Redirect::to('admin')->withCookie($persistCookie);
-			}
 		}
 		catch (UserNotFoundException $e)
 		{
@@ -126,19 +116,9 @@ class Login extends LoginBaseController {
 		}
 		catch (UserSuspendedException $e)
 		{
-			// Get the throttle record
-			$throttle = $this->auth->getThrottleProvider()->findByLogin($email);
-
-			// Get the suspended date into a usable format
-			$suspendedAt = Date::instance($throttle->suspended_at)
-				->addMinutes($throttle->getSuspensionTime());
-
-			// Get now
-			$now = Date::now('UTC');
-
 			return Redirect::to('login/error/'.ErrorCode::LOGIN_SUSPENDED)
 				->withInput()
-				->with('suspended_time', $suspendedAt->diffInMinutes($now));
+				->with('suspended_time', $this->auth->getSuspendedTimeRemaining(Input::get('email')));
 		}
 		catch (UserBannedException $e)
 		{
