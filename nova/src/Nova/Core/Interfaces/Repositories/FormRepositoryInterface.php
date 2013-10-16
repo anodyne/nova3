@@ -1,8 +1,18 @@
 <?php namespace Nova\Core\Interfaces\Repositories;
 
+use FormFieldModel;
 use BaseRepositoryInterface;
 
 interface FormRepositoryInterface extends BaseRepositoryInterface {
+
+	/**
+	 * Check that an item is actually part of the requested form.
+	 *
+	 * @param	object	$item		The item being checked
+	 * @param	string	$formKey	Form key
+	 * @return	bool
+	 */
+	public function checkItemForm($item, $formKey);
 
 	/**
 	 * Create a form field.
@@ -132,6 +142,14 @@ interface FormRepositoryInterface extends BaseRepositoryInterface {
 	//public function findTabByName($value);
 
 	/**
+	 * Get a field's values.
+	 *
+	 * @param	Field	$field
+	 * @return	Collection
+	 */
+	public function getFormFieldValues(FormFieldModel $field);
+
+	/**
 	 * Get all the form fields for a form.
 	 *
 	 * @param	string	$formKey	Form key
@@ -185,9 +203,26 @@ interface FormRepositoryInterface extends BaseRepositoryInterface {
 	 */
 	public function getFormTabsForDropdown($formKey, $key, $value);
 
+	/**
+	 * Get the tabs and sections for a form broken up by
+	 * tab.
+	 *
+	 * @param	string	$formKey	Form key
+	 * @return	array
+	 */
+	public function getFormSectionsWithTabs($formKey);
+
 	public function getFormViewerDataEntries($form);
 
 	public function getFormViewerEntry($id, $form);
+
+	/**
+	 * Get the form key for an item.
+	 *
+	 * @param	object	$item	The item to check
+	 * @return	string
+	 */
+	public function getItemFormKey($item);
 
 	public function getPaginatedFormViewerEntries($form, $perPage = 50);
 

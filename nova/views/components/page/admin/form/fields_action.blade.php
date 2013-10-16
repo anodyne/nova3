@@ -19,7 +19,7 @@
 				<div class="col-sm-6 col-lg-3">
 					<div class="form-group">
 						<label class="control-label">{{ lang('Type') }}</label>
-						{{ Form::select('type', $types, null, ['class' => 'form-control js-type-change']) }}
+						{{ Form::select('type', ['text' => lang('Text_field'), 'textarea' => lang('Text_area'), 'select' => lang('Dropdown')], null, ['class' => 'form-control js-type-change']) }}
 					</div>
 				</div>
 			</div>

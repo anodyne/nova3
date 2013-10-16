@@ -25,6 +25,21 @@ class FormRepository implements FormRepositoryInterface {
 	{
 		return FormModel::all();
 	}
+
+	/**
+	 * Check that an item is actually part of the requested form.
+	 *
+	 * @param	object	$item		The item being checked
+	 * @param	string	$formKey	Form key
+	 * @return	bool
+	 */
+	public function checkItemForm($item, $formKey)
+	{
+		if ($item === null)
+			return true;
+
+		return ($item->form->key == $formKey);
+	}
 	
 	/**
 	 * Create a new form.
@@ -472,7 +487,7 @@ class FormRepository implements FormRepositoryInterface {
 	 */
 	public function findField($id)
 	{
-		return FormFieldModel::find($this->sanitizeInt($value));
+		return FormFieldModel::find($this->sanitizeInt($id));
 	}
 
 	/**
@@ -506,6 +521,20 @@ class FormRepository implements FormRepositoryInterface {
 	public function findTab($id)
 	{
 		return FormTabModel::find($this->sanitizeInt($id));
+	}
+
+	/**
+	 * Get a field's values.
+	 *
+	 * @param	Field	$field
+	 * @return	Collection
+	 */
+	public function getFormFieldValues(FormFieldModel $field)
+	{
+		return $field->values->sortBy(function($v)
+		{
+			return $v->order;
+		});
 	}
 
 	/**
@@ -553,7 +582,10 @@ class FormRepository implements FormRepositoryInterface {
 	{
 		$form = $this->findByKey($formKey);
 
-		return $form->sections;
+		return $form->sections->sortBy(function($s)
+		{
+			return $s->order;
+		});
 	}
 
 	/**
@@ -579,6 +611,35 @@ class FormRepository implements FormRepositoryInterface {
 	}
 
 	/**
+	 * Get the tabs and sections for a form broken up by
+	 * tab.
+	 *
+	 * @param	string	$formKey	Form key
+	 * @return	array
+	 */
+	public function getFormSectionsWithTabs($formKey)
+	{
+		// Get the sections
+		$sections = $this->getFormSections($formKey);
+
+		// Start an array to hold all the data
+		$final = [];
+
+		if ($sections->count() > 0)
+		{
+			foreach ($sections as $section)
+			{
+				if ($section->tab_id > 0)
+					$final[$section->tab_id][] = $section;
+				else
+					$final[] = $section;
+			}
+		}
+
+		return $final;
+	}
+
+	/**
 	 * Get all the form tabs for a form.
 	 *
 	 * @param	string	$formKey	Form key
@@ -588,7 +649,10 @@ class FormRepository implements FormRepositoryInterface {
 	{
 		$form = $this->findByKey($formKey);
 
-		return $form->tabs;
+		return $form->tabs->sortBy(function($t)
+		{
+			return $t->order;
+		});
 	}
 
 	/**
@@ -641,6 +705,17 @@ class FormRepository implements FormRepositoryInterface {
 	}
 
 	/**
+	 * Get the form key for an item.
+	 *
+	 * @param	object	$item	The item to check
+	 * @return	string
+	 */
+	public function getItemFormKey($item)
+	{
+		return $item->form->key;
+	}
+
+	/**
 	 * Get a form's data entries as a paginated result set.
 	 *
 	 * @param	Form	$form		Form object
@@ -650,7 +725,9 @@ class FormRepository implements FormRepositoryInterface {
 	public function getPaginatedFormViewerEntries($form, $perPage = 50)
 	{
 		// Start grabbing the entries
-		$entries = FormDataModel::key($form->key)->group('data_id')->orderDesc('created_at');
+		$entries = FormDataModel::key($form->key)
+			->group('data_id')
+			->orderDesc('created_at');
 
 		// Make sure we take into account what we want to use as a display
 		if ((int) $form->form_viewer_display > 0)
@@ -664,28 +741,32 @@ class FormRepository implements FormRepositoryInterface {
 	/**
 	 * Update a form.
 	 *
-	 * @param	int		$id		ID to update
-	 * @param	array	$data	Data to use for update
+	 * @param	int		$id			ID to update
+	 * @param	array	$data		Data to use for update
+	 * @param	bool	$setFlash	Set flash message?
 	 * @return	Form
 	 */
-	public function update($id, array $data)
+	public function update($id, array $data, $setFlash = true)
 	{
 		// Get the form
 		$form = $this->find($id);
 
-		if ($form)
-			$item = $form->update($data);
+		// Update the form
+		$update = $form->update($data);
 
-		// Set the flash info
-		$flashStatus = ($form) ? 'success' : 'danger';
-		$flashMessage = ($form) 
-			? lang('Short.alert.success.update', lang('form'))
-			: lang('Short.alert.failure.update', lang('form'));
+		if ($setFlash)
+		{
+			// Set the flash info
+			$status = ($update) ? 'success' : 'danger';
+			$message = ($update) 
+				? lang('Short.alert.success.update', lang('form'))
+				: lang('Short.alert.failure.update', lang('form'));
 
-		// Flash the session
-		$this->setFlashMessage($flashStatus, $flashMessage);
+			// Flash the session
+			$this->setFlashMessage($status, $message);
+		}
 
-		return $item;
+		return $update;
 	}
 
 	/**

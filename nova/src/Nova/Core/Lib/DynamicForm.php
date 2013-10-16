@@ -49,16 +49,19 @@ class DynamicForm {
 	 *
 	 * @return	void
 	 */
-	public function assemble()
+	public function assemble(array $options = ['tabs', 'sections', 'fields'])
 	{
 		// Assemble the tabs
-		$this->data['tabs'] = $this->assembleTabs($this->form);
+		if (array_search('tabs', $options) !== false)
+			$this->data['tabs'] = $this->assembleTabs($this->form);
 
 		// Assemble the sections
-		$this->data['sections'] = $this->assembleSections($this->form);
+		if (array_search('sections', $options) !== false)
+			$this->data['sections'] = $this->assembleSections($this->form);
 
 		// Assemble the fields
-		$this->data['fields'] = $this->assembleFields($this->form);
+		if (array_search('fields', $options) !== false)
+			$this->data['fields'] = $this->assembleFields($this->form);
 	}
 
 	/**
