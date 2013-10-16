@@ -1,14 +1,20 @@
 <?php
 
-return array(
+return [
 	
 	'notFound' => "No :0 found",
 	'pageNotFound' => "Page not found",
 
 	'admin' => [
-		'formViewerNotAllowed' => "This form does not allow using Form Viewer.",
-		'protectedForm' => "This is a protected form and cannot be deleted.",
 		'cannotBeDeleted' => "This :0 cannot be deleted because there is content associated with it.",
+		'notAuthorized' => "You are not authorized to :0 this :1.",
+
+		'form' => [
+			'formViewerNotAllowed' => "This form does not allow using FormViewer.",
+			'itemForm' => "The specified :0 does not belong to this form!",
+			'itemNotFoundCreation' => "The :0 you requested does not exist. Use the form below to create it.",
+			'protected' => "This is a protected form and cannot be deleted.",
+		],
 
 		'user' => [
 			'notAuthorized' => "You are not authorized to :0 this user.",
@@ -45,4 +51,4 @@ return array(
 		'notUploaded' => "Your image could not be uploaded.",
 	],
 
-);
+];

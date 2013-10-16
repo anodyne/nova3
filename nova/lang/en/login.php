@@ -7,7 +7,7 @@ return [
 		'notLoggedIn' => "You must log in to continue.",
 		'noEmail' => "You did not enter an email address. Please enter an email address and try again.",
 		'noPassword' => "You did not enter a password. Please enter a password to continue.",
-		'notFound' => "Either your user account could not found or you entered your email and/or password incorrectly. Please try again. If you believe an error has occurred, please contact the game master.",
+		'notFound' => "Incorrect email address or password.",
 		'suspended' => "You have been suspended for too many log in attempts. You will be able to attempt to log in again in :0 minutes.",
 		'banned' => "You have been banned from this game. Please contact the game master if you believe this was done in error.",
 		'notAdmin' => "You are not a system administrator and cannot access that section of the site!",
