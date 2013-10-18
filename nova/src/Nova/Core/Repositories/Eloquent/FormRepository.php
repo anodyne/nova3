@@ -529,7 +529,7 @@ class FormRepository implements FormRepositoryInterface {
 	 * @param	Field	$field
 	 * @return	Collection
 	 */
-	public function getFormFieldValues(FormFieldModel $field)
+	public function getFormFieldValues($field)
 	{
 		return $field->values->sortBy(function($v)
 		{

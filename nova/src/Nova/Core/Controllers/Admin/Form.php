@@ -19,7 +19,7 @@ use AccessRoleRepositoryInterface;
 class Form extends AdminBaseController {
 
 	public function __construct(FormRepositoryInterface $form,
-								AccessRoleRepositoryInterface $role)
+			AccessRoleRepositoryInterface $role)
 	{
 		parent::__construct();
 
@@ -393,7 +393,7 @@ class Form extends AdminBaseController {
 			{
 				return partial('common/modal_content', [
 					'modalHeader'	=> lang('Short.delete', lang('Form')),
-					'modalBody'		=> View::make(Location::ajax('delete/form'))
+					'modalBody'		=> View::make(Location::ajax('admin/form/delete_form'))
 										->with('form', $form),
 					'modalFooter'	=> false,
 				]);
@@ -412,7 +412,7 @@ class Form extends AdminBaseController {
 			{
 				return partial('common/modal_content', [
 					'modalHeader'	=> lang('Short.delete', langConcat('Form Field')),
-					'modalBody'		=> View::make(Location::ajax('delete/field'))
+					'modalBody'		=> View::make(Location::ajax('admin/form/delete_field'))
 										->with('name', $field->label)
 										->with('id', $field->id)
 										->with('formKey', $field->form->key),
@@ -439,7 +439,7 @@ class Form extends AdminBaseController {
 
 				return partial('common/modal_content', [
 					'modalHeader'	=> lang('Short.delete', langConcat('Form Section')),
-					'modalBody'		=> View::make(Location::ajax('delete/section'))
+					'modalBody'		=> View::make(Location::ajax('admin/form/delete_section'))
 										->with('name', $section->name)
 										->with('id', $section->id)
 										->with('fields', $section->fields->count())
@@ -468,7 +468,7 @@ class Form extends AdminBaseController {
 
 				return partial('common/modal_content', [
 					'modalHeader'	=> lang('Short.delete', langConcat('Form Tab')),
-					'modalBody'		=> View::make(Location::ajax('delete/tab'))
+					'modalBody'		=> View::make(Location::ajax('admin/form/delete_tab'))
 										->with('name', $tab->name)
 										->with('id', $tab->id)
 										->with('tabs', $tabs)

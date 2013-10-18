@@ -10,8 +10,8 @@
 	@endif
 
 	<div class="btn-group">
-		<a href="{{ URL::to('admin/form/tabs/'.$formKey) }}" class="btn btn-default icn-size-16">{{ lang('Tabs') }}</a>
-		<a href="{{ URL::to('admin/form/sections/'.$formKey) }}" class="btn btn-default icn-size-16">{{ lang('Sections') }}</a>
+		<a href="{{ URL::to('admin/form/tabs/'.$formKey) }}" class="btn btn-default icn-size-16-with-text">{{ lang('Tabs') }}</a>
+		<a href="{{ URL::to('admin/form/sections/'.$formKey) }}" class="btn btn-default icn-size-16-with-text">{{ lang('Sections') }}</a>
 	</div>
 </div>
 
@@ -29,7 +29,7 @@
 					<div class="nv-data-table nv-data-table-striped nv-data-table-bordered sortableFields">
 					@foreach ($t['fields'] as $field)
 						<div class="row" id="field_{{ $field->id }}">
-							<div class="col-xs-12 col-sm-12 col-lg-9">
+							<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
 								<div class="row">
 									<div class="{{ $field->html_container_class }}">
 										<div class="form-group">
@@ -50,8 +50,8 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-xs-12 col-sm-12 col-lg-3">
-								<div class="visible-lg">
+							<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+								<div class="visible-md visible-lg">
 									<div class="btn-toolbar pull-right">
 										@if ($_currentUser->hasAccess('form.update'))
 											<div class="btn-group">
@@ -66,7 +66,7 @@
 										@endif
 									</div>
 								</div>
-								<div class="hidden-lg">
+								<div class="hidden-md hidden-lg">
 									<div class="row">
 										@if ($_currentUser->hasAccess('form.update'))
 											<div class="col-xs-12 col-sm-6">
@@ -94,7 +94,7 @@
 						<div class="nv-data-table nv-data-table-striped nv-data-table-bordered sortableFields">
 						@foreach ($section->fields as $field)
 							<div class="row" id="field_{{ $field->id }}">
-								<div class="col-xs-12 col-sm-12 col-lg-9">
+								<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
 									<div class="row">
 										<div class="{{ $field->html_container_class }}">
 											<div class="form-group">
@@ -115,8 +115,8 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-xs-12 col-sm-12 col-lg-3">
-									<div class="visible-lg">
+								<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+									<div class="visible-md visible-lg">
 										<div class="btn-toolbar pull-right">
 											@if ($_currentUser->hasAccess('form.update'))
 												<div class="btn-group">
@@ -131,7 +131,7 @@
 											@endif
 										</div>
 									</div>
-									<div class="hidden-lg">
+									<div class="hidden-md hidden-lg">
 										<div class="row">
 											@if ($_currentUser->hasAccess('form.update'))
 												<div class="col-xs-12 col-sm-6">
@@ -167,7 +167,7 @@
 			<div class="nv-data-table nv-data-table-striped nv-data-table-bordered sortableFields">
 			@foreach ($s['fields'] as $field)
 				<div class="row" id="field_{{ $field->id }}">
-					<div class="col-xs-12 col-sm-12 col-lg-9">
+					<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="row">
 							<div class="{{ $field->html_container_class }}">
 								<div class="form-group">
@@ -188,8 +188,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-12 col-lg-3">
-						<div class="visible-lg">
+					<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+						<div class="visible-md visible-lg">
 							<div class="btn-toolbar pull-right">
 								@if ($_currentUser->hasAccess('form.update'))
 									<div class="btn-group">
@@ -204,7 +204,7 @@
 								@endif
 							</div>
 						</div>
-						<div class="hidden-lg">
+						<div class="hidden-md hidden-lg">
 							<div class="row">
 								@if ($_currentUser->hasAccess('form.update'))
 									<div class="col-xs-12 col-sm-6">
@@ -229,7 +229,7 @@
 			<div class="nv-data-table nv-data-table-striped nv-data-table-bordered" id="sortableFields">
 				@foreach ($fields as $f)
 					<div class="row" id="field_{{ $f['field']->id }}">
-						<div class="col-xs-12 col-sm-12 col-lg-9">
+						<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
 							<div class="row">
 								<div class="{{ $f['field']->html_container_class }}">
 									<div class="form-group">
@@ -250,8 +250,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-12 col-lg-3">
-							<div class="visible-lg">
+						<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+							<div class="visible-md visible-lg">
 								<div class="btn-toolbar pull-right">
 									@if ($_currentUser->hasAccess('form.update'))
 										<div class="btn-group">
@@ -266,7 +266,7 @@
 									@endif
 								</div>
 							</div>
-							<div class="hidden-lg">
+							<div class="hidden-md hidden-lg">
 								<div class="row">
 									@if ($_currentUser->hasAccess('form.update'))
 										<div class="col-xs-12 col-sm-6">

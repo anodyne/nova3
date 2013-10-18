@@ -94,7 +94,7 @@ return array(
 			'deleteUpdates' => "Select the new :0 that :1 in the :2 :0 will be moved to.",
 			'order' => "The order can also be changed by dragging-and-dropping the items on the previous page.",
 
-			'changeFormKey' => "<strong>Warning:</strong> Changing a form key can cause issues with a form. Do so only if you know what you're doing!",
+			'changeFormKey' => "<strong>Warning:</strong> Changing a form key will cause issues with the form and its data.",
 			'formViewer' => "FormViewer",
 			'useFormViewer' => "Use FormViewer",
 			'useFormViewerHelp' => "FormViewer allows users to submit created forms and view the content of submitted forms in one place.",

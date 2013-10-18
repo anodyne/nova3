@@ -1,6 +1,5 @@
 <?php namespace Nova\Core\Interfaces\Repositories;
 
-use FormFieldModel;
 use BaseRepositoryInterface;
 
 interface FormRepositoryInterface extends BaseRepositoryInterface {
@@ -147,7 +146,7 @@ interface FormRepositoryInterface extends BaseRepositoryInterface {
 	 * @param	Field	$field
 	 * @return	Collection
 	 */
-	public function getFormFieldValues(FormFieldModel $field);
+	public function getFormFieldValues($field);
 
 	/**
 	 * Get all the form fields for a form.

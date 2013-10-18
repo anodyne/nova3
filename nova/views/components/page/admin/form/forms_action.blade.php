@@ -27,7 +27,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-sm-5 col-lg-3">
+		<div class="col-sm-4 col-lg-3">
 			<div class="form-group">
 				<label class="control-label">{{ lang('Orientation') }}</label>
 				{{ Form::select('orientation', ['vertical' => lang('Vertical'), 'horizontal' => lang('Horizontal')], null, ['class' => 'form-control']) }}
@@ -36,7 +36,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-sm-5 col-lg-3">
+		<div class="col-sm-4 col-lg-3">
 			<div class="form-group">
 				<label class="control-label">{{ lang('Status') }}</label>
 				{{ Form::select('status', [Status::ACTIVE => lang('Active'), Status::INACTIVE => lang('Inactive')], null, ['class' => 'form-control']) }}

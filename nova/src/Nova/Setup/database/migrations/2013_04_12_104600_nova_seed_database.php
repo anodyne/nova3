@@ -229,7 +229,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'select',
 				'html_id' => 'gender',
 				'html_rows' => 0,
-				'html_container_class' => 'col-lg-4',
+				'html_container_class' => 'col-md-4 col-lg-4',
 				'label' => 'Gender',
 				'order' => 1
 			],
@@ -239,7 +239,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'text',
 				'html_id' => 'species',
 				'html_rows' => 0,
-				'html_container_class' => 'col-lg-4',
+				'html_container_class' => 'col-md-4 col-lg-4',
 				'label' => 'Species',
 				'placeholder' => 'e.g. Human',
 				'order' => 2
@@ -250,7 +250,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'text',
 				'html_id' => 'age',
 				'html_rows' => 0,
-				'html_container_class' => 'col-lg-2',
+				'html_container_class' => 'col-md-2 col-lg-2',
 				'label' => 'Age',
 				'order' => 3
 			],
@@ -260,7 +260,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'text',
 				'html_id' => 'height',
 				'html_rows' => 0,
-				'html_container_class' => 'col-lg-4',
+				'html_container_class' => 'col-md-4 col-lg-4',
 				'label' => 'Height',
 				'placeholder' => 'e.g. 6\'2"',
 				'order' => 1
@@ -271,7 +271,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'text',
 				'html_id' => 'weight',
 				'html_rows' => 0,
-				'html_container_class' => 'col-lg-4',
+				'html_container_class' => 'col-md-4 col-lg-4',
 				'label' => 'Weight',
 				'placeholder' => 'e.g. 215 lbs.',
 				'order' => 2
@@ -282,7 +282,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'text',
 				'html_id' => 'hair_color',
 				'html_rows' => 0,
-				'html_container_class' => 'col-lg-4',
+				'html_container_class' => 'col-md-4 col-lg-4',
 				'label' => 'Hair Color',
 				'order' => 3
 			],
@@ -292,7 +292,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'text',
 				'html_id' => 'eye_color',
 				'html_rows' => 0,
-				'html_container_class' => 'col-lg-4',
+				'html_container_class' => 'col-md-4 col-lg-4',
 				'label' => 'Eye Color',
 				'order' => 4
 			],
@@ -302,7 +302,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'textarea',
 				'html_id' => 'physical_desc',
 				'html_rows' => 3,
-				'html_container_class' => 'col-lg-8',
+				'html_container_class' => 'col-md-8 col-lg-8',
 				'label' => 'Physical Description',
 				'order' => 5
 			],
@@ -312,7 +312,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'text',
 				'html_id' => 'spouse',
 				'html_rows' => 0,
-				'html_container_class' => 'col-lg-4',
+				'html_container_class' => 'col-md-4 col-lg-4',
 				'label' => 'Spouse',
 				'order' => 1
 			],
@@ -322,7 +322,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'textarea',
 				'html_id' => 'children',
 				'html_rows' => 3,
-				'html_container_class' => 'col-lg-8',
+				'html_container_class' => 'col-md-8 col-lg-8',
 				'label' => 'Children',
 				'order' => 2
 			],
@@ -332,7 +332,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'text',
 				'html_id' => 'father',
 				'html_rows' => 0,
-				'html_container_class' => 'col-lg-4',
+				'html_container_class' => 'col-md-4 col-lg-4',
 				'label' => 'Father',
 				'order' => 3
 			],
@@ -342,7 +342,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'text',
 				'html_id' => 'mother',
 				'html_rows' => 0,
-				'html_container_class' => 'col-lg-4',
+				'html_container_class' => 'col-md-4 col-lg-4',
 				'label' => 'Mother',
 				'order' => 4
 			],
@@ -352,7 +352,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'textarea',
 				'html_id' => 'siblings',
 				'html_rows' => 3,
-				'html_container_class' => 'col-lg-8',
+				'html_container_class' => 'col-md-8 col-lg-8',
 				'label' => 'Siblings',
 				'order' => 5
 			],
@@ -362,7 +362,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'textarea',
 				'html_id' => 'other_family',
 				'html_rows' => 3,
-				'html_container_class' => 'col-lg-8',
+				'html_container_class' => 'col-md-8 col-lg-8',
 				'label' => 'Other Family',
 				'order' => 6
 			],
@@ -372,7 +372,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'textarea',
 				'html_id' => 'personality',
 				'html_rows' => 5,
-				'html_container_class' => 'col-lg-8',
+				'html_container_class' => 'col-md-8 col-lg-8',
 				'label' => 'General Overview',
 				'order' => 1
 			],
@@ -382,7 +382,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'textarea',
 				'html_id' => 'strengths',
 				'html_rows' => 5,
-				'html_container_class' => 'col-lg-8',
+				'html_container_class' => 'col-md-8 col-lg-8',
 				'label' => 'Strengths &amp; Weaknesses',
 				'order' => 2
 			],
@@ -392,7 +392,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'textarea',
 				'html_id' => 'ambitions',
 				'html_rows' => 5,
-				'html_container_class' => 'col-lg-8',
+				'html_container_class' => 'col-md-8 col-lg-8',
 				'label' => 'Ambitions',
 				'order' => 3
 			],
@@ -402,7 +402,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'textarea',
 				'html_id' => 'hobbies',
 				'html_rows' => 5,
-				'html_container_class' => 'col-lg-8',
+				'html_container_class' => 'col-md-8 col-lg-8',
 				'label' => 'Hobbies &amp; Interests',
 				'order' => 4
 			],
@@ -412,7 +412,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'textarea',
 				'html_id' => 'languages',
 				'html_rows' => 2,
-				'html_container_class' => 'col-lg-8',
+				'html_container_class' => 'col-md-8 col-lg-8',
 				'label' => 'Languages',
 				'order' => 5
 			],
@@ -422,7 +422,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'textarea',
 				'html_id' => 'history',
 				'html_rows' => 15,
-				'html_container_class' => 'col-lg-8',
+				'html_container_class' => 'col-md-8 col-lg-8',
 				'label' => 'History',
 				'order' => 1
 			],
@@ -432,7 +432,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'textarea',
 				'html_id' => 'service_record',
 				'html_rows' => 15,
-				'html_container_class' => 'col-lg-8',
+				'html_container_class' => 'col-md-8 col-lg-8',
 				'label' => 'Service Record',
 				'order' => 2
 			],
@@ -441,7 +441,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'text',
 				'html_id' => 'location',
 				'html_rows' => 0,
-				'html_container_class' => 'col-lg-4',
+				'html_container_class' => 'col-md-4 col-lg-4',
 				'label' => 'Location',
 				'placeholder' => 'e.g. United States',
 				'order' => 0
@@ -451,7 +451,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'textarea',
 				'html_id' => 'interests',
 				'html_rows' => 5,
-				'html_container_class' => 'col-lg-8',
+				'html_container_class' => 'col-md-8 col-lg-8',
 				'label' => 'Interests',
 				'order' => 1
 			],
@@ -460,7 +460,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'textarea',
 				'html_id' => 'bio',
 				'html_rows' => 5,
-				'html_container_class' => 'col-lg-8',
+				'html_container_class' => 'col-md-8 col-lg-8',
 				'label' => 'Bio',
 				'order' => 2
 			],
@@ -469,7 +469,7 @@ class NovaSeedDatabase extends Migration {
 				'type' => 'textarea',
 				'html_id' => 'experience',
 				'html_rows' => 5,
-				'html_container_class' => 'col-lg-5',
+				'html_container_class' => 'col-md-5 col-lg-5',
 				'label' => 'Simming Experience',
 				'order' => 0
 			],
@@ -477,7 +477,7 @@ class NovaSeedDatabase extends Migration {
 				'form_id' => 3,
 				'type' => 'select',
 				'html_id' => 'hear_about',
-				'html_container_class' => 'col-lg-5',
+				'html_container_class' => 'col-md-5 col-lg-5',
 				'label' => 'Where Did You Hear About Us?',
 				'order' => 1
 			],
