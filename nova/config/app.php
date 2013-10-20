@@ -333,6 +333,8 @@ return [
 		/**
 		 * Event Handlers
 		 */
+		'BaseEventHandler'				=> "Nova\\Core\\Events\\BaseEventHandler",
+		'FormEventHandler'				=> "Nova\\Core\\Events\\FormEventHandler",
 		'FormViewerEventHandler'		=> "Nova\\Core\\Events\\FormViewer",
 		'UserEventHandler'				=> "Nova\\Core\\Events\\User",
 
@@ -344,7 +346,6 @@ return [
 		'RankCatalogModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Catalog\\Rank",
 		'SkinCatalogModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Catalog\\Skin",
 
-		'FormModelEventHandler'			=> "Nova\\Core\\Events\\Models\\Form",
 		'FormFieldModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Form\\Field",
 		'FormSectionModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Form\\Section",
 		'FormTabModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Form\\Tab",

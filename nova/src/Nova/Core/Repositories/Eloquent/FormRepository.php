@@ -267,7 +267,7 @@ class FormRepository implements FormRepositoryInterface {
 	 *
 	 * @param	int		$id			ID to delete
 	 * @param	bool	$setFlash	Set a flash message?
-	 * @return	bool
+	 * @return	Form
 	 */
 	public function delete($id, $setFlash = true)
 	{
@@ -294,7 +294,7 @@ class FormRepository implements FormRepositoryInterface {
 				$this->setFlashMessage($status, $message);
 			}
 
-			return $delete;
+			return $form;
 		}
 
 		return false;

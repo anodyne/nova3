@@ -2,6 +2,7 @@
 
 use Nova;
 use View;
+use Event;
 use Input;
 use Session;
 use Location;
@@ -28,10 +29,13 @@ class Form extends AdminBaseController {
 		$this->role = $role;
 	}
 
+	/**
+	 * Display all forms.
+	 */
 	public function getForms($formKey = false)
 	{
 		// Verify the user is allowed
-		$this->currentUser->allowed(['form.create', 'form.update', 'form.delete'], true);
+		$this->currentUser->allowed(['form.create', 'form.update', 'form.delete', 'form.read'], true);
 
 		// Set the JS view
 		$this->jsView = 'admin/form/forms_js';
@@ -78,18 +82,28 @@ class Form extends AdminBaseController {
 
 		// Create the form
 		if ($this->currentUser->hasAccess('form.create') and $formAction == 'create')
-			$this->form->create(Input::all());
+		{
+			$form = $this->form->create(Input::all());
+
+			Event::fire('nova.form.formCreated', $form);
+		}
 
 		// Update the form
 		if ($this->currentUser->hasAccess('form.update') and $formAction == 'update')
-			$this->form->update(Input::get('id'), Input::all());
+		{
+			$form = $this->form->update(Input::get('id'), Input::all());
+
+			Event::fire('nova.form.formUpdated', $form);
+		}
 
 		// Delete the form
 		if ($this->currentUser->hasAccess('form.delete') and $formAction == 'delete')
 		{
 			try
 			{
-				$this->form->delete(Input::get('id'));
+				$form = $this->form->delete(Input::get('id'));
+
+				Event::fire('nova.form.formDeleted', $form);
 			}
 			catch (\FormProtectedException $e)
 			{

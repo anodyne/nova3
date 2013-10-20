@@ -147,7 +147,7 @@ return [
 		'content'	=> "Forms",
 		'type'		=> $type,
 		'section'	=> 'form',
-		'page'		=> 'index',
+		'page'		=> 'forms',
 		'uri'		=> 'admin/form'
 	],
 	[
@@ -156,7 +156,7 @@ return [
 		'content'	=> "Create New Form",
 		'type'		=> $type,
 		'section'	=> 'form',
-		'page'		=> 'index',
+		'page'		=> 'forms',
 		'mode'		=> 'create',
 		'uri'		=> 'admin/form'
 	],
@@ -167,7 +167,7 @@ return [
 		'type'		=> $type,
 		'section'	=> 'form',
 		'page'		=> 'index',
-		'mode'		=> 'update',
+		'mode'		=> 'forms',
 		'uri'		=> 'admin/form'
 	],
 	[

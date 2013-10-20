@@ -1,6 +1,6 @@
 <div class="btn-toolbar">
 	<div class="btn-group">
-	@if (Sentry::getUser()->hasAccess('form.create'))
+	@if ($_currentUser->hasAccess('form.create'))
 		<a href="{{ URL::to('admin/form/0') }}" class="btn btn-success icn-size-16">{{ $_icons['add'] }}</a>
 	@endif
 	</div>
@@ -19,11 +19,11 @@
 	@foreach ($forms as $form)
 		<div class="col-lg-6">
 			<div class="thumbnail">
-				@if (Sentry::getUser()->hasAccess('form.update') or Sentry::getUser()->hasAccess('form.delete'))
+				@if ($_currentUser->hasAccess('form.update') or $_currentUser->hasAccess('form.delete'))
 					<div class="btn-group pull-right dropdown">
 						<a class="btn btn-sm btn-default icn-size-16 dropdown-toggle" data-toggle="dropdown" href="#">{{ $_icons['settings'] }}</a>
 						<ul class="dropdown-menu">
-							@if (Sentry::getUser()->hasAccess('form.update'))
+							@if ($_currentUser->hasAccess('form.update'))
 								<li>
 									<a href="{{ URL::to('admin/form/'.$form->key) }}">
 										{{ lang('Short.edit', lang('form')) }}
@@ -46,7 +46,7 @@
 								</li>
 							@endif
 
-							@if (Sentry::getUser()->hasAccess('form.delete') and (bool) $form->protected === false)
+							@if ($_currentUser->hasAccess('form.delete') and (bool) $form->protected === false)
 								<li class="divider"></li>
 								<li>
 									<a href="#" class="js-form-action" data-key="{{ $form->key }}" data-action="delete">

@@ -118,7 +118,7 @@ return [
 		'content'	=> "Forms",
 		'type'		=> $type,
 		'section'	=> 'form',
-		'page'		=> 'index',
+		'page'		=> 'forms',
 		'uri'		=> 'admin/form'
 	],
 	[
