@@ -123,6 +123,7 @@ return [
 		'Nova\Extensions\Cartalyst\Sentry\SentryServiceProvider',
 		'Nova\Extensions\Laravel\Translation\TranslationServiceProvider',
 		'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
+		'Intervention\Image\ImageServiceProvider',
 
 	],
 
@@ -210,6 +211,7 @@ return [
 		'ErrorCode'		=> 'Nova\Core\Lib\ErrorCode',
 		'Gravatar'		=> 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
 		'Image'			=> 'Nova\Core\Lib\Image',
+		//'Image'			=> 'Intervention\Image\Facades\Image',
 		'Location'		=> 'Nova\Core\Facades\Location',
 		'Markdown'		=> 'Nova\Core\Facades\Markdown',
 		'Media'			=> 'Nova\Core\Facades\Media',
