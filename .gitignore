@@ -3,6 +3,7 @@
 composer.phar
 composer.lock
 .DS_Store
+Thumbs.db
 
 app/config/local/*
 !app/config/local/app.php
