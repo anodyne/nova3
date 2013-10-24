@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Lib;
+<?php namespace Nova\Core\Utilities;
 
 use Exception;
 

@@ -1,10 +1,10 @@
 <?php namespace Nova\Core\Providers;
 
-use Nova\Core\Lib\Nova;
 use Nova\Core\Lib\Media;
 use Ikimea\Browser\Browser;
 use Nova\Core\Lib\Location;
 use Nova\Core\Lib\Markdown;
+use Nova\Core\Utilities\Nova;
 use Nova\Core\Lib\DynamicForm;
 use Nova\Core\Lib\SystemEvent;
 use dflydev\markdown\MarkdownParser;
