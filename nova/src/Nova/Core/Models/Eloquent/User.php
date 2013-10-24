@@ -346,18 +346,6 @@ class User extends Model implements UserInterface, FormDataInterface, MediaInter
 		return false;
 	}
 
-	public function createMedia($file)
-	{
-		// Create a new media object
-		return MediaModel::create([
-			'type'			=> 'user',
-			'entry_id'		=> $this->id,
-			'filename'		=> $file->getClientOriginalName(),
-			'mime_type'		=> $file->getMimeType(),
-			'ip_address'	=> Request::getClientIp(),
-		]);
-	}
-
 	/**
 	 * Get the user's application reviews.
 	 *
