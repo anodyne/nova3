@@ -11,7 +11,7 @@ use NotifierNoContentException;
 use NotifierNoSubjectException;
 use Nova\Extensions\Laravel\Database\Eloquent\Collection;
 
-abstract class Base {
+abstract class BaseMailer {
 
 	protected $settings;
 

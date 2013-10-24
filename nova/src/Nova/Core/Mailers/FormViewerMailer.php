@@ -1,8 +1,6 @@
 <?php namespace Nova\Core\Mailers;
 
-use BaseMailer;
-
-class FormViewerMailer extends BaseMailer {
+class FormViewerMailer extends \BaseMailer {
 
 	public function newForm($data)
 	{

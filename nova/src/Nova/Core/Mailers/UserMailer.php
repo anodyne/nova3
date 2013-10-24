@@ -1,8 +1,6 @@
 <?php namespace Nova\Core\Mailers;
 
-use BaseMailer;
-
-class User extends BaseMailer {
+class UserMailer extends \BaseMailer {
 
 	public function created($data)
 	{
