@@ -1,5 +1,6 @@
 <?php namespace Nova\Core\Lib;
 
+use Str;
 use File;
 use Image;
 use Input;
@@ -23,7 +24,7 @@ class Media {
 	/**
 	 * The file size limit in MB.
 	 */
-	protected $fileSizeLimit = 2;
+	protected $fileSizeLimit = 3;
 
 	/**
 	 * An instance of the model being used.
@@ -35,21 +36,24 @@ class Media {
 	 * use the passed model to ensure the media table has all the information 
 	 * it needs.
 	 *
-	 * @param	string	$filename		Final name of the file
 	 * @param	string	$destination	Destination of the file
 	 * @param	array	$options		Additional options
 	 * @param	string	$field			File upload field name
+	 * @param	string	$filename		Final name of the file
 	 * @return	bool
 	 */
-	public function add($filename, $destination, array $options = [], $field = 'file')
+	public function add($destination, array $options = [], $field = 'file', $filename = false)
 	{
 		if (Input::hasFile($field))
 		{
 			// Get the uploaded file
 			$file = Input::file($field);
 
+			// Get the mime type
+			$mimeType = $file->getMimeType();
+
 			// Make sure it's an acceptable file type
-			if (in_array($file->getMimeType(), $this->mimes))
+			if (in_array($mimeType, $this->mimes))
 			{
 				// Get the file size
 				$filesize = round($file->getSize() / pow(1024, 2), 2);
@@ -57,11 +61,19 @@ class Media {
 				// Make sure the file is under the limit
 				if ($filesize <= $this->fileSizeLimit)
 				{
+					// Set the filename
+					$newFilename = ($filename !== false) ? $filename : Str::random(32);
+					$newFilename = "{$newFilename}.{$file->getClientOriginalExtension()}";
+
 					// Upload the file
-					$upload = $file->move($destination, $filename);
+					$upload = $file->move($destination, $newFilename);
+
+					// Make sure we have the mime type
+					if ( ! array_key_exists('mime_type', $options))
+						$options['mime_type'] = $mimeType;
 
 					// Add the media
-					$databaseUpload = $this->model->addMedia($filename, $options);
+					$databaseUpload = $this->model->addMedia($newFilename, $options);
 				}
 				else
 					throw new MediaFileTooBigException;
@@ -71,6 +83,64 @@ class Media {
 		}
 		else
 			throw new MediaNoInputException;
+
+		return true;
+	}
+
+	/**
+	 * Crop an image to a square avatar.
+	 *
+	 * @param	Media	$media		The media object
+	 * @param	string	$path		Path to where the original image is
+	 * @param	array	$input		Input array
+	 * @param	array	$options	Array of options for making the crop
+	 * @return	bool
+	 */
+	public function cropSquare($media, $path, array $input, array $options)
+	{
+		// Get the file info and break it apart
+		$fileInfo = explode('.', $media->filename);
+		$filename = $fileInfo[0];
+		$extension = '.'.$fileInfo[1];
+
+		// Grab the info from the input
+		$posX = $input['x1'];
+		$posY = $input['y1'];
+		$height = $input['height'];
+		$width = $input['width'];
+
+		/**
+		 * The options array must have the following keys:
+		 *
+		 * size		The size (in pixels) of the final image
+		 * dir		The directory inside of $path where the final image is stored
+		 * retina	Is this a retina image (will attach @2x to the filename)
+		 */
+		foreach ($options as $o)
+		{
+			// Make an image from the original
+			$image = Image::make($path.$filename.$extension);
+
+			// Make sure the image is big enough to do the cropping
+			if ((int) $height >= $o['size'])
+			{
+				// Crop the image
+				$image->crop($height, $width, $posX, $posY)
+					->resize($o['size'], $o['size']);
+
+				// Build the start of the new filename
+				if ($o['dir'] !== false)
+					$newFilename = "{$path}{$o['dir']}/{$filename}";
+				else
+					$newFilename = $path.$filename;
+
+				// If it's a retina image, add @2x to the filename
+				if ($o['retina'])
+					$image->save("{$newFilename}@2x{$extension}");
+				else
+					$image->save($newFilename.$extension);
+			}
+		}
 
 		return true;
 	}
@@ -155,7 +225,7 @@ class Media {
 	 */
 	public function getFileSizeLimit()
 	{
-		return $this->fileSizeLimit;
+		return (int) $this->fileSizeLimit;
 	}
 
 	/**
@@ -170,62 +240,6 @@ class Media {
 			return implode(',', $this->mimes);
 
 		return $this->mimes;
-	}
-
-	/**
-	 * Crop an image to a square avatar.
-	 *
-	 * @param	Media	$media		The media object
-	 * @param	string	$path		Path to where the original image is
-	 * @param	array	$input		Input array
-	 * @param	array	$options	Array of options for making the crop
-	 * @return	bool
-	 */
-	public function cropSquare($media, $path, array $input, array $options)
-	{
-		// Get the file info and break it apart
-		$fileInfo = explode('.', $media->filename);
-		$filename = $fileInfo[0];
-		$extension = '.'.$fileInfo[1];
-
-		// Grab the info from the input
-		$posX = $input['x1'];
-		$posY = $input['y1'];
-		$height = $input['height'];
-
-		// Make an image from the original
-		$image = Image::make($path.$filename.$extension);
-
-		/**
-		 * The options array must have the following keys:
-		 *
-		 * size		The size (in pixels) of the final image
-		 * dir		The directory inside of $path where the final image is stored
-		 * retina	Is this a retina image (will attach @2x to the filename)
-		 */
-		foreach ($options as $o)
-		{
-			// Make sure the image is big enough to do the cropping
-			if ((int) $height >= $o['size'])
-			{
-				// Crop the image
-				$image->crop($o['size'], $o['size'], $posX, $posY);
-
-				// Build the start of the new filename
-				if ($o['dir'] !== false)
-					$newFilename = $path.$o['dir'].$filename;
-				else
-					$newFilename = $path.$filename;
-
-				// If it's a retina image, add @2x to the filename
-				if ($o['retina'])
-					$image->save("{$newFilename}@2x{$extension}");
-				else
-					$image->save($newFilename.$extension);
-			}
-		}
-
-		return true;
 	}
 
 }
