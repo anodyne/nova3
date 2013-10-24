@@ -13,6 +13,7 @@ return [
 	'clock' => '<span class="icn" data-icon="h"></span>',
 	'close' => '<span class="icn" data-icon="x"></span>',
 	'closeSmall' => '<span class="icn" data-icon="="></span>',
+	'comment' => '<span class="icn" data-icon="c"></span>',
 	'crop' => '<span class="icn" data-icon="o"></span>',
 
 	'duplicate' => '<span class="icn" data-icon="_"></span>',
@@ -60,6 +61,7 @@ return [
 	'up' => '<span class="icn" data-icon="/"></span>',
 
 	'view' => '<span class="icn" data-icon="0"></span>',
+	'viewStop' => '<span class="icn" data-icon="2"></span>',
 
 	'warning' => '<span class="icn" data-icon="!"></span>',
 
