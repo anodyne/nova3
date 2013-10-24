@@ -49,4 +49,9 @@ Route::group(['prefix' => 'dev'], function()
 
 		sd($app->make('nova.location'));
 	});
+
+	Route::get('events', function()
+	{
+		s(Config::get('events'));
+	});
 });

@@ -2,7 +2,7 @@
 
 use FormViewerMailer as Mailer;
 
-class FormViewer {
+class FormViewerEventHandler extends \BaseEventHandler {
 
 	protected $mailer;
 

@@ -252,22 +252,6 @@ class User extends Model implements UserInterface, FormDataInterface, MediaInter
 	*/
 
 	/**
-	 * Boot the model and define the event listeners.
-	 *
-	 * @return	void
-	 */
-	public static function boot()
-	{
-		parent::boot();
-
-		// Get all the aliases
-		$a = Config::get('app.aliases');
-
-		// Setup the listeners
-		static::setupEventListeners($a['UserModel'], $a['UserModelEventHandler']);
-	}
-
-	/**
 	 * Is the user a system administrator?
 	 *
 	 * @return	bool

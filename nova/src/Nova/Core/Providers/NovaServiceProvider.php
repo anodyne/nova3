@@ -143,13 +143,16 @@ class NovaServiceProvider extends ServiceProvider {
 			// Make sure the handlers is an array
 			$handlers = ( ! is_array($handlers)) ? array($handlers) : $handlers;
 
-			foreach ($handlers as $h)
+			foreach ($handlers as $key => $handler)
 			{
 				// Set the final class to use
-				$finalHandler = (array_key_exists($h, $aliases)) ? $aliases[$h] : $h;
+				$finalHandler = (array_key_exists($handler, $aliases)) ? $aliases[$handler] : $handler;
+
+				// Set the priority
+				$priority = ((int) $key == 0) ? 100 : $key;
 
 				// Listen for the event
-				$this->app['events']->listen($event, $finalHandler);
+				$this->app['events']->listen($event, $finalHandler, $priority);
 			}
 		}
 	}

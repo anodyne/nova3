@@ -6,7 +6,7 @@ use UserModel;
 use UserMailer as Mailer;
 use SettingsRepositoryInterface;
 
-class User {
+class UserEventHandler extends \BaseEventHandler {
 
 	protected $mailer;
 	protected $settings;

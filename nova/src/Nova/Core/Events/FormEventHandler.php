@@ -1,8 +1,6 @@
 <?php namespace Nova\Core\Events;
 
-use BaseEventHandler;
-
-class FormEventHandler extends BaseEventHandler {
+class FormEventHandler extends \BaseEventHandler {
 
 	/**
 	 * When a form is created, create a system event.
