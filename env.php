@@ -137,6 +137,22 @@
 						</td>
 					</tr>
 
+					<?php if (extension_loaded('fileinfo')): ?>
+						<tr>
+					<?php else: ?>
+						<tr class="warning">
+					<?php endif;?>
+						<td><p class="lead">FileInfo</p></td>
+						<td><p>In order to upload images to the server, Nova uses PHP's FileInfo extension to make sure the file type matches acceptable image formats. While this isn't a requirement for using Nova, it certainly is a nice to have. If the FileInfo extension isn't enabled on your server, you can contact your host about getting it enabled.</p></td>
+						<td class="text-center">
+							<?php if (extension_loaded('fileinfo')): ?>
+								<i class="glyphicon glyphicon-ok text-success"></i>
+							<?php else: ?>
+								<i class="glyphicon glyphicon-exclamation-sign text-warning"></i>
+							<?php endif;?>
+						</td>
+					</tr>
+
 					<?php if (function_exists('gd_info')): ?>
 						<tr>
 					<?php else: ?>
