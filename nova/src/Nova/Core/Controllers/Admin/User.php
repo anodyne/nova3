@@ -212,24 +212,11 @@ class User extends AdminBaseController {
 		
 		if ($this->currentUser->canEditUser($user))
 		{
-			$this->media->add(Input::file('file'));
-			
 			// Set the model we're using for uploading
 			Media::setModel($user);
 
-			// Get the file we're uploading
-			$file = Input::file('file');
-
-			// Set the filename
-			$filename = Str::random(32).'.'.$file->getClientOriginalExtension();
-
-			// Upload the file
-			$upload = Media::add($filename, APPPATH."assets/images/users", [
-				'mime_type'	=> $file->getMimeType(),
-				'uploader'	=> $this->currentUser->id
-			]);
-
-			# FIXME: the controller shouldn't know about the details of uploading
+			// Add the media
+			Media::add(APPPATH."assets/images/users", ['uploader' => $this->currentUser->id]);
 		}
 		else
 			throw new NovaGeneralException(lang('error.admin.user.notAuthorized', lang('action.update')));
@@ -267,7 +254,7 @@ class User extends AdminBaseController {
 			]);
 
 			return Redirect::to("admin/user/edit/{$user->id}")
-				->with('flashStatus', 'succcess')
+				->with('flashStatus', 'success')
 				->with('flashMessage', lang('Short.alert.success.update', langConcat('user avatar')));
 		}
 		else
