@@ -230,38 +230,38 @@ return [
 		/**
 		 * Nova Interfaces
 		 */
-		'CacheInterface'			=> "Nova\\Core\\Interfaces\\CacheInterface",
-		'FormDataInterface'			=> "Nova\\Core\\Interfaces\\FormDataInterface",
-		'MediaInterface'			=> "Nova\\Core\\Interfaces\\MediaInterface",
-		'NovaAuthInterface'			=> "Nova\\Core\\Interfaces\\NovaAuthInterface",
-		'QuickInstallInterface'		=> "Nova\\Core\\Interfaces\\QuickInstallInterface",
-		'SearchInterface'			=> "Nova\\Core\\Interfaces\\SearchInterface",
+		'CacheInterface'			=> "Nova\Core\Interfaces\CacheInterface",
+		'FormDataInterface'			=> "Nova\Core\Interfaces\FormDataInterface",
+		'MediaInterface'			=> "Nova\Core\Interfaces\MediaInterface",
+		'NovaAuthInterface'			=> "Nova\Core\Interfaces\NovaAuthInterface",
+		'QuickInstallInterface'		=> "Nova\Core\Interfaces\QuickInstallInterface",
+		'SearchInterface'			=> "Nova\Core\Interfaces\SearchInterface",
 
 		/**
 		 * Nova Traits
 		 */
-		'FormTrait'			=> "Nova\\Core\\Traits\\FormTrait",
-		'SecurityTrait'		=> "Nova\\Core\\Traits\\SecurityTrait",
-		'UtilityTrait'		=> "Nova\\Core\\Traits\\UtilityTrait",
+		'FormTrait'			=> "Nova\Core\Traits\FormTrait",
+		'SecurityTrait'		=> "Nova\Core\Traits\SecurityTrait",
+		'UtilityTrait'		=> "Nova\Core\Traits\UtilityTrait",
 
 		/**
 		 * Nova Mailers
 		 */
-		'BaseMailer'		=> "Nova\\Core\\Mailers\\Base",
-		'FormViewerMailer'	=> "Nova\\Core\\Mailers\\FormViewer",
-		'UserMailer'		=> "Nova\\Core\\Mailers\\User",
+		'BaseMailer'		=> "Nova\Core\Mailers\BaseMailer",
+		'FormViewerMailer'	=> "Nova\Core\Mailers\FormViewerMailer",
+		'UserMailer'		=> "Nova\Core\Mailers\UserMailer",
 
 		/**
 		 * Nova Exceptions
 		 */
-		'FormProtectedException'		=> "Nova\\Core\\Exceptions\\FormProtectedException",
-		'MediaBadFileTypeException'		=> "Nova\\Core\\Exceptions\\MediaBadFileTypeException",
-		'MediaFileTooBigException'		=> "Nova\\Core\\Exceptions\\MediaFileTooBigException",
-		'MediaNoInputException'			=> "Nova\\Core\\Exceptions\\MediaNoInputException",
-		'MediaNotUploadedException'		=> "Nova\\Core\\Exceptions\\MediaNotUploadedException",
-		'NotifierNoContentException'	=> "Nova\\Core\\Exceptions\\NotifierNoContentException",
-		'NotifierNoSubjectException'	=> "Nova\\Core\\Exceptions\\NotifierNoSubjectException",
-		'NovaGeneralException'			=> "Nova\\Core\\Exceptions\\NovaGeneralException",
+		'FormProtectedException'		=> "Nova\Core\Exceptions\FormProtectedException",
+		'MediaBadFileTypeException'		=> "Nova\Core\Exceptions\MediaBadFileTypeException",
+		'MediaFileTooBigException'		=> "Nova\Core\Exceptions\MediaFileTooBigException",
+		'MediaNoInputException'			=> "Nova\Core\Exceptions\MediaNoInputException",
+		'MediaNotUploadedException'		=> "Nova\Core\Exceptions\MediaNotUploadedException",
+		'NotifierNoContentException'	=> "Nova\Core\Exceptions\NotifierNoContentException",
+		'NotifierNoSubjectException'	=> "Nova\Core\Exceptions\NotifierNoSubjectException",
+		'NovaGeneralException'			=> "Nova\Core\Exceptions\NovaGeneralException",
 
 		/**
 		 * Models
@@ -334,10 +334,10 @@ return [
 		/**
 		 * Event Handlers
 		 */
-		'BaseEventHandler'				=> "Nova\\Core\\Events\\BaseEventHandler",
-		'FormEventHandler'				=> "Nova\\Core\\Events\\FormEventHandler",
-		'FormViewerEventHandler'		=> "Nova\\Core\\Events\\FormViewer",
-		'UserEventHandler'				=> "Nova\\Core\\Events\\User",
+		'BaseEventHandler'				=> "Nova\Core\Events\BaseEventHandler",
+		'FormEventHandler'				=> "Nova\Core\Events\FormEventHandler",
+		'FormViewerEventHandler'		=> "Nova\Core\Events\FormViewerEventHandler",
+		'UserEventHandler'				=> "Nova\Core\Events\UserEventHandler",
 
 		'AccessRoleModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Access\\Role",
 		'AccessTaskModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Access\\Task",
@@ -364,52 +364,51 @@ return [
 		'SettingsModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Settings",
 		'SiteContentModelEventHandler'	=> "Nova\\Core\\Events\\Models\\SiteContent",
 		'SystemRouteModelEventHandler'	=> "Nova\\Core\\Events\\Models\\SystemRoute",
-		'UserModelEventHandler'			=> "Nova\\Core\\Events\\Models\\User",
 
 		/**
 		 * Validators
 		 */
 		
-		'AccessRoleValidator'		=> "Nova\\Core\\Validators\\Access\\Role",
-		'AccessTaskValidator'		=> "Nova\\Core\\Validators\\Access\\Task",
+		'AccessRoleValidator'		=> "Nova\Core\Validators\Access\Role",
+		'AccessTaskValidator'		=> "Nova\Core\Validators\Access\Task",
 
-		'RankCatalogValidator'		=> "Nova\\Core\\Validators\\Catalog\\Rank",
-		'SkinCatalogValidator'		=> "Nova\\Core\\Validators\\Catalog\\Skin",
+		'RankCatalogValidator'		=> "Nova\Core\Validators\Catalog\Rank",
+		'SkinCatalogValidator'		=> "Nova\Core\Validators\Catalog\Skin",
 
-		'FormValidator'				=> "Nova\\Core\\Validators\\Form",
-		'FormFieldValidator'		=> "Nova\\Core\\Validators\\Form\\Field",
-		'FormSectionValidator'		=> "Nova\\Core\\Validators\\Form\\Section",
-		'FormTabValidator'			=> "Nova\\Core\\Validators\\Form\\Tab",
-		'FormValueValidator'		=> "Nova\\Core\\Validators\\Form\\Value",
+		'FormValidator'				=> "Nova\Core\Validators\Form",
+		'FormFieldValidator'		=> "Nova\Core\Validators\Form\Field",
+		'FormSectionValidator'		=> "Nova\Core\Validators\Form\Section",
+		'FormTabValidator'			=> "Nova\Core\Validators\Form\Tab",
+		'FormValueValidator'		=> "Nova\Core\Validators\Form\Value",
 
-		'BaseValidator'				=> "Nova\\Core\\Validators\\Base",
-		'SiteContentValidator'		=> "Nova\\Core\\Validators\\SiteContent",
-		'SystemRouteValidator'		=> "Nova\\Core\\Validators\\SystemRoute",
-		'UserValidator'				=> "Nova\\Core\\Validators\\User",
+		'BaseValidator'				=> "Nova\Core\Validators\Base",
+		'SiteContentValidator'		=> "Nova\Core\Validators\SiteContent",
+		'SystemRouteValidator'		=> "Nova\Core\Validators\SystemRoute",
+		'UserValidator'				=> "Nova\Core\Validators\User",
 
 		/**
 		 * Repositories
 		 */
-		'AccessRoleRepository'		=> "Nova\\Core\\Repositories\\Eloquent\\AccessRoleRepository",
-		'CatalogRepository'			=> "Nova\\Core\\Repositories\\Eloquent\\CatalogRepository",
-		'FormRepository'			=> "Nova\\Core\\Repositories\\Eloquent\\FormRepository",
-		'SettingsRepository'		=> "Nova\\Core\\Repositories\\Eloquent\\SettingsRepository",
-		'SiteContentRepository'		=> "Nova\\Core\\Repositories\\Eloquent\\SiteContentRepository",
-		'SystemRouteRepository'		=> "Nova\\Core\\Repositories\\Eloquent\\SystemRouteRepository",
-		'UserRepository'			=> "Nova\\Core\\Repositories\\Eloquent\\UserRepository",
+		'AccessRoleRepository'		=> "Nova\Core\Repositories\Eloquent\AccessRoleRepository",
+		'CatalogRepository'			=> "Nova\Core\Repositories\Eloquent\CatalogRepository",
+		'FormRepository'			=> "Nova\Core\Repositories\Eloquent\FormRepository",
+		'SettingsRepository'		=> "Nova\Core\Repositories\Eloquent\SettingsRepository",
+		'SiteContentRepository'		=> "Nova\Core\Repositories\Eloquent\SiteContentRepository",
+		'SystemRouteRepository'		=> "Nova\Core\Repositories\Eloquent\SystemRouteRepository",
+		'UserRepository'			=> "Nova\Core\Repositories\Eloquent\UserRepository",
 
 		/**
 		 * Repository Interfaces
 		 */
-		'BaseRepositoryInterface'			=> "Nova\\Core\\Interfaces\\BaseRepositoryInterface",
+		'BaseRepositoryInterface'			=> "Nova\Core\Interfaces\BaseRepositoryInterface",
 
-		'AccessRoleRepositoryInterface'		=> "Nova\\Core\\Interfaces\\Repositories\\AccessRoleRepositoryInterface",
-		'CatalogRepositoryInterface'		=> "Nova\\Core\\Interfaces\\Repositories\\CatalogRepositoryInterface",
-		'FormRepositoryInterface'			=> "Nova\\Core\\Interfaces\\Repositories\\FormRepositoryInterface",
-		'SettingsRepositoryInterface'		=> "Nova\\Core\\Interfaces\\Repositories\\SettingsRepositoryInterface",
-		'SiteContentRepositoryInterface'	=> "Nova\\Core\\Interfaces\\Repositories\\SiteContentRepositoryInterface",
-		'SystemRouteRepositoryInterface'	=> "Nova\\Core\\Interfaces\\Repositories\\SystemRouteRepositoryInterface",
-		'UserRepositoryInterface'			=> "Nova\\Core\\Interfaces\\Repositories\\UserRepositoryInterface",
+		'AccessRoleRepositoryInterface'		=> "Nova\Core\Interfaces\Repositories\AccessRoleRepositoryInterface",
+		'CatalogRepositoryInterface'		=> "Nova\Core\Interfaces\Repositories\CatalogRepositoryInterface",
+		'FormRepositoryInterface'			=> "Nova\Core\Interfaces\Repositories\FormRepositoryInterface",
+		'SettingsRepositoryInterface'		=> "Nova\Core\Interfaces\Repositories\SettingsRepositoryInterface",
+		'SiteContentRepositoryInterface'	=> "Nova\Core\Interfaces\Repositories\SiteContentRepositoryInterface",
+		'SystemRouteRepositoryInterface'	=> "Nova\Core\Interfaces\Repositories\SystemRouteRepositoryInterface",
+		'UserRepositoryInterface'			=> "Nova\Core\Interfaces\Repositories\UserRepositoryInterface",
 
 	],
 
