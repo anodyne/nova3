@@ -1,6 +1,7 @@
 <?php namespace Nova\Core\Lib;
 
 use File;
+use Image;
 use Input;
 use Session;
 use MediaNoInputException;
@@ -39,9 +40,6 @@ class Media {
 	 * @param	array	$options		Additional options
 	 * @param	string	$field			File upload field name
 	 * @return	bool
-	 * @throws	MediaFileTooBigException
-	 * @throws	MediaBadFileTypeException
-	 * @throws	MediaNoInputException
 	 */
 	public function add($filename, $destination, array $options = [], $field = 'file')
 	{
@@ -66,19 +64,13 @@ class Media {
 					$databaseUpload = $this->model->addMedia($filename, $options);
 				}
 				else
-				{
 					throw new MediaFileTooBigException;
-				}
 			}
 			else
-			{
 				throw new MediaBadFileTypeException;
-			}
 		}
 		else
-		{
 			throw new MediaNoInputException;
-		}
 
 		return true;
 	}
@@ -175,11 +167,65 @@ class Media {
 	public function getFileFormats($format = 'array')
 	{
 		if ($format == 'csv')
-		{
 			return implode(',', $this->mimes);
-		}
 
 		return $this->mimes;
+	}
+
+	/**
+	 * Crop an image to a square avatar.
+	 *
+	 * @param	Media	$media		The media object
+	 * @param	string	$path		Path to where the original image is
+	 * @param	array	$input		Input array
+	 * @param	array	$options	Array of options for making the crop
+	 * @return	bool
+	 */
+	public function cropSquare($media, $path, array $input, array $options)
+	{
+		// Get the file info and break it apart
+		$fileInfo = explode('.', $media->filename);
+		$filename = $fileInfo[0];
+		$extension = '.'.$fileInfo[1];
+
+		// Grab the info from the input
+		$posX = $input['x1'];
+		$posY = $input['y1'];
+		$height = $input['height'];
+
+		// Make an image from the original
+		$image = Image::make($path.$filename.$extension);
+
+		/**
+		 * The options array must have the following keys:
+		 *
+		 * size		The size (in pixels) of the final image
+		 * dir		The directory inside of $path where the final image is stored
+		 * retina	Is this a retina image (will attach @2x to the filename)
+		 */
+		foreach ($options as $o)
+		{
+			// Make sure the image is big enough to do the cropping
+			if ((int) $height >= $o['size'])
+			{
+				// Crop the image
+				$image->crop($o['size'], $o['size'], $posX, $posY);
+
+				// Build the start of the new filename
+				if ($o['dir'] !== false)
+					$newFilename = $path.$o['dir'].$filename;
+				else
+					$newFilename = $path.$filename;
+
+				// If it's a retina image, add @2x to the filename
+				if ($o['retina'])
+					$image->save("{$newFilename}@2x{$extension}");
+				else
+					$image->save($newFilename.$extension);
+			}
+		}
+
+		return true;
 	}
 
 }

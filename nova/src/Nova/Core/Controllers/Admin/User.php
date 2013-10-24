@@ -260,33 +260,13 @@ class User extends AdminBaseController {
 		else
 		{
 			Media::cropSquare($user->getMedia(), APPPATH."assets/images/users/", Input::all(), [
-				['size' => 32, 'path' => 'sm', 'retina' => false],
-				['size' => 64, 'path' => 'sm', 'retina' => true],
-				['size' => 64, 'path' => 'md', 'retina' => false],
-				['size' => 128, 'path' => 'md', 'retina' => true],
-				['size' => 200, 'path' => 'lg', 'retina' => false],
-				['size' => 400, 'path' => 'lg', 'retina' => true],
+				['size' => 32, 'dir' => 'sm', 'retina' => false],
+				['size' => 64, 'dir' => 'sm', 'retina' => true],
+				['size' => 64, 'dir' => 'md', 'retina' => false],
+				['size' => 128, 'dir' => 'md', 'retina' => true],
+				['size' => 200, 'dir' => 'lg', 'retina' => false],
+				['size' => 400, 'dir' => 'lg', 'retina' => true],
 			]);
-
-			# FIXME: the controller shouldn't know the details about cropping
-
-			/*// Get the file info and break it apart
-			$fileInfo = explode('.', $user->getMedia()->filename);
-			$filename = $fileInfo[0];
-			$extension = '.'.$fileInfo[1];
-
-			// Create a new image object
-			$image = new Image(APPPATH."assets/images/users/{$filename}{$extension}", Input::all());
-
-			$image->crop(32, 32, APPPATH.'assets/images/users/sm/'.$filename.$extension);
-			$image->crop(64, 64, APPPATH.'assets/images/users/sm/'.$filename.'@2x'.$extension);
-			$image->crop(64, 64, APPPATH.'assets/images/users/md/'.$filename.$extension);
-			$image->crop(128, 128, APPPATH.'assets/images/users/md/'.$filename.'@2x'.$extension);
-			$image->crop(200, 200, APPPATH.'assets/images/users/lg/'.$filename.$extension);
-
-			// Only create a large avatar if the crop is big enough
-			if ((int) Input::get('height') >= 400)
-				$image->crop(400, 400, APPPATH.'assets/images/users/lg/'.$filename.'@2x'.$extension);*/
 
 			return Redirect::to("admin/user/edit/{$user->id}")
 				->with('flashStatus', 'succcess')
