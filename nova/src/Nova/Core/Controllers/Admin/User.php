@@ -74,7 +74,6 @@ class User extends AdminBaseController {
 			// Fire the user deleted event
 			Event::fire('nova.user.deleted', $user);
 		}
-
 		else
 			throw new NovaGeneralException(lang('error.admin.user.notAuthorized', lang('action.delete')));
 
@@ -109,7 +108,6 @@ class User extends AdminBaseController {
 			// Fire the user created event
 			Event::fire('nova.user.created', $user, Input::all());
 		}
-
 		else
 			throw new NovaGeneralException(lang('error.admin.user.notAuthorized', lang('action.create')));
 
@@ -160,7 +158,6 @@ class User extends AdminBaseController {
 			// Fire the user updated event
 			Event::fire('nova.user.updated', $user, Input::all());
 		}
-
 		else
 			throw new NovaGeneralException(lang('error.admin.user.notAuthorized', lang('action.update')));
 
@@ -213,8 +210,10 @@ class User extends AdminBaseController {
 		if ( ! $this->currentUser->canEditUser($user))
 			throw new NovaGeneralException(lang('error.admin.user.notAuthorized', lang('action.update')));
 		
-		else
+		if ($this->currentUser->canEditUser($user))
 		{
+			$this->media->add(Input::file('file'));
+			
 			// Set the model we're using for uploading
 			Media::setModel($user);
 
@@ -232,6 +231,8 @@ class User extends AdminBaseController {
 
 			# FIXME: the controller shouldn't know about the details of uploading
 		}
+		else
+			throw new NovaGeneralException(lang('error.admin.user.notAuthorized', lang('action.update')));
 	}
 
 	public function getUserAvatar($userId = false)
@@ -254,10 +255,7 @@ class User extends AdminBaseController {
 		// Get the user
 		$user = $this->user->find($userId);
 
-		if ( ! $this->currentUser->canEditUser($user))
-			throw new NovaGeneralException(lang('error.admin.user.notAuthorized', lang('action.update')));
-		
-		else
+		if ($this->currentUser->canEditUser($user))
 		{
 			Media::cropSquare($user->getMedia(), APPPATH."assets/images/users/", Input::all(), [
 				['size' => 32, 'path' => 'sm', 'retina' => false],
@@ -292,16 +290,15 @@ class User extends AdminBaseController {
 				->with('flashStatus', 'succcess')
 				->with('flashMessage', lang('Short.alert.success.update', langConcat('user avatar')));
 		}
+		else
+			throw new NovaGeneralException(lang('error.admin.user.notAuthorized', lang('action.update')));
 	}
 	public function deleteUserAvatar()
 	{
 		// Get the user
 		$user = $this->user->find(Input::get('id'));
 
-		if ( ! $this->currentUser->canEditUser($user))
-			throw new NovaGeneralException(lang('error.admin.user.notAuthorized', lang('action.update')));
-		
-		else
+		if ($this->currentUser->canEditUser($user))
 		{
 			// Remove the user avatar
 			$media = Media::remove($user->getMedia());
@@ -310,6 +307,8 @@ class User extends AdminBaseController {
 				->with('flashStatus', 'success')
 				->with('flashMessage', lang('Short.alert.success.delete', langConcat('user avatar')));
 		}
+		else
+			throw new NovaGeneralException(lang('error.admin.user.notAuthorized', lang('action.update')));
 	}
 
 }
