@@ -29,6 +29,7 @@ require 'nova/start/autoload.php';
 
 $app = require_once NOVAPATH.'start/start.php';
 
+// Remove for 4.1
 $app->boot();
 
 /*
@@ -42,6 +43,9 @@ $app->boot();
 | will allow us to fire commands from Routes when we want to.
 |
 */
+
+// 4.1
+//$app->setRequestForConsoleEnvironment();
 
 $artisan = Illuminate\Console\Application::start($app);
 

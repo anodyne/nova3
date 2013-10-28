@@ -65,7 +65,7 @@ if (version_compare(PHP_VERSION, '5.4.0', '<'))
 | Once we have the application, we can simply call the run method,
 | which will execute the request and send the response back to
 | the client's browser allowing them to enjoy the creative
-| and wonderful applications we have created for them.
+| and wonderful application we have whipped up for them.
 |
 */
 
