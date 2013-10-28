@@ -113,6 +113,9 @@ class Install extends SetupBaseController {
 			'content'	=> Config::get('nova.app.name')." was successfully installed.",
 		]);
 
+		// Set the application key
+		Artisan::call('key:generate');
+
 		// Register
 		# TODO: need to figure out how we want to do registration
 
