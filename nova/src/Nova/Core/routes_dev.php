@@ -54,4 +54,9 @@ Route::group(['prefix' => 'dev'], function()
 	{
 		s(Config::get('events'));
 	});
+
+	Route::get('config', function()
+	{
+		s(Config::get('foo::bar.baz'));
+	});
 });
