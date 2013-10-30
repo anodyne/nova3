@@ -58,19 +58,6 @@ class ConfigCascadingFileLoader implements LoaderInterface {
 		// Set the path to the app config directory
 		$this->defaultPath['app'] = APPPATH."config";
 
-		// Get the modules out of the cache
-		$modules = $this->cache->get('nova.modules');
-
-		if (is_array($modules))
-		{
-			foreach ($modules as $module)
-			{
-				// Set the path to the module's config directory
-				if ($this->files->isDirectory(APPPATH."src/Modules/{$module}/config"))
-					$this->defaultPath[$module] = APPPATH."src/Modules/{$module}/config";
-			}
-		}
-
 		// Set the path to the core config directory
 		$this->defaultPath['core'] = NOVAPATH."config";
 	}
@@ -94,11 +81,15 @@ class ConfigCascadingFileLoader implements LoaderInterface {
 
 		// If the path is null, just return the empty items array
 		if (is_null($path))
+		{
 			return $items;
+		}
 
 		// Make sure the path is an array
 		if ( ! is_array($path))
+		{
 			$path = array($path);
+		}
 
 		// Loop through the paths and load the files
 		foreach ($path as $location => $p)
@@ -110,7 +101,9 @@ class ConfigCascadingFileLoader implements LoaderInterface {
 			$file = "{$p}/{$group}.php";
 
 			if ($this->files->exists($file))
+			{
 				$items[$location] = $this->files->getRequire($file);
+			}
 
 			// Finally we're ready to check for the environment specific config
 			// file which will be merged on top of the main arrays so that they get
@@ -121,7 +114,9 @@ class ConfigCascadingFileLoader implements LoaderInterface {
 			{
 				// Make sure there's something here if we need it
 				if ( ! array_key_exists($location, $items))
+				{
 					$items[$location] = [];
+				}
 
 				$items[$location] = array_merge($items[$location], $this->files->getRequire($file));
 			}
@@ -148,7 +143,9 @@ class ConfigCascadingFileLoader implements LoaderInterface {
 		// group combination have been checked before. If they have, we will
 		// just return the cached result so we don't have to hit the disk.
 		if (isset($this->exists[$key]))
+		{
 			return $this->exists[$key];
+		}
 
 		$path = $this->getPath($namespace);
 
@@ -156,7 +153,9 @@ class ConfigCascadingFileLoader implements LoaderInterface {
 		// namespace, and then check to see if this files exists within that
 		// namespace. False is returned if no path exists for a namespace.
 		if (is_null($path))
+		{
 			return $this->exists[$key] = false;
+		}
 
 		$file = "{$path}/{$group}.php";
 
@@ -187,7 +186,9 @@ class ConfigCascadingFileLoader implements LoaderInterface {
 		foreach ($this->defaultPath as $location => $p)
 		{
 			if ($this->files->exists($path = $p.'/'.$file))
+			{
 				$items = array_merge($items, $this->getRequire($path));
+			}
 
 			// Once we have merged the regular package configuration we need to look for
 			// an environment specific configuration file. If one exists, we will get
@@ -195,7 +196,9 @@ class ConfigCascadingFileLoader implements LoaderInterface {
 			$path = $p."/{$environment}/".$file;
 
 			if ($this->files->exists($path))
+			{
 				$items = array_merge($items, $this->getRequire($path));
+			}
 		}
 
 		return $items;
@@ -210,10 +213,13 @@ class ConfigCascadingFileLoader implements LoaderInterface {
 	protected function getPath($namespace)
 	{
 		if (is_null($namespace))
+		{
 			return $this->defaultPath;
-		
+		}
 		elseif (isset($this->hints[$namespace]))
+		{
 			return $this->hints[$namespace];
+		}
 	}
 
 	/**
@@ -268,6 +274,30 @@ class ConfigCascadingFileLoader implements LoaderInterface {
 	public function getPaths()
 	{
 		return $this->defaultPath;
+	}
+
+	protected function getPackagePaths()
+	{
+		// Get the modules out of the cache
+		$modules = $this->cache->get('nova.modules');
+
+		if (is_array($modules))
+		{
+			// Start an array for storing the modules
+			$paths = [];
+
+			foreach ($modules as $module)
+			{
+				// Set the path to the module's config directory
+				if ($this->files->isDirectory(APPPATH."src/Modules/{$module}/config"))
+				{
+					$paths[$module] = APPPATH."src/Modules/{$module}/config";
+				}
+			}
+
+			// Append the paths to the beginning of the default paths
+			return $paths + $this->defaultPath;
+		}
 	}
 
 }
