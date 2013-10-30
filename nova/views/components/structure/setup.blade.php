@@ -16,7 +16,7 @@
 		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 		
-		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="{{ NOVAURL }}assets/css/fonts.css">
 		<link rel="stylesheet" href="{{ NOVAURL }}assets/css/fonts.setup.css">
 		<link rel="stylesheet" href="{{ NOVAURL }}views/design/style.setup.css">
@@ -29,7 +29,7 @@
 
 		<?php include_once NOVAPATH.'views/components/js/core/jquery_js.php';?>
 
-		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
 		<script>
 			
 			$(document).ready(function()

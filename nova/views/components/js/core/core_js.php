@@ -1,7 +1,7 @@
 <?php include_once NOVAPATH.'views/components/js/core/jquery_js.php';?>
 
 <script src="<?php echo NOVAURL;?>assets/js/jquery.lazy.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
 <script>
 	
 	$(document).ready(function()
@@ -82,13 +82,13 @@
 			url: "<?php echo URL::to('ajax/get/position');?>/" + $('#positionDrop option:selected').val() + "/desc",
 			beforeSend: function()
 			{
-				$('#positionLoader').removeClass('hide');
+				$('#positionLoader').removeClass('hidden');
 			},
 			success: function(data)
 			{
 				$('#positionDescInner').html('');
 				$('#positionDescInner').append(data);
-				$('#positionLoader').addClass('hide');
+				$('#positionLoader').addClass('hidden');
 			}
 		});
 	});
