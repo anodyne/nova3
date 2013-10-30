@@ -36,7 +36,9 @@ class FormRepository implements FormRepositoryInterface {
 	public function checkItemForm($item, $formKey)
 	{
 		if ($item === null)
+		{
 			return true;
+		}
 
 		return ($item->form->key == $formKey);
 	}
@@ -277,7 +279,9 @@ class FormRepository implements FormRepositoryInterface {
 		if ($form)
 		{
 			if ((bool) $form->protected)
+			{
 				throw new FormProtectedException;
+			}
 
 			// Delete the form
 			$delete = $form->delete();
@@ -309,8 +313,11 @@ class FormRepository implements FormRepositoryInterface {
 	 */
 	public function deleteField($id, $setFlash = true)
 	{
+		// Get the field
+		$field = $this->findField($id);
+
 		// Delete the field
-		$delete = FormFieldModel::destroy($id);
+		$delete = $field->delete();
 
 		if ($setFlash)
 		{
@@ -324,7 +331,7 @@ class FormRepository implements FormRepositoryInterface {
 			$this->setFlashMessage($status, $message);
 		}
 
-		return $delete;
+		return $field;
 	}
 
 	/**
@@ -335,7 +342,13 @@ class FormRepository implements FormRepositoryInterface {
 	 */
 	public function deleteFieldValue($id)
 	{
-		return FormValueModel::destroy($id);
+		// Get the field value
+		$value = $this->findFieldValue($id);
+
+		// Delete the field value
+		$value->delete();
+
+		return $value;
 	}
 
 	/**
@@ -630,9 +643,13 @@ class FormRepository implements FormRepositoryInterface {
 			foreach ($sections as $section)
 			{
 				if ($section->tab_id > 0)
+				{
 					$final[$section->tab_id][] = $section;
+				}
 				else
+				{
 					$final[] = $section;
+				}
 			}
 		}
 
