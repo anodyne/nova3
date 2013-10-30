@@ -47,7 +47,7 @@ if ( ! function_exists('joinData'))
 				<p><?php echo ucfirst(lang('short.join.userInfo', lang('user'), lang('name'), lang('email_address'), lang('sim')));?></p>
 			</div>
 
-			<div class="alert alert-info hide" id="welcomeBack">
+			<div class="alert alert-info hidden" id="welcomeBack">
 				<h4><?php echo ucwords(lang('short.join.welcomeBack'));?></h4>
 				<p><?php echo lang('short.join.userFound', lang('user'), lang('character'), lang('game_master'));?></p>
 				<p><?php echo lang('short.join.userFormReset', lang('user'));?></p>

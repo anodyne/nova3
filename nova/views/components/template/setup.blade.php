@@ -20,7 +20,7 @@
 				{{ $content }}
 			</div>
 
-			<div id="loading" class="hide">
+			<div id="loading" class="hidden">
 				<h2><img src="{{ URL::asset('nova/views/design/images/loading.gif') }}" alt=""><small>Loading...</small></h2>
 			</div>
 		</div>

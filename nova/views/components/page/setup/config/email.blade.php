@@ -55,7 +55,7 @@
 			</div>
 		</div>
 
-		<div id="sendmailOptions" class="hide">
+		<div id="sendmailOptions" class="hidden">
 			<div class="row">
 				<div class="col-lg-4">
 					<label>Sendmail Path</label>

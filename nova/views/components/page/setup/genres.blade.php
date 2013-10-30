@@ -10,20 +10,20 @@
 				<h4>{{ $genre['name'] }} <small>{{ strtoupper($key) }}</small></h4>
 
 				<p class="pull-right">
-					<?php $installHide = ($genre['installed']) ? 'hide' : '';?>
-					<?php $uninstallHide = ( ! $genre['installed']) ? 'hide' : '';?>
+					<?php $installHide = ($genre['installed']) ? 'hidden' : '';?>
+					<?php $uninstallHide = ( ! $genre['installed']) ? 'hidden' : '';?>
 					<?php $uninstallDisable = ($key == Config::get('nova.genre')) ? true : false;?>
 
 					<button data-genre="{{ $key }}" class="js-do-install btn btn-primary btn-mini {{ $installHide }}">Install</button>
 					<button data-genre="{{ $key }}" class="js-do-uninstall btn btn-danger btn-mini {{ $uninstallHide }}"<?php if ($uninstallDisable){ echo ' disabled="disabled"'; }?>>Uninstall</button>
 				</p>
 
-				<p class="pull-right hide" style="padding-bottom:2px;">{{ $loading }}</p>
+				<p class="pull-right hidden" style="padding-bottom:2px;">{{ $loading }}</p>
 
 				<p>
-					<?php $activeHide = ($key != Config::get('nova.genre')) ? 'hide' : '';?>
-					<?php $installHide = ( ! $genre['installed']) ? 'hide' : '';?>
-					<?php $uninstallHide = ($genre['installed']) ? 'hide' : '';?>
+					<?php $activeHide = ($key != Config::get('nova.genre')) ? 'hidden' : '';?>
+					<?php $installHide = ( ! $genre['installed']) ? 'hidden' : '';?>
+					<?php $uninstallHide = ($genre['installed']) ? 'hidden' : '';?>
 
 					<span class="label label-info {{ $activeHide }}">Active Genre</span>
 					<span class="label label-success {{ $installHide }}">Installed</span>
@@ -46,20 +46,20 @@
 					<h4>{{ $genre['name'] }}</h4>
 
 					<p class="pull-right">
-						<?php $installHide = ($genre['installed']) ? 'hide' : '';?>
-						<?php $uninstallHide = ( ! $genre['installed']) ? 'hide' : '';?>
+						<?php $installHide = ($genre['installed']) ? 'hidden' : '';?>
+						<?php $uninstallHide = ( ! $genre['installed']) ? 'hidden' : '';?>
 						<?php $uninstallDisable = ($key == Config::get('nova.genre')) ? true : false;?>
 
 						<button data-genre="{{ $key }}" class="js-do-install btn btn-primary btn-mini {{ $installHide }}">Install</button>
 						<button data-genre="{{ $key }}" class="js-do-uninstall btn btn-danger btn-mini {{ $uninstallHide }}"<?php if ($uninstallDisable){ echo ' disabled="disabled"'; }?>>Uninstall</button>
 					</p>
 
-					<p class="pull-right hide" style="padding-bottom:2px;">{{ $loading }}</p>
+					<p class="pull-right hidden" style="padding-bottom:2px;">{{ $loading }}</p>
 
 					<p>
-						<?php $activeHide = ($key != Config::get('nova.genre')) ? 'hide' : '';?>
-						<?php $installHide = ( ! $genre['installed']) ? 'hide' : '';?>
-						<?php $uninstallHide = ($genre['installed']) ? 'hide' : '';?>
+						<?php $activeHide = ($key != Config::get('nova.genre')) ? 'hidden' : '';?>
+						<?php $installHide = ( ! $genre['installed']) ? 'hidden' : '';?>
+						<?php $uninstallHide = ($genre['installed']) ? 'hidden' : '';?>
 
 						<span class="label label-info {{ $activeHide }}">Active Genre</span>
 						<span class="label label-success {{ $installHide }}">Installed</span>

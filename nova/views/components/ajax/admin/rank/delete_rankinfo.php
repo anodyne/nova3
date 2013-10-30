@@ -17,7 +17,7 @@
 		<label class="checkbox"><input type="checkbox" name="delete_ranks" id="deleteRanks" value="1" checked="checked"> <?php echo ucfirst(lang('short.delete', lang('ranks')));?></label>
 	</div>
 
-	<div class="control-group hide" id="changeDD">
+	<div class="control-group hidden" id="changeDD">
 		<?php echo Form::select('new_info', 0, $infos, array('class' => 'span4'));?>
 		<p class="help-block"><?php echo lang('short.ranks.changeInfo', lang('rank'), lang('ranks'));?></p>
 	</div>

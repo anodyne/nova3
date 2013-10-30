@@ -46,7 +46,7 @@ if ( ! function_exists('ruleData'))
 		</div>
 	</div>
 
-	<div id="deptRule" class="hide">
+	<div id="deptRule" class="hidden">
 		<div class="form-group">
 			<label class="control-label"><?php echo ucfirst(langConcat('department is'));?>...</label>
 			<div class="controls">

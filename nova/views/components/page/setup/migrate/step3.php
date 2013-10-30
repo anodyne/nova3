@@ -6,8 +6,8 @@
 	<div class="controls">
 		<label class="control-label">Temporary Password</label>
 		<input type="text" name="password">&nbsp;
-		<span class="hide"><?php echo HTML::img($image['loading']['src'], $image['loading']['attr']);?></span>
-		<span class="hide" id="password-success"><?php echo HTML::img($image['success']['src'], $image['success']['attr']);?></span>
+		<span class="hidden"><?php echo HTML::img($image['loading']['src'], $image['loading']['attr']);?></span>
+		<span class="hidden" id="password-success"><?php echo HTML::img($image['success']['src'], $image['success']['attr']);?></span>
 	</div>
 
 	<h2>Setup System Administrators</h2>
@@ -17,6 +17,6 @@
 	<div class="controls">
 		<label class="control-label">Select System Administrator(s)</label>
 		<?php echo Form::select('admins', null, $users, array('multiple' => 'multiple', 'style' => 'height: 200px', 'class' => 'span6'));?>&nbsp;
-		<span class="hide"><?php echo HTML::img($image['loading']['src'], $image['loading']['attr']);?></span>
-		<span class="hide" id="admins-success"><?php echo HTML::img($image['success']['src'], $image['success']['attr']);?></span>
+		<span class="hidden"><?php echo HTML::img($image['loading']['src'], $image['loading']['attr']);?></span>
+		<span class="hidden" id="admins-success"><?php echo HTML::img($image['success']['src'], $image['success']['attr']);?></span>
 	</div>

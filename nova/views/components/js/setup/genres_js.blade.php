@@ -10,10 +10,10 @@
 			beforeSend: function()
 			{
 				// Hide the install button
-				$this.addClass('hide');
+				$this.addClass('hidden');
 				
 				// Show the loader
-				$this.parent().next('p').removeClass('hide');
+				$this.parent().next('p').removeClass('hidden');
 			},
 			type: "POST",
 			url: "{{ URL::to('setup/ajax/install_genre') }}",
@@ -22,22 +22,22 @@
 			success: function(data)
 			{
 				// Hide the loader
-				$this.parent().next('p').addClass('hide');
+				$this.parent().next('p').addClass('hidden');
 				
 				if (data.code == 1)
 				{
 					// Update which label is shown
-					$this.parent().next('p').next('p').children('.label').addClass('hide');
-					$this.parent().next('p').next('p').children('.label-success').removeClass('hide');
+					$this.parent().next('p').next('p').children('.label').addClass('hidden');
+					$this.parent().next('p').next('p').children('.label-success').removeClass('hidden');
 
 					// Hide the button
 					$this.hide();
 					
 					// Show the uninstall button
-					$this.next('button').removeClass('hide');
+					$this.next('button').removeClass('hidden');
 				}
 				else
-					$this.removeClass('hide');
+					$this.removeClass('hidden');
 			}
 		});
 	});
@@ -52,10 +52,10 @@
 			beforeSend: function()
 			{
 				// Hide the install button
-				$this.addClass('hide');
+				$this.addClass('hidden');
 				
 				// Show the loader
-				$this.parent().next('p').removeClass('hide');
+				$this.parent().next('p').removeClass('hidden');
 			},
 			type: "POST",
 			url: "{{ URL::to('setup/ajax/uninstall_genre') }}",
@@ -64,22 +64,22 @@
 			success: function(data)
 			{
 				// Hide the loader
-				$this.parent().next('p').addClass('hide');
+				$this.parent().next('p').addClass('hidden');
 				
 				if (data.code == 1)
 				{
 					// Update which label is shown
-					$this.parent().next('p').next('p').children('.label-success').addClass('hide');
-					$this.parent().next('p').next('p').children(':last-child').removeClass('hide');
+					$this.parent().next('p').next('p').children('.label-success').addClass('hidden');
+					$this.parent().next('p').next('p').children(':last-child').removeClass('hidden');
 
 					// Hide the button
 					$this.hide();
 					
 					// Show the install button
-					$this.prev('button').removeClass('hide');
+					$this.prev('button').removeClass('hidden');
 				}
 				else
-					$this.removeClass('hide');
+					$this.removeClass('hidden');
 			}
 		});
 	});

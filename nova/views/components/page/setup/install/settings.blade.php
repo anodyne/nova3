@@ -84,11 +84,11 @@
 				</div>
 			</div>
 			<div class="col-lg-6">
-				<div id="positionDescPanel" class="hide">
+				<div id="positionDescPanel" class="hidden">
 					<label>Position Description</label>
 					<p id="positionDesc" class="text-muted font-small"></p>
 				</div>
-				<div id="positionLoader" class="hide">
+				<div id="positionLoader" class="hidden">
 					<br>
 					{{ HTML::image('nova/views/design/images/loading.gif') }}
 				</div>

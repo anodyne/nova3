@@ -13,7 +13,7 @@
 
 			<h4 class="alert-heading"><?php echo ucwords($location);?></h4>
 			<?php if ($has_readme): ?>
-				<span class="hide"><?php echo Markdown::parse(file_get_contents(APPPATH.'modules/'.$location.'/readme.md'));?></span>
+				<span class="hidden"><?php echo Markdown::parse(file_get_contents(APPPATH.'modules/'.$location.'/readme.md'));?></span>
 			<?php endif;?>
 		</div>
 	<?php endforeach;?>
@@ -33,7 +33,7 @@
 
 			<h4 class="alert-heading"><?php echo $u->name;?></h4>
 			<?php if ($has_readme): ?>
-				<span class="hide"><?php echo Markdown::parse(file_get_contents(APPPATH.'modules/'.$u->location.'/readme.md'));?></span>
+				<span class="hidden"><?php echo Markdown::parse(file_get_contents(APPPATH.'modules/'.$u->location.'/readme.md'));?></span>
 			<?php endif;?>
 		</div>
 	<?php endforeach;?>

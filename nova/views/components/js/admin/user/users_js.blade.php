@@ -17,23 +17,23 @@
 		{
 			$.ajax({
 				beforeSend: function(){
-					$('#no-results').addClass('hide');
-					$('#results').addClass('hide');
+					$('#no-results').addClass('hidden');
+					$('#results').addClass('hidden');
 					
-					$('#results-name').addClass('hide');
+					$('#results-name').addClass('hidden');
 					$('#results-name dl dd').remove();
 					
-					$('#results-email').addClass('hide');
+					$('#results-email').addClass('hidden');
 					$('#results-email dl dd').remove();
 					
-					$('#results-characters').addClass('hide');
+					$('#results-characters').addClass('hidden');
 					$('#results-characters dl dd').remove();
 
-					$('#activeUsers').addClass('hide');
-					$('#allUsers').removeClass('hide');
+					$('#activeUsers').addClass('hidden');
+					$('#allUsers').removeClass('hidden');
 
-					$('#searchComplete').addClass('hide');
-					$('#searching').removeClass('hide');
+					$('#searchComplete').addClass('hidden');
+					$('#searching').removeClass('hidden');
 				},
 				url: '{{ URL::to("ajax/get/user_search") }}',
 				type: 'POST',
@@ -53,7 +53,7 @@
 							$('#results-name dl').append('<dd><a href="' + url + value.id + '" class="btn btn-sm btn-default icn-size-16">{{ $_icons["edit"] }}</a>&nbsp;&nbsp;' + value.name + '</dd>');
 						});
 						
-						$('#results-name').removeClass('hide');
+						$('#results-name').removeClass('hidden');
 					}
 					
 					if ( ! $.isEmptyObject(data.email))
@@ -63,7 +63,7 @@
 							$('#results-email dl').append('<dd><a href="' + url + value.id + '" class="btn btn-sm btn-default icn-size-16">{{ $_icons["edit"] }}</a>&nbsp;&nbsp;' + value.name + ' (' + value.email + ')' + '</dd>');
 						});
 						
-						$('#results-email').removeClass('hide');
+						$('#results-email').removeClass('hidden');
 					}
 					
 					if ( ! $.isEmptyObject(data.characters))
@@ -73,17 +73,17 @@
 							$('#results-characters dl').append('<dd><a href="' + url + value.id + '" class="btn btn-sm btn-default icn-size-16">{{ $_icons["edit"] }}</a>&nbsp;&nbsp;' + value.name + ' (' + value.first_name + ' ' + value.last_name + ')' + '</dd>');
 						});
 						
-						$('#results-characters').removeClass('hide');
+						$('#results-characters').removeClass('hidden');
 					}
 					
 					if ($.isEmptyObject(data.name) && $.isEmptyObject(data.email) 
 							&& $.isEmptyObject(data.characters))
 					{
-						$('#no-results').removeClass('hide');
+						$('#no-results').removeClass('hidden');
 					}
 					else
 					{
-						$('#results').removeClass('hide');
+						$('#results').removeClass('hidden');
 					}
 				}
 			});
@@ -100,16 +100,16 @@
 		
 		if (view == 'showAll')
 		{
-			$('#activeUsers').addClass('hide');
-			$('#allUsers').removeClass('hide');
+			$('#activeUsers').addClass('hidden');
+			$('#allUsers').removeClass('hidden');
 		}
 		else
 		{
-			$('#activeUsers').removeClass('hide');
-			$('#allUsers').addClass('hide');
+			$('#activeUsers').removeClass('hidden');
+			$('#allUsers').addClass('hidden');
 		}
 
-		$('#searchComplete').addClass('hide');
+		$('#searchComplete').addClass('hidden');
 		
 		e.preventDefault();
 	});
@@ -140,8 +140,8 @@
 	{
 		if ($('#allUsers').is(':visible'))
 		{
-			$('#searching').addClass('hide');
-			$('#searchComplete').removeClass('hide');
+			$('#searching').addClass('hidden');
+			$('#searchComplete').removeClass('hidden');
 		}
 	});
 

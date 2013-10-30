@@ -9,7 +9,7 @@
 			url: "{{ URL::to('admin/catalog/skins_upload/'.$id) }}",
 			maxFilesize: "{{ $uploadSize }}",
 			acceptedFiles: "{{ $acceptedFiles }}",
-			previewTemplate: '<div class="dz-preview dz-file-preview hide"><div class="dz-details text-center"><div class="dz-filename hide"><span data-dz-name></span></div><div class="dz-size hide" data-dz-size></div><img data-dz-thumbnail /></div><div class="dz-progress hide"><span class="dz-upload" data-dz-uploadprogress></span></div><div class="dz-success-mark hide"><span>✔</span></div><div class="dz-error-mark hide"><span>✘</span></div><div class="dz-error-message"><span data-dz-errormessage></span></div></div>'
+			previewTemplate: '<div class="dz-preview dz-file-preview hidden"><div class="dz-details text-center"><div class="dz-filename hidden"><span data-dz-name></span></div><div class="dz-size hidden" data-dz-size></div><img data-dz-thumbnail /></div><div class="dz-progress hidden"><span class="dz-upload" data-dz-uploadprogress></span></div><div class="dz-success-mark hidden"><span>✔</span></div><div class="dz-error-mark hidden"><span>✘</span></div><div class="dz-error-message"><span data-dz-errormessage></span></div></div>'
 		});
 
 		// Drag over event
@@ -40,7 +40,7 @@
 		{
 			var container = this.element.id;
 
-			$('#' + container + ' .text-success').removeClass('hide');
+			$('#' + container + ' .text-success').removeClass('hidden');
 		});
 
 		// Error event
@@ -48,7 +48,7 @@
 		{
 			var container = this.element.id;
 
-			$('#' + container + ' .text-danger').removeClass('hide');
+			$('#' + container + ' .text-danger').removeClass('hidden');
 			$('#' + container).append('<p class="help-block text-danger text-center">' + error + '</p>');
 		});
 	});

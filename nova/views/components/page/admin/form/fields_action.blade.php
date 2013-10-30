@@ -100,7 +100,7 @@
 			@endif
 
 			@if (count($sections) > 0)
-				<div class="row{{ isset($sectionsAndTabs) ? ' hide' : '' }}" id="associateSection">
+				<div class="row{{ isset($sectionsAndTabs) ? ' hidden' : '' }}" id="associateSection">
 					<div class="col-sm-6 col-lg-4">
 						<div class="form-group">
 							<label class="control-label">{{ lang('Section') }}</label>
@@ -111,7 +111,7 @@
 			@endif
 
 			@if (count($tabs) > 0)
-				<div class="row{{ isset($sectionsAndTabs) ? ' hide' : '' }}" id="associateTab">
+				<div class="row{{ isset($sectionsAndTabs) ? ' hidden' : '' }}" id="associateTab">
 					<div class="col-sm-6 col-lg-4">
 						<div class="form-group">
 							<label class="control-label">{{ lang('Tab') }}</label>
@@ -158,7 +158,7 @@
 			</div>
 
 			@if ($action == 'create')
-				<div class="row field-value-list hide">
+				<div class="row field-value-list hidden">
 					<div class="col-sm-8 col-lg-6">
 						<div class="form-group">
 							<label class="control-label">{{ ucwords(langConcat('dropdown values')) }}</label>
@@ -219,7 +219,7 @@
 				</div>
 			</div>
 
-			<div class="row field-rows hide">
+			<div class="row field-rows hidden">
 				<div class="col-sm-4 col-lg-2">
 					<div class="form-group">
 						<label class="control-label">{{ lang('Rows') }}</label>

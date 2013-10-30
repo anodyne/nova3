@@ -9,9 +9,9 @@
 
 		// figure out if we should be hiding or showing
 		if (container.is(':visible'))
-			container.addClass('hide');
+			container.addClass('hidden');
 		else
-			container.removeClass('hide');
+			container.removeClass('hidden');
 	});
 
 	$(document).ready(function(){

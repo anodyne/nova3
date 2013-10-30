@@ -19,8 +19,8 @@
 		</div>
 	</div>
 	<div class="col-xs-12 col-sm-2 col-lg-2">
-		<div id="searching" class="hide">{{ HTML::image(SRCURL.'core/views/design/images/loading.gif') }}</div>
-		<div id="searchComplete" class="hide">
+		<div id="searching" class="hidden">{{ HTML::image(SRCURL.'core/views/design/images/loading.gif') }}</div>
+		<div id="searchComplete" class="hidden">
 			<p><a class="btn btn-sm btn-default icn-size-16" rel="changeUserView" id="showActive">{{ $_icons['closeSmall'] }}</a></p>
 		</div>
 	</div>
@@ -156,30 +156,30 @@
 	</div>
 </div>
 
-<div id="allUsers" class="hide">
+<div id="allUsers" class="hidden">
 	<p class="text-small text-muted"><em>{{ lang('short.admin.users.doneSearching', lang('active'), lang('users')) }}</em></p>
 	
-	<div id="results" class="hide">
-		<div id="results-name" class="hide">
+	<div id="results" class="hidden">
+		<div id="results-name" class="hidden">
 			<dl>
 				<dt>{{ langConcat('Results by name') }}</dt>
 			</dl>
 		</div>
 		
-		<div id="results-email" class="hide">
+		<div id="results-email" class="hidden">
 			<dl>
 				<dt>{{ langConcat('Results by email_address') }}</dt>
 			</dl>
 		</div>
 		
-		<div id="results-characters" class="hide">
+		<div id="results-characters" class="hidden">
 			<dl>
 				<dt>{{ langConcat('Results by linked characters') }}</dt>
 			</dl>
 		</div>
 	</div>
 	
-	<div id="no-results" class="hide">
+	<div id="no-results" class="hidden">
 		{{ partial('common/alert', ['content' => lang('error.notFound', lang('results'))]) }}
 	</div>
 </div>

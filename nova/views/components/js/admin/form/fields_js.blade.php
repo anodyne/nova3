@@ -18,11 +18,11 @@
 
 		// Show the tab container if the tab option is selected on load
 		if ($('[name="associate"]:checked').val() == "tab")
-			$('#associateTab').removeClass('hide');
+			$('#associateTab').removeClass('hidden');
 
 		// Show the section container if the tab option is selected on load
 		if ($('[name="associate"]:checked').val() == "section")
-			$('#associateSection').removeClass('hide');
+			$('#associateSection').removeClass('hidden');
 
 		// Makes the field list sortable and updates when the sort stops
 		$('.sortableFields').sortable({
@@ -56,32 +56,32 @@
 		
 		if (type == 'text')
 		{
-			$('.field-rows').addClass('hide');
-			$('.field-placeholder').removeClass('hide');
-			$('.field-value').removeClass('hide');
-			$('.field-value-list').addClass('hide');
+			$('.field-rows').addClass('hidden');
+			$('.field-placeholder').removeClass('hidden');
+			$('.field-value').removeClass('hidden');
+			$('.field-value-list').addClass('hidden');
 			$('[name="html_container_class"]').val('col-lg-4');
-			$('.nav-tabs a:contains("<?php echo lang('Values');?>")').addClass('hide');
+			$('.nav-tabs a:contains("<?php echo lang('Values');?>")').addClass('hidden');
 		}
 
 		if (type == 'textarea')
 		{
-			$('.field-rows').removeClass('hide');
-			$('.field-placeholder').removeClass('hide');
-			$('.field-value').removeClass('hide');
-			$('.field-value-list').addClass('hide');
+			$('.field-rows').removeClass('hidden');
+			$('.field-placeholder').removeClass('hidden');
+			$('.field-value').removeClass('hidden');
+			$('.field-value-list').addClass('hidden');
 			$('[name="html_container_class"]').val('col-lg-8');
-			$('.nav-tabs a:contains("<?php echo lang('Values');?>")').addClass('hide');
+			$('.nav-tabs a:contains("<?php echo lang('Values');?>")').addClass('hidden');
 		}
 
 		if (type == 'select')
 		{
-			$('.field-rows').addClass('hide');
-			$('.field-placeholder').addClass('hide');
-			$('.field-value').addClass('hide');
-			$('.field-value-list').removeClass('hide');
+			$('.field-rows').addClass('hidden');
+			$('.field-placeholder').addClass('hidden');
+			$('.field-value').addClass('hidden');
+			$('.field-value-list').removeClass('hidden');
 			$('[name="html_container_class"]').val('col-lg-4');
-			$('.nav-tabs a:contains("<?php echo lang('Values');?>")').removeClass('hide');
+			$('.nav-tabs a:contains("<?php echo lang('Values');?>")').removeClass('hidden');
 		}
 	});
 	
@@ -92,14 +92,14 @@
 
 		if (value == "tab")
 		{
-			$('#associateTab').removeClass('hide');
-			$('#associateSection').addClass('hide');
+			$('#associateTab').removeClass('hidden');
+			$('#associateSection').addClass('hidden');
 			$('[name="section_id"]').val(0);
 		}
 		else if (value == "section")
 		{
-			$('#associateTab').addClass('hide');
-			$('#associateSection').removeClass('hide');
+			$('#associateTab').addClass('hidden');
+			$('#associateSection').removeClass('hidden');
 			$('[name="tab_id"]').val(0);
 		}
 	});
@@ -223,9 +223,9 @@
 		var fieldType = $('[name="type"] option:selected').val();
 
 		if (fieldType == 'select')
-			$('.nav-tabs a:contains("<?php echo lang('Values');?>")').removeClass('hide');
+			$('.nav-tabs a:contains("<?php echo lang('Values');?>")').removeClass('hidden');
 		else
-			$('.nav-tabs a:contains("<?php echo lang('Values');?>")').addClass('hide');
+			$('.nav-tabs a:contains("<?php echo lang('Values');?>")').addClass('hidden');
 	}
 
 </script>

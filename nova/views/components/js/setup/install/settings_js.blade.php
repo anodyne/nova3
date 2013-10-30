@@ -10,15 +10,15 @@
 				url: "{{ URL::to('ajax/get/position') }}/" + $('#positionDrop option:selected').val() + "/desc",
 				beforeSend: function()
 				{
-					$('#positionDescPanel').addClass('hide');
-					$('#positionLoader').removeClass('hide');
+					$('#positionDescPanel').addClass('hidden');
+					$('#positionLoader').removeClass('hidden');
 				},
 				success: function(data)
 				{
 					$('#positionDesc').html('');
 					$('#positionDesc').append(data);
-					$('#positionLoader').addClass('hide');
-					$('#positionDescPanel').removeClass('hide');
+					$('#positionLoader').addClass('hidden');
+					$('#positionDescPanel').removeClass('hidden');
 				}
 			});
 		});
@@ -44,7 +44,7 @@
 
 			$('#loaded').fadeOut('fast', function()
 			{
-				$('#loading').removeClass('hide');
+				$('#loading').removeClass('hidden');
 			});
 		});
 	});

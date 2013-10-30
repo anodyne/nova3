@@ -28,9 +28,9 @@
 		var selected = $('[name="type"] option:selected').val();
 
 		if (selected == 'other' || selected == 'email')
-			$('#uriField').addClass('hide');
+			$('#uriField').addClass('hidden');
 		else
-			$('#uriField').removeClass('hide');
+			$('#uriField').removeClass('hidden');
 	});
 
 	$(document).on('click', '.js-sitecontent-action', function(e)

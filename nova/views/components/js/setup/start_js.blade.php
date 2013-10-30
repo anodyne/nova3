@@ -28,7 +28,7 @@
 
 		// Show the loading graphic
 		$('#loaded').fadeOut('fast', function(){
-			$('#loading').removeClass('hide');
+			$('#loading').removeClass('hidden');
 		});
 	});
 	

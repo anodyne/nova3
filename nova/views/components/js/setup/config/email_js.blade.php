@@ -6,18 +6,18 @@
 
 		if (checked == "smtp")
 		{
-			$('#sendmailOptions').addClass('hide');
-			$('#smtpOptions').removeClass('hide');
+			$('#sendmailOptions').addClass('hidden');
+			$('#smtpOptions').removeClass('hidden');
 		}
 		else if (checked == "sendmail")
 		{
-			$('#smtpOptions').addClass('hide');
-			$('#sendmailOptions').removeClass('hide');
+			$('#smtpOptions').addClass('hidden');
+			$('#sendmailOptions').removeClass('hidden');
 		}
 		else
 		{
-			$('#smtpOptions').addClass('hide');
-			$('#sendmailOptions').addClass('hide');
+			$('#smtpOptions').addClass('hidden');
+			$('#sendmailOptions').addClass('hidden');
 
 		}
 	});

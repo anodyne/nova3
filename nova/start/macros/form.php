@@ -245,7 +245,7 @@ Form::macro('position', function($name, $selected = null, $options = array(), $t
 		$output.= '</div></div><div class="col-sm-6 col-lg-8">';
 		$output.= '<div id="positionDesc" class="help-block"><label class="control-label">&nbsp;</label>';
 		$output.= '<div id="positionDescInner"></div>';
-		$output.= '<div class="hide" id="positionLoader">'.HTML::image('nova/views/design/images/loading.gif').'</div>';
+		$output.= '<div class="hidden" id="positionLoader">'.HTML::image('nova/views/design/images/loading.gif').'</div>';
 
 		if (is_numeric($selected))
 		{

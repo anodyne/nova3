@@ -48,30 +48,30 @@
 				
 				$.ajaxq('queue', {
 					beforeSend: function(){
-						$('table tbody tr:eq(0) td:eq(1) .loading').removeClass('hide');
+						$('table tbody tr:eq(0) td:eq(1) .loading').removeClass('hidden');
 					},
 					type: "POST",
 					url: "<?php echo Uri::create('setup/upgradeajax/upgrade_characters');?>",
 					data: send,
 					dataType: 'json',
 					success: function(data){
-						$('table tbody tr:eq(0) td:eq(1) .loading').addClass('hide');
+						$('table tbody tr:eq(0) td:eq(1) .loading').addClass('hidden');
 						
 						if (data.code == 1)
 						{
-							$('table tbody tr:eq(0) td:eq(1) .success').removeClass('hide');
+							$('table tbody tr:eq(0) td:eq(1) .success').removeClass('hidden');
 						}
 						else if (data.code == 0)
 						{
-							$('table tbody tr:eq(0) td:eq(1) .failure').removeClass('hide');
+							$('table tbody tr:eq(0) td:eq(1) .failure').removeClass('hidden');
 							$('table tbody tr:eq(0) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(0) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(0) td:eq(0) .errors').removeClass('hidden');
 						}
 						else if (data.code == 2)
 						{
-							$('table tbody tr:eq(0) td:eq(1) .warning').removeClass('hide');
+							$('table tbody tr:eq(0) td:eq(1) .warning').removeClass('hidden');
 							$('table tbody tr:eq(0) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(0) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(0) td:eq(0) .errors').removeClass('hidden');
 						}
 					}
 				});
@@ -84,24 +84,24 @@
 				
 				$.ajaxq('queue', {
 					beforeSend: function(){
-						$('table tbody tr:eq(1) td:eq(1) .loading').removeClass('hide');
+						$('table tbody tr:eq(1) td:eq(1) .loading').removeClass('hidden');
 					},
 					type: "POST",
 					url: "<?php echo Uri::create('setup/upgradeajax/upgrade_awards');?>",
 					data: send,
 					dataType: 'json',
 					success: function(data){
-						$('table tbody tr:eq(1) td:eq(1) .loading').addClass('hide');
+						$('table tbody tr:eq(1) td:eq(1) .loading').addClass('hidden');
 						
 						if (data.code == 1)
 						{
-							$('table tbody tr:eq(1) td:eq(1) .success').removeClass('hide');
+							$('table tbody tr:eq(1) td:eq(1) .success').removeClass('hidden');
 						}
 						else if (data.code == 0)
 						{
-							$('table tbody tr:eq(1) td:eq(1) .failure').removeClass('hide');
+							$('table tbody tr:eq(1) td:eq(1) .failure').removeClass('hidden');
 							$('table tbody tr:eq(1) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(1) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(1) td:eq(0) .errors').removeClass('hidden');
 						}
 					}
 				});
@@ -114,30 +114,30 @@
 				
 				$.ajaxq('queue', {
 					beforeSend: function(){
-						$('table tbody tr:eq(2) td:eq(1) .loading').removeClass('hide');
+						$('table tbody tr:eq(2) td:eq(1) .loading').removeClass('hidden');
 					},
 					type: "POST",
 					url: "<?php echo Uri::create('setup/upgradeajax/upgrade_settings');?>",
 					data: send,
 					dataType: 'json',
 					success: function(data){
-						$('table tbody tr:eq(2) td:eq(1) .loading').addClass('hide');
+						$('table tbody tr:eq(2) td:eq(1) .loading').addClass('hidden');
 						
 						if (data.code == 1)
 						{
-							$('table tbody tr:eq(2) td:eq(1) .success').removeClass('hide');
+							$('table tbody tr:eq(2) td:eq(1) .success').removeClass('hidden');
 						}
 						else if (data.code == 0)
 						{
-							$('table tbody tr:eq(2) td:eq(1) .failure').removeClass('hide');
+							$('table tbody tr:eq(2) td:eq(1) .failure').removeClass('hidden');
 							$('table tbody tr:eq(2) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(2) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(2) td:eq(0) .errors').removeClass('hidden');
 						}
 						else if (data.code == 2)
 						{
-							$('table tbody tr:eq(2) td:eq(1) .warning').removeClass('hide');
+							$('table tbody tr:eq(2) td:eq(1) .warning').removeClass('hidden');
 							$('table tbody tr:eq(2) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(2) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(2) td:eq(0) .errors').removeClass('hidden');
 						}
 					}
 				});
@@ -150,30 +150,30 @@
 				
 				$.ajaxq('queue', {
 					beforeSend: function(){
-						$('table tbody tr:eq(3) td:eq(1) .loading').removeClass('hide');
+						$('table tbody tr:eq(3) td:eq(1) .loading').removeClass('hidden');
 					},
 					type: "POST",
 					url: "<?php echo Uri::create('setup/upgradeajax/upgrade_logs');?>",
 					data: send,
 					dataType: 'json',
 					success: function(data){
-						$('table tbody tr:eq(3) td:eq(1) .loading').addClass('hide');
+						$('table tbody tr:eq(3) td:eq(1) .loading').addClass('hidden');
 						
 						if (data.code == 1)
 						{
-							$('table tbody tr:eq(3) td:eq(1) .success').removeClass('hide');
+							$('table tbody tr:eq(3) td:eq(1) .success').removeClass('hidden');
 						}
 						else if (data.code == 0)
 						{
-							$('table tbody tr:eq(3) td:eq(1) .failure').removeClass('hide');
+							$('table tbody tr:eq(3) td:eq(1) .failure').removeClass('hidden');
 							$('table tbody tr:eq(3) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(3) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(3) td:eq(0) .errors').removeClass('hidden');
 						}
 						else if (data.code == 2)
 						{
-							$('table tbody tr:eq(3) td:eq(1) .warning').removeClass('hide');
+							$('table tbody tr:eq(3) td:eq(1) .warning').removeClass('hidden');
 							$('table tbody tr:eq(3) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(3) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(3) td:eq(0) .errors').removeClass('hidden');
 						}
 					}
 				});
@@ -186,30 +186,30 @@
 				
 				$.ajaxq('queue', {
 					beforeSend: function(){
-						$('table tbody tr:eq(4) td:eq(1) .loading').removeClass('hide');
+						$('table tbody tr:eq(4) td:eq(1) .loading').removeClass('hidden');
 					},
 					type: "POST",
 					url: "<?php echo Uri::create('setup/upgradeajax/upgrade_news');?>",
 					data: send,
 					dataType: 'json',
 					success: function(data){
-						$('table tbody tr:eq(4) td:eq(1) .loading').addClass('hide');
+						$('table tbody tr:eq(4) td:eq(1) .loading').addClass('hidden');
 						
 						if (data.code == 1)
 						{
-							$('table tbody tr:eq(4) td:eq(1) .success').removeClass('hide');
+							$('table tbody tr:eq(4) td:eq(1) .success').removeClass('hidden');
 						}
 						else if (data.code == 0)
 						{
-							$('table tbody tr:eq(4) td:eq(1) .failure').removeClass('hide');
+							$('table tbody tr:eq(4) td:eq(1) .failure').removeClass('hidden');
 							$('table tbody tr:eq(4) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(4) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(4) td:eq(0) .errors').removeClass('hidden');
 						}
 						else if (data.code == 2)
 						{
-							$('table tbody tr:eq(4) td:eq(1) .warning').removeClass('hide');
+							$('table tbody tr:eq(4) td:eq(1) .warning').removeClass('hidden');
 							$('table tbody tr:eq(4) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(4) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(4) td:eq(0) .errors').removeClass('hidden');
 						}
 					}
 				});
@@ -222,30 +222,30 @@
 				
 				$.ajaxq('queue', {
 					beforeSend: function(){
-						$('table tbody tr:eq(5) td:eq(1) .loading').removeClass('hide');
+						$('table tbody tr:eq(5) td:eq(1) .loading').removeClass('hidden');
 					},
 					type: "POST",
 					url: "<?php echo Uri::create('setup/upgradeajax/upgrade_missions');?>",
 					data: send,
 					dataType: 'json',
 					success: function(data){
-						$('table tbody tr:eq(5) td:eq(1) .loading').addClass('hide');
+						$('table tbody tr:eq(5) td:eq(1) .loading').addClass('hidden');
 						
 						if (data.code == 1)
 						{
-							$('table tbody tr:eq(5) td:eq(1) .success').removeClass('hide');
+							$('table tbody tr:eq(5) td:eq(1) .success').removeClass('hidden');
 						}
 						else if (data.code == 0)
 						{
-							$('table tbody tr:eq(5) td:eq(1) .failure').removeClass('hide');
+							$('table tbody tr:eq(5) td:eq(1) .failure').removeClass('hidden');
 							$('table tbody tr:eq(5) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(5) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(5) td:eq(0) .errors').removeClass('hidden');
 						}
 						else if (data.code == 2)
 						{
-							$('table tbody tr:eq(5) td:eq(1) .warning').removeClass('hide');
+							$('table tbody tr:eq(5) td:eq(1) .warning').removeClass('hidden');
 							$('table tbody tr:eq(5) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(5) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(5) td:eq(0) .errors').removeClass('hidden');
 						}
 					}
 				});
@@ -258,30 +258,30 @@
 				
 				$.ajaxq('queue', {
 					beforeSend: function(){
-						$('table tbody tr:eq(6) td:eq(1) .loading').removeClass('hide');
+						$('table tbody tr:eq(6) td:eq(1) .loading').removeClass('hidden');
 					},
 					type: "POST",
 					url: "<?php echo Uri::create('setup/upgradeajax/upgrade_specs');?>",
 					data: send,
 					dataType: 'json',
 					success: function(data){
-						$('table tbody tr:eq(6) td:eq(1) .loading').addClass('hide');
+						$('table tbody tr:eq(6) td:eq(1) .loading').addClass('hidden');
 						
 						if (data.code == 1)
 						{
-							$('table tbody tr:eq(6) td:eq(1) .success').removeClass('hide');
+							$('table tbody tr:eq(6) td:eq(1) .success').removeClass('hidden');
 						}
 						else if (data.code == 0)
 						{
-							$('table tbody tr:eq(6) td:eq(1) .failure').removeClass('hide');
+							$('table tbody tr:eq(6) td:eq(1) .failure').removeClass('hidden');
 							$('table tbody tr:eq(6) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(6) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(6) td:eq(0) .errors').removeClass('hidden');
 						}
 						else if (data.code == 2)
 						{
-							$('table tbody tr:eq(6) td:eq(1) .warning').removeClass('hide');
+							$('table tbody tr:eq(6) td:eq(1) .warning').removeClass('hidden');
 							$('table tbody tr:eq(6) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(6) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(6) td:eq(0) .errors').removeClass('hidden');
 						}
 					}
 				});
@@ -294,30 +294,30 @@
 				
 				$.ajaxq('queue', {
 					beforeSend: function(){
-						$('table tbody tr:eq(7) td:eq(1) .loading').removeClass('hide');
+						$('table tbody tr:eq(7) td:eq(1) .loading').removeClass('hidden');
 					},
 					type: "POST",
 					url: "<?php echo Uri::create('setup/upgradeajax/upgrade_tour');?>",
 					data: send,
 					dataType: 'json',
 					success: function(data){
-						$('table tbody tr:eq(7) td:eq(1) .loading').addClass('hide');
+						$('table tbody tr:eq(7) td:eq(1) .loading').addClass('hidden');
 						
 						if (data.code == 1)
 						{
-							$('table tbody tr:eq(7) td:eq(1) .success').removeClass('hide');
+							$('table tbody tr:eq(7) td:eq(1) .success').removeClass('hidden');
 						}
 						else if (data.code == 0)
 						{
-							$('table tbody tr:eq(7) td:eq(1) .failure').removeClass('hide');
+							$('table tbody tr:eq(7) td:eq(1) .failure').removeClass('hidden');
 							$('table tbody tr:eq(7) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(7) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(7) td:eq(0) .errors').removeClass('hidden');
 						}
 						else if (data.code == 2)
 						{
-							$('table tbody tr:eq(7) td:eq(1) .warning').removeClass('hide');
+							$('table tbody tr:eq(7) td:eq(1) .warning').removeClass('hidden');
 							$('table tbody tr:eq(7) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(7) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(7) td:eq(0) .errors').removeClass('hidden');
 						}
 					}
 				});
@@ -330,30 +330,30 @@
 				
 				$.ajaxq('queue', {
 					beforeSend: function(){
-						$('table tbody tr:eq(8) td:eq(1) .loading').removeClass('hide');
+						$('table tbody tr:eq(8) td:eq(1) .loading').removeClass('hidden');
 					},
 					type: "POST",
 					url: "<?php echo Uri::create('setup/upgradeajax/upgrade_docking');?>",
 					data: send,
 					dataType: 'json',
 					success: function(data){
-						$('table tbody tr:eq(8) td:eq(1) .loading').addClass('hide');
+						$('table tbody tr:eq(8) td:eq(1) .loading').addClass('hidden');
 						
 						if (data.code == 1)
 						{
-							$('table tbody tr:eq(8) td:eq(1) .success').removeClass('hide');
+							$('table tbody tr:eq(8) td:eq(1) .success').removeClass('hidden');
 						}
 						else if (data.code == 0)
 						{
-							$('table tbody tr:eq(8) td:eq(1) .failure').removeClass('hide');
+							$('table tbody tr:eq(8) td:eq(1) .failure').removeClass('hidden');
 							$('table tbody tr:eq(8) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(8) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(8) td:eq(0) .errors').removeClass('hidden');
 						}
 						else if (data.code == 2)
 						{
-							$('table tbody tr:eq(8) td:eq(1) .warning').removeClass('hide');
+							$('table tbody tr:eq(8) td:eq(1) .warning').removeClass('hidden');
 							$('table tbody tr:eq(8) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(8) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(8) td:eq(0) .errors').removeClass('hidden');
 						}
 					}
 				});
@@ -366,30 +366,30 @@
 				
 				$.ajaxq('queue', {
 					beforeSend: function(){
-						$('table tbody tr:eq(9) td:eq(1) .loading').removeClass('hide');
+						$('table tbody tr:eq(9) td:eq(1) .loading').removeClass('hidden');
 					},
 					type: "POST",
 					url: "<?php echo Uri::create('setup/upgradeajax/upgrade_wiki');?>",
 					data: send,
 					dataType: 'json',
 					success: function(data){
-						$('table tbody tr:eq(9) td:eq(1) .loading').addClass('hide');
+						$('table tbody tr:eq(9) td:eq(1) .loading').addClass('hidden');
 						
 						if (data.code == 1)
 						{
-							$('table tbody tr:eq(9) td:eq(1) .success').removeClass('hide');
+							$('table tbody tr:eq(9) td:eq(1) .success').removeClass('hidden');
 						}
 						else if (data.code == 0)
 						{
-							$('table tbody tr:eq(9) td:eq(1) .failure').removeClass('hide');
+							$('table tbody tr:eq(9) td:eq(1) .failure').removeClass('hidden');
 							$('table tbody tr:eq(9) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(9) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(9) td:eq(0) .errors').removeClass('hidden');
 						}
 						else if (data.code == 2)
 						{
-							$('table tbody tr:eq(9) td:eq(1) .warning').removeClass('hide');
+							$('table tbody tr:eq(9) td:eq(1) .warning').removeClass('hidden');
 							$('table tbody tr:eq(9) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(9) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(9) td:eq(0) .errors').removeClass('hidden');
 						}
 					}
 				});
@@ -402,30 +402,30 @@
 				
 				$.ajaxq('queue', {
 					beforeSend: function(){
-						$('table tbody tr:eq(10) td:eq(1) .loading').removeClass('hide');
+						$('table tbody tr:eq(10) td:eq(1) .loading').removeClass('hidden');
 					},
 					type: "POST",
 					url: "<?php echo Uri::create('setup/upgradeajax/upgrade_uploads');?>",
 					data: send,
 					dataType: 'json',
 					success: function(data){
-						$('table tbody tr:eq(10) td:eq(1) .loading').addClass('hide');
+						$('table tbody tr:eq(10) td:eq(1) .loading').addClass('hidden');
 						
 						if (data.code == 1)
 						{
-							$('table tbody tr:eq(10) td:eq(1) .success').removeClass('hide');
+							$('table tbody tr:eq(10) td:eq(1) .success').removeClass('hidden');
 						}
 						else if (data.code == 0)
 						{
-							$('table tbody tr:eq(10) td:eq(1) .failure').removeClass('hide');
+							$('table tbody tr:eq(10) td:eq(1) .failure').removeClass('hidden');
 							$('table tbody tr:eq(10) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(10) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(10) td:eq(0) .errors').removeClass('hidden');
 						}
 						else if (data.code == 2)
 						{
-							$('table tbody tr:eq(10) td:eq(1) .warning').removeClass('hide');
+							$('table tbody tr:eq(10) td:eq(1) .warning').removeClass('hidden');
 							$('table tbody tr:eq(10) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(10) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(10) td:eq(0) .errors').removeClass('hidden');
 						}
 					}
 				});
@@ -438,30 +438,30 @@
 				
 				$.ajaxq('queue', {
 					beforeSend: function(){
-						$('table tbody tr:eq(11) td:eq(1) .loading').removeClass('hide');
+						$('table tbody tr:eq(11) td:eq(1) .loading').removeClass('hidden');
 					},
 					type: "POST",
 					url: "<?php echo Uri::create('setup/upgradeajax/upgrade_private_messages');?>",
 					data: send,
 					dataType: 'json',
 					success: function(data){
-						$('table tbody tr:eq(11) td:eq(1) .loading').addClass('hide');
+						$('table tbody tr:eq(11) td:eq(1) .loading').addClass('hidden');
 						
 						if (data.code == 1)
 						{
-							$('table tbody tr:eq(11) td:eq(1) .success').removeClass('hide');
+							$('table tbody tr:eq(11) td:eq(1) .success').removeClass('hidden');
 						}
 						else if (data.code == 0)
 						{
-							$('table tbody tr:eq(11) td:eq(1) .failure').removeClass('hide');
+							$('table tbody tr:eq(11) td:eq(1) .failure').removeClass('hidden');
 							$('table tbody tr:eq(11) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(11) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(11) td:eq(0) .errors').removeClass('hidden');
 						}
 						else if (data.code == 2)
 						{
-							$('table tbody tr:eq(11) td:eq(1) .warning').removeClass('hide');
+							$('table tbody tr:eq(11) td:eq(1) .warning').removeClass('hidden');
 							$('table tbody tr:eq(11) td:eq(0) .errors .errors-content').html(data.message);
-							$('table tbody tr:eq(11) td:eq(0) .errors').removeClass('hide');
+							$('table tbody tr:eq(11) td:eq(0) .errors').removeClass('hidden');
 						}
 					}
 				});
