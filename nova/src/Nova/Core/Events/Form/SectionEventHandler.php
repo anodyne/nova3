@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Events\Models\Form;
+<?php namespace Nova\Core\Events\Form;
 
 /**
  * Form section event handler.
@@ -22,11 +22,9 @@
  * and see if we should be activating/deactivating any tabs.
  */
 
-use Status;
-use SystemEvent;
-use BaseModelEventHandler;
+use BaseEventHandler;
 
-class Section extends BaseModelEventHandler {
+class SectionEventHandler extends BaseEventHandler {
 
 	public function created($model)
 	{

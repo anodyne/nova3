@@ -1,9 +1,6 @@
 <?php namespace Nova\Core\Models\Eloquent\Form;
 
-use Event;
 use Model;
-use Config;
-use Status;
 use FormTrait;
 
 class Field extends Model {
@@ -12,20 +9,20 @@ class Field extends Model {
 	
 	protected $table = 'form_fields';
 
-	protected $fillable = array(
+	protected $fillable = [
 		'form_id', 'tab_id', 'section_id', 'type', 'label', 'order', 'status',
 		'restriction', 'help', 'selected', 'value', 'html_id', 'html_class',
 		'html_rows', 'placeholder', 'html_container_class', 'validation_rules',
-	);
+	];
 
-	protected $dates = array('created_at', 'updated_at');
+	protected $dates = ['created_at', 'updated_at'];
 	
-	protected static $properties = array(
+	protected static $properties = [
 		'id', 'form_id', 'tab_id', 'section_id', 'type', 'label', 'order', 'status', 
 		'restriction', 'help', 'selected', 'value', 'html_id', 'html_class',
 		'html_rows', 'placeholder', 'html_container_class', 'validation_rules',
 		'created_at', 'updated_at',
-	);
+	];
 
 	/*
 	|--------------------------------------------------------------------------
@@ -145,22 +142,6 @@ class Field extends Model {
 	| Model Methods
 	|--------------------------------------------------------------------------
 	*/
-
-	/**
-	 * Boot the model and define the event listeners.
-	 *
-	 * @return	void
-	 */
-	public static function boot()
-	{
-		parent::boot();
-
-		// Get all the aliases
-		$a = Config::get('app.aliases');
-
-		// Setup the listeners
-		static::setupEventListeners($a['FormFieldModel'], $a['FormFieldModelEventHandler']);
-	}
 
 	/**
 	 * Get any values for the current field. This is only used for

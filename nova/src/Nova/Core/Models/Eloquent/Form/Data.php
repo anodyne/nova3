@@ -9,16 +9,16 @@ class Data extends Model {
 	
 	protected $table = 'form_data';
 
-	protected $fillable = array(
+	protected $fillable = [
 		'form_id', 'field_id', 'data_id', 'value', 'created_by',
-	);
+	];
 
-	protected $dates = array('created_at', 'updated_at');
+	protected $dates = ['created_at', 'updated_at'];
 	
-	protected static $properties = array(
+	protected static $properties = [
 		'id', 'form_id', 'field_id', 'data_id', 'value', 'created_by',
 		'created_at', 'updated_at',
-	);
+	];
 
 	/*
 	|--------------------------------------------------------------------------

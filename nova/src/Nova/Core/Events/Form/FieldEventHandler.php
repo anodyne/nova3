@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Events\Models\Form;
+<?php namespace Nova\Core\Events\Form;
 
 /**
  * Form field event handler.
@@ -26,14 +26,15 @@
  * in a section and activate/deactivate the section accordingly.
  */
 
+use BaseEventHandler;
+
 use Str;
 use Status;
-use SystemEvent;
-use BaseModelEventHandler;
 use UserModel;
+use SystemEvent;
 use CharacterModel;
 
-class Field extends BaseModelEventHandler {
+class FieldEventHandler extends BaseEventHandler {
 
 	public function created($model)
 	{

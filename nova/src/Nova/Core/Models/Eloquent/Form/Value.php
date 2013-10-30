@@ -1,22 +1,20 @@
 <?php namespace Nova\Core\Models\Eloquent\Form;
 
-use Event;
 use Model;
-use Config;
 
 class Value extends Model {
 	
 	protected $table = 'form_values';
 
-	protected $fillable = array(
+	protected $fillable = [
 		'field_id', 'value', 'order',
-	);
+	];
 
-	protected $dates = array('created_at', 'updated_at');
+	protected $dates = ['created_at', 'updated_at'];
 	
-	protected static $properties = array(
+	protected static $properties = [
 		'id', 'field_id', 'value', 'order', 'created_at', 'updated_at',
-	);
+	];
 
 	/*
 	|--------------------------------------------------------------------------
@@ -38,28 +36,6 @@ class Value extends Model {
 	public function data()
 	{
 		return $this->hasMany('FormDataModel');
-	}
-
-	/*
-	|--------------------------------------------------------------------------
-	| Model Methods
-	|--------------------------------------------------------------------------
-	*/
-
-	/**
-	 * Boot the model and define the event listeners.
-	 *
-	 * @return	void
-	 */
-	public static function boot()
-	{
-		parent::boot();
-
-		// Get all the aliases
-		$a = Config::get('app.aliases');
-
-		// Setup the listeners
-		static::setupEventListeners($a['FormValueModel'], $a['FormValueModelEventHandler']);
 	}
 
 }

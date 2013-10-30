@@ -1,8 +1,6 @@
 <?php namespace Nova\Core\Models\Eloquent\Form;
 
-use Event;
 use Model;
-use Config;
 use FormTrait;
 
 class Tab extends Model {
@@ -11,16 +9,16 @@ class Tab extends Model {
 	
 	protected $table = 'form_tabs';
 
-	protected $fillable = array(
+	protected $fillable = [
 		'form_id', 'name', 'link_id', 'order', 'status',
-	);
+	];
 
-	protected $dates = array('created_at', 'updated_at');
+	protected $dates = ['created_at', 'updated_at'];
 	
-	protected static $properties = array(
+	protected static $properties = [
 		'id', 'form_id', 'name', 'link_id', 'order', 'status', 'created_at', 
 		'updated_at',
-	);
+	];
 
 	/*
 	|--------------------------------------------------------------------------
@@ -50,28 +48,6 @@ class Tab extends Model {
 	public function fields()
 	{
 		return $this->hasMany('FormFieldModel')->orderAsc('order');
-	}
-
-	/*
-	|--------------------------------------------------------------------------
-	| Model Methods
-	|--------------------------------------------------------------------------
-	*/
-
-	/**
-	 * Boot the model and define the event listeners.
-	 *
-	 * @return	void
-	 */
-	public static function boot()
-	{
-		parent::boot();
-
-		// Get all the aliases
-		$a = Config::get('app.aliases');
-
-		// Setup the listeners
-		static::setupEventListeners($a['FormTabModel'], $a['FormTabModelEventHandler']);
 	}
 
 }

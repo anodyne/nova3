@@ -1,8 +1,6 @@
 <?php namespace Nova\Core\Models\Eloquent\Form;
 
-use Event;
 use Model;
-use Config;
 use FormTrait;
 
 class Section extends Model {
@@ -11,16 +9,16 @@ class Section extends Model {
 	
 	protected $table = 'form_sections';
 
-	protected $fillable = array(
+	protected $fillable = [
 		'form_id', 'tab_id', 'name', 'order', 'status',
-	);
+	];
 
-	protected $dates = array('created_at', 'updated_at');
+	protected $dates = ['created_at', 'updated_at'];
 	
-	protected static $properties = array(
+	protected static $properties = [
 		'id', 'form_id', 'tab_id', 'name', 'order', 'status', 'created_at', 
 		'updated_at',
-	);
+	];
 
 	/*
 	|--------------------------------------------------------------------------
@@ -50,28 +48,6 @@ class Section extends Model {
 	public function fields()
 	{
 		return $this->hasMany('FormFieldModel')->orderAsc('order');
-	}
-
-	/*
-	|--------------------------------------------------------------------------
-	| Model Methods
-	|--------------------------------------------------------------------------
-	*/
-
-	/**
-	 * Boot the model and define the event listeners.
-	 *
-	 * @return	void
-	 */
-	public static function boot()
-	{
-		parent::boot();
-
-		// Get all the aliases
-		$a = Config::get('app.aliases');
-
-		// Setup the listeners
-		static::setupEventListeners($a['FormSectionModel'], $a['FormSectionModelEventHandler']);
 	}
 
 }

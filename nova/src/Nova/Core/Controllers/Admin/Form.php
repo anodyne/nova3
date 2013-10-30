@@ -54,7 +54,9 @@ class Form extends AdminBaseController {
 				$this->data->formFields = $this->form->getFormFieldsForDropdown($formKey, 'id', 'label');
 			}
 			else
+			{
 				$this->data->form = false;
+			}
 
 			// Set the action and mode
 			$this->mode = $this->data->action = ($formKey === '0') ? 'create' : 'update';
@@ -78,7 +80,9 @@ class Form extends AdminBaseController {
 
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
+		{
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
+		}
 
 		// Create the form
 		if ($this->currentUser->hasAccess('form.create') and $formAction == 'create')
@@ -175,22 +179,36 @@ class Form extends AdminBaseController {
 
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
+		{
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
+		}
 
 		// Get the form
 		$form = $this->form->findByKey($formKey);
 
 		// Create a tab
 		if ($this->currentUser->hasAccess('form.create') and $formAction == 'create')
-			$this->form->createTab(Input::all(), $form);
+		{
+			$tab = $this->form->createTab(Input::all(), $form);
+
+			Event::fire('nova.form.tabCreated', $tab);
+		}
 
 		// Update a tab
 		if ($this->currentUser->hasAccess('form.update') and $formAction == 'update')
-			$this->form->updateTab(Input::get('id'), Input::all());
+		{
+			$tab = $this->form->updateTab(Input::get('id'), Input::all());
+
+			Event::fire('nova.form.tabUpdated', $tab);
+		}
 
 		// Delete a tab
 		if ($this->currentUser->hasAccess('form.delete') and $formAction == 'delete')
-			$this->form->deleteTab(Input::get('id'), Input::get('new_tab_id'));
+		{
+			$tab = $this->form->deleteTab(Input::get('id'), Input::get('new_tab_id'));
+
+			Event::fire('nova.form.tabDeleted');
+		}
 
 		return Redirect::to("admin/form/tabs/{$formKey}");
 	}
@@ -261,22 +279,36 @@ class Form extends AdminBaseController {
 
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
+		{
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
+		}
 
 		// Get the form
 		$form = $this->form->findByKey($formKey);
 
 		// Create a section
 		if ($this->currentUser->hasAccess('form.create') and $formAction == 'create')
-			$this->form->createSection(Input::all(), $form);
+		{
+			$section = $this->form->createSection(Input::all(), $form);
+
+			Event::fire('nova.form.sectionCreated', $section);
+		}
 
 		// Update a section
 		if ($this->currentUser->hasAccess('form.update') and $formAction == 'update')
-			$this->form->updateSection(Input::get('id'), Input::all());
+		{
+			$section = $this->form->updateSection(Input::get('id'), Input::all());
+
+			Event::fire('nova.form.sectionUpdated', $section);
+		}
 
 		// Delete a section
 		if ($this->currentUser->hasAccess('form.delete') and $formAction == 'delete')
-			$this->form->deleteSection(Input::get('id'), Input::get('new_section_id'), $form);
+		{
+			$section = $this->form->deleteSection(Input::get('id'), Input::get('new_section_id'), $form);
+
+			Event::fire('nova.form.sectionDeleted', $section);
+		}
 
 		return Redirect::to("admin/form/sections/{$formKey}");
 	}
@@ -357,22 +389,36 @@ class Form extends AdminBaseController {
 
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
+		{
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
+		}
 
 		// Get the form
 		$form = $this->form->findByKey($formKey);
 
 		// Create a form field
 		if ($this->currentUser->hasAccess('form.create') and $formAction == 'create')
-			$this->form->createField(Input::all(), $form);
+		{
+			$field = $this->form->createField(Input::all(), $form);
+
+			Event::fire('nova.form.fieldCreated', $field);
+		}
 
 		// Update a form field
 		if ($this->currentUser->hasAccess('form.update') and $formAction == 'update')
-			$this->form->updateField(Input::get('id'), Input::all());
+		{
+			$field = $this->form->updateField(Input::get('id'), Input::all());
+
+			Event::fire('nova.form.fieldUpdated', $field);
+		}
 
 		// Delete a form field
 		if ($this->currentUser->hasAccess('form.delete') and $formAction == 'delete')
-			$this->form->deleteField(Input::get('id'));
+		{
+			$field = $this->form->deleteField(Input::get('id'));
+
+			Event::fire('nova.form.fieldDeleted', $field);
+		}
 
 		return Redirect::to("admin/form/fields/{$formKey}");
 	}
@@ -383,6 +429,8 @@ class Form extends AdminBaseController {
 		{
 			// Create the field value
 			$item = $this->form->createFieldValue(Input::all(), Input::get('form'), Input::get('field'));
+
+			Event::fire('nova.form.valueCreated', $item);
 
 			if ($item)
 			{
@@ -496,7 +544,11 @@ class Form extends AdminBaseController {
 	public function postAjaxDeleteFormValue()
 	{
 		if ($this->currentUser->hasAccess('form.delete'))
-			$this->form->deleteFieldValue(Input::get('id'));
+		{
+			$value = $this->form->deleteFieldValue(Input::get('id'));
+
+			Event::fire('nova.form.valueDeleted', $value);
+		}
 
 		return '';
 	}
@@ -507,7 +559,9 @@ class Form extends AdminBaseController {
 		{
 			foreach (Input::get('field') as $key => $value)
 			{
-				$this->form->updateField($value, ['order' => $key + 1], false);
+				$field = $this->form->updateField($value, ['order' => $key + 1], false);
+
+				Event::fire('nova.form.fieldUpdated', $field);
 			}
 		}
 
@@ -520,7 +574,9 @@ class Form extends AdminBaseController {
 		{
 			foreach (Input::get('section') as $key => $value)
 			{
-				$this->form->updateSection($value, ['order' => $key + 1], false);
+				$section = $this->form->updateSection($value, ['order' => $key + 1], false);
+
+				Event::fire('nova.form.sectionUpdated', $section);
 			}
 		}
 
@@ -533,7 +589,9 @@ class Form extends AdminBaseController {
 		{
 			foreach (Input::get('tab') as $key => $value)
 			{
-				$this->form->updateTab($value, ['order' => $key + 1], false);
+				$tab = $this->form->updateTab($value, ['order' => $key + 1], false);
+
+				Event::fire('nova.form.tabUpdated', $tab);
 			}
 		}
 
@@ -549,13 +607,17 @@ class Form extends AdminBaseController {
 				case 'order':
 					foreach (Input::get('value') as $key => $value)
 					{
-						$this->form->updateFieldValue($value, ['order' => $key + 1]);
+						$value = $this->form->updateFieldValue($value, ['order' => $key + 1]);
+
+						Event::fire('nova.form.valueUpdated', $value);
 					}
 				break;
 				
 				case 'value':
 				default:
-					$this->form->updateFieldValue(Input::get('id'), ['value' => Input::get('value')]);
+					$value = $this->form->updateFieldValue(Input::get('id'), ['value' => Input::get('value')]);
+
+					Event::fire('nova.form.valueUpdated', $value);
 				break;
 			}
 		}

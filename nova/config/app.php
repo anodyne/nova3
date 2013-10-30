@@ -335,9 +335,14 @@ return [
 		 * Event Handlers
 		 */
 		'BaseEventHandler'				=> "Nova\Core\Events\BaseEventHandler",
-		'FormEventHandler'				=> "Nova\Core\Events\FormEventHandler",
 		'FormViewerEventHandler'		=> "Nova\Core\Events\FormViewerEventHandler",
 		'UserEventHandler'				=> "Nova\Core\Events\UserEventHandler",
+
+		'FormEventHandler'				=> "Nova\Core\Events\FormEventHandler",
+		'FormFieldEventHandler'			=> "Nova\Core\Events\Form\FieldEventHandler",
+		'FormSectionEventHandler'		=> "Nova\Core\Events\Form\SectionEventHandler",
+		'FormTabEventHandler'			=> "Nova\Core\Events\Form\TabEventHandler",
+		'FormValueEventHandler'			=> "Nova\Core\Events\Form\ValueEventHandler",
 
 		'AccessRoleModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Access\\Role",
 		'AccessTaskModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Access\\Task",
@@ -346,11 +351,6 @@ return [
 
 		'RankCatalogModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Catalog\\Rank",
 		'SkinCatalogModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Catalog\\Skin",
-
-		'FormFieldModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Form\\Field",
-		'FormSectionModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Form\\Section",
-		'FormTabModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Form\\Tab",
-		'FormValueModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Form\\Value",
 
 		'RankModelEventHandler'			=> "Nova\\Core\\Events\\Models\\Rank",
 		'RankGroupModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Rank\\Group",

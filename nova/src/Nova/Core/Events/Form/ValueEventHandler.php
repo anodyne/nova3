@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Events\Models\Form;
+<?php namespace Nova\Core\Events\Form;
 
 /**
  * Form field value event handler.
@@ -13,10 +13,9 @@
  * Create a system event.
  */
 
-use SystemEvent;
-use BaseModelEventHandler;
+use BaseEventHandler;
 
-class Value extends BaseModelEventHandler {
+class ValueEventHandler extends BaseEventHandler {
 
 	public function created($model)
 	{
