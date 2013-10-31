@@ -13,7 +13,7 @@
 * Bootstrap
 	* Sleek, intuitive, and powerful front-end framework for faster and easier web development.
 	* http://twitter.github.io/bootstrap/
-	* Version: 3.0
+	* Version: 3.0.1
 * jQuery Lazy
 	* Lazy-load plugins and their dependencies.
 	* http://unwrongest.com/projects/lazy/
@@ -29,11 +29,11 @@
 * X-Editable
 	* In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery.
 	* http://vitalets.github.io/x-editable/
-	* Version: 1.4.6
+	* Version: 1.5
 * BlockUI
 	* The jQuery BlockUI Plugin lets you simulate synchronous behavior when using AJAX, without locking the browser.
 	* http://www.malsup.com/jquery/block/
-	* Version: 2.65.0-2013.09.02
+	* Version: 2.66.0-2013.10.09
 * DropzoneJS
 	* DropzoneJS is an open source library that provides drag-n-drop file uploads with image previews.
 	* http://www.dropzonejs.com/
