@@ -33,8 +33,32 @@ use Status;
 use UserModel;
 use SystemEvent;
 use CharacterModel;
+use FormRepositoryInterface;
 
 class FieldEventHandler extends BaseEventHandler {
+
+	protected $form;
+
+	public function __construct(FormRepositoryInterface $form)
+	{
+		// Set the injected interfaces
+		$this->form = $form;
+	}
+
+	public function onFieldCreated($field)
+	{
+		//
+	}
+
+	public function onFieldDeleted($field)
+	{
+		//
+	}
+
+	public function onFieldUpdated($field)
+	{
+		//
+	}
 
 	public function created($model)
 	{

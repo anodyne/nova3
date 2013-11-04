@@ -14,8 +14,32 @@
  */
 
 use BaseEventHandler;
+use FormRepositoryInterface;
 
 class ValueEventHandler extends BaseEventHandler {
+
+	protected $form;
+
+	public function __construct(FormRepositoryInterface $form)
+	{
+		// Set the injected interfaces
+		$this->form = $form;
+	}
+
+	public function onValueCreated($value)
+	{
+		//
+	}
+
+	public function onValueDeleted($value)
+	{
+		//
+	}
+
+	public function onValueUpdated($value)
+	{
+		//
+	}
 
 	public function created($model)
 	{

@@ -23,8 +23,42 @@
  */
 
 use BaseEventHandler;
+use FormRepositoryInterface;
 
 class SectionEventHandler extends BaseEventHandler {
+
+	protected $form;
+
+	public function __construct(FormRepositoryInterface $form)
+	{
+		// Set the injected interfaces
+		$this->form = $form;
+	}
+
+	public function onSectionCreated($section)
+	{
+		//
+	}
+
+	public function onSectionDeleted($section, $newSectionId)
+	{
+		// Get the section fields
+		$fieldIds = $this->form->getSectionFields($section)->toSimpleArray('id', 'id');
+
+		// Update the fields
+		if (count($fieldIds) > 0)
+		{
+			foreach ($fieldIds as $id)
+			{
+				$this->form->updateField($id, ['section_id' => $newSectionId]);
+			}
+		}
+	}
+
+	public function onSectionUpdated($section)
+	{
+		//
+	}
 
 	public function created($model)
 	{

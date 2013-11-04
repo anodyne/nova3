@@ -2,8 +2,17 @@
 
 use BaseEventHandler;
 use FormSectionModel;
+use FormRepositoryInterface;
 
 class TabEventHandler extends BaseEventHandler {
+
+	protected $form;
+
+	public function __construct(FormRepositoryInterface $form)
+	{
+		// Set the injected interfaces
+		$this->form = $form;
+	}
 
 	public function onTabCreated($tab)
 	{
@@ -67,8 +76,20 @@ class TabEventHandler extends BaseEventHandler {
 		);
 	}
 
-	public function onTabDeleted($tab)
+	public function onTabDeleted($tab, $newTabId)
 	{
+		// Get the tab's sections
+		$sectionIds = $this->form->getTabSections($tab)->toSimpleArray('id', 'id');
+
+		if (count($sectionIds) > 0)
+		{
+			foreach ($sectionIds as $id)
+			{
+				$this->form->updateSection($id, ['tab_id' => $newTabId]);
+			}
+		}
+
+		// Create a system event
 		$this->createSystemEvent(
 			'action.deleted',
 			'form tab',

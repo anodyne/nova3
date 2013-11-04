@@ -30,7 +30,7 @@ class Form extends AdminBaseController {
 	}
 
 	/**
-	 * Display all forms.
+	 * Manage the forms.
 	 */
 	public function getForms($formKey = false)
 	{
@@ -119,12 +119,15 @@ class Form extends AdminBaseController {
 		return Redirect::to('admin/form');
 	}
 
+	/**
+	 * Manage the tabs for a specific form.
+	 */
 	public function getTabs($formKey, $tabId = false)
 	{
 		// Verify the user is allowed
 		$this->currentUser->allowed(['form.create', 'form.update', 'form.delete'], true);
 
-		// Set the view
+		// Set the JS view
 		$this->jsView = 'admin/form/tabs_js';
 
 		// Pass along the form key to the view
@@ -205,20 +208,23 @@ class Form extends AdminBaseController {
 		// Delete a tab
 		if ($this->currentUser->hasAccess('form.delete') and $formAction == 'delete')
 		{
-			$tab = $this->form->deleteTab(Input::get('id'), Input::get('new_tab_id'));
+			$tab = $this->form->deleteTab(Input::get('id'));
 
-			Event::fire('nova.form.tabDeleted');
+			Event::fire('nova.form.tabDeleted', [$tab, Input::get('new_tab_id')]);
 		}
 
 		return Redirect::to("admin/form/tabs/{$formKey}");
 	}
 
+	/**
+	 * Form section management.
+	 */
 	public function getSections($formKey, $sectionId = false)
 	{
 		// Verify the user is allowed
 		$this->currentUser->allowed(['form.create', 'form.update', 'form.delete'], true);
 
-		// Set the view
+		// Set the JS view
 		$this->jsView = 'admin/form/sections_js';
 
 		// Pass along the form key to the view
@@ -305,14 +311,17 @@ class Form extends AdminBaseController {
 		// Delete a section
 		if ($this->currentUser->hasAccess('form.delete') and $formAction == 'delete')
 		{
-			$section = $this->form->deleteSection(Input::get('id'), Input::get('new_section_id'), $form);
+			$section = $this->form->deleteSection(Input::get('id'));
 
-			Event::fire('nova.form.sectionDeleted', $section);
+			Event::fire('nova.form.sectionDeleted', [$section, Input::get('new_section_id')]);
 		}
 
 		return Redirect::to("admin/form/sections/{$formKey}");
 	}
 
+	/**
+	 * Form field management.
+	 */
 	public function getFields($formKey, $fieldId = false)
 	{
 		// Verify the user is allowed

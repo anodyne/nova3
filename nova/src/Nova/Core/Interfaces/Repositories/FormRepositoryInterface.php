@@ -60,15 +60,17 @@ interface FormRepositoryInterface extends BaseRepositoryInterface {
 	 *
 	 * @param	int		$id			Field ID to delete
 	 * @param	bool	$setFlash	Set a flash message?
-	 * @return	bool
+	 * @return	Field
 	 */
 	public function deleteField($id, $setFlash = true);
+
+	public function deleteFieldData($id);
 
 	/**
 	 * Delete a form field value.
 	 *
 	 * @param	int		$id		Field value ID to delete
-	 * @return	bool
+	 * @return	Value
 	 */
 	public function deleteFieldValue($id);
 
@@ -78,23 +80,19 @@ interface FormRepositoryInterface extends BaseRepositoryInterface {
 	 * Delete a form section.
 	 *
 	 * @param	int		$id			Section ID to delete
-	 * @param	int		$newId		New section to use
-	 * @param	Form	$form		The Form object
 	 * @param	bool	$setFlash	Set a flash message?
-	 * @return	bool
+	 * @return	Section
 	 */
-	public function deleteSection($id, $newId, $form, $setFlash = true);
+	public function deleteSection($id, $setFlash = true);
 
 	/**
 	 * Delete a form tab.
 	 *
 	 * @param	int		$id			Tab ID to delete
-	 * @param	int		$newId		New tab to use
-	 * @param	Form	$form		The Form object
 	 * @param	bool	$setFlash	Set flash message?
-	 * @return	bool
+	 * @return	Tab
 	 */
-	public function deleteTab($id, $newId, $form, $setFlash = true);
+	public function deleteTab($id, $setFlash = true);
 
 	/**
 	 * Find a form by its form key.
@@ -139,6 +137,8 @@ interface FormRepositoryInterface extends BaseRepositoryInterface {
 	 */
 	public function findTab($id);
 	//public function findTabByName($value);
+
+	public function getFieldData($field);
 
 	/**
 	 * Get a field's values.
@@ -224,6 +224,20 @@ interface FormRepositoryInterface extends BaseRepositoryInterface {
 	public function getItemFormKey($item);
 
 	public function getPaginatedFormViewerEntries($form, $perPage = 50);
+
+	/**
+	 * Get a form sections's fields.
+	 *
+	 * @param	Section	$section	The section object
+	 */
+	public function getSectionFields($section);
+
+	/**
+	 * Get a form tab's sections.
+	 *
+	 * @param	Tab		$tab	The tab object
+	 */
+	public function getTabSections($tab);
 
 	/**
 	 * Update a form field.

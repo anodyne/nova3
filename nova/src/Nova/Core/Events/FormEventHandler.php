@@ -1,6 +1,16 @@
 <?php namespace Nova\Core\Events;
 
+use FormRepositoryInterface;
+
 class FormEventHandler extends \BaseEventHandler {
+
+	protected $form;
+
+	public function __construct(FormRepositoryInterface $form)
+	{
+		// Set the injected interfaces
+		$this->form = $form;
+	}
 
 	/**
 	 * When a form is created, create a system event.
@@ -22,6 +32,37 @@ class FormEventHandler extends \BaseEventHandler {
 	 */
 	public function onFormDeleted($form)
 	{
+		// Get the form fields
+		$fields = $this->form->getFormFields($form->key);
+
+		if ($fields)
+		{
+			foreach ($fields as $field)
+			{
+				// Get the field data
+				$dataIds = $this->form->getFieldData($field)->toSimpleArray('id', 'id');
+
+				foreach ($dataIds as $id)
+				{
+					$this->form->deleteFieldData($id);
+				}
+
+				// Get the field values
+				$valueIds = $this->form->getFieldValues($field);
+			}
+		}
+
+		// Delete field data
+		$data = $this->form->getFieldData($)
+
+		// Delete field values
+
+		// Delete fields
+
+		// Delete sections
+
+		// Delete tabs
+
 		// Remove all the field data, field values and fields
 		if ($form->fields->count() > 0)
 		{

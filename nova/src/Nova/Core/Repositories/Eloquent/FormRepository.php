@@ -309,7 +309,7 @@ class FormRepository implements FormRepositoryInterface {
 	 *
 	 * @param	int		$id			Field ID to delete
 	 * @param	bool	$setFlash	Set a flash message?
-	 * @return	bool
+	 * @return	Field
 	 */
 	public function deleteField($id, $setFlash = true)
 	{
@@ -334,11 +334,19 @@ class FormRepository implements FormRepositoryInterface {
 		return $field;
 	}
 
+	public function deleteFieldData($id)
+	{
+		// Get the field data
+		$data = $this->findFieldData($id);
+
+		return $data->delete();
+	}
+
 	/**
 	 * Delete a form field value.
 	 *
 	 * @param	int		$id		Field value ID to delete
-	 * @return	bool
+	 * @return	Value
 	 */
 	public function deleteFieldValue($id)
 	{
@@ -378,96 +386,60 @@ class FormRepository implements FormRepositoryInterface {
 	 * Delete a form section.
 	 *
 	 * @param	int		$id			Section ID to delete
-	 * @param	int		$newId		New section to use
-	 * @param	Form	$form		The Form object
 	 * @param	bool	$setFlash	Set a flash message?
-	 * @return	bool
+	 * @return	Section
 	 */
-	public function deleteSection($id, $newId, $form, $setFlash = true)
+	public function deleteSection($id, $setFlash = true)
 	{
 		// Get the section
-		$section = $form->sections()->find($this->sanitizeInt($id));
+		$section = $this->findSection($id);
 
-		if ($section)
+		// Delete the section
+		$delete = $section->delete();
+
+		if ($setFlash)
 		{
-			// Sanitize the new ID
-			$newId = $this->sanitizeInt($newId);
+			// Set the flash info
+			$status = ($delete) ? 'success' : 'danger';
+			$message = ($delete) 
+				? lang('Short.alert.success.delete', langConcat('form section'))
+				: lang('Short.alert.failure.delete', langConcat('form section'));
 
-			if ($section->fields->count() > 0)
-			{
-				foreach ($section->fields as $field)
-				{
-					$field->update(['section_id' => $newId]);
-				}
-			}
-
-			// Delete the section
-			$delete = $section->delete();
-
-			if ($setFlash)
-			{
-				// Set the flash info
-				$status = ($delete) ? 'success' : 'danger';
-				$message = ($delete) 
-					? lang('Short.alert.success.delete', langConcat('form section'))
-					: lang('Short.alert.failure.delete', langConcat('form section'));
-
-				// Flash the session
-				$this->setFlashMessage($status, $message);
-			}
-
-			return $delete;
+			// Flash the session
+			$this->setFlashMessage($status, $message);
 		}
 
-		return false;
+		return $section;
 	}
 
 	/**
 	 * Delete a form tab.
 	 *
 	 * @param	int		$id			Tab ID to delete
-	 * @param	int		$newId		New tab to use
-	 * @param	Form	$form		The Form object
 	 * @param	bool	$setFlash	Set flash message?
-	 * @return	bool
+	 * @return	Tab
 	 */
-	public function deleteTab($id, $newId, $form, $setFlash = true)
+	public function deleteTab($id, $setFlash = true)
 	{
 		// Get the tab
-		$tab = $form->tabs()->find($this->sanitizeInt($id));
+		$tab = $this->findTab($id);
 
-		if ($tab)
+		// Delete the tab
+		$delete = $tab->delete();
+
+		if ($setFlash)
 		{
-			// Sanitize the new ID
-			$newId = $this->sanitizeInt($newId);
+			// Set the flash info
+			$status = ($delete) ? 'success' : 'danger';
+			$message = ($delete) 
+				? lang('Short.alert.success.delete', langConcat('form tab'))
+				: lang('Short.alert.failure.delete', langConcat('form tab'));
 
-			if ($tab->sections->count() > 0)
-			{
-				foreach ($tab->sections as $section)
-				{
-					$section->update(['tab_id' => $newId]);
-				}
-			}
-
-			// Delete the tab
-			$delete = $tab->delete();
-
-			if ($setFlash)
-			{
-				// Set the flash info
-				$status = ($delete) ? 'success' : 'danger';
-				$message = ($delete) 
-					? lang('Short.alert.success.delete', langConcat('form tab'))
-					: lang('Short.alert.failure.delete', langConcat('form tab'));
-
-				// Flash the session
-				$this->setFlashMessage($status, $message);
-			}
-
-			return $delete;
+			// Flash the session
+			$this->setFlashMessage($status, $message);
 		}
 
-		return false;
+		return $tab;
 	}
 
 	/**
@@ -753,6 +725,26 @@ class FormRepository implements FormRepositoryInterface {
 		}
 
 		return $entries->paginate($perPage);
+	}
+
+	/**
+	 * Get a form sections's fields.
+	 *
+	 * @param	Section	$section	The section object
+	 */
+	public function getSectionFields($section)
+	{
+		return $section->fields;
+	}
+
+	/**
+	 * Get a form tab's sections.
+	 *
+	 * @param	Tab		$tab	The tab object
+	 */
+	public function getTabSections($tab)
+	{
+		return $tab->sections;
 	}
 
 	/**
