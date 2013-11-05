@@ -54,6 +54,9 @@
 	* app/tests
 	* phpunit.xml
 	* server.php
+	* artisan
+	* .editorconfig
+	* README.md
 * Remove unnecessary files from the vendors
 	* All of these files and directories should be stored in an array then looped through. Within the loop, we can run `rm -rf nova/vendor/**/[item]` to remove those from all vendor directories.
 	* .git/
