@@ -628,6 +628,11 @@ class FormRepository implements FormRepositoryInterface {
 		return $final;
 	}
 
+	public function getFieldData($field)
+	{
+		# code...
+	}
+
 	/**
 	 * Get all the form tabs for a form.
 	 *
