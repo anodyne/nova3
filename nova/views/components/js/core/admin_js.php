@@ -6,12 +6,6 @@
 	$(document).ready(function()
 	{
 		$.lazy({
-			src: "<?php echo URL::to('nova/assets/js/jquery.quicksearch.js');?>",
-			name: 'quicksearch',
-			cache: true
-		});
-
-		$.lazy({
 			src: "<?php echo URL::to('nova/assets/js/jquery.Jcrop.min.js');?>",
 			name: 'Jcrop',
 			cache: true,

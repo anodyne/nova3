@@ -46,6 +46,10 @@
 	* retina.js is an open source script that makes it easy to serve high-resolution images to devices with retina displays.
 	* http://retinajs.com/
 	* Version: 1.1.0
+* QuickSearch
+	* A jQuery based plug-in for filtering large data sets with user input.
+	* https://github.com/DeuxHuitHuit/quicksearch
+	* Version: 2.0.1
 
 ## Under Review
 

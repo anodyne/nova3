@@ -1,8 +1,15 @@
+<script src="{{ URL::to('nova/assets/js/jquery.quicksearch.min.js') }}"></script>
 <script>
 
-	$(document).ready(function()
-	{
-		$('#searchForms').quicksearch('#formsSearch .thumbnail');
+	$('#searchForms').quicksearch('#formsSearch > div', {
+		hide: function()
+		{
+			$(this).addClass('hidden');
+		},
+		show: function()
+		{
+			$(this).removeClass('hidden');
+		}
 	});
 
 	// Populate the form key field when the name changes
