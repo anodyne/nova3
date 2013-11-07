@@ -1,6 +1,14 @@
 <script src="{{ URL::to('nova/assets/js/jquery.quicksearch.min.js') }}"></script>
 <script>
 
+	$(document).on('keyup', '#searchForms', function()
+	{
+		if ($(this).val() != "")
+			$('#searchComplete').removeClass('hidden');
+		else
+			$('#searchComplete').addClass('hidden');
+	});
+
 	$('#searchForms').quicksearch('#formsSearch > div', {
 		hide: function()
 		{
@@ -36,6 +44,23 @@
 				remote: "{{ URL::to('admin/form/ajax/delete/form') }}/" + key
 			}).modal('show');
 		}
+	});
+
+	$(document).on('click', '.js-clear-search', function(e)
+	{
+		e.preventDefault();
+
+		// Reset the search field
+		$('#searchForms').val('').text('');
+
+		// Make sure everything is shown
+		$('#formsSearch').children().each(function()
+		{
+			$(this).removeClass('hidden');
+		});
+
+		// Hide the button
+		$(this).addClass('hidden');
 	});
 
 </script>

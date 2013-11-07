@@ -13,6 +13,11 @@
 				{{ Form::text('', null, ['id' => 'searchForms', 'class' => 'form-control', 'placeholder' => lang('Short.search', langConcat('for Form'))]) }}
 			</div>
 		</div>
+		<div class="col-xs-12 col-sm-2 col-lg-2">
+			<div id="searchComplete" class="hidden">
+				<p><a class="btn btn-xs btn-default icn-size-16 js-clear-search">{{ $_icons['closeSmall'] }}</a></p>
+			</div>
+		</div>
 	</div>
 
 	<div class="row" id="formsSearch">
