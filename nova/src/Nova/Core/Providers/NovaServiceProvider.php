@@ -9,6 +9,7 @@ use Nova\Core\Lib\DynamicForm;
 use Nova\Core\Lib\SystemEvent;
 use dflydev\markdown\MarkdownParser;
 use Illuminate\Support\ServiceProvider;
+use Nova\Extensions\Laravel\Config\Repository as ConfigRepository;
 
 class NovaServiceProvider extends ServiceProvider {
 
@@ -23,6 +24,7 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->registerMedia();
 		$this->registerDynamicForm();
 		$this->registerBrowser();
+		$this->registerConfigRepository();
 	}
 
 	public function boot()
@@ -111,6 +113,14 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->app['nova.browser'] = $this->app->share(function($app)
 		{
 			return new Browser;
+		});
+	}
+
+	protected function registerConfigRepository()
+	{
+		$this->app['config'] = $this->app->share(function($app)
+		{
+			return new ConfigRepository($app['config.loader'], $app->environment());
 		});
 	}
 

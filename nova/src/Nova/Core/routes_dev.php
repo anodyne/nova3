@@ -57,6 +57,8 @@ Route::group(['prefix' => 'dev'], function()
 
 	Route::get('config', function()
 	{
-		s(Config::get('foo::bar.baz'));
+		//s(App::make('config'));
+		s(Config::module('Foo'));
+		s(Config::get('app.key'));
 	});
 });

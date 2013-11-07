@@ -1,7 +1,7 @@
 <?php namespace Nova\Extensions\Laravel\Config;
 
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Config\LoaderInterface;
+//use Illuminate\Config\LoaderInterface;
 use Illuminate\Cache\FileStore as Cache;
 
 class ConfigCascadingFileLoader implements LoaderInterface {
@@ -276,27 +276,31 @@ class ConfigCascadingFileLoader implements LoaderInterface {
 		return $this->defaultPath;
 	}
 
-	protected function getPackagePaths()
+	/**
+	 * Returns the config items for a module.
+	 *
+	 * @param	string	$items
+	 * @return	mixed
+	 */
+	public function module($items)
 	{
-		// Get the modules out of the cache
-		$modules = $this->cache->get('nova.modules');
+		// Break the item at the double colon
+		$itemsArr = explode('::', $items);
 
-		if (is_array($modules))
+		// Set the module
+		$module = $itemsArr[0];
+
+		if ($this->files->isDirectory(APPPATH."src/Modules/{$module}"))
 		{
-			// Start an array for storing the modules
-			$paths = [];
+			// Load the config file
+			$config = $this->getRequire(APPPATH."src/Modules/{$module}/config.php");
 
-			foreach ($modules as $module)
+			if (array_key_exists(1, $itemsArr))
 			{
-				// Set the path to the module's config directory
-				if ($this->files->isDirectory(APPPATH."src/Modules/{$module}/config"))
-				{
-					$paths[$module] = APPPATH."src/Modules/{$module}/config";
-				}
+				return $config[$itemsArr[1]];
 			}
 
-			// Append the paths to the beginning of the default paths
-			return $paths + $this->defaultPath;
+			return $config;
 		}
 	}
 
