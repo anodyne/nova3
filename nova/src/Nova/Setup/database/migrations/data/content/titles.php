@@ -392,5 +392,14 @@ return [
 		'page'		=> 'sitecontent',
 		'uri'		=> 'admin/sitecontent'
 	],
+	[
+		'key'		=> 'title.admin.manage.navigation',
+		'label'		=> 'Manage Site Navigation Title',
+		'content'	=> "Site Navigation",
+		'type'		=> $type,
+		'section'	=> 'manage',
+		'page'		=> 'navigation',
+		'uri'		=> 'admin/navigation'
+	],
 
 ];

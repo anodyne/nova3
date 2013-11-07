@@ -6,16 +6,19 @@ use Redirect;
 use AdminBaseController;
 use SiteContentValidator;
 use SystemRouteValidator;
+use NavigationRepositoryInterface;
 use SystemRouteRepositoryInterface;
 
 class Manage extends AdminBaseController {
 
-	public function __construct(SystemRouteRepositoryInterface $routes)
+	public function __construct(SystemRouteRepositoryInterface $routes,
+			NavigationRepositoryInterface $navigation)
 	{
 		parent::__construct();
 
 		// Set the injected interfaces
 		$this->routes = $routes;
+		$this->navigation = $navigation;
 	}
 
 	public function getRoutes($routeId = false)
@@ -282,6 +285,98 @@ class Manage extends AdminBaseController {
 		return Redirect::to('admin/sitecontent')
 			->with('flashStatus', $flashStatus)
 			->with('flashMessage', $flashMessage);
+	}
+
+	public function getSiteNavigation($navId = false)
+	{
+		// Verify the user is allowed
+		$this->currentUser->allowed(['nav.create', 'nav.update', 'nav.delete'], true);
+
+		// Set the views
+		$this->jsView = 'admin/manage/navigation_js';
+
+		if ($navId !== false)
+		{
+			// Set the view
+			$this->view = 'admin/manage/navigation_action';
+
+			// Get the navigation item
+			$this->data->nav = $this->navigation->find($navId);
+
+			// Set the mode and form action
+			$this->mode = $this->data->action = ($id == 'create') ? 'create' : 'update';
+		}
+		else
+		{
+			// Set the view
+			$this->view = 'admin/manage/navigation';
+
+			// Get all the navigation items
+			$navItems = $this->navigation->all();
+
+			foreach ($navItems as $nav)
+			{
+				// Get the type
+				$this->data->navTypes[$content->type] = ucfirst(Str::plural($content->type));
+
+				// Get the content
+				$this->data->content[$content->type][] = $content;
+			}
+
+			// Build the delete content modal
+			$this->ajax[] = modal([
+				'id'		=> 'deleteSiteNavigation',
+				'header'	=> lang('Short.delete', langConcat('Site Navigation Item'))
+			]);
+		}
+	}
+	public function postSiteNavigation()
+	{
+		// Get the action
+		$formAction = Input::get('formAction');
+
+		// Set up the validation service
+		$validator = new NavigationValidator;
+
+		// If the validation fails, stop and go back
+		if ( ! $validator->passes())
+		{
+			return Redirect::back()->withInput()->withErrors($validator->getErrors());
+		}
+
+		// Create the nav item
+		if ($this->currentUser->hasAccess('nav.create') and $formAction == 'create')
+		{
+			$nav = $this->navigation->create(Input::all());
+
+			Event::fire('nova.nav.created', $nav);
+		}
+
+		// Duplicate the nav item
+		if ($this->currentUser->hasAccess('nav.create') and $formAction == 'duplicate')
+		{
+			$nav = $this->navigation->duplicate(Input::get('id'), Input::get('name'));
+
+			Event::fire('nova.nav.duplicated', $nav);
+		}
+
+		// Update the nav item
+		if ($this->currentUser->hasAccess('nav.update') and $formAction == 'update')
+		{
+			$nav = $this->navigation->update(Input::get('id'), Input::all());
+
+			Event::fire('nova.nav.updated', $nav);
+		}
+
+		// Delete the nav item
+		if ($this->currentUser->hasAccess('nav.delete') and $formAction == 'delete')
+		{
+			$nav = $this->navigation->delete(Input::get('id'));
+
+			Event::fire('nova.nav.deleted', $nav);
+		}
+
+		return Redirect::to('admin/navigation');
 	}
 
 }

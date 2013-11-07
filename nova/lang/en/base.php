@@ -137,6 +137,7 @@ return array(
 	'media' => 'media',
 
 	'name' => "name",
+	'navigation' => "navigation",
 	'notification' => "notification",
 	'notifications' => "notifications",
 	'next' => "next",

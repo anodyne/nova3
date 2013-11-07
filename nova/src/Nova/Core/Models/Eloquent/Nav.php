@@ -7,18 +7,18 @@ class Nav extends Model {
 
 	protected $table = 'navigation';
 
-	protected $fillable = array(
+	protected $fillable = [
 		'name', 'group', 'order', 'url', 'url_target', 'needs_login',
 		'access', 'type', 'category', 'status', 'sim_type',
-	);
+	];
 
-	protected $dates = array('created_at', 'updated_at');
+	protected $dates = ['created_at', 'updated_at'];
 	
-	protected static $properties = array(
+	protected static $properties = [
 		'id', 'name', 'group', 'order', 'url', 'url_target', 'needs_login', 
 		'access', 'type', 'category', 'status', 'sim_type', 'created_at', 
 		'updated_at',
-	);
+	];
 
 	/**
 	 * Gets the nav items out of the database based on type and category.

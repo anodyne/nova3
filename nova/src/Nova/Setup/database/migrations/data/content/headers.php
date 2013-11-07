@@ -108,35 +108,6 @@ return [
 		'page'		=> 'index',
 		'uri'		=> 'admin'
 	],
-	[
-		'key'		=> 'header.admin.routes',
-		'label'		=> 'Route Manager Header',
-		'content'	=> "Routes Manager",
-		'type'		=> $type,
-		'section'	=> 'manage',
-		'page'		=> 'routes',
-		'uri'		=> 'admin/routes'
-	],
-	[
-		'key'		=> 'header.admin.routes.create',
-		'label'		=> 'Create Route Header',
-		'content'	=> "Create New Route",
-		'type'		=> $type,
-		'section'	=> 'manage',
-		'page'		=> 'routes',
-		'mode'		=> 'create',
-		'uri'		=> 'admin/routes'
-	],
-	[
-		'key'		=> 'header.admin.routes.edit',
-		'label'		=> 'Edit Route Header',
-		'content'	=> "Edit Route",
-		'type'		=> $type,
-		'section'	=> 'manage',
-		'page'		=> 'routes',
-		'mode'		=> 'update',
-		'uri'		=> 'admin/routes'
-	],
 
 	/**
 	 * admin/form Headers
@@ -624,13 +595,71 @@ return [
 	],
 	[
 		'key'		=> 'header.admin.manage.content.update',
-		'label'		=> 'Edit New Site Content Header',
+		'label'		=> 'Edit Site Content Header',
 		'content'	=> "Edit Site Content",
 		'type'		=> $type,
 		'section'	=> 'manage',
 		'page'		=> 'sitecontent',
 		'mode'		=> 'update',
 		'uri'		=> 'admin/sitecontent',
+	],
+	[
+		'key'		=> 'header.admin.manage.navigation',
+		'label'		=> 'Manage Site Navigation Header',
+		'content'	=> "Site Navigation",
+		'type'		=> $type,
+		'section'	=> 'manage',
+		'page'		=> 'navigation',
+		'uri'		=> 'admin/navigation'
+	],
+	[
+		'key'		=> 'header.admin.manage.navigation.create',
+		'label'		=> 'Create New Site Navigation Header',
+		'content'	=> "Create New Site Navigation Item",
+		'type'		=> $type,
+		'section'	=> 'manage',
+		'page'		=> 'navigation',
+		'mode'		=> 'create',
+		'uri'		=> 'admin/navigation'
+	],
+	[
+		'key'		=> 'header.admin.manage.navigation.update',
+		'label'		=> 'Edit Site Navigation Header',
+		'content'	=> "Edit Site Navigation Item",
+		'type'		=> $type,
+		'section'	=> 'manage',
+		'page'		=> 'navigation',
+		'mode'		=> 'update',
+		'uri'		=> 'admin/navigation',
+	],
+	[
+		'key'		=> 'header.admin.routes',
+		'label'		=> 'Route Manager Header',
+		'content'	=> "Routes Manager",
+		'type'		=> $type,
+		'section'	=> 'manage',
+		'page'		=> 'routes',
+		'uri'		=> 'admin/routes'
+	],
+	[
+		'key'		=> 'header.admin.routes.create',
+		'label'		=> 'Create Route Header',
+		'content'	=> "Create New Route",
+		'type'		=> $type,
+		'section'	=> 'manage',
+		'page'		=> 'routes',
+		'mode'		=> 'create',
+		'uri'		=> 'admin/routes'
+	],
+	[
+		'key'		=> 'header.admin.routes.edit',
+		'label'		=> 'Edit Route Header',
+		'content'	=> "Edit Route",
+		'type'		=> $type,
+		'section'	=> 'manage',
+		'page'		=> 'routes',
+		'mode'		=> 'update',
+		'uri'		=> 'admin/routes'
 	],
 
 ];

@@ -337,6 +337,7 @@ return [
 		 */
 		'BaseEventHandler'				=> "Nova\Core\Events\BaseEventHandler",
 		'FormViewerEventHandler'		=> "Nova\Core\Events\FormViewerEventHandler",
+		'NavEventHandler'				=> "Nova\Core\Events\NavEventHandler",
 		'UserEventHandler'				=> "Nova\Core\Events\UserEventHandler",
 
 		'FormEventHandler'				=> "Nova\Core\Events\FormEventHandler",
@@ -383,6 +384,7 @@ return [
 		'FormValueValidator'		=> "Nova\Core\Validators\Form\Value",
 
 		'BaseValidator'				=> "Nova\Core\Validators\Base",
+		'NavigationValidator'		=> "Nova\Core\Validators\Navigation",
 		'SiteContentValidator'		=> "Nova\Core\Validators\SiteContent",
 		'SystemRouteValidator'		=> "Nova\Core\Validators\SystemRoute",
 		'UserValidator'				=> "Nova\Core\Validators\User",
@@ -393,6 +395,7 @@ return [
 		'AccessRoleRepository'		=> "Nova\Core\Repositories\Eloquent\AccessRoleRepository",
 		'CatalogRepository'			=> "Nova\Core\Repositories\Eloquent\CatalogRepository",
 		'FormRepository'			=> "Nova\Core\Repositories\Eloquent\FormRepository",
+		'NavigationRepository'		=> "Nova\Core\Repositories\Eloquent\NavigationRepository",
 		'SettingsRepository'		=> "Nova\Core\Repositories\Eloquent\SettingsRepository",
 		'SiteContentRepository'		=> "Nova\Core\Repositories\Eloquent\SiteContentRepository",
 		'SystemRouteRepository'		=> "Nova\Core\Repositories\Eloquent\SystemRouteRepository",
@@ -406,6 +409,7 @@ return [
 		'AccessRoleRepositoryInterface'		=> "Nova\Core\Interfaces\Repositories\AccessRoleRepositoryInterface",
 		'CatalogRepositoryInterface'		=> "Nova\Core\Interfaces\Repositories\CatalogRepositoryInterface",
 		'FormRepositoryInterface'			=> "Nova\Core\Interfaces\Repositories\FormRepositoryInterface",
+		'NavigationRepositoryInterface'		=> "Nova\Core\Interfaces\Repositories\NavigationRepositoryInterface",
 		'SettingsRepositoryInterface'		=> "Nova\Core\Interfaces\Repositories\SettingsRepositoryInterface",
 		'SiteContentRepositoryInterface'	=> "Nova\Core\Interfaces\Repositories\SiteContentRepositoryInterface",
 		'SystemRouteRepositoryInterface'	=> "Nova\Core\Interfaces\Repositories\SystemRouteRepositoryInterface",

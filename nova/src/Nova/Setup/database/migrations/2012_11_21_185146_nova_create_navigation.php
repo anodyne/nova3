@@ -25,7 +25,6 @@ class NovaCreateNavigation extends Migration {
 			$t->string('type');
 			$t->string('category');
 			$t->boolean('status')->default(Status::ACTIVE);
-			$t->integer('sim_type')->default(1);
 			$t->timestamps();
 		});
 	}

@@ -545,6 +545,20 @@ return [
 		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@postSiteContent',
 		'protected'		=> (int) true
 	],
+	[
+		'name'			=> 'admin/navigation',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/navigation/{navId?}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@getSiteNavigation',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/navigation',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/navigation',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@postSiteNavigation',
+		'protected'		=> (int) true
+	],
 
 	/**
 	 * ajax/add

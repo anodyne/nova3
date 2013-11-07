@@ -393,6 +393,15 @@ return [
 		'page'		=> 'sitecontent',
 		'uri'		=> 'admin/sitecontent'
 	],
+	[
+		'key'		=> 'message.admin.manage.navigation',
+		'label'		=> 'Manage Site Navigation Message',
+		'content'	=> "",
+		'type'		=> $type,
+		'section'	=> 'manage',
+		'page'		=> 'navigation',
+		'uri'		=> 'admin/navigation'
+	],
 
 	/**
 	 * Others

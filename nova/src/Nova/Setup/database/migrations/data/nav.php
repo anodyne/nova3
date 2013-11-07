@@ -402,15 +402,15 @@ return [
 		'category' => 'manage',
 		'access' => 'content.create|content.update|content.delete'
 	],
-	/*[
-		'name' => 'Navigation',
+	[
+		'name' => 'Site Navigation',
 		'group' => 0,
 		'order' => 3,
 		'url' => 'admin/navigation',
 		'type' => 'adminsub',
 		'category' => 'manage',
 		'access' => 'nav.create|nav.update|nav.delete'
-	],*/
+	],
 	[
 		'name' => 'Access Roles',
 		'group' => 1,

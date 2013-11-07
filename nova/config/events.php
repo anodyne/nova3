@@ -19,6 +19,11 @@ return [
 	'nova.form.valueDeleted'	=> ['FormValueEventHandler@onValueDeleted'],
 	'nova.form.valueUpdated'	=> ['FormValueEventHandler@onValueUpdated'],
 
+	'nova.nav.created'			=> ['NavEventHandler@onNavCreated'],
+	'nova.nav.deleted'			=> ['NavEventHandler@onNavDeleted'],
+	'nova.nav.duplicated'		=> ['NavEventHandler@onNavDuplicated'],
+	'nova.nav.updated'			=> ['NavEventHandler@onNavUpdated'],
+
 	'nova.user.created'			=> ['UserEventHandler@onUserCreated'],
 	'nova.user.resetPassword'	=> ['UserEventHandler@onUserResetPassword'],
 
