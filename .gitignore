@@ -6,7 +6,7 @@ composer.lock
 Thumbs.db
 
 app/config/local/*
-!app/config/local/app.php
+app/config/production/*
 
 app/assets/images/users/*
 
