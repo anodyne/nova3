@@ -6,6 +6,7 @@ use File;
 use Form;
 use HTML;
 use Cache;
+use Event;
 use Input;
 use Config;
 use Status;
@@ -114,7 +115,7 @@ class Install extends SetupBaseController {
 		]);
 
 		// Set the application key
-		Artisan::call('key:generate');
+		Artisan::call('key:generate', ['--env' => App::environment()]);
 
 		// Register
 		# TODO: need to figure out how we want to do registration
@@ -207,6 +208,8 @@ class Install extends SetupBaseController {
 			'activated_at'	=> Date::now(),
 		]);
 
+		Event::fire('nova.user.created', [$user, Input::all()]);
+
 		// Update the preferences
 		$user->updateUserPreferences([
 			'is_sysadmin'		=> (int) true,
@@ -224,7 +227,7 @@ class Install extends SetupBaseController {
 		]);
 
 		// Add the character's position
-		$character->positions()->attach(e(Input::get('position')), ['primary' => (int) true]);
+		$character->positions()->attach(Input::get('position'), ['primary' => (int) true]);
 
 		// Update the user with the character ID
 		$user->character_id = $character->id;
