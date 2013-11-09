@@ -48,7 +48,7 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 	 * @param	array	$data	Data to use for creation
 	 * @return	SystemRoute
 	 */
-	public function create(array $data)
+	public function create(array $data, $setFlash = true)
 	{
 		return SystemRouteModel::create($data);
 	}
@@ -59,7 +59,7 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 	 * @param	int		$id		ID to delete
 	 * @return	bool
 	 */
-	public function delete($id)
+	public function delete($id, $setFlash = true)
 	{
 		$id = $this->sanitizeInt($id);
 
@@ -116,7 +116,7 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 	 * @param	array	$data	Data to use for update
 	 * @return	SystemRoute
 	 */
-	public function update($id, array $data)
+	public function update($id, array $data, $setFlash = true)
 	{
 		$id = $this->sanitizeInt($id);
 		
