@@ -312,16 +312,22 @@ class Manage extends AdminBaseController {
 			$this->view = 'admin/manage/navigation';
 
 			// Get all the navigation items
-			$navItems = $this->navigation->all();
+			$this->data->items = $this->navigation->all();
 
-			foreach ($navItems as $nav)
-			{
-				// Get the type
-				$this->data->navTypes[$content->type] = ucfirst(Str::plural($content->type));
+			// Get the navigation types
+			$this->data->navTypes['main'] = langConcat('Site Navigation');
+			$this->data->navTypes['sub'] = ucwords(langConcat('Site Navigation_sub'));
+			$this->data->navTypes['admin'] = langConcat('Admin Navigation');
+			$this->data->navTypes['adminsub'] = ucwords(langConcat('Admin Navigation_sub'));
 
-				// Get the content
-				$this->data->content[$content->type][] = $content;
-			}
+			// Get everything!
+			$allNavs = $this->navigation->allByTypeAndCategory();
+
+			// Set the navigation content
+			$this->data->nav['main'] = $this->navigation->allByType('main');
+			$this->data->nav['admin'] = $this->navigation->allByType('admin');
+			$this->data->nav['sub'] = $allNavs['sub'];
+			$this->data->nav['adminsub'] = $allNavs['adminsub'];
 
 			// Build the delete content modal
 			$this->ajax[] = modal([

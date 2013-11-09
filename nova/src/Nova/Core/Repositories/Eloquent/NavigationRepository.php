@@ -19,6 +19,84 @@ class NavigationRepository implements NavigationRepositoryInterface {
 	{
 		return NavModel::all();
 	}
+
+	/**
+	 * Get all site navigation items by their category.
+	 *
+	 * @return	array
+	 */
+	public function allByCategory()
+	{
+		// Get all the items
+		$all = $this->all();
+
+		if ($all)
+		{
+			foreach ($all as $a)
+			{
+				$items[$a->group][] = $a;
+			}
+
+			return $items;
+		}
+
+		return [];
+	}
+
+	/**
+	 * Get all site navigation items by their type.
+	 *
+	 * @return	array
+	 */
+	public function allByType($type = false)
+	{
+		// Get all the items
+		$all = $this->all();
+
+		if ($all)
+		{
+
+			if ($type)
+			{
+				return $all->filter(function($a) use ($type)
+				{
+					return $a->type == $type;
+				});
+			}
+
+			foreach ($all as $a)
+			{
+				$items[$a->type][] = $a;
+			}
+
+			return $items;
+		}
+
+		return [];
+	}
+
+	/**
+	 * Get all site navigation items by their type and category.
+	 *
+	 * @return	array
+	 */
+	public function allByTypeAndCategory()
+	{
+		// Get all the items
+		$all = $this->all();
+
+		if ($all)
+		{
+			foreach ($all as $a)
+			{
+				$items[$a->type][$a->group][] = $a;
+			}
+
+			return $items;
+		}
+
+		return [];
+	}
 	
 	/**
 	 * Create a new navigation item.
@@ -133,6 +211,24 @@ class NavigationRepository implements NavigationRepositoryInterface {
 	public function find($id)
 	{
 		return NavModel::find($this->sanitizeInt($id));
+	}
+
+	public function getNavTypes()
+	{
+		// Get all the items
+		$items = NavModel::groupBy('type')->get();
+
+		if ($items)
+		{
+			foreach ($items as $item)
+			{
+				$values[] = $item->type;
+			}
+
+			return $values;
+		}
+
+		return [];
 	}
 
 	/**

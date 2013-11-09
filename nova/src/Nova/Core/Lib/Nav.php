@@ -128,7 +128,7 @@ class Nav {
 			$cat = ($item->type == 'main' or $item->type == 'admin') ? 'mainNavItems' : $item->category;
 
 			// Get the sub nav items under this section
-			$sub = ($type == 'sub' or $type == 'adminsub') ? NavModel::getItems($type, $item->category) : false;
+			$sub = ($type == 'sub' or $type == 'adminsub') ? NavModel::getNavItems($type, $item->category) : false;
 
 			// Put the item into the return array
 			$retval[$type][$cat][$item->id] = $item;

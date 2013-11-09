@@ -106,6 +106,7 @@ return array(
 	'instructions' => "instructions",
 	'installed' => "installed",
 	'item' => "item",
+	'items' => "items",
 
 	'joint' => 'joint',
 
@@ -138,6 +139,7 @@ return array(
 
 	'name' => "name",
 	'navigation' => "navigation",
+	'navigation_sub' => "sub navigation",
 	'notification' => "notification",
 	'notifications' => "notifications",
 	'next' => "next",

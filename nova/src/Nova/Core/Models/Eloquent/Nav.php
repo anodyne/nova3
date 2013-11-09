@@ -28,7 +28,7 @@ class Nav extends Model {
 	 * @param	int		The status to pull (null for all)
 	 * @return	Collection
 	 */
-	public static function getItems($type, $category, $status = Status::ACTIVE)
+	public static function getNavItems($type, $category, $status = Status::ACTIVE)
 	{
 		// Start a new Query Builder
 		$query = static::startQuery();
