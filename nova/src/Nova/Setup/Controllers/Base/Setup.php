@@ -152,9 +152,6 @@ abstract class Setup extends Controller {
 			{
 				if (\Setup::installed(false))
 				{
-					\Log::info(\Setup::installed(false));
-					\Log::info(Cache::get('nova.installed'));
-					
 					if (Cache::get('nova.installed') !== null)
 					{
 						if ($me->auth->check())
