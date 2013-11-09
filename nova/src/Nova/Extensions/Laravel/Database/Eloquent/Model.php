@@ -341,7 +341,7 @@ class Model extends EloquentModel {
 	 * @param	string	The value
 	 * @return	Collection
 	 */
-	public static function getItems($column, $value)
+	public static function getItems($column, $value = false)
 	{
 		// Start a new Query Builder
 		$query = static::startQuery();
