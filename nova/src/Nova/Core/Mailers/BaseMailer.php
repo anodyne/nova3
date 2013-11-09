@@ -18,7 +18,7 @@ abstract class BaseMailer {
 	public function send($view, array $data, array $keys)
 	{
 		// Get the email preferences
-		$options = SettingsModel::getItems([
+		$options = SettingsModel::getSettings([
 			'email_subject',
 			'email_name',
 			'email_address',
@@ -63,10 +63,10 @@ abstract class BaseMailer {
 			}
 
 			// Build the HTML view
-			$htmlView = View::make(Location::email($view, 'html'));
+			$htmlView = Location::email($view, 'html');
 
 			// Build the TEXT view
-			$textView = View::make(Location::email($view, 'text'));
+			$textView = Location::email($view, 'text');
 
 			// Send the HTML emails
 			$send['html'] = Mail::queue($htmlView, $data, $this->buildMessage($data, $options, $keys, 'html'));
@@ -92,44 +92,62 @@ abstract class BaseMailer {
 	 */
 	protected function buildMessage(array $data, $options, array $keys, $type = 'html')
 	{
+		// Get a copy of the object
+		$me = $this;
+
 		// Build the message callback
-		$message = function($m) use ($data, $options, $keys)
+		$message = function($msg) use ($data, $options, $keys, $type, $me)
 		{
 			// Set the subject
 			$subject = (array_key_exists('subject', $keys))
 				? SiteContentModel::getContentItem($keys['subject'])
 				: $data['subject'];
 
-			// Get the recipient lists
-			$recipients = $this->splitUsers($data['to']);
-			$recipientsCC = $this->splitUsers($data['cc']);
-			$recipientsBCC = $this->splitUsers($data['bcc']);
+			// Split the recipients
+			$recipients = $me->splitUsers($data['to']);
 
 			// Set the TO
-			$m->to($recipients[$type]);
+			if (array_key_exists($type, $recipients))
+			{
+				$msg->to($recipients[$type]);
+			}
 
 			// Set the SUBJECT
-			$m->subject("{$options->email_subject} {$subject}");
+			$msg->subject("{$options->email_subject} {$subject}");
 
 			// Set who it's coming FROM
-			$m->from($options->email_address, $options->email_name);
+			$msg->from($options->email_address, $options->email_name);
 
 			// If there's a reply to, add it
 			if (array_key_exists('replyTo', $data))
 			{
-				$m->replyTo($data['replyTo']);
+				$msg->replyTo($data['replyTo']);
 			}
 
 			// If there's a CC, add it
 			if (array_key_exists('cc', $data))
 			{
-				$m->cc($recipientsCC[$type]);
+				// Split the recipients
+				$recipientsCC = $me->splitUsers($data['cc']);
+
+				// Add the CC
+				if (array_key_exists($type, $recipientsCC))
+				{
+					$msg->cc($recipientsCC[$type]);
+				}
 			}
 
 			// If there's a BCC, add it
 			if (array_key_exists('bcc', $data))
 			{
-				$m->bcc($recipientsBCC[$type]);
+				// Split the recipients
+				$recipientsBCC = $me->splitUsers($data['bcc']);
+
+				// Add the BCC
+				if (array_key_exists($type, $recipientsBCC))
+				{
+					$msg->bcc($recipientsBCC[$type]);
+				}
 			}
 		};
 
@@ -139,11 +157,10 @@ abstract class BaseMailer {
 	/**
 	 * Take the recipients and split them up based on their email format preference.
 	 *
-	 * @internal
 	 * @param	mixed	$users	Users (An array of IDs or a Collection of users)
 	 * @return	array
 	 */
-	protected function splitUsers($users)
+	public function splitUsers($users)
 	{
 		// Create an array for storing users
 		$final = [];
@@ -164,14 +181,17 @@ abstract class BaseMailer {
 		}
 		else
 		{
-			foreach ($users as $user)
+			if (is_array($users))
 			{
-				$u = (is_numeric($user)) 
-					? UserModel::find($user) 
-					: UserModel::email($user)->first();
+				foreach ($users as $user)
+				{
+					$u = (is_numeric($user)) 
+						? UserModel::find($user) 
+						: UserModel::email($user)->first();
 
-				// Break the users out based on mail format preference
-				$final[$u->getPreferences('email_format')][] = $u->email;
+					// Break the users out based on mail format preference
+					$final[$u->getPreferences('email_format')][] = $u->email;
+				}
 			}
 		}
 
