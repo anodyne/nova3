@@ -172,6 +172,7 @@ class User extends Base {
 	 *
 	 * @param	User	$user	User object
 	 * @return	array
+	 * @fixme
 	 */
 	protected function collectUserData($user)
 	{

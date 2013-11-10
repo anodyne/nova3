@@ -42,7 +42,7 @@ abstract class Base extends Controller {
 	/**
 	 * Format the validation errors into a string.
 	 *
-	 * @param	Validator	The validator object
+	 * @param	Validator	$validator	The validator object
 	 * @return	string
 	 */
 	protected function formatValidationErrors($validator)
