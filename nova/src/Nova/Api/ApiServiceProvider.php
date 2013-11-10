@@ -31,7 +31,7 @@ class ApiServiceProvider extends ServiceProvider {
 			 */
 			Route::get('info', function()
 			{
-				return Response::api([
+				return Response::json([
 					'api_version'	=> Config::get('nova.api.version'),
 					'nova_version'	=> Config::get('nova.app.version'),
 					'nova_url'		=> str_replace(Request::path(), '', Request::url())

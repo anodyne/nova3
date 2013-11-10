@@ -3,7 +3,9 @@
 use Input;
 use Status;
 use Response;
+use Exception;
 use UserValidator;
+use UserRepositoryInterface;
 
 class User extends Base {
 
@@ -25,32 +27,12 @@ class User extends Base {
 	 */
 	public function index($type = 'active', $page = 1)
 	{
-		// Start getting the users
-		switch ($type)
-		{
-			case 'active':
-			default:
-				$items = $this->user->active();
-			break;
-
-			case 'inactive':
-				$items = $this->user->inactive();
-			break;
-
-			case 'pending':
-				$items = $this->user->pending();
-			break;
-		}
-
-		// Set up the paging
-		if ($page > 1)
-			$items->skip(--$page * $this->resultsPerPage);
-		
-		// Break the results up by page
-		$items->take($this->resultsPerPage);
-
-		// Execute the query
-		$users = $items->get();
+		// Get the users
+		$users = $this->user->findUsers(
+			Status::toInt($type),
+			$this->resultsPerPage,
+			($page > 1) ? ($page - 1) * $this->resultsPerPage : false
+		);
 
 		// Loop through the users and put them into an array
 		if ($users->count() > 0)
@@ -76,19 +58,19 @@ class User extends Base {
 					'first'		=> $this->url."/user/{$type}/{$totalPages}",
 					'last'		=> $this->url."/user/{$type}/{$page}",
 					'next'		=> ($page < $totalPages)
-						? $this->url."/user/{$type}/".(++$page)
+						? $this->url."/user/{$type}/".($page + 1)
 						: $this->url."/user/{$type}/{$totalPages}",
 					'previous'	=> ($page > 1) 
-						? $this->url."/user/{$type}/".(--$page)
+						? $this->url."/user/{$type}/".($page - 1)
 						: $this->url."/user/{$type}/1",
 				],
 			];
 			$data['users'] = $userData;
 
-			return Response::api($data, 200);
+			return Response::json($data, 200);
 		}
 
-		return Response::api("No {$type} users found", 404);
+		return Response::json(['message' => "No {$type} users found"], 404);
 	}
 
 	/**
@@ -103,9 +85,11 @@ class User extends Base {
 		$user = $this->user->find($id);
 
 		if ($user)
-			return Response::api($this->collectUserData($user), 200);
+		{
+			return Response::json($this->collectUserData($user), 200);
+		}
 
-		return Response::api("User not found", 400);
+		return Response::json(['message' => "User not found"], 400);
 	}
 
 	/**
@@ -119,10 +103,21 @@ class User extends Base {
 		// Validate the user
 		$this->validateUser();
 
-		// Create a new user
-		$user = $this->user->create(Input::get());
+		try
+		{
+			// Create a new user
+			$user = $this->user->create(Input::all(), false);
 
-		return Response::api($this->collectUserData($user), 201);
+			return Response::json($this->collectUserData($user), 201);
+		}
+		catch (Exception $e)
+		{
+			return Response::json([
+				'message'	=> $e->getMessage(),
+				'file'		=> $e->getFile(),
+				'line'		=> $e->getLine(),
+			], 500);
+		}
 	}
 
 	/**
@@ -131,6 +126,7 @@ class User extends Base {
 	 * @param	int		$id		User ID
 	 * @return	JSON
 	 * @todo	Authorization
+	 * @fixme
 	 */
 	public function update($id)
 	{
@@ -143,12 +139,12 @@ class User extends Base {
 			$this->validateUser();
 
 			// Update the user
-			$user->update(Input::get());
+			$user = $this->user->update($id, Input::all(), false);
 
-			return Response::api($this->collectUserData($user), 200);
+			return Response::json($this->collectUserData($user), 200);
 		}
 
-		return Response::api("User not found", 400);
+		return Response::json(['message' => "User not found"], 400);
 	}
 
 	/**
@@ -160,22 +156,15 @@ class User extends Base {
 	 */
 	public function destroy($id)
 	{
-		// Find the user
-		$user = $this->user->find($id);
+		// Delete the user
+		$user = $this->user->delete($id, false);
 
 		if ($user)
 		{
-			// Delete the user
-			$remove = $user->deleteUser();
-
-			// See which response to send
-			if ($remove)
-				return Response::api("User removed", 200);
-
-			return Response::api("User cannot be deleted", 403);
+			return Response::json(['message' => "User removed"], 200);
 		}
 
-		return Response::api("User not found", 400);
+		return Response::json(['message' => "User not found"], 400);
 	}
 
 	/**
@@ -189,33 +178,12 @@ class User extends Base {
 		// Get the user's primary character
 		$primary = $user->getPrimaryCharacter();
 
-		// Get the primary character's positions
-		foreach ($primary->positions as $position)
-		{
-			$primaryCharacterPositions[] = [
-				'id'			=> $position->id,
-				'name'			=> $position->name,
-				'department'	=> $position->dept->name,
-				'primary'		=> (bool) $position->pivot->primary,
-			];
-
-			if ((bool) $position->pivot->primary === true)
-			{
-				$primaryCharacterPrimaryPosition = [
-					'id'			=> $position->id,
-					'name'			=> $position->name,
-					'department'	=> $position->dept->name,
-				];
-			}
-		}
-
-		// Get the user's characters
-		foreach ($user->characters as $char)
+		if ($primary)
 		{
 			// Get the primary character's positions
-			foreach ($char->positions as $position)
+			foreach ($primary->positions as $position)
 			{
-				$characterPositions[] = [
+				$primaryCharacterPositions[] = [
 					'id'			=> $position->id,
 					'name'			=> $position->name,
 					'department'	=> $position->dept->name,
@@ -224,36 +192,66 @@ class User extends Base {
 
 				if ((bool) $position->pivot->primary === true)
 				{
-					$characterPrimaryPosition = [
+					$primaryCharacterPrimaryPosition = [
 						'id'			=> $position->id,
 						'name'			=> $position->name,
 						'department'	=> $position->dept->name,
 					];
 				}
 			}
+		}
 
-			$userCharacters[] = [
-				'id'			=> $char->id,
-				'name'			=> $char->getName(),
-				'rank'			=> $char->rank->info->name,
-				'position'		=> $characterPrimaryPosition,
-				'all_positions'	=> $characterPositions,
-			];
+		if ($user->characters->count() > 0)
+		{
+			// Get the user's characters
+			foreach ($user->characters as $char)
+			{
+				// Get the primary character's positions
+				foreach ($char->positions as $position)
+				{
+					$characterPositions[] = [
+						'id'			=> $position->id,
+						'name'			=> $position->name,
+						'department'	=> $position->dept->name,
+						'primary'		=> (bool) $position->pivot->primary,
+					];
+
+					if ((bool) $position->pivot->primary === true)
+					{
+						$characterPrimaryPosition = [
+							'id'			=> $position->id,
+							'name'			=> $position->name,
+							'department'	=> $position->dept->name,
+						];
+					}
+				}
+
+				$userCharacters[] = [
+					'id'			=> $char->id,
+					'name'			=> $char->getName(),
+					'rank'			=> $char->rank->info->name,
+					'position'		=> $characterPrimaryPosition,
+					'all_positions'	=> $characterPositions,
+				];
+			}
 		}
 
 		// Get the user data from the user form
 		$userForm = [];
 
-		// Loop through the user form and collect the data
-		foreach ($user->data as $d)
+		if ($user->data->count() > 0)
 		{
-			if ( ! empty($d->value))
+			// Loop through the user form and collect the data
+			foreach ($user->data as $d)
 			{
-				// Set the key
-				$key = strtolower($d->field->label);
-				$key = str_replace(' ', '_', $key);
+				if ( ! empty($d->value))
+				{
+					// Set the key
+					$key = strtolower($d->field->label);
+					$key = str_replace(' ', '_', $key);
 
-				$userForm[$key] = $d->value;
+					$userForm[$key] = $d->value;
+				}
 			}
 		}
 
@@ -297,7 +295,7 @@ class User extends Base {
 	protected function validateUser()
 	{
 		// Set up the validation service
-		$validator = new UserValidator(Input::get());
+		$validator = new UserValidator;
 
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
@@ -305,7 +303,9 @@ class User extends Base {
 			// Format the validation errors
 			$messages = $this->formatValidationErrors($validator);
 
-			return Response::api("Validation of the user information failed. {$messages}", 409);
+			return Response::json([
+				'message' => "Validation of the user information failed. {$messages}"
+			], 409);
 		}
 	}
 
