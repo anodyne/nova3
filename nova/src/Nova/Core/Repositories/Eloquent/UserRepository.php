@@ -60,12 +60,15 @@ class UserRepository implements UserRepositoryInterface {
 	{
 		$user = UserModel::create($data);
 
-		$flashStatus = ($user) ? 'success' : 'danger';
-		$flashMessage = ($user) 
-			? lang('Short.alert.success.create', lang('user'))
-			: lang('Short.alert.failure.create', lang('user'));
+		if ($setFlash)
+		{
+			$flashStatus = ($user) ? 'success' : 'danger';
+			$flashMessage = ($user) 
+				? lang('Short.alert.success.create', lang('user'))
+				: lang('Short.alert.failure.create', lang('user'));
 
-		$this->setFlashMessage($flashStatus, $flashMessage);
+			$this->setFlashMessage($flashStatus, $flashMessage);
+		}
 
 		return $user;
 	}
@@ -87,7 +90,9 @@ class UserRepository implements UserRepositoryInterface {
 			foreach ($item->characters as $character)
 			{
 				if ($character->status == Status::ACTIVE)
+				{
 					$character->update(['status' => Status::INACTIVE]);
+				}
 			}
 		}
 
@@ -102,23 +107,28 @@ class UserRepository implements UserRepositoryInterface {
 	 */
 	public function delete($id, $setFlash = true)
 	{
-		$id = $this->sanitizeInt($id);
-
 		// Get the user
 		$user = $this->find($id);
 
 		if ($user)
-			$user->deleteUser();
+		{
+			$delete = $user->deleteUser();
 
-		// Set the flash info
-		$flashStatus = ($user) ? 'success' : 'danger';
-		$flashMessage = ($user) 
-			? lang('Short.alert.success.delete', lang('user'))
-			: lang('Short.alert.failure.delete', lang('user'));
+			if ($setFlash)
+			{
+				// Set the flash info
+				$flashStatus = ($user) ? 'success' : 'danger';
+				$flashMessage = ($user) 
+					? lang('Short.alert.success.delete', lang('user'))
+					: lang('Short.alert.failure.delete', lang('user'));
 
-		$this->setFlashMessage($flashStatus, $flashMessage);
+				$this->setFlashMessage($flashStatus, $flashMessage);
+			}
 
-		return $user;
+			return $user;
+		}
+
+		return false;
 	}
 
 	/**
@@ -129,9 +139,7 @@ class UserRepository implements UserRepositoryInterface {
 	 */
 	public function find($id)
 	{
-		$id = $this->sanitizeInt($id);
-
-		return UserModel::find($id);
+		return UserModel::find($this->sanitizeInt($id));
 	}
 
 	/**
@@ -142,9 +150,7 @@ class UserRepository implements UserRepositoryInterface {
 	 */
 	public function findByEmail($email)
 	{
-		$email = $this->sanitizeString($email);
-
-		return UserModel::email($email)->first();
+		return UserModel::email($this->sanitizeString($email))->first();
 	}
 
 	/**
@@ -155,9 +161,32 @@ class UserRepository implements UserRepositoryInterface {
 	 */
 	public function findByName($name)
 	{
-		$name = $this->sanitizeString($name);
+		return UserModel::searchName($this->sanitizeString($name))->get();
+	}
 
-		return UserModel::searchName($name)->get();
+	/**
+	 * Find users by a status with a limit and offset.
+	 *
+	 * @param	int		$status		User status
+	 * @param	int		$limit		How many users to get back
+	 * @param	int		$offset		The offset of users
+	 * @param	Collection
+	 */
+	public function findUsers($status, $limit, $offset)
+	{
+		$items = UserModel::where('status', $status);
+
+		if ($limit)
+		{
+			$items = $items->take($limit);
+		}
+
+		if ($offset)
+		{
+			$items = $items->skip($offset);
+		}
+
+		return $items->get();
 	}
 
 	/**
@@ -189,92 +218,98 @@ class UserRepository implements UserRepositoryInterface {
 	 */
 	public function update($id, array $data, $setFlash = true)
 	{
-		$id = $this->sanitizeInt($id);
-		
 		// Get the user
 		$user = $this->find($id);
 
-		// Get the type of update we're making
-		$formAction = $data['formAction'];
-
-		if ($formAction == 'basic')
+		if ($user)
 		{
-			if (array_key_exists('password', $data))
-			{
-				// Do the update
-				$item = $user->update($data);
+			// Get the type of update we're making
+			$formAction = $data['formAction'];
 
-				$flashStatus = 'success';
-				$flashMessage = lang('Short.alert.success.update', lang('user'));
-			}
-			else
+			if ($formAction == 'basic')
 			{
-				// Make sure their current password is right
-				if (App::make('sentry.hasher')->hash($data['password']) == $user->password)
+				if (array_key_exists('password', $data))
 				{
-					// Make sure the new password matches the confirmation
-					if ($data['password_new'] == $data['password_new_confirm'])
-						$item = $user->update(array_merge($data, ['password' => $data['password_new']]));
-					
-					else
-					{
-						$flashStatus = 'danger';
-						$flashMessage = lang('error.admin.user.passwordsNotMatching');
-					}
+					// Do the update
+					$item = $user->update($data);
+
+					$flashStatus = 'success';
+					$flashMessage = lang('Short.alert.success.update', lang('user'));
 				}
 				else
 				{
-					$flashStatus = 'danger';
-					$flashMessage = lang('error.admin.user.wrongPassword');
+					// Make sure their current password is right
+					if (App::make('sentry.hasher')->hash($data['password']) == $user->password)
+					{
+						// Make sure the new password matches the confirmation
+						if ($data['password_new'] == $data['password_new_confirm'])
+							$item = $user->update(array_merge($data, ['password' => $data['password_new']]));
+						
+						else
+						{
+							$flashStatus = 'danger';
+							$flashMessage = lang('error.admin.user.passwordsNotMatching');
+						}
+					}
+					else
+					{
+						$flashStatus = 'danger';
+						$flashMessage = lang('error.admin.user.wrongPassword');
+					}
 				}
 			}
-		}
 
-		if ($formAction == 'bio' or $formAction == 'preferences' or $formAction == 'notifications')
-		{
-			// Do the update
-			switch ($formAction)
+			if ($formAction == 'bio' or $formAction == 'preferences' or $formAction == 'notifications')
 			{
-				case 'bio':
-					$item = $this->updateFormData($user->id, $data);
+				// Do the update
+				switch ($formAction)
+				{
+					case 'bio':
+						$item = $this->updateFormData($user->id, $data);
 
-					$text = 'user bio';
-				break;
+						$text = 'user bio';
+					break;
 
-				case 'preferences':
-				case 'notifications':
-					$item = $this->updatePreferences($user->id, $data);
+					case 'preferences':
+					case 'notifications':
+						$item = $this->updatePreferences($user->id, $data);
 
-					if ($formAction == 'preferences')
-						$text = 'user preferences';
+						if ($formAction == 'preferences')
+							$text = 'user preferences';
 
-					if ($formAction == 'notifications')
-						$text = 'user notification preferences';
-				break;
+						if ($formAction == 'notifications')
+							$text = 'user notification preferences';
+					break;
+				}
+
+				// Set the flash info
+				$flashStatus = ($item) ? 'success' : 'danger';
+				$flashMessage = ($item) 
+					? lang('Short.alert.success.update', langConcat($text))
+					: lang('Short.alert.failure.update', langConcat($text));
 			}
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.update', langConcat($text))
-				: lang('Short.alert.failure.update', langConcat($text));
+			if ($formAction == 'admin')
+			{
+				// Moderation
+
+				// Change access level
+
+				// Is system admin
+
+				// Is game master
+			}
+
+			if ($setFlash)
+			{
+				// Set the flash message
+				$this->setFlashMessage($flashStatus, $flashMessage);
+			}
+
+			return $user;
 		}
 
-		if ($formAction == 'admin')
-		{
-			// Moderation
-
-			// Change access level
-
-			// Is system admin
-
-			// Is game master
-		}
-
-		// Set the flash message
-		$this->setFlashMessage($flashStatus, $flashMessage);
-
-		return $user;
+		return false;
 	}
 
 	/**

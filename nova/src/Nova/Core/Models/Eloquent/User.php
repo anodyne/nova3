@@ -512,23 +512,27 @@ class User extends Model implements UserInterface, FormDataInterface, MediaInter
 	{
 		if ($this->canBeDeleted())
 		{
-			// Delete all characters associated with the user
-			foreach ($this->characters as $character)
+			if ($this->characters->count() > 0)
 			{
-				$character->deleteCharacter();
+				// Delete all characters associated with the user
+				foreach ($this->characters as $character)
+				{
+					$character->deleteCharacter();
+				}
 			}
 
 			// Delete the user
-			$this->delete();
-
-			return true;
+			return parent::delete();
 		}
 		else
 		{
-			// Delete all characters associated with the user
-			foreach ($this->characters as $character)
+			if ($this->characters->count() > 0)
 			{
-				$character->deleteCharacter();
+				// Delete all characters associated with the user
+				foreach ($this->characters as $character)
+				{
+					$character->deleteCharacter();
+				}
 			}
 
 			// Update the user's status
@@ -703,9 +707,7 @@ class User extends Model implements UserInterface, FormDataInterface, MediaInter
 	 */
 	public function delete()
 	{
-		$this->deleteUser();
-
-		return true;
+		return $this->deleteUser();
 	}
 
 	/**

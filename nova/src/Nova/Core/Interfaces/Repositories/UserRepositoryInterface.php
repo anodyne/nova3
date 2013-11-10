@@ -45,6 +45,16 @@ interface UserRepositoryInterface extends BaseRepositoryInterface {
 	public function findByName($name);
 
 	/**
+	 * Find users by a status with a limit and offset.
+	 *
+	 * @param	int		$status		User status
+	 * @param	int		$limit		How many users to get back
+	 * @param	int		$offset		The offset of users
+	 * @param	Collection
+	 */
+	public function findUsers($status, $limit, $offset);
+
+	/**
 	 * Get all inactive users.
 	 *
 	 * @return	Collection
