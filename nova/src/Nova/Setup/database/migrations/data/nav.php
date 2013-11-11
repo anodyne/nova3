@@ -403,7 +403,7 @@ return [
 		'access' => 'content.create|content.update|content.delete'
 	],
 	[
-		'name' => 'Site Navigation',
+		'name' => 'Navigation',
 		'group' => 0,
 		'order' => 3,
 		'url' => 'admin/navigation',
