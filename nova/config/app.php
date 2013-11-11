@@ -263,6 +263,7 @@ return [
 		'NotifierNoContentException'	=> "Nova\Core\Exceptions\NotifierNoContentException",
 		'NotifierNoSubjectException'	=> "Nova\Core\Exceptions\NotifierNoSubjectException",
 		'NovaGeneralException'			=> "Nova\Core\Exceptions\NovaGeneralException",
+		'RouteProtectedException'		=> "Nova\Core\Exceptions\RouteProtectedException",
 
 		/**
 		 * Models

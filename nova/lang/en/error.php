@@ -16,6 +16,10 @@ return [
 			'protected' => "This is a protected form and cannot be deleted.",
 		],
 
+		'route' => [
+			'protected' => "This is a protected route and cannot be deleted.",
+		],
+
 		'user' => [
 			'notAuthorized' => "You are not authorized to :0 this user.",
 			'wrongPassword' => "The password you entered is wrong. Please try again.",

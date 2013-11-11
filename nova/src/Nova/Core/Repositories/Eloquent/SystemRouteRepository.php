@@ -3,6 +3,7 @@
 use UtilityTrait;
 use SecurityTrait;
 use SystemRouteModel;
+use RouteProtectedException;
 use SystemRouteRepositoryInterface;
 
 class SystemRouteRepository implements SystemRouteRepositoryInterface {
@@ -94,6 +95,11 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 
 		if ($item)
 		{
+			if ((bool) $item->protected)
+			{
+				throw new RouteProtectedException;
+			}
+
 			$delete = $item->delete();
 
 			if ($setFlash)
