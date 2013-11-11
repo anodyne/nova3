@@ -110,3 +110,6 @@
 		@endif
 	</div>
 </div>
+
+{{ modal(['id' => 'deleteRoute', 'header' => lang('Short.delete', lang('Route'))]) }}
+{{ modal(['id' => 'duplicateRoute', 'header' => lang('Short.duplicate', langConcat('Core Route'))]) }}

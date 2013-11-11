@@ -26,10 +26,12 @@ class Manage extends AdminBaseController {
 		// Verify the user is allowed
 		$this->currentUser->allowed(['routes.create', 'routes.update', 'routes.delete'], true);
 
+		// Set the view
 		$this->jsView = 'admin/manage/routes_js';
 
 		if ($routeId !== false)
 		{
+			// Set the view
 			$this->view = 'admin/manage/routes_action';
 
 			// Set the ID
@@ -43,22 +45,11 @@ class Manage extends AdminBaseController {
 		}
 		else
 		{
+			// Set the view
 			$this->view = 'admin/manage/routes';
 
 			// Get all the routes for the system
 			$this->data->routes = $this->routes->all();
-
-			// Build the duplicate page modal
-			$this->ajax[] = modal([
-				'id'		=> 'duplicateRoute',
-				'header'	=> lang('Short.duplicate', langConcat('Core Route'))
-			]);
-
-			// Build the delete page modal
-			$this->ajax[] = modal([
-				'id'		=> 'deleteRoute',
-				'header'	=> lang('Short.delete', lang('Route'))
-			]);
 		}
 	}
 	public function postRoutes()
@@ -72,17 +63,6 @@ class Manage extends AdminBaseController {
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
 		{
-			if ($formAction == 'delete' or $formAction == 'duplicate')
-			{
-				// Set the flash message
-				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
-				$flashMessage.= implode(' ', $validator->getErrors()->all());
-
-				return Redirect::to('admin/routes')
-					->with('flashStatus', 'danger')
-					->with('flashMessage', $flashMessage);
-			}
-
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
 		}
 
@@ -113,9 +93,17 @@ class Manage extends AdminBaseController {
 		// Delete a route
 		if ($this->currentUser->hasAccess('routes.delete') and $formAction == 'delete')
 		{
-			$item = $this->routes->delete(Input::get('id'));
+			try
+			{
+				$item = $this->routes->delete(Input::get('id'));
 
-			Event::fire('nova.route.deleted', [$item, Input::all()]);
+				Event::fire('nova.route.deleted', [$item, Input::all()]);
+			}
+			catch (\RouteProtectedException $e)
+			{
+				Session::flash('flashStatus', 'danger');
+				Session::flash('flashMessage', lang('error.admin.route.protected'));
+			}
 		}
 
 		return Redirect::to('admin/routes');
