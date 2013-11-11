@@ -8,7 +8,7 @@ class NavEventHandler extends \BaseEventHandler {
 	 * @param	Nav		$item	The nav item that was created
 	 * @return	void
 	 */
-	public function onNavCreated($item)
+	public function onNavCreated($item, $input)
 	{
 		$this->createSystemEvent('action.created', 'navigation item', $item->name);
 	}
@@ -19,7 +19,7 @@ class NavEventHandler extends \BaseEventHandler {
 	 * @param	Nav		$item	The nav item that was deleted
 	 * @return	void
 	 */
-	public function onNavDeleted($item)
+	public function onNavDeleted($item, $input)
 	{
 		$this->createSystemEvent('action.deleted', 'navigation item', $item->name);
 	}
@@ -30,7 +30,7 @@ class NavEventHandler extends \BaseEventHandler {
 	 * @param	Nav		$item	The nav item that was duplicated
 	 * @return	void
 	 */
-	public function onNavDuplicated($item)
+	public function onNavDuplicated($item, $input)
 	{
 		$this->createSystemEvent('action.duplicated', 'navigation item', $item->name);
 	}
@@ -41,7 +41,7 @@ class NavEventHandler extends \BaseEventHandler {
 	 * @param	Nav		$item	The nav item that was updated
 	 * @return	void
 	 */
-	public function onNavUpdated($item)
+	public function onNavUpdated($item, $input)
 	{
 		$this->createSystemEvent('action.updated', 'navigation item', $item->name);
 	}
