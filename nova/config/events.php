@@ -24,6 +24,15 @@ return [
 	'nova.nav.duplicated'		=> ['NavEventHandler@onNavDuplicated'],
 	'nova.nav.updated'			=> ['NavEventHandler@onNavUpdated'],
 
+	'nova.route.created'		=> ['SystemRouteEventHandler@onCreated'],
+	'nova.route.deleted'		=> ['SystemRouteEventHandler@onDeleted'],
+	'nova.route.duplicated'		=> ['SystemRouteEventHandler@onDuplicated'],
+	'nova.route.updated'		=> ['SystemRouteEventHandler@onUpdated'],
+
+	'nova.sitecontent.created'	=> ['SiteContentEventHandler@onCreated'],
+	'nova.sitecontent.deleted'	=> ['SiteContentEventHandler@onDeleted'],
+	'nova.sitecontent.updated'	=> ['SiteContentEventHandler@onUpdated'],
+
 	'nova.user.created'			=> ['UserEventHandler@onUserCreated'],
 	'nova.user.resetPassword'	=> ['UserEventHandler@onUserResetPassword'],
 

@@ -338,6 +338,8 @@ return [
 		'BaseEventHandler'				=> "Nova\Core\Events\BaseEventHandler",
 		'FormViewerEventHandler'		=> "Nova\Core\Events\FormViewerEventHandler",
 		'NavEventHandler'				=> "Nova\Core\Events\NavEventHandler",
+		'SiteContentEventHandler'		=> "Nova\Core\Events\SiteContentEventHandler",
+		'SystemRouteEventHandler'		=> "Nova\Core\Events\SystemRouteEventHandler",
 		'UserEventHandler'				=> "Nova\Core\Events\UserEventHandler",
 
 		'FormEventHandler'				=> "Nova\Core\Events\FormEventHandler",
@@ -364,8 +366,6 @@ return [
 		'MediaModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Media",
 		'PositionModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Position",
 		'SettingsModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Settings",
-		'SiteContentModelEventHandler'	=> "Nova\\Core\\Events\\Models\\SiteContent",
-		'SystemRouteModelEventHandler'	=> "Nova\\Core\\Events\\Models\\SystemRoute",
 
 		/**
 		 * Validators

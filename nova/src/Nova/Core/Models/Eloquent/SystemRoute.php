@@ -56,28 +56,6 @@ class SystemRoute extends Model implements CacheInterface {
 
 	/*
 	|--------------------------------------------------------------------------
-	| Model Methods
-	|--------------------------------------------------------------------------
-	*/
-
-	/**
-	 * Boot the model and define the event listeners.
-	 *
-	 * @return	void
-	 */
-	public static function boot()
-	{
-		parent::boot();
-
-		// Get all the aliases
-		$a = Config::get('app.aliases');
-
-		// Setup the listeners
-		static::setupEventListeners($a['SystemRouteModel'], $a['SystemRouteModelEventHandler']);
-	}
-
-	/*
-	|--------------------------------------------------------------------------
 	| CacheInterface Implementation
 	|--------------------------------------------------------------------------
 	*/
