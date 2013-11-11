@@ -19,10 +19,10 @@ return [
 	'nova.form.valueDeleted'	=> ['FormValueEventHandler@onValueDeleted'],
 	'nova.form.valueUpdated'	=> ['FormValueEventHandler@onValueUpdated'],
 
-	'nova.nav.created'			=> ['NavEventHandler@onNavCreated'],
-	'nova.nav.deleted'			=> ['NavEventHandler@onNavDeleted'],
-	'nova.nav.duplicated'		=> ['NavEventHandler@onNavDuplicated'],
-	'nova.nav.updated'			=> ['NavEventHandler@onNavUpdated'],
+	'nova.nav.created'			=> ['NavigationEventHandler@onNavCreated'],
+	'nova.nav.deleted'			=> ['NavigationEventHandler@onNavDeleted'],
+	'nova.nav.duplicated'		=> ['NavigationEventHandler@onNavDuplicated'],
+	'nova.nav.updated'			=> ['NavigationEventHandler@onNavUpdated'],
 
 	'nova.route.created'		=> ['SystemRouteEventHandler@onCreated'],
 	'nova.route.deleted'		=> ['SystemRouteEventHandler@onDeleted'],

@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Events;
 
-class NavEventHandler extends \BaseEventHandler {
+class NavigationEventHandler extends \BaseEventHandler {
 
 	/**
 	 * When a nav item is created, create a system event.
