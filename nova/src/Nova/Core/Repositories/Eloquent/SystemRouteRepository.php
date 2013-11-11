@@ -1,11 +1,13 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use SystemRouteModel;
+use UtilityTrait;
 use SecurityTrait;
+use SystemRouteModel;
 use SystemRouteRepositoryInterface;
 
 class SystemRouteRepository implements SystemRouteRepositoryInterface {
 
+	use UtilityTrait;
 	use SecurityTrait;
 	
 	/**
@@ -41,16 +43,42 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 
 		return $routes;
 	}
+
+	/**
+	 * Cache the system routes.
+	 *
+	 * @return	void
+	 */
+	public function cache()
+	{
+		SystemRouteModel::cache();
+	}
 	
 	/**
 	 * Create a new item.
 	 *
-	 * @param	array	$data	Data to use for creation
+	 * @param	array	$data		Data to use for creation
+	 * @param	bool	$setFlash	Set the flash message?
 	 * @return	SystemRoute
 	 */
 	public function create(array $data, $setFlash = true)
 	{
-		return SystemRouteModel::create($data);
+		// Create the route
+		$route = SystemRouteModel::create($data);
+
+		if ($setFlash)
+		{
+			// Set the flash info
+			$status = ($route) ? 'success' : 'danger';
+			$message = ($route) 
+				? lang('Short.alert.success.create', langConcat('route'))
+				: lang('Short.alert.failure.create', langConcat('route'));
+
+			// Flash the session
+			$this->setFlashMessage($status, $message);
+		}
+
+		return $route;
 	}
 
 	/**
@@ -61,12 +89,30 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 	 */
 	public function delete($id, $setFlash = true)
 	{
-		$id = $this->sanitizeInt($id);
-
+		// Get the route
 		$item = $this->find($id);
 
 		if ($item)
-			return $item->delete();
+		{
+			$delete = $item->delete();
+
+			if ($setFlash)
+			{
+				// Set the flash info
+				$status = ($delete) ? 'success' : 'danger';
+				$message = ($delete) 
+					? lang('Short.alert.success.delete', langConcat('route'))
+					: lang('Short.alert.failure.delete', langConcat('route'));
+
+				// Flash the session
+				$this->setFlashMessage($status, $message);
+			}
+
+			if ($delete)
+			{
+				return $item;
+			}
+		}
 
 		return false;
 	}
@@ -74,23 +120,37 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 	/**
 	 * Duplicate a system route.
 	 *
-	 * @param	int		$id		Route ID to duplicate
+	 * @param	int		$id			Route ID to duplicate
+	 * @param	bool	$setFlash	Set the flash message?
 	 * @return	SystemRoute
 	 */
-	public function duplicate($id)
+	public function duplicate($id, $setFlash = true)
 	{
-		$id = $this->sanitizeInt($id);
-
+		// Get the original route
 		$item = $this->find($id);
 
 		if ($item)
 		{
-			return $this->create([
+			$route = $this->create([
 				'name'		=> $item->name,
 				'verb'		=> $item->verb,
 				'uri'		=> $item->uri,
 				'resource'	=> $item->resource,
 			]);
+
+			if ($setFlash)
+			{
+				// Set the flash info
+				$status = ($route) ? 'success' : 'danger';
+				$message = ($route) 
+					? lang('Short.alert.success.duplicate', langConcat('core route'))
+					: lang('Short.alert.failure.duplicate', langConcat('core route'));
+
+				// Flash the session
+				$this->setFlashMessage($status, $message);
+			}
+
+			return $route;
 		}
 
 		return false;
@@ -104,26 +164,40 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 	 */
 	public function find($id)
 	{
-		$id = $this->sanitizeInt($id);
-
-		return SystemRouteModel::find($id);
+		return SystemRouteModel::find($this->sanitizeInt($id));
 	}
 
 	/**
 	 * Update an item.
 	 *
-	 * @param	int		$id		ID to update
-	 * @param	array	$data	Data to use for update
+	 * @param	int		$id			ID to update
+	 * @param	array	$data		Data to use for update
+	 * @param	bool	$setFlash	Set the flash message?
 	 * @return	SystemRoute
 	 */
 	public function update($id, array $data, $setFlash = true)
 	{
-		$id = $this->sanitizeInt($id);
-		
+		// Get the route
 		$item = $this->find($id);
 
 		if ($item)
-			return $item->update($data);
+		{
+			$update = $item->update($data);
+
+			if ($setFlash)
+			{
+				// Set the flash info
+				$status = ($update) ? 'success' : 'danger';
+				$message = ($update) 
+					? lang('Short.alert.success.update', langConcat('route'))
+					: lang('Short.alert.failure.update', langConcat('route'));
+
+				// Flash the session
+				$this->setFlashMessage($status, $message);
+			}
+
+			return $update;
+		}
 
 		return false;
 	}
