@@ -1,11 +1,14 @@
 <?php namespace Nova\Core\Controllers\Admin;
 
 use Str;
+use Event;
 use Input;
+use Session;
 use Redirect;
 use AdminBaseController;
 use SiteContentValidator;
 use SystemRouteValidator;
+use RouteProtectedException;
 use NavigationRepositoryInterface;
 use SystemRouteRepositoryInterface;
 
@@ -34,14 +37,14 @@ class Manage extends AdminBaseController {
 			// Set the view
 			$this->view = 'admin/manage/routes_action';
 
-			// Set the ID
-			$routeId = (is_numeric($routeId)) ? $routeId : 0;
+			// Do some sanity checking on the route ID
+			$routeId = (is_numeric($routeId)) ? (int) $routeId : 0;
 
 			// Get the route
 			$this->data->route = $this->routes->find($routeId);
 
 			// Set the action
-			$this->mode = $this->data->action = ((int) $routeId === 0) ? 'create' : 'update';
+			$this->mode = $this->data->action = ($routeId === 0) ? 'create' : 'update';
 		}
 		else
 		{
@@ -54,7 +57,7 @@ class Manage extends AdminBaseController {
 	}
 	public function postRoutes()
 	{
-		// Get the action
+		// Get the form action
 		$formAction = Input::get('formAction');
 
 		// Set up the validation service
@@ -99,7 +102,7 @@ class Manage extends AdminBaseController {
 
 				Event::fire('nova.route.deleted', [$item, Input::all()]);
 			}
-			catch (\RouteProtectedException $e)
+			catch (RouteProtectedException $e)
 			{
 				Session::flash('flashStatus', 'danger');
 				Session::flash('flashMessage', lang('error.admin.route.protected'));

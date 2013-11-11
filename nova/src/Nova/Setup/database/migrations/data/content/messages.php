@@ -358,7 +358,7 @@ return [
 	[
 		'key'		=> 'message.admin.routes',
 		'label'		=> 'Routes Manager Message',
-		'content'	=> "Routes are Nova's traffic cops. When a user types an address into their browser, Nova takes that information (called a URI) and determines what controller and action it should use. For performance reasons, Nova does not do this on-the-fly, opting instead to keep a master list of all the routes and their resources. From here, you can manage all of Nova's routes and even tell Nova to use different resources for routes.\r\n\r\nWhile you can't edit the core routes, you can duplicate routes and change the information associated with it. Nova will use your version of the route instead of the one in the core.",
+		'content'	=> "Routes are Nova's traffic cops. When a user types an address into their browser, Nova takes that information (called a URI) and determines what controller and action it should use. For performance reasons, Nova doesn't do this on-the-fly, opting instead to keep a master list of all the routes and their resources. From here, you can manage all of Nova's routes and even tell Nova to use different resources for specific routes.\r\n\r\nWhile you can't edit the core routes, you can duplicate them and change their information. Nova will use your version of the route instead of the one in the core.",
 		'type'		=> $type,
 		'section'	=> 'manage',
 		'page'		=> 'routes',

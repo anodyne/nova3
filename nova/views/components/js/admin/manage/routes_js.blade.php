@@ -1,9 +1,26 @@
-<script type="text/javascript">
+<script src="{{ URL::to('nova/assets/js/jquery.quicksearch.min.js') }}"></script>
+<script>
 	
-	$(document).ready(function()
-	{
-		$('#searchUserRoutes').quicksearch('#userRoutes .row');
-		$('#searchCoreRoutes').quicksearch('#coreRoutes .row');
+	$('#searchUserRoutes').quicksearch('#userRoutes > div', {
+		hide: function()
+		{
+			$(this).addClass('hidden');
+		},
+		show: function()
+		{
+			$(this).removeClass('hidden');
+		}
+	});
+
+	$('#searchCoreRoutes').quicksearch('#coreRoutes > div', {
+		hide: function()
+		{
+			$(this).addClass('hidden');
+		},
+		show: function()
+		{
+			$(this).removeClass('hidden');
+		}
 	});
 
 	$(document).on('click', '.js-route-action', function(e)
