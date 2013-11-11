@@ -25,4 +25,6 @@ interface SiteContentRepositoryInterface extends BaseRepositoryInterface {
 
 	public function updateByKey(array $data);
 
+	public function updateUri($oldURI, $newURI);
+
 }

@@ -1,11 +1,13 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use SiteContentModel;
+use UtilityTrait;
 use SecurityTrait;
+use SiteContentModel;
 use SiteContentRepositoryInterface;
 
 class SiteContentRepository implements SiteContentRepositoryInterface {
 
+	use UtilityTrait;
 	use SecurityTrait;
 
 	public function all()
@@ -15,27 +17,57 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 
 	public function create(array $data, $setFlash = true)
 	{
-		return SiteContentModel::create($data);
+		$item = SiteContentModel::create($data);
+
+		if ($setFlash)
+		{
+			// Set the flash info
+			$status = ($item) ? 'success' : 'danger';
+			$message = ($item) 
+				? lang('Short.alert.success.create', langConcat('site content'))
+				: lang('Short.alert.failure.create', langConcat('site content'));
+
+			// Flash the session
+			$this->setFlashMessage($status, $message);
+		}
+
+		return $item;
 	}
 
 	public function delete($id, $setFlash = true)
 	{
-		$id = $this->sanitizeInt($id);
-
 		// Get the content item
 		$item = $this->find($id);
 
 		if ($item)
-			return $item->delete();
+		{
+			// Delete the item
+			$delete = $item->delete();
+
+			if ($setFlash)
+			{
+				// Set the flash info
+				$status = ($delete) ? 'success' : 'danger';
+				$message = ($delete) 
+					? lang('Short.alert.success.delete', langConcat('site content'))
+					: lang('Short.alert.failure.delete', langConcat('site content'));
+
+				// Flash the session
+				$this->setFlashMessage($status, $message);
+			}
+
+			if ($delete)
+			{
+				return $item;
+			}
+		}
 
 		return false;
 	}
 
 	public function find($id)
 	{
-		$id = $this->sanitizeInt($id);
-
-		return SiteContentModel::find($id);
+		return SiteContentModel::find($this->sanitizeInt($id));
 	}
 
 	/**
@@ -65,13 +97,28 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 
 	public function update($id, array $data, $setFlash = true)
 	{
-		$id = $this->sanitizeInt($id);
-
 		// Get the content item
 		$item = $this->find($id);
 
 		if ($item)
-			return $item->update($data);
+		{
+			// Update the item
+			$update = $item->update($data);
+
+			if ($setFlash)
+			{
+				// Set the flash info
+				$status = ($update) ? 'success' : 'danger';
+				$message = ($update) 
+					? lang('Short.alert.success.update', langConcat('site content'))
+					: lang('Short.alert.failure.update', langConcat('site content'));
+
+				// Flash the session
+				$this->setFlashMessage($status, $message);
+			}
+
+			return $update;
+		}
 
 		return false;
 	}
@@ -84,6 +131,20 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 	public function updateByKey(array $data)
 	{
 		return SiteContentModel::updateSiteContent($data);
+	}
+
+	public function updateUri($oldURI, $newURI)
+	{
+		// Get the site content
+		$items = SiteContentModel::uri($oldURI)->get();
+
+		if ($items->count() > 0)
+		{
+			foreach ($items as $item)
+			{
+				$item->update(['uri' => $newURI]);
+			}
+		}
 	}
 
 }
