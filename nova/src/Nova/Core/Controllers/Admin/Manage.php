@@ -86,69 +86,39 @@ class Manage extends AdminBaseController {
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
 		}
 
-		/**
-		 * Create a new route.
-		 */
+		// Create a new route
 		if ($this->currentUser->hasAccess('routes.create') and $formAction == 'create')
 		{
-			// Create the new page route
 			$item = $this->routes->create(Input::all());
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.create', langConcat('route'))
-				: lang('Short.alert.failure.create', langConcat('route'));
+			Event::fire('nova.route.created', [$item, Input::all()]);
 		}
 
-		/**
-		 * Duplicate a core route.
-		 */
+		// Duplicate a core route
 		if ($this->currentUser->hasAccess('routes.create') and $formAction == 'duplicate')
 		{
-			// Duplicate the route
 			$item = $this->routes->duplicate(Input::get('id'));
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.duplicate', langConcat('core route'))
-				: lang('Short.alert.failure.duplicate', langConcat('core route'));
+			Event::fire('nova.route.duplicated', [$item, Input::all()]);
 		}
 
-		/**
-		 * Update a route.
-		 */
+		// Update a route
 		if ($this->currentUser->hasAccess('routes.update') and $formAction == 'update')
 		{
-			// Update the route
 			$item = $this->routes->update(Input::get('id'), Input::all());
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.update', langConcat('route'))
-				: lang('Short.alert.failure.update', langConcat('route'));
+			Event::fire('nova.route.updated', [$item, Input::all()]);
 		}
 
-		/**
-		 * Delete a route.
-		 */
+		// Delete a route
 		if ($this->currentUser->hasAccess('routes.delete') and $formAction == 'delete')
 		{
-			// Delete the route
 			$item = $this->routes->delete(Input::get('id'));
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.delete', langConcat('route'))
-				: lang('Short.alert.failure.delete', langConcat('route'));
+			Event::fire('nova.route.deleted', [$item, Input::all()]);
 		}
 
-		return Redirect::to('admin/routes')
-			->with('flashStatus', $flashStatus)
-			->with('flashMessage', $flashMessage);
+		return Redirect::to('admin/routes');
 	}
 
 	public function getSiteContent($contentId = false)
@@ -223,68 +193,34 @@ class Manage extends AdminBaseController {
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
 		{
-			if ($formAction == 'delete')
-			{
-				// Set the flash message
-				$flashMessage = lang('Short.validate', lang('action.failed')).'. ';
-				$flashMessage.= implode(' ', $validator->getErrors()->all());
-
-				return Redirect::to('admin/sitecontent')
-					->with('flashStatus', 'danger')
-					->with('flashMessage', $flashMessage);
-			}
-
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
 		}
 
-		/**
-		 * Create the new site content.
-		 */
+		// Create the new site content
 		if ($this->currentUser->hasAccess('content.create') and $formAction == 'create')
 		{
-			// Create the item
 			$item = $this->content->create(Input::all());
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.create', langConcat('site content'))
-				: lang('Short.alert.failure.create', langConcat('site content'));
+			Event::fire('nova.sitecontent.created', [$item, Input::all()]);
 		}
 
-		/**
-		 * Update the site content.
-		 */
+		// Update the site content
 		if ($this->currentUser->hasAccess('content.update') and $formAction == 'update')
 		{
-			// Update the item
 			$item = $this->content->update(Input::get('id'), Input::all());
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.update', langConcat('site content'))
-				: lang('Short.alert.failure.update', langConcat('site content'));
+			Event::fire('nova.sitecontent.updated', [$item, Input::all()]);
 		}
 
-		/**
-		 * Delete the site content.
-		 */
+		// Delete the site content
 		if ($this->currentUser->hasAccess('content.delete') and $formAction == 'delete')
 		{
-			// Delete the site content item
 			$item = $this->content->delete(Input::get('id'));
 
-			// Set the flash info
-			$flashStatus = ($item) ? 'success' : 'danger';
-			$flashMessage = ($item) 
-				? lang('Short.alert.success.delete', langConcat('site content'))
-				: lang('Short.alert.failure.delete', langConcat('site content'));
+			Event::fire('nova.sitecontent.deleted', [$item, Input::all()]);
 		}
 
-		return Redirect::to('admin/sitecontent')
-			->with('flashStatus', $flashStatus)
-			->with('flashMessage', $flashMessage);
+		return Redirect::to('admin/sitecontent');
 	}
 
 	public function getSiteNavigation($navId = false)
@@ -355,7 +291,7 @@ class Manage extends AdminBaseController {
 		{
 			$nav = $this->navigation->create(Input::all());
 
-			Event::fire('nova.nav.created', $nav);
+			Event::fire('nova.nav.created', [$nav, Input::all()]);
 		}
 
 		// Duplicate the nav item
@@ -363,7 +299,7 @@ class Manage extends AdminBaseController {
 		{
 			$nav = $this->navigation->duplicate(Input::get('id'), Input::get('name'));
 
-			Event::fire('nova.nav.duplicated', $nav);
+			Event::fire('nova.nav.duplicated', [$nav, Input::all()]);
 		}
 
 		// Update the nav item
@@ -371,7 +307,7 @@ class Manage extends AdminBaseController {
 		{
 			$nav = $this->navigation->update(Input::get('id'), Input::all());
 
-			Event::fire('nova.nav.updated', $nav);
+			Event::fire('nova.nav.updated', [$nav, Input::all()]);
 		}
 
 		// Delete the nav item
@@ -379,7 +315,7 @@ class Manage extends AdminBaseController {
 		{
 			$nav = $this->navigation->delete(Input::get('id'));
 
-			Event::fire('nova.nav.deleted', $nav);
+			Event::fire('nova.nav.deleted', [$nav, Input::all()]);
 		}
 
 		return Redirect::to('admin/navigation');
