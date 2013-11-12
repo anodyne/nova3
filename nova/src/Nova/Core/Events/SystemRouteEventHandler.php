@@ -3,7 +3,7 @@
 use SiteContentRepositoryInterface;
 use SystemRouteRepositoryInterface;
 
-class SiteContentEventHandler extends \BaseEventHandler {
+class SystemRouteEventHandler extends \BaseEventHandler {
 
 	protected $route;
 	protected $content;
