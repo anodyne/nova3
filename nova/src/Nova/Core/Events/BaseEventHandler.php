@@ -4,6 +4,9 @@ use SystemEvent;
 
 class BaseEventHandler {
 
+	public static $item = '';
+	public static $name = 'name';
+
 	/**
 	 * Create a new system event.
 	 *
