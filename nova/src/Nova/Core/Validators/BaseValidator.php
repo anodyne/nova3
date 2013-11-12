@@ -3,16 +3,12 @@
 use Input;
 use Validator;
 
-abstract class Base {
+abstract class BaseValidator {
 
-	/**
-	 * Attributes to validate.
-	 */
+	public static $rules = [];
+	public static $messages = [];
+
 	protected $attributes;
-
-	/**
-	 * Any errors thrown during validation.
-	 */
 	protected $errors;
 
 	/**
@@ -37,7 +33,7 @@ abstract class Base {
 		$this->setupRules();
 
 		// Setup the validator
-		$validator = Validator::make($this->attributes, static::$rules);
+		$validator = Validator::make($this->attributes, static::$rules, static::$messages);
 
 		// Return true if validation passes
 		if ($validator->passes()) return true;

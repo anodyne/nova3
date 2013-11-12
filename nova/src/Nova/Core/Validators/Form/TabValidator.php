@@ -2,7 +2,7 @@
 
 use BaseValidator;
 
-class Tab extends BaseValidator {
+class TabValidator extends BaseValidator {
 
 	public static $rules = [
 		'form_id'		=> 'required|numeric',

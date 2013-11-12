@@ -2,7 +2,7 @@
 
 use BaseValidator;
 
-class Field extends BaseValidator {
+class FieldValidator extends BaseValidator {
 
 	public static $rules = [
 		'form_id'		=> 'required|numeric',

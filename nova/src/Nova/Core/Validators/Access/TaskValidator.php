@@ -2,7 +2,7 @@
 
 use BaseValidator;
 
-class Task extends BaseValidator {
+class TaskValidator extends BaseValidator {
 
 	public static $rules = [
 		'name'		=> 'required',

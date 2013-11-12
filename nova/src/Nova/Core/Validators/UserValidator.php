@@ -1,8 +1,6 @@
 <?php namespace Nova\Core\Validators;
 
-use BaseValidator;
-
-class User extends BaseValidator {
+class UserValidator extends \BaseValidator {
 
 	public static $rules = [
 		'name'				=> 'required',

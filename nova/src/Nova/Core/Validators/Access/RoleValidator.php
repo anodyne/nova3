@@ -2,7 +2,7 @@
 
 use BaseValidator;
 
-class Role extends BaseValidator {
+class RoleValidator extends BaseValidator {
 
 	public static $rules = [
 		'name' => 'required',

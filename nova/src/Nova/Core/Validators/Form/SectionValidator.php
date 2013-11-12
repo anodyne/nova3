@@ -2,7 +2,7 @@
 
 use BaseValidator;
 
-class Section extends BaseValidator {
+class SectionValidator extends BaseValidator {
 
 	public static $rules = [
 		'form_id'	=> 'required|numeric',

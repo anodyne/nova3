@@ -1,8 +1,6 @@
 <?php namespace Nova\Core\Validators;
 
-use BaseValidator;
-
-class Form extends BaseValidator {
+class FormValidator extends \BaseValidator {
 
 	public static $rules = [
 		'key'			=> 'required',

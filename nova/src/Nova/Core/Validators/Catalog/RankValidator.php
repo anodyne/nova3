@@ -2,12 +2,14 @@
 
 use BaseValidator;
 
-class Skin extends BaseValidator {
+class RankValidator extends BaseValidator {
 
 	public static $rules = [
 		'name'		=> 'required',
 		'location'	=> 'required',
-		'nav'		=> 'required|in:dropdown,classic',
+		'preview'	=> 'required',
+		'blank'		=> 'required',
+		'extension'	=> 'required|in:.png,.jpg,.gif,.jpeg,.bmp',
 		'status'	=> 'required|numeric',
 	];
 
