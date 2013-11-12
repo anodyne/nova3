@@ -33,14 +33,14 @@
 		if (action == 'delete')
 		{
 			$('#deleteRoute').modal({
-				remote: "{{ URL::to('ajax/delete/route') }}/" + id
+				remote: "{{ URL::to('admin/routes/ajax/delete') }}/" + id
 			}).modal('show');
 		}
 
 		if (action == 'duplicate')
 		{
 			$('#duplicateRoute').modal({
-				remote: "{{ URL::to('ajax/add/duplicate_route') }}/" + id
+				remote: "{{ URL::to('admin/routes/ajax/duplicate') }}/" + id
 			}).modal('show');
 		}
 	});

@@ -532,6 +532,20 @@ return [
 		'protected'		=> (int) true
 	],
 	[
+		'name'			=> 'admin/routes/ajax/delete',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/routes/ajax/delete/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@getAjaxDeleteRoute',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/routes/ajax/duplicate',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/routes/ajax/duplicate/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@getAjaxDuplicateRoute',
+		'protected'		=> (int) true
+	],
+	[
 		'name'			=> 'admin/sitecontent',
 		'verb'			=> 'get',
 		'uri'			=> 'admin/sitecontent/{contentId?}',
@@ -563,13 +577,6 @@ return [
 	/**
 	 * ajax/add
 	 */
-	[
-		'name'			=> 'ajax/add/duplicate_route',
-		'verb'			=> 'get',
-		'uri'			=> 'ajax/add/duplicate_route/{id}',
-		'resource'		=> 'Nova\Core\Controllers\Ajax\Add@getRouteDuplicate',
-		'protected'		=> (int) true
-	],
 	[
 		'name'			=> 'ajax/add/rankset',
 		'verb'			=> 'get',
@@ -655,13 +662,6 @@ return [
 	/**
 	 * ajax/delete
 	 */
-	[
-		'name'			=> 'ajax/delete/route',
-		'verb'			=> 'get',
-		'uri'			=> 'ajax/delete/route/{id}',
-		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getRoute',
-		'protected'		=> (int) true
-	],
 	[
 		'name'			=> 'ajax/delete/formviewer_entry',
 		'verb'			=> 'get',

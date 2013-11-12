@@ -82,33 +82,6 @@ class Add extends AjaxBaseController {
 	}
 
 	/**
-	 * Show the confirmation modal for duplicating a route.
-	 *
-	 * @param	int		$id		The ID of the route being duplicated
-	 * @return	View
-	 */
-	public function getRouteDuplicate($id)
-	{
-		if ($this->auth->check() and $this->currentUser->hasAccess('routes.create'))
-		{
-			// Resolve the class out of the IoC
-			$class = Nova::resolveBinding('SystemRouteRepositoryInterface');
-			
-			// Get the original route
-			$route = $class->find($id);
-
-			if ($route)
-			{
-				return partial('common/modal_content', [
-					'modalHeader'	=> lang('Short.duplicate', langConcat('Core Route')),
-					'modalBody'		=> View::make(Location::ajax('admin/admin/duplicate_route'))->with('route', $route),
-					'modalFooter'	=> false,
-				]);
-			}
-		}
-	}
-
-	/**
 	 * Duplicate a rank set.
 	 *
 	 * @param	int		the ID of the rank set being duplicated

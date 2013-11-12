@@ -111,29 +111,6 @@ class Delete extends AjaxBaseController {
 	}
 
 	/**
-	 * Show the confirmation modal for deleting a route.
-	 *
-	 * @param	int		$id		Route ID
-	 * @return	View
-	 */
-	public function getRoute($id)
-	{
-		if ($this->auth->check() and $this->currentUser->hasAccess('routes.delete'))
-		{
-			$route = \SystemRouteModel::find($id);
-
-			if ($route)
-			{
-				return partial('common/modal_content', [
-					'modalHeader'	=> lang('Short.delete', lang('Route')),
-					'modalBody'		=> View::make(Location::ajax('admin/admin/delete_route'))->with('route', $route),
-					'modalFooter'	=> false,
-				]);
-			}
-		}
-	}
-
-	/**
 	 * Show the confirmation modal for deleting site content.
 	 *
 	 * @param	int		$id		Role ID
