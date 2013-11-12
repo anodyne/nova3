@@ -125,8 +125,8 @@ class Delete extends AjaxBaseController {
 			if ($route)
 			{
 				return partial('common/modal_content', [
-					'modalHeader'	=> ucwords(lang('short.delete', lang('route'))),
-					'modalBody'		=> View::make(Location::ajax('delete/route'))->with('route', $route),
+					'modalHeader'	=> lang('Short.delete', lang('Route')),
+					'modalBody'		=> View::make(Location::ajax('admin/admin/delete_route'))->with('route', $route),
 					'modalFooter'	=> false,
 				]);
 			}

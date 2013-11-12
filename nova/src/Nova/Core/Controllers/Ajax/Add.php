@@ -101,7 +101,7 @@ class Add extends AjaxBaseController {
 			{
 				return partial('common/modal_content', [
 					'modalHeader'	=> lang('Short.duplicate', langConcat('Core Route')),
-					'modalBody'		=> View::make(Location::ajax('add/route_duplicate'))->with('route', $route),
+					'modalBody'		=> View::make(Location::ajax('admin/admin/duplicate_route'))->with('route', $route),
 					'modalFooter'	=> false,
 				]);
 			}
