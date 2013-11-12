@@ -1,15 +1,18 @@
 <?php namespace Nova\Core\Events;
 
 use FormRepositoryInterface;
+use FormViewerMailer as Mailer;
 
 class FormEventHandler extends \BaseEventHandler {
 
 	protected $form;
+	protected $mailer;
 
-	public function __construct(FormRepositoryInterface $form)
+	public function __construct(FormRepositoryInterface $form, Mailer $mailer)
 	{
 		// Set the injected interfaces
 		$this->form = $form;
+		$this->mailer = $mailer;
 	}
 
 	/**
@@ -140,6 +143,9 @@ class FormEventHandler extends \BaseEventHandler {
 	public function onValueDeleted($item, $input){}
 	public function onValueUpdated($item, $input){}
 
-	public function onFormViewerCreated($item, $input){}
+	public function onFormViewerCreated($data)
+	{
+		$this->mailer->newForm($data);
+	}
 
 }

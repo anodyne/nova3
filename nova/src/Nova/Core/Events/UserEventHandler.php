@@ -13,7 +13,7 @@ class UserEventHandler extends \BaseEventHandler {
 	protected $mailer;
 	protected $settings;
 
-	public function __construct(Mailer $mailer, SettingsRepositoryInterface $settings)
+	public function __construct(SettingsRepositoryInterface $settings, Mailer $mailer)
 	{
 		$this->mailer = $mailer;
 		$this->settings = $settings;

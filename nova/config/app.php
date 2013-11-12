@@ -336,30 +336,27 @@ return [
 		/**
 		 * Event Handlers
 		 */
+		//'AccessRoleEventHandler'		=> "Nova\Core\Events\AccessRoleEventHandler",
+		//'ApplicationEventHandler'		=> "Nova\Core\Events\ApplicationEventHandler",
 		'BaseEventHandler'				=> "Nova\Core\Events\BaseEventHandler",
-		'FormViewerEventHandler'		=> "Nova\Core\Events\FormViewerEventHandler",
+		//'CatalogEventHandler'			=> "Nova\Core\Events\CatalogEventHandler",
+		//'CharacterEventHandler'		=> "Nova\Core\Events\CharacterEventHandler",
+		//'CommentEventHandler'			=> "Nova\Core\Events\CommentEventHandler",
+		'FormEventHandler'				=> "Nova\Core\Events\FormEventHandler",
+		//'MediaEventHandler'			=> "Nova\Core\Events\MediaEventHandler",
 		'NavigationEventHandler'		=> "Nova\Core\Events\NavigationEventHandler",
+		//'PositionEventHandler'		=> "Nova\Core\Events\PositionEventHandler",
 		'RankEventHandler'				=> "Nova\Core\Events\RankEventHandler",
-		'SettingsEventHandler'			=> "Nova\Core\Events\SettingsEventHandler",
+		//'SettingsEventHandler'		=> "Nova\Core\Events\SettingsEventHandler",
 		'SiteContentEventHandler'		=> "Nova\Core\Events\SiteContentEventHandler",
 		'SystemRouteEventHandler'		=> "Nova\Core\Events\SystemRouteEventHandler",
 		'UserEventHandler'				=> "Nova\Core\Events\UserEventHandler",
 
-		'FormEventHandler'				=> "Nova\Core\Events\FormEventHandler",
-		'FormFieldEventHandler'			=> "Nova\Core\Events\Form\FieldEventHandler",
-		'FormSectionEventHandler'		=> "Nova\Core\Events\Form\SectionEventHandler",
-		'FormTabEventHandler'			=> "Nova\Core\Events\Form\TabEventHandler",
-		'FormValueEventHandler'			=> "Nova\Core\Events\Form\ValueEventHandler",
-
 		'AccessRoleModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Access\\Role",
 		'AccessTaskModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Access\\Task",
-
 		'ApplicationModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Application",
-
 		'RankCatalogModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Catalog\\Rank",
 		'SkinCatalogModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Catalog\\Skin",
-		
-		'BaseModelEventHandler'			=> "Nova\\Core\\Events\\Models\\Base",
 		'CharacterModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Character",
 		'CommentModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Comment",
 		'MediaModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Media",

@@ -65,9 +65,12 @@ Unless otherwise specified, all events are passed the object that was created/up
 - nova.form.valueDeleted
 - nova.form.valueUpdated
 - nova.form.entryCreated
+	- `$data`: Data to pass to the mailer
 
 #### User Management Events
 
 - nova.user.created
-- nova.user.deleted
-- nova.user.updated
+	- `$user`: The user object created
+	- `$input`: The POST data from the form
+- nova.user.resetPassword
+	- `$user`: The user object doing the password reset
