@@ -62,3 +62,10 @@
 * Flippant.js
 	* A mini js+css library for flipping things over.
 	* http://labs.mintchaos.com/flippant.js/
+* ChartJS
+	* Easy, object oriented client side graphs for designers and developers
+	* http://www.chartjs.org/
+* Presenter
+	* https://github.com/robclancy/presenter
+* Auto Presenter
+	* https://github.com/ShawnMcCool/laravel-auto-presenter
