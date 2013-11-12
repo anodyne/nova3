@@ -339,6 +339,7 @@ return [
 		'BaseEventHandler'				=> "Nova\Core\Events\BaseEventHandler",
 		'FormViewerEventHandler'		=> "Nova\Core\Events\FormViewerEventHandler",
 		'NavigationEventHandler'		=> "Nova\Core\Events\NavigationEventHandler",
+		'RankEventHandler'				=> "Nova\Core\Events\RankEventHandler",
 		'SettingsEventHandler'			=> "Nova\Core\Events\SettingsEventHandler",
 		'SiteContentEventHandler'		=> "Nova\Core\Events\SiteContentEventHandler",
 		'SystemRouteEventHandler'		=> "Nova\Core\Events\SystemRouteEventHandler",
@@ -357,17 +358,12 @@ return [
 
 		'RankCatalogModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Catalog\\Rank",
 		'SkinCatalogModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Catalog\\Skin",
-
-		'RankModelEventHandler'			=> "Nova\\Core\\Events\\Models\\Rank",
-		'RankGroupModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Rank\\Group",
-		'RankInfoModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Rank\\Info",
 		
 		'BaseModelEventHandler'			=> "Nova\\Core\\Events\\Models\\Base",
 		'CharacterModelEventHandler'	=> "Nova\\Core\\Events\\Models\\Character",
 		'CommentModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Comment",
 		'MediaModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Media",
 		'PositionModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Position",
-		'SettingsModelEventHandler'		=> "Nova\\Core\\Events\\Models\\Settings",
 
 		/**
 		 * Validators

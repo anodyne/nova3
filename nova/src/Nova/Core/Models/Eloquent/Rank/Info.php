@@ -34,22 +34,6 @@ class Info extends Model {
 	*/
 
 	/**
-	 * Boot the model and define the event listeners.
-	 *
-	 * @return	void
-	 */
-	public static function boot()
-	{
-		parent::boot();
-
-		// Get all the aliases
-		$a = Config::get('app.aliases');
-
-		// Setup the listeners
-		static::setupEventListeners($a['RankInfoModel'], $a['RankInfoModelEventHandler']);
-	}
-
-	/**
 	 * Since the table name is appended with the genre, we can't hard-code
 	 * it in to the model. When the object is created, we have to pull the
 	 * genre out of the config and name the table.
