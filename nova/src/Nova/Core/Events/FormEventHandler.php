@@ -124,4 +124,22 @@ class FormEventHandler extends \BaseEventHandler {
 		$this->createSystemEvent('action.updated', 'form', $form->name);
 	}
 
+	public function onFieldCreated($item, $input){}
+	public function onFieldDeleted($item, $input){}
+	public function onFieldUpdated($item, $input){}
+
+	public function onSectionCreated($item, $input){}
+	public function onSectionDeleted($item, $input){}
+	public function onSectionUpdated($item, $input){}
+
+	public function onTabCreated($item, $input){}
+	public function onTabDeleted($item, $input){}
+	public function onTabUpdated($item, $input){}
+
+	public function onValueCreated($item, $input){}
+	public function onValueDeleted($item, $input){}
+	public function onValueUpdated($item, $input){}
+
+	public function onFormViewerCreated($item, $input){}
+
 }
