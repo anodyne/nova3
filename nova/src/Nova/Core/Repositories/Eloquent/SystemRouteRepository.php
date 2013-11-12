@@ -202,7 +202,7 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 				$this->setFlashMessage($status, $message);
 			}
 
-			return $update;
+			return $item;
 		}
 
 		return false;
