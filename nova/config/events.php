@@ -29,6 +29,10 @@ return [
 	'nova.route.duplicated'		=> ['SystemRouteEventHandler@onDuplicated'],
 	'nova.route.updated'		=> ['SystemRouteEventHandler@onUpdated'],
 
+	'nova.settings.created'		=> ['SettingsEventHandler@onCreated'],
+	'nova.settings.deleted'		=> ['SettingsEventHandler@onDeleted'],
+	'nova.settings.updated'		=> ['SettingsEventHandler@onUpdated'],
+
 	'nova.sitecontent.created'	=> ['SiteContentEventHandler@onCreated'],
 	'nova.sitecontent.deleted'	=> ['SiteContentEventHandler@onDeleted'],
 	'nova.sitecontent.updated'	=> ['SiteContentEventHandler@onUpdated'],

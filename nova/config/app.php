@@ -339,6 +339,7 @@ return [
 		'BaseEventHandler'				=> "Nova\Core\Events\BaseEventHandler",
 		'FormViewerEventHandler'		=> "Nova\Core\Events\FormViewerEventHandler",
 		'NavigationEventHandler'		=> "Nova\Core\Events\NavigationEventHandler",
+		'SettingsEventHandler'			=> "Nova\Core\Events\SettingsEventHandler",
 		'SiteContentEventHandler'		=> "Nova\Core\Events\SiteContentEventHandler",
 		'SystemRouteEventHandler'		=> "Nova\Core\Events\SystemRouteEventHandler",
 		'UserEventHandler'				=> "Nova\Core\Events\UserEventHandler",
