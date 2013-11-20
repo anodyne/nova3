@@ -59,6 +59,7 @@
 			"Nova\\": "nova/src/"
 		}
 	},
-	
-	"minimum-stability": "dev"
+
+	"minimum-stability": "dev",
+	"prefer-stable": true
 }
