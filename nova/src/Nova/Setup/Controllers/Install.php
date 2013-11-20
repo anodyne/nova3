@@ -118,7 +118,7 @@ class Install extends SetupBaseController {
 		Artisan::call('key:generate', ['--env' => App::environment()]);
 
 		// Register
-		# TODO: need to figure out how we want to do registration
+		Artisan::call('nova:register', ['type' => 'install']);
 
 		return Redirect::to('setup/install/settings');
 	}
