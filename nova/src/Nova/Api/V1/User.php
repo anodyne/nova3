@@ -13,9 +13,11 @@ class User extends Base {
 	{
 		parent::__construct();
 
+		// Set the injected interface
 		$this->user = $user;
 
-		//$this->beforeFilter('auth.api');
+		// Authenticate
+		$this->beforeFilter('api.auth');
 	}
 
 	/**
