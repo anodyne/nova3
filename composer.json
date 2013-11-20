@@ -27,7 +27,7 @@
 		"dflydev/markdown": "1.*",
 		"ikimea/browser": "1.*",
 		"baum/baum": "1.*",
-		"cartalyst/sentry": "2.0.*",
+		"cartalyst/sentry": "2.*",
 		"thomaswelton/laravel-gravatar": "dev-master",
 		"intervention/image": "1.*"
 	},
@@ -39,13 +39,6 @@
 		"raveren/kint": "dev-master",
 		"fzaninotto/faker": "1.*"
 	},
-
-	"repositories": [
-		{
-			"type": "composer",
-			"url": "http://packages.cartalyst.com"
-		}
-	],
 
 	"autoload": {
 		"classmap": [
@@ -59,7 +52,7 @@
 			"Nova\\": "nova/src/"
 		}
 	},
-
+	
 	"minimum-stability": "dev",
 	"prefer-stable": true
 }
