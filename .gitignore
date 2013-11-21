@@ -5,10 +5,9 @@ composer.lock
 .DS_Store
 Thumbs.db
 
+app/assets/images/users/*
 app/config/local/*
 app/config/production/*
-
-app/assets/images/users/*
 
 *.sublime-project
 *.sublime-workspace
