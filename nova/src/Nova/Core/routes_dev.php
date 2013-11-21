@@ -45,9 +45,7 @@ Route::group(['prefix' => 'dev'], function()
 
 	Route::get('app', function()
 	{
-		$app = App::make('app');
-
-		sd($app->make('nova.location'));
+		sd(Artisan::call('nova:register', ['type' => 'install']));
 	});
 
 	Route::get('events', function()
@@ -60,5 +58,15 @@ Route::group(['prefix' => 'dev'], function()
 		//s(App::make('config'));
 		s(Config::module('Foo'));
 		s(Config::get('app.key'));
+	});
+
+	Route::get('update', function()
+	{
+		$route = SystemRouteModel::find(103);
+
+		s($route->toArray());
+		$update = $route->fill(['name' => 'home2'])->save();
+		s($route->toArray());
+		//s($update);
 	});
 });
