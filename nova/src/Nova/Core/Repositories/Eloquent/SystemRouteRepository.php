@@ -188,7 +188,7 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 
 		if ($item)
 		{
-			$update = $item->update($data);
+			$update = $item->fill($data)->save();
 
 			if ($setFlash)
 			{
@@ -202,7 +202,10 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 				$this->setFlashMessage($status, $message);
 			}
 
-			return $item;
+			if ($update)
+			{
+				return $item;
+			}
 		}
 
 		return false;
