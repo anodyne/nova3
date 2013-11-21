@@ -1,5 +1,6 @@
 /nova/start/compiled.php
 /nova/vendor
+/nova/assets/vendor
 composer.phar
 composer.lock
 .DS_Store
