@@ -1,0 +1,13 @@
+{
+	"name": "Nova 3",
+
+	"dependencies": {
+		"jcrop": "0.9.*",
+		"dropzone": "3.7.*",
+		"blockui": "*",
+		"quicksearch": "2.0.*",
+		"x-editable": "1.5.*",
+		"retina.js": "1.1.*",
+		"typeahead.js": "0.9.*"
+	}
+}
