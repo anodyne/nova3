@@ -1,6 +1,7 @@
 <?php namespace Nova\Extensions\Cartalyst\Sentry\Throttling;
 
 use UserSuspendModel;
+use Cartalyst\Sentry\Users\UserInterface;
 use Cartalyst\Sentry\Throttling\ThrottleInterface;
 use Cartalyst\Sentry\Throttling\ProviderInterface;
 use Cartalyst\Sentry\Users\ProviderInterface as UserProviderInterface;
@@ -43,6 +44,37 @@ class Provider implements ProviderInterface {
 			$this->model = $model;
 		}
 
+	}
+
+	/**
+	 * Finds a throttler by the given user ID.
+	 *
+	 * @param  \Cartalyst\Sentry\Users\UserInterface   $user
+	 * @param  string  $ipAddress
+	 * @return \Cartalyst\Sentry\Throttling\ThrottleInterface
+	 */
+	public function findByUser(UserInterface $user, $ipAddress = null)
+	{
+		$model = $this->createModel();
+		$query = $model->where('user_id', '=', ($userId = $user->getId()));
+
+		if ($ipAddress)
+		{
+			$query->where(function($query) use ($ipAddress) {
+				$query->where('ip_address', '=', $ipAddress);
+				$query->orWhere('ip_address', '=', NULL);
+			});
+		}
+
+		if ( ! $throttle = $query->first())
+		{
+			$throttle = $this->createModel();
+			$throttle->user_id = $userId;
+			if ($ipAddress) $throttle->ip_address = $ipAddress;
+			$throttle->save();
+		}
+
+		return $throttle;
 	}
 
 	/**
