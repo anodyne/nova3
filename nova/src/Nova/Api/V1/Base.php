@@ -18,19 +18,8 @@ use Controller;
 
 abstract class Base extends Controller {
 
-	/**
-	 * An instance of the current request.
-	 */
-	protected $request;
-
-	/**
-	 * The API URL group.
-	 */
 	protected $url;
-
-	/**
-	 * The number of results per page.
-	 */
+	protected $request;
 	protected $resultsPerPage = 25;
 
 	public function __construct()
@@ -42,7 +31,7 @@ abstract class Base extends Controller {
 	/**
 	 * Format the validation errors into a string.
 	 *
-	 * @param	Validator	The validator object
+	 * @param	Validator	$validator	The validator object
 	 * @return	string
 	 */
 	protected function formatValidationErrors($validator)

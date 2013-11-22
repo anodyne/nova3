@@ -1,0 +1,55 @@
+- Users
+	- Create
+	- Read
+	- Update
+	- Delete
+	- List
+		- Status
+			- Active
+			- Inactive
+			- Pending
+	- Image
+	- Characters
+- Characters
+	- Create
+	- Read
+	- Update
+	- Delete
+	- List
+		- Status
+			- Active
+			- Inactive
+			- Pending
+	- Image
+	- Images
+	- User
+- Posts
+	- Create
+	- Read
+	- Update
+	- Delete
+	- List
+		- Status
+			- Active
+			- Pending
+		- Mission
+- Logs
+	- Create
+	- Read
+	- Update
+	- Delete
+	- List
+		- Status
+			- Active
+			- Pending
+		- Mission
+- Announcements
+	- Create
+	- Read
+	- Update
+	- Delete
+	- List
+		- Status
+			- Active
+			- Pending
+		- Category

@@ -114,7 +114,6 @@ return [
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
-		//'Cartalyst\Api\ApiServiceProvider',
 		'Nova\Core\Providers\ErrorServiceProvider',
 		'Nova\Core\Providers\NovaServiceProvider',
 		'Nova\Core\Providers\SystemRouteServiceProvider',
@@ -206,7 +205,6 @@ return [
 		/**
 		 * Nova Classes
 		 */
-		//'API'			=> 'Cartalyst\Api\Facades\API',
 		'Date'			=> 'Carbon\Carbon',
 		'DynamicForm'	=> 'Nova\Core\Facades\DynamicForm',
 		'ErrorCode'		=> 'Nova\Core\Utilities\ErrorCode',
@@ -223,11 +221,7 @@ return [
 		'Setup'			=> 'Nova\Setup\SetupFacade',
 		'Status'		=> 'Nova\Core\Utilities\Status',
 		'SystemEvent'	=> 'Nova\Core\Facades\SystemEvent',
-
-		//'Input'			=> 'Cartalyst\Api\Facades\Input',
-		//'Request'		=> 'Cartalyst\Api\Facades\Request',
-		//'Response'		=> 'Cartalyst\Api\Facades\Response',
-
+		
 		/**
 		 * Nova Interfaces
 		 */

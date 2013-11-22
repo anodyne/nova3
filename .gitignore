@@ -1,15 +1,15 @@
-/nova/start/compiled.php
-/nova/vendor
-/nova/assets/vendor
 composer.phar
 composer.lock
 .DS_Store
 Thumbs.db
 
+app/assets/images/users/*
 app/config/local/*
 app/config/production/*
 
-app/assets/images/users/*
+nova/assets/vendor
+nova/start/compiled.php
+nova/vendor
 
 *.sublime-project
 *.sublime-workspace
