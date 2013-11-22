@@ -1,0 +1,38 @@
+<noscript>
+	<div class="alert system-warning"><div class="container"><?php echo \Illuminate\Support\Facades\Lang::get('short.javascript'); ?></div></div>
+</noscript>
+
+<?php echo $navmain; ?>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="page-header">
+				<?php if (isset($headerKey)): ?>
+					<h1 class="editable-single" id="<?php echo $headerKey; ?>"><?php echo $header; ?></h1>
+				<?php else: ?>
+					<h1><?php echo $header; ?></h1>
+				<?php endif; ?>
+			</div>
+
+			<?php echo $flash; ?>
+
+			<?php if (isset($messageKey)): ?>
+				<div class="editable-multi" id="<?php echo $messageKey; ?>"><?php echo $message; ?></div>
+			<?php else: ?>
+				<div><?php echo $message; ?></div>
+			<?php endif; ?>
+
+			<?php if (isset($navsub)): ?>
+				<?php echo $navsub; ?>
+			<?php endif; ?>
+
+			<?php echo $content; ?>
+			<?php echo $ajax; ?>
+
+			<footer>
+				<?php echo $footer; ?>
+			</footer>
+		</div>
+	</div>
+</div>
