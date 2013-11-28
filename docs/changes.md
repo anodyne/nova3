@@ -9,8 +9,6 @@
 	* Markdown parsing
 * cartalyst/sentry
 	* Authentication and authorization
-* cartalyst/api
-	* API helpers and request/response layer
 * ikimea/browser
 	* Browser detection
 * raveren/kint

@@ -24,7 +24,7 @@ Beginning with Nova 3, we will differentiate between 3 different types of releas
 
 ## Release Timeline
 
-Beginning with Nova 3, Anodyne will manages releases through a time-based model. Nova feature releases will be available every 6 months: one in January and one in July. Issue and Security releases will be made available as necessary over the course of the year. The decision to move to this schedule provides more predictability to when updates will be available.
+Beginning with Nova 3, Anodyne will manage releases through a time-based model. Nova feature releases will be available every 6 months: one in January and one in July. Issue and Security releases will be made available as necessary over the course of the year. The decision to move to this schedule provides more predictability to when updates will be available.
 
 The 6-month period is divided into two phases:
 
@@ -38,18 +38,18 @@ Beginning with Nova 3, every version will be maintained for 1 year following its
 ## Schedule
 
 - 3.0
-	- Feature Release: 01 January 2016
-	- Issue Releases Until: 31 July 2016
-	- Security Releases Until: 01 January 2017
+	- Feature Release: January 2016
+	- Issue Releases Until: July 2016
+	- Security Releases Until: January 2017
 - 3.1
-	- Feature Release: 31 July 2016
-	- Issue Releases Until: 31 January 2017
-	- Security Releases Until: 31 July 2017
+	- Feature Release: July 2016
+	- Issue Releases Until: January 2017
+	- Security Releases Until: July 2017
 - 3.2
-	- Feature Release: 31 January 2017
-	- Issue Releases Until: 31 July 2017
-	- Security Releases Until: 31 January 2018
+	- Feature Release: January 2017
+	- Issue Releases Until: July 2017
+	- Security Releases Until: January 2018
 - 3.3
-	- Feature Release: 31 July 2017
-	- Issue Releases Until: 01 January 2018
-	- Security Releases Until: 31 July 2018
+	- Feature Release: July 2017
+	- Issue Releases Until: January 2018
+	- Security Releases Until: July 2018

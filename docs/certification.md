@@ -15,7 +15,7 @@ In order to achieve Silver Level certification, you must complete the following 
 
 ### Gold Level
 
-In order to achieve Gold Level certification, you must complete the following tracks with a combined score of 70 or better:
+In order to achieve Gold Level certification, you must complete the following tracks with a combined score of 80 or better:
 
 - DevCenter, Nova Development Level 1
 - DevCenter, Nova Development Level 2
@@ -26,7 +26,7 @@ In order to achieve Gold Level certification, you must complete the following tr
 
 The Platinum Level Certification is reserved for members of the community who go above and beyond to help people with Nova in any way they can. This most often will come in the way of answering questions and directing people to the right place on the official forums.
 
-The Platinum Level Certification cannot be achieved through courses, but must be given to a community member by Anodyne directly.
+The Platinum Level Certification cannot be achieved through courses, but must be given to a community member by Anodyne directly. If you support Nova for an external organization, you can submit a request with reasons for why you should be awarded Platinum Level status.
 
 ## Nova Development Certification
 

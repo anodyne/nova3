@@ -47,5 +47,4 @@ Not for the weak! This course is the end-all-be-all of Nova 3 skinning. You'll l
 	- Structures
 	- JS views
 	- Ajax views
-- Changing the way Nova processes skin files
 - Customizing the look and feel of Typeahead
