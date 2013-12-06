@@ -1,9 +1,7 @@
 <?php namespace Nova\Core\Models\Eloquent;
 
 use Cache;
-use Event;
 use Model;
-use Config;
 use CacheInterface;
 
 class SystemRoute extends Model implements CacheInterface {
@@ -12,13 +10,13 @@ class SystemRoute extends Model implements CacheInterface {
 
 	protected $table = 'system_routes';
 
-	protected $fillable = array(
+	protected $fillable = [
 		'name', 'verb', 'uri', 'resource', 'conditions',
-	);
+	];
 	
-	protected static $properties = array(
+	protected static $properties = [
 		'id', 'verb', 'name', 'uri', 'resource', 'conditions', 'protected',
-	);
+	];
 
 	/*
 	|--------------------------------------------------------------------------
@@ -26,16 +24,24 @@ class SystemRoute extends Model implements CacheInterface {
 	|--------------------------------------------------------------------------
 	*/
 
-	public function scopeName($query, $name)
+	public function scopeName($query, $name, $verb = 'get')
 	{
-		$query->where('name', $name)
-			->where('verb', 'get');
+		$query->where('name', $name);
+
+		if ($verb)
+		{
+			$query->where('verb', $verb);
+		}
 	}
 
-	public function scopeUri($query, $uri)
+	public function scopeUri($query, $uri, $verb = 'get')
 	{
-		$query->where('uri', $uri)
-			->where('verb', 'get');
+		$query->where('uri', $uri);
+		
+		if ($verb)
+		{
+			$query->where('verb', $verb);
+		}
 	}
 
 	/*

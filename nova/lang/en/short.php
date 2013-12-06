@@ -138,6 +138,7 @@ return array(
 
 		'routes' => [
 			'removeConfirm' => "Are you sure you want to delete the :0 <strong>:1</strong>? While this won't remove the custom page, it will revert the route to point back toward the core route. If you want to restore the route to your custom page, you will need to create a new page route.",
+			'removeConfirmNoCoreRoute' => "Are you sure you want to delete the :0 <strong>:1</strong>? While this won't remove the custom page, it will remove the ability to reach the page from the web browser. If you want to restore the route to your custom page, you will need to create a new page route.",
 			'uri' => "URI parameters are specified with brackets: <code>{id}</code>. Optional URI parameters specified with a trailing question mark: <code>{page?}</code>",
 			'resource' => "Resources must include the full namespace: <code>Modules\Anodyne\Controllers\Foo@getMethod</code>",
 			'name' => "If you are overriding an existing page, make sure the name matches exactly.",

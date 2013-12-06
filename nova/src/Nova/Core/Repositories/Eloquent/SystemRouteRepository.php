@@ -12,13 +12,14 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 	use SecurityTrait;
 	
 	/**
-	 * Get everything out of the database.
+	 * Get everything out of the database and sort into an array of core and
+	 * user routes.
 	 *
 	 * @return	array
 	 */
 	public function all()
 	{
-		// Get all the items
+		// Get all the routes
 		$items = SystemRouteModel::all();
 
 		// Start a holding array
@@ -27,7 +28,6 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 		// Make sure we have routes
 		if ($items->count() > 0)
 		{
-			// Loop through the routes
 			foreach ($items as $item)
 			{
 				// Separate the routes into CORE and USER routes
@@ -46,7 +46,7 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 	}
 
 	/**
-	 * Cache the system routes.
+	 * Cache the routes.
 	 *
 	 * @return	void
 	 */
@@ -56,7 +56,7 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 	}
 	
 	/**
-	 * Create a new item.
+	 * Create a new route.
 	 *
 	 * @param	array	$data		Data to use for creation
 	 * @param	bool	$setFlash	Set the flash message?
@@ -65,13 +65,13 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 	public function create(array $data, $setFlash = true)
 	{
 		// Create the route
-		$route = SystemRouteModel::create($data);
+		$item = SystemRouteModel::create($data);
 
 		if ($setFlash)
 		{
 			// Set the flash info
-			$status = ($route) ? 'success' : 'danger';
-			$message = ($route) 
+			$status = ($item) ? 'success' : 'danger';
+			$message = ($item) 
 				? lang('Short.alert.success.create', langConcat('route'))
 				: lang('Short.alert.failure.create', langConcat('route'));
 
@@ -79,14 +79,15 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 			$this->setFlashMessage($status, $message);
 		}
 
-		return $route;
+		return $item;
 	}
 
 	/**
-	 * Delete an item.
+	 * Delete a route.
 	 *
-	 * @param	int		$id		ID to delete
-	 * @return	bool
+	 * @param	int		$id			ID to delete
+	 * @param	bool	$setFlash	Set the flash message?
+	 * @return	SystemRoute
 	 */
 	public function delete($id, $setFlash = true)
 	{
@@ -95,11 +96,14 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 
 		if ($item)
 		{
+			// If this is a protected route, throw an exception because it can't
+			// be deleted
 			if ((bool) $item->protected)
 			{
 				throw new RouteProtectedException;
 			}
 
+			// Delete the route
 			$delete = $item->delete();
 
 			if ($setFlash)
@@ -124,7 +128,7 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 	}
 
 	/**
-	 * Duplicate a system route.
+	 * Duplicate a route.
 	 *
 	 * @param	int		$id			Route ID to duplicate
 	 * @param	bool	$setFlash	Set the flash message?
@@ -137,6 +141,7 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 
 		if ($item)
 		{
+			// Create the new route
 			$route = $this->create([
 				'name'		=> $item->name,
 				'verb'		=> $item->verb,
@@ -163,7 +168,7 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 	}
 
 	/**
-	 * Find an item by ID.
+	 * Find an item by its ID.
 	 *
 	 * @param	int		$id		ID to find
 	 * @return	SystemRoute
@@ -174,7 +179,47 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 	}
 
 	/**
-	 * Update an item.
+	 * Find a route based on its name.
+	 *
+	 * @param	string	$name	Route Name
+	 * @param	string	$verb	HTTP verb to look for
+	 * @param	bool	$count	Return only the count of items
+	 * @return	Collection
+	 */
+	public function findByName($name, $verb = 'get', $count = false)
+	{
+		$routes = SystemRouteModel::name($name, $verb)->get();
+
+		if ($count)
+		{
+			return $routes->count();
+		}
+
+		return $routes;
+	}
+
+	/**
+	 * Find a route based on its URI.
+	 *
+	 * @param	string	$uri	Route URI
+	 * @param	string	$verb	HTTP verb to look for
+	 * @param	bool	$count	Return only the count of items
+	 * @return	Collection
+	 */
+	public function findByUri($uri, $verb = 'get', $count = false)
+	{
+		$routes = SystemRouteModel::uri($uri, $verb)->get();
+
+		if ($count)
+		{
+			return $routes->count();
+		}
+
+		return $routes;
+	}
+
+	/**
+	 * Update a route.
 	 *
 	 * @param	int		$id			ID to update
 	 * @param	array	$data		Data to use for update
@@ -188,6 +233,7 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 
 		if ($item)
 		{
+			// Update the route
 			$update = $item->fill($data)->save();
 
 			if ($setFlash)

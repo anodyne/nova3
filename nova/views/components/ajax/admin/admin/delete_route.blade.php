@@ -1,4 +1,8 @@
-<p>{{ lang('short.admin.routes.removeConfirm', lang('route'), $route->name) }}</p>
+@if ($similarRoutes)
+	<p>{{ lang('short.admin.routes.removeConfirm', lang('route'), $route->name) }}</p>
+@else
+	<p>{{ lang('short.admin.routes.removeConfirmNoCoreRoute', lang('route'), $route->name) }}</p>
+@endif
 
 {{ Form::model($route, ['url' => 'admin/routes']) }}
 	{{ Form::token() }}

@@ -114,6 +114,9 @@ class Manage extends AdminBaseController {
 		return Redirect::to('admin/routes');
 	}
 
+	/**
+	 * Needs review
+	 */
 	public function getSiteContent($contentId = false)
 	{
 		// Verify the user is allowed
@@ -216,6 +219,9 @@ class Manage extends AdminBaseController {
 		return Redirect::to('admin/sitecontent');
 	}
 
+	/**
+	 * Needs review
+	 */
 	public function getSiteNavigation($navId = false)
 	{
 		// Verify the user is allowed
@@ -323,9 +329,14 @@ class Manage extends AdminBaseController {
 
 			if ($route)
 			{
+				// Do we have any other similar routes?
+				$similarRoutes = $this->routes->findByUri($route->uri, $route->verb, true);
+
 				return partial('common/modal_content', [
 					'modalHeader'	=> lang('Short.delete', lang('Route')),
-					'modalBody'		=> View::make(Location::ajax('admin/admin/delete_route'))->with('route', $route),
+					'modalBody'		=> View::make(Location::ajax('admin/admin/delete_route'))
+										->with('route', $route)
+										->with('similarRoutes', $similarRoutes > 1),
 					'modalFooter'	=> false,
 				]);
 			}
@@ -343,7 +354,8 @@ class Manage extends AdminBaseController {
 			{
 				return partial('common/modal_content', [
 					'modalHeader'	=> lang('Short.duplicate', langConcat('Core Route')),
-					'modalBody'		=> View::make(Location::ajax('admin/admin/duplicate_route'))->with('route', $route),
+					'modalBody'		=> View::make(Location::ajax('admin/admin/duplicate_route'))
+										->with('route', $route),
 					'modalFooter'	=> false,
 				]);
 			}
