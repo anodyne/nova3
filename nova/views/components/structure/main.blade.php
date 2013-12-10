@@ -10,7 +10,7 @@
 		<meta name="author" content="{{ $settings->meta_author }}">
 		
 		<!-- Bootstrap styles -->
-		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 
 		<!-- Web fonts styles -->
 		{{ HTML::style('nova/assets/css/fonts.css') }}

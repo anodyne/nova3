@@ -1,7 +1,7 @@
 <?php include_once NOVAPATH.'views/components/js/core/jquery_js.php';?>
 
 <script src="<?php echo NOVAURL;?>assets/js/jquery.lazy.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script>
 	
 	$(document).ready(function()
