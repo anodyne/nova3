@@ -29,7 +29,7 @@
 * X-Editable
 	* In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery.
 	* http://vitalets.github.io/x-editable/
-	* Version: 1.5
+	* Version: 1.5.1
 * BlockUI
 	* The jQuery BlockUI Plugin lets you simulate synchronous behavior when using AJAX, without locking the browser.
 	* http://www.malsup.com/jquery/block/
@@ -37,7 +37,7 @@
 * DropzoneJS
 	* DropzoneJS is an open source library that provides drag-n-drop file uploads with image previews.
 	* http://www.dropzonejs.com/
-	* Version: 3.7.3
+	* Version: 3.8.2
 * Jcrop
 	* Jcrop is the quick and easy way to add image cropping functionality to your web application. It combines the ease-of-use of a typical jQuery plugin with a powerful cross-platform DHTML cropping engine that is faithful to familiar desktop graphics applications.
 	* http://deepliquid.com/content/Jcrop.html
@@ -49,7 +49,7 @@
 * QuickSearch
 	* A jQuery based plug-in for filtering large data sets with user input.
 	* https://github.com/DeuxHuitHuit/quicksearch
-	* Version: 2.0.1
+	* Version: 2.0.2
 
 ## Under Review
 
