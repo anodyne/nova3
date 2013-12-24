@@ -10,6 +10,11 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 
 	use UtilityTrait;
 	use SecurityTrait;
+
+	public function all()
+	{
+		return SystemRouteModel::all();
+	}
 	
 	/**
 	 * Get everything out of the database and sort into an array of core and
@@ -17,10 +22,10 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 	 *
 	 * @return	array
 	 */
-	public function all()
+	public function allAsArray()
 	{
 		// Get all the routes
-		$items = SystemRouteModel::all();
+		$items = $this->all();
 
 		// Start a holding array
 		$routes = [];
@@ -43,6 +48,31 @@ class SystemRouteRepository implements SystemRouteRepositoryInterface {
 		}
 
 		return $routes;
+	}
+
+	/**
+	 * Get the routes as JSON for use in autocomplete.
+	 *
+	 * @return	string
+	 */
+	public function allAsJson()
+	{
+		// Get all the routes
+		$routes = $this->all();
+
+		// Start the route source list
+		$routeList = [];
+
+		foreach ($routes as $route)
+		{
+			if ((array_key_exists($route->name, $routeList) and ! (bool) $route->protected)
+					or ! array_key_exists($route->name, $routeList))
+			{
+				$routeList[$route->name] = $route->name;
+			}
+		}
+
+		return json_encode($routeList);
 	}
 
 	/**

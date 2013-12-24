@@ -5,6 +5,20 @@ use BaseRepositoryInterface;
 interface SystemRouteRepositoryInterface extends BaseRepositoryInterface {
 
 	/**
+	 * Get the routes as an array of core/user routes.
+	 *
+	 * @return	array
+	 */
+	public function allAsArray();
+
+	/**
+	 * Get the routes as JSON for use in autocomplete.
+	 *
+	 * @return	string
+	 */
+	public function allAsJson();
+
+	/**
 	 * Cache the routes.
 	 *
 	 * @return	void
