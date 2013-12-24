@@ -11,47 +11,6 @@ use AjaxBaseController;
 class Update extends AjaxBaseController {
 
 	/**
-	 * Updates the site content table when an admin uses jEditable to edit
-	 * some site content outside of the control panel.
-	 *
-	 * @return	string
-	 */
-	public function postSiteContent()
-	{
-		if ($this->auth->check() and $this->currentUser->hasAccess('content.update'))
-		{
-			// Resolve the binding
-			$contentRepo = Nova::resolveBinding('SiteContentRepositoryInterface');
-
-			// Get the POST information
-			$key = e(Input::get('key'));
-			$value = e(Input::get('value'));
-
-			// Break the key up into an array
-			$pieces = explode('_', $key);
-
-			// Flip the array around
-			$pieces = array_reverse($pieces);
-
-			// Make sure we don't have any tags in the headers
-			$content = ($pieces[0] == 'header') ? strip_tags(Markdown::parse($value)) : $value;
-
-			// Save the content
-			$contentRepo->updateByKey([$key => $content]);
-
-			// If it's a header, show the content, otherwise we need to parse the Markdown
-			if ($pieces[0] == 'header')
-			{
-				echo $content;
-			}
-			else
-			{
-				echo Markdown::parse($content);
-			}
-		}
-	}
-
-	/**
 	 * Runs the migrations for a module.
 	 *
 	 * @return	void

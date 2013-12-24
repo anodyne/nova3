@@ -10,14 +10,6 @@ use AjaxBaseController;
 
 class Get extends AjaxBaseController {
 
-	public function postSiteContent()
-	{
-		// Resolve the binding
-		$content = Nova::resolveBinding('SiteContentRepositoryInterface');
-
-		echo $content->findByKey(Input::get('key'));
-	}
-
 	public function action_user()
 	{
 		// set the field and values

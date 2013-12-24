@@ -60,3 +60,5 @@
 		</div>
 	@endforeach
 </div>
+
+{{ modal(['id' => 'deleteSiteContent', 'header' => lang('Short.delete', langConcat('Site Content'))]) }}

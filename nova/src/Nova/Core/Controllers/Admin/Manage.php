@@ -6,6 +6,7 @@ use Event;
 use Input;
 use Session;
 use Location;
+use Markdown;
 use Redirect;
 use AdminBaseController;
 use SiteContentValidator;
@@ -54,7 +55,7 @@ class Manage extends AdminBaseController {
 			$this->view = 'admin/manage/routes';
 
 			// Get all the routes for the system
-			$this->data->routes = $this->routes->all();
+			$this->data->routes = $this->routes->allAsArray();
 		}
 	}
 	public function postRoutes()
@@ -114,9 +115,6 @@ class Manage extends AdminBaseController {
 		return Redirect::to('admin/routes');
 	}
 
-	/**
-	 * Needs review
-	 */
 	public function getSiteContent($contentId = false)
 	{
 		// Verify the user is allowed
@@ -131,51 +129,24 @@ class Manage extends AdminBaseController {
 			$this->view = 'admin/manage/sitecontent_action';
 
 			// Get the content item
-			$content = $this->data->content = $this->content->find($contentId);
+			$this->data->content = $this->content->find($contentId);
 
-			// Get all the routes
-			$routes = $this->routes->all();
-
-			// Start the route source list
-			$routeList = [];
-
-			foreach ($routes as $route)
-			{
-				if ((array_key_exists($route->name, $routeList) and ! (bool) $route->protected)
-						or ! array_key_exists($route->name, $routeList))
-				{
-					$routeList[$route->name] = $route->name;
-				}
-			}
-
-			// Pass the final route list over to the JS view
-			$this->jsData->routeSource = json_encode($routeList);
+			// Get all the routes as JSON
+			$this->jsData->routeSource = $this->routes->allAsJson();
 
 			// Set the mode and form action
-			$this->mode = $this->data->action = ($id == 'create') ? 'create' : 'update';
+			$this->mode = $this->data->action = ( ! is_numeric($contentId)) ? 'create' : 'update';
 		}
 		else
 		{
 			// Set the view
 			$this->view = 'admin/manage/sitecontent';
 
-			// Get all the site content
-			$contents = $this->content->all();
+			// Get the content types
+			$this->data->contentTypes = $this->content->getForAdmin('ContentTypes');
 
-			foreach ($contents as $content)
-			{
-				// Get the type
-				$this->data->contentTypes[$content->type] = ucfirst(Str::plural($content->type));
-
-				// Get the content
-				$this->data->content[$content->type][] = $content;
-			}
-
-			// Build the delete content modal
-			$this->ajax[] = modal([
-				'id'		=> 'deleteSiteContent',
-				'header'	=> lang('Short.delete', langConcat('Site Content'))
-			]);
+			// Get the contents
+			$this->data->content = $this->content->getForAdmin('Content');
 		}
 	}
 	public function postSiteContent()
@@ -343,6 +314,25 @@ class Manage extends AdminBaseController {
 		}
 	}
 
+	public function getAjaxDeleteSiteContent($id)
+	{
+		if ($this->auth->check() and $this->currentUser->hasAccess('content.delete'))
+		{
+			// Get the content item
+			$item = $this->content->find($id);
+
+			if ($item)
+			{
+				return partial('common/modal_content', [
+					'modalHeader'	=> lang('Short.delete', langConcat('Site Content')),
+					'modalBody'		=> View::make(Location::ajax('admin/admin/delete_sitecontent'))
+										->with('sitecontent', $item),
+					'modalFooter'	=> false,
+				]);
+			}
+		}
+	}
+
 	public function getAjaxDuplicateRoute($id)
 	{
 		if ($this->auth->check() and $this->currentUser->hasAccess('routes.create'))
@@ -358,6 +348,43 @@ class Manage extends AdminBaseController {
 										->with('route', $route),
 					'modalFooter'	=> false,
 				]);
+			}
+		}
+	}
+
+	public function postAjaxGetSiteContent()
+	{
+		echo $this->content->findByKey(Input::get('key'));
+	}
+
+	public function postAjaxUpdateSiteContent()
+	{
+		if ($this->auth->check() and $this->currentUser->hasAccess('content.update'))
+		{
+			// Get the POST information
+			$key = Input::get('key');
+			$value = Input::get('value');
+
+			// Break the key up into an array
+			$pieces = explode('_', $key);
+
+			// Flip the array around
+			$pieces = array_reverse($pieces);
+
+			// Make sure we don't have any tags in the headers
+			$content = ($pieces[0] == 'header') ? strip_tags(Markdown::parse($value)) : $value;
+
+			// Save the content
+			$this->content->updateByKey([$key => $content]);
+
+			// If it's a header, show the content, otherwise we need to parse the Markdown
+			if ($pieces[0] == 'header')
+			{
+				echo $content;
+			}
+			else
+			{
+				echo Markdown::parse($content);
 			}
 		}
 	}

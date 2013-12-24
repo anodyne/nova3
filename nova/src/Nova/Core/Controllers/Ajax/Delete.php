@@ -111,34 +111,6 @@ class Delete extends AjaxBaseController {
 	}
 
 	/**
-	 * Show the confirmation modal for deleting site content.
-	 *
-	 * @param	int		$id		Role ID
-	 * @return	View
-	 */
-	public function getSiteContent($id)
-	{
-		if ($this->auth->check() and $this->currentUser->hasAccess('content.delete'))
-		{
-			// Resolve the bindings
-			$content = Nova::resolveBinding('SiteContentRepositoryInterface');
-
-			// Get the content item
-			$item = $content->find($id);
-
-			if ($item)
-			{
-				return partial('common/modal_content', [
-					'modalHeader'	=> lang('Short.delete', langConcat('Site Content')),
-					'modalBody'		=> View::make(Location::ajax('delete/sitecontent'))
-										->with('sitecontent', $item),
-					'modalFooter'	=> false,
-				]);
-			}
-		}
-	}
-
-	/**
 	 * Show the confirmation modal for deleting a skin catalog item.
 	 *
 	 * @param	int		$id		Catalog ID

@@ -1,5 +1,6 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
+use Str;
 use UtilityTrait;
 use SecurityTrait;
 use SiteContentModel;
@@ -10,11 +11,23 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 	use UtilityTrait;
 	use SecurityTrait;
 
+	/**
+	 * Get everything out of the database.
+	 *
+	 * @return	Collection
+	 */
 	public function all()
 	{
 		return SiteContentModel::all();
 	}
 
+	/**
+	 * Create a new site content item.
+	 *
+	 * @param	array	$data		Data to use for creation
+	 * @param	bool	$setFlash	Set the flash message?
+	 * @return	SiteContent
+	 */
 	public function create(array $data, $setFlash = true)
 	{
 		$item = SiteContentModel::create($data);
@@ -34,6 +47,13 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 		return $item;
 	}
 
+	/**
+	 * Delete a site content item.
+	 *
+	 * @param	int		$id			ID to delete
+	 * @param	bool	$setFlash	Set the flash message?
+	 * @return	SiteContent
+	 */
 	public function delete($id, $setFlash = true)
 	{
 		// Get the content item
@@ -65,6 +85,12 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 		return false;
 	}
 
+	/**
+	 * Find an item by its ID.
+	 *
+	 * @param	int		$id		ID to find
+	 * @return	SiteContent
+	 */
 	public function find($id)
 	{
 		return SiteContentModel::find($this->sanitizeInt($id));
@@ -95,6 +121,53 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 		return SiteContentModel::getSectionContent($section, $controller, $clean);
 	}
 
+	/**
+	 * Get the site content data for the admin section.
+	 *
+	 * ContentTypes - returns an array of types
+	 * Content - returns an array of content items
+	 *
+	 * @param	string	$return		What to return
+	 * @return	array
+	 */
+	public function getForAdmin($return)
+	{
+		// Get all the site content
+		$contents = $this->all();
+
+		foreach ($contents as $c)
+		{
+			// Get the type
+			$contentTypes[$c->type] = ucfirst(Str::plural($c->type));
+
+			// Get the content
+			$content[$c->type][] = $c;
+		}
+
+		switch ($return)
+		{
+			case 'ContentTypes':
+				return $contentTypes;
+			break;
+			
+			case 'Content':
+				return $content;
+			break;
+
+			default:
+				return ['contentTypes' => $contenTypes, 'content' => $content];
+			break;
+		}
+	}
+
+	/**
+	 * Update a site content item.
+	 *
+	 * @param	int		$id			ID to update
+	 * @param	array	$data		Data to use for update
+	 * @param	bool	$setFlash	Set the flash message?
+	 * @return	SiteContent
+	 */
 	public function update($id, array $data, $setFlash = true)
 	{
 		// Get the content item
@@ -103,7 +176,7 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 		if ($item)
 		{
 			// Update the item
-			$update = $item->update($data);
+			$update = $item->fill($data)->save();
 
 			if ($setFlash)
 			{
@@ -117,7 +190,10 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 				$this->setFlashMessage($status, $message);
 			}
 
-			return $update;
+			if ($update)
+			{
+				return $item;
+			}
 		}
 
 		return false;
@@ -133,6 +209,13 @@ class SiteContentRepository implements SiteContentRepositoryInterface {
 		return SiteContentModel::updateSiteContent($data);
 	}
 
+	/**
+	 * Update the site content items URI by the old URI.
+	 *
+	 * @param	string	$oldURI		The old URI
+	 * @param	string	$newURI		The new URI
+	 * @return	void
+	 */
 	public function updateUri($oldURI, $newURI)
 	{
 		// Get the site content

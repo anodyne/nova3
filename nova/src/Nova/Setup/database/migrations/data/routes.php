@@ -560,6 +560,26 @@ return [
 		'protected'		=> (int) true
 	],
 	[
+		'name'			=> 'admin/sitecontent/ajax/delete',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/sitecontent/ajax/delete/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@getAjaxDeleteSiteContent',
+	],
+	[
+		'name'			=> 'admin/sitecontent/ajax/get',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/sitecontent/ajax/get',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@postAjaxGetSiteContent',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin/sitecontent/ajax/update',
+		'verb'			=> 'post',
+		'uri'			=> 'admin/sitecontent/ajax/update',
+		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@postAjaxUpdateSiteContent',
+		'protected'		=> (int) true
+	],
+	[
 		'name'			=> 'admin/navigation',
 		'verb'			=> 'get',
 		'uri'			=> 'admin/navigation/{navId?}',
@@ -651,13 +671,6 @@ return [
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Get@postUserSearch',
 		'protected'		=> (int) true
 	],
-	[
-		'name'			=> 'ajax/get/sitecontent',
-		'verb'			=> 'post',
-		'uri'			=> 'ajax/get/sitecontent',
-		'resource'		=> 'Nova\Core\Controllers\Ajax\Get@postSiteContent',
-		'protected'		=> (int) true
-	],
 
 	/**
 	 * ajax/delete
@@ -711,13 +724,6 @@ return [
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getUserAvatar',
 		'protected'		=> (int) true
 	],
-	[
-		'name'			=> 'ajax/delete/sitecontent',
-		'verb'			=> 'get',
-		'uri'			=> 'ajax/delete/sitecontent/{id}',
-		'resource'		=> 'Nova\Core\Controllers\Ajax\Delete@getSiteContent',
-		'protected'		=> (int) true
-	],
 
 	/**
 	 * ajax/update
@@ -734,13 +740,6 @@ return [
 		'verb'			=> 'get',
 		'uri'			=> 'ajax/update/link_to_user/{id}',
 		'resource'		=> 'Nova\Core\Controllers\Ajax\Update@getLinkToUser',
-		'protected'		=> (int) true
-	],
-	[
-		'name'			=> 'ajax/update/sitecontent',
-		'verb'			=> 'post',
-		'uri'			=> 'ajax/update/sitecontent',
-		'resource'		=> 'Nova\Core\Controllers\Ajax\Update@postSiteContent',
 		'protected'		=> (int) true
 	],
 ];

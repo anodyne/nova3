@@ -23,8 +23,28 @@ interface SiteContentRepositoryInterface extends BaseRepositoryInterface {
 	 */
 	public function findBySection($section, $controller, $clean = false);
 
+	/**
+	 * Get the site content data for the admin section.
+	 *
+	 * @param	string	$return		What to return
+	 * @return	array
+	 */
+	public function getForAdmin($return);
+
+	/**
+	 * Update the site content with a simple array.
+	 *
+	 * @param	array	$data	Data for the update
+	 */
 	public function updateByKey(array $data);
 
+	/**
+	 * Update the site content items URI by the old URI.
+	 *
+	 * @param	string	$oldURI		The old URI
+	 * @param	string	$newURI		The new URI
+	 * @return	void
+	 */
 	public function updateUri($oldURI, $newURI);
 
 }
