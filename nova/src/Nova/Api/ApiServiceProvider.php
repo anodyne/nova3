@@ -79,11 +79,11 @@ class ApiServiceProvider extends ServiceProvider {
 			 */
 			Route::get('info', function()
 			{
-				return Response::json([
-					'api_version'	=> Config::get('nova.api.version'),
-					'nova_version'	=> Config::get('nova.app.version'),
-					'nova_url'		=> str_replace(Request::path(), '', Request::url())
-				], 200);
+				return Response::json(['data' => [
+					'api_version'	=> (string) Config::get('nova.api.version'),
+					'nova_version'	=> (string) Config::get('nova.app.version'),
+					'nova_url'		=> (string) str_replace(Request::path(), '', Request::url())
+				]], 200);
 			});
 
 			/**

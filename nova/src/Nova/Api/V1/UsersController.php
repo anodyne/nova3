@@ -2,7 +2,7 @@
 
 use UserRepositoryInterface;
 
-class UsersController extends Base {
+class UsersController extends BaseController {
 
 	protected $user;
 
@@ -35,7 +35,7 @@ class UsersController extends Base {
 			return Response::json($this->collectUserData($user), 200);
 		}
 
-		return Response::json(['message' => "User not found"], 400);
+		return Response::json(['message' => "User not found"], 404);
 	}
 
 	public function showCharacters($id)
