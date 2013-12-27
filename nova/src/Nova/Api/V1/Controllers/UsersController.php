@@ -1,26 +1,36 @@
 <?php namespace Nova\Api\V1\Controllers;
 
 use Status,
-	UserRepositoryInterface;
+	UserModel;
 use League\Fractal\Manager;
 use Nova\Api\V1\Transformers\UserTransformer;
 
 class UsersController extends BaseController {
 
-	protected $user;
-
-	public function __construct(Manager $fractal, UserRepositoryInterface $user)
+	public function __construct(Manager $fractal)
 	{
 		parent::__construct($fractal);
 
-		$this->user = $user;
-
 		// Authenticate for every method
+
+		// Set the possible relationships for a user
+		$possibleRelationships = [
+			'characters'	=> 'character',
+			'announcements'	=> 'announcement',
+			'posts'			=> 'post',
+			'logs'			=> 'log',
+		];
+
+		// Set the items to eager load
+		$this->eagerLoad = array_values(array_intersect(
+			$possibleRelationships,
+			$this->requestedEmbeds
+		));
 	}
 
 	public function index($status = 'active')
 	{
-		$users = $this->user->findUsers(Status::toInt($status), 25, 0);
+		$users = UserModel::with($this->eagerLoad)->get();
 
 		if ($users)
 		{
@@ -38,7 +48,7 @@ class UsersController extends BaseController {
 	public function show($id)
 	{
 		// Get the user
-		$user = $this->user->find($id);
+		$user = UserModel::find($id);
 
 		if ($user)
 		{

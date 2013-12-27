@@ -6,6 +6,13 @@ use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract {
 
+	protected $availableEmbeds = [
+		'characters',
+		'posts',
+		'logs',
+		'announcements'
+	];
+
 	public function transform(User $user)
 	{
 		return [
@@ -23,6 +30,26 @@ class UserTransformer extends TransformerAbstract {
 				'updated_at'	=> (string) $user->updated_at->toDateTimeString(),
 			],
 		];
+	}
+
+	public function embedAnnouncements(User $user)
+	{
+		//return $this->collection($user->announcements, new AnnouncementTransformer);
+	}
+
+	public function embedCharacters(User $user)
+	{
+		//return $this->collection($user->characters, new CharacterTransformer);
+	}
+
+	public function embedLogs(User $user)
+	{
+		//return $this->collection($user->logs, new PersonalLogTransformer);
+	}
+
+	public function embedPosts(User $user)
+	{
+		//return $this->collection($user->posts, new PostTransformer);
 	}
 
 }

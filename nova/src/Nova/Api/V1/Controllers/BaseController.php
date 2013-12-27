@@ -1,6 +1,7 @@
 <?php namespace Nova\Api\V1\Controllers;
 
 use URL,
+	Input,
 	Request,
 	Response,
 	Controller;
@@ -19,14 +20,17 @@ abstract class BaseController extends Controller {
 	protected $url;
 	protected $fractal;
 	protected $request;
+	protected $eagerLoad;
 	protected $statusCode = 200;
 	protected $resultsPerPage = 25;
+	protected $requestedEmbeds;
 
 	public function __construct(Manager $fractal)
 	{
-		$this->url		= URL::to("api/v1");
-		$this->fractal	= $fractal;
-		$this->request	= Request::instance();
+		$this->url				= URL::to("api/v1");
+		$this->fractal			= $fractal;
+		$this->request			= Request::instance();
+		$this->requestedEmbeds	= Input::get('embed');
 	}
 
 	public function errorForbidden($message = 'Forbidden')
