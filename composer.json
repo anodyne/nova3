@@ -30,7 +30,7 @@
 		"cartalyst/sentry": "2.0.*",
 		"thomaswelton/laravel-gravatar": "dev-master",
 		"intervention/image": "1.*",
-		"league/fractal": "0.5.*"
+		"league/fractal": "0.6.*"
 	},
 
 	"require-dev": {
