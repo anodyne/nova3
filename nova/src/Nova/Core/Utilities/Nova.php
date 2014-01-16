@@ -1,10 +1,10 @@
 <?php namespace Nova\Core\Utilities;
 
-use App;
-use File;
-use Cache;
-use Config;
-use Request;
+use App,
+	File,
+	Cache,
+	Config,
+	Request;
 
 class Nova {
 
