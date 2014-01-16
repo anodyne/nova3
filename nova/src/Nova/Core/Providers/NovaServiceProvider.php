@@ -1,12 +1,15 @@
 <?php namespace Nova\Core\Providers;
 
-use Nova\Core\Lib\Media;
+use App,
+	Event,
+	Config;
+use Nova\Core\Lib\Media,
+	Nova\Core\Lib\Location,
+	Nova\Core\Lib\Markdown,
+	Nova\Core\Utilities\Nova,
+	Nova\Core\Lib\DynamicForm,
+	Nova\Core\Lib\SystemEvent;
 use Ikimea\Browser\Browser;
-use Nova\Core\Lib\Location;
-use Nova\Core\Lib\Markdown;
-use Nova\Core\Utilities\Nova;
-use Nova\Core\Lib\DynamicForm;
-use Nova\Core\Lib\SystemEvent;
 use dflydev\markdown\MarkdownParser;
 use Illuminate\Support\ServiceProvider;
 use Nova\Extensions\Laravel\Config\Repository as ConfigRepository;
@@ -130,7 +133,7 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function browserCheck()
 	{
-		$this->app['events']->listen('nova.start', function()
+		Event::listen('nova.start', function()
 		{
 			//sd($this->app['nova.browser']);
 		});
@@ -143,10 +146,10 @@ class NovaServiceProvider extends ServiceProvider {
 	protected function bootEventListeners()
 	{
 		// Get all the aliases
-		$aliases = $this->app['config']->get('app.aliases');
+		$aliases = Config::get('app.aliases');
 
 		// Get the event config file
-		$events = $this->app['config']->get('events');
+		$events = Config::get('events');
 
 		foreach ($events as $event => $handlers)
 		{
@@ -162,7 +165,7 @@ class NovaServiceProvider extends ServiceProvider {
 				$priority = ((int) $key == 0) ? 100 : $key;
 
 				// Listen for the event
-				$this->app['events']->listen($event, $finalHandler, $priority);
+				Event::listen($event, $finalHandler, $priority);
 			}
 		}
 	}
@@ -173,24 +176,24 @@ class NovaServiceProvider extends ServiceProvider {
 	protected function setupBindings()
 	{
 		// Get the aliases
-		$a = $this->app['config']->get('app.aliases');
+		$a = Config::get('app.aliases');
 
 		/**
 		 * Repository interface bindings
 		 */
-		$this->app->bind($a['AccessRoleRepositoryInterface'], $a['AccessRoleRepository']);
-		$this->app->bind($a['CatalogRepositoryInterface'], $a['CatalogRepository']);
-		$this->app->bind($a['FormRepositoryInterface'], $a['FormRepository']);
-		$this->app->bind($a['NavigationRepositoryInterface'], $a['NavigationRepository']);
-		$this->app->bind($a['SettingsRepositoryInterface'], $a['SettingsRepository']);
-		$this->app->bind($a['SiteContentRepositoryInterface'], $a['SiteContentRepository']);
-		$this->app->bind($a['SystemRouteRepositoryInterface'], $a['SystemRouteRepository']);
-		$this->app->bind($a['UserRepositoryInterface'], $a['UserRepository']);
+		App::bind($a['AccessRoleRepositoryInterface'], $a['AccessRoleRepository']);
+		App::bind($a['CatalogRepositoryInterface'], $a['CatalogRepository']);
+		App::bind($a['FormRepositoryInterface'], $a['FormRepository']);
+		App::bind($a['NavigationRepositoryInterface'], $a['NavigationRepository']);
+		App::bind($a['SettingsRepositoryInterface'], $a['SettingsRepository']);
+		App::bind($a['SiteContentRepositoryInterface'], $a['SiteContentRepository']);
+		App::bind($a['SystemRouteRepositoryInterface'], $a['SystemRouteRepository']);
+		App::bind($a['UserRepositoryInterface'], $a['UserRepository']);
 
 		/**
 		 * Other interface bindings
 		 */
-		$this->app->bind($a['NovaAuthInterface'], $a['NovaAuth']);
+		App::bind($a['NovaAuthInterface'], $a['NovaAuth']);
 	}
 
 }

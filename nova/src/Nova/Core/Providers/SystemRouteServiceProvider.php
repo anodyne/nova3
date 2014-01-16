@@ -1,7 +1,10 @@
 <?php namespace Nova\Core\Providers;
 
-use Str;
-use Route;
+use App,
+	Str,
+	File,
+	Cache,
+	Route;
 use Illuminate\Support\ServiceProvider;
 
 class SystemRouteServiceProvider extends ServiceProvider {
@@ -29,7 +32,7 @@ class SystemRouteServiceProvider extends ServiceProvider {
 	protected function bootSystemRoutes()
 	{
 		// Get all routes
-		$routes = $this->app['cache']->get('nova.routes');
+		$routes = Cache::get('nova.routes');
 
 		// Get the install status
 		$installed = $this->app['nova.setup']->installed(false);
@@ -41,7 +44,7 @@ class SystemRouteServiceProvider extends ServiceProvider {
 			\SystemRouteModel::cache();
 
 			// Retrieve the routes again
-			$routes = $this->app['cache']->get('nova.routes');
+			$routes = Cache::get('nova.routes');
 		}
 
 		if ($routes === null)
@@ -146,12 +149,12 @@ class SystemRouteServiceProvider extends ServiceProvider {
 	protected function bootModuleRoutes()
 	{
 		// Get the module list
-		$modules = $this->app['cache']->get('nova.modules', []);
+		$modules = Cache::get('nova.modules', []);
 
 		// Loop through the modules and include their route files
 		foreach ($modules as $m)
 		{
-			if ($this->app['file']->exists(APPPATH."src/Modules/{$m}/routes.php"))
+			if (File::exists(APPPATH."src/Modules/{$m}/routes.php"))
 			{
 				include APPPATH."src/Modules/{$m}/routes.php";
 			}
@@ -164,7 +167,7 @@ class SystemRouteServiceProvider extends ServiceProvider {
 	protected function bootDevRoutes()
 	{
 		// Pull in the dev routes if we're local
-		if ($this->app->environment() == 'local')
+		if (App::environment() == 'local')
 		{
 			require SRCPATH.'Core/routes_dev.php';
 		}

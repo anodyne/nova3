@@ -1,5 +1,13 @@
 <?php namespace Nova\Core\Providers;
 
+use App,
+	Log,
+	View,
+	Request,
+	Location,
+	NovaGeneralException;
+use Exception,
+	RuntimeException;
 use Illuminate\Support\ServiceProvider;
 
 class ErrorServiceProvider extends ServiceProvider {
@@ -22,7 +30,7 @@ class ErrorServiceProvider extends ServiceProvider {
 	 */
 	protected function bootMissing()
 	{
-		$this->app->missing(function()
+		App::missing(function()
 		{
 			// Random headers and messages to use
 			$messages = [
@@ -77,9 +85,9 @@ class ErrorServiceProvider extends ServiceProvider {
 			$rand = array_rand($messages);
 
 			// Log the error
-			$this->app['log']->error('404 Not Found. Could not find the page requested: '.$this->app['request']->path());
+			Log::error('404 Not Found. Could not find the page requested: '.Request::path());
 
-			return $this->app['view']->make($this->app['nova.location']->error('404'))
+			return View::make(Location::error('404'))
 				->with('header', $messages[$rand]['header'])
 				->with('message', $messages[$rand]['message']);
 		});
@@ -90,17 +98,17 @@ class ErrorServiceProvider extends ServiceProvider {
 	 */
 	protected function bootRuntimeException()
 	{
-		$this->app->error(function(\RuntimeException $ex, $code)
+		App::error(function(RuntimeException $ex, $code)
 		{
 			switch ($ex->getMessage())
 			{
 				case "php 5.4 required":
-					return $this->app['view']->make($this->app['nova.location']->error('php_version'))
-						->with('env', $this->app->environment());
+					return View::make(Location::error('php_version'))
+						->with('env', App::environment());
 				break;
 
 				case "cache directory not writable":
-					return $this->app['view']->make($this->app['nova.location']->error('cache_dir'));
+					return View::make(Location::error('cache_dir'));
 				break;
 			}
 		});
@@ -111,9 +119,9 @@ class ErrorServiceProvider extends ServiceProvider {
 	 */
 	protected function bootGeneralException()
 	{
-		$this->app->error(function(\Exception $ex, $code)
+		App::error(function(Exception $ex, $code)
 		{
-			$this->app['log']->error($ex);
+			Log::error($ex);
 		});
 	}
 
@@ -122,11 +130,11 @@ class ErrorServiceProvider extends ServiceProvider {
 	 */
 	protected function bootNovaException()
 	{
-		$this->app->error(function(\NovaGeneralException $ex, $code)
+		App::error(function(NovaGeneralException $ex, $code)
 		{
-			$this->app['log']->error($ex);
+			Log::error($ex);
 
-			return $this->app['view']->make($this->app['nova.location']->error('nova_general'))
+			return View::make(Location::error('nova_general'))
 				->with('message', $ex->getMessage());
 		});
 	}
