@@ -10,10 +10,7 @@ trait SecurityTrait {
 	 */
 	public function sanitizeInt($num)
 	{
-		if ( ! is_numeric($num))
-			return false;
-		
-		return $num;
+		return ( ! is_numeric($num)) ? false : $num;
 	}
 
 	/**
@@ -24,10 +21,7 @@ trait SecurityTrait {
 	 */
 	public function sanitizeString($str)
 	{
-		if ( ! is_string($str))
-			return false;
-		
-		return $str;
+		return ( ! is_string($str)) ? false : $str;
 	}
 
 }
