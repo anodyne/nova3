@@ -21,7 +21,7 @@
 * jQuery UI
 	* jQuery UI is a curated set of user interface interactions, effects, widgets, and themes built on top of the jQuery JavaScript Library.
 	* http://jqueryui.com/
-	* Version: 1.10.3
+	* Version: 1.10.4
 * Twitter Typeahead
 	* Twitter typeahead.js is a fast and battle-tested jQuery plugin for auto completion.
 	* http://twitter.github.io/typeahead.js/
