@@ -1,19 +1,21 @@
 <?php namespace Nova\Core\Controllers\Admin;
 
-use Str;
-use Event;
-use Image;
-use Input;
-use Media;
-use Status;
-use Redirect;
-use UserValidator;
-use AdminBaseController;
-use NovaGeneralException;
-use UserRepositoryInterface;
+use Str,
+	Event,
+	Image,
+	Input,
+	Media,
+	Status,
+	Redirect,
+	UserValidator,
+	AdminBaseController,
+	NovaGeneralException,
+	UserRepositoryInterface;
 use Symfony\Component\Finder\Finder;
 
 class User extends AdminBaseController {
+
+	protected $user;
 
 	public function __construct(UserRepositoryInterface $user)
 	{
@@ -98,20 +100,27 @@ class User extends AdminBaseController {
 
 		// If the validation fails, stop and go back
 		if ( ! $validator->passes())
+		{
 			return Redirect::back()->withInput()->withErrors($validator->getErrors());
+		}
 
 		if ($this->currentUser->hasAccess('user.create'))
 		{
+			// Set up the input array
+			$input = Input::all() + ['status' => Status::ACTIVE];
+			
 			// Create the user
-			$user = $this->user->create(array_merge(Input::all(), ['status' => Status::ACTIVE]));
+			$user = $this->user->create($input);
 
 			// Fire the user created event
-			Event::fire('nova.user.created', $user, Input::all());
+			Event::fire('nova.user.created', [$user, $input]);
+
+			return Redirect::to('admin/user');
 		}
 		else
+		{
 			throw new NovaGeneralException(lang('error.admin.user.notAuthorized', lang('action.create')));
-
-		return Redirect::to('admin/user');
+		}
 	}
 
 	public function getEdit($userId)

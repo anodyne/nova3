@@ -1,14 +1,14 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use UtilityTrait;
-use SettingsModel;
-use SecurityTrait;
-use SettingsRepositoryInterface;
+use UtilityTrait,
+	SettingsModel,
+	SecurityTrait,
+	SettingsRepositoryInterface;
 
 class SettingsRepository implements SettingsRepositoryInterface {
 
-	use UtilityTrait;
-	use SecurityTrait;
+	use UtilityTrait,
+		SecurityTrait;
 
 	public function all()
 	{

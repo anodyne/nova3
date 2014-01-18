@@ -1,15 +1,15 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use UtilityTrait;
-use SecurityTrait;
-use SystemRouteModel;
-use RouteProtectedException;
-use SystemRouteRepositoryInterface;
+use UtilityTrait,
+	SecurityTrait,
+	SystemRouteModel,
+	RouteProtectedException,
+	SystemRouteRepositoryInterface;
 
 class SystemRouteRepository implements SystemRouteRepositoryInterface {
 
-	use UtilityTrait;
-	use SecurityTrait;
+	use UtilityTrait,
+		SecurityTrait;
 
 	public function all()
 	{

@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use SecurityTrait;
-use RankCatalogRepositoryInterface;
+use SecurityTrait,
+	RankCatalogRepositoryInterface;
 
 class RankCatalogRepository implements RankCatalogRepositoryInterface {
 

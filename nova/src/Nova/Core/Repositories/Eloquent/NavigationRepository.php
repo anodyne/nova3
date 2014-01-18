@@ -1,14 +1,14 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use NavModel;
-use UtilityTrait;
-use SecurityTrait;
-use NavigationRepositoryInterface;
+use NavModel,
+	UtilityTrait,
+	SecurityTrait,
+	NavigationRepositoryInterface;
 
 class NavigationRepository implements NavigationRepositoryInterface {
 
-	use UtilityTrait;
-	use SecurityTrait;
+	use UtilityTrait,
+		SecurityTrait;
 	
 	/**
 	 * Get everything out of the database.

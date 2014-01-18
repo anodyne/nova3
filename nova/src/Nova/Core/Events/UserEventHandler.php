@@ -1,12 +1,12 @@
 <?php namespace Nova\Core\Events;
 
-use URL;
-use Request;
-use FormModel;
-use UserModel;
-use FormDataModel;
-use UserMailer as Mailer;
-use SettingsRepositoryInterface;
+use URL,
+	Request,
+	FormModel,
+	UserModel,
+	FormDataModel,
+	UserMailer as Mailer,
+	SettingsRepositoryInterface;
 
 class UserEventHandler extends \BaseEventHandler {
 
@@ -19,7 +19,7 @@ class UserEventHandler extends \BaseEventHandler {
 		$this->settings = $settings;
 	}
 
-	public function onUserCreated(UserModel $user, $input)
+	public function onUserCreated($user, $input)
 	{
 		// Create user preferences for the user
 		$user->createUserPreferences();

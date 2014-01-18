@@ -1,8 +1,9 @@
 <?php namespace Nova\Core\Lib;
 
-use Sentry;
-use Request;
-use SystemEventModel;
+use Sentry,
+	Request,
+	SystemEventModel,
+	SystemEventInterface;
 
 class SystemEvent {
 

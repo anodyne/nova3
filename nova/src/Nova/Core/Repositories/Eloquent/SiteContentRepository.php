@@ -1,15 +1,15 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use Str;
-use UtilityTrait;
-use SecurityTrait;
-use SiteContentModel;
-use SiteContentRepositoryInterface;
+use Str,
+	UtilityTrait,
+	SecurityTrait,
+	SiteContentModel,
+	SiteContentRepositoryInterface;
 
 class SiteContentRepository implements SiteContentRepositoryInterface {
 
-	use UtilityTrait;
-	use SecurityTrait;
+	use UtilityTrait,
+		SecurityTrait;
 
 	/**
 	 * Get everything out of the database.

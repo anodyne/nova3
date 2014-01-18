@@ -1,9 +1,9 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use SecurityTrait;
-use AccessRoleModel;
-use AccessTaskModel;
-use AccessRoleRepositoryInterface;
+use SecurityTrait,
+	AccessRoleModel,
+	AccessTaskModel,
+	AccessRoleRepositoryInterface;
 
 class AccessRoleRepository implements AccessRoleRepositoryInterface {
 

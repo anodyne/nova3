@@ -1,12 +1,12 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use SettingsModel;
-use RankCatalogModel;
-use SkinCatalogModel;
-use SecurityTrait;
-use UserRepositoryInterface;
-use CatalogRepositoryInterface;
-use SettingsRepositoryInterface;
+use SettingsModel,
+	RankCatalogModel,
+	SkinCatalogModel,
+	SecurityTrait,
+	UserRepositoryInterface,
+	CatalogRepositoryInterface,
+	SettingsRepositoryInterface;
 
 class CatalogRepository implements CatalogRepositoryInterface {
 

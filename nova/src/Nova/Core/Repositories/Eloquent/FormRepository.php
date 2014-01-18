@@ -1,20 +1,20 @@
 <?php namespace Nova\Core\Repositories\Eloquent;
 
-use FormModel;
-use FormTabModel;
-use UtilityTrait;
-use FormDataModel;
-use SecurityTrait;
-use FormFieldModel;
-use FormValueModel;
-use FormSectionModel;
-use FormProtectedException;
-use FormRepositoryInterface;
+use FormModel,
+	FormTabModel,
+	UtilityTrait,
+	FormDataModel,
+	SecurityTrait,
+	FormFieldModel,
+	FormValueModel,
+	FormSectionModel,
+	FormProtectedException,
+	FormRepositoryInterface;
 
 class FormRepository implements FormRepositoryInterface {
 
-	use UtilityTrait;
-	use SecurityTrait;
+	use UtilityTrait,
+		SecurityTrait;
 
 	/**
 	 * Get all the forms.
