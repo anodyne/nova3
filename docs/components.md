@@ -9,11 +9,11 @@
 * jQuery
 	* jQuery is a fast, small, and feature-rich JavaScript library.
 	* http://jquery.com/
-	* Version: 1.10.2 (IE 9 and lower) and 2.0.3 (IE 10+, Firefox, Chrome)
+	* Version: 2.1
 * Bootstrap
 	* Sleek, intuitive, and powerful front-end framework for faster and easier web development.
 	* http://twitter.github.io/bootstrap/
-	* Version: 3.0.2
+	* Version: 3.0.3
 * jQuery Lazy
 	* Lazy-load plugins and their dependencies.
 	* http://unwrongest.com/projects/lazy/
