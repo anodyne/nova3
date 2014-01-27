@@ -68,14 +68,19 @@ class SystemRouteServiceProvider extends ServiceProvider {
 			{
 				foreach ($routes['get'] as $route)
 				{
+					$options = [
+						'as'	=> $route['name'],
+						'uses'	=> $route['resource'],
+					];
+
 					if ($route['conditions'] !== null)
 					{
-						Route::get($route['uri'], $route['resource'])
+						Route::get($route['uri'], $options)
 							->where($this->parseRouteConditions($route['conditions']));
 					}
 					else
 					{
-						Route::get($route['uri'], $route['resource']);
+						Route::get($route['uri'], $options);
 					}
 				}
 			}
@@ -85,14 +90,19 @@ class SystemRouteServiceProvider extends ServiceProvider {
 			{
 				foreach ($routes['post'] as $route)
 				{
+					$options = [
+						'as'	=> $route['name'],
+						'uses'	=> $route['resource'],
+					];
+
 					if ( ! empty($route['conditions']))
 					{
-						Route::post($route['uri'], $route['resource'])
+						Route::post($route['uri'], $options)
 							->where($this->parseRouteConditions($route['conditions']));
 					}
 					else
 					{
-						Route::post($route['uri'], $route['resource']);
+						Route::post($route['uri'], $options);
 					}
 				}
 			}
@@ -102,14 +112,19 @@ class SystemRouteServiceProvider extends ServiceProvider {
 			{
 				foreach ($routes['put'] as $route)
 				{
+					$options = [
+						'as'	=> $route['name'],
+						'uses'	=> $route['resource'],
+					];
+
 					if ( ! empty($route['conditions']))
 					{
-						Route::put($route['uri'], $route['resource'])
+						Route::put($route['uri'], $options)
 							->where($this->parseRouteConditions($route['conditions']));
 					}
 					else
 					{
-						Route::put($route['uri'], $route['resource']);
+						Route::put($route['uri'], $options);
 					}
 				}
 			}
@@ -119,14 +134,19 @@ class SystemRouteServiceProvider extends ServiceProvider {
 			{
 				foreach ($routes['delete'] as $route)
 				{
+					$options = [
+						'as'	=> $route['name'],
+						'uses'	=> $route['resource'],
+					];
+
 					if ( ! empty($route['conditions']))
 					{
-						Route::delete($route['uri'], $route['resource'])
+						Route::delete($route['uri'], $options)
 							->where($this->parseRouteConditions($route['conditions']));
 					}
 					else
 					{
-						Route::delete($route['uri'], $route['resource']);
+						Route::delete($route['uri'], $options);
 					}
 				}
 			}
