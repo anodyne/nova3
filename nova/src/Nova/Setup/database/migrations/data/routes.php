@@ -44,63 +44,56 @@ return [
 		'name'			=> 'login',
 		'verb'			=> 'get',
 		'uri'			=> 'login',
-		'resource'		=> 'Nova\Core\Controllers\Login@getIndex',
+		'resource'		=> 'Nova\Core\Controllers\LoginController@index',
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'login',
+		'name'			=> 'login.action',
 		'verb'			=> 'post',
 		'uri'			=> 'login',
-		'resource'		=> 'Nova\Core\Controllers\Login@postIndex',
+		'resource'		=> 'Nova\Core\Controllers\LoginController@postIndex',
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'login/error',
+		'name'			=> 'login.error',
 		'verb'			=> 'get',
 		'uri'			=> 'login/error/{error}',
-		'resource'		=> 'Nova\Core\Controllers\Login@getIndex',
+		'resource'		=> 'Nova\Core\Controllers\LoginController@index',
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'login/error',
-		'verb'			=> 'post',
-		'uri'			=> 'login/error/{error}',
-		'resource'		=> 'Nova\Core\Controllers\Login@postIndex',
-		'protected'		=> (int) true
-	],
-	[
-		'name'			=> 'login/reset',
+		'name'			=> 'login.reset',
 		'verb'			=> 'get',
 		'uri'			=> 'login/reset',
-		'resource'		=> 'Nova\Core\Controllers\Login@getReset',
+		'resource'		=> 'Nova\Core\Controllers\LoginController@getReset',
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'login/reset',
+		'name'			=> 'login.reset.action',
 		'verb'			=> 'post',
 		'uri'			=> 'login/reset',
-		'resource'		=> 'Nova\Core\Controllers\Login@postReset',
+		'resource'		=> 'Nova\Core\Controllers\LoginController@postReset',
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'login/reset_confirm',
+		'name'			=> 'login.confirm',
 		'verb'			=> 'get',
 		'uri'			=> 'login/reset_confirm/{id}/{code}',
-		'resource'		=> 'Nova\Core\Controllers\Login@getResetConfirm',
+		'resource'		=> 'Nova\Core\Controllers\LoginController@getResetConfirm',
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'login/reset_confirm',
+		'name'			=> 'login.confirm.action',
 		'verb'			=> 'post',
 		'uri'			=> 'login/reset_confirm/{id}/{code}',
-		'resource'		=> 'Nova\Core\Controllers\Login@postResetConfirm',
+		'resource'		=> 'Nova\Core\Controllers\LoginController@postResetConfirm',
 		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'logout',
 		'verb'			=> 'get',
 		'uri'			=> 'logout',
-		'resource'		=> 'Nova\Core\Controllers\Login@getLogout',
+		'resource'		=> 'Nova\Core\Controllers\LoginController@logout',
 		'protected'		=> (int) true
 	],
 
@@ -115,7 +108,7 @@ return [
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'admin/error',
+		'name'			=> 'admin.error',
 		'verb'			=> 'get',
 		'uri'			=> 'admin/error/{code}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\Admin@getError',
@@ -593,6 +586,7 @@ return [
 		'verb'			=> 'get',
 		'uri'			=> 'admin/sitecontent/ajax/delete/{id}',
 		'resource'		=> 'Nova\Core\Controllers\Admin\ManageController@getAjaxDeleteSiteContent',
+		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'admin/sitecontent/ajax/get',

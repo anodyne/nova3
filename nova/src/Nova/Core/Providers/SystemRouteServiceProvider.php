@@ -84,7 +84,7 @@ class SystemRouteServiceProvider extends ServiceProvider {
 					}
 				}
 			}
-
+			
 			// POST routes
 			if (array_key_exists('post', $routes) and count($routes['post']) > 0)
 			{

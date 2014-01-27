@@ -1,41 +1,24 @@
 <?php namespace Nova\Core\Controllers;
 
-/**
- * Controller that handles requests for the "login" section of Nova.
- *
- * @package		Nova
- * @subpackage	Core
- * @category	Controllers
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
+use Event,
+	Input,
+	Session,
+	Redirect,
+	ErrorCode,
+	UserValidator,
+	LoginBaseController;
+use Cartalyst\Sentry\Users\UserNotFoundException,
+	Cartalyst\Sentry\Throttling\UserBannedException,
+	Cartalyst\Sentry\Throttling\UserSuspendedException;
 
-use URL;
-use Date;
-use Html;
-use Mail;
-use Event;
-use Input;
-use Cookie;
-use Sentry;
-use Session;
-use Location;
-use Redirect;
-use ErrorCode;
-use UserValidator;
-use LoginBaseController;
-use Cartalyst\Sentry\Users\UserNotFoundException;
-use Cartalyst\Sentry\Throttling\UserBannedException;
-use Cartalyst\Sentry\Throttling\UserSuspendedException;
-
-class Login extends LoginBaseController {
+class LoginController extends LoginBaseController {
 
 	/**
-	 * Lets a user log in to the system. If their email address or password is wrong,
-	 * they're notified of the error. Also handles notifying the user if they've
-	 * been locked out of the system for too many log in attempts.
+	 * Lets a user log in to the system. If their email address or password is
+	 * wrong, they're notified of the error. Also handles notifying the user
+	 * if they've been locked out of the system for too many log in attempts.
 	 */
-	public function getIndex($error = ErrorCode::LOGIN_OK)
+	public function index($error = ErrorCode::LOGIN_OK)
 	{
 		// Set the view
 		$this->view = 'login/index';
@@ -130,7 +113,7 @@ class Login extends LoginBaseController {
 	 * Logs a user out of the system, destroys any cookies, and make sure they
 	 * won't be remembered by the system.
 	 */
-	public function getLogout()
+	public function logout()
 	{
 		// Do the logout
 		$this->auth->logout();

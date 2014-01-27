@@ -1,4 +1,4 @@
-{{ Form::open() }}
+{{ Form::open(['route' => 'login.action']) }}
 	<div class="form-group">
 		{{ Form::email('email', null, ['placeholder' => ucwords(lang('email_address')), 'class' => 'form-control input-lg']) }}
 	</div>

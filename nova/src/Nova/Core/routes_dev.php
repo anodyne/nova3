@@ -69,4 +69,11 @@ Route::group(['prefix' => 'dev'], function()
 		s($route->toArray());
 		//s($update);
 	});
+
+	Route::get('routes', function()
+	{
+		$routes = Cache::get('nova.routes');
+
+		sd($routes['get']);
+	});
 });
