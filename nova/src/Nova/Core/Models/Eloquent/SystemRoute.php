@@ -96,6 +96,7 @@ class SystemRoute extends Model implements CacheInterface {
 		{
 			$routes[$item->verb][$item->name] = [
 				'uri'			=> $item->uri,
+				'name'			=> $item->name,
 				'resource'		=> $item->resource,
 				'conditions'	=> $item->conditions,
 			];
