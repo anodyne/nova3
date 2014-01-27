@@ -163,7 +163,7 @@ class Character extends Model implements MediaInterface, FormDataInterface {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['CharacterModel'], $a['CharacterModelEventHandler']);
+		//static::setupEventListeners($a['CharacterModel'], $a['CharacterModelEventHandler']);
 	}
 
 	/**

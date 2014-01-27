@@ -72,7 +72,7 @@ class Rank extends Model implements QuickInstallInterface {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['RankCatalogModel'], $a['RankCatalogModelEventHandler']);
+		//static::setupEventListeners($a['RankCatalogModel'], $a['RankCatalogModelEventHandler']);
 	}
 
 	/*

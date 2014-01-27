@@ -85,7 +85,7 @@ class Role extends Model implements GroupInterface {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['AccessRoleModel'], $a['AccessRoleModelEventHandler']);
+		//static::setupEventListeners($a['AccessRoleModel'], $a['AccessRoleModelEventHandler']);
 	}
 	
 	/**

@@ -74,7 +74,7 @@ class Position extends Model {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['PositionModel'], $a['PositionModelEventHandler']);
+		//static::setupEventListeners($a['PositionModel'], $a['PositionModelEventHandler']);
 	}
 	
 	/**

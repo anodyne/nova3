@@ -77,7 +77,7 @@ class Task extends Model {
 		$a = Config::get('app.aliases');
 
 		// Setup the listeners
-		static::setupEventListeners($a['AccessTaskModel'], $a['AccessTaskModelEventHandler']);
+		//static::setupEventListeners($a['AccessTaskModel'], $a['AccessTaskModelEventHandler']);
 	}
 
 }
