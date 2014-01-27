@@ -518,79 +518,108 @@ return [
 	 * admin/manage
 	 */
 	[
-		'name'			=> 'admin/routes',
+		'name'			=> 'admin.routes',
 		'verb'			=> 'get',
-		'uri'			=> 'admin/routes/{routeId?}',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@getRoutes',
+		'uri'			=> 'admin/routes',
+		'resource'		=> 'Nova\Core\Controllers\Admin\RouteController@index',
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'admin/routes',
+		'name'			=> 'admin.routes.create',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/routes/create',
+		'resource'		=> 'Nova\Core\Controllers\Admin\RouteController@create',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin.routes.store',
 		'verb'			=> 'post',
 		'uri'			=> 'admin/routes',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@postRoutes',
+		'resource'		=> 'Nova\Core\Controllers\Admin\RouteController@store',
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'admin/routes/ajax/delete',
+		'name'			=> 'admin.routes.edit',
+		'verb'			=> 'get',
+		'uri'			=> 'admin/routes/{id}/edit',
+		'resource'		=> 'Nova\Core\Controllers\Admin\RouteController@edit',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin.routes.update',
+		'verb'			=> 'put',
+		'uri'			=> 'admin/routes/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\RouteController@update',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin.routes.destroy',
+		'verb'			=> 'delete',
+		'uri'			=> 'admin/routes/{id}',
+		'resource'		=> 'Nova\Core\Controllers\Admin\RouteController@destroy',
+		'protected'		=> (int) true
+	],
+	[
+		'name'			=> 'admin.routes.ajax.delete',
 		'verb'			=> 'get',
 		'uri'			=> 'admin/routes/ajax/delete/{id}',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@getAjaxDeleteRoute',
+		'resource'		=> 'Nova\Core\Controllers\Admin\RouteController@getAjaxDeleteRoute',
 		'protected'		=> (int) true
 	],
 	[
-		'name'			=> 'admin/routes/ajax/duplicate',
+		'name'			=> 'admin.routes.ajax.duplicate',
 		'verb'			=> 'get',
 		'uri'			=> 'admin/routes/ajax/duplicate/{id}',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@getAjaxDuplicateRoute',
+		'resource'		=> 'Nova\Core\Controllers\Admin\RouteController@getAjaxDuplicateRoute',
 		'protected'		=> (int) true
 	],
+	
 	[
 		'name'			=> 'admin/sitecontent',
 		'verb'			=> 'get',
 		'uri'			=> 'admin/sitecontent/{contentId?}',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@getSiteContent',
+		'resource'		=> 'Nova\Core\Controllers\Admin\ManageController@getSiteContent',
 		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'admin/sitecontent',
 		'verb'			=> 'post',
 		'uri'			=> 'admin/sitecontent',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@postSiteContent',
+		'resource'		=> 'Nova\Core\Controllers\Admin\ManageController@postSiteContent',
 		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'admin/sitecontent/ajax/delete',
 		'verb'			=> 'get',
 		'uri'			=> 'admin/sitecontent/ajax/delete/{id}',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@getAjaxDeleteSiteContent',
+		'resource'		=> 'Nova\Core\Controllers\Admin\ManageController@getAjaxDeleteSiteContent',
 	],
 	[
 		'name'			=> 'admin/sitecontent/ajax/get',
 		'verb'			=> 'post',
 		'uri'			=> 'admin/sitecontent/ajax/get',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@postAjaxGetSiteContent',
+		'resource'		=> 'Nova\Core\Controllers\Admin\ManageController@postAjaxGetSiteContent',
 		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'admin/sitecontent/ajax/update',
 		'verb'			=> 'post',
 		'uri'			=> 'admin/sitecontent/ajax/update',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@postAjaxUpdateSiteContent',
+		'resource'		=> 'Nova\Core\Controllers\Admin\ManageController@postAjaxUpdateSiteContent',
 		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'admin/navigation',
 		'verb'			=> 'get',
 		'uri'			=> 'admin/navigation/{navId?}',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@getSiteNavigation',
+		'resource'		=> 'Nova\Core\Controllers\Admin\ManageController@getSiteNavigation',
 		'protected'		=> (int) true
 	],
 	[
 		'name'			=> 'admin/navigation',
 		'verb'			=> 'post',
 		'uri'			=> 'admin/navigation',
-		'resource'		=> 'Nova\Core\Controllers\Admin\Manage@postSiteNavigation',
+		'resource'		=> 'Nova\Core\Controllers\Admin\ManageController@postSiteNavigation',
 		'protected'		=> (int) true
 	],
 

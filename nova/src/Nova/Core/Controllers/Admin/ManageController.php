@@ -1,118 +1,24 @@
 <?php namespace Nova\Core\Controllers\Admin;
 
-use Str;
-use View;
-use Event;
-use Input;
-use Session;
-use Location;
-use Markdown;
-use Redirect;
-use AdminBaseController;
-use SiteContentValidator;
-use SystemRouteValidator;
-use RouteProtectedException;
-use NavigationRepositoryInterface;
-use SystemRouteRepositoryInterface;
+use View,
+	Event,
+	Input,
+	Session,
+	Location,
+	Markdown,
+	Redirect,
+	AdminBaseController,
+	SiteContentValidator,
+	NavigationRepositoryInterface;
 
-class Manage extends AdminBaseController {
+class ManageController extends AdminBaseController {
 
-	public function __construct(SystemRouteRepositoryInterface $routes,
-			NavigationRepositoryInterface $navigation)
+	public function __construct(NavigationRepositoryInterface $navigation)
 	{
 		parent::__construct();
 
 		// Set the injected interfaces
-		$this->routes = $routes;
 		$this->navigation = $navigation;
-	}
-
-	public function getRoutes($routeId = false)
-	{
-		// Verify the user is allowed
-		$this->currentUser->allowed(['routes.create', 'routes.update', 'routes.delete'], true);
-
-		// Set the view
-		$this->jsView = 'admin/manage/routes_js';
-
-		if ($routeId !== false)
-		{
-			// Set the view
-			$this->view = 'admin/manage/routes_action';
-
-			// Do some sanity checking on the route ID
-			$routeId = (is_numeric($routeId)) ? (int) $routeId : 0;
-
-			// Get the route
-			$this->data->route = $this->routes->find($routeId);
-
-			// Set the action
-			$this->mode = $this->data->action = ($routeId === 0) ? 'create' : 'update';
-		}
-		else
-		{
-			// Set the view
-			$this->view = 'admin/manage/routes';
-
-			// Get all the routes for the system
-			$this->data->routes = $this->routes->allAsArray();
-		}
-	}
-	public function postRoutes()
-	{
-		// Get the form action
-		$formAction = Input::get('formAction');
-
-		// Set up the validation service
-		$validator = new SystemRouteValidator;
-
-		// If the validation fails, stop and go back
-		if ( ! $validator->passes())
-		{
-			return Redirect::back()->withInput()->withErrors($validator->getErrors());
-		}
-
-		// Create a new route
-		if ($this->currentUser->hasAccess('routes.create') and $formAction == 'create')
-		{
-			$item = $this->routes->create(Input::all());
-
-			Event::fire('nova.route.created', [$item, Input::all()]);
-		}
-
-		// Duplicate a core route
-		if ($this->currentUser->hasAccess('routes.create') and $formAction == 'duplicate')
-		{
-			$item = $this->routes->duplicate(Input::get('id'));
-
-			Event::fire('nova.route.duplicated', [$item, Input::all()]);
-		}
-
-		// Update a route
-		if ($this->currentUser->hasAccess('routes.update') and $formAction == 'update')
-		{
-			$item = $this->routes->update(Input::get('id'), Input::all());
-
-			Event::fire('nova.route.updated', [$item, Input::all()]);
-		}
-
-		// Delete a route
-		if ($this->currentUser->hasAccess('routes.delete') and $formAction == 'delete')
-		{
-			try
-			{
-				$item = $this->routes->delete(Input::get('id'));
-
-				Event::fire('nova.route.deleted', [$item, Input::all()]);
-			}
-			catch (RouteProtectedException $e)
-			{
-				Session::flash('flashStatus', 'danger');
-				Session::flash('flashMessage', lang('error.admin.route.protected'));
-			}
-		}
-
-		return Redirect::to('admin/routes');
 	}
 
 	public function getSiteContent($contentId = false)
@@ -291,29 +197,6 @@ class Manage extends AdminBaseController {
 		return Redirect::to('admin/navigation');
 	}
 
-	public function getAjaxDeleteRoute($id)
-	{
-		if ($this->auth->check() and $this->currentUser->hasAccess('routes.delete'))
-		{
-			// Get the route
-			$route = $this->routes->find($id);
-
-			if ($route)
-			{
-				// Do we have any other similar routes?
-				$similarRoutes = $this->routes->findByUri($route->uri, $route->verb, true);
-
-				return partial('common/modal_content', [
-					'modalHeader'	=> lang('Short.delete', lang('Route')),
-					'modalBody'		=> View::make(Location::ajax('admin/admin/delete_route'))
-										->with('route', $route)
-										->with('similarRoutes', $similarRoutes > 1),
-					'modalFooter'	=> false,
-				]);
-			}
-		}
-	}
-
 	public function getAjaxDeleteSiteContent($id)
 	{
 		if ($this->auth->check() and $this->currentUser->hasAccess('content.delete'))
@@ -327,25 +210,6 @@ class Manage extends AdminBaseController {
 					'modalHeader'	=> lang('Short.delete', langConcat('Site Content')),
 					'modalBody'		=> View::make(Location::ajax('admin/admin/delete_sitecontent'))
 										->with('sitecontent', $item),
-					'modalFooter'	=> false,
-				]);
-			}
-		}
-	}
-
-	public function getAjaxDuplicateRoute($id)
-	{
-		if ($this->auth->check() and $this->currentUser->hasAccess('routes.create'))
-		{
-			// Get the original route
-			$route = $this->routes->find($id);
-
-			if ($route)
-			{
-				return partial('common/modal_content', [
-					'modalHeader'	=> lang('Short.duplicate', langConcat('Core Route')),
-					'modalBody'		=> View::make(Location::ajax('admin/admin/duplicate_route'))
-										->with('route', $route),
 					'modalFooter'	=> false,
 				]);
 			}
