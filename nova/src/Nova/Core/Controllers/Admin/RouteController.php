@@ -11,7 +11,7 @@ use View,
 	RouteProtectedException,
 	SystemRouteRepositoryInterface;
 
-class ManageController extends AdminBaseController {
+class RouteController extends AdminBaseController {
 
 	protected $routes;
 
@@ -19,7 +19,6 @@ class ManageController extends AdminBaseController {
 	{
 		parent::__construct();
 
-		// Set the injected interfaces
 		$this->routes = $routes;
 	}
 
