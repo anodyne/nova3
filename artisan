@@ -29,9 +29,6 @@ require 'nova/start/autoload.php';
 
 $app = require_once NOVAPATH.'start/start.php';
 
-// Remove for 4.1
-$app->boot();
-
 /*
 |--------------------------------------------------------------------------
 | Load The Artisan Console Application
@@ -44,8 +41,7 @@ $app->boot();
 |
 */
 
-// 4.1
-//$app->setRequestForConsoleEnvironment();
+$app->setRequestForConsoleEnvironment();
 
 $artisan = Illuminate\Console\Application::start($app);
 

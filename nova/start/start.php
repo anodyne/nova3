@@ -13,9 +13,6 @@
 
 $app = new Nova\Extensions\Laravel\Application;
 
-// Remove for 4.1
-$app->redirectIfTrailingSlash();
-
 /*
 |--------------------------------------------------------------------------
 | Bind Paths

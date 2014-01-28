@@ -107,7 +107,7 @@ class Model extends EloquentModel {
 	 * @param  string  $foreignKey
 	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
 	 */
-	public function hasOne($related, $foreignKey = null)
+	public function hasOne($related, $foreignKey = null, $localKey = null)
 	{
 		// Get the class aliases
 		$aliases = Config::get('app.aliases');
@@ -115,7 +115,7 @@ class Model extends EloquentModel {
 		// Figure out what the real model class should be
 		$model = $aliases[$related];
 
-		return parent::hasOne($model, $foreignKey);
+		return parent::hasOne($model, $foreignKey, $localKey);
 	}
 
 	/**
@@ -129,7 +129,7 @@ class Model extends EloquentModel {
 	 * @param  string  $foreignKey
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function belongsTo($related, $foreignKey = null)
+	public function belongsTo($related, $foreignKey = null, $otherKey = null, $relation = null)
 	{
 		// Get the class aliases
 		$aliases = Config::get('app.aliases');
@@ -137,7 +137,7 @@ class Model extends EloquentModel {
 		// Figure out what the real model class should be
 		$model = $aliases[$related];
 
-		return parent::belongsTo($model, $foreignKey);
+		return parent::belongsTo($model, $foreignKey, $otherKey, $relation);
 	}
 
 	/**
@@ -151,7 +151,7 @@ class Model extends EloquentModel {
 	 * @param  string  $foreignKey
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function hasMany($related, $foreignKey = null)
+	public function hasMany($related, $foreignKey = null, $localKey = null)
 	{
 		// Get the class aliases
 		$aliases = Config::get('app.aliases');
@@ -159,7 +159,7 @@ class Model extends EloquentModel {
 		// Figure out what the real model class should be
 		$model = $aliases[$related];
 
-		return parent::hasMany($model, $foreignKey);
+		return parent::hasMany($model, $foreignKey, $localKey);
 	}
 
 	/**
@@ -175,7 +175,7 @@ class Model extends EloquentModel {
 	 * @param  string  $otherKey
 	 * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
 	 */
-	public function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null)
+	public function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null, $relation = null)
 	{
 		// Get the class aliases
 		$aliases = Config::get('app.aliases');
@@ -183,7 +183,7 @@ class Model extends EloquentModel {
 		// Figure out what the real model class should be
 		$model = $aliases[$related];
 
-		return parent::belongsToMany($model, $table, $foreignKey, $otherKey);
+		return parent::belongsToMany($model, $table, $foreignKey, $otherKey, $relation);
 	}
 
 	/*

@@ -23,11 +23,11 @@
 
 	"require": {
 		"php": ">=5.4.0",
-		"laravel/framework": "4.0.*",
+		"laravel/framework": "4.1.*",
 		"dflydev/markdown": "1.*",
 		"ikimea/browser": "1.*",
 		"baum/baum": "1.*",
-		"cartalyst/sentry": "2.0.*",
+		"cartalyst/sentry": "3.0.*",
 		"thomaswelton/laravel-gravatar": "dev-master",
 		"intervention/image": "1.*",
 		"league/fractal": "0.6.*"
