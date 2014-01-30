@@ -1,35 +1,35 @@
 <?php namespace Nova\Setup\Controllers;
 
-use App;
-use Date;
-use File;
-use Form;
-use HTML;
-use Cache;
-use Event;
-use Input;
-use Config;
-use Status;
-use Artisan;
-use Location;
-use Redirect;
+use App,
+	Date,
+	File,
+	Form,
+	HTML,
+	Cache,
+	Event,
+	Input,
+	Config,
+	Status,
+	Artisan,
+	Location,
+	Redirect,
+	RankModel,
+	UserModel,
+	Validator,
+	SettingsModel,
+	CharacterModel,
+	AccessRoleModel,
+	SiteContentModel,
+	SystemRouteModel,
+	RankCatalogModel,
+	SkinCatalogModel,
+	SystemEventModel,
+	ModuleCatalogModel,
+	WidgetCatalogModel,
+	SetupBaseController;
 use Exception;
-use RankModel;
-use UserModel;
-use Validator;
-use SettingsModel;
-use CharacterModel;
-use AccessRoleModel;
-use SiteContentModel;
-use SystemRouteModel;
-use RankCatalogModel;
-use SkinCatalogModel;
-use SystemEventModel;
-use ModuleCatalogModel;
-use WidgetCatalogModel;
-use SetupBaseController;
 
-class Install extends SetupBaseController {
+class InstallController extends SetupBaseController {
 
 	public function getIndex()
 	{

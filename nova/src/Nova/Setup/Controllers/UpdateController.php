@@ -1,14 +1,14 @@
 <?php namespace Nova\Setup\Controllers;
 
-use URL;
-use Form;
-use HTML;
-use Config;
-use Artisan;
-use Redirect;
-use SetupBaseController;
+use URL,
+	Form,
+	HTML,
+	Config,
+	Artisan,
+	Redirect,
+	SetupBaseController;
 
-class Update extends SetupBaseController {
+class UpdateController extends SetupBaseController {
 
 	public function getIndex()
 	{

@@ -1,15 +1,15 @@
 <?php namespace Nova\Setup\Controllers;
 
-use DB;
-use Schema;
-use SystemModel;
-use Controller;
-use SystemEvent;
-use NovaCreateRanks;
-use NovaCreatePositions;
-use NovaCreateDepartments;
+use DB,
+	Schema,
+	SystemModel,
+	Controller,
+	SystemEvent,
+	NovaCreateRanks,
+	NovaCreatePositions,
+	NovaCreateDepartments;
 
-class Ajax extends Controller {
+class AjaxController extends Controller {
 
 	public function postIgnoreVersion()
 	{

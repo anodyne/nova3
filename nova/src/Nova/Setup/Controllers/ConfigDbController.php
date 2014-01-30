@@ -1,19 +1,19 @@
 <?php namespace Nova\Setup\Controllers;
 
-use App;
-use PDO;
-use File;
-use Form;
-use HTML;
-use Cache;
-use Input;
-use Config;
-use Schema;
-use Session;
-use Exception;
-use SetupBaseController;
+use App,
+	File,
+	Form,
+	HTML,
+	Cache,
+	Input,
+	Config,
+	Schema,
+	Session,
+	SetupBaseController;
+use PDO,
+	Exception;
 
-class ConfigDb extends SetupBaseController {
+class ConfigDbController extends SetupBaseController {
 
 	public function getIndex()
 	{

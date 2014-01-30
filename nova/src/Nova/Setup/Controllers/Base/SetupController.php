@@ -1,22 +1,22 @@
 <?php namespace Nova\Setup\Controllers\Base;
 
-use App;
-use Str;
-use File;
-use View;
-use Cache;
-use Route;
-use Request;
-use Session;
-use Location;
-use Redirect;
-use stdClass;
-use ErrorCode;
-use Exception;
-use Controller;
-use NovaAuthInterface;
+use App,
+	Str,
+	File,
+	View,
+	Cache,
+	Route,
+	Request,
+	Session,
+	Location,
+	Redirect,
+	ErrorCode,
+	Controller,
+	NovaAuthInterface;
+use stdClass,
+	Exception;
 
-abstract class Setup extends Controller {
+abstract class SetupController extends Controller {
 
 	/**
 	 * The application container.

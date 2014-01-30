@@ -192,7 +192,7 @@ return [
 		'AjaxBaseController'	=> 'Nova\Core\Controllers\Base\Ajax',
 		'WikiBaseController'	=> 'Nova\Wiki\Controllers\Base\Wiki',
 		'ForumBaseController'	=> 'Nova\Forum\Controllers\Base\Forum',
-		'SetupBaseController'	=> 'Nova\Setup\Controllers\Base\Setup',
+		'SetupBaseController'	=> 'Nova\Setup\Controllers\Base\SetupController',
 
 		/**
 		 * Nova Classes

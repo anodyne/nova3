@@ -1,24 +1,24 @@
 <?php namespace Nova\Setup\Controllers;
 
-use DB;
-use App;
-use File;
-use Form;
-use HTML;
-use Cache;
-use Config;
-use Schema;
-use Artisan;
-use Redirect;
+use DB,
+	App,
+	File,
+	Form,
+	HTML,
+	Cache,
+	Config,
+	Schema,
+	Artisan,
+	Redirect,
+	RankCatalogModel,
+	SkinCatalogModel,
+	ModuleCatalogModel,
+	WidgetCatalogModel,
+	SetupBaseController;
 use Exception;
-use RankCatalogModel;
-use SkinCatalogModel;
-use ModuleCatalogModel;
-use WidgetCatalogModel;
-use SetupBaseController;
 use Symfony\Component\Finder\Finder;
 
-class Setup extends SetupBaseController {
+class SetupController extends SetupBaseController {
 
 	public function getIndex()
 	{

@@ -23,7 +23,7 @@ class SetupServiceProvider extends ServiceProvider {
 	{
 		$this->app['nova.setup'] = $this->app->share(function($app)
 		{
-			return new Setup;
+			return new SetupService;
 		});
 	}
 
@@ -37,13 +37,13 @@ class SetupServiceProvider extends ServiceProvider {
 		 */
 		Route::group(['prefix' => 'setup', 'before' => 'csrf'], function()
 		{
-			Route::get('/', 'Nova\Setup\Controllers\Setup@getIndex');
-			Route::get('start', 'Nova\Setup\Controllers\Setup@getStart');
-			Route::get('uninstall', 'Nova\Setup\Controllers\Setup@getUninstall');
-			Route::get('uninstall/cleanup', 'Nova\Setup\Controllers\Setup@getUninstallCleanup');
-			Route::get('genres', 'Nova\Setup\Controllers\Setup@getGenres');
+			Route::get('/', 'Nova\Setup\Controllers\SetupController@getIndex');
+			Route::get('start', 'Nova\Setup\Controllers\SetupController@getStart');
+			Route::get('uninstall', 'Nova\Setup\Controllers\SetupController@getUninstall');
+			Route::get('uninstall/cleanup', 'Nova\Setup\Controllers\SetupController@getUninstallCleanup');
+			Route::get('genres', 'Nova\Setup\Controllers\SetupController@getGenres');
 
-			Route::post('uninstall', 'Nova\Setup\Controllers\Setup@postUninstall');
+			Route::post('uninstall', 'Nova\Setup\Controllers\SetupController@postUninstall');
 		});
 
 		/**
@@ -51,12 +51,12 @@ class SetupServiceProvider extends ServiceProvider {
 		 */
 		Route::group(['prefix' => 'setup/config/db', 'before' => 'csrf'], function()
 		{
-			Route::get('/', 'Nova\Setup\Controllers\ConfigDb@getIndex');
-			Route::get('info', 'Nova\Setup\Controllers\ConfigDb@getInfo');
+			Route::get('/', 'Nova\Setup\Controllers\ConfigDbController@getIndex');
+			Route::get('info', 'Nova\Setup\Controllers\ConfigDbController@getInfo');
 
-			Route::post('check', 'Nova\Setup\Controllers\ConfigDb@postCheck');
-			Route::post('write', 'Nova\Setup\Controllers\ConfigDb@postWrite');
-			Route::post('verify', 'Nova\Setup\Controllers\ConfigDb@postVerify');
+			Route::post('check', 'Nova\Setup\Controllers\ConfigDbController@postCheck');
+			Route::post('write', 'Nova\Setup\Controllers\ConfigDbController@postWrite');
+			Route::post('verify', 'Nova\Setup\Controllers\ConfigDbController@postVerify');
 		});
 
 		/**
@@ -64,11 +64,11 @@ class SetupServiceProvider extends ServiceProvider {
 		 */
 		Route::group(['prefix' => 'setup/config/email', 'before' => 'csrf'], function()
 		{
-			Route::get('/', 'Nova\Setup\Controllers\ConfigMail@getIndex');
-			Route::get('info', 'Nova\Setup\Controllers\ConfigMail@getInfo');
+			Route::get('/', 'Nova\Setup\Controllers\ConfigMailController@getIndex');
+			Route::get('info', 'Nova\Setup\Controllers\ConfigMailController@getInfo');
 			
-			Route::post('write', 'Nova\Setup\Controllers\ConfigMail@postWrite');
-			Route::post('verify', 'Nova\Setup\Controllers\ConfigMail@postVerify');
+			Route::post('write', 'Nova\Setup\Controllers\ConfigMailController@postWrite');
+			Route::post('verify', 'Nova\Setup\Controllers\ConfigMailController@postVerify');
 		});
 
 		/**
@@ -76,12 +76,12 @@ class SetupServiceProvider extends ServiceProvider {
 		 */
 		Route::group(['prefix' => 'setup/install', 'before' => 'csrf'], function()
 		{
-			Route::get('/', 'Nova\Setup\Controllers\Install@getIndex');
-			Route::get('settings', 'Nova\Setup\Controllers\Install@getSettings');
-			Route::get('finalize', 'Nova\Setup\Controllers\Install@getFinalize');
+			Route::get('/', 'Nova\Setup\Controllers\InstallController@getIndex');
+			Route::get('settings', 'Nova\Setup\Controllers\InstallController@getSettings');
+			Route::get('finalize', 'Nova\Setup\Controllers\InstallController@getFinalize');
 
-			Route::post('/', 'Nova\Setup\Controllers\Install@postIndex');
-			Route::post('settings', 'Nova\Setup\Controllers\Install@postSettings');
+			Route::post('/', 'Nova\Setup\Controllers\InstallController@postIndex');
+			Route::post('settings', 'Nova\Setup\Controllers\InstallController@postSettings');
 		});
 
 		/**
@@ -89,7 +89,7 @@ class SetupServiceProvider extends ServiceProvider {
 		 */
 		Route::group(['prefix' => 'setup/migrate', 'before' => 'csrf'], function()
 		{
-			Route::get('/', 'Nova\Setup\Controllers\Setup@getStart');
+			Route::get('/', 'Nova\Setup\Controllers\SetupController@getStart');
 		});
 
 		/**
@@ -97,13 +97,13 @@ class SetupServiceProvider extends ServiceProvider {
 		 */
 		Route::group(['prefix' => 'setup/update', 'before' => 'csrf'], function()
 		{
-			Route::get('/', 'Nova\Setup\Controllers\Update@getIndex');
-			Route::get('finalize', 'Nova\Setup\Controllers\Update@getFinalize');
-			Route::get('rollback', 'Nova\Setup\Controllers\Update@getRollback');
-			Route::get('rollback/finalize', 'Nova\Setup\Controllers\Update@getRollbackFinalize');
+			Route::get('/', 'Nova\Setup\Controllers\UpdateController@getIndex');
+			Route::get('finalize', 'Nova\Setup\Controllers\UpdateController@getFinalize');
+			Route::get('rollback', 'Nova\Setup\Controllers\UpdateController@getRollback');
+			Route::get('rollback/finalize', 'Nova\Setup\Controllers\UpdateController@getRollbackFinalize');
 
-			Route::post('/', 'Nova\Setup\Controllers\Update@postIndex');
-			Route::post('rollback', 'Nova\Setup\Controllers\Update@postRollback');
+			Route::post('/', 'Nova\Setup\Controllers\UpdateController@postIndex');
+			Route::post('rollback', 'Nova\Setup\Controllers\UpdateController@postRollback');
 		});
 
 		/**
@@ -111,9 +111,9 @@ class SetupServiceProvider extends ServiceProvider {
 		 */
 		Route::group(['prefix' => 'setup/ajax', 'before' => 'csrf'], function()
 		{
-			Route::post('ignore_version', 'Nova\Setup\Controllers\Ajax@postIgnoreVersion');
-			Route::post('install_genre', 'Nova\Setup\Controllers\Ajax@postInstallGenre');
-			Route::post('uninstall_genre', 'Nova\Setup\Controllers\Ajax@postUninstallGenre');
+			Route::post('ignore_version', 'Nova\Setup\Controllers\AjaxController@postIgnoreVersion');
+			Route::post('install_genre', 'Nova\Setup\Controllers\AjaxController@postInstallGenre');
+			Route::post('uninstall_genre', 'Nova\Setup\Controllers\AjaxController@postUninstallGenre');
 		});
 	}
 

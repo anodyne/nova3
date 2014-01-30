@@ -4,4 +4,4 @@
 
 use SetupBaseController;
 
-class Migrate extends SetupBaseController {}
+class MigrateController extends SetupBaseController {}

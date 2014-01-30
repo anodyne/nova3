@@ -1,15 +1,15 @@
 <?php namespace Nova\Setup\Controllers;
 
-use App;
-use File;
-use Form;
-use HTML;
-use Cache;
-use Input;
-use Session;
-use SetupBaseController;
+use App,
+	File,
+	Form,
+	HTML,
+	Cache,
+	Input,
+	Session,
+	SetupBaseController;
 
-class ConfigMail extends SetupBaseController {
+class ConfigMailController extends SetupBaseController {
 
 	public function getIndex()
 	{

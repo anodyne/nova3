@@ -1,15 +1,15 @@
 <?php namespace Nova\Setup;
 
-use File;
-use Cache;
-use Config;
-use SystemModel;
-use Request;
-use SettingsModel;
-use Redirect;
+use File,
+	Cache,
+	Config,
+	Request,
+	Redirect,
+	SystemModel,
+	SettingsModel;
 use Exception;
 
-class Setup {
+class SetupService {
 
 	/**
 	 * Check for updates to the system.
