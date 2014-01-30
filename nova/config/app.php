@@ -116,7 +116,6 @@ return [
 		'Nova\Extensions\Laravel\Translation\TranslationServiceProvider',
 		'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
-		//'Cartalyst\Sentry\Laravel\SentryServiceProvider',
 
 	],
 
