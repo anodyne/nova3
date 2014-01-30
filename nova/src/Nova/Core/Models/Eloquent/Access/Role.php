@@ -1,8 +1,7 @@
 <?php namespace Nova\Core\Models\Eloquent\Access;
 
-use Event;
-use Model;
-use Config;
+use Str,
+	Model;
 use Cartalyst\Sentry\Groups\GroupInterface;
 
 class Role extends Model implements GroupInterface {
@@ -17,7 +16,7 @@ class Role extends Model implements GroupInterface {
 	protected $table = 'roles';
 
 	protected $fillable = [
-		'name', 'desc', 'inherits',
+		'name', 'slug', 'desc', 'inherits',
 	];
 
 	protected $dates = [
@@ -25,7 +24,7 @@ class Role extends Model implements GroupInterface {
 	];
 	
 	protected static $properties = [
-		'id', 'name', 'desc', 'inherits', 'created_at', 'updated_at',
+		'id', 'name', 'slug', 'desc', 'inherits', 'created_at', 'updated_at',
 	];
 
 	/*
@@ -66,27 +65,16 @@ class Role extends Model implements GroupInterface {
 		$this->attributes['inherits'] = (is_array($value)) ? implode(',', $value) : $value;
 	}
 
+	public function setSlugAttribute($value)
+	{
+		$this->attributes['slug'] = ( ! empty($value)) ? $value : Str::slug($value);
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Model Methods
 	|--------------------------------------------------------------------------
 	*/
-
-	/**
-	 * Boot the model and define the event listeners.
-	 *
-	 * @return	void
-	 */
-	public static function boot()
-	{
-		parent::boot();
-
-		// Get all the aliases
-		$a = Config::get('app.aliases');
-
-		// Setup the listeners
-		//static::setupEventListeners($a['AccessRoleModel'], $a['AccessRoleModelEventHandler']);
-	}
 	
 	/**
 	 * Get all the tasks.
@@ -162,33 +150,33 @@ class Role extends Model implements GroupInterface {
 	*/
 
 	/**
-	 * Returns the group's ID.
+	 * Return the group's primary key.
 	 *
-	 * @return	int
+	 * @return int
 	 */
-	public function getId()
+	public function getGroupId()
 	{
 		return $this->id;
 	}
 
 	/**
-	 * Returns the group's name.
+	 * Return the group's slug.
 	 *
-	 * @return	string
+	 * @return string
 	 */
-	public function getName()
+	public function getGroupSlug()
 	{
-		return $this->name;
+		return $this->slug;
 	}
 
 	/**
-	 * Returns permissions for the group included inherited permissions.
+	 * Return all users for the group.
 	 *
-	 * @return	array
+	 * @return \IteratorAggregate
 	 */
-	public function getPermissions()
+	public function getUsers()
 	{
-		return $this->getTasks();
+		return $this->users;
 	}
 
 }

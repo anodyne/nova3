@@ -25,23 +25,26 @@ use AccessRoleModel;
 use FormDataInterface;
 use Cartalyst\Sentry\Users\UserInterface;
 use Cartalyst\Sentry\Groups\GroupInterface;
+use Cartalyst\Sentry\Groups\GroupableInterface;
+use Cartalyst\Sentry\Permissions\PermissibleInterface;
+use Cartalyst\Sentry\Persistence\PersistableInterface;
 
-class User extends Model implements UserInterface, FormDataInterface, MediaInterface {
+class User extends Model implements UserInterface, GroupableInterface, PermissibleInterface, PersistableInterface, FormDataInterface, MediaInterface {
 
 	protected $table = 'users';
 
 	protected $fillable = [
 		'status', 'name', 'email', 'password', 'character_id', 'role_id',
-		'reset_password_hash', 'activation_hash', 'persist_hash', 'ip_address',
+		'reset_password_hash', 'activation_hash', 'persistence_codes', 'ip_address',
 		'leave_date', 'last_post', 'last_login',
 	];
 
 	protected $hidden = [
-		'password', 'reset_password_hash', 'activation_hash', 'persist_hash',
+		'password', 'reset_password_hash', 'activation_hash', 'persistence_codes',
 		'ip_address',
 	];
 
-	protected $hashableAttributes = ['password', 'persist_code'];
+	protected $hashableAttributes = ['password'];
 
 	protected $dates = [
 		'created_at', 'updated_at', 'leave_date', 'last_post', 'last_login',
@@ -50,7 +53,7 @@ class User extends Model implements UserInterface, FormDataInterface, MediaInter
 	
 	protected static $properties = [
 		'id', 'status', 'name', 'email', 'password', 'character_id', 'role_id', 
-		'reset_password_hash', 'activation_hash', 'persist_hash', 'ip_address', 
+		'reset_password_hash', 'activation_hash', 'persistence_codes', 'ip_address', 
 		'leave_date', 'last_post', 'last_login', 'created_at', 'updated_at',
 		'activated_at',
 	];
@@ -331,6 +334,18 @@ class User extends Model implements UserInterface, FormDataInterface, MediaInter
 	}
 
 	/**
+	 * Delete the user.
+	 *
+	 * We don't ever actually delete a user, we only hide them.
+	 *
+	 * @return	bool
+	 */
+	public function delete()
+	{
+		return $this->deleteUser();
+	}
+
+	/**
 	 * Get the user's application reviews.
 	 *
 	 * @param	int		Specific status to pull back
@@ -608,287 +623,167 @@ class User extends Model implements UserInterface, FormDataInterface, MediaInter
 	*/
 	
 	/**
-	 * Returns the user's ID.
+	 * Get the user's primary key.
 	 *
-	 * @return	int
+	 * @return int
 	 */
-	public function getId()
+	public function getUserId()
 	{
 		return $this->id;
 	}
 
 	/**
-	 * Returns the name for the user's login.
+	 * Get the user's login.
 	 *
-	 * @return	string
+	 * @return string
 	 */
-	public function getLoginName()
-	{
-		return 'email';
-	}
-
-	/**
-	 * Returns the user's login.
-	 *
-	 * @return	string
-	 */
-	public function getLogin()
+	public function getUserLogin()
 	{
 		return $this->email;
 	}
 
 	/**
-	 * Returns the name for the user's password.
+	 * Get the user's login attribute name.
 	 *
 	 * @return string
 	 */
-	public function getPasswordName()
+	public function getUserLoginName()
 	{
-		return 'password';
+		return 'email';
 	}
 
 	/**
-	 * Returns the user's password (hashed).
+	 * Get the user's password.
 	 *
-	 * @return	string
+	 * @return string
 	 */
-	public function getPassword()
+	public function getUserPassword()
 	{
 		return $this->password;
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| Sentry GroupableInterface Implementation
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
-	 * Returns permissions for the user.
+	 * Return all associated groups.
 	 *
-	 * @return	array
+	 * @return \IteratorAggregate
+	 */
+	public function getGroups()
+	{
+		return $this->role;
+	}
+
+	/**
+	 * Return if the user is in the given group.
+	 *
+	 * @param  mixed  $group
+	 * @return bool
+	 */
+	public function inGroup($group)
+	{
+		return $this->hasRole($group->id, true);
+
+		$group = array_first($this->groups, function($index, $instance) use ($group)
+		{
+			if ($group instanceof GroupInterface)
+			{
+				return ($instance === $group);
+			}
+
+			if ($instance->getGroupId() == $group)
+			{
+				return true;
+			}
+
+			if ($instance->getGroupSlug() == $group)
+			{
+				return true;
+			}
+
+			return false;
+		});
+
+		return ($group !== null);
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Sentry PermissableInterface Implementation
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Returns a permissions instance.
+	 *
+	 * @return \Cartalyst\Sentry\Permissions\PermissionsInterface
 	 */
 	public function getPermissions()
 	{
 		return $this->getMergedPermissions();
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| Sentry PersistableInterface Implementation
+	|--------------------------------------------------------------------------
+	*/
+
 	/**
-	 * Check if the user is activated.
+	 * Generates a random persist code.
 	 *
-	 * @return	bool
+	 * @return string
 	 */
-	public function isActivated()
+	public function generatePersistenceCode()
 	{
-		return ((int) $this->status === Status::ACTIVE);
+		return str_random(32);
 	}
 
 	/**
-	 * Checks if the user is a super user - has access to everything regardless
-	 * of permissions.
+	 * Returns an array of assigned persist codes.
 	 *
-	 * @return	bool
+	 * @return array
 	 */
-	public function isSuperUser()
+	public function getPersistenceCodes()
 	{
-		return $this->isAdmin();
+		return $this->persistence_codes;
 	}
 
 	/**
-	 * Validates the user and throws a number of exceptions if validation fails.
+	 * Adds a new persist code.
 	 *
-	 * @throws	Exception
+	 * @param  string  $code
+	 * @return void
 	 */
-	public function validate()
+	public function addPersistenceCode($code)
 	{
-		throw new Exception("User validation is not supported in Citadel.");
+		$codes = $this->persistence_codes;
+		$codes[] = $code;
+		$this->persistence_codes = $codes;
 	}
 
 	/**
-	 * Delete the user.
+	 * Removes a persist code.
 	 *
-	 * We don't ever actually delete a user, we only hide them.
-	 *
-	 * @return	bool
+	 * @param  string  $code
+	 * @return void
 	 */
-	public function delete()
+	public function removePersistenceCode($code)
 	{
-		return $this->deleteUser();
-	}
+		$codes = $this->persistence_codes;
 
-	/**
-	 * Gets a code for when the user is persisted to a cookie or session which
-	 * identifies the user.
-	 *
-	 * @return	string
-	 */
-	public function getPersistCode()
-	{
-		$this->persist_hash = Str::random(42);
+		$index = array_search($code, $codes);
 
-		// Our code got hashed
-		$persistCode = $this->persist_hash;
-
-		$this->save();
-
-		return $persistCode;
-	}
-
-	/**
-	 * Checks the given persist code.
-	 *
-	 * @param	string	The persist code to check
-	 * @return	bool
-	 */
-	public function checkPersistCode($persistCode)
-	{
-		if ( ! $persistCode)
+		if ($index !== false)
 		{
-			return false;
+			unset($codes[$index]);
 		}
 
-		return $persistCode == $this->persist_hash;
-	}
-
-	/**
-	 * Get an activation code for the given user.
-	 *
-	 * @throws	Exception
-	 */
-	public function getActivationCode()
-	{
-		throw new Exception("Activation is not supported in Citadel.");
-	}
-
-	/**
-	 * Attempts to activate the given user by checking the activate code. If the
-	 * user is activated already, an exception is thrown.
-	 *
-	 * @throws	Exception
-	 */
-	public function attemptActivation($activationCode)
-	{
-		throw new Exception("Activation is not supported in Citadel.");
-	}
-
-	/**
-	 * Get a reset password code for the given user.
-	 *
-	 * @return	string
-	 */
-	public function getResetPasswordCode()
-	{
-		$this->reset_password_hash = Str::random(42);
-
-		// Our code got hashed
-		$resetCode = $this->reset_password_hash;
-
-		$this->save();
-
-		return $resetCode;
-	}
-
-	/**
-	 * Checks the password passed matches the user's password.
-	 *
-	 * @param  string  $password
-	 * @return bool
-	 */
-	public function checkPassword($password)
-	{
-		return $this->checkHash($password, $this->getPassword());
-	}
-
-	/**
-	 * Checks if the provided user reset password code is valid without actually
-	 * resetting the password.
-	 *
-	 * @param	string	The reset code to test
-	 * @return	bool
-	 */
-	public function checkResetPasswordCode($resetCode)
-	{
-		return ($this->reset_password_hash == $resetCode);
-	}
-
-	/**
-	 * Attemps to reset a user's password by matching the reset code generated
-	 * with the user's.
-	 *
-	 * @param	string	The reset code
-	 * @param	string	The new password
-	 * @return	bool
-	 */
-	public function attemptResetPassword($resetCode, $newPassword)
-	{
-		if ($this->checkResetPasswordCode($resetCode))
-		{
-			$this->password = $newPassword;
-			$this->reset_password_hash = null;
-			
-			return $this->save();
-		}
-
-		return false;
-	}
-
-	/**
-	 * Wipes out the data associated with resetting a password.
-	 *
-	 * @return	void
-	 */
-	public function clearResetPassword()
-	{
-		if ($this->reset_password_hash)
-		{
-			$this->reset_password_hash = null;
-			
-			$this->save();
-		}
-	}
-
-	/**
-	 * Returns the role the user is assigned.
-	 *
-	 * @param	bool	Get the full object?
-	 * @return	object|string
-	 */
-	public function getGroups($getObject = false)
-	{
-		if ($getObject)
-		{
-			return $this->role;
-		}
-
-		return $this->role->name;
-	}
-
-	/**
-	 * Adds the user to the given group
-	 *
-	 * @param	Cartalyst\Sentry\Groups\GroupInterface  $group
-	 * @return	bool
-	 */
-	public function addGroup(GroupInterface $group)
-	{
-		$this->role_id = $group->id;
-		$this->save();
-	}
-
-	/**
-	 * Removes the user from the given group.
-	 *
-	 * @param	Cartalyst\Sentry\Groups\GroupInterface  $group
-	 * @return	bool
-	 */
-	public function removeGroup(GroupInterface $group)
-	{
-		throw new Exception("Removing a user from a role is not supported in Citadel.");
-	}
-
-	/**
-	 * See if the user is in the given group.
-	 *
-	 * @param	Cartalyst\Sentry\Groups\GroupInterface  $group
-	 * @return	bool
-	 */
-	public function inGroup(GroupInterface $group)
-	{
-		return $this->hasRole($group->id, true);
+		$this->persistence_codes = $codes;
 	}
 
 	/**
@@ -1196,34 +1091,6 @@ class User extends Model implements UserInterface, FormDataInterface, MediaInter
 	public function hasAtLeastLevel($permissions, $level = 0)
 	{
 		return $this->hasLevel($permissions, $level, false);
-	}
-
-	/**
-	 * Check string against hashed string.
-	 *
-	 * @param  string  $string
-	 * @param  string  $hashedString
-	 * @return bool
-	 * @throws RuntimeException
-	 */
-	public function checkHash($string, $hashedString)
-	{
-		if ( ! static::$hasher)
-		{
-			throw new \RuntimeException("A hasher has not been provided for the user.");
-		}
-
-		return static::$hasher->checkHash($string, $hashedString);
-	}
-
-	/**
-	 * Returns an array of hashable attributes.
-	 *
-	 * @return array
-	 */
-	public function getHashableAttributes()
-	{
-		return $this->hashableAttributes;
 	}
 	
 }

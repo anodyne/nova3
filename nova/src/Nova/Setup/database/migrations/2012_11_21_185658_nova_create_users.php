@@ -23,7 +23,7 @@ class NovaCreateUsers extends Migration {
 			$t->integer('role_id')->unsigned()->default(AccessRoleModel::USER);
 			$t->string('reset_password_hash')->nullable();
 			$t->string('activation_hash')->nullable();
-			$t->string('persist_hash')->nullable();
+			$t->text('persistence_codes')->nullable();
 			$t->string('ip_address');
 			$t->datetime('leave_date');
 			$t->datetime('last_post');

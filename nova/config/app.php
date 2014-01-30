@@ -116,6 +116,7 @@ return [
 		'Nova\Extensions\Laravel\Translation\TranslationServiceProvider',
 		'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
+		//'Cartalyst\Sentry\Laravel\SentryServiceProvider',
 
 	],
 
@@ -152,8 +153,7 @@ return [
 		'Cache'           => 'Illuminate\Support\Facades\Cache',
 		'ClassLoader'     => 'Illuminate\Support\ClassLoader',
 		'Config'          => 'Illuminate\Support\Facades\Config',
-		'Controller'      => 'Illuminate\Routing\Controllers\Controller',
-		//'Controller'      => 'Illuminate\Routing\Controller',
+		'Controller'      => 'Illuminate\Routing\Controller',
 		'Cookie'          => 'Illuminate\Support\Facades\Cookie',
 		'Crypt'           => 'Illuminate\Support\Facades\Crypt',
 		'DB'              => 'Illuminate\Support\Facades\DB',
@@ -210,10 +210,15 @@ return [
 		'Nav'			=> 'Nova\Core\Lib\Nav',
 		'Nova'			=> 'Nova\Core\Facades\Nova',
 		'NovaAuth'		=> 'Nova\Core\Lib\Auth',
-		'Sentry' 		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Setup'			=> 'Nova\Setup\SetupFacade',
 		'Status'		=> 'Nova\Core\Utilities\Status',
 		'SystemEvent'	=> 'Nova\Core\Facades\SystemEvent',
+
+		'Activation'	=> 'Cartalyst\Sentry\Laravel\Facades\Activation',
+		'Auth'			=> 'Cartalyst\Sentry\Laravel\Facades\Sentry',
+		'Reminder'		=> 'Cartalyst\Sentry\Laravel\Facades\Reminder',
+		'Sentry'		=> 'Cartalyst\Sentry\Laravel\Facades\Sentry',
+		'SwipeIdentity'	=> 'Cartalyst\Sentry\Laravel\Facades\SwipeIdentity',
 		
 		/**
 		 * Nova Interfaces

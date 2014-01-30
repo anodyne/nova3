@@ -16,6 +16,7 @@ class NovaCreateRoles extends Migration {
 		{
 			$t->increments('id');
 			$t->string('name');
+			$t->string('slug');
 			$t->text('desc')->nullable();
 			$t->text('inherits')->nullable();
 			$t->timestamps();

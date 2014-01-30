@@ -88,31 +88,37 @@ class NovaSeedDatabase extends Migration {
 		$data = [
 			[
 				'name' => 'Inactive User',
+				'slug' => 'inactive-user',
 				'desc' => "Inactive users have no privileges within the system. This role is automatically assigned to any user who has been retired.",
 				'inherits' => ''
 			],
 			[
 				'name' => 'User',
+				'slug' => 'user',
 				'desc' => "Every user in the system starts with these permissions. This role is automatically assigned to any user who is not retired.",
 				'inherits' => ''
 			],
 			[
 				'name' => 'Active User',
+				'slug' => 'active-user',
 				'desc' => "Every active user in the system has these permissions and is provided basic functionality throughout the system.",
 				'inherits' => '2'
 			],
 			[
 				'name' => 'Power User',
+				'slug' => 'power-user',
 				'desc' => "Power users are given more access to pieces of the system to assist the game master as necessary.",
 				'inherits' => '2,3'
 			],
 			[
 				'name' => 'Administrator',
+				'name' => 'administrator',
 				'desc' => "Like power users, administrators are given higher permissions to the system to assist the game master as necessary.",
 				'inherits' => '2,3,4'
 			],
 			[
 				'name' => 'System Administrator',
+				'slug' => 'system-administrator',
 				'desc' => "System administrators have complete control over the system. This role should only be assigned to a select few individuals who are trusted to run the game.",
 				'inherits' => '2,3,4,5'
 			],
