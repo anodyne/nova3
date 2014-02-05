@@ -89,38 +89,32 @@ class NovaSeedDatabase extends Migration {
 			[
 				'name' => 'Inactive User',
 				'slug' => 'inactive-user',
-				'desc' => "Inactive users have no privileges within the system. This role is automatically assigned to any user who has been retired.",
-				'inherits' => ''
+				'desc' => "Inactive users have no privileges within the system. This role is automatically assigned to any user who has been retired."
 			],
 			[
 				'name' => 'User',
 				'slug' => 'user',
-				'desc' => "Every user in the system starts with these permissions. This role is automatically assigned to any user who is not retired.",
-				'inherits' => ''
+				'desc' => "Every user in the system starts with these permissions. This role is automatically assigned to any user who is not retired."
 			],
 			[
 				'name' => 'Active User',
 				'slug' => 'active-user',
-				'desc' => "Every active user in the system has these permissions and is provided basic functionality throughout the system.",
-				'inherits' => '2'
+				'desc' => "Every active user in the system has these permissions and is provided basic functionality throughout the system."
 			],
 			[
 				'name' => 'Power User',
 				'slug' => 'power-user',
-				'desc' => "Power users are given more access to pieces of the system to assist the game master as necessary.",
-				'inherits' => '2,3'
+				'desc' => "Power users are given more access to pieces of the system to assist the game master as necessary."
 			],
 			[
 				'name' => 'Administrator',
 				'name' => 'administrator',
-				'desc' => "Like power users, administrators are given higher permissions to the system to assist the game master as necessary.",
-				'inherits' => '2,3,4'
+				'desc' => "Like power users, administrators are given higher permissions to the system to assist the game master as necessary."
 			],
 			[
 				'name' => 'System Administrator',
 				'slug' => 'system-administrator',
-				'desc' => "System administrators have complete control over the system. This role should only be assigned to a select few individuals who are trusted to run the game.",
-				'inherits' => '2,3,4,5'
+				'desc' => "System administrators have complete control over the system. This role should only be assigned to a select few individuals who are trusted to run the game."
 			],
 		];
 
@@ -132,12 +126,18 @@ class NovaSeedDatabase extends Migration {
 
 	protected function seedRoleTasks()
 	{
+		$userTasks = [1, 2, 3, 5];
+		$activeUserTasks = array_merge($userTasks, [8, 10, 14, 15, 17, 20, 21, 23, 32, 35, 57]);
+		$powerUserTasks = array_merge($activeUserTasks, [11, 16, 22, 26, 29, 36]);
+		$adminTasks = array_merge($powerUserTasks, [18, 24, 28, 30, 12, 13, 6, 33, 34, 37]);
+		$sysAdminTasks = array_merge($adminTasks, [4, 7, 9, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72]);
+
 		$data = [
-			2 => [1, 2, 3, 5],
-			3 => [8, 10, 14, 15, 17, 20, 21, 23, 32, 35, 57],
-			4 => [11, 16, 22, 26, 29, 36],
-			5 => [18, 24, 28, 30, 12, 13, 6, 33, 34, 37],
-			6 => [4, 7, 9, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72],
+			2 => $userTasks,
+			3 => $activeUserTasks,
+			4 => $powerUserTasks,
+			5 => $adminTasks,
+			6 => $sysAdminTasks,
 		];
 
 		foreach ($data as $key => $value)

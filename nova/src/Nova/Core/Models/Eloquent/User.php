@@ -34,7 +34,7 @@ class User extends Model implements UserInterface, GroupableInterface, Permissib
 	protected $table = 'users';
 
 	protected $fillable = [
-		'status', 'name', 'email', 'password', 'character_id', 'role_id',
+		'status', 'name', 'email', 'password', 'character_id',
 		'reset_password_hash', 'activation_hash', 'persistence_codes', 'ip_address',
 		'leave_date', 'last_post', 'last_login',
 	];
@@ -52,7 +52,7 @@ class User extends Model implements UserInterface, GroupableInterface, Permissib
 	];
 	
 	protected static $properties = [
-		'id', 'status', 'name', 'email', 'password', 'character_id', 'role_id', 
+		'id', 'status', 'name', 'email', 'password', 'character_id', 
 		'reset_password_hash', 'activation_hash', 'persistence_codes', 'ip_address', 
 		'leave_date', 'last_post', 'last_login', 'created_at', 'updated_at',
 		'activated_at',
@@ -65,11 +65,11 @@ class User extends Model implements UserInterface, GroupableInterface, Permissib
 	*/
 	
 	/**
-	 * Belongs To: Access Role
+	 * Has Many: Access Role
 	 */
-	public function role()
+	public function roles()
 	{
-		return $this->belongsTo('AccessRoleModel', 'role_id');
+		return $this->belongsToMany('AccessRoleModel', 'users_roles', 'user_id', 'role_id');
 	}
 
 	/**

@@ -20,7 +20,6 @@ class NovaCreateUsers extends Migration {
 			$t->string('email')->unique();
 			$t->string('password');
 			$t->integer('character_id')->unsigned()->nullable();
-			$t->integer('role_id')->unsigned()->default(AccessRoleModel::USER);
 			$t->string('reset_password_hash')->nullable();
 			$t->string('activation_hash')->nullable();
 			$t->text('persistence_codes')->nullable();
@@ -32,7 +31,7 @@ class NovaCreateUsers extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('user_loas', function(Blueprint $t)
+		Schema::create('users_loas', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('user_id')->unsigned();
@@ -44,7 +43,7 @@ class NovaCreateUsers extends Migration {
 			$t->timestamps();
 		});
 
-		Schema::create('user_preferences', function(Blueprint $t)
+		Schema::create('users_preferences', function(Blueprint $t)
 		{
 			$t->bigIncrements('id');
 			$t->integer('user_id')->unsigned();
@@ -52,7 +51,14 @@ class NovaCreateUsers extends Migration {
 			$t->text('value')->nullable();
 		});
 
-		Schema::create('user_suspended', function(Blueprint $t)
+		Schema::create('users_roles', function(Blueprint $t)
+		{
+			$t->bigIncrements('id');
+			$t->integer('user_id')->unsigned();
+			$t->integer('role_id')->unsigned();
+		});
+
+		Schema::create('users_suspended', function(Blueprint $t)
 		{
 			$t->increments('id');
 			$t->integer('user_id')->unsigned();

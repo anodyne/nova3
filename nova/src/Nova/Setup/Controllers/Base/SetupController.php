@@ -286,25 +286,10 @@ abstract class SetupController extends Controller {
 
 			// Pass everything back to the layout
 			$this->layout = $layout;
+
+			// Finalize the layout
+			$this->finalizeLayout();
 		}
-	}
-
-	/**
-	 * Process a controller action response.
-	 *
-	 * This overrides the Laravel default controller functionality so
-	 * we can finalize the layout before its sent to the response.
-	 *
-	 * @param  \Illuminate\Routing\Router  $router
-	 * @param  string  $method
-	 * @param  mixed   $response
-	 * @return Symfony\Component\HttpFoundation\Response
-	 */
-	protected function processResponse($router, $method, $response)
-	{
-		$this->finalizeLayout();
-
-		return parent::processResponse($router, $method, $response);
 	}
 
 	/**
@@ -318,10 +303,14 @@ abstract class SetupController extends Controller {
 		$this->fullAction = $actionName = Str::parseCallback(Route::currentRouteAction(), false)[1];
 
 		// Remove the HTTP verb
-		$actionName = (substr($actionName, 0, 3) == 'get') ? substr_replace($actionName, '', 0, 3) : $actionName;
-		$actionName = (substr($actionName, 0, 3) == 'put') ? substr_replace($actionName, '', 0, 3) : $actionName;
-		$actionName = (substr($actionName, 0, 4) == 'post') ? substr_replace($actionName, '', 0, 4) : $actionName;
-		$actionName = (substr($actionName, 0, 6) == 'delete') ? substr_replace($actionName, '', 0, 6) : $actionName;
+		$actionName = (substr($actionName, 0, 3) == 'get') 
+			? substr_replace($actionName, '', 0, 3) : $actionName;
+		$actionName = (substr($actionName, 0, 3) == 'put') 
+			? substr_replace($actionName, '', 0, 3) : $actionName;
+		$actionName = (substr($actionName, 0, 4) == 'post') 
+			? substr_replace($actionName, '', 0, 4) : $actionName;
+		$actionName = (substr($actionName, 0, 6) == 'delete') 
+			? substr_replace($actionName, '', 0, 6) : $actionName;
 
 		// Set the short action name
 		$this->action = Str::lower($actionName);

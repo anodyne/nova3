@@ -304,6 +304,7 @@ return [
 		'UserModel'					=> "Nova\Core\Models\Eloquent\User",
 		'UserLoaModel'				=> "Nova\Core\Models\Eloquent\User\Loa",
 		'UserPrefsModel'			=> "Nova\Core\Models\Eloquent\User\Preferences",
+		'UserRoleModel'				=> "Nova\Core\Models\Eloquent\User\Role",
 		'UserSuspendModel'			=> "Nova\Core\Models\Eloquent\User\Suspend",
 
 		'AnnouncementModel'			=> "Nova\Core\Models\Eloquent\Announcement",

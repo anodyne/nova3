@@ -6,15 +6,15 @@ class Preferences extends Model {
 	
 	public $timestamps = false;
 	
-	protected $table = 'user_preferences';
+	protected $table = 'users_preferences';
 
-	protected $fillable = array(
+	protected $fillable = [
 		'user_id', 'key', 'value',
-	);
+	];
 	
-	protected static $properties = array(
+	protected static $properties = [
 		'id', 'user_id', 'key', 'value',
-	);
+	];
 
 	/*
 	|--------------------------------------------------------------------------
