@@ -1,32 +1,27 @@
 <?php namespace Nova\Setup\Controllers\Base;
 
-use App,
-	Str,
-	File,
+use Str,
 	View,
-	Cache,
 	Route,
 	Request,
 	Session,
 	Location,
 	Redirect,
-	ErrorCode,
-	Controller,
-	NovaAuthInterface;
+	ErrorCode;
 use stdClass,
 	Exception;
 
-abstract class SetupController extends Controller {
-
-	/**
-	 * The application container.
-	 */
-	protected $app;
+abstract class SetupController extends \Controller {
 
 	/**
 	 * A View object for storing the template.
 	 */
 	public $template;
+
+	/**
+	 * The application container.
+	 */
+	protected $app;
 
 	/**
 	 * The Request instance.
@@ -108,12 +103,12 @@ abstract class SetupController extends Controller {
 	 */
 	protected $fullAction;
 
-	public function __construct(NovaAuthInterface $auth)
+	public function __construct(\NovaAuthInterface $auth)
 	{
 		$this->auth = $auth;
 
 		// Get the application container
-		$this->app = App::make('app');
+		$this->app = \App::make('app');
 
 		// Set the controller and action names
 		$this->getControllerName();
@@ -127,7 +122,7 @@ abstract class SetupController extends Controller {
 		 */
 		$this->beforeFilter(function() use (&$me)
 		{
-			if ( ! File::exists(APPPATH.'config/'.$this->app->environment().'/database.php'))
+			if ( ! $me->app['files']->exists(APPPATH.'config/'.$me->app->environment().'/database.php'))
 			{
 				// Only redirect if we aren't on the config page(s)
 				if ( ! Request::is('setup/config/db*') and ! Request::is('setup'))
@@ -145,31 +140,25 @@ abstract class SetupController extends Controller {
 		 */
 		$this->beforeFilter(function() use (&$me)
 		{
-			// Grab the URL generator from the container
-			$url = $this->app['url'];
-
 			if ( ! $me->stopExecution)
 			{
-				if (\Setup::installed(false))
+				if ($me->app['nova.setup']->installed(false))
 				{
-					if (Cache::get('nova.installed') !== null)
+					if ($me->app['cache']->get('nova.installed') !== null)
 					{
+						// Put the intended desintation into the session
+						Session::put('url.intended', $me->app['url']->full());
+
 						if ($me->auth->check())
 						{
 							// Not a system administrator? No soup for you!
 							if ( ! $me->auth->getUser()->isAdmin())
 							{
-								// Put the intended desintation into the session
-								Session::put('url.intended', $url->full());
-
 								return Redirect::to('login/error/'.ErrorCode::LOGIN_NOT_ADMIN);
 							}
 						}
 						else
 						{
-							// Put the intended desintation into the session
-							Session::put('url.intended', $url->full());
-
 							// No session? Send them away
 							return Redirect::to('login/error/'.ErrorCode::LOGIN_NOT_LOGGED_IN);
 						}
@@ -196,69 +185,29 @@ abstract class SetupController extends Controller {
 	}
 
 	/**
-	 * Finalize the layout.
+	 * Execute an action on the controller.
 	 *
-	 * @return	void
+	 * Overrides the callAction method from the Controller class.
+	 *
+	 * @param	string	$method
+	 * @param	array	$parameters
+	 * @return	\Symfony\Component\HttpFoundation\Response
 	 */
-	protected function finalizeLayout()
+	public function callAction($method, $parameters)
 	{
-		if ( ! is_object($this->layout)) return;
+		$response = call_user_func_array(array($this, $method), $parameters);
 
-		// Set the view (if it's been set)
-		if ( ! empty($this->view))
+		$this->setupLayout();
+
+		// If no response is returned from the controller action and a layout is being
+		// used we will assume we want to just return the layout view as any nested
+		// views were probably bound on this view during this controller actions.
+		if (is_null($response) and ! is_null($this->layout))
 		{
-			$this->layout->template->content = View::make(Location::page($this->view))
-				->with((array) $this->data);
-		}
-		
-		// Set the javascript view (if it's been set)
-		if ( ! empty($this->jsView))
-		{
-			$this->layout->javascript = View::make(Location::js($this->jsView))
-				->with((array) $this->jsData);
+			$response = $this->layout;
 		}
 
-		// Steps indicator
-		if ( ! empty($this->steps))
-		{
-			$this->layout->template->steps = View::make(Location::partial($this->steps));
-		}
-
-		// Build the controls
-		$this->layout->template->controls = $this->controls;
-
-		// Set the title
-		$this->layout->title = $this->title;
-
-		// Set the header
-		$this->layout->template->header = $this->header;
-
-		// If there's flash data in the session, grab it
-		if (Session::has('flashStatus'))
-		{
-			$this->flash[] = [
-				'class'		=> 'alert-'.Session::get('flashStatus'),
-				'content'	=> Session::get('flashMessage'),
-			];
-		}
-		
-		// Flash messages
-		if (count($this->flash) > 0)
-		{
-			foreach ($this->flash as $flash)
-			{
-				$this->layout->template->flash.= partial('common/alert', $flash);
-			}
-		}
-
-		// Ajax views
-		if (count($this->ajax) > 0)
-		{
-			foreach ($this->ajax as $ajax)
-			{
-				$this->layout->template->ajax.= $ajax;
-			}
-		}
+		return $response;
 	}
 
 	/**
@@ -284,11 +233,64 @@ abstract class SetupController extends Controller {
 			$layout->template->controls	= false;
 			$layout->template->steps	= false;
 
+			// Set the view (if it's been set)
+			if ( ! empty($this->view))
+			{
+				$layout->template->content = View::make(Location::page($this->view))
+					->with((array) $this->data);
+			}
+			
+			// Set the javascript view (if it's been set)
+			if ( ! empty($this->jsView))
+			{
+				$layout->javascript = View::make(Location::js($this->jsView))
+					->with((array) $this->jsData);
+			}
+
+			// Steps indicator
+			if ( ! empty($this->steps))
+			{
+				$layout->template->steps = View::make(Location::partial($this->steps));
+			}
+
+			// Build the controls
+			$layout->template->controls = $this->controls;
+
+			// Set the title
+			$layout->title = $this->title;
+
+			// Set the header
+			$layout->template->header = $this->header;
+
+			// If there's flash data in the session, grab it
+			if (Session::has('flashStatus'))
+			{
+				$this->flash[] = [
+					'class'		=> 'alert-'.Session::get('flashStatus'),
+					'content'	=> Session::get('flashMessage'),
+				];
+			}
+			
+			// Flash messages
+			if (count($this->flash) > 0)
+			{
+				foreach ($this->flash as $flash)
+				{
+					$layout->template->flash.= partial('common/alert', $flash);
+				}
+			}
+
+			// Ajax views
+			if (count($this->ajax) > 0)
+			{
+				foreach ($this->ajax as $ajax)
+				{
+					$layout->template->ajax.= $ajax;
+				}
+			}
+
 			// Pass everything back to the layout
 			$this->layout = $layout;
-
-			// Finalize the layout
-			$this->finalizeLayout();
 		}
 	}
 
