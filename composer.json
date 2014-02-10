@@ -47,10 +47,10 @@
 			"nova/src/Nova/Setup/database/seeds"
 		],
 
-		"psr-0": {
-			"App\\": "app/src/",
-			"Modules\\": "app/src/",
-			"Nova\\": "nova/src/"
+		"psr-4": {
+			"App\\": "app/src/App/",
+			"Modules\\": "app/src/Modules/",
+			"Nova\\": "nova/src/Nova/"
 		}
 	},
 	
