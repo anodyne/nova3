@@ -23,24 +23,29 @@
 
 	"require": {
 		"php": ">=5.4.0",
-		"laravel/framework": "4.1.*",
-		"dflydev/markdown": "~1.0",
+		"laravel/framework": "~4.2",
+		"erusev/parsedown": "~1.0",
 		"ikimea/browser": "~1.0",
 		"baum/baum": "~1.0",
-		"cartalyst/sentry": "3.0.*",
 		"thomaswelton/laravel-gravatar": "dev-master",
 		"intervention/image": "~1.0",
-		"league/fractal": "*",
-		"doctrine/dbal": "2.3.*"
+		"doctrine/dbal": "2.3.*",
+		"cartalyst/sentinel": "*",
+		"cartalyst/sentry": "~2.0",
+		"dingo/api": "~0.5"
 	},
 
 	"require-dev": {
-		"phpunit/phpunit": "*",
-		"mockery/mockery": "*",
-		"way/laravel-test-helpers": "dev-master",
 		"raveren/kint": "dev-master",
 		"fzaninotto/faker": "*"
 	},
+
+	"repositories": [
+        {
+            "type": "composer",
+            "url": "http://packages.cartalyst.com"
+        }
+    ],
 
 	"autoload": {
 		"classmap": [
