@@ -107,13 +107,13 @@ return [
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
-		'Nova\Core\Providers\ErrorServiceProvider',
-		'Nova\Core\Providers\NovaServiceProvider',
-		'Nova\Core\Providers\SystemRouteServiceProvider',
-		'Nova\Setup\SetupServiceProvider',
-		'Nova\Api\ApiServiceProvider',
-		'Nova\Extensions\Cartalyst\Sentry\SentryServiceProvider',
-		'Nova\Extensions\Laravel\Translation\TranslationServiceProvider',
+		'Nova\Foundation\Providers\NovaErrorServiceProvider',
+		'Nova\Foundation\Providers\NovaServiceProvider',
+		'Nova\Foundation\Providers\NovaSystemRouteServiceProvider',
+		'Nova\Setup\NovaSetupServiceProvider',
+		//'Nova\Api\ApiServiceProvider',
+		//'Nova\Extensions\Cartalyst\Sentry\SentryServiceProvider',
+		//'Nova\Extensions\Laravel\Translation\TranslationServiceProvider',
 		'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
 
@@ -185,26 +185,26 @@ return [
 		/**
 		 * Base Controllers
 		 */
-		'BaseController'		=> 'Nova\Core\Controllers\Base\Core',
-		'MainBaseController'	=> 'Nova\Core\Controllers\Base\Main',
-		'LoginBaseController'	=> 'Nova\Core\Controllers\Base\Login',
-		'AdminBaseController'	=> 'Nova\Core\Controllers\Base\Admin',
-		'AjaxBaseController'	=> 'Nova\Core\Controllers\Base\Ajax',
-		'WikiBaseController'	=> 'Nova\Wiki\Controllers\Base\Wiki',
-		'ForumBaseController'	=> 'Nova\Forum\Controllers\Base\Forum',
-		'SetupBaseController'	=> 'Nova\Setup\Controllers\Base\SetupController',
+		'NovaBaseController'	=> 'Nova\Foundation\Controllers\Base\NovaBaseController',
+		'MainBaseController'	=> 'Nova\Foundation\Controllers\Base\MainBaseController',
+		'LoginBaseController'	=> 'Nova\Core\Login\Controllers\Base\LoginBaseController',
+		'AdminBaseController'	=> 'Nova\Foundation\Controllers\Base\AdminBaseController',
+		'AjaxBaseController'	=> 'Nova\Foundation\Controllers\Base\AjaxBaseController',
+		//'WikiBaseController'	=> 'Nova\Wiki\Controllers\Base\WikiBaseController',
+		//'ForumBaseController'	=> 'Nova\Forum\Controllers\Base\ForumBaseController',
+		'SetupBaseController'	=> 'Nova\Setup\Controllers\Base\SetupBaseController',
 
 		/**
 		 * Nova Classes
 		 */
-		'Aegis'			=> 'Nova\Aegis\Facades\Aegis',
+		'Auth'			=> 'Nova\Aegis\AegisFacade',
 		'Date'			=> 'Carbon\Carbon',
 		'DynamicForm'	=> 'Nova\Core\Facades\DynamicForm',
 		'ErrorCode'		=> 'Nova\Core\Utilities\ErrorCode',
 		'Gravatar'		=> 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
 		'Image'			=> 'Intervention\Image\Facades\Image',
 		'Location'		=> 'Nova\Core\Facades\Location',
-		'Markdown'		=> 'Nova\Core\Facades\Markdown',
+		'Markdown'		=> 'Nova\Foundation\Facades\Markdown',
 		'Media'			=> 'Nova\Core\Facades\Media',
 		'Model'			=> 'Nova\Extensions\Laravel\Database\Eloquent\Model',
 		'Nav'			=> 'Nova\Core\Lib\Nav',
@@ -304,6 +304,7 @@ return [
 
 		'UserModel'					=> "Nova\Core\Models\Eloquent\User",
 		'UserLoaModel'				=> "Nova\Core\Models\Eloquent\User\Loa",
+		'UserPersistenceModel'		=> "Nova\Core\Models\Eloquent\UserPersistenceModel",
 		'UserPrefsModel'			=> "Nova\Core\Models\Eloquent\User\Preferences",
 		'UserRoleModel'				=> "Nova\Core\Models\Eloquent\User\Role",
 		'UserSuspendModel'			=> "Nova\Core\Models\Eloquent\User\Suspend",
