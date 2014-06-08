@@ -197,6 +197,7 @@ return [
 		/**
 		 * Nova Classes
 		 */
+		'Aegis'			=> 'Nova\Aegis\Facades\Aegis',
 		'Date'			=> 'Carbon\Carbon',
 		'DynamicForm'	=> 'Nova\Core\Facades\DynamicForm',
 		'ErrorCode'		=> 'Nova\Core\Utilities\ErrorCode',
@@ -213,11 +214,11 @@ return [
 		'Status'		=> 'Nova\Core\Utilities\Status',
 		'SystemEvent'	=> 'Nova\Core\Facades\SystemEvent',
 
-		'Activation'	=> 'Cartalyst\Sentry\Laravel\Facades\Activation',
-		'Auth'			=> 'Cartalyst\Sentry\Laravel\Facades\Sentry',
-		'Reminder'		=> 'Cartalyst\Sentry\Laravel\Facades\Reminder',
-		'Sentry'		=> 'Cartalyst\Sentry\Laravel\Facades\Sentry',
-		'SwipeIdentity'	=> 'Cartalyst\Sentry\Laravel\Facades\SwipeIdentity',
+		//'Activation'	=> 'Cartalyst\Sentry\Laravel\Facades\Activation',
+		//'Auth'			=> 'Cartalyst\Sentry\Laravel\Facades\Sentry',
+		//'Reminder'		=> 'Cartalyst\Sentry\Laravel\Facades\Reminder',
+		//'Sentry'		=> 'Cartalyst\Sentry\Laravel\Facades\Sentry',
+		//'SwipeIdentity'	=> 'Cartalyst\Sentry\Laravel\Facades\SwipeIdentity',
 		
 		/**
 		 * Nova Interfaces
