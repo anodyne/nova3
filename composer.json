@@ -32,7 +32,8 @@
 		"doctrine/dbal": "2.3.*",
 		"cartalyst/sentinel": "*",
 		"cartalyst/sentry": "~2.0",
-		"dingo/api": "~0.5"
+		"dingo/api": "~0.5",
+		"watson/validating": "~0.7"
 	},
 
 	"require-dev": {
