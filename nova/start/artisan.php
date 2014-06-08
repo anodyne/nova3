@@ -14,8 +14,7 @@ ini_set('display_errors', 1);
 |
 */
 
-Artisan::add(new Nova\Core\Commands\RefreshRoutes);
-//Artisan::add(new Nova\Core\Commands\RefreshContent);
-//Artisan::add(new Nova\Core\Commands\Optimize($app['composer']));
-//Artisan::add(new Nova\Core\Commands\TestCommand);
-Artisan::add(new Nova\Core\Commands\RegisterCommand);
+Artisan::add(new Nova\Foundation\Commands\RefreshRoutesCommand);
+//Artisan::add(new Nova\Foundation\Commands\RefreshContentCommand);
+//Artisan::add(new Nova\Foundation\Commands\OptimizeCommand($app['composer']));
+Artisan::add(new Nova\Foundation\Commands\RegisterCommand);

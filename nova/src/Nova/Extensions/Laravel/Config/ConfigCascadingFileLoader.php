@@ -1,7 +1,6 @@
 <?php namespace Nova\Extensions\Laravel\Config;
 
 use Illuminate\Filesystem\Filesystem;
-//use Illuminate\Config\LoaderInterface;
 use Illuminate\Cache\FileStore as Cache;
 
 class ConfigCascadingFileLoader implements LoaderInterface {

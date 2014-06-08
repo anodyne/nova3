@@ -7,17 +7,13 @@
  * be done carefully and  deliberately since they can cause wide ranging issues
  * if not done properly.
  *
- * @package		Nova
- * @subpackage	Extensions
- * @category	Lib
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
  */
 
-use Date;
-use Event;
-use Config;
-use Status;
+use Str,
+	Date,
+	Event,
+	Config,
+	Status;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class Model extends EloquentModel {
@@ -50,16 +46,6 @@ class Model extends EloquentModel {
 	public function newCollection(array $models = [])
 	{
 		return new Collection($models);
-	}
-
-	/**
-	 * Get the attributes that should be converted to dates.
-	 *
-	 * @return array
-	 */
-	public function getDates()
-	{
-		return $this->dates;
 	}
 
 	/**
@@ -97,6 +83,28 @@ class Model extends EloquentModel {
 	}
 
 	/**
+	 * Get the full model path from an alias name. If the name contains
+	 * a slash, we'll bail out and just return that, otherwise, we'll
+	 * look up the alias and return the fully-qualified path.
+	 *
+	 * @internal
+	 * @param	string	$name	Alias name
+	 * @return	string
+	 */
+	protected function getAliasModel($name)
+	{
+		if (Str::contains($name, "\\"))
+		{
+			return $name;
+		}
+
+		// Get the class aliases
+		$aliases = Config::get('app.aliases');
+
+		return $aliases[$name];
+	}
+
+	/**
 	 * Define a one-to-one relationship.
 	 *
 	 * We override this method from the Eloquent model so that we can grab the
@@ -109,13 +117,7 @@ class Model extends EloquentModel {
 	 */
 	public function hasOne($related, $foreignKey = null, $localKey = null)
 	{
-		// Get the class aliases
-		$aliases = Config::get('app.aliases');
-
-		// Figure out what the real model class should be
-		$model = $aliases[$related];
-
-		return parent::hasOne($model, $foreignKey, $localKey);
+		return parent::hasOne($this->getAliasModel($related), $foreignKey, $localKey);
 	}
 
 	/**
@@ -131,13 +133,7 @@ class Model extends EloquentModel {
 	 */
 	public function belongsTo($related, $foreignKey = null, $otherKey = null, $relation = null)
 	{
-		// Get the class aliases
-		$aliases = Config::get('app.aliases');
-
-		// Figure out what the real model class should be
-		$model = $aliases[$related];
-
-		return parent::belongsTo($model, $foreignKey, $otherKey, $relation);
+		return parent::belongsTo($this->getAliasModel($related), $foreignKey, $otherKey, $relation);
 	}
 
 	/**
@@ -153,13 +149,7 @@ class Model extends EloquentModel {
 	 */
 	public function hasMany($related, $foreignKey = null, $localKey = null)
 	{
-		// Get the class aliases
-		$aliases = Config::get('app.aliases');
-
-		// Figure out what the real model class should be
-		$model = $aliases[$related];
-
-		return parent::hasMany($model, $foreignKey, $localKey);
+		return parent::hasMany($this->getAliasModel($related), $foreignKey, $localKey);
 	}
 
 	/**
@@ -177,13 +167,7 @@ class Model extends EloquentModel {
 	 */
 	public function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null, $relation = null)
 	{
-		// Get the class aliases
-		$aliases = Config::get('app.aliases');
-
-		// Figure out what the real model class should be
-		$model = $aliases[$related];
-
-		return parent::belongsToMany($model, $table, $foreignKey, $otherKey, $relation);
+		return parent::belongsToMany($this->getAliasModel($related), $table, $foreignKey, $otherKey, $relation);
 	}
 
 	/*
