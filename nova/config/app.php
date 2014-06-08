@@ -199,20 +199,20 @@ return [
 		 */
 		'Auth'			=> 'Nova\Aegis\AegisFacade',
 		'Date'			=> 'Carbon\Carbon',
-		'DynamicForm'	=> 'Nova\Core\Facades\DynamicForm',
-		'ErrorCode'		=> 'Nova\Core\Utilities\ErrorCode',
+		'DynamicForm'	=> 'Nova\Core\Forms\Facades\DynamicForm',
+		'ErrorCode'		=> 'Nova\Foundation\Utilities\ErrorCode',
 		'Gravatar'		=> 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
 		'Image'			=> 'Intervention\Image\Facades\Image',
-		'Location'		=> 'Nova\Core\Facades\Location',
+		'Location'		=> 'Nova\Foundation\Facades\Location',
 		'Markdown'		=> 'Nova\Foundation\Facades\Markdown',
-		'Media'			=> 'Nova\Core\Facades\Media',
+		'Media'			=> 'Nova\Foundation\Facades\Media',
 		'Model'			=> 'Nova\Extensions\Laravel\Database\Eloquent\Model',
-		'Nav'			=> 'Nova\Core\Lib\Nav',
-		'Nova'			=> 'Nova\Core\Facades\Nova',
-		'NovaAuth'		=> 'Nova\Core\Lib\Auth',
+		'Nav'			=> 'Nova\Foundation\Lib\Nav',
+		'Nova'			=> 'Nova\Foundation\Facades\Nova',
+		'NovaAuth'		=> 'Nova\Foundation\Lib\Auth',
 		'Setup'			=> 'Nova\Setup\SetupFacade',
-		'Status'		=> 'Nova\Core\Utilities\Status',
-		'SystemEvent'	=> 'Nova\Core\Facades\SystemEvent',
+		'Status'		=> 'Nova\Foundation\Utilities\Status',
+		'SystemEvent'	=> 'Nova\Foundation\Facades\SystemEvent',
 
 		//'Activation'	=> 'Cartalyst\Sentry\Laravel\Facades\Activation',
 		//'Auth'			=> 'Cartalyst\Sentry\Laravel\Facades\Sentry',
@@ -223,39 +223,39 @@ return [
 		/**
 		 * Nova Interfaces
 		 */
-		'CacheInterface'			=> "Nova\Core\Interfaces\CacheInterface",
-		'FormDataInterface'			=> "Nova\Core\Interfaces\FormDataInterface",
-		'MediaInterface'			=> "Nova\Core\Interfaces\MediaInterface",
-		'NovaAuthInterface'			=> "Nova\Core\Interfaces\NovaAuthInterface",
-		'QuickInstallInterface'		=> "Nova\Core\Interfaces\QuickInstallInterface",
-		'SearchInterface'			=> "Nova\Core\Interfaces\SearchInterface",
+		'CacheInterface'			=> "Nova\Foundation\Interfaces\CacheInterface",
+		'FormDataInterface'			=> "Nova\Core\Forms\Interfaces\FormDataInterface",
+		'MediaInterface'			=> "Nova\Foundation\Interfaces\MediaInterface",
+		'NovaAuthInterface'			=> "Nova\Foundation\Interfaces\NovaAuthInterface",
+		'QuickInstallInterface'		=> "Nova\Foundation\Interfaces\QuickInstallInterface",
+		'SearchInterface'			=> "Nova\Foundation\Interfaces\SearchInterface",
 
 		/**
 		 * Nova Traits
 		 */
-		'FormTrait'			=> "Nova\Core\Traits\FormTrait",
-		'SecurityTrait'		=> "Nova\Core\Traits\SecurityTrait",
-		'UtilityTrait'		=> "Nova\Core\Traits\UtilityTrait",
+		'FormTrait'			=> "Nova\Core\Forms\Traits\FormTrait",
+		'SecurityTrait'		=> "Nova\Foundation\Traits\SecurityTrait",
+		'UtilityTrait'		=> "Nova\Foundation\Traits\UtilityTrait",
 
 		/**
 		 * Nova Mailers
 		 */
-		'BaseMailer'		=> "Nova\Core\Mailers\BaseMailer",
-		'FormViewerMailer'	=> "Nova\Core\Mailers\FormViewerMailer",
-		'UserMailer'		=> "Nova\Core\Mailers\UserMailer",
+		'BaseMailer'		=> "Nova\Foundation\Mailers\BaseMailer",
+		'FormViewerMailer'	=> "Nova\Core\Forms\Mailers\FormViewerMailer",
+		'UserMailer'		=> "Nova\Core\Users\Mailers\UserMailer",
 
 		/**
 		 * Nova Exceptions
 		 */
-		'FormProtectedException'		=> "Nova\Core\Exceptions\FormProtectedException",
-		'MediaBadFileTypeException'		=> "Nova\Core\Exceptions\MediaBadFileTypeException",
-		'MediaFileTooBigException'		=> "Nova\Core\Exceptions\MediaFileTooBigException",
-		'MediaNoInputException'			=> "Nova\Core\Exceptions\MediaNoInputException",
-		'MediaNotUploadedException'		=> "Nova\Core\Exceptions\MediaNotUploadedException",
-		'NotifierNoContentException'	=> "Nova\Core\Exceptions\NotifierNoContentException",
-		'NotifierNoSubjectException'	=> "Nova\Core\Exceptions\NotifierNoSubjectException",
-		'NovaGeneralException'			=> "Nova\Core\Exceptions\NovaGeneralException",
-		'RouteProtectedException'		=> "Nova\Core\Exceptions\RouteProtectedException",
+		'FormProtectedException'		=> "Nova\Core\Forms\Exceptions\FormProtectedException",
+		'MediaBadFileTypeException'		=> "Nova\Foundation\Exceptions\MediaBadFileTypeException",
+		'MediaFileTooBigException'		=> "Nova\Foundation\Exceptions\MediaFileTooBigException",
+		'MediaNoInputException'			=> "Nova\Foundation\Exceptions\MediaNoInputException",
+		'MediaNotUploadedException'		=> "Nova\Foundation\Exceptions\MediaNotUploadedException",
+		'NotifierNoContentException'	=> "Nova\Foundation\Exceptions\NotifierNoContentException",
+		'NotifierNoSubjectException'	=> "Nova\Foundation\Exceptions\NotifierNoSubjectException",
+		'NovaGeneralException'			=> "Nova\Foundation\Exceptions\NovaGeneralException",
+		'RouteProtectedException'		=> "Nova\Core\System\Exceptions\RouteProtectedException",
 
 		/**
 		 * Models
@@ -381,27 +381,27 @@ return [
 		/**
 		 * Repositories
 		 */
-		'AccessRoleRepository'		=> "Nova\Core\Repositories\Eloquent\AccessRoleRepository",
-		'CatalogRepository'			=> "Nova\Core\Repositories\Eloquent\CatalogRepository",
-		'FormRepository'			=> "Nova\Core\Repositories\Eloquent\FormRepository",
-		'NavigationRepository'		=> "Nova\Core\Repositories\Eloquent\NavigationRepository",
-		'SettingsRepository'		=> "Nova\Core\Repositories\Eloquent\SettingsRepository",
-		'SiteContentRepository'		=> "Nova\Core\Repositories\Eloquent\SiteContentRepository",
-		'SystemRouteRepository'		=> "Nova\Core\Repositories\Eloquent\SystemRouteRepository",
-		'UserRepository'			=> "Nova\Core\Repositories\Eloquent\UserRepository",
+		'AccessRoleRepository'		=> "Nova\Core\Systems\Repositories\Eloquent\AccessRoleRepository",
+		'CatalogRepository'			=> "Nova\Core\Systems\Repositories\Eloquent\CatalogRepository",
+		'FormRepository'			=> "Nova\Core\Forms\Repositories\Eloquent\FormRepository",
+		'NavigationRepository'		=> "Nova\Core\System\Repositories\Eloquent\NavigationRepository",
+		'SettingsRepository'		=> "Nova\Core\System\Repositories\Eloquent\SettingsRepository",
+		'SiteContentRepository'		=> "Nova\Core\System\Repositories\Eloquent\SiteContentRepository",
+		'SystemRouteRepository'		=> "Nova\Core\System\Repositories\Eloquent\SystemRouteRepository",
+		'UserRepository'			=> "Nova\Core\Users\Repositories\Eloquent\UserRepository",
 
 		/**
 		 * Repository Interfaces
 		 */
-		'BaseRepositoryInterface'			=> "Nova\Core\Interfaces\BaseRepositoryInterface",
+		'BaseRepositoryInterface'			=> "Nova\Foundation\Interfaces\BaseRepositoryInterface",
 
-		'AccessRoleRepositoryInterface'		=> "Nova\Core\Interfaces\Repositories\AccessRoleRepositoryInterface",
-		'CatalogRepositoryInterface'		=> "Nova\Core\Interfaces\Repositories\CatalogRepositoryInterface",
-		'FormRepositoryInterface'			=> "Nova\Core\Interfaces\Repositories\FormRepositoryInterface",
-		'NavigationRepositoryInterface'		=> "Nova\Core\Interfaces\Repositories\NavigationRepositoryInterface",
-		'SettingsRepositoryInterface'		=> "Nova\Core\Interfaces\Repositories\SettingsRepositoryInterface",
-		'SiteContentRepositoryInterface'	=> "Nova\Core\Interfaces\Repositories\SiteContentRepositoryInterface",
-		'SystemRouteRepositoryInterface'	=> "Nova\Core\Interfaces\Repositories\SystemRouteRepositoryInterface",
+		'AccessRoleRepositoryInterface'		=> "Nova\Core\System\Interfaces\AccessRoleRepositoryInterface",
+		'CatalogRepositoryInterface'		=> "Nova\Core\System\Interfaces\CatalogRepositoryInterface",
+		'FormRepositoryInterface'			=> "Nova\Core\Interfaces\FormRepositoryInterface",
+		'NavigationRepositoryInterface'		=> "Nova\Core\System\Interfaces\NavigationRepositoryInterface",
+		'SettingsRepositoryInterface'		=> "Nova\Core\System\Interfaces\SettingsRepositoryInterface",
+		'SiteContentRepositoryInterface'	=> "Nova\Core\System\Interfaces\SiteContentRepositoryInterface",
+		'SystemRouteRepositoryInterface'	=> "Nova\Core\System\Interfaces\SystemRouteRepositoryInterface",
 		'UserRepositoryInterface'			=> "Nova\Core\Interfaces\Repositories\UserRepositoryInterface",
 
 	],

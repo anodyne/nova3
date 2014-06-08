@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Traits;
+<?php namespace Nova\Foundation\Traits;
 
 trait SecurityTrait {
 

@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Interfaces;
+<?php namespace Nova\Foundation\Interfaces;
 
 interface QuickInstallInterface {
 	

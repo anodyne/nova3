@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Models\Eloquent;
+<?php namespace Nova\Core\Users\Models\Eloquent;
 
 use App;
 use Str;
@@ -31,7 +31,7 @@ use Cartalyst\Sentry\Permissions\PermissibleInterface;
 
 use Nova\Aegis\Persistence\PersistableInterface;
 
-class User extends Model implements UserInterface, GroupableInterface, PermissibleInterface, PersistableInterface, FormDataInterface, MediaInterface {
+class User extends Model implements PersistableInterface, FormDataInterface, MediaInterface {
 
 	protected $table = 'users';
 

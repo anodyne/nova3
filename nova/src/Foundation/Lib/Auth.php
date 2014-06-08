@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Lib;
+<?php namespace Nova\Foundation\Lib;
 
 use Date;
 use Setup;

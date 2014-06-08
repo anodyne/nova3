@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Utilities;
+<?php namespace Nova\Foundation\Utilities;
 
 use App,
 	File,

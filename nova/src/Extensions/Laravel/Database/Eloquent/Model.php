@@ -1,26 +1,15 @@
 <?php namespace Nova\Extensions\Laravel\Database\Eloquent;
 
-/**
- * The model class is the foundation for all of Nova's models and provides core
- * functionality that's shared across many of the models used in Nova. Because
- * these methods are available in every model, any changes to this class should
- * be done carefully and  deliberately since they can cause wide ranging issues
- * if not done properly.
- *
- * @package		Nova
- * @subpackage	Extensions
- * @category	Lib
- * @author		Anodyne Productions
- * @copyright	2013 Anodyne Productions
- */
+use Str,
+	Date,
+	Event,
+	Config,
+	Status;
+use LaravelBook\Ardent\Ardent;
 
-use Date;
-use Event;
-use Config;
-use Status;
-use Illuminate\Database\Eloquent\Model as EloquentModel;
+class Model extends Ardent {
 
-class Model extends EloquentModel {
+	public $autoHydrateEntityFromInput = true;
 
 	/*
 	|--------------------------------------------------------------------------
@@ -28,14 +17,12 @@ class Model extends EloquentModel {
 	|--------------------------------------------------------------------------
 	*/
 
-	protected $dates = [];
-
-	public function __construct(array $attributes = [])
+	/*public function __construct(array $attributes = [])
 	{
 		$attributes = $this->scrubInputData($attributes);
 
 		parent::__construct($attributes);
-	}
+	}*/
 
 	/**
 	 * Create a new Eloquent Collection instance.
@@ -50,16 +37,6 @@ class Model extends EloquentModel {
 	public function newCollection(array $models = [])
 	{
 		return new Collection($models);
-	}
-
-	/**
-	 * Get the attributes that should be converted to dates.
-	 *
-	 * @return array
-	 */
-	public function getDates()
-	{
-		return $this->dates;
 	}
 
 	/**
@@ -109,13 +86,7 @@ class Model extends EloquentModel {
 	 */
 	public function hasOne($related, $foreignKey = null, $localKey = null)
 	{
-		// Get the class aliases
-		$aliases = Config::get('app.aliases');
-
-		// Figure out what the real model class should be
-		$model = $aliases[$related];
-
-		return parent::hasOne($model, $foreignKey, $localKey);
+		return parent::hasOne($this->getClassFromAlias($related), $foreignKey, $localKey);
 	}
 
 	/**
@@ -131,13 +102,7 @@ class Model extends EloquentModel {
 	 */
 	public function belongsTo($related, $foreignKey = null, $otherKey = null, $relation = null)
 	{
-		// Get the class aliases
-		$aliases = Config::get('app.aliases');
-
-		// Figure out what the real model class should be
-		$model = $aliases[$related];
-
-		return parent::belongsTo($model, $foreignKey, $otherKey, $relation);
+		return parent::belongsTo($this->getClassFromAlias($related), $foreignKey, $otherKey, $relation);
 	}
 
 	/**
@@ -153,13 +118,7 @@ class Model extends EloquentModel {
 	 */
 	public function hasMany($related, $foreignKey = null, $localKey = null)
 	{
-		// Get the class aliases
-		$aliases = Config::get('app.aliases');
-
-		// Figure out what the real model class should be
-		$model = $aliases[$related];
-
-		return parent::hasMany($model, $foreignKey, $localKey);
+		return parent::hasMany($this->getClassFromAlias($related), $foreignKey, $localKey);
 	}
 
 	/**
@@ -177,13 +136,13 @@ class Model extends EloquentModel {
 	 */
 	public function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null, $relation = null)
 	{
-		// Get the class aliases
-		$aliases = Config::get('app.aliases');
-
-		// Figure out what the real model class should be
-		$model = $aliases[$related];
-
-		return parent::belongsToMany($model, $table, $foreignKey, $otherKey, $relation);
+		return parent::belongsToMany(
+			$this->getClassFromAlias($related),
+			$table,
+			$foreignKey,
+			$otherKey,
+			$relation
+		);
 	}
 
 	/*
@@ -390,6 +349,20 @@ class Model extends EloquentModel {
 		{
 			Event::listen("eloquent.{$e}: {$model}", "{$listener}@{$e}");
 		}
+	}
+
+	protected function getClassFromAlias($aliasName)
+	{
+		if (Str::contains($aliasName, "\\"))
+		{
+			return $aliasName;
+		}
+
+		// Get the class aliases
+		$aliases = Config::get('app.aliases');
+
+		// Figure out what the real model class should be
+		return $aliases[$aliasName];
 	}
 
 }

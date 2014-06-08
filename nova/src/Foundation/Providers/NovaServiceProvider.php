@@ -1,15 +1,15 @@
-<?php namespace Nova\Core\Providers;
+<?php namespace Nova\Foundation\Providers;
 
 use App,
 	Event,
 	Config,
 	Parsedown;
-use Nova\Core\Lib\Media,
-	Nova\Core\Lib\Location,
-	Nova\Core\Utilities\Nova,
-	Nova\Core\Lib\DynamicForm,
-	Nova\Core\Lib\SystemEvent,
-	Nova\Core\Services\MarkdownService;
+use Nova\Foundation\Lib\Media,
+	Nova\Foundation\Lib\Location,
+	Nova\Foundation\Utilities\Nova,
+	Nova\Core\Forms\Lib\DynamicForm,
+	Nova\Foundation\Lib\SystemEvent,
+	Nova\Foundation\Services\MarkdownService;
 use Ikimea\Browser\Browser;
 use Illuminate\Support\ServiceProvider;
 use Nova\Extensions\Laravel\Config\Repository as ConfigRepository;

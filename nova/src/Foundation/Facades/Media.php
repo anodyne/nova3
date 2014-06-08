@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Facades;
+<?php namespace Nova\Foundation\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

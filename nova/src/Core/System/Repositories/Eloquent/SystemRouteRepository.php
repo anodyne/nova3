@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Repositories\Eloquent;
+<?php namespace Nova\Core\System\Repositories\Eloquent;
 
 use UtilityTrait,
 	SecurityTrait,

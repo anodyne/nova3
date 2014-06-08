@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Providers;
+<?php namespace Nova\Foundation\Providers;
 
 use App,
 	Str,

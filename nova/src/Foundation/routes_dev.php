@@ -76,4 +76,11 @@ Route::group(['prefix' => 'dev'], function()
 
 		sd($routes['get']);
 	});
+
+	Route::get('ardent', function()
+	{
+		$user = Nova\Core\Users\Models\Eloquent\User::first();
+
+		sd($user);
+	});
 });
