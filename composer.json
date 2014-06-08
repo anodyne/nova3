@@ -33,7 +33,7 @@
 		"cartalyst/sentinel": "*",
 		"cartalyst/sentry": "~2.0",
 		"dingo/api": "~0.5",
-		"watson/validating": "~0.7"
+		"laravelbook/ardent": "~2.4"
 	},
 
 	"require-dev": {
@@ -50,8 +50,8 @@
 
 	"autoload": {
 		"classmap": [
-			"nova/src/Nova/Setup/database/migrations",
-			"nova/src/Nova/Setup/database/seeds"
+			"nova/src/Setup/database/migrations",
+			"nova/src/Setup/database/seeds"
 		],
 
 		"psr-4": {
