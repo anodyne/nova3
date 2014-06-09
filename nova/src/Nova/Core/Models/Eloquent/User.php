@@ -27,7 +27,9 @@ use Cartalyst\Sentry\Users\UserInterface;
 use Cartalyst\Sentry\Groups\GroupInterface;
 use Cartalyst\Sentry\Groups\GroupableInterface;
 use Cartalyst\Sentry\Permissions\PermissibleInterface;
-use Cartalyst\Sentry\Persistence\PersistableInterface;
+//use Cartalyst\Sentry\Persistence\PersistableInterface;
+
+use Nova\Aegis\Persistence\PersistableInterface;
 
 class User extends Model implements UserInterface, GroupableInterface, PermissibleInterface, PersistableInterface, FormDataInterface, MediaInterface {
 
@@ -162,6 +164,11 @@ class User extends Model implements UserInterface, GroupableInterface, Permissib
 		return $this->belongsToMany('ApplicationModel', 'application_reviewers');
 	}
 
+	public function persistence()
+	{
+		return $this->hasMany('UserPersistenceModel', 'user_id');
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Model Scopes
@@ -245,7 +252,7 @@ class User extends Model implements UserInterface, GroupableInterface, Permissib
 
 	public function setPasswordAttribute($value)
 	{
-		$this->attributes['password'] = App::make('sentry.hasher')->hash($value);
+		$this->attributes['password'] = App::make('nova.aegis.hasher')->hash($value);
 	}
 
 	/*
@@ -729,7 +736,7 @@ class User extends Model implements UserInterface, GroupableInterface, Permissib
 
 	/*
 	|--------------------------------------------------------------------------
-	| Sentry PersistableInterface Implementation
+	| Aegis PersistableInterface Implementation
 	|--------------------------------------------------------------------------
 	*/
 
@@ -750,7 +757,7 @@ class User extends Model implements UserInterface, GroupableInterface, Permissib
 	 */
 	public function getPersistenceCodes()
 	{
-		return $this->persistence_codes;
+		return $this->persistence->toArray();
 	}
 
 	/**

@@ -1,0 +1,368 @@
+<?php namespace Nova\Extensions\Laravel\Database\Eloquent;
+
+use Str,
+	Date,
+	Event,
+	Config,
+	Status;
+use LaravelBook\Ardent\Ardent;
+
+class Model extends Ardent {
+
+	public $autoHydrateEntityFromInput = true;
+
+	/*
+	|--------------------------------------------------------------------------
+	| Eloquent Model Method Overrides
+	|--------------------------------------------------------------------------
+	*/
+
+	/*public function __construct(array $attributes = [])
+	{
+		$attributes = $this->scrubInputData($attributes);
+
+		parent::__construct($attributes);
+	}*/
+
+	/**
+	 * Create a new Eloquent Collection instance.
+	 *
+	 * We override this method from the Eloquent model so that we can ensure
+	 * every collection being created is one of our own making and not the
+	 * default.
+	 *
+	 * @param	array	An array of models
+	 * @return	Collection
+	 */
+	public function newCollection(array $models = [])
+	{
+		return new Collection($models);
+	}
+
+	/**
+	 * Get a fresh timestamp for the model.
+	 *
+	 * We override this method from the Eloquent model so that we can ensure
+	 * that every timestamp being generated is done so as UTC.
+	 *
+	 * @return mixed
+	 */
+	public function freshTimestamp()
+	{
+		return Date::now('UTC');
+	}
+
+	/**
+	 * Return a timestamp as DateTime object.
+	 *
+	 * We override this method from the Eloquent model so that we can ensure
+	 * that everything being stored in the database is being done so as UTC.
+	 *
+	 * @param	mixed	The value to store
+	 * @return	Date
+	 */
+	protected function asDateTime($value)
+	{
+		if ( ! $value instanceof Date)
+		{
+			$format = $this->getDateFormat();
+
+			return Date::createFromFormat($format, $value, 'UTC');
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Define a one-to-one relationship.
+	 *
+	 * We override this method from the Eloquent model so that we can grab the
+	 * class alias from the config file and create the model based on what class
+	 * SHOULD be used instead of assuming the core should be used.
+	 *
+	 * @param  string  $related
+	 * @param  string  $foreignKey
+	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
+	 */
+	public function hasOne($related, $foreignKey = null, $localKey = null)
+	{
+		return parent::hasOne($this->getClassFromAlias($related), $foreignKey, $localKey);
+	}
+
+	/**
+	 * Define an inverse one-to-one or many relationship.
+	 *
+	 * We override this method from the Eloquent model so that we can grab the
+	 * class alias from the config file and create the model based on what class
+	 * SHOULD be used instead of assuming the core should be used.
+	 *
+	 * @param  string  $related
+	 * @param  string  $foreignKey
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function belongsTo($related, $foreignKey = null, $otherKey = null, $relation = null)
+	{
+		return parent::belongsTo($this->getClassFromAlias($related), $foreignKey, $otherKey, $relation);
+	}
+
+	/**
+	 * Define a one-to-many relationship.
+	 *
+	 * We override this method from the Eloquent model so that we can grab the
+	 * class alias from the config file and create the model based on what class
+	 * SHOULD be used instead of assuming the core should be used.
+	 *
+	 * @param  string  $related
+	 * @param  string  $foreignKey
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function hasMany($related, $foreignKey = null, $localKey = null)
+	{
+		return parent::hasMany($this->getClassFromAlias($related), $foreignKey, $localKey);
+	}
+
+	/**
+	 * Define a many-to-many relationship.
+	 *
+	 * We override this method from the Eloquent model so that we can grab the
+	 * class alias from the config file and create the model based on what class
+	 * SHOULD be used instead of assuming the core should be used.
+	 *
+	 * @param  string  $related
+	 * @param  string  $table
+	 * @param  string  $foreignKey
+	 * @param  string  $otherKey
+	 * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 */
+	public function belongsToMany($related, $table = null, $foreignKey = null, $otherKey = null, $relation = null)
+	{
+		return parent::belongsToMany(
+			$this->getClassFromAlias($related),
+			$table,
+			$foreignKey,
+			$otherKey,
+			$relation
+		);
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Helpers
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Scrub the data being used to make sure we're can store it in the table.
+	 *
+	 * @param	array	Array of data to scrub
+	 * @return	array
+	 */
+	protected function scrubInputData(array $data)
+	{
+		// Loop through the data and scrub it for any issues
+		foreach ($data as $key => $value)
+		{
+			// Make sure we're only using fillable fields
+			if ( ! $this->isFillable($key))
+			{
+				unset($data[$key]);
+			}
+		}
+
+		return $data;
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Model Scopes
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Active items scope.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeActive($query)
+	{
+		if (in_array('status', static::$properties))
+		{
+			$query->where('status', Status::ACTIVE);
+		}
+	}
+
+	/**
+	 * Inactive items scope.
+	 *
+	 * @param	Builder		The query builder
+	 * @return	void
+	 */
+	public function scopeInactive($query)
+	{
+		if (in_array('status', static::$properties))
+		{
+			$query->where('status', Status::INACTIVE);
+		}
+	}
+
+	/**
+	 * Ascending order scope.
+	 *
+	 * @param	Builder		The query builder
+	 * @param	string		The field to order by
+	 * @return	void
+	 */
+	public function scopeOrderAsc($query, $orderBy)
+	{
+		$this->orderScope($query, $orderBy, 'asc');
+	}
+
+	/**
+	 * Descending order scope.
+	 *
+	 * @param	Builder		The query builder
+	 * @param	string		The field to order by
+	 * @return	void
+	 */
+	public function scopeOrderDesc($query, $orderBy)
+	{
+		$this->orderScope($query, $orderBy, 'desc');
+	}
+
+	/**
+	 * Do the ordering.
+	 *
+	 * @param	Builder		Query Builder object
+	 * @param	mixed		A string or array of strings of columns
+	 * @param	string		The direction to order
+	 * @return	void
+	 */
+	protected function orderScope($query, $column, $direction)
+	{
+		if (is_array($column))
+		{
+			foreach ($column as $col)
+			{
+				if (in_array($col, static::$properties))
+				{
+					$query->orderBy($col, $direction);
+				}
+			}
+		}
+		else
+		{
+			if (in_array($column, static::$properties))
+			{
+				$query->orderBy($column, $direction);
+			}
+		}
+	}
+
+	/**
+	 * Grouping scope.
+	 *
+	 * @param	Builder		The query builder
+	 * @param	string		The field to group by
+	 * @return	void
+	 */
+	public function scopeGroup($query, $groupBy)
+	{
+		if (in_array($groupBy, static::$properties))
+		{
+			$query->groupBy($groupBy);
+		}
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Static methods
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Kick off a new query.
+	 *
+	 * @return	Builder
+	 */
+	public static function startQuery()
+	{
+		// Get a new instance of the model
+		$instance = new static;
+
+		return $instance->newQuery();
+	}
+
+	/**
+	 * Find a record/records in the table based on the simple arguments.
+	 *
+	 * @param	mixed	The column or arguments for a where statement
+	 * @param	string	The value
+	 * @return	Collection
+	 */
+	public static function getItems($column, $value = false)
+	{
+		// Start a new Query Builder
+		$query = static::startQuery();
+
+		if (is_array($column))
+		{
+			// Loop through the arguments and build the where clause
+			foreach ($column as $col => $val)
+			{
+				if (in_array($col, static::$properties))
+				{
+					$query->where($col, $val);
+				}
+			}
+			
+			return $query->get();
+		}
+		else
+		{
+			if (in_array($column, static::$properties))
+			{
+				return $query->where($column, $value)->get();
+			}
+		}
+		
+		return false;
+	}
+
+	/**
+	 * Setup the event listeners for the model.
+	 *
+	 * @param	string	The model
+	 * @param	string	The listener
+	 * @return	void
+	 */
+	public static function setupEventListeners($model, $listener)
+	{
+		$events = [
+			'creating', 'created',
+			'updating', 'updated',
+			'deleting', 'deleted',
+			'saving', 'saved',
+		];
+
+		foreach ($events as $e)
+		{
+			Event::listen("eloquent.{$e}: {$model}", "{$listener}@{$e}");
+		}
+	}
+
+	protected function getClassFromAlias($aliasName)
+	{
+		if (Str::contains($aliasName, "\\"))
+		{
+			return $aliasName;
+		}
+
+		// Get the class aliases
+		$aliases = Config::get('app.aliases');
+
+		// Figure out what the real model class should be
+		return $aliases[$aliasName];
+	}
+
+}

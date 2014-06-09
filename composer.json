@@ -32,7 +32,8 @@
 		"doctrine/dbal": "2.3.*",
 		"cartalyst/sentinel": "*",
 		"cartalyst/sentry": "~2.0",
-		"dingo/api": "~0.5"
+		"dingo/api": "~0.5",
+		"laravelbook/ardent": "~2.4"
 	},
 
 	"require-dev": {
@@ -49,14 +50,14 @@
 
 	"autoload": {
 		"classmap": [
-			"nova/src/Nova/Setup/database/migrations",
-			"nova/src/Nova/Setup/database/seeds"
+			"nova/src/Setup/database/migrations",
+			"nova/src/Setup/database/seeds"
 		],
 
 		"psr-4": {
 			"App\\": "app/src/App/",
 			"Modules\\": "app/src/Modules/",
-			"Nova\\": "nova/src/Nova/"
+			"Nova\\": "nova/src/"
 		}
 	},
 	
