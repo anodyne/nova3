@@ -33,7 +33,8 @@
 		"cartalyst/sentinel": "*",
 		"cartalyst/sentry": "~2.0",
 		"dingo/api": "~0.5",
-		"laravelbook/ardent": "~2.4"
+		"laravelbook/ardent": "~2.4",
+		"zizaco/entrust": "~1.2"
 	},
 
 	"require-dev": {

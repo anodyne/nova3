@@ -107,6 +107,7 @@ return [
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
+		'Nova\Aegis\AegisServiceProvider',
 		'Nova\Foundation\Providers\NovaErrorServiceProvider',
 		'Nova\Foundation\Providers\NovaServiceProvider',
 		'Nova\Foundation\Providers\NovaSystemRouteServiceProvider',
@@ -116,6 +117,7 @@ return [
 		//'Nova\Extensions\Laravel\Translation\TranslationServiceProvider',
 		'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
+		'Zizaco\Entrust\EntrustServiceProvider',
 
 	],
 
@@ -200,6 +202,7 @@ return [
 		'Auth'			=> 'Nova\Aegis\AegisFacade',
 		'Date'			=> 'Carbon\Carbon',
 		'DynamicForm'	=> 'Nova\Core\Forms\Facades\DynamicForm',
+		'Entrust'		=> 'Zizaco\Entrust\EntrustFacade',
 		'ErrorCode'		=> 'Nova\Foundation\Utilities\ErrorCode',
 		'Gravatar'		=> 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
 		'Image'			=> 'Intervention\Image\Facades\Image',
