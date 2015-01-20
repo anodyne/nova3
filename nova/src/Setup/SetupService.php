@@ -10,7 +10,49 @@ class SetupService {
 	{
 		$this->app = $app;
 	}
+
+	/**
+	 * Check to see if a component is configured.
+	 *
+	 * @param	string	$component
+	 * @return	bool
+	 */
+	public function isConfigured($component)
+	{
+		if ($component == 'db')
+		{
+			if ($this->app['config']['database.connections.mysql.host'] == 'DbHost')
+				return false;
+			
+			return true;
+		}
+
+		if ($component == 'mail')
+		{
+			if ($this->app['config']['mail.driver'] == 'MailDriver')
+				return false;
+			
+			return true;
+		}
+	}
+
+	/**
+	 * Check if Nova is installed.
+	 *
+	 * @return	bool
+	 */
+	public function isInstalled()
+	{
+		return $this->app['cache']->get('nova.installed', false);
+	}
 	
+	/**
+	 * Set the config items in the .env file
+	 *
+	 * @param	string	$config
+	 * @param	string	$value
+	 * @return	void
+	 */
 	public function setConfig($config, $value)
 	{
 		$path = base_path('.env');

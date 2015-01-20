@@ -1,19 +1,25 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
 use stdClass;
+use Redirect;
 use Illuminate\Database\QueryException;
 
 class SetupController extends Controller {
 
 	public function index()
 	{
+		// Grab the setup service
+		$setup = app('nova.setup');
+
+		// Is Nova installed?
+		if ($setup->isInstalled())
+		{
+			return Redirect::route('setup.start');
+		}
+
 		// Do some checks to see what we should show
-		//$installed = (bool) \Setup::installed(false);
-		//$db = (bool) File::exists(APPPATH.'config/'.App::environment().'/database.php');
-		//$email = (bool) File::exists(APPPATH.'config/'.App::environment().'/mail.php');
-		$installed = false;
-		$db = true;
-		$email = false;
+		$db = $setup->isConfigured('db');
+		$email = $setup->isConfigured('mail');
 
 		return view('pages.setup.index', compact('db', 'email'));
 	}

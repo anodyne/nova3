@@ -4,12 +4,12 @@ class ConfigDbController extends Controller {
 
 	public function index()
 	{
-		# code...
+		return view('pages.setup.config.db.index');
 	}
 
 	public function info()
 	{
-		# code...
+		return view('pages.setup.config.db.info');
 	}
 
 	public function check()

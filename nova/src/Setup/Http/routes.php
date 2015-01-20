@@ -2,7 +2,6 @@
 
 $options = [
 	'prefix'		=> 'setup',
-	'middleware'	=> 'installed',
 	'namespace'		=> 'Nova\Setup\Http\Controllers'
 ];
 
@@ -23,7 +22,6 @@ Route::group($options, function()
 
 $configDbOptions = array_merge($options, [
 	'prefix'		=> 'setup/config/db',
-	'middleware'	=> 'csrf',
 ]);
 
 Route::group($configDbOptions, function()
