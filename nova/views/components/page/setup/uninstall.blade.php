@@ -1,1 +1,0 @@
-<p>Uninstalling Nova will remove all the data in the database tables (posts, logs, characters, etc.) as well as any MODs you've installed. This process cannot be undone, so make <strong>absolutely sure</strong> you want to do this before continuing.</p>

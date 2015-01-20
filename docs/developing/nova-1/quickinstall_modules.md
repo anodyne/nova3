@@ -1,1 +1,0 @@
-# QuickInstall for Modules

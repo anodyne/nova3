@@ -1,1 +1,0 @@
-<span class="label{{ (isset($class)) ? ' '.$class : '' }}">{{ $content }}</span>
