@@ -58,7 +58,7 @@ class Application extends IlluminateApp {
 	 * @param	string	$asset	An asset to append
 	 * @return	string
 	 */
-	public function coreAssetPath()
+	public function coreAssetPath($asset = false)
 	{
 		if ($asset) return $this->novaPath("assets/$asset");
 
