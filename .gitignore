@@ -1,0 +1,11 @@
+composer.lock
+.DS_Store
+Thumbs.db
+
+.env
+assets/
+nova/vendor
+storage/
+
+*.sublime-project
+*.sublime-workspace

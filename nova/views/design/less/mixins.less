@@ -1,0 +1,59 @@
+.rounded (@radius: 6px) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+	border-radius: @radius @radius @radius @radius;
+}
+
+.border-radius (@top: 3px, @right: 3px, @bottom: 3px, @left: 3px) {
+	@val: @top @right @bottom @left;
+	
+	-webkit-border-radius: @val;
+	-moz-border-radius: @val;
+	border-radius: @val;
+}
+
+.box-shadow (...) {
+	-webkit-box-shadow: @arguments;
+	-moz-box-shadow: @arguments;
+	box-shadow: @arguments;
+}
+
+.gradient (@start, @end) {
+	background: @end;
+	background: -moz-linear-gradient(top, @start 0%, @end 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@start), color-stop(100%,@end));
+	background: -webkit-linear-gradient(top, @start 0%,@end 100%);
+	background: -o-linear-gradient(top, @start 0%,@end 100%);
+	background: -ms-linear-gradient(top, @start 0%,@end 100%);
+	background: linear-gradient(top, @start 0%,@end 100%);
+}
+
+.gradient-gloss (@color1, @color2, @color3, @color4) {
+	background: @color4;
+	background: -moz-linear-gradient(top, @color1 0%, @color2 50%, @color3 51%, @color4 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@color1), color-stop(50%,@color2), color-stop(51%,@color3), color-stop(100%,@color4));
+	background: -webkit-linear-gradient(top, @color1 0%,@color2 50%,@color3 51%,@color4 100%);
+	background: -o-linear-gradient(top, @color1 0%,@color2 50%,@color3 51%,@color4 100%);
+	background: -ms-linear-gradient(top, @color1 0%,@color2 50%,@color3 51%,@color4 100%);
+	background: linear-gradient(top, @color1 0%,@color2 50%,@color3 51%,@color4 100%);
+}
+
+.background-clip(@type: padding-box) {
+	-webkit-background-clip: @type;
+	-moz-background-clip: @type;
+	background-clip: @type;
+}
+
+.rotate (@angle) {
+	-ms-transform: rotate(@angle);
+	-moz-transform: rotate(@angle);
+	-webkit-transform: rotate(@angle);
+	-o-transform: rotate(@angle);
+	transform: rotate(@angle);
+}
+
+.box-sizing(@type: border-box) {
+    -webkit-box-sizing: @type;
+    -moz-box-sizing: @type;
+	box-sizing: @type;
+}

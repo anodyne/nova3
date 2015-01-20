@@ -1,0 +1,40 @@
+{
+	"require": {
+		"laravel/framework": "~5.0",
+
+		"dflydev/symfony-finder-factory": "*",
+		"league/commonmark": "*",
+		"laracasts/presenter": "~0.2",
+		"illuminate/html": "*"
+	},
+
+	"require-dev": {
+		"phpunit/phpunit": "~4.0"
+	},
+
+	"autoload": {
+		"classmap": [
+			"nova/src/Setup/database"
+		],
+		"psr-4": {
+			"Extensions\\": "extensions/",
+			"Nova\\": "nova/src/"
+		}
+	},
+
+	"autoload-dev": {
+		"classmap": [
+			"nova/tests/TestCase.php"
+		]
+	},
+
+	"config": {
+		"vendor-dir": "nova/vendor",
+		"bin-dir": "nova/vendor/bin",
+		"preferred-install": "dist",
+		"process-timeout": 500
+	},
+
+	"minimum-stability": "dev",
+	"prefer-stable": true
+}

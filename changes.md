@@ -1,0 +1,56 @@
+- Add `nova` directory
+- Update `composer.json` with the Nova PSR-4 namespace
+- Update `composer.json` to put the `vendor` directory into `nova/vendor`
+	- Update `bootstrap/autoload.php` to point to the Composer autoload file in the `nova/vendor` directory
+- Move `bootstrap` into the `nova` directory
+	- Update `public/index.php` to point to the bootstrap files in `nova/bootstrap`
+	- Update the `vendor` path for the autoload file
+	- Update the path to the compiled classes file
+	- Update the `artisan` file with the new bootstrap path
+	- Update creating the new application instance to take into account we're no longer at the root w/ the bootstrap directory
+- Add an Application class in Nova/Foundation
+	- Update the `bootstrap/app.php` file with the new class
+- Update `app/Http/Kernel.php` to replace the `LoadConfiguration` class
+	- Add `LoadConfiguration` class to Nova
+	- Override `Kernel::bootstrappers()` to make sure we're using the Nova version of `LoadConfiguration`
+	- Update the `Application::bindPathsInContainer()` method
+	- Add `Application::coreConfigPath()`
+- Bind our own `LoadConfiguration` class to the contract for `LoadConfiguration`
+- Move `database` into `nova/src/Nova/Setup`
+	- Override `Application::databasePath()` to point to the new location of the database stuff
+- Remove config files from `config`
+- Move `resources` to `nova/resources`
+	- Update the `Application::langPath()` method
+	- Update the path to the views folder in the view config file
+- Move `tests` to `nova/tests`
+	- Update the `phpunit.xml` file with right paths
+- Add `assets` directory
+	- Update the `Application::bindPathsInContainer()` to have the assets path
+	- Add `Application::assetPath()`
+	- Add `Application::coreAssetPath()`
+- Add `extensions` directory
+	- Update the `composer.json` file with the Extensions namespace
+	- Update the `Application::bindPathsInContainer()` to have the extensions path
+	- Add `Application::extensionPath()`
+- Remove `phpspec.yml`
+- Remove `gulpfile.js`
+- Remove `package.json`
+- Add `.gitignore`
+- Add `.editorconfig`
+- Add `LICENSE`
+- Remove `public` directory
+	- Move `index.php` to the root
+	- Update `index.php` with the correct paths
+	- Move `robots.txt` to the root
+	- Move `.htaccess` to the root
+- Add `themes` directory
+	- Update `Application::bindPathsInContainer()` to have the themes path
+	- Add `Application::themePath()`
+- Add `ranks` directory
+	- Update `Application::bindPathsInContainer()` to have the ranks path
+	- Add `Application::rankPath()`
+- Remove `app` directory
+	- Update `Application::path()`
+	- Update singleton references in `nova/bootstrap/app.php`
+	- Update references to `App` namespace
+	- Update `composer.json` to remove the `App` namespace

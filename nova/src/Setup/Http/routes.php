@@ -1,0 +1,56 @@
+<?php
+
+$options = [
+	'prefix'		=> 'setup',
+	'middleware'	=> 'installed',
+	'namespace'		=> 'Nova\Setup\Http\Controllers'
+];
+
+Route::group($options, function()
+{
+	Route::get('/', [
+		'as'	=> 'setup.home',
+		'uses'	=> 'SetupController@index']);
+
+	Route::get('start', [
+		'as'	=> 'setup.start',
+		'uses'	=> 'SetupController@start']);
+
+	Route::get('config/email', [
+		'as'	=> 'setup.config.email',
+		'uses'	=> 'EmailConfigController@index']);
+});
+
+$configDbOptions = array_merge($options, [
+	'prefix'		=> 'setup/config/db',
+	'middleware'	=> 'csrf',
+]);
+
+Route::group($configDbOptions, function()
+{
+	Route::get('/', [
+		'as'	=> 'setup.config.db',
+		'uses'	=> 'ConfigDbController@index']);
+	Route::get('info', [
+		'as'	=> 'setup.config.db.info',
+		'uses'	=> 'ConfigDbController@info']);
+
+	Route::post('check', [
+		'as'	=> 'setup.config.db.check',
+		'uses'	=> 'ConfigDbController@check']);
+	Route::post('write', [
+		'as'	=> 'setup.config.db.write',
+		'uses'	=> 'ConfigDbController@write']);
+	Route::post('verify', [
+		'as'	=> 'setup.config.db.verify',
+		'uses'	=> 'ConfigDbController@verify']);
+});
+
+/*Route::group(['prefix' => 'setup/config/email', 'before' => 'csrf'], function()
+{
+	Route::get('/', 'Nova\Setup\Controllers\ConfigMailController@getIndex');
+	Route::get('info', 'Nova\Setup\Controllers\ConfigMailController@getInfo');
+	
+	Route::post('write', 'Nova\Setup\Controllers\ConfigMailController@postWrite');
+	Route::post('verify', 'Nova\Setup\Controllers\ConfigMailController@postVerify');
+});*/

@@ -1,0 +1,29 @@
+{
+	"items": [
+		{
+			"label": "Sim Name",
+			"key": "sim_name",
+			"type": "text",
+			"help": "Help text for the field"
+		},
+		{
+			"label": "Slogan",
+			"key": "slogan",
+			"type": "textarea"
+		},
+		{
+			"label": "Banner Image",
+			"key": "banner_image",
+			"type": "image",
+			"filename": "header.jpg",
+			"location": "design/images"
+		},
+		{
+			"label": "Alert Status",
+			"key": "alert_status",
+			"type": "choice",
+			"options": ["green", "yellow", "red", "blue", "gray"],
+			"default": "gray"
+		}
+	]
+}
