@@ -31,11 +31,15 @@ class RouteServiceProvider extends ServiceProvider {
 	/**
 	 * Define the routes for the application.
 	 *
+	 * @param  \Illuminate\Routing\Router  $router
 	 * @return void
 	 */
-	public function map()
+	public function map(Router $router)
 	{
-		$this->loadRoutesFrom(app_path('Foundation/Http/routes.php'));
+		$router->group(['namespace' => $this->namespace], function()
+		{
+			require app_path('Foundation/Http/routes.php');
+		});
 	}
 
 	/**
