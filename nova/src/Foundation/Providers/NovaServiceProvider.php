@@ -40,6 +40,7 @@ class NovaServiceProvider extends ServiceProvider {
 		// Grab the aliases from the config
 		$alias = $this->app['config']['app.aliases'];
 
+		$this->app->bind($alias['PageRepositoryInterface'], $alias['PageRepository']);
 		$this->app->bind($alias['SystemRepositoryInterface'], $alias['SystemRepository']);
 	}
 
