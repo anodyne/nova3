@@ -207,16 +207,19 @@ return [
 		/**
 		 * Models
 		 */
+		'Page'		=> 'Nova\Core\Pages\Data\Models\Page',
 		'System'	=> 'Nova\Foundation\Data\Models\System',
 
 		/**
 		 * Repository Interfaces
 		 */
+		'PageRepositoryInterface'	=> 'Nova\Core\Pages\Data\Interfaces\PageRepositoryInterface',
 		'SystemRepositoryInterface'	=> 'Nova\Foundation\Data\Interfaces\SystemRepositoryInterface',
 
 		/**
 		 * Repositories
 		 */
+		'PageRepository'	=> 'Nova\Core\Pages\Data\Repositories\PageRepository',
 		'SystemRepository'	=> 'Nova\Foundation\Data\Repositories\SystemRepository',
 
 	],
