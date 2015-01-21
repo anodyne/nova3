@@ -24,7 +24,10 @@
 	font-size: 48px !important;
 }
 .icn-size-lg {
-	font-size: 64px !important;
+	font-size: 72px !important;
+}
+.icn-size-xlg {
+	font-size: 96px !important;
 }
 
 .icn-size-sm-with-text {
@@ -37,7 +40,7 @@
 }
 .icn-size-lg-with-text {
 	padding-bottom: 7px;
-	font-size: 64px !important;
+	font-size: 72px !important;
 }
 
 .icn-opacity-25 {

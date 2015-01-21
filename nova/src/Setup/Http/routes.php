@@ -18,6 +18,10 @@ Route::group($options, function()
 	Route::get('config/email', [
 		'as'	=> 'setup.config.email',
 		'uses'	=> 'EmailConfigController@index']);
+
+	Route::get('update', [
+		'as'	=> 'setup.update',
+		'uses'	=> 'SetupController@update']);
 });
 
 $configDbOptions = array_merge($options, [

@@ -3,15 +3,14 @@
 @import "../../../../../views/design/less/bs3-mixins.less";
 
 @font: "Open Sans", helvetica, arial, sans-serif;
-@font-heading: "Cuprum";
+@font-heading: "Open Sans Condensed";
 @font-size: 17px;
 @header-height: 66px;
 
 body {
 	line-height: @line-height;
 
-	/*background: #e9eef4;*/
-	background: darken(#ededed, 10%);
+	background: #ededed;
 	font-family: @font;
 	color: #303234;
 	font-size: @font-size;
@@ -24,21 +23,9 @@ header {
 
 	background: @color-white;
 	color: #989ea3;
-	font-weight: 400;
+	font-weight: 300;
 	font-family: @font-heading;
-	font-size: 28px;
-
-	.product-logo, .menu {
-		display: block;
-		margin: 0;
-		padding: 0;
-		height: @header-height;
-		width: 100%;
-		line-height: @header-height;
-
-		background: lightblue;
-		text-align: center;
-	}
+	font-size: 32px;
 
 	.product, .process, .divider {
 		line-height: @header-height;
@@ -53,25 +40,15 @@ header {
 		font-weight: 700;
 	}
 
-	/*.logo {
+	.anodyne-logo {
 		display: block;
-		width: 100%;
-		height: 100px;
+		width: 60px;
+		height: @header-height;
 
-		background: transparent url(../images/logo.png) no-repeat top center;
+		background: transparent url(../images/anodyne-logo.png) center center no-repeat;
 	}
 
-	h1 {
-		margin: 0;
-		padding: 0;
-		line-height: 64px;
-
-		font-size: 32px;
-		font-weight: 400;
-		font-family: @font-heading;
-	}
-
-	#steps {
+	/*#steps {
 		width: 250px;
 		line-height: 64px;
 		
@@ -87,13 +64,21 @@ header {
 }
 
 nav {
+	padding: 10px;
+
 	background: #26374a;
 	color: #586572;
+
+	.rounded(8px);
 }
 
 main {
+	padding: 10px;
+
 	background: @color-white;
 	color: #26374a;
+
+	.rounded(8px);
 
 	h1 {
 		text-align: center;
@@ -124,8 +109,21 @@ main {
 	}
 }
 
-.setup-content {
-	background: #26374a;
+.thumbnail {
+	margin: 10px 0;
+	padding: 10px 15px;
+
+	.rounded(8px);
+
+	h1 {
+		font-size: 24px;
+		font-weight: 600;
+		color: #26374a;
+	}
+
+	.icn {
+		color: #6b747d;
+	}
 }
 
 /*section {
@@ -341,46 +339,28 @@ main {
 			font-weight: 400;
 		}
 	}
-
-	.thumbnail {
-		margin: 10px 0;
-		padding: 0 10px;
-
-		background: lighten(#e9eef4, 3%);
-		border-color: #bbc4cf;
-
-		.box-shadow(~"inset 0 1px 0 #fff, 0 1px 3px rgba(0, 0, 0, .1)");
-
-		.icn {
-			height: 50px;
-			margin-bottom: 40px;
-
-			font-size: 64px;
-			text-align: center;
-		}
-
-		h4 {
-			text-align: center;
-			font-weight: 500;
-
-			small {
-				display: block;
-				margin-top: 10px;
-			}
-		}
-	}
 }*/
 
 footer {
+	margin-top: 20px;
+
 	text-align: center;
 	font-size: @font-size-small;
 	color: @color-setup-muted;
 }
 
-.font-small {
+.font-sm {
 	font-size: @font-size-small;
 }
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: @font;
+}
+
+.btn {
+	.rounded(4px);
+
+	&.btn-primary {
+		.btn-pseudo-states(@color-white, rgb(2, 136, 209), rgb(2, 136, 209));
+	}
 }

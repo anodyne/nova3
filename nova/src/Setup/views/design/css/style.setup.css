@@ -1,7 +1,6 @@
 body {
   line-height: 1.75;
-  /*background: #e9eef4;*/
-  background: #d4d4d4;
+  background: #ededed;
   font-family: "Open Sans", helvetica, arial, sans-serif;
   color: #303234;
   font-size: 17px;
@@ -12,28 +11,10 @@ header {
   margin-bottom: 20px;
   background: #ffffff;
   color: #989ea3;
-  font-weight: 400;
-  font-family: "Cuprum";
-  font-size: 28px;
-  /*.logo {
-		display: block;
-		width: 100%;
-		height: 100px;
-
-		background: transparent url(../images/logo.png) no-repeat top center;
-	}
-
-	h1 {
-		margin: 0;
-		padding: 0;
-		line-height: 64px;
-
-		font-size: 32px;
-		font-weight: 400;
-		font-family: @font-heading;
-	}
-
-	#steps {
+  font-weight: 300;
+  font-family: "Open Sans Condensed";
+  font-size: 32px;
+  /*#steps {
 		width: 250px;
 		line-height: 64px;
 		
@@ -47,17 +28,6 @@ header {
 		}
 	}*/
 }
-header .product-logo,
-header .menu {
-  display: block;
-  margin: 0;
-  padding: 0;
-  height: 66px;
-  width: 100%;
-  line-height: 66px;
-  background: lightblue;
-  text-align: center;
-}
 header .product,
 header .process,
 header .divider {
@@ -70,13 +40,27 @@ header .process {
   color: #323e48;
   font-weight: 700;
 }
+header .anodyne-logo {
+  display: block;
+  width: 60px;
+  height: 66px;
+  background: transparent url(../images/anodyne-logo.png) center center no-repeat;
+}
 nav {
+  padding: 10px;
   background: #26374a;
   color: #586572;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px 8px 8px 8px;
 }
 main {
+  padding: 10px;
   background: #ffffff;
   color: #26374a;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px 8px 8px 8px;
 }
 main h1 {
   text-align: center;
@@ -100,8 +84,20 @@ main p {
   line-height: 1.6;
   font-size: 15px;
 }
-.setup-content {
-  background: #26374a;
+.thumbnail {
+  margin: 10px 0;
+  padding: 10px 15px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px 8px 8px 8px;
+}
+.thumbnail h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #26374a;
+}
+.thumbnail .icn {
+  color: #6b747d;
 }
 /*section {
 	font-size: @font-size;
@@ -316,41 +312,14 @@ main p {
 			font-weight: 400;
 		}
 	}
-
-	.thumbnail {
-		margin: 10px 0;
-		padding: 0 10px;
-
-		background: lighten(#e9eef4, 3%);
-		border-color: #bbc4cf;
-
-		.box-shadow(~"inset 0 1px 0 #fff, 0 1px 3px rgba(0, 0, 0, .1)");
-
-		.icn {
-			height: 50px;
-			margin-bottom: 40px;
-
-			font-size: 64px;
-			text-align: center;
-		}
-
-		h4 {
-			text-align: center;
-			font-weight: 500;
-
-			small {
-				display: block;
-				margin-top: 10px;
-			}
-		}
-	}
 }*/
 footer {
+  margin-top: 20px;
   text-align: center;
   font-size: 13px;
   color: #8b96a2;
 }
-.font-small {
+.font-sm {
   font-size: 13px;
 }
 h1,
@@ -360,4 +329,39 @@ h4,
 h5,
 h6 {
   font-family: "Open Sans", helvetica, arial, sans-serif;
+}
+.btn {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px 4px 4px 4px;
+}
+.btn.btn-primary {
+  color: #ffffff;
+  background-color: #0288d1;
+  border-color: #0288d1;
+}
+.btn.btn-primary:hover,
+.btn.btn-primary:focus,
+.btn.btn-primary:active,
+.btn.btn-primary.active {
+  background-color: #0278b8;
+  border-color: #02679e;
+}
+.btn.btn-primary.disabled,
+.btn.btn-primary[disabled],
+fieldset[disabled] .btn.btn-primary,
+.btn.btn-primary.disabled:hover,
+.btn.btn-primary[disabled]:hover,
+fieldset[disabled] .btn.btn-primary:hover,
+.btn.btn-primary.disabled:focus,
+.btn.btn-primary[disabled]:focus,
+fieldset[disabled] .btn.btn-primary:focus,
+.btn.btn-primary.disabled:active,
+.btn.btn-primary[disabled]:active,
+fieldset[disabled] .btn.btn-primary:active,
+.btn.btn-primary.disabled.active,
+.btn.btn-primary[disabled].active,
+fieldset[disabled] .btn.btn-primary.active {
+  background-color: #0288d1;
+  border-color: #0288d1;
 }

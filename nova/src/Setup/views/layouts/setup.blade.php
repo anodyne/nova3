@@ -7,12 +7,12 @@
 		<meta name="viewport" content="width=device-width">
 
 		@if (app('env') == 'production')
+			<link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet">
 			<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 		@else
 			<link href="//localhost/global/bootstrap/3.3/css/bootstrap.min.css" rel="stylesheet">
 		@endif
 
-		<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:100,300,400,500,700" rel="stylesheet">
 		<link href="//fonts.googleapis.com/css?family=Cuprum:400,700" rel="stylesheet">
 
 		{!! HTML::style('nova/src/Setup/views/design/css/style.setup.css') !!}
@@ -23,39 +23,26 @@
 		<header>
 			<div class="container">
 				<div class="row">
-					<div class="col-md-1">
-						<div class="product-logo">Logo</div>
-					</div>
-					<div class="col-md-10">
+					<div class="col-sm-10">
 						<span class="product">Nova 3 Setup</span>
 						<span class="divider">/</span>
 						<span class="process">@yield('header')</span>
 					</div>
-					<div class="col-md-1">
-						<div class="menu">Menu</div>
+					<div class="col-sm-2">
+						<div class="anodyne-logo pull-right"></div>
 					</div>
 				</div>
 			</div>
-			<!--<div class="container">
-				<div class="pull-right" id="steps">
-					@yield('steps')
-				</div>
-				<h1>
-					Nova 3 Setup
-					&nbsp;&rsaquo;&nbsp;
-					@yield('header')
-				</h1>
-			</div>-->
 		</header>
 
 		<div class="container">
 			<div class="row">
-				<div class="col-md-3 col-md-offset-1">
+				<div class="col-md-3">
 					<nav>
 						Sidebar
 					</nav>
 				</div>
-				<div class="col-md-7">
+				<div class="col-md-9">
 					<main>
 						<div class="row">
 							<div class="col-xs-12">

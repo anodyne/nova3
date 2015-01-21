@@ -11,17 +11,12 @@ class SetupController extends Controller {
 		// Grab the setup service
 		$setup = app('nova.setup');
 
-		// Is Nova installed?
-		if ($setup->isInstalled())
+		if (app('nova.setup')->isInstalled())
 		{
-			return Redirect::route('setup.start');
+			return Redirect::route('setup.update');
 		}
 
-		// Do some checks to see what we should show
-		$db = $setup->isConfigured('db');
-		$email = $setup->isConfigured('mail');
-
-		return view('pages.setup.index', compact('db', 'email'));
+		return view('pages.setup.index');
 	}
 
 	public function start()
@@ -144,6 +139,11 @@ class SetupController extends Controller {
 		}
 
 		return view("pages.setup.start.{$view}");
+	}
+
+	public function update()
+	{
+		# code...
 	}
 
 }
