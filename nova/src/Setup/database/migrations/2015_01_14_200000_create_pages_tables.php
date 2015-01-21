@@ -12,6 +12,7 @@ class CreatePagesTables extends Migration {
 			$table->bigIncrements('id');
 			$table->integer('collection_id')->unsigned();
 			$table->string('type', 10)->default('GET');
+			$table->string('name');
 			$table->string('uri');
 			$table->string('key');
 			$table->text('resource')->nullable();
