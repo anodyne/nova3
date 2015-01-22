@@ -46,6 +46,9 @@ $app->singleton(
 	'Nova\Foundation\Bootstrap\LoadConfiguration'
 );
 
+// Pull in the helpers from Foundation
+require_once app_path('Foundation/helpers.php');
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application
