@@ -34,7 +34,8 @@ class Kernel extends HttpKernel {
 	{
 		$handle = parent::handle($request);
 
-		$this->app->setDirectoryPermissions();
+		//$this->app->setDirectoryPermissions();
+		//$this->app->buildStorageDirectory();
 
 		return $handle;
 	}
