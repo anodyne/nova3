@@ -165,7 +165,14 @@ class LocatorService {
 			$finderArr = iterator_to_array($finder);
 
 			// Return the first key (relative path to the file)
-			return array_keys($finderArr)[0];
+			$finalFilename = array_keys($finderArr)[0];
+
+			foreach ($this->extensions as $extension)
+			{
+				$finalFilename = str_replace($extension, '', $finalFilename);
+			}
+
+			return $finalFilename;
 		}
 
 		// Uh-oh! We didn't find anything, so throw an exception

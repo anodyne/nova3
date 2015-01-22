@@ -14,7 +14,7 @@ return [
 	*/
 
 	'paths' => [
-		realpath(base_path('nova/views'))
+		realpath(base_path())
 	],
 
 	/*
