@@ -63,3 +63,21 @@ if ( ! function_exists('partial'))
 		return view(Locate::partial($file), $data);
 	}
 }
+
+if ( ! function_exists('checkDirectories'))
+{
+	function checkDirectories()
+	{
+		$directories = [
+			storage_path('logs'),
+		];
+
+		foreach ($directories as $dir)
+		{
+			if ( ! is_writable($dir))
+			{
+				dd("The [$dir] directory must be writable in order to continue. Please set permissions on the directory to 777.");
+			}
+		}
+	}
+}

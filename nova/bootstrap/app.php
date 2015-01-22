@@ -49,6 +49,9 @@ $app->singleton(
 // Pull in the helpers from Foundation
 require_once app_path('Foundation/helpers.php');
 
+// Check the directories
+checkDirectories();
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application
