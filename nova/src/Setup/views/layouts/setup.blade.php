@@ -6,14 +6,9 @@
 		<meta name="author" content="Anodyne Productions">
 		<meta name="viewport" content="width=device-width">
 
-		@if (app('env') == 'production')
-			<link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet">
-			<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-		@else
-			<link href="//localhost/global/bootstrap/3.3/css/bootstrap.min.css" rel="stylesheet">
-		@endif
-
-		<link href="//fonts.googleapis.com/css?family=Cuprum:400,700" rel="stylesheet">
+		<link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet">
+		<link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700" rel="stylesheet">
+		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 
 		{!! HTML::style('nova/src/Setup/views/design/css/style.setup.css') !!}
 		{!! HTML::style('nova/src/Setup/views/design/css/fonts.setup.css') !!}
@@ -24,7 +19,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-10">
-						<span class="product">Nova 3 Setup</span>
+						<span class="product">{{ config('nova.app.name') }} Setup</span>
 						<span class="divider">/</span>
 						<span class="process">@yield('header')</span>
 					</div>
@@ -39,42 +34,36 @@
 			<div class="row">
 				<div class="col-md-3">
 					<nav>
-						Sidebar
+						<ol>
+							<li class="step-completed">Database Connection</li>
+							<li class="step-completed">Email Settings</li>
+							<li class="step-active">Install Nova</li>
+							<li>Create User</li>
+							<li>Finalize</li>
+						</ol>
 					</nav>
+
+					<footer>
+						&copy; {{ Date::now()->year }} Anodyne Productions
+					</footer>
 				</div>
 				<div class="col-md-9">
 					<main>
-						<div class="row">
-							<div class="col-xs-12">
-								@if (Session::has('flash.message'))
-									@include('partials.flash')
-								@endif
+						<div class="content">
+							@if (Session::has('flash.message'))
+								{!! flash() !!}
+							@endif
 
-								@yield('content')
-							</div>
+							@yield('content')
+						</div>
+
+						<div class="controls">
+							@yield('controls')
 						</div>
 					</main>
 				</div>
 			</div>
 		</div>
-
-		<!--<section>
-			<div class="container">
-				@if (Session::has('flash.message'))
-					@include('partials.flash')
-				@endif
-
-				@yield('content')
-				
-				<div class="lower">@yield('controls')</div>
-			</div>
-		</section>-->
-
-		<footer>
-			<div class="container">
-				&copy; {{ Date::now()->year }} Anodyne Productions
-			</div>
-		</footer>
 
 		@if (app('env') == 'production')
 			<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
