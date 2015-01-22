@@ -175,7 +175,7 @@ class Application extends IlluminateApp {
 		{
 			if ( ! $this->app['files']->isWritable($directory))
 			{
-				chmod($directory, 0775);
+				//exec(escapeshellcmd("chmod 775 $directory"));
 			}
 		}
 	}
