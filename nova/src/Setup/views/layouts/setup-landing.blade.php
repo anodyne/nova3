@@ -19,7 +19,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-10">
-						<span class="product">Nova 3 Setup</span>
+						<span class="product">{{ config('nova.app.name') }} Setup</span>
 						<span class="divider">/</span>
 						<span class="process">@yield('header')</span>
 					</div>
