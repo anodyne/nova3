@@ -19,6 +19,11 @@ class SetupController extends Controller {
 		return view('pages.setup.index');
 	}
 
+	public function install()
+	{
+		return view('pages.setup.install');
+	}
+
 	public function start()
 	{
 		/*// Set the views
