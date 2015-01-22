@@ -171,10 +171,12 @@ class Application extends IlluminateApp {
 			storage_path('framework/views'),
 		];
 
-		foreach ($directories as $directory)
+		foreach ($directories as $dir)
 		{
-			if ( ! $this->app['files']->isWritable($directory))
+			if ( ! $this->app['files']->isWritable($dir))
 			{
+				dd("The [$dir] directory is not writable and must be for Laravel to work. Please set the permissions on this directory to 777.");
+				//throw new RuntimeException("The [$directory] directory is not writable. Please make sure you set permissions on the directory.");
 				//exec(escapeshellcmd("chmod 775 $directory"));
 			}
 		}
