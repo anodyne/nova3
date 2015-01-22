@@ -162,4 +162,22 @@ class Application extends IlluminateApp {
 		return $this->basePath.'/themes';
 	}
 
+	public function setDirectoryPermissions()
+	{
+		$directories = [
+			storage_path('logs'),
+			storage_path('framework/cache'),
+			storage_path('framework/sessions'),
+			storage_path('framework/views'),
+		];
+
+		foreach ($directories as $directory)
+		{
+			if ( ! $this->app['files']->isWritable($directory))
+			{
+				chmod($directory, 0775);
+			}
+		}
+	}
+
 }

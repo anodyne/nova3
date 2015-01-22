@@ -30,4 +30,13 @@ class Kernel extends HttpKernel {
 		'installed'		=> 'Nova\Foundation\Http\Middleware\Installed',
 	];
 
+	public function handle($request)
+	{
+		$handle = parent::handle($request);
+
+		$this->app->setDirectoryPermissions();
+
+		return $handle;
+	}
+
 }
