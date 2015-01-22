@@ -162,6 +162,18 @@ class Application extends IlluminateApp {
 		return $this->basePath.'/themes';
 	}
 
+	public function buildStorageDirectory()
+	{
+		$directories = [
+			'logs'
+		];
+
+		foreach ($directories as $dir)
+		{
+			$this->app['files']->makeDirectory(storage_path($dir));
+		}
+	}
+
 	public function setDirectoryPermissions()
 	{
 		$directories = [
