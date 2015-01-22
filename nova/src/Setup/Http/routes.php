@@ -11,6 +11,10 @@ Route::group($options, function()
 		'as'	=> 'setup.home',
 		'uses'	=> 'SetupController@index']);
 
+	Route::get('install', [
+		'as'	=> 'setup.install',
+		'uses'	=> 'SetupController@install']);
+
 	Route::get('start', [
 		'as'	=> 'setup.start',
 		'uses'	=> 'SetupController@start']);
@@ -32,9 +36,6 @@ Route::group($configDbOptions, function()
 {
 	Route::get('/', [
 		'as'	=> 'setup.config.db',
-		'uses'	=> 'ConfigDbController@index']);
-	Route::get('info', [
-		'as'	=> 'setup.config.db.info',
 		'uses'	=> 'ConfigDbController@info']);
 
 	Route::post('check', [
