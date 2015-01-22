@@ -9,84 +9,62 @@
 @stop
 
 @section('content')
-	<h1>Configure Database</h1>
+	<h1>Configure Your Database</h1>
+	<h2>Tell us a little bit about the database {{ config('nova.app.name') }} is being installed into</h2>
 
-	<h2>Tell us a little bit about the database Nova is being installed into.</h2>
+	{!! Form::open(['route' => 'setup.config.db.check', 'class' => 'form-horizontal']) !!}
+		<div class="form-group">
+			<label class="col-md-3 control-label">Host</label>
+			<div class="col-md-7">
+				{!! Form::text('db_host', 'localhost', ['class' => 'input-lg form-control']) !!}
+				<p class="help-block">For most web hosts, <em>localhost</em> will be correct. If you aren't sure or the information you received from your web host isn't clear about what the database host name is, contact them for more information.</p>
+			</div>
+		</div>
 
-	{!! Form::open(['route' => 'setup.config.db.check']) !!}
-		<div class="row">
-			<div class="col-md-5">
-				<div class="form-group">
-					<label class="control-label">Host</label>
-					{!! Form::text('db_host', 'localhost', ['class' => 'input-lg form-control']) !!}
-				</div>
-			</div>
-			<div class="col-md-6 col-md-offset-1">
-				<div class="form-group">
-					<label class="control-label">Database Host</label>
-					<p>...</p>
-				</div>
+		<div class="form-group">
+			<label class="col-md-3 control-label">Database Name</label>
+			<div class="col-md-7">
+				{!! Form::text('db_name', false, ['class' => 'input-lg form-control']) !!}
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-5">
-				<div class="form-group">
-					<label class="control-label">Database Name</label>
-					{!! Form::text('db_name', false, ['class' => 'input-lg form-control']) !!}
-				</div>
-			</div>
-			<div class="col-md-6 col-md-offset-1">
-				<div class="form-group">
-					<label class="control-label">Database Name</label>
-					<p>...</p>
-				</div>
+
+		<div class="form-group">
+			<label class="col-md-3 control-label">Table Prefix</label>
+			<div class="col-md-7">
+				{!! Form::text('db_prefix', 'nova_', ['class' => 'input-lg form-control']) !!}
+				<p class="help-block">Setting the table prefix will allow you to install {{ config('nova.app.name') }} into a database with other applications.</p>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-5">
-				<div class="form-group">
-					<label class="control-label">Table Prefix</label>
-					{!! Form::text('db_prefix', 'nova_', ['class' => 'input-lg form-control']) !!}
-				</div>
-			</div>
-			<div class="col-md-6 col-md-offset-1">
-				<div class="form-group">
-					<label class="control-label">Database Table Prefix</label>
-					<p>...</p>
-				</div>
+
+		<div class="form-group">
+			<label class="col-md-3 control-label">Username</label>
+			<div class="col-md-7">
+				{!! Form::text('db_user', false, ['class' => 'input-lg form-control']) !!}
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-5">
-				<div class="form-group">
-					<label class="control-label">Username</label>
-					{!! Form::text('db_user', false, ['class' => 'input-lg form-control']) !!}
-				</div>
-			</div>
-			<div class="col-md-6 col-md-offset-1">
-				<div class="form-group">
-					<label class="control-label">Database Username</label>
-					<p>...</p>
-				</div>
+
+		<div class="form-group">
+			<label class="col-md-3 control-label">Password</label>
+			<div class="col-md-7">
+				{!! Form::password('db_password', ['class' => 'input-lg form-control']) !!}
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-5">
-				<div class="form-group">
-					<label class="control-label">Password</label>
-					{!! Form::password('db_password', ['class' => 'input-lg form-control']) !!}
-				</div>
-			</div>
-			<div class="col-md-6 col-md-offset-1">
-				<div class="form-group">
-					<label class="control-label">Database Password</label>
-					<p>...</p>
-				</div>
+
+		<div class="form-group">
+			<div class="col-md-7 col-md-offset-3">
+				{!! Form::button('Test Database', [ 'class' => 'btn btn-primary btn-lg', 'id' => 'next', 'name' => 'submit', 'type' => 'submit']) !!}
 			</div>
 		</div>
+	{!! Form::close() !!}
 @stop
 
 @section('controls')
-		{!! Form::button('Start Install', [ 'class' => 'btn btn-lg btn-primary', 'id' => 'next', 'name' => 'submit', 'type' => 'submit']) !!}
-	{!! Form::close() !!}
+	<div class="row">
+		<div class="col-md-6">
+			<p><a href="{{ route('setup.home') }}" class="btn btn-link">Cancel</a></p>
+		</div>
+		<div class="col-md-6 text-right">
+			<p><a class="btn btn-link disabled">Next: Email</a></p>
+		</div>
+	</div>
 @stop
