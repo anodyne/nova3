@@ -70,6 +70,9 @@ if ( ! function_exists('checkDirectories'))
 	{
 		$directories = [
 			storage_path('logs'),
+			storage_path('framework/cache'),
+			storage_path('framework/sessions'),
+			storage_path('framework/views'),
 		];
 
 		foreach ($directories as $dir)
