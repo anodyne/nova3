@@ -15,7 +15,7 @@ if ( ! function_exists('flash'))
 		$level = ( ! Session::has('flash.level')) ? $level : Session::get('flash.level');
 		$content = ( ! Session::has('flash.message')) ? $content : Session::get('flash.message');
 
-		return alert($level, $content);
+		return partial('flash', compact('level', 'content'));
 	}
 }
 
