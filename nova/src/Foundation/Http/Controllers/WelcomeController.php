@@ -4,7 +4,7 @@ class WelcomeController extends Controller {
 
 	public function index()
 	{
-		return view('components.pages.welcome');
+		return view('nova.views.components.pages.welcome');
 	}
 
 }
