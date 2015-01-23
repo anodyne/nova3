@@ -159,24 +159,24 @@ class LocatorService {
 			$finder->name($file.$extension);
 		}
 
-		if ($finder->count() > 0)
+		if ($finder->count() == 0)
 		{
-			// Turn the iterator into an array
-			$finderArr = iterator_to_array($finder);
-
-			// Return the first key (relative path to the file)
-			$finalFilename = array_keys($finderArr)[0];
-
-			foreach ($this->extensions as $extension)
-			{
-				$finalFilename = str_replace($extension, '', $finalFilename);
-			}
-
-			return $finalFilename;
+			// Uh-oh! We didn't find anything, so throw an exception
+			throw new LocatorException("The file [{$type}/{$file}] couldn't be found.");
 		}
 
-		// Uh-oh! We didn't find anything, so throw an exception
-		throw new LocatorException("The file [{$type}/{$file}] couldn't be found.");
+		// Turn the iterator into an array
+		$finderArr = iterator_to_array($finder);
+
+		// Return the first key (relative path to the file)
+		$finalFilename = array_keys($finderArr)[0];
+
+		foreach ($this->extensions as $extension)
+		{
+			$finalFilename = str_replace($extension, '', $finalFilename);
+		}
+
+		return $finalFilename;
 	}
 
 	/**
