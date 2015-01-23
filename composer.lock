@@ -451,12 +451,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "d51fb166aa48feaf1cd6eaaddd265f11f3f7d092"
+                "reference": "bfd01c401f632d5701fee171c24d2b515527a176"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/d51fb166aa48feaf1cd6eaaddd265f11f3f7d092",
-                "reference": "d51fb166aa48feaf1cd6eaaddd265f11f3f7d092",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/bfd01c401f632d5701fee171c24d2b515527a176",
+                "reference": "bfd01c401f632d5701fee171c24d2b515527a176",
                 "shasum": ""
             },
             "require": {
@@ -564,7 +564,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-01-20 17:09:48"
+            "time": "2015-01-21 21:18:09"
         },
         {
             "name": "league/commonmark",
@@ -627,16 +627,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.0-alpha1",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "c0afa9513c0e555a607652cb56f81bd991f295f3"
+                "reference": "0ba6b6dfd6f456905ee8d6b0bcaab7ec89419b93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/c0afa9513c0e555a607652cb56f81bd991f295f3",
-                "reference": "c0afa9513c0e555a607652cb56f81bd991f295f3",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/0ba6b6dfd6f456905ee8d6b0bcaab7ec89419b93",
+                "reference": "0ba6b6dfd6f456905ee8d6b0bcaab7ec89419b93",
                 "shasum": ""
             },
             "require": {
@@ -654,16 +654,17 @@
             },
             "suggest": {
                 "ext-fileinfo": "Required for MimeType",
-                "league/event": "Required for EventableFilesystem",
                 "league/flysystem-aws-s3-v2": "Use S3 storage with AWS SDK v2",
                 "league/flysystem-aws-s3-v3": "Use S3 storage with AWS SDK v3",
                 "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
                 "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
                 "league/flysystem-copy": "Allows you to use Copy.com storage",
                 "league/flysystem-dropbox": "Use Dropbox storage",
+                "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
                 "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
                 "league/flysystem-sftp": "Allows SFTP server storage via phpseclib",
                 "league/flysystem-webdav": "Allows you to use WebDAV storage",
+                "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter",
                 "predis/predis": "Allows you to use Predis for caching"
             },
             "type": "library",
@@ -705,7 +706,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2015-01-18 00:19:19"
+            "time": "2015-01-19 19:19:07"
         },
         {
             "name": "monolog/monolog",
