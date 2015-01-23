@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Debug\Dumper;
+
 if ( ! function_exists('alert'))
 {
 	function alert($level, $content, $header = false)
@@ -7,6 +9,14 @@ if ( ! function_exists('alert'))
 		$content = Markdown::parse($content);
 
 		return partial('alert', compact('level', 'content', 'header'));
+	}
+}
+
+if ( ! function_exists('d'))
+{
+	function d()
+	{
+		array_map(function($x) { (new Dumper)->dump($x); }, func_get_args());
 	}
 }
 
