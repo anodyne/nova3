@@ -40,6 +40,7 @@ class ConfigDbController extends Controller {
 		{
 			// Build the config array
 			$config = [
+				'type'		=> 'mysql',
 				'host'		=> session('dbHost'),
 				'database'	=> session('dbName'),
 				'username'	=> session('dbUser'),
@@ -47,7 +48,7 @@ class ConfigDbController extends Controller {
 			];
 
 			// Build the DSN
-			$dsn = "mysql:dbname={$config['database']};host={$config['host']};";
+			$dsn = "{$config['type']}:dbname={$config['database']};host={$config['host']};";
 
 			// Try to connect to the database
 			$connector->createConnection($dsn, $config, $connector->getDefaultOptions());
@@ -57,29 +58,24 @@ class ConfigDbController extends Controller {
 		}
 		catch (PDOException $e)
 		{
-			$msg = (string) $e->getMessage();
-
 			if (stripos($msg, 'Unknown MySQL server host') !== false)
 			{
-				$message = "<h4>Database Host Not Found</h4><p>The database host you provided couldn't be found. Most of the time, web hosts use <code>localhost</code>, but in some instances, they set up their servers differently. Check with your web host about the proper database host to use and try again.</p>";
+				Flash::error("The database host you provided couldn't be found. Most of the time, web hosts use `localhost`, but in some instances, they set up their servers differently. Check with your web host about the proper database host to use and try again.", "Database Host Not Found");
 			}
 			elseif (stripos($msg, 'Access denied for user') !== false)
 			{
-				$message = "<h4>User/Password Issue</h4><p>The username and/or password you provided doesn't seem to work. Double check your username and/or password and try again.</p>";
+				Flash::error("The username and/or password you provided doesn't seem to work. Double check your username and/or password and try again.", "User/Password Issue");
 			}
 			elseif (stripos($msg, 'No database selected') !== false)
 			{
 				$dbName = session('dbName');
 
-				$message = "<h4>Database Not Found</h4><p>".sprintf("A successful connection was made to your database server (which means your username and password are fine) but the database <code>%s</code> couldn't be found.</p><ul><li>Are you sure it exists?</li><li>Does the user have permission to use the <code>%s</code> database?</li><li>On some systems the name of your database is prefixed with your username, like <code>%s_%s</code>. Could that be the problem?</li></ul><p>If you don't know how to setup a database or your database connection settings, you should contact your web host.", $dbName, $dbName, session('dbUser'), $dbName)."</p>";
+				Flash::error(sprintf("A successful connection was made to your database server (which means your username and password are fine) but the database `%s` couldn't be found.\r\n\r\n- Are you sure it exists?\r\n- Does the user have permission to use the `%s` database?\r\n- On some systems the name of your database is prefixed with your username, like `%s_%s`. Could that be the problem?\r\n\r\nIf you don't know how to setup a database or your database connection settings, you should contact your web host.", $dbName, $dbName, session('dbUser'), $dbName), "Database Not Found");
 			}
 			else
 			{
-				$message = "<h4>Unknown Database Issue</h4><p>There was an unidentified error when trying to connect to the database. This could be caused by incorrect database connection settings or the database server being down. Check with your web host to see if there are any issues and try again.</p><code>".$e->getMessage()."</code>";
+				Flash::error("There was an unidentified error when trying to connect to the database. This could be caused by incorrect database connection settings or the database server being down. Check with your web host to see if there are any issues and try again.\r\n\r\n`".$e->getMessage()."`", "Unknown Database Issue");
 			}
-
-			// Set the flash message
-			Flash::error($message);
 
 			return Redirect::route('setup.install.config.db')->withInput();
 		}
