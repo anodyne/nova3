@@ -5,11 +5,11 @@
 @stop
 
 @section('header')
-	Install Nova 3
+	Fresh Install
 @stop
 
 @section('content')
-	<h1>Install Nova 3</h1>
+	<h1>Fresh Install</h1>
 
 	<p>Nova 3 is a dynamic, database-driven web system which means there's some work to do before you can use it. Start to finish, the installation should only take a few minutes to complete and then you'll be on your way. If you have questions, you can refer to <a href='http://docs.anodyne-productions.com' target='_blank'>AnodyneDocs</a> or drop in to our <a href='http://forums.anodyne-productions.com' target='_blank'>forums</a>.</p>
 
@@ -19,15 +19,15 @@
 
 	<div class="row">
 		<div class="col-md-3">
-			<p><a href="#" target="_blank" class="btn btn-link btn-block">Nova 3 Install Guide</a></p>
+			<p><a href="#" target="_blank" class="btn btn-link btn-block disabled">Install Guide</a></p>
 		</div>
 
 		<div class="col-md-3">
-			<p><a href="#" target="_blank" class="btn btn-link btn-block">Take a Tour of Nova 3</a></p>
+			<p><a href="#" target="_blank" class="btn btn-link btn-block disabled">Take a Tour</a></p>
 		</div>
 
 		<div class="col-md-3">
-			<p><a href="#" target="_blank" class="btn btn-link btn-block">Anodyne Help Center</a></p>
+			<p><a href="#" target="_blank" class="btn btn-link btn-block disabled">Anodyne Help Center</a></p>
 		</div>
 
 		<div class="col-md-3">
