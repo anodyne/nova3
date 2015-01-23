@@ -52,7 +52,7 @@
 
 		<div class="form-group">
 			<div class="col-md-7 col-md-offset-3">
-				{!! Form::button('Test Database', [ 'class' => 'btn btn-primary btn-lg', 'id' => 'next', 'name' => 'submit', 'type' => 'submit']) !!}
+				{!! Form::button('Test Database Connection', [ 'class' => 'btn btn-primary btn-lg', 'id' => 'next', 'name' => 'submit', 'type' => 'submit']) !!}
 			</div>
 		</div>
 	{!! Form::close() !!}
