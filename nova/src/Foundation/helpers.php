@@ -2,28 +2,31 @@
 
 if ( ! function_exists('alert'))
 {
-	function alert($level, $content)
+	function alert($level, $content, $header = false)
 	{
-		return partial('alert', compact('level', 'content'));
+		$content = Markdown::parse($content);
+
+		return partial('alert', compact('level', 'content', 'header'));
 	}
 }
 
 if ( ! function_exists('flash'))
 {
-	function flash($level = false, $content = false)
+	function flash($level = false, $content = false, $header = false)
 	{
 		$level = ( ! Session::has('flash.level')) ? $level : Session::get('flash.level');
 		$content = ( ! Session::has('flash.message')) ? $content : Session::get('flash.message');
+		$header = ( ! Session::has('flash.header')) ? $header : Session::get('flash.header');
 
-		return partial('flash', compact('level', 'content'));
+		return partial('flash', compact('level', 'content', 'header'));
 	}
 }
 
 if ( ! function_exists('icon'))
 {
-	function icon($icon)
+	function icon($icon, $size = 'sm', $additional = false)
 	{
-		return partial('icon', compact('icon'));
+		return partial('icon', compact('icon', 'size', 'additional'));
 	}
 }
 
