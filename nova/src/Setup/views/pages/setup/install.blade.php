@@ -44,7 +44,7 @@
 		<div class="col-md-6 text-right">
 			<p>
 				<a class="btn btn-link disabled">Let's Get Started!</a>
-				<a href="{{ route('setup.config.db') }}" class="btn btn-primary">Next: Database</a>
+				<a href="{{ route('setup.install.config.db') }}" class="btn btn-primary">Next: Database</a>
 			</p>
 		</div>
 	</div>

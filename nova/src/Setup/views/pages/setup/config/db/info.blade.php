@@ -12,7 +12,7 @@
 	<h1>Configure Your Database</h1>
 	<h2>Tell us a little bit about the database {{ config('nova.app.name') }} is being installed into</h2>
 
-	{!! Form::open(['route' => 'setup.config.db.check', 'class' => 'form-horizontal']) !!}
+	{!! Form::open(['route' => 'setup.install.config.db.check', 'class' => 'form-horizontal']) !!}
 		<div class="form-group">
 			<label class="col-md-3 control-label">Host</label>
 			<div class="col-md-7">
@@ -46,7 +46,7 @@
 		<div class="form-group">
 			<label class="col-md-3 control-label">Password</label>
 			<div class="col-md-7">
-				{!! Form::password('db_password', ['class' => 'input-lg form-control']) !!}
+				{!! Form::text('db_password', false, ['class' => 'input-lg form-control']) !!}
 			</div>
 		</div>
 
@@ -61,7 +61,7 @@
 @section('controls')
 	<div class="row">
 		<div class="col-md-6">
-			<p><a href="{{ route('setup.home') }}" class="btn btn-link">Cancel</a></p>
+			<p><a href="{{ route('setup.install') }}" class="btn btn-link">Back</a></p>
 		</div>
 		<div class="col-md-6 text-right">
 			<p><a class="btn btn-link disabled">Next: Email</a></p>

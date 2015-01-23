@@ -11,10 +11,6 @@ Route::group($options, function()
 		'as'	=> 'setup.home',
 		'uses'	=> 'SetupController@index']);
 
-	Route::get('install', [
-		'as'	=> 'setup.install',
-		'uses'	=> 'SetupController@install']);
-
 	Route::get('start', [
 		'as'	=> 'setup.start',
 		'uses'	=> 'SetupController@start']);
@@ -25,10 +21,35 @@ Route::group($options, function()
 
 	Route::get('update', [
 		'as'	=> 'setup.update',
-		'uses'	=> 'SetupController@update']);
+		'uses'	=> 'UpdateController@index']);
 });
 
-$configDbOptions = array_merge($options, [
+$installOptions = array_merge($options, [
+	'prefix' => 'setup/install'
+]);
+
+Route::group($installOptions, function()
+{
+	Route::get('/', [
+		'as'	=> 'setup.install',
+		'uses'	=> 'InstallController@index']);
+
+	Route::get('config-database', [
+		'as'	=> 'setup.install.config.db',
+		'uses'	=> 'ConfigDbController@info']);
+
+	Route::post('config-database/check', [
+		'as'	=> 'setup.install.config.db.check',
+		'uses'	=> 'ConfigDbController@check']);
+	Route::get('config-database/write', [
+		'as'	=> 'setup.install.config.db.write',
+		'uses'	=> 'ConfigDbController@write']);
+	Route::post('config-database/verify', [
+		'as'	=> 'setup.install.config.db.verify',
+		'uses'	=> 'ConfigDbController@verify']);
+});
+
+/*$configDbOptions = array_merge($options, [
 	'prefix'		=> 'setup/config/db',
 ]);
 
@@ -47,7 +68,7 @@ Route::group($configDbOptions, function()
 	Route::post('verify', [
 		'as'	=> 'setup.config.db.verify',
 		'uses'	=> 'ConfigDbController@verify']);
-});
+});*/
 
 /*Route::group(['prefix' => 'setup/config/email', 'before' => 'csrf'], function()
 {

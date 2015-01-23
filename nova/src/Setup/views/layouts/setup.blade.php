@@ -34,13 +34,7 @@
 			<div class="row">
 				<div class="col-md-3">
 					<nav>
-						<ol>
-							<li class="step-completed">Database Connection</li>
-							<li class="step-completed">Email Settings</li>
-							<li class="step-active">Install Nova</li>
-							<li>Create User</li>
-							<li>Finalize</li>
-						</ol>
+						{!! view('partials.steps') !!}
 					</nav>
 
 					<footer>
