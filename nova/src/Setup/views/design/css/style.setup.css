@@ -1,6 +1,6 @@
 body {
   line-height: 1.75;
-  background: #ededed;
+  background: #eceff1;
   font-family: "Open Sans", helvetica, arial, sans-serif;
   color: #303234;
   font-size: 17px;
@@ -10,23 +10,10 @@ header {
   height: 66px;
   margin-bottom: 25px;
   background: #ffffff;
-  color: #989ea3;
+  color: #90a4ae;
   font-weight: 300;
   font-family: "Open Sans Condensed";
   font-size: 32px;
-  /*#steps {
-		width: 250px;
-		line-height: 64px;
-		
-		text-align: right;
-
-		.step {
-			padding: 0 3px;
-
-			color: rgba(255, 255, 255, .65);
-			font-weight: normal;
-		}
-	}*/
 }
 header .product,
 header .process,
@@ -34,10 +21,10 @@ header .divider {
   line-height: 62px;
 }
 header .divider {
-  color: #eaeaea;
+  color: #cfd8dc;
 }
 header .process {
-  color: #323e48;
+  color: #546e7a;
   font-weight: 700;
 }
 header .anodyne-logo {
@@ -48,8 +35,9 @@ header .anodyne-logo {
 }
 nav {
   padding: 15px;
-  background: #26374a;
-  color: #586572;
+  background: #37474f;
+  color: #607d8b;
+  border: 1px solid rgba(0, 0, 0, 0.25);
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   border-radius: 8px 8px 8px 8px;
@@ -64,61 +52,70 @@ nav ol {
 nav ol li {
   position: relative;
   margin: 0;
-  padding: 15px 10px 15px 45px;
+  /*padding: @spacing 10px @spacing 45px;*/
+  padding: 15px 10px;
+  line-height: 20px;
   font-size: 14px;
+  /*&:before {
+				content: counter(li);
+				counter-increment: li;
+				position: absolute;
+				left: 10px;
+				width: 25px;
+				height: 25px;
+				line-height: 24px;
+				
+				font-size: 14px;
+				font-weight: 600;
+				text-align: center;
+				font-family: @font;
+				background: @color-bluegrey-500;
+				color: @color-bluegrey-800;
+
+				.rounded(50px);
+			}
+
+			&:after {
+				content: ".";
+				display: block;
+				clear: both;
+				visibility: hidden;
+				line-height: 0;
+				height: 0;
+			}*/
 }
-nav ol li:before {
-  content: counter(li);
-  counter-increment: li;
-  position: absolute;
-  left: 10px;
-  width: 25px;
-  height: 25px;
-  line-height: 24px;
-  font-size: 14px;
-  font-weight: 600;
-  text-align: center;
-  font-family: "Open Sans", helvetica, arial, sans-serif;
-  background: #586572;
-  color: #26374a;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
-  border-radius: 50px 50px 50px 50px;
-}
-nav ol li:after {
-  content: ".";
-  display: block;
-  clear: both;
-  visibility: hidden;
-  line-height: 0;
-  height: 0;
+nav ol li .icn {
+  float: left;
+  margin-right: 15px;
 }
 nav ol li.step-active {
-  color: #fff;
+  color: #ffffff;
 }
 nav ol li.step-active:before {
-  background: #fff;
+  background: #ffffff;
 }
 nav ol li.step-completed {
   color: rgba(255, 255, 255, 0.5);
-  background: #37506c;
+  background: #546e7a;
+  /*&:first-of-type {
+					border-top-left-radius: @border-radius;
+					border-top-right-radius: @border-radius;
+				}
+
+				&:last-of-type {
+					border-bottom-left-radius: @border-radius;
+					border-bottom-right-radius: @border-radius;
+				}*/
 }
 nav ol li.step-completed:before {
-  color: #37506c;
+  color: #546e7a;
   background: rgba(255, 255, 255, 0.5);
-}
-nav ol li.step-completed:first-of-type {
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-}
-nav ol li.step-completed:last-of-type {
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
 }
 main {
   margin-bottom: 25px;
   background: #ffffff;
-  color: #26374a;
+  color: #37474f;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   border-radius: 8px 8px 8px 8px;
@@ -134,13 +131,13 @@ main .content a:hover {
 }
 main .controls {
   padding: 15px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 main .controls p {
   margin: 0;
 }
 main .controls .btn.btn-link {
-  color: #8b96a2;
+  color: #90a4ae;
 }
 main h1 {
   margin: 0 0 15px 0;
@@ -150,24 +147,41 @@ main h1 {
   font-size: 28px;
   font-weight: 700;
   font-family: "Open Sans Condensed";
+  color: #546e7a;
 }
 main h2 {
-  margin: 0 0 25px 0;
-  padding: 0;
+  margin: 0 0 30px 0;
   text-align: center;
   font-size: 15px;
   font-weight: 400;
-  color: #6b747d;
+  color: #90a4ae;
 }
 main h3 {
   text-align: left;
   font-size: 20px;
   font-weight: 700;
   font-family: "Open Sans Condensed";
+  color: #546e7a;
 }
 main p {
   line-height: 1.75;
   font-size: 15px;
+}
+main form .control-label {
+  color: #546e7a;
+}
+main form .form-control {
+  color: #546e7a;
+}
+main form .input-lg {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px 4px 4px 4px;
+}
+main form .help-block {
+  margin-bottom: 5px;
+  color: #90a4ae;
+  font-size: 13px;
 }
 .thumbnail {
   margin: 10px 0;
@@ -177,18 +191,18 @@ main p {
   border-radius: 8px 8px 8px 8px;
 }
 .thumbnail h1 {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 600;
-  color: #26374a;
+  color: #546e7a;
 }
 .thumbnail .icn {
-  color: #6b747d;
+  color: #78909c;
 }
 footer {
-  margin: 20px auto;
+  margin: 15px auto;
   text-align: center;
   font-size: 13px;
-  color: #8b96a2;
+  color: #90a4ae;
 }
 .font-sm {
   font-size: 13px;
@@ -202,6 +216,7 @@ h6 {
   font-family: "Open Sans", helvetica, arial, sans-serif;
 }
 .btn {
+  font-weight: 600;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px 4px 4px 4px;
@@ -239,16 +254,6 @@ fieldset[disabled] .btn.btn-primary.active {
 hr.partial {
   margin: 25px auto;
   width: 65%;
-}
-.input-lg {
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px 4px 4px 4px;
-}
-.help-block {
-  margin-bottom: 5px;
-  color: #8b96a2;
-  font-size: 13px;
 }
 .alert {
   -webkit-border-radius: 4px;

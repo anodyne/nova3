@@ -1,17 +1,11 @@
-@import "../../../../../views/design/less/variables.less";
+@import "variables.setup.less";
 @import "../../../../../views/design/less/mixins.less";
 @import "../../../../../views/design/less/bs3-mixins.less";
-
-@font: "Open Sans", helvetica, arial, sans-serif;
-@font-heading: "Open Sans Condensed";
-@font-size: 17px;
-@header-height: 66px;
-@color-primary: rgb(2, 136, 209);
 
 body {
 	line-height: @line-height;
 
-	background: #ededed;
+	background: @color-bluegrey-50;
 	font-family: @font;
 	color: #303234;
 	font-size: @font-size;
@@ -23,7 +17,7 @@ header {
 	margin-bottom: 25px;
 
 	background: @color-white;
-	color: #989ea3;
+	color: @color-bluegrey-300;
 	font-weight: 300;
 	font-family: @font-heading;
 	font-size: 32px;
@@ -33,11 +27,11 @@ header {
 	}
 
 	.divider {
-		color: #eaeaea;
+		color: @color-bluegrey-100;
 	}
 
 	.process {
-		color: #323e48;
+		color: @color-bluegrey-600;
 		font-weight: 700;
 	}
 
@@ -48,29 +42,16 @@ header {
 
 		background: transparent url(../images/anodyne-logo.png) center center no-repeat;
 	}
-
-	/*#steps {
-		width: 250px;
-		line-height: 64px;
-		
-		text-align: right;
-
-		.step {
-			padding: 0 3px;
-
-			color: rgba(255, 255, 255, .65);
-			font-weight: normal;
-		}
-	}*/
 }
 
 nav {
-	padding: 15px;
+	padding: @spacing;
 
-	background: #26374a;
-	color: #586572;
+	background: @color-bluegrey-800;
+	color: @color-bluegrey-500;
+	border: 1px solid rgba(0, 0, 0, .25);
 
-	.rounded(8px);
+	.rounded(@border-radius-lg);
 
 	ol {
 		position: relative;
@@ -83,11 +64,13 @@ nav {
 		li {
 			position: relative;
 			margin: 0;
-			padding: 15px 10px 15px 45px;
+			/*padding: @spacing 10px @spacing 45px;*/
+			padding: @spacing 10px;
+			line-height: 20px;
 
 			font-size: 14px;
 
-			&:before {
+			/*&:before {
 				content: counter(li);
 				counter-increment: li;
 				position: absolute;
@@ -100,8 +83,8 @@ nav {
 				font-weight: 600;
 				text-align: center;
 				font-family: @font;
-				background: #586572;
-				color: #26374a;
+				background: @color-bluegrey-500;
+				color: @color-bluegrey-800;
 
 				.rounded(50px);
 			}
@@ -113,34 +96,39 @@ nav {
 				visibility: hidden;
 				line-height: 0;
 				height: 0;
+			}*/
+
+			.icn {
+				float: left;
+				margin-right: @spacing;
 			}
 
 			&.step-active {
-				color: #fff;
+				color: @color-white;
 
 				&:before {
-					background: #fff;
+					background: @color-white;
 				}
 			}
 
 			&.step-completed {
 				color: rgba(255, 255, 255, .5);
-				background: lighten(#26374a, 10%);
+				background: @color-bluegrey-600;
 
 				&:before {
-					color: lighten(#26374a, 10%);
+					color: @color-bluegrey-600;
 					background: rgba(255, 255, 255, .5);
 				}
 
-				&:first-of-type {
-					border-top-left-radius: 4px;
-					border-top-right-radius: 4px;
+				/*&:first-of-type {
+					border-top-left-radius: @border-radius;
+					border-top-right-radius: @border-radius;
 				}
 
 				&:last-of-type {
-					border-bottom-left-radius: 4px;
-					border-bottom-right-radius: 4px;
-				}
+					border-bottom-left-radius: @border-radius;
+					border-bottom-right-radius: @border-radius;
+				}*/
 			}
 		}
 	}
@@ -150,12 +138,13 @@ main {
 	margin-bottom: 25px;
 
 	background: @color-white;
-	color: #26374a;
+	color: @color-bluegrey-800;
+	border: 1px solid rgba(0, 0, 0, .1);
 
-	.rounded(8px);
+	.rounded(@border-radius-lg);
 
 	.content {
-		padding: 15px;
+		padding: @spacing;
 
 		a {
 			color: @color-primary;
@@ -167,9 +156,9 @@ main {
 	}
 
 	.controls {
-		padding: 15px;
+		padding: @spacing;
 
-		border-top: 1px solid #eee;
+		border-top: 1px solid rgba(0, 0, 0, .1);
 
 		p {
 			margin: 0;
@@ -177,13 +166,13 @@ main {
 
 		.btn {
 			&.btn-link {
-				color: @color-setup-muted;
+				color: @color-bluegrey-300;
 			}
 		}
 	}
 
 	h1 {
-		margin: 0 0 15px 0;
+		margin: 0 0 @spacing 0;
 		padding: 0;
 		width: auto;
 
@@ -191,16 +180,16 @@ main {
 		font-size: 28px;
 		font-weight: 700;
 		font-family: @font-heading;
+		color: @color-bluegrey-600;
 	}
 
 	h2 {
-		margin: 0 0 25px 0;
-		padding: 0;
+		margin: 0 0 @spacing-lg 0;
 
 		text-align: center;
 		font-size: 15px;
 		font-weight: 400;
-		color: #6b747d;
+		color: @color-bluegrey-300;
 	}
 
 	h3 {
@@ -208,42 +197,64 @@ main {
 		font-size: 20px;
 		font-weight: 700;
 		font-family: @font-heading;
+		color: @color-bluegrey-600;
 	}
 
 	p {
-		line-height: 1.75;
+		line-height: @line-height;
 
 		font-size: 15px;
+	}
+
+	form {
+		.control-label {
+			color: @color-bluegrey-600;
+		}
+
+		.form-control {
+			color: @color-bluegrey-600;
+		}
+
+		.input-lg {
+			.rounded(@border-radius);
+		}
+
+		.help-block {
+			margin-bottom: 5px;
+
+			color: @color-bluegrey-300;
+			font-size: @font-size-sm;
+		}
 	}
 }
 
 .thumbnail {
 	margin: 10px 0;
-	padding: 10px 15px;
+	padding: 10px @spacing;
 
-	.rounded(8px);
+	.rounded(@border-radius-lg);
 
 	h1 {
-		font-size: 24px;
+		font-size: 28px;
 		font-weight: 600;
-		color: #26374a;
+		color: @color-bluegrey-600;
 	}
 
 	.icn {
-		color: #6b747d;
+		color: @color-bluegrey-400;
 	}
 }
 
 footer {
-	margin: 20px auto;
+	margin: @spacing auto;
 
 	text-align: center;
-	font-size: @font-size-small;
-	color: @color-setup-muted;
+	font-size: @font-size-sm;
+	color: @color-bluegrey-300;
 }
 
 .font-sm {
-	font-size: @font-size-small;
+	font-size: @font-size-sm;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -251,7 +262,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn {
-	.rounded(4px);
+	font-weight: 600;
+
+	.rounded(@border-radius);
 
 	&.btn-primary {
 		.btn-pseudo-states(@color-white, @color-primary, @color-primary);
@@ -263,19 +276,8 @@ hr.partial {
 	width: 65%;
 }
 
-.input-lg {
-	.rounded(4px);
-}
-
-.help-block {
-	margin-bottom: 5px;
-
-	color: @color-setup-muted;
-	font-size: @font-size-small;
-}
-
 .alert {
-	.rounded(4px);
+	.rounded(@border-radius);
 	
 	h4 {
 		font-weight: 600;
