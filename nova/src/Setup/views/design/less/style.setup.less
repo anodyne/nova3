@@ -225,6 +225,11 @@ main {
 			color: @color-bluegrey-300;
 			font-size: @font-size-sm;
 		}
+
+		.checkbox input[type=checkbox],
+		.radio input[type=radio] {
+			margin-top: 9px;
+		}
 	}
 }
 
@@ -257,6 +262,14 @@ footer {
 	font-size: @font-size-sm;
 }
 
+.text-error {
+	color: @color-danger;
+
+	&:hover {
+		color: @color-danger;
+	}
+}
+
 h1, h2, h3, h4, h5, h6 {
 	font-family: @font;
 }
@@ -273,7 +286,9 @@ h1, h2, h3, h4, h5, h6 {
 
 hr.partial {
 	margin: 25px auto;
-	width: 65%;
+	width: 75%;
+
+	border-color: rgba(0, 0, 0, .1);
 }
 
 .alert {
@@ -282,4 +297,9 @@ hr.partial {
 	h4 {
 		font-weight: 600;
 	}
+}
+
+code {
+	color: @color-primary;
+	background: @color-bluegrey-50;
 }

@@ -34,47 +34,33 @@ Route::group($installOptions, function()
 		'as'	=> 'setup.install',
 		'uses'	=> 'InstallController@index']);
 
+	Route::post('nova', [
+		'as'	=> 'setup.install.nova',
+		'uses'	=> 'InstallController@install']);
+	Route::get('nova/success', [
+		'as'	=> 'setup.install.nova.success',
+		'uses'	=> 'InstallController@success']);
+
 	Route::get('config-database', [
 		'as'	=> 'setup.install.config.db',
 		'uses'	=> 'ConfigDbController@info']);
-
-	Route::post('config-database/check', [
-		'as'	=> 'setup.install.config.db.check',
-		'uses'	=> 'ConfigDbController@check']);
+	Route::get('config-database/success', [
+		'as'	=> 'setup.install.config.db.success',
+		'uses'	=> 'ConfigDbController@success']);
 	Route::get('config-database/write', [
 		'as'	=> 'setup.install.config.db.write',
 		'uses'	=> 'ConfigDbController@write']);
-	Route::post('config-database/verify', [
-		'as'	=> 'setup.install.config.db.verify',
-		'uses'	=> 'ConfigDbController@verify']);
-});
-
-/*$configDbOptions = array_merge($options, [
-	'prefix'		=> 'setup/config/db',
-]);
-
-Route::group($configDbOptions, function()
-{
-	Route::get('/', [
-		'as'	=> 'setup.config.db',
-		'uses'	=> 'ConfigDbController@info']);
-
-	Route::post('check', [
-		'as'	=> 'setup.config.db.check',
+	Route::post('config-database/check', [
+		'as'	=> 'setup.install.config.db.check',
 		'uses'	=> 'ConfigDbController@check']);
-	Route::post('write', [
-		'as'	=> 'setup.config.db.write',
-		'uses'	=> 'ConfigDbController@write']);
-	Route::post('verify', [
-		'as'	=> 'setup.config.db.verify',
-		'uses'	=> 'ConfigDbController@verify']);
-});*/
 
-/*Route::group(['prefix' => 'setup/config/email', 'before' => 'csrf'], function()
-{
-	Route::get('/', 'Nova\Setup\Controllers\ConfigMailController@getIndex');
-	Route::get('info', 'Nova\Setup\Controllers\ConfigMailController@getInfo');
-	
-	Route::post('write', 'Nova\Setup\Controllers\ConfigMailController@postWrite');
-	Route::post('verify', 'Nova\Setup\Controllers\ConfigMailController@postVerify');
-});*/
+	Route::get('config-email', [
+		'as'	=> 'setup.install.config.email',
+		'uses'	=> 'ConfigEmailController@info']);
+	Route::get('config-email/success', [
+		'as'	=> 'setup.install.config.email.success',
+		'uses'	=> 'ConfigEmailController@success']);
+	Route::post('config-email/write', [
+		'as'	=> 'setup.install.config.email.write',
+		'uses'	=> 'ConfigEmailController@write']);
+});

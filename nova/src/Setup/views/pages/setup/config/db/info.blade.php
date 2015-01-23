@@ -1,18 +1,18 @@
 @extends('layouts.setup')
 
 @section('title')
-	Configure Database
+	Database Connection
 @stop
 
 @section('header')
-	Configure Database
+	Database Connection
 @stop
 
 @section('content')
-	<h1>Configure Your Database</h1>
+	<h1>Configure Your Database Connection</h1>
 	<h2>Tell us a little bit about the database {{ config('nova.app.name') }} is being installed into</h2>
 
-	{!! Form::open(['route' => 'setup.install.config.db.check', 'class' => 'form-horizontal']) !!}
+	{!! Form::open(['route' => "setup.{$_setupType}.config.db.check", 'class' => 'form-horizontal']) !!}
 		<div class="form-group">
 			<label class="col-md-3 control-label">Host</label>
 			<div class="col-md-7">
@@ -61,10 +61,14 @@
 @section('controls')
 	<div class="row">
 		<div class="col-md-6">
-			<p><a href="{{ route('setup.install') }}" class="btn btn-link">Back</a></p>
+			<p><a href="{{ route('setup.'.$_setupType) }}" class="btn btn-link">Back</a></p>
 		</div>
 		<div class="col-md-6 text-right">
-			<p><a class="btn btn-link disabled">Next: Email</a></p>
+			@if (file_exists(app('path.config').'/database.php'))
+				<p><a href="{{ route('setup.'.$_setupType.'.config.email') }}" class="btn btn-primary">Next: Email Settings</a></p>
+			@else
+				<p><a class="btn btn-link disabled">Next: Email Settings</a></p>
+			@endif
 		</div>
 	</div>
 @stop

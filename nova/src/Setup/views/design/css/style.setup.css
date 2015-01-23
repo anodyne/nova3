@@ -183,6 +183,10 @@ main form .help-block {
   color: #90a4ae;
   font-size: 13px;
 }
+main form .checkbox input[type=checkbox],
+main form .radio input[type=radio] {
+  margin-top: 9px;
+}
 .thumbnail {
   margin: 10px 0;
   padding: 10px 15px;
@@ -206,6 +210,12 @@ footer {
 }
 .font-sm {
   font-size: 13px;
+}
+.text-error {
+  color: #b71c1c;
+}
+.text-error:hover {
+  color: #b71c1c;
 }
 h1,
 h2,
@@ -253,7 +263,8 @@ fieldset[disabled] .btn.btn-primary.active {
 }
 hr.partial {
   margin: 25px auto;
-  width: 65%;
+  width: 75%;
+  border-color: rgba(0, 0, 0, 0.1);
 }
 .alert {
   -webkit-border-radius: 4px;
@@ -262,4 +273,8 @@ hr.partial {
 }
 .alert h4 {
   font-weight: 600;
+}
+code {
+  color: #0288d1;
+  background: #eceff1;
 }

@@ -13,9 +13,22 @@ if ($type == 'install')
 		5 => '',
 	];
 
-	if ($section == 'config-database')
+	if (Request::is('setup/install/config-database') or Request::is('setup/install/config-database/check') or Request::is('setup/install/config-database/write'))
 	{
 		$classes[1] = ' class="step-active"';
+	}
+	if (file_exists(app('path.config').'/database.php'))
+	{
+		$classes[1] = ' class="step-completed"';
+	}
+
+	if (Request::is('setup/install/config-email') or Request::is('setup/install/config-email/write'))
+	{
+		$classes[2] = ' class="step-active"';
+	}
+	if (file_exists(app('path.config').'/mail.php'))
+	{
+		$classes[2] = ' class="step-completed"';
 	}
 }
 

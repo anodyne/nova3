@@ -34,7 +34,7 @@
 			<div class="row">
 				<div class="col-md-3">
 					<nav>
-						{!! view('partials.steps') !!}
+						{!! view('partials.steps-'.$_setupType) !!}
 					</nav>
 
 					<footer>
