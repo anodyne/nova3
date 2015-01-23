@@ -1,0 +1,1 @@
+<span class="icn icn-size-{{ $size }} {{ $additional }}" data-icon="{{ $icon }}"></span>
