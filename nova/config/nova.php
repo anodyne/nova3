@@ -3,7 +3,7 @@
 return [
 
 	'app' => [
-		'name'	=> "Nova",
+		'name'	=> "Nova NextGen",
 
 		'version' => [
 			'full'	=> '3.0.0.alpha.1',
