@@ -21,8 +21,8 @@
 		<div class="col-md-6">
 			<div class="thumbnail text-center">
 				<h1>Upgrade from Nova 2</h1>
-				<div>{!! icon($_icons['update'], 'xlg') !!}</div>
-				<p><a href="{{ route('setup.config.email') }}" class="btn btn-primary btn-lg btn-block">Start Upgrade</a></p>
+				<div>{!! icon($_icons['migrate'], 'xlg') !!}</div>
+				<p><a href="{{ route('setup.config.email') }}" class="btn btn-primary btn-lg btn-block disabled">Start Upgrade</a></p>
 			</div>
 		</div>
 	</div>

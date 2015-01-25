@@ -11,6 +11,11 @@ class InstallController extends Controller {
 		return view('pages.setup.install.landing');
 	}
 
+	public function installLanding()
+	{
+		return view('pages.setup.install.nova');
+	}
+
 	public function install()
 	{
 		// Run the migrate commands
@@ -18,8 +23,6 @@ class InstallController extends Controller {
 
 		// Set the installed cache item
 		Cache::forever('nova.installed', (bool) true);
-
-		return Redirect::route('setup.install.nova.success');
 	}
 
 	public function success()

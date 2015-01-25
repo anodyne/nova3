@@ -20,9 +20,7 @@
 			<p><a href="{{ route('setup.'.$_setupType.'.config.email') }}" class="btn btn-link">Back: Email Settings</a></p>
 		</div>
 		<div class="col-md-6 text-right">
-			{!! Form::open(['route' => 'setup.'.$_setupType.'.nova']) !!}
-				<p>{!! Form::button("Next: Install ".config('nova.app.name'), ['type' => 'submit', 'class' => 'btn btn-primary']) !!}</p>
-			{!! Form::close() !!}
+			<p><a href="{{ route('setup.'.$_setupType.'.nova') }}" class="btn btn-primary">Next: Install {{ config('nova.app.name') }}</a></p>
 		</div>
 	</div>
 @stop

@@ -34,9 +34,10 @@ Route::group($installOptions, function()
 		'as'	=> 'setup.install',
 		'uses'	=> 'InstallController@index']);
 
-	Route::post('nova', [
+	Route::get('nova', [
 		'as'	=> 'setup.install.nova',
-		'uses'	=> 'InstallController@install']);
+		'uses'	=> 'InstallController@installLanding']);
+	Route::post('nova', 'InstallController@install');
 	Route::get('nova/success', [
 		'as'	=> 'setup.install.nova.success',
 		'uses'	=> 'InstallController@success']);
