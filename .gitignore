@@ -3,6 +3,8 @@ Thumbs.db
 
 .env
 nova/vendor
+config/*.php
+!config/app.php
 
 *.sublime-project
 *.sublime-workspace
