@@ -196,7 +196,7 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 
 		'Date'		=> 'Carbon\Carbon',
-		'Eloquent'	=> 'Illuminate\Database\Eloquent\Model',
+		'Model'		=> 'Illuminate\Database\Eloquent\Model',
 		'Form'		=> 'Illuminate\Html\FormFacade',
 		'Flash'		=> 'Nova\Foundation\Services\FlashNotifierFacade',
 		'HTML'		=> 'Illuminate\Html\HtmlFacade',
@@ -207,20 +207,32 @@ return [
 		/**
 		 * Models
 		 */
+		'Character'	=> 'Nova\Core\Characters\Data\Models\Character',
 		'Page'		=> 'Nova\Core\Pages\Data\Models\Page',
 		'System'	=> 'Nova\Foundation\Data\Models\System',
+		'User'		=> 'Nova\Core\Users\Data\Models\User',
 
 		/**
 		 * Repository Interfaces
 		 */
-		'PageRepositoryInterface'	=> 'Nova\Core\Pages\Data\Interfaces\PageRepositoryInterface',
-		'SystemRepositoryInterface'	=> 'Nova\Foundation\Data\Interfaces\SystemRepositoryInterface',
+		'CharacterRepositoryInterface'	=> 'Nova\Core\Characters\Data\Interfaces\CharacterRepositoryInterface',
+		'PageRepositoryInterface'		=> 'Nova\Core\Pages\Data\Interfaces\PageRepositoryInterface',
+		'SystemRepositoryInterface'		=> 'Nova\Foundation\Data\Interfaces\SystemRepositoryInterface',
+		'UserRepositoryInterface'		=> 'Nova\Core\Users\Data\Interfaces\UserRepositoryInterface',
 
 		/**
 		 * Repositories
 		 */
-		'PageRepository'	=> 'Nova\Core\Pages\Data\Repositories\PageRepository',
-		'SystemRepository'	=> 'Nova\Foundation\Data\Repositories\SystemRepository',
+		'CharacterRepository'	=> 'Nova\Core\Characters\Data\Repositories\CharacterRepository',
+		'PageRepository'		=> 'Nova\Core\Pages\Data\Repositories\PageRepository',
+		'SystemRepository'		=> 'Nova\Foundation\Data\Repositories\SystemRepository',
+		'UserRepository'		=> 'Nova\Core\Users\Data\Repositories\UserRepository',
+
+		/**
+		 * Services
+		 */
+		'CharacterCreator'	=> 'Nova\Core\Characters\Services\CharacterCreatorService',
+		'UserCreator'		=> 'Nova\Core\Users\Services\UserCreatorService',
 
 	],
 
