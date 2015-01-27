@@ -1,5 +1,7 @@
 <?php namespace Nova\Foundation\Providers;
 
+use UserCreator,
+	CharacterCreator;
 use Illuminate\Support\ServiceProvider;
 use League\CommonMark\CommonMarkConverter;
 use Nova\Foundation\Services\FlashNotifierService,
@@ -9,6 +11,8 @@ use Nova\Foundation\Services\PageCompiler\CompilerEngine,
 	Nova\Foundation\Services\PageCompiler\Compilers\SettingCompiler;
 
 class NovaServiceProvider extends ServiceProvider {
+
+	protected $aliases;
 
 	/**
 	 * Bootstrap any application services.
@@ -20,9 +24,8 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->setRepositoryBindings();
 		$this->getCurrentUser();
 		$this->createLocator();
-		$this->createMarkdownParser();
-		$this->createFlashNotifier();
 		$this->createPageCompilerEngine();
+		$this->registerBindings();
 	}
 
 	/**
@@ -35,37 +38,12 @@ class NovaServiceProvider extends ServiceProvider {
 		//
 	}
 
-	protected function setRepositoryBindings()
-	{
-		// Grab the aliases from the config
-		$alias = $this->app['config']['app.aliases'];
-
-		$this->app->bind($alias['PageRepositoryInterface'], $alias['PageRepository']);
-		$this->app->bind($alias['SystemRepositoryInterface'], $alias['SystemRepository']);
-	}
-
-	protected function createFlashNotifier()
-	{
-		$this->app->singleton('nova.flash', function($app)
-		{
-			return new FlashNotifierService($app['session.store']);
-		});
-	}
-
 	protected function createLocator()
 	{
 		$this->app->singleton('nova.locator', function($app)
 		{
 			return new LocatorService($app['nova.user']);
 			//return new LocatorService($app['nova.user'], $app->make('SettingsRepository'));
-		});
-	}
-
-	protected function createMarkdownParser()
-	{
-		$this->app->singleton('nova.markdown', function($app)
-		{
-			return new MarkdownParserService(new CommonMarkConverter);
 		});
 	}
 
@@ -96,6 +74,63 @@ class NovaServiceProvider extends ServiceProvider {
 		{
 			return $app['auth']->user();
 		});
+	}
+
+	protected function registerBindings()
+	{
+		$this->app->bind('nova.character.creator', function($app)
+		{
+			return new CharacterCreator(
+				$app['CharacterRepositoryInterface'],
+				$app['events']
+			);
+		});
+
+		$this->app->singleton('nova.flash', function($app)
+		{
+			return new FlashNotifierService($app['session.store']);
+		});
+
+		$this->app->singleton('nova.markdown', function($app)
+		{
+			return new MarkdownParserService(new CommonMarkConverter);
+		});
+
+		$this->app->bind('nova.user.creator', function($app)
+		{
+			return new UserCreator(
+				$app['UserRepositoryInterface'],
+				$app['nova.character.creator'],
+				$app['events']
+			);
+		});
+	}
+
+	protected function setRepositoryBindings()
+	{
+		// Grab the aliases from the config
+		$this->aliases = $this->app['config']['app.aliases'];
+
+		// Set the items being bound
+		$bindings = ['Character', 'Page', 'System', 'User'];
+
+		foreach ($bindings as $binding)
+		{
+			$this->bindRepository($binding);
+		}
+	}
+
+	private function bindRepository($item)
+	{
+		// Set the concrete and abstract names
+		$abstract = "{$item}RepositoryInterface";
+		$concrete = "{$item}Repository";
+
+		// Bind to the container
+		$this->app->bind(
+			[$abstract => $this->aliases[$abstract]], 
+			$this->aliases[$concrete]
+		);
 	}
 
 }
