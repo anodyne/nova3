@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Pages\Data\Models;
 
-use Eloquent;
+use Model;
 
-class Page extends Eloquent {
+class Page extends Model {
 
 	protected $table = 'pages';
 	
