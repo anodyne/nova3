@@ -100,7 +100,7 @@
 
 		<div class="form-group">
 			<div class="col-md-7 col-md-offset-3">
-				{!! Form::button('Set Email Settings', [ 'class' => 'btn btn-primary btn-lg', 'id' => 'next', 'name' => 'submit', 'type' => 'submit']) !!}
+				{!! Form::button('Set Email Settings', ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
 			</div>
 		</div>
 	{!! Form::close() !!}

@@ -14,6 +14,7 @@ header {
   font-weight: 300;
   font-family: "Open Sans Condensed";
   font-size: 32px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 header .product,
 header .process,

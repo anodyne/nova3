@@ -22,7 +22,8 @@
 			<div class="thumbnail text-center">
 				<h1>Upgrade from Nova 2</h1>
 				<div>{!! icon($_icons['migrate'], 'xlg') !!}</div>
-				<p><a href="{{ route('setup.config.email') }}" class="btn btn-primary btn-lg btn-block disabled">Start Upgrade</a></p>
+				<p class="hide"><a href="{{ route('setup.config.email') }}" class="btn btn-primary btn-lg btn-block disabled">Start Upgrade</a></p>
+				<p><a href="{{ route('setup.config.email') }}" class="btn btn-danger btn-lg btn-block disabled">Not Available</a></p>
 			</div>
 		</div>
 	</div>

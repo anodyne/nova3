@@ -24,8 +24,9 @@ $emailActive = [
 $novaActive = [
 	'setup/install/nova',
 ];
-$novaCompleted = [
-	'setup/install/nova/success',
+
+$userActive = [
+	'setup/install/user',
 ];
 
 if (in_array($path, $dbActive))
@@ -53,6 +54,15 @@ if (in_array($path, $novaActive))
 if (Cache::get('nova.installed'))
 {
 	$classes[3] = ' class="step-completed"';
+}
+
+if (in_array($path, $userActive))
+{
+	$classes[4] = ' class="step-active"';
+}
+if (User::count() > 0)
+{
+	$classes[4] = ' class="step-completed"';
 }
 
 ?><ol>

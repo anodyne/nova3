@@ -1,8 +1,11 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
 use Cache,
+	Flash,
+	Input,
 	Artisan,
-	Redirect;
+	Redirect,
+	UserCreator;
 
 class InstallController extends Controller {
 
@@ -25,9 +28,34 @@ class InstallController extends Controller {
 		Cache::forever('nova.installed', (bool) true);
 	}
 
-	public function success()
+	public function novaSuccess()
 	{
-		return view('pages.setup.install.success');
+		return view('pages.setup.install.nova-success');
+	}
+
+	public function user()
+	{
+		return view('pages.setup.install.user');
+	}
+
+	public function userSuccess()
+	{
+		return view('pages.setup.install.user-success');
+	}
+
+	public function createUser(UserCreator $userCreator)
+	{
+		// Create a new user and character
+		$creator = $userCreator->create(Input::all());
+
+		if ($creator)
+		{
+			return Redirect::route('setup.install.user.success');
+		}
+
+		Flash::error("User and character could not be created.");
+
+		return Redirect::route('setup.install.user');
 	}
 
 }

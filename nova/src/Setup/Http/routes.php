@@ -34,14 +34,6 @@ Route::group($installOptions, function()
 		'as'	=> 'setup.install',
 		'uses'	=> 'InstallController@index']);
 
-	Route::get('nova', [
-		'as'	=> 'setup.install.nova',
-		'uses'	=> 'InstallController@installLanding']);
-	Route::post('nova', 'InstallController@install');
-	Route::get('nova/success', [
-		'as'	=> 'setup.install.nova.success',
-		'uses'	=> 'InstallController@success']);
-
 	Route::get('config-database', [
 		'as'	=> 'setup.install.config.db',
 		'uses'	=> 'ConfigDbController@info']);
@@ -64,4 +56,22 @@ Route::group($installOptions, function()
 	Route::post('config-email/write', [
 		'as'	=> 'setup.install.config.email.write',
 		'uses'	=> 'ConfigEmailController@write']);
+
+	Route::get('nova', [
+		'as'	=> 'setup.install.nova',
+		'uses'	=> 'InstallController@installLanding']);
+	Route::post('nova', 'InstallController@install');
+	Route::get('nova/success', [
+		'as'	=> 'setup.install.nova.success',
+		'uses'	=> 'InstallController@novaSuccess']);
+
+	Route::get('user', [
+		'as'	=> 'setup.install.user',
+		'uses'	=> 'InstallController@user']);
+	Route::get('user/success', [
+		'as'	=> 'setup.install.user.success',
+		'uses'	=> 'InstallController@userSuccess']);
+	Route::post('user', [
+		'as'	=> 'setup.install.user.store',
+		'uses'	=> 'InstallController@createUser']);
 });
