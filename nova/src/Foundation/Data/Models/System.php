@@ -1,8 +1,8 @@
 <?php namespace Nova\Foundation\Data\Models;
 
-use Eloquent;
+use Model;
 
-class System extends Eloquent {
+class System extends Model {
 
 	protected $table = 'system_info';
 
