@@ -82,9 +82,7 @@ if ( ! function_exists('checkDirectories'))
 	function checkDirectories()
 	{
 		$directories = [
-			storage_path('logs'),
-			storage_path('framework/cache'),
-			storage_path('framework/sessions'),
+			storage_path('framework'),
 			storage_path('framework/views'),
 		];
 
