@@ -22,7 +22,7 @@ class CharacterRepository extends BaseRepository implements CharacterRepositoryI
 		if ($user)
 		{
 			// Associate the character to the user
-			$user->characters()->associate($character);
+			$user->characters()->save($character);
 
 			// Save the user
 			$user->save();
