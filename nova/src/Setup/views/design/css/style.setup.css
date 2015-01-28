@@ -197,11 +197,31 @@ main form .radio input[type=radio] {
 }
 .thumbnail h1 {
   font-size: 28px;
-  font-weight: 600;
+  font-weight: 700;
+  font-family: "Open Sans Condensed";
   color: #546e7a;
+}
+.thumbnail h2 {
+  margin: 0 0 15px 0;
+  font-size: 15px;
+  font-weight: 400;
+  color: #90a4ae;
+}
+.thumbnail p,
+.thumbnail ul li {
+  line-height: 1.75;
+  font-size: 15px;
+  color: #37474f;
+  text-align: left;
 }
 .thumbnail .icn {
   color: #78909c;
+}
+.thumbnail .icn.text-success {
+  color: #4caf50;
+}
+.thumbnail .icn.text-danger {
+  color: #f44336;
 }
 footer {
   margin: 15px auto;
@@ -212,11 +232,11 @@ footer {
 .font-sm {
   font-size: 13px;
 }
-.text-error {
-  color: #b71c1c;
+.text-danger {
+  color: #f44336;
 }
-.text-error:hover {
-  color: #b71c1c;
+.text-danger:hover {
+  color: #f44336;
 }
 h1,
 h2,

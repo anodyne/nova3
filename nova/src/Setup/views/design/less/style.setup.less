@@ -242,12 +242,36 @@ main {
 
 	h1 {
 		font-size: 28px;
-		font-weight: 600;
+		font-weight: 700;
+		font-family: @font-heading;
 		color: @color-bluegrey-600;
+	}
+
+	h2 {
+		margin: 0 0 @spacing 0;
+
+		font-size: 15px;
+		font-weight: 400;
+		color: @color-bluegrey-300;
+	}
+
+	p, ul li {
+		line-height: @line-height;
+
+		font-size: 15px;
+		color: @color-bluegrey-800;
+		text-align: left;
 	}
 
 	.icn {
 		color: @color-bluegrey-400;
+
+		&.text-success {
+			color: @color-success;
+		}
+		&.text-danger {
+			color: @color-danger;
+		}
 	}
 }
 
@@ -263,7 +287,7 @@ footer {
 	font-size: @font-size-sm;
 }
 
-.text-error {
+.text-danger {
 	color: @color-danger;
 
 	&:hover {
