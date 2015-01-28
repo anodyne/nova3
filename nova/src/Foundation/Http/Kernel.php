@@ -24,20 +24,17 @@ class Kernel extends HttpKernel {
 	 * @var array
 	 */
 	protected $routeMiddleware = [
-		'auth'			=> 'Nova\Foundation\Http\Middleware\Authenticate',
-		'auth.basic'	=> 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-		'guest'			=> 'Nova\Foundation\Http\Middleware\RedirectIfAuthenticated',
-		'installed'		=> 'Nova\Foundation\Http\Middleware\Installed',
+		'auth'				=> 'Nova\Foundation\Http\Middleware\Authenticate',
+		'auth.basic'		=> 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
+		'guest'				=> 'Nova\Foundation\Http\Middleware\RedirectIfAuthenticated',
+		
+		'nova.installed'	=> 'Nova\Foundation\Http\Middleware\Installed',
+		'nova.bindViewData'	=> 'Nova\Foundation\Http\Middleware\BindViewData',
 	];
 
 	public function handle($request)
 	{
-		$handle = parent::handle($request);
-
-		//$this->app->setDirectoryPermissions();
-		//$this->app->buildStorageDirectory();
-
-		return $handle;
+		return parent::handle($request);
 	}
 
 }
