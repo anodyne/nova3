@@ -7,6 +7,10 @@ $options = [
 
 Route::group($options, function()
 {
+	Route::get('env', [
+		'as'	=> 'setup.env',
+		'uses'	=> 'SetupController@environment']);
+
 	Route::get('/', [
 		'as'	=> 'setup.home',
 		'uses'	=> 'SetupController@index']);

@@ -1,6 +1,7 @@
 <?php namespace Nova\Setup;
 
-use Nova\Foundation\Application;
+use Illuminate\Support\Collection;
+use Illuminate\Contracts\Foundation\Application;
 
 class SetupService {
 
@@ -9,6 +10,52 @@ class SetupService {
 	public function __construct(Application $app)
 	{
 		$this->app = $app;
+	}
+
+	public function checkEnvironment()
+	{
+		$checks = new Collection([
+			'passes'		=> true,
+			'php'			=> true,
+			'writableDirs'	=> true,
+		]);
+
+		// PHP version
+		if (version_compare(PHP_VERSION, '5.4.0', '<'))
+		{
+			$checks->put('php', false);
+			$checks->put('passes', false);
+		}
+
+		// Writable directories
+		$directories = [
+			storage_path(),
+			storage_path('logs'),
+			storage_path('app'),
+			storage_path('framework/cache'),
+			storage_path('framework/sessions'),
+			storage_path('framework/views'),
+		];
+
+		$errorDirs = [];
+
+		foreach ($directories as $dir)
+		{
+			if ( ! is_writable($dir))
+			{
+				$errorString = str_replace(base_path(), '', $dir);
+				$errorString.= ' ('.substr(sprintf('%o', fileperms($dir)), -4).')';
+				$errorDirs[] = $errorString;
+
+				$checks->put('writableDirs', false);
+				$checks->put('passes', false);
+			}
+		}
+
+		if ( ! $checks->get('writableDirs'))
+			$checks->put('writableDirsFull', $errorDirs);
+
+		return $checks;
 	}
 
 	/**

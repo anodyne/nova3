@@ -16,4 +16,14 @@ class SetupController extends Controller {
 		return view('pages.setup.index');
 	}
 
+	public function environment()
+	{
+		$env = app('nova.setup')->checkEnvironment();
+
+		if ($env->get('passes'))
+			return redirect()->route('setup.home');
+
+		return view('pages.setup.environment', compact('env'));
+	}
+
 }
