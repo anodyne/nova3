@@ -1,5 +1,6 @@
 <?php namespace Nova\Setup;
 
+use PDO;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Foundation\Application;
 
@@ -12,12 +13,22 @@ class SetupService {
 		$this->app = $app;
 	}
 
+	/**
+	 * Run some basic checks on the server to make sure we can install
+	 * Nova properly.
+	 *
+	 * @return	Collection
+	 */
 	public function checkEnvironment()
 	{
 		$checks = new Collection([
-			'passes'		=> true,
-			'php'			=> true,
-			'writableDirs'	=> true,
+			'passes'			=> true,
+			'php'				=> true,
+			'writableDirs'		=> true,
+			'writableDirsFull'	=> [],
+			'pdo'				=> true,
+			'pdoDrivers'		=> true,
+			'pdoDriversFull'	=> [],
 		]);
 
 		// PHP version
@@ -54,6 +65,21 @@ class SetupService {
 
 		if ( ! $checks->get('writableDirs'))
 			$checks->put('writableDirsFull', $errorDirs);
+
+		// PDO
+		if ( ! defined('PDO::ATTR_DRIVER_NAME'))
+		{
+			$checks->put('pdo', false);
+			$checks->put('passes', false);
+		}
+
+		// MySQL and/or Postgres
+		if ( ! in_array('mysql', PDO::getAvailableDrivers()) and ! in_array('pgsql', PDO::getAvailableDrivers()))
+		{
+			$checks->put('pdoDrivers', false);
+			$checks->put('passes', false);
+			$checks->put('pdoDriversFull', PDO::getAvailableDrivers());
+		}
 
 		return $checks;
 	}

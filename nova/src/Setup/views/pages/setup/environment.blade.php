@@ -9,6 +9,50 @@
 @stop
 
 @section('content')
+	@if ($env->get('php') and $env->get('writableDirs') and $env->get('pdo'))
+		<div class="row">
+			<div class="col-md-12">
+				<div class="thumbnail text-center">
+					<h1>PDO Drivers</h1>
+					<h2>Are the MySQL or PostgresSQL PDO drivers available?</h2>
+
+					@if ($env->get('pdoDrivers'))
+						<div>{!! icon($_icons['checkmark'], 'xlg', 'text-success') !!}</div>
+					@else
+						<div>{!! icon($_icons['warning'], 'xlg', 'text-danger') !!}</div>
+						<p>PDO is enabled, but unfortunately, neither the MySQL or PostgresSQL drivers are available. {{ config('nova.app.name') }} needs one or the other in order to be installed. Get in touch with your web host and have them enable one or both of the drivers.</p>
+
+						<p>At the moment, the following drivers are available on your server:</p>
+
+						<ul class="list-unstyled">
+							@foreach ($env->get('pdoDriversFull') as $driver)
+								<li><code>{{ $driver }}</code></li>
+							@endforeach
+						</ul>
+					@endif
+				</div>
+			</div>
+		</div>
+	@endif
+
+	@if ($env->get('php') and $env->get('writableDirs'))
+		<div class="row">
+			<div class="col-md-12">
+				<div class="thumbnail text-center">
+					<h1>PDO</h1>
+					<h2>Is PDO enabled on the server for connecting to the database?</h2>
+
+					@if ($env->get('pdo'))
+						<div>{!! icon($_icons['checkmark'], 'xlg', 'text-success') !!}</div>
+					@else
+						<div>{!! icon($_icons['warning'], 'xlg', 'text-danger') !!}</div>
+						<p>{{ config('nova.app.name') }} is a database-driven system, so in order to work, we have to be able to connect to a database. PDO is the modern way to connect to MySQL and other types of databases, but your server doesn't have PDO enabled. Before you can continue, you'll need to get in touch with your web host to have them enable PDO on the server.</p>
+					@endif
+				</div>
+			</div>
+		</div>
+	@endif
+
 	@if ($env->get('php'))
 		<div class="row">
 			<div class="col-md-12">
