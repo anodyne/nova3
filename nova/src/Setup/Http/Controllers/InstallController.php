@@ -6,6 +6,7 @@ use Cache,
 	Artisan,
 	Redirect,
 	UserCreator;
+use Illuminate\Filesystem\Filesystem;
 
 class InstallController extends Controller {
 
@@ -19,13 +20,16 @@ class InstallController extends Controller {
 		return view('pages.setup.install.nova');
 	}
 
-	public function install()
+	public function install(Filesystem $files)
 	{
 		// Run the migrate commands
 		Artisan::call('migrate', ['--force' => true]);
 
 		// Set the installed cache item
 		Cache::forever('nova.installed', (bool) true);
+
+		// Write the session config file
+		$this->writeSessionConfig($files);
 	}
 
 	public function novaSuccess()
@@ -56,6 +60,15 @@ class InstallController extends Controller {
 		Flash::error("User and character could not be created.");
 
 		return Redirect::route('setup.install.user');
+	}
+
+	protected function writeSessionConfig(Filesystem $files)
+	{
+		// Grab the content from the generator
+		$content = $files->get(app_path('Setup/generators/session.php'));
+
+		// Create the file and store the content
+		$files->put(app('path.config').'/session.php', $content);
 	}
 
 }
