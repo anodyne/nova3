@@ -28,6 +28,9 @@ $novaActive = [
 $userActive = [
 	'setup/install/user',
 ];
+$userCompleted = [
+	'setup/install/user/success',
+];
 
 if (in_array($path, $dbActive))
 {
@@ -60,7 +63,7 @@ if (in_array($path, $userActive))
 {
 	$classes[4] = ' class="step-active"';
 }
-if (User::count() > 0)
+if (in_array($path, $userCompleted))
 {
 	$classes[4] = ' class="step-completed"';
 }
