@@ -46,6 +46,7 @@ class SetupService {
 			storage_path('framework/cache'),
 			storage_path('framework/sessions'),
 			storage_path('framework/views'),
+			app('path.config'),
 		];
 
 		$errorDirs = [];
