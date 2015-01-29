@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'Nova\Foundation\Http\Controllers\WelcomeController@index');
+Route::get('/', [
+	'as'	=> 'home',
+	'uses'	=> 'Nova\Foundation\Http\Controllers\WelcomeController@index']);
 
 Route::get('home', 'Nova\Foundation\Http\Controllers\HomeController@index');
 
