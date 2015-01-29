@@ -1,4 +1,4 @@
-<?php namespace Nova\Foundation\Data\Models;
+<?php namespace Nova\Foundation\Data;
 
 use Model;
 

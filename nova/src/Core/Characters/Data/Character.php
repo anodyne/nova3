@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Characters\Data\Models;
+<?php namespace Nova\Core\Characters\Data;
 
 use Model;
 use Laracasts\Presenter\PresentableTrait;

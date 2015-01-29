@@ -207,10 +207,10 @@ return [
 		/**
 		 * Models
 		 */
-		'Character'	=> 'Nova\Core\Characters\Data\Models\Character',
-		'Page'		=> 'Nova\Core\Pages\Data\Models\Page',
-		'System'	=> 'Nova\Foundation\Data\Models\System',
-		'User'		=> 'Nova\Core\Users\Data\Models\User',
+		'Character'	=> 'Nova\Core\Characters\Data\Character',
+		'Page'		=> 'Nova\Core\Pages\Data\Page',
+		'System'	=> 'Nova\Foundation\Data\System',
+		'User'		=> 'Nova\Core\Users\Data\User',
 
 		/**
 		 * Repository Interfaces

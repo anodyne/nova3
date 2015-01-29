@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Users\Data\Models;
+<?php namespace Nova\Core\Users\Data;
 
 use Hash,
 	Model;
