@@ -113,7 +113,7 @@
 		</div>
 		<div class="col-md-6 text-right">
 			@if (file_exists(app('path.config').'/mail.php'))
-				<p><a href="#" class="btn btn-primary">Next: Install {{ config('nova.app.name') }}</a></p>
+				<p><a href="{{ route('setup.'.$_setupType.'.nova') }}" class="btn btn-primary">Next: Install {{ config('nova.app.name') }}</a></p>
 			@else
 				<p><a class="btn btn-link disabled">Next: Install {{ config('nova.app.name') }}</a></p>
 			@endif
