@@ -9,17 +9,21 @@
 @stop
 
 @section('content')
-	<h1>Fresh Install</h1>
+	<h1>Update</h1>
 
-	<p>Nova 3 is a dynamic, database-driven web system which means there's some work to do before you can use it. Start to finish, the installation should only take a few minutes to complete and then you'll be on your way. If you have questions, you can refer to <a href='http://docs.anodyne-productions.com' target='_blank'>AnodyneDocs</a> or drop in to our <a href='http://forums.anodyne-productions.com' target='_blank'>forums</a>.</p>
+	<p>It isn't enough to just release powerful, easy-to-use software, it also needs to maintained. Our goal is to continually make {{ config('nova.app.name') }} better by fixing issues and adding new functionality. The best way to make sure you're getting the most out of {{ config('nova.app.name') }} is to keep up with any updates as they're released.</p>
 
-	<p>The links below provide information about how to install Nova 3 as well as a brief tour of some of Nova's major features. If you have additional questions, please visit AnodyneDocs or the Anodyne forums for more help.</p>
+	<blockquote>
+		<h4>Before You Begin</h4>
+
+		<p>We <strong>strongly</strong> recommend you backup both your files and your database before updating. We do our best to test the {{ config('nova.app.name') }} updates before releasing them, but there is only so much we can test for. In the end, it's better to be safe than sorry!</p>
+	</blockquote>
 
 	<hr class="partial">
 
 	<div class="row">
 		<div class="col-md-3">
-			<p><a href="#" target="_blank" class="btn btn-link btn-block disabled">Install Guide</a></p>
+			<p><a href="#" target="_blank" class="btn btn-link btn-block disabled">Update Guide</a></p>
 		</div>
 
 		<div class="col-md-3">

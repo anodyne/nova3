@@ -10,7 +10,7 @@
 
 @section('content')
 	<h1>Create Your User Account and Character</h1>
-	<h2>Tell us a little about yourself and the character you want to play</h2>
+	<h2>Tell us a little about yourself and the character you'll play</h2>
 
 	{!! Form::open(['route' => "setup.{$_setupType}.user.store", 'class' => 'form-horizontal']) !!}
 		<div class="form-group">
@@ -69,7 +69,7 @@
 
 		<div class="form-group">
 			<div class="col-md-7 col-md-offset-3">
-				{!! alert('info', "More character options, like rank and position, will be available in future releases.", "Work In Progress") !!}
+				{!! alert('info', "More character options, like rank and position, will be available in future preview releases.", "Work In Progress") !!}
 			</div>
 		</div>
 

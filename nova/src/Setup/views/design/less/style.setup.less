@@ -1,13 +1,12 @@
 @import "variables.setup.less";
 @import "../../../../../views/design/less/mixins.less";
-@import "../../../../../views/design/less/bs3-mixins.less";
 
 body {
 	line-height: @line-height;
 
-	background: @color-bluegrey-50;
+	background: @color-blue-grey-50;
 	font-family: @font;
-	color: #303234;
+	color: @color-body-text;
 	font-size: @font-size;
 }
 
@@ -17,7 +16,7 @@ header {
 	margin-bottom: 25px;
 
 	background: @color-white;
-	color: @color-bluegrey-300;
+	color: @color-blue-grey-300;
 	font-weight: 300;
 	font-family: @font-heading;
 	font-size: 32px;
@@ -28,11 +27,11 @@ header {
 	}
 
 	.divider {
-		color: @color-bluegrey-100;
+		color: @color-blue-grey-100;
 	}
 
 	.process {
-		color: @color-bluegrey-600;
+		color: @color-blue-grey-600;
 		font-weight: 700;
 	}
 
@@ -48,8 +47,8 @@ header {
 nav {
 	padding: @spacing;
 
-	background: @color-bluegrey-800;
-	color: @color-bluegrey-500;
+	background: @color-blue-grey-800;
+	color: @color-blue-grey-500;
 	border: 1px solid rgba(0, 0, 0, .25);
 
 	.rounded(@border-radius-lg);
@@ -84,8 +83,8 @@ nav {
 				font-weight: 600;
 				text-align: center;
 				font-family: @font;
-				background: @color-bluegrey-500;
-				color: @color-bluegrey-800;
+				background: @color-blue-grey-500;
+				color: @color-blue-grey-800;
 
 				.rounded(50px);
 			}
@@ -114,10 +113,10 @@ nav {
 
 			&.step-completed {
 				color: rgba(255, 255, 255, .5);
-				background: @color-bluegrey-600;
+				background: @color-blue-grey-600;
 
 				&:before {
-					color: @color-bluegrey-600;
+					color: @color-blue-grey-600;
 					background: rgba(255, 255, 255, .5);
 				}
 
@@ -139,7 +138,7 @@ main {
 	margin-bottom: 25px;
 
 	background: @color-white;
-	color: @color-bluegrey-800;
+	color: @color-blue-grey-800;
 	border: 1px solid rgba(0, 0, 0, .1);
 
 	.rounded(@border-radius-lg);
@@ -167,7 +166,7 @@ main {
 
 		.btn {
 			&.btn-link {
-				color: @color-bluegrey-300;
+				color: @color-blue-grey-300;
 			}
 		}
 	}
@@ -181,7 +180,7 @@ main {
 		font-size: 28px;
 		font-weight: 700;
 		font-family: @font-heading;
-		color: @color-bluegrey-600;
+		color: @color-blue-grey-600;
 	}
 
 	h2 {
@@ -190,7 +189,7 @@ main {
 		text-align: center;
 		font-size: 15px;
 		font-weight: 400;
-		color: @color-bluegrey-300;
+		color: @color-blue-grey-300;
 	}
 
 	h3 {
@@ -198,7 +197,7 @@ main {
 		font-size: 20px;
 		font-weight: 700;
 		font-family: @font-heading;
-		color: @color-bluegrey-600;
+		color: @color-blue-grey-600;
 	}
 
 	p {
@@ -209,11 +208,11 @@ main {
 
 	form {
 		.control-label {
-			color: @color-bluegrey-600;
+			color: @color-blue-grey-600;
 		}
 
 		.form-control {
-			color: @color-bluegrey-600;
+			color: @color-blue-grey-600;
 		}
 
 		.input-lg {
@@ -223,7 +222,7 @@ main {
 		.help-block {
 			margin-bottom: 5px;
 
-			color: @color-bluegrey-300;
+			color: @color-blue-grey-300;
 			font-size: @font-size-sm;
 		}
 
@@ -244,7 +243,7 @@ main {
 		font-size: 28px;
 		font-weight: 700;
 		font-family: @font-heading;
-		color: @color-bluegrey-600;
+		color: @color-blue-grey-600;
 	}
 
 	h2 {
@@ -252,19 +251,19 @@ main {
 
 		font-size: 15px;
 		font-weight: 400;
-		color: @color-bluegrey-300;
+		color: @color-blue-grey-300;
 	}
 
 	p, ul li {
 		line-height: @line-height;
 
 		font-size: 15px;
-		color: @color-bluegrey-800;
+		color: @color-blue-grey-800;
 		text-align: left;
 	}
 
 	.icn {
-		color: @color-bluegrey-400;
+		color: @color-blue-grey-400;
 
 		&.text-success {
 			color: @color-success;
@@ -280,7 +279,7 @@ footer {
 
 	text-align: center;
 	font-size: @font-size-sm;
-	color: @color-bluegrey-300;
+	color: @color-blue-grey-300;
 }
 
 .font-sm {
@@ -295,6 +294,14 @@ footer {
 	}
 }
 
+.text-success {
+	color: @color-success;
+
+	&:hover {
+		color: @color-success;
+	}
+}
+
 h1, h2, h3, h4, h5, h6 {
 	font-family: @font;
 }
@@ -306,6 +313,9 @@ h1, h2, h3, h4, h5, h6 {
 
 	&.btn-primary {
 		.btn-pseudo-states(@color-white, @color-primary, @color-primary);
+	}
+	&.btn-danger {
+		.btn-pseudo-states(@color-white, @color-danger, @color-danger);
 	}
 }
 
@@ -322,9 +332,22 @@ hr.partial {
 	h4 {
 		font-weight: 600;
 	}
+
+	&.alert-info {
+		.alert-variant(@color-blue-100, @color-blue-200, @color-blue-700);
+	}
+	&.alert-danger {
+		.alert-variant(@color-red-100, @color-red-200, @color-red-800);
+	}
+	&.alert-success {
+		.alert-variant(@color-green-100, @color-green-200, @color-green-800);
+	}
+	&.alert-warning {
+		.alert-variant(@color-amber-100, @color-amber-200, darken(@color-amber-900, 10%));
+	}
 }
 
 code {
-	color: @color-primary;
-	background: @color-bluegrey-50;
+	color: @color-blue-500;
+	background: @color-blue-grey-50;
 }

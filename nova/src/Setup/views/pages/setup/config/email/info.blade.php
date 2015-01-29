@@ -35,11 +35,22 @@
 		</div>
 
 		<div id="settings-smtp" class="hide">
-			<h3>SMTP Email</h3>
+			<div class="form-group">
+				<div class="col-md-8 col-md-offset-3">
+					<h3>SMTP Service</h3>
 
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce magna enim, volutpat vel porttitor vitae, iaculis quis mauris. Donec eleifend viverra mauris, in congue quam posuere a. Phasellus sem nisl, dapibus sit amet dolor non, molestie condimentum nisl. Nam eget consequat ex, eget hendrerit sem. Proin malesuada a est at elementum. Duis eget pharetra arcu.</p>
+					<p>Sending email through an SMTP service removes the onus for delivering email off of your web host and onto a third-party service. (Trust me, your web host will love you for it!) In most cases, SMTP email services are far more reliable at deliverying email, and since that's all they do, they're much better at ensuring your messages aren't marked as spam or vanish into the ether. <strong class="text-success">We recommend using an SMTP service to deliver email from {{ config('nova.app.name') }}.</strong></p>
 
-			<hr class="partial">
+					<p>Here are a list of free and/or cheap SMTP services to check out:</p>
+
+					<ul>
+						<li><a href="http://www.mailgun.com/" target="_blank">Mailgun</a></li>
+						<li><a href="http://mandrill.com/" target="_blank">Mandrill</a></li>
+						<li><a href="https://postmarkapp.com/" target="_blank">Postmark</a></li>
+						<li><a href="https://sendgrid.com/" target="_blank">SendGrid</a></li>
+					</ul>
+				</div>
+			</div>
 
 			<div class="form-group">
 				<label class="col-md-3 control-label">Host</label>
@@ -50,14 +61,14 @@
 
 			<div class="form-group">
 				<label class="col-md-3 control-label">Port</label>
-				<div class="col-md-7">
+				<div class="col-md-2">
 					{!! Form::text('mail_port', 587, ['class' => 'input-lg form-control']) !!}
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="col-md-3 control-label">Encryption</label>
-				<div class="col-md-7">
+				<div class="col-md-2">
 					{!! Form::text('mail_encryption', 'tls', ['class' => 'input-lg form-control']) !!}
 				</div>
 			</div>
@@ -78,11 +89,13 @@
 		</div>
 
 		<div id="settings-sendmail" class="hide">
-			<h3>Sendmail</h3>
+			<div class="form-group">
+				<div class="col-md-8 col-md-offset-3">
+					<h3>Sendmail</h3>
 
-			<p>Depending on your web host's setup, sending email through sendmail may be the same as sending through PHP's <code>mail()</code> function. If you have specific reasons to send email through sendmail or your web host recommends using sendmail instead of <code>mail()</code>, use this option.</p>
-
-			<hr class="partial">
+					<p>Depending on your web host's setup, sending email through sendmail may be the same as sending through PHP's <code>mail()</code> function. If you have specific reasons to send email through sendmail or your web host recommends using sendmail instead of <code>mail()</code>, use this option.</p>
+				</div>
+			</div>
 
 			<div class="form-group">
 				<label class="col-md-3 control-label">Sendmail Path</label>
@@ -93,9 +106,13 @@
 		</div>
 
 		<div id="settings-phpmail" class="hide">
-			<h3>PHP Mail</h3>
+			<div class="form-group">
+				<div class="col-md-8 col-md-offset-3">
+					<h3>PHP Mail</h3>
 
-			<p>This is the way that previous versions of Nova have sent email. It's the simplest email option available, requires no external services or information, and is enabled on most servers. In the past though, we've run into issues with email not being delivered or marked as spam or other general issues with email. <strong class="text-error">Use this option only as a last resort!</strong></p>
+					<p>This is the way that previous versions of Nova have sent email. It's the simplest email option available, requires no external services or information, and is enabled on most servers. In the past though, we've run into issues with email not being delivered or marked as spam or other issues with email delivery. <strong class="text-danger">Use this option only as a last resort!</strong></p>
+				</div>
+			</div>
 		</div>
 
 		<div class="form-group">

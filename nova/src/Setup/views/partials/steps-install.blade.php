@@ -7,7 +7,6 @@ $classes = [
 	2 => '',
 	3 => '',
 	4 => '',
-	5 => '',
 ];
 
 $dbActive = [
@@ -73,5 +72,4 @@ if (in_array($path, $userCompleted))
 	<li{!! $classes[2] !!}>{!! icon($_icons['2']) !!}Email Settings</li>
 	<li{!! $classes[3] !!}>{!! icon($_icons['3']) !!}Install {{ config('nova.app.name') }}</li>
 	<li{!! $classes[4] !!}>{!! icon($_icons['4']) !!}Create User &amp; Character</li>
-	<li{!! $classes[5] !!}>{!! icon($_icons['5']) !!}Finalize</li>
 </ol>
