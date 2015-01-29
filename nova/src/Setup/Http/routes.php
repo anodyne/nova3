@@ -26,6 +26,10 @@ Route::group($options, function()
 	Route::get('update', [
 		'as'	=> 'setup.update',
 		'uses'	=> 'UpdateController@index']);
+
+	Route::post('uninstall', [
+		'as'	=> 'setup.uninstall',
+		'uses'	=> 'SetupController@uninstall']);
 });
 
 $installOptions = array_merge($options, [
