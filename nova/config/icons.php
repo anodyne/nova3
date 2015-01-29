@@ -16,7 +16,6 @@ return [
 		'migrate' => 'e',
 		'new' => 'n',
 		'refresh' => 'r',
-		'settings' => 's',
 		'trash' => 'd',
 		'update' => 'u',
 		'warning' => '!',
