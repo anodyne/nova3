@@ -1,12 +1,11 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use Cache,
-	Flash,
+use Flash,
 	Input,
 	Artisan,
-	Redirect,
 	UserCreator;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Contracts\Cache\Repository as Cache;
 
 class InstallController extends Controller {
 
@@ -20,16 +19,19 @@ class InstallController extends Controller {
 		return view('pages.setup.install.nova');
 	}
 
-	public function install(Filesystem $files)
+	public function install(Cache $cache, Filesystem $files)
 	{
 		// Run the migrate commands
 		Artisan::call('migrate', ['--force' => true]);
 
 		// Set the installed cache item
-		Cache::forever('nova.installed', (bool) true);
+		$cache->forever('nova.installed', (bool) true);
 
-		// Write the session config file
-		$this->writeSessionConfig($files);
+		// Grab the content from the generator
+		$content = $files->get(app_path('Setup/generators/session.php'));
+
+		// Create the file and store the content
+		$files->put(app('path.config').'/session.php', $content);
 	}
 
 	public function novaSuccess()
@@ -54,21 +56,12 @@ class InstallController extends Controller {
 
 		if ($creator)
 		{
-			return Redirect::route('setup.install.user.success');
+			return redirect()->route('setup.install.user.success');
 		}
 
 		Flash::error("User and character could not be created.");
 
-		return Redirect::route('setup.install.user');
-	}
-
-	protected function writeSessionConfig(Filesystem $files)
-	{
-		// Grab the content from the generator
-		$content = $files->get(app_path('Setup/generators/session.php'));
-
-		// Create the file and store the content
-		$files->put(app('path.config').'/session.php', $content);
+		return redirect()->route('setup.install.user');
 	}
 
 }
