@@ -1,11 +1,11 @@
 <?php namespace Nova\Foundation\Http\Controllers\Auth;
 
-use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Foundation\Http\Controllers\BaseController;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
-class PasswordController extends Controller {
+class PasswordController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------

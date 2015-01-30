@@ -1,11 +1,11 @@
 <?php namespace Nova\Foundation\Http\Controllers\Auth;
 
-use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Foundation\Http\Controllers\BaseController;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
-class AuthController extends Controller {
+class AuthController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------

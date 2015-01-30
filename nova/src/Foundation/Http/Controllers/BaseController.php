@@ -1,13 +1,13 @@
 <?php namespace Nova\Foundation\Http\Controllers;
 
+use Locate;
 use stdClass;
-use Locate, Theme;
+use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Bus\DispatchesCommands,
 	Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as IlluminateController;
 use Illuminate\Contracts\Foundation\Application;
 
-abstract class Controller extends IlluminateController {
+abstract class BaseController extends Controller {
 
 	use DispatchesCommands, ValidatesRequests;
 
@@ -33,12 +33,28 @@ abstract class Controller extends IlluminateController {
 		$this->currentUser	= $app['nova.user'];
 
 		// Check if Nova is installed
-		$this->middleware('nova.installed');
+		$this->beforeFilter(function()
+		{
+			if ( ! app('nova.setup')->isInstalled())
+			{
+				return redirect()->route('setup.env');
+			}
+		});
 
-		// Bind the data we need to all views
-		$this->middleware('nova.bindViewData');
+		// Bind some data to all views
+		$this->beforeFilter(function($route, $request)
+		{
+			if (app('nova.setup')->isInstalled())
+			{
+				view()->share('_page', 
+					app('PageRepository')->getByRoute($request->route())
+				);
+				view()->share('_icons', false);
+				view()->share('_currentUser', app('nova.user'));
+			}
+		});
 
-		// Render the template and pass it to the response
+		// Render the template after everything is done
 		$this->afterFilter('@renderTemplate');
 	}
 
@@ -67,7 +83,7 @@ abstract class Controller extends IlluminateController {
 	{
 		$data = [];
 
-		$this->theme = Theme::structure($this->structureView, $data);
+		$this->theme = app('nova.theme')->structure($this->structureView, $data);
 	}
 
 	protected function buildThemeTemplate()
@@ -96,22 +112,19 @@ abstract class Controller extends IlluminateController {
 
 	public function renderTemplate($route, $request, $response)
 	{
-		/**
-		 * Build the structure
-		 */
-		$layout = view(Locate::structure($this->structureView));
+		if (app('nova.setup')->isInstalled())
+		{
+			$layout = view(Locate::structure($this->structureView));
 
-		if ($this->jsView)
-			$layout->javascript = view(Locate::js($this->jsView))->with((array) $this->jsData);
+			if ($this->jsView)
+				$layout->javascript = view(Locate::js($this->jsView))->with((array) $this->jsData);
 
-		/**
-		 * Build the template
-		 */
-		$layout->template = view(Locate::template($this->templateView));
-		$layout->template->content = view(Locate::page($this->view))->with((array) $this->data);
+			$layout->template = view(Locate::template($this->templateView));
+			$layout->template->content = view(Locate::page($this->view))->with((array) $this->data);
 
-		// Set the content of the response to our full layout now
-		$response->setContent($layout);
+			// Set the content of the response to our full layout now
+			$response->setContent($layout);
+		}
 	}
 
 }

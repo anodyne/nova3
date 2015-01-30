@@ -1,6 +1,6 @@
 <?php namespace Nova\Foundation\Http\Controllers;
 
-class HomeController extends Controller {
+class HomeController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------
