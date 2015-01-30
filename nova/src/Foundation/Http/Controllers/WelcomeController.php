@@ -2,8 +2,6 @@
 
 class WelcomeController extends Controller {
 
-	protected $section = 'main';
-
 	public function index()
 	{
 		$this->view = 'welcome';
