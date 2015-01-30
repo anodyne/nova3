@@ -2,11 +2,15 @@
 
 use UserCreator,
 	CharacterCreator;
-use Illuminate\Support\ServiceProvider;
+use ReflectionClass;
+use Illuminate\Support\ClassLoader,
+	Illuminate\Support\ServiceProvider;
 use League\CommonMark\CommonMarkConverter;
 use Nova\Foundation\Services\FlashNotifierService,
 	Nova\Foundation\Services\MarkdownParserService,
-	Nova\Foundation\Services\Locator\LocatorService;
+	Nova\Foundation\Services\Locator\LocatorService,
+	Nova\Foundation\Services\Themes\Theme as BaseTheme,
+	Nova\Foundation\Services\Themes\MissingThemeImplementationException;;
 use Nova\Foundation\Services\PageCompiler\CompilerEngine,
 	Nova\Foundation\Services\PageCompiler\Compilers\SettingCompiler;
 
@@ -26,6 +30,7 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->createLocator();
 		$this->createPageCompilerEngine();
 		$this->registerBindings();
+		$this->setupTheme();
 	}
 
 	/**
@@ -118,6 +123,41 @@ class NovaServiceProvider extends ServiceProvider {
 		{
 			$this->bindRepository($binding);
 		}
+	}
+
+	protected function setupTheme()
+	{
+		# TODO: pull the default theme out of the database if we need it
+		// Get the theme name
+		$themeName = ($this->app['auth']->check())
+			? $this->app['nova.user']->getPreference('theme')
+			: 'pulsar';
+
+		// Autoload the appropriate theme directory
+		//ClassLoader::addDirectories([$this->app->themePath($themeName)]);
+		ClassLoader::load($this->app->themePath($themeName).'/Theme.php');
+
+		// Does the user's theme have a theme file?
+		$theme = (class_exists('Theme')) 
+			? new \Theme($themeName, $this->app) 
+			: new BaseTheme($themeName, $this->app);
+
+		// The interfaces the class must implement
+		$mustImplement = [
+			'Nova\Foundation\Services\Themes\Themeable',
+			'Nova\Foundation\Services\Themes\ThemeableInfo'
+		];
+
+		// The final class has to implment both interfaces or we need to throw an exception
+		if (count(array_intersect($mustImplement, class_implements($theme))) < 2)
+		{
+			throw new MissingThemeImplementationException;
+		}
+
+		$this->app->bind('nova.theme', function($app) use ($theme)
+		{
+			return $theme;
+		});
 	}
 
 	private function bindRepository($item)
