@@ -24,12 +24,9 @@ class Kernel extends HttpKernel {
 	 * @var array
 	 */
 	protected $routeMiddleware = [
-		'auth'				=> 'Nova\Foundation\Http\Middleware\Authenticate',
-		'auth.basic'		=> 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-		'guest'				=> 'Nova\Foundation\Http\Middleware\RedirectIfAuthenticated',
-		
-		'nova.installed'	=> 'Nova\Foundation\Http\Middleware\Installed',
-		'nova.bindViewData'	=> 'Nova\Foundation\Http\Middleware\BindViewData',
+		'auth'			=> 'Nova\Foundation\Http\Middleware\Authenticate',
+		'auth.basic'	=> 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
+		'guest'			=> 'Nova\Foundation\Http\Middleware\RedirectIfAuthenticated',
 	];
 
 	public function handle($request)
