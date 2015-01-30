@@ -1,6 +1,6 @@
 <?php namespace Nova\Foundation\Services\Themes;
 
-use Nova\Foundation\Application;
+use Illuminate\Contracts\Foundation\Application;
 
 class Theme implements Themeable, ThemeableInfo {
 
@@ -16,6 +16,7 @@ class Theme implements Themeable, ThemeableInfo {
 	protected $location;
 
 	protected $data = [];
+	protected $views = [];
 
 	public function __construct($themeName, Application $app)
 	{
@@ -240,6 +241,20 @@ class Theme implements Themeable, ThemeableInfo {
 	public function getVersion()
 	{
 		return $this->version;
+	}
+
+	public function setData($key, $data)
+	{
+		$this->data[$key] = $data;
+
+		return $this;
+	}
+
+	public function setView($key, $file)
+	{
+		$this->views[$key] = $file;
+
+		return $this;
 	}
 
 	/**

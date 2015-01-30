@@ -60,4 +60,7 @@ interface Themeable {
 	 */
 	public function render();
 
+	public function setData($key, $data);
+	public function setView($key, $file);
+
 }
