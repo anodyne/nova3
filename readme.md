@@ -2,13 +2,6 @@
 
 A powerful and easy-to-use online RPG management system with a wide range of features for managing online RPGs.
 
-- Robust user/character systems
-- Built-in posting
-- Integrated forum
-- Application review system
-- Dynamic forms for collecting any information you want
-- Responsive web design for optimal viewing on any device you use
-
 ## Current Version
 
 3.0.0-alpha.1
