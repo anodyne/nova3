@@ -6,8 +6,9 @@ use Flash,
 	UserCreator;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Contracts\Cache\Repository as Cache;
+use Nova\Setup\Http\Requests\CreateUserRequest;
 
-class InstallController extends Controller {
+class InstallController extends BaseController {
 
 	public function index()
 	{
@@ -49,7 +50,7 @@ class InstallController extends Controller {
 		return view('pages.setup.install.user-success');
 	}
 
-	public function createUser(UserCreator $userCreator)
+	public function createUser(UserCreator $userCreator, CreateUserRequest $request)
 	{
 		// Create a new user and character
 		$creator = $userCreator->create(Input::all());

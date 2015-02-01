@@ -4,7 +4,7 @@ use Artisan;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Contracts\Cache\Repository as Cache;
 
-class SetupController extends Controller {
+class SetupController extends BaseController {
 
 	public function index()
 	{

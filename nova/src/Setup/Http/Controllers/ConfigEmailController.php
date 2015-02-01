@@ -5,7 +5,7 @@ use Flash,
 	Redirect;
 use Illuminate\Filesystem\Filesystem;
 
-class ConfigEmailController extends Controller {
+class ConfigEmailController extends BaseController {
 
 	public function info()
 	{

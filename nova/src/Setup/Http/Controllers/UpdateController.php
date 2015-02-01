@@ -2,7 +2,7 @@
 
 use Redirect;
 
-class UpdateController extends Controller {
+class UpdateController extends BaseController {
 
 	public function index()
 	{
