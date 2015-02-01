@@ -18,7 +18,7 @@
 			<div class="col-md-7">
 				<div class="radio">
 					<label>
-						{!! Form::radio('mail_driver', 'smtp', false) !!} SMTP Service <em>(recommended)</em>
+						{!! Form::radio('mail_driver', 'smtp', false) !!} SMTP Service <em class="text-success">(recommended)</em>
 					</label>
 				</div>
 				<div class="radio">
@@ -39,9 +39,9 @@
 				<div class="col-md-8 col-md-offset-3">
 					<h3>SMTP Service</h3>
 
-					<p>Sending email through an SMTP service removes the onus for delivering email off of your web host and onto a third-party service. (Trust me, your web host will love you for it!) In most cases, SMTP email services are far more reliable at deliverying email, and since that's all they do, they're much better at ensuring your messages aren't marked as spam or vanish into the ether. <strong class="text-success">We recommend using an SMTP service to deliver email from {{ config('nova.app.name') }}.</strong></p>
+					<p>Sending email through an SMTP service removes the onus for delivering email off of your web host and onto a third-party service. (Trust me, your web host will love you for it!) In most cases, SMTP email services are <em>far</em> more reliable at deliverying email and ensuring your messages aren't marked as spam. <strong class="text-success">We recommend using an SMTP email service to deliver email from {{ config('nova.app.name') }}.</strong></p>
 
-					<p>Here are a list of free and/or cheap SMTP services to check out:</p>
+					<p>Here are a list of free and/or cheap SMTP email services to check out:</p>
 
 					<ul>
 						<li><a href="http://www.mailgun.com/" target="_blank">Mailgun</a></li>
@@ -110,7 +110,7 @@
 				<div class="col-md-8 col-md-offset-3">
 					<h3>PHP Mail</h3>
 
-					<p>This is the way that previous versions of Nova have sent email. It's the simplest email option available, requires no external services or information, and is enabled on most servers. In the past though, we've run into issues with email not being delivered or marked as spam or other issues with email delivery. <strong class="text-danger">Use this option only as a last resort!</strong></p>
+					<p>All previous versions of Nova have sent email through PHP's <code>mail()</code> function. It's the simplest email option available, requires no external services or information, and is enabled by default on most shared hosts. In the past though, we've run into issues with email not being delivered or being marked as spam. <strong class="text-danger">Use this option only as a last resort!</strong></p>
 				</div>
 			</div>
 		</div>
