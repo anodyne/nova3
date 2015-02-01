@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'default' => 'mysql',
+	'default' => env('DB_DRIVER', 'mysql'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -49,7 +49,7 @@ return [
 		'sqlite' => [
 			'driver'   => 'sqlite',
 			'database' => storage_path().'/database.sqlite',
-			'prefix'   => env('DB_PREFIX', 'DbPrefix'),
+			'prefix'   => env('DB_PREFIX', 'nova_'),
 		],
 
 		'mysql' => [
@@ -60,7 +60,7 @@ return [
 			'password'  => env('DB_PASSWORD', 'DbPassword'),
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
-			'prefix'   => env('DB_PREFIX', 'DbPrefix'),
+			'prefix'   => env('DB_PREFIX', 'nova_'),
 			'strict'    => false,
 		],
 
@@ -71,7 +71,7 @@ return [
 			'username' => env('DB_USERNAME', 'DbUsername'),
 			'password' => env('DB_PASSWORD', 'DbPassword'),
 			'charset'  => 'utf8',
-			'prefix'   => env('DB_PREFIX', 'DbPrefix'),
+			'prefix'   => env('DB_PREFIX', 'nova_'),
 			'schema'   => 'public',
 		],
 
@@ -81,7 +81,7 @@ return [
 			'database' => env('DB_DATABASE', 'DbDatabase'),
 			'username' => env('DB_USERNAME', 'DbUsername'),
 			'password' => env('DB_PASSWORD', 'DbPassword'),
-			'prefix'   => env('DB_PREFIX', 'DbPrefix'),
+			'prefix'   => env('DB_PREFIX', 'nova_'),
 		],
 
 	],
