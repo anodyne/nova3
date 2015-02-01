@@ -40,7 +40,7 @@ header {
 		width: 60px;
 		height: @header-height;
 
-		background: transparent url(../images/anodyne-logo.png) center center no-repeat;
+		background: transparent url(../images/anodyne.png) center center no-repeat;
 	}
 }
 
@@ -302,6 +302,14 @@ footer {
 	}
 }
 
+.text-warning {
+	color: @color-warning;
+
+	&:hover {
+		color: @color-warning;
+	}
+}
+
 h1, h2, h3, h4, h5, h6 {
 	font-family: @font;
 }
@@ -350,4 +358,45 @@ hr.partial {
 code {
 	color: @color-blue-500;
 	background: @color-blue-grey-50;
+}
+
+.logo {
+	margin-left: 8px;
+
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: top left;
+
+	&.mysql {
+		height: 58px;
+		width: 85px;
+
+		background-image: url(../images/mysql.png);
+	}
+
+	&.postgresql {
+		height: 75px;
+		width: 85px;
+
+		background-image: url(../images/postgresql.png);
+	}
+
+	&.sqlite {
+		height: 40px;
+		width: 85px;
+
+		background-image: url(../images/sqlite.png);
+	}
+}
+
+.has-error .help-block,
+.has-error .control-label {
+	color: @color-danger;
+}
+.has-error .form-control {
+	border-color: @color-danger;
+}
+.has-error .help-block a {
+	color: darken(@color-danger, 10%);
+	text-decoration: underline;
 }
