@@ -19,31 +19,35 @@
 			</div>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group{{ ($errors->has('user.name')) ? ' has-error' : '' }}">
 			<label class="col-md-3 control-label">Name</label>
 			<div class="col-md-7">
 				{!! Form::text('user[name]', null, ['class' => 'input-lg form-control']) !!}
+				{!! $errors->first('user.name', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group{{ ($errors->has('user.email')) ? ' has-error' : '' }}">
 			<label class="col-md-3 control-label">Email Address</label>
 			<div class="col-md-7">
 				{!! Form::email('user[email]', null, ['class' => 'input-lg form-control']) !!}
+				{!! $errors->first('user.email', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group{{ ($errors->has('user.password')) ? ' has-error' : '' }}">
 			<label class="col-md-3 control-label">Password</label>
 			<div class="col-md-7">
 				{!! Form::password('user[password]', ['class' => 'input-lg form-control']) !!}
+				{!! $errors->first('user.password', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group{{ ($errors->has('user.confirm_password')) ? ' has-error' : '' }}">
 			<label class="col-md-3 control-label">Confirm Password</label>
 			<div class="col-md-7">
 				{!! Form::password('user[confirm_password]', ['class' => 'input-lg form-control']) !!}
+				{!! $errors->first('user.confirm_password', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>
 
@@ -53,10 +57,11 @@
 			</div>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group{{ ($errors->has('character.first_name')) ? ' has-error' : '' }}">
 			<label class="col-md-3 control-label">First Name</label>
 			<div class="col-md-7">
 				{!! Form::text('character[first_name]', null, ['class' => 'input-lg form-control']) !!}
+				{!! $errors->first('character.first_name', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>
 
@@ -69,7 +74,7 @@
 
 		<div class="form-group">
 			<div class="col-md-7 col-md-offset-3">
-				{!! alert('info', "More character options, like rank and position, will be available in future preview releases.", "Work In Progress") !!}
+				{!! alert('warning', "More character options, like rank and position, will be available in future preview releases.", "Work In Progress") !!}
 			</div>
 		</div>
 
