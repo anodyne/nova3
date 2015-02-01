@@ -6,24 +6,19 @@ use Flash,
 use PDO, PDOException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Database\Connectors\Connector;
+use Nova\Setup\Http\Requests\WriteDbSettingsRequest;
 
-class ConfigDbController extends Controller {
+class ConfigDbController extends BaseController {
 
 	public function info()
 	{
 		return view('pages.setup.config.db.info');
 	}
 
-	public function check(Connector $connector)
+	public function check(Connector $connector, Filesystem $files)
 	{
-		if (Input::get('db_name') == "")
-		{
-			Flash::error("Please enter a database name to configure your database connection.", "No Database Found");
-
-			return Redirect::back()->withInput();
-		}
-
 		// Set the session variables
+		session(['dbDriver' => trim(Input::get('db_driver'))]);
 		session(['dbName' => trim(Input::get('db_name'))]);
 		session(['dbUser' => trim(Input::get('db_user'))]);
 		session(['dbPass' => trim(Input::get('db_password'))]);
@@ -31,25 +26,50 @@ class ConfigDbController extends Controller {
 		session(['prefix' => trim(Input::get('db_prefix'))]);
 
 		// Set the connection parameters
-		config(['database.connections.mysql.host' => session('dbHost')]);
-		config(['database.connections.mysql.database' => session('dbName')]);
-		config(['database.connections.mysql.username' => session('dbUser')]);
-		config(['database.connections.mysql.password' => session('dbPass')]);
-		config(['database.connections.mysql.prefix' => session('prefix')]);
+		config(['database.default' => session('dbDriver')]);
+
+		if (session('dbDriver') == 'sqlite')
+		{
+			// Make sure the database file exists
+			if ( ! $files->exists(storage_path().'/database.sqlite'))
+			{
+				$files->put(storage_path().'/database.sqlite', '');
+			}
+
+			config(['database.connections.sqlite.prefix' => session('prefix')]);
+
+			// Build the config array
+			$config = [
+				'type'		=> config("database.default"),
+				'database'	=> config("database.connections.sqlite.database"),
+			];
+		}
+		else
+		{
+			config([
+				"database.connections.{session('dbDriver')}.host" => session('dbHost'),
+				"database.connections.{session('dbDriver')}.database" => session('dbName'),
+				"database.connections.{session('dbDriver')}.username" => session('dbUser'),
+				"database.connections.{session('dbDriver')}.password" => session('dbPass'),
+				"database.connections.{session('dbDriver')}.prefix" => session('prefix')
+			]);
+
+			// Build the config array
+			$config = [
+				'type'		=> config("database.default"),
+				'host'		=> config("database.connections.{session('dbDriver')}.host"),
+				'database'	=> config("database.connections.{session('dbDriver')}.database"),
+				'username'	=> config("database.connections.{session('dbDriver')}.username"),
+				'password'	=> config("database.connections.{session('dbDriver')}.password"),
+			];
+		}
 
 		try
 		{
-			// Build the config array
-			$config = [
-				'type'		=> 'mysql',
-				'host'		=> config("database.connections.mysql.host"),
-				'database'	=> config("database.connections.mysql.database"),
-				'username'	=> config("database.connections.mysql.username"),
-				'password'	=> config("database.connections.mysql.password"),
-			];
-
 			// Build the DSN
-			$dsn = "{$config['type']}:host={$config['host']};dbname={$config['database']}";
+			$dsn = (session('dbDriver') == 'sqlite')
+				? "sqlite:".config('database.connections.sqlite.database')
+				: "{$config['type']}:host={$config['host']};dbname={$config['database']}";
 
 			// Try to connect to the database
 			$connection = $connector->createConnection($dsn, $config, $connector->getDefaultOptions());
@@ -97,6 +117,7 @@ class ConfigDbController extends Controller {
 
 			// Setup the replacement dictionary
 			$replacements = [
+				"#DB_DRIVER#"	=> session('dbDriver'),
 				"#DB_HOST#"		=> session('dbHost'),
 				"#DB_DATABASE#"	=> session('dbName'),
 				"#DB_USERNAME#"	=> session('dbUser'),

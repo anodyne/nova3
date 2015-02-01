@@ -14,45 +14,116 @@
 
 	{!! Form::open(['route' => "setup.{$_setupType}.config.db.check", 'class' => 'form-horizontal']) !!}
 		<div class="form-group">
-			<label class="col-md-3 control-label">Host</label>
+			<label class="col-md-3 control-label">Driver</label>
 			<div class="col-md-7">
-				{!! Form::text('db_host', 'localhost', ['class' => 'input-lg form-control']) !!}
-				<p class="help-block">For most web hosts, <em>localhost</em> will be correct. If you aren't sure or the information you received from your web host isn't clear about what the database host name is, contact them for more information.</p>
+				@if (in_array('mysql', PDO::getAvailableDrivers()))
+					<div class="radio">
+						<label>
+							{!! Form::radio('db_driver', 'mysql', false) !!} <div class="logo mysql"></div>
+						</label>
+					</div>
+				@endif
+
+				@if (in_array('pgsql', PDO::getAvailableDrivers()))
+					<div class="radio">
+						<label>
+							{!! Form::radio('db_driver', 'pgsql', false) !!} <div class="logo postgresql"></div>
+						</label>
+					</div>
+				@endif
+
+				@if (in_array('sqlite', PDO::getAvailableDrivers()))
+					<div class="radio">
+						<label>
+							{!! Form::radio('db_driver', 'sqlite', false) !!} <div class="logo sqlite"></div>
+						</label>
+					</div>
+				@endif
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label class="col-md-3 control-label">Database Name</label>
-			<div class="col-md-7">
-				{!! Form::text('db_name', false, ['class' => 'input-lg form-control']) !!}
+		<div id="not-sqlite" class="hide">
+			<div class="form-group hide" id="not-sqlite-mysql">
+				<div class="col-md-8 col-md-offset-3">
+					<h3>MySQL</h3>
+
+					<p>MySQL is the database driver that all previous versions of Nova have used and is one of the most widely available database systems in the world. Most shared hosts have MySQL installed by default so this is most often the best option for running {{ config('nova.app.name') }}. If you have questions about MySQL, get in touch with your web host.</p>
+				</div>
+			</div>
+
+			<div class="form-group hide" id="not-sqlite-pgsql">
+				<div class="col-md-8 col-md-offset-3">
+					<h3>PostgreSQL</h3>
+
+					<p>Though often considered to be geared more toward enterprise applications, PostgreSQL is a mature database system in the vein of Oracle. In most cases, PostgresSQL isn't available on shared hosts and will need to be installed separately. If you have questions about PostgresSQL, get in touch with your web host. <strong class="text-warning">This option is currently experimental.</strong></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-3 control-label">Host</label>
+				<div class="col-md-7">
+					{!! Form::text('db_host', 'localhost', ['class' => 'input-lg form-control']) !!}
+					<p class="help-block">For most web hosts, <em>localhost</em> will be correct. If you aren't sure or the information you received from your web host isn't clear about what the database host name is, contact them for more information.</p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-3 control-label">Database Name</label>
+				<div class="col-md-7">
+					{!! Form::text('db_name', false, ['class' => 'input-lg form-control']) !!}
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-3 control-label">Table Prefix</label>
+				<div class="col-md-7">
+					{!! Form::text('db_prefix', 'nova_', ['class' => 'input-lg form-control']) !!}
+					<p class="help-block">Setting the table prefix will allow you to install {{ config('nova.app.name') }} into a database with other applications.</p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-3 control-label">Username</label>
+				<div class="col-md-7">
+					{!! Form::text('db_user', false, ['class' => 'input-lg form-control']) !!}
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-3 control-label">Password</label>
+				<div class="col-md-7">
+					{!! Form::text('db_password', false, ['class' => 'input-lg form-control']) !!}
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-md-7 col-md-offset-3">
+					{!! Form::button('Test Database Connection', ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+				</div>
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label class="col-md-3 control-label">Table Prefix</label>
-			<div class="col-md-7">
-				{!! Form::text('db_prefix', 'nova_', ['class' => 'input-lg form-control']) !!}
-				<p class="help-block">Setting the table prefix will allow you to install {{ config('nova.app.name') }} into a database with other applications.</p>
-			</div>
-		</div>
+		<div id="sqlite" class="hide">
+			<div class="form-group">
+				<div class="col-md-8 col-md-offset-3">
+					<h3>SQLite</h3>
 
-		<div class="form-group">
-			<label class="col-md-3 control-label">Username</label>
-			<div class="col-md-7">
-				{!! Form::text('db_user', false, ['class' => 'input-lg form-control']) !!}
+					<p>SQLite is a file-based database that uses a single database file on the server. Because of this, a good rule of thumb is that you should avoid using SQLite in situations where the database will be accessed simultaneously from multiple locations. Because of this, <strong class="text-danger">SQLite is only advised for development purposes.</strong></p>
+				</div>
 			</div>
-		</div>
 
-		<div class="form-group">
-			<label class="col-md-3 control-label">Password</label>
-			<div class="col-md-7">
-				{!! Form::text('db_password', false, ['class' => 'input-lg form-control']) !!}
+			<div class="form-group">
+				<label class="col-md-3 control-label">Table Prefix</label>
+				<div class="col-md-7">
+					{!! Form::text('db_prefix', 'nova_', ['class' => 'input-lg form-control']) !!}
+					<p class="help-block">Setting the table prefix will allow you to install {{ config('nova.app.name') }} into a database with other applications.</p>
+				</div>
 			</div>
-		</div>
 
-		<div class="form-group">
-			<div class="col-md-7 col-md-offset-3">
-				{!! Form::button('Test Database Connection', ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+			<div class="form-group">
+				<div class="col-md-7 col-md-offset-3">
+					{!! Form::button('Test Database Connection', ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+				</div>
 			</div>
 		</div>
 	{!! Form::close() !!}
@@ -71,4 +142,37 @@
 			@endif
 		</div>
 	</div>
+@stop
+
+@section('scripts')
+	<script>
+		$('[name="db_driver"]').on('change', function(e)
+		{
+			var selected = $('[name="db_driver"]:checked').val();
+
+			if (selected == "mysql")
+			{
+				$('#not-sqlite').removeClass('hide');
+				$('#not-sqlite-mysql').removeClass('hide');
+				$('#not-sqlite-pgsql').addClass('hide');
+				$('#sqlite').addClass('hide');
+			}
+
+			if (selected == "pgsql")
+			{
+				$('#not-sqlite').removeClass('hide');
+				$('#not-sqlite-pgsql').removeClass('hide');
+				$('#not-sqlite-mysql').addClass('hide');
+				$('#sqlite').addClass('hide');
+			}
+
+			if (selected == "sqlite")
+			{
+				$('#sqlite').removeClass('hide');
+				$('#not-sqlite').addClass('hide');
+				$('#not-sqlite-pgsql').addClass('hide');
+				$('#not-sqlite-mysql').addClass('hide');
+			}
+		});
+	</script>
 @stop
