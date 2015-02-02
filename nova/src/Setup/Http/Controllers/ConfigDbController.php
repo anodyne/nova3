@@ -1,12 +1,9 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use Flash,
-	Input,
-	Redirect;
+use Flash, Input;
 use PDO, PDOException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Database\Connectors\Connector;
-use Nova\Setup\Http\Requests\WriteDbSettingsRequest;
 
 class ConfigDbController extends BaseController {
 
@@ -17,6 +14,13 @@ class ConfigDbController extends BaseController {
 
 	public function check(Connector $connector, Filesystem $files)
 	{
+		if (Input::get('db_name') == "")
+		{
+			Flash::error("Please enter a database name to configure your database connection.", "No Database Found");
+			
+			return redirect()->back()->withInput();
+		}
+
 		// Set the session variables
 		session(['dbDriver' => trim(Input::get('db_driver'))]);
 		session(['dbName' => trim(Input::get('db_name'))]);
@@ -74,7 +78,7 @@ class ConfigDbController extends BaseController {
 			// Try to connect to the database
 			$connection = $connector->createConnection($dsn, $config, $connector->getDefaultOptions());
 
-			return Redirect::route("setup.{$this->setupType}.config.db.write");
+			return redirect()->route("setup.{$this->setupType}.config.db.write");
 
 		}
 		catch (PDOException $e)
@@ -104,7 +108,7 @@ class ConfigDbController extends BaseController {
 				Flash::error("There was an unidentified error when trying to connect to the database. This could be caused by incorrect database connection settings or the database server being down. Check with your web host to see if there are any issues and try again.\r\n\r\n`".$e->getMessage()."`", "Unknown Database Issue");
 			}
 
-			return Redirect::route("setup.{$this->setupType}.config.db")->withInput();
+			return redirect()->route("setup.{$this->setupType}.config.db")->withInput();
 		}
 	}
 
@@ -139,19 +143,19 @@ class ConfigDbController extends BaseController {
 				// Flush all the session info
 				session()->flush();
 
-				return Redirect::route("setup.{$this->setupType}.config.db.success");
+				return redirect()->route("setup.{$this->setupType}.config.db.success");
 			}
 
 			// Set the flash message
 			Flash::error("We couldn't write the database connection file because of your server's settings. Please contact your web host to ensure PHP files can write to the server.");
 
-			return Redirect::route("setup.{$this->setupType}.config.db");
+			return redirect()->route("setup.{$this->setupType}.config.db");
 		}
 
 		// Set the flash message
 		Flash::warning("There were no database connection details found. Please enter your database connection details and try again.");
 
-		return Redirect::route("setup.{$this->setupType}.config.db");
+		return redirect()->route("setup.{$this->setupType}.config.db");
 	}
 
 	public function success()
