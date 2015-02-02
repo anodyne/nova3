@@ -40,7 +40,13 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		if ($this->app->environment() == 'local')
+		{
+			if (class_exists('Barryvdh\Debugbar\ServiceProvider'))
+			{
+				$this->app->register('Barryvdh\Debugbar\ServiceProvider');
+			}
+		}
 	}
 
 	protected function createLocator()

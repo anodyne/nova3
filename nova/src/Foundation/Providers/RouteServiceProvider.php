@@ -59,10 +59,10 @@ class RouteServiceProvider extends ServiceProvider {
 		{
 			foreach ($routes as $route)
 			{
-				$options = [
-					'as'		=> $route['name'],
-					'resource'	=> $route['resource'],
-				];
+				$options['as'] = $route['name'];
+				$options['resource'] = ( ! empty($route['resource'])) 
+					? $route['resource']
+					: $route['default_resource'];
 
 				if ( ! empty($route['conditions']))
 				{
@@ -80,11 +80,10 @@ class RouteServiceProvider extends ServiceProvider {
 	/**
 	 * Parse the route conditions into the proper format for use on the router.
 	 *
-	 * @internal
 	 * @param	string	$conditions	The route conditions as a string
 	 * @return	array
 	 */
-	private function parseRouteConditions($conditions)
+	protected function parseRouteConditions($conditions)
 	{
 		// Create an empty array for storing conditions
 		$finalConditions = [];
