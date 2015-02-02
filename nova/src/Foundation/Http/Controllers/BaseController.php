@@ -3,24 +3,24 @@
 use Locate;
 use stdClass;
 use Illuminate\Routing\Controller;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Bus\DispatchesCommands,
 	Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Contracts\Foundation\Application;
 
 abstract class BaseController extends Controller {
 
 	use DispatchesCommands, ValidatesRequests;
 
 	protected $app;
-	protected $page = false;
-	protected $theme = false;
-	protected $settings = false;
+	protected $page;
+	protected $theme;
+	protected $settings;
 	protected $currentUser = false;
 
 	protected $data;
 	protected $jsData;
-	protected $view = false;
-	protected $jsView = false;
+	protected $view;
+	protected $jsView;
 	protected $templateView = 'main';
 	protected $structureView = 'main';
 
@@ -32,6 +32,9 @@ abstract class BaseController extends Controller {
 		$this->jsData		= new stdClass;
 		$this->currentUser	= $app['nova.user'];
 
+		// Make variable for use in the closures
+		$me = $this;
+
 		// Check if Nova is installed
 		$this->beforeFilter(function()
 		{
@@ -42,46 +45,57 @@ abstract class BaseController extends Controller {
 		});
 
 		// Bind some data to all views
-		$this->beforeFilter(function($route, $request)
+		$this->beforeFilter(function($route, $request) use ($app, &$me)
 		{
 			if (app('nova.setup')->isInstalled())
 			{
-				view()->share('_page', 
-					app('PageRepository')->getByRoute($request->route())
-				);
-				view()->share('_icons', false);
+				$me->page = app('PageRepository')->getByRouteName($request->route());
+
+				view()->share('_page', $me->page);
+				view()->share('_icons', config('icons'));
 				view()->share('_currentUser', app('nova.user'));
 			}
 		});
 
 		// Render the template after everything is done
-		$this->afterFilter('@renderTemplate');
+		$this->afterFilter('@processController');
 	}
 
 	public function processController($route, $request, $response)
 	{
-		// Build the structure
-		$this->buildThemeStructure();
+		if (app('nova.setup')->isInstalled())
+		{
+			// Build the structure
+			$this->buildThemeStructure();
 
-		// Build the template
-		$this->buildThemeTemplate();
+			// Build the template
+			$this->buildThemeTemplate();
 
-		// Build the navigation
-		$this->buildThemeNavigation();
+			// Build the navigation
+			//$this->buildThemeNavigation();
 
-		// Build the page
-		$this->buildThemePage();
+			// Build the page
+			$this->buildThemePage();
 
-		// Build the Javascript
-		$this->buildThemeJavascript();
+			// Build the Javascript
+			$this->buildThemeJavascript();
 
-		// Set the content to the full template
-		$response->setContent($this->theme->render());
+			// Build the footer
+			//$this->buildThemeFooter();
+
+			// Set the content to the full template
+			$response->setContent($this->theme->render());
+		}
 	}
 
 	protected function buildThemeStructure()
 	{
-		$data = [];
+		$data = [
+			'pageTitle'	=> "Home",
+			'siteName'	=> config('nova.app.name'),
+			//'pageTitle'	=> $this->page->present()->title,
+			//'siteName'	=> $this->settings,
+		];
 
 		$this->theme = app('nova.theme')->structure($this->structureView, $data);
 	}
@@ -107,7 +121,17 @@ abstract class BaseController extends Controller {
 
 	protected function buildThemeJavascript()
 	{
-		$this->theme = $this->theme->javascript($this->jsView, (array) $this->jsData);
+		if ($this->jsView)
+		{
+			$this->theme = $this->theme->javascript($this->jsView, (array) $this->jsData);
+		}
+	}
+
+	protected function buildThemeFooter()
+	{
+		$data = [];
+
+		$this->theme = $this->theme->footer($data);
 	}
 
 	public function renderTemplate($route, $request, $response)
