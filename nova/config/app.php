@@ -136,12 +136,11 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 
-		'Illuminate\Html\HtmlServiceProvider',
-
 		/*
 		 * Nova Service Providers
 		 */
 
+		'Illuminate\Html\HtmlServiceProvider',
 		'Nova\Setup\Providers\SetupServiceProvider',
 		'Nova\Setup\Providers\SetupRouteServiceProvider',
 		'Nova\Foundation\Providers\ErrorServiceProvider',
@@ -195,14 +194,15 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 
-		'Date'		=> 'Carbon\Carbon',
-		'Model'		=> 'Illuminate\Database\Eloquent\Model',
-		'Form'		=> 'Illuminate\Html\FormFacade',
-		'Flash'		=> 'Nova\Foundation\Services\FlashNotifierFacade',
-		'HTML'		=> 'Illuminate\Html\HtmlFacade',
-		'Locate'	=> 'Nova\Foundation\Services\Locator\LocatorFacade',
-		'Markdown'	=> 'Nova\Foundation\Services\MarkdownParserFacade',
-		'Str'		=> 'Illuminate\Support\Str',
+		'BaseController'	=> 'Nova\Foundation\Http\Controllers\BaseController',
+		'Date'				=> 'Carbon\Carbon',
+		'Model'				=> 'Illuminate\Database\Eloquent\Model',
+		'Form'				=> 'Illuminate\Html\FormFacade',
+		'Flash'				=> 'Nova\Foundation\Services\FlashNotifierFacade',
+		'HTML'				=> 'Illuminate\Html\HtmlFacade',
+		'Locate'			=> 'Nova\Foundation\Services\Locator\LocatorFacade',
+		'Markdown'			=> 'Nova\Foundation\Services\MarkdownParserFacade',
+		'Str'				=> 'Illuminate\Support\Str',
 
 		/**
 		 * Models
