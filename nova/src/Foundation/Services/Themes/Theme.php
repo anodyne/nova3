@@ -131,13 +131,13 @@ class Theme implements Themeable, ThemeableInfo {
 	 * @param 	string	$view 	The view file to use
 	 * @param 	array 	$data 	Data to pass to the Javascript view
 	 * @return 	Theme
-	 * @throws	NoThemeTemplateException
+	 * @throws	NoThemeStructureException
 	 */
 	public function javascript($view, array $data)
 	{
-		if ( ! is_object($this->layout->template)) throw new NoThemeTemplateException;
+		if ( ! is_object($this->layout)) throw new NoThemeStructureException;
 
-		$this->layout->template->javascript = $this->view->make($this->locate->js($view))
+		$this->layout->javascript = $this->view->make($this->locate->js($view))
 			->with((array) $data);
 
 		return $this;
@@ -164,8 +164,6 @@ class Theme implements Themeable, ThemeableInfo {
 	 */
 	public function render()
 	{
-		$this->build();
-
 		return $this->layout;
 	}
 
