@@ -5,6 +5,8 @@ use Nova\Foundation\Data\Interfaces\BaseRepositoryInterface;
 
 interface PageRepositoryInterface extends BaseRepositoryInterface {
 
-	public function getByRoute(Route $route, $parameter = 'name');
+	public function create(array $data);
+	public function getByRouteName(Route $route);
+	public function getByRouteUri(Route $route);
 
 }
