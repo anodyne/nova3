@@ -5,7 +5,7 @@ $pages = [
 		'type'				=> "GET",
 		'name'				=> "home",
 		'uri'				=> "/",
-		'default_resource'	=> "Nova\\Core\\Game\\Controllers\\GameController@home",
+		'default_resource'	=> "Nova\\Core\\Game\\Http\\Controllers\\HomeController@home",
 		'protected'			=> (int) true,
 	],
 ];

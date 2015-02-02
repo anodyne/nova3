@@ -13,4 +13,4 @@
 
 Route::get('/', [
 	'as'	=> 'home',
-	'uses'	=> 'Nova\Core\Game\Controllers\HomeController@home']);
+	'uses'	=> 'Nova\Core\Game\Http\Controllers\HomeController@home']);

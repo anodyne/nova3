@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Game\Controllers;
+<?php namespace Nova\Core\Game\Http\Controllers;
 
 use BaseController;
 
