@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>{{ config('nova.app.name') }}</title>
+		<title>{{ $pageTitle }} &bull; {{ $siteName }}</title>
 		<link href="//fonts.googleapis.com/css?family=Lato:100" rel="stylesheet">
 
 		<style>
