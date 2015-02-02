@@ -146,10 +146,21 @@
 
 @section('scripts')
 	<script>
+		$(function()
+		{
+			if ($('[name="db_driver"]').is(':checked'))
+			{
+				doShowHide($('[name="db_driver"]:checked').val());
+			}
+		});
+
 		$('[name="db_driver"]').on('change', function(e)
 		{
-			var selected = $('[name="db_driver"]:checked').val();
+			doShowHide($('[name="db_driver"]:checked').val());
+		});
 
+		function doShowHide(selected)
+		{
 			if (selected == "mysql")
 			{
 				$('#not-sqlite').removeClass('hide');
@@ -173,6 +184,6 @@
 				$('#not-sqlite-pgsql').addClass('hide');
 				$('#not-sqlite-mysql').addClass('hide');
 			}
-		});
+		}
 	</script>
 @stop

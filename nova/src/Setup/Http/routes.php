@@ -15,14 +15,6 @@ Route::group($options, function()
 		'as'	=> 'setup.home',
 		'uses'	=> 'SetupController@index']);
 
-	Route::get('start', [
-		'as'	=> 'setup.start',
-		'uses'	=> 'SetupController@start']);
-
-	Route::get('config/email', [
-		'as'	=> 'setup.config.email',
-		'uses'	=> 'EmailConfigController@index']);
-
 	Route::get('update', [
 		'as'	=> 'setup.update',
 		'uses'	=> 'UpdateController@index']);

@@ -1,6 +1,6 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use Artisan;
+use Flash, Artisan;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Contracts\Cache\Repository as Cache;
 
@@ -21,7 +21,9 @@ class SetupController extends BaseController {
 
 		// If we're good, go on to the setup center
 		if ($env->get('passes'))
+		{
 			return redirect()->route('setup.home');
+		}
 
 		return view('pages.setup.environment', compact('env'));
 	}
@@ -38,6 +40,9 @@ class SetupController extends BaseController {
 		$files->delete(app('path.config').'/database.php');
 		$files->delete(app('path.config').'/mail.php');
 		$files->delete(app('path.config').'/session.php');
+
+		// Set the flash message
+		Flash::success("Nova has been successfully removed.");
 
 		return redirect()->route('setup.home');
 	}

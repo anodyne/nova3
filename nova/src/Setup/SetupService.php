@@ -95,18 +95,23 @@ class SetupService {
 	{
 		if ($component == 'db')
 		{
-			if ($this->app['config']['database.connections.mysql.host'] == 'DbHost')
-				return false;
-			
-			return true;
+			if (file_exists($this->app->configPath().'/database.php')) return true;
+
+			return false;
 		}
 
 		if ($component == 'mail')
 		{
-			if ($this->app['config']['mail.driver'] == 'MailDriver')
-				return false;
-			
-			return true;
+			if (file_exists($this->app->configPath().'/mail.php')) return true;
+
+			return false;
+		}
+
+		if ($component == 'session')
+		{
+			if (file_exists($this->app->configPath().'/session.php')) return true;
+
+			return false;
 		}
 	}
 
@@ -118,27 +123,6 @@ class SetupService {
 	public function isInstalled()
 	{
 		return $this->app['cache']->get('nova.installed', false);
-	}
-	
-	/**
-	 * Set the config items in the .env file
-	 *
-	 * @param	string	$config
-	 * @param	string	$value
-	 * @return	void
-	 */
-	public function setConfig($config, $value)
-	{
-		$path = base_path('.env');
-
-		if (file_exists($path))
-		{
-			file_put_contents($path, str_replace(
-				$this->app['config'][$key], $value, file_get_contents($path)
-			));
-		}
-
-		$this->app['config'][$key] = $value;
 	}
 
 }
