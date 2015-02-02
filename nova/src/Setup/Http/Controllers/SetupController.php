@@ -41,6 +41,12 @@ class SetupController extends BaseController {
 		$files->delete(app('path.config').'/mail.php');
 		$files->delete(app('path.config').'/session.php');
 
+		// Remove the SQLite database if it's there
+		if ($files->exists(config('database.connections.sqlite.database')))
+		{
+			$files->delete(config('database.connections.sqlite.database'));
+		}
+
 		// Set the flash message
 		Flash::success("Nova has been successfully removed.");
 
