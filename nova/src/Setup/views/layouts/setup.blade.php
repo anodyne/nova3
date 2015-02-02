@@ -59,13 +59,8 @@
 			</div>
 		</div>
 
-		@if (app('env') == 'production')
-			<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-			<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-		@else
-			<script src="//localhost/global/jquery/jquery-2.1.1.min.js"></script>
-			<script src="//localhost/global/bootstrap/3.3/js/bootstrap.min.js"></script>
-		@endif
+		<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		@yield('scripts')
 	</body>
 </html>
