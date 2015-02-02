@@ -13,11 +13,4 @@
 
 Route::get('/', [
 	'as'	=> 'home',
-	'uses'	=> 'Nova\Foundation\Http\Controllers\WelcomeController@index']);
-
-Route::get('home', 'Nova\Foundation\Http\Controllers\HomeController@index');
-
-Route::controllers([
-	'auth' => 'Nova\Foundation\Http\Controllers\Auth\AuthController',
-	'password' => 'Nova\Foundation\Http\Controllers\Auth\PasswordController',
-]);
+	'uses'	=> 'Nova\Core\Game\Controllers\HomeController@home']);
