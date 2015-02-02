@@ -1,6 +1,5 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use stdClass;
 use Request;
 use Illuminate\Routing\Controller;
 
