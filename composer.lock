@@ -559,12 +559,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "a9dc7124971bb2957e7597d6a6a247ad52dd91cd"
+                "reference": "0c987df39714c4657b66811402bb28eac64497e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/a9dc7124971bb2957e7597d6a6a247ad52dd91cd",
-                "reference": "a9dc7124971bb2957e7597d6a6a247ad52dd91cd",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/0c987df39714c4657b66811402bb28eac64497e7",
+                "reference": "0c987df39714c4657b66811402bb28eac64497e7",
                 "shasum": ""
             },
             "require": {
@@ -676,7 +676,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-02-01 18:56:12"
+            "time": "2015-02-02 15:50:25"
         },
         {
             "name": "league/commonmark",
@@ -1931,12 +1931,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "8bc0265b6235a461a9fd2a3d377104c4ccb09c53"
+                "reference": "caa8c24412eb538c5d80f82f5bb74b06a68561fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/8bc0265b6235a461a9fd2a3d377104c4ccb09c53",
-                "reference": "8bc0265b6235a461a9fd2a3d377104c4ccb09c53",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/caa8c24412eb538c5d80f82f5bb74b06a68561fa",
+                "reference": "caa8c24412eb538c5d80f82f5bb74b06a68561fa",
                 "shasum": ""
             },
             "require": {
@@ -1977,7 +1977,7 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2015-01-30 08:40:58"
+            "time": "2015-02-02 09:07:07"
         },
         {
             "name": "doctrine/instantiator",
