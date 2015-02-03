@@ -325,6 +325,15 @@ h1, h2, h3, h4, h5, h6 {
 	&.btn-danger {
 		.btn-pseudo-states(@color-white, @color-danger, @color-danger);
 	}
+
+	&,
+	&:active,
+	&.active {
+		&:focus,
+		&.focus {
+			outline: none !important;
+		}
+	}
 }
 
 hr.partial {
