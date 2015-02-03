@@ -6,7 +6,7 @@ class Page extends Model {
 
 	protected $table = 'pages';
 
-	protected $fillable = ['collection_id', 'type', 'name', 'uri', 'resource',
+	protected $fillable = ['collection_id', 'verb', 'name', 'uri', 'resource',
 		'default_resource', 'protected', 'description'];
 
 	protected $casts = [
