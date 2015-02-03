@@ -92,7 +92,7 @@
 			<div class="form-group">
 				<label class="col-md-3 control-label">Password</label>
 				<div class="col-md-7">
-					{!! Form::text('db_password', false, ['class' => 'input-lg form-control']) !!}
+					{!! Form::password('db_password', ['class' => 'input-lg form-control']) !!}
 				</div>
 			</div>
 
