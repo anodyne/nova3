@@ -13,12 +13,12 @@
 	<h2>Tell us a little bit about how you want {{ config('nova.app.name') }} to send email</h2>
 
 	{!! Form::open(['route' => "setup.{$_setupType}.config.email.write", 'class' => 'form-horizontal']) !!}
-		<div class="form-group">
+		<div class="form-group{{ ($errors->has('mail_driver')) ? ' has-error' : '' }}">
 			<label class="col-md-3 control-label">Driver</label>
 			<div class="col-md-7">
 				<div class="radio">
 					<label>
-						{!! Form::radio('mail_driver', 'smtp', false) !!} SMTP Service <em class="text-success">(recommended)</em>
+						{!! Form::radio('mail_driver', 'smtp', false) !!} SMTP Service <em class="text-success">(Recommended)</em>
 					</label>
 				</div>
 				<div class="radio">
@@ -31,6 +31,14 @@
 						{!! Form::radio('mail_driver', 'mail', false) !!} PHP Mail
 					</label>
 				</div>
+				@if (app()->environment() == 'local')
+					<div class="radio">
+						<label>
+							{!! Form::radio('mail_driver', 'log', false) !!} Log Files <em class="text-danger">(For development purposes only)</em>
+						</label>
+					</div>
+				@endif
+				{!! $errors->first('mail_driver', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>
 
@@ -48,42 +56,55 @@
 						<li><a href="http://mandrill.com/" target="_blank">Mandrill</a></li>
 						<li><a href="https://postmarkapp.com/" target="_blank">Postmark</a></li>
 						<li><a href="https://sendgrid.com/" target="_blank">SendGrid</a></li>
+
+						@if (app()->environment() == 'local')
+							<li><a href="https://sendgrid.com/" target="_blank">SendGrid</a></li>
+						@endif
 					</ul>
 				</div>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group{{ ($errors->has('mail_host')) ? ' has-error' : '' }}">
 				<label class="col-md-3 control-label">Host</label>
 				<div class="col-md-7">
 					{!! Form::text('mail_host', false, ['class' => 'input-lg form-control']) !!}
+					{!! $errors->first('mail_host', '<p class="help-block">:message</p>') !!}
 				</div>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group{{ ($errors->has('mail_port')) ? ' has-error' : '' }}">
 				<label class="col-md-3 control-label">Port</label>
 				<div class="col-md-2">
 					{!! Form::text('mail_port', 587, ['class' => 'input-lg form-control']) !!}
 				</div>
+				<div class="col-md-5">
+					{!! $errors->first('mail_port', '<p class="help-block">:message</p>') !!}
+				</div>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group{{ ($errors->has('mail_encryption')) ? ' has-error' : '' }}">
 				<label class="col-md-3 control-label">Encryption</label>
 				<div class="col-md-2">
 					{!! Form::text('mail_encryption', 'tls', ['class' => 'input-lg form-control']) !!}
 				</div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-md-3 control-label">Username</label>
-				<div class="col-md-7">
-					{!! Form::text('mail_username', false, ['class' => 'input-lg form-control']) !!}
+				<div class="col-md-5">
+					{!! $errors->first('mail_encryption', '<p class="help-block">:message</p>') !!}
 				</div>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group{{ ($errors->has('mail_username')) ? ' has-error' : '' }}">
+				<label class="col-md-3 control-label">Username</label>
+				<div class="col-md-7">
+					{!! Form::text('mail_username', false, ['class' => 'input-lg form-control']) !!}
+					{!! $errors->first('mail_username', '<p class="help-block">:message</p>') !!}
+				</div>
+			</div>
+
+			<div class="form-group{{ ($errors->has('mail_password')) ? ' has-error' : '' }}">
 				<label class="col-md-3 control-label">Password</label>
 				<div class="col-md-7">
-					{!! Form::text('mail_password', false, ['class' => 'input-lg form-control']) !!}
+					{!! Form::password('mail_password', ['class' => 'input-lg form-control']) !!}
+					{!! $errors->first('mail_password', '<p class="help-block">:message</p>') !!}
 				</div>
 			</div>
 		</div>
@@ -97,10 +118,11 @@
 				</div>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group{{ ($errors->has('mail_sendmail')) ? ' has-error' : '' }}">
 				<label class="col-md-3 control-label">Sendmail Path</label>
 				<div class="col-md-7">
 					{!! Form::text('mail_sendmail', '/usr/sbin/sendmail -bs', ['class' => 'input-lg form-control']) !!}
+					{!! $errors->first('mail_sendmail', '<p class="help-block">:message</p>') !!}
 				</div>
 			</div>
 		</div>
@@ -111,6 +133,16 @@
 					<h3>PHP Mail</h3>
 
 					<p>All previous versions of Nova have sent email through PHP's <code>mail()</code> function. It's the simplest email option available, requires no external services or information, and is enabled by default on most shared hosts. In the past though, we've run into issues with email not being delivered or being marked as spam. <strong class="text-danger">Use this option only as a last resort!</strong></p>
+				</div>
+			</div>
+		</div>
+
+		<div id="settings-log" class="hide">
+			<div class="form-group">
+				<div class="col-md-8 col-md-offset-3">
+					<h3>Mail Logging</h3>
+
+					<p>When developing, you want to be able to test emails but not worry about them being sent out to recipients. With mail logging, all emails will be written to the log files for viewing. If you want to see the full output of your emails, consider an SMTP service like <a href="https://mailtrap.io/" target="_blank">MailTrap</a>. <strong class="text-danger">This option is only for development purposes!</strong></p>
 				</div>
 			</div>
 		</div>
@@ -140,14 +172,26 @@
 
 @section('scripts')
 	<script>
+		$(function()
+		{
+			if ($('[name="mail_driver"]').is(':checked'))
+			{
+				doShowHide($('[name="mail_driver"]:checked').val());
+			}
+		});
+
 		$('[name="mail_driver"]').on('change', function(e)
 		{
-			var selected = $('[name="mail_driver"]:checked').val();
+			doShowHide($('[name="mail_driver"]:checked').val());
+		});
 
+		function doShowHide(selected)
+		{
 			if (selected == "smtp")
 			{
 				$('#settings-sendmail').addClass('hide');
 				$('#settings-phpmail').addClass('hide');
+				$('#settings-log').addClass('hide');
 				$('#settings-smtp').removeClass('hide');
 			}
 
@@ -155,6 +199,7 @@
 			{
 				$('#settings-smtp').addClass('hide');
 				$('#settings-phpmail').addClass('hide');
+				$('#settings-log').addClass('hide');
 				$('#settings-sendmail').removeClass('hide');
 			}
 
@@ -162,8 +207,17 @@
 			{
 				$('#settings-smtp').addClass('hide');
 				$('#settings-sendmail').addClass('hide');
+				$('#settings-log').addClass('hide');
 				$('#settings-phpmail').removeClass('hide');
 			}
-		});
+
+			if (selected == "log")
+			{
+				$('#settings-smtp').addClass('hide');
+				$('#settings-sendmail').addClass('hide');
+				$('#settings-phpmail').addClass('hide');
+				$('#settings-log').removeClass('hide');
+			}
+		}
 	</script>
 @stop
