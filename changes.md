@@ -54,3 +54,4 @@
 	- Update singleton references in `nova/bootstrap/app.php`
 	- Update references to `App` namespace
 	- Update `composer.json` to remove the `App` namespace
+- Bind our own `RouteCacheCommand` class in the `Console\Kernel` class
