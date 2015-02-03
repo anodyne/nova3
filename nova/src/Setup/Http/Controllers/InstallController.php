@@ -30,16 +30,12 @@ class InstallController extends BaseController {
 
 		// Set the installed cache item
 		$cache->forever('nova.installed', (bool) true);
-
-		// Grab the content from the generator
-		$content = $files->get(app_path('Setup/generators/session.php'));
-
-		// Create the file and store the content
-		$files->put(app('path.config').'/session.php', $content);
 	}
 
-	public function novaSuccess()
+	public function novaSuccess(Filesystem $files)
 	{
+		$this->writeSessionConfig($files);
+
 		return view('pages.setup.install.nova-success');
 	}
 
@@ -66,6 +62,15 @@ class InstallController extends BaseController {
 		Flash::error("User and character could not be created.");
 
 		return redirect()->route('setup.install.user');
+	}
+
+	protected function writeSessionConfig(Filesystem $files)
+	{
+		// Grab the content from the generator
+		$content = $files->get(app_path('Setup/generators/session.php'));
+
+		// Create the file and store the content
+		$files->put(app('path.config').'/session.php', $content);
 	}
 
 }
