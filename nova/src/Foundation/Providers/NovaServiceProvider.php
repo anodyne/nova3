@@ -10,8 +10,8 @@ use Nova\Foundation\Services\FlashNotifierService,
 	Nova\Foundation\Services\MarkdownParserService,
 	Nova\Foundation\Services\Locator\LocatorService,
 	Nova\Foundation\Services\Themes\Theme as BaseTheme,
-	Nova\Foundation\Services\Themes\MissingThemeImplementationException;;
-use Nova\Foundation\Services\PageCompiler\CompilerEngine,
+	Nova\Foundation\Services\Themes\MissingThemeImplementationException,
+	Nova\Foundation\Services\PageCompiler\CompilerEngine,
 	Nova\Foundation\Services\PageCompiler\Compilers\SettingCompiler;
 
 class NovaServiceProvider extends ServiceProvider {
