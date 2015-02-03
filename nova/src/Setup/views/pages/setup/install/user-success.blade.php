@@ -17,7 +17,7 @@
 @section('controls')
 	<div class="row">
 		<div class="col-md-6">
-			<p><a href="{{ route('setup.install.user') }}" class="btn btn-link">Back: Create Another User &amp; Character</a></p>
+			<p>&nbsp;</p>
 		</div>
 		<div class="col-md-6 text-right">
 			<p>
