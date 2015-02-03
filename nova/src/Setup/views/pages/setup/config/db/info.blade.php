@@ -98,7 +98,7 @@
 
 			<div class="form-group">
 				<div class="col-md-7 col-md-offset-3">
-					{!! Form::button('Test Database Connection', ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+					{!! Form::button('Create Database Connection', ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
 				</div>
 			</div>
 		</div>
@@ -122,7 +122,7 @@
 
 			<div class="form-group">
 				<div class="col-md-7 col-md-offset-3">
-					{!! Form::button('Test Database Connection', ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+					{!! Form::button('Create Database Connection', ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
 				</div>
 			</div>
 		</div>
@@ -132,7 +132,7 @@
 @section('controls')
 	<div class="row">
 		<div class="col-md-6">
-			<p><a href="{{ route('setup.'.$_setupType) }}" class="btn btn-link">Back</a></p>
+			<p><a href="{{ route('setup.'.$_setupType) }}" class="btn btn-link">Back: Fresh Install Info</a></p>
 		</div>
 		<div class="col-md-6 text-right">
 			@if (file_exists(app('path.config').'/database.php'))
