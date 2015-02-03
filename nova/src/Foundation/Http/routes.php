@@ -1,16 +1,15 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+// Get all the pages
+$pages = app('PageRepository')->all();
 
-Route::get('/', [
-	'as'	=> 'home',
-	'uses'	=> 'Nova\Core\Game\Http\Controllers\HomeController@home']);
+if ($pages->count() > 0)
+{
+	foreach ($pages as $page)
+	{
+		$options['as'] = $page->name;
+		$options['uses'] = ($page->resource) ?: $page->default_resource;
+
+		call_user_func_array([$router, strtolower($page->verb)], [$page->uri, $options]);
+	}
+}

@@ -2,7 +2,7 @@
 
 $pages = [
 	[
-		'type'				=> "GET",
+		'verb'				=> "GET",
 		'name'				=> "home",
 		'uri'				=> "/",
 		'default_resource'	=> "Nova\\Core\\Game\\Http\\Controllers\\HomeController@home",

@@ -38,7 +38,15 @@ class RouteServiceProvider extends ServiceProvider {
 	{
 		$router->group(['namespace' => $this->namespace], function($router)
 		{
-			require app_path('Foundation/Http/routes.php');
+			if (app('nova.setup')->isInstalled())
+			{
+				require app_path('Foundation/Http/routes.php');
+			}
+			else
+			{
+				$router->get('/', 'Nova\Core\Game\Http\Controllers\HomeController@home');
+			}
+
 			require base_path('routes.php');
 		});
 	}
