@@ -4,7 +4,7 @@ Thumbs.db
 .env
 nova/vendor
 config/*.php
-!config/app.php
+!config/nova.php
 storage/debugbar
 
 *.sublime-project
