@@ -25,7 +25,7 @@ class ConfigFileWriterService {
 		}
 
 		// Create the file and store the content
-		$this->files->put(app('path.config')."/{$file}.stub", $content);
+		$this->files->put(app('path.config')."/{$file}.php", $content);
 	}
 
 }
