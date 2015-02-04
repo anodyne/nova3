@@ -74,21 +74,4 @@ class InstallController extends BaseController {
 		return redirect()->route('setup.install.user');
 	}
 
-	/*protected function writeConfigFile(Filesystem $files, $config, array $replacements = [])
-	{
-		// Grab the content from the generator
-		$content = $files->get(app_path("Setup/generators/{$config}.php"));
-
-		if (count($replacements) > 0)
-		{
-			foreach ($replacements as $placeholder => $replacement)
-			{
-				$content = str_replace($placeholder, $replacement, $content);
-			}
-		}
-
-		// Create the file and store the content
-		$files->put(app('path.config')."/{$config}.php", $content);
-	}*/
-
 }
