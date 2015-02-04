@@ -144,13 +144,34 @@ class LocatorService {
 		// Make sure we're only returning files
 		$finder->files();
 
+		$additionalPath = false;
+
+		if (Str::contains($file, '/'))
+		{
+			// Break out into the individual pieces
+			$fileParts = explode('/', $file);
+
+			// Update the filename
+			$file = end($fileParts);
+
+			// Drop the last element (the filename) off the array
+			array_pop($fileParts);
+
+			// Make a string out of the remaining pieces
+			$additionalPath = implode('/', $fileParts);
+		}
+
 		// Loop through the paths and add them if they exist
 		foreach ($this->paths as $path)
 		{
 			// Set the proper theme
 			$path = str_replace('%theme%', $this->findCurrentTheme(), $path);
 
-			$this->addPath("{$path}/{$type}", $finder);
+			// Build the final path
+			$finalPath = "{$path}/{$type}";
+			$finalPath = ( ! empty($additionalPath)) ? $finalPath."/{$additionalPath}" : $finalPath;
+
+			$this->addPath($finalPath, $finder);
 		}
 
 		// Loop through the extensions and set the names we want to look for
