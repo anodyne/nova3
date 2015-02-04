@@ -34,7 +34,7 @@ class SetupController extends BaseController {
 		$cache->forget('nova.installed');
 
 		// Clear the routes
-		Artisan::call('route:clear');
+		//Artisan::call('route:clear');
 
 		// Reset the database
 		Artisan::call('migrate:reset', ['--force' => true]);
