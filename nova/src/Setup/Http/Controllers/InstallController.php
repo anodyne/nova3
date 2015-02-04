@@ -25,11 +25,11 @@ class InstallController extends BaseController {
 		// Run the migrate commands
 		Artisan::call('migrate', ['--force' => true]);
 
-		// Cache the routes
-		Artisan::call('route:cache');
-
 		// Set the installed cache item
 		$cache->forever('nova.installed', (bool) true);
+
+		// Cache the routes
+		Artisan::call('route:cache');
 	}
 
 	public function novaSuccess(Filesystem $files)
