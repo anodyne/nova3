@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Login;
+<?php namespace Nova\Core\Login\Http\Controllers;
 
 use Flash, Input, BaseController;
 use Illuminate\Http\Request;
