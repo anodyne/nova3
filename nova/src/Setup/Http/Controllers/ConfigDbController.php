@@ -116,27 +116,18 @@ class ConfigDbController extends BaseController {
 	{
 		if (session()->has('dbName'))
 		{
-			// Grab the content from the generator
-			$content = $files->get(app_path('Setup/generators/database.php'));
+			// Grab the config writer
+			$writer = app('nova.setup.configWriter');
 
-			// Setup the replacement dictionary
-			$replacements = [
+			// Write the database config
+			$writer->write('database', [
 				"#DB_DRIVER#"	=> session('dbDriver'),
 				"#DB_HOST#"		=> session('dbHost'),
 				"#DB_DATABASE#"	=> session('dbName'),
 				"#DB_USERNAME#"	=> session('dbUser'),
 				"#DB_PASSWORD#"	=> session('dbPass'),
 				"#DB_PREFIX#"	=> session('prefix'),
-			];
-
-			// Swap out the placeholders for the real content
-			foreach ($replacements as $placeholder => $replacement)
-			{
-				$content = str_replace($placeholder, $replacement, $content);
-			}
-
-			// Create the file and store the content
-			$files->put(app('path.config').'/database.php', $content);
+			]);
 
 			if ($files->exists(app('path.config').'/database.php'))
 			{

@@ -1,14 +1,12 @@
 <?php namespace Nova\Setup\Providers;
 
-use Nova\Setup\SetupService;
 use Illuminate\Support\ServiceProvider;
+use Nova\Setup\Services\SetupService,
+	Nova\Setup\Services\ConfigFileWriterService;
 
 class SetupServiceProvider extends ServiceProvider {
 
-	public function boot()
-	{
-		//
-	}
+	protected $defer = true;
 
 	public function register()
 	{
@@ -16,6 +14,19 @@ class SetupServiceProvider extends ServiceProvider {
 		{
 			return new SetupService($app);
 		});
+
+		$this->app->singleton('nova.setup.configWriter', function($app)
+		{
+			return new ConfigFileWriterService($app['files']);
+		});
+	}
+
+	public function provides()
+	{
+		return [
+			'nova.setup',
+			'nova.setup.configWriter',
+		];
 	}
 
 }

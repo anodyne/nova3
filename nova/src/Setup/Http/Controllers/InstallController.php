@@ -30,18 +30,21 @@ class InstallController extends BaseController {
 		$cache->forever('nova.installed', (bool) true);
 
 		// Cache the routes
-		Artisan::call('route:cache');
+		//Artisan::call('route:cache');
 	}
 
 	public function novaSuccess(Filesystem $files)
 	{
+		// Get an instance of the writer
+		$writer = app('nova.setup.configWriter');
+
 		// Write the app config file
-		$this->writeConfigFile($files, 'app', [
+		$writer->write('app', [
 			'#APP_KEY#' => Str::random(32),
 		]);
 
 		// Write the session config file
-		$this->writeConfigFile($files, 'session');
+		$writer->write('session');
 
 		return view('pages.setup.install.nova-success');
 	}
@@ -71,7 +74,7 @@ class InstallController extends BaseController {
 		return redirect()->route('setup.install.user');
 	}
 
-	protected function writeConfigFile(Filesystem $files, $config, array $replacements = [])
+	/*protected function writeConfigFile(Filesystem $files, $config, array $replacements = [])
 	{
 		// Grab the content from the generator
 		$content = $files->get(app_path("Setup/generators/{$config}.php"));
@@ -86,6 +89,6 @@ class InstallController extends BaseController {
 
 		// Create the file and store the content
 		$files->put(app('path.config')."/{$config}.php", $content);
-	}
+	}*/
 
 }

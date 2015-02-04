@@ -13,11 +13,11 @@ class ConfigEmailController extends BaseController {
 
 	public function write(CheckEmailSettingsRequest $request, Filesystem $files)
 	{
-		// Grab the content from the generator
-		$content = $files->get(app_path('Setup/generators/mail.php'));
+		// Grab the config writer
+		$writer = app('nova.setup.configWriter');
 
-		// Setup the replacement dictionary
-		$replacements = [
+		// Write the mail config
+		$writer->write('mail', [
 			"#MAIL_DRIVER#"			=> trim(Input::get('mail_driver')),
 			"#MAIL_HOST#"			=> trim(Input::get('mail_host')),
 			"#MAIL_PORT#"			=> trim(Input::get('mail_port')),
@@ -25,16 +25,7 @@ class ConfigEmailController extends BaseController {
 			"#MAIL_USERNAME#"		=> trim(Input::get('mail_username')),
 			"#MAIL_PASSWORD#"		=> trim(Input::get('mail_password')),
 			"#MAIL_SENDMAIL_PATH#"	=> trim(Input::get('mail_sendmail')),
-		];
-
-		// Swap out the placeholders for the real content
-		foreach ($replacements as $placeholder => $replacement)
-		{
-			$content = str_replace($placeholder, $replacement, $content);
-		}
-
-		// Create the file and store the content
-		$files->put(app('path.config').'/mail.php', $content);
+		]);
 
 		if ($files->exists(app('path.config').'/mail.php'))
 		{
