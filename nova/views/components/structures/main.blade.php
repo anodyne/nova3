@@ -37,7 +37,7 @@
 		</style>
 	</head>
 	<body>
-		{!! $template !!}
+		{!! $template or '' !!}
 		{!! $javascript or '' !!}
 	</body>
 </html>
