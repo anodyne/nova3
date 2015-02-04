@@ -37,8 +37,8 @@ class LocatorService {
 	protected $settings;
 
 	/**
-	* @var	FinderFactory	Factory of the Symfony Finder
-	*/
+	 * @var	FinderFactory	Factory of the Symfony Finder
+	 */
 	protected $finderFactory;
 
 	public function __construct(User $user = null,
