@@ -1,6 +1,7 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use Flash,
+use Str,
+	Flash,
 	Input,
 	Artisan,
 	UserCreator;
@@ -34,7 +35,13 @@ class InstallController extends BaseController {
 
 	public function novaSuccess(Filesystem $files)
 	{
-		$this->writeSessionConfig($files);
+		// Write the app config file
+		$this->writeConfigFile($files, 'app', [
+			'#APP_KEY#' => Str::random(32),
+		]);
+
+		// Write the session config file
+		$this->writeConfigFile($files, 'session');
 
 		return view('pages.setup.install.nova-success');
 	}
@@ -64,13 +71,21 @@ class InstallController extends BaseController {
 		return redirect()->route('setup.install.user');
 	}
 
-	protected function writeSessionConfig(Filesystem $files)
+	protected function writeConfigFile(Filesystem $files, $config, array $replacements = [])
 	{
 		// Grab the content from the generator
-		$content = $files->get(app_path('Setup/generators/session.php'));
+		$content = $files->get(app_path("Setup/generators/{$config}.php"));
+
+		if (count($replacements) > 0)
+		{
+			foreach ($replacements as $placeholder => $replacement)
+			{
+				$content = str_replace($placeholder, $replacement, $content);
+			}
+		}
 
 		// Create the file and store the content
-		$files->put(app('path.config').'/session.php', $content);
+		$files->put(app('path.config')."/{$config}.php", $content);
 	}
 
 }
