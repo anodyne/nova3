@@ -14,7 +14,7 @@ class ConfigFileWriterService {
 	public function write($file, array $replacements = [])
 	{
 		// Grab the content from the generator
-		$content = $this->files->get(app_path("Setup/generators/{$file}.php"));
+		$content = $this->files->get(app_path("Setup/stubs/{$file}.stub"));
 
 		if (count($replacements) > 0)
 		{
@@ -25,7 +25,7 @@ class ConfigFileWriterService {
 		}
 
 		// Create the file and store the content
-		$this->files->put(app('path.config')."/{$file}.php", $content);
+		$this->files->put(app('path.config')."/{$file}.stub", $content);
 	}
 
 }
