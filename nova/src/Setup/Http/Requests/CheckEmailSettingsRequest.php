@@ -24,7 +24,7 @@ class CheckEmailSettingsRequest extends Request {
 		return [
 			'mail_driver'		=> 'required|in:smtp,sendmail,mail,log',
 			'mail_sendmail'		=> 'required_if:mail_driver,sendmail',
-			'mail_host'			=> 'required_if:mail_driver,smtp|url',
+			'mail_host'			=> 'required_if:mail_driver,smtp',
 			'mail_port'			=> 'required_if:mail_driver,smtp|integer',
 			'mail_encryption'	=> 'required_if:mail_driver,smtp',
 			'mail_username'		=> 'required_if:mail_driver,smtp',
@@ -39,7 +39,6 @@ class CheckEmailSettingsRequest extends Request {
 			'mail_driver.in' => "Please select a valid email driver",
 			'mail_sendmail.required_if' => "Please enter the sendmail path for your server",
 			'mail_host.required_if' => "Please enter your email host address",
-			'mail_host.url' => "Please enter a valid URL",
 			'mail_port.required_if' => "Please enter the port number",
 			'mail_port.integer' => "Port numbers must be integers",
 			'mail_encryption.required_if' => "Please enter the encryption type",
