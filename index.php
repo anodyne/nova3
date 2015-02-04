@@ -8,6 +8,22 @@
 
 /*
 |--------------------------------------------------------------------------
+| Check the PHP Version
+|--------------------------------------------------------------------------
+|
+| Laravel 5 requires PHP 5.4+, so if we find that the server isn't actually
+| running PHP 5.4.0 or higher, we need to bail out immediately and let the
+| user know that they aren't running a new enough version of PHP.
+|
+*/
+
+if (version_compare(PHP_VERSION, '5.4.0', '<'))
+{
+	die("Your server isn't running a compatible version of PHP. You need PHP 5.4.0 or higher in order to run Nova NextGen.");
+}
+
+/*
+|--------------------------------------------------------------------------
 | Register The Auto Loader
 |--------------------------------------------------------------------------
 |
