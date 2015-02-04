@@ -13,7 +13,7 @@
 
 	<div class="form-group">
 		{!! Form::button('Log In', ['type' => 'submit', 'class' => 'btn btn-primary btn-lg btn-block']) !!}
-		<a href="#" class="btn btn-link btn-lg btn-block">Forgot Your Password?</a>
+		<a href="{{ route('password.email') }}" class="btn btn-link btn-lg btn-block">Forgot Your Password?</a>
 		<a href="#" class="btn btn-link btn-lg btn-block">Not a Member? Join Today!</a>
 	</div>
 {!! Form::close() !!}
