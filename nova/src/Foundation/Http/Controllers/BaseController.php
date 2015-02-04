@@ -116,7 +116,10 @@ abstract class BaseController extends Controller {
 
 	protected function buildThemePage()
 	{
-		$this->theme = $this->theme->page($this->view, (array) $this->data);
+		if ($this->view)
+		{
+			$this->theme = $this->theme->page($this->view, (array) $this->data);
+		}
 	}
 
 	protected function buildThemeJavascript()
@@ -144,7 +147,9 @@ abstract class BaseController extends Controller {
 				$layout->javascript = view(Locate::js($this->jsView))->with((array) $this->jsData);
 
 			$layout->template = view(Locate::template($this->templateView));
-			$layout->template->content = view(Locate::page($this->view))->with((array) $this->data);
+
+			if ($this->view)
+				$layout->template->content = view(Locate::page($this->view))->with((array) $this->data);
 
 			// Set the content of the response to our full layout now
 			$response->setContent($layout);
