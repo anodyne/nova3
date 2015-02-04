@@ -40,6 +40,7 @@ class SetupController extends BaseController {
 		Artisan::call('migrate:reset', ['--force' => true]);
 
 		// Remove the config files
+		$files->delete(app('path.config').'/app.php');
 		$files->delete(app('path.config').'/database.php');
 		$files->delete(app('path.config').'/mail.php');
 		$files->delete(app('path.config').'/session.php');
