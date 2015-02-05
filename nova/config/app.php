@@ -207,26 +207,29 @@ return [
 		/**
 		 * Models
 		 */
-		'Character'	=> 'Nova\Core\Characters\Data\Character',
-		'Page'		=> 'Nova\Core\Pages\Data\Page',
-		'System'	=> 'Nova\Foundation\Data\System',
-		'User'		=> 'Nova\Core\Users\Data\User',
+		'Character'		=> 'Nova\Core\Characters\Data\Character',
+		'Page'			=> 'Nova\Core\Pages\Data\Page',
+		'PageContent'	=> 'Nova\Core\Pages\Data\PageContent',
+		'System'		=> 'Nova\Foundation\Data\System',
+		'User'			=> 'Nova\Core\Users\Data\User',
 
 		/**
 		 * Repository Interfaces
 		 */
-		'CharacterRepositoryInterface'	=> 'Nova\Core\Characters\Data\Interfaces\CharacterRepositoryInterface',
-		'PageRepositoryInterface'		=> 'Nova\Core\Pages\Data\Interfaces\PageRepositoryInterface',
-		'SystemRepositoryInterface'		=> 'Nova\Foundation\Data\Interfaces\SystemRepositoryInterface',
-		'UserRepositoryInterface'		=> 'Nova\Core\Users\Data\Interfaces\UserRepositoryInterface',
+		'CharacterRepositoryInterface'		=> 'Nova\Core\Characters\Data\Interfaces\CharacterRepositoryInterface',
+		'PageRepositoryInterface'			=> 'Nova\Core\Pages\Data\Interfaces\PageRepositoryInterface',
+		'PageContentRepositoryInterface'	=> 'Nova\Core\Pages\Data\Interfaces\PageContentRepositoryInterface',
+		'SystemRepositoryInterface'			=> 'Nova\Foundation\Data\Interfaces\SystemRepositoryInterface',
+		'UserRepositoryInterface'			=> 'Nova\Core\Users\Data\Interfaces\UserRepositoryInterface',
 
 		/**
 		 * Repositories
 		 */
-		'CharacterRepository'	=> 'Nova\Core\Characters\Data\Repositories\CharacterRepository',
-		'PageRepository'		=> 'Nova\Core\Pages\Data\Repositories\PageRepository',
-		'SystemRepository'		=> 'Nova\Foundation\Data\Repositories\SystemRepository',
-		'UserRepository'		=> 'Nova\Core\Users\Data\Repositories\UserRepository',
+		'CharacterRepository'		=> 'Nova\Core\Characters\Data\Repositories\CharacterRepository',
+		'PageRepository'			=> 'Nova\Core\Pages\Data\Repositories\PageRepository',
+		'PageContentRepository'		=> 'Nova\Core\Pages\Data\Repositories\PageContentRepository',
+		'SystemRepository'			=> 'Nova\Foundation\Data\Repositories\SystemRepository',
+		'UserRepository'			=> 'Nova\Core\Users\Data\Repositories\UserRepository',
 
 		/**
 		 * Services
