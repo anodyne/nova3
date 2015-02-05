@@ -13,3 +13,6 @@ if ($pages->count() > 0)
 		call_user_func_array([$router, strtolower($page->verb)], [$page->uri, $options]);
 	}
 }
+
+Route::get('admin/pages', 'Nova\Core\Pages\Http\Controllers\PageController@index');
+Route::get('admin/pages/{pageId}/edit', 'Nova\Core\Pages\Http\Controllers\PageController@edit');
