@@ -6,6 +6,7 @@ use ReflectionClass;
 use Illuminate\Support\ClassLoader,
 	Illuminate\Support\ServiceProvider;
 use League\CommonMark\CommonMarkConverter;
+use Nova\Core\Pages\Services\Compilers\PageCompiler;
 use Nova\Foundation\Services\FlashNotifierService,
 	Nova\Foundation\Services\MarkdownParserService,
 	Nova\Foundation\Services\Locator\LocatorService,
@@ -60,6 +61,11 @@ class NovaServiceProvider extends ServiceProvider {
 
 	protected function createPageCompilerEngine()
 	{
+		$this->app->singleton('nova.page.compiler.page', function($app)
+		{
+			return new PageCompiler;
+		});
+
 		$this->app->singleton('nova.page.compiler.setting', function($app)
 		{
 			return new SettingCompiler;
@@ -69,14 +75,13 @@ class NovaServiceProvider extends ServiceProvider {
 		{
 			$engine = new CompilerEngine;
 			$engine->registerCompiler('setting', $app['nova.page.compiler.setting']);
+			$engine->registerCompiler('page', $app['nova.page.compiler.page']);
 
 			return $engine;
 		});
 
 		// Add a page parser handler in a service provider
 		// $this->app['nova.page.compiler']->registerCompiler('foo', new Foo);
-		// app('nova.page.compiler')->registerCompiler('foo', new Foo);
-		// app('nova.page.compiler')->registerCompiler('foo', function($matches){ return $matches; });
 	}
 
 	protected function getCurrentUser()
@@ -123,7 +128,7 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->aliases = $this->app['config']['app.aliases'];
 
 		// Set the items being bound
-		$bindings = ['Character', 'Page', 'System', 'User'];
+		$bindings = ['Character', 'Page', 'PageContent', 'System', 'User'];
 
 		foreach ($bindings as $binding)
 		{
