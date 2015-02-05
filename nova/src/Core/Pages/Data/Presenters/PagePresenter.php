@@ -4,19 +4,22 @@ use Laracasts\Presenter\Presenter;
 
 class PagePresenter extends Presenter {
 
-	public function content()
+	public function message()
 	{
-		return app('nova.pages.compiler')->compile($this->entity->content);
+		if ($this->entity->message())
+			return app('nova.markdown')->parse($this->entity->message()->present()->value);
 	}
 
 	public function header()
 	{
-		return $this->entity->header;
+		if ($this->entity->header())
+			return $this->entity->header()->present()->value;
 	}
 
 	public function title()
 	{
-		return $this->entity->title;
+		if ($this->entity->title())
+			return $this->entity->title()->present()->value;
 	}
 
 }

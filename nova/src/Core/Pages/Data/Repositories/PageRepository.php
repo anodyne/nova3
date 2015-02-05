@@ -19,14 +19,14 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 		return $this->model->create($data);
 	}
 
-	public function getByRouteName(Route $route)
+	public function getByRouteKey(Route $route)
 	{
-		return $this->getFirstBy('name', $route->getName());
+		return $this->getFirstBy('key', $route->getName(), ['pageContents']);
 	}
 
 	public function getByRouteUri(Route $route)
 	{
-		return $this->getFirstBy('uri', $route->getUri());
+		return $this->getFirstBy('uri', $route->getUri(), ['pageContents']);
 	}
 
 }
