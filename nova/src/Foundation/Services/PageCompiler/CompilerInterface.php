@@ -10,5 +10,12 @@ interface CompilerInterface {
 	 * @return	string
 	 */
 	public function compile($value, CompilerEngine $engine);
+
+	/**
+	 * Provide information about this specific compiler.
+	 *
+	 * @return	string
+	 */
+	public function help();
 	
 }

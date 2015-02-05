@@ -31,4 +31,14 @@ class FormCompiler implements CompilerInterface {
 		return preg_replace_callback($engine->getPattern(), $callback, $value);
 	}
 
+	/**
+	 * Provide information about this specific compiler.
+	 *
+	 * @return	string
+	 */
+	public function help()
+	{
+		return "";
+	}
+
 }

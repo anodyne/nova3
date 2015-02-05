@@ -3,7 +3,7 @@
 use Nova\Foundation\Services\PageCompiler\CompilerEngine,
 	Nova\Foundation\Services\PageCompiler\CompilerInterface;
 
-class ForumCompiler implements CompilerInterface {
+class IconCompiler implements CompilerInterface {
 
 	/**
 	 * Compile the content.
@@ -20,9 +20,9 @@ class ForumCompiler implements CompilerInterface {
 			list($type, $key) = explode(':', $matches[2]);
 
 			// Make sure we're only working with the right type
-			if ($type == 'forum')
+			if ($type == 'icon')
 			{
-				return ($matches[1]) ? substr($matches[0], 1) : "(({$key}))";
+				return ($matches[1]) ? substr($matches[0], 1) : config("icons.{$key}");
 			}
 
 			return $matches[0];
