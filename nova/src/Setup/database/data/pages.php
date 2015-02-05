@@ -1,76 +1,85 @@
 <?php
 
-$pages = [
+return [
 	[
 		'verb'				=> "GET",
-		'name'				=> "home",
+		'name'				=> "Welcome Page",
+		'key'				=> "home",
 		'uri'				=> "/",
-		'default_resource'	=> "Nova\\Core\\Game\\Http\\Controllers\\HomeController@home",
 		'protected'			=> (int) true,
 	],
 
 	[
 		'verb'				=> "GET",
-		'name'				=> "login",
+		'name'				=> "Log In",
+		'key'				=> "login",
 		'uri'				=> "login",
 		'default_resource'	=> "Nova\\Core\\Login\\Http\\Controllers\\LoginController@index",
 		'protected'			=> (int) true,
 	],
 	[
 		'verb'				=> "POST",
-		'name'				=> "login.do",
+		'name'				=> "",
+		'key'				=> "login.do",
 		'uri'				=> "login",
 		'default_resource'	=> "Nova\\Core\\Login\\Http\\Controllers\\LoginController@login",
 		'protected'			=> (int) true,
 	],
 	[
 		'verb'				=> "GET",
-		'name'				=> "logout",
+		'name'				=> "Logout",
+		'key'				=> "logout",
 		'uri'				=> "logout",
 		'default_resource'	=> "Nova\\Core\\Login\\Http\\Controllers\\LoginController@logout",
 		'protected'			=> (int) true,
 	],
 	[
 		'verb'				=> "GET",
-		'name'				=> "password.email",
+		'name'				=> "Send Password Reminder",
+		'key'				=> "password.email",
 		'uri'				=> "password",
 		'default_resource'	=> "Nova\\Core\\Login\\Http\\Controllers\\PasswordController@email",
 		'protected'			=> (int) true,
 	],
 	[
 		'verb'				=> "POST",
-		'name'				=> "password.email.send",
+		'name'				=> "",
+		'key'				=> "password.email.send",
 		'uri'				=> "password",
 		'default_resource'	=> "Nova\\Core\\Login\\Http\\Controllers\\PasswordController@emailReset",
 		'protected'			=> (int) true,
 	],
 	[
 		'verb'				=> "GET",
-		'name'				=> "password.reset",
+		'name'				=> "Reset Password",
+		'key'				=> "password.reset",
 		'uri'				=> "password/reset/{token}",
 		'default_resource'	=> "Nova\\Core\\Login\\Http\\Controllers\\PasswordController@reset",
 		'protected'			=> (int) true,
 	],
 	[
 		'verb'				=> "POST",
-		'name'				=> "password.reset.do",
+		'name'				=> "",
+		'key'				=> "password.reset.do",
 		'uri'				=> "password/reset",
 		'default_resource'	=> "Nova\\Core\\Login\\Http\\Controllers\\PasswordController@resetPassword",
 		'protected'			=> (int) true,
 	],
+
+	[
+		'verb'				=> "GET",
+		'name'				=> "Page Manager",
+		'key'				=> "admin.pages",
+		'uri'				=> "admin/pages",
+		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@index",
+		'protected'			=> (int) true,
+	],
+	[
+		'verb'				=> "GET",
+		'name'				=> "Edit Page",
+		'key'				=> "admin.pages.edit",
+		'uri'				=> "admin/pages/{pageId}/edit",
+		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@edit",
+		'protected'			=> (int) true,
+	],
 ];
-
-$collections = [];
-
-$content = [];
-
-$navigation = [];
-
-$data = [
-	'pages'			=> $pages,
-	'collections'	=> $collections,
-	'content'		=> $content,
-	'navigation'	=> $navigation,
-];
-
-return $data;

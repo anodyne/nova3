@@ -10,15 +10,15 @@ class CreatePagesTables extends Migration {
 		Schema::create('pages', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
-			$table->integer('collection_id')->unsigned();
 			$table->string('verb', 10)->default('GET');
-			$table->string('name');
+			$table->string('name'); // Used as a descriptive name of the page
+			$table->text('description')->nullable();
+			$table->string('key'); // Used as the route name
 			$table->string('uri');
 			$table->text('resource')->nullable();
-			$table->text('default_resource')->nullable();
+			$table->text('default_resource')->default("Nova\\Foundation\\Http\\Controllers\\MainController@page");
 			$table->text('conditions')->nullable();
 			$table->boolean('protected')->default((int) false);
-			$table->text('description')->nullable();
 			$table->timestamps();
 		});
 
@@ -28,7 +28,7 @@ class CreatePagesTables extends Migration {
 			$table->string('slug')->nullable();
 			$table->string('prefix')->nullable();
 			$table->timestamps();
-		});
+		});*/
 
 		Schema::create('pages_content', function(Blueprint $table)
 		{
@@ -36,11 +36,11 @@ class CreatePagesTables extends Migration {
 			$table->bigInteger('page_id')->unsigned();
 			$table->string('type', 10);
 			$table->string('key');
-			$table->text('content');
+			$table->text('value');
 			$table->timestamps();
 		});
 
-		Schema::create('pages_navigation', function(Blueprint $table)
+		/*Schema::create('pages_navigation', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->bigInteger('page_id')->unsigned();
@@ -54,17 +54,23 @@ class CreatePagesTables extends Migration {
 	{
 		Schema::dropIfExists('pages');
 		//Schema::dropIfExists('pages_collections');
-		//Schema::dropIfExists('pages_content');
+		Schema::dropIfExists('pages_content');
 		//Schema::dropIfExists('pages_navigation');
 	}
 
 	protected function populateTables()
 	{
-		$data = require_once app('path.database').'/data/pages.php';
+		$data['pages'] = require_once app('path.database').'/data/pages.php';
+		$data['content'] = require_once app('path.database').'/data/pages_content.php';
 
 		foreach ($data['pages'] as $page)
 		{
 			app('PageRepository')->create($page);
+		}
+
+		foreach ($data['content'] as $content)
+		{
+			app('PageContentRepository')->create($content);
 		}
 	}
 
