@@ -50,9 +50,11 @@ abstract class BaseController extends Controller {
 			if (app('nova.setup')->isInstalled())
 			{
 				$me->page = app('PageRepository')->getByRouteKey($request->route());
+				$me->settings = app('nova.settings');
 
 				view()->share('_page', $me->page);
 				view()->share('_icons', config('icons'));
+				view()->share('_settings', $me->settings);
 				view()->share('_currentUser', app('nova.user'));
 			}
 		});
@@ -91,7 +93,8 @@ abstract class BaseController extends Controller {
 	protected function buildThemeStructure()
 	{
 		$data = [
-			'siteName'	=> config('nova.app.name')
+			'siteName'	=> $this->settings->sim_name,
+			'pageTitle'	=> $this->page->present()->title,
 		];
 
 		$this->theme = app('nova.theme')->structure($this->structureView, $data);
@@ -99,7 +102,11 @@ abstract class BaseController extends Controller {
 
 	protected function buildThemeTemplate()
 	{
-		$data = [];
+		$data = [
+			'siteName'	=> $this->settings->sim_name,
+			'header'	=> $this->page->present()->header,
+			'message'	=> $this->page->present()->message,
+		];
 
 		$this->theme = $this->theme->template($this->templateView, $data);
 	}
