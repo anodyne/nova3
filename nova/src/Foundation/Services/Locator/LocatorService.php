@@ -1,8 +1,6 @@
 <?php namespace Nova\Foundation\Services\Locator;
 
-use Str,
-	User,
-	SettingsRepository;
+use Str, User;
 use Symfony\Component\Finder\Finder;
 use Dflydev\Symfony\FinderFactory\FinderFactory,
 	Dflydev\Symfony\FinderFactory\FinderFactoryInterface;
@@ -32,7 +30,7 @@ class LocatorService {
 	protected $user;
 
 	/**
-	 * @var	SettingsRepository	The settings repository interface
+	 * @var	object	An object of all the settings
 	 */
 	protected $settings;
 
@@ -41,8 +39,7 @@ class LocatorService {
 	 */
 	protected $finderFactory;
 
-	public function __construct(User $user = null,
-			SettingsRepository $settings = null,
+	public function __construct(User $user = null, $settings = null,
 			FinderFactoryInterface $finderFactory = null)
 	{
 		$this->user				= $user;
@@ -224,14 +221,11 @@ class LocatorService {
 	 */
 	protected function findCurrentTheme()
 	{
-		return 'pulsar';
+		if ( ! app('nova.setup')->isInstalled()) return false;
 
-		if ($this->user)
-		{
-			return $this->user->getPreference('theme');
-		}
+		if ($this->user) return $this->user->getPreference('theme');
 
-		return $this->settings->findByKey('theme');
+		return $this->settings->theme;
 	}
 
 }
