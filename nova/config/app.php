@@ -210,6 +210,7 @@ return [
 		'Character'		=> 'Nova\Core\Characters\Data\Character',
 		'Page'			=> 'Nova\Core\Pages\Data\Page',
 		'PageContent'	=> 'Nova\Core\Pages\Data\PageContent',
+		'Setting'		=> 'Nova\Core\Settings\Data\Setting',
 		'System'		=> 'Nova\Foundation\Data\System',
 		'User'			=> 'Nova\Core\Users\Data\User',
 
@@ -219,6 +220,7 @@ return [
 		'CharacterRepositoryInterface'		=> 'Nova\Core\Characters\Data\Interfaces\CharacterRepositoryInterface',
 		'PageRepositoryInterface'			=> 'Nova\Core\Pages\Data\Interfaces\PageRepositoryInterface',
 		'PageContentRepositoryInterface'	=> 'Nova\Core\Pages\Data\Interfaces\PageContentRepositoryInterface',
+		'SettingRepositoryInterface'		=> 'Nova\Core\Settings\Data\Interfaces\SettingRepositoryInterface',
 		'SystemRepositoryInterface'			=> 'Nova\Foundation\Data\Interfaces\SystemRepositoryInterface',
 		'UserRepositoryInterface'			=> 'Nova\Core\Users\Data\Interfaces\UserRepositoryInterface',
 
@@ -228,6 +230,7 @@ return [
 		'CharacterRepository'		=> 'Nova\Core\Characters\Data\Repositories\CharacterRepository',
 		'PageRepository'			=> 'Nova\Core\Pages\Data\Repositories\PageRepository',
 		'PageContentRepository'		=> 'Nova\Core\Pages\Data\Repositories\PageContentRepository',
+		'SettingRepository'			=> 'Nova\Core\Settings\Data\Repositories\SettingRepository',
 		'SystemRepository'			=> 'Nova\Foundation\Data\Repositories\SystemRepository',
 		'UserRepository'			=> 'Nova\Core\Users\Data\Repositories\UserRepository',
 
