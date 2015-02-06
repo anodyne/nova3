@@ -52,4 +52,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		$this->attributes['password'] = Hash::make($value);
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| Model Methods
+	|--------------------------------------------------------------------------
+	*/
+
+	public function preference($value)
+	{
+		return false;
+	}
+
 }
