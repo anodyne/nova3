@@ -7,6 +7,14 @@
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="{{ route('setup.home') }}">Setup Center</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="{{ route('admin.pages') }}">Page Manager</a></li>
+							<li><a href="#">Additional Page Contents</a></li>
+							<li><a href="#">Menus</a></li>
+						</ul>
+					</li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
