@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>@yield('title') &bull; Nova 3</title>
+		<title>@yield('title') &bull; {{ config('nova.app.name') }}</title>
 		<meta name="author" content="Anodyne Productions">
 		<meta name="viewport" content="width=device-width">
 
@@ -10,9 +10,9 @@
 		<link href="//fonts.googleapis.com/css?family=Roboto+Condensed:300,700" rel="stylesheet">
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 
-		{!! HTML::style('nova/src/Setup/views/design/css/style.setup.css') !!}
-		{!! HTML::style('nova/src/Setup/views/design/css/fonts.setup.css') !!}
-		{!! HTML::style('nova/src/Setup/views/design/css/retina.setup.css', ['media' => 'only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)']) !!}
+		{!! HTML::style('nova/src/Setup/views/design/css/setup.style.css') !!}
+		{!! HTML::style('nova/src/Setup/views/design/css/setup.fonts.css') !!}
+		{!! HTML::style('nova/src/Setup/views/design/css/setup.retina.css', ['media' => 'only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)']) !!}
 	</head>
 	<body>
 		<header>
