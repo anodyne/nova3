@@ -1,6 +1,9 @@
 @import "variables.setup.less";
 @import "../../../../../views/design/less/mixins.less";
 
+html {
+	font-size: 62.5%;
+}
 body {
 	line-height: @line-height;
 
@@ -19,11 +22,11 @@ header {
 	color: @color-blue-grey-300;
 	font-weight: 300;
 	font-family: @font-heading;
-	font-size: 32px;
+	font-size: 3.2rem;
 	border-bottom: 1px solid rgba(0, 0, 0, .1);
 
 	.product, .process, .divider {
-		line-height: 62px;
+		line-height: 6.2rem;
 	}
 
 	.divider {
@@ -66,9 +69,10 @@ nav {
 			margin: 0;
 			/*padding: @spacing 10px @spacing 45px;*/
 			padding: @spacing 10px;
-			line-height: 20px;
+			line-height: 2rem;
 
-			font-size: 14px;
+			font-size: 1.4rem;
+			letter-spacing: 0.5px;
 
 			/*&:before {
 				content: counter(li);
@@ -100,7 +104,7 @@ nav {
 
 			.icn {
 				float: left;
-				margin-right: @spacing;
+				margin-right: @spacing-sm;
 			}
 
 			&.step-active {
@@ -177,8 +181,8 @@ main {
 		width: auto;
 
 		text-align: center;
-		font-size: 28px;
-		font-weight: 700;
+		font-size: 3.4rem;
+		font-weight: 300;
 		font-family: @font-heading;
 		color: @color-blue-grey-600;
 	}
@@ -187,15 +191,15 @@ main {
 		margin: 0 0 @spacing-lg 0;
 
 		text-align: center;
-		font-size: 15px;
+		font-size: 1.6rem;
 		font-weight: 400;
 		color: @color-blue-grey-300;
 	}
 
 	h3 {
 		text-align: left;
-		font-size: 20px;
-		font-weight: 700;
+		font-size: 2.4rem;
+		font-weight: 300;
 		font-family: @font-heading;
 		color: @color-blue-grey-600;
 	}
@@ -203,12 +207,13 @@ main {
 	p {
 		line-height: @line-height;
 
-		font-size: 15px;
+		font-size: 1.5rem;
 	}
 
 	form {
 		.control-label {
 			color: @color-blue-grey-600;
+			font-weight: 500;
 		}
 
 		.form-control {
@@ -240,8 +245,8 @@ main {
 	.rounded(@border-radius-lg);
 
 	h1 {
-		font-size: 28px;
-		font-weight: 700;
+		font-size: 34px;
+		font-weight: 300;
 		font-family: @font-heading;
 		color: @color-blue-grey-600;
 	}
@@ -315,15 +320,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn {
-	font-weight: 600;
+	font-weight: 400;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
 
 	.rounded(@border-radius);
 
 	&.btn-primary {
 		.btn-pseudo-states(@color-white, @color-primary, @color-primary);
+		.box-shadow(~"0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)");
 	}
 	&.btn-danger {
 		.btn-pseudo-states(@color-white, @color-danger, @color-danger);
+		.box-shadow(~"0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)");
 	}
 
 	&,
@@ -361,6 +370,20 @@ hr.partial {
 	}
 	&.alert-warning {
 		.alert-variant(@color-amber-100, @color-amber-200, darken(@color-amber-900, 10%));
+	}
+}
+
+.label {
+	font-weight: 400;
+	letter-spacing: 0.5px;
+
+	.rounded(@border-radius-sm);
+
+	&.label-danger {
+		.label-variant(@color-danger);
+	}
+	&.label-success {
+		.label-variant(@color-success);
 	}
 }
 
