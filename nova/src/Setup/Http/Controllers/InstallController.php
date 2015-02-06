@@ -4,10 +4,12 @@ use Str,
 	Flash,
 	Input,
 	Artisan,
-	UserCreator;
+	UserCreator,
+	SettingRepositoryInterface;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Contracts\Cache\Repository as Cache;
-use Nova\Setup\Http\Requests\CreateUserRequest;
+use Nova\Setup\Http\Requests\CreateUserRequest,
+	Nova\Setup\Http\Requests\UpdateSettingsRequest;
 
 class InstallController extends BaseController {
 
@@ -72,6 +74,33 @@ class InstallController extends BaseController {
 		Flash::error("User and character could not be created.");
 
 		return redirect()->route('setup.install.user');
+	}
+
+	public function settings()
+	{
+		$settings = ['sim_name'];
+
+		return view('pages.setup.install.settings', compact('settings'));
+	}
+
+	public function settingsSuccess()
+	{
+		return view('pages.setup.install.settings-success');
+	}
+
+	public function updateSettings(SettingRepositoryInterface $repo, UpdateSettingsRequest $request)
+	{
+		// Update the settings
+		$update = $repo->update(Input::except(['_token']));
+
+		if ($update)
+		{
+			return redirect()->route('setup.install.settings.success');
+		}
+
+		Flash::error("User and character could not be created.");
+
+		return redirect()->route('setup.install.settings');
 	}
 
 }

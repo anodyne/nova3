@@ -7,6 +7,7 @@ $classes = [
 	2 => '',
 	3 => '',
 	4 => '',
+	5 => '',
 ];
 
 $dbActive = [
@@ -29,6 +30,15 @@ $userActive = [
 ];
 $userCompleted = [
 	'setup/install/user/success',
+	'setup/install/settings',
+	'setup/install/settings/success',
+];
+
+$settingsActive = [
+	'setup/install/settings',
+];
+$settingsCompleted = [
+	'setup/install/settings/success',
 ];
 
 if (in_array($path, $dbActive))
@@ -67,9 +77,19 @@ if (in_array($path, $userCompleted))
 	$classes[4] = ' class="step-completed"';
 }
 
+if (in_array($path, $settingsActive))
+{
+	$classes[5] = ' class="step-active"';
+}
+if (in_array($path, $settingsCompleted))
+{
+	$classes[5] = ' class="step-completed"';
+}
+
 ?><ol>
 	<li{!! $classes[1] !!}>{!! icon($_icons['1']) !!}Database Connection</li>
 	<li{!! $classes[2] !!}>{!! icon($_icons['2']) !!}Email Settings</li>
 	<li{!! $classes[3] !!}>{!! icon($_icons['3']) !!}Install {{ config('nova.app.name') }}</li>
 	<li{!! $classes[4] !!}>{!! icon($_icons['4']) !!}Create User &amp; Character</li>
+	<li{!! $classes[5] !!}>{!! icon($_icons['5']) !!}Update Settings</li>
 </ol>

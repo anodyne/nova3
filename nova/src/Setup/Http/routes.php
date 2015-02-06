@@ -74,4 +74,14 @@ Route::group($installOptions, function()
 	Route::post('user', [
 		'as'	=> 'setup.install.user.store',
 		'uses'	=> 'InstallController@createUser']);
+
+	Route::get('settings', [
+		'as'	=> 'setup.install.settings',
+		'uses'	=> 'InstallController@settings']);
+	Route::get('settings/success', [
+		'as'	=> 'setup.install.settings.success',
+		'uses'	=> 'InstallController@settingsSuccess']);
+	Route::post('settings', [
+		'as'	=> 'setup.install.settings.store',
+		'uses'	=> 'InstallController@updateSettings']);
 });
