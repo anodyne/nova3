@@ -17,7 +17,7 @@ return [
 		'page_id' => 1,
 		'type' => 'message',
 		'key' => 'home.message',
-		'value' => "This is my first message. And here is a {% page:home:link %} to the homepage."
+		'value' => "This is my first message. And here is a {% page:home:link %} to the homepage using the new page compiler engine!"
 	],
 
 	[

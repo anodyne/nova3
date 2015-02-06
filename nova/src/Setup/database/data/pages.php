@@ -6,6 +6,7 @@ return [
 		'name'				=> "Welcome Page",
 		'key'				=> "home",
 		'uri'				=> "/",
+		'default_resource'	=> "Nova\\Foundation\\Http\\Controllers\\MainController@page",
 		'protected'			=> (int) true,
 	],
 
