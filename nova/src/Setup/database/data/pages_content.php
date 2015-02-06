@@ -5,7 +5,7 @@ return [
 		'page_id' => 1,
 		'type' => 'header',
 		'key' => 'home.header',
-		'value' => "Welcome to Nova NextGen!"
+		'value' => "Welcome to the {% setting:sim_name %}!"
 	],
 	[
 		'page_id' => 1,
