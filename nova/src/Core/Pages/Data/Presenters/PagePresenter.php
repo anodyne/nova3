@@ -22,4 +22,35 @@ class PagePresenter extends Presenter {
 			return $this->entity->title()->present()->value;
 	}
 
+	public function verb()
+	{
+		return $this->entity->verb;
+	}
+
+	public function verbAsLabel()
+	{
+		$verb = $this->verb();
+
+		switch ($verb)
+		{
+			case 'GET':
+				$level = 'success';
+			break;
+
+			case 'PUT':
+				$level = 'info';
+			break;
+
+			case 'POST':
+				$level = 'warning';
+			break;
+
+			case 'DELETE':
+				$level = 'danger';
+			break;
+		}
+
+		return label($level, $verb);
+	}
+
 }
