@@ -1,5 +1,6 @@
 @import url("//fonts.googleapis.com/css?family=Roboto:300,400,700");
 @import url("//fonts.googleapis.com/css?family=Roboto+Condensed:300,700");
+@import url("//fonts.googleapis.com/css?family=Roboto+Slab:400,700");
 .data-table {
   margin: 15px 0;
 }
@@ -43,7 +44,7 @@ body {
   padding-bottom: 2rem;
   line-height: 1.75;
   font-family: "Roboto", helvetica, arial, sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   color: #444444;
 }
 .navbar {
@@ -52,7 +53,7 @@ body {
   border-radius: 4px 4px 4px 4px;
 }
 h1 {
-  font-family: "Roboto Condensed";
-  font-weight: 300;
+  font-family: "Roboto Slab";
+  font-weight: 700;
   font-size: 3.4rem;
 }
