@@ -2,9 +2,12 @@
 @import "mixins.less";
 @import "data-table.less";
 
+html {
+	font-size: 62.5%;
+}
 body {
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
 	line-height: @line-height;
 
 	font-family: @font;
@@ -12,7 +15,12 @@ body {
 	color: @color-body-text;
 }
 
+.navbar {
+	.rounded(@border-radius);
+}
+
 h1 {
 	font-family: @font-heading;
-	font-weight: 700;
+	font-weight: 300;
+	font-size: 3.4rem;
 }
