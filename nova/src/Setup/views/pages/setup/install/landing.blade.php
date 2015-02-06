@@ -39,10 +39,10 @@
 @section('controls')
 	<div class="row">
 		<div class="col-md-6">
-			<p><a href="{{ route('setup.home') }}" class="btn btn-link">Cancel</a></p>
+			<p><a href="{{ route('setup.home') }}" class="btn btn-link btn-lg">Cancel</a></p>
 		</div>
 		<div class="col-md-6 text-right">
-			<p><a href="{{ route('setup.install.config.db') }}" class="btn btn-primary">Next: Database Connection</a></p>
+			<p><a href="{{ route('setup.install.config.db') }}" class="btn btn-primary btn-lg">Next: Database Connection</a></p>
 		</div>
 	</div>
 @stop

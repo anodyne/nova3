@@ -17,10 +17,10 @@
 @section('controls')
 	<div class="row">
 		<div class="col-md-6">
-			<p><a href="{{ route('setup.install.config.email') }}" class="btn btn-link">Back: Restart Email Settings</a></p>
+			<p><a href="{{ route('setup.install.config.email') }}" class="btn btn-link btn-lg">Back: Restart Email Settings</a></p>
 		</div>
 		<div class="col-md-6 text-right">
-			<p><a class="btn btn-link disabled">Next: Create User &amp; Character</a></p>
+			<p><a class="btn btn-link btn-lg disabled">Next: Create User &amp; Character</a></p>
 		</div>
 	</div>
 @stop

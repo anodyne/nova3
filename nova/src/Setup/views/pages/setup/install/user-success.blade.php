@@ -9,9 +9,9 @@
 @stop
 
 @section('content')
-	<h1>User Account and Character Created</h1>
+	<h1>User Account &amp; Character Created</h1>
 
-	<p>Your user account and primary character have been created and the {{ config('nova.app.name') }} installation is complete. You can go to your site now and start using {{ config('nova.app.name') }}.</p>
+	<p>Your user account and primary character have been created. As a final step, you'll be able to update some of the basic system settings to your liking.</p>
 @stop
 
 @section('controls')
@@ -20,7 +20,7 @@
 			<p>&nbsp;</p>
 		</div>
 		<div class="col-md-6 text-right">
-			<p><a href="{{ route('home') }}" class="btn btn-primary">Next: Go to Your Site</a></p>
+			<p><a href="{{ route('setup.'.$_setupType.'.settings') }}" class="btn btn-primary btn-lg">Next: Update Settings</a></p>
 		</div>
 	</div>
 @stop

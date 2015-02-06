@@ -71,8 +71,10 @@
 			<div class="form-group{{ ($errors->has('mail_host')) ? ' has-error' : '' }}">
 				<label class="col-md-3 control-label">Host</label>
 				<div class="col-md-7">
-					{!! Form::text('mail_host', false, ['class' => 'input-lg form-control']) !!}
-					{!! $errors->first('mail_host', '<p class="help-block">:message</p>') !!}
+					<div class="control-wrapper">
+						{!! Form::text('mail_host', false, ['class' => 'input-lg form-control']) !!}
+						{!! $errors->first('mail_host', '<p class="help-block">:message</p>') !!}
+					</div>
 				</div>
 			</div>
 
@@ -99,16 +101,20 @@
 			<div class="form-group{{ ($errors->has('mail_username')) ? ' has-error' : '' }}">
 				<label class="col-md-3 control-label">Username</label>
 				<div class="col-md-7">
-					{!! Form::text('mail_username', false, ['class' => 'input-lg form-control']) !!}
-					{!! $errors->first('mail_username', '<p class="help-block">:message</p>') !!}
+					<div class="control-wrapper">
+						{!! Form::text('mail_username', false, ['class' => 'input-lg form-control']) !!}
+						{!! $errors->first('mail_username', '<p class="help-block">:message</p>') !!}
+					</div>
 				</div>
 			</div>
 
 			<div class="form-group{{ ($errors->has('mail_password')) ? ' has-error' : '' }}">
 				<label class="col-md-3 control-label">Password</label>
 				<div class="col-md-7">
-					{!! Form::password('mail_password', ['class' => 'input-lg form-control']) !!}
-					{!! $errors->first('mail_password', '<p class="help-block">:message</p>') !!}
+					<div class="control-wrapper">
+						{!! Form::password('mail_password', ['class' => 'input-lg form-control']) !!}
+						{!! $errors->first('mail_password', '<p class="help-block">:message</p>') !!}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -125,8 +131,10 @@
 			<div class="form-group{{ ($errors->has('mail_sendmail')) ? ' has-error' : '' }}">
 				<label class="col-md-3 control-label">Sendmail Path</label>
 				<div class="col-md-7">
-					{!! Form::text('mail_sendmail', '/usr/sbin/sendmail -bs', ['class' => 'input-lg form-control']) !!}
-					{!! $errors->first('mail_sendmail', '<p class="help-block">:message</p>') !!}
+					<div class="control-wrapper">
+						{!! Form::text('mail_sendmail', '/usr/sbin/sendmail -bs', ['class' => 'input-lg form-control']) !!}
+						{!! $errors->first('mail_sendmail', '<p class="help-block">:message</p>') !!}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -162,13 +170,13 @@
 @section('controls')
 	<div class="row">
 		<div class="col-md-6">
-			<p><a href="{{ route('setup.'.$_setupType.'.config.db') }}" class="btn btn-link">Back: Database Connection</a></p>
+			<p><a href="{{ route('setup.'.$_setupType.'.config.db') }}" class="btn btn-link btn-lg">Back: Restart Database Connection</a></p>
 		</div>
 		<div class="col-md-6 text-right">
 			@if (file_exists(app('path.config').'/mail.php'))
-				<p><a href="{{ route('setup.'.$_setupType.'.nova') }}" class="btn btn-primary">Next: Install {{ config('nova.app.name') }}</a></p>
+				<p><a href="{{ route('setup.'.$_setupType.'.nova') }}" class="btn btn-primary btn-lg">Next: Install {{ config('nova.app.name') }}</a></p>
 			@else
-				<p><a class="btn btn-link disabled">Next: Install {{ config('nova.app.name') }}</a></p>
+				<p><a class="btn btn-link btn-lg disabled">Next: Install {{ config('nova.app.name') }}</a></p>
 			@endif
 		</div>
 	</div>

@@ -62,37 +62,47 @@
 			<div class="form-group">
 				<label class="col-md-3 control-label">Host</label>
 				<div class="col-md-7">
-					{!! Form::text('db_host', 'localhost', ['class' => 'input-lg form-control']) !!}
-					<p class="help-block">For most web hosts, <em>localhost</em> will be correct. If you aren't sure or the information you received from your web host isn't clear about what the database host name is, contact them for more information.</p>
+					<div class="control-wrapper">
+						{!! Form::text('db_host', 'localhost', ['class' => 'input-lg form-control']) !!}
+						<p class="help-block">For most web hosts, <code>localhost</code> will be correct. If you aren't sure or the information you received from your web host isn't clear about what the database host name is, contact them for more information.</p>
+					</div>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="col-md-3 control-label">Database Name</label>
 				<div class="col-md-7">
-					{!! Form::text('db_name', false, ['class' => 'input-lg form-control']) !!}
+					<div class="control-wrapper">
+						{!! Form::text('db_name', false, ['class' => 'input-lg form-control']) !!}
+					</div>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="col-md-3 control-label">Table Prefix</label>
 				<div class="col-md-7">
-					{!! Form::text('db_prefix', 'nova_', ['class' => 'input-lg form-control']) !!}
-					<p class="help-block">Setting the table prefix will allow you to install {{ config('nova.app.name') }} into a database with other applications.</p>
+					<div class="control-wrapper">
+						{!! Form::text('db_prefix', 'nova_', ['class' => 'input-lg form-control']) !!}
+						<p class="help-block">Setting the table prefix will allow you to install {{ config('nova.app.name') }} into a database with other applications.</p>
+					</div>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="col-md-3 control-label">Username</label>
 				<div class="col-md-7">
-					{!! Form::text('db_user', false, ['class' => 'input-lg form-control']) !!}
+					<div class="control-wrapper">
+						{!! Form::text('db_user', false, ['class' => 'input-lg form-control']) !!}
+					</div>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="col-md-3 control-label">Password</label>
 				<div class="col-md-7">
-					{!! Form::password('db_password', ['class' => 'input-lg form-control']) !!}
+					<div class="control-wrapper">
+						{!! Form::password('db_password', ['class' => 'input-lg form-control']) !!}
+					</div>
 				</div>
 			</div>
 
@@ -132,13 +142,13 @@
 @section('controls')
 	<div class="row">
 		<div class="col-md-6">
-			<p><a href="{{ route('setup.'.$_setupType) }}" class="btn btn-link">Back: Fresh Install Info</a></p>
+			<p><a href="{{ route('setup.'.$_setupType) }}" class="btn btn-link btn-lg">Back: Fresh Install Info</a></p>
 		</div>
 		<div class="col-md-6 text-right">
 			@if (file_exists(app('path.config').'/database.php'))
-				<p><a href="{{ route('setup.'.$_setupType.'.config.email') }}" class="btn btn-primary">Next: Email Settings</a></p>
+				<p><a href="{{ route('setup.'.$_setupType.'.config.email') }}" class="btn btn-primary btn-lg">Next: Email Settings</a></p>
 			@else
-				<p><a class="btn btn-link disabled">Next: Email Settings</a></p>
+				<p><a class="btn btn-link btn-lg disabled">Next: Email Settings</a></p>
 			@endif
 		</div>
 	</div>

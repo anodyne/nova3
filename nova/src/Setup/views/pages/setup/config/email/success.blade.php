@@ -17,10 +17,10 @@
 @section('controls')
 	<div class="row">
 		<div class="col-md-6">
-			<p><a href="{{ route('setup.'.$_setupType.'.config.email') }}" class="btn btn-link">Back: Restart Email Settings</a></p>
+			<p><a href="{{ route('setup.'.$_setupType.'.config.email') }}" class="btn btn-link btn-lg">Back: Restart Email Settings</a></p>
 		</div>
 		<div class="col-md-6 text-right">
-			<p><a href="{{ route('setup.'.$_setupType.'.nova') }}" class="btn btn-primary">Next: Install {{ config('nova.app.name') }}</a></p>
+			<p><a href="{{ route('setup.'.$_setupType.'.nova') }}" class="btn btn-primary btn-lg">Next: Install {{ config('nova.app.name') }}</a></p>
 		</div>
 	</div>
 @stop

@@ -17,10 +17,10 @@
 @section('controls')
 	<div class="row">
 		<div class="col-md-6">
-			<p><a href="{{ route('setup.'.$_setupType.'.config.db') }}" class="btn btn-link">Back: Restart Database Connection</a></p>
+			<p><a href="{{ route('setup.'.$_setupType.'.config.db') }}" class="btn btn-link btn-lg">Back: Restart Database Connection</a></p>
 		</div>
 		<div class="col-md-6 text-right">
-			<p><a href="{{ route('setup.'.$_setupType.'.config.email') }}" class="btn btn-primary">Next: Email Settings</a></p>
+			<p><a href="{{ route('setup.'.$_setupType.'.config.email') }}" class="btn btn-primary btn-lg">Next: Email Settings</a></p>
 		</div>
 	</div>
 @stop
