@@ -1,4 +1,4 @@
-<?php namespace Nova\Foundation\Services\PageCompiler\Compilers;
+<?php namespace Nova\Core\Settings\Services\Compilers;
 
 use Nova\Foundation\Services\PageCompiler\CompilerEngine,
 	Nova\Foundation\Services\PageCompiler\CompilerInterface;
@@ -22,7 +22,9 @@ class SettingCompiler implements CompilerInterface {
 			// Make sure we're only working with the right type
 			if ($type == 'setting')
 			{
-				return ($matches[1]) ? substr($matches[0], 1) : "(({$key}))";
+				if ($matches[1]) return substr($matches[0], 1);
+
+				return app('nova.settings')->{$key};
 			}
 
 			return $matches[0];
@@ -38,7 +40,7 @@ class SettingCompiler implements CompilerInterface {
 	 */
 	public function help()
 	{
-		return "";
+		return "Insert content from the settings table into any page by using the `{% setting %}` tag. The tag accepts the setting key as its only parameter. If you want to print out the sim name from the settings table, enter `{% setting:sim_name %}`.";
 	}
 
 }
