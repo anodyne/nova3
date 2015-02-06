@@ -19,10 +19,21 @@ class IconCompiler implements CompilerInterface {
 			// Get the values out of the tag
 			list($type, $key) = explode(':', $matches[2]);
 
+			// Get the values out of the tag
+			$args = explode(':', $matches[2]);
+			
+			// Set the values
+			$type = $args[0];
+			$icon = $args[1];
+			$size = (array_key_exists(2, $args)) ? $args[2] : 'sm';
+			$additional = (array_key_exists(3, $args)) ? $args[2] : false;
+
 			// Make sure we're only working with the right type
 			if ($type == 'icon')
 			{
-				return ($matches[1]) ? substr($matches[0], 1) : config("icons.{$key}");
+				if ($matches[1]) return substr($matches[0], 1);
+
+				return icon(config("icons.{$icon}"), $size, $additional);
 			}
 
 			return $matches[0];
