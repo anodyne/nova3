@@ -1,4 +1,6 @@
-<div class="title">Log In</div>
+<div class="page-header">
+	<h1>Log In</h1>
+</div>
 
 {!! Form::open(['route' => 'login.do']) !!}
 	<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -14,6 +16,7 @@
 	<div class="form-group">
 		{!! Form::button('Log In', ['type' => 'submit', 'class' => 'btn btn-primary btn-lg btn-block']) !!}
 		<a href="{{ route('password.email') }}" class="btn btn-link btn-lg btn-block">Forgot Your Password?</a>
-		<a href="#" class="btn btn-link btn-lg btn-block">Not a Member? Join Today!</a>
+		<a href="#" class="btn btn-link btn-lg btn-block disabled">Not a Member? Join Today!</a>
+		<a href="{{ route('home') }}" class="btn btn-link btn-lg btn-block">Back Home</a>
 	</div>
 {!! Form::close() !!}
