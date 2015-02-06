@@ -24,3 +24,53 @@ h1 {
 	font-weight: 700;
 	font-size: 3.4rem;
 }
+
+.btn-toolbar {
+	margin: @spacing 0;
+}
+
+.btn {
+	font-weight: 500;
+	letter-spacing: 0.5px;
+
+	.rounded(@border-radius);
+
+	&.btn-danger {
+		.btn-pseudo-states(@color-white, @color-danger, @color-danger);
+	}
+	&.btn-primary {
+		.btn-pseudo-states(@color-white, @color-primary, @color-primary);
+	}
+	&.btn-success {
+		.btn-pseudo-states(@color-white, @color-success, @color-success);
+	}
+
+	&,
+	&:active,
+	&.active {
+		&:focus,
+		&.focus {
+			outline: none !important;
+		}
+	}
+}
+
+.label {
+	font-weight: 400;
+	letter-spacing: 0.5px;
+
+	.rounded(@border-radius-sm);
+
+	&.label-danger {
+		.label-variant(@color-danger);
+	}
+	&.label-info {
+		.label-variant(@color-info);
+	}
+	&.label-success {
+		.label-variant(@color-success);
+	}
+	&.label-warning {
+		.label-variant(@color-amber-700);
+	}
+}
