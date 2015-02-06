@@ -22,10 +22,7 @@
 			<p><a href="{{ route('setup.install.nova') }}" class="btn btn-link">Back: Restart {{ config('nova.app.name') }} Install</a></p>
 		</div>
 		<div class="col-md-6 text-right">
-			<p>
-				<a class="btn btn-link disabled">Almost Done!</a>
-				<a href="{{ route('setup.install.user') }}" class="btn btn-primary">Next: Create User &amp; Character</a>
-			</p>
+			<p><a href="{{ route('setup.install.user') }}" class="btn btn-primary">Next: Create User &amp; Character</a></p>
 		</div>
 	</div>
 @stop

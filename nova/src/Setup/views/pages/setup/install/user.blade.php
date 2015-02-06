@@ -80,7 +80,7 @@
 
 		<div class="form-group">
 			<div class="col-md-7 col-md-offset-3">
-				{!! Form::button('Create User &amp; Character', [ 'class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+				{!! Form::button('Create User &amp; Character', [ 'class' => 'btn btn-primary', 'type' => 'submit']) !!}
 			</div>
 		</div>
 	{!! Form::close() !!}

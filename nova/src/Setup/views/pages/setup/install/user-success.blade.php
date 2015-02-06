@@ -20,10 +20,7 @@
 			<p>&nbsp;</p>
 		</div>
 		<div class="col-md-6 text-right">
-			<p>
-				<a class="btn btn-link disabled">{{ config('nova.app.name') }} is Installed!</a>
-				<a href="{{ route('home') }}" class="btn btn-primary">Next: Go to Your Site</a>
-			</p>
+			<p><a href="{{ route('home') }}" class="btn btn-primary">Next: Go to Your Site</a></p>
 		</div>
 	</div>
 @stop

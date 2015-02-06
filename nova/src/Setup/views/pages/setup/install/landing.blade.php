@@ -42,10 +42,7 @@
 			<p><a href="{{ route('setup.home') }}" class="btn btn-link">Cancel</a></p>
 		</div>
 		<div class="col-md-6 text-right">
-			<p>
-				<a class="btn btn-link disabled">Let's Get Started!</a>
-				<a href="{{ route('setup.install.config.db') }}" class="btn btn-primary">Next: Database Connection</a>
-			</p>
+			<p><a href="{{ route('setup.install.config.db') }}" class="btn btn-primary">Next: Database Connection</a></p>
 		</div>
 	</div>
 @stop

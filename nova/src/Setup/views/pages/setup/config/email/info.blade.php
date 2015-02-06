@@ -18,7 +18,9 @@
 			<div class="col-md-7">
 				<div class="radio">
 					<label>
-						{!! Form::radio('mail_driver', 'smtp', false) !!} SMTP Service <em class="text-success">(Recommended)</em>
+						{!! Form::radio('mail_driver', 'smtp', false) !!} SMTP Service
+						&nbsp;&nbsp;
+						{!! label('success', 'Recommended') !!}
 					</label>
 				</div>
 				<div class="radio">
@@ -34,7 +36,9 @@
 				@if (app()->environment() == 'local')
 					<div class="radio">
 						<label>
-							{!! Form::radio('mail_driver', 'log', false) !!} Log Files <em class="text-danger">(For development purposes only)</em>
+							{!! Form::radio('mail_driver', 'log', false) !!} Log Files
+							&nbsp;&nbsp;
+							{!! label('danger', 'For development purposes only') !!}
 						</label>
 					</div>
 				@endif
@@ -142,14 +146,14 @@
 				<div class="col-md-8 col-md-offset-3">
 					<h3>Mail Logging</h3>
 
-					<p>When developing, you want to be able to test emails but not worry about them being sent out to recipients. With mail logging, all emails will be written to the log files for viewing. If you want to see the full output of your emails, consider an SMTP service like <a href="https://mailtrap.io/" target="_blank">MailTrap</a>. <strong class="text-danger">This option is only for development purposes!</strong></p>
+					<p>When developing, you want to be able to test emails but not worry about them being sent out to recipients. With mail logging, all emails will be written to the log files for viewing. If you want to see the full output of your emails, consider an SMTP service like <a href="https://mailtrap.io/" target="_blank">MailTrap</a> or <a href="https://debugmail.io/" target="_blank">Debug Mail</a>. <strong class="text-danger">This option is only for development purposes!</strong></p>
 				</div>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<div class="col-md-7 col-md-offset-3">
-				{!! Form::button('Set Email Settings', ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+				{!! Form::button('Set Email Settings', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
 			</div>
 		</div>
 	{!! Form::close() !!}
