@@ -277,7 +277,7 @@
         },
         {
             "name": "illuminate/html",
-            "version": "dev-master",
+            "version": "v5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/html.git",
@@ -2042,16 +2042,16 @@
         },
         {
             "name": "maximebf/debugbar",
-            "version": "v1.10.3",
+            "version": "v1.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "060fbaf6a4e2d328dcdb31cc606d2f2ed145104b"
+                "reference": "7b2006e6e095126b5a061ec33fca3d90ea8a8219"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/060fbaf6a4e2d328dcdb31cc606d2f2ed145104b",
-                "reference": "060fbaf6a4e2d328dcdb31cc606d2f2ed145104b",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/7b2006e6e095126b5a061ec33fca3d90ea8a8219",
+                "reference": "7b2006e6e095126b5a061ec33fca3d90ea8a8219",
                 "shasum": ""
             },
             "require": {
@@ -2094,7 +2094,7 @@
             "keywords": [
                 "debug"
             ],
-            "time": "2015-01-30 08:24:55"
+            "time": "2015-02-05 07:51:20"
         },
         {
             "name": "phpunit/php-code-coverage",
