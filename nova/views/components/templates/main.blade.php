@@ -2,7 +2,7 @@
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a href="{{ route('home') }}" class="navbar-brand">{{ config('nova.app.name') }}</a>
+				<a href="{{ route('home') }}" class="navbar-brand">{{ $siteName }}</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
@@ -17,14 +17,14 @@
 	</nav>
 
 	<main>
-		@if ($_page->header())
+		@if ($header)
 			<div class="page-header">
-				<h1>{!! $_page->present()->header !!}</h1>
+				<h1>{!! $header !!}</h1>
 			</div>
 		@endif
 
-		@if ($_page->message())
-			{!! $_page->present()->message !!}
+		@if ($message)
+			{!! $message !!}
 		@endif
 
 		{!! $content or '' !!}

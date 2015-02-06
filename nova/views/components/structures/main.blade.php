@@ -6,7 +6,7 @@
 		<meta name="description" content="{{ $_page->description }}">
 		<meta name="viewport" content="width=device-width">
 
-		<title>{{ $_page->present()->title }} &bull; {{ $siteName }}</title>
+		<title>{{ $pageTitle }} &bull; {{ $siteName }}</title>
 		
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 		{!! HTML::style('nova/views/design/css/base.style.css') !!}
