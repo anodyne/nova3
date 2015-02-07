@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel {
 	protected $commands = [
 		'Nova\Foundation\Console\Commands\Inspire',
 		'Nova\Foundation\Console\Commands\RouteCacheCommand',
+		'Nova\Foundation\Console\Commands\NovaRefreshCommand',
 		'Nova\Foundation\Console\Commands\NovaUninstallCommand',
 	];
 
