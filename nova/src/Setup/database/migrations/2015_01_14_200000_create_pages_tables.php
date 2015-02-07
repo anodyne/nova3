@@ -22,14 +22,6 @@ class CreatePagesTables extends Migration {
 			$table->timestamps();
 		});
 
-		/*Schema::create('pages_collections', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->string('slug')->nullable();
-			$table->string('prefix')->nullable();
-			$table->timestamps();
-		});*/
-
 		Schema::create('pages_content', function(Blueprint $table)
 		{
 			$table->increments('id');
@@ -53,7 +45,6 @@ class CreatePagesTables extends Migration {
 	public function down()
 	{
 		Schema::dropIfExists('pages');
-		//Schema::dropIfExists('pages_collections');
 		Schema::dropIfExists('pages_content');
 		//Schema::dropIfExists('pages_navigation');
 	}
