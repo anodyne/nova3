@@ -6,6 +6,7 @@ nova/vendor
 config/*.php
 !config/nova.php
 storage/debugbar
+_setup.php
 
 *.sublime-project
 *.sublime-workspace
