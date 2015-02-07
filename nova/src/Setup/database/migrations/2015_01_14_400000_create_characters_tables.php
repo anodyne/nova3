@@ -17,7 +17,8 @@ class CreateCharactersTables extends Migration {
 			$table->bigIncrements('id');
 			$table->integer('user_id')->unsigned()->nullable();
 			$table->string('first_name');
-			$table->string('last_name');
+			$table->string('middle_name')->nullable();
+			$table->string('last_name')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});
