@@ -62,7 +62,8 @@
 						<li><a href="https://sendgrid.com/" target="_blank">SendGrid</a></li>
 
 						@if (app()->environment() == 'local')
-							<li><a href="https://sendgrid.com/" target="_blank">SendGrid</a></li>
+							<li><a href="https://mailtrap.io/" target="_blank">MailTrap</a></li>
+							<li><a href="https://debugmail.io/" target="_blank">Debug Mail</a></li>
 						@endif
 					</ul>
 				</div>
