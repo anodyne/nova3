@@ -5,7 +5,7 @@
 		"dflydev/symfony-finder-factory": "*",
 		"league/commonmark": "*",
 		"laracasts/presenter": "~0.2",
-		"illuminate/html": "*"
+		"laravelcollective/html": "*"
 	},
 
 	"require-dev": {

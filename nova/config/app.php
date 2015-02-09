@@ -140,7 +140,7 @@ return [
 		 * Nova Service Providers
 		 */
 
-		'Illuminate\Html\HtmlServiceProvider',
+		'Collective\Html\HtmlServiceProvider',
 		'Nova\Setup\Providers\SetupServiceProvider',
 		'Nova\Setup\Providers\SetupRouteServiceProvider',
 		'Nova\Foundation\Providers\ErrorServiceProvider',
@@ -197,9 +197,9 @@ return [
 		'BaseController'	=> 'Nova\Foundation\Http\Controllers\BaseController',
 		'Date'				=> 'Carbon\Carbon',
 		'Model'				=> 'Illuminate\Database\Eloquent\Model',
-		'Form'				=> 'Illuminate\Html\FormFacade',
+		'Form'				=> 'Collective\Html\FormFacade',
 		'Flash'				=> 'Nova\Foundation\Services\FlashNotifierFacade',
-		'HTML'				=> 'Illuminate\Html\HtmlFacade',
+		'HTML'				=> 'Collective\Html\HtmlFacade',
 		'Locate'			=> 'Nova\Foundation\Services\Locator\LocatorFacade',
 		'Markdown'			=> 'Nova\Foundation\Services\MarkdownParserFacade',
 		'Str'				=> 'Illuminate\Support\Str',
