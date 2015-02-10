@@ -10,9 +10,25 @@ class LocatorService {
 	/**
 	 * @var	array	Array of paths to search through
 	 */
-	protected $paths = [
+	protected $paths = [];
+
+	/**
+	 * @var	array	Array of paths to search through first
+	 */
+	protected $pathsFirst = [
 		'extensions/Override/views/components',
 		'themes/%theme%/components',
+	];
+
+	/**
+	 * @var	array	Array of paths to search through between first and last
+	 */
+	protected $pathsAdditional = [];
+
+	/**
+	 * @var	array	Array of paths to search through last
+	 */
+	protected $pathsLast = [
 		'nova/views/components',
 	];
 
@@ -105,23 +121,14 @@ class LocatorService {
 	}
 
 	/**
-	 * Set the extensions to be searched.
+	 * Register a new search path for the locator.
 	 *
-	 * @param	array	$data
+	 * @param	string	$path
+	 * @return	void
 	 */
-	public function setExtensions(array $data)
+	public function registerSearchPath($path)
 	{
-		$this->extensions = $data;
-	}
-
-	/**
-	 * Set the paths to be searched.
-	 *
-	 * @param	array	$data
-	 */
-	public function setPaths(array $data)
-	{
-		$this->paths = $data;
+		array_push($this->pathsAdditional, $path);
 	}
 
 	/**
@@ -157,6 +164,9 @@ class LocatorService {
 			// Make a string out of the remaining pieces
 			$additionalPath = implode('/', $fileParts);
 		}
+
+		// Compile the paths to search
+		$this->compilePaths();
 
 		// Loop through the paths and add them if they exist
 		foreach ($this->paths as $path)
@@ -226,6 +236,19 @@ class LocatorService {
 		if ($this->user) return $this->user->getPreference('theme');
 
 		return $this->settings->theme;
+	}
+
+	/**
+	 * Compile the different paths into the final list to search.
+	 *
+	 * @internal
+	 * @return	array
+	 */
+	protected function compilePaths()
+	{
+		$this->paths = array_merge($this->pathsFirst, $this->pathsAdditional, $this->pathsLast);
+
+		return $this->paths;
 	}
 
 }
