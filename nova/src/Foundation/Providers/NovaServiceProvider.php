@@ -28,10 +28,10 @@ class NovaServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->setRepositoryBindings();
+		$this->registerBindings();
 		$this->getCurrentUser();
 		$this->createLocator();
 		$this->createPageCompilerEngine();
-		$this->registerBindings();
 		$this->setupTheme();
 	}
 
@@ -57,6 +57,9 @@ class NovaServiceProvider extends ServiceProvider {
 		{
 			return new LocatorService($app['nova.user'], $app['nova.settings']);
 		});
+
+		// Add a search path in a service provider
+		//$this->app['nova.locator']->registerSearchPath('extensions/Anodyne/Awards/views');
 	}
 
 	protected function createPageCompilerEngine()
