@@ -147,6 +147,7 @@ return [
 		'Nova\Foundation\Providers\NovaServiceProvider',
 		'Nova\Foundation\Providers\EventServiceProvider',
 		'Nova\Foundation\Providers\RouteServiceProvider',
+		'Nova\Foundation\Providers\ExtensionServiceProvider',
 
 	],
 
