@@ -27,7 +27,7 @@
 			{!! HTML::style(themePath('design/css/custom.css')) !!}
 		@endif
 
-		@if ($_currentUser->preference('theme_variant'))
+		@if ($_currentUser and $_currentUser->preference('theme_variant'))
 			{!! HTML::style(themePath("design/css/variants/{$_currentUser->preference('theme_variant')}.css")) !!}
 		@endif
 	</head>
