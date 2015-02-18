@@ -9,8 +9,18 @@
 		<title>{{ $_page->present()->title }} &bull; {{ $siteName }}</title>
 		
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-		{!! HTML::style('nova/views/design/css/base.style.css') !!}
-		{!! HTML::style('nova/views/design/css/login.style.css') !!}
+		{!! partial('fonts') !!}
+		
+		@if (app('files')->exists(themePath('design/css/login.style.css', false)))
+			{!! HTML::style(app()->themeRelativePath('design/css/login.style.css')) !!}
+		@else
+			{!! HTML::style('nova/views/design/css/base.style.css') !!}
+			{!! HTML::style('nova/views/design/css/login.style.css') !!}
+		@endif
+		
+		@if (app('files')->exists(themePath('design/css/login.custom.css', false)))
+			{!! HTML::style(themePath('design/css/login.custom.css')) !!}
+		@endif
 	</head>
 	<body>
 		{!! $template or '' !!}
