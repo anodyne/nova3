@@ -18,7 +18,7 @@ class Application extends IlluminateApp {
 
 		// The paths established by the Nova core
 		$novaPaths = ['asset', 'coreAsset', 'coreConfig', 'extension', 'nova',
-			'rank', 'theme'];
+			'rank', 'theme', 'themeRelative'];
 
 		// Combine the core paths with our own
 		$paths = array_merge($corePaths, $novaPaths);
@@ -160,6 +160,19 @@ class Application extends IlluminateApp {
 		if ($location) return $this->basePath."/themes/$location";
 
 		return $this->basePath.'/themes';
+	}
+
+	/**
+	 * Get the relative path to the themes directory.
+	 *
+	 * @param	string	$location	A theme location to append
+	 * @return	string
+	 */
+	public function themeRelativePath($location = false)
+	{
+		if ($location) return "themes/$location";
+
+		return 'themes';
 	}
 
 	public function buildStorageDirectory()

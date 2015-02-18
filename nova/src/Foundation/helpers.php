@@ -95,3 +95,14 @@ if ( ! function_exists('checkDirectories'))
 		}
 	}
 }
+
+if ( ! function_exists('themePath'))
+{
+	function themePath($location = false, $relative = true)
+	{
+		if ($relative)
+			return app()->themeRelativePath(app('nova.theme')->getLocation(true)."/{$location}");
+
+		return app()->themePath(app('nova.theme')->getLocation(true)."/{$location}");
+	}
+}
