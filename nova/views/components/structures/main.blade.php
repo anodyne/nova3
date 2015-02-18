@@ -20,6 +20,10 @@
 		@if (app('files')->exists(themePath('design/css/custom.css', false)))
 			{!! HTML::style(themePath('design/css/custom.css')) !!}
 		@endif
+
+		@if ($_currentUser->preference('theme_variant'))
+			{!! HTML::style(themePath("design/css/variants/{$_currentUser->preference('theme_variant')}.css")) !!}
+		@endif
 	</head>
 	<body>
 		{!! $template or '' !!}

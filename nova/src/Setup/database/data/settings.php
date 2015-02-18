@@ -11,4 +11,9 @@ return [
 		'value' => "pulsar",
 		'user_created' => (int) false,
 	],
+	[
+		'key' => "theme_variant",
+		'value' => "",
+		'user_created' => (int) false,
+	],
 ];
