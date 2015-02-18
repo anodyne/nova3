@@ -11,7 +11,7 @@
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.style.css') !!}
-		{!! HTML::style('nova/src/Setup/views/design/css/setup.fonts.css') !!}
+		{!! HTML::style('nova/src/Setup/views/design/css/setup.icons.css') !!}
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.retina.css', ['media' => 'only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)']) !!}
 	</head>
 	<body>
