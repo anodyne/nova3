@@ -10,6 +10,12 @@
 		
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 		{!! partial('fonts') !!}
+
+		@if (app('files')->exists(themePath('design/css/icons.css', false)))
+			{!! HTML::style(app()->themeRelativePath('design/css/icons.css')) !!}
+		@else
+			{!! HTML::style('nova/views/design/css/base.icons.css') !!}
+		@endif
 		
 		@if (app('files')->exists(themePath('design/css/style.css', false)))
 			{!! HTML::style(app()->themeRelativePath('design/css/style.css')) !!}
