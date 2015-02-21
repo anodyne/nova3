@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="author" content="Anodyne Productions">
 		<meta name="description" content="{{ $_page->description }}">
-		<meta name="viewport" content="width=device-width">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<title>{{ $pageTitle }} &bull; {{ $siteName }}</title>
 		
