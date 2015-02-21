@@ -1,7 +1,3 @@
-<div class="page-header">
-	<h1>Log In</h1>
-</div>
-
 {!! Form::open(['route' => 'login.do']) !!}
 	<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 		{!! Form::email('email', false, ['class' => 'form-control input-lg', 'placeholder' => 'Email Address']) !!}

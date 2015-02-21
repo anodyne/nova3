@@ -1,5 +1,3 @@
-<div class="title">Reset Password</div>
-
 {!! Form::open(['route' => 'password.reset']) !!}
 	{!! Form::hidden('token', $token) !!}
 
