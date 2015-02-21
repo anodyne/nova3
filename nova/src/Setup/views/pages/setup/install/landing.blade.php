@@ -18,19 +18,19 @@
 	<hr class="partial">
 
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-sm-6 col-md-3">
 			<p><a href="#" target="_blank" class="btn btn-link btn-block disabled">Install Guide</a></p>
 		</div>
 
-		<div class="col-md-3">
+		<div class="col-sm-6 col-md-3">
 			<p><a href="#" target="_blank" class="btn btn-link btn-block disabled">Take a Tour</a></p>
 		</div>
 
-		<div class="col-md-3">
+		<div class="col-sm-6 col-md-3">
 			<p><a href="#" target="_blank" class="btn btn-link btn-block disabled">Anodyne Help Center</a></p>
 		</div>
 
-		<div class="col-md-3">
+		<div class="col-sm-6 col-md-3">
 			<p><a href="http://forums.anodyne-productions.com" target="_blank" class="btn btn-link btn-block">Anodyne Forums</a></p>
 		</div>
 	</div>
@@ -38,11 +38,11 @@
 
 @section('controls')
 	<div class="row">
-		<div class="col-md-6">
-			<p><a href="{{ route('setup.home') }}" class="btn btn-link btn-lg">Cancel</a></p>
-		</div>
-		<div class="col-md-6 text-right">
+		<div class="col-sm-6 col-sm-push-6 text-right">
 			<p><a href="{{ route('setup.install.config.db') }}" class="btn btn-primary btn-lg">Next: Database Connection</a></p>
+		</div>
+		<div class="col-sm-6 col-sm-pull-6">
+			<p><a href="{{ route('setup.home') }}" class="btn btn-link btn-lg">Cancel</a></p>
 		</div>
 	</div>
 @stop

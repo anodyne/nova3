@@ -16,11 +16,11 @@
 
 @section('controls')
 	<div class="row">
-		<div class="col-md-6">
-			<p>&nbsp;</p>
-		</div>
-		<div class="col-md-6 text-right">
+		<div class="col-sm-6 col-sm-push-6 text-right">
 			<p><a href="{{ route('setup.'.$_setupType.'.settings') }}" class="btn btn-primary btn-lg">Next: Update Settings</a></p>
+		</div>
+		<div class="col-sm-6 col-sm-pull-6 hidden-xs">
+			<p>&nbsp;</p>
 		</div>
 	</div>
 @stop

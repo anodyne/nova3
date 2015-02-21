@@ -16,11 +16,11 @@
 
 @section('controls')
 	<div class="row">
-		<div class="col-md-6">
-			<p><a href="{{ route('setup.'.$_setupType.'.settings') }}" class="btn btn-link btn-lg">Back: Update {{ config('nova.app.name') }} Settings</a></p>
-		</div>
-		<div class="col-md-6 text-right">
+		<div class="col-sm-6 col-sm-push-6 text-right">
 			<p><a href="{{ route('home') }}" class="btn btn-primary btn-lg">Next: Go to Your Site</a></p>
+		</div>
+		<div class="col-sm-6 col-sm-pull-6">
+			<p><a href="{{ route('setup.'.$_setupType.'.settings') }}" class="btn btn-link btn-lg">Back: Update {{ config('nova.app.name') }} Settings</a></p>
 		</div>
 	</div>
 @stop

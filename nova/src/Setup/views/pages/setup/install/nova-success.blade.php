@@ -18,11 +18,11 @@
 
 @section('controls')
 	<div class="row">
-		<div class="col-md-6">
-			<p><a href="{{ route('setup.install.nova') }}" class="btn btn-link btn-lg">Back: Restart {{ config('nova.app.name') }} Install</a></p>
-		</div>
-		<div class="col-md-6 text-right">
+		<div class="col-sm-6 col-sm-push-6 text-right">
 			<p><a href="{{ route('setup.install.user') }}" class="btn btn-primary btn-lg">Next: Create User &amp; Character</a></p>
+		</div>
+		<div class="col-sm-6 col-sm-pull-6">
+			<p><a href="{{ route('setup.install.nova') }}" class="btn btn-link btn-lg">Back: Restart {{ config('nova.app.name') }} Install</a></p>
 		</div>
 	</div>
 @stop

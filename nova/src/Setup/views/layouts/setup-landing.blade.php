@@ -4,13 +4,14 @@
 		<meta charset="utf-8">
 		<title>@yield('title') &bull; {{ config('nova.app.name') }}</title>
 		<meta name="author" content="Anodyne Productions">
-		<meta name="viewport" content="width=device-width">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 		<link href="//fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
 		<link href="//fonts.googleapis.com/css?family=Roboto+Condensed:300,700" rel="stylesheet">
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.style.css') !!}
+		{!! HTML::style('nova/src/Setup/views/design/css/setup.responsive.css') !!}
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.icons.css') !!}
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.retina.css', ['media' => 'only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)']) !!}
 	</head>

@@ -170,15 +170,15 @@
 
 @section('controls')
 	<div class="row">
-		<div class="col-md-6">
-			<p><a href="{{ route('setup.'.$_setupType.'.config.db') }}" class="btn btn-link btn-lg">Back: Restart Database Connection</a></p>
-		</div>
-		<div class="col-md-6 text-right">
+		<div class="col-sm-6 col-sm-push-6 text-right">
 			@if (file_exists(app('path.config').'/mail.php'))
 				<p><a href="{{ route('setup.'.$_setupType.'.nova') }}" class="btn btn-primary btn-lg">Next: Install {{ config('nova.app.name') }}</a></p>
 			@else
 				<p><a class="btn btn-link btn-lg disabled">Next: Install {{ config('nova.app.name') }}</a></p>
 			@endif
+		</div>
+		<div class="col-sm-6 col-sm-pull-6">
+			<p><a href="{{ route('setup.'.$_setupType.'.config.db') }}" class="btn btn-link btn-lg">Back: Restart Database Connection</a></p>
 		</div>
 	</div>
 @stop

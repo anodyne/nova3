@@ -141,15 +141,15 @@
 
 @section('controls')
 	<div class="row">
-		<div class="col-md-6">
-			<p><a href="{{ route('setup.'.$_setupType) }}" class="btn btn-link btn-lg">Back: Fresh Install Info</a></p>
-		</div>
-		<div class="col-md-6 text-right">
+		<div class="col-sm-6 col-sm-push-6 text-right">
 			@if (file_exists(app('path.config').'/database.php'))
 				<p><a href="{{ route('setup.'.$_setupType.'.config.email') }}" class="btn btn-primary btn-lg">Next: Email Settings</a></p>
 			@else
 				<p><a class="btn btn-link btn-lg disabled">Next: Email Settings</a></p>
 			@endif
+		</div>
+		<div class="col-sm-6 col-sm-pull-6">
+			<p><a href="{{ route('setup.'.$_setupType) }}" class="btn btn-link btn-lg">Back: Fresh Install Info</a></p>
 		</div>
 	</div>
 @stop
