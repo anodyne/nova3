@@ -5,7 +5,7 @@ use Symfony\Component\Finder\Finder;
 use Dflydev\Symfony\FinderFactory\FinderFactory,
 	Dflydev\Symfony\FinderFactory\FinderFactoryInterface;
 
-class LocatorService {
+class Locator implements LocatorInterface {
 
 	/**
 	 * @var	array	Array of paths to search through
@@ -61,10 +61,12 @@ class LocatorService {
 		$this->user				= $user;
 		$this->settings 		= $settings;
 		$this->finderFactory	= $finderFactory ?: new FinderFactory;
+
+		//dd($user);
 	}
 
 	/**
-	 * Search for a ajax view file.
+	 * Search for an ajax view file.
 	 *
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	string
@@ -72,6 +74,28 @@ class LocatorService {
 	public function ajax($file)
 	{
 		return $this->performSearch('ajax', $file);
+	}
+
+	/**
+	 * Search for an email view file.
+	 *
+	 * @param	string	$file	The file to find (no extension)
+	 * @return	string
+	 */
+	public function email($file)
+	{
+		return $this->performSearch('emails', $file);
+	}
+
+	/**
+	 * Search for an error view file.
+	 *
+	 * @param	string	$file	The file to find (no extension)
+	 * @return	string
+	 */
+	public function error($file)
+	{
+		return $this->performSearch('errors', $file);
 	}
 
 	/**
@@ -86,22 +110,51 @@ class LocatorService {
 	}
 
 	/**
-	 * Magic method that will catch methods that haven't been explicitly created.
+	 * Search for a page view file.
 	 *
-	 * @param	string	$method	The method being attempted to be called
-	 * @param	array	$args	The array of arguments passed to the method
+	 * @param	string	$file	The file to find (no extension)
 	 * @return	string
 	 */
-	public function __call($method, $args)
+	public function page($file)
 	{
-		if ( ! method_exists($this, $method))
-		{
-			return $this->performSearch(Str::plural($method), $args[0]);
-		}
+		return $this->performSearch('pages', $file);
 	}
 
 	/**
-	 * Get the extensions being searched.
+	 * Search for a partial view file.
+	 *
+	 * @param	string	$file	The file to find (no extension)
+	 * @return	string
+	 */
+	public function partial($file)
+	{
+		return $this->performSearch('partials', $file);
+	}
+
+	/**
+	 * Search for a structure view file.
+	 *
+	 * @param	string	$file	The file to find (no extension)
+	 * @return	string
+	 */
+	public function structure($file)
+	{
+		return $this->performSearch('structures', $file);
+	}
+
+	/**
+	 * Search for a template view file.
+	 *
+	 * @param	string	$file	The file to find (no extension)
+	 * @return	string
+	 */
+	public function template($file)
+	{
+		return $this->performSearch('templates', $file);
+	}
+
+	/**
+	 * Get the file extensions being used in the search.
 	 *
 	 * @return	array
 	 */
@@ -111,7 +164,7 @@ class LocatorService {
 	}
 
 	/**
-	 * Get the paths being searched.
+	 * Get the paths being used in the search.
 	 *
 	 * @return	array
 	 */
@@ -233,7 +286,7 @@ class LocatorService {
 	{
 		if ( ! app('nova.setup')->isInstalled()) return false;
 
-		if ($this->user) return $this->user->getPreference('theme');
+		if ($this->user) return $this->user->preference('theme');
 
 		return $this->settings->theme;
 	}
