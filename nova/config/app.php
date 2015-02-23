@@ -206,6 +206,11 @@ return [
 		'Str'				=> 'Illuminate\Support\Str',
 
 		/**
+		 * Mailers
+		 */
+		'BaseMailer' => 'Nova\Foundation\Services\Mailers\BaseMailer',
+
+		/**
 		 * Models
 		 */
 		'Character'		=> 'Nova\Core\Characters\Data\Character',
