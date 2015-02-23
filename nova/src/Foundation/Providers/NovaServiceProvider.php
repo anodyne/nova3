@@ -10,7 +10,7 @@ use Nova\Core\Pages\Services\Compilers\PageCompiler,
 	Nova\Core\Settings\Services\Compilers\SettingCompiler;
 use Nova\Foundation\Services\FlashNotifierService,
 	Nova\Foundation\Services\MarkdownParserService,
-	Nova\Foundation\Services\Locator\LocatorService,
+	Nova\Foundation\Services\Locator\Locator,
 	Nova\Foundation\Services\Themes\Theme as BaseTheme,
 	Nova\Foundation\Services\Themes\MissingThemeImplementationException,
 	Nova\Foundation\Services\PageCompiler\CompilerEngine,
@@ -42,6 +42,9 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		// Grab the aliases from the config
+		$this->aliases = $this->app['config']['app.aliases'];
+
 		if ($this->app->environment() == 'local')
 		{
 			if (class_exists('Barryvdh\Debugbar\ServiceProvider'))
@@ -53,10 +56,13 @@ class NovaServiceProvider extends ServiceProvider {
 
 	protected function createLocator()
 	{
-		$this->app->singleton('nova.locator', function($app)
-		{
-			return new LocatorService($app['nova.user'], $app['nova.settings']);
-		});
+		$this->app->bind(
+			['nova.locator' => 'Nova\Foundation\Services\Locator\LocatorInterface'],
+			function($app)
+			{
+				return new Locator($app['nova.user'], $app['nova.settings']);
+			}
+		);
 
 		// Add a search path in a service provider
 		//$this->app['nova.locator']->registerSearchPath('extensions/Anodyne/Awards/views');
@@ -101,18 +107,15 @@ class NovaServiceProvider extends ServiceProvider {
 
 		$this->app->bind('nova.character.creator', function($app)
 		{
-			return new CharacterCreator(
-				$app['CharacterRepositoryInterface'],
-				$app['events']
-			);
+			return new CharacterCreator($app['CharacterRepository'], $app['events']);
 		});
 
-		$this->app->singleton('nova.flash', function($app)
+		$this->app->bind('nova.flash', function($app)
 		{
 			return new FlashNotifierService($app['session.store']);
 		});
 
-		$this->app->singleton('nova.markdown', function($app)
+		$this->app->bind('nova.markdown', function($app)
 		{
 			return new MarkdownParserService(new CommonMarkConverter);
 		});
@@ -120,7 +123,7 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->app->bind('nova.user.creator', function($app)
 		{
 			return new UserCreator(
-				$app['UserRepositoryInterface'],
+				$app['UserRepository'],
 				$app['nova.character.creator'],
 				$app['events']
 			);
@@ -129,12 +132,11 @@ class NovaServiceProvider extends ServiceProvider {
 
 	protected function setRepositoryBindings()
 	{
-		// Grab the aliases from the config
-		$this->aliases = $this->app['config']['app.aliases'];
+		// Build a list of repositories that should be built
+		$bindings = ['Character', 'Page', 'PageContent', 'Setting', 'System',
+			'User'];
 
-		// Set the items being bound
-		$bindings = ['Character', 'Page', 'PageContent', 'Setting', 'System', 'User'];
-
+		// Loop through the repositories and do the binding
 		foreach ($bindings as $binding)
 		{
 			$this->bindRepository($binding);
@@ -143,37 +145,41 @@ class NovaServiceProvider extends ServiceProvider {
 
 	protected function setupTheme()
 	{
-		# TODO: pull the default theme out of the database if we need it
 		// Get the theme name
 		$themeName = ($this->app['auth']->check())
-			? $this->app['nova.user']->getPreference('theme')
-			: 'pulsar';
+			? $this->app['nova.user']->preference('theme')
+			: $this->app['nova.settings']->theme;
 
-		// Autoload the appropriate theme directory
-		//ClassLoader::addDirectories([$this->app->themePath($themeName)]);
+		// Try to autoload the appropriate theme file
 		ClassLoader::load($this->app->themePath($themeName).'/Theme.php');
 
-		// Does the user's theme have a theme file?
-		$theme = (class_exists('Theme')) 
-			? new \Theme($themeName, $this->app) 
-			: new BaseTheme($themeName, $this->app);
+		if (class_exists('Theme'))
+		{
+			// Make a new theme
+			$theme = new \Theme($themeName, $this->app);
 
-		// The interfaces the class must implement
-		$mustImplement = [
-			'Nova\Foundation\Services\Themes\Themeable',
-			'Nova\Foundation\Services\Themes\ThemeableInfo'
-		];
+			// Get some information about this particular class
+			$class = new ReflectionClass('Theme');
+		}
+		else
+		{
+			// Make a new base theme
+			$theme = new BaseTheme($themeName, $this->app);
 
-		// The final class has to implment both interfaces or we need to throw an exception
-		if (count(array_intersect($mustImplement, class_implements($theme))) < 2)
+			// Get some information about this particular class
+			$class = new ReflectionClass('Nova\Foundation\Services\Themes\Theme');
+		}
+
+		// Make sure that whatever class is handling theme that it implements
+		// ALL of the necessary interfaces, otherwise throw an exception
+		if ( ! $class->implementsInterface('Nova\Foundation\Services\Themes\Themeable') or
+				! $class->implementsInterface('Nova\Foundation\Services\Themes\ThemeableInfo'))
 		{
 			throw new MissingThemeImplementationException;
 		}
 
-		$this->app->bind('nova.theme', function($app) use ($theme)
-		{
-			return $theme;
-		});
+		// Bind the existing instance into the container
+		$this->app->instance('nova.theme', $theme);
 	}
 
 	private function bindRepository($item)
@@ -184,7 +190,7 @@ class NovaServiceProvider extends ServiceProvider {
 
 		// Bind to the container
 		$this->app->bind(
-			[$abstract => $this->aliases[$abstract]], 
+			[$abstract => $this->aliases[$abstract]],
 			$this->aliases[$concrete]
 		);
 	}
