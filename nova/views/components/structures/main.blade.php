@@ -8,7 +8,12 @@
 
 		<title>{{ $pageTitle }} &bull; {{ $siteName }}</title>
 
-		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+		@if (app('files')->exists(themePath('design/css/bootstrap.css', false)))
+			{!! HTML::style(app()->themeRelativePath('design/css/bootstrap.css')) !!}
+		@else
+			<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+		@endif
+
 		{!! partial('fonts') !!}
 
 		@if (app('files')->exists(themePath('design/css/icons.css', false)))
@@ -35,7 +40,13 @@
 		{!! $template or '' !!}
 
 		<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+		@if (app('files')->exists(themePath('design/js/bootstrap.js', false)))
+			{!! HTML::script(app()->themeRelativePath('design/js/bootstrap.js')) !!}
+		@else
+			<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		@endif
+		
 		{!! $javascript or '' !!}
 	</body>
 </html>

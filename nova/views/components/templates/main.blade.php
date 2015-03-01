@@ -38,6 +38,10 @@
 	</nav>
 
 	<main>
+		@if (Session::has('flash.level'))
+			{!! flash() !!}
+		@endif
+		
 		@if ($header)
 			<div class="page-header">
 				<h1>{!! $header !!}</h1>
