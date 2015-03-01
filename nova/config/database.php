@@ -54,7 +54,7 @@ return [
 
 		'mysql' => [
 			'driver'    => 'mysql',
-			'host'      => env('DB_HOST', 'DbHost'),
+			'host'      => env('DB_HOST', 'localhost'),
 			'database'  => env('DB_DATABASE', 'DbDatabase'),
 			'username'  => env('DB_USERNAME', 'DbUsername'),
 			'password'  => env('DB_PASSWORD', 'DbPassword'),
@@ -66,7 +66,7 @@ return [
 
 		'pgsql' => [
 			'driver'   => 'pgsql',
-			'host'     => env('DB_HOST', 'DbHost'),
+			'host'     => env('DB_HOST', 'localhost'),
 			'database' => env('DB_DATABASE', 'DbDatabase'),
 			'username' => env('DB_USERNAME', 'DbUsername'),
 			'password' => env('DB_PASSWORD', 'DbPassword'),
@@ -77,7 +77,7 @@ return [
 
 		'sqlsrv' => [
 			'driver'   => 'sqlsrv',
-			'host'     => env('DB_HOST', 'DbHost'),
+			'host'     => env('DB_HOST', 'localhost'),
 			'database' => env('DB_DATABASE', 'DbDatabase'),
 			'username' => env('DB_USERNAME', 'DbUsername'),
 			'password' => env('DB_PASSWORD', 'DbPassword'),
