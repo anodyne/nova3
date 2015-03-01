@@ -61,8 +61,6 @@ class Locator implements LocatorInterface {
 		$this->user				= $user;
 		$this->settings 		= $settings;
 		$this->finderFactory	= $finderFactory ?: new FinderFactory;
-
-		//dd($user);
 	}
 
 	/**
