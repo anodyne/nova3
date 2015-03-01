@@ -1,11 +1,11 @@
-<?php namespace Nova\Core\Login\Http\Controllers;
+<?php namespace Nova\Core\Auth\Http\Controllers;
 
-use Flash, Input, BaseController;
+use Flash, BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard,
 	Illuminate\Contracts\Foundation\Application;
 
-class LoginController extends BaseController {
+class AuthController extends BaseController {
 
 	protected $auth;
 
@@ -14,20 +14,20 @@ class LoginController extends BaseController {
 		parent::__construct($app);
 
 		$this->auth = $auth;
-		$this->structureView = 'login';
-		$this->templateView = 'login';
+		$this->structureView = 'auth';
+		$this->templateView = 'auth';
 	}
 
-	public function index()
+	public function getLogin()
 	{
-		$this->view = 'login/index';
+		$this->view = 'auth/login';
 	}
 
-	public function login(Request $request)
+	public function postLogin(Request $request)
 	{
-		// Validate the request
 		$this->validate($request, [
-			'email' => 'required|email', 'password' => 'required',
+			'email' => 'required|email',
+			'password' => 'required',
 		]);
 
 		// Grab the credentials out of the request
@@ -41,16 +41,12 @@ class LoginController extends BaseController {
 			return redirect()->intended(route('home'));
 		}
 
-		Flash::error("Log in failed");
+		Flash::error("These credentials don't match our records.");
 
-		return redirect()->back()
-			->withInput($request->only('email'))
-			->withErrors([
-				'email' => 'These credentials do not match our records.',
-			]);
+		return redirect()->back()->withInput($request->only('email'));
 	}
 
-	public function logout()
+	public function getLogout()
 	{
 		$this->auth->logout();
 

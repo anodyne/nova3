@@ -8,6 +8,10 @@
 					</div>
 				@endif
 
+				@if (Session::has('flash.level'))
+					{!! flash() !!}
+				@endif
+
 				@if ($_page->message())
 					{!! $_page->present()->message !!}
 				@endif
