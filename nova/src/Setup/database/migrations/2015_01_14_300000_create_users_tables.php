@@ -22,6 +22,13 @@ class CreateUsersTables extends Migration {
 			$table->timestamps();
 			$table->softDeletes();
 		});
+
+		Schema::create('password_resets', function(Blueprint $table)
+		{
+			$table->string('email')->index();
+			$table->string('token')->index();
+			$table->timestamp('created_at');
+		});
 	}
 
 	/**
@@ -32,6 +39,7 @@ class CreateUsersTables extends Migration {
 	public function down()
 	{
 		Schema::dropIfExists('users');
+		Schema::dropIfExists('password_resets');
 	}
 
 }
