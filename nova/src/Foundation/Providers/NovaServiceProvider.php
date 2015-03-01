@@ -32,7 +32,11 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->getCurrentUser();
 		$this->createLocator();
 		$this->createPageCompilerEngine();
-		$this->setupTheme();
+
+		if ($this->app['nova.setup']->isInstalled())
+		{
+			$this->setupTheme();
+		}
 	}
 
 	/**
