@@ -15,7 +15,7 @@ return [
 		'name'				=> "Log In",
 		'key'				=> "login",
 		'uri'				=> "login",
-		'default_resource'	=> "Nova\\Core\\Login\\Http\\Controllers\\LoginController@index",
+		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\AuthController@getLogin",
 		'protected'			=> (int) true,
 	],
 	[
@@ -23,7 +23,7 @@ return [
 		'name'				=> "",
 		'key'				=> "login.do",
 		'uri'				=> "login",
-		'default_resource'	=> "Nova\\Core\\Login\\Http\\Controllers\\LoginController@login",
+		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\AuthController@postLogin",
 		'protected'			=> (int) true,
 	],
 	[
@@ -31,7 +31,7 @@ return [
 		'name'				=> "Logout",
 		'key'				=> "logout",
 		'uri'				=> "logout",
-		'default_resource'	=> "Nova\\Core\\Login\\Http\\Controllers\\LoginController@logout",
+		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\AuthController@getLogout",
 		'protected'			=> (int) true,
 	],
 	[
@@ -39,7 +39,7 @@ return [
 		'name'				=> "Send Password Reminder",
 		'key'				=> "password.email",
 		'uri'				=> "password",
-		'default_resource'	=> "Nova\\Core\\Login\\Http\\Controllers\\PasswordController@email",
+		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\PasswordController@getEmail",
 		'protected'			=> (int) true,
 	],
 	[
@@ -47,7 +47,7 @@ return [
 		'name'				=> "",
 		'key'				=> "password.email.send",
 		'uri'				=> "password",
-		'default_resource'	=> "Nova\\Core\\Login\\Http\\Controllers\\PasswordController@emailReset",
+		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\PasswordController@postEmail",
 		'protected'			=> (int) true,
 	],
 	[
@@ -55,7 +55,7 @@ return [
 		'name'				=> "Reset Password",
 		'key'				=> "password.reset",
 		'uri'				=> "password/reset/{token}",
-		'default_resource'	=> "Nova\\Core\\Login\\Http\\Controllers\\PasswordController@reset",
+		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\PasswordController@getReset",
 		'protected'			=> (int) true,
 	],
 	[
@@ -63,7 +63,7 @@ return [
 		'name'				=> "",
 		'key'				=> "password.reset.do",
 		'uri'				=> "password/reset",
-		'default_resource'	=> "Nova\\Core\\Login\\Http\\Controllers\\PasswordController@resetPassword",
+		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\PasswordController@postReset",
 		'protected'			=> (int) true,
 	],
 
