@@ -16,4 +16,14 @@ return [
 		'value' => "",
 		'user_created' => (int) false,
 	],
+	[
+		'key' => "mail_default_address",
+		'value' => "",
+		'user_created' => (int) false,
+	],
+	[
+		'key' => "mail_default_name",
+		'value' => "",
+		'user_created' => (int) false,
+	],
 ];
