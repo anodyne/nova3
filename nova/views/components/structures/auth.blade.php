@@ -6,7 +6,7 @@
 		<meta name="description" content="{{ $_page->description }}">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-		<title>{{ $_page->present()->title }} &bull; {{ $siteName }}</title>
+		<title>{{ $_page->present()->title }} &bull; {{ $_settings->sim_name }}</title>
 		
 		@if (app('files')->exists(themePath('design/css/bootstrap.css', false)))
 			{!! HTML::style(app()->themeRelativePath('design/css/bootstrap.css')) !!}
