@@ -2,11 +2,4 @@
 
 use BaseController;
 
-class HomeController extends BaseController {
-
-	public function home()
-	{
-		$this->view = 'home';
-	}
-	
-}
+class HomeController extends BaseController {}
