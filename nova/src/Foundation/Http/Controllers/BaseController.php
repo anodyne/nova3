@@ -1,10 +1,9 @@
 <?php namespace Nova\Foundation\Http\Controllers;
 
-use Locate;
-use stdClass;
-use Illuminate\Routing\Controller;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Foundation\Bus\DispatchesCommands,
+use Locate, stdClass;
+use Illuminate\Routing\Controller,
+	Illuminate\Contracts\Foundation\Application,
+	Illuminate\Foundation\Bus\DispatchesCommands,
 	Illuminate\Foundation\Validation\ValidatesRequests;
 
 abstract class BaseController extends Controller {
@@ -74,7 +73,7 @@ abstract class BaseController extends Controller {
 			$this->buildThemeTemplate();
 
 			// Build the navigation
-			//$this->buildThemeNavigation();
+			$this->buildThemeNavigation();
 
 			// Build the page
 			$this->buildThemePage();
@@ -83,7 +82,7 @@ abstract class BaseController extends Controller {
 			$this->buildThemeJavascript();
 
 			// Build the footer
-			//$this->buildThemeFooter();
+			$this->buildThemeFooter();
 
 			// Set the content to the full template
 			$response->setContent($this->theme->render());
@@ -92,21 +91,14 @@ abstract class BaseController extends Controller {
 
 	protected function buildThemeStructure()
 	{
-		$data = [
-			'siteName'	=> $this->settings->sim_name,
-			'pageTitle'	=> $this->page->present()->title,
-		];
+		$data = [];
 
 		$this->theme = app('nova.theme')->structure($this->structureView, $data);
 	}
 
 	protected function buildThemeTemplate()
 	{
-		$data = [
-			'siteName'	=> $this->settings->sim_name,
-			'header'	=> $this->page->present()->header,
-			'message'	=> $this->page->present()->message,
-		];
+		$data = [];
 
 		$this->theme = $this->theme->template($this->templateView, $data);
 	}
@@ -160,6 +152,6 @@ abstract class BaseController extends Controller {
 		}
 	}
 
-	public function page(){}
+	final public function page(){}
 
 }
