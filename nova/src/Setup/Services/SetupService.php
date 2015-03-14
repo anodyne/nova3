@@ -40,6 +40,7 @@ class SetupService {
 
 		// Writable directories
 		$directories = [
+			nova_path('vendor'),
 			storage_path(),
 			storage_path('logs'),
 			storage_path('app'),

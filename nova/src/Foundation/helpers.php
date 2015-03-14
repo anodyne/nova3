@@ -82,6 +82,7 @@ if ( ! function_exists('checkDirectories'))
 	function checkDirectories()
 	{
 		$directories = [
+			nova_path('vendor'),
 			storage_path('framework'),
 			storage_path('framework/views'),
 		];
