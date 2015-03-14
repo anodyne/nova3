@@ -23,6 +23,16 @@ class CompilerEngine {
 	}
 
 	/**
+	 * Get the registered compilers.
+	 *
+	 * @return	array
+	 */
+	public function getCompilers()
+	{
+		return $this->compilers;
+	}
+
+	/**
 	 * Get the replacement pattern.
 	 *
 	 * @return	string
