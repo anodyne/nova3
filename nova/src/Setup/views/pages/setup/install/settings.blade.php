@@ -24,6 +24,35 @@
 		</div>
 
 		<div class="form-group">
+			<label class="col-md-3 control-label">Email Subject Prefix</label>
+			<div class="col-md-7">
+				<div class="control-wrapper">
+					{!! Form::text('mail_subject_prefix', null, ['class' => 'input-lg form-control']) !!}
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-md-3 control-label">Default Email Address</label>
+			<div class="col-md-7">
+				<div class="control-wrapper">
+					{!! Form::text('mail_default_address', null, ['class' => 'input-lg form-control']) !!}
+					<p class="help-block">If no email address is given, this is the email address all emails sent by {{ config('nova.app.name') }} will come from.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-md-3 control-label">Default Email Name</label>
+			<div class="col-md-7">
+				<div class="control-wrapper">
+					{!! Form::text('mail_default_name', null, ['class' => 'input-lg form-control']) !!}
+					<p class="help-block">If no name is given, this is the name all emails sent by {{ config('nova.app.name') }} will come from.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<div class="col-md-7 col-md-offset-3">
 				{!! Form::button('Update Settings', [ 'class' => 'btn btn-primary', 'type' => 'submit']) !!}
 			</div>
@@ -40,4 +69,14 @@
 			<p>&nbsp;</p>
 		</div>
 	</div>
+@stop
+
+@section('scripts')
+	<script>
+		$('[name="sim_name"]').on('change', function(e)
+		{
+			$('[name="mail_subject_prefix"]').val("[" + $(this).val() + "]");
+			$('[name="mail_default_name"]').val($(this).val());
+		});
+	</script>
 @stop
