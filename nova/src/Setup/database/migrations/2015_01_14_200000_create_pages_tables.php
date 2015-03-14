@@ -1,6 +1,5 @@
 <?php
 
-use Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -59,12 +58,12 @@ class CreatePagesTables extends Migration {
 
 		foreach ($data['pages'] as $page)
 		{
-			app('PageRepository')->create($page);
+			Page::create($page);
 		}
 
 		foreach ($data['content'] as $content)
 		{
-			app('PageContentRepository')->create($content);
+			PageContent::create($content);
 		}
 	}
 
