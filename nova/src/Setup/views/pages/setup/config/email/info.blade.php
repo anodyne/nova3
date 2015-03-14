@@ -160,9 +160,11 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<div class="col-md-7 col-md-offset-3">
-				{!! Form::button('Set Email Settings', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
+		<div id="settings-submit" class="hide">
+			<div class="form-group">
+				<div class="col-md-7 col-md-offset-3">
+					{!! Form::button('Set Email Settings', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
+				</div>
 			</div>
 		</div>
 	{!! Form::close() !!}
@@ -231,6 +233,8 @@
 				$('#settings-phpmail').addClass('hide');
 				$('#settings-log').removeClass('hide');
 			}
+
+			$('#settings-submit').removeClass('hide');
 		}
 	</script>
 @stop
