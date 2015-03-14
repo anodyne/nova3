@@ -16,7 +16,7 @@ class CreatePagesTables extends Migration {
 			$table->string('key'); // Used as the route name
 			$table->string('uri');
 			$table->text('resource')->nullable();
-			$table->string('default_resource')->default('Nova\Foundation\Http\Controllers\MainController@page');
+			$table->string('default_resource')->default('Nova\\\Foundation\\\Http\\\Controllers\\\MainController@page');
 			$table->text('conditions')->nullable();
 			$table->boolean('protected')->default((int) false);
 			$table->timestamps();
