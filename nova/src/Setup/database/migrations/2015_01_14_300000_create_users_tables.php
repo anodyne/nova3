@@ -39,7 +39,7 @@ class CreateUsersTables extends Migration {
 	public function down()
 	{
 		Schema::dropIfExists('users');
-		Schema::dropIfExists('password_resets');
+		Schema::dropIfExists('users_password_resets');
 	}
 
 }
