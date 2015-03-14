@@ -37,7 +37,7 @@
 			<div class="col-md-7">
 				<div class="control-wrapper">
 					{!! Form::text('mail_default_address', null, ['class' => 'input-lg form-control']) !!}
-					<p class="help-block">If no email address is given, this is the email address all emails sent by {{ config('nova.app.name') }} will come from.</p>
+					<p class="help-block">This is the email address all emails sent by {{ config('nova.app.name') }} will come from (unless otherwise specified in code).</p>
 				</div>
 			</div>
 		</div>
@@ -47,7 +47,7 @@
 			<div class="col-md-7">
 				<div class="control-wrapper">
 					{!! Form::text('mail_default_name', null, ['class' => 'input-lg form-control']) !!}
-					<p class="help-block">If no name is given, this is the name all emails sent by {{ config('nova.app.name') }} will come from.</p>
+					<p class="help-block">This is the name all emails sent by {{ config('nova.app.name') }} will come from (unless otherwise specified in code).</p>
 				</div>
 			</div>
 		</div>
