@@ -1,6 +1,8 @@
 <?php namespace Nova\Foundation;
 
-use Illuminate\Foundation\Application as IlluminateApp;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Foundation\ProviderRepository,
+	Illuminate\Foundation\Application as IlluminateApp;
 
 class Application extends IlluminateApp {
 
@@ -205,6 +207,29 @@ class Application extends IlluminateApp {
 				//exec(escapeshellcmd("chmod 775 $directory"));
 			}
 		}
+	}
+
+	/**
+	 * Register all of the configured providers.
+	 *
+	 * @return void
+	 */
+	public function registerConfiguredProviders()
+	{
+		$manifestPath = $this->basePath().'/nova/vendor/services.json';
+
+		(new ProviderRepository($this, new Filesystem, $manifestPath))
+		            ->load($this->config['app.providers']);
+	}
+
+	/**
+	 * Get the path to the routes cache file.
+	 *
+	 * @return string
+	 */
+	public function getCachedRoutesPath()
+	{
+		return $this->basePath().'/nova/vendor/routes.php';
 	}
 
 }
