@@ -1,5 +1,6 @@
 <?php
 
+use Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -16,7 +17,7 @@ class CreatePagesTables extends Migration {
 			$table->string('key'); // Used as the route name
 			$table->string('uri');
 			$table->text('resource')->nullable();
-			$table->text('default_resource')->nullable();
+			$table->string('default_resource')->default('Nova\Foundation\Http\Controllers\MainController@page');
 			$table->text('conditions')->nullable();
 			$table->boolean('protected')->default((int) false);
 			$table->timestamps();
@@ -51,6 +52,8 @@ class CreatePagesTables extends Migration {
 
 	protected function populateTables()
 	{
+		Model::unguard();
+
 		$data['pages'] = require_once app('path.database').'/data/pages.php';
 		$data['content'] = require_once app('path.database').'/data/pages_content.php';
 
