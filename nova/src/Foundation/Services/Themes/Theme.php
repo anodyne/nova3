@@ -137,7 +137,7 @@ class Theme implements Themeable, ThemeableInfo {
 	{
 		if ( ! is_object($this->layout)) throw new NoThemeStructureException;
 
-		$this->layout->javascript = $this->view->make($this->locate->js($view))
+		$this->layout->javascript = $this->view->make($this->locate->javascript($view))
 			->with((array) $data);
 
 		return $this;
