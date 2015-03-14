@@ -20,5 +20,8 @@ return [
 	['page_id' => 9, 'type' => 'header', 'key' => 'admin.pages.header', 'value' => "Page Manager"],
 	['page_id' => 9, 'type' => 'title', 'key' => 'admin.pages.title', 'value' => "Page Manager"],
 
-	['page_id' => 10, 'type' => 'title', 'key' => 'admin.pages.edit.title', 'value' => "Edit Page"],
+	['page_id' => 10, 'type' => 'header', 'key' => 'admin.pages.create.header', 'value' => "Add Page"],
+	['page_id' => 10, 'type' => 'title', 'key' => 'admin.pages.create.title', 'value' => "Add Page"],
+
+	['page_id' => 12, 'type' => 'title', 'key' => 'admin.pages.edit.title', 'value' => "Edit Page"],
 ];

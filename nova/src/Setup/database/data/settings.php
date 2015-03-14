@@ -17,6 +17,11 @@ return [
 		'user_created' => (int) false,
 	],
 	[
+		'key' => "mail_subject_prefix",
+		'value' => "",
+		'user_created' => (int) false,
+	],
+	[
 		'key' => "mail_default_address",
 		'value' => "",
 		'user_created' => (int) false,
