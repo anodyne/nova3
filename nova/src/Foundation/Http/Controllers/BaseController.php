@@ -20,6 +20,7 @@ abstract class BaseController extends Controller {
 	protected $jsData;
 	protected $view;
 	protected $jsView;
+	protected $isAjax = false;
 	protected $templateView = 'main';
 	protected $structureView = 'main';
 
@@ -66,26 +67,29 @@ abstract class BaseController extends Controller {
 	{
 		if (app('nova.setup')->isInstalled())
 		{
-			// Build the structure
-			$this->buildThemeStructure();
+			if ( ! $this->isAjax)
+			{
+				// Build the structure
+				$this->buildThemeStructure();
 
-			// Build the template
-			$this->buildThemeTemplate();
+				// Build the template
+				$this->buildThemeTemplate();
 
-			// Build the navigation
-			$this->buildThemeNavigation();
+				// Build the navigation
+				$this->buildThemeNavigation();
 
-			// Build the page
-			$this->buildThemePage();
+				// Build the page
+				$this->buildThemePage();
 
-			// Build the Javascript
-			$this->buildThemeJavascript();
+				// Build the Javascript
+				$this->buildThemeJavascript();
 
-			// Build the footer
-			$this->buildThemeFooter();
+				// Build the footer
+				$this->buildThemeFooter();
 
-			// Set the content to the full template
-			$response->setContent($this->theme->render());
+				// Set the content to the full template
+				$response->setContent($this->theme->render());
+			}
 		}
 	}
 
