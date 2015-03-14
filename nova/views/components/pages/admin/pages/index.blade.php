@@ -1,19 +1,28 @@
 <div class="btn-toolbar">
 	<div class="btn-group">
-		<a href="#" class="btn btn-success">Add New Page</a>
+		<a href="{{ route('admin.pages.create') }}" class="btn btn-success">Add a New Page</a>
 	</div>
 </div>
 
 <div class="data-table data-table-bordered data-table-striped">
 @foreach ($pages as $page)
 	<div class="row">
-		<div class="col-md-1"><p>{!! $page->present()->verbAsLabel !!}</p></div>
-		<div class="col-xs-6 col-md-8">
-			<p class="lead">{!! $page->present()->name !!}</p>
+		<div class="col-sm-2 col-md-1"><p>{!! $page->present()->verbAsLabel !!}</p></div>
+		<div class="col-sm-10 col-md-8">
+			<p>{!! $page->present()->name !!}</p>
 			<p><code>{{ $page->present()->uri }}</code></p>
 		</div>
-		<div class="col-xs-6 col-md-3">
-			<div class="visible-xs visible-sm"></div>
+		<div class="col-xs-12 col-md-3">
+			<div class="visible-xs visible-sm">
+				@if ($page->verb == 'GET' and ! Str::contains($page->uri, '{'))
+					<p><a href="{{ route($page->key) }}" class="btn btn-default btn-lg btn-block">View</a></p>
+				@endif
+				<p><a href="{{ route('admin.pages.edit', [$page->id]) }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
+
+				@if ( ! $page->protected)
+					<p><a href="#" class="btn btn-danger btn-lg btn-block">Delete</a></p>
+				@endif
+			</div>
 			<div class="visible-md visible-lg">
 				<div class="btn-toolbar pull-right">
 					@if ($page->verb == 'GET' and ! Str::contains($page->uri, '{'))
