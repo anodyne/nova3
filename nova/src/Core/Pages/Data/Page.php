@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Pages\Data;
 
-use Model;
+use Model, PagePresenter;
 use Laracasts\Presenter\PresentableTrait;
 
 class Page extends Model {
@@ -19,7 +19,7 @@ class Page extends Model {
 
 	protected $dates = ['created_at', 'updated_at'];
 
-	protected $presenter = 'Nova\Core\Pages\Data\Presenters\PagePresenter';
+	protected $presenter = PagePresenter::class;
 
 	/*
 	|---------------------------------------------------------------------------
