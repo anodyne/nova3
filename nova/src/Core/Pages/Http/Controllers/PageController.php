@@ -4,6 +4,9 @@ use Flash,
 	Input,
 	BaseController,
 	PageRepositoryInterface;
+use Nova\Core\Pages\Events\PageWasCreated,
+	Nova\Core\Pages\Events\PageWasDeleted,
+	Nova\Core\Pages\Events\PageWasUpdated;
 use Illuminate\Contracts\Foundation\Application;
 
 class PageController extends BaseController {
@@ -43,7 +46,7 @@ class PageController extends BaseController {
 		$page = $this->repo->create(Input::all());
 
 		// Fire the event
-		event('nova.page.created', [$page]);
+		event(new PageWasCreated($page));
 
 		// Set the flash message
 		Flash::success("Page has been created.");
@@ -66,7 +69,19 @@ class PageController extends BaseController {
 
 	public function update($pageId)
 	{
+		// Fire the event
+		event(new PageWasUpdated($page));
+	}
+
+	public function remove()
+	{
 		# code...
+	}
+
+	public function destroy()
+	{
+		// Fire the event
+		event(new PageWasDeleted($page));
 	}
 
 	public function checkPageKey()
