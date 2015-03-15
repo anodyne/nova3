@@ -31,8 +31,11 @@ class InstallController extends BaseController {
 		// Set the installed cache item
 		$cache->forever('nova.installed', (bool) true);
 
-		// Cache the routes
-		//Artisan::call('route:cache');
+		// Cache the routes in production
+		if (app('env') == 'production')
+		{
+			Artisan::call('route:cache');
+		}
 	}
 
 	public function novaSuccess(Filesystem $files)

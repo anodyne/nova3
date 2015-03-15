@@ -33,7 +33,7 @@
 						{!! Form::radio('mail_driver', 'mail', false) !!} PHP Mail
 					</label>
 				</div>
-				@if (app()->environment() == 'local')
+				@if (app('env') == 'local')
 					<div class="radio">
 						<label>
 							{!! Form::radio('mail_driver', 'log', false) !!} Log Files

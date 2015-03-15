@@ -50,7 +50,7 @@ class NovaServiceProvider extends ServiceProvider {
 		// Grab the aliases from the config
 		$this->aliases = $this->app['config']['app.aliases'];
 
-		if ($this->app->environment() == 'local')
+		if ($this->app['env'] == 'local')
 		{
 			if (class_exists('Barryvdh\Debugbar\ServiceProvider'))
 			{
