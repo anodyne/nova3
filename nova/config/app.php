@@ -221,6 +221,12 @@ return [
 		'User'			=> 'Nova\Core\Users\Data\User',
 
 		/**
+		 * Presenters
+		 */
+		'PagePresenter'			=> 'Nova\Core\Pages\Data\Presenters\PagePresenter',
+		'PageContentPresenter'	=> 'Nova\Core\Pages\Data\Presenters\PageContentPresenter',
+
+		/**
 		 * Repository Interfaces
 		 */
 		'CharacterRepositoryInterface'		=> 'Nova\Core\Characters\Data\Interfaces\CharacterRepositoryInterface',
@@ -245,6 +251,18 @@ return [
 		 */
 		'CharacterCreator'	=> 'Nova\Core\Characters\Services\CharacterCreatorService',
 		'UserCreator'		=> 'Nova\Core\Users\Services\UserCreatorService',
+
+		/**
+		 * Events
+		 */
+		'PageWasCreated'	=> 'Nova\Core\Pages\Events\PageWasCreated',
+		'PageWasDeleted'	=> 'Nova\Core\Pages\Events\PageWasDeleted',
+		'PageWasUpdated'	=> 'Nova\Core\Pages\Events\PageWasUpdated',
+
+		/**
+		 * Event Handlers
+		 */
+		'CachePageRoutes'	=> 'Nova\Core\Pages\Handlers\Events\CachePageRoutes',
 
 	],
 
