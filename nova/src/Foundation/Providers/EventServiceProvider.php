@@ -10,11 +10,12 @@ class EventServiceProvider extends ServiceProvider {
 	 *
 	 * @var array
 	 */
-	protected $listen = [
-		'event.name' => [
-			'EventListener',
-		],
-	];
+	protected $listen;
+
+	public function __construct()
+	{
+		$this->listen = config('events');
+	}
 
 	/**
 	 * Register any other events for your application.
@@ -24,6 +25,7 @@ class EventServiceProvider extends ServiceProvider {
 	 */
 	public function boot(DispatcherContract $events)
 	{
+		//dd($this->listen);
 		parent::boot($events);
 	}
 
