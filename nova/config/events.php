@@ -3,15 +3,15 @@
 return [
 
 	'Nova\Core\Pages\Events\PageWasCreated' => [
-		'Nova\Core\Pages\Handlers\Events\CachePageRoutes',
+		CachePageRoutes::class,
 	],
 
 	'Nova\Core\Pages\Events\PageWasDeleted' => [
-		'Nova\Core\Pages\Handlers\Events\CachePageRoutes',
+		CachePageRoutes::class,
 	],
 
 	'Nova\Core\Pages\Events\PageWasUpdated' => [
-		'Nova\Core\Pages\Handlers\Events\CachePageRoutes',
+		CachePageRoutes::class,
 	],
 
 ];
