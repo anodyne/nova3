@@ -253,13 +253,6 @@ return [
 		'UserCreator'		=> 'Nova\Core\Users\Services\UserCreatorService',
 
 		/**
-		 * Events
-		 */
-		'PageWasCreated'	=> 'Nova\Core\Pages\Events\PageWasCreated',
-		'PageWasDeleted'	=> 'Nova\Core\Pages\Events\PageWasDeleted',
-		'PageWasUpdated'	=> 'Nova\Core\Pages\Events\PageWasUpdated',
-
-		/**
 		 * Event Handlers
 		 */
 		'CachePageRoutes'	=> 'Nova\Core\Pages\Handlers\Events\CachePageRoutes',
