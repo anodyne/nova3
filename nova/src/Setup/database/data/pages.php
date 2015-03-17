@@ -115,4 +115,12 @@ return [
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@checkPageKey",
 		'protected'			=> (int) true,
 	],
+	[
+		'verb'				=> "GET",
+		'name'				=> "",
+		'key'				=> "admin.pages.get",
+		'uri'				=> "admin/pages/get",
+		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@get",
+		'protected'			=> (int) true,
+	],
 ];
