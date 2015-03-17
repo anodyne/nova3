@@ -75,6 +75,24 @@ h1 {
 	}
 }
 
+.panel {
+	margin: @spacing 0;
+
+	.rounded(@border-radius);
+
+	.panel-heading {
+		.border-radius(@border-radius - 1, @border-radius - 1, 0, 0);
+	}
+
+	.panel-footer {
+		.border-radius(0, 0, @border-radius - 1, @border-radius - 1);
+	}
+}
+
 .input-lg {
 	.rounded(@border-radius);
+}
+
+.text-sm {
+	font-size: @font-size-sm;
 }

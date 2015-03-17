@@ -197,8 +197,27 @@ fieldset[disabled] .btn.btn-success.active {
 .label.label-warning[href]:focus {
   background-color: #cc8000;
 }
+.panel {
+  margin: 15px 0;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px 4px 4px 4px;
+}
+.panel .panel-heading {
+  -webkit-border-radius: 3px 3px 0 0;
+  -moz-border-radius: 3px 3px 0 0;
+  border-radius: 3px 3px 0 0;
+}
+.panel .panel-footer {
+  -webkit-border-radius: 0 0 3px 3px;
+  -moz-border-radius: 0 0 3px 3px;
+  border-radius: 0 0 3px 3px;
+}
 .input-lg {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px 4px 4px 4px;
+}
+.text-sm {
+  font-size: 1.4rem;
 }
