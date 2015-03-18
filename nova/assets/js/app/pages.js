@@ -45,11 +45,11 @@ app.controller('PagesController', function ($scope, $http, $window, filterFilter
 
 	// Get the pages
 	$http({
-		url: $window.baseUrl + "/admin/pages/get",
+		url: $window.baseUrl + "/api/pages",
 		method: "GET"
 	}).success(function (data)
 	{
-		$scope.pages = data;
+		$scope.pages = data.data;
 
 		$scope.$watch(function()
 		{

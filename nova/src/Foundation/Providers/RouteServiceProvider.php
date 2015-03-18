@@ -41,6 +41,7 @@ class RouteServiceProvider extends ServiceProvider {
 			if (app('nova.setup')->isInstalled())
 			{
 				require app_path('Foundation/Http/routes.php');
+				require app_path('Foundation/Http/api.php');
 			}
 			else
 			{

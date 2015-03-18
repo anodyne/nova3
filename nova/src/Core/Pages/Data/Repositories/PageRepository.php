@@ -14,6 +14,11 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 		$this->model = $model;
 	}
 
+	public function all()
+	{
+		return $this->make(['pageContents'])->get();
+	}
+
 	public function countRouteKeys($key)
 	{
 		$keys = $this->countBy('key', $key);
@@ -48,6 +53,11 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 		}
 
 		return $page;
+	}
+
+	public function find($id)
+	{
+		return $this->getById($id, ['pageContents']);
 	}
 
 	public function getByRouteKey(Route $route)

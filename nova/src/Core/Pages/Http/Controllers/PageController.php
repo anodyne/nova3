@@ -18,6 +18,8 @@ class PageController extends BaseController {
 		parent::__construct($app);
 
 		$this->repo = $repo;
+
+		$this->middleware('auth');
 	}
 
 	public function index()
@@ -95,30 +97,6 @@ class PageController extends BaseController {
 		}
 
 		return json_encode(['code' => 1]);
-	}
-
-	public function get()
-	{
-		$this->isAjax = true;
-
-		$pages = $this->repo->all();
-
-		$output = [];
-
-		foreach ($pages as $page)
-		{
-			$output[] = [
-				'verb'		=> $page->present()->verb,
-				'name'		=> $page->present()->name,
-				'key'		=> $page->present()->key,
-				'uri'		=> $page->present()->uri,
-				'protected'	=> (bool) $page->protected,
-				'id'		=> (int) $page->id,
-				'editLink'	=> route('admin.pages.edit', [$page->id]),
-			];
-		}
-
-		return json_encode($output);
 	}
 
 }
