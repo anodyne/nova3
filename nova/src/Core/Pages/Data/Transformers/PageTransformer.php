@@ -21,6 +21,9 @@ class PageTransformer extends Fractal\TransformerAbstract {
 				'message'		=> $page->present()->message,
 				'title'			=> $page->present()->title,
 			],
+			'links'			=> [
+				'edit'			=> route('admin.pages.edit', [$page->id]),
+			],
 			'resources'		=> [
 				'default'		=> $page->default_resource,
 				'overridden'	=> (bool) ( ! empty($page->resource)),

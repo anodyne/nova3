@@ -62,7 +62,7 @@
 							<div class="visible-md visible-lg">
 								<div class="btn-toolbar pull-right">
 									<div class="btn-group">
-										<a href="{% page.editLink %}" class="btn btn-default">Edit</a>
+										<a href="{% page.links.edit %}" class="btn btn-default">Edit</a>
 									</div>
 									<div class="btn-group" ng-hide="{% page.protected %}">
 										<a href="#" class="btn btn-danger">Delete</a>
