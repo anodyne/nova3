@@ -5,8 +5,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="author" content="Anodyne Productions">
 		<meta name="description" content="{{ $_page->description }}">
-		<meta property="og:title" content="{{ $_settings->sim_name }}: {{ $_page->name }}" />
-        <meta property="og:description" content="{{ $_page->description }}" />
+		<meta property="og:title" content="{{ $_settings->sim_name }}: {{ $_page->name }}">
+        <meta property="og:description" content="{{ $_page->description }}">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
 		<title>{{ $_page->present()->title }} &bull; {{ $_settings->sim_name }}</title>
 
@@ -48,6 +49,14 @@
 		@else
 			<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		@endif
+
+		<script>
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				}
+			});
+		</script>
 		
 		{!! $javascript or '' !!}
 	</body>
