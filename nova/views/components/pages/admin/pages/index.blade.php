@@ -3,7 +3,7 @@
 		<h4 class="text-center">{!! HTML::image('nova/assets/images/ajax-loader.gif') !!}</h4>
 	</div>
 
-	<div ng-hide="loading">
+	<div ng-cloak>
 		<div class="visible-xs visible-sm">
 			<p><a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg btn-block">Add a New Page</a></p>
 		</div>

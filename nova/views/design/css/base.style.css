@@ -221,3 +221,11 @@ fieldset[disabled] .btn.btn-success.active {
 .text-sm {
   font-size: 1.4rem;
 }
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none !important;
+}
