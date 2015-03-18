@@ -8,7 +8,7 @@
 
 		<link href="//fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
 		<link href="//fonts.googleapis.com/css?family=Roboto+Condensed:300,700" rel="stylesheet">
-		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.style.css') !!}
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.responsive.css') !!}
