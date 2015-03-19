@@ -81,9 +81,11 @@ class InstallController extends BaseController {
 
 	public function settings()
 	{
-		$settings = ['sim_name'];
+		$themes = [
+			'pulsar' => 'Pulsar'
+		];
 
-		return view('pages.setup.install.settings', compact('settings'));
+		return view('pages.setup.install.settings', compact('themes'));
 	}
 
 	public function settingsSuccess()
