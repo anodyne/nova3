@@ -3,7 +3,7 @@
 return [
 	[
 		'verb'				=> "GET",
-		'name'				=> "Welcome Page",
+		'name'				=> "Homepage",
 		'key'				=> "home",
 		'uri'				=> "/",
 		'default_resource'	=> "Nova\\Foundation\\Http\\Controllers\\MainController@page",
@@ -20,7 +20,7 @@ return [
 	],
 	[
 		'verb'				=> "POST",
-		'name'				=> "",
+		'name'				=> "Do Log In",
 		'key'				=> "login.do",
 		'uri'				=> "login",
 		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\AuthController@postLogin",
@@ -28,7 +28,7 @@ return [
 	],
 	[
 		'verb'				=> "GET",
-		'name'				=> "Logout",
+		'name'				=> "Log Out",
 		'key'				=> "logout",
 		'uri'				=> "logout",
 		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\AuthController@getLogout",
@@ -36,7 +36,7 @@ return [
 	],
 	[
 		'verb'				=> "GET",
-		'name'				=> "Send Password Reminder",
+		'name'				=> "Forgot Password",
 		'key'				=> "password.email",
 		'uri'				=> "password",
 		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\PasswordController@getEmail",
@@ -44,7 +44,7 @@ return [
 	],
 	[
 		'verb'				=> "POST",
-		'name'				=> "",
+		'name'				=> "Send Password Reminder",
 		'key'				=> "password.email.send",
 		'uri'				=> "password",
 		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\PasswordController@postEmail",
@@ -60,7 +60,7 @@ return [
 	],
 	[
 		'verb'				=> "POST",
-		'name'				=> "",
+		'name'				=> "Do Password Reset",
 		'key'				=> "password.reset.do",
 		'uri'				=> "password/reset",
 		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\PasswordController@postReset",
@@ -85,7 +85,7 @@ return [
 	],
 	[
 		'verb'				=> "POST",
-		'name'				=> "",
+		'name'				=> "Store Page",
 		'key'				=> "admin.pages.store",
 		'uri'				=> "admin/pages/create",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@store",
@@ -101,18 +101,42 @@ return [
 	],
 	[
 		'verb'				=> "PUT",
-		'name'				=> "",
+		'name'				=> "Update Page",
 		'key'				=> "admin.pages.update",
 		'uri'				=> "admin/pages/{pageId}",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@update",
 		'protected'			=> (int) true,
 	],
 	[
+		'verb'				=> "GET",
+		'name'				=> "Remove Page Pop-up",
+		'key'				=> "admin.pages.remove",
+		'uri'				=> "admin/pages/{pageId}/remove",
+		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@remove",
+		'protected'			=> (int) true,
+	],
+	[
+		'verb'				=> "DELETE",
+		'name'				=> "Remove Page",
+		'key'				=> "admin.pages.destroy",
+		'uri'				=> "admin/pages/{pageId}",
+		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@destroy",
+		'protected'			=> (int) true,
+	],
+	[
 		'verb'				=> "POST",
-		'name'				=> "",
+		'name'				=> "Check for Duplicate Page Keys",
 		'key'				=> "admin.pages.checkKey",
-		'uri'				=> "admin/pages/checkKey",
+		'uri'				=> "admin/pages/check-key",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@checkPageKey",
+		'protected'			=> (int) true,
+	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Check for Duplicate Page URIs",
+		'key'				=> "admin.pages.checkUri",
+		'uri'				=> "admin/pages/check-uri",
+		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@checkPageUri",
 		'protected'			=> (int) true,
 	],
 ];
