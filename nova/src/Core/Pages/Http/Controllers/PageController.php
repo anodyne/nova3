@@ -3,6 +3,9 @@
 use Flash,
 	Input,
 	BaseController,
+	EditPageRequest,
+	CreatePageRequest,
+	RemovePageRequest,
 	PageRepositoryInterface;
 use Nova\Core\Pages\Events\PageWasCreated,
 	Nova\Core\Pages\Events\PageWasDeleted,
@@ -41,7 +44,7 @@ class PageController extends BaseController {
 		];
 	}
 
-	public function store()
+	public function store(CreatePageRequest $request)
 	{
 		// Create the page
 		$page = $this->repo->create(Input::all());
@@ -59,7 +62,7 @@ class PageController extends BaseController {
 	{
 		$this->view = 'admin/pages/edit';
 
-		$this->data->page = $this->repo->getById($pageId);
+		$this->data->page = $this->repo->find($pageId);
 		$this->data->httpVerbs = [
 			'GET' => 'GET',
 			'POST' => 'POST',
@@ -68,28 +71,72 @@ class PageController extends BaseController {
 		];
 	}
 
-	public function update($pageId)
+	public function update(EditPageRequest $request, $pageId)
 	{
+		// Update the page
+		$page = $this->repo->update($pageId, Input::all());
+
 		// Fire the event
 		event(new PageWasUpdated($page));
+
+		// Set the flash message
+		Flash::success("Page has been updated.");
+
+		return redirect()->route('admin.pages');
 	}
 
-	public function remove()
+	public function remove($pageId)
 	{
-		# code...
+		$this->isAjax = true;
+
+		// Grab the page we're removing
+		$page = $this->repo->find($pageId);
+
+		// Build the body based on whether we found the page or not
+		$body = ($page)
+			? view(locate('page', 'admin/pages/remove'), compact('page'))
+			: alert('danger', "Page not found.");
+
+		return partial('modal-content', [
+			'header' => "Remove Page",
+			'body' => $body,
+			'footer' => false,
+		]);
 	}
 
-	public function destroy()
+	public function destroy(RemovePageRequest $request, $pageId)
 	{
+		// Delete the page
+		$page = $this->repo->delete($pageId);
+
 		// Fire the event
-		event(new PageWasDeleted($page));
+		event(new PageWasDeleted);
+
+		// Set the flash message
+		Flash::success("Page has been removed.");
+
+		return redirect()->route('admin.pages');
 	}
 
 	public function checkPageKey()
 	{
 		$this->isAjax = true;
 
-		$count = $this->repo->countRouteKeys(Input::get('key'));
+		$count = $this->repo->countBy('key', Input::get('key'));
+
+		if ($count > 0)
+		{
+			return json_encode(['code' => 0]);
+		}
+
+		return json_encode(['code' => 1]);
+	}
+
+	public function checkPageUri()
+	{
+		$this->isAjax = true;
+
+		$count = $this->repo->countBy('uri', Input::get('uri'));
 
 		if ($count > 0)
 		{
