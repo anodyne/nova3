@@ -23,8 +23,24 @@
 			</div>
 		</div>
 
+		<div class="form-group{{ ($errors->has('theme')) ? ' has-error' : '' }}">
+			<label class="col-md-3 control-label">Theme</label>
+			<div class="col-md-4">
+				<div class="control-wrapper">
+					{!! Form::select('theme', $themes, null, ['class' => 'input-lg form-control']) !!}
+					{!! $errors->first('theme', '<p class="help-block">:message</p>') !!}
+				</div>
+			</div>
+		</div>
+
 		<div class="form-group">
-			<label class="col-md-3 control-label">Email Subject Prefix</label>
+			<div class="col-md-7 col-md-offset-3">
+				<h3>Email Settings</h3>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-md-3 control-label">Subject Prefix</label>
 			<div class="col-md-7">
 				<div class="control-wrapper">
 					{!! Form::text('mail_subject_prefix', null, ['class' => 'input-lg form-control']) !!}
@@ -43,7 +59,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-md-3 control-label">Default Email Name</label>
+			<label class="col-md-3 control-label">Default Name</label>
 			<div class="col-md-7">
 				<div class="control-wrapper">
 					{!! Form::text('mail_default_name', null, ['class' => 'input-lg form-control']) !!}
