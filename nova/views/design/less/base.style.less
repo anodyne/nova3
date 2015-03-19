@@ -25,6 +25,23 @@ h1 {
 	font-size: 3.4rem;
 }
 
+a {
+	&.broken-link {
+		font-style: italic;
+		color: @color-danger;
+	}
+}
+
+dl {
+	dt {
+		margin-top: @spacing;
+	}
+
+	dd {
+		margin-left: @spacing;
+	}
+}
+
 .btn-toolbar {
 	margin: @spacing 0;
 }
@@ -91,6 +108,36 @@ h1 {
 
 .input-lg {
 	.rounded(@border-radius);
+}
+
+.help-block {
+	font-size: @font-size-sm;
+
+	strong {
+		font-size: @font-size-sm;
+	}
+}
+
+.has-error {
+	.help-block,
+	.control-label {
+		color: @color-danger;
+
+		a {
+			color: @color-red-300;
+			text-decoration: underline;
+		}
+	}
+
+	.form-control {
+		border-color: @color-danger;
+	}
+
+	.input-group-addon {
+		color: @color-danger;
+		background-color: @color-red-50;
+		border-color: @color-danger;
+	}
 }
 
 .text-sm {
