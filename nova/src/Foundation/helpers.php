@@ -107,3 +107,11 @@ if ( ! function_exists('themePath'))
 		return app()->themePath(app('nova.theme')->getLocation(true)."/{$location}");
 	}
 }
+
+if ( ! function_exists('locate'))
+{
+	function locate($type, $view)
+	{
+		return Locate::{$type}($view);
+	}
+}
