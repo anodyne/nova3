@@ -19,13 +19,6 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 		return $this->make(['pageContents'])->get();
 	}
 
-	public function countRouteKeys($key)
-	{
-		$keys = $this->countBy('key', $key);
-
-		return (int) $keys;
-	}
-
 	public function create(array $data)
 	{
 		$page = $this->model->create($data[$data['type']]);
@@ -55,19 +48,67 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 		return $page;
 	}
 
+	public function delete($id)
+	{
+		// Get the page
+		$page = $this->find($id);
+
+		if ($page)
+		{
+			// Make the content repo
+			$contentRepo = app('PageContentRepository');
+
+			if ($page->pageContents->count() > 0)
+			{
+				foreach ($page->pageContents as $content)
+				{
+					// Remove the content
+					$contentRepo->delete($content->id);
+				}
+			}
+
+			// Remove the page
+			$page->delete();
+
+			return $page;
+		}
+
+		return false;
+	}
+
 	public function find($id)
 	{
 		return $this->getById($id, ['pageContents']);
 	}
 
-	public function getByRouteKey(Route $route)
+	public function getByRouteKey($route)
 	{
-		return $this->getFirstBy('key', $route->getName(), ['pageContents']);
+		$routeName = ($route instanceof Route) ? $route->getName() : $route;
+
+		return $this->getFirstBy('key', $routeName, ['pageContents']);
 	}
 
-	public function getByRouteUri(Route $route)
+	public function getByRouteUri($route)
 	{
-		return $this->getFirstBy('uri', $route->getUri(), ['pageContents']);
+		$routeUri = ($route instanceof Route) ? $route->getUri() : $route;
+
+		return $this->getFirstBy('uri', $routeUri, ['pageContents']);
+	}
+
+	public function update($id, array $data)
+	{
+		// Get the page
+		$page = $this->find($id);
+
+		if ($page)
+		{
+			// Update the page
+			$updatedPage = $page->fill($data)->save();
+
+			return $updatedPage;
+		}
+
+		return false;
 	}
 
 }

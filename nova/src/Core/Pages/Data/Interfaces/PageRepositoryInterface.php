@@ -6,10 +6,11 @@ use Nova\Foundation\Data\Interfaces\BaseRepositoryInterface;
 interface PageRepositoryInterface extends BaseRepositoryInterface {
 
 	public function all();
-	public function countRouteKeys($key);
 	public function create(array $data);
+	public function delete($id);
 	public function find($id);
-	public function getByRouteKey(Route $route);
-	public function getByRouteUri(Route $route);
+	public function getByRouteKey($route);
+	public function getByRouteUri($route);
+	public function update($id, array $data);
 
 }
