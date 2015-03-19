@@ -43,7 +43,12 @@
 					</div>
 
 					<div class="panel-footer">
-						<a class="btn btn-default btn-lg btn-block" ng-click="search = {}; useVerbs = {}">Reset Filters</a>
+						<div class="visible-xs visible-sm">
+							<a class="btn btn-default btn-lg btn-block" ng-click="search = {}; useVerbs = {}">Reset Filters</a>
+						</div>
+						<div class="visible-md visible-lg">
+							<a class="btn btn-default btn-block" ng-click="search = {}; useVerbs = {}">Reset Filters</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -58,14 +63,23 @@
 							<p><strong>Verb:</strong> <span class="label label-default">{% page.verb %}</span></p>
 						</div>
 						<div class="col-md-3">
-							<div class="visible-xs visible-sm"></div>
+							<div class="visible-xs visible-sm">
+								<div class="row">
+									<div class="col-sm-6">
+										<p><a href="{% page.links.edit %}" class="btn btn-default btn-lg btn-block">Edit</a></p>
+									</div>
+									<div class="col-sm-6" ng-hide="{% page.protected %}">
+										<p><a href="#" data-id="{% page.id %}" data-action="remove" class="btn btn-danger btn-lg btn-block js-pageAction">Remove</a></p>
+									</div>
+								</div>
+							</div>
 							<div class="visible-md visible-lg">
 								<div class="btn-toolbar pull-right">
 									<div class="btn-group">
 										<a href="{% page.links.edit %}" class="btn btn-default">Edit</a>
 									</div>
 									<div class="btn-group" ng-hide="{% page.protected %}">
-										<a href="#" class="btn btn-danger">Delete</a>
+										<a href="#" data-id="{% page.id %}" data-action="remove" class="btn btn-danger js-pageAction">Remove</a>
 									</div>
 								</div>
 							</div>
@@ -76,3 +90,5 @@
 		</div>
 	</div>
 </div>
+
+{!! modal(['id' => "removePage", 'header' => "Remove Page"]) !!}

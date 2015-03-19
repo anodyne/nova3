@@ -3,4 +3,19 @@
 
 <script>
 	var baseUrl = "{{ Request::root() }}";
+
+	$(document).on('click', '.js-pageAction', function(e)
+	{
+		e.preventDefault();
+
+		var pageId = $(this).data('id');
+		var action = $(this).data('action');
+
+		if (action == 'remove')
+		{
+			$('#removePage').modal({
+				remote: "{{ url('admin/pages') }}/" + pageId + "/remove"
+			}).modal('show');
+		}
+	});
 </script>
