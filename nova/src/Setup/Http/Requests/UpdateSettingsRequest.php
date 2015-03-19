@@ -23,6 +23,7 @@ class UpdateSettingsRequest extends Request {
 	{
 		return [
 			'sim_name'	=> 'required',
+			'theme'		=> 'required',
 		];
 	}
 
@@ -30,6 +31,7 @@ class UpdateSettingsRequest extends Request {
 	{
 		return [
 			'sim_name.required' => "Please enter a sim name",
+			'theme.required' => "Please select a theme",
 		];
 	}
 
