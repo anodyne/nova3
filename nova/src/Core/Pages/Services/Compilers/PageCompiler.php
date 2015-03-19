@@ -28,16 +28,25 @@ class PageCompiler implements CompilerInterface {
 			if ($type == 'page')
 			{
 				if ($matches[1]) return substr($matches[0], 1);
-				
-				if ( ! $title)
+
+				// Get the page
+				$page = app('PageRepository')->getByRouteKey($key);
+
+				if ($page)
 				{
-					// Get the page
-					$page = app('PageRepository')->getByRouteKey($key);
+					$title = ($title) ?: $page->present()->name;
 
-					$title = $page->name;
+					return app('html')->linkRoute($key, $title);
 				}
+				else
+				{
+					$title = ($title) ?: 'Page Not Found';
 
-				return app('html')->linkRoute($key, $title);
+					return app('html')->link(false, $title, [
+						'class' => 'broken-link js-tooltip-top',
+						'title' => "Page not found"
+					]);
+				}
 			}
 
 			return $matches[0];
