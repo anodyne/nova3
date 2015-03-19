@@ -18,4 +18,20 @@ class PageContentRepository extends BaseRepository implements PageContentReposit
 		return $this->model->create($data);
 	}
 
+	public function delete($id)
+	{
+		// Get the content
+		$content = $this->getById($id);
+
+		if ($content)
+		{
+			// Delete the content
+			$content->delete();
+
+			return $content;
+		}
+
+		return false;
+	}
+
 }
