@@ -827,23 +827,23 @@
         },
         {
             "name": "league/fractal",
-            "version": "0.11.0",
+            "version": "0.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/fractal.git",
-                "reference": "5abf7b1ce12fea1e575355f76f4f58f15dba4be4"
+                "reference": "0a51dcb6398dc2377d086210d0624996a1df8322"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/fractal/zipball/5abf7b1ce12fea1e575355f76f4f58f15dba4be4",
-                "reference": "5abf7b1ce12fea1e575355f76f4f58f15dba4be4",
+                "url": "https://api.github.com/repos/thephpleague/fractal/zipball/0a51dcb6398dc2377d086210d0624996a1df8322",
+                "reference": "0a51dcb6398dc2377d086210d0624996a1df8322",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3"
+                "php": ">=5.4"
             },
             "require-dev": {
-                "illuminate/pagination": "~4.1",
+                "illuminate/contracts": "~5.0",
                 "mockery/mockery": "~0.9",
                 "pagerfanta/pagerfanta": "~1.0.0",
                 "phpunit/phpunit": "~4.0",
@@ -858,7 +858,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.10-dev"
+                    "dev-master": "0.13-dev"
                 }
             },
             "autoload": {
@@ -878,7 +878,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Handle the output of complex data structures ready for JSON output.",
+            "description": "Handle the output of complex data structures ready for API output.",
             "homepage": "http://fractal.thephpleague.com/",
             "keywords": [
                 "api",
@@ -886,7 +886,7 @@
                 "league",
                 "rest"
             ],
-            "time": "2014-12-10 16:59:07"
+            "time": "2015-03-19 15:16:43"
         },
         {
             "name": "monolog/monolog",
