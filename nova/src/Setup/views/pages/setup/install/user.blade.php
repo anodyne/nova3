@@ -29,6 +29,16 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="col-md-3 control-label">Nickname</label>
+			<div class="col-md-7">
+				<div class="control-wrapper">
+					{!! Form::text('user[nickname]', null, ['class' => 'input-lg form-control']) !!}
+					<p class="help-block">If you specify a nickname, that will be displayed throughout {{ config('nova.app.name') }} instead of your real name.</p>
+				</div>
+			</div>
+		</div>
+
 		<div class="form-group{{ ($errors->has('user.email')) ? ' has-error' : '' }}">
 			<label class="col-md-3 control-label">Email Address</label>
 			<div class="col-md-7">
