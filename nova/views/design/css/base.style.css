@@ -10,7 +10,7 @@
   margin: 10px 0;
 }
 .data-table.data-table-striped > .row:nth-child(odd) {
-  background: #eeeeee;
+  background: #f5f5f5;
 }
 .data-table.data-table-bordered > .row {
   border-left: 1px solid #e0e0e0;
