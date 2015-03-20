@@ -81,6 +81,13 @@ dl dd {
   font-weight: 400;
   letter-spacing: 0.05rem;
 }
+.label.label-primary {
+  background-color: #337ab7;
+}
+.label.label-primary[href]:hover,
+.label.label-primary[href]:focus {
+  background-color: #286090;
+}
 .panel {
   margin: 1.5rem 0;
   -webkit-border-radius: 0.4rem;

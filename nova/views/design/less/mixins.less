@@ -55,7 +55,36 @@
 }
 
 .box-sizing(@type: border-box) {
-    -webkit-box-sizing: @type;
-    -moz-box-sizing: @type;
+	-webkit-box-sizing: @type;
+	-moz-box-sizing: @type;
 	box-sizing: @type;
+}
+
+.btn-pseudo-states-text(@color, @background, @border) {
+	color: @color;
+	background-color: @background;
+	border-color: @border;
+
+	&:hover,
+	&:focus,
+	&:active,
+	&.active {
+		background-color: darken(@background, 5%);
+		border-color: darken(@border, 10%);
+		color: darken(@color, 10%);
+	}
+
+	&.disabled,
+	&[disabled],
+	fieldset[disabled] & {
+		&,
+		&:hover,
+		&:focus,
+		&:active,
+		&.active {
+			background-color: @background;
+			border-color: @border;
+			color: @color;
+		}
+	}
 }
