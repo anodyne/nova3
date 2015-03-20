@@ -49,7 +49,7 @@ class IconCompiler implements CompilerInterface {
 	 */
 	public function help()
 	{
-		return "Insert an icon into any page by using the `{% icon %}` tag. The tag accepts three parameters. The first parameter is always the icon you want to use. The second paramter is the size of the icon (sm, md, lg). The third parameter are any additional classes you want applied to the icon. To insert a large edit icon into a page, you would enter: `{% icon:edit:lg %}`.";
+		return "__Icons__: Insert an icon into any page by using the `{% icon %}` tag. The tag accepts three parameters. The first parameter is always the icon you want to use. The second paramter is the size of the icon (sm, md, lg). The third parameter are any additional classes you want applied to the icon. To insert a large edit icon into a page, you would enter: `{% icon:edit:lg %}`.";
 	}
 
 }

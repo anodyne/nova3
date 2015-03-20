@@ -40,7 +40,7 @@ class SettingCompiler implements CompilerInterface {
 	 */
 	public function help()
 	{
-		return "Insert content from the settings table into any page by using the `{% setting %}` tag. The tag accepts the setting key as its only parameter. If you want to print out the sim name from the settings table, enter `{% setting:sim_name %}`.";
+		return "__Settings__: Insert settings values into any page by using the `{% setting %}` tag. The tag accepts the setting key as its only parameter (which you can find on the Settings page). If you want to print out the sim name from the settings table for example, you'd enter `{% setting:sim_name %}`. Be careful which settings items you display in publicly viewable content!";
 	}
 
 }

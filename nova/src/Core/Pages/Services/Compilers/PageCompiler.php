@@ -62,7 +62,7 @@ class PageCompiler implements CompilerInterface {
 	 */
 	public function help()
 	{
-		return "Insert a link into any page by using the `{% page %}` tag. The tag accepts two or three parameters, depending on how you want to use it. You can set the title used for the link by setting the third parameter. For example, if you want to link to the home page and have the link say \"home\" instead of the name listed in the database, enter `{% page:home:home %}`. If you don't enter the third parameter, like `{% page:game.rules %}`, the name of the page will be pulled from the database and used as the link title.";
+		return "__Pages__: Insert a link into any page by using the `{% page %}` tag. The tag accepts two or three parameters, depending on how you want to use it. You can set the title used for the link by setting the third parameter. For example, if you want to link to the home page and have the link say \"home\" instead of the name listed in the database, enter `{% page:home:home %}`. If you don't enter the third parameter, like `{% page:game.rules %}`, the name of the page will be pulled from the database and used as the link title.";
 	}
 
 }
