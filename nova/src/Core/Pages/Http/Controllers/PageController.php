@@ -27,14 +27,14 @@ class PageController extends BaseController {
 
 	public function index()
 	{
-		$this->view = 'admin/pages/index';
-		$this->jsView = 'admin/pages/index_js';
+		$this->view = 'admin/pages/pages';
+		$this->jsView = 'admin/pages/pages-js';
 	}
 
 	public function create()
 	{
-		$this->view = 'admin/pages/create';
-		$this->jsView = 'admin/pages/create_js';
+		$this->view = 'admin/pages/page-create';
+		$this->jsView = 'admin/pages/page-create-js';
 
 		$this->data->httpVerbs = [
 			'GET' => 'GET',
@@ -60,8 +60,8 @@ class PageController extends BaseController {
 
 	public function edit($pageId)
 	{
-		$this->view = 'admin/pages/edit';
-		$this->jsView = 'admin/pages/edit_js';
+		$this->view = 'admin/pages/page-edit';
+		$this->jsView = 'admin/pages/page-edit-js';
 
 		$this->data->page = $this->repo->find($pageId);
 		$this->data->httpVerbs = [
@@ -95,7 +95,7 @@ class PageController extends BaseController {
 
 		// Build the body based on whether we found the page or not
 		$body = ($page)
-			? view(locate('page', 'admin/pages/remove'), compact('page'))
+			? view(locate('page', 'admin/pages/page-remove'), compact('page'))
 			: alert('danger', "Page not found.");
 
 		return partial('modal-content', [
