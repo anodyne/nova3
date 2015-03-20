@@ -15,34 +15,52 @@
 	text-transform: uppercase;
 
 	.rounded(@border-radius);
+	.btn-pseudo-states(@color-grey-600, transparent, transparent);
 
 	&.btn-danger {
-		.btn-pseudo-states(@color-white, @color-danger, @color-danger);
+		.btn-pseudo-states-text(@color-danger, transparent, transparent);
 	}
 	&.btn-primary {
-		.btn-pseudo-states(@color-white, @color-primary, @color-primary);
+		.btn-pseudo-states(@color-white, @color-grey-600, @color-grey-600);
 	}
 	&.btn-success {
-		.btn-pseudo-states(@color-white, @color-success, @color-success);
+		.btn-pseudo-states-text(@color-success, transparent, transparent);
 	}
 }
 
 .label {
 	text-transform: uppercase;
+	font-weight: 500;
 
-	.rounded(@border-radius-sm);
+	.rounded(@border-radius);
 
 	&.label-danger {
-		.label-variant(@color-danger);
+		background: transparent;
+		border-color: transparent;
+		color: @color-danger;
 	}
 	&.label-info {
-		.label-variant(@color-info);
+		background: transparent;
+		border-color: transparent;
+		color: @color-info;
 	}
 	&.label-success {
-		.label-variant(@color-success);
+		background: transparent;
+		border-color: transparent;
+		color: @color-success;
 	}
 	&.label-warning {
-		.label-variant(@color-amber-700);
+		background: transparent;
+		border-color: transparent;
+		color: @color-amber-700;
+	}
+	&.label-default {
+		background: transparent;
+		border-color: transparent;
+		color: @color-grey-700;
+	}
+	&.label-primary {
+		.label-variant(@color-primary);
 	}
 }
 
