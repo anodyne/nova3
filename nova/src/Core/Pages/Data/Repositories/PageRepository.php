@@ -21,7 +21,9 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 
 	public function create(array $data)
 	{
-		$page = $this->model->create($data[$data['type']]);
+		$combinedData = array_merge(['type' => $data['type']], $data[$data['type']]);
+
+		$page = $this->model->create($combinedData);
 
 		if (array_key_exists('content', $data))
 		{
