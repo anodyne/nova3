@@ -2,81 +2,127 @@
 	<h1>Edit Page <small>{{ $page->present()->name }}</small></h1>
 </div>
 
-<div class="btn-toolbar">
-	<div class="btn-group">
-		<a href="{{ route('admin.pages') }}" class="btn btn-default">Page Manager</a>
+<div class="visible-xs visible-sm">
+	<p><a href="{{ route('admin.pages') }}" class="btn btn-default btn-lg btn-block">Back to Page Manager</a></p>
+</div>
+<div class="visible-md visible-lg">
+	<div class="btn-toolbar">
+		<div class="btn-group">
+			<a href="{{ route('admin.pages') }}" class="btn btn-default">Back to Page Manager</a>
+		</div>
 	</div>
 </div>
 
-{!! Form::model($page, ['class' => 'form-horizontal']) !!}
-	<div class="form-group">
+{!! Form::model($page, ['route' => ['admin.pages.update', $page->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
+	<div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
 		<label class="col-md-2 control-label">Name</label>
 		<div class="col-md-5">
 			{!! Form::text('name', null, ['class' => 'form-control input-lg']) !!}
+			{!! $errors->first('name', '<p class="help-block">:message</p>') !!}
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label class="col-md-2 control-label">Description</label>
-		<div class="col-md-7">
-			{!! Form::textarea('description', null, ['class' => 'form-control input-lg', 'rows' => 2]) !!}
+		<div class="col-md-8">
+			{!! Form::textarea('description', null, ['class' => 'form-control input-lg', 'rows' => 3]) !!}
 		</div>
 	</div>
 
-	<div class="form-group">
-		<div class="col-md-7 col-md-offset-2">
-			<h3>Routing Info</h3>
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-md-2 control-label">Key</label>
-		<div class="col-md-5">
-			{!! Form::text('key', null, ['class' => 'form-control input-lg']) !!}
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-md-2 control-label">Resource Type</label>
-		<div class="col-md-2">
-			{!! Form::select('verb', $httpVerbs, null, ['class' => 'form-control input-lg']) !!}
-		</div>
-	</div>
-
-	<div class="form-group">
+	<div class="form-group{{ ($errors->has('uri')) ? ' has-error' : '' }}">
 		<label class="col-md-2 control-label">URI</label>
-		<div class="col-md-7">
+		<div class="col-md-6">
 			<div class="input-group">
+				<span class="input-group-addon">{{ Request::root() }}/</span>
 				{!! Form::text('uri', null, ['class' => 'form-control input-lg']) !!}
-				<span class="input-group-btn">
-					<button class="btn btn-default btn-lg" type="button">Help</button>
-				</span>
+			</div>
+			{!! $errors->first('uri', '<p class="help-block">:message</p>') !!}
+		</div>
+	</div>
+
+	<div class="form-group{{ ($errors->has('key')) ? ' has-error' : '' }}">
+		<label class="col-md-2 control-label">Key</label>
+		<div class="col-md-4">
+			{!! Form::text('key', null, ['class' => 'form-control input-lg']) !!}
+			{!! $errors->first('key', '<p class="help-block">:message</p>') !!}
+		</div>
+	</div>
+
+	@if ($page->type == 'advanced')
+		<div class="form-group">
+			<label class="col-md-2 control-label">HTTP Verb</label>
+			<div class="col-md-2">
+				{!! Form::select('verb', $httpVerbs, null, ['class' => 'form-control input-lg']) !!}
 			</div>
 		</div>
-	</div>
 
-	<div class="form-group">
-		<label class="col-md-2 control-label">Default Resource</label>
-		<div class="col-md-10">
-			<p class="form-control-static">{{ $page->present()->default_resource }}</p>
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-md-2 control-label">New Resource</label>
-		<div class="col-md-7">
-			<div class="input-group">
-				{!! Form::text('resource', null, ['class' => 'form-control input-lg']) !!}
-				<span class="input-group-btn">
-					<button class="btn btn-default btn-lg" type="button">Reset</button>
-				</span>
+		<div class="form-group">
+			<label class="col-md-2 control-label">Resource</label>
+			<div class="col-md-8">
+				@if ($page->protected)
+					<div class="input-group">
+						{!! Form::text('resource', null, ['class' => 'form-control input-lg']) !!}
+						<span class="input-group-btn"><a href="#" class="btn btn-default btn-lg js-resetResource">Reset to Default</a></span>
+					</div>
+				@else
+					{!! Form::text('resource', null, ['class' => 'form-control input-lg']) !!}
+				@endif
 			</div>
-			<p class="help-block">Enter the class, with namespace, that you want to use instead of the default resource.</p>
+		</div>
+
+		@if ($page->protected)
+			<div class="form-group">
+				<label class="col-md-2 control-label">Default Resource</label>
+				<div class="col-md-8">
+					<p class="form-control-static"><code>{{ $page->present()->defaultResource }}</code></p>
+				</div>
+			</div>
+		@endif
+	@endif
+
+	<div class="form-group">
+		<div class="col-md-5 col-md-offset-2">
+			<h3>Content</h3>
 		</div>
 	</div>
 
-	<ul class="nav nav-tabs">
-		<li class="active"><a href="#page-content" data-toggle="tab">Page Content</a></li>
-		<li><a href="#page-nav" data-toggle="tab">Navigation</a></li>
-	</ul>
+	<div class="form-group{{ ($errors->has('content[title]')) ? ' has-error' : '' }}">
+		<label class="col-md-2 control-label">Page Title</label>
+		<div class="col-md-5">
+			{!! Form::text('content[title]', $page->present()->title, ['class' => 'form-control input-lg']) !!}
+			{!! $errors->first('content[title]', '<p class="help-block">:message</p>') !!}
+		</div>
+	</div>
+
+	<div class="form-group{{ ($errors->has('content[header]')) ? ' has-error' : '' }}">
+		<label class="col-md-2 control-label">Page Header</label>
+		<div class="col-md-5">
+			{!! Form::text('content[header]', $page->present()->header, ['class' => 'form-control input-lg']) !!}
+			{!! $errors->first('content[header]', '<p class="help-block">:message</p>') !!}
+		</div>
+	</div>
+
+	<div class="form-group{{ ($errors->has('content[message]')) ? ' has-error' : '' }}">
+		<label class="col-md-2 control-label">Content</label>
+		<div class="col-md-8">
+			{!! Form::textarea('content[message]', $page->present()->messageRaw, ['class' => 'form-control input-lg', 'rows' => 10]) !!}
+			{!! $errors->first('content[message]', '<p class="help-block">:message</p>') !!}
+			<p class="help-block">
+				<ul>
+				@foreach (app('nova.page.compiler')->getCompilers() as $compiler)
+					<li>{!! Markdown::parse($compiler->help()) !!}</li>
+				@endforeach
+				</ul>
+			</p>
+		</div>
+	</div>
+
+	<div class="col-md-5 col-md-offset-2">
+		<div class="visible-xs visible-sm">
+			{!! Form::button("Update Page", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}
+		</div>
+		<div class="visible-md visible-lg">
+			{!! Form::button("Update Page", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+		</div>
+	</div>
 {!! Form::close() !!}
