@@ -61,6 +61,7 @@ class PageController extends BaseController {
 	public function edit($pageId)
 	{
 		$this->view = 'admin/pages/edit';
+		$this->jsView = 'admin/pages/edit_js';
 
 		$this->data->page = $this->repo->find($pageId);
 		$this->data->httpVerbs = [
