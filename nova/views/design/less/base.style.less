@@ -15,10 +15,6 @@ body {
 	color: @color-body-text;
 }
 
-.navbar {
-	.rounded(@border-radius);
-}
-
 h1 {
 	font-family: @font-heading;
 	font-weight: 700;
@@ -52,16 +48,6 @@ dl {
 
 	.rounded(@border-radius);
 
-	&.btn-danger {
-		.btn-pseudo-states(@color-white, @color-danger, @color-danger);
-	}
-	&.btn-primary {
-		.btn-pseudo-states(@color-white, @color-primary, @color-primary);
-	}
-	&.btn-success {
-		.btn-pseudo-states(@color-white, @color-success, @color-success);
-	}
-
 	&,
 	&:active,
 	&.active {
@@ -74,22 +60,7 @@ dl {
 
 .label {
 	font-weight: 400;
-	letter-spacing: 0.5px;
-
-	.rounded(@border-radius-sm);
-
-	&.label-danger {
-		.label-variant(@color-danger);
-	}
-	&.label-info {
-		.label-variant(@color-info);
-	}
-	&.label-success {
-		.label-variant(@color-success);
-	}
-	&.label-warning {
-		.label-variant(@color-amber-700);
-	}
+	letter-spacing: 0.05rem;
 }
 
 .panel {
@@ -121,22 +92,30 @@ dl {
 .has-error {
 	.help-block,
 	.control-label {
-		color: @color-danger;
-
 		a {
-			color: @color-red-300;
 			text-decoration: underline;
 		}
 	}
+}
 
-	.form-control {
-		border-color: @color-danger;
+.nav-pills {
+	margin-top: @spacing;
+	margin-bottom: @spacing;
+
+	>li {
+		>a {
+			.rounded(@border-radius);
+		}
 	}
 
-	.input-group-addon {
-		color: @color-danger;
-		background-color: @color-red-50;
-		border-color: @color-danger;
+	&.nav-pills-sm {
+		li {
+			>a {
+				padding: @spacing-sm @spacing;
+
+				font-size: @font-size-sm;
+			}
+		}
 	}
 }
 
