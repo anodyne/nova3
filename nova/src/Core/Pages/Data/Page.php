@@ -10,7 +10,7 @@ class Page extends Model {
 	protected $table = 'pages';
 
 	protected $fillable = ['verb', 'name', 'key', 'uri', 'resource',
-		'description', 'conditions'];
+		'description', 'conditions', 'type'];
 
 	protected $casts = [
 		'collection_id'	=> 'integer',
