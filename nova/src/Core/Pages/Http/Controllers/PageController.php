@@ -53,7 +53,7 @@ class PageController extends BaseController {
 		event(new PageWasCreated($page));
 
 		// Set the flash message
-		Flash::success("Page has been created.");
+		Flash::success("Page has been created. Don't forget to update your menu(s) with your new page!");
 
 		return redirect()->route('admin.pages');
 	}
@@ -111,7 +111,7 @@ class PageController extends BaseController {
 		$page = $this->repo->delete($pageId);
 
 		// Fire the event
-		event(new PageWasDeleted);
+		event(new PageWasDeleted($page->name, $page->key, $page->uri));
 
 		// Set the flash message
 		Flash::success("Page has been removed.");
