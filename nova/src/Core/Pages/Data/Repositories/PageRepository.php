@@ -107,6 +107,28 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 			// Update the page
 			$updatedPage = $page->fill($data)->save();
 
+			if (array_key_exists('content', $data))
+			{
+				// Grab the content repo out of the IOC
+				$contentRepo = app('PageContentRepository');
+
+				foreach ($data['content'] as $type => $value)
+				{
+					// Build the content data
+					$content = [
+						'type'	=> $type,
+						'key'	=> "{$page->key}.{$type}",
+						'value'	=> $value,
+					];
+
+					// Create the content item
+					$contentItem = $contentRepo->create($content);
+
+					// Attach the content record to the page
+					$page->pageContents()->save($contentItem);
+				}
+			}
+
 			return $updatedPage;
 		}
 
