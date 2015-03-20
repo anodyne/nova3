@@ -32,18 +32,15 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 
 			foreach ($data['content'] as $type => $value)
 			{
-				// Build the content data
-				$content = [
+				// Create the content item
+				$newContentItem = $contentRepo->create([
 					'type'	=> $type,
 					'key'	=> "{$page->key}.{$type}",
 					'value'	=> $value,
-				];
-
-				// Create the content item
-				$contentItem = $contentRepo->create($content);
+				]);
 
 				// Attach the content record to the page
-				$page->pageContents()->save($contentItem);
+				$page->pageContents()->save($newContentItem);
 			}
 		}
 
@@ -114,18 +111,26 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 
 				foreach ($data['content'] as $type => $value)
 				{
-					// Build the content data
-					$content = [
-						'type'	=> $type,
-						'key'	=> "{$page->key}.{$type}",
-						'value'	=> $value,
-					];
+					// Get the content item
+					$contentItem = $updatedPage->{$type}();
 
-					// Create the content item
-					$contentItem = $contentRepo->create($content);
+					if ($contentItem)
+					{
+						// Fill and save the item
+						$contentItem->fill(['value' => $value])->save();
+					}
+					else
+					{
+						// We didn't have a content item, so let's create one
+						$newContentItem = $contentRepo->create([
+							'type'	=> $type,
+							'key'	=> "{$updatedPage->key}.{$type}",
+							'value'	=> $value,
+						]);
 
-					// Attach the content record to the page
-					$page->pageContents()->save($contentItem);
+						// Attach the content record to the page
+						$updatedPage->pageContents()->save($newContentItem);
+					}
 				}
 			}
 
