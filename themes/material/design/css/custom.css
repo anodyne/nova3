@@ -1,3 +1,35 @@
+body {
+  padding-top: 5rem;
+}
+.navbar {
+  margin-bottom: 0;
+}
+.navbar-default {
+  background-color: #616161;
+  border-bottom: none;
+}
+.navbar-default .navbar-brand {
+  color: #ffffff;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #bdbdbd;
+}
+.navbar-default .navbar-nav > li > a:hover {
+  color: #eeeeee;
+}
+header {
+  height: 20rem;
+  background-color: #9e9e9e;
+  color: #ffffff;
+}
+header h1 {
+  margin: 0;
+  padding: 0;
+  line-height: 20rem;
+  font-family: "Roboto Condensed";
+  font-size: 5.6rem;
+  font-weight: 300;
+}
 .page-header h1 {
   font-family: "Roboto Condensed";
   font-weight: 300;

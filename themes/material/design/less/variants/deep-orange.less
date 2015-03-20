@@ -1,0 +1,33 @@
+@import "../../../../../nova/views/design/less/colors.less";
+@import "../mixins.less";
+@import "../variables.less";
+
+.navbar-default {
+	background-color: @color-deep-orange-700;
+
+	.navbar-brand {
+		color: @color-white;
+	}
+
+	.navbar-nav {
+		>li {
+			>a {
+				color: @color-deep-orange-400;
+
+				&:hover {
+					color: @color-deep-orange-200;
+				}
+			}
+		}
+	}
+}
+
+header {
+	background-color: @color-deep-orange-500;
+}
+
+.page-header {
+	h1 {
+		color: @color-deep-orange-500;
+	}
+}

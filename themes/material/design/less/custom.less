@@ -1,6 +1,51 @@
 @import "../../../../nova/views/design/less/colors.less";
-@import "../../../../nova/views/design/less/mixins.less";
+@import "mixins.less";
 @import "variables.less";
+
+body {
+	padding-top: 5rem;
+}
+
+.navbar {
+	margin-bottom: 0;
+}
+.navbar-default {
+	background-color: @color-grey-700;
+	border-bottom: none;
+
+	.navbar-brand {
+		color: @color-white;
+	}
+
+	.navbar-nav {
+		>li {
+			>a {
+				color: @color-grey-400;
+
+				&:hover {
+					color: @color-grey-200;
+				}
+			}
+		}
+	}
+}
+
+header {
+	height: 20rem;
+
+	background-color: @color-grey-500;
+	color: @color-white;
+
+	h1 {
+		margin: 0;
+		padding: 0;
+		line-height: 20rem;
+
+		font-family: "Roboto Condensed";
+		font-size: 5.6rem;
+		font-weight: 300;
+	}
+}
 
 .page-header {
 	h1 {
