@@ -10,11 +10,12 @@ class CreatePagesTables extends Migration {
 		Schema::create('pages', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
-			$table->string('verb', 10)->default('GET');
+			$table->string('type', 15);
 			$table->string('name'); // Used as a descriptive name of the page
 			$table->text('description')->nullable();
 			$table->string('key'); // Used as the route name
 			$table->string('uri');
+			$table->string('verb', 10)->default('GET');
 			$table->text('resource')->nullable();
 			$table->string('default_resource')->default('Nova\\\Foundation\\\Http\\\Controllers\\\MainController@page');
 			$table->text('conditions')->nullable();
@@ -58,6 +59,11 @@ class CreatePagesTables extends Migration {
 
 		foreach ($data['pages'] as $page)
 		{
+			$page['type'] = (Str::contains($page['default_resource'], "MainController@page"))
+				? 'basic'
+				: 'advanced';
+			$page['protected'] = (int) true;
+
 			Page::create($page);
 		}
 
