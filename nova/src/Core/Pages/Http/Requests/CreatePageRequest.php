@@ -24,19 +24,19 @@ class CreatePageRequest extends Request {
 		return [
 			'type' => 'required|in:basic,advanced',
 
-			'basic[name]' => 'required_if:type,basic',
-			'basic[key]' => 'required_if:type,basic',
-			'basic[uri]' => 'required_if:type,basic',
+			'basic.name' => 'required_if:type,basic',
+			'basic.key' => 'required_if:type,basic',
+			'basic.uri' => 'required_if:type,basic',
 
-			'advanced[name]' => 'required_if:type,advanced',
-			'advanced[key]' => 'required_if:type,advanced',
-			'advanced[uri]' => 'required_if:type,advanced',
-			'advanced[verb]' => 'required_if:type,advanced',
-			'advanced[resource]' => 'required_if:type,advanced',
+			'advanced.name' => 'required_if:type,advanced',
+			'advanced.key' => 'required_if:type,advanced',
+			'advanced.uri' => 'required_if:type,advanced',
+			'advanced.verb' => 'required_if:type,advanced',
+			'advanced.resource' => 'required_if:type,advanced',
 
-			'content[title]' => 'required_if:type,basic',
-			'content[header]' => 'required_if:type,basic',
-			'content[message]' => 'required_if:type,basic',
+			'content.title' => 'required_if:type,basic',
+			'content.header' => 'required_if:type,basic',
+			'content.message' => 'required_if:type,basic',
 		];
 	}
 
