@@ -32,6 +32,11 @@
 						</div>
 
 						<div class="form-group">
+							<label class="control-label">By Name</label>
+							{!! Form::text('searchName', null, ['class' => 'form-control', 'ng-model' => 'search.name']) !!}
+						</div>
+
+						<div class="form-group">
 							<label class="control-label">By Key</label>
 							{!! Form::text('searchKey', null, ['class' => 'form-control', 'ng-model' => 'search.key']) !!}
 						</div>
