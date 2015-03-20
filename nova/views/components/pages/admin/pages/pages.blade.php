@@ -65,7 +65,7 @@
 							<p>{% page.name %}</p>
 							<p><strong>Key:</strong> {% page.key %}</p>
 							<p><strong>URI:</strong> <code>{% page.uri %}</code></p>
-							<p><strong>Verb:</strong> <span class="label label-default">{% page.verb %}</span></p>
+							<p><strong>Verb:</strong> <span class="label label-primary">{% page.verb %}</span></p>
 						</div>
 						<div class="col-md-3">
 							<div class="visible-xs visible-sm">
