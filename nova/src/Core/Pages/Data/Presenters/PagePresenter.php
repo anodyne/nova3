@@ -10,6 +10,12 @@ class PagePresenter extends Presenter {
 			return app('nova.markdown')->parse($this->entity->message()->present()->value);
 	}
 
+	public function messageRaw()
+	{
+		if ($this->entity->message())
+			return $this->entity->message()->value;
+	}
+
 	public function header()
 	{
 		if ($this->entity->header())
@@ -51,6 +57,11 @@ class PagePresenter extends Presenter {
 		}
 
 		return label($level, $verb);
+	}
+
+	public function defaultResource()
+	{
+		return $this->entity->default_resource;
 	}
 
 }
