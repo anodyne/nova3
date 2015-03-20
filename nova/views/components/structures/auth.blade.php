@@ -26,8 +26,8 @@
 			{!! HTML::style('nova/views/design/css/auth.style.css') !!}
 		@endif
 		
-		@if (app('files')->exists(themePath('design/css/auth.custom.css', false)))
-			{!! HTML::style(themePath('design/css/auth.custom.css')) !!}
+		@if (app('files')->exists(themePath('design/css/custom.css', false)))
+			{!! HTML::style(themePath('design/css/custom.css')) !!}
 		@endif
 
 		@if ($_currentUser and $_currentUser->preference('theme_variant'))
