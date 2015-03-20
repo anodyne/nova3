@@ -3,17 +3,104 @@
 @import "variables.less";
 
 .page-header {
-	padding: 15px;
-
-	background-color: @color-grey-200;
-	border-bottom: none;
-
 	h1 {
-		margin: 0;
-		padding: 0;
-
 		font-family: "Roboto Condensed";
 		font-weight: 300;
+		font-size: 3.6rem;
 		color: @color-grey-700;
+	}
+}
+
+.btn {
+	text-transform: uppercase;
+
+	.rounded(@border-radius);
+
+	&.btn-danger {
+		.btn-pseudo-states(@color-white, @color-danger, @color-danger);
+	}
+	&.btn-primary {
+		.btn-pseudo-states(@color-white, @color-primary, @color-primary);
+	}
+	&.btn-success {
+		.btn-pseudo-states(@color-white, @color-success, @color-success);
+	}
+}
+
+.label {
+	text-transform: uppercase;
+
+	.rounded(@border-radius-sm);
+
+	&.label-danger {
+		.label-variant(@color-danger);
+	}
+	&.label-info {
+		.label-variant(@color-info);
+	}
+	&.label-success {
+		.label-variant(@color-success);
+	}
+	&.label-warning {
+		.label-variant(@color-amber-700);
+	}
+}
+
+.panel {
+	.rounded(@border-radius);
+
+	.panel-heading {
+		.border-radius(@border-radius - 1, @border-radius - 1, 0, 0);
+	}
+
+	.panel-footer {
+		.border-radius(0, 0, @border-radius - 1, @border-radius - 1);
+	}
+}
+
+.form-control {
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-width: .2rem;
+
+	.rounded(@border-radius);
+	.box-shadow(~"0 0 0 transparent, 0 0 0 transparent, inset 0 0 0 transparent");
+
+	&:focus {
+		.box-shadow(~"0 0 0 transparent, 0 0 0 transparent, inset 0 0 0 transparent");
+	}
+}
+
+.input-lg {
+	.rounded(@border-radius);
+}
+
+.has-error {
+	.help-block,
+	.control-label {
+		color: @color-danger;
+
+		a {
+			color: @color-red-300;
+		}
+	}
+
+	.form-control {
+		border-color: @color-danger;
+	}
+
+	.input-group-addon {
+		color: @color-danger;
+		background-color: @color-red-50;
+		border-color: @color-danger;
+	}
+}
+
+.nav-pills {
+	>li {
+		>a {
+			.rounded(@border-radius);
+		}
 	}
 }
