@@ -69,5 +69,17 @@ class Page extends Model {
 			return $c->type == 'title';
 		})->first();
 	}
+
+	public function allContent()
+	{
+		$collection = $this->newCollection();
+
+		foreach ($this->pageContents as $content)
+		{
+			$collection->put($content->key, $content->present()->value);
+		}
+
+		return $collection;
+	}
 	
 }
