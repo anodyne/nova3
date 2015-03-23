@@ -5,6 +5,6 @@
 		<p>{!! Form::button("Remove", ['type' => 'submit', 'class' => 'btn btn-danger btn-lg btn-block']) !!}</p>
 	</div>
 	<div class="visible-md visible-lg">
-		<p>{!! Form::button("Remove", ['type' => 'submit', 'class' => 'btn btn-danger']) !!}</p>
+		<p>{!! Form::button("Remove", ['type' => 'submit', 'class' => 'btn btn-danger btn-lg']) !!}</p>
 	</div>
 {!! Form::close() !!}

@@ -5,12 +5,16 @@
 
 	<div ng-cloak>
 		<div class="visible-xs visible-sm">
-			<p><a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg btn-block">Add a New Page</a></p>
+			<p><a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg btn-block">Add New Page</a></p>
+			<p><a href="{{ route('admin.content') }}" class="btn btn-default btn-lg btn-block">Page Content Manager</a></p>
 		</div>
 		<div class="visible-md visible-lg">
 			<div class="btn-toolbar">
 				<div class="btn-group">
-					<a href="{{ route('admin.pages.create') }}" class="btn btn-success">Add a New Page</a>
+					<a href="{{ route('admin.pages.create') }}" class="btn btn-success">Add New Page</a>
+				</div>
+				<div class="btn-group">
+					<a href="{{ route('admin.content') }}" class="btn btn-default">Page Content Manager</a>
 				</div>
 			</div>
 		</div>
@@ -65,7 +69,7 @@
 							<p>{% page.name %}</p>
 							<p><strong>Key:</strong> {% page.key %}</p>
 							<p><strong>URI:</strong> <code>{% page.uri %}</code></p>
-							<p><strong>Verb:</strong> <span class="label label-primary">{% page.verb %}</span></p>
+							<p><strong>Verb:</strong> <span class="label label-default">{% page.verb %}</span></p>
 						</div>
 						<div class="col-md-3">
 							<div class="visible-xs visible-sm">

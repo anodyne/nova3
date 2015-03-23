@@ -49,14 +49,18 @@
 	</div>
 
 	@if ($page->type == 'advanced')
-		<div class="form-group">
+		<div class="form-group{{ ($errors->has('verb')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">HTTP Verb</label>
 			<div class="col-md-2">
 				{!! Form::select('verb', $httpVerbs, null, ['class' => 'form-control input-lg']) !!}
+				{!! $errors->first('verb', '<p class="help-block">:message</p>') !!}
+			</div>
+			<div class="col-md-2">
+				<p><a href="#" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpVerbs">What are HTTP Verbs?</a></p>
 			</div>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group{{ ($errors->has('resource')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Resource</label>
 			<div class="col-md-8">
 				@if ($page->protected)
@@ -67,6 +71,7 @@
 				@else
 					{!! Form::text('resource', null, ['class' => 'form-control input-lg']) !!}
 				@endif
+				{!! $errors->first('resource', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>
 
@@ -107,15 +112,24 @@
 		<div class="col-md-8">
 			{!! Form::textarea('content[message]', $page->present()->messageRaw, ['class' => 'form-control input-lg', 'rows' => 10]) !!}
 			{!! $errors->first('content[message]', '<p class="help-block">:message</p>') !!}
-			<p class="help-block">
-				<ul>
-				@foreach (app('nova.page.compiler')->getCompilers() as $compiler)
-					<li>{!! Markdown::parse($compiler->help()) !!}</li>
-				@endforeach
-				</ul>
-			</p>
+			
+			<ul class="nav nav-pills nav-pills-sm">
+				<li><a href="#help-markdown" data-toggle="pill">Markdown Help</a></li>
+				<li><a href="#help-compilers" data-toggle="pill">Page Compilers Help</a></li>
+			</ul>
+			<div class="tab-content">
+				<div id="help-markdown" class="tab-pane">
+					{!! partial('help-markdown') !!}
+				</div>
+				<div id="help-compilers" class="tab-pane">
+					{!! partial('help-compilers') !!}
+				</div>
+			</div>
 		</div>
 	</div>
+
+	{!! Form::hidden('type', null) !!}
+	{!! Form::hidden('protected', (int) $page->protected) !!}
 
 	<div class="col-md-5 col-md-offset-2">
 		<div class="visible-xs visible-sm">
@@ -126,3 +140,5 @@
 		</div>
 	</div>
 {!! Form::close() !!}
+
+{!! modal(['id' => 'helpVerbs', 'header' => "What Are HTTP Verbs?", 'body' => view(locate('page', 'admin/pages/help-verbs'))]) !!}

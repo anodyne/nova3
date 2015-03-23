@@ -21,27 +21,31 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 
 	public function create(array $data)
 	{
+		// Combine the data
 		$combinedData = array_merge(['type' => $data['type']], $data[$data['type']]);
 
+		// Create the page
 		$page = $this->model->create($combinedData);
 
-		if (array_key_exists('content', $data))
+		// Set which content items we want to create
+		$contentToCreate = ['title', 'header', 'message'];
+
+		// Grab the content repo out of the IOC
+		$contentRepo = app('PageContentRepository');
+
+		foreach ($contentToCreate as $type)
 		{
-			// Grab the content repo out of the IOC
-			$contentRepo = app('PageContentRepository');
+			// Create the new content item
+			$newContentItem = $contentRepo->create([
+				'type'	=> $type,
+				'key'	=> "{$page->key}.{$type}",
+				'value' => (array_key_exists('content', $data) and array_key_exists($type, $data['content']))
+					? $data['content'][$type] 
+					: null,
+			]);
 
-			foreach ($data['content'] as $type => $value)
-			{
-				// Create the content item
-				$newContentItem = $contentRepo->create([
-					'type'	=> $type,
-					'key'	=> "{$page->key}.{$type}",
-					'value'	=> $value,
-				]);
-
-				// Attach the content record to the page
-				$page->pageContents()->save($newContentItem);
-			}
+			// Attach the content record to the page
+			$page->pageContents()->save($newContentItem);
 		}
 
 		return $page;
@@ -102,35 +106,41 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 		if ($page)
 		{
 			// Update the page
-			$updatedPage = $page->fill($data)->save();
+			$updatedPage = $page->fill($data);
+			$updatedPage->save();
 
-			if (array_key_exists('content', $data))
+			// Set which content items we want to update
+			$contentToUpdate = ['title', 'header', 'message'];
+
+			// Grab the content repo out of the IOC
+			$contentRepo = app('PageContentRepository');
+
+			foreach ($contentToUpdate as $type)
 			{
-				// Grab the content repo out of the IOC
-				$contentRepo = app('PageContentRepository');
+				// Build the value
+				$value = (array_key_exists('content', $data) and array_key_exists($type, $data['content']))
+					? $data['content'][$type] 
+					: null;
 
-				foreach ($data['content'] as $type => $value)
+				// Get the content item
+				$contentItem = $updatedPage->{$type}();
+
+				if ($contentItem)
 				{
-					// Get the content item
-					$contentItem = $updatedPage->{$type}();
+					// Update the item
+					$contentRepo->update($contentItem, ['value' => $value]);
+				}
+				else
+				{
+					// We didn't have a content item, so let's create one
+					$newContentItem = $contentRepo->create([
+						'type'	=> $type,
+						'key'	=> "{$updatedPage->key}.{$type}",
+						'value'	=> $value,
+					]);
 
-					if ($contentItem)
-					{
-						// Fill and save the item
-						$contentItem->fill(['value' => $value])->save();
-					}
-					else
-					{
-						// We didn't have a content item, so let's create one
-						$newContentItem = $contentRepo->create([
-							'type'	=> $type,
-							'key'	=> "{$updatedPage->key}.{$type}",
-							'value'	=> $value,
-						]);
-
-						// Attach the content record to the page
-						$updatedPage->pageContents()->save($newContentItem);
-					}
+					// Attach the content record to the page
+					$updatedPage->pageContents()->save($newContentItem);
 				}
 			}
 
