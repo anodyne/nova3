@@ -18,7 +18,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="{{ route('admin.pages') }}">Page Manager</a></li>
-							<li><a href="#">Additional Page Contents</a></li>
+							<li><a href="{{ route('admin.content') }}">Additional Page Content</a></li>
 							<li><a href="#">Menus</a></li>
 						</ul>
 					</li>

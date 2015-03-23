@@ -113,4 +113,57 @@ return [
 		'uri'				=> "admin/pages/check-uri",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@checkPageUri",
 	],
+
+	[
+		'name'				=> "Page Content Manager",
+		'key'				=> "admin.content",
+		'uri'				=> "admin/content",
+		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@index",
+	],
+	[
+		'name'				=> "Create Page Content",
+		'key'				=> "admin.content.create",
+		'uri'				=> "admin/content/create",
+		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@create",
+	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Store Page Content",
+		'key'				=> "admin.content.store",
+		'uri'				=> "admin/content/create",
+		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@store",
+	],
+	[
+		'name'				=> "Edit Page Content",
+		'key'				=> "admin.content.edit",
+		'uri'				=> "admin/content/{contentId}/edit",
+		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@edit",
+	],
+	[
+		'verb'				=> "PUT",
+		'name'				=> "Update Page Content",
+		'key'				=> "admin.content.update",
+		'uri'				=> "admin/content/{contentId}",
+		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@update",
+	],
+	[
+		'name'				=> "Remove Page Content Pop-up",
+		'key'				=> "admin.content.remove",
+		'uri'				=> "admin/content/{contentId}/remove",
+		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@remove",
+	],
+	[
+		'verb'				=> "DELETE",
+		'name'				=> "Remove Page Content",
+		'key'				=> "admin.content.destroy",
+		'uri'				=> "admin/content/{contentId}",
+		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@destroy",
+	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Check for Duplicate Page Content Keys",
+		'key'				=> "admin.content.checkKey",
+		'uri'				=> "admin/content/check-key",
+		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@checkContentKey",
+	],
 ];

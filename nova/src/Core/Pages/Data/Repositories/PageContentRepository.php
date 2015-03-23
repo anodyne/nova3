@@ -13,6 +13,11 @@ class PageContentRepository extends BaseRepository implements PageContentReposit
 		$this->model = $model;
 	}
 
+	public function all()
+	{
+		return $this->make(['page'])->get();
+	}
+
 	public function create(array $data)
 	{
 		return $this->model->create($data);
@@ -29,6 +34,27 @@ class PageContentRepository extends BaseRepository implements PageContentReposit
 			$content->delete();
 
 			return $content;
+		}
+
+		return false;
+	}
+
+	public function find($id)
+	{
+		return $this->getById($id, ['page']);
+	}
+
+	public function update($item, array $data)
+	{
+		$content = ($item instanceof Model) ? $item : $this->getById($item);
+
+		if ($content)
+		{
+			// Fill and save the content
+			$updatedContentItem = $content->fill($data);
+			$updatedContentItem->save();
+
+			return $updatedContentItem;
 		}
 
 		return false;
