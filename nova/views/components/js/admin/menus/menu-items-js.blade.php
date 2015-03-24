@@ -3,23 +3,23 @@
 <script>
 	$(document).on('change.uk.nestable', '.uk-nestable', function (event, item, action)
 	{
-		// Start with some empty arrays for storing information
-		var mainMenuPositions = [];
-		var subMenuPositions = [];
+		// Start with an empty array for storing information
+		var positions = [];
+		positions[0] = [];
 
 		// Step through all of the top level menu items
 		$('#menu > li[data-id]').each(function (mainIndex, mainElement)
 		{
 			var mainId = $(this).data('id');
-			
-			mainMenuPositions.push(mainId);
-			subMenuPositions[mainId] = [];
+
+			positions[0].push(mainId);
+			positions[mainId] = [];
 
 			// Now step through any lower level menu items for
 			// this specific top level menu item
-			$('#menu > li[data-id="' + mainId + '"] > ul > li[data-id]').each(function (subIndex, subElement)
+			$('#menu > li[data-id="' + mainId + '"] > ul > li[data-id]').each(function()
 			{
-				subMenuPositions[mainId].push($(this).data('id'));
+				positions[mainId].push($(this).data('id'));
 			});
 		});
 
@@ -28,9 +28,8 @@
 			type: "POST",
 			dataType: "json",
 			data: {
-				"mainMenuPositions": mainMenuPositions,
-				"subMenuPositions": subMenuPositions,
-				"menu": $('#menu').data('menu')
+				"menu": $('#menu').data('menu'),
+				"positions": positions
 			}
 		});
 	});

@@ -54,11 +54,8 @@ class MenuController extends BaseController {
 		// Get the menu collection
 		$menu = $this->repo->find(Input::get('menu'));
 
-		// Re-order the main menu items
-		$this->itemRepo->reorderMainMenuItems($menu, Input::get('mainMenuPositions'));
-
-		// Re-order the sub menu items
-		$this->itemRepo->reorderSubMenuItems($menu, Input::get('subMenuPositions'));
+		// Re-order the menu items
+		$this->itemRepo->reorder($menu, Input::get('positions'));
 	}
 
 }

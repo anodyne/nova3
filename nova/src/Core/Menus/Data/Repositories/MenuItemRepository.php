@@ -47,31 +47,9 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 		return $list;
 	}
 
-	public function reorderMainMenuItems(Menu $menu, array $newPositions)
+	public function reorder(Menu $menu, array $newPositions)
 	{
-		// Get the main menu items
-		$items = $menu->menuItems;
-
-		foreach ($newPositions as $order => $itemId)
-		{
-			$itemCollection = $items->filter(function($i) use ($itemId)
-			{
-				return $i->id == $itemId;
-			});
-
-			foreach ($itemCollection as $item)
-			{
-				$item->fill([
-					'order'		=> $order,
-					'parent_id'	=> 0,
-				])->save();
-			}
-		}
-	}
-
-	public function reorderSubMenuItems(Menu $menu, array $newPositions)
-	{
-		// Get the sub menu items
+		// Get all the menu items
 		$items = $menu->menuItems;
 
 		foreach ($newPositions as $parentId => $positions)
