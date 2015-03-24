@@ -6,6 +6,7 @@ use Flash,
 	EditPageRequest,
 	CreatePageRequest,
 	RemovePageRequest,
+	MenuRepositoryInterface,
 	PageRepositoryInterface;
 use Nova\Core\Pages\Events\PageWasCreated,
 	Nova\Core\Pages\Events\PageWasDeleted,
@@ -15,12 +16,15 @@ use Illuminate\Contracts\Foundation\Application;
 class PageController extends BaseController {
 
 	protected $repo;
+	protected $menuRepo;
 
-	public function __construct(Application $app, PageRepositoryInterface $repo)
+	public function __construct(Application $app, PageRepositoryInterface $repo,
+			MenuRepositoryInterface $menus)
 	{
 		parent::__construct($app);
 
 		$this->repo = $repo;
+		$this->menuRepo = $menus;
 
 		$this->middleware('auth');
 	}
@@ -42,6 +46,9 @@ class PageController extends BaseController {
 			'PUT' => 'PUT',
 			'DELETE' => 'DELETE',
 		];
+
+		$this->data->menus[0] = "No menu";
+		$this->data->menus += $this->menuRepo->listAll('name', 'id');
 	}
 
 	public function store(CreatePageRequest $request)
@@ -64,12 +71,16 @@ class PageController extends BaseController {
 		$this->jsView = 'admin/pages/page-edit-js';
 
 		$this->data->page = $this->repo->find($pageId);
+		
 		$this->data->httpVerbs = [
 			'GET' => 'GET',
 			'POST' => 'POST',
 			'PUT' => 'PUT',
 			'DELETE' => 'DELETE',
 		];
+
+		$this->data->menus[0] = "No menu";
+		$this->data->menus += $this->menuRepo->listAll('name', 'id');
 	}
 
 	public function update(EditPageRequest $request, $pageId)

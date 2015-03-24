@@ -10,11 +10,11 @@ class Page extends Model {
 	protected $table = 'pages';
 
 	protected $fillable = ['verb', 'name', 'key', 'uri', 'resource',
-		'description', 'conditions', 'type'];
+		'description', 'conditions', 'type', 'menu_id'];
 
 	protected $casts = [
-		'collection_id'	=> 'integer',
-		'protected'		=> 'boolean',
+		'protected'	=> 'boolean',
+		'menu_id'	=> 'integer',
 	];
 
 	protected $dates = ['created_at', 'updated_at'];
@@ -30,6 +30,11 @@ class Page extends Model {
 	public function pageContents()
 	{
 		return $this->hasMany('PageContent');
+	}
+
+	public function menu()
+	{
+		return $this->belongsTo('Menu');
 	}
 
 	/*

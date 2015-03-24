@@ -1,7 +1,3 @@
-<div class="page-header">
-	<h1>Edit Page <small>{{ $page->present()->name }}</small></h1>
-</div>
-
 <div class="visible-xs visible-sm">
 	<p><a href="{{ route('admin.pages') }}" class="btn btn-default btn-lg btn-block">Back to Page Manager</a></p>
 </div>
@@ -83,7 +79,19 @@
 				</div>
 			</div>
 		@endif
+	@else
+		{!! Form::hidden('verb', 'GET') !!}
+		{!! Form::hidden('resource', $page->present()->defaultResource) !!}
 	@endif
+
+	<div class="form-group{{ ($errors->has('menu_id')) ? ' has-error' : '' }}">
+		<label class="col-md-2 control-label">Menu</label>
+		<div class="col-md-5">
+			{!! Form::select('menu_id', $menus, null, ['class' => 'form-control input-lg']) !!}
+			{!! $errors->first('menu_id', '<p class="help-block">:message</p>') !!}
+			<p class="help-block">Menu collections allow you to build menus for different areas of the system. When this page is the active page, the above menu collection will be rendered on the page. Some pages (such as POST, PUT, and DELETE pages as well as any pop-ups) do not need to have a menu collection.</p>
+		</div>
+	</div>
 
 	<div class="form-group">
 		<div class="col-md-5 col-md-offset-2">

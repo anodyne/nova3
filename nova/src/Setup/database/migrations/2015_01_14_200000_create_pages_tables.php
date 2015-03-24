@@ -10,6 +10,7 @@ class CreatePagesTables extends Migration {
 		Schema::create('pages', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
+			$table->integer('menu_id')->unsigned()->default(0);
 			$table->string('type', 15);
 			$table->string('name'); // Used as a descriptive name of the page
 			$table->text('description')->nullable();
@@ -17,7 +18,8 @@ class CreatePagesTables extends Migration {
 			$table->string('uri');
 			$table->string('verb', 10)->default('GET');
 			$table->text('resource')->nullable();
-			$table->string('default_resource')->default('Nova\\\Foundation\\\Http\\\Controllers\\\MainController@page');
+			$table->string('default_resource')
+				->default('Nova\\\Foundation\\\Http\\\Controllers\\\MainController@page');
 			$table->text('conditions')->nullable();
 			$table->boolean('protected')->default((int) false);
 			$table->timestamps();
@@ -25,20 +27,14 @@ class CreatePagesTables extends Migration {
 
 		Schema::create('pages_content', function(Blueprint $table)
 		{
-			$table->increments('id');
+			$table->bigIncrements('id');
 			$table->bigInteger('page_id')->unsigned();
 			$table->string('type', 10);
 			$table->string('key');
-			$table->text('value');
+			$table->text('value')->nullable();
+			$table->boolean('protected')->default((int) false);
 			$table->timestamps();
 		});
-
-		/*Schema::create('pages_navigation', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->bigInteger('page_id')->unsigned();
-			$table->timestamps();
-		});*/
 
 		$this->populateTables();
 	}
@@ -47,7 +43,6 @@ class CreatePagesTables extends Migration {
 	{
 		Schema::dropIfExists('pages');
 		Schema::dropIfExists('pages_content');
-		//Schema::dropIfExists('pages_navigation');
 	}
 
 	protected function populateTables()
@@ -69,6 +64,8 @@ class CreatePagesTables extends Migration {
 
 		foreach ($data['content'] as $content)
 		{
+			$content['protected'] = (int) true;
+
 			PageContent::create($content);
 		}
 	}

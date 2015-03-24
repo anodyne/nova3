@@ -69,6 +69,15 @@
 				<p class="help-block">Keys are used to uniquely identify your pages and create dynamic links to them. Even if the URI or other values of the page change, using the key to build links means that those links will always work as long as the key doesn't change. The only restriction with keys is that they <strong>cannot</strong> have the same key as another page.</p>
 			</div>
 		</div>
+
+		<div class="form-group{{ ($errors->has('basic[menu_id]')) ? ' has-error' : '' }}">
+			<label class="col-md-2 control-label">Menu</label>
+			<div class="col-md-5">
+				{!! Form::select('basic[menu_id]', $menus, null, ['class' => 'form-control input-lg']) !!}
+				{!! $errors->first('basic[menu_id]', '<p class="help-block">:message</p>') !!}
+				<p class="help-block">Menu collections allow you to build menus for different areas of the system. When this page is the active page, the above menu collection will be rendered on the page.</p>
+			</div>
+		</div>
 	</div>
 
 	<div id="pageAdvanced" class="hide">
@@ -136,6 +145,15 @@
 			<div class="col-md-8">
 				{!! Form::text('advanced[resource]', null, ['class' => 'form-control input-lg']) !!}
 				<p class="help-block">The page resource <strong>must</strong> be a class name (including its full namespace) and method that tells {{ config('nova.app.name') }} what code it should use when this page is requested. Resources should be in the following format: <code>Foo\Bar\Baz@method</code>. You do not need to specify any variables from the URI in the resource; those items will automatically be passed to the method you provide.</p>
+			</div>
+		</div>
+
+		<div class="form-group{{ ($errors->has('advanced[menu_id]')) ? ' has-error' : '' }}">
+			<label class="col-md-2 control-label">Menu</label>
+			<div class="col-md-5">
+				{!! Form::select('advanced[menu_id]', $menus, null, ['class' => 'form-control input-lg']) !!}
+				{!! $errors->first('advanced[menu_id]', '<p class="help-block">:message</p>') !!}
+				<p class="help-block">Menu collections allow you to build menus for different areas of the system. When this page is the active page, the above menu collection will be rendered on the page. Some pages (such as POST, PUT, and DELETE pages as well as any pop-ups) do not need to have a menu collection.</p>
 			</div>
 		</div>
 	</div>

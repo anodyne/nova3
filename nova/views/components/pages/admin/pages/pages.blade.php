@@ -66,7 +66,7 @@
 				<div class="data-table data-table-bordered data-table-striped">
 					<div class="row" ng-repeat="page in filteredPages | filter:search">
 						<div class="col-md-9">
-							<p>{% page.name %}</p>
+							<p class="lead"><strong>{% page.name %}</strong></p>
 							<p><strong>Key:</strong> {% page.key %}</p>
 							<p><strong>URI:</strong> <code>{% page.uri %}</code></p>
 							<p><strong>Verb:</strong> <span class="label label-default">{% page.verb %}</span></p>

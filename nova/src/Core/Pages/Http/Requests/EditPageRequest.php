@@ -27,6 +27,7 @@ class EditPageRequest extends Request {
 			'uri' => 'required',
 			'verb' => 'required',
 			'resource' => 'required_if:protected,0',
+			'menu_id' => 'required',
 
 			'content.title' => 'required',
 			'content.header' => 'required_if:type,basic',
@@ -42,6 +43,7 @@ class EditPageRequest extends Request {
 			'uri.required' => "Please enter a URI for the page",
 			'verb.required' => "Please select an HTTP Verb",
 			'resource.required_if' => "Please enter a resource for the page",
+			'menu_id.required' => "Please select a menu for the page",
 
 			'content[title].required' => "You must enter a page title",
 			'content[header].required_if' => "You must enter a page header for a basic page",
