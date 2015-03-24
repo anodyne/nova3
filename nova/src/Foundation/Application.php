@@ -232,4 +232,14 @@ class Application extends IlluminateApp {
 		return $this->basePath().'/nova/vendor/routes.php';
 	}
 
+	/**
+	 * Get the path to the configuration cache file.
+	 *
+	 * @return string
+	 */
+	public function getCachedConfigPath()
+	{
+		return $this->basePath().'/nova/vendor/config.php';
+	}
+
 }
