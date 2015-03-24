@@ -24,6 +24,10 @@
 			<div class="uk-nestable-handle"></div>
 			<div data-nestable-action="toggle"></div>
 			{{ $main->present()->title }}
+			<div class="pull-right uk-nested-item-controls">
+				<a href="#">{!! icon('edit', 'xs') !!}</a>
+				<a href="#" class="danger">{!! icon('delete', 'xs') !!}</a>
+			</div>
 		</div>
 		@if (array_key_exists($main->id, $subMenuItems))
 			<ul>
@@ -33,6 +37,10 @@
 						<div class="uk-nestable-handle"></div>
 						<div data-nestable-action="toggle"></div>
 						{{ $sub->present()->title }}
+						<div class="pull-right uk-nested-item-controls">
+							<a href="#">{!! icon('edit', 'xs') !!}</a>
+							<a href="#" class="danger">{!! icon('delete', 'xs') !!}</a>
+						</div>
 					</div>
 				</li>
 			@endforeach
