@@ -50,7 +50,7 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 	public function reorderMainMenuItems(Menu $menu, array $newPositions)
 	{
 		// Get the main menu items
-		$items = $menu->getMainMenuItems();
+		$items = $menu->menuItems;
 
 		foreach ($newPositions as $order => $itemId)
 		{
@@ -61,7 +61,10 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 
 			foreach ($itemCollection as $item)
 			{
-				$item->fill(['order' => $order])->save();
+				$item->fill([
+					'order'		=> $order,
+					'parent_id'	=> 0,
+				])->save();
 			}
 		}
 	}
@@ -69,7 +72,7 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 	public function reorderSubMenuItems(Menu $menu, array $newPositions)
 	{
 		// Get the sub menu items
-		$items = $menu->getSubMenuItems();
+		$items = $menu->menuItems;
 
 		foreach ($newPositions as $parentId => $positions)
 		{
@@ -84,7 +87,10 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 
 					foreach ($itemCollection as $item)
 					{
-						$item->fill(['order' => $order])->save();
+						$item->fill([
+							'order'		=> $order,
+							'parent_id'	=> $parentId,
+						])->save();
 					}
 				}
 			}
