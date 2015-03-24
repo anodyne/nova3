@@ -23,4 +23,9 @@ return [
 		'warning' => '!',
 	],
 
+	'nova' => [
+		'edit' => 'e',
+		'delete' => 'd',
+	],
+
 ];
