@@ -57,3 +57,4 @@
 - Bind our own `RouteCacheCommand` class in the `Console\Kernel` class
 - Update the path to `services.json` in the Application class
 - Update the path to compiled routes in the Application class
+- Update the path to compiled config in the Application class
