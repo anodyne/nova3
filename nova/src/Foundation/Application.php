@@ -210,16 +210,20 @@ class Application extends IlluminateApp {
 	}
 
 	/**
-	 * Register all of the configured providers.
+	 * Get the path to the configuration cache file.
 	 *
-	 * @return void
+	 * @return string
 	 */
-	public function registerConfiguredProviders()
+	public function getCachedConfigPath()
 	{
-		$manifestPath = $this->basePath().'/nova/vendor/services.json';
-
-		(new ProviderRepository($this, new Filesystem, $manifestPath))
-		            ->load($this->config['app.providers']);
+		if ($this->vendorIsWritableForOptimizations())
+		{
+			return $this->basePath().'/nova/vendor/config.php';
+		}
+		else
+		{
+			return $this['path.storage'].'/framework/config.php';
+		}
 	}
 
 	/**
@@ -229,17 +233,60 @@ class Application extends IlluminateApp {
 	 */
 	public function getCachedRoutesPath()
 	{
-		return $this->basePath().'/nova/vendor/routes.php';
+		if ($this->vendorIsWritableForOptimizations())
+		{
+			return $this->basePath().'/nova/vendor/routes.php';
+		}
+		else
+		{
+			return $this['path.storage'].'/framework/routes.php';
+		}
 	}
 
 	/**
-	 * Get the path to the configuration cache file.
+	 * Get the path to the cached "compiled.php" file.
 	 *
 	 * @return string
 	 */
-	public function getCachedConfigPath()
+	public function getCachedCompilePath()
 	{
-		return $this->basePath().'/nova/vendor/config.php';
+		if ($this->vendorIsWritableForOptimizations())
+		{
+			return $this->basePath().'/nova/vendor/compiled.php';
+		}
+		else
+		{
+			return $this->storagePath().'/framework/compiled.php';
+		}
+	}
+
+	/**
+	 * Get the path to the cached services.json file.
+	 *
+	 * @return string
+	 */
+	public function getCachedServicesPath()
+	{
+		if ($this->vendorIsWritableForOptimizations())
+		{
+			return $this->basePath().'/nova/vendor/services.json';
+		}
+		else
+		{
+			return $this->storagePath().'/framework/services.json';
+		}
+	}
+
+	/**
+	 * Determine if vendor path is writable.
+	 *
+	 * @return bool
+	 */
+	public function vendorIsWritableForOptimizations()
+	{
+		if ($this->useStoragePathForOptimizations) return false;
+
+		return is_writable($this->basePath().'/nova/vendor');
 	}
 
 }
