@@ -1,4 +1,4 @@
-{!! $nav or '' !!}
+{!! $menuCombined or false !!}
 
 <header>
 	<div class="container">
@@ -8,26 +8,18 @@
 
 <div class="container">
 	<main>
-		@if (Session::has('flash.level'))
-			{!! flash() !!}
-		@endif
+		{!! flash() !!}
 		
-		@if ($_page->header())
-			<div class="page-header">
-				<h1>{!! $_page->present()->header !!}</h1>
-			</div>
-		@endif
+		{!! partial('page-header', compact('_page')) !!}
 
-		@if ($_page->message())
-			{!! $_page->present()->message !!}
-		@endif
+		{!! partial('page-message', compact('_page')) !!}
 
-		{!! $content or '' !!}
+		{!! $content or false !!}
 	</main>
 </div>
 
 <footer>
 	<div class="container">
-		{!! $footer or '' !!}
+		{!! $footer or false !!}
 	</div>
 </footer>
