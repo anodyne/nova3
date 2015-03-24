@@ -18,7 +18,7 @@ class CreateSettingsTable extends Migration {
 			$table->string('key');
 			$table->text('value');
 			$table->string('label')->nullable();
-			$table->boolean('user_created')->default((int) true);
+			$table->boolean('protected')->default((int) false);
 			$table->timestamps();
 		});
 
@@ -37,10 +37,14 @@ class CreateSettingsTable extends Migration {
 
 	protected function populateTable()
 	{
+		Model::unguard();
+
 		$settings = require_once app('path.database').'/data/settings.php';
 
 		foreach ($settings as $setting)
 		{
+			$setting['protected'] = (int) true;
+
 			app('SettingRepository')->create($setting);
 		}
 	}

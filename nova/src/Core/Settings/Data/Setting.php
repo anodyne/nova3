@@ -6,10 +6,10 @@ class Setting extends Model {
 
 	protected $table = 'settings';
 
-	protected $fillable = ['key', 'value', 'label', 'user_created'];
+	protected $fillable = ['key', 'value', 'label'];
 
 	protected $casts = [
-		'user_created' => 'boolean',
+		'protected' => 'boolean',
 	];
 
 	protected $dates = ['created_at', 'updated_at'];
