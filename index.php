@@ -50,6 +50,8 @@ require __DIR__.'/nova/bootstrap/autoload.php';
 
 $app = require_once __DIR__.'/nova/bootstrap/app.php';
 
+$app->useStoragePathForOptimizations(true);
+
 /*
 |--------------------------------------------------------------------------
 | Run The Application
