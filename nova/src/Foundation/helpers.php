@@ -24,11 +24,14 @@ if ( ! function_exists('flash'))
 {
 	function flash($level = false, $content = false, $header = false)
 	{
-		$level = ( ! Session::has('flash.level')) ? $level : Session::get('flash.level');
-		$content = ( ! Session::has('flash.message')) ? $content : Session::get('flash.message');
-		$header = ( ! Session::has('flash.header')) ? $header : Session::get('flash.header');
+		if (Session::has('flash.message'))
+		{
+			$level = ( ! Session::has('flash.level')) ? $level : Session::get('flash.level');
+			$content = ( ! Session::has('flash.message')) ? $content : Session::get('flash.message');
+			$header = ( ! Session::has('flash.header')) ? $header : Session::get('flash.header');
 
-		return partial('flash', compact('level', 'content', 'header'));
+			return partial('flash', compact('level', 'content', 'header'));
+		}
 	}
 }
 
