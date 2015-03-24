@@ -39,6 +39,10 @@ if ( ! function_exists('icon'))
 {
 	function icon($icon, $size = 'sm', $additional = false)
 	{
+		$iconCode = (Str::contains($icon, '.')) ? $icon : "nova.{$icon}";
+
+		$icon = config("icons.{$iconCode}");
+
 		return partial('icon', compact('icon', 'size', 'additional'));
 	}
 }

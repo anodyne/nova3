@@ -88,20 +88,20 @@ if (in_array($path, $settingsCompleted))
 
 ?><ol>
 	<li{!! $classes[1] !!}>
-		{!! icon($_icons['1']) !!}
+		{!! icon('setup.1') !!}
 		<span class="visible-md">Database</span>
 		<span class="hidden-md">Database Connection</span>
 	</li>
-	<li{!! $classes[2] !!}>{!! icon($_icons['2']) !!}Email Settings</li>
+	<li{!! $classes[2] !!}>{!! icon('setup.2') !!}Email Settings</li>
 	<li{!! $classes[3] !!}>
-		{!! icon($_icons['3']) !!}
+		{!! icon('setup.3') !!}
 		<span class="visible-md">Install Nova</span>
 		<span class="hidden-md">Install {{ config('nova.app.name') }}</span>
 	</li>
 	<li{!! $classes[4] !!}>
-		{!! icon($_icons['4']) !!}
+		{!! icon('setup.4') !!}
 		<span class="visible-md">User &amp; Character</span>
 		<span class="hidden-md">Create User &amp; Character</span>
 	</li>
-	<li{!! $classes[5] !!}>{!! icon($_icons['5']) !!}Update Settings</li>
+	<li{!! $classes[5] !!}>{!! icon('setup.5') !!}Update Settings</li>
 </ol>
