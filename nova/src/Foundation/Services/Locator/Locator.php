@@ -141,6 +141,17 @@ class Locator implements LocatorInterface {
 	}
 
 	/**
+	 * Search for a style view file.
+	 *
+	 * @param	string	$file	The file to find (no extension)
+	 * @return	string
+	 */
+	public function style($file)
+	{
+		return $this->performSearch('styles', $file);
+	}
+
+	/**
 	 * Search for a template view file.
 	 *
 	 * @param	string	$file	The file to find (no extension)

@@ -1,5 +1,6 @@
 <?php namespace Nova\Foundation\Services\Themes;
 
+use Page;
 use Illuminate\Contracts\Foundation\Application;
 
 class Theme implements Themeable, ThemeableInfo {
@@ -80,11 +81,44 @@ class Theme implements Themeable, ThemeableInfo {
 		return $this;
 	}
 
-	public function nav(array $data = [])
+	/**
+	 * Build the theme menu.
+	 *
+	 * @param 	Page	$page 	The current page
+	 * @return 	Theme
+	 * @throws	NoThemeTemplateException
+	 */
+	public function menu(Page $page)
 	{
 		if ( ! is_object($this->layout->template)) throw new NoThemeTemplateException;
 
-		$this->layout->template->nav = $this->view->make($this->locate->partial('nav'))
+		// Grab the menu item repo
+		$menuItemRepo = app('MenuItemRepository');
+
+		// Get the main menu items
+		$menuMainItems = $menuItemRepo->getMainMenuItems($page->menu_id);
+
+		// Get the sub menu items
+		$menuSubItems = $menuItemRepo->getSubMenuItems($page->menu_id);
+
+		// Filter out sub items to only what we would need for the sub menu
+		$menuSubItemsFiltered = $menuSubItems->filter(function($m) use ($page)
+		{
+			//
+		});
+
+		$data = [
+			'menuMainItems'	=> $menuMainItems,
+			'menuSubItems'	=> $menuSubItems,
+		];
+
+		$this->layout->template->menuMain = $this->view->make($this->locate->partial('menu-main'))
+			->with(['items' => $menuMainItems]);
+
+		$this->layout->template->menuSub = $this->view->make($this->locate->partial('menu-sub'))
+			->with(['items' => $menuSubItemsFiltered]);
+
+		$this->layout->template->menuCombined = $this->view->make($this->locate->partial('menu-combined'))
 			->with((array) $data);
 
 		return $this;
@@ -153,6 +187,16 @@ class Theme implements Themeable, ThemeableInfo {
 	public function ajax(array $data)
 	{
 		if ( ! is_object($this->layout->template)) throw new NoThemeTemplateException;
+
+		return $this;
+	}
+
+	public function styles($view, array $data)
+	{
+		if ( ! is_object($this->layout)) throw new NoThemeStructureException;
+
+		$this->layout->styles = $this->view->make($this->locate->style($view))
+			->with((array) $data);
 
 		return $this;
 	}

@@ -18,19 +18,27 @@ abstract class BaseController extends Controller {
 
 	protected $data;
 	protected $jsData;
+	protected $styleData;
 	protected $view;
 	protected $jsView;
+	protected $styleView;
 	protected $isAjax = false;
+
+	protected $templateData;
 	protected $templateView = 'main';
+	protected $structureData;
 	protected $structureView = 'main';
 
 	public function __construct(Application $app)
 	{
 		// Set the properties
-		$this->app			= $app;
-		$this->data			= new stdClass;
-		$this->jsData		= new stdClass;
-		$this->currentUser	= $app['nova.user'];
+		$this->app				= $app;
+		$this->data				= new stdClass;
+		$this->jsData			= new stdClass;
+		$this->styleData		= new stdClass;
+		$this->currentUser		= $app['nova.user'];
+		$this->templateData 	= new stdClass;
+		$this->structureData	= new stdClass;
 
 		// Make variable for use in the closures
 		$me = $this;
@@ -53,7 +61,6 @@ abstract class BaseController extends Controller {
 				$me->settings = app('nova.settings');
 
 				view()->share('_page', $me->page);
-				view()->share('_pageContent', $me->page->allContent());
 				view()->share('_icons', config('icons'));
 				view()->share('_settings', $me->settings);
 				view()->share('_currentUser', app('nova.user'));
@@ -77,13 +84,16 @@ abstract class BaseController extends Controller {
 				$this->buildThemeTemplate();
 
 				// Build the navigation
-				$this->buildThemeNavigation();
+				$this->buildThemeMenu();
 
 				// Build the page
 				$this->buildThemePage();
 
 				// Build the Javascript
 				$this->buildThemeJavascript();
+
+				// Build the styles
+				$this->buildThemeStyles();
 
 				// Build the footer
 				$this->buildThemeFooter();
@@ -96,23 +106,17 @@ abstract class BaseController extends Controller {
 
 	protected function buildThemeStructure()
 	{
-		$data = [];
-
-		$this->theme = app('nova.theme')->structure($this->structureView, $data);
+		$this->theme = app('nova.theme')->structure($this->structureView, (array) $this->structureData);
 	}
 
 	protected function buildThemeTemplate()
 	{
-		$data = [];
-
-		$this->theme = $this->theme->template($this->templateView, $data);
+		$this->theme = $this->theme->template($this->templateView, (array) $this->templateData);
 	}
 
-	protected function buildThemeNavigation()
+	protected function buildThemeMenu()
 	{
-		$data = [];
-
-		$this->theme = $this->theme->nav($data);
+		$this->theme = $this->theme->menu($this->page);
 	}
 
 	protected function buildThemePage()
@@ -128,6 +132,14 @@ abstract class BaseController extends Controller {
 		if ($this->jsView)
 		{
 			$this->theme = $this->theme->javascript($this->jsView, (array) $this->jsData);
+		}
+	}
+
+	protected function buildThemeStyles()
+	{
+		if ($this->styleView)
+		{
+			$this->theme = $this->theme->styles($this->styleView, (array) $this->styleData);
 		}
 	}
 

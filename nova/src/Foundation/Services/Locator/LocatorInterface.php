@@ -59,6 +59,14 @@ interface LocatorInterface {
 	public function structure($file);
 
 	/**
+	 * Search for a style view file.
+	 *
+	 * @param	string	$file	The file to find (no extension)
+	 * @return	string
+	 */
+	public function style($file);
+
+	/**
 	 * Search for a template view file.
 	 *
 	 * @param	string	$file	The file to find (no extension)

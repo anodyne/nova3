@@ -1,5 +1,7 @@
 <?php namespace Nova\Foundation\Services\Themes;
 
+use Page;
+
 interface Themeable {
 
 	/**
@@ -20,7 +22,15 @@ interface Themeable {
 	 * @throws	NoThemeStructureException
 	 */
 	public function template($view, array $data);
-	public function nav(array $data = []);
+	
+	/**
+	 * Build the theme menu.
+	 *
+	 * @param 	Page	$page 	The current page
+	 * @return 	Theme
+	 * @throws	NoThemeTemplateException
+	 */
+	public function menu(Page $page);
 
 	/**
 	 * Build the theme footer.
@@ -52,6 +62,7 @@ interface Themeable {
 	public function javascript($view, array $data);
 	public function alerts(array $data);
 	public function ajax(array $data);
+	public function styles($view, array $data);
 
 	/**
 	 * Return the View object with the complete template for rendering.
