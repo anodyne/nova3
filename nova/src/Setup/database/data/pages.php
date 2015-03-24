@@ -6,6 +6,7 @@ return [
 		'key'				=> "home",
 		'uri'				=> "/",
 		'default_resource'	=> "Nova\\Foundation\\Http\\Controllers\\MainController@page",
+		'menu_id'			=> 1,
 	],
 
 	[
@@ -13,6 +14,7 @@ return [
 		'key'				=> "login",
 		'uri'				=> "login",
 		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\AuthController@getLogin",
+		'menu_id'			=> 1,
 	],
 	[
 		'verb'				=> "POST",
@@ -59,12 +61,14 @@ return [
 		'key'				=> "admin.pages",
 		'uri'				=> "admin/pages",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@index",
+		'menu_id'			=> 2,
 	],
 	[
 		'name'				=> "Create Page",
 		'key'				=> "admin.pages.create",
 		'uri'				=> "admin/pages/create",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@create",
+		'menu_id'			=> 2,
 	],
 	[
 		'verb'				=> "POST",
@@ -78,6 +82,7 @@ return [
 		'key'				=> "admin.pages.edit",
 		'uri'				=> "admin/pages/{pageId}/edit",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@edit",
+		'menu_id'			=> 2,
 	],
 	[
 		'verb'				=> "PUT",
@@ -119,12 +124,14 @@ return [
 		'key'				=> "admin.content",
 		'uri'				=> "admin/content",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@index",
+		'menu_id'			=> 2,
 	],
 	[
 		'name'				=> "Create Page Content",
 		'key'				=> "admin.content.create",
 		'uri'				=> "admin/content/create",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@create",
+		'menu_id'			=> 2,
 	],
 	[
 		'verb'				=> "POST",
@@ -138,6 +145,7 @@ return [
 		'key'				=> "admin.content.edit",
 		'uri'				=> "admin/content/{contentId}/edit",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@edit",
+		'menu_id'			=> 2,
 	],
 	[
 		'verb'				=> "PUT",
@@ -165,5 +173,68 @@ return [
 		'key'				=> "admin.content.checkKey",
 		'uri'				=> "admin/content/check-key",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@checkContentKey",
+	],
+
+	[
+		'name'				=> "Menu Manager",
+		'key'				=> "admin.menus",
+		'uri'				=> "admin/menus",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@index",
+		'menu_id'			=> 2,
+	],
+	[
+		'name'				=> "Create Menu",
+		'key'				=> "admin.menus.create",
+		'uri'				=> "admin/menus/create",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@create",
+		'menu_id'			=> 2,
+	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Store Menu",
+		'key'				=> "admin.menus.store",
+		'uri'				=> "admin/menus/create",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@store",
+	],
+	[
+		'name'				=> "Edit Menu",
+		'key'				=> "admin.menus.edit",
+		'uri'				=> "admin/menus/{menuId}/edit",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@edit",
+		'menu_id'			=> 2,
+	],
+	[
+		'verb'				=> "PUT",
+		'name'				=> "Update Menu",
+		'key'				=> "admin.menus.update",
+		'uri'				=> "admin/menus/{menuId}",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@update",
+	],
+	[
+		'name'				=> "Remove Menu Pop-up",
+		'key'				=> "admin.menus.remove",
+		'uri'				=> "admin/menus/{menuId}/remove",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@remove",
+	],
+	[
+		'verb'				=> "DELETE",
+		'name'				=> "Remove Menu",
+		'key'				=> "admin.menus.destroy",
+		'uri'				=> "admin/menus/{menuId}",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@destroy",
+	],
+	[
+		'name'				=> "Manage Menu Items",
+		'key'				=> "admin.menus.items",
+		'uri'				=> "admin/menus/{menuId}/items",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@items",
+		'menu_id'			=> 2,
+	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Reorder Menu Items",
+		'key'				=> "admin.menus.reorder",
+		'uri'				=> "admin/menus/reorder",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@reorder",
 	],
 ];
