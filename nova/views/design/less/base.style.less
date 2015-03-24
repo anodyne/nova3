@@ -134,6 +134,29 @@ dl {
 			border: 1px solid @color-gray-light;
 
 			.rounded(@border-radius);
+
+			.uk-nested-item-controls {
+				display: none;
+
+				a {
+					color: @color-gray;
+
+					&:hover {
+						text-decoration: none;
+						color: @color-gray-dark;
+					}
+
+					&.danger:hover {
+						color: @color-danger;
+					}
+				}
+			}
+
+			&:hover {
+				.uk-nested-item-controls {
+					display: block;
+				}
+			}
 		}
 	}
 }

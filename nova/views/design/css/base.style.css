@@ -142,6 +142,22 @@ dl dd {
   -moz-border-radius: 0.4rem;
   border-radius: 0.4rem 0.4rem 0.4rem 0.4rem;
 }
+.uk-nestable li.uk-nestable-list-item .uk-nestable-item .uk-nested-item-controls {
+  display: none;
+}
+.uk-nestable li.uk-nestable-list-item .uk-nestable-item .uk-nested-item-controls a {
+  color: #9e9e9e;
+}
+.uk-nestable li.uk-nestable-list-item .uk-nestable-item .uk-nested-item-controls a:hover {
+  text-decoration: none;
+  color: #616161;
+}
+.uk-nestable li.uk-nestable-list-item .uk-nestable-item .uk-nested-item-controls a.danger:hover {
+  color: #d9534f;
+}
+.uk-nestable li.uk-nestable-list-item .uk-nestable-item:hover .uk-nested-item-controls {
+  display: block;
+}
 [ng\:cloak],
 [ng-cloak],
 [data-ng-cloak],
