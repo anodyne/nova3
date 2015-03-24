@@ -127,6 +127,17 @@ dl {
 	font-size: @font-size-sm;
 }
 
+.uk-nestable {
+	li.uk-nestable-list-item {
+		.uk-nestable-item {
+			background-color: @color-subtle;
+			border: 1px solid @color-gray-light;
+
+			.rounded(@border-radius);
+		}
+	}
+}
+
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
 	display: none !important;
 }

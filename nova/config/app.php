@@ -259,6 +259,24 @@ return [
 		'EditPageRequest' => 'Nova\Core\Pages\Http\Requests\EditPageRequest',
 		'RemovePageRequest' => 'Nova\Core\Pages\Http\Requests\RemovePageRequest',
 
+		/**
+		 * Menus
+		 */
+		'Menu' => 'Nova\Core\Menus\Data\Menu',
+		'MenuItem' => 'Nova\Core\Menus\Data\MenuItem',
+		'MenuPresenter' => 'Nova\Core\Menus\Data\Presenters\MenuPresenter',
+		'MenuItemPresenter' => 'Nova\Core\Menus\Data\Presenters\MenuItemPresenter',
+		'MenuRepositoryInterface' => 'Nova\Core\Menus\Data\Interfaces\MenuRepositoryInterface',
+		'MenuItemRepositoryInterface' => 'Nova\Core\Menus\Data\Interfaces\MenuItemRepositoryInterface',
+		'MenuRepository' => 'Nova\Core\Menus\Data\Repositories\MenuRepository',
+		'MenuItemRepository' => 'Nova\Core\Menus\Data\Repositories\MenuItemRepository',
+		'CreateMenuItemRequest' => 'Nova\Core\Menus\Http\Requests\CreateMenuItemRequest',
+		'EditMenuItemRequest' => 'Nova\Core\Menus\Http\Requests\EditMenuItemRequest',
+		'RemoveMenuItemRequest' => 'Nova\Core\Menus\Http\Requests\RemoveMenuItemRequest',
+		'CreateMenuRequest' => 'Nova\Core\Menus\Http\Requests\CreateMenuRequest',
+		'EditMenuRequest' => 'Nova\Core\Menus\Http\Requests\EditMenuRequest',
+		'RemoveMenuRequest' => 'Nova\Core\Menus\Http\Requests\RemoveMenuRequest',
+
 	],
 
 ];

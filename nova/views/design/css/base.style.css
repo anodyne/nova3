@@ -135,6 +135,13 @@ dl dd {
 .text-sm {
   font-size: 1.4rem;
 }
+.uk-nestable li.uk-nestable-list-item .uk-nestable-item {
+  background-color: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  -webkit-border-radius: 0.4rem;
+  -moz-border-radius: 0.4rem;
+  border-radius: 0.4rem 0.4rem 0.4rem 0.4rem;
+}
 [ng\:cloak],
 [ng-cloak],
 [data-ng-cloak],

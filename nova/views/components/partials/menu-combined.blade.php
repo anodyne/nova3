@@ -19,7 +19,7 @@
 						<ul class="dropdown-menu">
 							<li><a href="{{ route('admin.pages') }}">Page Manager</a></li>
 							<li><a href="{{ route('admin.content') }}">Additional Page Content</a></li>
-							<li><a href="#">Menus</a></li>
+							<li><a href="{{ route('admin.menus') }}">Menus</a></li>
 						</ul>
 					</li>
 				@endif

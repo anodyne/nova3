@@ -1,0 +1,1 @@
+{!! HTML::style('nova/assets/uikit/css/components/nestable.min.css') !!}
