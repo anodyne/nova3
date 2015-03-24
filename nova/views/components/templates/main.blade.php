@@ -1,25 +1,17 @@
 <div class="container">
-	{!! $nav or '' !!}
+	{!! $menuCombined or false !!}
 
 	<main>
-		@if (Session::has('flash.level'))
-			{!! flash() !!}
-		@endif
-		
-		@if ($_page->header())
-			<div class="page-header">
-				<h1>{!! $_page->present()->header !!}</h1>
-			</div>
-		@endif
+		{!! flash() !!}
 
-		@if ($_page->message())
-			{!! $_page->present()->message !!}
-		@endif
+		{!! partial('page-header', compact('_page')) !!}
 
-		{!! $content or '' !!}
+		{!! partial('page-message', compact('_page')) !!}
+
+		{!! $content or false !!}
 	</main>
 
 	<footer>
-		{!! $footer or '' !!}
+		{!! $footer or false !!}
 	</footer>
 </div>

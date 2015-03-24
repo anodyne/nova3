@@ -4,12 +4,12 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="author" content="Anodyne Productions">
-		<meta name="description" content="{{ $_page->description }}">
-		<meta property="og:title" content="{{ $_settings->sim_name }}: {{ $_page->name }}">
-		<meta property="og:description" content="{{ $_page->description }}">
+		<meta name="description" content="{{ $pageDescription or $_page->description }}">
+		<meta property="og:title" content="{{ $_settings->sim_name }}: {{ $pageName or $_page->name }}">
+		<meta property="og:description" content="{{ $pageDescription or $_page->description }}">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 
-		<title>{{ $_page->present()->title }} &bull; {{ $_settings->sim_name }}</title>
+		<title>{{ $pageTitle or $_page->present()->title }} &bull; {{ $_settings->sim_name }}</title>
 
 		@if (app('files')->exists(themePath('design/css/bootstrap.css', false)))
 			{!! HTML::style(app()->themeRelativePath('design/css/bootstrap.css')) !!}
@@ -41,9 +41,11 @@
 		@if ( ! $_currentUser and ! empty($_settings->theme_variant))
 			{!! HTML::style(themePath("design/css/variants/{$_settings->theme_variant}.css")) !!}
 		@endif
+
+		{!! $styles or false !!}
 	</head>
 	<body>
-		{!! $template or '' !!}
+		{!! $template or false !!}
 
 		<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -69,6 +71,6 @@
 				$('.js-tooltip-right').tooltip({ placement: 'right' });
 			});
 		</script>
-		{!! $javascript or '' !!}
+		{!! $javascript or false !!}
 	</body>
 </html>

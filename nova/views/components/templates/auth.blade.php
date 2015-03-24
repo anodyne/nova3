@@ -2,21 +2,13 @@
 	<main>
 		<div class="row">
 			<div class="col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-				@if ($_page->header())
-					<div class="page-header">
-						<h1>{!! $_page->present()->header !!}</h1>
-					</div>
-				@endif
+				{!! partial('page-header', compact('_page')) !!}
 
-				@if (Session::has('flash.level'))
-					{!! flash() !!}
-				@endif
+				{!! flash() !!}
 
-				@if ($_page->message())
-					{!! $_page->present()->message !!}
-				@endif
+				{!! partial('page-message', compact('_page')) !!}
 
-				{!! $content or '' !!}
+				{!! $content or false !!}
 			</div>
 		</div>
 	</main>
