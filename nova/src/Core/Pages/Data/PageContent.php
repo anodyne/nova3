@@ -12,7 +12,8 @@ class PageContent extends Model {
 	protected $fillable = ['page_id', 'type', 'key', 'value'];
 
 	protected $casts = [
-		'page_id' => 'integer',
+		'page_id'	=> 'integer',
+		'protected'	=> 'boolean',
 	];
 
 	protected $dates = ['created_at', 'updated_at'];

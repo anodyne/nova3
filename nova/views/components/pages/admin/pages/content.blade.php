@@ -71,7 +71,7 @@
 									<div class="col-sm-6">
 										<p><a href="{% content.links.edit %}" class="btn btn-default btn-lg btn-block">Edit</a></p>
 									</div>
-									<div class="col-sm-6">
+									<div class="col-sm-6" ng-hide="{% content.protected %}">
 										<p><a href="#" data-id="{% content.id %}" data-action="remove" class="btn btn-danger btn-lg btn-block js-contentAction">Remove</a></p>
 									</div>
 								</div>
@@ -81,7 +81,7 @@
 									<div class="btn-group">
 										<a href="{% content.links.edit %}" class="btn btn-default">Edit</a>
 									</div>
-									<div class="btn-group">
+									<div class="btn-group" ng-hide="{% content.protected %}">
 										<a href="#" data-id="{% content.id %}" data-action="remove" class="btn btn-danger js-contentAction">Remove</a>
 									</div>
 								</div>

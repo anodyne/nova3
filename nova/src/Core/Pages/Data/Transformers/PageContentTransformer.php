@@ -14,6 +14,7 @@ class PageContentTransformer extends Fractal\TransformerAbstract {
 			'value'		=> $content->present()->value,
 			'raw'		=> $content->value,
 			'preview'	=> strip_tags(Str::words($content->value, 50)),
+			'protected'	=> (bool) $content->protected,
 			'page'		=> [
 				'id'	=> ($content->page) ? (int) $content->page->id : false,
 				'name'	=> ($content->page) ? $content->page->present()->name : false,
