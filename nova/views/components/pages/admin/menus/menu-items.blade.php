@@ -3,13 +3,13 @@
 </div>
 
 <div class="visible-xs visible-sm">
-	<p><a href="#" class="btn btn-success btn-lg btn-block">Add Menu Item</a></p>
+	<p><a href="#" class="btn btn-success btn-lg btn-block">Add a Menu Item</a></p>
 	<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Menu Manager</a></p>
 </div>
 <div class="visible-md visible-lg">
 	<div class="btn-toolbar">
 		<div class="btn-group">
-			<a href="#" class="btn btn-success">Add Menu Item</a>
+			<a href="#" class="btn btn-success">Add a Menu Item</a>
 		</div>
 		<div class="btn-group">
 			<a href="{{ route('admin.menus') }}" class="btn btn-default">Menu Manager</a>

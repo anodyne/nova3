@@ -1,10 +1,10 @@
 <div class="visible-xs visible-sm">
-	<p><a href="{{ route('admin.menus.create') }}" class="btn btn-success btn-lg btn-block">Add New Menu</a></p>
+	<p><a href="{{ route('admin.menus.create') }}" class="btn btn-success btn-lg btn-block">Add a New Menu</a></p>
 </div>
 <div class="visible-md visible-lg">
 	<div class="btn-toolbar">
 		<div class="btn-group">
-			<a href="{{ route('admin.menus.create') }}" class="btn btn-success">Add New Menu</a>
+			<a href="{{ route('admin.menus.create') }}" class="btn btn-success">Add a New Menu</a>
 		</div>
 	</div>
 </div>
