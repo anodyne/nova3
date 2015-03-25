@@ -10,5 +10,7 @@ interface BaseRepositoryInterface {
 	public function getManyBy($key, $value, array $with = []);
 	public function listAll($value, $key);
 	public function listAllBy($key, $value, $displayValue, $displayKey);
+	public function listAllFiltered($value, $key, $filters);
+	public function make(array $with = []);
 
 }

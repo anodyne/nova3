@@ -72,6 +72,22 @@ abstract class BaseRepository {
 			->lists($displayValue, $displayKey);
 	}
 
+	public function listAllFiltered($value, $key, $filters)
+	{
+		// Get the list of all the items
+		$items = $this->listAll($value, $key);
+
+		// Make sure we have an array of filters
+		$filters = ( ! is_array($filters)) ? [$filters] : $filters;
+
+		foreach ($filters as $filter)
+		{
+			unset($items[$filter]);
+		}
+
+		return $items;
+	}
+
 	public function make(array $with = [])
 	{
 		return $this->model->with($with);
