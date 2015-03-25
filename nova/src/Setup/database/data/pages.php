@@ -224,6 +224,20 @@ return [
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@destroy",
 	],
 	[
+		'verb'				=> "POST",
+		'name'				=> "Check for Duplicate Menu Keys",
+		'key'				=> "admin.menus.checkKey",
+		'uri'				=> "admin/menus/check-key",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@checkMenuKey",
+	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Create Menu Key From Name",
+		'key'				=> "admin.menus.generateKey",
+		'uri'				=> "admin/menus/generate-key",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@generateMenuKey",
+	],
+	[
 		'name'				=> "Manage Menu Items",
 		'key'				=> "admin.menus.items",
 		'uri'				=> "admin/menus/{menuId}/items",

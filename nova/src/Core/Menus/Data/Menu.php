@@ -26,7 +26,7 @@ class Menu extends Model {
 		return $this->hasMany('MenuItem');
 	}
 
-	public function page()
+	public function pages()
 	{
 		return $this->hasMany('Page');
 	}

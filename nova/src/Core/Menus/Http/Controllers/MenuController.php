@@ -1,6 +1,7 @@
 <?php namespace Nova\Core\Menus\Http\Controllers;
 
-use Flash,
+use Str,
+	Flash,
 	Input,
 	BaseController,
 	EditMenuRequest,
@@ -36,6 +37,84 @@ class MenuController extends BaseController {
 		$this->data->menus = $this->repo->all();
 	}
 
+	public function create()
+	{
+		$this->view = 'admin/menus/menu-create';
+		$this->jsView = 'admin/menus/menu-create-js';
+	}
+
+	public function store(CreateMenuRequest $request)
+	{
+		// Create the menu
+		$menu = $this->repo->create(Input::all());
+
+		// Fire the event
+		event(new MenuWasCreated($menu));
+
+		// Set the flash message
+		Flash::success("Menu has been created.");
+
+		return redirect()->route('admin.menus');
+	}
+
+	public function edit($menuId)
+	{
+		$this->view = 'admin/menus/menu-edit';
+		$this->jsView = 'admin/menus/menu-edit-js';
+
+		$this->data->menu = $this->repo->find($menuId);
+	}
+
+	public function update(EditMenuRequest $request, $menuId)
+	{
+		// Update the menu
+		$menu = $this->repo->update($menuId, Input::all());
+
+		// Fire the event
+		event(new MenuWasUpdated($menu));
+
+		// Set the flash message
+		Flash::success("Menu has been updated.");
+
+		return redirect()->route('admin.menus');
+	}
+
+	public function remove($menuId)
+	{
+		$this->isAjax = true;
+
+		// Grab the menu we're removing
+		$menu = $this->repo->find($menuId);
+
+		// Grab all the menus
+		$menus = $this->repo->listAllFiltered('name', 'id', $menu->id);
+
+		// Build the body based on whether we found the menu or not
+		$body = ($menu)
+			? view(locate('page', 'admin/menus/menu-remove'), compact('menu', 'menus'))
+			: alert('danger', "Menu not found.");
+
+		return partial('modal-content', [
+			'header' => "Remove Menu",
+			'body' => $body,
+			'footer' => false,
+		]);
+	}
+
+	public function destroy(RemoveMenuRequest $request, $menuId)
+	{
+		// Delete the menu
+		$menu = $this->repo->delete($menuId);
+
+		// Fire the event
+		event(new MenuWasDeleted($menu->key, $menu->name));
+
+		// Set the flash message
+		Flash::success("Menu has been removed.");
+
+		return redirect()->route('admin.menus');
+	}
+
 	public function items($menuId)
 	{
 		$this->view = 'admin/menus/menu-items';
@@ -56,6 +135,27 @@ class MenuController extends BaseController {
 
 		// Re-order the menu items
 		$this->itemRepo->reorder($menu, Input::get('positions'));
+	}
+
+	public function checkMenuKey()
+	{
+		$this->isAjax = true;
+
+		$count = $this->repo->countBy('key', Input::get('key'));
+
+		if ($count > 0)
+		{
+			return json_encode(['code' => 0]);
+		}
+
+		return json_encode(['code' => 1]);
+	}
+
+	public function generateMenuKey()
+	{
+		$this->isAjax = true;
+
+		return Str::slug(Input::get('name'));
 	}
 
 }
