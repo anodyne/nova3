@@ -158,4 +158,15 @@ class MenuController extends BaseController {
 		return Str::slug(Input::get('name'));
 	}
 
+	public function pages($menuId)
+	{
+		$this->view = 'menu-pages';
+
+		// Get the menu
+		$this->data->menu = $menu = $this->repo->find($menuId);
+
+		// Get the pages for the menu
+		$this->data->pages = $this->repo->getPages($menu);
+	}
+
 }

@@ -25,6 +25,7 @@ class MenuRepository extends BaseRepository implements MenuRepositoryInterface {
 
 		if ($menu)
 		{
+			// If we have pages, loop through and update the menu they use
 			if ($menu->pages->count() > 0)
 			{
 				foreach ($menu->pages as $page)
@@ -45,6 +46,11 @@ class MenuRepository extends BaseRepository implements MenuRepositoryInterface {
 	public function find($id)
 	{
 		return $this->getById($id, ['menuItems', 'pages']);
+	}
+
+	public function getPages(Model $menu)
+	{
+		return $menu->pages;
 	}
 
 	public function update($id, array $data)

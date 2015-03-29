@@ -48,8 +48,10 @@ return [
 	['page_id' => 29, 'type' => 'header', 'key' => 'admin.menus.edit.header', 'value' => "Edit Menu"],
 	['page_id' => 29, 'type' => 'title', 'key' => 'admin.menus.edit.title', 'value' => "Edit Menu"],
 	['page_id' => 29, 'type' => 'message', 'key' => 'admin.menus.edit.message', 'value' => null],
-
-	['page_id' => 33, 'type' => 'header', 'key' => 'admin.menus.items.header', 'value' => null],
-	['page_id' => 33, 'type' => 'title', 'key' => 'admin.menus.items.title', 'value' => "Manage Menu Items"],
-	['page_id' => 33, 'type' => 'message', 'key' => 'admin.menus.items.message', 'value' => null],
+	['page_id' => 35, 'type' => 'header', 'key' => 'admin.menus.items.header', 'value' => null],
+	['page_id' => 35, 'type' => 'title', 'key' => 'admin.menus.items.title', 'value' => "Manage Menu Items"],
+	['page_id' => 35, 'type' => 'message', 'key' => 'admin.menus.items.message', 'value' => null],
+	['page_id' => 36, 'type' => 'header', 'key' => 'admin.menus.pages.header', 'value' => "Manage Pages with This Menu"],
+	['page_id' => 36, 'type' => 'title', 'key' => 'admin.menus.pages.title', 'value' => "Manage Pages with This Menu"],
+	['page_id' => 36, 'type' => 'message', 'key' => 'admin.menus.pages.message', 'value' => null],
 ];

@@ -12,11 +12,11 @@ class CreatePagesTables extends Migration {
 			$table->bigIncrements('id');
 			$table->integer('menu_id')->unsigned()->default(0);
 			$table->string('type', 15);
+			$table->string('verb', 10)->default('GET');
 			$table->string('name'); // Used as a descriptive name of the page
 			$table->text('description')->nullable();
 			$table->string('key'); // Used as the route name
 			$table->string('uri');
-			$table->string('verb', 10)->default('GET');
 			$table->text('resource')->nullable();
 			$table->string('default_resource')
 				->default('Nova\\\Foundation\\\Http\\\Controllers\\\MainController@page');

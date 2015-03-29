@@ -245,6 +245,13 @@ return [
 		'menu_id'			=> 2,
 	],
 	[
+		'name'				=> "Manage Pages with This Menu",
+		'key'				=> "admin.menus.pages",
+		'uri'				=> "admin/menus/{menuId}/pages",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@pages",
+		'menu_id'			=> 2,
+	],
+	[
 		'verb'				=> "POST",
 		'name'				=> "Reorder Menu Items",
 		'key'				=> "admin.menus.reorder",
