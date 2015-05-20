@@ -51,6 +51,15 @@
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<script>
 			// Setup the CSRF token on Ajax requests
+			$.ajaxPrefilter(function(options, originalOptions, xhr)
+			{
+				var token = $('meta[name="csrf-token"]').attr('content');
+
+				if (token)
+					return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+			});
+
+			// Setup the CSRF token on Ajax requests
 			$.ajaxSetup({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
