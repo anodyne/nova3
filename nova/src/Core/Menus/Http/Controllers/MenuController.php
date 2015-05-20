@@ -1,22 +1,18 @@
 <?php namespace Nova\Core\Menus\Http\Controllers;
 
 use Str,
-	Flash,
 	Input,
 	BaseController,
-	EditMenuRequest,
-	CreateMenuRequest,
-	RemoveMenuRequest,
 	MenuRepositoryInterface,
-	MenuItemRepositoryInterface;
-use Nova\Core\Menus\Events\MenuWasCreated,
-	Nova\Core\Menus\Events\MenuWasDeleted,
-	Nova\Core\Menus\Events\MenuWasUpdated;
+	MenuItemRepositoryInterface,
+	EditMenuRequest, CreateMenuRequest, RemoveMenuRequest;
+use Nova\Core\Menus\Events;
 use Illuminate\Contracts\Foundation\Application;
 
 class MenuController extends BaseController {
 
 	protected $repo;
+	protected $itemRepo;
 
 	public function __construct(Application $app, MenuRepositoryInterface $repo,
 			MenuItemRepositoryInterface $items)
@@ -46,13 +42,13 @@ class MenuController extends BaseController {
 	public function store(CreateMenuRequest $request)
 	{
 		// Create the menu
-		$menu = $this->repo->create(Input::all());
+		$menu = $this->repo->create($request->all());
 
 		// Fire the event
-		event(new MenuWasCreated($menu));
+		event(new Events\MenuWasCreated($menu));
 
 		// Set the flash message
-		Flash::success("Menu has been created.");
+		flash_success("Menu has been created.");
 
 		return redirect()->route('admin.menus');
 	}
@@ -68,13 +64,13 @@ class MenuController extends BaseController {
 	public function update(EditMenuRequest $request, $menuId)
 	{
 		// Update the menu
-		$menu = $this->repo->update($menuId, Input::all());
+		$menu = $this->repo->update($menuId, $request->all());
 
 		// Fire the event
-		event(new MenuWasUpdated($menu));
+		event(new Events\MenuWasUpdated($menu));
 
 		// Set the flash message
-		Flash::success("Menu has been updated.");
+		flash_success("Menu has been updated.");
 
 		return redirect()->route('admin.menus');
 	}
@@ -107,10 +103,10 @@ class MenuController extends BaseController {
 		$menu = $this->repo->delete($menuId);
 
 		// Fire the event
-		event(new MenuWasDeleted($menu->key, $menu->name));
+		event(new Events\MenuWasDeleted($menu->key, $menu->name));
 
 		// Set the flash message
-		Flash::success("Menu has been removed.");
+		flash_success("Menu has been removed.");
 
 		return redirect()->route('admin.menus');
 	}
@@ -161,6 +157,11 @@ class MenuController extends BaseController {
 	public function pages($menuId)
 	{
 		$this->view = 'menu-pages';
+		$this->jsView = 'menu-pages-js';
+
+		// All the menus for the dropdown
+		$this->data->menus[] = "No Menu";
+		$this->data->menus += $this->repo->listAllFiltered('name', 'id', [$menuId]);
 
 		// Get the menu
 		$this->data->menu = $menu = $this->repo->find($menuId);

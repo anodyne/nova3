@@ -1,3 +1,7 @@
+<div class="page-header">
+	<h1>Manage Pages with the {{ $menu->name }} Menu</h1>
+</div>
+
 <div class="visible-xs visible-sm">
 	<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Menu Manager</a></p>
 </div>
@@ -11,23 +15,21 @@
 
 <div class="row">
 	<div class="col-md-3 col-md-push-9">
-		<div class="panel panel-default">
+		<div class="panel panel-default hide" id="controls">
 			<div class="panel-heading">
 				<h3 class="panel-title">With Selected...</h3>
 			</div>
 			<div class="panel-body">
 				<div class="form-group">
-					<label class="control-label">Assign to New Menu</label>
-					{!! Form::select('new_menu', [], null, ['class' => 'form-control']) !!}
+					<label class="control-label">Assign New Menu</label>
+					{!! Form::select('new_menu', $menus, null, ['class' => 'form-control']) !!}
 				</div>
-
-				<hr>
 
 				<div class="visible-xs visible-sm">
-					<p><a href="#" class="btn btn-default btn-lg btn-block">Remove from This Menu</a></p>
+					<p>{!! Form::button("Update", ['type' => 'submit', 'class' => 'btn btn-default btn-lg btn-block']) !!}</p>
 				</div>
 				<div class="visible-md visible-lg">
-					<p><a href="#" class="btn btn-default btn-block">Remove from This Menu</a></p>
+					<p>{!! Form::button("Update", ['type' => 'submit', 'class' => 'btn btn-default btn-block']) !!}</p>
 				</div>
 			</div>
 		</div>
@@ -35,7 +37,7 @@
 	<div class="col-md-9 col-md-pull-3">
 		<div class="checkbox">
 			<label>
-				{!! Form::checkbox(false, false, false, ['id' => "toggleAll"]) !!}
+				{!! Form::checkbox('checkall', false, false, ['class' => 'js-checkAll']) !!}
 				<span class="text-sm no-bold" id="toggleAllLabel">Select All</span>
 			</label>
 		</div>
