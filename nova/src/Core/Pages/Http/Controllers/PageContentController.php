@@ -1,16 +1,11 @@
 <?php namespace Nova\Core\Pages\Http\Controllers;
 
-use Flash,
-	Input,
+use Input,
 	BaseController,
-	EditPageContentRequest,
-	CreatePageContentRequest,
-	RemovePageContentRequest,
 	PageRepositoryInterface,
-	PageContentRepositoryInterface;
-use Nova\Core\Pages\Events\PageContentWasCreated,
-	Nova\Core\Pages\Events\PageContentWasDeleted,
-	Nova\Core\Pages\Events\PageContentWasUpdated;
+	PageContentRepositoryInterface,
+	EditPageContentRequest, CreatePageContentRequest, RemovePageContentRequest;
+use Nova\Core\Pages\Events;
 use Illuminate\Contracts\Foundation\Application;
 
 class PageContentController extends BaseController {
@@ -54,13 +49,13 @@ class PageContentController extends BaseController {
 	public function store(CreatePageContentRequest $request)
 	{
 		// Create the content
-		$content = $this->repo->create(Input::all());
+		$content = $this->repo->create($request->all());
 
 		// Fire the event
-		event(new PageContentWasCreated($content));
+		event(new Events\PageContentWasCreated($content));
 
 		// Set the flash message
-		Flash::success("Page content has been created.");
+		flash_success("Page content has been created.");
 
 		return redirect()->route('admin.content');
 	}
@@ -85,13 +80,13 @@ class PageContentController extends BaseController {
 	public function update(EditPageContentRequest $request, $contentId)
 	{
 		// Update the content
-		$content = $this->repo->update($contentId, Input::all());
+		$content = $this->repo->update($contentId, $request->all());
 
 		// Fire the event
-		event(new PageContentWasUpdated($content));
+		event(new Events\PageContentWasUpdated($content));
 
 		// Set the flash message
-		Flash::success("Page content has been updated.");
+		flash_success("Page content has been updated.");
 
 		return redirect()->route('admin.content');
 	}
@@ -121,10 +116,10 @@ class PageContentController extends BaseController {
 		$content = $this->repo->delete($contentId);
 
 		// Fire the event
-		event(new PageContentWasDeleted($content->key, $content->type));
+		event(new Events\PageContentWasDeleted($content->key, $content->type));
 
 		// Set the flash message
-		Flash::success("Page content has been removed.");
+		flash_success("Page content has been removed.");
 
 		return redirect()->route('admin.content');
 	}

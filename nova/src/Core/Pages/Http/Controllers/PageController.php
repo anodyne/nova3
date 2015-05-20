@@ -1,16 +1,11 @@
 <?php namespace Nova\Core\Pages\Http\Controllers;
 
-use Flash,
-	Input,
+use Input,
 	BaseController,
-	EditPageRequest,
-	CreatePageRequest,
-	RemovePageRequest,
 	MenuRepositoryInterface,
-	PageRepositoryInterface;
-use Nova\Core\Pages\Events\PageWasCreated,
-	Nova\Core\Pages\Events\PageWasDeleted,
-	Nova\Core\Pages\Events\PageWasUpdated;
+	PageRepositoryInterface,
+	EditPageRequest, CreatePageRequest, RemovePageRequest;
+use Nova\Core\Pages\Events;
 use Illuminate\Contracts\Foundation\Application;
 
 class PageController extends BaseController {
@@ -54,13 +49,13 @@ class PageController extends BaseController {
 	public function store(CreatePageRequest $request)
 	{
 		// Create the page
-		$page = $this->repo->create(Input::all());
+		$page = $this->repo->create($request->all());
 
 		// Fire the event
-		event(new PageWasCreated($page));
+		event(new Events\PageWasCreated($page));
 
 		// Set the flash message
-		Flash::success("Page has been created. Don't forget to update your menu(s) with your new page!");
+		flash_success("Page has been created. Don't forget to update your menu(s) with your new page!");
 
 		return redirect()->route('admin.pages');
 	}
@@ -86,13 +81,13 @@ class PageController extends BaseController {
 	public function update(EditPageRequest $request, $pageId)
 	{
 		// Update the page
-		$page = $this->repo->update($pageId, Input::all());
+		$page = $this->repo->update($pageId, $request->all());
 
 		// Fire the event
-		event(new PageWasUpdated($page));
+		event(new Events\PageWasUpdated($page));
 
 		// Set the flash message
-		Flash::success("Page has been updated.");
+		flash_success("Page has been updated.");
 
 		return redirect()->route('admin.pages');
 	}
@@ -122,10 +117,10 @@ class PageController extends BaseController {
 		$page = $this->repo->delete($pageId);
 
 		// Fire the event
-		event(new PageWasDeleted($page->name, $page->key, $page->uri));
+		event(new Events\PageWasDeleted($page->name, $page->key, $page->uri));
 
 		// Set the flash message
-		Flash::success("Page has been removed.");
+		flash_success("Page has been removed.");
 
 		return redirect()->route('admin.pages');
 	}
