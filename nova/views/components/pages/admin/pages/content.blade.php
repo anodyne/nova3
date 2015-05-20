@@ -30,7 +30,7 @@
 							<label class="control-label">By Type</label>
 							<div id="typeCheckboxes" ng-repeat="type in typesGroup">
 								<div class="checkbox">
-									<label class="text-sm"><input type="checkbox" ng-model="useTypes[type]"> {% type %}</label>
+									<label><input type="checkbox" ng-model="useTypes[type]"> {% type %}</label>
 								</div>
 							</div>
 						</div>

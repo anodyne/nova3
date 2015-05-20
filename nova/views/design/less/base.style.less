@@ -44,7 +44,7 @@ dl {
 
 .btn {
 	font-weight: 500;
-	letter-spacing: 0.5px;
+	letter-spacing: 0.05rem;
 
 	.rounded(@border-radius);
 
@@ -83,6 +83,13 @@ dl {
 
 .input-lg {
 	.rounded(@border-radius);
+}
+
+.checkbox input[type=checkbox],
+.checkbox-inline input[type=checkbox],
+.radio input[type=radio],
+.radio-inline input[type=radio] {
+	margin-top: .9rem;
 }
 
 .help-block {
@@ -131,7 +138,7 @@ dl {
 	li.uk-nestable-list-item {
 		.uk-nestable-item {
 			background-color: @color-subtle;
-			border: 1px solid @color-gray-light;
+			border: .1rem solid @color-gray-light;
 
 			.rounded(@border-radius);
 

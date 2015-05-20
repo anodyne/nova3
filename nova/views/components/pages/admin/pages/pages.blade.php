@@ -30,7 +30,7 @@
 							<label class="control-label">By HTTP Verb</label>
 							<div id="verbCheckboxes" ng-repeat="verb in verbsGroup">
 								<div class="checkbox">
-									<label class="text-sm"><input type="checkbox" ng-model="useVerbs[verb]"> {% verb %}</label>
+									<label><input type="checkbox" ng-model="useVerbs[verb]"> {% verb %}</label>
 								</div>
 							</div>
 						</div>
