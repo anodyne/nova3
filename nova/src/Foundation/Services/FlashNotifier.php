@@ -2,7 +2,7 @@
 
 use Illuminate\Session\Store as SessionStore;
 
-class FlashNotifierService {
+class FlashNotifier {
 
 	protected $session;
 

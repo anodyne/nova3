@@ -2,7 +2,7 @@
 
 use League\CommonMark\CommonMarkConverter as Parser;
 
-class MarkdownParserService {
+class MarkdownParser {
 
 	protected $parser;
 

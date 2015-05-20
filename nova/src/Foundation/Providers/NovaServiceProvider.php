@@ -8,8 +8,8 @@ use Illuminate\Support\ClassLoader,
 use League\CommonMark\CommonMarkConverter;
 use Nova\Core\Pages\Services\Compilers\PageCompiler,
 	Nova\Core\Settings\Services\Compilers\SettingCompiler;
-use Nova\Foundation\Services\FlashNotifierService,
-	Nova\Foundation\Services\MarkdownParserService,
+use Nova\Foundation\Services\FlashNotifier,
+	Nova\Foundation\Services\MarkdownParser,
 	Nova\Foundation\Services\Locator\Locator,
 	Nova\Foundation\Services\Themes\Theme as BaseTheme,
 	Nova\Foundation\Services\Themes\MissingThemeImplementationException,
@@ -140,12 +140,12 @@ class NovaServiceProvider extends ServiceProvider {
 
 		$this->app->bind('nova.flash', function($app)
 		{
-			return new FlashNotifierService($app['session.store']);
+			return new FlashNotifier($app['session.store']);
 		});
 
 		$this->app->bind('nova.markdown', function($app)
 		{
-			return new MarkdownParserService(new CommonMarkConverter);
+			return new MarkdownParser(new CommonMarkConverter);
 		});
 
 		$this->app->bind('nova.user.creator', function($app)
