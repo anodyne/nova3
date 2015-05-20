@@ -35,6 +35,38 @@ if ( ! function_exists('flash'))
 	}
 }
 
+if ( ! function_exists('flash_error'))
+{
+	function flash_error($message, $header = false)
+	{
+		return Flash::error($message, $header);
+	}
+}
+
+if ( ! function_exists('flash_info'))
+{
+	function flash_info($message, $header = false)
+	{
+		return Flash::info($message, $header);
+	}
+}
+
+if ( ! function_exists('flash_success'))
+{
+	function flash_success($message, $header = false)
+	{
+		return Flash::success($message, $header);
+	}
+}
+
+if ( ! function_exists('flash_warning'))
+{
+	function flash_warning($message, $header = false)
+	{
+		return Flash::warning($message, $header);
+	}
+}
+
 if ( ! function_exists('icon'))
 {
 	function icon($icon, $size = 'sm', $additional = false)
