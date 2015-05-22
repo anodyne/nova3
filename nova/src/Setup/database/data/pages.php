@@ -247,9 +247,16 @@ return [
 	[
 		'name'				=> "Manage Pages with This Menu",
 		'key'				=> "admin.menus.pages",
-		'uri'				=> "admin/menus/{menuId}/pages",
+		'uri'				=> "admin/menus/{menuKey}/pages",
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@pages",
 		'menu_id'			=> 2,
+	],
+	[
+		'verb'				=> "PUT",
+		'name'				=> "Update Menus for Pages",
+		'key'				=> "admin.menus.pages.update",
+		'uri'				=> "admin/menus/{menuKey}/pages",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@updatePages",
 	],
 	[
 		'verb'				=> "POST",
