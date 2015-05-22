@@ -153,3 +153,11 @@ if ( ! function_exists('locate'))
 		return Locate::{$type}($view);
 	}
 }
+
+if ( ! function_exists('user'))
+{
+	function user()
+	{
+		return app('nova.user');
+	}
+}
