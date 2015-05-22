@@ -26,7 +26,7 @@
 						<p><a href="{{ route('admin.menus.items', [$menu->id]) }}" class="btn btn-default btn-lg btn-block">Manage Menu Items</a></p>
 					</div>
 					<div class="col-xs-12 col-sm-6">
-						<p><a href="{{ route('admin.menus.pages', [$menu->id]) }}" class="btn btn-default btn-lg btn-block">Manage Pages Using this Menu</a></p>
+						<p><a href="{{ route('admin.menus.pages', [$menu->key]) }}" class="btn btn-default btn-lg btn-block">Manage Pages Using this Menu</a></p>
 					</div>
 					<div class="col-xs-12">
 						<p><a href="#" class="btn btn-danger btn-lg btn-block js-menuAction" data-id="{{ $menu->id }}" data-action="remove">Remove</a></p>
@@ -43,7 +43,7 @@
 						</button>
 						<ul class="dropdown-menu dropdown-menu-right" role="menu">
 							<li><a href="{{ route('admin.menus.items', [$menu->id]) }}">Manage Menu Items</a></li>
-							<li><a href="{{ route('admin.menus.pages', [$menu->id]) }}">Manage Pages Using this Menu</a></li>
+							<li><a href="{{ route('admin.menus.pages', [$menu->key]) }}">Manage Pages Using this Menu</a></li>
 						</ul>
 					</div>
 					<div class="btn-group">

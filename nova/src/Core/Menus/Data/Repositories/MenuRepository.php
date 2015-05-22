@@ -1,16 +1,19 @@
 <?php namespace Nova\Core\Menus\Data\Repositories;
 
 use Menu as Model,
-	MenuRepositoryInterface;
+	MenuRepositoryInterface,
+	PageRepositoryInterface;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class MenuRepository extends BaseRepository implements MenuRepositoryInterface {
 
 	protected $model;
+	protected $pageRepo;
 
-	public function __construct(Model $model)
+	public function __construct(Model $model, PageRepositoryInterface $pages)
 	{
 		$this->model = $model;
+		$this->pageRepo = $pages;
 	}
 
 	public function create(array $data)
@@ -48,6 +51,11 @@ class MenuRepository extends BaseRepository implements MenuRepositoryInterface {
 		return $this->getById($id, ['menuItems', 'pages']);
 	}
 
+	public function getByKey($key)
+	{
+		return $this->getFirstBy('key', $key, ['menuItems', 'pages']);
+	}
+
 	public function getPages(Model $menu)
 	{
 		return $menu->pages;
@@ -65,6 +73,21 @@ class MenuRepository extends BaseRepository implements MenuRepositoryInterface {
 			$updatedMenu->save();
 
 			return $updatedMenu;
+		}
+
+		return false;
+	}
+
+	public function updatePages(array $pages, $newMenuId)
+	{
+		if (count($pages) > 0)
+		{
+			foreach ($pages as $pageId)
+			{
+				$this->pageRepo->update($pageId, ['menu_id' => $newMenuId]);
+			}
+
+			return true;
 		}
 
 		return false;

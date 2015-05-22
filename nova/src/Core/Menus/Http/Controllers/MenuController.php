@@ -4,9 +4,11 @@ use Str,
 	Input,
 	BaseController,
 	MenuRepositoryInterface,
+	PageRepositoryInterface,
 	MenuItemRepositoryInterface,
 	EditMenuRequest, CreateMenuRequest, RemoveMenuRequest;
 use Nova\Core\Menus\Events;
+use Illuminate\Http\Request;
 use Illuminate\Contracts\Foundation\Application;
 
 class MenuController extends BaseController {
@@ -154,20 +156,28 @@ class MenuController extends BaseController {
 		return Str::slug(Input::get('name'));
 	}
 
-	public function pages($menuId)
+	public function pages($menuKey)
 	{
 		$this->view = 'menu-pages';
 		$this->jsView = 'menu-pages-js';
 
-		// All the menus for the dropdown
-		$this->data->menus[] = "No Menu";
-		$this->data->menus += $this->repo->listAllFiltered('name', 'id', [$menuId]);
-
 		// Get the menu
-		$this->data->menu = $menu = $this->repo->find($menuId);
+		$this->data->menu = $menu = $this->repo->getByKey($menuKey);
 
 		// Get the pages for the menu
 		$this->data->pages = $this->repo->getPages($menu);
+
+		// All the menus for the dropdown
+		$this->data->menus[] = "No Menu";
+		$this->data->menus += $this->repo->listAllFiltered('name', 'id', $menu->id);
+	}
+
+	public function updatePages(Request $request, $menuId)
+	{
+		// Update the pages
+		$this->repo->updatePages($request->get('pages'), $request->get('menu'));
+
+		return redirect()->route('admin.menus.pages', [$menuId]);
 	}
 
 }
