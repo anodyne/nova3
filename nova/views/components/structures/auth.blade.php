@@ -30,10 +30,10 @@
 			{!! HTML::style(themePath('design/css/custom.css')) !!}
 		@endif
 
-		@if ($_currentUser and $_currentUser->preference('theme_variant'))
-			{!! HTML::style(themePath("design/css/variants/{$_currentUser->preference('theme_variant')}.css")) !!}
+		@if (user() and user()->preference('theme_variant'))
+			{!! HTML::style(themePath("design/css/variants/{user()->preference('theme_variant')}.css")) !!}
 		@endif
-		@if ( ! $_currentUser and ! empty($_settings->theme_variant))
+		@if ( ! user() and ! empty($_settings->theme_variant))
 			{!! HTML::style(themePath("design/css/variants/{$_settings->theme_variant}.css")) !!}
 		@endif
 
