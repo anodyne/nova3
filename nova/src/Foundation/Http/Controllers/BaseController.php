@@ -63,7 +63,6 @@ abstract class BaseController extends Controller {
 				view()->share('_page', $me->page);
 				view()->share('_icons', config('icons.nova'));
 				view()->share('_settings', $me->settings);
-				view()->share('_currentUser', app('nova.user'));
 			}
 		});
 
