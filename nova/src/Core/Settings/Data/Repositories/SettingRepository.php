@@ -24,18 +24,18 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
 		// Get all the settings
 		$settings = $this->all();
 
-		// Start an object for storing everything
-		$items = new Collection;
+		// An array for storing all the settings
+		$items = [];
 
 		if ($settings->count() > 0)
 		{
-			foreach ($settings as $setting)
+			foreach ($settings as $s)
 			{
-				$items->put($setting->key, $setting->value);
+				$items[$s->key] = $s->value;
 			}
 		}
 
-		return $items;
+		return new Collection($items);
 	}
 
 	public function getByKey($key)
