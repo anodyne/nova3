@@ -24,7 +24,8 @@ class SettingCompiler implements CompilerInterface {
 			{
 				if ($matches[1]) return substr($matches[0], 1);
 
-				return app('nova.settings')->{$key};
+				//return app('nova.settings')->{$key};
+				return app('nova.settings')->get($key);
 			}
 
 			return $matches[0];

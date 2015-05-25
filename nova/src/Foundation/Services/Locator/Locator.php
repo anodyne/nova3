@@ -1,6 +1,7 @@
 <?php namespace Nova\Foundation\Services\Locator;
 
 use Str, User;
+use Illuminate\Support\Collection;
 use Symfony\Component\Finder\Finder;
 use Dflydev\Symfony\FinderFactory\FinderFactory,
 	Dflydev\Symfony\FinderFactory\FinderFactoryInterface;
@@ -46,7 +47,7 @@ class Locator implements LocatorInterface {
 	protected $user;
 
 	/**
-	 * @var	object	An object of all the settings
+	 * @var	Collection	A Collection of all the settings
 	 */
 	protected $settings;
 
@@ -55,7 +56,7 @@ class Locator implements LocatorInterface {
 	 */
 	protected $finderFactory;
 
-	public function __construct(User $user = null, $settings = null,
+	public function __construct(User $user = null, Collection $settings = null,
 			FinderFactoryInterface $finderFactory = null)
 	{
 		$this->user				= $user;
@@ -297,7 +298,7 @@ class Locator implements LocatorInterface {
 
 		if ($this->user) return $this->user->preference('theme');
 
-		return $this->settings->theme;
+		return $this->settings->get('theme');
 	}
 
 	/**

@@ -183,8 +183,8 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function setupMailer()
 	{
-		config(['mail.from.address' => $this->app['nova.settings']->mail_default_address]);
-		config(['mail.from.name' => $this->app['nova.settings']->mail_default_name]);
+		config(['mail.from.address' => $this->app['nova.settings']->get('mail_default_address')]);
+		config(['mail.from.name' => $this->app['nova.settings']->get('mail_default_name')]);
 	}
 
 	/**
@@ -199,7 +199,7 @@ class NovaServiceProvider extends ServiceProvider {
 		// Get the theme name
 		$themeName = ($this->app['auth']->check())
 			? $this->app['nova.user']->preference('theme')
-			: $this->app['nova.settings']->theme;
+			: $this->app['nova.settings']->get('theme');
 
 		// Try to autoload the appropriate theme file
 		ClassLoader::load($this->app->themePath($themeName).'/Theme.php');

@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Settings\Data\Repositories;
 
-use stdClass;
 use Setting as Model,
 	SettingRepositoryInterface;
+use Illuminate\Support\Collection;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class SettingRepository extends BaseRepository implements SettingRepositoryInterface {
@@ -25,13 +25,13 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
 		$settings = $this->all();
 
 		// Start an object for storing everything
-		$items = new stdClass;
+		$items = new Collection;
 
 		if ($settings->count() > 0)
 		{
 			foreach ($settings as $setting)
 			{
-				$items->{$setting->key} = $setting->value;
+				$items->put($setting->key, $setting->value);
 			}
 		}
 

@@ -2,7 +2,7 @@
 
 <header>
 	<div class="container">
-		<h1>{{ $_settings->sim_name }}</h1>
+		<h1>{{ $_settings->get('sim_name') }}</h1>
 	</div>
 </header>
 

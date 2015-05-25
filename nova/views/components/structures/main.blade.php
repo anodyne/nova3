@@ -5,11 +5,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="author" content="Anodyne Productions">
 		<meta name="description" content="{{ $pageDescription or $_page->description }}">
-		<meta property="og:title" content="{{ $_settings->sim_name }}: {{ $pageName or $_page->name }}">
+		<meta property="og:title" content="{{ $_settings->get('sim_name') }}: {{ $pageName or $_page->name }}">
 		<meta property="og:description" content="{{ $pageDescription or $_page->description }}">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 
-		<title>{{ $pageTitle or $_page->present()->title }} &bull; {{ $_settings->sim_name }}</title>
+		<title>{{ $pageTitle or $_page->present()->title }} &bull; {{ $_settings->get('sim_name') }}</title>
 
 		@if (app('files')->exists(themePath('design/css/bootstrap.css', false)))
 			{!! HTML::style(app()->themeRelativePath('design/css/bootstrap.css')) !!}
@@ -38,8 +38,8 @@
 		@if (user() and user()->preference('theme_variant'))
 			{!! HTML::style(themePath("design/css/variants/{user()->preference('theme_variant')}.css")) !!}
 		@endif
-		@if ( ! user() and ! empty($_settings->theme_variant))
-			{!! HTML::style(themePath("design/css/variants/{$_settings->theme_variant}.css")) !!}
+		@if ( ! user() and ! empty($_settings->get('theme_variant')))
+			{!! HTML::style(themePath("design/css/variants/{$_settings->get('theme_variant')}.css")) !!}
 		@endif
 
 		{!! $styles or false !!}
