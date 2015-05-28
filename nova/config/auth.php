@@ -59,7 +59,7 @@ return [
 	*/
 
 	'password' => [
-		'email' => 'nova/views/components/emails/auth/password',
+		'email' => 'nova/resources/views/components/emails/auth/password',
 		'table' => 'users_password_resets',
 		'expire' => 60,
 	],

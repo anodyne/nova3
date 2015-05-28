@@ -1,5 +1,5 @@
-{!! HTML::script('nova/assets/uikit/js/core/core.min.js') !!}
-{!! HTML::script('nova/assets/uikit/js/components/nestable.min.js') !!}
+{!! HTML::script('nova/resources/uikit/js/core/core.min.js') !!}
+{!! HTML::script('nova/resources/uikit/js/components/nestable.min.js') !!}
 <script>
 	$(document).on('change.uk.nestable', '.uk-nestable', function (event, item, action)
 	{

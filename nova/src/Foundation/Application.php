@@ -62,9 +62,9 @@ class Application extends IlluminateApp {
 	 */
 	public function coreAssetPath($asset = false)
 	{
-		if ($asset) return $this->novaPath("assets/$asset");
+		if ($asset) return $this->novaPath("resources/$asset");
 
-		return $this->novaPath('assets');
+		return $this->novaPath('resources');
 	}
 
 	/**
@@ -112,7 +112,7 @@ class Application extends IlluminateApp {
 	 */
 	public function langPath()
 	{
-		return $this->novaPath('lang');
+		return $this->novaPath('resources/lang');
 	}
 
 	/**

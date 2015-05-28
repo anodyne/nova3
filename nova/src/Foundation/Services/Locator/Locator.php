@@ -30,7 +30,7 @@ class Locator implements LocatorInterface {
 	 * @var	array	Array of paths to search through last
 	 */
 	protected $pathsLast = [
-		'nova/views/components',
+		'nova/resources/views/components',
 	];
 
 	/**

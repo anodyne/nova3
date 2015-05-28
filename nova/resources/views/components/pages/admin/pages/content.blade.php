@@ -1,6 +1,6 @@
 <div ng-controller="PageContentsLoadingController">
 	<div ng-show="loading">
-		<h4 class="text-center">{!! HTML::image('nova/assets/images/ajax-loader.gif') !!}</h4>
+		<h4 class="text-center">{!! HTML::image('nova/resources/images/ajax-loader.gif') !!}</h4>
 	</div>
 
 	<div ng-cloak>
