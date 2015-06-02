@@ -17,7 +17,8 @@
 			<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 		@endif
 
-		{!! partial('fonts') !!}
+		{!! partial('include-fonts') !!}
+		{!! partial('include-icons') !!}
 
 		@if (app('files')->exists(themePath('design/css/icons.css', false)))
 			{!! HTML::style(app()->themeRelativePath('design/css/icons.css')) !!}

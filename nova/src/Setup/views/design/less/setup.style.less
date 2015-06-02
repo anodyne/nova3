@@ -1,5 +1,5 @@
 @import "setup.variables.less";
-@import "../../../../../views/design/less/mixins.less";
+@import "../../../../../resources/views/design/less/mixins.less";
 
 html {
 	font-size: 62.5%;
@@ -270,7 +270,9 @@ main {
 		text-align: left;
 	}
 
-	.icn {
+	.icn, .material-icons {
+		line-height: @line-height;
+		
 		color: @color-blue-grey-400;
 
 		&.text-success {

@@ -73,9 +73,14 @@ if ( ! function_exists('icon'))
 	{
 		$iconCode = (Str::contains($icon, '.')) ? $icon : "nova.{$icon}";
 
-		$icon = config("icons.{$iconCode}");
+		// Get the icon item out of the config array
+		$iconItem = config("icons.{$iconCode}");
 
-		return partial('icon', compact('icon', 'size', 'additional'));
+		// Parse out the pieces we need
+		$type = $iconItem['type'];
+		$icon = $iconItem['value'];
+
+		return partial('icon', compact('icon', 'size', 'additional', 'type'));
 	}
 }
 
@@ -112,7 +117,7 @@ if ( ! function_exists('partial'))
 {
 	function partial($file, array $data = [])
 	{
-		return view(Locate::partial($file), $data);
+		return view(Locate::partial($file), $data)->render();
 	}
 }
 
