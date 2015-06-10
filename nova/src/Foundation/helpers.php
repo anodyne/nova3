@@ -126,6 +126,7 @@ if ( ! function_exists('checkDirectories'))
 	function checkDirectories()
 	{
 		$directories = [
+			nova_path('bootstrap/cache'),
 			storage_path('framework'),
 			storage_path('framework/views'),
 		];

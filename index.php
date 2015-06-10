@@ -50,8 +50,6 @@ require __DIR__.'/nova/bootstrap/autoload.php';
 
 $app = require_once __DIR__.'/nova/bootstrap/app.php';
 
-$app->useStoragePathForOptimizations(true);
-
 /*
 |--------------------------------------------------------------------------
 | Run The Application
@@ -64,10 +62,10 @@ $app->useStoragePathForOptimizations(true);
 |
 */
 
-$kernel = $app->make('Illuminate\Contracts\Http\Kernel');
+$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
 $response = $kernel->handle(
-	$request = Illuminate\Http\Request::capture()
+    $request = Illuminate\Http\Request::capture()
 );
 
 $response->send();

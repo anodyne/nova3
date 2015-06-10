@@ -216,14 +216,7 @@ class Application extends IlluminateApp {
 	 */
 	public function getCachedConfigPath()
 	{
-		if ($this->vendorIsWritableForOptimizations())
-		{
-			return $this->basePath().'/nova/vendor/config.php';
-		}
-		else
-		{
-			return $this['path.storage'].'/framework/config.php';
-		}
+		return $this->novaPath().'/bootstrap/cache/config.php';
 	}
 
 	/**
@@ -233,14 +226,7 @@ class Application extends IlluminateApp {
 	 */
 	public function getCachedRoutesPath()
 	{
-		if ($this->vendorIsWritableForOptimizations())
-		{
-			return $this->basePath().'/nova/vendor/routes.php';
-		}
-		else
-		{
-			return $this['path.storage'].'/framework/routes.php';
-		}
+		return $this->novaPath().'/bootstrap/cache/routes.php';
 	}
 
 	/**
@@ -250,14 +236,7 @@ class Application extends IlluminateApp {
 	 */
 	public function getCachedCompilePath()
 	{
-		if ($this->vendorIsWritableForOptimizations())
-		{
-			return $this->basePath().'/nova/vendor/compiled.php';
-		}
-		else
-		{
-			return $this->storagePath().'/framework/compiled.php';
-		}
+		return $this->novaPath().'/bootstrap/cache/compiled.php';
 	}
 
 	/**
@@ -267,26 +246,7 @@ class Application extends IlluminateApp {
 	 */
 	public function getCachedServicesPath()
 	{
-		if ($this->vendorIsWritableForOptimizations())
-		{
-			return $this->basePath().'/nova/vendor/services.json';
-		}
-		else
-		{
-			return $this->storagePath().'/framework/services.json';
-		}
-	}
-
-	/**
-	 * Determine if vendor path is writable.
-	 *
-	 * @return bool
-	 */
-	public function vendorIsWritableForOptimizations()
-	{
-		if ($this->useStoragePathForOptimizations) return false;
-
-		return is_writable($this->basePath().'/nova/vendor');
+		return $this->novaPath().'/bootstrap/cache/services.json';
 	}
 
 }

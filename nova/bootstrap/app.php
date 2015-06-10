@@ -27,23 +27,23 @@ $app = new Nova\Foundation\Application(
 */
 
 $app->singleton(
-	'Illuminate\Contracts\Http\Kernel',
-	'Nova\Foundation\Http\Kernel'
+	Illuminate\Contracts\Http\Kernel::class,
+	Nova\Foundation\Http\Kernel::class
 );
 
 $app->singleton(
-	'Illuminate\Contracts\Console\Kernel',
-	'Nova\Foundation\Console\Kernel'
+	Illuminate\Contracts\Console\Kernel::class,
+	Nova\Foundation\Console\Kernel::class
 );
 
 $app->singleton(
-	'Illuminate\Contracts\Debug\ExceptionHandler',
-	'Nova\Foundation\Exceptions\Handler'
+	Illuminate\Contracts\Debug\ExceptionHandler::class,
+	Nova\Foundation\Exceptions\Handler::class
 );
 
 $app->singleton(
 	'Illuminate\Foundation\Bootstrap\LoadConfiguration',
-	'Nova\Foundation\Bootstrap\LoadConfiguration'
+	Nova\Foundation\Bootstrap\LoadConfiguration::class
 );
 
 // Pull in the helpers from Foundation
