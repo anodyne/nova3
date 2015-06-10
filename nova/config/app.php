@@ -251,7 +251,7 @@ return [
 		'PageContentRepositoryInterface' => 'Nova\Core\Pages\Data\Interfaces\PageContentRepositoryInterface',
 		'PageRepository' => 'Nova\Core\Pages\Data\Repositories\PageRepository',
 		'PageContentRepository' => 'Nova\Core\Pages\Data\Repositories\PageContentRepository',
-		'CachePageRoutes' => 'Nova\Core\Pages\Handlers\Events\CachePageRoutes',
+		'CachePageRoutes' => 'Nova\Core\Pages\Listeners\CachePageRoutes',
 		'CreatePageContentRequest' => 'Nova\Core\Pages\Http\Requests\CreatePageContentRequest',
 		'EditPageContentRequest' => 'Nova\Core\Pages\Http\Requests\EditPageContentRequest',
 		'RemovePageContentRequest' => 'Nova\Core\Pages\Http\Requests\RemovePageContentRequest',

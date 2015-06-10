@@ -1,10 +1,10 @@
-<?php namespace Nova\Core\Pages\Handlers\Events;
+<?php namespace Nova\Core\Pages\Listeners;
 
 use Artisan;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldBeQueued;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CachePageRoutes implements ShouldBeQueued {
+class CachePageRoutes implements ShouldQueue {
 
 	use InteractsWithQueue;
 

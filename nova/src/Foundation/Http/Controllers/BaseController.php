@@ -3,12 +3,12 @@
 use Locate, stdClass;
 use Illuminate\Routing\Controller,
 	Illuminate\Contracts\Foundation\Application,
-	Illuminate\Foundation\Bus\DispatchesCommands,
+	Illuminate\Foundation\Bus\DispatchesJobs,
 	Illuminate\Foundation\Validation\ValidatesRequests;
 
 abstract class BaseController extends Controller {
 
-	use DispatchesCommands, ValidatesRequests;
+	use DispatchesJobs, ValidatesRequests;
 
 	protected $app;
 	protected $page;
