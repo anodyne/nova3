@@ -4,6 +4,8 @@
 
 body {
 	padding-top: 5rem;
+
+	background-color: #f4f5f6;
 }
 
 .navbar {
@@ -47,8 +49,23 @@ header {
 	}
 }
 
+main {
+	margin-top: 3rem;
+	padding: 1.5rem;
+
+	background-color: @color-white;
+	border: .1rem solid #e7e8e9;
+
+	.rounded(.2rem);
+	.box-shadow(~"0 .1rem .3rem rgba(0, 0, 0, .05)");
+}
+
 .page-header {
+	margin-top: 0;
+
 	h1 {
+		margin-top: 0;
+
 		font-family: "Roboto Condensed";
 		font-weight: 300;
 		font-size: 3.6rem;

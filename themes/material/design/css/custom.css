@@ -1,5 +1,6 @@
 body {
   padding-top: 5rem;
+  background-color: #f4f5f6;
 }
 .navbar {
   margin-bottom: 0;
@@ -30,7 +31,23 @@ header h1 {
   font-size: 5.6rem;
   font-weight: 300;
 }
+main {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border: .1rem solid #e7e8e9;
+  -webkit-border-radius: 0.2rem;
+  -moz-border-radius: 0.2rem;
+  border-radius: 0.2rem 0.2rem 0.2rem 0.2rem;
+  -webkit-box-shadow: 0 .1rem .3rem rgba(0, 0, 0, .05);
+  -moz-box-shadow: 0 .1rem .3rem rgba(0, 0, 0, .05);
+  box-shadow: 0 .1rem .3rem rgba(0, 0, 0, .05);
+}
+.page-header {
+  margin-top: 0;
+}
 .page-header h1 {
+  margin-top: 0;
   font-family: "Roboto Condensed";
   font-weight: 300;
   font-size: 3.6rem;
