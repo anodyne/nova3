@@ -47,6 +47,7 @@ class SetupService {
 			storage_path('framework/sessions'),
 			storage_path('framework/views'),
 			app('path.config'),
+			nova_path('bootstrap/cache'),
 		];
 
 		$errorDirs = [];
