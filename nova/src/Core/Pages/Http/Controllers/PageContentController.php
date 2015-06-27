@@ -55,7 +55,7 @@ class PageContentController extends BaseController {
 		event(new Events\PageContentWasCreated($content));
 
 		// Set the flash message
-		flash_success("Page content has been created.");
+		flash()->success("Page content has been created.");
 
 		return redirect()->route('admin.content');
 	}
@@ -86,7 +86,7 @@ class PageContentController extends BaseController {
 		event(new Events\PageContentWasUpdated($content));
 
 		// Set the flash message
-		flash_success("Page content has been updated.");
+		flash()->success("Page content has been updated.");
 
 		return redirect()->route('admin.content');
 	}
@@ -119,7 +119,7 @@ class PageContentController extends BaseController {
 		event(new Events\PageContentWasDeleted($content->key, $content->type));
 
 		// Set the flash message
-		flash_success("Page content has been removed.");
+		flash()->success("Page content has been removed.");
 
 		return redirect()->route('admin.content');
 	}

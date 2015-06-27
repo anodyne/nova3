@@ -55,7 +55,7 @@ class PageController extends BaseController {
 		event(new Events\PageWasCreated($page));
 
 		// Set the flash message
-		flash_success("Page has been created. Don't forget to update your menu(s) with your new page!");
+		flash()->success("Page has been created. Don't forget to update your menu(s) with your new page!");
 
 		return redirect()->route('admin.pages');
 	}
@@ -87,7 +87,7 @@ class PageController extends BaseController {
 		event(new Events\PageWasUpdated($page));
 
 		// Set the flash message
-		flash_success("Page has been updated.");
+		flash()->success("Page has been updated.");
 
 		return redirect()->route('admin.pages');
 	}
@@ -120,7 +120,7 @@ class PageController extends BaseController {
 		event(new Events\PageWasDeleted($page->name, $page->key, $page->uri));
 
 		// Set the flash message
-		flash_success("Page has been removed.");
+		flash()->success("Page has been removed.");
 
 		return redirect()->route('admin.pages');
 	}

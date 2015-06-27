@@ -39,11 +39,11 @@ class PasswordController extends BaseController {
 		switch ($response)
 		{
 			case PasswordBroker::RESET_LINK_SENT:
-				Flash::success("Your password reset link has been sent!");
+				flash()->success("Your password reset link has been sent!");
 			break;
 
 			case PasswordBroker::INVALID_USER:
-				Flash::error("No user with that email address found!");
+				flash()->error("No user with that email address found!");
 			break;
 		}
 
@@ -90,22 +90,22 @@ class PasswordController extends BaseController {
 		switch ($response)
 		{
 			case PasswordBroker::PASSWORD_RESET:
-				Flash::success('Your password has been reset!');
+				flash()->success('Your password has been reset!');
 				return redirect()->route('home');
 			break;
 
 			case PasswordBroker::INVALID_USER:
-				Flash::error('No user with that email address found!');
+				flash()->error('No user with that email address found!');
 				return redirect()->back();
 			break;
 
 			case PasswordBroker::INVALID_PASSWORD:
-				Flash::error('Passwords must be at least six characters and match the confirmation.');
+				flash()->error('Passwords must be at least six characters and match the confirmation.');
 				return redirect()->back()->withInput($request->only('email'));
 			break;
 
 			case PasswordBroker::INVALID_TOKEN:
-				Flash::error('This password reset token is invalid.');
+				flash()->error('This password reset token is invalid.');
 				return redirect()->back();
 			break;
 		}

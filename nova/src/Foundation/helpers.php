@@ -24,6 +24,21 @@ if ( ! function_exists('flash'))
 {
 	function flash($level = false, $content = false, $header = false)
 	{
+		// Get the instance of the flash notifier service
+		$flash = app('nova.flash');
+
+		// If we don't pass anything, just return the instance
+		if ( ! $level) return $flash;
+
+		// Use the level to create the flash message
+		$flash->{$level}($content, $header);
+	}
+}
+
+if ( ! function_exists('display_flash_message'))
+{
+	function display_flash_message($level = false, $content = false, $header = false)
+	{
 		if (Session::has('flash.message'))
 		{
 			$level = ( ! Session::has('flash.level')) ? $level : Session::get('flash.level');
@@ -32,38 +47,6 @@ if ( ! function_exists('flash'))
 
 			return partial('flash', compact('level', 'content', 'header'));
 		}
-	}
-}
-
-if ( ! function_exists('flash_error'))
-{
-	function flash_error($message, $header = false)
-	{
-		return Flash::error($message, $header);
-	}
-}
-
-if ( ! function_exists('flash_info'))
-{
-	function flash_info($message, $header = false)
-	{
-		return Flash::info($message, $header);
-	}
-}
-
-if ( ! function_exists('flash_success'))
-{
-	function flash_success($message, $header = false)
-	{
-		return Flash::success($message, $header);
-	}
-}
-
-if ( ! function_exists('flash_warning'))
-{
-	function flash_warning($message, $header = false)
-	{
-		return Flash::warning($message, $header);
 	}
 }
 
@@ -117,7 +100,7 @@ if ( ! function_exists('partial'))
 {
 	function partial($file, array $data = [])
 	{
-		return view(Locate::partial($file), $data)->render();
+		return view(locate()->partial($file), $data)->render();
 	}
 }
 
@@ -146,7 +129,9 @@ if ( ! function_exists('themePath'))
 	function themePath($location = false, $relative = true)
 	{
 		if ($relative)
+		{
 			return app()->themeRelativePath(app('nova.theme')->getLocation(true)."/{$location}");
+		}
 
 		return app()->themePath(app('nova.theme')->getLocation(true)."/{$location}");
 	}
@@ -154,9 +139,14 @@ if ( ! function_exists('themePath'))
 
 if ( ! function_exists('locate'))
 {
-	function locate($type, $view)
+	function locate($type = false, $view = false)
 	{
-		return Locate::{$type}($view);
+		// Get an instance of the locator
+		$locator = app('nova.locator');
+
+		if ( ! $type) return $locator;
+
+		return $locator->{$type}($view);
 	}
 }
 

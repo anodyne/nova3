@@ -50,7 +50,7 @@ class MenuController extends BaseController {
 		event(new Events\MenuWasCreated($menu));
 
 		// Set the flash message
-		flash_success("Menu has been created.");
+		flash()->success("Menu has been created.");
 
 		return redirect()->route('admin.menus');
 	}
@@ -72,7 +72,7 @@ class MenuController extends BaseController {
 		event(new Events\MenuWasUpdated($menu));
 
 		// Set the flash message
-		flash_success("Menu has been updated.");
+		flash()->success("Menu has been updated.");
 
 		return redirect()->route('admin.menus');
 	}
@@ -108,7 +108,7 @@ class MenuController extends BaseController {
 		event(new Events\MenuWasDeleted($menu->key, $menu->name));
 
 		// Set the flash message
-		flash_success("Menu has been removed.");
+		flash()->success("Menu has been removed.");
 
 		return redirect()->route('admin.menus');
 	}

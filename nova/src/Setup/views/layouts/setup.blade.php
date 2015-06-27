@@ -46,9 +46,7 @@
 				<div class="col-md-9">
 					<main>
 						<div class="content">
-							@if (Session::has('flash.message'))
-								{!! flash() !!}
-							@endif
+							{!! display_flash_message() !!}
 
 							@yield('content')
 						</div>

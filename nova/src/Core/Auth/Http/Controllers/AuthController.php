@@ -41,7 +41,7 @@ class AuthController extends BaseController {
 			return redirect()->intended(route('home'));
 		}
 
-		Flash::error("These credentials don't match our records.");
+		flash()->error("These credentials don't match our records.");
 
 		return redirect()->back()->withInput($request->only('email'));
 	}

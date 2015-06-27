@@ -2,7 +2,7 @@
 	{!! $menuCombined or false !!}
 
 	<main>
-		{!! flash() !!}
+		{!! display_flash_message() !!}
 
 		{!! partial('page-header', compact('_page')) !!}
 

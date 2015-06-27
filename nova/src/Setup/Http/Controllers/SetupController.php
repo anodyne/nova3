@@ -19,7 +19,7 @@ class SetupController extends BaseController {
 		// Check the environment
 		$env = app('nova.setup')->checkEnvironment();
 
-		// If we're good, go on to the setup center
+		// If everything checks out, head to the Setup Center
 		if ($env->get('passes'))
 		{
 			return redirect()->route('setup.home');
@@ -55,7 +55,7 @@ class SetupController extends BaseController {
 		}
 
 		// Set the flash message
-		Flash::success("Nova has been successfully removed.");
+		flash()->success("Nova has been successfully removed.");
 
 		return redirect()->route('setup.home');
 	}

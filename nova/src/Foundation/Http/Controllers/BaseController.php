@@ -1,6 +1,6 @@
 <?php namespace Nova\Foundation\Http\Controllers;
 
-use Locate, stdClass;
+use stdClass;
 use Illuminate\Routing\Controller,
 	Illuminate\Contracts\Foundation\Application,
 	Illuminate\Foundation\Bus\DispatchesJobs,
@@ -153,15 +153,19 @@ abstract class BaseController extends Controller {
 	{
 		if (app('nova.setup')->isInstalled())
 		{
-			$layout = view(Locate::structure($this->structureView));
+			$layout = view(locate()->structure($this->structureView));
 
 			if ($this->jsView)
-				$layout->javascript = view(Locate::js($this->jsView))->with((array) $this->jsData);
+			{
+				$layout->javascript = view(locate()->js($this->jsView))->with((array) $this->jsData);
+			}
 
-			$layout->template = view(Locate::template($this->templateView));
+			$layout->template = view(locate()->template($this->templateView));
 
 			if ($this->view)
-				$layout->template->content = view(Locate::page($this->view))->with((array) $this->data);
+			{
+				$layout->template->content = view(locate()->page($this->view))->with((array) $this->data);
+			}
 
 			// Set the content of the response to our full layout now
 			$response->setContent($layout);
