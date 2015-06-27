@@ -63,13 +63,13 @@ abstract class BaseRepository {
 
 	public function listAll($value, $key)
 	{
-		return $this->model->lists($value, $key);
+		return $this->model->lists($value, $key)->all();
 	}
 
 	public function listAllBy($key, $value, $displayValue, $displayKey)
 	{
 		return $this->model->where($key, '=', $value)
-			->lists($displayValue, $displayKey);
+			->lists($displayValue, $displayKey)->all();
 	}
 
 	public function listAllFiltered($value, $key, $filters)
