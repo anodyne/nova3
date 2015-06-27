@@ -9,49 +9,21 @@
 @stop
 
 @section('content')
-	@if ($env->get('php') and $env->get('writableDirs') and $env->get('pdo'))
-		<div class="row">
-			<div class="col-md-12">
-				<div class="thumbnail text-center">
-					<h1>PDO Drivers</h1>
-					<h2>Are the MySQL or PostgresSQL PDO drivers available?</h2>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="thumbnail text-center">
+				<h1>PHP</h1>
+				<h2>Version 5.5+</h2>
 
-					@if ($env->get('pdoDrivers'))
-						<div>{!! icon('setup.checkmark', 'xl', 'text-success') !!}</div>
-					@else
-						<div>{!! icon('setup.warning', 'xl', 'text-danger') !!}</div>
-						<p>PDO is enabled, but unfortunately, neither the MySQL or PostgresSQL drivers are available. {{ config('nova.app.name') }} needs one or the other in order to be installed. Get in touch with your web host and have them enable one or both of the drivers.</p>
-
-						<p>At the moment, the following drivers are available on your server:</p>
-
-						<ul class="list-unstyled">
-							@foreach ($env->get('pdoDriversFull') as $driver)
-								<li><code>{{ $driver }}</code></li>
-							@endforeach
-						</ul>
-					@endif
-				</div>
+				@if ($env->get('php'))
+					<div>{!! icon('setup.checkmark', 'xl', 'text-success') !!}</div>
+				@else
+					<div>{!! icon('setup.warning', 'xl', 'text-danger') !!}</div>
+					<p>Uh oh! It looks like your server isn't running a high enough version of PHP. In order to use {{ config('nova.app.name') }}, your server needs to be running at least PHP 5.5. Your server is currently running <strong class="text-danger">{{ PHP_VERSION }}</strong>. Sometimes, web hosts run multiple versions of PHP and it's possible to switch your account over to a different PHP version. Get in touch with your web host and see if this is something they can resolve for you.</p>
+				@endif
 			</div>
 		</div>
-	@endif
-
-	@if ($env->get('php') and $env->get('writableDirs'))
-		<div class="row">
-			<div class="col-md-12">
-				<div class="thumbnail text-center">
-					<h1>PDO</h1>
-					<h2>Is PDO enabled on the server for connecting to the database?</h2>
-
-					@if ($env->get('pdo'))
-						<div>{!! icon('setup.checkmark', 'xl', 'text-success') !!}</div>
-					@else
-						<div>{!! icon('setup.warning', 'xl', 'text-danger') !!}</div>
-						<p>{{ config('nova.app.name') }} is a database-driven system, so in order to work, we have to be able to connect to a database. PDO is the modern way to connect to MySQL and other types of databases, but your server doesn't have PDO enabled. Before you can continue, you'll need to get in touch with your web host to have them enable PDO on the server.</p>
-					@endif
-				</div>
-			</div>
-		</div>
-	@endif
+	</div>
 
 	@if ($env->get('php'))
 		<div class="row">
@@ -77,21 +49,49 @@
 				</div>
 			</div>
 		</div>
-	@endif
 
-	<div class="row">
-		<div class="col-md-12">
-			<div class="thumbnail text-center">
-				<h1>PHP</h1>
-				<h2>Version 5.4+</h2>
+		@if ($env->get('writableDirs'))
+			<div class="row">
+				<div class="col-md-12">
+					<div class="thumbnail text-center">
+						<h1>PDO</h1>
+						<h2>Is PDO enabled on the server for connecting to the database?</h2>
 
-				@if ($env->get('php'))
-					<div>{!! icon('setup.checkmark', 'xl', 'text-success') !!}</div>
-				@else
-					<div>{!! icon('setup.warning', 'xl', 'text-danger') !!}</div>
-					<p>Uh oh! It looks like your server isn't running a high enough version of PHP. In order to use {{ config('nova.app.name') }}, your server needs to be running at least PHP 5.4. Your server is currently running <strong class="text-danger">{{ PHP_VERSION }}</strong>. Sometimes, web hosts run multiple versions of PHP and it's possible to switch your account over to a different PHP version. Get in touch with your web host and see if this is something they can resolve for you.</p>
-				@endif
+						@if ($env->get('pdo'))
+							<div>{!! icon('setup.checkmark', 'xl', 'text-success') !!}</div>
+						@else
+							<div>{!! icon('setup.warning', 'xl', 'text-danger') !!}</div>
+							<p>{{ config('nova.app.name') }} is a database-driven system, so in order to work, we have to be able to connect to a database. PDO is the modern way to connect to MySQL and other types of databases, but your server doesn't have PDO enabled. Before you can continue, you'll need to get in touch with your web host to have them enable PDO on the server.</p>
+						@endif
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
+
+			@if ($env->get('pdo'))
+				<div class="row">
+					<div class="col-md-12">
+						<div class="thumbnail text-center">
+							<h1>PDO Drivers</h1>
+							<h2>Are the MySQL or PostgresSQL PDO drivers available?</h2>
+
+							@if ($env->get('pdoDrivers'))
+								<div>{!! icon('setup.checkmark', 'xl', 'text-success') !!}</div>
+							@else
+								<div>{!! icon('setup.warning', 'xl', 'text-danger') !!}</div>
+								<p>PDO is enabled, but unfortunately, neither the MySQL or PostgresSQL drivers are available. {{ config('nova.app.name') }} needs one or the other in order to be installed. Get in touch with your web host and have them enable one or both of the drivers.</p>
+
+								<p>At the moment, the following drivers are available on your server:</p>
+
+								<ul class="list-unstyled">
+									@foreach ($env->get('pdoDriversFull') as $driver)
+										<li><code>{{ $driver }}</code></li>
+									@endforeach
+								</ul>
+							@endif
+						</div>
+					</div>
+				</div>
+			@endif
+		@endif
+	@endif
 @stop

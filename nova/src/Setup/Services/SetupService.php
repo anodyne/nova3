@@ -66,7 +66,9 @@ class SetupService {
 		}
 
 		if ( ! $checks->get('writableDirs'))
+		{
 			$checks->put('writableDirsFull', $errorDirs);
+		}
 
 		// PDO
 		if ( ! defined('PDO::ATTR_DRIVER_NAME'))
