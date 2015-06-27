@@ -1,9 +1,11 @@
+Nova NextGen has unique requirements that require a very particular file structure and setup. Out of the box, Laravel 5 doesn't support these requirements and many changes have been made to ensure Nova NextGen works the way we intend it to. This file describes the changes that have been made to this instance of Laravel 5 to make it work like we want.
+
 - Update `bootstrap/autoload.php` to point to the Composer autoload file in the `nova/vendor` directory
 - Update the `vendor` path for the autoload file
 - Update the path to the compiled classes file
 - Update the `artisan` file with the new bootstrap path
 - Update creating the new application instance to take into account we're no longer at the root w/ the bootstrap directory
-- Add an Application class in Nova/Foundation
+- Add an `Application` class in Nova/Foundation
 	- Update the `bootstrap/app.php` file with the new class
 - Update `app/Http/Kernel.php` to replace the `LoadConfiguration` class
 	- Add `LoadConfiguration` class to Nova
