@@ -3,7 +3,8 @@
 use UserCreator,
 	CharacterCreator;
 use ReflectionClass;
-use Illuminate\Support\ClassLoader,
+use Illuminate\Support\Collection,
+	Illuminate\Support\ClassLoader,
 	Illuminate\Support\ServiceProvider;
 use League\CommonMark\CommonMarkConverter;
 use Nova\Core\Pages\Services\Compilers\PageCompiler,
@@ -130,7 +131,7 @@ class NovaServiceProvider extends ServiceProvider {
 				return $app['SettingRepository']->getAllSettings();
 			}
 
-			return false;
+			return new Collection;
 		});
 
 		$this->app->bind('nova.character.creator', function($app)
