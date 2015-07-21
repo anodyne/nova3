@@ -1,0 +1,18 @@
+<?php namespace Nova\Core\Menus\Events;
+
+use MenuItem;
+use Nova\Foundation\Events\Event;
+use Illuminate\Queue\SerializesModels;
+
+class MenuItemWasCreated extends Event {
+
+	use SerializesModels;
+
+	protected $item;
+
+	public function __construct(MenuItem $item)
+	{
+		$this->item = $item;
+	}
+
+}

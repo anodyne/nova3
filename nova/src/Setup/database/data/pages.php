@@ -238,13 +238,6 @@ return [
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@generateMenuKey",
 	],
 	[
-		'name'				=> "Manage Menu Items",
-		'key'				=> "admin.menus.items",
-		'uri'				=> "admin/menus/{menuId}/items",
-		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@items",
-		'menu_id'			=> 2,
-	],
-	[
 		'name'				=> "Manage Pages with This Menu",
 		'key'				=> "admin.menus.pages",
 		'uri'				=> "admin/menus/{menuKey}/pages",
@@ -264,5 +257,52 @@ return [
 		'key'				=> "admin.menus.reorder",
 		'uri'				=> "admin/menus/reorder",
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@reorder",
+	],
+
+	[
+		'name'				=> "Manage Menu Items",
+		'key'				=> "admin.menus.items",
+		'uri'				=> "admin/menu-items/{menuId}",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@index",
+		'menu_id'			=> 2,
+	],
+	[
+		'name'				=> "Create Menu Item",
+		'key'				=> "admin.menus.items.create",
+		'uri'				=> "admin/menu-items/create",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@create",
+	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Store Menu Item",
+		'key'				=> "admin.menus.items.store",
+		'uri'				=> "admin/menu-items/create",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@store",
+	],
+	[
+		'name'				=> "Edit Menu Item",
+		'key'				=> "admin.menus.items.edit",
+		'uri'				=> "admin/menu-items/{menuItemId}/edit",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@edit",
+	],
+	[
+		'verb'				=> "PUT",
+		'name'				=> "Update Menu Item",
+		'key'				=> "admin.menus.items.update",
+		'uri'				=> "admin/menu-items/{menuItemId}",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@update",
+	],
+	[
+		'name'				=> "Remove Menu Item Pop-up",
+		'key'				=> "admin.menus.items.remove",
+		'uri'				=> "admin/menu-items/{menuItemId}/remove",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@remove",
+	],
+	[
+		'verb'				=> "DELETE",
+		'name'				=> "Remove Menu Item",
+		'key'				=> "admin.menus.items.destroy",
+		'uri'				=> "admin/menu-items/{menuItemId}",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@destroy",
 	],
 ];

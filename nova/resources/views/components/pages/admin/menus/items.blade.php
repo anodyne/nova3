@@ -3,13 +3,13 @@
 </div>
 
 <div class="visible-xs visible-sm">
-	<p><a href="#" class="btn btn-success btn-lg btn-block">Add a Menu Item</a></p>
+	<p><a href="{{ route('admin.menus.items.create') }}" class="btn btn-success btn-lg btn-block">Add a Menu Item</a></p>
 	<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Menu Manager</a></p>
 </div>
 <div class="visible-md visible-lg">
 	<div class="btn-toolbar">
 		<div class="btn-group">
-			<a href="#" class="btn btn-success">Add a Menu Item</a>
+			<a href="{{ route('admin.menus.items.create') }}" class="btn btn-success">Add a Menu Item</a>
 		</div>
 		<div class="btn-group">
 			<a href="{{ route('admin.menus') }}" class="btn btn-default">Menu Manager</a>
@@ -25,7 +25,7 @@
 			<div data-nestable-action="toggle"></div>
 			{{ $main->present()->title }}
 			<div class="pull-right uk-nested-item-controls">
-				<a href="#">{!! icon('edit', 'xs') !!}</a>
+				<a href="{{ route('admin.menus.items.edit', [$main->id]) }}">{!! icon('edit', 'xs') !!}</a>
 				<a href="#" class="danger">{!! icon('delete', 'xs') !!}</a>
 			</div>
 		</div>
@@ -38,7 +38,7 @@
 						<div data-nestable-action="toggle"></div>
 						{{ $sub->present()->title }}
 						<div class="pull-right uk-nested-item-controls">
-							<a href="#">{!! icon('edit', 'xs') !!}</a>
+							<a href="{{ route('admin.menus.items.edit', [$sub->id]) }}">{!! icon('edit', 'xs') !!}</a>
 							<a href="#" class="danger">{!! icon('delete', 'xs') !!}</a>
 						</div>
 					</div>

@@ -14,6 +14,32 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 		$this->model = $model;
 	}
 
+	public function create(array $data)
+	{
+		return $this->model->create($data);
+	}
+
+	public function delete($id)
+	{
+		// Get the menu item we're deleting
+		$item = $this->find($id);
+
+		if ($item)
+		{
+			// Delete the menu item
+			$item->delete();
+
+			return $item;
+		}
+
+		return false;
+	}
+
+	public function find($id)
+	{
+		return $this->getById($id, ['menu']);
+	}
+
 	public function getMainMenuItems($menu)
 	{
 		return $this->model->where('menu_id', '=', $menu)
@@ -73,6 +99,23 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 				}
 			}
 		}
+	}
+
+	public function update($id, array $data)
+	{
+		// Get the menu item
+		$item = $this->find($id);
+
+		if ($item)
+		{
+			$updatedItem = $item->fill($data);
+
+			$updatedItem->save();
+
+			return $updatedItem;
+		}
+
+		return false;
 	}
 
 }

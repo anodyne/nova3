@@ -16,6 +16,10 @@ return [
 	'Nova\Core\Pages\Events\PageContentWasDeleted' => [],
 	'Nova\Core\Pages\Events\PageContentWasUpdated' => [],
 
+	'Nova\Core\Menus\Events\MenuItemWasCreated' => [],
+	'Nova\Core\Menus\Events\MenuItemWasDeleted' => [],
+	'Nova\Core\Menus\Events\MenuItemWasUpdated' => [],
+	
 	'Nova\Core\Menus\Events\MenuWasCreated' => [],
 	'Nova\Core\Menus\Events\MenuWasDeleted' => [],
 	'Nova\Core\Menus\Events\MenuWasUpdated' => [],
