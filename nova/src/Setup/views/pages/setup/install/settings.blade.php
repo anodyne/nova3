@@ -92,7 +92,7 @@
 		$('[name="sim_name"]').on('change', function(e)
 		{
 			$('[name="mail_subject_prefix"]').val("[" + $(this).val() + "]");
-			$('[name="mail_default_name"]').val($(this).val());
+			$('[name="mail_default_name"]').val($(this).val() + " Admin");
 		});
 	</script>
 @stop
