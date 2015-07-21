@@ -16,14 +16,14 @@ body {
 header {
 	position: relative;
 	height: @header-height;
-	margin-bottom: 25px;
+	margin-bottom: 2.5rem;
 
 	background: @color-white;
 	color: @color-blue-grey-300;
 	font-weight: 300;
 	font-family: @font-heading;
 	font-size: 3.2rem;
-	border-bottom: 1px solid rgba(0, 0, 0, .1);
+	border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1);
 
 	.product, .process, .divider {
 		line-height: 6.2rem;
@@ -40,7 +40,7 @@ header {
 
 	.anodyne-logo {
 		display: block;
-		width: 60px;
+		width: 6rem;
 		height: @header-height;
 
 		background: transparent url(../images/anodyne.png) center center no-repeat;
@@ -52,7 +52,7 @@ nav {
 
 	background: @color-blue-grey-800;
 	color: @color-blue-grey-500;
-	border: 1px solid rgba(0, 0, 0, .25);
+	border: 0.1rem solid rgba(0, 0, 0, 0.25);
 
 	.rounded(@border-radius-lg);
 
@@ -68,11 +68,11 @@ nav {
 			position: relative;
 			margin: 0;
 			/*padding: @spacing 10px @spacing 45px;*/
-			padding: @spacing 10px;
-			line-height: 2rem;
+			padding: @spacing 1rem;
+			line-height: 2.4rem;
 
 			font-size: 1.4rem;
-			letter-spacing: 0.5px;
+			letter-spacing: 0.05rem;
 
 			/*&:before {
 				content: counter(li);
@@ -102,9 +102,9 @@ nav {
 				height: 0;
 			}*/
 
-			.icn {
+			.material-icons {
 				float: left;
-				margin-top: -1px;
+				margin-top: -0.1rem;
 				margin-right: @spacing-sm;
 			}
 
@@ -117,12 +117,12 @@ nav {
 			}
 
 			&.step-completed {
-				color: rgba(255, 255, 255, .5);
+				color: rgba(255, 255, 255, 0.5);
 				background: @color-blue-grey-600;
 
 				&:before {
 					color: @color-blue-grey-600;
-					background: rgba(255, 255, 255, .5);
+					background: rgba(255, 255, 255, 0.5);
 				}
 
 				/*&:first-of-type {
@@ -140,11 +140,11 @@ nav {
 }
 
 main {
-	margin-bottom: 25px;
+	margin-bottom: 2.5rem;
 
 	background: @color-white;
 	color: @color-blue-grey-800;
-	border: 1px solid rgba(0, 0, 0, .1);
+	border: 0.1rem solid rgba(0, 0, 0, 0.1);
 
 	.rounded(@border-radius-lg);
 
@@ -163,7 +163,7 @@ main {
 	.controls {
 		padding: @spacing;
 
-		border-top: 1px solid rgba(0, 0, 0, .1);
+		border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
 
 		p {
 			margin: 0;
@@ -227,7 +227,7 @@ main {
 		}
 
 		.help-block {
-			margin-bottom: 5px;
+			margin-bottom: 0.5rem;
 			line-height: 1.6;
 
 			color: @color-blue-grey-300;
@@ -236,19 +236,19 @@ main {
 
 		.checkbox input[type=checkbox],
 		.radio input[type=radio] {
-			margin-top: 9px;
+			margin-top: 0.9rem;
 		}
 	}
 }
 
 .thumbnail {
-	margin: 10px 0;
-	padding: 10px @spacing;
+	margin: 1rem 0;
+	padding: 1rem @spacing;
 
 	.rounded(@border-radius-lg);
 
 	h1 {
-		font-size: 34px;
+		font-size: 3.4rem;
 		font-weight: 300;
 		font-family: @font-heading;
 		color: @color-blue-grey-600;
@@ -257,7 +257,7 @@ main {
 	h2 {
 		margin: 0 0 @spacing 0;
 
-		font-size: 15px;
+		font-size: 1.5rem;
 		font-weight: 400;
 		color: @color-blue-grey-300;
 	}
@@ -265,7 +265,7 @@ main {
 	p, ul li {
 		line-height: @line-height;
 
-		font-size: 15px;
+		font-size: 1.5rem;
 		color: @color-blue-grey-800;
 		text-align: left;
 	}
@@ -326,7 +326,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn {
 	font-weight: 500;
-	letter-spacing: 0.5px;
+	letter-spacing: 0.05rem;
 
 	.rounded(@border-radius);
 
@@ -351,10 +351,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 hr.partial {
-	margin: 25px auto;
+	margin: 2.5rem auto;
 	width: 75%;
 
-	border-color: rgba(0, 0, 0, .1);
+	border-color: rgba(0, 0, 0, 0.1);
 }
 
 .alert {
@@ -380,7 +380,7 @@ hr.partial {
 
 .label {
 	font-weight: 400;
-	letter-spacing: 0.5px;
+	letter-spacing: 0.05rem;
 
 	.rounded(@border-radius-sm);
 
@@ -398,29 +398,29 @@ code {
 }
 
 .logo {
-	margin-left: 8px;
+	margin-left: 0.8rem;
 
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top left;
 
 	&.mysql {
-		height: 58px;
-		width: 85px;
+		height: 5.8rem;
+		width: 8.5rem;
 
 		background-image: url(../images/mysql.png);
 	}
 
 	&.postgresql {
-		height: 75px;
-		width: 85px;
+		height: 7.5rem;
+		width: 8.5rem;
 
 		background-image: url(../images/postgresql.png);
 	}
 
 	&.sqlite {
-		height: 40px;
-		width: 85px;
+		height: 4rem;
+		width: 8.5rem;
 
 		background-image: url(../images/sqlite.png);
 	}
