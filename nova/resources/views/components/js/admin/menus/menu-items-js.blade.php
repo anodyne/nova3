@@ -33,4 +33,19 @@
 			}
 		});
 	});
+
+	$('.js-menuItemAction').click(function(e)
+	{
+		e.preventDefault();
+
+		var itemId = $(this).data('id');
+		var action = $(this).data('action');
+
+		if (action == 'remove')
+		{
+			$('#removeMenuItem').modal({
+				remote: "{{ url('admin/menu-items') }}/" + itemId + "/remove"
+			}).modal('show');
+		}
+	});
 </script>

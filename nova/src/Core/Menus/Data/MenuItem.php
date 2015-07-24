@@ -33,5 +33,10 @@ class MenuItem extends Model {
 	{
 		return $this->belongsTo('Menu');
 	}
+
+	public function page()
+	{
+		return $this->belongsTo('Page');
+	}
 	
 }

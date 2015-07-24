@@ -3,13 +3,13 @@
 </div>
 
 <div class="visible-xs visible-sm">
-	<p><a href="{{ route('admin.menus.items.create') }}" class="btn btn-success btn-lg btn-block">Add a Menu Item</a></p>
+	<p><a href="{{ route('admin.menus.items.create', [$menu->id]) }}" class="btn btn-success btn-lg btn-block">Add a Menu Item</a></p>
 	<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Menu Manager</a></p>
 </div>
 <div class="visible-md visible-lg">
 	<div class="btn-toolbar">
 		<div class="btn-group">
-			<a href="{{ route('admin.menus.items.create') }}" class="btn btn-success">Add a Menu Item</a>
+			<a href="{{ route('admin.menus.items.create', [$menu->id]) }}" class="btn btn-success">Add a Menu Item</a>
 		</div>
 		<div class="btn-group">
 			<a href="{{ route('admin.menus') }}" class="btn btn-default">Menu Manager</a>
@@ -26,7 +26,7 @@
 			{{ $main->present()->title }}
 			<div class="pull-right uk-nested-item-controls">
 				<a href="{{ route('admin.menus.items.edit', [$main->id]) }}">{!! icon('edit', 'xs') !!}</a>
-				<a href="#" class="danger">{!! icon('delete', 'xs') !!}</a>
+				<a href="#" class="danger js-menuItemAction" data-id="{{ $main->id }}" data-action="remove">{!! icon('delete', 'xs') !!}</a>
 			</div>
 		</div>
 		@if (array_key_exists($main->id, $subMenuItems))
@@ -39,7 +39,7 @@
 						{{ $sub->present()->title }}
 						<div class="pull-right uk-nested-item-controls">
 							<a href="{{ route('admin.menus.items.edit', [$sub->id]) }}">{!! icon('edit', 'xs') !!}</a>
-							<a href="#" class="danger">{!! icon('delete', 'xs') !!}</a>
+							<a href="#" class="danger js-menuItemAction" data-id="{{ $main->id }}" data-action="remove">{!! icon('delete', 'xs') !!}</a>
 						</div>
 					</div>
 				</li>
@@ -49,3 +49,5 @@
 	</li>
 @endforeach
 </ul>
+
+{!! modal(['id' => "removeMenuItem", 'header' => "Remove Menu Item"]) !!}

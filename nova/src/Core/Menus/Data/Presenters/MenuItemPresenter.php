@@ -1,6 +1,5 @@
 <?php namespace Nova\Core\Menus\Data\Presenters;
 
-use HTML;
 use Laracasts\Presenter\Presenter;
 
 class MenuItemPresenter extends Presenter {
@@ -12,24 +11,20 @@ class MenuItemPresenter extends Presenter {
 
 		switch ($this->entity->type)
 		{
-			case 'route':
-				return HTML::linkRoute($link, $title, [], $attributes);
-			break;
-
-			case 'offsite':
+			case 'external':
 				$attributes = array_merge(['target' => '_blank'], $attributes);
 
-				return HTML::link($link, $title, $attributes);
+				return link_to($link, $title, $attributes);
 			break;
 
-			case 'onsite':
-				return HTML::link($link, $title, $attributes);
+			case 'internal':
+				return link_to($link, $title, $attributes);
 			break;
 
 			case 'page':
 				$page = $this->entity->page;
 
-				return HTML::linkRoute($page->key, $page->name, [], $attributes);
+				return link_to_route($page->key, $page->name, [], $attributes);
 			break;
 		}
 	}

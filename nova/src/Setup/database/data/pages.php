@@ -269,7 +269,7 @@ return [
 	[
 		'name'				=> "Create Menu Item",
 		'key'				=> "admin.menus.items.create",
-		'uri'				=> "admin/menu-items/create",
+		'uri'				=> "admin/menu-items/{menuId}/create",
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@create",
 	],
 	[

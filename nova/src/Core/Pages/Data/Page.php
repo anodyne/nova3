@@ -37,9 +37,25 @@ class Page extends Model {
 		return $this->belongsTo('Menu');
 	}
 
+	public function menuItems()
+	{
+		return $this->hasMany('MenuItem');
+	}
+
 	/*
 	|---------------------------------------------------------------------------
-	| Models Methods
+	| Model Scopes
+	|---------------------------------------------------------------------------
+	*/
+
+	public function scopeVerb($query, $verb)
+	{
+		$query->where('verb', '=', strtoupper($verb));
+	}
+
+	/*
+	|---------------------------------------------------------------------------
+	| Model Methods
 	|---------------------------------------------------------------------------
 	*/
 
