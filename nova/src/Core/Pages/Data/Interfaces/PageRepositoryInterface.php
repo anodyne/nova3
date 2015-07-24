@@ -5,7 +5,7 @@ use Nova\Foundation\Data\Interfaces\BaseRepositoryInterface;
 
 interface PageRepositoryInterface extends BaseRepositoryInterface {
 
-	public function all();
+	public function all($verb = false);
 	public function create(array $data);
 	public function delete($id);
 	public function find($id);
