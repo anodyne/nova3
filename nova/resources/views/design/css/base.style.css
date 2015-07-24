@@ -150,6 +150,7 @@ dl dd {
 }
 .uk-nestable li.uk-nestable-list-item .uk-nestable-item .uk-nested-item-controls {
   display: none;
+  margin: 0.3rem 0 0 0;
 }
 .uk-nestable li.uk-nestable-list-item .uk-nestable-item .uk-nested-item-controls a {
   color: #9e9e9e;

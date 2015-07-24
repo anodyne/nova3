@@ -13,31 +13,31 @@
   font-smoothing: antialiased;
 }
 .icn-size-xs {
-  font-size: 18px !important;
+  font-size: 1.8rem !important;
 }
 .icn-size-sm {
-  font-size: 24px !important;
+  font-size: 2.4rem !important;
 }
 .icn-size-md {
-  font-size: 48px !important;
+  font-size: 4.8rem !important;
 }
 .icn-size-lg {
-  font-size: 72px !important;
+  font-size: 7.2rem !important;
 }
 .icn-size-xlg {
-  font-size: 96px !important;
+  font-size: 9.6rem !important;
 }
 .icn-size-sm-with-text {
-  padding-bottom: 7px;
-  font-size: 16px !important;
+  padding-bottom: 0.7rem;
+  font-size: 1.6rem !important;
 }
 .icn-size-md-with-text {
-  padding-bottom: 7px;
-  font-size: 32px !important;
+  padding-bottom: 0.7rem;
+  font-size: 3.2rem !important;
 }
 .icn-size-lg-with-text {
-  padding-bottom: 7px;
-  font-size: 72px !important;
+  padding-bottom: 0.7rem;
+  font-size: 7.2rem !important;
 }
 .icn-opacity-25 {
   opacity: 0.25;
