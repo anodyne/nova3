@@ -32,6 +32,8 @@
 			{!! HTML::style('nova/resources/views/design/css/base.style.css') !!}
 		@endif
 
+		{!! HTML::style('nova/resources/views/design/css/base.responsive.css') !!}
+
 		@if (app('files')->exists(themePath('design/css/custom.css', false)))
 			{!! HTML::style(themePath('design/css/custom.css')) !!}
 		@endif
