@@ -38,5 +38,15 @@ class MenuItem extends Model {
 	{
 		return $this->belongsTo('Page');
 	}
+
+	public function childrenMenuItems()
+	{
+		return $this->hasMany('MenuItem', 'parent_id', 'id');
+	}
+
+	public function parentMenuItem()
+	{
+		return $this->belongsTo('MenuItem', 'parent_id', 'id');
+	}
 	
 }

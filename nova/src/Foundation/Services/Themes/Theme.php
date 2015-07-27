@@ -96,21 +96,28 @@ class Theme implements Themeable, ThemeableInfo {
 		$menuItemRepo = app('MenuItemRepository');
 
 		// Get the main menu items
-		$menuMainItems = $menuItemRepo->getMainMenuItems($page->menu_id);
+		$menuMainItems = $menuItemRepo->getMainMenuItems($page->menu);
 
 		// Get the sub menu items
-		$menuSubItems = $menuItemRepo->getSubMenuItems($page->menu_id);
+		$menuSubItems = $menuItemRepo->getSubMenuItems($page->menu);
+
+		// We want to use an array for the combined menu
+		$menuSubItemsArr = $menuItemRepo->splitSubMenuItemsIntoArray($menuSubItems);
 
 		// Filter out sub items to only what we would need for the sub menu
-		$menuSubItemsFiltered = $menuSubItems->filter(function($m) use ($page)
+		$menuSubItemsFiltered = $menuSubItems->filter(function($item) use ($page)
 		{
-			//
+			//dd($item->parent);
+			//return $item->parent->page_id == $page->id;
 		});
 
 		$data = [
 			'menuMainItems'	=> $menuMainItems,
-			'menuSubItems'	=> $menuSubItems,
+			'menuSubItems'	=> $menuSubItemsArr,
 		];
+
+		//d($page->id);
+		//dd($menuSubItemsFiltered);
 
 		$this->layout->template->menuMain = $this->view->make($this->locate->partial('menu-main'))
 			->with(['items' => $menuMainItems]);

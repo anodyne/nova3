@@ -11,18 +11,20 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="{{ route('setup.home') }}">Setup Center</a></li>
-
-				@if (Auth::check())
+			@foreach ($menuMainItems as $mainMenuItem)
+				@if (array_key_exists($mainMenuItem->id, $menuSubItems))
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ $mainMenuItem->present()->title }} <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="{{ route('admin.pages') }}">Page Manager</a></li>
-							<li><a href="{{ route('admin.content') }}">Additional Page Content</a></li>
-							<li><a href="{{ route('admin.menus') }}">Menus</a></li>
+						@foreach ($menuSubItems[$mainMenuItem->id] as $subMenuItem)
+							<li>{!! $subMenuItem->present()->anchorTag() !!}</li>
+						@endforeach
 						</ul>
 					</li>
+				@else
+					<li>{!! $mainMenuItem->present()->anchorTag() !!}</li>
 				@endif
+			@endforeach
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">

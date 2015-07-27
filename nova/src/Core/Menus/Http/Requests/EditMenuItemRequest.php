@@ -22,18 +22,18 @@ class EditMenuItemRequest extends Request {
 	public function rules()
 	{
 		return [
-			'title'		=> 'required',
+			'title'		=> 'required_if:type,external,internal,route',
 			'menu_id'	=> 'required|integer',
 			'link'		=> 'required_if:type,external',
 			'page_id'	=> 'required_if:type,page',
-			'type'		=> 'required|in:page,external',
+			'type'		=> 'required|in:page,external,internal,route',
 		];
 	}
 
 	public function messages()
 	{
 		return [
-			'title.required'		=> "Please enter a title for the menu item",
+			'title.required_if'		=> "Please enter a title for the menu item",
 			'menu_id.required'		=> "Please enter a menu this items should be part of",
 			'menu_id.integer'		=> "Please enter a valid menu",
 			'link.required_if'		=> "Please provide a link for the menu item",

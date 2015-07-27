@@ -95,14 +95,14 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 	{
 		$routeName = ($route instanceof Route) ? $route->getName() : $route;
 
-		return $this->getFirstBy('key', $routeName, ['pageContents']);
+		return $this->getFirstBy('key', $routeName, ['pageContents', 'menu', 'menu.pages', 'menu.menuItems', 'menu.menuItems.page']);
 	}
 
 	public function getByRouteUri($route)
 	{
 		$routeUri = ($route instanceof Route) ? $route->getUri() : $route;
 
-		return $this->getFirstBy('uri', $routeUri, ['pageContents']);
+		return $this->getFirstBy('uri', $routeUri, ['pageContents', 'menu', 'menu.pages', 'menu.menuItems', 'menu.menuItems.page']);
 	}
 
 	public function update($id, array $data)

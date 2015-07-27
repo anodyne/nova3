@@ -35,9 +35,15 @@ class MenuItemController extends BaseController {
 		$this->jsView = 'admin/menus/menu-items-js';
 		$this->styleView = 'admin/menus/menu-items-style';
 
-		$this->data->menu = $this->menuRepo->find($menuId);
-		$this->data->mainMenuItems = $this->repo->getMainMenuItems($menuId);
-		$this->data->subMenuItems = $this->repo->getSubMenuItemsAsArray($menuId);
+		// Get the menu
+		$this->data->menu = $menu = $this->menuRepo->find($menuId);
+
+		// Get the parent level menu items
+		$this->data->mainMenuItems = $this->repo->getMainMenuItems($menu);
+		
+		// Grab the sub menu items
+		$subMenuItems = $this->repo->getSubMenuItems($menu);
+		$this->data->subMenuItems = $this->repo->splitSubMenuItemsIntoArray($subMenuItems);
 	}
 
 	public function create($menuId)
@@ -57,7 +63,9 @@ class MenuItemController extends BaseController {
 		$this->data->linkTypes = [
 			''			=> "Please choose a menu item type",
 			'page'		=> "A page in Nova",
+			'internal'	=> "A full link to a page in Nova",
 			'external'	=> "Another page not in Nova",
+			'route'		=> "A named route in Nova",
 		];
 	}
 
@@ -93,7 +101,9 @@ class MenuItemController extends BaseController {
 		$this->data->linkTypes = [
 			''			=> "Please choose a menu item type",
 			'page'		=> "A page in Nova",
+			'internal'	=> "A full link to a page in Nova",
 			'external'	=> "Another page not in Nova",
+			'route'		=> "A named route in Nova",
 		];
 	}
 

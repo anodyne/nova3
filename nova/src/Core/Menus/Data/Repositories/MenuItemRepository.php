@@ -3,6 +3,7 @@
 use Menu,
 	MenuItem as Model,
 	MenuItemRepositoryInterface;
+use Illuminate\Support\Collection;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInterface {
@@ -16,6 +17,12 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 
 	public function create(array $data)
 	{
+		// Don't store a page ID unless the menu item type is page
+		if ($data['type'] != 'page')
+		{
+			unset($data['page_id']);
+		}
+
 		return $this->model->create($data);
 	}
 
@@ -37,11 +44,19 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 
 	public function find($id)
 	{
-		return $this->getById($id, ['menu']);
+		return $this->getById($id, ['menu', 'page']);
 	}
 
 	public function getMainMenuItems($menu)
 	{
+		if ($menu instanceof Menu)
+		{
+			return $menu->menuItems->filter(function($item)
+			{
+				return (int) $item->parent_id === 0;
+			})->sortBy('order');
+		}
+
 		return $this->model->where('menu_id', '=', $menu)
 			->where('parent_id', '=', 0)
 			->orderBy('order', 'asc')
@@ -50,27 +65,18 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 
 	public function getSubMenuItems($menu)
 	{
+		if ($menu instanceof Menu)
+		{
+			return $menu->menuItems->filter(function($item)
+			{
+				return (int) $item->parent_id != 0;
+			})->sortBy('order');
+		}
+
 		return $this->model->where('menu_id', '=', $menu)
 			->where('parent_id', '!=', 0)
 			->orderBy('order', 'asc')
 			->get();
-	}
-
-	public function getSubMenuItemsAsArray($menu)
-	{
-		$items = $this->getSubMenuItems($menu);
-
-		$list = [];
-
-		if ($items)
-		{
-			foreach ($items as $item)
-			{
-				$list[$item->parent_id][] = $item;
-			}
-		}
-
-		return $list;
 	}
 
 	public function reorder(Menu $menu, array $newPositions)
@@ -99,6 +105,18 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 				}
 			}
 		}
+	}
+
+	public function splitSubMenuItemsIntoArray(Collection $menuItemCollection)
+	{
+		$list = [];
+
+		foreach ($menuItemCollection as $item)
+		{
+			$list[$item->parent_id][] = $item;
+		}
+
+		return $list;
 	}
 
 	public function update($id, array $data)

@@ -102,7 +102,7 @@ class MenuController extends BaseController {
 	public function destroy(RemoveMenuRequest $request, $menuId)
 	{
 		// Delete the menu
-		$menu = $this->repo->delete($menuId);
+		$menu = $this->repo->delete($menuId, $request->get('new_menu'));
 
 		// Fire the event
 		event(new Events\MenuWasDeleted($menu->key, $menu->name));
@@ -172,12 +172,22 @@ class MenuController extends BaseController {
 		$this->data->menus += $this->repo->listAllFiltered('name', 'id', $menu->id);
 	}
 
-	public function updatePages(Request $request, $menuId)
+	public function updatePages(Request $request, $menuKey)
 	{
 		// Update the pages
-		$this->repo->updatePages($request->get('pages'), $request->get('menu'));
+		$this->repo->updatePages($request->get('pages'), $request->get('new_menu'));
 
-		return redirect()->route('admin.menus.pages', [$menuId]);
+		// Set the flash message
+		if (count($request->get('pages')) > 1)
+		{
+			flash()->success("Pages have been updated.");
+		}
+		else
+		{
+			flash()->success("Page has been updated.");
+		}
+
+		return redirect()->route('admin.menus.pages', [$menuKey]);
 	}
 
 }

@@ -24,9 +24,25 @@ class MenuItemPresenter extends Presenter {
 			case 'page':
 				$page = $this->entity->page;
 
-				return link_to_route($page->key, $page->name, [], $attributes);
+				$title = (empty($title)) ? $page->name : $title;
+
+				return link_to_route($page->key, $title, [], $attributes);
+			break;
+
+			case 'route':
+				return link_to_route($link, $title, [], $attributes);
 			break;
 		}
+	}
+
+	public function title()
+	{
+		if ($this->entity->type == 'page' and empty($this->entity->title))
+		{
+			return $this->entity->page->present()->name;
+		}
+
+		return $this->entity->title;
 	}
 
 }

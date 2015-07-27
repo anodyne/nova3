@@ -28,14 +28,17 @@ class MenuRepository extends BaseRepository implements MenuRepositoryInterface {
 
 		if ($menu)
 		{
-			// If we have pages, loop through and update the menu they use
-			if ($menu->pages->count() > 0)
+			// Update any pages
+			$menu->pages->each(function($page) use ($newId)
 			{
-				foreach ($menu->pages as $page)
-				{
-					$page->fill(['menu_id' => $newId])->save();
-				}
-			}
+				$page->fill(['menu_id' => $newId])->save();
+			});
+
+			// Remove the menu items
+			$menu->menuItems->each(function($item)
+			{
+				$item->delete();
+			});
 
 			// Delete the menu
 			$menu->delete();
@@ -48,12 +51,12 @@ class MenuRepository extends BaseRepository implements MenuRepositoryInterface {
 
 	public function find($id)
 	{
-		return $this->getById($id, ['menuItems', 'pages']);
+		return $this->getById($id, ['menuItems', 'menuItems.page', 'pages']);
 	}
 
 	public function getByKey($key)
 	{
-		return $this->getFirstBy('key', $key, ['menuItems', 'pages']);
+		return $this->getFirstBy('key', $key, ['menuItems', 'menuItems.page', 'pages']);
 	}
 
 	public function getPages(Model $menu)

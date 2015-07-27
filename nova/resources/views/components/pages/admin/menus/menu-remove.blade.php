@@ -1,4 +1,4 @@
-<p>Are you sure you want to remove the <strong>{{ $menu->present()->name }}</strong> menu? This action is permanent and can't be undone!</p>
+<p>Are you sure you want to remove the <strong>{{ $menu->present()->name }}</strong> menu? Removing this menu will re-assign any pages in the system to display the selected menu below when they're active as well as remove all menu items currently attached to this menu. This action is permanent and can't be undone!</p>
 
 {!! Form::model($menu, ['route' => ['admin.menus.destroy', $menu->id], 'method' => 'delete']) !!}
 	<div class="form-group">
