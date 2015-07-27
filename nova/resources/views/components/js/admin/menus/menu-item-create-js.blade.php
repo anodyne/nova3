@@ -11,8 +11,7 @@
 
 		if (selected == "page")
 			$('#page-link').removeClass('hide');
-
-		if (selected == "external")
+		else
 			$('#external-link').removeClass('hide');
 	});
 
@@ -20,10 +19,12 @@
 	{
 		var typeSelected = $('[name="type"] option:selected').val();
 
-		if (typeSelected == "page")
-			$('#page-link').removeClass('hide');
-
-		if (typeSelected == "external")
-			$('#external-link').removeClass('hide');
+		if (typeSelected != "")
+		{
+			if (typeSelected == "page")
+				$('#page-link').removeClass('hide');
+			else
+				$('#external-link').removeClass('hide');
+		}
 	});
 </script>
