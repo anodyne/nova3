@@ -141,6 +141,7 @@ return [
 		 * Nova Service Providers
 		 */
 
+		//Zizaco\Entrust\EntrustServiceProvider::class,
 		Collective\Html\HtmlServiceProvider::class,
 		Nova\Setup\Providers\SetupServiceProvider::class,
 		Nova\Setup\Providers\SetupRouteServiceProvider::class,
@@ -198,15 +199,16 @@ return [
 		'Validator' => Illuminate\Support\Facades\Validator::class,
 		'View'      => Illuminate\Support\Facades\View::class,
 
-		'BaseController'	=> 'Nova\Foundation\Http\Controllers\BaseController',
-		'Date'				=> 'Carbon\Carbon',
-		'Model'				=> 'Illuminate\Database\Eloquent\Model',
-		'Form'				=> 'Collective\Html\FormFacade',
-		'Flash'				=> 'Nova\Foundation\Services\FlashNotifierFacade',
-		'HTML'				=> 'Collective\Html\HtmlFacade',
-		'Locate'			=> 'Nova\Foundation\Services\Locator\LocatorFacade',
-		'Markdown'			=> 'Nova\Foundation\Services\MarkdownParserFacade',
-		'Str'				=> 'Illuminate\Support\Str',
+		'BaseController'	=> Nova\Foundation\Http\Controllers\BaseController::class,
+		'Date'				=> Carbon\Carbon::class,
+		//'Entrust'			=> Zizaco\Entrust\EntrustFacade::class,
+		'Model'				=> Illuminate\Database\Eloquent\Model::class,
+		'Form'				=> Collective\Html\FormFacade::class,
+		'Flash'				=> Nova\Foundation\Services\FlashNotifierFacade::class,
+		'HTML'				=> Collective\Html\HtmlFacade::class,
+		'Locate'			=> Nova\Foundation\Services\Locator\LocatorFacade::class,
+		'Markdown'			=> Nova\Foundation\Services\MarkdownParserFacade::class,
+		'Str'				=> Illuminate\Support\Str::class,
 
 		/**
 		 * Mailers
