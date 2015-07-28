@@ -5,6 +5,7 @@ use Hash,
 use Illuminate\Auth\Authenticatable,
 	Illuminate\Auth\Passwords\CanResetPassword;
 use Laracasts\Presenter\PresentableTrait;
+//use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
@@ -13,6 +14,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	use Authenticatable, CanResetPassword, SoftDeletes;
 	use PresentableTrait;
+	//use EntrustUserTrait;
 
 	protected $table = 'users';
 
