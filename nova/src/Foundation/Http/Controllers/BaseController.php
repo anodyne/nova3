@@ -14,7 +14,7 @@ abstract class BaseController extends Controller {
 	protected $page;
 	protected $theme;
 	protected $settings;
-	protected $currentUser = false;
+	protected $user = false;
 
 	protected $data;
 	protected $jsData;
@@ -36,7 +36,7 @@ abstract class BaseController extends Controller {
 		$this->data				= new stdClass;
 		$this->jsData			= new stdClass;
 		$this->styleData		= new stdClass;
-		$this->currentUser		= $app['nova.user'];
+		$this->user				= $app['nova.user'];
 		$this->templateData 	= new stdClass;
 		$this->structureData	= new stdClass;
 
@@ -61,6 +61,7 @@ abstract class BaseController extends Controller {
 				$me->settings = app('nova.settings');
 
 				view()->share('_page', $me->page);
+				view()->share('_user', $me->user);
 				view()->share('_icons', config('icons.nova'));
 				view()->share('_settings', $me->settings);
 			}
@@ -68,6 +69,36 @@ abstract class BaseController extends Controller {
 
 		// Render the template after everything is done
 		$this->afterFilter('@processController');
+	}
+
+	public function errorNotFound($message = null)
+	{
+		if ($this->user)
+		{
+			app('log')->warning("{$this->user->name} attempted to access ".app('request')->fullUrl());
+		}
+		else
+		{
+			app('log')->warning("An unauthenticated user attempted to access ".app('request')->fullUrl());
+		}
+
+		// Abort
+		abort(404, $message);
+	}
+
+	public function errorUnauthorized($message = null)
+	{
+		if ($this->user)
+		{
+			app('log')->warning("{$this->user->name} attempted to access ".app('request')->fullUrl());
+		}
+		else
+		{
+			app('log')->warning("An unauthenticated user attempted to access ".app('request')->fullUrl());
+		}
+
+		// Abort
+		abort(403, $message);
 	}
 
 	public function processController($route, $request, $response)
