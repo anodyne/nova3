@@ -25,3 +25,9 @@ Have a bug? Please create an issue here on GitHub!
 https://github.com/anodyne/nova3/issues
 
 Follow us on Twitter, [@anodyneprod](http://twitter.com/anodyneprod).
+
+## Community
+
+This project adheres to the [Open Code of Conduct][code-of-conduct]. By participating, you are expected to honor this code.
+
+[code-of-conduct]: http://todogroup.org/opencodeofconduct/#Anodyne Productions/contact@anodyne-productions.com
