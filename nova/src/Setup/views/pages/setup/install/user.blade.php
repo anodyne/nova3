@@ -98,6 +98,8 @@
 			</div>
 		</div>
 
+		{!! Form::hidden('user[role]', 1) !!}
+
 		<div class="form-group">
 			<div class="col-md-7 col-md-offset-3">
 				{!! Form::button('Create User &amp; Character', [ 'class' => 'btn btn-primary', 'type' => 'submit']) !!}
