@@ -282,6 +282,12 @@ return [
 		'EditMenuRequest' => 'Nova\Core\Menus\Http\Requests\EditMenuRequest',
 		'RemoveMenuRequest' => 'Nova\Core\Menus\Http\Requests\RemoveMenuRequest',
 
+		/**
+		 * Access
+		 */
+		'Permission' => Nova\Core\Access\Data\Permission::class,
+		'Role' => Nova\Core\Access\Data\Role::class,
+
 	],
 
 ];
