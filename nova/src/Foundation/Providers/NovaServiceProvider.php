@@ -69,7 +69,7 @@ class NovaServiceProvider extends ServiceProvider {
 	protected function createLocator()
 	{
 		$this->app->bind(
-			['nova.locator' => 'Nova\Foundation\Services\Locator\LocatorInterface'],
+			['nova.locator' => 'Nova\Foundation\Services\Locator\Locatable'],
 			function($app)
 			{
 				return new Locator($app['nova.user'], $app['nova.settings']);

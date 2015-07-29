@@ -1,14 +1,14 @@
 <?php namespace Nova\Foundation\Services\Mailers;
 
 use Illuminate\Contracts\Mail\Mailer;
-use Nova\Foundation\Services\Locator\LocatorInterface;
+use Nova\Foundation\Services\Locator\Locatable;
 
 class BaseMailer {
 
 	protected $mailer;
 	protected $locator;
 
-	public function __construct(Mailer $mailer, LocatorInterface $locator)
+	public function __construct(Mailer $mailer, Locatable $locator)
 	{
 		$this->mailer = $mailer;
 		$this->locator = $locator;

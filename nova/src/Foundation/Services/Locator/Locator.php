@@ -6,7 +6,7 @@ use Symfony\Component\Finder\Finder;
 use Dflydev\Symfony\FinderFactory\FinderFactory,
 	Dflydev\Symfony\FinderFactory\FinderFactoryInterface;
 
-class Locator implements LocatorInterface {
+class Locator implements Locatable {
 
 	/**
 	 * @var	array	Array of paths to search through
@@ -76,6 +76,17 @@ class Locator implements LocatorInterface {
 	}
 
 	/**
+	 * Check to see if an ajax view file exists.
+	 *
+	 * @param	string	$file	The file to find (no extension)
+	 * @return	bool
+	 */
+	public function ajaxExists($file)
+	{
+		return $this->exists('ajax', $file);
+	}
+
+	/**
 	 * Search for an email view file.
 	 *
 	 * @param	string	$file	The file to find (no extension)
@@ -84,6 +95,17 @@ class Locator implements LocatorInterface {
 	public function email($file)
 	{
 		return $this->performSearch('emails', $file);
+	}
+
+	/**
+	 * Check to see if an email view file exists.
+	 *
+	 * @param	string	$file	The file to find (no extension)
+	 * @return	bool
+	 */
+	public function emailExists($file)
+	{
+		return $this->exists('emails', $file);
 	}
 
 	/**
@@ -98,6 +120,29 @@ class Locator implements LocatorInterface {
 	}
 
 	/**
+	 * Check to see if an error view file exists.
+	 *
+	 * @param	string	$file	The file to find (no extension)
+	 * @return	bool
+	 */
+	public function errorExists($file)
+	{
+		return $this->exists('errors', $file);
+	}
+
+	/**
+	 * Check to see if a view file exists.
+	 *
+	 * @param	string	$type	The type of file to find
+	 * @param	string	$file	The file to find (no extension)
+	 * @return	bool
+	 */
+	public function exists($type, $file)
+	{
+		return $this->performSearch($type, $file, false);
+	}
+
+	/**
 	 * Search for a javascript view file.
 	 *
 	 * @param	string	$file	The file to find (no extension)
@@ -106,6 +151,17 @@ class Locator implements LocatorInterface {
 	public function javascript($file)
 	{
 		return $this->performSearch('js', $file);
+	}
+
+	/**
+	 * Check to see if a javascript view file exists.
+	 *
+	 * @param	string	$file	The file to find (no extension)
+	 * @return	bool
+	 */
+	public function javascriptExists($file)
+	{
+		return $this->exists('js', $file);
 	}
 
 	/**
@@ -120,6 +176,17 @@ class Locator implements LocatorInterface {
 	}
 
 	/**
+	 * Check to see if a page view file exists.
+	 *
+	 * @param	string	$file	The file to find (no extension)
+	 * @return	bool
+	 */
+	public function pageExists($file)
+	{
+		return $this->exists('pages', $file);
+	}
+
+	/**
 	 * Search for a partial view file.
 	 *
 	 * @param	string	$file	The file to find (no extension)
@@ -128,6 +195,17 @@ class Locator implements LocatorInterface {
 	public function partial($file)
 	{
 		return $this->performSearch('partials', $file);
+	}
+
+	/**
+	 * Check to see if a partial view file exists.
+	 *
+	 * @param	string	$file	The file to find (no extension)
+	 * @return	bool
+	 */
+	public function partialExists($file)
+	{
+		return $this->exists('partials', $file);
 	}
 
 	/**
@@ -142,6 +220,17 @@ class Locator implements LocatorInterface {
 	}
 
 	/**
+	 * Check to see if a structure view file exists.
+	 *
+	 * @param	string	$file	The file to find (no extension)
+	 * @return	bool
+	 */
+	public function structureExists($file)
+	{
+		return $this->exists('structures', $file);
+	}
+
+	/**
 	 * Search for a style view file.
 	 *
 	 * @param	string	$file	The file to find (no extension)
@@ -153,6 +242,17 @@ class Locator implements LocatorInterface {
 	}
 
 	/**
+	 * Check to see if a style view file exists.
+	 *
+	 * @param	string	$file	The file to find (no extension)
+	 * @return	bool
+	 */
+	public function styleExists($file)
+	{
+		return $this->exists('styles', $file);
+	}
+
+	/**
 	 * Search for a template view file.
 	 *
 	 * @param	string	$file	The file to find (no extension)
@@ -161,6 +261,17 @@ class Locator implements LocatorInterface {
 	public function template($file)
 	{
 		return $this->performSearch('templates', $file);
+	}
+
+	/**
+	 * Check to see if a template view file exists.
+	 *
+	 * @param	string	$file	The file to find (no extension)
+	 * @return	bool
+	 */
+	public function templateExists($file)
+	{
+		return $this->exists('templates', $file);
 	}
 
 	/**
@@ -198,12 +309,13 @@ class Locator implements LocatorInterface {
 	 * Search through the paths and extensions to find the right file.
 	 *
 	 * @internal
-	 * @param	string	$type	The type of file to find
-	 * @param	string	$file	The file to find (no extension)
+	 * @param	string	$type			The type of file to find
+	 * @param	string	$file			The file to find (no extension)
+	 * @param	bool	$throwOnMissing	Throw an exception if the file couldn't be found?
 	 * @return	string
 	 * @throws	LocatorException
 	 */
-	protected function performSearch($type, $file)
+	protected function performSearch($type, $file, $throwOnMissing = true)
 	{
 		// Spin up a new instance of the finder
 		$finder = $this->finderFactory->createFinder();
@@ -252,6 +364,8 @@ class Locator implements LocatorInterface {
 
 		if ($finder->count() == 0)
 		{
+			if ( ! $throwOnMissing) return false;
+
 			// Uh-oh! We didn't find anything, so throw an exception
 			throw new LocatorException("The file [{$type}/{$file}] couldn't be found.");
 		}
