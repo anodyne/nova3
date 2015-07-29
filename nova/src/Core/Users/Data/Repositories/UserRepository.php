@@ -15,7 +15,18 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
 
 	public function create(array $data)
 	{
-		return $this->model->create($data);
+		$role = (array_key_exists('role', $data)) ? $data['role'] : null;
+
+		unset($data['role']);
+
+		$user = $this->model->create($data);
+
+		if ($role)
+		{
+			$user->attachRole($role);
+		}
+
+		return $user;
 	}
 
 }
