@@ -13,13 +13,13 @@
 		<div class="col-md-12">
 			<div class="thumbnail text-center">
 				<h1>PHP</h1>
-				<h2>Version 5.5+</h2>
+				<h2>Version 5.5.9+</h2>
 
 				@if ($env->get('php'))
 					<div>{!! icon('setup.checkmark', 'xl', 'text-success') !!}</div>
 				@else
 					<div>{!! icon('setup.warning', 'xl', 'text-danger') !!}</div>
-					<p>Uh oh! It looks like your server isn't running a high enough version of PHP. In order to use {{ config('nova.app.name') }}, your server needs to be running at least PHP 5.5. Your server is currently running <strong class="text-danger">{{ PHP_VERSION }}</strong>. Sometimes, web hosts run multiple versions of PHP and it's possible to switch your account over to a different PHP version. Get in touch with your web host and see if this is something they can resolve for you.</p>
+					<p>Uh oh! It looks like your server isn't running a high enough version of PHP. In order to use {{ config('nova.app.name') }}, your server needs to be running at least PHP 5.5.9. Your server is currently running <strong class="text-danger">{{ PHP_VERSION }}</strong>. Sometimes, web hosts run multiple versions of PHP and it's possible to switch your account over to a different PHP version. Get in touch with your web host and see if this is something they can resolve for you.</p>
 				@endif
 			</div>
 		</div>
