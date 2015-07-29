@@ -141,7 +141,7 @@ return [
 		 * Nova Service Providers
 		 */
 
-		//Zizaco\Entrust\EntrustServiceProvider::class,
+		Zizaco\Entrust\EntrustServiceProvider::class,
 		Collective\Html\HtmlServiceProvider::class,
 		Nova\Setup\Providers\SetupServiceProvider::class,
 		Nova\Setup\Providers\SetupRouteServiceProvider::class,
@@ -201,7 +201,7 @@ return [
 
 		'BaseController'	=> Nova\Foundation\Http\Controllers\BaseController::class,
 		'Date'				=> Carbon\Carbon::class,
-		//'Entrust'			=> Zizaco\Entrust\EntrustFacade::class,
+		'Entrust'			=> Zizaco\Entrust\EntrustFacade::class,
 		'Model'				=> Illuminate\Database\Eloquent\Model::class,
 		'Form'				=> Collective\Html\FormFacade::class,
 		'Flash'				=> Nova\Foundation\Services\FlashNotifierFacade::class,
