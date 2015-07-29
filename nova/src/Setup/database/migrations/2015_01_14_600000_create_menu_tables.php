@@ -51,15 +51,14 @@ class CreateMenuTables extends Migration {
 	{
 		Model::unguard();
 
-		$data['menus'] = require_once app('path.database').'/data/menus.php';
-		$data['items'] = require_once app('path.database').'/data/menus_items.php';
+		$data = require_once app('path.database').'/data/menus.php';
 
 		foreach ($data['menus'] as $menu)
 		{
 			Menu::create($menu);
 		}
 
-		foreach ($data['items'] as $item)
+		foreach ($data['menuItems'] as $item)
 		{
 			MenuItem::create($item);
 		}
