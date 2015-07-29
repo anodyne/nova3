@@ -2,6 +2,7 @@
 
 use Exception;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Debug\ExceptionHandler as SymfonyDisplayer;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler {
@@ -50,7 +51,12 @@ class Handler extends ExceptionHandler {
 	{
 		$status = $e->getStatusCode();
 
-		return response()->view(locate('error', $status), ['exception' => $e], $status);
+		if (locate()->errorExists($status))
+		{
+			return response()->view(locate()->error($status), ['exception' => $e], $status);
+		}
+
+		return (new SymfonyDisplayer(config('app.debug')))->createResponse($e);
 	}
 
 }
