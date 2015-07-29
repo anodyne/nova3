@@ -1,6 +1,7 @@
 <?php namespace Nova\Foundation\Exceptions;
 
 use Exception;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler {
@@ -37,6 +38,19 @@ class Handler extends ExceptionHandler {
 	public function render($request, Exception $e)
 	{
 		return parent::render($request, $e);
+	}
+
+	/**
+	 * Render the given HttpException.
+	 *
+	 * @param  \Symfony\Component\HttpKernel\Exception\HttpException  $e
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	protected function renderHttpException(HttpException $e)
+	{
+		$status = $e->getStatusCode();
+
+		return response()->view(locate('error', $status), ['exception' => $e], $status);
 	}
 
 }
