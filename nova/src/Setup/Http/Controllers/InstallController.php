@@ -67,7 +67,7 @@ class InstallController extends BaseController {
 	public function createUser(UserCreator $userCreator, CreateUserRequest $request)
 	{
 		// Create a new user and character
-		$creator = $userCreator->create(Input::all());
+		$creator = $userCreator->create($request->all());
 
 		if ($creator)
 		{
