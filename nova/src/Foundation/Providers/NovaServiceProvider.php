@@ -113,7 +113,9 @@ class NovaServiceProvider extends ServiceProvider {
 	{
 		$this->app->singleton('nova.user', function($app)
 		{
-			return $app['auth']->user();
+			if ($app['nova.setup']->isInstalled()) return $app['auth']->user();
+
+			return null;
 		});
 	}
 
