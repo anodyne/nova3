@@ -26,82 +26,114 @@ class PageContentController extends BaseController {
 
 	public function index()
 	{
-		$this->view = 'admin/pages/content';
-		$this->jsView = 'admin/pages/content-js';
+		if ($this->user->can(['page.create', 'page.edit', 'page.remove']))
+		{
+			$this->view = 'admin/pages/content';
+			$this->jsView = 'admin/pages/content-js';
+		}
+
+		return $this->errorUnauthorized("You do not have permission to manage page content.");
 	}
 
 	public function create()
 	{
-		$this->view = 'admin/pages/content-create';
-		$this->jsView = 'admin/pages/content-create-js';
+		if ($this->user->can('page.create'))
+		{
+			$this->view = 'admin/pages/content-create';
+			$this->jsView = 'admin/pages/content-create-js';
 
-		$this->data->types = [
-			'header' => "Header",
-			'message' => "Message",
-			'title' => "Page Title",
-			'other' => "Other",
-		];
-		
-		$this->data->pages[""] = "No page";
-		$this->data->pages += $this->pagesRepo->listAllBy('verb', 'GET', 'name', 'id');
+			$this->data->types = [
+				'header' => "Header",
+				'message' => "Message",
+				'title' => "Page Title",
+				'other' => "Other",
+			];
+			
+			$this->data->pages[""] = "No page";
+			$this->data->pages += $this->pagesRepo->listAllBy('verb', 'GET', 'name', 'id');
+		}
+
+		return $this->errorUnauthorized("You do not have permission to create page content.");
 	}
 
 	public function store(CreatePageContentRequest $request)
 	{
-		// Create the content
-		$content = $this->repo->create($request->all());
+		if ($this->user->can('page.create'))
+		{
+			// Create the content
+			$content = $this->repo->create($request->all());
 
-		// Fire the event
-		event(new Events\PageContentWasCreated($content));
+			// Fire the event
+			event(new Events\PageContentWasCreated($content));
 
-		// Set the flash message
-		flash()->success("Page content has been created.");
+			// Set the flash message
+			flash()->success("Page content has been created.");
 
-		return redirect()->route('admin.content');
+			return redirect()->route('admin.content');
+		}
+
+		return $this->errorUnauthorized("You do not have permission to create page content.");
 	}
 
 	public function edit($contentId)
 	{
-		$this->view = 'admin/pages/content-edit';
-		$this->jsView = 'admin/pages/content-edit-js';
+		if ($this->user->can('page.edit'))
+		{
+			$this->view = 'admin/pages/content-edit';
+			$this->jsView = 'admin/pages/content-edit-js';
 
-		$this->data->content = $this->repo->find($contentId);
-		$this->data->types = [
-			'header' => "Header",
-			'message' => "Message",
-			'title' => "Page Title",
-			'other' => "Other",
-		];
+			$this->data->content = $this->repo->find($contentId);
+			$this->data->types = [
+				'header' => "Header",
+				'message' => "Message",
+				'title' => "Page Title",
+				'other' => "Other",
+			];
 
-		$this->data->pages[""] = "No page";
-		$this->data->pages += $this->pagesRepo->listAllBy('verb', 'GET', 'name', 'id');
+			$this->data->pages[""] = "No page";
+			$this->data->pages += $this->pagesRepo->listAllBy('verb', 'GET', 'name', 'id');
+		}
+
+		return $this->errorUnauthorized("You do not have permission to edit page content.");
 	}
 
 	public function update(EditPageContentRequest $request, $contentId)
 	{
-		// Update the content
-		$content = $this->repo->update($contentId, $request->all());
+		if ($this->user->can('page.edit'))
+		{
+			// Update the content
+			$content = $this->repo->update($contentId, $request->all());
 
-		// Fire the event
-		event(new Events\PageContentWasUpdated($content));
+			// Fire the event
+			event(new Events\PageContentWasUpdated($content));
 
-		// Set the flash message
-		flash()->success("Page content has been updated.");
+			// Set the flash message
+			flash()->success("Page content has been updated.");
 
-		return redirect()->route('admin.content');
+			return redirect()->route('admin.content');
+		}
+
+		return $this->errorUnauthorized("You do not have permission to edit page content.");
 	}
 
 	public function remove($contentId)
 	{
 		$this->isAjax = true;
 
-		// Grab the content we're removing
-		$content = $this->repo->find($contentId);
+		if ($this->user->can('page.remove'))
+		{
+			// Grab the content we're removing
+			$content = $this->repo->find($contentId);
 
-		// Build the body based on whether we found the content or not
-		$body = ($content)
-			? view(locate('page', 'admin/pages/content-remove'), compact('content'))
-			: alert('danger', "Page content not found.");
+			// Build the body based on whether we found the content or not
+			$body = ($content)
+				? view(locate('page', 'admin/pages/content-remove'), compact('content'))
+				: alert('danger', "Page content not found.");
+		}
+		else
+		{
+			$body = alert('danger', "You do not have permission to remove page content.");
+		}
 
 		return partial('modal-content', [
 			'header' => "Remove Page Content",
@@ -112,16 +144,21 @@ class PageContentController extends BaseController {
 
 	public function destroy(RemovePageContentRequest $request, $contentId)
 	{
-		// Delete the content
-		$content = $this->repo->delete($contentId);
+		if ($this->user->can('page.remove'))
+		{
+			// Delete the content
+			$content = $this->repo->delete($contentId);
 
-		// Fire the event
-		event(new Events\PageContentWasDeleted($content->key, $content->type));
+			// Fire the event
+			event(new Events\PageContentWasDeleted($content->key, $content->type));
 
-		// Set the flash message
-		flash()->success("Page content has been removed.");
+			// Set the flash message
+			flash()->success("Page content has been removed.");
 
-		return redirect()->route('admin.content');
+			return redirect()->route('admin.content');
+		}
+
+		return $this->errorUnauthorized("You do not have permission to remove page content.");
 	}
 
 	public function checkContentKey()
