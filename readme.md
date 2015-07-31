@@ -28,4 +28,4 @@ Follow us on Twitter, [@anodyneprod](http://twitter.com/anodyneprod).
 
 ## Community
 
-This project adheres to the [Open Code of Conduct][http://todogroup.org/opencodeofconduct/#Anodyne Productions/contact@anodyne-productions.com]. By participating, you are expected to honor this code.
+This project adheres to the [Open Code of Conduct](http://todogroup.org/opencodeofconduct/#Anodyne Productions/contact@anodyne-productions.com). By participating, you are expected to honor this code.
