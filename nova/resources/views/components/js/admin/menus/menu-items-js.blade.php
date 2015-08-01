@@ -1,7 +1,7 @@
 {!! HTML::script('nova/resources/uikit/js/core/core.min.js') !!}
 {!! HTML::script('nova/resources/uikit/js/components/nestable.min.js') !!}
 <script>
-	$(document).on('change.uk.nestable', '.uk-nestable', function (event, item, action)
+	$('.uk-nestable').on('change.uk.nestable', function (event, item, action)
 	{
 		// Start with an empty array for storing information
 		var positions = [];
@@ -24,7 +24,7 @@
 		});
 
 		$.ajax({
-			url: "{{ route('admin.menus.reorder') }}",
+			url: "{{ route('admin.menu.items.reorder') }}",
 			type: "POST",
 			dataType: "json",
 			data: {
@@ -48,4 +48,28 @@
 			}).modal('show');
 		}
 	});
+
+	$('.js-createMenuItemDivider').click(function(e)
+	{
+		e.preventDefault();
+
+		var handler = $(this);
+
+		$.ajax({
+			url: "{{ route('admin.menus.items.storeDivider') }}",
+			type: "POST",
+			dataType: "json",
+			data:
+			{
+				"menu": handler.data('menu')
+			},
+			success: function(data)
+			{
+				if (data.code == 1)
+					location.reload(true);
+				else
+					alert(data.message);
+			}
+		});
+	})
 </script>
