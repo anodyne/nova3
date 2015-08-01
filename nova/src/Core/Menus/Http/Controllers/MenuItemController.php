@@ -31,6 +31,11 @@ class MenuItemController extends BaseController {
 
 	public function index($menuId)
 	{
+		if ( ! $this->user->can(['menu.create', 'menu.edit', 'menu.remove']))
+		{
+			return $this->errorUnauthorized("You do not have permission to manage menu items.");
+		}
+
 		$this->view = 'admin/menus/menu-items';
 		$this->jsView = 'admin/menus/menu-items-js';
 		$this->styleView = 'admin/menus/menu-items-style';
@@ -48,6 +53,11 @@ class MenuItemController extends BaseController {
 
 	public function create($menuId)
 	{
+		if ( ! $this->user->can('menu.create'))
+		{
+			return $this->errorUnauthorized("You do not have permission to create menu items.");
+		}
+
 		$this->view = 'admin/menus/menu-item-create';
 		$this->jsView = 'admin/menus/menu-item-create-js';
 
@@ -71,6 +81,11 @@ class MenuItemController extends BaseController {
 
 	public function store(CreateMenuItemRequest $request)
 	{
+		if ( ! $this->user->can('menu.create'))
+		{
+			return $this->errorUnauthorized("You do not have permission to create menu items.");
+		}
+
 		// Create the menu item
 		$item = $this->repo->create($request->all());
 
@@ -85,6 +100,11 @@ class MenuItemController extends BaseController {
 
 	public function edit($itemId)
 	{
+		if ( ! $this->user->can('menu.edit'))
+		{
+			return $this->errorUnauthorized("You do not have permission to edit menu items.");
+		}
+
 		$this->view = 'admin/menus/menu-item-edit';
 		$this->jsView = 'admin/menus/menu-item-edit-js';
 
@@ -109,6 +129,11 @@ class MenuItemController extends BaseController {
 
 	public function update(EditMenuItemRequest $request, $itemId)
 	{
+		if ( ! $this->user->can('menu.edit'))
+		{
+			return $this->errorUnauthorized("You do not have permission to edit menu items.");
+		}
+
 		// Update the menu item
 		$item = $this->repo->update($itemId, $request->all());
 
@@ -142,6 +167,11 @@ class MenuItemController extends BaseController {
 
 	public function destroy(RemoveMenuItemRequest $request, $itemId)
 	{
+		if ( ! $this->user->can('menu.remove'))
+		{
+			return $this->errorUnauthorized("You do not have permission to remove menu items.");
+		}
+
 		// Delete the menu item
 		$item = $this->repo->delete($itemId);
 
@@ -152,6 +182,35 @@ class MenuItemController extends BaseController {
 		flash()->success("Menu item has been removed.");
 
 		return redirect()->route('admin.menus.items', [$item->menu->id]);
+	}
+
+	public function storeDivider(Request $request)
+	{
+		$this->isAjax = true;
+
+		if ( ! $this->user->can('menu.create'))
+		{
+			return json_encode(['code' => 0, 'message' => "You do not have permission to create menu items."]);
+		}
+
+		// Create the divider
+		$divider = $this->repo->create([
+			'type'		=> 'divider',
+			'menu_id'	=> $request->get('menu')
+		]);
+
+		return json_encode(['code' => 1]);
+	}
+
+	public function reorder(Request $request)
+	{
+		$this->isAjax = true;
+
+		// Get the menu collection
+		$menu = $this->menuRepo->find($request->get('menu'));
+
+		// Re-order the menu items
+		$this->repo->reorder($menu, $request->get('positions'));
 	}
 
 }

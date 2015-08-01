@@ -170,7 +170,7 @@ class NovaServiceProvider extends ServiceProvider {
 	{
 		// Build a list of repositories that should be built
 		$bindings = ['Character', 'Menu', 'MenuItem', 'Page', 'PageContent',
-			'Setting', 'System', 'User'];
+			'Permission', 'Role', 'Setting', 'System', 'User'];
 
 		// Loop through the repositories and do the binding
 		foreach ($bindings as $binding)

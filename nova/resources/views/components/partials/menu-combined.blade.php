@@ -17,12 +17,20 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ $mainMenuItem->present()->title }} <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 						@foreach ($menuSubItems[$mainMenuItem->id] as $subMenuItem)
-							<li>{!! $subMenuItem->present()->anchorTag() !!}</li>
+							@if ($subMenuItem->type == "divider")
+								<li class="divider"></li>
+							@else
+								<li>{!! $subMenuItem->present()->anchorTag() !!}</li>
+							@endif
 						@endforeach
 						</ul>
 					</li>
 				@else
-					<li>{!! $mainMenuItem->present()->anchorTag() !!}</li>
+					@if ($mainMenuItem->type == 'divider')
+						<li class="divider"></li>
+					@else
+						<li>{!! $mainMenuItem->present()->anchorTag() !!}</li>
+					@endif
 				@endif
 			@endforeach
 			</ul>

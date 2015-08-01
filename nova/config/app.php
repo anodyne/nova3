@@ -287,6 +287,17 @@ return [
 		 */
 		'Permission' => Nova\Core\Access\Data\Permission::class,
 		'Role' => Nova\Core\Access\Data\Role::class,
+		'PermissionPresenter' => Nova\Core\Access\Data\Presenters\PermissionPresenter::class,
+		'PermissionRepositoryInterface' => Nova\Core\Access\Data\Interfaces\PermissionRepositoryInterface::class,
+		'RoleRepositoryInterface' => Nova\Core\Access\Data\Interfaces\RoleRepositoryInterface::class,
+		'PermissionRepository' => Nova\Core\Access\Data\Repositories\PermissionRepository::class,
+		'RoleRepository' => Nova\Core\Access\Data\Repositories\RoleRepository::class,
+		'CreatePermissionRequest' => Nova\Core\Access\Http\Requests\CreatePermissionRequest::class,
+		'EditPermissionRequest' => Nova\Core\Access\Http\Requests\EditPermissionRequest::class,
+		'RemovePermissionRequest' => Nova\Core\Access\Http\Requests\RemovePermissionRequest::class,
+		'CreateRoleRequest' => Nova\Core\Access\Http\Requests\CreateRoleRequest::class,
+		'EditRoleRequest' => Nova\Core\Access\Http\Requests\EditRoleRequest::class,
+		'RemoveRoleRequest' => Nova\Core\Access\Http\Requests\RemoveRoleRequest::class,
 
 	],
 
