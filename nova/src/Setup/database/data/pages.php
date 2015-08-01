@@ -251,14 +251,10 @@ return [
 		'uri'				=> "admin/menus/{menuKey}/pages",
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@updatePages",
 	],
-	[
-		'verb'				=> "POST",
-		'name'				=> "Reorder Menu Items",
-		'key'				=> "admin.menus.reorder",
-		'uri'				=> "admin/menus/reorder",
-		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@reorder",
-	],
 
+	/**
+	 * Menu Items
+	 */
 	[
 		'name'				=> "Manage Menu Items",
 		'key'				=> "admin.menus.items",
@@ -278,6 +274,13 @@ return [
 		'key'				=> "admin.menus.items.store",
 		'uri'				=> "admin/menu-items/create",
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@store",
+	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Store Menu Item Divider",
+		'key'				=> "admin.menus.items.storeDivider",
+		'uri'				=> "admin/menu-items/create-divider",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@storeDivider",
 	],
 	[
 		'name'				=> "Edit Menu Item",
@@ -304,5 +307,112 @@ return [
 		'key'				=> "admin.menus.items.destroy",
 		'uri'				=> "admin/menu-items/{menuItemId}",
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@destroy",
+	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Reorder Menu Items",
+		'key'				=> "admin.menu.items.reorder",
+		'uri'				=> "admin/menu-items/reorder",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@reorder",
+	],
+
+	/**
+	 * Access Roles
+	 */
+	[
+		'name'				=> "Manage Access Roles",
+		'key'				=> "admin.access.roles",
+		'uri'				=> "admin/access/roles",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@index",
+		'menu_id'			=> 2,
+	],
+	[
+		'name'				=> "Create Access Role",
+		'key'				=> "admin.access.roles.create",
+		'uri'				=> "admin/access/roles/create",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@create",
+	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Store Access Role",
+		'key'				=> "admin.access.roles.store",
+		'uri'				=> "admin/access/roles/create",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\RoleController@store",
+	],
+	[
+		'name'				=> "Edit Access Role",
+		'key'				=> "admin.access.roles.edit",
+		'uri'				=> "admin/access/roles/{roleId}/edit",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@edit",
+	],
+	[
+		'verb'				=> "PUT",
+		'name'				=> "Update Access Role",
+		'key'				=> "admin.access.roles.update",
+		'uri'				=> "admin/access/roles/{roleId}",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@update",
+	],
+	[
+		'name'				=> "Remove Access Role Pop-up",
+		'key'				=> "admin.access.roles.remove",
+		'uri'				=> "admin/access/roles/{roleId}/remove",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@remove",
+	],
+	[
+		'verb'				=> "DELETE",
+		'name'				=> "Remove Access Role",
+		'key'				=> "admin.access.roles.destroy",
+		'uri'				=> "admin/access/roles/{roleId}",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@destroy",
+	],
+
+	/**
+	 * Access Role Permissions
+	 */
+	[
+		'name'				=> "Manage Access Role Permissions",
+		'key'				=> "admin.access.permissions",
+		'uri'				=> "admin/access/permissions",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\PermissionController@index",
+		'menu_id'			=> 2,
+	],
+	[
+		'name'				=> "Create Access Role Permission",
+		'key'				=> "admin.access.permissions.create",
+		'uri'				=> "admin/access/permissions/create",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\PermissionController@create",
+	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Store Access Role Permission",
+		'key'				=> "admin.access.permissions.store",
+		'uri'				=> "admin/access/permissions/create",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\PermissionController@store",
+	],
+	[
+		'name'				=> "Edit Access Role Permission",
+		'key'				=> "admin.access.permissions.edit",
+		'uri'				=> "admin/access/permissions/{permissionId}/edit",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\PermissionController@edit",
+	],
+	[
+		'verb'				=> "PUT",
+		'name'				=> "Update Access Role Permission",
+		'key'				=> "admin.access.permissions.update",
+		'uri'				=> "admin/access/permissions/{permissionId}",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\PermissionController@update",
+	],
+	[
+		'name'				=> "Remove Access Role Permission Pop-up",
+		'key'				=> "admin.access.permissions.remove",
+		'uri'				=> "admin/access/permissions/{permissionId}/remove",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\PermissionController@remove",
+	],
+	[
+		'verb'				=> "DELETE",
+		'name'				=> "Remove Access Role Permission",
+		'key'				=> "admin.access.permissions.destroy",
+		'uri'				=> "admin/access/permissions/{permissionId}",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\PermissionController@destroy",
 	],
 ];
