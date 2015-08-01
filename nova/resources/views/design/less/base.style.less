@@ -3,7 +3,7 @@
 @import "data-table.less";
 
 html {
-	font-size: 62.5%;
+	font-size: 62.5% !important;
 }
 body {
 	padding-top: 2rem;
@@ -135,16 +135,23 @@ dl {
 }
 
 .uk-nestable {
-	li.uk-nestable-list-item {
-		.uk-nestable-item {
+	.uk-nestable-item {
+		.uk-nestable-panel {
 			background-color: @color-subtle;
 			border: .1rem solid @color-gray-light;
 
 			.rounded(@border-radius);
 
+			.uk-nestable-handle {
+				padding: 0 0.4rem 0 0;
+
+				color: @color-gray-medium;
+				font-size: 1.8rem;
+			}
+
 			.uk-nested-item-controls {
 				display: none;
-				margin: 0.3rem 0 0 0;
+				margin: 0.2rem 0 0 0;
 
 				a {
 					color: @color-gray;
