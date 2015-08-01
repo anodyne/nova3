@@ -4,7 +4,7 @@ A powerful and easy-to-use online RPG management system with a wide range of fea
 
 ## Current Version
 
-3.0.0-alpha.2
+3.0.0-alpha.3
 
 We version under the [Semantic Versioning](http://semver.org/) guidelines as much as possible.
 
@@ -28,6 +28,4 @@ Follow us on Twitter, [@anodyneprod](http://twitter.com/anodyneprod).
 
 ## Community
 
-This project adheres to the [Open Code of Conduct][code-of-conduct]. By participating, you are expected to honor this code.
-
-[code-of-conduct]: http://todogroup.org/opencodeofconduct/#Anodyne Productions/contact@anodyne-productions.com
+This project adheres to the [Open Code of Conduct](http://todogroup.org/opencodeofconduct/#Anodyne Productions/contact@anodyne-productions.com). By participating, you are expected to honor this code.
