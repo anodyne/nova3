@@ -38,10 +38,14 @@ class AuthController extends BaseController {
 
 		if ($this->auth->attempt($credentials, $remember))
 		{
+			$name = user()->present()->firstName;
+
+			flash()->success("You are now logged in.", "Welcome back, {$name}!");
+
 			return redirect()->intended(route('home'));
 		}
 
-		flash()->error("These credentials don't match our records.");
+		flash()->error("The email address or password don't match our records.", "Log In Failed!");
 
 		return redirect()->back()->withInput($request->only('email'));
 	}
@@ -49,6 +53,8 @@ class AuthController extends BaseController {
 	public function getLogout()
 	{
 		$this->auth->logout();
+
+		flash()->success("You are now logged out.", "See ya later!");
 
 		return redirect()->route('home');
 	}
