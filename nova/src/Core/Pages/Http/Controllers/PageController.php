@@ -26,95 +26,95 @@ class PageController extends BaseController {
 
 	public function index()
 	{
-		if ($this->user->can(['page.create', 'page.edit', 'page.remove']))
+		if ( ! $this->user->can(['page.create', 'page.edit', 'page.remove']))
 		{
-			$this->view = 'admin/pages/pages';
-			$this->jsView = 'admin/pages/pages-js';
+			return $this->errorUnauthorized("You do not have permission to manage pages.");
 		}
 
-		return $this->errorUnauthorized("You do not have permission to manage pages.");
+		$this->view = 'admin/pages/pages';
+		$this->jsView = 'admin/pages/pages-js';
 	}
 
 	public function create()
 	{
-		if ($this->user->can('page.create'))
+		if ( ! $this->user->can('page.create'))
 		{
-			$this->view = 'admin/pages/page-create';
-			$this->jsView = 'admin/pages/page-create-js';
-
-			$this->data->httpVerbs = [
-				'GET' => 'GET',
-				'POST' => 'POST',
-				'PUT' => 'PUT',
-				'DELETE' => 'DELETE',
-			];
-
-			$this->data->menus[0] = "No menu";
-			$this->data->menus += $this->menuRepo->listAll('name', 'id');
+			return $this->errorUnauthorized("You do not have permission to create pages.");
 		}
 
-		return $this->errorUnauthorized("You do not have permission to create pages.");
+		$this->view = 'admin/pages/page-create';
+		$this->jsView = 'admin/pages/page-create-js';
+
+		$this->data->httpVerbs = [
+			'GET' => 'GET',
+			'POST' => 'POST',
+			'PUT' => 'PUT',
+			'DELETE' => 'DELETE',
+		];
+
+		$this->data->menus[0] = "No menu";
+		$this->data->menus += $this->menuRepo->listAll('name', 'id');
 	}
 
 	public function store(CreatePageRequest $request)
 	{
-		if ($this->user->can('page.create'))
+		if ( ! $this->user->can('page.create'))
 		{
-			// Create the page
-			$page = $this->repo->create($request->all());
-
-			// Fire the event
-			event(new Events\PageWasCreated($page));
-
-			// Set the flash message
-			flash()->success("Page has been created. Don't forget to update your menu(s) with your new page!");
-
-			return redirect()->route('admin.pages');
+			return $this->errorUnauthorized("You do not have permission to create pages.");
 		}
 
-		return $this->errorUnauthorized("You do not have permission to create pages.");
+		// Create the page
+		$page = $this->repo->create($request->all());
+
+		// Fire the event
+		event(new Events\PageWasCreated($page));
+
+		// Set the flash message
+		flash()->success("Page has been created. Don't forget to update your menu(s) with your new page!");
+
+		return redirect()->route('admin.pages');
 	}
 
 	public function edit($pageId)
 	{
-		if ($this->user->can('page.edit'))
+		if ( ! $this->user->can('page.edit'))
 		{
-			$this->view = 'admin/pages/page-edit';
-			$this->jsView = 'admin/pages/page-edit-js';
-
-			$this->data->page = $this->repo->find($pageId);
-			
-			$this->data->httpVerbs = [
-				'GET' => 'GET',
-				'POST' => 'POST',
-				'PUT' => 'PUT',
-				'DELETE' => 'DELETE',
-			];
-
-			$this->data->menus[0] = "No menu";
-			$this->data->menus += $this->menuRepo->listAll('name', 'id');
+			return $this->errorUnauthorized("You do not have permission to edit pages.");
 		}
 
-		return $this->errorUnauthorized("You do not have permission to edit pages.");
+		$this->view = 'admin/pages/page-edit';
+		$this->jsView = 'admin/pages/page-edit-js';
+
+		$this->data->page = $this->repo->find($pageId);
+		
+		$this->data->httpVerbs = [
+			'GET' => 'GET',
+			'POST' => 'POST',
+			'PUT' => 'PUT',
+			'DELETE' => 'DELETE',
+		];
+
+		$this->data->menus[0] = "No menu";
+		$this->data->menus += $this->menuRepo->listAll('name', 'id');
 	}
 
 	public function update(EditPageRequest $request, $pageId)
 	{
-		if ($this->user->can('page.edit'))
+		if ( ! $this->user->can('page.edit'))
 		{
-			// Update the page
-			$page = $this->repo->update($pageId, $request->all());
-
-			// Fire the event
-			event(new Events\PageWasUpdated($page));
-
-			// Set the flash message
-			flash()->success("Page has been updated.");
-
-			return redirect()->route('admin.pages');
+			return $this->errorUnauthorized("You do not have permission to edit pages.");
 		}
 
-		return $this->errorUnauthorized("You do not have permission to edit pages.");
+		// Update the page
+		$page = $this->repo->update($pageId, $request->all());
+
+		// Fire the event
+		event(new Events\PageWasUpdated($page));
+
+		// Set the flash message
+		flash()->success("Page has been updated.");
+
+		return redirect()->route('admin.pages');
 	}
 
 	public function remove($pageId)
@@ -145,21 +145,21 @@ class PageController extends BaseController {
 
 	public function destroy(RemovePageRequest $request, $pageId)
 	{
-		if ($this->user->can('page.remove'))
+		if ( ! $this->user->can('page.remove'))
 		{
-			// Delete the page
-			$page = $this->repo->delete($pageId);
-
-			// Fire the event
-			event(new Events\PageWasDeleted($page->name, $page->key, $page->uri));
-
-			// Set the flash message
-			flash()->success("Page has been removed.");
-
-			return redirect()->route('admin.pages');
+			return $this->errorUnauthorized("You do not have permission to remove pages.");
 		}
 
-		return $this->errorUnauthorized("You do not have permission to remove pages.");
+		// Delete the page
+		$page = $this->repo->delete($pageId);
+
+		// Fire the event
+		event(new Events\PageWasDeleted($page->name, $page->key, $page->uri));
+
+		// Set the flash message
+		flash()->success("Page has been removed.");
+
+		return redirect()->route('admin.pages');
 	}
 
 	public function checkPageKey()
