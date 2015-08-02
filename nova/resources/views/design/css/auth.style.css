@@ -1,0 +1,39 @@
+.sweet-alert {
+  font-family: "Roboto", helvetica, arial, sans-serif;
+  -webkit-border-radius: 0.4rem;
+  -moz-border-radius: 0.4rem;
+  border-radius: 0.4rem 0.4rem 0.4rem 0.4rem;
+}
+.sweet-alert h2 {
+  font-weight: 500;
+}
+.sweet-alert .sa-icon.sa-error {
+  border-color: #d9534f;
+}
+.sweet-alert .sa-icon.sa-error .sa-line {
+  background-color: #d9534f;
+}
+.sweet-alert .sa-icon.sa-success {
+  border-color: #5cb85c;
+}
+.sweet-alert .sa-icon.sa-success .sa-line {
+  background-color: #5cb85c;
+}
+.sweet-alert .sa-icon.sa-warning {
+  border-color: #f0ad4e;
+}
+.sweet-alert .sa-icon.sa-warning .sa-body {
+  background-color: #f0ad4e;
+}
+.sweet-alert .sa-icon.sa-warning .sa-dot {
+  background-color: #f0ad4e;
+}
+.sweet-alert .sa-icon.sa-info {
+  border-color: #5bc0de;
+}
+.sweet-alert .sa-icon.sa-info::before {
+  background-color: #5bc0de;
+}
+.sweet-alert .sa-icon.sa-info::after {
+  background-color: #5bc0de;
+}
