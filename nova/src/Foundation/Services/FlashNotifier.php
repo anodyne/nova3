@@ -1,42 +1,39 @@
 <?php namespace Nova\Foundation\Services;
 
-use Illuminate\Session\Store as SessionStore;
-
 class FlashNotifier {
 
-	protected $session;
-
-	public function __construct(SessionStore $session)
+	public function create($message, $title = null, $level = 'info', $key = 'flash_message')
 	{
-		$this->session = $session;
+		session()->flash($key, [
+			'title'		=> $title,
+			'message'	=> $message,
+			'level'		=> $level,
+		]);
 	}
 
-	public function error($message, $header = false)
+	public function error($message, $title = null)
 	{
-		$this->session->flash('flash.level', 'danger');
-		$this->session->flash('flash.message', $message);
-		$this->session->flash('flash.header', $header);
+		return $this->create($message, $title, 'error');
 	}
 
-	public function info($message, $header = false)
+	public function info($message, $title = null)
 	{
-		$this->session->flash('flash.level', 'info');
-		$this->session->flash('flash.message', $message);
-		$this->session->flash('flash.header', $header);
+		return $this->create($message, $title, 'info');
 	}
 
-	public function success($message, $header = false)
+	public function success($message, $title = null)
 	{
-		$this->session->flash('flash.level', 'success');
-		$this->session->flash('flash.message', $message);
-		$this->session->flash('flash.header', $header);
+		return $this->create($message, $title, 'success');
 	}
 
-	public function warning($message, $header = false)
+	public function warning($message, $title = null)
 	{
-		$this->session->flash('flash.level', 'warning');
-		$this->session->flash('flash.message', $message);
-		$this->session->flash('flash.header', $header);
+		return $this->create($message, $title, 'warning');
+	}
+
+	public function overlay($message, $title = null, $level = null)
+	{
+		return $this->create($message, $title, $level, 'flash_message_overlay');
 	}
 
 }

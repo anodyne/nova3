@@ -143,7 +143,7 @@ class NovaServiceProvider extends ServiceProvider {
 
 		$this->app->bind('nova.flash', function($app)
 		{
-			return new FlashNotifier($app['session.store']);
+			return new FlashNotifier;
 		});
 
 		$this->app->bind('nova.markdown', function($app)
