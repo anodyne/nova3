@@ -61,6 +61,7 @@ class MenuItemController extends BaseController {
 		$this->view = 'admin/menus/menu-item-create';
 		$this->jsView = 'admin/menus/menu-item-create-js';
 
+		// Pass the menu ID over
 		$this->data->menuId = $menuId;
 
 		// Get all the GET pages (links wouldn't be able to POST, PUT, or DELETE)
@@ -109,7 +110,10 @@ class MenuItemController extends BaseController {
 		$this->jsView = 'admin/menus/menu-item-edit-js';
 
 		// Get the menu item we're editing
-		$this->data->item = $this->repo->find($itemId);
+		$this->data->item = $item = $this->repo->find($itemId);
+
+		// Pass the item's menu ID over
+		$this->data->menuId = $item->menu_id;
 
 		// Get all the GET pages (links wouldn't be able to POST, PUT, or DELETE)
 		$this->data->pages = $this->pagesRepo->listAllBy('verb', 'get', 'name', 'id');
