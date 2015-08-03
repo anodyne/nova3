@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8d4695ef736d2c7e3ecf1fe1c821818c",
+    "hash": "8c6da1954aa9f7abd28880619e235197",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -2796,16 +2796,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "1.3.1",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "3e39374f4c9ec3757839e2952e7a68ac28941760"
+                "reference": "6324c907ce7a52478eeeaede764f48733ef5ae44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/3e39374f4c9ec3757839e2952e7a68ac28941760",
-                "reference": "3e39374f4c9ec3757839e2952e7a68ac28941760",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/6324c907ce7a52478eeeaede764f48733ef5ae44",
+                "reference": "6324c907ce7a52478eeeaede764f48733ef5ae44",
                 "shasum": ""
             },
             "require": {
@@ -2842,7 +2842,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2015-08-02 04:41:00"
+            "time": "2015-08-03 06:14:51"
         },
         {
             "name": "sebastian/exporter",
