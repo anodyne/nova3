@@ -28,7 +28,7 @@ class PermissionController extends BaseController {
 	{
 		if ( ! $this->user->can(['access.create', 'access.edit', 'access.remove']))
 		{
-			return $this->errorUnauthorized("You do not have permission to manage access roles.");
+			return $this->errorUnauthorized("You do not have permission to manage access role permissions.");
 		}
 
 		$this->view = 'admin/access/role-permissions';
@@ -37,129 +37,123 @@ class PermissionController extends BaseController {
 
 	public function create()
 	{
-		if ($this->user->can('access.create'))
+		if ( ! $this->user->can('access.create'))
 		{
-			$this->view = 'admin/pages/page-create';
-			$this->jsView = 'admin/pages/page-create-js';
-
-			$this->data->httpVerbs = [
-				'GET' => 'GET',
-				'POST' => 'POST',
-				'PUT' => 'PUT',
-				'DELETE' => 'DELETE',
-			];
-
-			$this->data->menus[0] = "No menu";
-			$this->data->menus += $this->menuRepo->listAll('name', 'id');
+			return $this->errorUnauthorized("You do not have permission to create access role permissions.");
 		}
 
-		return $this->errorUnauthorized("You do not have permission to create pages.");
+		$this->view = 'admin/access/role-permission-create';
+		$this->jsView = 'admin/access/role-permission-create-js';
 	}
 
-	public function store(CreatePageRequest $request)
+	public function store(CreatePermissionRequest $request)
 	{
-		if ($this->user->can('access.create'))
+		if ( ! $this->user->can('access.create'))
 		{
-			// Create the page
-			$page = $this->repo->create($request->all());
-
-			// Fire the event
-			event(new Events\PageWasCreated($page));
-
-			// Set the flash message
-			flash()->success("Page has been created. Don't forget to update your menu(s) with your new page!");
-
-			return redirect()->route('admin.pages');
+			return $this->errorUnauthorized("You do not have permission to create access role permissions.");
 		}
 
-		return $this->errorUnauthorized("You do not have permission to create pages.");
+		// Create the permission
+		$permission = $this->repo->create($request->all());
+
+		// Fire the event
+		event(new Events\PermissionWasCreated($permission));
+
+		// Set the flash message
+		flash()->success("Access role permission has been created. You can now add this permission to any of your access roles.");
+
+		return redirect()->route('admin.access.permissions');
 	}
 
-	public function edit($pageId)
+	public function edit($permissionId)
 	{
-		if ($this->user->can('access.edit'))
+		if ( ! $this->user->can('access.edit'))
 		{
-			$this->view = 'admin/pages/page-edit';
-			$this->jsView = 'admin/pages/page-edit-js';
-
-			$this->data->page = $this->repo->find($pageId);
-			
-			$this->data->httpVerbs = [
-				'GET' => 'GET',
-				'POST' => 'POST',
-				'PUT' => 'PUT',
-				'DELETE' => 'DELETE',
-			];
-
-			$this->data->menus[0] = "No menu";
-			$this->data->menus += $this->menuRepo->listAll('name', 'id');
+			return $this->errorUnauthorized("You do not have permission to edit access role permissions.");
 		}
 
-		return $this->errorUnauthorized("You do not have permission to edit pages.");
+		$this->view = 'admin/access/role-permission-edit';
+		$this->jsView = 'admin/access/role-permission-edit-js';
+
+		$this->data->permission = $this->repo->find($permissionId);
 	}
 
-	public function update(EditPageRequest $request, $pageId)
+	public function update(EditPermissionRequest $request, $permissionId)
 	{
-		if ($this->user->can('access.edit'))
+		if ( ! $this->user->can('access.edit'))
 		{
-			// Update the page
-			$page = $this->repo->update($pageId, $request->all());
-
-			// Fire the event
-			event(new Events\PageWasUpdated($page));
-
-			// Set the flash message
-			flash()->success("Page has been updated.");
-
-			return redirect()->route('admin.pages');
+			return $this->errorUnauthorized("You do not have permission to edit access role permissions.");
 		}
 
-		return $this->errorUnauthorized("You do not have permission to edit pages.");
+		// Update the permission
+		$permission = $this->repo->update($permissionId, $request->all());
+
+		// Fire the event
+		event(new Events\PermissionWasUpdated($permission));
+
+		// Set the flash message
+		flash()->success("Access role permission has been updated.");
+
+		return redirect()->route('admin.access.permissions');
 	}
 
-	public function remove($pageId)
+	public function remove($permissionId)
 	{
 		$this->isAjax = true;
 
 		if ($this->user->can('access.remove'))
 		{
-			// Grab the page we're removing
-			$page = $this->repo->find($pageId);
+			// Grab the permission we're removing
+			$permission = $this->repo->find($permissionId);
 
-			// Build the body based on whether we found the page or not
-			$body = ($page)
-				? view(locate('page', 'admin/pages/page-remove'), compact('page'))
-				: alert('danger', "Page not found.");
+			// Build the body based on whether we found the permission or not
+			$body = ($permission)
+				? view(locate('page', 'admin/access/role-permission-remove'), compact('permission'))
+				: alert('danger', "Access role permission not found.");
 		}
 		else
 		{
-			$body = alert('danger', "You do not have permission to remove pages.");
+			$body = alert('danger', "You do not have permission to remove access role permissions.");
 		}
 
 		return partial('modal-content', [
-			'header' => "Remove Page",
+			'header' => "Remove Permission",
 			'body' => $body,
 			'footer' => false,
 		]);
 	}
 
-	public function destroy(RemovePageRequest $request, $pageId)
+	public function destroy(RemovePermissionRequest $request, $permissionId)
 	{
-		if ($this->user->can('access.remove'))
+		if ( ! $this->user->can('access.remove'))
 		{
-			// Delete the page
-			$page = $this->repo->delete($pageId);
-
-			// Fire the event
-			event(new Events\PageWasDeleted($page->name, $page->key, $page->uri));
-
-			// Set the flash message
-			flash()->success("Page has been removed.");
-
-			return redirect()->route('admin.pages');
+			return $this->errorUnauthorized("You do not have permission to remove access role permissions.");
 		}
 
-		return $this->errorUnauthorized("You do not have permission to remove pages.");
+		// Delete the permission
+		$permission = $this->repo->delete($permissionId);
+
+		// Fire the event
+		event(new Events\PermissionWasDeleted($permission->name, $permission->display_name));
+
+		// Set the flash message
+		flash()->success("Access role permission has been removed.");
+
+		return redirect()->route('admin.access.permissions');
+	}
+
+	public function checkPermissionKey()
+	{
+		$this->isAjax = true;
+
+		$count = $this->repo->countBy('name', Input::get('key'));
+
+		if ($count > 0)
+		{
+			return json_encode(['code' => 0]);
+		}
+
+		return json_encode(['code' => 1]);
 	}
 
 }

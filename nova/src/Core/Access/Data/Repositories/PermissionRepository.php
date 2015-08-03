@@ -14,61 +14,30 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
 		$this->model = $model;
 	}
 
+	public function all()
+	{
+		return $this->model->with(['roles'])->get();
+	}
+
 	public function create(array $data)
 	{
-		// Combine the data
-		$combinedData = array_merge(['type' => $data['type']], $data[$data['type']]);
-
-		// Create the page
-		$page = $this->model->create($combinedData);
-
-		// Set which content items we want to create
-		$contentToCreate = ['title', 'header', 'message'];
-
-		// Grab the content repo out of the IOC
-		$contentRepo = app('PageContentRepository');
-
-		foreach ($contentToCreate as $type)
-		{
-			// Create the new content item
-			$newContentItem = $contentRepo->create([
-				'type'	=> $type,
-				'key'	=> "{$page->key}.{$type}",
-				'value' => (array_key_exists('content', $data) and array_key_exists($type, $data['content']))
-					? $data['content'][$type] 
-					: null,
-			]);
-
-			// Attach the content record to the page
-			$page->pageContents()->save($newContentItem);
-		}
-
-		return $page;
+		return $this->model->create($data);
 	}
 
 	public function delete($id)
 	{
-		// Get the page
-		$page = $this->find($id);
+		// Get the permission
+		$permission = $this->find($id);
 
-		if ($page)
+		if ($permission)
 		{
-			// Make the content repo
-			$contentRepo = app('PageContentRepository');
+			// Detach from any roles
+			$permission->roles()->detach();
 
-			if ($page->pageContents->count() > 0)
-			{
-				foreach ($page->pageContents as $content)
-				{
-					// Remove the content
-					$contentRepo->delete($content->id);
-				}
-			}
+			// Delete the permission
+			$permission->delete();
 
-			// Remove the page
-			$page->delete();
-
-			return $page;
+			return $permission;
 		}
 
 		return false;
@@ -76,56 +45,20 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
 
 	public function find($id)
 	{
-		return $this->getById($id, ['pageContents']);
+		return $this->getById($id, ['roles']);
 	}
 
 	public function update($id, array $data)
 	{
-		// Get the page
-		$page = $this->find($id);
+		// Get the permission
+		$permission = $this->find($id);
 
-		if ($page)
+		if ($permission)
 		{
-			// Update the page
-			$updatedPage = $page->fill($data);
-			$updatedPage->save();
+			// Update the permission
+			$permission->fill($data)->save();
 
-			// Set which content items we want to update
-			$contentToUpdate = ['title', 'header', 'message'];
-
-			// Grab the content repo out of the IOC
-			$contentRepo = app('PageContentRepository');
-
-			foreach ($contentToUpdate as $type)
-			{
-				// Build the value
-				$value = (array_key_exists('content', $data) and array_key_exists($type, $data['content']))
-					? $data['content'][$type] 
-					: null;
-
-				// Get the content item
-				$contentItem = $updatedPage->{$type}();
-
-				if ($contentItem)
-				{
-					// Update the item
-					$contentRepo->update($contentItem, ['value' => $value]);
-				}
-				else
-				{
-					// We didn't have a content item, so let's create one
-					$newContentItem = $contentRepo->create([
-						'type'	=> $type,
-						'key'	=> "{$updatedPage->key}.{$type}",
-						'value'	=> $value,
-					]);
-
-					// Attach the content record to the page
-					$updatedPage->pageContents()->save($newContentItem);
-				}
-			}
-
-			return $updatedPage;
+			return $permission;
 		}
 
 		return false;

@@ -12,6 +12,8 @@ class PermissionTransformer extends Fractal\TransformerAbstract {
 			'name'			=> $permission->name,
 			'display_name'	=> $permission->display_name,
 			'description'	=> $permission->description,
+			'protected'		=> (bool) $permission->protected,
+			'roles'			=> $permission->present()->rolesAsLabels,
 			'links'			=> [
 				'edit'			=> route('admin.access.permissions.edit', [$permission->id]),
 			],
