@@ -30,6 +30,7 @@ class CreateMenuTables extends Migration {
 			$table->integer('page_id')->nullable();
 			$table->string('link')->nullable();
 			$table->string('title')->nullable();
+			$table->boolean('authentication')->default((int) true);
 			$table->timestamps();
 		});
 
