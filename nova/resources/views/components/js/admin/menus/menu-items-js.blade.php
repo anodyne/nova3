@@ -1,5 +1,5 @@
-{!! HTML::script('nova/resources/uikit/js/core/core.min.js') !!}
-{!! HTML::script('nova/resources/uikit/js/components/nestable.min.js') !!}
+{!! HTML::script('nova/resources/js/uikit/core/core.min.js') !!}
+{!! HTML::script('nova/resources/js/uikit/components/nestable.min.js') !!}
 <script>
 	$('.uk-nestable').on('change.uk.nestable', function (event, item, action)
 	{
@@ -27,9 +27,10 @@
 			url: "{{ route('admin.menu.items.reorder') }}",
 			type: "POST",
 			dataType: "json",
-			data: {
-				"menu": $('#menu').data('menu'),
-				"positions": positions
+			data:
+			{
+				menu: $('#menu').data('menu'),
+				positions: positions
 			}
 		});
 	});
@@ -59,17 +60,22 @@
 			url: "{{ route('admin.menus.items.storeDivider') }}",
 			type: "POST",
 			dataType: "json",
-			data:
-			{
-				"menu": handler.data('menu')
-			},
+			data: { menu: handler.data('menu') },
 			success: function(data)
 			{
 				if (data.code == 1)
 					location.reload(true);
 				else
-					alert(data.message);
+				{
+					swal({
+						title: "Error!",
+						text: data.message,
+						type: 'error',
+						html: true,
+						timer: null
+					});
+				}
 			}
 		});
-	})
+	});
 </script>

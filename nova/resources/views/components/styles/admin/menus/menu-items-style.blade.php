@@ -1,2 +1,2 @@
-{!! HTML::style('nova/resources/uikit/css/components/icon.css') !!}
-{!! HTML::style('nova/resources/uikit/css/components/nestable.min.css') !!}
+{!! HTML::style('nova/resources/css/uikit/components/icon.css') !!}
+{!! HTML::style('nova/resources/css/uikit/components/nestable.min.css') !!}

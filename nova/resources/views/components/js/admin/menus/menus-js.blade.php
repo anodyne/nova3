@@ -1,5 +1,5 @@
 <script>
-	$('.js-menuAction').on('click', function(e)
+	$('.js-menuAction').click(function(e)
 	{
 		e.preventDefault();
 

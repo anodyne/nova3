@@ -1,5 +1,5 @@
 <script>
-	$('[name="name"]').on('change', function(e)
+	$('[name="name"]').change(function(e)
 	{
 		if ($('[name="key"]').val() == "")
 		{
@@ -16,7 +16,7 @@
 		}
 	});
 
-	$('[name="key"]').on('change', function(e)
+	$('[name="key"]').change(function(e)
 	{
 		var field = $(this);
 		var value = $(this).val();
@@ -31,7 +31,14 @@
 				if (data.code == 0)
 				{
 					field.val("");
-					alert("Menu keys must be unique and another menu already exists with that key. Please enter a unique key.");
+
+					swal({
+						title: "Error!",
+						text: "Menu keys must be unique. Another menu is already using the key you gave. Please enter a unique key.",
+						type: 'error',
+						html: true,
+						timer: null
+					});
 				}
 			}
 		});
