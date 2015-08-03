@@ -1,5 +1,5 @@
 <script>
-	$('[name$="[key]"]').on('change', function(e)
+	$('[name$="[key]"]').change(function(e)
 	{
 		var field = $(this);
 		var value = $(this).val();
@@ -8,22 +8,26 @@
 			type: "POST",
 			dataType: "json",
 			url: "{{ route('admin.pages.checkKey') }}",
-			data: {
-				key: $(this).val(),
-				"_token": "{{ csrf_token() }}"
-			},
+			data: { key: $(this).val() },
 			success: function(data)
 			{
 				if (data.code == 0)
 				{
 					field.val("");
-					alert("Page keys must be unique and another page already exists with that key. Please enter a unique key.");
+
+					swal({
+						title: "Error!",
+						text: "Page keys must be unique. Another page is already using the key you gave. Please enter a unique key.",
+						type: "error",
+						timer: null,
+						html: true
+					});
 				}
 			}
 		});
 	});
 
-	$('[name$="[uri]"]').on('change', function(e)
+	$('[name$="[uri]"]').change(function(e)
 	{
 		var field = $(this);
 		var value = $(this).val();
@@ -32,15 +36,20 @@
 			type: "POST",
 			dataType: "json",
 			url: "{{ route('admin.pages.checkUri') }}",
-			data: {
-				uri: $(this).val()
-			},
+			data: { uri: $(this).val() },
 			success: function(data)
 			{
 				if (data.code == 0)
 				{
 					field.val("");
-					alert("You've entered a URI that's already being used by another page. Please enter a different URI for this page.");
+
+					swal({
+						title: "Error!",
+						text: "You've entered a URI that's already being used by another page. Please enter a different URI for this page.",
+						type: "error",
+						timer: null,
+						html: true
+					});
 				}
 				else
 				{
@@ -75,7 +84,7 @@
 		});
 	});
 
-	$('.js-resetResource').on('click', function(e)
+	$('.js-resetResource').click(function(e)
 	{
 		e.preventDefault();
 

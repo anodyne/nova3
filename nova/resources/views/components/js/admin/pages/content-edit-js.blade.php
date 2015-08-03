@@ -14,7 +14,14 @@
 				if (data.code == 0)
 				{
 					field.val("");
-					alert("Page content keys must be unique and another page content item already exists with that key. Please enter a unique key.");
+
+					swal({
+						title: "Error!",
+						text: "Page content keys must be unique. Another page content item is already using the key you gave. Please enter a unique key.",
+						type: "error",
+						timer: null,
+						html: true
+					});
 				}
 			}
 		});

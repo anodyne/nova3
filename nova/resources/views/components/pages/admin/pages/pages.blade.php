@@ -5,14 +5,20 @@
 
 	<div ng-cloak>
 		<div class="visible-xs visible-sm">
-			<p><a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg btn-block">Add a New Page</a></p>
+			@if ($_user->can('page.create'))
+				<p><a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg btn-block">Add a New Page</a></p>
+			@endif
+
 			<p><a href="{{ route('admin.content') }}" class="btn btn-default btn-lg btn-block">Page Content Manager</a></p>
 		</div>
 		<div class="visible-md visible-lg">
 			<div class="btn-toolbar">
-				<div class="btn-group">
-					<a href="{{ route('admin.pages.create') }}" class="btn btn-success">Add a New Page</a>
-				</div>
+				@if ($_user->can('page.create'))
+					<div class="btn-group">
+						<a href="{{ route('admin.pages.create') }}" class="btn btn-success">Add a New Page</a>
+					</div>
+				@endif
+
 				<div class="btn-group">
 					<a href="{{ route('admin.content') }}" class="btn btn-default">Page Content Manager</a>
 				</div>
@@ -74,22 +80,32 @@
 						<div class="col-md-3">
 							<div class="visible-xs visible-sm">
 								<div class="row">
-									<div class="col-sm-6">
-										<p><a href="{% page.links.edit %}" class="btn btn-default btn-lg btn-block">Edit</a></p>
-									</div>
-									<div class="col-sm-6" ng-hide="{% page.protected %}">
-										<p><a href="#" data-id="{% page.id %}" data-action="remove" class="btn btn-danger btn-lg btn-block js-pageAction">Remove</a></p>
-									</div>
+									@if ($_user->can('page.edit'))
+										<div class="col-sm-6">
+											<p><a href="{% page.links.edit %}" class="btn btn-default btn-lg btn-block">Edit</a></p>
+										</div>
+									@endif
+
+									@if ($_user->can('page.remove'))
+										<div class="col-sm-6" ng-hide="{% page.protected %}">
+											<p><a href="#" data-id="{% page.id %}" data-action="remove" class="btn btn-danger btn-lg btn-block js-pageAction">Remove</a></p>
+										</div>
+									@endif
 								</div>
 							</div>
 							<div class="visible-md visible-lg">
 								<div class="btn-toolbar pull-right">
-									<div class="btn-group">
-										<a href="{% page.links.edit %}" class="btn btn-default">Edit</a>
-									</div>
-									<div class="btn-group" ng-hide="{% page.protected %}">
-										<a href="#" data-id="{% page.id %}" data-action="remove" class="btn btn-danger js-pageAction">Remove</a>
-									</div>
+									@if ($_user->can('page.edit'))
+										<div class="btn-group">
+											<a href="{% page.links.edit %}" class="btn btn-default">Edit</a>
+										</div>
+									@endif
+
+									@if ($_user->can('page.remove'))
+										<div class="btn-group" ng-hide="{% page.protected %}">
+											<a href="#" data-id="{% page.id %}" data-action="remove" class="btn btn-danger js-pageAction">Remove</a>
+										</div>
+									@endif
 								</div>
 							</div>
 						</div>
@@ -100,4 +116,6 @@
 	</div>
 </div>
 
-{!! modal(['id' => "removePage", 'header' => "Remove Page"]) !!}
+@if ($_user->can('page.remove'))
+	{!! modal(['id' => "removePage", 'header' => "Remove Page"]) !!}
+@endif

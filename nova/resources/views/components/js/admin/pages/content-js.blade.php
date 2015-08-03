@@ -1,10 +1,10 @@
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+{!! partial('include-angular') !!}
 {!! HTML::script('nova/resources/js/angular/pageContents.js') !!}
 
 <script>
 	var baseUrl = "{{ Request::root() }}";
 
-	$(document).on('click', '.js-contentAction', function(e)
+	$('.js-contentAction').click(function(e)
 	{
 		e.preventDefault();
 
