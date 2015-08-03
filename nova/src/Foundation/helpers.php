@@ -104,9 +104,9 @@ if ( ! function_exists('partial'))
 	}
 }
 
-if ( ! function_exists('checkDirectories'))
+if ( ! function_exists('check_directories'))
 {
-	function checkDirectories()
+	function check_directories()
 	{
 		$directories = [
 			nova_path('bootstrap/cache'),
@@ -124,9 +124,9 @@ if ( ! function_exists('checkDirectories'))
 	}
 }
 
-if ( ! function_exists('themePath'))
+if ( ! function_exists('theme_path'))
 {
-	function themePath($location = false, $relative = true)
+	function theme_path($location = false, $relative = true)
 	{
 		if ($relative)
 		{
