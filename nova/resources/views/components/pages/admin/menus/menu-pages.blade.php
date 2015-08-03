@@ -40,7 +40,7 @@
 				<div class="checkbox">
 					<label>
 						{!! Form::checkbox('checkall', false, false, ['class' => 'js-checkAll']) !!}
-						<span class="text-sm no-bold" id="toggleAllLabel">Select All</span>
+						<span class="no-bold" id="toggleAllLabel">Select All</span>
 					</label>
 				</div>
 
