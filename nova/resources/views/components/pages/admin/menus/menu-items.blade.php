@@ -5,10 +5,10 @@
 <div class="visible-xs visible-sm">
 	@if ($_user->can('menu.create'))
 		<p><a href="{{ route('admin.menus.items.create', [$menu->id]) }}" class="btn btn-success btn-lg btn-block">Add a Menu Item</a></p>
-		<p><a href="#" class="btn btn-success btn-lg btn-block js-createMenuItemDivider" data-menu="{{ $menu->id }}">Add Divider</a></p>
+		<p><a href="#" class="btn btn-success btn-lg btn-block js-createMenuItemDivider" data-menu="{{ $menu->id }}">Add a Divider</a></p>
 	@endif
 
-	<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Menu Manager</a></p>
+	<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Manage All Menus</a></p>
 </div>
 <div class="visible-md visible-lg">
 	<div class="btn-toolbar">
@@ -17,12 +17,12 @@
 				<a href="{{ route('admin.menus.items.create', [$menu->id]) }}" class="btn btn-success">Add a Menu Item</a>
 			</div>
 			<div class="btn-group">
-				<a href="#" class="btn btn-default js-createMenuItemDivider" data-menu="{{ $menu->id }}">Add Divider</a>
+				<a href="#" class="btn btn-default js-createMenuItemDivider" data-menu="{{ $menu->id }}">Add a Divider</a>
 			</div>
 		@endif
 
 		<div class="btn-group">
-			<a href="{{ route('admin.menus') }}" class="btn btn-default">Menu Manager</a>
+			<a href="{{ route('admin.menus') }}" class="btn btn-default">Manage All Menus</a>
 		</div>
 	</div>
 </div>
