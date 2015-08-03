@@ -51,32 +51,64 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 	{
 		if ($menu instanceof Menu)
 		{
-			return $menu->menuItems->filter(function($item)
+			$items = $menu->menuItems->filter(function($item)
 			{
 				return (int) $item->parent_id === 0;
 			})->sortBy('order');
+
+			if ( ! user())
+			{
+				$items = $items->filter(function($item)
+				{
+					return (bool) $item->authentication === false;
+				});
+			}
+
+			return $items;
 		}
 
-		return $this->model->where('menu_id', '=', $menu)
+		$query = $this->model->where('menu_id', '=', $menu)
 			->where('parent_id', '=', 0)
-			->orderBy('order', 'asc')
-			->get();
+			->orderBy('order', 'asc');
+
+		if ( ! user())
+		{
+			$query = $query->where('authentication', '=', (int) false);
+		}
+
+		return $query->get();
 	}
 
 	public function getSubMenuItems($menu)
 	{
 		if ($menu instanceof Menu)
 		{
-			return $menu->menuItems->filter(function($item)
+			$items = $menu->menuItems->filter(function($item)
 			{
 				return (int) $item->parent_id != 0;
 			})->sortBy('order');
+
+			if ( ! user())
+			{
+				$items = $items->filter(function($item)
+				{
+					return (bool) $item->authentication === false;
+				});
+			}
+
+			return $items;
 		}
 
-		return $this->model->where('menu_id', '=', $menu)
+		$query = $this->model->where('menu_id', '=', $menu)
 			->where('parent_id', '!=', 0)
-			->orderBy('order', 'asc')
-			->get();
+			->orderBy('order', 'asc');
+
+		if ( ! user())
+		{
+			$query = $query->where('authentication', '=', (int) false);
+		}
+
+		return $query->get();
 	}
 
 	public function reorder(Menu $menu, array $newPositions)

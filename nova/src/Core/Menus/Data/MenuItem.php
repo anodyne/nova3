@@ -10,13 +10,14 @@ class MenuItem extends Model {
 	protected $table = 'menus_items';
 
 	protected $fillable = ['menu_id', 'parent_id', 'order', 'type', 'page_id',
-		'link', 'title'];
+		'link', 'title', 'authentication'];
 
 	protected $casts = [
-		'menu_id'	=> 'integer',
-		'parent_id'	=> 'integer',
-		'order'		=> 'integer',
-		'page_id'	=> 'integer',
+		'menu_id'			=> 'integer',
+		'parent_id'			=> 'integer',
+		'order'				=> 'integer',
+		'page_id'			=> 'integer',
+		'authentication'	=> 'boolean',
 	];
 
 	protected $dates = ['created_at', 'updated_at'];
