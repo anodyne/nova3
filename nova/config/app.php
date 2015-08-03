@@ -287,6 +287,7 @@ return [
 		 */
 		'Permission' => Nova\Core\Access\Data\Permission::class,
 		'Role' => Nova\Core\Access\Data\Role::class,
+		'RolePresenter' => Nova\Core\Access\Data\Presenters\RolePresenter::class,
 		'PermissionPresenter' => Nova\Core\Access\Data\Presenters\PermissionPresenter::class,
 		'PermissionRepositoryInterface' => Nova\Core\Access\Data\Interfaces\PermissionRepositoryInterface::class,
 		'RoleRepositoryInterface' => Nova\Core\Access\Data\Interfaces\RoleRepositoryInterface::class,
