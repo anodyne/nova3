@@ -19,6 +19,9 @@
 		"classmap": [
 			"nova/src/Setup/database"
 		],
+		"files": [
+			"nova/src/Foundation/helpers.php"
+		],
 		"psr-4": {
 			"Extensions\\": "extensions/",
 			"Nova\\": "nova/src/"
