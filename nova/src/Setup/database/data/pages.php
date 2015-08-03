@@ -267,6 +267,7 @@ return [
 		'key'				=> "admin.menus.items.create",
 		'uri'				=> "admin/menu-items/{menuId}/create",
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@create",
+		'menu_id'			=> 2,
 	],
 	[
 		'verb'				=> "POST",
@@ -287,6 +288,7 @@ return [
 		'key'				=> "admin.menus.items.edit",
 		'uri'				=> "admin/menu-items/{menuItemId}/edit",
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@edit",
+		'menu_id'			=> 2,
 	],
 	[
 		'verb'				=> "PUT",
