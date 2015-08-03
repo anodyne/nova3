@@ -6,21 +6,21 @@
 	<div ng-cloak>
 		<div class="visible-xs visible-sm">
 			@if ($_user->can('page.create'))
-				<p><a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg btn-block">Add a New Page</a></p>
+				<p><a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg btn-block">Add a Page</a></p>
 			@endif
 
-			<p><a href="{{ route('admin.content') }}" class="btn btn-default btn-lg btn-block">Page Content Manager</a></p>
+			<p><a href="{{ route('admin.content') }}" class="btn btn-default btn-lg btn-block">Manage Other Page Content</a></p>
 		</div>
 		<div class="visible-md visible-lg">
 			<div class="btn-toolbar">
 				@if ($_user->can('page.create'))
 					<div class="btn-group">
-						<a href="{{ route('admin.pages.create') }}" class="btn btn-success">Add a New Page</a>
+						<a href="{{ route('admin.pages.create') }}" class="btn btn-success">Add a Page</a>
 					</div>
 				@endif
 
 				<div class="btn-group">
-					<a href="{{ route('admin.content') }}" class="btn btn-default">Page Content Manager</a>
+					<a href="{{ route('admin.content') }}" class="btn btn-default">Manage Other Page Content</a>
 				</div>
 			</div>
 		</div>
@@ -87,7 +87,7 @@
 									@endif
 
 									@if ($_user->can('page.remove'))
-										<div class="col-sm-6" ng-hide="{% page.protected %}">
+										<div class="col-sm-6" ng-hide="page.protected">
 											<p><a href="#" data-id="{% page.id %}" data-action="remove" class="btn btn-danger btn-lg btn-block js-pageAction">Remove</a></p>
 										</div>
 									@endif
@@ -102,7 +102,7 @@
 									@endif
 
 									@if ($_user->can('page.remove'))
-										<div class="btn-group" ng-hide="{% page.protected %}">
+										<div class="btn-group" ng-hide="page.protected">
 											<a href="#" data-id="{% page.id %}" data-action="remove" class="btn btn-danger js-pageAction">Remove</a>
 										</div>
 									@endif

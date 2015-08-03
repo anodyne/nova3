@@ -81,7 +81,7 @@
 									@endif
 
 									@if ($_user->can('page.remove'))
-										<div class="col-sm-6" ng-hide="{% content.protected %}">
+										<div class="col-sm-6" ng-hide="content.protected">
 											<p><a href="#" data-id="{% content.id %}" data-action="remove" class="btn btn-danger btn-lg btn-block js-contentAction">Remove</a></p>
 										</div>
 									@endif
@@ -96,7 +96,7 @@
 									@endif
 
 									@if ($_user->can('page.remove'))
-										<div class="btn-group" ng-hide="{% content.protected %}">
+										<div class="btn-group" ng-hide="content.protected">
 											<a href="#" data-id="{% content.id %}" data-action="remove" class="btn btn-danger js-contentAction">Remove</a>
 										</div>
 									@endif

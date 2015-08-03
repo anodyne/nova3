@@ -1,11 +1,11 @@
 @if ($_user->can('menu.create'))
 	<div class="visible-xs visible-sm">
-		<p><a href="{{ route('admin.menus.create') }}" class="btn btn-success btn-lg btn-block">Add a New Menu</a></p>
+		<p><a href="{{ route('admin.menus.create') }}" class="btn btn-success btn-lg btn-block">Add a Menu</a></p>
 	</div>
 	<div class="visible-md visible-lg">
 		<div class="btn-toolbar">
 			<div class="btn-group">
-				<a href="{{ route('admin.menus.create') }}" class="btn btn-success">Add a New Menu</a>
+				<a href="{{ route('admin.menus.create') }}" class="btn btn-success">Add a Menu</a>
 			</div>
 		</div>
 	</div>
