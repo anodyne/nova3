@@ -1,6 +1,6 @@
 {!! Form::open(['route' => 'password.email.send']) !!}
 	<div class="form-group">
-		{!! Form::email('email', false, ['class' => 'form-control input-lg', 'placeholder' => 'Email Address']) !!}
+		{!! Form::email('email', null, ['class' => 'form-control input-lg', 'placeholder' => 'Email Address']) !!}
 	</div>
 
 	<div class="form-group">
