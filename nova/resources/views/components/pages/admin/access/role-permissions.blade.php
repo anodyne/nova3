@@ -5,12 +5,22 @@
 
 	<div ng-cloak>
 		<div class="visible-xs visible-sm">
-			<p><a href="{{ route('admin.access.permissions.create') }}" class="btn btn-success btn-lg btn-block">Add a Permission</a></p>
+			@if ($_user->can('access.create'))
+				<p><a href="{{ route('admin.access.permissions.create') }}" class="btn btn-success btn-lg btn-block">Add a Permission</a></p>
+			@endif
+
+			<p><a href="{{ route('admin.access.roles') }}" class="btn btn-default btn-lg btn-block">Manage Access Roles</a></p>
 		</div>
 		<div class="visible-md visible-lg">
 			<div class="btn-toolbar">
+				@if ($_user->can('access.create'))
+					<div class="btn-group">
+						<a href="{{ route('admin.access.permissions.create') }}" class="btn btn-success">Add a Permission</a>
+					</div>
+				@endif
+
 				<div class="btn-group">
-					<a href="{{ route('admin.access.permissions.create') }}" class="btn btn-success">Add a Permission</a>
+					<a href="{{ route('admin.access.roles') }}" class="btn btn-default">Manage Access Roles</a>
 				</div>
 			</div>
 		</div>
@@ -46,31 +56,41 @@
 
 			<div class="col-md-9 col-md-pull-3">
 				<div class="data-table data-table-bordered data-table-striped">
-					<div class="row" ng-repeat="permission in permissions | filter:search">
+					<div class="row" ng-repeat="permission in permissions | toArray | filter:search">
 						<div class="col-md-9">
 							<p class="lead"><strong>{% permission.display_name %}</strong></p>
 							<p><strong>Key:</strong> {% permission.name %}</p>
-							<p><strong>Role(s):</strong> <span class="label label-default">{% permission.roles %}</span></p>
+							<p ng-hide="permission.roles == ''"><strong>Included in Role(s):</strong> <span ng-bind-html="permission.roles"></span></p>
 						</div>
 						<div class="col-md-3">
 							<div class="visible-xs visible-sm">
 								<div class="row">
-									<div class="col-sm-6">
-										<p><a href="{% permission.links.edit %}" class="btn btn-default btn-lg btn-block">Edit</a></p>
-									</div>
-									<div class="col-sm-6">
-										<p><a href="#" data-id="{% permission.id %}" data-action="remove" class="btn btn-danger btn-lg btn-block js-permissionAction">Remove</a></p>
-									</div>
+									@if ($_user->can('access.edit'))
+										<div class="col-sm-6">
+											<p><a href="{% permission.links.edit %}" class="btn btn-default btn-lg btn-block">Edit</a></p>
+										</div>
+									@endif
+
+									@if ($_user->can('access.remove'))
+										<div class="col-sm-6" ng-hide="permission.protected">
+											<p><a href="#" data-id="{% permission.id %}" data-action="remove" class="btn btn-danger btn-lg btn-block js-permissionAction">Remove</a></p>
+										</div>
+									@endif
 								</div>
 							</div>
 							<div class="visible-md visible-lg">
 								<div class="btn-toolbar pull-right">
-									<div class="btn-group">
-										<a href="{% permission.links.edit %}" class="btn btn-default">Edit</a>
-									</div>
-									<div class="btn-group">
-										<a href="#" data-id="{% permission.id %}" data-action="remove" class="btn btn-danger js-permissionAction">Remove</a>
-									</div>
+									@if ($_user->can('access.edit'))
+										<div class="btn-group">
+											<a href="{% permission.links.edit %}" class="btn btn-default">Edit</a>
+										</div>
+									@endif
+
+									@if ($_user->can('access.remove'))
+										<div class="btn-group" ng-hide="permission.protected">
+											<a href="#" data-id="{% permission.id %}" data-action="remove" class="btn btn-danger js-permissionAction">Remove</a>
+										</div>
+									@endif
 								</div>
 							</div>
 						</div>
@@ -81,4 +101,6 @@
 	</div>
 </div>
 
-{!! modal(['id' => "removePermission", 'header' => "Remove Permission"]) !!}
+@if ($_user->can('access.remove'))
+	{!! modal(['id' => "removePermission", 'header' => "Remove Permission"]) !!}
+@endif
