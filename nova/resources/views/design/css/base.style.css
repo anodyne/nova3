@@ -77,6 +77,46 @@ dl dd {
 .btn.active.focus {
   outline: none !important;
 }
+.btn.btn-link-default {
+  background: transparent;
+  border: none;
+  color: #616161;
+}
+.btn.btn-link-default:hover {
+  text-decoration: underline;
+}
+.btn.btn-link-danger {
+  background: transparent;
+  border: none;
+  color: #d9534f;
+}
+.btn.btn-link-danger:hover {
+  text-decoration: underline;
+}
+.btn.btn-link-info {
+  background: transparent;
+  border: none;
+  color: #5bc0de;
+}
+.btn.btn-link-info:hover {
+  text-decoration: underline;
+}
+.btn.btn-link-success {
+  background: transparent;
+  border: none;
+  color: #5cb85c;
+}
+.btn.btn-link-success:hover {
+  text-decoration: underline;
+}
+.btn.btn-link-warning {
+  background: transparent;
+  border: none;
+  color: #f0ad4e;
+}
+.btn.btn-link-warning:hover {
+  text-decoration: underline;
+}
 .label {
   font-weight: 400;
   letter-spacing: 0.05rem;
