@@ -35,8 +35,8 @@
 			<label class="radio-inline">
 				{!! Form::radio('authentication', (int) false, ($item->authentication === false)) !!} No
 			</label>
-			<p class="help-block">Does the user need to be logged in to see this menu item?</p>
 			{!! $errors->first('authentication', '<p class="help-block">:message</p>') !!}
+			<p class="help-block">Does the user need to be logged in to see this menu item?</p>
 		</div>
 	</div>
 
