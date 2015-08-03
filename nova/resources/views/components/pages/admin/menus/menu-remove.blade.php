@@ -8,9 +8,11 @@
 	</div>
 
 	<div class="visible-xs visible-sm">
-		<p>{!! Form::button("Remove", ['type' => 'submit', 'class' => 'btn btn-danger btn-lg btn-block']) !!}</p>
+		<p>{!! Form::button("Remove Menu", ['type' => 'submit', 'class' => 'btn btn-danger btn-lg btn-block']) !!}</p>
+		<p>{!! Form::button("Cancel", ['class' => 'btn btn-default btn-lg btn-block', 'data-dismiss' => 'modal']) !!}</p>
 	</div>
 	<div class="visible-md visible-lg">
-		<p>{!! Form::button("Remove", ['type' => 'submit', 'class' => 'btn btn-danger btn-lg']) !!}</p>
+		{!! Form::button("Remove Menu", ['type' => 'submit', 'class' => 'btn btn-danger btn-lg']) !!}
+		{!! Form::button("Cancel", ['class' => 'btn btn-link-default btn-lg', 'data-dismiss' => 'modal']) !!}
 	</div>
 {!! Form::close() !!}

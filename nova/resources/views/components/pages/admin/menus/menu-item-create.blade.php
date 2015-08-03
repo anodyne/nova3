@@ -1,3 +1,14 @@
+<div class="visible-xs visible-sm">
+	<p><a href="{{ route('admin.menus.items', [$menuId]) }}" class="btn btn-default btn-lg btn-block">Back to Menu Items</a></p>
+</div>
+<div class="visible-md visible-lg">
+	<div class="btn-toolbar">
+		<div class="btn-group">
+			<a href="{{ route('admin.menus.items', [$menuId]) }}" class="btn btn-default">Back to Menu Items</a>
+		</div>
+	</div>
+</div>
+
 {!! Form::open(['route' => 'admin.menus.items.store', 'class' => 'form-horizontal']) !!}
 	<div class="form-group{{ ($errors->has('menu_id')) ? ' has-error' : '' }}">
 		<label class="col-md-2 control-label">Menu</label>
@@ -39,18 +50,16 @@
 		</div>
 	</div>
 
-	<div class="col-md-5 col-md-offset-2">
-		<div class="visible-xs visible-sm">
-			<p>{!! Form::button("Add Menu Item", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
-			<p><a href="{{ route('admin.menus.items', [$menuId]) }}" class="btn btn-default btn-lg btn-block">Cancel</a></p>
-		</div>
-		<div class="visible-md visible-lg">
-			<div class="btn-toolbar">
-				<div class="btn-group">
-					{!! Form::button("Add Menu Item", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
-				</div>
-				<div class="btn-group">
-					<a href="{{ route('admin.menus.items', [$menuId]) }}" class="btn btn-default btn-lg">Cancel</a>
+	<div class="form-group">
+		<div class="col-md-5 col-md-offset-2">
+			<div class="visible-xs visible-sm">
+				<p>{!! Form::button("Add Menu Item", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
+			</div>
+			<div class="visible-md visible-lg">
+				<div class="btn-toolbar">
+					<div class="btn-group">
+						{!! Form::button("Add Menu Item", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+					</div>
 				</div>
 			</div>
 		</div>

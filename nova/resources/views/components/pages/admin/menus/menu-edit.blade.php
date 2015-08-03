@@ -26,12 +26,18 @@
 		</div>
 	</div>
 
-	<div class="col-md-5 col-md-offset-2">
-		<div class="visible-xs visible-sm">
-			{!! Form::button("Update Menu", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}
-		</div>
-		<div class="visible-md visible-lg">
-			{!! Form::button("Update Menu", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+	<div class="form-group">
+		<div class="col-md-5 col-md-offset-2">
+			<div class="visible-xs visible-sm">
+				<p>{!! Form::button("Update Menu", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
+			</div>
+			<div class="visible-md visible-lg">
+				<div class="btn-toolbar">
+					<div class="btn-group">
+						{!! Form::button("Update Menu", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 {!! Form::close() !!}

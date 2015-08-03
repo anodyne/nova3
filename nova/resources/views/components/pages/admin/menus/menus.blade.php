@@ -33,7 +33,7 @@
 						</div>
 					@endif
 
-					@if ($_user->can(['page.edit', 'menu.edit']))
+					@if ($_user->can(['page.edit', 'menu.edit'], true))
 						<div class="col-xs-12 col-sm-6">
 							<p><a href="{{ route('admin.menus.pages', [$menu->key]) }}" class="btn btn-default btn-lg btn-block">Manage Pages Using this Menu</a></p>
 						</div>
@@ -58,7 +58,7 @@
 							<ul class="dropdown-menu dropdown-menu-right" role="menu">
 								<li><a href="{{ route('admin.menus.items', [$menu->id]) }}">Manage Menu Items</a></li>
 								
-								@if ($_user->can(['menu.edit', 'page.edit']))
+								@if ($_user->can(['menu.edit', 'page.edit'], true))
 									<li><a href="{{ route('admin.menus.pages', [$menu->key]) }}">Manage Pages Using this Menu</a></li>
 								@endif
 							</ul>
