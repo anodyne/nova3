@@ -1,4 +1,4 @@
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+{!! partial('include-angular') !!}
 {!! HTML::script('nova/resources/js/angular/rolePermissions.js') !!}
 
 <script>
