@@ -40,6 +40,7 @@ class CreateAccessTables extends Migration {
 			$table->string('name')->unique();
 			$table->string('display_name')->nullable();
 			$table->string('description')->nullable();
+			$table->boolean('protected')->default((int) false);
 			$table->timestamps();
 		});
 
