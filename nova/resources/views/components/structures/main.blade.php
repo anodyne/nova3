@@ -11,8 +11,8 @@
 
 		<title>{{ $pageTitle or $_page->present()->title }} &bull; {{ $_settings->get('sim_name') }}</title>
 
-		@if (app('files')->exists(themePath('design/css/bootstrap.css', false)))
-			{!! HTML::style(app()->themeRelativePath('design/css/bootstrap.css')) !!}
+		@if (app('files')->exists(theme_path('design/css/bootstrap.css', false)))
+			{!! HTML::style(theme_path('design/css/bootstrap.css')) !!}
 		@else
 			<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 		@endif
@@ -21,29 +21,29 @@
 		{!! partial('include-fonts') !!}
 		{!! partial('include-icons') !!}
 
-		@if (app('files')->exists(themePath('design/css/icons.css', false)))
-			{!! HTML::style(app()->themeRelativePath('design/css/icons.css')) !!}
+		@if (app('files')->exists(theme_path('design/css/icons.css', false)))
+			{!! HTML::style(theme_path('design/css/icons.css')) !!}
 		@else
 			{!! HTML::style('nova/resources/views/design/css/base.icons.css') !!}
 		@endif
 
-		@if (app('files')->exists(themePath('design/css/style.css', false)))
-			{!! HTML::style(app()->themeRelativePath('design/css/style.css')) !!}
+		@if (app('files')->exists(theme_path('design/css/style.css', false)))
+			{!! HTML::style(theme_path('design/css/style.css')) !!}
 		@else
 			{!! HTML::style('nova/resources/views/design/css/base.style.css') !!}
 		@endif
 
 		{!! HTML::style('nova/resources/views/design/css/base.responsive.css') !!}
 
-		@if (app('files')->exists(themePath('design/css/custom.css', false)))
-			{!! HTML::style(themePath('design/css/custom.css')) !!}
+		@if (app('files')->exists(theme_path('design/css/custom.css', false)))
+			{!! HTML::style(theme_path('design/css/custom.css')) !!}
 		@endif
 
 		@if (user() and user()->preference('theme_variant'))
-			{!! HTML::style(themePath("design/css/variants/{user()->preference('theme_variant')}.css")) !!}
+			{!! HTML::style(theme_path("design/css/variants/{user()->preference('theme_variant')}.css")) !!}
 		@endif
 		@if ( ! user() and ! empty($_settings->get('theme_variant')))
-			{!! HTML::style(themePath("design/css/variants/{$_settings->get('theme_variant')}.css")) !!}
+			{!! HTML::style(theme_path("design/css/variants/{$_settings->get('theme_variant')}.css")) !!}
 		@endif
 
 		{!! $styles or false !!}
