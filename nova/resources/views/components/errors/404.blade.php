@@ -1,6 +1,8 @@
 <html>
 	<head>
-		<link href='http://fonts.googleapis.com/css?family=Lato:100,300' rel='stylesheet' type='text/css'>
+		<title>Page Not Found</title>
+		<link href="//fonts.googleapis.com/css?family=Roboto+Condensed:400" rel="stylesheet">
+		<link href="//fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
 
 		<style>
 			body {
@@ -8,10 +10,10 @@
 				padding: 0;
 				width: 100%;
 				height: 100%;
-				color: #B0BEC5;
+				color: #78909c;
 				display: table;
-				font-weight: 100;
-				font-family: 'Lato';
+				font-weight: 300;
+				font-family: "Roboto";
 			}
 
 			.container {
@@ -28,7 +30,9 @@
 			.title {
 				font-size: 72px;
 				margin-bottom: 40px;
-				color: #c00;
+				color: #e53935;
+				font-family: "Roboto Condensed";
+				font-weight: 400;
 			}
 			.subtitle {
 				font-size: 36px;
@@ -40,7 +44,7 @@
 		<div class="container">
 			<div class="content">
 				<div class="title">Uh Oh!</div>
-				<div class="subtitle">We couldn't find what you're looking for.</div>
+				<div class="subtitle">We couldn&rsquo;t find what you&rsquo;re looking for.</div>
 			</div>
 		</div>
 	</body>
