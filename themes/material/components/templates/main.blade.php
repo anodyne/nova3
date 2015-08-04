@@ -8,8 +8,6 @@
 
 <div class="container">
 	<main>
-		{!! flash() !!}
-		
 		{!! partial('page-header', compact('_page')) !!}
 
 		{!! partial('page-message', compact('_page')) !!}
