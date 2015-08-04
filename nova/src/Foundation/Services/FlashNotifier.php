@@ -2,7 +2,7 @@
 
 class FlashNotifier {
 
-	public function create($message, $title = null, $level = 'info', $key = 'flash_message')
+	public function create($title = null, $message = null, $level = 'info', $key = 'flash_message')
 	{
 		session()->flash($key, [
 			'title'		=> $title,
@@ -11,29 +11,29 @@ class FlashNotifier {
 		]);
 	}
 
-	public function error($message, $title = null)
+	public function error($title = null, $message = null)
 	{
-		return $this->create($message, $title, 'error');
+		return $this->create($title, $message, 'error');
 	}
 
-	public function info($message, $title = null)
+	public function info($title = null, $message = null)
 	{
-		return $this->create($message, $title, 'info');
+		return $this->create($title, $message, 'info');
 	}
 
-	public function success($message, $title = null)
+	public function success($title = null, $message = null)
 	{
-		return $this->create($message, $title, 'success');
+		return $this->create($title, $message, 'success');
 	}
 
-	public function warning($message, $title = null)
+	public function warning($title = null, $message = null)
 	{
-		return $this->create($message, $title, 'warning');
+		return $this->create($title, $message, 'warning');
 	}
 
-	public function overlay($message, $title = null, $level = null)
+	public function overlay($title = null, $message = null, $level = null)
 	{
-		return $this->create($message, $title, $level, 'flash_message_overlay');
+		return $this->create($title, $message, $level, 'flash_message_overlay');
 	}
 
 }

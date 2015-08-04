@@ -22,7 +22,7 @@ if ( ! function_exists('d'))
 
 if ( ! function_exists('flash'))
 {
-	function flash($level = false, $content = false, $header = false)
+	function flash($level = false, $title = false, $message = false)
 	{
 		// Get the instance of the flash notifier service
 		$flash = app('nova.flash');
@@ -31,7 +31,7 @@ if ( ! function_exists('flash'))
 		if ( ! $level) return $flash;
 
 		// Use the level to create the flash message
-		$flash->{$level}($content, $header);
+		$flash->{$level}($title, $message);
 	}
 }
 
