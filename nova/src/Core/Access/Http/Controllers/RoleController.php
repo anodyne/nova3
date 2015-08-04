@@ -62,7 +62,7 @@ class RoleController extends BaseController {
 		event(new Events\RoleWasCreated($role));
 
 		// Set the flash message
-		flash()->success("Access role has been created.");
+		flash()->success("Role Created!");
 
 		return redirect()->route('admin.access.roles');
 	}
@@ -94,7 +94,7 @@ class RoleController extends BaseController {
 		event(new Events\RoleWasUpdated($role));
 
 		// Set the flash message
-		flash()->success("Access role has been updated.");
+		flash()->success("Role Updated!");
 
 		return redirect()->route('admin.access.roles');
 	}
@@ -139,7 +139,7 @@ class RoleController extends BaseController {
 		event(new Events\RoleWasDeleted($role->name));
 
 		// Set the flash message
-		flash()->success("Access role has been removed.");
+		flash()->success("Role Removed!");
 
 		return redirect()->route('admin.access.roles');
 	}

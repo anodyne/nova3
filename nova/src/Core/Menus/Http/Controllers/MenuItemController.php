@@ -94,7 +94,7 @@ class MenuItemController extends BaseController {
 		event(new Events\MenuItemWasCreated($item));
 
 		// Set the flash message
-		flash()->success("Menu item has been created.");
+		flash()->success("Menu Item Created!", "Add your new menu item to any of your menus now.");
 
 		return redirect()->route('admin.menus.items', [$item->menu->id]);
 	}
@@ -145,7 +145,7 @@ class MenuItemController extends BaseController {
 		event(new Events\MenuItemWasUpdated($item));
 
 		// Set the flash message
-		flash()->success("Menu item has been updated.");
+		flash()->success("Menu Item Updated!");
 
 		return redirect()->route('admin.menus.items', [$item->menu->id]);
 	}
@@ -183,7 +183,7 @@ class MenuItemController extends BaseController {
 		event(new Events\MenuItemWasDeleted($item->title, $item->link));
 
 		// Set the flash message
-		flash()->success("Menu item has been removed.");
+		flash()->success("Menu Item Removed!");
 
 		return redirect()->route('admin.menus.items', [$item->menu->id]);
 	}

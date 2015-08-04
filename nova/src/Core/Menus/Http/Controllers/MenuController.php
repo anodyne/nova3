@@ -65,7 +65,7 @@ class MenuController extends BaseController {
 		event(new Events\MenuWasCreated($menu));
 
 		// Set the flash message
-		flash()->success("Menu has been created.");
+		flash()->success("Menu Created!");
 
 		return redirect()->route('admin.menus');
 	}
@@ -97,7 +97,7 @@ class MenuController extends BaseController {
 		event(new Events\MenuWasUpdated($menu));
 
 		// Set the flash message
-		flash()->success("Menu has been updated.");
+		flash()->success("Menu Updated!");
 
 		return redirect()->route('admin.menus');
 	}
@@ -138,7 +138,7 @@ class MenuController extends BaseController {
 		event(new Events\MenuWasDeleted($menu->key, $menu->name));
 
 		// Set the flash message
-		flash()->success("Menu has been removed.");
+		flash()->success("Menu Removed!");
 
 		return redirect()->route('admin.menus');
 	}
@@ -196,14 +196,7 @@ class MenuController extends BaseController {
 		$this->repo->updatePages($request->get('pages'), $request->get('new_menu'));
 
 		// Set the flash message
-		if (count($request->get('pages')) > 1)
-		{
-			flash()->success("Pages have been updated.");
-		}
-		else
-		{
-			flash()->success("Page has been updated.");
-		}
+		flash()->success(Str::plural('Page', count($request->get('pages')))." Updated!");
 
 		return redirect()->route('admin.menus.pages', [$menuKey]);
 	}
