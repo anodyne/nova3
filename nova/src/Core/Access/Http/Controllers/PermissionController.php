@@ -60,7 +60,7 @@ class PermissionController extends BaseController {
 		event(new Events\PermissionWasCreated($permission));
 
 		// Set the flash message
-		flash()->success("Access role permission has been created. You can now add this permission to any of your access roles.");
+		flash()->success("Permission Created!", "Add your new permission to any of your access roles now.");
 
 		return redirect()->route('admin.access.permissions');
 	}
@@ -92,7 +92,7 @@ class PermissionController extends BaseController {
 		event(new Events\PermissionWasUpdated($permission));
 
 		// Set the flash message
-		flash()->success("Access role permission has been updated.");
+		flash()->success("Permission Updated!");
 
 		return redirect()->route('admin.access.permissions');
 	}
@@ -137,7 +137,7 @@ class PermissionController extends BaseController {
 		event(new Events\PermissionWasDeleted($permission->name, $permission->display_name));
 
 		// Set the flash message
-		flash()->success("Access role permission has been removed.");
+		flash()->success("Permission Removed!");
 
 		return redirect()->route('admin.access.permissions');
 	}
