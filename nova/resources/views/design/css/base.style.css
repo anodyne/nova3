@@ -85,6 +85,12 @@ dl dd {
 .btn.btn-link-default:hover {
   text-decoration: underline;
 }
+.btn.btn-link-default:active,
+.btn.btn-link-default:focus {
+  -webkit-box-shadow: inset 0 0 0 transparent, inset 0 0 0 transparent, 0 0 0 transparent;
+  -moz-box-shadow: inset 0 0 0 transparent, inset 0 0 0 transparent, 0 0 0 transparent;
+  box-shadow: inset 0 0 0 transparent, inset 0 0 0 transparent, 0 0 0 transparent;
+}
 .btn.btn-link-danger {
   background: transparent;
   border: none;
