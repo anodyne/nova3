@@ -3,10 +3,10 @@
 return [
 
 	'roles' => [
-		['name' => "Game Master"],
-		['name' => "Power User"],
-		['name' => "Active User"],
-		['name' => "Inactive User"],
+		['display_name' => "Game Master", 'name' => "game-master"],
+		['display_name' => "Power User", 'name' => "power-user"],
+		['display_name' => "Active User", 'name' => "active-user"],
+		['display_name' => "Inactive User", 'name' => "inactive-user"],
 	],
 
 	'permissions' => [

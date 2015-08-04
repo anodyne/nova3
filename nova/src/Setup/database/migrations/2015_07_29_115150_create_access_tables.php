@@ -88,7 +88,7 @@ class CreateAccessTables extends Migration {
 		{
 			$role = Role::create($role);
 
-			foreach ($data['roleAssociations'][$role->name] as $ra)
+			foreach ($data['roleAssociations'][$role->display_name] as $ra)
 			{
 				$role->perms()->attach($ra);
 			}

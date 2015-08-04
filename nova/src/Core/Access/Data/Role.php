@@ -8,6 +8,8 @@ class Role extends EntrustRole {
 
 	use PresentableTrait;
 
+	protected $fillable = ['name', 'display_name', 'description'];
+
 	protected $presenter = RolePresenter::class;
 
 }

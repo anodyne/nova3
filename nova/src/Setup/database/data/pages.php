@@ -340,7 +340,7 @@ return [
 		'name'				=> "Store Access Role",
 		'key'				=> "admin.access.roles.store",
 		'uri'				=> "admin/access/roles/create",
-		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\RoleController@store",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@store",
 	],
 	[
 		'name'				=> "Edit Access Role",
@@ -427,5 +427,12 @@ return [
 		'key'				=> "admin.access.permissions.checkKey",
 		'uri'				=> "admin/access/permissions/check-key",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\PermissionController@checkPermissionKey",
+	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Check for Duplicate Role Keys",
+		'key'				=> "admin.access.roles.checkKey",
+		'uri'				=> "admin/access/roles/check-key",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@checkRoleKey",
 	],
 ];

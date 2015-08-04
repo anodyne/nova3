@@ -24,6 +24,7 @@
 	<div class="row">
 		<div class="col-md-6">
 			<p class="lead"><strong>{{ $role->present()->name }}</strong></p>
+			<p><strong>Key:</strong> {{ $role->present()->key }}</p>
 
 			@if ($role->users->count() > 0)
 				<p class="text-muted text-sm"><em>{{ $role->present()->usersWithRole }}</em></p>
@@ -36,9 +37,12 @@
 						<div class="col-xs-12">
 							<p><a href="{{ route('admin.access.roles.edit', [$role->id]) }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
 						</div>
-						<div class="col-xs-12">
-							<p><a href="#" class="btn btn-default btn-lg btn-block">Users With This Role</a></p>
-						</div>
+
+						@if ($role->users->count() > 0)
+							<div class="col-xs-12">
+								<p><a href="#" class="btn btn-default btn-lg btn-block">Users With This Role</a></p>
+							</div>
+						@endif
 					@endif
 
 					@if ($_user->can('access.remove'))
@@ -54,9 +58,12 @@
 						<div class="btn-group">
 							<a href="{{ route('admin.access.roles.edit', [$role->id]) }}" class="btn btn-default">Edit</a>
 						</div>
-						<div class="btn-group">
-							<a href="#" class="btn btn-default">Users With This Role</a>
-						</div>
+
+						@if ($role->users->count() > 0)
+							<div class="btn-group">
+								<a href="#" class="btn btn-default">Users With This Role</a>
+							</div>
+						@endif
 					@endif
 
 					@if ($_user->can('access.remove'))

@@ -144,4 +144,18 @@ class RoleController extends BaseController {
 		return redirect()->route('admin.access.roles');
 	}
 
+	public function checkRoleKey()
+	{
+		$this->isAjax = true;
+
+		$count = $this->repo->countBy('name', Input::get('key'));
+
+		if ($count > 0)
+		{
+			return json_encode(['code' => 0]);
+		}
+
+		return json_encode(['code' => 1]);
+	}
+
 }
