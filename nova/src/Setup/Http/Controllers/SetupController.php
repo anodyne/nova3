@@ -55,7 +55,7 @@ class SetupController extends BaseController {
 		}
 
 		// Set the flash message
-		flash()->success("Nova has been successfully removed.");
+		flash()->success("Nova has been removed!");
 
 		return redirect()->route('setup.home');
 	}

@@ -33,7 +33,7 @@ class ConfigEmailController extends BaseController {
 		}
 
 		// Set the flash message
-		flash()->error("We couldn't write the email configuration file because of your server's settings. Please contact your web host to ensure PHP files can write to the server.");
+		flash()->error(null, "We couldn't write the email configuration file because of your server's settings. Please contact your web host to ensure PHP files can write to the server.");
 
 		return redirect()->route("setup.{$this->setupType}.config.email");
 	}

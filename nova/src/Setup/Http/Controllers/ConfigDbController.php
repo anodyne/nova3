@@ -16,7 +16,7 @@ class ConfigDbController extends BaseController {
 	{
 		if (Input::get('db_name') == "")
 		{
-			flash()->error("Please enter a database name to configure your database connection.", "No Database Found");
+			flash()->error("No Database Found", "Please enter a database name to configure your database connection.");
 			
 			return redirect()->back()->withInput();
 		}
@@ -87,25 +87,25 @@ class ConfigDbController extends BaseController {
 
 			if (stripos($msg, 'No such host is known') !== false)
 			{
-				flash()->error("The database host you provided couldn't be found. Most of the time, web hosts use `localhost`, but in some instances, they set up their servers differently. Check with your web host about the proper database host to use and try again.", "Database Host Not Found");
+				flash()->error("Database Host Not Found", "The database host you provided couldn't be found. Most of the time, web hosts use `localhost`, but in some instances, they set up their servers differently. Check with your web host about the proper database host to use and try again.");
 			}
 			elseif (stripos($msg, 'could not find driver') !== false)
 			{
-				flash()->error("Your server doesn't have the necessary PDO driver for connecting to the database. Contact your web host to resolve this issue.", "PDO Driver Not Found");
+				flash()->error("PDO Driver Not Found", "Your server doesn't have the necessary PDO driver for connecting to the database. Contact your web host to resolve this issue.");
 			}
 			elseif (stripos($msg, 'Access denied for user') !== false)
 			{
-				flash()->error("The username and/or password you provided doesn't seem to work. Double check your username and/or password and try again.", "User/Password Issue");
+				flash()->error("User/Password Issue", "The username and/or password you provided doesn't seem to work. Double check your username and/or password and try again.");
 			}
 			elseif (stripos($msg, 'Unknown database') !== false)
 			{
 				$dbName = session('dbName');
 
-				flash()->error(sprintf("A successful connection was made to your database server (which means your username and password are fine) but the database `%s` couldn't be found.\r\n\r\n- Are you sure it exists?\r\n- Does the user have permission to use the `%s` database?\r\n- On some systems the name of your database is prefixed with your username, like `%s_%s`. Could that be the problem?\r\n\r\nIf you don't know how to setup a database or your database connection settings, you should contact your web host.", $dbName, $dbName, session('dbUser'), $dbName), "Database Not Found");
+				flash()->error("Database Not Found", sprintf("A successful connection was made to your database server (which means your username and password are fine) but the database `%s` couldn't be found.\r\n\r\n- Are you sure it exists?\r\n- Does the user have permission to use the `%s` database?\r\n- On some systems the name of your database is prefixed with your username, like `%s_%s`. Could that be the problem?\r\n\r\nIf you don't know how to setup a database or your database connection settings, you should contact your web host.", $dbName, $dbName, session('dbUser'), $dbName));
 			}
 			else
 			{
-				flash()->error("There was an unidentified error when trying to connect to the database. This could be caused by incorrect database connection settings or the database server being down. Check with your web host to see if there are any issues and try again.\r\n\r\n`".$e->getMessage()."`", "Unknown Database Issue");
+				flash()->error("Unknown Database Issue", "There was an unidentified error when trying to connect to the database. This could be caused by incorrect database connection settings or the database server being down. Check with your web host to see if there are any issues and try again.\r\n\r\n`".$e->getMessage()."`");
 			}
 
 			return redirect()->route("setup.{$this->setupType}.config.db")->withInput();
@@ -138,13 +138,13 @@ class ConfigDbController extends BaseController {
 			}
 
 			// Set the flash message
-			flash()->error("We couldn't write the database connection file because of your server's settings. Please contact your web host to ensure PHP files can write to the server.");
+			flash()->error(null, "We couldn't write the database connection file because of your server's settings. Please contact your web host to ensure PHP files can write to the server.");
 
 			return redirect()->route("setup.{$this->setupType}.config.db");
 		}
 
 		// Set the flash message
-		flash()->warning("There were no database connection details found. Please enter your database connection details and try again.");
+		flash()->warning(null, "There were no database connection details found. Please enter your database connection details and try again.");
 
 		return redirect()->route("setup.{$this->setupType}.config.db");
 	}

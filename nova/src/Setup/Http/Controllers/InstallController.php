@@ -74,7 +74,7 @@ class InstallController extends BaseController {
 			return redirect()->route('setup.install.user.success');
 		}
 
-		flash()->error("User and character could not be created.");
+		flash()->error(null, "User and character could not be created.");
 
 		return redirect()->route('setup.install.user');
 	}
@@ -103,7 +103,7 @@ class InstallController extends BaseController {
 			return redirect()->route('setup.install.settings.success');
 		}
 
-		flash()->error("User and character could not be created.");
+		flash()->error(null, "User and character could not be created.");
 
 		return redirect()->route('setup.install.settings');
 	}
