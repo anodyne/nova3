@@ -213,74 +213,74 @@ return [
 		/**
 		 * Mailers
 		 */
-		'BaseMailer' => 'Nova\Foundation\Services\Mailers\BaseMailer',
+		'BaseMailer' => Nova\Foundation\Services\Mailers\BaseMailer::class,
 
 		/**
 		 * Models
 		 */
-		'Character'		=> 'Nova\Core\Characters\Data\Character',
-		'Setting'		=> 'Nova\Core\Settings\Data\Setting',
-		'System'		=> 'Nova\Foundation\Data\System',
-		'User'			=> 'Nova\Core\Users\Data\User',
+		'Character' => Nova\Core\Characters\Data\Character::class,
+		'Setting' => Nova\Core\Settings\Data\Setting::class,
+		'System' => Nova\Foundation\Data\System::class,
+		'User' => Nova\Core\Users\Data\User::class,
 
 		/**
 		 * Repository Interfaces
 		 */
-		'CharacterRepositoryInterface'		=> 'Nova\Core\Characters\Data\Interfaces\CharacterRepositoryInterface',
-		'SettingRepositoryInterface'		=> 'Nova\Core\Settings\Data\Interfaces\SettingRepositoryInterface',
-		'SystemRepositoryInterface'			=> 'Nova\Foundation\Data\Interfaces\SystemRepositoryInterface',
-		'UserRepositoryInterface'			=> 'Nova\Core\Users\Data\Interfaces\UserRepositoryInterface',
+		'CharacterRepositoryInterface' => Nova\Core\Characters\Data\Interfaces\CharacterRepositoryInterface::class,
+		'SettingRepositoryInterface' => Nova\Core\Settings\Data\Interfaces\SettingRepositoryInterface::class,
+		'SystemRepositoryInterface' => Nova\Foundation\Data\Interfaces\SystemRepositoryInterface::class,
+		'UserRepositoryInterface' => Nova\Core\Users\Data\Interfaces\UserRepositoryInterface::class,
 
 		/**
 		 * Repositories
 		 */
-		'CharacterRepository'		=> 'Nova\Core\Characters\Data\Repositories\CharacterRepository',
-		'SettingRepository'			=> 'Nova\Core\Settings\Data\Repositories\SettingRepository',
-		'SystemRepository'			=> 'Nova\Foundation\Data\Repositories\SystemRepository',
-		'UserRepository'			=> 'Nova\Core\Users\Data\Repositories\UserRepository',
+		'CharacterRepository' => Nova\Core\Characters\Data\Repositories\CharacterRepository::class,
+		'SettingRepository' => Nova\Core\Settings\Data\Repositories\SettingRepository::class,
+		'SystemRepository' => Nova\Foundation\Data\Repositories\SystemRepository::class,
+		'UserRepository' => Nova\Core\Users\Data\Repositories\UserRepository::class,
 
 		/**
 		 * Services
 		 */
-		'CharacterCreator'	=> 'Nova\Core\Characters\Services\CharacterCreatorService',
-		'UserCreator'		=> 'Nova\Core\Users\Services\UserCreatorService',
+		'CharacterCreator' => Nova\Core\Characters\Services\CharacterCreatorService::class,
+		'UserCreator' => Nova\Core\Users\Services\UserCreatorService::class,
 
 		/**
 		 * Pages
 		 */
-		'Page' => 'Nova\Core\Pages\Data\Page',
-		'PageContent' => 'Nova\Core\Pages\Data\PageContent',
-		'PagePresenter' => 'Nova\Core\Pages\Data\Presenters\PagePresenter',
-		'PageContentPresenter' => 'Nova\Core\Pages\Data\Presenters\PageContentPresenter',
-		'PageRepositoryInterface' => 'Nova\Core\Pages\Data\Interfaces\PageRepositoryInterface',
-		'PageContentRepositoryInterface' => 'Nova\Core\Pages\Data\Interfaces\PageContentRepositoryInterface',
-		'PageRepository' => 'Nova\Core\Pages\Data\Repositories\PageRepository',
-		'PageContentRepository' => 'Nova\Core\Pages\Data\Repositories\PageContentRepository',
-		'CachePageRoutes' => 'Nova\Core\Pages\Listeners\CachePageRoutes',
-		'CreatePageContentRequest' => 'Nova\Core\Pages\Http\Requests\CreatePageContentRequest',
-		'EditPageContentRequest' => 'Nova\Core\Pages\Http\Requests\EditPageContentRequest',
-		'RemovePageContentRequest' => 'Nova\Core\Pages\Http\Requests\RemovePageContentRequest',
-		'CreatePageRequest' => 'Nova\Core\Pages\Http\Requests\CreatePageRequest',
-		'EditPageRequest' => 'Nova\Core\Pages\Http\Requests\EditPageRequest',
-		'RemovePageRequest' => 'Nova\Core\Pages\Http\Requests\RemovePageRequest',
+		'Page' => Nova\Core\Pages\Data\Page::class,
+		'PageContent' => Nova\Core\Pages\Data\PageContent::class,
+		'PagePresenter' => Nova\Core\Pages\Data\Presenters\PagePresenter::class,
+		'PageContentPresenter' => Nova\Core\Pages\Data\Presenters\PageContentPresenter::class,
+		'PageRepositoryInterface' => Nova\Core\Pages\Data\Interfaces\PageRepositoryInterface::class,
+		'PageContentRepositoryInterface' => Nova\Core\Pages\Data\Interfaces\PageContentRepositoryInterface::class,
+		'PageRepository' => Nova\Core\Pages\Data\Repositories\PageRepository::class,
+		'PageContentRepository' => Nova\Core\Pages\Data\Repositories\PageContentRepository::class,
+		'CachePageRoutes' => Nova\Core\Pages\Listeners\CachePageRoutes::class,
+		'CreatePageContentRequest' => Nova\Core\Pages\Http\Requests\CreatePageContentRequest::class,
+		'EditPageContentRequest' => Nova\Core\Pages\Http\Requests\EditPageContentRequest::class,
+		'RemovePageContentRequest' => Nova\Core\Pages\Http\Requests\RemovePageContentRequest::class,
+		'CreatePageRequest' => Nova\Core\Pages\Http\Requests\CreatePageRequest::class,
+		'EditPageRequest' => Nova\Core\Pages\Http\Requests\EditPageRequest::class,
+		'RemovePageRequest' => Nova\Core\Pages\Http\Requests\RemovePageRequest::class,
 
 		/**
 		 * Menus
 		 */
-		'Menu' => 'Nova\Core\Menus\Data\Menu',
-		'MenuItem' => 'Nova\Core\Menus\Data\MenuItem',
-		'MenuPresenter' => 'Nova\Core\Menus\Data\Presenters\MenuPresenter',
-		'MenuItemPresenter' => 'Nova\Core\Menus\Data\Presenters\MenuItemPresenter',
-		'MenuRepositoryInterface' => 'Nova\Core\Menus\Data\Interfaces\MenuRepositoryInterface',
-		'MenuItemRepositoryInterface' => 'Nova\Core\Menus\Data\Interfaces\MenuItemRepositoryInterface',
-		'MenuRepository' => 'Nova\Core\Menus\Data\Repositories\MenuRepository',
-		'MenuItemRepository' => 'Nova\Core\Menus\Data\Repositories\MenuItemRepository',
-		'CreateMenuItemRequest' => 'Nova\Core\Menus\Http\Requests\CreateMenuItemRequest',
-		'EditMenuItemRequest' => 'Nova\Core\Menus\Http\Requests\EditMenuItemRequest',
-		'RemoveMenuItemRequest' => 'Nova\Core\Menus\Http\Requests\RemoveMenuItemRequest',
-		'CreateMenuRequest' => 'Nova\Core\Menus\Http\Requests\CreateMenuRequest',
-		'EditMenuRequest' => 'Nova\Core\Menus\Http\Requests\EditMenuRequest',
-		'RemoveMenuRequest' => 'Nova\Core\Menus\Http\Requests\RemoveMenuRequest',
+		'Menu' => Nova\Core\Menus\Data\Menu::class,
+		'MenuItem' => Nova\Core\Menus\Data\MenuItem::class,
+		'MenuPresenter' => Nova\Core\Menus\Data\Presenters\MenuPresenter::class,
+		'MenuItemPresenter' => Nova\Core\Menus\Data\Presenters\MenuItemPresenter::class,
+		'MenuRepositoryInterface' => Nova\Core\Menus\Data\Interfaces\MenuRepositoryInterface::class,
+		'MenuItemRepositoryInterface' => Nova\Core\Menus\Data\Interfaces\MenuItemRepositoryInterface::class,
+		'MenuRepository' => Nova\Core\Menus\Data\Repositories\MenuRepository::class,
+		'MenuItemRepository' => Nova\Core\Menus\Data\Repositories\MenuItemRepository::class,
+		'CreateMenuItemRequest' => Nova\Core\Menus\Http\Requests\CreateMenuItemRequest::class,
+		'EditMenuItemRequest' => Nova\Core\Menus\Http\Requests\EditMenuItemRequest::class,
+		'RemoveMenuItemRequest' => Nova\Core\Menus\Http\Requests\RemoveMenuItemRequest::class,
+		'CreateMenuRequest' => Nova\Core\Menus\Http\Requests\CreateMenuRequest::class,
+		'EditMenuRequest' => Nova\Core\Menus\Http\Requests\EditMenuRequest::class,
+		'RemoveMenuRequest' => Nova\Core\Menus\Http\Requests\RemoveMenuRequest::class,
 
 		/**
 		 * Access
