@@ -4,7 +4,7 @@
 <script>
 	var baseUrl = "{{ Request::root() }}";
 
-	$('.js-contentAction').click(function(e)
+	$(document).on('click', '.js-contentAction', function(e)
 	{
 		e.preventDefault();
 

@@ -4,7 +4,7 @@
 <script>
 	var baseUrl = "{{ Request::root() }}";
 
-	$('.js-permissionAction').click(function(e)
+	$(document).on('click', '.js-permissionAction', function(e)
 	{
 		e.preventDefault();
 
