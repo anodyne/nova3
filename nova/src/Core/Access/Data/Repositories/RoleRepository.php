@@ -46,6 +46,33 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface {
 		return false;
 	}
 
+	public function duplicate($id)
+	{
+		// Get the item we're duplicate from
+		$original = $this->find($id);
+
+		if ($original)
+		{
+			// Replicate the original object
+			$new = $original->replicate();
+
+			// Push the duplicated object so we have an ID
+			$new->push();
+
+			// Update the attributes
+			$new->display_name = "Copy of ".$new->display_name;
+			$new->name = $new->name."-copy";
+			$new->save();
+
+			// Duplicate the permissions for the role
+			$new->attachPermissions($original->perms);
+
+			return $new;
+		}
+
+		return false;
+	}
+
 	public function find($id)
 	{
 		return $this->getById($id, ['perms']);
