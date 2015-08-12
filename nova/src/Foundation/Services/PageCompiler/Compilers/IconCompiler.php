@@ -34,8 +34,6 @@ class IconCompiler implements CompilerInterface {
 				if ($matches[1]) return substr($matches[0], 1);
 
 				return icon($icon, $size, $additional);
-
-				//return icon(config("icons.{$icon}"), $size, $additional);
 			}
 
 			return $matches[0];

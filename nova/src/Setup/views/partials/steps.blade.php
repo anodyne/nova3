@@ -32,28 +32,30 @@ if ($type == 'install')
 	}
 }
 
+$setup = app('nova.setup');
+
 ?>
 
 <ol>
 	@if ($type == 'install')
-		<li{!! $classes[1] !!}>{!! icon('setup.1') !!}Database Connection</li>
-		<li{!! $classes[2] !!}>{!! icon('setup.2') !!}Email Settings</li>
-		<li{!! $classes[3] !!}>{!! icon('setup.3') !!}Install {{ config('nova.app.name') }}</li>
-		<li{!! $classes[4] !!}>{!! icon('setup.4') !!}Create User</li>
-		<li{!! $classes[5] !!}>{!! icon('setup.5') !!}Finalize</li>
+		<li{!! $classes[1] !!}>{!! $setup->icon('1') !!}Database Connection</li>
+		<li{!! $classes[2] !!}>{!! $setup->icon('2') !!}Email Settings</li>
+		<li{!! $classes[3] !!}>{!! $setup->icon('3') !!}Install {{ config('nova.app.name') }}</li>
+		<li{!! $classes[4] !!}>{!! $setup->icon('4') !!}Create User</li>
+		<li{!! $classes[5] !!}>{!! $setup->icon('5') !!}Finalize</li>
 	@endif
 
 	@if ($type == 'update')
-		<li{!! $classes[1] !!}>{!! icon('setup.1') !!}Backup</li>
-		<li{!! $classes[2] !!}>{!! icon('setup.2') !!}Update {{ config('nova.app.name') }}</li>
-		<li{!! $classes[5] !!}>{!! icon('setup.3') !!}Finalize</li>
+		<li{!! $classes[1] !!}>{!! $setup->icon('1') !!}Backup</li>
+		<li{!! $classes[2] !!}>{!! $setup->icon('2') !!}Update {{ config('nova.app.name') }}</li>
+		<li{!! $classes[5] !!}>{!! $setup->icon('3') !!}Finalize</li>
 	@endif
 
 	@if ($type == 'migrate')
-		<li{!! $classes[1] !!}>{!! icon('setup.1') !!}Database Connection</li>
-		<li{!! $classes[2] !!}>{!! icon('setup.2') !!}Email Settings</li>
-		<li{!! $classes[3] !!}>{!! icon('setup.3') !!}Install {{ config('nova.app.name') }}</li>
-		<li{!! $classes[4] !!}>{!! icon('setup.4') !!}Create User</li>
-		<li{!! $classes[5] !!}>{!! icon('setup.5') !!}Finalize</li>
+		<li{!! $classes[1] !!}>{!! $setup->icon('1') !!}Database Connection</li>
+		<li{!! $classes[2] !!}>{!! $setup->icon('2') !!}Email Settings</li>
+		<li{!! $classes[3] !!}>{!! $setup->icon('3') !!}Install {{ config('nova.app.name') }}</li>
+		<li{!! $classes[4] !!}>{!! $setup->icon('4') !!}Create User</li>
+		<li{!! $classes[5] !!}>{!! $setup->icon('5') !!}Finalize</li>
 	@endif
 </ol>

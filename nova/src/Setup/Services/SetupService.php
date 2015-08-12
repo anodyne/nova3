@@ -88,6 +88,35 @@ class SetupService {
 		return $checks;
 	}
 
+	public function icon($icon, $size = 'sm', $additional = null)
+	{
+		$map = [
+			'1' => 'looks_one',
+			'2' => 'looks_two',
+			'3' => 'looks_3',
+			'4' => 'looks_4',
+			'5' => 'looks_5',
+			'6' => 'looks_6',
+			'user' => 'account_circle',
+			'back' => 'arrow_back',
+			'checkmark' => 'done',
+			'done' => 'done_all',
+			'forward' => 'arrow_forward',
+			'info' => 'info',
+			'migrate' => 'exit_to_app',
+			'new' => 'new_releases',
+			'refresh' => 'cached',
+			'trash' => 'delete',
+			'update' => 'system_update_alt',
+			'warning' => 'warning',
+		];
+
+		// Set the icon we want to use
+		$icon = $map[$icon];
+
+		return partial('icon', compact('icon', 'size', 'additional'));
+	}
+
 	/**
 	 * Check to see if a component is configured.
 	 *

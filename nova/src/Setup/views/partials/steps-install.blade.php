@@ -86,22 +86,24 @@ if (in_array($path, $settingsCompleted))
 	$classes[5] = ' class="step-completed"';
 }
 
+$setup = app('nova.setup');
+
 ?><ol>
 	<li{!! $classes[1] !!}>
-		{!! icon('setup.1') !!}
+		{!! $setup->icon('1') !!}
 		<span class="visible-md">Database</span>
 		<span class="hidden-md">Database Connection</span>
 	</li>
-	<li{!! $classes[2] !!}>{!! icon('setup.2') !!}Email Settings</li>
+	<li{!! $classes[2] !!}>{!! $setup->icon('2') !!}Email Settings</li>
 	<li{!! $classes[3] !!}>
-		{!! icon('setup.3') !!}
+		{!! $setup->icon('3') !!}
 		<span class="visible-md">Install Nova</span>
 		<span class="hidden-md">Install {{ config('nova.app.name') }}</span>
 	</li>
 	<li{!! $classes[4] !!}>
-		{!! icon('setup.4') !!}
+		{!! $setup->icon('4') !!}
 		<span class="visible-md">User &amp; Character</span>
 		<span class="hidden-md">Create User &amp; Character</span>
 	</li>
-	<li{!! $classes[5] !!}>{!! icon('setup.5') !!}Update Settings</li>
+	<li{!! $classes[5] !!}>{!! $setup->icon('5') !!}Update Settings</li>
 </ol>

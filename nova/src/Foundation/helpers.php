@@ -52,18 +52,12 @@ if ( ! function_exists('display_flash_message'))
 
 if ( ! function_exists('icon'))
 {
-	function icon($icon, $size = 'sm', $additional = false)
+	function icon($icon, $size = 'sm', $additional = null)
 	{
-		$iconCode = (Str::contains($icon, '.')) ? $icon : "nova.{$icon}";
+		// Grab the icon item out of the theme icon map
+		$icon = app('nova.theme')->getIcon($icon);
 
-		// Get the icon item out of the config array
-		$iconItem = config("icons.{$iconCode}");
-
-		// Parse out the pieces we need
-		$type = $iconItem['type'];
-		$icon = $iconItem['value'];
-
-		return partial('icon', compact('icon', 'size', 'additional', 'type'));
+		return partial('icon', compact('icon', 'size', 'additional'));
 	}
 }
 

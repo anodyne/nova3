@@ -1,6 +1,7 @@
 <?php namespace Nova\Foundation\Services\Themes;
 
 use Page;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 
 class Theme implements Themeable, ThemeableInfo {
@@ -290,6 +291,36 @@ class Theme implements Themeable, ThemeableInfo {
 	public function getVersion()
 	{
 		return $this->version;
+	}
+
+	/**
+	 * Get a specific icon out of the theme's icon map.
+	 *
+	 * @param	string
+	 * @return	string
+	 * @throws	Exception
+	 */
+	public function getIcon($icon)
+	{
+		// Grab the icon map
+		$map = $this->getIconMap();
+
+		if (array_key_exists($icon, $map)) return $map[$icon];
+
+		throw new Exception("No [{$icon}] icon could be found.");
+	}
+
+	/**
+	 * Get the theme icon map.
+	 *
+	 * @return	array
+	 */
+	public function getIconMap()
+	{
+		return [
+			'edit' => 'edit',
+			'delete' => 'delete',
+		];
 	}
 
 	public function setData($key, $data)

@@ -48,4 +48,20 @@ interface ThemeableInfo {
 	 */
 	public function getVersion();
 
+	/**
+	 * Get a specific icon out of the theme's icon map.
+	 *
+	 * @param	string
+	 * @return	string
+	 * @throws	Exception
+	 */
+	public function getIcon($icon);
+	
+	/**
+	 * Get the theme icon map.
+	 *
+	 * @return	array
+	 */
+	public function getIconMap();
+
 }
