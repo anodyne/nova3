@@ -208,6 +208,7 @@ return [
 		'HTML'				=> Collective\Html\HtmlFacade::class,
 		'Locate'			=> Nova\Foundation\Services\Locator\LocatorFacade::class,
 		'Markdown'			=> Nova\Foundation\Services\MarkdownParserFacade::class,
+		'Status'			=> Nova\Foundation\Services\StatusService::class,
 		'Str'				=> Illuminate\Support\Str::class,
 
 		/**
@@ -299,6 +300,30 @@ return [
 		'CreateRoleRequest' => Nova\Core\Access\Http\Requests\CreateRoleRequest::class,
 		'EditRoleRequest' => Nova\Core\Access\Http\Requests\EditRoleRequest::class,
 		'RemoveRoleRequest' => Nova\Core\Access\Http\Requests\RemoveRoleRequest::class,
+
+		/**
+		 * Forms
+		 */
+		/*'NovaForm' => Nova\Core\Forms\Data\Form::class,
+		'NovaFormField' => Nova\Core\Forms\Data\Field::class,
+		'NovaFormFieldValue' => Nova\Core\Forms\Data\FieldValue::class,
+		'NovaFormSection' => Nova\Core\Forms\Data\Section::class,
+		'NovaFormTab' => Nova\Core\Forms\Data\Tab::class,
+		'NovaFormPresenter' => Nova\Core\Forms\Data\Presenters\FormPresenter::class,
+		'NovaFormFieldPresenter' => Nova\Core\Forms\Data\Presenters\FieldPresenter::class,
+		'NovaFormFieldValuePresenter' => Nova\Core\Forms\Data\Presenters\FieldValuePresenter::class,
+		'NovaFormSectionPresenter' => Nova\Core\Forms\Data\Presenters\SectionPresenter::class,
+		'NovaFormTabPresenter' => Nova\Core\Forms\Data\Presenters\TabPresenter::class,
+		'NovaFormRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\FormRepositoryInterface::class,
+		'NovaFormFieldRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\FieldRepositoryInterface::class,
+		'NovaFormFieldValueRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\FieldValueRepositoryInterface::class,
+		'NovaFormSectionRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\SectionRepositoryInterface::class,
+		'NovaFormTabRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\TabRepositoryInterface::class,
+		'NovaFormRepository' => Nova\Core\Forms\Data\Repositories\FormRepository::class,
+		'NovaFormFieldRepository' => Nova\Core\Forms\Data\Repositories\FieldRepository::class,
+		'NovaFormFieldValueRepository' => Nova\Core\Forms\Data\Repositories\FieldValueRepository::class,
+		'NovaFormSectionRepository' => Nova\Core\Forms\Data\Repositories\SectionRepository::class,
+		'NovaFormTabRepository' => Nova\Core\Forms\Data\Repositories\TabRepository::class,*/
 
 	],
 
