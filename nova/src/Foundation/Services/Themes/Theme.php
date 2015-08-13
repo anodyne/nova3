@@ -319,6 +319,7 @@ class Theme implements Themeable, ThemeableInfo {
 	{
 		return [
 			'edit' => 'edit',
+			'close' => 'remove_circle_outline',
 			'delete' => 'delete',
 		];
 	}
