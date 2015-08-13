@@ -17,9 +17,6 @@ abstract class BaseController extends Controller {
 
 		// Make sure the setup module is in the views path
 		view()->addLocation(app_path('Setup/views'));
-		
-		// Make sure every view has access to the setup icons list
-		view()->share('_icons', config('icons.setup'));
 	}
 
 }
