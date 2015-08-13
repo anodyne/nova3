@@ -1,0 +1,1 @@
+<i class="material-icons {{ $size }} {{ $additional }}">{{ $icon }}</i>

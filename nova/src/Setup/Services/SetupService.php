@@ -114,7 +114,7 @@ class SetupService {
 		// Set the icon we want to use
 		$icon = $map[$icon];
 
-		return partial('icon', compact('icon', 'size', 'additional'));
+		return partial('icon-setup', compact('icon', 'size', 'additional'));
 	}
 
 	/**
