@@ -18,5 +18,11 @@
         <env name="APP_ENV" value="testing"/>
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
+
+        <env name="DB_HOST" value="localhost"/>
+        <env name="DB_DATABASE" value="anodyne_nova3_testing"/>
+        <env name="DB_USERNAME" value="root"/>
+        <env name="DB_PASSWORD" value="root"/>
+        <env name="DB_PREFIX" value="nova_"/>
     </php>
 </phpunit>
