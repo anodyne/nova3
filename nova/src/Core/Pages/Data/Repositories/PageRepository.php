@@ -91,18 +91,42 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 		return $this->getById($id, ['pageContents']);
 	}
 
-	public function getByRouteKey($route)
+	public function getByRouteKey($route, $with = [])
 	{
 		$routeName = ($route instanceof Route) ? $route->getName() : $route;
 
-		return $this->getFirstBy('key', $routeName, ['pageContents', 'menu', 'menu.pages', 'menu.menuItems', 'menu.menuItems.page']);
+		// If we only have 1 argument for the method, we'll assume that we
+		// want to pull all of the relationships. Otherwise, we want to
+		// either pull no relationships or just the ones we pass over
+		if (func_num_args() == 1)
+		{
+			$relations = ['pageContents', 'menu', 'menu.pages', 'menu.menuItems', 'menu.menuItems.page'];
+		}
+		else
+		{
+			$relations = (is_array($with)) ? $with : [];
+		}
+
+		return $this->getFirstBy('key', $routeName, $relations);
 	}
 
-	public function getByRouteUri($route)
+	public function getByRouteUri($route, $with = [])
 	{
 		$routeUri = ($route instanceof Route) ? $route->getUri() : $route;
 
-		return $this->getFirstBy('uri', $routeUri, ['pageContents', 'menu', 'menu.pages', 'menu.menuItems', 'menu.menuItems.page']);
+		// If we only have 1 argument for the method, we'll assume that we
+		// want to pull all of the relationships. Otherwise, we want to
+		// either pull no relationships or just the ones we pass over
+		if (func_num_args() == 1)
+		{
+			$relations = ['pageContents', 'menu', 'menu.pages', 'menu.menuItems', 'menu.menuItems.page'];
+		}
+		else
+		{
+			$relations = (is_array($with)) ? $with : [];
+		}
+
+		return $this->getFirstBy('uri', $routeUri, $relations);
 	}
 
 	public function update($id, array $data)

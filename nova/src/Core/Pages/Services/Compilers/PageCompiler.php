@@ -30,7 +30,7 @@ class PageCompiler implements CompilerInterface {
 				if ($matches[1]) return substr($matches[0], 1);
 
 				// Get the page
-				$page = app('PageRepository')->getByRouteKey($key);
+				$page = app('PageRepository')->getByRouteKey($key, null);
 
 				if ($page)
 				{

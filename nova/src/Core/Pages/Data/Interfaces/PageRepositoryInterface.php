@@ -9,8 +9,8 @@ interface PageRepositoryInterface extends BaseRepositoryInterface {
 	public function create(array $data);
 	public function delete($id);
 	public function find($id);
-	public function getByRouteKey($route);
-	public function getByRouteUri($route);
+	public function getByRouteKey($route, $with = []);
+	public function getByRouteUri($route, $with = []);
 	public function update($id, array $data);
 
 }
