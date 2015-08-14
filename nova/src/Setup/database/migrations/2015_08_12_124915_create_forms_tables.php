@@ -63,6 +63,15 @@ class CreateFormsTables extends Migration
 			$table->timestamps();
 		});
 
+		Schema::create('forms_fields_values', function(Blueprint $table)
+		{
+			$table->increments('id');
+			$table->integer('field_id')->unsigned();
+			$table->string('value');
+			$table->integer('order');
+			$table->timestamps();
+		});
+
 		Schema::create('forms_sections', function(Blueprint $table)
 		{
 			$table->increments('id');
@@ -84,15 +93,6 @@ class CreateFormsTables extends Migration
 			$table->boolean('status')->default(Status::ACTIVE);
 			$table->timestamps();
 		});
-
-		Schema::create('forms_field_values', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->integer('field_id')->unsigned();
-			$table->string('value');
-			$table->integer('order');
-			$table->timestamps();
-		});
 	}
 
 	/**
@@ -105,8 +105,8 @@ class CreateFormsTables extends Migration
 		Schema::dropIfExists('forms');
 		Schema::dropIfExists('forms_data');
 		Schema::dropIfExists('forms_fields');
+		Schema::dropIfExists('forms_fields_values');
 		Schema::dropIfExists('forms_sections');
 		Schema::dropIfExists('forms_tabs');
-		Schema::dropIfExists('forms_values');
 	}
 }
