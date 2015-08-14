@@ -304,7 +304,7 @@ return [
 		/**
 		 * Forms
 		 */
-		/*'NovaForm' => Nova\Core\Forms\Data\Form::class,
+		'NovaForm' => Nova\Core\Forms\Data\Form::class,
 		'NovaFormField' => Nova\Core\Forms\Data\Field::class,
 		'NovaFormFieldValue' => Nova\Core\Forms\Data\FieldValue::class,
 		'NovaFormSection' => Nova\Core\Forms\Data\Section::class,
@@ -323,7 +323,7 @@ return [
 		'NovaFormFieldRepository' => Nova\Core\Forms\Data\Repositories\FieldRepository::class,
 		'NovaFormFieldValueRepository' => Nova\Core\Forms\Data\Repositories\FieldValueRepository::class,
 		'NovaFormSectionRepository' => Nova\Core\Forms\Data\Repositories\SectionRepository::class,
-		'NovaFormTabRepository' => Nova\Core\Forms\Data\Repositories\TabRepository::class,*/
+		'NovaFormTabRepository' => Nova\Core\Forms\Data\Repositories\TabRepository::class,
 
 	],
 
