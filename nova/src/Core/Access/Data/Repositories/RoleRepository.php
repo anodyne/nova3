@@ -21,7 +21,16 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface {
 
 	public function create(array $data)
 	{
-		return $this->model->create($data);
+		// Create the role
+		$role = $this->model->create($data);
+
+		// Associate the permissions
+		if (array_key_exists('permissions', $data))
+		{
+			$role->savePermissions($data['permissions']);
+		}
+
+		return $role;
 	}
 
 	public function delete($id)
