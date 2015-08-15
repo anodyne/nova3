@@ -39,6 +39,50 @@
 	</div>
 
 	<div class="form-group">
+		<label class="col-md-2 control-label">Permissions</label>
+		<div class="col-md-10">
+			<div class="row">
+				<div class="col-md-6">
+					<p>{!! Form::text('permission_query', null, ['class' => 'form-control input-lg', 'placeholder' => 'Add Permissions...']) !!}</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4">
+					<p class="visible-xs visible-sm"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'md', 'text-danger') !!}</span></a> Permission Name</p>
+					<p class="visible-md visible-lg"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'xs', 'text-danger') !!}</span></a> Permission Name</p>
+					{!! Form::hidden('permissions[]', null) !!}
+				</div>
+				<div class="col-md-4">
+					<p class="visible-xs visible-sm"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'md', 'text-danger') !!}</span></a> Permission Name</p>
+					<p class="visible-md visible-lg"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'xs', 'text-danger') !!}</span></a> Permission Name</p>
+					{!! Form::hidden('permissions[]', null) !!}
+				</div>
+				<div class="col-md-4">
+					<p class="visible-xs visible-sm"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'md', 'text-danger') !!}</span></a> Permission Name</p>
+					<p class="visible-md visible-lg"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'xs', 'text-danger') !!}</span></a> Permission Name</p>
+					{!! Form::hidden('permissions[]', null) !!}
+				</div>
+				<div class="col-md-4">
+					<p class="visible-xs visible-sm"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'md', 'text-danger') !!}</span></a> Permission Name</p>
+					<p class="visible-md visible-lg"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'xs', 'text-danger') !!}</span></a> Permission Name</p>
+					{!! Form::hidden('permissions[]', null) !!}
+				</div>
+				<div class="col-md-4">
+					<p class="visible-xs visible-sm"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'md', 'text-danger') !!}</span></a> Permission Name</p>
+					<p class="visible-md visible-lg"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'xs', 'text-danger') !!}</span></a> Permission Name</p>
+					{!! Form::hidden('permissions[]', null) !!}
+				</div>
+				<div class="col-md-4">
+					<p class="visible-xs visible-sm"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'md', 'text-danger') !!}</span></a> Permission Name</p>
+					<p class="visible-md visible-lg"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'xs', 'text-danger') !!}</span></a> Permission Name</p>
+					{!! Form::hidden('permissions[]', null) !!}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
 		<div class="col-md-5 col-md-offset-2">
 			<div class="visible-xs visible-sm">
 				<p>{!! Form::button("Add Role", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
@@ -53,3 +97,9 @@
 		</div>
 	</div>
 {!! Form::close() !!}
+
+<div id="permissionTemplate" class="hide">
+	<p class="visible-xs visible-sm"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'md', 'text-danger') !!}</span></a> Permission Name</p>
+	<p class="visible-md visible-lg"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'xs', 'text-danger') !!}</span></a> Permission Name</p>
+	{!! Form::hidden('permissions[]', null) !!}
+</div>
