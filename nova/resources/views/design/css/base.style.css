@@ -77,6 +77,10 @@ dl dd {
 .btn.active.focus {
   outline: none !important;
 }
+.btn.btn-link-icon span {
+  float: left;
+  margin: 0.25rem 0 0 0;
+}
 .btn.btn-link-default {
   background: transparent;
   border: none;
