@@ -14,7 +14,8 @@
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.style.css') !!}
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.responsive.css') !!}
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.icons.css') !!}
-		{!! HTML::style('nova/src/Setup/views/design/css/setup.retina.css', ['media' => 'only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)']) !!}
+		{!! HTML::style('nova/src/Setup/views/design/css/setup.hidpi2x.css', ['media' => 'only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)']) !!}
+		{!! HTML::style('nova/src/Setup/views/design/css/setup.hidpi3x.css', ['media' => 'only screen and (-moz-min-device-pixel-ratio: 3), only screen and (-o-min-device-pixel-ratio: 3/1), only screen and (-webkit-min-device-pixel-ratio: 3), only screen and (min-device-pixel-ratio: 3)']) !!}
 	</head>
 	<body>
 		<header>
