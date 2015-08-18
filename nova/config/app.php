@@ -149,7 +149,7 @@ return [
 		Nova\Foundation\Providers\NovaServiceProvider::class,
 		Nova\Foundation\Providers\EventServiceProvider::class,
 		Nova\Foundation\Providers\RouteServiceProvider::class,
-		//Nova\Foundation\Providers\ExtensionServiceProvider::class,
+		Nova\Foundation\Providers\ExtensionServiceProvider::class,
 
 	],
 
