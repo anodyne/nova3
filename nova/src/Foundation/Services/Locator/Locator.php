@@ -62,6 +62,9 @@ class Locator implements Locatable {
 		$this->user				= $user;
 		$this->settings 		= $settings;
 		$this->finderFactory	= $finderFactory ?: new FinderFactory;
+
+		// Compile the paths to search
+		$this->compilePaths();
 	}
 
 	/**
@@ -302,7 +305,10 @@ class Locator implements Locatable {
 	 */
 	public function registerSearchPath($path)
 	{
-		array_push($this->pathsAdditional, $path);
+		$this->pathsAdditional[] = $path;
+
+		// Re-compile the paths to search
+		$this->compilePaths();
 	}
 
 	/**
@@ -339,9 +345,6 @@ class Locator implements Locatable {
 			// Make a string out of the remaining pieces
 			$additionalPath = implode('/', $fileParts);
 		}
-
-		// Compile the paths to search
-		$this->compilePaths();
 
 		// Loop through the paths and add them if they exist
 		foreach ($this->paths as $path)
