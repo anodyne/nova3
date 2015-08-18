@@ -20,6 +20,14 @@ if ( ! function_exists('d'))
 	}
 }
 
+if ( ! function_exists('extension_path'))
+{
+	function extension_path($path = false)
+	{
+		return app('path.extension').($path ? '/'.$path : $path);
+	}
+}
+
 if ( ! function_exists('flash'))
 {
 	function flash($level = false, $title = false, $message = false)
@@ -84,7 +92,7 @@ if ( ! function_exists('modal'))
 
 if ( ! function_exists('nova_path'))
 {
-	function nova_path($path = '')
+	function nova_path($path = false)
 	{
 		return app('path.nova').($path ? '/'.$path : $path);
 	}
