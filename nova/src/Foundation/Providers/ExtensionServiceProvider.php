@@ -55,7 +55,7 @@ class ExtensionServiceProvider extends ServiceProvider {
 			// If the extension has a service provider, register it now
 			if (file_exists(extension_path($dir->getRelativePathname()."/ServiceProvider.php")))
 			{
-				$this->app->register($this->buildExtensionNamespace($dir).'\ServiceProvider');
+				$this->app->register($this->buildExtensionNamespace($dir)."\\ServiceProvider");
 			}
 		}
 	}
