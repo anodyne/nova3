@@ -2,6 +2,7 @@
 Thumbs.db
 
 .env
+extensions/*/
 nova/vendor
 config/*.php
 !config/nova.php
