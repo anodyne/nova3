@@ -49,8 +49,9 @@ class MakeExtensionCommand extends Command {
 	 */
 	public function handle()
 	{
-		$vendor = $this->argument('vendor');
-		$name = $this->argument('name');
+		// Grab the vendor and name and strip any spaces
+		$vendor = str_replace(' ', '', $this->argument('vendor'));
+		$name = str_replace(' ', '', $this->argument('name'));
 
 		if (strtolower($vendor) == 'anodyne')
 		{
