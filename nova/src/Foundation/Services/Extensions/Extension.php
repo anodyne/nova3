@@ -1,25 +1,25 @@
 <?php namespace Nova\Foundation\Services\Extensions;
 
+use Illuminate\Contracts\Foundation\Application;
+
 class Extension implements Extensible, ExtensibleInfo {
 
 	protected $app;
 	protected $name;
 	protected $author;
-	protected $vendor;
 	protected $credits;
 	protected $version;
 	protected $location;
 
-	public function __construct($extensionName, Application $app)
+	public function __construct($location, Application $app)
 	{
 		// Grab the JSON file and parse it
-		$extension = json_decode(file_get_contents($app->extensionPath($extensionName).'/extension.json'));
+		$extension = json_decode(file_get_contents($app->extensionPath($location).'/extension.json'));
 
 		// Assign the remaining properties
 		$this->app 		= $app;
 		$this->name 	= $extension->name;
 		$this->author	= $extension->author;
-		$this->vendor 	= $extension->vendor;
 		$this->credits 	= $extension->credits;
 		$this->version 	= $extension->version;
 		$this->location = $extension->location;
@@ -35,16 +35,41 @@ class Extension implements Extensible, ExtensibleInfo {
 	 *
 	 * @return	void
 	 */
-	protected function initialize(){}
-
-	public function loadConfig()
+	protected function initialize()
 	{
-		# code...
+		$this->loadConfig();
+
+		$this->loadFileRoutes();
 	}
 
-	public function loadFileRoutes()
+	protected function loadConfig()
 	{
-		# code...
+		// Build the path to the extension
+		$pathToExtension = extension_path($this->location);
+
+		if (file_exists($pathToExtension.'/config.php'))
+		{
+			// Grab the config array
+			$configArrValues = require $pathToExtension.'/config.php';
+
+			// Build the config array key
+			list($vendor, $name) = explode('/', $this->location);
+			$configArrKey = 'extension.'.strtolower($vendor).'.'.strtolower($name);
+
+			// Dump it into the global config
+			config([$configArrKey => $configArrValues]);
+		}
+	}
+
+	protected function loadFileRoutes()
+	{
+		// Build the path to the extension
+		$pathToExtension = extension_path($this->location);
+
+		if (file_exists($pathToExtension.'/routes.php'))
+		{
+			require $pathToExtension.'/routes.php';
+		}
 	}
 
 	/**
@@ -111,6 +136,16 @@ class Extension implements Extensible, ExtensibleInfo {
 	public function getVersion()
 	{
 		return $this->version;
+	}
+
+	public function install()
+	{
+		return false;
+	}
+	
+	public function uninstall()
+	{
+		return false;
 	}
 
 }

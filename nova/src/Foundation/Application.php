@@ -97,9 +97,9 @@ class Application extends IlluminateApp {
 	{
 		if ($identifier)
 		{
-			list($vendor, $name) = explode('.', $identifier);
+			list($vendor, $name) = explode('/', $identifier);
 
-			return $this->basePath."/extensions/{ucfirst($vendor)}/{ucfirst($name)}";
+			return $this->basePath."/extensions/{$vendor}/{$name}";
 		}
 
 		return $this->basePath.'/extensions';
