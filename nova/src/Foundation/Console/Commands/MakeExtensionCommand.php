@@ -16,9 +16,10 @@ class MakeExtensionCommand extends Command {
 							{vendor : The vendor name to be used for the containing directory}
 							{name : The name of the extension}
 							{--no-provider : Do not include a service provider}
-							{--no-extension-class : Do not include the Extension class}
 							{--no-controllers : Do not include any controllers}
-							{--no-views : Do not include any views}';
+							{--no-views : Do not include any views}
+							{--include-config : Create an empty config file}
+							{--include-routes : Create an empty routes file}';
 
 	/**
 	 * The console command description.
@@ -82,6 +83,12 @@ class MakeExtensionCommand extends Command {
 				// Create the directory
 				$this->files->makeDirectory($extensionPath, 0775, true);
 
+				// Create the QuickInstall file
+				$this->createFileFromStub('quickinstall', $replacements, $extensionPath, "extension.json");
+
+				// Create an empty extension class
+				$this->createFileFromStub('extension', $replacements, $extensionPath, "Extension.php");
+
 				if ( ! $this->option('no-controllers'))
 				{
 					// Create the directory structure
@@ -100,20 +107,23 @@ class MakeExtensionCommand extends Command {
 					$this->createFileFromStub('view', $replacements, $extensionPath.'/views/components/pages', strtolower($name).'.blade.php');
 				}
 
-				// Create an empty extension class
-				if ( ! $this->option('no-extension-class'))
-				{
-					$this->createFileFromStub('extension', $replacements, $extensionPath, "Extension.php");
-				}
-
 				// Create an empty service provider
 				if ( ! $this->option('no-provider'))
 				{
 					$this->createFileFromStub('provider', $replacements, $extensionPath, "ServiceProvider.php");
 				}
 
-				// Create the QuickInstall file
-				$this->createFileFromStub('quickinstall', $replacements, $extensionPath, "extension.json");
+				// Create an empty config file
+				if ($this->option('include-config'))
+				{
+					$this->createFileFromStub('config', $replacements, $extensionPath, "config.php");
+				}
+
+				// Create an empty routes file
+				if ($this->option('include-routes'))
+				{
+					$this->createFileFromStub('routes', $replacements, $extensionPath, "routes.php");
+				}
 
 				$this->info("Extension structure created!");
 			}

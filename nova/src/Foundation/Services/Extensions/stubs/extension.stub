@@ -1,0 +1,5 @@
+<?php namespace ExtensionNamespace;
+
+use Nova\Foundation\Services\Extensions\Extension as BaseExtension;
+
+class Extension extends BaseExtension {}

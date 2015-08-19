@@ -1,8 +1,7 @@
 {
 	"name": "ExtensionName",
 	"author": "ExtensionVendor",
-	"vendor": "ExtensionVendor",
-	"location": "ExtensionName",
+	"location": "ExtensionVendor/ExtensionName",
 	"credits": "Credits...",
 	"version": "1.0"
 }
