@@ -47,7 +47,7 @@ class MakeThemeCommand extends Command {
 	 */
 	public function handle()
 	{
-		$name = $this->argument('name');
+		$name = str_replace(' ', '', $this->argument('name'));
 
 		// Build the new theme path
 		$themePath = $this->laravel['path.theme']."/{$name}";
