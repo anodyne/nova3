@@ -14,11 +14,10 @@ class MakeThemeCommand extends Command {
 	 */
 	protected $signature = 'nova:make:theme
 							{name : The name of the theme}
-							{--no-quickinstall : Do not generate the QuickInstall file}
 							{--override-styles : Override all the styles and start from scratch}
 							{--include-components : Generate the components directory structure}
 							{--include-options : Generate the options file}
-							{--include-theme : Generate the Theme class for overriding}';
+							{--include-theme-class : Generate the Theme class for overriding}';
 
 	/**
 	 * The console command description.
@@ -71,10 +70,7 @@ class MakeThemeCommand extends Command {
 			$this->files->makeDirectory($themePath."/design/css", 0775, true);
 
 			// Create the QuickInstall file
-			if ( ! $this->option('no-quickinstall'))
-			{
-				$this->createFileFromStub('quickinstall', $replacements, $themePath, "theme.json");
-			}
+			$this->createFileFromStub('quickinstall', $replacements, $themePath, "theme.json");
 
 			// How do we want to handle styles?
 			if ($this->option('override-styles'))
@@ -100,7 +96,7 @@ class MakeThemeCommand extends Command {
 			}
 
 			// Include the Theme class
-			if ($this->option('include-theme'))
+			if ($this->option('include-theme-class'))
 			{
 				$this->createFileFromStub('theme', $replacements, $themePath, 'Theme.php');
 			}

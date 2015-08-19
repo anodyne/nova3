@@ -16,10 +16,9 @@ class MakeExtensionCommand extends Command {
 							{vendor : The vendor name to be used for the containing directory}
 							{name : The name of the extension}
 							{--no-provider : Do not include a service provider}
-							{--no-extension : Do not include the Extension class}
+							{--no-extension-class : Do not include the Extension class}
 							{--no-controllers : Do not include any controllers}
-							{--no-views : Do not include any views}
-							{--no-quickinstall : Do not include a QuickInstall file}';
+							{--no-views : Do not include any views}';
 
 	/**
 	 * The console command description.
@@ -77,6 +76,7 @@ class MakeExtensionCommand extends Command {
 					'ExtensionLowercaseName' => strtolower($name),
 					'ExtensionVendor' => $vendor,
 					'ExtensionLowercaseVendor' => strtolower($vendor),
+					'ExtensionKey' => 'extension.'.strtolower($vendor).'.'.strtolower($name),
 				];
 
 				// Create the directory
@@ -101,7 +101,7 @@ class MakeExtensionCommand extends Command {
 				}
 
 				// Create an empty extension class
-				if ( ! $this->option('no-extension'))
+				if ( ! $this->option('no-extension-class'))
 				{
 					$this->createFileFromStub('extension', $replacements, $extensionPath, "Extension.php");
 				}
@@ -113,10 +113,7 @@ class MakeExtensionCommand extends Command {
 				}
 
 				// Create the QuickInstall file
-				if ( ! $this->option('no-quickinstall'))
-				{
-					$this->createFileFromStub('quickinstall', $replacements, $extensionPath, "extension.json");
-				}
+				$this->createFileFromStub('quickinstall', $replacements, $extensionPath, "extension.json");
 
 				$this->info("Extension structure created!");
 			}
