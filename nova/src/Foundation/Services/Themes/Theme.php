@@ -89,9 +89,11 @@ class Theme implements Themeable, ThemeableInfo {
 	 * @return 	Theme
 	 * @throws	NoThemeTemplateException
 	 */
-	public function menu(Page $page)
+	public function menu(Page $page = null)
 	{
 		if ( ! is_object($this->layout->template)) throw new NoThemeTemplateException;
+
+		if ($page === null) return $this;
 
 		// Grab the menu item repo
 		$menuItemRepo = app('MenuItemRepository');
