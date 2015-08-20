@@ -74,6 +74,7 @@ class MakeExtensionCommand extends Command {
 					'ExtensionNamespace' => "Extensions\\{$vendor}\\{$name}",
 					'ExtensionControllerName' => ucfirst($name).'Controller',
 					'ExtensionVendorName' => "{$vendor}/{$name}",
+					'ExtensionLowercaseVendorName' => strtolower("{$vendor}/{$name}"),
 					'ExtensionName' => $name,
 					'ExtensionLowercaseName' => strtolower($name),
 					'ExtensionVendor' => $vendor,
@@ -95,8 +96,10 @@ class MakeExtensionCommand extends Command {
 					// Create the directory structure
 					$this->files->makeDirectory("{$extensionPath}/Http/Controllers", 0775, true);
 
+					$controllerStub = ($this->option('include-routes')) ? 'controller-no-page' : 'controller';
+
 					// Create an empty controller
-					$this->createFileFromStub('controller', $replacements, $extensionPath.'/Http/Controllers', ucfirst($name).'Controller.php');
+					$this->createFileFromStub($controllerStub, $replacements, $extensionPath.'/Http/Controllers', ucfirst($name).'Controller.php');
 				}
 
 				if ( ! $this->option('no-views'))

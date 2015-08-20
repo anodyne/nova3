@@ -15,7 +15,7 @@ class MakeThemeCommand extends Command {
 	protected $signature = 'nova:make:theme
 							{name : The name of the theme}
 							{--override-styles : Override all the styles and start from scratch}
-							{--include-components : Generate the components directory structure}
+							{--include-components : Generate the components directory structure with the most common items for overriding}
 							{--include-options : Generate the options file}
 							{--include-theme-class : Generate the Theme class for overriding}';
 
@@ -82,16 +82,12 @@ class MakeThemeCommand extends Command {
 				$this->createFileFromStub('style-custom', $replacements, $themePath, "design/css/custom.css");
 			}
 
-			// Include the components structure
+			// Include some of the most used components for overriding
 			if ($this->option('include-components'))
 			{
-				$this->files->makeDirectory($themePath."/components/emails", 0775, true);
-				$this->files->makeDirectory($themePath."/components/errors");
-				$this->files->makeDirectory($themePath."/components/js");
+				$this->files->makeDirectory($themePath."/components/js", 0775, true);
 				$this->files->makeDirectory($themePath."/components/pages");
 				$this->files->makeDirectory($themePath."/components/partials");
-				$this->files->makeDirectory($themePath."/components/structures");
-				$this->files->makeDirectory($themePath."/components/styles");
 				$this->files->makeDirectory($themePath."/components/templates");
 			}
 
