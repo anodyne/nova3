@@ -1,8 +1,7 @@
 {
 	"name": "Tour",
 	"author": "Anodyne Productions",
-	"vendor": "Anodyne",
-	"location": "Tour",
-	"credits": "Credits go here.",
-	"version": "1.0"
+	"location": "Anodyne/Tour",
+	"credits": false,
+	"version": 1.0
 }

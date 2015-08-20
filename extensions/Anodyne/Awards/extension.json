@@ -1,8 +1,7 @@
 {
 	"name": "Awards",
 	"author": "Anodyne Productions",
-	"vendor": "Anodyne",
-	"location": "Awards",
-	"credits": "Credits go here.",
-	"version": "1.0"
+	"location": "Anodyne/Awards",
+	"credits": false,
+	"version": 1.0
 }
