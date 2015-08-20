@@ -4,3 +4,13 @@
  *
  * Define routes for your extension here.
  */
+
+$options = [
+	'prefix'	=> 'ExtensionLowercaseVendorName',
+	'namespace'	=> 'ExtensionNamespace\Http\Controllers',
+];
+
+Route::group($options, function()
+{
+	Route::get('/', 'ExtensionControllerName@index');
+});
