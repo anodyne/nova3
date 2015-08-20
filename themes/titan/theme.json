@@ -3,6 +3,6 @@
     "author": "Anodyne Productions",
     "location": "titan",
     "preview": "preview.jpg",
-    "credits": "Credits go here.",
-    "version": "3.0"
+    "credits": false,
+    "version": 3.0
 }
