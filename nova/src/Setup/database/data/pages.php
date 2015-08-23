@@ -319,17 +319,17 @@ return [
 	],
 
 	/**
-	 * Access Roles
+	 * Roles
 	 */
 	[
-		'name'				=> "Manage Access Roles",
+		'name'				=> "Manage Roles",
 		'key'				=> "admin.access.roles",
 		'uri'				=> "admin/access/roles",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@index",
 		'menu_id'			=> 2,
 	],
 	[
-		'name'				=> "Create Access Role",
+		'name'				=> "Create Role",
 		'key'				=> "admin.access.roles.create",
 		'uri'				=> "admin/access/roles/create",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@create",
@@ -337,13 +337,13 @@ return [
 	],
 	[
 		'verb'				=> "POST",
-		'name'				=> "Store Access Role",
+		'name'				=> "Store Role",
 		'key'				=> "admin.access.roles.store",
 		'uri'				=> "admin/access/roles/create",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@store",
 	],
 	[
-		'name'				=> "Edit Access Role",
+		'name'				=> "Edit Role",
 		'key'				=> "admin.access.roles.edit",
 		'uri'				=> "admin/access/roles/{roleId}/edit",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@edit",
@@ -351,30 +351,30 @@ return [
 	],
 	[
 		'verb'				=> "PUT",
-		'name'				=> "Update Access Role",
+		'name'				=> "Update Role",
 		'key'				=> "admin.access.roles.update",
 		'uri'				=> "admin/access/roles/{roleId}",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@update",
 	],
 	[
-		'name'				=> "Remove Access Role Pop-up",
+		'name'				=> "Remove Role Pop-up",
 		'key'				=> "admin.access.roles.remove",
 		'uri'				=> "admin/access/roles/{roleId}/remove",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@remove",
 	],
 	[
 		'verb'				=> "DELETE",
-		'name'				=> "Remove Access Role",
+		'name'				=> "Remove Role",
 		'key'				=> "admin.access.roles.destroy",
 		'uri'				=> "admin/access/roles/{roleId}",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@destroy",
 	],
 
 	/**
-	 * Access Role Permissions
+	 * Permissions
 	 */
 	[
-		'name'				=> "Manage Role Permissions",
+		'name'				=> "Manage Permissions",
 		'key'				=> "admin.access.permissions",
 		'uri'				=> "admin/access/permissions",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\PermissionController@index",

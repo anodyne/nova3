@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h1>Manage Menu Items <small>{{ $menu->present()->name }}</small></h1>
+	<h1>Menu Items <small>{{ $menu->present()->name }}</small></h1>
 </div>
 
 <div class="visible-xs visible-sm">
@@ -8,7 +8,7 @@
 		<p><a href="#" class="btn btn-success btn-lg btn-block js-createMenuItemDivider" data-menu="{{ $menu->id }}">Add a Divider</a></p>
 	@endif
 
-	<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Manage All Menus</a></p>
+	<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Menus</a></p>
 </div>
 <div class="visible-md visible-lg">
 	<div class="btn-toolbar">
@@ -22,7 +22,7 @@
 		@endif
 
 		<div class="btn-group">
-			<a href="{{ route('admin.menus') }}" class="btn btn-default">Manage All Menus</a>
+			<a href="{{ route('admin.menus') }}" class="btn btn-default">Menus</a>
 		</div>
 	</div>
 </div>

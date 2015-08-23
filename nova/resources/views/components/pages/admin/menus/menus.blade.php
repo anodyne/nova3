@@ -29,13 +29,13 @@
 
 					@if ($_user->can(['menu.create', 'menu.edit', 'menu.remove']))
 						<div class="col-xs-12 col-sm-6">
-							<p><a href="{{ route('admin.menus.items', [$menu->id]) }}" class="btn btn-default btn-lg btn-block">Manage Menu Items</a></p>
+							<p><a href="{{ route('admin.menus.items', [$menu->id]) }}" class="btn btn-default btn-lg btn-block">Menu Items</a></p>
 						</div>
 					@endif
 
 					@if ($_user->can(['page.edit', 'menu.edit'], true))
 						<div class="col-xs-12 col-sm-6">
-							<p><a href="{{ route('admin.menus.pages', [$menu->key]) }}" class="btn btn-default btn-lg btn-block">Manage Pages Using this Menu</a></p>
+							<p><a href="{{ route('admin.menus.pages', [$menu->key]) }}" class="btn btn-default btn-lg btn-block">Pages Using this Menu</a></p>
 						</div>
 					@endif
 
@@ -56,10 +56,10 @@
 								<span class="sr-only">Toggle Dropdown</span>
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right" role="menu">
-								<li><a href="{{ route('admin.menus.items', [$menu->id]) }}">Manage Menu Items</a></li>
+								<li><a href="{{ route('admin.menus.items', [$menu->id]) }}">Menu Items</a></li>
 								
 								@if ($_user->can(['menu.edit', 'page.edit'], true))
-									<li><a href="{{ route('admin.menus.pages', [$menu->key]) }}">Manage Pages Using this Menu</a></li>
+									<li><a href="{{ route('admin.menus.pages', [$menu->key]) }}">Pages Using this Menu</a></li>
 								@endif
 							</ul>
 						</div>

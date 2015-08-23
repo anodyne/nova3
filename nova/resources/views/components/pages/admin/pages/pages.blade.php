@@ -9,7 +9,7 @@
 				<p><a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg btn-block">Add a Page</a></p>
 			@endif
 
-			<p><a href="{{ route('admin.content') }}" class="btn btn-default btn-lg btn-block">Manage Other Page Content</a></p>
+			<p><a href="{{ route('admin.content') }}" class="btn btn-default btn-lg btn-block">Manage Page Content</a></p>
 		</div>
 		<div class="visible-md visible-lg">
 			<div class="btn-toolbar">
@@ -20,7 +20,7 @@
 				@endif
 
 				<div class="btn-group">
-					<a href="{{ route('admin.content') }}" class="btn btn-default">Manage Other Page Content</a>
+					<a href="{{ route('admin.content') }}" class="btn btn-default">Manage Page Content</a>
 				</div>
 			</div>
 		</div>

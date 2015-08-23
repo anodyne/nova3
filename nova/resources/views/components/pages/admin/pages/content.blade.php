@@ -9,7 +9,7 @@
 				<p><a href="{{ route('admin.content.create') }}" class="btn btn-success btn-lg btn-block">Add Page Content</a></p>
 			@endif
 
-			<p><a href="{{ route('admin.pages') }}" class="btn btn-default btn-lg btn-block">Page Manager</a></p>
+			<p><a href="{{ route('admin.pages') }}" class="btn btn-default btn-lg btn-block">Pages</a></p>
 		</div>
 		<div class="visible-md visible-lg">
 			<div class="btn-toolbar">
@@ -20,7 +20,7 @@
 				@endif
 
 				<div class="btn-group">
-					<a href="{{ route('admin.pages') }}" class="btn btn-default">Page Manager</a>
+					<a href="{{ route('admin.pages') }}" class="btn btn-default">Pages</a>
 				</div>
 			</div>
 		</div>
@@ -111,5 +111,5 @@
 </div>
 
 @if ($_user->can('page.remove'))
-	{!! modal(['id' => "removeContent", 'header' => "Remove Page Content Item"]) !!}
+	{!! modal(['id' => "removeContent", 'header' => "Remove Page Content"]) !!}
 @endif
