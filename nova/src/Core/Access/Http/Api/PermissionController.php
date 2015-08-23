@@ -27,7 +27,7 @@ class PermissionController extends ApiController {
 
 		if ( ! $permission)
 		{
-			return $this->errorNotFound('Role permission not found');
+			return $this->errorNotFound('Permission not found');
 		}
 
 		return $this->respondWithItem($permission, new PermissionTransformer);

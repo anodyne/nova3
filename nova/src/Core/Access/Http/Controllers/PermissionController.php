@@ -28,29 +28,29 @@ class PermissionController extends BaseController {
 	{
 		if ( ! $this->user->can(['access.create', 'access.edit', 'access.remove']))
 		{
-			return $this->errorUnauthorized("You do not have permission to manage access role permissions.");
+			return $this->errorUnauthorized("You do not have permission to manage permissions.");
 		}
 
-		$this->view = 'admin/access/role-permissions';
-		$this->jsView = 'admin/access/role-permissions-js';
+		$this->view = 'admin/access/permissions';
+		$this->jsView = 'admin/access/permissions-js';
 	}
 
 	public function create()
 	{
 		if ( ! $this->user->can('access.create'))
 		{
-			return $this->errorUnauthorized("You do not have permission to create access role permissions.");
+			return $this->errorUnauthorized("You do not have permission to create permissions.");
 		}
 
-		$this->view = 'admin/access/role-permission-create';
-		$this->jsView = 'admin/access/role-permission-create-js';
+		$this->view = 'admin/access/permission-create';
+		$this->jsView = 'admin/access/permission-create-js';
 	}
 
 	public function store(CreatePermissionRequest $request)
 	{
 		if ( ! $this->user->can('access.create'))
 		{
-			return $this->errorUnauthorized("You do not have permission to create access role permissions.");
+			return $this->errorUnauthorized("You do not have permission to create permissions.");
 		}
 
 		// Create the permission
@@ -60,7 +60,7 @@ class PermissionController extends BaseController {
 		event(new Events\PermissionWasCreated($permission));
 
 		// Set the flash message
-		flash()->success("Permission Created!", "Add your new permission to any of your access roles now.");
+		flash()->success("Permission Created!", "Add your new permission to any of your roles now.");
 
 		return redirect()->route('admin.access.permissions');
 	}
@@ -69,11 +69,11 @@ class PermissionController extends BaseController {
 	{
 		if ( ! $this->user->can('access.edit'))
 		{
-			return $this->errorUnauthorized("You do not have permission to edit access role permissions.");
+			return $this->errorUnauthorized("You do not have permission to edit permissions.");
 		}
 
-		$this->view = 'admin/access/role-permission-edit';
-		$this->jsView = 'admin/access/role-permission-edit-js';
+		$this->view = 'admin/access/permission-edit';
+		$this->jsView = 'admin/access/permission-edit-js';
 
 		$this->data->permission = $this->repo->find($permissionId);
 	}
@@ -82,7 +82,7 @@ class PermissionController extends BaseController {
 	{
 		if ( ! $this->user->can('access.edit'))
 		{
-			return $this->errorUnauthorized("You do not have permission to edit access role permissions.");
+			return $this->errorUnauthorized("You do not have permission to edit permissions.");
 		}
 
 		// Update the permission
@@ -108,12 +108,12 @@ class PermissionController extends BaseController {
 
 			// Build the body based on whether we found the permission or not
 			$body = ($permission)
-				? view(locate('page', 'admin/access/role-permission-remove'), compact('permission'))
-				: alert('danger', "Access role permission not found.");
+				? view(locate('page', 'admin/access/permission-remove'), compact('permission'))
+				: alert('danger', "permission not found.");
 		}
 		else
 		{
-			$body = alert('danger', "You do not have permission to remove access role permissions.");
+			$body = alert('danger', "You do not have permission to remove permissions.");
 		}
 
 		return partial('modal-content', [
@@ -127,7 +127,7 @@ class PermissionController extends BaseController {
 	{
 		if ( ! $this->user->can('access.remove'))
 		{
-			return $this->errorUnauthorized("You do not have permission to remove access role permissions.");
+			return $this->errorUnauthorized("You do not have permission to remove permissions.");
 		}
 
 		// Delete the permission

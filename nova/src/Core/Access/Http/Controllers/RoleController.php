@@ -28,7 +28,7 @@ class RoleController extends BaseController {
 	{
 		if ( ! $this->user->can(['access.create', 'access.edit', 'access.remove']))
 		{
-			return $this->errorUnauthorized("You do not have permission to manage access roles.");
+			return $this->errorUnauthorized("You do not have permission to manage roles.");
 		}
 
 		$this->view = 'admin/access/roles';
@@ -41,7 +41,7 @@ class RoleController extends BaseController {
 	{
 		if ( ! $this->user->can('access.create'))
 		{
-			return $this->errorUnauthorized("You do not have permission to create access roles.");
+			return $this->errorUnauthorized("You do not have permission to create roles.");
 		}
 
 		$this->view = 'admin/access/role-create';
@@ -52,7 +52,7 @@ class RoleController extends BaseController {
 	{
 		if ( ! $this->user->can('access.create'))
 		{
-			return $this->errorUnauthorized("You do not have permission to create access roles.");
+			return $this->errorUnauthorized("You do not have permission to create roles.");
 		}
 
 		// Create the role
@@ -71,7 +71,7 @@ class RoleController extends BaseController {
 	{
 		if ( ! $this->user->can('access.edit'))
 		{
-			return $this->errorUnauthorized("You do not have permission to edit access roles.");
+			return $this->errorUnauthorized("You do not have permission to edit roles.");
 		}
 
 		$this->view = 'admin/access/role-edit';
@@ -84,7 +84,7 @@ class RoleController extends BaseController {
 	{
 		if ( ! $this->user->can('access.edit'))
 		{
-			return $this->errorUnauthorized("You do not have permission to edit access roles.");
+			return $this->errorUnauthorized("You do not have permission to edit roles.");
 		}
 
 		// Update the role
@@ -111,15 +111,15 @@ class RoleController extends BaseController {
 			// Build the body based on whether we found the role or not
 			$body = ($role)
 				? view(locate('page', 'admin/access/role-remove'), compact('role'))
-				: alert('danger', "Access role not found.");
+				: alert('danger', "role not found.");
 		}
 		else
 		{
-			$body = alert('danger', "You do not have permission to remove access roles.");
+			$body = alert('danger', "You do not have permission to remove roles.");
 		}
 
 		return partial('modal-content', [
-			'header' => "Remove Access Role",
+			'header' => "Remove Role",
 			'body' => $body,
 			'footer' => false,
 		]);
@@ -129,7 +129,7 @@ class RoleController extends BaseController {
 	{
 		if ( ! $this->user->can('access.remove'))
 		{
-			return $this->errorUnauthorized("You do not have permission to remove access roles.");
+			return $this->errorUnauthorized("You do not have permission to remove roles.");
 		}
 
 		// Delete the role

@@ -3,7 +3,7 @@
 		<p><a href="{{ route('admin.access.roles.create') }}" class="btn btn-success btn-lg btn-block">Add a Role</a></p>
 	@endif
 
-	<p><a href="{{ route('admin.access.permissions') }}" class="btn btn-default btn-lg btn-block">Manage Role Permissions</a></p>
+	<p><a href="{{ route('admin.access.permissions') }}" class="btn btn-default btn-lg btn-block">Manage Permissions</a></p>
 </div>
 <div class="visible-md visible-lg">
 	<div class="btn-toolbar">
@@ -14,7 +14,7 @@
 		@endif
 
 		<div class="btn-group">
-			<a href="{{ route('admin.access.permissions') }}" class="btn btn-default">Manage Role Permissions</a>
+			<a href="{{ route('admin.access.permissions') }}" class="btn btn-default">Manage Permissions</a>
 		</div>
 	</div>
 </div>
@@ -79,5 +79,5 @@
 </div>
 
 @if ($_user->can('access.remove'))
-	{!! modal(['id' => "removeRole", 'header' => "Remove Access Role"]) !!}
+	{!! modal(['id' => "removeRole", 'header' => "Remove Role"]) !!}
 @endif

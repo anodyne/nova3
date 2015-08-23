@@ -9,7 +9,7 @@
 				<p><a href="{{ route('admin.access.permissions.create') }}" class="btn btn-success btn-lg btn-block">Add a Permission</a></p>
 			@endif
 
-			<p><a href="{{ route('admin.access.roles') }}" class="btn btn-default btn-lg btn-block">Manage Access Roles</a></p>
+			<p><a href="{{ route('admin.access.roles') }}" class="btn btn-default btn-lg btn-block">Manage Roles</a></p>
 		</div>
 		<div class="visible-md visible-lg">
 			<div class="btn-toolbar">
@@ -20,7 +20,7 @@
 				@endif
 
 				<div class="btn-group">
-					<a href="{{ route('admin.access.roles') }}" class="btn btn-default">Manage Access Roles</a>
+					<a href="{{ route('admin.access.roles') }}" class="btn btn-default">Manage Roles</a>
 				</div>
 			</div>
 		</div>

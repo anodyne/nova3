@@ -1,4 +1,4 @@
-<p>Are you sure you want to remove the <strong>{{ $permission->present()->displayName }}</strong> role permission? This action is permanent and can't be undone!</p>
+<p>Are you sure you want to remove the <strong>{{ $permission->present()->displayName }}</strong> permission? This action is permanent and can't be undone!</p>
 
 {!! Form::model($permission, ['route' => ['admin.access.permissions.destroy', $permission->id], 'method' => 'delete']) !!}
 	<div class="visible-xs visible-sm">
