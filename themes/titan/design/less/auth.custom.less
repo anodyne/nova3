@@ -1,0 +1,40 @@
+@import "../../../../nova/resources/views/design/less/colors.less";
+@import "../../../../nova/resources/views/design/less/mixins.less";
+@import "variables.less";
+
+body {
+	background: @color-blue-500
+}
+
+.page-header {
+	text-align: center;
+	border-bottom: none;
+	color: @color-white;
+}
+
+input[type=text],
+input[type=password],
+input[type=email] {
+	border-color: transparent;
+
+	.rounded(@border-radius);
+	.clear-box-shadow;
+}
+
+.btn {
+	.rounded(@border-radius);
+
+	&.btn-primary {
+		background-color: transparent;
+		border-color: transparent;
+
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.25);
+		}
+	}
+
+	&.btn-link {
+		font-size: 80%;
+		color: rgba(255, 255, 255, 0.5);
+	}
+}
