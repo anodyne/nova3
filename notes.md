@@ -13,3 +13,14 @@
 		- No Page Manager record means that some stuff would break
 		- Admins won't be able to see ALL pages that are declared in the Page Manager
 		- Could possibly overwrite an existing page and cause issues, forcing admins to search through all the extensions
+
+# Terminology
+
+- Do away with the term "catalogs" as it doesn't make much sense.
+	- Appearance option will cover themes and ranks
+		- Do away with "main" and "admin" for themes and instead change them to "public" and "admin"
+		- Provide more notes about how individual preferences have higher priority than site settings
+	- Settings
+	- Preferences (not Site Preferences)
+	- Roles, not Access Roles
+	- Permissions, not Role Permissions
