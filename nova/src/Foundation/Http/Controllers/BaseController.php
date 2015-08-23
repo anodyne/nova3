@@ -25,9 +25,9 @@ abstract class BaseController extends Controller {
 	protected $isAjax = false;
 
 	protected $templateData;
-	protected $templateView = 'main';
+	protected $templateView = 'public';
 	protected $structureData;
-	protected $structureView = 'main';
+	protected $structureView = 'public';
 
 	public function __construct(Application $app)
 	{
