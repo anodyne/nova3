@@ -1,9 +1,10 @@
 <?php namespace Nova\Core\Auth\Http\Controllers;
 
-use Flash, BaseController;
+use BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard,
 	Illuminate\Contracts\Foundation\Application;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 class AuthController extends BaseController {
 

@@ -71,6 +71,14 @@ abstract class BaseController extends Controller {
 		$this->afterFilter('@processController');
 	}
 
+	protected function authorize($permission, $message)
+	{
+		if ( ! $this->user->can($permission))
+		{
+			return $this->errorUnauthorized($message);
+		}
+	}
+
 	public function errorNotFound($message = null)
 	{
 		if ($this->user)
