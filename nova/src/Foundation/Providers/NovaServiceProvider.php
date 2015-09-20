@@ -9,7 +9,8 @@ use Illuminate\Support\Collection,
 use League\CommonMark\CommonMarkConverter;
 use Nova\Core\Forms\Services\Compilers\FormCompiler,
 	Nova\Core\Pages\Services\Compilers\PageCompiler,
-	Nova\Core\Settings\Services\Compilers\SettingCompiler;
+	Nova\Core\Settings\Services\Compilers\SettingCompiler,
+	Nova\Core\Pages\Services\Compilers\PageContentCompiler;
 use Nova\Foundation\Services\FlashNotifier,
 	Nova\Foundation\Services\MarkdownParser,
 	Nova\Foundation\Services\Locator\Locator,
@@ -95,6 +96,7 @@ class NovaServiceProvider extends ServiceProvider {
 
 			$engine->registerCompiler('setting', new SettingCompiler);
 			$engine->registerCompiler('page', new PageCompiler);
+			$engine->registerCompiler('content', new PageContentCompiler);
 			$engine->registerCompiler('icon', new IconCompiler);
 			$engine->registerCompiler('form', new FormCompiler);
 
