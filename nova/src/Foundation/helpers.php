@@ -159,3 +159,11 @@ if ( ! function_exists('user'))
 		return app('nova.user');
 	}
 }
+
+if ( ! function_exists('compile'))
+{
+	function compile($text)
+	{
+		return app('nova.page.compiler')->compile($text);
+	}
+}
