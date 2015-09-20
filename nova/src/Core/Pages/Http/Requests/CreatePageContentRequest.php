@@ -22,7 +22,6 @@ class CreatePageContentRequest extends Request {
 	public function rules()
 	{
 		return [
-			'type' => 'required',
 			'key' => 'required',
 		];
 	}
@@ -30,7 +29,6 @@ class CreatePageContentRequest extends Request {
 	public function messages()
 	{
 		return [
-			'type.required' => "Please select a content type",
 			'key.required' => "Please enter a key for the page content",
 		];
 	}

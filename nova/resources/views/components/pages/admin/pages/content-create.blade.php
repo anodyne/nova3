@@ -10,14 +10,6 @@
 </div>
 
 {!! Form::open(['route' => 'admin.content.store', 'class' => 'form-horizontal']) !!}
-	<div class="form-group{{ ($errors->has('type')) ? ' has-error' : '' }}">
-		<label class="col-md-2 control-label">Type</label>
-		<div class="col-md-3">
-			{!! Form::select('type', $types, null, ['class' => 'form-control input-lg']) !!}
-			{!! $errors->first('type', '<p class="help-block">:message</p>') !!}
-		</div>
-	</div>
-
 	<div class="form-group">
 		<label class="col-md-2 control-label">Page</label>
 		<div class="col-md-5">
@@ -53,6 +45,8 @@
 			</div>
 		</div>
 	</div>
+
+	{!! Form::hidden('type', 'other') !!}
 
 	<div class="col-md-5 col-md-offset-2">
 		<div class="visible-xs visible-sm">

@@ -18,7 +18,10 @@ class PageContentController extends ApiController {
 
 	public function index()
 	{
-		return $this->respondWithCollection($this->repo->all(), new PageContentTransformer);
+		return $this->respondWithCollection(
+			$this->repo->allExcept(['title', 'header', 'message']),
+			new PageContentTransformer
+		);
 	}
 
 	public function show($contentId)

@@ -44,13 +44,6 @@ class PageContentController extends BaseController {
 
 		$this->view = 'admin/pages/content-create';
 		$this->jsView = 'admin/pages/content-create-js';
-
-		$this->data->types = [
-			'header' => "Header",
-			'message' => "Message",
-			'title' => "Page Title",
-			'other' => "Other",
-		];
 		
 		$this->data->pages[""] = "No page";
 		$this->data->pages += $this->pagesRepo->listAllBy('verb', 'GET', 'name', 'id');
@@ -86,12 +79,6 @@ class PageContentController extends BaseController {
 		$this->jsView = 'admin/pages/content-edit-js';
 
 		$this->data->content = $this->repo->find($contentId);
-		$this->data->types = [
-			'header' => "Header",
-			'message' => "Message",
-			'title' => "Page Title",
-			'other' => "Other",
-		];
 
 		$this->data->pages[""] = "No page";
 		$this->data->pages += $this->pagesRepo->listAllBy('verb', 'GET', 'name', 'id');
