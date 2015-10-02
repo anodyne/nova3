@@ -141,7 +141,6 @@ return [
 		 * Nova Service Providers
 		 */
 
-		Zizaco\Entrust\EntrustServiceProvider::class,
 		Collective\Html\HtmlServiceProvider::class,
 		Nova\Setup\Providers\SetupServiceProvider::class,
 		Nova\Setup\Providers\SetupRouteServiceProvider::class,
@@ -203,7 +202,6 @@ return [
 
 		'BaseController'	=> Nova\Foundation\Http\Controllers\BaseController::class,
 		'Date'				=> Carbon\Carbon::class,
-		'Entrust'			=> Zizaco\Entrust\EntrustFacade::class,
 		'Model'				=> Illuminate\Database\Eloquent\Model::class,
 		'Form'				=> Collective\Html\FormFacade::class,
 		'Flash'				=> Nova\Foundation\Services\FlashNotifierFacade::class,
@@ -266,6 +264,8 @@ return [
 		'CreatePageRequest' => Nova\Core\Pages\Http\Requests\CreatePageRequest::class,
 		'EditPageRequest' => Nova\Core\Pages\Http\Requests\EditPageRequest::class,
 		'RemovePageRequest' => Nova\Core\Pages\Http\Requests\RemovePageRequest::class,
+		'PagePolicy' => Nova\Core\Pages\Policies\PagePolicy::class,
+		'PageContentPolicy' => Nova\Core\Pages\Policies\PageContentPolicy::class,
 
 		/**
 		 * Menus
@@ -284,6 +284,8 @@ return [
 		'CreateMenuRequest' => Nova\Core\Menus\Http\Requests\CreateMenuRequest::class,
 		'EditMenuRequest' => Nova\Core\Menus\Http\Requests\EditMenuRequest::class,
 		'RemoveMenuRequest' => Nova\Core\Menus\Http\Requests\RemoveMenuRequest::class,
+		'MenuPolicy' => Nova\Core\Menus\Policies\MenuPolicy::class,
+		'MenuItemPolicy' => Nova\Core\Menus\Policies\MenuItemPolicy::class,
 
 		/**
 		 * Access
@@ -302,6 +304,7 @@ return [
 		'CreateRoleRequest' => Nova\Core\Access\Http\Requests\CreateRoleRequest::class,
 		'EditRoleRequest' => Nova\Core\Access\Http\Requests\EditRoleRequest::class,
 		'RemoveRoleRequest' => Nova\Core\Access\Http\Requests\RemoveRoleRequest::class,
+		'HasRoles' => Nova\Core\Access\Data\Traits\HasRoles::class,
 
 		/**
 		 * Forms

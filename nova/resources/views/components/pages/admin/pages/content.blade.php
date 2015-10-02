@@ -5,19 +5,19 @@
 
 	<div ng-cloak>
 		<div class="visible-xs visible-sm">
-			@if ($_user->can('page.create'))
+			@can('create', $content)
 				<p><a href="{{ route('admin.content.create') }}" class="btn btn-success btn-lg btn-block">Add Page Content</a></p>
-			@endif
+			@endcan
 
 			<p><a href="{{ route('admin.pages') }}" class="btn btn-default btn-lg btn-block">Pages</a></p>
 		</div>
 		<div class="visible-md visible-lg">
 			<div class="btn-toolbar">
-				@if ($_user->can('page.create'))
+				@can('create', $content)
 					<div class="btn-group">
 						<a href="{{ route('admin.content.create') }}" class="btn btn-success">Add Page Content</a>
 					</div>
-				@endif
+				@endcan
 
 				<div class="btn-group">
 					<a href="{{ route('admin.pages') }}" class="btn btn-default">Pages</a>
@@ -79,32 +79,32 @@
 							<div class="col-md-3">
 								<div class="visible-xs visible-sm">
 									<div class="row">
-										@if ($_user->can('page.edit'))
+										@can('edit', $content)
 											<div class="col-sm-6">
 												<p><a href="{% content.links.edit %}" class="btn btn-default btn-lg btn-block">Edit</a></p>
 											</div>
-										@endif
+										@endcan
 
-										@if ($_user->can('page.remove'))
+										@can('remove', $content)
 											<div class="col-sm-6" ng-hide="content.protected">
 												<p><a href="#" data-id="{% content.id %}" data-action="remove" class="btn btn-danger btn-lg btn-block js-contentAction">Remove</a></p>
 											</div>
-										@endif
+										@endcan
 									</div>
 								</div>
 								<div class="visible-md visible-lg">
 									<div class="btn-toolbar pull-right">
-										@if ($_user->can('page.edit'))
+										@can('edit', $content)
 											<div class="btn-group">
 												<a href="{% content.links.edit %}" class="btn btn-default">Edit</a>
 											</div>
-										@endif
+										@endcan
 
-										@if ($_user->can('page.remove'))
+										@can('remove', $content)
 											<div class="btn-group" ng-hide="content.protected">
 												<a href="#" data-id="{% content.id %}" data-action="remove" class="btn btn-danger js-contentAction">Remove</a>
 											</div>
-										@endif
+										@endcan
 									</div>
 								</div>
 							</div>
@@ -116,6 +116,6 @@
 	</div>
 </div>
 
-@if ($_user->can('page.remove'))
+@can('remove', $content)
 	{!! modal(['id' => "removeContent", 'header' => "Remove Page Content"]) !!}
-@endif
+@endcan

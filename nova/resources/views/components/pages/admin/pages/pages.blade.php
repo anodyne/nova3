@@ -5,19 +5,19 @@
 
 	<div ng-cloak>
 		<div class="visible-xs visible-sm">
-			@if ($_user->can('page.create'))
+			@can('create', $page)
 				<p><a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg btn-block">Add a Page</a></p>
-			@endif
+			@endcan
 
 			<p><a href="{{ route('admin.content') }}" class="btn btn-default btn-lg btn-block">Manage Page Content</a></p>
 		</div>
 		<div class="visible-md visible-lg">
 			<div class="btn-toolbar">
-				@if ($_user->can('page.create'))
+				@can('create', $page)
 					<div class="btn-group">
 						<a href="{{ route('admin.pages.create') }}" class="btn btn-success">Add a Page</a>
 					</div>
-				@endif
+				@endcan
 
 				<div class="btn-group">
 					<a href="{{ route('admin.content') }}" class="btn btn-default">Manage Page Content</a>
@@ -80,32 +80,32 @@
 						<div class="col-md-3">
 							<div class="visible-xs visible-sm">
 								<div class="row">
-									@if ($_user->can('page.edit'))
+									@can('edit', $page)
 										<div class="col-sm-6">
 											<p><a href="{% page.links.edit %}" class="btn btn-default btn-lg btn-block">Edit</a></p>
 										</div>
-									@endif
+									@endcan
 
-									@if ($_user->can('page.remove'))
+									@can('remove', $page)
 										<div class="col-sm-6" ng-hide="page.protected">
 											<p><a href="#" data-id="{% page.id %}" data-action="remove" class="btn btn-danger btn-lg btn-block js-pageAction">Remove</a></p>
 										</div>
-									@endif
+									@endcan
 								</div>
 							</div>
 							<div class="visible-md visible-lg">
 								<div class="btn-toolbar pull-right">
-									@if ($_user->can('page.edit'))
+									@can('edit', $page)
 										<div class="btn-group">
 											<a href="{% page.links.edit %}" class="btn btn-default">Edit</a>
 										</div>
-									@endif
+									@endcan
 
-									@if ($_user->can('page.remove'))
+									@can('remove', $page)
 										<div class="btn-group" ng-hide="page.protected">
 											<a href="#" data-id="{% page.id %}" data-action="remove" class="btn btn-danger js-pageAction">Remove</a>
 										</div>
-									@endif
+									@endcan
 								</div>
 							</div>
 						</div>
@@ -116,6 +116,6 @@
 	</div>
 </div>
 
-@if ($_user->can('page.remove'))
+@can('remove', $page)
 	{!! modal(['id' => "removePage", 'header' => "Remove Page"]) !!}
-@endif
+@endcan

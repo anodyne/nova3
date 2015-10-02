@@ -1,12 +1,15 @@
 <?php namespace Nova\Core\Access\Data;
 
-use PermissionPresenter;
-use Zizaco\Entrust\EntrustPermission;
+use Model,
+	Role as RoleModel,
+	PermissionPresenter;
 use Laracasts\Presenter\PresentableTrait;
 
-class Permission extends EntrustPermission {
+class Permission extends Model {
 
 	use PresentableTrait;
+
+	protected $table = 'permissions';
 
 	protected $fillable = ['name', 'display_name', 'description'];
 
@@ -15,5 +18,10 @@ class Permission extends EntrustPermission {
 	];
 
 	protected $presenter = PermissionPresenter::class;
+
+	public function roles()
+	{
+		return $this->belongsToMany(RoleModel::class, 'roles_permissions');
+	}
 
 }

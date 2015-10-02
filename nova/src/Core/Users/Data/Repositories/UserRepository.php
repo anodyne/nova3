@@ -15,7 +15,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
 
 	public function create(array $data)
 	{
-		$role = (array_key_exists('role', $data)) ? $data['role'] : null;
+		$role = (array_key_exists('role', $data)) ? (int) $data['role'] : null;
 
 		unset($data['role']);
 
@@ -23,7 +23,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
 
 		if ($role)
 		{
-			$user->attachRole($role);
+			$user->assignRole($role);
 		}
 
 		return $user;

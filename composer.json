@@ -6,8 +6,7 @@
 		"league/commonmark": "*",
 		"laracasts/presenter": "*",
 		"laravelcollective/html": "*",
-		"league/fractal": "*",
-		"zizaco/entrust": "dev-laravel-5"
+		"league/fractal": "*"
 	},
 
 	"require-dev": {

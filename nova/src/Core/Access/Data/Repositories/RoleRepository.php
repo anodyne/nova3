@@ -14,9 +14,9 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface {
 		$this->model = $model;
 	}
 
-	public function all()
+	public function all(array $with = ['permissions', 'users'])
 	{
-		return $this->model->with(['perms', 'users'])->get();
+		return $this->model->make($with)->get();
 	}
 
 	public function create(array $data)

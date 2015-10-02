@@ -21,8 +21,6 @@ use Nova\Foundation\Services\FlashNotifier,
 
 class NovaServiceProvider extends ServiceProvider {
 
-	protected $aliases;
-
 	/**
 	 * Bootstrap any application services.
 	 *
@@ -50,9 +48,6 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		// Grab the aliases from the config
-		$this->aliases = $this->app['config']['app.aliases'];
-
 		if ($this->app['env'] == 'local')
 		{
 			if (class_exists('Barryvdh\Debugbar\ServiceProvider'))
@@ -94,7 +89,6 @@ class NovaServiceProvider extends ServiceProvider {
 		{
 			$engine = new CompilerEngine;
 
-			$engine->registerCompiler('setting', new SettingCompiler);
 			$engine->registerCompiler('page', new PageCompiler);
 			$engine->registerCompiler('content', new PageContentCompiler);
 			$engine->registerCompiler('icon', new IconCompiler);
@@ -130,6 +124,16 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function registerBindings()
 	{
+		$this->app->singleton('nova.pageContent', function($app)
+		{
+			if ($app['nova.setup']->isInstalled())
+			{
+				return $app['PageContentRepository']->getAllContent();
+			}
+
+			return new Collection;
+		});
+
 		$this->app->singleton('nova.settings', function($app)
 		{
 			if ($app['nova.setup']->isInstalled())
@@ -248,10 +252,7 @@ class NovaServiceProvider extends ServiceProvider {
 		$concrete = "{$item}Repository";
 
 		// Bind to the container
-		$this->app->bind(
-			[$abstract => $this->aliases[$abstract]],
-			$this->aliases[$concrete]
-		);
+		$this->app->bind([$abstract => alias($abstract)], alias($concrete));
 	}
 
 }

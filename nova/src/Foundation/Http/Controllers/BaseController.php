@@ -13,6 +13,7 @@ abstract class BaseController extends Controller {
 	protected $app;
 	protected $page;
 	protected $theme;
+	protected $content;
 	protected $settings;
 	protected $user = false;
 
@@ -58,12 +59,14 @@ abstract class BaseController extends Controller {
 			if (app('nova.setup')->isInstalled())
 			{
 				$me->page = app('PageRepository')->getByRouteKey($request->route());
+				$me->content = app('nova.pageContent');
 				$me->settings = app('nova.settings');
 
 				view()->share('_page', $me->page);
 				view()->share('_user', $me->user);
 				view()->share('_icons', app('nova.theme')->getIconMap());
 				view()->share('_settings', $me->settings);
+				view()->share('_content', $me->content);
 			}
 		});
 
@@ -71,11 +74,11 @@ abstract class BaseController extends Controller {
 		$this->afterFilter('@processController');
 	}
 
-	protected function authorize($permission, $message)
+	protected function authorize($ability, $arguments = [], $message = null)
 	{
-		if ( ! $this->user->can($permission))
+		if ($this->user->cannot($ability, $arguments))
 		{
-			return $this->errorUnauthorized($message);
+			$this->errorUnauthorized($message);
 		}
 	}
 
@@ -90,7 +93,6 @@ abstract class BaseController extends Controller {
 			app('log')->warning("An unauthenticated user attempted to access ".app('request')->fullUrl());
 		}
 
-		// Abort
 		abort(404, $message);
 	}
 
@@ -105,7 +107,6 @@ abstract class BaseController extends Controller {
 			app('log')->warning("An unauthenticated user attempted to access ".app('request')->fullUrl());
 		}
 
-		// Abort
 		abort(403, $message);
 	}
 

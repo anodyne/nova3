@@ -14,11 +14,6 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
 		$this->model = $model;
 	}
 
-	public function all()
-	{
-		return $this->model->with(['roles'])->get();
-	}
-
 	public function create(array $data)
 	{
 		return $this->model->create($data);
