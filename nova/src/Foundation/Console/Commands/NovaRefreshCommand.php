@@ -56,6 +56,9 @@ class NovaRefreshCommand extends Command {
 		$this->info("Updating settings table...");
 		app('SettingRepository')->update($data['settings']);
 
+		$this->info("Updating page content table...");
+		app('PageContentRepository')->updateByKey($data['content']);
+
 		$this->info("");
 		$this->info(config('nova.app.name').' has been refreshed!');
 		$this->info("");
