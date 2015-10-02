@@ -26,6 +26,11 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 		return $this->model->create($data);
 	}
 
+	public function createDivider(array $data)
+	{
+		return $this->create(array_merge(['type' => 'divider'], $data));
+	}
+
 	public function delete($id)
 	{
 		// Get the menu item we're deleting

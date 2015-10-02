@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Menus\Http\Controllers;
 
 use Str,
-	Input,
+	Menu,
 	BaseController,
 	MenuRepositoryInterface,
 	PageRepositoryInterface,
@@ -29,10 +29,9 @@ class MenuController extends BaseController {
 
 	public function index()
 	{
-		if ( ! $this->user->can(['menu.create', 'menu.edit', 'menu.remove']))
-		{
-			return $this->errorUnauthorized("You do not have permission to manage menus.");
-		}
+		$this->data->menu = $menu = new Menu;
+
+		$this->authorize('manage', $menu, "You do not have permission to manage menus.");
 
 		$this->view = 'admin/menus/menus';
 		$this->jsView = 'admin/menus/menus-js';
@@ -42,10 +41,7 @@ class MenuController extends BaseController {
 
 	public function create()
 	{
-		if ( ! $this->user->can('menu.create'))
-		{
-			return $this->errorUnauthorized("You do not have permission to create menus.");
-		}
+		$this->authorize('create', new Menu, "You do not have permission to create menus.");
 
 		$this->view = 'admin/menus/menu-create';
 		$this->jsView = 'admin/menus/menu-create-js';
@@ -53,10 +49,7 @@ class MenuController extends BaseController {
 
 	public function store(CreateMenuRequest $request)
 	{
-		if ( ! $this->user->can('menu.create'))
-		{
-			return $this->errorUnauthorized("You do not have permission to create menus.");
-		}
+		$this->authorize('create', new Menu, "You do not have permission to create menus.");
 
 		// Create the menu
 		$menu = $this->repo->create($request->all());
@@ -72,23 +65,17 @@ class MenuController extends BaseController {
 
 	public function edit($menuId)
 	{
-		if ( ! $this->user->can('menu.edit'))
-		{
-			return $this->errorUnauthorized("You do not have permission to edit menus.");
-		}
+		$this->data->menu = $menu = $this->repo->find($menuId);
+
+		$this->authorize('edit', $menu, "You do not have permission to edit menus.");
 
 		$this->view = 'admin/menus/menu-edit';
 		$this->jsView = 'admin/menus/menu-edit-js';
-
-		$this->data->menu = $this->repo->find($menuId);
 	}
 
 	public function update(EditMenuRequest $request, $menuId)
 	{
-		if ( ! $this->user->can('menu.edit'))
-		{
-			return $this->errorUnauthorized("You do not have permission to edit menus.");
-		}
+		$this->authorize('edit', new Menu, "You do not have permission to edit menus.");
 
 		// Update the menu
 		$menu = $this->repo->update($menuId, $request->all());
@@ -106,16 +93,23 @@ class MenuController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		// Grab the menu we're removing
-		$menu = $this->repo->find($menuId);
+		if ($this->user->can('page.remove'))
+		{
+			// Grab the menu we're removing
+			$menu = $this->repo->find($menuId);
 
-		// Grab all the menus
-		$menus = $this->repo->listAllFiltered('name', 'id', $menu->id);
+			// Grab all the menus
+			$menus = $this->repo->listAllFiltered('name', 'id', $menu->id);
 
-		// Build the body based on whether we found the menu or not
-		$body = ($menu)
-			? view(locate('page', 'admin/menus/menu-remove'), compact('menu', 'menus'))
-			: alert('danger', "Menu not found.");
+			// Build the body based on whether we found the menu or not
+			$body = ($menu)
+				? view(locate('page', 'admin/menus/menu-remove'), compact('menu', 'menus'))
+				: alert('danger', "Menu not found.");
+		}
+		else
+		{
+			$body = alert('danger', "You do not have permission to remove menus.");
+		}
 
 		return partial('modal-content', [
 			'header' => "Remove Menu",
@@ -126,10 +120,7 @@ class MenuController extends BaseController {
 
 	public function destroy(RemoveMenuRequest $request, $menuId)
 	{
-		if ( ! $this->user->can('menu.remove'))
-		{
-			return $this->errorUnauthorized("You do not have permission to remove menus.");
-		}
+		$this->authorize('remove', new Menu, "You do not have permission to remove menus.");
 
 		// Delete the menu
 		$menu = $this->repo->delete($menuId, $request->get('new_menu'));
@@ -147,7 +138,7 @@ class MenuController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		$count = $this->repo->countBy('key', Input::get('key'));
+		$count = $this->repo->countBy('key', request('key'));
 
 		if ($count > 0)
 		{
@@ -161,21 +152,18 @@ class MenuController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		return Str::slug(Input::get('name'));
+		return Str::slug(request('name'));
 	}
 
 	public function pages($menuKey)
 	{
-		if ( ! $this->user->can(['page.edit', 'menu.edit']))
-		{
-			return $this->errorUnauthorized("You do not have permission to manage pages for menus.");
-		}
+		// Get the menu
+		$this->data->menu = $menu = $this->repo->getByKey($menuKey);
+
+		$this->authorize('manageMenuPages', $menu, "You do not have permission to manage pages for menus.");
 
 		$this->view = 'menu-pages';
 		$this->jsView = 'menu-pages-js';
-
-		// Get the menu
-		$this->data->menu = $menu = $this->repo->getByKey($menuKey);
 
 		// Get the pages for the menu
 		$this->data->pages = $this->repo->getPages($menu);
@@ -187,11 +175,8 @@ class MenuController extends BaseController {
 
 	public function updatePages(Request $request, $menuKey)
 	{
-		if ( ! $this->user->can(['page.edit', 'menu.edit']))
-		{
-			return $this->errorUnauthorized("You do not have permission to manage pages for menus.");
-		}
-		
+		$this->authorize('manageMenuPages', new Menu, "You do not have permission to manage pages for menus.");
+
 		// Update the pages
 		$this->repo->updatePages($request->get('pages'), $request->get('new_menu'));
 

@@ -7,6 +7,7 @@ use Nova\Foundation\Data\Interfaces\BaseRepositoryInterface;
 interface MenuItemRepositoryInterface extends BaseRepositoryInterface {
 
 	public function create(array $data);
+	public function createDivider(array $data);
 	public function delete($id);
 	public function find($id);
 	public function getMainMenuItems($menu);
