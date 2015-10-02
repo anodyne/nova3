@@ -1,7 +1,13 @@
 <?php
 
 return [
-	['page_id' => 1, 'type' => 'header', 'key' => 'home.header', 'value' => "Welcome to the {% setting:sim_name %}!"],
+	['type' => 'other', 'key' => 'sim.name', 'value' => 'Nova NextGen'],
+	['type' => 'other', 'key' => 'sim.year', 'value' => ''],
+
+	/**
+	 * Homepage
+	 */
+	['page_id' => 1, 'type' => 'header', 'key' => 'home.header', 'value' => "Welcome to the {% content:sim.name %}!"],
 	['page_id' => 1, 'type' => 'title', 'key' => 'home.title', 'value' => "Home"],
 	['page_id' => 1, 'type' => 'message', 'key' => 'home.message', 'value' => "This is my first message. And here is a {% page:home:link %} to the homepage using the new page compiler engine!"],
 

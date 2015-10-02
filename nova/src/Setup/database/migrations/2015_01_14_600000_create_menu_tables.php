@@ -32,6 +32,9 @@ class CreateMenuTables extends Migration {
 			$table->string('title')->nullable();
 			$table->boolean('authentication')->default((int) true);
 			$table->timestamps();
+
+			$table->foreign('menu_id')->references('id')->on('menus')
+				->onDelete('cascade');
 		});
 
 		$this->populateTables();
@@ -44,8 +47,8 @@ class CreateMenuTables extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('menus');
 		Schema::dropIfExists('menus_items');
+		Schema::dropIfExists('menus');
 	}
 
 	protected function populateTables()

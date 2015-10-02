@@ -1,7 +1,6 @@
 <?php
 
 return [
-	['key' => "sim_name", 'value' => "Nova NextGen"],
 	['key' => "theme", 'value' => "pulsar"],
 	['key' => "theme_variant", 'value' => ""],
 	['key' => "mail_subject_prefix", 'value' => ""],

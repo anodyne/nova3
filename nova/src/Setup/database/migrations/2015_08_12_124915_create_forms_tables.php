@@ -29,15 +29,34 @@ class CreateFormsTables extends Migration
 			$table->timestamps();
 		});
 
-		Schema::create('forms_data', function(Blueprint $table)
+		Schema::create('forms_tabs', function(Blueprint $table)
 		{
-			$table->bigIncrements('id');
+			$table->increments('id');
 			$table->integer('form_id')->unsigned();
-			$table->integer('field_id')->unsigned();
-			$table->integer('data_id')->unsigned();
-			$table->text('value')->nullable();
-			$table->integer('created_by')->unsigned()->default(0);
+			$table->string('name');
+			$table->string('link_id')->nullable();
+			$table->integer('order');
+			$table->boolean('status')->default(Status::ACTIVE);
 			$table->timestamps();
+
+			$table->foreign('form_id')->references('id')->on('forms')
+				->onDelete('cascade');
+		});
+
+		Schema::create('forms_sections', function(Blueprint $table)
+		{
+			$table->increments('id');
+			$table->integer('form_id')->unsigned();
+			$table->integer('tab_id')->unsigned()->default(0);
+			$table->string('name')->nullable();
+			$table->integer('order');
+			$table->boolean('status')->default(Status::ACTIVE);
+			$table->timestamps();
+
+			$table->foreign('form_id')->references('id')->on('forms')
+				->onDelete('cascade');
+			$table->foreign('tab_id')->references('id')->on('forms_tabs')
+				->onDelete('cascade');
 		});
 
 		Schema::create('forms_fields', function(Blueprint $table)
@@ -61,6 +80,29 @@ class CreateFormsTables extends Migration
 			$table->text('placeholder')->nullable();
 			$table->text('validation_rules')->nullable();
 			$table->timestamps();
+
+			$table->foreign('form_id')->references('id')->on('forms')
+				->onDelete('cascade');
+			$table->foreign('tab_id')->references('id')->on('forms_tabs')
+				->onDelete('cascade');
+			$table->foreign('section_id')->references('id')->on('forms_sections')
+				->onDelete('cascade');
+		});
+
+		Schema::create('forms_data', function(Blueprint $table)
+		{
+			$table->bigIncrements('id');
+			$table->integer('form_id')->unsigned();
+			$table->integer('field_id')->unsigned();
+			$table->integer('data_id')->unsigned();
+			$table->text('value')->nullable();
+			$table->integer('created_by')->unsigned()->default(0);
+			$table->timestamps();
+
+			$table->foreign('form_id')->references('id')->on('forms')
+				->onDelete('cascade');
+			$table->foreign('field_id')->references('id')->on('forms_fields')
+				->onDelete('cascade');
 		});
 
 		Schema::create('forms_fields_values', function(Blueprint $table)
@@ -70,29 +112,12 @@ class CreateFormsTables extends Migration
 			$table->string('value');
 			$table->integer('order');
 			$table->timestamps();
+
+			$table->foreign('field_id')->references('id')->on('forms_fields')
+				->onDelete('cascade');
 		});
 
-		Schema::create('forms_sections', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->integer('form_id')->unsigned();
-			$table->integer('tab_id')->unsigned()->default(0);
-			$table->string('name')->nullable();
-			$table->integer('order');
-			$table->boolean('status')->default(Status::ACTIVE);
-			$table->timestamps();
-		});
-
-		Schema::create('forms_tabs', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->integer('form_id')->unsigned();
-			$table->string('name');
-			$table->string('link_id')->nullable();
-			$table->integer('order');
-			$table->boolean('status')->default(Status::ACTIVE);
-			$table->timestamps();
-		});
+		$this->populateTables();
 	}
 
 	/**
@@ -102,11 +127,19 @@ class CreateFormsTables extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('forms');
+		Schema::dropIfExists('forms_fields_values');
 		Schema::dropIfExists('forms_data');
 		Schema::dropIfExists('forms_fields');
-		Schema::dropIfExists('forms_fields_values');
 		Schema::dropIfExists('forms_sections');
 		Schema::dropIfExists('forms_tabs');
+		Schema::dropIfExists('forms');
 	}
+
+	protected function populateTables()
+	{
+		Model::unguard();
+
+		$data = require_once app('path.database').'/data/forms.php';
+	}
+
 }
