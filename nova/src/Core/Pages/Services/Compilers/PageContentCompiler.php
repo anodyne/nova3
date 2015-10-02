@@ -31,11 +31,11 @@ class PageContentCompiler implements CompilerInterface {
 				if ($matches[1]) return substr($matches[0], 1);
 
 				// Get the content
-				$content = app('PageContentRepository')->getByKey($key, null);
+				$content = app('nova.pageContent')->get($key);
 
 				if ($content)
 				{
-					return $content->present()->value;
+					return compile($content);
 				}
 			}
 
