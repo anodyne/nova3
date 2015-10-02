@@ -43,8 +43,8 @@
 	<body>
 		<div class="container">
 			<div class="content">
-				<div class="title">Naughty!</div>
-				<div class="subtitle">Looks like you&rsquo;re trying to do something you aren&rsquo;t supposed to.</div>
+				<div class="title">Unauthorized!</div>
+				<div class="subtitle">{{ $exception->getMessage() }}</div>
 			</div>
 		</div>
 	</body>
