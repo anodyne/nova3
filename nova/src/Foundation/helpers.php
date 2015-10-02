@@ -2,6 +2,14 @@
 
 use Illuminate\Support\Debug\Dumper;
 
+if ( ! function_exists('alias'))
+{
+	function alias($aliasName)
+	{
+		return config("app.aliases.{$aliasName}");
+	}
+}
+
 if ( ! function_exists('alert'))
 {
 	function alert($level, $content, $header = false)
