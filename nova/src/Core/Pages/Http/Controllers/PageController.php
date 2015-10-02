@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Pages\Http\Controllers;
 
-use Input,
+use Page,
 	BaseController,
 	MenuRepositoryInterface,
 	PageRepositoryInterface,
@@ -26,10 +26,9 @@ class PageController extends BaseController {
 
 	public function index()
 	{
-		if ( ! $this->user->can(['page.create', 'page.edit', 'page.remove']))
-		{
-			return $this->errorUnauthorized("You do not have permission to manage pages.");
-		}
+		$this->data->page = $page = new Page;
+
+		$this->authorize('manage', $page, "You do not have permission to manage pages.");
 
 		$this->view = 'admin/pages/pages';
 		$this->jsView = 'admin/pages/pages-js';
@@ -37,10 +36,7 @@ class PageController extends BaseController {
 
 	public function create()
 	{
-		if ( ! $this->user->can('page.create'))
-		{
-			return $this->errorUnauthorized("You do not have permission to create pages.");
-		}
+		$this->authorize('create', new Page, "You do not have permission to create pages.");
 
 		$this->view = 'admin/pages/page-create';
 		$this->jsView = 'admin/pages/page-create-js';
@@ -58,10 +54,7 @@ class PageController extends BaseController {
 
 	public function store(CreatePageRequest $request)
 	{
-		if ( ! $this->user->can('page.create'))
-		{
-			return $this->errorUnauthorized("You do not have permission to create pages.");
-		}
+		$this->authorize('create', new Page, "You do not have permission to create pages.");
 
 		// Create the page
 		$page = $this->repo->create($request->all());
@@ -77,16 +70,13 @@ class PageController extends BaseController {
 
 	public function edit($pageId)
 	{
-		if ( ! $this->user->can('page.edit'))
-		{
-			return $this->errorUnauthorized("You do not have permission to edit pages.");
-		}
+		$this->data->page = $page = $this->repo->find($pageId);
+
+		$this->authorize('edit', $page, "You do not have permission to edit pages.");
 
 		$this->view = 'admin/pages/page-edit';
 		$this->jsView = 'admin/pages/page-edit-js';
 
-		$this->data->page = $this->repo->find($pageId);
-		
 		$this->data->httpVerbs = [
 			'GET' => 'GET',
 			'POST' => 'POST',
@@ -100,10 +90,9 @@ class PageController extends BaseController {
 
 	public function update(EditPageRequest $request, $pageId)
 	{
-		if ( ! $this->user->can('page.edit'))
-		{
-			return $this->errorUnauthorized("You do not have permission to edit pages.");
-		}
+		$page = $this->repo->find($pageId);
+
+		$this->authorize('edit', $page, "You do not have permission to edit pages.");
 
 		// Update the page
 		$page = $this->repo->update($pageId, $request->all());
@@ -145,10 +134,7 @@ class PageController extends BaseController {
 
 	public function destroy(RemovePageRequest $request, $pageId)
 	{
-		if ( ! $this->user->can('page.remove'))
-		{
-			return $this->errorUnauthorized("You do not have permission to remove pages.");
-		}
+		$this->authorize('remove', new Page, "You do not have permission to remove pages.");
 
 		// Delete the page
 		$page = $this->repo->delete($pageId);
@@ -166,7 +152,7 @@ class PageController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		$count = $this->repo->countBy('key', Input::get('key'));
+		$count = $this->repo->countBy('key', request('key'));
 
 		if ($count > 0)
 		{
@@ -180,7 +166,7 @@ class PageController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		$count = $this->repo->countBy('uri', Input::get('uri'));
+		$count = $this->repo->countBy('uri', request('uri'));
 
 		if ($count > 0)
 		{

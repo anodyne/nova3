@@ -2,6 +2,7 @@
 
 use PageContent as Model,
 	PageContentRepositoryInterface;
+use Illuminate\Support\Collection;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class PageContentRepository extends BaseRepository implements PageContentRepositoryInterface {
@@ -13,9 +14,9 @@ class PageContentRepository extends BaseRepository implements PageContentReposit
 		$this->model = $model;
 	}
 
-	public function all()
+	public function all(array $with = ['page'])
 	{
-		return $this->make(['page'])->get();
+		return $this->make($with)->get();
 	}
 
 	public function allExcept(array $except)
@@ -60,6 +61,25 @@ class PageContentRepository extends BaseRepository implements PageContentReposit
 		return $this->getById($id, ['page']);
 	}
 
+	public function getAllContent()
+	{
+		// Get all the content
+		$content = $this->all([]);
+
+		// An array for storing all the content
+		$items = [];
+
+		if ($content->count() > 0)
+		{
+			foreach ($content as $c)
+			{
+				$items[$c->key] = $c->value;
+			}
+		}
+
+		return new Collection($items);
+	}
+
 	public function getByKey($key, array $with = [])
 	{
 		// If we only have 1 argument for the method, we'll assume that we
@@ -91,6 +111,22 @@ class PageContentRepository extends BaseRepository implements PageContentReposit
 		}
 
 		return false;
+	}
+
+	public function updateByKey(array $data)
+	{
+		foreach ($data as $key => $value)
+		{
+			// Get the content item with the key
+			$content = $this->getByKey($key, []);
+
+			if ($content)
+			{
+				$this->update($content, ['value' => $value]);
+			}
+		}
+
+		return true;
 	}
 
 }

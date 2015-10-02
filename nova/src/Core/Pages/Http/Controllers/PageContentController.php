@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Pages\Http\Controllers;
 
-use Input,
+use PageContent,
 	BaseController,
 	PageRepositoryInterface,
 	PageContentRepositoryInterface,
@@ -26,10 +26,9 @@ class PageContentController extends BaseController {
 
 	public function index()
 	{
-		if ( ! $this->user->can(['page.create', 'page.edit', 'page.remove']))
-		{
-			return $this->errorUnauthorized("You do not have permission to manage page content.");
-		}
+		$this->data->content = $content = new PageContent;
+
+		$this->authorize('manage', $content, "You do not have permission to manage additional content.");
 
 		$this->view = 'admin/pages/content';
 		$this->jsView = 'admin/pages/content-js';
@@ -37,10 +36,7 @@ class PageContentController extends BaseController {
 
 	public function create()
 	{
-		if ( ! $this->user->can('page.create'))
-		{
-			return $this->errorUnauthorized("You do not have permission to create page content.");
-		}
+		$this->authorize('create', new PageContent, "You do not have permission to create additional content.");
 
 		$this->view = 'admin/pages/content-create';
 		$this->jsView = 'admin/pages/content-create-js';
@@ -51,10 +47,7 @@ class PageContentController extends BaseController {
 
 	public function store(CreatePageContentRequest $request)
 	{
-		if ( ! $this->user->can('page.create'))
-		{
-			return $this->errorUnauthorized("You do not have permission to create page content.");
-		}
+		$this->authorize('create', new PageContent, "You do not have permission to create additional content.");
 
 		// Create the content
 		$content = $this->repo->create($request->all());
@@ -70,10 +63,7 @@ class PageContentController extends BaseController {
 
 	public function edit($contentId)
 	{
-		if ( ! $this->user->can('page.edit'))
-		{
-			return $this->errorUnauthorized("You do not have permission to edit page content.");
-		}
+		$this->authorize('edit', new PageContent, "You do not have permission to edit additional content.");
 
 		$this->view = 'admin/pages/content-edit';
 		$this->jsView = 'admin/pages/content-edit-js';
@@ -86,10 +76,7 @@ class PageContentController extends BaseController {
 
 	public function update(EditPageContentRequest $request, $contentId)
 	{
-		if ( ! $this->user->can('page.edit'))
-		{
-			return $this->errorUnauthorized("You do not have permission to edit page content.");
-		}
+		$this->authorize('edit', new PageContent, "You do not have permission to edit additional content.");
 
 		// Update the content
 		$content = $this->repo->update($contentId, $request->all());
@@ -131,10 +118,7 @@ class PageContentController extends BaseController {
 
 	public function destroy(RemovePageContentRequest $request, $contentId)
 	{
-		if ( ! $this->user->can('page.remove'))
-		{
-			return $this->errorUnauthorized("You do not have permission to remove page content.");
-		}
+		$this->authorize('remove', new PageContent, "You do not have permission to remove additional content.");
 
 		// Delete the content
 		$content = $this->repo->delete($contentId);
@@ -152,7 +136,7 @@ class PageContentController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		$count = $this->repo->countBy('key', Input::get('key'));
+		$count = $this->repo->countBy('key', request('key'));
 
 		if ($count > 0)
 		{

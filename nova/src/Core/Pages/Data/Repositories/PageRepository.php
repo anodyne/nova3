@@ -14,7 +14,7 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 		$this->model = $model;
 	}
 
-	public function all($verb = false)
+	public function all(array $with = [], $verb = false)
 	{
 		$query = $this->make(['pageContents']);
 
