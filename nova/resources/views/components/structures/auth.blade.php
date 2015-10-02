@@ -4,12 +4,12 @@
 		<meta charset="utf-8">
 		<meta name="author" content="Anodyne Productions">
 		<meta name="description" content="{{ $pageDescription or $_page->description }}">
-		<meta property="og:title" content="{{ $_settings->get('sim_name') }}: {{ $pageName or $_page->name }}">
+		<meta property="og:title" content="{{ $_content->get('sim.name') }}: {{ $pageName or $_page->name }}">
 		<meta property="og:description" content="{{ $pageDescription or $_page->description }}">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-		<title>{{ $pageTitle or $_page->present()->title }} &bull; {{ $_settings->get('sim_name') }}</title>
+		<title>{{ $pageTitle or $_page->present()->title }} &bull; {{ $_content->get('sim.name') }}</title>
 		
 		@if (app('files')->exists(theme_path('design/css/bootstrap.css', false)))
 			{!! HTML::style(theme_path('design/css/bootstrap.css')) !!}

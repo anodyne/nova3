@@ -7,7 +7,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a href="{{ route('home') }}" class="navbar-brand">{{ $_settings->get('sim_name') }}</a>
+			<a href="{{ route('home') }}" class="navbar-brand">{{ $_content->get('sim.name') }}</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
