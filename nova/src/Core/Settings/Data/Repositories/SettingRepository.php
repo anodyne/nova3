@@ -50,11 +50,14 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
 			// Get the setting
 			$setting = $this->getFirstBy('key', $key);
 
-			// Update the setting
-			$item = $setting->fill(['value' => $value]);
+			if ($setting)
+			{
+				// Update the setting
+				$item = $setting->fill(['value' => $value]);
 
-			// Save the setting
-			$item->save();
+				// Save the setting
+				$item->save();
+			}
 		}
 
 		return true;
