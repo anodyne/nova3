@@ -9,8 +9,8 @@
 @stop
 
 @section('content')
-	<h1>Update {{ config('nova.app.name') }} Settings</h1>
-	<h2>Take a minute to update some of the basic system settings</h2>
+	<h1>Update {{ config('nova.app.name') }} Content &amp; Settings</h1>
+	<h2>Take a minute to update some of the basic site content and settings</h2>
 
 	{!! Form::open(['route' => "setup.{$_setupType}.settings.store", 'class' => 'form-horizontal']) !!}
 		<div class="form-group{{ ($errors->has('sim_name')) ? ' has-error' : '' }}">

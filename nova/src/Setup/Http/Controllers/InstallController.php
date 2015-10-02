@@ -5,7 +5,8 @@ use Str,
 	Input,
 	Artisan,
 	UserCreator,
-	SettingRepositoryInterface;
+	SettingRepositoryInterface,
+	PageContentRepositoryInterface;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Nova\Setup\Http\Requests\CreateUserRequest,
@@ -93,17 +94,39 @@ class InstallController extends BaseController {
 		return view('pages.setup.install.settings-success');
 	}
 
-	public function updateSettings(SettingRepositoryInterface $repo, UpdateSettingsRequest $request)
+	public function updateSettings(SettingRepositoryInterface $settings, 
+			PageContentRepositoryInterface $content,
+			UpdateSettingsRequest $request)
 	{
+		// Grab the data
+		$data = request()->except(['_token']);
+
+		// We need to handle content data separately because of the
+		// fact that content keys can have periods and setting keys
+		// cannot have periods
+		$contentData = $data;
+
 		// Update the settings
-		$update = $repo->update(Input::except(['_token']));
+		$update = $settings->update($data);
+
+		// Update the keys we're using
+		array_walk($data, function($value, $key) use (&$contentData)
+		{
+			// Replace underscores with periods
+			$newKey = str_replace('_', '.', $key);
+
+			$contentData[$newKey] = $value;
+		});
+
+		// Update the content
+		$content->updateByKey($contentData);
 
 		if ($update)
 		{
 			return redirect()->route('setup.install.settings.success');
 		}
 
-		flash()->error(null, "User and character could not be created.");
+		flash()->error(null, "Settings could not be updated.");
 
 		return redirect()->route('setup.install.settings');
 	}
