@@ -42,7 +42,7 @@ class AuthServiceProvider extends ServiceProvider {
 
 	protected function buildPolicyList()
 	{
-		$items = ['Menu', 'MenuItem', 'Page', 'PageContent'];
+		$items = ['Menu', 'MenuItem', 'Page', 'PageContent', 'Permission', 'Role'];
 
 		foreach ($items as $item)
 		{
