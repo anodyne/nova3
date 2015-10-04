@@ -2,8 +2,4 @@
 
 use Nova\Foundation\Data\Interfaces\BaseRepositoryInterface;
 
-interface UserRepositoryInterface extends BaseRepositoryInterface {
-
-	public function create(array $data);
-
-}
+interface UserRepositoryInterface extends BaseRepositoryInterface {}
