@@ -14,18 +14,14 @@ class CharacterRepository extends BaseRepository implements CharacterRepositoryI
 		$this->model = $model;
 	}
 
-	public function create(array $data, User $user = null)
+	public function createForUser(array $data, User $user = null)
 	{
-		// Create the character record
-		$character = $this->model->create($data);
+		$character = $this->create($data);
 
 		if ($user)
 		{
 			// Associate the character to the user
 			$user->characters()->save($character);
-
-			// Save the user
-			$user->save();
 		}
 
 		return $character;

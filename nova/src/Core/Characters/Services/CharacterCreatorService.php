@@ -18,7 +18,7 @@ class CharacterCreatorService {
 	public function create(array $data, User $user = null)
 	{
 		// Create the character
-		$character = $this->repo->create($data, $user);
+		$character = $this->repo->createForUser($data, $user);
 
 		// Fire the event
 		$this->events->fire('nova.character.created', [$character]);

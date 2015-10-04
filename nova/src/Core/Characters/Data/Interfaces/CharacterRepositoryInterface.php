@@ -5,6 +5,6 @@ use Nova\Foundation\Data\Interfaces\BaseRepositoryInterface;
 
 interface CharacterRepositoryInterface extends BaseRepositoryInterface {
 
-	public function create(array $data, User $user = null);
+	public function createForUser(array $data, User $user = null);
 
 }
