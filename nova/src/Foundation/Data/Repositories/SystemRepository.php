@@ -46,7 +46,7 @@ class SystemRepository extends BaseRepository implements SystemRepositoryInterfa
 		return "{$item->version_major}.{$item->version_minor}.{$item->version_patch}";
 	}
 
-	public function update(array $data)
+	public function updateSystemRecord(array $data)
 	{
 		$info = $this->model->first();
 

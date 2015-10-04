@@ -6,6 +6,6 @@ interface SystemRepositoryInterface extends BaseRepositoryInterface {
 	public function generateUID($updateDb = true);
 	public function getUID();
 	public function getVersion();
-	public function update(array $data);
+	public function updateSystemRecord(array $data);
 
 }

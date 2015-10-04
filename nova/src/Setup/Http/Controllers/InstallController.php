@@ -107,7 +107,7 @@ class InstallController extends BaseController {
 		$contentData = $data;
 
 		// Update the settings
-		$update = $settings->update($data);
+		$update = $settings->updateByKey($data);
 
 		// Update the keys we're using
 		array_walk($data, function($value, $key) use (&$contentData)
