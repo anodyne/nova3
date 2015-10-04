@@ -1,22 +1,20 @@
 <?php namespace Nova\Core\Access\Http\Controllers;
 
-use Input,
+use Permission,
 	BaseController,
 	RoleRepositoryInterface,
 	PermissionRepositoryInterface,
 	EditPermissionRequest, CreatePermissionRequest, RemovePermissionRequest;
 use Nova\Core\Access\Events;
-use Illuminate\Contracts\Foundation\Application;
 
 class PermissionController extends BaseController {
 
 	protected $repo;
 	protected $roleRepo;
 
-	public function __construct(Application $app, PermissionRepositoryInterface $repo,
-			RoleRepositoryInterface $roles)
+	public function __construct(PermissionRepositoryInterface $repo, RoleRepositoryInterface $roles)
 	{
-		parent::__construct($app);
+		parent::__construct();
 
 		$this->repo = $repo;
 		$this->roleRepo = $roles;
@@ -26,10 +24,7 @@ class PermissionController extends BaseController {
 
 	public function index()
 	{
-		if ( ! $this->user->can(['access.create', 'access.edit', 'access.remove']))
-		{
-			return $this->errorUnauthorized("You do not have permission to manage permissions.");
-		}
+		$this->authorize('manage', new Permission, "You do not have permission to manage permissions.");
 
 		$this->view = 'admin/access/permissions';
 		$this->jsView = 'admin/access/permissions-js';
@@ -37,10 +32,7 @@ class PermissionController extends BaseController {
 
 	public function create()
 	{
-		if ( ! $this->user->can('access.create'))
-		{
-			return $this->errorUnauthorized("You do not have permission to create permissions.");
-		}
+		$this->authorize('create', new Permission, "You do not have permission to create permissions.");
 
 		$this->view = 'admin/access/permission-create';
 		$this->jsView = 'admin/access/permission-create-js';
@@ -48,18 +40,12 @@ class PermissionController extends BaseController {
 
 	public function store(CreatePermissionRequest $request)
 	{
-		if ( ! $this->user->can('access.create'))
-		{
-			return $this->errorUnauthorized("You do not have permission to create permissions.");
-		}
+		$this->authorize('create', new Permission, "You do not have permission to create permissions.");
 
-		// Create the permission
 		$permission = $this->repo->create($request->all());
 
-		// Fire the event
 		event(new Events\PermissionWasCreated($permission));
 
-		// Set the flash message
 		flash()->success("Permission Created!", "Add your new permission to any of your roles now.");
 
 		return redirect()->route('admin.access.permissions');
@@ -67,31 +53,24 @@ class PermissionController extends BaseController {
 
 	public function edit($permissionId)
 	{
-		if ( ! $this->user->can('access.edit'))
-		{
-			return $this->errorUnauthorized("You do not have permission to edit permissions.");
-		}
+		$permission = $this->data->permission = $this->repo->find($permissionId);
+
+		$this->authorize('edit', $permission, "You do not have permission to edit permissions.");
 
 		$this->view = 'admin/access/permission-edit';
 		$this->jsView = 'admin/access/permission-edit-js';
-
-		$this->data->permission = $this->repo->find($permissionId);
 	}
 
 	public function update(EditPermissionRequest $request, $permissionId)
 	{
-		if ( ! $this->user->can('access.edit'))
-		{
-			return $this->errorUnauthorized("You do not have permission to edit permissions.");
-		}
+		$permission = $this->repo->find($permissionId);
 
-		// Update the permission
-		$permission = $this->repo->update($permissionId, $request->all());
+		$this->authorize('edit', $permission, "You do not have permission to edit permissions.");
 
-		// Fire the event
+		$permission = $this->repo->update($permission, $request->all());
+
 		event(new Events\PermissionWasUpdated($permission));
 
-		// Set the flash message
 		flash()->success("Permission Updated!");
 
 		return redirect()->route('admin.access.permissions');
@@ -101,12 +80,10 @@ class PermissionController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		if ($this->user->can('access.remove'))
-		{
-			// Grab the permission we're removing
-			$permission = $this->repo->find($permissionId);
+		$permission = $this->repo->find($permissionId);
 
-			// Build the body based on whether we found the permission or not
+		if (policy($permission)->remove($this->user))
+		{
 			$body = ($permission)
 				? view(locate('page', 'admin/access/permission-remove'), compact('permission'))
 				: alert('danger', "permission not found.");
@@ -125,18 +102,12 @@ class PermissionController extends BaseController {
 
 	public function destroy(RemovePermissionRequest $request, $permissionId)
 	{
-		if ( ! $this->user->can('access.remove'))
-		{
-			return $this->errorUnauthorized("You do not have permission to remove permissions.");
-		}
+		$this->authorize('remove', new Permission, "You do not have permission to remove permissions.");
 
-		// Delete the permission
 		$permission = $this->repo->delete($permissionId);
 
-		// Fire the event
 		event(new Events\PermissionWasDeleted($permission->name, $permission->display_name));
 
-		// Set the flash message
 		flash()->success("Permission Removed!");
 
 		return redirect()->route('admin.access.permissions');
@@ -146,7 +117,7 @@ class PermissionController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		$count = $this->repo->countBy('name', Input::get('key'));
+		$count = $this->repo->countBy('name', request('key'));
 
 		if ($count > 0)
 		{

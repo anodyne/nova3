@@ -19,6 +19,10 @@ class Permission extends Model {
 
 	protected $presenter = PermissionPresenter::class;
 
+	//-------------------------------------------------------------------------
+	// Relationships
+	//-------------------------------------------------------------------------
+
 	public function roles()
 	{
 		return $this->belongsToMany(RoleModel::class, 'roles_permissions');

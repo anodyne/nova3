@@ -1,9 +1,9 @@
 <?php namespace Nova\Core\Access\Http\Api;
 
-use PermissionRepositoryInterface;
 use League\Fractal\Manager;
-use Nova\Core\Access\Data\Transformers\PermissionTransformer;
+use PermissionRepositoryInterface;
 use Nova\Foundation\Http\Controllers\ApiController;
+use Nova\Core\Access\Data\Transformers\PermissionTransformer;
 
 class PermissionController extends ApiController {
 

@@ -2,7 +2,6 @@
 
 use Role as Model,
 	RoleRepositoryInterface;
-use Illuminate\Routing\Route;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class RoleRepository extends BaseRepository implements RoleRepositoryInterface {
@@ -16,37 +15,43 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface {
 
 	public function all(array $with = ['permissions', 'users'])
 	{
-		return $this->model->make($with)->get();
+		return $this->make($with)->get();
 	}
 
+	/**
+	 * We need to modify the way we create a role to allow for attaching
+	 * the permissions to the role at the same time as creating the role
+	 */
 	public function create(array $data)
 	{
-		// Create the role
 		$role = $this->model->create($data);
 
-		// Associate the permissions
+		// Assign the permissions to the role
 		if (array_key_exists('permissions', $data))
 		{
-			$role->savePermissions($data['permissions']);
+			$role->addPermissions($data['permissions']);
 		}
 
 		return $role;
 	}
 
-	public function delete($id)
+	/**
+	 * We need to modify the way we delete a role to allow for detaching
+	 * the permissions and users from the role
+	 */
+	public function delete($resource)
 	{
 		// Get the role we're removing
-		$role = $this->find($id);
+		$role = $this->getResource($resource);
 
 		if ($role)
 		{
-			// Detach the permissions
-			$role->perms()->detach();
+			// Remove all the permissions attached to this role
+			$role->permissions()->detach();
 
-			// Detach any users with this role
+			// Unassign all the users who have this role
 			$role->users()->detach();
 
-			// Delete the role
 			$role->delete();
 
 			return $role;
@@ -55,28 +60,26 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface {
 		return false;
 	}
 
-	public function duplicate($id)
+	public function duplicate($resource)
 	{
 		// Get the item we're duplicate from
-		$original = $this->find($id);
+		$originalRole = $this->getResource($resource);
 
-		if ($original)
+		if ($originalRole)
 		{
-			// Replicate the original object
-			$new = $original->replicate();
-
-			// Push the duplicated object so we have an ID
-			$new->push();
+			// Replicate the original object and push it so we have an ID
+			$newRole = $originalRole->replicate();
+			$newRole->push();
 
 			// Update the attributes
-			$new->display_name = "Copy of ".$new->display_name;
-			$new->name = $new->name."-copy";
-			$new->save();
+			$newRole->display_name = "Copy of ".$newRole->display_name;
+			$newRole->name = $newRole->name."-copy";
+			$newRole->save();
 
 			// Duplicate the permissions for the role
-			$new->attachPermissions($original->perms);
+			$newRole->permissions()->attach($originalRole->permissions);
 
-			return $new;
+			return $newRole;
 		}
 
 		return false;
@@ -84,23 +87,7 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface {
 
 	public function find($id)
 	{
-		return $this->getById($id, ['perms']);
-	}
-
-	public function update($id, array $data)
-	{
-		// Get the role we're updating
-		$role = $this->find($id);
-
-		if ($role)
-		{
-			// Fill and save the role
-			$role->fill($data)->save();
-
-			return $role;
-		}
-
-		return false;
+		return $this->getById($id, ['permissions']);
 	}
 
 }

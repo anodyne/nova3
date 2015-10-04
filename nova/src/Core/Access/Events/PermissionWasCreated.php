@@ -8,11 +8,11 @@ class PermissionWasCreated extends Event {
 
 	use SerializesModels;
 
-	protected $permission;
+	protected $resource;
 
-	public function __construct(Permission $permission)
+	public function __construct(Permission $resource)
 	{
-		$this->permission = $permission;
+		$this->resource = $resource;
 	}
 
 }

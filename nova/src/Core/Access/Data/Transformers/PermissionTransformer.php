@@ -1,9 +1,9 @@
 <?php namespace Nova\Core\Access\Data\Transformers;
 
 use Permission;
-use League\Fractal;
+use League\Fractal\TransformerAbstract as Transformer;
 
-class PermissionTransformer extends Fractal\TransformerAbstract {
+class PermissionTransformer extends Transformer {
 
 	public function transform(Permission $permission)
 	{

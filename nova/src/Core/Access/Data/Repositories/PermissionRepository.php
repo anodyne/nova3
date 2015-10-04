@@ -2,7 +2,6 @@
 
 use Permission as Model,
 	PermissionRepositoryInterface;
-use Illuminate\Routing\Route;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class PermissionRepository extends BaseRepository implements PermissionRepositoryInterface {
@@ -14,15 +13,14 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
 		$this->model = $model;
 	}
 
-	public function create(array $data)
-	{
-		return $this->model->create($data);
-	}
-
-	public function delete($id)
+	/**
+	 * We need to modify the way we delete a permission to allow for detaching
+	 * the permission being removed from any role(s) it's attached to
+	 */
+	public function delete($resource)
 	{
 		// Get the permission
-		$permission = $this->find($id);
+		$permission = $this->getResource($resource);
 
 		if ($permission)
 		{
@@ -41,22 +39,6 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
 	public function find($id)
 	{
 		return $this->getById($id, ['roles']);
-	}
-
-	public function update($id, array $data)
-	{
-		// Get the permission
-		$permission = $this->find($id);
-
-		if ($permission)
-		{
-			// Update the permission
-			$permission->fill($data)->save();
-
-			return $permission;
-		}
-
-		return false;
 	}
 
 }

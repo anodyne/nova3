@@ -305,6 +305,8 @@ return [
 		'EditRoleRequest' => Nova\Core\Access\Http\Requests\EditRoleRequest::class,
 		'RemoveRoleRequest' => Nova\Core\Access\Http\Requests\RemoveRoleRequest::class,
 		'HasRoles' => Nova\Core\Access\Data\Traits\HasRoles::class,
+		'RolePolicy' => Nova\Core\Access\Policies\RolePolicy::class,
+		'PermissionPolicy' => Nova\Core\Access\Policies\PermissionPolicy::class,
 
 		/**
 		 * Forms

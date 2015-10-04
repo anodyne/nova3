@@ -8,11 +8,11 @@ class RoleWasCreated extends Event {
 
 	use SerializesModels;
 
-	protected $role;
+	protected $resource;
 
-	public function __construct(Role $role)
+	public function __construct(Role $resource)
 	{
-		$this->role = $role;
+		$this->resource = $resource;
 	}
 
 }

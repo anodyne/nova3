@@ -4,14 +4,27 @@ use Role;
 
 trait HasRoles {
 
+	//-------------------------------------------------------------------------
+	// Relationships
+	//-------------------------------------------------------------------------
+
 	public function roles()
 	{
 		return $this->belongsToMany(Role::class, 'users_roles');
 	}
 
+	//-------------------------------------------------------------------------
+	// Model Methods
+	//-------------------------------------------------------------------------
+
 	public function assignRole($role)
 	{
-		$roleObj = (is_string($role)) ? Role::whereName($role)->firstOrFail() : Role::find($role);
+		// Get the role repository
+		$repo = app('RoleRepository');
+
+		$roleObj = (is_string($role))
+			? $repo->getFirstBy('name', $role)
+			: $repo->find($role);
 		
 		return $this->roles()->save($roleObj);
 	}
@@ -25,4 +38,5 @@ trait HasRoles {
 
 		return !! $role->intersect($this->roles)->count();
 	}
+	
 }

@@ -1,22 +1,20 @@
 <?php namespace Nova\Core\Access\Http\Controllers;
 
-use Input,
+use Role,
 	BaseController,
 	RoleRepositoryInterface,
 	PermissionRepositoryInterface,
 	EditRoleRequest, CreateRoleRequest, RemoveRoleRequest;
 use Nova\Core\Access\Events;
-use Illuminate\Contracts\Foundation\Application;
 
 class RoleController extends BaseController {
 
 	protected $repo;
 	protected $permissionsRepo;
 
-	public function __construct(Application $app, RoleRepositoryInterface $repo,
-			PermissionRepositoryInterface $permissions)
+	public function __construct(RoleRepositoryInterface $repo, PermissionRepositoryInterface $permissions)
 	{
-		parent::__construct($app);
+		parent::__construct();
 
 		$this->repo = $repo;
 		$this->permissionsRepo = $permissions;
@@ -26,10 +24,7 @@ class RoleController extends BaseController {
 
 	public function index()
 	{
-		if ( ! $this->user->can(['access.create', 'access.edit', 'access.remove']))
-		{
-			return $this->errorUnauthorized("You do not have permission to manage roles.");
-		}
+		$this->authorize('manage', new Role, "You do not have permission to manage roles.");
 
 		$this->view = 'admin/access/roles';
 		$this->jsView = 'admin/access/roles-js';
@@ -39,10 +34,7 @@ class RoleController extends BaseController {
 
 	public function create()
 	{
-		if ( ! $this->user->can('access.create'))
-		{
-			return $this->errorUnauthorized("You do not have permission to create roles.");
-		}
+		$this->authorize('create', new Role, "You do not have permission to create roles.");
 
 		$this->view = 'admin/access/role-create';
 		$this->jsView = 'admin/access/role-create-js';
@@ -50,18 +42,12 @@ class RoleController extends BaseController {
 
 	public function store(CreateRoleRequest $request)
 	{
-		if ( ! $this->user->can('access.create'))
-		{
-			return $this->errorUnauthorized("You do not have permission to create roles.");
-		}
+		$this->authorize('create', new Role, "You do not have permission to create roles.");
 
-		// Create the role
 		$role = $this->repo->create($request->all());
 
-		// Fire the event
 		event(new Events\RoleWasCreated($role));
 
-		// Set the flash message
 		flash()->success("Role Created!");
 
 		return redirect()->route('admin.access.roles');
@@ -69,31 +55,24 @@ class RoleController extends BaseController {
 
 	public function edit($roleId)
 	{
-		if ( ! $this->user->can('access.edit'))
-		{
-			return $this->errorUnauthorized("You do not have permission to edit roles.");
-		}
+		$role = $this->data->role = $this->repo->find($roleId);
+
+		$this->authorize('edit', $role, "You do not have permission to edit roles.");
 
 		$this->view = 'admin/access/role-edit';
 		$this->jsView = 'admin/access/role-edit-js';
-
-		$this->data->role = $this->repo->find($roleId);
 	}
 
 	public function update(EditRoleRequest $request, $roleId)
 	{
-		if ( ! $this->user->can('access.edit'))
-		{
-			return $this->errorUnauthorized("You do not have permission to edit roles.");
-		}
+		$role = $this->repo->find($roleId);
 
-		// Update the role
-		$role = $this->repo->update($roleId, $request->all());
+		$this->authorize('edit', $role, "You do not have permission to edit roles.");
 
-		// Fire the event
+		$role = $this->repo->update($role, $request->all());
+
 		event(new Events\RoleWasUpdated($role));
 
-		// Set the flash message
 		flash()->success("Role Updated!");
 
 		return redirect()->route('admin.access.roles');
@@ -103,12 +82,10 @@ class RoleController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		if ($this->user->can('access.remove'))
-		{
-			// Grab the role we're removing
-			$role = $this->repo->find($roleId);
+		$role = $this->repo->find($roleId);
 
-			// Build the body based on whether we found the role or not
+		if (policy($role)->remove($this->user))
+		{
 			$body = ($role)
 				? view(locate('page', 'admin/access/role-remove'), compact('role'))
 				: alert('danger', "role not found.");
@@ -127,18 +104,12 @@ class RoleController extends BaseController {
 
 	public function destroy(RemoveRoleRequest $request, $roleId)
 	{
-		if ( ! $this->user->can('access.remove'))
-		{
-			return $this->errorUnauthorized("You do not have permission to remove roles.");
-		}
+		$this->authorize('remove', new Role, "You do not have permission to remove roles.");
 
-		// Delete the role
 		$role = $this->repo->delete($roleId);
 
-		// Fire the event
 		event(new Events\RoleWasDeleted($role->name));
 
-		// Set the flash message
 		flash()->success("Role Removed!");
 
 		return redirect()->route('admin.access.roles');
@@ -148,7 +119,7 @@ class RoleController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		$count = $this->repo->countBy('name', Input::get('key'));
+		$count = $this->repo->countBy('name', request('key'));
 
 		if ($count > 0)
 		{
