@@ -30,18 +30,17 @@ abstract class BaseController extends Controller {
 	protected $structureData;
 	protected $structureView = 'public';
 
-	public function __construct(Application $app)
+	public function __construct()
 	{
-		// Set the properties
-		$this->app				= $app;
+		$this->app				= app();
 		$this->data				= new stdClass;
 		$this->jsData			= new stdClass;
 		$this->styleData		= new stdClass;
-		$this->user				= $app['nova.user'];
+		$this->user				= app('nova.user');
 		$this->templateData 	= new stdClass;
 		$this->structureData	= new stdClass;
 
-		// Make variable for use in the closures
+		// $this can't be used in closures, so we need another variable
 		$me = $this;
 
 		// Check if Nova is installed
@@ -54,7 +53,7 @@ abstract class BaseController extends Controller {
 		});
 
 		// Bind some data to all views
-		$this->beforeFilter(function($route, $request) use ($app, &$me)
+		$this->beforeFilter(function($route, $request) use (&$me)
 		{
 			if (app('nova.setup')->isInstalled())
 			{
@@ -74,6 +73,11 @@ abstract class BaseController extends Controller {
 		$this->afterFilter('@processController');
 	}
 
+	/**
+	 * We don't use Laravel's AuthorizesRequest trait because we want to do a
+	 * few special things to make sure unauthorized requests are logged in a
+	 * few different places.
+	 */
 	protected function authorize($ability, $arguments = [], $message = null)
 	{
 		if ($this->user->cannot($ability, $arguments))
@@ -84,28 +88,24 @@ abstract class BaseController extends Controller {
 
 	public function errorNotFound($message = null)
 	{
-		if ($this->user)
-		{
-			app('log')->warning("{$this->user->name} attempted to access ".app('request')->fullUrl());
-		}
-		else
-		{
-			app('log')->warning("An unauthenticated user attempted to access ".app('request')->fullUrl());
-		}
+		$logMessage = ($this->user)
+			? "{$this->user->name} attempted to access ".app('request')->fullUrl()
+			: "An unauthenticated user attempted to access ".app('request')->fullUrl();
+
+		app('log')->warning($logMessage);
 
 		abort(404, $message);
 	}
 
 	public function errorUnauthorized($message = null)
 	{
-		if ($this->user)
-		{
-			app('log')->warning("{$this->user->name} attempted to access ".app('request')->fullUrl());
-		}
-		else
-		{
-			app('log')->warning("An unauthenticated user attempted to access ".app('request')->fullUrl());
-		}
+		$logMessage = ($this->user)
+			? "{$this->user->name} attempted to access ".app('request')->fullUrl()
+			: "An unauthenticated user attempted to access ".app('request')->fullUrl();
+		
+		app('log')->warning($logMessage);
+
+		nova_event();
 
 		abort(403, $message);
 	}
@@ -116,28 +116,20 @@ abstract class BaseController extends Controller {
 		{
 			if ( ! $this->isAjax)
 			{
-				// Build the structure
 				$this->buildThemeStructure();
 
-				// Build the template
 				$this->buildThemeTemplate();
 
-				// Build the navigation
 				$this->buildThemeMenu();
 
-				// Build the page
 				$this->buildThemePage();
 
-				// Build the Javascript
 				$this->buildThemeJavascript();
 
-				// Build the styles
 				$this->buildThemeStyles();
 
-				// Build the footer
 				$this->buildThemeFooter();
 
-				// Set the content to the full template
 				$response->setContent($this->theme->render());
 			}
 		}
@@ -207,7 +199,6 @@ abstract class BaseController extends Controller {
 				$layout->template->content = view(locate()->page($this->view))->with((array) $this->data);
 			}
 
-			// Set the content of the response to our full layout now
 			$response->setContent($layout);
 		}
 	}
