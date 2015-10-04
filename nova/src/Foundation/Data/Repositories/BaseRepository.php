@@ -14,6 +14,39 @@ abstract class BaseRepository {
 		return $query->where($key, $value)->count();
 	}
 
+	public function create(array $data)
+	{
+		return $this->model->create($data);
+	}
+
+	public function delete($resource)
+	{
+		$item = $this->getResource($resource);
+
+		if ($item)
+		{
+			$item->delete();
+
+			return $item;
+		}
+
+		return false;
+	}
+
+	public function forceDelete($resource)
+	{
+		$item = $this->getResource($resource);
+
+		if ($item)
+		{
+			$item->forceDelete();
+
+			return $item;
+		}
+
+		return false;
+	}
+
 	public function getById($id, array $with = [])
 	{
 		$query = $this->make($with);
@@ -91,6 +124,31 @@ abstract class BaseRepository {
 	public function make(array $with = [])
 	{
 		return $this->model->with($with);
+	}
+
+	public function update($resource, array $data)
+	{
+		// Get the item
+		$item = $this->getResource($resource);
+
+		if ($item)
+		{
+			$item->fill($data)->save();
+
+			return $item;
+		}
+
+		return false;
+	}
+
+	protected function getResource($resource)
+	{
+		if ($resource instanceof $this->model)
+		{
+			return $resource;
+		}
+
+		return $this->getById($resource);
 	}
 
 }
