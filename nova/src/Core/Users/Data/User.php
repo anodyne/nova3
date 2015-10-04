@@ -28,11 +28,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	protected $presenter = 'Nova\Core\Users\Data\Presenters\UserPresenter';
 
-	/*
-	|--------------------------------------------------------------------------
-	| Relationships
-	|--------------------------------------------------------------------------
-	*/
+	//-------------------------------------------------------------------------
+	// Relationships
+	//-------------------------------------------------------------------------
 
 	public function characters()
 	{
