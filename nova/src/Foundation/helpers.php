@@ -98,6 +98,14 @@ if ( ! function_exists('modal'))
 	}
 }
 
+if ( ! function_exists('nova_event'))
+{
+	function nova_event()
+	{
+		return;
+	}
+}
+
 if ( ! function_exists('nova_path'))
 {
 	function nova_path($path = false)
