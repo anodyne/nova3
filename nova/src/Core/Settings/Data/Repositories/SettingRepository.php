@@ -43,7 +43,7 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
 		return $this->getFirstBy('key', $key);
 	}
 
-	public function update(array $data)
+	public function updateByKey(array $data)
 	{
 		foreach ($data as $key => $value)
 		{

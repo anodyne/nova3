@@ -7,6 +7,6 @@ interface SettingRepositoryInterface extends BaseRepositoryInterface {
 	public function create(array $data);
 	public function getAllSettings();
 	public function getByKey($key);
-	public function update(array $data);
+	public function updateByKey(array $data);
 	
 }
