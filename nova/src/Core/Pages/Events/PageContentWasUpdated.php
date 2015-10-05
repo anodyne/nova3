@@ -8,11 +8,11 @@ class PageContentWasUpdated extends Event {
 
 	use SerializesModels;
 
-	protected $content;
+	protected $resource;
 
-	public function __construct(PageContent $content)
+	public function __construct(PageContent $resource)
 	{
-		$this->content = $content;
+		$this->resource = $resource;
 	}
 
 }

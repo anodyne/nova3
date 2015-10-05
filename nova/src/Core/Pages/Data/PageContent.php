@@ -1,6 +1,8 @@
 <?php namespace Nova\Core\Pages\Data;
 
-use Model, PageContentPresenter;
+use Model,
+	Page as PageModel,
+	PageContentPresenter;
 use Laracasts\Presenter\PresentableTrait;
 
 class PageContent extends Model {
@@ -20,15 +22,13 @@ class PageContent extends Model {
 
 	protected $presenter = PageContentPresenter::class;
 
-	/*
-	|---------------------------------------------------------------------------
-	| Relationships
-	|---------------------------------------------------------------------------
-	*/
+	//-------------------------------------------------------------------------
+	// Relationships
+	//-------------------------------------------------------------------------
 
 	public function page()
 	{
-		return $this->belongsTo('Page');
+		return $this->belongsTo(PageModel::class);
 	}
 	
 }

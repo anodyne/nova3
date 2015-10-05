@@ -12,7 +12,7 @@ class CachePageRoutes implements ShouldQueue {
 
 	public function handle($event)
 	{
-		// Cache the routes in production
+		// Cache the routes only if we're in production
 		if (app('env') == 'production')
 		{
 			Artisan::call('route:cache');

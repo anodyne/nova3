@@ -1,6 +1,10 @@
 <?php namespace Nova\Core\Pages\Data;
 
-use Model, PagePresenter;
+use Menu,
+	Model,
+	MenuItem,
+	PagePresenter,
+	PageContent as PageContentModel;
 use Laracasts\Presenter\PresentableTrait;
 
 class Page extends Model {
@@ -21,43 +25,37 @@ class Page extends Model {
 
 	protected $presenter = PagePresenter::class;
 
-	/*
-	|---------------------------------------------------------------------------
-	| Relationships
-	|---------------------------------------------------------------------------
-	*/
+	//-------------------------------------------------------------------------
+	// Relationships
+	//-------------------------------------------------------------------------
 
 	public function pageContents()
 	{
-		return $this->hasMany('PageContent');
+		return $this->hasMany(PageContentModel::class);
 	}
 
 	public function menu()
 	{
-		return $this->belongsTo('Menu');
+		return $this->belongsTo(Menu::class);
 	}
 
 	public function menuItems()
 	{
-		return $this->hasMany('MenuItem');
+		return $this->hasMany(MenuItem::class);
 	}
 
-	/*
-	|---------------------------------------------------------------------------
-	| Model Scopes
-	|---------------------------------------------------------------------------
-	*/
+	//-------------------------------------------------------------------------
+	// Model Scopes
+	//-------------------------------------------------------------------------
 
 	public function scopeVerb($query, $verb)
 	{
 		$query->where('verb', '=', strtoupper($verb));
 	}
 
-	/*
-	|---------------------------------------------------------------------------
-	| Model Methods
-	|---------------------------------------------------------------------------
-	*/
+	//-------------------------------------------------------------------------
+	// Model Methods
+	//-------------------------------------------------------------------------
 
 	public function content($key)
 	{

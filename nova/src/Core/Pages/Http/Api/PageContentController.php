@@ -9,7 +9,8 @@ class PageContentController extends ApiController {
 
 	protected $repo;
 
-	public function __construct(Manager $fractal, PageContentRepositoryInterface $repo)
+	public function __construct(Manager $fractal,
+			PageContentRepositoryInterface $repo)
 	{
 		parent::__construct($fractal);
 

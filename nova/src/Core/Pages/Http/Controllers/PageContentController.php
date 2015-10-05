@@ -6,17 +6,16 @@ use PageContent,
 	PageContentRepositoryInterface,
 	EditPageContentRequest, CreatePageContentRequest, RemovePageContentRequest;
 use Nova\Core\Pages\Events;
-use Illuminate\Contracts\Foundation\Application;
 
 class PageContentController extends BaseController {
 
 	protected $repo;
 	protected $pagesRepo;
 
-	public function __construct(Application $app, PageContentRepositoryInterface $repo,
+	public function __construct(PageContentRepositoryInterface $repo,
 			PageRepositoryInterface $pages)
 	{
-		parent::__construct($app);
+		parent::__construct();
 
 		$this->repo = $repo;
 		$this->pagesRepo = $pages;
@@ -26,7 +25,7 @@ class PageContentController extends BaseController {
 
 	public function index()
 	{
-		$this->data->content = $content = new PageContent;
+		$content = $this->data->content = new PageContent;
 
 		$this->authorize('manage', $content, "You do not have permission to manage additional content.");
 
@@ -49,13 +48,10 @@ class PageContentController extends BaseController {
 	{
 		$this->authorize('create', new PageContent, "You do not have permission to create additional content.");
 
-		// Create the content
 		$content = $this->repo->create($request->all());
 
-		// Fire the event
 		event(new Events\PageContentWasCreated($content));
 
-		// Set the flash message
 		flash()->success("Page Content Created!");
 
 		return redirect()->route('admin.content');
@@ -80,13 +76,10 @@ class PageContentController extends BaseController {
 
 		$this->authorize('edit', $content, "You do not have permission to edit additional content.");
 
-		// Update the content
 		$content = $this->repo->update($content, $request->all());
 
-		// Fire the event
 		event(new Events\PageContentWasUpdated($content));
 
-		// Set the flash message
 		flash()->success("Page Content Updated!");
 
 		return redirect()->route('admin.content');
@@ -96,7 +89,6 @@ class PageContentController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		// Grab the content we're removing
 		$content = $this->repo->find($contentId);
 
 		if (policy($content)->remove($this->user))
@@ -120,15 +112,14 @@ class PageContentController extends BaseController {
 
 	public function destroy(RemovePageContentRequest $request, $contentId)
 	{
-		$this->authorize('remove', new PageContent, "You do not have permission to remove additional content.");
+		$content = $this->repo->find($contentId);
 
-		// Delete the content
-		$content = $this->repo->delete($contentId);
+		$this->authorize('remove', $content, "You do not have permission to remove additional content.");
 
-		// Fire the event
+		$content = $this->repo->delete($content);
+
 		event(new Events\PageContentWasDeleted($content->key, $content->type));
 
-		// Set the flash message
 		flash()->success("Page Content Removed!");
 
 		return redirect()->route('admin.content');

@@ -6,17 +6,16 @@ use Page,
 	PageRepositoryInterface,
 	EditPageRequest, CreatePageRequest, RemovePageRequest;
 use Nova\Core\Pages\Events;
-use Illuminate\Contracts\Foundation\Application;
 
 class PageController extends BaseController {
 
 	protected $repo;
 	protected $menuRepo;
 
-	public function __construct(Application $app, PageRepositoryInterface $repo,
+	public function __construct(PageRepositoryInterface $repo,
 			MenuRepositoryInterface $menus)
 	{
-		parent::__construct($app);
+		parent::__construct();
 
 		$this->repo = $repo;
 		$this->menuRepo = $menus;
@@ -26,7 +25,7 @@ class PageController extends BaseController {
 
 	public function index()
 	{
-		$this->data->page = $page = new Page;
+		$page = $this->data->page = new Page;
 
 		$this->authorize('manage', $page, "You do not have permission to manage pages.");
 
@@ -56,13 +55,10 @@ class PageController extends BaseController {
 	{
 		$this->authorize('create', new Page, "You do not have permission to create pages.");
 
-		// Create the page
 		$page = $this->repo->create($request->all());
 
-		// Fire the event
 		event(new Events\PageWasCreated($page));
 
-		// Set the flash message
 		flash()->success("Page Created!", "Don't forget to update your menus with your new page.");
 
 		return redirect()->route('admin.pages');
@@ -94,13 +90,10 @@ class PageController extends BaseController {
 
 		$this->authorize('edit', $page, "You do not have permission to edit pages.");
 
-		// Update the page
 		$page = $this->repo->update($page, $request->all());
 
-		// Fire the event
 		event(new Events\PageWasUpdated($page));
 
-		// Set the flash message
 		flash()->success("Page Updated!");
 
 		return redirect()->route('admin.pages');
@@ -110,7 +103,6 @@ class PageController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		// Grab the page we're removing
 		$page = $this->repo->find($pageId);
 
 		if (policy($page)->remove($this->user))
@@ -134,15 +126,14 @@ class PageController extends BaseController {
 
 	public function destroy(RemovePageRequest $request, $pageId)
 	{
-		$this->authorize('remove', new Page, "You do not have permission to remove pages.");
+		$page = $this->repo->find($pageId);
 
-		// Delete the page
-		$page = $this->repo->delete($pageId);
+		$this->authorize('remove', $page, "You do not have permission to remove pages.");
 
-		// Fire the event
+		$page = $this->repo->delete($page);
+
 		event(new Events\PageWasDeleted($page->name, $page->key, $page->uri));
 
-		// Set the flash message
 		flash()->success("Page Removed!");
 
 		return redirect()->route('admin.pages');
