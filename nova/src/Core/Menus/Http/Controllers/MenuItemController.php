@@ -32,16 +32,21 @@ class MenuItemController extends BaseController {
 
 	public function index($menuId)
 	{
-		$this->authorize('manage', new MenuItem, "You do not have permission to manage menu items.");
+		$item = $this->data->item = new MenuItem;
+
+		$this->authorize('manage', $item, "You do not have permission to manage menu items.");
 
 		$this->view = 'admin/menus/menu-items';
 		$this->jsView = 'admin/menus/menu-items-js';
 		$this->styleView = 'admin/menus/menu-items-style';
 
-		$this->data->menu = $this->menuRepo->find($menuId);
+		// Grab the menu we want the items for
+		$menu = $this->data->menu = $this->menuRepo->find($menuId);
 
+		// Grab the top level menu items
 		$this->data->mainMenuItems = $this->repo->getMainMenuItems($menu);
 		
+		// Now grab any menu items underneath the top level
 		$subMenuItems = $this->repo->getSubMenuItems($menu);
 		$this->data->subMenuItems = $this->repo->splitSubMenuItemsIntoArray($subMenuItems);
 	}
