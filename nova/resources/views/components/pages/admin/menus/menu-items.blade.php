@@ -2,28 +2,34 @@
 	<h1>Menu Items <small>{{ $menu->present()->name }}</small></h1>
 </div>
 
+<p>You can rearrange the order of menu items in this menu by dragging-and-dropping them into the order you want. You can also nest menu items underneath a top-level item by dragging it below and to the right of the item you want to nest it below.</p>
+
 <div class="visible-xs visible-sm">
-	@if ($_user->can('menu.create'))
+	@can('create', $item)
 		<p><a href="{{ route('admin.menus.items.create', [$menu->id]) }}" class="btn btn-success btn-lg btn-block">Add a Menu Item</a></p>
 		<p><a href="#" class="btn btn-success btn-lg btn-block js-createMenuItemDivider" data-menu="{{ $menu->id }}">Add a Divider</a></p>
-	@endif
+	@endcan
 
-	<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Menus</a></p>
+	@can('manage', $menu)
+		<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Menus</a></p>
+	@endcan
 </div>
 <div class="visible-md visible-lg">
 	<div class="btn-toolbar">
-		@if ($_user->can('menu.create'))
+		@can('create', $item)
 			<div class="btn-group">
 				<a href="{{ route('admin.menus.items.create', [$menu->id]) }}" class="btn btn-success">Add a Menu Item</a>
 			</div>
 			<div class="btn-group">
 				<a href="#" class="btn btn-default js-createMenuItemDivider" data-menu="{{ $menu->id }}">Add a Divider</a>
 			</div>
-		@endif
+		@endcan
 
-		<div class="btn-group">
-			<a href="{{ route('admin.menus') }}" class="btn btn-default">Menus</a>
-		</div>
+		@can('manage', $menu)
+			<div class="btn-group">
+				<a href="{{ route('admin.menus') }}" class="btn btn-default">Menus</a>
+			</div>
+		@endcan
 	</div>
 </div>
 
@@ -40,13 +46,13 @@
 					{{ $main->present()->title }}
 				@endif
 				<div class="pull-right uk-nested-item-controls">
-					@if ($_user->can('menu.edit'))
+					@can('edit', $main)
 						<a href="{{ route('admin.menus.items.edit', [$main->id]) }}">{!! icon('edit', 'xs') !!}</a>
-					@endif
+					@endcan
 
-					@if ($_user->can('menu.remove'))
+					@can('remove', $main)
 						<a href="#" class="danger js-menuItemAction" data-id="{{ $main->id }}" data-action="remove">{!! icon('delete', 'xs') !!}</a>
-					@endif
+					@endcan
 				</div>
 			</div>
 			@if (array_key_exists($main->id, $subMenuItems))
@@ -61,13 +67,13 @@
 								{{ $sub->present()->title }}
 							@endif
 							<div class="pull-right uk-nested-item-controls">
-								@if ($_user->can('menu.edit'))
+								@can('edit', $sub)
 									<a href="{{ route('admin.menus.items.edit', [$sub->id]) }}">{!! icon('edit', 'xs') !!}</a>
-								@endif
+								@endcan
 
-								@if ($_user->can('menu.remove'))
+								@can('remove', $sub)
 									<a href="#" class="danger js-menuItemAction" data-id="{{ $main->id }}" data-action="remove">{!! icon('delete', 'xs') !!}</a>
-								@endif
+								@endcan
 							</div>
 						</div>
 					</li>
@@ -81,6 +87,6 @@
 	{!! alert('warning', "No menu items found.") !!}
 @endif
 
-@if ($_user->can('menu.remove'))
+@can('remove', $item)
 	{!! modal(['id' => "removeMenuItem", 'header' => "Remove Menu Item"]) !!}
-@endif
+@endcan

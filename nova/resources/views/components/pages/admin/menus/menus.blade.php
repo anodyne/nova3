@@ -1,4 +1,4 @@
-@if ($_user->can('menu.create'))
+@can('create', $menu)
 	<div class="visible-xs visible-sm">
 		<p><a href="{{ route('admin.menus.create') }}" class="btn btn-success btn-lg btn-block">Add a Menu</a></p>
 	</div>
@@ -9,7 +9,7 @@
 			</div>
 		</div>
 	</div>
-@endif
+@endcan
 
 <div class="data-table data-table-striped data-table-bordered">
 @foreach ($menus as $menu)
@@ -21,34 +21,34 @@
 		<div class="col-md-6">
 			<div class="visible-xs visible-sm">
 				<div class="row">
-					@if ($_user->can('menu.edit'))
+					@can('edit', $menu)
 						<div class="col-xs-12">
 							<p><a href="{{ route('admin.menus.edit', [$menu->id]) }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
 						</div>
-					@endif
+					@endcan
 
-					@if ($_user->can(['menu.create', 'menu.edit', 'menu.remove']))
+					@can('manageMenuItems', $menu)
 						<div class="col-xs-12 col-sm-6">
 							<p><a href="{{ route('admin.menus.items', [$menu->id]) }}" class="btn btn-default btn-lg btn-block">Menu Items</a></p>
 						</div>
-					@endif
+					@endcan
 
-					@if ($_user->can(['page.edit', 'menu.edit'], true))
+					@can('manageMenuPages', $menu)
 						<div class="col-xs-12 col-sm-6">
 							<p><a href="{{ route('admin.menus.pages', [$menu->key]) }}" class="btn btn-default btn-lg btn-block">Pages Using this Menu</a></p>
 						</div>
-					@endif
+					@endcan
 
-					@if ($_user->can('menu.remove'))
+					@can('remove', $menu)
 						<div class="col-xs-12">
 							<p><a href="#" class="btn btn-danger btn-lg btn-block js-menuAction" data-id="{{ $menu->id }}" data-action="remove">Remove</a></p>
 						</div>
-					@endif
+					@endcan
 				</div>
 			</div>
 			<div class="visible-md visible-lg">
 				<div class="btn-toolbar pull-right">
-					@if ($_user->can('menu.edit'))
+					@can('edit', $menu)
 						<div class="btn-group">
 							<a href="{{ route('admin.menus.edit', [$menu->id]) }}" class="btn btn-default">Edit</a>
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -56,20 +56,22 @@
 								<span class="sr-only">Toggle Dropdown</span>
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right" role="menu">
-								<li><a href="{{ route('admin.menus.items', [$menu->id]) }}">Menu Items</a></li>
+								@can('manageMenuItems', $menu)
+									<li><a href="{{ route('admin.menus.items', [$menu->id]) }}">Menu Items</a></li>
+								@endcan
 								
-								@if ($_user->can(['menu.edit', 'page.edit'], true))
+								@can('manageMenuPages', $menu)
 									<li><a href="{{ route('admin.menus.pages', [$menu->key]) }}">Pages Using this Menu</a></li>
-								@endif
+								@endcan
 							</ul>
 						</div>
-					@endif
+					@endcan
 
-					@if ($_user->can('menu.remove'))
+					@can('remove', $menu)
 						<div class="btn-group">
 							<a href="#" class="btn btn-danger js-menuAction" data-id="{{ $menu->id }}" data-action="remove">Remove</a>
 						</div>
-					@endif
+					@endcan
 				</div>
 			</div>
 		</div>
@@ -77,6 +79,6 @@
 @endforeach
 </div>
 
-@if ($_user->can('menu.remove'))
+@can('remove', $menu)
 	{!! modal(['id' => "removeMenu", 'header' => "Remove Menu"]) !!}
-@endif
+@endcan
