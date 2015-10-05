@@ -34,7 +34,7 @@
 	<div class="form-group">
 		<label class="col-md-2 control-label">Description</label>
 		<div class="col-md-6">
-			{!! Form::textarea('description', null, ['class' => 'form-control input-lg', 'rows' => 4]) !!}
+			{!! Form::textarea('description', null, ['class' => 'form-control input-lg', 'rows' => 3]) !!}
 		</div>
 	</div>
 
@@ -43,7 +43,7 @@
 		<div class="col-md-10">
 			<div class="row">
 				<div class="col-md-6">
-					<p>{!! Form::text('permission_query', null, ['class' => 'form-control input-lg', 'placeholder' => 'Add Permissions...']) !!}</p>
+					<p>{!! Form::text('permissions_query', null, ['class' => 'form-control input-lg', 'placeholder' => 'Add Permissions...']) !!}</p>
 				</div>
 			</div>
 
