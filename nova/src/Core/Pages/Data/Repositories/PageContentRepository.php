@@ -35,27 +35,6 @@ class PageContentRepository extends BaseRepository implements PageContentReposit
 		return false;
 	}
 
-	public function create(array $data)
-	{
-		return $this->model->create($data);
-	}
-
-	public function delete($id)
-	{
-		// Get the content
-		$content = $this->getById($id);
-
-		if ($content)
-		{
-			// Delete the content
-			$content->delete();
-
-			return $content;
-		}
-
-		return false;
-	}
-
 	public function find($id)
 	{
 		return $this->getById($id, ['page']);
@@ -95,22 +74,6 @@ class PageContentRepository extends BaseRepository implements PageContentReposit
 		}
 
 		return $this->getFirstBy('key', $key, $relations);
-	}
-
-	public function update($item, array $data)
-	{
-		$content = ($item instanceof Model) ? $item : $this->getById($item);
-
-		if ($content)
-		{
-			// Fill and save the content
-			$updatedContentItem = $content->fill($data);
-			$updatedContentItem->save();
-
-			return $updatedContentItem;
-		}
-
-		return false;
 	}
 
 	public function updateByKey(array $data)

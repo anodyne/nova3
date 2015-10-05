@@ -70,7 +70,7 @@ class PageController extends BaseController {
 
 	public function edit($pageId)
 	{
-		$this->data->page = $page = $this->repo->find($pageId);
+		$page = $this->data->page = $this->repo->find($pageId);
 
 		$this->authorize('edit', $page, "You do not have permission to edit pages.");
 
@@ -95,7 +95,7 @@ class PageController extends BaseController {
 		$this->authorize('edit', $page, "You do not have permission to edit pages.");
 
 		// Update the page
-		$page = $this->repo->update($pageId, $request->all());
+		$page = $this->repo->update($page, $request->all());
 
 		// Fire the event
 		event(new Events\PageWasUpdated($page));
@@ -110,11 +110,11 @@ class PageController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		if ($this->user->can('page.remove'))
-		{
-			// Grab the page we're removing
-			$page = $this->repo->find($pageId);
+		// Grab the page we're removing
+		$page = $this->repo->find($pageId);
 
+		if (policy($page)->remove($this->user))
+		{
 			// Build the body based on whether we found the page or not
 			$body = ($page)
 				? view(locate('page', 'admin/pages/page-remove'), compact('page'))

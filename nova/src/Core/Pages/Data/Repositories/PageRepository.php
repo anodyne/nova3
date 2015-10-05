@@ -58,10 +58,10 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 		return $page;
 	}
 
-	public function delete($id)
+	public function delete($resource)
 	{
 		// Get the page
-		$page = $this->find($id);
+		$page = $this->getResource($resource);
 
 		if ($page)
 		{
@@ -129,10 +129,10 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 		return $this->getFirstBy('uri', $routeUri, $relations);
 	}
 
-	public function update($id, array $data)
+	public function update($resource, array $data)
 	{
 		// Get the page
-		$page = $this->find($id);
+		$page = $this->find($resource);
 
 		if ($page)
 		{

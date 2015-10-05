@@ -63,12 +63,12 @@ class PageContentController extends BaseController {
 
 	public function edit($contentId)
 	{
-		$this->authorize('edit', new PageContent, "You do not have permission to edit additional content.");
+		$content = $this->data->content = $this->repo->find($contentId);
+
+		$this->authorize('edit', $content, "You do not have permission to edit additional content.");
 
 		$this->view = 'admin/pages/content-edit';
 		$this->jsView = 'admin/pages/content-edit-js';
-
-		$this->data->content = $this->repo->find($contentId);
 
 		$this->data->pages[""] = "No page";
 		$this->data->pages += $this->pagesRepo->listAllBy('verb', 'GET', 'name', 'id');
@@ -76,10 +76,12 @@ class PageContentController extends BaseController {
 
 	public function update(EditPageContentRequest $request, $contentId)
 	{
-		$this->authorize('edit', new PageContent, "You do not have permission to edit additional content.");
+		$content = $this->repo->find($contentId);
+
+		$this->authorize('edit', $content, "You do not have permission to edit additional content.");
 
 		// Update the content
-		$content = $this->repo->update($contentId, $request->all());
+		$content = $this->repo->update($content, $request->all());
 
 		// Fire the event
 		event(new Events\PageContentWasUpdated($content));
@@ -94,11 +96,11 @@ class PageContentController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		if ($this->user->can('page.remove'))
-		{
-			// Grab the content we're removing
-			$content = $this->repo->find($contentId);
+		// Grab the content we're removing
+		$content = $this->repo->find($contentId);
 
+		if (policy($content)->remove($this->user))
+		{
 			// Build the body based on whether we found the content or not
 			$body = ($content)
 				? view(locate('page', 'admin/pages/content-remove'), compact('content'))
