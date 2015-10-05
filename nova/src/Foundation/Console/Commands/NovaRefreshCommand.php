@@ -54,7 +54,7 @@ class NovaRefreshCommand extends Command {
 		app('nova.user.creator')->create($data);
 
 		$this->info("Updating settings table...");
-		app('SettingRepository')->update($data['settings']);
+		app('SettingRepository')->updateByKey($data['settings']);
 
 		$this->info("Updating page content table...");
 		app('PageContentRepository')->updateByKey($data['content']);
