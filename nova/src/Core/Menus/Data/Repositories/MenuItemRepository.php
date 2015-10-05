@@ -15,6 +15,10 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 		$this->model = $model;
 	}
 
+	/**
+	 * We need to override how we create pages to make sure we don't store
+	 * a page ID when the type isn't "page"
+	 */
 	public function create(array $data)
 	{
 		// Don't store a page ID unless the menu item type is page
@@ -23,28 +27,12 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 			unset($data['page_id']);
 		}
 
-		return $this->model->create($data);
+		return $this->create($data);
 	}
 
 	public function createDivider(array $data)
 	{
 		return $this->create(array_merge(['type' => 'divider'], $data));
-	}
-
-	public function delete($id)
-	{
-		// Get the menu item we're deleting
-		$item = $this->find($id);
-
-		if ($item)
-		{
-			// Delete the menu item
-			$item->delete();
-
-			return $item;
-		}
-
-		return false;
 	}
 
 	public function find($id)
@@ -154,23 +142,6 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 		}
 
 		return $list;
-	}
-
-	public function update($id, array $data)
-	{
-		// Get the menu item
-		$item = $this->find($id);
-
-		if ($item)
-		{
-			$updatedItem = $item->fill($data);
-
-			$updatedItem->save();
-
-			return $updatedItem;
-		}
-
-		return false;
 	}
 
 }

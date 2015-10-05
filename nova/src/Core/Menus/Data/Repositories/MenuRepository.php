@@ -16,15 +16,10 @@ class MenuRepository extends BaseRepository implements MenuRepositoryInterface {
 		$this->pageRepo = $pages;
 	}
 
-	public function create(array $data)
-	{
-		return $this->model->create($data);
-	}
-
-	public function delete($id, $newId)
+	public function deleteAndUpdate($resource, $newId)
 	{
 		// Get the menu we're deleting
-		$menu = $this->find($id);
+		$menu = $this->getResource($resource);
 
 		if ($menu)
 		{
@@ -62,23 +57,6 @@ class MenuRepository extends BaseRepository implements MenuRepositoryInterface {
 	public function getPages(Model $menu)
 	{
 		return $menu->pages;
-	}
-
-	public function update($id, array $data)
-	{
-		// Get the menu
-		$menu = $this->find($id);
-
-		if ($menu)
-		{
-			$updatedMenu = $menu->fill($data);
-
-			$updatedMenu->save();
-
-			return $updatedMenu;
-		}
-
-		return false;
 	}
 
 	public function updatePages(array $pages, $newMenuId)

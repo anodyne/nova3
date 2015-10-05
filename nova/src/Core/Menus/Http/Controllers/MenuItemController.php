@@ -17,10 +17,11 @@ class MenuItemController extends BaseController {
 	protected $menuRepo;
 	protected $pagesRepo;
 
-	public function __construct(Application $app, MenuItemRepositoryInterface $repo,
-			MenuRepositoryInterface $menus, PageRepositoryInterface $pages)
+	public function __construct(MenuItemRepositoryInterface $repo,
+			MenuRepositoryInterface $menus,
+			PageRepositoryInterface $pages)
 	{
-		parent::__construct($app);
+		parent::__construct();
 
 		$this->repo = $repo;
 		$this->menuRepo = $menus;
@@ -37,13 +38,10 @@ class MenuItemController extends BaseController {
 		$this->jsView = 'admin/menus/menu-items-js';
 		$this->styleView = 'admin/menus/menu-items-style';
 
-		// Get the menu
 		$this->data->menu = $this->menuRepo->find($menuId);
 
-		// Get the parent level menu items
 		$this->data->mainMenuItems = $this->repo->getMainMenuItems($menu);
 		
-		// Grab the sub menu items
 		$subMenuItems = $this->repo->getSubMenuItems($menu);
 		$this->data->subMenuItems = $this->repo->splitSubMenuItemsIntoArray($subMenuItems);
 	}
@@ -55,16 +53,12 @@ class MenuItemController extends BaseController {
 		$this->view = 'admin/menus/menu-item-create';
 		$this->jsView = 'admin/menus/menu-item-create-js';
 
-		// Pass the menu ID over
 		$this->data->menuId = $menuId;
 
-		// Get all the GET pages (links wouldn't be able to POST, PUT, or DELETE)
 		$this->data->pages = $this->pagesRepo->listAllBy('verb', 'get', 'name', 'id');
 
-		// Get all the menus
 		$this->data->menus = $this->menuRepo->listAll('name', 'id');
 
-		// List the different types of links
 		$this->data->linkTypes = [
 			''			=> "Please choose a menu item type",
 			'page'		=> "A page in Nova",
@@ -78,13 +72,10 @@ class MenuItemController extends BaseController {
 	{
 		$this->authorize('create', new MenuItem, "You do not have permission to create menu items.");
 
-		// Create the menu item
 		$item = $this->repo->create($request->all());
 
-		// Fire the event
 		event(new Events\MenuItemWasCreated($item));
 
-		// Set the flash message
 		flash()->success("Menu Item Created!", "Add your new menu item to any of your menus now.");
 
 		return redirect()->route('admin.menus.items', [$item->menu->id]);
@@ -92,24 +83,19 @@ class MenuItemController extends BaseController {
 
 	public function edit($itemId)
 	{
-		// Get the menu item we're editing
-		$this->data->item = $item = $this->repo->find($itemId);
+		$item = $this->data->item = $this->repo->find($itemId);
 
 		$this->authorize('edit', $item, "You do not have permission to edit menu items.");
 
 		$this->view = 'admin/menus/menu-item-edit';
 		$this->jsView = 'admin/menus/menu-item-edit-js';
 
-		// Pass the item's menu ID over
 		$this->data->menuId = $item->menu_id;
 
-		// Get all the GET pages (links wouldn't be able to POST, PUT, or DELETE)
 		$this->data->pages = $this->pagesRepo->listAllBy('verb', 'get', 'name', 'id');
 
-		// Get all the menus
 		$this->data->menus = $this->menuRepo->listAll('name', 'id');
 
-		// List the different types of links
 		$this->data->linkTypes = [
 			''			=> "Please choose a menu item type",
 			'page'		=> "A page in Nova",
@@ -121,15 +107,14 @@ class MenuItemController extends BaseController {
 
 	public function update(EditMenuItemRequest $request, $itemId)
 	{
-		$this->authorize('edit', new MenuItem, "You do not have permission to edit menu items.");
+		$item = $this->repo->find($itemId);
 
-		// Update the menu item
-		$item = $this->repo->update($itemId, $request->all());
+		$this->authorize('edit', $item, "You do not have permission to edit menu items.");
 
-		// Fire the event
+		$item = $this->repo->update($item, $request->all());
+
 		event(new Events\MenuItemWasUpdated($item));
 
-		// Set the flash message
 		flash()->success("Menu Item Updated!");
 
 		return redirect()->route('admin.menus.items', [$item->menu->id]);
@@ -139,12 +124,10 @@ class MenuItemController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		if ($this->user->can('menu.remove'))
-		{
-			// Grab the menu item we're removing
-			$item = $this->repo->find($itemId);
+		$item = $this->repo->find($itemId);
 
-			// Build the body based on whether we found the menu or not
+		if (policy($item)->remove($this->user))
+		{
 			$body = ($item)
 				? view(locate('page', 'admin/menus/menu-item-remove'), compact('item'))
 				: alert('danger', "Menu item not found.");
@@ -163,15 +146,14 @@ class MenuItemController extends BaseController {
 
 	public function destroy(RemoveMenuItemRequest $request, $itemId)
 	{
-		$this->authorize('remove', new MenuItem, "You do not have permission to remove menu items.");
+		$item = $this->repo->find($itemId);
 
-		// Delete the menu item
-		$item = $this->repo->delete($itemId);
+		$this->authorize('remove', $item, "You do not have permission to remove menu items.");
 
-		// Fire the event
+		$item = $this->repo->delete($item);
+
 		event(new Events\MenuItemWasDeleted($item->title, $item->link));
 
-		// Set the flash message
 		flash()->success("Menu Item Removed!");
 
 		return redirect()->route('admin.menus.items', [$item->menu->id]);
@@ -186,7 +168,6 @@ class MenuItemController extends BaseController {
 			return json_encode(['code' => 0, 'message' => "You do not have permission to create menu items."]);
 		}
 
-		// Create the divider
 		$divider = $this->repo->createDivider(['menu_id' => $request->get('menu')]);
 
 		return json_encode(['code' => 1]);
@@ -198,10 +179,8 @@ class MenuItemController extends BaseController {
 
 		if ($this->user->can('menu.edit'))
 		{
-			// Get the menu collection
 			$menu = $this->menuRepo->find($request->get('menu'));
 
-			// Re-order the menu items
 			$this->repo->reorder($menu, $request->get('positions'));
 		}
 	}

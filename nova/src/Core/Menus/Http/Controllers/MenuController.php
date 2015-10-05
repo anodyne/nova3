@@ -16,10 +16,9 @@ class MenuController extends BaseController {
 	protected $repo;
 	protected $itemRepo;
 
-	public function __construct(Application $app, MenuRepositoryInterface $repo,
-			MenuItemRepositoryInterface $items)
+	public function __construct(MenuRepositoryInterface $repo, MenuItemRepositoryInterface $items)
 	{
-		parent::__construct($app);
+		parent::__construct();
 
 		$this->repo = $repo;
 		$this->itemRepo = $items;
@@ -51,13 +50,10 @@ class MenuController extends BaseController {
 	{
 		$this->authorize('create', new Menu, "You do not have permission to create menus.");
 
-		// Create the menu
 		$menu = $this->repo->create($request->all());
 
-		// Fire the event
 		event(new Events\MenuWasCreated($menu));
 
-		// Set the flash message
 		flash()->success("Menu Created!");
 
 		return redirect()->route('admin.menus');
@@ -65,7 +61,7 @@ class MenuController extends BaseController {
 
 	public function edit($menuId)
 	{
-		$this->data->menu = $menu = $this->repo->find($menuId);
+		$menu = $this->data->menu = $this->repo->find($menuId);
 
 		$this->authorize('edit', $menu, "You do not have permission to edit menus.");
 
@@ -75,15 +71,14 @@ class MenuController extends BaseController {
 
 	public function update(EditMenuRequest $request, $menuId)
 	{
-		$this->authorize('edit', new Menu, "You do not have permission to edit menus.");
+		$menu = $this->repo->find($menuId);
 
-		// Update the menu
-		$menu = $this->repo->update($menuId, $request->all());
+		$this->authorize('edit', $menu, "You do not have permission to edit menus.");
 
-		// Fire the event
+		$menu = $this->repo->update($menu, $request->all());
+
 		event(new Events\MenuWasUpdated($menu));
 
-		// Set the flash message
 		flash()->success("Menu Updated!");
 
 		return redirect()->route('admin.menus');
@@ -93,15 +88,12 @@ class MenuController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		if ($this->user->can('page.remove'))
-		{
-			// Grab the menu we're removing
-			$menu = $this->repo->find($menuId);
+		$menu = $this->repo->find($menuId);
 
-			// Grab all the menus
+		if (policy($menu)->remove($this->user))
+		{
 			$menus = $this->repo->listAllFiltered('name', 'id', $menu->id);
 
-			// Build the body based on whether we found the menu or not
 			$body = ($menu)
 				? view(locate('page', 'admin/menus/menu-remove'), compact('menu', 'menus'))
 				: alert('danger', "Menu not found.");
@@ -120,15 +112,14 @@ class MenuController extends BaseController {
 
 	public function destroy(RemoveMenuRequest $request, $menuId)
 	{
-		$this->authorize('remove', new Menu, "You do not have permission to remove menus.");
+		$menu = $this->repo->find($menuId);
 
-		// Delete the menu
-		$menu = $this->repo->delete($menuId, $request->get('new_menu'));
+		$this->authorize('remove', $menu, "You do not have permission to remove menus.");
 
-		// Fire the event
+		$menu = $this->repo->deleteAndUpdate($menu, $request->get('new_menu'));
+
 		event(new Events\MenuWasDeleted($menu->key, $menu->name));
 
-		// Set the flash message
 		flash()->success("Menu Removed!");
 
 		return redirect()->route('admin.menus');
@@ -157,18 +148,15 @@ class MenuController extends BaseController {
 
 	public function pages($menuKey)
 	{
-		// Get the menu
-		$this->data->menu = $menu = $this->repo->getByKey($menuKey);
+		$menu = $this->data->menu = $this->repo->getByKey($menuKey);
 
 		$this->authorize('manageMenuPages', $menu, "You do not have permission to manage pages for menus.");
 
 		$this->view = 'menu-pages';
 		$this->jsView = 'menu-pages-js';
 
-		// Get the pages for the menu
 		$this->data->pages = $this->repo->getPages($menu);
 
-		// All the menus for the dropdown
 		$this->data->menus[] = "No Menu";
 		$this->data->menus += $this->repo->listAllFiltered('name', 'id', $menu->id);
 	}
@@ -177,10 +165,8 @@ class MenuController extends BaseController {
 	{
 		$this->authorize('manageMenuPages', new Menu, "You do not have permission to manage pages for menus.");
 
-		// Update the pages
 		$this->repo->updatePages($request->get('pages'), $request->get('new_menu'));
 
-		// Set the flash message
 		flash()->success(Str::plural('Page', count($request->get('pages')))." Updated!");
 
 		return redirect()->route('admin.menus.pages', [$menuKey]);

@@ -8,11 +8,11 @@ class MenuWasUpdated extends Event {
 
 	use SerializesModels;
 
-	protected $menu;
+	protected $resource;
 
-	public function __construct(Menu $menu)
+	public function __construct(Menu $resource)
 	{
-		$this->menu = $menu;
+		$this->resource = $resource;
 	}
 
 }
