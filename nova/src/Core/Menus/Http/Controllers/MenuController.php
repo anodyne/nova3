@@ -28,7 +28,7 @@ class MenuController extends BaseController {
 
 	public function index()
 	{
-		$this->data->menu = $menu = new Menu;
+		$menu = $this->data->menu = new Menu;
 
 		$this->authorize('manage', $menu, "You do not have permission to manage menus.");
 
