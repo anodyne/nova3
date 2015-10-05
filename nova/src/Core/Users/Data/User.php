@@ -2,7 +2,8 @@
 
 use Hash,
 	Model,
-	HasRoles;
+	HasRoles,
+	Character;
 use Illuminate\Auth\Authenticatable,
 	Illuminate\Auth\Passwords\CanResetPassword,
 	Illuminate\Foundation\Auth\Access\Authorizable;
@@ -34,31 +35,21 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	public function characters()
 	{
-		return $this->hasMany('Character');
+		return $this->hasMany(Character::class);
 	}
 
-	/*
-	|--------------------------------------------------------------------------
-	| Getters/Setters
-	|--------------------------------------------------------------------------
-	*/
+	//-------------------------------------------------------------------------
+	// Getters/Setters
+	//-------------------------------------------------------------------------
 
-	/**
-	 * Make sure the password is hashed.
-	 *
-	 * @param	string	$value	Password
-	 * @return	void
-	 */
 	public function setPasswordAttribute($value)
 	{
 		$this->attributes['password'] = Hash::make($value);
 	}
 
-	/*
-	|--------------------------------------------------------------------------
-	| Model Methods
-	|--------------------------------------------------------------------------
-	*/
+	//-------------------------------------------------------------------------
+	// Model Methods
+	//-------------------------------------------------------------------------
 
 	public function preference($value)
 	{

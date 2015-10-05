@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Characters\Data;
 
-use Model;
+use User, Model;
 use Laracasts\Presenter\PresentableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -16,15 +16,13 @@ class Character extends Model {
 
 	protected $presenter = 'Nova\Core\Characters\Data\Presenters\CharacterPresenter';
 
-	/*
-	|--------------------------------------------------------------------------
-	| Relationships
-	|--------------------------------------------------------------------------
-	*/
+	//-------------------------------------------------------------------------
+	// Relationships
+	//-------------------------------------------------------------------------
 
 	public function user()
 	{
-		return $this->belongsTo('User');
+		return $this->belongsTo(User::class);
 	}
 	
 }

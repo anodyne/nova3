@@ -1,6 +1,9 @@
 <?php namespace Nova\Core\Menus\Data;
 
-use Model, MenuItemPresenter;
+use Page,
+	Model,
+	Menu as MenuModel,
+	MenuItemPresenter;
 use Laracasts\Presenter\PresentableTrait;
 
 class MenuItem extends Model {
@@ -30,22 +33,22 @@ class MenuItem extends Model {
 
 	public function menu()
 	{
-		return $this->belongsTo('Menu');
+		return $this->belongsTo(Menu::class);
 	}
 
 	public function page()
 	{
-		return $this->belongsTo('Page');
+		return $this->belongsTo(Page::class);
 	}
 
 	public function childrenMenuItems()
 	{
-		return $this->hasMany('MenuItem', 'parent_id', 'id');
+		return $this->hasMany(self::class, 'parent_id', 'id');
 	}
 
 	public function parentMenuItem()
 	{
-		return $this->belongsTo('MenuItem', 'parent_id', 'id');
+		return $this->belongsTo(self::class, 'parent_id', 'id');
 	}
 	
 }
