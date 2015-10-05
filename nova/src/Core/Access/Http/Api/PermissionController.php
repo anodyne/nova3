@@ -9,7 +9,8 @@ class PermissionController extends ApiController {
 
 	protected $repo;
 
-	public function __construct(Manager $fractal, PermissionRepositoryInterface $repo)
+	public function __construct(Manager $fractal,
+			PermissionRepositoryInterface $repo)
 	{
 		parent::__construct($fractal);
 

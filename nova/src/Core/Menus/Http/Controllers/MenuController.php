@@ -16,7 +16,8 @@ class MenuController extends BaseController {
 	protected $repo;
 	protected $itemRepo;
 
-	public function __construct(MenuRepositoryInterface $repo, MenuItemRepositoryInterface $items)
+	public function __construct(MenuRepositoryInterface $repo,
+			MenuItemRepositoryInterface $items)
 	{
 		parent::__construct();
 

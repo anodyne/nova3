@@ -12,7 +12,8 @@ class RoleController extends BaseController {
 	protected $repo;
 	protected $permissionsRepo;
 
-	public function __construct(RoleRepositoryInterface $repo, PermissionRepositoryInterface $permissions)
+	public function __construct(RoleRepositoryInterface $repo,
+			PermissionRepositoryInterface $permissions)
 	{
 		parent::__construct();
 
