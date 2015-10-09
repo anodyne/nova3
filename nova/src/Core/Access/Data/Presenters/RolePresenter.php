@@ -5,14 +5,19 @@ use Laracasts\Presenter\Presenter;
 
 class RolePresenter extends Presenter {
 
+	public function displayName()
+	{
+		return $this->entity->display_name;
+	}
+
 	public function key()
 	{
-		return $this->entity->name;
+		return $this->name();
 	}
 
 	public function name()
 	{
-		return $this->entity->display_name;
+		return $this->entity->name;
 	}
 
 	public function usersWithRole()

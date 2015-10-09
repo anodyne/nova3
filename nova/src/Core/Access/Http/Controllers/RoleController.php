@@ -1,6 +1,7 @@
 <?php namespace Nova\Core\Access\Http\Controllers;
 
 use Role,
+	Permission,
 	BaseController,
 	RoleRepositoryInterface,
 	PermissionRepositoryInterface,
@@ -25,12 +26,15 @@ class RoleController extends BaseController {
 
 	public function index()
 	{
-		$this->authorize('manage', new Role, "You do not have permission to manage roles.");
+		$role = $this->data->role = new Role;
+
+		$this->authorize('manage', $role, "You do not have permission to manage roles.");
 
 		$this->view = 'admin/access/roles';
 		$this->jsView = 'admin/access/roles-js';
 
 		$this->data->roles = $this->repo->all();
+		$this->data->permission = new Permission;
 	}
 
 	public function create()
@@ -39,6 +43,8 @@ class RoleController extends BaseController {
 
 		$this->view = 'admin/access/role-create';
 		$this->jsView = 'admin/access/role-create-js';
+
+		$this->data->permissions = $this->permissionsRepo->allByComponent();
 	}
 
 	public function store(CreateRoleRequest $request)
@@ -62,6 +68,8 @@ class RoleController extends BaseController {
 
 		$this->view = 'admin/access/role-edit';
 		$this->jsView = 'admin/access/role-edit-js';
+
+		$this->data->permissions = $this->permissionsRepo->allByComponent();
 	}
 
 	public function update(EditRoleRequest $request, $roleId)
@@ -89,7 +97,7 @@ class RoleController extends BaseController {
 		{
 			$body = ($role)
 				? view(locate('page', 'admin/access/role-remove'), compact('role'))
-				: alert('danger', "role not found.");
+				: alert('danger', "Role not found.");
 		}
 		else
 		{
@@ -128,6 +136,24 @@ class RoleController extends BaseController {
 		}
 
 		return json_encode(['code' => 1]);
+	}
+
+	public function duplicate($roleId)
+	{
+		$this->isAjax = true;
+
+		$oldRole = $this->repo->find($roleId);
+
+		$this->authorize('create', $oldRole, "You do not have permission to create roles.");
+
+		if (policy($oldRole)->create($this->user))
+		{
+			$newRole = $this->repo->duplicate($oldRole);
+
+			event(new Events\RoleWasDuplicated($oldRole, $newRole));
+
+			flash()->success("Role Duplicated!");
+		}
 	}
 
 }

@@ -2,6 +2,7 @@
 
 use Permission as Model,
 	PermissionRepositoryInterface;
+use Illuminate\Support\Collection;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class PermissionRepository extends BaseRepository implements PermissionRepositoryInterface {
@@ -11,6 +12,37 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
 	public function __construct(Model $model)
 	{
 		$this->model = $model;
+	}
+
+	public function allByComponent()
+	{
+		// Get all the permissions
+		$permissions = $this->all();
+
+		if ($permissions)
+		{
+			foreach ($permissions as $permission)
+			{
+				// Get the component and action out of the key
+				list($component, $action) = explode('.', $permission->name);
+
+				// Capitalize the component
+				$component = ucwords($component);
+
+				// Store the permission
+				$permissionsList[$component][$action] = $permission;
+
+				// Sort the array by the actions
+				ksort($permissionsList[$component]);
+			}
+
+			// Sort by the component
+			ksort($permissionsList);
+
+			return $permissionsList;
+		}
+
+		return [];
 	}
 
 	/**

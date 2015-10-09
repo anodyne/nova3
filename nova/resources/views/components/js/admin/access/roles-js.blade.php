@@ -6,6 +6,18 @@
 		var roleId = $(this).data('id');
 		var action = $(this).data('action');
 
+		if (action == 'duplicate')
+		{
+			$.ajax({
+				type: "POST",
+				url: "{{ url('admin/access/roles') }}/" + roleId + "/duplicate",
+				success: function(data)
+				{
+					location.reload(true);
+				}
+			});
+		}
+
 		if (action == 'remove')
 		{
 			$('#removeRole').modal({

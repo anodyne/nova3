@@ -4,6 +4,7 @@ use User,
 	Model,
 	RolePresenter,
 	Permission as PermissionModel;
+use Illuminate\Support\Collection;
 use Laracasts\Presenter\PresentableTrait;
 
 class Role extends Model {
@@ -28,6 +29,43 @@ class Role extends Model {
 	public function users()
 	{
 		return $this->belongsToMany(User::class, 'users_roles');
+	}
+
+	//-------------------------------------------------------------------------
+	// Model Methods
+	//-------------------------------------------------------------------------
+
+	public function addPermissions($permissions)
+	{
+		if ($permissions instanceof Collection)
+		{
+			$newPermissions = [];
+
+			foreach ($permissions as $permission)
+			{
+				$newPermissions[] = $permission->id;
+			}
+
+			$permissions = $newPermissions;
+		}
+
+		if (is_array($permissions))
+		{
+			// Sync all the permissions
+			$this->permissions()->sync($permissions);
+
+			return true;
+		}
+
+		// Attach the single permission
+		$this->permissions()->attach($permissions);
+
+		return true;
+	}
+
+	public function removePermissions($permissions)
+	{
+		//
 	}
 
 }

@@ -41,44 +41,22 @@
 	<div class="form-group">
 		<label class="col-md-2 control-label">Permissions</label>
 		<div class="col-md-10">
-			<div class="row">
-				<div class="col-md-6">
-					<p>{!! Form::text('permissions_query', null, ['class' => 'form-control input-lg', 'placeholder' => 'Add Permissions...']) !!}</p>
-				</div>
-			</div>
+			@foreach ($permissions as $component => $permission)
+				<fieldset>
+					<legend>{{ $component }}</legend>
 
-			<div class="row">
-				<div class="col-md-4">
-					<p class="visible-xs visible-sm"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'md', 'text-danger') !!}</span></a> Permission Name</p>
-					<p class="visible-md visible-lg"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'xs', 'text-danger') !!}</span></a> Permission Name</p>
-					{!! Form::hidden('permissions[]', null) !!}
-				</div>
-				<div class="col-md-4">
-					<p class="visible-xs visible-sm"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'md', 'text-danger') !!}</span></a> Permission Name</p>
-					<p class="visible-md visible-lg"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'xs', 'text-danger') !!}</span></a> Permission Name</p>
-					{!! Form::hidden('permissions[]', null) !!}
-				</div>
-				<div class="col-md-4">
-					<p class="visible-xs visible-sm"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'md', 'text-danger') !!}</span></a> Permission Name</p>
-					<p class="visible-md visible-lg"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'xs', 'text-danger') !!}</span></a> Permission Name</p>
-					{!! Form::hidden('permissions[]', null) !!}
-				</div>
-				<div class="col-md-4">
-					<p class="visible-xs visible-sm"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'md', 'text-danger') !!}</span></a> Permission Name</p>
-					<p class="visible-md visible-lg"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'xs', 'text-danger') !!}</span></a> Permission Name</p>
-					{!! Form::hidden('permissions[]', null) !!}
-				</div>
-				<div class="col-md-4">
-					<p class="visible-xs visible-sm"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'md', 'text-danger') !!}</span></a> Permission Name</p>
-					<p class="visible-md visible-lg"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'xs', 'text-danger') !!}</span></a> Permission Name</p>
-					{!! Form::hidden('permissions[]', null) !!}
-				</div>
-				<div class="col-md-4">
-					<p class="visible-xs visible-sm"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'md', 'text-danger') !!}</span></a> Permission Name</p>
-					<p class="visible-md visible-lg"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'xs', 'text-danger') !!}</span></a> Permission Name</p>
-					{!! Form::hidden('permissions[]', null) !!}
-				</div>
-			</div>
+					<div class="row">
+						@foreach ($permission as $p)
+							<div class="col-md-4">
+								<label class="checkbox-inline">
+									{!! Form::checkbox('permissions[]', $p->id, false) !!}
+									{!! $p->present()->displayName !!}
+								</label>
+							</div>
+						@endforeach
+					</div>
+				</fieldset>
+			@endforeach
 		</div>
 	</div>
 

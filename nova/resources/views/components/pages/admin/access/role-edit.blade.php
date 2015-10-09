@@ -39,6 +39,28 @@
 	</div>
 
 	<div class="form-group">
+		<label class="col-md-2 control-label">Permissions</label>
+		<div class="col-md-10">
+			@foreach ($permissions as $component => $permission)
+				<fieldset>
+					<legend>{{ $component }}</legend>
+
+					<div class="row">
+						@foreach ($permission as $p)
+							<div class="col-md-4">
+								<label class="checkbox-inline">
+									{!! Form::checkbox('permissions[]', $p->id) !!}
+									{!! $p->present()->displayName !!}
+								</label>
+							</div>
+						@endforeach
+					</div>
+				</fieldset>
+			@endforeach
+		</div>
+	</div>
+
+	<div class="form-group">
 		<div class="col-md-5 col-md-offset-2">
 			<div class="visible-xs visible-sm">
 				<p>{!! Form::button("Update Role", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>

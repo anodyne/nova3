@@ -90,13 +90,13 @@ return [
 	/**
 	 * Permissions
 	 */
-	['page_id' => 53, 'type' => 'header', 'key' => 'admin.access.permissions.header', 'value' => "Permissions"],
-	['page_id' => 53, 'type' => 'title', 'key' => 'admin.access.permissions.title', 'value' => "Permissions"],
-	['page_id' => 53, 'type' => 'message', 'key' => 'admin.access.permissions.message', 'value' => null],
-	['page_id' => 54, 'type' => 'header', 'key' => 'admin.access.permissions.create.header', 'value' => "Add Permission"],
-	['page_id' => 54, 'type' => 'title', 'key' => 'admin.access.permissions.create.title', 'value' => "Add Permission"],
-	['page_id' => 54, 'type' => 'message', 'key' => 'admin.access.permissions.create.message', 'value' => null],
-	['page_id' => 56, 'type' => 'header', 'key' => 'admin.access.permissions.edit.header', 'value' => "Edit Permission"],
-	['page_id' => 56, 'type' => 'title', 'key' => 'admin.access.permissions.edit.title', 'value' => "Edit Permission"],
-	['page_id' => 56, 'type' => 'message', 'key' => 'admin.access.permissions.edit.message', 'value' => null],
+	['page_id' => 54, 'type' => 'header', 'key' => 'admin.access.permissions.header', 'value' => "Permissions"],
+	['page_id' => 54, 'type' => 'title', 'key' => 'admin.access.permissions.title', 'value' => "Permissions"],
+	['page_id' => 54, 'type' => 'message', 'key' => 'admin.access.permissions.message', 'value' => null],
+	['page_id' => 55, 'type' => 'header', 'key' => 'admin.access.permissions.create.header', 'value' => "Add Permission"],
+	['page_id' => 55, 'type' => 'title', 'key' => 'admin.access.permissions.create.title', 'value' => "Add Permission"],
+	['page_id' => 55, 'type' => 'message', 'key' => 'admin.access.permissions.create.message', 'value' => null],
+	['page_id' => 57, 'type' => 'header', 'key' => 'admin.access.permissions.edit.header', 'value' => "Edit Permission"],
+	['page_id' => 57, 'type' => 'title', 'key' => 'admin.access.permissions.edit.title', 'value' => "Edit Permission"],
+	['page_id' => 57, 'type' => 'message', 'key' => 'admin.access.permissions.edit.message', 'value' => null],
 ];

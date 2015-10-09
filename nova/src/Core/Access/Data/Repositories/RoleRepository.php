@@ -24,7 +24,7 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface {
 	 */
 	public function create(array $data)
 	{
-		$role = $this->model->create($data);
+		$role = parent::create($data);
 
 		// Assign the permissions to the role
 		if (array_key_exists('permissions', $data))
@@ -67,17 +67,13 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface {
 
 		if ($originalRole)
 		{
-			// Replicate the original object and push it so we have an ID
 			$newRole = $originalRole->replicate();
-			$newRole->push();
-
-			// Update the attributes
 			$newRole->display_name = "Copy of ".$newRole->display_name;
 			$newRole->name = $newRole->name."-copy";
-			$newRole->save();
+			$newRole->push();
 
 			// Duplicate the permissions for the role
-			$newRole->permissions()->attach($originalRole->permissions);
+			$newRole->addPermissions($originalRole->permissions);
 
 			return $newRole;
 		}
@@ -88,6 +84,23 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface {
 	public function find($id)
 	{
 		return $this->getById($id, ['permissions']);
+	}
+
+	/**
+	 * We need to modify the way we update a role to allow for attaching
+	 * the permissions to the role at the same time as updating the role
+	 */
+	public function update($resource, array $data)
+	{
+		$role = parent::update($resource, $data);
+
+		// Assign the permissions to the role
+		if (array_key_exists('permissions', $data))
+		{
+			$role->addPermissions($data['permissions']);
+		}
+
+		return $role;
 	}
 
 }

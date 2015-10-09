@@ -24,4 +24,13 @@ return [
 	'Nova\Core\Menus\Events\MenuWasDeleted' => [],
 	'Nova\Core\Menus\Events\MenuWasUpdated' => [],
 
+	'Nova\Core\Access\Events\PermissionWasCreated' => [],
+	'Nova\Core\Access\Events\PermissionWasDeleted' => [],
+	'Nova\Core\Access\Events\PermissionWasUpdated' => [],
+
+	'Nova\Core\Access\Events\RoleWasCreated' => [],
+	'Nova\Core\Access\Events\RoleWasDeleted' => [],
+	'Nova\Core\Access\Events\RoleWasDuplicated' => [],
+	'Nova\Core\Access\Events\RoleWasUpdated' => [],
+
 ];
