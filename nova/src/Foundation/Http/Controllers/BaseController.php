@@ -107,7 +107,17 @@ abstract class BaseController extends Controller {
 
 		nova_event();
 
-		abort(403, $message);
+		dd(app('request')->ajax());
+
+		if (app('request')->ajax())
+		{
+			return response()->json([
+				'status'	=> 403,
+				'message'	=> $message,
+			]);
+		}
+
+		abort(403, $message, ['foo' => $message]);
 	}
 
 	public function processController($route, $request, $response)

@@ -72,6 +72,25 @@
 				}
 			});
 
+			$(document).ajaxError(function(event, xhr, settings, thrownError)
+			{
+				if (xhr.status == 403)
+				{
+					swal({
+						title: "Unauthorized!",
+						text: "You do not have permission to take this action!",
+						type: "error",
+						timer: null,
+						html: true
+					});
+				}
+				console.log(event);
+				console.log(xhr);
+				console.log(settings);
+				console.log(thrownError);
+				console.log(xhr.getResponseHeader('foo'));
+			});
+
 			// Destroy all modals when they're hidden
 			$('.modal').on('hidden.bs.modal', function()
 			{
