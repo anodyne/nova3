@@ -7,21 +7,10 @@ $options = [
 
 Route::group($options, function()
 {
-	Route::get('env', [
-		'as'	=> 'setup.env',
-		'uses'	=> 'SetupController@environment']);
-
-	Route::get('/', [
-		'as'	=> 'setup.home',
-		'uses'	=> 'SetupController@index']);
-
-	Route::get('update', [
-		'as'	=> 'setup.update',
-		'uses'	=> 'UpdateController@index']);
-
-	Route::post('uninstall', [
-		'as'	=> 'setup.uninstall',
-		'uses'	=> 'SetupController@uninstall']);
+	get('env', 'SetupController@environment')->name('setup.env');
+	get('/', 'SetupController@index')->name('setup.home');
+	get('update', 'UpdateController@index')->name('setup.update');
+	post('uninstall', 'SetupController@uninstall')->name('setup.uninstall');
 });
 
 $installOptions = array_merge($options, [
@@ -30,58 +19,26 @@ $installOptions = array_merge($options, [
 
 Route::group($installOptions, function()
 {
-	Route::get('/', [
-		'as'	=> 'setup.install',
-		'uses'	=> 'InstallController@index']);
+	get('/', 'InstallController@index')->name('setup.install');
 
-	Route::get('config-database', [
-		'as'	=> 'setup.install.config.db',
-		'uses'	=> 'ConfigDbController@info']);
-	Route::get('config-database/success', [
-		'as'	=> 'setup.install.config.db.success',
-		'uses'	=> 'ConfigDbController@success']);
-	Route::get('config-database/write', [
-		'as'	=> 'setup.install.config.db.write',
-		'uses'	=> 'ConfigDbController@write']);
-	Route::post('config-database/check', [
-		'as'	=> 'setup.install.config.db.check',
-		'uses'	=> 'ConfigDbController@check']);
+	get('config-database', 'ConfigDbController@info')->name('setup.install.config.db');
+	get('config-database/success', 'ConfigDbController@success')->name('setup.install.config.db.success');
+	get('config-database/write', 'ConfigDbController@write')->name('setup.install.config.db.write');
+	post('config-database/check', 'ConfigDbController@check')->name('setup.install.config.db.check');
 
-	Route::get('config-email', [
-		'as'	=> 'setup.install.config.email',
-		'uses'	=> 'ConfigEmailController@info']);
-	Route::get('config-email/success', [
-		'as'	=> 'setup.install.config.email.success',
-		'uses'	=> 'ConfigEmailController@success']);
-	Route::post('config-email/write', [
-		'as'	=> 'setup.install.config.email.write',
-		'uses'	=> 'ConfigEmailController@write']);
+	get('config-email', 'ConfigEmailController@info')->name('setup.install.config.email');
+	get('config-email/success', 'ConfigEmailController@success')->name('setup.install.config.email.success');
+	post('config-email/write', 'ConfigEmailController@write')->name('setup.install.config.email.write');
 
-	Route::get('nova', [
-		'as'	=> 'setup.install.nova',
-		'uses'	=> 'InstallController@installLanding']);
-	Route::post('nova', 'InstallController@install');
-	Route::get('nova/success', [
-		'as'	=> 'setup.install.nova.success',
-		'uses'	=> 'InstallController@novaSuccess']);
+	get('nova', 'InstallController@installLanding')->name('setup.install.nova');
+	get('nova/success', 'InstallController@novaSuccess')->name('setup.install.nova.success');
+	post('nova', 'InstallController@install');
 
-	Route::get('user', [
-		'as'	=> 'setup.install.user',
-		'uses'	=> 'InstallController@user']);
-	Route::get('user/success', [
-		'as'	=> 'setup.install.user.success',
-		'uses'	=> 'InstallController@userSuccess']);
-	Route::post('user', [
-		'as'	=> 'setup.install.user.store',
-		'uses'	=> 'InstallController@createUser']);
+	get('user', 'InstallController@user')->name('setup.install.user');
+	get('user/success', 'InstallController@userSuccess')->name('setup.install.user.success');
+	post('user', 'InstallController@createUser')->name('setup.install.user.store');
 
-	Route::get('settings', [
-		'as'	=> 'setup.install.settings',
-		'uses'	=> 'InstallController@settings']);
-	Route::get('settings/success', [
-		'as'	=> 'setup.install.settings.success',
-		'uses'	=> 'InstallController@settingsSuccess']);
-	Route::post('settings', [
-		'as'	=> 'setup.install.settings.store',
-		'uses'	=> 'InstallController@updateSettings']);
+	get('settings', 'InstallController@settings')->name('setup.install.settings');
+	get('settings/success', 'InstallController@settingsSuccess')->name('setup.install.settings.success');
+	post('settings', 'InstallController@updateSettings')->name('setup.install.settings.store');
 });
