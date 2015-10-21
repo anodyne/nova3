@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Access\Data\Traits;
+<?php namespace Nova\Core\Access\Traits;
 
 use Role;
 
