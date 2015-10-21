@@ -18,9 +18,9 @@
 
 - Do away with the term "catalogs" as it doesn't make much sense.
 	- Appearance option will cover themes and ranks
-		- Do away with "main" and "admin" for themes and instead change them to "public" and "admin"
-		- Provide more notes about how individual preferences have higher priority than site settings
-	- Settings
+		- Do away with "main" for themes and instead change it to "public"
+		- Make it clearer that individual preferences have higher priority than site settings
+	- Settings (not Site Settings)
 	- Preferences (not Site Preferences)
 	- Roles, not Access Roles
 	- Permissions, not Role Permissions
