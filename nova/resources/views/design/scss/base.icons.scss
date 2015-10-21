@@ -1,0 +1,79 @@
+@font-face {
+	font-family: 'icomoon';
+	src: url('../fonts/icomoon.eot');
+	src: url('../fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/icomoon.svg#icomoon') format('svg'),
+		url('../fonts/icomoon.woff') format('woff'),
+		url('../fonts/icomoon.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.icn {
+	font-family: 'icomoon';
+	speak: none;
+	font-weight: normal !important;
+
+	-webkit-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+}
+.icn-size-xs {
+	font-size: 1.8rem !important;
+}
+.icn-size-sm {
+	font-size: 2.4rem !important;
+}
+.icn-size-md {
+	font-size: 4.8rem !important;
+}
+.icn-size-lg {
+	font-size: 7.2rem !important;
+}
+.icn-size-xlg {
+	font-size: 9.6rem !important;
+}
+
+.icn-size-sm-with-text {
+	padding-bottom: 0.7rem;
+	font-size: 1.6rem !important;
+}
+.icn-size-md-with-text {
+	padding-bottom: 0.7rem;
+	font-size: 3.2rem !important;
+}
+.icn-size-lg-with-text {
+	padding-bottom: 0.7rem;
+	font-size: 7.2rem !important;
+}
+
+.icn-opacity-25 {
+	opacity: 0.25;
+}
+.icn-opacity-50 {
+	opacity: 0.5;
+}
+.icn-opacity-75 {
+	opacity: 0.75;
+}
+
+[data-icon]:before {
+	content: attr(data-icon);
+}
+
+.material-icons {
+	&.xs {
+		font-size: 1.8rem;
+	}
+	&.sm {
+		font-size: 2.4rem;
+	}
+	&.md {
+		font-size: 3.6rem;
+	}
+	&.lg {
+		font-size: 4.8rem;
+	}
+	&.xlg {
+		font-size: 9.6rem;
+	}
+}

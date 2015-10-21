@@ -1,0 +1,53 @@
+@import "auth.variables", "mixins";
+
+.sweet-alert {
+	font-family: $font;
+
+	@include rounded($border-radius);
+
+	h2 {
+		font-weight: 500;
+	}
+
+	.sa-icon {
+		&.sa-error {
+			border-color: $color-danger;
+
+			.sa-line {
+				background-color: $color-danger;
+			}
+		}
+
+		&.sa-success {
+			border-color: $color-success;
+
+			.sa-line {
+				background-color: $color-success;
+			}
+		}
+
+		&.sa-warning {
+			border-color: $color-warning;
+
+			.sa-body {
+				background-color: $color-warning;
+			}
+
+			.sa-dot {
+				background-color: $color-warning;
+			}
+		}
+
+		&.sa-info {
+			border-color: $color-info;
+
+			&::before {
+				background-color: $color-info;
+			}
+
+			&::after {
+				background-color: $color-info;
+			}
+		}
+	}
+}
