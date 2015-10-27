@@ -1,8 +1,38 @@
-{!! partial('include-angular') !!}
-{!! HTML::script('nova/resources/js/angular/pageContents.js') !!}
-
 <script>
-	var baseUrl = "{{ Request::root() }}";
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			loading: true,
+			loadingWithError: false,
+			baseUrl: "{{ Request::root() }}",
+			key: "",
+			value: "",
+			contents: []
+		},
+		methods: {
+			resetFilters: function()
+			{
+				this.$set("key", "")
+				this.$set("value", "")
+			}
+		},
+		ready: function()
+		{
+			this.$http.get(this.baseUrl + '/api/page-contents', function (data, status, request)
+			{
+				this.$set('contents', data.data)
+			}).error(function (data, status, request)
+			{
+				this.$set('loadingWithError', true)
+			})
+		}
+	});
+
+	vm.$watch('contents', function (newValue, oldValue)
+	{
+		if (newValue.length > 0)
+			this.$set('loading', false)
+	})
 
 	$(document).on('click', '.js-contentAction', function(e)
 	{
