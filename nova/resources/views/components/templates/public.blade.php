@@ -1,4 +1,4 @@
-<div class="container">
+<div id="app" class="container">
 	{!! $menuCombined or false !!}
 
 	<main>
