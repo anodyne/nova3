@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,6 +53,7 @@
 
 		<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		{!! partial('include-vue') !!}
 		{!! HTML::script('nova/resources/js/sweetalert.min.js') !!}
 		{!! partial('sweetalert') !!}
 		<script>
