@@ -14,7 +14,7 @@
 		@if (app('files')->exists(theme_path('design/css/bootstrap.css', false)))
 			{!! HTML::style(theme_path('design/css/bootstrap.css')) !!}
 		@else
-			<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+			<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 		@endif
 
 		{!! HTML::style('nova/resources/css/sweetalert.css') !!}
@@ -51,8 +51,8 @@
 	<body>
 		{!! $template or false !!}
 
-		<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		{!! partial('include-vue') !!}
 		{!! HTML::script('nova/resources/js/sweetalert.min.js') !!}
 		{!! partial('sweetalert') !!}
