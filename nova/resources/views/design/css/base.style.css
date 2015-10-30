@@ -265,11 +265,6 @@ dl dd {
 .uk-nestable .uk-nestable-item .uk-nestable-panel:hover .uk-nested-item-controls {
   display: block;
 }
-[ng\:cloak],
-[ng-cloak],
-[data-ng-cloak],
-[x-ng-cloak],
-.ng-cloak,
-.x-ng-cloak {
-  display: none !important;
+[v-cloak] {
+  display: none;
 }
