@@ -11,45 +11,39 @@
 			verbs: [],
 			pages: []
 		},
+
 		methods: {
+			removePage: function(pageId)
+			{
+				$('#removePage').modal({
+					remote: "{{ url('admin/pages') }}/" + pageId + "/remove"
+				}).modal('show');
+			},
+
 			resetFilters: function()
 			{
-				this.$set("name", "")
-				this.$set("key", "")
-				this.$set("uri", "")
-				this.$set("verbs", [])
+				this.name = "";
+				this.key = "";
+				this.uri = "";
+				this.verbs = [];
 			}
 		},
+
 		ready: function()
 		{
 			this.$http.get(this.baseUrl + '/api/pages', function (data, status, request)
 			{
-				this.$set('pages', data.data)
+				this.pages = data.data;
 			}).error(function (data, status, request)
 			{
-				this.$set('loadingWithError', true)
-			})
+				this.loadingWithError = true;
+			});
 		}
 	});
 
 	vm.$watch('pages', function (newValue, oldValue)
 	{
 		if (newValue.length > 0)
-			this.$set('loading', false)
-	})
-
-	$(document).on('click', '.js-pageAction', function(e)
-	{
-		e.preventDefault();
-
-		var pageId = $(this).data('id');
-		var action = $(this).data('action');
-
-		if (action == 'remove')
-		{
-			$('#removePage').modal({
-				remote: "{{ url('admin/pages') }}/" + pageId + "/remove"
-			}).modal('show');
-		}
+			this.loading = false;
 	});
 </script>

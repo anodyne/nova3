@@ -2,12 +2,13 @@
 	<div v-show="!loadingWithError">
 		<h4 class="text-center">{!! HTML::image('nova/resources/images/ajax-loader.gif') !!}</h4>
 	</div>
-	<div v-else>
+	
+	<div v-else v-cloak>
 		{!! alert('danger', "There was an error retrieving your page content from the database. This can be caused by a wrong URL or an issue with the database. Please try again.", "Error!") !!}
 	</div>
 </div>
 
-<div v-else>
+<div v-else v-cloak>
 	<phone-tablet>
 		@can('create', $content)
 			<p><a href="{{ route('admin.content.create') }}" class="btn btn-success btn-lg btn-block">Add Page Content</a></p>
@@ -81,7 +82,7 @@
 
 								@can('remove', $content)
 									<div class="col-sm-6" v-show="!content.protected">
-										<p><a href="#" data-id="{% content.id %}" data-action="remove" class="btn btn-danger btn-lg btn-block js-contentAction">Remove</a></p>
+										<p><a href="#" class="btn btn-danger btn-lg btn-block" @click.prevent="removeContent(content.id)">Remove</a></p>
 									</div>
 								@endcan
 							</div>
@@ -96,7 +97,7 @@
 
 								@can('remove', $content)
 									<div class="btn-group" v-show="!content.protected">
-										<a href="#" data-id="{% content.id %}" data-action="remove" class="btn btn-danger js-contentAction">Remove</a>
+										<a href="#" class="btn btn-danger" @click.prevent="removeContent(content.id)">Remove</a>
 									</div>
 								@endcan
 							</div>

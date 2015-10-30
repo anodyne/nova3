@@ -2,12 +2,13 @@
 	<div v-show="!loadingWithError">
 		<h4 class="text-center">{!! HTML::image('nova/resources/images/ajax-loader.gif') !!}</h4>
 	</div>
-	<div v-else>
+	
+	<div v-else v-cloak>
 		{!! alert('danger', "There was an error retrieving your permissions from the database. This can be caused by a wrong URL or an issue with the database. Please try again.", "Error!") !!}
 	</div>
 </div>
 
-<div v-else>
+<div v-else v-cloak>
 	<phone-tablet>
 		@if ($_user->can('access.create'))
 			<p><a href="{{ route('admin.access.permissions.create') }}" class="btn btn-success btn-lg btn-block">Add a Permission</a></p>
@@ -77,7 +78,7 @@
 
 								@if ($_user->can('access.remove'))
 									<div class="col-sm-6" v-show="!permission.protected">
-										<p><a href="#" data-id="{% permission.id %}" data-action="remove" class="btn btn-danger btn-lg btn-block js-permissionAction">Remove</a></p>
+										<p><a href="#" class="btn btn-danger btn-lg btn-block" @click.prevent="removePermission(permission.id)">Remove</a></p>
 									</div>
 								@endif
 							</div>
@@ -92,7 +93,7 @@
 
 								@if ($_user->can('access.remove'))
 									<div class="btn-group" v-show="!permission.protected">
-										<a href="#" data-id="{% permission.id %}" data-action="remove" class="btn btn-danger js-permissionAction">Remove</a>
+										<a href="#" class="btn btn-danger" @click.prevent="removePermission(permission.id)">Remove</a>
 									</div>
 								@endif
 							</div>
