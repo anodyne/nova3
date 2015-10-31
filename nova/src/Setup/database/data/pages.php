@@ -442,4 +442,63 @@ return [
 		'uri'				=> "admin/access/roles/check-key",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@checkRoleKey",
 	],
+
+	/**
+	 * Forms
+	 */
+	[
+		'name'				=> "Manage Forms",
+		'key'				=> "admin.forms",
+		'uri'				=> "admin/forms",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormController@index",
+		'menu_id'			=> 2,
+	],
+	[
+		'name'				=> "Create Form",
+		'key'				=> "admin.forms.create",
+		'uri'				=> "admin/forms/create",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormController@create",
+		'menu_id'			=> 2,
+	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Store Form",
+		'key'				=> "admin.forms.store",
+		'uri'				=> "admin/forms/create",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormController@store",
+	],
+	[
+		'name'				=> "Edit Form",
+		'key'				=> "admin.forms.edit",
+		'uri'				=> "admin/forms/{formKey}/edit",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormController@edit",
+		'menu_id'			=> 2,
+	],
+	[
+		'verb'				=> "PUT",
+		'name'				=> "Update Frm",
+		'key'				=> "admin.forms.update",
+		'uri'				=> "admin/forms/{formKey}",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormController@update",
+	],
+	[
+		'name'				=> "Remove Form Pop-up",
+		'key'				=> "admin.forms.remove",
+		'uri'				=> "admin/forms/{formKey}/remove",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormController@remove",
+	],
+	[
+		'verb'				=> "DELETE",
+		'name'				=> "Remove Form",
+		'key'				=> "admin.forms.destroy",
+		'uri'				=> "admin/forms/{formKey}",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormController@destroy",
+	],
+	[
+		'name'				=> "Preview Form",
+		'key'				=> "admin.forms.preview",
+		'uri'				=> "admin/forms/{formKey}/preview",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormController@preview",
+		'menu_id'			=> 2,
+	],
 ];

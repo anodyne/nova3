@@ -99,4 +99,14 @@ return [
 	['page_id' => 57, 'type' => 'header', 'key' => 'admin.access.permissions.edit.header', 'value' => "Edit Permission"],
 	['page_id' => 57, 'type' => 'title', 'key' => 'admin.access.permissions.edit.title', 'value' => "Edit Permission"],
 	['page_id' => 57, 'type' => 'message', 'key' => 'admin.access.permissions.edit.message', 'value' => null],
+
+	/**
+	 * Forms
+	 */
+	['page_id' => 63, 'type' => 'header', 'key' => 'admin.forms.header', 'value' => "Forms"],
+	['page_id' => 63, 'type' => 'title', 'key' => 'admin.forms.title', 'value' => "Forms"],
+	['page_id' => 63, 'type' => 'message', 'key' => 'admin.forms.message', 'value' => null],
+	['page_id' => 64, 'type' => 'header', 'key' => 'admin.forms.create.header', 'value' => "Add Form"],
+	['page_id' => 64, 'type' => 'title', 'key' => 'admin.forms.create.title', 'value' => "Add Form"],
+	['page_id' => 64, 'type' => 'message', 'key' => 'admin.forms.create.message', 'value' => null],
 ];
