@@ -69,7 +69,6 @@
 					<div class="col-md-9">
 						<p>{% content.preview %}</p>
 						<p><strong>Key:</strong> {% content.key %}</p>
-						<p><strong>Type:</strong> <span class="label label-default">{% content.type %}</span></p>
 					</div>
 					<div class="col-md-3">
 						<div class="visible-xs visible-sm">
