@@ -107,8 +107,6 @@ abstract class BaseController extends Controller {
 
 		nova_event();
 
-		dd(app('request')->ajax());
-
 		if (app('request')->ajax())
 		{
 			return response()->json([
