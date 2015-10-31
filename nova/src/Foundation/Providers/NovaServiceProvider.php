@@ -177,9 +177,15 @@ class NovaServiceProvider extends ServiceProvider {
 	protected function setRepositoryBindings()
 	{
 		// Build a list of repositories that should be built
-		$bindings = ['Character', 'Menu', 'MenuItem', 'NovaForm', 'NovaFormField',
-			'NovaFormFieldValue', 'NovaFormSection', 'NovaFormTab', 'Page',
-			'PageContent', 'Permission', 'Role', 'Setting', 'System', 'User'];
+		$bindings = [
+			'Character',
+			'Menu', 'MenuItem',
+			'Form', 'FormField', 'FormFieldValue', 'FormSection', 'FormTab',
+			'Page', 'PageContent',
+			'Permission', 'Role',
+			'Setting', 'System',
+			'User'
+		];
 
 		// Loop through the repositories and do the binding
 		foreach ($bindings as $binding)
