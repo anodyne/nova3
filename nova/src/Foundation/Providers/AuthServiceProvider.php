@@ -42,12 +42,17 @@ class AuthServiceProvider extends ServiceProvider {
 
 	protected function buildPolicyList()
 	{
-		$items = ['Menu', 'MenuItem', 'Page', 'PageContent', 'Permission', 'Role'];
+		$items = [
+			['Form', 'NovaForm'],
+			['Field', 'NovaFormField'],
+			['Section', 'NovaFormSection'],
+			['Tab', 'NovaFormTab'],
+			'Menu', 'MenuItem', 'Page', 'PageContent', 'Permission', 'Role'];
 
 		foreach ($items as $item)
 		{
-			$model = "{$item}";
-			$policy = "{$item}Policy";
+			$model = (is_array($item)) ? "{$item[1]}" : "{$item}";
+			$policy = (is_array($item)) ? "{$item[0]}Policy" : "{$item}Policy";
 
 			$this->policies[alias($model)] = alias($policy);
 		}
