@@ -33,4 +33,8 @@ return [
 	'Nova\Core\Access\Events\RoleWasDuplicated' => [],
 	'Nova\Core\Access\Events\RoleWasUpdated' => [],
 
+	'Nova\Core\Forms\Events\FormWasCreated' => [],
+	'Nova\Core\Forms\Events\FormWasDeleted' => [],
+	'Nova\Core\Forms\Events\FormWasUpdated' => [],
+
 ];

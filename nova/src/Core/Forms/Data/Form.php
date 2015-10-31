@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Forms\Data;
 
-use Model, NovaFormPresenter;
+use Model, FormPresenter;
 use Laracasts\Presenter\PresentableTrait;
 
 class Form extends Model {
@@ -15,7 +15,7 @@ class Form extends Model {
 
 	protected $dates = ['created_at', 'updated_at'];
 
-	protected $presenter = NovaFormPresenter::class;
+	protected $presenter = FormPresenter::class;
 
 	//-------------------------------------------------------------------------
 	// Relationships
