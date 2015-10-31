@@ -1,6 +1,5 @@
 <script>
-	var vm = new Vue({
-		el: "#app",
+	vueMixins = {
 		data: {
 			loading: true,
 			loadingWithError: false,
@@ -38,12 +37,14 @@
 			{
 				this.loadingWithError = true;
 			});
-		}
-	});
+		},
 
-	vm.$watch('pages', function (newValue, oldValue)
-	{
-		if (newValue.length > 0)
-			this.loading = false;
-	});
+		watch: {
+			"pages": function (value, oldValue)
+			{
+				if (value.length > 0)
+					this.loading = false;
+			}
+		}
+	};
 </script>
