@@ -5,4 +5,9 @@
 <script>
 	Vue.config.delimiters = ['{%', '%}']
 	Vue.config.unsafeDelimiters = ['{%!', '!%}']
+
+	var vm = new Vue({
+		el: "#app",
+		mixins: [vueMixins]
+	});
 </script>

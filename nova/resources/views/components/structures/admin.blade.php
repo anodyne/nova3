@@ -53,10 +53,11 @@
 
 		<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-		{!! partial('include-vue') !!}
 		{!! HTML::script('nova/resources/js/sweetalert.min.js') !!}
 		{!! partial('sweetalert') !!}
 		<script>
+			var vueMixins = {};
+			
 			// Setup the CSRF token on Ajax requests
 			$.ajaxPrefilter(function(options, originalOptions, xhr)
 			{
@@ -85,11 +86,6 @@
 						html: true
 					});
 				}
-				console.log(event);
-				console.log(xhr);
-				console.log(settings);
-				console.log(thrownError);
-				console.log(xhr.getResponseHeader('foo'));
 			});
 
 			// Destroy all modals when they're hidden
@@ -107,5 +103,6 @@
 			});
 		</script>
 		{!! $javascript or false !!}
+		{!! partial('include-vue') !!}
 	</body>
 </html>

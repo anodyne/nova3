@@ -48,6 +48,10 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		{!! HTML::script('nova/resources/js/sweetalert.min.js') !!}
 		{!! partial('sweetalert') !!}
+		<script>
+			var vueMixins = {};
+		</script>
 		{!! $javascript or false !!}
+		{!! partial('include-vue') !!}
 	</body>
 </html>
