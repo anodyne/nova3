@@ -1,5 +1,5 @@
 <script>
-	vueMixins = {
+	vue = {
 		data: {
 			loading: true,
 			loadingWithError: false,
@@ -16,15 +16,15 @@
 			{
 				$('#removePage').modal({
 					remote: "{{ url('admin/pages') }}/" + pageId + "/remove"
-				}).modal('show');
+				}).modal('show')
 			},
 
 			resetFilters: function()
 			{
-				this.name = "";
-				this.key = "";
-				this.uri = "";
-				this.verbs = [];
+				this.name = ""
+				this.key = ""
+				this.uri = ""
+				this.verbs = []
 			}
 		},
 
@@ -32,19 +32,19 @@
 		{
 			this.$http.get(this.baseUrl + '/api/pages', function (data, status, request)
 			{
-				this.pages = data.data;
+				this.pages = data.data
 			}).error(function (data, status, request)
 			{
-				this.loadingWithError = true;
-			});
+				this.loadingWithError = true
+			})
 		},
 
 		watch: {
 			"pages": function (value, oldValue)
 			{
 				if (value.length > 0)
-					this.loading = false;
+					this.loading = false
 			}
 		}
-	};
+	}
 </script>

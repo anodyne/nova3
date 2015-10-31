@@ -1,5 +1,10 @@
 <script>
-	var vm = new Vue({
-		el: "#app"
-	});
+	vue = {
+		methods: {
+			removeForm: function(formId)
+			{
+				//
+			}
+		}
+	}
 </script>

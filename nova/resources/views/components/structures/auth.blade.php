@@ -49,7 +49,7 @@
 		{!! HTML::script('nova/resources/js/sweetalert.min.js') !!}
 		{!! partial('sweetalert') !!}
 		<script>
-			var vueMixins = {};
+			var vue = {};
 		</script>
 		{!! $javascript or false !!}
 		{!! partial('include-vue') !!}

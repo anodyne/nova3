@@ -56,7 +56,7 @@
 		{!! HTML::script('nova/resources/js/sweetalert.min.js') !!}
 		{!! partial('sweetalert') !!}
 		<script>
-			var vueMixins = {};
+			var vue = {};
 			
 			// Setup the CSRF token on Ajax requests
 			$.ajaxPrefilter(function(options, originalOptions, xhr)

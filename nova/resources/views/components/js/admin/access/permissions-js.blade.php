@@ -1,5 +1,5 @@
 <script>
-	vueMixins = {
+	vue = {
 		data: {
 			loading: true,
 			loadingWithError: false,
@@ -14,13 +14,13 @@
 			{
 				$('#removePermission').modal({
 					remote: "{{ url('admin/access/permissions') }}/" + permissionId + "/remove"
-				}).modal('show');
+				}).modal('show')
 			},
 
 			resetFilters: function()
 			{
-				this.display_name = "";
-				this.name = "";
+				this.display_name = ""
+				this.name = ""
 			}
 		},
 
@@ -28,19 +28,19 @@
 		{
 			this.$http.get(this.baseUrl + '/api/access/permissions', function (data, status, request)
 			{
-				this.permissions = data.data;
+				this.permissions = data.data
 			}).error(function (data, status, request)
 			{
-				this.loadingWithError = true;
-			});
+				this.loadingWithError = true
+			})
 		},
 
 		watch: {
 			"permissions": function (value, oldValue)
 			{
 				if (value.length > 0)
-					this.loading = false;
+					this.loading = false
 			}
 		}
-	};
+	}
 </script>

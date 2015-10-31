@@ -8,6 +8,6 @@
 
 	var vm = new Vue({
 		el: "#app",
-		mixins: [vueMixins]
+		mixins: [vue]
 	});
 </script>
