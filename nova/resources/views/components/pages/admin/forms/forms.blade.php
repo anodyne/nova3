@@ -56,15 +56,15 @@
 								<span class="sr-only">Toggle Dropdown</span>
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right" role="menu">
-								@can('manage', $tab)
+								@can('manage', $formTab)
 									<li><a href="{{ route('admin.menus.items', [$form->key]) }}">Form Tabs</a></li>
 								@endcan
 
-								@can('manage', $section)
+								@can('manage', $formSection)
 									<li><a href="{{ route('admin.menus.items', [$form->key]) }}">Form Sections</a></li>
 								@endcan
 
-								@can('manage', $tab)
+								@can('manage', $formField)
 									<li><a href="{{ route('admin.menus.items', [$form->key]) }}">Form Fields</a></li>
 								@endcan
 							</ul>
