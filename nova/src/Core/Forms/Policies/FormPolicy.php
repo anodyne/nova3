@@ -1,6 +1,7 @@
 <?php namespace Nova\Core\Forms\Policies;
 
-use User;
+use User,
+	NovaForm as Form;
 
 class FormPolicy {
 
@@ -19,9 +20,9 @@ class FormPolicy {
 		return ($this->create($user) or $this->edit($user) or $this->remove($user));
 	}
 
-	public function remove(User $user)
+	public function remove(User $user, Form $form)
 	{
-		return $user->can('form.remove');
+		return $user->can('form.remove') and ! $form->protected;
 	}
 
 }
