@@ -140,6 +140,11 @@ class CreateFormsTables extends Migration
 		Model::unguard();
 
 		$data = require_once app('path.database').'/data/forms.php';
+
+		foreach ($data['forms'] as $form)
+		{
+			app('FormRepository')->create($form);
+		}
 	}
 
 }
