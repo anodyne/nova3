@@ -1,13 +1,15 @@
 @can('create', $menu)
-	<div class="visible-xs visible-sm">
-		<p><a href="{{ route('admin.menus.create') }}" class="btn btn-success btn-lg btn-block">Add a Menu</a></p>
-	</div>
-	<div class="visible-md visible-lg">
-		<div class="btn-toolbar">
-			<div class="btn-group">
-				<a href="{{ route('admin.menus.create') }}" class="btn btn-success">Add a Menu</a>
+	<div v-cloak>
+		<phone-tablet>
+			<p><a href="{{ route('admin.menus.create') }}" class="btn btn-success btn-lg btn-block">Add a Menu</a></p>
+		</phone-tablet>
+		<desktop>
+			<div class="btn-toolbar">
+				<div class="btn-group">
+					<a href="{{ route('admin.menus.create') }}" class="btn btn-success">Add a Menu</a>
+				</div>
 			</div>
-		</div>
+		</desktop>
 	</div>
 @endcan
 
@@ -18,8 +20,8 @@
 			<p class="lead"><strong>{{ $menu->present()->name }}</strong></p>
 			<p><strong>Key</strong>: {{ $menu->present()->key }}</p>
 		</div>
-		<div class="col-md-6">
-			<div class="visible-xs visible-sm">
+		<div class="col-md-6" v-cloak>
+			<phone-tablet>
 				<div class="row">
 					@can('edit', $menu)
 						<div class="col-xs-12">
@@ -45,8 +47,8 @@
 						</div>
 					@endcan
 				</div>
-			</div>
-			<div class="visible-md visible-lg">
+			</phone-tablet>
+			<desktop>
 				<div class="btn-toolbar pull-right">
 					@can('edit', $menu)
 						<div class="btn-group">
@@ -73,7 +75,7 @@
 						</div>
 					@endcan
 				</div>
-			</div>
+			</desktop>
 		</div>
 	</div>
 @endforeach

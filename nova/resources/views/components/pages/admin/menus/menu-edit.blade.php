@@ -1,12 +1,14 @@
-<div class="visible-xs visible-sm">
-	<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Back to Menu Manager</a></p>
-</div>
-<div class="visible-md visible-lg">
-	<div class="btn-toolbar">
-		<div class="btn-group">
-			<a href="{{ route('admin.menus') }}" class="btn btn-default">Back to Menu Manager</a>
+<div v-cloak>
+	<phone-tablet>
+		<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Back to Menu Manager</a></p>
+	</phone-tablet>
+	<desktop>
+		<div class="btn-toolbar">
+			<div class="btn-group">
+				<a href="{{ route('admin.menus') }}" class="btn btn-default">Back to Menu Manager</a>
+			</div>
 		</div>
-	</div>
+	</desktop>
 </div>
 
 {!! Form::model($menu, ['route' => ['admin.menus.update', $menu->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
@@ -27,17 +29,17 @@
 	</div>
 
 	<div class="form-group">
-		<div class="col-md-5 col-md-offset-2">
-			<div class="visible-xs visible-sm">
+		<div class="col-md-5 col-md-offset-2" v-cloak>
+			<phone-tablet>
 				<p>{!! Form::button("Update Menu", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
-			</div>
-			<div class="visible-md visible-lg">
+			</phone-tablet>
+			<desktop>
 				<div class="btn-toolbar">
 					<div class="btn-group">
 						{!! Form::button("Update Menu", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
 					</div>
 				</div>
-			</div>
+			</desktop>
 		</div>
 	</div>
 {!! Form::close() !!}

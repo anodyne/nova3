@@ -4,33 +4,35 @@
 
 <p>You can rearrange the order of menu items in this menu by dragging-and-dropping them into the order you want. You can also nest menu items underneath a top-level item by dragging it below and to the right of the item you want to nest it below.</p>
 
-<div class="visible-xs visible-sm">
-	@can('create', $item)
-		<p><a href="{{ route('admin.menus.items.create', [$menu->id]) }}" class="btn btn-success btn-lg btn-block">Add a Menu Item</a></p>
-		<p><a href="#" class="btn btn-success btn-lg btn-block js-createMenuItemDivider" data-menu="{{ $menu->id }}">Add a Divider</a></p>
-	@endcan
-
-	@can('manage', $menu)
-		<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Menus</a></p>
-	@endcan
-</div>
-<div class="visible-md visible-lg">
-	<div class="btn-toolbar">
+<div v-cloak>
+	<phone-tablet>
 		@can('create', $item)
-			<div class="btn-group">
-				<a href="{{ route('admin.menus.items.create', [$menu->id]) }}" class="btn btn-success">Add a Menu Item</a>
-			</div>
-			<div class="btn-group">
-				<a href="#" class="btn btn-default js-createMenuItemDivider" data-menu="{{ $menu->id }}">Add a Divider</a>
-			</div>
+			<p><a href="{{ route('admin.menus.items.create', [$menu->id]) }}" class="btn btn-success btn-lg btn-block">Add a Menu Item</a></p>
+			<p><a href="#" class="btn btn-success btn-lg btn-block js-createMenuItemDivider" data-menu="{{ $menu->id }}">Add a Divider</a></p>
 		@endcan
 
 		@can('manage', $menu)
-			<div class="btn-group">
-				<a href="{{ route('admin.menus') }}" class="btn btn-default">Menus</a>
-			</div>
+			<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Menus</a></p>
 		@endcan
-	</div>
+	</phone-tablet>
+	<desktop>
+		<div class="btn-toolbar">
+			@can('create', $item)
+				<div class="btn-group">
+					<a href="{{ route('admin.menus.items.create', [$menu->id]) }}" class="btn btn-success">Add a Menu Item</a>
+				</div>
+				<div class="btn-group">
+					<a href="#" class="btn btn-default js-createMenuItemDivider" data-menu="{{ $menu->id }}">Add a Divider</a>
+				</div>
+			@endcan
+
+			@can('manage', $menu)
+				<div class="btn-group">
+					<a href="{{ route('admin.menus') }}" class="btn btn-default">Menus</a>
+				</div>
+			@endcan
+		</div>
+	</desktop>
 </div>
 
 @if ($mainMenuItems->count() > 0)

@@ -2,15 +2,17 @@
 	<h1>Manage Pages with the {{ $menu->name }} Menu</h1>
 </div>
 
-<div class="visible-xs visible-sm">
-	<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Menu Manager</a></p>
-</div>
-<div class="visible-md visible-lg">
-	<div class="btn-toolbar">
-		<div class="btn-group">
-			<a href="{{ route('admin.menus') }}" class="btn btn-default">Menu Manager</a>
+<div v-cloak>
+	<phone-tablet>
+		<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Menu Manager</a></p>
+	</phone-tablet>
+	<desktop>
+		<div class="btn-toolbar">
+			<div class="btn-group">
+				<a href="{{ route('admin.menus') }}" class="btn btn-default">Menu Manager</a>
+			</div>
 		</div>
-	</div>
+	</desktop>
 </div>
 
 @if ($pages->count() > 0)
@@ -27,11 +29,13 @@
 							{!! Form::select('new_menu', $menus, null, ['class' => 'form-control']) !!}
 						</div>
 
-						<div class="visible-xs visible-sm">
-							<p>{!! Form::button("Update", ['type' => 'submit', 'class' => 'btn btn-default btn-lg btn-block']) !!}</p>
-						</div>
-						<div class="visible-md visible-lg">
-							<p>{!! Form::button("Update", ['type' => 'submit', 'class' => 'btn btn-default btn-block']) !!}</p>
+						<div v-cloak>
+							<phone-tablet>
+								<p>{!! Form::button("Update", ['type' => 'submit', 'class' => 'btn btn-default btn-lg btn-block']) !!}</p>
+							</phone-tablet>
+							<desktop>
+								<p>{!! Form::button("Update", ['type' => 'submit', 'class' => 'btn btn-default btn-block']) !!}</p>
+							</desktop>
 						</div>
 					</div>
 				</div>
