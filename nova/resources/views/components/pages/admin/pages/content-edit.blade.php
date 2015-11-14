@@ -1,12 +1,14 @@
-<div class="visible-xs visible-sm">
-	<p><a href="{{ route('admin.content') }}" class="btn btn-default btn-lg btn-block">Back to Page Content Manager</a></p>
-</div>
-<div class="visible-md visible-lg">
-	<div class="btn-toolbar">
-		<div class="btn-group">
-			<a href="{{ route('admin.content') }}" class="btn btn-default">Back to Page Content Manager</a>
+<div v-cloak>
+	<phone-tablet>
+		<p><a href="{{ route('admin.content') }}" class="btn btn-default btn-lg btn-block">Back to Page Content Manager</a></p>
+	</phone-tablet>
+	<desktop>
+		<div class="btn-toolbar">
+			<div class="btn-group">
+				<a href="{{ route('admin.content') }}" class="btn btn-default">Back to Page Content Manager</a>
+			</div>
 		</div>
-	</div>
+	</desktop>
 </div>
 
 {!! Form::model($content, ['route' => ['admin.content.update', $content->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
@@ -54,12 +56,12 @@
 		</div>
 	</div>
 
-	<div class="col-md-5 col-md-offset-2">
-		<div class="visible-xs visible-sm">
+	<div class="col-md-5 col-md-offset-2" v-cloak>
+		<phone-tablet>
 			{!! Form::button("Update Page Content", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}
-		</div>
-		<div class="visible-md visible-lg">
+		</phone-tablet>
+		<desktop>
 			{!! Form::button("Update Page Content", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
-		</div>
+		</desktop>
 	</div>
 {!! Form::close() !!}

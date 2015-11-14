@@ -1,12 +1,14 @@
-<div class="visible-xs visible-sm">
-	<p><a href="{{ route('admin.pages') }}" class="btn btn-default btn-lg btn-block">Back to Page Manager</a></p>
-</div>
-<div class="visible-md visible-lg">
-	<div class="btn-toolbar">
-		<div class="btn-group">
-			<a href="{{ route('admin.pages') }}" class="btn btn-default">Back to Page Manager</a>
+<div v-cloak>
+	<phone-tablet>
+		<p><a href="{{ route('admin.pages') }}" class="btn btn-default btn-lg btn-block">Back to Page Manager</a></p>
+	</phone-tablet>
+	<desktop>
+		<div class="btn-toolbar">
+			<div class="btn-group">
+				<a href="{{ route('admin.pages') }}" class="btn btn-default">Back to Page Manager</a>
+			</div>
 		</div>
-	</div>
+	</desktop>
 </div>
 
 {!! Form::open(['route' => 'admin.pages.store', 'class' => 'form-horizontal']) !!}
@@ -206,13 +208,13 @@
 	</div>
 
 	<div id="pageControls" class="form-group hide">
-		<div class="col-md-5 col-md-offset-2">
-			<div class="visible-xs visible-sm">
+		<div class="col-md-5 col-md-offset-2" v-cloak>
+			<phone-tablet>
 				{!! Form::button("Add Page", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}
-			</div>
-			<div class="visible-md visible-lg">
+			</phone-tablet>
+			<desktop>
 				{!! Form::button("Add Page", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
-			</div>
+			</desktop>
 		</div>
 	</div>
 {!! Form::close() !!}

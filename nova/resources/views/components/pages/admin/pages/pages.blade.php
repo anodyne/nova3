@@ -38,6 +38,11 @@
 				</div>
 				<div class="panel-body">
 					<div class="form-group">
+						<label class="control-label">By Name/Key/URI</label>
+						{!! Form::text('searchName', null, ['class' => 'form-control', 'v-model' => 'search']) !!}
+					</div>
+					
+					<div class="form-group">
 						<label class="control-label">By HTTP Verb</label>
 						<div>
 							<div class="checkbox">
@@ -54,21 +59,6 @@
 							</div>
 						</div>
 					</div>
-
-					<div class="form-group">
-						<label class="control-label">By Name</label>
-						{!! Form::text('searchName', null, ['class' => 'form-control', 'v-model' => 'name']) !!}
-					</div>
-
-					<div class="form-group">
-						<label class="control-label">By Key</label>
-						{!! Form::text('searchKey', null, ['class' => 'form-control', 'v-model' => 'key']) !!}
-					</div>
-
-					<div class="form-group">
-						<label class="control-label">By URI</label>
-						{!! Form::text('searchUri', null, ['class' => 'form-control', 'v-model' => 'uri']) !!}
-					</div>
 				</div>
 
 				<div class="panel-footer">
@@ -84,7 +74,7 @@
 
 		<div class="col-md-9 col-md-pull-3">
 			<div class="data-table data-table-bordered data-table-striped">
-				<div class="row" v-for="page in pages | filterBy name in 'name' | filterBy key in 'key' | filterBy uri in 'uri' | filterByCheckboxes verbs 'verb'">
+				<div class="row" v-for="page in pages | filterBy search in 'name' 'key' 'uri' | filterByCheckboxes verbs 'verb'">
 					<div class="col-md-9">
 						<p class="lead"><strong>{% page.name %}</strong></p>
 						<p><strong>Key:</strong> {% page.key %}</p>

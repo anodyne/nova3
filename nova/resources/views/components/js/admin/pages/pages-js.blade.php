@@ -4,9 +4,7 @@
 			loading: true,
 			loadingWithError: false,
 			baseUrl: "{{ Request::root() }}",
-			name: "",
-			key: "",
-			uri: "",
+			search: "",
 			verbs: [],
 			pages: []
 		},
@@ -21,9 +19,7 @@
 
 			resetFilters: function()
 			{
-				this.name = ""
-				this.key = ""
-				this.uri = ""
+				this.search = ""
 				this.verbs = []
 			}
 		},
