@@ -4,8 +4,7 @@
 			loading: true,
 			loadingWithError: false,
 			baseUrl: "{{ Request::root() }}",
-			display_name: "",
-			name: "",
+			search: "",
 			permissions: []
 		},
 
@@ -19,8 +18,7 @@
 
 			resetFilters: function()
 			{
-				this.display_name = ""
-				this.name = ""
+				this.search = ""
 			}
 		},
 

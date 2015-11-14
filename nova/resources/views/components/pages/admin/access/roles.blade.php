@@ -1,26 +1,28 @@
-<div class="visible-xs visible-sm">
-	@can('create', $role)
-		<p><a href="{{ route('admin.access.roles.create') }}" class="btn btn-success btn-lg btn-block">Add a Role</a></p>
-	@endcan
-
-	@can('manage', $permission)
-		<p><a href="{{ route('admin.access.permissions') }}" class="btn btn-default btn-lg btn-block">Manage Permissions</a></p>
-	@endcan
-</div>
-<div class="visible-md visible-lg">
-	<div class="btn-toolbar">
+<div v-cloak>
+	<phone-tablet>
 		@can('create', $role)
-			<div class="btn-group">
-				<a href="{{ route('admin.access.roles.create') }}" class="btn btn-success">Add a Role</a>
-			</div>
+			<p><a href="{{ route('admin.access.roles.create') }}" class="btn btn-success btn-lg btn-block">Add a Role</a></p>
 		@endcan
 
 		@can('manage', $permission)
-			<div class="btn-group">
-				<a href="{{ route('admin.access.permissions') }}" class="btn btn-default">Manage Permissions</a>
-			</div>
+			<p><a href="{{ route('admin.access.permissions') }}" class="btn btn-default btn-lg btn-block">Manage Permissions</a></p>
 		@endcan
-	</div>
+	</phone-tablet>
+	<desktop>
+		<div class="btn-toolbar">
+			@can('create', $role)
+				<div class="btn-group">
+					<a href="{{ route('admin.access.roles.create') }}" class="btn btn-success">Add a Role</a>
+				</div>
+			@endcan
+
+			@can('manage', $permission)
+				<div class="btn-group">
+					<a href="{{ route('admin.access.permissions') }}" class="btn btn-default">Manage Permissions</a>
+				</div>
+			@endcan
+		</div>
+	</desktop>
 </div>
 
 <div class="data-table data-table-striped data-table-bordered">
@@ -34,8 +36,8 @@
 				<p class="text-muted text-sm"><em>{{ $role->present()->usersWithRole }}</em></p>
 			@endif
 		</div>
-		<div class="col-md-6">
-			<div class="visible-xs visible-sm">
+		<div class="col-md-6" v-cloak>
+			<phone-tablet>
 				<div class="row">
 					@can('create', $role)
 						<div class="col-xs-12">
@@ -61,14 +63,14 @@
 						</div>
 					@endcan
 				</div>
-			</div>
-			<div class="visible-md visible-lg">
+			</phone-tablet>
+			<desktop>
 				<div class="btn-toolbar pull-right">
-					
+					@can('create', $role)
 						<div class="btn-group">
 							<a href="#" class="btn btn-default js-roleAction" data-id="{{ $role->id }}" data-action="duplicate">Duplicate</a>
 						</div>
-					
+					@endcan
 
 					@can('edit', $role)
 						<div class="btn-group">
@@ -88,7 +90,7 @@
 						</div>
 					@endcan
 				</div>
-			</div>
+			</desktop>
 		</div>
 	</div>
 @endforeach

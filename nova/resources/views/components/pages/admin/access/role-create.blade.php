@@ -1,12 +1,14 @@
-<div class="visible-xs visible-sm">
-	<p><a href="{{ route('admin.access.roles') }}" class="btn btn-default btn-lg btn-block">Back to Roles</a></p>
-</div>
-<div class="visible-md visible-lg">
-	<div class="btn-toolbar">
-		<div class="btn-group">
-			<a href="{{ route('admin.access.roles') }}" class="btn btn-default">Back to Roles</a>
+<div v-cloak>
+	<phone-tablet>
+		<p><a href="{{ route('admin.access.roles') }}" class="btn btn-default btn-lg btn-block">Back to Roles</a></p>
+	</phone-tablet>
+	<desktop>
+		<div class="btn-toolbar">
+			<div class="btn-group">
+				<a href="{{ route('admin.access.roles') }}" class="btn btn-default">Back to Roles</a>
+			</div>
 		</div>
-	</div>
+	</desktop>
 </div>
 
 {!! Form::open(['route' => 'admin.access.roles.store', 'class' => 'form-horizontal']) !!}
@@ -61,23 +63,27 @@
 	</div>
 
 	<div class="form-group">
-		<div class="col-md-5 col-md-offset-2">
-			<div class="visible-xs visible-sm">
+		<div class="col-md-5 col-md-offset-2" v-cloak>
+			<phone-tablet>
 				<p>{!! Form::button("Add Role", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
-			</div>
-			<div class="visible-md visible-lg">
+			</phone-tablet>
+			<desktop>
 				<div class="btn-toolbar">
 					<div class="btn-group">
 						{!! Form::button("Add Role", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
 					</div>
 				</div>
-			</div>
+			</desktop>
 		</div>
 	</div>
 {!! Form::close() !!}
 
-<div id="permissionTemplate" class="hide">
-	<p class="visible-xs visible-sm"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'md', 'text-danger') !!}</span></a> Permission Name</p>
-	<p class="visible-md visible-lg"><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'xs', 'text-danger') !!}</span></a> Permission Name</p>
+<div id="permissionTemplate" class="hide" v-cloak>
+	<phone-tablet>
+		<p><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'md', 'text-danger') !!}</span></a> Permission Name</p>
+	</phone-tablet>
+	<desktop>
+		<p><a href="#" class="btn btn-link-icon"><span>{!! icon('close', 'xs', 'text-danger') !!}</span></a> Permission Name</p>
+	</desktop>
 	{!! Form::hidden('permissions[]', null) !!}
 </div>

@@ -38,22 +38,17 @@
 				</div>
 				<div class="panel-body">
 					<div class="form-group">
-						<label class="control-label">By Name</label>
-						{!! Form::text('searchName', null, ['class' => 'form-control', 'v-model' => 'display_name']) !!}
-					</div>
-
-					<div class="form-group">
-						<label class="control-label">By Key</label>
-						{!! Form::text('searchKey', null, ['class' => 'form-control', 'v-model' => 'name']) !!}
+						<label class="control-label">By Name/Key</label>
+						{!! Form::text('searchName', null, ['class' => 'form-control', 'v-model' => 'search']) !!}
 					</div>
 				</div>
 
-				<div class="panel-footer">
+				<div class="panel-footer" v-cloak>
 					<phone-tablet>
-						<a class="btn btn-default btn-lg btn-block" @click="resetFilters">Reset Filters</a>
+						<a class="btn btn-default btn-lg btn-block" @click="resetFilters">Reset Filter</a>
 					</phone-tablet>
 					<desktop>
-						<a class="btn btn-default btn-block" @click="resetFilters">Reset Filters</a>
+						<a class="btn btn-default btn-block" @click="resetFilters">Reset Filter</a>
 					</desktop>
 				</div>
 			</div>
@@ -61,13 +56,13 @@
 
 		<div class="col-md-9 col-md-pull-3">
 			<div class="data-table data-table-bordered data-table-striped">
-				<div class="row" v-for="permission in permissions | filterBy display_name in 'display_name' | filterBy name in 'name'">
+				<div class="row" v-for="permission in permissions | filterBy search in 'display_name' 'name'">
 					<div class="col-md-9">
 						<p class="lead"><strong>{% permission.display_name %}</strong></p>
 						<p><strong>Key:</strong> {% permission.name %}</p>
 						<p v-show="permission.roles != ''"><strong>Included in Role(s):</strong> {%! permission.roles !%}</p>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3" v-cloak>
 						<phone-tablet>
 							<div class="row">
 								@if ($_user->can('access.edit'))
