@@ -21,6 +21,11 @@ class Form extends Model {
 	// Relationships
 	//-------------------------------------------------------------------------
 
+	public function data()
+	{
+		return $this->hasMany('NovaFormData');
+	}
+
 	public function fields()
 	{
 		return $this->hasMany('NovaFormField');

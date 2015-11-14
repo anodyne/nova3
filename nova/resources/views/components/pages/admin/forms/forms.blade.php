@@ -1,18 +1,24 @@
-<phone-tablet>
-	@can('create', $form)
-		<p><a href="{{ route('admin.forms.create') }}" class="btn btn-success btn-lg btn-block">Add a Form</a></p>
-	@endcan
-</phone-tablet>
-
-<desktop>
-	<div class="btn-toolbar">
+<div v-cloak>
+	<phone-tablet>
 		@can('create', $form)
-			<div class="btn-group">
-				<a href="{{ route('admin.forms.create') }}" class="btn btn-success">Add a Form</a>
-			</div>
+			<p><a href="{{ route('admin.forms.create') }}" class="btn btn-success btn-lg btn-block">Add a Form</a></p>
 		@endcan
-	</div>
-</desktop>
+	</phone-tablet>
+	<desktop>
+		<div class="btn-toolbar">
+			@can('create', $form)
+				<div class="btn-group">
+					<a href="{{ route('admin.forms.create') }}" class="btn btn-success">Add a Form</a>
+				</div>
+				<div class="btn-group">
+					@can('manage', $formTab)
+						<a href="#" class="btn btn-default">Tabs</a>
+					@endcan
+				</div>
+			@endcan
+		</div>
+	</desktop>
+</div>
 
 <div class="data-table data-table-striped data-table-bordered">
 @foreach ($forms as $form)
@@ -21,7 +27,7 @@
 			<p class="lead"><strong>{{ $form->present()->name }}</strong></p>
 			<p><strong>Key:</strong> {{ $form->present()->key }}</p>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-6" v-cloak>
 			<phone-tablet>
 				<div class="row">
 					<div class="col-xs-12">
@@ -36,12 +42,11 @@
 
 					@can('remove', $form)
 						<div class="col-xs-12">
-							<p><a href="#" class="btn btn-danger btn-lg btn-block js-roleAction" data-id="{{ $form->id }}" data-action="remove">Remove</a></p>
+							<p><a href="#" class="btn btn-danger btn-lg btn-block" @click.prevent="removeForm({{ $form->key }})">Remove</a></p>
 						</div>
 					@endcan
 				</div>
 			</phone-tablet>
-
 			<desktop>
 				<div class="btn-toolbar pull-right">
 					<div class="btn-group">
@@ -73,7 +78,7 @@
 
 					@can('remove', $form)
 						<div class="btn-group">
-							<a href="#" class="btn btn-danger js-roleAction" data-id="{{ $form->id }}" data-action="remove">Remove</a>
+							<a href="#" class="btn btn-danger" data-form-key="{{ $form->key }}" @click.prevent="removeForm">Remove</a>
 						</div>
 					@endcan
 				</div>
@@ -84,5 +89,5 @@
 </div>
 
 @can('remove', $form)
-	{!! modal(['id' => "removeRole", 'header' => "Remove Role"]) !!}
+	{!! modal(['id' => "removeForm", 'header' => "Remove Form"]) !!}
 @endcan

@@ -25,6 +25,17 @@ class FormCompiler implements CompilerInterface {
 			$type = $args[0];
 			$formKey = $args[1];
 			$id = (array_key_exists(2, $args)) ? $args[2] : false;
+			$state = (array_key_exists(3, $args)) ? $args[3] : false;
+
+			if ( ! $id and ! $state)
+			{
+				$state = 'new';
+			}
+
+			if ($id and ! $state)
+			{
+				$state = 'view';
+			}
 
 			// Make sure we're only working with the right type
 			if ($type == $this->identifier)
@@ -61,7 +72,7 @@ class FormCompiler implements CompilerInterface {
 	 */
 	public function help()
 	{
-		return "__Forms__: Insert a form into any page by using the `{% form %}` tag. The tag accepts two or three parameters, depending on how you want to use it.";
+		return "__Forms__: Insert a form into any page by using the `{% form %}` tag. The tag accepts two or three parameters, depending on how you want to use it. The first parameter is the form key of the form you want to display. (You can find the form key on the forms management page.) The second parameter is the specific data ID that you want to use. In most cases, this would be a dynamic property that you would pass to the compiler. The final possible parameter is the state of the form. The options available are: new, edit, and view. `{% form:character:8 %}`";
 	}
 
 }

@@ -7,7 +7,7 @@ use NovaForm,
 	NovaFormSection,
 	FormRepositoryInterface,
 	EditFormRequest, CreateFormRequest, RemoveFormRequest;
-use Nova\Core\Access\Events;
+use Nova\Core\Forms\Events;
 
 class FormController extends BaseController {
 
@@ -90,15 +90,15 @@ class FormController extends BaseController {
 
 		$form = $this->repo->findByKey($formKey);
 
-		if (policy($form)->remove($this->user))
+		if ( ! $form)
 		{
-			$body = ($form)
-				? view(locate('page', 'admin/forms/form-remove'), compact('form'))
-				: alert('danger', "Form not found.");
+			$body = alert('danger', "Form [{$formKey}] not found.");
 		}
 		else
 		{
-			$body = alert('danger', "You do not have permission to remove forms.");
+			$body = (policy($form)->remove($this->user, $form))
+				? view(locate('page', 'admin/forms/form-remove'), compact('form'))
+				: alert('danger', "You do not have permission to remove forms.");
 		}
 
 		return partial('modal-content', [
