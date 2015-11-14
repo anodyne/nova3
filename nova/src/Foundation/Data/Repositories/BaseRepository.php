@@ -141,14 +141,14 @@ abstract class BaseRepository {
 		return false;
 	}
 
-	protected function getResource($resource)
+	protected function getResource($resource, $identifier = 'id')
 	{
 		if ($resource instanceof $this->model)
 		{
 			return $resource;
 		}
 
-		return $this->getById($resource);
+		return $this->getFirstBy($identifier, $resource);
 	}
 
 }
