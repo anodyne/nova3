@@ -1,4 +1,4 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.8/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.10/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.1.17/vue-resource.js"></script>
 {!! HTML::script('nova/resources/js/vue-components.js') !!}
 {!! HTML::script('nova/resources/js/vue-filters.js') !!}
