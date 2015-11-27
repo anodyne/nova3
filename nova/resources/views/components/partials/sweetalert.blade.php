@@ -1,3 +1,5 @@
+{!! HTML::script('nova/resources/js/sweetalert.min.js') !!}
+
 @if (session()->has('flash_message'))
 	<script>
 		swal({
