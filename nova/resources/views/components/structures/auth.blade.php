@@ -11,12 +11,7 @@
 
 		<title>{{ $pageTitle or $_page->present()->title }} &bull; {{ $_content->get('sim.name') }}</title>
 		
-		@if (app('files')->exists(theme_path('design/css/bootstrap.css', false)))
-			{!! HTML::style(theme_path('design/css/bootstrap.css')) !!}
-		@else
-			<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-		@endif
-
+		{!! partial('include-bootstrap-css') !!}
 		{!! HTML::style('nova/resources/css/sweetalert.css') !!}
 		{!! partial('include-fonts') !!}
 		{!! partial('include-icons') !!}
@@ -44,12 +39,11 @@
 	<body>
 		{!! $template or false !!}
 
-		<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-		{!! HTML::script('nova/resources/js/sweetalert.min.js') !!}
+		{!! partial('include-jquery') !!}
+		{!! partial('include-bootstrap-js') !!}
 		{!! partial('sweetalert') !!}
 		<script>
-			var vue = {};
+			var vue = {}
 		</script>
 		{!! $javascript or false !!}
 		{!! partial('include-vue') !!}
