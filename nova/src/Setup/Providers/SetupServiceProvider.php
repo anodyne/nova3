@@ -10,12 +10,12 @@ class SetupServiceProvider extends ServiceProvider {
 
 	public function register()
 	{
-		$this->app->singleton('nova.setup', function($app)
+		$this->app->singleton('nova.setup', function ($app)
 		{
 			return new SetupService($app);
 		});
 
-		$this->app->singleton('nova.setup.configWriter', function($app)
+		$this->app->singleton('nova.setup.configWriter', function ($app)
 		{
 			return new ConfigFileWriterService($app['files']);
 		});

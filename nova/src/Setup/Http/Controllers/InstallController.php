@@ -110,7 +110,7 @@ class InstallController extends BaseController {
 		$update = $settings->updateByKey($data);
 
 		// Update the keys we're using
-		array_walk($data, function($value, $key) use (&$contentData)
+		array_walk($data, function ($value, $key) use (&$contentData)
 		{
 			// Replace underscores with periods
 			$newKey = str_replace('_', '.', $key);

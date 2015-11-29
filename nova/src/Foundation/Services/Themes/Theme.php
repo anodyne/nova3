@@ -108,7 +108,7 @@ class Theme implements Themeable, ThemeableInfo {
 		$menuSubItemsArr = $menuItemRepo->splitSubMenuItemsIntoArray($menuSubItems);
 
 		// Filter out sub items to only what we would need for the sub menu
-		$menuSubItemsFiltered = $menuSubItems->filter(function($item) use ($page)
+		$menuSubItemsFiltered = $menuSubItems->filter(function ($item) use ($page)
 		{
 			//dd($item->parent);
 			//return $item->parent->page_id == $page->id;

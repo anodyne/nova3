@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => 'api'], function()
+Route::group(['prefix' => 'api'], function ()
 {
 	get('pages', 'Nova\Core\Pages\Http\Api\PageController@index');
 	get('pages/{pageId}', 'Nova\Core\Pages\Http\Api\PageController@show');

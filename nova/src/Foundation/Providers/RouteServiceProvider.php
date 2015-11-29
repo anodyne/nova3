@@ -36,7 +36,7 @@ class RouteServiceProvider extends ServiceProvider {
 	 */
 	public function map(Router $router)
 	{
-		$router->group(['namespace' => $this->namespace], function($router)
+		$router->group(['namespace' => $this->namespace], function ($router)
 		{
 			if (app('nova.setup')->isInstalled())
 			{

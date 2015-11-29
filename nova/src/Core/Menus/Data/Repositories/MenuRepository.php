@@ -24,13 +24,13 @@ class MenuRepository extends BaseRepository implements MenuRepositoryInterface {
 		if ($menu)
 		{
 			// Update any pages
-			$menu->pages->each(function($page) use ($newId)
+			$menu->pages->each(function ($page) use ($newId)
 			{
 				$page->fill(['menu_id' => $newId])->save();
 			});
 
 			// Remove the menu items
-			$menu->menuItems->each(function($item)
+			$menu->menuItems->each(function ($item)
 			{
 				$item->delete();
 			});

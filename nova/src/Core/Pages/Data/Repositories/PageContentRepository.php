@@ -26,7 +26,7 @@ class PageContentRepository extends BaseRepository implements PageContentReposit
 
 		if ($content)
 		{
-			return $content->filter(function($c) use ($except)
+			return $content->filter(function ($c) use ($except)
 			{
 				return ! in_array($c->type, $except);
 			});

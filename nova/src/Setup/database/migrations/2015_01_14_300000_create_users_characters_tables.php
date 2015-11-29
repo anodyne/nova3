@@ -12,7 +12,7 @@ class CreateUsersCharactersTables extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('users', function(Blueprint $table)
+		Schema::create('users', function (Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('email', 100);
@@ -24,14 +24,14 @@ class CreateUsersCharactersTables extends Migration {
 			$table->softDeletes();
 		});
 
-		Schema::create('users_password_resets', function(Blueprint $table)
+		Schema::create('users_password_resets', function (Blueprint $table)
 		{
 			$table->string('email')->index();
 			$table->string('token')->index();
 			$table->timestamp('created_at');
 		});
 
-		Schema::create('characters', function(Blueprint $table)
+		Schema::create('characters', function (Blueprint $table)
 		{
 			$table->bigIncrements('id');
 			$table->integer('user_id')->unsigned()->nullable();

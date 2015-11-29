@@ -7,7 +7,7 @@ class CreatePagesTables extends Migration {
 
 	public function up()
 	{
-		Schema::create('pages', function(Blueprint $table)
+		Schema::create('pages', function (Blueprint $table)
 		{
 			$table->bigIncrements('id');
 			$table->integer('menu_id')->unsigned()->default(0);
@@ -25,7 +25,7 @@ class CreatePagesTables extends Migration {
 			$table->timestamps();
 		});
 
-		Schema::create('pages_content', function(Blueprint $table)
+		Schema::create('pages_content', function (Blueprint $table)
 		{
 			$table->bigIncrements('id');
 			$table->bigInteger('page_id')->unsigned()->nullable();
