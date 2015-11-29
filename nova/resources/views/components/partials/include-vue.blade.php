@@ -3,12 +3,14 @@
 {!! HTML::script('nova/resources/js/vue-components.js') !!}
 {!! HTML::script('nova/resources/js/vue-filters.js') !!}
 <script>
-	Vue.config.delimiters = ['{%', '%}']
-	Vue.config.unsafeDelimiters = ['{%!', '!%}']
-
 	var vm = new Vue(
 	{
 		el: '#app',
-		mixins: [vue]
+		mixins: [vue],
+		http: {
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		}
 	})
 </script>

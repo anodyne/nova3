@@ -58,16 +58,16 @@
 			<div class="data-table data-table-bordered data-table-striped">
 				<div class="row" v-for="permission in permissions | filterBy search in 'display_name' 'name'">
 					<div class="col-md-9">
-						<p class="lead"><strong>{% permission.display_name %}</strong></p>
-						<p><strong>Key:</strong> {% permission.name %}</p>
-						<p v-show="permission.roles != ''"><strong>Included in Role(s):</strong> {%! permission.roles !%}</p>
+						<p class="lead"><strong>@{{ permission.display_name }}</strong></p>
+						<p><strong>Key:</strong> @{{ permission.name }}</p>
+						<p v-show="permission.roles != ''"><strong>Included in Role(s):</strong> @{{! permission.roles !}}</p>
 					</div>
 					<div class="col-md-3" v-cloak>
 						<phone-tablet>
 							<div class="row">
 								@if ($_user->can('access.edit'))
 									<div class="col-sm-6">
-										<p><a href="{% permission.links.edit %}" class="btn btn-default btn-lg btn-block">Edit</a></p>
+										<p><a href="@{{ permission.links.edit }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
 									</div>
 								@endif
 
@@ -82,7 +82,7 @@
 							<div class="btn-toolbar pull-right">
 								@if ($_user->can('access.edit'))
 									<div class="btn-group">
-										<a href="{% permission.links.edit %}" class="btn btn-default">Edit</a>
+										<a href="@{{ permission.links.edit }}" class="btn btn-default">Edit</a>
 									</div>
 								@endif
 
