@@ -67,15 +67,15 @@
 			<div class="data-table data-table-bordered data-table-striped">
 				<div class="row" v-for="content in contents | filterBy key in 'key' | filterBy value in 'value'">
 					<div class="col-md-9">
-						<p>{% content.preview %}</p>
-						<p><strong>Key:</strong> {% content.key %}</p>
+						<p>@{{ content.preview }}</p>
+						<p><strong>Key:</strong> @{{ content.key }}</p>
 					</div>
 					<div class="col-md-3">
 						<div class="visible-xs visible-sm">
 							<div class="row">
 								@can('edit', $content)
 									<div class="col-sm-6">
-										<p><a href="{% content.links.edit %}" class="btn btn-default btn-lg btn-block">Edit</a></p>
+										<p><a href="@{{ content.links.edit }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
 									</div>
 								@endcan
 
@@ -90,7 +90,7 @@
 							<div class="btn-toolbar pull-right">
 								@can('edit', $content)
 									<div class="btn-group">
-										<a href="{% content.links.edit %}" class="btn btn-default">Edit</a>
+										<a href="@{{ content.links.edit }}" class="btn btn-default">Edit</a>
 									</div>
 								@endcan
 

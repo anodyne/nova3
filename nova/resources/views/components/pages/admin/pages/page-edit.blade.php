@@ -29,10 +29,10 @@
 
 	<div class="form-group{{ ($errors->has('uri')) ? ' has-error' : '' }}">
 		<label class="col-md-2 control-label">URI</label>
-		<div class="col-md-6">
+		<div class="col-md-8">
 			<div class="input-group">
 				<span class="input-group-addon">{{ Request::root() }}/</span>
-				{!! Form::text('uri', null, ['class' => 'form-control input-lg']) !!}
+				{!! Form::text('uri', null, ['class' => 'form-control input-lg', 'v-model' => 'uri']) !!}
 			</div>
 			{!! $errors->first('uri', '<p class="help-block">:message</p>') !!}
 		</div>
@@ -41,7 +41,7 @@
 	<div class="form-group{{ ($errors->has('key')) ? ' has-error' : '' }}">
 		<label class="col-md-2 control-label">Key</label>
 		<div class="col-md-4">
-			{!! Form::text('key', null, ['class' => 'form-control input-lg']) !!}
+			{!! Form::text('key', null, ['class' => 'form-control input-lg', 'v-model' => 'key']) !!}
 			{!! $errors->first('key', '<p class="help-block">:message</p>') !!}
 		</div>
 	</div>
@@ -60,17 +60,19 @@
 
 		<div class="form-group{{ ($errors->has('resource')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Resource</label>
-			<div class="col-md-8">
-				@if ($page->protected)
-					<div class="input-group">
-						{!! Form::text('resource', null, ['class' => 'form-control input-lg']) !!}
-						<span class="input-group-btn"><a href="#" class="btn btn-default btn-lg js-resetResource">Reset to Default</a></span>
-					</div>
+			<div class="col-md-6">
+				@if (is_array($resources))
+					{!! Form::select('resource', $resources, null, ['class' => 'form-control input-lg', 'v-model' => 'resource']) !!}
 				@else
-					{!! Form::text('resource', null, ['class' => 'form-control input-lg']) !!}
+					{!! alert('danger', $resources) !!}
 				@endif
 				{!! $errors->first('resource', '<p class="help-block">:message</p>') !!}
 			</div>
+			@if ($page->protected)
+				<div class="col-md-2">
+					<a href="#" class="btn btn-default btn-lg btn-block" @click.prevent="resetResource">Reset</a>
+				</div>
+			@endif
 		</div>
 
 		@if ($page->protected)

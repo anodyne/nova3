@@ -1,127 +1,102 @@
 <script>
-	$('[name="type"]').change(function(e)
-	{
-		var selected = $('[name="type"]:checked').val();
+	vue = {
+		data: {
+			type: "",
+			key: "",
+			uri: ""
+		},
 
-		if (selected == "basic")
-		{
-			$('#pageAdvanced').addClass('hide');
-			$('#pageBasic').removeClass('hide');
-		}
-
-		if (selected == "advanced")
-		{
-			$('#pageBasic').addClass('hide');
-			$('#pageAdvanced').removeClass('hide');
-		}
-
-		$('#pageContent').removeClass('hide');
-		$('#pageControls').removeClass('hide');
-	});
-
-	$('[name$="[key]"]').change(function(e)
-	{
-		var field = $(this);
-		var value = $(this).val();
-
-		$.ajax({
-			type: "POST",
-			dataType: "json",
-			url: "{{ route('admin.pages.checkKey') }}",
-			data: { key: $(this).val() },
-			success: function(data)
+		methods: {
+			checkKey: function()
 			{
-				if (data.code == 0)
+				if (this.key != "")
 				{
-					field.val("");
+					var url = "{{ route('admin.pages.checkKey') }}"
+					var postData = { key: this.key }
 
-					swal({
-						title: "Error!",
-						text: "Page keys must be unique. Another page is already using the key you gave. Please enter a unique key.",
-						type: "error",
-						timer: null,
-						html: true
-					});
+					this.$http.post(url, postData, function (data, status, request)
+					{
+						if (data.code == 0)
+						{
+							this.key = ""
+
+							swal({
+								title: "Error!",
+								text: "Page keys must be unique. Another page is already using the key you gave. Please enter a unique key.",
+								type: "error",
+								timer: null,
+								html: true
+							})
+						}
+					}).error(function (data, status, request)
+					{
+						swal({
+							title: "Error!",
+							text: "There was an error trying to check the page key. Please try again. (Error " + status + ")",
+							type: "error",
+							timer: null,
+							html: true
+						})
+					})
+				}
+			},
+
+			checkUri: function()
+			{
+				if (this.uri != "")
+				{
+					var url = "{{ route('admin.pages.checkUri') }}"
+					var postData = { uri: this.uri }
+
+					this.$http.post(url, postData, function (data, status, request)
+					{
+						if (data.code == 0)
+						{
+							this.uri = ""
+
+							swal({
+								title: "Error!",
+								text: "You've entered a URI that's already being used by another page. Please enter a different URI for this page.",
+								type: "error",
+								timer: null,
+								html: true
+							})
+						}
+						else
+						{
+							// Change all slashes into periods
+							var newKey = this.uri.replace(/\//g, ".");
+
+							// Take out all the URI variables
+							newKey = newKey.replace(/{(.*?)}/g, "");
+
+							// If we have consecutive periods, make them 1
+							newKey = newKey.replace(/\.{2,}/g, ".");
+
+							// Take periods off the beginning of the string
+							if (newKey.charAt(0) == ".")
+								newKey = newKey.substr(1);
+
+							// Take periods off the end of the string
+							if (newKey.slice(-1) == ".")
+								newKey = newKey.substring(0, newKey.length - 1);
+
+							this.key = newKey
+						}
+					}).error(function (data, status, request)
+					{
+						console.log(status)
+
+						swal({
+							title: "Error!",
+							text: "There was an error trying to check the URI. Please try again. (Error " + status + ")",
+							type: "error",
+							timer: null,
+							html: true
+						})
+					})
 				}
 			}
-		});
-	});
-
-	$('[name$="[uri]"]').change(function(e)
-	{
-		var field = $(this);
-		var value = $(this).val();
-
-		$.ajax({
-			type: "POST",
-			dataType: "json",
-			url: "{{ route('admin.pages.checkUri') }}",
-			data: { uri: $(this).val() },
-			success: function(data)
-			{
-				if (data.code == 0)
-				{
-					field.val("");
-
-					swal({
-						title: "Error!",
-						text: "You've entered a URI that's already being used by another page. Please enter a different URI for this page.",
-						type: "error",
-						timer: null,
-						html: true
-					});
-				}
-				else
-				{
-					var type = $('[name="type"]:checked').val();
-					var uri = field.val();
-					var key;
-
-					// Change all slashes into periods
-					key = uri.replace(/\//g, ".");
-
-					// Take out all the URI variables
-					key = key.replace(/{(.*?)}/g, "");
-
-					// If we have consecutive periods, make them 1
-					key = key.replace(/\.{2,}/g, ".");
-
-					// Take periods off the beginning of the string
-					if (key.charAt(0) == ".")
-						key = key.substr(1);
-
-					// Take periods off the end of the string
-					if (key.slice(-1) == ".")
-						key = key.substring(0, key.length - 1);
-
-					if (type == "basic")
-						$('[name="basic[key]"]').val(key).trigger('change');
-
-					if (type == "advanced")
-						$('[name="advanced[key]"]').val(key).trigger('change');
-				}
-			}
-		});
-	});
-
-	$(function()
-	{
-		if ($('[name="type"]:checked').val() != '')
-		{
-			if ($('[name="type"]:checked').val() == 'basic')
-			{
-				$('#pageBasic').removeClass('hide');
-				$('#pageContent').removeClass('hide');
-				$('#pageControls').removeClass('hide');
-			}
-
-			if ($('[name="type"]:checked').val() == 'advanced')
-			{
-				$('#pageAdvanced').removeClass('hide');
-				$('#pageContent').removeClass('hide');
-				$('#pageControls').removeClass('hide');
-			}
-
 		}
-	});
+	}
 </script>

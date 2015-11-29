@@ -11,12 +11,7 @@
 
 		<title>{{ $pageTitle or $_page->present()->title }} &bull; {{ $_content->get('sim.name') }}</title>
 
-		@if (app('files')->exists(theme_path('design/css/bootstrap.css', false)))
-			{!! HTML::style(theme_path('design/css/bootstrap.css')) !!}
-		@else
-			<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-		@endif
-
+		{!! partial('include-bootstrap-css') !!}
 		{!! HTML::style('nova/resources/css/sweetalert.css') !!}
 		{!! partial('include-fonts') !!}
 		{!! partial('include-icons') !!}
@@ -51,29 +46,28 @@
 	<body>
 		{!! $template or false !!}
 
-		<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		{!! partial('include-jquery') !!}
+		{!! partial('include-bootstrap-js') !!}
 		{!! HTML::script('nova/resources/js/functions.js') !!}
-		{!! HTML::script('nova/resources/js/sweetalert.min.js') !!}
 		{!! partial('sweetalert') !!}
 		<script>
-			var vue = {};
+			var vue = {}
 
 			// Setup the CSRF token on Ajax requests
 			$.ajaxPrefilter(function(options, originalOptions, xhr)
 			{
-				var token = $('meta[name="csrf-token"]').attr('content');
+				var token = $('meta[name="csrf-token"]').attr('content')
 
 				if (token)
-					return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-			});
+					return xhr.setRequestHeader('X-CSRF-TOKEN', token)
+			})
 
 			// Setup the CSRF token on Ajax requests
 			$.ajaxSetup({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
-			});
+			})
 
 			$(document).ajaxError(function(event, xhr, settings, thrownError)
 			{
@@ -85,23 +79,9 @@
 						type: "error",
 						timer: null,
 						html: true
-					});
+					})
 				}
-			});
-
-			// Destroy all modals when they're hidden
-			$('.modal').on('hidden.bs.modal', function()
-			{
-				$('.modal').removeData('bs.modal');
-			});
-
-			$(function()
-			{
-				$('.js-tooltip-top').tooltip({ placement: 'top' });
-				$('.js-tooltip-bottom').tooltip({ placement: 'bottom' });
-				$('.js-tooltip-left').tooltip({ placement: 'left' });
-				$('.js-tooltip-right').tooltip({ placement: 'right' });
-			});
+			})
 		</script>
 		{!! $javascript or false !!}
 		{!! partial('include-vue') !!}

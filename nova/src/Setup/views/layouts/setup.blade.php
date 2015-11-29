@@ -8,7 +8,7 @@
 
 		<link href="//fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
 		<link href="//fonts.googleapis.com/css?family=Roboto+Condensed:300,700" rel="stylesheet">
-		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 		<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.style.css') !!}
@@ -60,8 +60,8 @@
 			</div>
 		</div>
 
-		<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		{!! partial('include-jquery') !!}
+		{!! partial('include-bootstrap-js') !!}
 		@yield('scripts')
 	</body>
 </html>
