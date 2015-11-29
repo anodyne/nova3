@@ -6,6 +6,9 @@ use Page,
 	PageRepositoryInterface,
 	EditPageRequest, CreatePageRequest, RemovePageRequest;
 use Nova\Core\Pages\Events;
+use Symfony\Component\Finder\Finder;
+use InvalidArgumentException;
+use ReflectionClass, ReflectionMethod;
 
 class PageController extends BaseController {
 
@@ -49,6 +52,8 @@ class PageController extends BaseController {
 
 		$this->data->menus[0] = "No menu";
 		$this->data->menus += $this->menuRepo->listAll('name', 'id');
+
+		$this->data->resources = $this->getExtensionResources();
 	}
 
 	public function store(CreatePageRequest $request)
@@ -82,6 +87,8 @@ class PageController extends BaseController {
 
 		$this->data->menus[0] = "No menu";
 		$this->data->menus += $this->menuRepo->listAll('name', 'id');
+
+		$this->data->resources = $this->getExtensionResources();
 	}
 
 	public function update(EditPageRequest $request, $pageId)
@@ -165,6 +172,60 @@ class PageController extends BaseController {
 		}
 
 		return json_encode(['code' => 1]);
+	}
+
+	protected function getExtensionResources()
+	{
+		try
+		{
+			$finder = new Finder;
+			$finder->files()->in('extensions/*/*/Http/Controllers');
+
+			$methodList = ["" => "No resource"];
+
+			foreach ($finder as $file)
+			{
+				$className = str_replace('.php', '', $file->getPathname());
+				$className = str_replace('/', '\\', $className);
+				$className = ucfirst($className);
+
+				// Break the full class name up into pieces
+				$classPieces = explode("\\", $className);
+
+				// "Extensions" will always be 0, so the vendor is 1 and extension is 2
+				$vendorName = $classPieces[1];
+				$extensionName = $classPieces[2];
+
+				// This gives us a shorter class name for display purposes only
+				$shortResourceClass = substr($className, (strrpos($className, '\\') + 1));
+
+				// Get the information about the class
+				$reflection = new ReflectionClass($className);
+
+				foreach ($reflection->getMethods(ReflectionMethod::IS_PUBLIC) as $method)
+				{
+					// The full resource is what we need in the database, so that's our value
+					$resource = "{$className}@{$method->getName()}";
+
+					// The short resource just gives us a more human readable class/method name
+					$shortResource = "{$shortResourceClass}@{$method->getName()}";
+
+					// Build a group name made up of the vendor and extension name
+					$groupName = "{$vendorName} - {$extensionName}";
+
+					// Finally, add it to the list
+					$methodList[$groupName][$resource] = $shortResource;
+
+					asort($methodList[$groupName]);
+				}
+			}
+
+			return $methodList;
+		}
+		catch (InvalidArgumentException $e)
+		{
+			return "No extension controllers found!";
+		}
 	}
 
 }

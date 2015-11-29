@@ -17,19 +17,19 @@
 		<div class="col-md-5">
 			<div class="radio">
 				<label>
-					{!! Form::radio('type', 'basic', false) !!} Basic Page
+					{!! Form::radio('type', 'basic', false, ['v-model' => 'type']) !!} Basic Page
 				</label>
 			</div>
 			<div class="radio">
 				<label>
-					{!! Form::radio('type', 'advanced', false) !!} Advanced Page
+					{!! Form::radio('type', 'advanced', false, ['v-model' => 'type']) !!} Advanced Page
 				</label>
 			</div>
 			{!! $errors->first('type', '<p class="help-block">:message</p>') !!}
 		</div>
 	</div>
 
-	<div id="pageBasic" class="hide">
+	<div v-show="type == 'basic'">
 		<div class="form-group">
 			<div class="col-md-5 col-md-offset-2">
 				<h3>Page Info</h3>
@@ -53,10 +53,10 @@
 
 		<div class="form-group{{ ($errors->has('basic[uri]')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">URI</label>
-			<div class="col-md-6">
+			<div class="col-md-8">
 				<div class="input-group">
 					<span class="input-group-addon">{{ Request::root() }}/</span>
-					{!! Form::text('basic[uri]', null, ['class' => 'form-control input-lg']) !!}
+					{!! Form::text('basic[uri]', null, ['class' => 'form-control input-lg', 'v-model' => 'uri', '@change' => 'checkUri']) !!}
 				</div>
 				{!! $errors->first('basic[uri]', '<p class="help-block">:message</p>') !!}
 				<p class="help-block">URIs identify and describe the resource (in this case, a page) that's being accessed with the following format: <code>foo/bar</code>. The only restrictions around URIs with basic pages is that they <strong>cannot</strong> have the same URI as another page and <strong>cannot</strong> use variables.</p>
@@ -66,7 +66,7 @@
 		<div class="form-group{{ ($errors->has('basic[key]')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Key</label>
 			<div class="col-md-6">
-				{!! Form::text('basic[key]', null, ['class' => 'form-control input-lg']) !!}
+				{!! Form::text('basic[key]', null, ['class' => 'form-control input-lg', 'v-model' => 'key', '@change' => 'checkKey']) !!}
 				{!! $errors->first('basic[key]', '<p class="help-block">:message</p>') !!}
 				<p class="help-block">Keys are used to uniquely identify your pages and create dynamic links to them. Even if the URI or other values of the page change, using the key to build links means that those links will always work as long as the key doesn't change. The only restriction with keys is that they <strong>cannot</strong> have the same key as another page.</p>
 			</div>
@@ -82,7 +82,7 @@
 		</div>
 	</div>
 
-	<div id="pageAdvanced" class="hide">
+	<div v-show="type == 'advanced'">
 		<div class="form-group">
 			<div class="col-md-8 col-md-offset-2">
 				<h3>Page Info</h3>
@@ -105,10 +105,10 @@
 
 		<div class="form-group{{ ($errors->has('advanced[uri]')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">URI</label>
-			<div class="col-md-6">
+			<div class="col-md-8">
 				<div class="input-group">
 					<span class="input-group-addon">{{ Request::root() }}/</span>
-					{!! Form::text('advanced[uri]', null, ['class' => 'form-control input-lg']) !!}
+					{!! Form::text('advanced[uri]', null, ['class' => 'form-control input-lg', 'v-model' => 'uri', '@change' => 'checkUri']) !!}
 				</div>
 				{!! $errors->first('advanced[uri]', '<p class="help-block">:message</p>') !!}
 				<p class="help-block">URIs identify and describe the resource (in this case, a page) that's being accessed with the following format: <code>foo/bar</code>. You can also specify variables in your URIs to use in code by wrapping the name of the variable in braces: <code>foo/bar/{id}</code>. In your code, you'd then pass <code>$id</code> as a parameter to the method and be able to use whatever value is in the URI at that segment. Optional variables are indicated by a trailing question mark: <code>foo/bar/{id?}</code> and in your code, should have a default value to prevent errors. The only restriction around URIs with advanced pages is that they <strong>cannot</strong> have the same URI as another page.</p>
@@ -126,7 +126,7 @@
 		<div class="form-group{{ ($errors->has('advanced[key]')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Key</label>
 			<div class="col-md-6">
-				{!! Form::text('advanced[key]', null, ['class' => 'form-control input-lg']) !!}
+				{!! Form::text('advanced[key]', null, ['class' => 'form-control input-lg', 'v-model' => 'key', '@change' => 'checkKey']) !!}
 				{!! $errors->first('advanced[key]', '<p class="help-block">:message</p>') !!}
 				<p class="help-block">Keys are used to uniquely identify your pages and create dynamic links to them. Even if the URI or other values of the page change, using the key to build links means that those links will always work as long as the key doesn't change. The only restriction with keys is that they <strong>cannot</strong> have the same key as another page. You should <strong>not</strong> put any variables into your keys.</p>
 			</div>
@@ -144,9 +144,13 @@
 
 		<div class="form-group">
 			<label class="col-md-2 control-label">Resource</label>
-			<div class="col-md-8">
-				{!! Form::text('advanced[resource]', null, ['class' => 'form-control input-lg']) !!}
-				<p class="help-block">The page resource <strong>must</strong> be a class name (including its full namespace) and method that tells {{ config('nova.app.name') }} what code it should use when this page is requested. Resources should be in the following format: <code>Foo\Bar\Baz@method</code>. You do not need to specify any variables from the URI in the resource; those items will automatically be passed to the method you provide.</p>
+			<div class="col-md-6">
+				@if (is_array($resources))
+					{!! Form::select('advanced[resource]', $resources, null, ['class' => 'form-control input-lg']) !!}
+				@else
+					{!! alert('danger', $resources) !!}
+				@endif
+				<p class="help-block">The page resource is the controller and method that Nova will use when this page is called. Listed above are all the extension controllers and any public methods available in them.</p>
 			</div>
 		</div>
 
@@ -160,7 +164,7 @@
 		</div>
 	</div>
 
-	<div id="pageContent" class="hide">
+	<div v-show="type != ''">
 		<div class="form-group">
 			<div class="col-md-5 col-md-offset-2">
 				<h3>Content</h3>
@@ -207,7 +211,7 @@
 		</div>
 	</div>
 
-	<div id="pageControls" class="form-group hide">
+	<div v-show="type != ''">
 		<div class="col-md-5 col-md-offset-2" v-cloak>
 			<phone-tablet>
 				{!! Form::button("Add Page", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}

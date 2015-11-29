@@ -76,17 +76,17 @@
 			<div class="data-table data-table-bordered data-table-striped">
 				<div class="row" v-for="page in pages | filterBy search in 'name' 'key' 'uri' | filterByCheckboxes verbs 'verb'">
 					<div class="col-md-9">
-						<p class="lead"><strong>{% page.name %}</strong></p>
-						<p><strong>Key:</strong> {% page.key %}</p>
-						<p><strong>URI:</strong> <code>{% page.uri %}</code></p>
-						<p><strong>Verb:</strong> <span class="label label-default">{% page.verb %}</span></p>
+						<p class="lead"><strong>@{{ page.name }}</strong></p>
+						<p><strong>Key:</strong> @{{ page.key }}</p>
+						<p><strong>URI:</strong> <code>@{{ page.uri }}</code></p>
+						<p><strong>Verb:</strong> <span class="label label-default">@{{ page.verb }}</span></p>
 					</div>
 					<div class="col-md-3">
 						<phone-tablet>
 							<div class="row">
 								@can('edit', $page)
 									<div class="col-sm-6">
-										<p><a href="{% page.links.edit %}" class="btn btn-default btn-lg btn-block">Edit</a></p>
+										<p><a href="@{{ page.links.edit }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
 									</div>
 								@endcan
 
@@ -101,7 +101,7 @@
 							<div class="btn-toolbar pull-right">
 								@can('edit', $page)
 									<div class="btn-group">
-										<a href="{% page.links.edit %}" class="btn btn-default">Edit</a>
+										<a href="@{{ page.links.edit }}" class="btn btn-default">Edit</a>
 									</div>
 								@endcan
 
