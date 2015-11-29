@@ -1,4 +1,4 @@
-/*! UIkit 2.21.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.24.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
     var component;
 
@@ -71,12 +71,14 @@
             var $this = this;
 
             wrapper.data('toggle').toggleClass(this.options.clsactive);
+            wrapper.data('content').toggleClass(this.options.clsactive);
 
             var active = wrapper.data('toggle').hasClass(this.options.clsactive);
 
             if (collapse) {
                 this.toggle.not(wrapper.data('toggle')).removeClass(this.options.clsactive);
-                this.content.not(wrapper.data('content')).parent().stop().css('overflow', 'hidden').animate({ height: 0 }, {easing: this.options.easing, duration: animated ? this.options.duration : 0}).attr('aria-expanded', 'false');
+                this.content.not(wrapper.data('content')).removeClass(this.options.clsactive)
+                    .parent().stop().css('overflow', 'hidden').animate({ height: 0 }, {easing: this.options.easing, duration: animated ? this.options.duration : 0}).attr('aria-expanded', 'false');
             }
 
             wrapper.stop().css('overflow', 'hidden');
