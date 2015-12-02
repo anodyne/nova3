@@ -33,6 +33,15 @@ interface Themeable {
 	public function menu(Page $page);
 
 	/**
+	 * Build the theme admin menu.
+	 *
+	 * @param 	Page	$page 	The current page
+	 * @return 	Theme
+	 * @throws	NoThemeTemplateException
+	 */
+	public function adminMenu(Page $page);
+
+	/**
 	 * Build the theme footer.
 	 *
 	 * @param 	array 	$data 	Data to pass to the footer

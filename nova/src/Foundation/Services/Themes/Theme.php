@@ -20,6 +20,9 @@ class Theme implements Themeable, ThemeableInfo {
 	protected $data = [];
 	protected $views = [];
 
+	protected $menuMainItems;
+	protected $menuSubItems;
+
 	public function __construct($themeName, Application $app)
 	{
 		// Grab the JSON file and parse it
@@ -99,31 +102,27 @@ class Theme implements Themeable, ThemeableInfo {
 		$menuItemRepo = app('MenuItemRepository');
 
 		// Get the main menu items
-		$menuMainItems = $menuItemRepo->getMainMenuItems($page->menu);
+		$this->menuMainItems = $menuItemRepo->getMainMenuItems($page->menu);
 
 		// Get the sub menu items
-		$menuSubItems = $menuItemRepo->getSubMenuItems($page->menu);
+		$this->menuSubItems = $menuItemRepo->getSubMenuItems($page->menu);
 
 		// We want to use an array for the combined menu
-		$menuSubItemsArr = $menuItemRepo->splitSubMenuItemsIntoArray($menuSubItems);
+		$menuSubItemsArr = $menuItemRepo->splitSubMenuItemsIntoArray($this->menuSubItems);
 
 		// Filter out sub items to only what we would need for the sub menu
-		$menuSubItemsFiltered = $menuSubItems->filter(function($item) use ($page)
+		$menuSubItemsFiltered = $this->menuSubItems->filter(function ($item) use ($page)
 		{
-			//dd($item->parent);
 			//return $item->parent->page_id == $page->id;
 		});
 
 		$data = [
-			'menuMainItems'	=> $menuMainItems,
+			'menuMainItems'	=> $this->menuMainItems,
 			'menuSubItems'	=> $menuSubItemsArr,
 		];
 
-		//d($page->id);
-		//dd($menuSubItemsFiltered);
-
 		$this->layout->template->menuMain = $this->view->make($this->locate->partial('menu-main'))
-			->with(['items' => $menuMainItems]);
+			->with(['items' => $this->menuMainItems]);
 
 		$this->layout->template->menuSub = $this->view->make($this->locate->partial('menu-sub'))
 			->with(['items' => $menuSubItemsFiltered]);
@@ -132,6 +131,11 @@ class Theme implements Themeable, ThemeableInfo {
 			->with((array) $data);
 
 		return $this;
+	}
+
+	public function adminMenu(Page $page = null)
+	{
+		return $this->menu($page);
 	}
 
 	/**

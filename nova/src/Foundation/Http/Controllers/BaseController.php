@@ -134,6 +134,8 @@ abstract class BaseController extends Controller {
 
 				$this->buildThemeMenu();
 
+				$this->buildThemeAdminMenu();
+
 				$this->buildThemePage();
 
 				$this->buildThemeJavascript();
@@ -160,6 +162,11 @@ abstract class BaseController extends Controller {
 	protected function buildThemeMenu()
 	{
 		$this->theme = $this->theme->menu($this->page);
+	}
+
+	protected function buildThemeAdminMenu()
+	{
+		$this->theme = $this->theme->adminMenu($this->page);
 	}
 
 	protected function buildThemePage()
