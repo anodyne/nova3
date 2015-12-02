@@ -45,7 +45,7 @@ class RouteServiceProvider extends ServiceProvider {
 			}
 			else
 			{
-				$router->get('/', 'Nova\Core\Game\Http\Controllers\HomeController@home');
+				$router->get('/', 'Nova\Core\Game\Http\Controllers\HomeController@page');
 			}
 
 			require base_path('routes.php');

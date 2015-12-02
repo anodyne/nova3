@@ -33,12 +33,8 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->getCurrentUser();
 		$this->createLocator();
 		$this->createPageCompilerEngine();
-
-		if ($this->app['nova.setup']->isInstalled())
-		{
-			$this->setupTheme();
-			$this->setupMailer();
-		}
+		$this->setupTheme();
+		$this->setupMailer();
 	}
 
 	/**
@@ -111,7 +107,10 @@ class NovaServiceProvider extends ServiceProvider {
 	{
 		$this->app->singleton('nova.user', function($app)
 		{
-			if ($app['nova.setup']->isInstalled()) return $app['auth']->user();
+			if ($app['nova.setup']->isInstalled())
+			{
+				return $app['auth']->user();
+			}
 
 			return null;
 		});
@@ -201,8 +200,11 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function setupMailer()
 	{
-		config(['mail.from.address' => $this->app['nova.settings']->get('mail_default_address')]);
-		config(['mail.from.name' => $this->app['nova.settings']->get('mail_default_name')]);
+		if ($this->app['nova.setup']->isInstalled())
+		{
+			config(['mail.from.address' => $this->app['nova.settings']->get('mail_default_address')]);
+			config(['mail.from.name' => $this->app['nova.settings']->get('mail_default_name')]);
+		}
 	}
 
 	/**
@@ -214,10 +216,17 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function setupTheme()
 	{
-		// Get the theme name
-		$themeName = ($this->app['auth']->check())
-			? $this->app['nova.user']->preference('theme')
-			: $this->app['nova.settings']->get('theme');
+		if ($this->app['nova.setup']->isInstalled())
+		{
+			// Get the theme name
+			$themeName = ($this->app['auth']->check())
+				? $this->app['nova.user']->preference('theme')
+				: $this->app['nova.settings']->get('theme');
+		}
+		else
+		{
+			$themeName = "pulsar";
+		}
 
 		// Try to autoload the appropriate theme file
 		ClassLoader::load($this->app->themePath($themeName).'/Theme.php');
