@@ -89,8 +89,10 @@ abstract class BaseController extends Controller {
 	public function errorNotFound($message = null)
 	{
 		$logMessage = ($this->user)
-			? "{$this->user->name} attempted to access ".app('request')->fullUrl()
-			: "An unauthenticated user attempted to access ".app('request')->fullUrl();
+			? $this->user->name
+			: "An unauthenticated user";
+
+		$logMessage.= " attempted to access ".app('request')->fullUrl();
 
 		app('log')->warning($logMessage);
 
@@ -100,8 +102,10 @@ abstract class BaseController extends Controller {
 	public function errorUnauthorized($message = null)
 	{
 		$logMessage = ($this->user)
-			? "{$this->user->name} attempted to access ".app('request')->fullUrl()
-			: "An unauthenticated user attempted to access ".app('request')->fullUrl();
+			? $this->user->name
+			: "An unauthenticated user";
+
+		$logMessage.= " attempted to access ".app('request')->fullUrl();
 		
 		app('log')->warning($logMessage);
 
