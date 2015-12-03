@@ -370,11 +370,17 @@ return [
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@destroy",
 	],
 	[
-		'verb'				=> "POST",
 		'name'				=> "Duplicate Role",
 		'key'				=> "admin.access.roles.duplicate",
 		'uri'				=> "admin/access/roles/{roleId}/duplicate",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@duplicate",
+	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Copy Role",
+		'key'				=> "admin.access.roles.copy",
+		'uri'				=> "admin/access/roles/{roleId}/duplicate",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@copy",
 	],
 
 	/**

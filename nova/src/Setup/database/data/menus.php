@@ -13,7 +13,7 @@ return [
 		['menu_id' => 1, 'parent_id' => 2, 'order' => 0, 'type' => "page", 'page_id' => 9, 'title' => "Pages"],
 		['menu_id' => 1, 'parent_id' => 2, 'order' => 1, 'type' => "page", 'page_id' => 26, 'title' => "Menus"],
 		['menu_id' => 1, 'parent_id' => 2, 'order' => 2, 'type' => "page", 'page_id' => 46, 'title' => "Roles"],
-		['menu_id' => 1, 'parent_id' => 2, 'order' => 3, 'type' => "page", 'page_id' => 63, 'title' => "Forms"],
+		['menu_id' => 1, 'parent_id' => 2, 'order' => 3, 'type' => "page", 'page_id' => 64, 'title' => "Forms"],
 
 		['menu_id' => 2, 'order' => 0, 'type' => "internal", 'link' => "#", 'title' => "Manage"],
 		['menu_id' => 2, 'parent_id' => 7, 'order' => 0, 'type' => "page", 'page_id' => 9, 'title' => "Pages"],
@@ -23,7 +23,7 @@ return [
 		['menu_id' => 2, 'parent_id' => 7, 'order' => 4, 'type' => "divider"],
 		['menu_id' => 2, 'parent_id' => 7, 'order' => 5, 'type' => "page", 'page_id' => 46, 'title' => "Roles"],
 		['menu_id' => 2, 'parent_id' => 7, 'order' => 6, 'type' => "divider"],
-		['menu_id' => 2, 'parent_id' => 7, 'order' => 7, 'type' => "page", 'page_id' => 63, 'title' => "Forms"],
+		['menu_id' => 2, 'parent_id' => 7, 'order' => 7, 'type' => "page", 'page_id' => 64, 'title' => "Forms"],
 	],
 
 ];

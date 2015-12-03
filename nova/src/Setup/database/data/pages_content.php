@@ -90,23 +90,23 @@ return [
 	/**
 	 * Permissions
 	 */
-	['page_id' => 54, 'type' => 'header', 'key' => 'admin.access.permissions.header', 'value' => "Permissions"],
-	['page_id' => 54, 'type' => 'title', 'key' => 'admin.access.permissions.title', 'value' => "Permissions"],
-	['page_id' => 54, 'type' => 'message', 'key' => 'admin.access.permissions.message', 'value' => null],
-	['page_id' => 55, 'type' => 'header', 'key' => 'admin.access.permissions.create.header', 'value' => "Add Permission"],
-	['page_id' => 55, 'type' => 'title', 'key' => 'admin.access.permissions.create.title', 'value' => "Add Permission"],
-	['page_id' => 55, 'type' => 'message', 'key' => 'admin.access.permissions.create.message', 'value' => null],
-	['page_id' => 57, 'type' => 'header', 'key' => 'admin.access.permissions.edit.header', 'value' => "Edit Permission"],
-	['page_id' => 57, 'type' => 'title', 'key' => 'admin.access.permissions.edit.title', 'value' => "Edit Permission"],
-	['page_id' => 57, 'type' => 'message', 'key' => 'admin.access.permissions.edit.message', 'value' => null],
+	['page_id' => 55, 'type' => 'header', 'key' => 'admin.access.permissions.header', 'value' => "Permissions"],
+	['page_id' => 55, 'type' => 'title', 'key' => 'admin.access.permissions.title', 'value' => "Permissions"],
+	['page_id' => 55, 'type' => 'message', 'key' => 'admin.access.permissions.message', 'value' => null],
+	['page_id' => 56, 'type' => 'header', 'key' => 'admin.access.permissions.create.header', 'value' => "Add Permission"],
+	['page_id' => 56, 'type' => 'title', 'key' => 'admin.access.permissions.create.title', 'value' => "Add Permission"],
+	['page_id' => 56, 'type' => 'message', 'key' => 'admin.access.permissions.create.message', 'value' => null],
+	['page_id' => 58, 'type' => 'header', 'key' => 'admin.access.permissions.edit.header', 'value' => "Edit Permission"],
+	['page_id' => 58, 'type' => 'title', 'key' => 'admin.access.permissions.edit.title', 'value' => "Edit Permission"],
+	['page_id' => 58, 'type' => 'message', 'key' => 'admin.access.permissions.edit.message', 'value' => null],
 
 	/**
 	 * Forms
 	 */
-	['page_id' => 63, 'type' => 'header', 'key' => 'admin.forms.header', 'value' => "Forms"],
-	['page_id' => 63, 'type' => 'title', 'key' => 'admin.forms.title', 'value' => "Forms"],
-	['page_id' => 63, 'type' => 'message', 'key' => 'admin.forms.message', 'value' => null],
-	['page_id' => 64, 'type' => 'header', 'key' => 'admin.forms.create.header', 'value' => "Add Form"],
-	['page_id' => 64, 'type' => 'title', 'key' => 'admin.forms.create.title', 'value' => "Add Form"],
-	['page_id' => 64, 'type' => 'message', 'key' => 'admin.forms.create.message', 'value' => null],
+	['page_id' => 64, 'type' => 'header', 'key' => 'admin.forms.header', 'value' => "Forms"],
+	['page_id' => 64, 'type' => 'title', 'key' => 'admin.forms.title', 'value' => "Forms"],
+	['page_id' => 64, 'type' => 'message', 'key' => 'admin.forms.message', 'value' => null],
+	['page_id' => 65, 'type' => 'header', 'key' => 'admin.forms.create.header', 'value' => "Add Form"],
+	['page_id' => 65, 'type' => 'title', 'key' => 'admin.forms.create.title', 'value' => "Add Form"],
+	['page_id' => 65, 'type' => 'message', 'key' => 'admin.forms.create.message', 'value' => null],
 ];
