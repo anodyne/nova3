@@ -13,7 +13,8 @@ class CreatePermissionRequest extends Request {
 	{
 		return [
 			'display_name'	=> 'required',
-			'name'			=> 'required',
+			'component'		=> 'required',
+			'action'		=> 'required',
 		];
 	}
 
@@ -21,7 +22,8 @@ class CreatePermissionRequest extends Request {
 	{
 		return [
 			'display_name.required' => "Please enter a display name",
-			'name.required' => "Please enter a key for the permission",
+			'component.required' => "Please enter a component",
+			'action.required' => "Please enter an action",
 		];
 	}
 

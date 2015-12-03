@@ -7,6 +7,7 @@ use Role,
 	PermissionRepositoryInterface,
 	EditRoleRequest, CreateRoleRequest, RemoveRoleRequest;
 use Nova\Core\Access\Events;
+use Illuminate\Http\Request;
 
 class RoleController extends BaseController {
 
@@ -142,18 +143,43 @@ class RoleController extends BaseController {
 	{
 		$this->isAjax = true;
 
+		$role = $this->repo->find($roleId);
+
+		if (policy($role)->create($this->user))
+		{
+			$body = ($role)
+				? view(locate('page', 'admin/access/role-duplicate'), compact('role'))
+				: alert('danger', "Role not found.");
+		}
+		else
+		{
+			$body = alert('danger', "You do not have permission to create roles.");
+		}
+
+		return partial('modal-content', [
+			'header' => "Duplicate Role",
+			'body' => $body,
+			'footer' => false,
+		]);
+	}
+
+	public function copy(Request $request, $roleId)
+	{
 		$oldRole = $this->repo->find($roleId);
 
 		$this->authorize('create', $oldRole, "You do not have permission to create roles.");
 
-		if (policy($oldRole)->create($this->user))
-		{
-			$newRole = $this->repo->duplicate($oldRole);
+		$newRole = $this->repo->duplicate(
+			$oldRole,
+			$request->input('display_name'),
+			$request->input('name')
+		);
 
-			event(new Events\RoleWasDuplicated($oldRole, $newRole));
+		event(new Events\RoleWasDuplicated($oldRole, $newRole));
 
-			flash()->success("Role Duplicated!");
-		}
+		flash()->success("Role Duplicated!");
+
+		return redirect()->route('admin.access.roles');
 	}
 
 }

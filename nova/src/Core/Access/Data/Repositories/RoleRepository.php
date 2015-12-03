@@ -60,7 +60,7 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface {
 		return false;
 	}
 
-	public function duplicate($resource)
+	public function duplicate($resource, $newName = null, $newKey = null)
 	{
 		// Get the item we're duplicate from
 		$originalRole = $this->getResource($resource);
@@ -68,8 +68,8 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface {
 		if ($originalRole)
 		{
 			$newRole = $originalRole->replicate();
-			$newRole->display_name = "Copy of ".$newRole->display_name;
-			$newRole->name = $newRole->name."-copy";
+			$newRole->display_name = ($newName) ? $newName : "Copy of ".$newRole->display_name;
+			$newRole->name = ($newKey) ? $newKey : $newRole->name."-copy";
 			$newRole->push();
 
 			// Duplicate the permissions for the role

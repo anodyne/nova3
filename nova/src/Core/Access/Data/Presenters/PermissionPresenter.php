@@ -25,7 +25,7 @@ class PermissionPresenter extends Presenter {
 
 		foreach ($this->entity->roles as $role)
 		{
-			$output.= label('default', $role->present()->name)."\t";
+			$output.= label('default', $role->present()->displayName)."\t";
 		}
 
 		return $output;

@@ -41,7 +41,7 @@
 				<div class="row">
 					@can('create', $role)
 						<div class="col-xs-12">
-							<p><a href="#" class="btn btn-default btn-lg btn-block js-roleAction" data-id="{{ $role->id }}" data-action="duplicate">Duplicate</a></p>
+							<p><a href="#" class="btn btn-default btn-lg btn-block" data-id="{{ $role->id }}" @click.prevent="duplicateRole">Duplicate</a></p>
 						</div>
 					@endcan
 
@@ -59,7 +59,7 @@
 
 					@can('remove', $role)
 						<div class="col-xs-12">
-							<p><a href="#" class="btn btn-danger btn-lg btn-block js-roleAction" data-id="{{ $role->id }}" data-action="remove">Remove</a></p>
+							<p><a href="#" class="btn btn-danger btn-lg btn-block" data-id="{{ $role->id }}" @click.prevent="removeRole">Remove</a></p>
 						</div>
 					@endcan
 				</div>
@@ -68,7 +68,7 @@
 				<div class="btn-toolbar pull-right">
 					@can('create', $role)
 						<div class="btn-group">
-							<a href="#" class="btn btn-default js-roleAction" data-id="{{ $role->id }}" data-action="duplicate">Duplicate</a>
+							<a href="#" class="btn btn-default" data-id="{{ $role->id }}" @click.prevent="duplicateRole">Duplicate</a>
 						</div>
 					@endcan
 
@@ -86,7 +86,7 @@
 
 					@can('remove', $role)
 						<div class="btn-group">
-							<a href="#" class="btn btn-danger js-roleAction" data-id="{{ $role->id }}" data-action="remove">Remove</a>
+							<a href="#" class="btn btn-danger" data-id="{{ $role->id }}" @click.prevent="removeRole">Remove</a>
 						</div>
 					@endcan
 				</div>

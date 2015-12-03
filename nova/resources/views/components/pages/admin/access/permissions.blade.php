@@ -60,7 +60,7 @@
 					<div class="col-md-9">
 						<p class="lead"><strong>@{{ permission.display_name }}</strong></p>
 						<p><strong>Key:</strong> @{{ permission.name }}</p>
-						<p v-show="permission.roles != ''"><strong>Included in Role(s):</strong> @{{! permission.roles !}}</p>
+						<p v-show="permission.roles != ''"><strong>Included in Role(s):</strong> @{{{ permission.roles }}}</p>
 					</div>
 					<div class="col-md-3" v-cloak>
 						<phone-tablet>

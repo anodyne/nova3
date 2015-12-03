@@ -23,13 +23,13 @@
 	<div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
 		<label class="col-md-2 control-label">Key</label>
 		<div class="col-md-3">
-			{!! Form::text('name', null, ['class' => 'form-control input-lg']) !!}
+			{!! Form::text('name', null, ['class' => 'form-control input-lg', 'v-model' => 'key', 'v-on:change' => 'updateKey']) !!}
 			{!! $errors->first('name', '<p class="help-block">:message</p>') !!}
 		</div>
 	</div>
 	<div class="form-group">
 		<div class="col-md-5 col-md-offset-2">
-			<p class="help-block">Permission keys are usually in the format of <code>component.action</code>, like <code>page.create</code>. If you need to provide levels within an action, simply append the level number to the end of the action: <code>post.edit.2</code>.</p>
+			<p class="help-block">Permission keys must be in the format of <code>component.action</code>, like <code>page.create</code>. If you need to provide levels within an action, simply append the level number to the end of the action: <code>post.edit.2</code>.</p>
 		</div>
 	</div>
 

@@ -1,38 +1,51 @@
 <script>
-	$('[name="display_name"]').change(function(e)
-	{
-		var value = $(this).val();
+	vue = {
+		data: {
+			name: "",
+			key: ""
+		},
 
-		// Update the key field only if there isn't something there
-		if ($('[name="name"]').val() == "")
-			$('[name="name"]').val(value.replace(/\W+/g, '-').toLowerCase()).trigger('change');
-	});
-
-	$('[name="name"]').change(function(e)
-	{
-		var field = $(this);
-		var value = $(this).val();
-
-		$.ajax({
-			type: "POST",
-			dataType: "json",
-			url: "{{ route('admin.access.roles.checkKey') }}",
-			data: { key: $(this).val() },
-			success: function(data)
+		methods: {
+			updateName: function()
 			{
-				if (data.code == 0)
-				{
-					field.val("");
+				this.key = this.name.replace(/\W+/g, '-').toLowerCase()
 
-					swal({
-						title: "Error!",
-						text: "Role keys must be unique. Another role is already using the key you gave. Please enter a unique key.",
-						type: "error",
-						timer: null,
-						html: true
-					});
+				this.updateKey()
+			},
+
+			updateKey: function()
+			{
+				if (this.key != "")
+				{
+					var url = "{{ route('admin.access.roles.checkKey') }}"
+					var postData = { key: this.key }
+
+					this.$http.post(url, postData, function (data, status, request)
+					{
+						if (data.code == 0)
+						{
+							this.key = ""
+
+							swal({
+								title: "Error!",
+								text: "Role keys must be unique. Another role is already using the key [" + postData.key + "]. Please enter a unique key.",
+								type: "error",
+								timer: null,
+								html: true
+							})
+						}
+					}).error(function (data, status, request)
+					{
+						swal({
+							title: "Error!",
+							text: "There was an error trying to check the role key. Please try again. (Error " + status + ")",
+							type: "error",
+							timer: null,
+							html: true
+						})
+					})
 				}
 			}
-		});
-	});
+		}
+	}
 </script>

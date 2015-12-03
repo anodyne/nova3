@@ -15,7 +15,7 @@
 	<div class="form-group{{ ($errors->has('display_name')) ? ' has-error' : '' }}">
 		<label class="col-md-2 control-label">Name</label>
 		<div class="col-md-5">
-			{!! Form::text('display_name', null, ['class' => 'form-control input-lg']) !!}
+			{!! Form::text('display_name', null, ['class' => 'form-control input-lg', 'v-model' => 'name', 'v-on:change' => 'updateName']) !!}
 			{!! $errors->first('display_name', '<p class="help-block">:message</p>') !!}
 		</div>
 	</div>
@@ -23,7 +23,7 @@
 	<div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
 		<label class="col-md-2 control-label">Key</label>
 		<div class="col-md-3">
-			{!! Form::text('name', null, ['class' => 'form-control input-lg']) !!}
+			{!! Form::text('name', null, ['class' => 'form-control input-lg', 'v-model' => 'key', 'v-on:change' => 'updateKey']) !!}
 			{!! $errors->first('name', '<p class="help-block">:message</p>') !!}
 		</div>
 	</div>
@@ -44,20 +44,23 @@
 		<label class="col-md-2 control-label">Permissions</label>
 		<div class="col-md-10">
 			@foreach ($permissions as $component => $permission)
-				<fieldset>
-					<legend>{{ $component }}</legend>
-
-					<div class="row">
-						@foreach ($permission as $p)
-							<div class="col-md-4">
-								<label class="checkbox-inline">
-									{!! Form::checkbox('permissions[]', $p->id) !!}
-									{!! $p->present()->displayName !!}
-								</label>
-							</div>
-						@endforeach
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">{{ $component }}</h3>
 					</div>
-				</fieldset>
+					<div class="panel-body">
+						<div class="row">
+							@foreach ($permission as $p)
+								<div class="col-md-4">
+									<label class="checkbox-inline">
+										{!! Form::checkbox('permissions[]', $p->id) !!}
+										{!! $p->present()->displayName !!}
+									</label>
+								</div>
+							@endforeach
+						</div>
+					</div>
+				</div>
 			@endforeach
 		</div>
 	</div>

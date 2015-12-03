@@ -1,28 +1,19 @@
 <script>
-	$('.js-roleAction').click(function(e)
-	{
-		e.preventDefault();
+	vue = {
+		methods: {
+			duplicateRole: function (event)
+			{
+				$('#duplicateRole').modal({
+					remote: "{{ url('admin/access/roles') }}/" + $(event.target).data('id') + "/duplicate"
+				}).modal('show')
+			},
 
-		var roleId = $(this).data('id');
-		var action = $(this).data('action');
-
-		if (action == 'duplicate')
-		{
-			$.ajax({
-				type: "POST",
-				url: "{{ url('admin/access/roles') }}/" + roleId + "/duplicate",
-				success: function(data)
-				{
-					location.reload(true);
-				}
-			});
+			removeRole: function (event)
+			{
+				$('#removeRole').modal({
+					remote: "{{ url('admin/access/roles') }}/" + $(event.target).data('id') + "/remove"
+				}).modal('show')
+			}
 		}
-
-		if (action == 'remove')
-		{
-			$('#removeRole').modal({
-				remote: "{{ url('admin/access/roles') }}/" + roleId + "/remove"
-			}).modal('show');
-		}
-	});
+	}
 </script>
