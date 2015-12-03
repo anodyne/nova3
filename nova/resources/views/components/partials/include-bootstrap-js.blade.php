@@ -6,6 +6,12 @@
 		$('.modal').removeData('bs.modal')
 	})
 
+	// Re-compile Vue when a modal is loaded so we can use components in the modal
+	$('.modal').on('loaded.bs.modal', function()
+	{
+		vm.$compile($(this).get(0))
+	})
+
 	$(function()
 	{
 		$('.js-tooltip-top').tooltip({ placement: 'top' })
