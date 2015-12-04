@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Forms\Data;
 
-use Model, NovaFormTabPresenter;
+use Model, FormTabPresenter;
 use Laracasts\Presenter\PresentableTrait;
 
 class Tab extends Model {
@@ -13,7 +13,7 @@ class Tab extends Model {
 
 	protected $dates = ['created_at', 'updated_at'];
 
-	protected $presenter = NovaFormTabPresenter::class;
+	protected $presenter = FormTabPresenter::class;
 
 	/*
 	|---------------------------------------------------------------------------

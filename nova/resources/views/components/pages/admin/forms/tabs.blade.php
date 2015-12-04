@@ -1,21 +1,35 @@
+<div class="page-header">
+	<h1>Form Tabs <small>{!! $form->present()->name !!}</small></h1>
+</div>
+
 <div v-cloak>
 	<phone-tablet>
-		@can('create', $form)
-			<p><a href="{{ route('admin.forms.create') }}" class="btn btn-success btn-lg btn-block">Add a Tab</a></p>
+		@can('create', $tab)
+			<p><a href="{{ route('admin.forms.tabs.create', $form->key) }}" class="btn btn-success btn-lg btn-block">Add a Tab</a></p>
+		@endcan
+
+		@can('manage', $form)
+			<p><a href="{{ route('admin.forms') }}" class="btn btn-default btn-lg btn-block">Back to Forms</a></p>
 		@endcan
 	</phone-tablet>
 	<desktop>
 		<div class="btn-toolbar">
-			@can('create', $form)
+			@can('create', $tab)
 				<div class="btn-group">
-					<a href="{{ route('admin.forms.create') }}" class="btn btn-success">Add a Tab</a>
+					<a href="{{ route('admin.forms.tabs.create', $form->key) }}" class="btn btn-success">Add a Tab</a>
+				</div>
+			@endcan
+
+			@can('manage', $form)
+				<div class="btn-group">
+					<a href="{{ route('admin.forms') }}" class="btn btn-default">Back to Forms</a>
 				</div>
 			@endcan
 		</div>
 	</desktop>
 </div>
 
-@if ($tabs->count() > 0)
+@if ($hasTabs)
 	<div class="data-table data-table-striped data-table-bordered">
 	@foreach ($tabs as $tab)
 		<div class="row">

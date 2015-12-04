@@ -341,6 +341,9 @@ return [
 		'CreateFormRequest' => Nova\Core\Forms\Http\Requests\CreateFormRequest::class,
 		'EditFormRequest' => Nova\Core\Forms\Http\Requests\EditFormRequest::class,
 		'RemoveFormRequest' => Nova\Core\Forms\Http\Requests\RemoveFormRequest::class,
+		'CreateTabRequest' => Nova\Core\Forms\Http\Requests\CreateTabRequest::class,
+		'EditTabRequest' => Nova\Core\Forms\Http\Requests\EditTabRequest::class,
+		'RemoveTabRequest' => Nova\Core\Forms\Http\Requests\RemoveTabRequest::class,
 
 	],
 

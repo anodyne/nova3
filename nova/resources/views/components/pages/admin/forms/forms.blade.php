@@ -37,7 +37,7 @@
 
 						@can('manage', $formTab)
 							<div class="col-xs-12">
-								<p><a href="{{ route('admin.menus.items', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Edit Form Tabs</a></p>
+								<p><a href="{{ route('admin.forms.tabs', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Edit Form Tabs</a></p>
 							</div>
 						@endcan
 
@@ -76,7 +76,7 @@
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right" role="menu">
 								@can('manage', $formTab)
-									<li><a href="{{ route('admin.menus.items', [$form->key]) }}">Tabs</a></li>
+									<li><a href="{{ route('admin.forms.tabs', [$form->key]) }}">Tabs</a></li>
 								@endcan
 
 								@can('manage', $formSection)

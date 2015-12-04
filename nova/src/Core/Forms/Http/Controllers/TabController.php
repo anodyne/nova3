@@ -1,9 +1,10 @@
 <?php namespace Nova\Core\Forms\Http\Controllers;
 
-use BaseController,
+use NovaFormTab,
+	BaseController,
 	FormRepositoryInterface,
 	FormTabRepositoryInterface,
-	EditFormRequest, CreateFormRequest, RemoveFormRequest;
+	EditTabRequest, CreateTabRequest, RemoveTabRequest;
 use Nova\Core\Forms\Events;
 
 class TabController extends BaseController {
@@ -31,28 +32,32 @@ class TabController extends BaseController {
 		$this->view = 'admin/forms/tabs';
 		$this->jsView = 'admin/forms/tabs-js';
 
-		$this->data->tabs = $this->repo->getFormTabs($form);
+		$this->data->tab = new NovaFormTab;
+		$tabs = $this->data->tabs = $this->repo->getFormTabs($form);
+		$this->data->hasTabs = $tabs->count();
 	}
 
-	public function create()
+	public function create($formKey)
 	{
-		$this->authorize('create', new NovaForm, "You do not have permission to create forms.");
+		$form = $this->data->form = $this->formRepo->findByKey($formKey);
 
-		$this->view = 'admin/forms/form-create';
-		$this->jsView = 'admin/forms/form-create-js';
+		$this->authorize('create', new NovaFormTab, "You do not have permission to create form tabs.");
+
+		$this->view = 'admin/forms/tab-create';
+		$this->jsView = 'admin/forms/tab-create-js';
 	}
 
-	public function store(CreateFormRequest $request)
+	public function store(CreateTabRequest $request, $formKey)
 	{
-		$this->authorize('create', new NovaForm, "You do not have permission to create forms.");
+		$this->authorize('create', new NovaFormTab, "You do not have permission to create form tabs.");
 
-		$form = $this->repo->create($request->all());
+		$tab = $this->repo->create($request->all());
 
-		event(new Events\FormWasCreated($form));
+		event(new Events\TabWasCreated($tab));
 
-		flash()->success("Form Created!", "You can begin designing your form now with tabs, sections, and fields.");
+		flash()->success("Form Tab Created!", "You can begin designing the tab layout with sections and fields.");
 
-		return redirect()->route('admin.forms');
+		return redirect()->route('admin.forms.tabs', [$formKey]);
 	}
 
 	public function edit($formKey)
@@ -65,7 +70,7 @@ class TabController extends BaseController {
 		$this->jsView = 'admin/forms/form-edit-js';
 	}
 
-	public function update(EditFormRequest $request, $formKey)
+	public function update(EditTabRequest $request, $formKey)
 	{
 		$form = $this->repo->findByKey($formKey);
 
@@ -104,7 +109,7 @@ class TabController extends BaseController {
 		]);
 	}
 
-	public function destroy(RemoveFormRequest $request, $formKey)
+	public function destroy(RemoveTabRequest $request, $formKey)
 	{
 		$form = $this->repo->findByKey($formKey);
 
@@ -117,6 +122,22 @@ class TabController extends BaseController {
 		flash()->success("Form Removed!");
 
 		return redirect()->route('admin.forms');
+	}
+
+	public function checkTabLink()
+	{
+		$this->isAjax = true;
+
+		$form = $this->formRepo->findByKey(request('formKey'));
+
+		$count = $this->repo->countLinkIds($form, request('linkId'));
+
+		if ($count > 0)
+		{
+			return json_encode(['code' => 0]);
+		}
+
+		return json_encode(['code' => 1]);
 	}
 
 }

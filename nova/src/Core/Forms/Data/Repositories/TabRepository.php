@@ -14,6 +14,16 @@ class TabRepository extends BaseRepository implements FormTabRepositoryInterface
 		$this->model = $model;
 	}
 
+	public function countLinkIds(NovaForm $form, $linkId)
+	{
+		if ( ! $form->tabs) return 0;
+
+		return $form->tabs->filter(function ($tab) use ($linkId)
+		{
+			return $tab->link_id === $linkId;
+		})->count();
+	}
+
 	public function getFormTabs(NovaForm $form)
 	{
 		return $form->tabs->sortBy('order');
