@@ -1,6 +1,10 @@
 <?php namespace Nova\Core\Forms\Data\Interfaces;
 
-use NovaFormTab;
+use NovaForm, NovaFormTab;
 use Nova\Foundation\Data\Interfaces\BaseRepositoryInterface;
 
-interface TabRepositoryInterface extends BaseRepositoryInterface {}
+interface TabRepositoryInterface extends BaseRepositoryInterface {
+
+	public function getFormTabs(NovaForm $form);
+
+}
