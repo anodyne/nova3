@@ -22,7 +22,7 @@
 
 							swal({
 								title: "Error!",
-								text: "Page keys must be unique. Another page is already using the key you gave. Please enter a unique key.",
+								text: "Page keys must be unique. Another page is already using the key [" + postData.key + "]. Please enter a unique key.",
 								type: "error",
 								timer: null,
 								html: true
@@ -85,8 +85,6 @@
 						}
 					}).error(function (data, status, request)
 					{
-						console.log(status)
-
 						swal({
 							title: "Error!",
 							text: "There was an error trying to check the URI. Please try again. (Error " + status + ")",
