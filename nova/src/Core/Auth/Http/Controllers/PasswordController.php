@@ -31,7 +31,7 @@ class PasswordController extends BaseController {
 	{
 		$this->validate($request, ['email' => 'required|email']);
 
-		$response = $this->passwords->sendResetLink($request->only('email'), function($m)
+		$response = $this->passwords->sendResetLink($request->only('email'), function ($m)
 		{
 			$m->subject($this->getEmailSubject());
 		});
@@ -78,7 +78,7 @@ class PasswordController extends BaseController {
 			'email', 'password', 'password_confirmation', 'token'
 		);
 
-		$response = $this->passwords->reset($credentials, function($user, $password)
+		$response = $this->passwords->reset($credentials, function ($user, $password)
 		{
 			$user->password = $password;
 

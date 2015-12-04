@@ -12,7 +12,7 @@ class CreateFormsTables extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('forms', function(Blueprint $table)
+		Schema::create('forms', function (Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('key', 20)->unique();
@@ -29,7 +29,7 @@ class CreateFormsTables extends Migration
 			$table->timestamps();
 		});
 
-		Schema::create('forms_tabs', function(Blueprint $table)
+		Schema::create('forms_tabs', function (Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('form_id')->unsigned();
@@ -43,7 +43,7 @@ class CreateFormsTables extends Migration
 				->onDelete('cascade');
 		});
 
-		Schema::create('forms_sections', function(Blueprint $table)
+		Schema::create('forms_sections', function (Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('form_id')->unsigned();
@@ -59,7 +59,7 @@ class CreateFormsTables extends Migration
 				->onDelete('cascade');
 		});
 
-		Schema::create('forms_fields', function(Blueprint $table)
+		Schema::create('forms_fields', function (Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('form_id')->unsigned();
@@ -89,7 +89,7 @@ class CreateFormsTables extends Migration
 				->onDelete('cascade');
 		});
 
-		Schema::create('forms_data', function(Blueprint $table)
+		Schema::create('forms_data', function (Blueprint $table)
 		{
 			$table->bigIncrements('id');
 			$table->integer('form_id')->unsigned();
@@ -105,7 +105,7 @@ class CreateFormsTables extends Migration
 				->onDelete('cascade');
 		});
 
-		Schema::create('forms_fields_values', function(Blueprint $table)
+		Schema::create('forms_fields_values', function (Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('field_id')->unsigned();

@@ -44,7 +44,7 @@ abstract class BaseController extends Controller {
 		$me = $this;
 
 		// Check if Nova is installed
-		$this->beforeFilter(function()
+		$this->beforeFilter(function ()
 		{
 			if ( ! app('nova.setup')->isInstalled())
 			{
@@ -53,7 +53,7 @@ abstract class BaseController extends Controller {
 		});
 
 		// Bind some data to all views
-		$this->beforeFilter(function($route, $request) use (&$me)
+		$this->beforeFilter(function ($route, $request) use (&$me)
 		{
 			if (app('nova.setup')->isInstalled())
 			{

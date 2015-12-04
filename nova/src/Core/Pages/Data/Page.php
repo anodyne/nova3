@@ -59,7 +59,7 @@ class Page extends Model {
 
 	public function content($key)
 	{
-		return $this->pageContents->filter(function($c) use ($key)
+		return $this->pageContents->filter(function ($c) use ($key)
 		{
 			return $c->key == $key;
 		})->first();
@@ -67,7 +67,7 @@ class Page extends Model {
 
 	public function header()
 	{
-		return $this->pageContents->filter(function($c)
+		return $this->pageContents->filter(function ($c)
 		{
 			return $c->type == 'header';
 		})->first();
@@ -75,7 +75,7 @@ class Page extends Model {
 
 	public function message()
 	{
-		return $this->pageContents->filter(function($c)
+		return $this->pageContents->filter(function ($c)
 		{
 			return $c->type == 'message';
 		})->first();
@@ -83,7 +83,7 @@ class Page extends Model {
 
 	public function title()
 	{
-		return $this->pageContents->filter(function($c)
+		return $this->pageContents->filter(function ($c)
 		{
 			return $c->type == 'title';
 		})->first();

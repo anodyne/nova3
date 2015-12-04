@@ -21,16 +21,16 @@ class FormRepository extends BaseRepository implements FormRepositoryInterface {
 		if ($form)
 		{
 			// First, remove all the data
-			$form->data->each(function($data)
+			$form->data->each(function ($data)
 			{
 				$data->delete();
 			});
 
 			// Remove all the fields
-			$form->fields->each(function($field)
+			$form->fields->each(function ($field)
 			{
 				// First remove all the field values
-				$field->values->each(function($value)
+				$field->values->each(function ($value)
 				{
 					$value->delete();
 				});
@@ -40,13 +40,13 @@ class FormRepository extends BaseRepository implements FormRepositoryInterface {
 			});
 
 			// Remove all the sections
-			$form->sections->each(function($section)
+			$form->sections->each(function ($section)
 			{
 				$section->delete();
 			});
 
 			// Remove all the tabs
-			$form->tabs->each(function($tab)
+			$form->tabs->each(function ($tab)
 			{
 				$tab->delete();
 			});

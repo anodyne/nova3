@@ -5,7 +5,7 @@ $options = [
 	'namespace'		=> 'Nova\Setup\Http\Controllers'
 ];
 
-Route::group($options, function()
+Route::group($options, function ()
 {
 	get('env', 'SetupController@environment')->name('setup.env');
 	get('/', 'SetupController@index')->name('setup.home');
@@ -17,7 +17,7 @@ $installOptions = array_merge($options, [
 	'prefix' => 'setup/install'
 ]);
 
-Route::group($installOptions, function()
+Route::group($installOptions, function ()
 {
 	get('/', 'InstallController@index')->name('setup.install');
 

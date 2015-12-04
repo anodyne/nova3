@@ -14,7 +14,7 @@ class IconCompiler implements CompilerInterface {
 	 */
 	public function compile($value, CompilerEngine $engine)
 	{
-		$callback = function($matches)
+		$callback = function ($matches)
 		{
 			// Get the values out of the tag
 			list($type, $key) = explode(':', $matches[2]);

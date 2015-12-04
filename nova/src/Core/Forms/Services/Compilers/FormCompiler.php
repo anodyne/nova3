@@ -16,7 +16,7 @@ class FormCompiler implements CompilerInterface {
 	 */
 	public function compile($value, CompilerEngine $engine)
 	{
-		$callback = function($matches)
+		$callback = function ($matches)
 		{
 			// Get the values out of the tag
 			$args = explode(':', $matches[2]);

@@ -12,7 +12,7 @@ class CreateMenuTables extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('menus', function(Blueprint $table)
+		Schema::create('menus', function (Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('name');
@@ -20,7 +20,7 @@ class CreateMenuTables extends Migration {
 			$table->timestamps();
 		});
 
-		Schema::create('menus_items', function(Blueprint $table)
+		Schema::create('menus_items', function (Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('menu_id')->unsigned();

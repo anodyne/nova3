@@ -34,7 +34,7 @@ class BaseMailer {
 
 	protected function buildMessage(array $payload)
 	{
-		return function($message) use ($payload)
+		return function ($message) use ($payload)
 		{
 			$calls = ['to', 'cc', 'bcc', 'from', 'replyTo'];
 

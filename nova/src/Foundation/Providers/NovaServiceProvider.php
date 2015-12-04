@@ -63,7 +63,7 @@ class NovaServiceProvider extends ServiceProvider {
 	{
 		$this->app->singleton(
 			['nova.locator' => 'Nova\Foundation\Services\Locator\Locatable'],
-			function($app)
+			function ($app)
 			{
 				return new Locator($app['nova.user'], $app['nova.settings']);
 			}
@@ -81,7 +81,7 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function createPageCompilerEngine()
 	{
-		$this->app->singleton('nova.page.compiler', function($app)
+		$this->app->singleton('nova.page.compiler', function ($app)
 		{
 			$engine = new CompilerEngine;
 
@@ -105,7 +105,7 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function getCurrentUser()
 	{
-		$this->app->singleton('nova.user', function($app)
+		$this->app->singleton('nova.user', function ($app)
 		{
 			if ($app['nova.setup']->isInstalled())
 			{
@@ -123,7 +123,7 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function registerBindings()
 	{
-		$this->app->singleton('nova.pageContent', function($app)
+		$this->app->singleton('nova.pageContent', function ($app)
 		{
 			if ($app['nova.setup']->isInstalled())
 			{
@@ -133,7 +133,7 @@ class NovaServiceProvider extends ServiceProvider {
 			return new Collection;
 		});
 
-		$this->app->singleton('nova.settings', function($app)
+		$this->app->singleton('nova.settings', function ($app)
 		{
 			if ($app['nova.setup']->isInstalled())
 			{
@@ -143,22 +143,22 @@ class NovaServiceProvider extends ServiceProvider {
 			return new Collection;
 		});
 
-		$this->app->bind('nova.character.creator', function($app)
+		$this->app->bind('nova.character.creator', function ($app)
 		{
 			return new CharacterCreator($app['CharacterRepository'], $app['events']);
 		});
 
-		$this->app->bind('nova.flash', function($app)
+		$this->app->bind('nova.flash', function ($app)
 		{
 			return new FlashNotifier;
 		});
 
-		$this->app->bind('nova.markdown', function($app)
+		$this->app->bind('nova.markdown', function ($app)
 		{
 			return new MarkdownParser(new CommonMarkConverter);
 		});
 
-		$this->app->bind('nova.user.creator', function($app)
+		$this->app->bind('nova.user.creator', function ($app)
 		{
 			return new UserCreator(
 				$app['UserRepository'],

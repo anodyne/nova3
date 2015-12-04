@@ -12,7 +12,7 @@ class CreateSystemTables extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('system_info', function(Blueprint $table)
+		Schema::create('system_info', function (Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('uid', 32);
@@ -23,7 +23,7 @@ class CreateSystemTables extends Migration {
 			$table->timestamps();
 		});
 
-		Schema::create('system_events', function(Blueprint $table)
+		Schema::create('system_events', function (Blueprint $table)
 		{
 			$table->bigIncrements('id');
 			$table->string('email', 100)->nullable();

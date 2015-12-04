@@ -44,14 +44,14 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 	{
 		if ($menu instanceof Menu)
 		{
-			$items = $menu->menuItems->filter(function($item)
+			$items = $menu->menuItems->filter(function ($item)
 			{
 				return (int) $item->parent_id === 0;
 			})->sortBy('order');
 
 			if ( ! user())
 			{
-				$items = $items->filter(function($item)
+				$items = $items->filter(function ($item)
 				{
 					return (bool) $item->authentication === false;
 				});
@@ -76,14 +76,14 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 	{
 		if ($menu instanceof Menu)
 		{
-			$items = $menu->menuItems->filter(function($item)
+			$items = $menu->menuItems->filter(function ($item)
 			{
 				return (int) $item->parent_id != 0;
 			})->sortBy('order');
 
 			if ( ! user())
 			{
-				$items = $items->filter(function($item)
+				$items = $items->filter(function ($item)
 				{
 					return (bool) $item->authentication === false;
 				});
@@ -115,7 +115,7 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInt
 			{
 				foreach ($positions as $order => $itemId)
 				{
-					$itemCollection = $items->filter(function($i) use ($itemId)
+					$itemCollection = $items->filter(function ($i) use ($itemId)
 					{
 						return $i->id == $itemId;
 					});
