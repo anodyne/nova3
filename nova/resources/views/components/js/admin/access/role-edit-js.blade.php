@@ -2,7 +2,13 @@
 	vue = {
 		data: {
 			name: "",
-			key: ""
+			key: "",
+			oldKey: ""
+		},
+
+		ready: function()
+		{
+			this.oldKey = this.key
 		},
 
 		methods: {
@@ -15,7 +21,7 @@
 
 			updateKey: function()
 			{
-				if (this.key != "")
+				if (this.key != "" && this.key != this.oldKey)
 				{
 					var url = "{{ route('admin.access.roles.checkKey') }}"
 					var postData = { key: this.key }
@@ -24,7 +30,7 @@
 					{
 						if (data.code == 0)
 						{
-							this.key = ""
+							this.key = this.oldKey
 
 							swal({
 								title: "Error!",
