@@ -10,11 +10,6 @@
 				<div class="btn-group">
 					<a href="{{ route('admin.forms.create') }}" class="btn btn-success">Add a Form</a>
 				</div>
-				<div class="btn-group">
-					@can('manage', $formTab)
-						<a href="#" class="btn btn-default">Tabs</a>
-					@endcan
-				</div>
 			@endcan
 		</div>
 	</desktop>
@@ -26,6 +21,7 @@
 		<div class="col-md-6">
 			<p class="lead"><strong>{{ $form->present()->name }}</strong></p>
 			<p><strong>Key:</strong> {{ $form->present()->key }}</p>
+			<p>{!! $form->present()->statusAsLabel !!}</p>
 		</div>
 		<div class="col-md-6" v-cloak>
 			<phone-tablet>
@@ -36,8 +32,26 @@
 
 					@can('edit', $form)
 						<div class="col-xs-12">
-							<p><a href="{{ route('admin.forms.edit', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
+							<p><a href="{{ route('admin.forms.edit', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Edit Form</a></p>
 						</div>
+
+						@can('manage', $formTab)
+							<div class="col-xs-12">
+								<p><a href="{{ route('admin.menus.items', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Edit Form Tabs</a></p>
+							</div>
+						@endcan
+
+						@can('manage', $formSection)
+							<div class="col-xs-12">
+								<p><a href="{{ route('admin.menus.items', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Edit Form Sections</a></p>
+							</div>
+						@endcan
+
+						@can('manage', $formField)
+							<div class="col-xs-12">
+								<p><a href="{{ route('admin.menus.items', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Edit Form Fields</a></p>
+							</div>
+						@endcan
 					@endcan
 
 					@can('remove', $form)
@@ -62,15 +76,15 @@
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right" role="menu">
 								@can('manage', $formTab)
-									<li><a href="{{ route('admin.menus.items', [$form->key]) }}">Form Tabs</a></li>
+									<li><a href="{{ route('admin.menus.items', [$form->key]) }}">Tabs</a></li>
 								@endcan
 
 								@can('manage', $formSection)
-									<li><a href="{{ route('admin.menus.items', [$form->key]) }}">Form Sections</a></li>
+									<li><a href="{{ route('admin.menus.items', [$form->key]) }}">Sections</a></li>
 								@endcan
 
 								@can('manage', $formField)
-									<li><a href="{{ route('admin.menus.items', [$form->key]) }}">Form Fields</a></li>
+									<li><a href="{{ route('admin.menus.items', [$form->key]) }}">Fields</a></li>
 								@endcan
 							</ul>
 						</div>

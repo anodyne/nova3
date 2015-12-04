@@ -11,7 +11,7 @@
 	</desktop>
 </div>
 
-{!! Form::open(['route' => 'admin.forms.store', 'class' => 'form-horizontal']) !!}
+{!! Form::model($form, ['route' => ['admin.forms.update', $form->key], 'class' => 'form-horizontal', 'method' => 'put']) !!}
 	<div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
 		<label class="col-md-2 control-label">Form Name</label>
 		<div class="col-md-5">
@@ -22,7 +22,7 @@
 
 	<div class="form-group{{ ($errors->has('key')) ? ' has-error' : '' }}">
 		<label class="col-md-2 control-label">Form Key</label>
-		<div class="col-md-5">
+		<div class="col-md-3">
 			{!! Form::text('key', null, ['class' => 'form-control input-lg', 'v-model' => 'key', 'v-on:change' => 'updateKey']) !!}
 			{!! $errors->first('key', '<p class="help-block">:message</p>') !!}
 		</div>
@@ -48,7 +48,7 @@
 		<div class="col-md-5">
 			<div>
 				<div class="radio">
-					<label>{!! Form::radio('status', Status::ACTIVE, true) !!} {{ ucwords(Status::toString(Status::ACTIVE)) }}</label>
+					<label>{!! Form::radio('status', Status::ACTIVE) !!} {{ ucwords(Status::toString(Status::ACTIVE)) }}</label>
 				</div>
 				<div class="radio">
 					<label>{!! Form::radio('status', Status::INACTIVE) !!} {{ ucwords(Status::toString(Status::INACTIVE)) }}</label>
@@ -84,12 +84,12 @@
 	<div class="form-group">
 		<div class="col-md-5 col-md-offset-2" v-cloak>
 			<phone-tablet>
-				<p>{!! Form::button("Add Form", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
+				<p>{!! Form::button("Update Form", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
 			</phone-tablet>
 			<desktop>
 				<div class="btn-toolbar">
 					<div class="btn-group">
-						{!! Form::button("Add Form", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+						{!! Form::button("Update Form", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
 					</div>
 				</div>
 			</desktop>

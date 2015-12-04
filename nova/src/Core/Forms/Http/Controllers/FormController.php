@@ -128,4 +128,18 @@ class FormController extends BaseController {
 		# code...
 	}
 
+	public function checkFormKey()
+	{
+		$this->isAjax = true;
+
+		$count = $this->repo->countBy('key', request('key'));
+
+		if ($count > 0)
+		{
+			return json_encode(['code' => 0]);
+		}
+
+		return json_encode(['code' => 1]);
+	}
+
 }
