@@ -563,4 +563,11 @@ return [
 		'uri'				=> "admin/forms/{formKey}/tabs",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\TabController@destroy",
 	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Check for Duplicate Link IDs",
+		'key'				=> "admin.forms.tabs.checkLink",
+		'uri'				=> "admin/forms/check-tab-links",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\TabController@checkTabLink",
+	],
 ];
