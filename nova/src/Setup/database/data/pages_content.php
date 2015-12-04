@@ -109,4 +109,17 @@ return [
 	['page_id' => 65, 'type' => 'header', 'key' => 'admin.forms.create.header', 'value' => "Add Form"],
 	['page_id' => 65, 'type' => 'title', 'key' => 'admin.forms.create.title', 'value' => "Add Form"],
 	['page_id' => 65, 'type' => 'message', 'key' => 'admin.forms.create.message', 'value' => null],
+	['page_id' => 67, 'type' => 'header', 'key' => 'admin.forms.edit.header', 'value' => "Edit Form"],
+	['page_id' => 67, 'type' => 'title', 'key' => 'admin.forms.edit.title', 'value' => "Edit Form"],
+	['page_id' => 67, 'type' => 'message', 'key' => 'admin.forms.edit.message', 'value' => null],
+
+	['page_id' => 73, 'type' => 'header', 'key' => 'admin.forms.tabs.header', 'value' => "Form Tabs"],
+	['page_id' => 73, 'type' => 'title', 'key' => 'admin.forms.tabs.title', 'value' => "Form Tabs"],
+	['page_id' => 73, 'type' => 'message', 'key' => 'admin.forms.tabs.message', 'value' => null],
+	['page_id' => 74, 'type' => 'header', 'key' => 'admin.forms.tabs.create.header', 'value' => "Add Form Tab"],
+	['page_id' => 74, 'type' => 'title', 'key' => 'admin.forms.tabs.create.title', 'value' => "Add Form Tab"],
+	['page_id' => 74, 'type' => 'message', 'key' => 'admin.forms.tabs.create.message', 'value' => null],
+	['page_id' => 76, 'type' => 'header', 'key' => 'admin.forms.tabs.edit.header', 'value' => "Edit Form Tab"],
+	['page_id' => 76, 'type' => 'title', 'key' => 'admin.forms.tabs.edit.title', 'value' => "Edit Form Tab"],
+	['page_id' => 76, 'type' => 'message', 'key' => 'admin.forms.tabs.edit.message', 'value' => null],
 ];
