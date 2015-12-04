@@ -4,7 +4,15 @@
 			resource: "",
 			type: "",
 			key: "",
-			uri: ""
+			uri: "",
+			oldKey: "",
+			oldUri: ""
+		},
+
+		ready: function()
+		{
+			this.oldKey = this.key
+			this.oldUri = this.uri
 		},
 
 		methods: {
@@ -15,7 +23,7 @@
 
 			checkKey: function()
 			{
-				if (this.key != "")
+				if (this.key != "" && this.key != this.oldKey)
 				{
 					var url = "{{ route('admin.pages.checkKey') }}"
 					var postData = { key: this.key }
@@ -24,11 +32,11 @@
 					{
 						if (data.code == 0)
 						{
-							this.key = ""
+							this.key = this.oldKey
 
 							swal({
 								title: "Error!",
-								text: "Page keys must be unique. Another page is already using the key you gave. Please enter a unique key.",
+								text: "Page keys must be unique. Another page is already using the key [" + postData.key + "]. Please enter a unique key.",
 								type: "error",
 								timer: null,
 								html: true
@@ -49,7 +57,7 @@
 
 			checkUri: function()
 			{
-				if (this.uri != "")
+				if (this.uri != "" && this.uri != this.oldUri)
 				{
 					var url = "{{ route('admin.pages.checkUri') }}"
 					var postData = { uri: this.uri }
@@ -58,7 +66,7 @@
 					{
 						if (data.code == 0)
 						{
-							this.uri = ""
+							this.uri = this.oldUri
 
 							swal({
 								title: "Error!",
@@ -91,8 +99,6 @@
 						}
 					}).error(function (data, status, request)
 					{
-						console.log(status)
-
 						swal({
 							title: "Error!",
 							text: "There was an error trying to check the URI. Please try again. (Error " + status + ")",
