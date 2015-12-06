@@ -145,6 +145,46 @@ class CreateFormsTables extends Migration
 		{
 			app('FormRepository')->create($form);
 		}
+
+		$forms = ['application', 'character', 'user'];
+
+		foreach ($forms as $form)
+		{
+			foreach ($data[$form] as $f)
+			{
+				if (array_key_exists('tabs', $data[$form]))
+				{
+					foreach ($data[$form]['tabs'] as $tab)
+					{
+						app('FormTabRepository')->create($tab);
+					}
+				}
+
+				if (array_key_exists('sections', $data[$form]))
+				{
+					foreach ($data[$form]['sections'] as $section)
+					{
+						app('FormSectionRepository')->create($section);
+					}
+				}
+
+				if (array_key_exists('fields', $data[$form]))
+				{
+					foreach ($data[$form]['fields'] as $field)
+					{
+						app('FormFieldRepository')->create($field);
+					}
+				}
+
+				if (array_key_exists('values', $data[$form]))
+				{
+					foreach ($data[$form]['values'] as $value)
+					{
+						app('FormFieldValueRepository')->create($value);
+					}
+				}
+			}
+		}
 	}
 
 }
