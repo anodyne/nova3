@@ -539,7 +539,7 @@ return [
 	[
 		'name'				=> "Edit Form Tab",
 		'key'				=> "admin.forms.tabs.edit",
-		'uri'				=> "admin/forms/{formKey}/tabs/edit",
+		'uri'				=> "admin/forms/{formKey}/tabs/{tabId}/edit",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\TabController@edit",
 		'menu_id'			=> 2,
 	],
@@ -547,20 +547,20 @@ return [
 		'verb'				=> "PUT",
 		'name'				=> "Update Form Tab",
 		'key'				=> "admin.forms.tabs.update",
-		'uri'				=> "admin/forms/{formKey}/tabs",
+		'uri'				=> "admin/forms/{formKey}/tabs/{tabId}",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\TabController@update",
 	],
 	[
 		'name'				=> "Remove Form Tab Pop-up",
 		'key'				=> "admin.forms.tabs.remove",
-		'uri'				=> "admin/forms/{formKey}/tabs/remove",
+		'uri'				=> "admin/forms/{formKey}/tabs/{tabId}/remove",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\TabController@remove",
 	],
 	[
 		'verb'				=> "DELETE",
 		'name'				=> "Remove Form Tab",
 		'key'				=> "admin.forms.tabs.destroy",
-		'uri'				=> "admin/forms/{formKey}/tabs",
+		'uri'				=> "admin/forms/{formKey}/tabs/{tabId}",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\TabController@destroy",
 	],
 	[
