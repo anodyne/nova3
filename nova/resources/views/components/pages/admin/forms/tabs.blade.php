@@ -41,7 +41,7 @@
 					<div class="row">
 						@can('edit', $tab)
 							<div class="col-xs-12">
-								<p><a href="{{ route('admin.forms.edit', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
+								<p><a href="{{ route('admin.forms.tabs.edit', [$form->key, $tab->id]) }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
 							</div>
 						@endcan
 
@@ -56,7 +56,7 @@
 					<div class="btn-toolbar pull-right">
 						@can('edit', $tab)
 							<div class="btn-group">
-								<a href="{{ route('admin.forms.edit', [$form->key]) }}" class="btn btn-default">Edit</a>
+								<a href="{{ route('admin.forms.tabs.edit', [$form->key, $tab->id]) }}" class="btn btn-default">Edit</a>
 							</div>
 						@endcan
 

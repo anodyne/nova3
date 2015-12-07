@@ -4,7 +4,7 @@ use NovaFormTab;
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class TabWasCreated extends Event {
+class FormTabWasUpdated extends Event {
 
 	use SerializesModels;
 

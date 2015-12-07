@@ -4,7 +4,7 @@ use NovaFormTab,
 	BaseController,
 	FormRepositoryInterface,
 	FormTabRepositoryInterface,
-	EditTabRequest, CreateTabRequest, RemoveTabRequest;
+	EditFormTabRequest, CreateFormTabRequest, RemoveFormTabRequest;
 use Nova\Core\Forms\Events;
 
 class TabController extends BaseController {
@@ -47,42 +47,46 @@ class TabController extends BaseController {
 		$this->jsView = 'admin/forms/tab-create-js';
 	}
 
-	public function store(CreateTabRequest $request, $formKey)
+	public function store(CreateFormTabRequest $request, $formKey)
 	{
 		$this->authorize('create', new NovaFormTab, "You do not have permission to create form tabs.");
 
 		$tab = $this->repo->create($request->all());
 
-		event(new Events\TabWasCreated($tab));
+		event(new Events\FormTabWasCreated($tab));
 
 		flash()->success("Form Tab Created!", "You can begin designing the tab layout with sections and fields.");
 
 		return redirect()->route('admin.forms.tabs', [$formKey]);
 	}
 
-	public function edit($formKey)
+	public function edit($formKey, $tabId)
 	{
-		$form = $this->data->form = $this->repo->findByKey($formKey);
+		$form = $this->data->form = $this->formRepo->findByKey($formKey);
 
-		$this->authorize('edit', $form, "You do not have permission to edit forms.");
+		$tab = $this->data->tab = $this->repo->find($tabId);
 
-		$this->view = 'admin/forms/form-edit';
-		$this->jsView = 'admin/forms/form-edit-js';
+		$this->authorize('edit', $tab, "You do not have permission to edit form tabs.");
+
+		$this->view = 'admin/forms/tab-edit';
+		$this->jsView = 'admin/forms/tab-edit-js';
 	}
 
-	public function update(EditTabRequest $request, $formKey)
+	public function update(EditFormTabRequest $request, $formKey, $tabId)
 	{
-		$form = $this->repo->findByKey($formKey);
+		$form = $this->formRepo->findByKey($formKey);
 
-		$this->authorize('edit', $form, "You do not have permission to edit forms.");
+		$tab = $this->repo->find($tabId);
 
-		$form = $this->repo->update($form, $request->all());
+		$this->authorize('edit', $tab, "You do not have permission to edit form tabs.");
 
-		event(new Events\FormWasUpdated($form));
+		$tab = $this->repo->update($tab, $request->all());
 
-		flash()->success("Form Updated!");
+		event(new Events\FormTabWasUpdated($tab));
 
-		return redirect()->route('admin.forms');
+		flash()->success("Form Tab Updated!");
+
+		return redirect()->route('admin.forms.tabs', [$formKey]);
 	}
 
 	public function remove($formKey)

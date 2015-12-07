@@ -2,7 +2,7 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class CreateTabRequest extends Request {
+class CreateFormTabRequest extends Request {
 
 	public function authorize()
 	{
