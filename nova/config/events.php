@@ -37,4 +37,12 @@ return [
 	'Nova\Core\Forms\Events\FormWasDeleted' => [],
 	'Nova\Core\Forms\Events\FormWasUpdated' => [],
 
+	'Nova\Core\Forms\Events\FormTabWasCreated' => [],
+	'Nova\Core\Forms\Events\FormTabWasDeleted' => [],
+	'Nova\Core\Forms\Events\FormTabWasUpdated' => [
+		CleanupFormFields::class,
+		CleanupFormSections::class,
+		CleanupFormTabs::class,
+	],
+
 ];

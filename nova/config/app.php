@@ -325,6 +325,7 @@ return [
 		'FormFieldRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\FieldRepositoryInterface::class,
 		'FormFieldRepository' => Nova\Core\Forms\Data\Repositories\FieldRepository::class,
 		'FieldPolicy' => Nova\Core\Forms\Policies\FieldPolicy::class,
+		'CleanupFormFields' => Nova\Core\Forms\Listeners\CleanupFormFields::class,
 		
 		'NovaFormFieldValue' => Nova\Core\Forms\Data\FieldValue::class,
 		'FormFieldValuePresenter' => Nova\Core\Forms\Data\Presenters\FieldValuePresenter::class,
@@ -337,15 +338,17 @@ return [
 		'FormSectionRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\SectionRepositoryInterface::class,
 		'FormSectionRepository' => Nova\Core\Forms\Data\Repositories\SectionRepository::class,
 		'SectionPolicy' => Nova\Core\Forms\Policies\SectionPolicy::class,
+		'CleanupFormSections' => Nova\Core\Forms\Listeners\CleanupFormSections::class,
 		
 		'NovaFormTab' => Nova\Core\Forms\Data\Tab::class,
 		'FormTabPresenter' => Nova\Core\Forms\Data\Presenters\TabPresenter::class,
 		'FormTabRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\TabRepositoryInterface::class,
 		'FormTabRepository' => Nova\Core\Forms\Data\Repositories\TabRepository::class,
 		'TabPolicy' => Nova\Core\Forms\Policies\TabPolicy::class,
-		'CreateTabRequest' => Nova\Core\Forms\Http\Requests\CreateTabRequest::class,
-		'EditTabRequest' => Nova\Core\Forms\Http\Requests\EditTabRequest::class,
-		'RemoveTabRequest' => Nova\Core\Forms\Http\Requests\RemoveTabRequest::class,
+		'CreateFormTabRequest' => Nova\Core\Forms\Http\Requests\CreateFormTabRequest::class,
+		'EditFormTabRequest' => Nova\Core\Forms\Http\Requests\EditFormTabRequest::class,
+		'RemoveFormTabRequest' => Nova\Core\Forms\Http\Requests\RemoveFormTabRequest::class,
+		'CleanupFormTabs' => Nova\Core\Forms\Listeners\CleanupFormTabs::class,
 		
 		'NovaFormData' => Nova\Core\Forms\Data\Data::class,
 		'FormDataPresenter' => Nova\Core\Forms\Data\Presenters\DataPresenter::class,
