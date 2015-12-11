@@ -7,11 +7,11 @@ abstract class BaseRepository {
 		return $this->make($with)->get();
 	}
 
-	public function countBy($key, $value, array $with = [])
+	public function countBy($column, $value)
 	{
-		$query = $this->make($with);
+		$query = $this->make();
 
-		return $query->where($key, $value)->count();
+		return (int) $query->where($column, $value)->count();
 	}
 
 	public function create(array $data)
@@ -77,14 +77,14 @@ abstract class BaseRepository {
 		return $result;
 	}
 
-	public function getFirstBy($key, $value, array $with = [])
+	public function getFirstBy($column, $value, array $with = [], $operator = '=')
 	{
-		return $this->make($with)->where($key, '=', $value)->first();
+		return $this->make($with)->where($column, $operator, $value)->first();
 	}
 
-	public function getManyBy($key, $value, array $with = [])
+	public function getManyBy($column, $value, array $with = [], $operator = '=')
 	{
-		return $this->make($with)->where($key, '=', $value)->get();
+		return $this->make($with)->where($column, $operator, $value)->get();
 	}
 
 	public function has($relation, array $with = [])
@@ -121,6 +121,11 @@ abstract class BaseRepository {
 		return $items;
 	}
 
+	public function listCollection($collection, $value, $text)
+	{
+		return $collection->lists($text, $value)->all();
+	}
+
 	public function make(array $with = [])
 	{
 		return $this->model->with($with);
@@ -128,25 +133,27 @@ abstract class BaseRepository {
 
 	public function update($resource, array $data)
 	{
-		// Get the item
 		$item = $this->getResource($resource);
 
-		if ($item)
-		{
-			$item->fill($data)->save();
+		if ( ! $item) return false;
 
-			return $item;
-		}
+		$item->fill($data)->save();
 
-		return false;
+		return $item;
+	}
+
+	public function updateOrder($resource, $newOrder)
+	{
+		$item = $this->getResource($resource);
+
+		if ( ! $item) return false;
+
+		return $this->update($item, ['order' => $newOrder]);
 	}
 
 	protected function getResource($resource, $identifier = 'id')
 	{
-		if ($resource instanceof $this->model)
-		{
-			return $resource;
-		}
+		if ($resource instanceof $this->model) return $resource;
 
 		return $this->getFirstBy($identifier, $resource);
 	}
