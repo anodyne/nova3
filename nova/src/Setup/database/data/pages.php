@@ -570,4 +570,11 @@ return [
 		'uri'				=> "admin/forms/check-tab-links",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\TabController@checkTabLink",
 	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Update Tab order",
+		'key'				=> "admin.forms.tabs.updateOrder",
+		'uri'				=> "admin/forms/update-tab-order",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\TabController@updateTabOrder",
+	],
 ];
