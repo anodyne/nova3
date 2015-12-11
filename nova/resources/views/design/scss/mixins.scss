@@ -62,3 +62,18 @@
 	-moz-box-sizing: $type;
 	box-sizing: $type;
 }
+
+@mixin placeholder($color: auto) {
+	&::-webkit-input-placeholder {
+		color: $color;
+	}
+
+	&::-moz-placeholder {
+		color: $color !important;
+		opacity: 1;
+	}
+
+	&:-ms-input-placeholder {
+		color: $color !important;
+	}
+}
