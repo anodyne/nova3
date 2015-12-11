@@ -20,6 +20,13 @@
 		</div>
 	</div>
 
+	<div class="form-group">
+		<label class="col-md-2 control-label">Parent Tab</label>
+		<div class="col-md-4">
+			{!! Form::select('parent_id', $parentTabs, null, ['class' => 'form-control input-lg']) !!}
+		</div>
+	</div>
+
 	<div class="form-group{{ ($errors->has('link_id')) ? ' has-error' : '' }}">
 		<label class="col-md-2 control-label">Link ID</label>
 		<div class="col-md-5">

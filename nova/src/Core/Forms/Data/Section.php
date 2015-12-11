@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Forms\Data;
 
-use Model, NovaFormSectionPresenter;
+use Model, FormSectionPresenter;
 use Laracasts\Presenter\PresentableTrait;
 
 class Section extends Model {
@@ -13,7 +13,7 @@ class Section extends Model {
 
 	protected $dates = ['created_at', 'updated_at'];
 
-	protected $presenter = NovaFormSectionPresenter::class;
+	protected $presenter = FormSectionPresenter::class;
 
 	/*
 	|---------------------------------------------------------------------------

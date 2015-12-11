@@ -45,6 +45,9 @@ class TabController extends BaseController {
 
 		$this->view = 'admin/forms/tab-create';
 		$this->jsView = 'admin/forms/tab-create-js';
+
+		$this->data->parentTabs = ['' => "No parent tab"];
+		$this->data->parentTabs += $this->repo->listParentTabs($form);
 	}
 
 	public function store(CreateFormTabRequest $request, $formKey)
@@ -70,6 +73,9 @@ class TabController extends BaseController {
 
 		$this->view = 'admin/forms/tab-edit';
 		$this->jsView = 'admin/forms/tab-edit-js';
+
+		$this->data->parentTabs = ['' => "No parent tab"];
+		$this->data->parentTabs += $this->repo->listParentTabs($form);
 	}
 
 	public function update(EditFormTabRequest $request, $formKey, $tabId)
@@ -89,7 +95,7 @@ class TabController extends BaseController {
 		return redirect()->route('admin.forms.tabs', [$formKey]);
 	}
 
-	public function remove($formKey)
+	public function remove($formKey, $tabId)
 	{
 		$this->isAjax = true;
 
@@ -142,6 +148,23 @@ class TabController extends BaseController {
 		}
 
 		return json_encode(['code' => 1]);
+	}
+
+	public function updateTabOrder()
+	{
+		$this->isAjax = true;
+
+		$tab = new NovaFormTab;
+
+		if (policy($tab)->edit($this->user, $tab))
+		{
+			foreach (request('tab') as $key => $value)
+			{
+				$updatedTab = $this->repo->updateOrder($value, $key++);
+
+				event(new Events\FormTabOrderWasUpdated($updatedTab));
+			}
+		}
 	}
 
 }

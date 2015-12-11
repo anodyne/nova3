@@ -125,7 +125,10 @@ class FormController extends BaseController {
 
 	public function preview($formKey)
 	{
-		# code...
+		$this->view = 'admin/forms/form-preview';
+		$this->jsView = 'admin/forms/form-preview-js';
+
+		$this->data->form = $this->repo->findByKey($formKey);
 	}
 
 	public function checkFormKey()

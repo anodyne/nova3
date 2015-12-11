@@ -33,12 +33,12 @@ class Form extends Model {
 
 	public function sections()
 	{
-		return $this->hasMany('NovaFormSection');
+		return $this->hasMany('NovaFormSection')->orderBy('order');
 	}
 
 	public function tabs()
 	{
-		return $this->hasMany('NovaFormTab');
+		return $this->hasMany('NovaFormTab')->orderBy('order');
 	}
 	
 }

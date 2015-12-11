@@ -29,9 +29,26 @@ class TabRepository extends BaseRepository implements FormTabRepositoryInterface
 		return $this->getById($id);
 	}
 
-	public function getFormTabs(NovaForm $form)
+	public function getFormTabs(NovaForm $form, array $with = [])
 	{
-		return $form->tabs->sortBy('order');
+		$with = (count($with) > 0) ? $with : ['childrenTabs', 'childrenTabs.parentTab'];
+
+		return $form->tabs->sortBy('order')->load($with);
+	}
+
+	public function getParentTabs(NovaForm $form)
+	{
+		return $form->tabs->filter(function ($tab)
+		{
+			return ! $tab->parent_id;
+		});
+	}
+
+	public function listParentTabs(NovaForm $form)
+	{
+		$tabs = $this->getParentTabs($form);
+		
+		return $this->listCollection($tabs, 'id', 'name');
 	}
 
 }

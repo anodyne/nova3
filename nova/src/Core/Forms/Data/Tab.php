@@ -9,7 +9,8 @@ class Tab extends Model {
 
 	protected $table = 'forms_tabs';
 
-	protected $fillable = ['form_id', 'name', 'link_id', 'order', 'status'];
+	protected $fillable = ['form_id', 'name', 'link_id', 'order', 'status',
+		'parent_id'];
 
 	protected $dates = ['created_at', 'updated_at'];
 
@@ -34,6 +35,16 @@ class Tab extends Model {
 	public function sections()
 	{
 		return $this->hasMany('NovaFormSection');
+	}
+
+	public function childrenTabs()
+	{
+		return $this->hasMany(self::class, 'parent_id', 'id')->orderBy('order');
+	}
+
+	public function parentTab()
+	{
+		return $this->belongsTo(self::class, 'parent_id', 'id');
 	}
 	
 }
