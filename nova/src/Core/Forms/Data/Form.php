@@ -40,5 +40,12 @@ class Form extends Model {
 	{
 		return $this->hasMany('NovaFormTab')->orderBy('order');
 	}
+
+	public function parentTabs()
+	{
+		return $this->hasMany('NovaFormTab')
+			->where('parent_id', '=', null)
+			->orderBy('order');
+	}
 	
 }

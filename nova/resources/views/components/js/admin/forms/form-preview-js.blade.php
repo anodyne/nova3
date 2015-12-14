@@ -1,8 +1,14 @@
 <script>
 	$(function()
 	{
-		$('.nav-tabs li a:first').tab('show')
-		
-		$('.nav-pills li a:first').tab('show')
+		$('.nav-tabs').each(function()
+		{
+			$(this).find('li a:first').tab('show')
+		})
+
+		$('.nav-pills').each(function()
+		{
+			$(this).find('li a:first').tab('show')
+		})
 	})
 </script>

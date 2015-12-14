@@ -12,14 +12,11 @@ class FormPresenter extends Presenter {
 
 	public function renderNewForm()
 	{
-		$form = $this->entity->load('tabs', 'tabs.childrenTabs', 'tabs.childrenTabs', 'tabs.childrenTabs.sections', 'tabs.sections');
-		$tabs = $form->tabs;
-		$parentTabs = $tabs->filter(function ($tab)
-		{
-			return ! $tab->parent_id;
-		});
+		$form = $this->entity->load('parentTabs', 'parentTabs.childrenTabs', 'parentTabs.childrenTabs', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields', 'parentTabs.sections', 'parentTabs.sections.fields');
 
-		return partial('form', compact('form', 'tabs', 'parentTabs'));
+		$tabs = $form->parentTabs;
+
+		return partial('form-editable', compact('form', 'tabs'));
 	}
 
 	public function renderEditForm($id)

@@ -49,7 +49,6 @@ class CreateFormsTables extends Migration
 			$table->increments('id');
 			$table->integer('form_id')->unsigned();
 			$table->integer('tab_id')->unsigned()->default(0);
-			$table->integer('parent_id')->unsigned()->nullable();
 			$table->string('name')->nullable();
 			$table->integer('order');
 			$table->boolean('status')->default(Status::ACTIVE);

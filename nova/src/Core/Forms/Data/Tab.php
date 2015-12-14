@@ -34,7 +34,7 @@ class Tab extends Model {
 
 	public function sections()
 	{
-		return $this->hasMany('NovaFormSection');
+		return $this->hasMany('NovaFormSection')->orderBy('order');
 	}
 
 	public function childrenTabs()

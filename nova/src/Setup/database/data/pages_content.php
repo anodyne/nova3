@@ -112,6 +112,9 @@ return [
 	['page_id' => 67, 'type' => 'header', 'key' => 'admin.forms.edit.header', 'value' => "Edit Form"],
 	['page_id' => 67, 'type' => 'title', 'key' => 'admin.forms.edit.title', 'value' => "Edit Form"],
 	['page_id' => 67, 'type' => 'message', 'key' => 'admin.forms.edit.message', 'value' => null],
+	['page_id' => 71, 'type' => 'header', 'key' => 'admin.forms.tabs.edit.header', 'value' => null],
+	['page_id' => 71, 'type' => 'title', 'key' => 'admin.forms.tabs.edit.title', 'value' => "Form Preview"],
+	['page_id' => 71, 'type' => 'message', 'key' => 'admin.forms.tabs.edit.message', 'value' => null],
 
 	['page_id' => 73, 'type' => 'header', 'key' => 'admin.forms.tabs.header', 'value' => null],
 	['page_id' => 73, 'type' => 'title', 'key' => 'admin.forms.tabs.title', 'value' => "Form Tabs"],
