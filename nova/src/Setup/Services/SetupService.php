@@ -154,7 +154,7 @@ class SetupService {
 	 */
 	public function isInstalled()
 	{
-		return $this->app['filesystem']->disk('local')->has('nova-installed.json');
+		return $this->app['filesystem']->disk('local')->has('installed.json');
 	}
 
 }
