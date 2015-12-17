@@ -30,7 +30,7 @@ class InstallController extends BaseController {
 		Artisan::call('migrate', ['--force' => true]);
 
 		// Create the installed file
-		$storage->disk('local')->put('nova-installed.json', json_encode(['installed' => true]));
+		$storage->disk('local')->put('installed.json', json_encode(['installed' => true]));
 
 		// Cache the routes in production
 		if (app('env') == 'production')

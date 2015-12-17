@@ -31,7 +31,7 @@ class SetupController extends BaseController {
 	public function uninstall(FilesystemManager $storage, Filesystem $files)
 	{
 		// Clear the cache
-		$storage->desk('local')->delete('nova-installed.json');
+		$storage->desk('local')->delete('installed.json');
 
 		// Clear the routes in production
 		if (app('env') == 'production')
