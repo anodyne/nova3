@@ -10,20 +10,19 @@ class HomeControllerTest extends TestCase {
 	{
 		parent::setUp();
 
-		//$this->artisan('nova:refresh');
+		Artisan::call('nova:refresh');
 	}
 
 	public function tearDown()
 	{
-		//$this->artisan('migrate:reset');
+		Artisan::call('nova:uninstall');
 
 		parent::tearDown();
 	}
 
 	public function test_main_page_displays()
 	{
-		$this->visit('/')
-			->see('USS Nova');
+		$this->visit('/')->see('USS Nova');
 	}
 
 }

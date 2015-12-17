@@ -20,6 +20,9 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
 		$app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
 
+		if (Storage::disk('local')->has('nova-installed.json'))
+			Storage::disk('local')->delete('nova-installed.json');
+
 		return $app;
 	}
 
