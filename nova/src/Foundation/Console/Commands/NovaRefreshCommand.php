@@ -1,6 +1,6 @@
 <?php namespace Nova\Foundation\Console\Commands;
 
-use File, Cache, Artisan;
+use File, Artisan, Storage;
 use Nova\Core\Users\Services\UserCreatorService;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
@@ -34,8 +34,7 @@ class NovaRefreshCommand extends Command {
 		Artisan::call('route:clear');
 
 		$this->info("Clearing the cache...");
-		Cache::forget('nova.installed');
-		Cache::flush();
+		Storage::disk('local')->delete('nova-installed.json');
 
 		$this->info("Removing generated config files...");
 		File::delete(app('path.config').'/session.php');
@@ -45,7 +44,7 @@ class NovaRefreshCommand extends Command {
 
 		$this->info("Installing ".config('nova.app.name')."...");
 		Artisan::call('migrate', ['--force' => true]);
-		Cache::forever('nova.installed', (bool) true);
+		Storage::disk('local')->put('nova-installed.json', json_encode(['installed' => true]));
 
 		// Grab the data from the setup file
 		$data = require_once base_path('_setup.php');

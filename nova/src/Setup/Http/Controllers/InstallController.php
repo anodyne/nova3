@@ -7,8 +7,8 @@ use Str,
 	UserCreator,
 	SettingRepositoryInterface,
 	PageContentRepositoryInterface;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Contracts\Cache\Repository as Cache;
+use Illuminate\Filesystem\Filesystem,
+	Illuminate\Filesystem\FilesystemManager;
 use Nova\Setup\Http\Requests\CreateUserRequest,
 	Nova\Setup\Http\Requests\UpdateSettingsRequest;
 
@@ -24,13 +24,13 @@ class InstallController extends BaseController {
 		return view('pages.setup.install.nova');
 	}
 
-	public function install(Cache $cache, Filesystem $files)
+	public function install(FilesystemManager $storage)
 	{
 		// Run the migrate commands
 		Artisan::call('migrate', ['--force' => true]);
 
-		// Set the installed cache item
-		$cache->forever('nova.installed', (bool) true);
+		// Create the installed file
+		$storage->disk('local')->put('nova-installed.json', json_encode(['installed' => true]));
 
 		// Cache the routes in production
 		if (app('env') == 'production')
@@ -39,7 +39,7 @@ class InstallController extends BaseController {
 		}
 	}
 
-	public function novaSuccess(Filesystem $files)
+	public function novaSuccess()
 	{
 		// Get an instance of the writer
 		$writer = app('nova.setup.configWriter');

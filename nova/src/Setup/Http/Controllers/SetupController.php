@@ -1,8 +1,8 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
 use Flash, Artisan;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Contracts\Cache\Repository as Cache;
+use Illuminate\Filesystem\Filesystem,
+	Illuminate\Filesystem\FilesystemManager;
 
 class SetupController extends BaseController {
 
@@ -28,10 +28,10 @@ class SetupController extends BaseController {
 		return view('pages.setup.environment', compact('env'));
 	}
 
-	public function uninstall(Cache $cache, Filesystem $files)
+	public function uninstall(FilesystemManager $storage, Filesystem $files)
 	{
 		// Clear the cache
-		$cache->forget('nova.installed');
+		$storage->desk('local')->delete('nova-installed.json');
 
 		// Clear the routes in production
 		if (app('env') == 'production')

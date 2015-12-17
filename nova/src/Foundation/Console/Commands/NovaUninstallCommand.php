@@ -1,6 +1,6 @@
 <?php namespace Nova\Foundation\Console\Commands;
 
-use File, Cache, Artisan;
+use File, Cache, Artisan, Storage;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -29,8 +29,8 @@ class NovaUninstallCommand extends Command {
 	public function handle()
 	{
 		$this->info("Clearing the cache...");
-		Cache::forget('nova.installed');
 		Cache::flush();
+		Storage::disk('local')->delete('nova-installed.json');
 
 		$this->info("Removing cached routes...");
 		Artisan::call('route:clear');
