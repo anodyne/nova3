@@ -34,7 +34,11 @@ class NovaRefreshCommand extends Command {
 		Artisan::call('route:clear');
 
 		$this->info("Clearing the cache...");
-		Storage::disk('local')->delete('nova-installed.json');
+
+		if (Storage::disk('local')->has('installed.json'))
+		{
+			Storage::disk('local')->delete('installed.json');
+		}
 
 		$this->info("Removing generated config files...");
 		File::delete(app('path.config').'/session.php');
@@ -44,7 +48,7 @@ class NovaRefreshCommand extends Command {
 
 		$this->info("Installing ".config('nova.app.name')."...");
 		Artisan::call('migrate', ['--force' => true]);
-		Storage::disk('local')->put('nova-installed.json', json_encode(['installed' => true]));
+		Storage::disk('local')->put('installed.json', json_encode(['installed' => true]));
 
 		// Grab the data from the setup file
 		$data = require_once base_path('_setup.php');

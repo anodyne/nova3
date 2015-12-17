@@ -30,7 +30,11 @@ class NovaUninstallCommand extends Command {
 	{
 		$this->info("Clearing the cache...");
 		Cache::flush();
-		Storage::disk('local')->delete('nova-installed.json');
+
+		if (Storage::disk('local')->has('installed.json'))
+		{
+			Storage::disk('local')->delete('installed.json');
+		}
 
 		$this->info("Removing cached routes...");
 		Artisan::call('route:clear');
