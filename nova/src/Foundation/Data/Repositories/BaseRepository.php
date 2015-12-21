@@ -96,13 +96,13 @@ abstract class BaseRepository {
 
 	public function listAll($value, $key)
 	{
-		return $this->model->lists($value, $key)->all();
+		return $this->model->pluck($value, $key)->all();
 	}
 
 	public function listAllBy($key, $value, $displayValue, $displayKey)
 	{
 		return $this->model->where($key, '=', $value)
-			->lists($displayValue, $displayKey)->all();
+			->pluck($displayValue, $displayKey)->all();
 	}
 
 	public function listAllFiltered($value, $key, $filters)
@@ -123,7 +123,7 @@ abstract class BaseRepository {
 
 	public function listCollection($collection, $value, $text)
 	{
-		return $collection->lists($text, $value)->all();
+		return $collection->pluck($text, $value)->all();
 	}
 
 	public function make(array $with = [])
