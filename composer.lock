@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "300d514cd6cc91876f050d27fc7ac3d9",
-    "content-hash": "aefcb0f96beedd2a7ea517a46fb33b09",
+    "hash": "f264b6f81a8f99aab3babe6bef4ede0d",
+    "content-hash": "0b1a0a14f3658029ef6323fdfde6b908",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -2063,16 +2063,16 @@
     "packages-dev": [
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "v2.1.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "25ce9052c89a262cfda1d410940a552efb9ae85c"
+                "reference": "974fd16e328ca851a081449100d9509af59cf0ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/25ce9052c89a262cfda1d410940a552efb9ae85c",
-                "reference": "25ce9052c89a262cfda1d410940a552efb9ae85c",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/974fd16e328ca851a081449100d9509af59cf0ff",
+                "reference": "974fd16e328ca851a081449100d9509af59cf0ff",
                 "shasum": ""
             },
             "require": {
@@ -2113,7 +2113,7 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2015-12-21 19:07:38"
+            "time": "2015-12-22 06:22:38"
         },
         {
             "name": "doctrine/instantiator",
@@ -3514,7 +3514,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "laravelcollective/html": 20
+        "laravelcollective/html": 20,
+        "barryvdh/laravel-debugbar": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
