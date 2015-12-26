@@ -5,7 +5,7 @@
 		"dflydev/symfony-finder-factory": "*",
 		"league/commonmark": "*",
 		"laracasts/presenter": "*",
-		"laravelcollective/html": "dev-master",
+		"laravelcollective/html": "~5.2",
 		"league/fractal": "*"
 	},
 
