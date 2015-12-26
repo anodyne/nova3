@@ -1,5 +1,6 @@
 <?php namespace Nova\Foundation\Services\Extensions;
 
+use Artisan;
 use Illuminate\Contracts\Foundation\Application;
 
 class Extension implements Extensible, ExtensibleInfo {
@@ -140,12 +141,21 @@ class Extension implements Extensible, ExtensibleInfo {
 
 	public function install()
 	{
-		return false;
+		Artisan::call('migrate', [
+			'--path'	=> "extensions/{$this->getVendor()}/{$this->location(true)}/database/migrations",
+			'--force'	=> true
+		]);
+
+		return true;
 	}
 	
 	public function uninstall()
 	{
-		return false;
+		Artisan::call('migrate:reset', [
+			'--force'	=> true
+		]);
+
+		return true;
 	}
 
 }
