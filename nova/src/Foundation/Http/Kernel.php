@@ -1,5 +1,6 @@
 <?php namespace Nova\Foundation\Http;
 
+use Nova\Foundation\Http\Middleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel {
@@ -15,7 +16,7 @@ class Kernel extends HttpKernel {
 		'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
 		'Illuminate\Session\Middleware\StartSession',
 		'Illuminate\View\Middleware\ShareErrorsFromSession',
-		'Nova\Foundation\Http\Middleware\VerifyCsrfToken',
+		Middleware\VerifyCsrfToken::class,
 	];
 
 	/**
@@ -24,9 +25,11 @@ class Kernel extends HttpKernel {
 	 * @var array
 	 */
 	protected $routeMiddleware = [
-		'auth'			=> 'Nova\Foundation\Http\Middleware\Authenticate',
-		'auth.basic'	=> 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-		'guest'			=> 'Nova\Foundation\Http\Middleware\RedirectIfAuthenticated',
+		'auth'				=> Middleware\Authenticate::class,
+		'auth.basic'		=> 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
+		'nova.installed'	=> Middleware\CheckInstallationStatus::class,
+		'nova.render'		=> Middleware\ProcessController::class,
+		'guest'				=> Middleware\RedirectIfAuthenticated::class,
 	];
 
 	public function handle($request)
