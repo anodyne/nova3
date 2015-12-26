@@ -1,37 +1,41 @@
 <?php namespace Nova\Foundation\Http\Controllers;
 
-use stdClass;
+use Request;
+use stdClass, Closure;
 use Illuminate\Routing\Controller,
-	Illuminate\Contracts\Foundation\Application,
 	Illuminate\Foundation\Bus\DispatchesJobs,
+	Illuminate\Contracts\Foundation\Application,
 	Illuminate\Foundation\Validation\ValidatesRequests;
 
 abstract class BaseController extends Controller {
 
 	use DispatchesJobs, ValidatesRequests;
 
-	protected $app;
-	protected $page;
-	protected $theme;
-	protected $content;
-	protected $settings;
-	protected $user = false;
+	public $app;
+	public $page;
+	public $theme;
+	public $content;
+	public $settings;
+	public $user = false;
 
-	protected $data;
-	protected $jsData;
-	protected $styleData;
-	protected $view;
-	protected $jsView;
-	protected $styleView;
-	protected $isAjax = false;
+	public $data;
+	public $jsData;
+	public $styleData;
+	public $view;
+	public $jsView;
+	public $styleView;
+	public $isAjax = false;
 
-	protected $templateData;
-	protected $templateView = 'public';
-	protected $structureData;
-	protected $structureView = 'public';
+	public $templateData;
+	public $templateView = 'public';
+	public $structureData;
+	public $structureView = 'public';
 
 	public function __construct()
 	{
+		//$debugbar = app('debugbar');
+
+		//$debugbar->startMeasure('BaseControllerConstructor', 'Time for setting up the base controller');
 		$this->app				= app();
 		$this->data				= new stdClass;
 		$this->jsData			= new stdClass;
@@ -40,37 +44,20 @@ abstract class BaseController extends Controller {
 		$this->templateData 	= new stdClass;
 		$this->structureData	= new stdClass;
 
-		// $this can't be used in closures, so we need another variable
+		// Make sure Nova is installed
+		$this->middleware('nova.installed');
+
+		// Set up the controller
+		$this->setupController();
+
 		$me = $this;
 
-		// Check if Nova is installed
-		$this->beforeFilter(function ()
-		{
-			if ( ! app('nova.setup')->isInstalled())
-			{
-				return redirect()->route('setup.env');
-			}
+		app()->singleton('nova.controller', function () use (&$me) {
+			return $me;
 		});
 
-		// Bind some data to all views
-		$this->beforeFilter(function ($route, $request) use (&$me)
-		{
-			if (app('nova.setup')->isInstalled())
-			{
-				$me->page = app('PageRepository')->getByRouteKey($request->route());
-				$me->content = app('nova.pageContent');
-				$me->settings = app('nova.settings');
-
-				view()->share('_page', $me->page);
-				view()->share('_user', $me->user);
-				view()->share('_icons', app('nova.theme')->getIconMap());
-				view()->share('_settings', $me->settings);
-				view()->share('_content', $me->content);
-			}
-		});
-
-		// Render the template after everything is done
-		$this->afterFilter('@processController');
+		$this->middleware('nova.render');
+		//$debugbar->stopMeasure('BaseControllerConstructor');
 	}
 
 	/**
@@ -122,106 +109,51 @@ abstract class BaseController extends Controller {
 		abort(403, $message, ['foo' => $message]);
 	}
 
-	public function processController($route, $request, $response)
-	{
-		if (app('nova.setup')->isInstalled())
-		{
-			if ( ! $this->isAjax)
-			{
-				$this->buildThemeStructure();
-
-				$this->buildThemeTemplate();
-
-				$this->buildThemeMenu();
-
-				$this->buildThemeAdminMenu();
-
-				$this->buildThemePage();
-
-				$this->buildThemeJavascript();
-
-				$this->buildThemeStyles();
-
-				$this->buildThemeFooter();
-
-				$response->setContent($this->theme->render());
-			}
-		}
-	}
-
-	protected function buildThemeStructure()
-	{
-		$this->theme = app('nova.theme')->structure($this->structureView, (array) $this->structureData);
-	}
-
-	protected function buildThemeTemplate()
-	{
-		$this->theme = $this->theme->template($this->templateView, (array) $this->templateData);
-	}
-
-	protected function buildThemeMenu()
-	{
-		$this->theme = $this->theme->menu($this->page);
-	}
-
-	protected function buildThemeAdminMenu()
-	{
-		$this->theme = $this->theme->adminMenu($this->page);
-	}
-
-	protected function buildThemePage()
-	{
-		if ($this->view)
-		{
-			$this->theme = $this->theme->page($this->view, (array) $this->data);
-		}
-	}
-
-	protected function buildThemeJavascript()
-	{
-		if ($this->jsView)
-		{
-			$this->theme = $this->theme->javascript($this->jsView, (array) $this->jsData);
-		}
-	}
-
-	protected function buildThemeStyles()
-	{
-		if ($this->styleView)
-		{
-			$this->theme = $this->theme->styles($this->styleView, (array) $this->styleData);
-		}
-	}
-
-	protected function buildThemeFooter()
-	{
-		$data = [];
-
-		$this->theme = $this->theme->footer($data);
-	}
-
-	public function renderTemplate($route, $request, $response)
-	{
-		if (app('nova.setup')->isInstalled())
-		{
-			$layout = view(locate()->structure($this->structureView));
-
-			if ($this->jsView)
-			{
-				$layout->javascript = view(locate()->js($this->jsView))->with((array) $this->jsData);
-			}
-
-			$layout->template = view(locate()->template($this->templateView));
-
-			if ($this->view)
-			{
-				$layout->template->content = view(locate()->page($this->view))->with((array) $this->data);
-			}
-
-			$response->setContent($layout);
-		}
-	}
-
 	final public function page(){}
+
+	protected function renderController()
+	{
+		logger('renderController start');
+		$this->middlewareData = new stdClass;
+
+		// All of these need to be used by reference otherwise they never update
+		// from what's set later on in the controller
+		$this->middlewareData->isAjax = &$this->isAjax;
+		$this->middlewareData->structureView = &$this->structureView;
+		$this->middlewareData->structureData = &$this->structureData;
+		$this->middlewareData->templateView = &$this->templateView;
+		$this->middlewareData->templateData = &$this->templateData;
+		$this->middlewareData->page = &$this->page;
+		$this->middlewareData->view = &$this->view;
+		$this->middlewareData->data = &$this->data;
+		$this->middlewareData->jsView = &$this->jsView;
+		$this->middlewareData->jsData = &$this->jsData;
+		$this->middlewareData->styleView = &$this->styleView;
+		$this->middlewareData->styleData = &$this->styleData;
+
+		// Serialize the data since we can't pass a full object
+		$middlewareDataStr = serialize($this->middlewareData);
+
+		// Render the template after everything is done
+		$this->middleware("nova.render:{$middlewareDataStr}");
+
+		logger('renderController end');
+	}
+
+	protected function setupController()
+	{
+		if (app('nova.setup')->isInstalled())
+		{
+			$this->page = app('PageRepository')->getByRouteKey(Request::route());
+			$this->content = app('nova.pageContent');
+			$this->settings = app('nova.settings');
+
+			view()->share('_page', $this->page);
+			view()->share('_user', $this->user);
+			view()->share('_icons', app('nova.theme')->getIconMap());
+			view()->share('_content', $this->content);
+			view()->share('_settings', $this->settings);
+		}
+	}
 
 }
