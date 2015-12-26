@@ -16,7 +16,7 @@ Remember, bug reports are created in the hope that others with the same problem 
 
 ## Nova NextGen Development Discussion
 
-Discussion regarding issues, new features, and ongoing development takes place in the [Nova NextGen forum][nextgen-forum]. Posts to the forums are generally answered within 12 hours of posting.
+Discussion regarding issues, new features, and ongoing development takes place in the [Nova NextGen forum][nextgen-forum]. Posts to the forums are generally answered within 24 hours of posting.
 
 ## Security Vulnerabilities
 
@@ -24,9 +24,10 @@ If you discover a security vulnerability within Nova NextGen, please send an ema
 
 ## Coding Style
 
-Nova follows the [PSR-1][psr-1] coding standard and the [PSR-4][psr-4] autoloading standard.
+Nova follows the [PSR-1][psr-1] coding standard and the [PSR-4][psr-4] autoloading standard. Portions of vendor code follow the [PSR-2][psr-2] coding standard, but the Nova core itself does not.
 
 [psr-1]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
+[psr-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
 [psr-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
 [nextgen-forum]: http://forums.anodyne-productions.com/viewforum.php?f=111
 [code-of-conduct]: http://todogroup.org/opencodeofconduct/#Anodyne Productions/contact@anodyne-productions.com
