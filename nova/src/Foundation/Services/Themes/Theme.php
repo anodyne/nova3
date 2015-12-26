@@ -222,7 +222,7 @@ class Theme implements Themeable, ThemeableInfo {
 	 */
 	public function render()
 	{
-		return $this->layout;
+		return $this->layout->render();
 	}
 
 	/**
