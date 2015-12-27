@@ -3,7 +3,6 @@
 use stdClass;
 use Illuminate\Routing\Controller,
 	Illuminate\Foundation\Bus\DispatchesJobs,
-	Illuminate\Contracts\Foundation\Application,
 	Illuminate\Foundation\Validation\ValidatesRequests;
 
 abstract class BaseController extends Controller {
@@ -45,7 +44,7 @@ abstract class BaseController extends Controller {
 
 		// Bind a reference to the current controller so that we can use that
 		// data from within the template rendering middleware
-		$this->app->bind('nova.controller', function ($app) use (&$me) {
+		$this->app->bind('nova.controller', function ($app) use ($me) {
 			return $me;
 		});
 
