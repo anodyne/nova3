@@ -11,11 +11,11 @@ class Kernel extends HttpKernel {
 	 * @var array
 	 */
 	protected $middleware = [
-		'Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode',
-		'Illuminate\Cookie\Middleware\EncryptCookies',
-		'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
-		'Illuminate\Session\Middleware\StartSession',
-		'Illuminate\View\Middleware\ShareErrorsFromSession',
+		\Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+		\Illuminate\Cookie\Middleware\EncryptCookies::class,
+		\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+		\Illuminate\Session\Middleware\StartSession::class,
+		\Illuminate\View\Middleware\ShareErrorsFromSession::class,
 		Middleware\VerifyCsrfToken::class,
 	];
 
@@ -26,9 +26,9 @@ class Kernel extends HttpKernel {
 	 */
 	protected $routeMiddleware = [
 		'auth'				=> Middleware\Authenticate::class,
-		'auth.basic'		=> 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
+		'auth.basic'		=> \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
 		'nova.installed'	=> Middleware\CheckInstallationStatus::class,
-		'nova.render'		=> Middleware\ProcessController::class,
+		'nova.render'		=> Middleware\RenderController::class,
 		'guest'				=> Middleware\RedirectIfAuthenticated::class,
 	];
 

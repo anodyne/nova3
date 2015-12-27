@@ -2,7 +2,7 @@
 
 use Closure;
 
-class ProcessController {
+class RenderController {
 
 	protected $theme;
 	protected $controller;
@@ -19,9 +19,10 @@ class ProcessController {
 	{
 		$this->debug = app('debugbar');
 
-		//$this->debug->startMeasure('processController', 'Running the after middleware');
+		// Grab the instance of the controller out of the container
 		$this->controller = app('nova.controller');
 
+		// Assign the response
 		$response = $next($request);
 
 		if (app('nova.setup')->isInstalled())
@@ -48,16 +49,11 @@ class ProcessController {
 				$output = $this->theme->render();
 				$this->debug->stopMeasure('render');
 
-				//dd($output->render());
-
 				$this->debug->startMeasure('setResponseContent', 'Set the response content');
 				$response->setContent($output);
-				//return $output;
 				$this->debug->stopMeasure('setResponseContent');
 			}
 		}
-
-		//$this->debug->stopMeasure('processController');
 		
 		return $response;
 	}
