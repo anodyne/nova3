@@ -14,9 +14,9 @@ Releases will be numbered with the following format:
 
 And constructed with the following guidelines:
 
-- Breaking backward compatibility bumps the major (and resets the minor and patch)
-- New additions without breaking backward compatibility bumps the minor (and resets the patch)
-- Bug fixes and misc changes bumps the patch
+- Breaking changes bumps the major (and resets the minor and patch)
+- Feature addition bumps the minor (and resets the patch)
+- Issue fixes and miscellaneous changes bumps the patch
 
 ## Support
 
