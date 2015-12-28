@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware,
 	Illuminate\Foundation\Testing\DatabaseMigrations,
 	Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class HomeControllerTest extends TestCase {
+class AuthControllerTest extends TestCase {
 
 	public function setUp()
 	{
@@ -22,9 +22,10 @@ class HomeControllerTest extends TestCase {
 		parent::tearDown();
 	}
 
-	public function test_main_page_displays()
+	public function test_login_page_displays()
 	{
-		$this->visit('/')->see('USS Nova');
+		$this->route('get', 'login');
+		$this->see('Log In');
 	}
 
 }

@@ -20,9 +20,6 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
 		$app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
 
-		if (Storage::disk('local')->has('installed.json'))
-			Storage::disk('local')->delete('installed.json');
-
 		return $app;
 	}
 

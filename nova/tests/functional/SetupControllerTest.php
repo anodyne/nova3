@@ -9,8 +9,8 @@ class SetupControllerTest extends TestCase {
 
 	public function test_env_redirects_to_setup_when_no_issues()
 	{
-		//$this->route('get', 'setup.env');
-		//$this->assertRedirectedToRoute('setup.home');
+		$this->route('get', 'setup.env');
+		$this->assertRedirectedToRoute('setup.home');
 	}
 
 }
