@@ -17,7 +17,7 @@ class RenderController {
 	 */
 	public function handle($request, Closure $next)
 	{
-		$this->debug = app('debugbar');
+		//$this->debug = app('debugbar');
 
 		// Grab the instance of the controller out of the container
 		$this->controller = app('nova.controller');
@@ -45,13 +45,13 @@ class RenderController {
 
 				$this->buildThemeFooter();
 
-				$this->debug->startMeasure('render', 'Render the theme');
+				//$this->debug->startMeasure('render', 'Render the theme');
 				$output = $this->theme->render();
-				$this->debug->stopMeasure('render');
+				//$this->debug->stopMeasure('render');
 
-				$this->debug->startMeasure('setResponseContent', 'Set the response content');
+				//$this->debug->startMeasure('setResponseContent', 'Set the response content');
 				$response->setContent($output);
-				$this->debug->stopMeasure('setResponseContent');
+				//$this->debug->stopMeasure('setResponseContent');
 			}
 		}
 		
@@ -60,69 +60,69 @@ class RenderController {
 
 	protected function buildThemeStructure()
 	{
-		$this->debug->startMeasure('buildThemeStructure', 'Build theme structure');
+		//$this->debug->startMeasure('buildThemeStructure', 'Build theme structure');
 		$this->theme = app('nova.theme')->structure($this->controller->structureView, (array) $this->controller->structureData);
-		$this->debug->stopMeasure('buildThemeStructure');
+		//$this->debug->stopMeasure('buildThemeStructure');
 	}
 
 	protected function buildThemeTemplate()
 	{
-		$this->debug->startMeasure('buildThemeTemplate', 'Build theme template');
+		//$this->debug->startMeasure('buildThemeTemplate', 'Build theme template');
 		$this->theme = $this->theme->template($this->controller->templateView, (array) $this->controller->templateData);
-		$this->debug->stopMeasure('buildThemeTemplate');
+		//$this->debug->stopMeasure('buildThemeTemplate');
 	}
 
 	protected function buildThemeMenu()
 	{
-		$this->debug->startMeasure('buildThemeMenu', 'Build theme menu');
+		//$this->debug->startMeasure('buildThemeMenu', 'Build theme menu');
 		$this->theme = $this->theme->menu($this->controller->page);
-		$this->debug->stopMeasure('buildThemeMenu');
+		//$this->debug->stopMeasure('buildThemeMenu');
 	}
 
 	protected function buildThemeAdminMenu()
 	{
-		$this->debug->startMeasure('buildThemeAdminMenu', 'Build theme admin menu');
+		//$this->debug->startMeasure('buildThemeAdminMenu', 'Build theme admin menu');
 		$this->theme = $this->theme->adminMenu($this->controller->page);
-		$this->debug->stopMeasure('buildThemeAdminMenu');
+		//$this->debug->stopMeasure('buildThemeAdminMenu');
 	}
 
 	protected function buildThemePage()
 	{
-		$this->debug->startMeasure('buildThemePage', 'Build theme page');
+		//$this->debug->startMeasure('buildThemePage', 'Build theme page');
 		if ($this->controller->view)
 		{
 			$this->theme = $this->theme->page($this->controller->view, (array) $this->controller->data);
 		}
-		$this->debug->stopMeasure('buildThemePage');
+		//$this->debug->stopMeasure('buildThemePage');
 	}
 
 	protected function buildThemeJavascript()
 	{
-		$this->debug->startMeasure('buildThemeJavascript', 'Build theme JS');
+		//$this->debug->startMeasure('buildThemeJavascript', 'Build theme JS');
 		if ($this->controller->jsView)
 		{
 			$this->theme = $this->theme->javascript($this->controller->jsView, (array) $this->controller->jsData);
 		}
-		$this->debug->stopMeasure('buildThemeJavascript');
+		//$this->debug->stopMeasure('buildThemeJavascript');
 	}
 
 	protected function buildThemeStyles()
 	{
-		$this->debug->startMeasure('buildThemeStyles', 'Build theme styles');
+		//$this->debug->startMeasure('buildThemeStyles', 'Build theme styles');
 		if ($this->controller->styleView)
 		{
 			$this->theme = $this->theme->styles($this->controller->styleView, (array) $this->controller->styleData);
 		}
-		$this->debug->stopMeasure('buildThemeStyles');
+		//$this->debug->stopMeasure('buildThemeStyles');
 	}
 
 	protected function buildThemeFooter()
 	{
-		$this->debug->startMeasure('buildThemeFooter', 'Build theme footer');
+		//$this->debug->startMeasure('buildThemeFooter', 'Build theme footer');
 		$data = [];
 
 		$this->theme = $this->theme->footer($data);
-		$this->debug->stopMeasure('buildThemeFooter');
+		//$this->debug->stopMeasure('buildThemeFooter');
 	}
 
 }
