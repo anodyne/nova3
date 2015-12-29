@@ -65,9 +65,9 @@ class FormRepository extends BaseRepository implements FormRepositoryInterface {
 		return $this->getById($id);
 	}
 
-	public function findByKey($key)
+	public function findByKey($key, array $with = [])
 	{
-		return $this->getFirstBy('key', $key);
+		return $this->getFirstBy('key', $key, $with);
 	}
 
 }
