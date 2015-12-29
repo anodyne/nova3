@@ -3,8 +3,10 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFormsTables extends Migration
-{
+class CreateFormsTables extends Migration {
+
+	protected $data;
+
 	/**
 	 * Run the migrations.
 	 *
@@ -48,7 +50,7 @@ class CreateFormsTables extends Migration
 		{
 			$table->increments('id');
 			$table->integer('form_id')->unsigned();
-			$table->integer('tab_id')->unsigned()->default(0);
+			$table->integer('tab_id')->unsigned()->nullable();
 			$table->string('name')->nullable();
 			$table->integer('order');
 			$table->boolean('status')->default(Status::ACTIVE);
@@ -140,51 +142,36 @@ class CreateFormsTables extends Migration
 	{
 		Model::unguard();
 
-		$data = require_once app('path.database').'/data/forms.php';
+		$this->data = require_once app('path.database').'/data/forms.php';
 
-		foreach ($data['forms'] as $form)
+		foreach ($this->data['forms'] as $form)
 		{
 			app('FormRepository')->create($form);
 		}
 
-		$forms = ['application', 'character', 'user'];
+		$run = [
+			['character', 'tabs'],
+			['character', 'sections'],
+		];
 
-		foreach ($forms as $form)
+		foreach ($run as $r)
 		{
-			foreach ($data[$form] as $f)
-			{
-				if (array_key_exists('tabs', $data[$form]))
-				{
-					foreach ($data[$form]['tabs'] as $tab)
-					{
-						app('FormTabRepository')->create($tab);
-					}
-				}
+			$this->run($r[0], $r[1]);
+		}
+	}
 
-				if (array_key_exists('sections', $data[$form]))
-				{
-					foreach ($data[$form]['sections'] as $section)
-					{
-						app('FormSectionRepository')->create($section);
-					}
-				}
+	protected function run($form, $type)
+	{
+		$repos = [
+			'tabs'		=> 'FormTabRepository',
+			'sections'	=> 'FormSectionRepository',
+			'fields'	=> 'FormFieldRepository',
+			'values'	=> 'FormFieldValueRepository',
+		];
 
-				if (array_key_exists('fields', $data[$form]))
-				{
-					foreach ($data[$form]['fields'] as $field)
-					{
-						app('FormFieldRepository')->create($field);
-					}
-				}
-
-				if (array_key_exists('values', $data[$form]))
-				{
-					foreach ($data[$form]['values'] as $value)
-					{
-						app('FormFieldValueRepository')->create($value);
-					}
-				}
-			}
+		foreach ($this->data[$form][$type] as $x)
+		{
+			app($repos[$type])->create($x);
 		}
 	}
 

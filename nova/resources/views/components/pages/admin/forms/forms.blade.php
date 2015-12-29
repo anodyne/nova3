@@ -43,7 +43,7 @@
 
 						@can('manage', $formSection)
 							<div class="col-xs-12">
-								<p><a href="{{ route('admin.menus.items', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Edit Form Sections</a></p>
+								<p><a href="{{ route('admin.forms.sections', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Edit Form Sections</a></p>
 							</div>
 						@endcan
 
@@ -80,7 +80,7 @@
 								@endcan
 
 								@can('manage', $formSection)
-									<li><a href="{{ route('admin.menus.items', [$form->key]) }}">Sections</a></li>
+									<li><a href="{{ route('admin.forms.sections', [$form->key]) }}">Sections</a></li>
 								@endcan
 
 								@can('manage', $formField)
