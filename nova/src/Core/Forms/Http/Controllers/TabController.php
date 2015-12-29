@@ -25,16 +25,15 @@ class TabController extends BaseController {
 
 	public function index($formKey)
 	{
-		$form = $this->data->form = $this->formRepo->findByKey($formKey);
+		$form = $this->data->form = $this->formRepo->findByKey($formKey, ['tabs']);
+		$tab = $this->data->tab = new NovaFormTab;
 
-		$this->authorize('manage', $form, "You do not have permission to manage forms.");
+		$this->authorize('manage', $tab, "You do not have permission to manage form tabs.");
 
 		$this->view = 'admin/forms/tabs';
 		$this->jsView = 'admin/forms/tabs-js';
 
-		$this->data->tab = new NovaFormTab;
-		$tabs = $this->data->tabs = $this->repo->getFormTabs($form);
-		$this->data->hasTabs = $tabs->count();
+		$tabs = $this->data->tabs = $this->repo->getParentTabs($form);
 	}
 
 	public function create($formKey)
@@ -99,39 +98,43 @@ class TabController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		$form = $this->repo->findByKey($formKey);
+		$tab = $this->repo->find($tabId);
 
-		if ( ! $form)
+		if ( ! $tab)
 		{
-			$body = alert('danger', "Form [{$formKey}] not found.");
+			$body = alert('danger', "Form tab could not be found.");
 		}
 		else
 		{
-			$body = (policy($form)->remove($this->user, $form))
-				? view(locate('page', 'admin/forms/form-remove'), compact('form'))
-				: alert('danger', "You do not have permission to remove forms.");
+			$form = $this->repo->getForm($tab);
+
+			$body = (policy($tab)->remove($this->user, $tab))
+				? view(locate('page', 'admin/forms/tab-remove'), compact('form', 'tab'))
+				: alert('danger', "You do not have permission to remove form tabs.");
 		}
 
 		return partial('modal-content', [
-			'header' => "Remove Form",
+			'header' => "Remove Form Tab",
 			'body' => $body,
 			'footer' => false,
 		]);
 	}
 
-	public function destroy(RemoveTabRequest $request, $formKey)
+	public function destroy(RemoveFormTabRequest $request, $formKey, $tabId)
 	{
-		$form = $this->repo->findByKey($formKey);
+		$tab = $this->repo->find($tabId);
 
-		$this->authorize('remove', $form, "You do not have permission to remove forms.");
+		$form = $this->formRepo->findByKey($formKey);
 
-		$form = $this->repo->delete($form);
+		$this->authorize('remove', $tab, "You do not have permission to remove form tabs.");
 
-		event(new Events\FormWasDeleted($form->name, $form->key));
+		$tab = $this->repo->delete($tab);
 
-		flash()->success("Form Removed!");
+		event(new Events\FormTabWasDeleted($tab->id, $tab->name, $form->key));
 
-		return redirect()->route('admin.forms');
+		flash()->success("Form Tab Removed!");
+
+		return redirect()->route('admin.forms.tabs', [$formKey]);
 	}
 
 	public function checkTabLink()

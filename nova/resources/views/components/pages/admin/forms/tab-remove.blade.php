@@ -1,4 +1,6 @@
-<p>Are you sure you want to remove the <strong>{{ $tab->present()->name }}</strong> form tab? Removing this tab will also remove all sections, fields, field values, and field data associated with this form tab. This action is permanent and can't be undone!</p>
+<p>Are you sure you want to remove the <strong>{{ $tab->present()->name }}</strong> tab from the <em>{{ $form->present()->name }}</em> form?</p>
+
+<p>Removing this tab will also remove all sections, fields, field values, and field data associated with this form tab as well as any children tabs (along with their sections, fields, field values, and field data). This action is permanent and can't be undone!</p>
 
 {!! Form::model($tab, ['route' => ['admin.forms.tabs.destroy', $form->key, $tab->id], 'method' => 'delete']) !!}
 	<div v-cloak>

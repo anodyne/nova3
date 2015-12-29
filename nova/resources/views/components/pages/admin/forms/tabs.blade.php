@@ -29,14 +29,14 @@
 	</desktop>
 </div>
 
-@if ($hasTabs)
+@if ($tabs->count() > 0)
 	<div class="data-table data-table-striped data-table-bordered">
 	@foreach ($tabs as $tab)
 		<div class="row">
 			<div class="col-md-6">
 				<p class="lead"><strong>{{ $tab->present()->name }}</strong></p>
 			</div>
-			<div class="col-md-6" v-cloak>
+			<div class="col-md-6 controls" v-cloak>
 				<phone-tablet>
 					<div class="row">
 						@can('edit', $tab)
@@ -47,7 +47,7 @@
 
 						@can('remove', $tab)
 							<div class="col-xs-12">
-								<p><a href="#" class="btn btn-danger btn-lg btn-block" @click.prevent="removeForm({{ $form->key }})">Remove</a></p>
+								<p><a href="#" class="btn btn-danger btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $tab->id }}" @click.prevent="removeTab">Remove</a></p>
 							</div>
 						@endcan
 					</div>
@@ -60,9 +60,9 @@
 							</div>
 						@endcan
 
-						@can('remove', $form)
+						@can('remove', $tab)
 							<div class="btn-group">
-								<a href="#" class="btn btn-danger" data-form-key="{{ $form->key }}" @click.prevent="removeForm">Remove</a>
+								<a href="#" class="btn btn-danger" data-form-key="{{ $form->key }}" data-id="{{ $tab->id }}" @click.prevent="removeTab">Remove</a>
 							</div>
 						@endcan
 					</div>
@@ -77,7 +77,7 @@
 						<p class="lead"><strong>{{ $child->present()->name }}</strong></p>
 						<p class="text-muted"><em>Parent Tab: {{ $child->parentTab->present()->name }}</em></p>
 					</div>
-					<div class="col-md-6" v-cloak>
+					<div class="col-md-6 controls" v-cloak>
 						<phone-tablet>
 							<div class="row">
 								@can('edit', $child)
@@ -88,7 +88,7 @@
 
 								@can('remove', $child)
 									<div class="col-xs-12">
-										<p><a href="#" class="btn btn-danger btn-lg btn-block" @click.prevent="removeForm({{ $form->key }})">Remove</a></p>
+										<p><a href="#" class="btn btn-danger btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $child->id }}" @click.prevent="removeTab">Remove</a></p>
 									</div>
 								@endcan
 							</div>
@@ -103,7 +103,7 @@
 
 								@can('remove', $child)
 									<div class="btn-group">
-										<a href="#" class="btn btn-danger" data-form-key="{{ $form->key }}" @click.prevent="removeForm">Remove</a>
+										<a href="#" class="btn btn-danger" data-form-key="{{ $form->key }}" data-id="{{ $child->id }}" @click.prevent="removeTab">Remove</a>
 									</div>
 								@endcan
 							</div>
@@ -115,7 +115,7 @@
 	@endforeach
 	</div>
 
-	@can('remove', $form)
+	@can('remove', $tab)
 		{!! modal(['id' => "removeTab", 'header' => "Remove Form Tab"]) !!}
 	@endcan
 @else

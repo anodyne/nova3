@@ -24,7 +24,7 @@ class Tab extends Model {
 
 	public function fields()
 	{
-		return $this->sections->fields();
+		return $this->hasMany('NovaFormField')->orderBy('order');
 	}
 
 	public function form()
