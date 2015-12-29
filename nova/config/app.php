@@ -329,6 +329,7 @@ return [
 		'CreateFormRequest' => Nova\Core\Forms\Http\Requests\CreateFormRequest::class,
 		'EditFormRequest' => Nova\Core\Forms\Http\Requests\EditFormRequest::class,
 		'RemoveFormRequest' => Nova\Core\Forms\Http\Requests\RemoveFormRequest::class,
+		'FormRepositoryTrait' => Nova\Core\Forms\Traits\FormRepositoryTrait::class,
 
 		'NovaFormField' => Nova\Core\Forms\Data\Field::class,
 		'FormFieldPresenter' => Nova\Core\Forms\Data\Presenters\FieldPresenter::class,
