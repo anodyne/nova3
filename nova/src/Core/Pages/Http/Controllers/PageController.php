@@ -20,6 +20,9 @@ class PageController extends BaseController {
 	{
 		parent::__construct();
 
+		$this->structureView = 'admin';
+		$this->templateView = 'admin';
+
 		$this->repo = $repo;
 		$this->menuRepo = $menus;
 

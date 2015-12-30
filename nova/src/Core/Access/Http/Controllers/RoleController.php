@@ -19,6 +19,9 @@ class RoleController extends BaseController {
 	{
 		parent::__construct();
 
+		$this->structureView = 'admin';
+		$this->templateView = 'admin';
+
 		$this->repo = $repo;
 		$this->permissionsRepo = $permissions;
 
