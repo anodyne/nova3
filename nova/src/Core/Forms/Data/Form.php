@@ -31,9 +31,22 @@ class Form extends Model {
 		return $this->hasMany('NovaFormField');
 	}
 
+	public function fieldsUnbound()
+	{
+		return $this->hasMany('NovaFormField')
+			->where('tab_id', 0)
+			->where('section_id', 0)
+			->orderBy('order');
+	}
+
 	public function sections()
 	{
 		return $this->hasMany('NovaFormSection')->orderBy('order');
+	}
+
+	public function sectionsUnbound()
+	{
+		return $this->hasMany('NovaFormSection')->where('tab_id', 0)->orderBy('order');
 	}
 
 	public function tabs()
