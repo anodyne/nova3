@@ -38,6 +38,7 @@
 					<span class="uk-icon uk-icon-bars text-muted sortable-handle"></span>
 					<strong>{{ $tab->present()->name }}</strong>
 				</p>
+				<p>{!! $tab->present()->statusAsLabel !!}</p>
 			</div>
 			<div class="col-md-6 controls" v-cloak>
 				<phone-tablet>
@@ -79,6 +80,7 @@
 					<div class="col-md-6">
 						<p class="lead"><strong>{{ $child->present()->name }}</strong></p>
 						<p class="text-muted"><em>Parent Tab: {{ $child->parentTab->present()->name }}</em></p>
+						<p>{!! $child->present()->statusAsLabel !!}</p>
 					</div>
 					<div class="col-md-6 controls" v-cloak>
 						<phone-tablet>

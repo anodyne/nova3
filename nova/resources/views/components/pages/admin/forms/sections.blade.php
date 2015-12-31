@@ -38,6 +38,7 @@
 					<span class="uk-icon uk-icon-bars text-muted sortable-handle"></span>
 					<strong>{{ $section->present()->name }}</strong>
 				</p>
+				<p>{!! $section->present()->statusAsLabel !!}</p>
 			</div>
 			<div class="col-md-6 controls" v-cloak>
 				<phone-tablet>
@@ -89,6 +90,7 @@
 							<span class="uk-icon uk-icon-bars text-muted sortable-handle"></span>
 							<strong>{{ $section->present()->name }}</strong>
 						</p>
+						<p>{!! $section->present()->statusAsLabel !!}</p>
 					</div>
 					<div class="col-md-6 controls" v-cloak>
 						<phone-tablet>
