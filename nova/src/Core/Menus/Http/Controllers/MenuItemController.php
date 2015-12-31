@@ -23,6 +23,9 @@ class MenuItemController extends BaseController {
 	{
 		parent::__construct();
 
+		$this->structureView = 'admin';
+		$this->templateView = 'admin';
+
 		$this->repo = $repo;
 		$this->menuRepo = $menus;
 		$this->pagesRepo = $pages;

@@ -11,7 +11,7 @@ class Form extends Model {
 
 	protected $fillable = ['key', 'name', 'orientation', 'status', 'protected',
 		'form_viewer', 'form_viewer_message', 'form_viewer_display',
-		'email_allowed', 'email_address', 'data_model'];
+		'email_allowed', 'email_address', 'resource_creating', 'resource_editing'];
 
 	protected $dates = ['created_at', 'updated_at'];
 

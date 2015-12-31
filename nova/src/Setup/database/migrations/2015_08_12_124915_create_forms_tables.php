@@ -27,7 +27,10 @@ class CreateFormsTables extends Migration {
 			$table->integer('form_viewer_display')->unsigned()->default(0);
 			$table->boolean('email_allowed')->default(0);
 			$table->text('email_addresses')->nullable();
-			$table->string('data_model')->nullable();
+			$table->string('resource_creating')
+				->default('Nova\\\Core\\\Forms\\\Http\\\Controllers\\\FormViewerController@store');
+			$table->string('resource_editing')
+				->default('Nova\\\Core\\\Forms\\\Http\\\Controllers\\\FormViewerController@update');
 			$table->timestamps();
 		});
 
