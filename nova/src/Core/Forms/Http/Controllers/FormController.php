@@ -61,7 +61,7 @@ class FormController extends BaseController {
 
 	public function edit($formKey)
 	{
-		$form = $this->data->form = $this->repo->findByKey($formKey);
+		$form = $this->data->form = $this->repo->getByKey($formKey);
 
 		$this->authorize('edit', $form, "You do not have permission to edit forms.");
 
@@ -71,7 +71,7 @@ class FormController extends BaseController {
 
 	public function update(EditFormRequest $request, $formKey)
 	{
-		$form = $this->repo->findByKey($formKey);
+		$form = $this->repo->getByKey($formKey);
 
 		$this->authorize('edit', $form, "You do not have permission to edit forms.");
 
@@ -88,7 +88,7 @@ class FormController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		$form = $this->repo->findByKey($formKey);
+		$form = $this->repo->getByKey($formKey);
 
 		if ( ! $form)
 		{
@@ -110,7 +110,7 @@ class FormController extends BaseController {
 
 	public function destroy(RemoveFormRequest $request, $formKey)
 	{
-		$form = $this->repo->findByKey($formKey);
+		$form = $this->repo->getByKey($formKey);
 
 		$this->authorize('remove', $form, "You do not have permission to remove forms.");
 
@@ -128,7 +128,7 @@ class FormController extends BaseController {
 		$this->view = 'admin/forms/form-preview';
 		$this->jsView = 'admin/forms/form-preview-js';
 
-		$this->data->form = $this->repo->findByKey($formKey);
+		$this->data->form = $this->repo->getByKey($formKey);
 	}
 
 	public function checkFormKey()

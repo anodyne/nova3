@@ -37,7 +37,7 @@ class SectionController extends BaseController {
 		$this->jsView = 'admin/forms/sections-js';
 		$this->styleView = 'admin/forms/sections-style';
 
-		$form = $this->data->form = $this->formRepo->findByKey($formKey, ['sections', 'sections.tab']);
+		$form = $this->data->form = $this->formRepo->getByKey($formKey, ['sections', 'sections.tab']);
 
 		$this->data->tabs = $this->tabRepo->getFormTabs($form, ['sections']);
 		
@@ -51,7 +51,7 @@ class SectionController extends BaseController {
 		$this->view = 'admin/forms/section-create';
 		$this->jsView = 'admin/forms/section-create-js';
 
-		$form = $this->data->form = $this->formRepo->findByKey($formKey);
+		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
 		$this->data->tabs = ['' => "No tab"];
 		$this->data->tabs += $this->tabRepo->listAll('name', 'id');
@@ -79,7 +79,7 @@ class SectionController extends BaseController {
 		$this->view = 'admin/forms/section-edit';
 		$this->jsView = 'admin/forms/section-edit-js';
 
-		$form = $this->data->form = $this->formRepo->findByKey($formKey);
+		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
 		$this->data->tabs = ['' => "No tab"];
 		$this->data->tabs += $this->tabRepo->listAll('name', 'id');
@@ -112,7 +112,7 @@ class SectionController extends BaseController {
 		}
 		else
 		{
-			$form = $this->formRepo->findByKey($formKey);
+			$form = $this->formRepo->getByKey($formKey);
 
 			$body = (policy($section)->remove($this->user, $section))
 				? view(locate('page', 'admin/forms/section-remove'), compact('form', 'section'))
@@ -130,7 +130,7 @@ class SectionController extends BaseController {
 	{
 		$section = $this->repo->getById($sectionId);
 
-		$form = $this->formRepo->findByKey($formKey);
+		$form = $this->formRepo->getByKey($formKey);
 
 		$this->authorize('remove', $section, "You do not have permission to remove form sections.");
 

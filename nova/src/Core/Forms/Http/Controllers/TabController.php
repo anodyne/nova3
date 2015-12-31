@@ -25,7 +25,7 @@ class TabController extends BaseController {
 
 	public function index($formKey)
 	{
-		$form = $this->data->form = $this->formRepo->findByKey($formKey, ['tabs']);
+		$form = $this->data->form = $this->formRepo->getByKey($formKey, ['tabs']);
 		$tab = $this->data->tab = new NovaFormTab;
 
 		$this->authorize('manage', $tab, "You do not have permission to manage form tabs.");
@@ -39,7 +39,7 @@ class TabController extends BaseController {
 
 	public function create($formKey)
 	{
-		$form = $this->data->form = $this->formRepo->findByKey($formKey);
+		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
 		$this->authorize('create', new NovaFormTab, "You do not have permission to create form tabs.");
 
@@ -65,7 +65,7 @@ class TabController extends BaseController {
 
 	public function edit($formKey, $tabId)
 	{
-		$form = $this->data->form = $this->formRepo->findByKey($formKey);
+		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
 		$tab = $this->data->tab = $this->repo->getById($tabId);
 
@@ -127,7 +127,7 @@ class TabController extends BaseController {
 
 		$tab = $this->repo->delete($tab);
 
-		$form = $this->formRepo->findByKey($formKey);
+		$form = $this->formRepo->getByKey($formKey);
 
 		event(new Events\FormTabWasDeleted($tab->id, $tab->name, $form->key));
 
@@ -140,7 +140,7 @@ class TabController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		$form = $this->formRepo->findByKey(request('formKey'));
+		$form = $this->formRepo->getByKey(request('formKey'));
 
 		$count = $this->repo->countLinkIds($form, request('linkId'));
 
