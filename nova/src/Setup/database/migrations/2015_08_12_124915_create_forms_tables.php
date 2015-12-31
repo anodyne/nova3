@@ -58,8 +58,6 @@ class CreateFormsTables extends Migration {
 
 			$table->foreign('form_id')->references('id')->on('forms')
 				->onDelete('cascade');
-			$table->foreign('tab_id')->references('id')->on('forms_tabs')
-				->onDelete('cascade');
 		});
 
 		Schema::create('forms_fields', function (Blueprint $table)
@@ -85,10 +83,6 @@ class CreateFormsTables extends Migration {
 			$table->timestamps();
 
 			$table->foreign('form_id')->references('id')->on('forms')
-				->onDelete('cascade');
-			$table->foreign('tab_id')->references('id')->on('forms_tabs')
-				->onDelete('cascade');
-			$table->foreign('section_id')->references('id')->on('forms_sections')
 				->onDelete('cascade');
 		});
 
