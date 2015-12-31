@@ -16,7 +16,9 @@ class FormPresenter extends Presenter {
 
 		$tabs = $form->parentTabs;
 
-		return partial('form-editable', compact('form', 'tabs'));
+		$sections = $form->sectionsUnbound;
+
+		return partial('form-editable', compact('form', 'tabs', 'sections'));
 	}
 
 	public function renderEditForm($id)
