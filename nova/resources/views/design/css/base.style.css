@@ -265,6 +265,10 @@ dl dd {
 .uk-nestable .uk-nestable-item .uk-nestable-panel:hover .uk-nested-item-controls {
   display: block;
 }
+.sortable-handle {
+  padding-right: 0.5rem;
+  cursor: move;
+}
 [v-cloak] {
   display: none;
 }
