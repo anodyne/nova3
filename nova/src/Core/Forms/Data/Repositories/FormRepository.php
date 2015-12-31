@@ -1,10 +1,9 @@
 <?php namespace Nova\Core\Forms\Data\Repositories;
 
 use NovaForm as Model,
-	FormRepositoryInterface;
-use Nova\Foundation\Data\Repositories\BaseRepository;
+	FormRepositoryInterface;;
 
-class FormRepository extends BaseRepository implements FormRepositoryInterface {
+class FormRepository extends BaseFormRepository implements FormRepositoryInterface {
 
 	protected $model;
 
@@ -60,12 +59,7 @@ class FormRepository extends BaseRepository implements FormRepositoryInterface {
 		return false;
 	}
 
-	public function find($id)
-	{
-		return $this->getById($id);
-	}
-
-	public function findByKey($key, array $with = [])
+	public function getByKey($key, array $with = [])
 	{
 		return $this->getFirstBy('key', $key, $with);
 	}

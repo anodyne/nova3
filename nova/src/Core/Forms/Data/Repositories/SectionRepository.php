@@ -3,9 +3,8 @@
 use NovaForm,
 	NovaFormSection as Model,
 	FormSectionRepositoryInterface;
-use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class SectionRepository extends BaseRepository implements FormSectionRepositoryInterface {
+class SectionRepository extends BaseFormRepository implements FormSectionRepositoryInterface {
 
 	protected $model;
 

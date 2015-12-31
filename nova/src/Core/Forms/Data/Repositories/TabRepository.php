@@ -3,9 +3,8 @@
 use NovaForm,
 	NovaFormTab as Model,
 	FormTabRepositoryInterface;
-use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class TabRepository extends BaseRepository implements FormTabRepositoryInterface {
+class TabRepository extends BaseFormRepository implements FormTabRepositoryInterface {
 
 	protected $model;
 
@@ -87,16 +86,6 @@ class TabRepository extends BaseRepository implements FormTabRepositoryInterface
 		}
 
 		return false;
-	}
-
-	public function find($id)
-	{
-		return $this->getById($id);
-	}
-
-	public function getForm(Model $tab)
-	{
-		return $tab->form;
 	}
 
 	public function getFormTabs(NovaForm $form, array $with = [])

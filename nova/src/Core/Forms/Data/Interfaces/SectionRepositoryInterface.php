@@ -1,9 +1,8 @@
 <?php namespace Nova\Core\Forms\Data\Interfaces;
 
-use NovaForm, NovaFormSection;
-use Nova\Foundation\Data\Interfaces\BaseRepositoryInterface;
+use NovaForm;
 
-interface SectionRepositoryInterface extends BaseRepositoryInterface {
+interface SectionRepositoryInterface extends BaseFormRepositoryInterface {
 
 	public function getBoundSections(NovaForm $form);
 	public function getUnboundSections(NovaForm $form);
