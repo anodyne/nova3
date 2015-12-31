@@ -32,9 +32,12 @@
 @if ($unboundSections->count() > 0)
 	<div class="data-table data-table-striped data-table-bordered">
 	@foreach ($unboundSections as $section)
-		<div class="row">
+		<div class="row" data-id="{{ $section->id }}">
 			<div class="col-md-6">
-				<p class="lead"><strong>{{ $section->present()->name }}</strong></p>
+				<p class="lead">
+					<span class="uk-icon uk-icon-bars text-muted sortable-handle"></span>
+					<strong>{{ $section->present()->name }}</strong>
+				</p>
 			</div>
 			<div class="col-md-6 controls" v-cloak>
 				<phone-tablet>
@@ -80,9 +83,12 @@
 
 			<div class="data-table data-table-striped data-table-bordered">
 			@foreach ($tab->sections as $section)
-				<div class="row">
+				<div class="row" data-id="{{ $section->id }}">
 					<div class="col-md-6">
-						<p class="lead"><strong>{{ $section->present()->name }}</strong></p>
+						<p class="lead">
+							<span class="uk-icon uk-icon-bars text-muted sortable-handle"></span>
+							<strong>{{ $section->present()->name }}</strong>
+						</p>
 					</div>
 					<div class="col-md-6 controls" v-cloak>
 						<phone-tablet>

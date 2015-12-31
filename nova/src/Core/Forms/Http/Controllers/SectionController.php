@@ -35,6 +35,7 @@ class SectionController extends BaseController {
 
 		$this->view = 'admin/forms/sections';
 		$this->jsView = 'admin/forms/sections-js';
+		$this->styleView = 'admin/forms/sections-style';
 
 		$form = $this->data->form = $this->formRepo->findByKey($formKey, ['sections', 'sections.tab']);
 
@@ -45,134 +46,116 @@ class SectionController extends BaseController {
 
 	public function create($formKey)
 	{
-		$form = $this->data->form = $this->formRepo->findByKey($formKey);
-
 		$this->authorize('create', new NovaFormSection, "You do not have permission to create form sections.");
 
 		$this->view = 'admin/forms/section-create';
 		$this->jsView = 'admin/forms/section-create-js';
 
-		$this->data->parentTabs = ['' => "No parent tab"];
-		$this->data->parentTabs += $this->repo->listParentTabs($form);
-	}
-
-	public function store(CreateFormTabRequest $request, $formKey)
-	{
-		$this->authorize('create', new NovaFormTab, "You do not have permission to create form tabs.");
-
-		$tab = $this->repo->create($request->all());
-
-		event(new Events\FormTabWasCreated($tab));
-
-		flash()->success("Form Tab Created!", "You can begin designing the tab layout with sections and fields.");
-
-		return redirect()->route('admin.forms.tabs', [$formKey]);
-	}
-
-	public function edit($formKey, $tabId)
-	{
 		$form = $this->data->form = $this->formRepo->findByKey($formKey);
 
-		$tab = $this->data->tab = $this->repo->find($tabId);
-
-		$this->authorize('edit', $tab, "You do not have permission to edit form tabs.");
-
-		$this->view = 'admin/forms/tab-edit';
-		$this->jsView = 'admin/forms/tab-edit-js';
-
-		$this->data->parentTabs = ['' => "No parent tab"];
-		$this->data->parentTabs += $this->repo->listParentTabs($form);
+		$this->data->tabs = ['' => "No tab"];
+		$this->data->tabs += $this->tabRepo->listAll('name', 'id');
 	}
 
-	public function update(EditFormTabRequest $request, $formKey, $tabId)
+	public function store(CreateFormSectionRequest $request, $formKey)
 	{
-		$form = $this->formRepo->findByKey($formKey);
+		$this->authorize('create', new NovaFormSection, "You do not have permission to create form sections.");
 
-		$tab = $this->repo->find($tabId);
+		$section = $this->repo->create($request->all());
 
-		$this->authorize('edit', $tab, "You do not have permission to edit form tabs.");
+		event(new Events\FormSectionWasCreated($section));
 
-		$tab = $this->repo->update($tab, $request->all());
+		flash()->success("Form Section Created!", "You can begin designing the section layout with fields.");
 
-		event(new Events\FormTabWasUpdated($tab));
-
-		flash()->success("Form Tab Updated!");
-
-		return redirect()->route('admin.forms.tabs', [$formKey]);
+		return redirect()->route('admin.forms.sections', [$formKey]);
 	}
 
-	public function remove($formKey, $tabId)
+	public function edit($formKey, $sectionId)
+	{
+		$section = $this->data->section = $this->repo->getById($sectionId);
+
+		$this->authorize('edit', $section, "You do not have permission to edit form sections.");
+
+		$this->view = 'admin/forms/section-edit';
+		$this->jsView = 'admin/forms/section-edit-js';
+
+		$form = $this->data->form = $this->formRepo->findByKey($formKey);
+
+		$this->data->tabs = ['' => "No tab"];
+		$this->data->tabs += $this->tabRepo->listAll('name', 'id');
+	}
+
+	public function update(EditFormSectionRequest $request, $formKey, $sectionId)
+	{
+		$section = $this->repo->getById($sectionId);
+
+		$this->authorize('edit', $section, "You do not have permission to edit form sections.");
+
+		$section = $this->repo->update($section, $request->all());
+
+		event(new Events\FormSectionWasUpdated($section));
+
+		flash()->success("Form Section Updated!");
+
+		return redirect()->route('admin.forms.sections', [$formKey]);
+	}
+
+	public function remove($formKey, $sectionId)
 	{
 		$this->isAjax = true;
 
-		$tab = $this->repo->find($tabId);
+		$section = $this->repo->getById($sectionId);
 
-		if ( ! $tab)
+		if ( ! $section)
 		{
-			$body = alert('danger', "Form tab could not be found.");
+			$body = alert('danger', "Form section could not be found.");
 		}
 		else
 		{
-			$form = $this->repo->getForm($tab);
+			$form = $this->formRepo->findByKey($formKey);
 
-			$body = (policy($tab)->remove($this->user, $tab))
-				? view(locate('page', 'admin/forms/tab-remove'), compact('form', 'tab'))
-				: alert('danger', "You do not have permission to remove form tabs.");
+			$body = (policy($section)->remove($this->user, $section))
+				? view(locate('page', 'admin/forms/section-remove'), compact('form', 'section'))
+				: alert('danger', "You do not have permission to remove form sections.");
 		}
 
 		return partial('modal-content', [
-			'header' => "Remove Form Tab",
+			'header' => "Remove Form Section",
 			'body' => $body,
 			'footer' => false,
 		]);
 	}
 
-	public function destroy(RemoveFormTabRequest $request, $formKey, $tabId)
+	public function destroy(RemoveFormSectionRequest $request, $formKey, $sectionId)
 	{
-		$tab = $this->repo->find($tabId);
+		$section = $this->repo->getById($sectionId);
 
 		$form = $this->formRepo->findByKey($formKey);
 
-		$this->authorize('remove', $tab, "You do not have permission to remove form tabs.");
+		$this->authorize('remove', $section, "You do not have permission to remove form sections.");
 
-		$tab = $this->repo->delete($tab);
+		$section = $this->repo->delete($section);
 
-		event(new Events\FormTabWasDeleted($tab->id, $tab->name, $form->key));
+		event(new Events\FormSectionWasDeleted($section->id, $section->name, $form->key));
 
-		flash()->success("Form Tab Removed!");
+		flash()->success("Form Section Removed!");
 
-		return redirect()->route('admin.forms.tabs', [$formKey]);
+		return redirect()->route('admin.forms.sections', [$formKey]);
 	}
 
-	public function checkTabLink()
+	public function updateSectionOrder()
 	{
 		$this->isAjax = true;
 
-		$form = $this->formRepo->findByKey(request('formKey'));
+		$section = new NovaFormSection;
 
-		$count = $this->repo->countLinkIds($form, request('linkId'));
-
-		if ($count > 0)
+		if (policy($section)->edit($this->user, $section))
 		{
-			return json_encode(['code' => 0]);
-		}
-
-		return json_encode(['code' => 1]);
-	}
-
-	public function updateTabOrder()
-	{
-		$this->isAjax = true;
-
-		$tab = new NovaFormTab;
-
-		if (policy($tab)->edit($this->user, $tab))
-		{
-			foreach (request('tab') as $key => $value)
+			foreach (request('sections') as $order => $id)
 			{
-				$updatedTab = $this->repo->updateOrder($value, $key++);
+				$updatedSection = $this->repo->updateOrder($id, $order);
 
-				event(new Events\FormTabOrderWasUpdated($updatedTab));
+				event(new Events\FormSectionOrderWasUpdated($updatedSection));
 			}
 		}
 	}

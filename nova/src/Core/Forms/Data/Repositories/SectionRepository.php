@@ -14,6 +14,36 @@ class SectionRepository extends BaseRepository implements FormSectionRepositoryI
 		$this->model = $model;
 	}
 
+	public function delete($resource)
+	{
+		// Get the resource
+		$section = $this->getResource($resource);
+
+		if ($section)
+		{
+			$section->fields->each(function ($field)
+			{
+				$field->data->each(function ($d)
+				{
+					$d->delete();
+				});
+
+				$field->values->each(function ($value)
+				{
+					$value->delete();
+				});
+
+				$field->delete();
+			});
+
+			$section->delete();
+
+			return $section;
+		}
+
+		return false;
+	}
+
 	public function getBoundSections(NovaForm $form)
 	{
 		return $form->sections->filter(function ($section)

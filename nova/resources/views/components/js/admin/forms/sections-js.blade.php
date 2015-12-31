@@ -1,3 +1,4 @@
+{!! HTML::script('nova/resources/js/Sortable.min.js') !!}
 <script>
 	vue = {
 		methods: {
@@ -12,4 +13,26 @@
 			}
 		}
 	}
+
+	$('.data-table').each(function ()
+	{
+		Sortable.create(this, {
+			handle: '.sortable-handle',
+			onEnd: function (event)
+			{
+				var sectionOrder = new Array()
+
+				$(event.from).children().each(function ()
+				{
+					sectionOrder.push($(this).data('id'))
+				})
+
+				$.ajax({
+					type: "POST",
+					url: "{{ route('admin.forms.sections.updateOrder') }}",
+					data: { sections: sectionOrder }
+				})
+			}
+		})
+	})
 </script>

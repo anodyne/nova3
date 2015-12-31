@@ -349,6 +349,9 @@ return [
 		'FormSectionRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\SectionRepositoryInterface::class,
 		'FormSectionRepository' => Nova\Core\Forms\Data\Repositories\SectionRepository::class,
 		'SectionPolicy' => Nova\Core\Forms\Policies\SectionPolicy::class,
+		'CreateFormSectionRequest' => Nova\Core\Forms\Http\Requests\CreateFormSectionRequest::class,
+		'EditFormSectionRequest' => Nova\Core\Forms\Http\Requests\EditFormSectionRequest::class,
+		'RemoveFormSectionRequest' => Nova\Core\Forms\Http\Requests\RemoveFormTabRequest::class,
 		'CleanupFormSections' => Nova\Core\Forms\Listeners\CleanupFormSections::class,
 		
 		'NovaFormTab' => Nova\Core\Forms\Data\Tab::class,
