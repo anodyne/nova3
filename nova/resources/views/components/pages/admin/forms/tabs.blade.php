@@ -30,11 +30,14 @@
 </div>
 
 @if ($tabs->count() > 0)
-	<div class="data-table data-table-striped data-table-bordered">
+	<div class="data-table data-table-striped data-table-bordered" id="sortable">
 	@foreach ($tabs as $tab)
-		<div class="row">
+		<div class="row" data-id="{{ $tab->id }}">
 			<div class="col-md-6">
-				<p class="lead"><strong>{{ $tab->present()->name }}</strong></p>
+				<p class="lead">
+					<span class="uk-icon uk-icon-bars text-muted sortable-handle"></span>
+					<strong>{{ $tab->present()->name }}</strong>
+				</p>
 			</div>
 			<div class="col-md-6 controls" v-cloak>
 				<phone-tablet>

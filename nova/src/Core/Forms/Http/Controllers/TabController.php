@@ -32,6 +32,7 @@ class TabController extends BaseController {
 
 		$this->view = 'admin/forms/tabs';
 		$this->jsView = 'admin/forms/tabs-js';
+		$this->styleView = 'admin/forms/tabs-style';
 
 		$tabs = $this->data->tabs = $this->repo->getParentTabs($form);
 	}
@@ -66,7 +67,7 @@ class TabController extends BaseController {
 	{
 		$form = $this->data->form = $this->formRepo->findByKey($formKey);
 
-		$tab = $this->data->tab = $this->repo->find($tabId);
+		$tab = $this->data->tab = $this->repo->getById($tabId);
 
 		$this->authorize('edit', $tab, "You do not have permission to edit form tabs.");
 
@@ -79,9 +80,7 @@ class TabController extends BaseController {
 
 	public function update(EditFormTabRequest $request, $formKey, $tabId)
 	{
-		$form = $this->formRepo->findByKey($formKey);
-
-		$tab = $this->repo->find($tabId);
+		$tab = $this->repo->getById($tabId);
 
 		$this->authorize('edit', $tab, "You do not have permission to edit form tabs.");
 
@@ -98,7 +97,7 @@ class TabController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		$tab = $this->repo->find($tabId);
+		$tab = $this->repo->getById($tabId);
 
 		if ( ! $tab)
 		{
@@ -106,7 +105,7 @@ class TabController extends BaseController {
 		}
 		else
 		{
-			$form = $this->repo->getForm($tab);
+			$form = $this->formRepo->getByKey($formKey);
 
 			$body = (policy($tab)->remove($this->user, $tab))
 				? view(locate('page', 'admin/forms/tab-remove'), compact('form', 'tab'))
@@ -122,13 +121,13 @@ class TabController extends BaseController {
 
 	public function destroy(RemoveFormTabRequest $request, $formKey, $tabId)
 	{
-		$tab = $this->repo->find($tabId);
-
-		$form = $this->formRepo->findByKey($formKey);
+		$tab = $this->repo->getById($tabId);
 
 		$this->authorize('remove', $tab, "You do not have permission to remove form tabs.");
 
 		$tab = $this->repo->delete($tab);
+
+		$form = $this->formRepo->findByKey($formKey);
 
 		event(new Events\FormTabWasDeleted($tab->id, $tab->name, $form->key));
 
@@ -161,9 +160,9 @@ class TabController extends BaseController {
 
 		if (policy($tab)->edit($this->user, $tab))
 		{
-			foreach (request('tab') as $key => $value)
+			foreach (request('tabs') as $order => $id)
 			{
-				$updatedTab = $this->repo->updateOrder($value, $key++);
+				$updatedTab = $this->repo->updateOrder($id, $order);
 
 				event(new Events\FormTabOrderWasUpdated($updatedTab));
 			}
