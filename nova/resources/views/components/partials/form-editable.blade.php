@@ -1,3 +1,5 @@
+{!! partial('form-sections', ['sections' => $sections]) !!}
+
 @if ($tabs->count() > 0)
 	{!! partial('form-tabs-control', ['tabs' => $tabs, 'style' => 'tabs']) !!}
 

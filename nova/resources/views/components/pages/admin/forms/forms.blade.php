@@ -49,7 +49,7 @@
 
 						@can('manage', $formField)
 							<div class="col-xs-12">
-								<p><a href="{{ route('admin.menus.items', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Edit Form Fields</a></p>
+								<p><a href="{{ route('admin.forms.fields', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Edit Form Fields</a></p>
 							</div>
 						@endcan
 					@endcan
@@ -84,7 +84,7 @@
 								@endcan
 
 								@can('manage', $formField)
-									<li><a href="{{ route('admin.menus.items', [$form->key]) }}">Fields</a></li>
+									<li><a href="{{ route('admin.forms.fields', [$form->key]) }}">Fields</a></li>
 								@endcan
 							</ul>
 						</div>

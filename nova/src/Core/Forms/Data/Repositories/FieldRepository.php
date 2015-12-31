@@ -1,10 +1,10 @@
 <?php namespace Nova\Core\Forms\Data\Repositories;
 
-use NovaFormField as Model,
-	NovaFormFieldRepositoryInterface;
-use Nova\Foundation\Data\Repositories\BaseRepository;
+use NovaForm,
+	NovaFormField as Model,
+	FormFieldRepositoryInterface;
 
-class FieldRepository extends BaseRepository implements NovaFormFieldRepositoryInterface {
+class FieldRepository extends BaseFormRepository implements FormFieldRepositoryInterface {
 
 	protected $model;
 

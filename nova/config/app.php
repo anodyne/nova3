@@ -335,6 +335,9 @@ return [
 		'FormFieldRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\FieldRepositoryInterface::class,
 		'FormFieldRepository' => Nova\Core\Forms\Data\Repositories\FieldRepository::class,
 		'FieldPolicy' => Nova\Core\Forms\Policies\FieldPolicy::class,
+		'CreateFormFieldRequest' => Nova\Core\Forms\Http\Requests\CreateFormFieldRequest::class,
+		'EditFormFieldRequest' => Nova\Core\Forms\Http\Requests\EditFormFieldRequest::class,
+		'RemoveFormFieldRequest' => Nova\Core\Forms\Http\Requests\RemoveFormFieldRequest::class,
 		'CleanupFormFields' => Nova\Core\Forms\Listeners\CleanupFormFields::class,
 		
 		'NovaFormFieldValue' => Nova\Core\Forms\Data\FieldValue::class,

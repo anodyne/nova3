@@ -55,4 +55,13 @@ return [
 		CleanupFormTabs::class,
 	],
 
+	'Nova\Core\Forms\Events\FormFieldWasCreated' => [],
+	'Nova\Core\Forms\Events\FormFieldWasDeleted' => [],
+	'Nova\Core\Forms\Events\FormFieldOrderWasUpdated' => [],
+	'Nova\Core\Forms\Events\FormFieldWasUpdated' => [
+		CleanupFormFields::class,
+		CleanupFormSections::class,
+		CleanupFormTabs::class,
+	],
+
 ];
