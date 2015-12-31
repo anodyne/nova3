@@ -135,4 +135,14 @@ return [
 	['page_id' => 85, 'type' => 'header', 'key' => 'admin.forms.sections.edit.header', 'value' => "Edit Form Section"],
 	['page_id' => 85, 'type' => 'title', 'key' => 'admin.forms.sections.edit.title', 'value' => "Edit Form Section"],
 	['page_id' => 85, 'type' => 'message', 'key' => 'admin.forms.sections.edit.message', 'value' => null],
+
+	['page_id' => 90, 'type' => 'header', 'key' => 'admin.forms.fields.header', 'value' => null],
+	['page_id' => 90, 'type' => 'title', 'key' => 'admin.forms.fields.title', 'value' => "Form Fields"],
+	['page_id' => 90, 'type' => 'message', 'key' => 'admin.forms.fields.message', 'value' => null],
+	['page_id' => 91, 'type' => 'header', 'key' => 'admin.forms.fields.create.header', 'value' => "Add Form Field"],
+	['page_id' => 91, 'type' => 'title', 'key' => 'admin.forms.fields.create.title', 'value' => "Add Form Field"],
+	['page_id' => 91, 'type' => 'message', 'key' => 'admin.forms.fields.create.message', 'value' => null],
+	['page_id' => 93, 'type' => 'header', 'key' => 'admin.forms.fields.edit.header', 'value' => "Edit Form Field"],
+	['page_id' => 93, 'type' => 'title', 'key' => 'admin.forms.fields.edit.title', 'value' => "Edit Form Field"],
+	['page_id' => 93, 'type' => 'message', 'key' => 'admin.forms.fields.edit.message', 'value' => null],
 ];
