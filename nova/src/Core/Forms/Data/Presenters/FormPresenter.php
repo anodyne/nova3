@@ -5,6 +5,16 @@ use Laracasts\Presenter\Presenter;
 
 class FormPresenter extends Presenter {
 
+	public function hasHorizontalOrientation()
+	{
+		return $this->entity->orientation == 'horizontal';
+	}
+
+	public function hasVerticalOrientation()
+	{
+		return $this->entity->orientation == 'vertical';
+	}
+
 	public function renderViewForm($id)
 	{
 		# code...

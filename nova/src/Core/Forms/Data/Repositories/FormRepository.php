@@ -64,4 +64,28 @@ class FormRepository extends BaseFormRepository implements FormRepositoryInterfa
 		return $this->getFirstBy('key', $key, $with);
 	}
 
+	public function getTabs(Model $form, array $relations = [])
+	{
+		return $form->tabs->filter(function ($tab)
+		{
+			return (int) $tab->parent_id === 0;
+		})->sortBy('order')->load($relations);
+	}
+
+	public function getUnboundFields(Model $form, array $relations = [])
+	{
+		return $form->fields->filter(function ($field)
+		{
+			return (int) $field->tab_id === 0 and (int) $field->section_id === 0;
+		})->sortBy('order')->load($relations);
+	}
+
+	public function getUnboundSections(Model $form, array $relations = [])
+	{
+		return $form->sections->filter(function ($section)
+		{
+			return (int) $section->tab_id === 0;
+		})->sortBy('order')->load($relations);
+	}
+
 }

@@ -41,7 +41,13 @@ class FieldController extends BaseController {
 		$this->jsView = 'admin/forms/fields-js';
 		$this->styleView = 'admin/forms/fields-style';
 
-		$form = $this->data->form = $this->formRepo->getByKey($formKey);
+		$form = $this->data->form = $this->formRepo->getByKey($formKey, ['fields', 'fields.values', 'sections', 'sections.fields', 'sections.fields.values', 'tabs', 'tabs.fields', 'tabs.fields.values', 'tabs.sections', 'tabs.sections.fields', 'tabs.sections.fields.values', 'tabs.childrenTabs', 'tabs.childrenTabs.fields', 'tabs.childrenTabs.fields.values', 'tabs.childrenTabs.sections', 'tabs.childrenTabs.sections.fields', 'tabs.childrenTabs.sections.fields.values']);
+
+		$this->data->unboundFields = $this->formRepo->getUnboundFields($form);
+
+		$this->data->unboundSections = $this->formRepo->getUnboundSections($form);
+
+		$this->data->tabs = $this->formRepo->getTabs($form);
 	}
 
 	public function create($formKey)

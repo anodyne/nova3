@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Forms\Data;
 
-use Model, NovaFormFieldPresenter;
+use Model, FormFieldPresenter;
 use Laracasts\Presenter\PresentableTrait;
 
 class Field extends Model {
@@ -11,12 +11,12 @@ class Field extends Model {
 
 	protected $fillable = ['form_id', 'tab_id', 'section_id', 'type', 'label',
 		'order', 'status', 'restriction', 'help', 'selected', 'value',
-		'html_id', 'html_class', 'html_rows', 'html_container_class',
-		'placeholder', 'validation_rules'];
+		'attribute_id', 'attribute_class', 'attribute_rows', 'field_container_class',
+		'attribute_placeholder', 'validation_rules', 'label_container_class'];
 
 	protected $dates = ['created_at', 'updated_at'];
 
-	protected $presenter = NovaFormFieldPresenter::class;
+	protected $presenter = FormFieldPresenter::class;
 
 	/*
 	|---------------------------------------------------------------------------

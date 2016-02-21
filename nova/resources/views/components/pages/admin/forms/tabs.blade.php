@@ -35,7 +35,7 @@
 		<div class="row" data-id="{{ $tab->id }}">
 			<div class="col-md-6">
 				<p class="lead">
-					<span class="uk-icon uk-icon-bars text-muted sortable-handle"></span>
+					<span class="uk-icon uk-icon-bars sortable-handle"></span>
 					<strong>{{ $tab->present()->name }}</strong>
 				</p>
 				<p>{!! $tab->present()->statusAsLabel !!}</p>
@@ -76,9 +76,12 @@
 
 		@if ($tab->childrenTabs->count() > 0)
 			@foreach ($tab->childrenTabs->sortBy('order') as $child)
-				<div class="row">
+				<div class="row" data-id="{{ $child->id }}">
 					<div class="col-md-6">
-						<p class="lead"><strong>{{ $child->present()->name }}</strong></p>
+						<p class="lead">
+							<span class="uk-icon uk-icon-bars sortable-handle"></span>
+							<strong>{{ $child->present()->name }}</strong>
+						</p>
 						<p class="text-muted"><em>Parent Tab: {{ $child->parentTab->present()->name }}</em></p>
 						<p>{!! $child->present()->statusAsLabel !!}</p>
 					</div>

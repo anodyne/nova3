@@ -35,7 +35,7 @@
 		<div class="row" data-id="{{ $section->id }}">
 			<div class="col-md-6">
 				<p class="lead">
-					<span class="uk-icon uk-icon-bars text-muted sortable-handle"></span>
+					<span class="uk-icon uk-icon-bars sortable-handle"></span>
 					<strong>{{ $section->present()->name }}</strong>
 				</p>
 				<p>{!! $section->present()->statusAsLabel !!}</p>
@@ -87,7 +87,7 @@
 				<div class="row" data-id="{{ $section->id }}">
 					<div class="col-md-6">
 						<p class="lead">
-							<span class="uk-icon uk-icon-bars text-muted sortable-handle"></span>
+							<span class="uk-icon uk-icon-bars sortable-handle"></span>
 							<strong>{{ $section->present()->name }}</strong>
 						</p>
 						<p>{!! $section->present()->statusAsLabel !!}</p>
