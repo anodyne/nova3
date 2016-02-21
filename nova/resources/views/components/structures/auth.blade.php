@@ -21,10 +21,20 @@
 		@else
 			{!! HTML::style('nova/resources/views/design/css/base.style.css') !!}
 			{!! HTML::style('nova/resources/views/design/css/auth.style.css') !!}
+
+			@if (app('files')->exists(theme_path('design/css/auth.custom.css', false)))
+				{!! HTML::style(theme_path('design/css/auth.custom.css')) !!}
+			@endif
 		@endif
-		
-		@if (app('files')->exists(theme_path('design/css/auth.custom.css', false)))
-			{!! HTML::style(theme_path('design/css/auth.custom.css')) !!}
+
+		@if (app('files')->exists(theme_path('design/css/responsive.css', false)))
+			{!! HTML::style(theme_path('design/css/responsive.css')) !!}
+		@else
+			{!! HTML::style('nova/resources/views/design/css/base.responsive.css') !!}
+
+			@if (app('files')->exists(theme_path('design/css/custom.responsive.css', false)))
+				{!! HTML::style(theme_path('design/css/custom.responsive.css')) !!}
+			@endif
 		@endif
 
 		@if (user() and user()->preference('theme_variant'))

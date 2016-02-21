@@ -19,6 +19,10 @@
 		@if (app('files')->exists(theme_path('design/css/icons.css', false)))
 			{!! HTML::style(theme_path('design/css/icons.css')) !!}
 		@else
+			@if (app('files')->exists(theme_path('design/css/custom.icons.css', false)))
+				{!! HTML::style(theme_path('design/css/custom.icons.css')) !!}
+			@endif
+
 			{!! HTML::style('nova/resources/views/design/css/base.icons.css') !!}
 		@endif
 
@@ -26,12 +30,10 @@
 			{!! HTML::style(theme_path('design/css/style.css')) !!}
 		@else
 			{!! HTML::style('nova/resources/views/design/css/base.style.css') !!}
-		@endif
 
-		{!! HTML::style('nova/resources/views/design/css/base.responsive.css') !!}
-
-		@if (app('files')->exists(theme_path('design/css/custom.css', false)))
-			{!! HTML::style(theme_path('design/css/custom.css')) !!}
+			@if (app('files')->exists(theme_path('design/css/custom.css', false)))
+				{!! HTML::style(theme_path('design/css/custom.css')) !!}
+			@endif
 		@endif
 
 		@if (user() and user()->preference('theme_variant'))
@@ -39,6 +41,16 @@
 		@endif
 		@if ( ! user() and ! empty($_settings->get('theme_variant')))
 			{!! HTML::style(theme_path("design/css/variants/{$_settings->get('theme_variant')}.css")) !!}
+		@endif
+
+		@if (app('files')->exists(theme_path('design/css/responsive.css', false)))
+			{!! HTML::style(theme_path('design/css/responsive.css')) !!}
+		@else
+			@if (app('files')->exists(theme_path('design/css/custom.responsive.css', false)))
+				{!! HTML::style(theme_path('design/css/custom.responsive.css')) !!}
+			@endif
+
+			{!! HTML::style('nova/resources/views/design/css/base.responsive.css') !!}
 		@endif
 
 		{!! $styles or false !!}
