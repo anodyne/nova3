@@ -14,17 +14,13 @@ Releases will be numbered with the following format:
 
 And constructed with the following guidelines:
 
-- Breaking changes bumps the major (and resets the minor and patch)
-- Feature addition bumps the minor (and resets the patch)
-- Issue fixes and miscellaneous changes bumps the patch
+- Breaking change(s) bumps the major (and resets the minor and patch)
+- Feature addition(s) bumps the minor (and resets the patch)
+- Issue fix(es) and other miscellaneous change(s) bumps the patch
 
 ## Support
 
-Have a bug? Please create an issue here on GitHub!
-
-https://github.com/anodyne/nova3/issues
-
-Follow us on Twitter, [@anodyneprod](http://twitter.com/anodyneprod).
+Due to the fact that Nova NextGen is currently undergoing heavy active development, there is no support offered at this time. If you believe something that's been built has an issue, please [create an issue](https://github.com/anodyne/nova3/issues).
 
 ## Community
 
