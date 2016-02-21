@@ -132,13 +132,12 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 	public function update($resource, array $data)
 	{
 		// Get the page
-		$page = $this->find($resource);
+		$page = $this->getResource($resource);
 
 		if ($page)
 		{
 			// Update the page
-			$updatedPage = $page->fill($data);
-			$updatedPage->save();
+			$page->fill($data)->save();
 
 			// Set which content items we want to update
 			$contentToUpdate = ['title', 'header', 'message'];
@@ -154,7 +153,7 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 					: null;
 
 				// Get the content item
-				$contentItem = $updatedPage->{$type}();
+				$contentItem = $page->{$type}();
 
 				if ($contentItem)
 				{
@@ -166,16 +165,16 @@ class PageRepository extends BaseRepository implements PageRepositoryInterface {
 					// We didn't have a content item, so let's create one
 					$newContentItem = $contentRepo->create([
 						'type'	=> $type,
-						'key'	=> "{$updatedPage->key}.{$type}",
+						'key'	=> "{$page->key}.{$type}",
 						'value'	=> $value,
 					]);
 
 					// Attach the content record to the page
-					$updatedPage->pageContents()->save($newContentItem);
+					$page->pageContents()->save($newContentItem);
 				}
 			}
 
-			return $updatedPage;
+			return $page;
 		}
 
 		return false;
