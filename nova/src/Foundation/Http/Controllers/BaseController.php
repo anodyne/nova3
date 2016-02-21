@@ -107,7 +107,16 @@ abstract class BaseController extends Controller {
 		abort(403, $message, ['foo' => $message]);
 	}
 
-	final public function page(){}
+	final public function page()
+	{
+		if ($this->page->access)
+		{
+			if ($this->user and $this->user->cannot($this->page->access))
+			{
+				return $this->errorUnauthorized("You do not have permission to view the {$this->page->name} page.");
+			}
+		}
+	}
 
 	protected function setupController()
 	{

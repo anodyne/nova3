@@ -65,10 +65,18 @@
 
 		<div class="form-group{{ ($errors->has('basic[key]')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Key</label>
-			<div class="col-md-6">
+			<div class="col-md-5">
 				{!! Form::text('basic[key]', null, ['class' => 'form-control input-lg', 'v-model' => 'key', '@change' => 'checkKey']) !!}
 				{!! $errors->first('basic[key]', '<p class="help-block">:message</p>') !!}
 				<p class="help-block">Keys are used to uniquely identify your pages and create dynamic links to them. Even if the URI or other values of the page change, using the key to build links means that those links will always work as long as the key doesn't change. The only restriction with keys is that they <strong>cannot</strong> have the same key as another page.</p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-md-2 control-label">Access</label>
+			<div class="col-md-5">
+				{!! Form::text('basic[access]', null, ['class' => 'form-control input-lg']) !!}
+				<p class="help-block">You can specify a permission key that will be required to access this page. If you enter a permission key, visitors will have to be logged in to the site and have the specified permission in their access role(s).</p>
 			</div>
 		</div>
 

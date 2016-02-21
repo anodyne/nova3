@@ -40,11 +40,21 @@
 
 	<div class="form-group{{ ($errors->has('key')) ? ' has-error' : '' }}">
 		<label class="col-md-2 control-label">Key</label>
-		<div class="col-md-4">
+		<div class="col-md-5">
 			{!! Form::text('key', null, ['class' => 'form-control input-lg', 'v-model' => 'key']) !!}
 			{!! $errors->first('key', '<p class="help-block">:message</p>') !!}
 		</div>
 	</div>
+
+	@if ($page->type == 'basic')
+		<div class="form-group">
+			<label class="col-md-2 control-label">Access</label>
+			<div class="col-md-5">
+				{!! Form::text('access', null, ['class' => 'form-control input-lg']) !!}
+				<p class="help-block">You can specify a permission key that will be required to access this page. If you enter a permission key, visitors will have to be logged in to the site and have the specified permission in their access role(s).</p>
+			</div>
+		</div>
+	@endif
 
 	@if ($page->type == 'advanced')
 		<div class="form-group{{ ($errors->has('verb')) ? ' has-error' : '' }}">

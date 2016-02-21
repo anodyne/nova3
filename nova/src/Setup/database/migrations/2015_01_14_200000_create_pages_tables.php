@@ -20,6 +20,7 @@ class CreatePagesTables extends Migration {
 			$table->text('resource')->nullable();
 			$table->string('default_resource')
 				->default('Nova\\\Foundation\\\Http\\\Controllers\\\MainController@page');
+			$table->string('access')->nullable();
 			$table->text('conditions')->nullable();
 			$table->boolean('protected')->default((int) false);
 			$table->timestamps();

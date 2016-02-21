@@ -4,6 +4,14 @@ use Laracasts\Presenter\Presenter;
 
 class PagePresenter extends Presenter {
 
+	public function access()
+	{
+		// Find the permission
+		$permission = app('PermissionRepository')->getFirstBy('name', $this->entity->access);
+
+		if ($permission) return $permission->present()->displayName;
+	}
+
 	public function message()
 	{
 		if ($this->entity->message())
