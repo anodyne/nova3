@@ -6,7 +6,6 @@ interface BaseRepositoryInterface {
 	public function countBy($column, $value);
 	public function create(array $data);
 	public function delete($resource);
-	public function find($value, array $with = [], $column = 'id');
 	public function forceDelete($resource);
 	public function getById($id, array $with = []);
 	public function getByPage($page = 1, $limit = 10, array $with = []);

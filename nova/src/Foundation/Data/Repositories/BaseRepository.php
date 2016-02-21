@@ -33,16 +33,6 @@ abstract class BaseRepository {
 		return false;
 	}
 
-	public function find($value, array $with = [], $column = 'id')
-	{
-		if ($column == 'id')
-		{
-			return $this->getById($value, $with);
-		}
-
-		return $this->getFirstBy($column, $value, $with);
-	}
-
 	public function forceDelete($resource)
 	{
 		$item = $this->getResource($resource);
