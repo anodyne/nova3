@@ -1,5 +1,6 @@
 <?php namespace Nova\Foundation\Http\Controllers;
 
+use Str;
 use stdClass;
 use Illuminate\Routing\Controller,
 	Illuminate\Foundation\Bus\DispatchesJobs,
@@ -91,7 +92,7 @@ abstract class BaseController extends Controller {
 			: "An unauthenticated user";
 
 		$logMessage.= " attempted to access ".app('request')->fullUrl();
-		
+
 		app('log')->warning($logMessage);
 
 		nova_event();
@@ -104,16 +105,41 @@ abstract class BaseController extends Controller {
 			]);
 		}
 
-		abort(403, $message, ['foo' => $message]);
+		abort(403, $message);
 	}
 
 	final public function page()
 	{
 		if ($this->page->access)
 		{
-			if ($this->user and $this->user->cannot($this->page->access))
+			// Set the method that we'll call on the user object to check access
+			$method = (Str::contains($this->page->access_type, 'role')) ? 'hasRole' : 'can';
+
+			// Are we matching for ALL items or ANY item?
+			$allMatch = (bool) Str::contains($this->page->access_type, 'all');
+
+			// Make sure we have an array of access items
+			$accessItems = explode(',', $this->page->access);
+
+			foreach ($accessItems as $item)
 			{
-				return $this->errorUnauthorized("You do not have permission to view the {$this->page->name} page.");
+				if ($allMatch)
+				{
+					if ($this->user and ! $this->user->{$method}($item))
+					{
+						return $this->errorUnauthorized("You do not have permission to view the {$this->page->name} page.");
+					}
+				}
+
+				if ( ! $allMatch)
+				{
+					if ($this->user and $this->user->{$method}($item))
+					{
+						break;
+					}
+
+					return $this->errorUnauthorized("You do not have permission to view the {$this->page->name} page.");
+				}
 			}
 		}
 	}
