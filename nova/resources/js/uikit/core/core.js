@@ -1,4 +1,4 @@
-/*! UIkit 2.24.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.25.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -44,7 +44,7 @@
 
     var UI = {}, _UI = global.UIkit ? Object.create(global.UIkit) : undefined;
 
-    UI.version = '2.24.0';
+    UI.version = '2.25.0';
 
     UI.noConflict = function() {
         // restore UIkit version
@@ -260,7 +260,11 @@
 
     UI.Utils.options = function(string) {
 
-        if ($.isPlainObject(string)) return string;
+        if ($.type(string)!='string') return string;
+
+        if (string.indexOf(':') != -1 && string.trim().substr(-1) != '}') {
+            string = '{'+string+'}';
+        }
 
         var start = (string ? string.indexOf("{") : -1), options = {};
 
@@ -278,12 +282,11 @@
         var d = $.Deferred();
 
         element = UI.$(element);
-        cls     = cls;
 
         element.css('display', 'none').addClass(cls).one(UI.support.animation.end, function() {
             element.removeClass(cls);
             d.resolve();
-        }).width();
+        });
 
         element.css('display', '');
 
@@ -618,86 +621,103 @@
         if (UI.domready) UI.Utils.checkDisplay();
     });
 
-    $(function(){
+    document.addEventListener('DOMContentLoaded', function(){
 
-        UI.$body = UI.$('body');
+        var domReady = function() {
 
-        UI.ready(function(context){
-            UI.domObserve('[data-uk-observe]');
-        });
+            UI.$body = UI.$('body');
 
-        UI.on('changed.uk.dom', function(e) {
-            UI.init(e.target);
-            UI.Utils.checkDisplay(e.target);
-        });
+            UI.ready(function(context){
+                UI.domObserve('[data-uk-observe]');
+            });
 
-        UI.trigger('beforeready.uk.dom');
+            UI.on('changed.uk.dom', function(e) {
+                UI.init(e.target);
+                UI.Utils.checkDisplay(e.target);
+            });
 
-        UI.component.bootComponents();
+            UI.trigger('beforeready.uk.dom');
 
-        // custom scroll observer
-        requestAnimationFrame((function(){
+            UI.component.bootComponents();
 
-            var memory = {x: window.pageXOffset, y:window.pageYOffset}, dir;
+            // custom scroll observer
+            requestAnimationFrame((function(){
 
-            var fn = function(){
+                var memory = {dir: {x:0, y:0}, x: window.pageXOffset, y:window.pageYOffset};
 
-                if (memory.x != window.pageXOffset || memory.y != window.pageYOffset) {
+                var fn = function(){
+                    // reading this (window.page[X|Y]Offset) causes a full page recalc of the layout in Chrome,
+                    // so we only want to do this once
+                    var wpxo = window.pageXOffset;
+                    var wpyo = window.pageYOffset;
 
-                    dir = {x: 0 , y: 0};
+                    // Did the scroll position change since the last time we were here?
+                    if (memory.x != wpxo || memory.y != wpyo) {
 
-                    if (window.pageXOffset != memory.x) dir.x = window.pageXOffset > memory.x ? 1:-1;
-                    if (window.pageYOffset != memory.y) dir.y = window.pageYOffset > memory.y ? 1:-1;
+                        // Set the direction of the scroll and store the new position
+                        if (wpxo != memory.x) {memory.dir.x = wpxo > memory.x ? 1:-1; } else { memory.dir.x = 0; }
+                        if (wpyo != memory.y) {memory.dir.y = wpyo > memory.y ? 1:-1; } else { memory.dir.y = 0; }
 
-                    memory = {
-                        "dir": dir, "x": window.pageXOffset, "y": window.pageYOffset
-                    };
+                        memory.x = wpxo;
+                        memory.y = wpyo;
 
-                    UI.$doc.trigger('scrolling.uk.document', [memory]);
+                        // Trigger the scroll event, this could probably be sent using memory.clone() but this is
+                        // more explicit and easier to see exactly what is being sent in the event.
+                        UI.$doc.trigger('scrolling.uk.document', [{
+                            "dir": {"x": memory.dir.x, "y": memory.dir.y}, "x": wpxo, "y": wpyo
+                        }]);
+                    }
+
+                    requestAnimationFrame(fn);
+                };
+
+                if (UI.support.touch) {
+                    UI.$html.on('touchmove touchend MSPointerMove MSPointerUp pointermove pointerup', fn);
                 }
 
-                requestAnimationFrame(fn);
-            };
+                if (memory.x || memory.y) fn();
+
+                return fn;
+
+            })());
+
+            // run component init functions on dom
+            UI.trigger('domready.uk.dom');
 
             if (UI.support.touch) {
-                UI.$html.on('touchmove touchend MSPointerMove MSPointerUp pointermove pointerup', fn);
+
+                // remove css hover rules for touch devices
+                // UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
+
+                // viewport unit fix for uk-height-viewport - should be fixed in iOS 8
+                if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {
+
+                    UI.$win.on('load orientationchange resize', UI.Utils.debounce((function(){
+
+                        var fn = function() {
+                            $('.uk-height-viewport').css('height', window.innerHeight);
+                            return fn;
+                        };
+
+                        return fn();
+
+                    })(), 100));
+                }
             }
 
-            if (memory.x || memory.y) fn();
+            UI.trigger('afterready.uk.dom');
 
-            return fn;
+            // mark that domready is left behind
+            UI.domready = true;
+        };
 
-        })());
-
-        // run component init functions on dom
-        UI.trigger('domready.uk.dom');
-
-        if (UI.support.touch) {
-
-            // remove css hover rules for touch devices
-            // UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
-
-            // viewport unit fix for uk-height-viewport - should be fixed in iOS 8
-            if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {
-
-                UI.$win.on('load orientationchange resize', UI.Utils.debounce((function(){
-
-                    var fn = function() {
-                        $('.uk-height-viewport').css('height', window.innerHeight);
-                        return fn;
-                    };
-
-                    return fn();
-
-                })(), 100));
-            }
+        if (document.readyState == 'complete' || document.readyState == 'interactive') {
+            setTimeout(domReady);
         }
 
-        UI.trigger('afterready.uk.dom');
+        return domReady;
 
-        // mark that domready is left behind
-        UI.domready = true;
-    });
+    }());
 
     // add touch identifier class
     UI.$html.addClass(UI.support.touch ? "uk-touch" : "uk-notouch");

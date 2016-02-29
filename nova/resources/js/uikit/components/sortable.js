@@ -1,4 +1,4 @@
-/*! UIkit 2.24.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.25.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
   * Based on nativesortable - Copyright (c) Brian Grinstead - https://github.com/bgrins/nativesortable
   */
@@ -131,7 +131,7 @@
                 }
 
                 // inside or outside of sortable?
-                var sortable  = closestSortable(e.target),
+                var sortable  = closestSortable(currentlyDraggingElement),
                     component = draggingPlaceholder.$sortable,
                     ev        = { type: e.type };
 
@@ -182,19 +182,6 @@
                 e.data.sortable = element;
 
                 return $this.dragStart(e, this);
-            });
-
-            var handleDragOver = delegate(function(e) {
-
-                if (!currentlyDraggingElement) {
-                    return true;
-                }
-
-                if (e.preventDefault) {
-                    e.preventDefault();
-                }
-
-                return false;
             });
 
             var handleDragEnter = delegate(UI.Utils.debounce(function(e) {
@@ -324,7 +311,7 @@
                 }
             }
 
-            if (target.is('.'+$this.options.noDragClass) || target.closest('.'+$this.options._noDragClass).length) {
+            if (target.is('.'+$this.options.noDragClass) || target.closest('.'+$this.options.noDragClass).length) {
                 return;
             }
 
@@ -386,7 +373,7 @@
 
         dragMove: function(e, elem) {
 
-            overElement = UI.$(document.elementFromPoint(e.pageX - document.body.scrollLeft, e.pageY - document.body.scrollTop));
+            overElement = UI.$(document.elementFromPoint(e.pageX - (document.body.scrollLeft || document.scrollLeft || 0), e.pageY - (document.body.scrollTop || document.documentElement.scrollTop || 0)));
 
             var overRoot     = overElement.closest('.'+this.options.baseClass),
                 groupOver    = overRoot.data("sortable-group"),
@@ -529,7 +516,9 @@
             }
 
             triggers.forEach(function (trigger, i) {
-                trigger.sortable.element.trigger('change.uk.sortable', [trigger.sortable, el, trigger.mode]);
+                if (trigger.sortable) {
+                    trigger.sortable.element.trigger('change.uk.sortable', [trigger.sortable, el, trigger.mode]);
+                }
             });
         },
 

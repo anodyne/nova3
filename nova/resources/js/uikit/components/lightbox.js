@@ -1,4 +1,4 @@
-/*! UIkit 2.24.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.25.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -85,7 +85,7 @@
 
                     siblings.push({
                         'source': ele.attr('href'),
-                        'title' : ele.attr('title'),
+                        'title' : ele.attr('data-title') || ele.attr('title'),
                         'type'  : ele.attr("data-lightbox-type") || 'auto',
                         'link'  : ele
                     });

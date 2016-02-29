@@ -1,4 +1,4 @@
-/*! UIkit 2.24.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.25.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -62,7 +62,7 @@
                 $this.resize(true);
             }, 100));
 
-            this.on('click.uikit.slider', '[data-uk-slider-item]', function(e) {
+            this.on('click.uk.slider', '[data-uk-slider-item]', function(e) {
 
                 e.preventDefault();
 
@@ -185,7 +185,7 @@
 
             this.container.css({'min-width': pos, 'min-height': maxheight});
 
-            if (this.options.infinite && pos <= (2*this.vp) && !this.itemsResized) {
+            if (this.options.infinite && (pos <= (2*this.vp) || this.items.length < 5) && !this.itemsResized) {
 
                 // fill with cloned items
                 this.container.children().each(function(idx){
@@ -291,6 +291,15 @@
                     }
                 }
             }
+
+            // mark elements
+            var left = this.items.eq(idx).data('left');
+
+            this.items.removeClass('uk-slide-before uk-slide-after').each(function(i){
+                if (i!==idx) {
+                    UI.$(this).addClass(UI.$(this).data('left') < left ? 'uk-slide-before':'uk-slide-after');
+                }
+            });
 
             this.focus = idx;
 
@@ -402,7 +411,7 @@
     });
 
     // handle dragging
-    UI.$doc.on('mousemove.uikit.slider touchmove.uikit.slider', function(e) {
+    UI.$doc.on('mousemove.uk.slider touchmove.uk.slider', function(e) {
 
         if (e.originalEvent && e.originalEvent.touches) {
             e = e.originalEvent.touches[0];
@@ -480,7 +489,7 @@
         store.diff    = diff;
     });
 
-    UI.$doc.on('mouseup.uikit.slider touchend.uikit.slider', function(e) {
+    UI.$doc.on('mouseup.uk.slider touchend.uk.slider', function(e) {
 
         if (dragging) {
 
