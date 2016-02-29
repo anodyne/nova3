@@ -14,7 +14,8 @@ class Page extends Model {
 	protected $table = 'pages';
 
 	protected $fillable = ['verb', 'name', 'key', 'uri', 'resource',
-		'description', 'conditions', 'type', 'menu_id', 'access'];
+		'description', 'conditions', 'type', 'menu_id', 'access',
+		'access_type'];
 
 	protected $casts = [
 		'protected'	=> 'boolean',
