@@ -1,7 +1,7 @@
 {
-	"name": "ThemeName",
+	"name": "{ThemeName}",
 	"author": "",
-	"location": "ThemeLowercaseName",
+	"location": "{ThemeLowercaseName}",
 	"preview": "preview.jpg",
 	"credits": "Credits...",
 	"version": 1.0

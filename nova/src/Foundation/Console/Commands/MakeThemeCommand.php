@@ -47,10 +47,10 @@ class MakeThemeCommand extends Command {
 	 */
 	public function handle()
 	{
-		$name = str_replace(' ', '', $this->argument('name'));
+		$pathName = str_replace(' ', '', strtolower($this->argument('name')));
 
 		// Build the new theme path
-		$themePath = $this->laravel['path.theme']."/{$name}";
+		$themePath = $this->laravel['path.theme']."/{$pathName}";
 
 		// Does the directory already exists?
 		if ($this->files->isDirectory($themePath))
@@ -61,8 +61,8 @@ class MakeThemeCommand extends Command {
 		{
 			// Build up the list of things to replace
 			$replacements = [
-				'ThemeName' => ucfirst($name),
-				'ThemeLowercaseName' => strtolower($name),
+				'{ThemeName}' => $this->argument('name'),
+				'{ThemeLowercaseName}' => strtolower($pathName),
 			];
 
 			// Create the directory structure
