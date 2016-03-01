@@ -71,15 +71,16 @@ class MakeExtensionCommand extends Command {
 			{
 				// Build up the list of things to replace
 				$replacements = [
-					'ExtensionNamespace' => "Extensions\\{$vendor}\\{$name}",
-					'ExtensionControllerName' => ucfirst($name).'Controller',
-					'ExtensionVendorName' => "{$vendor}/{$name}",
-					'ExtensionLowercaseVendorName' => strtolower("{$vendor}/{$name}"),
-					'ExtensionName' => $name,
-					'ExtensionLowercaseName' => strtolower($name),
-					'ExtensionVendor' => $vendor,
-					'ExtensionLowercaseVendor' => strtolower($vendor),
-					'ExtensionKey' => 'extension.'.strtolower($vendor).'.'.strtolower($name),
+					'{ExtensionNamespace}' => "Extensions\\{$vendor}\\{$name}",
+					'{ExtensionControllerName}' => ucfirst($name).'Controller',
+					'{ExtensionVendorName}' => "{$vendor}/{$name}",
+					'{ExtensionLowercaseVendorName}' => strtolower("{$vendor}/{$name}"),
+					'{ExtensionProperName}' => $this->argument('name'),
+					'{ExtensionName}' => $name,
+					'{ExtensionLowercaseName}' => strtolower($name),
+					'{ExtensionVendor}' => $this->argument('vendor'),
+					'{ExtensionLowercaseVendor}' => strtolower($vendor),
+					'{ExtensionKey}' => 'extension.'.strtolower($vendor).'.'.strtolower($name),
 				];
 
 				// Create the directory

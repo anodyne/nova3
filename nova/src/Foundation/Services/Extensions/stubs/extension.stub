@@ -1,5 +1,8 @@
-<?php namespace ExtensionNamespace;
+<?php namespace {ExtensionNamespace};
 
-use Nova\Foundation\Services\Extensions\Extension as BaseExtension;
+use Nova\Foundation\Services\Extensions\ExtensionException,
+	Nova\Foundation\Services\Extensions\ExtensionInstallException,
+	Nova\Foundation\Services\Extensions\Extension as BaseExtension,
+	Nova\Foundation\Services\Extensions\ExtensionUninstallException;
 
 class Extension extends BaseExtension {}
