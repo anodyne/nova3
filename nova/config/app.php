@@ -151,6 +151,7 @@ return [
 		 * Nova Service Providers
 		 */
 
+		Dingo\Api\Provider\LaravelServiceProvider::class,
 		Collective\Html\HtmlServiceProvider::class,
 		Nova\Setup\Providers\SetupServiceProvider::class,
 		Nova\Setup\Providers\SetupRouteServiceProvider::class,
@@ -210,6 +211,7 @@ return [
 		'Validator' => Illuminate\Support\Facades\Validator::class,
 		'View'      => Illuminate\Support\Facades\View::class,
 
+		'API'				=> Dingo\Api\Facade\API::class,
 		'BaseController'	=> Nova\Foundation\Http\Controllers\BaseController::class,
 		'Date'				=> Carbon\Carbon::class,
 		'Model'				=> Illuminate\Database\Eloquent\Model::class,
