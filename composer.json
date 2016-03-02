@@ -1,12 +1,12 @@
 {
 	"require": {
 		"laravel/framework": "~5.2",
-
 		"dflydev/symfony-finder-factory": "*",
 		"league/commonmark": "*",
 		"laracasts/presenter": "*",
 		"laravelcollective/html": "~5.2",
-		"league/fractal": "*"
+		"league/fractal": "*",
+		"dingo/api": "1.0.*@dev"
 	},
 
 	"require-dev": {
