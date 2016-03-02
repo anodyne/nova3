@@ -24,10 +24,10 @@
 
 		ready: function()
 		{
-			this.$http.get(this.baseUrl + '/api/access/permissions', function (data, status, request)
+			this.$http.get(this.baseUrl + '/api/access/permissions').then(function (response)
 			{
-				this.permissions = data.data
-			}).error(function (data, status, request)
+				this.permissions = response.data
+			}, function (response)
 			{
 				this.loadingWithError = true
 			})

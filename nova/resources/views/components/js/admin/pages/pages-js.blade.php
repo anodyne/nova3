@@ -26,10 +26,10 @@
 
 		ready: function()
 		{
-			this.$http.get(this.baseUrl + '/api/pages', function (data, status, request)
+			this.$http.get(this.baseUrl + '/api/pages').then(function (response)
 			{
-				this.pages = data.data
-			}).error(function (data, status, request)
+				this.pages = response.data
+			}, function (response)
 			{
 				this.loadingWithError = true
 			})
