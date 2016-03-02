@@ -72,14 +72,6 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label class="col-md-2 control-label">Access</label>
-			<div class="col-md-5">
-				{!! Form::text('basic[access]', null, ['class' => 'form-control input-lg']) !!}
-				<p class="help-block">You can specify a permission key that will be required to access this page. If you enter a permission key, visitors will have to be logged in to the site and have the specified permission in their access role(s).</p>
-			</div>
-		</div>
-
 		<div class="form-group{{ ($errors->has('basic[menu_id]')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Menu</label>
 			<div class="col-md-5">
@@ -88,6 +80,41 @@
 				<p class="help-block">Menu collections allow you to build menus for different areas of the system. When this page is the active page, the above menu collection will be rendered on the page.</p>
 			</div>
 		</div>
+
+		<div class="form-group">
+			<div class="col-md-5 col-md-offset-2">
+				<h3>Controlling Access</h3>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-md-2 control-label">Access Type</label>
+			<div class="col-md-4">
+				{!! Form::select('basic[access_type]', $accessTypes, null, ['class' => 'form-control input-lg', 'v-model' => 'accessType']) !!}
+			</div>
+		</div>
+
+		<div class="form-group" v-show="accessType == 'role_all' || accessType == 'role_any'">
+			<label class="col-md-2 control-label">Role(s)</label>
+			<div class="col-md-6">
+				@foreach ($accessRoles as $role)
+					<div class="col-md-6 checkbox">
+						<label>{!! Form::checkbox('access_role[]', $role->name, false, ['v-model' => 'accessRole']) !!} {!! $role->present()->displayName !!}</label>
+					</div>
+				@endforeach
+				<p class="help-block">You can specify an access role that will be required to access this page. By entering an access role, visitors will have to be logged in to the site and have the specified role.</p>
+			</div>
+		</div>
+
+		<div class="form-group" v-show="accessType == 'permission_all' || accessType == 'permission_any'">
+			<label class="col-md-2 control-label">Permission(s)</label>
+			<div class="col-md-5">
+				{!! Form::text('access_permission', null, ['class' => 'form-control input-lg js-permissions', 'v-model' => 'accessPermission', 'autocomplete' => 'off']) !!}
+				<p class="help-block">You can specify a permission key that will be required to access this page. By entering a permission key, visitors will have to be logged in to the site and have the specified permission in their access role(s).</p>
+			</div>
+		</div>
+
+		{!! Form::hidden('basic[access]', null, ['v-model' => 'access']) !!}
 	</div>
 
 	<div v-show="type == 'advanced'">

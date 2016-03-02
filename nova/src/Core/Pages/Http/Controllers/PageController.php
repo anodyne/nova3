@@ -57,6 +57,16 @@ class PageController extends BaseController {
 		$this->data->menus += $this->menuRepo->listAll('name', 'id');
 
 		$this->data->resources = $this->getExtensionResources();
+
+		$this->data->accessTypes = [
+			'' => "None",
+			'role_all' => "All Selected Access Roles",
+			'role_any' => "Any Selected Access Roles",
+			'permission_all' => "All Selected Permissions",
+			'permission_any' => "Any Selected Permissions",
+		];
+
+		$this->data->accessRoles = app('RoleRepository')->all();
 	}
 
 	public function store(CreatePageRequest $request)
@@ -92,6 +102,16 @@ class PageController extends BaseController {
 		$this->data->menus += $this->menuRepo->listAll('name', 'id');
 
 		$this->data->resources = $this->getExtensionResources();
+
+		$this->data->accessTypes = [
+			'' => "None",
+			'role_all' => "All Selected Access Roles",
+			'role_any' => "Any Selected Access Roles",
+			'permission_all' => "All Selected Permissions",
+			'permission_any' => "Any Selected Permissions",
+		];
+
+		$this->data->accessRoles = app('RoleRepository')->all();
 	}
 
 	public function update(EditPageRequest $request, $pageId)

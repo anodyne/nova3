@@ -1,9 +1,19 @@
+{!! HTML::style('nova/resources/css/bootstrap-tagsinput.css') !!}
+{!! HTML::style('nova/resources/css/bootstrap-tagsinput-typeahead.css') !!}
+{!! HTML::script('nova/resources/js/typeahead.bundle.min.js') !!}
+{!! HTML::script('nova/resources/js/bootstrap-tagsinput.min.js') !!}
 <script>
 	vue = {
 		data: {
+			baseUrl: "{{ Request::root() }}",
 			type: "",
 			key: "",
-			uri: ""
+			uri: "",
+			accessType: "",
+			access: [],
+			accessRole: [],
+			accessPermission: [],
+			permissionData: []
 		},
 
 		methods: {
@@ -14,9 +24,9 @@
 					var url = "{{ route('admin.pages.checkKey') }}"
 					var postData = { key: this.key }
 
-					this.$http.post(url, postData, function (data, status, request)
+					this.$http.post(url, postData).then(function (response)
 					{
-						if (data.code == 0)
+						if (response.data.code == 0)
 						{
 							this.key = ""
 
@@ -28,11 +38,11 @@
 								html: true
 							})
 						}
-					}).error(function (data, status, request)
+					}, function (response)
 					{
 						swal({
 							title: "Error!",
-							text: "There was an error trying to check the page key. Please try again. (Error " + status + ")",
+							text: "There was an error trying to check the page key. Please try again. (Error " + response.status + ")",
 							type: "error",
 							timer: null,
 							html: true
@@ -48,9 +58,9 @@
 					var url = "{{ route('admin.pages.checkUri') }}"
 					var postData = { uri: this.uri }
 
-					this.$http.post(url, postData, function (data, status, request)
+					this.$http.post(url, postData).then(function (response)
 					{
-						if (data.code == 0)
+						if (response.data.code == 0)
 						{
 							this.uri = ""
 
@@ -83,17 +93,66 @@
 
 							this.key = newKey
 						}
-					}).error(function (data, status, request)
+					}, function (response)
 					{
 						swal({
 							title: "Error!",
-							text: "There was an error trying to check the URI. Please try again. (Error " + status + ")",
+							text: "There was an error trying to check the URI. Please try again. (Error " + response.status + ")",
 							type: "error",
 							timer: null,
 							html: true
 						})
 					})
 				}
+			}
+		},
+
+		ready: function () {
+			this.$http.get(this.baseUrl + '/api/access/permissions').then(function (response)
+			{
+				this.permissionData = response.data.data
+			})
+		},
+
+		watch: {
+			"accessType": function (value, oldValue) {
+				if (value == "")
+				{
+					this.access = []
+					this.accessRole = []
+					this.accessPermission = []
+				}
+			},
+
+			"accessRole": function (value, oldValue) {
+				this.access = value
+			},
+
+			// TODO: need to figure out how to search by name and/or display_name
+			"permissionData": function (value, oldValue) {
+				var permissions = new Bloodhound({
+					datumTokenizer: function (datum) {
+						return Bloodhound.tokenizers.whitespace(datum.name)
+					},
+					queryTokenizer: Bloodhound.tokenizers.whitespace,
+					local: value
+				})
+
+				$('.js-permissions').tagsinput({
+					itemValue: 'name',
+					itemText: 'display_name',
+					tagClass: 'label label-default',
+					typeaheadjs: {
+						name: 'permissions',
+						source: permissions,
+						display: 'display_name'
+					}
+				})
+
+				/*var permissionsField = $('.js-permissions').typeahead(null, {
+					source: permissions,
+					display: 'display_name'
+				})*/
 			}
 		}
 	}

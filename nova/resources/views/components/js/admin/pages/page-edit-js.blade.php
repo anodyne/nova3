@@ -6,7 +6,11 @@
 			key: "",
 			uri: "",
 			oldKey: "",
-			oldUri: ""
+			oldUri: "",
+			accessType: "",
+			access: [],
+			accessRole: [],
+			accessPermission: []
 		},
 
 		ready: function()
@@ -108,6 +112,23 @@
 						})
 					})
 				}
+			}
+		},
+
+		watch: {
+			"accessType": function (value, oldValue)
+			{
+				if (value == "")
+				{
+					this.access = []
+					this.accessRole = []
+					this.accessPermission = []
+				}
+			},
+
+			"accessRole": function (value, oldValue)
+			{
+				this.access = value
 			}
 		}
 	}
