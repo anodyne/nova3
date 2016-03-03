@@ -82,8 +82,9 @@
 		</div>
 
 		<div class="form-group">
-			<div class="col-md-5 col-md-offset-2">
+			<div class="col-md-6 col-md-offset-2">
 				<h3>Controlling Access</h3>
+				<p>You can restrict who has access to the page by the user's access role or even permission keys that are within the access role(s). By specifying either an access role or permission, Nova will require the visiting user to be logged in.</p>
 			</div>
 		</div>
 
@@ -102,15 +103,18 @@
 						<label>{!! Form::checkbox('access_role[]', $role->name, false, ['v-model' => 'accessRole']) !!} {!! $role->present()->displayName !!}</label>
 					</div>
 				@endforeach
-				<p class="help-block">You can specify an access role that will be required to access this page. By entering an access role, visitors will have to be logged in to the site and have the specified role.</p>
+				<p class="help-block" v-show="accessType == 'role_all'">A user must have <strong>all</strong> of the access roles checked in order to access this page.</p>
+				<p class="help-block" v-show="accessType == 'role_any'">A user must have <strong>at least one</strong> of the access roles checked in order to access this page.</p>
 			</div>
 		</div>
 
 		<div class="form-group" v-show="accessType == 'permission_all' || accessType == 'permission_any'">
 			<label class="col-md-2 control-label">Permission(s)</label>
-			<div class="col-md-5">
-				{!! Form::text('access_permission', null, ['class' => 'form-control input-lg js-permissions', 'v-model' => 'accessPermission', 'autocomplete' => 'off']) !!}
-				<p class="help-block">You can specify a permission key that will be required to access this page. By entering a permission key, visitors will have to be logged in to the site and have the specified permission in their access role(s).</p>
+			<div class="col-md-6">
+				{!! Form::textarea('access_permission', null, ['class' => 'form-control input-lg js-permissions', 'v-model' => 'accessPermission', 'autocomplete' => 'off', 'rows' => 3]) !!}
+				<p class="help-block" v-show="accessType == 'permission_all'">A user must have <strong>all</strong> of the permissions above in order to access this page.</p>
+				<p class="help-block" v-show="accessType == 'permission_any'">A user must have <strong>at least one</strong> of the permissions above in order to access this page.</p>
+				<p class="help-block">You can specify a permission key that will be required to access this page. You can try searching for actions (such as <em>create</em>, <em>edit</em>, or <em>remove</em>) or components (such as <em>forms</em>, <em>ranks</em>, or <em>stories</em>) to give you a list of suggestions.</p>
 			</div>
 		</div>
 

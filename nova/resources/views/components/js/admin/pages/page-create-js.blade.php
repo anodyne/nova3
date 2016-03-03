@@ -128,12 +128,13 @@
 				this.access = value
 			},
 
-			// TODO: need to figure out how to search by name and/or display_name
+			"accessPermission": function (value, oldValue) {
+				this.access = value
+			},
+
 			"permissionData": function (value, oldValue) {
 				var permissions = new Bloodhound({
-					datumTokenizer: function (datum) {
-						return Bloodhound.tokenizers.whitespace(datum.name)
-					},
+					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name', 'display_name'),
 					queryTokenizer: Bloodhound.tokenizers.whitespace,
 					local: value
 				})
@@ -142,17 +143,13 @@
 					itemValue: 'name',
 					itemText: 'display_name',
 					tagClass: 'label label-default',
+					freeInput: false,
 					typeaheadjs: {
 						name: 'permissions',
 						source: permissions,
 						display: 'display_name'
 					}
 				})
-
-				/*var permissionsField = $('.js-permissions').typeahead(null, {
-					source: permissions,
-					display: 'display_name'
-				})*/
 			}
 		}
 	}
