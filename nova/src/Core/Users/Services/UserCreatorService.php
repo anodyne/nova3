@@ -22,7 +22,10 @@ class UserCreatorService {
 	public function create(array $data)
 	{
 		// Create the user
-		$user = $this->repo->create($data['user']);
+		$user = $this->repo->create(array_merge(
+			$data['user'],
+			['api_token' => str_random(60)]
+		));
 
 		// Fire the event
 		$this->events->fire('nova.user.created', [$user]);
