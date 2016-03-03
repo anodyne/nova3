@@ -2,7 +2,7 @@
 
 use PageRepositoryInterface;
 use League\Fractal\Manager;
-use Nova\Core\Pages\Data\Transformers\PageTransformer;
+use Nova\Core\Pages\Api\V1\Transformers\PageTransformer;
 use Nova\Foundation\Http\Controllers\ApiController;
 
 class PageController extends ApiController {

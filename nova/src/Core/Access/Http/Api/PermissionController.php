@@ -3,7 +3,7 @@
 use League\Fractal\Manager;
 use PermissionRepositoryInterface;
 use Nova\Foundation\Http\Controllers\ApiController;
-use Nova\Core\Access\Data\Transformers\PermissionTransformer;
+use Nova\Core\Access\Api\V1\Transformers\PermissionTransformer;
 
 class PermissionController extends ApiController {
 
