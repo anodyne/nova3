@@ -82,6 +82,14 @@ abstract class BaseController extends Controller {
 
 		app('log')->warning($logMessage);
 
+		if (app('request')->ajax())
+		{
+			return response()->json([
+				'status'	=> 404,
+				'message'	=> $message,
+			]);
+		}
+
 		abort(404, $message);
 	}
 
@@ -108,10 +116,34 @@ abstract class BaseController extends Controller {
 		abort(403, $message);
 	}
 
+	public function errorUnauthenticated($message = null)
+	{
+		$request = app('request');
+
+		$logMessage = "An unauthenticated user attempted to access {$request->fullUrl()} from {$request->getClientIp()}";
+
+		app('log')->warning($logMessage);
+
+		nova_event();
+
+		if (app('request')->ajax())
+		{
+			return response()->json([
+				'status'	=> 401,
+				'message'	=> $message,
+			]);
+		}
+
+		abort(401, $message);
+	}
+
 	final public function page()
 	{
 		if ($this->page->access)
 		{
+			// Make sure the user is authenticated
+			if ( ! $this->user) return $this->errorUnauthenticated("You must log in to continue");
+
 			// Set the method that we'll call on the user object to check access
 			$method = (Str::contains($this->page->access_type, 'role')) ? 'hasRole' : 'can';
 
@@ -125,7 +157,7 @@ abstract class BaseController extends Controller {
 			{
 				if ($allMatch)
 				{
-					if ($this->user and ! $this->user->{$method}($item))
+					if ( ! $this->user->{$method}($item))
 					{
 						return $this->errorUnauthorized("You do not have permission to view the {$this->page->name} page.");
 					}
@@ -133,10 +165,7 @@ abstract class BaseController extends Controller {
 
 				if ( ! $allMatch)
 				{
-					if ($this->user and $this->user->{$method}($item))
-					{
-						break;
-					}
+					if ($this->user->{$method}($item)) break;
 
 					return $this->errorUnauthorized("You do not have permission to view the {$this->page->name} page.");
 				}
