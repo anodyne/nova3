@@ -1,9 +1,9 @@
-<?php namespace Nova\Core\Pages\Data\Transformers;
+<?php namespace Nova\Core\Pages\Api\V1\Transformers;
 
 use Str, PageContent;
-use League\Fractal;
+use League\Fractal\TransformerAbstract as Transformer;
 
-class PageContentTransformer extends Fractal\TransformerAbstract {
+class PageContentTransformer extends Transformer {
 
 	public function transform(PageContent $content)
 	{

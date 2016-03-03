@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Access\Data\Transformers;
+<?php namespace Nova\Core\Access\Api\V1\Transformers;
 
 use Permission;
 use League\Fractal\TransformerAbstract as Transformer;
