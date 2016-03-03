@@ -1,6 +1,11 @@
+{!! HTML::style('nova/resources/css/bootstrap-tagsinput.css') !!}
+{!! HTML::style('nova/resources/css/bootstrap-tagsinput-typeahead.css') !!}
+{!! HTML::script('nova/resources/js/typeahead.bundle.min.js') !!}
+{!! HTML::script('nova/resources/js/bootstrap-tagsinput.min.js') !!}
 <script>
 	vue = {
 		data: {
+			baseUrl: "{{ Request::root() }}",
 			resource: "",
 			type: "",
 			key: "",
@@ -10,13 +15,8 @@
 			accessType: "",
 			access: [],
 			accessRole: [],
-			accessPermission: []
-		},
-
-		ready: function()
-		{
-			this.oldKey = this.key
-			this.oldUri = this.uri
+			accessPermission: [],
+			permissionData: []
 		},
 
 		methods: {
@@ -115,9 +115,18 @@
 			}
 		},
 
-		watch: {
-			"accessType": function (value, oldValue)
+		ready: function () {
+			this.oldKey = this.key
+			this.oldUri = this.uri
+			
+			this.$http.get(this.baseUrl + '/api/access/permissions').then(function (response)
 			{
+				this.permissionData = response.data.data
+			})
+		},
+
+		watch: {
+			"accessType": function (value, oldValue) {
 				if (value == "")
 				{
 					this.access = []
@@ -126,9 +135,32 @@
 				}
 			},
 
-			"accessRole": function (value, oldValue)
-			{
+			"accessRole": function (value, oldValue) {
 				this.access = value
+			},
+
+			"accessPermission": function (value, oldValue) {
+				this.access = value
+			},
+
+			"permissionData": function (value, oldValue) {
+				var permissions = new Bloodhound({
+					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name', 'display_name'),
+					queryTokenizer: Bloodhound.tokenizers.whitespace,
+					local: value
+				})
+
+				$('.js-permissions').tagsinput({
+					itemValue: 'name',
+					itemText: 'display_name',
+					tagClass: 'label label-default',
+					freeInput: false,
+					typeaheadjs: {
+						name: 'permissions',
+						source: permissions,
+						display: 'display_name'
+					}
+				})
 			}
 		}
 	}
