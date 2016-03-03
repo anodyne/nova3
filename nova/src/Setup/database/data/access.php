@@ -24,7 +24,7 @@ return [
 
 		['display_name' => "Create Forms", 'name' => "form.create", 'description' => "Create new forms.", 'protected' => (int) true],
 		['display_name' => "Edit Forms", 'name' => "form.edit", 'description' => "Edit existing forms.", 'protected' => (int) true],
-		['display_name' => "Remove Roles", 'name' => "form.remove", 'description' => "Remove existing forms.", 'protected' => (int) true],
+		['display_name' => "Remove Forms", 'name' => "form.remove", 'description' => "Remove existing forms.", 'protected' => (int) true],
 	],
 
 	'roleAssociations' => [
