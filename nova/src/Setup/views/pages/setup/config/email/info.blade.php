@@ -57,9 +57,9 @@
 
 					<ul>
 						<li><a href="http://www.mailgun.com/" target="_blank">Mailgun</a></li>
-						<li><a href="http://mandrill.com/" target="_blank">Mandrill</a></li>
 						<li><a href="https://postmarkapp.com/" target="_blank">Postmark</a></li>
 						<li><a href="https://sendgrid.com/" target="_blank">SendGrid</a></li>
+						<li><a href="https://www.sparkpost.com/" target="_blank">SparkPost</a></li>
 
 						@if (app()->environment() == 'local')
 							<li><a href="https://mailtrap.io/" target="_blank">MailTrap</a></li>
