@@ -55,6 +55,22 @@
 		{!! partial('sweetalert') !!}
 		<script>
 			var vue = {}
+
+			// Setup the CSRF token on Ajax requests
+			$.ajaxPrefilter(function(options, originalOptions, xhr)
+			{
+				var token = $('meta[name="csrf-token"]').attr('content')
+
+				if (token)
+					return xhr.setRequestHeader('X-CSRF-TOKEN', token)
+			})
+
+			// Setup the CSRF token on Ajax requests
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				}
+			})
 		</script>
 		{!! $javascript or false !!}
 		{!! partial('include-vue') !!}
