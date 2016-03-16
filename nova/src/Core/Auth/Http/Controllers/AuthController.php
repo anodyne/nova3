@@ -31,13 +31,7 @@ class AuthController extends BaseController {
 			'password' => 'required',
 		]);
 
-		// Grab the credentials out of the request
-		$credentials = $request->only('email', 'password');
-
-		// Remember the user?
-		$remember = true;
-
-		if ($this->auth->attempt($credentials, $remember))
+		if ($this->auth->attempt($request->only('email', 'password'), true))
 		{
 			$name = user()->present()->firstName;
 
