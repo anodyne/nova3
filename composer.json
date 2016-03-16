@@ -5,7 +5,6 @@
 		"league/commonmark": "*",
 		"laracasts/presenter": "*",
 		"laravelcollective/html": "~5.2",
-		"league/fractal": "*",
 		"dingo/api": "1.0.*@dev"
 	},
 
