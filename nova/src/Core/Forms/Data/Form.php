@@ -46,7 +46,9 @@ class Form extends Model {
 
 	public function sectionsUnbound()
 	{
-		return $this->hasMany('NovaFormSection')->where('tab_id', 0)->orderBy('order');
+		return $this->hasMany('NovaFormSection')
+			->where('tab_id', 0)
+			->orderBy('order');
 	}
 
 	public function tabs()
@@ -57,7 +59,7 @@ class Form extends Model {
 	public function parentTabs()
 	{
 		return $this->hasMany('NovaFormTab')
-			->where('parent_id', '=', null)
+			->where('parent_id', '=', 0)
 			->orderBy('order');
 	}
 	

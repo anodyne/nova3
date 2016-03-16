@@ -27,6 +27,13 @@ class Tab extends Model {
 		return $this->hasMany('NovaFormField')->orderBy('order');
 	}
 
+	public function fieldsUnbound()
+	{
+		return $this->hasMany('NovaFormField')
+			->where('section_id', '=', 0)
+			->orderBy('order');
+	}
+
 	public function form()
 	{
 		return $this->belongsTo('NovaForm');
