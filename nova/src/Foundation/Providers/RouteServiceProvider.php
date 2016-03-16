@@ -36,8 +36,12 @@ class RouteServiceProvider extends ServiceProvider {
 	 */
 	public function map(Router $router)
 	{
-		$router->group(['namespace' => $this->namespace], function ($router)
-		{
+		$routerOptions = [
+			'namespace' => $this->namespace,
+			'middleware' => 'web',
+		];
+
+		$router->group($routerOptions, function ($router) {
 			if (app('nova.setup')->isInstalled())
 			{
 				require app_path('Foundation/Http/routes.php');
