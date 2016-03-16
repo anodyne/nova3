@@ -21,16 +21,14 @@ class CreateFormsTables extends Migration {
 			$table->string('name');
 			$table->string('orientation', 50)->default('vertical');
 			$table->boolean('status')->default(Status::ACTIVE);
-			$table->boolean('protected')->default(0);
-			$table->boolean('form_viewer')->default(0);
+			$table->boolean('protected')->default((int) false);
+			$table->boolean('form_viewer')->default((int) false);
 			$table->text('form_viewer_message')->nullable();
-			$table->integer('form_viewer_display')->unsigned()->default(0);
-			$table->boolean('email_allowed')->default(0);
+			$table->integer('form_viewer_display')->unsigned()->default((int) false);
+			$table->boolean('email_allowed')->default((int) false);
 			$table->text('email_addresses')->nullable();
-			$table->string('resource_creating')
-				->default('Nova\\\Core\\\Forms\\\Http\\\Controllers\\\FormViewerController@store');
-			$table->string('resource_editing')
-				->default('Nova\\\Core\\\Forms\\\Http\\\Controllers\\\FormViewerController@update');
+			$table->string('resource_create')->default('admin.forms.formviewer.store');
+			$table->string('resource_update')->default('admin.forms.formviewer.update');
 			$table->timestamps();
 		});
 
