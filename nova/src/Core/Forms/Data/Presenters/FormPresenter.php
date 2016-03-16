@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Forms\Data\Presenters;
 
-use Status;
+use Form, HTML, Status;
 use Laracasts\Presenter\Presenter;
 
 class FormPresenter extends Presenter {
@@ -17,23 +17,75 @@ class FormPresenter extends Presenter {
 
 	public function renderViewForm($id)
 	{
-		# code...
+		$relations = [
+			'fieldsUnbound', 
+			'sectionsUnbound', 'sectionsUnbound.fields', 
+			'parentTabs', 'parentTabs.fieldsUnbound', 'parentTabs.sections', 'parentTabs.sections.fields', 
+			'parentTabs.childrenTabs', 'parentTabs.childrenTabs.fieldsUnbound', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields',
+			//'fieldsUnbound.values', 'sectionsUnbound.fields.values', 'parentTabs.fieldsUnbound.values',
+			//'parentTabs.sections.fields.values', 'parentTabs.childrenTabs.fieldsUnbound.values',
+			//'parentTabs.childrenTabs.sections.fields.values',
+		];
+
+		// Grab the form and eager load all the relations
+		$form = $this->entity->load($relations);
+
+		// Build the opening/closing tags
+		$formOpenTag = $this->createFormOpenTag('view');
+		$formCloseTag = $this->createFormCloseTag('view');
+
+		// Grab the data for the item we're editing
+		$data = $form->data->where('data_id', $id);
+
+		return partial('form-static', compact('form', 'formOpenTag', 'formCloseTag', 'data'));
 	}
 
 	public function renderNewForm()
 	{
-		$form = $this->entity->load('parentTabs', 'parentTabs.childrenTabs', 'parentTabs.childrenTabs', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields', 'parentTabs.sections', 'parentTabs.sections.fields');
+		$relations = [
+			'fieldsUnbound', 
+			'sectionsUnbound', 'sectionsUnbound.fields', 
+			'parentTabs', 'parentTabs.fieldsUnbound', 'parentTabs.sections', 'parentTabs.sections.fields', 
+			'parentTabs.childrenTabs', 'parentTabs.childrenTabs.fieldsUnbound', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields',
+			//'fieldsUnbound.values', 'sectionsUnbound.fields.values', 'parentTabs.fieldsUnbound.values',
+			//'parentTabs.sections.fields.values', 'parentTabs.childrenTabs.fieldsUnbound.values',
+			//'parentTabs.childrenTabs.sections.fields.values',
+		];
 
-		$tabs = $form->parentTabs;
+		// Grab the form and eager load all the relations
+		$form = $this->entity->load($relations);
 
-		$sections = $form->sectionsUnbound;
+		// Build the opening tag
+		$formOpenTag = $this->createFormOpenTag('create');
 
-		return partial('form-editable', compact('form', 'tabs', 'sections'));
+		// Keep an empty collection for the data
+		$data = collect();
+
+		return partial('form-editable', compact('form', 'formOpenTag', 'data'));
 	}
 
 	public function renderEditForm($id)
 	{
-		# code...
+		$relations = [
+			'fieldsUnbound', 
+			'sectionsUnbound', 'sectionsUnbound.fields', 
+			'parentTabs', 'parentTabs.fieldsUnbound', 'parentTabs.sections', 'parentTabs.sections.fields', 
+			'parentTabs.childrenTabs', 'parentTabs.childrenTabs.fieldsUnbound', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields',
+			//'fieldsUnbound.values', 'sectionsUnbound.fields.values', 'parentTabs.fieldsUnbound.values',
+			//'parentTabs.sections.fields.values', 'parentTabs.childrenTabs.fieldsUnbound.values',
+			//'parentTabs.childrenTabs.sections.fields.values',
+		];
+
+		// Grab the form and eager load all the relations
+		$form = $this->entity->load($relations);
+
+		// Build the opening tag
+		$formOpenTag = $this->createFormOpenTag('edit');
+
+		// Grab the data for the item we're editing
+		$data = $form->data->where('data_id', $id);
+
+		return partial('form-editable', compact('form', 'formOpenTag', 'data'));
 	}
 
 	public function statusAsLabel()
@@ -42,6 +94,50 @@ class FormPresenter extends Presenter {
 		{
 			return label('danger', ucwords(Status::toString($this->entity->status)));
 		}
+	}
+
+	protected function createFormCloseTag($type)
+	{
+		switch ($type)
+		{
+			case 'create':
+			case 'edit':
+				return Form::close();
+			break;
+
+			case 'view':
+			default:
+				return '</div>';
+			break;
+		}
+	}
+
+	protected function createFormOpenTag($type)
+	{
+		$attributes = [];
+
+		if ($this->hasHorizontalOrientation())
+		{
+			$attributes['class'] = 'form-horizontal';
+		}
+
+		if ($type == 'create')
+		{
+			//$attributes['route'] = $this->entity->resource_create;
+		}
+
+		if ($type == 'edit')
+		{
+			//$attributes['route'] = $this->entity->resource_update;
+			$attributes['method'] = 'put';
+		}
+
+		if ($type == 'view')
+		{
+			return '<div'.HTML::attributes($attributes).'>';
+		}
+
+		return Form::open($attributes);
 	}
 
 }

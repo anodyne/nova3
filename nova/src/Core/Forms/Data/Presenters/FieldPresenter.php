@@ -1,9 +1,14 @@
 <?php namespace Nova\Core\Forms\Data\Presenters;
 
-use Form;
+use Form, Markdown;
 use Laracasts\Presenter\Presenter;
 
 class FieldPresenter extends Presenter {
+
+	public function help()
+	{
+		return Markdown::parse($this->entity->help);
+	}
 
 	public function render()
 	{
@@ -14,11 +19,11 @@ class FieldPresenter extends Presenter {
 			case 'text':
 				$attributes = [
 					'id' => $field->attribute_id,
-					'class' => 'form-control '.$field->attribute_class,
+					'class' => 'form-control input-lg '.$field->attribute_class,
 					'placeholder' => $field->attribute_placeholder,
 				];
 
-				return Form::text('foo', $field->value, $attributes);
+				return Form::text($field->attribute_name, $field->value, $attributes);
 			break;
 
 			case 'textarea':
@@ -29,7 +34,7 @@ class FieldPresenter extends Presenter {
 					'rows' => $field->attribute_rows,
 				];
 
-				return Form::textarea('fooarea', $field->value, $attributes);
+				return Form::textarea($field->attribute_name, $field->value, $attributes);
 			break;
 
 			case 'dropdown':
@@ -39,7 +44,7 @@ class FieldPresenter extends Presenter {
 					'placeholder' => $field->attribute_placeholder,
 				];
 
-				return Form::select('fooselect', [], $field->value, $attributes);
+				return Form::select($field->attribute_name, [], $field->value, $attributes);
 			break;
 
 			case 'radio':
