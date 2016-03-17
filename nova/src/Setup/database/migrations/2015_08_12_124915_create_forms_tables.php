@@ -71,10 +71,8 @@ class CreateFormsTables extends Migration {
 			$table->integer('order')->default(99);
 			$table->boolean('status')->default(Status::ACTIVE);
 			$table->text('restriction')->nullable();
-			$table->string('label');
+			$table->string('label')->nullable();
 			$table->text('help')->nullable();
-			//$table->string('selected', 50)->nullable();
-			//$table->string('value')->nullable();
 			$table->string('attribute_name');
 			$table->string('attribute_id')->nullable();
 			$table->string('attribute_class')->nullable();

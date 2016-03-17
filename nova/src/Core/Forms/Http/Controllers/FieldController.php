@@ -17,9 +17,9 @@ class FieldController extends BaseController {
 	protected $sectionRepo;
 
 	public function __construct(FormFieldRepositoryInterface $repo,
-		FormSectionRepositoryInterface $sections, 
-		FormRepositoryInterface $forms,
-		FormTabRepositoryInterface $tabs)
+			FormSectionRepositoryInterface $sections, 
+			FormRepositoryInterface $forms,
+			FormTabRepositoryInterface $tabs)
 	{
 		parent::__construct();
 
@@ -52,15 +52,35 @@ class FieldController extends BaseController {
 
 	public function create($formKey)
 	{
-		$this->authorize('create', new NovaFormSection, "You do not have permission to create form sections.");
+		$this->authorize('create', new NovaFormField, "You do not have permission to create form fields.");
 
-		$this->view = 'admin/forms/section-create';
-		$this->jsView = 'admin/forms/section-create-js';
+		$this->view = 'admin/forms/field-create';
+		$this->jsView = 'admin/forms/field-create-js';
 
 		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
-		$this->data->tabs = ['' => "No tab"];
-		$this->data->tabs += $this->tabRepo->listAll('name', 'id');
+		$this->data->types = [
+			'text' => "Text field",
+			'textarea' => "Text block",
+			'select' => "Dropdown menu",
+			'radio' => "Radio buttons"
+		];
+
+		$this->data->tabs = ['0' => "No tab"];
+		$this->data->tabs+= $this->tabRepo->listAll('name', 'id');
+
+		$this->data->sections = ['0' => "No section"];
+		$this->data->sections+= $this->sectionRepo->listAll('name', 'id');
+
+		$this->data->sizes = [
+			'col-md-2' => "Small",
+			'col-md-4' => "Medium",
+			'col-md-6' => "Normal",
+			'col-md-8' => "Large",
+			'col-md-10' => "Extra Large",
+			'col-md-12' => "Huge",
+			'Custom' => "Custom",
+		];
 	}
 
 	public function store(CreateFormFieldRequest $request, $formKey)

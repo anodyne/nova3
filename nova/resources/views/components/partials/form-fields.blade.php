@@ -2,7 +2,9 @@
 	@foreach ($fields as $field)
 		@if ($form->orientation == 'horizontal')
 			<div class="form-group">
-				<label class="control-label {{ $field->label_container_class }}">{!! $field->present()->label !!}</label>
+				@if (strlen($field->label) > 0)
+					<label class="control-label {{ $field->label_container_class }}">{!! $field->present()->label !!}</label>
+				@endif
 
 				@if ($editable)
 					<div class="{{ $field->field_container_class }}">
@@ -20,7 +22,9 @@
 			<div class="form-group">
 				<div class="row">
 					<div class="{{ $field->field_container_class }}">
-						<label class="control-label">{!! $field->present()->label !!}</label>
+						@if (strlen($field->label) > 0)
+							<label class="control-label">{!! $field->present()->label !!}</label>
+						@endif
 						
 						@if ($editable)
 							<div>{!! $field->present()->render !!}</div>

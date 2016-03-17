@@ -170,6 +170,22 @@ dl {
 	}
 }
 
+.nav-tabs {
+	margin-top: @spacing;
+	margin-bottom: @spacing;
+
+	>li {
+		>a {
+			.border-radius(@border-radius, @border-radius, 0, 0);
+		}
+	}
+}
+
+.tab-content {
+	padding-left: @spacing-sm;
+	padding-right: @spacing-sm;
+}
+
 .nav-pills {
 	margin-top: @spacing;
 	margin-bottom: @spacing;
@@ -188,6 +204,21 @@ dl {
 				font-size: @font-size-sm;
 			}
 		}
+	}
+}
+
+fieldset {
+	margin-top: @spacing;
+	margin-bottom: @spacing;
+	
+	legend {
+		font-size: 2.4rem;
+		font-weight: 500;
+		color: @color-body-text;
+	}
+
+	.fieldset-content {
+		padding: @spacing-sm;
 	}
 }
 

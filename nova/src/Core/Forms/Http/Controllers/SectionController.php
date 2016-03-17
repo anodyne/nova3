@@ -15,8 +15,8 @@ class SectionController extends BaseController {
 	protected $formRepo;
 
 	public function __construct(FormSectionRepositoryInterface $repo, 
-		FormRepositoryInterface $forms,
-		FormTabRepositoryInterface $tabs)
+			FormRepositoryInterface $forms,
+			FormTabRepositoryInterface $tabs)
 	{
 		parent::__construct();
 
@@ -53,8 +53,8 @@ class SectionController extends BaseController {
 
 		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
-		$this->data->tabs = ['' => "No tab"];
-		$this->data->tabs += $this->tabRepo->listAll('name', 'id');
+		$this->data->tabs = ['0' => "No tab"];
+		$this->data->tabs+= $this->tabRepo->listAll('name', 'id');
 	}
 
 	public function store(CreateFormSectionRequest $request, $formKey)
@@ -81,8 +81,8 @@ class SectionController extends BaseController {
 
 		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
-		$this->data->tabs = ['' => "No tab"];
-		$this->data->tabs += $this->tabRepo->listAll('name', 'id');
+		$this->data->tabs = ['0' => "No tab"];
+		$this->data->tabs+= $this->tabRepo->listAll('name', 'id');
 	}
 
 	public function update(EditFormSectionRequest $request, $formKey, $sectionId)

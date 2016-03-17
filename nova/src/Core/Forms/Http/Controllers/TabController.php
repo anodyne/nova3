@@ -13,7 +13,7 @@ class TabController extends BaseController {
 	protected $formRepo;
 
 	public function __construct(FormTabRepositoryInterface $repo, 
-		FormRepositoryInterface $forms)
+			FormRepositoryInterface $forms)
 	{
 		parent::__construct();
 
@@ -49,8 +49,8 @@ class TabController extends BaseController {
 		$this->view = 'admin/forms/tab-create';
 		$this->jsView = 'admin/forms/tab-create-js';
 
-		$this->data->parentTabs = ['' => "No parent tab"];
-		$this->data->parentTabs += $this->repo->listParentTabs($form);
+		$this->data->parentTabs = ['0' => "No parent tab"];
+		$this->data->parentTabs+= $this->repo->listParentTabs($form);
 	}
 
 	public function store(CreateFormTabRequest $request, $formKey)
@@ -77,8 +77,8 @@ class TabController extends BaseController {
 		$this->view = 'admin/forms/tab-edit';
 		$this->jsView = 'admin/forms/tab-edit-js';
 
-		$this->data->parentTabs = ['' => "No parent tab"];
-		$this->data->parentTabs += $this->repo->listParentTabs($form);
+		$this->data->parentTabs = ['0' => "No parent tab"];
+		$this->data->parentTabs+= $this->repo->listParentTabs($form);
 	}
 
 	public function update(EditFormTabRequest $request, $formKey, $tabId)

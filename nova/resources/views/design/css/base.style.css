@@ -175,6 +175,19 @@ dl dd {
 .has-error .control-label a {
   text-decoration: underline;
 }
+.nav-tabs {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.nav-tabs > li > a {
+  -webkit-border-radius: 0.4rem 0.4rem 0 0;
+  -moz-border-radius: 0.4rem 0.4rem 0 0;
+  border-radius: 0.4rem 0.4rem 0 0;
+}
+.tab-content {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
 .nav-pills {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
@@ -187,6 +200,18 @@ dl dd {
 .nav-pills.nav-pills-sm li > a {
   padding: 0.75rem 1.5rem;
   font-size: 1.4rem;
+}
+fieldset {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+fieldset legend {
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: #444444;
+}
+fieldset .fieldset-content {
+  padding: 0.75rem;
 }
 .text-sm {
   font-size: 1.4rem;

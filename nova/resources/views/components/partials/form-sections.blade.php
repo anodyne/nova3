@@ -1,9 +1,13 @@
 @if ($sections->count() > 0)
 	@foreach ($sections as $section)
-		<h3>{!! $section->present()->name !!}</h3>
+		<fieldset>
+			<legend>{!! $section->present()->name !!}</legend>
 
-		@if ($section->fields->count() > 0)
-			{!! partial('form-fields', ['fields' => $section->fields, 'editable' => $editable, 'form' => $form]) !!}
-		@endif
+			@if ($section->fields->count() > 0)
+				<div class="fieldset-content">
+					{!! partial('form-fields', ['fields' => $section->fields, 'editable' => $editable, 'form' => $form]) !!}
+				</div>
+			@endif
+		</fieldset>
 	@endforeach
 @endif
