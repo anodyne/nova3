@@ -13,4 +13,8 @@ return [
 		],
 	],
 
+	'forms' => [
+		'fieldNameFormat' => "field_%d",
+	],
+
 ];
