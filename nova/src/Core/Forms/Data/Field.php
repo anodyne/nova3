@@ -10,13 +10,18 @@ class Field extends Model {
 	protected $table = 'forms_fields';
 
 	protected $fillable = ['form_id', 'tab_id', 'section_id', 'type', 'label',
-		'order', 'status', 'restriction', 'help', 'selected', 'value',
-		'attribute_id', 'attribute_class', 'attribute_rows', 'field_container_class',
-		'attribute_placeholder', 'validation_rules', 'label_container_class'];
+		'order', 'status', 'restriction', 'help', 'validation_rules', 
+		'label_container_class', 'attributes', 'values'];
 
 	protected $dates = ['created_at', 'updated_at'];
 
 	protected $presenter = FormFieldPresenter::class;
+
+	protected $casts = [
+		'attributes' => 'collection',
+		'validation_rules' => 'collection',
+		'values' => 'collection',
+	];
 
 	/*
 	|---------------------------------------------------------------------------
@@ -39,9 +44,29 @@ class Field extends Model {
 		return $this->belongsTo('NovaFormTab');
 	}
 
-	public function values()
+	/*
+	|---------------------------------------------------------------------------
+	| Model Methods
+	|---------------------------------------------------------------------------
+	*/
+
+	public function validationRules()
 	{
-		return $this->hasMany('NovaFormFieldValue');
+		if (count($this->validation_rules) > 0)
+		{
+			$ruleList = [];
+
+			foreach ($this->validation_rules as $rule)
+			{
+				$ruleList[] = (empty($rule['value']))
+					? $rule['type']
+					: "{$rule['type']}:{$rule['value']}";
+			}
+
+			return implode('|', $ruleList);
+		}
+
+		return false;
 	}
 	
 }

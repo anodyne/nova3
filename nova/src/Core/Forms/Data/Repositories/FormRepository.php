@@ -88,4 +88,29 @@ class FormRepository extends BaseFormRepository implements FormRepositoryInterfa
 		})->sortBy('order')->load($relations);
 	}
 
+	public function getValidationRules(Model $form)
+	{
+		// Get all the fields
+		$fields = $form->fields;
+
+		if ($fields)
+		{
+			$rulesArr = [];
+
+			foreach ($fields as $field)
+			{
+				if (count($field->validation_rules) > 0)
+				{
+					$fieldName = sprintf(config('nova.forms.fieldNameFormat'), $field->id);
+
+					$rulesArr[$fieldName] = $field->validationRules();
+				}
+			}
+
+			return $rulesArr;
+		}
+
+		return false;
+	}
+
 }

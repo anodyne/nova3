@@ -1,0 +1,1 @@
+{!! HTML::style('nova/resources/css/uikit/components/icon.css') !!}

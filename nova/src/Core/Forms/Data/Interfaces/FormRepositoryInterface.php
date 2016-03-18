@@ -8,5 +8,6 @@ interface FormRepositoryInterface extends BaseFormRepositoryInterface {
 	public function getTabs(NovaForm $form, array $relations = []);
 	public function getUnboundFields(NovaForm $form, array $relations = []);
 	public function getUnboundSections(NovaForm $form, array $relations = []);
+	public function getValidationRules(NovaForm $form);
 
 }

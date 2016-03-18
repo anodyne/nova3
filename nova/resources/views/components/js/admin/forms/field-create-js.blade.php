@@ -1,3 +1,4 @@
+{!! HTML::script('nova/resources/js/Sortable.min.js') !!}
 <script>
 	vue = {
 		data: {
@@ -14,37 +15,53 @@
 				{ name: "id", value: "" },
 				{ name: "class", value: "form-control input-lg" },
 				{ name: "placeholder", value: "" }
-			]
+			],
+			rules: [
+				{ type: "", value: "" }
+			],
+			validationRules: "",
+			hasValues: false
 		},
 
 		computed: {
 			attrClass: function () {
-				return find("attributes", "class").value
+				var obj = find("attributes", "class")
+
+				if (obj)
+					return obj.value
+
+				return
 			},
 
 			attrId: function () {
-				return find("attributes", "id").value
+				var obj = find("attributes", "id")
+
+				if (obj)
+					return obj.value
+
+				return
 			},
 
 			attrPlaceholder: function () {
-				return find("attributes", "placeholder").value
+				var obj = find("attributes", "placeholder")
+
+				if (obj)
+					return obj.value
+
+				return
 			},
 
 			attrRows: function () {
-				return find("attributes", "rows").value
+				var obj = find("attributes", "rows")
+
+				if (obj)
+					return obj.value
+
+				return
 			},
 
-			fieldAttributes: function () {
-				var arrList = []
-
-				for (var i = 0; i < this.attributes.length; ++i) {
-					var attribute = this.attributes[i]
-
-					if (attribute.value != "")
-						arrList[i] = attribute.name + "=\"" + attribute.value + "\""
-				}
-
-				return arrList.join(" ")
+			hasType: function () {
+				return this.type != ""
 			}
 		},
 
@@ -57,12 +74,41 @@
 				this.options.push({ text: "", value: "" })
 			},
 
+			addRule: function () {
+				this.rules.push({ type: "", value: "" })
+			},
+
 			removeAttribute: function (row) {
 				this.attributes.$remove(row)
 			},
 
 			removeOption: function (row) {
 				this.options.$remove(row)
+			},
+
+			removeRule: function (row) {
+				this.rules.$remove(row)
+
+				if (this.rules.length == 0)
+					this.addRule()
+			},
+
+			buildValidationRules: function () {
+				var arrList = []
+
+				for (var i = 0; i < this.rules.length; ++i) {
+					var type = this.rules[i].type
+					var value = this.rules[i].value
+
+					var finalRule = type
+
+					if (value != "")
+						finalRule += ":" + value.replace(/ /g,'')
+
+					arrList[i] = finalRule
+				}
+
+				this.validationRules = arrList.join('|')
 			}
 		},
 
@@ -83,6 +129,11 @@
 					{ text: "", value: "" }
 				]
 
+				// Clear out the validation rules
+				this.rules = [
+					{ type: "", value: "" }
+				]
+
 				// Reset the attributes
 				this.attributes = [
 					{ name: "id", value: "" },
@@ -93,6 +144,7 @@
 				// Reset some other values
 				this.fieldContainerClassSelect = "col-md-6"
 				this.labelContainerClassSelect = "col-md-2"
+				this.hasValues = false
 
 				// Specific resets for text blocks
 				if (value == "textarea")
@@ -100,6 +152,9 @@
 					this.fieldContainerClassSelect = "col-md-8"
 					this.attributes.push({ name: "rows", value: "5" })
 				}
+
+				if (value == "select" || value == "radio")
+					this.hasValues = true
 			}
 		}
 	}
@@ -114,4 +169,8 @@
 				return items[i]
 		}
 	}
+
+	Sortable.create(byId("sortable"), {
+		handle: ".sortable-handle"
+	})
 </script>

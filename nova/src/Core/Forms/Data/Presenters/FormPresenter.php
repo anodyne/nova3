@@ -47,9 +47,7 @@ class FormPresenter extends Presenter {
 			'sectionsUnbound', 'sectionsUnbound.fields', 
 			'parentTabs', 'parentTabs.fieldsUnbound', 'parentTabs.sections', 'parentTabs.sections.fields', 
 			'parentTabs.childrenTabs', 'parentTabs.childrenTabs.fieldsUnbound', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields',
-			//'fieldsUnbound.values', 'sectionsUnbound.fields.values', 'parentTabs.fieldsUnbound.values',
-			//'parentTabs.sections.fields.values', 'parentTabs.childrenTabs.fieldsUnbound.values',
-			//'parentTabs.childrenTabs.sections.fields.values', 'data', 'data.field'
+			//'data', 'data.field'
 		];
 
 		// Grab the form and eager load all the relations

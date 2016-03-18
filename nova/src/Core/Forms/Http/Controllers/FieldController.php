@@ -41,7 +41,7 @@ class FieldController extends BaseController {
 		$this->jsView = 'admin/forms/fields-js';
 		$this->styleView = 'admin/forms/fields-style';
 
-		$form = $this->data->form = $this->formRepo->getByKey($formKey, ['fields', 'fields.values', 'sections', 'sections.fields', 'sections.fields.values', 'tabs', 'tabs.fields', 'tabs.fields.values', 'tabs.sections', 'tabs.sections.fields', 'tabs.sections.fields.values', 'tabs.childrenTabs', 'tabs.childrenTabs.fields', 'tabs.childrenTabs.fields.values', 'tabs.childrenTabs.sections', 'tabs.childrenTabs.sections.fields', 'tabs.childrenTabs.sections.fields.values']);
+		$form = $this->data->form = $this->formRepo->getByKey($formKey, ['fields', 'sections', 'sections.fields', 'tabs', 'tabs.fields', 'tabs.sections', 'tabs.sections.fields', 'tabs.childrenTabs', 'tabs.childrenTabs.fields', 'tabs.childrenTabs.sections', 'tabs.childrenTabs.sections.fields']);
 
 		$this->data->unboundFields = $this->formRepo->getUnboundFields($form);
 
@@ -56,6 +56,7 @@ class FieldController extends BaseController {
 
 		$this->view = 'admin/forms/field-create';
 		$this->jsView = 'admin/forms/field-create-js';
+		$this->styleView = 'admin/forms/field-create-style';
 
 		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
@@ -85,45 +86,66 @@ class FieldController extends BaseController {
 
 	public function store(CreateFormFieldRequest $request, $formKey)
 	{
-		$this->authorize('create', new NovaFormSection, "You do not have permission to create form sections.");
+		$this->authorize('create', new NovaFormField, "You do not have permission to create form fields.");
 
-		$section = $this->repo->create($request->all());
+		$field = $this->repo->create($request->all());
 
-		event(new Events\FormFieldWasCreated($section));
+		event(new Events\FormFieldWasCreated($field));
 
-		flash()->success("Form Section Created!", "You can begin designing the section layout with fields.");
+		flash()->success("Form Field Created!");
 
-		return redirect()->route('admin.forms.sections', [$formKey]);
+		return redirect()->route('admin.forms.fields', [$formKey]);
 	}
 
-	public function edit($formKey, $sectionId)
+	public function edit($formKey, $fieldId)
 	{
-		$section = $this->data->section = $this->repo->getById($sectionId);
+		$field = $this->data->field = $this->repo->getById($fieldId);
 
-		$this->authorize('edit', $section, "You do not have permission to edit form sections.");
+		$this->authorize('edit', $field, "You do not have permission to edit form fields.");
 
-		$this->view = 'admin/forms/section-edit';
-		$this->jsView = 'admin/forms/section-edit-js';
+		$this->view = 'admin/forms/field-edit';
+		$this->jsView = 'admin/forms/field-edit-js';
+		$this->styleView = 'admin/forms/field-edit-style';
 
 		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
-		$this->data->tabs = ['' => "No tab"];
-		$this->data->tabs += $this->tabRepo->listAll('name', 'id');
+		$this->data->types = [
+			'text' => "Text field",
+			'textarea' => "Text block",
+			'select' => "Dropdown menu",
+			'radio' => "Radio buttons"
+		];
+
+		$this->data->tabs = ['0' => "No tab"];
+		$this->data->tabs+= $this->tabRepo->listAll('name', 'id');
+
+		$this->data->sections = ['0' => "No section"];
+		$this->data->sections+= $this->sectionRepo->listAll('name', 'id');
+
+		$this->data->sizes = [
+			'col-md-2' => "Small",
+			'col-md-4' => "Medium",
+			'col-md-6' => "Normal",
+			'col-md-8' => "Large",
+			'col-md-10' => "Extra Large",
+			'col-md-12' => "Huge",
+			'Custom' => "Custom",
+		];
 	}
 
-	public function update(EditFormFieldRequest $request, $formKey, $sectionId)
+	public function update(EditFormFieldRequest $request, $formKey, $fieldId)
 	{
-		$section = $this->repo->getById($sectionId);
+		$field = $this->repo->getById($fieldId);
 
-		$this->authorize('edit', $section, "You do not have permission to edit form sections.");
+		$this->authorize('edit', $field, "You do not have permission to edit form fields.");
 
-		$section = $this->repo->update($section, $request->all());
+		$field = $this->repo->update($field, $request->all());
 
-		event(new Events\FormFieldWasUpdated($section));
+		event(new Events\FormFieldWasUpdated($field));
 
-		flash()->success("Form Section Updated!");
+		flash()->success("Form Field Updated!");
 
-		return redirect()->route('admin.forms.sections', [$formKey]);
+		return redirect()->route('admin.forms.fields', [$formKey]);
 	}
 
 	public function remove($formKey, $sectionId)

@@ -10,47 +10,49 @@ class FieldPresenter extends Presenter {
 		return Markdown::parse($this->entity->help);
 	}
 
-	public function render()
+	public function render($id = null)
 	{
 		$field = $this->entity;
+
+		// Build the field name
+		$fieldName = sprintf(config('nova.form.fieldNameFormat'), $field->id);
+
+		// Grab the data if we need to
+		$data = ($field->date) ? $field->data->where('data_id', $id) : null;
+		$fieldValue = ($data) ? $data->value : null;
+
+		// Get the attributes
+		$attributesArr = [];
+		$field->attributes->each(function ($item) use (&$attributesArr) {
+			$attributesArr[$item['name']] = $item['value'];
+		});
 
 		switch ($field->type)
 		{
 			case 'text':
-				$attributes = [
-					'id' => $field->attribute_id,
-					'class' => 'form-control input-lg '.$field->attribute_class,
-					'placeholder' => $field->attribute_placeholder,
-				];
-
-				return Form::text($field->attribute_name, $field->value, $attributes);
+				return Form::text($fieldName, $fieldValue, $attributesArr);
 			break;
 
 			case 'textarea':
-				$attributes = [
-					'id' => $field->attribute_id,
-					'class' => 'form-control '.$field->attribute_class,
-					'placeholder' => $field->attribute_placeholder,
-					'rows' => $field->attribute_rows,
-				];
-
-				return Form::textarea($field->attribute_name, $field->value, $attributes);
+				return Form::textarea($fieldName, $fieldValue, $attributesArr);
 			break;
 
-			case 'dropdown':
-				$attributes = [
-					'id' => $field->attribute_id,
-					'class' => 'form-control '.$field->attribute_class,
-					'placeholder' => $field->attribute_placeholder,
-				];
+			case 'select':
+				// Grab the values
+				$valuesArr = [];
+				$field->values->each(function ($item) use (&$valuesArr) {
+					$valuesArr[$item['value']] = $item['text'];
+				});
 
-				return Form::select($field->attribute_name, [], $field->value, $attributes);
+				return Form::select($fieldName, $valuesArr, $fieldValue, $attributesArr);
 			break;
 
 			case 'radio':
-			break;
-
-			case 'checkbox':
+				// Grab the values
+				$valuesArr = [];
+				$field->values->each(function ($item) use (&$valuesArr) {
+					$valuesArr[$item['value']] = $item['text'];
+				});
 			break;
 		}
 	}

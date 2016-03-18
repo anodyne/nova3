@@ -11,9 +11,15 @@ class FormViewerController extends BaseController {
 		$this->templateView = 'admin';
 	}
 
-	public function store(Request $request)
+	public function store(Request $request, $formKey)
 	{
-		// Validate
+		$form = $formRepo->getByKey($formKey);
+
+		// Get the validation rules for the form
+		$validationRules = $formRepo->getValidationRules($form);
+
+		// Validate the request
+		$this->validate($request, $validationRules);
 
 		$entry = $this->repo->create($request->all());
 
@@ -24,9 +30,15 @@ class FormViewerController extends BaseController {
 		return redirect()->back();
 	}
 
-	public function update(Request $request, $id)
+	public function update(Request $request, $formKey, $id)
 	{
-		// Validate
+		$form = $formRepo->getByKey($formKey);
+
+		// Get the validation rules for the form
+		$validationRules = $formRepo->getValidationRules($form);
+
+		// Validate the request
+		$this->validate($request, $validationRules);
 
 		$entry = $this->repo->update($id, $request->all());
 
