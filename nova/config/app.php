@@ -342,12 +342,6 @@ return [
 		'RemoveFormFieldRequest' => Nova\Core\Forms\Http\Requests\RemoveFormFieldRequest::class,
 		'CleanupFormFields' => Nova\Core\Forms\Listeners\CleanupFormFields::class,
 		
-		'NovaFormFieldValue' => Nova\Core\Forms\Data\FieldValue::class,
-		'FormFieldValuePresenter' => Nova\Core\Forms\Data\Presenters\FieldValuePresenter::class,
-		'FormFieldValueRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\FieldValueRepositoryInterface::class,
-		'FormFieldValueRepository' => Nova\Core\Forms\Data\Repositories\FieldValueRepository::class,
-		'FieldValuePolicy' => Nova\Core\Forms\Policies\FieldValuePolicy::class,
-		
 		'NovaFormSection' => Nova\Core\Forms\Data\Section::class,
 		'FormSectionPresenter' => Nova\Core\Forms\Data\Presenters\SectionPresenter::class,
 		'FormSectionRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\SectionRepositoryInterface::class,

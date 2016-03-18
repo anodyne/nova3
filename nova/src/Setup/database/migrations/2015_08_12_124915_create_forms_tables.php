@@ -70,17 +70,14 @@ class CreateFormsTables extends Migration {
 			$table->string('type', 50)->default('text');
 			$table->integer('order')->default(99);
 			$table->boolean('status')->default(Status::ACTIVE);
-			$table->text('restriction')->nullable();
 			$table->string('label')->nullable();
-			$table->text('help')->nullable();
-			$table->string('attribute_name');
-			$table->string('attribute_id')->nullable();
-			$table->string('attribute_class')->nullable();
-			$table->integer('attribute_rows')->default(5);
-			$table->text('attribute_placeholder')->nullable();
 			$table->string('field_container_class')->default('col-md-4')->nullable();
 			$table->string('label_container_class')->default('col-md-2')->nullable();
+			$table->text('help')->nullable();
+			$table->text('attributes')->nullable();
+			$table->text('restriction')->nullable();
 			$table->text('validation_rules')->nullable();
+			$table->text('values')->nullable();
 			$table->timestamps();
 
 			$table->foreign('form_id')->references('id')->on('forms')
@@ -103,18 +100,6 @@ class CreateFormsTables extends Migration {
 				->onDelete('cascade');
 		});
 
-		Schema::create('forms_fields_values', function (Blueprint $table)
-		{
-			$table->increments('id');
-			$table->integer('field_id')->unsigned();
-			$table->string('value');
-			$table->integer('order');
-			$table->timestamps();
-
-			$table->foreign('field_id')->references('id')->on('forms_fields')
-				->onDelete('cascade');
-		});
-
 		$this->populateTables();
 	}
 
@@ -125,7 +110,6 @@ class CreateFormsTables extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('forms_fields_values');
 		Schema::dropIfExists('forms_data');
 		Schema::dropIfExists('forms_fields');
 		Schema::dropIfExists('forms_sections');
