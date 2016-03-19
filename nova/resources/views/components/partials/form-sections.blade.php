@@ -3,6 +3,8 @@
 		<fieldset>
 			<legend>{!! $section->present()->name !!}</legend>
 
+			{!! $section->present()->message !!}
+
 			@if ($section->fields->count() > 0)
 				<div class="fieldset-content">
 					{!! partial('form-fields', ['fields' => $section->fields, 'editable' => $editable, 'form' => $form]) !!}

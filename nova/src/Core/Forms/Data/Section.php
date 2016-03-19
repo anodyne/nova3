@@ -9,7 +9,8 @@ class Section extends Model {
 
 	protected $table = 'forms_sections';
 
-	protected $fillable = ['form_id', 'tab_id', 'name', 'order', 'status'];
+	protected $fillable = ['form_id', 'tab_id', 'name', 'order', 'status',
+		'message'];
 
 	protected $dates = ['created_at', 'updated_at'];
 

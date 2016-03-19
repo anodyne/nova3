@@ -43,6 +43,13 @@
 	</div>
 
 	<div class="form-group">
+		<label class="col-md-2 control-label">Message</label>
+		<div class="col-md-8">
+			{!! Form::textarea('message', null, ['class' => 'form-control input-lg']) !!}
+		</div>
+	</div>
+
+	<div class="form-group">
 		<div class="col-md-5 col-md-offset-2" v-cloak>
 			<phone-tablet>
 				<p>{!! Form::button("Update Section", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>

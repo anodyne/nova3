@@ -2,6 +2,8 @@
 	<div class="tab-content">
 	@foreach ($tabs as $tab)
 		<div class="tab-pane" id="{{ $tab->link_id }}">
+			{!! $tab->present()->message !!}
+
 			@if ($tab->fieldsUnbound->count() > 0)
 				{!! partial('form-fields', ['fields' => $tab->fieldsUnbound, 'editable' => $editable, 'form' => $form]) !!}
 			@endif

@@ -10,7 +10,7 @@ class Tab extends Model {
 	protected $table = 'forms_tabs';
 
 	protected $fillable = ['form_id', 'name', 'link_id', 'order', 'status',
-		'parent_id'];
+		'parent_id', 'message'];
 
 	protected $dates = ['created_at', 'updated_at'];
 

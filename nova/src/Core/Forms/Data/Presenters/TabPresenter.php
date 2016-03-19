@@ -1,9 +1,14 @@
 <?php namespace Nova\Core\Forms\Data\Presenters;
 
-use Status;
+use Status, Markdown;
 use Laracasts\Presenter\Presenter;
 
 class TabPresenter extends Presenter {
+
+	public function message()
+	{
+		return Markdown::parse($this->entity->message);
+	}
 
 	public function statusAsLabel()
 	{

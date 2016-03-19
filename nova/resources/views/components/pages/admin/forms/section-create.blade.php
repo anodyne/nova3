@@ -42,6 +42,13 @@
 		</div>
 	</div>
 
+	<div class="form-group">
+		<label class="col-md-2 control-label">Message</label>
+		<div class="col-md-8">
+			{!! Form::textarea('message', null, ['class' => 'form-control input-lg']) !!}
+		</div>
+	</div>
+
 	{!! Form::hidden('form_id', $form->id) !!}
 
 	<div class="form-group">

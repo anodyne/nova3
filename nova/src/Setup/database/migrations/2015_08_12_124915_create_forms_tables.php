@@ -41,6 +41,7 @@ class CreateFormsTables extends Migration {
 			$table->string('link_id')->nullable();
 			$table->integer('order');
 			$table->boolean('status')->default(Status::ACTIVE);
+			$table->text('message')->nullable();
 			$table->timestamps();
 
 			$table->foreign('form_id')->references('id')->on('forms')
@@ -55,6 +56,7 @@ class CreateFormsTables extends Migration {
 			$table->string('name')->nullable();
 			$table->integer('order');
 			$table->boolean('status')->default(Status::ACTIVE);
+			$table->text('message')->nullable();
 			$table->timestamps();
 
 			$table->foreign('form_id')->references('id')->on('forms')
