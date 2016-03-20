@@ -12,12 +12,11 @@
 				{ text: "", value: "" }
 			],
 			attributes: [
-				{ name: "id", value: "" },
 				{ name: "class", value: "form-control input-lg" },
 				{ name: "placeholder", value: "" }
 			],
 			rules: [
-				{ type: "", value: "" }
+				{ type: "", value: "", hasValue: false }
 			],
 			validationRules: "",
 			hasValues: false
@@ -26,15 +25,6 @@
 		computed: {
 			attrClass: function () {
 				var obj = find("attributes", "class")
-
-				if (obj)
-					return obj.value
-
-				return
-			},
-
-			attrId: function () {
-				var obj = find("attributes", "id")
 
 				if (obj)
 					return obj.value
@@ -75,7 +65,7 @@
 			},
 
 			addRule: function () {
-				this.rules.push({ type: "", value: "" })
+				this.rules.push({ type: "", value: "", hasValue: false })
 			},
 
 			removeAttribute: function (row) {
@@ -88,12 +78,9 @@
 
 			removeRule: function (row) {
 				this.rules.$remove(row)
-
-				if (this.rules.length == 0)
-					this.addRule()
 			},
 
-			buildValidationRules: function () {
+			buildValidationRules: function() {
 				var arrList = []
 
 				for (var i = 0; i < this.rules.length; ++i) {
@@ -109,6 +96,31 @@
 				}
 
 				this.validationRules = arrList.join('|')
+			},
+
+			updateRuleType: function (row) {
+				switch (row.type) {
+					case "between":
+					case "exists":
+					case "in":
+					case "max":
+					case "min":
+					case "not_in":
+						row.hasValue = true
+						row.value = ""
+					break
+
+					default:
+						row.hasValue = false
+						row.value = ""
+					break
+				}
+
+				this.buildValidationRules()
+			},
+
+			updateRuleValue: function (row) {
+				this.buildValidationRules()
 			}
 		},
 
@@ -131,12 +143,11 @@
 
 				// Clear out the validation rules
 				this.rules = [
-					{ type: "", value: "" }
+					{ type: "", value: "", hasValue: false }
 				]
 
 				// Reset the attributes
 				this.attributes = [
-					{ name: "id", value: "" },
 					{ name: "class", value: "form-control input-lg" },
 					{ name: "placeholder", value: "" }
 				]

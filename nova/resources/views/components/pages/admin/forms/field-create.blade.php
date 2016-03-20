@@ -21,13 +21,13 @@
 					<label class="control-label @{{ labelContainerClass }}" v-show="label != ''">@{{ label }}</label>
 					<div class="@{{ fieldContainerClass }}">
 						<div v-show="type == 'text'">
-							<input type="text" :class="attrClass" :placeholder="attrPlaceholder" :id="attrId">
+							<input type="text" :class="attrClass" :placeholder="attrPlaceholder">
 						</div>
 						<div v-show="type == 'textarea'">
-							<textarea :class="attrClass" :placeholder="attrPlaceholder" :id="attrId" :rows="attrRows"></textarea>
+							<textarea :class="attrClass" :placeholder="attrPlaceholder" :rows="attrRows"></textarea>
 						</div>
 						<div v-show="type == 'select'">
-							<select :class="attrClass" :placeholder="attrPlaceholder" :id="attrId">
+							<select :class="attrClass" :placeholder="attrPlaceholder">
 								<option v-for="option in options" :value="option.value">@{{ option.text }}</option>
 							</select>
 						</div>
@@ -50,13 +50,13 @@
 						<label class="control-label" v-show="label != ''">@{{ label }}</label>
 
 						<div v-show="type == 'text'">
-							<input type="text" :class="attrClass" :placeholder="attrPlaceholder" :id="attrId">
+							<input type="text" :class="attrClass" :placeholder="attrPlaceholder">
 						</div>
 						<div v-show="type == 'textarea'">
-							<textarea :class="attrClass" :placeholder="attrPlaceholder" :id="attrId" :rows="attrRows"></textarea>
+							<textarea :class="attrClass" :placeholder="attrPlaceholder" :rows="attrRows"></textarea>
 						</div>
 						<div v-show="type == 'select'">
-							<select :class="attrClass" :placeholder="attrPlaceholder" :id="attrId">
+							<select :class="attrClass" :placeholder="attrPlaceholder">
 								<option v-for="option in options" :value="option.value">@{{ option.text }}</option>
 							</select>
 						</div>
@@ -95,27 +95,6 @@
 			</div>
 
 			<div v-show="hasType">
-				<div class="form-group">
-					<div class="col-md-10 col-md-offset-2">
-						<h3>Placement</h3>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label class="col-md-2 control-label">Form Tab</label>
-					<div class="col-md-4">
-						{!! Form::select('tab_id', $tabs, null, ['class' => 'form-control input-lg']) !!}
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label class="col-md-2 control-label">Form Section</label>
-					<div class="col-md-4">
-						{!! Form::select('section_id', $sections, null, ['class' => 'form-control input-lg']) !!}
-						<p class="help-block">If you specify a section, you do not need to specify a tab.</p>
-					</div>
-				</div>
-
 				<div class="form-group">
 					<div class="col-md-10 col-md-offset-2">
 						<h3>Field Info</h3>
@@ -157,6 +136,29 @@
 				</div>
 
 				<div class="form-group">
+					<div class="col-md-10 col-md-offset-2">
+						<h3>Placement</h3>
+
+						<p>Fields can be placed in several different ways. The most common area to place a field is within a section. You can also choose to place a field in a tab, but not in a section. Additionally, you can have fields outside of any tabs if you wish (unbound). Unbound fields will appear at the top of the form before any unbound sections or tabs.</p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Form Tab</label>
+					<div class="col-md-4">
+						{!! Form::select('tab_id', $tabs, null, ['class' => 'form-control input-lg']) !!}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Form Section</label>
+					<div class="col-md-4">
+						{!! Form::select('section_id', $sections, null, ['class' => 'form-control input-lg']) !!}
+						<p class="help-block">If you specify a section, you do not need to specify a tab.</p>
+					</div>
+				</div>
+
+				<div class="form-group">
 					<div class="col-md-5 col-md-offset-2" v-cloak>
 						<phone-tablet>
 							<p>{!! Form::button("Add Field", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
@@ -176,7 +178,7 @@
 		<div id="attributes" class="tab-pane">
 			<h3>Field Attributes</h3>
 
-			{!! alert('warning', "Only the following field attributes will be reflected in the Live Preview: ID, class, placeholder, and rows. Any other attributes you add will be reflected in the final field.") !!}
+			{!! alert('warning', "Only the following field attributes will be reflected in the Live Preview: class, placeholder, and rows. Any other attributes you add will be reflected in the final field.") !!}
 
 			<div class="form-group">
 				<div class="col-md-8">
@@ -278,9 +280,9 @@
 		<div id="validation" class="tab-pane">
 			<h3>Field Validation</h3>
 
-			<p>You can create validation rules that will run on this field when a record is created or updated. You can use as many validation rules you want, but <strong>all rules must validate</strong> in order for the record to be created/updated. If a rule fails, the user will be directed back to the form with error messages.</p>
+			<p>You can create validation rules that will run on this field when a record is created or updated. You can use as many validation rules as you want, but <strong>all rules must validate</strong> in order for the record to be created/updated. If a rule fails, the user will be directed back to the form with error messages.</p>
 
-			<p>Simply select the condition you want to be true. In some cases, you'll need to provide additional information, but in those situations, help text will appear below the <em>value</em> field with guidance.</p>
+			<p>Simply select the condition you want to be true. In some cases, you'll need to provide additional information for the rule.</p>
 
 			<div class="form-group">
 				<div class="col-md-8">
@@ -293,7 +295,7 @@
 						<div class="row" v-for="rule in rules">
 							<div class="col-md-6">
 								<p>
-									<select name="ruleType[]" class="form-control" v-model="rule.type" @change="buildValidationRules">
+									<select name="ruleType[]" class="form-control" v-model="rule.type" @change="updateRuleType(rule)">
 										<option value=""></option>
 										<option value="alpha">Alphabetic characters</option>
 										<option value="alpha_dash">Alphabetic characters, dashes, or underscores</option>
@@ -314,7 +316,7 @@
 								</p>
 							</div>
 							<div class="col-md-4">
-								<p><input name="ruleValues[]" class="form-control" v-model="rule.value" @change="buildValidationRules"></p>
+								<p v-show="rule.hasValue"><input name="ruleValues[]" class="form-control" v-model="rule.value" @change="updateRuleValue(rule)"></p>
 								
 								<p class="help-block" v-show="rule.type == 'between'"><em>min,max</em></p>
 								<p class="help-block" v-show="rule.type == 'exists'"><em>table,column</em></p>
