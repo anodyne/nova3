@@ -20,20 +20,34 @@ class FieldRepository extends BaseFormRepository implements FormFieldRepositoryI
 	 */
 	public function create(array $data)
 	{
+		// Clean up the data
+		$data = $this->cleanFieldValues($data);
+
+		// Now create the field
+		$field = parent::create($data);
+
+		return $field;
+	}
+
+	protected function cleanFieldValues(array $data)
+	{
 		// Handle attributes
 		if (array_key_exists('attributeName', $data))
 		{
 			foreach ($data['attributeName'] as $key => $a)
 			{
-				$data['attributes'][] = [
-					'name' => $a,
-					'value' => $data['attributeValue'][$key]
-				];
+				if ( ! empty($a))
+				{
+					$data['attributes'][] = [
+						'name' => $a,
+						'value' => $data['attributeValue'][$key]
+					];
+				}
 			}
 		}
 
 		// Handle values
-		if (array_key_exists('optionNames', $data))
+		if (array_key_exists('optionNames', $data) and ($data['type'] == 'select' or $data['type'] == 'radio'))
 		{
 			foreach ($data['optionNames'] as $key => $o)
 			{
@@ -49,17 +63,17 @@ class FieldRepository extends BaseFormRepository implements FormFieldRepositoryI
 		{
 			foreach ($data['ruleType'] as $key => $r)
 			{
-				$data['validation_rules'][] = [
-					'type' => $r,
-					'value' => $data['ruleValues'][$key]
-				];
+				if ( ! empty($r))
+				{
+					$data['validation_rules'][] = [
+						'type' => $r,
+						'value' => $data['ruleValues'][$key]
+					];
+				}
 			}
 		}
 
-		// Now create the field
-		$field = parent::create($data);
-
-		return $field;
+		return $data;
 	}
 
 }
