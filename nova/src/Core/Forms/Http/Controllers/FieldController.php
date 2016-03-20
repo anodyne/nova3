@@ -131,6 +131,10 @@ class FieldController extends BaseController {
 			'col-md-12' => "Huge",
 			'Custom' => "Custom",
 		];
+
+		$this->jsData->attributes = $field->attributes->toJson();
+		$this->jsData->validationRules = $field->validation_rules->toJson();
+		$this->jsData->values = $field->values->toJson();
 	}
 
 	public function update(EditFormFieldRequest $request, $formKey, $fieldId)
