@@ -22,9 +22,7 @@ class FormPresenter extends Presenter {
 			'sectionsUnbound', 'sectionsUnbound.fields', 
 			'parentTabs', 'parentTabs.fieldsUnbound', 'parentTabs.sections', 'parentTabs.sections.fields', 
 			'parentTabs.childrenTabs', 'parentTabs.childrenTabs.fieldsUnbound', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields',
-			//'fieldsUnbound.values', 'sectionsUnbound.fields.values', 'parentTabs.fieldsUnbound.values',
-			//'parentTabs.sections.fields.values', 'parentTabs.childrenTabs.fieldsUnbound.values',
-			//'parentTabs.childrenTabs.sections.fields.values', 'data', 'data.field',
+			//'data', 'data.field',
 		];
 
 		// Grab the form and eager load all the relations
@@ -37,10 +35,13 @@ class FormPresenter extends Presenter {
 		// Grab the data for the item we're viewing
 		$data = $form->data->where('data_id', $id);
 
-		return partial('form-static', compact('form', 'formOpenTag', 'formCloseTag', 'data'));
+		// Set the action we're taking
+		$action = 'view';
+
+		return partial('form-static', compact('form', 'formOpenTag', 'formCloseTag', 'data', 'action'));
 	}
 
-	public function renderNewForm()
+	public function renderNewForm($includeFormTags = true, $includeButton = true)
 	{
 		$relations = [
 			'fieldsUnbound', 
@@ -54,38 +55,50 @@ class FormPresenter extends Presenter {
 		$form = $this->entity->load($relations);
 
 		// Build the opening/closing tags
-		$formOpenTag = $this->createFormOpenTag('create');
-		$formCloseTag = $this->createFormCloseTag('create');
+		$formOpenTag = ($includeFormTags) 
+			? $this->createFormOpenTag('create') 
+			: $this->createFormOpenTag('view');
+		$formCloseTag = ($includeFormTags) 
+			? $this->createFormCloseTag('create') 
+			: $this->createFormCloseTag('view');
 
 		// Keep an empty collection for the data
 		$data = collect();
 
-		return partial('form-editable', compact('form', 'formOpenTag', 'formCloseTag', 'data'));
+		// Set the action we're taking
+		$action = 'create';
+
+		return partial('form-editable', compact('form', 'formOpenTag', 'formCloseTag', 'data', 'action', 'includeButton'));
 	}
 
-	public function renderEditForm($id)
+	public function renderEditForm($id, $includeFormTags = true, $includeButton = true)
 	{
 		$relations = [
 			'fieldsUnbound', 
 			'sectionsUnbound', 'sectionsUnbound.fields', 
 			'parentTabs', 'parentTabs.fieldsUnbound', 'parentTabs.sections', 'parentTabs.sections.fields', 
 			'parentTabs.childrenTabs', 'parentTabs.childrenTabs.fieldsUnbound', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields',
-			//'fieldsUnbound.values', 'sectionsUnbound.fields.values', 'parentTabs.fieldsUnbound.values',
-			//'parentTabs.sections.fields.values', 'parentTabs.childrenTabs.fieldsUnbound.values',
-			//'parentTabs.childrenTabs.sections.fields.values', 'data', 'data.field',
+			//'data', 'data.field',
 		];
 
 		// Grab the form and eager load all the relations
 		$form = $this->entity->load($relations);
 
 		// Build the opening/closing tags
-		$formOpenTag = $this->createFormOpenTag('edit');
-		$formCloseTag = $this->createFormCloseTag('edit');
+		$formOpenTag = ($includeFormTags) 
+			? $this->createFormOpenTag('edit') 
+			: $this->createFormOpenTag('view');
+		$formCloseTag = ($includeFormTags) 
+			? $this->createFormCloseTag('edit') 
+			: $this->createFormCloseTag('view');
 
 		// Grab the data for the item we're editing
 		$data = $form->data->where('data_id', $id);
 
-		return partial('form-editable', compact('form', 'formOpenTag', 'formCloseTag', 'data'));
+		// Set the action we're taking
+		$action = 'edit';
+
+		return partial('form-editable', compact('form', 'formOpenTag', 'formCloseTag', 'data', 'action', 'includeButton'));
 	}
 
 	public function statusAsLabel()

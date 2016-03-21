@@ -18,6 +18,11 @@
 			rules: [
 				{ type: "", value: "", hasValue: false }
 			],
+			restrictions: [
+				{ type: "view", value: "" },
+				{ type: "create", value: "" },
+				{ type: "edit", value: "" }
+			],
 			validationRules: "",
 			hasValues: false
 		},
@@ -66,6 +71,15 @@
 
 			addRule: function () {
 				this.rules.push({ type: "", value: "", hasValue: false })
+			},
+
+			clearRestriction: function (row) {
+				for (var i = 0; i < this.restrictions.length; ++i) {
+					if (this.restrictions[i] === row) {
+						this.restrictions[i].value = ""
+						break
+					}
+				}
 			},
 
 			removeAttribute: function (row) {
@@ -152,14 +166,20 @@
 					{ name: "placeholder", value: "" }
 				]
 
+				// Reset the restrictions
+				this.restrictions = [
+					{ type: "view", value: "" },
+					{ type: "create", value: "" },
+					{ type: "edit", value: "" }
+				]
+
 				// Reset some other values
 				this.fieldContainerClassSelect = "col-md-6"
 				this.labelContainerClassSelect = "col-md-2"
 				this.hasValues = false
 
 				// Specific resets for text blocks
-				if (value == "textarea")
-				{
+				if (value == "textarea") {
 					this.fieldContainerClassSelect = "col-md-8"
 					this.attributes.push({ name: "rows", value: "5" })
 				}

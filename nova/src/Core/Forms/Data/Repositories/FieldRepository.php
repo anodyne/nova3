@@ -32,18 +32,21 @@ class FieldRepository extends BaseFormRepository implements FormFieldRepositoryI
 	protected function cleanFieldValues(array $data)
 	{
 		// Handle attributes
-		if (array_key_exists('attributeName', $data))
+		if (array_key_exists('attributeNames', $data))
 		{
-			foreach ($data['attributeName'] as $key => $a)
+			foreach ($data['attributeNames'] as $key => $a)
 			{
 				if ( ! empty($a))
 				{
 					$data['attributes'][] = [
 						'name' => $a,
-						'value' => $data['attributeValue'][$key]
+						'value' => $data['attributeValues'][$key]
 					];
 				}
 			}
+
+			unset($data['attributeNames']);
+			unset($data['attributeValues']);
 		}
 
 		// Handle values
@@ -56,12 +59,15 @@ class FieldRepository extends BaseFormRepository implements FormFieldRepositoryI
 					'value' => $data['optionValues'][$key]
 				];
 			}
+
+			unset($data['optionNames']);
+			unset($data['optionValues']);
 		}
 
 		// Handle validation
-		if (array_key_exists('ruleType', $data))
+		if (array_key_exists('ruleTypes', $data))
 		{
-			foreach ($data['ruleType'] as $key => $r)
+			foreach ($data['ruleTypes'] as $key => $r)
 			{
 				if ( ! empty($r))
 				{
@@ -71,6 +77,23 @@ class FieldRepository extends BaseFormRepository implements FormFieldRepositoryI
 					];
 				}
 			}
+
+			unset($data['ruleType']);
+			unset($data['ruleValues']);
+		}
+
+		// Handle restrictions
+		if (array_key_exists('restrictionValues', $data))
+		{
+			foreach ($data['restrictionValues'] as $type => $value)
+			{
+				$data['restrictions'][] = [
+					'type' => $type,
+					'value' => $value,
+				];
+			}
+
+			unset($data['restrictionValues']);
 		}
 
 		return $data;

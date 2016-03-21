@@ -159,6 +159,37 @@
 				</div>
 
 				<div class="form-group">
+					<div class="col-md-10 col-md-offset-2">
+						<h3>Restrictions</h3>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-md-6 col-md-offset-2">
+						<div class="data-table data-table-striped data-table-bordered">
+							<div class="row">
+								<div class="col-md-3"><p><strong>Type</strong></p></div>
+								<div class="col-md-6"><p><strong>Value</strong></p></div>
+								<div class="col-md-3"></div>
+							</div>
+							<div class="row" v-for="restriction in restrictions">
+								<div class="col-md-3">
+									<p>@{{ restriction.type | capitalize }}</p>
+								</div>
+								<div class="col-md-6">
+									<p>{!! Form::select('restrictionValues[@{{ restriction.type }}]', $accessRoles, null, ['class' => 'form-control', 'v-model' => 'restriction.value', 'placeholder' => "No restriction"]) !!}</p>
+								</div>
+								<div class="col-md-3">
+									<p><a @click="clearRestriction(restriction)" class="btn btn-block btn-danger">Clear</a></p>
+								</div>
+							</div>
+						</div>
+
+						{!! Form::hidden('val_rules', false, ['v-model' => 'validationRules']) !!}
+					</div>
+				</div>
+
+				<div class="form-group">
 					<div class="col-md-5 col-md-offset-2" v-cloak>
 						<phone-tablet>
 							<p>{!! Form::button("Add Field", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
@@ -194,10 +225,10 @@
 						</div>
 						<div class="row" v-for="attr in attributes">
 							<div class="col-md-5">
-								<p><input name="attributeName[]" class="form-control" v-model="attr.name"></p>
+								<p><input name="attributeNames[]" class="form-control" v-model="attr.name"></p>
 							</div>
 							<div class="col-md-5">
-								<p><input name="attributeValue[]" class="form-control" v-model="attr.value"></p>
+								<p><input name="attributeValues[]" class="form-control" v-model="attr.value"></p>
 							</div>
 							<div class="col-md-2">
 								<p><a @click="removeAttribute(attr)" class="btn btn-block btn-danger">Remove</a></p>
@@ -295,7 +326,7 @@
 						<div class="row" v-for="rule in rules">
 							<div class="col-md-6">
 								<p>
-									<select name="ruleType[]" class="form-control" v-model="rule.type" @change="updateRuleType(rule)">
+									<select name="ruleTypes[]" class="form-control" v-model="rule.type" @change="updateRuleType(rule)">
 										<option value=""></option>
 										<option value="alpha">Alphabetic characters</option>
 										<option value="alpha_dash">Alphabetic characters, dashes, or underscores</option>

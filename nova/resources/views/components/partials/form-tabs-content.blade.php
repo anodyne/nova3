@@ -5,16 +5,16 @@
 			{!! $tab->present()->message !!}
 
 			@if ($tab->fieldsUnbound->count() > 0)
-				{!! partial('form-fields', ['fields' => $tab->fieldsUnbound, 'editable' => $editable, 'form' => $form]) !!}
+				{!! partial('form-fields', ['fields' => $tab->fieldsUnbound, 'editable' => $editable, 'form' => $form, 'action' => $action]) !!}
 			@endif
 
 			@if ($tab->childrenTabs->count() > 0)
-				{!! partial('form-tabs-control', ['tabs' => $tab->childrenTabs, 'style' => 'pills', 'editable' => $editable, 'form' => $form]) !!}
+				{!! partial('form-tabs-control', ['tabs' => $tab->childrenTabs, 'style' => 'pills', 'editable' => $editable, 'form' => $form, 'action' => $action]) !!}
 
-				{!! partial('form-tabs-content', ['tabs' => $tab->childrenTabs, 'editable' => $editable, 'form' => $form]) !!}
+				{!! partial('form-tabs-content', ['tabs' => $tab->childrenTabs, 'editable' => $editable, 'form' => $form, 'action' => $action]) !!}
 			@endif
 
-			{!! partial('form-sections', ['sections' => $tab->sections, 'editable' => $editable, 'form' => $form]) !!}
+			{!! partial('form-sections', ['sections' => $tab->sections, 'editable' => $editable, 'form' => $form, 'action' => $action]) !!}
 		</div>
 	@endforeach
 	</div>

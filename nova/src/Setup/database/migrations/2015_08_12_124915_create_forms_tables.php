@@ -77,7 +77,7 @@ class CreateFormsTables extends Migration {
 			$table->string('label_container_class')->default('col-md-2')->nullable();
 			$table->text('help')->nullable();
 			$table->text('attributes')->nullable();
-			$table->text('restriction')->nullable();
+			$table->text('restrictions')->nullable();
 			$table->text('validation_rules')->nullable();
 			$table->text('values')->nullable();
 			$table->timestamps();

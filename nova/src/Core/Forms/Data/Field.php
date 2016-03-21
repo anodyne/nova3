@@ -10,7 +10,7 @@ class Field extends Model {
 	protected $table = 'forms_fields';
 
 	protected $fillable = ['form_id', 'tab_id', 'section_id', 'type', 'label',
-		'order', 'status', 'restriction', 'help', 'validation_rules', 
+		'order', 'status', 'restrictions', 'help', 'validation_rules', 
 		'label_container_class', 'attributes', 'values'];
 
 	protected $dates = ['created_at', 'updated_at'];
@@ -18,9 +18,10 @@ class Field extends Model {
 	protected $presenter = FormFieldPresenter::class;
 
 	protected $casts = [
-		'attributes' => 'collection',
-		'validation_rules' => 'collection',
-		'values' => 'collection',
+		'attributes'		=> 'collection',
+		'restrictions'		=> 'collection',
+		'validation_rules'	=> 'collection',
+		'values'			=> 'collection',
 	];
 
 	/*
@@ -49,6 +50,15 @@ class Field extends Model {
 	| Model Methods
 	|---------------------------------------------------------------------------
 	*/
+
+	public function restrictionForType($type)
+	{
+		$restriction = $this->restrictions->where('type', $type)->first();
+		
+		if ($restriction) return $restriction['value'];
+
+		return false;
+	}
 
 	public function validationRules()
 	{

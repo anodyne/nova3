@@ -3,6 +3,7 @@
 use NovaFormField,
 	BaseController,
 	FormRepositoryInterface,
+	RoleRepositoryInterface,
 	FormTabRepositoryInterface,
 	FormFieldRepositoryInterface,
 	FormSectionRepositoryInterface,
@@ -50,7 +51,7 @@ class FieldController extends BaseController {
 		$this->data->tabs = $this->formRepo->getTabs($form);
 	}
 
-	public function create($formKey)
+	public function create(RoleRepositoryInterface $roleRepo, $formKey)
 	{
 		$this->authorize('create', new NovaFormField, "You do not have permission to create form fields.");
 
@@ -74,14 +75,16 @@ class FieldController extends BaseController {
 		$this->data->sections+= $this->sectionRepo->listAll('name', 'id');
 
 		$this->data->sizes = [
-			'col-md-2' => "Small",
-			'col-md-4' => "Medium",
+			'col-md-2' => "Extra Small",
+			'col-md-4' => "Small",
 			'col-md-6' => "Normal",
-			'col-md-8' => "Large",
-			'col-md-10' => "Extra Large",
-			'col-md-12' => "Huge",
+			'col-md-8' => "Medium",
+			'col-md-10' => "Large",
+			'col-md-12' => "Extra Large",
 			'Custom' => "Custom",
 		];
+
+		$this->data->accessRoles = $roleRepo->listAll('display_name', 'name');
 	}
 
 	public function store(CreateFormFieldRequest $request, $formKey)
@@ -97,7 +100,7 @@ class FieldController extends BaseController {
 		return redirect()->route('admin.forms.fields', [$formKey]);
 	}
 
-	public function edit($formKey, $fieldId)
+	public function edit(RoleRepositoryInterface $roleRepo, $formKey, $fieldId)
 	{
 		$field = $this->data->field = $this->repo->getById($fieldId);
 
@@ -123,16 +126,19 @@ class FieldController extends BaseController {
 		$this->data->sections+= $this->sectionRepo->listAll('name', 'id');
 
 		$this->data->sizes = [
-			'col-md-2' => "Small",
-			'col-md-4' => "Medium",
+			'col-md-2' => "Extra Small",
+			'col-md-4' => "Small",
 			'col-md-6' => "Normal",
-			'col-md-8' => "Large",
-			'col-md-10' => "Extra Large",
-			'col-md-12' => "Huge",
+			'col-md-8' => "Medium",
+			'col-md-10' => "Large",
+			'col-md-12' => "Extra Large",
 			'Custom' => "Custom",
 		];
 
+		$this->data->accessRoles = $roleRepo->listAll('display_name', 'name');
+
 		$this->jsData->attributes = $field->attributes->toJson();
+		$this->jsData->restrictions = $field->restrictions->toJson();
 		$this->jsData->validationRules = $field->validation_rules->toJson();
 		$this->jsData->values = $field->values->toJson();
 	}
