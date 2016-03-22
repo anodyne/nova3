@@ -7,7 +7,7 @@
 
 			@if ($section->fields->count() > 0)
 				<div class="fieldset-content">
-					{!! partial('form-fields', ['fields' => $section->fields, 'editable' => $editable, 'form' => $form, 'action' => $action]) !!}
+					{!! partial('form-fields', ['fields' => $section->fields, 'editable' => $editable, 'form' => $form, 'action' => $action, 'data' => $data, 'id' => $id]) !!}
 				</div>
 			@endif
 		</fieldset>

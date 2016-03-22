@@ -30,6 +30,11 @@ class Field extends Model {
 	|---------------------------------------------------------------------------
 	*/
 
+	public function data()
+	{
+		return $this->hasMany('NovaFormData');
+	}
+
 	public function form()
 	{
 		return $this->belongsTo('NovaForm');

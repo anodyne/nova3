@@ -1,6 +1,7 @@
 @if ($fields->count() > 0)
 	@foreach ($fields as $field)
 		<?php $restriction = $field->restrictionForType($action);?>
+		<?php $fieldData = ($data) ? $data->where('field_id', $field->id)->first()->value : null;?>
 		
 		@if ($restriction and $_user->hasRole($restriction))
 			@if ($form->orientation == 'horizontal')
@@ -11,14 +12,14 @@
 
 					@if ($editable)
 						<div class="{{ $field->field_container_class }}">
-							{!! $field->present()->render !!}
+							{!! $field->present()->render($id) !!}
 
 							@if (strlen($field->help) > 0)
 								<p class="help-block">{!! $field->present()->help !!}</p>
 							@endif
 						</div>
 					@else
-						<p class="form-control-static">Value</p>
+						<p class="form-control-static">{!! $fieldData !!}</p>
 					@endif
 				</div>
 			@else
@@ -30,13 +31,13 @@
 							@endif
 							
 							@if ($editable)
-								<div>{!! $field->present()->render !!}</div>
+								<div>{!! $field->present()->render($id) !!}</div>
 
 								@if (strlen($field->help) > 0)
 									<p class="help-block">{!! $field->present()->help !!}</p>
 								@endif
 							@else
-								<p class="form-control-static">Value</p>
+								<p class="form-control-static">{!! $fieldData !!}</p>
 							@endif
 						</div>
 					</div>

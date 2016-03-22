@@ -18,8 +18,8 @@ class FieldPresenter extends Presenter {
 		$fieldName = sprintf(config('nova.form.fieldNameFormat'), $field->id);
 
 		// Grab the data if we need to
-		$data = ($field->date) ? $field->data->where('data_id', $id) : null;
-		$fieldValue = ($data) ? $data->value : null;
+		$data = ($field->data) ? $field->data->where('data_id', $id) : null;
+		$fieldValue = ($data->count() > 0) ? $data->first()->value : null;
 
 		// Get the attributes
 		$attributesArr = [];
