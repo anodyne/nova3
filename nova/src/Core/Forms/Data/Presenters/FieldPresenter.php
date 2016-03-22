@@ -27,6 +27,18 @@ class FieldPresenter extends Presenter {
 			$attributesArr[$item['name']] = $item['value'];
 		});
 
+		/*
+		// Get the values
+		$valuesArr = [];
+		$field->values->each(function ($item) use (&$valuesArr) {
+			$valuesArr[$item['value']] = $item['text'];
+		});
+
+		return app('nova.form.fields')
+			->getFieldType($field->type)
+			->render($state, $fieldName, $valuesArr, $fieldValue, $attributesArr);
+		*/
+
 		switch ($field->type)
 		{
 			case 'text':

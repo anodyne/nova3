@@ -7,7 +7,8 @@ use Illuminate\Support\Collection,
 	Illuminate\Support\ClassLoader,
 	Illuminate\Support\ServiceProvider;
 use League\CommonMark\CommonMarkConverter;
-use Nova\Core\Forms\Services\Compilers\FormCompiler,
+use Nova\Core\Forms\Services\FieldTypes,
+	Nova\Core\Forms\Services\Compilers\FormCompiler,
 	Nova\Core\Pages\Services\Compilers\PageCompiler,
 	Nova\Core\Settings\Services\Compilers\SettingCompiler,
 	Nova\Core\Pages\Services\Compilers\PageContentCompiler;
@@ -33,6 +34,7 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->getCurrentUser();
 		$this->createLocator();
 		$this->createPageCompilerEngine();
+		$this->createFieldTypesManager();
 		$this->setupTheme();
 		$this->setupMailer();
 	}
@@ -95,6 +97,24 @@ class NovaServiceProvider extends ServiceProvider {
 
 		// Add a page compiler in a service provider
 		// $this->app['nova.page.compiler']->registerCompiler('foo', new Foo);
+	}
+
+	protected function createFieldTypesManager()
+	{
+		$this->app->singleton('nova.forms.fields', function ($app)
+		{
+			$manager = new FieldTypes\FieldTypeManager;
+
+			$manager->registerFieldType('text', new FieldTypes\TextField);
+			$manager->registerFieldType('textarea', new FieldTypes\TextBlock);
+			$manager->registerFieldType('select', new FieldTypes\Dropdown);
+			//$manager->registerFieldType('radio', new FieldTypes\RadioButtons);
+
+			return $manager;
+		});
+
+		// Add a field type in a service provider
+		// $this->app['nova.forms.fields']->registerFieldType('alias', new Concrete);
 	}
 
 	/**

@@ -11,6 +11,8 @@
 	</desktop>
 </div>
 
+<pre>@{{ $data | json }}</pre>
+
 <div v-show="hasType">
 	<h3>Live Preview</h3>
 
@@ -20,23 +22,8 @@
 				<div class="form-group">
 					<label class="control-label @{{ labelContainerClass }}" v-show="label != ''">@{{ label }}</label>
 					<div class="@{{ fieldContainerClass }}">
-						<div v-show="type == 'text'">
-							<input type="text" :class="attrClass" :placeholder="attrPlaceholder">
-						</div>
-						<div v-show="type == 'textarea'">
-							<textarea :class="attrClass" :placeholder="attrPlaceholder" :rows="attrRows"></textarea>
-						</div>
-						<div v-show="type == 'select'">
-							<select :class="attrClass" :placeholder="attrPlaceholder">
-								<option v-for="option in options" :value="option.value">@{{ option.text }}</option>
-							</select>
-						</div>
-						<div v-show="type == 'radio'">
-							<div class="radio" v-for="option in options">
-								<label>
-									<input type="radio" :value="option.value"> @{{ option.text }}
-								</label>
-							</div>
+						<div v-show="hasType">
+							@{{ livePreview }}
 						</div>
 
 						<p class="help-block" v-show="help != ''">@{{ help }}</p>
@@ -49,23 +36,8 @@
 					<div class="form-group">
 						<label class="control-label" v-show="label != ''">@{{ label }}</label>
 
-						<div v-show="type == 'text'">
-							<input type="text" :class="attrClass" :placeholder="attrPlaceholder">
-						</div>
-						<div v-show="type == 'textarea'">
-							<textarea :class="attrClass" :placeholder="attrPlaceholder" :rows="attrRows"></textarea>
-						</div>
-						<div v-show="type == 'select'">
-							<select :class="attrClass" :placeholder="attrPlaceholder">
-								<option v-for="option in options" :value="option.value">@{{ option.text }}</option>
-							</select>
-						</div>
-						<div v-show="type == 'radio'">
-							<div class="radio" v-for="option in options">
-								<label>
-									<input type="radio" :value="option.value"> @{{ option.text }}
-								</label>
-							</div>
+						<div v-show="hasType">
+							@{{{ livePreview }}}
 						</div>
 
 						<p class="help-block" v-show="help != ''">@{{ help }}</p>
@@ -89,7 +61,7 @@
 			<div class="form-group{{ ($errors->has('type')) ? ' has-error' : '' }}">
 				<label class="col-md-2 control-label">Type</label>
 				<div class="col-md-4">
-					{!! Form::select('type', $types, null, ['class' => 'form-control input-lg', 'placeholder' => "Please choose a field type", 'v-model' => 'type']) !!}
+					{!! Form::select('type', $fieldTypes, null, ['class' => 'form-control input-lg', 'placeholder' => "Please choose a field type", 'v-model' => 'type']) !!}
 					{!! $errors->first('type', '<p class="help-block">:message</p>') !!}
 				</div>
 			</div>

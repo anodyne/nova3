@@ -1,5 +1,6 @@
 <?php namespace Nova\Core\Forms\Services\Compilers;
 
+use Route;
 use Nova\Foundation\Services\PageCompiler\CompilerEngine,
 	Nova\Foundation\Services\PageCompiler\CompilerInterface;
 
@@ -39,6 +40,19 @@ class FormCompiler implements CompilerInterface {
 
 				// Get the form
 				$form = app('FormRepository')->getByKey($formKey, null);
+
+				if ( ! is_numeric($id))
+				{
+					//"/(@)?{%\s*(.+?)\s*%}(\r?\n)?/s"
+					// Get the route parameter
+					$paramName = "";
+
+					// Get the current route
+					$route = Route::getCurrentRoute();
+
+					// Update the ID
+					$id = $route->getParameter($paramName);
+				}
 
 				if ($form)
 				{

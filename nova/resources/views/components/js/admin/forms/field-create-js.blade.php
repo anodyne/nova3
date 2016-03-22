@@ -24,7 +24,9 @@
 				{ type: "edit", value: "" }
 			],
 			validationRules: "",
-			hasValues: false
+			hasValues: false,
+			fieldTypes: {!! $fieldTypes !!},
+			livePreview: ""
 		},
 
 		computed: {
@@ -150,6 +152,8 @@
 			},
 
 			"type": function (value, oldValue) {
+				var field = this.fieldTypes[value]
+
 				// Clear out the field values
 				this.options = [
 					{ text: "", value: "" }
@@ -161,10 +165,11 @@
 				]
 
 				// Reset the attributes
-				this.attributes = [
+				/*this.attributes = [
 					{ name: "class", value: "form-control input-lg" },
 					{ name: "placeholder", value: "" }
-				]
+				]*/
+				this.attributes = field.attributes
 
 				// Reset the restrictions
 				this.restrictions = [
@@ -176,16 +181,19 @@
 				// Reset some other values
 				this.fieldContainerClassSelect = "col-md-6"
 				this.labelContainerClassSelect = "col-md-2"
-				this.hasValues = false
+				//this.hasValues = false
+				this.hasValues = field.hasValues
+				this.livePreview = field.preview
 
-				// Specific resets for text blocks
-				if (value == "textarea") {
+				/*// Specific resets for text blocks
+				if (value == "textarea")
+				{
 					this.fieldContainerClassSelect = "col-md-8"
 					this.attributes.push({ name: "rows", value: "5" })
-				}
+				}*/
 
-				if (value == "select" || value == "radio")
-					this.hasValues = true
+				/*if (value == "select" || value == "radio")
+					this.hasValues = true*/
 			}
 		}
 	}

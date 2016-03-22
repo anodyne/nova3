@@ -85,6 +85,21 @@ class FieldController extends BaseController {
 		];
 
 		$this->data->accessRoles = $roleRepo->listAll('display_name', 'name');
+
+		$typesArr = [];
+		$typesJson = [];
+
+		app('nova.forms.fields')->getAllFieldTypes()->map(function ($type) use (&$typesArr, &$typesJson)
+		{
+			$info = $type->info();
+
+			$typesArr[$info['value']] = $info['name'];
+
+			$typesJson[$info['value']] = $info;
+		});
+
+		$this->data->fieldTypes = $typesArr;
+		$this->jsData->fieldTypes = json_encode($typesJson);
 	}
 
 	public function store(CreateFormFieldRequest $request, $formKey)
