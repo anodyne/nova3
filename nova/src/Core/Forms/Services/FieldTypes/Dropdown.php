@@ -14,8 +14,10 @@ class Dropdown implements FieldTypeInterface {
 			'attributes' => [
 				['name' => 'class', 'value' => 'form-control input-lg'],
 				['name' => 'placeholder', 'value' => ''],
-				['name' => 'data-foo', 'value' => 'baz'],
 			],
+			'baseHTML' => 'select',
+			'fieldContainerSize' => 'col-md-4',
+			'labelContainerSize' => 'col-md-2',
 		];
 	}
 

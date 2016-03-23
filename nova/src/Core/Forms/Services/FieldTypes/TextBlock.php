@@ -14,9 +14,11 @@ class TextBlock implements FieldTypeInterface {
 			'attributes' => [
 				['name' => 'class', 'value' => 'form-control input-lg'],
 				['name' => 'placeholder', 'value' => ''],
-				['name' => 'data-foo', 'value' => 'baz'],
 				['name' => 'rows', 'value' => 5],
 			],
+			'baseHTML' => 'textarea',
+			'fieldContainerSize' => 'col-md-8',
+			'labelContainerSize' => 'col-md-2',
 		];
 	}
 
