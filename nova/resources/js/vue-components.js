@@ -1,34 +1,27 @@
-Vue.component('desktop-lg',
-{
+Vue.component('desktop-lg', {
 	template: '<div class="visible-lg-block" v-cloak><slot></slot></div>'
 })
 
-Vue.component('desktop-sm',
-{
+Vue.component('desktop-sm', {
 	template: '<div class="visible-md-block" v-cloak><slot></slot></div>'
 })
 
-Vue.component('desktop',
-{
+Vue.component('desktop', {
 	template: '<div class="visible-md-block visible-lg-block" v-cloak><slot></slot></div>'
 })
 
-Vue.component('phone-tablet',
-{
+Vue.component('phone-tablet', {
 	template: '<div class="visible-xs-block visible-sm-block" v-cloak><slot></slot></div>'
 })
 
-Vue.component('phone',
-{
+Vue.component('phone', {
 	template: '<div class="visible-xs-block" v-cloak><slot></slot></div>'
 })
 
-Vue.component('tablet',
-{
+Vue.component('tablet', {
 	template: '<div class="visible-sm-block" v-cloak><slot></slot></div>'
 })
 
-Vue.component('tablet-desktop',
-{
+Vue.component('tablet-desktop', {
 	template: '<div class="visible-sm-block visible-md-block visible-lg-block" v-cloak><slot></slot></div>'
 })
