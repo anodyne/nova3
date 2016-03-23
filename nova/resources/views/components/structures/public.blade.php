@@ -60,11 +60,10 @@
 
 		{!! partial('include-jquery') !!}
 		{!! partial('include-bootstrap-js') !!}
+		{!! partial('vue-include') !!}
 		{!! HTML::script('nova/resources/js/functions.js') !!}
 		{!! partial('sweetalert') !!}
 		<script>
-			var vue = {}
-
 			// Setup the CSRF token on Ajax requests
 			$.ajaxPrefilter(function(options, originalOptions, xhr)
 			{
@@ -96,6 +95,6 @@
 			})
 		</script>
 		{!! $javascript or false !!}
-		{!! partial('include-vue') !!}
+		{!! partial('vue-object') !!}
 	</body>
 </html>

@@ -51,6 +51,7 @@
 
 		{!! partial('include-jquery') !!}
 		{!! partial('include-bootstrap-js') !!}
+		{!! partial('vue-include') !!}
 		{!! HTML::script('nova/resources/js/functions.js') !!}
 		{!! partial('sweetalert') !!}
 		<script>
@@ -73,6 +74,6 @@
 			})
 		</script>
 		{!! $javascript or false !!}
-		{!! partial('include-vue') !!}
+		{!! partial('vue-object') !!}
 	</body>
 </html>
