@@ -11,8 +11,6 @@
 	</desktop>
 </div>
 
-<pre>@{{ $data | json }}</pre>
-
 <div v-show="hasType">
 	<h3>Live Preview</h3>
 
@@ -22,10 +20,7 @@
 				<div class="form-group">
 					<label class="control-label @{{ labelContainerClass }}" v-show="label != ''">@{{ label }}</label>
 					<div class="@{{ fieldContainerClass }}">
-						<div v-show="hasType">
-							@{{ livePreview }}
-						</div>
-
+						{!! partial('field-live-preview') !!}
 						<p class="help-block" v-show="help != ''">@{{ help }}</p>
 					</div>
 				</div>
@@ -35,11 +30,7 @@
 				<div class="@{{ fieldContainerClass }}">
 					<div class="form-group">
 						<label class="control-label" v-show="label != ''">@{{ label }}</label>
-
-						<div v-show="hasType">
-							@{{{ livePreview }}}
-						</div>
-
+						{!! partial('field-live-preview') !!}
 						<p class="help-block" v-show="help != ''">@{{ help }}</p>
 					</div>
 				</div>
@@ -335,8 +326,6 @@
 					</div>
 
 					<p><a @click="addRule" class="btn btn-default">Add Rule</a></p>
-
-					{!! Form::hidden('val_rules', false, ['v-model' => 'validationRules']) !!}
 				</div>
 			</div>
 

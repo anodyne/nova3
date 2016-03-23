@@ -3,9 +3,9 @@
 	vue = {
 		data: {
 			fieldContainerClassSelect: "col-md-4",
+			labelContainerClassSelect: "col-md-2",
 			fieldContainerClass: "col-md-4",
 			labelContainerClass: "col-md-2",
-			labelContainerClassSelect: "col-md-2",
 			label: "",
 			type: "",
 			options: [
@@ -23,10 +23,9 @@
 				{ type: "create", value: "" },
 				{ type: "edit", value: "" }
 			],
-			validationRules: "",
 			hasValues: false,
-			fieldTypes: {!! $fieldTypes !!},
-			livePreview: ""
+			fieldType: {},
+			fieldTypes: {!! $fieldTypes !!}
 		},
 
 		computed: {
@@ -50,6 +49,42 @@
 
 			attrRows: function () {
 				var obj = find("attributes", "rows")
+
+				if (obj)
+					return obj.value
+
+				return
+			},
+
+			attrMin: function () {
+				var obj = find("attributes", "min")
+
+				if (obj)
+					return obj.value
+
+				return
+			},
+
+			attrMax: function () {
+				var obj = find("attributes", "max")
+
+				if (obj)
+					return obj.value
+
+				return
+			},
+
+			attrValue: function () {
+				var obj = find("attributes", "value")
+
+				if (obj)
+					return obj.value
+
+				return
+			},
+
+			attrStep: function () {
+				var obj = find("attributes", "step")
 
 				if (obj)
 					return obj.value
@@ -132,11 +167,11 @@
 					break
 				}
 
-				this.buildValidationRules()
+				//this.buildValidationRules()
 			},
 
 			updateRuleValue: function (row) {
-				this.buildValidationRules()
+				//this.buildValidationRules()
 			}
 		},
 
@@ -154,6 +189,8 @@
 			"type": function (value, oldValue) {
 				var field = this.fieldTypes[value]
 
+				this.fieldType = field
+
 				// Clear out the field values
 				this.options = [
 					{ text: "", value: "" }
@@ -165,10 +202,6 @@
 				]
 
 				// Reset the attributes
-				/*this.attributes = [
-					{ name: "class", value: "form-control input-lg" },
-					{ name: "placeholder", value: "" }
-				]*/
 				this.attributes = field.attributes
 
 				// Reset the restrictions
@@ -179,27 +212,16 @@
 				]
 
 				// Reset some other values
-				this.fieldContainerClassSelect = "col-md-6"
-				this.labelContainerClassSelect = "col-md-2"
-				//this.hasValues = false
+				this.fieldContainerClassSelect = field.fieldContainerSize
+				this.labelContainerClassSelect = field.labelContainerSize
 				this.hasValues = field.hasValues
-				this.livePreview = field.preview
-
-				/*// Specific resets for text blocks
-				if (value == "textarea")
-				{
-					this.fieldContainerClassSelect = "col-md-8"
-					this.attributes.push({ name: "rows", value: "5" })
-				}*/
-
-				/*if (value == "select" || value == "radio")
-					this.hasValues = true*/
 			}
 		}
 	}
 
 	function find(item, name) {
-		if ( ! vue.data[item]) return;
+		if ( ! vue.data[item])
+			return
 
 		var items = vue.data[item]
 
