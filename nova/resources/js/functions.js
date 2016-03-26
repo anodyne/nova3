@@ -1,5 +1,4 @@
-var slug = function (str)
-{
+var slug = function (str) {
 	var $slug = ''
 	var trimmed = $.trim(str)
 
@@ -8,12 +7,10 @@ var slug = function (str)
 	return $slug.toLowerCase()
 }
 
-var byId = function (id)
-{
+var byId = function (id) {
 	return document.getElementById(id)
 }
 
-var byClass = function (className)
-{
-	return document.getElementByClassName(className)
+var byClass = function (className) {
+	return document.getElementsByClassName(className)
 }
