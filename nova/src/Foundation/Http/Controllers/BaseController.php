@@ -139,6 +139,8 @@ abstract class BaseController extends Controller {
 
 	final public function page()
 	{
+		$this->jsView = 'basic-page-js';
+
 		if ($this->page->access)
 		{
 			// Make sure the user is authenticated
