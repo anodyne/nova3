@@ -29,62 +29,54 @@
 	</desktop>
 </div>
 
-@if ($unboundFields->count() > 0)
-	<div class="{{ ($form->present()->hasHorizontalOrientation) ? 'form-horizontal' : '' }}">
-	@foreach ($unboundFields as $field)
-		<div class="form-group">
-			@if ($form->present()->hasHorizontalOrientation)
-				<label class="control-label {{ $field->label_container_class }}">{!! $field->present()->label !!}</label>
-				<div class="{{ $field->field_container_class }}">
-					{!! $field->present()->render !!}
-				</div>
-			@endif
+{!! alert('info', "Due to additional controls for field management, the form displayed below is not an accurate depiction of the final form. For an accurate preview of this form, use the ".link_to_route('admin.forms.preview', 'form preview', [$form->key]).".") !!}
 
-			@if ($form->present()->hasVerticalOrientation)
-				<div class="row">
-					<div class="{{ $field->field_container_class }}">
-						<label class="control-label">{!! $field->present()->label !!}</label>
-						{!! $field->present()->render !!}
-					</div>
-				</div>
-			@endif
-		</div>
-	@endforeach
-	</div>
+@if ($unboundFields->count() > 0)
+	{!! partial('form-fields-manage', ['fields' => $unboundFields, 'form' => $form]) !!}
 @endif
 
 @if ($unboundSections->count() > 0)
 	@foreach ($unboundSections as $section)
-		<h3>{!! $section->present()->name !!}</h3>
+		<fieldset>
+			<legend>{!! $section->present()->name !!}</legend>
 
-		@if ($section->fields->count() > 0)
-			<div class="{{ ($form->present()->hasHorizontalOrientation) ? 'form-horizontal' : '' }}">
-			@foreach ($section->fields as $field)
-				<div class="form-group">
-					@if ($form->present()->hasHorizontalOrientation)
-						<label class="control-label {{ $field->label_container_class }}">{!! $field->present()->label !!}</label>
-						<div class="{{ $field->field_container_class }}">
-							{!! $field->present()->render !!}
-						</div>
-					@endif
-
-					@if ($form->present()->hasVerticalOrientation)
-						<div class="row">
-							<div class="{{ $field->field_container_class }}">
-								<label class="control-label">{!! $field->present()->label !!}</label>
-								{!! $field->present()->render !!}
-							</div>
-						</div>
-					@endif
-				</div>
-			@endforeach
-			</div>
-		@endif
+			@if ($section->fields->count() > 0)
+				{!! partial('form-fields-manage', ['fields' => $section->fields, 'form' => $form]) !!}
+			@endif
+		</fieldset>
 	@endforeach
 @endif
 
-@if ($tabs->count() > 0)
+@if ($parentTabs->count() > 0)
+	<ul class="nav nav-tabs">
+	@foreach ($parentTabs as $tab)
+		<li><a href="#{{ $tab->link_id }}" data-toggle="tab">{!! $tab->present()->name !!}</a></li>
+	@endforeach
+	</ul>
 
+	<div class="tab-content">
+	@foreach ($parentTabs as $tab)
+		<div class="tab-pane" id="{{ $tab->link_id }}">
+			@if ($tab->fields->count() > 0)
+				@if ($tab->fields->count() > 0)
+					{!! partial('form-fields-manage', ['fields' => $tab->fields, 'form' => $form]) !!}
+				@endif
+			@endif
+
+			@if ($tab->sections->count() > 0)
+				@foreach ($tab->sections as $section)
+					<fieldset>
+						<legend>{!! $section->present()->name !!}</legend>
+
+						@if ($section->fields->count() > 0)
+							{!! partial('form-fields-manage', ['fields' => $section->fields, 'form' => $form]) !!}
+						@endif
+					</fieldset>
+				@endforeach
+			@endif
+		</div>
+	@endforeach
+	</div>
 @endif
 
 @if ($unboundFields->count() == 0 and $unboundSections->count() == 0 and $tabs->count() == 0)

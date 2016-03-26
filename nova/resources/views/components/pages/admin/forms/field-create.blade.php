@@ -81,15 +81,17 @@
 					</div>
 				</div>
 
-				<div class="form-group">
-					<label class="col-md-2 control-label">Label Size</label>
-					<div class="col-md-3">
-						{!! Form::select('label_container_class_select', $sizes, null, ['class' => 'form-control input-lg', 'v-model' => 'labelContainerClassSelect']) !!}
+				@if ($form->orientation == 'horizontal')
+					<div class="form-group">
+						<label class="col-md-2 control-label">Label Size</label>
+						<div class="col-md-3">
+							{!! Form::select('label_container_class_select', $sizes, null, ['class' => 'form-control input-lg', 'v-model' => 'labelContainerClassSelect']) !!}
+						</div>
+						<div class="col-md-3" v-show="labelContainerClassSelect == 'Custom'">
+							{!! Form::text('label_container_class', null, ['class' => 'form-control input-lg', 'v-model' => 'labelContainerClass']) !!}
+						</div>
 					</div>
-					<div class="col-md-3" v-show="labelContainerClassSelect == 'Custom'">
-						{!! Form::text('label_container_class', null, ['class' => 'form-control input-lg', 'v-model' => 'labelContainerClass']) !!}
-					</div>
-				</div>
+				@endif
 
 				<div class="form-group">
 					<label class="col-md-2 control-label">Help Text</label>

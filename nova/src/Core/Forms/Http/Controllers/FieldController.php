@@ -42,11 +42,11 @@ class FieldController extends BaseController {
 		$this->jsView = 'admin/forms/fields-js';
 		$this->styleView = 'admin/forms/fields-style';
 
-		$form = $this->data->form = $this->formRepo->getByKey($formKey, ['fields', 'sections', 'sections.fields', 'tabs', 'tabs.fields', 'tabs.sections', 'tabs.sections.fields', 'tabs.childrenTabs', 'tabs.childrenTabs.fields', 'tabs.childrenTabs.sections', 'tabs.childrenTabs.sections.fields']);
+		$form = $this->data->form = $this->formRepo->getByKey($formKey, ['fields', 'sections', 'sections.fields', 'parentTabs', 'parentTabs.sections', 'parentTabs.sections.fields', 'parentTabs.fields']);
 
 		$this->data->unboundFields = $this->formRepo->getUnboundFields($form);
-
 		$this->data->unboundSections = $this->formRepo->getUnboundSections($form);
+		$this->data->parentTabs = $form->parentTabs;
 
 		$this->data->tabs = $this->formRepo->getTabs($form);
 	}
@@ -152,6 +152,21 @@ class FieldController extends BaseController {
 
 		$this->data->accessRoles = $roleRepo->listAll('display_name', 'name');
 
+		$typesArr = [];
+		$typesJson = [];
+
+		app('nova.forms.fields')->getAllFieldTypes()->map(function ($type) use (&$typesArr, &$typesJson)
+		{
+			$info = $type->info();
+
+			$typesArr[$info['value']] = $info['name'];
+
+			$typesJson[$info['value']] = $info;
+		});
+
+		$this->data->fieldTypes = $typesArr;
+
+		$this->jsData->fieldTypes = json_encode($typesJson);
 		$this->jsData->attributes = $field->attributes->toJson();
 		$this->jsData->restrictions = $field->restrictions->toJson();
 		$this->jsData->validationRules = $field->validation_rules->toJson();
@@ -220,15 +235,15 @@ class FieldController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		$section = new NovaFormSection;
+		$field = new NovaFormField;
 
-		if (policy($section)->edit($this->user, $section))
+		if (policy($field)->edit($this->user, $field))
 		{
-			foreach (request('sections') as $order => $id)
+			foreach (request('fields') as $order => $id)
 			{
-				$updatedSection = $this->repo->updateOrder($id, $order);
+				$updatedField = $this->repo->updateOrder($id, $order);
 
-				event(new Events\FormFieldOrderWasUpdated($updatedSection));
+				event(new Events\FormFieldOrderWasUpdated($updatedField));
 			}
 		}
 	}
