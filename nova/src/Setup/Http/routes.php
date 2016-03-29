@@ -2,7 +2,8 @@
 
 $options = [
 	'prefix'		=> 'setup',
-	'namespace'		=> 'Nova\Setup\Http\Controllers'
+	'namespace'		=> 'Nova\Setup\Http\Controllers',
+	'middleware'	=> 'web',
 ];
 
 Route::group($options, function ()
