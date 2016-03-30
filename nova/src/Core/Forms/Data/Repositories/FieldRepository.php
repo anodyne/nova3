@@ -29,6 +29,22 @@ class FieldRepository extends BaseFormRepository implements FormFieldRepositoryI
 		return $field;
 	}
 
+	/**
+	 * We need to modify the way we update a field to allow for handling
+	 * attributes, values, and validation rules being stored as JSON in
+	 * the database.
+	 */
+	public function update($resource, array $data)
+	{
+		// Clean up the data
+		$data = $this->cleanFieldValues($data);
+
+		// Now update the field
+		$field = parent::update($resource, $data);
+
+		return $field;
+	}
+
 	protected function cleanFieldValues(array $data)
 	{
 		// Handle attributes
