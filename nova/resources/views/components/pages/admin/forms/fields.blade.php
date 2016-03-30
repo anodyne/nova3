@@ -29,7 +29,7 @@
 	</desktop>
 </div>
 
-{!! alert('info', "Due to additional controls for field management, the form displayed below is not an accurate depiction of the final form. For an accurate preview of this form, use the ".link_to_route('admin.forms.preview', 'form preview', [$form->key]).".") !!}
+{!! alert('info', "Due to the additional controls necessary for field management, the form displayed below is not an accurate depiction of the final form. For an accurate preview of this form, use the ".link_to_route('admin.forms.preview', 'form preview', [$form->key]).".") !!}
 
 @if ($unboundFields->count() > 0)
 	{!! partial('form-fields-manage', ['fields' => $unboundFields, 'form' => $form]) !!}
