@@ -86,20 +86,9 @@ class FieldController extends BaseController {
 
 		$this->data->accessRoles = $roleRepo->listAll('display_name', 'name');
 
-		$typesArr = [];
-		$typesJson = [];
-
-		app('nova.forms.fields')->getAllFieldTypes()->map(function ($type) use (&$typesArr, &$typesJson)
-		{
-			$info = $type->info();
-
-			$typesArr[$info['value']] = $info['name'];
-
-			$typesJson[$info['value']] = $info;
-		});
-
-		$this->data->fieldTypes = $typesArr;
-		$this->jsData->fieldTypes = json_encode($typesJson);
+		$fieldTypes = $this->getFieldTypes();
+		$this->data->fieldTypes = $fieldTypes->get('types');
+		$this->jsData->fieldTypes = $fieldTypes->get('json');
 	}
 
 	public function store(CreateFormFieldRequest $request, $formKey)
@@ -152,25 +141,14 @@ class FieldController extends BaseController {
 
 		$this->data->accessRoles = $roleRepo->listAll('display_name', 'name');
 
-		$typesArr = [];
-		$typesJson = [];
+		$fieldTypes = $this->getFieldTypes();
+		$this->data->fieldTypes = $fieldTypes->get('types');
 
-		app('nova.forms.fields')->getAllFieldTypes()->map(function ($type) use (&$typesArr, &$typesJson)
-		{
-			$info = $type->info();
-
-			$typesArr[$info['value']] = $info['name'];
-
-			$typesJson[$info['value']] = $info;
-		});
-
-		$this->data->fieldTypes = $typesArr;
-
-		$this->jsData->fieldTypes = json_encode($typesJson);
-		$this->jsData->attributes = $field->attributes->toJson();
-		$this->jsData->restrictions = $field->restrictions->toJson();
-		$this->jsData->validationRules = $field->validation_rules->toJson();
-		$this->jsData->values = $field->values->toJson();
+		$this->jsData->fieldTypes = $fieldTypes->get('json');
+		$this->jsData->attributes = ($field->attributes) ? $field->attributes->toJson() : null;
+		$this->jsData->restrictions = ($field->restrictions) ? $field->restrictions->toJson() : null;
+		$this->jsData->validationRules = ($field->validation_rules) ? $field->validation_rules->toJson() : null;
+		$this->jsData->values = ($field->values) ? $field->values->toJson() : null;
 	}
 
 	public function update(EditFormFieldRequest $request, $formKey, $fieldId)
@@ -188,47 +166,47 @@ class FieldController extends BaseController {
 		return redirect()->route('admin.forms.fields', [$formKey]);
 	}
 
-	public function remove($formKey, $sectionId)
+	public function remove($formKey, $fieldId)
 	{
 		$this->isAjax = true;
 
-		$section = $this->repo->getById($sectionId);
+		$field = $this->repo->getById($fieldId);
 
-		if ( ! $section)
+		if ( ! $field)
 		{
-			$body = alert('danger', "Form section could not be found.");
+			$body = alert('danger', "Form field could not be found.");
 		}
 		else
 		{
 			$form = $this->formRepo->getByKey($formKey);
 
-			$body = (policy($section)->remove($this->user, $section))
-				? view(locate('page', 'admin/forms/section-remove'), compact('form', 'section'))
-				: alert('danger', "You do not have permission to remove form sections.");
+			$body = (policy($field)->remove($this->user, $field))
+				? view(locate('page', 'admin/forms/field-remove'), compact('form', 'field'))
+				: alert('danger', "You do not have permission to remove form fields.");
 		}
 
 		return partial('modal-content', [
-			'header' => "Remove Form Section",
+			'header' => "Remove Form Field",
 			'body' => $body,
 			'footer' => false,
 		]);
 	}
 
-	public function destroy(RemoveFormFieldRequest $request, $formKey, $sectionId)
+	public function destroy(RemoveFormFieldRequest $request, $formKey, $fieldId)
 	{
-		$section = $this->repo->getById($sectionId);
+		$field = $this->repo->getById($fieldId);
+
+		$this->authorize('remove', $field, "You do not have permission to remove form fields.");
 
 		$form = $this->formRepo->getByKey($formKey);
 
-		$this->authorize('remove', $section, "You do not have permission to remove form sections.");
+		$field = $this->repo->delete($field);
 
-		$section = $this->repo->delete($section);
+		event(new Events\FormFieldWasDeleted($field->id, $field->label, $form->key));
 
-		event(new Events\FormFieldWasDeleted($section->id, $section->name, $form->key));
+		flash()->success("Form Field Removed!");
 
-		flash()->success("Form Section Removed!");
-
-		return redirect()->route('admin.forms.sections', [$formKey]);
+		return redirect()->route('admin.forms.fields', [$formKey]);
 	}
 
 	public function updateFieldOrder()
@@ -246,6 +224,27 @@ class FieldController extends BaseController {
 				event(new Events\FormFieldOrderWasUpdated($updatedField));
 			}
 		}
+	}
+
+	protected function getFieldTypes()
+	{
+		$fieldTypes = collect();
+		$typesArr = [];
+		$typesJson = [];
+
+		app('nova.forms.fields')->getAllFieldTypes()->map(function ($type) use (&$typesArr, &$typesJson)
+		{
+			$info = $type->info();
+
+			$typesArr[$info['value']] = $info['name'];
+
+			$typesJson[$info['value']] = $info;
+		});
+
+		$fieldTypes->put('types', $typesArr);
+		$fieldTypes->put('json', json_encode($typesJson));
+
+		return $fieldTypes;
 	}
 
 }
