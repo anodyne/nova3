@@ -1,19 +1,16 @@
 <script>
-	$('[name="key"]').on('change', function(e)
-	{
-		var field = $(this);
-		var value = $(this).val();
+	$('[name="key"]').on('change', function (e) {
+		var field = $(this)
+		var value = $(this).val()
 
 		$.ajax({
 			type: "POST",
 			dataType: "json",
 			url: "{{ route('admin.content.checkKey') }}",
 			data: { key: $(this).val() },
-			success: function(data)
-			{
-				if (data.code == 0)
-				{
-					field.val("");
+			success: function (data) {
+				if (data.code == 0) {
+					field.val("")
 
 					swal({
 						title: "Error!",
@@ -21,9 +18,9 @@
 						type: "error",
 						timer: null,
 						html: true
-					});
+					})
 				}
 			}
-		});
-	});
+		})
+	})
 </script>

@@ -20,22 +20,17 @@
 		},
 
 		methods: {
-			resetResource: function()
-			{
+			resetResource: function () {
 				this.resource = ''
 			},
 
-			checkKey: function()
-			{
-				if (this.key != "" && this.key != this.oldKey)
-				{
+			checkKey: function () {
+				if (this.key != "" && this.key != this.oldKey) {
 					var url = "{{ route('admin.pages.checkKey') }}"
 					var postData = { key: this.key }
 
-					this.$http.post(url, postData).then(function (response)
-					{
-						if (response.code == 0)
-						{
+					this.$http.post(url, postData).then(function (response) {
+						if (response.code == 0) {
 							this.key = this.oldKey
 
 							swal({
@@ -46,8 +41,7 @@
 								html: true
 							})
 						}
-					}, function (response)
-					{
+					}, function (response) {
 						swal({
 							title: "Error!",
 							text: "There was an error trying to check the page key. Please try again. (Error " + response.status + ")",
@@ -59,17 +53,13 @@
 				}
 			},
 
-			checkUri: function()
-			{
-				if (this.uri != "" && this.uri != this.oldUri)
-				{
+			checkUri: function () {
+				if (this.uri != "" && this.uri != this.oldUri) {
 					var url = "{{ route('admin.pages.checkUri') }}"
 					var postData = { uri: this.uri }
 
-					this.$http.post(url, postData).then(function (response)
-					{
-						if (response.code == 0)
-						{
+					this.$http.post(url, postData).then(function (response) {
+						if (response.code == 0) {
 							this.uri = this.oldUri
 
 							swal({
@@ -79,9 +69,7 @@
 								timer: null,
 								html: true
 							})
-						}
-						else
-						{
+						} else {
 							// Change all slashes into periods
 							var newKey = this.uri.replace(/\//g, ".");
 
@@ -101,8 +89,7 @@
 
 							this.key = newKey
 						}
-					}, function (response)
-					{
+					}, function (response) {
 						swal({
 							title: "Error!",
 							text: "There was an error trying to check the URI. Please try again. (Error " + response.status + ")",
@@ -116,19 +103,19 @@
 		},
 
 		ready: function () {
+			var url = this.baseUrl + '/api/access/permissions'
+
 			this.oldKey = this.key
 			this.oldUri = this.uri
 			
-			this.$http.get(this.baseUrl + '/api/access/permissions').then(function (response)
-			{
+			this.$http.get(url).then(function (response) {
 				this.permissionData = response.data.data
 			})
 		},
 
 		watch: {
 			"accessType": function (value, oldValue) {
-				if (value == "")
-				{
+				if (value == "") {
 					this.access = []
 					this.accessRole = []
 					this.accessPermission = []

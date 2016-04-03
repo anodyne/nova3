@@ -7,27 +7,22 @@
 		},
 
 		methods: {
-			updateName: function()
-			{
+			updateName: function () {
 				this.link = this.name.replace(/\W+/g, '-').toLowerCase()
 
 				this.updateLink()
 			},
 
-			updateLink: function()
-			{
-				if (this.link != "")
-				{
+			updateLink: function () {
+				if (this.link != "") {
 					var url = "{{ route('admin.forms.tabs.checkLink') }}"
 					var postData = {
 						linkId: this.link,
 						formKey: this.formKey
 					}
 
-					this.$http.post(url, postData).then(function (response)
-					{
-						if (response.code == 0)
-						{
+					this.$http.post(url, postData).then(function (response) {
+						if (response.code == 0) {
 							this.link = ""
 
 							swal({
@@ -38,8 +33,7 @@
 								html: true
 							})
 						}
-					}, function (response)
-					{
+					}, function (response) {
 						swal({
 							title: "Error!",
 							text: "There was an error trying to check the link ID. Please try again. (Error " + response.status + ")",

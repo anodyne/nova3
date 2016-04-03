@@ -6,24 +6,19 @@
 		},
 
 		methods: {
-			updateName: function()
-			{
+			updateName: function () {
 				this.key = this.name.replace(/\W+/g, '-').toLowerCase()
 
 				this.updateKey()
 			},
 
-			updateKey: function()
-			{
-				if (this.key != "")
-				{
+			updateKey: function () {
+				if (this.key != "") {
 					var url = "{{ route('admin.access.roles.checkKey') }}"
 					var postData = { key: this.key }
 
-					this.$http.post(url, postData).then(function (response)
-					{
-						if (response.code == 0)
-						{
+					this.$http.post(url, postData).then(function (response) {
+						if (response.code == 0) {
 							this.key = ""
 
 							swal({
@@ -34,8 +29,7 @@
 								html: true
 							})
 						}
-					}, function (response)
-					{
+					}, function (response) {
 						swal({
 							title: "Error!",
 							text: "There was an error trying to check the role key. Please try again. (Error " + response.status + ")",

@@ -5,23 +5,18 @@
 			oldKey: ""
 		},
 
-		ready: function()
-		{
+		ready: function () {
 			this.oldKey = this.key
 		},
 
 		methods: {
-			updateKey: function()
-			{
-				if (this.key != "" && this.key != this.oldKey)
-				{
+			updateKey: function () {
+				if (this.key != "" && this.key != this.oldKey) {
 					var url = "{{ route('admin.access.permissions.checkKey') }}"
 					var postData = { key: this.key }
 
-					this.$http.post(url, postData).then(function (response)
-					{
-						if (response.code == 0)
-						{
+					this.$http.post(url, postData).then(function (response) {
+						if (response.code == 0) {
 							this.key = this.oldKey
 
 							swal({
@@ -32,8 +27,7 @@
 								html: true
 							})
 						}
-					}, function (response)
-					{
+					}, function (response) {
 						swal({
 							title: "Error!",
 							text: "There was an error trying to check the permission key. Please try again. (Error " + response.status + ")",

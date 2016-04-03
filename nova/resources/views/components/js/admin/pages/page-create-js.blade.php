@@ -17,17 +17,13 @@
 		},
 
 		methods: {
-			checkKey: function()
-			{
-				if (this.key != "")
-				{
+			checkKey: function () {
+				if (this.key != "") {
 					var url = "{{ route('admin.pages.checkKey') }}"
 					var postData = { key: this.key }
 
-					this.$http.post(url, postData).then(function (response)
-					{
-						if (response.data.code == 0)
-						{
+					this.$http.post(url, postData).then(function (response) {
+						if (response.data.code == 0) {
 							this.key = ""
 
 							swal({
@@ -38,8 +34,7 @@
 								html: true
 							})
 						}
-					}, function (response)
-					{
+					}, function (response) {
 						swal({
 							title: "Error!",
 							text: "There was an error trying to check the page key. Please try again. (Error " + response.status + ")",
@@ -51,17 +46,13 @@
 				}
 			},
 
-			checkUri: function()
-			{
-				if (this.uri != "")
-				{
+			checkUri: function () {
+				if (this.uri != "") {
 					var url = "{{ route('admin.pages.checkUri') }}"
 					var postData = { uri: this.uri }
 
-					this.$http.post(url, postData).then(function (response)
-					{
-						if (response.data.code == 0)
-						{
+					this.$http.post(url, postData).then(function (response) {
+						if (response.data.code == 0) {
 							this.uri = ""
 
 							swal({
@@ -71,9 +62,7 @@
 								timer: null,
 								html: true
 							})
-						}
-						else
-						{
+						} else {
 							// Change all slashes into periods
 							var newKey = this.uri.replace(/\//g, ".");
 
@@ -93,8 +82,7 @@
 
 							this.key = newKey
 						}
-					}, function (response)
-					{
+					}, function (response) {
 						swal({
 							title: "Error!",
 							text: "There was an error trying to check the URI. Please try again. (Error " + response.status + ")",
@@ -108,16 +96,16 @@
 		},
 
 		ready: function () {
-			this.$http.get(this.baseUrl + '/api/access/permissions').then(function (response)
-			{
+			var url = this.baseUrl + '/api/access/permissions'
+
+			this.$http.get(url).then(function (response) {
 				this.permissionData = response.data.data
 			})
 		},
 
 		watch: {
 			"accessType": function (value, oldValue) {
-				if (value == "")
-				{
+				if (value == "") {
 					this.access = []
 					this.accessRole = []
 					this.accessPermission = []

@@ -1,8 +1,7 @@
 <script>
 	vue = {
 		methods: {
-			removeForm: function (event)
-			{
+			removeForm: function (event) {
 				var formKey = $(event.target).data('form-key')
 
 				$('#removeForm').modal({

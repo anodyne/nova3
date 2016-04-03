@@ -1,36 +1,30 @@
 <script>
-	$('[name="name"]').change(function(e)
-	{
-		if ($('[name="key"]').val() == "")
-		{
+	$('[name="name"]').change(function (e) {
+		if ($('[name="key"]').val() == "") {
 			$.ajax({
 				type: "POST",
 				dataType: "text",
 				url: "{{ route('admin.menus.generateKey') }}",
 				data: { name: $(this).val() },
-				success: function(data)
-				{
+				success: function (data) {
 					$('[name="key"]').val(data).trigger('change');
 				}
-			});
+			})
 		}
-	});
+	})
 
-	$('[name="key"]').change(function(e)
-	{
-		var field = $(this);
-		var value = $(this).val();
+	$('[name="key"]').change(function (e) {
+		var field = $(this)
+		var value = $(this).val()
 
 		$.ajax({
 			type: "POST",
 			dataType: "json",
 			url: "{{ route('admin.menus.checkKey') }}",
 			data: { key: $(this).val() },
-			success: function(data)
-			{
-				if (data.code == 0)
-				{
-					field.val("");
+			success: function (data) {
+				if (data.code == 0) {
+					field.val("")
 
 					swal({
 						title: "Error!",
@@ -38,9 +32,9 @@
 						type: 'error',
 						html: true,
 						timer: null
-					});
+					})
 				}
 			}
-		});
-	});
+		})
+	})
 </script>

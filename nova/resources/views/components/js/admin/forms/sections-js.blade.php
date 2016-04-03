@@ -2,8 +2,7 @@
 <script>
 	vue = {
 		methods: {
-			removeSection: function(event)
-			{
+			removeSection: function (event) {
 				var formKey = $(event.target).data('form-key')
 				var sectionId = $(event.target).data('id')
 
@@ -14,16 +13,13 @@
 		}
 	}
 
-	$('.data-table').each(function ()
-	{
+	$('.data-table').each(function () {
 		Sortable.create(this, {
 			handle: '.sortable-handle',
-			onEnd: function (event)
-			{
-				var sectionOrder = new Array()
+			onEnd: function (event) {
+				var sectionOrder = []
 
-				$(event.from).children().each(function ()
-				{
+				$(event.from).children().each(function () {
 					sectionOrder.push($(this).data('id'))
 				})
 

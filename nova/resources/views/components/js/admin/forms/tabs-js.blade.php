@@ -2,8 +2,7 @@
 <script>
 	vue = {
 		methods: {
-			removeTab: function(event)
-			{
+			removeTab: function (event) {
 				var formKey = $(event.target).data('form-key')
 				var tabId = $(event.target).data('id')
 
@@ -16,12 +15,10 @@
 
 	Sortable.create(byId("sortable"), {
 		handle: ".sortable-handle",
-		onEnd: function (event)
-		{
-			var tabOrder = new Array()
+		onEnd: function (event) {
+			var tabOrder = []
 
-			$(event.from).children().each(function ()
-			{
+			$(event.from).children().each(function () {
 				tabOrder.push($(this).data('id'))
 			})
 

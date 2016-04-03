@@ -9,35 +9,32 @@
 		},
 
 		methods: {
-			removePermission: function(permissionId)
-			{
+			removePermission: function (permissionId) {
 				$('#removePermission').modal({
 					remote: "{{ url('admin/access/permissions') }}/" + permissionId + "/remove"
 				}).modal('show')
 			},
 
-			resetFilters: function()
-			{
+			resetFilters: function () {
 				this.search = ""
 			}
 		},
 
-		ready: function()
-		{
-			this.$http.get(this.baseUrl + '/api/access/permissions').then(function (response)
-			{
-				this.permissions = response.data
-			}, function (response)
-			{
+		ready: function () {
+			var url = this.baseUrl + '/api/access/permissions'
+			
+			this.$http.get(url).then(function (response) {
+				this.permissions = response.data.data
+			}, function (response) {
 				this.loadingWithError = true
 			})
 		},
 
 		watch: {
-			"permissions": function (value, oldValue)
-			{
-				if (value.length > 0)
+			"permissions": function (value, oldValue) {
+				if (value.length > 0) {
 					this.loading = false
+				}
 			}
 		}
 	}
