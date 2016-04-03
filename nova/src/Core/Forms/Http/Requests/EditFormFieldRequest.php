@@ -12,15 +12,14 @@ class EditFormFieldRequest extends Request {
 	public function rules()
 	{
 		return [
-			'type' => 'required|in:text,textarea,select,radio'
+			'type' => 'required'
 		];
 	}
 
 	public function messages()
 	{
 		return [
-			'type.required' => "You must choose a field type",
-			'type.in' => "You have specified an invalid field type"
+			'type.required' => "You must choose a field type"
 		];
 	}
 
