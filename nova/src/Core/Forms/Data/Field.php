@@ -11,7 +11,7 @@ class Field extends Model {
 
 	protected $fillable = ['form_id', 'tab_id', 'section_id', 'type', 'label',
 		'order', 'status', 'restrictions', 'help', 'validation_rules', 
-		'label_container_class', 'attributes', 'values'];
+		'label_container_class', 'attributes', 'values', 'field_container_class'];
 
 	protected $dates = ['created_at', 'updated_at'];
 
@@ -48,6 +48,40 @@ class Field extends Model {
 	public function tab()
 	{
 		return $this->belongsTo('NovaFormTab');
+	}
+
+	/*
+	|---------------------------------------------------------------------------
+	| Mutators
+	|---------------------------------------------------------------------------
+	*/
+
+	public function setAttributesAttribute($value)
+	{
+		$this->attributes['attributes'] = (is_array($value))
+			? json_encode($value)
+			: $value->toJson();
+	}
+
+	public function setRestrictionsAttribute($value)
+	{
+		$this->attributes['restrictions'] = (is_array($value))
+			? json_encode($value)
+			: $value->toJson();
+	}
+
+	public function setValidationRulesAttribute($value)
+	{
+		$this->attributes['validation_rules'] = (is_array($value))
+			? json_encode($value)
+			: $value->toJson();
+	}
+
+	public function setValuesAttribute($value)
+	{
+		$this->attributes['values'] = (is_array($value))
+			? json_encode($value)
+			: $value->toJson();
 	}
 
 	/*
