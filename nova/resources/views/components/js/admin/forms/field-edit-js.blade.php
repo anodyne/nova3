@@ -30,8 +30,9 @@
 			attrClass: function () {
 				var obj = find("attributes", "class")
 
-				if (obj)
+				if (obj) {
 					return obj.value
+				}
 
 				return
 			},
@@ -39,8 +40,9 @@
 			attrPlaceholder: function () {
 				var obj = find("attributes", "placeholder")
 
-				if (obj)
+				if (obj) {
 					return obj.value
+				}
 
 				return
 			},
@@ -48,8 +50,9 @@
 			attrRows: function () {
 				var obj = find("attributes", "rows")
 
-				if (obj)
+				if (obj) {
 					return obj.value
+				}
 
 				return
 			},
@@ -57,8 +60,9 @@
 			attrMin: function () {
 				var obj = find("attributes", "min")
 
-				if (obj)
+				if (obj) {
 					return obj.value
+				}
 
 				return
 			},
@@ -66,8 +70,9 @@
 			attrMax: function () {
 				var obj = find("attributes", "max")
 
-				if (obj)
+				if (obj) {
 					return obj.value
+				}
 
 				return
 			},
@@ -75,8 +80,9 @@
 			attrValue: function () {
 				var obj = find("attributes", "value")
 
-				if (obj)
+				if (obj) {
 					return obj.value
+				}
 
 				return
 			},
@@ -84,8 +90,9 @@
 			attrStep: function () {
 				var obj = find("attributes", "step")
 
-				if (obj)
+				if (obj) {
 					return obj.value
+				}
 
 				return
 			},
@@ -203,7 +210,7 @@
 				this.attributes = []
 
 				for (var a = 0; a < attributes.length; ++a) {
-					this.attributes.push({ name: attributes[a].name, value: attributes[a].value })
+					this.attributes.push({ name: attributes[a].name, value: attributes[a].value  })
 				}
 			}
 
@@ -228,6 +235,7 @@
 
 				for (var v = 0; v < rules.length; ++v) {
 					var hasValue = (rules[v].value)
+
 					this.rules.push({ type: rules[v].type, value: rules[v].value, hasValue: hasValue })
 				}
 			}
@@ -243,30 +251,38 @@
 			}
 
 			this.fieldType = this.fieldTypes[this.type]
+
+			if (this.type == "radio" || this.type == "select") {
+				this.hasValues = true
+			}
 		},
 
 		watch: {
 			"fieldContainerClassSelect": function (value, oldValue) {
-				if (value != "Custom")
+				if (value != "Custom") {
 					this.fieldContainerClass = value
+				}
 			},
 
 			"labelContainerClassSelect": function (value, oldValue) {
-				if (value != "Custom")
+				if (value != "Custom") {
 					this.labelContainerClass = value
+				}
 			}
 		}
 	}
 
 	function find(item, name) {
-		if ( ! vue.data[item])
+		if ( ! vue.data[item]) {
 			return
+		}
 
 		var items = vue.data[item]
 
 		for (var i = 0; i < items.length; ++i) {
-			if (items[i].name === name)
+			if (items[i].name === name) {
 				return items[i]
+			}
 		}
 	}
 
