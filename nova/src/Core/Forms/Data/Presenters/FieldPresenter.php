@@ -10,8 +10,10 @@ class FieldPresenter extends Presenter {
 		return Markdown::parse($this->entity->help);
 	}
 
-	public function render($id = null)
+	public function render($id = null, $fieldState = 'view')
 	{
+		$state = ($id === null) ? 'create' : $fieldState;
+
 		$field = $this->entity;
 
 		// Build the field name
@@ -21,52 +23,27 @@ class FieldPresenter extends Presenter {
 		$data = ($field->data) ? $field->data->where('data_id', $id) : null;
 		$fieldValue = ($data->count() > 0) ? $data->first()->value : null;
 
-		// Get the attributes
+		// Build some arrays for the field attributes and values (if necessary)
 		$attributesArr = [];
-		$field->attributes->each(function ($item) use (&$attributesArr) {
-			$attributesArr[$item['name']] = $item['value'];
-		});
-
-		/*
-		// Get the values
 		$valuesArr = [];
-		$field->values->each(function ($item) use (&$valuesArr) {
-			$valuesArr[$item['value']] = $item['text'];
-		});
 
-		return app('nova.form.fields')
+		if ($field->attributes)
+		{
+			$field->attributes->each(function ($item) use (&$attributesArr) {
+				$attributesArr[$item['name']] = $item['value'];
+			});
+		}
+
+		if ($field->values)
+		{
+			$field->values->each(function ($item) use (&$valuesArr) {
+				$valuesArr[$item['value']] = $item['text'];
+			});
+		}
+
+		return app('nova.forms.fields')
 			->getFieldType($field->type)
 			->render($state, $fieldName, $valuesArr, $fieldValue, $attributesArr);
-		*/
-
-		switch ($field->type)
-		{
-			case 'text':
-				return Form::text($fieldName, $fieldValue, $attributesArr);
-			break;
-
-			case 'textarea':
-				return Form::textarea($fieldName, $fieldValue, $attributesArr);
-			break;
-
-			case 'select':
-				// Grab the values
-				$valuesArr = [];
-				$field->values->each(function ($item) use (&$valuesArr) {
-					$valuesArr[$item['value']] = $item['text'];
-				});
-
-				return Form::select($fieldName, $valuesArr, $fieldValue, $attributesArr);
-			break;
-
-			case 'radio':
-				// Grab the values
-				$valuesArr = [];
-				$field->values->each(function ($item) use (&$valuesArr) {
-					$valuesArr[$item['value']] = $item['text'];
-				});
-			break;
-		}
 	}
 
 }
