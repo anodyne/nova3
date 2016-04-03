@@ -74,7 +74,7 @@
 				<div class="form-group">
 					<label class="col-md-2 control-label">Field Size</label>
 					<div class="col-md-3">
-						{!! Form::select('field_container_class_select', $sizes, null, ['class' => 'form-control input-lg', 'v-model' => 'fieldContainerClassSelect']) !!}
+						{!! Form::select('field_container_class_select', $sizes, $field->field_container_class, ['class' => 'form-control input-lg', 'v-model' => 'fieldContainerClassSelect']) !!}
 					</div>
 					<div class="col-md-3" v-show="fieldContainerClassSelect == 'Custom'">
 						{!! Form::text('field_container_class', null, ['class' => 'form-control input-lg', 'v-model' => 'fieldContainerClass']) !!}
@@ -85,7 +85,7 @@
 					<div class="form-group">
 						<label class="col-md-2 control-label">Label Size</label>
 						<div class="col-md-3">
-							<p>{!! Form::select('label_container_class_select', $sizes, null, ['class' => 'form-control input-lg', 'v-model' => 'labelContainerClassSelect']) !!}</p>
+							<p>{!! Form::select('label_container_class_select', $sizes, $field->label_container_class, ['class' => 'form-control input-lg', 'v-model' => 'labelContainerClassSelect']) !!}</p>
 						</div>
 						<div class="col-md-3" v-show="labelContainerClassSelect == 'Custom'">
 							{!! Form::text('label_container_class', null, ['class' => 'form-control input-lg', 'v-model' => 'labelContainerClass']) !!}
@@ -142,7 +142,14 @@
 									<p>@{{ restriction.type | capitalize }}</p>
 								</div>
 								<div class="col-md-6">
-									<p>{!! Form::select('restrictionValues[@{{ restriction.type }}]', $accessRoles, null, ['class' => 'form-control', 'v-model' => 'restriction.value', 'placeholder' => "No restriction"]) !!}</p>
+									<p>
+										<select name="restrictionValues[@{{ restriction.type }}]" class="form-control" v-model="restriction.value">
+											<option value="">No restriction</option>
+											@foreach ($accessRoles as $key => $role)
+												<option value="{{ $key }}">{{ $role }}</option>
+											@endforeach
+										</select>
+									</p>
 								</div>
 								<div class="col-md-3">
 									<p><a @click="clearRestriction(restriction)" class="btn btn-block btn-danger">Clear</a></p>
@@ -155,12 +162,12 @@
 				<div class="form-group">
 					<div class="col-md-5 col-md-offset-2" v-cloak>
 						<phone-tablet>
-							<p>{!! Form::button("Add Field", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
+							<p>{!! Form::button("Update Field", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
 						</phone-tablet>
 						<desktop>
 							<div class="btn-toolbar">
 								<div class="btn-group">
-									{!! Form::button("Add Field", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+									{!! Form::button("Update Field", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
 								</div>
 							</div>
 						</desktop>
@@ -206,12 +213,12 @@
 			<div class="form-group">
 				<div v-cloak>
 					<phone-tablet>
-						<p>{!! Form::button("Add Field", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
+						<p>{!! Form::button("Update Field", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
 					</phone-tablet>
 					<desktop>
 						<div class="btn-toolbar">
 							<div class="btn-group">
-								{!! Form::button("Add Field", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+								{!! Form::button("Update Field", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
 							</div>
 						</div>
 					</desktop>
@@ -258,12 +265,12 @@
 			<div class="form-group">
 				<div v-cloak>
 					<phone-tablet>
-						<p>{!! Form::button("Add Field", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
+						<p>{!! Form::button("Update Field", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
 					</phone-tablet>
 					<desktop>
 						<div class="btn-toolbar">
 							<div class="btn-group">
-								{!! Form::button("Add Field", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+								{!! Form::button("Update Field", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
 							</div>
 						</div>
 					</desktop>
@@ -332,12 +339,12 @@
 			<div class="form-group">
 				<div v-cloak>
 					<phone-tablet>
-						<p>{!! Form::button("Add Field", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
+						<p>{!! Form::button("Update Field", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
 					</phone-tablet>
 					<desktop>
 						<div class="btn-toolbar">
 							<div class="btn-group">
-								{!! Form::button("Add Field", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+								{!! Form::button("Update Field", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
 							</div>
 						</div>
 					</desktop>
