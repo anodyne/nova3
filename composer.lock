@@ -660,16 +660,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.2.26",
+            "version": "v5.2.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "b73ac62506c5c2bd49d87fcb1089f7759431e173"
+                "reference": "ccda783ffa253ed27dd1d4b41dbbc95e76e48a2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/b73ac62506c5c2bd49d87fcb1089f7759431e173",
-                "reference": "b73ac62506c5c2bd49d87fcb1089f7759431e173",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/ccda783ffa253ed27dd1d4b41dbbc95e76e48a2a",
+                "reference": "ccda783ffa253ed27dd1d4b41dbbc95e76e48a2a",
                 "shasum": ""
             },
             "require": {
@@ -784,7 +784,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-03-25 17:12:52"
+            "time": "2016-03-29 13:32:58"
         },
         {
             "name": "laravelcollective/html",
@@ -842,16 +842,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "0.13.1",
+            "version": "0.13.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "2c10de455649e3a544d45016d9df457248bcd37f"
+                "reference": "35ac362082ca983a8123df2ee2cdfcf456ab6295"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/2c10de455649e3a544d45016d9df457248bcd37f",
-                "reference": "2c10de455649e3a544d45016d9df457248bcd37f",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/35ac362082ca983a8123df2ee2cdfcf456ab6295",
+                "reference": "35ac362082ca983a8123df2ee2cdfcf456ab6295",
                 "shasum": ""
             },
             "require": {
@@ -863,7 +863,7 @@
             },
             "require-dev": {
                 "erusev/parsedown": "~1.0",
-                "jgm/commonmark": "0.24",
+                "jgm/commonmark": "0.25",
                 "michelf/php-markdown": "~1.4",
                 "mikehaertl/php-shellcommand": "~1.2.0",
                 "phpunit/phpunit": "~4.3|~5.0",
@@ -895,7 +895,7 @@
                 {
                     "name": "Colin O'Dell",
                     "email": "colinodell@gmail.com",
-                    "homepage": "http://www.colinodell.com",
+                    "homepage": "https://www.colinodell.com",
                     "role": "Lead Developer"
                 }
             ],
@@ -906,7 +906,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2016-03-09 15:20:24"
+            "time": "2016-03-27 19:10:13"
         },
         {
             "name": "league/flysystem",
@@ -1713,16 +1713,16 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v2.8.3",
+            "version": "v2.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "877bb4b16ea573cc8c024e9590888fcf7eb7e0f7"
+                "reference": "ca24cf2cd4e3826f571e0067e535758e73807aa1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/877bb4b16ea573cc8c024e9590888fcf7eb7e0f7",
-                "reference": "877bb4b16ea573cc8c024e9590888fcf7eb7e0f7",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/ca24cf2cd4e3826f571e0067e535758e73807aa1",
+                "reference": "ca24cf2cd4e3826f571e0067e535758e73807aa1",
                 "shasum": ""
             },
             "require": {
@@ -1758,7 +1758,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-22 16:12:45"
+            "time": "2016-03-10 10:53:53"
         },
         {
             "name": "symfony/http-foundation",
