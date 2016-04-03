@@ -1,25 +1,28 @@
 <?php namespace Nova\Core\Forms\Http\Controllers;
 
-use Request, BaseController;
+use Request,
+	BaseController,
+	FormRepositoryInterface;
 use Nova\Core\Forms\Events;
 
 class FormViewerController extends BaseController {
 
-	public function __construct()
+	protected $formRepo;
+
+	public function __construct(FormRepositoryInterface $forms)
 	{
+		$this->formRepo = $forms;
+
 		$this->structureView = 'admin';
 		$this->templateView = 'admin';
 	}
 
 	public function store(Request $request, $formKey)
 	{
-		$form = $formRepo->getByKey($formKey);
-
-		// Get the validation rules for the form
-		$validationRules = $formRepo->getValidationRules($form);
+		$form = $this->formRepo->getByKey($formKey);
 
 		// Validate the request
-		$this->validate($request, $validationRules);
+		$this->validate($request, $this->formRepo->getValidationRules($form));
 
 		$entry = $this->repo->create($request->all());
 
@@ -32,13 +35,10 @@ class FormViewerController extends BaseController {
 
 	public function update(Request $request, $formKey, $id)
 	{
-		$form = $formRepo->getByKey($formKey);
-
-		// Get the validation rules for the form
-		$validationRules = $formRepo->getValidationRules($form);
+		$form = $this->formRepo->getByKey($formKey);
 
 		// Validate the request
-		$this->validate($request, $validationRules);
+		$this->validate($request, $this->formRepo->getValidationRules($form));
 
 		$entry = $this->repo->update($id, $request->all());
 
