@@ -6,8 +6,9 @@
  */
 
 $options = [
-	'prefix'	=> '{ExtensionLowercaseVendorName}',
-	'namespace'	=> '{ExtensionNamespace}\Http\Controllers',
+	'prefix' => '{ExtensionLowercaseVendorName}',
+	'namespace' => '{ExtensionNamespace}\Http\Controllers',
+	'middleware' => 'web',
 ];
 
 Route::group($options, function ()
