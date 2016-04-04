@@ -39,32 +39,51 @@ class FormCompiler implements CompilerInterface {
 				if ($matches[1]) return substr($matches[0], 1);
 
 				// Get the form
-				$form = app('FormRepository')->getByKey($formKey, null);
+				$form = app('FormRepository')->getByKey($formKey, []);
 
 				if ( ! is_numeric($id))
 				{
-					//"/(@)?{%\s*(.+?)\s*%}(\r?\n)?/s"
 					// Get the route parameter
-					$paramName = "";
+					preg_match("/(?<=\{)(.*?)(?=\})/", $id, $paramMatches);
 
-					// Get the current route
-					$route = Route::getCurrentRoute();
-
-					// Update the ID
-					$id = $route->getParameter($paramName);
+					if (count($paramMatches) > 0)
+					{
+						$id = Route::getCurrentRoute()->getParameter($paramMatches[0]);
+					}
 				}
 
 				if ($form)
 				{
-					if ($state == 'view') return $form->present()->renderViewForm($id);
+					$formHasData = ($form->data->where('data_id', $id, false)->count() > 0);
 
-					if ($state == 'edit') return $form->present()->renderEditForm($id);
+					if ($state == 'view')
+					{
+						$output = ($formHasData)
+							? $form->present()->renderViewForm($id)
+							: alert('danger', "No form data found.");
 
-					if ($state == 'new') return $form->present()->renderNewForm();
+						return str_replace(["\r", "\n", "\t"], '', $output);
+					}
+
+					if ($state == 'edit')
+					{
+						$output = ($formHasData)
+							? $form->present()->renderEditForm($id)
+							: alert('danger', "No form data found.");
+
+						return str_replace(["\r", "\n", "\t"], '', $output);
+					}
+
+					if ($state == 'new')
+					{
+						return str_replace(["\r", "\n", "\t"], '', $form->present()->renderNewForm());
+					}
 				}
 				else
 				{
-					return alert('warning', "No form found with the \"{$formKey}\" form key.");
+					$alert = alert('warning', "No form found with the \"{$formKey}\" form key.");
+
+					return str_replace(["\r", "\n", "\t"], '', $alert);
 				}
 			}
 
@@ -81,7 +100,11 @@ class FormCompiler implements CompilerInterface {
 	 */
 	public function help()
 	{
-		return "__Forms__: Insert a form into any page by using the `{% form %}` tag. The tag accepts two or three parameters, depending on how you want to use it. The first parameter is the form key of the form you want to display. (You can find the form key on the forms management page.) The second parameter is the specific data ID that you want to use. In most cases, this would be a dynamic property that you would pass to the compiler. The final possible parameter is the state of the form. The options available are: new, edit, and view. `{% form:character:view:8 %}` or `{% form:character:new %}` or `{% form:character:edit:18 %}`";
+		return "__Forms__: Insert a form into any page by using the `{% form %}` tag. The form compiler accepts one,two or three parameters, depending on how you want to use it.
+
+The first parameter is the form key of the form you want to display. (You can find the form key on the forms management page.) The second parameter is the state of the form. The possible states the form compiler accepts are: new, edit, and view. `{% form:my-awesome-form:create %}` If you do not pass a state to the compiler, it will default to the _create_ state. `{%  form:my-awesome-form %}`
+
+The final parameter, and one tied to the state of the form, is a specific data ID you want to use for the edit and view states. You can pass a specific value to the compiler in order to show the edit or view state of your form `{% form:character:view:8 %}`. You can also pass a route parameter wrapped in braces if you want to dynamically grab what's in the URI. For example, if you created a route with a route parameter of ID (`form-test/{id}`) then you would be able to access that by using `{% form:my-awesome-form:view:{id} %}`. The compiler will grab that named route parameter and pull the value that's in the parameter and use it automatically.";
 	}
 
 }
