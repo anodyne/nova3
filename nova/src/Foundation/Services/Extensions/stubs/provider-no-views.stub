@@ -6,13 +6,12 @@ class ServiceProvider extends LaravelServiceProvider {
 
 	public function boot()
 	{
-		// Register the extension's views directory with the locator
-		$this->app['nova.locator']->registerSearchPath('extensions/{ExtensionVendorName}/views/components');
+		//
 	}
 
 	public function register()
 	{
-		$extension = new Extension('{ExtensionVendorName}', $this->app);
+		$extension = new \{ExtensionNamespace}\Extension('{ExtensionVendorName}', $this->app);
 
 		// Register a singleton for the extension class
 		$this->app->singleton('{ExtensionKey}', $extension);

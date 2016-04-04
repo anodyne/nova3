@@ -112,12 +112,6 @@ class MakeExtensionCommand extends Command {
 					$this->createFileFromStub('view', $replacements, $extensionPath.'/views/components/pages', strtolower($name).'.blade.php');
 				}
 
-				// Create an empty service provider
-				if ( ! $this->option('no-provider'))
-				{
-					$this->createFileFromStub('provider', $replacements, $extensionPath, "ServiceProvider.php");
-				}
-
 				// Create an empty config file
 				if ($this->option('include-config'))
 				{
@@ -128,6 +122,19 @@ class MakeExtensionCommand extends Command {
 				if ($this->option('include-routes'))
 				{
 					$this->createFileFromStub('routes', $replacements, $extensionPath, "routes.php");
+				}
+
+				// Create an empty service provider
+				if ( ! $this->option('no-provider'))
+				{
+					if ($this->option('no-views'))
+					{
+						$this->createFileFromStub('provider-no-views', $replacements, $extensionPath, "ServiceProvider.php");
+					}
+					else
+					{
+						$this->createFileFromStub('provider', $replacements, $extensionPath, "ServiceProvider.php");
+					}
 				}
 
 				$this->info("Extension structure created!");
