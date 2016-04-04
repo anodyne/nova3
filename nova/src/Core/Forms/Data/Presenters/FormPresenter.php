@@ -1,9 +1,14 @@
 <?php namespace Nova\Core\Forms\Data\Presenters;
 
-use Form, HTML, Status;
+use Form, HTML, Status, Markdown;
 use Laracasts\Presenter\Presenter;
 
 class FormPresenter extends Presenter {
+
+	public function formViewerMessage()
+	{
+		return Markdown::parse($this->entity->form_viewer_message);
+	}
 
 	public function hasHorizontalOrientation()
 	{
@@ -22,7 +27,7 @@ class FormPresenter extends Presenter {
 			'sectionsUnbound', 'sectionsUnbound.fields', 
 			'parentTabs', 'parentTabs.fieldsUnbound', 'parentTabs.sections', 'parentTabs.sections.fields', 
 			'parentTabs.childrenTabs', 'parentTabs.childrenTabs.fieldsUnbound', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields',
-			//'data', 'data.field',
+			'data', 'data.field',
 		];
 
 		// Grab the form and eager load all the relations
@@ -33,7 +38,7 @@ class FormPresenter extends Presenter {
 		$formCloseTag = $this->createFormCloseTag('view');
 
 		// Grab the data for the item we're viewing
-		$data = $form->data->where('data_id', $id);
+		$data = $form->data->whereLoose('data_id', $id);
 
 		// Set the action we're taking
 		$action = 'view';
@@ -48,7 +53,7 @@ class FormPresenter extends Presenter {
 			'sectionsUnbound', 'sectionsUnbound.fields', 
 			'parentTabs', 'parentTabs.fieldsUnbound', 'parentTabs.sections', 'parentTabs.sections.fields', 
 			'parentTabs.childrenTabs', 'parentTabs.childrenTabs.fieldsUnbound', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields',
-			//'data', 'data.field'
+			'data', 'data.field'
 		];
 
 		// Grab the form and eager load all the relations
@@ -80,7 +85,7 @@ class FormPresenter extends Presenter {
 			'sectionsUnbound', 'sectionsUnbound.fields', 
 			'parentTabs', 'parentTabs.fieldsUnbound', 'parentTabs.sections', 'parentTabs.sections.fields', 
 			'parentTabs.childrenTabs', 'parentTabs.childrenTabs.fieldsUnbound', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields',
-			//'data', 'data.field',
+			'data', 'data.field',
 		];
 
 		// Grab the form and eager load all the relations
@@ -95,7 +100,7 @@ class FormPresenter extends Presenter {
 			: $this->createFormCloseTag('view');
 
 		// Grab the data for the item we're editing
-		$data = $form->data->where('data_id', $id);
+		$data = $form->data->whereLoose('data_id', $id);
 
 		// Set the action we're taking
 		$action = 'edit';

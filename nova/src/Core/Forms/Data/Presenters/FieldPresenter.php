@@ -17,10 +17,10 @@ class FieldPresenter extends Presenter {
 		$field = $this->entity;
 
 		// Build the field name
-		$fieldName = sprintf(config('nova.form.fieldNameFormat'), $field->id);
+		$fieldName = sprintf(config('nova.forms.fieldNameFormat'), $field->id);
 
 		// Grab the data if we need to
-		$data = ($field->data) ? $field->data->where('data_id', $id) : null;
+		$data = ($field->data) ? $field->data->whereLoose('data_id', $id) : null;
 		$fieldValue = ($data->count() > 0) ? $data->first()->value : null;
 
 		// Build some arrays for the field attributes and values (if necessary)
