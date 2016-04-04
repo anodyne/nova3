@@ -44,8 +44,7 @@ class CreateFormsTables extends Migration {
 			$table->text('message')->nullable();
 			$table->timestamps();
 
-			$table->foreign('form_id')->references('id')->on('forms')
-				->onDelete('cascade');
+			//$table->foreign('form_id')->references('id')->on('forms')->onDelete('cascade');
 		});
 
 		Schema::create('forms_sections', function (Blueprint $table)
@@ -59,8 +58,8 @@ class CreateFormsTables extends Migration {
 			$table->text('message')->nullable();
 			$table->timestamps();
 
-			$table->foreign('form_id')->references('id')->on('forms')
-				->onDelete('cascade');
+			//$table->foreign('form_id')->references('id')->on('forms')->onDelete('cascade');
+			//$table->foreign('tab_id')->references('id')->on('forms_tabs')->onDelete('cascade');
 		});
 
 		Schema::create('forms_fields', function (Blueprint $table)
@@ -82,8 +81,9 @@ class CreateFormsTables extends Migration {
 			$table->text('values')->nullable();
 			$table->timestamps();
 
-			$table->foreign('form_id')->references('id')->on('forms')
-				->onDelete('cascade');
+			//$table->foreign('form_id')->references('id')->on('forms')->onDelete('cascade');
+			//$table->foreign('tab_id')->references('id')->on('forms_tabs')->onDelete('cascade');
+			//$table->foreign('section_id')->references('id')->on('forms_sections')->onDelete('cascade');
 		});
 
 		Schema::create('forms_data', function (Blueprint $table)
@@ -96,10 +96,8 @@ class CreateFormsTables extends Migration {
 			$table->integer('created_by')->unsigned()->default(0);
 			$table->timestamps();
 
-			$table->foreign('form_id')->references('id')->on('forms')
-				->onDelete('cascade');
-			$table->foreign('field_id')->references('id')->on('forms_fields')
-				->onDelete('cascade');
+			//$table->foreign('form_id')->references('id')->on('forms')->onDelete('cascade');
+			//$table->foreign('field_id')->references('id')->on('forms_fields')->onDelete('cascade');
 		});
 
 		$this->populateTables();
