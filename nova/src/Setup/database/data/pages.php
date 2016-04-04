@@ -689,4 +689,19 @@ return [
 		'uri'				=> "admin/forms/update-field-order",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FieldController@updateFieldOrder",
 	],
+
+	[
+		'name'				=> "Complete New Form",
+		'key'				=> "admin.forms.formviewer.create",
+		'uri'				=> "admin/form-viewer/{formKey}/create",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormViewerController@create",
+		'menu_id'			=> 2,
+	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Store Form",
+		'key'				=> "admin.forms.formviewer.store",
+		'uri'				=> "admin/form-viewer/{formKey}/create",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormViewerController@store",
+	],
 ];

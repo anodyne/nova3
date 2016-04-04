@@ -199,7 +199,7 @@ class NovaServiceProvider extends ServiceProvider {
 		$bindings = [
 			'Character',
 			'Menu', 'MenuItem',
-			'Form', 'FormField', 'FormFieldValue', 'FormSection', 'FormTab',
+			'Form', 'FormField', 'FormFieldValue', 'FormSection', 'FormTab', 'FormViewer',
 			'Page', 'PageContent',
 			'Permission', 'Role',
 			'Setting', 'System',

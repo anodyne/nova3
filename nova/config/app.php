@@ -364,6 +364,9 @@ return [
 		
 		'NovaFormData' => Nova\Core\Forms\Data\Data::class,
 		'FormDataPresenter' => Nova\Core\Forms\Data\Presenters\DataPresenter::class,
+
+		'FormViewerRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\FormViewerRepositoryInterface::class,
+		'FormViewerRepository' => Nova\Core\Forms\Data\Repositories\FormViewerRepository::class,
 	],
 
 ];
