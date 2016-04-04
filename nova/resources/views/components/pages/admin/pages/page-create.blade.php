@@ -29,7 +29,7 @@
 		</div>
 	</div>
 
-	<div v-show="type == 'basic'">
+	<div v-if="type == 'basic'">
 		<div class="form-group">
 			<div class="col-md-5 col-md-offset-2">
 				<h3>Page Info</h3>
@@ -121,7 +121,7 @@
 		{!! Form::hidden('basic[access]', null, ['v-model' => 'access']) !!}
 	</div>
 
-	<div v-show="type == 'advanced'">
+	<div v-if="type == 'advanced'">
 		<div class="form-group">
 			<div class="col-md-8 col-md-offset-2">
 				<h3>Page Info</h3>
