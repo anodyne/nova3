@@ -62,8 +62,8 @@ class PageController extends BaseController {
 			'' => "None",
 			'role_all' => "All Selected Access Roles",
 			'role_any' => "Any Selected Access Roles",
-			'permission_all' => "All Selected Permissions",
-			'permission_any' => "Any Selected Permissions",
+			//'permission_all' => "All Selected Permissions",
+			//'permission_any' => "Any Selected Permissions",
 		];
 
 		$this->data->accessRoles = app('RoleRepository')->all();
@@ -107,8 +107,8 @@ class PageController extends BaseController {
 			'' => "None",
 			'role_all' => "All Selected Access Roles",
 			'role_any' => "Any Selected Access Roles",
-			'permission_all' => "All Selected Permissions",
-			'permission_any' => "Any Selected Permissions",
+			//'permission_all' => "All Selected Permissions",
+			//'permission_any' => "Any Selected Permissions",
 		];
 
 		$this->data->accessRoles = app('RoleRepository')->all();
