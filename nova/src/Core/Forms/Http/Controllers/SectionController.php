@@ -114,8 +114,11 @@ class SectionController extends BaseController {
 		{
 			$form = $this->formRepo->getByKey($formKey);
 
+			$sections = ['0' => "No section"];
+			$sections+= $this->repo->listAll('name', 'id');
+
 			$body = (policy($section)->remove($this->user, $section))
-				? view(locate('page', 'admin/forms/section-remove'), compact('form', 'section'))
+				? view(locate('page', 'admin/forms/section-remove'), compact('form', 'section', 'sections'))
 				: alert('danger', "You do not have permission to remove form sections.");
 		}
 
@@ -130,13 +133,20 @@ class SectionController extends BaseController {
 	{
 		$section = $this->repo->getById($sectionId);
 
-		$form = $this->formRepo->getByKey($formKey);
-
 		$this->authorize('remove', $section, "You do not have permission to remove form sections.");
+
+		if ($request->has('remove_section_content'))
+		{
+			$this->repo->removeSectionContent($section);
+		}
+		else
+		{
+			$this->repo->reassignSectionContent($section, $request->get('new_section'));
+		}
 
 		$section = $this->repo->delete($section);
 
-		event(new Events\FormSectionWasDeleted($section->id, $section->name, $form->key));
+		event(new Events\FormSectionWasDeleted($section->id, $section->name, $formKey));
 
 		flash()->success("Form Section Removed!");
 

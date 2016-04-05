@@ -13,36 +13,6 @@ class SectionRepository extends BaseFormRepository implements FormSectionReposit
 		$this->model = $model;
 	}
 
-	public function delete($resource)
-	{
-		// Get the resource
-		$section = $this->getResource($resource);
-
-		if ($section)
-		{
-			$section->fields->each(function ($field)
-			{
-				$field->data->each(function ($d)
-				{
-					$d->delete();
-				});
-
-				$field->values->each(function ($value)
-				{
-					$value->delete();
-				});
-
-				$field->delete();
-			});
-
-			$section->delete();
-
-			return $section;
-		}
-
-		return false;
-	}
-
 	public function getBoundSections(NovaForm $form)
 	{
 		return $form->sections->filter(function ($section)
@@ -57,6 +27,31 @@ class SectionRepository extends BaseFormRepository implements FormSectionReposit
 		{
 			return $section->tab_id === null or (int) $section->tab_id === 0;
 		})->sortBy('order');
+	}
+
+	public function reassignSectionContent(Model $oldSection, $newSectionId)
+	{
+		// Reassign any fields
+		$oldSection->fields->each(function ($field) use ($newSectionId)
+		{
+			$field->update(['section_id' => $newSectionId]);
+		});
+	}
+
+	public function removeSectionContent(Model $section)
+	{
+		// Remove any fields
+		$section->fields->each(function ($field)
+		{
+			// First remove any data associated with the field
+			$field->data->each(function ($row)
+			{
+				$row->delete();
+			});
+
+			// Now delete the field
+			$field->delete();
+		});
 	}
 
 }
