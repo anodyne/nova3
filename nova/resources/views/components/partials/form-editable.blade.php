@@ -1,12 +1,12 @@
 {!! $formOpenTag !!}
-	{!! partial('form-fields', ['fields' => $form->fieldsUnbound, 'editable' => true, 'form' => $form, 'action' => $action, 'data' => $data, 'id' => $id]) !!}
+	{!! partial('form-fields', ['fields' => $form->fieldsUnbound, 'editable' => true, 'form' => $form, 'action' => $action, 'data' => $data, 'id' => $id, 'fieldNameWrapper' => $fieldNameWrapper]) !!}
 
-	{!! partial('form-sections', ['sections' => $form->sectionsUnbound, 'editable' => true, 'form' => $form, 'action' => $action, 'data' => $data, 'id' => $id]) !!}
+	{!! partial('form-sections', ['sections' => $form->sectionsUnbound, 'editable' => true, 'form' => $form, 'action' => $action, 'data' => $data, 'id' => $id, 'fieldNameWrapper' => $fieldNameWrapper]) !!}
 
 	@if ($form->parentTabs->count() > 0)
 		{!! partial('form-tabs-control', ['tabs' => $form->parentTabs, 'style' => 'tabs', 'editable' => true, 'form' => $form, 'action' => $action, 'data' => $data, 'id' => $id]) !!}
 
-		{!! partial('form-tabs-content', ['tabs' => $form->parentTabs, 'editable' => true, 'form' => $form, 'action' => $action, 'data' => $data, 'id' => $id]) !!}
+		{!! partial('form-tabs-content', ['tabs' => $form->parentTabs, 'editable' => true, 'form' => $form, 'action' => $action, 'data' => $data, 'id' => $id, 'fieldNameWrapper' => $fieldNameWrapper]) !!}
 	@endif
 
 	@if ($includeButton)

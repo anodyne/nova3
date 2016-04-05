@@ -42,7 +42,7 @@ class FormPresenter extends Presenter {
 		return partial('form-static', compact('form', 'formOpenTag', 'formCloseTag', 'data', 'action', 'id'));
 	}
 
-	public function renderNewForm($includeFormTags = true, $includeButton = true)
+	public function renderNewForm($includeFormTags = true, $includeButton = true, $fieldNameWrapper = null)
 	{
 		$relations = [
 			'fieldsUnbound', 'fieldsUnbound.data', 'sectionsUnbound', 'sectionsUnbound.fields', 'sectionsUnbound.fields.data', 'parentTabs', 'parentTabs.fieldsUnbound', 'parentTabs.fieldsUnbound.data', 'parentTabs.sections', 'parentTabs.sections.fields', 'parentTabs.sections.fields.data', 'parentTabs.childrenTabs', 'parentTabs.childrenTabs.fieldsUnbound', 'parentTabs.childrenTabs.fieldsUnbound.data', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields', 'parentTabs.childrenTabs.sections.fields.data', 'data', 'data.field'
@@ -67,10 +67,10 @@ class FormPresenter extends Presenter {
 
 		$id = null;
 
-		return partial('form-editable', compact('form', 'formOpenTag', 'formCloseTag', 'data', 'action', 'includeButton', 'id'));
+		return partial('form-editable', compact('form', 'formOpenTag', 'formCloseTag', 'data', 'action', 'includeButton', 'id', 'fieldNameWrapper'));
 	}
 
-	public function renderEditForm($id, $includeFormTags = true, $includeButton = true)
+	public function renderEditForm($id, $includeFormTags = true, $includeButton = true, $fieldNameWrapper = null)
 	{
 		$relations = [
 			'fieldsUnbound', 'fieldsUnbound.data', 'sectionsUnbound', 'sectionsUnbound.fields', 'sectionsUnbound.fields.data', 'parentTabs', 'parentTabs.fieldsUnbound', 'parentTabs.fieldsUnbound.data', 'parentTabs.sections', 'parentTabs.sections.fields', 'parentTabs.sections.fields.data', 'parentTabs.childrenTabs', 'parentTabs.childrenTabs.fieldsUnbound', 'parentTabs.childrenTabs.fieldsUnbound.data', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields', 'parentTabs.childrenTabs.sections.fields.data', 'data', 'data.field'
@@ -93,7 +93,7 @@ class FormPresenter extends Presenter {
 		// Set the action we're taking
 		$action = 'edit';
 
-		return partial('form-editable', compact('form', 'formOpenTag', 'formCloseTag', 'data', 'action', 'includeButton', 'id'));
+		return partial('form-editable', compact('form', 'formOpenTag', 'formCloseTag', 'data', 'action', 'includeButton', 'id', 'fieldNameWrapper'));
 	}
 
 	public function statusAsLabel()

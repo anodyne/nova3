@@ -10,7 +10,7 @@ class FieldPresenter extends Presenter {
 		return Markdown::parse($this->entity->help);
 	}
 
-	public function render($id = null, $fieldState = 'view')
+	public function render($id = null, $fieldState = 'view', $fieldNameWrapper = null)
 	{
 		$state = ($id === null) ? 'create' : $fieldState;
 
@@ -18,6 +18,7 @@ class FieldPresenter extends Presenter {
 
 		// Build the field name
 		$fieldName = sprintf(config('nova.forms.fieldNameFormat'), $field->id);
+		$fieldName = ($fieldNameWrapper) ? sprintf($fieldNameWrapper, $fieldName) : $fieldName;
 
 		// Grab the data if we need to
 		$data = ($field->data) ? $field->data->whereLoose('data_id', $id) : null;

@@ -17,7 +17,7 @@
 
 						@if ($editable)
 							<div class="{{ $field->field_container_class }}">
-								{!! $field->present()->render($id, $action) !!}
+								{!! $field->present()->render($id, $action, $fieldNameWrapper) !!}
 
 								@if (strlen($field->help) > 0)
 									<p class="help-block">{!! $field->present()->help !!}</p>
@@ -38,7 +38,7 @@
 								@endif
 								
 								@if ($editable)
-									<div>{!! $field->present()->render($id, $action) !!}</div>
+									<div>{!! $field->present()->render($id, $action, $fieldNameWrapper) !!}</div>
 
 									@if (strlen($field->help) > 0)
 										<p class="help-block">{!! $field->present()->help !!}</p>
