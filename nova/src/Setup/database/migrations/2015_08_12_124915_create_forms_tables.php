@@ -72,8 +72,8 @@ class CreateFormsTables extends Migration {
 			$table->integer('order')->default(99);
 			$table->boolean('status')->default(Status::ACTIVE);
 			$table->string('label')->nullable();
-			$table->string('field_container_class')->default('col-md-4')->nullable();
-			$table->string('label_container_class')->default('col-md-2')->nullable();
+			$table->string('field_container_class')->default('col-md-4');
+			$table->string('label_container_class')->default('col-md-2');
 			$table->text('help')->nullable();
 			$table->text('attributes')->nullable();
 			$table->text('restrictions')->nullable();
@@ -129,9 +129,11 @@ class CreateFormsTables extends Migration {
 		}
 
 		$run = [
+			['application', 'fields'],
 			['character', 'tabs'],
 			['character', 'sections'],
 			['character', 'fields'],
+			['user', 'fields'],
 		];
 
 		foreach ($run as $r)
