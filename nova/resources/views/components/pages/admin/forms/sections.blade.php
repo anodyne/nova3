@@ -3,7 +3,7 @@
 </div>
 
 <div v-cloak>
-	<phone-tablet>
+	<mobile>
 		@can('create', $section)
 			<p><a href="{{ route('admin.forms.sections.create', $form->key) }}" class="btn btn-success btn-lg btn-block">Add a Section</a></p>
 		@endcan
@@ -11,7 +11,7 @@
 		@can('manage', $form)
 			<p><a href="{{ route('admin.forms') }}" class="btn btn-default btn-lg btn-block">Back to Forms</a></p>
 		@endcan
-	</phone-tablet>
+	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			@can('create', $section)
@@ -41,7 +41,7 @@
 				<p>{!! $section->present()->statusAsLabel !!}</p>
 			</div>
 			<div class="col-md-6 controls" v-cloak>
-				<phone-tablet>
+				<mobile>
 					<div class="row">
 						@can('edit', $section)
 							<div class="col-xs-12">
@@ -55,7 +55,7 @@
 							</div>
 						@endcan
 					</div>
-				</phone-tablet>
+				</mobile>
 				<desktop>
 					<div class="btn-toolbar pull-right">
 						@can('edit', $section)
@@ -93,7 +93,7 @@
 						<p>{!! $section->present()->statusAsLabel !!}</p>
 					</div>
 					<div class="col-md-6 controls" v-cloak>
-						<phone-tablet>
+						<mobile>
 							<div class="row">
 								@can('edit', $section)
 									<div class="col-xs-12">
@@ -107,7 +107,7 @@
 									</div>
 								@endcan
 							</div>
-						</phone-tablet>
+						</mobile>
 						<desktop>
 							<div class="btn-toolbar pull-right">
 								@can('edit', $section)

@@ -3,7 +3,7 @@
 </div>
 
 <div v-cloak>
-	<phone-tablet>
+	<mobile>
 		@can('create', $tab)
 			<p><a href="{{ route('admin.forms.tabs.create', $form->key) }}" class="btn btn-success btn-lg btn-block">Add a Tab</a></p>
 		@endcan
@@ -11,7 +11,7 @@
 		@can('manage', $form)
 			<p><a href="{{ route('admin.forms') }}" class="btn btn-default btn-lg btn-block">Back to Forms</a></p>
 		@endcan
-	</phone-tablet>
+	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			@can('create', $tab)
@@ -41,7 +41,7 @@
 				<p>{!! $tab->present()->statusAsLabel !!}</p>
 			</div>
 			<div class="col-md-6 controls" v-cloak>
-				<phone-tablet>
+				<mobile>
 					<div class="row">
 						@can('edit', $tab)
 							<div class="col-xs-12">
@@ -55,7 +55,7 @@
 							</div>
 						@endcan
 					</div>
-				</phone-tablet>
+				</mobile>
 				<desktop>
 					<div class="btn-toolbar pull-right">
 						@can('edit', $tab)
@@ -86,7 +86,7 @@
 						<p>{!! $child->present()->statusAsLabel !!}</p>
 					</div>
 					<div class="col-md-6 controls" v-cloak>
-						<phone-tablet>
+						<mobile>
 							<div class="row">
 								@can('edit', $child)
 									<div class="col-xs-12">
@@ -100,7 +100,7 @@
 									</div>
 								@endcan
 							</div>
-						</phone-tablet>
+						</mobile>
 						<desktop>
 							<div class="btn-toolbar pull-right">
 								@can('edit', $child)

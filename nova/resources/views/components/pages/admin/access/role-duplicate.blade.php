@@ -20,10 +20,10 @@
 	</div>
 
 	<div v-cloak>
-		<phone-tablet>
+		<mobile>
 			<p>{!! Form::button("Duplicate Role", ['type' => 'submit', 'class' => 'btn btn-primary btn-lg btn-block']) !!}</p>
 			<p>{!! Form::button("Cancel", ['class' => 'btn btn-default btn-lg btn-block', 'data-dismiss' => 'modal']) !!}</p>
-		</phone-tablet>
+		</mobile>
 		<desktop>
 			{!! Form::button("Duplicate Role", ['type' => 'submit', 'class' => 'btn btn-primary btn-lg']) !!}
 			{!! Form::button("Cancel", ['class' => 'btn btn-link-default btn-lg', 'data-dismiss' => 'modal']) !!}

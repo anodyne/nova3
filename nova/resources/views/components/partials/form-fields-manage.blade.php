@@ -35,7 +35,7 @@
 				@endif
 			</div>
 			<div class="col-xs-12 col-md-2 controls" v-cloak>
-				<phone-tablet>
+				<mobile>
 					<div class="row">
 						@can('edit', $field)
 							<div class="col-xs-12">
@@ -49,7 +49,7 @@
 							</div>
 						@endcan
 					</div>
-				</phone-tablet>
+				</mobile>
 				<desktop>
 					<div class="btn-toolbar pull-right">
 						@can('edit', $field)

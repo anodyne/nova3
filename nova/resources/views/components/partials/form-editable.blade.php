@@ -12,9 +12,9 @@
 	@if ($includeButton)
 		@php($buttonLabel = ($action == 'edit') ? "Update" : "Submit")
 		<div class="form-group">
-			<phone-tablet>
+			<mobile>
 				<p>{!! Form::button($buttonLabel, ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
-			</phone-tablet>
+			</mobile>
 			<desktop>
 				<p>{!! Form::button($buttonLabel, ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}</p>
 			</desktop>

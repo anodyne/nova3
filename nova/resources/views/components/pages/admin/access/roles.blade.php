@@ -1,5 +1,5 @@
 <div v-cloak>
-	<phone-tablet>
+	<mobile>
 		@can('create', $role)
 			<p><a href="{{ route('admin.access.roles.create') }}" class="btn btn-success btn-lg btn-block">Add a Role</a></p>
 		@endcan
@@ -7,7 +7,7 @@
 		@can('manage', $permission)
 			<p><a href="{{ route('admin.access.permissions') }}" class="btn btn-default btn-lg btn-block">Manage Permissions</a></p>
 		@endcan
-	</phone-tablet>
+	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			@can('create', $role)
@@ -37,7 +37,7 @@
 			@endif
 		</div>
 		<div class="col-md-6" v-cloak>
-			<phone-tablet>
+			<mobile>
 				<div class="row">
 					@can('create', $role)
 						<div class="col-xs-12">
@@ -63,7 +63,7 @@
 						</div>
 					@endcan
 				</div>
-			</phone-tablet>
+			</mobile>
 			<desktop>
 				<div class="btn-toolbar pull-right">
 					@can('create', $role)

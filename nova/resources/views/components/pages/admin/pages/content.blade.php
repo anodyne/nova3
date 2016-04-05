@@ -9,13 +9,13 @@
 </div>
 
 <div v-else v-cloak>
-	<phone-tablet>
+	<mobile>
 		@can('create', $content)
 			<p><a href="{{ route('admin.content.create') }}" class="btn btn-success btn-lg btn-block">Add Page Content</a></p>
 		@endcan
 
 		<p><a href="{{ route('admin.pages') }}" class="btn btn-default btn-lg btn-block">Pages</a></p>
-	</phone-tablet>
+	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			@can('create', $content)
@@ -49,9 +49,9 @@
 				</div>
 
 				<div class="panel-footer">
-					<phone-tablet>
+					<mobile>
 						<a class="btn btn-default btn-lg btn-block" @click="resetFilters">Reset Filters</a>
-					</phone-tablet>
+					</mobile>
 					<desktop>
 						<a class="btn btn-default btn-block" @click="resetFilters">Reset Filters</a>
 					</desktop>

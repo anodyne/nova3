@@ -1,7 +1,7 @@
 <div v-cloak>
-	<phone-tablet>
+	<mobile>
 		<p><a href="{{ route('admin.menus.items', [$menuId]) }}" class="btn btn-default btn-lg btn-block">Back to Menu Items</a></p>
-	</phone-tablet>
+	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			<div class="btn-group">
@@ -68,9 +68,9 @@
 
 	<div class="form-group">
 		<div class="col-md-5 col-md-offset-3" v-cloak>
-			<phone-tablet>
+			<mobile>
 				<p>{!! Form::button("Update Menu Item", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
-			</phone-tablet>
+			</mobile>
 			<desktop>
 				<div class="btn-toolbar">
 					<div class="btn-group">

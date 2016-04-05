@@ -3,7 +3,7 @@
 </div>
 
 <div v-cloak>
-	<phone-tablet>
+	<mobile>
 		@can('create', $field)
 			<p><a href="{{ route('admin.forms.fields.create', $form->key) }}" class="btn btn-success btn-lg btn-block">Add a Field</a></p>
 		@endcan
@@ -11,7 +11,7 @@
 		@can('manage', $form)
 			<p><a href="{{ route('admin.forms') }}" class="btn btn-default btn-lg btn-block">Back to Forms</a></p>
 		@endcan
-	</phone-tablet>
+	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			@can('create', $field)

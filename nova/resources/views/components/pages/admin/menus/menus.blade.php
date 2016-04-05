@@ -1,8 +1,8 @@
 @can('create', $menu)
 	<div v-cloak>
-		<phone-tablet>
+		<mobile>
 			<p><a href="{{ route('admin.menus.create') }}" class="btn btn-success btn-lg btn-block">Add a Menu</a></p>
-		</phone-tablet>
+		</mobile>
 		<desktop>
 			<div class="btn-toolbar">
 				<div class="btn-group">
@@ -21,7 +21,7 @@
 			<p><strong>Key</strong>: {{ $menu->present()->key }}</p>
 		</div>
 		<div class="col-md-6" v-cloak>
-			<phone-tablet>
+			<mobile>
 				<div class="row">
 					@can('edit', $menu)
 						<div class="col-xs-12">
@@ -47,7 +47,7 @@
 						</div>
 					@endcan
 				</div>
-			</phone-tablet>
+			</mobile>
 			<desktop>
 				<div class="btn-toolbar pull-right">
 					@can('edit', $menu)

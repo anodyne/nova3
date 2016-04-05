@@ -6,9 +6,9 @@
 
 {!! Form::model($content, ['route' => ['admin.content.destroy', $content->id], 'method' => 'delete']) !!}
 	<div v-cloak>
-		<phone-tablet>
+		<mobile>
 			<p>{!! Form::button("Remove", ['type' => 'submit', 'class' => 'btn btn-danger btn-lg btn-block']) !!}</p>
-		</phone-tablet>
+		</mobile>
 		<desktop>
 			<p>{!! Form::button("Remove", ['type' => 'submit', 'class' => 'btn btn-danger btn-lg']) !!}</p>
 		</desktop>

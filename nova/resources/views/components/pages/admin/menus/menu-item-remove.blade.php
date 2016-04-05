@@ -2,10 +2,10 @@
 
 {!! Form::model($item, ['route' => ['admin.menus.items.destroy', $item->id], 'method' => 'delete']) !!}
 	<div v-cloak>
-		<phone-tablet>
+		<mobile>
 			<p>{!! Form::button("Remove Menu Item", ['type' => 'submit', 'class' => 'btn btn-danger btn-lg btn-block']) !!}</p>
 			<p>{!! Form::button("Cancel", ['class' => 'btn btn-default btn-lg btn-block', 'data-dismiss' => 'modal']) !!}</p>
-		</phone-tablet>
+		</mobile>
 		<desktop>
 			{!! Form::button("Remove Menu Item", ['type' => 'submit', 'class' => 'btn btn-danger btn-lg']) !!}
 			{!! Form::button("Cancel", ['class' => 'btn btn-link-default', 'data-dismiss' => 'modal']) !!}

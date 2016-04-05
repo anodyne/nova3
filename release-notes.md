@@ -11,7 +11,7 @@
 		- phone
 		- tablet
 		- desktop (includes desktop-sm and desktop-lg)
-		- phone-tablet (includes phone and tablet)
+		- mobile (includes phone and tablet)
 		- tablet-desktop (includes tablet, desktop-sm, and desktop-lg)
 - The Additional Page Content management page has been updated to show content that is __not__ a _header_, _title_, or _message_. The previous way of showing all content created some confusion about what the difference between the Page Manager and Page Content Manager was. Now, only additional content will be shown to make it easier to understand what's going on.
 - And speaking of the Content Manager, we've moved some items out of Settings and into the Content Manager (like sim name). Since those are pieces of content and not true settings, we felt like the Content Manager was a better place for those things to live. Additionally, we've removed the settings page compiler and replaced it with a content page compiler to pull items out of the content tables. It works the same as the old settings page compiler, so you'll be able to do things like `content:sim_name` to pull the sim name out of the Content Manager in page content.

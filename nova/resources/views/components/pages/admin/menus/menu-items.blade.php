@@ -5,7 +5,7 @@
 <p>You can rearrange the order of menu items in this menu by dragging-and-dropping them into the order you want. You can also nest menu items underneath a top-level item by dragging it below and to the right of the item you want to nest it below.</p>
 
 <div v-cloak>
-	<phone-tablet>
+	<mobile>
 		@can('create', $item)
 			<p><a href="{{ route('admin.menus.items.create', [$menu->id]) }}" class="btn btn-success btn-lg btn-block">Add a Menu Item</a></p>
 			<p><a href="#" class="btn btn-success btn-lg btn-block js-createMenuItemDivider" data-menu="{{ $menu->id }}">Add a Divider</a></p>
@@ -14,7 +14,7 @@
 		@can('manage', $menu)
 			<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Menus</a></p>
 		@endcan
-	</phone-tablet>
+	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			@can('create', $item)

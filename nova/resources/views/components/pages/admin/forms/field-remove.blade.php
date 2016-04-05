@@ -4,10 +4,10 @@
 
 {!! Form::model($field, ['route' => ['admin.forms.fields.destroy', $form->key, $field->id], 'method' => 'delete']) !!}
 	<div v-cloak>
-		<phone-tablet>
+		<mobile>
 			<p>{!! Form::button("Remove Form Field", ['type' => 'submit', 'class' => 'btn btn-danger btn-lg btn-block']) !!}</p>
 			<p>{!! Form::button("Cancel", ['class' => 'btn btn-default btn-lg btn-block', 'data-dismiss' => 'modal']) !!}</p>
-		</phone-tablet>
+		</mobile>
 		<desktop>
 			{!! Form::button("Remove Form Field", ['type' => 'submit', 'class' => 'btn btn-danger btn-lg']) !!}
 			{!! Form::button("Cancel", ['class' => 'btn btn-link-default btn-lg', 'data-dismiss' => 'modal']) !!}

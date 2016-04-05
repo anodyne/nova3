@@ -1,7 +1,7 @@
 <div v-cloak>
-	<phone-tablet>
+	<mobile>
 		<p><a href="{{ route('admin.pages') }}" class="btn btn-default btn-lg btn-block">Back to Page Manager</a></p>
-	</phone-tablet>
+	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			<div class="btn-group">
@@ -185,9 +185,9 @@
 	{!! Form::hidden('protected', (int) $page->protected) !!}
 
 	<div class="col-md-5 col-md-offset-2" v-cloak>
-		<phone-tablet>
+		<mobile>
 			{!! Form::button("Update Page", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}
-		</phone-tablet>
+		</mobile>
 		<desktop>
 			{!! Form::button("Update Page", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
 		</desktop>

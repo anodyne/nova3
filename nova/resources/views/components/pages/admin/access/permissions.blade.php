@@ -9,13 +9,13 @@
 </div>
 
 <div v-else v-cloak>
-	<phone-tablet>
+	<mobile>
 		@if ($_user->can('access.create'))
 			<p><a href="{{ route('admin.access.permissions.create') }}" class="btn btn-success btn-lg btn-block">Add a Permission</a></p>
 		@endif
 
 		<p><a href="{{ route('admin.access.roles') }}" class="btn btn-default btn-lg btn-block">Manage Roles</a></p>
-	</phone-tablet>
+	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			@if ($_user->can('access.create'))
@@ -44,9 +44,9 @@
 				</div>
 
 				<div class="panel-footer" v-cloak>
-					<phone-tablet>
+					<mobile>
 						<a class="btn btn-default btn-lg btn-block" @click="resetFilters">Reset Filter</a>
-					</phone-tablet>
+					</mobile>
 					<desktop>
 						<a class="btn btn-default btn-block" @click="resetFilters">Reset Filter</a>
 					</desktop>
@@ -63,7 +63,7 @@
 						<p v-show="permission.roles != ''"><strong>Included in Role(s):</strong> @{{{ permission.roles }}}</p>
 					</div>
 					<div class="col-md-3" v-cloak>
-						<phone-tablet>
+						<mobile>
 							<div class="row">
 								@if ($_user->can('access.edit'))
 									<div class="col-sm-6">
@@ -77,7 +77,7 @@
 									</div>
 								@endif
 							</div>
-						</phone-tablet>
+						</mobile>
 						<desktop>
 							<div class="btn-toolbar pull-right">
 								@if ($_user->can('access.edit'))

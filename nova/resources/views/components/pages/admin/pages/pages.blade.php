@@ -9,13 +9,13 @@
 </div>
 
 <div v-else v-cloak>
-	<phone-tablet>
+	<mobile>
 		@can('create', $page)
 			<p><a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg btn-block">Add a Page</a></p>
 		@endcan
 
 		<p><a href="{{ route('admin.content') }}" class="btn btn-default btn-lg btn-block">Manage Page Content</a></p>
-	</phone-tablet>
+	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			@can('create', $page)
@@ -62,9 +62,9 @@
 				</div>
 
 				<div class="panel-footer">
-					<phone-tablet>
+					<mobile>
 						<a class="btn btn-default btn-lg btn-block" @click="resetFilters">Reset Filters</a>
-					</phone-tablet>
+					</mobile>
 					<desktop>
 						<a class="btn btn-default btn-block" @click="resetFilters">Reset Filters</a>
 					</desktop>
@@ -82,7 +82,7 @@
 						<p><strong>Verb:</strong> <span class="label label-default">@{{ page.verb }}</span></p>
 					</div>
 					<div class="col-md-3">
-						<phone-tablet>
+						<mobile>
 							<div class="row">
 								@can('edit', $page)
 									<div class="col-sm-6">
@@ -96,7 +96,7 @@
 									</div>
 								@endcan
 							</div>
-						</phone-tablet>
+						</mobile>
 						<desktop>
 							<div class="btn-toolbar pull-right">
 								@can('edit', $page)

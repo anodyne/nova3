@@ -3,9 +3,9 @@
 </div>
 
 <div v-cloak>
-	<phone-tablet>
+	<mobile>
 		<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Menu Manager</a></p>
-	</phone-tablet>
+	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			<div class="btn-group">
@@ -30,9 +30,9 @@
 						</div>
 
 						<div v-cloak>
-							<phone-tablet>
+							<mobile>
 								<p>{!! Form::button("Update", ['type' => 'submit', 'class' => 'btn btn-default btn-lg btn-block']) !!}</p>
-							</phone-tablet>
+							</mobile>
 							<desktop>
 								<p>{!! Form::button("Update", ['type' => 'submit', 'class' => 'btn btn-default btn-block']) !!}</p>
 							</desktop>

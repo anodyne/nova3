@@ -1,7 +1,7 @@
 <div v-cloak>
-	<phone-tablet>
+	<mobile>
 		<p><a href="{{ route('admin.access.roles') }}" class="btn btn-default btn-lg btn-block">Back to Roles</a></p>
-	</phone-tablet>
+	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			<div class="btn-group">
@@ -67,9 +67,9 @@
 
 	<div class="form-group">
 		<div class="col-md-5 col-md-offset-2" v-cloak>
-			<phone-tablet>
+			<mobile>
 				<p>{!! Form::button("Add Role", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
-			</phone-tablet>
+			</mobile>
 			<desktop>
 				<div class="btn-toolbar">
 					<div class="btn-group">
