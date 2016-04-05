@@ -110,8 +110,11 @@ class TabController extends BaseController {
 		{
 			$form = $this->formRepo->getByKey($formKey);
 
+			$tabs = ['0' => "No tab"];
+			$tabs+= $this->repo->listAll('name', 'id');
+
 			$body = (policy($tab)->remove($this->user, $tab))
-				? view(locate('page', 'admin/forms/tab-remove'), compact('form', 'tab'))
+				? view(locate('page', 'admin/forms/tab-remove'), compact('form', 'tab', 'tabs'))
 				: alert('danger', "You do not have permission to remove form tabs.");
 		}
 
@@ -128,11 +131,18 @@ class TabController extends BaseController {
 
 		$this->authorize('remove', $tab, "You do not have permission to remove form tabs.");
 
+		if ($request->has('remove_tab_content'))
+		{
+			$this->repo->removeTabContent($tab);
+		}
+		else
+		{
+			$this->repo->reassignTabContent($tab, $request->get('new_tab'));
+		}
+
 		$tab = $this->repo->delete($tab);
 
-		$form = $this->formRepo->getByKey($formKey);
-
-		event(new Events\FormTabWasDeleted($tab->id, $tab->name, $form->key));
+		event(new Events\FormTabWasDeleted($tab->id, $tab->name, $formKey));
 
 		flash()->success("Form Tab Removed!");
 

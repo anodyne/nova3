@@ -15,77 +15,15 @@ class TabRepository extends BaseFormRepository implements FormTabRepositoryInter
 
 	public function countLinkIds(NovaForm $form, $linkId)
 	{
-		if ( ! $form->tabs) return 0;
+		if ( ! $form->tabs)
+		{
+			return 0;
+		}
 
 		return $form->tabs->filter(function ($tab) use ($linkId)
 		{
 			return $tab->link_id === $linkId;
 		})->count();
-	}
-
-	public function delete($resource)
-	{
-		// Get the resource
-		$tab = $this->getResource($resource);
-
-		if ($tab)
-		{
-			// If there are children tab, we need to loop through those and
-			// delete all the content within that tab first
-			if ($tab->childrenTabs->count() > 0)
-			{
-				foreach ($tab->childrenTabs as $childTab)
-				{
-					$this->delete($childTab);
-				}
-			}
-
-			// Next, we need to remove any fields that aren't part of a
-			// section, including their data and values
-			$tab->fields->each(function ($field)
-			{
-				$field->data->each(function ($d)
-				{
-					$d->delete();
-				});
-
-				$field->values->each(function ($value)
-				{
-					$value->delete();
-				});
-
-				$field->delete();
-			});
-
-			// Up next are sections, the fields in the section and any
-			// data and values associated with those fields
-			$tab->sections->each(function ($section)
-			{
-				$section->fields->each(function ($field)
-				{
-					$field->data->each(function ($d)
-					{
-						$d->delete();
-					});
-
-					$field->values->each(function ($value)
-					{
-						$value->delete();
-					});
-
-					$field->delete();
-				});
-
-				$section->delete();
-			});
-
-			// Finally, remove the form tab
-			$tab->delete();
-
-			return $tab;
-		}
-
-		return false;
 	}
 
 	public function getFormTabs(NovaForm $form, array $with = [])
@@ -110,6 +48,102 @@ class TabRepository extends BaseFormRepository implements FormTabRepositoryInter
 		$tabs = $this->getParentTabs($form);
 		
 		return $this->listCollection($tabs, 'id', 'name');
+	}
+
+	public function reassignTabContent(Model $oldTab, $newTabId)
+	{
+		// Reassign any tabs
+		$oldTab->childrenTabs->each(function ($tab) use ($newTabId)
+		{
+			$tab->update(['parent_id' => $newTabId]);
+		});
+
+		// Reassign any sections
+		$oldTab->sections->each(function ($section) use ($newTabId)
+		{
+			$section->update(['tab_id' => $newTabId]);
+		});
+
+		// Reassign any fields
+		$oldTab->fields->each(function ($field) use ($newTabId)
+		{
+			$field->update(['tab_id' => $newTabId]);
+		});
+	}
+
+	public function removeTabContent(Model $tab)
+	{
+		// Remove any unbound fields
+		$tab->fields->each(function ($field)
+		{
+			// First remove any data associated with the field
+			$field->data->each(function ($row)
+			{
+				$row->delete();
+			});
+
+			// Now delete the field
+			$field->delete();
+		});
+
+		// Remove any sections
+		$tab->sections->each(function ($section)
+		{
+			// Remove any fields in the section
+			$section->fields->each(function ($field)
+			{
+				// First remove any data associated with the field
+				$field->data->each(function ($row)
+				{
+					$row->delete();
+				});
+
+				// Now delete the field
+				$field->delete();
+			});
+
+			// Remove the section
+			$section->delete();
+		});
+
+		// Remove any child tabs
+		$tab->childrenTabs->each(function ($childTab)
+		{
+			// Remove any sections
+			$childTab->sections->each(function ($section)
+			{
+				// First remove any fields in the section
+				$section->fields->each(function ($field)
+				{
+					// First remove any data associated with the field
+					$field->data->each(function ($row)
+					{
+						$row->delete();
+					});
+
+					// Now delete the field
+					$field->delete();
+				});
+
+				$section->delete();
+			});
+
+			// Remove any unbound fields
+			$childTab->fields->each(function ($field)
+			{
+				// First remove any data associated with the field
+				$field->data->each(function ($row)
+				{
+					$row->delete();
+				});
+
+				// Now delete the field
+				$field->delete();
+			});
+
+			// Remove the tab
+			$childTab->delete();
+		});
 	}
 
 }
