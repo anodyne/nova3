@@ -10,7 +10,7 @@ Vue.component('desktop', {
 	template: '<div class="visible-md-block visible-lg-block" v-cloak><slot></slot></div>'
 })
 
-Vue.component('phone-tablet', {
+Vue.component('mobile', {
 	template: '<div class="visible-xs-block visible-sm-block" v-cloak><slot></slot></div>'
 })
 
