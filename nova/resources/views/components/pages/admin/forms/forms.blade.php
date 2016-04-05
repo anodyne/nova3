@@ -26,29 +26,35 @@
 		<div class="col-md-6" v-cloak>
 			<mobile>
 				<div class="row">
+					@if ($form->form_viewer)
+						<div class="col-xs-12">
+							<p><a href="#" class="btn btn-default btn-lg btn-block">Dashboard</a></p>
+						</div>
+					@endif
+
 					<div class="col-xs-12">
 						<p><a href="{{ route('admin.forms.preview', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Preview</a></p>
 					</div>
 
 					@can('edit', $form)
-						<div class="col-xs-12">
+						<div class="col-xs-12 col-sm-6">
 							<p><a href="{{ route('admin.forms.edit', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Edit Form</a></p>
 						</div>
 
 						@can('manage', $formTab)
-							<div class="col-xs-12">
+							<div class="col-xs-12 col-sm-6">
 								<p><a href="{{ route('admin.forms.tabs', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Edit Form Tabs</a></p>
 							</div>
 						@endcan
 
 						@can('manage', $formSection)
-							<div class="col-xs-12">
+							<div class="col-xs-12 col-sm-6">
 								<p><a href="{{ route('admin.forms.sections', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Edit Form Sections</a></p>
 							</div>
 						@endcan
 
 						@can('manage', $formField)
-							<div class="col-xs-12">
+							<div class="col-xs-12 col-sm-6">
 								<p><a href="{{ route('admin.forms.fields', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Edit Form Fields</a></p>
 							</div>
 						@endcan
@@ -63,6 +69,12 @@
 			</mobile>
 			<desktop>
 				<div class="btn-toolbar pull-right">
+					@if ($form->form_viewer)
+						<div class="btn-group">
+							<a href="#" class="btn btn-default">Dashboard</a>
+						</div>
+					@endif
+
 					<div class="btn-group">
 						<a href="{{ route('admin.forms.preview', [$form->key]) }}" class="btn btn-default">Preview</a>
 					</div>
