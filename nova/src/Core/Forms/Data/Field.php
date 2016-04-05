@@ -1,6 +1,7 @@
 <?php namespace Nova\Core\Forms\Data;
 
 use Model, FormFieldPresenter;
+use Illuminate\Support\Collection;
 use Laracasts\Presenter\PresentableTrait;
 
 class Field extends Model {
@@ -58,30 +59,66 @@ class Field extends Model {
 
 	public function setAttributesAttribute($value)
 	{
-		$this->attributes['attributes'] = (is_array($value))
-			? json_encode($value)
-			: $value->toJson();
+		if (is_array($value))
+		{
+			$this->attributes['attributes'] = json_encode($value);
+		}
+		elseif ($value instanceof Collection)
+		{
+			$this->attributes['attributes'] = $value->toJson();
+		}
+		else
+		{
+			$this->attributes['attributes'] = $value;
+		}
 	}
 
 	public function setRestrictionsAttribute($value)
 	{
-		$this->attributes['restrictions'] = (is_array($value))
-			? json_encode($value)
-			: $value->toJson();
+		if (is_array($value))
+		{
+			$this->attributes['restrictions'] = json_encode($value);
+		}
+		elseif ($value instanceof Collection)
+		{
+			$this->attributes['restrictions'] = $value->toJson();
+		}
+		else
+		{
+			$this->attributes['restrictions'] = $value;
+		}
 	}
 
 	public function setValidationRulesAttribute($value)
 	{
-		$this->attributes['validation_rules'] = (is_array($value))
-			? json_encode($value)
-			: $value->toJson();
+		if (is_array($value))
+		{
+			$this->attributes['validation_rules'] = json_encode($value);
+		}
+		elseif ($value instanceof Collection)
+		{
+			$this->attributes['validation_rules'] = $value->toJson();
+		}
+		else
+		{
+			$this->attributes['validation_rules'] = $value;
+		}
 	}
 
 	public function setValuesAttribute($value)
 	{
-		$this->attributes['values'] = (is_array($value))
-			? json_encode($value)
-			: $value->toJson();
+		if (is_array($value))
+		{
+			$this->attributes['values'] = json_encode($value);
+		}
+		elseif ($value instanceof Collection)
+		{
+			$this->attributes['values'] = $value->toJson();
+		}
+		else
+		{
+			$this->attributes['values'] = $value;
+		}
 	}
 
 	/*
