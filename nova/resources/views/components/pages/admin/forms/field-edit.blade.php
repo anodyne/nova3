@@ -1,7 +1,7 @@
 <div v-cloak>
-	<phone-tablet>
+	<mobile>
 		<p><a href="{{ route('admin.forms.fields', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Back to Form Fields</a></p>
-	</phone-tablet>
+	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			<div class="btn-group">
@@ -130,18 +130,18 @@
 				</div>
 
 				<div class="form-group">
-					<div class="col-md-6 col-md-offset-2">
+					<div class="col-md-8 col-lg-6 col-md-offset-2">
 						<div class="data-table data-table-striped data-table-bordered">
 							<div class="row">
-								<div class="col-md-3"><p><strong>Type</strong></p></div>
-								<div class="col-md-6"><p><strong>Value</strong></p></div>
-								<div class="col-md-3"></div>
+								<div class="col-sm-2 col-md-3"><p><strong>Type</strong></p></div>
+								<div class="col-sm-8 col-md-6"><p><strong>Value</strong></p></div>
+								<div class="col-sm-2 col-md-3"></div>
 							</div>
 							<div class="row" v-for="restriction in restrictions">
-								<div class="col-md-3">
+								<div class="col-sm-2 col-md-3">
 									<p>@{{ restriction.type | capitalize }}</p>
 								</div>
-								<div class="col-md-6">
+								<div class="col-sm-8 col-md-6">
 									<p>
 										<select name="restrictionValues[@{{ restriction.type }}]" class="form-control" v-model="restriction.value">
 											<option value="">No restriction</option>
@@ -151,7 +151,7 @@
 										</select>
 									</p>
 								</div>
-								<div class="col-md-3">
+								<div class="col-sm-2 col-md-3">
 									<p><a @click="clearRestriction(restriction)" class="btn btn-block btn-danger">Clear</a></p>
 								</div>
 							</div>
@@ -161,9 +161,9 @@
 
 				<div class="form-group">
 					<div class="col-md-5 col-md-offset-2" v-cloak>
-						<phone-tablet>
+						<mobile>
 							<p>{!! Form::button("Update Field", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
-						</phone-tablet>
+						</mobile>
 						<desktop>
 							<div class="btn-toolbar">
 								<div class="btn-group">
@@ -182,39 +182,40 @@
 			{!! alert('warning', "Only the following field attributes will be reflected in the Live Preview: class, placeholder, and rows. Any other attributes you add will be reflected in the final field.") !!}
 
 			<div class="form-group">
-				<div class="col-md-8">
+				<div class="col-md-9 col-lg-8">
 					<div class="data-table data-table-striped data-table-bordered">
 						<div class="row">
-							<div class="col-md-5">
-								<p><strong>Attribute Name</strong></p>
-							</div>
-							<div class="col-md-5">
-								<p><strong>Value</strong></p>
-							</div>
-							<div class="col-md-2"></div>
+							<div class="col-sm-6 col-md-5"><p><strong>Attribute Name</strong></p></div>
+							<div class="col-sm-6 col-md-5"><p><strong>Value</strong></p></div>
+							<div class="col-md-2 hidden-xs hidden-sm"></div>
 						</div>
 						<div class="row" v-for="attr in attributes">
-							<div class="col-md-5">
+							<div class="col-sm-6 col-md-5">
 								<p><input name="attributeNames[]" class="form-control" v-model="attr.name"></p>
 							</div>
-							<div class="col-md-5">
+							<div class="col-sm-6 col-md-5">
 								<p><input name="attributeValues[]" class="form-control" v-model="attr.value"></p>
 							</div>
-							<div class="col-md-2">
+							<div class="col-xs-12 col-md-2">
 								<p><a @click="removeAttribute(attr)" class="btn btn-block btn-danger">Remove</a></p>
 							</div>
 						</div>
 					</div>
 
-					<p><a @click="addAttribute" class="btn btn-default">Add Attribute</a></p>
+					<mobile>
+						<p><a @click="addAttribute" class="btn btn-block btn-default">Add Attribute</a></p>
+					</mobile>
+					<desktop>
+						<p><a @click="addAttribute" class="btn btn-default">Add Attribute</a></p>
+					</desktop>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<div v-cloak>
-					<phone-tablet>
+					<mobile>
 						<p>{!! Form::button("Update Field", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
-					</phone-tablet>
+					</mobile>
 					<desktop>
 						<div class="btn-toolbar">
 							<div class="btn-group">
@@ -234,23 +235,23 @@
 			</div>
 
 			<div class="form-group">
-				<div class="col-md-8">
+				<div class="col-md-10 col-lg-8">
 					<div class="data-table data-table-striped data-table-bordered" id="sortable">
 						<div class="row">
-							<div class="col-md-1"></div>
-							<div class="col-md-5"><p><strong>Text</strong></p></div>
-							<div class="col-md-4"><p><strong>Value</strong></p></div>
-							<div class="col-md-2"></div>
+							<div class="col-sm-2"></div>
+							<div class="col-sm-5 col-md-4"><p><strong>Text</strong></p></div>
+							<div class="col-sm-5 col-md-4"><p><strong>Value</strong></p></div>
+							<div class="col-md-2 hidden-xs hidden-sm"></div>
 						</div>
 						<div class="row" v-for="option in options">
-							<div class="col-xs-1">
+							<div class="col-xs-2">
 								<p class="text-center"><span class="uk-icon uk-icon-bars sortable-handle"></span></p>
 							</div>
-							<div class="col-xs-11 col-md-5">
-								<p><input name="optionNames[]" class="form-control" v-model="option.text"></p>
+							<div class="col-xs-10 col-sm-5 col-md-4">
+								<p><input name="optionNames[]" class="form-control" v-model="option.text" placeholder="Text"></p>
 							</div>
-							<div class="col-xs-12 col-md-4">
-								<p><input name="optionValues[]" class="form-control" v-model="option.value"></p>
+							<div class="col-xs-12 col-sm-5 col-md-4">
+								<p><input name="optionValues[]" class="form-control" v-model="option.value" placeholder="Value"></p>
 							</div>
 							<div class="col-xs-12 col-md-2">
 								<p><a @click="removeOption(option)" class="btn btn-block btn-danger">Remove</a></p>
@@ -258,15 +259,20 @@
 						</div>
 					</div>
 
-					<p><a @click="addOption" class="btn btn-default">Add Value</a></p>
+					<mobile>
+						<p><a @click="addOption" class="btn btn-block btn-default">Add Value</a></p>
+					</mobile>
+					<desktop>
+						<p><a @click="addOption" class="btn btn-default">Add Value</a></p>
+					</desktop>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<div v-cloak>
-					<phone-tablet>
+					<mobile>
 						<p>{!! Form::button("Update Field", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
-					</phone-tablet>
+					</mobile>
 					<desktop>
 						<div class="btn-toolbar">
 							<div class="btn-group">
@@ -286,15 +292,15 @@
 			<p>Simply select the condition you want to be true. In some cases, you'll need to provide additional information for the rule.</p>
 
 			<div class="form-group">
-				<div class="col-md-8">
+				<div class="col-md-10 col-lg-8">
 					<div class="data-table data-table-striped data-table-bordered">
 						<div class="row">
-							<div class="col-md-6"><p><strong>Must be...</strong></p></div>
-							<div class="col-md-4"><p><strong>Value</strong></p></div>
-							<div class="col-md-2"></div>
+							<div class="col-sm-6 col-md-5"><p><strong>Must be...</strong></p></div>
+							<div class="col-sm-6 col-md-5"><p><strong>Value</strong></p></div>
+							<div class="col-md-2 hidden-xs hidden-sm"></div>
 						</div>
 						<div class="row" v-for="rule in rules">
-							<div class="col-md-6">
+							<div class="col-sm-6 col-md-5">
 								<p>
 									<select name="ruleTypes[]" class="form-control" v-model="rule.type" @change="updateRuleType(rule)">
 										<option value=""></option>
@@ -316,31 +322,36 @@
 									</select>
 								</p>
 							</div>
-							<div class="col-md-4">
+							<div class="col-sm-6 col-md-5">
 								<p v-show="rule.hasValue"><input name="ruleValues[]" class="form-control" v-model="rule.value"></p>
 								
 								<p class="help-block" v-show="rule.type == 'between'"><em>min,max</em></p>
 								<p class="help-block" v-show="rule.type == 'exists'"><em>table,column</em></p>
 								<p class="help-block" v-show="rule.type == 'in'"><em>foo,bar,...</em></p>
 								<p class="help-block" v-show="rule.type == 'max'"><em>value</em></p>
-								<p class="help-block" v-show="rule.type == 'min'"><em>vakye</em></p>
+								<p class="help-block" v-show="rule.type == 'min'"><em>value</em></p>
 								<p class="help-block" v-show="rule.type == 'not_in'"><em>foo,bar,...</em></p>
 							</div>
-							<div class="col-md-2">
+							<div class="col-xs-12 col-md-2">
 								<p><a @click="removeRule(rule)" class="btn btn-block btn-danger">Remove</a></p>
 							</div>
 						</div>
 					</div>
 
-					<p><a @click="addRule" class="btn btn-default">Add Rule</a></p>
+					<mobile>
+						<p><a @click="addRule" class="btn btn-block btn-default">Add Rule</a></p>
+					</mobile>
+					<desktop>
+						<p><a @click="addRule" class="btn btn-default">Add Rule</a></p>
+					</desktop>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<div v-cloak>
-					<phone-tablet>
+					<mobile>
 						<p>{!! Form::button("Update Field", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
-					</phone-tablet>
+					</mobile>
 					<desktop>
 						<div class="btn-toolbar">
 							<div class="btn-group">

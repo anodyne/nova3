@@ -178,6 +178,15 @@
 
 			updateRuleValue: function (row) {
 				//
+			},
+
+			updateValueName: function (row) {
+				for (var i = 0; i < this.options.length; ++i) {
+					if (this.options[i] === row) {
+						this.options[i].value = this.options[i].text
+						break
+					}
+				}
 			}
 		},
 
