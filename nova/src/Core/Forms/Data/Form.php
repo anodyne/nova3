@@ -17,6 +17,12 @@ class Form extends Model {
 
 	protected $presenter = FormPresenter::class;
 
+	protected $casts = [
+		'protected'		=> 'boolean',
+		'form_viewer'	=> 'boolean',
+		'email_allowed'	=> 'boolean',
+	];
+
 	//-------------------------------------------------------------------------
 	// Relationships
 	//-------------------------------------------------------------------------
