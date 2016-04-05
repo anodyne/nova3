@@ -23,11 +23,7 @@ class FormPresenter extends Presenter {
 	public function renderViewForm($id)
 	{
 		$relations = [
-			'fieldsUnbound', 
-			'sectionsUnbound', 'sectionsUnbound.fields', 
-			'parentTabs', 'parentTabs.fieldsUnbound', 'parentTabs.sections', 'parentTabs.sections.fields', 
-			'parentTabs.childrenTabs', 'parentTabs.childrenTabs.fieldsUnbound', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields',
-			'data', 'data.field',
+			'fieldsUnbound', 'fieldsUnbound.data', 'sectionsUnbound', 'sectionsUnbound.fields', 'sectionsUnbound.fields.data', 'parentTabs', 'parentTabs.fieldsUnbound', 'parentTabs.fieldsUnbound.data', 'parentTabs.sections', 'parentTabs.sections.fields', 'parentTabs.sections.fields.data', 'parentTabs.childrenTabs', 'parentTabs.childrenTabs.fieldsUnbound', 'parentTabs.childrenTabs.fieldsUnbound.data', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields', 'parentTabs.childrenTabs.sections.fields.data', 'data', 'data.field'
 		];
 
 		// Grab the form and eager load all the relations
@@ -49,11 +45,7 @@ class FormPresenter extends Presenter {
 	public function renderNewForm($includeFormTags = true, $includeButton = true)
 	{
 		$relations = [
-			'fieldsUnbound', 
-			'sectionsUnbound', 'sectionsUnbound.fields', 
-			'parentTabs', 'parentTabs.fieldsUnbound', 'parentTabs.sections', 'parentTabs.sections.fields', 
-			'parentTabs.childrenTabs', 'parentTabs.childrenTabs.fieldsUnbound', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields',
-			'data', 'data.field'
+			'fieldsUnbound', 'fieldsUnbound.data', 'sectionsUnbound', 'sectionsUnbound.fields', 'sectionsUnbound.fields.data', 'parentTabs', 'parentTabs.fieldsUnbound', 'parentTabs.fieldsUnbound.data', 'parentTabs.sections', 'parentTabs.sections.fields', 'parentTabs.sections.fields.data', 'parentTabs.childrenTabs', 'parentTabs.childrenTabs.fieldsUnbound', 'parentTabs.childrenTabs.fieldsUnbound.data', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields', 'parentTabs.childrenTabs.sections.fields.data', 'data', 'data.field'
 		];
 
 		// Grab the form and eager load all the relations
@@ -81,11 +73,7 @@ class FormPresenter extends Presenter {
 	public function renderEditForm($id, $includeFormTags = true, $includeButton = true)
 	{
 		$relations = [
-			'fieldsUnbound', 
-			'sectionsUnbound', 'sectionsUnbound.fields', 
-			'parentTabs', 'parentTabs.fieldsUnbound', 'parentTabs.sections', 'parentTabs.sections.fields', 
-			'parentTabs.childrenTabs', 'parentTabs.childrenTabs.fieldsUnbound', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields',
-			'data', 'data.field',
+			'fieldsUnbound', 'fieldsUnbound.data', 'sectionsUnbound', 'sectionsUnbound.fields', 'sectionsUnbound.fields.data', 'parentTabs', 'parentTabs.fieldsUnbound', 'parentTabs.fieldsUnbound.data', 'parentTabs.sections', 'parentTabs.sections.fields', 'parentTabs.sections.fields.data', 'parentTabs.childrenTabs', 'parentTabs.childrenTabs.fieldsUnbound', 'parentTabs.childrenTabs.fieldsUnbound.data', 'parentTabs.childrenTabs.sections', 'parentTabs.childrenTabs.sections.fields', 'parentTabs.childrenTabs.sections.fields.data', 'data', 'data.field'
 		];
 
 		// Grab the form and eager load all the relations
