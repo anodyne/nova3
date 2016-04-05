@@ -131,6 +131,7 @@ class CreateFormsTables extends Migration {
 		$run = [
 			['character', 'tabs'],
 			['character', 'sections'],
+			['character', 'fields'],
 		];
 
 		foreach ($run as $r)
@@ -145,7 +146,6 @@ class CreateFormsTables extends Migration {
 			'tabs'		=> 'FormTabRepository',
 			'sections'	=> 'FormSectionRepository',
 			'fields'	=> 'FormFieldRepository',
-			'values'	=> 'FormFieldValueRepository',
 		];
 
 		foreach ($this->data[$form][$type] as $x)
