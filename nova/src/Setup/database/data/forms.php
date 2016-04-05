@@ -10,7 +10,15 @@ return [
 
 	],
 
-	'application' => [],
+	'application' => [
+
+		'fields' => [
+			['form_id' => 1, 'order' => 0, 'type' => 'select', 'label' => "Where Did You Hear About Us?", 'field_container_class' => 'col-md-4', 'attributes' => '[{"name":"class","value":"form-control input-lg"},{"name":"placeholder","value":"Choose One"}]', 'restrictions' => '[{"type":"view","value":""},{"type":"create","value":"game-master"},{"type":"edit","value":"game-master"}]', 'values' => '[{"text":"Fleet Listing","value":"Fleet Listing"},{"text":"Internet Search","value":"Internet Search"},{"text":"Internet Ad","value":"Internet Ad"},{"text":"Recruiting Website","value":"Recruiting Website"},{"text":"Member of the Game","value":"Member of the Game"}]'],
+			['form_id' => 1, 'order' => 1, 'type' => 'textarea', 'label' => "Other Games", 'field_container_class' => 'col-md-8', 'help' => "What other game(s) do you actively participate on? Which characters do you play?", 'attributes' => '[{"name":"class","value":"form-control input-lg"},{"name":"placeholder","value":"Other Games"},{"name":"rows","value":"5"}]', 'restrictions' => '[{"type":"view","value":""},{"type":"create","value":""},{"type":"edit","value":""}]'],
+			['form_id' => 1, 'order' => 2, 'type' => 'textarea', 'label' => "Fleet Positions", 'field_container_class' => 'col-md-8', 'help' => "Do you hold positions in any fleets? If so, what positions in what fleets?", 'attributes' => '[{"name":"class","value":"form-control input-lg"},{"name":"placeholder","value":"Fleet Positions"},{"name":"rows","value":"3"}]', 'restrictions' => '[{"type":"view","value":""},{"type":"create","value":""},{"type":"edit","value":""}]'],
+		],
+
+	],
 
 	'character' => [
 
@@ -54,6 +62,13 @@ return [
 
 	],
 
-	'user' => [],
+	'user' => [
+
+		'fields' => [
+			['form_id' => 3, 'order' => 0, 'type' => 'text', 'label' => "Birthday", 'field_container_class' => 'col-md-3', 'attributes' => '[{"name":"class","value":"form-control input-lg"},{"name":"placeholder","value":"Birthday"}]', 'restrictions' => '[{"type":"view","value":""},{"type":"create","value":""},{"type":"edit","value":""}]'],
+			['form_id' => 3, 'order' => 1, 'type' => 'text', 'label' => "Location", 'attributes' => '[{"name":"class","value":"form-control input-lg"},{"name":"placeholder","value":"Location"}]', 'restrictions' => '[{"type":"view","value":""},{"type":"create","value":""},{"type":"edit","value":""}]'],
+		],
+
+	],
 
 ];
