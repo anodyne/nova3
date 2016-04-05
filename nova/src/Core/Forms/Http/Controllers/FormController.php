@@ -126,6 +126,11 @@ class FormController extends BaseController {
 		return redirect()->route('admin.forms');
 	}
 
+	public function dashboard($formKey)
+	{
+		$this->view = 'admin/forms/form-dashboard';
+	}
+
 	public function preview($formKey)
 	{
 		$this->view = 'admin/forms/form-preview';
