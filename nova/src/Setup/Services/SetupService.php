@@ -127,21 +127,30 @@ class SetupService {
 	{
 		if ($component == 'db')
 		{
-			if (file_exists($this->app->configPath().'/database.php')) return true;
+			if (file_exists($this->app->configPath().'/database.php'))
+			{
+				return true;
+			}
 
 			return false;
 		}
 
 		if ($component == 'mail')
 		{
-			if (file_exists($this->app->configPath().'/mail.php')) return true;
+			if (file_exists($this->app->configPath().'/mail.php'))
+			{
+				return true;
+			}
 
 			return false;
 		}
 
 		if ($component == 'session')
 		{
-			if (file_exists($this->app->configPath().'/session.php')) return true;
+			if (file_exists($this->app->configPath().'/session.php'))
+			{
+				return true;
+			}
 
 			return false;
 		}

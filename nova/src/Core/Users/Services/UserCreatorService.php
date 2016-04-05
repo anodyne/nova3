@@ -33,7 +33,10 @@ class UserCreatorService {
 		// Create the character
 		$character = $this->characterCreator->create($data['character'], $user);
 
-		if ($user and $character) return true;
+		if ($user and $character)
+		{
+			return true;
+		}
 
 		return false;
 	}

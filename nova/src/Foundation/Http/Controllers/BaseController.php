@@ -144,7 +144,10 @@ abstract class BaseController extends Controller {
 		if ($this->page->access)
 		{
 			// Make sure the user is authenticated
-			if ( ! $this->user) return $this->errorUnauthenticated("You must log in to continue");
+			if ( ! $this->user)
+			{
+				return $this->errorUnauthenticated("You must log in to continue");
+			}
 
 			// Set the method that we'll call on the user object to check access
 			$method = (Str::contains($this->page->access_type, 'role')) ? 'hasRole' : 'can';

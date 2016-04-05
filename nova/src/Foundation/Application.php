@@ -49,7 +49,10 @@ class Application extends IlluminateApp {
 	 */
 	public function assetPath($asset = false)
 	{
-		if ($asset) return $this->basePath."/assets/$asset";
+		if ($asset)
+		{
+			return $this->basePath."/assets/{$asset}";
+		}
 
 		return $this->basePath.'/assets';
 	}
@@ -62,7 +65,10 @@ class Application extends IlluminateApp {
 	 */
 	public function coreAssetPath($asset = false)
 	{
-		if ($asset) return $this->novaPath("resources/$asset");
+		if ($asset)
+		{
+			return $this->novaPath("resources/{$asset}");
+		}
 
 		return $this->novaPath('resources');
 	}
@@ -123,7 +129,10 @@ class Application extends IlluminateApp {
 	 */
 	public function novaPath($location = false)
 	{
-		if ($location) return $this->basePath."/nova/$location";
+		if ($location)
+		{
+			return $this->basePath."/nova/{$location}";
+		}
 
 		return $this->basePath.'/nova';
 	}
@@ -146,7 +155,10 @@ class Application extends IlluminateApp {
 	 */
 	public function rankPath($location = false)
 	{
-		if ($location) return $this->basePath."/ranks/$location";
+		if ($location)
+		{
+			return $this->basePath."/ranks/{$location}";
+		}
 
 		return $this->basePath.'/ranks';
 	}
@@ -159,7 +171,10 @@ class Application extends IlluminateApp {
 	 */
 	public function themePath($location = false)
 	{
-		if ($location) return $this->basePath."/themes/$location";
+		if ($location)
+		{
+			return $this->basePath."/themes/{$location}";
+		}
 
 		return $this->basePath.'/themes';
 	}
@@ -172,7 +187,10 @@ class Application extends IlluminateApp {
 	 */
 	public function themeRelativePath($location = false)
 	{
-		if ($location) return "themes/$location";
+		if ($location)
+		{
+			return "themes/{$location}";
+		}
 
 		return 'themes';
 	}

@@ -90,7 +90,10 @@ class Extension implements Extensible, ExtensibleInfo {
 	 */
 	public function getCredits($raw = false)
 	{
-		if ($raw) return $this->credits;
+		if ($raw)
+		{
+			return $this->credits;
+		}
 
 		return $this->app['nova.markdown']->parse($this->credits);
 	}
@@ -113,7 +116,10 @@ class Extension implements Extensible, ExtensibleInfo {
 	 */
 	public function getLocation($raw = false)
 	{
-		if ($raw) return $this->location;
+		if ($raw)
+		{
+			return $this->location;
+		}
 
 		return $this->app->extensionPath("{$this->vendor}/{$this->location}");
 	}

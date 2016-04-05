@@ -28,7 +28,10 @@ class PageContentCompiler implements CompilerInterface {
 			// Make sure we're only working with the right type
 			if ($type == $this->identifier)
 			{
-				if ($matches[1]) return substr($matches[0], 1);
+				if ($matches[1])
+				{
+					return substr($matches[0], 1);
+				}
 
 				// Get the content
 				$content = app('nova.pageContent')->get($key);

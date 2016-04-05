@@ -47,7 +47,10 @@ if ( ! function_exists('flash'))
 		$flash = app('nova.flash');
 
 		// If we don't pass anything, just return the instance
-		if ( ! $level) return $flash;
+		if ( ! $level)
+		{
+			return $flash;
+		}
 
 		// Use the level to create the flash message
 		$flash->{$level}($title, $message);
@@ -165,7 +168,10 @@ if ( ! function_exists('locate'))
 		// Get an instance of the locator
 		$locator = app('nova.locator');
 
-		if ( ! $type) return $locator;
+		if ( ! $type)
+		{
+			return $locator;
+		}
 
 		return $locator->{$type}($view);
 	}

@@ -77,7 +77,10 @@ class Theme implements Themeable, ThemeableInfo {
 	 */
 	public function template($view, array $data)
 	{
-		if ( ! is_object($this->layout)) throw new NoThemeStructureException;
+		if ( ! is_object($this->layout))
+		{
+			throw new NoThemeStructureException;
+		}
 
 		$this->layout->template = $this->view->make($this->locate->template($view))
 			->with((array) $data);
@@ -94,9 +97,15 @@ class Theme implements Themeable, ThemeableInfo {
 	 */
 	public function menu(Page $page = null)
 	{
-		if ( ! is_object($this->layout->template)) throw new NoThemeTemplateException;
+		if ( ! is_object($this->layout->template))
+		{
+			throw new NoThemeTemplateException;
+		}
 
-		if ($page === null) return $this;
+		if ($page === null)
+		{
+			return $this;
+		}
 
 		// Grab the menu item repo
 		$menuItemRepo = app('MenuItemRepository');
@@ -147,7 +156,10 @@ class Theme implements Themeable, ThemeableInfo {
 	 */
 	public function footer(array $data = [])
 	{
-		if ( ! is_object($this->layout->template)) throw new NoThemeTemplateException;
+		if ( ! is_object($this->layout->template))
+		{
+			throw new NoThemeTemplateException;
+		}
 
 		$this->layout->template->footer = $this->view->make($this->locate->partial('footer'))
 			->with((array) $data);
@@ -165,7 +177,10 @@ class Theme implements Themeable, ThemeableInfo {
 	 */
 	public function page($view, array $data)
 	{
-		if ( ! is_object($this->layout->template)) throw new NoThemeTemplateException;
+		if ( ! is_object($this->layout->template))
+		{
+			throw new NoThemeTemplateException;
+		}
 
 		$this->layout->template->content = $this->view->make($this->locate->page($view))
 			->with((array) $data);
@@ -183,7 +198,10 @@ class Theme implements Themeable, ThemeableInfo {
 	 */
 	public function javascript($view, array $data)
 	{
-		if ( ! is_object($this->layout)) throw new NoThemeStructureException;
+		if ( ! is_object($this->layout))
+		{
+			throw new NoThemeStructureException;
+		}
 
 		$this->layout->javascript = $this->view->make($this->locate->javascript($view))
 			->with((array) $data);
@@ -193,21 +211,30 @@ class Theme implements Themeable, ThemeableInfo {
 
 	public function alerts(array $data)
 	{
-		if ( ! is_object($this->layout->template)) throw new NoThemeTemplateException;
+		if ( ! is_object($this->layout->template))
+		{
+			throw new NoThemeTemplateException;
+		}
 
 		return $this;
 	}
 
 	public function ajax(array $data)
 	{
-		if ( ! is_object($this->layout->template)) throw new NoThemeTemplateException;
+		if ( ! is_object($this->layout->template))
+		{
+			throw new NoThemeTemplateException;
+		}
 
 		return $this;
 	}
 
 	public function styles($view, array $data)
 	{
-		if ( ! is_object($this->layout)) throw new NoThemeStructureException;
+		if ( ! is_object($this->layout))
+		{
+			throw new NoThemeStructureException;
+		}
 
 		$this->layout->styles = $this->view->make($this->locate->style($view))
 			->with((array) $data);
@@ -253,7 +280,10 @@ class Theme implements Themeable, ThemeableInfo {
 	 */
 	public function getLocation($raw = false)
 	{
-		if ($raw) return $this->location;
+		if ($raw)
+		{
+			return $this->location;
+		}
 
 		return $this->app->themePath($this->location);
 	}
@@ -267,7 +297,10 @@ class Theme implements Themeable, ThemeableInfo {
 	 */
 	public function getPreview($raw = false, array $attr = [])
 	{
-		if ($raw) return $this->preview;
+		if ($raw)
+		{
+			return $this->preview;
+		}
 
 		return $this->app['html']->image(
 			$this->getLocation().'/'.$this->preview,
@@ -284,7 +317,10 @@ class Theme implements Themeable, ThemeableInfo {
 	 */
 	public function getCredits($raw = false)
 	{
-		if ($raw) return $this->credits;
+		if ($raw)
+		{
+			return $this->credits;
+		}
 
 		return $this->app['nova.markdown']->parse($this->credits);
 	}
@@ -311,7 +347,10 @@ class Theme implements Themeable, ThemeableInfo {
 		// Grab the icon map
 		$map = $this->getIconMap();
 
-		if (array_key_exists($icon, $map)) return $map[$icon];
+		if (array_key_exists($icon, $map))
+		{
+			return $map[$icon];
+		}
 
 		throw new Exception("No [{$icon}] icon could be found.");
 	}

@@ -367,7 +367,10 @@ class Locator implements Locatable {
 
 		if ($finder->count() == 0)
 		{
-			if ( ! $throwOnMissing) return false;
+			if ( ! $throwOnMissing)
+			{
+				return false;
+			}
 
 			// Uh-oh! We didn't find anything, so throw an exception
 			throw new LocatorException("The file [{$type}/{$file}] couldn't be found.");
@@ -411,9 +414,15 @@ class Locator implements Locatable {
 	 */
 	protected function findCurrentTheme()
 	{
-		if ( ! app('nova.setup')->isInstalled()) return false;
+		if ( ! app('nova.setup')->isInstalled())
+		{
+			return false;
+		}
 
-		if ($this->user) return $this->user->preference('theme');
+		if ($this->user)
+		{
+			return $this->user->preference('theme');
+		}
 
 		return $this->settings->get('theme');
 	}

@@ -135,7 +135,10 @@ abstract class BaseRepository {
 	{
 		$item = $this->getResource($resource);
 
-		if ( ! $item) return false;
+		if ( ! $item)
+		{
+			return false;
+		}
 
 		$item->fill($data)->save();
 
@@ -146,14 +149,20 @@ abstract class BaseRepository {
 	{
 		$item = $this->getResource($resource);
 
-		if ( ! $item) return false;
+		if ( ! $item)
+		{
+			return false;
+		}
 
 		return $this->update($item, ['order' => $newOrder]);
 	}
 
 	protected function getResource($resource, $identifier = 'id')
 	{
-		if ($resource instanceof $this->model) return $resource;
+		if ($resource instanceof $this->model)
+		{
+			return $resource;
+		}
 
 		return $this->getFirstBy($identifier, $resource);
 	}

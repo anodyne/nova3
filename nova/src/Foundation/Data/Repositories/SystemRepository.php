@@ -29,7 +29,10 @@ class SystemRepository extends BaseRepository implements SystemRepositoryInterfa
 		$uid = Str::random(32);
 
 		// Update the database if we want to do that
-		if ($updateDb) return $this->update(['uid' => $uid]);
+		if ($updateDb)
+		{
+			return $this->update(['uid' => $uid]);
+		}
 
 		return $uid;
 	}
