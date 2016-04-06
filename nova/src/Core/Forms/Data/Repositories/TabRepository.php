@@ -13,26 +13,6 @@ class TabRepository extends BaseFormRepository implements FormTabRepositoryInter
 		$this->model = $model;
 	}
 
-	public function countActiveSections(Model $tab)
-	{
-		if ( ! $tab)
-		{
-			return 0;
-		}
-
-		return $tab->sections->count();
-	}
-
-	public function countActiveFields(Model $tab)
-	{
-		if ( ! $tab)
-		{
-			return 0;
-		}
-
-		return $tab->fieldsUnbound->count();
-	}
-
 	public function countLinkIds(NovaForm $form, $linkId)
 	{
 		if ( ! $form->tabs)
@@ -68,11 +48,9 @@ class TabRepository extends BaseFormRepository implements FormTabRepositoryInter
 		return $form->{$relationship}->load($relations);
 	}
 
-	public function listParentTabs(NovaForm $form, array $relations = [], $allTabs = false)
+	public function listParentTabs()
 	{
-		$tabs = $this->getParentTabs($form, $relations, $allTabs);
-		
-		return $this->listCollection($tabs, 'id', 'name');
+		return $this->listAllBy('parent_id', 0, 'name', 'id');
 	}
 
 	public function reassignTabContent(Model $oldTab, $newTabId)
