@@ -341,7 +341,6 @@ return [
 		'CreateFormFieldRequest' => Nova\Core\Forms\Http\Requests\CreateFormFieldRequest::class,
 		'EditFormFieldRequest' => Nova\Core\Forms\Http\Requests\EditFormFieldRequest::class,
 		'RemoveFormFieldRequest' => Nova\Core\Forms\Http\Requests\RemoveFormFieldRequest::class,
-		'CleanupFormFields' => Nova\Core\Forms\Listeners\CleanupFormFields::class,
 		
 		'NovaFormSection' => Nova\Core\Forms\Data\Section::class,
 		'FormSectionPresenter' => Nova\Core\Forms\Data\Presenters\SectionPresenter::class,
@@ -351,7 +350,6 @@ return [
 		'CreateFormSectionRequest' => Nova\Core\Forms\Http\Requests\CreateFormSectionRequest::class,
 		'EditFormSectionRequest' => Nova\Core\Forms\Http\Requests\EditFormSectionRequest::class,
 		'RemoveFormSectionRequest' => Nova\Core\Forms\Http\Requests\RemoveFormTabRequest::class,
-		'CleanupFormSections' => Nova\Core\Forms\Listeners\CleanupFormSections::class,
 		
 		'NovaFormTab' => Nova\Core\Forms\Data\Tab::class,
 		'FormTabPresenter' => Nova\Core\Forms\Data\Presenters\TabPresenter::class,
@@ -361,7 +359,6 @@ return [
 		'CreateFormTabRequest' => Nova\Core\Forms\Http\Requests\CreateFormTabRequest::class,
 		'EditFormTabRequest' => Nova\Core\Forms\Http\Requests\EditFormTabRequest::class,
 		'RemoveFormTabRequest' => Nova\Core\Forms\Http\Requests\RemoveFormTabRequest::class,
-		'CleanupFormTabs' => Nova\Core\Forms\Listeners\CleanupFormTabs::class,
 		
 		'NovaFormData' => Nova\Core\Forms\Data\Data::class,
 		'FormDataPresenter' => Nova\Core\Forms\Data\Presenters\DataPresenter::class,

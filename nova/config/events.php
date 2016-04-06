@@ -40,28 +40,16 @@ return [
 	'Nova\Core\Forms\Events\FormTabWasCreated' => [],
 	'Nova\Core\Forms\Events\FormTabWasDeleted' => [],
 	'Nova\Core\Forms\Events\FormTabOrderWasUpdated' => [],
-	'Nova\Core\Forms\Events\FormTabWasUpdated' => [
-		CleanupFormFields::class,
-		CleanupFormSections::class,
-		CleanupFormTabs::class,
-	],
+	'Nova\Core\Forms\Events\FormTabWasUpdated' => [],
 
 	'Nova\Core\Forms\Events\FormSectionWasCreated' => [],
 	'Nova\Core\Forms\Events\FormSectionWasDeleted' => [],
 	'Nova\Core\Forms\Events\FormSectionOrderWasUpdated' => [],
-	'Nova\Core\Forms\Events\FormSectionWasUpdated' => [
-		CleanupFormFields::class,
-		CleanupFormSections::class,
-		CleanupFormTabs::class,
-	],
+	'Nova\Core\Forms\Events\FormSectionWasUpdated' => [],
 
 	'Nova\Core\Forms\Events\FormFieldWasCreated' => [],
 	'Nova\Core\Forms\Events\FormFieldWasDeleted' => [],
 	'Nova\Core\Forms\Events\FormFieldOrderWasUpdated' => [],
-	'Nova\Core\Forms\Events\FormFieldWasUpdated' => [
-		CleanupFormFields::class,
-		CleanupFormSections::class,
-		CleanupFormTabs::class,
-	],
+	'Nova\Core\Forms\Events\FormFieldWasUpdated' => [],
 
 ];
