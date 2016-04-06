@@ -42,13 +42,11 @@ class FieldController extends BaseController {
 		$this->jsView = 'admin/forms/fields-js';
 		$this->styleView = 'admin/forms/fields-style';
 
-		$form = $this->data->form = $this->formRepo->getByKey($formKey, ['fields', 'sections', 'sections.fields', 'parentTabs', 'parentTabs.sections', 'parentTabs.sections.fields', 'parentTabs.fields']);
+		$form = $this->data->form = $this->formRepo->getByKey($formKey, ['fieldsUnboundAll', 'fieldsUnboundAll.data', 'fieldsUnboundAll.data.field', 'sectionsUnboundAll', 'sectionsUnboundAll.fieldsAll', 'sectionsUnboundAll.fieldsAll.data', 'sectionsUnboundAll.fieldsAll.data.field', 'parentTabsAll', 'parentTabsAll.fieldsUnboundAll', 'parentTabsAll.fieldsUnboundAll.data', 'parentTabsAll.fieldsUnboundAll.data.field', 'parentTabsAll.sectionsAll', 'parentTabsAll.sectionsAll.fieldsAll', 'parentTabsAll.sectionsAll.fieldsAll.data', 'parentTabsAll.sectionsAll.fieldsAll.data.field', 'parentTabsAll.childrenTabsAll.fieldsUnboundAll', 'parentTabsAll.childrenTabsAll.fieldsUnboundAll.data', 'parentTabsAll.childrenTabsAll.fieldsUnboundAll.data.field', 'parentTabsAll.childrenTabsAll.sectionsAll', 'parentTabsAll.childrenTabsAll.sectionsAll.fieldsAll', 'parentTabsAll.childrenTabsAll.sectionsAll.fieldsAll.data', 'parentTabsAll.childrenTabsAll.sectionsAll.fieldsAll.data.field']);
 
-		$this->data->unboundFields = $this->formRepo->getUnboundFields($form);
-		$this->data->unboundSections = $this->formRepo->getUnboundSections($form);
-		$this->data->parentTabs = $form->parentTabs;
-
-		$this->data->tabs = $this->formRepo->getTabs($form);
+		$this->data->unboundFields = $this->formRepo->getUnboundFields($form, [], true);
+		$this->data->unboundSections = $this->formRepo->getUnboundSections($form, [], true);
+		$this->data->parentTabs = $this->formRepo->getParentTabs($form, [], true);
 	}
 
 	public function create(RoleRepositoryInterface $roleRepo, $formKey)
