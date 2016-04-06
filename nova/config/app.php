@@ -221,6 +221,7 @@ return [
 		'Locate'			=> Nova\Foundation\Services\Locator\LocatorFacade::class,
 		'Markdown'			=> Nova\Foundation\Services\MarkdownParserFacade::class,
 		'Status'			=> Nova\Foundation\Services\StatusService::class,
+		'StatusTrait'		=> Nova\Foundation\Traits\StatusTrait::class,
 		'Str'				=> Illuminate\Support\Str::class,
 
 		/**
@@ -364,9 +365,11 @@ return [
 		
 		'NovaFormData' => Nova\Core\Forms\Data\Data::class,
 		'FormDataPresenter' => Nova\Core\Forms\Data\Presenters\DataPresenter::class,
+		'FormDataRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\DataRepositoryInterface::class,
+		'FormDataRepository' => Nova\Core\Forms\Data\Repositories\DataRepository::class,
 
-		'FormViewerRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\FormViewerRepositoryInterface::class,
-		'FormViewerRepository' => Nova\Core\Forms\Data\Repositories\FormViewerRepository::class,
+		'FormCenterRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\FormCenterRepositoryInterface::class,
+		'FormCenterRepository' => Nova\Core\Forms\Data\Repositories\FormCenterRepository::class,
 	],
 
 ];
