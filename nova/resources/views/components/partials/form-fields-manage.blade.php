@@ -14,10 +14,8 @@
 
 						<div class="{{ $field->field_container_class }}">
 							{!! $field->present()->render() !!}
-
-							@if (strlen($field->help) > 0)
-								<p class="help-block">{!! $field->present()->help !!}</p>
-							@endif
+							
+							<p>{!! $field->present()->statusAsLabel !!}</p>
 						</div>
 					</div>
 				@else
@@ -29,6 +27,8 @@
 								@endif
 
 								<div>{!! $field->present()->render() !!}</div>
+
+								<p>{!! $field->present()->statusAsLabel !!}</p>
 							</div>
 						</div>
 					</div>

@@ -100,6 +100,21 @@
 					</div>
 				</div>
 
+				<div class="form-group{{ ($errors->has('status')) ? ' has-error' : '' }}">
+					<label class="col-md-2 control-label">Status</label>
+					<div class="col-md-5">
+						<div>
+							<div class="radio">
+								<label>{!! Form::radio('status', Status::ACTIVE, true) !!} {{ ucwords(Status::toString(Status::ACTIVE)) }}</label>
+							</div>
+							<div class="radio">
+								<label>{!! Form::radio('status', Status::INACTIVE) !!} {{ ucwords(Status::toString(Status::INACTIVE)) }}</label>
+							</div>
+						</div>
+						{!! $errors->first('status', '<p class="help-block">:message</p>') !!}
+					</div>
+				</div>
+
 				<div class="form-group">
 					<div class="col-md-10 col-md-offset-2">
 						<h3>Placement</h3>

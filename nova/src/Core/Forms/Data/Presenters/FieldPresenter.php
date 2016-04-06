@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Forms\Data\Presenters;
 
-use Form, Markdown;
+use Form, Status, Markdown;
 use Laracasts\Presenter\Presenter;
 
 class FieldPresenter extends Presenter {
@@ -45,6 +45,14 @@ class FieldPresenter extends Presenter {
 		return app('nova.forms.fields')
 			->getFieldType($field->type)
 			->render($state, $fieldName, $valuesArr, $fieldValue, $attributesArr);
+	}
+
+	public function statusAsLabel()
+	{
+		if ($this->entity->status != Status::ACTIVE)
+		{
+			return label('danger', ucwords(Status::toString($this->entity->status)));
+		}
 	}
 
 }

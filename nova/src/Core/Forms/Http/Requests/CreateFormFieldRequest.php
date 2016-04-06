@@ -12,14 +12,16 @@ class CreateFormFieldRequest extends Request {
 	public function rules()
 	{
 		return [
-			'type' => 'required'
+			'type' => 'required',
+			'status' => 'required',
 		];
 	}
 
 	public function messages()
 	{
 		return [
-			'type.required' => "You must choose a field type"
+			'type.required' => "You must choose a field type",
+			'status.required' => "You must select a status",
 		];
 	}
 
