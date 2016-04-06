@@ -2,7 +2,7 @@
 
 use NovaForm;
 
-interface FormViewerRepositoryInterface extends BaseFormRepositoryInterface {
+interface FormCenterRepositoryInterface extends BaseFormRepositoryInterface {
 
 	public function insertRecord(NovaForm $form, array $data);
 

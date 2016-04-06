@@ -2,12 +2,15 @@
 
 use NovaForm,
 	NovaFormData,
-	FormViewerRepositoryInterface;
+	FormCenterRepositoryInterface;
 
-class FormViewerRepository extends BaseFormRepository implements FormViewerRepositoryInterface {
+class FormCenterRepository extends BaseFormRepository implements FormCenterRepositoryInterface {
 
 	public function insertRecord(NovaForm $form, array $data)
 	{
+		// Grab a copy of the data repo
+		$dataRepo = app('FormDataRepository');
+
 		// We don't want the CSRF token in here
 		unset($data['_token']);
 
@@ -24,15 +27,13 @@ class FormViewerRepository extends BaseFormRepository implements FormViewerRepos
 
 			if (is_numeric($fieldId))
 			{
-				$viewerData = [
+				$dataRepo->create([
 					'form_id' => $form->id,
 					'field_id' => $fieldId,
 					'data_id' => $dataId,
 					'value' => $value,
 					'created_by' => user()->id,
-				];
-
-				NovaFormData::create($viewerData);
+				]);
 			}
 		}
 	}
