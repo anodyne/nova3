@@ -691,17 +691,17 @@ return [
 	],
 
 	[
-		'name'				=> "Complete New Form",
-		'key'				=> "admin.forms.formviewer.create",
-		'uri'				=> "admin/form-viewer/{formKey}/create",
-		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormViewerController@create",
+		'name'				=> "Complete New Form in Form Center",
+		'key'				=> "admin.forms.formcenter.create",
+		'uri'				=> "admin/form-center/{formKey}/create",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@create",
 		'menu_id'			=> 2,
 	],
 	[
 		'verb'				=> "POST",
-		'name'				=> "Store Form",
-		'key'				=> "admin.forms.formviewer.store",
-		'uri'				=> "admin/form-viewer/{formKey}/create",
-		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormViewerController@store",
+		'name'				=> "Store Form in Form Center",
+		'key'				=> "admin.forms.formcenter.store",
+		'uri'				=> "admin/form-center/{formKey}/create",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@store",
 	],
 ];
