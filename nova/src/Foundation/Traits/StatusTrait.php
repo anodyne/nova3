@@ -43,6 +43,25 @@ trait StatusTrait {
 	{
 		$query->where('status', Status::REMOVED);
 	}
+
+	public function scopeStatus($query, $status, $operator = null)
+	{
+		if (is_array($status))
+		{
+			$query->whereIn('status', $status);
+		}
+		else
+		{
+			if ($operator)
+			{
+				$query->where('status', $operator, $status);
+			}
+			else
+			{
+				$query->where('status', $status);
+			}
+		}
+	}
 	
 	public function scopeUnassigned($query)
 	{
