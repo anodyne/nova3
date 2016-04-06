@@ -21,12 +21,11 @@ class SectionRepository extends BaseFormRepository implements FormSectionReposit
 		});
 	}
 
-	public function getUnboundSections(NovaForm $form)
+	public function getUnboundSections(NovaForm $form, array $relations = [], $allSections = false)
 	{
-		return $form->sections->filter(function ($section)
-		{
-			return $section->tab_id === null or (int) $section->tab_id === 0;
-		})->sortBy('order');
+		$relationship = ($allSections) ? 'sectionsUnboundAll' : 'sectionsUnbound';
+
+		return $form->{$relationship}->load($relations);
 	}
 
 	public function reassignSectionContent(Model $oldSection, $newSectionId)

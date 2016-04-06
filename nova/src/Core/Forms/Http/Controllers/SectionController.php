@@ -37,11 +37,11 @@ class SectionController extends BaseController {
 		$this->jsView = 'admin/forms/sections-js';
 		$this->styleView = 'admin/forms/sections-style';
 
-		$form = $this->data->form = $this->formRepo->getByKey($formKey, ['sections', 'sections.tab']);
+		$form = $this->data->form = $this->formRepo->getByKey($formKey, ['tabsAll', 'tabsAll.sectionsAll', 'sectionsUnboundAll']);
 
-		$this->data->tabs = $this->tabRepo->getFormTabs($form, ['sections']);
+		$this->data->tabs = $this->tabRepo->getFormTabs($form, [], true);
 		
-		$this->data->unboundSections = $this->repo->getUnboundSections($form);
+		$this->data->unboundSections = $this->repo->getUnboundSections($form, [], true);
 	}
 
 	public function create($formKey)
