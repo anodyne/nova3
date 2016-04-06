@@ -40,8 +40,8 @@
 		<fieldset>
 			<legend>{!! $section->present()->name !!}</legend>
 
-			@if ($section->fields->count() > 0)
-				{!! partial('form-fields-manage', ['fields' => $section->fields, 'form' => $form]) !!}
+			@if ($section->fieldsAll->count() > 0)
+				{!! partial('form-fields-manage', ['fields' => $section->fieldsAll, 'form' => $form]) !!}
 			@endif
 		</fieldset>
 	@endforeach
@@ -57,19 +57,17 @@
 	<div class="tab-content">
 	@foreach ($parentTabs as $tab)
 		<div class="tab-pane" id="{{ $tab->link_id }}">
-			@if ($tab->fields->count() > 0)
-				@if ($tab->fields->count() > 0)
-					{!! partial('form-fields-manage', ['fields' => $tab->fields, 'form' => $form]) !!}
-				@endif
+			@if ($tab->fieldsUnboundAll->count() > 0)
+				{!! partial('form-fields-manage', ['fields' => $tab->fieldsUnboundAll, 'form' => $form]) !!}
 			@endif
 
-			@if ($tab->sections->count() > 0)
-				@foreach ($tab->sections as $section)
+			@if ($tab->sectionsAll->count() > 0)
+				@foreach ($tab->sectionsAll as $section)
 					<fieldset>
 						<legend>{!! $section->present()->name !!}</legend>
 
-						@if ($section->fields->count() > 0)
-							{!! partial('form-fields-manage', ['fields' => $section->fields, 'form' => $form]) !!}
+						@if ($section->fieldsAll->count() > 0)
+							{!! partial('form-fields-manage', ['fields' => $section->fieldsAll, 'form' => $form]) !!}
 						@endif
 					</fieldset>
 				@endforeach
@@ -79,7 +77,7 @@
 	</div>
 @endif
 
-@if ($unboundFields->count() == 0 and $unboundSections->count() == 0 and $tabs->count() == 0)
+@if ($unboundFields->count() == 0 and $unboundSections->count() == 0 and $parentTabs->count() == 0)
 	{!! alert('warning', "There are no tabs, sections, or fields associated with this form. Start designing your form now!") !!}
 @endif
 
