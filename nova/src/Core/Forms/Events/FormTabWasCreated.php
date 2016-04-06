@@ -7,8 +7,11 @@ use Illuminate\Queue\SerializesModels;
 class FormTabWasCreated extends Event {
 
 	use SerializesModels;
-
-	protected $resource;
+	
+	public $resource;
+	public $creating = true;
+	public $updating = false;
+	public $deleting = false;
 
 	public function __construct(NovaFormTab $resource)
 	{

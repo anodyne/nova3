@@ -8,7 +8,10 @@ class FormTabOrderWasUpdated extends Event {
 
 	use SerializesModels;
 
-	protected $resource;
+	public $resource;
+	public $creating = false;
+	public $updating = false;
+	public $deleting = false;
 
 	public function __construct(NovaFormTab $resource)
 	{

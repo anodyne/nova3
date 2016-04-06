@@ -7,9 +7,12 @@ class FormTabWasDeleted extends Event {
 
 	use SerializesModels;
 
-	protected $id;
-	protected $name;
-	protected $formKey;
+	public $id;
+	public $name;
+	public $formKey;
+	public $creating = false;
+	public $updating = false;
+	public $deleting = true;
 
 	public function __construct($id, $name, $formKey)
 	{

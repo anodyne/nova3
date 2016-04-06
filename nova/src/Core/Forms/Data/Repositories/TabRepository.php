@@ -13,6 +13,26 @@ class TabRepository extends BaseFormRepository implements FormTabRepositoryInter
 		$this->model = $model;
 	}
 
+	public function countActiveSections(Model $tab)
+	{
+		if ( ! $tab)
+		{
+			return 0;
+		}
+
+		return $tab->sections->count();
+	}
+
+	public function countActiveFields(Model $tab)
+	{
+		if ( ! $tab)
+		{
+			return 0;
+		}
+
+		return $tab->fieldsUnbound->count();
+	}
+
 	public function countLinkIds(NovaForm $form, $linkId)
 	{
 		if ( ! $form->tabs)
@@ -26,26 +46,31 @@ class TabRepository extends BaseFormRepository implements FormTabRepositoryInter
 		})->count();
 	}
 
-	public function getFormTabs(NovaForm $form, array $with = [])
+	public function getFormTabs(NovaForm $form, array $relations = [], $allTabs = false)
 	{
-		$with = (count($with) > 0) ? $with : ['childrenTabs', 'childrenTabs.parentTab'];
+		$relations = (count($relations) > 0) 
+			? $relations 
+			: ['childrenTabs', 'childrenTabs.parentTab'];
 
-		return $form->tabs->sortBy('order')->load($with);
+		$relationship = ($allTabs) ? 'tabsAll' : 'tabs';
+
+		return $form->{$relationship}->load($relations);
 	}
 
-	public function getParentTabs(NovaForm $form, array $with = [])
+	public function getParentTabs(NovaForm $form, array $relations = [], $allTabs = false)
 	{
-		$with = (count($with) > 0) ? $with : ['childrenTabs', 'childrenTabs.parentTab'];
-		
-		return $form->tabs->filter(function ($tab)
-		{
-			return ! $tab->parent_id;
-		})->load($with);
+		$relations = (count($relations) > 0) 
+			? $relations 
+			: ['childrenTabs', 'childrenTabs.parentTab'];
+
+		$relationship = ($allTabs) ? 'parentTabsAll' : 'parentTabs';
+
+		return $form->{$relationship}->load($relations);
 	}
 
-	public function listParentTabs(NovaForm $form)
+	public function listParentTabs(NovaForm $form, array $relations = [], $allTabs = false)
 	{
-		$tabs = $this->getParentTabs($form);
+		$tabs = $this->getParentTabs($form, $relations, $allTabs);
 		
 		return $this->listCollection($tabs, 'id', 'name');
 	}
