@@ -35,29 +35,21 @@ class Form extends Model {
 		return $this->hasMany('NovaFormData');
 	}
 
-	public function fields($all = false)
+	public function fields()
 	{
-		if ($all)
-		{
-			return $this->hasMany('NovaFormField')
-				->orderBy('order');
-		}
-
 		return $this->hasMany('NovaFormField')
 			->active()
 			->orderBy('order');
 	}
 
-	public function fieldsUnbound($all = false)
+	public function fieldsAll()
 	{
-		if ($all)
-		{
-			return $this->hasMany('NovaFormField')
-				->where('tab_id', 0)
-				->where('section_id', 0)
-				->orderBy('order');
-		}
+		return $this->hasMany('NovaFormField')
+			->orderBy('order');
+	}
 
+	public function fieldsUnbound()
+	{
 		return $this->hasMany('NovaFormField')
 			->active()
 			->where('tab_id', 0)
@@ -65,56 +57,66 @@ class Form extends Model {
 			->orderBy('order');
 	}
 
-	public function sections($all = false)
+	public function fieldsUnboundAll()
 	{
-		if ($all)
-		{
-			return $this->hasMany('NovaFormSection')->orderBy('order');
-		}
+		return $this->hasMany('NovaFormField')
+			->where('tab_id', 0)
+			->where('section_id', 0)
+			->orderBy('order');
+	}
 
+	public function sections()
+	{
 		return $this->hasMany('NovaFormSection')
 			->active()
 			->orderBy('order');
 	}
 
-	public function sectionsUnbound($all = false)
+	public function sectionsAll()
 	{
-		if ($all)
-		{
-			return $this->hasMany('NovaFormSection')
-				->where('tab_id', 0)
-				->orderBy('order');
-		}
+		return $this->hasMany('NovaFormSection')
+			->orderBy('order');
+	}
 
+	public function sectionsUnbound()
+	{
 		return $this->hasMany('NovaFormSection')
 			->active()
 			->where('tab_id', 0)
 			->orderBy('order');
 	}
 
-	public function tabs($all = false)
+	public function sectionsUnboundAll()
 	{
-		if ($all)
-		{
-			return $this->hasMany('NovaFormTab')->orderBy('order');
-		}
-		
+		return $this->hasMany('NovaFormSection')
+			->where('tab_id', 0)
+			->orderBy('order');
+	}
+
+	public function tabs()
+	{
 		return $this->hasMany('NovaFormTab')
 			->active()
 			->orderBy('order');
 	}
 
-	public function parentTabs($all = false)
+	public function tabsAll()
 	{
-		if ($all)
-		{
-			return $this->hasMany('NovaFormTab')
-				->where('parent_id', '=', 0)
-				->orderBy('order');
-		}
+		return $this->hasMany('NovaFormTab')
+			->orderBy('order');
+	}
 
+	public function parentTabs()
+	{
 		return $this->hasMany('NovaFormTab')
 			->active()
+			->where('parent_id', '=', 0)
+			->orderBy('order');
+	}
+
+	public function parentTabsAll()
+	{
+		return $this->hasMany('NovaFormTab')
 			->where('parent_id', '=', 0)
 			->orderBy('order');
 	}

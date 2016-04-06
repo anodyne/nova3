@@ -25,10 +25,26 @@ class Tab extends Model {
 
 	public function fields()
 	{
-		return $this->hasMany('NovaFormField')->orderBy('order');
+		return $this->hasMany('NovaFormField')
+			->active()
+			->orderBy('order');
+	}
+
+	public function fieldsAll()
+	{
+		return $this->hasMany('NovaFormField')
+			->orderBy('order');
 	}
 
 	public function fieldsUnbound()
+	{
+		return $this->hasMany('NovaFormField')
+			->active()
+			->where('section_id', '=', 0)
+			->orderBy('order');
+	}
+
+	public function fieldsUnboundAll()
 	{
 		return $this->hasMany('NovaFormField')
 			->where('section_id', '=', 0)
@@ -42,12 +58,28 @@ class Tab extends Model {
 
 	public function sections()
 	{
-		return $this->hasMany('NovaFormSection')->orderBy('order');
+		return $this->hasMany('NovaFormSection')
+			->active()
+			->orderBy('order');
+	}
+
+	public function sectionsAll()
+	{
+		return $this->hasMany('NovaFormSection')
+			->orderBy('order');
 	}
 
 	public function childrenTabs()
 	{
-		return $this->hasMany(self::class, 'parent_id', 'id')->orderBy('order');
+		return $this->hasMany(self::class, 'parent_id', 'id')
+			->active()
+			->orderBy('order');
+	}
+
+	public function childrenTabsAll()
+	{
+		return $this->hasMany(self::class, 'parent_id', 'id')
+			->orderBy('order');
 	}
 
 	public function parentTab()
