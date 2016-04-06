@@ -7,7 +7,7 @@ class FormPresenter extends Presenter {
 
 	public function formViewerMessage()
 	{
-		return Markdown::parse($this->entity->form_viewer_message);
+		return Markdown::parse($this->entity->form_center_message);
 	}
 
 	public function hasHorizontalOrientation()

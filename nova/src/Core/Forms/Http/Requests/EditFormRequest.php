@@ -16,7 +16,7 @@ class EditFormRequest extends Request {
 			'key'			=> 'required',
 			'orientation'	=> 'required|in:vertical,horizontal',
 			'status'		=> 'required',
-			'form_viewer'	=> 'required',
+			'form_center'	=> 'required',
 		];
 	}
 
@@ -28,7 +28,7 @@ class EditFormRequest extends Request {
 			'orientation.required' => "Please select a form orientation",
 			'orientation.in' => "Please select a valid form orientation",
 			'status.required' => "Please select a status",
-			'form_viewer.required' => "Please select whether this form can use FormViewer",
+			'form_center.required' => "Please select whether this form can use FormViewer",
 		];
 	}
 

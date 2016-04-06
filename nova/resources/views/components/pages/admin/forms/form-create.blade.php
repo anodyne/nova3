@@ -60,24 +60,24 @@
 
 	<div class="form-group">
 		<div class="col-md-10 col-md-offset-2">
-			<h3>Form Viewer</h3>
+			<h3>Form Center</h3>
 
-			<p>Form Viewer is an easy way for users to fill out forms that you've created without needing to write any of the code yourself. All entries submitted for a Form Viewer form will be stored in the database and available to administrators for review.</p>
+			<p>Form Center is an easy way for users to fill out forms that you've created without needing to write any of the code yourself. All entries submitted for a Form Center form will be stored in the database and available to administrators for review.</p>
 		</div>
 	</div>
 
-	<div class="form-group{{ ($errors->has('form_viewer')) ? ' has-error' : '' }}">
-		<label class="col-md-2 control-label">Use Form Viewer</label>
+	<div class="form-group{{ ($errors->has('form_center')) ? ' has-error' : '' }}">
+		<label class="col-md-2 control-label">Use Form Center</label>
 		<div class="col-md-5">
 			<div>
 				<div class="radio">
-					<label>{!! Form::radio('form_viewer', (int) true, true) !!} Yes</label>
+					<label>{!! Form::radio('form_center', (int) true, true) !!} Yes</label>
 				</div>
 				<div class="radio">
-					<label>{!! Form::radio('form_viewer', (int) false) !!} No</label>
+					<label>{!! Form::radio('form_center', (int) false) !!} No</label>
 				</div>
 			</div>
-			{!! $errors->first('form_viewer', '<p class="help-block">:message</p>') !!}
+			{!! $errors->first('form_center', '<p class="help-block">:message</p>') !!}
 		</div>
 	</div>
 

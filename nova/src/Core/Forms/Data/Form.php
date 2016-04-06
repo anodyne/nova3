@@ -10,7 +10,7 @@ class Form extends Model {
 	protected $table = 'forms';
 
 	protected $fillable = ['key', 'name', 'orientation', 'status', 'protected',
-		'form_viewer', 'form_viewer_message', 'form_viewer_display',
+		'form_center', 'form_center_message', 'form_center_display',
 		'email_allowed', 'email_address', 'resource_creating', 'resource_editing'];
 
 	protected $dates = ['created_at', 'updated_at'];
@@ -19,7 +19,7 @@ class Form extends Model {
 
 	protected $casts = [
 		'protected'		=> 'boolean',
-		'form_viewer'	=> 'boolean',
+		'form_center'	=> 'boolean',
 		'email_allowed'	=> 'boolean',
 	];
 
