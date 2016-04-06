@@ -64,28 +64,32 @@ class FormRepository extends BaseFormRepository implements FormRepositoryInterfa
 		return $this->getFirstBy('key', $key, $with);
 	}
 
-	public function getTabs(Model $form, array $relations = [])
+	public function getParentTabs(Model $form, array $relations = [], $allTabs = false)
 	{
-		return $form->tabs->filter(function ($tab)
-		{
-			return (int) $tab->parent_id === 0;
-		})->sortBy('order')->load($relations);
+		$relationship = ($allTabs) ? 'parentTabsAll' : 'parentTabs';
+
+		return $form->{$relationship}->load($relations);
 	}
 
-	public function getUnboundFields(Model $form, array $relations = [])
+	public function getTabs(Model $form, array $relations = [], $allTabs = false)
 	{
-		return $form->fields->filter(function ($field)
-		{
-			return (int) $field->tab_id === 0 and (int) $field->section_id === 0;
-		})->sortBy('order')->load($relations);
+		$relationship = ($allTabs) ? 'tabsAll' : 'tabs';
+
+		return $form->{$relationship}->load($relations);
 	}
 
-	public function getUnboundSections(Model $form, array $relations = [])
+	public function getUnboundFields(Model $form, array $relations = [], $allFields = false)
 	{
-		return $form->sections->filter(function ($section)
-		{
-			return (int) $section->tab_id === 0;
-		})->sortBy('order')->load($relations);
+		$relationship = ($allFields) ? 'fieldsUnboundAll' : 'fieldsUnbound';
+
+		return $form->{$relationship}->load($relations);
+	}
+
+	public function getUnboundSections(Model $form, array $relations = [], $allSections = false)
+	{
+		$relationship = ($allSections) ? 'sectionsUnboundAll' : 'sectionsUnbound';
+
+		return $form->{$relationship}->load($relations);
 	}
 
 	public function getValidationRules(Model $form)
