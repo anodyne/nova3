@@ -1,11 +1,14 @@
 <?php namespace Nova\Core\Forms\Data;
 
-use Model, FormSectionPresenter;
+use Model,
+	Status,
+	StatusTrait,
+	FormSectionPresenter;
 use Laracasts\Presenter\PresentableTrait;
 
 class Section extends Model {
 
-	use PresentableTrait;
+	use StatusTrait, PresentableTrait;
 
 	protected $table = 'forms_sections';
 

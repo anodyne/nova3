@@ -1,12 +1,15 @@
 <?php namespace Nova\Core\Forms\Data;
 
-use Model, FormFieldPresenter;
+use Model,
+	Status,
+	StatusTrait,
+	FormFieldPresenter;
 use Illuminate\Support\Collection;
 use Laracasts\Presenter\PresentableTrait;
 
 class Field extends Model {
 
-	use PresentableTrait;
+	use StatusTrait, PresentableTrait;
 
 	protected $table = 'forms_fields';
 

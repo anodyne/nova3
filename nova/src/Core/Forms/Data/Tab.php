@@ -1,11 +1,14 @@
 <?php namespace Nova\Core\Forms\Data;
 
-use Model, FormTabPresenter;
+use Model,
+	Status,
+	StatusTrait,
+	FormTabPresenter;
 use Laracasts\Presenter\PresentableTrait;
 
 class Tab extends Model {
 
-	use PresentableTrait;
+	use StatusTrait, PresentableTrait;
 
 	protected $table = 'forms_tabs';
 
