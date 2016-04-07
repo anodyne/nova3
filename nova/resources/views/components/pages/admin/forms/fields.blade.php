@@ -38,7 +38,10 @@
 @if ($unboundSections->count() > 0)
 	@foreach ($unboundSections as $section)
 		<fieldset>
-			<legend>{!! $section->present()->name !!}</legend>
+			<legend>
+				{!! $section->present()->name !!}
+				<small>{!! $section->present()->statusAsLabel !!}</small>
+			</legend>
 
 			@if ($section->fieldsAll->count() > 0)
 				{!! partial('form-fields-manage', ['fields' => $section->fieldsAll, 'form' => $form]) !!}
@@ -50,7 +53,12 @@
 @if ($parentTabs->count() > 0)
 	<ul class="nav nav-tabs">
 	@foreach ($parentTabs as $tab)
-		<li><a href="#{{ $tab->link_id }}" data-toggle="tab">{!! $tab->present()->name !!}</a></li>
+		<li>
+			<a href="#{{ $tab->link_id }}" data-toggle="tab">
+				{!! $tab->present()->name !!}
+				{!! $tab->present()->statusAsLabel !!}
+			</a>
+		</li>
 	@endforeach
 	</ul>
 
@@ -64,13 +72,54 @@
 			@if ($tab->sectionsAll->count() > 0)
 				@foreach ($tab->sectionsAll as $section)
 					<fieldset>
-						<legend>{!! $section->present()->name !!}</legend>
+						<legend>
+							{!! $section->present()->name !!}
+							<small>{!! $section->present()->statusAsLabel !!}</small>
+						</legend>
 
 						@if ($section->fieldsAll->count() > 0)
 							{!! partial('form-fields-manage', ['fields' => $section->fieldsAll, 'form' => $form]) !!}
 						@endif
 					</fieldset>
 				@endforeach
+			@endif
+
+			@if ($tab->childrenTabsAll->count() > 0)
+				<ul class="nav nav-pills">
+				@foreach ($tab->childrenTabsAll as $childTab)
+					<li>
+						<a href="#{{ $childTab->link_id }}" data-toggle="tab">
+							{!! $childTab->present()->name !!}
+							{!! $childTab->present()->statusAsLabel !!}
+						</a>
+					</li>
+				@endforeach
+				</ul>
+
+				<div class="tab-content">
+				@foreach ($tab->childrenTabsAll as $childTab)
+					<div class="tab-pane" id="{{ $childTab->link_id }}">
+						@if ($childTab->fieldsUnboundAll->count() > 0)
+							{!! partial('form-fields-manage', ['fields' => $childTab->fieldsUnboundAll, 'form' => $form]) !!}
+						@endif
+
+						@if ($childTab->sectionsAll->count() > 0)
+							@foreach ($childTab->sectionsAll as $section)
+								<fieldset>
+									<legend>
+										{!! $section->present()->name !!}
+										<small>{!! $section->present()->statusAsLabel !!}</small>
+									</legend>
+
+									@if ($section->fieldsAll->count() > 0)
+										{!! partial('form-fields-manage', ['fields' => $section->fieldsAll, 'form' => $form]) !!}
+									@endif
+								</fieldset>
+							@endforeach
+						@endif
+					</div>
+				@endforeach
+				</div>
 			@endif
 		</div>
 	@endforeach
