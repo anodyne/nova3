@@ -82,7 +82,10 @@
 		@php($panelClass = ($tab->sectionsAll->count() > 0) ? 'panel-default' : 'panel-warning')
 		<div class="panel {{ $panelClass }}">
 			<div class="panel-heading">
-				<h3 class="panel-title">{!! $tab->present()->name !!}</h3>
+				<h3 class="panel-title">
+					{!! $tab->present()->name !!}
+					{!! $tab->present()->statusAsLabel !!}
+				</h3>
 			</div>
 			<div class="panel-body">
 				@if ($tab->sectionsAll->count() > 0)
