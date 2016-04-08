@@ -26,7 +26,7 @@
 		<div class="col-md-6" v-cloak>
 			<mobile>
 				<div class="row">
-					@if ($form->form_center)
+					@if ($form->use_form_center)
 						<div class="col-xs-12">
 							<p><a href="#" class="btn btn-default btn-lg btn-block">Dashboard</a></p>
 						</div>
@@ -69,7 +69,7 @@
 			</mobile>
 			<desktop>
 				<div class="btn-toolbar pull-right">
-					@if ($form->form_center)
+					@if ($form->use_form_center)
 						<div class="btn-group">
 							<a href="#" class="btn btn-default">Dashboard</a>
 						</div>

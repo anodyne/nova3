@@ -66,18 +66,18 @@
 		</div>
 	</div>
 
-	<div class="form-group{{ ($errors->has('form_center')) ? ' has-error' : '' }}">
+	<div class="form-group{{ ($errors->has('use_form_center')) ? ' has-error' : '' }}">
 		<label class="col-md-2 control-label">Use Form Center</label>
 		<div class="col-md-5">
 			<div>
 				<div class="radio">
-					<label>{!! Form::radio('form_center', (int) true, true) !!} Yes</label>
+					<label>{!! Form::radio('use_form_center', (int) true, true) !!} Yes</label>
 				</div>
 				<div class="radio">
-					<label>{!! Form::radio('form_center', (int) false) !!} No</label>
+					<label>{!! Form::radio('use_form_center', (int) false) !!} No</label>
 				</div>
 			</div>
-			{!! $errors->first('form_center', '<p class="help-block">:message</p>') !!}
+			{!! $errors->first('use_form_center', '<p class="help-block">:message</p>') !!}
 		</div>
 	</div>
 
