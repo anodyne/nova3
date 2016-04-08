@@ -48,7 +48,12 @@ class BaseMailer {
 
 			if (array_key_exists('subject', $payload))
 			{
-				$message->subject("[] {$payload['subject']}");
+				$subjectMask = "[%s] %s";
+
+				$message->subject(sprintf($subjectMask, 
+					app('nova.settings')->mail_subject_prefix, 
+					$payload['subject']
+				));
 			}
 		};
 	}
