@@ -691,6 +691,13 @@ return [
 	],
 
 	[
+		'name'				=> "Form Center",
+		'key'				=> "admin.forms.formcenter.index",
+		'uri'				=> "admin/form-center",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@index",
+		'menu_id'			=> 1,
+	],
+	[
 		'name'				=> "Complete New Form in Form Center",
 		'key'				=> "admin.forms.formcenter.create",
 		'uri'				=> "admin/form-center/{formKey}/create",

@@ -145,4 +145,8 @@ return [
 	['page_id' => 93, 'type' => 'header', 'key' => 'admin.forms.fields.edit.header', 'value' => "Edit Form Field"],
 	['page_id' => 93, 'type' => 'title', 'key' => 'admin.forms.fields.edit.title', 'value' => "Edit Form Field"],
 	['page_id' => 93, 'type' => 'message', 'key' => 'admin.forms.fields.edit.message', 'value' => null],
+
+	['page_id' => 98, 'type' => 'header', 'key' => 'admin.forms.formcenter.index.header', 'value' => "Form Center"],
+	['page_id' => 98, 'type' => 'title', 'key' => 'admin.forms.formcenter.index.title', 'value' => "Form Center"],
+	['page_id' => 98, 'type' => 'message', 'key' => 'admin.forms.formcenter.index.message', 'value' => null],
 ];
