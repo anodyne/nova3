@@ -295,6 +295,9 @@ fieldset .fieldset-content {
   cursor: move;
   color: #9e9e9e;
 }
+.form-center-container h2 {
+  margin-top: 0;
+}
 [v-cloak] {
   display: none;
 }
