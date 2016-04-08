@@ -2,20 +2,17 @@
 
 use BaseController,
 	FormRepositoryInterface,
-	FormDataRepositoryInterface,
-	FormCenterRepositoryInterface;
+	FormEntryRepositoryInterface;
 use Nova\Core\Forms\Events;
 use Illuminate\Http\Request;
 
 class FormCenterController extends BaseController {
 
 	protected $repo;
-	protected $dataRepo;
 	protected $formRepo;
 
-	public function __construct(FormCenterRepositoryInterface $repo,
-			FormRepositoryInterface $forms,
-			FormDataRepositoryInterface $data)
+	public function __construct(FormEntryRepositoryInterface $repo,
+			FormRepositoryInterface $forms)
 	{
 		parent::__construct();
 
@@ -25,6 +22,26 @@ class FormCenterController extends BaseController {
 		
 		$this->structureView = 'admin';
 		$this->templateView = 'admin';
+	}
+
+	public function index()
+	{
+		$this->view = 'admin/forms/form-center';
+		//$this->jsView = 'admin/forms/forms-js';
+
+		$this->data->forms = $this->formRepo->all()->filter(function ($form)
+		{
+			return $form->use_form_center;
+		});
+
+		$this->data->myForms = [
+			'one', 'two', 'three', 'four'
+		];
+	}
+
+	public function show($formKey)
+	{
+		# code...
 	}
 
 	public function create($formKey)
@@ -41,13 +58,18 @@ class FormCenterController extends BaseController {
 		
 		$this->validate($request, $this->formRepo->getValidationRules($form));
 		
-		$entry = $this->repo->insertRecord($form, $request->all());
+		$entry = $this->repo->insert($form, $this->currentUser, $request->all());
 		
-		//event(new Events\FormViewerFormWasCreated($entry));
+		event(new Events\FormCenterFormWasCreated($entry, $form));
 		
 		flash()->success("Form Submitted!");
 		
 		return redirect()->back();
+	}
+
+	public function edit($formKey, $id)
+	{
+		# code...
 	}
 
 	public function update(Request $request, $formKey, $id)
@@ -58,7 +80,7 @@ class FormCenterController extends BaseController {
 		
 		$entry = $this->repo->update($id, $request->all());
 		
-		//event(new Events\FormViewerFormWasUpdated($entry));
+		event(new Events\FormCenterFormWasUpdated($entry, $form));
 		
 		flash()->success("Form Updated!");
 		
