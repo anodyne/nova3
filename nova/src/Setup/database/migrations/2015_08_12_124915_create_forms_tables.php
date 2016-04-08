@@ -7,11 +7,6 @@ class CreateFormsTables extends Migration {
 
 	protected $data;
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
 	public function up()
 	{
 		Schema::create('forms', function (Blueprint $table)
@@ -22,13 +17,11 @@ class CreateFormsTables extends Migration {
 			$table->string('orientation', 50)->default('vertical');
 			$table->boolean('status')->default(Status::ACTIVE);
 			$table->boolean('protected')->default((int) false);
-			$table->boolean('form_center')->default((int) false);
-			$table->text('form_center_message')->nullable();
-			$table->integer('form_center_display')->unsigned()->default((int) false);
-			$table->boolean('email_allowed')->default((int) false);
-			$table->text('email_addresses')->nullable();
-			$table->string('resource_create')->default('admin.forms.formviewer.store');
-			$table->string('resource_update')->default('admin.forms.formviewer.update');
+			$table->boolean('use_form_center')->default((int) false);
+			$table->text('message')->nullable();
+			$table->text('email_recipients')->nullable();
+			$table->string('resource_create')->default('admin.forms.formcenter.store');
+			$table->string('resource_update')->default('admin.forms.formcenter.update');
 			$table->timestamps();
 		});
 
@@ -43,8 +36,6 @@ class CreateFormsTables extends Migration {
 			$table->boolean('status')->default(Status::ACTIVE);
 			$table->text('message')->nullable();
 			$table->timestamps();
-
-			//$table->foreign('form_id')->references('id')->on('forms')->onDelete('cascade');
 		});
 
 		Schema::create('forms_sections', function (Blueprint $table)
@@ -57,9 +48,6 @@ class CreateFormsTables extends Migration {
 			$table->boolean('status')->default(Status::ACTIVE);
 			$table->text('message')->nullable();
 			$table->timestamps();
-
-			//$table->foreign('form_id')->references('id')->on('forms')->onDelete('cascade');
-			//$table->foreign('tab_id')->references('id')->on('forms_tabs')->onDelete('cascade');
 		});
 
 		Schema::create('forms_fields', function (Blueprint $table)
@@ -80,10 +68,6 @@ class CreateFormsTables extends Migration {
 			$table->text('validation_rules')->nullable();
 			$table->text('values')->nullable();
 			$table->timestamps();
-
-			//$table->foreign('form_id')->references('id')->on('forms')->onDelete('cascade');
-			//$table->foreign('tab_id')->references('id')->on('forms_tabs')->onDelete('cascade');
-			//$table->foreign('section_id')->references('id')->on('forms_sections')->onDelete('cascade');
 		});
 
 		Schema::create('forms_data', function (Blueprint $table)
@@ -91,25 +75,26 @@ class CreateFormsTables extends Migration {
 			$table->bigIncrements('id');
 			$table->integer('form_id')->unsigned();
 			$table->integer('field_id')->unsigned();
-			$table->integer('data_id')->unsigned();
+			$table->bigInteger('entry_id')->unsigned();
+			$table->integer('user_id')->unsigned();
 			$table->text('value')->nullable();
-			$table->integer('created_by')->unsigned()->default(0);
 			$table->timestamps();
+		});
 
-			//$table->foreign('form_id')->references('id')->on('forms')->onDelete('cascade');
-			//$table->foreign('field_id')->references('id')->on('forms_fields')->onDelete('cascade');
+		Schema::create('forms_entries', function (Blueprint $table)
+		{
+			$table->bigIncrements('id');
+			$table->integer('form_id')->unsigned();
+			$table->integer('user_id')->unsigned();
+			$table->timestamps();
 		});
 
 		$this->populateTables();
 	}
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
 	public function down()
 	{
+		Schema::dropIfExists('forms_entries');
 		Schema::dropIfExists('forms_data');
 		Schema::dropIfExists('forms_fields');
 		Schema::dropIfExists('forms_sections');
