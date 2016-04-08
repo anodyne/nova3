@@ -5,11 +5,6 @@ use Laracasts\Presenter\Presenter;
 
 class FormPresenter extends Presenter {
 
-	public function formViewerMessage()
-	{
-		return Markdown::parse($this->entity->form_center_message);
-	}
-
 	public function hasHorizontalOrientation()
 	{
 		return $this->entity->orientation == 'horizontal';
@@ -18,6 +13,11 @@ class FormPresenter extends Presenter {
 	public function hasVerticalOrientation()
 	{
 		return $this->entity->orientation == 'vertical';
+	}
+
+	public function message()
+	{
+		return Markdown::parse($this->entity->message);
 	}
 
 	public function renderViewForm($id)
