@@ -52,4 +52,11 @@ return [
 	'Nova\Core\Forms\Events\FormFieldOrderWasUpdated' => [],
 	'Nova\Core\Forms\Events\FormFieldWasUpdated' => [],
 
+	'Nova\Core\Forms\Events\FormCenterFormWasCreated' => [
+		EmailFormCenterRecipients::class,
+	],
+	'Nova\Core\Forms\Events\FormCenterFormWasUpdated' => [
+		EmailFormCenterRecipients::class,
+	],
+
 ];
