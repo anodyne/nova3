@@ -3,7 +3,8 @@
 use Hash,
 	Model,
 	HasRoles,
-	Character;
+	Character,
+	NovaFormEntry;
 use Illuminate\Auth\Authenticatable,
 	Illuminate\Auth\Passwords\CanResetPassword,
 	Illuminate\Foundation\Auth\Access\Authorizable;
@@ -36,6 +37,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public function characters()
 	{
 		return $this->hasMany(Character::class);
+	}
+
+	public function formCenterEntries()
+	{
+		return $this->hasMany(NovaFormEntry::class);
 	}
 
 	//-------------------------------------------------------------------------

@@ -1,39 +1,32 @@
 <?php namespace Nova\Core\Forms\Data;
 
-use Model, NovaFormDataPresenter;
+use User, Model, NovaFormEntryPresenter;
 use Laracasts\Presenter\PresentableTrait;
 
-class Data extends Model {
+class Entry extends Model {
 
 	use PresentableTrait;
 
-	protected $table = 'forms_data';
+	protected $table = 'forms_entries';
 
-	protected $fillable = ['form_id', 'field_id', 'entry_id', 'value', 'user_id'];
+	protected $fillable = ['form_id', 'user_id'];
 
 	protected $dates = ['created_at', 'updated_at'];
 
-	protected $touches = ['entry'];
-
-	protected $presenter = NovaFormDataPresenter::class;
+	protected $presenter = NovaFormEntryPresenter::class;
 
 	//-------------------------------------------------------------------------
 	// Relationships
 	//-------------------------------------------------------------------------
-
-	public function entry()
-	{
-		return $this->belongsTo('NovaFormEntry');
-	}
 
 	public function form()
 	{
 		return $this->belongsTo('NovaForm');
 	}
 
-	public function field()
+	public function data()
 	{
-		return $this->belongsTo('NovaFormField');
+		return $this->hasMany('NovaFormData');
 	}
 
 	public function user()

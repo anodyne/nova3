@@ -13,17 +13,16 @@ class Form extends Model {
 	protected $table = 'forms';
 
 	protected $fillable = ['key', 'name', 'orientation', 'status', 'protected',
-		'form_center', 'form_center_message', 'form_center_display',
-		'email_allowed', 'email_address', 'resource_creating', 'resource_editing'];
+		'use_form_center', 'message', 'email_recipients', 'resource_creating',
+		'resource_editing'];
 
 	protected $dates = ['created_at', 'updated_at'];
 
 	protected $presenter = FormPresenter::class;
 
 	protected $casts = [
-		'protected'		=> 'boolean',
-		'form_center'	=> 'boolean',
-		'email_allowed'	=> 'boolean',
+		'protected' => 'boolean',
+		'use_form_center' => 'boolean',
 	];
 
 	//-------------------------------------------------------------------------
@@ -33,6 +32,11 @@ class Form extends Model {
 	public function data()
 	{
 		return $this->hasMany('NovaFormData');
+	}
+
+	public function entries()
+	{
+		return $this->hasMany('NovaFormEntry');
 	}
 
 	public function fields()
@@ -127,7 +131,7 @@ class Form extends Model {
 
 	public function scopeFormCenter($query)
 	{
-		$query->where('form_center', (int) true);
+		$query->where('use_form_center', (int) true);
 	}
 	
 }

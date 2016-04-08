@@ -365,8 +365,12 @@ return [
 		'FormDataRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\DataRepositoryInterface::class,
 		'FormDataRepository' => Nova\Core\Forms\Data\Repositories\DataRepository::class,
 
-		'FormCenterRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\FormCenterRepositoryInterface::class,
-		'FormCenterRepository' => Nova\Core\Forms\Data\Repositories\FormCenterRepository::class,
+		'FormEntryRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\EntryRepositoryInterface::class,
+		'FormEntryRepository' => Nova\Core\Forms\Data\Repositories\EntryRepository::class,
+		'EmailFormCenterRecipients' => Nova\Core\Forms\Listeners\EmailFormCenterRecipients::class,
+		'FormCenterMailer' => Nova\Core\Forms\Mailers\FormCenterMailer::class,
+		'FormEntryPresenter' => Nova\Core\Forms\Data\Presenters\EntryPresenter::class,
+		'NovaFormEntry' => Nova\Core\Forms\Data\Entry::class,
 	],
 
 ];
