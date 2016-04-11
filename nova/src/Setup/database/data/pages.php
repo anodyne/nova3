@@ -693,16 +693,21 @@ return [
 	[
 		'name'				=> "Form Center",
 		'key'				=> "admin.forms.formcenter.index",
-		'uri'				=> "admin/form-center",
+		'uri'				=> "admin/form-center/{formKey?}",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@index",
 		'menu_id'			=> 1,
+	],
+	[
+		'name'				=> "Form Center Dashboard",
+		'key'				=> "admin.forms.formcenter.dashboard",
+		'uri'				=> "admin/form-center/{formKey}/dashboard",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@show",
 	],
 	[
 		'name'				=> "Complete New Form in Form Center",
 		'key'				=> "admin.forms.formcenter.create",
 		'uri'				=> "admin/form-center/{formKey}/create",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@create",
-		'menu_id'			=> 2,
 	],
 	[
 		'verb'				=> "POST",
