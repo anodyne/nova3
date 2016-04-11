@@ -1,9 +1,8 @@
 <?php namespace Nova\Core\Forms\Data\Presenters;
 
-use Status, Markdown;
-use Laracasts\Presenter\Presenter;
+use Status, Markdown, BasePresenter;
 
-class SectionPresenter extends Presenter {
+class SectionPresenter extends BasePresenter {
 
 	public function message()
 	{

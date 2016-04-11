@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Pages\Data\Presenters;
 
-use Laracasts\Presenter\Presenter;
+use BasePresenter;
 
-class PageContentPresenter extends Presenter {
+class PageContentPresenter extends BasePresenter {
 
 	public function value()
 	{

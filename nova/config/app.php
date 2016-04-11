@@ -213,6 +213,7 @@ return [
 
 		//'API'				=> Dingo\Api\Facade\API::class,
 		'BaseController'	=> Nova\Foundation\Http\Controllers\BaseController::class,
+		'BasePresenter'		=> Nova\Foundation\Data\Presenters\BasePresenter::class,
 		'Date'				=> Carbon\Carbon::class,
 		'Model'				=> Illuminate\Database\Eloquent\Model::class,
 		'Form'				=> Collective\Html\FormFacade::class,

@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Menus\Data\Presenters;
 
-use Laracasts\Presenter\Presenter;
+use BasePresenter;
 
-class MenuItemPresenter extends Presenter {
+class MenuItemPresenter extends BasePresenter {
 
 	public function anchorTag(array $attributes = [])
 	{

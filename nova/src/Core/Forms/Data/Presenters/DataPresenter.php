@@ -1,5 +1,5 @@
 <?php namespace Nova\Core\Forms\Data\Presenters;
 
-use Laracasts\Presenter\Presenter;
+use BasePresenter;
 
-class DataPresenter extends Presenter {}
+class DataPresenter extends BasePresenter {}
