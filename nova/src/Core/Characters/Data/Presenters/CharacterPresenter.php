@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Characters\Data\Presenters;
 
-use Laracasts\Presenter\Presenter;
+use BasePresenter;
 
-class CharacterPresenter extends Presenter {
+class CharacterPresenter extends BasePresenter {
 
 	public function name()
 	{
