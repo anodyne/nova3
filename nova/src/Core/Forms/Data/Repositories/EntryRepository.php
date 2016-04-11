@@ -17,6 +17,18 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryI
 		$this->dataRepo = $data;
 	}
 
+	public function getUserEntries(User $user, $form = null)
+	{
+		$entries = $user->formCenterEntries;
+
+		if ($form)
+		{
+			$entries = $entries->where('form_id', $form->id);
+		}
+
+		return $entries;
+	}
+
 	public function insert(NovaForm $form, User $user, array $data)
 	{
 		// Insert an entry record

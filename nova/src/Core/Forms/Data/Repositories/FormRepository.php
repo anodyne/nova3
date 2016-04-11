@@ -1,6 +1,7 @@
 <?php namespace Nova\Core\Forms\Data\Repositories;
 
-use NovaForm as Model,
+use User,
+	NovaForm as Model,
 	FormRepositoryInterface;;
 
 class FormRepository extends BaseFormRepository implements FormRepositoryInterface {
@@ -62,6 +63,11 @@ class FormRepository extends BaseFormRepository implements FormRepositoryInterfa
 	public function getByKey($key, array $with = [])
 	{
 		return $this->getFirstBy('key', $key, $with);
+	}
+
+	public function getFormCenterForms(array $with = [])
+	{
+		return $this->getManyBy('use_form_center', (int) true, $with);
 	}
 
 	public function getParentTabs(Model $form, array $relations = [], $allTabs = false)

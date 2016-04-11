@@ -1,9 +1,10 @@
 <?php namespace Nova\Core\Forms\Data\Interfaces;
 
-use NovaForm;
+use User, NovaForm;
 
 interface EntryRepositoryInterface extends BaseFormRepositoryInterface {
 
-	public function insert(NovaForm $form, array $data);
+	public function getUserEntries(User $user, $form = null);
+	public function insert(NovaForm $form, User $user, array $data);
 
 }

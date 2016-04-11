@@ -17,39 +17,54 @@ class FormCenterController extends BaseController {
 		parent::__construct();
 
 		$this->repo = $repo;
-		$this->dataRepo = $data;
 		$this->formRepo = $forms;
 		
 		$this->structureView = 'admin';
 		$this->templateView = 'admin';
 	}
 
-	public function index()
+	public function index($formKey = null)
 	{
 		$this->view = 'admin/forms/form-center';
-		//$this->jsView = 'admin/forms/forms-js';
+		$this->jsView = 'admin/forms/form-center-js';
 
-		$this->data->forms = $this->formRepo->all()->filter(function ($form)
-		{
-			return $form->use_form_center;
-		});
+		$this->data->forms = $this->formRepo->getFormCenterForms();
 
-		$this->data->myForms = [
-			'one', 'two', 'three', 'four'
-		];
+		$this->jsData->formKey = $formKey;
 	}
 
 	public function show($formKey)
 	{
-		# code...
+		$this->isAjax = true;
+
+		$form = $this->formRepo->getByKey($formKey);
+
+		if ( ! $form)
+		{
+			return alert('danger', "Form [{$formKey}] not found.");
+		}
+		else
+		{
+			$entries = $this->repo->getUserEntries($this->user, $form);
+
+			return view(locate('page', 'admin/forms/form-center-dashboard'), compact('form', 'entries'));
+		}
 	}
 
 	public function create($formKey)
 	{
-		$this->view = 'admin/forms/form-viewer-create';
-		$this->jsView = 'admin/forms/form-viewer-create-js';
+		$this->isAjax = true;
 
-		$form = $this->data->form = $this->formRepo->getByKey($formKey);
+		$form = $this->formRepo->getByKey($formKey);
+
+		if ( ! $form)
+		{
+			return alert('danger', "Form [{$formKey}] not found.");
+		}
+		else
+		{
+			return view(locate('page', 'admin/forms/form-center-create'), compact('form'));
+		}
 	}
 
 	public function store(Request $request, $formKey)
@@ -58,7 +73,7 @@ class FormCenterController extends BaseController {
 		
 		$this->validate($request, $this->formRepo->getValidationRules($form));
 		
-		$entry = $this->repo->insert($form, $this->currentUser, $request->all());
+		$entry = $this->repo->insert($form, $this->user, $request->all());
 		
 		event(new Events\FormCenterFormWasCreated($entry, $form));
 		
@@ -69,7 +84,12 @@ class FormCenterController extends BaseController {
 
 	public function edit($formKey, $id)
 	{
-		# code...
+		$this->view = 'admin/forms/form-center-edit';
+		$this->jsView = 'admin/forms/form-center-edit-js';
+
+		$form = $this->data->form = $this->formRepo->getByKey($formKey);
+
+		$this->data->id = $id;
 	}
 
 	public function update(Request $request, $formKey, $id)
