@@ -1,9 +1,12 @@
 <?php namespace Nova\Core\Forms\Data\Presenters;
 
-use Form, HTML, Status, Markdown;
-use Laracasts\Presenter\Presenter;
+use Form,
+	HTML,
+	Status,
+	Markdown,
+	BasePresenter;
 
-class FormPresenter extends Presenter {
+class FormPresenter extends BasePresenter {
 
 	public function hasHorizontalOrientation()
 	{
@@ -131,12 +134,12 @@ class FormPresenter extends Presenter {
 
 		if ($type == 'create')
 		{
-			//$attributes['route'] = $this->entity->resource_create;
+			$attributes['route'] = $this->entity->resource_creating;
 		}
 
 		if ($type == 'edit')
 		{
-			//$attributes['route'] = $this->entity->resource_update;
+			$attributes['route'] = $this->entity->resource_editing;
 			$attributes['method'] = 'put';
 		}
 
