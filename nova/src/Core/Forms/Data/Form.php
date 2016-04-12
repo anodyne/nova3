@@ -13,8 +13,8 @@ class Form extends Model {
 	protected $table = 'forms';
 
 	protected $fillable = ['key', 'name', 'orientation', 'status', 'protected',
-		'use_form_center', 'message', 'email_recipients', 'resource_creating',
-		'resource_editing', 'allow_multiple_submissions', 'allow_entry_editing',
+		'use_form_center', 'message', 'email_recipients', 'resource_create',
+		'resource_edit', 'allow_multiple_submissions', 'allow_entry_editing',
 		'allow_entry_removal'];
 
 	protected $dates = ['created_at', 'updated_at'];
