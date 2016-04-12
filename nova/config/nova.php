@@ -13,6 +13,12 @@ return [
 		],
 	],
 
+	'api' => [
+		'version' => 'v1',
+
+		'acceptHeader' => 'application/x.nova3.v1+json',
+	],
+
 	'forms' => [
 		'fieldNameFormat' => "field_%d",
 	],
