@@ -17,11 +17,14 @@ class CreateFormsTables extends Migration {
 			$table->string('orientation', 50)->default('vertical');
 			$table->boolean('status')->default(Status::ACTIVE);
 			$table->boolean('protected')->default((int) false);
-			$table->boolean('use_form_center')->default((int) false);
+			$table->boolean('use_form_center')->default((int) true);
 			$table->text('message')->nullable();
 			$table->text('email_recipients')->nullable();
 			$table->string('resource_create')->default('admin.forms.formcenter.store');
 			$table->string('resource_update')->default('admin.forms.formcenter.update');
+			$table->boolean('allow_multiple_submissions')->default((int) true);
+			$table->boolean('allow_entry_editing')->default((int) true);
+			$table->boolean('allow_entry_removal')->default((int) true);
 			$table->timestamps();
 		});
 

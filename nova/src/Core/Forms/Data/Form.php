@@ -14,7 +14,8 @@ class Form extends Model {
 
 	protected $fillable = ['key', 'name', 'orientation', 'status', 'protected',
 		'use_form_center', 'message', 'email_recipients', 'resource_creating',
-		'resource_editing'];
+		'resource_editing', 'allow_multiple_submissions', 'allow_entry_editing',
+		'allow_entry_removal'];
 
 	protected $dates = ['created_at', 'updated_at'];
 
@@ -23,6 +24,9 @@ class Form extends Model {
 	protected $casts = [
 		'protected' => 'boolean',
 		'use_form_center' => 'boolean',
+		'allow_multiple_submissions' => 'boolean',
+		'allow_entry_editing' => 'boolean',
+		'allow_entry_removal' => 'boolean',
 	];
 
 	//-------------------------------------------------------------------------
