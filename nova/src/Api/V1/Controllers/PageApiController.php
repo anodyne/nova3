@@ -1,10 +1,9 @@
-<?php namespace Nova\Core\Pages\Api\V1\Controllers;
+<?php namespace Nova\Api\V1\Controllers;
 
 use PageRepositoryInterface;
-use Nova\Core\Pages\Api\V1\Transformers\PageTransformer;
-use Nova\Foundation\Api\V1\Controllers\ApiBaseController;
+use Nova\Api\V1\Transformers\PageTransformer;
 
-class PageController extends ApiBaseController {
+class PageApiController extends ApiBaseController {
 
 	protected $repo;
 

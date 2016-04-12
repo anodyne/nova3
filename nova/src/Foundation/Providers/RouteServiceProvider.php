@@ -41,12 +41,11 @@ class RouteServiceProvider extends ServiceProvider {
 			'middleware' => 'web',
 		];
 
-		$router->group($routerOptions, function ($router) {
+		$router->group($routerOptions, function ($router)
+		{
 			if (app('nova.setup')->isInstalled())
 			{
 				require app_path('Foundation/Http/routes.php');
-				//require app_path('Foundation/Api/V1/routes.php');
-				require app_path('Foundation/Http/api.php');
 			}
 			else
 			{
@@ -54,6 +53,16 @@ class RouteServiceProvider extends ServiceProvider {
 			}
 
 			require base_path('routes.php');
+		});
+
+		$apiRouterOptions = [
+			'namespace' => $this->namespace,
+			'middleware' => 'api',
+		];
+
+		$router->group($apiRouterOptions, function ($router)
+		{
+			require app_path('Api/V1/routes.php');
 		});
 	}
 

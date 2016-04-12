@@ -1,10 +1,9 @@
-<?php namespace Nova\Core\Access\Api\V1\Controllers;
+<?php namespace Nova\Api\V1\Controllers;
 
 use PermissionRepositoryInterface;
-use Nova\Foundation\Api\V1\Controllers\ApiBaseController;
-use Nova\Core\Access\Api\V1\Transformers\PermissionTransformer;
+use Nova\Api\V1\Transformers\PermissionTransformer;
 
-class PermissionController extends ApiBaseController {
+class PermissionApiController extends ApiBaseController {
 
 	protected $repo;
 
