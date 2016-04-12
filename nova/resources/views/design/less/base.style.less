@@ -146,11 +146,24 @@ dl {
 	.rounded(@border-radius);
 }
 
-.checkbox input[type=checkbox],
-.checkbox-inline input[type=checkbox],
-.radio input[type=radio],
-.radio-inline input[type=radio] {
-	margin-top: .8rem;
+.checkbox, .checkbox-inline {
+	label {
+		font-weight: 400;
+	}
+
+	input[type=checkbox] {
+		margin-top: 0.8rem;
+	}
+}
+
+.radio, .radio-inline {
+	label {
+		font-weight: 400;
+	}
+
+	input[type=radio] {
+		margin-top: 0.8rem;
+	}
 }
 
 .help-block {

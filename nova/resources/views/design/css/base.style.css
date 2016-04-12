@@ -159,11 +159,21 @@ dl dd {
   -moz-border-radius: 0.4rem;
   border-radius: 0.4rem 0.4rem 0.4rem 0.4rem;
 }
+.checkbox label,
+.checkbox-inline label {
+  font-weight: 400;
+}
 .checkbox input[type=checkbox],
-.checkbox-inline input[type=checkbox],
+.checkbox-inline input[type=checkbox] {
+  margin-top: 0.8rem;
+}
+.radio label,
+.radio-inline label {
+  font-weight: 400;
+}
 .radio input[type=radio],
 .radio-inline input[type=radio] {
-  margin-top: .8rem;
+  margin-top: 0.8rem;
 }
 .help-block {
   font-size: 1.4rem;
