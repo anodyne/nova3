@@ -3,10 +3,9 @@
 		data: {
 			loading: true,
 			loadingWithError: false,
-			baseUrl: "{{ Request::root() }}",
+			pages: [],
 			search: "",
-			verbs: [],
-			pages: []
+			verbs: []
 		},
 
 		methods: {
@@ -23,9 +22,14 @@
 		},
 
 		ready: function () {
-			var url = this.baseUrl + '/api/pages'
+			var url = "{{ version('v1')->route('api.pages.index') }}"
+			var options = {
+				headers: {
+					"Accept": "{{ config('nova.api.acceptHeader') }}"
+				}
+			}
 
-			this.$http.get(url).then(function (response) {
+			this.$http.get(url, [], options).then(function (response) {
 				this.pages = response.data.data
 			}, function (response) {
 				this.loadingWithError = true

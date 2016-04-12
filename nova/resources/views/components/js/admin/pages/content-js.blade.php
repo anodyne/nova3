@@ -1,12 +1,11 @@
 <script>
 	vue = {
 		data: {
+			contents: [],
+			key: "",
 			loading: true,
 			loadingWithError: false,
-			baseUrl: "{{ Request::root() }}",
-			key: "",
-			value: "",
-			contents: []
+			value: ""
 		},
 
 		methods: {
@@ -23,9 +22,14 @@
 		},
 
 		ready: function () {
-			var url = this.baseUrl + '/api/page-contents'
+			var url = "{{ version('v1')->route('api.page-contents.index') }}"
+			var options = {
+				headers: {
+					"Accept": "{{ config('nova.api.acceptHeader') }}"
+				}
+			}
 
-			this.$http.get(url).then(function (response) {
+			this.$http.get(url, [], options).then(function (response) {
 				this.contents = response.data.data
 			}, function (response) {
 				this.loadingWithError = true

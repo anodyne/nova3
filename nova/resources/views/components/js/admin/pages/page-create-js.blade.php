@@ -5,7 +5,6 @@
 <script>
 	vue = {
 		data: {
-			baseUrl: "{{ Request::root() }}",
 			type: "",
 			key: "",
 			uri: "",
@@ -96,9 +95,14 @@
 		},
 
 		ready: function () {
-			var url = this.baseUrl + '/api/access/permissions'
+			var url = "{{ version('v1')->route('api.access.permissions.index') }}"
+			var options = {
+				headers: {
+					"Accept": "{{ config('nova.api.acceptHeader') }}"
+				}
+			}
 
-			this.$http.get(url).then(function (response) {
+			this.$http.get(url, [], options).then(function (response) {
 				this.permissionData = response.data.data
 			})
 		},

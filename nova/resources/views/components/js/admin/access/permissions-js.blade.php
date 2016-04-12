@@ -3,9 +3,8 @@
 		data: {
 			loading: true,
 			loadingWithError: false,
-			baseUrl: "{{ Request::root() }}",
-			search: "",
-			permissions: []
+			permissions: [],
+			search: ""
 		},
 
 		methods: {
@@ -21,9 +20,14 @@
 		},
 
 		ready: function () {
-			var url = this.baseUrl + '/api/access/permissions'
+			var url = "{{ version('v1')->route('api.access.permissions.index') }}"
+			var options = {
+				headers: {
+					"Accept": "{{ config('nova.api.acceptHeader') }}"
+				}
+			}
 			
-			this.$http.get(url).then(function (response) {
+			this.$http.get(url, [], options).then(function (response) {
 				this.permissions = response.data.data
 			}, function (response) {
 				this.loadingWithError = true
