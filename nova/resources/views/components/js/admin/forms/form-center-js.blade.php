@@ -1,8 +1,7 @@
 <script>
 	vue = {
 		data: {
-			hasContent: false,
-			formKey: "{{ $formKey }}",
+			hasContent: true,
 			loading: false
 		},
 
@@ -64,23 +63,6 @@
 
 					this.loading = false
 				})
-			}
-		},
-
-		ready: function () {
-			var formKey = this.formKey
-
-			if (formKey) {
-				var target
-
-				// Loop through the list group and figure out which item we're navigating to
-				$('.list-group').children().each(function () {
-					if ($(this).data('form-key') == formKey) {
-						target = $(this)
-					}
-				})
-
-				this.switchToDashboard(this.formKey, target)
 			}
 		}
 	}

@@ -11,7 +11,7 @@
 
 	@if ($includeButton)
 		@php($buttonLabel = ($action == 'edit') ? "Update" : "Submit")
-		<div class="form-group">
+		<div class="form-group" v-cloak>
 			<mobile>
 				<p>{!! Form::button($buttonLabel, ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
 			</mobile>

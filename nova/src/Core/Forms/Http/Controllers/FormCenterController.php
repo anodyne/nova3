@@ -23,48 +23,20 @@ class FormCenterController extends BaseController {
 		$this->templateView = 'admin';
 	}
 
-	public function index($formKey = null)
+	public function index()
 	{
-		$this->view = 'admin/forms/form-center';
-		$this->jsView = 'admin/forms/form-center-js';
+		$this->view = 'admin/form-center/index';
 
 		$this->data->forms = $this->formRepo->getFormCenterForms();
-
-		$this->jsData->formKey = $formKey;
 	}
 
 	public function show($formKey)
 	{
-		$this->isAjax = true;
+		$this->view = 'admin/form-center/show';
 
-		$form = $this->formRepo->getByKey($formKey);
+		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
-		if ( ! $form)
-		{
-			return alert('danger', "Form [{$formKey}] not found.");
-		}
-		else
-		{
-			$entries = $this->repo->getUserEntries($this->user, $form);
-
-			return view(locate('page', 'admin/forms/form-center-dashboard'), compact('form', 'entries'));
-		}
-	}
-
-	public function create($formKey)
-	{
-		$this->isAjax = true;
-
-		$form = $this->formRepo->getByKey($formKey);
-
-		if ( ! $form)
-		{
-			return alert('danger', "Form [{$formKey}] not found.");
-		}
-		else
-		{
-			return view(locate('page', 'admin/forms/form-center-create'), compact('form'));
-		}
+		$this->data->entries = $this->repo->getUserEntries($this->user, $form);
 	}
 
 	public function store(Request $request, $formKey)
@@ -84,12 +56,11 @@ class FormCenterController extends BaseController {
 
 	public function edit($formKey, $id)
 	{
-		$this->view = 'admin/forms/form-center-edit';
-		$this->jsView = 'admin/forms/form-center-edit-js';
+		$this->view = 'admin/form-center/edit';
 
 		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
-		$this->data->id = $id;
+		$this->data->entry = $this->repo->getById($id);
 	}
 
 	public function update(Request $request, $formKey, $id)
