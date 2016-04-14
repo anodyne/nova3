@@ -33,12 +33,18 @@
   -moz-border-radius: 0.4rem;
   border-radius: 0.4rem 0.4rem 0.4rem 0.4rem;
 }
+/*html,
+body,
+.nova-container,
+.nova-pusher,
+.nova-content {
+	height: 100%;
+}*/
 html {
   font-size: 62.5% !important;
 }
 body {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding: 2rem 0;
   line-height: 1.75;
   font-family: "Roboto", helvetica, arial, sans-serif;
   font-size: 1.7rem;
@@ -305,9 +311,135 @@ fieldset .fieldset-content {
   cursor: move;
   color: #9e9e9e;
 }
-.form-center-container h2 {
-  margin-top: 0;
-}
 [v-cloak] {
   display: none;
+}
+/*.nova-container {
+	position: relative;
+	overflow: hidden;
+	padding: 2rem 0;
+
+	border: 0.1rem solid red;
+}
+
+.nova-content {
+	overflow-y: scroll;
+}
+
+.nova-content,
+.nova-content-inner {
+	position: relative;
+}
+
+.nova-container {
+	position: relative;
+	overflow: hidden;
+}
+
+.nova-pusher {
+	position: relative;
+	left: 0;
+	z-index: 99;
+	height: 100%;
+	-webkit-transition: -webkit-transform 0.5s;
+	transition: transform 0.5s;
+}
+
+.nova-pusher::after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 0;
+	height: 0;
+	content: '';
+	opacity: 0;
+	-webkit-transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+	transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+}
+
+.nova-panel-open .nova-pusher::after {
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+	-webkit-transition: opacity 0.5s;
+	transition: opacity 0.5s;
+}
+
+.nova-panel {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	visibility: hidden;
+	width: 300px;
+	height: 100%;
+	background: #48a770;
+	-webkit-transition: all 0.5s;
+	transition: all 0.5s;
+}
+
+.nova-panel::after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.2);
+	content: '';
+	opacity: 1;
+	-webkit-transition: opacity 0.5s;
+	transition: opacity 0.5s;
+}
+
+.nova-panel-open .nova-panel::after {
+	width: 0;
+	height: 0;
+	opacity: 0;
+	-webkit-transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+	transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+}*/
+.nova-panel {
+  visibility: visible;
+  /*transform: translate3d(100%, 0, 0);*/
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  width: 30rem;
+  height: 100%;
+  transition: all 0.5s;
+  box-shadow: -0.75rem 0 0.75rem rgba(0, 0, 0, 0.1);
+  background: #fafafa;
+  border-left: 0.1rem solid #dadada;
+  padding: 2.5rem 1.75rem;
+  overflow-y: scroll;
+}
+.nova-panel h2 {
+  margin: 0 0 1.5rem 0;
+  font-size: 2rem;
+  text-align: center;
+}
+.nova-panel h2 .material-icons {
+  float: left;
+  margin-right: 0.8rem;
+}
+.nova-panel .nav-pills {
+  margin: 0 0 1.5rem 0;
+  padding: 0;
+  text-align: center;
+}
+.nova-panel .nav-pills > li {
+  margin: 0;
+  padding: 0;
+  float: none;
+  display: inline-block;
+}
+.nova-panel .nav-pills > li + li {
+  margin: 0;
+}
+.nova-panel .nav-pills > li a {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
 }

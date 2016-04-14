@@ -72,6 +72,7 @@ interface Themeable {
 	public function alerts(array $data);
 	public function ajax(array $data);
 	public function styles($view, array $data);
+	public function panel();
 
 	/**
 	 * Return the View object with the complete template for rendering.

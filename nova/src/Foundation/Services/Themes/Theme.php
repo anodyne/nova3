@@ -242,6 +242,18 @@ class Theme implements Themeable, ThemeableInfo {
 		return $this;
 	}
 
+	public function panel()
+	{
+		if ( ! is_object($this->layout->template))
+		{
+			throw new NoThemeTemplateException;
+		}
+
+		$this->layout->template->panel = $this->view->make($this->locate->partial('panel'));
+
+		return $this;
+	}
+
 	/**
 	 * Return the View object with the complete template for rendering.
 	 *
