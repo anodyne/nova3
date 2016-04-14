@@ -29,9 +29,9 @@
 				}
 			}
 
-			this.$http.get(url, [], options).then(function (response) {
+			this.$http.get(url, [], options).then(response => {
 				this.pages = response.data.data
-			}, function (response) {
+			}, response => {
 				this.loadingWithError = true
 			})
 		},

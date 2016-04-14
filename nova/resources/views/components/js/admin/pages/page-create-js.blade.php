@@ -21,7 +21,7 @@
 					var url = "{{ route('admin.pages.checkKey') }}"
 					var postData = { key: this.key }
 
-					this.$http.post(url, postData).then(function (response) {
+					this.$http.post(url, postData).then(response => {
 						if (response.data.code == 0) {
 							this.key = ""
 
@@ -33,7 +33,7 @@
 								html: true
 							})
 						}
-					}, function (response) {
+					}, response => {
 						swal({
 							title: "Error!",
 							text: "There was an error trying to check the page key. Please try again. (Error " + response.status + ")",
@@ -50,7 +50,7 @@
 					var url = "{{ route('admin.pages.checkUri') }}"
 					var postData = { uri: this.uri }
 
-					this.$http.post(url, postData).then(function (response) {
+					this.$http.post(url, postData).then(response => {
 						if (response.data.code == 0) {
 							this.uri = ""
 
@@ -81,7 +81,7 @@
 
 							this.key = newKey
 						}
-					}, function (response) {
+					}, response => {
 						swal({
 							title: "Error!",
 							text: "There was an error trying to check the URI. Please try again. (Error " + response.status + ")",
@@ -102,7 +102,7 @@
 				}
 			}
 
-			this.$http.get(url, [], options).then(function (response) {
+			this.$http.get(url, [], options).then(response => {
 				this.permissionData = response.data.data
 			})
 		},

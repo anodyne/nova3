@@ -21,7 +21,7 @@
 						formKey: this.formKey
 					}
 
-					this.$http.post(url, postData).then(function (response) {
+					this.$http.post(url, postData).then(response => {
 						if (response.code == 0) {
 							this.link = ""
 
@@ -33,7 +33,7 @@
 								html: true
 							})
 						}
-					}, function (response) {
+					}, response => {
 						swal({
 							title: "Error!",
 							text: "There was an error trying to check the link ID. Please try again. (Error " + response.status + ")",

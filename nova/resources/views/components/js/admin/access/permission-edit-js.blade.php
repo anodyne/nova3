@@ -15,7 +15,7 @@
 					var url = "{{ route('admin.access.permissions.checkKey') }}"
 					var postData = { key: this.key }
 
-					this.$http.post(url, postData).then(function (response) {
+					this.$http.post(url, postData).then(response => {
 						if (response.code == 0) {
 							this.key = this.oldKey
 
@@ -27,7 +27,7 @@
 								html: true
 							})
 						}
-					}, function (response) {
+					}, response => {
 						swal({
 							title: "Error!",
 							text: "There was an error trying to check the permission key. Please try again. (Error " + response.status + ")",

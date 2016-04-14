@@ -25,7 +25,7 @@
 
 				var url = "{{ url('admin/form-center') }}/" + formKey + "/dashboard"
 
-				this.$http.get(url).then(function (response) {
+				this.$http.get(url).then(response => {
 					// Dump the data from the response into the content div
 					$('.form-center-container .form-center-content').html(response.data)
 
@@ -54,7 +54,7 @@
 					? "{{ url('admin/form-center') }}/" + formKey + "/create"
 					: "{{ url('admin/form-center') }}/" + formKey + "/edit"
 
-				this.$http.get(url).then(function (response) {
+				this.$http.get(url).then(response => {
 					// Dump the data from the response into the content div
 					$('.form-center-container .form-center-content').html(response.data)
 
