@@ -134,7 +134,7 @@ class FormPresenter extends BasePresenter {
 
 		if ($type == 'create')
 		{
-			$attributes['route'] = [$this->entity->resource_create, $this->entity->key];
+			$attributes['route'] = [$this->entity->resource_store, $this->entity->key];
 		}
 
 		if ($type == 'edit')
