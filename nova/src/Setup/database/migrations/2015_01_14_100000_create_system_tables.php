@@ -26,8 +26,8 @@ class CreateSystemTables extends Migration {
 		Schema::create('system_events', function (Blueprint $table)
 		{
 			$table->bigIncrements('id');
-			$table->string('email', 100)->nullable();
-			$table->string('ip_address', 16);
+			$table->string('email')->nullable();
+			$table->string('ip_address')->nullable();
 			$table->integer('user_id')->unsigned()->nullable();
 			$table->text('content');
 			$table->timestamps();
