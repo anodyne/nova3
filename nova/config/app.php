@@ -372,6 +372,7 @@ return [
 		'FormCenterMailer' => Nova\Core\Forms\Mailers\FormCenterMailer::class,
 		'FormEntryPresenter' => Nova\Core\Forms\Data\Presenters\EntryPresenter::class,
 		'NovaFormEntry' => Nova\Core\Forms\Data\Entry::class,
+		'FormCenterUserTrait' => Nova\Core\Forms\Traits\FormCenterUserTrait::class,
 	],
 
 ];
