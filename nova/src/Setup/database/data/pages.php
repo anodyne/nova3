@@ -720,7 +720,7 @@ return [
 	],
 	[
 		'verb'				=> "DELETE",
-		'name'				=> "Remove Form Entry in Form Center",
+		'name'				=> "Remove Form Entry from Form Center",
 		'key'				=> "admin.form-center.destroy",
 		'uri'				=> "admin/form-center/{formKey}/{entryId}",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@destroy",
