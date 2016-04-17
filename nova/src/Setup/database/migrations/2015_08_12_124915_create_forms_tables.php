@@ -20,8 +20,8 @@ class CreateFormsTables extends Migration {
 			$table->boolean('use_form_center')->default((int) false);
 			$table->text('message')->nullable();
 			$table->text('email_recipients')->nullable();
-			$table->string('resource_create')->default('admin.form-center.store');
-			$table->string('resource_delete')->default('admin.form-center.destroy');
+			$table->string('resource_store')->default('admin.form-center.store');
+			$table->string('resource_destroy')->default('admin.form-center.destroy');
 			$table->string('resource_update')->default('admin.form-center.update');
 			$table->boolean('allow_multiple_submissions')->default((int) false);
 			$table->string('entry_identifier')->nullable();

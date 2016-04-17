@@ -17,9 +17,11 @@ class EditFormRequest extends Request {
 			'orientation' => 'required|in:vertical,horizontal',
 			'status' => 'required',
 			'use_form_center' => 'required',
-			'allow_multiple_submissions' => 'required',
-			'allow_entry_editing' => 'required',
-			'allow_entry_removal' => 'required',
+			'allow_multiple_submissions' => 'required_if:use_form_center,1',
+			'resource_store' => 'required_if:use_form_center,1',
+			'resource_update' => 'required_if:use_form_center,1',
+			'resource_destroy' => 'required_if:use_form_center,1',
+			'entry_identifier' => 'required_if:use_form_center,1',
 		];
 	}
 
@@ -32,9 +34,11 @@ class EditFormRequest extends Request {
 			'orientation.in' => "Please select a valid form orientation",
 			'status.required' => "Please select a status",
 			'use_form_center.required' => "Please select whether this form can use Form Center",
-			'allow_multiple_submissions.required' => "Please select whether users can submit this form multiple times",
-			'allow_entry_editing.required' => "Please select whether users can edit their submission(s) for this form",
-			'allow_entry_removal.required' => "Please select whether users can remove their submission(s) for this form",
+			'allow_multiple_submissions.required_if' => "Please select whether users can submit this form multiple times",
+			'resource_store.required_if' => "Please select the resource for creating form entries",
+			'resource_update.required_if' => "Please select the resource for updating form entries",
+			'resource_destroy.required_if' => "Please select the resource for deleting form entries",
+			'entry_identifier.required_if' => "Please select the field for identifying form entries",
 		];
 	}
 

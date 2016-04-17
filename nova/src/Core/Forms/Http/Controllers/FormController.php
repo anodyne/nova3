@@ -6,6 +6,7 @@ use NovaForm,
 	BaseController,
 	NovaFormSection,
 	FormRepositoryInterface,
+	PageRepositoryInterface,
 	RoleRepositoryInterface,
 	EditFormRequest, CreateFormRequest, RemoveFormRequest;
 use Nova\Core\Forms\Events;
@@ -13,8 +14,11 @@ use Nova\Core\Forms\Events;
 class FormController extends BaseController {
 
 	protected $repo;
+	protected $pageRepo;
+	protected $roleRepo;
 
-	public function __construct(FormRepositoryInterface $repo)
+	public function __construct(FormRepositoryInterface $repo,
+			PageRepositoryInterface $pages, RoleRepositoryInterface $roles)
 	{
 		parent::__construct();
 
@@ -22,6 +26,8 @@ class FormController extends BaseController {
 		$this->templateView = 'admin';
 
 		$this->repo = $repo;
+		$this->pageRepo = $pages;
+		$this->roleRepo = $roles;
 
 		$this->middleware('auth');
 	}
@@ -42,14 +48,18 @@ class FormController extends BaseController {
 		$this->data->formSection = new NovaFormSection;
 	}
 
-	public function create(RoleRepositoryInterface $roleRepo)
+	public function create()
 	{
 		$this->authorize('create', new NovaForm, "You do not have permission to create forms.");
 
 		$this->view = 'admin/forms/form-create';
 		$this->jsView = 'admin/forms/form-create-js';
 
-		$this->data->accessRoles = $roleRepo->listAll('display_name', 'name');
+		$this->data->accessRoles = $this->roleRepo->listAll('display_name', 'name');
+
+		$this->data->resourcesCreate = $this->pageRepo->listAllBy('verb', 'POST', 'name', 'key');
+		$this->data->resourcesUpdate = $this->pageRepo->listAllBy('verb', 'PUT', 'name', 'key');
+		$this->data->resourcesDelete = $this->pageRepo->listAllBy('verb', 'DELETE', 'name', 'key');
 	}
 
 	public function store(CreateFormRequest $request)
@@ -65,7 +75,7 @@ class FormController extends BaseController {
 		return redirect()->route('admin.forms');
 	}
 
-	public function edit(RoleRepositoryInterface $roleRepo, $formKey)
+	public function edit($formKey)
 	{
 		$form = $this->data->form = $this->repo->getByKey($formKey);
 
@@ -74,7 +84,13 @@ class FormController extends BaseController {
 		$this->view = 'admin/forms/form-edit';
 		$this->jsView = 'admin/forms/form-edit-js';
 
-		$this->data->accessRoles = $roleRepo->listAll('display_name', 'name');
+		$this->data->accessRoles = $this->roleRepo->listAll('display_name', 'name');
+
+		$this->data->resourcesCreate = $this->pageRepo->listAllBy('verb', 'POST', 'name', 'key');
+		$this->data->resourcesUpdate = $this->pageRepo->listAllBy('verb', 'PUT', 'name', 'key');
+		$this->data->resourcesDelete = $this->pageRepo->listAllBy('verb', 'DELETE', 'name', 'key');
+
+		$this->data->fields = $form->fields->pluck('label', 'id');
 
 		$this->jsData->restrictions = $form->restrictions->toJson();
 	}
