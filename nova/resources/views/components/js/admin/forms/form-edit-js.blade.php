@@ -6,9 +6,9 @@
 			oldKey: "",
 			restrictions: [
 				{ type: "view", value: "" },
-				{ type: "create", value: "" },
+				{ type: "add", value: "" },
 				{ type: "edit", value: "" },
-				{ type: "delete", value: "" }
+				{ type: "remove", value: "" }
 			],
 			useFormCenter: true
 		},
