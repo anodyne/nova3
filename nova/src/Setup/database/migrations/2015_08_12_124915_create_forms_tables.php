@@ -21,10 +21,11 @@ class CreateFormsTables extends Migration {
 			$table->text('message')->nullable();
 			$table->text('email_recipients')->nullable();
 			$table->string('resource_create')->default('admin.form-center.store');
+			$table->string('resource_delete')->default('admin.form-center.destroy');
 			$table->string('resource_update')->default('admin.form-center.update');
 			$table->boolean('allow_multiple_submissions')->default((int) false);
-			$table->boolean('allow_entry_editing')->default((int) false);
-			$table->boolean('allow_entry_removal')->default((int) false);
+			$table->string('entry_identifier')->nullable();
+			$table->text('restrictions')->nullable();
 			$table->timestamps();
 		});
 
@@ -88,7 +89,8 @@ class CreateFormsTables extends Migration {
 		{
 			$table->bigIncrements('id');
 			$table->integer('form_id')->unsigned();
-			$table->integer('user_id')->unsigned();
+			$table->integer('user_id')->unsigned()->nullable();
+			$table->string('ip_address')->nullable();
 			$table->timestamps();
 		});
 

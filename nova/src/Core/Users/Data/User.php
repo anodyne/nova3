@@ -4,7 +4,8 @@ use Hash,
 	Model,
 	HasRoles,
 	Character,
-	NovaFormEntry;
+	NovaFormEntry,
+	FormCenterUserTrait;
 use Illuminate\Auth\Authenticatable,
 	Illuminate\Auth\Passwords\CanResetPassword,
 	Illuminate\Foundation\Auth\Access\Authorizable;
@@ -17,7 +18,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract,
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract, AuthorizableContract {
 
 	use Authenticatable, CanResetPassword, SoftDeletes, Authorizable;
-	use PresentableTrait, HasRoles;
+	use PresentableTrait, HasRoles, FormCenterUserTrait;
 
 	protected $table = 'users';
 

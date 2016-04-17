@@ -32,18 +32,49 @@ class FormCenterController extends BaseController {
 
 	public function show($formKey)
 	{
-		$this->view = 'admin/form-center/show';
-
 		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
-		$this->data->entries = $this->repo->getUserEntries($this->user, $form);
+		$this->authorize('viewInFormCenter', $form, "You do not have permission to view this form.");
+
+		$this->view = 'admin/form-center/show';
+		$this->jsView = 'admin/form-center/show-js';
+
+		$entries = $this->data->entries = $this->repo->getUserEntries($this->user, $form);
+
+		$this->jsData->entryCount = $entries->count();
+	}
+
+	public function showEntry($entryId)
+	{
+		$this->isAjax = true;
+
+		$entry = $this->repo->getById($entryId, ['form', 'user']);
+
+		if ( ! $entry)
+		{
+			$body = alert('danger', "Form entry not found.");
+		}
+		else
+		{
+			$form = $entry->form;
+
+			$body = ($entry->user->id == $this->user->id)
+				? view(locate('page', 'admin/form-center/entry-show'), compact('form', 'entry'))
+				: alert('danger', "You do not have permission to view this form entry.");
+		}
+
+		return $body;
 	}
 
 	public function store(Request $request, $formKey)
 	{
 		$form = $this->formRepo->getByKey($formKey);
 		
-		$this->validate($request, $this->formRepo->getValidationRules($form));
+		$this->validate(
+			$request,
+			$this->formRepo->getValidationRules($form),
+			$this->validationMessages()
+		);
 		
 		$entry = $this->repo->insert($form, $this->user, $request->all());
 		
@@ -54,20 +85,39 @@ class FormCenterController extends BaseController {
 		return redirect()->back();
 	}
 
-	public function edit($formKey, $id)
+	public function editEntry($entryId)
 	{
-		$this->view = 'admin/form-center/edit';
+		$this->isAjax = true;
 
-		$form = $this->data->form = $this->formRepo->getByKey($formKey);
+		$entry = $this->repo->getById($entryId, ['form', 'user']);
 
-		$this->data->entry = $this->repo->getById($id);
+		if ( ! $entry)
+		{
+			$body = alert('danger', "Form entry not found.");
+		}
+		else
+		{
+			$form = $entry->form;
+
+			$body = (policy($form)->editFormCenterEntry($this->user, $form))
+				? view(locate('page', 'admin/form-center/entry-edit'), compact('form', 'entry'))
+				: alert('danger', "You do not have permission to edit this form entry.");
+		}
+
+		return $body;
 	}
 
 	public function update(Request $request, $formKey, $id)
 	{
 		$form = $this->formRepo->getByKey($formKey);
+
+		$this->authorize('editFormCenterEntry', $form, "You do not have permission to edit this form entry.");
 		
-		$this->validate($request, $this->formRepo->getValidationRules($form));
+		$this->validate(
+			$request,
+			$this->formRepo->getValidationRules($form),
+			$this->validationMessages()
+		);
 		
 		$entry = $this->repo->update($id, $request->all());
 		
@@ -76,6 +126,27 @@ class FormCenterController extends BaseController {
 		flash()->success("Form Updated!");
 		
 		return redirect()->back();
+	}
+
+	protected function validationMessages()
+	{
+		return [
+			'alpha' => "This field can only contain alphabetic characters",
+			'alpha_dash' => "This field can only contain alphabetic characters, dashes, or underscores",
+			'alpha_num' => "This field can only container alpha-numeric characters",
+			'between' => "This field must be between :min and :max",
+			'email' => "This field must be a valid email address",
+			'exists' => "This field must be found in the database",
+			'in' => "This field must be in the following list of values: :values",
+			'integer' => "This field can only contain an integer",
+			'max' => "This field cannot be larger than :max",
+			'min' => "This field cannot be smaller than :min",
+			'not_in' => "This field must not be in the following list of values: :values",
+			'numeric' => "This field can only contain numeric characters",
+			'required' => "This field is required",
+			'string' => "This field must be a string",
+			'url' => "This field must contain a valid URL",
+		];
 	}
 
 }

@@ -5,7 +5,7 @@
 			<div class="col-xs-1">
 				<p class="text-center"><span class="uk-icon uk-icon-bars sortable-handle"></span></p>
 			</div>
-			<div class="col-xs-11 col-md-9">
+			<div class="col-xs-11 col-md-8 col-lg-9">
 				@if ($form->orientation == 'horizontal')
 					<div class="form-group">
 						@if (strlen($field->label) > 0)
@@ -34,7 +34,7 @@
 					</div>
 				@endif
 			</div>
-			<div class="col-xs-12 col-md-2 controls" v-cloak>
+			<div class="col-xs-12 col-md-3 col-lg-2 controls" v-cloak>
 				<mobile>
 					<div class="row">
 						@can('edit', $field)

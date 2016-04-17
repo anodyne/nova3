@@ -25,4 +25,19 @@ class FormPolicy {
 		return $user->can('form.remove') and ! $form->protected;
 	}
 
+	public function viewInFormCenter(User $user, Form $form)
+	{
+		return $user->canViewForm($form);
+	}
+
+	public function editFormCenterEntry(User $user, Form $form)
+	{
+		return $user->canEditFormEntry($form);
+	}
+
+	public function removeFormCenterEntry(User $user, Form $form)
+	{
+		return $user->canRemoveFormEntry($form);
+	}
+
 }

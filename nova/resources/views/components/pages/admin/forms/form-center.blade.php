@@ -40,18 +40,27 @@
 								</div>
 								<div class="col-md-4">
 									<mobile>
-										<p><a href="#" class="btn btn-default btn-lg btn-block" data-form-key="{{ $form->key }}" data-form-state="edit" data-id="{{ $entry->id }}">Edit</a></p>
+										@if ($_user->canEditFormEntry($form))
+											<p><a href="#" class="btn btn-default btn-lg btn-block" data-form-key="{{ $form->key }}" data-form-state="edit" data-id="{{ $entry->id }}">Edit</a></p>
+										@endif
 
-										<p><a href="#" class="btn btn-danger btn-lg btn-block">Remove</a></p>
+										@if ($_user->canRemoveFormEntry($form))
+											<p><a href="#" class="btn btn-danger btn-lg btn-block">Remove</a></p>
+										@endif
 									</mobile>
 									<desktop>
 										<div class="btn-toolbar pull-right">
-											<div class="btn-group">
-												<a href="#" class="btn btn-default" data-form-key="{{ $form->key }}" data-form-state="edit" data-id="{{ $entry->id }}">Edit</a>
-											</div>
-											<div class="btn-group">
-												<a href="#" class="btn btn-danger">Remove</a>
-											</div>
+											@if ($_user->canEditFormEntry($form))
+												<div class="btn-group">
+													<a href="#" class="btn btn-default" data-form-key="{{ $form->key }}" data-form-state="edit" data-id="{{ $entry->id }}">Edit</a>
+												</div>
+											@endif
+
+											@if ($_user->canRemoveFormEntry($form))
+												<div class="btn-group">
+													<a href="#" class="btn btn-danger">Remove</a>
+												</div>
+											@endif
 										</div>
 									</desktop>
 								</div>

@@ -6,6 +6,7 @@ use NovaForm,
 	BaseController,
 	NovaFormSection,
 	FormRepositoryInterface,
+	RoleRepositoryInterface,
 	EditFormRequest, CreateFormRequest, RemoveFormRequest;
 use Nova\Core\Forms\Events;
 
@@ -41,12 +42,14 @@ class FormController extends BaseController {
 		$this->data->formSection = new NovaFormSection;
 	}
 
-	public function create()
+	public function create(RoleRepositoryInterface $roleRepo)
 	{
 		$this->authorize('create', new NovaForm, "You do not have permission to create forms.");
 
 		$this->view = 'admin/forms/form-create';
 		$this->jsView = 'admin/forms/form-create-js';
+
+		$this->data->accessRoles = $roleRepo->listAll('display_name', 'name');
 	}
 
 	public function store(CreateFormRequest $request)
@@ -62,7 +65,7 @@ class FormController extends BaseController {
 		return redirect()->route('admin.forms');
 	}
 
-	public function edit($formKey)
+	public function edit(RoleRepositoryInterface $roleRepo, $formKey)
 	{
 		$form = $this->data->form = $this->repo->getByKey($formKey);
 
@@ -70,6 +73,10 @@ class FormController extends BaseController {
 
 		$this->view = 'admin/forms/form-edit';
 		$this->jsView = 'admin/forms/form-edit-js';
+
+		$this->data->accessRoles = $roleRepo->listAll('display_name', 'name');
+
+		$this->jsData->restrictions = $form->restrictions->toJson();
 	}
 
 	public function update(EditFormRequest $request, $formKey)

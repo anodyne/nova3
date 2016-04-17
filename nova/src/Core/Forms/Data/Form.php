@@ -14,8 +14,8 @@ class Form extends Model {
 
 	protected $fillable = ['key', 'name', 'orientation', 'status', 'protected',
 		'use_form_center', 'message', 'email_recipients', 'resource_create',
-		'resource_edit', 'allow_multiple_submissions', 'allow_entry_editing',
-		'allow_entry_removal'];
+		'resource_delete', 'resource_edit', 'allow_multiple_submissions',
+		'restrictions', 'entry_identifier'];
 
 	protected $dates = ['created_at', 'updated_at'];
 
@@ -25,8 +25,7 @@ class Form extends Model {
 		'protected' => 'boolean',
 		'use_form_center' => 'boolean',
 		'allow_multiple_submissions' => 'boolean',
-		'allow_entry_editing' => 'boolean',
-		'allow_entry_removal' => 'boolean',
+		'restrictions' => 'collection',
 	];
 
 	//-------------------------------------------------------------------------

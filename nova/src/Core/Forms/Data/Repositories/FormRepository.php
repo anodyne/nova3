@@ -13,6 +13,21 @@ class FormRepository extends BaseFormRepository implements FormRepositoryInterfa
 		$this->model = $model;
 	}
 
+	/**
+	 * We need to modify the way we create a form to allow for handling
+	 * access restrictions being stored as JSON in the database.
+	 */
+	public function create(array $data)
+	{
+		// Clean up the data
+		$data = $this->cleanFieldValues($data);
+
+		// Now create the form
+		$form = parent::create($data);
+
+		return $form;
+	}
+
 	public function delete($resource)
 	{
 		// Get the resource
@@ -121,6 +136,40 @@ class FormRepository extends BaseFormRepository implements FormRepositoryInterfa
 		}
 
 		return false;
+	}
+
+	/**
+	 * We need to modify the way we update a form to allow for handling
+	 * access restrictions being stored as JSON in the database.
+	 */
+	public function update($resource, array $data)
+	{
+		// Clean up the data
+		$data = $this->cleanFieldValues($data);
+
+		// Now update the form
+		$form = parent::update($resource, $data);
+
+		return $form;
+	}
+
+	protected function cleanFieldValues(array $data)
+	{
+		// Handle restrictions
+		if (array_key_exists('restrictionValues', $data))
+		{
+			foreach ($data['restrictionValues'] as $type => $value)
+			{
+				$data['restrictions'][] = [
+					'type' => $type,
+					'value' => $value,
+				];
+			}
+
+			unset($data['restrictionValues']);
+		}
+
+		return $data;
 	}
 
 }

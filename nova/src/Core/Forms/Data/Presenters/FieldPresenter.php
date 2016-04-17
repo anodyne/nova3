@@ -23,8 +23,8 @@ class FieldPresenter extends BasePresenter {
 		$fieldName = ($fieldNameWrapper) ? sprintf($fieldNameWrapper, $fieldName) : $fieldName;
 
 		// Grab the data if we need to
-		$data = ($field->data) ? $field->data->whereLoose('data_id', $id) : null;
-		$fieldValue = ($data->count() > 0) ? $data->first()->value : null;
+		$data = ($field->data) ? $field->data->whereLoose('entry_id', $id) : null;
+		$fieldValue = ($data->count() > 0 and $fieldState != 'create') ? $data->first()->value : null;
 
 		// Build some arrays for the field attributes and values (if necessary)
 		$attributesArr = [];

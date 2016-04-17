@@ -29,12 +29,17 @@ $entries = $myForms->where('form_id', $selectedForm->id);
 				<mobile></mobile>
 				<desktop>
 					<div class="btn-toolbar pull-right">
-						<div class="btn-group">
-							<a href="#" class="btn btn-default">Edit</a>
-						</div>
-						<div class="btn-group">
-							<a href="#" class="btn btn-danger">Remove</a>
-						</div>
+						@can('editInFormCenter', $form)
+							<div class="btn-group">
+								<a href="#" class="btn btn-default">Edit</a>
+							</div>
+						@endcan
+
+						@can('removeInFormCenter', $form)
+							<div class="btn-group">
+								<a href="#" class="btn btn-danger">Remove</a>
+							</div>
+						@endcan
 					</div>
 				</desktop>
 			</div>

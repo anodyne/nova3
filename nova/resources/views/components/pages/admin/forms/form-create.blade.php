@@ -71,61 +71,55 @@
 		<div class="col-md-5">
 			<div>
 				<div class="radio-inline">
-					<label>{!! Form::radio('use_form_center', (int) true, true) !!} Yes</label>
+					<label>{!! Form::radio('use_form_center', (int) true, true, ['v-model' => 'useFormCenter']) !!} Yes</label>
 				</div>
 				<div class="radio-inline">
-					<label>{!! Form::radio('use_form_center', (int) false) !!} No</label>
+					<label>{!! Form::radio('use_form_center', (int) false, false, ['v-model' => 'useFormCenter']) !!} No</label>
 				</div>
 			</div>
 			{!! $errors->first('use_form_center', '<p class="help-block">:message</p>') !!}
 		</div>
 	</div>
 
-	<div class="form-group{{ ($errors->has('allow_multiple_submissions')) ? ' has-error' : '' }}">
-		<label class="col-md-2 control-label">Allow Multiple Submissions</label>
-		<div class="col-md-5">
-			<div>
-				<div class="radio-inline">
-					<label>{!! Form::radio('allow_multiple_submissions', (int) true, true) !!} Yes</label>
+	<div v-if="useFormCenter == true">
+		<div class="form-group{{ ($errors->has('allow_multiple_submissions')) ? ' has-error' : '' }}">
+			<label class="col-md-2 control-label">Allow Multiple Submissions</label>
+			<div class="col-md-5">
+				<div>
+					<div class="radio-inline">
+						<label>{!! Form::radio('allow_multiple_submissions', (int) true, true) !!} Yes</label>
+					</div>
+					<div class="radio-inline">
+						<label>{!! Form::radio('allow_multiple_submissions', (int) false) !!} No</label>
+					</div>
 				</div>
-				<div class="radio-inline">
-					<label>{!! Form::radio('allow_multiple_submissions', (int) false) !!} No</label>
-				</div>
+				<p class="help-block">Do you want users to be able to submit this form multiple times?</p>
+				{!! $errors->first('allow_multiple_submissions', '<p class="help-block">:message</p>') !!}
 			</div>
-			<p class="help-block">Do you want users to be able to submit this form multiple times?</p>
-			{!! $errors->first('allow_multiple_submissions', '<p class="help-block">:message</p>') !!}
 		</div>
-	</div>
 
-	<div class="form-group{{ ($errors->has('allow_entry_editing')) ? ' has-error' : '' }}">
-		<label class="col-md-2 control-label">Allow Entry Editing</label>
-		<div class="col-md-5">
-			<div>
-				<div class="radio-inline">
-					<label>{!! Form::radio('allow_entry_editing', (int) true, true) !!} Yes</label>
-				</div>
-				<div class="radio-inline">
-					<label>{!! Form::radio('allow_entry_editing', (int) false) !!} No</label>
+		<div class="form-group">
+			<label class="col-md-2 control-label">Restrictions</label>
+			<div class="col-md-8 col-lg-6">
+				<div class="data-table data-table-striped data-table-bordered">
+					<div class="row">
+						<div class="col-sm-2 col-md-3"><p><strong>Type</strong></p></div>
+						<div class="col-sm-8 col-md-6"><p><strong>Value</strong></p></div>
+						<div class="col-sm-2 col-md-3"></div>
+					</div>
+					<div class="row" v-for="restriction in restrictions">
+						<div class="col-sm-2 col-md-3">
+							<p>@{{ restriction.type | capitalize }}</p>
+						</div>
+						<div class="col-sm-8 col-md-6">
+							<p>{!! Form::select('restrictionValues[@{{ restriction.type }}]', $accessRoles, null, ['class' => 'form-control', 'v-model' => 'restriction.value', 'placeholder' => "No restriction"]) !!}</p>
+						</div>
+						<div class="col-sm-2 col-md-3">
+							<p><a @click="clearRestriction(restriction)" class="btn btn-block btn-danger">Clear</a></p>
+						</div>
+					</div>
 				</div>
 			</div>
-			<p class="help-block">Do you want users to be able to edit their submission(s) for this form?</p>
-			{!! $errors->first('allow_entry_editing', '<p class="help-block">:message</p>') !!}
-		</div>
-	</div>
-
-	<div class="form-group{{ ($errors->has('allow_entry_removal')) ? ' has-error' : '' }}">
-		<label class="col-md-2 control-label">Allow Entry Removal</label>
-		<div class="col-md-5">
-			<div>
-				<div class="radio-inline">
-					<label>{!! Form::radio('allow_entry_removal', (int) true, true) !!} Yes</label>
-				</div>
-				<div class="radio-inline">
-					<label>{!! Form::radio('allow_entry_removal', (int) false) !!} No</label>
-				</div>
-			</div>
-			<p class="help-block">Do you want users to be able to remove their submission(s) for this form?</p>
-			{!! $errors->first('allow_entry_removal', '<p class="help-block">:message</p>') !!}
 		</div>
 	</div>
 

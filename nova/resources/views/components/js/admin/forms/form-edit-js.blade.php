@@ -1,20 +1,26 @@
 <script>
 	vue = {
 		data: {
-			name: "",
 			key: "",
-			oldKey: ""
-		},
-
-		ready: function () {
-			this.oldKey = this.key
+			name: "",
+			oldKey: "",
+			restrictions: [
+				{ type: "view", value: "" },
+				{ type: "create", value: "" },
+				{ type: "edit", value: "" },
+				{ type: "delete", value: "" }
+			],
+			useFormCenter: true
 		},
 
 		methods: {
-			updateName: function () {
-				this.key = this.name.replace(/\W+/g, '-').toLowerCase()
-
-				this.updateKey()
+			clearRestriction: function (row) {
+				for (var i = 0; i < this.restrictions.length; ++i) {
+					if (this.restrictions[i] === row) {
+						this.restrictions[i].value = ""
+						break
+					}
+				}
 			},
 
 			updateKey: function () {
@@ -43,6 +49,38 @@
 							html: true
 						})
 					})
+				}
+			},
+
+			updateName: function () {
+				this.key = this.name.replace(/\W+/g, '-').toLowerCase()
+
+				this.updateKey()
+			}
+		},
+
+		ready: function () {
+			this.oldKey = this.key
+
+			var restrictions
+
+			@if ($restrictions)
+				restrictions = {!! $restrictions !!}
+			@endif
+
+			if (restrictions) {
+				this.restrictions = []
+
+				for (var r = 0; r < restrictions.length; ++r) {
+					this.restrictions.push({ type: restrictions[r].type, value: restrictions[r].value })
+				}
+			}
+		},
+
+		watch: {
+			useFormCenter: function (value, oldValue) {
+				if (value == false) {
+					//
 				}
 			}
 		}

@@ -37,7 +37,7 @@ class FormPresenter extends BasePresenter {
 		$formCloseTag = $this->createFormCloseTag('view');
 
 		// Grab the data for the item we're viewing
-		$data = $form->data->whereLoose('data_id', $id);
+		$data = $form->data->whereLoose('entry_id', $id);
 
 		// Set the action we're taking
 		$action = 'view';
@@ -84,14 +84,14 @@ class FormPresenter extends BasePresenter {
 
 		// Build the opening/closing tags
 		$formOpenTag = ($includeFormTags) 
-			? $this->createFormOpenTag('edit') 
+			? $this->createFormOpenTag('edit', $id) 
 			: $this->createFormOpenTag('view');
 		$formCloseTag = ($includeFormTags) 
 			? $this->createFormCloseTag('edit') 
 			: $this->createFormCloseTag('view');
 
 		// Grab the data for the item we're editing
-		$data = $form->data->whereLoose('data_id', $id);
+		$data = $form->data->whereLoose('entry_id', $id);
 
 		// Set the action we're taking
 		$action = 'edit';
@@ -123,7 +123,7 @@ class FormPresenter extends BasePresenter {
 		}
 	}
 
-	protected function createFormOpenTag($type)
+	protected function createFormOpenTag($type, $id = null)
 	{
 		$attributes = [];
 
@@ -139,7 +139,7 @@ class FormPresenter extends BasePresenter {
 
 		if ($type == 'edit')
 		{
-			$attributes['route'] = $this->entity->resource_edit;
+			$attributes['route'] = [$this->entity->resource_update, $this->entity->key, $id];
 			$attributes['method'] = 'put';
 		}
 

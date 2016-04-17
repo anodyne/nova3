@@ -706,9 +706,35 @@ return [
 	],
 	[
 		'verb'				=> "POST",
-		'name'				=> "Store Form in Form Center",
+		'name'				=> "Store Form Entry in Form Center",
 		'key'				=> "admin.form-center.store",
 		'uri'				=> "admin/form-center/{formKey}/create",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@store",
+	],
+	[
+		'verb'				=> "PUT",
+		'name'				=> "Update Form Entry in Form Center",
+		'key'				=> "admin.form-center.update",
+		'uri'				=> "admin/form-center/{formKey}/{entryId}",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@update",
+	],
+	[
+		'verb'				=> "DELETE",
+		'name'				=> "Remove Form Entry in Form Center",
+		'key'				=> "admin.form-center.destroy",
+		'uri'				=> "admin/form-center/{formKey}/{entryId}",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@destroy",
+	],
+	[
+		'name'				=> "Show Form Center Form Entry",
+		'key'				=> "admin.form-center.showEntry",
+		'uri'				=> "admin/form-center/show-entry/{entryId}",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@showEntry",
+	],
+	[
+		'name'				=> "Edit Form Center Form Entry",
+		'key'				=> "admin.form-center.editEntry",
+		'uri'				=> "admin/form-center/edit-entry/{entryId}",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@editEntry",
 	],
 ];

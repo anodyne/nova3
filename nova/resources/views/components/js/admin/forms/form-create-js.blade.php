@@ -1,15 +1,25 @@
 <script>
 	vue = {
 		data: {
+			key: "",
 			name: "",
-			key: ""
+			restrictions: [
+				{ type: "view", value: "" },
+				{ type: "create", value: "" },
+				{ type: "edit", value: "" },
+				{ type: "delete", value: "" }
+			],
+			useFormCenter: true
 		},
 
 		methods: {
-			updateName: function () {
-				this.key = this.name.replace(/\W+/g, '-').toLowerCase()
-
-				this.updateKey()
+			clearRestriction: function (row) {
+				for (var i = 0; i < this.restrictions.length; ++i) {
+					if (this.restrictions[i] === row) {
+						this.restrictions[i].value = ""
+						break
+					}
+				}
 			},
 
 			updateKey: function () {
@@ -38,6 +48,20 @@
 							html: true
 						})
 					})
+				}
+			},
+
+			updateName: function () {
+				this.key = this.name.replace(/\W+/g, '-').toLowerCase()
+
+				this.updateKey()
+			}
+		},
+
+		watch: {
+			useFormCenter: function (value, oldValue) {
+				if (value == false) {
+					//
 				}
 			}
 		}
