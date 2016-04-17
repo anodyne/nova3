@@ -20,7 +20,7 @@
 	- Appearance option will cover themes and ranks
 		- Do away with "main" for themes and instead change it to "public"
 		- Make it clearer that individual preferences have higher priority than site settings
-	- Settings (not Site Settings)
-	- Preferences (not Site Preferences)
-	- Roles, not Access Roles
-	- Permissions, not Role Permissions
+- Settings (not Site Settings)
+- Preferences (not Site Preferences)
+- Roles, not Access Roles
+- Permissions, not Role Permissions
