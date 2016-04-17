@@ -21,6 +21,27 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryI
 		$this->fieldRepo = $field;
 	}
 
+	public function delete($resource)
+	{
+		$item = $this->getResource($resource);
+
+		if ($item)
+		{
+			// Remove all the data
+			$item->data->each(function ($d)
+			{
+				$d->delete();
+			});
+
+			// Remove the entry
+			$item->delete();
+
+			return $item;
+		}
+
+		return false;
+	}
+
 	public function getUserEntries(User $user, $form = null)
 	{
 		$entries = $user->formCenterEntries->load(['form', 'data']);

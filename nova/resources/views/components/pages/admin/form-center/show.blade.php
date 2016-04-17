@@ -53,7 +53,7 @@
 							@endcan
 
 							@can('removeFormCenterEntry', $form)
-								<p><a href="#" class="btn btn-danger btn-lg btn-block">Remove</a></p>
+								<p><a href="#" class="btn btn-danger btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="removeEntry">Remove</a></p>
 							@endcan
 						</mobile>
 						<desktop>
@@ -68,7 +68,7 @@
 
 								@can('removeFormCenterEntry', $form)
 									<div class="btn-group">
-										<a href="#" class="btn btn-danger">Remove</a>
+										<a href="#" class="btn btn-danger" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="removeEntry">Remove</a>
 									</div>
 								@endcan
 							</div>
@@ -88,3 +88,7 @@
 
 	<div v-if="showEntry" id="formCenterEntry"></div>
 </div>
+
+@can('removeFormCenterEntry', $form)
+	{!! modal(['id' => "removeFormEntry", 'header' => "Remove Form Entry"]) !!}
+@endcan

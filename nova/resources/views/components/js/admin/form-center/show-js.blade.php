@@ -13,6 +13,15 @@
 		},
 
 		methods: {
+			removeEntry: function (event) {
+				var entryId = $(event.target).data('id')
+				var formKey = $(event.target).data('form-key')
+
+				$('#removeFormEntry').modal({
+					remote: "{{ url('admin/form-center') }}/" + formKey + "/" + entryId + "/remove"
+				}).modal('show')
+			},
+
 			switchToEntries: function () {
 				this.showEntry = false
 				this.showForm = false

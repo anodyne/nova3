@@ -58,5 +58,6 @@ return [
 	'Nova\Core\Forms\Events\FormCenterFormWasUpdated' => [
 		EmailFormCenterRecipients::class,
 	],
+	'Nova\Core\Forms\Events\FormCenterFormWasDeleted' => [],
 
 ];

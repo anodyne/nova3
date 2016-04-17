@@ -719,6 +719,12 @@ return [
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@update",
 	],
 	[
+		'name'				=> "Remove Form Entry Pop-up",
+		'key'				=> "admin.form-center.remove",
+		'uri'				=> "admin/form-center/{formKey}/{entryId}/remove",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@remove",
+	],
+	[
 		'verb'				=> "DELETE",
 		'name'				=> "Remove Form Entry from Form Center",
 		'key'				=> "admin.form-center.destroy",

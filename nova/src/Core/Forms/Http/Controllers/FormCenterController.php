@@ -80,7 +80,7 @@ class FormCenterController extends BaseController {
 		
 		event(new Events\FormCenterFormWasCreated($entry, $form));
 		
-		flash()->success("Form Submitted!");
+		flash()->success("Form Entry Created!");
 		
 		return redirect()->back();
 	}
@@ -123,7 +123,48 @@ class FormCenterController extends BaseController {
 		
 		event(new Events\FormCenterFormWasUpdated($entry, $form));
 		
-		flash()->success("Form Updated!");
+		flash()->success("Form Entry Updated!");
+		
+		return redirect()->back();
+	}
+
+	public function remove($formKey, $entryId)
+	{
+		$this->isAjax = true;
+
+		$entry = $this->repo->getById($entryId);
+
+		if ( ! $entry)
+		{
+			$body = alert('danger', "Form entry not found.");
+		}
+		else
+		{
+			$form = $entry->form;
+
+			$body = (policy($form)->removeFormCenterEntry($this->user, $form))
+				? view(locate('page', 'admin/form-center/entry-remove'), compact('form', 'entry'))
+				: alert('danger', "You do not have permission to remove this form entry.");
+		}
+
+		return partial('modal-content', [
+			'header' => "Remove Form Entry",
+			'body' => $body,
+			'footer' => false,
+		]);
+	}
+
+	public function destroy(Request $request, $formKey, $id)
+	{
+		$form = $this->formRepo->getByKey($formKey);
+
+		$this->authorize('removeFormCenterEntry', $form, "You do not have permission to remove this form entry.");
+		
+		$entry = $this->repo->delete($id);
+		
+		event(new Events\FormCenterFormWasDeleted($entry->id, $entry->present()->identifier, $formKey));
+		
+		flash()->success("Form Entry Removed!");
 		
 		return redirect()->back();
 	}
