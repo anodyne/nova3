@@ -356,15 +356,7 @@ class Theme implements Themeable, ThemeableInfo {
 	 */
 	public function getIcon($icon)
 	{
-		// Grab the icon map
-		$map = $this->getIconMap();
-
-		if (array_key_exists($icon, $map))
-		{
-			return $map[$icon];
-		}
-
-		throw new Exception("No [{$icon}] icon could be found.");
+		return array_get($this->getIconMap(), $icon);
 	}
 
 	/**
