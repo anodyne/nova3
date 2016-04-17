@@ -43,7 +43,8 @@
 			@foreach ($entries as $entry)
 				<div class="row">
 					<div class="col-md-8">
-						<p>{{ $entry->present()->createdAt }}</p>
+						<p>{{ $entry->present()->identifier }}</p>
+						<p class="text-sm text-muted">{{ $entry->present()->createdAt }}</p>
 					</div>
 					<div class="col-md-4">
 						<mobile>

@@ -23,7 +23,7 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryI
 
 	public function getUserEntries(User $user, $form = null)
 	{
-		$entries = $user->formCenterEntries;
+		$entries = $user->formCenterEntries->load(['form', 'data']);
 
 		if ($form)
 		{

@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Forms\Data;
 
-use Model, NovaFormDataPresenter;
+use Model, FormDataPresenter;
 use Laracasts\Presenter\PresentableTrait;
 
 class Data extends Model {
@@ -15,7 +15,7 @@ class Data extends Model {
 
 	protected $touches = ['entry'];
 
-	protected $presenter = NovaFormDataPresenter::class;
+	protected $presenter = FormDataPresenter::class;
 
 	//-------------------------------------------------------------------------
 	// Relationships
