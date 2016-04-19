@@ -25,10 +25,14 @@ return [
 		['display_name' => "Create Forms", 'name' => "form.create", 'description' => "Create new forms.", 'protected' => (int) true],
 		['display_name' => "Edit Forms", 'name' => "form.edit", 'description' => "Edit existing forms.", 'protected' => (int) true],
 		['display_name' => "Remove Forms", 'name' => "form.remove", 'description' => "Remove existing forms.", 'protected' => (int) true],
+
+		['display_name' => "View Form Entries", 'name' => "form-center.view", 'description' => "View form entries created from Form Center.", 'protected' => (int) true],
+		['display_name' => "Edit Form Entries", 'name' => "form-center.edit", 'description' => "Edit any form entries created from Form Center.", 'protected' => (int) true],
+		['display_name' => "Remove Form Entries", 'name' => "form-center.remove", 'description' => "Remove any form entries created from Form Center.", 'protected' => (int) true],
 	],
 
 	'roleAssociations' => [
-		'Game Master' => [1,2,3,4,5,6,7,8,9,10,11,12],
+		'Game Master' => [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
 		'Power User' => [],
 		'Active User' => [],
 		'Inactive User' => [],
