@@ -21,11 +21,6 @@ class TextField implements FieldTypeInterface {
 		];
 	}
 
-	public function preview()
-	{
-		return Form::text('name', null, [':class' => 'attrClass', ':placeholder' => 'attrPlaceholder']);
-	}
-
 	public function render($state, $name, $values, $data, array $attributes)
 	{
 		if ($state == 'view')
