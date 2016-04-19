@@ -33,6 +33,104 @@
   -moz-border-radius: 0.4rem;
   border-radius: 0.4rem 0.4rem 0.4rem 0.4rem;
 }
+#panel .modal-header {
+  background: #fff;
+  border-bottom: 0;
+  margin-bottom: 0;
+  height: 7rem;
+}
+#panel .modal-header .btn-group {
+  padding-top: 0.4rem;
+  width: 100%;
+}
+#panel .modal-dialog {
+  height: 100vh;
+  min-height: 100vh;
+}
+#panel .modal-content {
+  background: #f5f8fa;
+  border: none;
+  overflow-y: scroll;
+  height: 100vh;
+  min-height: 100vh;
+}
+#panel .modal-body {
+  padding: 0;
+  height: 100vh;
+  min-height: 100vh;
+}
+#panel .modal-footer {
+  background: #fff;
+  border-top: 0.1rem dashed rgba(0, 0, 0, 0.1);
+  width: 35rem;
+}
+#panel .notification:not(:first-child) {
+  padding-top: 2.5rem;
+}
+#panel .notification:not(:last-child) {
+  margin-bottom: 2.3rem;
+}
+#panel .notification {
+  position: relative;
+  padding: 2rem 1.5rem 0 1.5rem;
+  border-top: 0.1rem dashed rgba(0, 0, 0, 0.1);
+}
+#panel figure {
+  position: absolute;
+}
+#panel .notification-content {
+  padding-left: 7rem;
+}
+#panel .notification-content .meta {
+  display: flex;
+  align-content: flex-end;
+}
+#panel .notification-content .title {
+  flex: 1;
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 0.2rem 0 1rem;
+}
+#panel .notification-content .date {
+  color: #aaa;
+}
+#panel .notification-content .notification-body {
+  margin-bottom: 1.5rem;
+}
+#panel .spark-profile-photo {
+  height: 5.2rem;
+  width: 5.2rem;
+}
+#panel .fa-stack {
+  /*color: @spark-border-color;*/
+  font-size: 2.6rem;
+}
+#panel h4 {
+  margin-bottom: 1.5rem;
+  margin-top: 0.3rem;
+}
+.modal.docked .modal-dialog {
+  position: fixed;
+  top: 0;
+  margin: 0;
+  height: 100vh;
+  width: 35rem;
+}
+.modal.docked.docked-left .modal-dialog {
+  left: 0;
+}
+.modal.docked.docked-right .modal-dialog {
+  right: 0;
+}
+.modal.docked .modal-content {
+  border-radius: 0;
+  height: 100vh;
+}
+.modal.docked .modal-footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
 /*html,
 body,
 .nova-container,
