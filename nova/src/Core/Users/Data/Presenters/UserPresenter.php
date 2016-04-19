@@ -21,7 +21,12 @@ class UserPresenter extends BasePresenter {
 			return $this->entity->nickname;
 		}
 
-		return $this->entity->name;
+		if ($this->entity->name)
+		{
+			return $this->entity->name;
+		}
+
+		return $this->entity->email;
 	}
 
 	public function realName()
