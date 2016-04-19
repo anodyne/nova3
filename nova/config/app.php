@@ -161,6 +161,7 @@ return [
 		Nova\Foundation\Providers\RouteServiceProvider::class,
 		Nova\Foundation\Providers\AuthServiceProvider::class,
 		Nova\Foundation\Providers\ExtensionServiceProvider::class,
+		Peslis\Gravatar\Laravel\GravatarServiceProvider::class,
 
 	],
 
@@ -215,12 +216,13 @@ return [
 		'BaseController'	=> Nova\Foundation\Http\Controllers\BaseController::class,
 		'BasePresenter'		=> Nova\Foundation\Data\Presenters\BasePresenter::class,
 		'Date'				=> Carbon\Carbon::class,
-		'Model'				=> Illuminate\Database\Eloquent\Model::class,
 		'Form'				=> Collective\Html\FormFacade::class,
 		'Flash'				=> Nova\Foundation\Services\FlashNotifierFacade::class,
+		'Gravatar'			=> Peslis\Gravatar\Laravel\GravatarFacade::class,
 		'HTML'				=> Collective\Html\HtmlFacade::class,
 		'Locate'			=> Nova\Foundation\Services\Locator\LocatorFacade::class,
 		'Markdown'			=> Nova\Foundation\Services\MarkdownParserFacade::class,
+		'Model'				=> Illuminate\Database\Eloquent\Model::class,
 		'Status'			=> Nova\Foundation\Services\StatusService::class,
 		'StatusTrait'		=> Nova\Foundation\Traits\StatusTrait::class,
 		'Str'				=> Illuminate\Support\Str::class,
