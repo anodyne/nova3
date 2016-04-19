@@ -1,5 +1,8 @@
 <?php namespace Nova\Foundation\Data\Repositories;
 
+use stdClass;
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+
 abstract class BaseRepository {
 
 	public function all(array $with = [])
@@ -54,25 +57,54 @@ abstract class BaseRepository {
 		return $query->find($id);
 	}
 
-	public function getByPage($page = 1, $limit = 10, array $with = [])
+	public function getByPage($page = 1, $perPage = 10, array $with = [], $sort = false, $items = false)
 	{
 		// Start building the result set
 		$result = new stdClass;
 		$result->page = $page;
-		$result->limit = $limit;
+		$result->perPage = $perPage;
 		$result->totalItems = 0;
 		$result->items = [];
 
-		// Start building the query
-		$query = $this->make($with);
+		// Build the offset
+		$offset = $perPage * ($page - 1);
 
-		$model = $query->skip($limit * ($page - 1))
-			->take($limit)
-			->get();
+		// Build the sorting
+		if ($sort)
+		{
+			list($sortColumn, $sortDirection) = explode('|', $sort);
+		}
 
-		// Fill in the result set
-		$result->totalItems = $this->model->count();
-		$result->items = $modal->all();
+		if ($items)
+		{
+			// Load the relations
+			$items->load($with);
+			
+			// Sort the collection
+			if (isset($sortColumn))
+			{
+				$items = $items->sortBy($sortColumn, SORT_REGULAR, ($sortDirection == 'desc'));
+			}
+
+			// Fill in the result set
+			$result->totalItems = $items->count();
+			$result->items = $items->slice($offset, $perPage);
+		}
+		else
+		{
+			// Build the query
+			$query = $this->make($with)
+				->skip($offset)
+				->take($perPage)
+				->orderBy($sortColumn, $sortDirection);
+
+			// Execute the query
+			$model = $query->get();
+
+			// Fill in the result set
+			$result->totalItems = $this->countAll();
+			$result->items = $model->all();
+		}
 
 		return $result;
 	}
@@ -129,6 +161,14 @@ abstract class BaseRepository {
 	public function make(array $with = [])
 	{
 		return $this->model->with($with);
+	}
+
+	public function paginate($data, $page, $perPage, $path)
+	{
+		$paginator = new Paginator($data->items, $data->totalItems, $perPage, $page);
+		$paginator->setPath($path);
+
+		return $paginator;
 	}
 
 	public function update($resource, array $data)
