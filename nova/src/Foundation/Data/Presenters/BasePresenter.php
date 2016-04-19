@@ -14,6 +14,11 @@ class BasePresenter extends Presenter {
 		}
 	}
 
+	public function createdAtRelative()
+	{
+		return $this->entity->created_at->diffForHumans();
+	}
+
 	public function deletedAt()
 	{
 		$dateFormat = app('nova.settings')->get('format_datetime');
