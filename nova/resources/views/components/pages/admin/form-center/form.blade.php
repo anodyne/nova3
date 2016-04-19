@@ -39,7 +39,11 @@
 		@endif
 	</desktop>
 
-	<div v-if="showEntries">
+	<div v-show="loading">
+		<h4 class="text-center">{!! HTML::image('nova/resources/images/ajax-loader.gif') !!}</h4>
+	</div>
+
+	<div v-show="showEntries">
 		@if ($entries->count() > 0)
 			<h3>My {{ Str::plural('Entry', $entries->count()) }}</h3>
 
@@ -88,11 +92,11 @@
 		@endif
 	</div>
 
-	<div v-if="showForm">
+	<div v-show="showForm">
 		{!! $form->present()->renderNewForm() !!}
 	</div>
 
-	<div v-if="showEntry" id="formCenterEntry"></div>
+	<div v-show="showEntry" id="formCenterEntry"></div>
 </div>
 
 @can('removeFormCenterEntry', $form)

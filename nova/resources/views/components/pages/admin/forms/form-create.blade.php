@@ -133,7 +133,7 @@
 		<div class="form-group{{ ($errors->has('resource_store')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Creation Resource</label>
 			<div class="col-md-5">
-				{!! Form::select('resource_store', $resourcesCreate, 'admin.form-center.store', ['class' => 'form-control input-lg']) !!}
+				{!! Form::select('resource_store', $resourcesCreate, 'admin.form-center.storeEntry', ['class' => 'form-control input-lg']) !!}
 				{!! $errors->first('resource_store', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>
@@ -141,7 +141,7 @@
 		<div class="form-group{{ ($errors->has('resource_update')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Update Resource</label>
 			<div class="col-md-5">
-				{!! Form::select('resource_update', $resourcesUpdate, 'admin.form-center.update', ['class' => 'form-control input-lg']) !!}
+				{!! Form::select('resource_update', $resourcesUpdate, 'admin.form-center.updateEntry', ['class' => 'form-control input-lg']) !!}
 				{!! $errors->first('resource_update', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>
@@ -149,7 +149,7 @@
 		<div class="form-group{{ ($errors->has('resource_destroy')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Delete Resource</label>
 			<div class="col-md-5">
-				{!! Form::select('resource_destroy', $resourcesDelete, 'admin.form-center.destroy', ['class' => 'form-control input-lg']) !!}
+				{!! Form::select('resource_destroy', $resourcesDelete, 'admin.form-center.destroyEntry', ['class' => 'form-control input-lg']) !!}
 				{!! $errors->first('resource_destroy', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>

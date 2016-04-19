@@ -28,7 +28,7 @@
 				<div class="row">
 					@if ($form->use_form_center)
 						<div class="col-xs-12">
-							<p><a href="#" class="btn btn-default btn-lg btn-block">Dashboard</a></p>
+							<p><a href="{{ route('admin.form-center.entries', [$form->key]) }}" class="btn btn-default btn-lg btn-block">Entries</a></p>
 						</div>
 					@endif
 
@@ -71,7 +71,7 @@
 				<div class="btn-toolbar pull-right">
 					@if ($form->use_form_center)
 						<div class="btn-group">
-							<a href="#" class="btn btn-default">Dashboard</a>
+							<a href="{{ route('admin.form-center.entries', [$form->key]) }}" class="btn btn-default">Entries</a>
 						</div>
 					@endif
 

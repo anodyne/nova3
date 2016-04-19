@@ -42,6 +42,11 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryI
 		return false;
 	}
 
+	public function getFormEntries(NovaForm $form)
+	{
+		return $form->entries;
+	}
+
 	public function getUserEntries(User $user, $form = null)
 	{
 		$entries = $user->formCenterEntries->load(['form', 'data']);
@@ -121,6 +126,16 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryI
 				if ($dataRecord->count() > 0)
 				{
 					$dataRecord->first()->update(['value' => $value]);
+				}
+				else
+				{
+					$this->dataRepo->create([
+						'form_id' => $entry->form_id,
+						'field_id' => $fieldId,
+						'entry_id' => $entry->id,
+						'user_id' => $entry->user_id,
+						'value' => $value,
+					]);
 				}
 			}
 		}

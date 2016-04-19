@@ -25,6 +25,21 @@ class FormPolicy {
 		return $user->can('form.remove') and ! $form->protected;
 	}
 
+	public function editEntries(User $user, Form $form)
+	{
+		return $user->can('form-center.edit');
+	}
+
+	public function removeEntries(User $user, Form $form)
+	{
+		return $user->can('form-center.remove');
+	}
+
+	public function viewEntries(User $user, Form $form)
+	{
+		return $user->can('form-center.view');
+	}
+
 	public function viewInFormCenter(User $user, Form $form)
 	{
 		return $user->canViewForm($form);

@@ -8,7 +8,7 @@
 						<h3 class="panel-title">{!! $form->present()->name !!}</h3>
 					</div>
 					<div class="panel-body">
-						<p><a href="{{ route('admin.form-center.show', [$form->key]) }}" class="btn btn-default btn-lg btn-block">View</a></p>
+						<p><a href="{{ route('admin.form-center.form', [$form->key]) }}" class="btn btn-default btn-lg btn-block">View</a></p>
 					</div>
 				</div>
 			</div>

@@ -21,6 +21,8 @@ class FormCenterController extends BaseController {
 		
 		$this->structureView = 'admin';
 		$this->templateView = 'admin';
+
+		$this->middleware('auth', ['only' => ['show', 'edit', 'update', 'entries']]);
 	}
 
 	public function index()
@@ -28,6 +30,37 @@ class FormCenterController extends BaseController {
 		$this->view = 'admin/form-center/index';
 
 		$this->data->forms = $this->formRepo->getFormCenterForms();
+	}
+
+	public function entries(Request $request, $formKey)
+	{
+		$form = $this->data->form = $this->formRepo->getByKey($formKey);
+
+		$this->authorize('viewEntries', $form, "You do not have permission to view Form Center entries.");
+
+		$this->view = 'admin/form-center/entries';
+		$this->jsView = 'admin/form-center/entries-js';
+
+		// What page are we on?
+		$page = $request->get('page', 1);
+
+		// How many do we want per page?
+		$perPage = 25;
+
+		$entries = $this->repo->getByPage(
+			$page,
+			$perPage,
+			['form', 'user', 'data'],
+			'created_at|desc',
+			$this->repo->getFormEntries($form)
+		);
+
+		$this->data->entries = $this->repo->paginate(
+			$entries,
+			$page,
+			$perPage,
+			route('admin.form-center.entries', [$formKey])
+		);
 	}
 
 	public function form($formKey)
@@ -46,7 +79,14 @@ class FormCenterController extends BaseController {
 
 	public function show($formKey, $entryId)
 	{
-		# code...
+		$form = $this->data->form = $this->formRepo->getByKey($formKey);
+
+		$this->authorize('viewEntries', $form, "You do not have permission to view Form Center entries.");
+
+		$this->view = 'admin/form-center/show';
+		$this->jsView = 'admin/form-center/show-js';
+
+		$this->data->entry = $this->repo->getById($entryId, ['user', 'form', 'data']);
 	}
 
 	public function showEntry($formKey, $entryId)
@@ -92,12 +132,34 @@ class FormCenterController extends BaseController {
 
 	public function edit($formKey, $entryId)
 	{
-		# code...
+		$form = $this->data->form = $this->formRepo->getByKey($formKey);
+
+		$this->authorize('editEntries', $form, "You do not have permission to edit all Form Center entries.");
+
+		$this->view = 'admin/form-center/edit';
+
+		$this->data->entryId = $entryId;
 	}
 
-	public function update($formKey, $entryId)
+	public function update(Request $request, $formKey, $entryId)
 	{
-		# code...
+		$form = $this->formRepo->getByKey($formKey);
+
+		$this->authorize('editEntries', $form, "You do not have permission to edit this form entry.");
+		
+		$this->validate(
+			$request,
+			$this->formRepo->getValidationRules($form),
+			$this->validationMessages()
+		);
+		
+		$entry = $this->repo->update($entryId, $request->all());
+		
+		event(new Events\FormCenterFormWasUpdated($entry, $form));
+		
+		flash()->success("Form Entry Updated!");
+		
+		return redirect()->route('admin.form-center.entries', [$formKey]);
 	}
 
 	public function editEntry($formKey, $entryId)

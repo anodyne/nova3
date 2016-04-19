@@ -20,4 +20,14 @@ class EntryPresenter extends BasePresenter {
 		}
 	}
 
+	public function submitter()
+	{
+		if ($this->entity->user)
+		{
+			return $this->entity->user->present()->name;
+		}
+
+		return $this->entity->ip_address;
+	}
+
 }
