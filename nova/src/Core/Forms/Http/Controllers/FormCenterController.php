@@ -30,21 +30,26 @@ class FormCenterController extends BaseController {
 		$this->data->forms = $this->formRepo->getFormCenterForms();
 	}
 
-	public function show($formKey)
+	public function form($formKey)
 	{
 		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
 		$this->authorize('viewInFormCenter', $form, "You do not have permission to view this form.");
 
-		$this->view = 'admin/form-center/show';
-		$this->jsView = 'admin/form-center/show-js';
+		$this->view = 'admin/form-center/form';
+		$this->jsView = 'admin/form-center/form-js';
 
 		$entries = $this->data->entries = $this->repo->getUserEntries($this->user, $form);
 
 		$this->jsData->entryCount = $entries->count();
 	}
 
-	public function showEntry($entryId)
+	public function show($formKey, $entryId)
+	{
+		# code...
+	}
+
+	public function showEntry($formKey, $entryId)
 	{
 		$this->isAjax = true;
 
@@ -85,7 +90,17 @@ class FormCenterController extends BaseController {
 		return redirect()->back();
 	}
 
-	public function editEntry($entryId)
+	public function edit($formKey, $entryId)
+	{
+		# code...
+	}
+
+	public function update($formKey, $entryId)
+	{
+		# code...
+	}
+
+	public function editEntry($formKey, $entryId)
 	{
 		$this->isAjax = true;
 
@@ -107,7 +122,7 @@ class FormCenterController extends BaseController {
 		return $body;
 	}
 
-	public function update(Request $request, $formKey, $id)
+	public function updateEntry(Request $request, $formKey, $id)
 	{
 		$form = $this->formRepo->getByKey($formKey);
 

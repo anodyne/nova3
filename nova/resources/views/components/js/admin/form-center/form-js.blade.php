@@ -18,7 +18,7 @@
 				var formKey = $(event.target).data('form-key')
 
 				$('#removeFormEntry').modal({
-					remote: "{{ url('admin/form-center') }}/" + formKey + "/" + entryId + "/remove"
+					remote: "{{ url('admin/form-center') }}/" + formKey + "/remove/" + entryId
 				}).modal('show')
 			},
 
@@ -30,16 +30,14 @@
 
 			switchToEditEntry: function (event) {
 				var entryId = $(event.target).data('id')
-				var url = "{{ url('admin/form-center/edit-entry') }}/" + entryId
+				var formKey = $(event.target).data('form-key')
+				var url = "{{ url('admin/form-center') }}/" + formKey + "/edit-entry/" + entryId
 
 				this.$http.get(url).then(response => {
 					$('#formCenterEntry').html(response.data)
 
 					vm.$emit('form-center-entry.loaded')
 				})
-
-				// Emit our event so we can re-compile to be sure components work properly
-				//vm.$emit('form-center-entry.loaded')
 
 				this.showEntries = false
 				this.showForm = false
@@ -48,7 +46,8 @@
 
 			switchToViewEntry: function (event) {
 				var entryId = $(event.target).data('id')
-				var url = "{{ url('admin/form-center/show-entry') }}/" + entryId
+				var formKey = $(event.target).data('form-key')
+				var url = "{{ url('admin/form-center') }}/" + formKey + "/show-entry/" + entryId
 
 				this.$http.get(url).then(response => {
 					$('#formCenterEntry').html(response.data)

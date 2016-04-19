@@ -52,8 +52,10 @@
 					</div>
 					<div class="col-md-4">
 						<mobile>
+							<p><a href="#" class="btn btn-default btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToViewEntry">View</a></p>
+
 							@can('editFormCenterEntry', $form)
-								<p><a href="#" class="btn btn-default btn-lg btn-block" data-form-key="{{ $form->key }}" data-form-state="edit" data-id="{{ $entry->id }}">Edit</a></p>
+								<p><a href="#" class="btn btn-default btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToEditEntry">Edit</a></p>
 							@endcan
 
 							@can('removeFormCenterEntry', $form)
@@ -63,10 +65,10 @@
 						<desktop>
 							<div class="btn-toolbar pull-right">
 								<div class="btn-group">
-									<a href="#" class="btn btn-default" data-id="{{ $entry->id }}" @click.prevent="switchToViewEntry">View</a>
+									<a href="#" class="btn btn-default" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToViewEntry">View</a>
 									
 									@can('editFormCenterEntry', $form)
-										<a href="#" class="btn btn-default" data-id="{{ $entry->id }}" @click.prevent="switchToEditEntry">Edit</a>
+										<a href="#" class="btn btn-default" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToEditEntry">Edit</a>
 									@endcan
 								</div>
 

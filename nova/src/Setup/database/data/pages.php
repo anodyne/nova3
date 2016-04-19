@@ -690,6 +690,9 @@ return [
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FieldController@updateFieldOrder",
 	],
 
+	/**
+	 * Form Center
+	 */
 	[
 		'name'				=> "Form Center",
 		'key'				=> "admin.form-center.index",
@@ -699,10 +702,16 @@ return [
 	],
 	[
 		'name'				=> "Show Form Center Form",
-		'key'				=> "admin.form-center.show",
+		'key'				=> "admin.form-center.form",
 		'uri'				=> "admin/form-center/{formKey}",
-		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@show",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@form",
 		'menu_id'			=> 2,
+	],
+	[
+		'name'				=> "Show Form Center Form Entry",
+		'key'				=> "admin.form-center.showEntry",
+		'uri'				=> "admin/form-center/{formKey}/show-entry/{entryId}",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@showEntry",
 	],
 	[
 		'verb'				=> "POST",
@@ -712,16 +721,22 @@ return [
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@store",
 	],
 	[
+		'name'				=> "Edit Form Center Form Entry",
+		'key'				=> "admin.form-center.editEntry",
+		'uri'				=> "admin/form-center/{formKey}/edit-entry/{entryId}",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@editEntry",
+	],
+	[
 		'verb'				=> "PUT",
 		'name'				=> "Update Form Entry in Form Center",
-		'key'				=> "admin.form-center.update",
+		'key'				=> "admin.form-center.updateEntry",
 		'uri'				=> "admin/form-center/{formKey}/{entryId}",
-		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@update",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@updateEntry",
 	],
 	[
 		'name'				=> "Remove Form Entry Pop-up",
 		'key'				=> "admin.form-center.remove",
-		'uri'				=> "admin/form-center/{formKey}/{entryId}/remove",
+		'uri'				=> "admin/form-center/{formKey}/remove/{entryId}",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@remove",
 	],
 	[
@@ -732,15 +747,22 @@ return [
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@destroy",
 	],
 	[
-		'name'				=> "Show Form Center Form Entry",
-		'key'				=> "admin.form-center.showEntry",
-		'uri'				=> "admin/form-center/show-entry/{entryId}",
-		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@showEntry",
+		'name'				=> "View Form Center Form Entry (Admin)",
+		'key'				=> "admin.form-center.show",
+		'uri'				=> "admin/form-center/{formKey}/show/{entryId}",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@show",
 	],
 	[
-		'name'				=> "Edit Form Center Form Entry",
-		'key'				=> "admin.form-center.editEntry",
-		'uri'				=> "admin/form-center/edit-entry/{entryId}",
-		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@editEntry",
+		'name'				=> "Edit Form Center Form Entry (Admin)",
+		'key'				=> "admin.form-center.edit",
+		'uri'				=> "admin/form-center/{formKey}/edit/{entryId}",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@edit",
+	],
+	[
+		'verb'				=> "PUT",
+		'name'				=> "Update Form Center Form Entry (Admin)",
+		'key'				=> "admin.form-center.update",
+		'uri'				=> "admin/form-center/{formKey}/edit/{entryId}",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@update",
 	],
 ];
