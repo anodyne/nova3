@@ -59,7 +59,7 @@ class FormSeeder extends Seeder {
 		$form->save();
 
 		// Create some entries
-		for ($i = 0; $i <= 5; $i++)
+		for ($i = 1; $i <= 50; $i++)
 		{
 			$entry = $entryRepo->create([
 				'form_id' => $form->id,
@@ -69,7 +69,7 @@ class FormSeeder extends Seeder {
 			foreach ($fields as $field)
 			{
 				$value = ($field->type == 'text')
-					? $faker->words($faker->numberBetween(3, 8), true)
+					? ucwords($faker->words($faker->numberBetween(3, 8), true))
 					: $faker->paragraphs(1, true);
 
 				$dataRepo->create([
