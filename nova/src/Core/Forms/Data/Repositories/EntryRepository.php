@@ -56,7 +56,7 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryI
 			$entries = $entries->where('form_id', $form->id);
 		}
 
-		return $entries;
+		return $entries->sortByDesc('created_at');
 	}
 
 	public function insert(NovaForm $form, $user, array $data)
