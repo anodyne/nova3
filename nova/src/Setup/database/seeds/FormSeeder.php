@@ -16,6 +16,13 @@ class FormSeeder extends Seeder {
 
 		$fields = [];
 
+		$restrictions = [
+			['type' => 'view', 'value' => ''],
+			['type' => 'add', 'value' => ''],
+			['type' => 'edit', 'value' => ''],
+			['type' => 'remove', 'value' => ''],
+		];
+
 		// Create a test form
 		$form = $formRepo->create([
 			'key' => 'mission-ideas',
@@ -24,7 +31,7 @@ class FormSeeder extends Seeder {
 			'use_form_center' => (int) true,
 			'message' => $faker->paragraph(5),
 			'allow_multiple_submissions' => (int) true,
-			'restrictions' => '[{"type":"view","value":""},{"type":"create","value":""},{"type":"edit","value":""},{"type":"delete","value":""}]',
+			'restrictions' => json_encode($restrictions),
 		]);
 
 		// Create some fields
