@@ -16,11 +16,11 @@ class PageTransformer extends Transformer {
 			'type'			=> ( ! empty($resource->resource)) ? 'advanced' : 'basic',
 			'uri'			=> $resource->uri,
 			'verb'			=> $resource->verb,
-			'content'		=> [
-				'header'		=> $resource->present()->header,
-				'message'		=> $resource->present()->message,
-				'title'			=> $resource->present()->title,
-			],
+			//'content'		=> [
+				//'header'		=> $resource->present()->header,
+				//'message'		=> $resource->present()->message,
+				//'title'			=> $resource->present()->title,
+			//],
 			'links'			=> [
 				'edit'			=> route('admin.pages.edit', [$resource->id]),
 			],
