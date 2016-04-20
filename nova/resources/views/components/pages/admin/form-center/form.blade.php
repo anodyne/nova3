@@ -15,7 +15,7 @@
 	{!! $form->present()->message !!}
 
 	<mobile>
-		@if ( ! $form->allow_multiple_submissions and $entries->count() == 0)
+		@if ($_user->canAddFormEntry($form) and $form->allow_multiple_submissions)
 			<div class="row">
 				<div class="col-sm-6">
 					<p><a href="#" class="btn btn-success btn-lg btn-block" @click.prevent="switchToForm">Fill Out Form</a></p>
@@ -27,14 +27,17 @@
 		@endif
 	</mobile>
 	<desktop>
-		<div class="btn-toolbar">
-			<div class="btn-group">
-				<a href="#" class="btn btn-success" @click.prevent="switchToForm">Fill Out Form</a>
+		@if ($_user->canAddFormEntry($form) and $form->allow_multiple_submissions)
+			<div class="btn-toolbar">
+				<div class="btn-group">
+					<a href="#" class="btn btn-success" @click.prevent="switchToForm">Fill Out Form</a>
+				</div>
+
+				<div class="btn-group">
+					<a href="#" class="btn btn-default" @click.prevent="switchToEntries">Show My {{ Str::plural('Entry', $entries->count()) }}</a>
+				</div>
 			</div>
-			<div class="btn-group">
-				<a href="#" class="btn btn-default" @click.prevent="switchToEntries">Show My {{ Str::plural('Entry', $entries->count()) }}</a>
-			</div>
-		</div>
+		@endif
 	</desktop>
 
 	<div v-show="loading">
@@ -91,7 +94,11 @@
 	</div>
 
 	<div v-show="showForm">
-		{!! $form->present()->renderNewForm() !!}
+		@if ($_user->canAddFormEntry($form) and ($form->allow_multiple_submissions or ( ! $form->allow_multiple_submissions and $entries->count() == 0)))
+			{!! $form->present()->renderNewForm() !!}
+		@else
+			{!! alert('danger', "You cannot add entries to this form") !!}
+		@endif
 	</div>
 
 	<div v-show="showEntry" id="formCenterEntry"></div>
