@@ -11,11 +11,10 @@ class Kernel extends ConsoleKernel {
 	 * @var array
 	 */
 	protected $commands = [
-		//'Nova\Foundation\Console\Commands\Inspire',
-		'Nova\Foundation\Console\Commands\MakeExtensionCommand',
-		'Nova\Foundation\Console\Commands\MakeThemeCommand',
-		'Nova\Foundation\Console\Commands\NovaRefreshCommand',
-		'Nova\Foundation\Console\Commands\NovaUninstallCommand',
+		Commands\MakeExtensionCommand::class,
+		Commands\MakeThemeCommand::class,
+		Commands\NovaRefreshCommand::class,
+		Commands\NovaUninstallCommand::class,
 	];
 
 	/**
@@ -26,8 +25,7 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected function schedule(Schedule $schedule)
 	{
-		$schedule->command('inspire')
-				 ->hourly();
+		//$schedule->command('inspire')->hourly();
 	}
 
 }
