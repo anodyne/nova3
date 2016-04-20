@@ -18,6 +18,8 @@ class EntryPresenter extends BasePresenter {
 				return $data->first()->present()->value;
 			}
 		}
+
+		return $this->createdAt();
 	}
 
 	public function submitter()
