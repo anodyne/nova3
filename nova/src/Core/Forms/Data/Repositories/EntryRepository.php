@@ -2,6 +2,7 @@
 
 use User,
 	NovaForm,
+	NovaFormData,
 	NovaFormEntry as Model,
 	FormDataRepositoryInterface,
 	FormEntryRepositoryInterface,
@@ -87,18 +88,13 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryI
 
 			if (is_numeric($fieldId))
 			{
-				$dataRecord = $this->dataRepo->create([
+				$this->dataRepo->create([
+					'form_id' => $form->id,
 					'field_id' => $fieldId,
+					'user_id' => ($user) ? $user->id : null,
+					'entry_id' => $entry->id,
 					'value' => $value,
 				]);
-
-				// Associate the form, entry, and user with the record
-				$dataRecord->form()->associate($form);
-				$dataRecord->user()->associate($user);
-				$dataRecord->entry()->associate($entry);
-
-				// Re-save the record so we keep the associations
-				$dataRecord->save();
 			}
 		}
 
@@ -121,22 +117,24 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryI
 
 			if (is_numeric($fieldId))
 			{
-				$dataRecord = $entry->data->whereLoose('field_id', $fieldId);
+				// Set the attributes for finding the record
+				$attributes = [
+					'form_id' => $entry->form_id,
+					'field_id' => $fieldId,
+					'entry_id' => $entry->id,
+					'user_id' => $entry->user_id,
+				];
 
-				if ($dataRecord->count() > 0)
-				{
-					$dataRecord->first()->update(['value' => $value]);
-				}
-				else
-				{
-					$this->dataRepo->create([
-						'form_id' => $entry->form_id,
-						'field_id' => $fieldId,
-						'entry_id' => $entry->id,
-						'user_id' => $entry->user_id,
-						'value' => $value,
-					]);
-				}
+				// Set the values for updating/creating the record
+				$values = [
+					'form_id' => $entry->form_id,
+					'field_id' => $fieldId,
+					'entry_id' => $entry->id,
+					'user_id' => $entry->user_id,
+					'value' => $value,
+				];
+
+				$this->dataRepo->getModel()->updateOrCreate($attributes, $values);
 			}
 		}
 
