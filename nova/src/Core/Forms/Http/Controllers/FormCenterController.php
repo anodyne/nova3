@@ -22,7 +22,7 @@ class FormCenterController extends BaseController {
 		$this->structureView = 'admin';
 		$this->templateView = 'admin';
 
-		$this->middleware('auth', ['only' => ['show', 'edit', 'update', 'entries']]);
+		$this->middleware('auth', ['except' => ['storeEntry']]);
 	}
 
 	public function index()
@@ -111,7 +111,7 @@ class FormCenterController extends BaseController {
 		return $body;
 	}
 
-	public function store(Request $request, $formKey)
+	public function storeEntry(Request $request, $formKey)
 	{
 		$form = $this->formRepo->getByKey($formKey);
 		
@@ -231,7 +231,7 @@ class FormCenterController extends BaseController {
 		]);
 	}
 
-	public function destroy(Request $request, $formKey, $id)
+	public function destroyEntry(Request $request, $formKey, $id)
 	{
 		$form = $this->formRepo->getByKey($formKey);
 
