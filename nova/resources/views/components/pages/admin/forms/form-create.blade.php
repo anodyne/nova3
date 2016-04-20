@@ -81,7 +81,7 @@
 		</div>
 	</div>
 
-	<div v-if="useFormCenter == true">
+	<div v-show="useFormCenter">
 		<div class="form-group{{ ($errors->has('allow_multiple_submissions')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Allow Multiple Submissions</label>
 			<div class="col-md-5">

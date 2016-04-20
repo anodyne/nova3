@@ -71,17 +71,17 @@
 		<div class="col-md-5">
 			<div>
 				<div class="radio">
-					<label>{!! Form::radio('use_form_center', (int) true, true) !!} Yes</label>
+					<label>{!! Form::radio('use_form_center', (int) true, true, ['v-model' => 'useFormCenter']) !!} Yes</label>
 				</div>
 				<div class="radio">
-					<label>{!! Form::radio('use_form_center', (int) false) !!} No</label>
+					<label>{!! Form::radio('use_form_center', (int) false, false, ['v-model' => 'useFormCenter']) !!} No</label>
 				</div>
 			</div>
 			{!! $errors->first('use_form_center', '<p class="help-block">:message</p>') !!}
 		</div>
 	</div>
 
-	<div v-if="useFormCenter == true">
+	<div v-show="useFormCenter">
 		<div class="form-group{{ ($errors->has('allow_multiple_submissions')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Allow Multiple Submissions</label>
 			<div class="col-md-5">

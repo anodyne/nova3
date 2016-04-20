@@ -62,7 +62,11 @@
 		ready: function () {
 			this.oldKey = this.key
 
-			var restrictions
+			var restrictions, form
+
+			@if ($form)
+				form = {!! $form !!}
+			@endif
 
 			@if ($restrictions)
 				restrictions = {!! $restrictions !!}
@@ -75,6 +79,8 @@
 					this.restrictions.push({ type: restrictions[r].type, value: restrictions[r].value })
 				}
 			}
+
+			this.useFormCenter = form.use_form_center
 		},
 
 		watch: {
