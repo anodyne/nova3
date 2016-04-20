@@ -74,23 +74,23 @@ class CreateFormsTables extends Migration {
 			$table->timestamps();
 		});
 
-		Schema::create('forms_data', function (Blueprint $table)
-		{
-			$table->bigIncrements('id');
-			$table->integer('form_id')->unsigned();
-			$table->integer('field_id')->unsigned();
-			$table->bigInteger('entry_id')->unsigned();
-			$table->integer('user_id')->unsigned();
-			$table->text('value')->nullable();
-			$table->timestamps();
-		});
-
 		Schema::create('forms_entries', function (Blueprint $table)
 		{
 			$table->bigIncrements('id');
 			$table->integer('form_id')->unsigned();
 			$table->integer('user_id')->unsigned()->nullable();
 			$table->string('ip_address')->nullable();
+			$table->timestamps();
+		});
+
+		Schema::create('forms_data', function (Blueprint $table)
+		{
+			$table->bigIncrements('id');
+			$table->integer('form_id')->unsigned();
+			$table->integer('field_id')->unsigned();
+			$table->bigInteger('entry_id')->unsigned();
+			$table->integer('user_id')->unsigned()->nullable();
+			$table->text('value')->nullable();
 			$table->timestamps();
 		});
 
