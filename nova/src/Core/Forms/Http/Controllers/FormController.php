@@ -92,7 +92,8 @@ class FormController extends BaseController {
 
 		$this->data->fields = $form->fields->pluck('label', 'id');
 
-		$this->jsData->restrictions = $form->restrictions->toJson();
+		$this->jsData->form = $form->toJson();
+		$this->jsData->restrictions = ($form->restrictions) ? $form->restrictions->toJson() : null;
 	}
 
 	public function update(EditFormRequest $request, $formKey)
