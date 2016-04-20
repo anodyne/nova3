@@ -27,16 +27,14 @@
 		@endif
 	</mobile>
 	<desktop>
-		@if ( ! $form->allow_multiple_submissions and $entries->count() == 0)
-			<div class="btn-toolbar">
-				<div class="btn-group">
-					<a href="#" class="btn btn-success" @click.prevent="switchToForm">Fill Out Form</a>
-				</div>
-				<div class="btn-group">
-					<a href="#" class="btn btn-default" @click.prevent="switchToEntries">Show My {{ Str::plural('Entry', $entries->count()) }}</a>
-				</div>
+		<div class="btn-toolbar">
+			<div class="btn-group">
+				<a href="#" class="btn btn-success" @click.prevent="switchToForm">Fill Out Form</a>
 			</div>
-		@endif
+			<div class="btn-group">
+				<a href="#" class="btn btn-default" @click.prevent="switchToEntries">Show My {{ Str::plural('Entry', $entries->count()) }}</a>
+			</div>
+		</div>
 	</desktop>
 
 	<div v-show="loading">
