@@ -13,19 +13,21 @@ class Application extends IlluminateApp {
 	 */
 	protected function bindPathsInContainer()
 	{
-		$this->instance('path', $this->path());
+		parent::bindPathsInContainer();
+
+		//$this->instance('path', $this->path());
 
 		// The paths established by the Laravel core
-		$corePaths = ['base', 'config', 'database', 'lang', 'public', 'storage'];
+		//$corePaths = ['base', 'config', 'database', 'lang', 'public', 'storage'];
 
 		// The paths established by the Nova core
 		$novaPaths = ['asset', 'coreAsset', 'coreConfig', 'extension', 'nova',
 			'rank', 'theme', 'themeRelative'];
 
 		// Combine the core paths with our own
-		$paths = array_merge($corePaths, $novaPaths);
+		//$paths = array_merge($corePaths, $novaPaths);
 
-		foreach ($paths as $path)
+		foreach ($novaPaths as $path)
 		{
 			$this->instance('path.'.$path, $this->{$path.'Path'}());
 		}
@@ -55,6 +57,16 @@ class Application extends IlluminateApp {
 		}
 
 		return $this->basePath.'/assets';
+	}
+
+	/**
+	 * Get the path to the bootstrap directory.
+	 *
+	 * @return string
+	 */
+	public function bootstrapPath()
+	{
+		return $this->basePath.DIRECTORY_SEPARATOR.'nova'.DIRECTORY_SEPARATOR.'bootstrap';
 	}
 
 	/**
@@ -225,46 +237,6 @@ class Application extends IlluminateApp {
 				//exec(escapeshellcmd("chmod 775 $directory"));
 			}
 		}
-	}
-
-	/**
-	 * Get the path to the configuration cache file.
-	 *
-	 * @return string
-	 */
-	public function getCachedConfigPath()
-	{
-		return $this->novaPath().'/bootstrap/cache/config.php';
-	}
-
-	/**
-	 * Get the path to the routes cache file.
-	 *
-	 * @return string
-	 */
-	public function getCachedRoutesPath()
-	{
-		return $this->novaPath().'/bootstrap/cache/routes.php';
-	}
-
-	/**
-	 * Get the path to the cached "compiled.php" file.
-	 *
-	 * @return string
-	 */
-	public function getCachedCompilePath()
-	{
-		return $this->novaPath().'/bootstrap/cache/compiled.php';
-	}
-
-	/**
-	 * Get the path to the cached services.json file.
-	 *
-	 * @return string
-	 */
-	public function getCachedServicesPath()
-	{
-		return $this->novaPath().'/bootstrap/cache/services.json';
 	}
 
 }
