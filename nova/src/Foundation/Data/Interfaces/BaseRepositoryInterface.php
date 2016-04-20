@@ -11,6 +11,7 @@ interface BaseRepositoryInterface {
 	public function getByPage($page = 1, $perPage = 10, array $with = [], $sort = false, $items = false);
 	public function getFirstBy($column, $value, array $with = [], $operator = '=');
 	public function getManyBy($column, $value, array $with = [], $operator = '=');
+	public function getModel();
 	public function listAll($value, $key);
 	public function listAllBy($key, $value, $displayValue, $displayKey);
 	public function listAllFiltered($value, $key, $filters);

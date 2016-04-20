@@ -119,6 +119,11 @@ abstract class BaseRepository {
 		return $this->make($with)->where($column, $operator, $value)->get();
 	}
 
+	public function getModel()
+	{
+		return $this->model;
+	}
+
 	public function has($relation, array $with = [])
 	{
 		$entity = $this->make($with);
