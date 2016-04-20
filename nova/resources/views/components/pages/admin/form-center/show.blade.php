@@ -20,7 +20,7 @@
 		<div class="well">
 			<dl>
 				<dt>Submitted By</dt>
-				<dd>{!! $entry->user->present()->name !!}</dd>
+				<dd>{!! $entry->present()->submitter !!}</dd>
 
 				<dt>Submitted On</dt>
 				<dd>{!! $entry->present()->createdAt !!}</dd>
