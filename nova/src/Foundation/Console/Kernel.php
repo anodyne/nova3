@@ -11,8 +11,7 @@ class Kernel extends ConsoleKernel {
 	 * @var array
 	 */
 	protected $commands = [
-		'Nova\Foundation\Console\Commands\Inspire',
-		'Nova\Foundation\Console\Commands\RouteCacheCommand',
+		//'Nova\Foundation\Console\Commands\Inspire',
 		'Nova\Foundation\Console\Commands\MakeExtensionCommand',
 		'Nova\Foundation\Console\Commands\MakeThemeCommand',
 		'Nova\Foundation\Console\Commands\NovaRefreshCommand',
