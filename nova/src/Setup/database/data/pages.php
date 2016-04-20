@@ -718,7 +718,7 @@ return [
 		'name'				=> "Store Form Entry in Form Center",
 		'key'				=> "admin.form-center.storeEntry",
 		'uri'				=> "admin/form-center/{formKey}/create",
-		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@store",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@storeEntry",
 	],
 	[
 		'name'				=> "Edit Form Center Form Entry",
@@ -744,7 +744,7 @@ return [
 		'name'				=> "Remove Form Entry from Form Center",
 		'key'				=> "admin.form-center.destroyEntry",
 		'uri'				=> "admin/form-center/{formKey}/{entryId}",
-		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@destroy",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@destroyEntry",
 	],
 	[
 		'name'				=> "View Form Center Form Entries (Admin)",
