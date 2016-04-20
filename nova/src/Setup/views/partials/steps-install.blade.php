@@ -63,7 +63,7 @@ if (in_array($path, $novaActive))
 {
 	$classes[3] = ' class="step-active"';
 }
-if (Cache::get('nova.installed'))
+if (app('filesystem')->disk('local')->has('installed.json'))
 {
 	$classes[3] = ' class="step-completed"';
 }
