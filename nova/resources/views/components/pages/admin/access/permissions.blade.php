@@ -31,7 +31,7 @@
 	</desktop>
 
 	<div class="row">
-		<div class="col-md-3 col-md-push-9">
+		<div class="col-md-3">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Filter Permissions</h3>
@@ -54,7 +54,7 @@
 			</div>
 		</div>
 
-		<div class="col-md-9 col-md-pull-3">
+		<div class="col-md-9">
 			<div class="data-table data-table-bordered data-table-striped">
 				<div class="row" v-for="permission in permissions | filterBy search in 'display_name' 'name'">
 					<div class="col-md-9">
