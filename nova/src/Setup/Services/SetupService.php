@@ -1,7 +1,6 @@
 <?php namespace Nova\Setup\Services;
 
 use PDO;
-use Illuminate\Support\Collection;
 use Illuminate\Contracts\Foundation\Application;
 
 class SetupService {
@@ -21,7 +20,7 @@ class SetupService {
 	 */
 	public function checkEnvironment()
 	{
-		$checks = new Collection([
+		$checks = collect([
 			'passes'			=> true,
 			'php'				=> true,
 			'writableDirs'		=> true,

@@ -2,7 +2,6 @@
 
 use PageContent as Model,
 	PageContentRepositoryInterface;
-use Illuminate\Support\Collection;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class PageContentRepository extends BaseRepository implements PageContentRepositoryInterface {
@@ -56,7 +55,7 @@ class PageContentRepository extends BaseRepository implements PageContentReposit
 			}
 		}
 
-		return new Collection($items);
+		return collect($items);
 	}
 
 	public function getByKey($key, array $with = [])

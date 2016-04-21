@@ -2,7 +2,6 @@
 
 use Setting as Model,
 	SettingRepositoryInterface;
-use Illuminate\Support\Collection;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class SettingRepository extends BaseRepository implements SettingRepositoryInterface {
@@ -35,7 +34,7 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
 			}
 		}
 
-		return new Collection($items);
+		return collect($items);
 	}
 
 	public function getByKey($key)

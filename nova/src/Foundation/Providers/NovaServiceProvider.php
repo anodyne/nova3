@@ -3,8 +3,7 @@
 use UserCreator,
 	CharacterCreator;
 use ReflectionClass;
-use Illuminate\Support\Collection,
-	Illuminate\Support\ClassLoader,
+use Illuminate\Support\ClassLoader,
 	Illuminate\Support\ServiceProvider;
 use League\CommonMark\CommonMarkConverter;
 use Nova\Core\Forms\Services\FieldTypes,
@@ -150,7 +149,7 @@ class NovaServiceProvider extends ServiceProvider {
 				return $app['PageContentRepository']->getAllContent();
 			}
 
-			return new Collection;
+			return collect();
 		});
 
 		$this->app->singleton('nova.settings', function ($app)
@@ -160,7 +159,7 @@ class NovaServiceProvider extends ServiceProvider {
 				return $app['SettingRepository']->getAllSettings();
 			}
 
-			return new Collection;
+			return collect();
 		});
 
 		$this->app->bind('nova.character.creator', function ($app)
