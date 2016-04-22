@@ -14,7 +14,7 @@
 			<p><a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg btn-block">Add a Page</a></p>
 		@endcan
 
-		<p><a href="{{ route('admin.content') }}" class="btn btn-default btn-lg btn-block">Manage Page Content</a></p>
+		<p><a href="{{ route('admin.content') }}" class="btn btn-default btn-lg btn-block">Manage Additional Content</a></p>
 	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
@@ -25,7 +25,7 @@
 			@endcan
 
 			<div class="btn-group">
-				<a href="{{ route('admin.content') }}" class="btn btn-default">Manage Page Content</a>
+				<a href="{{ route('admin.content') }}" class="btn btn-default">Manage Additional Content</a>
 			</div>
 		</div>
 	</desktop>
@@ -38,7 +38,7 @@
 				</div>
 				<div class="panel-body">
 					<div class="form-group">
-						<label class="control-label">By Name/Key/URI</label>
+						<label class="control-label">By Name, Key, or URI</label>
 						{!! Form::text('searchName', null, ['class' => 'form-control', 'v-model' => 'search']) !!}
 					</div>
 					
