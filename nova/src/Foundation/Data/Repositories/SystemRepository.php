@@ -3,6 +3,7 @@
 use Str,
 	System as Model,
 	SystemRepositoryContract;
+use Ramsey\Uuid\Uuid;
 
 class SystemRepository extends BaseRepository implements SystemRepositoryContract {
 
@@ -16,30 +17,29 @@ class SystemRepository extends BaseRepository implements SystemRepositoryContrac
 	public function createSystemRecord()
 	{
 		return $this->model->create([
-			'uid'			=> $this->generateUID(false),
+			'uuid'			=> $this->generateUUID(false),
 			'version_major'	=> config('nova.app.version.major'),
 			'version_minor'	=> config('nova.app.version.minor'),
 			'version_patch'	=> config('nova.app.version.patch'),
 		]);
 	}
 
-	public function generateUID($updateDb = true)
+	public function generateUUID($updateDb = true)
 	{
-		// Generate a new UID
-		$uid = Str::random(32);
+		$uuid = Uuid::uuid4();
 
 		// Update the database if we want to do that
 		if ($updateDb)
 		{
-			return $this->update(['uid' => $uid]);
+			return $this->update(['uuid' => $uuid]);
 		}
 
-		return $uid;
+		return $uuid;
 	}
 
-	public function getUID()
+	public function getUUID()
 	{
-		return $this->model->first()->uid;
+		return $this->model->first()->uuid;
 	}
 
 	public function getVersion()

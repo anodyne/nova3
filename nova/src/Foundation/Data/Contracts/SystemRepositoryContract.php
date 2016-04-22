@@ -3,8 +3,8 @@
 interface SystemRepositoryContract extends BaseRepositoryContract {
 
 	public function createSystemRecord();
-	public function generateUID($updateDb = true);
-	public function getUID();
+	public function generateUUID($updateDb = true);
+	public function getUUID();
 	public function getVersion();
 	public function updateSystemRecord(array $data);
 

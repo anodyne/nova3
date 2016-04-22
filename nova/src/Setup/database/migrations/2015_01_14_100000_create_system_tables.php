@@ -15,7 +15,7 @@ class CreateSystemTables extends Migration {
 		Schema::create('system_info', function (Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('uid', 32);
+			$table->string('uuid');
 			$table->tinyInteger('version_major')->default(3);
 			$table->tinyInteger('version_minor')->default(0);
 			$table->string('version_patch', 20)->default("0");
