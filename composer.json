@@ -6,7 +6,8 @@
 		"laracasts/presenter": "*",
 		"laravelcollective/html": "~5.2",
 		"dingo/api": "1.0.*@dev",
-		"pespantelis/gravatar": "~1.0"
+		"pespantelis/gravatar": "~1.0",
+		"ramsey/uuid": "~3.3"
 	},
 
 	"require-dev": {
