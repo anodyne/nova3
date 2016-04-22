@@ -2,10 +2,9 @@
 	vue = {
 		data: {
 			contents: [],
-			key: "",
 			loading: true,
 			loadingWithError: false,
-			value: ""
+			search: ""
 		},
 
 		methods: {
@@ -16,8 +15,7 @@
 			},
 
 			resetFilters: function () {
-				this.key = ""
-				this.value = ""
+				this.search = ""
 			}
 		},
 

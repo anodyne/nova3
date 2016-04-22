@@ -11,21 +11,21 @@
 <div v-else v-cloak>
 	<mobile>
 		@can('create', $content)
-			<p><a href="{{ route('admin.content.create') }}" class="btn btn-success btn-lg btn-block">Add Page Content</a></p>
+			<p><a href="{{ route('admin.content.create') }}" class="btn btn-success btn-lg btn-block">Add Content</a></p>
 		@endcan
 
-		<p><a href="{{ route('admin.pages') }}" class="btn btn-default btn-lg btn-block">Pages</a></p>
+		<p><a href="{{ route('admin.pages') }}" class="btn btn-default btn-lg btn-block">Manage Pages</a></p>
 	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			@can('create', $content)
 				<div class="btn-group">
-					<a href="{{ route('admin.content.create') }}" class="btn btn-success">Add Page Content</a>
+					<a href="{{ route('admin.content.create') }}" class="btn btn-success">Add Content</a>
 				</div>
 			@endcan
 
 			<div class="btn-group">
-				<a href="{{ route('admin.pages') }}" class="btn btn-default">Pages</a>
+				<a href="{{ route('admin.pages') }}" class="btn btn-default">Manage Pages</a>
 			</div>
 		</div>
 	</desktop>
@@ -38,13 +38,8 @@
 				</div>
 				<div class="panel-body">
 					<div class="form-group">
-						<label class="control-label">By Key</label>
-						{!! Form::text('searchKey', null, ['class' => 'form-control', 'v-model' => 'key']) !!}
-					</div>
-
-					<div class="form-group">
-						<label class="control-label">By Value</label>
-						{!! Form::text('searchValue', null, ['class' => 'form-control', 'v-model' => 'value']) !!}
+						<label class="control-label">By Key or Value</label>
+						{!! Form::text('search', null, ['class' => 'form-control', 'v-model' => 'search']) !!}
 					</div>
 				</div>
 
@@ -65,7 +60,7 @@
 
 		<div class="col-md-9 col-md-pull-3" v-else>
 			<div class="data-table data-table-bordered data-table-striped">
-				<div class="row" v-for="content in contents | filterBy key in 'key' | filterBy value in 'value'">
+				<div class="row" v-for="content in contents | filterBy search in 'key' 'value'">
 					<div class="col-md-9">
 						<p>@{{ content.preview }}</p>
 						<p><strong>Key:</strong> @{{ content.key }}</p>
