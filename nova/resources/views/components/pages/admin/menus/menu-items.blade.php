@@ -12,7 +12,7 @@
 		@endcan
 
 		@can('manage', $menu)
-			<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Menus</a></p>
+			<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Back to Menus</a></p>
 		@endcan
 	</mobile>
 	<desktop>
@@ -28,7 +28,7 @@
 
 			@can('manage', $menu)
 				<div class="btn-group">
-					<a href="{{ route('admin.menus') }}" class="btn btn-default">Menus</a>
+					<a href="{{ route('admin.menus') }}" class="btn btn-default">Back to Menus</a>
 				</div>
 			@endcan
 		</div>
@@ -43,7 +43,7 @@
 				<div class="uk-nestable-handle uk-icon uk-icon-bars"></div>
 				<div class="uk-nestable-toggle" data-nestable-action="toggle"></div>
 				@if ($main->type == 'divider')
-					<span class="text-muted">(Item Divider)</span>
+					<span class="text-muted">(Divider)</span>
 				@else
 					{{ $main->present()->title }}
 				@endif
@@ -64,7 +64,7 @@
 						<div class="uk-nestable-panel">
 							<div class="uk-nestable-handle uk-icon uk-icon-bars"></div>
 							@if ($sub->type == 'divider')
-								<span class="text-muted">(Item Divider)</span>
+								<span class="text-muted">(Divider)</span>
 							@else
 								{{ $sub->present()->title }}
 							@endif
