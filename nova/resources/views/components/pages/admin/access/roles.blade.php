@@ -52,7 +52,7 @@
 
 						@if ($role->users->count() > 0)
 							<div class="col-xs-12">
-								<p><a href="#" class="btn btn-default btn-lg btn-block">Users With This Role</a></p>
+								<p><a href="#" class="btn btn-default btn-lg btn-block" data-id="{{ $role->id }}" @click.prevent="usersWithRole">Users With This Role</a></p>
 							</div>
 						@endif
 					@endcan
@@ -79,7 +79,7 @@
 
 						@if ($role->users->count() > 0)
 							<div class="btn-group">
-								<a href="#" class="btn btn-default">Users With This Role</a>
+								<a href="#" class="btn btn-default" data-id="{{ $role->id }}" @click.prevent="usersWithRole">Users With This Role</a>
 							</div>
 						@endif
 					@endcan
@@ -102,4 +102,8 @@
 
 @can('create', $role)
 	{!! modal(['id' => "duplicateRole", 'header' => "Duplicate Role"]) !!}
+@endcan
+
+@can('edit', $role)
+	{!! modal(['id' => "roleUsers", 'header' => "Users With Role"]) !!}
 @endcan

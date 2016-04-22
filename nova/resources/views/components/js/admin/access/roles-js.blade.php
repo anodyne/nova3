@@ -11,6 +11,12 @@
 				$('#removeRole').modal({
 					remote: "{{ url('admin/access/roles') }}/" + $(event.target).data('id') + "/remove"
 				}).modal('show')
+			},
+
+			usersWithRole: function (event) {
+				$('#roleUsers').modal({
+					remote: "{{ url('admin/access/roles') }}/" + $(event.target).data('id') + "/users"
+				}).modal('show')
 			}
 		}
 	}

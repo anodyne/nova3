@@ -185,4 +185,26 @@ class RoleController extends BaseController {
 		return redirect()->route('admin.access.roles');
 	}
 
+	public function usersWithRole($roleId)
+	{
+		$this->isAjax = true;
+
+		$role = $this->repo->getById($roleId, ['users']);
+
+		if ( ! $role)
+		{
+			$body = alert('danger', "Role could not be found");
+		}
+		else
+		{
+			$body = view(locate()->page('admin/access/role-users'), compact('role'));
+		}
+
+		return partial('modal-content', [
+			'header' => "Users With Role",
+			'body' => $body,
+			'footer' => false,
+		]);
+	}
+
 }
