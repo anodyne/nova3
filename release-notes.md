@@ -30,6 +30,13 @@
 
 ## Preview Release 2
 
+- New PHP requirement: PHP 5.5.9
+- Logging in and resetting passwords
+- Page Manager
+	- Basic page info
+	- Page content
+- Menu Manager
+
 ## Preview Release 1
 
 This first preview release of Nova NextGen serves as a preview of the work being done on Nova 3. The "NextGen" moniker is simply a marketing term to differentiate between all the talk over the previous years about Nova 3 and what Nova 3 is actually becoming. We've laid out our vision for what Nova should be and this is the first step in that direction. There's very little here, but there's also a lot.
