@@ -3,6 +3,7 @@
 use Str,
 	Flash,
 	Input,
+	Status,
 	Artisan,
 	UserCreator,
 	SettingRepositoryInterface,
@@ -68,10 +69,14 @@ class InstallController extends BaseController {
 	public function createUser(UserCreator $userCreator, CreateUserRequest $request)
 	{
 		// Create a new user and character
-		$creator = $userCreator->create($request->all());
+		$creator = $userCreator->createWithCharacter($request->all());
 
 		if ($creator)
 		{
+			$user = app('UserRepository')->first();
+			$user->status = Status::ACTIVE;
+			$user->save();
+
 			return redirect()->route('setup.install.user.success');
 		}
 
