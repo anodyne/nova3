@@ -1,9 +1,9 @@
 <?php namespace Nova\Core\Forms\Data\Repositories;
 
 use Nova\Foundation\Data\Repositories\BaseRepository,
-	Nova\Core\Forms\Data\Interfaces\BaseFormRepositoryInterface;
+	Nova\Core\Forms\Data\Contracts\BaseFormRepositoryContract;
 
-abstract class BaseFormRepository extends BaseRepository implements BaseFormRepositoryInterface {
+abstract class BaseFormRepository extends BaseRepository implements BaseFormRepositoryContract {
 
 	public function getForm($resource)
 	{

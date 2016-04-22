@@ -4,18 +4,18 @@ use User,
 	NovaForm,
 	NovaFormData,
 	NovaFormEntry as Model,
-	FormDataRepositoryInterface,
-	FormEntryRepositoryInterface,
-	FormFieldRepositoryInterface;
+	FormDataRepositoryContract,
+	FormEntryRepositoryContract,
+	FormFieldRepositoryContract;
 
-class EntryRepository extends BaseFormRepository implements FormEntryRepositoryInterface {
+class EntryRepository extends BaseFormRepository implements FormEntryRepositoryContract {
 
 	protected $model;
 	protected $dataRepo;
 	protected $fieldRepo;
 
-	public function __construct(Model $model, FormDataRepositoryInterface $data,
-			FormFieldRepositoryInterface $field)
+	public function __construct(Model $model, FormDataRepositoryContract $data,
+			FormFieldRepositoryContract $field)
 	{
 		$this->model = $model;
 		$this->dataRepo = $data;

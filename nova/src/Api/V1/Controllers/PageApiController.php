@@ -1,13 +1,13 @@
 <?php namespace Nova\Api\V1\Controllers;
 
-use PageRepositoryInterface;
+use PageRepositoryContract;
 use Nova\Api\V1\Transformers\PageTransformer;
 
 class PageApiController extends ApiBaseController {
 
 	protected $repo;
 
-	public function __construct(PageRepositoryInterface $repo)
+	public function __construct(PageRepositoryContract $repo)
 	{
 		$this->repo = $repo;
 	}

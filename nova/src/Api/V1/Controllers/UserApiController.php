@@ -1,13 +1,13 @@
 <?php namespace Nova\Api\V1\Controllers;
 
-use UserRepositoryInterface;
+use UserRepositoryContract;
 use Nova\Api\V1\Transformers\UserTransformer;
 
 class UserApiController extends ApiBaseController {
 
 	protected $repo;
 
-	public function __construct(UserRepositoryInterface $repo)
+	public function __construct(UserRepositoryContract $repo)
 	{
 		$this->repo = $repo;
 	}

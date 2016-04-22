@@ -1,10 +1,10 @@
-<?php namespace Nova\Core\Menus\Data\Interfaces;
+<?php namespace Nova\Core\Menus\Data\Contracts;
 
 use Menu;
 use Illuminate\Support\Collection;
-use Nova\Foundation\Data\Interfaces\BaseRepositoryInterface;
+use Nova\Foundation\Data\Contracts\BaseRepositoryContract;
 
-interface MenuItemRepositoryInterface extends BaseRepositoryInterface {
+interface MenuItemRepositoryContract extends BaseRepositoryContract {
 
 	public function createDivider(array $data);
 	public function find($id);

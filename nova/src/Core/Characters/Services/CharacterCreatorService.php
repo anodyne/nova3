@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Characters\Services;
 
-use User, CharacterRepositoryInterface;
+use User, CharacterRepositoryContract;
 use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
 
 class CharacterCreatorService {
@@ -8,7 +8,7 @@ class CharacterCreatorService {
 	protected $repo;
 	protected $events;
 
-	public function __construct(CharacterRepositoryInterface $characters,
+	public function __construct(CharacterRepositoryContract $characters,
 			EventDispatcher $events)
 	{
 		$this->repo = $characters;

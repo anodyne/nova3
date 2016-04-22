@@ -2,10 +2,10 @@
 
 use User,
 	Character as Model,
-	CharacterRepositoryInterface;
+	CharacterRepositoryContract;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class CharacterRepository extends BaseRepository implements CharacterRepositoryInterface {
+class CharacterRepository extends BaseRepository implements CharacterRepositoryContract {
 
 	protected $model;
 

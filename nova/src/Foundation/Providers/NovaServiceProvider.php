@@ -188,7 +188,7 @@ class NovaServiceProvider extends ServiceProvider {
 	}
 
 	/**
-	 * Bind all of the repository interfaces to their appropriate concrete
+	 * Bind all of the repository contracts to their appropriate concrete
 	 * class and make sure we alias them at the same time. This allows for
 	 * quick and easy use of the repositories out of the IOC.
 	 */
@@ -208,7 +208,12 @@ class NovaServiceProvider extends ServiceProvider {
 		// Loop through the repositories and do the binding
 		foreach ($bindings as $binding)
 		{
-			$this->bindRepository($binding);
+			// Set the concrete and abstract names
+			$abstract = "{$binding}RepositoryContract";
+			$concrete = "{$binding}Repository";
+
+			// Bind to the container
+			$this->app->bind([$abstract => alias($abstract)], alias($concrete));
 		}
 	}
 
@@ -230,7 +235,7 @@ class NovaServiceProvider extends ServiceProvider {
 	 * Setup the theme class that will handle all of the rendering of the theme.
 	 * In some cases, the theme could have its own class to override what the
 	 * core is doing, and if it does, we need to make sure it implements the
-	 * necessary interfaces. Otherwise, we'll just fallback to the base theme
+	 * necessary contracts. Otherwise, we'll just fallback to the base theme
 	 * class in the core.
 	 */
 	protected function setupTheme()
@@ -268,7 +273,7 @@ class NovaServiceProvider extends ServiceProvider {
 		}
 
 		// Make sure that whatever class is handling theme that it implements
-		// ALL of the necessary interfaces, otherwise throw an exception
+		// ALL of the necessary contracts, otherwise throw an exception
 		if ( ! $class->implementsInterface('Nova\Foundation\Services\Themes\Themeable') or
 				! $class->implementsInterface('Nova\Foundation\Services\Themes\ThemeableInfo'))
 		{
@@ -277,16 +282,6 @@ class NovaServiceProvider extends ServiceProvider {
 
 		// Bind the existing instance into the container
 		$this->app->instance('nova.theme', $theme);
-	}
-
-	private function bindRepository($item)
-	{
-		// Set the concrete and abstract names
-		$abstract = "{$item}RepositoryInterface";
-		$concrete = "{$item}Repository";
-
-		// Bind to the container
-		$this->app->bind([$abstract => alias($abstract)], alias($concrete));
 	}
 
 }

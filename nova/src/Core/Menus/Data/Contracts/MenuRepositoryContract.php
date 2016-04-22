@@ -1,9 +1,9 @@
-<?php namespace Nova\Core\Menus\Data\Interfaces;
+<?php namespace Nova\Core\Menus\Data\Contracts;
 
 use Menu;
-use Nova\Foundation\Data\Interfaces\BaseRepositoryInterface;
+use Nova\Foundation\Data\Contracts\BaseRepositoryContract;
 
-interface MenuRepositoryInterface extends BaseRepositoryInterface {
+interface MenuRepositoryContract extends BaseRepositoryContract {
 
 	public function deleteAndUpdate($resource, $newId);
 	public function find($id);

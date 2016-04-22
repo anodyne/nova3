@@ -1,9 +1,9 @@
 <?php namespace Nova\Core\Pages\Services\Compilers;
 
 use Nova\Foundation\Services\PageCompiler\CompilerEngine,
-	Nova\Foundation\Services\PageCompiler\CompilerInterface;
+	Nova\Foundation\Services\PageCompiler\CompilerContract;
 
-class PageContentCompiler implements CompilerInterface {
+class PageContentCompiler implements CompilerContract {
 
 	protected $identifier = 'content';
 

@@ -1,11 +1,11 @@
 <?php namespace Nova\Core\Pages\Data\Repositories;
 
 use Page as Model,
-	PageRepositoryInterface;
+	PageRepositoryContract;
 use Illuminate\Routing\Route;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class PageRepository extends BaseRepository implements PageRepositoryInterface {
+class PageRepository extends BaseRepository implements PageRepositoryContract {
 
 	protected $model;
 

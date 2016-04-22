@@ -1,8 +1,8 @@
-<?php namespace Nova\Core\Forms\Data\Interfaces;
+<?php namespace Nova\Core\Forms\Data\Contracts;
 
 use NovaForm, NovaFormSection;
 
-interface SectionRepositoryInterface extends BaseFormRepositoryInterface {
+interface SectionRepositoryContract extends BaseFormRepositoryContract {
 
 	public function getBoundSections(NovaForm $form);
 	public function getUnboundSections(NovaForm $form, array $relations = [], $allSections = false);

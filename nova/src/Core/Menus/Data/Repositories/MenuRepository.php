@@ -1,16 +1,16 @@
 <?php namespace Nova\Core\Menus\Data\Repositories;
 
 use Menu as Model,
-	MenuRepositoryInterface,
-	PageRepositoryInterface;
+	MenuRepositoryContract,
+	PageRepositoryContract;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class MenuRepository extends BaseRepository implements MenuRepositoryInterface {
+class MenuRepository extends BaseRepository implements MenuRepositoryContract {
 
 	protected $model;
 	protected $pageRepo;
 
-	public function __construct(Model $model, PageRepositoryInterface $pages)
+	public function __construct(Model $model, PageRepositoryContract $pages)
 	{
 		$this->model = $model;
 		$this->pageRepo = $pages;

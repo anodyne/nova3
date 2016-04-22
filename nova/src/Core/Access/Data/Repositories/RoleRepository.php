@@ -1,10 +1,10 @@
 <?php namespace Nova\Core\Access\Data\Repositories;
 
 use Role as Model,
-	RoleRepositoryInterface;
+	RoleRepositoryContract;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class RoleRepository extends BaseRepository implements RoleRepositoryInterface {
+class RoleRepository extends BaseRepository implements RoleRepositoryContract {
 
 	protected $model;
 

@@ -1,11 +1,11 @@
 <?php namespace Nova\Core\Access\Data\Repositories;
 
 use Permission as Model,
-	PermissionRepositoryInterface;
+	PermissionRepositoryContract;
 use Illuminate\Support\Collection;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class PermissionRepository extends BaseRepository implements PermissionRepositoryInterface {
+class PermissionRepository extends BaseRepository implements PermissionRepositoryContract {
 
 	protected $model;
 

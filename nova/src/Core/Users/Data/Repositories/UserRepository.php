@@ -1,10 +1,10 @@
 <?php namespace Nova\Core\Users\Data\Repositories;
 
 use User as Model,
-	UserRepositoryInterface;
+	UserRepositoryContract;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class UserRepository extends BaseRepository implements UserRepositoryInterface {
+class UserRepository extends BaseRepository implements UserRepositoryContract {
 
 	protected $model;
 

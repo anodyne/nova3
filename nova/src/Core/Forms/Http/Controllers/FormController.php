@@ -5,9 +5,9 @@ use NovaForm,
 	NovaFormField,
 	BaseController,
 	NovaFormSection,
-	FormRepositoryInterface,
-	PageRepositoryInterface,
-	RoleRepositoryInterface,
+	FormRepositoryContract,
+	PageRepositoryContract,
+	RoleRepositoryContract,
 	EditFormRequest, CreateFormRequest, RemoveFormRequest;
 use Nova\Core\Forms\Events;
 
@@ -17,8 +17,9 @@ class FormController extends BaseController {
 	protected $pageRepo;
 	protected $roleRepo;
 
-	public function __construct(FormRepositoryInterface $repo,
-			PageRepositoryInterface $pages, RoleRepositoryInterface $roles)
+	public function __construct(FormRepositoryContract $repo,
+			PageRepositoryContract $pages,
+			RoleRepositoryContract $roles)
 	{
 		parent::__construct();
 

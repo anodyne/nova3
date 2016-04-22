@@ -242,9 +242,9 @@ return [
 		/**
 		 * Repository Interfaces
 		 */
-		'CharacterRepositoryInterface' => Nova\Core\Characters\Data\Interfaces\CharacterRepositoryInterface::class,
-		'SettingRepositoryInterface' => Nova\Core\Settings\Data\Interfaces\SettingRepositoryInterface::class,
-		'SystemRepositoryInterface' => Nova\Foundation\Data\Interfaces\SystemRepositoryInterface::class,
+		'CharacterRepositoryContract' => Nova\Core\Characters\Data\Contracts\CharacterRepositoryContract::class,
+		'SettingRepositoryContract' => Nova\Core\Settings\Data\Contracts\SettingRepositoryContract::class,
+		'SystemRepositoryContract' => Nova\Foundation\Data\Contracts\SystemRepositoryContract::class,
 
 		/**
 		 * Repositories
@@ -265,8 +265,8 @@ return [
 		'PageContent' => Nova\Core\Pages\Data\PageContent::class,
 		'PagePresenter' => Nova\Core\Pages\Data\Presenters\PagePresenter::class,
 		'PageContentPresenter' => Nova\Core\Pages\Data\Presenters\PageContentPresenter::class,
-		'PageRepositoryInterface' => Nova\Core\Pages\Data\Interfaces\PageRepositoryInterface::class,
-		'PageContentRepositoryInterface' => Nova\Core\Pages\Data\Interfaces\PageContentRepositoryInterface::class,
+		'PageRepositoryContract' => Nova\Core\Pages\Data\Contracts\PageRepositoryContract::class,
+		'PageContentRepositoryContract' => Nova\Core\Pages\Data\Contracts\PageContentRepositoryContract::class,
 		'PageRepository' => Nova\Core\Pages\Data\Repositories\PageRepository::class,
 		'PageContentRepository' => Nova\Core\Pages\Data\Repositories\PageContentRepository::class,
 		'CachePageRoutes' => Nova\Core\Pages\Listeners\CachePageRoutes::class,
@@ -286,8 +286,8 @@ return [
 		'MenuItem' => Nova\Core\Menus\Data\MenuItem::class,
 		'MenuPresenter' => Nova\Core\Menus\Data\Presenters\MenuPresenter::class,
 		'MenuItemPresenter' => Nova\Core\Menus\Data\Presenters\MenuItemPresenter::class,
-		'MenuRepositoryInterface' => Nova\Core\Menus\Data\Interfaces\MenuRepositoryInterface::class,
-		'MenuItemRepositoryInterface' => Nova\Core\Menus\Data\Interfaces\MenuItemRepositoryInterface::class,
+		'MenuRepositoryContract' => Nova\Core\Menus\Data\Contracts\MenuRepositoryContract::class,
+		'MenuItemRepositoryContract' => Nova\Core\Menus\Data\Contracts\MenuItemRepositoryContract::class,
 		'MenuRepository' => Nova\Core\Menus\Data\Repositories\MenuRepository::class,
 		'MenuItemRepository' => Nova\Core\Menus\Data\Repositories\MenuItemRepository::class,
 		'CreateMenuItemRequest' => Nova\Core\Menus\Http\Requests\CreateMenuItemRequest::class,
@@ -306,8 +306,8 @@ return [
 		'Role' => Nova\Core\Access\Data\Role::class,
 		'RolePresenter' => Nova\Core\Access\Data\Presenters\RolePresenter::class,
 		'PermissionPresenter' => Nova\Core\Access\Data\Presenters\PermissionPresenter::class,
-		'PermissionRepositoryInterface' => Nova\Core\Access\Data\Interfaces\PermissionRepositoryInterface::class,
-		'RoleRepositoryInterface' => Nova\Core\Access\Data\Interfaces\RoleRepositoryInterface::class,
+		'PermissionRepositoryContract' => Nova\Core\Access\Data\Contracts\PermissionRepositoryContract::class,
+		'RoleRepositoryContract' => Nova\Core\Access\Data\Contracts\RoleRepositoryContract::class,
 		'PermissionRepository' => Nova\Core\Access\Data\Repositories\PermissionRepository::class,
 		'RoleRepository' => Nova\Core\Access\Data\Repositories\RoleRepository::class,
 		'CreatePermissionRequest' => Nova\Core\Access\Http\Requests\CreatePermissionRequest::class,
@@ -325,7 +325,7 @@ return [
 		 */
 		'NovaForm' => Nova\Core\Forms\Data\Form::class,
 		'FormPresenter' => Nova\Core\Forms\Data\Presenters\FormPresenter::class,
-		'FormRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\FormRepositoryInterface::class,
+		'FormRepositoryContract' => Nova\Core\Forms\Data\Contracts\FormRepositoryContract::class,
 		'FormRepository' => Nova\Core\Forms\Data\Repositories\FormRepository::class,
 		'FormPolicy' => Nova\Core\Forms\Policies\FormPolicy::class,
 		'CreateFormRequest' => Nova\Core\Forms\Http\Requests\CreateFormRequest::class,
@@ -334,7 +334,7 @@ return [
 
 		'NovaFormField' => Nova\Core\Forms\Data\Field::class,
 		'FormFieldPresenter' => Nova\Core\Forms\Data\Presenters\FieldPresenter::class,
-		'FormFieldRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\FieldRepositoryInterface::class,
+		'FormFieldRepositoryContract' => Nova\Core\Forms\Data\Contracts\FieldRepositoryContract::class,
 		'FormFieldRepository' => Nova\Core\Forms\Data\Repositories\FieldRepository::class,
 		'FieldPolicy' => Nova\Core\Forms\Policies\FieldPolicy::class,
 		'CreateFormFieldRequest' => Nova\Core\Forms\Http\Requests\CreateFormFieldRequest::class,
@@ -343,7 +343,7 @@ return [
 		
 		'NovaFormSection' => Nova\Core\Forms\Data\Section::class,
 		'FormSectionPresenter' => Nova\Core\Forms\Data\Presenters\SectionPresenter::class,
-		'FormSectionRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\SectionRepositoryInterface::class,
+		'FormSectionRepositoryContract' => Nova\Core\Forms\Data\Contracts\SectionRepositoryContract::class,
 		'FormSectionRepository' => Nova\Core\Forms\Data\Repositories\SectionRepository::class,
 		'SectionPolicy' => Nova\Core\Forms\Policies\SectionPolicy::class,
 		'CreateFormSectionRequest' => Nova\Core\Forms\Http\Requests\CreateFormSectionRequest::class,
@@ -352,7 +352,7 @@ return [
 		
 		'NovaFormTab' => Nova\Core\Forms\Data\Tab::class,
 		'FormTabPresenter' => Nova\Core\Forms\Data\Presenters\TabPresenter::class,
-		'FormTabRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\TabRepositoryInterface::class,
+		'FormTabRepositoryContract' => Nova\Core\Forms\Data\Contracts\TabRepositoryContract::class,
 		'FormTabRepository' => Nova\Core\Forms\Data\Repositories\TabRepository::class,
 		'TabPolicy' => Nova\Core\Forms\Policies\TabPolicy::class,
 		'CreateFormTabRequest' => Nova\Core\Forms\Http\Requests\CreateFormTabRequest::class,
@@ -361,10 +361,10 @@ return [
 		
 		'NovaFormData' => Nova\Core\Forms\Data\Data::class,
 		'FormDataPresenter' => Nova\Core\Forms\Data\Presenters\DataPresenter::class,
-		'FormDataRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\DataRepositoryInterface::class,
+		'FormDataRepositoryContract' => Nova\Core\Forms\Data\Contracts\DataRepositoryContract::class,
 		'FormDataRepository' => Nova\Core\Forms\Data\Repositories\DataRepository::class,
 
-		'FormEntryRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\EntryRepositoryInterface::class,
+		'FormEntryRepositoryContract' => Nova\Core\Forms\Data\Contracts\EntryRepositoryContract::class,
 		'FormEntryRepository' => Nova\Core\Forms\Data\Repositories\EntryRepository::class,
 		'EmailFormCenterRecipients' => Nova\Core\Forms\Listeners\EmailFormCenterRecipients::class,
 		'FormCenterMailer' => Nova\Core\Forms\Mailers\FormCenterMailer::class,
@@ -376,7 +376,7 @@ return [
 		 * Users
 		 */
 		'User' => Nova\Core\Users\Data\User::class,
-		'UserRepositoryInterface' => Nova\Core\Users\Data\Interfaces\UserRepositoryInterface::class,
+		'UserRepositoryContract' => Nova\Core\Users\Data\Contracts\UserRepositoryContract::class,
 		'UserRepository' => Nova\Core\Users\Data\Repositories\UserRepository::class,
 		'UserCreator' => Nova\Core\Users\Services\UserCreatorService::class,
 		'UserPresenter' => Nova\Core\Users\Data\Presenters\UserPresenter::class,

@@ -1,6 +1,6 @@
-<?php namespace Nova\Foundation\Data\Interfaces;
+<?php namespace Nova\Foundation\Data\Contracts;
 
-interface SystemRepositoryInterface extends BaseRepositoryInterface {
+interface SystemRepositoryContract extends BaseRepositoryContract {
 
 	public function createSystemRecord();
 	public function generateUID($updateDb = true);

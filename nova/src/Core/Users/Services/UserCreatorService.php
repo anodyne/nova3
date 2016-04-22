@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Users\Services;
 
 use CharacterCreator,
-	UserRepositoryInterface;
+	UserRepositoryContract;
 use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
 
 class UserCreatorService {
@@ -10,7 +10,7 @@ class UserCreatorService {
 	protected $events;
 	protected $characterCreator;
 
-	public function __construct(UserRepositoryInterface $users,
+	public function __construct(UserRepositoryContract $users,
 			CharacterCreator $creator,
 			EventDispatcher $events)
 	{

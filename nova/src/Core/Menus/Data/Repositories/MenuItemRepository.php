@@ -2,11 +2,11 @@
 
 use Menu,
 	MenuItem as Model,
-	MenuItemRepositoryInterface;
+	MenuItemRepositoryContract;
 use Illuminate\Support\Collection;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class MenuItemRepository extends BaseRepository implements MenuItemRepositoryInterface {
+class MenuItemRepository extends BaseRepository implements MenuItemRepositoryContract {
 
 	protected $model;
 

@@ -2,8 +2,8 @@
 
 use Permission,
 	BaseController,
-	RoleRepositoryInterface,
-	PermissionRepositoryInterface,
+	RoleRepositoryContract,
+	PermissionRepositoryContract,
 	EditPermissionRequest, CreatePermissionRequest, RemovePermissionRequest;
 use Nova\Core\Access\Events;
 
@@ -12,8 +12,8 @@ class PermissionController extends BaseController {
 	protected $repo;
 	protected $roleRepo;
 
-	public function __construct(PermissionRepositoryInterface $repo,
-			RoleRepositoryInterface $roles)
+	public function __construct(PermissionRepositoryContract $repo,
+			RoleRepositoryContract $roles)
 	{
 		parent::__construct();
 

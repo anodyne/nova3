@@ -2,9 +2,9 @@
 
 use Str,
 	System as Model,
-	SystemRepositoryInterface;
+	SystemRepositoryContract;
 
-class SystemRepository extends BaseRepository implements SystemRepositoryInterface {
+class SystemRepository extends BaseRepository implements SystemRepositoryContract {
 
 	protected $model;
 

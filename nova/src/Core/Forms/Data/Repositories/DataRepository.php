@@ -1,9 +1,9 @@
 <?php namespace Nova\Core\Forms\Data\Repositories;
 
 use NovaFormData as Model,
-	FormDataRepositoryInterface;
+	FormDataRepositoryContract;
 
-class DataRepository extends BaseFormRepository implements FormDataRepositoryInterface {
+class DataRepository extends BaseFormRepository implements FormDataRepositoryContract {
 
 	protected $model;
 

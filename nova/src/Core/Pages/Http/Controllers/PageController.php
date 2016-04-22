@@ -2,8 +2,8 @@
 
 use Page,
 	BaseController,
-	MenuRepositoryInterface,
-	PageRepositoryInterface,
+	MenuRepositoryContract,
+	PageRepositoryContract,
 	EditPageRequest, CreatePageRequest, RemovePageRequest;
 use Nova\Core\Pages\Events;
 use Symfony\Component\Finder\Finder;
@@ -15,8 +15,8 @@ class PageController extends BaseController {
 	protected $repo;
 	protected $menuRepo;
 
-	public function __construct(PageRepositoryInterface $repo,
-			MenuRepositoryInterface $menus)
+	public function __construct(PageRepositoryContract $repo,
+			MenuRepositoryContract $menus)
 	{
 		parent::__construct();
 

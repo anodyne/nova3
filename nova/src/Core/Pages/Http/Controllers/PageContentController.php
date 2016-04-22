@@ -2,8 +2,8 @@
 
 use PageContent,
 	BaseController,
-	PageRepositoryInterface,
-	PageContentRepositoryInterface,
+	PageRepositoryContract,
+	PageContentRepositoryContract,
 	EditPageContentRequest, CreatePageContentRequest, RemovePageContentRequest;
 use Nova\Core\Pages\Events;
 
@@ -12,8 +12,8 @@ class PageContentController extends BaseController {
 	protected $repo;
 	protected $pagesRepo;
 
-	public function __construct(PageContentRepositoryInterface $repo,
-			PageRepositoryInterface $pages)
+	public function __construct(PageContentRepositoryContract $repo,
+			PageRepositoryContract $pages)
 	{
 		parent::__construct();
 

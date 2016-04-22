@@ -1,13 +1,13 @@
 <?php namespace Nova\Api\V1\Controllers;
 
-use PermissionRepositoryInterface;
+use PermissionRepositoryContract;
 use Nova\Api\V1\Transformers\PermissionTransformer;
 
 class PermissionApiController extends ApiBaseController {
 
 	protected $repo;
 
-	public function __construct(PermissionRepositoryInterface $repo)
+	public function __construct(PermissionRepositoryContract $repo)
 	{
 		$this->repo = $repo;
 	}

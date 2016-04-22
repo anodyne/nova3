@@ -2,9 +2,9 @@
 
 use BaseController,
 	NovaFormSection,
-	FormRepositoryInterface,
-	FormTabRepositoryInterface,
-	FormSectionRepositoryInterface,
+	FormRepositoryContract,
+	FormTabRepositoryContract,
+	FormSectionRepositoryContract,
 	EditFormSectionRequest, CreateFormSectionRequest, RemoveFormSectionRequest;
 use Nova\Core\Forms\Events;
 
@@ -14,9 +14,9 @@ class SectionController extends BaseController {
 	protected $tabRepo;
 	protected $formRepo;
 
-	public function __construct(FormSectionRepositoryInterface $repo, 
-			FormRepositoryInterface $forms,
-			FormTabRepositoryInterface $tabs)
+	public function __construct(FormSectionRepositoryContract $repo, 
+			FormRepositoryContract $forms,
+			FormTabRepositoryContract $tabs)
 	{
 		parent::__construct();
 

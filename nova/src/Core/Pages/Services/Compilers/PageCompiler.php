@@ -1,9 +1,9 @@
 <?php namespace Nova\Core\Pages\Services\Compilers;
 
 use Nova\Foundation\Services\PageCompiler\CompilerEngine,
-	Nova\Foundation\Services\PageCompiler\CompilerInterface;
+	Nova\Foundation\Services\PageCompiler\CompilerContract;
 
-class PageCompiler implements CompilerInterface {
+class PageCompiler implements CompilerContract {
 
 	/**
 	 * Compile the content.

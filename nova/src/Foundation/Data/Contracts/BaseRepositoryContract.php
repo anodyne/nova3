@@ -1,6 +1,6 @@
-<?php namespace Nova\Foundation\Data\Interfaces;
+<?php namespace Nova\Foundation\Data\Contracts;
 
-interface BaseRepositoryInterface {
+interface BaseRepositoryContract {
 
 	public function all(array $with = []);
 	public function countBy($column, $value);

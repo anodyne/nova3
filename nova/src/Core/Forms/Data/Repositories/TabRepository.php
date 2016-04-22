@@ -2,9 +2,9 @@
 
 use NovaForm,
 	NovaFormTab as Model,
-	FormTabRepositoryInterface;
+	FormTabRepositoryContract;
 
-class TabRepository extends BaseFormRepository implements FormTabRepositoryInterface {
+class TabRepository extends BaseFormRepository implements FormTabRepositoryContract {
 
 	protected $model;
 

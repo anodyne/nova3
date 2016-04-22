@@ -1,8 +1,8 @@
-<?php namespace Nova\Core\Forms\Data\Interfaces;
+<?php namespace Nova\Core\Forms\Data\Contracts;
 
 use User, NovaForm;
 
-interface FormRepositoryInterface extends BaseFormRepositoryInterface {
+interface FormRepositoryContract extends BaseFormRepositoryContract {
 
 	public function getByKey($key, array $with = []);
 	public function getFormCenterForms(array $with = []);

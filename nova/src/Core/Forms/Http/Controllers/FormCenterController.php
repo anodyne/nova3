@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Forms\Http\Controllers;
 
 use BaseController,
-	FormRepositoryInterface,
-	FormEntryRepositoryInterface;
+	FormRepositoryContract,
+	FormEntryRepositoryContract;
 use Nova\Core\Forms\Events;
 use Illuminate\Http\Request;
 
@@ -11,8 +11,8 @@ class FormCenterController extends BaseController {
 	protected $repo;
 	protected $formRepo;
 
-	public function __construct(FormEntryRepositoryInterface $repo,
-			FormRepositoryInterface $forms)
+	public function __construct(FormEntryRepositoryContract $repo,
+			FormRepositoryContract $forms)
 	{
 		parent::__construct();
 

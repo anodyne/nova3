@@ -2,8 +2,8 @@
 
 use NovaFormTab,
 	BaseController,
-	FormRepositoryInterface,
-	FormTabRepositoryInterface,
+	FormRepositoryContract,
+	FormTabRepositoryContract,
 	EditFormTabRequest, CreateFormTabRequest, RemoveFormTabRequest;
 use Nova\Core\Forms\Events;
 
@@ -12,8 +12,8 @@ class TabController extends BaseController {
 	protected $repo;
 	protected $formRepo;
 
-	public function __construct(FormTabRepositoryInterface $repo, 
-			FormRepositoryInterface $forms)
+	public function __construct(FormTabRepositoryContract $repo, 
+			FormRepositoryContract $forms)
 	{
 		parent::__construct();
 

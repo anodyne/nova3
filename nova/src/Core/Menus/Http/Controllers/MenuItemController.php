@@ -3,9 +3,9 @@
 use Str,
 	MenuItem,
 	BaseController,
-	MenuRepositoryInterface,
-	PageRepositoryInterface,
-	MenuItemRepositoryInterface,
+	MenuRepositoryContract,
+	PageRepositoryContract,
+	MenuItemRepositoryContract,
 	EditMenuItemRequest, CreateMenuItemRequest, RemoveMenuItemRequest;
 use Nova\Core\Menus\Events;
 use Illuminate\Http\Request;
@@ -17,9 +17,9 @@ class MenuItemController extends BaseController {
 	protected $menuRepo;
 	protected $pagesRepo;
 
-	public function __construct(MenuItemRepositoryInterface $repo,
-			MenuRepositoryInterface $menus,
-			PageRepositoryInterface $pages)
+	public function __construct(MenuItemRepositoryContract $repo,
+			MenuRepositoryContract $menus,
+			PageRepositoryContract $pages)
 	{
 		parent::__construct();
 

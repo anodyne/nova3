@@ -6,8 +6,8 @@ use Str,
 	Status,
 	Artisan,
 	UserCreator,
-	SettingRepositoryInterface,
-	PageContentRepositoryInterface;
+	SettingRepositoryContract,
+	PageContentRepositoryContract;
 use Illuminate\Filesystem\Filesystem,
 	Illuminate\Filesystem\FilesystemManager;
 use Nova\Setup\Http\Requests\CreateUserRequest,
@@ -99,8 +99,8 @@ class InstallController extends BaseController {
 		return view('pages.setup.install.settings-success');
 	}
 
-	public function updateSettings(SettingRepositoryInterface $settings, 
-			PageContentRepositoryInterface $content,
+	public function updateSettings(SettingRepositoryContract $settings, 
+			PageContentRepositoryContract $content,
 			UpdateSettingsRequest $request)
 	{
 		// Grab the data

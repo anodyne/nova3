@@ -2,9 +2,9 @@
 
 use NovaForm,
 	NovaFormField as Model,
-	FormFieldRepositoryInterface;
+	FormFieldRepositoryContract;
 
-class FieldRepository extends BaseFormRepository implements FormFieldRepositoryInterface {
+class FieldRepository extends BaseFormRepository implements FormFieldRepositoryContract {
 
 	protected $model;
 

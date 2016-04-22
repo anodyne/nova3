@@ -2,7 +2,7 @@
 
 use User,
 	BaseController,
-	UserRepositoryInterface,
+	UserRepositoryContract,
 	EditUserRequest, CreateUserRequest, RemoveUserRequest;
 use Nova\Core\Users\Events;
 
@@ -10,7 +10,7 @@ class UserController extends BaseController {
 
 	protected $repo;
 
-	public function __construct(UserRepositoryInterface $repo)
+	public function __construct(UserRepositoryContract $repo)
 	{
 		parent::__construct();
 

@@ -1,10 +1,10 @@
 <?php namespace Nova\Core\Pages\Data\Repositories;
 
 use PageContent as Model,
-	PageContentRepositoryInterface;
+	PageContentRepositoryContract;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class PageContentRepository extends BaseRepository implements PageContentRepositoryInterface {
+class PageContentRepository extends BaseRepository implements PageContentRepositoryContract {
 
 	protected $model;
 

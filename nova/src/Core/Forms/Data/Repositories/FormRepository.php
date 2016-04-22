@@ -2,9 +2,9 @@
 
 use User,
 	NovaForm as Model,
-	FormRepositoryInterface;;
+	FormRepositoryContract;
 
-class FormRepository extends BaseFormRepository implements FormRepositoryInterface {
+class FormRepository extends BaseFormRepository implements FormRepositoryContract {
 
 	protected $model;
 

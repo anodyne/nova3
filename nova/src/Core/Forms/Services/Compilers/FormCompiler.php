@@ -2,9 +2,9 @@
 
 use Route;
 use Nova\Foundation\Services\PageCompiler\CompilerEngine,
-	Nova\Foundation\Services\PageCompiler\CompilerInterface;
+	Nova\Foundation\Services\PageCompiler\CompilerContract;
 
-class FormCompiler implements CompilerInterface {
+class FormCompiler implements CompilerContract {
 
 	protected $identifier = 'form';
 

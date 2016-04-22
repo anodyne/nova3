@@ -2,9 +2,9 @@
 
 use NovaForm,
 	NovaFormSection as Model,
-	FormSectionRepositoryInterface;
+	FormSectionRepositoryContract;
 
-class SectionRepository extends BaseFormRepository implements FormSectionRepositoryInterface {
+class SectionRepository extends BaseFormRepository implements FormSectionRepositoryContract {
 
 	protected $model;
 

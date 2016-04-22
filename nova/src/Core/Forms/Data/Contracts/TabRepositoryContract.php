@@ -1,8 +1,8 @@
-<?php namespace Nova\Core\Forms\Data\Interfaces;
+<?php namespace Nova\Core\Forms\Data\Contracts;
 
 use NovaForm, NovaFormTab;
 
-interface TabRepositoryInterface extends BaseFormRepositoryInterface {
+interface TabRepositoryContract extends BaseFormRepositoryContract {
 
 	public function countLinkIds(NovaForm $form, $linkId);
 	public function getFormTabs(NovaForm $form, array $relations = [], $allTabs = false);

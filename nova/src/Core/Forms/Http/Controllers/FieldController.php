@@ -2,11 +2,11 @@
 
 use NovaFormField,
 	BaseController,
-	FormRepositoryInterface,
-	RoleRepositoryInterface,
-	FormTabRepositoryInterface,
-	FormFieldRepositoryInterface,
-	FormSectionRepositoryInterface,
+	FormRepositoryContract,
+	RoleRepositoryContract,
+	FormTabRepositoryContract,
+	FormFieldRepositoryContract,
+	FormSectionRepositoryContract,
 	EditFormFieldRequest, CreateFormFieldRequest, RemoveFormFieldRequest;
 use Nova\Core\Forms\Events;
 
@@ -15,18 +15,21 @@ class FieldController extends BaseController {
 	protected $repo;
 	protected $tabRepo;
 	protected $formRepo;
+	protected $roleRepo;
 	protected $sectionRepo;
 
-	public function __construct(FormFieldRepositoryInterface $repo,
-			FormSectionRepositoryInterface $sections, 
-			FormRepositoryInterface $forms,
-			FormTabRepositoryInterface $tabs)
+	public function __construct(FormFieldRepositoryContract $repo,
+			FormSectionRepositoryContract $sections, 
+			FormRepositoryContract $forms,
+			FormTabRepositoryContract $tabs,
+			RoleRepositoryContract $roles)
 	{
 		parent::__construct();
 
 		$this->repo = $repo;
 		$this->tabRepo = $tabs;
 		$this->formRepo = $forms;
+		$this->roleRepo = $roles;
 		$this->sectionRepo = $sections;
 
 		$this->middleware('auth');
@@ -49,7 +52,7 @@ class FieldController extends BaseController {
 		$this->data->parentTabs = $this->formRepo->getParentTabs($form, [], true);
 	}
 
-	public function create(RoleRepositoryInterface $roleRepo, $formKey)
+	public function create($formKey)
 	{
 		$this->authorize('create', new NovaFormField, "You do not have permission to create form fields.");
 
@@ -82,7 +85,7 @@ class FieldController extends BaseController {
 			'Custom' => "Custom",
 		];
 
-		$this->data->accessRoles = $roleRepo->listAll('display_name', 'name');
+		$this->data->accessRoles = $this->roleRepo->listAll('display_name', 'name');
 
 		$fieldTypes = $this->getFieldTypes();
 		$this->data->fieldTypes = $fieldTypes->get('types');
@@ -102,7 +105,7 @@ class FieldController extends BaseController {
 		return redirect()->route('admin.forms.fields', [$formKey]);
 	}
 
-	public function edit(RoleRepositoryInterface $roleRepo, $formKey, $fieldId)
+	public function edit($formKey, $fieldId)
 	{
 		$field = $this->data->field = $this->repo->getById($fieldId);
 
@@ -137,7 +140,7 @@ class FieldController extends BaseController {
 			'Custom' => "Custom",
 		];
 
-		$this->data->accessRoles = $roleRepo->listAll('display_name', 'name');
+		$this->data->accessRoles = $this->roleRepo->listAll('display_name', 'name');
 
 		$fieldTypes = $this->getFieldTypes();
 		$this->data->fieldTypes = $fieldTypes->get('types');

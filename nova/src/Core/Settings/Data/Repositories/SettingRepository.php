@@ -1,10 +1,10 @@
 <?php namespace Nova\Core\Settings\Data\Repositories;
 
 use Setting as Model,
-	SettingRepositoryInterface;
+	SettingRepositoryContract;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class SettingRepository extends BaseRepository implements SettingRepositoryInterface {
+class SettingRepository extends BaseRepository implements SettingRepositoryContract {
 
 	protected $model;
 
