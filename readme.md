@@ -4,7 +4,7 @@ A powerful and easy-to-use online RPG management system with a wide range of fea
 
 ## Current Version
 
-3.0.0-alpha.3
+0.3.3
 
 We version under the [Semantic Versioning](http://semver.org/) guidelines as much as possible.
 

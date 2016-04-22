@@ -6,10 +6,10 @@ return [
 		'name'	=> "Nova NextGen",
 
 		'version' => [
-			'full'	=> '3.0.0.alpha.3',
-			'major'	=> 3,
-			'minor'	=> 0,
-			'patch'	=> "0.alpha.3",
+			'full'	=> '0.3.3',
+			'major'	=> 0,
+			'minor'	=> 3,
+			'patch'	=> 3,
 		],
 	],
 

@@ -1,6 +1,6 @@
 # Release Notes
 
-## Preview Release 3
+## Preview Release 3 (0.3.3)
 
 - We've moved away from the Entrust authorization library and replaced with a solution of our own that's backed by the built-in Laravel authorization component. Nothing has changed about authorization, it's just that it's now code we've written instead of someone else and it utilizes more of Laravel's built-in functionality.
 - Welcome Vue.js! Over the last few months, we've kept our eye on a new Javascript framework called Vue.js. Vue.js is a small, fast, simple, reactive framework that we're really excited to play around with in several different areas. Despite it being new, it's very mature and we think that you'll love it as much as we do when you get in there and start playing around with it!
@@ -28,16 +28,14 @@
 	- You can now create __custom field types__ for use in Nova's forms. With a few lines of code (okay, more than a few, but it's actually not terribly taxing) developers can create a whole new type of field for other people to use. So, for example, that you wanted a color picker for users to pick their favorite color. In Nova 2, you'd just create a text field. With custom field types, you can create a color picker field that, when clicked, will pop up the operating system's color picker to choose a color. When you create the field in your form, you'd see the option in the field type dropdown. Custom field types open up a lot of possibilities in making forms exactly what you want.
 - Form Center is a way to quickly and easily leverage any forms you create. Instead of needing to create new pages to embed forms, you can direct users to the Form Center where they'll be able to fill out any forms that have been marked as being able to use Form Center. From there a user can see any entries they've posted as well as add new entries for you to review.
 
-## Preview Release 2
+## Preview Release 2 (0.3.2)
 
-- New PHP requirement: PHP 5.5.9
-- Logging in and resetting passwords
-- Page Manager
-	- Basic page info
-	- Page content
-- Menu Manager
+- In order to keep up with the latest release of Laravel, we've bumped the PHP requirement to __PHP 5.5.9__.
+- You can now log in, log out, and reset your passwords. Password resets have changed significantly since Nova 2. Now, instead of a secret question/answer, you'll be prompted to give your email address and a reset link will be sent to you. This provides more flexibility for users to create their new password instead of being assigned one and then having to remember it or change it again.
+- Welcome the __Page Manager__! This is a brand new way to manage all of the pages in Nova and a dead simple way to create new pages with a few clicks. Whether you're creating a basic static page or a more advanced page with code behind it, the Page Manager provides you all the tools you need to create pages.
+- The __Menu Manager__ is also available as an easy way to create, edit, and manage all of your menus and menu items in Nova NextGen.
 
-## Preview Release 1
+## Preview Release 1 (0.3.1)
 
 This first preview release of Nova NextGen serves as a preview of the work being done on Nova 3. The "NextGen" moniker is simply a marketing term to differentiate between all the talk over the previous years about Nova 3 and what Nova 3 is actually becoming. We've laid out our vision for what Nova should be and this is the first step in that direction. There's very little here, but there's also a lot.
 
