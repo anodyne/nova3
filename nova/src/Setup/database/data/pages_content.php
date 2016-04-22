@@ -28,7 +28,7 @@ return [
 	['page_id' => 7, 'type' => 'message', 'key' => 'password.reset.message', 'value' => null],
 
 	/**
-	 * Pages
+	 * Page Management
 	 */
 	['page_id' => 9, 'type' => 'header', 'key' => 'admin.pages.header', 'value' => "Pages"],
 	['page_id' => 9, 'type' => 'title', 'key' => 'admin.pages.title', 'value' => "Pages"],
@@ -50,7 +50,7 @@ return [
 	['page_id' => 21, 'type' => 'message', 'key' => 'admin.content.edit.message', 'value' => null],
 
 	/**
-	 * Menus
+	 * Menu Management
 	 */
 	['page_id' => 26, 'type' => 'header', 'key' => 'admin.menus.header', 'value' => "Menus"],
 	['page_id' => 26, 'type' => 'title', 'key' => 'admin.menus.title', 'value' => "Menus"],
@@ -75,7 +75,7 @@ return [
 	['page_id' => 41, 'type' => 'message', 'key' => 'admin.menus.items.edit.message', 'value' => null],
 
 	/**
-	 * Roles
+	 * Role Management
 	 */
 	['page_id' => 46, 'type' => 'header', 'key' => 'admin.access.roles.header', 'value' => "Roles"],
 	['page_id' => 46, 'type' => 'title', 'key' => 'admin.access.roles.title', 'value' => "Roles"],
@@ -88,80 +88,89 @@ return [
 	['page_id' => 49, 'type' => 'message', 'key' => 'admin.access.roles.edit.message', 'value' => null],
 	
 	/**
-	 * Permissions
+	 * Permission Management
 	 */
-	['page_id' => 55, 'type' => 'header', 'key' => 'admin.access.permissions.header', 'value' => "Permissions"],
-	['page_id' => 55, 'type' => 'title', 'key' => 'admin.access.permissions.title', 'value' => "Permissions"],
-	['page_id' => 55, 'type' => 'message', 'key' => 'admin.access.permissions.message', 'value' => null],
-	['page_id' => 56, 'type' => 'header', 'key' => 'admin.access.permissions.create.header', 'value' => "Add Permission"],
-	['page_id' => 56, 'type' => 'title', 'key' => 'admin.access.permissions.create.title', 'value' => "Add Permission"],
-	['page_id' => 56, 'type' => 'message', 'key' => 'admin.access.permissions.create.message', 'value' => null],
-	['page_id' => 58, 'type' => 'header', 'key' => 'admin.access.permissions.edit.header', 'value' => "Edit Permission"],
-	['page_id' => 58, 'type' => 'title', 'key' => 'admin.access.permissions.edit.title', 'value' => "Edit Permission"],
-	['page_id' => 58, 'type' => 'message', 'key' => 'admin.access.permissions.edit.message', 'value' => null],
+	['page_id' => 56, 'type' => 'header', 'key' => 'admin.access.permissions.header', 'value' => "Permissions"],
+	['page_id' => 56, 'type' => 'title', 'key' => 'admin.access.permissions.title', 'value' => "Permissions"],
+	['page_id' => 56, 'type' => 'message', 'key' => 'admin.access.permissions.message', 'value' => null],
+	['page_id' => 57, 'type' => 'header', 'key' => 'admin.access.permissions.create.header', 'value' => "Add Permission"],
+	['page_id' => 57, 'type' => 'title', 'key' => 'admin.access.permissions.create.title', 'value' => "Add Permission"],
+	['page_id' => 57, 'type' => 'message', 'key' => 'admin.access.permissions.create.message', 'value' => null],
+	['page_id' => 59, 'type' => 'header', 'key' => 'admin.access.permissions.edit.header', 'value' => "Edit Permission"],
+	['page_id' => 59, 'type' => 'title', 'key' => 'admin.access.permissions.edit.title', 'value' => "Edit Permission"],
+	['page_id' => 59, 'type' => 'message', 'key' => 'admin.access.permissions.edit.message', 'value' => null],
 
 	/**
-	 * Forms
+	 * Form Management
 	 */
-	['page_id' => 64, 'type' => 'header', 'key' => 'admin.forms.header', 'value' => "Forms"],
-	['page_id' => 64, 'type' => 'title', 'key' => 'admin.forms.title', 'value' => "Forms"],
-	['page_id' => 64, 'type' => 'message', 'key' => 'admin.forms.message', 'value' => null],
-	['page_id' => 65, 'type' => 'header', 'key' => 'admin.forms.create.header', 'value' => "Add Form"],
-	['page_id' => 65, 'type' => 'title', 'key' => 'admin.forms.create.title', 'value' => "Add Form"],
-	['page_id' => 65, 'type' => 'message', 'key' => 'admin.forms.create.message', 'value' => null],
-	['page_id' => 67, 'type' => 'header', 'key' => 'admin.forms.edit.header', 'value' => "Edit Form"],
-	['page_id' => 67, 'type' => 'title', 'key' => 'admin.forms.edit.title', 'value' => "Edit Form"],
-	['page_id' => 67, 'type' => 'message', 'key' => 'admin.forms.edit.message', 'value' => null],
-	['page_id' => 71, 'type' => 'header', 'key' => 'admin.forms.tabs.edit.header', 'value' => null],
-	['page_id' => 71, 'type' => 'title', 'key' => 'admin.forms.tabs.edit.title', 'value' => "Form Preview"],
-	['page_id' => 71, 'type' => 'message', 'key' => 'admin.forms.tabs.edit.message', 'value' => null],
+	['page_id' => 65, 'type' => 'header', 'key' => 'admin.forms.header', 'value' => "Forms"],
+	['page_id' => 65, 'type' => 'title', 'key' => 'admin.forms.title', 'value' => "Forms"],
+	['page_id' => 65, 'type' => 'message', 'key' => 'admin.forms.message', 'value' => null],
+	['page_id' => 66, 'type' => 'header', 'key' => 'admin.forms.create.header', 'value' => "Add Form"],
+	['page_id' => 66, 'type' => 'title', 'key' => 'admin.forms.create.title', 'value' => "Add Form"],
+	['page_id' => 66, 'type' => 'message', 'key' => 'admin.forms.create.message', 'value' => null],
+	['page_id' => 68, 'type' => 'header', 'key' => 'admin.forms.edit.header', 'value' => "Edit Form"],
+	['page_id' => 68, 'type' => 'title', 'key' => 'admin.forms.edit.title', 'value' => "Edit Form"],
+	['page_id' => 68, 'type' => 'message', 'key' => 'admin.forms.edit.message', 'value' => null],
+	['page_id' => 72, 'type' => 'header', 'key' => 'admin.forms.tabs.edit.header', 'value' => null],
+	['page_id' => 72, 'type' => 'title', 'key' => 'admin.forms.tabs.edit.title', 'value' => "Form Preview"],
+	['page_id' => 72, 'type' => 'message', 'key' => 'admin.forms.tabs.edit.message', 'value' => null],
 
-	['page_id' => 73, 'type' => 'header', 'key' => 'admin.forms.tabs.header', 'value' => null],
-	['page_id' => 73, 'type' => 'title', 'key' => 'admin.forms.tabs.title', 'value' => "Form Tabs"],
-	['page_id' => 73, 'type' => 'message', 'key' => 'admin.forms.tabs.message', 'value' => null],
-	['page_id' => 74, 'type' => 'header', 'key' => 'admin.forms.tabs.create.header', 'value' => "Add Form Tab"],
-	['page_id' => 74, 'type' => 'title', 'key' => 'admin.forms.tabs.create.title', 'value' => "Add Form Tab"],
-	['page_id' => 74, 'type' => 'message', 'key' => 'admin.forms.tabs.create.message', 'value' => null],
-	['page_id' => 76, 'type' => 'header', 'key' => 'admin.forms.tabs.edit.header', 'value' => "Edit Form Tab"],
-	['page_id' => 76, 'type' => 'title', 'key' => 'admin.forms.tabs.edit.title', 'value' => "Edit Form Tab"],
-	['page_id' => 76, 'type' => 'message', 'key' => 'admin.forms.tabs.edit.message', 'value' => null],
+	/**
+	 * Form Tab Management
+	 */
+	['page_id' => 74, 'type' => 'header', 'key' => 'admin.forms.tabs.header', 'value' => null],
+	['page_id' => 74, 'type' => 'title', 'key' => 'admin.forms.tabs.title', 'value' => "Form Tabs"],
+	['page_id' => 74, 'type' => 'message', 'key' => 'admin.forms.tabs.message', 'value' => null],
+	['page_id' => 75, 'type' => 'header', 'key' => 'admin.forms.tabs.create.header', 'value' => "Add Form Tab"],
+	['page_id' => 75, 'type' => 'title', 'key' => 'admin.forms.tabs.create.title', 'value' => "Add Form Tab"],
+	['page_id' => 75, 'type' => 'message', 'key' => 'admin.forms.tabs.create.message', 'value' => null],
+	['page_id' => 77, 'type' => 'header', 'key' => 'admin.forms.tabs.edit.header', 'value' => "Edit Form Tab"],
+	['page_id' => 77, 'type' => 'title', 'key' => 'admin.forms.tabs.edit.title', 'value' => "Edit Form Tab"],
+	['page_id' => 77, 'type' => 'message', 'key' => 'admin.forms.tabs.edit.message', 'value' => null],
 
-	['page_id' => 82, 'type' => 'header', 'key' => 'admin.forms.sections.header', 'value' => null],
-	['page_id' => 82, 'type' => 'title', 'key' => 'admin.forms.sections.title', 'value' => "Form Sections"],
-	['page_id' => 82, 'type' => 'message', 'key' => 'admin.forms.sections.message', 'value' => null],
-	['page_id' => 83, 'type' => 'header', 'key' => 'admin.forms.sections.create.header', 'value' => "Add Form Section"],
-	['page_id' => 83, 'type' => 'title', 'key' => 'admin.forms.sections.create.title', 'value' => "Add Form Section"],
-	['page_id' => 83, 'type' => 'message', 'key' => 'admin.forms.sections.create.message', 'value' => null],
-	['page_id' => 85, 'type' => 'header', 'key' => 'admin.forms.sections.edit.header', 'value' => "Edit Form Section"],
-	['page_id' => 85, 'type' => 'title', 'key' => 'admin.forms.sections.edit.title', 'value' => "Edit Form Section"],
-	['page_id' => 85, 'type' => 'message', 'key' => 'admin.forms.sections.edit.message', 'value' => null],
+	/**
+	 * Form Section Management
+	 */
+	['page_id' => 83, 'type' => 'header', 'key' => 'admin.forms.sections.header', 'value' => null],
+	['page_id' => 83, 'type' => 'title', 'key' => 'admin.forms.sections.title', 'value' => "Form Sections"],
+	['page_id' => 83, 'type' => 'message', 'key' => 'admin.forms.sections.message', 'value' => null],
+	['page_id' => 84, 'type' => 'header', 'key' => 'admin.forms.sections.create.header', 'value' => "Add Form Section"],
+	['page_id' => 84, 'type' => 'title', 'key' => 'admin.forms.sections.create.title', 'value' => "Add Form Section"],
+	['page_id' => 84, 'type' => 'message', 'key' => 'admin.forms.sections.create.message', 'value' => null],
+	['page_id' => 86, 'type' => 'header', 'key' => 'admin.forms.sections.edit.header', 'value' => "Edit Form Section"],
+	['page_id' => 86, 'type' => 'title', 'key' => 'admin.forms.sections.edit.title', 'value' => "Edit Form Section"],
+	['page_id' => 86, 'type' => 'message', 'key' => 'admin.forms.sections.edit.message', 'value' => null],
 
-	['page_id' => 90, 'type' => 'header', 'key' => 'admin.forms.fields.header', 'value' => null],
-	['page_id' => 90, 'type' => 'title', 'key' => 'admin.forms.fields.title', 'value' => "Form Fields"],
-	['page_id' => 90, 'type' => 'message', 'key' => 'admin.forms.fields.message', 'value' => null],
-	['page_id' => 91, 'type' => 'header', 'key' => 'admin.forms.fields.create.header', 'value' => "Add Form Field"],
-	['page_id' => 91, 'type' => 'title', 'key' => 'admin.forms.fields.create.title', 'value' => "Add Form Field"],
-	['page_id' => 91, 'type' => 'message', 'key' => 'admin.forms.fields.create.message', 'value' => null],
-	['page_id' => 93, 'type' => 'header', 'key' => 'admin.forms.fields.edit.header', 'value' => "Edit Form Field"],
-	['page_id' => 93, 'type' => 'title', 'key' => 'admin.forms.fields.edit.title', 'value' => "Edit Form Field"],
-	['page_id' => 93, 'type' => 'message', 'key' => 'admin.forms.fields.edit.message', 'value' => null],
+	/**
+	 * Form Field Management
+	 */
+	['page_id' => 91, 'type' => 'header', 'key' => 'admin.forms.fields.header', 'value' => null],
+	['page_id' => 91, 'type' => 'title', 'key' => 'admin.forms.fields.title', 'value' => "Form Fields"],
+	['page_id' => 91, 'type' => 'message', 'key' => 'admin.forms.fields.message', 'value' => null],
+	['page_id' => 92, 'type' => 'header', 'key' => 'admin.forms.fields.create.header', 'value' => "Add Form Field"],
+	['page_id' => 92, 'type' => 'title', 'key' => 'admin.forms.fields.create.title', 'value' => "Add Form Field"],
+	['page_id' => 92, 'type' => 'message', 'key' => 'admin.forms.fields.create.message', 'value' => null],
+	['page_id' => 94, 'type' => 'header', 'key' => 'admin.forms.fields.edit.header', 'value' => "Edit Form Field"],
+	['page_id' => 94, 'type' => 'title', 'key' => 'admin.forms.fields.edit.title', 'value' => "Edit Form Field"],
+	['page_id' => 94, 'type' => 'message', 'key' => 'admin.forms.fields.edit.message', 'value' => null],
 
 	/**
 	 * Form Center
 	 */
-	['page_id' => 98, 'type' => 'header', 'key' => 'admin.form-center.index.header', 'value' => "Form Center"],
-	['page_id' => 98, 'type' => 'title', 'key' => 'admin.form-center.index.title', 'value' => "Form Center"],
-	['page_id' => 98, 'type' => 'message', 'key' => 'admin.form-center.index.message', 'value' => null],
-	['page_id' => 99, 'type' => 'header', 'key' => 'admin.form-center.form.header', 'value' => "Form Center"],
-	['page_id' => 99, 'type' => 'title', 'key' => 'admin.form-center.form.title', 'value' => "Form Center"],
-	['page_id' => 99, 'type' => 'message', 'key' => 'admin.form-center.form.message', 'value' => null],
-	['page_id' => 106, 'type' => 'header', 'key' => 'admin.form-center.entries.header', 'value' => null],
-	['page_id' => 106, 'type' => 'title', 'key' => 'admin.form-center.entries.title', 'value' => "Form Center Entries"],
-	['page_id' => 106, 'type' => 'message', 'key' => 'admin.form-center.entries.message', 'value' => null],
-	['page_id' => 107, 'type' => 'header', 'key' => 'admin.form-center.show.header', 'value' => null],
-	['page_id' => 107, 'type' => 'title', 'key' => 'admin.form-center.show.title', 'value' => "Form Center Entry"],
-	['page_id' => 107, 'type' => 'message', 'key' => 'admin.form-center.show.message', 'value' => null],
-	['page_id' => 108, 'type' => 'header', 'key' => 'admin.form-center.edit.header', 'value' => null],
-	['page_id' => 108, 'type' => 'title', 'key' => 'admin.form-center.edit.title', 'value' => "Edit Form Center Entry"],
-	['page_id' => 108, 'type' => 'message', 'key' => 'admin.form-center.edit.message', 'value' => null],
+	['page_id' => 99, 'type' => 'header', 'key' => 'admin.form-center.index.header', 'value' => "Form Center"],
+	['page_id' => 99, 'type' => 'title', 'key' => 'admin.form-center.index.title', 'value' => "Form Center"],
+	['page_id' => 99, 'type' => 'message', 'key' => 'admin.form-center.index.message', 'value' => null],
+	['page_id' => 100, 'type' => 'header', 'key' => 'admin.form-center.form.header', 'value' => "Form Center"],
+	['page_id' => 100, 'type' => 'title', 'key' => 'admin.form-center.form.title', 'value' => "Form Center"],
+	['page_id' => 100, 'type' => 'message', 'key' => 'admin.form-center.form.message', 'value' => null],
+	['page_id' => 107, 'type' => 'header', 'key' => 'admin.form-center.entries.header', 'value' => null],
+	['page_id' => 107, 'type' => 'title', 'key' => 'admin.form-center.entries.title', 'value' => "Form Center Entries"],
+	['page_id' => 107, 'type' => 'message', 'key' => 'admin.form-center.entries.message', 'value' => null],
+	['page_id' => 108, 'type' => 'header', 'key' => 'admin.form-center.show.header', 'value' => null],
+	['page_id' => 108, 'type' => 'title', 'key' => 'admin.form-center.show.title', 'value' => "Form Center Entry"],
+	['page_id' => 108, 'type' => 'message', 'key' => 'admin.form-center.show.message', 'value' => null],
+	['page_id' => 109, 'type' => 'header', 'key' => 'admin.form-center.edit.header', 'value' => null],
+	['page_id' => 109, 'type' => 'title', 'key' => 'admin.form-center.edit.title', 'value' => "Edit Form Center Entry"],
+	['page_id' => 109, 'type' => 'message', 'key' => 'admin.form-center.edit.message', 'value' => null],
 ];

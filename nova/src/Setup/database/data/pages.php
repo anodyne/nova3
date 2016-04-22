@@ -319,7 +319,7 @@ return [
 	],
 
 	/**
-	 * Roles
+	 * Role Management
 	 */
 	[
 		'name'				=> "Manage Roles",
@@ -382,9 +382,15 @@ return [
 		'uri'				=> "admin/access/roles/{roleId}/duplicate",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@copy",
 	],
+	[
+		'name'				=> "Users With Role Pop-Up",
+		'key'				=> "admin.access.roles.users",
+		'uri'				=> "admin/access/roles/{roleId}/users",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@usersWithRole",
+	],
 
 	/**
-	 * Permissions
+	 * Permission Management
 	 */
 	[
 		'name'				=> "Manage Permissions",
@@ -450,7 +456,7 @@ return [
 	],
 
 	/**
-	 * Forms
+	 * Form Management
 	 */
 	[
 		'name'				=> "Manage Forms",
@@ -515,6 +521,9 @@ return [
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormController@checkFormKey",
 	],
 
+	/**
+	 * Form Tab Management
+	 */
 	[
 		'name'				=> "Manage Form Tabs",
 		'key'				=> "admin.forms.tabs",
@@ -578,6 +587,9 @@ return [
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\TabController@updateTabOrder",
 	],
 
+	/**
+	 * Form Section Management
+	 */
 	[
 		'name'				=> "Manage Form Sections",
 		'key'				=> "admin.forms.sections",
@@ -634,6 +646,9 @@ return [
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\SectionController@updateSectionOrder",
 	],
 
+	/**
+	 * Form Field Management
+	 */
 	[
 		'name'				=> "Manage Form Fields",
 		'key'				=> "admin.forms.fields",
