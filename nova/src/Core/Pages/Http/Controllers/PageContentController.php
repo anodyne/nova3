@@ -71,6 +71,13 @@ class PageContentController extends BaseController {
 
 		$this->data->pages[""] = "No page";
 		$this->data->pages += $this->pagesRepo->listAllBy('verb', 'GET', 'name', 'id');
+
+		$this->data->types = [
+			'header' => "Header",
+			'title' => "Page Title",
+			'message' => "Message",
+			'other' => "Other",
+		];
 	}
 
 	public function update(EditPageContentRequest $request, $contentId)
