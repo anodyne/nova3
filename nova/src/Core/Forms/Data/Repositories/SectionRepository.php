@@ -3,6 +3,7 @@
 use NovaForm,
 	NovaFormSection as Model,
 	FormSectionRepositoryContract;
+use Nova\Core\Forms\Events;
 
 class SectionRepository extends BaseFormRepository implements FormSectionRepositoryContract {
 
@@ -11,6 +12,24 @@ class SectionRepository extends BaseFormRepository implements FormSectionReposit
 	public function __construct(Model $model)
 	{
 		$this->model = $model;
+	}
+
+	public function create(array $data)
+	{
+		$section = parent::create($data);
+
+		event(new Events\FormSectionCreated($section));
+
+		return $section;
+	}
+
+	public function delete($resource)
+	{
+		$section = parent::delete($resource);
+
+		event(new Events\FormSectionDeleted($section->id, $section->name, $section->form->key));
+
+		return $section;
 	}
 
 	public function getBoundSections(NovaForm $form)
@@ -33,7 +52,7 @@ class SectionRepository extends BaseFormRepository implements FormSectionReposit
 		// Reassign any fields
 		$oldSection->fields->each(function ($field) use ($newSectionId)
 		{
-			$field->update(['section_id' => $newSectionId]);
+			app('FormFieldRepository')->update($field, ['section_id' => $newSectionId]);
 		});
 	}
 
@@ -49,8 +68,26 @@ class SectionRepository extends BaseFormRepository implements FormSectionReposit
 			});
 
 			// Now delete the field
-			$field->delete();
+			app('FormFieldRepository')->delete($field);
 		});
+	}
+
+	public function update($resource, array $data)
+	{
+		$section = parent::update($resource);
+
+		event(new Events\FormSectionUpdated($section));
+
+		return $section;
+	}
+
+	public function updateOrder($resource, $newOrder)
+	{
+		$section = parent::updateOrder($resource, $newOrder);
+
+		event(new Events\FormSectionOrderUpdated($section));
+
+		return $section;
 	}
 
 }

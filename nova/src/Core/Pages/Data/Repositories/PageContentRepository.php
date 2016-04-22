@@ -2,6 +2,7 @@
 
 use PageContent as Model,
 	PageContentRepositoryContract;
+use Nova\Core\Pages\Events;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class PageContentRepository extends BaseRepository implements PageContentRepositoryContract {
@@ -32,6 +33,24 @@ class PageContentRepository extends BaseRepository implements PageContentReposit
 		}
 
 		return false;
+	}
+
+	public function create(array $data)
+	{
+		$content = parent::create($data);
+
+		event(new Events\PageContentCreated($content));
+
+		return $content;
+	}
+
+	public function delete($resource)
+	{
+		$content = parent::delete($resource);
+
+		event(new Events\PageContentDeleted($content->key, $content->type));
+
+		return $content;
 	}
 
 	public function find($id)
@@ -73,6 +92,15 @@ class PageContentRepository extends BaseRepository implements PageContentReposit
 		}
 
 		return $this->getFirstBy('key', $key, $relations);
+	}
+
+	public function update($resource, array $data)
+	{
+		$content = parent::update($resource, $data);
+
+		event(new Events\PageContentUpdated($content));
+
+		return $content;
 	}
 
 	public function updateByKey(array $data)

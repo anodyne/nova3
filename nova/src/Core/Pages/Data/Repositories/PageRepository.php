@@ -1,17 +1,21 @@
 <?php namespace Nova\Core\Pages\Data\Repositories;
 
 use Page as Model,
-	PageRepositoryContract;
+	PageRepositoryContract,
+	PageContentRepositoryContract;
 use Illuminate\Routing\Route;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class PageRepository extends BaseRepository implements PageRepositoryContract {
 
 	protected $model;
+	protected $contentRepo;
 
-	public function __construct(Model $model)
+	public function __construct(Model $model,
+			PageContentRepositoryContract $content)
 	{
 		$this->model = $model;
+		$this->contentRepo = $content;
 	}
 
 	public function all(array $with = [], $verb = false)
@@ -37,13 +41,10 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 		// Set which content items we want to create
 		$contentToCreate = ['title', 'header', 'message'];
 
-		// Grab the content repo out of the IOC
-		$contentRepo = app('PageContentRepository');
-
 		foreach ($contentToCreate as $type)
 		{
 			// Create the new content item
-			$newContentItem = $contentRepo->create([
+			$newContentItem = $this->contentRepo->create([
 				'type'	=> $type,
 				'key'	=> "{$page->key}.{$type}",
 				'value' => (array_key_exists('content', $data) and array_key_exists($type, $data['content']))
@@ -55,6 +56,8 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 			$page->pageContents()->save($newContentItem);
 		}
 
+		event(new Events\PageCreated($page));
+
 		return $page;
 	}
 
@@ -65,20 +68,19 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 
 		if ($page)
 		{
-			// Make the content repo
-			$contentRepo = app('PageContentRepository');
-
 			if ($page->pageContents->count() > 0)
 			{
 				foreach ($page->pageContents as $content)
 				{
 					// Remove the content
-					$contentRepo->delete($content->id);
+					$this->contentRepo->delete($content->id);
 				}
 			}
 
 			// Remove the page
 			$page->delete();
+
+			event(new Events\PageDeleted($page->name, $page->key, $page->uri));
 
 			return $page;
 		}
@@ -142,9 +144,6 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 			// Set which content items we want to update
 			$contentToUpdate = ['title', 'header', 'message'];
 
-			// Grab the content repo out of the IOC
-			$contentRepo = app('PageContentRepository');
-
 			foreach ($contentToUpdate as $type)
 			{
 				// Build the value
@@ -158,12 +157,12 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 				if ($contentItem)
 				{
 					// Update the item
-					$contentRepo->update($contentItem, ['value' => $value]);
+					$this->contentRepo->update($contentItem, ['value' => $value]);
 				}
 				else
 				{
 					// We didn't have a content item, so let's create one
-					$newContentItem = $contentRepo->create([
+					$newContentItem = $this->contentRepo->create([
 						'type'	=> $type,
 						'key'	=> "{$page->key}.{$type}",
 						'value'	=> $value,
@@ -173,6 +172,8 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 					$page->pageContents()->save($newContentItem);
 				}
 			}
+
+			event(new Events\PageUpdated($page));
 
 			return $page;
 		}

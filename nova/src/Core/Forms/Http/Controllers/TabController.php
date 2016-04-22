@@ -5,7 +5,6 @@ use NovaFormTab,
 	FormRepositoryContract,
 	FormTabRepositoryContract,
 	EditFormTabRequest, CreateFormTabRequest, RemoveFormTabRequest;
-use Nova\Core\Forms\Events;
 
 class TabController extends BaseController {
 
@@ -59,8 +58,6 @@ class TabController extends BaseController {
 
 		$tab = $this->repo->create($request->all());
 
-		event(new Events\FormTabWasCreated($tab));
-
 		flash()->success("Form Tab Created!", "You can begin designing the tab layout with sections and fields.");
 
 		return redirect()->route('admin.forms.tabs', [$formKey]);
@@ -83,13 +80,9 @@ class TabController extends BaseController {
 
 	public function update(EditFormTabRequest $request, $formKey, $tabId)
 	{
-		$tab = $this->repo->getById($tabId);
+		$this->authorize('edit', new NovaFormTab, "You do not have permission to edit form tabs.");
 
-		$this->authorize('edit', $tab, "You do not have permission to edit form tabs.");
-
-		$tab = $this->repo->update($tab, $request->all());
-
-		event(new Events\FormTabWasUpdated($tab));
+		$tab = $this->repo->update($tabId, $request->all());
 
 		flash()->success("Form Tab Updated!");
 
@@ -142,8 +135,6 @@ class TabController extends BaseController {
 
 		$tab = $this->repo->delete($tab);
 
-		event(new Events\FormTabWasDeleted($tab->id, $tab->name, $formKey));
-
 		flash()->success("Form Tab Removed!");
 
 		return redirect()->route('admin.forms.tabs', [$formKey]);
@@ -176,8 +167,6 @@ class TabController extends BaseController {
 			foreach (request('tabs') as $order => $id)
 			{
 				$updatedTab = $this->repo->updateOrder($id, $order);
-
-				event(new Events\FormTabOrderWasUpdated($updatedTab));
 			}
 		}
 	}

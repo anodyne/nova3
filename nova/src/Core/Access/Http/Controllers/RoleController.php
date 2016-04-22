@@ -6,7 +6,6 @@ use Role,
 	RoleRepositoryContract,
 	PermissionRepositoryContract,
 	EditRoleRequest, CreateRoleRequest, RemoveRoleRequest;
-use Nova\Core\Access\Events;
 use Illuminate\Http\Request;
 
 class RoleController extends BaseController {
@@ -57,8 +56,6 @@ class RoleController extends BaseController {
 
 		$role = $this->repo->create($request->all());
 
-		event(new Events\RoleWasCreated($role));
-
 		flash()->success("Role Created!");
 
 		return redirect()->route('admin.access.roles');
@@ -78,13 +75,9 @@ class RoleController extends BaseController {
 
 	public function update(EditRoleRequest $request, $roleId)
 	{
-		$role = $this->repo->find($roleId);
+		$this->authorize('edit', new Role, "You do not have permission to edit roles.");
 
-		$this->authorize('edit', $role, "You do not have permission to edit roles.");
-
-		$role = $this->repo->update($role, $request->all());
-
-		event(new Events\RoleWasUpdated($role));
+		$role = $this->repo->update($roleId, $request->all());
 
 		flash()->success("Role Updated!");
 
@@ -120,8 +113,6 @@ class RoleController extends BaseController {
 		$this->authorize('remove', new Role, "You do not have permission to remove roles.");
 
 		$role = $this->repo->delete($roleId);
-
-		event(new Events\RoleWasDeleted($role->name));
 
 		flash()->success("Role Removed!");
 
@@ -177,8 +168,6 @@ class RoleController extends BaseController {
 			$request->input('display_name'),
 			$request->input('name')
 		);
-
-		event(new Events\RoleWasDuplicated($oldRole, $newRole));
 
 		flash()->success("Role Duplicated!");
 

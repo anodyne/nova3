@@ -3,6 +3,7 @@
 use User,
 	NovaForm as Model,
 	FormRepositoryContract;
+use Nova\Core\Forms\Events;
 
 class FormRepository extends BaseFormRepository implements FormRepositoryContract {
 
@@ -25,6 +26,8 @@ class FormRepository extends BaseFormRepository implements FormRepositoryContrac
 		// Now create the form
 		$form = parent::create($data);
 
+		event(new Events\FormCreated($form));
+
 		return $form;
 	}
 
@@ -42,32 +45,28 @@ class FormRepository extends BaseFormRepository implements FormRepositoryContrac
 			});
 
 			// Remove all the fields
-			$form->fields->each(function ($field)
+			$form->fieldsAll->each(function ($field)
 			{
-				// First remove all the field values
-				$field->values->each(function ($value)
-				{
-					$value->delete();
-				});
-
 				// Now we can delete the field
-				$field->delete();
+				app('FormFieldRepository')->delete($field);
 			});
 
 			// Remove all the sections
-			$form->sections->each(function ($section)
+			$form->sectionsAll->each(function ($section)
 			{
-				$section->delete();
+				app('FormSectionRepository')->delete($section);
 			});
 
 			// Remove all the tabs
-			$form->tabs->each(function ($tab)
+			$form->tabsAll->each(function ($tab)
 			{
-				$tab->delete();
+				app('FormTabRepository')->delete($tab);
 			});
 
 			// Finally, remove the form
 			$form->delete();
+
+			event(new Events\FormDeleted($form->name, $form->key));
 
 			return $form;
 		}
@@ -149,6 +148,8 @@ class FormRepository extends BaseFormRepository implements FormRepositoryContrac
 
 		// Now update the form
 		$form = parent::update($resource, $data);
+
+		event(new Events\FormUpdated($form));
 
 		return $form;
 	}

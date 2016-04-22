@@ -5,7 +5,6 @@ use Page,
 	MenuRepositoryContract,
 	PageRepositoryContract,
 	EditPageRequest, CreatePageRequest, RemovePageRequest;
-use Nova\Core\Pages\Events;
 use Symfony\Component\Finder\Finder;
 use InvalidArgumentException;
 use ReflectionClass, ReflectionMethod;
@@ -75,8 +74,6 @@ class PageController extends BaseController {
 
 		$page = $this->repo->create($request->all());
 
-		event(new Events\PageWasCreated($page));
-
 		flash()->success("Page Created!", "Don't forget to update your menus with your new page.");
 
 		return redirect()->route('admin.pages');
@@ -116,13 +113,9 @@ class PageController extends BaseController {
 
 	public function update(EditPageRequest $request, $pageId)
 	{
-		$page = $this->repo->find($pageId);
+		$this->authorize('edit', new Page, "You do not have permission to edit pages.");
 
-		$this->authorize('edit', $page, "You do not have permission to edit pages.");
-
-		$page = $this->repo->update($page, $request->all());
-
-		event(new Events\PageWasUpdated($page));
+		$page = $this->repo->update($pageId, $request->all());
 
 		flash()->success("Page Updated!");
 
@@ -156,13 +149,9 @@ class PageController extends BaseController {
 
 	public function destroy(RemovePageRequest $request, $pageId)
 	{
-		$page = $this->repo->find($pageId);
+		$this->authorize('remove', new Page, "You do not have permission to remove pages.");
 
-		$this->authorize('remove', $page, "You do not have permission to remove pages.");
-
-		$page = $this->repo->delete($page);
-
-		event(new Events\PageWasDeleted($page->name, $page->key, $page->uri));
+		$page = $this->repo->delete($pageId);
 
 		flash()->success("Page Removed!");
 

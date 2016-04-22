@@ -7,7 +7,6 @@ use Str,
 	PageRepositoryContract,
 	MenuItemRepositoryContract,
 	EditMenuItemRequest, CreateMenuItemRequest, RemoveMenuItemRequest;
-use Nova\Core\Menus\Events;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Foundation\Application;
 
@@ -82,8 +81,6 @@ class MenuItemController extends BaseController {
 
 		$item = $this->repo->create($request->all());
 
-		event(new Events\MenuItemWasCreated($item));
-
 		flash()->success("Menu Item Created!", "Add your new menu item to any of your menus now.");
 
 		return redirect()->route('admin.menus.items', [$item->menu->id]);
@@ -115,13 +112,9 @@ class MenuItemController extends BaseController {
 
 	public function update(EditMenuItemRequest $request, $itemId)
 	{
-		$item = $this->repo->find($itemId);
+		$this->authorize('edit', new MenuItem, "You do not have permission to edit menu items.");
 
-		$this->authorize('edit', $item, "You do not have permission to edit menu items.");
-
-		$item = $this->repo->update($item, $request->all());
-
-		event(new Events\MenuItemWasUpdated($item));
+		$item = $this->repo->update($itemId, $request->all());
 
 		flash()->success("Menu Item Updated!");
 
@@ -154,13 +147,9 @@ class MenuItemController extends BaseController {
 
 	public function destroy(RemoveMenuItemRequest $request, $itemId)
 	{
-		$item = $this->repo->find($itemId);
+		$this->authorize('remove', new MenuItem, "You do not have permission to remove menu items.");
 
-		$this->authorize('remove', $item, "You do not have permission to remove menu items.");
-
-		$item = $this->repo->delete($item);
-
-		event(new Events\MenuItemWasDeleted($item->title, $item->link));
+		$item = $this->repo->delete($itemId);
 
 		flash()->success("Menu Item Removed!");
 

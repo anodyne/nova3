@@ -5,7 +5,6 @@ use Permission,
 	RoleRepositoryContract,
 	PermissionRepositoryContract,
 	EditPermissionRequest, CreatePermissionRequest, RemovePermissionRequest;
-use Nova\Core\Access\Events;
 
 class PermissionController extends BaseController {
 
@@ -48,8 +47,6 @@ class PermissionController extends BaseController {
 
 		$permission = $this->repo->create($request->all());
 
-		event(new Events\PermissionWasCreated($permission));
-
 		flash()->success("Permission Created!", "Add your new permission to any of your roles now.");
 
 		return redirect()->route('admin.access.permissions');
@@ -67,13 +64,9 @@ class PermissionController extends BaseController {
 
 	public function update(EditPermissionRequest $request, $permissionId)
 	{
-		$permission = $this->repo->find($permissionId);
+		$this->authorize('edit', new Permission, "You do not have permission to edit permissions.");
 
-		$this->authorize('edit', $permission, "You do not have permission to edit permissions.");
-
-		$permission = $this->repo->update($permission, $request->all());
-
-		event(new Events\PermissionWasUpdated($permission));
+		$permission = $this->repo->update($permissionId, $request->all());
 
 		flash()->success("Permission Updated!");
 
@@ -109,8 +102,6 @@ class PermissionController extends BaseController {
 		$this->authorize('remove', new Permission, "You do not have permission to remove permissions.");
 
 		$permission = $this->repo->delete($permissionId);
-
-		event(new Events\PermissionWasDeleted($permission->name, $permission->display_name));
 
 		flash()->success("Permission Removed!");
 

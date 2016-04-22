@@ -8,7 +8,6 @@ use NovaFormField,
 	FormFieldRepositoryContract,
 	FormSectionRepositoryContract,
 	EditFormFieldRequest, CreateFormFieldRequest, RemoveFormFieldRequest;
-use Nova\Core\Forms\Events;
 
 class FieldController extends BaseController {
 
@@ -25,6 +24,9 @@ class FieldController extends BaseController {
 			RoleRepositoryContract $roles)
 	{
 		parent::__construct();
+
+		$this->structureView = 'admin';
+		$this->templateView = 'admin';
 
 		$this->repo = $repo;
 		$this->tabRepo = $tabs;
@@ -98,8 +100,6 @@ class FieldController extends BaseController {
 
 		$field = $this->repo->create($request->all());
 
-		event(new Events\FormFieldWasCreated($field));
-
 		flash()->success("Form Field Created!");
 
 		return redirect()->route('admin.forms.fields', [$formKey]);
@@ -154,13 +154,9 @@ class FieldController extends BaseController {
 
 	public function update(EditFormFieldRequest $request, $formKey, $fieldId)
 	{
-		$field = $this->repo->getById($fieldId);
+		$this->authorize('edit', new NovaFormField, "You do not have permission to edit form fields.");
 
-		$this->authorize('edit', $field, "You do not have permission to edit form fields.");
-
-		$field = $this->repo->update($field, $request->all());
-
-		event(new Events\FormFieldWasUpdated($field));
+		$field = $this->repo->update($fieldId, $request->all());
 
 		flash()->success("Form Field Updated!");
 
@@ -195,15 +191,9 @@ class FieldController extends BaseController {
 
 	public function destroy(RemoveFormFieldRequest $request, $formKey, $fieldId)
 	{
-		$field = $this->repo->getById($fieldId);
+		$this->authorize('remove', new NovaFormField, "You do not have permission to remove form fields.");
 
-		$this->authorize('remove', $field, "You do not have permission to remove form fields.");
-
-		$form = $this->formRepo->getByKey($formKey);
-
-		$field = $this->repo->delete($field);
-
-		event(new Events\FormFieldWasDeleted($field->id, $field->label, $form->key));
+		$field = $this->repo->delete($fieldId);
 
 		flash()->success("Form Field Removed!");
 
@@ -221,8 +211,6 @@ class FieldController extends BaseController {
 			foreach (request('fields') as $order => $id)
 			{
 				$updatedField = $this->repo->updateOrder($id, $order);
-
-				event(new Events\FormFieldOrderWasUpdated($updatedField));
 			}
 		}
 	}

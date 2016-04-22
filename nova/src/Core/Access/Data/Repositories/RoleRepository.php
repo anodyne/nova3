@@ -2,6 +2,7 @@
 
 use Role as Model,
 	RoleRepositoryContract;
+use Nova\Core\Access\Events;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class RoleRepository extends BaseRepository implements RoleRepositoryContract {
@@ -32,6 +33,8 @@ class RoleRepository extends BaseRepository implements RoleRepositoryContract {
 			$role->addPermissions($data['permissions']);
 		}
 
+		event(new Events\RoleCreated($role));
+
 		return $role;
 	}
 
@@ -54,6 +57,8 @@ class RoleRepository extends BaseRepository implements RoleRepositoryContract {
 
 			$role->delete();
 
+			event(new Events\RoleDeleted($role->name));
+
 			return $role;
 		}
 
@@ -74,6 +79,8 @@ class RoleRepository extends BaseRepository implements RoleRepositoryContract {
 
 			// Duplicate the permissions for the role
 			$newRole->addPermissions($originalRole->permissions);
+
+			event(new Events\RoleDuplicated($originalRole, $newRole));
 
 			return $newRole;
 		}
@@ -99,6 +106,8 @@ class RoleRepository extends BaseRepository implements RoleRepositoryContract {
 		{
 			$role->addPermissions($data['permissions']);
 		}
+
+		event(new Events\RoleUpdated($role));
 
 		return $role;
 	}

@@ -3,6 +3,7 @@
 use NovaForm,
 	NovaFormField as Model,
 	FormFieldRepositoryContract;
+use Nova\Core\Forms\Events;
 
 class FieldRepository extends BaseFormRepository implements FormFieldRepositoryContract {
 
@@ -26,6 +27,17 @@ class FieldRepository extends BaseFormRepository implements FormFieldRepositoryC
 		// Now create the field
 		$field = parent::create($data);
 
+		event(new Events\FormFieldCreated($field));
+
+		return $field;
+	}
+
+	public function delete($resource)
+	{
+		$field = parent::delete($resource);
+
+		event(new Events\FormFieldDeleted($field->id, $field->label, $field->form->key));
+
 		return $field;
 	}
 
@@ -41,6 +53,17 @@ class FieldRepository extends BaseFormRepository implements FormFieldRepositoryC
 
 		// Now update the field
 		$field = parent::update($resource, $data);
+
+		event(new Events\FormFieldUpdated($field));
+
+		return $field;
+	}
+
+	public function updateOrder($resource, $newOrder)
+	{
+		$field = parent::updateOrder($resource, $newOrder);
+
+		event(new Events\FormFieldOrderUpdated($field));
 
 		return $field;
 	}

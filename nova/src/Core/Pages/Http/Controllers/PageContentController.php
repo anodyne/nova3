@@ -5,7 +5,6 @@ use PageContent,
 	PageRepositoryContract,
 	PageContentRepositoryContract,
 	EditPageContentRequest, CreatePageContentRequest, RemovePageContentRequest;
-use Nova\Core\Pages\Events;
 
 class PageContentController extends BaseController {
 
@@ -53,8 +52,6 @@ class PageContentController extends BaseController {
 
 		$content = $this->repo->create($request->all());
 
-		event(new Events\PageContentWasCreated($content));
-
 		flash()->success("Page Content Created!");
 
 		return redirect()->route('admin.content');
@@ -82,13 +79,9 @@ class PageContentController extends BaseController {
 
 	public function update(EditPageContentRequest $request, $contentId)
 	{
-		$content = $this->repo->find($contentId);
+		$this->authorize('edit', new PageContent, "You do not have permission to edit additional content.");
 
-		$this->authorize('edit', $content, "You do not have permission to edit additional content.");
-
-		$content = $this->repo->update($content, $request->all());
-
-		event(new Events\PageContentWasUpdated($content));
+		$content = $this->repo->update($contentId, $request->all());
 
 		flash()->success("Page Content Updated!");
 
@@ -122,13 +115,9 @@ class PageContentController extends BaseController {
 
 	public function destroy(RemovePageContentRequest $request, $contentId)
 	{
-		$content = $this->repo->find($contentId);
+		$this->authorize('remove', new PageContent, "You do not have permission to remove additional content.");
 
-		$this->authorize('remove', $content, "You do not have permission to remove additional content.");
-
-		$content = $this->repo->delete($content);
-
-		event(new Events\PageContentWasDeleted($content->key, $content->type));
+		$content = $this->repo->delete($contentId);
 
 		flash()->success("Page Content Removed!");
 

@@ -3,7 +3,6 @@
 use BaseController,
 	FormRepositoryContract,
 	FormEntryRepositoryContract;
-use Nova\Core\Forms\Events;
 use Illuminate\Http\Request;
 
 class FormCenterController extends BaseController {
@@ -16,11 +15,11 @@ class FormCenterController extends BaseController {
 	{
 		parent::__construct();
 
-		$this->repo = $repo;
-		$this->formRepo = $forms;
-		
 		$this->structureView = 'admin';
 		$this->templateView = 'admin';
+
+		$this->repo = $repo;
+		$this->formRepo = $forms;
 
 		$this->middleware('auth', ['except' => ['storeEntry']]);
 	}
@@ -123,8 +122,6 @@ class FormCenterController extends BaseController {
 		
 		$entry = $this->repo->insert($form, $this->user, $request->all());
 		
-		event(new Events\FormCenterFormWasCreated($entry, $form));
-		
 		flash()->success("Form Entry Created!");
 		
 		return redirect()->back();
@@ -154,8 +151,6 @@ class FormCenterController extends BaseController {
 		);
 		
 		$entry = $this->repo->update($entryId, $request->all());
-		
-		event(new Events\FormCenterFormWasUpdated($entry, $form));
 		
 		flash()->success("Form Entry Updated!");
 		
@@ -198,8 +193,6 @@ class FormCenterController extends BaseController {
 		
 		$entry = $this->repo->update($id, $request->all());
 		
-		event(new Events\FormCenterFormWasUpdated($entry, $form));
-		
 		flash()->success("Form Entry Updated!");
 		
 		return redirect()->back();
@@ -238,8 +231,6 @@ class FormCenterController extends BaseController {
 		$this->authorize('removeFormCenterEntry', $form, "You do not have permission to remove this form entry.");
 		
 		$entry = $this->repo->delete($id);
-		
-		event(new Events\FormCenterFormWasDeleted($entry->id, $entry->present()->identifier, $formKey));
 		
 		flash()->success("Form Entry Removed!");
 		

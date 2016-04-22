@@ -3,6 +3,7 @@
 use Permission as Model,
 	PermissionRepositoryContract;
 use Illuminate\Support\Collection;
+use Nova\Core\Access\Events;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class PermissionRepository extends BaseRepository implements PermissionRepositoryContract {
@@ -45,6 +46,15 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
 		return [];
 	}
 
+	public function create(array $data)
+	{
+		$permission = parent::create($data);
+
+		event(new Events\PermissionCreated($permission));
+
+		return $permission;
+	}
+
 	/**
 	 * We need to modify the way we delete a permission to allow for detaching
 	 * the permission being removed from any role(s) it's attached to
@@ -62,6 +72,8 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
 			// Delete the permission
 			$permission->delete();
 
+			event(new Events\PermissionDeleted($permission->name, $permission->display_name));
+
 			return $permission;
 		}
 
@@ -71,6 +83,15 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
 	public function find($id)
 	{
 		return $this->getById($id, ['roles']);
+	}
+
+	public function update($resource, array $data)
+	{
+		$permission = parent::update($resource, $data);
+
+		event(new Events\PermissionUpdated($permission));
+
+		return $permission;
 	}
 
 }

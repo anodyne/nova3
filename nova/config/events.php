@@ -2,62 +2,62 @@
 
 return [
 
-	'Nova\Core\Pages\Events\PageWasCreated' => [
+	'Nova\Core\Pages\Events\PageCreated' => [
 		CachePageRoutes::class,
 	],
-	'Nova\Core\Pages\Events\PageWasDeleted' => [
+	'Nova\Core\Pages\Events\PageDeleted' => [
 		CachePageRoutes::class,
 	],
-	'Nova\Core\Pages\Events\PageWasUpdated' => [
+	'Nova\Core\Pages\Events\PageUpdated' => [
 		CachePageRoutes::class,
 	],
 
-	'Nova\Core\Pages\Events\PageContentWasCreated' => [],
-	'Nova\Core\Pages\Events\PageContentWasDeleted' => [],
-	'Nova\Core\Pages\Events\PageContentWasUpdated' => [],
+	'Nova\Core\Pages\Events\PageContentCreated' => [],
+	'Nova\Core\Pages\Events\PageContentDeleted' => [],
+	'Nova\Core\Pages\Events\PageContentUpdated' => [],
 
-	'Nova\Core\Menus\Events\MenuItemWasCreated' => [],
-	'Nova\Core\Menus\Events\MenuItemWasDeleted' => [],
-	'Nova\Core\Menus\Events\MenuItemWasUpdated' => [],
+	'Nova\Core\Menus\Events\MenuItemCreated' => [],
+	'Nova\Core\Menus\Events\MenuItemDeleted' => [],
+	'Nova\Core\Menus\Events\MenuItemUpdated' => [],
 	
-	'Nova\Core\Menus\Events\MenuWasCreated' => [],
-	'Nova\Core\Menus\Events\MenuWasDeleted' => [],
-	'Nova\Core\Menus\Events\MenuWasUpdated' => [],
+	'Nova\Core\Menus\Events\MenuCreated' => [],
+	'Nova\Core\Menus\Events\MenuDeleted' => [],
+	'Nova\Core\Menus\Events\MenuUpdated' => [],
 
-	'Nova\Core\Access\Events\PermissionWasCreated' => [],
-	'Nova\Core\Access\Events\PermissionWasDeleted' => [],
-	'Nova\Core\Access\Events\PermissionWasUpdated' => [],
+	'Nova\Core\Access\Events\PermissionCreated' => [],
+	'Nova\Core\Access\Events\PermissionDeleted' => [],
+	'Nova\Core\Access\Events\PermissionUpdated' => [],
 
-	'Nova\Core\Access\Events\RoleWasCreated' => [],
-	'Nova\Core\Access\Events\RoleWasDeleted' => [],
-	'Nova\Core\Access\Events\RoleWasDuplicated' => [],
-	'Nova\Core\Access\Events\RoleWasUpdated' => [],
+	'Nova\Core\Access\Events\RoleCreated' => [],
+	'Nova\Core\Access\Events\RoleDeleted' => [],
+	'Nova\Core\Access\Events\RoleDuplicated' => [],
+	'Nova\Core\Access\Events\RoleUpdated' => [],
 
-	'Nova\Core\Forms\Events\FormWasCreated' => [],
-	'Nova\Core\Forms\Events\FormWasDeleted' => [],
-	'Nova\Core\Forms\Events\FormWasUpdated' => [],
+	'Nova\Core\Forms\Events\FormCreated' => [],
+	'Nova\Core\Forms\Events\FormDeleted' => [],
+	'Nova\Core\Forms\Events\FormUpdated' => [],
 
-	'Nova\Core\Forms\Events\FormTabWasCreated' => [],
-	'Nova\Core\Forms\Events\FormTabWasDeleted' => [],
-	'Nova\Core\Forms\Events\FormTabOrderWasUpdated' => [],
-	'Nova\Core\Forms\Events\FormTabWasUpdated' => [],
+	'Nova\Core\Forms\Events\FormTabCreated' => [],
+	'Nova\Core\Forms\Events\FormTabDeleted' => [],
+	'Nova\Core\Forms\Events\FormTabOrderUpdated' => [],
+	'Nova\Core\Forms\Events\FormTabUpdated' => [],
 
-	'Nova\Core\Forms\Events\FormSectionWasCreated' => [],
-	'Nova\Core\Forms\Events\FormSectionWasDeleted' => [],
-	'Nova\Core\Forms\Events\FormSectionOrderWasUpdated' => [],
-	'Nova\Core\Forms\Events\FormSectionWasUpdated' => [],
+	'Nova\Core\Forms\Events\FormSectionCreated' => [],
+	'Nova\Core\Forms\Events\FormSectionDeleted' => [],
+	'Nova\Core\Forms\Events\FormSectionOrderUpdated' => [],
+	'Nova\Core\Forms\Events\FormSectionUpdated' => [],
 
-	'Nova\Core\Forms\Events\FormFieldWasCreated' => [],
-	'Nova\Core\Forms\Events\FormFieldWasDeleted' => [],
-	'Nova\Core\Forms\Events\FormFieldOrderWasUpdated' => [],
-	'Nova\Core\Forms\Events\FormFieldWasUpdated' => [],
+	'Nova\Core\Forms\Events\FormFieldCreated' => [],
+	'Nova\Core\Forms\Events\FormFieldDeleted' => [],
+	'Nova\Core\Forms\Events\FormFieldOrderUpdated' => [],
+	'Nova\Core\Forms\Events\FormFieldUpdated' => [],
 
-	'Nova\Core\Forms\Events\FormCenterFormWasCreated' => [
+	'Nova\Core\Forms\Events\FormCenterFormCreated' => [
 		EmailFormCenterRecipients::class,
 	],
-	'Nova\Core\Forms\Events\FormCenterFormWasUpdated' => [
+	'Nova\Core\Forms\Events\FormCenterFormUpdated' => [
 		EmailFormCenterRecipients::class,
 	],
-	'Nova\Core\Forms\Events\FormCenterFormWasDeleted' => [],
+	'Nova\Core\Forms\Events\FormCenterFormDeleted' => [],
 
 ];

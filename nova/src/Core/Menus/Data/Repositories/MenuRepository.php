@@ -2,18 +2,33 @@
 
 use Menu as Model,
 	MenuRepositoryContract,
-	PageRepositoryContract;
+	PageRepositoryContract,
+	MenuItemRepositoryContract;
+use Nova\Core\Menus\Events;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class MenuRepository extends BaseRepository implements MenuRepositoryContract {
 
 	protected $model;
 	protected $pageRepo;
+	protected $menuItemRepo;
 
-	public function __construct(Model $model, PageRepositoryContract $pages)
+	public function __construct(Model $model,
+			PageRepositoryContract $pages,
+			MenuItemRepositoryContract $menuItems)
 	{
 		$this->model = $model;
 		$this->pageRepo = $pages;
+		$this->menuItemRepo = $menuItems;
+	}
+
+	public function create(array $data)
+	{
+		$menu = parent::create($data);
+
+		event(new Events\MenuCreated($menu));
+
+		return $menu;
 	}
 
 	public function deleteAndUpdate($resource, $newId)
@@ -23,20 +38,26 @@ class MenuRepository extends BaseRepository implements MenuRepositoryContract {
 
 		if ($menu)
 		{
+			// Grab the repositories we need
+			$pageRepo = $this->pageRepo;
+			$menuItemRepo = $this->menuItemRepo;
+
 			// Update any pages
-			$menu->pages->each(function ($page) use ($newId)
+			$menu->pages->each(function ($page) use ($newId, $pageRepo)
 			{
-				$page->fill(['menu_id' => $newId])->save();
+				$pageRepo->update($page, ['menu_id' => $newId]);
 			});
 
 			// Remove the menu items
-			$menu->menuItems->each(function ($item)
+			$menu->menuItems->each(function ($item) use ($menuItemRepo)
 			{
-				$item->delete();
+				$menuItemRepo->delete($item);
 			});
 
 			// Delete the menu
 			$menu->delete();
+
+			event(new Events\MenuDeleted($menu->key, $menu->name));
 
 			return $menu;
 		}
@@ -57,6 +78,15 @@ class MenuRepository extends BaseRepository implements MenuRepositoryContract {
 	public function getPages(Model $menu)
 	{
 		return $menu->pages;
+	}
+
+	public function update($resource, array $data)
+	{
+		$menu = parent::update($resource, $data);
+
+		event(new Events\MenuUpdated($menu));
+
+		return $menu;
 	}
 
 	public function updatePages(array $pages, $newMenuId)

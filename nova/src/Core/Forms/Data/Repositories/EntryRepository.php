@@ -7,6 +7,7 @@ use User,
 	FormDataRepositoryContract,
 	FormEntryRepositoryContract,
 	FormFieldRepositoryContract;
+use Nova\Core\Forms\Events;
 
 class EntryRepository extends BaseFormRepository implements FormEntryRepositoryContract {
 
@@ -14,7 +15,8 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryC
 	protected $dataRepo;
 	protected $fieldRepo;
 
-	public function __construct(Model $model, FormDataRepositoryContract $data,
+	public function __construct(Model $model,
+			FormDataRepositoryContract $data,
 			FormFieldRepositoryContract $field)
 	{
 		$this->model = $model;
@@ -36,6 +38,8 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryC
 
 			// Remove the entry
 			$item->delete();
+
+			event(new Events\FormCenterFormDeleted($item->id, $item->present()->identifier, $item->form->key));
 
 			return $item;
 		}
@@ -98,6 +102,8 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryC
 			}
 		}
 
+		event(new Events\FormCenterFormCreated($entry, $form));
+
 		return $entry;
 	}
 
@@ -137,6 +143,8 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryC
 				$this->dataRepo->getModel()->updateOrCreate($attributes, $values);
 			}
 		}
+
+		event(new Events\FormCenterFormUpdated($entry, $entry->form));
 
 		return $entry;
 	}

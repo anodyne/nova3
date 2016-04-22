@@ -6,7 +6,6 @@ use BaseController,
 	FormTabRepositoryContract,
 	FormSectionRepositoryContract,
 	EditFormSectionRequest, CreateFormSectionRequest, RemoveFormSectionRequest;
-use Nova\Core\Forms\Events;
 
 class SectionController extends BaseController {
 
@@ -19,6 +18,9 @@ class SectionController extends BaseController {
 			FormTabRepositoryContract $tabs)
 	{
 		parent::__construct();
+
+		$this->structureView = 'admin';
+		$this->templateView = 'admin';
 
 		$this->repo = $repo;
 		$this->tabRepo = $tabs;
@@ -63,8 +65,6 @@ class SectionController extends BaseController {
 
 		$section = $this->repo->create($request->all());
 
-		event(new Events\FormSectionWasCreated($section));
-
 		flash()->success("Form Section Created!", "You can begin designing the section layout with fields.");
 
 		return redirect()->route('admin.forms.sections', [$formKey]);
@@ -87,13 +87,9 @@ class SectionController extends BaseController {
 
 	public function update(EditFormSectionRequest $request, $formKey, $sectionId)
 	{
-		$section = $this->repo->getById($sectionId);
+		$this->authorize('edit', new NovaFormSection, "You do not have permission to edit form sections.");
 
-		$this->authorize('edit', $section, "You do not have permission to edit form sections.");
-
-		$section = $this->repo->update($section, $request->all());
-
-		event(new Events\FormSectionWasUpdated($section));
+		$section = $this->repo->update($sectionId, $request->all());
 
 		flash()->success("Form Section Updated!");
 
@@ -146,8 +142,6 @@ class SectionController extends BaseController {
 
 		$section = $this->repo->delete($section);
 
-		event(new Events\FormSectionWasDeleted($section->id, $section->name, $formKey));
-
 		flash()->success("Form Section Removed!");
 
 		return redirect()->route('admin.forms.sections', [$formKey]);
@@ -164,8 +158,6 @@ class SectionController extends BaseController {
 			foreach (request('sections') as $order => $id)
 			{
 				$updatedSection = $this->repo->updateOrder($id, $order);
-
-				event(new Events\FormSectionOrderWasUpdated($updatedSection));
 			}
 		}
 	}

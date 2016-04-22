@@ -7,7 +7,6 @@ use Str,
 	PageRepositoryContract,
 	MenuItemRepositoryContract,
 	EditMenuRequest, CreateMenuRequest, RemoveMenuRequest;
-use Nova\Core\Menus\Events;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Foundation\Application;
 
@@ -56,8 +55,6 @@ class MenuController extends BaseController {
 
 		$menu = $this->repo->create($request->all());
 
-		event(new Events\MenuWasCreated($menu));
-
 		flash()->success("Menu Created!");
 
 		return redirect()->route('admin.menus');
@@ -75,13 +72,9 @@ class MenuController extends BaseController {
 
 	public function update(EditMenuRequest $request, $menuId)
 	{
-		$menu = $this->repo->find($menuId);
+		$this->authorize('edit', new Menu, "You do not have permission to edit menus.");
 
-		$this->authorize('edit', $menu, "You do not have permission to edit menus.");
-
-		$menu = $this->repo->update($menu, $request->all());
-
-		event(new Events\MenuWasUpdated($menu));
+		$menu = $this->repo->update($menuId, $request->all());
 
 		flash()->success("Menu Updated!");
 
@@ -116,13 +109,9 @@ class MenuController extends BaseController {
 
 	public function destroy(RemoveMenuRequest $request, $menuId)
 	{
-		$menu = $this->repo->find($menuId);
+		$this->authorize('remove', new Menu, "You do not have permission to remove menus.");
 
-		$this->authorize('remove', $menu, "You do not have permission to remove menus.");
-
-		$menu = $this->repo->deleteAndUpdate($menu, $request->get('new_menu'));
-
-		event(new Events\MenuWasDeleted($menu->key, $menu->name));
+		$menu = $this->repo->deleteAndUpdate($menuId, $request->get('new_menu'));
 
 		flash()->success("Menu Removed!");
 

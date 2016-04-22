@@ -9,7 +9,6 @@ use NovaForm,
 	PageRepositoryContract,
 	RoleRepositoryContract,
 	EditFormRequest, CreateFormRequest, RemoveFormRequest;
-use Nova\Core\Forms\Events;
 
 class FormController extends BaseController {
 
@@ -69,8 +68,6 @@ class FormController extends BaseController {
 
 		$form = $this->repo->create($request->all());
 
-		event(new Events\FormWasCreated($form));
-
 		flash()->success("Form Created!", "You can begin designing your form now with tabs, sections, and fields.");
 
 		return redirect()->route('admin.forms');
@@ -104,8 +101,6 @@ class FormController extends BaseController {
 		$this->authorize('edit', $form, "You do not have permission to edit forms.");
 
 		$form = $this->repo->update($form, $request->all());
-
-		event(new Events\FormWasUpdated($form));
 
 		flash()->success("Form Updated!");
 
@@ -144,16 +139,9 @@ class FormController extends BaseController {
 
 		$form = $this->repo->delete($form);
 
-		event(new Events\FormWasDeleted($form->name, $form->key));
-
 		flash()->success("Form Removed!");
 
 		return redirect()->route('admin.forms');
-	}
-
-	public function dashboard($formKey)
-	{
-		$this->view = 'admin/forms/form-dashboard';
 	}
 
 	public function preview($formKey)

@@ -3,6 +3,7 @@
 use Menu,
 	MenuItem as Model,
 	MenuItemRepositoryContract;
+use Nova\Core\Menus\Events;
 use Illuminate\Support\Collection;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
@@ -27,12 +28,25 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 			unset($data['page_id']);
 		}
 
-		return $this->create($data);
+		$item = parent::create($data);
+
+		event(new Events\MenuItemCreated($item));
+
+		return $item;
 	}
 
 	public function createDivider(array $data)
 	{
 		return $this->create(array_merge(['type' => 'divider'], $data));
+	}
+
+	public function delete($resource)
+	{
+		$item = parent::delete($resource);
+
+		event(new Events\MenuItemDeleted($item->title, $item->link));
+
+		return $item;
 	}
 
 	public function find($id)
@@ -142,6 +156,15 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 		}
 
 		return $list;
+	}
+
+	public function update($resource, array $data)
+	{
+		$item = parent::update($resource, $data);
+
+		event(new Events\MenuItemUpdated($item));
+
+		return $item;
 	}
 
 }
