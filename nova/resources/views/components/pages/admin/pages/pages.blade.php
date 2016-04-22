@@ -31,7 +31,7 @@
 	</desktop>
 
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-3 col-md-push-9">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Filter Pages</h3>
@@ -72,7 +72,7 @@
 			</div>
 		</div>
 
-		<div class="col-md-9">
+		<div class="col-md-9 col-md-pull-3">
 			<div class="data-table data-table-bordered data-table-striped">
 				<div class="row" v-for="page in pages | filterBy search in 'name' 'key' 'uri' | filterByCheckboxes verbs 'verb'">
 					<div class="col-md-9">

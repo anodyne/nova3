@@ -31,7 +31,7 @@
 	</desktop>
 
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-3 col-md-push-9">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Filter Page Content</h3>
@@ -59,11 +59,11 @@
 			</div>
 		</div>
 
-		<div class="col-md-9" v-show="contents.length == 0">
+		<div class="col-md-9 col-md-pull-3" v-show="contents.length == 0">
 			{!! alert('warning', "No additional page content found.") !!}
 		</div>
 
-		<div class="col-md-9" v-else>
+		<div class="col-md-9 col-md-pull-3" v-else>
 			<div class="data-table data-table-bordered data-table-striped">
 				<div class="row" v-for="content in contents | filterBy key in 'key' | filterBy value in 'value'">
 					<div class="col-md-9">
@@ -71,7 +71,7 @@
 						<p><strong>Key:</strong> @{{ content.key }}</p>
 					</div>
 					<div class="col-md-3">
-						<mobile>
+						<div class="visible-xs visible-sm">
 							<div class="row">
 								@can('edit', $content)
 									<div class="col-sm-6">
@@ -85,8 +85,8 @@
 									</div>
 								@endcan
 							</div>
-						</mobile>
-						<desktop>
+						</div>
+						<div class="visible-md visible-lg">
 							<div class="btn-toolbar pull-right">
 								@can('edit', $content)
 									<div class="btn-group">
@@ -100,7 +100,7 @@
 									</div>
 								@endcan
 							</div>
-						</desktop>
+						</div>
 					</div>
 				</div>
 			</div>
