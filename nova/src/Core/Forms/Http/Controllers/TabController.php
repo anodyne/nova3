@@ -25,7 +25,7 @@ class TabController extends BaseController {
 		$this->middleware('auth');
 	}
 
-	public function index($formKey)
+	public function all($formKey)
 	{
 		$form = $this->data->form = $this->formRepo->getByKey($formKey, ['tabs']);
 		$tab = $this->data->tab = new NovaFormTab;

@@ -60,7 +60,7 @@ return [
 		'name'				=> "Page Manager",
 		'key'				=> "admin.pages",
 		'uri'				=> "admin/pages",
-		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@index",
+		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@all",
 		'menu_id'			=> 2,
 	],
 	[
@@ -123,7 +123,7 @@ return [
 		'name'				=> "Page Content Manager",
 		'key'				=> "admin.content",
 		'uri'				=> "admin/content",
-		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@index",
+		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@all",
 		'menu_id'			=> 2,
 	],
 	[
@@ -179,7 +179,7 @@ return [
 		'name'				=> "Menu Manager",
 		'key'				=> "admin.menus",
 		'uri'				=> "admin/menus",
-		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@index",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@all",
 		'menu_id'			=> 2,
 	],
 	[
@@ -259,7 +259,7 @@ return [
 		'name'				=> "Manage Menu Items",
 		'key'				=> "admin.menus.items",
 		'uri'				=> "admin/menu-items/{menuId}",
-		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@index",
+		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@all",
 		'menu_id'			=> 2,
 	],
 	[
@@ -325,7 +325,7 @@ return [
 		'name'				=> "Manage Roles",
 		'key'				=> "admin.access.roles",
 		'uri'				=> "admin/access/roles",
-		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@index",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@all",
 		'menu_id'			=> 2,
 	],
 	[
@@ -396,7 +396,7 @@ return [
 		'name'				=> "Manage Permissions",
 		'key'				=> "admin.access.permissions",
 		'uri'				=> "admin/access/permissions",
-		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\PermissionController@index",
+		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\PermissionController@all",
 		'menu_id'			=> 2,
 	],
 	[
@@ -462,7 +462,7 @@ return [
 		'name'				=> "Manage Forms",
 		'key'				=> "admin.forms",
 		'uri'				=> "admin/forms",
-		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormController@index",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormController@all",
 		'menu_id'			=> 2,
 	],
 	[
@@ -528,7 +528,7 @@ return [
 		'name'				=> "Manage Form Tabs",
 		'key'				=> "admin.forms.tabs",
 		'uri'				=> "admin/forms/{formKey}/tabs",
-		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\TabController@index",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\TabController@all",
 		'menu_id'			=> 2,
 	],
 	[
@@ -594,7 +594,7 @@ return [
 		'name'				=> "Manage Form Sections",
 		'key'				=> "admin.forms.sections",
 		'uri'				=> "admin/forms/{formKey}/sections",
-		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\SectionController@index",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\SectionController@all",
 		'menu_id'			=> 2,
 	],
 	[
@@ -653,7 +653,7 @@ return [
 		'name'				=> "Manage Form Fields",
 		'key'				=> "admin.forms.fields",
 		'uri'				=> "admin/forms/{formKey}/fields",
-		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FieldController@index",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FieldController@all",
 		'menu_id'			=> 2,
 	],
 	[
@@ -712,7 +712,7 @@ return [
 		'name'				=> "Form Center",
 		'key'				=> "admin.form-center.index",
 		'uri'				=> "admin/form-center",
-		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@index",
+		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@all",
 		'menu_id'			=> 2,
 	],
 	[

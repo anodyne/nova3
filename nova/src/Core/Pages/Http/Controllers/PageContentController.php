@@ -25,7 +25,7 @@ class PageContentController extends BaseController {
 		$this->middleware('auth');
 	}
 
-	public function index()
+	public function all()
 	{
 		$content = $this->data->content = new PageContent;
 

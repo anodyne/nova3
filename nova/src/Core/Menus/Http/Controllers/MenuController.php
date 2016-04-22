@@ -29,7 +29,7 @@ class MenuController extends BaseController {
 		$this->middleware('auth');
 	}
 
-	public function index()
+	public function all()
 	{
 		$menu = $this->data->menu = new Menu;
 

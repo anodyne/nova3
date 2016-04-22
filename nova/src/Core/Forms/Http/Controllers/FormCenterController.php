@@ -24,7 +24,7 @@ class FormCenterController extends BaseController {
 		$this->middleware('auth', ['except' => ['storeEntry']]);
 	}
 
-	public function index()
+	public function all()
 	{
 		$this->view = 'admin/form-center/index';
 

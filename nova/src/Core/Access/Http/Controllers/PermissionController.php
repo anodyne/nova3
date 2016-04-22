@@ -25,7 +25,7 @@ class PermissionController extends BaseController {
 		$this->middleware('auth');
 	}
 
-	public function index()
+	public function all()
 	{
 		$this->authorize('manage', new Permission, "You do not have permission to manage permissions.");
 

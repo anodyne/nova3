@@ -37,7 +37,7 @@ class FieldController extends BaseController {
 		$this->middleware('auth');
 	}
 
-	public function index($formKey)
+	public function all($formKey)
 	{
 		$field = $this->data->field = new NovaFormField;
 

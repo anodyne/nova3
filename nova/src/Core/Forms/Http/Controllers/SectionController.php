@@ -29,7 +29,7 @@ class SectionController extends BaseController {
 		$this->middleware('auth');
 	}
 
-	public function index($formKey)
+	public function all($formKey)
 	{
 		$section = $this->data->section = new NovaFormSection;
 

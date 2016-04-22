@@ -28,7 +28,7 @@ class PageController extends BaseController {
 		$this->middleware('auth');
 	}
 
-	public function index()
+	public function all()
 	{
 		$page = $this->data->page = new Page;
 

@@ -27,7 +27,7 @@ class RoleController extends BaseController {
 		$this->middleware('auth');
 	}
 
-	public function index()
+	public function all()
 	{
 		$role = $this->data->role = new Role;
 

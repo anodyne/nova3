@@ -32,7 +32,7 @@ class FormController extends BaseController {
 		$this->middleware('auth');
 	}
 
-	public function index()
+	public function all()
 	{
 		$form = $this->data->form = new NovaForm;
 

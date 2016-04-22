@@ -32,7 +32,7 @@ class MenuItemController extends BaseController {
 		$this->middleware('auth');
 	}
 
-	public function index($menuId)
+	public function all($menuId)
 	{
 		$item = $this->data->item = new MenuItem;
 
