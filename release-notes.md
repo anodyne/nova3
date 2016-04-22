@@ -2,6 +2,8 @@
 
 ## Preview Release 4 (0.3.4)
 
+- Due to a requirement change in Laravel 5.3, Nova NextGen now requires __PHP 5.6.4__ in order to run.
+
 ## Preview Release 3 (0.3.3)
 
 - We've moved away from the Entrust authorization library and replaced with a solution of our own that's backed by the built-in Laravel authorization component. Nothing has changed about authorization, it's just that it's now code we've written instead of someone else and it utilizes more of Laravel's built-in functionality.
