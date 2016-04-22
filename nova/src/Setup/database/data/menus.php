@@ -26,7 +26,7 @@ return [
 		['menu_id' => 2, 'parent_id' => 9, 'order' => 4, 'type' => "divider"],
 		['menu_id' => 2, 'parent_id' => 9, 'order' => 5, 'type' => "page", 'page_id' => 46, 'title' => "Roles"],
 		['menu_id' => 2, 'parent_id' => 9, 'order' => 6, 'type' => "divider"],
-		['menu_id' => 2, 'parent_id' => 9, 'order' => 7, 'type' => "page", 'page_id' => 66, 'title' => "Forms"],
+		['menu_id' => 2, 'parent_id' => 9, 'order' => 7, 'type' => "page", 'page_id' => 65, 'title' => "Forms"],
 		['menu_id' => 2, 'parent_id' => 9, 'order' => 8, 'type' => "divider"],
 		['menu_id' => 2, 'parent_id' => 9, 'order' => 9, 'type' => "page", 'page_id' => 111, 'title' => "Users"],
 	],
