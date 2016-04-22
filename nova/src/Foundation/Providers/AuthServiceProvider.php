@@ -47,7 +47,7 @@ class AuthServiceProvider extends ServiceProvider {
 			['Field', 'NovaFormField'],
 			['Section', 'NovaFormSection'],
 			['Tab', 'NovaFormTab'],
-			'Menu', 'MenuItem', 'Page', 'PageContent', 'Permission', 'Role'];
+			'Menu', 'MenuItem', 'Page', 'PageContent', 'Permission', 'Role', 'User'];
 
 		foreach ($items as $item)
 		{

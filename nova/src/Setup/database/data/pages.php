@@ -789,4 +789,63 @@ return [
 		'uri'				=> "admin/form-center/{formKey}/edit/{entryId}",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@update",
 	],
+
+	/**
+	 * User Management
+	 */
+	[
+		'name'				=> "Manage Users",
+		'key'				=> "admin.users",
+		'uri'				=> "admin/users",
+		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\UserController@all",
+		'menu_id'			=> 2,
+	],
+	[
+		'name'				=> "Create User",
+		'key'				=> "admin.users.create",
+		'uri'				=> "admin/users/create",
+		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\UserController@create",
+		'menu_id'			=> 2,
+	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Store User",
+		'key'				=> "admin.users.store",
+		'uri'				=> "admin/users/create",
+		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\UserController@store",
+	],
+	[
+		'name'				=> "Edit User",
+		'key'				=> "admin.users.edit",
+		'uri'				=> "admin/users/{userId}/edit",
+		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\UserController@edit",
+		'menu_id'			=> 2,
+	],
+	[
+		'verb'				=> "PUT",
+		'name'				=> "Update User",
+		'key'				=> "admin.users.update",
+		'uri'				=> "admin/users/{userId}",
+		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\UserController@update",
+	],
+	[
+		'name'				=> "Remove User Pop-up",
+		'key'				=> "admin.users.remove",
+		'uri'				=> "admin/users/{userId}/remove",
+		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\UserController@remove",
+	],
+	[
+		'verb'				=> "DELETE",
+		'name'				=> "Remove User",
+		'key'				=> "admin.users.destroy",
+		'uri'				=> "admin/users/{userId}",
+		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\UserController@destroy",
+	],
+	[
+		'verb'				=> "POST",
+		'name'				=> "Check for Duplicate User Email",
+		'key'				=> "admin.users.checkEmail",
+		'uri'				=> "admin/users/check-email",
+		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\UserController@checkUserEmail",
+	],
 ];

@@ -173,4 +173,17 @@ return [
 	['page_id' => 109, 'type' => 'header', 'key' => 'admin.form-center.edit.header', 'value' => null],
 	['page_id' => 109, 'type' => 'title', 'key' => 'admin.form-center.edit.title', 'value' => "Edit Form Center Entry"],
 	['page_id' => 109, 'type' => 'message', 'key' => 'admin.form-center.edit.message', 'value' => null],
+
+	/**
+	 * User Management
+	 */
+	['page_id' => 111, 'type' => 'header', 'key' => 'admin.users.header', 'value' => "Users"],
+	['page_id' => 111, 'type' => 'title', 'key' => 'admin.users.title', 'value' => "Users"],
+	['page_id' => 111, 'type' => 'message', 'key' => 'admin.users.message', 'value' => null],
+	['page_id' => 112, 'type' => 'header', 'key' => 'admin.users.create.header', 'value' => "Add User"],
+	['page_id' => 112, 'type' => 'title', 'key' => 'admin.users.create.title', 'value' => "Add User"],
+	['page_id' => 112, 'type' => 'message', 'key' => 'admin.users.create.message', 'value' => null],
+	['page_id' => 114, 'type' => 'header', 'key' => 'admin.users.edit.header', 'value' => "Edit User"],
+	['page_id' => 114, 'type' => 'title', 'key' => 'admin.users.edit.title', 'value' => "Edit User"],
+	['page_id' => 114, 'type' => 'message', 'key' => 'admin.users.edit.message', 'value' => null],
 ];

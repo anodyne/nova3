@@ -29,10 +29,14 @@ return [
 		['display_name' => "View Form Entries", 'name' => "form-center.view", 'description' => "View form entries created from Form Center.", 'protected' => (int) true],
 		['display_name' => "Edit Form Entries", 'name' => "form-center.edit", 'description' => "Edit any form entries created from Form Center.", 'protected' => (int) true],
 		['display_name' => "Remove Form Entries", 'name' => "form-center.remove", 'description' => "Remove any form entries created from Form Center.", 'protected' => (int) true],
+
+		['display_name' => "Create Users", 'name' => "user.create", 'description' => "Create new users.", 'protected' => (int) true],
+		['display_name' => "Edit Users", 'name' => "user.edit", 'description' => "Edit existing users.", 'protected' => (int) true],
+		['display_name' => "Remove Users", 'name' => "user.remove", 'description' => "Remove existing users.", 'protected' => (int) true],
 	],
 
 	'roleAssociations' => [
-		'Game Master' => [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+		'Game Master' => [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],
 		'Power User' => [],
 		'Active User' => [],
 		'Inactive User' => [],

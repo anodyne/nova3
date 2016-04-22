@@ -22,5 +22,8 @@ $api->version('v1', $options, function ($api)
 
 		$api->get('access/permissions', 'PermissionApiController@index')->name('api.access.permissions.index');
 		$api->get('access/permissions/{permissionId}', 'PermissionApiController@show')->name('api.access.permissions.show');
+
+		$api->get('users', 'UserApiController@all')->name('api.users.index');
+		$api->get('users/{userId}', 'UserApiController@show')->name('api.users.show');
 	});
 });

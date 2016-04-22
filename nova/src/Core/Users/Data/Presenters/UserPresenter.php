@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Users\Data\Presenters;
 
-use BasePresenter;
+use Status, BasePresenter;
 
 class UserPresenter extends BasePresenter {
 
@@ -32,6 +32,28 @@ class UserPresenter extends BasePresenter {
 	public function realName()
 	{
 		return $this->entity->name;
+	}
+
+	public function statusAsLabel()
+	{
+		$status = $this->entity->status;
+
+		switch ($status)
+		{
+			case Status::ACTIVE:
+				$level = 'success';
+			break;
+
+			case Status::INACTIVE:
+				$level = 'info';
+			break;
+
+			case Status::PENDING:
+				$level = 'warning';
+			break;
+		}
+
+		return label($level, Status::toString($status));
 	}
 
 }

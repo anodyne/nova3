@@ -238,7 +238,6 @@ return [
 		'Character' => Nova\Core\Characters\Data\Character::class,
 		'Setting' => Nova\Core\Settings\Data\Setting::class,
 		'System' => Nova\Foundation\Data\System::class,
-		'User' => Nova\Core\Users\Data\User::class,
 
 		/**
 		 * Repository Interfaces
@@ -246,7 +245,6 @@ return [
 		'CharacterRepositoryInterface' => Nova\Core\Characters\Data\Interfaces\CharacterRepositoryInterface::class,
 		'SettingRepositoryInterface' => Nova\Core\Settings\Data\Interfaces\SettingRepositoryInterface::class,
 		'SystemRepositoryInterface' => Nova\Foundation\Data\Interfaces\SystemRepositoryInterface::class,
-		'UserRepositoryInterface' => Nova\Core\Users\Data\Interfaces\UserRepositoryInterface::class,
 
 		/**
 		 * Repositories
@@ -254,13 +252,11 @@ return [
 		'CharacterRepository' => Nova\Core\Characters\Data\Repositories\CharacterRepository::class,
 		'SettingRepository' => Nova\Core\Settings\Data\Repositories\SettingRepository::class,
 		'SystemRepository' => Nova\Foundation\Data\Repositories\SystemRepository::class,
-		'UserRepository' => Nova\Core\Users\Data\Repositories\UserRepository::class,
 
 		/**
 		 * Services
 		 */
 		'CharacterCreator' => Nova\Core\Characters\Services\CharacterCreatorService::class,
-		'UserCreator' => Nova\Core\Users\Services\UserCreatorService::class,
 
 		/**
 		 * Pages
@@ -375,6 +371,19 @@ return [
 		'FormEntryPresenter' => Nova\Core\Forms\Data\Presenters\EntryPresenter::class,
 		'NovaFormEntry' => Nova\Core\Forms\Data\Entry::class,
 		'FormCenterUserTrait' => Nova\Core\Forms\Traits\FormCenterUserTrait::class,
+
+		/**
+		 * Users
+		 */
+		'User' => Nova\Core\Users\Data\User::class,
+		'UserRepositoryInterface' => Nova\Core\Users\Data\Interfaces\UserRepositoryInterface::class,
+		'UserRepository' => Nova\Core\Users\Data\Repositories\UserRepository::class,
+		'UserCreator' => Nova\Core\Users\Services\UserCreatorService::class,
+		'UserPresenter' => Nova\Core\Users\Data\Presenters\UserPresenter::class,
+		'UserPolicy' => Nova\Core\Users\Policies\UserPolicy::class,
+		'CreateUserRequest' => Nova\Core\Users\Http\Requests\CreateUserRequest::class,
+		'EditUserRequest' => Nova\Core\Users\Http\Requests\EditUserRequest::class,
+		'RemoveUserRequest' => Nova\Core\Users\Http\Requests\RemoveUserRequest::class,
 	],
 
 ];
