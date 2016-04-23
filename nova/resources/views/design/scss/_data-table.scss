@@ -1,0 +1,47 @@
+@import "base.variables";
+
+.data-table {
+	margin: $spacing 0;
+	
+	> .row {
+		margin-left: 0;
+		margin-right: 0;
+
+		border-top: 0.1rem solid $color-gray-light;
+
+		p {
+			margin: 1rem 0;
+		}
+	}
+
+	&.data-table-striped {
+		> .row {
+			&:nth-child(odd) {
+				background: $color-subtle;
+			}
+		}
+	}
+
+	&.data-table-bordered {
+		> .row {
+			border-left: 0.1rem solid $color-gray-light;
+			border-right: 0.1rem solid $color-gray-light;
+
+			&:first-child {
+				@include border-radius($border-radius, $border-radius, 0, 0);
+			}
+
+			&:last-child {
+				border-bottom: 0.1rem solid $color-gray-light;
+
+				@include border-radius(0, 0, $border-radius, $border-radius);
+			}
+
+			&:nth-child(1):nth-last-child(1) {
+				border-bottom: 0.1rem solid $color-gray-light;
+
+				@include rounded($border-radius);
+			}
+		}
+	}
+}

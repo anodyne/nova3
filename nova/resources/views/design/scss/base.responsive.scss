@@ -11,6 +11,47 @@
 			}
 		}
 	}
+
+	.nav-tabs {
+		border: none;
+
+		> li {
+			float: none;
+			margin-bottom: 0;
+			
+			> a {
+				width: 100%;
+
+				@include rounded($border-radius);
+
+				&:hover {
+					border-color: transparent;
+				}
+			}
+
+			&.active {
+				> a:link,
+				> a:hover,
+				> a:visited {
+					border-bottom: 0.1rem solid $color-gray-light;
+					background: $color-subtle;
+				}
+			}
+		}
+	}
+
+	.nav-pills {
+		> li {
+			float: none;
+			margin-bottom: 0;
+			
+			> a {
+				width: 100%;
+
+				@include rounded($border-radius);
+			}
+		}
+	}
 }
 
 /* sm */
@@ -21,6 +62,47 @@
 				.uk-nested-item-controls {
 					display: block;
 				}
+			}
+		}
+	}
+
+	.nav-tabs {
+		border: none;
+
+		> li {
+			float: none;
+			margin-bottom: 0;
+			
+			> a {
+				width: 100%;
+
+				@include rounded($border-radius);
+
+				&:hover {
+					border-color: transparent;
+				}
+			}
+
+			&.active {
+				> a:link,
+				> a:hover,
+				> a:visited {
+					border-bottom: 0.1rem solid $color-gray-light;
+					background: $color-subtle;
+				}
+			}
+		}
+	}
+
+	.nav-pills {
+		> li {
+			float: none;
+			margin-bottom: 0;
+			
+			> a {
+				width: 100%;
+
+				@include rounded($border-radius);
 			}
 		}
 	}

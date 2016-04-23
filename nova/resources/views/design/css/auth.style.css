@@ -2,7 +2,8 @@
   font-family: "Roboto", helvetica, arial, sans-serif;
   -webkit-border-radius: 0.4rem;
   -moz-border-radius: 0.4rem;
-  border-radius: 0.4rem 0.4rem 0.4rem 0.4rem;
+  -ms-border-radius: 0.4rem;
+  border-radius: 0.4rem;
 }
 .sweet-alert h2 {
   font-weight: 500;
