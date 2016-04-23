@@ -1,0 +1,186 @@
+@import "../../../../nova/resources/views/design/scss/colors";
+@import "mixins";
+@import "variables";
+
+body {
+	padding-top: 5rem;
+
+	background-color: #f4f5f6;
+}
+
+.navbar {
+	margin-bottom: 0;
+}
+.navbar-default {
+	background-color: $color-grey-700;
+	border-bottom: none;
+
+	.navbar-brand {
+		color: $color-white;
+	}
+
+	.navbar-nav {
+		>li {
+			>a {
+				color: $color-grey-400;
+
+				&:hover {
+					color: $color-grey-200;
+				}
+			}
+		}
+	}
+}
+
+header {
+	height: 20rem;
+
+	background-color: $color-grey-500;
+	color: $color-white;
+
+	h1 {
+		margin: 0;
+		padding: 0;
+		line-height: 20rem;
+
+		font-family: "Roboto Condensed";
+		font-size: 5.6rem;
+		font-weight: 300;
+	}
+}
+
+main {
+	margin-top: 3rem;
+	padding: 1.5rem;
+
+	background-color: $color-white;
+	border: .1rem solid #e7e8e9;
+
+	@include rounded(.2rem);
+	@include box-shadow("0 0.1rem 0.3rem rgba(0, 0, 0, 0.05)");
+}
+
+.page-header {
+	margin-top: 0;
+
+	h1 {
+		margin-top: 0;
+
+		font-family: "Roboto Condensed";
+		font-weight: 300;
+		font-size: 3.6rem;
+		color: $color-grey-700;
+	}
+}
+
+.btn {
+	text-transform: uppercase;
+
+	@include rounded($border-radius);
+	@include btn-pseudo-states($color-grey-600, transparent, transparent);
+
+	&.btn-danger {
+		@include btn-pseudo-states-text($color-danger, transparent, transparent);
+	}
+	&.btn-primary {
+		@include btn-pseudo-states($color-white, $color-grey-600, $color-grey-600);
+	}
+	&.btn-success {
+		@include btn-pseudo-states-text($color-success, transparent, transparent);
+	}
+}
+
+.label {
+	text-transform: uppercase;
+	font-weight: 500;
+
+	@include rounded($border-radius);
+
+	&.label-danger {
+		background: transparent;
+		border-color: transparent;
+		color: $color-danger;
+	}
+	&.label-info {
+		background: transparent;
+		border-color: transparent;
+		color: $color-info;
+	}
+	&.label-success {
+		background: transparent;
+		border-color: transparent;
+		color: $color-success;
+	}
+	&.label-warning {
+		background: transparent;
+		border-color: transparent;
+		color: $color-amber-700;
+	}
+	&.label-default {
+		background: transparent;
+		border-color: transparent;
+		color: $color-grey-700;
+	}
+	&.label-primary {
+		@include label-variant($color-primary);
+	}
+}
+
+.panel {
+	@include rounded($border-radius);
+
+	.panel-heading {
+		@include border-radius($border-radius - 1, $border-radius - 1, 0, 0);
+	}
+
+	.panel-footer {
+		@include border-radius(0, 0, $border-radius - 1, $border-radius - 1);
+	}
+}
+
+.form-control {
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-width: .2rem;
+
+	@include rounded($border-radius);
+	@include box-shadow("0 0 0 transparent, 0 0 0 transparent, inset 0 0 0 transparent");
+
+	&:focus {
+		@include box-shadow("0 0 0 transparent, 0 0 0 transparent, inset 0 0 0 transparent");
+	}
+}
+
+.input-lg {
+	@include rounded($border-radius);
+}
+
+.has-error {
+	.help-block,
+	.control-label {
+		color: $color-danger;
+
+		a {
+			color: $color-red-300;
+		}
+	}
+
+	.form-control {
+		border-color: $color-danger;
+	}
+
+	.input-group-addon {
+		color: $color-danger;
+		background-color: $color-red-50;
+		border-color: $color-danger;
+	}
+}
+
+.nav-pills {
+	>li {
+		>a {
+			@include rounded($border-radius);
+		}
+	}
+}

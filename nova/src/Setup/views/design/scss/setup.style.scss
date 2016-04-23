@@ -5,23 +5,23 @@ html {
 	font-size: 62.5%;
 }
 body {
-	line-height: @line-height;
+	line-height: $line-height;
 
-	background: @color-blue-grey-50;
-	font-family: @font;
-	color: @color-body-text;
-	font-size: @font-size;
+	background: $color-blue-grey-50;
+	font-family: $font;
+	color: $color-body-text;
+	font-size: $font-size;
 }
 
 header {
 	position: relative;
-	height: @header-height;
+	height: $header-height;
 	margin-bottom: 2.5rem;
 
-	background: @color-white;
-	color: @color-blue-grey-300;
+	background: $color-white;
+	color: $color-blue-grey-300;
 	font-weight: 300;
-	font-family: @font-heading;
+	font-family: $font-heading;
 	font-size: 3.2rem;
 	border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1);
 
@@ -30,31 +30,31 @@ header {
 	}
 
 	.divider {
-		color: @color-blue-grey-100;
+		color: $color-blue-grey-100;
 	}
 
 	.process {
-		color: @color-blue-grey-600;
+		color: $color-blue-grey-600;
 		font-weight: 700;
 	}
 
 	.anodyne-logo {
 		display: block;
 		width: 6rem;
-		height: @header-height;
+		height: $header-height;
 
 		background: transparent url(../images/anodyne.png) center center no-repeat;
 	}
 }
 
 nav {
-	padding: @spacing;
+	padding: $spacing;
 
-	background: @color-blue-grey-800;
-	color: @color-blue-grey-500;
+	background: $color-blue-grey-800;
+	color: $color-blue-grey-500;
 	border: 0.1rem solid rgba(0, 0, 0, 0.25);
 
-	.rounded(@border-radius-lg);
+	@include rounded($border-radius-lg);
 
 	ol {
 		position: relative;
@@ -67,8 +67,8 @@ nav {
 		li {
 			position: relative;
 			margin: 0;
-			/*padding: @spacing 10px @spacing 45px;*/
-			padding: @spacing 1rem;
+			/*padding: $spacing 10px $spacing 45px;*/
+			padding: $spacing 1rem;
 			line-height: 2.4rem;
 
 			font-size: 1.4rem;
@@ -86,11 +86,11 @@ nav {
 				font-size: 14px;
 				font-weight: 600;
 				text-align: center;
-				font-family: @font;
-				background: @color-blue-grey-500;
-				color: @color-blue-grey-800;
+				font-family: $font;
+				background: $color-blue-grey-500;
+				color: $color-blue-grey-800;
 
-				.rounded(50px);
+				@include rounded(50px);
 			}
 
 			&:after {
@@ -105,34 +105,34 @@ nav {
 			.material-icons {
 				float: left;
 				margin-top: 0rem;
-				margin-right: @spacing-sm;
+				margin-right: $spacing-sm;
 			}
 
 			&.step-active {
-				color: @color-white;
+				color: $color-white;
 
 				&:before {
-					background: @color-white;
+					background: $color-white;
 				}
 			}
 
 			&.step-completed {
 				color: rgba(255, 255, 255, 0.5);
-				background: @color-blue-grey-600;
+				background: $color-blue-grey-600;
 
 				&:before {
-					color: @color-blue-grey-600;
+					color: $color-blue-grey-600;
 					background: rgba(255, 255, 255, 0.5);
 				}
 
 				/*&:first-of-type {
-					border-top-left-radius: @border-radius;
-					border-top-right-radius: @border-radius;
+					border-top-left-radius: $border-radius;
+					border-top-right-radius: $border-radius;
 				}
 
 				&:last-of-type {
-					border-bottom-left-radius: @border-radius;
-					border-bottom-right-radius: @border-radius;
+					border-bottom-left-radius: $border-radius;
+					border-bottom-right-radius: $border-radius;
 				}*/
 			}
 		}
@@ -142,26 +142,26 @@ nav {
 main {
 	margin-bottom: 2.5rem;
 
-	background: @color-white;
-	color: @color-blue-grey-800;
+	background: $color-white;
+	color: $color-blue-grey-800;
 	border: 0.1rem solid rgba(0, 0, 0, 0.1);
 
-	.rounded(@border-radius-lg);
+	@include rounded($border-radius-lg);
 
 	.content {
-		padding: @spacing;
+		padding: $spacing;
 
 		a {
-			color: @color-primary;
+			color: $color-primary;
 
 			&:hover {
-				color: lighten(@color-primary, 25%);
+				color: lighten($color-primary, 25%);
 			}
 		}
 	}
 
 	.controls {
-		padding: @spacing;
+		padding: $spacing;
 
 		border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
 
@@ -171,67 +171,67 @@ main {
 
 		.btn {
 			&.btn-link {
-				color: @color-blue-grey-300;
+				color: $color-blue-grey-300;
 			}
 		}
 	}
 
 	h1 {
-		margin: 0 0 @spacing 0;
+		margin: 0 0 $spacing 0;
 		padding: 0;
 		width: auto;
 
 		text-align: center;
 		font-size: 3.4rem;
 		font-weight: 300;
-		font-family: @font-heading;
-		color: @color-blue-grey-600;
+		font-family: $font-heading;
+		color: $color-blue-grey-600;
 	}
 
 	h2 {
-		margin: 0 0 @spacing-lg 0;
+		margin: 0 0 $spacing-lg 0;
 
 		text-align: center;
 		font-size: 1.6rem;
 		font-weight: 400;
-		color: @color-blue-grey-300;
+		color: $color-blue-grey-300;
 	}
 
 	h3 {
 		text-align: left;
 		font-size: 2.4rem;
 		font-weight: 300;
-		font-family: @font-heading;
-		color: @color-blue-grey-600;
+		font-family: $font-heading;
+		color: $color-blue-grey-600;
 	}
 
 	p {
 		margin-bottom: 1.5rem;
-		line-height: @line-height;
+		line-height: $line-height;
 
 		font-size: 1.5rem;
 	}
 
 	form {
 		.control-label {
-			color: @color-blue-grey-600;
+			color: $color-blue-grey-600;
 			font-weight: 500;
 		}
 
 		.form-control {
-			color: @color-blue-grey-600;
+			color: $color-blue-grey-600;
 		}
 
 		.input-lg {
-			.rounded(@border-radius);
+			@include rounded($border-radius);
 		}
 
 		.help-block {
 			margin-bottom: 0.5rem;
 			line-height: 1.6;
 
-			color: @color-blue-grey-300;
-			font-size: @font-size-sm;
+			color: $color-blue-grey-300;
+			font-size: $font-size-sm;
 		}
 
 		.checkbox input[type=checkbox],
@@ -243,101 +243,101 @@ main {
 
 .thumbnail {
 	margin: 1rem 0;
-	padding: 1rem @spacing;
+	padding: 1rem $spacing;
 
-	.rounded(@border-radius-lg);
+	@include rounded($border-radius-lg);
 
 	h1 {
 		font-size: 3.4rem;
 		font-weight: 300;
-		font-family: @font-heading;
-		color: @color-blue-grey-600;
+		font-family: $font-heading;
+		color: $color-blue-grey-600;
 	}
 
 	h2 {
-		margin: 0 0 @spacing 0;
+		margin: 0 0 $spacing 0;
 
 		font-size: 1.5rem;
 		font-weight: 400;
-		color: @color-blue-grey-300;
+		color: $color-blue-grey-300;
 	}
 
 	p, ul li {
-		line-height: @line-height;
+		line-height: $line-height;
 
 		font-size: 1.5rem;
-		color: @color-blue-grey-800;
+		color: $color-blue-grey-800;
 		text-align: left;
 	}
 
 	.icn, .material-icons {
-		line-height: @line-height;
+		line-height: $line-height;
 		
-		color: @color-blue-grey-400;
+		color: $color-blue-grey-400;
 
 		&.text-success {
-			color: @color-success;
+			color: $color-success;
 		}
 		&.text-danger {
-			color: @color-danger;
+			color: $color-danger;
 		}
 	}
 }
 
 footer {
-	margin: @spacing auto;
+	margin: $spacing auto;
 
 	text-align: center;
-	font-size: @font-size-sm;
-	color: @color-blue-grey-300;
+	font-size: $font-size-sm;
+	color: $color-blue-grey-300;
 }
 
 .font-sm {
-	font-size: @font-size-sm;
+	font-size: $font-size-sm;
 }
 
 .text-danger {
-	color: @color-danger;
+	color: $color-danger;
 
 	&:hover {
-		color: @color-danger;
+		color: $color-danger;
 	}
 }
 
 .text-success {
-	color: @color-success;
+	color: $color-success;
 
 	&:hover {
-		color: @color-success;
+		color: $color-success;
 	}
 }
 
 .text-warning {
-	color: @color-warning;
+	color: $color-warning;
 
 	&:hover {
-		color: @color-warning;
+		color: $color-warning;
 	}
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: @font;
+	font-family: $font;
 }
 
 .btn {
 	font-weight: 500;
 	letter-spacing: 0.05rem;
 
-	.rounded(@border-radius);
+	@include rounded($border-radius);
 
 	&.btn-primary {
-		.btn-pseudo-states(@color-white, @color-primary, @color-primary);
+		@include btn-pseudo-states($color-white, $color-primary, $color-primary);
 	}
 	&.btn-danger {
-		.btn-pseudo-states(@color-white, @color-danger, @color-danger);
+		@include btn-pseudo-states($color-white, $color-danger, $color-danger);
 	}
 	&.btn-default {
-		.btn-pseudo-states(@color-grey-700, @color-grey-300, @color-grey-300);
+		@include btn-pseudo-states($color-grey-700, $color-grey-300, $color-grey-300);
 	}
 
 	&,
@@ -358,23 +358,23 @@ hr.partial {
 }
 
 .alert {
-	.rounded(@border-radius);
+	@include rounded($border-radius);
 	
 	h4 {
 		font-weight: 600;
 	}
 
 	&.alert-info {
-		.alert-variant(@color-blue-100, @color-blue-200, @color-blue-700);
+		@include alert-variant($color-blue-100, $color-blue-200, $color-blue-700);
 	}
 	&.alert-danger {
-		.alert-variant(@color-red-100, @color-red-200, @color-red-800);
+		@include alert-variant($color-red-100, $color-red-200, $color-red-800);
 	}
 	&.alert-success {
-		.alert-variant(@color-green-100, @color-green-200, @color-green-800);
+		@include alert-variant($color-green-100, $color-green-200, $color-green-800);
 	}
 	&.alert-warning {
-		.alert-variant(@color-amber-100, @color-amber-200, darken(@color-amber-900, 10%));
+		@include alert-variant($color-amber-100, $color-amber-200, darken($color-amber-900, 10%));
 	}
 }
 
@@ -382,19 +382,19 @@ hr.partial {
 	font-weight: 400;
 	letter-spacing: 0.05rem;
 
-	.rounded(@border-radius-sm);
+	@include rounded($border-radius-sm);
 
 	&.label-danger {
-		.label-variant(@color-danger);
+		@include label-variant($color-danger);
 	}
 	&.label-success {
-		.label-variant(@color-success);
+		@include label-variant($color-success);
 	}
 }
 
 code {
-	color: @color-blue-500;
-	background: @color-blue-grey-50;
+	color: $color-blue-500;
+	background: $color-blue-grey-50;
 }
 
 .logo {
@@ -430,27 +430,27 @@ code {
 	.control-wrapper {
 		padding: 0.3rem;
 
-		background-color: @color-danger;
+		background-color: $color-danger;
 
-		.rounded(@border-radius);
+		@include rounded($border-radius);
 	}
 
 	.control-label {
-		color: @color-danger;
+		color: $color-danger;
 	}
 
 	.help-block {
 		padding: 0 0.5rem;
 
-		color: @color-white;
+		color: $color-white;
 
 		a {
-			color: darken(@color-danger, 10%);
+			color: darken($color-danger, 10%);
 			text-decoration: underline;
 		}
 	}
 
 	.form-control {
-		border-color: @color-danger;
+		border-color: $color-danger;
 	}
 }

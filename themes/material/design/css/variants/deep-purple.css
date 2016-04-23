@@ -10,9 +10,11 @@
 .navbar-default .navbar-nav > li > a:hover {
   color: #b39ddb;
 }
+
 header {
   background-color: #673ab7;
 }
+
 .page-header h1 {
   color: #673ab7;
 }
