@@ -33,7 +33,7 @@
 			</div>
 		</header>
 
-		<div class="container">
+		<div class="container" id="app">
 			<div class="row">
 				<div class="col-md-3">
 					<nav>
@@ -62,6 +62,8 @@
 
 		{!! partial('include-jquery') !!}
 		{!! partial('include-bootstrap-js') !!}
+		{!! partial('vue-include') !!}
 		@yield('scripts')
+		{!! partial('vue-object') !!}
 	</body>
 </html>

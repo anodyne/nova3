@@ -3,6 +3,7 @@
 ## Preview Release 4 (0.3.4)
 
 - Due to a requirement change in Laravel 5.3, Nova NextGen now requires __PHP 5.6.4__ in order to run.
+- For the most part, the installation process works very smoothly, but in the event there was an error during installation, there was no feedback to the user. We've reworked the install process so that if something goes wrong, the user will be alerted and be shown the error message. In the event that happens to you, make sure to let us know what the error is so that we can fix it!
 
 ## Preview Release 3 (0.3.3)
 

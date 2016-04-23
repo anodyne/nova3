@@ -11,7 +11,15 @@
 @section('content')
 	<h1>Install {{ config('nova.app.name') }}</h1>
 
-	<p class="text-center"><img src="{{ asset('nova/src/Setup/views/design/images/ajax-loader.gif') }}"></p>
+	<div v-show="loading">
+		<p class="text-center"><img src="{{ asset('nova/src/Setup/views/design/images/ajax-loader.gif') }}"></p>
+	</div>
+	<div v-show="loadingWithError">
+		<div class="alert alert-danger">
+			<h4 class="alert-title">Error!</h4>
+			<p>@{{ errorMessage }}</p>
+		</div>
+	</div>
 @stop
 
 @section('controls')
@@ -27,19 +35,32 @@
 
 @section('scripts')
 	<script>
-		$(document).ready(function()
-		{
-			$.ajax({
-				type: "POST",
-				url: "{{ url('setup/install/nova') }}",
-				data: {
+		vue = {
+			data: {
+				loading: true,
+				loadingWithError: false,
+				errorMessage: ""
+			},
+
+			ready: function () {
+				var url = "{{ url('setup/install/nova') }}"
+				var data = {
 					"_token": "{{ csrf_token() }}"
-				},
-				success: function(data)
-				{
-					window.location = "{{ url('setup/install/nova/success') }}"
 				}
-			});
-		});
+
+				this.$http.post(url, data).then(response => {
+					window.location = "{{ url('setup/install/nova/success') }}"
+				}, response => {
+					this.loading = false
+					this.loadingWithError = true
+
+					if (response.status == 404) {
+						this.errorMessage = "The installer could not be found!"
+					} else {
+						this.errorMessage = "Error " + response.status + ": " + response.statusText
+					}
+				})
+			}
+		}
 	</script>
 @stop
