@@ -60,4 +60,10 @@ return [
 	],
 	'Nova\Core\Forms\Events\FormCenterFormDeleted' => [],
 
+	'Nova\Core\Users\Events\UserCreated' => [
+		BuildUserPreferences::class,
+	],
+	'Nova\Core\Users\Events\UserDeleted' => [],
+	'Nova\Core\Users\Events\UserUpdated' => [],
+
 ];

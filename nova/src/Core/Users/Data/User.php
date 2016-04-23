@@ -5,6 +5,7 @@ use Hash,
 	HasRoles,
 	Character,
 	NovaFormEntry,
+	UserPresenter,
 	FormCenterUserTrait;
 use Illuminate\Auth\Authenticatable,
 	Illuminate\Auth\Passwords\CanResetPassword,
@@ -23,13 +24,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	protected $table = 'users';
 
 	protected $fillable = ['name', 'nickname', 'email', 'password',
-		'remember_token', 'api_token'];
+		'remember_token', 'api_token', 'status'];
 
-	protected $hidden = ['password', 'remember_token', 'api_token', 'status'];
+	protected $hidden = ['password', 'remember_token', 'api_token'];
 
 	protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
-	protected $presenter = 'Nova\Core\Users\Data\Presenters\UserPresenter';
+	protected $presenter = UserPresenter::class;
 
 	//-------------------------------------------------------------------------
 	// Relationships
@@ -45,6 +46,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->hasMany(NovaFormEntry::class);
 	}
 
+	public function userPreferences()
+	{
+		return $this->hasMany(UserPreference::class);
+	}
+
 	//-------------------------------------------------------------------------
 	// Getters/Setters
 	//-------------------------------------------------------------------------
@@ -58,9 +64,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	// Model Methods
 	//-------------------------------------------------------------------------
 
-	public function preference($value)
+	public function preference($key)
 	{
-		return false;
+		$item = $this->userPreferences->where('key', $key);
+
+		if ($item->count() > 0)
+		{
+			return $item->first()->value;
+		}
+
+		return null;
 	}
 
 }

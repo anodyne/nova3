@@ -150,4 +150,12 @@ class UserController extends BaseController {
 		return json_encode(['code' => 1]);
 	}
 
+	public function preferences()
+	{
+		$this->view = 'admin/users/preferences';
+		$this->jsView = 'admin/users/preferences-js';
+
+		$this->data->user = $this->user;
+	}
+
 }

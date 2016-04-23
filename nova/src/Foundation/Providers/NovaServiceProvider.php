@@ -128,7 +128,14 @@ class NovaServiceProvider extends ServiceProvider {
 		{
 			if ($app['nova.setup']->isInstalled())
 			{
-				return $app['auth']->user();
+				$user = $app['auth']->user();
+
+				if ($user)
+				{
+					$user->load('userPreferences');
+				}
+
+				return $user;
 			}
 
 			return null;
@@ -202,7 +209,7 @@ class NovaServiceProvider extends ServiceProvider {
 			'Page', 'PageContent',
 			'Permission', 'Role',
 			'Setting', 'System',
-			'User'
+			'User', 'UserPreference', 'PreferenceDefault',
 		];
 
 		// Loop through the repositories and do the binding

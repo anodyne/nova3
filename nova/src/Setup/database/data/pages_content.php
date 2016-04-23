@@ -186,4 +186,7 @@ return [
 	['page_id' => 114, 'type' => 'header', 'key' => 'admin.users.edit.header', 'value' => "Edit User"],
 	['page_id' => 114, 'type' => 'title', 'key' => 'admin.users.edit.title', 'value' => "Edit User"],
 	['page_id' => 114, 'type' => 'message', 'key' => 'admin.users.edit.message', 'value' => null],
+	['page_id' => 119, 'type' => 'header', 'key' => 'admin.users.preferences.header', 'value' => "My Preferences"],
+	['page_id' => 119, 'type' => 'title', 'key' => 'admin.users.preferences.title', 'value' => "My Preferences"],
+	['page_id' => 119, 'type' => 'message', 'key' => 'admin.users.preferences.message', 'value' => null],
 ];

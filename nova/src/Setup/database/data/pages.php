@@ -848,4 +848,10 @@ return [
 		'uri'				=> "admin/users/check-email",
 		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\UserController@checkUserEmail",
 	],
+	[
+		'name'				=> "User Preferences",
+		'key'				=> "admin.users.preferences",
+		'uri'				=> "admin/users/preferences",
+		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\UserController@preferences",
+	],
 ];

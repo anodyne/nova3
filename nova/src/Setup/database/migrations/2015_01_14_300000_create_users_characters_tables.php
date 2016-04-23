@@ -33,6 +33,22 @@ class CreateUsersCharactersTables extends Migration {
 			$table->timestamp('created_at');
 		});
 
+		Schema::create('users_preferences', function (Blueprint $table)
+		{
+			$table->bigIncrements('id');
+			$table->integer('user_id')->unsigned();
+			$table->string('key');
+			$table->string('value')->nullable();
+		});
+
+		Schema::create('users_preferences_defaults', function (Blueprint $table)
+		{
+			$table->bigIncrements('id');
+			$table->string('key');
+			$table->string('default')->nullable();
+			$table->boolean('protected')->default((int) false);
+		});
+
 		Schema::create('characters', function (Blueprint $table)
 		{
 			$table->bigIncrements('id');
@@ -46,6 +62,8 @@ class CreateUsersCharactersTables extends Migration {
 			$table->foreign('user_id')->references('id')->on('users')
 				->onDelete('cascade');
 		});
+
+		$this->populateTables();
 	}
 
 	/**
@@ -56,8 +74,24 @@ class CreateUsersCharactersTables extends Migration {
 	public function down()
 	{
 		Schema::dropIfExists('characters');
+		Schema::dropIfExists('users_preferences_defaults');
+		Schema::dropIfExists('users_preferences');
 		Schema::dropIfExists('users_password_resets');
 		Schema::dropIfExists('users');
+	}
+
+	protected function populateTables()
+	{
+		Model::unguard();
+
+		$data = require_once app('path.database').'/data/users.php';
+
+		$defaultPrefsRepo = app('PreferenceDefaultRepository');
+
+		foreach ($data['preferenceDefaults'] as $default)
+		{
+			$defaultPrefsRepo->create($default);
+		}
 	}
 
 }

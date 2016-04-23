@@ -12,7 +12,7 @@ return [
 	| services your application utilizes. Set this in your ".env" file.
 	|
 	*/
-	'env' => env('APP_ENV', 'production'),
+	'env' => env('APP_ENV', 'local'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -376,14 +376,21 @@ return [
 		 * Users
 		 */
 		'User' => Nova\Core\Users\Data\User::class,
+		'UserPreference' => Nova\Core\Users\Data\UserPreference::class,
+		'PreferenceDefault' => Nova\Core\Users\Data\PreferenceDefault::class,
 		'UserRepositoryContract' => Nova\Core\Users\Data\Contracts\UserRepositoryContract::class,
+		'UserPreferenceRepositoryContract' => Nova\Core\Users\Data\Contracts\UserPreferenceRepositoryContract::class,
+		'PreferenceDefaultRepositoryContract' => Nova\Core\Users\Data\Contracts\PreferenceDefaultRepositoryContract::class,
 		'UserRepository' => Nova\Core\Users\Data\Repositories\UserRepository::class,
+		'UserPreferenceRepository' => Nova\Core\Users\Data\Repositories\UserPreferenceRepository::class,
+		'PreferenceDefaultRepository' => Nova\Core\Users\Data\Repositories\PreferenceDefaultRepository::class,
 		'UserCreator' => Nova\Core\Users\Services\UserCreatorService::class,
 		'UserPresenter' => Nova\Core\Users\Data\Presenters\UserPresenter::class,
 		'UserPolicy' => Nova\Core\Users\Policies\UserPolicy::class,
 		'CreateUserRequest' => Nova\Core\Users\Http\Requests\CreateUserRequest::class,
 		'EditUserRequest' => Nova\Core\Users\Http\Requests\EditUserRequest::class,
 		'RemoveUserRequest' => Nova\Core\Users\Http\Requests\RemoveUserRequest::class,
+		'BuildUserPreferences' => Nova\Core\Users\Listeners\BuildUserPreferences::class,
 	],
 
 ];

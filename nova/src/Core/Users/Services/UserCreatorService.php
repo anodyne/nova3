@@ -2,6 +2,7 @@
 
 use CharacterCreator,
 	UserRepositoryContract;
+use Nova\Core\Users\Events\UserCreated;
 use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
 
 class UserCreatorService {
@@ -27,9 +28,6 @@ class UserCreatorService {
 			['api_token' => str_random(60)]
 		));
 
-		// Fire the event
-		$this->events->fire('nova.user.created', [$user]);
-
 		if ($user)
 		{
 			return true;
@@ -45,9 +43,6 @@ class UserCreatorService {
 			$data['user'],
 			['api_token' => str_random(60)]
 		));
-
-		// Fire the event
-		$this->events->fire('nova.user.created', [$user]);
 
 		// Create the character
 		$character = $this->characterCreator->create($data['character'], $user);

@@ -2,6 +2,7 @@
 
 use User as Model,
 	UserRepositoryContract;
+use Nova\Core\Users\Events;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class UserRepository extends BaseRepository implements UserRepositoryContract {
@@ -25,6 +26,8 @@ class UserRepository extends BaseRepository implements UserRepositoryContract {
 		{
 			$user->assignRole($role);
 		}
+
+		event(new Events\UserCreated($user));
 
 		return $user;
 	}
