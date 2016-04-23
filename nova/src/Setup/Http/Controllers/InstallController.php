@@ -73,7 +73,7 @@ class InstallController extends BaseController {
 
 		if ($creator)
 		{
-			$user = app('UserRepository')->first();
+			$user = app('UserRepository')->getById(1);
 			$user->status = Status::ACTIVE;
 			$user->save();
 
