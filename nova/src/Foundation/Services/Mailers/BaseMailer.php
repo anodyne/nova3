@@ -7,11 +7,13 @@ class BaseMailer {
 
 	protected $mailer;
 	protected $locator;
+	protected $settings;
 
 	public function __construct(Mailer $mailer, Locatable $locator)
 	{
 		$this->mailer = $mailer;
 		$this->locator = $locator;
+		$this->settings = app('nova.settings');
 	}
 
 	final public function raw($text, array $payload)

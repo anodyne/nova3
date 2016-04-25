@@ -36,29 +36,23 @@ class UserController extends BaseController {
 
 	public function create()
 	{
-		$this->authorize('create', new NovaForm, "You do not have permission to create forms.");
+		$this->authorize('create', new User, "You do not have permission to create users.");
 
-		$this->view = 'admin/forms/form-create';
-		$this->jsView = 'admin/forms/form-create-js';
-
-		$this->data->accessRoles = $this->roleRepo->listAll('display_name', 'name');
-
-		$this->data->resourcesCreate = $this->pageRepo->listAllBy('verb', 'POST', 'name', 'key');
-		$this->data->resourcesUpdate = $this->pageRepo->listAllBy('verb', 'PUT', 'name', 'key');
-		$this->data->resourcesDelete = $this->pageRepo->listAllBy('verb', 'DELETE', 'name', 'key');
+		$this->view = 'admin/users/user-create';
+		$this->jsView = 'admin/users/user-create-js';
 	}
 
-	public function store(CreateFormRequest $request)
+	public function store(CreateUserRequest $request)
 	{
-		$this->authorize('create', new NovaForm, "You do not have permission to create forms.");
+		$this->authorize('create', new User, "You do not have permission to create users.");
 
-		$form = $this->repo->create($request->all());
+		$user = $this->repo->create($request->all());
 
-		event(new Events\FormWasCreated($form));
+		event(new Events\UserCreatedByAdmin($user, $request->get('password')));
 
-		flash()->success("Form Created!", "You can begin designing your form now with tabs, sections, and fields.");
+		flash()->success("User Created!");
 
-		return redirect()->route('admin.forms');
+		return redirect()->route('admin.users');
 	}
 
 	public function edit($formKey)

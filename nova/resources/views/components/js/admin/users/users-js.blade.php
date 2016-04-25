@@ -17,7 +17,7 @@
 
 			resetFilters: function () {
 				this.search = ""
-				this.statuses = []
+				this.statuses = ["active"]
 			}
 		},
 

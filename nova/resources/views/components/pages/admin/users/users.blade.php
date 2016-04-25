@@ -64,6 +64,22 @@
 		</div>
 
 		<div class="col-md-9 col-md-pull-3">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">Pending Users</h3>
+				</div>
+				<div class="panel-body">
+					<div class="data-table data-table-bordered data-table-striped">
+						<div class="row" v-for="pendingUser in users | filterBy 'pending' in 'status'">
+							<div class="col-xs-12">
+								<p class="lead"><strong>@{{ pendingUser.name }}</strong></p>
+								<p><strong>Email Address:</strong> @{{ pendingUser.email }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div class="data-table data-table-bordered data-table-striped">
 				<div class="row" v-for="user in users | filterBy search in 'name' 'email' 'characters' | filterByCheckboxes statuses 'status'">
 					<div class="col-md-9">
