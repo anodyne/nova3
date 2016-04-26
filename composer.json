@@ -7,7 +7,13 @@
 		"laravelcollective/html": "~5.2",
 		"dingo/api": "1.0.*@dev",
 		"pespantelis/gravatar": "~1.0",
-		"ramsey/uuid": "~3.3"
+		"ramsey/uuid": "~3.3",
+
+		"spatie/laravel-partialcache": "~1.2",
+		"spatie/laravel-medialibrary": "~4.0",
+		"spatie/laravel-menu": "~1.2",
+		"spatie/laravel-backup": "~3.4",
+		"spatie/activitylog": "~2.4"
 	},
 
 	"require-dev": {
