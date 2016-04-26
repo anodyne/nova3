@@ -2,6 +2,8 @@
 
 use Page;
 use Exception;
+use Spatie\Menu\Laravel\Link as LinkBuilder,
+	Spatie\Menu\Laravel\Menu as MenuBuilder;
 use Illuminate\Contracts\Foundation\Application;
 
 class Theme implements Themeable, ThemeableInfo {
@@ -129,6 +131,148 @@ class Theme implements Themeable, ThemeableInfo {
 			'menuMainItems'	=> $this->menuMainItems,
 			'menuSubItems'	=> $menuSubItemsArr,
 		];
+
+		$menu = MenuBuilder::new()->addClass('nav navbar-nav');
+
+		foreach ($this->menuMainItems as $mainMenuItem)
+		{
+			if (array_key_exists($mainMenuItem->id, $menuSubItemsArr))
+			{
+				$submenu = MenuBuilder::new()->addClass('dropdown-menu');
+				$submenu->prepend(LinkBuilder::to('#', $mainMenuItem->title.' <span class="caret"></span>')
+					->addParentClass('dropdown')
+					->addClass('dropdown-toggle')
+				);
+
+				foreach ($menuSubItemsArr[$mainMenuItem->id] as $subMenuItem)
+				{
+					if ($subMenuItem->type == 'divider')
+					{
+						$submenu->add(LinkBuilder::to('#', '')->addParentClass('divider'));
+					}
+					else
+					{
+						switch ($subMenuItem->type)
+						{
+							case 'internal':
+							case 'external':
+								$submenu->add(LinkBuilder::to($subMenuItem->link, $subMenuItem->title));
+							break;
+
+							case 'page':
+								$title = (empty($subMenuItem->title)) 
+									? $subMenuItem->page->name
+									: $subMenuItem->title;
+
+								$submenu->add(LinkBuilder::route($subMenuItem->page->key, $title));
+							break;
+
+							case 'route':
+								$submenu->add(LinkBuilder::route($subMenuItem->link, $subMenuItem->title));
+							break;
+						}
+					}
+				}
+
+				$menu->add($submenu);
+			}
+			else
+			{
+				if ($mainMenuItem->type == 'divider')
+				{
+					$menu->add(LinkBuilder::to('#', '')->addParentClass('divider'));
+				}
+				else
+				{
+					switch ($mainMenuItem->type)
+					{
+						case 'internal':
+						case 'external':
+							$menu->add(LinkBuilder::to($mainMenuItem->link, $mainMenuItem->title));
+						break;
+
+						case 'page':
+							$title = (empty($mainMenuItem->title)) 
+								? $mainMenuItem->page->name
+								: $mainMenuItem->title;
+
+							$menu->add(LinkBuilder::route($mainMenuItem->page->key, $title));
+						break;
+
+						case 'route':
+							$menu->add(LinkBuilder::route($mainMenuItem->link, $mainMenuItem->title));
+						break;
+					}
+				}
+			}
+		}
+
+		$this->layout->template->menuMain = $this->view->make($this->locate->partial('menu-main'))
+			->with(['items' => $this->menuMainItems]);
+
+		$this->layout->template->menuSub = $this->view->make($this->locate->partial('menu-sub'))
+			->with(['items' => $menuSubItemsFiltered]);
+
+		$this->layout->template->menuCombined = $this->view->make($this->locate->partial('menu-combined'))
+			->with((array) $data);
+
+		return $this;
+	}
+
+	public function menuNew(Page $page = null)
+	{
+		// Grab the menu item repo
+		$menuItemRepo = app('MenuItemRepository');
+
+		// Get the main menu items
+		$this->menuMainItems = $menuItemRepo->getMainMenuItems($page->menu);
+
+		// Get the sub menu items
+		$this->menuSubItems = $menuItemRepo->getSubMenuItems($page->menu);
+
+		// We want to use an array for the combined menu
+		$menuSubItemsArr = $menuItemRepo->splitSubMenuItemsIntoArray($this->menuSubItems);
+
+		// Filter out sub items to only what we would need for the sub menu
+		$menuSubItemsFiltered = $this->menuSubItems->filter(function ($item) use ($page)
+		{
+			//return $item->parent->page_id == $page->id;
+		});
+
+		$data = [
+			'menuMainItems'	=> $this->menuMainItems,
+			'menuSubItems'	=> $menuSubItemsArr,
+		];
+
+		$menu = MenuBuilder::new()->addClass('nav navbar-nav');
+
+		foreach ($this->menuMainItems as $mainMenuItem)
+		{
+			if (array_key_exists($mainMenuItem->id, $menuSubItemsArr))
+			{
+				// Build the header for the sub menu
+				$header = LinkBuilder::to('#', $mainMenuItem->title.' <span class="caret"></span>');
+
+				// Start building the submenu and prepend the first item
+				$submenu = MenuBuilder::new()->addClass('dropdown-menu');
+				$submenu->prepend($header->addClass('dropdown-toggle')->addParentClass('dropdown'));
+
+				// Loop through the sub menu items and build the sub menu
+				foreach ($menuSubItemsArr[$mainMenuItem->id] as $subMenuItem)
+				{
+					$submenu->add($this->buildMenuItem($subMenuItem));
+				}
+
+				// Now add the sub menu to the menu
+				$menu->add($submenu);
+			}
+			else
+			{
+				$menu->add($this->buildMenuItem($mainMenuItem));
+			}
+		}
+
+		return $menu;
 
 		$this->layout->template->menuMain = $this->view->make($this->locate->partial('menu-main'))
 			->with(['items' => $this->menuMainItems]);
@@ -396,6 +540,33 @@ class Theme implements Themeable, ThemeableInfo {
 	public function __toString()
 	{
 		return $this->location;
+	}
+
+	protected function buildMenuItem($item)
+	{
+		switch ($item->type)
+		{
+			case 'internal':
+			case 'external':
+				return LinkBuilder::to($item->link, $item->title);
+			break;
+
+			case 'page':
+				$title = (empty($item->title)) 
+					? $item->page->name
+					: $item->title;
+
+				return LinkBuilder::route($item->page->key, $title);
+			break;
+
+			case 'route':
+				return LinkBuilder::route($item->link, $item->title);
+			break;
+
+			case 'divider':
+				return LinkBuilder::to('#', '')->addParentClass('divider');
+			break;
+		}
 	}
 
 }
