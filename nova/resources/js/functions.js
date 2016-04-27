@@ -14,3 +14,7 @@ var byId = function (id) {
 var byClass = function (className) {
 	return document.getElementsByClassName(className)
 }
+
+var novaUrl = function (uri) {
+	return Nova.state.baseUrl + uri
+}
