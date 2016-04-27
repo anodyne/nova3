@@ -2,9 +2,8 @@
 
 use Str;
 use stdClass;
-use Illuminate\Routing\Controller,
-	Illuminate\Foundation\Bus\DispatchesJobs,
-	Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller;
+use Illuminate\Foundation\{Bus\DispatchesJobs, Validation\ValidatesRequests};
 
 abstract class BaseController extends Controller {
 

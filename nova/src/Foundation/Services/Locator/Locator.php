@@ -3,8 +3,7 @@
 use Str, User;
 use Illuminate\Support\Collection;
 use Symfony\Component\Finder\Finder;
-use Dflydev\Symfony\FinderFactory\FinderFactory,
-	Dflydev\Symfony\FinderFactory\FinderFactoryInterface;
+use Dflydev\Symfony\FinderFactory\{FinderFactory, FinderFactoryInterface};
 
 class Locator implements Locatable {
 
@@ -73,7 +72,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	string
 	 */
-	public function ajax($file)
+	public function ajax($file): string
 	{
 		return $this->performSearch('ajax', $file);
 	}
@@ -84,7 +83,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	bool
 	 */
-	public function ajaxExists($file)
+	public function ajaxExists($file): bool
 	{
 		return $this->exists('ajax', $file);
 	}
@@ -95,7 +94,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	string
 	 */
-	public function email($file)
+	public function email($file): string
 	{
 		return $this->performSearch('emails', $file);
 	}
@@ -106,7 +105,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	bool
 	 */
-	public function emailExists($file)
+	public function emailExists($file): bool
 	{
 		return $this->exists('emails', $file);
 	}
@@ -117,7 +116,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	string
 	 */
-	public function error($file)
+	public function error($file): string
 	{
 		return $this->performSearch('errors', $file);
 	}
@@ -128,7 +127,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	bool
 	 */
-	public function errorExists($file)
+	public function errorExists($file): bool
 	{
 		return $this->exists('errors', $file);
 	}
@@ -140,7 +139,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	bool
 	 */
-	public function exists($type, $file)
+	public function exists($type, $file): bool
 	{
 		return $this->performSearch($type, $file, false);
 	}
@@ -151,7 +150,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	string
 	 */
-	public function javascript($file)
+	public function javascript($file): string
 	{
 		return $this->performSearch('js', $file);
 	}
@@ -162,7 +161,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	bool
 	 */
-	public function javascriptExists($file)
+	public function javascriptExists($file): bool
 	{
 		return $this->exists('js', $file);
 	}
@@ -173,7 +172,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	string
 	 */
-	public function page($file)
+	public function page($file): string
 	{
 		return $this->performSearch('pages', $file);
 	}
@@ -184,7 +183,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	bool
 	 */
-	public function pageExists($file)
+	public function pageExists($file): bool
 	{
 		return $this->exists('pages', $file);
 	}
@@ -195,7 +194,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	string
 	 */
-	public function partial($file)
+	public function partial($file): string
 	{
 		return $this->performSearch('partials', $file);
 	}
@@ -206,7 +205,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	bool
 	 */
-	public function partialExists($file)
+	public function partialExists($file): bool
 	{
 		return $this->exists('partials', $file);
 	}
@@ -217,7 +216,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	string
 	 */
-	public function structure($file)
+	public function structure($file): string
 	{
 		return $this->performSearch('structures', $file);
 	}
@@ -228,7 +227,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	bool
 	 */
-	public function structureExists($file)
+	public function structureExists($file): bool
 	{
 		return $this->exists('structures', $file);
 	}
@@ -239,7 +238,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	string
 	 */
-	public function style($file)
+	public function style($file): string
 	{
 		return $this->performSearch('styles', $file);
 	}
@@ -250,7 +249,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	bool
 	 */
-	public function styleExists($file)
+	public function styleExists($file): bool
 	{
 		return $this->exists('styles', $file);
 	}
@@ -261,7 +260,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	string
 	 */
-	public function template($file)
+	public function template($file): string
 	{
 		return $this->performSearch('templates', $file);
 	}
@@ -272,7 +271,7 @@ class Locator implements Locatable {
 	 * @param	string	$file	The file to find (no extension)
 	 * @return	bool
 	 */
-	public function templateExists($file)
+	public function templateExists($file): bool
 	{
 		return $this->exists('templates', $file);
 	}
@@ -282,7 +281,7 @@ class Locator implements Locatable {
 	 *
 	 * @return	array
 	 */
-	public function getExtensions()
+	public function getExtensions(): array
 	{
 		return $this->extensions;
 	}
@@ -292,7 +291,7 @@ class Locator implements Locatable {
 	 *
 	 * @return	array
 	 */
-	public function getPaths()
+	public function getPaths(): array
 	{
 		return $this->paths;
 	}
