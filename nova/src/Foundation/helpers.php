@@ -74,12 +74,12 @@ if ( ! function_exists('display_flash_message'))
 
 if ( ! function_exists('icon'))
 {
-	function icon($icon, $size = 'sm', $additional = null)
+	function icon($icon, $additional = null)
 	{
 		// Grab the icon item out of the theme icon map
 		$icon = app('nova.theme')->getIcon($icon);
 
-		return partial('icon', compact('icon', 'size', 'additional'));
+		return partial('icon', compact('icon', 'additional'));
 	}
 }
 
