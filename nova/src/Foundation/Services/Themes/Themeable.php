@@ -1,6 +1,6 @@
 <?php namespace Nova\Foundation\Services\Themes;
 
-use Page;
+use Page, MenuItem;
 
 interface Themeable {
 
@@ -84,6 +84,11 @@ interface Themeable {
 	public function setData($key, $data);
 	public function setView($key, $file);
 
+	public function buildMainMenu();
+	public function buildSubMenu(Page $page);
+	public function buildCombinedMenu();
+	public function buildMenuItem(MenuItem $item);
+
 	/**
 	 * Get a specific icon out of the theme's icon map.
 	 *
@@ -99,4 +104,5 @@ interface Themeable {
 	 * @return	array
 	 */
 	public function getIconMap();
+
 }
