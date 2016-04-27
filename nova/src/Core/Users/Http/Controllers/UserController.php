@@ -29,9 +29,9 @@ class UserController extends BaseController {
 		$this->authorize('manage', $user, "You do not have permission to manage users.");
 
 		$this->view = 'admin/users/users';
-		$this->jsView = 'admin/users/users-js';
 
-		$this->data->users = $this->repo->all();
+		$this->scripts = ['admin/users/users'];
+		$this->jsData->apiUrl = version('v1')->route('api.users.index');
 	}
 
 	public function create()
@@ -39,7 +39,8 @@ class UserController extends BaseController {
 		$this->authorize('create', new User, "You do not have permission to create users.");
 
 		$this->view = 'admin/users/user-create';
-		$this->jsView = 'admin/users/user-create-js';
+
+		$this->scripts = ['admin/users/user-create'];
 	}
 
 	public function store(CreateUserRequest $request)
@@ -147,9 +148,10 @@ class UserController extends BaseController {
 	public function preferences()
 	{
 		$this->view = 'admin/users/preferences';
-		$this->jsView = 'admin/users/preferences-js';
 
 		$this->data->user = $this->user;
+
+		$this->scripts = ['admin/users/preferences'];
 	}
 
 }

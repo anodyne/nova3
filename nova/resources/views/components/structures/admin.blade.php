@@ -11,10 +11,10 @@
 
 		<title>{{ $pageTitle or $_page->present()->title }} &bull; {{ $_content->get('sim.name') }}</title>
 
-		{!! partial('include-bootstrap-css') !!}
+		{!! partial('bootstrap-css-include') !!}
 		{!! HTML::style('nova/resources/css/sweetalert.css') !!}
-		{!! partial('include-fonts') !!}
-		{!! partial('include-icons') !!}
+		{!! partial('fonts-include') !!}
+		{!! partial('icons-include') !!}
 
 		@if (app('files')->exists(theme_path('design/css/icons.css', false)))
 			{!! HTML::style(theme_path('design/css/icons.css')) !!}
@@ -58,19 +58,19 @@
 	<body>
 		{!! $template or false !!}
 
-		{!! partial('include-jquery') !!}
-		{!! partial('include-bootstrap-js') !!}
+		{!! partial('jquery-include') !!}
+		{!! partial('bootstrap-js-include') !!}
 		{!! partial('vue-include') !!}
 		{!! HTML::script('nova/resources/js/functions.js') !!}
 		{!! partial('sweetalert') !!}
 		<script>
 			// Setup the CSRF token on Ajax requests
-			$.ajaxPrefilter(function(options, originalOptions, xhr)
-			{
+			$.ajaxPrefilter(function (options, originalOptions, xhr) {
 				var token = $('meta[name="csrf-token"]').attr('content')
 
-				if (token)
+				if (token) {
 					return xhr.setRequestHeader('X-CSRF-TOKEN', token)
+				}
 			})
 
 			// Setup the CSRF token on Ajax requests
@@ -80,10 +80,8 @@
 				}
 			})
 
-			$(document).ajaxError(function(event, xhr, settings, thrownError)
-			{
-				if (xhr.status == 403)
-				{
+			$(document).ajaxError(function (event, xhr, settings, thrownError) {
+				if (xhr.status == 403) {
 					swal({
 						title: "Unauthorized!",
 						text: "You do not have permission to take this action!",
@@ -93,6 +91,8 @@
 					})
 				}
 			})
+
+			window.Nova = <?php echo json_encode(Nova::javascriptValues());?>
 		</script>
 		{!! $javascript or false !!}
 		{!! partial('vue-object') !!}

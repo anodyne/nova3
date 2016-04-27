@@ -39,13 +39,15 @@ class FormController extends BaseController {
 		$this->authorize('manage', $form, "You do not have permission to manage forms.");
 
 		$this->view = 'admin/forms/forms';
-		$this->jsView = 'admin/forms/forms-js';
+		$this->scripts = ['admin/forms/forms'];
 
 		$this->data->forms = $this->repo->all();
 
 		$this->data->formTab = new NovaFormTab;
 		$this->data->formField = new NovaFormField;
 		$this->data->formSection = new NovaFormSection;
+
+		$this->jsData->keyCheckUrl = route('admin.forms.checkKey');
 	}
 
 	public function create()
@@ -80,7 +82,7 @@ class FormController extends BaseController {
 		$this->authorize('edit', $form, "You do not have permission to edit forms.");
 
 		$this->view = 'admin/forms/form-edit';
-		$this->jsView = 'admin/forms/form-edit-js';
+		$this->scripts = ['admin/forms/form-edit'];
 
 		$this->data->accessRoles = $this->roleRepo->listAll('display_name', 'name');
 
@@ -90,8 +92,9 @@ class FormController extends BaseController {
 
 		$this->data->fields = $form->fields->pluck('label', 'id');
 
-		$this->jsData->form = $form->toJson();
-		$this->jsData->restrictions = ($form->restrictions) ? $form->restrictions->toJson() : null;
+		$this->jsData->keyCheckUrl = route('admin.forms.checkKey');
+		$this->jsData->form = $form->toArray();
+		$this->jsData->restrictions = ($form->restrictions) ? $form->restrictions->toArray() : null;
 	}
 
 	public function update(EditFormRequest $request, $formKey)
@@ -147,7 +150,7 @@ class FormController extends BaseController {
 	public function preview($formKey)
 	{
 		$this->view = 'admin/forms/form-preview';
-		$this->jsView = 'admin/forms/form-preview-js';
+		$this->scripts = ['admin/forms/form-preview'];
 
 		$this->data->form = $this->repo->getByKey($formKey);
 	}

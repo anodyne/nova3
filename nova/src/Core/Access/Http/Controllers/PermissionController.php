@@ -30,7 +30,9 @@ class PermissionController extends BaseController {
 		$this->authorize('manage', new Permission, "You do not have permission to manage permissions.");
 
 		$this->view = 'admin/access/permissions';
-		$this->jsView = 'admin/access/permissions-js';
+
+		$this->scripts = ['admin/access/permissions'];
+		$this->jsData->apiUrl = version('v1')->route('api.access.permissions.index');
 	}
 
 	public function create()
@@ -38,7 +40,9 @@ class PermissionController extends BaseController {
 		$this->authorize('create', new Permission, "You do not have permission to create permissions.");
 
 		$this->view = 'admin/access/permission-create';
-		$this->jsView = 'admin/access/permission-create-js';
+
+		$this->scripts = ['admin/access/permission-create'];
+		$this->jsData->keyCheckUrl = route('admin.access.permissions.checkKey');
 	}
 
 	public function store(CreatePermissionRequest $request)
@@ -59,7 +63,9 @@ class PermissionController extends BaseController {
 		$this->authorize('edit', $permission, "You do not have permission to edit permissions.");
 
 		$this->view = 'admin/access/permission-edit';
-		$this->jsView = 'admin/access/permission-edit-js';
+
+		$this->scripts = ['admin/access/permission-edit'];
+		$this->jsData->keyCheckUrl = route('admin.access.permissions.checkKey');
 	}
 
 	public function update(EditPermissionRequest $request, $permissionId)

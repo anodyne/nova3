@@ -38,7 +38,7 @@ class FormCenterController extends BaseController {
 		$this->authorize('viewEntries', $form, "You do not have permission to view Form Center entries.");
 
 		$this->view = 'admin/form-center/entries';
-		$this->jsView = 'admin/form-center/entries-js';
+		$this->scripts = ['admin/form-center/entries'];
 
 		// What page are we on?
 		$page = $request->get('page', 1);
@@ -69,10 +69,10 @@ class FormCenterController extends BaseController {
 		$this->authorize('viewInFormCenter', $form, "You do not have permission to view this form.");
 
 		$this->view = 'admin/form-center/form';
-		$this->jsView = 'admin/form-center/form-js';
 
 		$entries = $this->data->entries = $this->repo->getUserEntries($this->user, $form);
 
+		$this->scripts = ['admin/form-center/form'];
 		$this->jsData->entryCount = $entries->count();
 	}
 
@@ -82,10 +82,16 @@ class FormCenterController extends BaseController {
 
 		$this->authorize('viewEntries', $form, "You do not have permission to view Form Center entries.");
 
+		$this->styles = ['tabdrop'];
+
 		$this->view = 'admin/form-center/show';
-		$this->jsView = 'admin/form-center/show-js';
 
 		$this->data->entry = $this->repo->getById($entryId, ['user', 'form', 'data']);
+
+		$this->scripts = [
+			'bootstrap-tabdrop',
+			'admin/form-center/show',
+		];
 	}
 
 	public function showEntry($formKey, $entryId)

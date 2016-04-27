@@ -32,7 +32,9 @@ class PageContentController extends BaseController {
 		$this->authorize('manage', $content, "You do not have permission to manage additional content.");
 
 		$this->view = 'admin/pages/content';
-		$this->jsView = 'admin/pages/content-js';
+		
+		$this->scripts = ['admin/pages/content'];
+		$this->jsData->apiUrl = version('v1')->route('api.page-contents.index');
 	}
 
 	public function create()
@@ -40,10 +42,12 @@ class PageContentController extends BaseController {
 		$this->authorize('create', new PageContent, "You do not have permission to create additional content.");
 
 		$this->view = 'admin/pages/content-create';
-		$this->jsView = 'admin/pages/content-create-js';
 		
 		$this->data->pages[""] = "No page";
 		$this->data->pages += $this->pagesRepo->listAllBy('verb', 'GET', 'name', 'id');
+
+		$this->scripts = ['admin/pages/content-create'];
+		$this->jsData->keyCheckUrl = route('admin.content.checkKey');
 	}
 
 	public function store(CreatePageContentRequest $request)
@@ -64,7 +68,6 @@ class PageContentController extends BaseController {
 		$this->authorize('edit', $content, "You do not have permission to edit additional content.");
 
 		$this->view = 'admin/pages/content-edit';
-		$this->jsView = 'admin/pages/content-edit-js';
 
 		$this->data->pages[""] = "No page";
 		$this->data->pages += $this->pagesRepo->listAllBy('verb', 'GET', 'name', 'id');
@@ -75,6 +78,9 @@ class PageContentController extends BaseController {
 			'message' => "Message",
 			'other' => "Other",
 		];
+
+		$this->scripts = ['admin/pages/content-edit'];
+		$this->jsData->keyCheckUrl = route('admin.content.checkKey');
 	}
 
 	public function update(EditPageContentRequest $request, $contentId)

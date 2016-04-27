@@ -36,14 +36,19 @@ class SectionController extends BaseController {
 		$this->authorize('manage', $section, "You do not have permission to manage form sections.");
 
 		$this->view = 'admin/forms/sections';
-		$this->jsView = 'admin/forms/sections-js';
-		$this->styleView = 'admin/forms/sections-style';
+		$this->scripts = [
+			'Sortable.min',
+			'admin/forms/sections',
+		];
+		$this->styles = ['uikit/components/icon'];
 
 		$form = $this->data->form = $this->formRepo->getByKey($formKey, ['tabsAll', 'tabsAll.sectionsAll', 'sectionsUnboundAll']);
 
 		$this->data->tabs = $this->tabRepo->getFormTabs($form, [], true);
 		
 		$this->data->unboundSections = $this->repo->getUnboundSections($form, [], true);
+
+		$this->jsData->orderUpdateUrl = route('admin.forms.sections.updateOrder');
 	}
 
 	public function create($formKey)
@@ -51,7 +56,7 @@ class SectionController extends BaseController {
 		$this->authorize('create', new NovaFormSection, "You do not have permission to create form sections.");
 
 		$this->view = 'admin/forms/section-create';
-		$this->jsView = 'admin/forms/section-create-js';
+		$this->scripts = ['admin/forms/section-create'];
 
 		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
@@ -77,7 +82,7 @@ class SectionController extends BaseController {
 		$this->authorize('edit', $section, "You do not have permission to edit form sections.");
 
 		$this->view = 'admin/forms/section-edit';
-		$this->jsView = 'admin/forms/section-edit-js';
+		$this->scripts = ['admin/forms/section-edit'];
 
 		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 

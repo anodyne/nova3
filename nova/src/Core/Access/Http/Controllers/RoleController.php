@@ -34,10 +34,11 @@ class RoleController extends BaseController {
 		$this->authorize('manage', $role, "You do not have permission to manage roles.");
 
 		$this->view = 'admin/access/roles';
-		$this->jsView = 'admin/access/roles-js';
 
 		$this->data->roles = $this->repo->all();
 		$this->data->permission = new Permission;
+
+		$this->scripts = ['admin/access/roles'];
 	}
 
 	public function create()
@@ -45,9 +46,11 @@ class RoleController extends BaseController {
 		$this->authorize('create', new Role, "You do not have permission to create roles.");
 
 		$this->view = 'admin/access/role-create';
-		$this->jsView = 'admin/access/role-create-js';
 
 		$this->data->permissions = $this->permissionsRepo->allByComponent();
+
+		$this->scripts = ['admin/access/role-create'];
+		$this->jsData->keyCheckUrl = route('admin.access.roles.checkKey');
 	}
 
 	public function store(CreateRoleRequest $request)
@@ -68,9 +71,11 @@ class RoleController extends BaseController {
 		$this->authorize('edit', $role, "You do not have permission to edit roles.");
 
 		$this->view = 'admin/access/role-edit';
-		$this->jsView = 'admin/access/role-edit-js';
 
 		$this->data->permissions = $this->permissionsRepo->allByComponent();
+
+		$this->scripts = ['admin/access/role-edit'];
+		$this->jsData->keyCheckUrl = route('admin.access.roles.checkKey');
 	}
 
 	public function update(EditRoleRequest $request, $roleId)

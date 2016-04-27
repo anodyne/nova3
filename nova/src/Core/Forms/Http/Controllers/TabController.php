@@ -33,10 +33,15 @@ class TabController extends BaseController {
 		$this->authorize('manage', $tab, "You do not have permission to manage form tabs.");
 
 		$this->view = 'admin/forms/tabs';
-		$this->jsView = 'admin/forms/tabs-js';
-		$this->styleView = 'admin/forms/tabs-style';
+		$this->scripts = [
+			'Sortable.min',
+			'admin/forms/tabs',
+		];
+		$this->styles = ['uikit/components/icon'];
 
 		$tabs = $this->data->tabs = $this->repo->getParentTabs($form, [], true);
+
+		$this->jsData->orderUpdateUrl = route('admin.forms.tabs.updateOrder');
 	}
 
 	public function create($formKey)
@@ -46,10 +51,12 @@ class TabController extends BaseController {
 		$this->authorize('create', new NovaFormTab, "You do not have permission to create form tabs.");
 
 		$this->view = 'admin/forms/tab-create';
-		$this->jsView = 'admin/forms/tab-create-js';
+		$this->scripts = ['admin/forms/tab-create'];
 
 		$this->data->parentTabs = ['0' => "No parent tab"];
 		$this->data->parentTabs+= $this->repo->listParentTabs($form);
+
+		$this->jsData->linkCheckUrl = route('admin.forms.tabs.checkLink');
 	}
 
 	public function store(CreateFormTabRequest $request, $formKey)
@@ -72,10 +79,12 @@ class TabController extends BaseController {
 		$this->authorize('edit', $tab, "You do not have permission to edit form tabs.");
 
 		$this->view = 'admin/forms/tab-edit';
-		$this->jsView = 'admin/forms/tab-edit-js';
+		$this->scripts = ['admin/forms/tab-edit'];
 
 		$this->data->parentTabs = ['0' => "No parent tab"];
 		$this->data->parentTabs+= $this->repo->listParentTabs();
+
+		$this->jsData->linkCheckUrl = route('admin.forms.tabs.checkLink');
 	}
 
 	public function update(EditFormTabRequest $request, $formKey, $tabId)

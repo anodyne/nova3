@@ -43,24 +43,30 @@ class FieldController extends BaseController {
 
 		$this->authorize('manage', $field, "You do not have permission to manage form fields.");
 
+		$this->styles = ['uikit/components/icon'];
+
 		$this->view = 'admin/forms/fields';
-		$this->jsView = 'admin/forms/fields-js';
-		$this->styleView = 'admin/forms/fields-style';
 
 		$form = $this->data->form = $this->formRepo->getByKey($formKey, ['fieldsUnboundAll', 'fieldsUnboundAll.data', 'fieldsUnboundAll.data.field', 'sectionsUnboundAll', 'sectionsUnboundAll.fieldsAll', 'sectionsUnboundAll.fieldsAll.data', 'sectionsUnboundAll.fieldsAll.data.field', 'parentTabsAll', 'parentTabsAll.fieldsUnboundAll', 'parentTabsAll.fieldsUnboundAll.data', 'parentTabsAll.fieldsUnboundAll.data.field', 'parentTabsAll.sectionsAll', 'parentTabsAll.sectionsAll.fieldsAll', 'parentTabsAll.sectionsAll.fieldsAll.data', 'parentTabsAll.sectionsAll.fieldsAll.data.field', 'parentTabsAll.childrenTabsAll.fieldsUnboundAll', 'parentTabsAll.childrenTabsAll.fieldsUnboundAll.data', 'parentTabsAll.childrenTabsAll.fieldsUnboundAll.data.field', 'parentTabsAll.childrenTabsAll.sectionsAll', 'parentTabsAll.childrenTabsAll.sectionsAll.fieldsAll', 'parentTabsAll.childrenTabsAll.sectionsAll.fieldsAll.data', 'parentTabsAll.childrenTabsAll.sectionsAll.fieldsAll.data.field']);
 
 		$this->data->unboundFields = $this->formRepo->getUnboundFields($form, [], true);
 		$this->data->unboundSections = $this->formRepo->getUnboundSections($form, [], true);
 		$this->data->parentTabs = $this->formRepo->getParentTabs($form, [], true);
+
+		$this->scripts = [
+			'Sortable.min',
+			'admin/forms/fields',
+		];
+		$this->jsData->orderUpdateUrl = route('admin.forms.fields.updateOrder');
 	}
 
 	public function create($formKey)
 	{
 		$this->authorize('create', new NovaFormField, "You do not have permission to create form fields.");
 
+		$this->styles = ['uikit/components/icon'];
+
 		$this->view = 'admin/forms/field-create';
-		$this->jsView = 'admin/forms/field-create-js';
-		$this->styleView = 'admin/forms/field-create-style';
 
 		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
@@ -91,7 +97,12 @@ class FieldController extends BaseController {
 
 		$fieldTypes = $this->getFieldTypes();
 		$this->data->fieldTypes = $fieldTypes->get('types');
-		$this->jsData->fieldTypes = $fieldTypes->get('json');
+
+		$this->scripts = [
+			'Sortable.min',
+			'admin/forms/field-create',
+		];
+		$this->jsData->fieldTypes = $fieldTypes->get('array');
 	}
 
 	public function store(CreateFormFieldRequest $request, $formKey)
@@ -111,9 +122,9 @@ class FieldController extends BaseController {
 
 		$this->authorize('edit', $field, "You do not have permission to edit form fields.");
 
+		$this->styles = ['uikit/components/icon'];
+
 		$this->view = 'admin/forms/field-edit';
-		$this->jsView = 'admin/forms/field-edit-js';
-		$this->styleView = 'admin/forms/field-edit-style';
 
 		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
@@ -145,11 +156,15 @@ class FieldController extends BaseController {
 		$fieldTypes = $this->getFieldTypes();
 		$this->data->fieldTypes = $fieldTypes->get('types');
 
-		$this->jsData->fieldTypes = $fieldTypes->get('json');
-		$this->jsData->attributes = ($field->attributes) ? $field->attributes->toJson() : null;
-		$this->jsData->restrictions = ($field->restrictions) ? $field->restrictions->toJson() : null;
-		$this->jsData->validationRules = ($field->validation_rules) ? $field->validation_rules->toJson() : null;
-		$this->jsData->values = ($field->values) ? $field->values->toJson() : null;
+		$this->scripts = [
+			'Sortable.min',
+			'admin/forms/field-edit',
+		];
+		$this->jsData->fieldTypes = $fieldTypes->get('array');
+		$this->jsData->attributes = ($field->attributes) ? $field->attributes->toArray() : null;
+		$this->jsData->restrictions = ($field->restrictions) ? $field->restrictions->toArray() : null;
+		$this->jsData->validationRules = ($field->validation_rules) ? $field->validation_rules->toArray() : null;
+		$this->jsData->values = ($field->values) ? $field->values->toArray() : null;
 	}
 
 	public function update(EditFormFieldRequest $request, $formKey, $fieldId)
@@ -232,6 +247,7 @@ class FieldController extends BaseController {
 
 		$fieldTypes->put('types', $typesArr);
 		$fieldTypes->put('json', json_encode($typesJson));
+		$fieldTypes->put('array', $typesJson);
 
 		return $fieldTypes;
 	}
