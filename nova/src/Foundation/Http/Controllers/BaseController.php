@@ -24,6 +24,8 @@ abstract class BaseController extends Controller {
 	public $jsView;
 	public $styleView;
 	public $isAjax = false;
+	public $scripts = [];
+	public $styles = [];
 
 	public $templateData;
 	public $templateView = 'public';
@@ -139,7 +141,8 @@ abstract class BaseController extends Controller {
 
 	final public function page()
 	{
-		$this->jsView = 'basic-page-js';
+		$this->styles = ['tabdrop'];
+		$this->scripts = ['bootstrap-tabdrop', 'basic-page'];
 
 		if ($this->page->access)
 		{

@@ -31,8 +31,13 @@ class RenderController {
 				$this->buildThemeMenu();
 				$this->buildThemeAdminMenu();
 				$this->buildThemePage();
+				
+				$this->buildJavascript();
 				$this->buildThemeJavascript();
+				
+				$this->buildStyles();
 				$this->buildThemeStyles();
+
 				$this->buildThemeFooter();
 				//$this->buildThemePanel();
 
@@ -77,7 +82,7 @@ class RenderController {
 	{
 		if ($this->controller->jsView)
 		{
-			$this->theme = $this->theme->javascript($this->controller->jsView, (array) $this->controller->jsData);
+			$this->theme = $this->theme->javascriptOld($this->controller->jsView, (array) $this->controller->jsData);
 		}
 	}
 
@@ -99,6 +104,16 @@ class RenderController {
 	protected function buildThemePanel()
 	{
 		$this->theme = $this->theme->panel();
+	}
+
+	protected function buildJavascript()
+	{
+		$this->theme = $this->theme->javascript($this->controller->scripts);
+	}
+
+	protected function buildStyles()
+	{
+		$this->theme = $this->theme->styles($this->controller->styles);
 	}
 
 }
