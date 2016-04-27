@@ -17,9 +17,9 @@
 |
 */
 
-if (version_compare(PHP_VERSION, '5.6.4', '<'))
+if (PHP_VERSION < '7.0.0')
 {
-	die("Your server isn't running a compatible version of PHP. You need PHP 5.6.4 or higher in order to run Nova NextGen.");
+	die("Your server isn't running a compatible version of PHP. You need PHP 7.0 or higher in order to run Nova NextGen.");
 }
 
 /*

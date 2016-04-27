@@ -35,13 +35,7 @@
 			@endforeach
 			</ul>
 
-			<ul class="nav navbar-nav navbar-right">
-				@if (Auth::check())
-					<li><a href="{{ route('logout') }}">Log Out</a></li>
-				@else
-					<li><a href="{{ route('login') }}">Log In</a></li>
-				@endif
-			</ul>
+			{!! partial('menu-user') !!}
 		</div>
 	</div>
 </nav>

@@ -37,12 +37,28 @@ class MenuItemPresenter extends BasePresenter {
 
 	public function title()
 	{
-		if ($this->entity->type == 'page' and empty($this->entity->title))
+		$outputArr = [];
+
+		if ( ! empty($this->entity->icon))
 		{
-			return $this->entity->page->present()->name;
+			$outputArr[] = $this->icon();
 		}
 
-		return $this->entity->title;
+		if ($this->entity->type == 'page' and empty($this->entity->title))
+		{
+			$outputArr[] = $this->entity->page->present()->name;
+		}
+		else
+		{
+			$outputArr[] = $this->entity->title;
+		}
+
+		return implode(' ', $outputArr);
+	}
+
+	public function icon()
+	{
+		return false;
 	}
 
 }

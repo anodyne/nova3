@@ -1,5 +1,5 @@
 <?php
 
-use Nova\Foundation\Themes\Theme as BaseTheme;
+use Nova\Foundation\Services\Themes\Theme as BaseTheme;
 
 class Theme extends BaseTheme {}
