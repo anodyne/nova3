@@ -7,31 +7,35 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a href="{{ route('home') }}" class="navbar-brand">{{ $_settings->get('sim_name') }}</a>
+			<a href="{{ route('home') }}" class="navbar-brand">{{ $_content->get('sim.name') }}</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="{{ route('setup.home') }}">Setup Center</a></li>
-
-				@if (Auth::check())
+			@foreach ($menuMainItems as $mainMenuItem)
+				@if (array_key_exists($mainMenuItem->id, $menuSubItems))
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ $mainMenuItem->present()->title }} <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="{{ route('admin.pages') }}">Page Manager</a></li>
-							<li><a href="{{ route('admin.content') }}">Additional Page Content</a></li>
-							<li><a href="{{ route('admin.menus') }}">Menus</a></li>
+						@foreach ($menuSubItems[$mainMenuItem->id] as $subMenuItem)
+							@if ($subMenuItem->type == "divider")
+								<li class="divider"></li>
+							@else
+								<li>{!! $subMenuItem->present()->anchorTag() !!}</li>
+							@endif
+						@endforeach
 						</ul>
 					</li>
+				@else
+					@if ($mainMenuItem->type == 'divider')
+						<li class="divider"></li>
+					@else
+						<li>{!! $mainMenuItem->present()->anchorTag() !!}</li>
+					@endif
 				@endif
+			@endforeach
 			</ul>
 
-			<ul class="nav navbar-nav navbar-right">
-				@if (Auth::check())
-					<li><a href="{{ route('logout') }}">Log Out</a></li>
-				@else
-					<li><a href="{{ route('login') }}">Log In</a></li>
-				@endif
-			</ul>
+			{!! partial('menu-user') !!}
 		</div>
 	</div>
 </nav>
