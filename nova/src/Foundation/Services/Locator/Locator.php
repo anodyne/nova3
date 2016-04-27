@@ -31,6 +31,7 @@ class Locator implements Locatable {
 	 */
 	protected $pathsLast = [
 		'nova/resources/views/components',
+		'nova/resources',
 	];
 
 	/**
@@ -39,6 +40,8 @@ class Locator implements Locatable {
 	protected $extensions = [
 		'.blade.php',
 		'.php',
+		'.css',
+		'.js',
 	];
 
 	/**
@@ -241,7 +244,7 @@ class Locator implements Locatable {
 	 */
 	public function style($file)
 	{
-		return $this->performSearch('styles', $file);
+		return $this->performSearch('css', $file);
 	}
 
 	/**
