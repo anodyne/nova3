@@ -260,12 +260,13 @@ class NovaServiceProvider extends ServiceProvider {
 		}
 
 		// Try to autoload the appropriate theme file
-		ClassLoader::load($this->app->themePath($themeName).'/Theme.php');
+		ClassLoader::addDirectories($this->app->themePath($themeName));
+		$loaded = ClassLoader::load('Theme');
 
 		if (class_exists('Theme'))
 		{
 			// Make a new theme
-			$theme = new \Theme($themeName, $this->app);
+			$theme = new \Theme($themeName, $this->app, $this->app['nova.locator']);
 
 			// Get some information about this particular class
 			$class = new ReflectionClass('Theme');
@@ -273,13 +274,13 @@ class NovaServiceProvider extends ServiceProvider {
 		else
 		{
 			// Make a new base theme
-			$theme = new BaseTheme($themeName, $this->app);
+			$theme = new BaseTheme($themeName, $this->app, $this->app['nova.locator']);
 
 			// Get some information about this particular class
 			$class = new ReflectionClass('Nova\Foundation\Services\Themes\Theme');
 		}
 
-		// Make sure that whatever class is handling theme that it implements
+		// Make sure that whatever class is handling the theme that it implements
 		// ALL of the necessary contracts, otherwise throw an exception
 		if ( ! $class->implementsInterface('Nova\Foundation\Services\Themes\Themeable') or
 				! $class->implementsInterface('Nova\Foundation\Services\Themes\ThemeableInfo'))
