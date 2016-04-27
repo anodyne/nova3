@@ -1,6 +1,6 @@
 <?php namespace Nova\Foundation\Services\Themes;
 
-use Page;
+use HTML, Page;
 use Exception;
 use Spatie\Menu\Laravel\Link as LinkBuilder,
 	Spatie\Menu\Laravel\Menu as MenuBuilder;
@@ -340,7 +340,7 @@ class Theme implements Themeable, ThemeableInfo {
 	 * @return 	Theme
 	 * @throws	NoThemeStructureException
 	 */
-	public function javascript($view, array $data)
+	public function javascriptOld($view, array $data)
 	{
 		if ( ! is_object($this->layout))
 		{
@@ -349,6 +349,27 @@ class Theme implements Themeable, ThemeableInfo {
 
 		$this->layout->javascript = $this->view->make($this->locate->javascript($view))
 			->with((array) $data);
+
+		return $this;
+	}
+
+	public function javascript(array $scripts)
+	{
+		if ( ! is_object($this->layout))
+		{
+			throw new NoThemeStructureException;
+		}
+
+		$output = "";
+
+		foreach ($scripts as $script)
+		{
+			$path = sprintf("%s.js", $this->locate->javascript($script));
+
+			$output.= HTML::script($path)."\r\n";
+		}
+
+		$this->layout->javascript = $output;
 
 		return $this;
 	}
@@ -373,7 +394,7 @@ class Theme implements Themeable, ThemeableInfo {
 		return $this;
 	}
 
-	public function styles($view, array $data)
+	public function stylesOld($view, array $data)
 	{
 		if ( ! is_object($this->layout))
 		{
@@ -382,6 +403,27 @@ class Theme implements Themeable, ThemeableInfo {
 
 		$this->layout->styles = $this->view->make($this->locate->style($view))
 			->with((array) $data);
+
+		return $this;
+	}
+
+	public function styles(array $styles)
+	{
+		if ( ! is_object($this->layout))
+		{
+			throw new NoThemeStructureException;
+		}
+
+		$output = "";
+
+		foreach ($styles as $style)
+		{
+			$path = sprintf("%s.css", $this->locate->style($style));
+
+			$output.= HTML::style($path)."\r\n";
+		}
+
+		$this->layout->styles = $output;
 
 		return $this;
 	}

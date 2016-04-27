@@ -63,15 +63,14 @@ interface Themeable {
 	/**
 	 * Build the Javascript for the page.
 	 *
-	 * @param 	string	$view 	The view file to use
-	 * @param 	array 	$data 	Data to pass to the Javascript view
+	 * @param 	array 	$scripts Scripts to be loaded
 	 * @return 	Theme
-	 * @throws	NoThemeTemplateException
+	 * @throws	NoThemeStructureException
 	 */
-	public function javascript($view, array $data);
+	public function javascript(array $scripts);
 	public function alerts(array $data);
 	public function ajax(array $data);
-	public function styles($view, array $data);
+	public function styles(array $styles);
 	public function panel();
 
 	/**
