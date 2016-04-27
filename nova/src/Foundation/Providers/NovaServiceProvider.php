@@ -11,7 +11,8 @@ use Nova\Core\Forms\Services\FieldTypes,
 	Nova\Core\Pages\Services\Compilers\PageCompiler,
 	Nova\Core\Settings\Services\Compilers\SettingCompiler,
 	Nova\Core\Pages\Services\Compilers\PageContentCompiler;
-use Nova\Foundation\Services\FlashNotifier,
+use Nova\Foundation\Nova,
+	Nova\Foundation\Services\FlashNotifier,
 	Nova\Foundation\Services\MarkdownParser,
 	Nova\Foundation\Services\Locator\Locator,
 	Nova\Foundation\Services\Themes\Theme as BaseTheme,
@@ -36,6 +37,11 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->createFieldTypesManager();
 		$this->setupTheme();
 		$this->setupMailer();
+
+		$this->app->singleton('nova', function ($app)
+		{
+			return new Nova;
+		});
 	}
 
 	/**
