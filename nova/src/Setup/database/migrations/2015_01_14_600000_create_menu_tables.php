@@ -31,6 +31,7 @@ class CreateMenuTables extends Migration {
 			$table->string('link')->nullable();
 			$table->string('title')->nullable();
 			$table->boolean('authentication')->default((int) true);
+			$table->string('icon')->nullable();
 			$table->timestamps();
 
 			$table->foreign('menu_id')->references('id')->on('menus')
