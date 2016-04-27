@@ -15,7 +15,11 @@ class SettingRepository extends BaseRepository implements SettingRepositoryContr
 
 	public function create(array $data)
 	{
-		return $this->model->create($data);
+		$setting = $this->model->create($data);
+
+		// event
+
+		return $setting;
 	}
 
 	public function getAllSettings()
@@ -58,6 +62,8 @@ class SettingRepository extends BaseRepository implements SettingRepositoryContr
 				$item->save();
 			}
 		}
+
+		// event
 
 		return true;
 	}
