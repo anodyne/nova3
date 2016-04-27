@@ -223,6 +223,7 @@ return [
 		'Locate'			=> Nova\Foundation\Services\Locator\LocatorFacade::class,
 		'Markdown'			=> Nova\Foundation\Services\MarkdownParserFacade::class,
 		'Model'				=> Illuminate\Database\Eloquent\Model::class,
+		'Nova'				=> Nova\Foundation\Facades\NovaFacade::class,
 		'Status'			=> Nova\Foundation\Services\StatusService::class,
 		'StatusTrait'		=> Nova\Foundation\Traits\StatusTrait::class,
 		'Str'				=> Illuminate\Support\Str::class,
