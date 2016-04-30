@@ -58,7 +58,7 @@ class MenuItemPresenter extends BasePresenter {
 
 	public function icon()
 	{
-		return false;
+		return icon($this->entity->icon);
 	}
 
 }
