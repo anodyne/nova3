@@ -567,16 +567,21 @@ class Theme implements Themeable, ThemeableInfo {
 		{
 			if (array_key_exists($mainMenuItem->id, $menuSubItemsArr))
 			{
-				// Build the header for the sub menu
-				$header = LinkBuilder::to('#', sprintf(
-					'%s %s',
+				// Build the text for the header link
+				$headerText = sprintf('%s %s', 
 					$mainMenuItem->title,
 					HtmlBuilder::raw('<span class="caret"></span>')->render()
-				));
+				);
+
+				// Build the header for the sub menu
+				$header = LinkBuilder::to('#', $headerText)
+					->addClass('dropdown-toggle')
+					//->addParentClass('dropdown')
+					->setAttribute('data-toggle', 'dropdown');
 
 				// Start building the submenu and prepend the first item
 				$submenu = MenuBuilder::new()->addClass('dropdown-menu');
-				$submenu->prepend($header->addClass('dropdown-toggle')->addParentClass('dropdown'));
+				$submenu->prepend($header);
 
 				// Loop through the sub menu items and build the sub menu
 				foreach ($menuSubItemsArr[$mainMenuItem->id] as $subMenuItem)
