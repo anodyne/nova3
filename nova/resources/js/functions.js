@@ -16,5 +16,5 @@ var byClass = function (className) {
 }
 
 var novaUrl = function (uri) {
-	return Nova.state.baseUrl + uri
+	return Nova.global.baseUrl + uri
 }

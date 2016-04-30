@@ -9,20 +9,34 @@ class Nova {
 		// Grab the user so we can manually build the user object
 		$user = user();
 
-		// Nova's global state
-		$state = ['state' => [
+		// Nova's global variables
+		$global = ['global' => [
 			'version' => config('nova.app.version.full'),
 			'baseUrl' => app('request')->root(),
 			'token' => csrf_token(),
 			'genre' => config('nova.genre'),
-			'user' => [
+		]];
+
+		if ($user)
+		{
+			$global['user'] = [
 				'name' => $user->present()->name,
 				'nickname' => $user->nickname,
 				'realName' => $user->name,
 				'email' => $user->email,
-				'status' => Status::toString($user->status)
-			]
-		]];
+				'status' => Status::toString($user->status),
+			];
+		}
+		else
+		{
+			$global['user'] = [
+				'name' => null,
+				'nickname' => null,
+				'realName' => null,
+				'email' => null,
+				'status' => null,
+			];
+		}
 
 		// Nova's API options
 		$api = ['api' => config('nova.api')];
@@ -30,7 +44,7 @@ class Nova {
 		// Nova's controller data
 		$data = ['data' => (array) app('nova.controller')->jsData];
 
-		return array_merge($state, $api, $data);
+		return array_merge($global, $api, $data);
 	}
 
 }
