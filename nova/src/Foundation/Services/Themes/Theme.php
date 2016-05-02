@@ -458,6 +458,7 @@ class Theme implements Themeable, ThemeableInfo {
 		return [
 			'add'			=> 'fa fa-plus',
 			'announcement'	=> 'fa fa-bullhorn',
+			'archive'		=> 'fa fa-archive',
 			'ban'			=> 'fa fa-ban',
 			'bookmark'		=> 'fa fa-bookmark',
 			'check'			=> 'fa fa-check',
@@ -494,6 +495,7 @@ class Theme implements Themeable, ThemeableInfo {
 			'tasks'			=> 'fa fa-tasks',
 			'thumbs-down'	=> 'fa fa-thumbs-down',
 			'thumbs-up'		=> 'fa fa-thumbs-up',
+			'unlock'		=> 'fa fa-unlock',
 			'user'			=> 'fa fa-user',
 			'users'			=> 'fa fa-users',
 			'warning'		=> 'fa fa-exclamation-triangle',
