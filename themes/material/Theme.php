@@ -9,6 +9,7 @@ class Theme extends BaseTheme {
 		return [
 			'add'			=> 'add',
 			'announcement'	=> 'mic',
+			'archive'		=> 'archive',
 			'ban'			=> 'block',
 			'bookmark'		=> 'bookmark',
 			'check'			=> 'check',
@@ -45,6 +46,7 @@ class Theme extends BaseTheme {
 			'tasks'			=> 'playlist_add_check',
 			'thumbs-down'	=> 'thumb_down',
 			'thumbs-up'		=> 'thumb_up',
+			'unlock'		=> 'lock_open',
 			'user'			=> 'person',
 			'users'			=> 'people',
 			'warning'		=> 'warning',
