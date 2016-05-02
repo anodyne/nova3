@@ -502,6 +502,32 @@ class Theme implements Themeable, ThemeableInfo {
 		];
 	}
 
+	public function renderIcon(string $icon, string $additionalClass)
+	{
+		$iconCode = $this->getIcon($icon);
+
+		return HTML::tag('i', null, ['class' => "{$iconCode} {$additionalClass}"]);
+	}
+
+	public function button($text, $icon, array $attributes)
+	{
+		$fullText = $this->renderIcon($icon)." ".$text;
+
+		return Form::button($fullText, $attributes);
+
+		$theme = app('nova.theme');
+		return $theme->button($text, $icon, $attributes);
+	}
+
+	public function link($text, $icon, $location, array $attributes)
+	{
+		$fullText = $this->renderIcon($icon)." ".$text;
+
+		return HTML::link($fullText, $attributes);
+
+		return app('nova.theme')->link($text, $icon, $location, $attributes);
+	}
+
 	public function setData($key, $data)
 	{
 		$this->data[$key] = $data;
