@@ -20,11 +20,11 @@ class Nova {
 		if ($currentUser)
 		{
 			$user = ['user' => [
-				'name' => $user->present()->name,
-				'nickname' => $user->nickname,
-				'realName' => $user->name,
-				'email' => $user->email,
-				'status' => Status::toString($user->status),
+				'name' => $currentUser->present()->name,
+				'nickname' => $currentUser->nickname,
+				'realName' => $currentUser->name,
+				'email' => $currentUser->email,
+				'status' => Status::toString($currentUser->status),
 			]];
 		}
 		else
