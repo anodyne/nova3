@@ -1,0 +1,335 @@
+@import "_icons";
+
+@font-face {
+    font-family: 'entypo';
+    src:
+        url('#{$icomoon-font-path}/entypo.ttf?3cfs3f') format('truetype'),
+        url('#{$icomoon-font-path}/entypo.woff?3cfs3f') format('woff'),
+        url('#{$icomoon-font-path}/entypo.svg?3cfs3f#entypo') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+i {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'entypo' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    font-size: 2rem;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &.sm {
+    	font-size: 1.4rem;
+    }
+
+    &.md {
+    	font-size: 4rem;
+    }
+
+    &.lg {
+    	font-size: 8rem;
+    }
+}
+
+.entypo-flag {
+    &:before {
+        content: $entypo-flag;
+    }
+}
+.entypo-add-to-list {
+    &:before {
+        content: $entypo-add-to-list;
+    }
+}
+.entypo-warning {
+    &:before {
+        content: $entypo-warning;
+    }
+}
+.entypo-arrow-with-circle-down {
+    &:before {
+        content: $entypo-arrow-with-circle-down;
+    }
+}
+.entypo-arrow-with-circle-left {
+    &:before {
+        content: $entypo-arrow-with-circle-left;
+    }
+}
+.entypo-arrow-with-circle-right {
+    &:before {
+        content: $entypo-arrow-with-circle-right;
+    }
+}
+.entypo-arrow-with-circle-up {
+    &:before {
+        content: $entypo-arrow-with-circle-up;
+    }
+}
+.entypo-bookmark {
+    &:before {
+        content: $entypo-bookmark;
+    }
+}
+.entypo-dots-three-horizontal {
+    &:before {
+        content: $entypo-dots-three-horizontal;
+    }
+}
+.entypo-trash {
+    &:before {
+        content: $entypo-trash;
+    }
+}
+.entypo-bell {
+    &:before {
+        content: $entypo-bell;
+    }
+}
+.entypo-block {
+    &:before {
+        content: $entypo-block;
+    }
+}
+.entypo-box {
+    &:before {
+        content: $entypo-box;
+    }
+}
+.entypo-brush {
+    &:before {
+        content: $entypo-brush;
+    }
+}
+.entypo-chat {
+    &:before {
+        content: $entypo-chat;
+    }
+}
+.entypo-check {
+    &:before {
+        content: $entypo-check;
+    }
+}
+.entypo-clipboard {
+    &:before {
+        content: $entypo-clipboard;
+    }
+}
+.entypo-clock {
+    &:before {
+        content: $entypo-clock;
+    }
+}
+.entypo-code {
+    &:before {
+        content: $entypo-code;
+    }
+}
+.entypo-cog {
+    &:before {
+        content: $entypo-cog;
+    }
+}
+.entypo-copy {
+    &:before {
+        content: $entypo-copy;
+    }
+}
+.entypo-cross {
+    &:before {
+        content: $entypo-cross;
+    }
+}
+.entypo-cycle {
+    &:before {
+        content: $entypo-cycle;
+    }
+}
+.entypo-forward {
+    &:before {
+        content: $entypo-forward;
+    }
+}
+.entypo-gauge {
+    &:before {
+        content: $entypo-gauge;
+    }
+}
+.entypo-heart-outlined {
+    &:before {
+        content: $entypo-heart-outlined;
+    }
+}
+.entypo-heart {
+    &:before {
+        content: $entypo-heart;
+    }
+}
+.entypo-help-with-circle {
+    &:before {
+        content: $entypo-help-with-circle;
+    }
+}
+.entypo-home {
+    &:before {
+        content: $entypo-home;
+    }
+}
+.entypo-image-inverted {
+    &:before {
+        content: $entypo-image-inverted;
+    }
+}
+.entypo-inbox {
+    &:before {
+        content: $entypo-inbox;
+    }
+}
+.entypo-info-with-circle {
+    &:before {
+        content: $entypo-info-with-circle;
+    }
+}
+.entypo-leaf {
+    &:before {
+        content: $entypo-leaf;
+    }
+}
+.entypo-light-bulb {
+    &:before {
+        content: $entypo-light-bulb;
+    }
+}
+.entypo-link {
+    &:before {
+        content: $entypo-link;
+    }
+}
+.entypo-list {
+    &:before {
+        content: $entypo-list;
+    }
+}
+.entypo-location-pin {
+    &:before {
+        content: $entypo-location-pin;
+    }
+}
+.entypo-lock-open {
+    &:before {
+        content: $entypo-lock-open;
+    }
+}
+.entypo-lock {
+    &:before {
+        content: $entypo-lock;
+    }
+}
+.entypo-log-out {
+    &:before {
+        content: $entypo-log-out;
+    }
+}
+.entypo-login {
+    &:before {
+        content: $entypo-login;
+    }
+}
+.entypo-magnifying-glass {
+    &:before {
+        content: $entypo-magnifying-glass;
+    }
+}
+.entypo-megaphone {
+    &:before {
+        content: $entypo-megaphone;
+    }
+}
+.entypo-message {
+    &:before {
+        content: $entypo-message;
+    }
+}
+.entypo-paper-plane {
+    &:before {
+        content: $entypo-paper-plane;
+    }
+}
+.entypo-pencil {
+    &:before {
+        content: $entypo-pencil;
+    }
+}
+.entypo-price-tag {
+    &:before {
+        content: $entypo-price-tag;
+    }
+}
+.entypo-reply-all {
+    &:before {
+        content: $entypo-reply-all;
+    }
+}
+.entypo-reply {
+    &:before {
+        content: $entypo-reply;
+    }
+}
+.entypo-scissors {
+    &:before {
+        content: $entypo-scissors;
+    }
+}
+.entypo-share {
+    &:before {
+        content: $entypo-share;
+    }
+}
+.entypo-squared-plus {
+    &:before {
+        content: $entypo-squared-plus;
+    }
+}
+.entypo-star-outlined {
+    &:before {
+        content: $entypo-star-outlined;
+    }
+}
+.entypo-star {
+    &:before {
+        content: $entypo-star;
+    }
+}
+.entypo-text-document-inverted {
+    &:before {
+        content: $entypo-text-document-inverted;
+    }
+}
+.entypo-thumbs-down {
+    &:before {
+        content: $entypo-thumbs-down;
+    }
+}
+.entypo-thumbs-up {
+    &:before {
+        content: $entypo-thumbs-up;
+    }
+}
+.entypo-user {
+    &:before {
+        content: $entypo-user;
+    }
+}
+.entypo-users {
+    &:before {
+        content: $entypo-users;
+    }
+}
