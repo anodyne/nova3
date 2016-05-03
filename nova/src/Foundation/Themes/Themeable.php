@@ -1,4 +1,4 @@
-<?php namespace Nova\Foundation\Services\Themes;
+<?php namespace Nova\Foundation\Themes;
 
 use Page, MenuItem;
 

@@ -110,7 +110,7 @@ class MakeThemeCommand extends Command {
 	private function createFileFromStub($stub, array $replacements = [], $path, $fileName)
 	{
 		// Grab the content from the generator
-		$content = $this->files->get(app_path("Foundation/Services/Themes/stubs/{$stub}.stub"));
+		$content = $this->files->get(app_path("Foundation/Themes/stubs/{$stub}.stub"));
 
 		if (count($replacements) > 0)
 		{

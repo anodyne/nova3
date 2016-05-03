@@ -11,12 +11,12 @@ use Nova\Core\Forms\Services\FieldTypes,
 	Nova\Core\Pages\Services\Compilers\PageCompiler,
 	Nova\Core\Settings\Services\Compilers\SettingCompiler,
 	Nova\Core\Pages\Services\Compilers\PageContentCompiler;
+use Nova\Foundation\Themes\Theme as BaseTheme,
+	Nova\Foundation\Themes\Exceptions\MissingThemeImplementationException;
 use Nova\Foundation\Nova,
 	Nova\Foundation\Services\FlashNotifier,
 	Nova\Foundation\Services\MarkdownParser,
 	Nova\Foundation\Services\Locator\Locator,
-	Nova\Foundation\Services\Themes\Theme as BaseTheme,
-	Nova\Foundation\Services\Themes\MissingThemeImplementationException,
 	Nova\Foundation\Services\PageCompiler\CompilerEngine,
 	Nova\Foundation\Services\PageCompiler\Compilers\IconCompiler;
 
@@ -283,15 +283,24 @@ class NovaServiceProvider extends ServiceProvider {
 			$theme = new BaseTheme($themeName, $this->app, $this->app['nova.locator']);
 
 			// Get some information about this particular class
-			$class = new ReflectionClass('Nova\Foundation\Services\Themes\Theme');
+			$class = new ReflectionClass('Nova\Foundation\Themes\Theme');
 		}
 
 		// Make sure that whatever class is handling the theme that it implements
 		// ALL of the necessary contracts, otherwise throw an exception
-		if ( ! $class->implementsInterface('Nova\Foundation\Services\Themes\Themeable') or
-				! $class->implementsInterface('Nova\Foundation\Services\Themes\ThemeableInfo'))
+		$contractsToImplement = [
+			'Nova\Foundation\Themes\ThemeIconsContract',
+			'Nova\Foundation\Themes\ThemeInfoContract',
+			'Nova\Foundation\Themes\ThemeMenusContract',
+			'Nova\Foundation\Themes\ThemeStructureContract',
+		];
+
+		foreach ($contractsToImplement as $contract)
 		{
-			throw new MissingThemeImplementationException;
+			if ( ! $class->implementsInterface($contract))
+			{
+				throw new MissingThemeImplementationException;
+			}
 		}
 
 		// Bind the existing instance into the container

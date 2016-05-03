@@ -1,6 +1,6 @@
-<?php namespace Nova\Foundation\Services\Themes;
+<?php namespace Nova\Foundation\Themes;
 
-use HTML, Page, MenuItem;
+use Auth, HTML, Page, MenuItem;
 use Exception;
 use Nova\Foundation\Services\Locator\Locatable;
 use Illuminate\Contracts\Foundation\Application;
@@ -81,7 +81,7 @@ class Theme implements Themeable, ThemeableInfo {
 	{
 		if ( ! is_object($this->layout))
 		{
-			throw new NoThemeStructureException;
+			throw new Exceptions\NoThemeStructureException;
 		}
 
 		$this->layout->template = $this->view->make($this->locate->template($view))
@@ -99,15 +99,36 @@ class Theme implements Themeable, ThemeableInfo {
 	 */
 	public function menu(Page $page = null)
 	{
+		\Debugbar::info("Menu called");
 		if ( ! is_object($this->layout->template))
 		{
-			throw new NoThemeTemplateException;
+			throw new Exceptions\NoThemeTemplateException;
 		}
 
 		if ($page === null)
 		{
 			return $this;
 		}
+
+		// Grab the menu item repo
+		$menuItemRepo = app('MenuItemRepository');
+
+		// Get the main menu items
+		$this->menuMainItems = $menuItemRepo->getMainMenuItems($page->menu);
+
+		// Get the sub menu items
+		$this->menuSubItems = $menuItemRepo->getSubMenuItems($page->menu);
+
+		// Build the menus
+		$this->buildMainMenu();
+		$this->buildSubMenu($page);
+		$this->buildCombinedMenu();
+		$this->buildUserMenu();
+
+		$this->layout->template->menuTop = partial('menu-top');
+		$this->layout->template->menuSide = partial('menu-side');
+
+		return $this;
 
 		// Grab the menu item repo
 		$menuItemRepo = app('MenuItemRepository');
@@ -127,6 +148,11 @@ class Theme implements Themeable, ThemeableInfo {
 			//return $item->parent->page_id == $page->id;
 		});
 
+		$this->buildUserMenu();
+		$this->buildMainMenu();
+		$this->buildSubMenu($page);
+		$this->buildCombinedMenu();
+
 		$data = [
 			'menuMainItems'	=> $this->menuMainItems,
 			'menuSubItems'	=> $menuSubItemsArr,
@@ -140,51 +166,6 @@ class Theme implements Themeable, ThemeableInfo {
 
 		$this->layout->template->menuCombined = $this->view->make($this->locate->partial('menu-combined'))
 			->with((array) $data);
-
-		return $this;
-	}
-
-	public function menuNew(Page $page = null)
-	{
-		/*if ( ! is_object($this->layout->template))
-		{
-			throw new NoThemeTemplateException;
-		}*/
-
-		if ($page === null)
-		{
-			return $this;
-		}
-
-		// Grab the menu item repo
-		$menuItemRepo = app('MenuItemRepository');
-
-		// Get the main menu items
-		$this->menuMainItems = $menuItemRepo->getMainMenuItems($page->menu);
-
-		// Get the sub menu items
-		$this->menuSubItems = $menuItemRepo->getSubMenuItems($page->menu);
-
-		return [
-			'menuMain' => $this->buildMainMenu(),
-			'menuSub' => $this->buildSubMenu($page),
-			'menuCombined' => $this->buildCombinedMenu(),
-		];
-
-		$this->layout->template->menuMain = view(
-			locate()->partial('menu-main'),
-			['menu' => $this->buildMainMenu()]
-		);
-
-		$this->layout->template->menuSub = view(
-			locate()->partial('menu-sub'),
-			['menu' => $this->buildSubMenu($page)]
-		);
-
-		$this->layout->template->menuCombined = view(
-			locate()->partial('menu-combined'),
-			['menu' => $this->buildCombinedMenu()]
-		);
 
 		return $this;
 	}
@@ -205,7 +186,7 @@ class Theme implements Themeable, ThemeableInfo {
 	{
 		if ( ! is_object($this->layout->template))
 		{
-			throw new NoThemeTemplateException;
+			throw new Exceptions\NoThemeTemplateException;
 		}
 
 		$this->layout->template->footer = $this->view->make($this->locate->partial('footer'))
@@ -226,7 +207,7 @@ class Theme implements Themeable, ThemeableInfo {
 	{
 		if ( ! is_object($this->layout->template))
 		{
-			throw new NoThemeTemplateException;
+			throw new Exceptions\NoThemeTemplateException;
 		}
 
 		$this->layout->template->content = $this->view->make($this->locate->page($view))
@@ -247,7 +228,7 @@ class Theme implements Themeable, ThemeableInfo {
 	{
 		if ( ! is_object($this->layout))
 		{
-			throw new NoThemeStructureException;
+			throw new Exceptions\NoThemeStructureException;
 		}
 
 		$this->layout->javascript = $this->view->make($this->locate->javascript($view))
@@ -260,7 +241,7 @@ class Theme implements Themeable, ThemeableInfo {
 	{
 		if ( ! is_object($this->layout))
 		{
-			throw new NoThemeStructureException;
+			throw new Exceptions\NoThemeStructureException;
 		}
 
 		$output = "";
@@ -281,7 +262,7 @@ class Theme implements Themeable, ThemeableInfo {
 	{
 		if ( ! is_object($this->layout->template))
 		{
-			throw new NoThemeTemplateException;
+			throw new Exceptions\NoThemeTemplateException;
 		}
 
 		return $this;
@@ -291,7 +272,7 @@ class Theme implements Themeable, ThemeableInfo {
 	{
 		if ( ! is_object($this->layout->template))
 		{
-			throw new NoThemeTemplateException;
+			throw new Exceptions\NoThemeTemplateException;
 		}
 
 		return $this;
@@ -301,7 +282,7 @@ class Theme implements Themeable, ThemeableInfo {
 	{
 		if ( ! is_object($this->layout))
 		{
-			throw new NoThemeStructureException;
+			throw new Exceptions\NoThemeStructureException;
 		}
 
 		$this->layout->styles = $this->view->make($this->locate->style($view))
@@ -314,7 +295,7 @@ class Theme implements Themeable, ThemeableInfo {
 	{
 		if ( ! is_object($this->layout))
 		{
-			throw new NoThemeStructureException;
+			throw new Exceptions\NoThemeStructureException;
 		}
 
 		$output = "";
@@ -335,7 +316,7 @@ class Theme implements Themeable, ThemeableInfo {
 	{
 		if ( ! is_object($this->layout->template))
 		{
-			throw new NoThemeTemplateException;
+			throw new Exceptions\NoThemeTemplateException;
 		}
 
 		$this->layout->template->panel = $this->view->make($this->locate->partial('panel'));
@@ -502,11 +483,11 @@ class Theme implements Themeable, ThemeableInfo {
 		];
 	}
 
-	public function renderIcon(string $icon, string $additionalClass)
+	public function renderIcon(string $icon, string $additionalClass = null)
 	{
 		$iconCode = $this->getIcon($icon);
 
-		return HTML::tag('i', null, ['class' => "{$iconCode} {$additionalClass}"]);
+		return HTML::tag('i', '', ['class' => "{$iconCode} {$additionalClass}"]);
 	}
 
 	public function button($text, $icon, array $attributes)
@@ -562,6 +543,11 @@ class Theme implements Themeable, ThemeableInfo {
 			$menu->add($this->buildMenuItem($mainMenuItem));
 		}
 
+		MenuBuilder::macro('mainMenu', function () use ($menu)
+		{
+			return $menu;
+		});
+
 		return $menu;
 	}
 
@@ -580,6 +566,11 @@ class Theme implements Themeable, ThemeableInfo {
 		{
 			$menu->add($this->buildMenuItem($subMenuItem, 'list-group-item'));
 		}
+
+		MenuBuilder::macro('subMenu', function () use ($menu)
+		{
+			return $menu;
+		});
 
 		return $menu;
 	}
@@ -626,7 +617,53 @@ class Theme implements Themeable, ThemeableInfo {
 			}
 		}
 
+		MenuBuilder::macro('combinedMenu', function () use ($menu)
+		{
+			return $menu;
+		});
+
 		return $menu;
+	}
+
+	public function buildUserMenu()
+	{
+		$menu = MenuBuilder::new()->addClass('nav navbar-nav navbar-right');
+
+		if (Auth::check())
+		{
+			$menu->add(LinkBuilder::url('#', $this->renderIcon('notifications')));
+
+			// Build the text for the header link
+			$headerText = sprintf('%s %s', 
+				Auth::user()->present()->name,
+				HtmlBuilder::raw('<span class="caret"></span>')->render()
+			);
+
+			// Build the header for the sub menu
+			$header = LinkBuilder::to('#', $headerText)
+				->addClass('dropdown-toggle')
+				//->addParentClass('dropdown')
+				->setAttribute('data-toggle', 'dropdown');
+
+			$submenu = MenuBuilder::new()->addClass('dropdown-menu');
+			$submenu->prepend($header);
+
+			$submenu->add(LinkBuilder::url('#', "My Account"));
+			$submenu->add(LinkBuilder::route('admin.users.preferences', "My Preferences"));
+			$submenu->add(HtmlBuilder::raw('')->addParentClass('divider'));
+			$submenu->add(LinkBuilder::route('logout', "Logout"));
+
+			$menu->add($submenu);
+		}
+		else
+		{
+			$menu->add(LinkBuilder::route('login', "Log In"));
+		}
+
+		MenuBuilder::macro('userMenu', function () use ($menu)
+		{
+			return $menu;
+		});
 	}
 
 	public function buildMenuItem(MenuItem $item, $class = false)

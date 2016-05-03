@@ -28,15 +28,15 @@ class RenderController {
 			{
 				$this->buildThemeStructure();
 				$this->buildThemeTemplate();
-				$this->buildThemeMenu();
-				$this->buildThemeAdminMenu();
+				$this->buildThemePublicMenu();
+				//$this->buildThemeAdminMenu();
 				$this->buildThemePage();
 				
 				$this->buildJavascript();
-				$this->buildThemeJavascript();
+				//$this->buildThemeJavascript();
 				
 				$this->buildStyles();
-				$this->buildThemeStyles();
+				//$this->buildThemeStyles();
 
 				$this->buildThemeFooter();
 				//$this->buildThemePanel();
@@ -52,7 +52,7 @@ class RenderController {
 
 	protected function buildThemeStructure()
 	{
-		$this->theme = app('nova.theme')->structure($this->controller->structureView, (array) $this->controller->structureData);
+		$this->theme = theme()->structure($this->controller->structureView, (array) $this->controller->structureData);
 	}
 
 	protected function buildThemeTemplate()
@@ -60,9 +60,9 @@ class RenderController {
 		$this->theme = $this->theme->template($this->controller->templateView, (array) $this->controller->templateData);
 	}
 
-	protected function buildThemeMenu()
+	protected function buildThemePublicMenu()
 	{
-		$this->theme = $this->theme->menu($this->controller->page);
+		$this->theme = $this->theme->publicMenu($this->controller->page);
 	}
 
 	protected function buildThemeAdminMenu()
@@ -108,7 +108,7 @@ class RenderController {
 
 	protected function buildJavascript()
 	{
-		$this->theme = $this->theme->javascript($this->controller->scripts);
+		$this->theme = $this->theme->scripts($this->controller->scripts);
 	}
 
 	protected function buildStyles()
