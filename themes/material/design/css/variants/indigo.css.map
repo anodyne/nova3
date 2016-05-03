@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAIA,eAAgB,CACf,gBAAgB,CCmEE,OAAO,CDjEzB,6BAAc,CACb,KAAK,CC4RO,IAAO,CDvRlB,gCAAG,CACF,KAAK,CCuDU,OAAO,CDrDtB,sCAAQ,CACP,KAAK,CCkDS,OAAO,CD3C1B,MAAO,CACN,gBAAgB,CC6CE,OAAO,CDzCzB,eAAG,CACF,KAAK,CCwCY,OAAO",
+"sources": ["../../scss/variants/indigo.scss","../../../../../nova/resources/views/design/scss/_colors.scss"],
+"names": [],
+"file": "indigo.css"
+}

@@ -1,6 +1,5 @@
 @import "../../../../nova/resources/views/design/scss/colors";
-@import "mixins";
-@import "variables";
+@import "mixins", "variables";
 
 body {
 	padding-top: 5rem;
@@ -77,16 +76,10 @@ main {
 	text-transform: uppercase;
 
 	@include rounded($border-radius);
-	@include btn-pseudo-states($color-grey-600, transparent, transparent);
 
-	&.btn-danger {
-		@include btn-pseudo-states-text($color-danger, transparent, transparent);
-	}
-	&.btn-primary {
-		@include btn-pseudo-states($color-white, $color-grey-600, $color-grey-600);
-	}
-	&.btn-success {
-		@include btn-pseudo-states-text($color-success, transparent, transparent);
+	&.btn-default {
+		@include btn-pseudo-states-text($color-grey-800, transparent, transparent);
+		@include clear-box-shadow;
 	}
 }
 

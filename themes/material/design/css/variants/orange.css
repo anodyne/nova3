@@ -1,20 +1,2 @@
-.navbar-default {
-  background-color: #f57c00;
-}
-.navbar-default .navbar-brand {
-  color: #ffffff;
-}
-.navbar-default .navbar-nav > li > a {
-  color: #ffa726;
-}
-.navbar-default .navbar-nav > li > a:hover {
-  color: #ffcc80;
-}
-
-header {
-  background-color: #ff9800;
-}
-
-.page-header h1 {
-  color: #ff9800;
-}
+.navbar-default{background-color:#f57c00}.navbar-default .navbar-brand{color:#fff}.navbar-default .navbar-nav>li>a{color:#ffa726}.navbar-default .navbar-nav>li>a:hover{color:#ffcc80}header{background-color:#ff9800}.page-header h1{color:#ff9800}
+/*# sourceMappingURL=orange.css.map */

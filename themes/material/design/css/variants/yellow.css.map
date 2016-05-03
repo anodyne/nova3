@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAIA,eAAgB,CACf,gBAAgB,CCmME,OAAO,CDjMzB,6BAAc,CACb,KAAK,CC4RO,IAAO,CDvRlB,gCAAG,CACF,KAAK,CCuLU,OAAO,CDrLtB,sCAAQ,CACP,KAAK,CCkLS,OAAO,CD3K1B,MAAO,CACN,gBAAgB,CC6KE,OAAO,CDzKzB,eAAG,CACF,KAAK,CCwKY,OAAO",
+"sources": ["../../scss/variants/yellow.scss","../../../../../nova/resources/views/design/scss/_colors.scss"],
+"names": [],
+"file": "yellow.css"
+}

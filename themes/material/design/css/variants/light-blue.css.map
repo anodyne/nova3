@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAIA,eAAgB,CACf,gBAAgB,CCmGM,OAAO,CDjG7B,6BAAc,CACb,KAAK,CC4RO,IAAO,CDvRlB,gCAAG,CACF,KAAK,CCuFc,OAAO,CDrF1B,sCAAQ,CACP,KAAK,CCkFa,OAAO,CD3E9B,MAAO,CACN,gBAAgB,CC6EM,OAAO,CDzE7B,eAAG,CACF,KAAK,CCwEgB,OAAO",
+"sources": ["../../scss/variants/light-blue.scss","../../../../../nova/resources/views/design/scss/_colors.scss"],
+"names": [],
+"file": "light-blue.css"
+}

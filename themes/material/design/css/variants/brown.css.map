@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAIA,eAAgB,CACf,gBAAgB,CCmQC,OAAO,CDjQxB,6BAAc,CACb,KAAK,CC4RO,IAAO,CDvRlB,gCAAG,CACF,KAAK,CCuPS,OAAO,CDrPrB,sCAAQ,CACP,KAAK,CCkPQ,OAAO,CD3OzB,MAAO,CACN,gBAAgB,CC6OC,OAAO,CDzOxB,eAAG,CACF,KAAK,CCwOW,OAAO",
+"sources": ["../../scss/variants/brown.scss","../../../../../nova/resources/views/design/scss/_colors.scss"],
+"names": [],
+"file": "brown.css"
+}

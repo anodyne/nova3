@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAIA,eAAgB,CACf,gBAAgB,CC2RK,OAAO,CDzR5B,6BAAc,CACb,KAAK,CC4RO,IAAO,CDvRlB,gCAAG,CACF,KAAK,CC+Qa,OAAO,CD7QzB,sCAAQ,CACP,KAAK,CC0QY,OAAO,CDnQ7B,MAAO,CACN,gBAAgB,CCqQK,OAAO,CDjQ5B,eAAG,CACF,KAAK,CCgQe,OAAO",
+"sources": ["../../scss/variants/blue-grey.scss","../../../../../nova/resources/views/design/scss/_colors.scss"],
+"names": [],
+"file": "blue-grey.css"
+}

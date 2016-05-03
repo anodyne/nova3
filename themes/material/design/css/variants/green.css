@@ -1,20 +1,2 @@
-.navbar-default {
-  background-color: #388e3c;
-}
-.navbar-default .navbar-brand {
-  color: #ffffff;
-}
-.navbar-default .navbar-nav > li > a {
-  color: #66bb6a;
-}
-.navbar-default .navbar-nav > li > a:hover {
-  color: #a5d6a7;
-}
-
-header {
-  background-color: #4caf50;
-}
-
-.page-header h1 {
-  color: #4caf50;
-}
+.navbar-default{background-color:#388e3c}.navbar-default .navbar-brand{color:#fff}.navbar-default .navbar-nav>li>a{color:#66bb6a}.navbar-default .navbar-nav>li>a:hover{color:#a5d6a7}header{background-color:#4caf50}.page-header h1{color:#4caf50}
+/*# sourceMappingURL=green.css.map */
