@@ -160,6 +160,10 @@ body {
   color: #444;
 }
 
+.navbar-nav > li > a > i {
+  padding-right: 0.5rem;
+}
+
 h1 {
   font-family: "Roboto Slab";
   font-weight: 700;
@@ -189,6 +193,9 @@ dl dd {
   -moz-border-radius: 0.4rem;
   -ms-border-radius: 0.4rem;
   border-radius: 0.4rem;
+}
+.btn i {
+  padding-right: 0.5rem;
 }
 .btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus {
   outline: none !important;
@@ -572,3 +579,5 @@ fieldset .fieldset-content {
   font-size: 1.2rem;
   font-weight: 500;
 }
+
+/*# sourceMappingURL=base.style.css.map */
