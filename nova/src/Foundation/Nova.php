@@ -7,35 +7,35 @@ class Nova {
 	public function javascriptValues()
 	{
 		// Grab the user so we can manually build the user object
-		$user = user();
+		$currentUser = user();
 
-		// Nova's global variables
-		$global = ['global' => [
+		// Nova's system variables
+		$system = ['system' => [
 			'version' => config('nova.app.version.full'),
 			'baseUrl' => app('request')->root(),
 			'token' => csrf_token(),
 			'genre' => config('nova.genre'),
 		]];
 
-		if ($user)
+		if ($currentUser)
 		{
-			$global['user'] = [
+			$user = ['user' => [
 				'name' => $user->present()->name,
 				'nickname' => $user->nickname,
 				'realName' => $user->name,
 				'email' => $user->email,
 				'status' => Status::toString($user->status),
-			];
+			]];
 		}
 		else
 		{
-			$global['user'] = [
+			$user = ['user' => [
 				'name' => null,
 				'nickname' => null,
 				'realName' => null,
 				'email' => null,
 				'status' => null,
-			];
+			]];
 		}
 
 		// Nova's API options
@@ -44,7 +44,7 @@ class Nova {
 		// Nova's controller data
 		$data = ['data' => (array) app('nova.controller')->jsData];
 
-		return array_merge($global, $api, $data);
+		return array_merge($system, $user, $api, $data);
 	}
 
 }
