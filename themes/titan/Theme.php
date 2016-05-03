@@ -51,7 +51,7 @@ class Theme extends BaseTheme {
 			'reply-all'		=> 'reply-all',
 			'search'		=> 'magnifying-glass',
 			'send'			=> 'paper-plane',
-			'setting'		=> 'cog',
+			'settings'		=> 'cog',
 			'share'			=> 'share',
 			'sign-in'		=> 'login',
 			'sign-out'		=> 'log-out',

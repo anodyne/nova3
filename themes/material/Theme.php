@@ -52,7 +52,7 @@ class Theme extends BaseTheme {
 			'reply-all'		=> 'reply_all',
 			'search'		=> 'search',
 			'send'			=> 'send',
-			'setting'		=> 'settings',
+			'settings'		=> 'settings',
 			'share'			=> 'share',
 			'sign-in'		=> 'power_settings_new',
 			'sign-out'		=> 'power_settings_new',

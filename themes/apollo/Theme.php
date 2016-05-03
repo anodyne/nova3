@@ -52,7 +52,7 @@ class Theme extends BaseTheme {
 			'reply-all'		=> 'reply-all',
 			'search'		=> 'search3',
 			'send'			=> 'paperplane',
-			'setting'		=> 'cog2',
+			'settings'		=> 'cog2',
 			'share'			=> 'share3',
 			'sign-in'		=> 'enter',
 			'sign-out'		=> 'exit',
