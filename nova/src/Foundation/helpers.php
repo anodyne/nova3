@@ -1,15 +1,5 @@
 <?php
 
-use Illuminate\Support\Debug\Dumper;
-
-if ( ! function_exists('alias'))
-{
-	function alias($aliasName)
-	{
-		return config("app.aliases.{$aliasName}");
-	}
-}
-
 if ( ! function_exists('alert'))
 {
 	function alert($level, $content, $header = false)
@@ -20,14 +10,65 @@ if ( ! function_exists('alert'))
 	}
 }
 
+if ( ! function_exists('alias'))
+{
+	function alias($aliasName)
+	{
+		return config("app.aliases.{$aliasName}");
+	}
+}
+
+if ( ! function_exists('check_directories'))
+{
+	function check_directories()
+	{
+		$directories = [
+			nova_path('bootstrap/cache'),
+			storage_path('framework'),
+			storage_path('framework/views'),
+		];
+
+		foreach ($directories as $dir)
+		{
+			if ( ! is_writable($dir))
+			{
+				dd("The [$dir] directory must be writable in order to continue. Please set permissions on the directory to 777.");
+			}
+		}
+	}
+}
+
+if ( ! function_exists('compile'))
+{
+	function compile($text)
+	{
+		return app('nova.page.compiler')->compile($text);
+	}
+}
+
 if ( ! function_exists('d'))
 {
 	function d()
 	{
 		array_map(function ($x)
 		{
-			(new Dumper)->dump($x);
+			(new Illuminate\Support\Debug\Dumper)->dump($x);
 		}, func_get_args());
+	}
+}
+
+if ( ! function_exists('display_flash_message'))
+{
+	function display_flash_message($level = false, $content = false, $header = false)
+	{
+		if (Session::has('flash.message'))
+		{
+			$level = ( ! Session::has('flash.level')) ? $level : Session::get('flash.level');
+			$content = ( ! Session::has('flash.message')) ? $content : Session::get('flash.message');
+			$header = ( ! Session::has('flash.header')) ? $header : Session::get('flash.header');
+
+			return partial('flash', compact('level', 'content', 'header'));
+		}
 	}
 }
 
@@ -57,29 +98,11 @@ if ( ! function_exists('flash'))
 	}
 }
 
-if ( ! function_exists('display_flash_message'))
-{
-	function display_flash_message($level = false, $content = false, $header = false)
-	{
-		if (Session::has('flash.message'))
-		{
-			$level = ( ! Session::has('flash.level')) ? $level : Session::get('flash.level');
-			$content = ( ! Session::has('flash.message')) ? $content : Session::get('flash.message');
-			$header = ( ! Session::has('flash.header')) ? $header : Session::get('flash.header');
-
-			return partial('flash', compact('level', 'content', 'header'));
-		}
-	}
-}
-
 if ( ! function_exists('icon'))
 {
 	function icon($icon, $additional = null)
 	{
-		// Grab the icon item out of the theme icon map
-		$icon = app('nova.theme')->getIcon($icon);
-
-		return partial('icon', compact('icon', 'additional'));
+		return theme()->renderIcon($icon, $additional);
 	}
 }
 
@@ -88,6 +111,22 @@ if ( ! function_exists('label'))
 	function label($type, $content)
 	{
 		return partial('label', compact('type', 'content'));
+	}
+}
+
+if ( ! function_exists('locate'))
+{
+	function locate($type = false, $view = false)
+	{
+		// Get an instance of the locator
+		$locator = app('nova.locator');
+
+		if ( ! $type)
+		{
+			return $locator;
+		}
+
+		return $locator->{$type}($view);
 	}
 }
 
@@ -128,23 +167,11 @@ if ( ! function_exists('partial'))
 	}
 }
 
-if ( ! function_exists('check_directories'))
+if ( ! function_exists('theme'))
 {
-	function check_directories()
+	function theme()
 	{
-		$directories = [
-			nova_path('bootstrap/cache'),
-			storage_path('framework'),
-			storage_path('framework/views'),
-		];
-
-		foreach ($directories as $dir)
-		{
-			if ( ! is_writable($dir))
-			{
-				dd("The [$dir] directory must be writable in order to continue. Please set permissions on the directory to 777.");
-			}
-		}
+		return app('nova.theme');
 	}
 }
 
@@ -154,26 +181,10 @@ if ( ! function_exists('theme_path'))
 	{
 		if ($relative)
 		{
-			return app()->themeRelativePath(app('nova.theme')->getLocation(true)."/{$location}");
+			return app()->themeRelativePath(theme()->location."/{$location}");
 		}
 
-		return app()->themePath(app('nova.theme')->getLocation(true)."/{$location}");
-	}
-}
-
-if ( ! function_exists('locate'))
-{
-	function locate($type = false, $view = false)
-	{
-		// Get an instance of the locator
-		$locator = app('nova.locator');
-
-		if ( ! $type)
-		{
-			return $locator;
-		}
-
-		return $locator->{$type}($view);
+		return app()->themePath(theme()->location."/{$location}");
 	}
 }
 
@@ -182,14 +193,6 @@ if ( ! function_exists('user'))
 	function user()
 	{
 		return app('nova.user');
-	}
-}
-
-if ( ! function_exists('compile'))
-{
-	function compile($text)
-	{
-		return app('nova.page.compiler')->compile($text);
 	}
 }
 
