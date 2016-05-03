@@ -7,28 +7,28 @@
 <div v-cloak>
 	<mobile>
 		@can('create', $item)
-			<p><a href="{{ route('admin.menus.items.create', [$menu->id]) }}" class="btn btn-success btn-lg btn-block">Add a Menu Item</a></p>
-			<p><a href="#" class="btn btn-success btn-lg btn-block js-createMenuItemDivider" data-menu="{{ $menu->id }}">Add a Divider</a></p>
+			<p><a href="{{ route('admin.menus.items.create', [$menu->id]) }}" class="btn btn-success btn-lg btn-block">{!! icon('add') !!}<span>Add a Menu Item</span></a></p>
+			<p><a href="#" class="btn btn-success btn-lg btn-block js-createMenuItemDivider" data-menu="{{ $menu->id }}">{!! icon('add') !!}<span>Add a Divider</span></a></p>
 		@endcan
 
 		@can('manage', $menu)
-			<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Back to Menus</a></p>
+			<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">{!! icon('arrow-back') !!}<span>Back to Menus</span></a></p>
 		@endcan
 	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			@can('create', $item)
 				<div class="btn-group">
-					<a href="{{ route('admin.menus.items.create', [$menu->id]) }}" class="btn btn-success">Add a Menu Item</a>
+					<a href="{{ route('admin.menus.items.create', [$menu->id]) }}" class="btn btn-success">{!! icon('add') !!}<span>Add a Menu Item</span></a>
 				</div>
 				<div class="btn-group">
-					<a href="#" class="btn btn-default js-createMenuItemDivider" data-menu="{{ $menu->id }}">Add a Divider</a>
+					<a href="#" class="btn btn-default js-createMenuItemDivider" data-menu="{{ $menu->id }}">{!! icon('add') !!}<span>Add a Divider</span></a>
 				</div>
 			@endcan
 
 			@can('manage', $menu)
 				<div class="btn-group">
-					<a href="{{ route('admin.menus') }}" class="btn btn-default">Back to Menus</a>
+					<a href="{{ route('admin.menus') }}" class="btn btn-default">{!! icon('arrow-back') !!}<span>Back to Menus</span></a>
 				</div>
 			@endcan
 		</div>

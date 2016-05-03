@@ -17,7 +17,8 @@
 	</div>
 
 	<div class="form-group">
-		{!! Form::button('Reset Password', ['type' => 'submit', 'class' => 'btn btn-primary btn-lg btn-block']) !!}
+		<button type="submit" class="btn btn-primary btn-lg btn-block">{!! icon('lock') !!} Reset Password</button>
+		
 		<a href="{{ route('home') }}" class="btn btn-link btn-lg btn-block">Cancel</a>
 	</div>
 {!! Form::close() !!}

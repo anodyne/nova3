@@ -11,21 +11,21 @@
 <div v-else v-cloak>
 	<mobile>
 		@if ($_user->can('access.create'))
-			<p><a href="{{ route('admin.access.permissions.create') }}" class="btn btn-success btn-lg btn-block">Add a Permission</a></p>
+			<p><a href="{{ route('admin.access.permissions.create') }}" class="btn btn-success btn-lg btn-block">{!! icon('add') !!}<span>Add a Permission</span></a></p>
 		@endif
 
-		<p><a href="{{ route('admin.access.roles') }}" class="btn btn-default btn-lg btn-block">Manage Roles</a></p>
+		<p><a href="{{ route('admin.access.roles') }}" class="btn btn-default btn-lg btn-block">{!! icon('lock') !!}<span>Manage Roles</span></a></p>
 	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			@if ($_user->can('access.create'))
 				<div class="btn-group">
-					<a href="{{ route('admin.access.permissions.create') }}" class="btn btn-success">Add a Permission</a>
+					<a href="{{ route('admin.access.permissions.create') }}" class="btn btn-success">{!! icon('add') !!}<span>Add a Permission</span></a>
 				</div>
 			@endif
 
 			<div class="btn-group">
-				<a href="{{ route('admin.access.roles') }}" class="btn btn-default">Manage Roles</a>
+				<a href="{{ route('admin.access.roles') }}" class="btn btn-default">{!! icon('lock') !!}<span>Manage Roles</span></a>
 			</div>
 		</div>
 	</desktop>
@@ -67,13 +67,13 @@
 							<div class="row">
 								@if ($_user->can('access.edit'))
 									<div class="col-sm-6">
-										<p><a href="@{{ permission.links.edit }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
+										<p><a href="@{{ permission.links.edit }}" class="btn btn-default btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
 									</div>
 								@endif
 
 								@if ($_user->can('access.remove'))
 									<div class="col-sm-6" v-show="!permission.protected">
-										<p><a href="#" class="btn btn-danger btn-lg btn-block" @click.prevent="removePermission(permission.id)">Remove</a></p>
+										<p><a href="#" class="btn btn-danger btn-lg btn-block" @click.prevent="removePermission(permission.id)">{!! icon('delete') !!}<span>Remove</span></a></p>
 									</div>
 								@endif
 							</div>
@@ -82,13 +82,13 @@
 							<div class="btn-toolbar pull-right">
 								@if ($_user->can('access.edit'))
 									<div class="btn-group">
-										<a href="@{{ permission.links.edit }}" class="btn btn-default">Edit</a>
+										<a href="@{{ permission.links.edit }}" class="btn btn-default">{!! icon('edit') !!}<span>Edit</span></a>
 									</div>
 								@endif
 
 								@if ($_user->can('access.remove'))
 									<div class="btn-group" v-show="!permission.protected">
-										<a href="#" class="btn btn-danger" @click.prevent="removePermission(permission.id)">Remove</a>
+										<a href="#" class="btn btn-danger" @click.prevent="removePermission(permission.id)">{!! icon('delete') !!}<span>Remove</span></a>
 									</div>
 								@endif
 							</div>

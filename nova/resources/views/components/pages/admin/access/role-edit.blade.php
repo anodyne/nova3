@@ -1,11 +1,11 @@
 <div v-cloak>
 	<mobile>
-		<p><a href="{{ route('admin.access.roles') }}" class="btn btn-default btn-lg btn-block">Back to Roles</a></p>
+		<p><a href="{{ route('admin.access.roles') }}" class="btn btn-default btn-lg btn-block">{!! icon('arrow-back') !!}<span>Back to Roles</span></a></p>
 	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			<div class="btn-group">
-				<a href="{{ route('admin.access.roles') }}" class="btn btn-default">Back to Roles</a>
+				<a href="{{ route('admin.access.roles') }}" class="btn btn-default">{!! icon('arrow-back') !!}<span>Back to Roles</span></a>
 			</div>
 		</div>
 	</desktop>

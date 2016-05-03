@@ -1,12 +1,12 @@
 @can('create', $menu)
 	<div v-cloak>
 		<mobile>
-			<p><a href="{{ route('admin.menus.create') }}" class="btn btn-success btn-lg btn-block">Add a Menu</a></p>
+			<p><a href="{{ route('admin.menus.create') }}" class="btn btn-success btn-lg btn-block">{!! icon('add') !!}<span>Add a Menu</span></a></p>
 		</mobile>
 		<desktop>
 			<div class="btn-toolbar">
 				<div class="btn-group">
-					<a href="{{ route('admin.menus.create') }}" class="btn btn-success">Add a Menu</a>
+					<a href="{{ route('admin.menus.create') }}" class="btn btn-success">{!! icon('add') !!}<span>Add a Menu</span></a>
 				</div>
 			</div>
 		</desktop>
@@ -25,7 +25,7 @@
 				<div class="row">
 					@can('edit', $menu)
 						<div class="col-xs-12">
-							<p><a href="{{ route('admin.menus.edit', [$menu->id]) }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
+							<p><a href="{{ route('admin.menus.edit', [$menu->id]) }}" class="btn btn-default btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
 						</div>
 					@endcan
 
@@ -43,7 +43,7 @@
 
 					@can('remove', $menu)
 						<div class="col-xs-12">
-							<p><a href="#" class="btn btn-danger btn-lg btn-block js-menuAction" data-id="{{ $menu->id }}" data-action="remove">Remove</a></p>
+							<p><a href="#" class="btn btn-danger btn-lg btn-block js-menuAction" data-id="{{ $menu->id }}" data-action="remove">{!! icon('delete') !!}<span>Remove</span></a></p>
 						</div>
 					@endcan
 				</div>
@@ -52,7 +52,7 @@
 				<div class="btn-toolbar pull-right">
 					@can('edit', $menu)
 						<div class="btn-group">
-							<a href="{{ route('admin.menus.edit', [$menu->id]) }}" class="btn btn-default">Edit</a>
+							<a href="{{ route('admin.menus.edit', [$menu->id]) }}" class="btn btn-default">{!! icon('edit') !!}<span>Edit</span></a>
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 								<span class="caret"></span>
 								<span class="sr-only">Toggle Dropdown</span>
@@ -71,7 +71,7 @@
 
 					@can('remove', $menu)
 						<div class="btn-group">
-							<a href="#" class="btn btn-danger js-menuAction" data-id="{{ $menu->id }}" data-action="remove">Remove</a>
+							<a href="#" class="btn btn-danger js-menuAction" data-id="{{ $menu->id }}" data-action="remove">{!! icon('delete') !!}<span>Remove</span></a>
 						</div>
 					@endcan
 				</div>

@@ -1,11 +1,11 @@
 <div v-cloak>
 	<mobile>
-		<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">Back to Menu Manager</a></p>
+		<p><a href="{{ route('admin.menus') }}" class="btn btn-default btn-lg btn-block">{!! icon('arrow-back') !!}<span>Back to Menus</span></a></p>
 	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			<div class="btn-group">
-				<a href="{{ route('admin.menus') }}" class="btn btn-default">Back to Menu Manager</a>
+				<a href="{{ route('admin.menus') }}" class="btn btn-default">{!! icon('arrow-back') !!}<span>Back to Menus</span></a>
 			</div>
 		</div>
 	</desktop>

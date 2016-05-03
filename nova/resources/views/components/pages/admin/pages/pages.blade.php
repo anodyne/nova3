@@ -11,21 +11,21 @@
 <div v-else v-cloak>
 	<mobile>
 		@can('create', $page)
-			<p><a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg btn-block">Add a Page</a></p>
+			<p><a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg btn-block">{!! icon('add') !!}<span>Add a Page</span></a></p>
 		@endcan
 
-		<p><a href="{{ route('admin.content') }}" class="btn btn-default btn-lg btn-block">Manage Additional Content</a></p>
+		<p><a href="{{ route('admin.content') }}" class="btn btn-default btn-lg btn-block">{!! icon('list') !!}<span>Manage Additional Content</span></a></p>
 	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			@can('create', $page)
 				<div class="btn-group">
-					<a href="{{ route('admin.pages.create') }}" class="btn btn-success">Add a Page</a>
+					<a href="{{ route('admin.pages.create') }}" class="btn btn-success">{!! icon('add') !!}<span>Add a Page</span></a>
 				</div>
 			@endcan
 
 			<div class="btn-group">
-				<a href="{{ route('admin.content') }}" class="btn btn-default">Manage Additional Content</a>
+				<a href="{{ route('admin.content') }}" class="btn btn-default">{!! icon('list') !!}<span>Manage Additional Content</span></a>
 			</div>
 		</div>
 	</desktop>
@@ -86,13 +86,13 @@
 							<div class="row">
 								@can('edit', $page)
 									<div class="col-sm-6">
-										<p><a href="@{{ page.links.edit }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
+										<p><a href="@{{ page.links.edit }}" class="btn btn-default btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
 									</div>
 								@endcan
 
 								@can('remove', $page)
 									<div class="col-sm-6" v-show="!page.protected">
-										<p><a href="#" class="btn btn-danger btn-lg btn-block" @click.prevent="removePage(page.id)">Remove</a></p>
+										<p><a href="#" class="btn btn-danger btn-lg btn-block" @click.prevent="removePage(page.id)">{!! icon('delete') !!}<span>Remove</span></a></p>
 									</div>
 								@endcan
 							</div>
@@ -101,13 +101,13 @@
 							<div class="btn-toolbar pull-right">
 								@can('edit', $page)
 									<div class="btn-group">
-										<a href="@{{ page.links.edit }}" class="btn btn-default">Edit</a>
+										<a href="@{{ page.links.edit }}" class="btn btn-default">{!! icon('edit') !!}<span>Edit</span></a>
 									</div>
 								@endcan
 
 								@can('remove', $page)
 									<div class="btn-group" v-show="!page.protected">
-										<a href="#" class="btn btn-danger" @click.prevent="removePage(page.id)">Remove</a>
+										<a href="#" class="btn btn-danger" @click.prevent="removePage(page.id)">{!! icon('delete') !!}<span>Remove</span></a>
 									</div>
 								@endcan
 							</div>
