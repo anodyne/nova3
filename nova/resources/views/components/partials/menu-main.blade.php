@@ -10,13 +10,8 @@
 			<a href="{{ route('home') }}" class="navbar-brand">{{ $_content->get('sim.name') }}</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
-			<ul class="nav navbar-nav">
-			@foreach ($items as $item)
-				<li>{!! $item->present()->anchorTag() !!}</li>
-			@endforeach
-			</ul>
-
-			{!! partial('menu-user') !!}
+			{!! MenuBuilder::mainMenu() !!}
+			{!! MenuBuilder::userMenu() !!}
 		</div>
 	</div>
 </nav>
