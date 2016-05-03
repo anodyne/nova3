@@ -6,6 +6,8 @@
  * NEXTGEN DEVELOPMENT!
  */
 
+Route::get('icons', 'Nova\Core\Game\Http\Controllers\HomeController@icons');
+
 Route::get('test', function ()
 {
 	$page = Page::find(9);
