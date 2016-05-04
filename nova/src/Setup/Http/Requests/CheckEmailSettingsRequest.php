@@ -22,13 +22,16 @@ class CheckEmailSettingsRequest extends Request {
 	public function rules()
 	{
 		return [
-			'mail_driver'		=> 'required|in:smtp,sendmail,mail,log',
-			'mail_sendmail'		=> 'required_if:mail_driver,sendmail',
-			'mail_host'			=> 'required_if:mail_driver,smtp',
-			'mail_port'			=> 'required_if:mail_driver,smtp|integer',
-			'mail_encryption'	=> 'required_if:mail_driver,smtp',
-			'mail_username'		=> 'required_if:mail_driver,smtp',
-			'mail_password'		=> 'required_if:mail_driver,smtp',
+			'mail_driver' => 'required|in:smtp,sendmail,mail,log,sparkpost,mailgun',
+			'mail_sendmail' => 'required_if:mail_driver,sendmail',
+			'mail_host' => 'required_if:mail_driver,smtp',
+			'mail_port' => 'required_if:mail_driver,smtp|integer',
+			'mail_encryption' => 'required_if:mail_driver,smtp',
+			'mail_username' => 'required_if:mail_driver,smtp',
+			'mail_password' => 'required_if:mail_driver,smtp',
+			'services_mailgun_domain' => 'required_if:mail_driver,mailgun',
+			'services_mailgun_secret' => 'required_if:mail_driver,mailgun',
+			'services_sparkpost_secret' => 'required_if:mail_driver,sparkpost',
 		];
 	}
 
@@ -44,6 +47,9 @@ class CheckEmailSettingsRequest extends Request {
 			'mail_encryption.required_if' => "Please enter the encryption type",
 			'mail_username.required_if' => "Please enter your username",
 			'mail_password.required_if' => "Please enter your password",
+			'services_mailgun_domain.required_if' => "Please enter your Mailgun domain",
+			'services_mailgun_secret.required_if' => "Please enter your Mailgun secret key",
+			'services_sparkpost_secret.required_if' => "Please enter your SparkPost secret key",
 		];
 	}
 

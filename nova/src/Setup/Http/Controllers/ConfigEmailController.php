@@ -18,14 +18,39 @@ class ConfigEmailController extends BaseController {
 
 		// Write the mail config
 		$writer->write('mail', [
-			"#MAIL_DRIVER#"			=> trim(Input::get('mail_driver')),
-			"#MAIL_HOST#"			=> trim(Input::get('mail_host')),
-			"#MAIL_PORT#"			=> trim(Input::get('mail_port')),
-			"#MAIL_ENCRYPTION#"		=> trim(Input::get('mail_encryption')),
-			"#MAIL_USERNAME#"		=> trim(Input::get('mail_username')),
-			"#MAIL_PASSWORD#"		=> trim(Input::get('mail_password')),
-			"#MAIL_SENDMAIL_PATH#"	=> trim(Input::get('mail_sendmail')),
+			"#MAIL_DRIVER#" => trim($request->get('mail_driver')),
+			"#MAIL_HOST#" => trim($request->get('mail_host')),
+			"#MAIL_PORT#" => trim($request->get('mail_port')),
+			"#MAIL_ENCRYPTION#" => trim($request->get('mail_encryption')),
+			"#MAIL_USERNAME#" => trim($request->get('mail_username')),
+			"#MAIL_PASSWORD#" => trim($request->get('mail_password')),
+			"#MAIL_SENDMAIL_PATH#" => trim($request->get('mail_sendmail')),
 		]);
+
+		// Grab the mail driver so we can do additional setup if necessary
+		$mailDriver = $request->get('mail_driver');
+
+		// Setup the services config file
+		switch ($mailDriver)
+		{
+			case 'mailgun':
+				$writer->write('services', [
+					"#MAILGUN_DOMAIN#" => trim($request->get('services_mailgun_domain')),
+					"#MAILGUN_SECRET#" => trim($request->get('services_mailgun_secret')),
+
+					"#SPARKPOST_SECRET#" => '',
+				]);
+			break;
+
+			case 'sparkpost':
+				$writer->write('services', [
+					"#SPARKPOST_SECRET#" => trim($request->get('services_sparkpost_secret')),
+
+					"#MAILGUN_DOMAIN#" => '',
+					"#MAILGUN_SECRET#" => '',
+				]);
+			break;
+		}
 
 		if ($files->exists(app('path.config').'/mail.php'))
 		{
