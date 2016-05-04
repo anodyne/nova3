@@ -8,6 +8,7 @@
 		"dingo/api": "1.0.*@dev",
 		"pespantelis/gravatar": "~1.0",
 		"ramsey/uuid": "~3.3",
+		"guzzlehttp/guzzle": "~5.3|~6.0",
 
 		"spatie/laravel-partialcache": "~1.2",
 		"spatie/laravel-medialibrary": "~4.0",
