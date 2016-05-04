@@ -374,8 +374,9 @@ hr.partial {
 	}
 
 	&.alert-info {
-		@include alert-variant($color-blue-100, $color-blue-200, $color-blue-700);
+		@include alert-variant($color-info, $color-info, $color-blue-800);
 	}
+	
 	&.alert-danger {
 		@include alert-variant($color-danger, $color-danger, $color-white);
 
@@ -384,9 +385,11 @@ hr.partial {
 			color: $color-red-600;
 		}
 	}
+	
 	&.alert-success {
 		@include alert-variant($color-success, $color-success, $color-white);
 	}
+
 	&.alert-warning {
 		@include alert-variant($color-warning, $color-warning, darken($color-amber-900, 15%));
 	}
