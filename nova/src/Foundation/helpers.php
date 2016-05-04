@@ -59,15 +59,21 @@ if ( ! function_exists('d'))
 
 if ( ! function_exists('display_flash_message'))
 {
-	function display_flash_message($level = false, $content = false, $header = false)
+	function display_flash_message($level = false, $content = false, $title = false)
 	{
-		if (Session::has('flash.message'))
+		if (Session::has('flash_message'))
 		{
-			$level = ( ! Session::has('flash.level')) ? $level : Session::get('flash.level');
-			$content = ( ! Session::has('flash.message')) ? $content : Session::get('flash.message');
-			$header = ( ! Session::has('flash.header')) ? $header : Session::get('flash.header');
+			$level = ( ! Session::has('flash_message.level'))
+				? $level
+				: Session::get('flash_message.level');
+			$content = ( ! Session::has('flash_message.message'))
+				? $content
+				: Session::get('flash_message.message');
+			$title = ( ! Session::has('flash_message.title'))
+				? $title
+				: Session::get('flash_message.title');
 
-			return partial('flash', compact('level', 'content', 'header'));
+			return partial('flash', compact('level', 'content', 'title'));
 		}
 	}
 }

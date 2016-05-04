@@ -1,7 +1,12 @@
-@if (Session::has('flash.message'))
-	<?php $level = Session::get('flash.level');?>
-	<?php $content = Session::get('flash.message');?>
-	<?php $header = Session::get('flash.header');?>
+@if (Session::has('flash_message'))
+	@php
+
+	$level = Session::get('flash_message.level');
+	$level = ($level == 'error') ? 'danger' : $level;
+	$content = Session::get('flash_message.message');
+	$title = Session::get('flash_message.title');
+
+	@endphp
 @endif
 
-{!! alert($level, $content, $header) !!}
+{!! alert($level, $content, $title) !!}
