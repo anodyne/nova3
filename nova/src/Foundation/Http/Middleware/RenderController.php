@@ -28,18 +28,20 @@ class RenderController {
 			{
 				$this->buildThemeStructure();
 				$this->buildThemeTemplate();
-				$this->buildThemePublicMenu();
-				//$this->buildThemeAdminMenu();
-				$this->buildThemePage();
-				
+				$this->buildPage();
 				$this->buildJavascript();
-				//$this->buildThemeJavascript();
-				
 				$this->buildStyles();
-				//$this->buildThemeStyles();
+				$this->buildFooter();
+				//$this->buildPanel();
 
-				$this->buildThemeFooter();
-				//$this->buildThemePanel();
+				if ($this->controller->isAdmin)
+				{
+					$this->buildAdminMenus();
+				}
+				else
+				{
+					$this->buildPublicMenus();
+				}
 
 				$output = $this->theme->render();
 
@@ -60,17 +62,17 @@ class RenderController {
 		$this->theme = $this->theme->template($this->controller->templateView, (array) $this->controller->templateData);
 	}
 
-	protected function buildThemePublicMenu()
+	protected function buildPublicMenus()
 	{
 		$this->theme = $this->theme->publicMenu($this->controller->page);
 	}
 
-	protected function buildThemeAdminMenu()
+	protected function buildAdminMenus()
 	{
 		$this->theme = $this->theme->adminMenu($this->controller->page);
 	}
 
-	protected function buildThemePage()
+	protected function buildPage()
 	{
 		if ($this->controller->view)
 		{
@@ -78,30 +80,14 @@ class RenderController {
 		}
 	}
 
-	protected function buildThemeJavascript()
-	{
-		if ($this->controller->jsView)
-		{
-			$this->theme = $this->theme->javascriptOld($this->controller->jsView, (array) $this->controller->jsData);
-		}
-	}
-
-	protected function buildThemeStyles()
-	{
-		if ($this->controller->styleView)
-		{
-			$this->theme = $this->theme->styles($this->controller->styleView, (array) $this->controller->styleData);
-		}
-	}
-
-	protected function buildThemeFooter()
+	protected function buildFooter()
 	{
 		$data = [];
 
 		$this->theme = $this->theme->footer($data);
 	}
 
-	protected function buildThemePanel()
+	protected function buildPanel()
 	{
 		$this->theme = $this->theme->panel();
 	}

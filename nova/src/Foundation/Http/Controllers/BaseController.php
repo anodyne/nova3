@@ -22,9 +22,11 @@ abstract class BaseController extends Controller {
 	public $view;
 	public $jsView;
 	public $styleView;
-	public $isAjax = false;
 	public $scripts = [];
 	public $styles = [];
+
+	public $isAdmin = false;
+	public $isAjax = false;
 
 	public $templateData;
 	public $templateView = 'public';
