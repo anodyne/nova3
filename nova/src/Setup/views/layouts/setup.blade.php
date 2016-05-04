@@ -5,8 +5,9 @@
 		<title>@yield('title') &bull; {{ config('nova.app.name') }}</title>
 		<meta name="author" content="Anodyne Productions">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 
-		<link href="//fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+		<link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 		<link href="//fonts.googleapis.com/css?family=Roboto+Condensed:300,700" rel="stylesheet">
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 		<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
