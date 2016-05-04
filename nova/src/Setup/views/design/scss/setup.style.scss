@@ -454,3 +454,7 @@ code {
 		border-color: $color-danger;
 	}
 }
+
+[v-cloak] {
+	display: none;
+}
