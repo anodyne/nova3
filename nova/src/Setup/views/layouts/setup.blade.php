@@ -17,7 +17,7 @@
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.hidpi2x.css', ['media' => 'only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)']) !!}
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.hidpi3x.css', ['media' => 'only screen and (-moz-min-device-pixel-ratio: 3), only screen and (-o-min-device-pixel-ratio: 3/1), only screen and (-webkit-min-device-pixel-ratio: 3), only screen and (min-device-pixel-ratio: 3)']) !!}
 	</head>
-	<body>
+	<body id="app">
 		<header>
 			<div class="container">
 				<div class="row">
@@ -60,10 +60,13 @@
 			</div>
 		</div>
 
-		{!! partial('include-jquery') !!}
-		{!! partial('include-bootstrap-js') !!}
-		{!! partial('vue-include') !!}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.js"></script>
+		{!! HTML::script('nova/resources/js/vue-components.js') !!}
+		{!! HTML::script('nova/resources/js/vue-filters.js') !!}
+		{!! HTML::script('nova/resources/js/functions.js') !!}
 		@yield('scripts')
-		{!! partial('vue-object') !!}
 	</body>
 </html>
