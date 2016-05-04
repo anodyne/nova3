@@ -170,8 +170,11 @@ main {
 		}
 
 		.btn {
+			font-weight: 500;
+			
 			&.btn-link {
 				color: $color-blue-grey-300;
+				font-weight: 400;
 			}
 		}
 	}
@@ -189,6 +192,14 @@ main {
 	}
 
 	h2 {
+		text-align: left;
+		font-size: 2.4rem;
+		font-weight: 300;
+		font-family: $font-heading;
+		color: $color-blue-grey-600;
+	}
+
+	h3 {
 		margin: 0 0 $spacing-lg 0;
 
 		text-align: center;
@@ -197,19 +208,17 @@ main {
 		color: $color-blue-grey-300;
 	}
 
-	h3 {
-		text-align: left;
-		font-size: 2.4rem;
-		font-weight: 300;
-		font-family: $font-heading;
-		color: $color-blue-grey-600;
-	}
-
 	p {
 		margin-bottom: 1.5rem;
 		line-height: $line-height;
 
 		font-size: 1.5rem;
+	}
+
+	ul {
+		li {
+			font-size: 1.5rem;
+		}
 	}
 
 	form {
@@ -361,20 +370,25 @@ hr.partial {
 	@include rounded($border-radius);
 	
 	h4 {
-		font-weight: 600;
+		font-weight: 500;
 	}
 
 	&.alert-info {
 		@include alert-variant($color-blue-100, $color-blue-200, $color-blue-700);
 	}
 	&.alert-danger {
-		@include alert-variant($color-red-100, $color-red-200, $color-red-800);
+		@include alert-variant($color-danger, $color-danger, $color-white);
+
+		code {
+			background: $color-red-100;
+			color: $color-red-600;
+		}
 	}
 	&.alert-success {
-		@include alert-variant($color-green-100, $color-green-200, $color-green-800);
+		@include alert-variant($color-success, $color-success, $color-white);
 	}
 	&.alert-warning {
-		@include alert-variant($color-amber-100, $color-amber-200, darken($color-amber-900, 10%));
+		@include alert-variant($color-warning, $color-warning, darken($color-amber-900, 15%));
 	}
 }
 

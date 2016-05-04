@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,yBAA0B,CACzB,MAAO,CACN,UAAU,CAAE,MAAM,CAClB,SAAS,CAAE,IAAI,CAEf,oBAAc,CACb,OAAO,CAAE,IAAI,CAKd,WAAG,CACF,WAAW,CAAE,GAAG,CAIlB,SAAU,CACT,UAAU,CAAE,MAAM,CAElB,WAAE,CACD,UAAU,CAAE,MAAM,CAIpB,IAAK,CACJ,KAAK,CAAE,IAAI",
+"sources": ["../scss/setup.responsive.scss"],
+"names": [],
+"file": "setup.responsive.css"
+}

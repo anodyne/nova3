@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACC,oBAAc,CACb,gBAAgB,CAAE,6BAA6B,CAC/C,eAAe,CAAE,SAClB,CAIA,WAAQ,CACP,gBAAgB,CAAE,2BAA2B,CAC7C,eAAe,CAAE,aAAa,CAG/B,gBAAa,CACZ,gBAAgB,CAAE,gCAAgC,CAClD,eAAe,CAAE,aAAa,CAG/B,YAAS,CACR,gBAAgB,CAAE,4BAA4B,CAC9C,eAAe,CAAE,WAAW",
+"sources": ["../scss/setup.hidpi2x.scss"],
+"names": [],
+"file": "setup.hidpi2x.css"
+}
