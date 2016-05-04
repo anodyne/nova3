@@ -10,7 +10,7 @@
 
 @section('content')
 	<h1>Update {{ config('nova.app.name') }} Content &amp; Settings</h1>
-	<h2>Take a minute to update some of the basic site content and settings</h2>
+	<h3>Take a minute to update some of the basic site content and settings</h3>
 
 	{!! Form::open(['route' => "setup.{$_setupType}.settings.store", 'class' => 'form-horizontal']) !!}
 		<div class="form-group{{ ($errors->has('sim_name')) ? ' has-error' : '' }}">
@@ -35,7 +35,7 @@
 
 		<div class="form-group">
 			<div class="col-md-7 col-md-offset-3">
-				<h3>Email Settings</h3>
+				<h2>Email Settings</h2>
 			</div>
 		</div>
 

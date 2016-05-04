@@ -11,7 +11,15 @@
 @section('content')
 	<h1>Email Configured</h1>
 
-	<p>We've created the necessary config file for you. If you need to change your email configuration, you can either edit the <nobr><code>config/mail.php</code></nobr> file manually or delete the <nobr><code>config/mail.php</code></nobr> file and run this step of the installer again.</p>
+	@if (config('mail.driver') == 'sparkpost' or config('mail.driver') == 'mailgun')
+		<p>We've created the necessary config files for you.</p>
+
+		<p>If you need to change your email configuration, you can either edit the <nobr><code>config/mail.php</code></nobr> file manually or delete the <nobr><code>config/mail.php</code></nobr> file and run this step of the installer again.</p>
+
+		<p>If you need to change how {{ config('nova.app.name') }} connects to the email API, you can either edit the <nobr><code>config/services.php</code></nobr> file manually or delete the <nobr><code>config/mail.php</code></nobr> and <nobr><code>config/services.php</code></nobr> files and run this step of the installer again.</p>
+	@else
+		<p>We've created the necessary config file for you. If you need to change your email configuration, you can either edit the <nobr><code>config/mail.php</code></nobr> file manually or delete the <nobr><code>config/mail.php</code></nobr> file and run this step of the installer again.</p>
+	@endif
 @stop
 
 @section('controls')

@@ -10,12 +10,12 @@
 
 @section('content')
 	<h1>Create Your User Account and Character</h1>
-	<h2>Tell us a little about yourself and the character you'll play</h2>
+	<h3>Tell us a little about yourself and the character you'll play</h3>
 
 	{!! Form::open(['route' => "setup.{$_setupType}.user.store", 'class' => 'form-horizontal']) !!}
 		<div class="form-group">
 			<div class="col-md-7 col-md-offset-3">
-				<h3>User Info</h3>
+				<h2>User Info</h2>
 			</div>
 		</div>
 
@@ -71,7 +71,7 @@
 
 		<div class="form-group">
 			<div class="col-md-7 col-md-offset-3">
-				<h3>Character Info</h3>
+				<h2>Character Info</h2>
 			</div>
 		</div>
 

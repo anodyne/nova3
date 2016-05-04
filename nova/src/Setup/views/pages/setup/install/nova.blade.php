@@ -14,7 +14,7 @@
 	<div v-show="loading">
 		<p class="text-center"><img src="{{ asset('nova/src/Setup/views/design/images/ajax-loader.gif') }}"></p>
 	</div>
-	<div v-show="loadingWithError">
+	<div v-show="loadingWithError" v-cloak>
 		<div class="alert alert-danger">
 			<h4 class="alert-title">Error!</h4>
 			<p>@{{ errorMessage }}</p>
@@ -35,20 +35,25 @@
 
 @section('scripts')
 	<script>
-		vue = {
+		var vm = new Vue({
+			el: "#app",
+
 			data: {
 				loading: true,
 				loadingWithError: false,
 				errorMessage: ""
 			},
 
+			http: {
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				}
+			},
+
 			ready: function () {
 				var url = "{{ url('setup/install/nova') }}"
-				var data = {
-					"_token": "{{ csrf_token() }}"
-				}
 
-				this.$http.post(url, data).then(response => {
+				this.$http.post(url).then(response => {
 					window.location = "{{ url('setup/install/nova/success') }}"
 				}, response => {
 					this.loading = false
@@ -61,6 +66,6 @@
 					}
 				})
 			}
-		}
+		})
 	</script>
 @stop
