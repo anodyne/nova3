@@ -46,6 +46,7 @@ class NovaUninstallCommand extends Command {
 		File::delete(app('path.config').'/app.php');
 		File::delete(app('path.config').'/database.php');
 		File::delete(app('path.config').'/mail.php');
+		File::delete(app('path.config').'/services.php');
 		File::delete(app('path.config').'/session.php');
 
 		// Remove the SQLite database if it's there

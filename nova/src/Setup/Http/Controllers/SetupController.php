@@ -46,6 +46,7 @@ class SetupController extends BaseController {
 		$files->delete(app('path.config').'/app.php');
 		$files->delete(app('path.config').'/database.php');
 		$files->delete(app('path.config').'/mail.php');
+		$files->delete(app('path.config').'/services.php');
 		$files->delete(app('path.config').'/session.php');
 
 		// Remove the SQLite database if it's there
