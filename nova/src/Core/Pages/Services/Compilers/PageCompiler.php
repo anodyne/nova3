@@ -32,11 +32,16 @@ class PageCompiler implements CompilerContract {
 					return substr($matches[0], 1);
 				}
 
-				// Get the page
-				$page = app('PageRepository')->getByRouteKey($key, null);
-
-				if ($page)
+				// Get the page out of the container
+				$page = app('nova.pages')->filter(function ($page) use ($key)
 				{
+					return $page->key == $key;
+				});
+
+				if ($page->count() > 0)
+				{
+					$page = $page->first();
+					
 					$title = ($title) ?: $page->present()->name;
 
 					return app('html')->linkRoute($key, $title);

@@ -155,6 +155,16 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function registerBindings()
 	{
+		$this->app->singleton('nova.pages', function ($app)
+		{
+			if ($app['nova.setup']->isInstalled())
+			{
+				return $app['PageRepository']->all();
+			}
+
+			return collect();
+		});
+
 		$this->app->singleton('nova.pageContent', function ($app)
 		{
 			if ($app['nova.setup']->isInstalled())

@@ -39,7 +39,7 @@ abstract class BaseController extends Controller {
 		$this->data				= new stdClass;
 		$this->jsData			= new stdClass;
 		$this->styleData		= new stdClass;
-		$this->user				= app('nova.user');
+		$this->user				= user();
 		$this->templateData 	= new stdClass;
 		$this->structureData	= new stdClass;
 
@@ -186,7 +186,12 @@ abstract class BaseController extends Controller {
 	{
 		if (app('nova.setup')->isInstalled())
 		{
-			$this->page = app('PageRepository')->getByRouteKey(request()->route());
+			$currentPage = app('nova.pages')->filter(function ($page)
+			{
+				return $page->key == request()->route()->getName();
+			});
+
+			$this->page = ($currentPage->count() > 0) ? $currentPage->first() : null;
 			$this->content = app('nova.pageContent');
 			$this->settings = app('nova.settings');
 

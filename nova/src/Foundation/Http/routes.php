@@ -1,7 +1,7 @@
 <?php
 
-// Get all the pages
-$pages = app('PageRepository')->all();
+// Get all the pages out of the container
+$pages = app('nova.pages');
 
 if ($pages->count() > 0)
 {
