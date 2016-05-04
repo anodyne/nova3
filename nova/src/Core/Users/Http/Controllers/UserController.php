@@ -16,6 +16,7 @@ class UserController extends BaseController {
 
 		$this->structureView = 'admin';
 		$this->templateView = 'admin';
+		$this->isAdmin = true;
 
 		$this->repo = $repo;
 

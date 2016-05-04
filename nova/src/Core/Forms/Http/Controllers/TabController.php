@@ -18,6 +18,7 @@ class TabController extends BaseController {
 
 		$this->structureView = 'admin';
 		$this->templateView = 'admin';
+		$this->isAdmin = true;
 
 		$this->repo = $repo;
 		$this->formRepo = $forms;
