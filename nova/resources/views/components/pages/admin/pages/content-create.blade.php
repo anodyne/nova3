@@ -22,7 +22,7 @@
 	<div class="form-group{{ ($errors->has('key')) ? ' has-error' : '' }}">
 		<label class="col-md-2 control-label">Key</label>
 		<div class="col-md-6">
-			{!! Form::text('key', null, ['class' => 'form-control input-lg']) !!}
+			{!! Form::text('key', null, ['class' => 'form-control input-lg', 'v-model' => 'key', '@change' => 'checkKey']) !!}
 			{!! $errors->first('key', '<p class="help-block">:message</p>') !!}
 			<p class="help-block">Keys are used to uniquely identify your page content and pull that content out of the database. The only restriction with keys is that they <strong>cannot</strong> have the same key as another page.</p>
 		</div>
