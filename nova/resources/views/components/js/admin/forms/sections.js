@@ -1,8 +1,8 @@
 vue = {
 	methods: {
 		removeSection: function (event) {
-			var formKey = $(event.target).data('form-key')
-			var sectionId = $(event.target).data('id')
+			var formKey = $(event.target).parent().data('form-key')
+			var sectionId = $(event.target).parent().data('id')
 
 			$('#removeSection').modal({
 				remote: novaUrl("admin/forms/" + formKey + "/sections/" + sectionId + "/remove")

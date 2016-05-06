@@ -1,8 +1,8 @@
 vue = {
 	methods: {
 		removeTab: function (event) {
-			var formKey = $(event.target).data('form-key')
-			var tabId = $(event.target).data('id')
+			var formKey = $(event.target).parent().data('form-key')
+			var tabId = $(event.target).parent().data('id')
 
 			$('#removeTab').modal({
 				remote: novaUrl("admin/forms/" + formKey + "/tabs/" + tabId + "/remove")
