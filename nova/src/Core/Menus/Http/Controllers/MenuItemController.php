@@ -40,8 +40,15 @@ class MenuItemController extends BaseController {
 		$this->authorize('manage', $item, "You do not have permission to manage menu items.");
 
 		$this->view = 'admin/menus/menu-items';
-		$this->jsView = 'admin/menus/menu-items-js';
-		$this->styleView = 'admin/menus/menu-items-style';
+		$this->scripts = [
+			'uikit/core/core.min',
+			'uikit/components/nestable.min',
+			'admin/menus/menu-items',
+		];
+		$this->styles = [
+			'uikit/components/icon',
+			'uikit/components/nestable.min',
+		];
 
 		// Grab the menu we want the items for
 		$menu = $this->data->menu = $this->menuRepo->find($menuId);
@@ -59,7 +66,7 @@ class MenuItemController extends BaseController {
 		$this->authorize('create', new MenuItem, "You do not have permission to create menu items.");
 
 		$this->view = 'admin/menus/menu-item-create';
-		$this->jsView = 'admin/menus/menu-item-create-js';
+		$this->scripts = ['admin/menus/menu-item-create'];
 
 		$this->data->menuId = $menuId;
 
