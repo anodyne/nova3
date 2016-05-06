@@ -15,7 +15,7 @@
 	<div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
 		<label class="col-md-2 control-label">Name</label>
 		<div class="col-md-5">
-			{!! Form::text('name', null, ['class' => 'form-control input-lg']) !!}
+			{!! Form::text('name', null, ['class' => 'form-control input-lg', 'v-model' => 'name', '@change' => 'setKeyFromName']) !!}
 			{!! $errors->first('name', '<p class="help-block">:message</p>') !!}
 		</div>
 	</div>
@@ -23,7 +23,7 @@
 	<div class="form-group{{ ($errors->has('key')) ? ' has-error' : '' }}">
 		<label class="col-md-2 control-label">Key</label>
 		<div class="col-md-3">
-			{!! Form::text('key', null, ['class' => 'form-control input-lg']) !!}
+			{!! Form::text('key', null, ['class' => 'form-control input-lg', 'v-model' => 'key', '@change' => 'checkKey']) !!}
 			{!! $errors->first('key', '<p class="help-block">:message</p>') !!}
 		</div>
 	</div>

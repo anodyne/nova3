@@ -43,7 +43,7 @@
 
 					@can('remove', $menu)
 						<div class="col-xs-12">
-							<p><a href="#" class="btn btn-danger btn-lg btn-block js-menuAction" data-id="{{ $menu->id }}" data-action="remove">{!! icon('delete') !!}<span>Remove</span></a></p>
+							<p><a href="#" class="btn btn-danger btn-lg btn-block" data-id="{{ $menu->id }}" @click.prevent="removeMenu">{!! icon('delete') !!}<span>Remove</span></a></p>
 						</div>
 					@endcan
 				</div>
@@ -71,7 +71,7 @@
 
 					@can('remove', $menu)
 						<div class="btn-group">
-							<a href="#" class="btn btn-danger js-menuAction" data-id="{{ $menu->id }}" data-action="remove">{!! icon('delete') !!}<span>Remove</span></a>
+							<a href="#" class="btn btn-danger" data-id="{{ $menu->id }}" @click.prevent="removeMenu">{!! icon('delete') !!}<span>Remove</span></a>
 						</div>
 					@endcan
 				</div>

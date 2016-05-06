@@ -37,9 +37,10 @@ class MenuController extends BaseController {
 		$this->authorize('manage', $menu, "You do not have permission to manage menus.");
 
 		$this->view = 'admin/menus/menus';
-		$this->jsView = 'admin/menus/menus-js';
 
 		$this->data->menus = $this->repo->all();
+
+		$this->scripts = ['admin/menus/menus'];
 	}
 
 	public function create()
@@ -47,7 +48,9 @@ class MenuController extends BaseController {
 		$this->authorize('create', new Menu, "You do not have permission to create menus.");
 
 		$this->view = 'admin/menus/menu-create';
-		$this->jsView = 'admin/menus/menu-create-js';
+		
+		$this->scripts = ['admin/menus/menu-create'];
+		$this->jsData->keyCheckUrl = route('admin.menus.checkKey');
 	}
 
 	public function store(CreateMenuRequest $request)
@@ -68,7 +71,9 @@ class MenuController extends BaseController {
 		$this->authorize('edit', $menu, "You do not have permission to edit menus.");
 
 		$this->view = 'admin/menus/menu-edit';
-		$this->jsView = 'admin/menus/menu-edit-js';
+		
+		$this->scripts = ['admin/menus/menu-edit'];
+		$this->jsData->keyCheckUrl = route('admin.menus.checkKey');
 	}
 
 	public function update(EditMenuRequest $request, $menuId)
