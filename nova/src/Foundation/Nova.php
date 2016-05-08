@@ -4,6 +4,11 @@ use Status;
 
 class Nova {
 
+	public function isInstalled()
+	{
+		return app('filesystem')->disk('local')->has('installed.json');
+	}
+
 	public function javascriptValues()
 	{
 		// Grab the user so we can manually build the user object

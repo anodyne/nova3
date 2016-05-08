@@ -155,14 +155,4 @@ class SetupService {
 		}
 	}
 
-	/**
-	 * Check if Nova is installed.
-	 *
-	 * @return	bool
-	 */
-	public function isInstalled()
-	{
-		return $this->app['filesystem']->disk('local')->has('installed.json');
-	}
-
 }
