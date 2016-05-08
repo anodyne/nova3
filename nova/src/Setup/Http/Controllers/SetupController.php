@@ -9,7 +9,7 @@ class SetupController extends BaseController {
 	public function index()
 	{
 		// Is Nova installed?
-		$installed = app('nova.setup')->isInstalled();
+		$installed = nova()->isInstalled();
 
 		return view('pages.setup.index', compact('installed'));
 	}

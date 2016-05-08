@@ -43,7 +43,7 @@ class RouteServiceProvider extends ServiceProvider {
 
 		$router->group($routerOptions, function ($router)
 		{
-			if (app('nova.setup')->isInstalled())
+			if (nova()->isInstalled())
 			{
 				require app_path('Foundation/Http/routes.php');
 			}

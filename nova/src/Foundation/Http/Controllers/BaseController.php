@@ -184,7 +184,7 @@ abstract class BaseController extends Controller {
 
 	protected function setupController()
 	{
-		if (app('nova.setup')->isInstalled())
+		if (nova()->isInstalled())
 		{
 			$currentPage = app('nova.pages')->filter(function ($page)
 			{

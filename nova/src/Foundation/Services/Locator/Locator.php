@@ -416,7 +416,7 @@ class Locator implements Locatable {
 	 */
 	protected function findCurrentTheme()
 	{
-		if ( ! app('nova.setup')->isInstalled())
+		if ( ! nova()->isInstalled())
 		{
 			return false;
 		}

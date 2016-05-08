@@ -29,6 +29,11 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
+		$this->app->singleton('nova', function ($app)
+		{
+			return new Nova;
+		});
+		
 		$this->setRepositoryBindings();
 		$this->registerBindings();
 		$this->getCurrentUser();
@@ -37,11 +42,6 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->createFieldTypesManager();
 		$this->setupTheme();
 		$this->setupMailer();
-
-		$this->app->singleton('nova', function ($app)
-		{
-			return new Nova;
-		});
 	}
 
 	/**
@@ -132,7 +132,7 @@ class NovaServiceProvider extends ServiceProvider {
 	{
 		$this->app->singleton('nova.user', function ($app)
 		{
-			if ($app['nova.setup']->isInstalled())
+			if (nova()->isInstalled())
 			{
 				$user = $app['auth']->user();
 
@@ -157,7 +157,7 @@ class NovaServiceProvider extends ServiceProvider {
 	{
 		$this->app->singleton('nova.pages', function ($app)
 		{
-			if ($app['nova.setup']->isInstalled())
+			if (nova()->isInstalled())
 			{
 				return $app['PageRepository']->all();
 			}
@@ -167,7 +167,7 @@ class NovaServiceProvider extends ServiceProvider {
 
 		$this->app->singleton('nova.pageContent', function ($app)
 		{
-			if ($app['nova.setup']->isInstalled())
+			if (nova()->isInstalled())
 			{
 				return $app['PageContentRepository']->getAllContent();
 			}
@@ -177,12 +177,17 @@ class NovaServiceProvider extends ServiceProvider {
 
 		$this->app->singleton('nova.settings', function ($app)
 		{
-			if ($app['nova.setup']->isInstalled())
+			if (nova()->isInstalled())
 			{
 				return $app['SettingRepository']->getAllSettings();
 			}
 
 			return collect();
+		});
+
+		$this->app->singleton('nova.roles', function ($app)
+		{
+			return $app['RoleRepository']->all();
 		});
 
 		$this->app->bind('nova.character.creator', function ($app)
@@ -247,7 +252,7 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function setupMailer()
 	{
-		if ($this->app['nova.setup']->isInstalled())
+		if (nova()->isInstalled())
 		{
 			config(['mail.from.address' => $this->app['nova.settings']->get('mail_default_address')]);
 			config(['mail.from.name' => $this->app['nova.settings']->get('mail_default_name')]);
@@ -263,7 +268,7 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function setupTheme()
 	{
-		if ($this->app['nova.setup']->isInstalled())
+		if (nova()->isInstalled())
 		{
 			// Get the theme name
 			$themeName = ($this->app['auth']->check())

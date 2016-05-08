@@ -13,7 +13,7 @@ class CheckInstallationStatus {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if ( ! app('nova.setup')->isInstalled())
+		if ( ! nova()->isInstalled())
 		{
 			return redirect()->route('setup.env');
 		}

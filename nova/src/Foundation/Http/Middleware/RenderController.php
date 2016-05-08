@@ -22,7 +22,7 @@ class RenderController {
 		// Assign the response
 		$response = $next($request);
 
-		if (app('nova.setup')->isInstalled() and empty($response->getContent()))
+		if (nova()->isInstalled() and empty($response->getContent()))
 		{
 			if ( ! $this->controller->isAjax)
 			{

@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider {
 		// Register the policies with the framework
 		parent::registerPolicies($gate);
 
-		if (app('nova.setup')->isInstalled())
+		if (nova()->isInstalled())
 		{
 			// Grab all of the permissions, loop through them, and define the abilities
 			foreach ($this->getPermissions() as $permission)
