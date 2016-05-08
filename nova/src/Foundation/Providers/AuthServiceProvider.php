@@ -32,7 +32,7 @@ class AuthServiceProvider extends ServiceProvider {
 			// Grab all of the permissions, loop through them, and define the abilities
 			foreach ($this->getPermissions() as $permission)
 			{
-				$gate->define($permission->name, function ($user) use ($permission)
+				$gate->define($permission->key, function ($user) use ($permission)
 				{
 					return $user->hasRole($permission->roles);
 				});

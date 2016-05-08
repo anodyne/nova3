@@ -11,11 +11,11 @@
 	</desktop>
 
 	{!! Form::open(['route' => 'admin.access.permissions.store', 'class' => 'form-horizontal']) !!}
-		<div class="form-group{{ ($errors->has('display_name')) ? ' has-error' : '' }}">
+		<div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Name</label>
 			<div class="col-md-5">
-				{!! Form::text('display_name', null, ['class' => 'form-control input-lg', 'v-model' => 'name']) !!}
-				{!! $errors->first('display_name', '<p class="help-block">:message</p>') !!}
+				{!! Form::text('name', null, ['class' => 'form-control input-lg', 'v-model' => 'name']) !!}
+				{!! $errors->first('name', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>
 
@@ -50,7 +50,7 @@
 			<div class="col-md-5">
 				<p class="form-control-static" v-if="key != ''">@{{ key }}</p>
 				<p class="form-control-static text-warning" v-if="key == ''">Please enter a component and action.</p>
-				{!! Form::hidden('name', null, ['v-model' => 'key']) !!}
+				{!! Form::hidden('key', null, ['v-model' => 'key']) !!}
 	    	</div>
 		</div>
 

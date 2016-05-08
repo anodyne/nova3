@@ -11,19 +11,19 @@
 	</desktop>
 
 	{!! Form::model($role, ['route' => ['admin.access.roles.update', $role->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
-		<div class="form-group{{ ($errors->has('display_name')) ? ' has-error' : '' }}">
+		<div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Name</label>
 			<div class="col-md-5">
-				{!! Form::text('display_name', null, ['class' => 'form-control input-lg', 'v-model' => 'name', 'v-on:change' => 'updateName']) !!}
-				{!! $errors->first('display_name', '<p class="help-block">:message</p>') !!}
+				{!! Form::text('name', null, ['class' => 'form-control input-lg', 'v-model' => 'name', 'v-on:change' => 'updateName']) !!}
+				{!! $errors->first('name', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>
 
-		<div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
+		<div class="form-group{{ ($errors->has('key')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Key</label>
 			<div class="col-md-3">
-				{!! Form::text('name', null, ['class' => 'form-control input-lg', 'v-model' => 'key', 'v-on:change' => 'updateKey']) !!}
-				{!! $errors->first('name', '<p class="help-block">:message</p>') !!}
+				{!! Form::text('key', null, ['class' => 'form-control input-lg', 'v-model' => 'key', 'v-on:change' => 'updateKey']) !!}
+				{!! $errors->first('key', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>
 		<div class="form-group">
@@ -53,7 +53,7 @@
 									<div class="col-md-4">
 										<label class="checkbox-inline">
 											{!! Form::checkbox('permissions[]', $p->id, null, ['v-model' => 'permissions']) !!}
-											{!! $p->present()->displayName !!}
+											{!! $p->present()->name !!}
 										</label>
 									</div>
 								@endforeach

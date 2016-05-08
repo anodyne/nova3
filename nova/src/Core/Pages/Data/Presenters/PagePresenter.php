@@ -11,7 +11,7 @@ class PagePresenter extends BasePresenter {
 
 		if ($permission)
 		{
-			return $permission->present()->displayName;
+			return $permission->present()->name;
 		}
 	}
 

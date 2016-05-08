@@ -58,7 +58,7 @@ class FormController extends BaseController {
 		$this->view = 'admin/forms/form-create';
 		$this->jsView = 'admin/forms/form-create-js';
 
-		$this->data->accessRoles = $this->roleRepo->listAll('display_name', 'name');
+		$this->data->accessRoles = $this->roleRepo->listAll('name', 'key');
 
 		$this->data->resourcesCreate = $this->pageRepo->listAllBy('verb', 'POST', 'name', 'key');
 		$this->data->resourcesUpdate = $this->pageRepo->listAllBy('verb', 'PUT', 'name', 'key');
@@ -85,7 +85,7 @@ class FormController extends BaseController {
 		$this->view = 'admin/forms/form-edit';
 		$this->scripts = ['admin/forms/form-edit'];
 
-		$this->data->accessRoles = $this->roleRepo->listAll('display_name', 'name');
+		$this->data->accessRoles = $this->roleRepo->listAll('name', 'key');
 
 		$this->data->resourcesCreate = $this->pageRepo->listAllBy('verb', 'POST', 'name', 'key');
 		$this->data->resourcesUpdate = $this->pageRepo->listAllBy('verb', 'PUT', 'name', 'key');

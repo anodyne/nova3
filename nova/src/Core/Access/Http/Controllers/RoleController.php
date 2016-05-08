@@ -35,11 +35,10 @@ class RoleController extends BaseController {
 		$this->authorize('manage', $role, "You do not have permission to manage roles.");
 
 		$this->view = 'admin/access/roles';
+		$this->scripts = ['admin/access/roles'];
 
 		$this->data->roles = $this->repo->all();
 		$this->data->permission = new Permission;
-
-		$this->scripts = ['admin/access/roles'];
 	}
 
 	public function create()
@@ -47,10 +46,10 @@ class RoleController extends BaseController {
 		$this->authorize('create', new Role, "You do not have permission to create roles.");
 
 		$this->view = 'admin/access/role-create';
+		$this->scripts = ['admin/access/role-create'];
 
 		$this->data->permissions = $this->permissionsRepo->allByComponent();
 
-		$this->scripts = ['admin/access/role-create'];
 		$this->jsData->keyCheckUrl = route('admin.access.roles.checkKey');
 	}
 
@@ -72,10 +71,10 @@ class RoleController extends BaseController {
 		$this->authorize('edit', $role, "You do not have permission to edit roles.");
 
 		$this->view = 'admin/access/role-edit';
+		$this->scripts = ['admin/access/role-edit'];
 
 		$this->data->permissions = $this->permissionsRepo->allByComponent();
 
-		$this->scripts = ['admin/access/role-edit'];
 		$this->jsData->keyCheckUrl = route('admin.access.roles.checkKey');
 	}
 
@@ -171,8 +170,8 @@ class RoleController extends BaseController {
 
 		$newRole = $this->repo->duplicate(
 			$oldRole,
-			$request->input('display_name'),
-			$request->input('name')
+			$request->input('name'),
+			$request->input('key')
 		);
 
 		flash()->success("Role Duplicated!");

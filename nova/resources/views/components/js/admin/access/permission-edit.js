@@ -1,8 +1,8 @@
 vue = {
 	data: {
 		description: "",
-		displayName: "",
 		key: "",
+		name: "",
 		oldKey: ""
 	},
 

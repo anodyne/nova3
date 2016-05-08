@@ -1,4 +1,4 @@
-<p>Are you sure you want to remove the <strong>{{ $role->present()->displayName }}</strong> role? This action is permanent and can't be undone!</p>
+<p>Are you sure you want to remove the <strong>{{ $role->present()->name }}</strong> role? This action is permanent and can't be undone!</p>
 
 {!! Form::model($role, ['route' => ['admin.access.roles.destroy', $role->id], 'method' => 'delete']) !!}
 	<div v-cloak>

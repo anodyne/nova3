@@ -94,7 +94,7 @@ class FieldController extends BaseController {
 			'Custom' => "Custom",
 		];
 
-		$this->data->accessRoles = $this->roleRepo->listAll('display_name', 'name');
+		$this->data->accessRoles = $this->roleRepo->listAll('name', 'key');
 
 		$fieldTypes = $this->getFieldTypes();
 		$this->data->fieldTypes = $fieldTypes->get('types');
@@ -152,7 +152,7 @@ class FieldController extends BaseController {
 			'Custom' => "Custom",
 		];
 
-		$this->data->accessRoles = $this->roleRepo->listAll('display_name', 'name');
+		$this->data->accessRoles = $this->roleRepo->listAll('name', 'key');
 
 		$fieldTypes = $this->getFieldTypes();
 		$this->data->fieldTypes = $fieldTypes->get('types');

@@ -66,7 +66,7 @@ class UserController extends BaseController {
 		$this->view = 'admin/forms/form-edit';
 		$this->jsView = 'admin/forms/form-edit-js';
 
-		$this->data->accessRoles = $this->roleRepo->listAll('display_name', 'name');
+		$this->data->accessRoles = $this->roleRepo->listAll('name', 'key');
 
 		$this->data->resourcesCreate = $this->pageRepo->listAllBy('verb', 'POST', 'name', 'key');
 		$this->data->resourcesUpdate = $this->pageRepo->listAllBy('verb', 'PUT', 'name', 'key');

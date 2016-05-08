@@ -57,7 +57,7 @@ class RoleRepository extends BaseRepository implements RoleRepositoryContract {
 
 			$role->delete();
 
-			event(new Events\RoleDeleted($role->name));
+			event(new Events\RoleDeleted($role->key, $role->name));
 
 			return $role;
 		}
@@ -73,8 +73,8 @@ class RoleRepository extends BaseRepository implements RoleRepositoryContract {
 		if ($originalRole)
 		{
 			$newRole = $originalRole->replicate();
-			$newRole->display_name = ($newName) ? $newName : "Copy of ".$newRole->display_name;
-			$newRole->name = ($newKey) ? $newKey : $newRole->name."-copy";
+			$newRole->name = ($newName) ? $newName : "Copy of ".$newRole->name;
+			$newRole->key = ($newKey) ? $newKey : $newRole->key."-copy";
 			$newRole->push();
 
 			// Duplicate the permissions for the role

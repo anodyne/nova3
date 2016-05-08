@@ -11,7 +11,9 @@ class Permission extends Model {
 
 	protected $table = 'permissions';
 
-	protected $fillable = ['name', 'display_name', 'description'];
+	protected $fillable = ['key', 'name', 'description'];
+
+	protected $hidden = ['created_at', 'updated_at', 'pivot'];
 
 	protected $casts = [
 		'protected'	=> 'boolean',

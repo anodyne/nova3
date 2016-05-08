@@ -7,13 +7,13 @@ class PermissionDeleted extends Event {
 
 	use SerializesModels;
 
+	protected $key;
 	protected $name;
-	protected $displayName;
 
-	public function __construct($name, $displayName)
+	public function __construct($key, $name)
 	{
+		$this->key = $key;
 		$this->name = $name;
-		$this->displayName = $displayName;
 	}
 
 }

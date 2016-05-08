@@ -15,8 +15,8 @@ class CreateAccessTables extends Migration {
 		// Create table for storing roles
 		Schema::create('roles', function (Blueprint $table) {
 			$table->increments('id');
-			$table->string('name')->unique();
-			$table->string('display_name')->nullable();
+			$table->string('key')->unique();
+			$table->string('name')->nullable();
 			$table->string('description')->nullable();
 			$table->timestamps();
 		});
@@ -37,8 +37,8 @@ class CreateAccessTables extends Migration {
 		// Create table for storing permissions
 		Schema::create('permissions', function (Blueprint $table) {
 			$table->increments('id');
-			$table->string('name')->unique();
-			$table->string('display_name')->nullable();
+			$table->string('key')->unique();
+			$table->string('name')->nullable();
 			$table->string('description')->nullable();
 			$table->boolean('protected')->default((int) false);
 			$table->timestamps();
@@ -88,7 +88,7 @@ class CreateAccessTables extends Migration {
 		{
 			$role = Role::create($role);
 
-			foreach ($data['roleAssociations'][$role->display_name] as $ra)
+			foreach ($data['roleAssociations'][$role->name] as $ra)
 			{
 				$role->permissions()->attach($ra);
 			}

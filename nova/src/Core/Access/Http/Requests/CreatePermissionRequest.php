@@ -12,16 +12,16 @@ class CreatePermissionRequest extends Request {
 	public function rules()
 	{
 		return [
-			'display_name'	=> 'required',
-			'component'		=> 'required',
-			'action'		=> 'required',
+			'name'		=> 'required',
+			'component'	=> 'required',
+			'action'	=> 'required',
 		];
 	}
 
 	public function messages()
 	{
 		return [
-			'display_name.required' => "Please enter a display name",
+			'name.required' => "Please enter a name",
 			'component.required' => "Please enter a component",
 			'action.required' => "Please enter an action",
 		];

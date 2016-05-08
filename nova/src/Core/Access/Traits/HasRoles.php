@@ -23,7 +23,7 @@ trait HasRoles {
 		$repo = app('RoleRepository');
 
 		$roleObj = (is_string($role))
-			? $repo->getFirstBy('name', $role)
+			? $repo->getFirstBy('key', $role)
 			: $repo->find($role);
 		
 		return $this->roles()->save($roleObj);
@@ -33,7 +33,7 @@ trait HasRoles {
 	{
 		if (is_string($role))
 		{
-			return $this->roles->contains('name', $role);
+			return $this->roles->contains('key', $role);
 		}
 
 		return !! $role->intersect($this->roles)->count();

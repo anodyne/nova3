@@ -29,7 +29,7 @@
 @foreach ($roles as $role)
 	<div class="row">
 		<div class="col-md-6">
-			<p class="lead"><strong>{{ $role->present()->displayName }}</strong></p>
+			<p class="lead"><strong>{{ $role->present()->name }}</strong></p>
 			<p><strong>Key:</strong> {{ $role->present()->key }}</p>
 
 			@if ($role->users->count() > 0)

@@ -7,10 +7,12 @@ class RoleDeleted extends Event {
 
 	use SerializesModels;
 
+	protected $key;
 	protected $name;
 
-	public function __construct($name)
+	public function __construct($key, $name)
 	{
+		$this->key = $key;
 		$this->name = $name;
 	}
 

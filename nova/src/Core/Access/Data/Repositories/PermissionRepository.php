@@ -25,7 +25,7 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
 			foreach ($permissions as $permission)
 			{
 				// Get the component and action out of the key
-				list($component, $action) = explode('.', $permission->name);
+				list($component, $action) = explode('.', $permission->key);
 
 				// Capitalize the component
 				$component = ucwords($component);
@@ -72,7 +72,7 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
 			// Delete the permission
 			$permission->delete();
 
-			event(new Events\PermissionDeleted($permission->name, $permission->display_name));
+			event(new Events\PermissionDeleted($permission->key, $permission->name));
 
 			return $permission;
 		}

@@ -1,7 +1,7 @@
 {!! Form::open(['route' => ['admin.access.roles.copy', $role->id]]) !!}
 	<div class="form-group">
 		<label class="control-label">Original Role Name</label>
-		<p>{{ $role->present()->displayName }}</p>
+		<p>{{ $role->present()->name }}</p>
 	</div>
 
 	<div class="form-group">
@@ -11,12 +11,12 @@
 
 	<div class="form-group">
 		<label class="control-label">New Role Name</label>
-		{!! Form::text('display_name', null, ['class' => 'form-control input-lg']) !!}
+		{!! Form::text('name', null, ['class' => 'form-control input-lg']) !!}
 	</div>
 
 	<div class="form-group">
 		<label class="control-label">New Role Key</label>
-		{!! Form::text('name', null, ['class' => 'form-control input-lg']) !!}
+		{!! Form::text('key', null, ['class' => 'form-control input-lg']) !!}
 	</div>
 
 	<div v-cloak>

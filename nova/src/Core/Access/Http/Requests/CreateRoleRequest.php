@@ -12,16 +12,16 @@ class CreateRoleRequest extends Request {
 	public function rules()
 	{
 		return [
-			'display_name'	=> 'required',
-			'name'			=> 'required',
+			'name'	=> 'required',
+			'key'	=> 'required',
 		];
 	}
 
 	public function messages()
 	{
 		return [
-			'display_name.required' => "Please enter a display name",
-			'name.required' => "Please enter a key for the role",
+			'name.required' => "Please enter a name",
+			'key.required' => "Please enter a key",
 		];
 	}
 

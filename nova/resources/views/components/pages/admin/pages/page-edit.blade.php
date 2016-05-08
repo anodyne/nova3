@@ -75,7 +75,7 @@
 			<div class="col-md-6">
 				@foreach ($accessRoles as $role)
 					<div class="col-md-6 checkbox">
-						<label>{!! Form::checkbox('access_role[]', $role->name, false, ['v-model' => 'accessRole']) !!} {!! $role->present()->displayName !!}</label>
+						<label>{!! Form::checkbox('access_role[]', $role->name, false, ['v-model' => 'accessRole']) !!} {!! $role->present()->name !!}</label>
 					</div>
 				@endforeach
 				<p class="help-block" v-show="accessType == 'role_all'">A user must have <strong>all</strong> of the access roles checked in order to access this page.</p>

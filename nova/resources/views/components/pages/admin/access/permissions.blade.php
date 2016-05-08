@@ -56,10 +56,10 @@
 
 		<div class="col-md-9 col-md-pull-3">
 			<div class="data-table data-table-bordered data-table-striped">
-				<div class="row" v-for="permission in permissions | filterBy search in 'display_name' 'name'">
+				<div class="row" v-for="permission in permissions | filterBy search in 'name' 'key'">
 					<div class="col-md-9">
-						<p class="lead"><strong>@{{ permission.display_name }}</strong></p>
-						<p><strong>Key:</strong> @{{ permission.name }}</p>
+						<p class="lead"><strong>@{{ permission.name }}</strong></p>
+						<p><strong>Key:</strong> @{{ permission.key }}</p>
 						<p v-show="permission.roles != ''"><strong>Included in Role(s):</strong> @{{{ permission.roles }}}</p>
 					</div>
 					<div class="col-md-3" v-cloak>
@@ -72,7 +72,7 @@
 								@endif
 
 								@if ($_user->can('access.remove'))
-									<div class="col-sm-6" v-show="!permission.protected">
+									<div class="col-sm-6" v-show="!permission.isProtected">
 										<p><a href="#" class="btn btn-danger btn-lg btn-block" @click.prevent="removePermission(permission.id)">{!! icon('delete') !!}<span>Remove</span></a></p>
 									</div>
 								@endif
@@ -87,7 +87,7 @@
 								@endif
 
 								@if ($_user->can('access.remove'))
-									<div class="btn-group" v-show="!permission.protected">
+									<div class="btn-group" v-show="!permission.isProtected">
 										<a href="#" class="btn btn-danger" @click.prevent="removePermission(permission.id)">{!! icon('delete') !!}<span>Remove</span></a>
 									</div>
 								@endif

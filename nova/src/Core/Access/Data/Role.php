@@ -13,7 +13,9 @@ class Role extends Model {
 
 	protected $table = 'roles';
 
-	protected $fillable = ['name', 'display_name', 'description'];
+	protected $fillable = ['key', 'name', 'description'];
+
+	protected $hidden = ['created_at', 'updated_at', 'pivot'];
 
 	protected $presenter = RolePresenter::class;
 
