@@ -149,6 +149,14 @@ if ( ! function_exists('modal'))
 	}
 }
 
+if ( ! function_exists('nova'))
+{
+	function nova()
+	{
+		return app('nova');
+	}
+}
+
 if ( ! function_exists('nova_event'))
 {
 	function nova_event()
