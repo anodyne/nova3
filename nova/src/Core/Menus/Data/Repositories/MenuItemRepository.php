@@ -58,7 +58,7 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 	{
 		if ($menu instanceof Menu)
 		{
-			$items = $menu->menuItems->filter(function ($item)
+			$items = $menu->menuItems->load('page')->filter(function ($item)
 			{
 				return (int) $item->parent_id === 0;
 			})->sortBy('order');
@@ -90,7 +90,7 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 	{
 		if ($menu instanceof Menu)
 		{
-			$items = $menu->menuItems->filter(function ($item)
+			$items = $menu->menuItems->load('page')->filter(function ($item)
 			{
 				return (int) $item->parent_id != 0;
 			})->sortBy('order');
