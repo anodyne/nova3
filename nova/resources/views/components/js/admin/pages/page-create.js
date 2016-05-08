@@ -121,20 +121,20 @@ vue = {
 
 		"permissionData": function (value, oldValue) {
 			var permissions = new Bloodhound({
-				datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name', 'display_name'),
+				datumTokenizer: Bloodhound.tokenizers.obj.whitespace('key', 'name'),
 				queryTokenizer: Bloodhound.tokenizers.whitespace,
 				local: value
 			})
 
 			$('.js-permissions').tagsinput({
-				itemValue: 'name',
-				itemText: 'display_name',
+				itemValue: 'key',
+				itemText: 'name',
 				tagClass: 'label label-default',
 				freeInput: false,
 				typeaheadjs: {
 					name: 'permissions',
 					source: permissions,
-					display: 'display_name'
+					display: 'name'
 				}
 			})
 		}
