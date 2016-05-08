@@ -1,7 +1,10 @@
 vue = {
 	data: {
+		action: "",
 		component: "",
-		action: ""
+		description: "",
+		key: "",
+		name: ""
 	},
 
 	computed: {
@@ -21,7 +24,7 @@ vue = {
 				var postData = { key: this.key }
 
 				this.$http.post(url, postData).then(response => {
-					if (response.code == 0) {
+					if (response.data.code == 0) {
 						this.component = ""
 						this.action = ""
 

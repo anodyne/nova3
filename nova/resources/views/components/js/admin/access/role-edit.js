@@ -1,8 +1,10 @@
 vue = {
 	data: {
+		description: "",
 		name: "",
 		key: "",
-		oldKey: ""
+		oldKey: "",
+		permissions: []
 	},
 
 	ready: function () {
@@ -22,7 +24,8 @@ vue = {
 				var postData = { key: this.key }
 
 				this.$http.post(url, postData).then(response => {
-					if (response.code == 0) {
+					if (response.data.code == 0) {
+						$('[name="name"]').blur()
 						this.key = this.oldKey
 
 						swal({
@@ -34,6 +37,9 @@ vue = {
 						})
 					}
 				}, response => {
+					$('[name="name"]').blur()
+					this.key = this.oldKey
+
 					swal({
 						title: "Error!",
 						text: "There was an error trying to check the role key. Please try again. (Error " + response.status + ")",
