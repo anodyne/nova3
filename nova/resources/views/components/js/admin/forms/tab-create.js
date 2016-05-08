@@ -21,7 +21,7 @@ vue = {
 				}
 
 				this.$http.post(url, postData).then(response => {
-					if (response.code == 0) {
+					if (response.data.code == 0) {
 						this.link = ""
 
 						swal({

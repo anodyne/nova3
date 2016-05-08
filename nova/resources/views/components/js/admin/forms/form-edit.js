@@ -28,7 +28,7 @@ vue = {
 				var postData = { key: this.key }
 
 				this.$http.post(url, postData).then(response => {
-					if (response.code == 0) {
+					if (response.data.code == 0) {
 						this.key = this.oldKey
 
 						swal({
