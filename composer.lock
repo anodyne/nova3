@@ -2273,16 +2273,16 @@
         },
         {
             "name": "spatie/laravel-glide",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-glide.git",
-                "reference": "f3a5d4ee48a93c322a0bc63ebd5183bd2d09aa1f"
+                "reference": "9a5f8cac9ed2246b41afd6aa1f2b3034a6aa9ba4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-glide/zipball/f3a5d4ee48a93c322a0bc63ebd5183bd2d09aa1f",
-                "reference": "f3a5d4ee48a93c322a0bc63ebd5183bd2d09aa1f",
+                "url": "https://api.github.com/repos/spatie/laravel-glide/zipball/9a5f8cac9ed2246b41afd6aa1f2b3034a6aa9ba4",
+                "reference": "9a5f8cac9ed2246b41afd6aa1f2b3034a6aa9ba4",
                 "shasum": ""
             },
             "require": {
@@ -2312,7 +2312,7 @@
             ],
             "description": "Easily convert images with Glide",
             "homepage": "https://github.com/spatie/laravel-glide",
-            "time": "2015-12-29 09:16:28"
+            "time": "2016-05-05 15:35:48"
         },
         {
             "name": "spatie/laravel-medialibrary",
