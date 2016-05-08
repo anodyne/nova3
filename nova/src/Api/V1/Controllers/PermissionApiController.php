@@ -12,7 +12,7 @@ class PermissionApiController extends ApiBaseController {
 		$this->repo = $repo;
 	}
 
-	public function index()
+	public function all()
 	{
 		return $this->response->collection($this->repo->all(), new PermissionTransformer);
 	}

@@ -1,9 +1,9 @@
 <?php namespace Nova\Api\V1\Transformers;
 
-use Permission as Resource;
+use Role as Resource;
 use League\Fractal\TransformerAbstract as Transformer;
 
-class PermissionTransformer extends Transformer {
+class RoleTransformer extends Transformer {
 
 	public function transform(Resource $resource)
 	{
@@ -12,10 +12,9 @@ class PermissionTransformer extends Transformer {
 			'key'			=> $resource->key,
 			'name'			=> $resource->name,
 			'description'	=> $resource->description,
-			'isProtected'	=> (bool) $resource->protected,
-			'roles'			=> (array) $resource->roles->toArray(),
+			'permissions'	=> (array) $resource->permissions->toArray(),
 			'links'			=> [
-				'edit'			=> route('admin.access.permissions.edit', [$resource->id]),
+				'edit'			=> route('admin.access.roles.edit', [$resource->id]),
 			],
 		];
 	}
