@@ -59,6 +59,9 @@ class MenuItemController extends BaseController {
 		// Now grab any menu items underneath the top level
 		$subMenuItems = $this->repo->getSubMenuItems($menu);
 		$this->data->subMenuItems = $this->repo->splitSubMenuItemsIntoArray($subMenuItems);
+
+		$this->jsData->reorderUrl = route('admin.menu.items.reorder');
+		$this->jsData->storeDividerUrl = route('admin.menus.items.storeDivider');
 	}
 
 	public function create($menuId)
@@ -101,7 +104,7 @@ class MenuItemController extends BaseController {
 		$this->authorize('edit', $item, "You do not have permission to edit menu items.");
 
 		$this->view = 'admin/menus/menu-item-edit';
-		$this->jsView = 'admin/menus/menu-item-edit-js';
+		$this->scripts = ['admin/menus/menu-item-edit'];
 
 		$this->data->menuId = $item->menu_id;
 

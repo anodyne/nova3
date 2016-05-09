@@ -1,17 +1,20 @@
 vue = {
 	data: {
-		key: ""
+		key: "",
+		name: "",
+		oldKey: ""
 	},
 
 	methods: {
 		checkKey: function () {
-			if (this.key != "") {
+			if (this.key != "" && this.key != this.oldKey) {
 				var url = Nova.data.keyCheckUrl
 				var postData = { key: this.key }
 
 				this.$http.post(url, postData).then(response => {
 					if (response.data.code == 0) {
-						this.key = ""
+						$('[name="key"]').blur()
+						this.key = this.oldKey
 
 						swal({
 							title: "Error!",
@@ -22,7 +25,8 @@ vue = {
 						})
 					}
 				}, response => {
-					this.key = ""
+					$('[name="key"]').blur()
+					this.key = this.oldKey
 
 					swal({
 						title: "Error!",
@@ -34,5 +38,9 @@ vue = {
 				})
 			}
 		}
+	},
+
+	ready: function () {
+		this.oldKey = this.key
 	}
 }

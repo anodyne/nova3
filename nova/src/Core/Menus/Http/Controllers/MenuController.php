@@ -151,13 +151,13 @@ class MenuController extends BaseController {
 
 		$this->authorize('manageMenuPages', $menu, "You do not have permission to manage pages for menus.");
 
-		$this->view = 'menu-pages';
-		$this->jsView = 'menu-pages-js';
-
-		$this->data->pages = $this->repo->getPages($menu);
+		$this->view = 'admin/menus/menu-pages';
+		$this->scripts = ['admin/menus/menu-pages'];
 
 		$this->data->menus[] = "No Menu";
 		$this->data->menus += $this->repo->listAllFiltered('name', 'id', $menu->id);
+
+		$this->jsData->pages = $this->repo->getPages($menu)->toArray();
 	}
 
 	public function updatePages(Request $request, $menuKey)
