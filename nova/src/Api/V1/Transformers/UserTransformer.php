@@ -18,9 +18,8 @@ class UserTransformer extends Transformer {
 			'links'			=> [
 				'edit'			=> route('admin.users.edit', [$resource->id]),
 			],
+			'characters'	=> $resource->characters->toArray(),
 		];
-
-		$user['characters'] = $resource->characters->toArray();
 
 		return $user;
 	}

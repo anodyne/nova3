@@ -11,7 +11,7 @@ class UserApiController extends ApiBaseController {
 	{
 		$this->repo = $repo;
 
-		//$this->middleware(['api.auth']);
+		$this->middleware('auth:api');
 	}
 
 	public function all()

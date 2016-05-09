@@ -32,12 +32,7 @@ class UserController extends BaseController {
 		$this->view = 'admin/users/users';
 		$this->scripts = ['admin/users/users'];
 
-		//$apiDispatcher = app('Dingo\Api\Dispatcher')->be(user());
-		//$route = version('v1')->route('api.users.index');
-		//dd($apiDispatcher, $route);
-		//dd($this->api->get('api/users'));
-		//$this->jsData->apiUrl = $this->api->get('api/users')->toArray();
-		$this->jsData->apiUrl = version('v1')->route('api.users.index');
+		$this->jsData->apiUrl = apiRoute('api.users.index');
 	}
 
 	public function create()

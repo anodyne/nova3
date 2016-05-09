@@ -33,7 +33,7 @@ class PermissionController extends BaseController {
 		$this->view = 'admin/access/permissions';
 		$this->scripts = ['admin/access/permissions'];
 
-		$this->jsData->apiUrl = version('v1')->route('api.access.permissions.all');
+		$this->jsData->apiUrl = apiRoute('api.access.permissions.all');
 	}
 
 	public function create()
