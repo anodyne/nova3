@@ -155,7 +155,7 @@ return [
 	*/
 
 	'auth' => [
-
+		'laravelApi' => Nova\Foundation\Services\LaravelApiProvider::class,
 	],
 
 	/*

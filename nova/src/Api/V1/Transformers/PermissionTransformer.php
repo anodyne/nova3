@@ -7,7 +7,7 @@ class PermissionTransformer extends Transformer {
 
 	public function transform(Resource $resource)
 	{
-		return [
+		$permission = [
 			'id'			=> (int) $resource->id,
 			'key'			=> $resource->key,
 			'name'			=> $resource->name,
@@ -18,6 +18,8 @@ class PermissionTransformer extends Transformer {
 				'edit'			=> route('admin.access.permissions.edit', [$resource->id]),
 			],
 		];
+
+		return $permission;
 	}
 
 }

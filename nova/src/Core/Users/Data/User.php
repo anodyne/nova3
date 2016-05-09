@@ -26,7 +26,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	protected $fillable = ['name', 'nickname', 'email', 'password',
 		'remember_token', 'api_token', 'status'];
 
-	protected $hidden = ['password', 'remember_token', 'api_token'];
+	protected $hidden = ['password', 'remember_token', 'api_token', 'created_at',
+		'updated_at', 'deleted_at', 'pivot'];
 
 	protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 

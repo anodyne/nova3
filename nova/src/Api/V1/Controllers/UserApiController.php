@@ -10,6 +10,8 @@ class UserApiController extends ApiBaseController {
 	public function __construct(UserRepositoryContract $repo)
 	{
 		$this->repo = $repo;
+
+		//$this->middleware(['api.auth']);
 	}
 
 	public function all()

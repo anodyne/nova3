@@ -2,12 +2,13 @@
 
 use Str;
 use stdClass;
+use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\{Bus\DispatchesJobs, Validation\ValidatesRequests};
 
 abstract class BaseController extends Controller {
 
-	use DispatchesJobs, ValidatesRequests;
+	use DispatchesJobs, ValidatesRequests, Helpers;
 
 	public $app;
 	public $page;
@@ -42,6 +43,10 @@ abstract class BaseController extends Controller {
 		$this->user				= user();
 		$this->templateData 	= new stdClass;
 		$this->structureData	= new stdClass;
+
+		// Do some API setup
+		$this->api->be($this->user)
+			->version(config('nova.api.version'));
 
 		// Get a copy of $this so we can use it in the binding closure
 		$me = $this;

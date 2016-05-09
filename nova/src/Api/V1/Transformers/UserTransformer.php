@@ -8,7 +8,7 @@ class UserTransformer extends Transformer {
 
 	public function transform(Resource $resource)
 	{
-		return [
+		$user = [
 			'id'			=> (int) $resource->id,
 			'name'			=> $resource->name,
 			'nickname'		=> $resource->nickname,
@@ -19,6 +19,10 @@ class UserTransformer extends Transformer {
 				'edit'			=> route('admin.users.edit', [$resource->id]),
 			],
 		];
+
+		$user['characters'] = $resource->characters->toArray();
+
+		return $user;
 	}
 
 }
