@@ -9,9 +9,8 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 
-		// $this->call('UserTableSeeder');
-		$this->call('FormSeeder');
 		$this->call('UserSeeder');
+		$this->call('FormSeeder');
 	}
 
 }

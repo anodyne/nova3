@@ -68,9 +68,11 @@ class FormSeeder extends Seeder {
 		// Create some entries
 		for ($i = 1; $i <= 50; $i++)
 		{
+			$userId = $faker->numberBetween(1, 11);
+
 			$entry = $entryRepo->create([
 				'form_id' => $form->id,
-				'user_id' => 1,
+				'user_id' => $userId,
 			]);
 
 			foreach ($fields as $field)
@@ -83,7 +85,7 @@ class FormSeeder extends Seeder {
 					'form_id' => $form->id,
 					'field_id' => $field->id,
 					'entry_id' => $entry->id,
-					'user_id' => 1,
+					'user_id' => $userId,
 					'value' => $value,
 				]);
 			}
