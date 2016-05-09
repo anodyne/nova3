@@ -30,10 +30,10 @@
 		<div class="form-group{{ ($errors->has('authentication')) ? ' has-error' : '' }}">
 			<label class="col-md-3 control-label">Require Authentication</label>
 			<div class="col-md-5">
-				<label class="radio-inline">
+				<label class="radio">
 					{!! Form::radio('authentication', (int) true) !!} Yes
 				</label>
-				<label class="radio-inline">
+				<label class="radio">
 					{!! Form::radio('authentication', (int) false) !!} No
 				</label>
 				{!! $errors->first('authentication', '<p class="help-block">:message</p>') !!}

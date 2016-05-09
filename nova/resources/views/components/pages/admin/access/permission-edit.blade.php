@@ -22,7 +22,7 @@
 		<div class="form-group{{ ($errors->has('key')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Key</label>
 			<div class="col-md-3">
-				{!! Form::text('key', null, ['class' => 'form-control input-lg', 'v-model' => 'key', 'v-on:change' => 'updateKey']) !!}
+				{!! Form::text('key', null, ['class' => 'form-control input-lg', 'v-model' => 'key', '@change' => 'updateKey']) !!}
 				{!! $errors->first('key', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>

@@ -22,7 +22,7 @@
 		<div class="form-group{{ ($errors->has('component')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Component</label>
 			<div class="col-md-3">
-				{!! Form::text('component', null, ['class' => 'form-control input-lg', 'v-model' => 'component', 'v-on:change' => 'updateKey']) !!}
+				{!! Form::text('component', null, ['class' => 'form-control input-lg', 'v-model' => 'component', '@change' => 'updateKey']) !!}
 				{!! $errors->first('component', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>
@@ -35,7 +35,7 @@
 		<div class="form-group{{ ($errors->has('action')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Action</label>
 			<div class="col-md-3">
-				{!! Form::text('action', null, ['class' => 'form-control input-lg', 'v-model' => 'action', 'v-on:change' => 'updateKey']) !!}
+				{!! Form::text('action', null, ['class' => 'form-control input-lg', 'v-model' => 'action', '@change' => 'updateKey']) !!}
 				{!! $errors->first('action', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>
