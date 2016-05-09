@@ -17,21 +17,42 @@
 	{!! Form::open(['route' => ['admin.menus.pages.update', $menu->key], 'method' => 'put']) !!}
 		<div class="row">
 			<div class="col-md-3 col-md-push-9">
+				<div class="panel panel-default" id="filters">
+					<div class="panel-heading">
+						<h3 class="panel-title">Filter Pages</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label class="control-label">By Name</label>
+							{!! Form::text('search', null, ['class' => 'form-control', 'v-model' => 'search']) !!}
+						</div>
+					</div>
+					<div class="panel-footer">
+						<mobile>
+							<a class="btn btn-default btn-lg btn-block" @click="resetFilters">Reset Filters</a>
+						</mobile>
+						<desktop>
+							<a class="btn btn-default btn-block" @click="resetFilters">Reset Filters</a>
+						</desktop>
+					</div>
+				</div>
+
 				<div v-show="checked > 0" class="panel panel-default" id="controls">
 					<div class="panel-heading">
-						<h3 class="panel-title">With Selected...</h3>
+						<h3 class="panel-title">With @{{ checked }} Selected Pages...</h3>
 					</div>
 					<div class="panel-body">
 						<div class="form-group">
 							<label class="control-label">Assign New Menu</label>
 							{!! Form::select('new_menu', $menus, null, ['class' => 'form-control']) !!}
 						</div>
-
+					</div>
+					<div class="panel-footer">
 						<mobile>
-							<p>{!! Form::button("Update", ['type' => 'submit', 'class' => 'btn btn-default btn-lg btn-block']) !!}</p>
+							{!! Form::button("Update", ['type' => 'submit', 'class' => 'btn btn-default btn-lg btn-block']) !!}
 						</mobile>
 						<desktop>
-							<p>{!! Form::button("Update", ['type' => 'submit', 'class' => 'btn btn-default btn-block']) !!}</p>
+							{!! Form::button("Update", ['type' => 'submit', 'class' => 'btn btn-default btn-block']) !!}
 						</desktop>
 					</div>
 				</div>
@@ -45,7 +66,7 @@
 				</div>
 
 				<div class="data-table data-table-striped data-table-bordered">
-					<div class="row" v-for="page in pages">
+					<div class="row" v-for="page in pages | filterBy search in 'name'">
 						<div class="col-xs-1">
 							<p><input type="checkbox" value="page.id" v-model="page.selected" id="pageCheckbox@{{ page.id }}"></p>
 						</div>

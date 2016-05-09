@@ -17,7 +17,14 @@ vue = {
 
 	data: {
 		checkAll: false,
-		pages: []
+		pages: [],
+		search: ""
+	},
+
+	methods: {
+		resetFilters: function () {
+			this.search = ""
+		}
 	},
 
 	ready: function () {
