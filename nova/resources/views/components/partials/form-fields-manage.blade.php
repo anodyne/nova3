@@ -5,7 +5,7 @@
 			<div class="col-xs-1">
 				<p class="text-center"><span class="uk-icon uk-icon-bars sortable-handle"></span></p>
 			</div>
-			<div class="col-xs-11 col-md-8 col-lg-9">
+			<div class="col-xs-11 col-md-8">
 				@if ($form->orientation == 'horizontal')
 					<div class="form-group">
 						@if (strlen($field->label) > 0)
@@ -34,18 +34,18 @@
 					</div>
 				@endif
 			</div>
-			<div class="col-xs-12 col-md-3 col-lg-2 controls" v-cloak>
+			<div class="col-xs-12 col-md-3 controls" v-cloak>
 				<mobile>
 					<div class="row">
 						@can('edit', $field)
 							<div class="col-xs-12">
-								<p><a href="{{ route('admin.forms.fields.edit', [$form->key, $field->id]) }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
+								<p><a href="{{ route('admin.forms.fields.edit', [$form->key, $field->id]) }}" class="btn btn-default btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
 							</div>
 						@endcan
 
 						@can('remove', $field)
 							<div class="col-xs-12">
-								<p><a href="#" class="btn btn-danger btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $field->id }}" @click.prevent="removeField">Remove</a></p>
+								<p><a href="#" class="btn btn-danger btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $field->id }}" @click.prevent="removeField">{!! icon('delete') !!}<span>Remove</span></a></p>
 							</div>
 						@endcan
 					</div>
@@ -54,13 +54,13 @@
 					<div class="btn-toolbar pull-right">
 						@can('edit', $field)
 							<div class="btn-group">
-								<a href="{{ route('admin.forms.fields.edit', [$form->key, $field->id]) }}" class="btn btn-default">Edit</a>
+								<a href="{{ route('admin.forms.fields.edit', [$form->key, $field->id]) }}" class="btn btn-default">{!! icon('edit') !!}<span>Edit</span></a>
 							</div>
 						@endcan
 
 						@can('remove', $field)
 							<div class="btn-group">
-								<a href="#" class="btn btn-danger" data-form-key="{{ $form->key }}" data-id="{{ $field->id }}" @click.prevent="removeField">Remove</a>
+								<a href="#" class="btn btn-danger" data-form-key="{{ $form->key }}" data-id="{{ $field->id }}" @click.prevent="removeField">{!! icon('delete') !!}<span>Remove</span></a>
 							</div>
 						@endcan
 					</div>

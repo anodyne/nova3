@@ -1,14 +1,12 @@
 vue = {
 	data: {
+		formKey: "",
 		link: "",
 		name: "",
-		formKey: "",
-		oldLink: ""
+		oldLink: "",
+		parentTab: false,
+		status: ""
 	},
-
-	ready: function () {
-		this.oldLink = this.link
-	}
 
 	methods: {
 		updateName: function () {
@@ -27,6 +25,7 @@ vue = {
 
 				this.$http.post(url, postData).then(response => {
 					if (response.data.code == 0) {
+						$('[name="link_id"]').blur()
 						this.link = ""
 
 						swal({
@@ -38,6 +37,9 @@ vue = {
 						})
 					}
 				}, response => {
+					$('[name="link_id"]').blur()
+					this.link = ""
+					
 					swal({
 						title: "Error!",
 						text: "There was an error trying to check the link ID. Please try again. (Error " + response.status + ")",
@@ -48,5 +50,9 @@ vue = {
 				})
 			}
 		}
+	},
+
+	ready: function () {
+		this.oldLink = this.link
 	}
 }

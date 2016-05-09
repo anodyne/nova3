@@ -4,12 +4,12 @@
 
 <div v-cloak>
 	<mobile>
-		<p><a href="{{ route('admin.forms') }}" class="btn btn-default btn-lg btn-block">Back to Forms</a></p>
+		<p><a href="{{ route('admin.forms') }}" class="btn btn-default btn-lg btn-block">{!! icon('arrow-back') !!}<span>Back to Forms</span></a></p>
 	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			<div class="btn-group">
-				<a href="{{ route('admin.forms') }}" class="btn btn-default">Back to Forms</a>
+				<a href="{{ route('admin.forms') }}" class="btn btn-default">{!! icon('arrow-back') !!}<span>Back to Forms</span></a>
 			</div>
 		</div>
 	</desktop>

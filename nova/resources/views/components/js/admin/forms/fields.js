@@ -1,8 +1,9 @@
 vue = {
 	methods: {
 		removeField: function (event) {
-			var formKey = $(event.target).parent().data('form-key')
-			var fieldId = $(event.target).parent().data('id')
+			var parent = $(event.target).parent()
+			var formKey = parent.data('form-key')
+			var fieldId = parent.data('id')
 
 			$('#removeField').modal({
 				remote: novaUrl("admin/forms/" + formKey + "/fields/" + fieldId + "/remove")

@@ -4,128 +4,126 @@
 
 <div v-cloak>
 	<mobile>
-		@can('create', $tab)
-			<p><a href="{{ route('admin.forms.tabs.create', $form->key) }}" class="btn btn-success btn-lg btn-block">Add a Tab</a></p>
-		@endcan
-
 		@can('manage', $form)
-			<p><a href="{{ route('admin.forms') }}" class="btn btn-default btn-lg btn-block">Back to Forms</a></p>
+			<p><a href="{{ route('admin.forms') }}" class="btn btn-default btn-lg btn-block">{!! icon('arrow-back') !!}<span>Back to Forms</span></a></p>
+		@endcan
+		@can('create', $tab)
+			<p><a href="{{ route('admin.forms.tabs.create', $form->key) }}" class="btn btn-success btn-lg btn-block">{!! icon('add') !!}<span>Add a Tab</span></a></p>
 		@endcan
 	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
-			@can('create', $tab)
-				<div class="btn-group">
-					<a href="{{ route('admin.forms.tabs.create', $form->key) }}" class="btn btn-success">Add a Tab</a>
-				</div>
-			@endcan
-
 			@can('manage', $form)
 				<div class="btn-group">
-					<a href="{{ route('admin.forms') }}" class="btn btn-default">Back to Forms</a>
+					<a href="{{ route('admin.forms') }}" class="btn btn-default">{!! icon('arrow-back') !!}<span>Back to Forms</span></a>
+				</div>
+			@endcan
+			@can('create', $tab)
+				<div class="btn-group">
+					<a href="{{ route('admin.forms.tabs.create', $form->key) }}" class="btn btn-success">{!! icon('add') !!}<span>Add a Tab</span></a>
 				</div>
 			@endcan
 		</div>
 	</desktop>
-</div>
 
-@if ($tabs->count() > 0)
-	<div class="data-table data-table-striped data-table-bordered" id="sortable">
-	@foreach ($tabs as $tab)
-		<div class="row" data-id="{{ $tab->id }}">
-			<div class="col-md-6">
-				<p class="lead">
-					<span class="uk-icon uk-icon-bars sortable-handle"></span>
-					<strong>{{ $tab->present()->name }}</strong>
-				</p>
-				<p>{!! $tab->present()->statusAsLabel !!}</p>
+	@if ($tabs->count() > 0)
+		<div class="data-table data-table-striped data-table-bordered" id="sortable">
+		@foreach ($tabs as $tab)
+			<div class="row" data-id="{{ $tab->id }}">
+				<div class="col-md-6">
+					<p class="lead">
+						<span class="uk-icon uk-icon-bars sortable-handle"></span>
+						<strong>{{ $tab->present()->name }}</strong>
+					</p>
+					<p>{!! $tab->present()->statusAsLabel !!}</p>
+				</div>
+				<div class="col-md-6 controls">
+					<mobile>
+						<div class="row">
+							@can('edit', $tab)
+								<div class="col-xs-12">
+									<p><a href="{{ route('admin.forms.tabs.edit', [$form->key, $tab->id]) }}" class="btn btn-default btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
+								</div>
+							@endcan
+
+							@can('remove', $tab)
+								<div class="col-xs-12">
+									<p><a href="#" class="btn btn-danger btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $tab->id }}" @click.prevent="removeTab">{!! icon('delete') !!}<span>Remove</span></a></p>
+								</div>
+							@endcan
+						</div>
+					</mobile>
+					<desktop>
+						<div class="btn-toolbar pull-right">
+							@can('edit', $tab)
+								<div class="btn-group">
+									<a href="{{ route('admin.forms.tabs.edit', [$form->key, $tab->id]) }}" class="btn btn-default">{!! icon('edit') !!}<span>Edit</span></a>
+								</div>
+							@endcan
+
+							@can('remove', $tab)
+								<div class="btn-group">
+									<a href="#" class="btn btn-danger" data-form-key="{{ $form->key }}" data-id="{{ $tab->id }}" @click.prevent="removeTab">{!! icon('delete') !!}<span>Remove</span></a>
+								</div>
+							@endcan
+						</div>
+					</desktop>
+				</div>
 			</div>
-			<div class="col-md-6 controls" v-cloak>
-				<mobile>
-					<div class="row">
-						@can('edit', $tab)
-							<div class="col-xs-12">
-								<p><a href="{{ route('admin.forms.tabs.edit', [$form->key, $tab->id]) }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
-							</div>
-						@endcan
 
-						@can('remove', $tab)
-							<div class="col-xs-12">
-								<p><a href="#" class="btn btn-danger btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $tab->id }}" @click.prevent="removeTab">Remove</a></p>
-							</div>
-						@endcan
-					</div>
-				</mobile>
-				<desktop>
-					<div class="btn-toolbar pull-right">
-						@can('edit', $tab)
-							<div class="btn-group">
-								<a href="{{ route('admin.forms.tabs.edit', [$form->key, $tab->id]) }}" class="btn btn-default">Edit</a>
-							</div>
-						@endcan
+			@if ($tab->childrenTabs->count() > 0)
+				@foreach ($tab->childrenTabs->sortBy('order') as $child)
+					<div class="row" data-id="{{ $child->id }}">
+						<div class="col-md-6">
+							<p class="lead">
+								<span class="uk-icon uk-icon-bars sortable-handle"></span>
+								<strong>{{ $child->present()->name }}</strong>
+							</p>
+							<p class="text-muted"><em>Parent Tab: {{ $child->parentTab->present()->name }}</em></p>
+							<p>{!! $child->present()->statusAsLabel !!}</p>
+						</div>
+						<div class="col-md-6 controls">
+							<mobile>
+								<div class="row">
+									@can('edit', $child)
+										<div class="col-xs-12">
+											<p><a href="{{ route('admin.forms.tabs.edit', [$form->key, $child->id]) }}" class="btn btn-default btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
+										</div>
+									@endcan
 
-						@can('remove', $tab)
-							<div class="btn-group">
-								<a href="#" class="btn btn-danger" data-form-key="{{ $form->key }}" data-id="{{ $tab->id }}" @click.prevent="removeTab">Remove</a>
-							</div>
-						@endcan
+									@can('remove', $child)
+										<div class="col-xs-12">
+											<p><a href="#" class="btn btn-danger btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $child->id }}" @click.prevent="removeTab">{!! icon('delete') !!}<span>Remove</span></a></p>
+										</div>
+									@endcan
+								</div>
+							</mobile>
+							<desktop>
+								<div class="btn-toolbar pull-right">
+									@can('edit', $child)
+										<div class="btn-group">
+											<a href="{{ route('admin.forms.tabs.edit', [$form->key, $child->id]) }}" class="btn btn-default">{!! icon('edit') !!}<span>Edit</span></a>
+										</div>
+									@endcan
+
+									@can('remove', $child)
+										<div class="btn-group">
+											<a href="#" class="btn btn-danger" data-form-key="{{ $form->key }}" data-id="{{ $child->id }}" @click.prevent="removeTab">{!! icon('delete') !!}<span>Remove</span></a>
+										</div>
+									@endcan
+								</div>
+							</desktop>
+						</div>
 					</div>
-				</desktop>
-			</div>
+				@endforeach
+			@endif
+		@endforeach
 		</div>
 
-		@if ($tab->childrenTabs->count() > 0)
-			@foreach ($tab->childrenTabs->sortBy('order') as $child)
-				<div class="row" data-id="{{ $child->id }}">
-					<div class="col-md-6">
-						<p class="lead">
-							<span class="uk-icon uk-icon-bars sortable-handle"></span>
-							<strong>{{ $child->present()->name }}</strong>
-						</p>
-						<p class="text-muted"><em>Parent Tab: {{ $child->parentTab->present()->name }}</em></p>
-						<p>{!! $child->present()->statusAsLabel !!}</p>
-					</div>
-					<div class="col-md-6 controls" v-cloak>
-						<mobile>
-							<div class="row">
-								@can('edit', $child)
-									<div class="col-xs-12">
-										<p><a href="{{ route('admin.forms.tabs.edit', [$form->key, $child->id]) }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
-									</div>
-								@endcan
-
-								@can('remove', $child)
-									<div class="col-xs-12">
-										<p><a href="#" class="btn btn-danger btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $child->id }}" @click.prevent="removeTab">Remove</a></p>
-									</div>
-								@endcan
-							</div>
-						</mobile>
-						<desktop>
-							<div class="btn-toolbar pull-right">
-								@can('edit', $child)
-									<div class="btn-group">
-										<a href="{{ route('admin.forms.tabs.edit', [$form->key, $child->id]) }}" class="btn btn-default">Edit</a>
-									</div>
-								@endcan
-
-								@can('remove', $child)
-									<div class="btn-group">
-										<a href="#" class="btn btn-danger" data-form-key="{{ $form->key }}" data-id="{{ $child->id }}" @click.prevent="removeTab">Remove</a>
-									</div>
-								@endcan
-							</div>
-						</desktop>
-					</div>
-				</div>
-			@endforeach
-		@endif
-	@endforeach
-	</div>
-
-	@can('remove', $tab)
-		{!! modal(['id' => "removeTab", 'header' => "Remove Form Tab"]) !!}
-	@endcan
-@else
-	{!! alert('warning', "No form tabs found.") !!}
-@endif
+		@can('remove', $tab)
+			{!! modal(['id' => "removeTab", 'header' => "Remove Form Tab"]) !!}
+		@endcan
+	@else
+		{!! alert('warning', "No form tabs found.") !!}
+	@endif
+</div>

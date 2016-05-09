@@ -6,6 +6,10 @@ vue = {
 		labelContainerClass: "col-md-2",
 		label: "",
 		type: "",
+		help: "",
+		status: "",
+		tabId: false,
+		sectionId: false,
 		options: [
 			{ text: "", value: "" }
 		],

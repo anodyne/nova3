@@ -1,13 +1,19 @@
 vue = {
 	data: {
+		allowMultipleSubmissions: "",
 		key: "",
 		name: "",
+		orientation: "",
+		resourceDestroy: "",
+		resourceStore: "",
+		resourceUpdate: "",
 		restrictions: [
 			{ type: "view", value: "" },
 			{ type: "add", value: "" },
 			{ type: "edit", value: "" },
 			{ type: "remove", value: "" }
 		],
+		status: "",
 		useFormCenter: true
 	},
 
@@ -28,6 +34,7 @@ vue = {
 
 				this.$http.post(url, postData).then(response => {
 					if (response.data.code == 0) {
+						$('[name="key"]').blur()
 						this.key = ""
 
 						swal({
@@ -39,6 +46,9 @@ vue = {
 						})
 					}
 				}, response => {
+					$('[name="key"]').blur()
+					this.key = ""
+
 					swal({
 						title: "Error!",
 						text: "There was an error trying to check the form key. Please try again. (Error " + response.status + ")",
@@ -54,14 +64,6 @@ vue = {
 			this.key = this.name.replace(/\W+/g, '-').toLowerCase()
 
 			this.updateKey()
-		}
-	},
-
-	watch: {
-		useFormCenter: function (value, oldValue) {
-			if (value == false) {
-				//
-			}
 		}
 	}
 }

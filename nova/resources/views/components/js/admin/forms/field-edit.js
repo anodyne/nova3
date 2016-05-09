@@ -7,6 +7,9 @@ vue = {
 		label: "",
 		type: "",
 		help: "",
+		status: "",
+		tabId: false,
+		sectionId: false,
 		hasValues: false,
 		options: [
 			{ text: "", value: "" }

@@ -1,8 +1,10 @@
 vue = {
 	data: {
+		formKey: "",
 		link: "",
 		name: "",
-		formKey: ""
+		parentTab: false,
+		status: ""
 	},
 
 	methods: {
@@ -14,7 +16,7 @@ vue = {
 
 		updateLink: function () {
 			if (this.link != "") {
-				var url = Nova.data.linkCheckUrl "{{  }}"
+				var url = Nova.data.linkCheckUrl
 				var postData = {
 					linkId: this.link,
 					formKey: this.formKey
@@ -22,6 +24,7 @@ vue = {
 
 				this.$http.post(url, postData).then(response => {
 					if (response.data.code == 0) {
+						$('[name="link_id"]').blur()
 						this.link = ""
 
 						swal({
@@ -33,6 +36,9 @@ vue = {
 						})
 					}
 				}, response => {
+					$('[name="link_id"]').blur()
+					this.link = ""
+
 					swal({
 						title: "Error!",
 						text: "There was an error trying to check the link ID. Please try again. (Error " + response.status + ")",

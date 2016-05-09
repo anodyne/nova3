@@ -1,9 +1,11 @@
 $(function () {
-	$('.nav-tabs').each(function () {
+	$('main .nav-tabs').each(function () {
 		$(this).find('li a:first').tab('show')
 	})
 
-	$('.nav-pills').each(function () {
+	$('main .nav-pills').each(function () {
 		$(this).find('li a:first').tab('show')
 	})
+
+	//$('main .nav-tabs, main .nav-pills').tabdrop()
 })

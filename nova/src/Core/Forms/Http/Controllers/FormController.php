@@ -56,7 +56,7 @@ class FormController extends BaseController {
 		$this->authorize('create', new NovaForm, "You do not have permission to create forms.");
 
 		$this->view = 'admin/forms/form-create';
-		$this->jsView = 'admin/forms/form-create-js';
+		$this->scripts = ['admin/forms/form-create'];
 
 		$this->data->accessRoles = $this->roleRepo->listAll('name', 'key');
 
@@ -151,7 +151,10 @@ class FormController extends BaseController {
 	public function preview($formKey)
 	{
 		$this->view = 'admin/forms/form-preview';
-		$this->scripts = ['admin/forms/form-preview'];
+		$this->scripts = [
+			'bootstrap-tabdrop',
+			'admin/forms/form-preview'
+		];
 
 		$this->data->form = $this->repo->getByKey($formKey);
 	}
