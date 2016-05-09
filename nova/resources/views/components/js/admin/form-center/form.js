@@ -14,8 +14,9 @@ vue = {
 
 	methods: {
 		removeEntry: function (event) {
-			var entryId = $(event.target).parent().data('id')
-			var formKey = $(event.target).parent().data('form-key')
+			var parent = $(event.target).parent()
+			var entryId = parent.data('id')
+			var formKey = parent.data('form-key')
 
 			$('#removeFormEntry').modal({
 				remote: novaUrl("admin/form-center/" + formKey + "/remove/" + entryId)
@@ -35,12 +36,13 @@ vue = {
 
 			$('#formCenterEntry').html('')
 
-			var entryId = $(event.target).parent().data('id')
-			var formKey = $(event.target).parent().data('form-key')
+			var parent = $(event.target).parent()
+			var entryId = parent.data('id')
+			var formKey = parent.data('form-key')
 			var url = novaUrl("admin/form-center/" + formKey + "/edit-entry/" + entryId)
 
 			this.$http.get(url).then(response => {
-				$('#formCenterEntry').html(response.data)
+				$('#formCenterEntry').html(response.data.data)
 
 				vm.$emit('form-center-entry.loaded')
 			})
@@ -56,12 +58,13 @@ vue = {
 
 			$('#formCenterEntry').html('')
 
-			var entryId = $(event.target).parent().data('id')
-			var formKey = $(event.target).parent().data('form-key')
+			var parent = $(event.target).parent()
+			var entryId = parent.data('id')
+			var formKey = parent.data('form-key')
 			var url = novaUrl("admin/form-center/" + formKey + "/show-entry/" + entryId)
 
 			this.$http.get(url).then(response => {
-				$('#formCenterEntry').html(response.data)
+				$('#formCenterEntry').html(response.data.data)
 
 				vm.$emit('form-center-entry.loaded')
 			})

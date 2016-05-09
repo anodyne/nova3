@@ -15,47 +15,47 @@
 			</div>
 			<div class="col-md-3"></div>
 		</div>
-	@foreach ($entries as $entry)
-		<div class="row">
-			<div class="col-md-6">
-				<p>{!! $entry->present()->identifier !!}</p>
-				<p class="text-sm text-muted">{!! $entry->present()->createdAtRelative !!}</p>
-			</div>
-			<div class="col-md-3">
-				<p>{!! $entry->present()->submitter !!}</p>
-			</div>
-			<div class="col-md-3" v-cloak>
-				<mobile>
-					<p><a href="{{ route('admin.form-center.show', [$form->key, $entry->id]) }}" class="btn btn-default btn-lg btn-block">View</a></p>
+		@foreach ($entries as $entry)
+			<div class="row">
+				<div class="col-md-6">
+					<p>{!! $entry->present()->identifier !!}</p>
+					<p class="text-sm text-muted">{!! $entry->present()->createdAtRelative !!}</p>
+				</div>
+				<div class="col-md-3">
+					<p>{!! $entry->present()->submitter !!}</p>
+				</div>
+				<div class="col-md-3" v-cloak>
+					<mobile>
+						<p><a href="{{ route('admin.form-center.show', [$form->key, $entry->id]) }}" class="btn btn-default btn-lg btn-block">{!! icon('visible') !!}<span>View</span></a></p>
 
-					@can('editEntries', $form)
-						<p><a href="{{ route('admin.form-center.edit', [$form->key, $entry->id]) }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
-					@endcan
-
-					@can('removeEntries', $form)
-						<p><a href="#" class="btn btn-danger btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="removeEntry">Remove</a></p>
-					@endcan
-				</mobile>
-				<desktop>
-					<div class="btn-toolbar pull-right">
-						<div class="btn-group">
-							<a href="{{ route('admin.form-center.show', [$form->key, $entry->id]) }}" class="btn btn-default">View</a>
-
-							@can('editEntries', $form)
-								<a href="{{ route('admin.form-center.edit', [$form->key, $entry->id]) }}" class="btn btn-default">Edit</a>
-							@endcan
-						</div>
+						@can('editEntries', $form)
+							<p><a href="{{ route('admin.form-center.edit', [$form->key, $entry->id]) }}" class="btn btn-default btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
+						@endcan
 
 						@can('removeEntries', $form)
-							<div class="btn-group">
-								<a href="#" class="btn btn-danger" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="removeEntry">Remove</a>
-							</div>
+							<p><a href="#" class="btn btn-danger btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="removeEntry">{!! icon('delete') !!}<span>Remove</span></a></p>
 						@endcan
-					</div>
-				</desktop>
+					</mobile>
+					<desktop>
+						<div class="btn-toolbar pull-right">
+							<div class="btn-group">
+								<a href="{{ route('admin.form-center.show', [$form->key, $entry->id]) }}" class="btn btn-default">{!! icon('visible') !!}<span>View</span></a>
+
+								@can('editEntries', $form)
+									<a href="{{ route('admin.form-center.edit', [$form->key, $entry->id]) }}" class="btn btn-default">{!! icon('edit') !!}<span>Edit</span></a>
+								@endcan
+							</div>
+
+							@can('removeEntries', $form)
+								<div class="btn-group">
+									<a href="#" class="btn btn-danger" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="removeEntry">{!! icon('delete') !!}<span>Remove</span></a>
+								</div>
+							@endcan
+						</div>
+					</desktop>
+				</div>
 			</div>
-		</div>
-	@endforeach
+		@endforeach
 	</div>
 
 	{!! $entries->render() !!}

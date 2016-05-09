@@ -1,11 +1,11 @@
 <div v-cloak>
 	<mobile>
-		<p><a href="{{ route('admin.form-center.index') }}" class="btn btn-default btn-lg btn-block">Back to Form Center</a></p>
+		<p><a href="{{ route('admin.form-center.index') }}" class="btn btn-default btn-lg btn-block">{!! icon('arrow-back') !!}<span>Back to Form Center</span></a></p>
 	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			<div class="btn-group">
-				<a href="{{ route('admin.form-center.index') }}" class="btn btn-default">Back to Form Center</a>
+				<a href="{{ route('admin.form-center.index') }}" class="btn btn-default">{!! icon('arrow-back') !!}<span>Back to Form Center</span></a>
 			</div>
 		</div>
 	</desktop>
@@ -18,10 +18,10 @@
 		@if ($_user->canAddFormEntry($form) and $form->allow_multiple_submissions)
 			<div class="row">
 				<div class="col-sm-6">
-					<p><a href="#" class="btn btn-success btn-lg btn-block" @click.prevent="switchToForm">Fill Out Form</a></p>
+					<p><a href="#" class="btn btn-success btn-lg btn-block" @click.prevent="switchToForm">{!! icon('add') !!}<span>Fill Out Form</span></a></p>
 				</div>
 				<div class="col-sm-6">
-					<p><a href="#" class="btn btn-default btn-lg btn-block" @click.prevent="switchToEntries">Show My {{ Str::plural('Entry', $entries->count()) }}</a></p>
+					<p><a href="#" class="btn btn-default btn-lg btn-block" @click.prevent="switchToEntries">{!! icon('user') !!}<span>Show My {{ Str::plural('Entry', $entries->count()) }}</span></a></p>
 				</div>
 			</div>
 		@endif
@@ -30,11 +30,11 @@
 		@if ($_user->canAddFormEntry($form) and $form->allow_multiple_submissions)
 			<div class="btn-toolbar">
 				<div class="btn-group">
-					<a href="#" class="btn btn-success" @click.prevent="switchToForm">Fill Out Form</a>
+					<a href="#" class="btn btn-success" @click.prevent="switchToForm">{!! icon('add') !!}<span>Fill Out Form</span></a>
 				</div>
 
 				<div class="btn-group">
-					<a href="#" class="btn btn-default" @click.prevent="switchToEntries">Show My {{ Str::plural('Entry', $entries->count()) }}</a>
+					<a href="#" class="btn btn-default" @click.prevent="switchToEntries">{!! icon('user') !!}<span>Show My {{ Str::plural('Entry', $entries->count()) }}</span></a>
 				</div>
 			</div>
 		@endif
@@ -57,29 +57,29 @@
 					</div>
 					<div class="col-md-4">
 						<mobile>
-							<p><a href="#" class="btn btn-default btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToViewEntry">View</a></p>
+							<p><a href="#" class="btn btn-default btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToViewEntry">{!! icon('visible') !!}<span>View</span></a></p>
 
 							@can('editFormCenterEntry', $form)
-								<p><a href="#" class="btn btn-default btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToEditEntry">Edit</a></p>
+								<p><a href="#" class="btn btn-default btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToEditEntry">{!! icon('edit') !!}<span>Edit</span></a></p>
 							@endcan
 
 							@can('removeFormCenterEntry', $form)
-								<p><a href="#" class="btn btn-danger btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="removeEntry">Remove</a></p>
+								<p><a href="#" class="btn btn-danger btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="removeEntry">{!! icon('delete') !!}<span>Remove</span></a></p>
 							@endcan
 						</mobile>
 						<desktop>
 							<div class="btn-toolbar pull-right">
 								<div class="btn-group">
-									<a href="#" class="btn btn-default" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToViewEntry">View</a>
+									<a href="#" class="btn btn-default" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToViewEntry">{!! icon('visible') !!}<span>View</span></a>
 									
 									@can('editFormCenterEntry', $form)
-										<a href="#" class="btn btn-default" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToEditEntry">Edit</a>
+										<a href="#" class="btn btn-default" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToEditEntry">{!! icon('edit') !!}<span>Edit</span></a>
 									@endcan
 								</div>
 
 								@can('removeFormCenterEntry', $form)
 									<div class="btn-group">
-										<a href="#" class="btn btn-danger" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="removeEntry">Remove</a>
+										<a href="#" class="btn btn-danger" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="removeEntry">{!! icon('delete') !!}<span>Remove</span></a>
 									</div>
 								@endcan
 							</div>
