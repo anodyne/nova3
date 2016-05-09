@@ -18,6 +18,21 @@ if ( ! function_exists('alias'))
 	}
 }
 
+if ( ! function_exists('apiRoute'))
+{
+	function apiRoute($route, $secure = true)
+	{
+		$url = version(config('nova.api.version'))->route($route);
+
+		if ($secure)
+		{
+			$url.= "?api_token=".user()->api_token;
+		}
+
+		return $url;
+	}
+}
+
 if ( ! function_exists('check_directories'))
 {
 	function check_directories()
