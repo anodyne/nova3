@@ -32,7 +32,7 @@ return [
 	|
 	*/
 
-	'subtype' => env('API_SUBTYPE', 'nova-3'),
+	'subtype' => env('API_SUBTYPE', 'nova3'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -155,7 +155,7 @@ return [
 	*/
 
 	'auth' => [
-		'laravelApi' => Nova\Foundation\Services\LaravelApiProvider::class,
+		
 	],
 
 	/*
