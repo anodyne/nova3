@@ -2,11 +2,21 @@
 
 ## Preview Release 4 (0.4)
 
-- Given the fact that we're trying to develop a _modern_ system, we've decided that Nova NextGen now requires __PHP 7.0__ or higher in order to run. Since we're still a ways off from having a usable product, we anticipate more shared hosts to offer PHP 7 as an option. If you have questions or concerns about this change, please don't hesitate to get in touch with us!
-- For the most part, the installation process works very smoothly, but in the event there was an error during installation, there was no feedback to the user. We've reworked the install process so that if something goes wrong, the user will be alerted and be shown the error message. In the event that happens to you, make sure to let us know what the error is so that we can fix it!
+- Given the fact that we're trying to develop a _modern_ system, we've decided that Nova NextGen will now require __PHP 7.0__ or higher in order to run. Since we're still a ways off from having a production-ready product, we anticipate more shared hosts will begin to offer PHP 7 as an option as we get closer to release. If you have questions or concerns about this change, please don't hesitate to get in touch with us!
+- For the most part, the installation process works very smoothly, but in the event there was an error during installation, there was no feedback to the user. We've reworked the install process so that if something goes wrong, the user will be alerted and shown the error message. In the event that happens to you, make sure to let us know what the error is so that we can fix it!
 - We've spent a lot of time cleaning up some stuff from the previous 3 Preview Releases:
-	- Javascript views are now pure Javascript instead of mixing PHP in with them. This is a significant change, but we think it's a much cleaner way of handling Javascript in the system.
-	- We've eliminated some confusion with the access control system and how fields were named.
+	- Javascript views are now pure Javascript instead of mixing PHP in with them. This is a significant change, but we think it's a much cleaner way of handling Javascript in the system. In order to get data from the controller to the Javascript, we've created a new global `Nova` object that will grab all of the data passed to the PHP view. This means that PHP views and Javascript will now have access to the same information.
+	- We've eliminated some confusion with the access control system and how fields were named. (Previously, the name was called display name and the key was called name.)
+	- View locations are now stored in a collection rather than individual properties on the controller. This provides us with a single location for access those locations.
+- Theme updates! While fundamentally nothing has changed, the execution of themes has been significantlly cleaned up. Here's an overview of the changes that have been made:
+	- We've removed a _significant_ number of partials from the system. In some cases they make sense, but in others, it's simply over-engineering. If you've started to play around with themes and have replaced partials, check in the core to make sure those items still exist. Also, beware that several partials have been renamed as well, so if you've replaced partials in your theme, you may have to rename them.
+	- The `Theme` class has been re-written to use more interfaces and to provide more flexibility for theme developers. If you aren't extending from the base theme class, you'll need to update the interfaces you implement in order to avoid errors being thrown.
+	- A lot of the buttons in Nova NextGen now include icons with them. Since all icons have a wrapper, we've decided to wrap the text of the buttons in a `span` tag. This means that your styles can target the icon itself or the text in the event you want to turn either the icon or the text off.
+	- There have been big changes to icons!
+		- Nova NextGen now ships with __Font Awesome__ instead of the Material Design icons. Font Awesome offers a better size and a better array of choices than MDI does.
+		- In addition to switching to Font Awesome, we've also fleshed out the icon map to include over 90 icons now! As a theme developer, you can replace those mappings with an icon font of your choice and override the `getIconMap` method to map the array to your icon's items.
+		- Instead of using a partial for the icon template, the template is now stored in the `iconTemplate` method of the `Theme` class. If you're using a different icon font, you'll need to override both the `iconTemplate` method as well as the `getIconMap` method.
+- Whoops! We actually missed a big chunk of functionality in Preview Release 3 with menu items and access control. Menu items now have access control options attached to them so that you can limit who can and cannot see a menu item.
 
 ## Preview Release 3 (0.3)
 
