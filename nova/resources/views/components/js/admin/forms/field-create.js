@@ -27,7 +27,7 @@ vue = {
 		],
 		hasValues: false,
 		fieldType: {},
-		fieldTypes: Nova.data.fieldTypes
+		fieldTypes: Nova.data.fieldTypesArr
 	},
 
 	computed: {

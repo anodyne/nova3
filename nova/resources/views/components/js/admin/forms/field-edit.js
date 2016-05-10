@@ -24,7 +24,7 @@ vue = {
 			{ type: "edit", value: "" }
 		],
 		fieldType: {},
-		fieldTypes: Nova.data.fieldTypes
+		fieldTypes: Nova.data.fieldTypesArr
 	},
 
 	computed: {

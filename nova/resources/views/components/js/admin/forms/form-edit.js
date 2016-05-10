@@ -72,7 +72,7 @@ vue = {
 		this.oldKey = this.key
 
 		var restrictions = Nova.data.restrictions
-		var form = Nova.data.form
+		var form = Nova.data.formArr
 
 		if (restrictions) {
 			this.restrictions = []
