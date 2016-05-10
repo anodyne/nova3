@@ -12,7 +12,7 @@ class {ExtensionControllerName} extends BaseController {
 		$this->structureData->pageDescription = "{ExtensionName} description";
 
 		// Set the view
-		$this->view = '{ExtensionLowercaseName}';
+		$this->views->put('page', '{ExtensionLowercaseName}');
 	}
 
 }

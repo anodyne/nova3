@@ -6,7 +6,7 @@ class {ExtensionControllerName} extends BaseController {
 
 	public function index()
 	{
-		$this->view = '{ExtensionLowercaseName}';
+		$this->views->put('page', '{ExtensionLowercaseName}');
 	}
 
 }
