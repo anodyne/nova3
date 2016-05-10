@@ -18,7 +18,7 @@ class Page extends Model {
 
 	protected $hidden = ['created_at', 'updated_at'];
 
-	protected $appends = ['routeCreate', 'routeDelete', 'routeEdit'];
+	protected $appends = ['createUrl', 'deleteUrl', 'editUrl'];
 
 	protected $casts = [
 		'protected'	=> 'boolean',
@@ -61,17 +61,17 @@ class Page extends Model {
 	// Model Accessors
 	//-------------------------------------------------------------------------
 
-	public function getRouteCreateAttribute()
+	public function getCreateUrlAttribute()
 	{
 		return route('admin.pages.create');
 	}
 
-	public function getRouteDeleteAttribute()
+	public function getDeleteUrlAttribute()
 	{
 		return route('admin.pages.remove', [$this->id]);
 	}
 
-	public function getRouteEditAttribute()
+	public function getEditUrlAttribute()
 	{
 		return route('admin.pages.edit', [$this->id]);
 	}
