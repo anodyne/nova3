@@ -13,14 +13,14 @@ class MenuItem extends Model {
 	protected $table = 'menus_items';
 
 	protected $fillable = ['menu_id', 'parent_id', 'order', 'type', 'page_id',
-		'link', 'title', 'authentication'];
+		'link', 'title', 'access_type', 'access'];
 
 	protected $casts = [
-		'menu_id'			=> 'integer',
-		'parent_id'			=> 'integer',
-		'order'				=> 'integer',
-		'page_id'			=> 'integer',
-		'authentication'	=> 'boolean',
+		'access'	=> 'collection',
+		'menu_id'	=> 'integer',
+		'parent_id'	=> 'integer',
+		'order'		=> 'integer',
+		'page_id'	=> 'integer',
 	];
 
 	protected $dates = ['created_at', 'updated_at'];
@@ -49,6 +49,26 @@ class MenuItem extends Model {
 	public function parentMenuItem()
 	{
 		return $this->belongsTo(self::class, 'parent_id', 'id');
+	}
+
+	//-------------------------------------------------------------------------
+	// Mutators
+	//-------------------------------------------------------------------------
+
+	public function setAccessAttribute($value)
+	{
+		if (is_array($value))
+		{
+			$this->attributes['access'] = json_encode($value);
+		}
+		elseif ($value instanceof Collection)
+		{
+			$this->attributes['access'] = $value->toJson();
+		}
+		else
+		{
+			$this->attributes['access'] = $value;
+		}
 	}
 	
 }
