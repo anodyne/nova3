@@ -76,7 +76,7 @@
 							<div class="row">
 								@can('edit', $page)
 									<div class="col-sm-6">
-										<p><a href="@{{ page.routeEdit }}" class="btn btn-default btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
+										<p><a href="@{{ page.editUrl }}" class="btn btn-default btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
 									</div>
 								@endcan
 
@@ -91,7 +91,7 @@
 							<div class="btn-toolbar pull-right">
 								@can('edit', $page)
 									<div class="btn-group">
-										<a href="@{{ page.routeEdit }}" class="btn btn-default">{!! icon('edit') !!}<span>Edit</span></a>
+										<a href="@{{ page.editUrl }}" class="btn btn-default">{!! icon('edit') !!}<span>Edit</span></a>
 									</div>
 								@endcan
 

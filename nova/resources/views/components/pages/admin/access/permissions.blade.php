@@ -1,14 +1,4 @@
-<div v-show="loading">
-	<div v-show="!loadingWithError">
-		<h4 class="text-center">{!! HTML::image('nova/resources/images/ajax-loader.gif') !!}</h4>
-	</div>
-	
-	<div v-else v-cloak>
-		{!! alert('danger', "There was an error retrieving your permissions from the database. This can be caused by a wrong URL or an issue with the database. Please try again.", "Error!") !!}
-	</div>
-</div>
-
-<div v-else v-cloak>
+<div v-cloak>
 	<mobile>
 		@if ($_user->can('access.create'))
 			<p><a href="{{ route('admin.access.permissions.create') }}" class="btn btn-success btn-lg btn-block">{!! icon('add') !!}<span>Add a Permission</span></a></p>
@@ -60,14 +50,14 @@
 					<div class="col-md-9">
 						<p class="lead"><strong>@{{ permission.name }}</strong></p>
 						<p><strong>Key:</strong> @{{ permission.key }}</p>
-						<p v-show="permission.roles != ''"><strong>Included in Role(s):</strong> @{{{ permission.roles }}}</p>
+						<p v-show="permission.roles.length > 0"><strong>Included in Role(s):</strong> @{{ permissionRoles(permission.roles) }}</p>
 					</div>
 					<div class="col-md-3" v-cloak>
 						<mobile>
 							<div class="row">
 								@if ($_user->can('access.edit'))
 									<div class="col-sm-6">
-										<p><a href="@{{ permission.links.edit }}" class="btn btn-default btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
+										<p><a href="@{{ permission.editUrl }}" class="btn btn-default btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
 									</div>
 								@endif
 
@@ -82,7 +72,7 @@
 							<div class="btn-toolbar pull-right">
 								@if ($_user->can('access.edit'))
 									<div class="btn-group">
-										<a href="@{{ permission.links.edit }}" class="btn btn-default">{!! icon('edit') !!}<span>Edit</span></a>
+										<a href="@{{ permission.editUrl }}" class="btn btn-default">{!! icon('edit') !!}<span>Edit</span></a>
 									</div>
 								@endif
 
