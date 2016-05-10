@@ -1,8 +1,6 @@
 vue = {
 	data: {
-		loading: true,
-		loadingWithError: false,
-		pages: [],
+		pages: Nova.data.pages,
 		search: "",
 		verbs: []
 	},
@@ -21,25 +19,6 @@ vue = {
 	},
 
 	ready: function () {
-		var url = Nova.data.apiUrl
-		var options = {
-			headers: {
-				"Accept": Nova.api.acceptHeader
-			}
-		}
-
-		this.$http.get(url, [], options).then(response => {
-			this.pages = response.data.data
-		}, response => {
-			this.loadingWithError = true
-		})
-	},
-
-	watch: {
-		"pages": function (value, oldValue) {
-			if (value.length > 0) {
-				this.loading = false
-			}
-		}
+		this.pages = Nova.data.pages
 	}
 }

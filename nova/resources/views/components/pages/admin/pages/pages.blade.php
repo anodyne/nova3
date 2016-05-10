@@ -1,14 +1,4 @@
-<div v-show="loading">
-	<div v-if="!loadingWithError">
-		<h4 class="text-center">{!! HTML::image('nova/resources/images/ajax-loader.gif') !!}</h4>
-	</div>
-	
-	<div v-else v-cloak>
-		{!! alert('danger', "There was an error retrieving your pages from the database. This can be caused by a wrong URL or an issue with the database. Please try again.", "Error!") !!}
-	</div>
-</div>
-
-<div v-else v-cloak>
+<div v-cloak>
 	<mobile>
 		@can('create', $page)
 			<p><a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg btn-block">{!! icon('add') !!}<span>Add a Page</span></a></p>
@@ -86,7 +76,7 @@
 							<div class="row">
 								@can('edit', $page)
 									<div class="col-sm-6">
-										<p><a href="@{{ page.links.edit }}" class="btn btn-default btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
+										<p><a href="@{{ page.routeEdit }}" class="btn btn-default btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
 									</div>
 								@endcan
 
@@ -101,7 +91,7 @@
 							<div class="btn-toolbar pull-right">
 								@can('edit', $page)
 									<div class="btn-group">
-										<a href="@{{ page.links.edit }}" class="btn btn-default">{!! icon('edit') !!}<span>Edit</span></a>
+										<a href="@{{ page.routeEdit }}" class="btn btn-default">{!! icon('edit') !!}<span>Edit</span></a>
 									</div>
 								@endcan
 

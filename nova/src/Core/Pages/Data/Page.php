@@ -14,8 +14,11 @@ class Page extends Model {
 	protected $table = 'pages';
 
 	protected $fillable = ['verb', 'name', 'key', 'uri', 'resource',
-		'description', 'conditions', 'type', 'menu_id', 'access',
-		'access_type'];
+		'description', 'conditions', 'type', 'menu_id', 'access', 'access_type'];
+
+	protected $hidden = ['created_at', 'updated_at'];
+
+	protected $appends = ['routeCreate', 'routeDelete', 'routeEdit'];
 
 	protected $casts = [
 		'protected'	=> 'boolean',
@@ -30,11 +33,6 @@ class Page extends Model {
 	// Relationships
 	//-------------------------------------------------------------------------
 
-	public function pageContents()
-	{
-		return $this->hasMany(PageContentModel::class);
-	}
-
 	public function menu()
 	{
 		return $this->belongsTo(Menu::class);
@@ -45,6 +43,11 @@ class Page extends Model {
 		return $this->hasMany(MenuItem::class);
 	}
 
+	public function pageContents()
+	{
+		return $this->hasMany(PageContentModel::class);
+	}
+
 	//-------------------------------------------------------------------------
 	// Model Scopes
 	//-------------------------------------------------------------------------
@@ -52,6 +55,25 @@ class Page extends Model {
 	public function scopeVerb($query, $verb)
 	{
 		$query->where('verb', '=', strtoupper($verb));
+	}
+
+	//-------------------------------------------------------------------------
+	// Model Accessors
+	//-------------------------------------------------------------------------
+
+	public function getRouteCreateAttribute()
+	{
+		return route('admin.pages.create');
+	}
+
+	public function getRouteDeleteAttribute()
+	{
+		return route('admin.pages.remove', [$this->id]);
+	}
+
+	public function getRouteEditAttribute()
+	{
+		return route('admin.pages.edit', [$this->id]);
 	}
 
 	//-------------------------------------------------------------------------

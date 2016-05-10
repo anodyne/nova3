@@ -36,21 +36,25 @@ class PageController extends BaseController {
 		$this->authorize('manage', $page, "You do not have permission to manage pages.");
 
 		$this->view = 'admin/pages/pages';
-		
 		$this->scripts = ['admin/pages/pages'];
-		$this->jsData->apiUrl = version('v1')->route('api.pages.index');
+
+		$this->jsData->pages = $this->repo->all()->toArray();
 	}
 
 	public function create()
 	{
 		$this->authorize('create', new Page, "You do not have permission to create pages.");
 
+		$this->view = 'admin/pages/page-create';
+		$this->scripts = [
+			'typeahead.bundle.min',
+			'bootstrap-tagsinput.min',
+			'admin/pages/page-create',
+		];
 		$this->styles = [
 			'bootstrap-tagsinput',
 			'bootstrap-tagsinput-typeahead',
 		];
-
-		$this->view = 'admin/pages/page-create';
 		
 		$this->data->httpVerbs = [
 			'GET' => 'GET',
@@ -74,11 +78,6 @@ class PageController extends BaseController {
 
 		$this->data->accessRoles = app('RoleRepository')->all();
 
-		$this->scripts = [
-			'typeahead.bundle.min',
-			'bootstrap-tagsinput.min',
-			'admin/pages/page-create',
-		];
 		$this->jsData->keyCheckUrl = route('admin.pages.checkKey');
 		$this->jsData->uriCheckUrl = route('admin.pages.checkUri');
 		$this->jsData->permissionApiUrl = version('v1')->route('api.access.permissions.index');
