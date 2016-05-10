@@ -15,9 +15,10 @@ class FormCenterController extends BaseController {
 	{
 		parent::__construct();
 
-		$this->structureView = 'admin';
-		$this->templateView = 'admin';
 		$this->isAdmin = true;
+
+		$this->views->put('structure', 'admin');
+		$this->views->put('template', 'admin');
 
 		$this->repo = $repo;
 		$this->formRepo = $forms;
@@ -27,7 +28,7 @@ class FormCenterController extends BaseController {
 
 	public function all()
 	{
-		$this->view = 'admin/form-center/index';
+		$this->views->put('page', 'admin/form-center/index');
 
 		$this->data->forms = $this->formRepo->getFormCenterForms();
 	}
@@ -38,8 +39,8 @@ class FormCenterController extends BaseController {
 
 		$this->authorize('viewEntries', $form, "You do not have permission to view Form Center entries.");
 
-		$this->view = 'admin/form-center/entries';
-		$this->scripts = ['admin/form-center/entries'];
+		$this->views->put('page', 'admin/form-center/entries');
+		$this->views->put('scripts', ['admin/form-center/entries']);
 
 		// What page are we on?
 		$page = $request->get('page', 1);
@@ -69,12 +70,11 @@ class FormCenterController extends BaseController {
 
 		$this->authorize('viewInFormCenter', $form, "You do not have permission to view this form.");
 
-		$this->view = 'admin/form-center/form';
+		$this->views->put('page', 'admin/form-center/form');
+		$this->views->put('scripts', ['admin/form-center/form']);
 
 		$entries = $this->data->entries = $this->repo->getUserEntries($this->user, $form);
-
-		$this->scripts = ['admin/form-center/form'];
-		$this->jsData->entryCount = $entries->count();
+		$this->data->entryCount = $entries->count();
 	}
 
 	public function show($formKey, $entryId)
@@ -83,16 +83,14 @@ class FormCenterController extends BaseController {
 
 		$this->authorize('viewEntries', $form, "You do not have permission to view Form Center entries.");
 
-		$this->styles = ['tabdrop'];
-
-		$this->view = 'admin/form-center/show';
-
-		$this->data->entry = $this->repo->getById($entryId, ['user', 'form', 'data']);
-
-		$this->scripts = [
+		$this->views->put('page', 'admin/form-center/show');
+		$this->views->put('scripts', [
 			'bootstrap-tabdrop',
 			'admin/form-center/show',
-		];
+		]);
+		$this->views->put('styles', ['tabdrop']);
+
+		$this->data->entry = $this->repo->getById($entryId, ['user', 'form', 'data']);
 	}
 
 	public function showEntry($formKey, $entryId)
@@ -140,7 +138,7 @@ class FormCenterController extends BaseController {
 
 		$this->authorize('editEntries', $form, "You do not have permission to edit all Form Center entries.");
 
-		$this->view = 'admin/form-center/edit';
+		$this->views->put('page', 'admin/form-center/edit');
 
 		$this->data->entryId = $entryId;
 	}

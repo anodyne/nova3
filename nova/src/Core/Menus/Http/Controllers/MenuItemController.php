@@ -22,9 +22,10 @@ class MenuItemController extends BaseController {
 	{
 		parent::__construct();
 
-		$this->structureView = 'admin';
-		$this->templateView = 'admin';
 		$this->isAdmin = true;
+
+		$this->views->put('structure', 'admin');
+		$this->views->put('template', 'admin');
 
 		$this->repo = $repo;
 		$this->menuRepo = $menus;
@@ -39,16 +40,16 @@ class MenuItemController extends BaseController {
 
 		$this->authorize('manage', $item, "You do not have permission to manage menu items.");
 
-		$this->view = 'admin/menus/menu-items';
-		$this->scripts = [
+		$this->views->put('page', 'admin/menus/menu-items');
+		$this->views->put('scripts', [
 			'uikit/core/core.min',
 			'uikit/components/nestable.min',
 			'admin/menus/menu-items',
-		];
-		$this->styles = [
+		]);
+		$this->views->put('styles', [
 			'uikit/components/icon',
 			'uikit/components/nestable.min',
-		];
+		]);
 
 		// Grab the menu we want the items for
 		$menu = $this->data->menu = $this->menuRepo->find($menuId);
@@ -60,16 +61,16 @@ class MenuItemController extends BaseController {
 		$subMenuItems = $this->repo->getSubMenuItems($menu);
 		$this->data->subMenuItems = $this->repo->splitSubMenuItemsIntoArray($subMenuItems);
 
-		$this->jsData->reorderUrl = route('admin.menu.items.reorder');
-		$this->jsData->storeDividerUrl = route('admin.menus.items.storeDivider');
+		$this->data->reorderUrl = route('admin.menu.items.reorder');
+		$this->data->storeDividerUrl = route('admin.menus.items.storeDivider');
 	}
 
 	public function create($menuId)
 	{
 		$this->authorize('create', new MenuItem, "You do not have permission to create menu items.");
 
-		$this->view = 'admin/menus/menu-item-create';
-		$this->scripts = ['admin/menus/menu-item-create'];
+		$this->views->put('page', 'admin/menus/menu-item-create');
+		$this->views->put('scripts', ['admin/menus/menu-item-create']);
 
 		$this->data->menuId = $menuId;
 
@@ -103,8 +104,8 @@ class MenuItemController extends BaseController {
 
 		$this->authorize('edit', $item, "You do not have permission to edit menu items.");
 
-		$this->view = 'admin/menus/menu-item-edit';
-		$this->scripts = ['admin/menus/menu-item-edit'];
+		$this->views->put('page', 'admin/menus/menu-item-edit');
+		$this->views->put('scripts', ['admin/menus/menu-item-edit']);
 
 		$this->data->menuId = $item->menu_id;
 

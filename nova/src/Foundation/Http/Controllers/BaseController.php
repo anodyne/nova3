@@ -10,38 +10,34 @@ abstract class BaseController extends Controller {
 	use DispatchesJobs, ValidatesRequests;
 
 	public $app;
+	public $data;
 	public $page;
+	public $user;
 	public $theme;
+	public $views;
 	public $content;
 	public $settings;
-	public $user = false;
-
-	public $data;
-	public $jsData;
-	public $styleData;
-	public $view;
-	public $jsView;
-	public $styleView;
-	public $scripts = [];
-	public $styles = [];
+	public $templateData;
+	public $structureData;
 
 	public $isAdmin = false;
 	public $isAjax = false;
-
-	public $templateData;
-	public $templateView = 'public';
-	public $structureData;
-	public $structureView = 'public';
 
 	public function __construct()
 	{
 		$this->app				= app();
 		$this->data				= new stdClass;
-		$this->jsData			= new stdClass;
-		$this->styleData		= new stdClass;
 		$this->user				= user();
 		$this->templateData 	= new stdClass;
 		$this->structureData	= new stdClass;
+
+		// Setup the views collection
+		$this->views = collect([
+			'scripts'	=> [],
+			'structure'	=> 'public',
+			'styles'	=> [],
+			'template'	=> 'public',
+		]);
 
 		// Get a copy of $this so we can use it in the binding closure
 		$me = $this;
@@ -142,8 +138,8 @@ abstract class BaseController extends Controller {
 
 	final public function page()
 	{
-		$this->styles = ['tabdrop'];
-		$this->scripts = ['bootstrap-tabdrop', 'basic-page'];
+		$this->views->put('scripts', ['bootstrap-tabdrop', 'basic-page']);
+		$this->views->put('styles', ['tabdrop']);
 
 		if ($this->page->access)
 		{

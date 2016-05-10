@@ -25,9 +25,10 @@ class FieldController extends BaseController {
 	{
 		parent::__construct();
 
-		$this->structureView = 'admin';
-		$this->templateView = 'admin';
 		$this->isAdmin = true;
+
+		$this->views->put('structure', 'admin');
+		$this->views->put('template', 'admin');
 
 		$this->repo = $repo;
 		$this->tabRepo = $tabs;
@@ -44,9 +45,12 @@ class FieldController extends BaseController {
 
 		$this->authorize('manage', $field, "You do not have permission to manage form fields.");
 
-		$this->styles = ['uikit/components/icon'];
-
-		$this->view = 'admin/forms/fields';
+		$this->views->put('page', 'admin/forms/fields');
+		$this->views->put('scripts' [
+			'Sortable.min',
+			'admin/forms/fields',
+		]);
+		$this->views->put('styles', ['uikit/components/icon']);
 
 		$form = $this->data->form = $this->formRepo->getByKey($formKey, ['fieldsUnboundAll', 'fieldsUnboundAll.data', 'fieldsUnboundAll.data.field', 'sectionsUnboundAll', 'sectionsUnboundAll.fieldsAll', 'sectionsUnboundAll.fieldsAll.data', 'sectionsUnboundAll.fieldsAll.data.field', 'parentTabsAll', 'parentTabsAll.fieldsUnboundAll', 'parentTabsAll.fieldsUnboundAll.data', 'parentTabsAll.fieldsUnboundAll.data.field', 'parentTabsAll.sectionsAll', 'parentTabsAll.sectionsAll.fieldsAll', 'parentTabsAll.sectionsAll.fieldsAll.data', 'parentTabsAll.sectionsAll.fieldsAll.data.field', 'parentTabsAll.childrenTabsAll.fieldsUnboundAll', 'parentTabsAll.childrenTabsAll.fieldsUnboundAll.data', 'parentTabsAll.childrenTabsAll.fieldsUnboundAll.data.field', 'parentTabsAll.childrenTabsAll.sectionsAll', 'parentTabsAll.childrenTabsAll.sectionsAll.fieldsAll', 'parentTabsAll.childrenTabsAll.sectionsAll.fieldsAll.data', 'parentTabsAll.childrenTabsAll.sectionsAll.fieldsAll.data.field']);
 
@@ -54,20 +58,19 @@ class FieldController extends BaseController {
 		$this->data->unboundSections = $this->formRepo->getUnboundSections($form, [], true);
 		$this->data->parentTabs = $this->formRepo->getParentTabs($form, [], true);
 
-		$this->scripts = [
-			'Sortable.min',
-			'admin/forms/fields',
-		];
-		$this->jsData->orderUpdateUrl = route('admin.forms.fields.updateOrder');
+		$this->data->orderUpdateUrl = route('admin.forms.fields.updateOrder');
 	}
 
 	public function create($formKey)
 	{
 		$this->authorize('create', new NovaFormField, "You do not have permission to create form fields.");
 
-		$this->styles = ['uikit/components/icon'];
-
-		$this->view = 'admin/forms/field-create';
+		$this->views->put('page', 'admin/forms/field-create');
+		$this->views->put('scripts', [
+			'Sortable.min',
+			'admin/forms/field-create',
+		]);
+		$this->views->put('styles', ['uikit/components/icon']);
 
 		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
@@ -98,12 +101,7 @@ class FieldController extends BaseController {
 
 		$fieldTypes = $this->getFieldTypes();
 		$this->data->fieldTypes = $fieldTypes->get('types');
-
-		$this->scripts = [
-			'Sortable.min',
-			'admin/forms/field-create',
-		];
-		$this->jsData->fieldTypes = $fieldTypes->get('array');
+		$this->data->fieldTypesArr = $fieldTypes->get('array');
 	}
 
 	public function store(CreateFormFieldRequest $request, $formKey)
@@ -123,9 +121,12 @@ class FieldController extends BaseController {
 
 		$this->authorize('edit', $field, "You do not have permission to edit form fields.");
 
-		$this->styles = ['uikit/components/icon'];
-
-		$this->view = 'admin/forms/field-edit';
+		$this->views->put('page', 'admin/forms/field-edit');
+		$this->views->put('scripts', [
+			'Sortable.min',
+			'admin/forms/field-edit',
+		]);
+		$this->views->put('styles', ['uikit/components/icon']);
 
 		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
@@ -156,16 +157,12 @@ class FieldController extends BaseController {
 
 		$fieldTypes = $this->getFieldTypes();
 		$this->data->fieldTypes = $fieldTypes->get('types');
-
-		$this->scripts = [
-			'Sortable.min',
-			'admin/forms/field-edit',
-		];
-		$this->jsData->fieldTypes = $fieldTypes->get('array');
-		$this->jsData->attributes = ($field->attributes) ? $field->attributes->toArray() : null;
-		$this->jsData->restrictions = ($field->restrictions) ? $field->restrictions->toArray() : null;
-		$this->jsData->validationRules = ($field->validation_rules) ? $field->validation_rules->toArray() : null;
-		$this->jsData->values = ($field->values) ? $field->values->toArray() : null;
+		$this->data->fieldTypesArr = $fieldTypes->get('array');
+		
+		$this->data->attributes = ($field->attributes) ? $field->attributes->toArray() : null;
+		$this->data->restrictions = ($field->restrictions) ? $field->restrictions->toArray() : null;
+		$this->data->validationRules = ($field->validation_rules) ? $field->validation_rules->toArray() : null;
+		$this->data->values = ($field->values) ? $field->values->toArray() : null;
 	}
 
 	public function update(EditFormFieldRequest $request, $formKey, $fieldId)

@@ -19,9 +19,10 @@ class PageController extends BaseController {
 	{
 		parent::__construct();
 
-		$this->structureView = 'admin';
-		$this->templateView = 'admin';
 		$this->isAdmin = true;
+
+		$this->views->put('structure', 'admin');
+		$this->views->put('template', 'admin');
 
 		$this->repo = $repo;
 		$this->menuRepo = $menus;
@@ -35,26 +36,26 @@ class PageController extends BaseController {
 
 		$this->authorize('manage', $page, "You do not have permission to manage pages.");
 
-		$this->view = 'admin/pages/pages';
-		$this->scripts = ['admin/pages/pages'];
+		$this->views->put('page', 'admin/pages/pages');
+		$this->views->put('scripts', ['admin/pages/pages']);
 
-		$this->jsData->pages = $this->repo->all()->toArray();
+		$this->data->pages = $this->repo->all()->toArray();
 	}
 
 	public function create()
 	{
 		$this->authorize('create', new Page, "You do not have permission to create pages.");
 
-		$this->view = 'admin/pages/page-create';
-		$this->scripts = [
+		$this->views->put('page', 'admin/pages/page-create');
+		$this->views->put('scripts', [
 			'typeahead.bundle.min',
 			'bootstrap-tagsinput.min',
 			'admin/pages/page-create',
-		];
-		$this->styles = [
+		]);
+		$this->views->put('styles', [
 			'bootstrap-tagsinput',
 			'bootstrap-tagsinput-typeahead',
-		];
+		]);
 		
 		$this->data->httpVerbs = [
 			'GET' => 'GET',
@@ -78,9 +79,9 @@ class PageController extends BaseController {
 
 		$this->data->accessRoles = app('RoleRepository')->all();
 
-		$this->jsData->keyCheckUrl = route('admin.pages.checkKey');
-		$this->jsData->uriCheckUrl = route('admin.pages.checkUri');
-		$this->jsData->permissionApiUrl = version('v1')->route('api.access.permissions.index');
+		$this->data->keyCheckUrl = route('admin.pages.checkKey');
+		$this->data->uriCheckUrl = route('admin.pages.checkUri');
+		$this->data->permissionApiUrl = version('v1')->route('api.access.permissions.index');
 	}
 
 	public function store(CreatePageRequest $request)
@@ -100,12 +101,16 @@ class PageController extends BaseController {
 
 		$this->authorize('edit', $page, "You do not have permission to edit pages.");
 
-		$this->styles = [
+		$this->views->put('page', 'admin/pages/page-edit');
+		$this->views->put('scripts', [
+			'typeahead.bundle.min',
+			'bootstrap-tagsinput.min',
+			'admin/pages/page-edit',
+		]);
+		$this->views->put('styles', [
 			'bootstrap-tagsinput',
 			'bootstrap-tagsinput-typeahead',
-		];
-
-		$this->view = 'admin/pages/page-edit';
+		]);
 
 		$this->data->httpVerbs = [
 			'GET' => 'GET',
@@ -129,14 +134,9 @@ class PageController extends BaseController {
 
 		$this->data->accessRoles = app('RoleRepository')->all();
 
-		$this->scripts = [
-			'typeahead.bundle.min',
-			'bootstrap-tagsinput.min',
-			'admin/pages/page-edit',
-		];
-		$this->jsData->keyCheckUrl = route('admin.pages.checkKey');
-		$this->jsData->uriCheckUrl = route('admin.pages.checkUri');
-		$this->jsData->permissionApiUrl = version('v1')->route('api.access.permissions.index');
+		$this->data->keyCheckUrl = route('admin.pages.checkKey');
+		$this->data->uriCheckUrl = route('admin.pages.checkUri');
+		$this->data->permissionApiUrl = version('v1')->route('api.access.permissions.index');
 	}
 
 	public function update(EditPageRequest $request, $pageId)

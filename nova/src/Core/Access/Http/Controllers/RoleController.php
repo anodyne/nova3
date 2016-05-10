@@ -18,9 +18,10 @@ class RoleController extends BaseController {
 	{
 		parent::__construct();
 
-		$this->structureView = 'admin';
-		$this->templateView = 'admin';
 		$this->isAdmin = true;
+
+		$this->views->put('structure', 'admin');
+		$this->views->put('template', 'admin');
 
 		$this->repo = $repo;
 		$this->permissionsRepo = $permissions;
@@ -34,8 +35,8 @@ class RoleController extends BaseController {
 
 		$this->authorize('manage', $role, "You do not have permission to manage roles.");
 
-		$this->view = 'admin/access/roles';
-		$this->scripts = ['admin/access/roles'];
+		$this->views->put('page', 'admin/access/roles');
+		$this->views->put('scripts', ['admin/access/roles']);
 
 		$this->data->roles = $this->repo->all();
 		$this->data->permission = new Permission;
@@ -45,12 +46,12 @@ class RoleController extends BaseController {
 	{
 		$this->authorize('create', new Role, "You do not have permission to create roles.");
 
-		$this->view = 'admin/access/role-create';
-		$this->scripts = ['admin/access/role-create'];
+		$this->views->put('page', 'admin/access/role-create');
+		$this->views->put('scripts', ['admin/access/role-create']);
 
 		$this->data->permissions = $this->permissionsRepo->allByComponent();
 
-		$this->jsData->keyCheckUrl = route('admin.access.roles.checkKey');
+		$this->data->keyCheckUrl = route('admin.access.roles.checkKey');
 	}
 
 	public function store(CreateRoleRequest $request)
@@ -70,12 +71,12 @@ class RoleController extends BaseController {
 
 		$this->authorize('edit', $role, "You do not have permission to edit roles.");
 
-		$this->view = 'admin/access/role-edit';
-		$this->scripts = ['admin/access/role-edit'];
+		$this->views->put('page', 'admin/access/role-edit');
+		$this->views->put('scripts', ['admin/access/role-edit']);
 
 		$this->data->permissions = $this->permissionsRepo->allByComponent();
 
-		$this->jsData->keyCheckUrl = route('admin.access.roles.checkKey');
+		$this->data->keyCheckUrl = route('admin.access.roles.checkKey');
 	}
 
 	public function update(EditRoleRequest $request, $roleId)

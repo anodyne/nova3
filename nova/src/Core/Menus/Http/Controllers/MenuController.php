@@ -20,9 +20,10 @@ class MenuController extends BaseController {
 	{
 		parent::__construct();
 
-		$this->structureView = 'admin';
-		$this->templateView = 'admin';
 		$this->isAdmin = true;
+
+		$this->views->put('structure', 'admin');
+		$this->views->put('template', 'admin');
 
 		$this->repo = $repo;
 		$this->itemRepo = $items;
@@ -36,21 +37,20 @@ class MenuController extends BaseController {
 
 		$this->authorize('manage', $menu, "You do not have permission to manage menus.");
 
-		$this->view = 'admin/menus/menus';
+		$this->views->put('page', 'admin/menus/menus');
+		$this->views->put('scripts', ['admin/menus/menus']);
 
 		$this->data->menus = $this->repo->all();
-
-		$this->scripts = ['admin/menus/menus'];
 	}
 
 	public function create()
 	{
 		$this->authorize('create', new Menu, "You do not have permission to create menus.");
 
-		$this->view = 'admin/menus/menu-create';
-		
-		$this->scripts = ['admin/menus/menu-create'];
-		$this->jsData->keyCheckUrl = route('admin.menus.checkKey');
+		$this->views->put('page', 'admin/menus/menu-create');
+		$this->views->put('scripts', ['admin/menus/menu-create']);
+
+		$this->data->keyCheckUrl = route('admin.menus.checkKey');
 	}
 
 	public function store(CreateMenuRequest $request)
@@ -70,10 +70,10 @@ class MenuController extends BaseController {
 
 		$this->authorize('edit', $menu, "You do not have permission to edit menus.");
 
-		$this->view = 'admin/menus/menu-edit';
-		
-		$this->scripts = ['admin/menus/menu-edit'];
-		$this->jsData->keyCheckUrl = route('admin.menus.checkKey');
+		$this->views->put('page', 'admin/menus/menu-edit');
+		$this->views->put('scripts', ['admin/menus/menu-edit']);
+
+		$this->data->keyCheckUrl = route('admin.menus.checkKey');
 	}
 
 	public function update(EditMenuRequest $request, $menuId)
@@ -151,13 +151,13 @@ class MenuController extends BaseController {
 
 		$this->authorize('manageMenuPages', $menu, "You do not have permission to manage pages for menus.");
 
-		$this->view = 'admin/menus/menu-pages';
-		$this->scripts = ['admin/menus/menu-pages'];
+		$this->views->put('page', 'admin/menus/menu-pages');
+		$this->views->put('scripts', ['admin/menus/menu-pages']);
 
 		$this->data->menus[] = "No Menu";
 		$this->data->menus += $this->repo->listAllFiltered('name', 'id', $menu->id);
 
-		$this->jsData->pages = $this->repo->getPages($menu)->toArray();
+		$this->data->pages = $this->repo->getPages($menu)->toArray();
 	}
 
 	public function updatePages(Request $request, $menuKey)

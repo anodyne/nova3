@@ -1,10 +1,8 @@
 <?php namespace Nova\Core\Auth\Http\Controllers;
 
-use Flash, BaseController;
+use BaseController;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Auth\Guard,
-	Illuminate\Contracts\Auth\PasswordBroker,
-	Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Auth\{Guard, PasswordBroker};
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PasswordController extends BaseController {
@@ -12,19 +10,20 @@ class PasswordController extends BaseController {
 	protected $auth;
 	protected $passwords;
 
-	public function __construct(Application $app, Guard $auth, PasswordBroker $passwords)
+	public function __construct(Guard $auth, PasswordBroker $passwords)
 	{
-		parent::__construct($app);
+		parent::__construct();
+
+		$this->views->put('structure', 'auth');
+		$this->views->put('template', 'auth');
 
 		$this->auth = $auth;
 		$this->passwords = $passwords;
-		$this->structureView = 'auth';
-		$this->templateView = 'auth';
 	}
 
 	public function getEmail()
 	{
-		$this->view = 'auth/password';
+		$this->views->put('page', 'auth/password');
 	}
 
 	public function postEmail(Request $request)
@@ -62,7 +61,7 @@ class PasswordController extends BaseController {
 			throw new NotFoundHttpException;
 		}
 
-		$this->view = 'auth/reset';
+		$this->views->put('page', 'auth/reset');
 		$this->data->token = $token;
 	}
 

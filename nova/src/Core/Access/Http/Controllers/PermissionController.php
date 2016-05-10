@@ -16,9 +16,10 @@ class PermissionController extends BaseController {
 	{
 		parent::__construct();
 
-		$this->structureView = 'admin';
-		$this->templateView = 'admin';
 		$this->isAdmin = true;
+
+		$this->views->put('structure', 'admin');
+		$this->views->put('template', 'admin');
 
 		$this->repo = $repo;
 		$this->roleRepo = $roles;
@@ -30,20 +31,20 @@ class PermissionController extends BaseController {
 	{
 		$this->authorize('manage', new Permission, "You do not have permission to manage permissions.");
 
-		$this->view = 'admin/access/permissions';
-		$this->scripts = ['admin/access/permissions'];
+		$this->views->put('page', 'admin/access/permissions');
+		$this->views->put('scripts', ['admin/access/permissions']);
 
-		$this->jsData->apiUrl = apiRoute('api.access.permissions.all');
+		$this->data->permissions = $this->repo->all(['roles'])->toArray();
 	}
 
 	public function create()
 	{
 		$this->authorize('create', new Permission, "You do not have permission to create permissions.");
 
-		$this->view = 'admin/access/permission-create';
-		$this->scripts = ['admin/access/permission-create'];
+		$this->views->put('page', 'admin/access/permission-create');
+		$this->views->put('scripts', ['admin/access/permission-create']);
 
-		$this->jsData->keyCheckUrl = route('admin.access.permissions.checkKey');
+		$this->data->keyCheckUrl = route('admin.access.permissions.checkKey');
 	}
 
 	public function store(CreatePermissionRequest $request)
@@ -63,10 +64,10 @@ class PermissionController extends BaseController {
 
 		$this->authorize('edit', $permission, "You do not have permission to edit permissions.");
 
-		$this->view = 'admin/access/permission-edit';
-		$this->scripts = ['admin/access/permission-edit'];
+		$this->views->put('page', 'admin/access/permission-edit');
+		$this->views->put('scripts', ['admin/access/permission-edit']);
 
-		$this->jsData->keyCheckUrl = route('admin.access.permissions.checkKey');
+		$this->data->keyCheckUrl = route('admin.access.permissions.checkKey');
 	}
 
 	public function update(EditPermissionRequest $request, $permissionId)

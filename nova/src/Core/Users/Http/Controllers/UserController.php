@@ -14,9 +14,10 @@ class UserController extends BaseController {
 	{
 		parent::__construct();
 
-		$this->structureView = 'admin';
-		$this->templateView = 'admin';
 		$this->isAdmin = true;
+
+		$this->views->put('structure', 'admin');
+		$this->views->put('template', 'admin');
 
 		$this->repo = $repo;
 
@@ -29,19 +30,18 @@ class UserController extends BaseController {
 
 		$this->authorize('manage', $user, "You do not have permission to manage users.");
 
-		$this->view = 'admin/users/users';
-		$this->scripts = ['admin/users/users'];
+		$this->views->put('page', 'admin/users/users');
+		$this->views->put('scripts', ['admin/users/users']);
 
-		$this->jsData->apiUrl = apiRoute('api.users.index');
+		$this->data->apiUrl = apiRoute('api.users.index');
 	}
 
 	public function create()
 	{
 		$this->authorize('create', new User, "You do not have permission to create users.");
 
-		$this->view = 'admin/users/user-create';
-
-		$this->scripts = ['admin/users/user-create'];
+		$this->views->put('page', 'admin/users/user-create');
+		$this->views->put('scripts', ['admin/users/user-create']);
 	}
 
 	public function store(CreateUserRequest $request)
@@ -63,8 +63,8 @@ class UserController extends BaseController {
 
 		$this->authorize('edit', $form, "You do not have permission to edit forms.");
 
-		$this->view = 'admin/forms/form-edit';
-		$this->jsView = 'admin/forms/form-edit-js';
+		$this->views->put('page', 'admin/forms/form-edit');
+		$this->views->put('scripts', ['admin/forms/form-edit']);
 
 		$this->data->accessRoles = $this->roleRepo->listAll('name', 'key');
 
@@ -74,8 +74,8 @@ class UserController extends BaseController {
 
 		$this->data->fields = $form->fields->pluck('label', 'id');
 
-		$this->jsData->form = $form->toJson();
-		$this->jsData->restrictions = ($form->restrictions) ? $form->restrictions->toJson() : null;
+		$this->data->form = $form->toJson();
+		$this->data->restrictions = ($form->restrictions) ? $form->restrictions->toJson() : null;
 	}
 
 	public function update(EditFormRequest $request, $formKey)
@@ -148,11 +148,11 @@ class UserController extends BaseController {
 
 	public function preferences()
 	{
-		$this->view = 'admin/users/preferences';
+		$this->views->put('page', 'admin/users/preferences');
 
 		$this->data->user = $this->user;
 
-		$this->scripts = ['admin/users/preferences'];
+		$this->views->put('scripts', ['admin/users/preferences']);
 	}
 
 }

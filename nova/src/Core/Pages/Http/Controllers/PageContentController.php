@@ -16,9 +16,10 @@ class PageContentController extends BaseController {
 	{
 		parent::__construct();
 
-		$this->structureView = 'admin';
-		$this->templateView = 'admin';
 		$this->isAdmin = true;
+
+		$this->views->put('structure', 'admin');
+		$this->views->put('template', 'admin');
 
 		$this->repo = $repo;
 		$this->pagesRepo = $pages;
@@ -32,23 +33,23 @@ class PageContentController extends BaseController {
 
 		$this->authorize('manage', $content, "You do not have permission to manage additional content.");
 
-		$this->view = 'admin/pages/content';
-		
-		$this->scripts = ['admin/pages/content'];
-		$this->jsData->apiUrl = version('v1')->route('api.page-contents.index');
+		$this->views->put('page', 'admin/pages/content');
+		$this->views->put('scripts', ['admin/pages/content']);
+
+		$this->data->apiUrl = version('v1')->route('api.page-contents.index');
 	}
 
 	public function create()
 	{
 		$this->authorize('create', new PageContent, "You do not have permission to create additional content.");
 
-		$this->view = 'admin/pages/content-create';
+		$this->views->put('page', 'admin/pages/content-create');
+		$this->views->put('scripts', ['admin/pages/content-create']);
 		
 		$this->data->pages[""] = "No page";
 		$this->data->pages += $this->pagesRepo->listAllBy('verb', 'GET', 'name', 'id');
 
-		$this->scripts = ['admin/pages/content-create'];
-		$this->jsData->keyCheckUrl = route('admin.content.checkKey');
+		$this->data->keyCheckUrl = route('admin.content.checkKey');
 	}
 
 	public function store(CreatePageContentRequest $request)
@@ -68,7 +69,8 @@ class PageContentController extends BaseController {
 
 		$this->authorize('edit', $content, "You do not have permission to edit additional content.");
 
-		$this->view = 'admin/pages/content-edit';
+		$this->views->put('page', 'admin/pages/content-edit');
+		$this->views->put('scripts', ['admin/pages/content-edit']);
 
 		$this->data->pages[""] = "No page";
 		$this->data->pages += $this->pagesRepo->listAllBy('verb', 'GET', 'name', 'id');
@@ -80,8 +82,7 @@ class PageContentController extends BaseController {
 			'other' => "Other",
 		];
 
-		$this->scripts = ['admin/pages/content-edit'];
-		$this->jsData->keyCheckUrl = route('admin.content.checkKey');
+		$this->data->keyCheckUrl = route('admin.content.checkKey');
 	}
 
 	public function update(EditPageContentRequest $request, $contentId)

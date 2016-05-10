@@ -54,12 +54,18 @@ class RenderController {
 
 	protected function buildThemeStructure()
 	{
-		$this->theme = theme()->structure($this->controller->structureView, (array) $this->controller->structureData);
+		$this->theme = theme()->structure(
+			$this->controller->views->get('structure'),
+			(array) $this->controller->structureData
+		);
 	}
 
 	protected function buildThemeTemplate()
 	{
-		$this->theme = $this->theme->template($this->controller->templateView, (array) $this->controller->templateData);
+		$this->theme = $this->theme->template(
+			$this->controller->views->get('template'),
+			(array) $this->controller->templateData
+		);
 	}
 
 	protected function buildPublicMenus()
@@ -74,9 +80,12 @@ class RenderController {
 
 	protected function buildPage()
 	{
-		if ($this->controller->view)
+		if ($this->controller->views->has('page'))
 		{
-			$this->theme = $this->theme->page($this->controller->view, (array) $this->controller->data);
+			$this->theme = $this->theme->page(
+				$this->controller->views->get('page'),
+				(array) $this->controller->data
+			);
 		}
 	}
 
@@ -94,12 +103,12 @@ class RenderController {
 
 	protected function buildJavascript()
 	{
-		$this->theme = $this->theme->scripts($this->controller->scripts);
+		$this->theme = $this->theme->scripts($this->controller->views->get('scripts'));
 	}
 
 	protected function buildStyles()
 	{
-		$this->theme = $this->theme->styles($this->controller->styles);
+		$this->theme = $this->theme->styles($this->controller->views->get('styles'));
 	}
 
 }

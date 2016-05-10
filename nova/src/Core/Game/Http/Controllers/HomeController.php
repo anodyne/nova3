@@ -6,7 +6,7 @@ class HomeController extends BaseController {
 
 	public function icons()
 	{
-		$this->view = 'icons';
+		$this->views->put('page', 'icons');
 		$this->data->icons = theme()->getIconMap();
 
 		$this->structureData->pageDescription = false;

@@ -16,9 +16,10 @@ class TabController extends BaseController {
 	{
 		parent::__construct();
 
-		$this->structureView = 'admin';
-		$this->templateView = 'admin';
 		$this->isAdmin = true;
+
+		$this->views->put('structure', 'admin');
+		$this->views->put('template', 'admin');
 
 		$this->repo = $repo;
 		$this->formRepo = $forms;
@@ -33,16 +34,16 @@ class TabController extends BaseController {
 
 		$this->authorize('manage', $tab, "You do not have permission to manage form tabs.");
 
-		$this->view = 'admin/forms/tabs';
-		$this->scripts = [
+		$this->views->put('page', 'admin/forms/tabs');
+		$this->views->put('scripts', [
 			'Sortable.min',
 			'admin/forms/tabs',
-		];
-		$this->styles = ['uikit/components/icon'];
+		]);
+		$this->views->put('styles', ['uikit/components/icon']);
 
-		$tabs = $this->data->tabs = $this->repo->getParentTabs($form, [], true);
+		$this->data->tabs = $this->repo->getParentTabs($form, [], true);
 
-		$this->jsData->orderUpdateUrl = route('admin.forms.tabs.updateOrder');
+		$this->data->orderUpdateUrl = route('admin.forms.tabs.updateOrder');
 	}
 
 	public function create($formKey)
@@ -51,13 +52,13 @@ class TabController extends BaseController {
 
 		$this->authorize('create', new NovaFormTab, "You do not have permission to create form tabs.");
 
-		$this->view = 'admin/forms/tab-create';
-		$this->scripts = ['admin/forms/tab-create'];
+		$this->views->put('page', 'admin/forms/tab-create');
+		$this->views->put('scripts', ['admin/forms/tab-create']);
 
 		$this->data->parentTabs = ['0' => "No parent tab"];
 		$this->data->parentTabs+= $this->repo->listParentTabs($form);
 
-		$this->jsData->linkCheckUrl = route('admin.forms.tabs.checkLink');
+		$this->data->linkCheckUrl = route('admin.forms.tabs.checkLink');
 	}
 
 	public function store(CreateFormTabRequest $request, $formKey)
@@ -79,13 +80,13 @@ class TabController extends BaseController {
 
 		$this->authorize('edit', $tab, "You do not have permission to edit form tabs.");
 
-		$this->view = 'admin/forms/tab-edit';
-		$this->scripts = ['admin/forms/tab-edit'];
+		$this->views->put('page', 'admin/forms/tab-edit');
+		$this->views->put('scripts', ['admin/forms/tab-edit']);
 
 		$this->data->parentTabs = ['0' => "No parent tab"];
 		$this->data->parentTabs+= $this->repo->listParentTabs();
 
-		$this->jsData->linkCheckUrl = route('admin.forms.tabs.checkLink');
+		$this->data->linkCheckUrl = route('admin.forms.tabs.checkLink');
 	}
 
 	public function update(EditFormTabRequest $request, $formKey, $tabId)

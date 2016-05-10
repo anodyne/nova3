@@ -2,26 +2,26 @@
 
 use BaseController;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Auth\Guard,
-	Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 class AuthController extends BaseController {
 
 	protected $auth;
 
-	public function __construct(Application $app, Guard $auth)
+	public function __construct(Guard $auth)
 	{
-		parent::__construct($app);
+		parent::__construct();
+
+		$this->views->put('structure', 'auth');
+		$this->views->put('template', 'auth');
 
 		$this->auth = $auth;
-		$this->structureView = 'auth';
-		$this->templateView = 'auth';
 	}
 
 	public function getLogin()
 	{
-		$this->view = 'auth/login';
+		$this->views->put('page', 'auth/login');
 	}
 
 	public function postLogin(Request $request)
