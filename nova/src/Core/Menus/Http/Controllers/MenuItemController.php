@@ -70,7 +70,12 @@ class MenuItemController extends BaseController {
 		$this->authorize('create', new MenuItem, "You do not have permission to create menu items.");
 
 		$this->views->put('page', 'admin/menus/menu-item-create');
-		$this->views->put('scripts', ['admin/menus/menu-item-create']);
+		$this->views->put('scripts', [
+			'typeahead.bundle.min',
+			'vue/access-picker',
+			'admin/menus/menu-item-create'
+		]);
+		$this->views->put('styles', ['typeahead']);
 
 		$this->data->menuId = $menuId;
 
@@ -85,6 +90,17 @@ class MenuItemController extends BaseController {
 			'external'	=> "Another page not in Nova",
 			'route'		=> "A named route in Nova",
 		];
+
+		$this->data->accessTypes = [
+			'' => "None",
+			'role_all' => "All Selected Access Roles",
+			'role_any' => "Any Selected Access Roles",
+			//'permission_all' => "All Selected Permissions",
+			//'permission_any' => "Any Selected Permissions",
+		];
+
+		$this->data->roles = $this->data->accessRoles = app('RoleRepository')->all();
+		$this->data->permissions = app('PermissionRepository')->all();
 	}
 
 	public function store(CreateMenuItemRequest $request)
