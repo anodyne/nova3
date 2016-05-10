@@ -47,7 +47,7 @@ class Nova {
 		$api = ['api' => config('nova.api')];
 
 		// Nova's controller data
-		$data = ['data' => (array) app('nova.controller')->jsData];
+		$data = ['data' => (array) app('nova.controller')->data];
 
 		return array_merge($system, $user, $api, $data);
 	}
