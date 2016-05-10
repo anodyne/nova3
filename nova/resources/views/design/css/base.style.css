@@ -446,6 +446,50 @@ fieldset .fieldset-content {
   color: #9e9e9e;
 }
 
+.nova-access-picker .label .remove {
+  margin-left: 0.5rem;
+  padding: 0 0 0 0.5rem;
+  color: #ffffff;
+  border-left: 0.1rem solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+}
+.nova-access-picker .label .remove:hover {
+  text-decoration: none;
+}
+.nova-access-picker .selected-access-items {
+  margin: 0.5rem;
+}
+.nova-access-picker .twitter-typeahead {
+  width: 100%;
+}
+.nova-access-picker .tt-menu {
+  padding: 0 0.5rem;
+  width: 45%;
+  background: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 0.4rem;
+  -moz-border-radius: 0.4rem;
+  -ms-border-radius: 0.4rem;
+  border-radius: 0.4rem;
+}
+.nova-access-picker .tt-menu .tt-dataset .tt-suggestion {
+  padding: 0.25rem 0.5rem;
+  font-size: 1.4rem;
+  -webkit-border-radius: 0.2rem;
+  -moz-border-radius: 0.2rem;
+  -ms-border-radius: 0.2rem;
+  border-radius: 0.2rem;
+}
+.nova-access-picker .tt-menu .tt-dataset .tt-suggestion:hover {
+  cursor: pointer;
+  background: #337ab7;
+  color: #ffffff;
+}
+.nova-access-picker .tt-menu .tt-dataset .tt-cursor {
+  background: #337ab7;
+  color: #ffffff;
+}
+
 [v-cloak] {
   display: none;
 }

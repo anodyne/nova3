@@ -365,6 +365,62 @@ fieldset {
 	color: $color-gray;
 }
 
+.nova-access-picker {
+	.label {
+		.remove {
+			margin-left: 0.5rem;
+			padding: 0 0 0 0.5rem;
+
+			color: $color-white;
+			border-left: 0.1rem solid rgba(255, 255, 255, 0.25);
+			cursor: pointer;
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
+
+	.selected-access-items {
+		margin: 0.5rem;
+	}
+
+	.twitter-typeahead {
+		width: 100%;
+	}
+
+	.tt-menu {
+		padding: 0 0.5rem;
+		width: 45%;
+
+		background: #fff;
+		border: 1px solid #ddd;
+
+		@include rounded($border-radius);
+
+		.tt-dataset {
+			.tt-suggestion {
+				padding: 0.25rem 0.5rem;
+
+				font-size: $font-size-sm;
+
+				@include rounded($border-radius-sm);
+
+				&:hover {
+					cursor: pointer;
+					background: $color-primary;
+					color: $color-white;
+				}
+			}
+
+			.tt-cursor {
+				background: $color-primary;
+				color: $color-white;
+			}
+		}
+	}
+}
+
 [v-cloak] {
 	display: none;
 }
