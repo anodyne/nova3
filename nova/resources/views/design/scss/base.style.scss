@@ -366,23 +366,26 @@ fieldset {
 }
 
 .nova-access-picker {
-	.label {
-		.remove {
-			margin-left: 0.5rem;
-			padding: 0 0 0 0.5rem;
-
-			color: $color-white;
-			border-left: 0.1rem solid rgba(255, 255, 255, 0.25);
-			cursor: pointer;
-
-			&:hover {
-				text-decoration: none;
-			}
-		}
-	}
-
 	.selected-access-items {
 		margin: 0.5rem;
+
+		.label {
+			margin-right: 0.5rem;
+			white-space: nowrap;
+
+			.remove {
+				margin-left: 0.5rem;
+				padding: 0 0 0 0.5rem;
+
+				color: $color-white;
+				border-left: 0.1rem solid rgba(255, 255, 255, 0.25);
+				cursor: pointer;
+
+				&:hover {
+					text-decoration: none;
+				}
+			}
+		}
 	}
 
 	.twitter-typeahead {
@@ -391,7 +394,7 @@ fieldset {
 
 	.tt-menu {
 		padding: 0 0.5rem;
-		width: 45%;
+		width: 100%;
 
 		background: #fff;
 		border: 1px solid #ddd;
@@ -399,8 +402,18 @@ fieldset {
 		@include rounded($border-radius);
 
 		.tt-dataset {
+			display: flex;
+			flex-flow: row wrap;
+
+			h4 {
+				width: 100%;
+			}
+
 			.tt-suggestion {
 				padding: 0.25rem 0.5rem;
+				width: 50%;
+				margin: 1rem 0;
+				/*padding: 1rem;*/
 
 				font-size: $font-size-sm;
 

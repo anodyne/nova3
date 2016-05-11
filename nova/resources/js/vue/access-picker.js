@@ -2,94 +2,102 @@ Vue.component('access-picker', {
 	template: "#access-picker-template",
 
 	props: {
+		options: undefined,
 		permissions: [],
 		roles: []
 	},
 
 	data: function () {
 		return {
+			accessTypeSelection: "",
+			config: {},
 			items: [],
 			query: "",
-			selectedItem: {}
+			selected: {}
 		}
 	},
 
 	computed: {
-		permissionString: function () {
-			var output = new Array()
-			var items = this.items.filter(function (item) {
-				return item.type == 'permission'
-			})
-
-			for (var i = 0; i < items.length; i++) {
-				output.push(items[i].key)
-			}
-
-			return output.join(',')
-		},
-
-		roleString: function () {
-			var output = new Array()
-			var items = this.items.filter(function (item) {
-				return item.type == 'role'
-			})
-
-			for (var i = 0; i < items.length; i++) {
-				output.push(items[i].key)
-			}
-
-			return output.join(',')
+		accessItems: function () {
+			return JSON.stringify(this.items)
 		}
 	},
 
 	methods: {
 		removeSelectedItem: function (row) {
 			this.items.$remove(row)
+		},
+
+		reset: function () {
+			this.query = ""
+			$('.typeaheadInput').typeahead('val', '')
+		},
+
+		setConfig: function () {
+			var cfg = {
+				inputClasses: "form-control input-lg",
+				inputPlaceholder: "Start typing to search for roles and/or permissions"
+			}
+
+			if (this.options === undefined) {
+				this.config = cfg
+			} else {
+				this.config = _.defaults(this.options, cfg)
+			}
 		}
 	},
 
 	ready: function () {
-		var permissions = new Bloodhound({
-			datumTokenizer: Bloodhound.tokenizers.obj.whitespace('key', 'name'),
-			queryTokenizer: Bloodhound.tokenizers.whitespace,
-			local: this.permissions
-		})
-
-		var roles = new Bloodhound({
-			datumTokenizer: Bloodhound.tokenizers.obj.whitespace('key', 'name'),
-			queryTokenizer: Bloodhound.tokenizers.whitespace,
-			local: this.roles
-		})
-
-		$('[name="typeahead"]').typeahead({
-			highlight: true
-		}, {
-			name: "nova-roles",
-			source: roles,
-			display: "name",
-			templates: {
-				header: '<h4>Roles</h4>'
-			}
-		}, {
-			name: "nova-permissions",
-			source: permissions,
-			display: "name",
-			templates: {
-				header: '<h4>Permissions</h4>'
-			}
-		})
+		this.setConfig()
 
 		var cvm = this
 
-		$('[name="typeahead"]').bind('typeahead:select', function(ev, suggestion) {
-			cvm.selectedItem = suggestion
-			cvm.query = ""
-			$(this).typeahead('val', '')
+		$('.typeaheadInput').bind('typeahead:select', function(ev, suggestion) {
+			cvm.selected = suggestion
+			cvm.reset()
 		})
 	},
 
 	watch: {
-		"selectedItem": function (newValue, oldValue) {
+		"accessTypeSelection": function (newValue, oldValue) {
+			if (newValue != "" && newValue != oldValue) {
+				// Destroy the existing instance of Typeahead
+				$('.typeaheadInput').typeahead('destroy')
+
+				// Do some data resets
+				this.items = []
+				this.query = ""
+
+				var name, localStore, store
+
+				if (newValue == "roles") {
+					name = "nova-roles"
+					localStore = this.roles
+				}
+
+				if (newValue == "permissions") {
+					name = "nova-permissions"
+					localStore = this.permissions
+				}
+
+				store = new Bloodhound({
+					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('key', 'name'),
+					queryTokenizer: Bloodhound.tokenizers.whitespace,
+					local: localStore
+				})
+
+				$('.typeaheadInput').typeahead({
+					highlight: true,
+					hint: false
+				}, {
+					name: name,
+					source: store,
+					display: "name"
+				})
+			}
+		},
+
+		"selected": function (newValue, oldValue) {
 			if (newValue != "" && newValue != oldValue) {
 				var type = (newValue.protected !== undefined) ? 'permission' : 'role'
 

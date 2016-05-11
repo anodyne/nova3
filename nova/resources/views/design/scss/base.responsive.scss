@@ -52,6 +52,23 @@
 			}
 		}
 	}
+
+	.nova-access-picker {
+		.selected-access-items {
+			.label {
+				display: block;
+				width: 100%;
+			}
+		}
+
+		.tt-menu {
+			.tt-dataset {
+				.tt-suggestion {
+					width: 100%;
+				}
+			}
+		}
+	}
 }
 
 /* sm */

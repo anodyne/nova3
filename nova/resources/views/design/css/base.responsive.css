@@ -39,6 +39,14 @@
     -ms-border-radius: 0.4rem;
     border-radius: 0.4rem;
   }
+
+  .nova-access-picker .selected-access-items .label {
+    display: block;
+    width: 100%;
+  }
+  .nova-access-picker .tt-menu .tt-dataset .tt-suggestion {
+    width: 100%;
+  }
 }
 /* sm */
 @media (min-width: 768px) and (max-width: 991px) {
@@ -84,5 +92,3 @@
 }
 /* md */
 /* lg */
-
-/*# sourceMappingURL=base.responsive.css.map */

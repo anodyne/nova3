@@ -446,25 +446,29 @@ fieldset .fieldset-content {
   color: #9e9e9e;
 }
 
-.nova-access-picker .label .remove {
+.nova-access-picker .selected-access-items {
+  margin: 0.5rem;
+}
+.nova-access-picker .selected-access-items .label {
+  margin-right: 0.5rem;
+  white-space: nowrap;
+}
+.nova-access-picker .selected-access-items .label .remove {
   margin-left: 0.5rem;
   padding: 0 0 0 0.5rem;
   color: #ffffff;
   border-left: 0.1rem solid rgba(255, 255, 255, 0.25);
   cursor: pointer;
 }
-.nova-access-picker .label .remove:hover {
+.nova-access-picker .selected-access-items .label .remove:hover {
   text-decoration: none;
-}
-.nova-access-picker .selected-access-items {
-  margin: 0.5rem;
 }
 .nova-access-picker .twitter-typeahead {
   width: 100%;
 }
 .nova-access-picker .tt-menu {
   padding: 0 0.5rem;
-  width: 45%;
+  width: 100%;
   background: #fff;
   border: 1px solid #ddd;
   -webkit-border-radius: 0.4rem;
@@ -472,8 +476,18 @@ fieldset .fieldset-content {
   -ms-border-radius: 0.4rem;
   border-radius: 0.4rem;
 }
+.nova-access-picker .tt-menu .tt-dataset {
+  display: flex;
+  flex-flow: row wrap;
+}
+.nova-access-picker .tt-menu .tt-dataset h4 {
+  width: 100%;
+}
 .nova-access-picker .tt-menu .tt-dataset .tt-suggestion {
   padding: 0.25rem 0.5rem;
+  width: 50%;
+  margin: 1rem 0;
+  /*padding: 1rem;*/
   font-size: 1.4rem;
   -webkit-border-radius: 0.2rem;
   -moz-border-radius: 0.2rem;
@@ -623,5 +637,3 @@ fieldset .fieldset-content {
   font-size: 1.2rem;
   font-weight: 500;
 }
-
-/*# sourceMappingURL=base.style.css.map */
