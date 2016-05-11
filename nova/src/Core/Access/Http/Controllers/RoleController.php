@@ -129,7 +129,7 @@ class RoleController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		$count = $this->repo->countBy('name', request('key'));
+		$count = $this->repo->countBy('key', request('key'));
 
 		if ($count > 0)
 		{
