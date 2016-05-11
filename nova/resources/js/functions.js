@@ -1,10 +1,10 @@
 var slug = function (str) {
-	var $slug = ''
+	var slug = ''
 	var trimmed = $.trim(str)
 
-	$slug = trimmed.replace(/[^a-z0-9-]/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+	slug = trimmed.replace(/[^a-z0-9-]/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
 
-	return $slug.toLowerCase()
+	return slug.toLowerCase()
 }
 
 var byId = function (id) {
@@ -16,5 +16,5 @@ var byClass = function (className) {
 }
 
 var novaUrl = function (uri) {
-	return Nova.system.baseUrl + "/" + uri
+	return Nova.system.baseUrl.concat("/", uri)
 }
