@@ -25,7 +25,7 @@ vue = {
 
 				this.$http.post(url, postData).then(response => {
 					if (response.data.code == 0) {
-						$('[name="name"]').blur()
+						$('[name="key"]').blur()
 						this.key = this.oldKey
 
 						swal({
@@ -37,7 +37,7 @@ vue = {
 						})
 					}
 				}, response => {
-					$('[name="name"]').blur()
+					$('[name="key"]').blur()
 					this.key = this.oldKey
 
 					swal({
