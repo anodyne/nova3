@@ -2211,16 +2211,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "3.5.0",
+            "version": "3.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "4969882d625dca8639514ff0c5aa610134412f25"
+                "reference": "aade01893d3d38dc8c8c7dda1fa2f08b5868136a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/4969882d625dca8639514ff0c5aa610134412f25",
-                "reference": "4969882d625dca8639514ff0c5aa610134412f25",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/aade01893d3d38dc8c8c7dda1fa2f08b5868136a",
+                "reference": "aade01893d3d38dc8c8c7dda1fa2f08b5868136a",
                 "shasum": ""
             },
             "require": {
@@ -2269,7 +2269,7 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2016-04-27 21:02:51"
+            "time": "2016-05-10 18:58:25"
         },
         {
             "name": "spatie/laravel-glide",
