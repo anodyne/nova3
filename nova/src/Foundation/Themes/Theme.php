@@ -40,6 +40,22 @@ class Theme implements ThemeIconsContract,
 	/**
 	 * ThemeIcons Contract Implementation
 	 */
+	public function buildIconList()
+	{
+		$icons = [];
+
+		foreach ($this->getIconMap() as $key => $value)
+		{
+			$icons[] = [
+				'key' => $key,
+				'value' => $value,
+				'preview' => $this->renderIcon($key),
+			];
+		}
+
+		return $icons;
+	}
+
 	public function getIcon(string $icon)
 	{
 		return array_get($this->getIconMap(), $icon);
