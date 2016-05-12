@@ -73,6 +73,7 @@ class MenuItemController extends BaseController {
 		$this->views->put('scripts', [
 			'typeahead.bundle.min',
 			'vue/access-picker',
+			'vue/icon-picker',
 			'admin/menus/menu-item-create'
 		]);
 		$this->views->put('styles', ['typeahead']);
@@ -101,6 +102,8 @@ class MenuItemController extends BaseController {
 
 		$this->data->roles = $this->data->accessRoles = app('RoleRepository')->all();
 		$this->data->permissions = app('PermissionRepository')->all();
+
+		$this->data->icons = theme()->buildIconList();
 	}
 
 	public function store(CreateMenuItemRequest $request)

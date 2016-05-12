@@ -52,6 +52,14 @@
 		</div>
 
 		<div class="form-group">
+			<label class="col-md-2 control-label">Icon</label>
+			<div class="col-md-4">
+				<icon-picker></icon-picker>
+				@include('nova/resources/js/vue/templates/icon-picker')
+			</div>
+		</div>
+
+		<div class="form-group">
 			<div class="col-md-7 col-md-offset-2">
 				<h3>Controlling Access</h3>
 				<p>You can restrict who has access to the page by the user's access role or even permission keys that are within the access role(s). By specifying either an access role or permission, Nova will require the visiting user to be logged in.</p>
