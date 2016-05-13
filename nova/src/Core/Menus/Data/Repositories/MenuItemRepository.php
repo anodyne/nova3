@@ -65,10 +65,10 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 
 			if ( ! user())
 			{
-				$items = $items->filter(function ($item)
+				/*$items = $items->filter(function ($item)
 				{
 					return (bool) $item->authentication === false;
-				});
+				});*/	
 			}
 
 			return $items;
@@ -80,7 +80,7 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 
 		if ( ! user())
 		{
-			$query = $query->where('authentication', '=', (int) false);
+			//$query = $query->where('authentication', '=', (int) false);
 		}
 
 		return $query->get();
@@ -97,10 +97,10 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 
 			if ( ! user())
 			{
-				$items = $items->filter(function ($item)
+				/*$items = $items->filter(function ($item)
 				{
 					return (bool) $item->authentication === false;
-				});
+				});*/
 			}
 
 			return $items;
@@ -112,7 +112,7 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 
 		if ( ! user())
 		{
-			$query = $query->where('authentication', '=', (int) false);
+			//$query = $query->where('authentication', '=', (int) false);
 		}
 
 		return $query->get();
