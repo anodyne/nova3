@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Auth\Http\Controllers;
 
-use BaseController;
+use Date, BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\{Guard, PasswordBroker};
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -38,10 +38,14 @@ class PasswordController extends BaseController {
 		switch ($response)
 		{
 			case PasswordBroker::RESET_LINK_SENT:
-				flash()->success(null, "Your password reset link has been sent.");
+				event(new Events\PasswordResetEmailSent($request->get('email')));
+
+				flash()->success("Success!", "Your password reset link has been sent.");
 			break;
 
 			case PasswordBroker::INVALID_USER:
+				event(new Events\PasswordResetEmailFailed($request->get('email'), $response));
+
 				flash()->error("Error!", "No user with that email address found.");
 			break;
 		}
@@ -80,6 +84,7 @@ class PasswordController extends BaseController {
 		$response = $this->passwords->reset($credentials, function ($user, $password)
 		{
 			$user->password = $password;
+			$user->last_password_reset = Date::now();
 
 			$user->save();
 
@@ -89,22 +94,34 @@ class PasswordController extends BaseController {
 		switch ($response)
 		{
 			case PasswordBroker::PASSWORD_RESET:
-				flash()->success(null, "Your password has been reset.");
+				event(new Events\PasswordReset($request->get('email')));
+
+				flash()->success("Success!", "Your password has been reset.");
+				
 				return redirect()->route('home');
 			break;
 
 			case PasswordBroker::INVALID_USER:
+				event(new Events\PasswordResetFailed($request->get('email'), $response));
+
 				flash()->error("Error!", "No user with that email address found.");
+				
 				return redirect()->back();
 			break;
 
 			case PasswordBroker::INVALID_PASSWORD:
+				event(new Events\PasswordResetFailed($request->get('email'), $response));
+
 				flash()->error("Error!", "Passwords must be at least six characters and match the confirmation.");
+				
 				return redirect()->back()->withInput($request->only('email'));
 			break;
 
 			case PasswordBroker::INVALID_TOKEN:
+				event(new Events\PasswordResetFailed($request->get('email'), $response));
+
 				flash()->error("Error!", "This password reset token is invalid.");
+				
 				return redirect()->back();
 			break;
 		}
