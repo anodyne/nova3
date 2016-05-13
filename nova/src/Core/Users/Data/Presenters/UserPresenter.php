@@ -14,6 +14,24 @@ class UserPresenter extends BasePresenter {
 		return explode(' ', $this->entity->name)[0];
 	}
 
+	public function lastPasswordReset()
+	{
+		$dateFormat = app('nova.settings')->get('format_datetime');
+
+		if ($this->entity->last_password_reset)
+		{
+			return $this->entity->last_password_reset->format($dateFormat);
+		}
+	}
+
+	public function lastPasswordResetRelative()
+	{
+		if ($this->entity->last_password_reset)
+		{
+			return $this->entity->last_password_reset->diffForHumans();
+		}
+	}
+
 	public function name()
 	{
 		if ($this->entity->nickname)

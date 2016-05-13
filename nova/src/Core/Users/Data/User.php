@@ -24,12 +24,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	protected $table = 'users';
 
 	protected $fillable = ['name', 'nickname', 'email', 'password',
-		'remember_token', 'api_token', 'status'];
+		'remember_token', 'api_token', 'status', 'last_password_reset'];
 
 	protected $hidden = ['password', 'remember_token', 'api_token', 'created_at',
-		'updated_at', 'deleted_at', 'pivot'];
+		'updated_at', 'deleted_at', 'pivot', 'last_password_reset'];
 
-	protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+	protected $dates = ['created_at', 'updated_at', 'deleted_at',
+		'last_password_reset'];
 
 	protected $presenter = UserPresenter::class;
 
@@ -58,7 +59,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	public function setPasswordAttribute($value)
 	{
-		$this->attributes['password'] = Hash::make($value);
+		if ($value !== null)
+		{
+			$this->attributes['password'] = Hash::make($value);
+		}
 	}
 
 	//-------------------------------------------------------------------------

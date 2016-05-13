@@ -1,3 +1,7 @@
+@if (session()->has('password_reset_required'))
+	{!! alert('warning', session()->get('password_reset_required'), "Password Reset Required") !!}
+@endif
+
 {!! Form::open(['route' => 'password.email.send']) !!}
 	<div class="form-group">
 		{!! Form::email('email', null, ['class' => 'form-control input-lg', 'placeholder' => 'Email Address']) !!}

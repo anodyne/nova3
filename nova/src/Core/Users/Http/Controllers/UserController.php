@@ -5,6 +5,7 @@ use User,
 	UserRepositoryContract,
 	EditUserRequest, CreateUserRequest, RemoveUserRequest;
 use Nova\Core\Users\Events;
+use Illuminate\Http\Request;
 
 class UserController extends BaseController {
 
@@ -153,6 +154,11 @@ class UserController extends BaseController {
 		$this->data->user = $this->user;
 
 		$this->views->put('scripts', ['admin/users/preferences']);
+	}
+
+	public function resetPassword(Request $request)
+	{
+		$this->isAjax = true;
 	}
 
 }

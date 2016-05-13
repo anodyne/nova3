@@ -32,4 +32,19 @@ class UserRepository extends BaseRepository implements UserRepositoryContract {
 		return $user;
 	}
 
+	public function resetPassword($resource)
+	{
+		// Get the resource
+		$user = $this->getResource($resource);
+
+		if ($user)
+		{
+			$user->fill(['password' => null])->save();
+
+			return $user;
+		}
+
+		return false;
+	}
+
 }

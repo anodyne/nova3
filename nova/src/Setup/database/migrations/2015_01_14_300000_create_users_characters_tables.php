@@ -16,12 +16,13 @@ class CreateUsersCharactersTables extends Migration {
 		{
 			$table->increments('id');
 			$table->string('email', 100);
-			$table->string('password', 96);
+			$table->string('password', 96)->nullable();
 			$table->string('name');
 			$table->string('nickname')->nullable();
 			$table->boolean('status')->default((int) Status::PENDING);
 			$table->string('api_token', 60)->nullable()->unique();
 			$table->rememberToken();
+			$table->datetime('last_password_reset')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});
