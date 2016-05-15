@@ -40,7 +40,7 @@ class Theme implements ThemeIconsContract,
 	/**
 	 * ThemeIcons Contract Implementation
 	 */
-	public function buildIconList()
+	public function buildIconList($additionalClasses = false): array
 	{
 		$icons = [];
 
@@ -49,7 +49,7 @@ class Theme implements ThemeIconsContract,
 			$icons[] = [
 				'key' => $key,
 				'value' => $value,
-				'preview' => $this->renderIcon($key),
+				'preview' => $this->renderIcon($key, $additionalClasses),
 			];
 		}
 
@@ -165,7 +165,7 @@ class Theme implements ThemeIconsContract,
 		return '<i class="fa fa-%icon% %classes%"></i>';
 	}
 
-	public function renderIcon(string $icon, $additionalClasses = false)
+	public function renderIcon(string $icon, $additionalClasses = false): string
 	{
 		$output = str_replace('%classes%', $additionalClasses, $this->iconTemplate());
 		$output = str_replace('%icon%', $this->getIcon($icon), $output);
