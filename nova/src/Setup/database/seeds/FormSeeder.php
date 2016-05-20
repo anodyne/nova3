@@ -37,7 +37,7 @@ class FormSeeder extends Seeder {
 		// Create some fields
 		$fields[] = $fieldRepo->create([
 			'form_id' => $form->id,
-			'type' => 'text',
+			'type' => 'text-field',
 			'order' => 0,
 			'label' => "Title",
 			'attributes' => '[{"name":"class","value":"form-control input-lg"},{"name":"placeholder","value":""}]',
@@ -45,7 +45,7 @@ class FormSeeder extends Seeder {
 		]);
 		$fields[] = $fieldRepo->create([
 			'form_id' => $form->id,
-			'type' => 'textarea',
+			'type' => 'text-block',
 			'order' => 1,
 			'label' => "Summary",
 			'field_container_class' => "col-md-8",
@@ -54,7 +54,7 @@ class FormSeeder extends Seeder {
 		]);
 		$fields[] = $fieldRepo->create([
 			'form_id' => $form->id,
-			'type' => 'textarea',
+			'type' => 'text-block',
 			'order' => 2,
 			'label' => "Notes",
 			'field_container_class' => "col-md-8",

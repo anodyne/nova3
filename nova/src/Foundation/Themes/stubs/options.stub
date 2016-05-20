@@ -3,13 +3,13 @@
 		{
 			"label": "Sim Name",
 			"key": "sim_name",
-			"type": "text",
+			"type": "text-field",
 			"help": "Help text for the field"
 		},
 		{
 			"label": "Slogan",
 			"key": "slogan",
-			"type": "textarea"
+			"type": "text-block"
 		},
 		{
 			"label": "Banner Image",
