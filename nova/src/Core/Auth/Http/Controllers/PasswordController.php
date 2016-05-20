@@ -1,6 +1,7 @@
 <?php namespace Nova\Core\Auth\Http\Controllers;
 
 use Date, BaseController;
+use Nova\Core\Auth\Events;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\{Guard, PasswordBroker};
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -38,13 +39,13 @@ class PasswordController extends BaseController {
 		switch ($response)
 		{
 			case PasswordBroker::RESET_LINK_SENT:
-				event(new Events\PasswordResetEmailSent($request->get('email')));
+				event(new Events\PasswordResetEmailSent($request->get('email'), Date::now()));
 
 				flash()->success("Success!", "Your password reset link has been sent.");
 			break;
 
 			case PasswordBroker::INVALID_USER:
-				event(new Events\PasswordResetEmailFailed($request->get('email'), $response));
+				event(new Events\PasswordResetEmailFailed($request->get('email'), $response, Date::now()));
 
 				flash()->error("Error!", "No user with that email address found.");
 			break;
@@ -94,7 +95,7 @@ class PasswordController extends BaseController {
 		switch ($response)
 		{
 			case PasswordBroker::PASSWORD_RESET:
-				event(new Events\PasswordReset($request->get('email')));
+				event(new Events\PasswordReset($request->get('email'), Date::now()));
 
 				flash()->success("Success!", "Your password has been reset.");
 				
@@ -110,7 +111,7 @@ class PasswordController extends BaseController {
 			break;
 
 			case PasswordBroker::INVALID_PASSWORD:
-				event(new Events\PasswordResetFailed($request->get('email'), $response));
+				event(new Events\PasswordResetFailed($request->get('email'), $response, Date::now()));
 
 				flash()->error("Error!", "Passwords must be at least six characters and match the confirmation.");
 				
@@ -118,7 +119,7 @@ class PasswordController extends BaseController {
 			break;
 
 			case PasswordBroker::INVALID_TOKEN:
-				event(new Events\PasswordResetFailed($request->get('email'), $response));
+				event(new Events\PasswordResetFailed($request->get('email'), $response, Date::now()));
 
 				flash()->error("Error!", "This password reset token is invalid.");
 				

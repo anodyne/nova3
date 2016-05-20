@@ -2,6 +2,14 @@
 
 return [
 
+	'Nova\Core\Auth\Events\LoggedIn' => [],
+	'Nova\Core\Auth\Events\LoginFailed' => [],
+	'Nova\Core\Auth\Events\PasswordReset' => [],
+	'Nova\Core\Auth\Events\PasswordResetEmailFailed' => [],
+	'Nova\Core\Auth\Events\PasswordResetEmailSent' => [],
+	'Nova\Core\Auth\Events\PasswordResetFailed' => [],
+	'Nova\Core\Auth\Events\PasswordResetRequired' => [],
+
 	'Nova\Core\Pages\Events\PageCreated' => [
 		CachePageRoutes::class,
 	],

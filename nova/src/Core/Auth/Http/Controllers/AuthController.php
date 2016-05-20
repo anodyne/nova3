@@ -1,7 +1,9 @@
 <?php namespace Nova\Core\Auth\Http\Controllers;
 
-use BaseController,
+use Date,
+	BaseController,
 	UserRepositoryContract;
+use Nova\Core\Auth\Events;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -44,7 +46,7 @@ class AuthController extends BaseController {
 		{
 			$message = "An administrator has required you to reset your password before you can continue.";
 
-			event(new Events\PasswordResetRequired($user));
+			event(new Events\PasswordResetRequired($user, Date::now()));
 
 			session()->flash('password_reset_required', $message);
 
@@ -57,14 +59,14 @@ class AuthController extends BaseController {
 		{
 			$name = user()->present()->firstName;
 
-			event(new Events\LoggedIn(user()));
+			event(new Events\LoggedIn(user(), Date::now()));
 
 			flash()->success("Welcome back, {$name}!", "You are now logged in.");
 
 			return redirect()->intended(route('home'));
 		}
 
-		event(new Events\LoginFailed($request->get('email')));
+		event(new Events\LoginFailed($request->get('email'), Date::now()));
 
 		flash()->error("Log In Failed!", "The email address or password don't match our records.");
 
