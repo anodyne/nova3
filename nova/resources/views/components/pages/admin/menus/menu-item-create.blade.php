@@ -67,7 +67,7 @@
 
 		<div class="form-group">
 			<div class="col-md-7 col-md-offset-2">
-				{!! partial('access-picker') !!}
+				{!! partial('access-picker', ['type' => '', 'selectedItems' => '[]']) !!}
 			</div>
 		</div>
 

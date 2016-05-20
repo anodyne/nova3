@@ -2,14 +2,15 @@ Vue.component('access-picker', {
 	template: "#access-picker-template",
 
 	props: {
-		options: undefined,
+		type: "",
 		permissions: [],
-		roles: []
+		roles: [],
+		chosen: []
 	},
 
 	data: function () {
 		return {
-			accessTypeSelection: "",
+			accessType: "",
 			config: {},
 			items: [],
 			query: "",
@@ -33,22 +34,51 @@ Vue.component('access-picker', {
 			$('.typeaheadInput').typeahead('val', '')
 		},
 
-		setConfig: function () {
-			var cfg = {
-				inputClasses: "form-control input-lg",
-				inputPlaceholder: "Start typing to search for roles and/or permissions"
-			}
+		updateAccessType: function (value) {
+			if (value != "") {
+				this.accessType = value
 
-			if (this.options === undefined) {
-				this.config = cfg
-			} else {
-				this.config = _.defaults(this.options, cfg)
+				// Destroy the existing instance of Typeahead
+				$('.typeaheadInput').typeahead('destroy')
+
+				// Do some data resets
+				this.items = []
+				this.query = ""
+
+				var name, localStore, store
+
+				if (value == "roles") {
+					name = "nova-roles"
+					localStore = this.roles
+				}
+
+				if (value == "permissions") {
+					name = "nova-permissions"
+					localStore = this.permissions
+				}
+
+				store = new Bloodhound({
+					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('key', 'name'),
+					queryTokenizer: Bloodhound.tokenizers.whitespace,
+					local: localStore
+				})
+
+				$('.typeaheadInput').typeahead({
+					highlight: true,
+					hint: false
+				}, {
+					name: name,
+					source: store,
+					display: "name"
+				})
 			}
 		}
 	},
 
 	ready: function () {
-		this.setConfig()
+		this.updateAccessType(this.type)
+		
+		this.items = JSON.parse(this.chosen)
 
 		var cvm = this
 
@@ -59,7 +89,7 @@ Vue.component('access-picker', {
 	},
 
 	watch: {
-		"accessTypeSelection": function (newValue, oldValue) {
+		/*"accessType": function (newValue, oldValue) {
 			if (newValue != "" && newValue != oldValue) {
 				// Destroy the existing instance of Typeahead
 				$('.typeaheadInput').typeahead('destroy')
@@ -95,7 +125,7 @@ Vue.component('access-picker', {
 					display: "name"
 				})
 			}
-		},
+		},*/
 
 		"selected": function (newValue, oldValue) {
 			if (newValue != "" && newValue != oldValue) {
@@ -103,6 +133,11 @@ Vue.component('access-picker', {
 
 				this.items.push({ type: type, name: newValue.name, key: newValue.key })
 			}
-		}
+		}/*,
+
+		"items": function (newValue, oldValue) {
+			console.log("items changed")
+			console.log(this.items)
+		}*/
 	}
 })

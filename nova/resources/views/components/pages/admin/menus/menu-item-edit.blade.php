@@ -69,6 +69,18 @@
 
 		<div class="form-group">
 			<div class="col-md-5 col-md-offset-3">
+		<div class="form-group">
+			<div class="col-md-7 col-md-offset-2">
+				<h3>Controlling Access</h3>
+				<p>You can restrict who has access to the page by the user's access role or even permission keys that are within the access role(s). By specifying either an access role or permission, Nova will require the visiting user to be logged in.</p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-7 col-md-offset-2">
+				{!! partial('access-picker', ['type' => $item->access_type, 'selectedItems' => $item->access->toJson()]) !!}
+			</div>
+		</div>
 				<mobile>
 					<p>{!! Form::button("Update Menu Item", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
 				</mobile>
