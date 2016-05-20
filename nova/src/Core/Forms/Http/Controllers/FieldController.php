@@ -74,13 +74,6 @@ class FieldController extends BaseController {
 
 		$form = $this->data->form = $this->formRepo->getByKey($formKey);
 
-		$this->data->types = [
-			'text' => "Text field",
-			'textarea' => "Text block",
-			'select' => "Dropdown menu",
-			'radio' => "Radio buttons"
-		];
-
 		$this->data->tabs = ['0' => "No tab"];
 		$this->data->tabs+= $this->tabRepo->listAll('name', 'id');
 
@@ -129,13 +122,6 @@ class FieldController extends BaseController {
 		$this->views->put('styles', ['uikit/components/icon']);
 
 		$form = $this->data->form = $this->formRepo->getByKey($formKey);
-
-		$this->data->types = [
-			'text' => "Text field",
-			'textarea' => "Text block",
-			'select' => "Dropdown menu",
-			'radio' => "Radio buttons"
-		];
 
 		$this->data->tabs = ['0' => "No tab"];
 		$this->data->tabs+= $this->tabRepo->listAll('name', 'id');
