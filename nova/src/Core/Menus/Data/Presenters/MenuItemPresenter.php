@@ -35,11 +35,11 @@ class MenuItemPresenter extends BasePresenter {
 		}
 	}
 
-	public function title()
+	public function title($withIcon = true)
 	{
 		$outputArr = [];
 
-		if ( ! empty($this->entity->icon))
+		if ($withIcon and ! empty($this->entity->icon))
 		{
 			$outputArr[] = $this->icon();
 		}

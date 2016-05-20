@@ -42,7 +42,7 @@
 					@if ($main->type == 'divider')
 						<span class="text-muted">(Divider)</span>
 					@else
-						{{ $main->present()->title }}
+						{{ $main->present()->title(false) }}
 					@endif
 					<div class="pull-right uk-nested-item-controls">
 						@can('edit', $main)
@@ -63,7 +63,7 @@
 								@if ($sub->type == 'divider')
 									<span class="text-muted">(Divider)</span>
 								@else
-									{{ $sub->present()->title }}
+									{{ $sub->present()->title(false) }}
 								@endif
 								<div class="pull-right uk-nested-item-controls">
 									@can('edit', $sub)

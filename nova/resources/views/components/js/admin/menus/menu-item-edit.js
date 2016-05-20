@@ -5,7 +5,10 @@ vue = {
 		oldType: "",
 		pageId: "",
 		title: "",
-		type: false
+		type: false,
+
+		roles: Nova.data.roles,
+		permissions: Nova.data.permissions
 	},
 
 	methods: {

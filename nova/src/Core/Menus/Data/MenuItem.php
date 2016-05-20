@@ -13,7 +13,7 @@ class MenuItem extends Model {
 	protected $table = 'menus_items';
 
 	protected $fillable = ['menu_id', 'parent_id', 'order', 'type', 'page_id',
-		'link', 'title', 'access_type', 'access'];
+		'link', 'title', 'access_type', 'access', 'icon'];
 
 	protected $casts = [
 		'access'	=> 'collection',

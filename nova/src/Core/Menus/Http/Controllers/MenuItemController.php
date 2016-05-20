@@ -124,7 +124,13 @@ class MenuItemController extends BaseController {
 		$this->authorize('edit', $item, "You do not have permission to edit menu items.");
 
 		$this->views->put('page', 'admin/menus/menu-item-edit');
-		$this->views->put('scripts', ['admin/menus/menu-item-edit']);
+		$this->views->put('scripts', [
+			'typeahead.bundle.min',
+			'vue/access-picker',
+			'vue/icon-picker',
+			'admin/menus/menu-item-edit'
+		]);
+		$this->views->put('styles', ['typeahead']);
 
 		$this->data->menuId = $item->menu_id;
 
@@ -139,6 +145,11 @@ class MenuItemController extends BaseController {
 			'external'	=> "Another page not in Nova",
 			'route'		=> "A named route in Nova",
 		];
+
+		$this->data->roles = $this->data->accessRoles = app('RoleRepository')->all();
+		$this->data->permissions = app('PermissionRepository')->all();
+
+		$this->data->icons = theme()->buildIconList();
 	}
 
 	public function update(EditMenuItemRequest $request, $itemId)
