@@ -68,7 +68,12 @@
 		</div>
 
 		<div class="form-group">
-			<div class="col-md-5 col-md-offset-3">
+			<label class="col-md-2 control-label">Icon</label>
+			<div class="col-md-4">
+				{!! partial('icon-picker', ['icon' => $item->icon]) !!}
+			</div>
+		</div>
+
 		<div class="form-group">
 			<div class="col-md-7 col-md-offset-2">
 				<h3>Controlling Access</h3>

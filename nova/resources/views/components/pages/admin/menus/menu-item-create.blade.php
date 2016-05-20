@@ -54,7 +54,7 @@
 		<div class="form-group">
 			<label class="col-md-2 control-label">Icon</label>
 			<div class="col-md-4">
-				{!! partial('icon-picker') !!}
+				{!! partial('icon-picker', ['icon' => '']) !!}
 			</div>
 		</div>
 

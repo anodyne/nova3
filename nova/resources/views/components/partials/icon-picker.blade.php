@@ -1,12 +1,12 @@
-<icon-picker></icon-picker>
+<icon-picker selected="{{ $icon }}"></icon-picker>
 
 <template id="icon-picker-template">
 	<div class="nova-icon-picker">
 		<div class="row">
 			<div class="col-md-10">
-				<select :name="config.inputName" :class="[ config.inputClasses ]" v-model="selectedIcon">
+				<select name="icon" class="form-control input-lg" v-model="selectedIcon">
 					<option value="">None</option>
-					<option v-for="icon in icons" :value="icon.value">@{{ icon.key }}</option>
+					<option v-for="icon in icons" :value="icon.key">@{{ icon.key }}</option>
 				</select>
 			</div>
 			<div class="col-md-2">

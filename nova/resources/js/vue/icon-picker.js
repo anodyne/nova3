@@ -2,8 +2,7 @@ Vue.component('icon-picker', {
 	template: '#icon-picker-template',
 
 	props: {
-		selected: "",
-		options: undefined
+		selected: ""
 	},
 
 	data: function () {
@@ -15,25 +14,9 @@ Vue.component('icon-picker', {
 		}
 	},
 
-	methods: {
-		setConfig: function () {
-			var cfg = {
-				inputClasses: "form-control input-lg",
-				inputName: "icon"
-			}
-
-			if (this.options === undefined) {
-				this.config = cfg
-			} else {
-				this.config = _.defaults(this.options, cfg)
-			}
-		}
-	},
-
 	ready: function () {
-		this.setConfig()
-
 		this.icons = Nova.data.icons
+		this.selectedIcon = this.selected
 	},
 
 	watch: {
@@ -46,7 +29,7 @@ Vue.component('icon-picker', {
 				for (var i = 0; i < this.icons.length; i++) {
 					var loopIcon = this.icons[i]
 
-					if (loopIcon.value == newValue) {
+					if (loopIcon.key == newValue) {
 						this.iconPreview = loopIcon.preview
 					}
 				}
