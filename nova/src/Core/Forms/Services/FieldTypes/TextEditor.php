@@ -1,22 +1,23 @@
 <?php namespace Nova\Core\Forms\Services\FieldTypes;
 
-use Form, HTML, Markdown;
+use Form, Markdown;
 
-class TextField implements FieldTypeInterface {
+class TextEditor implements FieldTypeInterface {
 
 	public function info()
 	{
 		return [
-			'name' => "Text Field",
-			'value' => 'text-field',
+			'name' => "Text Editor",
+			'value' => 'text-editor',
 			'hasValues' => false,
 			'values' => [],
 			'attributes' => [
-				['name' => 'class', 'value' => 'form-control input-lg'],
+				['name' => 'class', 'value' => 'form-control input-lg editor'],
 				['name' => 'placeholder', 'value' => ''],
+				['name' => 'rows', 'value' => 10],
 			],
-			'baseHTML' => 'text',
-			'fieldContainerSize' => 'col-md-4',
+			'baseHTML' => 'textarea',
+			'fieldContainerSize' => 'col-md-8',
 			'labelContainerSize' => 'col-md-2',
 		];
 	}
@@ -33,12 +34,12 @@ class TextField implements FieldTypeInterface {
 
 	protected function renderEditable($state, $name, $values, $data, array $attributes)
 	{
-		return Form::text($name, $data, $attributes);
+		return Form::textarea($name, $data, $attributes);
 	}
 
 	protected function renderStatic($data)
 	{
-		return HTML::tag('p', Markdown::parse($data), ['class' => 'form-control-static']);
+		return '<p class="form-field-static">'.$data.'</p>';
 	}
 
 }

@@ -7,8 +7,8 @@ class Dropdown implements FieldTypeInterface {
 	public function info()
 	{
 		return [
-			'name' => "Dropdown menu",
-			'value' => 'select',
+			'name' => "Dropdown Menu",
+			'value' => 'dropdown',
 			'hasValues' => true,
 			'values' => [],
 			'attributes' => [

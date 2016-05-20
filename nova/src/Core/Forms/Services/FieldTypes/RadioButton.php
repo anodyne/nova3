@@ -8,7 +8,7 @@ class RadioButton implements FieldTypeInterface {
 	public function info()
 	{
 		return [
-			'name' => "Radio buttons",
+			'name' => "Radio Buttons",
 			'value' => 'radio',
 			'hasValues' => true,
 			'values' => [],

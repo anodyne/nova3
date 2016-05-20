@@ -110,9 +110,10 @@ class NovaServiceProvider extends ServiceProvider {
 		{
 			$manager = new FieldTypes\FieldTypeManager;
 
-			$manager->registerFieldType('text', new FieldTypes\TextField);
-			$manager->registerFieldType('textarea', new FieldTypes\TextBlock);
-			$manager->registerFieldType('select', new FieldTypes\Dropdown);
+			$manager->registerFieldType('text-field', new FieldTypes\TextField);
+			$manager->registerFieldType('text-block', new FieldTypes\TextBlock);
+			$manager->registerFieldType('text-editor', new FieldTypes\TextEditor);
+			$manager->registerFieldType('dropdown', new FieldTypes\Dropdown);
 			$manager->registerFieldType('radio', new FieldTypes\RadioButton);
 
 			return $manager;

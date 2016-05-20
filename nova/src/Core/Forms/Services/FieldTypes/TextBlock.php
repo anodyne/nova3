@@ -7,8 +7,8 @@ class TextBlock implements FieldTypeInterface {
 	public function info()
 	{
 		return [
-			'name' => "Text block",
-			'value' => 'textarea',
+			'name' => "Text Block",
+			'value' => 'text-block',
 			'hasValues' => false,
 			'values' => [],
 			'attributes' => [
