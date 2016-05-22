@@ -313,7 +313,7 @@ return [
 	[
 		'verb'				=> "POST",
 		'name'				=> "Reorder Menu Items",
-		'key'				=> "admin.menu.items.reorder",
+		'key'				=> "admin.menus.items.reorder",
 		'uri'				=> "admin/menu-items/reorder",
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@reorder",
 	],

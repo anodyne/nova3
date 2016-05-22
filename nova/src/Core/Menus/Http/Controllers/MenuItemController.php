@@ -61,7 +61,7 @@ class MenuItemController extends BaseController {
 		$subMenuItems = $this->repo->getSubMenuItems($menu);
 		$this->data->subMenuItems = $this->repo->splitSubMenuItemsIntoArray($subMenuItems);
 
-		$this->data->reorderUrl = route('admin.menu.items.reorder');
+		$this->data->reorderUrl = route('admin.menus.items.reorder');
 		$this->data->storeDividerUrl = route('admin.menus.items.storeDivider');
 	}
 
