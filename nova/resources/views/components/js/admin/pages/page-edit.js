@@ -6,11 +6,16 @@ vue = {
 		uri: "",
 		oldKey: "",
 		oldUri: "",
-		accessType: "",
-		access: [],
-		accessRole: [],
-		accessPermission: [],
-		permissionData: []
+		roles: Nova.data.roles,
+		permissions: Nova.data.permissions,
+		name: "",
+		description: "",
+		menu: "",
+		verb: "",
+		protected: "",
+		contentTitle: "",
+		contentHeader: "",
+		contentMessage: ""
 	},
 
 	methods: {
