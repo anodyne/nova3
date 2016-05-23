@@ -141,7 +141,7 @@ abstract class BaseController extends Controller {
 		$this->views->put('scripts', ['bootstrap-tabdrop', 'basic-page']);
 		$this->views->put('styles', ['tabdrop']);
 
-		if ($this->page->access)
+		if ($this->page->access->count() > 0)
 		{
 			// Make sure the user is authenticated
 			if ( ! $this->user)
@@ -153,24 +153,23 @@ abstract class BaseController extends Controller {
 			$method = (Str::contains($this->page->access_type, 'role')) ? 'hasRole' : 'can';
 
 			// Are we matching for ALL items or ANY item?
-			$allMatch = (bool) Str::contains($this->page->access_type, 'all');
+			$isStrict = (bool) Str::contains($this->page->access_type, 'strict');
 
 			// Make sure we have an array of access items
-			$accessItems = explode(',', $this->page->access);
+			//$accessItems = explode(',', $this->page->access);
 
-			foreach ($accessItems as $item)
+			foreach ($this->page->access as $access)
 			{
-				if ($allMatch)
+				if ($isStrict)
 				{
-					if ( ! $this->user->{$method}($item))
+					if ( ! $this->user->{$method}($access['key']))
 					{
 						return $this->errorUnauthorized("You do not have permission to view the {$this->page->name} page.");
 					}
 				}
-
-				if ( ! $allMatch)
+				else
 				{
-					if ($this->user->{$method}($item)) break;
+					if ($this->user->{$method}($access['key'])) break;
 
 					return $this->errorUnauthorized("You do not have permission to view the {$this->page->name} page.");
 				}
