@@ -47,12 +47,12 @@ Vue.component('access-picker', {
 
 				var name, localStore, store
 
-				if (value == "roles") {
+				if (value == "roles-strict" || value == "roles-loose") {
 					name = "nova-roles"
 					localStore = this.roles
 				}
 
-				if (value == "permissions") {
+				if (value == "permissions-strict" || value == "permissions-loose") {
 					name = "nova-permissions"
 					localStore = this.permissions
 				}
@@ -89,55 +89,12 @@ Vue.component('access-picker', {
 	},
 
 	watch: {
-		/*"accessType": function (newValue, oldValue) {
-			if (newValue != "" && newValue != oldValue) {
-				// Destroy the existing instance of Typeahead
-				$('.typeaheadInput').typeahead('destroy')
-
-				// Do some data resets
-				this.items = []
-				this.query = ""
-
-				var name, localStore, store
-
-				if (newValue == "roles") {
-					name = "nova-roles"
-					localStore = this.roles
-				}
-
-				if (newValue == "permissions") {
-					name = "nova-permissions"
-					localStore = this.permissions
-				}
-
-				store = new Bloodhound({
-					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('key', 'name'),
-					queryTokenizer: Bloodhound.tokenizers.whitespace,
-					local: localStore
-				})
-
-				$('.typeaheadInput').typeahead({
-					highlight: true,
-					hint: false
-				}, {
-					name: name,
-					source: store,
-					display: "name"
-				})
-			}
-		},*/
-
 		"selected": function (newValue, oldValue) {
 			if (newValue != "" && newValue != oldValue) {
 				var type = (newValue.protected !== undefined) ? 'permission' : 'role'
 
 				this.items.push({ type: type, name: newValue.name, key: newValue.key })
 			}
-		}/*,
-
-		"items": function (newValue, oldValue) {
-			console.log("items changed")
-			console.log(this.items)
-		}*/
+		}
 	}
 })
