@@ -256,15 +256,21 @@ class Theme implements ThemeIconsContract,
 				// Loop through the sub menu items and build the sub menu
 				foreach ($menuSubItemsArr[$mainMenuItem->id] as $subMenuItem)
 				{
-					$submenu->add($this->buildMenuItem($subMenuItem));
+					$submenu->addIf(
+						$subMenuItem->userHasAccess(user()),
+						$this->buildMenuItem($subMenuItem)
+					);
 				}
 
 				// Now add the sub menu to the menu
-				$menu->add($submenu);
+				$menu->addIf(($submenu->count() > 0), $submenu);
 			}
 			else
 			{
-				$menu->add($this->buildMenuItem($mainMenuItem));
+				$menu->addIf(
+					$mainMenuItem->userHasAccess(user()),
+					$this->buildMenuItem($mainMenuItem)
+				);
 			}
 		}
 
@@ -282,7 +288,10 @@ class Theme implements ThemeIconsContract,
 
 		foreach ($this->menuMainItems as $mainMenuItem)
 		{
-			$menu->add($this->buildMenuItem($mainMenuItem));
+			$menu->addIf(
+				$mainMenuItem->userHasAccess(user()),
+				$this->buildMenuItem($mainMenuItem)
+			);
 		}
 
 		MenuBuilder::macro('mainMenu', function () use ($menu)
@@ -306,7 +315,10 @@ class Theme implements ThemeIconsContract,
 
 		foreach ($menuSubItemsFiltered as $subMenuItem)
 		{
-			$menu->add($this->buildMenuItem($subMenuItem, 'list-group-item'));
+			$menu->addIf(
+				$subMenuItem->userHasAccess(user()),
+				$this->buildMenuItem($subMenuItem, 'list-group-item')
+			);
 		}
 
 		MenuBuilder::macro('subMenu', function () use ($menu)
@@ -372,15 +384,21 @@ class Theme implements ThemeIconsContract,
 				// Loop through the sub menu items and build the sub menu
 				foreach ($menuSubItemsArr[$mainMenuItem->id] as $subMenuItem)
 				{
-					$submenu->add($this->buildMenuItem($subMenuItem));
+					$submenu->addIf(
+						$subMenuItem->userHasAccess(user()),
+						$this->buildMenuItem($subMenuItem)
+					);
 				}
 
 				// Now add the sub menu to the menu
-				$menu->add($submenu);
+				$menu->addIf(($submenu->count() > 0), $submenu);
 			}
 			else
 			{
-				$menu->add($this->buildMenuItem($mainMenuItem));
+				$menu->addIf(
+					$mainMenuItem->userHasAccess(user()),
+					$this->buildMenuItem($mainMenuItem)
+				);
 			}
 		}
 
@@ -398,7 +416,10 @@ class Theme implements ThemeIconsContract,
 
 		foreach ($this->menuMainItems as $mainMenuItem)
 		{
-			$menu->add($this->buildMenuItem($mainMenuItem));
+			$menu->addIf(
+				$mainMenuItem->userHasAccess(user()),
+				$this->buildMenuItem($mainMenuItem)
+			);
 		}
 
 		MenuBuilder::macro('mainMenu', function () use ($menu)
@@ -422,7 +443,10 @@ class Theme implements ThemeIconsContract,
 
 		foreach ($menuSubItemsFiltered as $subMenuItem)
 		{
-			$menu->add($this->buildMenuItem($subMenuItem, 'list-group-item'));
+			$menu->addIf(
+				$subMenuItem->userHasAccess(user()),
+				$this->buildMenuItem($subMenuItem, 'list-group-item')
+			);
 		}
 
 		MenuBuilder::macro('subMenu', function () use ($menu)

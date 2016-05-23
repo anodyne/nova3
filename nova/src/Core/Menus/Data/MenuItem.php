@@ -1,6 +1,7 @@
 <?php namespace Nova\Core\Menus\Data;
 
-use Page,
+use Str,
+	Page,
 	Model,
 	Menu as MenuModel,
 	MenuItemPresenter;
@@ -70,5 +71,36 @@ class MenuItem extends Model {
 			$this->attributes['access'] = $value;
 		}
 	}
-	
+
+	//-------------------------------------------------------------------------
+	// Model Methods
+	//-------------------------------------------------------------------------
+
+	public function userHasAccess($user)
+	{
+		// If we don't have anything in the access column, we can see it
+		if (empty($this->access)) return true;
+
+		// If we do have something in the access column and there is no user
+		// then we're dealing with an unauthenticated user who can't see it
+		if ($user === null) return false;
+
+		// Figure out if we're looking for a role or a permission
+		$method = (Str::contains($this->access_type, 'roles')) ? 'hasRole' : 'can';
+		$isStrict = (Str::contains($this->access_type, 'strict'));
+
+		foreach ($this->access as $access)
+		{
+			if ($isStrict)
+			{
+				if ( ! $user->{$method}($access['key'])) return false;
+			}
+			else
+			{
+				if ($user->{$method}($access['key'])) return true;
+			}
+		}
+
+		return true;
+	}
 }
