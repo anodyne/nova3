@@ -33,11 +33,21 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 
 	public function create(array $data)
 	{
-		// Combine the data
-		$combinedData = array_merge(['type' => $data['type']], $data[$data['type']]);
+		if ($data['type'] == 'basic')
+		{
+			unset($data['verb']);
+			unset($data['resource']);
+			unset($data['conditions']);
+		}
+
+		if ($data['type'] == 'advanced')
+		{
+			unset($data['access_type']);
+			unset($data['access']);
+		}
 
 		// Create the page
-		$page = $this->model->create($combinedData);
+		$page = $this->model->create($data);
 
 		// Set which content items we want to create
 		$contentToCreate = ['title', 'header', 'message'];
@@ -139,6 +149,17 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 
 		if ($page)
 		{
+			if ($data['type'] == 'basic')
+			{
+				unset($data['conditions']);
+			}
+
+			if ($data['type'] == 'advanced')
+			{
+				unset($data['access_type']);
+				unset($data['access']);
+			}
+			
 			// Update the page
 			$page->fill($data)->save();
 

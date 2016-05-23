@@ -49,13 +49,10 @@ class PageController extends BaseController {
 		$this->views->put('page', 'admin/pages/page-create');
 		$this->views->put('scripts', [
 			'typeahead.bundle.min',
-			'bootstrap-tagsinput.min',
+			'vue/access-picker',
 			'admin/pages/page-create',
 		]);
-		$this->views->put('styles', [
-			'bootstrap-tagsinput',
-			'bootstrap-tagsinput-typeahead',
-		]);
+		$this->views->put('styles', ['typeahead']);
 		
 		$this->data->httpVerbs = [
 			'GET' => 'GET',
@@ -69,19 +66,11 @@ class PageController extends BaseController {
 
 		$this->data->resources = $this->getExtensionResources();
 
-		$this->data->accessTypes = [
-			'' => "None",
-			'role_all' => "All Selected Access Roles",
-			'role_any' => "Any Selected Access Roles",
-			//'permission_all' => "All Selected Permissions",
-			//'permission_any' => "Any Selected Permissions",
-		];
-
-		$this->data->accessRoles = app('RoleRepository')->all();
-
 		$this->data->keyCheckUrl = route('admin.pages.checkKey');
 		$this->data->uriCheckUrl = route('admin.pages.checkUri');
-		$this->data->permissionApiUrl = version('v1')->route('api.access.permissions.all');
+
+		$this->data->roles = app('RoleRepository')->all();
+		$this->data->permissions = app('PermissionRepository')->all();
 	}
 
 	public function store(CreatePageRequest $request)
@@ -104,13 +93,10 @@ class PageController extends BaseController {
 		$this->views->put('page', 'admin/pages/page-edit');
 		$this->views->put('scripts', [
 			'typeahead.bundle.min',
-			'bootstrap-tagsinput.min',
+			'vue/access-picker',
 			'admin/pages/page-edit',
 		]);
-		$this->views->put('styles', [
-			'bootstrap-tagsinput',
-			'bootstrap-tagsinput-typeahead',
-		]);
+		$this->views->put('styles', ['typeahead']);
 
 		$this->data->httpVerbs = [
 			'GET' => 'GET',
@@ -124,19 +110,11 @@ class PageController extends BaseController {
 
 		$this->data->resources = $this->getExtensionResources();
 
-		$this->data->accessTypes = [
-			'' => "None",
-			'role_all' => "All Selected Access Roles",
-			'role_any' => "Any Selected Access Roles",
-			//'permission_all' => "All Selected Permissions",
-			//'permission_any' => "Any Selected Permissions",
-		];
-
-		$this->data->accessRoles = app('RoleRepository')->all();
-
 		$this->data->keyCheckUrl = route('admin.pages.checkKey');
 		$this->data->uriCheckUrl = route('admin.pages.checkUri');
-		$this->data->permissionApiUrl = version('v1')->route('api.access.permissions.index');
+
+		$this->data->roles = app('RoleRepository')->all();
+		$this->data->permissions = app('PermissionRepository')->all();
 	}
 
 	public function update(EditPageRequest $request, $pageId)

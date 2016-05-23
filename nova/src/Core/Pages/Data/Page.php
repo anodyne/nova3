@@ -5,6 +5,7 @@ use Menu,
 	MenuItem,
 	PagePresenter,
 	PageContent as PageContentModel;
+use Illuminate\Support\Collection;
 use Laracasts\Presenter\PresentableTrait;
 
 class Page extends Model {
@@ -23,6 +24,7 @@ class Page extends Model {
 	protected $casts = [
 		'protected'	=> 'boolean',
 		'menu_id'	=> 'integer',
+		'access'	=> 'collection',
 	];
 
 	protected $dates = ['created_at', 'updated_at'];
@@ -74,6 +76,26 @@ class Page extends Model {
 	public function getEditUrlAttribute()
 	{
 		return route('admin.pages.edit', [$this->id]);
+	}
+
+	//-------------------------------------------------------------------------
+	// Mutators
+	//-------------------------------------------------------------------------
+
+	public function setAccessAttribute($value)
+	{
+		if (is_array($value))
+		{
+			$this->attributes['access'] = json_encode($value);
+		}
+		elseif ($value instanceof Collection)
+		{
+			$this->attributes['access'] = $value->toJson();
+		}
+		else
+		{
+			$this->attributes['access'] = $value;
+		}
 	}
 
 	//-------------------------------------------------------------------------
