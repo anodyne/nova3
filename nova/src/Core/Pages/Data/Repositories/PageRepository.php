@@ -3,6 +3,7 @@
 use Page as Model,
 	PageRepositoryContract,
 	PageContentRepositoryContract;
+use Nova\Core\Pages\Events;
 use Illuminate\Routing\Route;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
