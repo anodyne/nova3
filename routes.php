@@ -10,13 +10,5 @@ Route::get('icons', 'Nova\Core\Game\Http\Controllers\HomeController@icons');
 
 Route::get('test', function ()
 {
-	$page = Page::find(9);
-	$theme = new Nova\Foundation\Services\Themes\Theme('pulsar', app());
-	$menu = $theme->menuNew($page);
-
-	echo $menu['menuSub']->render();
-
-	dd($menu['menuSub']->render());
-
-	return 'Done';
+	//
 });
