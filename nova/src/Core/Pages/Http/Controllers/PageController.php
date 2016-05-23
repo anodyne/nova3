@@ -81,7 +81,7 @@ class PageController extends BaseController {
 
 		$this->data->keyCheckUrl = route('admin.pages.checkKey');
 		$this->data->uriCheckUrl = route('admin.pages.checkUri');
-		$this->data->permissionApiUrl = version('v1')->route('api.access.permissions.index');
+		$this->data->permissionApiUrl = version('v1')->route('api.access.permissions.all');
 	}
 
 	public function store(CreatePageRequest $request)
