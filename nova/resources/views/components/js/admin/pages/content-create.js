@@ -1,6 +1,9 @@
 vue = {
 	data: {
-		key: ""
+		key: "",
+		page: "",
+		type: "",
+		value: ""
 	},
 
 	methods: {

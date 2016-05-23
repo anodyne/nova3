@@ -1,7 +1,10 @@
 vue = {
 	data: {
 		key: "",
-		oldKey: ""
+		oldKey: "",
+		page: "",
+		type: "",
+		value: ""
 	},
 
 	methods: {
