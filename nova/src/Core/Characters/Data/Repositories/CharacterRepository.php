@@ -3,6 +3,7 @@
 use User,
 	Character as Model,
 	CharacterRepositoryContract;
+use Nova\Core\Characters\Events;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class CharacterRepository extends BaseRepository implements CharacterRepositoryContract {

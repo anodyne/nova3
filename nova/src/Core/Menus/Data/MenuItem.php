@@ -5,6 +5,7 @@ use Str,
 	Model,
 	Menu as MenuModel,
 	MenuItemPresenter;
+use Illuminate\Support\Collection;
 use Laracasts\Presenter\PresentableTrait;
 
 class MenuItem extends Model {

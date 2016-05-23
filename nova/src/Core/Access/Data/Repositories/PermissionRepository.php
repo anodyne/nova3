@@ -2,8 +2,8 @@
 
 use Permission as Model,
 	PermissionRepositoryContract;
-use Illuminate\Support\Collection;
 use Nova\Core\Access\Events;
+use Illuminate\Support\Collection;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class PermissionRepository extends BaseRepository implements PermissionRepositoryContract {

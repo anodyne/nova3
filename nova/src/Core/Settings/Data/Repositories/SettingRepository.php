@@ -2,6 +2,7 @@
 
 use Setting as Model,
 	SettingRepositoryContract;
+use Nova\Core\Settings\Events;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
 class SettingRepository extends BaseRepository implements SettingRepositoryContract {
