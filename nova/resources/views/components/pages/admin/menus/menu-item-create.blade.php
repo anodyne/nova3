@@ -60,8 +60,8 @@
 
 		<div class="form-group">
 			<div class="col-md-7 col-md-offset-2">
-				<h3>Controlling Access</h3>
-				<p>You can restrict who has access to the page by the user's access role or even permission keys that are within the access role(s). By specifying either an access role or permission, Nova will require the visiting user to be logged in.</p>
+				<h3>Restricting Access</h3>
+				<p>You can restrict who has access to see the menu item by the user's access role(s) or even permissions within their access role(s). By specifying either an access role or permission, Nova will require the visiting user to be logged in.</p>
 			</div>
 		</div>
 
