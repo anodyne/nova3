@@ -27,6 +27,6 @@
 			</div>
 		</div>
 	</div>
-</div>
 
-{!! $form->present()->renderViewForm($entry->id) !!}
+	{!! $form->present()->renderViewForm($entry->id) !!}
+</div>

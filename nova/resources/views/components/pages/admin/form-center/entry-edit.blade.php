@@ -9,6 +9,6 @@
 			</div>
 		</div>
 	</desktop>
-</div>
 
-{!! $form->present()->renderEditForm($entry->id) !!}
+	{!! $form->present()->renderEditForm($entry->id) !!}
+</div>
