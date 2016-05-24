@@ -57,7 +57,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+		{!! HTML::script('nova/resources/js/underscore-min.js') !!}
 		{!! HTML::script('nova/resources/js/functions.js') !!}
 		{!! HTML::script('nova/resources/js/sweetalert.min.js') !!}
 		{!! HTML::script('nova/resources/js/vue/components.js') !!}
