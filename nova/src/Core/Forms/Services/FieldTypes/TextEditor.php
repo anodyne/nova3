@@ -13,7 +13,6 @@ class TextEditor implements FieldTypeInterface {
 			'values' => [],
 			'attributes' => [
 				['name' => 'class', 'value' => 'form-control input-lg editor'],
-				['name' => 'placeholder', 'value' => ''],
 				['name' => 'rows', 'value' => 10],
 			],
 			'baseHTML' => 'textarea',
