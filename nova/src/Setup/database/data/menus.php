@@ -8,8 +8,8 @@ return [
 	],
 
 	'menuItems' => [
-		['menu_id' => 1, 'order' => 0, 'type' => "route", 'link' => "setup.home", 'title' => "Setup Center"],
-		['menu_id' => 1, 'order' => 1, 'type' => "internal", 'link' => "#", 'title' => "Admin"],
+		['menu_id' => 1, 'order' => 0, 'type' => "route", 'link' => "setup.home", 'title' => "Setup Center", 'icon' => 'wizard'],
+		['menu_id' => 1, 'order' => 1, 'type' => "internal", 'link' => "#", 'title' => "Admin", 'icon' => 'settings'],
 		['menu_id' => 1, 'parent_id' => 2, 'order' => 0, 'type' => "page", 'page_id' => 9, 'title' => "Pages", 'access_type' => 'permissions-loose', 'access' => '[{"type":"permission","name":"Create Pages","key":"page.create"},{"type":"permission","name":"Edit Pages","key":"page.edit"},{"type":"permission","name":"Remove Pages","key":"page.remove"}]'],
 		['menu_id' => 1, 'parent_id' => 2, 'order' => 1, 'type' => "page", 'page_id' => 26, 'title' => "Menus", 'access_type' => 'permissions-loose', 'access' => '[{"type":"permission","name":"Create Menus","key":"menu.create"},{"type":"permission","name":"Edit Menus","key":"menu.edit"},{"type":"permission","name":"Remove Menus","key":"menu.remove"}]'],
 		['menu_id' => 1, 'parent_id' => 2, 'order' => 2, 'type' => "page", 'page_id' => 46, 'title' => "Roles", 'access_type' => 'permissions-loose', 'access' => '[{"type":"permission","name":"Create Roles","key":"access.create"},{"type":"permission","name":"Edit Roles","key":"access.edit"},{"type":"permission","name":"Remove Roles","key":"access.remove"}]'],
