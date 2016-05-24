@@ -141,7 +141,7 @@ abstract class BaseController extends Controller {
 		$this->views->put('scripts', ['bootstrap-tabdrop', 'basic-page']);
 		$this->views->put('styles', ['tabdrop']);
 
-		if ($this->page->access->count() > 0)
+		if ($this->page->access and $this->page->access->count() > 0)
 		{
 			// Make sure the user is authenticated
 			if ( ! $this->user)
