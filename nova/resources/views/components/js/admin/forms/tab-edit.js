@@ -2,6 +2,7 @@ vue = {
 	data: {
 		formKey: "",
 		link: "",
+		message: "",
 		name: "",
 		oldLink: "",
 		parentTab: false,
