@@ -33,7 +33,7 @@ class CreatePagesTables extends Migration {
 			$table->bigInteger('page_id')->unsigned()->nullable();
 			$table->string('type', 10);
 			$table->string('key');
-			$table->text('value')->nullable();
+			$table->longtext('value')->nullable();
 			$table->boolean('protected')->default((int) false);
 			$table->timestamps();
 		});
