@@ -148,7 +148,7 @@
 				$('.js-tooltip-right').tooltip({ placement: 'right' })
 
 				$('.editor').summernote({
-					height: 200,
+					height: 250,
 					toolbar: [
 						['style', ['bold', 'italic', 'underline', 'clear']],
 						['font', ['superscript', 'subscript']],
