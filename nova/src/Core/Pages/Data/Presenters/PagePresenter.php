@@ -19,7 +19,7 @@ class PagePresenter extends BasePresenter {
 	{
 		if ($this->entity->message())
 		{
-			return app('nova.markdown')->parse($this->entity->message()->present()->value);
+			return $this->entity->message()->present()->value;
 		}
 	}
 
