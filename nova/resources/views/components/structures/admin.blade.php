@@ -16,6 +16,7 @@
 		@else
 			<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 		@endif
+		{!! HTML::style('nova/resources/css/summernote.css') !!}
 		{!! HTML::style('nova/resources/css/sweetalert.css') !!}
 		{!! partial('fonts-include') !!}
 		{!! partial('icons-include') !!}
@@ -67,6 +68,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.js"></script>
 		{!! HTML::script('nova/resources/js/underscore-min.js') !!}
+		{!! HTML::script('nova/resources/js/summernote.min.js') !!}
 		{!! HTML::script('nova/resources/js/functions.js') !!}
 		{!! HTML::script('nova/resources/js/sweetalert.min.js') !!}
 		{!! HTML::script('nova/resources/js/vue/components.js') !!}
@@ -144,6 +146,18 @@
 				$('.js-tooltip-bottom').tooltip({ placement: 'bottom' })
 				$('.js-tooltip-left').tooltip({ placement: 'left' })
 				$('.js-tooltip-right').tooltip({ placement: 'right' })
+
+				$('.editor').summernote({
+					height: 200,
+					toolbar: [
+						['style', ['bold', 'italic', 'underline', 'clear']],
+						['font', ['superscript', 'subscript']],
+						['fontsize', ['fontsize']],
+						['para', ['ul', 'ol', 'paragraph']],
+						['insert', ['picture', 'link', 'table', 'hr']],
+						['misc', ['codeview']]
+					]
+				})
 			})
 		</script>
 		{!! $scripts or false !!}
