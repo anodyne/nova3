@@ -102,56 +102,7 @@ vue = {
 	},
 
 	ready: function () {
-		var url = Nova.data.permissionApiUrl
-		var options = {
-			headers: {
-				"Accept": Nova.api.acceptHeader
-			}
-		}
-
 		this.oldKey = this.key
 		this.oldUri = this.uri
-		
-		this.$http.get(url, [], options).then(response => {
-			this.permissionData = response.data.data
-		})
-	},
-
-	watch: {
-		"accessType": function (value, oldValue) {
-			if (value == "") {
-				this.access = []
-				this.accessRole = []
-				this.accessPermission = []
-			}
-		},
-
-		"accessRole": function (value, oldValue) {
-			this.access = value
-		},
-
-		"accessPermission": function (value, oldValue) {
-			this.access = value
-		},
-
-		"permissionData": function (value, oldValue) {
-			var permissions = new Bloodhound({
-				datumTokenizer: Bloodhound.tokenizers.obj.whitespace('key', 'name'),
-				queryTokenizer: Bloodhound.tokenizers.whitespace,
-				local: value
-			})
-
-			$('.js-permissions').tagsinput({
-				itemValue: 'key',
-				itemText: 'name',
-				tagClass: 'label label-default',
-				freeInput: false,
-				typeaheadjs: {
-					name: 'permissions',
-					source: permissions,
-					display: 'name'
-				}
-			})
-		}
 	}
 }

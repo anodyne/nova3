@@ -136,7 +136,7 @@
 		<div class="form-group{{ ($errors->has('content[message]')) ? ' has-error' : '' }}">
 			<label class="col-md-2 control-label">Content</label>
 			<div class="col-md-8">
-				{!! Form::textarea('content[message]', $page->present()->messageRaw, ['class' => 'form-control input-lg', 'rows' => 10, 'v-model' => 'contentMessage']) !!}
+				{!! Form::textarea('content[message]', $page->present()->messageRaw, ['class' => 'form-control input-lg editor', 'rows' => 10, 'v-model' => 'contentMessage', 'placeholder' => 'Enter your content message here']) !!}
 				{!! $errors->first('content[message]', '<p class="help-block">:message</p>') !!}
 				
 				<ul class="nav nav-pills nav-pills-sm">
