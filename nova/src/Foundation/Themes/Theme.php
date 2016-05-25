@@ -220,8 +220,9 @@ class Theme implements ThemeIconsContract,
 		$this->buildAdminCombinedMenu();
 		$this->buildUserMenu();
 
-		$this->structure->template->menuTop = partial('menu-top');
-		$this->structure->template->menuSide = partial('menu-side');
+		$this->structure->template->adminMenuMain = partial('menu/menu-admin-main');
+		$this->structure->template->adminMenuSub = partial('menu/menu-admin-sub');
+		$this->structure->template->adminMenuCombined = partial('menu/menu-admin-combined');
 
 		return $this;
 	}
@@ -402,7 +403,7 @@ class Theme implements ThemeIconsContract,
 			}
 		}
 
-		MenuBuilder::macro('combinedMenu', function () use ($menu)
+		MenuBuilder::macro('menuCombined', function () use ($menu)
 		{
 			return $menu;
 		});
@@ -422,7 +423,7 @@ class Theme implements ThemeIconsContract,
 			);
 		}
 
-		MenuBuilder::macro('mainMenu', function () use ($menu)
+		MenuBuilder::macro('menuMain', function () use ($menu)
 		{
 			return $menu;
 		});
@@ -432,6 +433,18 @@ class Theme implements ThemeIconsContract,
 
 	public function buildPublicSubMenu(Page $page)
 	{
+		// Start by filtering to only the menu items for the page's menu
+		$menuItems = $this->menuSubItems->filter(function ($item) use ($page)
+		{
+			return $item->menu_id === $page->menu_id;
+		});
+
+		// Next filter out only the items we need based on the page itself
+		$menuSubItemsFiltered = $menuItems->filter(function ($item) use ($page)
+		{
+			//
+		});
+
 		// Filter out sub items to only what we would need for the sub menu
 		$menuSubItemsFiltered = $this->menuSubItems->filter(function ($item) use ($page)
 		{
@@ -464,7 +477,7 @@ class Theme implements ThemeIconsContract,
 			);
 		}
 
-		MenuBuilder::macro('subMenu', function () use ($menu)
+		MenuBuilder::macro('menuSub', function () use ($menu)
 		{
 			return $menu;
 		});
@@ -507,7 +520,7 @@ class Theme implements ThemeIconsContract,
 			$menu->add(LinkBuilder::route('login', "Log In"));
 		}
 
-		MenuBuilder::macro('userMenu', function () use ($menu)
+		MenuBuilder::macro('menuUser', function () use ($menu)
 		{
 			return $menu;
 		});
@@ -540,8 +553,9 @@ class Theme implements ThemeIconsContract,
 		$this->buildPublicCombinedMenu();
 		$this->buildUserMenu();
 
-		$this->structure->template->menuTop = partial('menu-top');
-		$this->structure->template->menuSide = partial('menu-side');
+		$this->structure->template->publicMenuMain = partial('menu/menu-public-main');
+		$this->structure->template->publicMenuSub = partial('menu/menu-public-sub');
+		$this->structure->template->publicMenuCombined = partial('menu/menu-public-combined');
 
 		return $this;
 	}
