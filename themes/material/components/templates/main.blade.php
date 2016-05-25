@@ -1,4 +1,4 @@
-{!! $menuCombined or false !!}
+{!! $publicMenuCombined or false !!}
 
 <header>
 	<div class="container">
