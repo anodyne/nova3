@@ -10,8 +10,8 @@
 			<a href="{{ route('home') }}" class="navbar-brand">{{ $_content->get('sim.name') }}</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
-			{!! MenuBuilder::mainMenu() !!}
-			{!! MenuBuilder::userMenu() !!}
+			{!! MenuBuilder::menuCombined() !!}
+			{!! MenuBuilder::menuUser() !!}
 		</div>
 	</div>
 </nav>
