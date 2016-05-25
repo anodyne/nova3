@@ -1,5 +1,5 @@
 <div id="app" class="container">
-	{!! $menuTop or false !!}
+	{!! $adminMenuCombined or false !!}
 
 	<main>
 		{!! partial('page-header', compact('_page')) !!}
