@@ -30,7 +30,7 @@
 {!! alert('info', "Due to the additional controls necessary for field management, the form displayed below is not an accurate depiction of the final form. For an accurate preview of this form, use the ".link_to_route('admin.forms.preview', 'form preview', [$form->key]).".") !!}
 
 @if ($unboundFields->count() > 0)
-	{!! partial('form-fields-manage', ['fields' => $unboundFields, 'form' => $form]) !!}
+	{!! partial('form/form-fields-manage', ['fields' => $unboundFields, 'form' => $form]) !!}
 @endif
 
 @if ($unboundSections->count() > 0)
@@ -42,7 +42,7 @@
 			</legend>
 
 			@if ($section->fieldsAll->count() > 0)
-				{!! partial('form-fields-manage', ['fields' => $section->fieldsAll, 'form' => $form]) !!}
+				{!! partial('form/form-fields-manage', ['fields' => $section->fieldsAll, 'form' => $form]) !!}
 			@endif
 		</fieldset>
 	@endforeach
@@ -64,7 +64,7 @@
 	@foreach ($parentTabs as $tab)
 		<div class="tab-pane" id="{{ $tab->link_id }}">
 			@if ($tab->fieldsUnboundAll->count() > 0)
-				{!! partial('form-fields-manage', ['fields' => $tab->fieldsUnboundAll, 'form' => $form]) !!}
+				{!! partial('form/form-fields-manage', ['fields' => $tab->fieldsUnboundAll, 'form' => $form]) !!}
 			@endif
 
 			@if ($tab->sectionsAll->count() > 0)
@@ -76,7 +76,7 @@
 						</legend>
 
 						@if ($section->fieldsAll->count() > 0)
-							{!! partial('form-fields-manage', ['fields' => $section->fieldsAll, 'form' => $form]) !!}
+							{!! partial('form/form-fields-manage', ['fields' => $section->fieldsAll, 'form' => $form]) !!}
 						@endif
 					</fieldset>
 				@endforeach
@@ -98,7 +98,7 @@
 				@foreach ($tab->childrenTabsAll as $childTab)
 					<div class="tab-pane" id="{{ $childTab->link_id }}">
 						@if ($childTab->fieldsUnboundAll->count() > 0)
-							{!! partial('form-fields-manage', ['fields' => $childTab->fieldsUnboundAll, 'form' => $form]) !!}
+							{!! partial('form/form-fields-manage', ['fields' => $childTab->fieldsUnboundAll, 'form' => $form]) !!}
 						@endif
 
 						@if ($childTab->sectionsAll->count() > 0)
@@ -110,7 +110,7 @@
 									</legend>
 
 									@if ($section->fieldsAll->count() > 0)
-										{!! partial('form-fields-manage', ['fields' => $section->fieldsAll, 'form' => $form]) !!}
+										{!! partial('form/form-fields-manage', ['fields' => $section->fieldsAll, 'form' => $form]) !!}
 									@endif
 								</fieldset>
 							@endforeach

@@ -42,7 +42,7 @@ class FormPresenter extends BasePresenter {
 		// Set the action we're taking
 		$action = 'view';
 
-		return partial('form-static', compact('form', 'formOpenTag', 'formCloseTag', 'data', 'action', 'id'));
+		return partial('form/form-static', compact('form', 'formOpenTag', 'formCloseTag', 'data', 'action', 'id'));
 	}
 
 	public function renderNewForm($includeFormTags = true, $includeButton = true, $fieldNameWrapper = null)
@@ -70,7 +70,7 @@ class FormPresenter extends BasePresenter {
 
 		$id = null;
 
-		return partial('form-editable', compact('form', 'formOpenTag', 'formCloseTag', 'data', 'action', 'includeButton', 'id', 'fieldNameWrapper'));
+		return partial('form/form-editable', compact('form', 'formOpenTag', 'formCloseTag', 'data', 'action', 'includeButton', 'id', 'fieldNameWrapper'));
 	}
 
 	public function renderEditForm($id, $includeFormTags = true, $includeButton = true, $fieldNameWrapper = null)
@@ -96,7 +96,7 @@ class FormPresenter extends BasePresenter {
 		// Set the action we're taking
 		$action = 'edit';
 
-		return partial('form-editable', compact('form', 'formOpenTag', 'formCloseTag', 'data', 'action', 'includeButton', 'id', 'fieldNameWrapper'));
+		return partial('form/form-editable', compact('form', 'formOpenTag', 'formCloseTag', 'data', 'action', 'includeButton', 'id', 'fieldNameWrapper'));
 	}
 
 	public function statusAsLabel()

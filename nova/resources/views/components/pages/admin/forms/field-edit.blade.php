@@ -19,7 +19,7 @@
 					<div class="form-group">
 						<label class="control-label @{{ labelContainerClass }}" v-show="label != ''">@{{ label }}</label>
 						<div class="@{{ fieldContainerClass }}">
-							{!! partial('field-live-preview') !!}
+							{!! partial('form/field-live-preview') !!}
 							<p class="help-block" v-show="help != ''">@{{ help }}</p>
 						</div>
 					</div>
@@ -29,7 +29,7 @@
 					<div class="@{{ fieldContainerClass }}">
 						<div class="form-group">
 							<label class="control-label" v-show="label != ''">@{{ label }}</label>
-							{!! partial('field-live-preview') !!}
+							{!! partial('form/field-live-preview') !!}
 							<p class="help-block" v-show="help != ''">@{{ help }}</p>
 						</div>
 					</div>
