@@ -442,10 +442,13 @@ class Theme implements ThemeIconsContract,
 		// Next filter out only the items we need based on the page itself
 		$menuSubItemsFiltered = $menuItems->filter(function ($item) use ($page)
 		{
-			//
+			if ($page->menuItems->count() > 0 and $page->parent_id == 0)
+			{
+				return $item->parent_id == $page->menuItems->first()->id;
+			}
 		});
 
-		// Filter out sub items to only what we would need for the sub menu
+		/*// Filter out sub items to only what we would need for the sub menu
 		$menuSubItemsFiltered = $this->menuSubItems->filter(function ($item) use ($page)
 		{
 			if ((int) $page->parent_id === 0)
@@ -463,7 +466,7 @@ class Theme implements ThemeIconsContract,
 			//d($item->parent_id, $page->id);
 			//return $item->parent_id === $page->id;
 			//return $item->parent->page_id == $page->id;
-		});
+		});*/
 
 		//dd($menuSubItemsFiltered);
 
