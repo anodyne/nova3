@@ -435,9 +435,24 @@ class Theme implements ThemeIconsContract,
 		// Filter out sub items to only what we would need for the sub menu
 		$menuSubItemsFiltered = $this->menuSubItems->filter(function ($item) use ($page)
 		{
-			return $item->parent_id === 9;
-			return $item->parent->page_id == $page->id;
+			if ((int) $page->parent_id === 0)
+			{
+				return $item->menu_id == $page->menu_id and $item->parent_id == $page->menuItems->first()->id;
+			}
+
+			d($page->id, $page->name);
+			return $item->parent_id === 20;
+			if ((int) $page->parent_id === 0)
+			{
+				return (int) $item->parent_id === (int) $page->id;
+			}
+
+			//d($item->parent_id, $page->id);
+			//return $item->parent_id === $page->id;
+			//return $item->parent->page_id == $page->id;
 		});
+
+		//dd($menuSubItemsFiltered);
 
 		$menu = MenuBuilder::new()->addClass('list-group');
 
@@ -445,7 +460,7 @@ class Theme implements ThemeIconsContract,
 		{
 			$menu->addIf(
 				$subMenuItem->userHasAccess(user()),
-				$this->buildMenuItem($subMenuItem, 'list-group-item')
+				$this->buildMenuItem($subMenuItem)->addParentClass('list-group-item')
 			);
 		}
 
