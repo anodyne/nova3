@@ -275,7 +275,7 @@ class Theme implements ThemeIconsContract,
 			}
 		}
 
-		MenuBuilder::macro('combinedMenu', function () use ($menu)
+		MenuBuilder::macro('menuCombined', function () use ($menu)
 		{
 			return $menu;
 		});
@@ -295,7 +295,7 @@ class Theme implements ThemeIconsContract,
 			);
 		}
 
-		MenuBuilder::macro('mainMenu', function () use ($menu)
+		MenuBuilder::macro('menuMain', function () use ($menu)
 		{
 			return $menu;
 		});
@@ -322,7 +322,7 @@ class Theme implements ThemeIconsContract,
 			);
 		}
 
-		MenuBuilder::macro('subMenu', function () use ($menu)
+		MenuBuilder::macro('menuSub', function () use ($menu)
 		{
 			return $menu;
 		});
