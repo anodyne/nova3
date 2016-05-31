@@ -12,7 +12,7 @@ vue = {
 				output.push(roles[r].name)
 			}
 
-			return output.join(',')
+			return output.join(', ')
 		},
 
 		removePermission: function (permissionId) {
