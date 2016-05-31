@@ -6,14 +6,9 @@ class PermissionPresenter extends BasePresenter {
 
 	public function rolesAsLabels()
 	{
-		$output = "";
-
-		foreach ($this->entity->roles as $role)
+		return implode("\t", $this->entity->roles->map(function ($role)
 		{
-			$output.= label('default', $role->present()->name)."\t";
-		}
-
-		return $output;
+			return label('default', $role->present()->name);
+		})->toArray());
 	}
-
 }
