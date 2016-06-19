@@ -247,11 +247,12 @@ class Theme implements ThemeIconsContract,
 				// Build the header for the sub menu
 				$header = LinkBuilder::to('#', $headerText)
 					->addClass('dropdown-toggle')
-					//->addParentClass('dropdown')
 					->setAttribute('data-toggle', 'dropdown');
 
 				// Start building the submenu and prepend the first item
-				$submenu = MenuBuilder::new()->addClass('dropdown-menu');
+				$submenu = MenuBuilder::new()
+					->addClass('dropdown-menu')
+					->addParentClass('dropdown');
 				$submenu->prepend($header);
 
 				// Loop through the sub menu items and build the sub menu
@@ -375,11 +376,12 @@ class Theme implements ThemeIconsContract,
 				// Build the header for the sub menu
 				$header = LinkBuilder::to('#', $headerText)
 					->addClass('dropdown-toggle')
-					//->addParentClass('dropdown')
 					->setAttribute('data-toggle', 'dropdown');
 
 				// Start building the submenu and prepend the first item
-				$submenu = MenuBuilder::new()->addClass('dropdown-menu');
+				$submenu = MenuBuilder::new()
+					->addClass('dropdown-menu')
+					->addParentClass('dropdown');
 				$submenu->prepend($header);
 
 				// Loop through the sub menu items and build the sub menu
