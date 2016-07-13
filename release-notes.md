@@ -16,7 +16,7 @@ There have been __a lot__ of changes to Nova NextGen in a short amount of time. 
 
 Like mentioned above, this release involved a lot of clean up from previous preview releases:
 
-- Javascript views are now pure Javascript instead of mixing PHP in with them. This is a significant change, but we think it's a much cleaner way of handling Javascript in the system. In order to get data from the controller to the Javascript, we've created a new global `Nova` object that grabs all of the data passed from the controller to the PHP view. This means that PHP views and Javascript views now have access to the same data.
+- Javascript views are now pure Javascript instead of mixing PHP in with them. This is a significant change, but we think it's a much cleaner way of handling Javascript in the system. In order to get data from the controller to the Javascript, we've created a new global `Nova` object that grabs all of the data passed from the controller to the PHP view. This means that PHP views and Javascript views now have access to the same data without any extra work.
 - We've eliminated some confusion with the access control system and how fields were named. (Previously, the name was called display name and the key was called name. Who thought _that_ was a good idea???)
 - View locations are now stored in a collection rather than individual properties on the controller. This provides a single location for accessing any locations set in controller methods.
 - All create and edit views now have Vue model bindings on every field. If you replace a page's Javascript view, you'll actually be able to respond to any change on any field without also needing to replace the PHP view as well to add the binding.
