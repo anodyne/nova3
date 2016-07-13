@@ -155,7 +155,7 @@ html {
 body {
   padding: 2rem 0;
   line-height: 1.75;
-  font-family: "Roboto", helvetica, arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 1.7rem;
   color: #444;
 }
