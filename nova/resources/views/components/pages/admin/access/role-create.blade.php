@@ -1,47 +1,36 @@
 <div v-cloak>
-	<mobile>
-		<p><a href="{{ route('admin.access.roles') }}" class="btn btn-default btn-lg btn-block">{!! icon('arrow-back') !!}<span>Back to Roles</span></a></p>
-	</mobile>
-	<desktop>
-		<div class="btn-toolbar">
-			<div class="btn-group">
-				<a href="{{ route('admin.access.roles') }}" class="btn btn-default">{!! icon('arrow-back') !!}<span>Back to Roles</span></a>
-			</div>
-		</div>
-	</desktop>
-
 	{!! Form::open(['route' => 'admin.access.roles.store', 'class' => 'form-horizontal']) !!}
 		<div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
-			<label class="col-md-2 control-label">Name</label>
-			<div class="col-md-5">
+			<label class="col-md-3 control-label">Name</label>
+			<div class="col-md-6">
 				{!! Form::text('name', null, ['class' => 'form-control input-lg', 'v-model' => 'name', '@change' => 'updateName']) !!}
 				{!! $errors->first('name', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>
 
 		<div class="form-group{{ ($errors->has('key')) ? ' has-error' : '' }}">
-			<label class="col-md-2 control-label">Key</label>
+			<label class="col-md-3 control-label">Key</label>
 			<div class="col-md-3">
 				{!! Form::text('key', null, ['class' => 'form-control input-lg', 'v-model' => 'key', '@change' => 'updateKey']) !!}
 				{!! $errors->first('key', '<p class="help-block">:message</p>') !!}
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-md-5 col-md-offset-2">
+			<div class="col-md-8 col-md-offset-3">
 				<p class="help-block">Role keys are a unique name for the role mainly used for looking up role information quickly. This should not be confused with the name that is a human-readable form of the key.</p>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-md-2 control-label">Description</label>
-			<div class="col-md-6">
+			<label class="col-md-3 control-label">Description</label>
+			<div class="col-md-8">
 				{!! Form::textarea('description', null, ['class' => 'form-control input-lg', 'rows' => 4, 'v-model' => 'description']) !!}
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-md-2 control-label">Permissions</label>
-			<div class="col-md-10">
+			<label class="col-md-3 control-label">Permissions</label>
+			<div class="col-md-9">
 				@foreach ($permissions as $component => $permission)
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -65,14 +54,18 @@
 		</div>
 
 		<div class="form-group">
-			<div class="col-md-5 col-md-offset-2">
+			<div class="col-md-6 col-md-offset-3">
 				<mobile>
 					<p>{!! Form::button("Add Role", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
+					<p><a href="{{ route('admin.access.roles') }}" class="btn btn-link-default btn-lg btn-block">Cancel</a></p>
 				</mobile>
 				<desktop>
 					<div class="btn-toolbar">
 						<div class="btn-group">
 							{!! Form::button("Add Role", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+						</div>
+						<div class="btn-group">
+							<a href="{{ route('admin.access.roles') }}" class="btn btn-link-default btn-lg">Cancel</a>
 						</div>
 					</div>
 				</desktop>

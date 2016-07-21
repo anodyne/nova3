@@ -1,12 +1,18 @@
 <div v-cloak>
 	<mobile>
-		@can('create', $role)
-			<p><a href="{{ route('admin.access.roles.create') }}" class="btn btn-success btn-lg btn-block">{!! icon('add') !!}<span>Add a Role</span></a></p>
-		@endcan
+		<div class="row">
+			@can('create', $role)
+				<div class="col-sm-6">
+					<p><a href="{{ route('admin.access.roles.create') }}" class="btn btn-success btn-lg btn-block">{!! icon('add') !!}<span>Add a Role</span></a></p>
+				</div>
+			@endcan
 
-		@can('manage', $permission)
-			<p><a href="{{ route('admin.access.permissions') }}" class="btn btn-default btn-lg btn-block">{!! icon('lock') !!}<span>Manage Permissions</span></a></p>
-		@endcan
+			@can('manage', $permission)
+				<div class="col-sm-6">
+					<p><a href="{{ route('admin.access.permissions') }}" class="btn btn-default btn-lg btn-block">{!! icon('lock') !!}<span>Manage Permissions</span></a></p>
+				</div>
+			@endcan
+		</div>
 	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
@@ -28,7 +34,7 @@
 <div class="data-table data-table-striped data-table-bordered">
 @foreach ($roles as $role)
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-5 col-lg-6">
 			<p class="lead"><strong>{{ $role->present()->name }}</strong></p>
 			<p><strong>Key:</strong> {{ $role->present()->key }}</p>
 
@@ -36,7 +42,7 @@
 				<p class="text-muted text-sm"><em>{{ $role->present()->usersWithRole }}</em></p>
 			@endif
 		</div>
-		<div class="col-md-6" v-cloak>
+		<div class="col-md-7 col-lg-6" v-cloak>
 			<mobile>
 				<div class="row">
 					@can('create', $role)

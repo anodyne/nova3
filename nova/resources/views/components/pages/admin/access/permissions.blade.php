@@ -1,10 +1,16 @@
 <div v-cloak>
 	<mobile>
-		@if ($_user->can('access.create'))
-			<p><a href="{{ route('admin.access.permissions.create') }}" class="btn btn-success btn-lg btn-block">{!! icon('add') !!}<span>Add a Permission</span></a></p>
-		@endif
+		<div class="row">
+			@if ($_user->can('access.create'))
+				<div class="col-sm-6">
+					<p><a href="{{ route('admin.access.permissions.create') }}" class="btn btn-success btn-lg btn-block">{!! icon('add') !!}<span>Add a Permission</span></a></p>
+				</div>
+			@endif
 
-		<p><a href="{{ route('admin.access.roles') }}" class="btn btn-default btn-lg btn-block">{!! icon('lock') !!}<span>Manage Roles</span></a></p>
+			<div class="col-sm-6">
+				<p><a href="{{ route('admin.access.roles') }}" class="btn btn-default btn-lg btn-block">{!! icon('lock') !!}<span>Manage Roles</span></a></p>
+			</div>
+		</div>
 	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
@@ -21,7 +27,7 @@
 	</desktop>
 
 	<div class="row">
-		<div class="col-md-3 col-md-push-9">
+		<div class="col-md-4 col-lg-3 col-md-push-8 col-lg-push-9">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Filter Permissions</h3>
@@ -44,15 +50,15 @@
 			</div>
 		</div>
 
-		<div class="col-md-9 col-md-pull-3">
+		<div class="col-md-8 col-lg-9 col-md-pull-4 col-lg-pull-3">
 			<div class="data-table data-table-bordered data-table-striped">
 				<div class="row" v-for="permission in permissions | filterBy search in 'name' 'key'">
-					<div class="col-md-9">
+					<div class="col-md-6 col-lg-9">
 						<p class="lead"><strong>@{{ permission.name }}</strong></p>
 						<p><strong>Key:</strong> @{{ permission.key }}</p>
 						<p v-show="permission.roles.length > 0"><strong>Included in Role(s):</strong> @{{ permissionRoles(permission.roles) }}</p>
 					</div>
-					<div class="col-md-3" v-cloak>
+					<div class="col-md-6 col-lg-3" v-cloak>
 						<mobile>
 							<div class="row">
 								@if ($_user->can('access.edit'))
