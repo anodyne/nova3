@@ -1,10 +1,9 @@
 {
 	"require": {
-		"laravel/framework": "~5.2",
-		"dflydev/symfony-finder-factory": "*",
+		"laravel/framework": "~5.3",
 		"league/commonmark": "*",
 		"laracasts/presenter": "*",
-		"laravelcollective/html": "~5.2",
+		"laravelcollective/html": "~5.3",
 		"dingo/api": "1.0.*@dev",
 		"pespantelis/gravatar": "~1.0",
 		"ramsey/uuid": "~3.3",
