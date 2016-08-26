@@ -87,7 +87,7 @@ class PermissionController extends BaseController {
 
 		$permission = $this->repo->find($permissionId);
 
-		if (policy($permission)->remove($this->user))
+		if (policy($permission)->remove(user()))
 		{
 			$body = ($permission)
 				? view(locate('page', 'admin/access/permission-remove'), compact('permission'))
