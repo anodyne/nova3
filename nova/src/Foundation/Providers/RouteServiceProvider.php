@@ -1,7 +1,7 @@
 <?php namespace Nova\Foundation\Providers;
 
 use Str;
-use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider {
@@ -24,8 +24,6 @@ class RouteServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		parent::boot();
-
-		//$this->setSystemRoutes();
 	}
 
 	/**
@@ -34,14 +32,21 @@ class RouteServiceProvider extends ServiceProvider {
 	 * @param  \Illuminate\Routing\Router  $router
 	 * @return void
 	 */
-	public function map(Router $router)
+	public function map()
+	{
+		$this->mapWebRoutes();
+
+		$this->mapApiRoutes();
+	}
+
+	protected function mapWebRoutes()
 	{
 		$routerOptions = [
 			'namespace' => $this->namespace,
 			'middleware' => 'web',
 		];
 
-		$router->group($routerOptions, function ($router)
+		Route::group($routerOptions, function ($router)
 		{
 			if (nova()->isInstalled())
 			{
@@ -49,18 +54,21 @@ class RouteServiceProvider extends ServiceProvider {
 			}
 			else
 			{
-				$router->get('/', 'Nova\Core\Game\Http\Controllers\HomeController@page');
+				Route::get('/', 'Nova\Core\Game\Http\Controllers\HomeController@page');
 			}
 
 			require base_path('routes.php');
 		});
+	}
 
+	protected function mapApiRoutes()
+	{
 		$apiRouterOptions = [
 			'namespace' => $this->namespace,
 			'middleware' => 'api',
 		];
 
-		$router->group($apiRouterOptions, function ($router)
+		Route::group($apiRouterOptions, function ($router)
 		{
 			require app_path('Api/V1/routes.php');
 		});
