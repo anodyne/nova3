@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Auth\Http\Controllers;
 
 use Date, BaseController;
-use Nova\Core\Auth\Events;
 use Illuminate\Http\Request;
+use Nova\Core\Auth\{Events, Notifications};
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
@@ -30,7 +30,13 @@ class ResetPasswordController extends BaseController {
 
 	protected function sendResetResponse($response)
 	{
-		event(new Events\PasswordReset(request()->get('email'), Date::now()));
+		$request = request();
+
+		// Fire the password reset event
+		event(new Events\PasswordReset($request->get('email'), Date::now()));
+
+		// Create a new notification for the user
+		$request->user()->notify(new Notifications\PasswordReset);
 
 		flash()->success("Success!", "Your password has been reset.");
 		
