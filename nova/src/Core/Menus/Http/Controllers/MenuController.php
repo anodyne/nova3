@@ -93,7 +93,7 @@ class MenuController extends BaseController {
 
 		$menu = $this->repo->find($menuId);
 
-		if (policy($menu)->remove($this->user))
+		if (policy($menu)->remove(user()))
 		{
 			$menus = $this->repo->listAllFiltered('name', 'id', $menu->id);
 

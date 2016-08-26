@@ -119,7 +119,7 @@ class SectionController extends BaseController {
 			$sections = ['0' => "No section"];
 			$sections+= $this->repo->listAll('name', 'id');
 
-			$body = (policy($section)->remove($this->user, $section))
+			$body = (policy($section)->remove(user(), $section))
 				? view(locate('page', 'admin/forms/section-remove'), compact('form', 'section', 'sections'))
 				: alert('danger', "You do not have permission to remove form sections.");
 		}
@@ -159,7 +159,7 @@ class SectionController extends BaseController {
 
 		$section = new NovaFormSection;
 
-		if (policy($section)->edit($this->user, $section))
+		if (policy($section)->edit(user(), $section))
 		{
 			foreach (request('sections') as $order => $id)
 			{

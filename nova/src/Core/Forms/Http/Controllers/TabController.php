@@ -117,7 +117,7 @@ class TabController extends BaseController {
 			$tabs = ['0' => "No tab"];
 			$tabs+= $this->repo->listAll('name', 'id');
 
-			$body = (policy($tab)->remove($this->user, $tab))
+			$body = (policy($tab)->remove(user(), $tab))
 				? view(locate('page', 'admin/forms/tab-remove'), compact('form', 'tab', 'tabs'))
 				: alert('danger', "You do not have permission to remove form tabs.");
 		}
@@ -173,7 +173,7 @@ class TabController extends BaseController {
 
 		$tab = new NovaFormTab;
 
-		if (policy($tab)->edit($this->user, $tab))
+		if (policy($tab)->edit(user(), $tab))
 		{
 			foreach (request('tabs') as $order => $id)
 			{

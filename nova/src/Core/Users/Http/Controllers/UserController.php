@@ -106,7 +106,7 @@ class UserController extends BaseController {
 		}
 		else
 		{
-			$body = (policy($form)->remove($this->user, $form))
+			$body = (policy($form)->remove(user(), $form))
 				? view(locate('page', 'admin/forms/form-remove'), compact('form'))
 				: alert('danger', "You do not have permission to remove forms.");
 		}
@@ -151,7 +151,7 @@ class UserController extends BaseController {
 	{
 		$this->views->put('page', 'admin/users/preferences');
 
-		$this->data->user = $this->user;
+		$this->data->user = user();
 
 		$this->views->put('scripts', ['admin/users/preferences']);
 	}

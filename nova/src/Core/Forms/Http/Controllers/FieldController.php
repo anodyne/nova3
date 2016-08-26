@@ -176,7 +176,7 @@ class FieldController extends BaseController {
 		{
 			$form = $this->formRepo->getByKey($formKey);
 
-			$body = (policy($field)->remove($this->user, $field))
+			$body = (policy($field)->remove(user(), $field))
 				? view(locate('page', 'admin/forms/field-remove'), compact('form', 'field'))
 				: alert('danger', "You do not have permission to remove form fields.");
 		}
@@ -205,7 +205,7 @@ class FieldController extends BaseController {
 
 		$field = new NovaFormField;
 
-		if (policy($field)->edit($this->user, $field))
+		if (policy($field)->edit(user(), $field))
 		{
 			foreach (request('fields') as $order => $id)
 			{

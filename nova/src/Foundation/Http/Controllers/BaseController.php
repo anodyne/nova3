@@ -27,7 +27,6 @@ abstract class BaseController extends Controller {
 	{
 		$this->app				= app();
 		$this->data				= new stdClass;
-		$this->user				= user();
 		$this->templateData 	= new stdClass;
 		$this->structureData	= new stdClass;
 
@@ -65,7 +64,7 @@ abstract class BaseController extends Controller {
 	 */
 	protected function authorize($ability, $arguments = [], $message = null)
 	{
-		if ($this->user->cannot($ability, $arguments))
+		if (user()->cannot($ability, $arguments))
 		{
 			$this->errorUnauthorized($message);
 		}
@@ -73,8 +72,8 @@ abstract class BaseController extends Controller {
 
 	public function errorNotFound($message = null)
 	{
-		$logMessage = ($this->user)
-			? $this->user->name
+		$logMessage = (user())
+			? user()->name
 			: "An unauthenticated user";
 
 		$logMessage.= " attempted to access ".app('request')->fullUrl();
@@ -94,8 +93,8 @@ abstract class BaseController extends Controller {
 
 	public function errorUnauthorized($message = null)
 	{
-		$logMessage = ($this->user)
-			? $this->user->name
+		$logMessage = (user())
+			? user()->name
 			: "An unauthenticated user";
 
 		$logMessage.= " attempted to access ".app('request')->fullUrl();
@@ -144,7 +143,7 @@ abstract class BaseController extends Controller {
 		if ($this->page->access and $this->page->access->count() > 0)
 		{
 			// Make sure the user is authenticated
-			if ( ! $this->user)
+			if ( ! user())
 			{
 				return $this->errorUnauthenticated("You must log in to continue");
 			}
@@ -162,14 +161,14 @@ abstract class BaseController extends Controller {
 			{
 				if ($isStrict)
 				{
-					if ( ! $this->user->{$method}($access['key']))
+					if ( ! user()->{$method}($access['key']))
 					{
 						return $this->errorUnauthorized("You do not have permission to view the {$this->page->name} page.");
 					}
 				}
 				else
 				{
-					if ($this->user->{$method}($access['key'])) break;
+					if (user()->{$method}($access['key'])) break;
 
 					return $this->errorUnauthorized("You do not have permission to view the {$this->page->name} page.");
 				}
@@ -191,7 +190,7 @@ abstract class BaseController extends Controller {
 			$this->settings = app('nova.settings');
 
 			view()->share('_page', $this->page);
-			view()->share('_user', $this->user);
+			view()->share('_user', user());
 			view()->share('_icons', theme()->getIconMap());
 			view()->share('_content', $this->content);
 			view()->share('_settings', $this->settings);

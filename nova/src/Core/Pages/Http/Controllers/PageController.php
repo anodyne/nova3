@@ -134,7 +134,7 @@ class PageController extends BaseController {
 
 		$page = $this->repo->find($pageId);
 
-		if (policy($page)->remove($this->user))
+		if (policy($page)->remove(user()))
 		{
 			// Build the body based on whether we found the page or not
 			$body = ($page)
