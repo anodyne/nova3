@@ -45,9 +45,14 @@ class InstallController extends BaseController {
 		// Get an instance of the writer
 		$writer = app('nova.setup.configWriter');
 
+		// Generate the new key
+		$newKey = 'base64:'.base64_encode(random_bytes(
+			config('app.cipher') == 'AES-128-CBC' ? 16 : 32
+		));
+
 		// Write the app config file
 		$writer->write('app', [
-			'#APP_KEY#' => Str::random(32),
+			'#APP_KEY#' => $newKey,
 		]);
 
 		// Write the session config file
