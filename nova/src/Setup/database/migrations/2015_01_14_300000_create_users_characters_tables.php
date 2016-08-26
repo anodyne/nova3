@@ -22,7 +22,7 @@ class CreateUsersCharactersTables extends Migration {
 			$table->boolean('status')->default((int) Status::PENDING);
 			$table->string('api_token', 60)->nullable()->unique();
 			$table->rememberToken();
-			$table->datetime('last_password_reset')->nullable();
+			$table->timestamp('last_password_reset')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});
