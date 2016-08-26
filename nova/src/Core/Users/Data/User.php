@@ -1,7 +1,6 @@
 <?php namespace Nova\Core\Users\Data;
 
-use Hash,
-	HasRoles,
+use HasRoles,
 	Character,
 	NovaFormEntry,
 	UserPresenter,
@@ -46,18 +45,6 @@ class User extends Authenticatable {
 	public function userPreferences()
 	{
 		return $this->hasMany(UserPreference::class);
-	}
-
-	//-------------------------------------------------------------------------
-	// Getters/Setters
-	//-------------------------------------------------------------------------
-
-	public function setPasswordAttribute($value)
-	{
-		if ($value !== null)
-		{
-			$this->attributes['password'] = Hash::make($value);
-		}
 	}
 
 	//-------------------------------------------------------------------------

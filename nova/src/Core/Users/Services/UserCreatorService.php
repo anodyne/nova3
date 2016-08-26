@@ -22,6 +22,8 @@ class UserCreatorService {
 
 	public function create(array $data)
 	{
+		$data['password'] = bcrypt($data['password']);
+
 		// Create the user
 		$user = $this->repo->create(array_merge(
 			$data,
@@ -38,6 +40,8 @@ class UserCreatorService {
 
 	public function createWithCharacter(array $data)
 	{
+		$data['user']['password'] = bcrypt($data['user']['password']);
+
 		// Create the user
 		$user = $this->repo->create(array_merge(
 			$data['user'],
@@ -54,5 +58,4 @@ class UserCreatorService {
 
 		return false;
 	}
-
 }
