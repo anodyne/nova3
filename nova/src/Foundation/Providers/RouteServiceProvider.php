@@ -146,5 +146,4 @@ class RouteServiceProvider extends ServiceProvider {
 
 		return $finalConditions;
 	}
-
 }
