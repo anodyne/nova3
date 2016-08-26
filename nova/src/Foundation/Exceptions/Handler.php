@@ -62,7 +62,7 @@ class Handler extends ExceptionHandler {
 			return response()->view(locate()->error($status), ['exception' => $e], $status);
 		}
 
-		return (new SymfonyDisplayer(config('app.debug')))->createResponse($e);
+		return $this->convertExceptionToResponse($e);
 	}
 
 }
