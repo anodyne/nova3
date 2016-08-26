@@ -1,4 +1,4 @@
-{!! Form::open(['route' => 'password.reset.do']) !!}
+{!! Form::open(['route' => 'password.reset']) !!}
 	{!! Form::hidden('token', $token) !!}
 
 	<div class="form-group{{ ($errors->has('email')) ? ' has-error' : '' }}">
