@@ -1,24 +1,19 @@
 <?php namespace Nova\Core\Users\Data;
 
 use Hash,
-	Model,
 	HasRoles,
 	Character,
 	NovaFormEntry,
 	UserPresenter,
 	FormCenterUserTrait;
-use Illuminate\Auth\Authenticatable,
-	Illuminate\Auth\Passwords\CanResetPassword,
-	Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Notifications\Notifiable;
 use Laracasts\Presenter\PresentableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract,
-	Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract,
-	Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract, AuthorizableContract {
+class User extends Authenticatable {
 
-	use Authenticatable, CanResetPassword, SoftDeletes, Authorizable;
+	use SoftDeletes, Notifiable;
 	use PresentableTrait, HasRoles, FormCenterUserTrait;
 
 	protected $table = 'users';
@@ -80,5 +75,4 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 		return null;
 	}
-
 }
