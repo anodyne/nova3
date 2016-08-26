@@ -27,10 +27,12 @@ class Kernel extends HttpKernel {
 			\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
 			\Illuminate\Session\Middleware\StartSession::class,
 			\Illuminate\View\Middleware\ShareErrorsFromSession::class,
+			\Illuminate\Routing\Middleware\SubstituteBindings::class,
 			Middleware\VerifyCsrfToken::class,
 		],
 		'api' => [
 			'throttle:60,1',
+			'bindings',
 		],
 	];
 
@@ -44,6 +46,8 @@ class Kernel extends HttpKernel {
 		'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
 		'guest' => Middleware\RedirectIfAuthenticated::class,
 		'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+		'can' => \Illuminate\Auth\Middleware\Authorize::class,
+		'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
 		
 		'nova.installed' => Middleware\CheckInstallationStatus::class,
 		'nova.render' => Middleware\RenderController::class,

@@ -92,7 +92,7 @@ return [
 
 	'key' => env('APP_KEY', 'SomeRandomString'),
 
-	'cipher' => MCRYPT_RIJNDAEL_128,
+	'cipher' => 'AES-256-CBC',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -108,6 +108,8 @@ return [
 	*/
 
 	'log' => 'daily',
+
+	'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -137,6 +139,7 @@ return [
 		Illuminate\Foundation\Providers\FoundationServiceProvider::class,
 		Illuminate\Hashing\HashServiceProvider::class,
 		Illuminate\Mail\MailServiceProvider::class,
+		Illuminate\Notifications\NotificationServiceProvider::class,
 		Illuminate\Pagination\PaginationServiceProvider::class,
 		Illuminate\Pipeline\PipelineServiceProvider::class,
 		Illuminate\Queue\QueueServiceProvider::class,
@@ -147,12 +150,18 @@ return [
 		Illuminate\Validation\ValidationServiceProvider::class,
 		Illuminate\View\ViewServiceProvider::class,
 
-		/*
-		 * Nova Service Providers
+		/**
+		 * Package Service Providers
 		 */
 
 		Dingo\Api\Provider\LaravelServiceProvider::class,
 		Collective\Html\HtmlServiceProvider::class,
+		Peslis\Gravatar\Laravel\GravatarServiceProvider::class,
+
+		/*
+		 * Nova Service Providers
+		 */
+
 		Nova\Setup\Providers\SetupServiceProvider::class,
 		Nova\Setup\Providers\SetupRouteServiceProvider::class,
 		//Nova\Foundation\Providers\ErrorServiceProvider::class,
@@ -161,7 +170,6 @@ return [
 		Nova\Foundation\Providers\RouteServiceProvider::class,
 		Nova\Foundation\Providers\AuthServiceProvider::class,
 		Nova\Foundation\Providers\ExtensionServiceProvider::class,
-		Peslis\Gravatar\Laravel\GravatarServiceProvider::class,
 
 	],
 
@@ -198,6 +206,7 @@ return [
 		'Lang'      => Illuminate\Support\Facades\Lang::class,
 		'Log'       => Illuminate\Support\Facades\Log::class,
 		'Mail'      => Illuminate\Support\Facades\Mail::class,
+		'Notification' => Illuminate\Support\Facades\Notification::class,
 		'Password'  => Illuminate\Support\Facades\Password::class,
 		'Queue'     => Illuminate\Support\Facades\Queue::class,
 		'Redirect'  => Illuminate\Support\Facades\Redirect::class,

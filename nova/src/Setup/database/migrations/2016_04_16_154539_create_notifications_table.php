@@ -10,6 +10,16 @@ class CreateNotificationsTable extends Migration {
 		Schema::create('notifications', function (Blueprint $table)
 		{
 			$table->string('id')->primary();
+			$table->string('type');
+			$table->morphs('notifiable');
+			$table->text('data');
+			$table->timestamp('read_at')->nullable();
+			$table->timestamps();
+		});
+
+		/*Schema::create('notifications', function (Blueprint $table)
+		{
+			$table->string('id')->primary();
 			$table->integer('user_id');
 			$table->integer('created_by')->nullable(); // Null created_by means the system created it
 			$table->string('icon', 50)->nullable();
@@ -20,7 +30,7 @@ class CreateNotificationsTable extends Migration {
 			$table->timestamps();
 
 			$table->index(['user_id', 'created_at']);
-		});
+		});*/
 	}
 
 	public function down()

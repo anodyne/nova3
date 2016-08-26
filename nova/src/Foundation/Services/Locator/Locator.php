@@ -3,7 +3,7 @@
 use Str, User;
 use Illuminate\Support\Collection;
 use Symfony\Component\Finder\Finder;
-use Dflydev\Symfony\FinderFactory\{FinderFactory, FinderFactoryInterface};
+//use Dflydev\Symfony\FinderFactory\{FinderFactory, FinderFactoryInterface};
 
 class Locator implements Locatable {
 
@@ -58,12 +58,11 @@ class Locator implements Locatable {
 	 */
 	protected $finderFactory;
 
-	public function __construct(User $user = null, Collection $settings = null,
-			FinderFactoryInterface $finderFactory = null)
+	public function __construct(User $user = null, Collection $settings = null)
 	{
 		$this->user				= $user;
 		$this->settings 		= $settings;
-		$this->finderFactory	= $finderFactory ?: new FinderFactory;
+		//$this->finderFactory	= $finderFactory ?: new FinderFactory;
 
 		// Compile the paths to search
 		$this->compilePaths();
@@ -326,7 +325,8 @@ class Locator implements Locatable {
 	protected function performSearch($type, $file, $throwOnMissing = true)
 	{
 		// Spin up a new instance of the finder
-		$finder = $this->finderFactory->createFinder();
+		//$finder = $this->finderFactory->createFinder();
+		$finder = new Finder;
 
 		// Make sure we're only returning files
 		$finder->files();
