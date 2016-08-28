@@ -102,7 +102,7 @@ class PageContentController extends BaseController {
 
 		$content = $this->repo->find($contentId);
 
-		if (policy($content)->remove(user()))
+		if (policy($content)->remove($this->user))
 		{
 			// Build the body based on whether we found the content or not
 			$body = ($content)

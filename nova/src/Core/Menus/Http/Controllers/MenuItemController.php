@@ -169,7 +169,7 @@ class MenuItemController extends BaseController {
 
 		$item = $this->repo->find($itemId);
 
-		if (policy($item)->remove(user()))
+		if (policy($item)->remove($this->user))
 		{
 			$body = ($item)
 				? view(locate('page', 'admin/menus/menu-item-remove'), compact('item'))
@@ -202,7 +202,7 @@ class MenuItemController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		if (user()->cannot('menu.create'))
+		if ($this->user->cannot('menu.create'))
 		{
 			return json_encode(['code' => 0, 'message' => "You do not have permission to create menu items."]);
 		}
@@ -216,7 +216,7 @@ class MenuItemController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		if (user()->can('menu.edit'))
+		if ($this->user->can('menu.edit'))
 		{
 			$menu = $this->menuRepo->find($request->get('menu'));
 

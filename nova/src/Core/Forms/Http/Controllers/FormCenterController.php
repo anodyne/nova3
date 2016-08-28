@@ -73,7 +73,7 @@ class FormCenterController extends BaseController {
 		$this->views->put('page', 'admin/form-center/form');
 		$this->views->put('scripts', ['admin/form-center/form']);
 
-		$entries = $this->data->entries = $this->repo->getUserEntries(user(), $form);
+		$entries = $this->data->entries = $this->repo->getUserEntries($this->user, $form);
 		$this->data->entryCount = $entries->count();
 	}
 
@@ -107,7 +107,7 @@ class FormCenterController extends BaseController {
 		{
 			$form = $entry->form;
 
-			$body = ($entry->user->id == user()->id)
+			$body = ($entry->user->id == $this->user->id)
 				? view(locate('page', 'admin/form-center/entry-show'), compact('form', 'entry'))
 				: alert('danger', "You do not have permission to view this form entry.");
 		}
@@ -125,7 +125,7 @@ class FormCenterController extends BaseController {
 			$this->validationMessages()
 		);
 		
-		$entry = $this->repo->insert($form, user(), $request->all());
+		$entry = $this->repo->insert($form, $this->user, $request->all());
 		
 		flash()->success("Form Entry Created!");
 		
@@ -176,7 +176,7 @@ class FormCenterController extends BaseController {
 		{
 			$form = $entry->form;
 
-			$body = (policy($form)->editFormCenterEntry(user(), $form))
+			$body = (policy($form)->editFormCenterEntry($this->user, $form))
 				? view(locate('page', 'admin/form-center/entry-edit'), compact('form', 'entry'))
 				: alert('danger', "You do not have permission to edit this form entry.");
 		}
@@ -217,7 +217,7 @@ class FormCenterController extends BaseController {
 		{
 			$form = $entry->form;
 
-			$body = (policy($form)->removeFormCenterEntry(user(), $form))
+			$body = (policy($form)->removeFormCenterEntry($this->user, $form))
 				? view(locate('page', 'admin/form-center/entry-remove'), compact('form', 'entry'))
 				: alert('danger', "You do not have permission to remove this form entry.");
 		}

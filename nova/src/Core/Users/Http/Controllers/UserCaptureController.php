@@ -48,7 +48,7 @@ class UserCaptureController extends BaseController {
 		if ($users->count() > 0)
 		{
 			// Only admins can export everything
-			if (policy(new User)->exportAll(user()))
+			if (policy(new User)->exportAll($this->user))
 			{
 				// Store the exported users as a text file and offer it up for download
 

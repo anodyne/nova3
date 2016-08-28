@@ -57,9 +57,9 @@ class AuthController extends BaseController {
 
 		if ($this->auth->attempt($request->only('email', 'password'), true))
 		{
-			$name = user()->present()->firstName;
+			$name = $this->user->present()->firstName;
 
-			event(new Events\LoggedIn(user(), Date::now()));
+			event(new Events\LoggedIn($this->user, Date::now()));
 
 			flash()->success("Welcome back, {$name}!", "You are now logged in.");
 

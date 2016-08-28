@@ -96,7 +96,7 @@ class RoleController extends BaseController {
 
 		$role = $this->repo->find($roleId);
 
-		if (policy($role)->remove(user()))
+		if (policy($role)->remove($this->user))
 		{
 			$body = ($role)
 				? view(locate('page', 'admin/access/role-remove'), compact('role'))
@@ -145,7 +145,7 @@ class RoleController extends BaseController {
 
 		$role = $this->repo->find($roleId);
 
-		if (policy($role)->create(user()))
+		if (policy($role)->create($this->user))
 		{
 			$body = ($role)
 				? view(locate('page', 'admin/access/role-duplicate'), compact('role'))
