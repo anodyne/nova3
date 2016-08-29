@@ -78,6 +78,8 @@ class Theme implements ThemeIconsContract,
 			'briefcase'		=> 'briefcase',
 			'brush'			=> 'paint-brush',
 			'calendar'		=> 'calendar-o',
+			'caret-down'	=> 'caret-down',
+			'caret-up'		=> 'caret-up',
 			'chart-area'	=> 'area-chart',
 			'chart-bar'		=> 'bar-chart',
 			'chart-line'	=> 'line-chart',
@@ -500,25 +502,24 @@ class Theme implements ThemeIconsContract,
 
 			// Build the text for the header link
 			$headerText = sprintf('%s %s', 
-				Auth::user()->present()->name,
+				user()->present()->name,
 				HtmlBuilder::raw('<span class="caret"></span>')->render()
 			);
 
 			// Build the header for the sub menu
 			$header = LinkBuilder::to('#', $headerText)
 				->addClass('dropdown-toggle')
-				//->addParentClass('dropdown')
-				->setAttribute('data-toggle', 'dropdown');
+				->setAttributes(['data-toggle' => 'dropdown', 'role' => 'button']);
 
+			// Build the submenu
 			$submenu = MenuBuilder::new()->addClass('dropdown-menu');
-			$submenu->prepend($header);
-
 			$submenu->add(LinkBuilder::url('#', "My Account"));
 			$submenu->add(LinkBuilder::route('admin.users.preferences', "My Preferences"));
-			$submenu->add(HtmlBuilder::raw('')->addParentClass('divider'));
+			$submenu->void(['role' => 'separator', 'class' => 'divider']);
 			$submenu->add(LinkBuilder::route('logout', "Log Out"));
 
-			$menu->add($submenu);
+			// Attach the submenu to the user menu
+			$menu->submenu($header, $submenu);
 		}
 		else
 		{
