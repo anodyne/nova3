@@ -2,9 +2,10 @@
 
 ## Preview Release 4 (0.4)
 
-There have been __a lot__ of changes to Nova NextGen in a short amount of time. After the release of Laravel Spark back in May, we took some of the patterns and examples that Laravel's creator used in Spark and incorporated them into Nova NextGen. As such, a lot of these changes don't impact the user-facing side of the system, but they do provide a cleaner architecture for Nova NextGen.
+There have been __a lot__ of changes to Nova NextGen since Preview Release 3. After the release of Laravel Spark back in May, we took some of the patterns and examples that Laravel's creator used in Spark and incorporated them into Nova NextGen. As such, a lot of these changes don't impact the user-facing side of the system, but they do provide a cleaner architecture for Nova NextGen.
 
 - Given the fact that we're trying to develop a _modern_ system, we've decided that Nova NextGen will now require __PHP 7.0__ or higher in order to run. Since we're still a ways off from having a production-ready product, we anticipate more shared hosts will begin to offer PHP 7 as an option as we get closer to release. If you have questions or concerns about this change, please don't hesitate to get in touch with us!
+- We have updated the Nova core to use Laravel 5.3.
 - For the most part, the installation process works very smoothly, but in the event there was an error during installation, there was no feedback to the user. We've reworked the install process so that if something goes wrong, the user will be alerted and shown the error message. In the event that happens to you, make sure to let us know what the error is so that we can fix it!
 - Whoops! We actually missed a big chunk of functionality in Preview Release 3 with menu items and access control. Turns out you can't hide menu items based on access control at all. Our bad! Menu items now have access control options attached to them so that you can limit who can and cannot see a menu item.
 - And since we're talking about menu items, we've added the ability to assign any icon in the icon map to a menu item. This should help spice up your menus a little bit. Just remember that not all themes will use the same menu configuration, so you may need to check all of your themes to make sure the menu items look right with icons in them.
