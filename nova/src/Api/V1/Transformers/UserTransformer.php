@@ -16,6 +16,7 @@ class UserTransformer extends Transformer {
 			'email'			=> $resource->email,
 			'status'		=> Status::toString($resource->status),
 			'links'			=> [
+				'application'	=> route('admin.users.edit', [$resource->id]),
 				'edit'			=> route('admin.users.edit', [$resource->id]),
 			],
 			'characters'	=> $resource->characters->toArray(),

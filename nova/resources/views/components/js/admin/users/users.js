@@ -7,6 +7,14 @@ vue = {
 		statuses: ["active"]
 	},
 
+	computed: {
+		pendingCount: function () {
+			return this.users.filter(function (user) {
+				return user.status == 'pending'
+			}).length
+		}
+	},
+
 	methods: {
 		removeUser: function (userId) {
 			$('#removeUser').modal({

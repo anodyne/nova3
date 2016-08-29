@@ -45,8 +45,8 @@
 							<div class="checkbox">
 								<label><input type="checkbox" value="{{ Status::toString(Status::INACTIVE) }}" v-model="statuses"> {{ ucwords(Status::toString(Status::INACTIVE)) }}</label>
 							</div>
-							<div class="checkbox">
-								<label><input type="checkbox" value="{{ Status::toString(Status::PENDING) }}" v-model="statuses"> {{ ucwords(Status::toString(Status::PENDING)) }}</label>
+							<div class="checkbox" v-show="pendingCount > 0">
+								<label><input type="checkbox" value="{{ Status::toString(Status::PENDING) }}" v-model="statuses"> {{ ucwords(Status::toString(Status::PENDING)) }} <span class="label label-warning">@{{ pendingCount }}</span></label>
 							</div>
 						</div>
 					</div>
@@ -64,7 +64,7 @@
 		</div>
 
 		<div class="col-md-9 col-md-pull-3">
-			<div class="panel panel-info">
+			<div class="panel panel-info" v-if="pendingCount > 0">
 				<div class="panel-heading">
 					<h3 class="panel-title">Pending Users</h3>
 				</div>
@@ -73,7 +73,7 @@
 						<div class="row" v-for="pendingUser in users | filterBy 'pending' in 'status'">
 							<div class="col-xs-12">
 								<p class="lead"><strong>@{{ pendingUser.name }}</strong></p>
-								<p><strong>Email Address:</strong> @{{ pendingUser.email }}</p>
+								<p>@{{ pendingUser.email }}</p>
 							</div>
 						</div>
 					</div>
@@ -82,42 +82,59 @@
 
 			<div class="data-table data-table-bordered data-table-striped">
 				<div class="row" v-for="user in users | filterBy search in 'name' 'email' 'characters' | filterByCheckboxes statuses 'status'">
-					<div class="col-md-9">
+					<div class="col-md-7">
 						<p class="lead"><strong>@{{ user.name }}</strong></p>
-						<p><strong>Email Address:</strong> @{{ user.email }}</p>
-						<p>@{{ user.status }}</p>
+						<p>@{{ user.email }}</p>
+						<p>@{{{ user.statusLabel }}}</p>
 					</div>
-					<div class="col-md-3">
-						<mobile>
-							<div class="row">
-								@can('edit', $user)
-									<div class="col-sm-6">
-										<p><a href="@{{ user.links.edit }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
-									</div>
-								@endcan
+					<div class="col-md-5">
+						@can('manage', $user)
+							<mobile>
+								<div class="row">
+									@can ('create', $user)
+										<div class="col-xs-12" v-if="user.status == 'pending'">
+											<p><a href="@{{ user.links.edit }}" class="btn btn-default btn-lg btn-block">Application</a></p>
+										</div>
+									@endcan
 
-								@can('remove', $user)
-									<div class="col-sm-6">
-										<p><a href="#" class="btn btn-danger btn-lg btn-block" @click.prevent="removeUser(user.id)">Remove</a></p>
-									</div>
-								@endcan
-							</div>
-						</mobile>
-						<desktop>
-							<div class="btn-toolbar pull-right">
-								@can('edit', $user)
-									<div class="btn-group">
-										<a href="@{{ user.links.edit }}" class="btn btn-default">Edit</a>
-									</div>
-								@endcan
+									@can('edit', $user)
+										<div class="col-sm-6">
+											<p><a href="@{{ user.links.edit }}" class="btn btn-default btn-lg btn-block">Edit</a></p>
+										</div>
+									@endcan
 
-								@can('remove', $user)
+									@can('remove', $user)
+										<div class="col-sm-6">
+											<p><a href="#" class="btn btn-danger btn-lg btn-block" @click.prevent="removeUser(user.id)">Remove</a></p>
+										</div>
+									@endcan
+								</div>
+							</mobile>
+							<desktop>
+								<div class="btn-toolbar pull-right">
 									<div class="btn-group">
-										<a href="#" class="btn btn-danger" @click.prevent="removeUser(user.id)">Remove</a>
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											{!! icon('settings') !!}<span>Actions {!! icon('caret-down') !!}</span>
+										</button>
+
+										<ul class="dropdown-menu">
+											@can('manage', $user)
+												<li v-if="user.status == 'pending'"><a href="@{{ user.links.application }}">Application</a></li>
+											@endcan
+
+											@can('edit', $user)
+												<li><a href="@{{ user.links.edit }}">Edit</a></li>
+											@endcan
+
+											@can('remove', $user)
+												<li role="separator" class="divider"></li>
+												<li><a href="#" @click.prevent="removeUser(user.id)">Remove</a></li>
+											@endcan
+										</ul>
 									</div>
-								@endcan
-							</div>
-						</desktop>
+								</div>
+							</desktop>
+						@endcan
 					</div>
 				</div>
 			</div>
