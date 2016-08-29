@@ -14,6 +14,16 @@ class UserPolicy {
 		return $user->can('user.edit');
 	}
 
+	public function export(User $user)
+	{
+		$user->can('user.edit');
+	}
+
+	public function exportAll(User $user)
+	{
+		return $user->can('user.edit');
+	}
+
 	public function manage(User $user)
 	{
 		return ($this->create($user) or $this->edit($user) or $this->remove($user));

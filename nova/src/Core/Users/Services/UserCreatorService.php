@@ -24,18 +24,10 @@ class UserCreatorService {
 	{
 		$data['password'] = bcrypt($data['password']);
 
-		// Create the user
-		$user = $this->repo->create(array_merge(
+		return $this->repo->create(array_merge(
 			$data,
 			['api_token' => str_random(60)]
 		));
-
-		if ($user)
-		{
-			return true;
-		}
-
-		return false;
 	}
 
 	public function createWithCharacter(array $data)

@@ -1,16 +1,3 @@
-<div v-cloak>
-	<mobile>
-		<p><a href="{{ route('admin.users') }}" class="btn btn-default btn-lg btn-block">Back to Users</a></p>
-	</mobile>
-	<desktop>
-		<div class="btn-toolbar">
-			<div class="btn-group">
-				<a href="{{ route('admin.users') }}" class="btn btn-default">Back to Users</a>
-			</div>
-		</div>
-	</desktop>
-</div>
-
 {!! Form::open(['route' => 'admin.users.store', 'class' => 'form-horizontal']) !!}
 	<div class="form-group{{ ($errors->has('name')) ? ' has-error' : '' }}">
 		<label class="col-md-2 control-label">Name</label>
@@ -43,7 +30,7 @@
 			{!! $errors->first('password', '<p class="help-block">:message</p>') !!}
 		</div>
 		<div class="col-md-3">
-			<p><a href="#" class="btn btn-link btn-lg" @click.prevent="generatePassword">Generate Password</a></p>
+			<p><a href="#" class="btn btn-link btn-lg" @click.prevent="generatePassword">Generate a Password</a></p>
 		</div>
 	</div>
 
@@ -59,11 +46,15 @@
 		<div class="col-md-5 col-md-offset-2" v-cloak>
 			<mobile>
 				<p>{!! Form::button("Add User", ['class' => 'btn btn-primary btn-lg btn-block', 'type' => 'submit']) !!}</p>
+				<p><a href="{{ route('admin.users') }}" class="btn btn-link-default btn-lg">Cancel</a></p>
 			</mobile>
 			<desktop>
 				<div class="btn-toolbar">
 					<div class="btn-group">
 						{!! Form::button("Add User", ['class' => 'btn btn-primary btn-lg', 'type' => 'submit']) !!}
+					</div>
+					<div class="btn-group">
+						<a href="{{ route('admin.users') }}" class="btn btn-link-default btn-lg">Cancel</a>
 					</div>
 				</div>
 			</desktop>

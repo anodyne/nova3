@@ -63,7 +63,7 @@ class UserPresenter extends BasePresenter {
 			break;
 
 			case Status::INACTIVE:
-				$level = 'info';
+				$level = 'default';
 			break;
 
 			case Status::PENDING:
@@ -71,7 +71,7 @@ class UserPresenter extends BasePresenter {
 			break;
 		}
 
-		return label($level, Status::toString($status));
+		return label($level, ucwords(Status::toString($status)));
 	}
 
 }

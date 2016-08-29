@@ -1,10 +1,13 @@
 <?php namespace Nova\Core\Users\Http\Controllers;
 
 use User,
+	Status,
+	UserCreator,
 	BaseController,
+	Mail as Mailer,
 	UserRepositoryContract,
 	EditUserRequest, CreateUserRequest, RemoveUserRequest;
-use Nova\Core\Users\Events;
+use Nova\Core\Users\{Events, Mail};
 use Illuminate\Http\Request;
 
 class UserController extends BaseController {
@@ -45,15 +48,19 @@ class UserController extends BaseController {
 		$this->views->put('scripts', ['admin/users/user-create']);
 	}
 
-	public function store(CreateUserRequest $request)
+	public function store(CreateUserRequest $request, UserCreator $userCreator)
 	{
+		// Make sure the user is allowed to take this action
 		$this->authorize('create', new User, "You do not have permission to create users.");
 
-		$user = $this->repo->create($request->all());
+		// Create the new user
+		$user = $userCreator->create(array_merge($request->all(), ['status' => Status::ACTIVE]));
 
+		// Fire the event
 		event(new Events\UserCreatedByAdmin($user, $request->get('password')));
 
-		flash()->success("User Created!");
+		// Set the flash content
+		flash()->success("User Created!", "The user has been notified of the account creation and sent their password.");
 
 		return redirect()->route('admin.users');
 	}

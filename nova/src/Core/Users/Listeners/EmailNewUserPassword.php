@@ -1,19 +1,12 @@
 <?php namespace Nova\Core\Users\Listeners;
 
-use UserMailer as Mailer;
+use Mail, AdminCreatedUserMailer;
 
 class EmailNewUserPassword {
 
-	protected $mailer;
-
-	public function __construct(Mailer $mailer)
-	{
-		$this->mailer = $mailer;
-	}
-
 	public function handle($event)
 	{
-		$this->mailer->sendNewUserPassword($event->user, $event->password);
+		Mail::to($event->user->email)
+			->queue(new AdminCreatedUserMailer($event->user, $event->password));
 	}
-
 }
