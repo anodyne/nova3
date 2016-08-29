@@ -23,16 +23,11 @@
 		<div id="panel-notifications" class="tab-pane">
 			<h2>Notifications</h2>
 
-			<dl>
-				<dt>Lorem ipsum dolor sit amet</dt>
-				<dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pharetra.</dd>
-
-				<dt>Lorem ipsum dolor sit amet</dt>
-				<dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pharetra.</dd>
-
-				<dt>Lorem ipsum dolor sit amet</dt>
-				<dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pharetra.</dd>
-			</dl>
+			@forelse (user()->unreadNotifications as $notification)
+				{!! partial('notification', compact('notification')) !!}
+			@empty
+				{!! alert('info', "No notifications") !!}
+			@endforelse
 		</div>
 	</div>
 </nav>
