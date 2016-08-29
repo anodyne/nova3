@@ -1,6 +1,6 @@
 <?php namespace Nova\Core\Forms\Listeners;
 
-use FormCenterMailer as Mailer;
+use Mail, FormCenterMailer as Mailer;
 
 class EmailFormCenterRecipients {
 	
@@ -15,12 +15,16 @@ class EmailFormCenterRecipients {
 	{
 		if ($event instanceof Events\FormCenterFormWasCreated)
 		{
-			$this->mailer->created($event->entry, $event->form);
+			Mail::to($event->form->email_recipients)
+				->queue(new FormEntryAdded($event->entry, $event->form));
+			//$this->mailer->created($event->entry, $event->form);
 		}
 
 		if ($event instanceof Events\FormCenterFormWasUpdated)
 		{
-			$this->mailer->updated($event->entry, $event->form);
+			Mail::to($event->form->email_recipients)
+				->queue(new FormEntryEdited($event->entry, $event->form));
+			//$this->mailer->updated($event->entry, $event->form);
 		}
 	}
 
