@@ -243,6 +243,7 @@ return [
 		 * Mailers
 		 */
 		'BaseMailer' => Nova\Foundation\Services\Mailers\BaseMailer::class,
+		'BaseMailable' => Nova\Foundation\BaseMailable::class,
 
 		/**
 		 * Models
@@ -399,12 +400,12 @@ return [
 		'UserCreator' => Nova\Core\Users\Services\UserCreatorService::class,
 		'UserPresenter' => Nova\Core\Users\Data\Presenters\UserPresenter::class,
 		'UserPolicy' => Nova\Core\Users\Policies\UserPolicy::class,
-		'UserMailer' => Nova\Core\Users\Mailers\UserMailer::class,
 		'CreateUserRequest' => Nova\Core\Users\Http\Requests\CreateUserRequest::class,
 		'EditUserRequest' => Nova\Core\Users\Http\Requests\EditUserRequest::class,
 		'RemoveUserRequest' => Nova\Core\Users\Http\Requests\RemoveUserRequest::class,
 		'BuildUserPreferences' => Nova\Core\Users\Listeners\BuildUserPreferences::class,
 		'EmailNewUserPassword' => Nova\Core\Users\Listeners\EmailNewUserPassword::class,
+		'AdminCreatedUserMailer' => Nova\Core\Users\Mail\AdminCreatedUser::class,
 	],
 
 ];

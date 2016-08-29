@@ -73,5 +73,8 @@ return [
 	],
 	'Nova\Core\Users\Events\UserDeleted' => [],
 	'Nova\Core\Users\Events\UserUpdated' => [],
+	'Nova\Core\Users\Events\UserCreatedByAdmin' => [
+		EmailNewUserPassword::class,
+	],
 
 ];
