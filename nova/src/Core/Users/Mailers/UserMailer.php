@@ -12,5 +12,4 @@ class UserMailer extends BaseMailer {
 			'subject' => "",
 		]);
 	}
-
 }

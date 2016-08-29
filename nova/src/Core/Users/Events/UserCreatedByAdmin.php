@@ -16,5 +16,4 @@ class UserCreatedByAdmin extends Event {
 		$this->user = $user;
 		$this->password = $password;
 	}
-
 }

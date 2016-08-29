@@ -30,5 +30,4 @@ class UserApiController extends ApiBaseController {
 
 		return $this->response->item($user, new UserTransformer);
 	}
-
 }

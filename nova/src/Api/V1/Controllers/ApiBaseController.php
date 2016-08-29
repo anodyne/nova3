@@ -31,5 +31,4 @@ abstract class ApiBaseController extends Controller {
 	{
 		throw new Exception\UnauthorizedHttpException($message);
 	}
-	
 }

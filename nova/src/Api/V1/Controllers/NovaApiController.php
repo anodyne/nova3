@@ -10,5 +10,4 @@ class NovaApiController extends ApiBaseController {
 			'version_nova'	=> config('nova.app.version.full'),
 		]);
 	}
-
 }
