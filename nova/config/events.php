@@ -76,5 +76,9 @@ return [
 	'Nova\Core\Users\Events\UserCreatedByAdmin' => [
 		EmailNewUserPassword::class,
 	],
+	'Nova\Core\Users\Events\UserRestoredByAdmin' => [
+		EmailRestoredUserPassword::class,
+	],
+	'Nova\Core\Users\Events\UserRestored' => [],
 
 ];
