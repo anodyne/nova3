@@ -63,8 +63,8 @@ dl {
 
 	@include rounded($border-radius);
 	
-	i {
-		padding-right: 0.5rem;
+	span {
+		padding-left: 0.5rem;
 	}
 
 	&,
@@ -256,6 +256,22 @@ fieldset {
 
 .text-sm {
 	font-size: $font-size-sm;
+}
+
+.text-success {
+	color: $color-success;
+}
+
+.text-warning {
+	color: $color-warning;
+}
+
+.text-danger {
+	color: $color-danger;
+}
+
+.text-info {
+	color: $color-info;
 }
 
 /**
@@ -580,4 +596,16 @@ fieldset {
 			}
 		}
 	}
+}
+
+.notification-indicator {
+	position: absolute;
+	bottom: 1.4rem;
+	right: 1.8rem;
+	height: 1rem;
+	width: 1rem;
+
+	border-radius: 2rem;
+	background-color: $color-danger;
+	border: 0.2rem solid #f8f8f8;
 }

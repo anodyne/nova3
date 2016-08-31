@@ -1,33 +1,29 @@
-<nav class="nova-panel">
-	<ul class="nav nav-pills">
-		<li class="active"><a href="#panel-activity" data-toggle="tab">Latest Activity</a></li>
-		<li><a href="#panel-notifications" data-toggle="tab">Notifications</a></li>
-	</ul>
+<div class="modal docked docked-right" id="panel">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<!--<div class="btn-group">
+					<button class="btn btn-default" style="width: 50%;">Notifications</button>
 
-	<div class="tab-content">
-		<div id="panel-activity" class="tab-pane active">
-			<h2>Latest Activity</h2>
+					<button class="btn btn-default" style="width: 50%;">Announcements</button>
+				</div>-->
 
-			<dl>
-				<dt>Lorem ipsum dolor sit amet</dt>
-				<dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pharetra.</dd>
+				<h3 class="text-center">Notifications</h3>
+			</div>
 
-				<dt>Lorem ipsum dolor sit amet</dt>
-				<dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pharetra.</dd>
+			<div class="modal-body">
+				<!-- List Of Notifications -->
+				<div>
+					@foreach (user()->unreadNotifications as $notification)
+						{!! partial('notification', compact('notification')) !!}
+					@endforeach
+				</div>
+			</div>
 
-				<dt>Lorem ipsum dolor sit amet</dt>
-				<dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pharetra.</dd>
-			</dl>
-		</div>
-
-		<div id="panel-notifications" class="tab-pane">
-			<h2>Notifications</h2>
-
-			@forelse (user()->unreadNotifications as $notification)
-				{!! partial('notification', compact('notification')) !!}
-			@empty
-				{!! alert('info', "No notifications") !!}
-			@endforelse
+			<!-- Modal Actions -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
 		</div>
 	</div>
-</nav>
+</div>

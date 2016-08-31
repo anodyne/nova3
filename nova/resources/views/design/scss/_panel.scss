@@ -3,11 +3,17 @@
 		background: #fff;
 		border-bottom: 0;
 		margin-bottom: 0;
-		height: 7rem;
+		padding: 0;
+		height: 6rem;
 
 		.btn-group {
 			padding-top: 0.4rem;
 			width: 100%;
+		}
+
+		h3 {
+			margin: 0;
+			line-height: 6rem;
 		}
 	}
 
@@ -32,7 +38,7 @@
 
 	.modal-footer {
 		background: #fff;
-		border-top: 0.1rem dashed rgba(0,0,0,.1);
+		border-top: 0.1rem solid rgba(0, 0, 0, 0.05);
 		width: 35rem;
 	}
 
@@ -47,7 +53,7 @@
 	.notification {
 		position: relative;
 		padding: 2rem 1.5rem 0 1.5rem;
-		border-top: 0.1rem dashed rgba(0, 0, 0, 0.1);
+		border-top: 0.1rem solid rgba(0, 0, 0, 0.05);
 	}
 
 	figure {
@@ -57,16 +63,19 @@
 	.notification-content {
 		padding-left: 7rem;
 
+		font-size: $font-size-sm;
+
 		.meta {
 			display: flex;
 			align-content: flex-end;
+			flex-direction: column;
 		}
 
 		.title {
 			flex: 1;
 			font-weight: bold;
 			line-height: 1.2;
-			margin: 0.2rem 0 1rem;
+			margin: 0.2rem 0 0;
 		}
 
 		.date {

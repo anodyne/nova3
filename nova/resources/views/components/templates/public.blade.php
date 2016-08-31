@@ -11,4 +11,6 @@
 	<footer>
 		{!! $footer or false !!}
 	</footer>
+
+	{!! partial('panel') !!}
 </div>
