@@ -269,7 +269,7 @@ return [
 		/**
 		 * Services
 		 */
-		'CharacterCreator' => Nova\Core\Characters\Services\CharacterCreatorService::class,
+		'CharacterCreator' => Nova\Core\Characters\CharacterCreator::class,
 
 		/**
 		 * Pages
@@ -397,7 +397,7 @@ return [
 		'UserRepository' => Nova\Core\Users\Data\Repositories\UserRepository::class,
 		'UserPreferenceRepository' => Nova\Core\Users\Data\Repositories\UserPreferenceRepository::class,
 		'PreferenceDefaultRepository' => Nova\Core\Users\Data\Repositories\PreferenceDefaultRepository::class,
-		'UserCreator' => Nova\Core\Users\Services\UserCreatorService::class,
+		'UserCreator' => Nova\Core\Users\UserCreator::class,
 		'UserPresenter' => Nova\Core\Users\Data\Presenters\UserPresenter::class,
 		'UserPolicy' => Nova\Core\Users\Policies\UserPolicy::class,
 		'CreateUserRequest' => Nova\Core\Users\Http\Requests\CreateUserRequest::class,
