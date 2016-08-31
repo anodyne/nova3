@@ -14,5 +14,4 @@ class UserCreated extends Event {
 	{
 		$this->user = $user;
 	}
-
 }

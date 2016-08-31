@@ -17,6 +17,7 @@ class CharacterRepository extends BaseRepository implements CharacterRepositoryC
 
 	public function createForUser(array $data, User $user = null)
 	{
+		// Create the character
 		$character = $this->create($data);
 
 		if ($user)
@@ -27,5 +28,4 @@ class CharacterRepository extends BaseRepository implements CharacterRepositoryC
 
 		return $character;
 	}
-
 }

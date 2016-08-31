@@ -38,5 +38,4 @@ trait HasRoles {
 
 		return !! $role->intersect($this->roles)->count();
 	}
-	
 }

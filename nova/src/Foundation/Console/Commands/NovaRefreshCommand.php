@@ -1,7 +1,6 @@
 <?php namespace Nova\Foundation\Console\Commands;
 
 use File, Artisan, Storage;
-use Nova\Core\Users\Services\UserCreatorService;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -66,5 +65,4 @@ class NovaRefreshCommand extends Command {
 		$this->info(config('nova.app.name').' has been refreshed!');
 		$this->info("");
 	}
-
 }
