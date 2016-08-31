@@ -498,7 +498,20 @@ class Theme implements ThemeIconsContract,
 
 		if (Auth::check())
 		{
-			$menu->add(LinkBuilder::url('#', $this->renderIcon('notifications')));
+			if (user()->unreadNotifications->count() > 0)
+			{
+				$notificationIcon = sprintf('%s %s', 
+					$this->renderIcon('notifications'),
+					HtmlBuilder::raw('<span class="notification-indicator"></span>')->render()
+				);
+			}
+			else
+			{
+				$notificationIcon = $this->renderIcon('notifications');
+			}
+
+			$menu->add(LinkBuilder::url('#', $notificationIcon)
+				->setAttributes(['data-toggle' => 'modal', 'data-target' => '#panel']));
 
 			// Build the text for the header link
 			$headerText = sprintf('%s %s', 
