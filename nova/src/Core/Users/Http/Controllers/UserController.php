@@ -34,8 +34,8 @@ class UserController extends BaseController {
 
 		$this->authorize('manage', $user, "You do not have permission to manage users.");
 
-		$this->views->put('page', 'admin/users/users');
-		$this->views->put('scripts', ['admin/users/users']);
+		$this->views->put('page', 'admin/users/all');
+		$this->views->put('scripts', ['admin/users/all']);
 
 		$this->data->apiUrl = apiRoute('api.users.index');
 	}
@@ -44,8 +44,16 @@ class UserController extends BaseController {
 	{
 		$this->authorize('create', new User, "You do not have permission to create users.");
 
-		$this->views->put('page', 'admin/users/user-create');
-		$this->views->put('scripts', ['admin/users/user-create']);
+		$this->views->put('page', 'admin/users/create');
+		$this->views->put('scripts', [
+			'typeahead.bundle.min',
+			'vue/access-picker',
+			'admin/users/create'
+		]);
+		$this->views->put('styles', ['typeahead']);
+
+		$this->data->roles = app('RoleRepository')->all();
+		$this->data->permissions = app('PermissionRepository')->all();
 	}
 
 	public function store(CreateUserRequest $request, UserCreator $userCreator)
@@ -56,11 +64,21 @@ class UserController extends BaseController {
 		// Create the new user
 		$user = $userCreator->create(array_merge($request->all(), ['status' => Status::ACTIVE]));
 
-		// Fire the event
-		event(new Events\UserCreatedByAdmin($user, $request->get('password')));
-
 		// Set the flash content
-		flash()->success("User Created!", "The user has been notified of the account creation and sent their password.");
+		if ($user->trashed())
+		{
+			// Fire the event
+			event(new Events\UserRestoredByAdmin($user, $request->get('password')));
+
+			flash()->success("User Restored!", "The account has been restored and the user has been notified and sent their new password.");
+		}
+		else
+		{
+			// Fire the event
+			event(new Events\UserCreatedByAdmin($user, $request->get('password')));
+
+			flash()->success("User Created!", "The user has been notified of the account creation and sent their password.");
+		}
 
 		return redirect()->route('admin.users');
 	}
@@ -101,57 +119,41 @@ class UserController extends BaseController {
 		return redirect()->route('admin.forms');
 	}
 
-	public function remove($formKey)
+	public function remove($userId)
 	{
 		$this->isAjax = true;
 
-		$form = $this->repo->getByKey($formKey);
+		$user = $this->repo->getById($userId);
 
-		if ( ! $form)
+		if ( ! $user)
 		{
-			$body = alert('danger', "Form [{$formKey}] not found.");
+			$body = alert('danger', "User not found.");
 		}
 		else
 		{
-			$body = (policy($form)->remove($this->user, $form))
-				? view(locate('page', 'admin/forms/form-remove'), compact('form'))
-				: alert('danger', "You do not have permission to remove forms.");
+			$body = (policy($user)->remove($this->user, $user))
+				? view(locate('page', 'admin/users/remove'), compact('user'))
+				: alert('danger', "You do not have permission to remove users.");
 		}
 
 		return partial('modal-content', [
-			'header' => "Remove Form",
+			'header' => "Remove User",
 			'body' => $body,
 			'footer' => false,
 		]);
 	}
 
-	public function destroy(RemoveFormRequest $request, $formKey)
+	public function destroy(RemoveUserRequest $request, $userId)
 	{
-		$form = $this->repo->getByKey($formKey);
+		$user = $this->repo->getById($userId);
 
-		$this->authorize('remove', $form, "You do not have permission to remove forms.");
+		$this->authorize('remove', $user, "You do not have permission to remove users.");
 
-		$form = $this->repo->delete($form);
+		$user = $this->repo->delete($user);
 
-		event(new Events\FormWasDeleted($form->name, $form->key));
+		flash()->success("User Removed!");
 
-		flash()->success("Form Removed!");
-
-		return redirect()->route('admin.forms');
-	}
-
-	public function checkFormKey()
-	{
-		$this->isAjax = true;
-
-		$count = $this->repo->countBy('key', request('key'));
-
-		if ($count > 0)
-		{
-			return json_encode(['code' => 0]);
-		}
-
-		return json_encode(['code' => 1]);
+		return redirect()->route('admin.users');
 	}
 
 	public function preferences()

@@ -4,7 +4,9 @@ vue = {
 		loadingWithError: false,
 		users: [],
 		search: "",
-		statuses: ["active"]
+		statuses: ["active"],
+		roles: Nova.data.roles,
+		permissions: Nova.data.permissions
 	},
 
 	computed: {

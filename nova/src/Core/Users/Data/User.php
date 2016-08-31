@@ -1,6 +1,7 @@
 <?php namespace Nova\Core\Users\Data;
 
-use HasRoles,
+use Status,
+	HasRoles,
 	Character,
 	NovaFormEntry,
 	UserPresenter,
@@ -50,6 +51,29 @@ class User extends Authenticatable {
 	//-------------------------------------------------------------------------
 	// Model Methods
 	//-------------------------------------------------------------------------
+
+	public function activate()
+	{
+		$this->status = Status::ACTIVE;
+		$this->save();
+
+		return $this;
+	}
+
+	public function canBeDeleted()
+	{
+		if ($this->characters->count() > 0) return false;
+
+		return true;
+	}
+
+	public function deactivate()
+	{
+		$this->status = Status::INACTIVE;
+		$this->save();
+
+		return $this;
+	}
 
 	public function preference($key)
 	{

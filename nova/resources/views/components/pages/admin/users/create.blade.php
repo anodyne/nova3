@@ -42,6 +42,14 @@
 		</div>
 	</div>
 
+	<div class="form-group{{ ($errors->has('role')) ? ' has-error' : '' }}">
+		<label class="col-md-2 control-label">Access Role</label>
+		<div class="col-md-6">
+			{!! partial('access-picker', ['type' => '', 'selectedItems' => '[]']) !!}
+			{!! $errors->first('role', '<p class="help-block">:message</p>') !!}
+		</div>
+	</div>
+
 	<div class="form-group">
 		<div class="col-md-5 col-md-offset-2" v-cloak>
 			<mobile>

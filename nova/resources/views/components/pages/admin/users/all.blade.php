@@ -11,14 +11,14 @@
 <div v-else v-cloak>
 	<mobile>
 		@can('create', $user)
-			<p><a href="{{ route('admin.users.create') }}" class="btn btn-success btn-lg btn-block">Add a User</a></p>
+			<p><a href="{{ route('admin.users.create') }}" class="btn btn-success btn-lg btn-block">{!! icon('add') !!}<span>Add User</span></a></p>
 		@endcan
 	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			@can('create', $user)
 				<div class="btn-group">
-					<a href="{{ route('admin.users.create') }}" class="btn btn-success">Add a User</a>
+					<a href="{{ route('admin.users.create') }}" class="btn btn-success">{!! icon('add') !!}<span>Add User</span></a>
 				</div>
 			@endcan
 		</div>
