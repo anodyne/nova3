@@ -12,6 +12,29 @@
 		p {
 			margin: 1rem 0;
 		}
+
+		.controls {
+			display: none;
+
+			.btn {
+				span {
+					display: none;
+					padding-left: 0.5rem;
+				}
+
+				&:hover {
+					span {
+						display: inline-block;
+					}
+				}
+			}
+		}
+
+		&:hover {
+			.controls {
+				display: block;
+			}
+		}
 	}
 
 	&.data-table-striped {

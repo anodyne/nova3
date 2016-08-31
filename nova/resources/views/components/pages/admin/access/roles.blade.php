@@ -42,7 +42,7 @@
 				<p class="text-muted text-sm"><em>{{ $role->present()->usersWithRole }}</em></p>
 			@endif
 		</div>
-		<div class="col-md-7 col-lg-6" v-cloak>
+		<div class="col-md-7 col-lg-6 controls" v-cloak>
 			<mobile>
 				<div class="row">
 					@can('create', $role)
