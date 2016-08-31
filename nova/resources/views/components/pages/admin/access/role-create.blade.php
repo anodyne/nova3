@@ -31,6 +31,97 @@
 		<div class="form-group">
 			<label class="col-md-3 control-label">Permissions</label>
 			<div class="col-md-9">
+				<div class="data-table data-table-striped data-table-bordered">
+					<div class="row">
+						<div class="col-md-4">
+							<p class="text-sm"><strong>Component</strong></p>
+						</div>
+						<div class="col-md-2">
+							<p class="text-sm text-center"><strong>Create</strong></p>
+						</div>
+						<div class="col-md-2">
+							<p class="text-sm text-center"><strong>Edit</strong></p>
+						</div>
+						<div class="col-md-2">
+							<p class="text-sm text-center"><strong>Delete</strong></p>
+						</div>
+						<div class="col-md-2">
+							<p class="text-sm text-center"><strong>View</strong></p>
+						</div>
+						<div class="col-md-4"></div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<p>Access</p>
+						</div>
+						<div class="col-md-2">
+							<p class="text-center"><input type="checkbox"></p>
+						</div>
+						<div class="col-md-2">
+							<p class="text-center"><input type="checkbox"></p>
+						</div>
+						<div class="col-md-2">
+							<p class="text-center"><input type="checkbox"></p>
+						</div>
+						<div class="col-md-2"></div>
+						<div class="col-md-4"></div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<p>Form</p>
+						</div>
+						<div class="col-md-2">
+							<p class="text-center"><input type="checkbox"></p>
+						</div>
+						<div class="col-md-2">
+							<p class="text-center"><input type="checkbox"></p>
+						</div>
+						<div class="col-md-2">
+							<p class="text-center"><input type="checkbox"></p>
+						</div>
+						<div class="col-md-2"></div>
+						<div class="col-md-4"></div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<p>Form Center</p>
+						</div>
+						<div class="col-md-2">
+							<p class="text-center"><input type="checkbox" checked disabled></p>
+						</div>
+						<div class="col-md-2">
+							<p class="text-center"><input type="checkbox"></p>
+						</div>
+						<div class="col-md-2">
+							<p class="text-center"><input type="checkbox"></p>
+						</div>
+						<div class="col-md-2">
+							<p class="text-center"><input type="checkbox"></p>
+						</div>
+						<div class="col-md-4"></div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<p>Menu</p>
+						</div>
+						<div class="col-md-2">
+							<p class="text-center"><input type="checkbox"></p>
+						</div>
+						<div class="col-md-2">
+							<p class="text-center"><input type="checkbox"></p>
+						</div>
+						<div class="col-md-2">
+							<p class="text-center"><input type="checkbox"></p>
+						</div>
+						<div class="col-md-2"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-md-3 control-label">Permissions</label>
+			<div class="col-md-9">
 				@foreach ($permissions as $component => $permission)
 					<div class="panel panel-default">
 						<div class="panel-heading">
