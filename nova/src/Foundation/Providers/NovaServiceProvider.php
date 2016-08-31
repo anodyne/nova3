@@ -1,7 +1,6 @@
 <?php namespace Nova\Foundation\Providers;
 
-use UserCreator,
-	CharacterCreator;
+use UserCreator, CharacterCreator;
 use ReflectionClass;
 use Illuminate\Support\ClassLoader,
 	Illuminate\Support\ServiceProvider;
@@ -193,7 +192,7 @@ class NovaServiceProvider extends ServiceProvider {
 
 		$this->app->bind('nova.character.creator', function ($app)
 		{
-			return new CharacterCreator($app['CharacterRepository'], $app['events']);
+			return new CharacterCreator($app['CharacterRepository']);
 		});
 
 		$this->app->bind('nova.flash', function ($app)
@@ -210,8 +209,7 @@ class NovaServiceProvider extends ServiceProvider {
 		{
 			return new UserCreator(
 				$app['UserRepository'],
-				$app['nova.character.creator'],
-				$app['events']
+				$app['nova.character.creator']
 			);
 		});
 	}
