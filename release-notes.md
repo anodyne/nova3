@@ -14,6 +14,8 @@ There have been __a lot__ of changes to Nova NextGen since Preview Release 3. Af
 - We've continued our adventures in Vue.js with the creation of the access picker component. This component provides a consistent user interface to select access control restrictions. After selecting whether you want to restrict by role or permission, you'll be able to use an autocomplete field to select as many items as you want. This component is available when creating/editing menu items as well as basic pages.
 - In addition to the access picker component, we've also created a new icon picker component that allows users to select an icon for use in their menu items. We'll also be using this component with form tabs and form sections as well in the future.
 - And now for what Preview Release 4 was all about to begin with: users!
+	- Soft deleting users
+	- Restoring deleted users
 
 Like mentioned above, this release involved a lot of clean up from previous preview releases:
 
