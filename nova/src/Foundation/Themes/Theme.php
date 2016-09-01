@@ -242,7 +242,7 @@ class Theme implements ThemeIconsContract,
 			{
 				// Build the text for the header link
 				$headerText = sprintf('%s %s', 
-					$mainMenuItem->title,
+					$mainMenuItem->present()->title,
 					HtmlBuilder::raw('<span class="caret"></span>')->render()
 				);
 
