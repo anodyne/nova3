@@ -83,40 +83,42 @@ class UserController extends BaseController {
 		return redirect()->route('admin.users');
 	}
 
-	public function edit($formKey)
+	public function edit($userId)
 	{
-		$form = $this->data->form = $this->repo->getByKey($formKey);
+		$user = $this->data->user = $this->repo->getById($userId);
 
-		$this->authorize('edit', $form, "You do not have permission to edit forms.");
+		$this->authorize('edit', $user, "You do not have permission to edit this user.");
 
-		$this->views->put('page', 'admin/forms/form-edit');
-		$this->views->put('scripts', ['admin/forms/form-edit']);
+		$this->views->put('page', 'admin/users/create');
+		$this->views->put('scripts', [
+			'typeahead.bundle.min',
+			'vue/access-picker',
+			'admin/users/create'
+		]);
+		$this->views->put('styles', ['typeahead']);
 
-		$this->data->accessRoles = $this->roleRepo->listAll('name', 'key');
-
-		$this->data->resourcesCreate = $this->pageRepo->listAllBy('verb', 'POST', 'name', 'key');
-		$this->data->resourcesUpdate = $this->pageRepo->listAllBy('verb', 'PUT', 'name', 'key');
-		$this->data->resourcesDelete = $this->pageRepo->listAllBy('verb', 'DELETE', 'name', 'key');
-
-		$this->data->fields = $form->fields->pluck('label', 'id');
-
-		$this->data->form = $form->toJson();
-		$this->data->restrictions = ($form->restrictions) ? $form->restrictions->toJson() : null;
+		$this->data->roles = app('RoleRepository')->all();
+		$this->data->permissions = app('PermissionRepository')->all();
 	}
 
-	public function update(EditFormRequest $request, $formKey)
+	public function update(EditUserRequest $request, $userId)
 	{
-		$form = $this->repo->getByKey($formKey);
+		$user = $this->data->user = $this->repo->getById($userId);
 
-		$this->authorize('edit', $form, "You do not have permission to edit forms.");
+		$this->authorize('edit', $user, "You do not have permission to edit this user.");
 
-		$form = $this->repo->update($form, $request->all());
+		$user = $this->repo->update($user, $request->all());
 
-		event(new Events\FormWasUpdated($form));
+		if (policy($user)->manage($this->currentUser))
+		{
+			flash()->success("User Updated!");
 
-		flash()->success("Form Updated!");
+			return redirect()->route('admin.users');
+		}
 
-		return redirect()->route('admin.forms');
+		flash()->success("Account Updated!");
+
+		return redirect()->back();
 	}
 
 	public function remove($userId)
