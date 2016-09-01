@@ -9,7 +9,12 @@ class UserPolicy {
 		return $user->can('user.create');
 	}
 
-	public function edit(User $user)
+	public function edit(User $user, User $resource)
+	{
+		return $user->id === $resource->id or $user->can('user.edit');
+	}
+
+	public function editAll(User $user)
 	{
 		return $user->can('user.edit');
 	}
@@ -26,7 +31,7 @@ class UserPolicy {
 
 	public function manage(User $user)
 	{
-		return ($this->create($user) or $this->edit($user) or $this->remove($user));
+		return ($this->create($user) or $this->editAll($user) or $this->remove($user));
 	}
 
 	public function remove(User $user)
