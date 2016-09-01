@@ -138,7 +138,7 @@ class NovaServiceProvider extends ServiceProvider {
 
 				if ($user)
 				{
-					$user->load('userPreferences');
+					$user->load('userPreferences', 'unreadNotifications');
 				}
 
 				return $user;
