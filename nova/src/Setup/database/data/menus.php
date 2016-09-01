@@ -16,9 +16,9 @@ return [
 		['menu_id' => 1, 'parent_id' => 2, 'order' => 3, 'type' => "page", 'page_id' => 65, 'title' => "Forms", 'access_type' => 'permissions-loose', 'access' => '[{"type":"permission","name":"Create Forms","key":"form.create"},{"type":"permission","name":"Edit Forms","key":"form.edit"},{"type":"permission","name":"Remove Forms","key":"form.remove"}]'],
 		['menu_id' => 1, 'parent_id' => 2, 'order' => 4, 'type' => "page", 'page_id' => 111, 'title' => "Users", 'access_type' => 'permissions-loose', 'access' => '[{"type":"permission","name":"Create Users","key":"user.create"},{"type":"permission","name":"Edit Users","key":"user.edit"},{"type":"permission","name":"Remove Users","key":"user.remove"}]'],
 
-		['menu_id' => 2, 'order' => 0, 'type' => "page", 'page_id' => 99],
+		['menu_id' => 2, 'order' => 0, 'type' => "page", 'page_id' => 99, 'icon' => 'file'],
 
-		['menu_id' => 2, 'order' => 1, 'type' => "internal", 'link' => "#", 'title' => "Manage"],
+		['menu_id' => 2, 'order' => 1, 'type' => "internal", 'link' => "#", 'title' => "Manage", 'icon' => 'settings'],
 		['menu_id' => 2, 'parent_id' => 9, 'order' => 0, 'type' => "page", 'page_id' => 9, 'title' => "Pages", 'access_type' => 'permissions-loose', 'access' => '[{"type":"permission","name":"Create Pages","key":"page.create"},{"type":"permission","name":"Edit Pages","key":"page.edit"},{"type":"permission","name":"Remove Pages","key":"page.remove"}]'],
 		['menu_id' => 2, 'parent_id' => 9, 'order' => 1, 'type' => "page", 'page_id' => 18, 'title' => "Additional Content", 'access_type' => 'permissions-loose', 'access' => '[{"type":"permission","name":"Create Pages","key":"page.create"},{"type":"permission","name":"Edit Pages","key":"page.edit"},{"type":"permission","name":"Remove Pages","key":"page.remove"}]'],
 		['menu_id' => 2, 'parent_id' => 9, 'order' => 2, 'type' => "divider"],
