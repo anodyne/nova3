@@ -502,7 +502,7 @@ class Theme implements ThemeIconsContract,
 			{
 				$notificationIcon = sprintf('%s %s', 
 					$this->renderIcon('notifications'),
-					HtmlBuilder::raw('<span class="notification-indicator"></span>')->render()
+					HtmlBuilder::raw('<span class="unread"></span>')->render()
 				);
 			}
 			else
@@ -511,7 +511,8 @@ class Theme implements ThemeIconsContract,
 			}
 
 			$menu->add(LinkBuilder::url('#', $notificationIcon)
-				->setAttributes(['data-toggle' => 'modal', 'data-target' => '#panel']));
+				->setAttributes(['data-toggle' => 'modal', 'data-target' => '#notification-panel'])
+				->addClass('notification-indicator'));
 
 			// Build the text for the header link
 			$headerText = sprintf('%s %s', 
