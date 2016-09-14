@@ -1,12 +1,8 @@
 vue = {
 	data: {
-		loading: true,
-		loadingWithError: false,
-		users: [],
+		users: Nova.data.users,
 		search: "",
-		statuses: ["active"],
-		roles: Nova.data.roles,
-		permissions: Nova.data.permissions
+		statuses: ["active"]
 	},
 
 	computed: {
@@ -27,29 +23,28 @@ vue = {
 		resetFilters: function () {
 			this.search = ""
 			this.statuses = ["active"]
+
+			if (this.pendingCount > 0) {
+				this.statuses.push("pending")
+			}
+		},
+
+		statusClass: function (status) {
+			if (status == 'pending') {
+				return 'tag tag-warning'
+			}
+
+			if (status == 'active') {
+				return 'tag tag-primary'
+			}
+
+			return 'tag tag-default'
 		}
 	},
 
 	ready: function () {
-		var url = Nova.data.apiUrl
-		var options = {
-			headers: {
-				"Accept": Nova.api.acceptHeader
-			}
-		}
-
-		this.$http.get(url, [], options).then(response => {
-			this.users = response.data.data
-		}, response => {
-			this.loadingWithError = true
-		})
-	},
-
-	watch: {
-		"users": function (value, oldValue) {
-			if (value.length > 0) {
-				this.loading = false
-			}
+		if (this.pendingCount > 0) {
+			this.statuses.push("pending")
 		}
 	}
 }

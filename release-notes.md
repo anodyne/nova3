@@ -16,6 +16,7 @@ There have been __a lot__ of changes to Nova NextGen since Preview Release 3. Af
 - And now for what Preview Release 4 was all about to begin with: users!
 	- Soft deleting users
 	- Restoring deleted users
+	- Despite pending users showing up in the users list, the ability to approve or reject pending users/applications hasn't been built yet. In a future preview release we'll have the Application Review Center built that will take the place of the old way of handling applications.
 
 Like mentioned above, this release involved a lot of clean up from previous preview releases:
 

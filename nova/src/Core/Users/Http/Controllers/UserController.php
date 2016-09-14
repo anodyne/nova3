@@ -4,10 +4,10 @@ use User,
 	Status,
 	UserCreator,
 	BaseController,
-	Mail as Mailer,
+	UserTransformer,
 	UserRepositoryContract,
 	EditUserRequest, CreateUserRequest, RemoveUserRequest;
-use Nova\Core\Users\{Events, Mail};
+use Nova\Core\Users\Events;
 use Illuminate\Http\Request;
 
 class UserController extends BaseController {
@@ -18,12 +18,12 @@ class UserController extends BaseController {
 	{
 		parent::__construct();
 
+		$this->repo = $repo;
+
 		$this->isAdmin = true;
 
 		$this->views->put('structure', 'admin');
 		$this->views->put('template', 'admin');
-
-		$this->repo = $repo;
 
 		$this->middleware('auth');
 	}
@@ -37,7 +37,13 @@ class UserController extends BaseController {
 		$this->views->put('page', 'admin/users/all');
 		$this->views->put('scripts', ['admin/users/all']);
 
-		$this->data->apiUrl = apiRoute('api.users.index');
+		$users = $this->repo->transformAll(
+			new UserTransformer,
+			'allSorted',
+			[['characters'], ['status' => 'asc', 'name' => 'asc']]
+		);
+
+		$this->data->users = $users;
 	}
 
 	public function create()
@@ -70,7 +76,7 @@ class UserController extends BaseController {
 			// Fire the event
 			event(new Events\UserRestoredByAdmin($user, $request->get('password')));
 
-			flash()->success("User Restored!", "The account has been restored and the user has been notified and sent their new password.");
+			flash()->success("User Restored!", "The account has been restored, the user has been notified, and a new password has been sent to them.");
 		}
 		else
 		{
@@ -103,10 +109,13 @@ class UserController extends BaseController {
 
 	public function update(EditUserRequest $request, $userId)
 	{
+		// Get the user we're trying to edit
 		$user = $this->data->user = $this->repo->getById($userId);
 
+		// Make sure the user is allowed to take this action
 		$this->authorize('edit', $user, "You do not have permission to edit this user.");
 
+		// Update the user
 		$user = $this->repo->update($user, $request->all());
 
 		if (policy($user)->manage($this->currentUser))
@@ -147,10 +156,13 @@ class UserController extends BaseController {
 
 	public function destroy(RemoveUserRequest $request, $userId)
 	{
+		// Get the user we're removing
 		$user = $this->repo->getById($userId);
 
+		// Check the user's authorization
 		$this->authorize('remove', $user, "You do not have permission to remove users.");
 
+		// Remove the user
 		$user = $this->repo->delete($user);
 
 		flash()->success("User Removed!");
@@ -158,18 +170,8 @@ class UserController extends BaseController {
 		return redirect()->route('admin.users');
 	}
 
-	public function preferences()
+	public function account()
 	{
-		$this->views->put('page', 'admin/users/preferences');
-
-		$this->data->user = $this->user;
-
-		$this->views->put('scripts', ['admin/users/preferences']);
+		return $this->edit($this->user->id);
 	}
-
-	public function resetPassword(Request $request)
-	{
-		$this->isAjax = true;
-	}
-
 }

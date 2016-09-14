@@ -13,5 +13,4 @@ class PreferenceDefaultRepository extends BaseRepository implements PreferenceDe
 	{
 		$this->model = $model;
 	}
-
 }

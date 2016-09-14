@@ -1,7 +1,6 @@
 <?php namespace Nova\Api\V1\Controllers;
 
-use UserRepositoryContract;
-use Nova\Api\V1\Transformers\UserTransformer;
+use UserTransformer, UserRepositoryContract;
 
 class UserApiController extends ApiBaseController {
 

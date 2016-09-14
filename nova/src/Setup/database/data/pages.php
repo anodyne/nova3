@@ -852,6 +852,21 @@ return [
 		'name'				=> "User Preferences",
 		'key'				=> "admin.users.preferences",
 		'uri'				=> "admin/users/preferences",
-		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\UserController@preferences",
+		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\PreferencesController@index",
+		'menu_id'			=> 2,
+	],
+	[
+		'verb'				=> "PUT",
+		'name'				=> "Update User Preferences",
+		'key'				=> "admin.users.preferences.update",
+		'uri'				=> "admin/users/preferences",
+		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\PreferencesController@update",
+	],
+	[
+		'name'				=> "User Account",
+		'key'				=> "admin.users.account",
+		'uri'				=> "admin/users/account",
+		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\UserController@account",
+		'menu_id'			=> 2,
 	],
 ];

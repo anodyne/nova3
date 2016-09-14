@@ -1,4 +1,4 @@
-<p>Are you sure you want to remove <strong>{{ $user->present()->name }}</strong>? This action is permanent and can't be undone!</p>
+<p>Are you sure you want to remove <strong>{{ $user->present()->name }}</strong>?</p>
 
 {!! Form::model($user, ['route' => ['admin.users.destroy', $user->id], 'method' => 'delete']) !!}
 	<div v-cloak>

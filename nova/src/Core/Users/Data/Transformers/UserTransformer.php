@@ -1,4 +1,4 @@
-<?php namespace Nova\Api\V1\Transformers;
+<?php namespace Nova\Core\Users\Data\Transformers;
 
 use Status,
 	User as Resource;
@@ -16,7 +16,7 @@ class UserTransformer extends Transformer {
 			'email'			=> $resource->email,
 			'status'		=> Status::toString($resource->status),
 			'links'			=> [
-				'application'	=> route('admin.users.edit', [$resource->id]),
+				//'application'	=> route('admin.users.edit', [$resource->id]),
 				'edit'			=> route('admin.users.edit', [$resource->id]),
 			],
 			'characters'	=> $resource->characters->toArray(),
@@ -24,5 +24,4 @@ class UserTransformer extends Transformer {
 
 		return $user;
 	}
-
 }

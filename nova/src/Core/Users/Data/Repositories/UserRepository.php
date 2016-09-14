@@ -15,6 +15,17 @@ class UserRepository extends BaseRepository implements UserRepositoryContract {
 		$this->model = $model;
 	}
 
+	public function allSorted(array $with = [], array $sortBy = [])
+	{
+		$model = $this->make($with);
+
+		collect($sortBy)->each(function ($direction, $column) use (&$model) {
+			$model->orderBy($column, $direction);
+		});
+
+		return $model->get();
+	}
+
 	public function create(array $data)
 	{
 		$role = (array_key_exists('role', $data)) ? (int) $data['role'] : null;
@@ -61,20 +72,8 @@ class UserRepository extends BaseRepository implements UserRepositoryContract {
 			// Remove any roles
 			$user->roles()->detach();
 
-			// Remove any user preferences
-			$user->userPreferences->each(function ($preference)
-			{
-				$preference->delete();
-			});
-
-			if ($user->canBeDeleted())
-			{
-				$user->forceDelete();
-			}
-			else
-			{
-				$user->delete();
-			}
+			// Remove the user
+			$user->delete();
 
 			event(new Events\UserDeleted($user->id, $user->name, $user->email));
 

@@ -20,16 +20,14 @@
 				<div class="form-group">
 					<label class="control-label col-md-2">Theme</label>
 					<div class="col-md-6">
-						{!! Form::select('theme', [], null, ['class' => 'form-control input-lg']) !!}
-						{{ d($_user->preference('theme')) }}
+						{!! Form::text('theme', user()->preference('theme'), ['class' => 'form-control input-lg']) !!}
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label class="control-label col-md-2">Variant</label>
 					<div class="col-md-6">
-						{!! Form::select('theme_variant', [], null, ['class' => 'form-control input-lg']) !!}
-						{{ d($_user->preference('theme_variant')) }}
+						{!! Form::text('theme_variant', user()->preference('theme_variant'), ['class' => 'form-control input-lg']) !!}
 					</div>
 				</div>
 			</div>

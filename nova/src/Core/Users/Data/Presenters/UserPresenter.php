@@ -73,5 +73,4 @@ class UserPresenter extends BasePresenter {
 
 		return label($level, ucwords(Status::toString($status)));
 	}
-
 }

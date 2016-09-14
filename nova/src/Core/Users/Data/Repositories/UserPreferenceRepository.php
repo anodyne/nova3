@@ -13,5 +13,4 @@ class UserPreferenceRepository extends BaseRepository implements UserPreferenceR
 	{
 		$this->model = $model;
 	}
-
 }
