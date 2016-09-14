@@ -10,5 +10,4 @@ class CharacterPresenter extends BasePresenter {
 
 		return implode(' ', $arr);
 	}
-
 }
