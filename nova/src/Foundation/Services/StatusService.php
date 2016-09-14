@@ -5,8 +5,8 @@ use Exception;
 class StatusService {
 
 	const PENDING		= 1;
-	const INACTIVE		= 2;
-	const ACTIVE		= 3;
+	const ACTIVE		= 2;
+	const INACTIVE		= 3;
 	const REMOVED		= 4;
 	const IN_PROGRESS	= 5;
 	const APPROVED		= 6;
