@@ -18,6 +18,8 @@ interface BaseRepositoryContract {
 	public function listCollection($collection, $value, $text);
 	public function make(array $with = []);
 	public function paginate($data, $page, $perPage, $path);
+	public function transform($transformer, $resource, array $parameters = []);
+	public function transformAll($transformer, $resource, array $parameters = []);
 	public function update($resource, array $data);
 	public function updateOrder($resource, $newOrder);
 

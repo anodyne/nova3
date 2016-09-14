@@ -176,6 +176,40 @@ abstract class BaseRepository {
 		return $paginator;
 	}
 
+	public function transform($transformer, $resource, array $parameters = [])
+	{
+		// Make sure we have a transformer object
+		$transformer = (is_object($transformer)) 
+			? $transformer 
+			: new $transformer;
+
+		// Get the resource
+		$resource = (is_object($resource))
+			? $resource
+			: call_user_func_array([$this, $resource], $parameters);
+
+		return $transformer->transform($resource);
+	}
+
+	public function transformAll($transformer, $resource, array $parameters = [])
+	{
+		// Make sure we have a transformer object
+		$transformer = (is_object($transformer)) 
+			? $transformer 
+			: new $transformer;
+
+		// Get the resources
+		$resources = (is_object($resource))
+			? $resource
+			: call_user_func_array([$this, $resource], $parameters);
+
+		// Return the transformed resources
+		return $resources->map(function ($item) use ($transformer)
+		{
+			return $transformer->transform($item);
+		});
+	}
+
 	public function update($resource, array $data)
 	{
 		$item = $this->getResource($resource);
@@ -202,7 +236,13 @@ abstract class BaseRepository {
 		return $this->update($item, ['order' => $newOrder]);
 	}
 
-	protected function getResource($resource, $identifier = 'id')
+	/**
+	 * Get the resource that's passed to the method.
+	 *
+	 * If $resource is an instance of the model, just return it.
+	 
+	 */
+	protected function getResource($resource, $identifier = 'id', array $parameters = [])
 	{
 		if ($resource instanceof $this->model)
 		{
