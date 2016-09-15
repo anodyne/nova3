@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e742fdf07d680cf75f56e4d9ba22e31a",
+    "hash": "36c4c3e42985d5b05b2166115a9caeae",
     "content-hash": "29c31c47763136394cacf510d1424ca2",
     "packages": [
         {
@@ -890,16 +890,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.3.7",
+            "version": "v5.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "443764337de22705c115abe169472c24446764bd"
+                "reference": "f6fbb481672f8dc4bc6882d5d654bbfa3588c8ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/443764337de22705c115abe169472c24446764bd",
-                "reference": "443764337de22705c115abe169472c24446764bd",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/f6fbb481672f8dc4bc6882d5d654bbfa3588c8ec",
+                "reference": "f6fbb481672f8dc4bc6882d5d654bbfa3588c8ec",
                 "shasum": ""
             },
             "require": {
@@ -1013,7 +1013,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-09-08 17:10:45"
+            "time": "2016-09-12 14:08:29"
         },
         {
             "name": "laravelcollective/html",
@@ -1071,16 +1071,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "0.14.0",
+            "version": "0.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "b73c0b7288bd0e6f9f56bd0b20d0657214b91838"
+                "reference": "19fb96643beba24e681c371dc133e25409742664"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/b73c0b7288bd0e6f9f56bd0b20d0657214b91838",
-                "reference": "b73c0b7288bd0e6f9f56bd0b20d0657214b91838",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/19fb96643beba24e681c371dc133e25409742664",
+                "reference": "19fb96643beba24e681c371dc133e25409742664",
                 "shasum": ""
             },
             "require": {
@@ -1093,7 +1093,7 @@
             "require-dev": {
                 "cebe/markdown": "~1.0",
                 "erusev/parsedown": "~1.0",
-                "jgm/commonmark": "0.25",
+                "jgm/commonmark": "0.26",
                 "michelf/php-markdown": "~1.4",
                 "mikehaertl/php-shellcommand": "~1.2.0",
                 "phpunit/phpunit": "~4.3|~5.0",
@@ -1109,7 +1109,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.15-dev"
+                    "dev-master": "0.16-dev"
                 }
             },
             "autoload": {
@@ -1136,7 +1136,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2016-07-02 18:48:39"
+            "time": "2016-09-14 15:44:35"
         },
         {
             "name": "league/flysystem",
@@ -2203,22 +2203,22 @@
         },
         {
             "name": "spatie/laravel-activitylog",
-            "version": "1.7.1",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-activitylog.git",
-                "reference": "027fbf39fd3cda3030e4e8314c9fbf9e700c7d98"
+                "reference": "900fecac75bf450f27a449ea8a53bb3e11bb1a7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/027fbf39fd3cda3030e4e8314c9fbf9e700c7d98",
-                "reference": "027fbf39fd3cda3030e4e8314c9fbf9e700c7d98",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/900fecac75bf450f27a449ea8a53bb3e11bb1a7d",
+                "reference": "900fecac75bf450f27a449ea8a53bb3e11bb1a7d",
                 "shasum": ""
             },
             "require": {
-                "illuminate/config": "^5.2|^5.3",
-                "illuminate/database": "^5.2.6|^5.3",
-                "illuminate/support": "^5.2|^5.3",
+                "illuminate/config": "~5.2.0|~5.3.0",
+                "illuminate/database": "~5.2.6|~5.3.0",
+                "illuminate/support": "~5.2.0|~5.3.0",
                 "php": "^7.0",
                 "spatie/string": "^2.1"
             },
@@ -2263,7 +2263,7 @@
                 "spatie",
                 "user"
             ],
-            "time": "2016-08-23 14:01:54"
+            "time": "2016-09-12 07:40:12"
         },
         {
             "name": "spatie/laravel-backup",
@@ -2373,16 +2373,16 @@
         },
         {
             "name": "spatie/laravel-medialibrary",
-            "version": "4.8.3",
+            "version": "4.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-medialibrary.git",
-                "reference": "7fcb591ff0ef2d28b9b622f84f972c642ff3e8f9"
+                "reference": "8c862e270d49e8bbff6f0993900c8bb59ea165ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/7fcb591ff0ef2d28b9b622f84f972c642ff3e8f9",
-                "reference": "7fcb591ff0ef2d28b9b622f84f972c642ff3e8f9",
+                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/8c862e270d49e8bbff6f0993900c8bb59ea165ea",
+                "reference": "8c862e270d49e8bbff6f0993900c8bb59ea165ea",
                 "shasum": ""
             },
             "require": {
@@ -2436,7 +2436,7 @@
                 "media",
                 "spatie"
             ],
-            "time": "2016-08-25 08:08:10"
+            "time": "2016-09-14 16:31:49"
         },
         {
             "name": "spatie/laravel-menu",
