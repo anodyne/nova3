@@ -38,7 +38,7 @@ $setup = app('nova.setup');
 
 <ol>
 	@if ($type == 'install')
-		<li{!! $classes[1] !!}>{!! $setup->icon('1') !!}Database Connection</li>
+		<li{!! $classes[1] !!}><img src="nova/src/Setup/views/design/images/database.svg"> Database Connection</li>
 		<li{!! $classes[2] !!}>{!! $setup->icon('2') !!}Email Settings</li>
 		<li{!! $classes[3] !!}>{!! $setup->icon('3') !!}Install {{ config('nova.app.name') }}</li>
 		<li{!! $classes[4] !!}>{!! $setup->icon('4') !!}Create User</li>

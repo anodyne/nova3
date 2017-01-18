@@ -40,10 +40,11 @@ header {
 
 	.anodyne-logo {
 		display: block;
-		width: 6rem;
+		width: 7.25rem;
 		height: $header-height;
 
-		background: transparent url(../images/anodyne.png) center center no-repeat;
+		background: transparent url(../images/anodyne.svg) center center no-repeat;
+		background-size: contain;
 	}
 }
 
@@ -102,7 +103,7 @@ nav {
 				height: 0;
 			}*/
 
-			.material-icons {
+			.material-icons, .fa {
 				float: left;
 				margin-top: 0rem;
 				margin-right: $spacing-sm;
@@ -420,26 +421,27 @@ code {
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top left;
+	background-size: contain;
 
 	&.mysql {
 		height: 4.4rem;
 		width: 8.5rem;
 
-		background-image: url(../images/mysql.png);
+		background-image: url(../images/mysql.svg);
 	}
 
 	&.postgresql {
 		height: 7.5rem;
 		width: 8.5rem;
 
-		background-image: url(../images/postgresql.png);
+		background-image: url(../images/postgresql.svg);
 	}
 
 	&.sqlite {
 		height: 4rem;
 		width: 8.5rem;
 
-		background-image: url(../images/sqlite.png);
+		background-image: url(../images/sqlite.svg);
 	}
 }
 

@@ -90,20 +90,20 @@ $setup = app('nova.setup');
 
 ?><ol>
 	<li{!! $classes[1] !!}>
-		{!! $setup->icon('1') !!}
+		{!! HTML::image('nova/src/Setup/views/design/images/database.svg') !!}
 		<span class="visible-md">Database</span>
 		<span class="hidden-md">Database Connection</span>
 	</li>
-	<li{!! $classes[2] !!}>{!! $setup->icon('2') !!}Email Settings</li>
+	<li{!! $classes[2] !!}><i class="fa fa-fw fa-2x fa-envelope"></i> Email Settings</li>
 	<li{!! $classes[3] !!}>
-		{!! $setup->icon('3') !!}
+		<i class="fa fa-fw fa-2x fa-rocket"></i>
 		<span class="visible-md">Install Nova</span>
 		<span class="hidden-md">Install {{ config('nova.app.name') }}</span>
 	</li>
 	<li{!! $classes[4] !!}>
-		{!! $setup->icon('4') !!}
+		<i class="fa fa-fw fa-2x fa-user-circle"></i>
 		<span class="visible-md">User &amp; Character</span>
 		<span class="hidden-md">Create User &amp; Character</span>
 	</li>
-	<li{!! $classes[5] !!}>{!! $setup->icon('5') !!}Update Settings</li>
+	<li{!! $classes[5] !!}><i class="fa fa-fw fa-2x fa-cogs"></i> Update Settings</li>
 </ol>

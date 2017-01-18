@@ -157,6 +157,7 @@ return [
 		Dingo\Api\Provider\LaravelServiceProvider::class,
 		Collective\Html\HtmlServiceProvider::class,
 		Peslis\Gravatar\Laravel\GravatarServiceProvider::class,
+		BladeSvg\BladeSvgServiceProvider::class,
 
 		/*
 		 * Nova Service Providers
