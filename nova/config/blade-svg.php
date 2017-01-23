@@ -13,7 +13,7 @@ return [
 	|
 	*/
 
-	'icon_path' => 'path/to/icons',
+	'icon_path' => './',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'spritesheet_path' => 'path/to/spritesheet.svg',
+	'spritesheet_path' => 'nova/src/Setup/views/design/images/symbol-defs.svg',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return [
 	|
 	*/
 
-	'inline' => false,
+	'inline' => true,
 
 	/*
 	|--------------------------------------------------------------------------
