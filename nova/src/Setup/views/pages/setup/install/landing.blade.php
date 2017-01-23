@@ -19,22 +19,22 @@
 
 	<p>The links below provide information about how to install {{ config('nova.app.name') }} as well as a brief tour of some of {{ config('nova.app.name') }}'s major features. If you have additional questions, please visit the Anodyne Help Center or the Anodyne forums for more help.</p>
 
-	<hr class="partial">
+	<hr>
 
 	<div class="row">
-		<div class="col-sm-6 col-md-3">
+		<div class="col-sm-6 col-lg-3">
 			<p><a href="http://help.anodyne-productions.com/article/nova-3/install-preview-release" target="_blank" class="btn btn-link btn-block">Install Guide</a></p>
 		</div>
 
-		<div class="col-sm-6 col-md-3">
+		<div class="col-sm-6 col-lg-3">
 			<p><a href="#" target="_blank" class="btn btn-link btn-block disabled">Take a Tour</a></p>
 		</div>
 
-		<div class="col-sm-6 col-md-3">
+		<div class="col-sm-6 col-lg-3">
 			<p><a href="http://help.anodyne-productions.com/product/nova-3" target="_blank" class="btn btn-link btn-block">Anodyne Help Center</a></p>
 		</div>
 
-		<div class="col-sm-6 col-md-3">
+		<div class="col-sm-6 col-lg-3">
 			<p><a href="http://forums.anodyne-productions.com" target="_blank" class="btn btn-link btn-block">Anodyne Forums</a></p>
 		</div>
 	</div>
@@ -42,10 +42,10 @@
 
 @section('controls')
 	<div class="row">
-		<div class="col-sm-6 col-sm-push-6 text-right">
+		<div class="col-md-6 push-md-6 text-right">
 			<p><a href="{{ route('setup.install.config.db') }}" class="btn btn-primary btn-lg">Next: Database Connection</a></p>
 		</div>
-		<div class="col-sm-6 col-sm-pull-6">
+		<div class="col-md-6 pull-md-6">
 			<p><a href="{{ route('setup.home') }}" class="btn btn-link btn-lg">Cancel</a></p>
 		</div>
 	</div>

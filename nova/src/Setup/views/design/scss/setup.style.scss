@@ -2,60 +2,77 @@
 @import "../../../../../resources/views/design/scss/mixins";
 
 html {
-	font-size: 62.5%;
+	background-color: $color-blue-grey-50;
 }
 body {
-	line-height: $line-height;
-
-	background: $color-blue-grey-50;
+	background-color: $color-blue-grey-50;
 	font-family: $font;
 	color: $color-body-text;
-	font-size: $font-size;
+}
+
+#app {
+	margin-bottom: 1.5rem;
 }
 
 header {
 	position: relative;
-	height: $header-height;
-	margin-bottom: 2.5rem;
+	margin-bottom: 1.5rem;
+	line-height: 1;
 
 	background: $color-white;
-	color: $color-blue-grey-300;
-	font-weight: 300;
-	font-family: $font-heading;
-	font-size: 3.2rem;
 	border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1);
 
-	.product, .process, .divider {
-		line-height: 6.2rem;
-	}
+	.header {
+		display: flex;
+		flex-direction: row-reverse;
+		align-items: center;
+		justify-content: space-between;
 
-	.divider {
-		color: $color-blue-grey-100;
-	}
+		.brand {
+			display: block;
+			width: 1.85rem;
+			height: 1.85rem;
 
-	.process {
-		color: $color-blue-grey-600;
-		font-weight: 700;
-	}
+			text-align: right;
+		}
 
-	.anodyne-logo {
-		display: block;
-		width: 7.25rem;
-		height: $header-height;
+		.masthead {
+			padding: 1rem 0;
 
-		background: transparent url(../images/anodyne.svg) center center no-repeat;
-		background-size: contain;
+			font-family: $font-heading;
+			font-size: 0.9rem;
+			font-weight: 300;
+			color: $color-blue-grey-300;
+
+			.divider {
+				color: $color-blue-grey-100;
+			}
+
+			.process {
+				color: $color-blue-grey-600;
+				font-weight: 700;
+			}
+		}
 	}
 }
 
 nav {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	padding: $spacing;
+	margin-bottom: 1.5rem;
 
+	font-size: 0.9rem;
 	background: $color-blue-grey-800;
-	color: $color-blue-grey-500;
-	border: 0.1rem solid rgba(0, 0, 0, 0.25);
+	color: $color-blue-grey-400;
+	border: 0.1rem solid rgba(0, 0, 0, 0.15);
 
 	@include rounded($border-radius-lg);
+
+	footer {
+		padding: 1.5rem 0 0 0;
+	}
 
 	ol {
 		position: relative;
@@ -66,54 +83,27 @@ nav {
 		list-style: none;
 
 		li {
+			display: flex;
 			position: relative;
 			margin: 0;
-			/*padding: $spacing 10px $spacing 45px;*/
-			padding: $spacing 1rem;
-			line-height: 2.4rem;
 
-			font-size: 1.4rem;
-			letter-spacing: 0.05rem;
+			align-items: center;
 
-			/*&:before {
-				content: counter(li);
-				counter-increment: li;
-				position: absolute;
-				left: 10px;
-				width: 25px;
-				height: 25px;
-				line-height: 24px;
-				
-				font-size: 14px;
-				font-weight: 600;
-				text-align: center;
-				font-family: $font;
-				background: $color-blue-grey-500;
-				color: $color-blue-grey-800;
+			.icon {
+				height: 2.5rem;
+				width: 2.5rem;
+				padding-right: 1rem;
 
-				@include rounded(50px);
-			}
-
-			&:after {
-				content: ".";
-				display: block;
-				clear: both;
-				visibility: hidden;
-				line-height: 0;
-				height: 0;
-			}*/
-
-			.material-icons, .fa {
-				float: left;
-				margin-top: 0rem;
-				margin-right: $spacing-sm;
+				path {
+					fill: $color-blue-grey-400;
+				}
 			}
 
 			&.step-active {
 				color: $color-white;
 
-				&:before {
-					background: $color-white;
+				path {
+					fill: $color-white;
 				}
 			}
 
@@ -121,28 +111,15 @@ nav {
 				color: rgba(255, 255, 255, 0.5);
 				background: $color-blue-grey-600;
 
-				&:before {
-					color: $color-blue-grey-600;
-					background: rgba(255, 255, 255, 0.5);
+				path {
+					fill: rgba(255, 255, 255, 0.5);
 				}
-
-				/*&:first-of-type {
-					border-top-left-radius: $border-radius;
-					border-top-right-radius: $border-radius;
-				}
-
-				&:last-of-type {
-					border-bottom-left-radius: $border-radius;
-					border-bottom-right-radius: $border-radius;
-				}*/
 			}
 		}
 	}
 }
 
 main {
-	margin-bottom: 2.5rem;
-
 	background: $color-white;
 	color: $color-blue-grey-800;
 	border: 0.1rem solid rgba(0, 0, 0, 0.1);
@@ -159,6 +136,10 @@ main {
 				color: lighten($color-primary, 25%);
 			}
 		}
+
+		strong {
+			font-weight: 500;
+		}
 	}
 
 	.controls {
@@ -171,6 +152,8 @@ main {
 		}
 
 		.btn {
+			width: 100%;
+
 			font-weight: 500;
 			
 			&.btn-link {
@@ -186,7 +169,6 @@ main {
 		width: auto;
 
 		text-align: center;
-		font-size: 3.4rem;
 		font-weight: 300;
 		font-family: $font-heading;
 		color: $color-blue-grey-600;
@@ -194,7 +176,6 @@ main {
 
 	h2 {
 		text-align: left;
-		font-size: 2.4rem;
 		font-weight: 300;
 		font-family: $font-heading;
 		color: $color-blue-grey-600;
@@ -202,30 +183,24 @@ main {
 
 	h3 {
 		margin: 0 0 $spacing-lg 0;
+		line-height: 1.5;
 
 		text-align: center;
-		font-size: 1.6rem;
+		font-size: 1.1rem;
 		font-weight: 400;
 		color: $color-blue-grey-300;
 	}
 
 	p {
-		margin-bottom: 1.5rem;
+		margin-bottom: 1rem;
 		line-height: $line-height;
-
-		font-size: 1.5rem;
-	}
-
-	ul {
-		li {
-			font-size: 1.5rem;
-		}
 	}
 
 	form {
-		.control-label {
+		.col-form-label {
 			color: $color-blue-grey-600;
 			font-weight: 500;
+			text-align: right;
 		}
 
 		.form-control {
@@ -237,72 +212,24 @@ main {
 		}
 
 		.help-block {
-			margin-bottom: 0.5rem;
+			margin: 0.5rem;
 			line-height: 1.6;
 
 			color: $color-blue-grey-300;
 			font-size: $font-size-sm;
 		}
-
-		.checkbox input[type=checkbox],
-		.radio input[type=radio] {
-			margin-top: 0.6rem;
-		}
-	}
-}
-
-.thumbnail {
-	margin: 1rem 0;
-	padding: 1rem $spacing;
-
-	@include rounded($border-radius-lg);
-
-	h1 {
-		font-size: 3.4rem;
-		font-weight: 300;
-		font-family: $font-heading;
-		color: $color-blue-grey-600;
-	}
-
-	h2 {
-		margin: 0 0 $spacing 0;
-
-		font-size: 1.5rem;
-		font-weight: 400;
-		color: $color-blue-grey-300;
-	}
-
-	p, ul li {
-		line-height: $line-height;
-
-		font-size: 1.5rem;
-		color: $color-blue-grey-800;
-		text-align: left;
-	}
-
-	.icn, .material-icons {
-		line-height: $line-height;
-		
-		color: $color-blue-grey-400;
-
-		&.text-success {
-			color: $color-success;
-		}
-		&.text-danger {
-			color: $color-danger;
-		}
 	}
 }
 
 footer {
-	margin: $spacing auto;
+	padding: 1rem 0;
 
 	text-align: center;
 	font-size: $font-size-sm;
-	color: $color-blue-grey-300;
+	color: $color-blue-grey-500;
 }
 
-.font-sm {
+.text-sm {
 	font-size: $font-size-sm;
 }
 
@@ -336,18 +263,30 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn {
 	font-weight: 500;
-	letter-spacing: 0.05rem;
+	letter-spacing: 0.015rem;
+	font-family: $font;
 
 	@include rounded($border-radius);
+
+	&:hover {
+		cursor: pointer;
+	}
 
 	&.btn-primary {
 		@include btn-pseudo-states($color-white, $color-primary, $color-primary);
 	}
+	&.btn-secondary {
+		@include btn-pseudo-states($color-grey-700, $color-grey-300, $color-grey-300);
+	}
 	&.btn-danger {
 		@include btn-pseudo-states($color-white, $color-danger, $color-danger);
 	}
-	&.btn-default {
-		@include btn-pseudo-states($color-grey-700, $color-grey-300, $color-grey-300);
+	&.btn-link {
+		@include btn-pseudo-states($color-primary, transparent, transparent);
+	}
+
+	&.btn-lg {
+		@include rounded($border-radius);
 	}
 
 	&,
@@ -360,9 +299,70 @@ h1, h2, h3, h4, h5, h6 {
 	}
 }
 
-hr.partial {
-	margin: 2.5rem auto;
-	width: 75%;
+.card {
+	margin-bottom: 1.5rem;
+
+	text-align: center;
+
+	@include rounded($border-radius);
+
+	&.card-outline-primary {
+		border-color: $color-primary;
+
+		@include box-shadow(inset 0 0 0 0.15rem $color-primary);
+	}
+
+	h1 {
+		font-size: 2rem;
+		font-weight: 300;
+		font-family: $font-heading;
+		color: $color-blue-grey-600;
+	}
+
+	h2 {
+		margin: 0 0 $spacing 0;
+
+		font-size: 1.25rem;
+		font-weight: 400;
+		color: $color-blue-grey-300;
+	}
+
+	p, ul li {
+		line-height: $line-height;
+
+		color: $color-blue-grey-800;
+		text-align: left;
+	}
+
+	p:last-child {
+		margin-bottom: 0;
+	}
+
+	.icon {
+		height: 9rem;
+		width: 9rem;
+		margin: 1rem auto;
+
+		path {
+			fill: $color-blue-grey-400;
+		}
+
+		&.text-success {
+			path {
+				fill: $color-green-500;
+			}
+		}
+
+		&.text-danger {
+			path {
+				fill: $color-red-500;
+			}
+		}
+	}
+}
+
+hr {
+	margin: 1.5rem auto;
 
 	border-color: rgba(0, 0, 0, 0.1);
 }
@@ -398,7 +398,7 @@ hr.partial {
 
 .label {
 	font-weight: 400;
-	letter-spacing: 0.05rem;
+	letter-spacing: 0.015rem;
 
 	@include rounded($border-radius-sm);
 
@@ -416,31 +416,23 @@ code {
 }
 
 .logo {
-	margin-left: 0.8rem;
+	height: 11rem;
+	width: 100%;
 
 	background-color: transparent;
 	background-repeat: no-repeat;
-	background-position: top left;
+	background-position: center center;
 	background-size: contain;
 
 	&.mysql {
-		height: 4.4rem;
-		width: 8.5rem;
-
 		background-image: url(../images/mysql.svg);
 	}
 
 	&.postgresql {
-		height: 7.5rem;
-		width: 8.5rem;
-
 		background-image: url(../images/postgresql.svg);
 	}
 
 	&.sqlite {
-		height: 4rem;
-		width: 8.5rem;
-
 		background-image: url(../images/sqlite.svg);
 	}
 }
@@ -454,7 +446,7 @@ code {
 		@include rounded($border-radius);
 	}
 
-	.control-label {
+	.col-form-label {
 		color: $color-danger;
 	}
 
@@ -474,6 +466,124 @@ code {
 	}
 }
 
+.wizard {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 0.75rem;
+
+	.step {
+		width: 100%;
+		padding: 0.5rem;
+
+		text-align: center;
+
+		.icon {
+			width: 1.75rem;
+			height: 1.75rem;
+
+			path {
+				fill: $color-blue-grey-100;
+			}
+		}
+
+		.label {
+			display: block;
+			padding: 0.2rem 0.4rem;
+
+			font-weight: 500;
+			font-size: 0.9rem;
+			color: $color-blue-grey-100;
+			
+			@include rounded($border-radius);
+
+			.short { display: block; }
+			.long { display: none; }
+		}
+
+		&.active {
+			.label {
+				background: $color-primary;
+				color: $color-white;
+
+				.short { display: none; }
+				.long { display: block; }
+			}
+
+			.icon {
+				width: 3.5rem;
+				height: 3.5rem;
+
+				path {
+					fill: $color-primary;
+				}
+			}
+		}
+
+		&.completed {
+			.label {
+				background: transparent;
+				color: $color-success;
+
+				.short { display: block; }
+				.long { display: none; }
+			}
+
+			.icon {
+				path {
+					fill: $color-success;
+				}
+			}
+		}
+	}
+}
+
 [v-cloak] {
 	display: none;
+}
+
+.spinner {
+	margin: 3rem auto;
+	width: 7rem;
+
+	text-align: center;
+
+	> div {
+		display: inline-block;
+		width: 1.8rem;
+		height: 1.8rem;
+
+		background-color: $color-blue-grey-400;
+		-webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+		animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+
+		@include rounded(100%);
+	}
+
+	.bounce1 {
+		-webkit-animation-delay: -0.32s;
+		animation-delay: -0.32s;
+	}
+
+	.bounce2 {
+		-webkit-animation-delay: -0.16s;
+		animation-delay: -0.16s;
+	}
+}
+
+@-webkit-keyframes sk-bouncedelay {
+	0%, 80%, 100% { -webkit-transform: scale(0) }
+	40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay {
+	0%, 80%, 100% { 
+		-webkit-transform: scale(0);
+		transform: scale(0);
+	} 40% { 
+		-webkit-transform: scale(1.0);
+		transform: scale(1.0);
+	}
 }

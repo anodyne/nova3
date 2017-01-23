@@ -1,34 +1,80 @@
-@media (max-width: 767px) {
+@import "setup.variables";
+@import "../../../../../resources/views/design/scss/mixins";
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
 	header {
-		text-align: center;
-		font-size: 2rem;
+		.header {
+			.brand {
+				width: 4.5rem;
+				height: 4.5rem;
+			}
 
-		.anodyne-logo {
-			display: none;
+			.masthead {
+				padding: 0;
+
+				font-size: 1.25rem;
+			}
 		}
 	}
 
-	.content {
-		h2 {
-			line-height: 1.5;
-		}
+	hr {
+		width: 75%;
 	}
 
-	.controls {
-		text-align: center;
+	.wizard {
+		flex-direction: row;
 
-		p {
-			text-align: center;
+		.step {
+			width: auto;
 		}
-	}
-
-	.btn {
-		width: 100%;
 	}
 }
 
-@media (min-width: 768px) and (max-width: 991px) {}
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+	header {
+		.header {
+			.brand {
+				width: 5.5rem;
+				height: 5.5rem;
+			}
 
-@media (min-width: 992px) and (max-width: 1199px) {}
+			.masthead {
+				padding: 0;
 
+				font-size: 2rem;
+			}
+		}
+	}
+
+	nav {
+		ol {
+			li {
+				.icon {
+					height: 3rem;
+					width: 3rem;
+				}
+			}
+		}
+	}
+
+	main {
+		.controls {
+			.btn {
+				width: auto;
+			}
+		}
+	}
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+	nav {
+		height: 100%;
+		margin-bottom: 0;
+	}
+}
+
+// Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {}

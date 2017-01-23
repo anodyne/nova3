@@ -3,11 +3,11 @@
 $path = Request::path();
 
 $classes = [
-	1 => '',
-	2 => '',
-	3 => '',
-	4 => '',
-	5 => '',
+	1 => 'class="step"',
+	2 => 'class="step"',
+	3 => 'class="step"',
+	4 => 'class="step"',
+	5 => 'class="step"',
 ];
 
 $dbActive = [
@@ -43,67 +43,89 @@ $settingsCompleted = [
 
 if (in_array($path, $dbActive))
 {
-	$classes[1] = ' class="step-active"';
+	$classes[1] = 'class="step active"';
 }
 if (File::exists(app('path.config').'/database.php'))
 {
-	$classes[1] = ' class="step-completed"';
+	$classes[1] = 'class="step completed"';
 }
 
 if (in_array($path, $emailActive))
 {
-	$classes[2] = ' class="step-active"';
+	$classes[2] = 'class="step active"';
 }
 if (File::exists(app('path.config').'/mail.php'))
 {
-	$classes[2] = ' class="step-completed"';
+	$classes[2] = 'class="step completed"';
 }
 
 if (in_array($path, $novaActive))
 {
-	$classes[3] = ' class="step-active"';
+	$classes[3] = 'class="step active"';
 }
 if (app('filesystem')->disk('local')->has('installed.json'))
 {
-	$classes[3] = ' class="step-completed"';
+	$classes[3] = 'class="step completed"';
 }
 
 if (in_array($path, $userActive))
 {
-	$classes[4] = ' class="step-active"';
+	$classes[4] = 'class="step active"';
 }
 if (in_array($path, $userCompleted))
 {
-	$classes[4] = ' class="step-completed"';
+	$classes[4] = 'class="step completed"';
 }
 
 if (in_array($path, $settingsActive))
 {
-	$classes[5] = ' class="step-active"';
+	$classes[5] = 'class="step active"';
 }
 if (in_array($path, $settingsCompleted))
 {
-	$classes[5] = ' class="step-completed"';
+	$classes[5] = 'class="step completed"';
 }
 
 $setup = app('nova.setup');
 
-?><ol>
-	<li{!! $classes[1] !!}>
-		{!! HTML::image('nova/src/Setup/views/design/images/database.svg') !!}
-		<span class="visible-md">Database</span>
-		<span class="hidden-md">Database Connection</span>
-	</li>
-	<li{!! $classes[2] !!}><i class="fa fa-fw fa-2x fa-envelope"></i> Email Settings</li>
-	<li{!! $classes[3] !!}>
-		<i class="fa fa-fw fa-2x fa-rocket"></i>
-		<span class="visible-md">Install Nova</span>
-		<span class="hidden-md">Install {{ config('nova.app.name') }}</span>
-	</li>
-	<li{!! $classes[4] !!}>
-		<i class="fa fa-fw fa-2x fa-user-circle"></i>
-		<span class="visible-md">User &amp; Character</span>
-		<span class="hidden-md">Create User &amp; Character</span>
-	</li>
-	<li{!! $classes[5] !!}><i class="fa fa-fw fa-2x fa-cogs"></i> Update Settings</li>
-</ol>
+?><div class="wizard">
+	<div {!! $classes[1] !!}>
+		@icon('nova/src/Setup/views/design/images/database')
+		<span class="label">
+			<span class="short">Database</span>
+			<span class="long">Database Connection</span>
+		</span>
+	</div>
+
+	<div {!! $classes[2] !!}>
+		@icon('nova/src/Setup/views/design/images/paper-plane')
+		<span class="label">
+			<span class="short">Email</span>
+			<span class="long">Email Settings</span>
+		</span>
+	</div>
+
+	<div {!! $classes[3] !!}>
+		@icon('nova/src/Setup/views/design/images/rocket')
+		<span class="label">
+			<span class="short">Install</span>
+			<span class="long">Install {{ config('nova.app.name') }}</span>
+		</span>
+	</div>
+
+	<div {!! $classes[4] !!}>
+		@icon('nova/src/Setup/views/design/images/user-circle-o')
+		<span class="label">
+			<span class="short">Account</span>
+			<span class="long">Create User &amp; Character</span>
+		</span>
+	</div>
+
+	<div {!! $classes[5] !!}>
+		@icon('nova/src/Setup/views/design/images/cogs')
+		<span class="label">
+			<span class="short">Settings</span>
+			<span class="long">Update Settings</span>
+		</span>
+	</div>
+</div>

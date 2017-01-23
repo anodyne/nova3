@@ -4,44 +4,43 @@
 		<meta charset="utf-8">
 		<title>@yield('title') &bull; {{ config('nova.app.name') }}</title>
 		<meta name="author" content="Anodyne Productions">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<link href="//fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
-		<link href="//fonts.googleapis.com/css?family=Roboto+Condensed:300,700" rel="stylesheet">
-		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-		<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,700|Roboto:300,400,500,700" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.style.css') !!}
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.responsive.css') !!}
-		{!! HTML::style('nova/src/Setup/views/design/css/setup.icons.css') !!}
-		{!! HTML::style('nova/src/Setup/views/design/css/setup.hidpi2x.css', ['media' => 'only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)']) !!}
-		{!! HTML::style('nova/src/Setup/views/design/css/setup.hidpi3x.css', ['media' => 'only screen and (-moz-min-device-pixel-ratio: 3), only screen and (-o-min-device-pixel-ratio: 3/1), only screen and (-webkit-min-device-pixel-ratio: 3), only screen and (min-device-pixel-ratio: 3)']) !!}
 	</head>
 	<body>
 		<header>
 			<div class="container">
-				<div class="row">
-					<div class="col-sm-10">
-						<span class="product">{{ config('nova.app.name') }} Setup</span>
-						<span class="divider">/</span>
-						<span class="process">@yield('header')</span>
+				<div class="header">
+					<div class="header-group">
+						@icon('nova/src/Setup/views/design/images/anodyne', ['class' => 'brand'])
 					</div>
-					<div class="col-sm-2">
-						<div class="anodyne-logo pull-right"></div>
+
+					<div class="header-group">
+						<div class="masthead">
+							<span class="product">{{ config('nova.app.name') }} Setup</span>
+							<span class="divider">/</span>
+							<span class="process">@yield('header')</span>
+						</div>
 					</div>
 				</div>
 			</div>
 		</header>
 
-		<div class="container">
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
-					{!! display_flash_message() !!}
+		<section>
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-10 offset-xl-1">
+						{!! display_flash_message() !!}
 
-					@yield('content')
+						@yield('content')
+					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 
 		<footer>
 			<div class="container">
