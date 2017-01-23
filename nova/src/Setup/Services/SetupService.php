@@ -31,7 +31,7 @@ class SetupService {
 		]);
 
 		// PHP version
-		if (version_compare(PHP_VERSION, '5.5.9', '<'))
+		if (version_compare(PHP_VERSION, '7.0.0', '<'))
 		{
 			$checks->put('php', false);
 			$checks->put('passes', false);
