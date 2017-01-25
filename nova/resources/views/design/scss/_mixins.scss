@@ -1,3 +1,11 @@
+@import "_bs4-mixins";
+
+@mixin transition ($value...) {
+	-webkit-transition: $value;
+	-o-transition: $value;
+	transition: $value;
+}
+
 @mixin rounded ($radius: 0.6rem) {
 	-webkit-border-radius: $radius;
 	-moz-border-radius: $radius;
