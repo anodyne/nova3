@@ -1,15 +1,15 @@
 @extends('layouts.setup')
 
 @section('title')
-	Install {{ config('nova.app.name') }}
+	Installing {{ config('nova.app.name') }}
 @stop
 
 @section('header')
-	Install {{ config('nova.app.name') }}
+	Installing {{ config('nova.app.name') }}
 @stop
 
 @section('content')
-	<h1>Install {{ config('nova.app.name') }}</h1>
+	<h1>Installing {{ config('nova.app.name') }}</h1>
 
 	<div v-show="loading">
 		<div class="spinner">
@@ -18,6 +18,7 @@
 			<div class="bounce3"></div>
 		</div>
 	</div>
+
 	<div v-show="loadingWithError" v-cloak>
 		<div class="alert alert-danger">
 			<h4 class="alert-title">Error!</h4>
@@ -28,10 +29,10 @@
 
 @section('controls')
 	<div class="row">
-		<div class="col-sm-6 col-sm-push-6 text-right">
+		<div class="col-md-6 push-md-6 text-right">
 			<p><a class="btn btn-link btn-lg disabled">Next: Create User &amp; Character</a></p>
 		</div>
-		<div class="col-sm-6 col-sm-pull-6">
+		<div class="col-md-6 pull-md-6">
 			<p><a href="{{ route('setup.install.config.email') }}" class="btn btn-link btn-lg">Back: Restart Email Settings</a></p>
 		</div>
 	</div>
@@ -39,37 +40,27 @@
 
 @section('scripts')
 	<script>
-		var vm = new Vue({
-			el: "#app",
-
+		app = {
 			data: {
 				loading: true,
 				loadingWithError: false,
 				errorMessage: ""
 			},
 
-			http: {
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				}
-			},
+			mounted: function () {
+				this.$nextTick(function () {
+					var url = "{{ url('setup/install/nova') }}"
 
-			ready: function () {
-				var url = "{{ url('setup/install/nova') }}"
-
-				this.$http.post(url).then(response => {
-					window.location = "{{ url('setup/install/nova/success') }}"
-				}, response => {
-					this.loading = false
-					this.loadingWithError = true
-
-					if (response.status == 404) {
-						this.errorMessage = "The installer could not be found!"
-					} else {
-						this.errorMessage = "Error " + response.status + ": " + response.statusText
-					}
+					Vue.axios.post(url).then(function (response) {
+						window.location = url + "/success"
+					}).catch(function (error) {
+						console.log(error)
+						this.loading = false
+						this.loadingWithError = true
+						this.errorMessage = "Error " + error.response.status + ": " + error.message
+					})
 				})
 			}
-		})
+		}
 	</script>
 @stop

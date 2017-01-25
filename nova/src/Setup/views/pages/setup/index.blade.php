@@ -14,7 +14,7 @@
 	@if ( ! $installed)
 		<div class="row">
 			<div class="col-lg-6">
-				<div class="card text-center">
+				<div class="card text-center animate flipInX">
 					<div class="card-block">
 						<h1>Fresh Install</h1>
 						<div>
@@ -26,7 +26,7 @@
 			</div>
 
 			<div class="col-lg-6">
-				<div class="card text-center">
+				<div class="card text-center animate flipInX">
 					<div class="card-block">
 						<h1>Upgrade from Nova 2</h1>
 						<div>
@@ -39,8 +39,8 @@
 		</div>
 	@else
 		<div class="row">
-			<div class="col">
-				<div class="card text-center">
+			<div class="col-lg-6">
+				<div class="card text-center animate flipInX">
 					<div class="card-block">
 						<h1>Update {{ config('nova.app.name') }}</h1>
 						<div>
@@ -51,8 +51,8 @@
 				</div>
 			</div>
 
-			<div class="col">
-				<div class="card text-center">
+			<div class="col-lg-6">
+				<div class="card text-center animate flipInX">
 					<div class="card-block">
 						<h1>Uninstall</h1>
 						<div>
