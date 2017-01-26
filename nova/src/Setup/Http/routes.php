@@ -6,8 +6,7 @@ $options = [
 	'middleware'	=> 'web',
 ];
 
-Route::group($options, function ()
-{
+Route::group($options, function () {
 	Route::get('env', 'SetupController@environment')->name('setup.env');
 	Route::get('/', 'SetupController@index')->name('setup.home');
 	Route::get('update', 'UpdateController@index')->name('setup.update');
@@ -18,8 +17,7 @@ $installOptions = array_merge($options, [
 	'prefix' => 'setup/install'
 ]);
 
-Route::group($installOptions, function ()
-{
+Route::group($installOptions, function () {
 	Route::get('/', 'InstallController@index')->name('setup.install');
 
 	Route::get('config-database', 'ConfigDbController@info')->name('setup.install.config.db');
@@ -42,4 +40,24 @@ Route::group($installOptions, function ()
 	Route::get('settings', 'InstallController@settings')->name('setup.install.settings');
 	Route::get('settings/success', 'InstallController@settingsSuccess')->name('setup.install.settings.success');
 	Route::post('settings', 'InstallController@updateSettings')->name('setup.install.settings.store');
+});
+
+$updateOptions = array_merge($options, [
+	'prefix' => 'setup/update'
+]);
+
+Route::group($updateOptions, function () {
+	Route::get('/', 'UpdateController@index')->name('setup.update');
+
+	Route::get('changes', 'UpdateController@changes')->name('setup.update.changes');
+
+	Route::get('backup', 'UpdateController@backup')->name('setup.update.backup');
+	Route::post('backup', 'UpdateController@runBackup')->name('setup.update.backup.run');
+	Route::get('backup/success', 'UpdateController@backupSuccess')->name('setup.update.backup.success');
+	Route::get('backup/failed', 'UpdateController@backupFailed')->name('setup.update.backup.failed');
+
+	Route::get('run', 'UpdateController@update')->name('setup.update.preRun');
+	Route::post('run', 'UpdateController@runUpdate')->name('setup.update.run');
+	Route::get('success', 'UpdateController@updateSuccess')->name('setup.update.success');
+	Route::get('failed', 'UpdateController@updateFailed')->name('setup.update.failed');
 });

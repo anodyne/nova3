@@ -1,7 +1,6 @@
 <?php namespace Nova\Setup\Providers;
 
 use Str;
-use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class SetupRouteServiceProvider extends ServiceProvider {
@@ -35,5 +34,4 @@ class SetupRouteServiceProvider extends ServiceProvider {
 	{
 		$this->loadRoutesFrom(app_path('Setup/Http/routes.php'));
 	}
-
 }

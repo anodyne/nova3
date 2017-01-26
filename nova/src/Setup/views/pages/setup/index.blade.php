@@ -13,7 +13,7 @@
 @section('content')
 	@if ( ! $installed)
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-md-6">
 				<div class="card text-center animate flipInX">
 					<div class="card-block">
 						<h1>Fresh Install</h1>
@@ -25,10 +25,10 @@
 				</div>
 			</div>
 
-			<div class="col-lg-6">
+			<div class="col-md-6">
 				<div class="card text-center animate flipInX">
 					<div class="card-block">
-						<h1>Upgrade from Nova 2</h1>
+						<h1>Migrate from Nova 2</h1>
 						<div>
 							@icon('nova/src/Setup/views/design/images/exit_to_app')
 						</div>
@@ -39,19 +39,27 @@
 		</div>
 	@else
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-md-6">
 				<div class="card text-center animate flipInX">
 					<div class="card-block">
-						<h1>Update {{ config('nova.app.name') }}</h1>
-						<div>
-							@icon('nova/src/Setup/views/design/images/cloud_done')
-						</div>
-						<p><a href="#" class="btn btn-link btn-lg btn-block disabled">Not Available</a></p>
+						@if ($update)
+							<h1>Update {{ config('nova.app.name') }}</h1>
+							<div>
+								@icon('nova/src/Setup/views/design/images/cloud_upload')
+							</div>
+							<p><a href="{{ route('setup.update') }}" class="btn btn-primary btn-lg btn-block">Update {{ config('nova.app.name') }}</a></p>
+						@else
+							<h1>{{ config('nova.app.name') }} Is Up-To-Date</h1>
+							<div>
+								@icon('nova/src/Setup/views/design/images/cloud_done')
+							</div>
+							<p><a href="{{ route('setup.update') }}" class="btn btn-link btn-lg btn-block disabled">No Updates Available</a></p>
+						@endif
 					</div>
 				</div>
 			</div>
 
-			<div class="col-lg-6">
+			<div class="col-md-6">
 				<div class="card text-center animate flipInX">
 					<div class="card-block">
 						<h1>Uninstall</h1>

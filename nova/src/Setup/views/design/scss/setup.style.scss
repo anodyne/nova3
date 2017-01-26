@@ -67,8 +67,7 @@ nav {
 	background: $color-blue-grey-800;
 	color: $color-blue-grey-400;
 	border: 0.1rem solid rgba(0, 0, 0, 0.15);
-
-	@include rounded($radius-lg);
+	border-radius: $radius-lg;
 
 	footer {
 		padding: 1.5rem 0 0 0;
@@ -123,8 +122,7 @@ main {
 	background: $color-white;
 	color: $color-blue-grey-800;
 	border: 0.1rem solid rgba(0, 0, 0, 0.125);
-
-	@include rounded($radius-lg);
+	border-radius: $radius-lg;
 
 	.content {
 		padding: $spacing;
@@ -195,6 +193,12 @@ main {
 		color: $color-blue-grey-300;
 	}
 
+	h4 {
+		font-size: 1.2rem;
+		font-weight: 300;
+		color: $color-blue-grey-300;
+	}
+
 	p {
 		margin-bottom: 1rem;
 		line-height: $line-height;
@@ -209,7 +213,7 @@ main {
 			color: $color-blue-grey-600;
 
 			&.form-control-lg {
-				@include rounded($radius);
+				border-radius: $radius;
 			}
 		}
 
@@ -276,8 +280,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 500;
 	letter-spacing: 0.015rem;
 	font-family: $font;
-
-	@include rounded($radius);
+	border-radius: $radius;
 
 	&:hover {
 		cursor: pointer;
@@ -294,7 +297,7 @@ h1, h2, h3, h4, h5, h6 {
 		@include button-variant($color-grey-700, $color-grey-300, $color-grey-300);
 	}
 	&.btn-outline-secondary {
-		@include button-outline-variant($color-grey-700);
+		@include button-outline-variant($color-blue-grey-200);
 	}
 	
 	&.btn-danger {
@@ -304,29 +307,30 @@ h1, h2, h3, h4, h5, h6 {
 		@include button-outline-variant($color-danger);
 	}
 
+	&.btn-outline-warning {
+		@include button-outline-variant($color-warning);
+	}
+
 	&.btn-link {
 		@include button-variant($color-primary, transparent, transparent);
 	}
 
 	&.btn-lg {
-		@include rounded($radius);
+		border-radius: $radius;
 	}
 
-	&,
 	&:active,
-	&.active,
-	&:focus,
-	&.focus {
+	&:focus {
 		outline: none !important;
+
+		@include clear-box-shadow;
 	}
 }
 
 .card {
 	margin-bottom: 1.5rem;
 
-	text-align: center;
-
-	@include rounded($radius);
+	border-radius: $radius;
 
 	&.card-outline-primary {
 		border-color: $color-primary;
@@ -390,7 +394,7 @@ hr {
 }
 
 .alert {
-	@include rounded($radius);
+	border-radius: $radius;
 	
 	h4 {
 		font-weight: 500;
@@ -425,8 +429,7 @@ hr {
 .label {
 	font-weight: 400;
 	letter-spacing: 0.015rem;
-
-	@include rounded($radius-sm);
+	border-radius: $radius-sm;
 
 	&.label-danger {
 		@include label-variant($color-danger);
@@ -469,7 +472,7 @@ code {
 	.control-wrapper {
 		padding: 0.3rem;
 
-		@include rounded($radius);
+		border-radius: $radius;
 	}
 
 	.form-text {
@@ -550,8 +553,7 @@ code {
 			font-weight: 500;
 			font-size: 0.9rem;
 			color: $color-blue-grey-100;
-			
-			@include rounded($radius);
+			border-radius: $radius;
 
 			.short { display: block; }
 			.long { display: none; }
@@ -593,6 +595,73 @@ code {
 				}
 			}
 		}
+
+		&.failed {
+			.label {
+				background: transparent;
+				color: $color-danger;
+
+				.short { display: block; }
+				.long { display: none; }
+			}
+
+			.icon {
+				path {
+					fill: $color-danger;
+				}
+			}
+		}
+	}
+}
+
+.sweet-alert {
+	font-family: $font;
+	border-radius: $radius;
+
+	h2 {
+		font-weight: 300;
+	}
+
+	.sa-icon {
+		&.sa-error {
+			border-color: $color-danger;
+
+			.sa-line {
+				background-color: $color-danger;
+			}
+		}
+
+		&.sa-success {
+			border-color: $color-success;
+
+			.sa-line {
+				background-color: $color-success;
+			}
+		}
+
+		&.sa-warning {
+			border-color: $color-warning;
+
+			.sa-body {
+				background-color: $color-warning;
+			}
+
+			.sa-dot {
+				background-color: $color-warning;
+			}
+		}
+
+		&.sa-info {
+			border-color: $color-info;
+
+			&::before {
+				background-color: $color-info;
+			}
+
+			&::after {
+				background-color: $color-info;
+			}
+		}
 	}
 }
 
@@ -614,8 +683,7 @@ code {
 		background-color: $color-blue-grey-400;
 		-webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 		animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-
-		@include rounded(100%);
+		border-radius: 100%;
 	}
 
 	.bounce1 {

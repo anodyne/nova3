@@ -11,7 +11,10 @@ class SetupController extends BaseController {
 		// Is Nova installed?
 		$installed = nova()->isInstalled();
 
-		return view('pages.setup.index', compact('installed'));
+		// Is there an update available for Nova?
+		$update = false;
+
+		return view('pages.setup.index', compact('installed', 'update'));
 	}
 
 	public function environment()
@@ -56,7 +59,7 @@ class SetupController extends BaseController {
 		}
 
 		// Set the flash message
-		flash()->success("Nova has been removed!");
+		flash()->success(config('nova.app.name')." has been removed!");
 
 		return redirect()->route('setup.home');
 	}

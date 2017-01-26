@@ -25,6 +25,11 @@
 	.wizard {
 		flex-direction: row;
 
+		&.space-around {
+			flex: 0 1 0%;
+			justify-content: space-around;
+		}
+
 		.step {
 			width: auto;
 		}

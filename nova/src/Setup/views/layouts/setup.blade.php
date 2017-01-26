@@ -9,6 +9,7 @@
 
 		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,700|Roboto:300,400,500,700" rel="stylesheet">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		{!! HTML::style('nova/resources/css/sweetalert.css') !!}
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.style.css') !!}
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.responsive.css') !!}
 	</head>
@@ -36,8 +37,6 @@
 				<div class="content">
 					{!! view('partials.steps-'.$_setupType) !!}
 
-					{!! display_flash_message() !!}
-
 					@yield('content')
 				</div>
 
@@ -53,10 +52,34 @@
 		<script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+		{!! HTML::script('nova/resources/js/sweetalert.min.js') !!}
 		{!! HTML::script('nova/resources/js/functions.js') !!}
 		{!! HTML::script('nova/resources/js/vue/components.js') !!}
 		{!! HTML::script('nova/resources/js/vue/filters.js') !!}
 		<script>
+			@if (session()->has('flash_message'))
+				swal({
+					title: "{{ session('flash_message.title') }}",
+					text: "{{ session('flash_message.message') }}",
+					type: "{{ session('flash_message.level') }}",
+					timer: 2250,
+					showConfirmButton: false,
+					html: true
+				})
+			@endif
+
+			@if (session()->has('flash_message_overlay'))
+				swal({
+					title: "{{ session('flash_message_overlay.title') }}",
+					text: "{{ session('flash_message_overlay.message') }}",
+					type: "{{ session('flash_message_overlay.level') }}",
+					timer: null,
+					confirmButtonText: "OK",
+					html: true,
+					allowOutsideClick: true
+				})
+			@endif
+
 			Vue.axios = axios.create({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

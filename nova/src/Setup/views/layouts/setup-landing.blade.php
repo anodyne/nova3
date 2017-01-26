@@ -8,6 +8,7 @@
 
 		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,700|Roboto:300,400,500,700" rel="stylesheet">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		{!! HTML::style('nova/resources/css/sweetalert.css') !!}
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.style.css') !!}
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.responsive.css') !!}
 	</head>
@@ -32,13 +33,7 @@
 
 		<section>
 			<div class="container">
-				<div class="row">
-					<div class="col-xl-10 offset-xl-1">
-						{!! display_flash_message() !!}
-
-						@yield('content')
-					</div>
-				</div>
+				@yield('content')
 			</div>
 		</section>
 
@@ -47,5 +42,31 @@
 				&copy; {{ Date::now()->year }} Anodyne Productions
 			</div>
 		</footer>
+
+		{!! HTML::script('nova/resources/js/sweetalert.min.js') !!}
+		<script>
+			@if (session()->has('flash_message'))
+				swal({
+					title: "{{ session('flash_message.title') }}",
+					text: "{{ session('flash_message.message') }}",
+					type: "{{ session('flash_message.level') }}",
+					timer: 2250,
+					showConfirmButton: false,
+					html: true
+				})
+			@endif
+
+			@if (session()->has('flash_message_overlay'))
+				swal({
+					title: "{{ session('flash_message_overlay.title') }}",
+					text: "{{ session('flash_message_overlay.message') }}",
+					type: "{{ session('flash_message_overlay.level') }}",
+					timer: null,
+					confirmButtonText: "OK",
+					html: true,
+					allowOutsideClick: true
+				})
+			@endif
+		</script>
 	</body>
 </html>

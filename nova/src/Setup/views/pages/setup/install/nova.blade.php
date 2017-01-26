@@ -54,7 +54,6 @@
 					Vue.axios.post(url).then(function (response) {
 						window.location = url + "/success"
 					}).catch(function (error) {
-						console.log(error)
 						this.loading = false
 						this.loadingWithError = true
 						this.errorMessage = "Error " + error.response.status + ": " + error.message
