@@ -1,29 +1,26 @@
 {
 	"require": {
-		"laravel/framework": "~5.3",
+		"laravel/framework": "5.3.*",
 		"league/commonmark": "*",
 		"laracasts/presenter": "*",
-		"laravelcollective/html": "~5.3",
+		"laravelcollective/html": "5.3.*",
 		"dingo/api": "1.0.*@dev",
 		"pespantelis/gravatar": "~1.0",
 		"ramsey/uuid": "~3.3",
-		"guzzlehttp/guzzle": "~5.3|~6.0",
+		"guzzlehttp/guzzle": "~6.0",
 		"nothingworks/blade-svg": "~0.1",
 
 		"spatie/laravel-partialcache": "~1.2",
 		"spatie/laravel-medialibrary": "~4.0",
 		"spatie/laravel-menu": "~1.2",
-		"spatie/laravel-backup": "~3.4",
+		"spatie/laravel-backup": "~4.0",
 		"spatie/laravel-activitylog": "~1.2"
 	},
 
 	"require-dev": {
 		"fzaninotto/faker": "~1.4",
 		"mockery/mockery": "0.9.*",
-		"phpunit/phpunit": "~4.0",
-		"phpspec/phpspec": "~2.1",
-		"symfony/dom-crawler": "~3.0",
-		"symfony/css-selector": "~3.0",
+		"phpunit/phpunit": "~5.0",
 		"barryvdh/laravel-debugbar": "~2.1"
 	},
 
@@ -41,9 +38,9 @@
 	},
 
 	"autoload-dev": {
-		"classmap": [
-			"nova/tests/TestCase.php"
-		]
+		"psr-4": {
+			"Tests\\": "tests/"
+		}
 	},
 
 	"config": {
