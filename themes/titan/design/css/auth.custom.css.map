@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "AAIA,IAAK,CACJ,UAAU,CCiFM,OAAO,CD9ExB,YAAa,CACZ,UAAU,CAAE,MAAM,CAClB,aAAa,CAAE,IAAI,CACnB,KAAK,CCyRQ,IAAO,CDtRrB,uDAEkB,CACjB,YAAY,CAAE,WAAW,CEhBzB,qBAAqB,CCEN,IAAI,CDDnB,kBAAkB,CCCH,IAAI,CDAnB,iBAAiB,CCAF,IAAI,CDCnB,aAAa,CCDE,IAAI,CDcnB,kBAAkB,CAAE,qEAAO,CAC3B,eAAe,CAAE,qEAAO,CACxB,UAAU,CAAE,qEAAO,CFIpB,IAAK,CEtBJ,qBAAqB,CCEN,IAAI,CDDnB,kBAAkB,CCCH,IAAI,CDAnB,iBAAiB,CCAF,IAAI,CDCnB,aAAa,CCDE,IAAI,CHuBnB,gBAAc,CACb,gBAAgB,CAAE,WAAW,CAC7B,YAAY,CAAE,WAAW,CAEzB,sBAAQ,CACP,gBAAgB,CAAE,sBAAyB,CAI7C,aAAW,CACV,SAAS,CAAE,GAAG,CACd,KAAK,CAAE,qBAAwB",
-"sources": ["../scss/auth.custom.scss","../../../../nova/resources/views/design/scss/_colors.scss","../../../../nova/resources/views/design/scss/_mixins.scss","../scss/_variables.scss"],
+"mappings": "AAIA,IAAK,CACJ,UAAU,CCiFM,OAAO,CD9ExB,YAAa,CACZ,UAAU,CAAE,MAAM,CAClB,aAAa,CAAE,IAAI,CACnB,KAAK,CCyRQ,IAAO,CDtRrB,uDAEkB,CACjB,YAAY,CAAE,WAAW,CACzB,aAAa,CEfE,IAAI,CFgBnB,UAAU,CAAE,IAAI,CAGjB,IAAK,CACJ,aAAa,CEpBE,IAAI,CFsBnB,gBAAc,CACb,gBAAgB,CAAE,WAAW,CAC7B,YAAY,CAAE,WAAW,CAEzB,sBAAQ,CACP,gBAAgB,CAAE,sBAAyB,CAI7C,aAAW,CACV,SAAS,CAAE,GAAG,CACd,KAAK,CAAE,qBAAwB",
+"sources": ["../scss/auth.custom.scss","../../../../nova/resources/views/design/scss/_colors.scss","../scss/_variables.scss"],
 "names": [],
 "file": "auth.custom.css"
 }

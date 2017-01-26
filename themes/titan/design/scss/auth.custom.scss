@@ -16,13 +16,12 @@ input[type=text],
 input[type=password],
 input[type=email] {
 	border-color: transparent;
-
-	@include rounded($border-radius);
-	@include clear-box-shadow;
+	border-radius: $border-radius;
+	box-shadow: none;
 }
 
 .btn {
-	@include rounded($border-radius);
+	border-radius: $border-radius;
 
 	&.btn-primary {
 		background-color: transparent;

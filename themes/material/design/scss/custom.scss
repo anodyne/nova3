@@ -54,9 +54,8 @@ main {
 
 	background-color: $color-white;
 	border: .1rem solid #e7e8e9;
-
-	@include rounded(.2rem);
-	@include box-shadow("0 0.1rem 0.3rem rgba(0, 0, 0, 0.05)");
+	border-radius: 0.2rem;
+	box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.05);
 }
 
 .page-header {
@@ -74,20 +73,19 @@ main {
 
 .btn {
 	text-transform: uppercase;
-
-	@include rounded($border-radius);
+	border-radius: $border-radius;
 
 	&.btn-default {
+		box-shadow: none;
+
 		@include btn-pseudo-states-text($color-grey-800, transparent, transparent);
-		@include clear-box-shadow;
 	}
 }
 
 .label {
 	text-transform: uppercase;
 	font-weight: 500;
-
-	@include rounded($border-radius);
+	border-radius: $border-radius;
 
 	&.label-danger {
 		background: transparent;
@@ -120,14 +118,14 @@ main {
 }
 
 .panel {
-	@include rounded($border-radius);
+	border-radius: $border-radius;
 
 	.panel-heading {
-		@include border-radius($border-radius - 1, $border-radius - 1, 0, 0);
+		border-radius: ($border-radius - 1) ($border-radius - 1) 0 0;
 	}
 
 	.panel-footer {
-		@include border-radius(0, 0, $border-radius - 1, $border-radius - 1);
+		border-radius: 0 0 ($border-radius - 1) ($border-radius - 1);
 	}
 }
 
@@ -136,17 +134,16 @@ main {
 	border-left: none;
 	border-right: none;
 	border-width: .2rem;
-
-	@include rounded($border-radius);
-	@include box-shadow("0 0 0 transparent, 0 0 0 transparent, inset 0 0 0 transparent");
+	border-radius: $border-radius;
+	box-shadow: none;
 
 	&:focus {
-		@include box-shadow("0 0 0 transparent, 0 0 0 transparent, inset 0 0 0 transparent");
+		box-shadow: none;
 	}
 }
 
 .input-lg {
-	@include rounded($border-radius);
+	border-radius: $border-radius;
 }
 
 .has-error {
@@ -173,7 +170,7 @@ main {
 .nav-pills {
 	>li {
 		>a {
-			@include rounded($border-radius);
+			border-radius: $border-radius;
 		}
 	}
 }
