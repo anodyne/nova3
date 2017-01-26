@@ -60,8 +60,7 @@ dl {
 .btn {
 	font-weight: 500;
 	letter-spacing: 0.05rem;
-
-	@include rounded($border-radius);
+	border-radius: $border-radius;
 	
 	span {
 		padding-left: 0.5rem;
@@ -150,19 +149,19 @@ dl {
 .panel {
 	margin: $spacing 0;
 
-	@include rounded($border-radius);
+	border-radius: $border-radius;
 
 	.panel-heading {
-		@include border-radius($border-radius - 1, $border-radius - 1, 0, 0);
+		border-radius: ($border-radius - 1) ($border-radius - 1) 0 0;
 	}
 
 	.panel-footer {
-		@include border-radius(0, 0, $border-radius - 1, $border-radius - 1);
+		border-radius: 0 0 ($border-radius - 1) ($border-radius - 1);
 	}
 }
 
 .input-lg {
-	@include rounded($border-radius);
+	border-radius: $border-radius;
 }
 
 .checkbox, .checkbox-inline {
@@ -208,7 +207,7 @@ dl {
 
 	>li {
 		>a {
-			@include border-radius($border-radius, $border-radius, 0, 0);
+			border-radius: $border-radius $border-radius 0 0;
 		}
 	}
 }
@@ -224,7 +223,7 @@ dl {
 
 	>li {
 		>a {
-			@include rounded($border-radius);
+			border-radius: $border-radius;
 		}
 	}
 
@@ -279,8 +278,7 @@ fieldset {
  */
 .sweet-alert {
 	font-family: $font;
-
-	@include rounded($border-radius);
+	border-radius: $border-radius;
 
 	h2 {
 		font-weight: 500;
@@ -337,8 +335,7 @@ fieldset {
 		.uk-nestable-panel {
 			background-color: $color-subtle;
 			border: .1rem solid $color-gray-light;
-
-			@include rounded($border-radius);
+			border-radius: $border-radius;
 
 			.uk-nestable-handle {
 				padding: 0 0.4rem 0 0;
@@ -414,8 +411,7 @@ fieldset {
 
 		background: #fff;
 		border: 1px solid #ddd;
-
-		@include rounded($border-radius);
+		border-radius: $border-radius;
 
 		.tt-dataset {
 			display: flex;
@@ -432,8 +428,7 @@ fieldset {
 				/*padding: 1rem;*/
 
 				font-size: $font-size-sm;
-
-				@include rounded($border-radius-sm);
+				border-radius: $border-radius-sm;
 
 				&:hover {
 					cursor: pointer;
@@ -462,8 +457,7 @@ fieldset {
 
 		background-color: $color-danger;
 		border: 0.25rem solid #f8f8f8;
-
-		@include rounded(10rem);
+		border-radius: 10rem;
 	}
 }
 

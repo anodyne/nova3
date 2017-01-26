@@ -1,82 +1,50 @@
 @import "_bs4-mixins";
 
 @mixin transition ($value...) {
-	-webkit-transition: $value;
-	-o-transition: $value;
 	transition: $value;
 }
 
 @mixin rounded ($radius: 0.6rem) {
-	-webkit-border-radius: $radius;
-	-moz-border-radius: $radius;
-	-ms-border-radius: $radius;
-	border-radius: $radius;
+	@include border-radius($radius);
 }
 
-@mixin border-radius ($top: 0.3rem, $right: 0.3rem, $bottom: 0.3rem, $left: 0.3rem) {
-	$val: $top $right $bottom $left;
-	
-	-webkit-border-radius: $val;
-	-moz-border-radius: $val;
-	-ms-border-radius: $val;
-	border-radius: $val;
+@mixin border-radius ($value...) {
+	border-radius: $value;
 }
 
 @mixin box-shadow ($shadow...) {
-	-webkit-box-shadow: $shadow;
-	-moz-box-shadow: $shadow;
 	box-shadow: $shadow;
 }
 
 @mixin clear-box-shadow () {
-	@include box-shadow("inset 0 0 0 transparent, inset 0 0 0 transparent, 0 0 0 transparent");
+	@include box-shadow(none);
 }
 
 @mixin gradient ($start, $end) {
 	background: $end;
-	background: -moz-linear-gradient(top, $start 0%, $end 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $start), color-stop(100%, $end));
-	background: -webkit-linear-gradient(top, $start 0%, $end 100%);
-	background: -ms-linear-gradient(top, $start 0%, $end 100%);
 	background: linear-gradient(top, $start 0%, $end 100%);
 }
 
 @mixin gradient-gloss ($color1, $color2, $color3, $color4) {
 	background: $color4;
-	background: -moz-linear-gradient(top, $color1 0%, $color2 50%, $color3 51%, $color4 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $color1), color-stop(50%, $color2), color-stop(51%, $color3), color-stop(100%, $color4));
-	background: -webkit-linear-gradient(top, $color1 0%, $color2 50%, $color3 51%, $color4 100%);
-	background: -ms-linear-gradient(top, $color1 0%, $color2 50%, $color3 51%, $color4 100%);
 	background: linear-gradient(top, $color1 0%, $color2 50%, $color3 51%, $color4 100%);
 }
 
 @mixin background-clip($type: padding-box) {
-	-webkit-background-clip: $type;
-	-moz-background-clip: $type;
 	background-clip: $type;
 }
 
 @mixin rotate ($angle) {
-	-ms-transform: rotate($angle);
-	-moz-transform: rotate($angle);
-	-webkit-transform: rotate($angle);
 	transform: rotate($angle);
 }
 
 @mixin box-sizing($type: border-box) {
-	-webkit-box-sizing: $type;
-	-moz-box-sizing: $type;
 	box-sizing: $type;
 }
 
 @mixin placeholder($color: auto) {
 	&::-webkit-input-placeholder {
 		color: $color;
-	}
-
-	&::-moz-placeholder {
-		color: $color !important;
-		opacity: 1;
 	}
 
 	&:-ms-input-placeholder {
@@ -90,47 +58,6 @@
 		&:hover,
 		&:focus {
 			background-color: darken($color, 10%);
-		}
-	}
-}
-
-@mixin alert-variant($background, $border, $text-color) {
-	background-color: $background;
-	border-color: $border;
-	color: $text-color;
-
-	hr {
-		border-top-color: darken($border, 5%);
-	}
-	
-	.alert-link {
-		color: darken($text-color, 10%);
-	}
-}
-
-@mixin btn-pseudo-states($color, $background, $border) {
-	color: $color;
-	background-color: $background;
-	border-color: $border;
-
-	&:hover,
-	&:focus,
-	&:active,
-	&.active {
-		background-color: darken($background, 5%);
-				border-color: darken($border, 10%);
-	}
-
-	&.disabled,
-	&[disabled],
-	fieldset[disabled] & {
-		&,
-		&:hover,
-		&:focus,
-		&:active,
-		&.active {
-			background-color: $background;
-					border-color: $border
 		}
 	}
 }

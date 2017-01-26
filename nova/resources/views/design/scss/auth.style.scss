@@ -2,8 +2,7 @@
 
 .sweet-alert {
 	font-family: $font;
-
-	@include rounded($border-radius);
+	border-radius: $border-radius;
 
 	h2 {
 		font-weight: 500;

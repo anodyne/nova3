@@ -1,8 +1,5 @@
 .sweet-alert {
   font-family: "Roboto", helvetica, arial, sans-serif;
-  -webkit-border-radius: 0.4rem;
-  -moz-border-radius: 0.4rem;
-  -ms-border-radius: 0.4rem;
   border-radius: 0.4rem;
 }
 .sweet-alert h2 {
@@ -38,5 +35,3 @@
 .sweet-alert .sa-icon.sa-info::after {
   background-color: #5bc0de;
 }
-
-/*# sourceMappingURL=auth.style.css.map */
