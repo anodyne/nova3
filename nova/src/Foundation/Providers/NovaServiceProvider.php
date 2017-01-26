@@ -54,7 +54,7 @@ class NovaServiceProvider extends ServiceProvider {
 		{
 			if (class_exists('Barryvdh\Debugbar\ServiceProvider'))
 			{
-				$this->app->register('Barryvdh\Debugbar\ServiceProvider');
+				$this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
 			}
 		}
 	}
