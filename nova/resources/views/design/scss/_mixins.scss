@@ -1,25 +1,5 @@
 @import "_bs4-mixins";
 
-@mixin transition ($value...) {
-	transition: $value;
-}
-
-@mixin rounded ($radius: 0.6rem) {
-	@include border-radius($radius);
-}
-
-@mixin border-radius ($value...) {
-	border-radius: $value;
-}
-
-@mixin box-shadow ($shadow...) {
-	box-shadow: $shadow;
-}
-
-@mixin clear-box-shadow () {
-	@include box-shadow(none);
-}
-
 @mixin gradient ($start, $end) {
 	background: $end;
 	background: linear-gradient(top, $start 0%, $end 100%);
@@ -28,18 +8,6 @@
 @mixin gradient-gloss ($color1, $color2, $color3, $color4) {
 	background: $color4;
 	background: linear-gradient(top, $color1 0%, $color2 50%, $color3 51%, $color4 100%);
-}
-
-@mixin background-clip($type: padding-box) {
-	background-clip: $type;
-}
-
-@mixin rotate ($angle) {
-	transform: rotate($angle);
-}
-
-@mixin box-sizing($type: border-box) {
-	box-sizing: $type;
 }
 
 @mixin placeholder($color: auto) {

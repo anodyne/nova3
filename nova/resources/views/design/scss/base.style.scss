@@ -92,7 +92,7 @@ dl {
 		}
 
 		&:active, &:focus {
-			@include clear-box-shadow;
+			box-shadow: none;
 		}
 	}
 

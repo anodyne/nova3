@@ -8,7 +8,7 @@
 	color: $color;
 	background-color: $background;
 	border-color: $border;
-	@include box-shadow($btn-box-shadow);
+	box-shadow: $btn-box-shadow;
 
 	// Hover and focus styles are shared
 	@include hover {
@@ -42,7 +42,7 @@
 		background-image: none; // Remove the gradient for the pressed/active state
 		border-color: $active-border;
 		
-		@include box-shadow($btn-active-box-shadow);
+		box-shadow: $btn-active-box-shadow;
 	}
 }
 
