@@ -125,7 +125,7 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 
 	public function getByRouteUri($route, $with = [])
 	{
-		$routeUri = ($route instanceof Route) ? $route->getUri() : $route;
+		$routeUri = ($route instanceof Route) ? $route->uri() : $route;
 
 		// If we only have 1 argument for the method, we'll assume that we
 		// want to pull all of the relationships. Otherwise, we want to
