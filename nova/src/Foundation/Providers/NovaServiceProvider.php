@@ -1,23 +1,9 @@
 <?php namespace Nova\Foundation\Providers;
 
-use UserCreator, CharacterCreator;
 use ReflectionClass;
-use Illuminate\Support\ClassLoader,
-	Illuminate\Support\ServiceProvider;
-use League\CommonMark\CommonMarkConverter;
-use Nova\Core\Forms\Services\FieldTypes,
-	Nova\Core\Forms\Services\Compilers\FormCompiler,
-	Nova\Core\Pages\Services\Compilers\PageCompiler,
-	Nova\Core\Settings\Services\Compilers\SettingCompiler,
-	Nova\Core\Pages\Services\Compilers\PageContentCompiler;
+use Illuminate\Support\ServiceProvider;
 use Nova\Foundation\Themes\Theme as BaseTheme,
 	Nova\Foundation\Themes\Exceptions\MissingThemeImplementationException;
-use Nova\Foundation\Nova,
-	Nova\Foundation\Services\FlashNotifier,
-	Nova\Foundation\Services\MarkdownParser,
-	Nova\Foundation\Services\Locator\Locator,
-	Nova\Foundation\Services\PageCompiler\CompilerEngine,
-	Nova\Foundation\Services\PageCompiler\Compilers\IconCompiler;
 
 class NovaServiceProvider extends ServiceProvider {
 
@@ -30,7 +16,7 @@ class NovaServiceProvider extends ServiceProvider {
 	{
 		$this->app->singleton('nova', function ($app)
 		{
-			return new Nova;
+			return new \Nova\Foundation\Nova;
 		});
 		
 		$this->setRepositoryBindings();
@@ -67,13 +53,15 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function createLocator()
 	{
-		$this->app->singleton(
-			['nova.locator' => 'Nova\Foundation\Services\Locator\Locatable'],
-			function ($app)
-			{
-				return new Locator($app['nova.user'], $app['nova.settings']);
-			}
-		);
+		$this->app->singleton('Nova\Foundation\Services\Locator\Locatable', function ($app)
+		{
+			return new \Nova\Foundation\Services\Locator\Locator(
+				$app['nova.user'],
+				$app['nova.settings']
+			);
+		});
+
+		$this->app->alias('Nova\Foundation\Services\Locator\Locatable', 'nova.locator');
 
 		// Add a search path in a service provider
 		//$this->app['nova.locator']->registerSearchPath('extensions/Anodyne/Awards/views');
@@ -89,12 +77,20 @@ class NovaServiceProvider extends ServiceProvider {
 	{
 		$this->app->singleton('nova.page.compiler', function ($app)
 		{
-			$engine = new CompilerEngine;
+			$engine = new \Nova\Foundation\Services\PageCompiler\CompilerEngine;
 
-			$engine->registerCompiler('page', new PageCompiler);
-			$engine->registerCompiler('content', new PageContentCompiler);
-			$engine->registerCompiler('icon', new IconCompiler);
-			$engine->registerCompiler('form', new FormCompiler);
+			$engine->registerCompiler('page',
+				new \Nova\Core\Pages\Services\Compilers\PageCompiler
+			);
+			$engine->registerCompiler('content',
+				new \Nova\Core\Pages\Services\Compilers\PageContentCompiler
+			);
+			$engine->registerCompiler('icon',
+				new \Nova\Foundation\Services\PageCompiler\Compilers\IconCompiler
+			);
+			$engine->registerCompiler('form',
+				new \Nova\Core\Forms\Services\Compilers\FormCompiler
+			);
 
 			return $engine;
 		});
@@ -107,13 +103,23 @@ class NovaServiceProvider extends ServiceProvider {
 	{
 		$this->app->singleton('nova.forms.fields', function ($app)
 		{
-			$manager = new FieldTypes\FieldTypeManager;
+			$manager = new \Nova\Core\Forms\Services\FieldTypes\FieldTypeManager;
 
-			$manager->registerFieldType('text-field', new FieldTypes\TextField);
-			$manager->registerFieldType('text-block', new FieldTypes\TextBlock);
-			$manager->registerFieldType('text-editor', new FieldTypes\TextEditor);
-			$manager->registerFieldType('dropdown', new FieldTypes\Dropdown);
-			$manager->registerFieldType('radio', new FieldTypes\RadioButton);
+			$manager->registerFieldType('text-field',
+				new \Nova\Core\Forms\Services\FieldTypes\TextField
+			);
+			$manager->registerFieldType('text-block',
+				new \Nova\Core\Forms\Services\FieldTypes\TextBlock
+			);
+			$manager->registerFieldType('text-editor',
+				new \Nova\Core\Forms\Services\FieldTypes\TextEditor
+			);
+			$manager->registerFieldType('dropdown',
+				new \Nova\Core\Forms\Services\FieldTypes\Dropdown
+			);
+			$manager->registerFieldType('radio',
+				new \Nova\Core\Forms\Services\FieldTypes\RadioButton
+			);
 
 			return $manager;
 		});
@@ -192,22 +198,24 @@ class NovaServiceProvider extends ServiceProvider {
 
 		$this->app->bind('nova.character.creator', function ($app)
 		{
-			return new CharacterCreator($app['CharacterRepository']);
+			return new \CharacterCreator($app['CharacterRepository']);
 		});
 
 		$this->app->bind('nova.flash', function ($app)
 		{
-			return new FlashNotifier;
+			return new \Nova\Foundation\Services\FlashNotifier;
 		});
 
 		$this->app->bind('nova.markdown', function ($app)
 		{
-			return new MarkdownParser(new CommonMarkConverter);
+			return new \Nova\Foundation\Services\MarkdownParser(
+				new \League\CommonMark\CommonMarkConverter
+			);
 		});
 
 		$this->app->bind('nova.user.creator', function ($app)
 		{
-			return new UserCreator(
+			return new \UserCreator(
 				$app['UserRepository'],
 				$app['nova.character.creator']
 			);
@@ -237,10 +245,12 @@ class NovaServiceProvider extends ServiceProvider {
 		{
 			// Set the concrete and abstract names
 			$abstract = "{$binding}RepositoryContract";
-			$concrete = "{$binding}Repository";
+			$abstractFQN = alias($abstract);
+			$concrete = alias("{$binding}Repository");
 
-			// Bind to the container
-			$this->app->bind([$abstract => alias($abstract)], alias($concrete));
+			// Bind to the container and set the alias
+			$this->app->bind($abstractFQN, $concrete);
+			$this->app->alias($abstractFQN, $abstract);
 		}
 	}
 
@@ -280,8 +290,8 @@ class NovaServiceProvider extends ServiceProvider {
 		}
 
 		// Try to autoload the appropriate theme file
-		ClassLoader::addDirectories($this->app->themePath($themeName));
-		$loaded = ClassLoader::load('Theme');
+		//ClassLoader::addDirectories($this->app->themePath($themeName));
+		//$loaded = ClassLoader::load('Theme');
 
 		if (class_exists('Theme'))
 		{

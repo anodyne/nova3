@@ -1,9 +1,9 @@
 {
 	"require": {
-		"laravel/framework": "5.3.*",
+		"laravel/framework": "5.4.*",
 		"league/commonmark": "*",
 		"laracasts/presenter": "*",
-		"laravelcollective/html": "5.3.*",
+		"laravelcollective/html": "5.4.*",
 		"dingo/api": "1.0.*@dev",
 		"pespantelis/gravatar": "~1.0",
 		"ramsey/uuid": "~3.3",
@@ -12,7 +12,7 @@
 
 		"spatie/laravel-partialcache": "~1.2",
 		"spatie/laravel-medialibrary": "~4.0",
-		"spatie/laravel-menu": "~1.2",
+		"spatie/laravel-menu": "~2.0",
 		"spatie/laravel-backup": "~4.0",
 		"spatie/laravel-activitylog": "~1.2"
 	},
