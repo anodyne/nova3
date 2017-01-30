@@ -45,7 +45,7 @@ if (in_array($path, $dbActive))
 {
 	$classes[1] = 'class="step active"';
 }
-if (File::exists(app('path.config').'/database.php'))
+if (Nova::isConfigured('db'))
 {
 	$classes[1] = 'class="step completed"';
 }
@@ -54,7 +54,7 @@ if (in_array($path, $emailActive))
 {
 	$classes[2] = 'class="step active"';
 }
-if (File::exists(app('path.config').'/mail.php'))
+if (Nova::isConfigured('mail'))
 {
 	$classes[2] = 'class="step completed"';
 }
@@ -63,7 +63,7 @@ if (in_array($path, $novaActive))
 {
 	$classes[3] = 'class="step active"';
 }
-if (app('filesystem')->disk('local')->has('installed.json'))
+if (Nova::isInstalled())
 {
 	$classes[3] = 'class="step completed"';
 }
@@ -85,8 +85,6 @@ if (in_array($path, $settingsCompleted))
 {
 	$classes[5] = 'class="step completed"';
 }
-
-$setup = app('nova.setup');
 
 ?><div class="wizard">
 	<div {!! $classes[1] !!}>
