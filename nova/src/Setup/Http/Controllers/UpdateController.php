@@ -1,6 +1,10 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use Event, Artisan, Exception;
+use Nova,
+	Event,
+	Artisan,
+	Exception,
+	SystemRepositoryContract;
 use Spatie\Backup\Events\{BackupHasFailed, BackupWasSuccessful};
 use Spatie\Backup\Tasks\Backup\BackupJobFactory;
 
@@ -12,6 +16,14 @@ class UpdateController extends BaseController {
 	protected $backupStatusMessage;
 	protected $updateStatus;
 	protected $targetVersion;
+	protected $currentVersion = '3.0.8';
+
+	public function __construct(SystemRepositoryContract $sysinfo)
+	{
+		parent::__construct();
+		
+		$this->sysinfo = $sysinfo;
+	}
 
 	public function index()
 	{
@@ -83,9 +95,9 @@ class UpdateController extends BaseController {
 
 	public function changes()
 	{
-		// We need to get the list of changes from all versions that
-		// we're running the update for.
+		// Get the release notes to display
+		$releases = Nova::getReleaseNotes();
 
-		return view('pages.setup.update.changes');
+		return view('pages.setup.update.changes', compact('releases'));
 	}
 }

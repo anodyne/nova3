@@ -1,7 +1,7 @@
 @extends('layouts.setup')
 
 @section('title')
-	Setup Center
+	Update {{ config('nova.app.name') }}
 @stop
 
 @section('header')
@@ -11,13 +11,11 @@
 @section('content')
 	<h1>Update {{ config('nova.app.name') }}</h1>
 
-	<p>{{ config('nova.app.name') }} is a dynamic, database-driven web system which means there's some work to do before you can use it. Start to finish, the installation should only take a few minutes to complete and then you'll be on your way. If you have questions, you can refer to the <a href='http://docs.anodyne-productions.com' target='_blank'>Anodyne Help Center</a> or drop in to our <a href='http://forums.anodyne-productions.com' target='_blank'>forums</a>.</p>
-
-	<h2>Before You Begin</h2>
+	<p>{{ config('nova.app.name') }} is a dynamic, database-driven web system which means there's some work to do before you can use it. Start to finish, the update should only take a couple of minutes to complete and then you'll be back on your way. If you have questions, you can refer to the <a href='http://docs.anodyne-productions.com' target='_blank'>Anodyne Help Center</a> or drop in to our <a href='http://forums.anodyne-productions.com' target='_blank'>forums</a>.</p>
 
 	<h2>Getting Help</h2>
 
-	<p>The links below provide information about how to install {{ config('nova.app.name') }} as well as a brief tour of some of {{ config('nova.app.name') }}'s major features. If you have additional questions, please visit the Anodyne Help Center or the Anodyne forums for more help.</p>
+	<p>The links below provide information about how to update to the latest version of {{ config('nova.app.name') }} as well as a brief tour of some of {{ config('nova.app.name') }}'s major features. If you have additional questions, please visit the Anodyne Help Center or the Anodyne forums for more help.</p>
 
 	<hr>
 
