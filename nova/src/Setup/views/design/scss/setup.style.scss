@@ -56,68 +56,6 @@ header {
 	}
 }
 
-nav {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	padding: $spacing;
-	margin-bottom: 1.5rem;
-
-	font-size: 0.9rem;
-	background: $color-blue-grey-800;
-	color: $color-blue-grey-400;
-	border: 0.1rem solid rgba(0, 0, 0, 0.15);
-	border-radius: $radius-lg;
-
-	footer {
-		padding: 1.5rem 0 0 0;
-	}
-
-	ol {
-		position: relative;
-		margin: 0;
-		padding: 0;
-
-		counter-reset: li;
-		list-style: none;
-
-		li {
-			display: flex;
-			position: relative;
-			margin: 0;
-
-			align-items: center;
-
-			.icon {
-				height: 2.5rem;
-				width: 2.5rem;
-				padding-right: 1rem;
-
-				path {
-					fill: $color-blue-grey-400;
-				}
-			}
-
-			&.step-active {
-				color: $color-white;
-
-				path {
-					fill: $color-white;
-				}
-			}
-
-			&.step-completed {
-				color: rgba(255, 255, 255, 0.5);
-				background: $color-blue-grey-600;
-
-				path {
-					fill: rgba(255, 255, 255, 0.5);
-				}
-			}
-		}
-	}
-}
-
 main {
 	background: $color-white;
 	color: $color-blue-grey-800;
@@ -125,7 +63,7 @@ main {
 	border-radius: $radius-lg;
 
 	.content {
-		padding: $spacing;
+		padding: 1.5rem 2rem;
 
 		a {
 			color: $color-primary;
@@ -142,10 +80,104 @@ main {
 		.btn {
 			width: 100%;
 		}
+
+		ol.big-numbers {
+			counter-reset: li;
+			margin-left: 0;
+			padding-left: 0;
+
+			> li {
+				position: relative;
+				margin: 0 0 0.375rem 2.25rem;
+				padding: 0.25rem 1rem;
+				line-height: $line-height;
+
+				list-style: none;
+				font-size: 1rem;
+
+				&:before {
+					content: counter(li);
+					counter-increment: li;
+					position: absolute;
+					top: -0.25rem;
+					left: -2rem;
+					width: 2rem;
+					margin-right: 0.5rem;
+					padding: 0.25rem;
+
+					text-align: center;
+					color: $color-blue-grey-200;
+					font-size: 1.75rem;
+					font-weight: 300;
+					font-family: $font-heading;
+				}
+
+				&:after {
+					content: ".";
+					display: block;
+					clear: both;
+					visibility: hidden;
+					line-height: 0;
+					height: 0;
+				}
+			}
+		}
+
+		dl.big-numbers {
+			counter-reset: li;
+			margin-left: 0;
+			padding-left: 0;
+
+			> dt {
+				position: relative;
+				margin: 0 0 0 2.25rem;
+				padding: 0.25rem 1rem;
+				line-height: $line-height;
+
+				font-size: 1.3rem;
+				font-weight: 400;
+				color: $color-blue-grey-500;
+
+				&:before {
+					content: counter(li);
+					counter-increment: li;
+					position: absolute;
+					top: -0.2rem;
+					left: -2rem;
+					width: 2rem;
+					margin-right: 0.5rem;
+					padding: 0.25rem;
+
+					text-align: center;
+					color: $color-blue-grey-200;
+					font-size: 1.75rem;
+					font-weight: 300;
+					font-family: $font-heading;
+				}
+
+				&:after {
+					content: ".";
+					display: block;
+					clear: both;
+					visibility: hidden;
+					line-height: 0;
+					height: 0;
+				}
+			}
+
+			> dd {
+				position: relative;
+				margin: 0 0 0.375rem 2.25rem;
+				padding: 0.25rem 1rem;
+				line-height: $line-height;
+
+				font-size: 1rem;
+			}
+		}
 	}
 
 	.controls {
-		padding: $spacing;
+		padding: 1.5rem 2rem;
 
 		border-top: 0.1rem solid rgba(0, 0, 0, 0.125);
 
