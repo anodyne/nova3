@@ -1,7 +1,7 @@
 @extends('layouts.setup')
 
 @section('title')
-	Setup Center
+	Fresh Install
 @stop
 
 @section('header')
@@ -14,6 +14,17 @@
 	<p>{{ config('nova.app.name') }} is a dynamic, database-driven web system which means there's some work to do before you can use it. Start to finish, the installation should only take a few minutes to complete and then you'll be on your way. If you have questions, you can refer to the <a href='http://docs.anodyne-productions.com' target='_blank'>Anodyne Help Center</a> or drop in to our <a href='http://forums.anodyne-productions.com' target='_blank'>forums</a>.</p>
 
 	<h2>Before You Begin</h2>
+
+	<dl class="big-numbers">
+		<dt>Help! How do I install Nova???</dt>
+		<dd>We've written an exhaustive <a href="#">install guide</a> that will walk you through the process of doing a fresh install of {{ config('nova.app.name') }}. Make sure you've read through the guide in its entirety <strong>before</strong> attempting to run the installer.</dd>
+
+		<dt>The Database</dt>
+		<dd>During the installation, you'll be prompted for your database connection information (the host, username, password, port, etc.). You should have gotten an email from your web host with this information. <strong>Make sure you have this information ready to go before you start!</strong> If you don't have the information or have questions about how to connect to your database, contact your web host.</dd>
+
+		<dt>Email</dt>
+		<dd>{{ config('nova.app.name') }} sends a wide array of emails and as such, one of the steps involves setting up how you want email to behave. In the past, we've relied on PHP's built-in email features, but over the years, that's gotten more and more unreliable with many admins reporting that email stops working randomly. To avoid these issues, we <strong>strongly recommend</strong> using a third-party SMTP service. We've assembled <a href="#">some information</a> about SMTP services and which ones we recommend.</dd>
+	</dl>
 
 	<h2>Getting Help</h2>
 
