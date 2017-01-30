@@ -1,8 +1,8 @@
-<?php namespace Nova\Setup\Services;
+<?php namespace Nova\Setup;
 
 use Illuminate\Filesystem\Filesystem;
 
-class ConfigFileWriterService {
+class ConfigFileWriter {
 
 	protected $files;
 
@@ -27,5 +27,4 @@ class ConfigFileWriterService {
 		// Create the file and store the content
 		$this->files->put(app('path.config')."/{$file}.php", $content);
 	}
-
 }

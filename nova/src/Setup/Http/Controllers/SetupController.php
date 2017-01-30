@@ -1,18 +1,17 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use Flash, Artisan;
-use Illuminate\Filesystem\Filesystem,
-	Illuminate\Filesystem\FilesystemManager;
+use Nova, Artisan;
+use Illuminate\Filesystem\{Filesystem, FilesystemManager};
 
 class SetupController extends BaseController {
 
 	public function index()
 	{
 		// Is Nova installed?
-		$installed = nova()->isInstalled();
+		$installed = Nova::isInstalled();
 
 		// Is there an update available for Nova?
-		$update = false;
+		$update = Nova::hasUpdate();
 
 		return view('pages.setup.index', compact('installed', 'update'));
 	}
@@ -20,7 +19,7 @@ class SetupController extends BaseController {
 	public function environment()
 	{
 		// Check the environment
-		$env = app('nova.setup')->checkEnvironment();
+		$env = Nova::checkEnvironment();
 
 		// If everything checks out, head to the Setup Center
 		if ($env->get('passes'))
@@ -46,11 +45,11 @@ class SetupController extends BaseController {
 		Artisan::call('migrate:reset', ['--force' => true]);
 
 		// Remove the config files
-		$files->delete(app('path.config').'/app.php');
-		$files->delete(app('path.config').'/database.php');
-		$files->delete(app('path.config').'/mail.php');
-		$files->delete(app('path.config').'/services.php');
-		$files->delete(app('path.config').'/session.php');
+		$files->delete(config_path('app.php'));
+		$files->delete(config_path('database.php'));
+		$files->delete(config_path('mail.php'));
+		$files->delete(config_path('services.php'));
+		$files->delete(config_path('session.php'));
 
 		// Remove the SQLite database if it's there
 		if ($files->exists(config('database.connections.sqlite.database')))
@@ -63,5 +62,4 @@ class SetupController extends BaseController {
 
 		return redirect()->route('setup.home');
 	}
-
 }

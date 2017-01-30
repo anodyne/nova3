@@ -18,5 +18,4 @@ abstract class BaseController extends Controller {
 		// Make sure the setup module is in the views path
 		view()->addLocation(app_path('Setup/views'));
 	}
-
 }

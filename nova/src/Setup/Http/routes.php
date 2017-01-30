@@ -61,3 +61,11 @@ Route::group($updateOptions, function () {
 	Route::get('success', 'UpdateController@updateSuccess')->name('setup.update.success');
 	Route::get('failed', 'UpdateController@updateFailed')->name('setup.update.failed');
 });
+
+$migrateOptions = array_merge($options, [
+	'prefix' => 'setup/migrate'
+]);
+
+Route::group($migrateOptions, function () {
+	Route::get('/', 'MigrateController@index')->name('setup.migrate');
+});

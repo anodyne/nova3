@@ -1,6 +1,5 @@
 <?php namespace Nova\Setup\Providers;
 
-use Str;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class SetupRouteServiceProvider extends ServiceProvider {
@@ -12,7 +11,7 @@ class SetupRouteServiceProvider extends ServiceProvider {
 	 *
 	 * @var string
 	 */
-	protected $namespace = false;
+	protected $namespace = 'Nova\Setup\Http\Controllers';
 
 	/**
 	 * Define your route model bindings, pattern filters, etc.
