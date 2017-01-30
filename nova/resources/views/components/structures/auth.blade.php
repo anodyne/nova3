@@ -14,7 +14,8 @@
 		@if (app('files')->exists(theme_path('design/css/bootstrap.css', false)))
 			{!! HTML::style(theme_path('design/css/bootstrap.css')) !!}
 		@else
-			<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+			<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+			<!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">-->
 		@endif
 		{!! HTML::style('nova/resources/css/summernote.css') !!}
 		{!! HTML::style('nova/resources/css/sweetalert.css') !!}
@@ -55,7 +56,9 @@
 		{!! $template or false !!}
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+		{!! HTML::script('nova/resources/js/tether.min.js') !!}
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.js"></script>
 		{!! HTML::script('nova/resources/js/underscore-min.js') !!}
@@ -106,7 +109,7 @@
 			})
 
 			var vue = {}
-			window.Nova = <?php echo json_encode(Nova::javascriptValues());?>
+			window.Nova = <?php echo json_encode(Nova::scriptVariables());?>
 
 			@if (session()->has('flash_message'))
 				swal({
