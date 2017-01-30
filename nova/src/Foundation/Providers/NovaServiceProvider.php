@@ -193,6 +193,16 @@ class NovaServiceProvider extends ServiceProvider {
 			return collect();
 		});
 
+		$this->app->singleton('nova.system', function ($app)
+		{
+			if (Nova::isInstalled())
+			{
+				return $app['SystemRepository']->getAllInfo();
+			}
+
+			return collect();
+		});
+
 		$this->app->singleton('nova.roles', function ($app)
 		{
 			return $app['RoleRepository']->all();
