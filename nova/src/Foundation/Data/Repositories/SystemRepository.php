@@ -37,6 +37,11 @@ class SystemRepository extends BaseRepository implements SystemRepositoryContrac
 		return $uuid;
 	}
 
+	public function getAllInfo()
+	{
+		return $this->model->first();
+	}
+
 	public function getUUID()
 	{
 		return $this->model->first()->uuid;
@@ -66,5 +71,4 @@ class SystemRepository extends BaseRepository implements SystemRepositoryContrac
 
 		return false;
 	}
-	
 }
