@@ -73,8 +73,6 @@ if (in_array($path, $updateCompleted))
 	$classes[3] = 'class="step completed"';
 }
 
-$setup = app('nova.setup');
-
 ?><div class="row">
 	<div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
 		<div class="wizard space-around">
