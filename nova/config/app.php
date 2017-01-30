@@ -236,6 +236,7 @@ return [
 		'MenuBuilder'		=> Spatie\Menu\Laravel\Menu::class,
 		'Model'				=> Illuminate\Database\Eloquent\Model::class,
 		'Nova'				=> Nova\Foundation\Facades\NovaFacade::class,
+		'Nova'				=> Nova\Foundation\Nova::class,
 		'Status'			=> Nova\Foundation\Services\StatusService::class,
 		'StatusTrait'		=> Nova\Foundation\Traits\StatusTrait::class,
 		'Str'				=> Illuminate\Support\Str::class,
