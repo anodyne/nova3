@@ -1,7 +1,5 @@
 @extends('layouts.setup-landing')
 
-@inject('setup', 'nova.setup')
-
 @section('title')
 	Setup Center
 @stop
