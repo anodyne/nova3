@@ -196,6 +196,14 @@ if ( ! function_exists('partial'))
 	}
 }
 
+if ( ! function_exists('setup_path'))
+{
+	function setup_path($path = false)
+	{
+		return nova_path("src/Setup/{$path}");
+	}
+}
+
 if ( ! function_exists('theme'))
 {
 	function theme()
