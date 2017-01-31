@@ -1,7 +1,6 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use Nova,
-	Event,
+use Event,
 	Artisan,
 	Exception,
 	SystemRepositoryContract;
@@ -96,7 +95,7 @@ class UpdateController extends BaseController {
 	public function changes()
 	{
 		// Get the release notes to display
-		$releases = Nova::getReleaseNotes();
+		$releases = nova()->getReleaseNotes();
 
 		return view('pages.setup.update.changes', compact('releases'));
 	}

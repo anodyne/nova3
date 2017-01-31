@@ -1,6 +1,6 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use Nova, Artisan;
+use Artisan;
 use Illuminate\Filesystem\{Filesystem, FilesystemManager};
 
 class SetupController extends BaseController {
@@ -8,10 +8,10 @@ class SetupController extends BaseController {
 	public function index()
 	{
 		// Is Nova installed?
-		$installed = Nova::isInstalled();
+		$installed = nova()->isInstalled();
 
 		// Is there an update available for Nova?
-		$update = Nova::hasUpdate();
+		$update = nova()->hasUpdate();
 
 		return view('pages.setup.index', compact('installed', 'update'));
 	}
@@ -19,7 +19,7 @@ class SetupController extends BaseController {
 	public function environment()
 	{
 		// Check the environment
-		$env = Nova::checkEnvironment();
+		$env = nova()->checkEnvironment();
 
 		// If everything checks out, head to the Setup Center
 		if ($env->get('passes'))

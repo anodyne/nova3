@@ -1,6 +1,6 @@
 <?php namespace Nova\Foundation\Providers;
 
-use Nova, ReflectionClass;
+use ReflectionClass;
 use Illuminate\Support\ServiceProvider;
 use Nova\Foundation\Themes\Theme as BaseTheme,
 	Nova\Foundation\Themes\Exceptions\MissingThemeImplementationException;
@@ -28,7 +28,7 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->setupTheme();
 		$this->setupMailer();
 
-		Nova::startup();
+		$this->app['nova']->startup();
 	}
 
 	/**
@@ -185,7 +185,7 @@ class NovaServiceProvider extends ServiceProvider {
 
 		$this->app->singleton('nova.settings', function ($app)
 		{
-			if (Nova::isInstalled())
+			if (nova()->isInstalled())
 			{
 				return $app['SettingRepository']->getAllSettings();
 			}
@@ -195,7 +195,7 @@ class NovaServiceProvider extends ServiceProvider {
 
 		$this->app->singleton('nova.system', function ($app)
 		{
-			if (Nova::isInstalled())
+			if (nova()->isInstalled())
 			{
 				return $app['SystemRepository']->getAllInfo();
 			}

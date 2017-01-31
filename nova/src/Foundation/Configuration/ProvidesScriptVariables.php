@@ -4,14 +4,14 @@ use Status;
 
 trait ProvidesScriptVariables {
 
-	public static function scriptVariables()
+	public function scriptVariables()
 	{
 		// Grab the user so we can manually build the user object
 		$currentUser = user();
 
 		// Nova's system variables
 		$system = ['system' => [
-			'version' => static::$version,
+			'version' => $this->version,
 			'baseUrl' => app('request')->root(),
 			'token' => csrf_token(),
 			'genre' => config('nova.genre'),

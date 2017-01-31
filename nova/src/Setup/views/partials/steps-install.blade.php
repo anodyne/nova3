@@ -45,7 +45,7 @@ if (in_array($path, $dbActive))
 {
 	$classes[1] = 'class="step active"';
 }
-if (Nova::isConfigured('db'))
+if (nova()->isConfigured('db'))
 {
 	$classes[1] = 'class="step completed"';
 }
@@ -54,7 +54,7 @@ if (in_array($path, $emailActive))
 {
 	$classes[2] = 'class="step active"';
 }
-if (Nova::isConfigured('mail'))
+if (nova()->isConfigured('mail'))
 {
 	$classes[2] = 'class="step completed"';
 }
@@ -63,7 +63,7 @@ if (in_array($path, $novaActive))
 {
 	$classes[3] = 'class="step active"';
 }
-if (Nova::isInstalled())
+if (nova()->isInstalled())
 {
 	$classes[3] = 'class="step completed"';
 }

@@ -5,36 +5,43 @@ use GuzzleHttp\Client;
 
 trait DoesVersionCheck {
 
-	public static $updateVersion;
+	public $updateObject;
+	public $updateVersion;
 
 	public function getLatestVersion()
 	{
-		if (app('env') != 'production')
+		switch (app('env'))
 		{
-			static::$updateVersion = '3.1';
+			case 'production':
+			default:
+				$response = (new Client)
+					->get('https://version.anodyne-productions.com');
 
-			return true;
+				$content = $response->getBody()->getContents();
+			break;
+
+			case 'local':
+			case 'testing':
+				$content = app('files')->get(setup_path('version.json'));
+			break;
 		}
 
-		// Build a new client
-		$client = new Client();
+		$this->updateObject = json_decode($content);
+		$this->updateVersion = $this->updateObject->version;
 
-		// Make the request to the Nova version service
-		$response = $client->get('https://version.anodyne-productions.com');
-
-		return json_decode($response->getBody()->getContents());
+		return $this->updateObject;
 	}
 
-	public static function getReleaseNotes()
+	public function getReleaseNotes()
 	{
 		// Parse the releases JSON object and throw it into a collection
 		$releases = collect(
 			json_decode(
-				app('files')->get(app_path("Setup/releases.json"))
+				app('files')->get(setup_path("releases.json"))
 			)->releases
 		);
 
-		$version = static::$version;
+		$version = $this->version;
 
 		// Filter out any version that is the current version or older, then
 		// map the collection to get the pretty date and parse the Markdown
@@ -55,29 +62,10 @@ trait DoesVersionCheck {
 		})->sortByDesc('version');
 	}
 
-	public static function hasUpdate() : bool
+	public function hasUpdate() : bool
 	{
-		if (app('env') != 'production')
-		{
-			static::$updateVersion = '3.1';
+		$update = $this->getLatestVersion();
 
-			return true;
-		}
-
-		// Build a new client
-		$client = new Client();
-
-		// Make the request to the Nova version service
-		$response = $client->get('https://version.anodyne-productions.com');
-
-		// Get the response body's content
-		$version = json_decode($response->getBody()->getContents());
-
-		if (version_compare(static::$version, static::$updateVersion, '<'))
-		{
-			return true;
-		}
-
-		return false;
+		return version_compare($this->version, $update->version, '<');
 	}
 }

@@ -8,7 +8,7 @@ trait DoesSystemChecks {
 	 * @param	string	$component
 	 * @return	bool
 	 */
-	public static function isConfigured($component)
+	public function isConfigured($component)
 	{
 		switch ($component)
 		{
@@ -30,7 +30,7 @@ trait DoesSystemChecks {
 		return false;
 	}
 
-	public static function isInstalled()
+	public function isInstalled()
 	{
 		return app('filesystem')->disk('local')->has('installed.json');
 	}

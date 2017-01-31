@@ -1,4 +1,4 @@
-<?php namespace Nova\Foundation\Facades;
+<?php namespace Nova\Foundation;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -10,5 +10,4 @@ class NovaFacade extends Facade {
 	* @return string
 	*/
 	protected static function getFacadeAccessor() { return 'nova'; }
-
 }

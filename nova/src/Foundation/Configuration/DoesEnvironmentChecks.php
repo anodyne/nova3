@@ -10,7 +10,7 @@ trait DoesEnvironmentChecks {
 	 *
 	 * @return	Collection
 	 */
-	public static function checkEnvironment()
+	public function checkEnvironment()
 	{
 		$checks = collect([
 			'passes'			=> true,
