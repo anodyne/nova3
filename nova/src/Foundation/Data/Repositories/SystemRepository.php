@@ -54,6 +54,17 @@ class SystemRepository extends BaseRepository implements SystemRepositoryContrac
 		return "{$item->version_major}.{$item->version_minor}.{$item->version_patch}";
 	}
 
+	public function setVersionNumber($version)
+	{
+		// Grab the version number out of the config file
+		list($version_major, $version_minor, $version_patch) = explode('.', $version);
+
+		// Update the system record
+		return $this->updateSystemRecord(
+			compact('version_major', 'version_minor', 'version_patch')
+		);
+	}
+
 	public function updateSystemRecord(array $data)
 	{
 		$info = $this->model->first();

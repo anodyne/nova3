@@ -7,6 +7,7 @@ interface SystemRepositoryContract extends BaseRepositoryContract {
 	public function getAllInfo();
 	public function getUUID();
 	public function getVersion();
+	public function setVersionNumber($version);
 	public function updateSystemRecord(array $data);
 
 }
