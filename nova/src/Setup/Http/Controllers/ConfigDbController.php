@@ -1,7 +1,7 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use Flash, Input;
 use PDO, PDOException;
+use Illuminate\Http\Request;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Database\Connectors\Connector;
 
@@ -12,9 +12,9 @@ class ConfigDbController extends BaseController {
 		return view('pages.setup.config.db.info');
 	}
 
-	public function check(Connector $connector, Filesystem $files)
+	public function check(Request $request, Connector $connector, Filesystem $files)
 	{
-		if (Input::get('db_name') == "")
+		if ($request->get('db_name') == "")
 		{
 			flash()->error("No Database Found", "Please enter a database name to configure your database connection.");
 			
@@ -22,12 +22,12 @@ class ConfigDbController extends BaseController {
 		}
 
 		// Set the session variables
-		session(['dbDriver' => trim(Input::get('db_driver'))]);
-		session(['dbName' => trim(Input::get('db_name'))]);
-		session(['dbUser' => trim(Input::get('db_user'))]);
-		session(['dbPass' => trim(Input::get('db_password'))]);
-		session(['dbHost' => trim(Input::get('db_host'))]);
-		session(['prefix' => trim(Input::get('db_prefix'))]);
+		session(['dbDriver' => trim($request->get('db_driver'))]);
+		session(['dbName' => trim($request->get('db_name'))]);
+		session(['dbUser' => trim($request->get('db_user'))]);
+		session(['dbPass' => trim($request->get('db_password'))]);
+		session(['dbHost' => trim($request->get('db_host'))]);
+		session(['prefix' => trim($request->get('db_prefix'))]);
 
 		// Set the connection parameters
 		config(['database.default' => session('dbDriver')]);
@@ -35,9 +35,9 @@ class ConfigDbController extends BaseController {
 		if (session('dbDriver') == 'sqlite')
 		{
 			// Make sure the database file exists
-			if ( ! $files->exists(storage_path().'/database.sqlite'))
+			if ( ! $files->exists(storage_path('database.sqlite')))
 			{
-				$files->put(storage_path().'/database.sqlite', '');
+				$files->put(storage_path('database.sqlite'), '');
 			}
 
 			config(['database.connections.sqlite.prefix' => session('prefix')]);
@@ -76,7 +76,11 @@ class ConfigDbController extends BaseController {
 				: "{$config['type']}:host={$config['host']};dbname={$config['database']}";
 
 			// Try to connect to the database
-			$connection = $connector->createConnection($dsn, $config, $connector->getDefaultOptions());
+			$connection = $connector->createConnection(
+				$dsn,
+				$config,
+				$connector->getDefaultOptions()
+			);
 
 			return redirect()->route("setup.{$this->setupType}.config.db.write");
 
@@ -119,15 +123,28 @@ class ConfigDbController extends BaseController {
 			// Grab the config writer
 			$writer = app('nova.setup.configWriter');
 
-			// Write the database config
-			$writer->write('database', [
+			$dbConfigValues = [
 				"#DB_DRIVER#"	=> session('dbDriver'),
 				"#DB_HOST#"		=> session('dbHost'),
 				"#DB_DATABASE#"	=> session('dbName'),
 				"#DB_USERNAME#"	=> session('dbUser'),
 				"#DB_PASSWORD#"	=> session('dbPass'),
 				"#DB_PREFIX#"	=> session('prefix'),
-			]);
+			];
+
+			if (session()->has('nova2_dbName'))
+			{
+				$dbConfigValues = array_merge($dbConfigValues, [
+					"#NOVA2_DB_HOST#"		=> session('nova2_dbHost'),
+					"#NOVA2_DB_DATABASE#"	=> session('nova2_dbName'),
+					"#NOVA2_DB_USERNAME#"	=> session('nova2_dbUser'),
+					"#NOVA2_DB_PASSWORD#"	=> session('nova2_dbPass'),
+					"#NOVA2_DB_PREFIX#"		=> session('nova2_prefix'),
+				]);
+			}
+
+			// Write the database config
+			$writer->write('database', $dbConfigValues);
 
 			if ($files->exists(app('path.config').'/database.php'))
 			{
@@ -153,5 +170,4 @@ class ConfigDbController extends BaseController {
 	{
 		return view('pages.setup.config.db.success');
 	}
-
 }

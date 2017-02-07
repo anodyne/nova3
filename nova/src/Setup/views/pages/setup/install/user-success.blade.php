@@ -1,12 +1,8 @@
 @extends('layouts.setup')
 
-@section('title')
-	Create User &amp; Character
-@stop
+@section('title', 'Create User &amp; Character')
 
-@section('header')
-	Create User &amp; Character
-@stop
+@section('header', 'Create User &amp; Character')
 
 @section('content')
 	<h1>User Account &amp; Character Created</h1>

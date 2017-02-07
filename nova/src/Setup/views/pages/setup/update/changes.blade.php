@@ -1,12 +1,8 @@
 @extends('layouts.setup')
 
-@section('title')
-	Summary of Changes
-@stop
+@section('title', 'Summary of Changes')
 
-@section('header')
-	Summary of Changes
-@stop
+@section('header', 'Summary of Changes')
 
 @section('content')
 	<h1>Summary of Changes</h1>

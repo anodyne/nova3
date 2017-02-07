@@ -1,17 +1,11 @@
 @extends('layouts.setup')
 
-@section('title')
-	Site Backup
-@stop
+@section('title', 'Site Backup')
 
-@section('header')
-	Site Backup
-@stop
+@section('header', 'Site Backup')
 
 @section('content')
 	<h1>Your Site Has Been Backed Up</h1>
-
-	{!! alert('danger', $errorMessage, 'Backup Error') !!}
 
 	<p>We've successfully backed up your site and database!</p>
 

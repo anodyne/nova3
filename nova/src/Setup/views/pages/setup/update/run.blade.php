@@ -1,12 +1,17 @@
 @extends('layouts.setup')
 
-@section('title', 'Site Backup')
+@section('title', 'Run Update')
 
-@section('header', 'Site Backup')
+@section('header', 'Run Update')
 
 @section('content')
-	<h1>Backup Your Site</h1>
-	<h3>Let's make sure you have a recent backup of your site before updating</h3>
+	<h1>Run the Update</h1>
+
+	<div class="row">
+		<div class="col-sm-10 offset-sm-1">
+			<p class="lead"><em>{{ $update->summary }}</em></p>
+		</div>
+	</div>
 
 	<div v-cloak>
 		<div v-show="loading">
@@ -19,10 +24,10 @@
 
 		<div class="row" v-show="!loading">
 			<div class="col-md-4 col-lg-3 col-xl-2 offset-md-2 offset-lg-3 offset-xl-4">
-				<p><a role="button" href="#" class="btn btn-outline-primary btn-block" @click.prevent="runBackup">Backup Now</a></p>
+				<p><a role="button" href="#" class="btn btn-outline-primary btn-block" @click.prevent="runUpdate">Run Update</a></p>
 			</div>
 			<div class="col-md-4 col-lg-3 col-xl-2">
-				<p><a href="{{ route('setup.update.preRun') }}" class="btn btn-outline-secondary btn-block">Skip Backup</a></p>
+				<p><a href="{{ route('home') }}" class="btn btn-outline-secondary btn-block">Cancel Update</a></p>
 			</div>
 		</div>
 	</div>
@@ -31,10 +36,10 @@
 @section('controls')
 	<div class="row">
 		<div class="col-md-6 push-md-6 text-right">
-			<p><a href="{{ route('setup.update.backup') }}" class="btn btn-link btn-lg disabled">Next: Update {{ config('nova.app.name') }}</a></p>
+			<p><a class="btn btn-link btn-lg disabled">Next: Go to Your Site</a></p>
 		</div>
 		<div class="col-md-6 pull-md-6">
-			<p><a href="{{ route('setup.update.changes') }}" class="btn btn-link btn-lg">Back: Summary of Changes</a></p>
+			<p><a href="{{ route('setup.update.backup') }}" class="btn btn-link btn-lg">Back: Site Backup</a></p>
 		</div>
 	</div>
 @stop
@@ -47,8 +52,8 @@
 			},
 
 			methods: {
-				runBackup: function () {
-					var url = "{{ url('setup/update/backup') }}"
+				runUpdate: function () {
+					var url = "{{ url('setup/update/run') }}"
 
 					this.loading = true
 					var self = this

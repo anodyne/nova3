@@ -1,32 +1,29 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
 use Event,
-	Artisan,
 	Exception,
 	SystemRepositoryContract;
-use Spatie\Backup\Events\{BackupHasFailed, BackupWasSuccessful};
-use Spatie\Backup\Tasks\Backup\BackupJobFactory;
+use Illuminate\Http\Request;
+use Nova\Setup\BackupJobFactory;
+use Illuminate\Console\Application as Artisan;
 
 #TODO: during the update process, re-generate the app key for security purposes
+#TODO: once the update process is complete, blow away the backupStatus session variable
 
 class UpdateController extends BaseController {
 
 	protected $backupStatus;
 	protected $backupStatusMessage;
-	protected $updateStatus;
-	protected $targetVersion;
-	protected $currentVersion = '3.0.8';
-
-	public function __construct(SystemRepositoryContract $sysinfo)
-	{
-		parent::__construct();
-		
-		$this->sysinfo = $sysinfo;
-	}
 
 	public function index()
 	{
-		return view('pages.setup.update.landing');
+		// Is there an update available for Nova?
+		$hasUpdate = nova()->hasUpdate();
+
+		// If there is an update available, grab the info
+		$update = ($hasUpdate) ? nova()->getLatestVersion() : false;
+
+		return view('pages.setup.update.landing', compact('hasUpdate', 'update', 'nova'));
 	}
 
 	public function backup()
@@ -37,59 +34,31 @@ class UpdateController extends BaseController {
 	public function backupFailed()
 	{
 		return view('pages.setup.update.backup-failed')
-			->with('errorMessage', $this->backupStatusMessage);
+			->with('errorMessage', session()->get('backupStatusMessage'));
 	}
 
 	public function backupSuccess()
 	{
-		return view('pages.setup.update.backup-success')
-			->with('errorMessage', $this->backupStatusMessage);
+		return view('pages.setup.update.backup-success');
 	}
 
-	public function runBackup()
+	public function runBackup(Request $request)
 	{
-		try
-		{
+		try {
 			$backupJob = BackupJobFactory::createFromArray(config('laravel-backup'));
+
 			$backupJob->run();
+
+			$request->session()->put('backupStatus', 'success');
+
+			return true;
 		}
-		catch (Exception $ex)
-		{
-			return $ex;
+		catch (Exception $ex) {
+			$request->session()->put('backupStatus', 'failed');
+			$request->session()->flash('backupStatusMessage', str_replace('\r\n', ' ', $ex->getMessage()));
+
+			throw new Exception(str_replace('\r\n', ' ', $ex->getMessage()));
 		}
-
-		// Run the migrate commands
-		$backup = Artisan::call('backup:run');
-
-		$me = $this;
-
-		Event::listen('Spatie\Backup\Events\BackupHasFailed', function ($ex) use (&$me)
-		{
-			$me->backupStatus = 'failed';
-			//$me->backupStatusMessage = "Your database couldn't be backed up. Don't worry though, we've backed up your files and saved them as a zip file on the server.";
-			$me->backupStatusMessage = $ex->getMessage();
-			\Log::error('BackupHasFailed');
-		});
-
-		Event::listen(BackupWasSuccessful::class, function () use (&$me)
-		{
-			$me->backupStatus = 'success';
-			\Log::error('BackupWasSuccessful');
-
-			// Cache the routes in production
-			if (app('env') == 'production')
-			{
-				Artisan::call('route:cache');
-			}
-		});
-
-		/*if ($this->backupStatus != 'success')
-		{
-			return redirect()->route('setup.update.backup.failed')
-				->with('errorMessage', $this->backupStatusMessage);
-		}
-		
-		return redirect()->route('setup.update.backup.success');*/
 	}
 
 	public function changes()
@@ -98,5 +67,43 @@ class UpdateController extends BaseController {
 		$releases = nova()->getReleaseNotes();
 
 		return view('pages.setup.update.changes', compact('releases'));
+	}
+
+	public function update()
+	{
+		$update = nova()->getLatestVersion();
+
+		return view('pages.setup.update.run', compact('update'));
+	}
+
+	public function updateSuccess()
+	{
+		return view('pages.setup.update.run-success');
+	}
+
+	public function updateFailed()
+	{
+		return view('pages.setup.update.run-failed')
+			->with('errorMessage', session()->get('updateStatusMessage'));
+	}
+
+	public function runUpdate(Artisan $artisan, SystemRepositoryContract $sysinfo)
+	{
+		// Run the migrate commands
+		$artisan->call('migrate', ['--force' => true]);
+
+		// Update the system version in the database
+		$sysinfo->setVersionNumber(config('nova.app.version.full'));
+
+		// Do some cleanup
+		$artisan->call('view:clear');
+		$artisan->call('cache:clear');
+		$artisan->call('auth:clear-resets');
+
+		// Cache the routes in production
+		if (app('env') == 'production')
+		{
+			$artisan->call('route:cache');
+		}
 	}
 }

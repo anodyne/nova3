@@ -1,12 +1,8 @@
 @extends('layouts.setup')
 
-@section('title')
-	Configure Email
-@stop
+@section('title', 'Configure Email')
 
-@section('header')
-	Configure Email
-@stop
+@section('header', 'Configure Email')
 
 @section('content')
 	<h1>Email Configured</h1>

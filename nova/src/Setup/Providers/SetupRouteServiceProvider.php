@@ -1,5 +1,6 @@
 <?php namespace Nova\Setup\Providers;
 
+use Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class SetupRouteServiceProvider extends ServiceProvider {
@@ -16,11 +17,12 @@ class SetupRouteServiceProvider extends ServiceProvider {
 	/**
 	 * Define your route model bindings, pattern filters, etc.
 	 *
-	 * @param  \Illuminate\Routing\Router  $router
 	 * @return void
 	 */
 	public function boot()
 	{
+		//
+		
 		parent::boot();
 	}
 
@@ -31,6 +33,9 @@ class SetupRouteServiceProvider extends ServiceProvider {
 	 */
 	public function map()
 	{
-		$this->loadRoutesFrom(app_path('Setup/Http/routes.php'));
+		Route::prefix('setup')
+			 ->middleware('web')
+			 ->namespace($this->namespace)
+			 ->group(nova_path('routes/setup.php'));
 	}
 }

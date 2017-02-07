@@ -1,12 +1,8 @@
 @extends('layouts.setup-landing')
 
-@section('title')
-	Setup Center
-@stop
+@section('title', 'Setup Center')
 
-@section('header')
-	Setup Center
-@stop
+@section('header', 'Setup Center')
 
 @section('content')
 	@if ( ! $installed)
@@ -40,8 +36,8 @@
 			<div class="col-md-6">
 				<div class="card text-center animate flipInX">
 					<div class="card-block">
-						@if ($update)
-							<h1>Update {{ config('nova.app.name') }}</h1>
+						@if ($hasUpdate)
+							<h1>Update to {{ config('nova.app.name') }} {{ $update->version }}</h1>
 							<div>
 								@icon('nova/src/Setup/views/design/images/cloud_upload')
 							</div>
@@ -64,7 +60,7 @@
 						<div>
 							@icon('nova/src/Setup/views/design/images/delete')
 						</div>
-						{!! Form::open(['route' => 'setup.uninstall']) !!}
+						{!! Form::open(['route' => 'setup.uninstall', '@submit.prevent' => 'uninstall', 'id' => 'uninstall']) !!}
 							<p>{!! Form::button('Remove '.config('nova.app.name'), ['type' => 'submit', 'class' => 'btn btn-danger btn-lg btn-block']) !!}</p>
 						{!! Form::close() !!}
 					</div>
@@ -72,4 +68,27 @@
 			</div>
 		</div>
 	@endif
+@stop
+
+@section('js')
+	<script>
+		app = {
+			methods: {
+				uninstall: function ($event) {
+					swal({
+						title: "Are you sure?",
+						text: "Uninstalling Nova will remove all your data and cannot be undone. If you want to keep your data, make sure you have a backup of your files and database before continuing.",
+						type: "warning",
+						showCancelButton: true,
+						confirmButtonText: "Uninstall Now",
+						confirmButtonColor: "#ff6f00"
+					}, function (confirmed) {
+						if (confirmed) {
+							document.getElementById("uninstall").submit()
+						}
+					})
+				}
+			}
+		}
+	</script>
 @stop

@@ -1,12 +1,8 @@
 @extends('layouts.setup')
 
-@section('title')
-	Email Settings
-@stop
+@section('title', 'Email Settings')
 
-@section('header')
-	Email Settings
-@stop
+@section('header', 'Email Settings')
 
 @section('content')
 	<h1>Configure Email Settings</h1>
@@ -14,25 +10,27 @@
 
 	<div v-cloak>
 		{!! Form::open(['route' => "setup.{$_setupType}.config.email.write"]) !!}
-			<div :class="driverClassName">
-				<label class="col-md-4 col-lg-3 col-form-label col-form-label-lg">Driver</label>
-				<div class="col-md-6 col-lg-5">
-					<div class="control-wrapper">
-						<select name="mail_driver" class="form-control form-control-lg" v-model="driver">
-							<option value="smtp">SMTP Service</option>
-							<option value="sendmail">Sendmail</option>
-							<option value="mail">PHP Mail</option>
-							<option value="mailgun">Mailgun API</option>
-							<option value="sparkpost">SparkPost API</option>
+			<div class="form-group row">
+				<div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+					<div :class="driverClassName">
+						<label>Driver</label>
+						<div class="control-wrapper">
+							<select name="mail_driver" class="form-control form-control-lg" v-model="driver">
+								<option value="smtp">SMTP Service</option>
+								<option value="sendmail">Sendmail</option>
+								<option value="mail">PHP Mail</option>
+								<option value="mailgun">Mailgun API</option>
+								<option value="sparkpost">SparkPost API</option>
 
-							@if (app('env') == 'local')
-								<option value="log">Log Files</option>
-							@endif
-						</select>
+								@if (app('env') == 'local')
+									<option value="log">Log Files</option>
+								@endif
+							</select>
 
-						<p class="form-text" v-show="driver == 'log'">For development purposes only</p>
-						<p class="form-text" v-show="driver == 'smtp'">Recommended</p>
-						<p class="form-text" v-show="driver == 'mail'">Not recommended</p>
+							<p class="form-text" v-show="driver == 'log'">For development purposes only</p>
+							<p class="form-text" v-show="driver == 'smtp'">Recommended</p>
+							<p class="form-text" v-show="driver == 'mail'">Not recommended</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -60,52 +58,56 @@
 					</div>
 				</div>
 
-				<div class="form-group row{{ ($errors->has('mail_host')) ? ' has-error' : '' }}">
-					<label class="col-md-4 col-lg-3 col-form-label col-form-label-lg">Host</label>
-					<div class="col-md-8 col-lg-7">
-						<div class="control-wrapper">
-							{!! Form::text('mail_host', false, ['class' => 'form-control form-control-lg']) !!}
-							{!! $errors->first('mail_host', '<p class="form-control-feedback">:message</p>') !!}
+				<div class="row">
+					<div class="col-md-6 col-lg-5 offset-lg-1">
+						<div class="form-group{{ ($errors->has('mail_host')) ? ' has-error' : '' }}">
+							<label>Host</label>
+							<div class="control-wrapper">
+								{!! Form::text('mail_host', false, ['class' => 'form-control form-control-lg']) !!}
+								{!! $errors->first('mail_host', '<p class="form-control-feedback">:message</p>') !!}
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-3 col-lg-2">
+						<div class="form-group{{ ($errors->has('mail_port')) ? ' has-error' : '' }}">
+							<label>Port</label>
+							<div class="control-wrapper">
+								{!! Form::text('mail_port', 587, ['class' => 'form-control form-control-lg']) !!}
+								{!! $errors->first('mail_port', '<p class="form-control-feedback">:message</p>') !!}
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-3">
+						<div class="form-group{{ ($errors->has('mail_encryption')) ? ' has-error' : '' }}">
+							<label>Encryption</label>
+							<div class="control-wrapper">
+								{!! Form::text('mail_encryption', 'tls', ['class' => 'form-control form-control-lg']) !!}
+								{!! $errors->first('mail_encryption', '<p class="form-control-feedback">:message</p>') !!}
+							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="form-group row{{ ($errors->has('mail_port')) ? ' has-error' : '' }}">
-					<label class="col-md-4 col-lg-3 col-form-label col-form-label-lg">Port</label>
-					<div class="col-md-2">
-						{!! Form::text('mail_port', 587, ['class' => 'form-control form-control-lg']) !!}
-					</div>
-					<div class="col-md-5">
-						{!! $errors->first('mail_port', '<p class="form-control-feedback">:message</p>') !!}
-					</div>
-				</div>
-
-				<div class="form-group row{{ ($errors->has('mail_encryption')) ? ' has-error' : '' }}">
-					<label class="col-md-4 col-lg-3 col-form-label col-form-label-lg">Encryption</label>
-					<div class="col-md-2">
-						{!! Form::text('mail_encryption', 'tls', ['class' => 'form-control form-control-lg']) !!}
-					</div>
-					<div class="col-md-5">
-						{!! $errors->first('mail_encryption', '<p class="form-control-feedback">:message</p>') !!}
-					</div>
-				</div>
-
-				<div class="form-group row{{ ($errors->has('mail_username')) ? ' has-error' : '' }}">
-					<label class="col-md-4 col-lg-3 col-form-label col-form-label-lg">Username</label>
-					<div class="col-md-8 col-lg-7">
-						<div class="control-wrapper">
-							{!! Form::text('mail_username', false, ['class' => 'form-control form-control-lg']) !!}
-							{!! $errors->first('mail_username', '<p class="form-control-feedback">:message</p>') !!}
+				<div class="row">
+					<div class="col-md-6 col-lg-5 offset-lg-1">
+						<div class="form-group{{ ($errors->has('mail_username')) ? ' has-error' : '' }}">
+							<label>Username</label>
+							<div class="control-wrapper">
+								{!! Form::text('mail_username', false, ['class' => 'form-control form-control-lg']) !!}
+								{!! $errors->first('mail_username', '<p class="form-control-feedback">:message</p>') !!}
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="form-group row{{ ($errors->has('mail_password')) ? ' has-error' : '' }}">
-					<label class="col-md-4 col-lg-3 col-form-label col-form-label-lg">Password</label>
-					<div class="col-md-8 col-lg-7">
-						<div class="control-wrapper">
-							{!! Form::password('mail_password', ['class' => 'form-control form-control-lg']) !!}
-							{!! $errors->first('mail_password', '<p class="form-control-feedback">:message</p>') !!}
+					<div class="col-md-6 col-lg-5">
+						<div class="form-group{{ ($errors->has('mail_password')) ? ' has-error' : '' }}">
+							<label>Password</label>
+							<div class="control-wrapper">
+								{!! Form::password('mail_password', ['class' => 'form-control form-control-lg']) !!}
+								{!! $errors->first('mail_password', '<p class="form-control-feedback">:message</p>') !!}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -120,19 +122,21 @@
 					</div>
 				</div>
 
-				<div class="form-group row{{ ($errors->has('mail_sendmail')) ? ' has-error' : '' }}">
-					<label class="col-md-4 col-lg-3 col-form-label col-form-label-lg">Sendmail Path</label>
-					<div class="col-md-8 col-lg-7">
-						<div class="control-wrapper">
-							{!! Form::text('mail_sendmail', '/usr/sbin/sendmail -bs', ['class' => 'form-control form-control-lg']) !!}
-							{!! $errors->first('mail_sendmail', '<p class="form-control-feedback">:message</p>') !!}
+				<div class="row">
+					<div class="col-md-8 col-lg-6 offset-lg-1">
+						<div class="form-group{{ ($errors->has('mail_sendmail')) ? ' has-error' : '' }}">
+							<label>Sendmail Path</label>
+							<div class="control-wrapper">
+								{!! Form::text('mail_sendmail', '/usr/sbin/sendmail -bs', ['class' => 'form-control form-control-lg']) !!}
+								{!! $errors->first('mail_sendmail', '<p class="form-control-feedback">:message</p>') !!}
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div v-show="driver == 'mail'">
-				<div class="form-group row">
+				<div class="row">
 					<div class="col-lg-10 offset-lg-1">
 						<h2>PHP Mail</h2>
 
@@ -142,7 +146,7 @@
 			</div>
 
 			<div v-show="driver == 'log'">
-				<div class="form-group row">
+				<div class="row">
 					<div class="col-lg-10 offset-lg-1">
 						<h2>Mail Logging</h2>
 
@@ -160,22 +164,24 @@
 					</div>
 				</div>
 
-				<div class="form-group row{{ ($errors->has('services_mailgun_domain')) ? ' has-error' : '' }}">
-					<label class="col-md-4 col-lg-3 col-form-label col-form-label-lg">Domain</label>
-					<div class="col-md-8 col-lg-7">
-						<div class="control-wrapper">
-							{!! Form::text('services_mailgun_domain', null, ['class' => 'form-control form-control-lg']) !!}
-							{!! $errors->first('services_mailgun_domain', '<p class="form-control-feedback">:message</p>') !!}
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group{{ ($errors->has('services_mailgun_domain')) ? ' has-error' : '' }}">
+							<label>Domain</label>
+							<div class="control-wrapper">
+								{!! Form::text('services_mailgun_domain', null, ['class' => 'form-control form-control-lg']) !!}
+								{!! $errors->first('services_mailgun_domain', '<p class="form-control-feedback">:message</p>') !!}
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="form-group row{{ ($errors->has('services_mailgun_secret')) ? ' has-error' : '' }}">
-					<label class="col-md-4 col-lg-3 col-form-label col-form-label-lg">Secret Key</label>
-					<div class="col-md-8 col-lg-7">
-						<div class="control-wrapper">
-							{!! Form::text('services_mailgun_secret', null, ['class' => 'form-control form-control-lg']) !!}
-							{!! $errors->first('services_mailgun_secret', '<p class="form-control-feedback">:message</p>') !!}
+					<div class="col-md-6">
+						<div class="form-group{{ ($errors->has('services_mailgun_secret')) ? ' has-error' : '' }}">
+							<label>Secret Key</label>
+							<div class="control-wrapper">
+								{!! Form::text('services_mailgun_secret', null, ['class' => 'form-control form-control-lg']) !!}
+								{!! $errors->first('services_mailgun_secret', '<p class="form-control-feedback">:message</p>') !!}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -190,22 +196,22 @@
 					</div>
 				</div>
 
-				<div class="form-group row{{ ($errors->has('services_sparkpost_secret')) ? ' has-error' : '' }}">
-					<label class="col-md-4 col-lg-3 col-form-label col-form-label-lg">Secret Key</label>
-					<div class="col-md-8 col-lg-7">
-						<div class="control-wrapper">
-							{!! Form::text('services_sparkpost_secret', null, ['class' => 'form-control form-control-lg']) !!}
-							{!! $errors->first('services_sparkpost_secret', '<p class="form-control-feedback">:message</p>') !!}
+				<div class="row">
+					<div class="col-md-8 col-lg-6 offset-lg-1">
+						<div class="form-group{{ ($errors->has('services_sparkpost_secret')) ? ' has-error' : '' }}">
+							<label>Secret Key</label>
+							<div class="control-wrapper">
+								{!! Form::text('services_sparkpost_secret', null, ['class' => 'form-control form-control-lg']) !!}
+								{!! $errors->first('services_sparkpost_secret', '<p class="form-control-feedback">:message</p>') !!}
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<div v-show="driver">
-				<div class="form-group row">
-					<div class="col-md-8 offset-md-4 col-lg-9 offset-lg-3">
-						{!! Form::button('Set Email Settings', ['class' => 'btn btn-outline-primary', 'type' => 'submit']) !!}
-					</div>
+			<div class="form-group row" v-show="driver">
+				<div class="col-lg-10 offset-lg-1">
+					{!! Form::button('Set Email Settings', ['class' => 'btn btn-outline-primary', 'type' => 'submit']) !!}
 				</div>
 			</div>
 		{!! Form::close() !!}
@@ -227,7 +233,7 @@
 	</div>
 @stop
 
-@section('scripts')
+@section('js')
 	<script>
 		app = {
 			data: {
@@ -237,18 +243,18 @@
 			computed: {
 				driverClassName: function () {
 					if (this.driver == 'smtp') {
-						return 'form-group row has-success'
+						return 'form-group has-success'
 					}
 
 					if (this.driver == 'mail') {
-						return 'form-group row has-warning'
+						return 'form-group has-warning'
 					}
 
 					if (this.driver == 'log') {
-						return 'form-group row has-danger'
+						return 'form-group has-danger'
 					}
 
-					return 'form-group row'
+					return 'form-group'
 				}
 			}
 		}

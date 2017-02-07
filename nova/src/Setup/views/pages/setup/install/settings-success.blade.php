@@ -1,12 +1,8 @@
 @extends('layouts.setup')
 
-@section('title')
-	Update Settings
-@stop
+@section('title', 'Update Settings')
 
-@section('header')
-	Update Settings
-@stop
+@section('header', 'Update Settings')
 
 @section('content')
 	<h1>{{ config('nova.app.name') }} Settings Updated</h1>

@@ -1,23 +1,23 @@
 <?php
 
+/**
+ * General landing pages for the setup module
+ */
+Route::get('/', 'SetupController@index')->name('setup.home');
+Route::get('env', 'SetupController@environment')->name('setup.env');
+Route::post('uninstall', 'SetupController@uninstall')->name('setup.uninstall');
+
 $options = [
 	'prefix'		=> 'setup',
 	'namespace'		=> 'Nova\Setup\Http\Controllers',
 	'middleware'	=> 'web',
 ];
 
-Route::group($options, function () {
-	Route::get('env', 'SetupController@environment')->name('setup.env');
-	Route::get('/', 'SetupController@index')->name('setup.home');
-	Route::get('update', 'UpdateController@index')->name('setup.update');
-	Route::post('uninstall', 'SetupController@uninstall')->name('setup.uninstall');
-});
-
 $installOptions = array_merge($options, [
 	'prefix' => 'setup/install'
 ]);
 
-Route::group($installOptions, function () {
+Route::group(['prefix' => 'install'], function () {
 	Route::get('/', 'InstallController@index')->name('setup.install');
 
 	Route::get('config-database', 'ConfigDbController@info')->name('setup.install.config.db');
@@ -46,7 +46,7 @@ $updateOptions = array_merge($options, [
 	'prefix' => 'setup/update'
 ]);
 
-Route::group($updateOptions, function () {
+Route::group(['prefix' => 'update'], function () {
 	Route::get('/', 'UpdateController@index')->name('setup.update');
 
 	Route::get('changes', 'UpdateController@changes')->name('setup.update.changes');
@@ -66,6 +66,19 @@ $migrateOptions = array_merge($options, [
 	'prefix' => 'setup/migrate'
 ]);
 
-Route::group($migrateOptions, function () {
+Route::group(['prefix' => 'migrate'], function () {
 	Route::get('/', 'MigrateController@index')->name('setup.migrate');
+
+	Route::get('config-nova2', 'ConfigNova2Controller@info')->name('setup.migrate.config.nova2');
+	Route::post('config-nova2/check', 'ConfigNova2Controller@check')->name('setup.migrate.config.nova2.check');
+	Route::get('config-nova2/success', 'ConfigNova2Controller@success')->name('setup.migrate.config.nova2.success');
+
+	Route::get('config-database', 'ConfigDbController@info')->name('setup.migrate.config.db');
+	Route::get('config-database/success', 'ConfigDbController@success')->name('setup.migrate.config.db.success');
+	Route::get('config-database/write', 'ConfigDbController@write')->name('setup.migrate.config.db.write');
+	Route::post('config-database/check', 'ConfigDbController@check')->name('setup.migrate.config.db.check');
+
+	Route::get('config-email', 'ConfigEmailController@info')->name('setup.migrate.config.email');
+	Route::get('config-email/success', 'ConfigEmailController@success')->name('setup.migrate.config.email.success');
+	Route::post('config-email/write', 'ConfigEmailController@write')->name('setup.migrate.config.email.write');
 });

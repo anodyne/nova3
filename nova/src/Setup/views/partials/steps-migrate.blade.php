@@ -11,6 +11,17 @@ $classes = [
 	6 => 'class="step"',
 ];
 
+$nova2Active = [
+	'setup/migrate/config-nova2'
+];
+$nova2Completed = [
+	'setup/migrate/config-nova2/success',
+	'setup/migrate/config-database',
+	'setup/migrate/config-database/success',
+	'setup/migrate/config-email',
+	'setup/migrate/config-email/success'
+];
+
 /*$dbActive = [
 	'setup/install/config-database',
 	'setup/install/config-database/check',
@@ -40,18 +51,18 @@ $settingsActive = [
 ];
 $settingsCompleted = [
 	'setup/install/settings/success',
-];
+];*/
 
-if (in_array($path, $dbActive))
+if (in_array($path, $nova2Active))
 {
 	$classes[1] = 'class="step active"';
 }
-if (File::exists(app('path.config').'/database.php'))
+if (in_array($path, $nova2Completed))
 {
 	$classes[1] = 'class="step completed"';
 }
 
-if (in_array($path, $emailActive))
+/*if (in_array($path, $emailActive))
 {
 	$classes[2] = 'class="step active"';
 }

@@ -1,12 +1,8 @@
 @extends('layouts.setup-landing')
 
-@section('title')
-	Environment Checks
-@stop
+@section('title', 'Environment Checks')
 
-@section('header')
-	Environment Checks
-@stop
+@section('header', 'Environment Checks')
 
 @section('content')
 	<div class="card text-center">

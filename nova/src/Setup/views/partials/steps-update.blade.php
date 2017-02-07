@@ -26,12 +26,6 @@ $backupActive = [
 
 $backupCompleted = [
 	'setup/update/backup/success',
-	'setup/update/run',
-	'setup/update/success',
-];
-
-$backupFailed = [
-	'setup/update/backup/failed',
 ];
 
 $updateActive = [
@@ -55,11 +49,11 @@ if (in_array($path, $backupActive))
 {
 	$classes[2] = 'class="step active"';
 }
-if (in_array($path, $backupCompleted))
+if (session('backupStatus') == 'success')
 {
 	$classes[2] = 'class="step completed"';
 }
-if (in_array($path, $backupFailed))
+if (session('backupStatus') == 'failed')
 {
 	$classes[2] = 'class="step failed"';
 }

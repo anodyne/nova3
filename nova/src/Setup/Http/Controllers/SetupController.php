@@ -7,13 +7,19 @@ class SetupController extends BaseController {
 
 	public function index()
 	{
+		// Grab the instance of the Nova class
+		$nova = nova();
+
 		// Is Nova installed?
-		$installed = nova()->isInstalled();
+		$installed = $nova->isInstalled();
 
 		// Is there an update available for Nova?
-		$update = nova()->hasUpdate();
+		$hasUpdate = $nova->hasUpdate();
+		
+		// If there is an update available, grab the info
+		$update = ($hasUpdate) ? $nova->getLatestVersion() : false;
 
-		return view('pages.setup.index', compact('installed', 'update'));
+		return view('pages.setup.landing', compact('installed', 'update', 'hasUpdate'));
 	}
 
 	public function environment()

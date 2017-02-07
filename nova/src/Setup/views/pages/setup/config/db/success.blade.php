@@ -1,12 +1,8 @@
 @extends('layouts.setup')
 
-@section('title')
-	Configure Database
-@stop
+@section('title', 'Configure Database')
 
-@section('header')
-	Configure Database
-@stop
+@section('header', 'Configure Database')
 
 @section('content')
 	<h1>Database Connection Configured</h1>

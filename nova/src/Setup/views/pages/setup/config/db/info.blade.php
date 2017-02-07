@@ -1,12 +1,8 @@
 @extends('layouts.setup')
 
-@section('title')
-	Database Connection
-@stop
+@section('title', 'Database Connection')
 
-@section('header')
-	Database Connection
-@stop
+@section('header', 'Database Connection')
 
 @section('content')
 	<h1>Configure Your Database Connection</h1>
@@ -52,7 +48,7 @@
 		{!! Form::open(['route' => "setup.{$_setupType}.config.db.check"]) !!}
 			{!! Form::hidden('db_driver', null, ['v-model' => 'driver']) !!}
 			<div v-show="driver && driver != 'sqlite'">
-				<div v-show="driver == 'mysql'">
+				<div class="form-group row" v-show="driver == 'mysql'">
 					<div class="col-lg-10 offset-lg-1">
 						<h2>MySQL</h2>
 
@@ -60,7 +56,7 @@
 					</div>
 				</div>
 
-				<div v-show="driver == 'pgsql'">
+				<div class="form-group row" v-show="driver == 'pgsql'">
 					<div class="col-lg-10 offset-lg-1">
 						<h2>PostgreSQL</h2>
 
@@ -68,55 +64,60 @@
 					</div>
 				</div>
 
-				<div class="form-group row">
-					<label class="col-md-4 col-lg-3 col-form-label col-form-label-lg">Host</label>
-					<div class="col-md-8 col-lg-7">
-						<div class="control-wrapper">
-							{!! Form::text('db_host', 'localhost', ['class' => 'form-control-lg form-control']) !!}
-							<small class="form-text text-muted">For most web hosts, <code>localhost</code> will be correct. If you aren't sure or the information you received from your web host isn't clear about what the database host name is, contact them for more information.</small>
+				<div class="row">
+					<div class="col-md-9 col-lg-8 offset-lg-1">
+						<div class="form-group">
+							<label>Host</label>
+							<div class="control-wrapper">
+								{!! Form::text('db_host', 'localhost', ['class' => 'form-control form-control-lg']) !!}
+								<small class="form-text text-muted">For most web hosts, <code>localhost</code> will be correct. If you aren't sure, refer to the information you received from your web host or contact them directly.</small>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-6 col-lg-5 offset-lg-1">
+						<div class="form-group">
+							<label>Database Name</label>
+							<div class="control-wrapper">
+								{!! Form::text('db_name', false, ['class' => 'form-control form-control-lg']) !!}
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6 col-lg-5">
+						<div class="form-group">
+							<label>Table Prefix</label>
+							<div class="control-wrapper">
+								{!! Form::text('db_prefix', 'nova_', ['class' => 'form-control form-control-lg']) !!}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-6 col-lg-5 offset-lg-1">
+						<div class="form-group">
+							<label>Username</label>
+							<div class="control-wrapper">
+								{!! Form::text('db_user', false, ['class' => 'form-control form-control-lg']) !!}
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6 col-lg-5">
+						<div class="form-group">
+							<label>Password</label>
+							<div class="control-wrapper">
+								{!! Form::password('db_password', ['class' => 'form-control form-control-lg']) !!}
+							</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="form-group row">
-					<label class="col-md-4 col-lg-3 col-form-label col-form-label-lg">Database Name</label>
-					<div class="col-md-8 col-lg-7">
-						<div class="control-wrapper">
-							{!! Form::text('db_name', false, ['class' => 'form-control-lg form-control']) !!}
-						</div>
-					</div>
-				</div>
-
-				<div class="form-group row">
-					<label class="col-md-4 col-lg-3 col-form-label col-form-label-lg">Table Prefix</label>
-					<div class="col-md-8 col-lg-7">
-						<div class="control-wrapper">
-							{!! Form::text('db_prefix', 'nova_', ['class' => 'form-control-lg form-control']) !!}
-							<small class="form-text text-muted">Setting the table prefix will allow you to install {{ config('nova.app.name') }} into a database with other applications (such as a forum, a wiki, or a blog).</small>
-						</div>
-					</div>
-				</div>
-
-				<div class="form-group row">
-					<label class="col-md-4 col-lg-3 col-form-label col-form-label-lg">Username</label>
-					<div class="col-md-8 col-lg-7">
-						<div class="control-wrapper">
-							{!! Form::text('db_user', false, ['class' => 'form-control-lg form-control']) !!}
-						</div>
-					</div>
-				</div>
-
-				<div class="form-group row">
-					<label class="col-md-4 col-lg-3 col-form-label col-form-label-lg">Password</label>
-					<div class="col-md-8 col-lg-7">
-						<div class="control-wrapper">
-							{!! Form::password('db_password', ['class' => 'form-control-lg form-control']) !!}
-						</div>
-					</div>
-				</div>
-
-				<div class="form-group row">
-					<div class="col-md-8 offset-md-4 col-lg-9 offset-lg-3">
+					<div class="col-lg-10 offset-lg-1">
 						{!! Form::button('Create Database Connection', ['class' => 'btn btn-outline-primary', 'type' => 'submit']) !!}
 					</div>
 				</div>
@@ -124,24 +125,25 @@
 
 			<div v-show="driver == 'sqlite'">
 				<div class="form-group row">
-					<div class="col-md-10 offset-md-1">
+					<div class="col-lg-10 offset-lg-1">
 						<h2>SQLite</h2>
 
 						<p>SQLite is a file-based database that uses a single database file on the server. Because of this, a good rule of thumb is that you should avoid using SQLite in situations where the database will be accessed simultaneously from multiple locations. <strong class="text-danger">SQLite is only advised for development purposes.</strong></p>
 					</div>
 				</div>
 
-				<div class="form-group row">
-					<label class="col-md-4 col-lg-3 col-form-label col-form-label-lg">Table Prefix</label>
-					<div class="col-md-8 col-lg-7">
-						{!! Form::text('db_prefix', 'nova_', ['class' => 'form-control-lg form-control']) !!}
-						<small class="form-text text-muted">Setting the table prefix will allow you to install {{ config('nova.app.name') }} into a database with other applications.</small>
+				<div class="row">
+					<div class="col-md-6 col-lg-5 offset-lg-1">
+						<div class="form-group">
+							<label>Table Prefix</label>
+							{!! Form::text('db_prefix', 'nova_', ['class' => 'form-control form-control-lg']) !!}
+						</div>
 					</div>
 				</div>
 
 				<div class="form-group row">
-					<div class="col-md-8 offset-md-4 col-lg-9 offset-lg-3">
-						{!! Form::button('Create Database Connection', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
+					<div class="col-lg-10 offset-lg-1">
+						{!! Form::button('Create Database Connection', ['class' => 'btn btn-outline-primary', 'type' => 'submit']) !!}
 					</div>
 				</div>
 			</div>
@@ -164,7 +166,7 @@
 	</div>
 @stop
 
-@section('scripts')
+@section('js')
 	<script>
 		app = {
 			data: {

@@ -21,7 +21,7 @@
 
 	<div v-show="loadingWithError" v-cloak>
 		<div class="alert alert-danger">
-			<h4 class="alert-title">Error!</h4>
+			<h4 class="alert-heading">Error!</h4>
 			<p>@{{ errorMessage }}</p>
 		</div>
 	</div>
@@ -38,7 +38,7 @@
 	</div>
 @stop
 
-@section('scripts')
+@section('js')
 	<script>
 		app = {
 			data: {
@@ -50,13 +50,14 @@
 			mounted: function () {
 				this.$nextTick(function () {
 					var url = "{{ url('setup/install/nova') }}"
+					var self = this
 
 					Vue.axios.post(url).then(function (response) {
 						window.location = url + "/success"
 					}).catch(function (error) {
-						this.loading = false
-						this.loadingWithError = true
-						this.errorMessage = "Error " + error.response.status + ": " + error.message
+						self.loading = false
+						self.loadingWithError = true
+						self.errorMessage = "Error " + error.response.status + ": " + error.message
 					})
 				})
 			}

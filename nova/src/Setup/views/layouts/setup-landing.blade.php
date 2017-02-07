@@ -6,7 +6,7 @@
 		<meta name="author" content="Anodyne Productions">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,700|Roboto:300,400,500,700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700|Roboto:300,400,500,700" rel="stylesheet">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 		{!! HTML::style('nova/resources/css/sweetalert.css') !!}
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.style.css') !!}
@@ -31,7 +31,7 @@
 			</div>
 		</header>
 
-		<section>
+		<section id="app">
 			<div class="container">
 				@yield('content')
 			</div>
@@ -43,6 +43,11 @@
 			</div>
 		</footer>
 
+		<script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
+		@stack('scripts')
+		{!! HTML::script('nova/resources/js/functions.js') !!}
+		{!! HTML::script('nova/resources/js/vue/components.js') !!}
+		{!! HTML::script('nova/resources/js/vue/filters.js') !!}
 		{!! HTML::script('nova/resources/js/sweetalert.min.js') !!}
 		<script>
 			@if (session()->has('flash_message'))
@@ -67,6 +72,15 @@
 					allowOutsideClick: true
 				})
 			@endif
+
+			var app = {}
+		</script>
+		@yield('js')
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				mixins: [app]
+			})
 		</script>
 	</body>
 </html>

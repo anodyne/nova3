@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 
-		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,700|Roboto:300,400,500,700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700|Roboto:300,400,500,700" rel="stylesheet">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 		{!! HTML::style('nova/resources/css/sweetalert.css') !!}
 		{!! HTML::style('nova/src/Setup/views/design/css/setup.style.css') !!}
@@ -46,16 +46,25 @@
 			</main>
 		</div>
 
+		<div class="container">
+			<code class="hidden-sm-up">xs</code>
+			<code class="hidden-xs-down hidden-md-up">sm</code>
+			<code class="hidden-sm-down hidden-lg-up">md</code>
+			<code class="hidden-md-down hidden-xl-up">lg</code>
+			<code class="hidden-lg-down">xl</code>
+		</div>
+
 		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 		<script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-		{!! HTML::script('nova/resources/js/sweetalert.min.js') !!}
 		{!! HTML::script('nova/resources/js/functions.js') !!}
 		{!! HTML::script('nova/resources/js/vue/components.js') !!}
 		{!! HTML::script('nova/resources/js/vue/filters.js') !!}
+		{!! HTML::script('nova/resources/js/sweetalert.min.js') !!}
+		@stack('scripts')
 		<script>
 			@if (session()->has('flash_message'))
 				swal({
@@ -88,7 +97,7 @@
 
 			var app = {}
 		</script>
-		@yield('scripts')
+		@yield('js')
 		<script>
 			var vm = new Vue({
 				el: '#app',
