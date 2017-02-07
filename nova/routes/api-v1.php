@@ -37,3 +37,4 @@ $api->version('v1', $options, function ($api)
 		$api->get('users/{userId}', 'UserApiController@show')->name('api.users.show');
 	});
 });
+

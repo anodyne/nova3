@@ -18,28 +18,60 @@ class RouteServiceProvider extends ServiceProvider {
 	/**
 	 * Define your route model bindings, pattern filters, etc.
 	 *
-	 * @param  \Illuminate\Routing\Router  $router
 	 * @return void
 	 */
 	public function boot()
 	{
+		//
+		
 		parent::boot();
 	}
 
 	/**
 	 * Define the routes for the application.
 	 *
-	 * @param  \Illuminate\Routing\Router  $router
 	 * @return void
 	 */
 	public function map()
 	{
+		$this->mapApiRoutes();
 		$this->mapWebRoutes();
 
-		$this->mapApiRoutes();
+		//
 	}
 
+	/**
+	 * Define the "web" routes for the application.
+	 *
+	 * These routes all receive session state, CSRF protection, etc.
+	 *
+	 * @return void
+	 */
 	protected function mapWebRoutes()
+	{
+		Route::middleware('web')
+			 ->namespace($this->namespace)
+			 ->group(nova_path('routes/web.php'));
+
+		require base_path('routes.php');
+	}
+
+	/**
+	 * Define the "api" routes for the application.
+	 *
+	 * These routes are typically stateless.
+	 *
+	 * @return void
+	 */
+	protected function mapApiRoutes()
+	{
+		Route::prefix('api')
+			 ->middleware('api')
+			 ->namespace($this->namespace)
+			 ->group(nova_path('routes/api-v1.php'));
+	}
+
+	/*protected function mapWebRoutes()
 	{
 		$routerOptions = [
 			'namespace' => $this->namespace,
@@ -50,7 +82,8 @@ class RouteServiceProvider extends ServiceProvider {
 		{
 			if (nova()->isInstalled())
 			{
-				require app_path('Foundation/Http/routes.php');
+				require nova_path('routes/web.php');
+				//require app_path('Foundation/Http/routes.php');
 			}
 			else
 			{
@@ -72,7 +105,7 @@ class RouteServiceProvider extends ServiceProvider {
 		{
 			require app_path('Api/V1/routes.php');
 		});
-	}
+	}*/
 
 	/**
 	 * Grab the routes from the cache and create the route entries from that
