@@ -14,8 +14,7 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->app->singleton('nova', function ($app)
-		{
+		$this->app->singleton('nova', function ($app) {
 			return new \Nova\Foundation\Nova;
 		});
 		
@@ -26,9 +25,13 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->createPageCompilerEngine();
 		$this->createFieldTypesManager();
 		$this->setupTheme();
-		$this->setupMailer();
 
-		$this->app['nova']->startup();
+		if (nova()->isInstalled())
+		{
+			$this->setupMailer();
+			
+			$this->app['nova']->startup();
+		}
 	}
 
 	/**
@@ -55,8 +58,7 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function createLocator()
 	{
-		$this->app->singleton('Nova\Foundation\Services\Locator\Locatable', function ($app)
-		{
+		$this->app->singleton('Nova\Foundation\Services\Locator\Locatable', function ($app) {
 			return new \Nova\Foundation\Services\Locator\Locator(
 				$app['nova.user'],
 				$app['nova.settings']
@@ -77,8 +79,7 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function createPageCompilerEngine()
 	{
-		$this->app->singleton('nova.page.compiler', function ($app)
-		{
+		$this->app->singleton('nova.page.compiler', function ($app) {
 			$engine = new \Nova\Foundation\Services\PageCompiler\CompilerEngine;
 
 			$engine->registerCompiler('page',
@@ -103,8 +104,7 @@ class NovaServiceProvider extends ServiceProvider {
 
 	protected function createFieldTypesManager()
 	{
-		$this->app->singleton('nova.forms.fields', function ($app)
-		{
+		$this->app->singleton('nova.forms.fields', function ($app) {
 			$manager = new \Nova\Core\Forms\Services\FieldTypes\FieldTypeManager;
 
 			$manager->registerFieldType('text-field',
@@ -138,8 +138,7 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function getCurrentUser()
 	{
-		$this->app->singleton('nova.user', function ($app)
-		{
+		$this->app->singleton('nova.user', function ($app) {
 			if (nova()->isInstalled())
 			{
 				$user = $app['auth']->user();
@@ -163,8 +162,11 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function registerBindings()
 	{
-		$this->app->singleton('nova.pages', function ($app)
-		{
+		$this->app->singleton('browser', function ($app) {
+			return new \Nova\Foundation\Services\Browser(new \Ikimea\Browser\Browser);
+		});
+
+		$this->app->singleton('nova.pages', function ($app) {
 			if (nova()->isInstalled())
 			{
 				return $app['PageRepository']->all();
@@ -173,8 +175,7 @@ class NovaServiceProvider extends ServiceProvider {
 			return collect();
 		});
 
-		$this->app->singleton('nova.pageContent', function ($app)
-		{
+		$this->app->singleton('nova.pageContent', function ($app) {
 			if (nova()->isInstalled())
 			{
 				return $app['PageContentRepository']->getAllContent();
@@ -183,8 +184,7 @@ class NovaServiceProvider extends ServiceProvider {
 			return collect();
 		});
 
-		$this->app->singleton('nova.settings', function ($app)
-		{
+		$this->app->singleton('nova.settings', function ($app) {
 			if (nova()->isInstalled())
 			{
 				return $app['SettingRepository']->getAllSettings();
@@ -193,8 +193,7 @@ class NovaServiceProvider extends ServiceProvider {
 			return collect();
 		});
 
-		$this->app->singleton('nova.system', function ($app)
-		{
+		$this->app->singleton('nova.system', function ($app) {
 			if (nova()->isInstalled())
 			{
 				return $app['SystemRepository']->getAllInfo();
@@ -203,30 +202,25 @@ class NovaServiceProvider extends ServiceProvider {
 			return collect();
 		});
 
-		$this->app->singleton('nova.roles', function ($app)
-		{
+		$this->app->singleton('nova.roles', function ($app) {
 			return $app['RoleRepository']->all();
 		});
 
-		$this->app->bind('nova.character.creator', function ($app)
-		{
+		$this->app->bind('nova.character.creator', function ($app) {
 			return new \CharacterCreator($app['CharacterRepository']);
 		});
 
-		$this->app->bind('nova.flash', function ($app)
-		{
+		$this->app->bind('nova.flash', function ($app) {
 			return new \Nova\Foundation\Services\FlashNotifier;
 		});
 
-		$this->app->bind('nova.markdown', function ($app)
-		{
+		$this->app->bind('nova.markdown', function ($app) {
 			return new \Nova\Foundation\Services\MarkdownParser(
 				new \League\CommonMark\CommonMarkConverter
 			);
 		});
 
-		$this->app->bind('nova.user.creator', function ($app)
-		{
+		$this->app->bind('nova.user.creator', function ($app) {
 			return new \UserCreator(
 				$app['UserRepository'],
 				$app['nova.character.creator']
@@ -273,11 +267,8 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function setupMailer()
 	{
-		if (nova()->isInstalled())
-		{
-			config(['mail.from.address' => $this->app['nova.settings']->get('mail_default_address')]);
-			config(['mail.from.name' => $this->app['nova.settings']->get('mail_default_name')]);
-		}
+		config(['mail.from.address' => $this->app['nova.settings']->get('mail_default_address')]);
+		config(['mail.from.name' => $this->app['nova.settings']->get('mail_default_name')]);
 	}
 
 	/**
@@ -342,5 +333,4 @@ class NovaServiceProvider extends ServiceProvider {
 		// Bind the existing instance into the container
 		$this->app->instance('nova.theme', $theme);
 	}
-
 }
