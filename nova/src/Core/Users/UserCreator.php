@@ -19,11 +19,22 @@ class UserCreator {
 		// Hash the password
 		$data['password'] = bcrypt($data['password']);
 
-		// Create the user and return it
-		return $this->userRepo->create(array_merge(
+		// Create the user
+		$user = $this->userRepo->create(array_merge(
 			$data,
 			['api_token' => str_random(60)]
 		));
+
+		// Create the user's preferences
+		app('PreferenceDefaultRepository')->get()->each(function ($default) use ($user) {
+			app('UserPreferenceRepository')->create([
+				'user_id' => $user->id,
+				'key' => $default->key,
+				'value' => $default->default,
+			]);
+		});
+
+		return $user;
 	}
 
 	public function createWithCharacter(array $data)
