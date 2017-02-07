@@ -93,6 +93,10 @@
 		border-top-color: darken($border, 5%);
 	}
 
+	.alert-title, h2, h3, h4 {
+		color: $body-color !important;
+	}
+
 	.alert-link {
 		color: darken($body-color, 10%);
 	}

@@ -177,7 +177,7 @@ main {
 	}
 
 	.controls {
-		padding: 1.5rem 2rem;
+		padding: 1.5rem;
 
 		border-top: 0.1rem solid rgba(0, 0, 0, 0.125);
 
@@ -193,6 +193,10 @@ main {
 			&.btn-link {
 				color: $color-blue-grey-300;
 				font-weight: 400;
+			}
+
+			&:focus {
+				box-shadow: none;
 			}
 		}
 	}
@@ -237,30 +241,78 @@ main {
 	}
 
 	form {
-		.col-form-label {
+		label {
 			color: $color-blue-grey-600;
+			font-weight: 500;
+			font-size: 1rem;
 		}
 
 		.form-control {
 			color: $color-blue-grey-600;
-
-			&.form-control-lg {
-				border-radius: $radius;
-			}
-		}
-
-		.help-block {
-			margin: 0.5rem;
-			line-height: 1.6;
-
-			color: $color-blue-grey-300;
-			font-size: $font-size-sm;
+			font-family: $font;
 		}
 	}
 
 	.form-text {
 		line-height: $line-height;
 		padding-left: 0.25rem;
+	}
+
+	.has-danger,
+	.has-warning,
+	.has-success {
+		.control-wrapper {
+			padding: 0.3rem;
+
+			border-radius: $radius;
+		}
+
+		.form-text {
+			margin-bottom: 0;
+			padding: 0 0.5rem;
+
+			color: $color-white;
+
+			a {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	.has-danger {
+		.control-wrapper { background-color: $color-danger; }
+
+		label { color: $color-danger; }
+
+		.form-text {
+			a { color: darken($color-danger, 10%); }
+		}
+
+		.form-control { border-color: $color-danger; }
+	}
+
+	.has-warning {
+		.control-wrapper { background-color: $color-warning; }
+
+		label { color: $color-warning; }
+
+		.form-text {
+			a { color: darken($color-warning, 10%); }
+		}
+
+		.form-control { border-color: $color-warning; }
+	}
+
+	.has-success {
+		.control-wrapper { background-color: $color-success; }
+		
+		label { color: $color-success; }
+
+		.form-text {
+			a { color: darken($color-success, 10%); }
+		}
+
+		.form-control { border-color: $color-success; }
 	}
 }
 
@@ -427,7 +479,7 @@ hr {
 .alert {
 	border-radius: $radius;
 	
-	h4 {
+	.alert-heading {
 		font-weight: 500;
 	}
 
@@ -453,7 +505,7 @@ hr {
 	}
 
 	&.alert-warning {
-		@include alert-variant($color-warning, $color-warning, darken($color-amber-900, 15%));
+		@include alert-variant($color-warning, $color-warning, $color-white);
 	}
 }
 
@@ -495,63 +547,6 @@ code {
 	&.sqlite {
 		background-image: url(../images/sqlite.svg);
 	}
-}
-
-.has-danger,
-.has-warning,
-.has-success {
-	.control-wrapper {
-		padding: 0.3rem;
-
-		border-radius: $radius;
-	}
-
-	.form-text {
-		margin-bottom: 0;
-		padding: 0 0.5rem;
-
-		color: $color-white;
-
-		a {
-			text-decoration: underline;
-		}
-	}
-}
-
-.has-danger {
-	.control-wrapper { background-color: $color-danger; }
-
-	.col-form-label { color: $color-danger; }
-
-	.form-text {
-		a { color: darken($color-danger, 10%); }
-	}
-
-	.form-control { border-color: $color-danger; }
-}
-
-.has-warning {
-	.control-wrapper { background-color: $color-warning; }
-
-	.col-form-label { color: $color-warning; }
-
-	.form-text {
-		a { color: darken($color-warning, 10%); }
-	}
-
-	.form-control { border-color: $color-warning; }
-}
-
-.has-success {
-	.control-wrapper { background-color: $color-success; }
-	
-	.col-form-label { color: $color-success; }
-
-	.form-text {
-		a { color: darken($color-success, 10%); }
-	}
-
-	.form-control { border-color: $color-success; }
 }
 
 .wizard {
@@ -602,9 +597,7 @@ code {
 			.icon {
 				width: 3.5rem;
 				height: 3.5rem;
-				/*animation-name: flipInY;
-				animation-duration: .75s;*/
-
+				
 				path {
 					fill: $color-primary;
 				}
@@ -647,10 +640,37 @@ code {
 
 .sweet-alert {
 	font-family: $font;
-	border-radius: $radius;
+	border-radius: $radius-lg;
+	box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4);
+
+	p {
+		line-height: 1.5;
+
+		font-size: 1rem;
+		font-weight: 400;
+	}
 
 	h2 {
-		font-weight: 300;
+		font-weight: 400;
+		font-family: $font-heading;
+	}
+
+	button {
+		font-family: $font;
+		font-size: 1.2rem;
+		font-weight: 400;
+		border-radius: $radius;
+		letter-spacing: 0.01rem;
+
+		&.cancel {
+			background-color: $color-grey-300;
+			color: $color-grey-500;
+
+			&:hover {
+				background-color: lighten($color-grey-300, 2%);
+				color: $color-grey-600;
+			}
+		}
 	}
 
 	.sa-icon {
@@ -747,6 +767,9 @@ code {
 	animation-duration: 0.75s;
 	animation-fill-mode: both;
 
+	&.fadeIn {
+		animation-name: fadeIn;
+	}
 	&.fadeInLeft {
 		animation-name: fadeInLeft;
 	}
@@ -764,6 +787,10 @@ code {
 		backface-visibility: visible !important;
 		-webkit-animation-name: flipInX;
 		animation-name: flipInX;
+	}
+	&.zoomIn {
+		-webkit-animation-name: zoomIn;
+		animation-name: zoomIn;
 	}
 }
 
@@ -967,4 +994,62 @@ code {
 		-webkit-transform: perspective(400px);
 		transform: perspective(400px);
 	}
+}
+
+@-webkit-keyframes zoomIn {
+	from {
+		opacity: 0;
+		-webkit-transform: scale3d(.3, .3, .3);
+		transform: scale3d(.3, .3, .3);
+	}
+
+	50% {
+		opacity: 1;
+	}
+}
+
+@keyframes zoomIn {
+	from {
+		opacity: 0;
+		-webkit-transform: scale3d(.3, .3, .3);
+		transform: scale3d(.3, .3, .3);
+	}
+
+	50% {
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes zoomInShort {
+	from {
+		opacity: 0;
+		-webkit-transform: scale3d(.85, .85, .85);
+		transform: scale3d(.85, .85, .85);
+	}
+
+	50% {
+		opacity: 1;
+	}
+}
+
+@keyframes zoomInShort {
+	from {
+		opacity: 0;
+		-webkit-transform: scale3d(.85, .85, .85);
+		transform: scale3d(.85, .85, .85);
+	}
+
+	50% {
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
 }
