@@ -22,18 +22,18 @@ $nova2Completed = [
 	'setup/migrate/config-email/success'
 ];
 
-/*$dbActive = [
-	'setup/install/config-database',
-	'setup/install/config-database/check',
-	'setup/install/config-database/write',
+$dbActive = [
+	'setup/migrate/config-database',
+	'setup/migrate/config-database/check',
+	'setup/migrate/config-database/write',
 ];
 
 $emailActive = [
-	'setup/install/config-email',
-	'setup/install/config-email/write',
+	'setup/migrate/config-email',
+	'setup/migrate/config-email/write',
 ];
 
-$novaActive = [
+/*$novaActive = [
 	'setup/install/nova',
 ];
 
@@ -62,16 +62,25 @@ if (in_array($path, $nova2Completed))
 	$classes[1] = 'class="step completed"';
 }
 
-/*if (in_array($path, $emailActive))
+if (in_array($path, $dbActive))
 {
 	$classes[2] = 'class="step active"';
 }
-if (File::exists(app('path.config').'/mail.php'))
+if (File::exists(app('path.config').'/database.php'))
 {
 	$classes[2] = 'class="step completed"';
 }
 
-if (in_array($path, $novaActive))
+if (in_array($path, $emailActive))
+{
+	$classes[3] = 'class="step active"';
+}
+if (File::exists(app('path.config').'/mail.php'))
+{
+	$classes[3] = 'class="step completed"';
+}
+
+/*if (in_array($path, $novaActive))
 {
 	$classes[3] = 'class="step active"';
 }
