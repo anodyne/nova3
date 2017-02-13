@@ -11,7 +11,7 @@ class ConfigFileWriter {
 		$this->files = $files;
 	}
 
-	public function write($file, array $replacements = [])
+	public function write($file, array $replacements = [], $fileToWrite = false)
 	{
 		// Grab the content from the generator
 		$content = $this->files->get(app_path("Setup/stubs/{$file}.stub"));
@@ -24,7 +24,9 @@ class ConfigFileWriter {
 			}
 		}
 
+		$filename = ($fileToWrite) ?: $file;
+
 		// Create the file and store the content
-		$this->files->put(app('path.config')."/{$file}.php", $content);
+		$this->files->put(app('path.config')."/{$filename}.php", $content);
 	}
 }
