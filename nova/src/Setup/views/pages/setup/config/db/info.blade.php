@@ -90,7 +90,7 @@
 						<div class="form-group">
 							<label>Table Prefix</label>
 							<div class="control-wrapper">
-								{!! Form::text('db_prefix', 'nova_', ['class' => 'form-control form-control-lg']) !!}
+								{!! Form::text('db_prefix', $prefix, ['class' => 'form-control form-control-lg', 'v-model' => 'prefix']) !!}
 							</div>
 						</div>
 					</div>
@@ -136,7 +136,7 @@
 					<div class="col-md-6 col-lg-5 offset-lg-1">
 						<div class="form-group">
 							<label>Table Prefix</label>
-							{!! Form::text('db_prefix', 'nova_', ['class' => 'form-control form-control-lg']) !!}
+							{!! Form::text('db_prefix', $prefix, ['class' => 'form-control form-control-lg', 'v-model' => 'prefix']) !!}
 						</div>
 					</div>
 				</div>
@@ -170,7 +170,8 @@
 	<script>
 		app = {
 			data: {
-				driver: false
+				driver: false,
+				prefix: ""
 			},
 
 			methods: {
