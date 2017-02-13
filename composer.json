@@ -6,6 +6,7 @@
 		"laravelcollective/html": "5.4.*",
 		"dingo/api": "1.0.*@dev",
 		"pespantelis/gravatar": "~1.0",
+		"creativeorange/gravatar": "~1.0",
 		"ramsey/uuid": "~3.3",
 		"guzzlehttp/guzzle": "~6.0",
 		"nothingworks/blade-svg": "~0.1",
