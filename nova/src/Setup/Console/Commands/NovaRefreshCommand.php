@@ -1,53 +1,46 @@
-<?php namespace Nova\Foundation\Console\Commands;
+<?php namespace Nova\Setup\Console\Commands;
 
-use File, Artisan, Storage;
+use File;
 use Illuminate\Console\Command;
+use Illuminate\Filesystem\FilesystemManager;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
 class NovaRefreshCommand extends Command {
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
 	protected $name = 'nova:refresh';
-
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
 	protected $description = 'Refresh the Nova installation';
+	protected $files;
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
+	public function __construct(FilesystemManager $storage)
+	{
+		parent::__construct();
+		
+		$this->files = $storage->disk('local');
+	}
+
 	public function handle()
 	{
 		$this->info("");
 		$this->info("Removing cached routes...");
-		Artisan::call('route:clear');
+		$this->call('route:clear');
 
 		$this->info("Clearing the cache...");
 
-		if (Storage::disk('local')->has('installed.json'))
+		if ($this->files->has('installed.json'))
 		{
-			Storage::disk('local')->delete('installed.json');
+			$this->files->delete('installed.json');
 		}
 
 		$this->info("Removing generated config files...");
 		File::delete(app('path.config').'/session.php');
 
 		$this->info("Removing the database...");
-		Artisan::call('migrate:reset', ['--force' => true]);
+		$this->call('migrate:reset', ['--force' => true]);
 
 		$this->info("Installing ".config('nova.app.name')."...");
-		Artisan::call('migrate', ['--force' => true]);
-		Storage::disk('local')->put('installed.json', json_encode(['installed' => true]));
+		$this->call('migrate', ['--force' => true]);
+		$this->files->put('installed.json', json_encode(['installed' => true]));
 
 		// Grab the data from the setup file
 		$data = require_once base_path('_setup.php');

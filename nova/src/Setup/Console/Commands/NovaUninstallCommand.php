@@ -1,46 +1,38 @@
-<?php namespace Nova\Foundation\Console\Commands;
+<?php namespace Nova\Setup\Console\Commands;
 
-use File, Cache, Artisan, Storage;
+use File;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
+use Illuminate\Filesystem\FilesystemManager;
+use Symfony\Component\Console\Input\{InputOption, InputArgument};
 
 class NovaUninstallCommand extends Command {
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
 	protected $name = 'nova:uninstall';
-
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
 	protected $description = 'Remove Nova entirely';
+	protected $files;
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
+	public function __construct(FilesystemManager $storage)
+	{
+		parent::__construct();
+		
+		$this->files = $storage->disk('local');
+	}
+
 	public function handle()
 	{
 		$this->info("Clearing the cache...");
-		Cache::flush();
+		cache()->flush();
 
-		if (Storage::disk('local')->has('installed.json'))
+		if ($this->files->has('installed.json'))
 		{
-			Storage::disk('local')->delete('installed.json');
+			$this->files->delete('installed.json');
 		}
 
 		$this->info("Removing cached routes...");
-		Artisan::call('route:clear');
+		$this->call('route:clear');
 
 		$this->info("Removing the database...");
-		Artisan::call('migrate:reset', ['--force' => true]);
+		$this->call('migrate:reset', ['--force' => true]);
 
 		$this->info("Removing generated config files...");
 		File::delete(app('path.config').'/app.php');
@@ -60,5 +52,4 @@ class NovaUninstallCommand extends Command {
 		$this->info(config('nova.app.name').' has been uninstalled!');
 		$this->info("");
 	}
-
 }
