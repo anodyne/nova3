@@ -26,7 +26,7 @@
 						<div>
 							@icon('nova/src/Setup/views/design/images/exit_to_app')
 						</div>
-						<p><a href="#" class="btn btn-link btn-lg btn-block disabled">Not Available</a></p>
+						<p><a href="{{ route('setup.migrate') }}" class="btn btn-primary btn-lg btn-block">Start Migration</a></p>
 					</div>
 				</div>
 			</div>
