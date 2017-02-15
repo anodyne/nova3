@@ -49,6 +49,9 @@ return [
 			'collation' => 'utf8_unicode_ci',
 			'prefix'   => env('DB_PREFIX', 'nova_'),
 			'strict'    => false,
+			'dump' => [
+				//'dump_binary_path' => '/Applications/MAMP/Library/bin'
+			]
 		],
 
 		'pgsql' => [
