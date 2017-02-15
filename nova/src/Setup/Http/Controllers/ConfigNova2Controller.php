@@ -56,6 +56,14 @@ class ConfigNova2Controller extends BaseController {
 				$connector->getDefaultOptions()
 			);
 
+			// Grab the config writer
+			$writer = app('nova.setup.configWriter');
+
+			// Write the Nova 2 config file
+			$writer->write('nova2', [
+				"#NOVA2_DB_PREFIX#" => session('nova2_prefix')
+			]);
+
 			return redirect()->route("setup.{$this->setupType}.config.nova2.success");
 
 		}
