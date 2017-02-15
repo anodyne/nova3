@@ -57,7 +57,7 @@ if (in_array($path, $nova2Active))
 {
 	$classes[1] = 'class="step active"';
 }
-if (in_array($path, $nova2Completed))
+if (File::exists(app('path.config').'/nova2.php'))
 {
 	$classes[1] = 'class="step completed"';
 }
