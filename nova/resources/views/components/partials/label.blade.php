@@ -1,1 +1,1 @@
-<span class="label label-{{ $type or 'default' }}">{{ $content }}</span>
+<span class="badge badge-{{ $type or 'default' }}">{{ $content }}</span>

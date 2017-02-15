@@ -1,6 +1,9 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use Illuminate\Database\ConnectionResolverInterface;
+use Artisan;
+use Illuminate\Filesystem\Filesystem,
+	Illuminate\Filesystem\FilesystemManager;
+use Illuminate\Database\DatabaseManager;
 
 // The new database cannot have the same database prefix as the old database
 
@@ -10,7 +13,7 @@ class MigrateController extends BaseController {
 	protected $userDictionary = [];
 	protected $characterDictionary = [];
 
-	public function __construct(ConnectionResolverInterface $db)
+	public function __construct(DatabaseManager $db)
 	{
 		parent::__construct();
 
@@ -22,22 +25,28 @@ class MigrateController extends BaseController {
 		return view('pages.setup.migrate.landing');
 	}
 
-	public function runMigration()
+	public function migrateLanding()
 	{
-		$this->installNova();
+		return view('pages.setup.migrate.nova');
+	}
+
+	public function runMigration(FilesystemManager $storage)
+	{
+		$this->installNova($storage);
 
 		$this->migrateUsers();
 	}
 
-	protected function installNova()
+	protected function installNova(FilesystemManager $storage)
 	{
-		Artisan::call('migrate', ['--force' => true]);
+		Artisan::call('nova:install');
+		/*Artisan::call('migrate', ['--force' => true]);
 
 		$storage->disk('local')->put('installed.json', json_encode(['installed' => true]));
 
 		if (app('env') == 'production') {
 			Artisan::call('route:cache');
-		}
+		}*/
 	}
 
 	protected function migrateUsers()

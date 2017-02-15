@@ -9,7 +9,10 @@ class ConfigDbController extends BaseController {
 
 	public function info()
 	{
-		return view('pages.setup.config.db.info');
+		$prefix = ($this->setupType == 'install') ? 'nova_' : 'nova3_';
+		$nova2Prefix = ($this->setupType == 'migrate') ? session('nova2_prefix') : false;
+
+		return view('pages.setup.config.db.info', compact('prefix', 'nova2Prefix'));
 	}
 
 	public function check(Request $request, Connector $connector, Filesystem $files)
@@ -87,6 +90,7 @@ class ConfigDbController extends BaseController {
 		}
 		catch (PDOException $e)
 		{
+			dd($e);
 			$msg = (string) $e->getMessage();
 
 			if (stripos($msg, 'No such host is known') !== false)
@@ -144,7 +148,14 @@ class ConfigDbController extends BaseController {
 			}
 
 			// Write the database config
-			$writer->write('database', $dbConfigValues);
+			if ($this->setupType == 'install')
+			{
+				$writer->write('database', $dbConfigValues);
+			}
+			else
+			{
+				$writer->write('database-nova2', $dbConfigValues, 'database');
+			}
 
 			if ($files->exists(app('path.config').'/database.php'))
 			{

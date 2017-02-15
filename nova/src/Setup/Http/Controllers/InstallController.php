@@ -1,12 +1,12 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
 use Status,
+	Artisan,
 	UserCreator,
 	SettingRepositoryContract,
 	PageContentRepositoryContract;
 use Illuminate\Filesystem\Filesystem,
 	Illuminate\Filesystem\FilesystemManager;
-use Illuminate\Console\Application as Artisan;
 use Nova\Setup\Http\Requests\CreateUserRequest,
 	Nova\Setup\Http\Requests\UpdateSettingsRequest;
 
@@ -22,10 +22,11 @@ class InstallController extends BaseController {
 		return view('pages.setup.install.nova');
 	}
 
-	public function install(FilesystemManager $storage, Artisan $artisan)
+	public function install(FilesystemManager $storage)
 	{
-		// Run the migrate commands
-		$artisan->call('migrate', ['--force' => true]);
+		Artisan::call('nova:install');
+		/*// Run the migrate commands
+		Artisan::call('migrate', ['--force' => true]);
 
 		// Create the installed file
 		$storage->disk('local')->put('installed.json', json_encode(['installed' => true]));
@@ -33,8 +34,8 @@ class InstallController extends BaseController {
 		// Cache the routes in production
 		if (app('env') == 'production')
 		{
-			$artisan->call('route:cache');
-		}
+			Artisan::call('route:cache');
+		}*/
 	}
 
 	public function novaSuccess()

@@ -13,8 +13,9 @@ class Kernel extends ConsoleKernel {
 	protected $commands = [
 		Commands\MakeExtensionCommand::class,
 		Commands\MakeThemeCommand::class,
-		Commands\NovaRefreshCommand::class,
-		Commands\NovaUninstallCommand::class,
+		\Nova\Setup\Commands\NovaRefreshCommand::class,
+		\Nova\Setup\Commands\NovaUninstallCommand::class,
+		\Nova\Setup\Commands\NovaInstallCommand::class,
 	];
 
 	/**

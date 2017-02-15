@@ -87,10 +87,11 @@
 					</div>
 
 					<div class="col-md-6 col-lg-5">
-						<div class="form-group">
+						<div :class="tablePrefixClass">
 							<label>Table Prefix</label>
 							<div class="control-wrapper">
-								{!! Form::text('db_prefix', 'nova_', ['class' => 'form-control form-control-lg']) !!}
+								{!! Form::text('db_prefix', false, ['class' => 'form-control form-control-lg', 'v-model' => 'prefix', '@change' => 'checkPrefix']) !!}
+								<small v-if="prefixWarning" class="form-text">You cannot use the same database table prefix as your Nova 2 installation. Please choose a different table prefix.</small>
 							</div>
 						</div>
 					</div>
@@ -136,7 +137,7 @@
 					<div class="col-md-6 col-lg-5 offset-lg-1">
 						<div class="form-group">
 							<label>Table Prefix</label>
-							{!! Form::text('db_prefix', 'nova_', ['class' => 'form-control form-control-lg']) !!}
+							{!! Form::text('db_prefix', $prefix, ['class' => 'form-control form-control-lg']) !!}
 						</div>
 					</div>
 				</div>
@@ -170,7 +171,20 @@
 	<script>
 		app = {
 			data: {
-				driver: false
+				driver: false,
+				prefix: "{{ $prefix }}",
+				oldPrefix: "{{ config('nova2.db_prefix') }}",
+				prefixWarning: false
+			},
+
+			computed: {
+				tablePrefixClass: function () {
+					if (this.prefixWarning) {
+						return 'form-group has-danger'
+					}
+
+					return 'form-group'
+				}
 			},
 
 			methods: {
@@ -180,6 +194,15 @@
 					}
 
 					return 'card'
+				},
+
+				checkPrefix: function () {
+					this.prefixWarning = false
+
+					if (this.driver == 'mysql' && this.prefix == this.oldPrefix) {
+						this.prefix = ""
+						this.prefixWarning = true
+					}
 				}
 			}
 		}

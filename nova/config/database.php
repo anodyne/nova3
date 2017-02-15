@@ -54,6 +54,18 @@ return [
 			]
 		],
 
+		'nova2' => [
+			'driver'    => 'mysql',
+			'host'      => env('NOVA2_DB_HOST', 'localhost'),
+			'database'  => env('NOVA2_DB_DATABASE', 'DbDatabase'),
+			'username'  => env('NOVA2_DB_USERNAME', 'DbUsername'),
+			'password'  => env('NOVA2_DB_PASSWORD', 'DbPassword'),
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'   => env('NOVA2_DB_PREFIX', 'nova_'),
+			'strict'    => false,
+		],
+
 		'pgsql' => [
 			'driver'   => 'pgsql',
 			'host'     => env('DB_HOST', 'localhost'),

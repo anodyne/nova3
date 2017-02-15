@@ -1,0 +1,7 @@
+<?php
+
+return [
+
+	'db_prefix' => '#NOVA2_DB_PREFIX#',
+
+];
