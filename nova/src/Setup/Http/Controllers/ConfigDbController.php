@@ -24,8 +24,12 @@ class ConfigDbController extends BaseController {
 			return redirect()->back()->withInput();
 		}
 
+		$driver = (trim($request->get('db_driver')) == 'mariadb')
+			? 'mysql'
+			: trim($request->get('db_driver'));
+
 		// Set the session variables
-		session(['dbDriver' => trim($request->get('db_driver'))]);
+		session(['dbDriver' => $driver]);
 		session(['dbName' => trim($request->get('db_name'))]);
 		session(['dbUser' => trim($request->get('db_user'))]);
 		session(['dbPass' => trim($request->get('db_password'))]);
@@ -90,7 +94,6 @@ class ConfigDbController extends BaseController {
 		}
 		catch (PDOException $e)
 		{
-			dd($e);
 			$msg = (string) $e->getMessage();
 
 			if (stripos($msg, 'No such host is known') !== false)
