@@ -1,10 +1,13 @@
 <?php
 
+use Illuminate\Support\Collection;
 use Nova\Foundation\Themes\Theme as BaseTheme;
 
 class Theme extends BaseTheme {
 
-	public function getIconMap(): array
+	public $iconTemplate = '<i class="material-icons %2$s">%1$s</i>';
+
+	public function iconMap(): array
 	{
 		return [
 			'add'			=> 'add',
@@ -101,10 +104,4 @@ class Theme extends BaseTheme {
 			'wrench'		=> 'build',
 		];
 	}
-
-	public function iconTemplate()
-	{
-		return '<i class="material-icons %classes%">%icon%</i>';
-	}
-
 }

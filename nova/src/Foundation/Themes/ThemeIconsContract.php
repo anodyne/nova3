@@ -2,10 +2,13 @@
 
 interface ThemeIconsContract {
 
-	public function buildIconList($additionalClasses = false): array;
+	public function buildIconList($extraClasses = false): array;
 	public function getIcon(string $icon);
-	public function getIconMap(): array;
-	public function iconTemplate(): string;
-	public function renderIcon(string $icon, $additionalClasses = false): string;
+	public function getIconMap();
+	public function iconMap(): array;
+	public function renderIcon(string $icon, $extraClasses = false);
+	public function renderFontIcon(string $icon, $extraClasses = false);
+	public function renderImageIcon(string $icon, $extraClasses = false);
+	public function renderSvgIcon(string $icon, $extraClasses = false);
 
 }

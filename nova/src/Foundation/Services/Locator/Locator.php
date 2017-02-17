@@ -18,6 +18,7 @@ class Locator implements Locatable {
 	protected $pathsFirst = [
 		'extensions/Override/views/components',
 		'themes/%theme%/components',
+		'themes/%theme%/design'
 	];
 
 	/**
@@ -41,6 +42,13 @@ class Locator implements Locatable {
 		'.php',
 		'.css',
 		'.js',
+		'.svg',
+		'.jpg',
+		'.jpeg',
+		'.gif',
+		'.png',
+		'.bmp',
+		'',
 	];
 
 	/**
@@ -144,6 +152,28 @@ class Locator implements Locatable {
 	public function exists($type, $file): bool
 	{
 		return $this->performSearch($type, $file, false);
+	}
+
+	/**
+	 * Search for an image file.
+	 *
+	 * @param	string	$image	The image to find
+	 * @return	string
+	 */
+	public function image($image)
+	{
+		return $this->performImageSearch('images', $image, false);
+	}
+
+	/**
+	 * Check to see if an image exists.
+	 *
+	 * @param	string	$image	The image to find
+	 * @return	bool
+	 */
+	public function imageExists($image): bool
+	{
+		return $this->performImageSearch('images', $image, false, false);
 	}
 
 	/**
@@ -257,6 +287,28 @@ class Locator implements Locatable {
 	}
 
 	/**
+	 * Search for an SVG file.
+	 *
+	 * @param	string	$image	The image to find
+	 * @return	string
+	 */
+	public function svg($image)
+	{
+		return $this->performImageSearch('images', $image);
+	}
+
+	/**
+	 * Check to see if an SVG exists.
+	 *
+	 * @param	string	$image	The image to find
+	 * @return	bool
+	 */
+	public function svgExists($image): bool
+	{
+		return $this->performImageSearch('images', $image, true, false);
+	}
+
+	/**
 	 * Search for a template view file.
 	 *
 	 * @param	string	$file	The file to find (no extension)
@@ -366,6 +418,7 @@ class Locator implements Locatable {
 		{
 			$finder->name($file.$extension);
 		}
+		//dd($finder);
 
 		if ($finder->count() == 0)
 		{
@@ -387,6 +440,82 @@ class Locator implements Locatable {
 		foreach ($this->extensions as $extension)
 		{
 			$finalFilename = str_replace($extension, '', $finalFilename);
+		}
+
+		return $finalFilename;
+	}
+
+	protected function performImageSearch($type, $file, $isSvg = true, $throwOnMissing = true)
+	{
+		// Spin up a new instance of the finder
+		$finder = new Finder;
+
+		// Make sure we're only returning files
+		$finder->files();
+
+		$additionalPath = false;
+
+		if (Str::contains($file, '/'))
+		{
+			// Break out into the individual pieces
+			$fileParts = explode('/', $file);
+
+			// Update the filename
+			$file = end($fileParts);
+
+			// Drop the last element (the filename) off the array
+			array_pop($fileParts);
+
+			// Make a string out of the remaining pieces
+			$additionalPath = implode('/', $fileParts);
+		}
+
+		// Loop through the paths and add them if they exist
+		foreach ($this->paths as $path)
+		{
+			// Set the proper theme
+			$path = str_replace('%theme%', $this->findCurrentTheme(), $path);
+
+			// Build the final path
+			$finalPath = "{$path}/{$type}";
+			$finalPath = ( ! empty($additionalPath)) ? $finalPath."/{$additionalPath}" : $finalPath;
+
+			$this->addPath($finalPath, $finder);
+		}
+
+		// Loop through the extensions and set the names we want to look for
+		foreach ($this->extensions as $extension)
+		{
+			$finder->name($file.$extension);
+		}
+		//dd($finder);
+
+		if ($finder->count() == 0)
+		{
+			if ( ! $throwOnMissing)
+			{
+				return false;
+			}
+
+			// Uh-oh! We didn't find anything, so throw an exception
+			throw new LocatorException("The file [{$type}/{$file}] couldn't be found.");
+		}
+
+		// Turn the iterator into an array
+		$finderArr = iterator_to_array($finder);
+
+		// Return the first key (relative path to the file)
+		$finalFilename = array_keys($finderArr)[0];
+
+		// The svg_icon helper automatically appends .svg to the end of the
+		// location, so we need to make sure we pop that off, but other
+		// images will need to keep their extensions
+		if ($isSvg)
+		{
+			foreach ($this->extensions as $extension)
+			{
+				$finalFilename = str_replace($extension, '', $finalFilename);
+			}
 		}
 
 		return $finalFilename;

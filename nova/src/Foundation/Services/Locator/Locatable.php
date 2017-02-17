@@ -60,6 +60,22 @@ interface Locatable {
 	public function exists($type, $file);
 
 	/**
+	 * Search for an image file.
+	 *
+	 * @param	string	$image	The image to find
+	 * @return	string
+	 */
+	public function image($image);
+
+	/**
+	 * Check to see if an image exists.
+	 *
+	 * @param	string	$image	The image to find
+	 * @return	bool
+	 */
+	public function imageExists($image): bool;
+
+	/**
 	 * Search for a javascript view file.
 	 *
 	 * @param	string	$file	The file to find (no extension)
@@ -138,6 +154,22 @@ interface Locatable {
 	 * @return	bool
 	 */
 	public function styleExists($file);
+
+	/**
+	 * Search for an SVG file.
+	 *
+	 * @param	string	$image	The image to find
+	 * @return	string
+	 */
+	public function svg($image);
+
+	/**
+	 * Check to see if an SVG exists.
+	 *
+	 * @param	string	$image	The image to find
+	 * @return	bool
+	 */
+	public function svgExists($image): bool;
 
 	/**
 	 * Search for a template view file.

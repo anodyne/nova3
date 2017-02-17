@@ -4,7 +4,9 @@ use Nova\Foundation\Themes\Theme as BaseTheme;
 
 class Theme extends BaseTheme {
 
-	public function getIconMap(): array
+	public $iconTemplate = '<i class="entypo-%1$s %2$s"></i>';
+
+	public function iconMap(): array
 	{
 		return [
 			'add'			=> 'squared-plus',
@@ -67,10 +69,4 @@ class Theme extends BaseTheme {
 			'warning'		=> 'warning',
 		];
 	}
-
-	public function iconTemplate()
-	{
-		return '<i class="entypo-%icon% %classes%"></i>';
-	}
-
 }

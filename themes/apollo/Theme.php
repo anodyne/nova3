@@ -4,7 +4,9 @@ use Nova\Foundation\Themes\Theme as BaseTheme;
 
 class Theme extends BaseTheme {
 
-	public function getIconMap(): array
+	public $iconTemplate = '<i class="icomoon-%1$s %2$s"></i>';
+
+	public function iconMap(): array
 	{
 		return [
 			'add'			=> 'plus2',
@@ -102,10 +104,4 @@ class Theme extends BaseTheme {
 			'wrench'		=> 'wrench',
 		];
 	}
-
-	public function iconTemplate(): string
-	{
-		return '<i class="icomoon-%icon% %classes%"></i>';
-	}
-
 }

@@ -8,6 +8,8 @@ class Theme implements ThemeIconsContract,
 					   ThemeMenusContract,
 					   ThemeStructureContract {
 
+	use ThemeIcons;
+
 	public $name;
 	public $author;
 	public $credits;
@@ -35,144 +37,6 @@ class Theme implements ThemeIconsContract,
 
 		// Allow for some initializing
 		$this->initialize();
-	}
-
-	/**
-	 * ThemeIcons Contract Implementation
-	 */
-	public function buildIconList($additionalClasses = false): array
-	{
-		$icons = [];
-
-		foreach ($this->getIconMap() as $key => $value)
-		{
-			$icons[] = [
-				'key' => $key,
-				'value' => $value,
-				'preview' => $this->renderIcon($key, $additionalClasses),
-			];
-		}
-
-		return $icons;
-	}
-
-	public function getIcon(string $icon)
-	{
-		return array_get($this->getIconMap(), $icon);
-	}
-
-	public function getIconMap(): array
-	{
-		return [
-			'add'			=> 'plus',
-			'announcement'	=> 'bullhorn',
-			'archive'		=> 'archive',
-			'arrow-back'	=> 'arrow-left',
-			'arrow-down'	=> 'arrow-down',
-			'arrow-forward'	=> 'arrow-right',
-			'arrow-up'		=> 'arrow-up',
-			'ban'			=> 'ban',
-			'bolt'			=> 'bolt',
-			'book'			=> 'book',
-			'bookmark'		=> 'bookmark',
-			'briefcase'		=> 'briefcase',
-			'brush'			=> 'paint-brush',
-			'calendar'		=> 'calendar-o',
-			'caret-down'	=> 'caret-down',
-			'caret-up'		=> 'caret-up',
-			'chart-area'	=> 'area-chart',
-			'chart-bar'		=> 'bar-chart',
-			'chart-line'	=> 'line-chart',
-			'chart-pie'		=> 'pie-chart',
-			'check'			=> 'check',
-			'clock'			=> 'clock-o',
-			'close'			=> 'times',
-			'cloud'			=> 'cloud',
-			'cloud-download'=> 'cloud-download',
-			'cloud-upload'	=> 'cloud-upload',
-			'code'			=> 'code',
-			'comment'		=> 'comment',
-			'comments'		=> 'comments',
-			'copy'			=> 'clone',
-			'cut'			=> 'scissors',
-			'dashboard'		=> 'tachometer',
-			'delete'		=> 'trash',
-			'desktop'		=> 'desktop',
-			'directions'	=> 'map-signs',
-			'download'		=> 'download',
-			'edit'			=> 'pencil',
-			'email'			=> 'envelope',
-			'file'			=> 'file-o',
-			'fire'			=> 'fire',
-			'flag'			=> 'flag',
-			'folder'		=> 'folder',
-			'folder-open'	=> 'folder-open',
-			'forward'		=> 'share',
-			'frown'			=> 'frown-o',
-			'gift'			=> 'gift',
-			'heart'			=> 'heart',
-			'heart-empty'	=> 'heart-o',
-			'history'		=> 'history',
-			'home'			=> 'home',
-			'image'			=> 'image',
-			'inbox'			=> 'inbox',
-			'info'			=> 'info-circle',
-			'key'			=> 'key',
-			'laptop'		=> 'laptop',
-			'leaf'			=> 'leaf',
-			'light'			=> 'lightbulb-o',
-			'link'			=> 'link',
-			'list'			=> 'list-ul',
-			'location'		=> 'map-marker',
-			'lock'			=> 'lock',
-			'mobile'		=> 'mobile',
-			'more'			=> 'ellipsis-h',
-			'not-visible'	=> 'eye-slash',
-			'notifications'	=> 'bell',
-			'paste'			=> 'clipboard',
-			'question'		=> 'question',
-			'refresh'		=> 'refresh',
-			'reply'			=> 'reply',
-			'reply-all'		=> 'reply-all',
-			'search'		=> 'search',
-			'send'			=> 'paper-plane',
-			'settings'		=> 'cog',
-			'share'			=> 'share-alt',
-			'shield'		=> 'shield',
-			'sign-in'		=> 'sign-in',
-			'sign-out'		=> 'sign-out',
-			'smile'			=> 'smile-o',
-			'star'			=> 'star',
-			'star-empty'	=> 'star-o',
-			'tablet'		=> 'tablet',
-			'tag'			=> 'tag',
-			'tasks'			=> 'tasks',
-			'thumbs-down'	=> 'thumbs-down',
-			'thumbs-up'		=> 'thumbs-up',
-			'ticket'		=> 'ticket',
-			'trophy'		=> 'trophy',
-			'unlock'		=> 'unlock',
-			'upload'		=> 'upload',
-			'user'			=> 'user',
-			'users'			=> 'users',
-			'visible'		=> 'eye',
-			'warning'		=> 'exclamation-triangle',
-			'wizard'		=> 'magic',
-			'wrench'		=> 'wrench',
-		];
-	}
-
-	public function iconTemplate(): string
-	{
-		return '<i class="fa fa-%icon% %classes%"></i>';
-	}
-
-	public function renderIcon(string $icon, $additionalClasses = false): string
-	{
-		$output = str_replace('%classes%', $additionalClasses, $this->iconTemplate());
-		$output = str_replace('%icon%', $this->getIcon($icon), $output);
-
-		return $output;
 	}
 
 	/**
@@ -353,7 +217,7 @@ class Theme implements ThemeIconsContract,
 			break;
 
 			case 'divider':
-				return HtmlBuilder::raw('')->addParentClass('divider');
+				return HtmlBuilder::raw('')->addParentClass('dropdown-divider');
 			break;
 		}
 	}
@@ -377,13 +241,13 @@ class Theme implements ThemeIconsContract,
 
 				// Build the header for the sub menu
 				$header = LinkBuilder::to('#', $headerText)
-					->addClass('dropdown-toggle')
+					->addClass('dropdown-toggle nav-link')
 					->setAttribute('data-toggle', 'dropdown');
 
 				// Start building the submenu and prepend the first item
 				$submenu = MenuBuilder::new()
 					->addClass('dropdown-menu')
-					->addParentClass('dropdown');
+					->addParentClass('dropdown nav-item');
 				$submenu->prepend($header);
 
 				// Loop through the sub menu items and build the sub menu
@@ -391,7 +255,7 @@ class Theme implements ThemeIconsContract,
 				{
 					$submenu->addIf(
 						$subMenuItem->userHasAccess(user()),
-						$this->buildMenuItem($subMenuItem)
+						$this->buildMenuItem($subMenuItem, 'dropdown-item')
 					);
 				}
 
@@ -402,7 +266,7 @@ class Theme implements ThemeIconsContract,
 			{
 				$menu->addIf(
 					$mainMenuItem->userHasAccess(user()),
-					$this->buildMenuItem($mainMenuItem)
+					$this->buildMenuItem($mainMenuItem, 'nav-link')->addParentClass('nav-item')
 				);
 			}
 		}
@@ -494,7 +358,7 @@ class Theme implements ThemeIconsContract,
 
 	public function buildUserMenu()
 	{
-		$menu = MenuBuilder::new()->addClass('nav navbar-nav navbar-right');
+		$menu = MenuBuilder::new()->addClass('nav navbar-nav pull-md-right');
 
 		if (Auth::check())
 		{
@@ -512,7 +376,8 @@ class Theme implements ThemeIconsContract,
 
 			$menu->add(LinkBuilder::url('#', $notificationIcon)
 				->setAttributes(['data-toggle' => 'modal', 'data-target' => '#notification-panel'])
-				->addClass('notification-indicator'));
+				->addClass('notification-indicator nav-link')
+				->addParentClass('nav-item'));
 
 			// Build the text for the header link
 			$headerText = sprintf('%s %s', 
@@ -522,22 +387,26 @@ class Theme implements ThemeIconsContract,
 
 			// Build the header for the sub menu
 			$header = LinkBuilder::to('#', $headerText)
-				->addClass('dropdown-toggle')
+				->addClass('dropdown-toggle nav-link')
 				->setAttributes(['data-toggle' => 'dropdown', 'role' => 'button']);
 
 			// Build the submenu
-			$submenu = MenuBuilder::new()->addClass('dropdown-menu');
-			$submenu->add(LinkBuilder::url('#', "My Account"));
-			$submenu->add(LinkBuilder::route('admin.users.preferences', "My Preferences"));
-			$submenu->void(['role' => 'separator', 'class' => 'divider']);
-			$submenu->add(LinkBuilder::route('logout', "Log Out"));
+			$submenu = MenuBuilder::new()->addClass('dropdown-menu dropdown-menu-right')->addParentClass('nav-item');
+			$submenu->add(LinkBuilder::route('admin.users.account', "My Account")->addClass('dropdown-item'));
+			$submenu->add(LinkBuilder::route('admin.users.preferences', "My Preferences")->addClass('dropdown-item'));
+			$submenu->void(['role' => 'separator', 'class' => 'dropdown-divider']);
+			$submenu->add(LinkBuilder::route('logout', "Log Out")->addClass('dropdown-item'));
 
 			// Attach the submenu to the user menu
 			$menu->submenu($header, $submenu);
 		}
 		else
 		{
-			$menu->add(LinkBuilder::route('login', "Log In"));
+			$menu->add(
+				LinkBuilder::route('login', "Log In")
+					->addClass('nav-link')
+					->addParentClass('nav-item')
+			);
 		}
 
 		MenuBuilder::macro('menuUser', function () use ($menu)
