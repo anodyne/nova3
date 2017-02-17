@@ -123,7 +123,7 @@ if ( ! function_exists('icon'))
 {
 	function icon($icon, $additional = null)
 	{
-		return theme()->renderIcon($icon, $additional);
+		return theme()->renderIcon(theme()->getIcon($icon), $additional);
 	}
 }
 
