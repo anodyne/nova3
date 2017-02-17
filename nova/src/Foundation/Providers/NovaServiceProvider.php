@@ -280,6 +280,8 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function setupTheme()
 	{
+		$themeName = 'pulsar';
+
 		if (nova()->isInstalled())
 		{
 			// Get the theme name
@@ -287,17 +289,14 @@ class NovaServiceProvider extends ServiceProvider {
 				? $this->app['nova.user']->preference('theme')
 				: $this->app['nova.settings']->get('theme');
 		}
-		else
-		{
-			$themeName = "pulsar";
-		}
 
 		// Try to autoload the appropriate theme file
-		//ClassLoader::addDirectories($this->app->themePath($themeName));
-		//$loaded = ClassLoader::load('Theme');
-
-		if (class_exists('Theme'))
+		if (file_exists($this->app->themePath($themeName).'\\Theme.php'))
 		{
+			spl_autoload_register(function ($class) use ($themeName) {
+				include app()->themePath($themeName).'\\Theme.php';
+			});
+
 			// Make a new theme
 			$theme = new \Theme($themeName, $this->app, $this->app['nova.locator']);
 
@@ -315,19 +314,16 @@ class NovaServiceProvider extends ServiceProvider {
 
 		// Make sure that whatever class is handling the theme that it implements
 		// ALL of the necessary contracts, otherwise throw an exception
-		$contractsToImplement = [
+		$unimplementedContracts = array_diff([
 			'Nova\Foundation\Themes\ThemeIconsContract',
 			'Nova\Foundation\Themes\ThemeInfoContract',
 			'Nova\Foundation\Themes\ThemeMenusContract',
 			'Nova\Foundation\Themes\ThemeStructureContract',
-		];
+		], $class->getInterfaceNames());
 
-		foreach ($contractsToImplement as $contract)
+		if (count($unimplementedContracts) > 0)
 		{
-			if ( ! $class->implementsInterface($contract))
-			{
-				throw new MissingThemeImplementationException;
-			}
+			throw new MissingThemeImplementationException;
 		}
 
 		// Bind the existing instance into the container
