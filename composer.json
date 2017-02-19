@@ -11,6 +11,7 @@
 		"guzzlehttp/guzzle": "~6.0",
 		"nothingworks/blade-svg": "~0.1",
 		"ikimea/browser": "~1.14",
+		"emojione/emojione": "~2.2",
 
 		"spatie/laravel-partialcache": "~1.2",
 		"spatie/laravel-medialibrary": "~4.0",
