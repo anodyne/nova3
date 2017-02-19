@@ -25,6 +25,7 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->createPageCompilerEngine();
 		$this->createFieldTypesManager();
 		$this->setupTheme();
+		$this->setupEmojiOne();
 
 		if (nova()->isInstalled())
 		{
@@ -328,5 +329,14 @@ class NovaServiceProvider extends ServiceProvider {
 
 		// Bind the existing instance into the container
 		$this->app->instance('nova.theme', $theme);
+	}
+
+	protected function setupEmojiOne()
+	{
+		$client = new \Emojione\Client(new \Emojione\Ruleset);
+		$client->imageType = 'svg';
+		$client->imagePathSVG = nova_path('resources/emoji');
+
+		$this->app->instance('emoji', $client);
 	}
 }
