@@ -21,6 +21,14 @@
 					</div>
 				@endif
 
+				<div :class="cardClassName('mariadb')">
+					<div class="card-block">
+						<a role="button" @click="driver = 'mariadb'">
+							<div class="logo mariadb"></div>
+						</a>
+					</div>
+				</div>
+
 				@if (in_array('pgsql', PDO::getAvailableDrivers()))
 					<div :class="cardClassName('pgsql')">
 						<div class="card-block">
@@ -51,6 +59,14 @@
 				<div class="form-group row" v-show="driver == 'mysql'">
 					<div class="col-lg-10 offset-lg-1">
 						<h2>MySQL</h2>
+
+						<p>MySQL is the database system all previous versions of Nova have used and is one of the most widely available database systems in the world. Most shared hosts have MySQL installed by default so this is most often the best option for running {{ config('nova.app.name') }}. If you have questions about MySQL, get in touch with your web host.</p>
+					</div>
+				</div>
+
+				<div class="form-group row" v-show="driver == 'mariadb'">
+					<div class="col-lg-10 offset-lg-1">
+						<h2>MariaDB</h2>
 
 						<p>MySQL is the database system all previous versions of Nova have used and is one of the most widely available database systems in the world. Most shared hosts have MySQL installed by default so this is most often the best option for running {{ config('nova.app.name') }}. If you have questions about MySQL, get in touch with your web host.</p>
 					</div>
