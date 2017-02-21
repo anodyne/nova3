@@ -1,11 +1,7 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use Artisan;
-use Illuminate\Filesystem\Filesystem,
-	Illuminate\Filesystem\FilesystemManager;
+use Date, Status, Artisan;
 use Illuminate\Database\DatabaseManager;
-
-// The new database cannot have the same database prefix as the old database
 
 class MigrateController extends BaseController {
 
@@ -30,40 +26,63 @@ class MigrateController extends BaseController {
 		return view('pages.setup.migrate.nova');
 	}
 
-	public function runMigration(FilesystemManager $storage)
+	public function migrateSuccess()
 	{
-		$this->installNova($storage);
+		// Get an instance of the writer
+		$writer = app('nova.setup.configWriter');
+
+		// Write the session config file
+		$writer->write('session');
+
+		return view('pages.setup.migrate.nova-success');
+	}
+
+	public function runMigration()
+	{
+		$this->installNova();
 
 		$this->migrateUsers();
 	}
 
-	protected function installNova(FilesystemManager $storage)
+	public function accounts()
+	{
+		return view('pages.setup.migrate.accounts');
+	}
+
+	public function updateAccounts()
+	{
+		// TODO: remove the Nova 2 config file
+	}
+
+	protected function installNova()
 	{
 		Artisan::call('nova:install');
-		/*Artisan::call('migrate', ['--force' => true]);
-
-		$storage->disk('local')->put('installed.json', json_encode(['installed' => true]));
-
-		if (app('env') == 'production') {
-			Artisan::call('route:cache');
-		}*/
 	}
 
 	protected function migrateUsers()
 	{
 		$self = $this;
 
-		$this->db->table('users')->chunk(100, function ($user) use (&$self) {
+		$this->db->table('users')
+			->orderBy('userid')
+			->chunk(100, function ($users) use (&$self) {
 
-			$userData = [];
+				$users->each(function ($user) use (&$self) {
+					$newUser = app('nova.user.creator')->create([
+						'name' => $user->name,
+						'email' => $user->email,
+						'password' => config('nova2.temp_password'),
+						'status' => Status::toInt($user->status),
+						'created_at' => Date::createFromTimestampUTC($user->join_date),
+						'deleted_at' => (empty($user->leave_date)) ? null : Date::createFromTimestampUTC($user->leave_date),
+					]);
+					//$newUser->roles()->attach();
 
-			$newUser = new UserCreator($userData);
-			$newUser->roles()->attach();
+					//$preferences = [];
+					//$newUser->prefs()->create($preferences);
 
-			$preferences = [];
-			$newUser->prefs()->create($preferences);
-
-			$self->userDictionary[$user->userid] = $newUser->id;
+					$self->userDictionary[$user->userid] = $newUser->id;
+				});
 		});
 	}
 }
