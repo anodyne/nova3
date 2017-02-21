@@ -1,6 +1,6 @@
 <?php namespace Nova\Setup\Console\Commands;
 
-use Artisan;
+use Artisan, Storage;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\FilesystemManager;
 use Symfony\Component\Console\Input\{InputOption, InputArgument};
@@ -21,6 +21,19 @@ class NovaInstallCommand extends Command {
 	public function handle()
 	{
 		$this->call('migrate', ['--force' => true]);
+
+		// Get an instance of the writer
+		$writer = app('nova.setup.configWriter');
+
+		// Generate the new key
+		$newKey = 'base64:'.base64_encode(random_bytes(
+			config('app.cipher') == 'AES-128-CBC' ? 16 : 32
+		));
+
+		// Write the app config file
+		$writer->write('app', [
+			'#APP_KEY#' => $newKey,
+		]);
 
 		$this->files->put('installed.json', json_encode(['installed' => true]));
 
