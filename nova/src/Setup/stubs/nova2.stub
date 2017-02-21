@@ -4,4 +4,6 @@ return [
 
 	'db_prefix' => '#NOVA2_DB_PREFIX#',
 
+	'temp_password' => '#NOVA2_TEMP_PASS#',
+
 ];

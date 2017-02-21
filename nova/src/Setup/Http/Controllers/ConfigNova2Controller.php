@@ -27,6 +27,7 @@ class ConfigNova2Controller extends BaseController {
 		session(['nova2_dbPass' => trim($request->get('nova2_db_password'))]);
 		session(['nova2_dbHost' => trim($request->get('nova2_db_host'))]);
 		session(['nova2_prefix' => trim($request->get('nova2_db_prefix'))]);
+		session(['nova2_temp_password' => trim($request->get('nova2_temp_password'))]);
 
 		config([
 			"database.connections.nova2.host" => session('nova2_dbHost'),
@@ -61,7 +62,8 @@ class ConfigNova2Controller extends BaseController {
 
 			// Write the Nova 2 config file
 			$writer->write('nova2', [
-				"#NOVA2_DB_PREFIX#" => session('nova2_prefix')
+				"#NOVA2_DB_PREFIX#" => session('nova2_prefix'),
+				"#NOVA2_TEMP_PASS#" => session('nova2_temp_password'),
 			]);
 
 			return redirect()->route("setup.{$this->setupType}.config.nova2.success");

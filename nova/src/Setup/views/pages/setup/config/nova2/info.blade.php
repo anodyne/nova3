@@ -1,15 +1,46 @@
 @extends('layouts.setup')
 
-@section('title', 'Nova 2 Connection')
+@section('title', 'Configure Nova 2')
 
-@section('header', 'Nova 2 Connection')
+@section('header', 'Configure Nova 2')
 
 @section('content')
-	<h1>Configure Nova 2 Connection</h1>
-	<h3>Tell us a little bit about where your Nova 2 data lives</h3>
+	<h1>Configure Nova 2</h1>
+	<h3>Tell us a little bit about your Nova 2 site</h3>
 
 	<div v-cloak>
 		{!! Form::open(['route' => "setup.{$_setupType}.config.nova2.check"]) !!}
+			<div class="form-group row">
+				<div class="col-lg-10 offset-lg-1">
+					<h2>Migration Settings</h2>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6 col-lg-5 offset-lg-1">
+					<div class="form-group">
+						<label>Temporary User Password</label>
+						<div class="control-wrapper">
+							{!! Form::text('nova2_temp_password', false, ['class' => 'form-control form-control-lg']) !!}
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-5">
+					<div class="form-group">
+						<label>&nbsp;</label>
+						<div>
+							<small class="text-muted">When migrating users, a temporary password will be set for all user accounts. You'll need to communicate what the password is to your users after completing the migration and they'll be prompted to change their password when they first log in.</small>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<div class="col-lg-10 offset-lg-1">
+					<h2>Database Connection</h2>
+				</div>
+			</div>
+
 			<div class="row">
 				<div class="col-md-9 col-lg-8 offset-lg-1">
 					<div class="form-group">
