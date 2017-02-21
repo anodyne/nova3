@@ -83,6 +83,8 @@ Route::group(['prefix' => 'migrate'], function () {
 	Route::post('config-email/write', 'ConfigEmailController@write')->name('setup.migrate.config.email.write');
 
 	Route::get('nova', 'MigrateController@migrateLanding')->name('setup.migrate.nova');
-	Route::get('nova/success', 'MigrateController@installSuccess')->name('setup.migrate.nova.success');
-	Route::post('nova', 'MigrateController@installNova');
+	Route::get('nova/success', 'MigrateController@migrateSuccess')->name('setup.migrate.nova.success');
+	Route::post('nova', 'MigrateController@runMigration');
+
+	Route::get('accounts', 'MigrateController@accounts')->name('setup.migrate.accounts');
 });
