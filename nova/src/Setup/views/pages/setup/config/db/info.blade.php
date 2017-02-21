@@ -178,7 +178,11 @@
 			@endif
 		</div>
 		<div class="col-md-6 pull-md-6">
-			<p><a href="{{ route('setup.'.$_setupType) }}" class="btn btn-link btn-lg">Back: Fresh Install Info</a></p>
+			@if ($_setupType == 'install')
+				<p><a href="{{ route('setup.'.$_setupType) }}" class="btn btn-link btn-lg">Back: Fresh Install Info</a></p>
+			@else
+				<p><a href="{{ route('setup.'.$_setupType.'.config.nova2') }}" class="btn btn-link btn-lg">Back: Nova 2 Info</a></p>
+			@endif
 		</div>
 	</div>
 @stop

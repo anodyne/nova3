@@ -221,10 +221,18 @@
 @section('controls')
 	<div class="row">
 		<div class="col-md-6 push-md-6 text-right">
-			@if (file_exists(app('path.config').'/mail.php'))
-				<p><a href="{{ route('setup.'.$_setupType.'.nova') }}" class="btn btn-primary btn-lg">Next: Install {{ config('nova.app.name') }}</a></p>
+			@if ($_setupType == 'install')
+				@if (file_exists(app('path.config').'/mail.php'))
+					<p><a href="{{ route('setup.'.$_setupType.'.nova') }}" class="btn btn-primary btn-lg">Next: Install {{ config('nova.app.name') }}</a></p>
+				@else
+					<p><a class="btn btn-link btn-lg disabled">Next: Install {{ config('nova.app.name') }}</a></p>
+				@endif
 			@else
-				<p><a class="btn btn-link btn-lg disabled">Next: Install {{ config('nova.app.name') }}</a></p>
+				@if (file_exists(app('path.config').'/mail.php'))
+					<p><a href="{{ route('setup.'.$_setupType.'.nova') }}" class="btn btn-primary btn-lg">Next: Migrate Nova 2</a></p>
+				@else
+					<p><a class="btn btn-link btn-lg disabled">Next: Migrate Nova 2</a></p>
+				@endif
 			@endif
 		</div>
 		<div class="col-md-6 pull-md-6">
