@@ -26,7 +26,7 @@ class UserCreator {
 		));
 
 		// Create the user's preferences
-		app('PreferenceDefaultRepository')->get()->each(function ($default) use ($user) {
+		app('PreferenceDefaultRepository')->all()->each(function ($default) use ($user) {
 			app('UserPreferenceRepository')->create([
 				'user_id' => $user->id,
 				'key' => $default->key,
