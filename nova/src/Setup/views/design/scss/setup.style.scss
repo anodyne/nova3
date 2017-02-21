@@ -1,5 +1,5 @@
 @import "setup.variables";
-@import "../../../../../resources/views/design/scss/mixins";
+@import "../../../../../resources/views/design/scss/mixins", "../../../../../resources/views/design/scss/_data-table";
 
 html {
 	background-color: $color-blue-grey-50;
@@ -550,6 +550,18 @@ code {
 
 	&.sqlite {
 		background-image: url(../images/sqlite.svg);
+	}
+}
+
+.table-icon {
+	height: 2rem;
+	width: 2rem;
+	margin: 1rem 0;
+
+	&.text-success {
+		path {
+			fill: $color-success;
+		}
 	}
 }
 
