@@ -33,25 +33,18 @@ $emailActive = [
 	'setup/migrate/config-email/write',
 ];
 
-/*$novaActive = [
-	'setup/install/nova',
+$migrateActive = [
+	'setup/migrate/nova'
 ];
 
-$userActive = [
-	'setup/install/user',
+$accountsActive = [
+	'setup/migrate/accounts',
 ];
-$userCompleted = [
-	'setup/install/user/success',
-	'setup/install/settings',
-	'setup/install/settings/success',
+$accountsCompleted = [
+	'setup/migrate/accounts/success',
+	'setup/migrate/settings',
+	'setup/migrate/settings/success'
 ];
-
-$settingsActive = [
-	'setup/install/settings',
-];
-$settingsCompleted = [
-	'setup/install/settings/success',
-];*/
 
 if (in_array($path, $nova2Active))
 {
@@ -78,6 +71,24 @@ if (in_array($path, $emailActive))
 if (File::exists(app('path.config').'/mail.php'))
 {
 	$classes[3] = 'class="step completed"';
+}
+
+if (in_array($path, $migrateActive))
+{
+	$classes[4] = 'class="step active"';
+}
+if (nova()->isInstalled())
+{
+	$classes[4] = 'class="step completed"';
+}
+
+if (in_array($path, $accountsActive))
+{
+	$classes[5] = 'class="step active"';
+}
+if (in_array($path, $accountsCompleted))
+{
+	$classes[5] = 'class="step completed"';
 }
 
 /*if (in_array($path, $novaActive))

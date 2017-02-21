@@ -20,7 +20,7 @@
 		<dd>We've written an exhaustive <a href="#">migration guide</a> that will walk you through the process of moving from Nova 2 to {{ config('nova.app.name') }}. Make sure you've read through the guide in its entirety <strong>before</strong> attempting to migrate your site.</dd>
 
 		<dt>Database Size Limits</dt>
-		<dd>If your web host has limits set on the size of the database, you may not be able to migrate to {{ config('nova.app.name') }}. In order to preserve your original data, big portions of the database are duplicated so they can be converted. If there are size limits on your database, make sure the migration will not put you over those limits before you begin. If you aren't sure if there are size limits on your account, contact your web host.</dd>
+		<dd>If your web host has limits set on the size of the database, you may not be able to migrate to {{ config('nova.app.name') }}. In order to preserve your original data, the original database where Nova 2 lives is left intact so it can be converted. If there are size limits on your database, make sure the migration will not put you over those limits before you begin. If you aren't sure if there are size limits on your account, contact your web host.</dd>
 
 		<dt>Backup. No seriously, back everything up. BACK. IT. UP.</dt>
 		<dd>Last (but certainly not least), make sure you've backed up your Nova files and database before you get started. The migration process will attempt to do a backup for you, but the process may not be able to run if your server doesn't have the proper functions available.</dd>
@@ -55,7 +55,7 @@
 @section('controls')
 	<div class="row">
 		<div class="col-md-6 push-md-6 text-right">
-			<p><a href="{{ route('setup.migrate.config.nova2') }}" class="btn btn-primary btn-lg">Next: Connect to Nova 2</a></p>
+			<p><a href="{{ route('setup.migrate.config.nova2') }}" class="btn btn-primary btn-lg">Next: Nova 2 Info</a></p>
 		</div>
 		<div class="col-md-6 pull-md-6">
 			<p><a href="{{ route('setup.home') }}" class="btn btn-link btn-lg">Cancel</a></p>
