@@ -11,7 +11,7 @@ class NovaInstallCommand extends Command {
 	protected $description = 'Install the Nova database schema';
 	protected $files;
 
-	public function FunctionName(FilesystemManager $storage)
+	public function __construct(FilesystemManager $storage)
 	{
 		parent::__construct();
 		
