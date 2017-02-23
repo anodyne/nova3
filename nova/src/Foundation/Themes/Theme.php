@@ -98,7 +98,7 @@ class Theme implements ThemeIconsContract,
 		// We want to use an array for the combined menu
 		$menuSubItemsArr = app('MenuItemRepository')->splitSubMenuItemsIntoArray($this->menuSubItems);
 
-		$menu = MenuBuilder::new()->addClass('nav navbar-nav');
+		$menu = MenuBuilder::new()->addClass('navbar-nav mr-auto');
 
 		foreach ($this->menuMainItems as $mainMenuItem)
 		{
@@ -112,13 +112,13 @@ class Theme implements ThemeIconsContract,
 
 				// Build the header for the sub menu
 				$header = LinkBuilder::to('#', $headerText)
-					->addClass('dropdown-toggle')
+					->addClass('dropdown-toggle nav-link')
 					->setAttribute('data-toggle', 'dropdown');
 
 				// Start building the submenu and prepend the first item
 				$submenu = MenuBuilder::new()
 					->addClass('dropdown-menu')
-					->addParentClass('dropdown');
+					->addParentClass('dropdown nav-item');
 				$submenu->prepend($header);
 
 				// Loop through the sub menu items and build the sub menu
@@ -126,7 +126,7 @@ class Theme implements ThemeIconsContract,
 				{
 					$submenu->addIf(
 						$subMenuItem->userHasAccess(user()),
-						$this->buildMenuItem($subMenuItem)
+						$this->buildMenuItem($subMenuItem, 'dropdown-item')
 					);
 				}
 
@@ -137,7 +137,7 @@ class Theme implements ThemeIconsContract,
 			{
 				$menu->addIf(
 					$mainMenuItem->userHasAccess(user()),
-					$this->buildMenuItem($mainMenuItem)
+					$this->buildMenuItem($mainMenuItem, 'nav-link')->addParentClass('nav-item')
 				);
 			}
 		}
@@ -152,7 +152,7 @@ class Theme implements ThemeIconsContract,
 
 	public function buildAdminMainMenu()
 	{
-		$menu = MenuBuilder::new()->addClass('nav navbar-nav');
+		$menu = MenuBuilder::new()->addClass('navbar navbar-light bg-faded');
 
 		foreach ($this->menuMainItems as $mainMenuItem)
 		{
@@ -209,11 +209,11 @@ class Theme implements ThemeIconsContract,
 			break;
 
 			case 'page':
-				return LinkBuilder::route($item->page->key, $title)->addClass($class);
+				return LinkBuilder::toRoute($item->page->key, $title)->addClass($class);
 			break;
 
 			case 'route':
-				return LinkBuilder::route($item->link, $title)->addClass($class);
+				return LinkBuilder::toRoute($item->link, $title)->addClass($class);
 			break;
 
 			case 'divider':
@@ -227,7 +227,7 @@ class Theme implements ThemeIconsContract,
 		// We want to use an array for the combined menu
 		$menuSubItemsArr = app('MenuItemRepository')->splitSubMenuItemsIntoArray($this->menuSubItems);
 
-		$menu = MenuBuilder::new()->addClass('nav navbar-nav');
+		$menu = MenuBuilder::new()->addClass('navbar-nav mr-auto');
 
 		foreach ($this->menuMainItems as $mainMenuItem)
 		{
@@ -374,7 +374,7 @@ class Theme implements ThemeIconsContract,
 				$notificationIcon = $this->renderIcon('notifications');
 			}
 
-			$menu->add(LinkBuilder::url('#', $notificationIcon)
+			$menu->add(LinkBuilder::toUrl('#', $notificationIcon)
 				->setAttributes(['data-toggle' => 'modal', 'data-target' => '#notification-panel'])
 				->addClass('notification-indicator nav-link')
 				->addParentClass('nav-item'));
@@ -392,10 +392,10 @@ class Theme implements ThemeIconsContract,
 
 			// Build the submenu
 			$submenu = MenuBuilder::new()->addClass('dropdown-menu dropdown-menu-right')->addParentClass('nav-item');
-			$submenu->add(LinkBuilder::route('admin.users.account', "My Account")->addClass('dropdown-item'));
-			$submenu->add(LinkBuilder::route('admin.users.preferences', "My Preferences")->addClass('dropdown-item'));
-			$submenu->void(['role' => 'separator', 'class' => 'dropdown-divider']);
-			$submenu->add(LinkBuilder::route('logout', "Log Out")->addClass('dropdown-item'));
+			$submenu->add(LinkBuilder::toRoute('admin.users.account', "My Account")->addClass('dropdown-item'));
+			$submenu->add(LinkBuilder::toRoute('admin.users.preferences', "My Preferences")->addClass('dropdown-item'));
+			$submenu->html('', ['role' => 'separator', 'class' => 'dropdown-divider']);
+			$submenu->add(LinkBuilder::toRoute('logout', "Log Out")->addClass('dropdown-item'));
 
 			// Attach the submenu to the user menu
 			$menu->submenu($header, $submenu);
@@ -403,7 +403,7 @@ class Theme implements ThemeIconsContract,
 		else
 		{
 			$menu->add(
-				LinkBuilder::route('login', "Log In")
+				LinkBuilder::toRoute('login', "Log In")
 					->addClass('nav-link')
 					->addParentClass('nav-item')
 			);
