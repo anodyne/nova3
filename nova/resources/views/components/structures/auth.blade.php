@@ -2,20 +2,18 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta name="author" content="Anodyne Productions">
-		<meta name="description" content="{{ $pageDescription or $_page->description }}">
-		<meta property="og:title" content="{{ $_content->get('sim.name') }}: {{ $pageName or $_page->name }}">
-		<meta property="og:description" content="{{ $pageDescription or $_page->description }}">
-		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="author" content="{{ $_settings->get('metadata_author') }}">
+		<meta name="description" content="{{ $pageDescription or $_page->description }}">
+		<meta name="keywords" content="{{ $_settings->get('metadata_keywords') }}">
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 
 		<title>{{ $pageTitle or $_page->present()->title }} &bull; {{ $_content->get('sim.name') }}</title>
 		
 		@if (app('files')->exists(theme_path('design/css/bootstrap.css', false)))
 			{!! HTML::style(theme_path('design/css/bootstrap.css')) !!}
 		@else
-			<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
-			<!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">-->
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 		@endif
 		{!! HTML::style('nova/resources/css/summernote.css') !!}
 		{!! HTML::style('nova/resources/css/sweetalert.css') !!}
@@ -55,10 +53,9 @@
 	<body>
 		{!! $template or false !!}
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
-		<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
-		{!! HTML::script('nova/resources/js/tether.min.js') !!}
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.js"></script>
 		{!! HTML::script('nova/resources/js/underscore-min.js') !!}
@@ -80,7 +77,7 @@
 				vm.$compile($(this).get(0))
 			})
 
-			// Setup the CSRF token on Ajax requests
+			/*// Setup the CSRF token on Ajax requests
 			$.ajaxPrefilter(function (options, originalOptions, xhr) {
 				var token = $('meta[name="csrf-token"]').attr('content')
 
@@ -106,7 +103,7 @@
 						html: true
 					})
 				}
-			})
+			})*/
 
 			var vue = {}
 			window.Nova = <?php echo json_encode(Nova::scriptVariables());?>
