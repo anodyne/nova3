@@ -1,5 +1,5 @@
 .data-table {
-  margin: 1.5rem 0;
+  margin: 1rem 0;
 }
 .data-table > .row {
   margin-left: 0;
@@ -152,33 +152,13 @@
   right: 0;
 }
 
-/*html,
-body,
-.nova-container,
-.nova-pusher,
-.nova-content {
-	height: 100%;
-}*/
-html {
-  font-size: 62.5% !important;
-}
-
 body {
-  padding: 2rem 0;
-  line-height: 1.75;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  font-size: 1.7rem;
-  color: #444;
-}
-
-.navbar-nav > li > a > i {
-  padding-right: 0.5rem;
+  padding: 1rem 0;
 }
 
 h1 {
   font-family: "Roboto Slab";
   font-weight: 700;
-  font-size: 3.4rem;
 }
 
 a.broken-link {
@@ -186,184 +166,26 @@ a.broken-link {
   color: #d9534f;
 }
 
-dl dt {
-  margin-top: 1.5rem;
-}
-dl dd {
-  margin-left: 1.5rem;
-}
-
 .btn-toolbar {
-  margin: 1.5rem 0;
+  margin: 1rem 0;
 }
 
 .btn {
   font-weight: 500;
-  letter-spacing: 0.05rem;
-  border-radius: 0.4rem;
 }
 .btn span {
   padding-left: 0.5rem;
 }
-.btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus {
-  outline: none !important;
-}
-.btn.btn-link-icon span {
-  float: left;
-  margin: 0.25rem 0 0 0;
-}
-.btn.btn-link-default {
-  background: transparent;
-  border: none;
-  color: #616161;
-}
-.btn.btn-link-default:hover {
-  text-decoration: underline;
-}
-.btn.btn-link-default:active, .btn.btn-link-default:focus {
-  box-shadow: none;
-}
-.btn.btn-link-danger {
-  background: transparent;
-  border: none;
-  color: #d9534f;
-}
-.btn.btn-link-danger:hover {
-  text-decoration: underline;
-}
-.btn.btn-link-info {
-  background: transparent;
-  border: none;
-  color: #5bc0de;
-}
-.btn.btn-link-info:hover {
-  text-decoration: underline;
-}
-.btn.btn-link-success {
-  background: transparent;
-  border: none;
-  color: #5cb85c;
-}
-.btn.btn-link-success:hover {
-  text-decoration: underline;
-}
-.btn.btn-link-warning {
-  background: transparent;
-  border: none;
-  color: #f0ad4e;
-}
-.btn.btn-link-warning:hover {
-  text-decoration: underline;
-}
 
-.label {
-  font-weight: 400;
-  letter-spacing: 0.05rem;
-}
-.label.label-primary {
-  background-color: #337ab7;
-}
-.label.label-primary[href]:hover, .label.label-primary[href]:focus {
-  background-color: #286090;
-}
-
-.panel {
-  margin: 1.5rem 0;
-  border-radius: 0.4rem;
-}
-.panel .panel-heading {
-  border-radius: -0.6rem -0.6rem 0 0;
-}
-.panel .panel-footer {
-  border-radius: 0 0 -0.6rem -0.6rem;
-}
-
-.input-lg {
-  border-radius: 0.4rem;
-}
-
-.checkbox label, .checkbox-inline label {
-  font-weight: 400;
-}
-.checkbox input[type=checkbox], .checkbox-inline input[type=checkbox] {
-  margin-top: 0.8rem;
-}
-
-.radio label, .radio-inline label {
-  font-weight: 400;
-}
-.radio input[type=radio], .radio-inline input[type=radio] {
-  margin-top: 0.8rem;
-}
-
-.help-block {
-  font-size: 1.4rem;
-}
-.help-block strong {
-  font-size: 1.4rem;
-}
-
-.has-error .help-block a,
-.has-error .control-label a {
-  text-decoration: underline;
-}
-
-.nav-tabs {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-.nav-tabs > li > a {
-  border-radius: 0.4rem 0.4rem 0 0;
-}
-
-.tab-content {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-}
-
-.nav-pills {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-.nav-pills > li > a {
-  border-radius: 0.4rem;
-}
-.nav-pills.nav-pills-sm li > a {
-  padding: 0.75rem 1.5rem;
-  font-size: 1.4rem;
-}
-
-fieldset {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-fieldset legend {
-  font-size: 2.4rem;
+form label {
   font-weight: 500;
-  color: #444;
 }
-fieldset .fieldset-content {
-  padding: 0.75rem;
-}
-
-.text-sm {
-  font-size: 1.4rem;
+form .form-check label {
+  font-weight: 400;
 }
 
-.text-success {
-  color: #5cb85c;
-}
-
-.text-warning {
-  color: #f0ad4e;
-}
-
-.text-danger {
-  color: #d9534f;
-}
-
-.text-info {
-  color: #5bc0de;
+.alert p:last-child {
+  margin-bottom: 0;
 }
 
 /**
@@ -513,5 +335,3 @@ fieldset .fieldset-content {
 [v-cloak] {
   display: none;
 }
-
-/*# sourceMappingURL=base.style.css.map */
