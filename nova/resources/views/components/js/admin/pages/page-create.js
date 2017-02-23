@@ -18,10 +18,23 @@ vue = {
 		contentHeader: "",
 		contentMessage: "",
 		roles: Nova.data.roles,
-		permissions: Nova.data.permissions
+		permissions: Nova.data.permissions,
+		metadata: [
+			{ name: "og:title", value: "" },
+			{ name: "twitter:title", value: "" },
+			{ name: "description", value: "" }
+		]
 	},
 
 	methods: {
+		addMetadata: function () {
+			this.metadata.push({ name: "", value: "" })
+		},
+
+		removeMetadata: function (row) {
+			this.metadata.$remove(row)
+		},
+
 		checkKey: function () {
 			if (this.key != "") {
 				var url = Nova.data.keyCheckUrl

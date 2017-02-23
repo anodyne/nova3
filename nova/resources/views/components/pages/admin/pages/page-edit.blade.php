@@ -113,6 +113,42 @@
 
 		<div class="form-group">
 			<div class="col-md-5 col-md-offset-2">
+				<h3>Metadata</h3>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-9 col-lg-8">
+				<div class="data-table data-table-striped data-table-bordered">
+					<div class="row">
+						<div class="col-sm-6 col-md-5"><p><strong>Attribute Name</strong></p></div>
+						<div class="col-sm-6 col-md-5"><p><strong>Value</strong></p></div>
+						<div class="col-md-2 hidden-xs hidden-sm"></div>
+					</div>
+					<div class="row" v-for="attr in attributes">
+						<div class="col-sm-6 col-md-5">
+							<p><input name="attributeNames[]" class="form-control" v-model="attr.name"></p>
+						</div>
+						<div class="col-sm-6 col-md-5">
+							<p><input name="attributeValues[]" class="form-control" v-model="attr.value"></p>
+						</div>
+						<div class="col-xs-12 col-md-2">
+							<p><a @click="removeAttribute(attr)" class="btn btn-block btn-danger">{!! icon('close') !!}<span>Remove</span></a></p>
+						</div>
+					</div>
+				</div>
+
+				<mobile>
+					<p><a @click="addAttribute" class="btn btn-block btn-default">{!! icon('add') !!}<span>Add Attribute</span></a></p>
+				</mobile>
+				<desktop>
+					<p><a @click="addAttribute" class="btn btn-default">{!! icon('add') !!}<span>Add Attribute</span></a></p>
+				</desktop>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-5 col-md-offset-2">
 				<h3>Content</h3>
 			</div>
 		</div>
