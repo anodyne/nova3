@@ -12,8 +12,8 @@
 	<div class="form-group">
 		<button type="submit" class="btn btn-primary btn-lg btn-block">{!! icon('sign-in') !!} Log In</button>
 
-		<a href="{{ route('password.email.show') }}" class="btn btn-link btn-lg btn-block">Forgot Your Password?</a>
-		<a href="#" class="btn btn-link btn-lg btn-block disabled">Not a Member? Join Today!</a>
-		<a href="{{ route('home') }}" class="btn btn-link btn-lg btn-block">Back Home</a>
+		<a href="{{ route('password.email.show') }}" class="btn btn-link btn-block">Forgot Your Password?</a>
+		<a href="#" class="btn btn-link btn-block disabled">Not a Member? Join Today!</a>
+		<a href="{{ route('home') }}" class="btn btn-link btn-block">Back Home</a>
 	</div>
 {!! Form::close() !!}
