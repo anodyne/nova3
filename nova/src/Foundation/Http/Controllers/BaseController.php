@@ -38,21 +38,20 @@ abstract class BaseController extends Controller {
 			'template'	=> 'public',
 		]);
 
-		// Get a copy of $this so we can use it in the binding closure
-		$me = $this;
-
 		// Bind a reference to the current controller so that we can use that
 		// data from within the template rendering middleware
+		//$this->app->instance('nova.controller', $this);
+		/*$me = $this;
 		$this->app->bind('nova.controller', function ($app) use ($me) {
 			return $me;
-		});
+		});*/
 
 		// Set up the controller
 		$this->setupController();
+		$this->app->instance('nova.controller', $this);
 
 		// Set up the user on the controller instance
-		$this->middleware(function ($request, $next)
-		{
+		$this->middleware(function ($request, $next) {
 			$this->user = user();
 
 			return $next($request);
@@ -72,8 +71,7 @@ abstract class BaseController extends Controller {
 	 */
 	protected function authorize($ability, $arguments = [], $message = null)
 	{
-		if ($this->user->cannot($ability, $arguments))
-		{
+		if ($this->user->cannot($ability, $arguments)) {
 			$this->errorUnauthorized($message);
 		}
 	}
@@ -84,12 +82,11 @@ abstract class BaseController extends Controller {
 			? $this->user->name
 			: "An unauthenticated user";
 
-		$logMessage.= " attempted to access ".app('request')->fullUrl();
+		$logMessage.= " attempted to access ".request()->fullUrl();
 
 		app('log')->warning($logMessage);
 
-		if (app('request')->ajax())
-		{
+		if (request()->ajax()) {
 			return response()->json([
 				'status'	=> 404,
 				'message'	=> $message,
@@ -105,14 +102,13 @@ abstract class BaseController extends Controller {
 			? $this->user->name
 			: "An unauthenticated user";
 
-		$logMessage.= " attempted to access ".app('request')->fullUrl();
+		$logMessage.= " attempted to access ".request()->fullUrl();
 
 		app('log')->warning($logMessage);
 
 		nova_event();
 
-		if (app('request')->ajax())
-		{
+		if (request()->ajax()) {
 			return response()->json([
 				'status'	=> 403,
 				'message'	=> $message,
@@ -124,7 +120,7 @@ abstract class BaseController extends Controller {
 
 	public function errorUnauthenticated($message = null)
 	{
-		$request = app('request');
+		$request = request();
 
 		$logMessage = "An unauthenticated user attempted to access {$request->fullUrl()} from {$request->getClientIp()}";
 
@@ -132,8 +128,7 @@ abstract class BaseController extends Controller {
 
 		nova_event();
 
-		if (app('request')->ajax())
-		{
+		if ($request->ajax()) {
 			return response()->json([
 				'status'	=> 401,
 				'message'	=> $message,
@@ -148,11 +143,9 @@ abstract class BaseController extends Controller {
 		$this->views->put('scripts', ['bootstrap-tabdrop', 'basic-page']);
 		$this->views->put('styles', ['tabdrop']);
 
-		if ($this->page->access and $this->page->access->count() > 0)
-		{
+		if ($this->page->access and $this->page->access->count() > 0) {
 			// Make sure the user is authenticated
-			if ( ! $this->user)
-			{
+			if ( ! $this->user) {
 				return $this->errorUnauthenticated("You must log in to continue");
 			}
 
@@ -165,17 +158,12 @@ abstract class BaseController extends Controller {
 			// Make sure we have an array of access items
 			//$accessItems = explode(',', $this->page->access);
 
-			foreach ($this->page->access as $access)
-			{
-				if ($isStrict)
-				{
-					if ( ! $this->user->{$method}($access['key']))
-					{
+			foreach ($this->page->access as $access) {
+				if ($isStrict) {
+					if ( ! $this->user->{$method}($access['key'])) {
 						return $this->errorUnauthorized("You do not have permission to view the {$this->page->name} page.");
 					}
-				}
-				else
-				{
+				} else {
 					if ($this->user->{$method}($access['key'])) break;
 
 					return $this->errorUnauthorized("You do not have permission to view the {$this->page->name} page.");
@@ -186,10 +174,8 @@ abstract class BaseController extends Controller {
 
 	protected function setupController()
 	{
-		if (nova()->isInstalled())
-		{
-			$currentPage = app('nova.pages')->filter(function ($page)
-			{
+		if (nova()->isInstalled()) {
+			$currentPage = app('nova.pages')->filter(function ($page) {
 				return $page->key == request()->route()->getName();
 			});
 
@@ -204,5 +190,4 @@ abstract class BaseController extends Controller {
 			view()->share('_settings', $this->settings);
 		}
 	}
-
 }
