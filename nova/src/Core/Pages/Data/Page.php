@@ -15,7 +15,8 @@ class Page extends Model {
 	protected $table = 'pages';
 
 	protected $fillable = ['verb', 'name', 'key', 'uri', 'resource',
-		'description', 'conditions', 'type', 'menu_id', 'access', 'access_type'];
+		'description', 'conditions', 'type', 'menu_id', 'access', 'access_type',
+		'metadata'];
 
 	protected $hidden = ['created_at', 'updated_at'];
 
@@ -25,6 +26,7 @@ class Page extends Model {
 		'protected'	=> 'boolean',
 		'menu_id'	=> 'integer',
 		'access'	=> 'collection',
+		'metadata'	=> 'collection',
 	];
 
 	protected $dates = ['created_at', 'updated_at'];
@@ -95,6 +97,17 @@ class Page extends Model {
 		else
 		{
 			$this->attributes['access'] = $value;
+		}
+	}
+
+	public function setMetadataAttribute($value)
+	{
+		if (is_array($value)) {
+			$this->attributes['metadata'] = json_encode($value);
+		} elseif ($value instanceof Collection) {
+			$this->attributes['metadata'] = $value->toJson();
+		} else {
+			$this->attributes['metadata'] = $value;
 		}
 	}
 

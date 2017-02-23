@@ -7,6 +7,7 @@ return [
 		'uri'				=> "/",
 		'default_resource'	=> "Nova\\Foundation\\Http\\Controllers\\MainController@page",
 		'menu_id'			=> 1,
+		'metadata'			=> json_encode([]),
 	],
 
 	[
@@ -15,6 +16,7 @@ return [
 		'uri'				=> "login",
 		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\LoginController@showLoginForm",
 		'menu_id'			=> 1,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "POST",
@@ -28,12 +30,14 @@ return [
 		'key'				=> "logout",
 		'uri'				=> "logout",
 		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\LoginController@logout",
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'name'				=> "Forgot Password",
 		'key'				=> "password.email.show",
 		'uri'				=> "password/reset",
 		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\ForgotPasswordController@showLinkRequestForm",
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "POST",
@@ -47,6 +51,7 @@ return [
 		'key'				=> "password.reset.show",
 		'uri'				=> "password/reset/{token}",
 		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\ResetPasswordController@showResetForm",
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "POST",
@@ -62,6 +67,7 @@ return [
 		'uri'				=> "admin/pages",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@all",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'name'				=> "Create Page",
@@ -69,6 +75,7 @@ return [
 		'uri'				=> "admin/pages/create",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@create",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "POST",
@@ -83,6 +90,7 @@ return [
 		'uri'				=> "admin/pages/{pageId}/edit",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@edit",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "PUT",
@@ -96,6 +104,7 @@ return [
 		'key'				=> "admin.pages.remove",
 		'uri'				=> "admin/pages/{pageId}/remove",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@remove",
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "DELETE",
@@ -125,6 +134,7 @@ return [
 		'uri'				=> "admin/content",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@all",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'name'				=> "Create Page Content",
@@ -132,6 +142,7 @@ return [
 		'uri'				=> "admin/content/create",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@create",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "POST",
@@ -146,6 +157,7 @@ return [
 		'uri'				=> "admin/content/{contentId}/edit",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@edit",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "PUT",
@@ -159,6 +171,7 @@ return [
 		'key'				=> "admin.content.remove",
 		'uri'				=> "admin/content/{contentId}/remove",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@remove",
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "DELETE",

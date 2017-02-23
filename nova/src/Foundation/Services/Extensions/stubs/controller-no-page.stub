@@ -8,8 +8,8 @@ class {ExtensionControllerName} extends BaseController {
 	{
 		// Set the page items since we don't have a page record
 		$this->structureData->pageTitle = "{ExtensionName}";
-		$this->structureData->pageName = "{ExtensionName}";
-		$this->structureData->pageDescription = "{ExtensionName} description";
+		$this->structureData->mdTitle = "{ExtensionName}";
+		$this->structureData->mdDescription = "{ExtensionName} description";
 
 		// Set the view
 		$this->views->put('page', '{ExtensionLowercaseName}');

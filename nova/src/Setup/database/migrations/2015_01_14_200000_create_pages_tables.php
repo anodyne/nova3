@@ -24,6 +24,7 @@ class CreatePagesTables extends Migration {
 			$table->string('access')->nullable();
 			$table->text('conditions')->nullable();
 			$table->boolean('protected')->default((int) false);
+			$table->text('metadata')->nullable();
 			$table->timestamps();
 		});
 
