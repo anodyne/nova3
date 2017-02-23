@@ -42,11 +42,15 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		if ($this->app['env'] == 'local')
-		{
-			if (class_exists('Barryvdh\Debugbar\ServiceProvider'))
-			{
+		if ($this->app['env'] == 'local') {
+			if (class_exists('Barryvdh\Debugbar\ServiceProvider')) {
 				$this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+			}
+		}
+
+		if ($this->app['env'] == 'local' or $this->app['env'] == 'testing') {
+			if (class_exists('Laravel\Dusk\DuskServiceProvider')) {
+				$this->app->register(\Laravel\Dusk\DuskServiceProvider::class);
 			}
 		}
 	}
@@ -226,6 +230,10 @@ class NovaServiceProvider extends ServiceProvider {
 				$app['UserRepository'],
 				$app['nova.character.creator']
 			);
+		});
+
+		$this->app->singleton('nova.hooks', function ($app) {
+			return new \Nova\Foundation\HookManager;
 		});
 	}
 
