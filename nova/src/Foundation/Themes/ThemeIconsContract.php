@@ -3,12 +3,12 @@
 interface ThemeIconsContract {
 
 	public function buildIconList($extraClasses = false): array;
-	public function getIcon(string $icon);
+	public function getIcon($icon);
 	public function getIconMap();
 	public function iconMap(): array;
-	public function renderIcon(string $icon, $extraClasses = false);
-	public function renderFontIcon(string $icon, $extraClasses = false);
-	public function renderImageIcon(string $icon, $extraClasses = false);
-	public function renderSvgIcon(string $icon, $extraClasses = false);
+	public function renderIcon($icon, $extraClasses = false);
+	public function renderFontIcon($icon, $extraClasses = false);
+	public function renderImageIcon($icon, $extraClasses = false);
+	public function renderSvgIcon($icon, $extraClasses = false);
 
 }
