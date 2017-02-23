@@ -250,3 +250,15 @@ if ( ! function_exists('validate'))
 		return Validator::make($fields, $rules)->passes();
 	}
 }
+
+if ( ! function_exists('hook')) {
+	function hook($name = false, array $args = []) {
+		$hooks = app('nova.hooks');
+
+		if ( ! $name) {
+			return $hooks;
+		}
+
+		return $hooks->call($name, $args);
+	}
+}

@@ -22,10 +22,10 @@ class RenderController {
 		// Assign the response
 		$response = $next($request);
 
-		if (nova()->isInstalled() and empty($response->getContent()))
-		{
-			if ( ! $this->controller->isAjax)
-			{
+		if (nova()->isInstalled() and empty($response->getContent())) {
+			if ( ! $this->controller->isAjax) {
+				hook('nova.before-render');
+
 				$this->buildThemeStructure();
 				$this->buildThemeTemplate();
 				$this->buildPage();
@@ -34,18 +34,17 @@ class RenderController {
 				$this->buildFooter();
 				//$this->buildPanel();
 
-				if ($this->controller->isAdmin)
-				{
+				if ($this->controller->isAdmin) {
 					$this->buildAdminMenus();
-				}
-				else
-				{
+				} else {
 					$this->buildPublicMenus();
 				}
 
 				$output = $this->theme->render();
 
 				$response->setContent($output);
+
+				hook('nova.after-render');
 			}
 		}
 		
@@ -80,8 +79,7 @@ class RenderController {
 
 	protected function buildPage()
 	{
-		if ($this->controller->views->has('page'))
-		{
+		if ($this->controller->views->has('page')) {
 			$this->theme = $this->theme->page(
 				$this->controller->views->get('page'),
 				(array) $this->controller->data
@@ -110,5 +108,4 @@ class RenderController {
 	{
 		$this->theme = $this->theme->styles($this->controller->views->get('styles'));
 	}
-
 }
