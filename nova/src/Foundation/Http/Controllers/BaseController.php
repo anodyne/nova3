@@ -16,6 +16,7 @@ abstract class BaseController extends Controller {
 	public $theme;
 	public $views;
 	public $content;
+	public $metadata;
 	public $settings;
 	public $templateData;
 	public $structureData;
@@ -27,6 +28,7 @@ abstract class BaseController extends Controller {
 	{
 		$this->app				= app();
 		$this->data				= new stdClass;
+		$this->metadata			= collect();
 		$this->templateData 	= new stdClass;
 		$this->structureData	= new stdClass;
 
@@ -40,15 +42,13 @@ abstract class BaseController extends Controller {
 
 		// Bind a reference to the current controller so that we can use that
 		// data from within the template rendering middleware
-		//$this->app->instance('nova.controller', $this);
-		/*$me = $this;
-		$this->app->bind('nova.controller', function ($app) use ($me) {
-			return $me;
-		});*/
-
-		// Set up the controller
-		$this->setupController();
 		$this->app->instance('nova.controller', $this);
+
+		// Setup the controller
+		$this->setupController();
+
+		// Setup the metadata
+		$this->setMetadata();
 
 		// Set up the user on the controller instance
 		$this->middleware(function ($request, $next) {
@@ -169,6 +169,33 @@ abstract class BaseController extends Controller {
 					return $this->errorUnauthorized("You do not have permission to view the {$this->page->name} page.");
 				}
 			}
+		}
+	}
+
+	protected function setMetadata()
+	{
+		if (nova()->isInstalled()) {
+			$this->metadata = collect([
+				'author' => $this->settings->get('metadata_author'),
+				'description' => $this->settings->get('metadata_description'),
+				'keywords' => $this->settings->get('metadata_keywords'),
+
+				// OpenGraph tags for Facebook
+				'og:type' => 'website',
+				'og:url' => request()->fullUrl(),
+				'og:title' => '',
+				'og:description' => $this->settings->get('metadata_description'),
+				'og:image' => '',
+
+				// Twitter tags
+				'twitter:card' => 'summary',
+				'twitter:site' => $this->settings->get('metadata_twitter'),
+				'twitter:title' => '',
+				'twitter:description' => $this->settings->get('metadata_description'),
+				'twitter:image' => '',
+			]);
+
+			view()->share('_metadata', $this->metadata);
 		}
 	}
 

@@ -3,23 +3,10 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="author" content="{{ $_settings->get('metadata_author') }}">
-		<meta name="description" content="{{ $mdDescription or $_page->metadata->get('description') }}">
-		<meta name="keywords" content="{{ $_settings->get('metadata_keywords') }}">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
-
 		<title>{{ $pageTitle or $_page->present()->title }} &bull; {{ $_content->get('sim.name') }}</title>
 
-		<meta property="og:type" content="{{ $mdType or 'website' }}">
-		<meta property="og:url" content="{{ request()->fullUrl() }}">
-		<meta property="og:title" content="{{ $_content->get('sim.name') }}: {{ $mdTitle or $_page->name }}">
-		<meta property="og:description" content="{{ $mdDescription or $_page->description }}">
-		<meta property="og:image" content="">
-		<meta property="twitter:card" content="summary">
-		<meta property="twitter:site" content="{{ $_settings->get('metadata_twitter') }}">
-		<meta property="twitter:title" content="{{ $_content->get('sim.name') }}: {{ $mdTitle or $_page->name }}">
-		<meta property="twitter:description" content="{{ $mdDescription or $_page->description }}">
-		<meta property="twitter:image" content="">
+		{!! partial('metadata', ['metadata' => $_metadata]) !!}
 
 		@if (app('files')->exists(theme_path('design/css/bootstrap.css', false)))
 			{!! HTML::style(theme_path('design/css/bootstrap.css')) !!}
@@ -86,44 +73,14 @@
 		{!! HTML::script('nova/resources/js/vue/filters.js') !!}
 		<script>
 			// Destroy all modals when they're hidden
-			$('.modal').on('hidden.bs.modal', function()
-			{
+			$('.modal').on('hidden.bs.modal', function() {
 				$('.modal').removeData('bs.modal')
 			})
 
 			// Re-compile Vue when a modal is loaded so we can use components in the modal
-			$('.modal').on('loaded.bs.modal', function()
-			{
+			$('.modal').on('loaded.bs.modal', function() {
 				vm.$compile($(this).get(0))
 			})
-
-			/*// Setup the CSRF token on Ajax requests
-			$.ajaxPrefilter(function (options, originalOptions, xhr) {
-				var token = $('meta[name="csrf-token"]').attr('content')
-
-				if (token) {
-					return xhr.setRequestHeader('X-CSRF-TOKEN', token)
-				}
-			})
-
-			// Setup the CSRF token on Ajax requests
-			$.ajaxSetup({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				}
-			})
-
-			$(document).ajaxError(function(event, xhr, settings, thrownError) {
-				if (xhr.status == 403) {
-					swal({
-						title: "Unauthorized!",
-						text: "You do not have permission to take this action!",
-						type: "error",
-						timer: null,
-						html: true
-					})
-				}
-			})*/
 
 			var vue = {}
 			window.Nova = <?php echo json_encode(Nova::scriptVariables());?>
@@ -151,8 +108,7 @@
 				})
 			@endif
 
-			$(function()
-			{
+			$(function() {
 				$('.js-tooltip-top').tooltip({ placement: 'top' })
 				$('.js-tooltip-bottom').tooltip({ placement: 'bottom' })
 				$('.js-tooltip-left').tooltip({ placement: 'left' })

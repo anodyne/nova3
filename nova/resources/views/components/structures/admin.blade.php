@@ -3,12 +3,10 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="author" content="{{ $_settings->get('metadata_author') }}">
-		<meta name="description" content="{{ $pageDescription or $_page->description }}">
-		<meta name="keywords" content="{{ $_settings->get('metadata_keywords') }}">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
-
 		<title>{{ $pageTitle or $_page->present()->title }} &bull; {{ $_content->get('sim.name') }}</title>
+
+		{!! partial('metadata', ['metadata' => $_metadata]) !!}
 
 		@if (app('files')->exists(theme_path('design/css/bootstrap.css', false)))
 			{!! HTML::style(theme_path('design/css/bootstrap.css')) !!}
