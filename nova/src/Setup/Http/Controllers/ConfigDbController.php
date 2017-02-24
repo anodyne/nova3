@@ -89,6 +89,18 @@ class ConfigDbController extends BaseController {
 				$connector->getDefaultOptions()
 			);
 
+			// Make sure we have the proper versions
+			if (session('dbDriver') == 'mysql') {
+				$version = $connection->getPdo()->query('select version()')->fetchColumn();
+				$version = mb_substr($version, 0, 6);
+
+				if (version_compare($version, '5.5', '<')) {
+					flash()->error("Insufficient Version", config('nova.app.name')." requires that MySQL be running version 5.5 or higher. You're currently running version {$version}. Please contact your host for help with a newer version of MySQL.");
+
+					return redirect()->back();
+				}
+			}
+
 			return redirect()->route("setup.{$this->setupType}.config.db.write");
 
 		}
