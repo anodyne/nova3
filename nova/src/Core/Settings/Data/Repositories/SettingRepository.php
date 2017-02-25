@@ -25,21 +25,9 @@ class SettingRepository extends BaseRepository implements SettingRepositoryContr
 
 	public function getAllSettings()
 	{
-		// Get all the settings
-		$settings = $this->all();
-
-		// An array for storing all the settings
-		$items = [];
-
-		if ($settings->count() > 0)
-		{
-			foreach ($settings as $s)
-			{
-				$items[$s->key] = $s->value;
-			}
-		}
-
-		return collect($items);
+		return $this->all()->mapWithKeys(function ($item) {
+			return [$item->key => $item->value];
+		});
 	}
 
 	public function getByKey($key)
@@ -68,5 +56,4 @@ class SettingRepository extends BaseRepository implements SettingRepositoryContr
 
 		return true;
 	}
-
 }
