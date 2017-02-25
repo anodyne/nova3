@@ -189,8 +189,7 @@ class Theme implements ThemeIconsContract,
 			);
 		}
 
-		MenuBuilder::macro('menuSub', function () use ($menu)
-		{
+		MenuBuilder::macro('menuSub', function () use ($menu) {
 			return $menu;
 		});
 
@@ -201,15 +200,16 @@ class Theme implements ThemeIconsContract,
 	{
 		$title = $item->present()->title;
 
-		switch ($item->type)
-		{
+		switch ($item->type) {
 			case 'internal':
 			case 'external':
 				return LinkBuilder::to($item->link, $title)->addClass($class);
 			break;
 
 			case 'page':
-				return LinkBuilder::toRoute($item->page->key, $title)->addClass($class);
+				$page = app('nova.pages')->where('id', $item->page_id)->first();
+
+				return LinkBuilder::toRoute($page->key, $title)->addClass($class);
 			break;
 
 			case 'route':
@@ -225,14 +225,13 @@ class Theme implements ThemeIconsContract,
 	public function buildPublicCombinedMenu()
 	{
 		// We want to use an array for the combined menu
-		$menuSubItemsArr = app('MenuItemRepository')->splitSubMenuItemsIntoArray($this->menuSubItems);
+		$menuSubItemsArr = app('MenuItemRepository')
+			->splitSubMenuItemsIntoArray($this->menuSubItems);
 
 		$menu = MenuBuilder::new()->addClass('navbar-nav mr-auto');
 
-		foreach ($this->menuMainItems as $mainMenuItem)
-		{
-			if (array_key_exists($mainMenuItem->id, $menuSubItemsArr))
-			{
+		foreach ($this->menuMainItems as $mainMenuItem) {
+			if (array_key_exists($mainMenuItem->id, $menuSubItemsArr)) {
 				// Build the text for the header link
 				$headerText = sprintf('%s %s', 
 					$mainMenuItem->present()->title,
@@ -251,8 +250,7 @@ class Theme implements ThemeIconsContract,
 				$submenu->prepend($header);
 
 				// Loop through the sub menu items and build the sub menu
-				foreach ($menuSubItemsArr[$mainMenuItem->id] as $subMenuItem)
-				{
+				foreach ($menuSubItemsArr[$mainMenuItem->id] as $subMenuItem) {
 					$submenu->addIf(
 						$subMenuItem->userHasAccess(user()),
 						$this->buildMenuItem($subMenuItem, 'dropdown-item')
@@ -261,9 +259,7 @@ class Theme implements ThemeIconsContract,
 
 				// Now add the sub menu to the menu
 				$menu->addIf(($submenu->count() > 0), $submenu);
-			}
-			else
-			{
+			} else {
 				$menu->addIf(
 					$mainMenuItem->userHasAccess(user()),
 					$this->buildMenuItem($mainMenuItem, 'nav-link')->addParentClass('nav-item')
@@ -271,8 +267,7 @@ class Theme implements ThemeIconsContract,
 			}
 		}
 
-		MenuBuilder::macro('menuCombined', function () use ($menu)
-		{
+		MenuBuilder::macro('menuCombined', function () use ($menu) {
 			return $menu;
 		});
 
@@ -283,16 +278,14 @@ class Theme implements ThemeIconsContract,
 	{
 		$menu = MenuBuilder::new()->addClass('nav navbar-nav');
 
-		foreach ($this->menuMainItems as $mainMenuItem)
-		{
+		foreach ($this->menuMainItems as $mainMenuItem) {
 			$menu->addIf(
 				$mainMenuItem->userHasAccess(user()),
 				$this->buildMenuItem($mainMenuItem)
 			);
 		}
 
-		MenuBuilder::macro('menuMain', function () use ($menu)
-		{
+		MenuBuilder::macro('menuMain', function () use ($menu) {
 			return $menu;
 		});
 
@@ -302,16 +295,11 @@ class Theme implements ThemeIconsContract,
 	public function buildPublicSubMenu(Page $page)
 	{
 		// Start by filtering to only the menu items for the page's menu
-		$menuItems = $this->menuSubItems->filter(function ($item) use ($page)
-		{
-			return $item->menu_id === $page->menu_id;
-		});
+		$menuItems = $this->menuSubItems->where('menu_id', $page->menu_id);
 
 		// Next filter out only the items we need based on the page itself
-		$menuSubItemsFiltered = $menuItems->filter(function ($item) use ($page)
-		{
-			if ($page->menuItems->count() > 0 and $page->parent_id == 0)
-			{
+		$menuSubItemsFiltered = $menuItems->filter(function ($item) use ($page) {
+			if ($page->menuItems->count() > 0 and $page->parent_id == 0) {
 				return $item->parent_id == $page->menuItems->first()->id;
 			}
 		});
@@ -340,16 +328,14 @@ class Theme implements ThemeIconsContract,
 
 		$menu = MenuBuilder::new()->addClass('list-group');
 
-		foreach ($menuSubItemsFiltered as $subMenuItem)
-		{
+		foreach ($menuSubItemsFiltered as $subMenuItem) {
 			$menu->addIf(
 				$subMenuItem->userHasAccess(user()),
 				$this->buildMenuItem($subMenuItem)->addParentClass('list-group-item')
 			);
 		}
 
-		MenuBuilder::macro('menuSub', function () use ($menu)
-		{
+		MenuBuilder::macro('menuSub', function () use ($menu) {
 			return $menu;
 		});
 
@@ -360,17 +346,13 @@ class Theme implements ThemeIconsContract,
 	{
 		$menu = MenuBuilder::new()->addClass('nav navbar-nav pull-md-right');
 
-		if (Auth::check())
-		{
-			if (user()->unreadNotifications->count() > 0)
-			{
+		if (Auth::check()) {
+			if (user()->unreadNotifications->count() > 0) {
 				$notificationIcon = sprintf('%s %s', 
 					$this->renderIcon('notifications'),
 					HtmlBuilder::raw('<span class="unread"></span>')->render()
 				);
-			}
-			else
-			{
+			} else {
 				$notificationIcon = $this->renderIcon('notifications');
 			}
 
@@ -399,9 +381,7 @@ class Theme implements ThemeIconsContract,
 
 			// Attach the submenu to the user menu
 			$menu->submenu($header, $submenu);
-		}
-		else
-		{
+		} else {
 			$menu->add(
 				LinkBuilder::toRoute('login', "Log In")
 					->addClass('nav-link')
@@ -409,22 +389,19 @@ class Theme implements ThemeIconsContract,
 			);
 		}
 
-		MenuBuilder::macro('menuUser', function () use ($menu)
-		{
+		MenuBuilder::macro('menuUser', function () use ($menu) {
 			return $menu;
 		});
 	}
 
 	public function publicMenu(Page $page = null)
 	{
-		if ( ! is_object($this->structure->template))
-		{
-			throw new Exceptions\NoThemeTemplateException;
+		if ($page === null) {
+			return $this;
 		}
 
-		if ($page === null)
-		{
-			return $this;
+		if ( ! is_object($this->structure->template)) {
+			throw new Exceptions\NoThemeTemplateException;
 		}
 
 		// Grab the menu item repo
