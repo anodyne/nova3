@@ -160,6 +160,7 @@ if ( ! function_exists('modal'))
 			'header'	=> (array_key_exists('header', $data)) ? $data['header'] : false,
 			'body'		=> (array_key_exists('body', $data)) ? $data['body'] : false,
 			'footer'	=> (array_key_exists('footer', $data)) ? $data['footer'] : false,
+			'size'		=> (array_key_exists('size', $data)) ? $data['size'] : false,
 		]);
 	}
 }
