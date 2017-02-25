@@ -154,11 +154,25 @@
 
 body {
   padding: 1rem 0;
+  line-height: 1.75;
+  font-family: "Roboto", helvetica, arial, sans-serif;
+}
+
+.navbar {
+  margin-bottom: 1.5rem;
+}
+.navbar .nav-item .icon {
+  height: 1.3125rem;
+  width: 1.3125rem;
 }
 
 h1 {
   font-family: "Roboto Slab";
   font-weight: 700;
+}
+
+small {
+  font-size: 85%;
 }
 
 a.broken-link {
@@ -172,13 +186,26 @@ a.broken-link {
 
 .btn {
   font-weight: 500;
+  font-family: "Roboto", helvetica, arial, sans-serif;
 }
 .btn span {
   padding-left: 0.5rem;
 }
+.btn:active, .btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: none;
+}
 
 form label {
   font-weight: 500;
+}
+form .form-control {
+  font-family: "Roboto", helvetica, arial, sans-serif;
 }
 form .form-check label {
   font-weight: 400;
@@ -186,6 +213,51 @@ form .form-check label {
 
 .alert p:last-child {
   margin-bottom: 0;
+}
+
+.picker {
+  margin-bottom: 1.5rem;
+  border-radius: 0.4rem;
+  text-align: center;
+}
+.picker.card-outline-primary {
+  border-color: #337ab7;
+  box-shadow: inset 0 0 0 0.15rem #337ab7;
+}
+.picker.card-primary {
+  color: rgba(255, 255, 255, 0.65) !important;
+  border-color: #337ab7;
+  box-shadow: inset 0 0 0 0.15rem #337ab7;
+}
+.picker h1 {
+  font-size: 2rem;
+  font-weight: 300;
+  font-family: "Roboto Slab";
+}
+.picker h2 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.picker p, .picker ul li {
+  line-height: 1.75;
+  text-align: left;
+}
+.picker p:last-child {
+  margin-bottom: 0;
+}
+
+i.x2 {
+  font-size: 2em;
+}
+i.x3 {
+  font-size: 3em;
+}
+i.x4 {
+  font-size: 4em;
+}
+i.x5 {
+  font-size: 5em;
 }
 
 /**
@@ -335,3 +407,5 @@ form .form-check label {
 [v-cloak] {
   display: none;
 }
+
+/*# sourceMappingURL=base.style.css.map */

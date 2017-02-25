@@ -1,8 +1,12 @@
 @import "auth.variables", "mixins";
 
+.page-header {
+	margin-bottom: 1.5rem;
+}
+
 .sweet-alert {
 	font-family: $font;
-	border-radius: $border-radius;
+	border-radius: $radius;
 
 	h2 {
 		font-weight: 500;
