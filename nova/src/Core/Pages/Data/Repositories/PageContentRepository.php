@@ -60,21 +60,9 @@ class PageContentRepository extends BaseRepository implements PageContentReposit
 
 	public function getAllContent()
 	{
-		// Get all the content
-		$content = $this->all([]);
-
-		// An array for storing all the content
-		$items = [];
-
-		if ($content->count() > 0)
-		{
-			foreach ($content as $c)
-			{
-				$items[$c->key] = $c->value;
-			}
-		}
-
-		return collect($items);
+		return $this->all([])->mapWithKeys(function ($item) {
+			return [$item->key => $item->value];
+		});
 	}
 
 	public function getByKey($key, array $with = [])

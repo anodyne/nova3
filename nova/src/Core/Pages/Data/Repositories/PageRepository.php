@@ -19,16 +19,12 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 		$this->contentRepo = $content;
 	}
 
-	public function all(array $with = [], $verb = false)
+	public function all(array $with = ['pageContents'], $verb = false)
 	{
-		$query = $this->make(['pageContents']);
-
-		if ($verb)
-		{
-			$query = $query->verb($verb);
-		}
-
-		return $query->get();
+		return $this->make($with)
+			->when($verb, function ($query) use ($verb) {
+				return $query->verb($verb);
+			})->get();
 	}
 
 	public function create(array $data)
