@@ -14,9 +14,13 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->app->singleton('nova', function ($app) {
-			return new \Nova\Foundation\Nova;
-		});
+		$nova = new \Nova\Foundation\Nova;
+
+		// Bind the Nova instance into the container
+		$this->app->instance('nova', $nova);
+
+		// Bind an instance of whether Nova is installed into the container
+		$this->app['nova.installed'] = $nova->isInstalled();
 		
 		$this->setRepositoryBindings();
 		$this->registerBindings();
@@ -27,7 +31,7 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->setupTheme();
 		$this->setupEmojiOne();
 
-		if (nova()->isInstalled())
+		if ($this->app['nova.installed'])
 		{
 			$this->setupMailer();
 			
@@ -144,12 +148,10 @@ class NovaServiceProvider extends ServiceProvider {
 	protected function getCurrentUser()
 	{
 		$this->app->singleton('nova.user', function ($app) {
-			if (nova()->isInstalled())
-			{
+			if ($app['nova.installed']) {
 				$user = $app['auth']->user();
 
-				if ($user)
-				{
+				if ($user) {
 					$user->load('userPreferences', 'unreadNotifications');
 				}
 
@@ -172,8 +174,7 @@ class NovaServiceProvider extends ServiceProvider {
 		});
 
 		$this->app->singleton('nova.pages', function ($app) {
-			if (nova()->isInstalled())
-			{
+			if ($app['nova.installed']) {
 				return $app['PageRepository']->all();
 			}
 
@@ -181,8 +182,7 @@ class NovaServiceProvider extends ServiceProvider {
 		});
 
 		$this->app->singleton('nova.pageContent', function ($app) {
-			if (nova()->isInstalled())
-			{
+			if ($app['nova.installed']) {
 				return $app['PageContentRepository']->getAllContent();
 			}
 
@@ -190,8 +190,7 @@ class NovaServiceProvider extends ServiceProvider {
 		});
 
 		$this->app->singleton('nova.settings', function ($app) {
-			if (nova()->isInstalled())
-			{
+			if ($app['nova.installed']) {
 				return $app['SettingRepository']->getAllSettings();
 			}
 
@@ -199,16 +198,11 @@ class NovaServiceProvider extends ServiceProvider {
 		});
 
 		$this->app->singleton('nova.system', function ($app) {
-			if (nova()->isInstalled())
-			{
+			if ($app['nova.installed']) {
 				return $app['SystemRepository']->getAllInfo();
 			}
 
 			return collect();
-		});
-
-		$this->app->singleton('nova.roles', function ($app) {
-			return $app['RoleRepository']->all();
 		});
 
 		$this->app->bind('nova.character.creator', function ($app) {
@@ -256,8 +250,7 @@ class NovaServiceProvider extends ServiceProvider {
 		];
 
 		// Loop through the repositories and do the binding
-		foreach ($bindings as $binding)
-		{
+		foreach ($bindings as $binding) {
 			// Set the concrete and abstract names
 			$abstract = "{$binding}RepositoryContract";
 			$abstractFQN = alias($abstract);
@@ -291,8 +284,7 @@ class NovaServiceProvider extends ServiceProvider {
 	{
 		$themeName = 'pulsar';
 
-		if (nova()->isInstalled())
-		{
+		if ($this->app['nova.installed']) {
 			// Get the theme name
 			$themeName = ($this->app['auth']->check())
 				? $this->app['nova.user']->preference('theme')
@@ -300,8 +292,7 @@ class NovaServiceProvider extends ServiceProvider {
 		}
 
 		// Try to autoload the appropriate theme file
-		if (file_exists($this->app->themePath($themeName).'\\Theme.php'))
-		{
+		if (file_exists($this->app->themePath($themeName).'\\Theme.php')) {
 			spl_autoload_register(function ($class) use ($themeName) {
 				include app()->themePath($themeName).'\\Theme.php';
 			});
@@ -311,9 +302,7 @@ class NovaServiceProvider extends ServiceProvider {
 
 			// Get some information about this particular class
 			$class = new ReflectionClass('Theme');
-		}
-		else
-		{
+		} else {
 			// Make a new base theme
 			$theme = new BaseTheme($themeName, $this->app, $this->app['nova.locator']);
 
@@ -330,8 +319,7 @@ class NovaServiceProvider extends ServiceProvider {
 			'Nova\Foundation\Themes\ThemeStructureContract',
 		], $class->getInterfaceNames());
 
-		if (count($unimplementedContracts) > 0)
-		{
+		if (count($unimplementedContracts) > 0) {
 			throw new MissingThemeImplementationException;
 		}
 

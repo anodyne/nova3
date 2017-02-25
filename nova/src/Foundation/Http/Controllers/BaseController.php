@@ -202,11 +202,9 @@ abstract class BaseController extends Controller {
 	protected function setupController()
 	{
 		if (nova()->isInstalled()) {
-			$currentPage = app('nova.pages')->filter(function ($page) {
-				return $page->key == request()->route()->getName();
-			});
-
-			$this->page = ($currentPage->count() > 0) ? $currentPage->first() : null;
+			$this->page = app('nova.pages')
+				->where('key', request()->route()->getName())
+				->first();
 			$this->content = app('nova.pageContent');
 			$this->settings = app('nova.settings');
 
