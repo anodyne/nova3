@@ -3,8 +3,6 @@
 
 	<main>
 		{!! partial('page-header', compact('_page')) !!}
-		{!! partial('page-message', compact('_page')) !!}
-
 		{!! $content or false !!}
 	</main>
 
