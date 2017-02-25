@@ -1,17 +1,11 @@
-<nav class="navbar navbar-default">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a href="{{ route('home') }}" class="navbar-brand">{{ $_content->get('sim.name') }}</a>
-		</div>
-		<div id="navbar" class="navbar-collapse collapse">
-			{!! MenuBuilder::menuCombined() !!}
-			{!! MenuBuilder::menuUser() !!}
-		</div>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<a href="{{ route('home') }}" class="navbar-brand">{{ $_content->get('sim.name') }}</a>
+
+	<div class="navbar-collapse collapse" id="navbarToggler">
+		{!! MenuBuilder::menuCombined() !!}
+		{!! MenuBuilder::menuUser() !!}
 	</div>
 </nav>
