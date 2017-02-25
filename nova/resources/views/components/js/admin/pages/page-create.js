@@ -35,6 +35,14 @@ vue = {
 			this.metadata.$remove(row)
 		},
 
+		pickerClassName: function (type) {
+			if (this.type == type) {
+				return 'card picker card-primary card-inverse'
+			}
+
+			return 'card picker'
+		},
+
 		checkKey: function () {
 			if (this.key != "") {
 				var url = Nova.data.keyCheckUrl

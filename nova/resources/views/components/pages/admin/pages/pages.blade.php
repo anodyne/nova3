@@ -4,7 +4,7 @@
 			<p><a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg btn-block">{!! icon('add') !!}<span>Add a Page</span></a></p>
 		@endcan
 
-		<p><a href="{{ route('admin.content') }}" class="btn btn-default btn-lg btn-block">{!! icon('list') !!}<span>Manage Additional Content</span></a></p>
+		<p><a href="{{ route('admin.content') }}" class="btn btn-secondary btn-lg btn-block">{!! icon('list') !!}<span>Manage Additional Content</span></a></p>
 	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
@@ -15,7 +15,7 @@
 			@endcan
 
 			<div class="btn-group">
-				<a href="{{ route('admin.content') }}" class="btn btn-default">{!! icon('list') !!}<span>Manage Additional Content</span></a>
+				<a href="{{ route('admin.content') }}" class="btn btn-secondary">{!! icon('list') !!}<span>Manage Additional Content</span></a>
 			</div>
 		</div>
 	</desktop>
@@ -53,10 +53,10 @@
 
 				<div class="panel-footer">
 					<mobile>
-						<a class="btn btn-default btn-lg btn-block" @click="resetFilters">Reset Filters</a>
+						<a class="btn btn-secondary btn-lg btn-block" @click="resetFilters">Reset Filters</a>
 					</mobile>
 					<desktop>
-						<a class="btn btn-default btn-block" @click="resetFilters">Reset Filters</a>
+						<a class="btn btn-secondary btn-block" @click="resetFilters">Reset Filters</a>
 					</desktop>
 				</div>
 			</div>
@@ -76,7 +76,7 @@
 							<div class="row">
 								@can('edit', $page)
 									<div class="col-sm-6">
-										<p><a href="@{{ page.editUrl }}" class="btn btn-default btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
+										<p><a href="@{{ page.editUrl }}" class="btn btn-secondary btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
 									</div>
 								@endcan
 
@@ -91,7 +91,7 @@
 							<div class="btn-toolbar pull-right">
 								@can('edit', $page)
 									<div class="btn-group">
-										<a href="@{{ page.editUrl }}" class="btn btn-default">{!! icon('edit') !!}<span>Edit</span></a>
+										<a href="@{{ page.editUrl }}" class="btn btn-secondary">{!! icon('edit') !!}<span>Edit</span></a>
 									</div>
 								@endcan
 
