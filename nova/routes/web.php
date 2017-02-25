@@ -11,12 +11,9 @@
 |
 */
 
-if ( ! nova()->isInstalled())
-{
+if ( ! nova()->isInstalled()) {
 	Route::get('/', 'Nova\Core\Game\Http\Controllers\HomeController@page');
-}
-else
-{
+} else {
 	// Grab an instance of the router
 	$router = app('router');
 
@@ -29,14 +26,12 @@ else
 		$allowedVerbs = collect(['get', 'post', 'put', 'delete']);
 
 		// Go through the pages and build the routes
-		$pages->each(function ($page) use ($allowedVerbs, $router)
-		{
+		$pages->each(function ($page) use ($allowedVerbs, $router) {
 			// Get the page's verb and format it
 			$verb = strtolower($page->verb);
 
 			// Make sure the page is using one of the allowed verbs
-			if ($allowedVerbs->contains($verb))
-			{
+			if ($allowedVerbs->contains($verb)) {
 				// Call the appropriate method on the $router
 				call_user_func_array([$router, $verb], [$page->uri, [
 					'as' => $page->key,
