@@ -104,7 +104,6 @@ return [
 		'key'				=> "admin.pages.remove",
 		'uri'				=> "admin/pages/{pageId}/remove",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageController@remove",
-		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "DELETE",
@@ -171,7 +170,6 @@ return [
 		'key'				=> "admin.content.remove",
 		'uri'				=> "admin/content/{contentId}/remove",
 		'default_resource'	=> "Nova\\Core\\Pages\\Http\\Controllers\\PageContentController@remove",
-		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "DELETE",
@@ -194,6 +192,7 @@ return [
 		'uri'				=> "admin/menus",
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@all",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'name'				=> "Create Menu",
@@ -201,6 +200,7 @@ return [
 		'uri'				=> "admin/menus/create",
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@create",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "POST",
@@ -215,6 +215,7 @@ return [
 		'uri'				=> "admin/menus/{menuId}/edit",
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@edit",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "PUT",
@@ -256,6 +257,7 @@ return [
 		'uri'				=> "admin/menus/{menuKey}/pages",
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuController@pages",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "PUT",
@@ -274,6 +276,7 @@ return [
 		'uri'				=> "admin/menu-items/{menuId}",
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@all",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'name'				=> "Create Menu Item",
@@ -281,6 +284,7 @@ return [
 		'uri'				=> "admin/menu-items/{menuId}/create",
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@create",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "POST",
@@ -302,6 +306,7 @@ return [
 		'uri'				=> "admin/menu-items/{menuItemId}/edit",
 		'default_resource'	=> "Nova\\Core\\Menus\\Http\\Controllers\\MenuItemController@edit",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "PUT",
@@ -340,6 +345,7 @@ return [
 		'uri'				=> "admin/access/roles",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@all",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'name'				=> "Create Role",
@@ -347,6 +353,7 @@ return [
 		'uri'				=> "admin/access/roles/create",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@create",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "POST",
@@ -361,6 +368,7 @@ return [
 		'uri'				=> "admin/access/roles/{roleId}/edit",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\RoleController@edit",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "PUT",
@@ -411,6 +419,7 @@ return [
 		'uri'				=> "admin/access/permissions",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\PermissionController@all",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'name'				=> "Create Permission",
@@ -418,6 +427,7 @@ return [
 		'uri'				=> "admin/access/permissions/create",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\PermissionController@create",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "POST",
@@ -432,6 +442,7 @@ return [
 		'uri'				=> "admin/access/permissions/{permissionId}/edit",
 		'default_resource'	=> "Nova\\Core\\Access\\Http\\Controllers\\PermissionController@edit",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "PUT",
@@ -477,6 +488,7 @@ return [
 		'uri'				=> "admin/forms",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormController@all",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'name'				=> "Create Form",
@@ -484,6 +496,7 @@ return [
 		'uri'				=> "admin/forms/create",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormController@create",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "POST",
@@ -498,6 +511,7 @@ return [
 		'uri'				=> "admin/forms/{formKey}/edit",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormController@edit",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "PUT",
@@ -525,6 +539,7 @@ return [
 		'uri'				=> "admin/forms/{formKey}/preview",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormController@preview",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "POST",
@@ -543,6 +558,7 @@ return [
 		'uri'				=> "admin/forms/{formKey}/tabs",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\TabController@all",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'name'				=> "Create Form Tab",
@@ -550,6 +566,7 @@ return [
 		'uri'				=> "admin/forms/{formKey}/tabs/create",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\TabController@create",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "POST",
@@ -564,6 +581,7 @@ return [
 		'uri'				=> "admin/forms/{formKey}/tabs/{tabId}/edit",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\TabController@edit",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "PUT",
@@ -609,6 +627,7 @@ return [
 		'uri'				=> "admin/forms/{formKey}/sections",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\SectionController@all",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'name'				=> "Create Form Section",
@@ -616,6 +635,7 @@ return [
 		'uri'				=> "admin/forms/{formKey}/sections/create",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\SectionController@create",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "POST",
@@ -630,6 +650,7 @@ return [
 		'uri'				=> "admin/forms/{formKey}/sections/{sectionId}/edit",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\SectionController@edit",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "PUT",
@@ -668,6 +689,7 @@ return [
 		'uri'				=> "admin/forms/{formKey}/fields",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FieldController@all",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'name'				=> "Create Form Field",
@@ -675,6 +697,7 @@ return [
 		'uri'				=> "admin/forms/{formKey}/fields/create",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FieldController@create",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "POST",
@@ -689,6 +712,7 @@ return [
 		'uri'				=> "admin/forms/{formKey}/fields/{fieldId}/edit",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FieldController@edit",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "PUT",
@@ -727,6 +751,7 @@ return [
 		'uri'				=> "admin/form-center",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@all",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'name'				=> "Show Form Center Form",
@@ -734,12 +759,14 @@ return [
 		'uri'				=> "admin/form-center/{formKey}",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@form",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'name'				=> "Show Form Center Form Entry",
 		'key'				=> "admin.form-center.showEntry",
 		'uri'				=> "admin/form-center/{formKey}/show-entry/{entryId}",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@showEntry",
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "POST",
@@ -753,6 +780,7 @@ return [
 		'key'				=> "admin.form-center.editEntry",
 		'uri'				=> "admin/form-center/{formKey}/edit-entry/{entryId}",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@editEntry",
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "PUT",
@@ -780,6 +808,7 @@ return [
 		'uri'				=> "admin/form-center/{formKey}/entries",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@entries",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'name'				=> "View Form Center Form Entry (Admin)",
@@ -787,6 +816,7 @@ return [
 		'uri'				=> "admin/form-center/{formKey}/show/{entryId}",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@show",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'name'				=> "Edit Form Center Form Entry (Admin)",
@@ -794,6 +824,7 @@ return [
 		'uri'				=> "admin/form-center/{formKey}/edit/{entryId}",
 		'default_resource'	=> "Nova\\Core\\Forms\\Http\\Controllers\\FormCenterController@edit",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "PUT",
@@ -812,6 +843,7 @@ return [
 		'uri'				=> "admin/users",
 		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\UserController@all",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'name'				=> "Create User",
@@ -819,6 +851,7 @@ return [
 		'uri'				=> "admin/users/create",
 		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\UserController@create",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "POST",
@@ -833,6 +866,7 @@ return [
 		'uri'				=> "admin/users/{userId}/edit",
 		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\UserController@edit",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "PUT",
@@ -867,6 +901,7 @@ return [
 		'uri'				=> "admin/users/preferences",
 		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\PreferencesController@index",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 	[
 		'verb'				=> "PUT",
@@ -881,5 +916,6 @@ return [
 		'uri'				=> "admin/users/account",
 		'default_resource'	=> "Nova\\Core\\Users\\Http\\Controllers\\UserController@account",
 		'menu_id'			=> 2,
+		'metadata'			=> json_encode([]),
 	],
 ];
