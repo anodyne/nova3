@@ -90,14 +90,10 @@ class MenuItem extends Model {
 		$method = (Str::contains($this->access_type, 'roles')) ? 'hasRole' : 'can';
 		$isStrict = (Str::contains($this->access_type, 'strict'));
 
-		foreach ($this->access as $access)
-		{
-			if ($isStrict)
-			{
+		foreach ($this->access as $access) {
+			if ($isStrict) {
 				if ( ! $user->{$method}($access['key'])) return false;
-			}
-			else
-			{
+			} else {
 				if ($user->{$method}($access['key'])) return true;
 			}
 		}

@@ -9,8 +9,7 @@ class MenuItemPresenter extends BasePresenter {
 		$link = $this->entity->link;
 		$title = $this->entity->title;
 
-		switch ($this->entity->type)
-		{
+		switch ($this->entity->type) {
 			case 'external':
 				$attributes = array_merge(['target' => '_blank'], $attributes);
 
@@ -22,7 +21,8 @@ class MenuItemPresenter extends BasePresenter {
 			break;
 
 			case 'page':
-				$page = $this->entity->page;
+				$page = app('nova.pages')->where('id', $this->entity->page_id)->first();
+				//$page = $this->entity->page;
 
 				$title = (empty($title)) ? $page->name : $title;
 
@@ -39,17 +39,15 @@ class MenuItemPresenter extends BasePresenter {
 	{
 		$outputArr = [];
 
-		if ($withIcon and ! empty($this->entity->icon))
-		{
+		if ($withIcon and ! empty($this->entity->icon)) {
 			$outputArr[] = $this->icon();
 		}
 
-		if ($this->entity->type == 'page' and empty($this->entity->title))
-		{
-			$outputArr[] = $this->entity->page->present()->name;
-		}
-		else
-		{
+		if ($this->entity->type == 'page' and empty($this->entity->title)) {
+			$outputArr[] = app('nova.pages')->where('id', $this->entity->page_id)->first()
+				->present()->name;
+			//$outputArr[] = $this->entity->page->present()->name;
+		} else {
 			$outputArr[] = $this->entity->title;
 		}
 
@@ -62,5 +60,4 @@ class MenuItemPresenter extends BasePresenter {
 
 		return theme()->renderIcon(theme()->getIcon($icon));
 	}
-
 }

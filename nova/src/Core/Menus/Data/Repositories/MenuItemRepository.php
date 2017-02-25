@@ -56,17 +56,16 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 
 	public function getMainMenuItems($menu)
 	{
-		if ($menu instanceof Menu)
-		{
-			$items = $menu->menuItems->load('page')->filter(function ($item)
-			{
+		if ($menu instanceof Menu) {
+			/*$items = $menu->menuItems->load('page')->filter(function ($item) {
+				return (int) $item->parent_id === 0;
+			})->sortBy('order');*/
+			$items = $menu->menuItems->filter(function ($item) {
 				return (int) $item->parent_id === 0;
 			})->sortBy('order');
 
-			if ( ! user())
-			{
-				/*$items = $items->filter(function ($item)
-				{
+			if ( ! user()) {
+				/*$items = $items->filter(function ($item) {
 					return (bool) $item->authentication === false;
 				});*/	
 			}
@@ -78,8 +77,7 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 			->where('parent_id', '=', 0)
 			->orderBy('order', 'asc');
 
-		if ( ! user())
-		{
+		if ( ! user()) {
 			//$query = $query->where('authentication', '=', (int) false);
 		}
 
@@ -88,17 +86,16 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 
 	public function getSubMenuItems($menu)
 	{
-		if ($menu instanceof Menu)
-		{
-			$items = $menu->menuItems->load('page')->filter(function ($item)
-			{
+		if ($menu instanceof Menu) {
+			/*$items = $menu->menuItems->load('page')->filter(function ($item) {
+				return (int) $item->parent_id != 0;
+			})->sortBy('order');*/
+			$items = $menu->menuItems->filter(function ($item) {
 				return (int) $item->parent_id != 0;
 			})->sortBy('order');
 
-			if ( ! user())
-			{
-				/*$items = $items->filter(function ($item)
-				{
+			if ( ! user()) {
+				/*$items = $items->filter(function ($item) {
 					return (bool) $item->authentication === false;
 				});*/
 			}
@@ -108,10 +105,12 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 
 		$query = $this->model->where('menu_id', '=', $menu)
 			->where('parent_id', '!=', 0)
+			/*->when( ! user(), function ($query) {
+				return $query->where('authentication', '=', (int) false);
+			})*/
 			->orderBy('order', 'asc');
 
-		if ( ! user())
-		{
+		if ( ! user()) {
 			//$query = $query->where('authentication', '=', (int) false);
 		}
 
