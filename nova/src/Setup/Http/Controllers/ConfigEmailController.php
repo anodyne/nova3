@@ -14,7 +14,7 @@ class ConfigEmailController extends BaseController {
 	public function write(CheckEmailSettingsRequest $request, Filesystem $files)
 	{
 		// Grab the config writer
-		$writer = app('nova.setup.configWriter');
+		$writer = app('nova.configWriter');
 
 		// Write the mail config
 		$writer->write('mail', [

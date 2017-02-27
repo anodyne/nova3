@@ -58,7 +58,7 @@ class ConfigNova2Controller extends BaseController {
 			);
 
 			// Grab the config writer
-			$writer = app('nova.setup.configWriter');
+			$writer = app('nova.configWriter');
 
 			// Write the Nova 2 config file
 			$writer->write('nova2', [

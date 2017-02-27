@@ -10,7 +10,7 @@ class UserSeeder extends Seeder {
 	{
 		$faker = \Faker\Factory::create();
 
-		$userCreator = app('nova.user.creator');
+		$userCreator = app('nova.userCreator');
 
 		for ($i = 1; $i < $this->userCount; $i++)
 		{

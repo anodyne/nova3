@@ -41,7 +41,7 @@ class InstallController extends BaseController {
 	public function novaSuccess()
 	{
 		// Get an instance of the writer
-		$writer = app('nova.setup.configWriter');
+		$writer = app('nova.configWriter');
 
 		// Write the session config file
 		$writer->write('session');

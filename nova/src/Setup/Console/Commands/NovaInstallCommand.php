@@ -23,7 +23,7 @@ class NovaInstallCommand extends Command {
 		$this->call('migrate', ['--force' => true]);
 
 		// Get an instance of the writer
-		$writer = app('nova.setup.configWriter');
+		$writer = app('nova.configWriter');
 
 		// Generate the new key
 		$newKey = 'base64:'.base64_encode(random_bytes(

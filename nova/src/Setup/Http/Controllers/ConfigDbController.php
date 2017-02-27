@@ -140,7 +140,7 @@ class ConfigDbController extends BaseController {
 		if (session()->has('dbName'))
 		{
 			// Grab the config writer
-			$writer = app('nova.setup.configWriter');
+			$writer = app('nova.configWriter');
 
 			$dbConfigValues = [
 				"#DB_DRIVER#"	=> session('dbDriver'),
