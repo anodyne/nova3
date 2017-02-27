@@ -1,0 +1,22 @@
+{
+	"back-home": "Back Home",
+	"cancel": "Cancel",
+	"email-address": "Email Address",
+	"password": "Password",
+	"password-new": "New Password",
+	"password-new-confirm": "Confirm New Password",
+	"sign-in": "Sign In",
+	"sign-out": "Sign Out",
+	"welcome": "Welcome back, :name!",
+
+	"signin-attempts": "Too Many Attempts!",
+	"signin-attempts-explain": "You've attempted to sign in too many times. Please try again in :time seconds.",
+	"signin-failed": "Sign In Failed!",
+	"signin-failed-explain": "The email address or password don't match our records.",
+	"signin-forgot-password": "Forgot Your Password?",
+	"signin-required-reset": "Password Reset Required",
+	"signin-required-reset-explain": "An administrator has required you to reset your password before you can continue.",
+	"signin-reset-password": "Reset Password",
+	"signin-send-reset-link": "Send Password Reset Link",
+	"signin-success": "You are now signed in"
+}

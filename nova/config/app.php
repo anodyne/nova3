@@ -146,7 +146,7 @@ return [
 		Illuminate\Redis\RedisServiceProvider::class,
 		Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
 		Illuminate\Session\SessionServiceProvider::class,
-		Illuminate\Translation\TranslationServiceProvider::class,
+		//Illuminate\Translation\TranslationServiceProvider::class,
 		Illuminate\Validation\ValidationServiceProvider::class,
 		Illuminate\View\ViewServiceProvider::class,
 
@@ -167,6 +167,7 @@ return [
 		Nova\Setup\Providers\SetupRouteServiceProvider::class,
 		//Nova\Foundation\Providers\ErrorServiceProvider::class,
 		Nova\Foundation\Providers\NovaServiceProvider::class,
+		Nova\Foundation\Providers\TranslationServiceProvider::class,
 		Nova\Foundation\Providers\EventServiceProvider::class,
 		Nova\Foundation\Providers\RouteServiceProvider::class,
 		Nova\Foundation\Providers\AuthServiceProvider::class,

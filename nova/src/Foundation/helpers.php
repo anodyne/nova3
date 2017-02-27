@@ -263,3 +263,19 @@ if ( ! function_exists('hook')) {
 		return $hooks->call($name, $args);
 	}
 }
+
+if ( ! function_exists('_m')) {
+	function _m($key, $arg1 = false, $arg2 = []) {
+		$key = "*.{$key}";
+
+		if (is_numeric($arg1)) {
+			return trans_choice($key, $arg1, $arg2);
+		}
+
+		if (is_array($arg1)) {
+			return trans($key, $arg1);
+		}
+
+		return trans($key);
+	}
+}
