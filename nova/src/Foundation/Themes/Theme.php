@@ -377,13 +377,13 @@ class Theme implements ThemeIconsContract,
 			$submenu->add(LinkBuilder::toRoute('admin.users.account', "My Account")->addClass('dropdown-item'));
 			$submenu->add(LinkBuilder::toRoute('admin.users.preferences', "My Preferences")->addClass('dropdown-item'));
 			$submenu->html('', ['role' => 'separator', 'class' => 'dropdown-divider']);
-			$submenu->add(LinkBuilder::toRoute('logout', "Log Out")->addClass('dropdown-item'));
+			$submenu->add(LinkBuilder::toRoute('logout', _m('sign-out'))->addClass('dropdown-item'));
 
 			// Attach the submenu to the user menu
 			$menu->submenu($header, $submenu);
 		} else {
 			$menu->add(
-				LinkBuilder::toRoute('login', "Log In")
+				LinkBuilder::toRoute('login', _m('sign-in'))
 					->addClass('nav-link')
 					->addParentClass('nav-item')
 			);
