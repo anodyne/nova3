@@ -163,7 +163,7 @@ return [
 		 * Nova Service Providers
 		 */
 
-		Nova\Foundation\Providers\TranslationServiceProvider::class,
+		//Nova\Foundation\Providers\TranslationServiceProvider::class,
 		Nova\Foundation\Providers\AppServiceProvider::class,
 		Nova\Foundation\Providers\AuthServiceProvider::class,
 		//Nova\Foundation\Providers\BroadcastServiceProvider::class,
