@@ -403,10 +403,12 @@ return [
 		'UserPolicy' => Nova\Core\Users\Policies\UserPolicy::class,
 		'CreateUserRequest' => Nova\Core\Users\Http\Requests\CreateUserRequest::class,
 		'EditUserRequest' => Nova\Core\Users\Http\Requests\EditUserRequest::class,
+		'EditUserPreferenceRequest' => Nova\Core\Users\Http\Requests\EditUserPreferenceRequest::class,
 		'RemoveUserRequest' => Nova\Core\Users\Http\Requests\RemoveUserRequest::class,
 		'BuildUserPreferences' => Nova\Core\Users\Listeners\BuildUserPreferences::class,
 		'EmailNewUserPassword' => Nova\Core\Users\Listeners\EmailNewUserPassword::class,
 		'AdminCreatedUserMailer' => Nova\Core\Users\Mail\AdminCreatedUser::class,
+		'UserTransformer' => Nova\Core\Users\Data\Transformers\UserTransformer::class,
 	],
 
 ];
