@@ -36,7 +36,7 @@ class LoginController extends BaseController {
 
 		event(new Events\LoggedIn($user, Date::now()));
 
-		flash()->success(_m('welcome', ['name' => $name]), _m('signed-in'));
+		flash()->success(_m('welcome-back', [$name]), _m('signed-in'));
 	}
 
 	protected function sendFailedLoginResponse(Request $request)
@@ -72,7 +72,7 @@ class LoginController extends BaseController {
 			$this->throttleKey($request)
 		);
 
-		flash()->error(_m('signin-attempts'), _m('signin-attempts-explain', ['time' => $seconds]));
+		flash()->error(_m('signin-attempts'), _m('signin-attempts-explain', [$seconds]));
 
 		return redirect()->back()
 			->withInput($request->only($this->username(), 'remember'));
