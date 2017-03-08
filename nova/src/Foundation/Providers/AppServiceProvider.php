@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider {
 		$this->createLocator();
 		$this->createPageCompilerEngine();
 		$this->createFieldTypesManager();
+		$this->registerTranslator();
 		$this->setupTheme();
 		$this->setupEmojiOne();
 
@@ -306,5 +307,32 @@ class AppServiceProvider extends ServiceProvider {
 		$client->imagePathSVG = nova_path('resources/emoji');
 
 		$this->app->instance('emoji', $client);
+	}
+
+	protected function registerTranslator()
+	{
+		// Figure out what language we need
+		$lang = 'en';
+
+		// Load the file(s)
+		$loader = new \Nova\Foundation\Translation\FileLoader(
+			$this->app['files'],
+			$this->app['path.lang'],
+			$this->app['path.coreLang']
+		);
+
+		// Create a new instance of the translator
+		$translator = new \Krinkle\Intuition\Intuition([
+			'globalfunctions' => false,
+			'stayalive' => true,
+			'suppressfatal' => false,
+			'suppressnotice' => false,
+		]);
+
+		// Set the messages from the loaded file(s)
+		$translator->setMsgs($loader->load($lang, '*', '*'));
+
+		// Bind the translator instance into the container
+		$this->app->instance('nova.translator', $translator);
 	}
 }
