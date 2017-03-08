@@ -17,7 +17,8 @@
 		"spatie/laravel-medialibrary": "~4.0",
 		"spatie/laravel-menu": "~2.0",
 		"spatie/laravel-backup": "~4.0",
-		"spatie/laravel-activitylog": "~1.2"
+		"spatie/laravel-activitylog": "~1.2",
+		"Krinkle/intuition": "~0.5"
 	},
 
 	"require-dev": {
