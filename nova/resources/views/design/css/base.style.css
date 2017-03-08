@@ -161,9 +161,20 @@ body {
 .navbar {
   margin-bottom: 1.5rem;
 }
-.navbar .nav-item .icon {
-  height: 1.3125rem;
-  width: 1.3125rem;
+.navbar .nav-item .nav-link {
+  display: flex;
+  align-items: center;
+}
+.navbar .nav-item .nav-link .icon {
+  height: 1em;
+  width: 1em;
+  margin-right: 0.4rem;
+}
+.navbar .nav-item .nav-link .icon path {
+  fill: rgba(0, 0, 0, 0.5);
+}
+.navbar .nav-item .nav-link:hover .icon path {
+  fill: rgba(0, 0, 0, 0.7);
 }
 
 h1 {
@@ -407,5 +418,3 @@ i.x5 {
 [v-cloak] {
   display: none;
 }
-
-/*# sourceMappingURL=base.style.css.map */
