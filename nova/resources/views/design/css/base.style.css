@@ -165,6 +165,9 @@ body {
   display: flex;
   align-items: center;
 }
+.navbar .nav-item .nav-link i {
+  padding-right: 0.4rem;
+}
 .navbar .nav-item .nav-link .icon {
   height: 1em;
   width: 1em;
