@@ -15,20 +15,11 @@ class Application extends IlluminateApp {
 	{
 		parent::bindPathsInContainer();
 
-		//$this->instance('path', $this->path());
-
-		// The paths established by the Laravel core
-		//$corePaths = ['base', 'config', 'database', 'lang', 'public', 'storage'];
-
 		// The paths established by the Nova core
-		$novaPaths = ['asset', 'coreAsset', 'coreConfig', 'extension', 'nova',
-			'rank', 'theme', 'themeRelative'];
+		$novaPaths = ['asset', 'coreAsset', 'coreConfig', 'coreLang', 'coreResources',
+			'extension', 'nova', 'rank', 'theme', 'themeRelative'];
 
-		// Combine the core paths with our own
-		//$paths = array_merge($corePaths, $novaPaths);
-
-		foreach ($novaPaths as $path)
-		{
+		foreach ($novaPaths as $path) {
 			$this->instance('path.'.$path, $this->{$path.'Path'}());
 		}
 	}
@@ -51,12 +42,13 @@ class Application extends IlluminateApp {
 	 */
 	public function assetPath($asset = false)
 	{
-		if ($asset)
-		{
-			return $this->basePath."/assets/{$asset}";
+		$segments = [$this->basePath, 'assets'];
+
+		if ($asset) {
+			$segments[] = $asset;
 		}
 
-		return $this->basePath.'/assets';
+		return join(DIRECTORY_SEPARATOR, $segments);
 	}
 
 	/**
@@ -66,7 +58,7 @@ class Application extends IlluminateApp {
 	 */
 	public function bootstrapPath()
 	{
-		return $this->basePath.DIRECTORY_SEPARATOR.'nova'.DIRECTORY_SEPARATOR.'bootstrap';
+		return join(DIRECTORY_SEPARATOR, [$this->basePath, 'nova', 'bootstrap']);
 	}
 
 	/**
@@ -77,12 +69,13 @@ class Application extends IlluminateApp {
 	 */
 	public function coreAssetPath($asset = false)
 	{
-		if ($asset)
-		{
-			return $this->novaPath("resources/{$asset}");
+		$segments = [$this->novaPath(), 'resources'];
+
+		if ($asset) {
+			$segments[] = $asset;
 		}
 
-		return $this->novaPath('resources');
+		return join(DIRECTORY_SEPARATOR, $segments);
 	}
 
 	/**
@@ -96,13 +89,33 @@ class Application extends IlluminateApp {
 	}
 
 	/**
+	 * Get the path to the lang directory inside Nova.
+	 *
+	 * @return	string
+	 */
+	public function coreLangPath()
+	{
+		return join(DIRECTORY_SEPARATOR, ['nova', 'resources', 'lang']);
+	}
+
+	/**
+	 * Get the path to the lang directory inside Nova.
+	 *
+	 * @return	string
+	 */
+	public function coreResourcesPath()
+	{
+		return join(DIRECTORY_SEPARATOR, [$this->basePath, 'nova', 'resources']);
+	}
+
+	/**
 	 * Get the path to the database directory.
 	 *
 	 * @return	string
 	 */
 	public function databasePath()
 	{
-		return $this->novaPath('src/Setup/database');
+		return join(DIRECTORY_SEPARATOR, [$this->novaPath(), 'src', 'Setup', 'database']);
 	}
 
 	/**
@@ -113,8 +126,7 @@ class Application extends IlluminateApp {
 	 */
 	public function extensionPath($identifier = false)
 	{
-		if ($identifier)
-		{
+		if ($identifier) {
 			list($vendor, $name) = explode('/', $identifier);
 
 			return $this->basePath."/extensions/{$vendor}/{$name}";
@@ -130,7 +142,7 @@ class Application extends IlluminateApp {
 	 */
 	public function langPath()
 	{
-		return $this->novaPath('resources/lang');
+		return join(DIRECTORY_SEPARATOR, ['resources', 'lang']);
 	}
 
 	/**
@@ -141,12 +153,13 @@ class Application extends IlluminateApp {
 	 */
 	public function novaPath($location = false)
 	{
-		if ($location)
-		{
-			return $this->basePath."/nova/{$location}";
+		$segments = [$this->basePath, 'nova'];
+
+		if ($location) {
+			$segments[] = $location;
 		}
 
-		return $this->basePath.'/nova';
+		return join(DIRECTORY_SEPARATOR, $segments);
 	}
 
 	/**
@@ -167,12 +180,23 @@ class Application extends IlluminateApp {
 	 */
 	public function rankPath($location = false)
 	{
-		if ($location)
-		{
-			return $this->basePath."/ranks/{$location}";
+		$segments = [$this->basePath, 'ranks'];
+
+		if ($location) {
+			$segments[] = $location;
 		}
 
-		return $this->basePath.'/ranks';
+		return join(DIRECTORY_SEPARATOR, $segments);
+	}
+
+	/**
+	 * Get the path to the resources directory.
+	 *
+	 * @return string
+	 */
+	public function resourcePath()
+	{
+		return join(DIRECTORY_SEPARATOR, [$this->basePath, 'resources']);
 	}
 
 	/**
@@ -183,12 +207,13 @@ class Application extends IlluminateApp {
 	 */
 	public function themePath($location = false)
 	{
-		if ($location)
-		{
-			return $this->basePath."/themes/{$location}";
+		$segments = [$this->basePath, 'themes'];
+
+		if ($location) {
+			$segments[] = $location;
 		}
 
-		return $this->basePath.'/themes';
+		return join(DIRECTORY_SEPARATOR, $segments);
 	}
 
 	/**
@@ -199,12 +224,13 @@ class Application extends IlluminateApp {
 	 */
 	public function themeRelativePath($location = false)
 	{
-		if ($location)
-		{
-			return "themes/{$location}";
+		$segments = ['themes'];
+
+		if ($location) {
+			$segment[] = $location;
 		}
 
-		return 'themes';
+		return join(DIRECTORY_SEPARATOR, $segments);
 	}
 
 	public function buildStorageDirectory()
@@ -213,8 +239,7 @@ class Application extends IlluminateApp {
 			'logs'
 		];
 
-		foreach ($directories as $dir)
-		{
+		foreach ($directories as $dir) {
 			$this->app['files']->makeDirectory(storage_path($dir));
 		}
 	}
@@ -223,20 +248,15 @@ class Application extends IlluminateApp {
 	{
 		$directories = [
 			storage_path('logs'),
-			storage_path('framework/cache'),
-			storage_path('framework/sessions'),
-			storage_path('framework/views'),
+			storage_path('framework'.DIRECTORY_SEPARATOR.'cache'),
+			storage_path('framework'.DIRECTORY_SEPARATOR.'sessions'),
+			storage_path('framework'.DIRECTORY_SEPARATOR.'views'),
 		];
 
-		foreach ($directories as $dir)
-		{
-			if ( ! $this->app['files']->isWritable($dir))
-			{
+		foreach ($directories as $dir) {
+			if ( ! $this->app['files']->isWritable($dir)) {
 				dd("The [$dir] directory is not writable and must be for Laravel to work. Please set the permissions on this directory to 777.");
-				//throw new RuntimeException("The [$directory] directory is not writable. Please make sure you set permissions on the directory.");
-				//exec(escapeshellcmd("chmod 775 $directory"));
 			}
 		}
 	}
-
 }

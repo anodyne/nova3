@@ -36,7 +36,7 @@ class LoginController extends BaseController {
 
 		event(new Events\LoggedIn($user, Date::now()));
 
-		flash()->success("Welcome back, {$name}!", "You are now logged in.");
+		flash()->success(_m('welcome-back', [$name]), _m('signed-in'));
 	}
 
 	protected function sendFailedLoginResponse(Request $request)
@@ -47,22 +47,21 @@ class LoginController extends BaseController {
 		// If the user's password is completely empty, an admin is forcing them
 		// to reset their password, so let's kick them over to the reset page
 		// with a message to tell them what's happening.
-		if ($user and $user->password === null)
-		{
-			$message = "An administrator has required you to reset your password before you can continue.";
+		if ($user and $user->password === null) {
+			$message = _m('signin-required-reset-explain');
 
 			event(new Events\PasswordResetRequired($user, Date::now()));
 
 			session()->flash('password_reset_required', $message);
 
-			flash()->warning('Password Reset Required', $message);
+			flash()->warning(_m('signin-required-reset'), $message);
 
 			return redirect()->route('password.email.show');
 		}
 
 		event(new Events\LoginFailed($request->get('email'), Date::now()));
 
-		flash()->error("Log In Failed!", "The email address or password don't match our records.");
+		flash()->error(_m('signin-failed'), _m('signin-failed-explain'));
 
 		return redirect()->back()->withInput($request->only('email'));
 	}
@@ -73,7 +72,7 @@ class LoginController extends BaseController {
 			$this->throttleKey($request)
 		);
 
-		flash()->error("Too Many Attempts!", "You've attempted to log in too many times. Please try again in {$seconds} seconds.");
+		flash()->error(_m('signin-attempts'), _m('signin-attempts-explain', [$seconds]));
 
 		return redirect()->back()
 			->withInput($request->only($this->username(), 'remember'));

@@ -36,33 +36,11 @@ class RouteServiceProvider extends ServiceProvider {
 	{
 		$this->mapApiRoutes();
 		$this->mapWebRoutes();
-
-		//
-	}
-
-	/**
-	 * Define the "web" routes for the application.
-	 *
-	 * These routes all receive session state, CSRF protection, etc.
-	 *
-	 * @return void
-	 */
-	protected function mapWebRoutes()
-	{
-		Route::middleware('web')
-			 ->namespace($this->namespace)
-			 ->group(nova_path('routes/web.php'));
+		$this->mapSetupRoutes();
 
 		require base_path('routes.php');
 	}
 
-	/**
-	 * Define the "api" routes for the application.
-	 *
-	 * These routes are typically stateless.
-	 *
-	 * @return void
-	 */
 	protected function mapApiRoutes()
 	{
 		Route::prefix('api')
@@ -71,41 +49,20 @@ class RouteServiceProvider extends ServiceProvider {
 			 ->group(nova_path('routes/api-v1.php'));
 	}
 
-	/*protected function mapWebRoutes()
+	protected function mapSetupRoutes()
 	{
-		$routerOptions = [
-			'namespace' => $this->namespace,
-			'middleware' => 'web',
-		];
-
-		Route::group($routerOptions, function ($router)
-		{
-			if (nova()->isInstalled())
-			{
-				require nova_path('routes/web.php');
-				//require app_path('Foundation/Http/routes.php');
-			}
-			else
-			{
-				Route::get('/', 'Nova\Core\Game\Http\Controllers\HomeController@page');
-			}
-
-			require base_path('routes.php');
-		});
+		Route::prefix('setup')
+			 ->middleware('web')
+			 ->namespace('Nova\Setup\Http\Controllers')
+			 ->group(nova_path('routes/setup.php'));
 	}
 
-	protected function mapApiRoutes()
+	protected function mapWebRoutes()
 	{
-		$apiRouterOptions = [
-			'namespace' => $this->namespace,
-			'middleware' => 'api',
-		];
-
-		Route::group($apiRouterOptions, function ($router)
-		{
-			require app_path('Api/V1/routes.php');
-		});
-	}*/
+		Route::middleware('web')
+			 ->namespace($this->namespace)
+			 ->group(nova_path('routes/web.php'));
+	}
 
 	/**
 	 * Grab the routes from the cache and create the route entries from that

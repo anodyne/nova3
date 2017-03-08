@@ -91,7 +91,7 @@ class ConfigDbController extends BaseController {
 
 			// Make sure we have the proper versions
 			if (session('dbDriver') == 'mysql') {
-				$version = $connection->getPdo()->query('select version()')->fetchColumn();
+				$version = $connection->query('select version()')->fetchColumn();
 				$version = mb_substr($version, 0, 6);
 
 				if (version_compare($version, '5.5', '<')) {
@@ -140,7 +140,7 @@ class ConfigDbController extends BaseController {
 		if (session()->has('dbName'))
 		{
 			// Grab the config writer
-			$writer = app('nova.setup.configWriter');
+			$writer = app('nova.configWriter');
 
 			$dbConfigValues = [
 				"#DB_DRIVER#"	=> session('dbDriver'),

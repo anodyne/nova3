@@ -33,21 +33,15 @@ class PageCompiler implements CompilerContract {
 				}
 
 				// Get the page out of the container
-				$page = app('nova.pages')->filter(function ($page) use ($key)
-				{
-					return $page->key == $key;
-				});
+				$page = app('nova.pages')->where('key', $key);
 
-				if ($page->count() > 0)
-				{
+				if ($page->count() > 0) {
 					$page = $page->first();
 					
 					$title = ($title) ?: $page->present()->name;
 
 					return app('html')->linkRoute($key, $title);
-				}
-				else
-				{
+				} else {
 					$title = ($title) ?: 'Page Not Found';
 
 					return app('html')->link(false, $title, [

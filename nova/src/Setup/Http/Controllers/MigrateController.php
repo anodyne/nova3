@@ -29,7 +29,7 @@ class MigrateController extends BaseController {
 	public function migrateSuccess()
 	{
 		// Get an instance of the writer
-		$writer = app('nova.setup.configWriter');
+		$writer = app('nova.configWriter');
 
 		// Write the session config file
 		$writer->write('session');
@@ -68,7 +68,7 @@ class MigrateController extends BaseController {
 			->chunk(100, function ($users) use (&$self) {
 
 				$users->each(function ($user) use (&$self) {
-					$newUser = app('nova.user.creator')->create([
+					$newUser = app('nova.userCreator')->create([
 						'name' => $user->name,
 						'email' => $user->email,
 						'password' => config('nova2.temp_password'),

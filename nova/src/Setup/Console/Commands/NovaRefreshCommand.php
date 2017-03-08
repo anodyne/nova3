@@ -46,7 +46,7 @@ class NovaRefreshCommand extends Command {
 		$data = require_once base_path('_setup.php');
 
 		$this->info("Creating user & character accounts...");
-		app('nova.user.creator')->createWithCharacter($data);
+		app('nova.userCreator')->createWithCharacter($data);
 
 		$this->info("Updating settings table...");
 		app('SettingRepository')->updateByKey($data['settings']);

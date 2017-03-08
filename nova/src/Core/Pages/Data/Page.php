@@ -125,24 +125,21 @@ class Page extends Model {
 
 	public function header()
 	{
-		return $this->pageContents->filter(function ($c)
-		{
+		return $this->pageContents->filter(function ($c) {
 			return $c->type == 'header';
 		})->first();
 	}
 
 	public function message()
 	{
-		return $this->pageContents->filter(function ($c)
-		{
+		return $this->pageContents->filter(function ($c) {
 			return $c->type == 'message';
 		})->first();
 	}
 
 	public function title()
 	{
-		return $this->pageContents->filter(function ($c)
-		{
+		return $this->pageContents->filter(function ($c) {
 			return $c->type == 'title';
 		})->first();
 	}

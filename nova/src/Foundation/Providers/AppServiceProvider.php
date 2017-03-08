@@ -5,7 +5,7 @@ use Illuminate\Support\ServiceProvider;
 use Nova\Foundation\Themes\Theme as BaseTheme,
 	Nova\Foundation\Themes\Exceptions\MissingThemeImplementationException;
 
-class NovaServiceProvider extends ServiceProvider {
+class AppServiceProvider extends ServiceProvider {
 
 	/**
 	 * Bootstrap any application services.
@@ -18,9 +18,6 @@ class NovaServiceProvider extends ServiceProvider {
 
 		// Bind the Nova instance into the container
 		$this->app->instance('nova', $nova);
-
-		// Bind an instance of whether Nova is installed into the container
-		$this->app['nova.installed'] = $nova->isInstalled();
 		
 		$this->setRepositoryBindings();
 		$this->registerBindings();
@@ -28,10 +25,11 @@ class NovaServiceProvider extends ServiceProvider {
 		$this->createLocator();
 		$this->createPageCompilerEngine();
 		$this->createFieldTypesManager();
+		$this->registerTranslator();
 		$this->setupTheme();
 		$this->setupEmojiOne();
 
-		if ($this->app['nova.installed'])
+		if ($this->app['nova']->isInstalled())
 		{
 			$this->setupMailer();
 			
@@ -148,7 +146,7 @@ class NovaServiceProvider extends ServiceProvider {
 	protected function getCurrentUser()
 	{
 		$this->app->singleton('nova.user', function ($app) {
-			if ($app['nova.installed']) {
+			if (nova()->isInstalled()) {
 				$user = $app['auth']->user();
 
 				if ($user) {
@@ -169,12 +167,8 @@ class NovaServiceProvider extends ServiceProvider {
 	 */
 	protected function registerBindings()
 	{
-		$this->app->singleton('browser', function ($app) {
-			return new \Nova\Foundation\Services\Browser(new \Ikimea\Browser\Browser);
-		});
-
 		$this->app->singleton('nova.pages', function ($app) {
-			if ($app['nova.installed']) {
+			if (nova()->isInstalled()) {
 				return $app['PageRepository']->all();
 			}
 
@@ -182,7 +176,7 @@ class NovaServiceProvider extends ServiceProvider {
 		});
 
 		$this->app->singleton('nova.pageContent', function ($app) {
-			if ($app['nova.installed']) {
+			if (nova()->isInstalled()) {
 				return $app['PageContentRepository']->getAllContent();
 			}
 
@@ -190,7 +184,7 @@ class NovaServiceProvider extends ServiceProvider {
 		});
 
 		$this->app->singleton('nova.settings', function ($app) {
-			if ($app['nova.installed']) {
+			if (nova()->isInstalled()) {
 				return $app['SettingRepository']->getAllSettings();
 			}
 
@@ -198,32 +192,11 @@ class NovaServiceProvider extends ServiceProvider {
 		});
 
 		$this->app->singleton('nova.system', function ($app) {
-			if ($app['nova.installed']) {
+			if (nova()->isInstalled()) {
 				return $app['SystemRepository']->getAllInfo();
 			}
 
 			return collect();
-		});
-
-		$this->app->bind('nova.character.creator', function ($app) {
-			return new \CharacterCreator($app['CharacterRepository']);
-		});
-
-		$this->app->bind('nova.flash', function ($app) {
-			return new \Nova\Foundation\Services\FlashNotifier;
-		});
-
-		$this->app->bind('nova.markdown', function ($app) {
-			return new \Nova\Foundation\Services\MarkdownParser(
-				new \League\CommonMark\CommonMarkConverter
-			);
-		});
-
-		$this->app->bind('nova.user.creator', function ($app) {
-			return new \UserCreator(
-				$app['UserRepository'],
-				$app['nova.character.creator']
-			);
 		});
 
 		$this->app->singleton('nova.hooks', function ($app) {
@@ -284,7 +257,7 @@ class NovaServiceProvider extends ServiceProvider {
 	{
 		$themeName = 'pulsar';
 
-		if ($this->app['nova.installed']) {
+		if ($this->app['nova']->isInstalled()) {
 			// Get the theme name
 			$themeName = ($this->app['auth']->check())
 				? $this->app['nova.user']->preference('theme')
@@ -334,5 +307,32 @@ class NovaServiceProvider extends ServiceProvider {
 		$client->imagePathSVG = nova_path('resources/emoji');
 
 		$this->app->instance('emoji', $client);
+	}
+
+	protected function registerTranslator()
+	{
+		// Figure out what language we need
+		$lang = 'en';
+
+		// Load the file(s)
+		$loader = new \Nova\Foundation\Translation\FileLoader(
+			$this->app['files'],
+			$this->app['path.lang'],
+			$this->app['path.coreLang']
+		);
+
+		// Create a new instance of the translator
+		$translator = new \Krinkle\Intuition\Intuition([
+			'globalfunctions' => false,
+			'stayalive' => true,
+			'suppressfatal' => false,
+			'suppressnotice' => false,
+		]);
+
+		// Set the messages from the loaded file(s)
+		$translator->setMsgs($loader->load($lang, '*', '*'));
+
+		// Bind the translator instance into the container
+		$this->app->instance('nova.translator', $translator);
 	}
 }

@@ -11,7 +11,7 @@ return [
 	],
 
 	[
-		'name'				=> "Log In Page",
+		'name'				=> "Sign In Page",
 		'key'				=> "login",
 		'uri'				=> "login",
 		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\LoginController@showLoginForm",
@@ -26,7 +26,7 @@ return [
 		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\LoginController@login",
 	],
 	[
-		'name'				=> "Log Out",
+		'name'				=> "Sign Out",
 		'key'				=> "logout",
 		'uri'				=> "logout",
 		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\LoginController@logout",

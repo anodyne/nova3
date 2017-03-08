@@ -36,8 +36,7 @@ class PageContentCompiler implements CompilerContract {
 				// Get the content
 				$content = app('nova.pageContent')->get($key);
 
-				if ($content)
-				{
+				if ($content) {
 					return compile($content);
 				}
 			}

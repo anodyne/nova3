@@ -14,11 +14,11 @@ return [
 	/**
 	 * Auth
 	 */
-	['page_id' => 2, 'type' => 'header', 'key' => 'login.header', 'value' => "Log In"],
-	['page_id' => 2, 'type' => 'title', 'key' => 'login.title', 'value' => "Log In"],
+	['page_id' => 2, 'type' => 'header', 'key' => 'login.header', 'value' => "Sign In"],
+	['page_id' => 2, 'type' => 'title', 'key' => 'login.title', 'value' => "Sign In"],
 	['page_id' => 2, 'type' => 'message', 'key' => 'login.message', 'value' => null],
-	['page_id' => 4, 'type' => 'header', 'key' => 'logout.header', 'value' => "Log Out"],
-	['page_id' => 4, 'type' => 'title', 'key' => 'logout.title', 'value' => "Log Out"],
+	['page_id' => 4, 'type' => 'header', 'key' => 'logout.header', 'value' => "Sign Out"],
+	['page_id' => 4, 'type' => 'title', 'key' => 'logout.title', 'value' => "Sign Out"],
 	['page_id' => 4, 'type' => 'message', 'key' => 'logout.message', 'value' => null],
 	['page_id' => 5, 'type' => 'header', 'key' => 'password.remind.header', 'value' => "Send Password Reminder"],
 	['page_id' => 5, 'type' => 'title', 'key' => 'password.remind.title', 'value' => "Send Password Reminder"],

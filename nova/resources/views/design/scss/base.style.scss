@@ -11,9 +11,31 @@ body {
 	margin-bottom: 1.5rem;
 	
 	.nav-item {
-		.icon {
-			height: 1.3125rem;
-			width: 1.3125rem;
+		.nav-link {
+			display: flex;
+			align-items: center;
+
+			i {
+				padding-right: 0.4rem;
+			}
+
+			.icon {
+				height: 1em;
+				width: 1em;
+				margin-right: 0.4rem;
+
+				path {
+					fill: rgba(0, 0, 0, 0.5);
+				}
+			}
+
+			&:hover {
+				.icon {
+					path {
+						fill: rgba(0, 0, 0, 0.7);
+					}
+				}
+			}
 		}
 	}
 }

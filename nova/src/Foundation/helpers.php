@@ -263,3 +263,12 @@ if ( ! function_exists('hook')) {
 		return $hooks->call($name, $args);
 	}
 }
+
+if ( ! function_exists('_m')) {
+	function _m($key, $args = []) {
+		return app('nova.translator')->msg($key, [
+			'parsemag' => true,
+			'variables' => $args
+		]);
+	}
+}

@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"AgentPhoenix"
+		]
+	},
+
+	"cancel": "Button label that stops the current action, whether it's creating, editing, deleting, or closing modal dialogs",
+	"email-address": "Text field label for collecting email address",
+	"password": "Text field label for collecting a password",
+	"password-new": "Text field label for collecting a new password",
+	"password-new-confirm": "Text field label for confirming a new password",
+	"sign-in": "Button label for signing in",
+	"sign-out": "Button label for signing out",
+	"welcome-back": "Message that welcomes a user back after they've successfully signed in\n\nParameters:\n* $1 - the user's name or nickname",
+
+	"signin-attempts": "Message header that a user has made too many attempts to sign in",
+	"signin-attempts-explain": "Message that explains the user has attempted to sign in to the system too many times and tells them how long they have to wait before attempting again.\n\nParameters:\n* $1 - the number of seconds the user has to wait before attempting to sign in again",
+	"signin-back-home": "Button label to leave the sign in page and go back to the main page",
+	"signin-failed": "Message header that the sign in attempt failed",
+	"signin-failed-explain": "Message that explains to the user that their email address or password did not match",
+	"signin-forgot-password": "Button label to go to the password reset page",
+	"signin-required-reset": "Message header that a password reset is required",
+	"signin-required-reset-explain": "Message that explains an administrator has required the user to reset their password",
+	"signin-reset-password": "Button label to reset a password",
+	"signin-send-reset-link": "Button label to send the password reset link",
+	"signin-success": "Message header that a user has been signed in"
+}
