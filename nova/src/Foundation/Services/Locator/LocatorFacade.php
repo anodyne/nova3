@@ -10,5 +10,4 @@ class LocatorFacade extends Facade {
 	 * @return string
 	 */
 	protected static function getFacadeAccessor() { return 'nova.locator'; }
-
 }

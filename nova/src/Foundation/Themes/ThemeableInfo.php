@@ -47,5 +47,4 @@ interface ThemeableInfo {
 	 * @return	string
 	 */
 	public function getVersion();
-
 }

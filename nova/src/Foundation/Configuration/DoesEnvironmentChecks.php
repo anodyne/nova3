@@ -23,8 +23,7 @@ trait DoesEnvironmentChecks {
 		]);
 
 		// PHP version
-		if (version_compare(PHP_VERSION, '7.0.0', '<'))
-		{
+		if (version_compare(PHP_VERSION, '7.0.0', '<')) {
 			$checks->put('php', false);
 			$checks->put('passes', false);
 		}
@@ -43,10 +42,8 @@ trait DoesEnvironmentChecks {
 
 		$errorDirs = [];
 
-		foreach ($directories as $dir)
-		{
-			if ( ! is_writable($dir))
-			{
+		foreach ($directories as $dir) {
+			if ( ! is_writable($dir)) {
 				$errorString = str_replace(base_path(), '', $dir);
 				$errorString.= ' ('.substr(sprintf('%o', fileperms($dir)), -4).')';
 				$errorDirs[] = $errorString;
@@ -56,21 +53,18 @@ trait DoesEnvironmentChecks {
 			}
 		}
 
-		if ( ! $checks->get('writableDirs'))
-		{
+		if ( ! $checks->get('writableDirs')) {
 			$checks->put('writableDirsFull', $errorDirs);
 		}
 
 		// PDO
-		if ( ! defined('PDO::ATTR_DRIVER_NAME'))
-		{
+		if ( ! defined('PDO::ATTR_DRIVER_NAME')) {
 			$checks->put('pdo', false);
 			$checks->put('passes', false);
 		}
 
 		// MySQL and/or Postgres
-		if ( ! in_array('mysql', PDO::getAvailableDrivers()) and ! in_array('pgsql', PDO::getAvailableDrivers()))
-		{
+		if ( ! in_array('mysql', PDO::getAvailableDrivers()) and ! in_array('pgsql', PDO::getAvailableDrivers())) {
 			$checks->put('pdoDrivers', false);
 			$checks->put('passes', false);
 			$checks->put('pdoDriversFull', PDO::getAvailableDrivers());

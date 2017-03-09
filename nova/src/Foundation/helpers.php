@@ -1,31 +1,24 @@
 <?php
 
-if ( ! function_exists('alert'))
-{
-	function alert($level, $content, $header = false)
-	{
+if ( ! function_exists('alert')) {
+	function alert($level, $content, $header = false) {
 		$content = Markdown::parse($content);
 
 		return partial('alert', compact('level', 'content', 'header'));
 	}
 }
 
-if ( ! function_exists('alias'))
-{
-	function alias($aliasName)
-	{
+if ( ! function_exists('alias')) {
+	function alias($aliasName) {
 		return config("app.aliases.{$aliasName}");
 	}
 }
 
-if ( ! function_exists('apiRoute'))
-{
-	function apiRoute($route, $secure = true)
-	{
+if ( ! function_exists('apiRoute')) {
+	function apiRoute($route, $secure = true) {
 		$url = version(config('nova.api.version'))->route($route);
 
-		if ($secure)
-		{
+		if ($secure) {
 			$url.= "?api_token=".user()->api_token;
 		}
 
@@ -33,51 +26,39 @@ if ( ! function_exists('apiRoute'))
 	}
 }
 
-if ( ! function_exists('check_directories'))
-{
-	function check_directories()
-	{
+if ( ! function_exists('check_directories')) {
+	function check_directories() {
 		$directories = [
 			nova_path('bootstrap/cache'),
 			storage_path('framework'),
 			storage_path('framework/views'),
 		];
 
-		foreach ($directories as $dir)
-		{
-			if ( ! is_writable($dir))
-			{
+		foreach ($directories as $dir) {
+			if ( ! is_writable($dir)) {
 				dd("The [$dir] directory must be writable in order to continue. Please set permissions on the directory to 777.");
 			}
 		}
 	}
 }
 
-if ( ! function_exists('compile'))
-{
-	function compile($text)
-	{
+if ( ! function_exists('compile')) {
+	function compile($text) {
 		return app('nova.page.compiler')->compile($text);
 	}
 }
 
-if ( ! function_exists('d'))
-{
-	function d()
-	{
-		array_map(function ($x)
-		{
+if ( ! function_exists('d')) {
+	function d() {
+		array_map(function ($x) {
 			(new Illuminate\Support\Debug\Dumper)->dump($x);
 		}, func_get_args());
 	}
 }
 
-if ( ! function_exists('display_flash_message'))
-{
-	function display_flash_message($level = false, $content = false, $title = false)
-	{
-		if (Session::has('flash_message'))
-		{
+if ( ! function_exists('display_flash_message')) {
+	function display_flash_message($level = false, $content = false, $title = false) {
+		if (Session::has('flash_message')) {
 			$level = ( ! Session::has('flash_message.level'))
 				? $level
 				: Session::get('flash_message.level');
@@ -93,24 +74,19 @@ if ( ! function_exists('display_flash_message'))
 	}
 }
 
-if ( ! function_exists('extension_path'))
-{
-	function extension_path($path = false)
-	{
+if ( ! function_exists('extension_path')) {
+	function extension_path($path = false) {
 		return app('path.extension').($path ? '/'.$path : $path);
 	}
 }
 
-if ( ! function_exists('flash'))
-{
-	function flash($level = false, $title = false, $message = false)
-	{
+if ( ! function_exists('flash')) {
+	function flash($level = false, $title = false, $message = false) {
 		// Get the instance of the flash notifier service
 		$flash = app('nova.flash');
 
 		// If we don't pass anything, just return the instance
-		if ( ! $level)
-		{
+		if ( ! $level) {
 			return $flash;
 		}
 
@@ -119,31 +95,24 @@ if ( ! function_exists('flash'))
 	}
 }
 
-if ( ! function_exists('icon'))
-{
-	function icon($icon, $additional = null)
-	{
+if ( ! function_exists('icon')) {
+	function icon($icon, $additional = null) {
 		return theme()->renderIcon(theme()->getIcon($icon), $additional);
 	}
 }
 
-if ( ! function_exists('label'))
-{
-	function label($type, $content)
-	{
+if ( ! function_exists('label')) {
+	function label($type, $content) {
 		return partial('label', compact('type', 'content'));
 	}
 }
 
-if ( ! function_exists('locate'))
-{
-	function locate($type = false, $view = false)
-	{
+if ( ! function_exists('locate')) {
+	function locate($type = false, $view = false) {
 		// Get an instance of the locator
 		$locator = app('nova.locator');
 
-		if ( ! $type)
-		{
+		if ( ! $type) {
 			return $locator;
 		}
 
@@ -151,10 +120,8 @@ if ( ! function_exists('locate'))
 	}
 }
 
-if ( ! function_exists('modal'))
-{
-	function modal(array $data)
-	{
+if ( ! function_exists('modal')) {
+	function modal(array $data) {
 		return partial('modal', [
 			'id'		=> (array_key_exists('id', $data)) ? $data['id'] : false,
 			'header'	=> (array_key_exists('header', $data)) ? $data['header'] : false,
@@ -165,60 +132,45 @@ if ( ! function_exists('modal'))
 	}
 }
 
-if ( ! function_exists('nova'))
-{
-	function nova()
-	{
+if ( ! function_exists('nova')) {
+	function nova() {
 		return app('nova');
 	}
 }
 
-if ( ! function_exists('nova_event'))
-{
-	function nova_event()
-	{
+if ( ! function_exists('nova_event')) {
+	function nova_event() {
 		return;
 	}
 }
 
-if ( ! function_exists('nova_path'))
-{
-	function nova_path($path = false)
-	{
+if ( ! function_exists('nova_path')) {
+	function nova_path($path = false) {
 		return app('path.nova').($path ? '/'.$path : $path);
 	}
 }
 
-if ( ! function_exists('partial'))
-{
-	function partial($file, array $data = [])
-	{
+if ( ! function_exists('partial')) {
+	function partial($file, array $data = []) {
 		return view(locate()->partial($file), $data)->render();
 	}
 }
 
-if ( ! function_exists('setup_path'))
-{
-	function setup_path($path = false)
-	{
+if ( ! function_exists('setup_path')) {
+	function setup_path($path = false) {
 		return nova_path("src/Setup/{$path}");
 	}
 }
 
-if ( ! function_exists('theme'))
-{
-	function theme()
-	{
+if ( ! function_exists('theme')) {
+	function theme() {
 		return app('nova.theme');
 	}
 }
 
-if ( ! function_exists('theme_path'))
-{
-	function theme_path($location = false, $relative = true)
-	{
-		if ($relative)
-		{
+if ( ! function_exists('theme_path')) {
+	function theme_path($location = false, $relative = true) {
+		if ($relative) {
 			return app()->themeRelativePath(theme()->location."/{$location}");
 		}
 
@@ -226,25 +178,19 @@ if ( ! function_exists('theme_path'))
 	}
 }
 
-if ( ! function_exists('user'))
-{
-	function user()
-	{
+if ( ! function_exists('user')) {
+	function user() {
 		return app('nova.user');
 	}
 }
 
-if ( ! function_exists('validate'))
-{
-	function validate($fields, $rules)
-	{
-		if ( ! is_array($fields))
-		{
+if ( ! function_exists('validate')) {
+	function validate($fields, $rules) {
+		if ( ! is_array($fields)) {
 			$fields = ['default' => $fields];
 		}
 
-		if ( ! is_array($rules))
-		{
+		if ( ! is_array($rules)) {
 			$rules = ['default' => $rules];
 		}
 

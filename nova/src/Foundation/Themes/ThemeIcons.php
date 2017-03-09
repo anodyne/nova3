@@ -162,13 +162,11 @@ trait ThemeIcons {
 	
 	public function renderIcon($icon, $extraClasses = false)
 	{
-		if (Str::contains($icon, '.svg'))
-		{
+		if (Str::contains($icon, '.svg')) {
 			return $this->renderSvgIcon(locate()->svg($icon), $extraClasses);
 		}
 
-		if (strrpos($icon, '.'))
-		{
+		if (strrpos($icon, '.')) {
 			return $this->renderImageIcon(locate()->image($icon), $extraClasses);
 		}
 

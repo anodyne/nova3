@@ -10,8 +10,7 @@ trait DoesVersionCheck {
 
 	public function getLatestVersion()
 	{
-		switch (app('env'))
-		{
+		switch (app('env')) {
 			case 'production':
 			default:
 				$response = (new Client)
@@ -36,9 +35,7 @@ trait DoesVersionCheck {
 	{
 		// Parse the releases JSON object and throw it into a collection
 		$releases = collect(
-			json_decode(
-				app('files')->get(setup_path("releases.json"))
-			)->releases
+			json_decode(app('files')->get(setup_path("releases.json")))->releases
 		);
 
 		$version = $this->version;
@@ -47,11 +44,9 @@ trait DoesVersionCheck {
 		// map the collection to get the pretty date and parse the Markdown
 		// release notes, then finally sort everything so the newest version
 		// is first
-		return $releases->filter(function ($release) use ($version)
-		{
+		return $releases->filter(function ($release) use ($version) {
 			return version_compare($release->version, $version, '>');
-		})->map(function ($release)
-		{
+		})->map(function ($release) {
 			$date = Date::createFromFormat('Y-m-d', $release->date);
 
 			$release->date = $date->format('d M Y');

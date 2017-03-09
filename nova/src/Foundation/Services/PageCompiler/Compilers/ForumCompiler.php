@@ -14,14 +14,12 @@ class ForumCompiler implements CompilerContract {
 	 */
 	public function compile($value, CompilerEngine $engine)
 	{
-		$callback = function ($matches)
-		{
+		$callback = function ($matches) {
 			// Get the values out of the tag
 			list($type, $key) = explode(':', $matches[2]);
 
 			// Make sure we're only working with the right type
-			if ($type == 'forum')
-			{
+			if ($type == 'forum') {
 				return ($matches[1]) ? substr($matches[0], 1) : "(({$key}))";
 			}
 
@@ -40,5 +38,4 @@ class ForumCompiler implements CompilerContract {
 	{
 		return "";
 	}
-
 }

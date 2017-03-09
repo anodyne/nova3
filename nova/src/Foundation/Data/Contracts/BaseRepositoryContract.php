@@ -22,5 +22,4 @@ interface BaseRepositoryContract {
 	public function transformAll($transformer, $resource, array $parameters = []);
 	public function update($resource, array $data);
 	public function updateOrder($resource, $newOrder);
-
 }

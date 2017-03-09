@@ -14,5 +14,4 @@ interface ThemeMenusContract {
 	public function buildPublicSubMenu(Page $page);
 	public function buildUserMenu();
 	public function publicMenu(Page $page = null);
-
 }

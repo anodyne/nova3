@@ -46,18 +46,12 @@ trait StatusTrait {
 
 	public function scopeStatus($query, $status, $operator = null)
 	{
-		if (is_array($status))
-		{
+		if (is_array($status)) {
 			$query->whereIn('status', $status);
-		}
-		else
-		{
-			if ($operator)
-			{
+		} else {
+			if ($operator) {
 				$query->where('status', $operator, $status);
-			}
-			else
-			{
+			} else {
 				$query->where('status', $status);
 			}
 		}
@@ -67,5 +61,4 @@ trait StatusTrait {
 	{
 		$query->where('status', Status::UNASSIGNED);
 	}
-
 }

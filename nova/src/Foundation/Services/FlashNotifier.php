@@ -35,5 +35,4 @@ class FlashNotifier {
 	{
 		return $this->create($title, $message, $level, 'flash_message_overlay');
 	}
-
 }

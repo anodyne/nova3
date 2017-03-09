@@ -56,8 +56,7 @@ class Handler extends ExceptionHandler {
 	{
 		$status = $e->getStatusCode();
 
-		if (locate()->errorExists($status))
-		{
+		if (locate()->errorExists($status)) {
 			return response()->view(locate()->error($status), ['exception' => $e], $status);
 		}
 
@@ -73,8 +72,7 @@ class Handler extends ExceptionHandler {
 	 */
 	protected function unauthenticated($request, AuthenticationException $exception)
 	{
-		if ($request->expectsJson())
-		{
+		if ($request->expectsJson()) {
 			return response()->json(['error' => 'Unauthenticated.'], 401);
 		}
 

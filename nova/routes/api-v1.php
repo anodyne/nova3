@@ -8,12 +8,10 @@ $options = [
 	//'middleware' => 'api.throttle',
 ];
 
-$api->version('v1', $options, function ($api)
-{
+$api->version('v1', $options, function ($api) {
 	$api->get('/', 'NovaApiController@info');
 
-	$api->group([], function ($api)
-	{
+	$api->group([], function ($api) {
 		/**
 		 * Pages
 		 */
@@ -37,4 +35,3 @@ $api->version('v1', $options, function ($api)
 		$api->get('users/{userId}', 'UserApiController@show')->name('api.users.show');
 	});
 });
-

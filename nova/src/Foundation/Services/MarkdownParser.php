@@ -21,5 +21,4 @@ class MarkdownParser {
 	{
 		return $this->parser->convertToHtml($str);
 	}
-
 }

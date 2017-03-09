@@ -14,8 +14,7 @@ class IconCompiler implements CompilerContract {
 	 */
 	public function compile($value, CompilerEngine $engine)
 	{
-		$callback = function ($matches)
-		{
+		$callback = function ($matches) {
 			// Get the values out of the tag
 			list($type, $key) = explode(':', $matches[2]);
 
@@ -29,10 +28,8 @@ class IconCompiler implements CompilerContract {
 			$additional = (array_key_exists(3, $args)) ? $args[2] : false;
 
 			// Make sure we're only working with the right type
-			if ($type == 'icon')
-			{
-				if ($matches[1])
-				{
+			if ($type == 'icon') {
+				if ($matches[1]) {
 					return substr($matches[0], 1);
 				}
 
@@ -54,5 +51,4 @@ class IconCompiler implements CompilerContract {
 	{
 		return "__Icons__: Insert an icon into any page by using the `{% icon %}` tag. The tag accepts three parameters. The first parameter is always the icon you want to use. The second paramter is the size of the icon (sm, md, lg). The third parameter are any additional classes you want applied to the icon. To insert a large edit icon into a page, you would enter: `{% icon:edit:lg %}`.";
 	}
-
 }

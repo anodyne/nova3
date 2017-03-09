@@ -10,8 +10,7 @@ trait DoesSystemChecks {
 	 */
 	public function isConfigured($component)
 	{
-		switch ($component)
-		{
+		switch ($component) {
 			case 'db':
 			case 'database':
 				return file_exists(config_path('database.php'));

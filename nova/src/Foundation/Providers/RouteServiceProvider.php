@@ -76,22 +76,17 @@ class RouteServiceProvider extends ServiceProvider {
 		// Grab all the routes from the cache
 		$routes = $this->app['cache']->get('nova.routes');
 
-		if (count($routes) > 0)
-		{
-			foreach ($routes as $route)
-			{
+		if (count($routes) > 0) {
+			foreach ($routes as $route) {
 				$options['as'] = $route['name'];
 				$options['resource'] = ( ! empty($route['resource'])) 
 					? $route['resource']
 					: $route['default_resource'];
 
-				if ( ! empty($route['conditions']))
-				{
+				if ( ! empty($route['conditions'])) {
 					$this->app['router']->addRoute($route['verb'], $route['uri'], $options)
 						->where($this->parseRouteConditions($route['conditions']));
-				}
-				else
-				{
+				} else {
 					$this->app['router']->addRoute($route['verb'], $route['uri'], $options);
 				}
 			}
@@ -110,23 +105,19 @@ class RouteServiceProvider extends ServiceProvider {
 		$finalConditions = [];
 		
 		// We have a pipe, so we need to break things apart twice
-		if (Str::contains($conditions, '|'))
-		{
+		if (Str::contains($conditions, '|')) {
 			// Create an array of conditions
 			$conditionsArr = explode('|', $conditions);
 
 			// Loop through the conditions array
-			foreach ($conditionsArr as $c)
-			{
+			foreach ($conditionsArr as $c) {
 				// Break the conditions up
 				list($name, $pattern) = explode('.', $c);
 
 				// Add the conditions to the final array
 				$finalConditions[] = [$name => $condition];
 			}
-		}
-		else
-		{
+		} else {
 			// Break the conditions up
 			list($name, $pattern) = explode('.', $conditions);
 

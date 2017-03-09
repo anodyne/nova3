@@ -17,5 +17,4 @@ interface CompilerContract {
 	 * @return	string
 	 */
 	public function help();
-	
 }

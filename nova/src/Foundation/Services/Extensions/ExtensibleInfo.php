@@ -8,5 +8,4 @@ interface ExtensibleInfo {
 	public function getLocation($raw = false);
 	public function getVendor();
 	public function getVersion();
-
 }

@@ -27,24 +27,13 @@ class AuthServiceProvider extends ServiceProvider {
 		// Register the policies with the framework
 		parent::registerPolicies($gate);
 
-		if (nova()->isInstalled())
-		{
+		if (nova()->isInstalled()) {
 			// Grab all of the permissions, loop through them, and define the abilities
-			$this->getPermissions()->each(function ($permission) use (&$gate)
-			{
-				$gate->define($permission->key, function ($user) use ($permission)
-				{
+			$this->getPermissions()->each(function ($permission) use (&$gate) {
+				$gate->define($permission->key, function ($user) use ($permission) {
 					return $user->hasRole($permission->roles);
 				});
 			});
-			
-			/*foreach ($this->getPermissions() as $permission)
-			{
-				$gate->define($permission->key, function ($user) use ($permission)
-				{
-					return $user->hasRole($permission->roles);
-				});
-			}*/
 		}
 	}
 
@@ -61,33 +50,16 @@ class AuthServiceProvider extends ServiceProvider {
 		// Get an alias for the class
 		$me = $this;
 
-		$policyModels->each(function ($item) use (&$me)
-		{
+		$policyModels->each(function ($item) use (&$me) {
 			$model = (is_array($item)) ? "{$item[1]}" : "{$item}";
 			$policy = (is_array($item)) ? "{$item[0]}Policy" : "{$item}Policy";
 
 			$me->policies[alias($model)] = alias($policy);
 		});
-
-		/*$items = [
-			['Form', 'NovaForm'],
-			['Field', 'NovaFormField'],
-			['Section', 'NovaFormSection'],
-			['Tab', 'NovaFormTab'],
-			'Menu', 'MenuItem', 'Page', 'PageContent', 'Permission', 'Role', 'User'];
-
-		foreach ($items as $item)
-		{
-			$model = (is_array($item)) ? "{$item[1]}" : "{$item}";
-			$policy = (is_array($item)) ? "{$item[0]}Policy" : "{$item}Policy";
-
-			$this->policies[alias($model)] = alias($policy);
-		}*/
 	}
 
 	protected function getPermissions()
 	{
 		return app('PermissionRepository')->all(['roles']);
 	}
-	
 }

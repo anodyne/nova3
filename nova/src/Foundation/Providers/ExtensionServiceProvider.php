@@ -50,11 +50,9 @@ class ExtensionServiceProvider extends ServiceProvider {
 			->depth('< 2');
 
 		// Loop through whatever we have from the finder results
-		foreach ($finder as $dir)
-		{
+		foreach ($finder as $dir) {
 			// If the extension has a service provider, register it now
-			if (file_exists(extension_path($dir->getRelativePathname()."/ServiceProvider.php")))
-			{
+			if (file_exists(extension_path($dir->getRelativePathname()."/ServiceProvider.php"))) {
 				$this->app->register($this->buildExtensionNamespace($dir)."\\ServiceProvider");
 			}
 		}
@@ -70,5 +68,4 @@ class ExtensionServiceProvider extends ServiceProvider {
 	{
 		return "Extensions\\".str_replace('/', '\\', $info->getRelativePathname());
 	}
-
 }

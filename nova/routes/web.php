@@ -20,8 +20,7 @@ if ( ! nova()->isInstalled()) {
 	// Get all the pages out of the container
 	$pages = app('nova.pages');
 
-	if ($pages->count() > 0)
-	{
+	if ($pages->count() > 0) {
 		// Allowed HTTP verbs
 		$allowedVerbs = collect(['get', 'post', 'put', 'delete']);
 

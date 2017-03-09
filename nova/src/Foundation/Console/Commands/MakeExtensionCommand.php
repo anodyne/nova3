@@ -53,22 +53,16 @@ class MakeExtensionCommand extends Command {
 		$vendor = str_replace(' ', '', $this->argument('vendor'));
 		$name = str_replace(' ', '', $this->argument('name'));
 
-		if (strtolower($vendor) == 'anodyne')
-		{
+		if (strtolower($vendor) == 'anodyne') {
 			$this->error("You cannot create an extension within the Anodyne namespace. Please use your own namespace for your extension.");
-		}
-		else
-		{
+		} else {
 			// Build the new extension path
 			$extensionPath = extension_path("{$vendor}/{$name}");
 
 			// Does the directory already exists?
-			if ($this->files->isDirectory($extensionPath))
-			{
+			if ($this->files->isDirectory($extensionPath)) {
 				$this->error("The {$vendor}/{$name} directory already exists. Please choose another name for the extension.");
-			}
-			else
-			{
+			} else {
 				// Build up the list of things to replace
 				$replacements = [
 					'{ExtensionNamespace}' => "Extensions\\{$vendor}\\{$name}",
@@ -92,8 +86,7 @@ class MakeExtensionCommand extends Command {
 				// Create an empty extension class
 				$this->createFileFromStub('extension', $replacements, $extensionPath, "Extension.php");
 
-				if ( ! $this->option('no-controllers'))
-				{
+				if ( ! $this->option('no-controllers')) {
 					// Create the directory structure
 					$this->files->makeDirectory("{$extensionPath}/Http/Controllers", 0775, true);
 
@@ -103,8 +96,7 @@ class MakeExtensionCommand extends Command {
 					$this->createFileFromStub($controllerStub, $replacements, $extensionPath.'/Http/Controllers', ucfirst($name).'Controller.php');
 				}
 
-				if ( ! $this->option('no-views'))
-				{
+				if ( ! $this->option('no-views')) {
 					// Create the directory structure
 					$this->files->makeDirectory("{$extensionPath}/views/components/pages", 0775, true);
 
@@ -113,26 +105,20 @@ class MakeExtensionCommand extends Command {
 				}
 
 				// Create an empty config file
-				if ($this->option('include-config'))
-				{
+				if ($this->option('include-config')) {
 					$this->createFileFromStub('config', $replacements, $extensionPath, "config.php");
 				}
 
 				// Create an empty routes file
-				if ($this->option('include-routes'))
-				{
+				if ($this->option('include-routes')) {
 					$this->createFileFromStub('routes', $replacements, $extensionPath, "routes.php");
 				}
 
 				// Create an empty service provider
-				if ( ! $this->option('no-provider'))
-				{
-					if ($this->option('no-views'))
-					{
+				if ( ! $this->option('no-provider')) {
+					if ($this->option('no-views')) {
 						$this->createFileFromStub('provider-no-views', $replacements, $extensionPath, "ServiceProvider.php");
-					}
-					else
-					{
+					} else {
 						$this->createFileFromStub('provider', $replacements, $extensionPath, "ServiceProvider.php");
 					}
 				}
@@ -147,10 +133,8 @@ class MakeExtensionCommand extends Command {
 		// Grab the content from the generator
 		$content = $this->files->get(app_path("Foundation/Services/Extensions/stubs/{$stub}.stub"));
 
-		if (count($replacements) > 0)
-		{
-			foreach ($replacements as $placeholder => $replacement)
-			{
+		if (count($replacements) > 0) {
+			foreach ($replacements as $placeholder => $replacement) {
 				$content = str_replace($placeholder, $replacement, $content);
 			}
 		}
@@ -158,5 +142,4 @@ class MakeExtensionCommand extends Command {
 		// Create the file and store the content
 		$this->files->put("{$path}/{$fileName}", $content);
 	}
-
 }

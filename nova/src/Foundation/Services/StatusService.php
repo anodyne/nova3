@@ -22,8 +22,7 @@ class StatusService {
 	 */
 	public static function toString($status)
 	{
-		switch ($status)
-		{
+		switch ($status) {
 			case static::PENDING:
 				return "pending";
 			break;
@@ -68,8 +67,7 @@ class StatusService {
 	 */
 	public static function toInt($status)
 	{
-		switch ($status)
-		{
+		switch ($status) {
 			case 'active':
 			case 'current':
 				return static::ACTIVE;
@@ -121,5 +119,4 @@ class StatusService {
 
 		throw new Exception("Unexpected input. {$status} is not a valid status string.");
 	}
-
 }

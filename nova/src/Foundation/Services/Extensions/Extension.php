@@ -47,8 +47,7 @@ class Extension implements Extensible, ExtensibleInfo {
 		// Build the path to the extension
 		$pathToExtension = extension_path($this->location);
 
-		if (file_exists($pathToExtension.'/config.php'))
-		{
+		if (file_exists($pathToExtension.'/config.php')) {
 			// Grab the config array
 			$configArrValues = require $pathToExtension.'/config.php';
 
@@ -66,8 +65,7 @@ class Extension implements Extensible, ExtensibleInfo {
 		// Build the path to the extension
 		$pathToExtension = extension_path($this->location);
 
-		if (file_exists($pathToExtension.'/routes.php'))
-		{
+		if (file_exists($pathToExtension.'/routes.php')) {
 			require $pathToExtension.'/routes.php';
 		}
 	}
@@ -90,8 +88,7 @@ class Extension implements Extensible, ExtensibleInfo {
 	 */
 	public function getCredits($raw = false)
 	{
-		if ($raw)
-		{
+		if ($raw) {
 			return $this->credits;
 		}
 
@@ -116,8 +113,7 @@ class Extension implements Extensible, ExtensibleInfo {
 	 */
 	public function getLocation($raw = false)
 	{
-		if ($raw)
-		{
+		if ($raw) {
 			return $this->location;
 		}
 
@@ -172,12 +168,10 @@ class Extension implements Extensible, ExtensibleInfo {
 		// Get the migration files
 		$migrationFiles = $migrator->getMigrationFiles($migrationPath);
 
-		foreach ($migrationFiles as $migration)
-		{
+		foreach ($migrationFiles as $migration) {
 			$migrator->runDown($migration, false);
 		}
 
 		return true;
 	}
-
 }

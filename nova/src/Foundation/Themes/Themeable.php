@@ -103,5 +103,4 @@ interface Themeable {
 	 * @return	array
 	 */
 	public function getIconMap();
-
 }

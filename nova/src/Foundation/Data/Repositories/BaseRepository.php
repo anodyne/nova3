@@ -26,8 +26,7 @@ abstract class BaseRepository {
 	{
 		$item = $this->getResource($resource);
 
-		if ($item)
-		{
+		if ($item) {
 			$item->delete();
 
 			return $item;
@@ -40,8 +39,7 @@ abstract class BaseRepository {
 	{
 		$item = $this->getResource($resource);
 
-		if ($item)
-		{
+		if ($item) {
 			$item->forceDelete();
 
 			return $item;
@@ -70,28 +68,23 @@ abstract class BaseRepository {
 		$offset = $perPage * ($page - 1);
 
 		// Build the sorting
-		if ($sort)
-		{
+		if ($sort) {
 			list($sortColumn, $sortDirection) = explode('|', $sort);
 		}
 
-		if ($items)
-		{
+		if ($items) {
 			// Load the relations
 			$items->load($with);
 			
 			// Sort the collection
-			if (isset($sortColumn))
-			{
+			if (isset($sortColumn)) {
 				$items = $items->sortBy($sortColumn, SORT_REGULAR, ($sortDirection == 'desc'));
 			}
 
 			// Fill in the result set
 			$result->totalItems = $items->count();
 			$result->items = $items->slice($offset, $perPage);
-		}
-		else
-		{
+		} else {
 			// Build the query
 			$query = $this->make($with)
 				->skip($offset)
@@ -150,8 +143,7 @@ abstract class BaseRepository {
 		// Make sure we have an array of filters
 		$filters = ( ! is_array($filters)) ? [$filters] : $filters;
 
-		foreach ($filters as $filter)
-		{
+		foreach ($filters as $filter) {
 			unset($items[$filter]);
 		}
 
@@ -204,8 +196,7 @@ abstract class BaseRepository {
 			: call_user_func_array([$this, $resource], $parameters);
 
 		// Return the transformed resources
-		return $resources->map(function ($item) use ($transformer)
-		{
+		return $resources->map(function ($item) use ($transformer) {
 			return $transformer->transform($item);
 		});
 	}
@@ -214,8 +205,7 @@ abstract class BaseRepository {
 	{
 		$item = $this->getResource($resource);
 
-		if ( ! $item)
-		{
+		if ( ! $item) {
 			return false;
 		}
 
@@ -228,8 +218,7 @@ abstract class BaseRepository {
 	{
 		$item = $this->getResource($resource);
 
-		if ( ! $item)
-		{
+		if ( ! $item) {
 			return false;
 		}
 
@@ -244,12 +233,10 @@ abstract class BaseRepository {
 	 */
 	protected function getResource($resource, $identifier = 'id', array $parameters = [])
 	{
-		if ($resource instanceof $this->model)
-		{
+		if ($resource instanceof $this->model) {
 			return $resource;
 		}
 
 		return $this->getFirstBy($identifier, $resource);
 	}
-
 }

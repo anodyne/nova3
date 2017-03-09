@@ -194,5 +194,4 @@ interface Locatable {
 	 * @return	void
 	 */
 	public function registerSearchPath($path);
-
 }

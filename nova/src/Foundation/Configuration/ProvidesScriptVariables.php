@@ -17,8 +17,7 @@ trait ProvidesScriptVariables {
 			'genre' => config('nova.genre'),
 		]];
 
-		if ($currentUser)
-		{
+		if ($currentUser) {
 			$user = ['user' => [
 				'name' => $currentUser->present()->name,
 				'nickname' => $currentUser->nickname,
@@ -26,9 +25,7 @@ trait ProvidesScriptVariables {
 				'email' => $currentUser->email,
 				'status' => Status::toString($currentUser->status),
 			]];
-		}
-		else
-		{
+		} else {
 			$user = ['user' => [
 				'name' => null,
 				'nickname' => null,

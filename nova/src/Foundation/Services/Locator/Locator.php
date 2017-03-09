@@ -3,7 +3,6 @@
 use Str, User;
 use Illuminate\Support\Collection;
 use Symfony\Component\Finder\Finder;
-//use Dflydev\Symfony\FinderFactory\{FinderFactory, FinderFactoryInterface};
 
 class Locator implements Locatable {
 
@@ -70,7 +69,6 @@ class Locator implements Locatable {
 	{
 		$this->user				= $user;
 		$this->settings 		= $settings;
-		//$this->finderFactory	= $finderFactory ?: new FinderFactory;
 
 		// Compile the paths to search
 		$this->compilePaths();
@@ -385,8 +383,7 @@ class Locator implements Locatable {
 
 		$additionalPath = false;
 
-		if (Str::contains($file, '/'))
-		{
+		if (Str::contains($file, '/')) {
 			// Break out into the individual pieces
 			$fileParts = explode('/', $file);
 
@@ -401,8 +398,7 @@ class Locator implements Locatable {
 		}
 
 		// Loop through the paths and add them if they exist
-		foreach ($this->paths as $path)
-		{
+		foreach ($this->paths as $path) {
 			// Set the proper theme
 			$path = str_replace('%theme%', $this->findCurrentTheme(), $path);
 
@@ -414,18 +410,12 @@ class Locator implements Locatable {
 		}
 
 		// Loop through the extensions and set the names we want to look for
-		foreach ($this->extensions as $extension)
-		{
+		foreach ($this->extensions as $extension) {
 			$finder->name($file.$extension);
 		}
-		//dd($finder);
 
-		if ($finder->count() == 0)
-		{
-			if ( ! $throwOnMissing)
-			{
-				return false;
-			}
+		if ($finder->count() == 0) {
+			if ( ! $throwOnMissing) return false;
 
 			// Uh-oh! We didn't find anything, so throw an exception
 			throw new LocatorException("The file [{$type}/{$file}] couldn't be found.");
@@ -437,8 +427,7 @@ class Locator implements Locatable {
 		// Return the first key (relative path to the file)
 		$finalFilename = array_keys($finderArr)[0];
 
-		foreach ($this->extensions as $extension)
-		{
+		foreach ($this->extensions as $extension) {
 			$finalFilename = str_replace($extension, '', $finalFilename);
 		}
 
@@ -455,8 +444,7 @@ class Locator implements Locatable {
 
 		$additionalPath = false;
 
-		if (Str::contains($file, '/'))
-		{
+		if (Str::contains($file, '/')) {
 			// Break out into the individual pieces
 			$fileParts = explode('/', $file);
 
@@ -471,8 +459,7 @@ class Locator implements Locatable {
 		}
 
 		// Loop through the paths and add them if they exist
-		foreach ($this->paths as $path)
-		{
+		foreach ($this->paths as $path) {
 			// Set the proper theme
 			$path = str_replace('%theme%', $this->findCurrentTheme(), $path);
 
@@ -484,18 +471,12 @@ class Locator implements Locatable {
 		}
 
 		// Loop through the extensions and set the names we want to look for
-		foreach ($this->extensions as $extension)
-		{
+		foreach ($this->extensions as $extension) {
 			$finder->name($file.$extension);
 		}
-		//dd($finder);
 
-		if ($finder->count() == 0)
-		{
-			if ( ! $throwOnMissing)
-			{
-				return false;
-			}
+		if ($finder->count() == 0) {
+			if ( ! $throwOnMissing) return false;
 
 			// Uh-oh! We didn't find anything, so throw an exception
 			throw new LocatorException("The file [{$type}/{$file}] couldn't be found.");
@@ -510,10 +491,8 @@ class Locator implements Locatable {
 		// The svg_icon helper automatically appends .svg to the end of the
 		// location, so we need to make sure we pop that off, but other
 		// images will need to keep their extensions
-		if ($isSvg)
-		{
-			foreach ($this->extensions as $extension)
-			{
+		if ($isSvg) {
+			foreach ($this->extensions as $extension) {
 				$finalFilename = str_replace($extension, '', $finalFilename);
 			}
 		}
@@ -531,8 +510,7 @@ class Locator implements Locatable {
 	 */
 	protected function addPath($path, Finder &$finder)
 	{
-		if (is_dir($path))
-		{
+		if (is_dir($path)) {
 			$finder->in($path);
 		}
 	}
@@ -545,13 +523,9 @@ class Locator implements Locatable {
 	 */
 	protected function findCurrentTheme()
 	{
-		if ( ! nova()->isInstalled())
-		{
-			return false;
-		}
+		if ( ! nova()->isInstalled()) return false;
 
-		if ($this->user)
-		{
+		if ($this->user) {
 			return $this->user->preference('theme');
 		}
 
@@ -570,5 +544,4 @@ class Locator implements Locatable {
 
 		return $this->paths;
 	}
-
 }

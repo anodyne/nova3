@@ -8,8 +8,7 @@ class BasePresenter extends Presenter {
 	{
 		$dateFormat = app('nova.settings')->get('format_datetime');
 
-		if ($this->entity->created_at)
-		{
+		if ($this->entity->created_at) {
 			return $this->entity->created_at->format($dateFormat);
 		}
 	}
@@ -23,8 +22,7 @@ class BasePresenter extends Presenter {
 	{
 		$dateFormat = app('nova.settings')->get('format_datetime');
 
-		if ($this->entity->deleted_at)
-		{
+		if ($this->entity->deleted_at) {
 			return $this->entity->deleted_at->format($dateFormat);
 		}
 	}
@@ -38,8 +36,7 @@ class BasePresenter extends Presenter {
 	{
 		$dateFormat = app('nova.settings')->get('format_datetime');
 
-		if ($this->entity->updated_at)
-		{
+		if ($this->entity->updated_at) {
 			return $this->entity->updated_at->format($dateFormat);
 		}
 	}
@@ -48,5 +45,4 @@ class BasePresenter extends Presenter {
 	{
 		return $this->entity->updated_at->diffForHumans();
 	}
-
 }

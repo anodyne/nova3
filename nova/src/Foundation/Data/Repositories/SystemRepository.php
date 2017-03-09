@@ -29,8 +29,7 @@ class SystemRepository extends BaseRepository implements SystemRepositoryContrac
 		$uuid = Uuid::uuid4();
 
 		// Update the database if we want to do that
-		if ($updateDb)
-		{
+		if ($updateDb) {
 			return $this->update(['uuid' => $uuid]);
 		}
 
@@ -69,8 +68,7 @@ class SystemRepository extends BaseRepository implements SystemRepositoryContrac
 	{
 		$info = $this->model->first();
 
-		if ($info)
-		{
+		if ($info) {
 			// Fill the data
 			$item = $info->fill($data);
 

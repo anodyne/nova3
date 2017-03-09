@@ -10,5 +10,4 @@ interface ThemeStructureContract {
 	public function footer(array $data = []);
 	public function panel();
 	public function render();
-
 }

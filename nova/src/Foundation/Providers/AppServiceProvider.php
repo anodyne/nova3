@@ -29,8 +29,7 @@ class AppServiceProvider extends ServiceProvider {
 		$this->setupTheme();
 		$this->setupEmojiOne();
 
-		if ($this->app['nova']->isInstalled())
-		{
+		if ($this->app['nova']->isInstalled()) {
 			$this->setupMailer();
 			
 			$this->app['nova']->startup();
@@ -315,10 +314,10 @@ class AppServiceProvider extends ServiceProvider {
 		$lang = 'en';
 
 		// Load the file(s)
-		$loader = new \Nova\Foundation\Translation\FileLoader(
+		$loader = new \Nova\Foundation\TranslationFileLoader(
 			$this->app['files'],
 			$this->app['path.lang'],
-			$this->app['path.coreLang']
+			$this->app['path.nova.lang']
 		);
 
 		// Create a new instance of the translator

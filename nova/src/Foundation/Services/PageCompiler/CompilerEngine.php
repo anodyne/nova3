@@ -62,8 +62,7 @@ class CompilerEngine {
 	 */
 	public function registerCompiler($key, $object)
 	{
-		if (array_key_exists($key, $this->compilers))
-		{
+		if (array_key_exists($key, $this->compilers)) {
 			throw new PageCompilerExistsException;
 		}
 
@@ -81,8 +80,7 @@ class CompilerEngine {
 	 */
 	public function removeCompiler($key)
 	{
-		if ( ! array_key_exists($key, $this->compilers))
-		{
+		if ( ! array_key_exists($key, $this->compilers)) {
 			throw new PageCompilerNotRegisteredException;
 		}
 
@@ -102,8 +100,7 @@ class CompilerEngine {
 	{
 		$result = '';
 
-		foreach (token_get_all($value) as $token)
-		{
+		foreach (token_get_all($value) as $token) {
 			$result.= is_array($token) ? $this->parseToken($token) : $token;
 		}
 
@@ -120,10 +117,8 @@ class CompilerEngine {
 	{
 		list($id, $content) = $token;
 
-		if ($id == T_INLINE_HTML)
-		{
-			foreach ($this->compilers as $compiler)
-			{
+		if ($id == T_INLINE_HTML) {
+			foreach ($this->compilers as $compiler) {
 				$content = (is_callable($compiler))
 					? preg_replace_callback($this->pattern, $compiler, $content)
 					: $compiler->compile($content, $this);
@@ -132,5 +127,4 @@ class CompilerEngine {
 
 		return $content;
 	}
-
 }

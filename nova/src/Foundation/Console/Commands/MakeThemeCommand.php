@@ -53,12 +53,9 @@ class MakeThemeCommand extends Command {
 		$themePath = $this->laravel['path.theme']."/{$pathName}";
 
 		// Does the directory already exists?
-		if ($this->files->isDirectory($themePath))
-		{
+		if ($this->files->isDirectory($themePath)) {
 			$this->error("The {$name} theme directory already exists. Please choose another name for the theme.");
-		}
-		else
-		{
+		} else {
 			// Build up the list of things to replace
 			$replacements = [
 				'{ThemeName}' => $this->argument('name'),
@@ -73,18 +70,14 @@ class MakeThemeCommand extends Command {
 			$this->createFileFromStub('quickinstall', $replacements, $themePath, "theme.json");
 
 			// How do we want to handle styles?
-			if ($this->option('override-styles'))
-			{
+			if ($this->option('override-styles')) {
 				$this->createFileFromStub('style', $replacements, $themePath, "design/css/style.css");
-			}
-			else
-			{
+			} else {
 				$this->createFileFromStub('style-custom', $replacements, $themePath, "design/css/custom.css");
 			}
 
 			// Include some of the most used components for overriding
-			if ($this->option('include-components'))
-			{
+			if ($this->option('include-components')) {
 				$this->files->makeDirectory($themePath."/components/js", 0775, true);
 				$this->files->makeDirectory($themePath."/components/pages");
 				$this->files->makeDirectory($themePath."/components/partials");
@@ -92,14 +85,12 @@ class MakeThemeCommand extends Command {
 			}
 
 			// Include the Theme class
-			if ($this->option('include-theme-class'))
-			{
+			if ($this->option('include-theme-class')) {
 				$this->createFileFromStub('theme', $replacements, $themePath, 'Theme.php');
 			}
 
 			// Include the options file
-			if ($this->option('include-options'))
-			{
+			if ($this->option('include-options')) {
 				$this->createFileFromStub('options', $replacements, $themePath, 'options.json');
 			}
 
@@ -112,10 +103,8 @@ class MakeThemeCommand extends Command {
 		// Grab the content from the generator
 		$content = $this->files->get(app_path("Foundation/Themes/stubs/{$stub}.stub"));
 
-		if (count($replacements) > 0)
-		{
-			foreach ($replacements as $placeholder => $replacement)
-			{
+		if (count($replacements) > 0) {
+			foreach ($replacements as $placeholder => $replacement) {
 				$content = str_replace($placeholder, $replacement, $content);
 			}
 		}
@@ -123,5 +112,4 @@ class MakeThemeCommand extends Command {
 		// Create the file and store the content
 		$this->files->put("{$path}/{$fileName}", $content);
 	}
-
 }
