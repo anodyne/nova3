@@ -15,12 +15,19 @@ class Application extends IlluminateApp {
 	{
 		parent::bindPathsInContainer();
 
-		// The paths established by the Nova core
-		$novaPaths = ['asset', 'coreAsset', 'coreConfig', 'coreLang', 'coreResources',
-			'extension', 'nova', 'rank', 'theme', 'themeRelative'];
+		$novaPaths = [
+			'extension' => 'extension',
+			'nova' => 'nova',
+			'nova.config' => 'novaConfig',
+			'nova.lang' => 'novaLang',
+			'nova.resources' => 'novaResources',
+			'rank' => 'rank',
+			'theme' => 'theme',
+			'theme.relative' => 'themeRelative',
+		];
 
-		foreach ($novaPaths as $path) {
-			$this->instance('path.'.$path, $this->{$path.'Path'}());
+		foreach ($novaPaths as $key => $method) {
+			$this->instance("path.{$key}", $this->{$method.'Path'}());
 		}
 	}
 
@@ -35,23 +42,6 @@ class Application extends IlluminateApp {
 	}
 
 	/**
-	 * Get the path to the assets directory.
-	 *
-	 * @param	string	$asset	An asset to append
-	 * @return	string
-	 */
-	public function assetPath($asset = false)
-	{
-		$segments = [$this->basePath, 'assets'];
-
-		if ($asset) {
-			$segments[] = $asset;
-		}
-
-		return join(DIRECTORY_SEPARATOR, $segments);
-	}
-
-	/**
 	 * Get the path to the bootstrap directory.
 	 *
 	 * @return string
@@ -62,28 +52,11 @@ class Application extends IlluminateApp {
 	}
 
 	/**
-	 * Get the path to the assets directory inside Nova.
-	 *
-	 * @param	string	$asset	An asset to append
-	 * @return	string
-	 */
-	public function coreAssetPath($asset = false)
-	{
-		$segments = [$this->novaPath(), 'resources'];
-
-		if ($asset) {
-			$segments[] = $asset;
-		}
-
-		return join(DIRECTORY_SEPARATOR, $segments);
-	}
-
-	/**
 	 * Get the path to the config directory inside Nova.
 	 *
 	 * @return	string
 	 */
-	public function coreConfigPath()
+	public function novaConfigPath()
 	{
 		return $this->novaPath('config');
 	}
@@ -93,7 +66,7 @@ class Application extends IlluminateApp {
 	 *
 	 * @return	string
 	 */
-	public function coreLangPath()
+	public function novaLangPath()
 	{
 		return join(DIRECTORY_SEPARATOR, ['nova', 'resources', 'lang']);
 	}
@@ -103,7 +76,7 @@ class Application extends IlluminateApp {
 	 *
 	 * @return	string
 	 */
-	public function coreResourcesPath()
+	public function novaResourcesPath()
 	{
 		return join(DIRECTORY_SEPARATOR, [$this->basePath, 'nova', 'resources']);
 	}
