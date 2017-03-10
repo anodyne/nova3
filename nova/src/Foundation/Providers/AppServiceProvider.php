@@ -312,12 +312,15 @@ class AppServiceProvider extends ServiceProvider {
 		// Figure out what language we need
 		$lang = 'en';
 
-		// Load the file(s)
-		$loader = new \Nova\Foundation\TranslationFileLoader(
-			$this->app['files'],
-			$this->app['path.lang'],
-			$this->app['path.nova.lang']
-		);
+		// Grab the full list of language items
+		$this->app->singleton('nova.translator.loader', function ($app) {
+			return new \Nova\Foundation\TranslationFileLoader(
+				$app['files'],
+				$app['path.lang'],
+				$app['path.nova.lang'],
+				$app['path.extension']
+			);
+		});
 
 		// Create a new instance of the translator
 		$translator = new \Krinkle\Intuition\Intuition([
@@ -328,7 +331,7 @@ class AppServiceProvider extends ServiceProvider {
 		]);
 
 		// Set the messages from the loaded file(s)
-		$translator->setMsgs($loader->load($lang, '*', '*'));
+		$translator->setMsgs($this->app['nova.translator.loader']->load($lang, '*', '*'));
 
 		// Bind the translator instance into the container
 		$this->app->instance('nova.translator', $translator);
