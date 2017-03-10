@@ -14,11 +14,10 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$nova = new \Nova\Foundation\Nova;
+		$this->app->singleton('nova', function ($app) {
+			return new \Nova\Foundation\Nova;
+		});
 
-		// Bind the Nova instance into the container
-		$this->app->instance('nova', $nova);
-		
 		$this->setRepositoryBindings();
 		$this->registerBindings();
 		$this->getCurrentUser();
