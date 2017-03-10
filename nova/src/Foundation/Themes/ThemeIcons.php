@@ -180,7 +180,7 @@ trait ThemeIcons {
 
 	public function renderFontIcon($icon, $extraClasses = false)
 	{
-		return sprintf($this->iconTemplate, $icon, $extraClasses);
+		return sprintf($this->iconTemplate, $this->getIcon($icon), $extraClasses);
 	}
 
 	public function renderSvgIcon($icon, $extraClasses = false)
