@@ -15,8 +15,9 @@ class MakeExtensionCommand extends Command {
 	protected $signature = 'nova:make:extension
 							{vendor : The vendor name to be used for the containing directory}
 							{name : The name of the extension}
-							{--no-provider : Do not include a service provider}
 							{--no-controllers : Do not include any controllers}
+							{--no-lang : Do not include a default language file}
+							{--no-provider : Do not include a service provider}
 							{--no-views : Do not include any views}
 							{--include-config : Create an empty config file}
 							{--include-routes : Create an empty routes file}';
@@ -94,6 +95,14 @@ class MakeExtensionCommand extends Command {
 
 					// Create an empty controller
 					$this->createFileFromStub($controllerStub, $replacements, $extensionPath.'/Http/Controllers', ucfirst($name).'Controller.php');
+				}
+
+				if ( ! $this->option('no-lang')) {
+					// Create the directory structure
+					$this->files->makeDirectory("{$extensionPath}/lang", 0775, true);
+
+					// Create an empty view file
+					$this->createFileFromStub('lang', $replacements, $extensionPath.'/lang', 'en.json');
 				}
 
 				if ( ! $this->option('no-views')) {

@@ -2,4 +2,4 @@
 	<h1>{ExtensionProperName}</h1>
 </div>
 
-<p>This is the first view for the {ExtensionProperName} extension.</p>
+<p>{{ _m('{ExtensionLowercaseVendor}.{ExtensionLowercaseName}-welcome') }}</p>
