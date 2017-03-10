@@ -347,18 +347,13 @@ class Theme implements ThemeIconsContract,
 		$menu = MenuBuilder::new()->addClass('nav navbar-nav pull-md-right');
 
 		if (Auth::check()) {
-			if (user()->unreadNotifications->count() > 0) {
-				$notificationIcon = sprintf('%s %s', 
-					$this->renderIcon('notifications'),
-					HtmlBuilder::raw('<span class="unread"></span>')->render()
-				);
-			} else {
-				$notificationIcon = $this->renderIcon('notifications');
-			}
+			$indicatorClass = (user()->unreadNotifications->count() == 0)
+				? 'nav-link notification-indicator unread'
+				: 'nav-link notification-indicator';
 
-			$menu->add(LinkBuilder::toUrl('#', $notificationIcon)
+			$menu->add(LinkBuilder::toUrl('#', $this->renderIcon('bell').'&nbsp;')
 				->setAttributes(['data-toggle' => 'modal', 'data-target' => '#notification-panel'])
-				->addClass('notification-indicator nav-link')
+				->addClass($indicatorClass)
 				->addParentClass('nav-item'));
 
 			// Build the text for the header link

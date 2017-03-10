@@ -166,7 +166,7 @@ body {
   align-items: center;
 }
 .navbar .nav-item .nav-link i {
-  padding-right: 0.4rem;
+  padding-right: 1.4rem;
 }
 .navbar .nav-item .nav-link .icon {
   height: 1em;
@@ -407,17 +407,27 @@ i.x5 {
 .notification-indicator {
   position: relative;
 }
-.notification-indicator .unread {
-  position: absolute;
-  top: 1.2rem;
-  right: 1.9rem;
-  height: 1.2rem;
-  width: 1.2rem;
-  background-color: #d9534f;
-  border: 0.25rem solid #f8f8f8;
-  border-radius: 10rem;
+.notification-indicator i {
+  padding: 0;
+}
+.notification-indicator.unread {
+  		/*position: absolute;
+  		top: 1.2rem;
+  		right: 1.9rem;
+  		height: 1rem;
+  		width: 1rem;
+  
+  		background-color: $color-danger;
+  		border: 0.1rem solid #f8f8f8;
+  		border-radius: 10rem;*/
+  color: #d9534f !important;
+}
+.notification-indicator.unread:hover {
+  color: #de6764 !important;
 }
 
 [v-cloak] {
   display: none;
 }
+
+/*# sourceMappingURL=base.style.css.map */
