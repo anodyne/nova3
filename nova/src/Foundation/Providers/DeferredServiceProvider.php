@@ -42,6 +42,13 @@ class DeferredServiceProvider extends ServiceProvider {
 
 	public function provides()
 	{
-		return ['browser', 'nova.configWriter', 'nova.characterCreator', 'nova.userCreator', 'nova.flash', 'nova.markdown'];
+		return [
+			'browser',
+			'nova.configWriter',
+			'nova.characterCreator',
+			'nova.userCreator',
+			'nova.flash',
+			'nova.markdown'
+		];
 	}
 }
