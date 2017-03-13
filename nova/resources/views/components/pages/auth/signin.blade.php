@@ -7,7 +7,7 @@
 				{!! $errors->first('email', '<p class="help-block">:message</p>') !!}
 			</div>
 
-			<div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
+			<div class="form-group {{ $errors->has('password') ? ' has-danger' : '' }}">
 				<label class="sr-only">{{ _m('password') }}</label>
 				{!! Form::password('password', ['class' => 'form-control form-control-danger form-control-lg', 'placeholder' => _m('password')]) !!}
 				{!! $errors->first('password', '<p class="help-block">:message</p>') !!}
