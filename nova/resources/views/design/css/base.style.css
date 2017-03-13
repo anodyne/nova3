@@ -221,6 +221,15 @@ form label {
 form .form-control {
   font-family: "Roboto", helvetica, arial, sans-serif;
 }
+form .form-control::-webkit-input-placeholder {
+  color: #bdbdbd;
+}
+form .form-control::-moz-placeholder {
+  color: #bdbdbd;
+}
+form .form-control:-ms-input-placeholder {
+  color: #bdbdbd;
+}
 form .form-check label {
   font-weight: 400;
 }

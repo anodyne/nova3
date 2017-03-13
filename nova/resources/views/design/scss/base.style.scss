@@ -88,6 +88,16 @@ form {
 
 	.form-control {
 		font-family: $font;
+
+		&::-webkit-input-placeholder {
+			color: $color-grey-400;
+		}
+		&::-moz-placeholder {
+			color: $color-grey-400;
+		}
+		&:-ms-input-placeholder {
+			color: $color-grey-400;
+		}
 	}
 
 	.form-check {
