@@ -73,14 +73,12 @@
 		{!! HTML::script('nova/resources/js/vue/filters.js') !!}
 		<script>
 			// Destroy all modals when they're hidden
-			$('.modal').on('hidden.bs.modal', function()
-			{
+			$('.modal').on('hidden.bs.modal', function() {
 				$('.modal').removeData('bs.modal')
 			})
 
 			// Re-compile Vue when a modal is loaded so we can use components in the modal
-			$('.modal').on('loaded.bs.modal', function()
-			{
+			$('.modal').on('loaded.bs.modal', function() {
 				vm.$compile($(this).get(0))
 			})
 
@@ -138,8 +136,7 @@
 				})
 			@endif
 
-			$(function()
-			{
+			$(function() {
 				$('.js-tooltip-top').tooltip({ placement: 'top' })
 				$('.js-tooltip-bottom').tooltip({ placement: 'bottom' })
 				$('.js-tooltip-left').tooltip({ placement: 'left' })
