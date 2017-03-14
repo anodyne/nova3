@@ -1,6 +1,6 @@
 <div class="card">
 	<div class="card-block">
-		{!! Form::open(['route' => 'signin.process']) !!}
+		{!! Form::open(['route' => 'login.process']) !!}
 			<div class="form-group {{ $errors->has('email') ? ' has-danger' : '' }}">
 				<label class="sr-only">{{ _m('email-address') }}</label>
 				{!! Form::email('email', null, ['class' => 'form-control form-control-danger form-control-lg', 'placeholder' => _m('email-address')]) !!}

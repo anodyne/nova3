@@ -11,9 +11,9 @@ return [
 	],
 
 	[
-		'name'				=> "Sign In Page",
-		'key'				=> "signin",
-		'uri'				=> "sign-in",
+		'name'				=> "Sign In",
+		'key'				=> "login",
+		'uri'				=> "login",
 		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\AuthController@showLoginForm",
 		'menu_id'			=> 1,
 		'metadata'			=> json_encode([]),
@@ -21,14 +21,14 @@ return [
 	[
 		'verb'				=> "POST",
 		'name'				=> "Process Sign In",
-		'key'				=> "signin.process",
-		'uri'				=> "sign-in",
+		'key'				=> "login.process",
+		'uri'				=> "login",
 		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\AuthController@login",
 	],
 	[
 		'name'				=> "Sign Out",
-		'key'				=> "signout",
-		'uri'				=> "sign-out",
+		'key'				=> "logout",
+		'uri'				=> "logout",
 		'default_resource'	=> "Nova\\Core\\Auth\\Http\\Controllers\\AuthController@logout",
 		'metadata'			=> json_encode([]),
 	],
