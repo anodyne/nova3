@@ -1,114 +1,91 @@
 <div v-cloak>
 	<mobile>
 		@can('create', $page)
-			<p><a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg btn-block">{!! icon('add') !!}<span>Add a Page</span></a></p>
+			<p><a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-lg btn-block">{!! icon('add') !!}<span>{{ _m('pages-add') }}</span></a></p>
 		@endcan
 
-		<p><a href="{{ route('admin.content') }}" class="btn btn-secondary btn-lg btn-block">{!! icon('list') !!}<span>Manage Additional Content</span></a></p>
+		<p><a href="{{ route('admin.content') }}" class="btn btn-secondary btn-lg btn-block">{!! icon('list') !!}<span>{{ _m('pages-manage-content') }}</span></a></p>
+
+		<p>
+			<div class="input-group">
+				{!! Form::text('searchName', null, ['class' => 'form-control form-control-lg', 'v-model' => 'search', 'placeholder' => _m('pages-filter')]) !!}
+				<span class="input-group-btn">
+					<button class="btn btn-secondary btn-lg" type="button" @click.prevent="resetFilters">{!! icon('close') !!}</button>
+				</span>
+			</div>
+		</p>
 	</mobile>
 	<desktop>
-		<div class="btn-toolbar">
-			@can('create', $page)
-				<div class="btn-group">
-					<a href="{{ route('admin.pages.create') }}" class="btn btn-success">{!! icon('add') !!}<span>Add a Page</span></a>
-				</div>
-			@endcan
+		<div class="row">
+			<div class="col">
+				<div class="btn-toolbar">
+					@can('create', $page)
+						<div class="btn-group">
+							<a href="{{ route('admin.pages.create') }}" class="btn btn-success">{!! icon('add') !!}<span>{{ _m('pages-add') }}</span></a>
+						</div>
+					@endcan
 
-			<div class="btn-group">
-				<a href="{{ route('admin.content') }}" class="btn btn-secondary">{!! icon('list') !!}<span>Manage Additional Content</span></a>
+					<div class="btn-group">
+						<a href="{{ route('admin.content') }}" class="btn btn-secondary">{!! icon('list') !!}<span>{{ _m('pages-manage-content') }}</span></a>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div class="form-group form-group-header">
+					<div class="input-group">
+						{!! Form::text('searchName', null, ['class' => 'form-control', 'v-model' => 'search', 'placeholder' => _m('pages-filter')]) !!}
+						<span class="input-group-btn">
+							<button class="btn btn-secondary" type="button" @click.prevent="resetFilters">{!! icon('close') !!}</button>
+						</span>
+					</div>
+				</div>
 			</div>
 		</div>
 	</desktop>
 
-	<div class="row">
-		<div class="col-md-3 col-md-push-9">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Filter Pages</h3>
-				</div>
-				<div class="panel-body">
-					<div class="form-group">
-						<label class="control-label">By Name, Key, or URI</label>
-						{!! Form::text('searchName', null, ['class' => 'form-control', 'v-model' => 'search']) !!}
-					</div>
-					
-					<div class="form-group">
-						<label class="control-label">By HTTP Verb</label>
-						<div>
-							<div class="checkbox">
-								<label><input type="checkbox" value="GET" v-model="verbs"> GET</label>
-							</div>
-							<div class="checkbox">
-								<label><input type="checkbox" value="POST" v-model="verbs"> POST</label>
-							</div>
-							<div class="checkbox">
-								<label><input type="checkbox" value="PUT" v-model="verbs"> PUT</label>
-							</div>
-							<div class="checkbox">
-								<label><input type="checkbox" value="DELETE" v-model="verbs"> DELETE</label>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="panel-footer">
-					<mobile>
-						<a class="btn btn-secondary btn-lg btn-block" @click="resetFilters">Reset Filters</a>
-					</mobile>
-					<desktop>
-						<a class="btn btn-secondary btn-block" @click="resetFilters">Reset Filters</a>
-					</desktop>
-				</div>
+	<div class="data-table data-table-bordered data-table-striped">
+		<div class="row" v-for="page in pages | filterBy search in 'name' 'key' 'uri' 'verb'">
+			<div class="col-md-9">
+				<p class="lead"><strong>@{{ page.name }}</strong></p>
+				<p><strong>{{ _m('key') }}:</strong> @{{ page.key }}</p>
 			</div>
-		</div>
-
-		<div class="col-md-9 col-md-pull-3">
-			<div class="data-table data-table-bordered data-table-striped">
-				<div class="row" v-for="page in pages | filterBy search in 'name' 'key' 'uri' | filterByCheckboxes verbs 'verb'">
-					<div class="col-md-9">
-						<p class="lead"><strong>@{{ page.name }}</strong></p>
-						<p><strong>Key:</strong> @{{ page.key }}</p>
-						<p><strong>URI:</strong> <code>@{{ page.uri }}</code></p>
-						<p><strong>Verb:</strong> <span class="label label-default">@{{ page.verb }}</span></p>
-					</div>
-					<div class="col-md-3">
-						<mobile>
-							<div class="row">
-								@can('edit', $page)
-									<div class="col-sm-6">
-										<p><a href="@{{ page.editUrl }}" class="btn btn-secondary btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
-									</div>
-								@endcan
-
-								@can('remove', $page)
-									<div class="col-sm-6" v-show="!page.protected">
-										<p><a href="#" class="btn btn-danger btn-lg btn-block" @click.prevent="removePage(page.id)">{!! icon('delete') !!}<span>Remove</span></a></p>
-									</div>
-								@endcan
+			<div class="col-md-3">
+				<mobile>
+					<div class="row">
+						@can('edit', $page)
+							<div class="col-sm-6">
+								<p><a href="@{{ page.editUrl }}" class="btn btn-secondary btn-lg btn-block">{!! icon('edit') !!}<span>{{ _m('edit') }}</span></a></p>
 							</div>
-						</mobile>
-						<desktop>
-							<div class="btn-toolbar pull-right">
-								@can('edit', $page)
-									<div class="btn-group">
-										<a href="@{{ page.editUrl }}" class="btn btn-secondary">{!! icon('edit') !!}<span>Edit</span></a>
-									</div>
-								@endcan
+						@endcan
 
-								@can('remove', $page)
-									<div class="btn-group" v-show="!page.protected">
-										<a href="#" class="btn btn-danger" @click.prevent="removePage(page.id)">{!! icon('delete') !!}<span>Remove</span></a>
-									</div>
-								@endcan
+						@can('remove', $page)
+							<div class="col-sm-6" v-show="!page.protected">
+								<p><a href="#" class="btn btn-danger btn-lg btn-block" @click.prevent="removePage(page.id)">{!! icon('delete') !!}<span>{{ _m('remove') }}</span></a></p>
 							</div>
-						</desktop>
+						@endcan
 					</div>
-				</div>
+				</mobile>
+				<desktop>
+					<div class="btn-toolbar pull-right">
+						@can('edit', $page)
+							<div class="btn-group">
+								<a href="@{{ page.editUrl }}" class="btn btn-secondary">{!! icon('edit') !!}<span>{{ _m('edit') }}</span></a>
+							</div>
+						@endcan
+
+						@can('remove', $page)
+							<div class="btn-group" v-show="!page.protected">
+								<a href="#" class="btn btn-danger" @click.prevent="removePage(page.id)">{!! icon('delete') !!}<span>{{ _m('remove') }}</span></a>
+							</div>
+						@endcan
+					</div>
+				</desktop>
 			</div>
 		</div>
 	</div>
 </div>
 
 @can('remove', $page)
-	{!! modal(['id' => "removePage", 'header' => "Remove Page"]) !!}
+	{!! modal(['id' => "removePage", 'header' => _m('pages-remove')]) !!}
 @endcan

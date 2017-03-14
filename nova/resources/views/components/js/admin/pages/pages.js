@@ -1,8 +1,7 @@
 vue = {
 	data: {
 		pages: Nova.data.pages,
-		search: "",
-		verbs: []
+		search: ""
 	},
 
 	methods: {
@@ -14,7 +13,6 @@ vue = {
 
 		resetFilters: function () {
 			this.search = ""
-			this.verbs = []
 		}
 	},
 
