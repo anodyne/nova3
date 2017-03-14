@@ -7,6 +7,7 @@
  */
 
 Route::get('icons', 'Nova\Core\Game\Http\Controllers\HomeController@icons');
+Route::get('data-table', 'Nova\Core\Game\Http\Controllers\HomeController@test');
 
 Route::get('test', function () {
 	//

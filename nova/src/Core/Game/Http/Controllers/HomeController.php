@@ -14,4 +14,12 @@ class HomeController extends BaseController {
 		$this->structureData->pageTitle = "Icons";
 	}
 
+	public function test()
+	{
+		$this->views->put('page', 'test');
+
+		$this->structureData->mdDescription = false;
+		$this->structureData->mdTitle = "Data Table";
+		$this->structureData->pageTitle = "Data Table";
+	}
 }
