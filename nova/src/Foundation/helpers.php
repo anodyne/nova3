@@ -97,7 +97,7 @@ if ( ! function_exists('flash')) {
 
 if ( ! function_exists('icon')) {
 	function icon($icon, $additional = null) {
-		return theme()->renderIcon(theme()->getIcon($icon), $additional);
+		return theme()->renderIcon($icon, $additional);
 	}
 }
 
