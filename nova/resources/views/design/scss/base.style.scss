@@ -60,6 +60,12 @@ a {
 	margin: 1rem 0;
 }
 
+.btn-group {
+	+ .btn-group {
+		margin-left: 0.5rem;
+	}
+}
+
 .btn {
 	font-weight: 500;
 	font-family: $font;
@@ -86,24 +92,35 @@ form {
 		font-weight: 500;
 	}
 
-	.form-control {
-		font-family: $font;
-
-		&::-webkit-input-placeholder {
-			color: $color-grey-400;
-		}
-		&::-moz-placeholder {
-			color: $color-grey-400;
-		}
-		&:-ms-input-placeholder {
-			color: $color-grey-400;
-		}
-	}
-
 	.form-check {
 		label {
 			font-weight: 400;
 		}
+	}
+}
+
+.form-group-header {
+	margin-top: 1rem;
+}
+
+.form-control {
+	font-family: $font;
+
+	&.form-control-search {
+		padding-left: 1rem;
+		padding-right: 1rem;
+
+		border-radius: 10rem;
+	}
+
+	&::-webkit-input-placeholder {
+		color: $color-grey-400;
+	}
+	&::-moz-placeholder {
+		color: $color-grey-400;
+	}
+	&:-ms-input-placeholder {
+		color: $color-grey-400;
 	}
 }
 
