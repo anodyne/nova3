@@ -1,5 +1,5 @@
-<div class="data-table data-table-striped data-table-bordered">
-	<div class="row dt-header">
+<div class="data-table striped bordered">
+	<div class="row header">
 		<div class="col">
 			<div class="input-group">
 				<input type="search" placeholder="Search" class="form-control">
