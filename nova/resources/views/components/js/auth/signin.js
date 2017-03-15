@@ -1,0 +1,3 @@
+$(function() {
+	$('.float-label').FloatLabel()
+})
