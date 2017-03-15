@@ -200,7 +200,7 @@ class Application extends IlluminateApp {
 		$segments = ['themes'];
 
 		if ($location) {
-			$segment[] = $location;
+			$segments[] = $location;
 		}
 
 		return join(DIRECTORY_SEPARATOR, $segments);
