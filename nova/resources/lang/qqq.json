@@ -11,6 +11,7 @@
 	"email-address": "Label for the text field that collects email address",
 	"key": "Label for a unique key for any number of possible resources",
 	"name": "Label for a text field that collects a name (can anything that has a name, not just people)",
+	"ok": "Button label to confirm that something is okay",
 	"password": "Label for the text field label that collects a password",
 	"password-new": "Label for the text field that collects a new password",
 	"password-new-confirm": "Label for the text field that confirms a new password",
