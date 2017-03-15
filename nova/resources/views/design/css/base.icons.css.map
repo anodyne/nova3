@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AACC,MAAK;EACJ,SAAS,EAAE,MAAM;;AAElB,MAAK;EACJ,SAAS,EAAE,MAAM;;AAElB,MAAK;EACJ,SAAS,EAAE,MAAM",
-"sources": ["../scss/base.icons.scss"],
-"names": [],
-"file": "base.icons.css"
-}

@@ -7,10 +7,10 @@
 
 		border-top: 0.1rem solid $color-gray-light;
 
-		&.dt-header, .dt-header {
+		&.header, .header {
 			padding: 0.75em 0;
 
-			.dt-title {
+			.title {
 				margin: 0;
 			}
 
@@ -47,7 +47,7 @@
 		}
 	}
 
-	&.data-table-striped {
+	&.striped {
 		> .row {
 			&:nth-child(odd) {
 				background: $color-subtle;
@@ -55,7 +55,7 @@
 		}
 	}
 
-	&.data-table-bordered {
+	&.bordered {
 		> .row {
 			border-left: 0.1rem solid $color-gray-light;
 			border-right: 0.1rem solid $color-gray-light;
