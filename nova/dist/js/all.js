@@ -18,6 +18,7 @@ var byClass = function (className) {
 var novaUrl = function (uri) {
 	return Nova.system.baseUrl.concat("/", uri)
 }
+
 Vue.filter('filterByCheckboxes', function (value, choices, filterKey) {
 	var choicesArr = $.map(choices, function (val, key) {
 		return [val]
@@ -43,7 +44,7 @@ Vue.component('desktop', {
 })
 
 Vue.component('mobile', {
-	template: '<div class="hidden-md-up" v-cloak><slot></slot></div>'
+	template: '<div class="hidden-lg-up" v-cloak><slot></slot></div>'
 })
 
 Vue.component('phone', {

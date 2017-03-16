@@ -11,7 +11,7 @@ Vue.component('desktop', {
 })
 
 Vue.component('mobile', {
-	template: '<div class="hidden-md-up" v-cloak><slot></slot></div>'
+	template: '<div class="hidden-lg-up" v-cloak><slot></slot></div>'
 })
 
 Vue.component('phone', {
