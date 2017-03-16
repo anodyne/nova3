@@ -19,8 +19,10 @@
 	"phrase-add": "Add $1",
 	"phrase-edit": "Edit $1",
 	"phrase-manage": "Manage $1",
+	"phrase-no-permissions-remove": "You do not have permissions to remove $1",
 	"phrase-not-found": "No $1 were found.",
 	"phrase-remove": "Remove $1",
+	"phrase-removed": "$1 Removed!",
 	"phrase-update": "Update $1",
 
 	"signin-attempts": "Too Many Attempts!",
@@ -35,6 +37,7 @@
 	"signin-send-reset-link": "Send Password Reset Link",
 	"signin-success": "You are now signed in",
 
+	"pages": "pages",
 	"pages-add": "Add a Page",
 	"pages-advanced": "Advanced Page",
 	"pages-basic": "Basic Page",
@@ -42,6 +45,8 @@
 	"pages-info": "Page Info",
 	"pages-key-explain": "Keys are used to identify your pages and create dynamic links to them. Even if the URI of the page changes, using the key to build links means those links will continue to work as long as the key doesn't change. Keys <strong>must be</strong> unique.",
 	"pages-manage-content": "Manage Page Content",
+	"pages-no-extension-controllers": "No extension controllers found!",
+	"pages-no-resource": "No resource",
 	"pages-remove": "Remove Page",
 	"pages-uri-advanced-explain": "URIs identify and describe the resource (in this case, a page) that's being accessed with the following format: <code>foo/bar</code>. You can also specify variables in your URIs to use in code by wrapping the name of the variable in braces: <code>foo/bar/{id}</code>. In your code, you'd then pass <code>$id</code> as a parameter to the method and be able to use whatever value is in the URI at that segment. Optional variables are indicated by a trailing question mark: <code>foo/bar/{id?}</code> and in your code, should have a default value to prevent errors. The only restriction around URIs with advanced pages is that they <strong>cannot</strong> have the same URI as another page.",
 	"pages-uri-basic-explain": "URIs identify and describe the resource (in this case, a page) that's being accessed with the following format: <code>foo/bar</code>. The only restrictions around URIs with basic pages is that they <strong>cannot</strong> have the same URI as another page and <strong>cannot</strong> use variables.",
