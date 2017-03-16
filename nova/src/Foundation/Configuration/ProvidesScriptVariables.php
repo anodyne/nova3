@@ -38,6 +38,9 @@ trait ProvidesScriptVariables {
 		// Nova's API options
 		$api = ['api' => config('nova.api')];
 
+		// Nova's translation values
+		$lang = ['lang' => app('nova.translator.messages')];
+
 		// Nova's controller data
 		$data = ['data' => (array) app('nova.controller')->data];
 
