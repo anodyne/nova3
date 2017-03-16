@@ -397,10 +397,10 @@ i {
 		background-color: $color-danger;
 		border: 0.1rem solid #f8f8f8;
 		border-radius: 10rem;*/
-		color: $color-danger !important;
+		color: $color-primary !important;
 
 		&:hover {
-			color: lighten($color-danger, 5%) !important;
+			color: lighten($color-primary, 5%) !important;
 		}
 	}
 }
