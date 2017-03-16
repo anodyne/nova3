@@ -36,7 +36,7 @@ class PageContentController extends BaseController {
 		$this->views->put('page', 'admin/pages/content');
 		$this->views->put('scripts', ['admin/pages/content']);
 
-		$this->data->apiUrl = version('v1')->route('api.page-contents.index');
+		$this->data->contents = $this->repo->all()->toArray();
 	}
 
 	public function create()
