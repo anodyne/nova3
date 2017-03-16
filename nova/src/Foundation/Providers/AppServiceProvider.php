@@ -322,6 +322,10 @@ class AppServiceProvider extends ServiceProvider {
 			);
 		});
 
+		$this->app->singleton('nova.translator.messages', function ($app) use ($lang) {
+			return $app['nova.translator.loader']->load($lang, '*', '*');
+		});
+
 		// Create a new instance of the translator
 		$translator = new \Krinkle\Intuition\Intuition([
 			'globalfunctions' => false,
@@ -331,7 +335,7 @@ class AppServiceProvider extends ServiceProvider {
 		]);
 
 		// Set the messages from the loaded file(s)
-		$translator->setMsgs($this->app['nova.translator.loader']->load($lang, '*', '*'));
+		$translator->setMsgs($this->app['nova.translator.messages']);
 
 		// Bind the translator instance into the container
 		$this->app->instance('nova.translator', $translator);
