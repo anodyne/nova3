@@ -29,9 +29,5 @@ vue = {
 		resetFilters: function () {
 			this.search = ""
 		}
-	},
-
-	mounted: function () {
-		this.pages = Nova.data.pages
 	}
 }

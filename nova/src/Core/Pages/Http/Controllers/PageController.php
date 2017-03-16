@@ -55,10 +55,10 @@ class PageController extends BaseController {
 		$this->views->put('styles', ['typeahead']);
 		
 		$this->data->httpVerbs = [
-			'GET' => 'GET',
-			'POST' => 'POST',
-			'PUT' => 'PUT',
-			'DELETE' => 'DELETE',
+			'GET' => _m('pages-verb-get'),
+			'POST' => _m('pages-verb-post'),
+			'PUT' => _m('pages-verb-put'),
+			'DELETE' => _m('pages-verb-delete'),
 		];
 
 		$this->data->menus[0] = "No menu";
@@ -99,10 +99,10 @@ class PageController extends BaseController {
 		$this->views->put('styles', ['typeahead']);
 
 		$this->data->httpVerbs = [
-			'GET' => 'GET',
-			'POST' => 'POST',
-			'PUT' => 'PUT',
-			'DELETE' => 'DELETE',
+			'GET' => _m('pages-verb-get'),
+			'POST' => _m('pages-verb-post'),
+			'PUT' => _m('pages-verb-put'),
+			'DELETE' => _m('pages-verb-delete'),
 		];
 
 		$this->data->menus[0] = "No menu";
@@ -134,16 +134,12 @@ class PageController extends BaseController {
 
 		$page = $this->repo->find($pageId);
 
-		if (policy($page)->remove($this->user))
-		{
-			// Build the body based on whether we found the page or not
+		if (policy($page)->remove($this->user)) {
 			$body = ($page)
 				? view(locate('page', 'admin/pages/page-remove'), compact('page'))
 				: alert('danger', "Page not found.");
-		}
-		else
-		{
-			$body = alert('danger', "You do not have permission to remove pages.");
+		} else {
+			$body = alert('danger', _m('phrase-no-permissions-remove', [_m('pages')]));
 		}
 
 		return partial('modal-content', [
@@ -155,11 +151,11 @@ class PageController extends BaseController {
 
 	public function destroy(RemovePageRequest $request, $pageId)
 	{
-		$this->authorize('remove', new Page, "You do not have permission to remove pages.");
+		$this->authorize('remove', new Page, _m('phrase-no-permissions-remove', [_m('pages')]));
 
 		$page = $this->repo->delete($pageId);
 
-		flash()->success("Page Removed!");
+		flash()->success(_m('phrase-removed', [_m('page')]));
 
 		return redirect()->route('admin.pages');
 	}
@@ -170,8 +166,7 @@ class PageController extends BaseController {
 
 		$count = $this->repo->countBy('key', request('key'));
 
-		if ($count > 0)
-		{
+		if ($count > 0) {
 			return json_encode(['code' => 0]);
 		}
 
@@ -184,8 +179,7 @@ class PageController extends BaseController {
 
 		$count = $this->repo->countBy('uri', request('uri'));
 
-		if ($count > 0)
-		{
+		if ($count > 0) {
 			return json_encode(['code' => 0]);
 		}
 
@@ -194,15 +188,13 @@ class PageController extends BaseController {
 
 	protected function getExtensionResources()
 	{
-		try
-		{
+		try {
 			$finder = new Finder;
 			$finder->files()->in('extensions/*/*/Http/Controllers');
 
-			$methodList = ["" => "No resource"];
+			$methodList = ["" => _m('pages-no-resource')];
 
-			foreach ($finder as $file)
-			{
+			foreach ($finder as $file) {
 				$className = str_replace('.php', '', $file->getPathname());
 				$className = str_replace('/', '\\', $className);
 				$className = ucfirst($className);
@@ -220,8 +212,7 @@ class PageController extends BaseController {
 				// Get the information about the class
 				$reflection = new ReflectionClass($className);
 
-				foreach ($reflection->getMethods(ReflectionMethod::IS_PUBLIC) as $method)
-				{
+				foreach ($reflection->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
 					// The full resource is what we need in the database, so that's our value
 					$resource = "{$className}@{$method->getName()}";
 
@@ -239,10 +230,8 @@ class PageController extends BaseController {
 			}
 
 			return $methodList;
-		}
-		catch (InvalidArgumentException $e)
-		{
-			return "No extension controllers found!";
+		} catch (InvalidArgumentException $e) {
+			return _m('pages-no-extension-controllers');
 		}
 	}
 

@@ -17,7 +17,7 @@
 					</span>
 				</div>
 			</div>
-			<div class="col-6">
+			<div class="col-md-6">
 				<desktop>
 					<div class="btn-toolbar pull-right">
 						@can('create', $page)
@@ -40,25 +40,19 @@
 			</div>
 			<div class="col-md-3">
 				<mobile>
-					<div class="row">
-						@can('edit', $page)
-							<div class="col-sm-6">
-								<p><a :href="page.editUrl" class="btn btn-secondary btn-lg btn-block">{!! icon('edit') !!}<span>{{ _m('edit') }}</span></a></p>
-							</div>
-						@endcan
+					@can('edit', $page)
+						<p><a :href="page.editUrl" class="btn btn-secondary btn-lg btn-block">{!! icon('edit') !!}<span>{{ _m('edit') }}</span></a></p>
+					@endcan
 
-						@can('remove', $page)
-							<div class="col-sm-6" v-show="!page.protected">
-								<p><a href="#" class="btn btn-danger btn-lg btn-block" @click.prevent="removePage(page.id)">{!! icon('delete') !!}<span>{{ _m('remove') }}</span></a></p>
-							</div>
-						@endcan
-					</div>
+					@can('remove', $page)
+						<p v-show="!page.protected"><a href="#" class="btn btn-danger btn-lg btn-block" @click.prevent="removePage(page.id)">{!! icon('delete') !!}<span>{{ _m('remove') }}</span></a></p>
+					@endcan
 				</mobile>
 				<desktop>
 					<div class="btn-toolbar pull-right">
 						@can('edit', $page)
 							<div class="btn-group">
-								<a :href="page.editUrl" class="btn btn-link">{!! icon('more-vertical') !!}</a>
+								<a :href="page.editUrl" class="btn btn-secondary">{!! icon('edit') !!}<span>{{ _m('edit') }}</a>
 							</div>
 						@endcan
 
