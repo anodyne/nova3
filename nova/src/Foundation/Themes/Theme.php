@@ -347,7 +347,7 @@ class Theme implements ThemeIconsContract,
 		$menu = MenuBuilder::new()->addClass('nav navbar-nav pull-md-right');
 
 		if (Auth::check()) {
-			$indicatorClass = (user()->unreadNotifications->count() == 0)
+			$indicatorClass = (user()->unreadNotifications->count() > 0)
 				? 'nav-link notification-indicator unread'
 				: 'nav-link notification-indicator';
 
