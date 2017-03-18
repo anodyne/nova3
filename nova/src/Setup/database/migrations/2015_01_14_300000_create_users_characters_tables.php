@@ -19,6 +19,7 @@ class CreateUsersCharactersTables extends Migration {
 			$table->string('password', 96)->nullable();
 			$table->string('name');
 			$table->string('nickname')->nullable();
+			$table->string('gender', 10)->default('male');
 			$table->boolean('status')->default((int) Status::PENDING);
 			$table->string('api_token', 60)->nullable()->unique();
 			$table->rememberToken();

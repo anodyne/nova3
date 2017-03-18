@@ -19,7 +19,8 @@ class User extends Authenticatable {
 	protected $table = 'users';
 
 	protected $fillable = ['name', 'nickname', 'email', 'password',
-		'remember_token', 'api_token', 'status', 'last_password_reset'];
+		'remember_token', 'api_token', 'status', 'last_password_reset',
+		'gender'];
 
 	protected $hidden = ['password', 'remember_token', 'api_token', 'created_at',
 		'updated_at', 'deleted_at', 'pivot', 'last_password_reset'];
