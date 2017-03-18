@@ -212,9 +212,11 @@ if ( ! function_exists('hook')) {
 
 if ( ! function_exists('_m')) {
 	function _m($key, $args = []) {
+		$gender = (user()) ? user()->gender : 'male';
+
 		return app('nova.translator')->msg($key, [
 			'parsemag' => true,
-			'variables' => $args
+			'variables' => array_merge([$gender], $args)
 		]);
 	}
 }

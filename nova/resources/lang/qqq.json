@@ -18,20 +18,20 @@
 	"remove": "Button label for an action that removes a resource",
 	"sign-in": "Button label for signing in",
 	"sign-out": "Button label for signing out",
-	"welcome-back": "Message that welcomes a user back after they've successfully signed in\n\nParameters:\n* $1 - the user's name or nickname",
+	"welcome-back": "Message that welcomes a user back after they've successfully signed in\n\nParameters:\n* $2 - the user's name or nickname",
 
 	"abbr-uri": "Abbreviation for uniform resource identifier (URI)",
 
 	"phrase-add": "",
 	"phrase-edit": "",
 	"phrase-manage": "",
-	"phrase-no-permissions-remove": "Message that the current user does not have permissions to remove a given type of resource\n\nParameters:\n* $1 - the resource type",
+	"phrase-no-permissions-remove": "Message that the current user does not have permissions to remove a given type of resource\n\nParameters:\n* $2 - the resource type",
 	"phrase-not-found": "",
 	"phrase-remove": "",
 	"phrase-update": "",
 
 	"signin-attempts": "Message that a user has attempted to sign in too many times, shown at the header",
-	"signin-attempts-explain": "Message that explains the user has attempted to sign in to the system too many times and tells them how long they have to wait before attempting again.\n\nParameters:\n* $1 - the number of seconds the user has to wait before attempting to sign in again",
+	"signin-attempts-explain": "Message that explains the user has attempted to sign in to the system too many times and tells them how long they have to wait before attempting again.\n\nParameters:\n* $2 - the number of seconds the user has to wait before attempting to sign in again",
 	"signin-back-home": "Button label to leave the sign in page and go back to the main page",
 	"signin-failed": "Message that the sign in attempt has failed, shown in the header",
 	"signin-failed-explain": "Message that explains to the user that their email address or password did not match",
