@@ -9,5 +9,4 @@ interface PageContentRepositoryContract extends BaseRepositoryContract {
 	public function getAllContent();
 	public function getByKey($key, array $with = []);
 	public function updateByKey(array $data);
-	
 }

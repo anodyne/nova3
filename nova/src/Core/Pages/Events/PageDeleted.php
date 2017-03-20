@@ -17,5 +17,4 @@ class PageDeleted extends Event {
 		$this->key = $key;
 		$this->uri = $uri;
 	}
-
 }

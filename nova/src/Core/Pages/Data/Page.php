@@ -86,16 +86,11 @@ class Page extends Model {
 
 	public function setAccessAttribute($value)
 	{
-		if (is_array($value))
-		{
+		if (is_array($value)) {
 			$this->attributes['access'] = json_encode($value);
-		}
-		elseif ($value instanceof Collection)
-		{
+		} elseif ($value instanceof Collection) {
 			$this->attributes['access'] = $value->toJson();
-		}
-		else
-		{
+		} else {
 			$this->attributes['access'] = $value;
 		}
 	}
@@ -117,8 +112,7 @@ class Page extends Model {
 
 	public function content($key)
 	{
-		return $this->pageContents->filter(function ($c) use ($key)
-		{
+		return $this->pageContents->filter(function ($c) use ($key) {
 			return $c->key == $key;
 		})->first();
 	}
@@ -148,12 +142,10 @@ class Page extends Model {
 	{
 		$collection = $this->newCollection();
 
-		foreach ($this->pageContents as $content)
-		{
+		foreach ($this->pageContents as $content) {
 			$collection->put($content->key, $content->present()->value);
 		}
 
 		return $collection;
 	}
-	
 }

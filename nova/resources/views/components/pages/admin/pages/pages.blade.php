@@ -57,7 +57,7 @@
 						@endcan
 
 						@can('remove', $page)
-							<div class="btn-group" v-show="!page.protected">
+							<div class="btn-group" v-if="!page.protected">
 								<a href="#" class="btn btn-danger" @click.prevent="removePage(page.id)">{!! icon('delete') !!}<span>{{ _m('remove') }}</span></a>
 							</div>
 						@endcan

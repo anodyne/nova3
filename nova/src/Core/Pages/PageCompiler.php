@@ -1,9 +1,10 @@
-<?php namespace Nova\Core\Pages\Services\Compilers;
+<?php namespace Nova\Core\Pages;
 
-use Nova\Foundation\Services\PageCompiler\CompilerEngine,
-	Nova\Foundation\Services\PageCompiler\CompilerContract;
+use Nova\Foundation\Services\PageCompiler\{CompilerEngine, CompilerContract};
 
 class PageCompiler implements CompilerContract {
+
+	protected $identifier = 'page';
 
 	/**
 	 * Compile the content.
@@ -14,8 +15,7 @@ class PageCompiler implements CompilerContract {
 	 */
 	public function compile($value, CompilerEngine $engine)
 	{
-		$callback = function ($matches)
-		{
+		$callback = function ($matches) {
 			// Get the values out of the tag
 			$args = explode(':', $matches[2]);
 			
@@ -25,10 +25,8 @@ class PageCompiler implements CompilerContract {
 			$title = (array_key_exists(2, $args)) ? $args[2] : false;
 
 			// Make sure we're only working with the right type
-			if ($type == 'page')
-			{
-				if ($matches[1])
-				{
+			if ($type == $this->identifier) {
+				if ($matches[1]) {
 					return substr($matches[0], 1);
 				}
 
@@ -66,5 +64,4 @@ class PageCompiler implements CompilerContract {
 	{
 		return "__Pages__: Insert a link into any page by using the `{% page %}` tag. The tag accepts two or three parameters, depending on how you want to use it. You can set the title used for the link by setting the third parameter. For example, if you want to link to the home page and have the link say \"home\" instead of the name listed in the database, enter `{% page:home:home %}`. If you don't enter the third parameter, like `{% page:game.rules %}`, the name of the page will be pulled from the database and used as the link title.";
 	}
-
 }

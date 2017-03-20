@@ -21,18 +21,9 @@ class PageContentRepository extends BaseRepository implements PageContentReposit
 
 	public function allExcept(array $except)
 	{
-		// Get everything first
-		$content = $this->all();
-
-		if ($content)
-		{
-			return $content->filter(function ($c) use ($except)
-			{
-				return ! in_array($c->type, $except);
-			});
-		}
-
-		return false;
+		return $this->all()->filter(function ($content) use ($except) {
+			return ! in_array($content->type, $except);
+		});
 	}
 
 	public function create(array $data)
@@ -70,12 +61,9 @@ class PageContentRepository extends BaseRepository implements PageContentReposit
 		// If we only have 1 argument for the method, we'll assume that we
 		// want to pull all of the relationships. Otherwise, we want to
 		// either pull no relationships or just the ones we pass over
-		if (func_num_args() == 1)
-		{
+		if (func_num_args() == 1) {
 			$relations = ['page'];
-		}
-		else
-		{
+		} else {
 			$relations = (is_array($with)) ? $with : [];
 		}
 
@@ -93,18 +81,15 @@ class PageContentRepository extends BaseRepository implements PageContentReposit
 
 	public function updateByKey(array $data)
 	{
-		foreach ($data as $key => $value)
-		{
+		foreach ($data as $key => $value) {
 			// Get the content item with the key
 			$content = $this->getByKey($key, []);
 
-			if ($content)
-			{
+			if ($content) {
 				$this->update($content, ['value' => $value]);
 			}
 		}
 
 		return true;
 	}
-
 }

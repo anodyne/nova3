@@ -9,40 +9,35 @@ class PagePresenter extends BasePresenter {
 		// Find the permission
 		$permission = app('PermissionRepository')->getFirstBy('name', $this->entity->access);
 
-		if ($permission)
-		{
+		if ($permission) {
 			return $permission->present()->name;
 		}
 	}
 
 	public function message()
 	{
-		if ($this->entity->message())
-		{
+		if ($this->entity->message()) {
 			return $this->entity->message()->present()->value;
 		}
 	}
 
 	public function messageRaw()
 	{
-		if ($this->entity->message())
-		{
+		if ($this->entity->message()) {
 			return $this->entity->message()->value;
 		}
 	}
 
 	public function header()
 	{
-		if ($this->entity->header())
-		{
+		if ($this->entity->header()) {
 			return $this->entity->header()->present()->value;
 		}
 	}
 
 	public function title()
 	{
-		if ($this->entity->title())
-		{
+		if ($this->entity->title()) {
 			return $this->entity->title()->present()->value;
 		}
 	}
@@ -56,8 +51,7 @@ class PagePresenter extends BasePresenter {
 	{
 		$verb = $this->verb();
 
-		switch ($verb)
-		{
+		switch ($verb) {
 			case 'GET':
 				$level = 'success';
 			break;
@@ -82,5 +76,4 @@ class PagePresenter extends BasePresenter {
 	{
 		return $this->entity->default_resource;
 	}
-
 }

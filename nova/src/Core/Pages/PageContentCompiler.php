@@ -1,4 +1,4 @@
-<?php namespace Nova\Core\Pages\Services\Compilers;
+<?php namespace Nova\Core\Pages;
 
 use Nova\Foundation\Services\PageCompiler\CompilerEngine,
 	Nova\Foundation\Services\PageCompiler\CompilerContract;
@@ -16,8 +16,7 @@ class PageContentCompiler implements CompilerContract {
 	 */
 	public function compile($value, CompilerEngine $engine)
 	{
-		$callback = function ($matches)
-		{
+		$callback = function ($matches) {
 			// Get the values out of the tag
 			$args = explode(':', $matches[2]);
 			
@@ -26,10 +25,8 @@ class PageContentCompiler implements CompilerContract {
 			$key = $args[1];
 
 			// Make sure we're only working with the right type
-			if ($type == $this->identifier)
-			{
-				if ($matches[1])
-				{
+			if ($type == $this->identifier) {
+				if ($matches[1]) {
 					return substr($matches[0], 1);
 				}
 
@@ -56,5 +53,4 @@ class PageContentCompiler implements CompilerContract {
 	{
 		return "__Additional Page Content__: Insert any piece of additional page content you want into a page by using the `{% content %}` tag. The tag accepts one parameter: the key of the content item you want to get. If you were to store the year your game takes place in as a content item (with a key of _year_ for example), you'd be able to pull it out by using the content tag like this: `{% content:year %}`.";
 	}
-
 }

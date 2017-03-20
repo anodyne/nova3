@@ -22,5 +22,4 @@ class EditPageContentRequest extends Request {
 			'key.required' => "Please enter a key for the page content",
 		];
 	}
-
 }

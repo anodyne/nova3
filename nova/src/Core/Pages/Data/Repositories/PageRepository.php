@@ -29,15 +29,13 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 
 	public function create(array $data)
 	{
-		if ($data['type'] == 'basic')
-		{
+		if ($data['type'] == 'basic') {
 			unset($data['verb']);
 			unset($data['resource']);
 			unset($data['conditions']);
 		}
 
-		if ($data['type'] == 'advanced')
-		{
+		if ($data['type'] == 'advanced') {
 			unset($data['access_type']);
 			unset($data['access']);
 		}
@@ -48,8 +46,7 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 		// Set which content items we want to create
 		$contentToCreate = ['title', 'header', 'message'];
 
-		foreach ($contentToCreate as $type)
-		{
+		foreach ($contentToCreate as $type) {
 			// Create the new content item
 			$newContentItem = $this->contentRepo->create([
 				'type'	=> $type,
@@ -73,12 +70,9 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 		// Get the page
 		$page = $this->getResource($resource);
 
-		if ($page)
-		{
-			if ($page->pageContents->count() > 0)
-			{
-				foreach ($page->pageContents as $content)
-				{
+		if ($page) {
+			if ($page->pageContents->count() > 0) {
+				foreach ($page->pageContents as $content) {
 					// Remove the content
 					$this->contentRepo->delete($content->id);
 				}
@@ -107,12 +101,9 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 		// If we only have 1 argument for the method, we'll assume that we
 		// want to pull all of the relationships. Otherwise, we want to
 		// either pull no relationships or just the ones we pass over
-		if (func_num_args() == 1)
-		{
+		if (func_num_args() == 1) {
 			$relations = ['pageContents', 'menu', 'menu.pages', 'menu.menuItems', 'menu.menuItems.page'];
-		}
-		else
-		{
+		} else {
 			$relations = (is_array($with)) ? $with : [];
 		}
 
@@ -126,12 +117,9 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 		// If we only have 1 argument for the method, we'll assume that we
 		// want to pull all of the relationships. Otherwise, we want to
 		// either pull no relationships or just the ones we pass over
-		if (func_num_args() == 1)
-		{
+		if (func_num_args() == 1) {
 			$relations = ['pageContents', 'menu', 'menu.pages', 'menu.menuItems', 'menu.menuItems.page'];
-		}
-		else
-		{
+		} else {
 			$relations = (is_array($with)) ? $with : [];
 		}
 
@@ -143,15 +131,12 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 		// Get the page
 		$page = $this->getResource($resource);
 
-		if ($page)
-		{
-			if ($data['type'] == 'basic')
-			{
+		if ($page) {
+			if ($data['type'] == 'basic') {
 				unset($data['conditions']);
 			}
 
-			if ($data['type'] == 'advanced')
-			{
+			if ($data['type'] == 'advanced') {
 				unset($data['access_type']);
 				unset($data['access']);
 			}
@@ -162,8 +147,7 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 			// Set which content items we want to update
 			$contentToUpdate = ['title', 'header', 'message'];
 
-			foreach ($contentToUpdate as $type)
-			{
+			foreach ($contentToUpdate as $type) {
 				// Build the value
 				$value = (array_key_exists('content', $data) and array_key_exists($type, $data['content']))
 					? $data['content'][$type] 
@@ -172,13 +156,10 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 				// Get the content item
 				$contentItem = $page->{$type}();
 
-				if ($contentItem)
-				{
+				if ($contentItem) {
 					// Update the item
 					$this->contentRepo->update($contentItem, ['value' => $value]);
-				}
-				else
-				{
+				} else {
 					// We didn't have a content item, so let's create one
 					$newContentItem = $this->contentRepo->create([
 						'type'	=> $type,
@@ -198,5 +179,4 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 
 		return false;
 	}
-
 }
