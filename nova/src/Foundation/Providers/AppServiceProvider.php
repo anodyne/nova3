@@ -88,10 +88,10 @@ class AppServiceProvider extends ServiceProvider {
 			$engine = new \Nova\Foundation\Services\PageCompiler\CompilerEngine;
 
 			$engine->registerCompiler('page',
-				new \Nova\Core\Pages\Services\Compilers\PageCompiler
+				new \Nova\Core\Pages\PageCompiler
 			);
 			$engine->registerCompiler('content',
-				new \Nova\Core\Pages\Services\Compilers\PageContentCompiler
+				new \Nova\Core\Pages\PageContentCompiler
 			);
 			$engine->registerCompiler('icon',
 				new \Nova\Foundation\Services\PageCompiler\Compilers\IconCompiler
