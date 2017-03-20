@@ -18,5 +18,4 @@ class RemovePageContentRequest extends Request {
 	{
 		return [];
 	}
-
 }

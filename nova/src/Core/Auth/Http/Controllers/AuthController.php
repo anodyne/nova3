@@ -27,16 +27,14 @@ class AuthController extends BaseController {
 
 	public function showLoginForm()
 	{
-		$this->views->put('page', 'auth/signin');
+		$this->views->put('page', 'auth/login');
 	}
 
 	protected function authenticated(Request $request, $user)
 	{
-		$name = $user->present()->firstName;
-
 		event(new Events\LoggedIn($user, Date::now()));
 
-		flash()->success(_m('welcome-back', [$name]), _m('signin-success'));
+		flash()->success(_m('welcome-back', [$user->present()->firstName]), _m('auth-success'));
 	}
 
 	protected function sendFailedLoginResponse(Request $request)
@@ -48,22 +46,22 @@ class AuthController extends BaseController {
 		// to reset their password, so let's kick them over to the reset page
 		// with a message to tell them what's happening.
 		if ($user and $user->password === null) {
-			$message = _m('signin-required-reset-explain');
+			$message = _m('auth-required-reset-explain');
 
 			event(new Events\PasswordResetRequired($user, Date::now()));
 
 			session()->flash('password_reset_required', $message);
 
-			flash()->warning(_m('signin-required-reset'), $message);
+			flash()->warning(_m('auth-required-reset'), $message);
 
 			return redirect()->route('password.email.show');
 		}
 
 		event(new Events\LoginFailed($request->get('email'), Date::now()));
 
-		flash()->error(_m('signin-failed'), _m('signin-failed-explain'));
+		flash()->error(_m('auth-failed'), _m('auth-failed-explain'));
 
-		return redirect()->back()->withInput($request->only('email'));
+		return back()->withInput($request->only('email'));
 	}
 
 	protected function sendLockoutResponse(Request $request)
@@ -72,9 +70,9 @@ class AuthController extends BaseController {
 			$this->throttleKey($request)
 		);
 
-		flash()->error(_m('signin-attempts'), _m('signin-attempts-explain', [$seconds]));
+		flash()->error(_m('auth-attempts'), _m('auth-attempts-explain', [$seconds]));
 
-		return redirect()->back()
+		return back()
 			->withInput($request->only($this->username(), 'remember'));
 	}
 }

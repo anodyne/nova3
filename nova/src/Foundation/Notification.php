@@ -1,10 +1,10 @@
 <?php namespace Nova\Foundation;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Notification as IlluminateNotification;
 
-abstract class BaseNotification extends Notification implements ShouldQueue {
+abstract class Notification extends IlluminateNotification implements ShouldQueue {
 	
 	use Queueable;
 

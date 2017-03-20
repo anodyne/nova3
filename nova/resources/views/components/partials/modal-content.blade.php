@@ -5,12 +5,4 @@
 	</button>
 </div>
 
-<div class="modal-body">
-	{!! $body !!}
-</div>
-
-@if ($footer)
-	<div class="modal-footer">
-		{!! $footer !!}
-	</div>
-@endif
+{!! $body or '<div class="modal-body"></div>' !!}

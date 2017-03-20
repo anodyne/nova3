@@ -30,5 +30,4 @@ class PageContent extends Model {
 	{
 		return $this->belongsTo(PageModel::class);
 	}
-	
 }

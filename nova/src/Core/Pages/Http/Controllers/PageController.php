@@ -234,5 +234,4 @@ class PageController extends BaseController {
 			return _m('pages-no-extension-controllers');
 		}
 	}
-
 }

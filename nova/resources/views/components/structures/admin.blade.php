@@ -67,21 +67,16 @@
 			<code class="hidden-lg-down">xl</code>
 		</div>
 
-		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 		<script src="https://unpkg.com/vue@2.2.4"></script>
 		<script src="https://unpkg.com/axios@0.15.3/dist/axios.min.js"></script>
 		{!! HTML::script('nova/dist/js/all.js') !!}
 		<script>
-			// Destroy all modals when they're hidden
-			$('.modal').on('hidden.bs.modal', function() {
-				$('.modal').removeData('bs.modal')
-			})
-
 			// Re-compile Vue when a modal is loaded so we can use components in the modal
-			$('.modal').on('loaded.bs.modal', function() {
-				vm.$compile($(this).get(0))
+			$('.modal').on('show.bs.modal', function (e) {
+				Vue.compile($(this).get(0))
 			})
 
 			var vue = {}

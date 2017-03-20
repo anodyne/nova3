@@ -21,7 +21,7 @@
 				{!! $errors->first('password_confirmation', '<p class="help-block">:message</p>') !!}
 			</div>
 
-			<button type="submit" class="btn btn-primary btn-lg btn-block">{!! icon('lock') !!} {{ _m('signin-reset-password') }}</button>
+			<button type="submit" class="btn btn-primary btn-lg btn-block">{!! icon('lock') !!} {{ _m('auth-reset-password') }}</button>
 				
 			<a href="{{ route('home') }}" class="btn btn-link btn-block" role="button">{{ _m('cancel') }}</a>
 		</div>

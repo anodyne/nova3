@@ -74,9 +74,31 @@ a {
 		padding-left: 0.5rem;
 	}
 
+	i {
+		font-weight: normal;
+	}
+
 	&:active, &:focus {
 		outline: none;
 		box-shadow: none;
+		color: inherit;
+	}
+
+	&.btn-cancel {
+		background-color: transparent;
+		color: $color-grey-500;
+
+		&:hover {
+			color: $color-grey-700;
+		}
+	}
+
+	&.btn-danger {
+		&:active, &:focus {
+			outline: none;
+			box-shadow: none;
+			color: $color-white;
+		}
 	}
 }
 
@@ -402,6 +424,12 @@ i {
 		&:hover {
 			color: lighten($color-primary, 5%) !important;
 		}
+	}
+}
+
+.modal {
+	.modal-content {
+		border-radius: $radius;
 	}
 }
 

@@ -15,5 +15,4 @@ class PageContentDeleted extends Event {
 		$this->key = $key;
 		$this->type = $type;
 	}
-
 }

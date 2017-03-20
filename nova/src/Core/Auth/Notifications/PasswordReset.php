@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Auth\Notifications;
 
-use Nova\Foundation\BaseNotification;
+use Nova\Foundation\Notification;
 
-class PasswordReset extends BaseNotification {
+class PasswordReset extends Notification {
 
 	public function toArray($notifiable)
 	{

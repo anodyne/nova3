@@ -14,5 +14,4 @@ class PageContentCreated extends Event {
 	{
 		$this->resource = $resource;
 	}
-
 }

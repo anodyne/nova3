@@ -40,5 +40,4 @@ class EditPageRequest extends Request {
 			'content[message].required_if' => "You must enter content for a basic page",
 		];
 	}
-
 }

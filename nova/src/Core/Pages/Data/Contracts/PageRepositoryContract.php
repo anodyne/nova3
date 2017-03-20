@@ -8,5 +8,4 @@ interface PageRepositoryContract extends BaseRepositoryContract {
 	public function find($id);
 	public function getByRouteKey($route, $with = []);
 	public function getByRouteUri($route, $with = []);
-
 }

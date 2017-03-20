@@ -18,5 +18,4 @@ class RemovePageRequest extends Request {
 	{
 		return [];
 	}
-
 }

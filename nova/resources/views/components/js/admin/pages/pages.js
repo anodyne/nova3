@@ -21,9 +21,12 @@ vue = {
 
 	methods: {
 		removePage: function (pageId) {
-			$('#removePage').modal({
-				remote: novaUrl("/admin/pages/" + pageId + "/remove")
-			}).modal('show')
+			var identifier = '#removePage'
+			var url = novaUrl("/admin/pages/" + pageId + "/remove")
+			
+			$(identifier +' .modal-content').load(url, function () {
+				$(identifier).modal('show')
+			})
 		},
 
 		resetFilters: function () {
