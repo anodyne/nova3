@@ -38,37 +38,36 @@ class ResetPasswordController extends BaseController {
 		// Create a new notification for the user
 		$request->user()->notify(new Notifications\PasswordReset);
 
-		flash()->success("Success!", "Your password has been reset.");
+		flash()->success(_m('success-exclamation'), _m('auth-password-reset-success'));
 		
 		return redirect()->route('home');
 	}
 
 	protected function sendResetFailedResponse(Request $request, $response)
 	{
-		switch ($response)
-		{
+		switch ($response) {
 			case PasswordBroker::INVALID_USER:
 				event(new Events\PasswordResetFailed($request->get('email'), $response));
 
-				flash()->error("Error!", "No user with that email address found.");
+				flash()->error(_m('error-exclamation'), _m('auth-password-invalid-user'));
 				
-				return redirect()->back();
+				return back();
 			break;
 
 			case PasswordBroker::INVALID_PASSWORD:
 				event(new Events\PasswordResetFailed($request->get('email'), $response, Date::now()));
 
-				flash()->error("Error!", "Passwords must be at least six characters and match the confirmation.");
+				flash()->error(_m('error-exclamation'), _m('auth-password-requirements'));
 				
-				return redirect()->back()->withInput($request->only('email'));
+				return back()->withInput($request->only('email'));
 			break;
 
 			case PasswordBroker::INVALID_TOKEN:
 				event(new Events\PasswordResetFailed($request->get('email'), $response, Date::now()));
 
-				flash()->error("Error!", "This password reset token is invalid.");
+				flash()->error(_m('error-exclamation'), _m('auth-password-invalid-token'));
 				
-				return redirect()->back();
+				return back();
 			break;
 		}
 	}

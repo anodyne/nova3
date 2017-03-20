@@ -33,28 +33,63 @@ class ForgotPasswordController extends BaseController {
 			$request->only('email'), $this->resetNotifier()
 		);
 
-		switch ($response)
-		{
+		switch ($response) {
 			case PasswordBroker::RESET_LINK_SENT:
 				event(new Events\PasswordResetEmailSent($request->get('email'), Date::now()));
 
-				flash()->success("Success!", "Your password reset link has been sent.");
+				flash()->success(_m('success-exclamation'), _m('auth-password-link-sent'));
 			break;
 
 			case PasswordBroker::INVALID_USER:
 				event(new Events\PasswordResetEmailFailed($request->get('email'), $response, Date::now()));
 
-				flash()->error("Error!", "No user with that email address found.");
+				flash()->error(_m('error-exclamation'), _m('auth-password-invalid-user'));
 			break;
 		}
 
-		return redirect()->back();
+		return back();
 	}
 
 	protected function resetNotifier()
 	{
 		return function ($message) {
-			$message->subject('Your Password Reset Link');
+			$message->subject(_m('auth-password-subject'));
 		};
+	}
+
+	protected function sendResetLinkResponse($response)
+	{
+		flash()->success(_m('success-exclamation'), _m('auth-password-link-sent'));
+
+		return back();
+	}
+
+	protected function sendResetLinkFailedResponse(Request $request, $response)
+	{
+		switch ($response) {
+			case PasswordBroker::INVALID_USER:
+				event(new Events\PasswordResetEmailFailed($request->get('email'), $response));
+
+				flash()->error(_m('error-exclamation'), _m('auth-password-invalid-user'));
+				
+				return back();
+			break;
+
+			case PasswordBroker::INVALID_PASSWORD:
+				event(new Events\PasswordResetEmailFailed($request->get('email'), $response, Date::now()));
+
+				flash()->error(_m('error-exclamation'), _m('auth-password-requirements'));
+				
+				return back()->withInput($request->only('email'));
+			break;
+
+			case PasswordBroker::INVALID_TOKEN:
+				event(new Events\PasswordResetEmailFailed($request->get('email'), $response, Date::now()));
+
+				flash()->error(_m('error-exclamation'), _m('auth-password-invalid-token'));
+				
+				return back();
+			break;
+		}
 	}
 }

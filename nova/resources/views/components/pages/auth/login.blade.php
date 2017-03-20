@@ -20,10 +20,10 @@
 	<div class="card-footer">
 		<div class="row">
 			<div class="col-md-6">
-				<a href="{{ route('password.email.show') }}" class="btn btn-link btn-block">{{ _m('signin-forgot-password') }}</a>
+				<a href="{{ route('password.email.show') }}" class="btn btn-link btn-block">{{ _m('auth-forgot-password') }}</a>
 			</div>
 			<div class="col-md-6">
-				<a href="{{ route('home') }}" class="btn btn-link btn-block">{{ _m('signin-back-home') }}</a>
+				<a href="{{ route('home') }}" class="btn btn-link btn-block">{{ _m('auth-back-home') }}</a>
 			</div>
 		</div>
 	</div>
