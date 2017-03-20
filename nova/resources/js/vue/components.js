@@ -3,7 +3,7 @@ Vue.component('desktop-lg', {
 })
 
 Vue.component('desktop-sm', {
-	template: '<div class="hidden-xl-up hidden-md-down" v-cloak><slot></slot></div>'
+	template: '<div class="hidden-md-down hidden-xl-up" v-cloak><slot></slot></div>'
 })
 
 Vue.component('desktop', {
@@ -11,7 +11,7 @@ Vue.component('desktop', {
 })
 
 Vue.component('mobile', {
-	template: '<div class="hidden-lg-up" v-cloak><slot></slot></div>'
+	template: '<div class="hidden-md-up" v-cloak><slot></slot></div>'
 })
 
 Vue.component('phone', {
@@ -19,9 +19,9 @@ Vue.component('phone', {
 })
 
 Vue.component('tablet', {
-	template: '<div class="visible-sm-block" v-cloak><slot></slot></div>'
+	template: '<div class="hidden-xs-down hidden-md-up" v-cloak><slot></slot></div>'
 })
 
 Vue.component('tablet-desktop', {
-	template: '<div class="visible-sm-block visible-md-block visible-lg-block" v-cloak><slot></slot></div>'
+	template: '<div class="hidden-xs-down" v-cloak><slot></slot></div>'
 })
