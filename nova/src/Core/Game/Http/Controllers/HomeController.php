@@ -2,8 +2,8 @@
 
 use BaseController;
 
-class HomeController extends BaseController {
-
+class HomeController extends BaseController
+{
 	public function icons()
 	{
 		$this->views->put('page', 'icons');

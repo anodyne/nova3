@@ -4,8 +4,8 @@ use Role;
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class RoleDuplicated extends Event {
-
+class RoleDuplicated extends Event
+{
 	use SerializesModels;
 
 	protected $oldResource;
@@ -16,5 +16,4 @@ class RoleDuplicated extends Event {
 		$this->oldResource = $oldResource;
 		$this->newResource = $newResource;
 	}
-
 }

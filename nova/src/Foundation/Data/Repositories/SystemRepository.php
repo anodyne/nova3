@@ -1,12 +1,12 @@
 <?php namespace Nova\Foundation\Data\Repositories;
 
-use Str,
-	System as Model,
-	SystemRepositoryContract;
+use Str;
+use System as Model;
+use SystemRepositoryContract;
 use Ramsey\Uuid\Uuid;
 
-class SystemRepository extends BaseRepository implements SystemRepositoryContract {
-
+class SystemRepository extends BaseRepository implements SystemRepositoryContract
+{
 	protected $model;
 
 	public function __construct(Model $model)

@@ -1,12 +1,13 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use PDO, PDOException;
+use PDO;
+use PDOException;
 use Illuminate\Http\Request;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Database\Connectors\Connector;
 
-class ConfigDbController extends BaseController {
-
+class ConfigDbController extends BaseController
+{
 	public function info()
 	{
 		$prefix = ($this->setupType == 'install') ? 'nova_' : 'nova3_';
@@ -17,8 +18,7 @@ class ConfigDbController extends BaseController {
 
 	public function check(Request $request, Connector $connector, Filesystem $files)
 	{
-		if ($request->get('db_name') == "")
-		{
+		if ($request->get('db_name') == "") {
 			flash()->error("No Database Found", "Please enter a database name to configure your database connection.");
 			
 			return redirect()->back()->withInput();
@@ -39,11 +39,9 @@ class ConfigDbController extends BaseController {
 		// Set the connection parameters
 		config(['database.default' => session('dbDriver')]);
 
-		if (session('dbDriver') == 'sqlite')
-		{
+		if (session('dbDriver') == 'sqlite') {
 			// Make sure the database file exists
-			if ( ! $files->exists(storage_path('database.sqlite')))
-			{
+			if (! $files->exists(storage_path('database.sqlite'))) {
 				$files->put(storage_path('database.sqlite'), '');
 			}
 
@@ -54,9 +52,7 @@ class ConfigDbController extends BaseController {
 				'type'		=> config("database.default"),
 				'database'	=> config("database.connections.sqlite.database"),
 			];
-		}
-		else
-		{
+		} else {
 			config([
 				"database.connections.{session('dbDriver')}.host" => session('dbHost'),
 				"database.connections.{session('dbDriver')}.database" => session('dbName'),
@@ -75,8 +71,7 @@ class ConfigDbController extends BaseController {
 			];
 		}
 
-		try
-		{
+		try {
 			// Build the DSN
 			$dsn = (session('dbDriver') == 'sqlite')
 				? "sqlite:".config('database.connections.sqlite.database')
@@ -102,32 +97,20 @@ class ConfigDbController extends BaseController {
 			}
 
 			return redirect()->route("setup.{$this->setupType}.config.db.write");
-
-		}
-		catch (PDOException $e)
-		{
+		} catch (PDOException $e) {
 			$msg = (string) $e->getMessage();
 
-			if (stripos($msg, 'No such host is known') !== false)
-			{
+			if (stripos($msg, 'No such host is known') !== false) {
 				flash()->error("Database Host Not Found", "The database host you provided couldn't be found. Most of the time, web hosts use `localhost`, but in some instances, they set up their servers differently. Check with your web host about the proper database host to use and try again.");
-			}
-			elseif (stripos($msg, 'could not find driver') !== false)
-			{
+			} elseif (stripos($msg, 'could not find driver') !== false) {
 				flash()->error("PDO Driver Not Found", "Your server doesn't have the necessary PDO driver for connecting to the database. Contact your web host to resolve this issue.");
-			}
-			elseif (stripos($msg, 'Access denied for user') !== false)
-			{
+			} elseif (stripos($msg, 'Access denied for user') !== false) {
 				flash()->error("User/Password Issue", "The username and/or password you provided doesn't seem to work. Double check your username and/or password and try again.");
-			}
-			elseif (stripos($msg, 'Unknown database') !== false)
-			{
+			} elseif (stripos($msg, 'Unknown database') !== false) {
 				$dbName = session('dbName');
 
 				flash()->error("Database Not Found", sprintf("A successful connection was made to your database server (which means your username and password are fine) but the database `%s` couldn't be found.\r\n\r\n- Are you sure it exists?\r\n- Do you have permissions to use the `%s` database?\r\n- On some systems the name of your database is prefixed with your username, like `%s_%s`. Could that be the problem?\r\n\r\nIf you're not sure how to setup a database or what your database connection settings are, you should contact your web host.", $dbName, $dbName, session('dbUser'), $dbName));
-			}
-			else
-			{
+			} else {
 				flash()->error("Unknown Database Issue", "There was an unidentified error when trying to connect to the database. This could be caused by incorrect database connection settings or the database server being down. Check with your web host to see if there are any issues and try again.\r\n\r\n`".$e->getMessage()."`");
 			}
 
@@ -137,8 +120,7 @@ class ConfigDbController extends BaseController {
 
 	public function write(Filesystem $files)
 	{
-		if (session()->has('dbName'))
-		{
+		if (session()->has('dbName')) {
 			// Grab the config writer
 			$writer = app('nova.configWriter');
 
@@ -151,8 +133,7 @@ class ConfigDbController extends BaseController {
 				"#DB_PREFIX#"	=> session('prefix'),
 			];
 
-			if (session()->has('nova2_dbName'))
-			{
+			if (session()->has('nova2_dbName')) {
 				$dbConfigValues = array_merge($dbConfigValues, [
 					"#NOVA2_DB_HOST#"		=> session('nova2_dbHost'),
 					"#NOVA2_DB_DATABASE#"	=> session('nova2_dbName'),
@@ -163,17 +144,13 @@ class ConfigDbController extends BaseController {
 			}
 
 			// Write the database config
-			if ($this->setupType == 'install')
-			{
+			if ($this->setupType == 'install') {
 				$writer->write('database', $dbConfigValues);
-			}
-			else
-			{
+			} else {
 				$writer->write('database-nova2', $dbConfigValues, 'database');
 			}
 
-			if ($files->exists(app('path.config').'/database.php'))
-			{
+			if ($files->exists(app('path.config').'/database.php')) {
 				// Flush all the session info
 				session()->flush();
 

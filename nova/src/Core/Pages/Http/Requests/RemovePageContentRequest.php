@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class RemovePageContentRequest extends Request {
-
+class RemovePageContentRequest extends Request
+{
 	public function authorize()
 	{
 		return true;

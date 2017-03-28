@@ -1,13 +1,15 @@
 <?php namespace Nova\Core\Auth\Http\Controllers;
 
-use Date, BaseController;
+use Date;
+use BaseController;
 use Illuminate\Http\Request;
-use Nova\Core\Auth\{Events, Notifications};
+use Nova\Core\Auth\Events;
+use Nova\Core\Auth\Notifications;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
-class ResetPasswordController extends BaseController {
-
+class ResetPasswordController extends BaseController
+{
 	use ResetsPasswords;
 
 	public function __construct()
@@ -52,7 +54,7 @@ class ResetPasswordController extends BaseController {
 				flash()->error(_m('error-exclamation'), _m('auth-password-invalid-user'));
 				
 				return back();
-			break;
+				break;
 
 			case PasswordBroker::INVALID_PASSWORD:
 				event(new Events\PasswordResetFailed($request->get('email'), $response, Date::now()));
@@ -60,7 +62,7 @@ class ResetPasswordController extends BaseController {
 				flash()->error(_m('error-exclamation'), _m('auth-password-requirements'));
 				
 				return back()->withInput($request->only('email'));
-			break;
+				break;
 
 			case PasswordBroker::INVALID_TOKEN:
 				event(new Events\PasswordResetFailed($request->get('email'), $response, Date::now()));
@@ -68,7 +70,7 @@ class ResetPasswordController extends BaseController {
 				flash()->error(_m('error-exclamation'), _m('auth-password-invalid-token'));
 				
 				return back();
-			break;
+				break;
 		}
 	}
 }

@@ -1,12 +1,12 @@
 <?php namespace Nova\Core\Forms\Data\Presenters;
 
-use Form,
-	Status,
-	Markdown,
-	BasePresenter;
+use Form;
+use Status;
+use Markdown;
+use BasePresenter;
 
-class FieldPresenter extends BasePresenter {
-
+class FieldPresenter extends BasePresenter
+{
 	public function help()
 	{
 		return Markdown::parse($this->entity->help);
@@ -30,15 +30,13 @@ class FieldPresenter extends BasePresenter {
 		$attributesArr = [];
 		$valuesArr = [];
 
-		if ($field->attributes)
-		{
+		if ($field->attributes) {
 			$field->attributes->each(function ($item) use (&$attributesArr) {
 				$attributesArr[$item['name']] = $item['value'];
 			});
 		}
 
-		if ($field->values)
-		{
+		if ($field->values) {
 			$field->values->each(function ($item) use (&$valuesArr) {
 				$valuesArr[$item['value']] = $item['text'];
 			});
@@ -51,10 +49,8 @@ class FieldPresenter extends BasePresenter {
 
 	public function statusAsLabel()
 	{
-		if ($this->entity->status != Status::ACTIVE)
-		{
+		if ($this->entity->status != Status::ACTIVE) {
 			return label('danger', ucwords(Status::toString($this->entity->status)));
 		}
 	}
-
 }

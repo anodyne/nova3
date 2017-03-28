@@ -18,7 +18,7 @@ vue = {
 			this.updateKey()
 		},
 
-		updateKey: function() {
+		updateKey: function () {
 			if (this.key != "" && this.key != this.oldKey) {
 				var url = Nova.data.keyCheckUrl
 				var postData = { key: this.key }

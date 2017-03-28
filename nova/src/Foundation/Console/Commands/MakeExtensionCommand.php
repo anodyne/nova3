@@ -5,8 +5,8 @@ use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class MakeExtensionCommand extends Command {
-
+class MakeExtensionCommand extends Command
+{
 	/**
 	 * The console command name.
 	 *
@@ -82,62 +82,62 @@ class MakeExtensionCommand extends Command {
 				$this->files->makeDirectory($extensionPath, 0775, true);
 
 				// Create the QuickInstall file
-				$this->createFileFromStub('quickinstall', $replacements, $extensionPath, "extension.json");
+				$this->createFileFromStub('quickinstall', $extensionPath, 'extension.json', $replacements);
 
 				// Create an empty extension class
-				$this->createFileFromStub('extension', $replacements, $extensionPath, "Extension.php");
+				$this->createFileFromStub('extension', $extensionPath, 'Extension.php', $replacements);
 
-				if ( ! $this->option('no-controllers')) {
+				if (! $this->option('no-controllers')) {
 					// Create the directory structure
 					$this->files->makeDirectory("{$extensionPath}/Http/Controllers", 0775, true);
 
 					$controllerStub = ($this->option('include-routes')) ? 'controller-no-page' : 'controller';
 
 					// Create an empty controller
-					$this->createFileFromStub($controllerStub, $replacements, $extensionPath.'/Http/Controllers', ucfirst($name).'Controller.php');
+					$this->createFileFromStub($controllerStub, $extensionPath.'/Http/Controllers', ucfirst($name).'Controller.php', $replacements);
 				}
 
-				if ( ! $this->option('no-lang')) {
+				if (! $this->option('no-lang')) {
 					// Create the directory structure
 					$this->files->makeDirectory("{$extensionPath}/lang", 0775, true);
 
 					// Create an empty view file
-					$this->createFileFromStub('lang', $replacements, $extensionPath.'/lang', 'en.json');
+					$this->createFileFromStub('lang', $extensionPath.'/lang', 'en.json', $replacements);
 				}
 
-				if ( ! $this->option('no-views')) {
+				if (! $this->option('no-views')) {
 					// Create the directory structure
 					$this->files->makeDirectory("{$extensionPath}/views/components/pages", 0775, true);
 
 					// Create an empty view file
-					$this->createFileFromStub('view', $replacements, $extensionPath.'/views/components/pages', strtolower($name).'.blade.php');
+					$this->createFileFromStub('view', "{$extensionPath}/views/components/pages", strtolower($name).'.blade.php', $replacements);
 				}
 
 				// Create an empty config file
 				if ($this->option('include-config')) {
-					$this->createFileFromStub('config', $replacements, $extensionPath, "config.php");
+					$this->createFileFromStub('config', $extensionPath, 'config.php', $replacements);
 				}
 
 				// Create an empty routes file
 				if ($this->option('include-routes')) {
-					$this->createFileFromStub('routes', $replacements, $extensionPath, "routes.php");
+					$this->createFileFromStub('routes', $extensionPath, 'routes.php', $replacements);
 				}
 
 				// Create an empty service provider
-				if ( ! $this->option('no-provider')) {
+				if (! $this->option('no-provider')) {
 					if ($this->option('no-views')) {
-						$this->createFileFromStub('provider-no-views', $replacements, $extensionPath, "ServiceProvider.php");
+						$this->createFileFromStub('provider-no-views', $extensionPath, 'ServiceProvider.php', $replacements);
 					} else {
-						$this->createFileFromStub('provider', $replacements, $extensionPath, "ServiceProvider.php");
+						$this->createFileFromStub('provider', $extensionPath, 'ServiceProvider.php', $replacements);
 					}
 				}
 
-				$this->info("Extension structure created!");
+				$this->info('Extension structure created!');
 			}
 		}
 	}
 
-	private function createFileFromStub($stub, array $replacements = [], $path, $fileName)
+	private function createFileFromStub($stub, $path, $fileName, array $replacements = [])
 	{
 		// Grab the content from the generator
 		$content = $this->files->get(app_path("Foundation/Services/Extensions/stubs/{$stub}.stub"));

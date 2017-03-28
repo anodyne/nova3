@@ -1,11 +1,11 @@
 <?php namespace Nova\Api\V1\Transformers;
 
-use Str,
-	PageContent as Resource;
+use Str;
+use PageContent as Resource;
 use League\Fractal\TransformerAbstract as Transformer;
 
-class PageContentTransformer extends Transformer {
-
+class PageContentTransformer extends Transformer
+{
 	public function transform(Resource $resource)
 	{
 		return [
@@ -25,5 +25,4 @@ class PageContentTransformer extends Transformer {
 			],
 		];
 	}
-
 }

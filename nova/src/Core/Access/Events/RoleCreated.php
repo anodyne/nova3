@@ -4,8 +4,8 @@ use Role;
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class RoleCreated extends Event {
-
+class RoleCreated extends Event
+{
 	use SerializesModels;
 
 	protected $resource;
@@ -14,5 +14,4 @@ class RoleCreated extends Event {
 	{
 		$this->resource = $resource;
 	}
-
 }

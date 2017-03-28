@@ -1,18 +1,19 @@
 <?php namespace Nova\Core\Forms\Http\Controllers;
 
-use NovaFormTab,
-	BaseController,
-	FormRepositoryContract,
-	FormTabRepositoryContract,
-	EditFormTabRequest, CreateFormTabRequest, RemoveFormTabRequest;
+use NovaFormTab;
+use BaseController;
+use FormRepositoryContract;
+use FormTabRepositoryContract;
+use EditFormTabRequest;
+use CreateFormTabRequest;
+use RemoveFormTabRequest;
 
-class TabController extends BaseController {
-
+class TabController extends BaseController
+{
 	protected $repo;
 	protected $formRepo;
 
-	public function __construct(FormTabRepositoryContract $repo, 
-			FormRepositoryContract $forms)
+	public function __construct(FormTabRepositoryContract $repo, FormRepositoryContract $forms)
 	{
 		parent::__construct();
 
@@ -106,12 +107,9 @@ class TabController extends BaseController {
 
 		$tab = $this->repo->getById($tabId);
 
-		if ( ! $tab)
-		{
+		if (! $tab) {
 			$body = alert('danger', "Form tab could not be found.");
-		}
-		else
-		{
+		} else {
 			$form = $this->formRepo->getByKey($formKey);
 
 			$tabs = ['0' => "No tab"];
@@ -135,12 +133,9 @@ class TabController extends BaseController {
 
 		$this->authorize('remove', $tab, "You do not have permission to remove form tabs.");
 
-		if ($request->has('remove_tab_content'))
-		{
+		if ($request->has('remove_tab_content')) {
 			$this->repo->removeTabContent($tab);
-		}
-		else
-		{
+		} else {
 			$this->repo->reassignTabContent($tab, $request->get('new_tab'));
 		}
 
@@ -159,8 +154,7 @@ class TabController extends BaseController {
 
 		$count = $this->repo->countLinkIds($form, request('linkId'));
 
-		if ($count > 0)
-		{
+		if ($count > 0) {
 			return json_encode(['code' => 0]);
 		}
 
@@ -173,13 +167,10 @@ class TabController extends BaseController {
 
 		$tab = new NovaFormTab;
 
-		if (policy($tab)->edit($this->user, $tab))
-		{
-			foreach (request('tabs') as $order => $id)
-			{
+		if (policy($tab)->edit($this->user, $tab)) {
+			foreach (request('tabs') as $order => $id) {
 				$updatedTab = $this->repo->updateOrder($id, $order);
 			}
 		}
 	}
-
 }

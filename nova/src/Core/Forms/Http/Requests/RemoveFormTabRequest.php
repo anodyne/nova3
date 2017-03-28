@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class RemoveFormTabRequest extends Request {
-
+class RemoveFormTabRequest extends Request
+{
 	public function authorize()
 	{
 		return true;
@@ -18,5 +18,4 @@ class RemoveFormTabRequest extends Request {
 	{
 		return [];
 	}
-
 }

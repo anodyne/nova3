@@ -1,15 +1,15 @@
 <?php namespace Nova\Core\Pages\Data;
 
-use Menu,
-	Model,
-	MenuItem,
-	PagePresenter,
-	PageContent as PageContentModel;
+use Menu;
+use Model;
+use MenuItem;
+use PagePresenter;
+use PageContent as PageContentModel;
 use Illuminate\Support\Collection;
 use Laracasts\Presenter\PresentableTrait;
 
-class Page extends Model {
-
+class Page extends Model
+{
 	use PresentableTrait;
 
 	protected $table = 'pages';

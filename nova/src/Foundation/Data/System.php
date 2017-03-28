@@ -3,8 +3,8 @@
 use Model;
 use GuzzleHttp\Client;
 
-class System extends Model {
-
+class System extends Model
+{
 	protected $table = 'system_info';
 
 	protected $fillable = ['uuid', 'version_major', 'version_minor',
@@ -45,7 +45,9 @@ class System extends Model {
 			'files' => config('nova.app.version.full')
 		]);
 
-		if ($type) return $versionInfo->get($type);
+		if ($type) {
+			return $versionInfo->get($type);
+		}
 
 		return $versionInfo;
 	}

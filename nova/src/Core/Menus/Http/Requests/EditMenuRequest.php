@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class EditMenuRequest extends Request {
-
+class EditMenuRequest extends Request
+{
 	public function authorize()
 	{
 		return true;
@@ -24,5 +24,4 @@ class EditMenuRequest extends Request {
 			'key.required' => "Please enter a key for the menu",
 		];
 	}
-
 }

@@ -2,8 +2,8 @@
 
 use BasePresenter;
 
-class CharacterPresenter extends BasePresenter {
-
+class CharacterPresenter extends BasePresenter
+{
 	public function name()
 	{
 		$arr = [$this->entity->first_name, $this->entity->last_name];

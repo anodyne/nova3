@@ -3,8 +3,8 @@
 use Permission as Resource;
 use League\Fractal\TransformerAbstract as Transformer;
 
-class PermissionTransformer extends Transformer {
-
+class PermissionTransformer extends Transformer
+{
 	public function transform(Resource $resource)
 	{
 		$permission = [
@@ -21,5 +21,4 @@ class PermissionTransformer extends Transformer {
 
 		return $permission;
 	}
-
 }

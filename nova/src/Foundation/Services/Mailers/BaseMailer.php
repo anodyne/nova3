@@ -3,8 +3,8 @@
 use Illuminate\Contracts\Mail\Mailer;
 use Nova\Foundation\Services\Locator\Locatable;
 
-class BaseMailer {
-
+class BaseMailer
+{
 	protected $mailer;
 	protected $locator;
 	protected $settings;
@@ -36,28 +36,24 @@ class BaseMailer {
 
 	protected function buildMessage(array $payload)
 	{
-		return function ($message) use ($payload)
-		{
+		return function ($message) use ($payload) {
 			$calls = ['to', 'cc', 'bcc', 'from', 'replyTo'];
 
-			foreach ($calls as $call)
-			{
-				if (array_key_exists($call, $payload))
-				{
+			foreach ($calls as $call) {
+				if (array_key_exists($call, $payload)) {
 					call_user_func_array([$message, $call], [$payload[$call]]);
 				}
 			}
 
-			if (array_key_exists('subject', $payload))
-			{
+			if (array_key_exists('subject', $payload)) {
 				$subjectMask = "[%s] %s";
 
-				$message->subject(sprintf($subjectMask, 
-					app('nova.settings')->mail_subject_prefix, 
+				$message->subject(sprintf(
+					$subjectMask,
+					app('nova.settings')->mail_subject_prefix,
 					$payload['subject']
 				));
 			}
 		};
 	}
-
 }

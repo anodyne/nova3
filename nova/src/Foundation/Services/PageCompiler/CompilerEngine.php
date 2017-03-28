@@ -1,7 +1,7 @@
 <?php namespace Nova\Foundation\Services\PageCompiler;
 
-class CompilerEngine {
-
+class CompilerEngine
+{
 	protected $tags = ['{%', '%}'];
 	protected $pattern;
 	protected $compilers = [];
@@ -80,7 +80,7 @@ class CompilerEngine {
 	 */
 	public function removeCompiler($key)
 	{
-		if ( ! array_key_exists($key, $this->compilers)) {
+		if (! array_key_exists($key, $this->compilers)) {
 			throw new PageCompilerNotRegisteredException;
 		}
 

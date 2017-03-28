@@ -5,7 +5,7 @@
 <div v-cloak>
 	<mobile>
 		@can('manage', $form)
-			<p><a href="{{ route('admin.forms') }}" class="btn btn-default btn-lg btn-block">{!! icon('arrow-back') !!}<span>Back to Forms</span></a></p>
+			<p><a href="{{ route('admin.forms') }}" class="btn btn-secondary btn-lg btn-block">{!! icon('arrow-back') !!}<span>Back to Forms</span></a></p>
 		@endcan
 		@can('create', $field)
 			<p><a href="{{ route('admin.forms.fields.create', $form->key) }}" class="btn btn-success btn-lg btn-block">{!! icon('add') !!}<span>Add a Field</span></a></p>
@@ -15,7 +15,7 @@
 		<div class="btn-toolbar">
 			@can('manage', $form)
 				<div class="btn-group">
-					<a href="{{ route('admin.forms') }}" class="btn btn-default">{!! icon('arrow-back') !!}<span>Back to Forms</span></a>
+					<a href="{{ route('admin.forms') }}" class="btn btn-secondary">{!! icon('arrow-back') !!}<span>Back to Forms</span></a>
 				</div>
 			@endcan
 			@can('create', $field)

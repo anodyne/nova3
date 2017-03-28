@@ -3,8 +3,8 @@
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class PasswordResetEmailSent extends Event {
-
+class PasswordResetEmailSent extends Event
+{
 	use SerializesModels;
 
 	public $email;

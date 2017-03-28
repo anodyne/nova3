@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Forms\Services\FieldTypes;
 
-class FieldTypeManager {
-
+class FieldTypeManager
+{
 	protected $types;
 	protected $requiredInfoKeys = ['name', 'value', 'hasValues', 'values', 'baseHTML'];
 
@@ -17,8 +17,7 @@ class FieldTypeManager {
 
 	public function getFieldType($alias)
 	{
-		if ($this->types->has($alias))
-		{
+		if ($this->types->has($alias)) {
 			return $this->types->get($alias);
 		}
 
@@ -27,16 +26,14 @@ class FieldTypeManager {
 
 	public function registerFieldType($alias, $concrete)
 	{
-		if ($this->types->has($alias))
-		{
+		if ($this->types->has($alias)) {
 			throw new FieldTypeException("A field type is already registered with an alias of {$alias}. Please select another field type alias.");
 		}
 
 		// Get the differences between the arrays
 		$diffArr = array_diff($this->requiredInfoKeys, array_keys($concrete->info()));
 
-		if (count($diffArr) > 0)
-		{
+		if (count($diffArr) > 0) {
 			throw new FieldTypeException("The info array does not contain all of the required elements.");
 		}
 
@@ -45,5 +42,4 @@ class FieldTypeManager {
 
 		return $this;
 	}
-
 }

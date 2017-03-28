@@ -3,10 +3,11 @@
 use Str;
 use stdClass;
 use Illuminate\Routing\Controller;
-use Illuminate\Foundation\{Bus\DispatchesJobs, Validation\ValidatesRequests};
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
-abstract class BaseController extends Controller {
-
+abstract class BaseController extends Controller
+{
 	use DispatchesJobs, ValidatesRequests;
 
 	public $app;
@@ -145,7 +146,7 @@ abstract class BaseController extends Controller {
 
 		if ($this->page->access and $this->page->access->count() > 0) {
 			// Make sure the user is authenticated
-			if ( ! $this->user) {
+			if (! $this->user) {
 				return $this->errorUnauthenticated("You must log in to continue");
 			}
 
@@ -160,11 +161,13 @@ abstract class BaseController extends Controller {
 
 			foreach ($this->page->access as $access) {
 				if ($isStrict) {
-					if ( ! $this->user->{$method}($access['key'])) {
+					if (! $this->user->{$method}($access['key'])) {
 						return $this->errorUnauthorized("You do not have permission to view the {$this->page->name} page.");
 					}
 				} else {
-					if ($this->user->{$method}($access['key'])) break;
+					if ($this->user->{$method}($access['key'])) {
+						break;
+					}
 
 					return $this->errorUnauthorized("You do not have permission to view the {$this->page->name} page.");
 				}

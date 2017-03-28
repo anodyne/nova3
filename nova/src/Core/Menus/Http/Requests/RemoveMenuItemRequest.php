@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class RemoveMenuItemRequest extends Request {
-
+class RemoveMenuItemRequest extends Request
+{
 	public function authorize()
 	{
 		return true;
@@ -18,5 +18,4 @@ class RemoveMenuItemRequest extends Request {
 	{
 		return [];
 	}
-
 }

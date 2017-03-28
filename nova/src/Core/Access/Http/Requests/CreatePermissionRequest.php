@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class CreatePermissionRequest extends Request {
-
+class CreatePermissionRequest extends Request
+{
 	public function authorize()
 	{
 		return true;
@@ -26,5 +26,4 @@ class CreatePermissionRequest extends Request {
 			'action.required' => "Please enter an action",
 		];
 	}
-
 }

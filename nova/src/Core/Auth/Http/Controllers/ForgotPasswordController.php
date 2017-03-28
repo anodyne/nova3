@@ -1,13 +1,14 @@
 <?php namespace Nova\Core\Auth\Http\Controllers;
 
-use Date, BaseController;
+use Date;
+use BaseController;
 use Nova\Core\Auth\Events;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
-class ForgotPasswordController extends BaseController {
-	
+class ForgotPasswordController extends BaseController
+{
 	use SendsPasswordResetEmails;
 
 	public function __construct()
@@ -30,7 +31,8 @@ class ForgotPasswordController extends BaseController {
 		$this->validate($request, ['email' => 'required|email']);
 
 		$response = $this->broker()->sendResetLink(
-			$request->only('email'), $this->resetNotifier()
+			$request->only('email'),
+			$this->resetNotifier()
 		);
 
 		switch ($response) {
@@ -38,13 +40,13 @@ class ForgotPasswordController extends BaseController {
 				event(new Events\PasswordResetEmailSent($request->get('email'), Date::now()));
 
 				flash()->success(_m('success-exclamation'), _m('auth-password-link-sent'));
-			break;
+				break;
 
 			case PasswordBroker::INVALID_USER:
 				event(new Events\PasswordResetEmailFailed($request->get('email'), $response, Date::now()));
 
 				flash()->error(_m('error-exclamation'), _m('auth-password-invalid-user'));
-			break;
+				break;
 		}
 
 		return back();
@@ -73,7 +75,7 @@ class ForgotPasswordController extends BaseController {
 				flash()->error(_m('error-exclamation'), _m('auth-password-invalid-user'));
 				
 				return back();
-			break;
+				break;
 
 			case PasswordBroker::INVALID_PASSWORD:
 				event(new Events\PasswordResetEmailFailed($request->get('email'), $response, Date::now()));
@@ -81,7 +83,7 @@ class ForgotPasswordController extends BaseController {
 				flash()->error(_m('error-exclamation'), _m('auth-password-requirements'));
 				
 				return back()->withInput($request->only('email'));
-			break;
+				break;
 
 			case PasswordBroker::INVALID_TOKEN:
 				event(new Events\PasswordResetEmailFailed($request->get('email'), $response, Date::now()));
@@ -89,7 +91,7 @@ class ForgotPasswordController extends BaseController {
 				flash()->error(_m('error-exclamation'), _m('auth-password-invalid-token'));
 				
 				return back();
-			break;
+				break;
 		}
 	}
 }

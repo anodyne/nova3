@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class UpdateSettingsRequest extends Request {
-
+class UpdateSettingsRequest extends Request
+{
 	/**
 	 * Determine if the user is authorized to make this request.
 	 *
@@ -34,5 +34,4 @@ class UpdateSettingsRequest extends Request {
 			'theme.required' => "Please select a theme",
 		];
 	}
-
 }

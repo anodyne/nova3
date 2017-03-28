@@ -1,11 +1,11 @@
 <?php namespace Nova\Foundation\Providers;
 
-use Symfony\Component\Finder\Finder,
-	Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use Illuminate\Support\ServiceProvider;
 
-class ExtensionServiceProvider extends ServiceProvider {
-
+class ExtensionServiceProvider extends ServiceProvider
+{
 	/**
 	 * Bootstrap any application services.
 	 *

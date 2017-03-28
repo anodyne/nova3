@@ -6,7 +6,7 @@
 	<div v-cloak>
 		<mobile>
 			<p>{!! Form::button("Remove Form Field", ['type' => 'submit', 'class' => 'btn btn-danger btn-lg btn-block']) !!}</p>
-			<p>{!! Form::button("Cancel", ['class' => 'btn btn-default btn-lg btn-block', 'data-dismiss' => 'modal']) !!}</p>
+			<p>{!! Form::button("Cancel", ['class' => 'btn btn-secondary btn-lg btn-block', 'data-dismiss' => 'modal']) !!}</p>
 		</mobile>
 		<desktop>
 			{!! Form::button("Remove Form Field", ['type' => 'submit', 'class' => 'btn btn-danger btn-lg']) !!}

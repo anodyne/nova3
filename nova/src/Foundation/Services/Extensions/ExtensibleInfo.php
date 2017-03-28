@@ -1,7 +1,7 @@
 <?php namespace Nova\Foundation\Services\Extensions;
 
-interface ExtensibleInfo {
-
+interface ExtensibleInfo
+{
 	public function getAuthor();
 	public function getCredits($raw = false);
 	public function getFullName();

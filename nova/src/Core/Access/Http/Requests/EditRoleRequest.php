@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class EditRoleRequest extends Request {
-
+class EditRoleRequest extends Request
+{
 	public function authorize()
 	{
 		return true;
@@ -24,5 +24,4 @@ class EditRoleRequest extends Request {
 			'key.required' => "Please enter a key",
 		];
 	}
-
 }

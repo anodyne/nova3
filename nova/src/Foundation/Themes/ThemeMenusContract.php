@@ -1,9 +1,10 @@
 <?php namespace Nova\Foundation\Themes;
 
-use Page, MenuItem;
+use Page;
+use MenuItem;
 
-interface ThemeMenusContract {
-
+interface ThemeMenusContract
+{
 	public function adminMenu(Page $page = null);
 	public function buildAdminCombinedMenu();
 	public function buildAdminMainMenu();

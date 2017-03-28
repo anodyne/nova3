@@ -86,5 +86,8 @@
 	"pages-verb-popup-put-explain": "If the URI refers to an already existing resource, a PUT request takes its data and tries to replace that data for the specific resource. This is most often used for updating existing pieces of data on the server or in the database.",
 	"pages-verb-question": "What Are HTTP Verbs?",
 
+	"users-add": "Add a User",
+	"users-filter": "Filter users by name, character, or email",
+
 	"validate-required": "The $2 field is required."
 }

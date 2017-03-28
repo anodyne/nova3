@@ -1,18 +1,18 @@
 <?php namespace Nova\Core\Users\Data;
 
-use Status,
-	HasRoles,
-	Character,
-	NovaFormEntry,
-	UserPresenter,
-	FormCenterUserTrait;
+use Status;
+use HasRoles;
+use Character;
+use NovaFormEntry;
+use UserPresenter;
+use FormCenterUserTrait;
 use Illuminate\Notifications\Notifiable;
 use Laracasts\Presenter\PresentableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable {
-
+class User extends Authenticatable
+{
 	use SoftDeletes, Notifiable;
 	use PresentableTrait, HasRoles, FormCenterUserTrait;
 
@@ -63,7 +63,9 @@ class User extends Authenticatable {
 
 	public function canBeDeleted()
 	{
-		if ($this->characters->count() > 0) return false;
+		if ($this->characters->count() > 0) {
+			return false;
+		}
 
 		return true;
 	}
@@ -80,8 +82,7 @@ class User extends Authenticatable {
 	{
 		$item = $this->userPreferences->where('key', $key);
 
-		if ($item->count() > 0)
-		{
+		if ($item->count() > 0) {
 			return $item->first()->value;
 		}
 

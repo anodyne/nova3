@@ -1,9 +1,10 @@
 <?php namespace Nova\Core\Forms\Services\FieldTypes;
 
-use Form, Markdown;
+use Form;
+use Markdown;
 
-class TextEditor implements FieldTypeInterface {
-
+class TextEditor implements FieldTypeInterface
+{
 	public function info()
 	{
 		return [
@@ -23,8 +24,7 @@ class TextEditor implements FieldTypeInterface {
 
 	public function render($state, $name, $values, $data, array $attributes)
 	{
-		if ($state == 'view')
-		{
+		if ($state == 'view') {
 			return $this->renderStatic($data);
 		}
 
@@ -40,5 +40,4 @@ class TextEditor implements FieldTypeInterface {
 	{
 		return '<p class="form-field-static">'.$data.'</p>';
 	}
-
 }

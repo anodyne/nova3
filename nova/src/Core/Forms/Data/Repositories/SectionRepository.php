@@ -1,12 +1,12 @@
 <?php namespace Nova\Core\Forms\Data\Repositories;
 
-use NovaForm,
-	NovaFormSection as Model,
-	FormSectionRepositoryContract;
+use NovaForm;
+use NovaFormSection as Model;
+use FormSectionRepositoryContract;
 use Nova\Core\Forms\Events;
 
-class SectionRepository extends BaseFormRepository implements FormSectionRepositoryContract {
-
+class SectionRepository extends BaseFormRepository implements FormSectionRepositoryContract
+{
 	protected $model;
 
 	public function __construct(Model $model)
@@ -34,8 +34,7 @@ class SectionRepository extends BaseFormRepository implements FormSectionReposit
 
 	public function getBoundSections(NovaForm $form)
 	{
-		return $form->sections->filter(function ($section)
-		{
+		return $form->sections->filter(function ($section) {
 			return (int) $section->tab_id > 0;
 		});
 	}
@@ -50,8 +49,7 @@ class SectionRepository extends BaseFormRepository implements FormSectionReposit
 	public function reassignSectionContent(Model $oldSection, $newSectionId)
 	{
 		// Reassign any fields
-		$oldSection->fields->each(function ($field) use ($newSectionId)
-		{
+		$oldSection->fields->each(function ($field) use ($newSectionId) {
 			app('FormFieldRepository')->update($field, ['section_id' => $newSectionId]);
 		});
 	}
@@ -59,11 +57,9 @@ class SectionRepository extends BaseFormRepository implements FormSectionReposit
 	public function removeSectionContent(Model $section)
 	{
 		// Remove any fields
-		$section->fields->each(function ($field)
-		{
+		$section->fields->each(function ($field) {
 			// First remove any data associated with the field
-			$field->data->each(function ($row)
-			{
+			$field->data->each(function ($row) {
 				$row->delete();
 			});
 
@@ -89,5 +85,4 @@ class SectionRepository extends BaseFormRepository implements FormSectionReposit
 
 		return $section;
 	}
-
 }

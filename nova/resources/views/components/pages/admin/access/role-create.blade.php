@@ -16,14 +16,14 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-md-8 col-md-offset-3">
-				<p class="help-block">Role keys are a unique name for the role mainly used for looking up role information quickly. This should not be confused with the name that is a human-readable form of the key.</p>
+			<div class="col-md-6 col-md-offset-3">
+				<p class="help-block">Role keys are a unique name for the role primarily used for looking up role information quickly. This should not be confused with the name which is a human-readable form of the key.</p>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-md-3 control-label">Description</label>
-			<div class="col-md-8">
+			<div class="col-md-6">
 				{!! Form::textarea('description', null, ['class' => 'form-control input-lg', 'rows' => 4, 'v-model' => 'description']) !!}
 			</div>
 		</div>
@@ -50,97 +50,43 @@
 						</div>
 						<div class="col-md-4"></div>
 					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<p>Access</p>
-						</div>
-						<div class="col-md-2">
-							<p class="text-center"><input type="checkbox"></p>
-						</div>
-						<div class="col-md-2">
-							<p class="text-center"><input type="checkbox"></p>
-						</div>
-						<div class="col-md-2">
-							<p class="text-center"><input type="checkbox"></p>
-						</div>
-						<div class="col-md-2"></div>
-						<div class="col-md-4"></div>
-					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<p>Form</p>
-						</div>
-						<div class="col-md-2">
-							<p class="text-center"><input type="checkbox"></p>
-						</div>
-						<div class="col-md-2">
-							<p class="text-center"><input type="checkbox"></p>
-						</div>
-						<div class="col-md-2">
-							<p class="text-center"><input type="checkbox"></p>
-						</div>
-						<div class="col-md-2"></div>
-						<div class="col-md-4"></div>
-					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<p>Form Center</p>
-						</div>
-						<div class="col-md-2">
-							<p class="text-center"><input type="checkbox" checked disabled></p>
-						</div>
-						<div class="col-md-2">
-							<p class="text-center"><input type="checkbox"></p>
-						</div>
-						<div class="col-md-2">
-							<p class="text-center"><input type="checkbox"></p>
-						</div>
-						<div class="col-md-2">
-							<p class="text-center"><input type="checkbox"></p>
-						</div>
-						<div class="col-md-4"></div>
-					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<p>Menu</p>
-						</div>
-						<div class="col-md-2">
-							<p class="text-center"><input type="checkbox"></p>
-						</div>
-						<div class="col-md-2">
-							<p class="text-center"><input type="checkbox"></p>
-						</div>
-						<div class="col-md-2">
-							<p class="text-center"><input type="checkbox"></p>
-						</div>
-						<div class="col-md-2"></div>
-					</div>
-				</div>
-			</div>
-		</div>
 
-		<div class="form-group">
-			<label class="col-md-3 control-label">Permissions</label>
-			<div class="col-md-9">
-				@foreach ($permissions as $component => $permission)
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title">{{ $component }}</h3>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								@foreach ($permission as $p)
-									<div class="col-md-4">
-										<label class="checkbox-inline">
-											{!! Form::checkbox('permissions[]', $p->id, false, ['v-model' => 'permissions']) !!}
-											{!! $p->present()->name !!}
-										</label>
-									</div>
-								@endforeach
+					@foreach ($permissions as $component => $permission)
+						<div class="row">
+							<div class="col-md-4">
+								<p>{{ ucwords(str_replace('-', ' ', $component)) }}</p>
+							</div>
+							<div class="col-md-2">
+								@if (array_key_exists('create', $permission))
+									<p class="text-center">
+										{!! Form::checkbox('permissions[]', $permission['create']->id, null, ['v-model' => 'permissions']) !!}
+									</p>
+								@endif
+							</div>
+							<div class="col-md-2">
+								@if (array_key_exists('edit', $permission))
+									<p class="text-center">
+										{!! Form::checkbox('permissions[]', $permission['edit']->id, null, ['v-model' => 'permissions']) !!}
+									</p>
+								@endif
+							</div>
+							<div class="col-md-2">
+								@if (array_key_exists('remove', $permission))
+									<p class="text-center">
+										{!! Form::checkbox('permissions[]', $permission['remove']->id, null, ['v-model' => 'permissions']) !!}
+									</p>
+								@endif
+							</div>
+							<div class="col-md-2">
+								@if (array_key_exists('view', $permission))
+									<p class="text-center">
+										{!! Form::checkbox('permissions[]', $permission['view']->id, null, ['v-model' => 'permissions']) !!}
+									</p>
+								@endif
 							</div>
 						</div>
-					</div>
-				@endforeach
+					@endforeach
+				</div>
 			</div>
 		</div>
 

@@ -3,8 +3,8 @@
 use Request;
 use Illuminate\Routing\Controller;
 
-abstract class BaseController extends Controller {
-
+abstract class BaseController extends Controller
+{
 	protected $setupType;
 
 	public function __construct()

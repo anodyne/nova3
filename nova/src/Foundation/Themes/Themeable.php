@@ -1,9 +1,10 @@
 <?php namespace Nova\Foundation\Themes;
 
-use Page, MenuItem;
+use Page;
+use MenuItem;
 
-interface Themeable {
-
+interface Themeable
+{
 	/**
 	 * Build the theme structure.
 	 *

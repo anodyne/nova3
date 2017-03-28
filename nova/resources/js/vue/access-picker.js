@@ -82,7 +82,7 @@ Vue.component('access-picker', {
 
 		var cvm = this
 
-		$('.typeaheadInput').bind('typeahead:select', function(ev, suggestion) {
+		$('.typeaheadInput').bind('typeahead:select', function (ev, suggestion) {
 			cvm.selected = suggestion
 			cvm.reset()
 		})

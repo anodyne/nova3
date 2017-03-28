@@ -1,9 +1,10 @@
 <?php namespace Nova\Core\Users\Listeners;
 
-use Mail, AdminRestoredUserMailer;
+use Mail;
+use AdminRestoredUserMailer;
 
-class EmailRestoredUserPassword {
-
+class EmailRestoredUserPassword
+{
 	public function handle($event)
 	{
 		Mail::to($event->user->email)

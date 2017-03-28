@@ -4,8 +4,9 @@ Vue.filter('filterByCheckboxes', function (value, choices, filterKey) {
 	})
 	
 	return value.filter(function (item) {
-		if (choicesArr.length > 0)
+		if (choicesArr.length > 0) {
 			return $.inArray(item[filterKey], choicesArr) > -1
+		}
 		
 		return true
 	})

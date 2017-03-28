@@ -6,8 +6,8 @@ use Illuminate\Filesystem\FilesystemManager;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class NovaRefreshCommand extends Command {
-
+class NovaRefreshCommand extends Command
+{
 	protected $name = 'nova:refresh';
 	protected $description = 'Refresh the Nova installation';
 	protected $files;
@@ -27,8 +27,7 @@ class NovaRefreshCommand extends Command {
 
 		$this->info("Clearing the cache...");
 
-		if ($this->files->has('installed.json'))
-		{
+		if ($this->files->has('installed.json')) {
 			$this->files->delete('installed.json');
 		}
 

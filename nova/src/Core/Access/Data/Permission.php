@@ -1,12 +1,12 @@
 <?php namespace Nova\Core\Access\Data;
 
-use Model,
-	Role as RoleModel,
-	PermissionPresenter;
+use Model;
+use Role as RoleModel;
+use PermissionPresenter;
 use Laracasts\Presenter\PresentableTrait;
 
-class Permission extends Model {
-
+class Permission extends Model
+{
 	use PresentableTrait;
 
 	protected $table = 'permissions';
@@ -50,5 +50,4 @@ class Permission extends Model {
 	{
 		return route('admin.access.permissions.edit', [$this->id]);
 	}
-
 }

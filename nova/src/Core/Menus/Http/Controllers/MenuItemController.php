@@ -1,25 +1,28 @@
 <?php namespace Nova\Core\Menus\Http\Controllers;
 
-use Str,
-	MenuItem,
-	BaseController,
-	MenuRepositoryContract,
-	PageRepositoryContract,
-	MenuItemRepositoryContract,
-	EditMenuItemRequest, CreateMenuItemRequest, RemoveMenuItemRequest;
+use Str;
+use MenuItem;
+use BaseController;
+use MenuRepositoryContract;
+use PageRepositoryContract;
+use MenuItemRepositoryContract;
+use EditMenuItemRequest;
+use CreateMenuItemRequest;
+use RemoveMenuItemRequest;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Foundation\Application;
 
-class MenuItemController extends BaseController {
-
+class MenuItemController extends BaseController
+{
 	protected $repo;
 	protected $menuRepo;
 	protected $pagesRepo;
 
-	public function __construct(MenuItemRepositoryContract $repo,
-			MenuRepositoryContract $menus,
-			PageRepositoryContract $pages)
-	{
+	public function __construct(
+		MenuItemRepositoryContract $repo,
+		MenuRepositoryContract $menus,
+		PageRepositoryContract $pages
+	) {
 		parent::__construct();
 
 		$this->isAdmin = true;
@@ -169,14 +172,11 @@ class MenuItemController extends BaseController {
 
 		$item = $this->repo->find($itemId);
 
-		if (policy($item)->remove($this->user))
-		{
+		if (policy($item)->remove($this->user)) {
 			$body = ($item)
 				? view(locate('page', 'admin/menus/menu-item-remove'), compact('item'))
 				: alert('danger', "Menu item not found.");
-		}
-		else
-		{
+		} else {
 			$body = alert('danger', "You do not have permission to remove menu items.");
 		}
 
@@ -202,9 +202,11 @@ class MenuItemController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		if ($this->user->cannot('menu.create'))
-		{
-			return json_encode(['code' => 0, 'message' => "You do not have permission to create menu items."]);
+		if ($this->user->cannot('menu.create')) {
+			return json_encode([
+				'code' => 0,
+				'message' => "You do not have permission to create menu items."
+			]);
 		}
 
 		$divider = $this->repo->createDivider(['menu_id' => $request->get('menu')]);
@@ -216,12 +218,10 @@ class MenuItemController extends BaseController {
 	{
 		$this->isAjax = true;
 
-		if ($this->user->can('menu.edit'))
-		{
+		if ($this->user->can('menu.edit')) {
 			$menu = $this->menuRepo->find($request->get('menu'));
 
 			$this->repo->reorder($menu, $request->get('positions'));
 		}
 	}
-
 }

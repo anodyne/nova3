@@ -1,11 +1,11 @@
 <?php namespace Nova\Foundation;
 
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Foundation\ProviderRepository,
-	Illuminate\Foundation\Application as IlluminateApp;
+use Illuminate\Foundation\ProviderRepository;
+use Illuminate\Foundation\Application as IlluminateApp;
 
-class Application extends IlluminateApp {
-
+class Application extends IlluminateApp
+{
 	/**
 	 * Bind all of the application paths in the container.
 	 *
@@ -227,7 +227,7 @@ class Application extends IlluminateApp {
 		];
 
 		foreach ($directories as $dir) {
-			if ( ! $this->app['files']->isWritable($dir)) {
+			if (! $this->app['files']->isWritable($dir)) {
 				dd("The [$dir] directory is not writable and must be for Laravel to work. Please set the permissions on this directory to 777.");
 			}
 		}

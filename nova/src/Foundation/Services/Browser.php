@@ -2,8 +2,8 @@
 
 use Ikimea\Browser\Browser as IkimeaBrowser;
 
-class Browser {
-
+class Browser
+{
 	protected $browser;
 
 	public function __construct(IkimeaBrowser $browser)

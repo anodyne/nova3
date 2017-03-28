@@ -2,8 +2,8 @@
 
 use Model;
 
-class Setting extends Model {
-
+class Setting extends Model
+{
 	protected $table = 'settings';
 
 	protected $fillable = ['key', 'value', 'label'];
@@ -13,5 +13,4 @@ class Setting extends Model {
 	];
 
 	protected $dates = ['created_at', 'updated_at'];
-	
 }

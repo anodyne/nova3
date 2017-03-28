@@ -3,8 +3,8 @@
 use Illuminate\Support\Collection;
 use Nova\Foundation\Themes\Theme as BaseTheme;
 
-class Theme extends BaseTheme {
-
+class Theme extends BaseTheme
+{
 	public $iconTemplate = '<i class="material-icons %2$s">%1$s</i>';
 
 	public function iconMap(): array

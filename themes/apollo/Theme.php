@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Themes\Theme as BaseTheme;
 
-class Theme extends BaseTheme {
-
+class Theme extends BaseTheme
+{
 	public $iconTemplate = '<i class="icomoon-%1$s %2$s"></i>';
 
 	public function iconMap(): array

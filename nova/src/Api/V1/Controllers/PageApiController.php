@@ -3,8 +3,8 @@
 use PageRepositoryContract;
 use Nova\Api\V1\Transformers\PageTransformer;
 
-class PageApiController extends ApiBaseController {
-
+class PageApiController extends ApiBaseController
+{
 	protected $repo;
 
 	public function __construct(PageRepositoryContract $repo)
@@ -21,12 +21,10 @@ class PageApiController extends ApiBaseController {
 	{
 		$page = $this->repo->getById($pageId);
 
-		if ( ! $page)
-		{
+		if (! $page) {
 			return $this->response->errorNotFound('Page not found');
 		}
 
 		return $this->response->item($page, new PageTransformer);
 	}
-
 }

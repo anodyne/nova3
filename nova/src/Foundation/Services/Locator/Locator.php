@@ -1,11 +1,12 @@
 <?php namespace Nova\Foundation\Services\Locator;
 
-use Str, User;
+use Str;
+use User;
 use Illuminate\Support\Collection;
 use Symfony\Component\Finder\Finder;
 
-class Locator implements Locatable {
-
+class Locator implements Locatable
+{
 	/**
 	 * @var	array	Array of paths to search through
 	 */
@@ -415,7 +416,9 @@ class Locator implements Locatable {
 		}
 
 		if ($finder->count() == 0) {
-			if ( ! $throwOnMissing) return false;
+			if (! $throwOnMissing) {
+				return false;
+			}
 
 			// Uh-oh! We didn't find anything, so throw an exception
 			throw new LocatorException("The file [{$type}/{$file}] couldn't be found.");
@@ -476,7 +479,9 @@ class Locator implements Locatable {
 		}
 
 		if ($finder->count() == 0) {
-			if ( ! $throwOnMissing) return false;
+			if (! $throwOnMissing) {
+				return false;
+			}
 
 			// Uh-oh! We didn't find anything, so throw an exception
 			throw new LocatorException("The file [{$type}/{$file}] couldn't be found.");
@@ -523,7 +528,9 @@ class Locator implements Locatable {
 	 */
 	protected function findCurrentTheme()
 	{
-		if ( ! nova()->isInstalled()) return false;
+		if (! nova()->isInstalled()) {
+			return false;
+		}
 
 		if ($this->user) {
 			return $this->user->preference('theme');

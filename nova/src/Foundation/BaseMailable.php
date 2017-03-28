@@ -4,11 +4,14 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-abstract class BaseMailable extends Mailable {
-
+abstract class BaseMailable extends Mailable
+{
 	use Queueable, SerializesModels;
 
-	public function __construct() {}
+	public function __construct()
+	{
+		//
+	}
 
 	public function subject($subject)
 	{

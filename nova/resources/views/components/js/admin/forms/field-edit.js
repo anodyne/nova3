@@ -260,7 +260,8 @@ vue = {
 	}
 }
 
-function find(item, name) {
+function find(item, name)
+{
 	if ( ! vue.data[item]) {
 		return
 	}

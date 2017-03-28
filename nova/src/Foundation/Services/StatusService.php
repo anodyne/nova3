@@ -2,8 +2,8 @@
 
 use Exception;
 
-class StatusService {
-
+class StatusService
+{
 	const PENDING		= 1;
 	const ACTIVE		= 2;
 	const INACTIVE		= 3;

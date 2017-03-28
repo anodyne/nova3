@@ -3,10 +3,11 @@
 use File;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\FilesystemManager;
-use Symfony\Component\Console\Input\{InputOption, InputArgument};
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputArgument;
 
-class NovaUninstallCommand extends Command {
-
+class NovaUninstallCommand extends Command
+{
 	protected $name = 'nova:uninstall';
 	protected $description = 'Remove Nova entirely';
 	protected $files;
@@ -23,8 +24,7 @@ class NovaUninstallCommand extends Command {
 		$this->info("Clearing the cache...");
 		cache()->flush();
 
-		if ($this->files->has('installed.json'))
-		{
+		if ($this->files->has('installed.json')) {
 			$this->files->delete('installed.json');
 		}
 
@@ -42,8 +42,7 @@ class NovaUninstallCommand extends Command {
 		File::delete(app('path.config').'/session.php');
 
 		// Remove the SQLite database if it's there
-		if (File::exists(config('database.connections.sqlite.database')))
-		{
+		if (File::exists(config('database.connections.sqlite.database'))) {
 			$this->info("Removing SQLite database file...");
 			File::delete(config('database.connections.sqlite.database'));
 		}

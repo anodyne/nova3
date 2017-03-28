@@ -3,12 +3,11 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNotificationsTable extends Migration {
-
+class CreateNotificationsTable extends Migration
+{
 	public function up()
 	{
-		Schema::create('notifications', function (Blueprint $table)
-		{
+		Schema::create('notifications', function (Blueprint $table) {
 			$table->string('id')->primary();
 			$table->string('type');
 			$table->morphs('notifiable');
@@ -17,8 +16,7 @@ class CreateNotificationsTable extends Migration {
 			$table->timestamps();
 		});
 
-		/*Schema::create('notifications', function (Blueprint $table)
-		{
+		/*Schema::create('notifications', function (Blueprint $table) {
 			$table->string('id')->primary();
 			$table->integer('user_id');
 			$table->integer('created_by')->nullable(); // Null created_by means the system created it

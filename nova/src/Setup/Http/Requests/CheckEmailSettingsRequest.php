@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class CheckEmailSettingsRequest extends Request {
-
+class CheckEmailSettingsRequest extends Request
+{
 	/**
 	 * Determine if the user is authorized to make this request.
 	 *
@@ -52,5 +52,4 @@ class CheckEmailSettingsRequest extends Request {
 			'services_sparkpost_secret.required_if' => "Please enter your SparkPost secret key",
 		];
 	}
-
 }

@@ -2,8 +2,8 @@
 
 use BasePresenter;
 
-class PagePresenter extends BasePresenter {
-
+class PagePresenter extends BasePresenter
+{
 	public function access()
 	{
 		// Find the permission
@@ -54,19 +54,19 @@ class PagePresenter extends BasePresenter {
 		switch ($verb) {
 			case 'GET':
 				$level = 'success';
-			break;
+				break;
 
 			case 'PUT':
 				$level = 'info';
-			break;
+				break;
 
 			case 'POST':
 				$level = 'warning';
-			break;
+				break;
 
 			case 'DELETE':
 				$level = 'danger';
-			break;
+				break;
 		}
 
 		return label($level, $verb);

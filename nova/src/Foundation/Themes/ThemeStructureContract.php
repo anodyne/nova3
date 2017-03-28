@@ -1,7 +1,7 @@
 <?php namespace Nova\Foundation\Themes;
 
-interface ThemeStructureContract {
-
+interface ThemeStructureContract
+{
 	public function structure($view, array $data);
 	public function template($view, array $data);
 	public function page($view, array $data);

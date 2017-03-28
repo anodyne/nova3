@@ -2,4 +2,7 @@
 
 use BasePresenter;
 
-class DataPresenter extends BasePresenter {}
+class DataPresenter extends BasePresenter
+{
+	//
+}

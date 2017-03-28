@@ -1,12 +1,12 @@
 <?php namespace Nova\Core\Users\Http\Controllers;
 
-use User,
-	BaseController,
-	UserRepositoryContract;
+use User;
+use BaseController;
+use UserRepositoryContract;
 use Illuminate\Http\Request;
 
-class UserCaptureController extends BaseController {
-
+class UserCaptureController extends BaseController
+{
 	protected $repo;
 
 	public function __construct(UserRepositoryContract $repo)
@@ -28,8 +28,7 @@ class UserCaptureController extends BaseController {
 		// Get the user
 		$user = $this->repo->findById($userId);
 
-		if ($user)
-		{
+		if ($user) {
 			// Make sure the user is allowed to export THIS user
 
 			// If the user is trying to export their own user, they can always do it
@@ -45,11 +44,9 @@ class UserCaptureController extends BaseController {
 		// Get all users
 		$users = $this->repo->all();
 
-		if ($users->count() > 0)
-		{
+		if ($users->count() > 0) {
 			// Only admins can export everything
-			if (policy(new User)->exportAll($this->user))
-			{
+			if (policy(new User)->exportAll($this->user)) {
 				// Store the exported users as a text file and offer it up for download
 
 				return response()->download($file, 'filename.json', $headers);

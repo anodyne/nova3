@@ -1,7 +1,7 @@
 <?php namespace Nova\Foundation\Services\PageCompiler;
 
-interface CompilerContract {
-
+interface CompilerContract
+{
 	/**
 	 * Compile the content.
 	 *

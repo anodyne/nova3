@@ -2,11 +2,11 @@
 
 use ReflectionClass;
 use Illuminate\Support\ServiceProvider;
-use Nova\Foundation\Themes\Theme as BaseTheme,
-	Nova\Foundation\Themes\Exceptions\MissingThemeImplementationException;
+use Nova\Foundation\Themes\Theme as BaseTheme;
+use Nova\Foundation\Themes\Exceptions\MissingThemeImplementationException;
 
-class AppServiceProvider extends ServiceProvider {
-
+class AppServiceProvider extends ServiceProvider
+{
 	/**
 	 * Bootstrap any application services.
 	 *
@@ -87,16 +87,20 @@ class AppServiceProvider extends ServiceProvider {
 		$this->app->singleton('nova.page.compiler', function ($app) {
 			$engine = new \Nova\Foundation\Services\PageCompiler\CompilerEngine;
 
-			$engine->registerCompiler('page',
+			$engine->registerCompiler(
+				'page',
 				new \Nova\Core\Pages\PageCompiler
 			);
-			$engine->registerCompiler('content',
+			$engine->registerCompiler(
+				'content',
 				new \Nova\Core\Pages\PageContentCompiler
 			);
-			$engine->registerCompiler('icon',
+			$engine->registerCompiler(
+				'icon',
 				new \Nova\Foundation\Services\PageCompiler\Compilers\IconCompiler
 			);
-			$engine->registerCompiler('form',
+			$engine->registerCompiler(
+				'form',
 				new \Nova\Core\Forms\Services\Compilers\FormCompiler
 			);
 
@@ -112,19 +116,24 @@ class AppServiceProvider extends ServiceProvider {
 		$this->app->singleton('nova.forms.fields', function ($app) {
 			$manager = new \Nova\Core\Forms\Services\FieldTypes\FieldTypeManager;
 
-			$manager->registerFieldType('text-field',
+			$manager->registerFieldType(
+				'text-field',
 				new \Nova\Core\Forms\Services\FieldTypes\TextField
 			);
-			$manager->registerFieldType('text-block',
+			$manager->registerFieldType(
+				'text-block',
 				new \Nova\Core\Forms\Services\FieldTypes\TextBlock
 			);
-			$manager->registerFieldType('text-editor',
+			$manager->registerFieldType(
+				'text-editor',
 				new \Nova\Core\Forms\Services\FieldTypes\TextEditor
 			);
-			$manager->registerFieldType('dropdown',
+			$manager->registerFieldType(
+				'dropdown',
 				new \Nova\Core\Forms\Services\FieldTypes\Dropdown
 			);
-			$manager->registerFieldType('radio',
+			$manager->registerFieldType(
+				'radio',
 				new \Nova\Core\Forms\Services\FieldTypes\RadioButton
 			);
 

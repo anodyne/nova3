@@ -2,8 +2,8 @@
 
 use PDO;
 
-trait DoesEnvironmentChecks {
-
+trait DoesEnvironmentChecks
+{
 	/**
 	 * Run some basic checks on the server to make sure we can install
 	 * Nova properly.
@@ -43,7 +43,7 @@ trait DoesEnvironmentChecks {
 		$errorDirs = [];
 
 		foreach ($directories as $dir) {
-			if ( ! is_writable($dir)) {
+			if (! is_writable($dir)) {
 				$errorString = str_replace(base_path(), '', $dir);
 				$errorString.= ' ('.substr(sprintf('%o', fileperms($dir)), -4).')';
 				$errorDirs[] = $errorString;
@@ -53,18 +53,18 @@ trait DoesEnvironmentChecks {
 			}
 		}
 
-		if ( ! $checks->get('writableDirs')) {
+		if (! $checks->get('writableDirs')) {
 			$checks->put('writableDirsFull', $errorDirs);
 		}
 
 		// PDO
-		if ( ! defined('PDO::ATTR_DRIVER_NAME')) {
+		if (! defined('PDO::ATTR_DRIVER_NAME')) {
 			$checks->put('pdo', false);
 			$checks->put('passes', false);
 		}
 
 		// MySQL and/or Postgres
-		if ( ! in_array('mysql', PDO::getAvailableDrivers()) and ! in_array('pgsql', PDO::getAvailableDrivers())) {
+		if (! in_array('mysql', PDO::getAvailableDrivers()) and ! in_array('pgsql', PDO::getAvailableDrivers())) {
 			$checks->put('pdoDrivers', false);
 			$checks->put('passes', false);
 			$checks->put('pdoDriversFull', PDO::getAvailableDrivers());

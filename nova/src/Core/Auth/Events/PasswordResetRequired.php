@@ -4,8 +4,8 @@ use User;
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class PasswordResetRequired extends Event {
-
+class PasswordResetRequired extends Event
+{
 	use SerializesModels;
 
 	public $user;

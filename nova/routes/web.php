@@ -11,7 +11,7 @@
 |
 */
 
-if ( ! nova()->isInstalled()) {
+if (! nova()->isInstalled()) {
 	Route::get('/', 'Nova\Core\Game\Http\Controllers\HomeController@page');
 } else {
 	// Grab an instance of the router

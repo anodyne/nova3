@@ -3,13 +3,8 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAccessTables extends Migration {
-	
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
+class CreateAccessTables extends Migration
+{
 	public function up()
 	{
 		// Create table for storing roles
@@ -60,11 +55,6 @@ class CreateAccessTables extends Migration {
 		$this->populateTables();
 	}
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
 	public function down()
 	{
 		Schema::dropIfExists('roles_permissions');
@@ -79,17 +69,14 @@ class CreateAccessTables extends Migration {
 
 		$data = require_once app('path.database').'/data/access.php';
 
-		foreach ($data['permissions'] as $permission)
-		{
+		foreach ($data['permissions'] as $permission) {
 			Permission::create($permission);
 		}
 
-		foreach ($data['roles'] as $role)
-		{
+		foreach ($data['roles'] as $role) {
 			$role = Role::create($role);
 
-			foreach ($data['roleAssociations'][$role->name] as $ra)
-			{
+			foreach ($data['roleAssociations'][$role->name] as $ra) {
 				$role->permissions()->attach($ra);
 			}
 		}

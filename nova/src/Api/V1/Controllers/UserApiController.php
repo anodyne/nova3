@@ -1,9 +1,10 @@
 <?php namespace Nova\Api\V1\Controllers;
 
-use UserTransformer, UserRepositoryContract;
+use UserTransformer;
+use UserRepositoryContract;
 
-class UserApiController extends ApiBaseController {
-
+class UserApiController extends ApiBaseController
+{
 	protected $repo;
 
 	public function __construct(UserRepositoryContract $repo)
@@ -22,8 +23,7 @@ class UserApiController extends ApiBaseController {
 	{
 		$user = $this->repo->getById($userId);
 
-		if ( ! $user)
-		{
+		if (! $user) {
 			return $this->response->errorNotFound('User not found');
 		}
 

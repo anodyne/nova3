@@ -1,7 +1,7 @@
 <?php namespace Nova\Foundation\Data\Contracts;
 
-interface BaseRepositoryContract {
-
+interface BaseRepositoryContract
+{
 	public function all(array $with = []);
 	public function countBy($column, $value);
 	public function create(array $data);

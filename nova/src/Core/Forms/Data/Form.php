@@ -1,13 +1,13 @@
 <?php namespace Nova\Core\Forms\Data;
 
-use Model,
-	Status,
-	StatusTrait,
-	FormPresenter;
+use Model;
+use Status;
+use StatusTrait;
+use FormPresenter;
 use Laracasts\Presenter\PresentableTrait;
 
-class Form extends Model {
-
+class Form extends Model
+{
 	use StatusTrait, PresentableTrait;
 
 	protected $table = 'forms';
@@ -136,5 +136,4 @@ class Form extends Model {
 	{
 		$query->where('use_form_center', (int) true);
 	}
-	
 }

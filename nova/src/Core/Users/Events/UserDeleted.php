@@ -3,8 +3,8 @@
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class UserDeleted extends Event {
-
+class UserDeleted extends Event
+{
 	use SerializesModels;
 
 	public $id;
@@ -17,5 +17,4 @@ class UserDeleted extends Event {
 		$this->name = $name;
 		$this->email = $email;
 	}
-
 }

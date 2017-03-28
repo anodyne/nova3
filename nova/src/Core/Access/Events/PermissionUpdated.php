@@ -4,8 +4,8 @@ use Permission;
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class PermissionUpdated extends Event {
-
+class PermissionUpdated extends Event
+{
 	use SerializesModels;
 
 	protected $resource;
@@ -14,5 +14,4 @@ class PermissionUpdated extends Event {
 	{
 		$this->resource = $resource;
 	}
-
 }

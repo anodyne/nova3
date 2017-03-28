@@ -1,8 +1,8 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use Event,
-	Exception,
-	SystemRepositoryContract;
+use Event;
+use Exception;
+use SystemRepositoryContract;
 use Illuminate\Http\Request;
 use Nova\Setup\BackupJobFactory;
 use Illuminate\Console\Application as Artisan;
@@ -10,8 +10,8 @@ use Illuminate\Console\Application as Artisan;
 #TODO: during the update process, re-generate the app key for security purposes
 #TODO: once the update process is complete, blow away the backupStatus session variable
 
-class UpdateController extends BaseController {
-
+class UpdateController extends BaseController
+{
 	protected $backupStatus;
 	protected $backupStatusMessage;
 
@@ -52,8 +52,7 @@ class UpdateController extends BaseController {
 			$request->session()->put('backupStatus', 'success');
 
 			return true;
-		}
-		catch (Exception $ex) {
+		} catch (Exception $ex) {
 			$request->session()->put('backupStatus', 'failed');
 			$request->session()->flash('backupStatusMessage', str_replace('\r\n', ' ', $ex->getMessage()));
 
@@ -101,8 +100,7 @@ class UpdateController extends BaseController {
 		$artisan->call('auth:clear-resets');
 
 		// Cache the routes in production
-		if (app('env') == 'production')
-		{
+		if (app('env') == 'production') {
 			$artisan->call('route:cache');
 		}
 	}

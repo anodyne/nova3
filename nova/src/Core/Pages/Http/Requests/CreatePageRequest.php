@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class CreatePageRequest extends Request {
-
+class CreatePageRequest extends Request
+{
 	public function authorize()
 	{
 		return true;

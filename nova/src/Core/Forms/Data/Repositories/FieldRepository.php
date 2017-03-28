@@ -1,12 +1,12 @@
 <?php namespace Nova\Core\Forms\Data\Repositories;
 
-use NovaForm,
-	NovaFormField as Model,
-	FormFieldRepositoryContract;
+use NovaForm;
+use NovaFormField as Model;
+use FormFieldRepositoryContract;
 use Nova\Core\Forms\Events;
 
-class FieldRepository extends BaseFormRepository implements FormFieldRepositoryContract {
-
+class FieldRepository extends BaseFormRepository implements FormFieldRepositoryContract
+{
 	protected $model;
 
 	public function __construct(Model $model)
@@ -71,12 +71,9 @@ class FieldRepository extends BaseFormRepository implements FormFieldRepositoryC
 	protected function cleanFieldValues(array $data)
 	{
 		// Handle attributes
-		if (array_key_exists('attributeNames', $data))
-		{
-			foreach ($data['attributeNames'] as $key => $a)
-			{
-				if ( ! empty($a))
-				{
+		if (array_key_exists('attributeNames', $data)) {
+			foreach ($data['attributeNames'] as $key => $a) {
+				if (! empty($a)) {
 					$data['attributes'][] = [
 						'name' => $a,
 						'value' => $data['attributeValues'][$key]
@@ -89,10 +86,8 @@ class FieldRepository extends BaseFormRepository implements FormFieldRepositoryC
 		}
 
 		// Handle values
-		if (array_key_exists('optionNames', $data) and ($data['type'] == 'select' or $data['type'] == 'radio'))
-		{
-			foreach ($data['optionNames'] as $key => $o)
-			{
+		if (array_key_exists('optionNames', $data) and ($data['type'] == 'select' or $data['type'] == 'radio')) {
+			foreach ($data['optionNames'] as $key => $o) {
 				$data['values'][] = [
 					'text' => $o,
 					'value' => $data['optionValues'][$key]
@@ -104,12 +99,9 @@ class FieldRepository extends BaseFormRepository implements FormFieldRepositoryC
 		}
 
 		// Handle validation
-		if (array_key_exists('ruleTypes', $data))
-		{
-			foreach ($data['ruleTypes'] as $key => $r)
-			{
-				if ( ! empty($r))
-				{
+		if (array_key_exists('ruleTypes', $data)) {
+			foreach ($data['ruleTypes'] as $key => $r) {
+				if (! empty($r)) {
 					$data['validation_rules'][] = [
 						'type' => $r,
 						'value' => $data['ruleValues'][$key]
@@ -122,10 +114,8 @@ class FieldRepository extends BaseFormRepository implements FormFieldRepositoryC
 		}
 
 		// Handle restrictions
-		if (array_key_exists('restrictionValues', $data))
-		{
-			foreach ($data['restrictionValues'] as $type => $value)
-			{
+		if (array_key_exists('restrictionValues', $data)) {
+			foreach ($data['restrictionValues'] as $type => $value) {
 				$data['restrictions'][] = [
 					'type' => $type,
 					'value' => $value,
@@ -137,5 +127,4 @@ class FieldRepository extends BaseFormRepository implements FormFieldRepositoryC
 
 		return $data;
 	}
-
 }

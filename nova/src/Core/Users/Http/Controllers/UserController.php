@@ -1,17 +1,19 @@
 <?php namespace Nova\Core\Users\Http\Controllers;
 
-use User,
-	Status,
-	UserCreator,
-	BaseController,
-	UserTransformer,
-	UserRepositoryContract,
-	EditUserRequest, CreateUserRequest, RemoveUserRequest;
+use User;
+use Status;
+use UserCreator;
+use BaseController;
+use UserTransformer;
+use UserRepositoryContract;
+use EditUserRequest;
+use CreateUserRequest;
+use RemoveUserRequest;
 use Nova\Core\Users\Events;
 use Illuminate\Http\Request;
 
-class UserController extends BaseController {
-
+class UserController extends BaseController
+{
 	protected $repo;
 
 	public function __construct(UserRepositoryContract $repo)
@@ -71,15 +73,12 @@ class UserController extends BaseController {
 		$user = $userCreator->create(array_merge($request->all(), ['status' => Status::ACTIVE]));
 
 		// Set the flash content
-		if ($user->trashed())
-		{
+		if ($user->trashed()) {
 			// Fire the event
 			event(new Events\UserRestoredByAdmin($user, $request->get('password')));
 
 			flash()->success("User Restored!", "The account has been restored, the user has been notified, and a new password has been sent to them.");
-		}
-		else
-		{
+		} else {
 			// Fire the event
 			event(new Events\UserCreatedByAdmin($user, $request->get('password')));
 
@@ -118,8 +117,7 @@ class UserController extends BaseController {
 		// Update the user
 		$user = $this->repo->update($user, $request->all());
 
-		if (policy($user)->manage($this->currentUser))
-		{
+		if (policy($user)->manage($this->currentUser)) {
 			flash()->success("User Updated!");
 
 			return redirect()->route('admin.users');
@@ -136,12 +134,9 @@ class UserController extends BaseController {
 
 		$user = $this->repo->getById($userId);
 
-		if ( ! $user)
-		{
+		if (! $user) {
 			$body = alert('danger', "User not found.");
-		}
-		else
-		{
+		} else {
 			$body = (policy($user)->remove($this->user, $user))
 				? view(locate('page', 'admin/users/remove'), compact('user'))
 				: alert('danger', "You do not have permission to remove users.");

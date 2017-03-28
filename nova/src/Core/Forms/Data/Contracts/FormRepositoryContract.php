@@ -1,9 +1,10 @@
 <?php namespace Nova\Core\Forms\Data\Contracts;
 
-use User, NovaForm;
+use User;
+use NovaForm;
 
-interface FormRepositoryContract extends BaseFormRepositoryContract {
-
+interface FormRepositoryContract extends BaseFormRepositoryContract
+{
 	public function getByKey($key, array $with = []);
 	public function getFormCenterForms(array $with = []);
 	public function getParentTabs(NovaForm $form, array $relations = [], $allTabs = false);
@@ -11,5 +12,4 @@ interface FormRepositoryContract extends BaseFormRepositoryContract {
 	public function getUnboundFields(NovaForm $form, array $relations = [], $allFields = false);
 	public function getUnboundSections(NovaForm $form, array $relations = [], $allSections = false);
 	public function getValidationRules(NovaForm $form);
-
 }

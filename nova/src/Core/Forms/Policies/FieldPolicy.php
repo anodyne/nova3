@@ -2,8 +2,8 @@
 
 use User;
 
-class FieldPolicy {
-
+class FieldPolicy
+{
 	public function create(User $user)
 	{
 		return $user->can('form.create');
@@ -23,5 +23,4 @@ class FieldPolicy {
 	{
 		return $user->can('form.remove');
 	}
-
 }

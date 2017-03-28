@@ -4,8 +4,8 @@ use Menu;
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class MenuUpdated extends Event {
-
+class MenuUpdated extends Event
+{
 	use SerializesModels;
 
 	protected $resource;
@@ -14,5 +14,4 @@ class MenuUpdated extends Event {
 	{
 		$this->resource = $resource;
 	}
-
 }

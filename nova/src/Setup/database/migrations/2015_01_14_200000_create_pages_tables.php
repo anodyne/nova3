@@ -3,12 +3,11 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePagesTables extends Migration {
-
+class CreatePagesTables extends Migration
+{
 	public function up()
 	{
-		Schema::create('pages', function (Blueprint $table)
-		{
+		Schema::create('pages', function (Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->integer('menu_id')->unsigned()->default(0);
 			$table->string('type', 15);
@@ -28,8 +27,7 @@ class CreatePagesTables extends Migration {
 			$table->timestamps();
 		});
 
-		Schema::create('pages_content', function (Blueprint $table)
-		{
+		Schema::create('pages_content', function (Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->bigInteger('page_id')->unsigned()->nullable();
 			$table->string('type', 10);
@@ -55,8 +53,7 @@ class CreatePagesTables extends Migration {
 		$data['pages'] = require_once app('path.database').'/data/pages.php';
 		$data['content'] = require_once app('path.database').'/data/pages_content.php';
 
-		foreach ($data['pages'] as $page)
-		{
+		foreach ($data['pages'] as $page) {
 			$page['type'] = (Str::contains($page['default_resource'], "MainController@page"))
 				? 'basic'
 				: 'advanced';
@@ -65,12 +62,10 @@ class CreatePagesTables extends Migration {
 			Page::create($page);
 		}
 
-		foreach ($data['content'] as $content)
-		{
+		foreach ($data['content'] as $content) {
 			$content['protected'] = (int) true;
 
 			PageContent::create($content);
 		}
 	}
-
 }

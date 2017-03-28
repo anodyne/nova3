@@ -2,8 +2,8 @@
 
 use User;
 
-class MenuPolicy {
-
+class MenuPolicy
+{
 	public function create(User $user)
 	{
 		return $user->can('menu.create');
@@ -33,5 +33,4 @@ class MenuPolicy {
 	{
 		return $user->can('menu.remove');
 	}
-
 }

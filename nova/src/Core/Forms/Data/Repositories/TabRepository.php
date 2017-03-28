@@ -1,22 +1,23 @@
 <?php namespace Nova\Core\Forms\Data\Repositories;
 
-use NovaForm,
-	NovaFormTab as Model,
-	FormTabRepositoryContract,
-	FormFieldRepositoryContract,
-	FormSectionRepositoryContract;
+use NovaForm;
+use NovaFormTab as Model;
+use FormTabRepositoryContract;
+use FormFieldRepositoryContract;
+use FormSectionRepositoryContract;
 use Nova\Core\Forms\Events;
 
-class TabRepository extends BaseFormRepository implements FormTabRepositoryContract {
-
+class TabRepository extends BaseFormRepository implements FormTabRepositoryContract
+{
 	protected $model;
 	protected $fieldRepo;
 	protected $sectionRepo;
 
-	public function __construct(Model $model,
-			FormFieldRepositoryContract $fields,
-			FormSectionRepositoryContract $sections)
-	{
+	public function __construct(
+		Model $model,
+		FormFieldRepositoryContract $fields,
+		FormSectionRepositoryContract $sections
+	) {
 		$this->model = $model;
 		$this->fieldRepo = $fields;
 		$this->sectionRepo = $sections;
@@ -24,13 +25,11 @@ class TabRepository extends BaseFormRepository implements FormTabRepositoryContr
 
 	public function countLinkIds(NovaForm $form, $linkId)
 	{
-		if ( ! $form->tabs)
-		{
+		if (! $form->tabs) {
 			return 0;
 		}
 
-		return $form->tabs->filter(function ($tab) use ($linkId)
-		{
+		return $form->tabs->filter(function ($tab) use ($linkId) {
 			return $tab->link_id === $linkId;
 		})->count();
 	}
@@ -55,8 +54,8 @@ class TabRepository extends BaseFormRepository implements FormTabRepositoryContr
 
 	public function getFormTabs(NovaForm $form, array $relations = [], $allTabs = false)
 	{
-		$relations = (count($relations) > 0) 
-			? $relations 
+		$relations = (count($relations) > 0)
+			? $relations
 			: ['childrenTabs', 'childrenTabs.parentTab'];
 
 		$relationship = ($allTabs) ? 'tabsAll' : 'tabs';
@@ -66,8 +65,8 @@ class TabRepository extends BaseFormRepository implements FormTabRepositoryContr
 
 	public function getParentTabs(NovaForm $form, array $relations = [], $allTabs = false)
 	{
-		$relations = (count($relations) > 0) 
-			? $relations 
+		$relations = (count($relations) > 0)
+			? $relations
 			: ['childrenTabs', 'childrenTabs.parentTab'];
 
 		$relationship = ($allTabs) ? 'parentTabsAll' : 'parentTabs';
@@ -88,20 +87,17 @@ class TabRepository extends BaseFormRepository implements FormTabRepositoryContr
 		$sectionRepo = $this->sectionRepo;
 
 		// Reassign any tabs
-		$oldTab->childrenTabs->each(function ($tab) use ($newTabId, $tabRepo)
-		{
+		$oldTab->childrenTabs->each(function ($tab) use ($newTabId, $tabRepo) {
 			$tabRepo->update($tab, ['parent_id' => $newTabId]);
 		});
 
 		// Reassign any sections
-		$oldTab->sections->each(function ($section) use ($newTabId, $sectionRepo)
-		{
+		$oldTab->sections->each(function ($section) use ($newTabId, $sectionRepo) {
 			$sectionRepo->update($section, ['tab_id' => $newTabId]);
 		});
 
 		// Reassign any fields
-		$oldTab->fields->each(function ($field) use ($newTabId, $fieldRepo)
-		{
+		$oldTab->fields->each(function ($field) use ($newTabId, $fieldRepo) {
 			$fieldRepo->update($field, ['tab_id' => $newTabId]);
 		});
 	}
@@ -114,11 +110,9 @@ class TabRepository extends BaseFormRepository implements FormTabRepositoryContr
 		$sectionRepo = $this->sectionRepo;
 
 		// Remove all fields
-		$tab->fieldsAll->each(function ($field) use ($fieldRepo)
-		{
+		$tab->fieldsAll->each(function ($field) use ($fieldRepo) {
 			// First remove any data associated with the field
-			$field->data->each(function ($row)
-			{
+			$field->data->each(function ($row) {
 				$row->delete();
 			});
 
@@ -127,14 +121,11 @@ class TabRepository extends BaseFormRepository implements FormTabRepositoryContr
 		});
 
 		// Remove any sections
-		$tab->sectionsAll->each(function ($section) use ($sectionRepo, $fieldRepo)
-		{
+		$tab->sectionsAll->each(function ($section) use ($sectionRepo, $fieldRepo) {
 			// Remove any fields in the section
-			$section->fieldsAll->each(function ($field) use ($fieldRepo)
-			{
+			$section->fieldsAll->each(function ($field) use ($fieldRepo) {
 				// First remove any data associated with the field
-				$field->data->each(function ($row)
-				{
+				$field->data->each(function ($row) {
 					$row->delete();
 				});
 
@@ -147,17 +138,13 @@ class TabRepository extends BaseFormRepository implements FormTabRepositoryContr
 		});
 
 		// Remove any child tabs
-		$tab->childrenTabsAll->each(function ($childTab) use ($sectionRepo, $fieldRepo)
-		{
+		$tab->childrenTabsAll->each(function ($childTab) use ($sectionRepo, $fieldRepo) {
 			// Remove any sections
-			$childTab->sectionsAll->each(function ($section) use ($sectionRepo, $fieldRepo)
-			{
+			$childTab->sectionsAll->each(function ($section) use ($sectionRepo, $fieldRepo) {
 				// First remove any fields in the section
-				$section->fieldsAll->each(function ($field) use ($fieldRepo)
-				{
+				$section->fieldsAll->each(function ($field) use ($fieldRepo) {
 					// First remove any data associated with the field
-					$field->data->each(function ($row)
-					{
+					$field->data->each(function ($row) {
 						$row->delete();
 					});
 
@@ -169,11 +156,9 @@ class TabRepository extends BaseFormRepository implements FormTabRepositoryContr
 			});
 
 			// Remove any unbound fields
-			$childTab->fieldsAll->each(function ($field) use ($tabRepo, $fieldRepo)
-			{
+			$childTab->fieldsAll->each(function ($field) use ($tabRepo, $fieldRepo) {
 				// First remove any data associated with the field
-				$field->data->each(function ($row)
-				{
+				$field->data->each(function ($row) {
 					$row->delete();
 				});
 
@@ -203,5 +188,4 @@ class TabRepository extends BaseFormRepository implements FormTabRepositoryContr
 
 		return $tab;
 	}
-
 }

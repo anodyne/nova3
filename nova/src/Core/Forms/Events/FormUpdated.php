@@ -4,8 +4,8 @@ use NovaForm;
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class FormUpdated extends Event {
-
+class FormUpdated extends Event
+{
 	use SerializesModels;
 
 	protected $resource;
@@ -14,5 +14,4 @@ class FormUpdated extends Event {
 	{
 		$this->resource = $resource;
 	}
-
 }

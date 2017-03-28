@@ -3,8 +3,8 @@
 use RoleRepositoryContract;
 use Nova\Api\V1\Transformers\RoleTransformer;
 
-class RoleApiController extends ApiBaseController {
-
+class RoleApiController extends ApiBaseController
+{
 	protected $repo;
 
 	public function __construct(RoleRepositoryContract $repo)
@@ -21,12 +21,10 @@ class RoleApiController extends ApiBaseController {
 	{
 		$role = $this->repo->getById($roleId);
 
-		if ( ! $role)
-		{
+		if (! $role) {
 			return $this->response->errorNotFound('Role not found');
 		}
 
 		return $this->response->item($role, new RoleTransformer);
 	}
-
 }

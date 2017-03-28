@@ -1,16 +1,17 @@
 <?php namespace Nova\Core\Users\Listeners;
 
-use UserPreferenceRepositoryContract,
-	PreferenceDefaultRepositoryContract;
+use UserPreferenceRepositoryContract;
+use PreferenceDefaultRepositoryContract;
 
-class BuildUserPreferences {
-
+class BuildUserPreferences
+{
 	protected $userPrefsRepo;
 	protected $prefDefaultsRepo;
 
-	public function __construct(UserPreferenceRepositoryContract $prefs,
-			PreferenceDefaultRepositoryContract $defaults)
-	{
+	public function __construct(
+		UserPreferenceRepositoryContract $prefs,
+		PreferenceDefaultRepositoryContract $defaults
+	) {
 		$this->userPrefsRepo = $prefs;
 		$this->prefDefaultsRepo = $defaults;
 	}
@@ -19,8 +20,7 @@ class BuildUserPreferences {
 	{
 		$defaults = $this->prefDefaultsRepo->all();
 
-		foreach ($defaults as $default)
-		{
+		foreach ($defaults as $default) {
 			$this->userPrefsRepo->create([
 				'user_id' => $event->user->id,
 				'key' => $default->key,

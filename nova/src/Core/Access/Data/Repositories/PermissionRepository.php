@@ -1,13 +1,13 @@
 <?php namespace Nova\Core\Access\Data\Repositories;
 
-use Permission as Model,
-	PermissionRepositoryContract;
+use Permission as Model;
+use PermissionRepositoryContract;
 use Nova\Core\Access\Events;
 use Illuminate\Support\Collection;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class PermissionRepository extends BaseRepository implements PermissionRepositoryContract {
-
+class PermissionRepository extends BaseRepository implements PermissionRepositoryContract
+{
 	protected $model;
 
 	public function __construct(Model $model)
@@ -20,10 +20,8 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
 		// Get all the permissions
 		$permissions = $this->all();
 
-		if ($permissions)
-		{
-			foreach ($permissions as $permission)
-			{
+		if ($permissions) {
+			foreach ($permissions as $permission) {
 				// Get the component and action out of the key
 				list($component, $action) = explode('.', $permission->key);
 
@@ -64,8 +62,7 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
 		// Get the permission
 		$permission = $this->getResource($resource);
 
-		if ($permission)
-		{
+		if ($permission) {
 			// Detach from any roles
 			$permission->roles()->detach();
 
@@ -93,5 +90,4 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
 
 		return $permission;
 	}
-
 }

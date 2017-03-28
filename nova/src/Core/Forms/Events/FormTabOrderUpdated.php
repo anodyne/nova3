@@ -4,8 +4,8 @@ use NovaFormTab;
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class FormTabOrderUpdated extends Event {
-
+class FormTabOrderUpdated extends Event
+{
 	use SerializesModels;
 
 	public $resource;
@@ -17,5 +17,4 @@ class FormTabOrderUpdated extends Event {
 	{
 		$this->resource = $resource;
 	}
-
 }

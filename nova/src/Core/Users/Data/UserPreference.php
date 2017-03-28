@@ -2,8 +2,8 @@
 
 use Model;
 
-class UserPreference extends Model {
-
+class UserPreference extends Model
+{
 	public $timestamps = false;
 
 	protected $table = 'users_preferences';
@@ -18,5 +18,4 @@ class UserPreference extends Model {
 	{
 		return $this->belongsTo(User::class);
 	}
-
 }

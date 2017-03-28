@@ -4,8 +4,8 @@ use PageContent;
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class PageContentCreated extends Event {
-
+class PageContentCreated extends Event
+{
 	use SerializesModels;
 
 	protected $resource;

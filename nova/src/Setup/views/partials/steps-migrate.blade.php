@@ -46,75 +46,59 @@ $accountsCompleted = [
 	'setup/migrate/settings/success'
 ];
 
-if (in_array($path, $nova2Active))
-{
+if (in_array($path, $nova2Active)) {
 	$classes[1] = 'class="step active"';
 }
-if (File::exists(app('path.config').'/nova2.php'))
-{
+if (File::exists(app('path.config').'/nova2.php')) {
 	$classes[1] = 'class="step completed"';
 }
 
-if (in_array($path, $dbActive))
-{
+if (in_array($path, $dbActive)) {
 	$classes[2] = 'class="step active"';
 }
-if (File::exists(app('path.config').'/database.php'))
-{
+if (File::exists(app('path.config').'/database.php')) {
 	$classes[2] = 'class="step completed"';
 }
 
-if (in_array($path, $emailActive))
-{
+if (in_array($path, $emailActive)) {
 	$classes[3] = 'class="step active"';
 }
-if (File::exists(app('path.config').'/mail.php'))
-{
+if (File::exists(app('path.config').'/mail.php')) {
 	$classes[3] = 'class="step completed"';
 }
 
-if (in_array($path, $migrateActive))
-{
+if (in_array($path, $migrateActive)) {
 	$classes[4] = 'class="step active"';
 }
-if (nova()->isInstalled())
-{
+if (nova()->isInstalled()) {
 	$classes[4] = 'class="step completed"';
 }
 
-if (in_array($path, $accountsActive))
-{
+if (in_array($path, $accountsActive)) {
 	$classes[5] = 'class="step active"';
 }
-if (in_array($path, $accountsCompleted))
-{
+if (in_array($path, $accountsCompleted)) {
 	$classes[5] = 'class="step completed"';
 }
 
-/*if (in_array($path, $novaActive))
-{
+/*if (in_array($path, $novaActive)) {
 	$classes[3] = 'class="step active"';
 }
-if (app('filesystem')->disk('local')->has('installed.json'))
-{
+if (app('filesystem')->disk('local')->has('installed.json')) {
 	$classes[3] = 'class="step completed"';
 }
 
-if (in_array($path, $userActive))
-{
+if (in_array($path, $userActive)) {
 	$classes[4] = 'class="step active"';
 }
-if (in_array($path, $userCompleted))
-{
+if (in_array($path, $userCompleted)) {
 	$classes[4] = 'class="step completed"';
 }
 
-if (in_array($path, $settingsActive))
-{
+if (in_array($path, $settingsActive)) {
 	$classes[5] = 'class="step active"';
 }
-if (in_array($path, $settingsCompleted))
-{
+if (in_array($path, $settingsCompleted)) {
 	$classes[5] = 'class="step completed"';
 }*/
 

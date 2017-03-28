@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class RemoveFormFieldRequest extends Request {
-
+class RemoveFormFieldRequest extends Request
+{
 	public function authorize()
 	{
 		return true;
@@ -18,5 +18,4 @@ class RemoveFormFieldRequest extends Request {
 	{
 		return [];
 	}
-
 }

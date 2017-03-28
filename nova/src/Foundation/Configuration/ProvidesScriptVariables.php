@@ -2,8 +2,8 @@
 
 use Status;
 
-trait ProvidesScriptVariables {
-
+trait ProvidesScriptVariables
+{
 	public function scriptVariables()
 	{
 		// Grab the user so we can manually build the user object

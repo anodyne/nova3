@@ -1,19 +1,22 @@
 <?php namespace Nova\Core\Access\Http\Controllers;
 
-use Permission,
-	BaseController,
-	RoleRepositoryContract,
-	PermissionRepositoryContract,
-	EditPermissionRequest, CreatePermissionRequest, RemovePermissionRequest;
+use Permission;
+use BaseController;
+use RoleRepositoryContract;
+use PermissionRepositoryContract;
+use EditPermissionRequest;
+use CreatePermissionRequest;
+use RemovePermissionRequest;
 
-class PermissionController extends BaseController {
-
+class PermissionController extends BaseController
+{
 	protected $repo;
 	protected $roleRepo;
 
-	public function __construct(PermissionRepositoryContract $repo,
-			RoleRepositoryContract $roles)
-	{
+	public function __construct(
+		PermissionRepositoryContract $repo,
+		RoleRepositoryContract $roles
+	) {
 		parent::__construct();
 
 		$this->isAdmin = true;
@@ -87,14 +90,11 @@ class PermissionController extends BaseController {
 
 		$permission = $this->repo->find($permissionId);
 
-		if (policy($permission)->remove($this->user))
-		{
+		if (policy($permission)->remove($this->user)) {
 			$body = ($permission)
 				? view(locate('page', 'admin/access/permission-remove'), compact('permission'))
 				: alert('danger', "permission not found.");
-		}
-		else
-		{
+		} else {
 			$body = alert('danger', "You do not have permission to remove permissions.");
 		}
 
@@ -122,12 +122,10 @@ class PermissionController extends BaseController {
 
 		$count = $this->repo->countBy('key', request('key'));
 
-		if ($count > 0)
-		{
+		if ($count > 0) {
 			return json_encode(['code' => 0]);
 		}
 
 		return json_encode(['code' => 1]);
 	}
-
 }

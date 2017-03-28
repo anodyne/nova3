@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class EditUserPreferenceRequest extends Request {
-
+class EditUserPreferenceRequest extends Request
+{
 	public function authorize()
 	{
 		return true;

@@ -4,8 +4,8 @@ use Symfony\Component\Finder\Finder;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader as BaseFileLoader;
 
-class TranslationFileLoader extends BaseFileLoader {
-
+class TranslationFileLoader extends BaseFileLoader
+{
 	protected $novaPath;
 	protected $extensionPath;
 
@@ -18,17 +18,17 @@ class TranslationFileLoader extends BaseFileLoader {
 	}
 
 	public function load($locale, $group, $namespace = null)
-    {
-    	if ($group == '*' && $namespace == '*') {
-            return $this->loadJsonPath($this->path, $locale);
-        }
+	{
+		if ($group == '*' && $namespace == '*') {
+			return $this->loadJsonPath($this->path, $locale);
+		}
 
-        if (is_null($namespace) || $namespace == '*') {
-            return $this->loadPath($this->path, $locale, $group);
-        }
+		if (is_null($namespace) || $namespace == '*') {
+			return $this->loadPath($this->path, $locale, $group);
+		}
 
-        return $this->loadNamespaced($locale, $group, $namespace);
-    }
+		return $this->loadNamespaced($locale, $group, $namespace);
+	}
 
 	protected function loadJsonPath($path, $locale)
 	{

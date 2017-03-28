@@ -1,18 +1,19 @@
 <?php namespace Nova\Core\Forms\Http\Controllers;
 
-use BaseController,
-	FormRepositoryContract,
-	FormEntryRepositoryContract;
+use BaseController;
+use FormRepositoryContract;
+use FormEntryRepositoryContract;
 use Illuminate\Http\Request;
 
-class FormCenterController extends BaseController {
-
+class FormCenterController extends BaseController
+{
 	protected $repo;
 	protected $formRepo;
 
-	public function __construct(FormEntryRepositoryContract $repo,
-			FormRepositoryContract $forms)
-	{
+	public function __construct(
+		FormEntryRepositoryContract $repo,
+		FormRepositoryContract $forms
+	) {
 		parent::__construct();
 
 		$this->isAdmin = true;
@@ -99,12 +100,9 @@ class FormCenterController extends BaseController {
 
 		$entry = $this->repo->getById($entryId, ['form', 'user']);
 
-		if ( ! $entry)
-		{
+		if (! $entry) {
 			$body = alert('danger', "Form entry not found.");
-		}
-		else
-		{
+		} else {
 			$form = $entry->form;
 
 			$body = ($entry->user->id == $this->user->id)
@@ -168,12 +166,9 @@ class FormCenterController extends BaseController {
 
 		$entry = $this->repo->getById($entryId, ['form', 'user']);
 
-		if ( ! $entry)
-		{
+		if (! $entry) {
 			$body = alert('danger', "Form entry not found.");
-		}
-		else
-		{
+		} else {
 			$form = $entry->form;
 
 			$body = (policy($form)->editFormCenterEntry($this->user, $form))
@@ -209,12 +204,9 @@ class FormCenterController extends BaseController {
 
 		$entry = $this->repo->getById($entryId);
 
-		if ( ! $entry)
-		{
+		if (! $entry) {
 			$body = alert('danger', "Form entry not found.");
-		}
-		else
-		{
+		} else {
 			$form = $entry->form;
 
 			$body = (policy($form)->removeFormCenterEntry($this->user, $form))
@@ -262,5 +254,4 @@ class FormCenterController extends BaseController {
 			'url' => "This field must contain a valid URL",
 		];
 	}
-
 }

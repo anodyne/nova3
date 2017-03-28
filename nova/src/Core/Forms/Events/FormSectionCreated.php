@@ -4,8 +4,8 @@ use NovaFormSection;
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class FormSectionCreated extends Event {
-
+class FormSectionCreated extends Event
+{
 	use SerializesModels;
 
 	protected $resource;
@@ -14,5 +14,4 @@ class FormSectionCreated extends Event {
 	{
 		$this->resource = $resource;
 	}
-
 }

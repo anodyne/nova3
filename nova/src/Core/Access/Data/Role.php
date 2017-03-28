@@ -1,14 +1,14 @@
 <?php namespace Nova\Core\Access\Data;
 
-use User,
-	Model,
-	RolePresenter,
-	Permission as PermissionModel;
+use User;
+use Model;
+use RolePresenter;
+use Permission as PermissionModel;
 use Illuminate\Support\Collection;
 use Laracasts\Presenter\PresentableTrait;
 
-class Role extends Model {
-
+class Role extends Model
+{
 	use PresentableTrait;
 
 	protected $table = 'roles';
@@ -39,20 +39,17 @@ class Role extends Model {
 
 	public function addPermissions($permissions)
 	{
-		if ($permissions instanceof Collection)
-		{
+		if ($permissions instanceof Collection) {
 			$newPermissions = [];
 
-			foreach ($permissions as $permission)
-			{
+			foreach ($permissions as $permission) {
 				$newPermissions[] = $permission->id;
 			}
 
 			$permissions = $newPermissions;
 		}
 
-		if (is_array($permissions))
-		{
+		if (is_array($permissions)) {
 			// Sync all the permissions
 			$this->permissions()->sync($permissions);
 
@@ -69,5 +66,4 @@ class Role extends Model {
 	{
 		//
 	}
-
 }

@@ -1,13 +1,13 @@
 <?php namespace Nova\Core\Users\Http\Controllers;
 
-use User,
-	BaseController,
-	UserRepositoryContract,
-	EditUserPreferencesRequest;
+use User;
+use BaseController;
+use UserRepositoryContract;
+use EditUserPreferencesRequest;
 use Illuminate\Http\Request;
 
-class PreferencesController extends BaseController {
-
+class PreferencesController extends BaseController
+{
 	protected $repo;
 
 	public function __construct(UserRepositoryContract $repo)

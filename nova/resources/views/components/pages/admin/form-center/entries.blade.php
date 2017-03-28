@@ -26,10 +26,10 @@
 				</div>
 				<div class="col-md-3" v-cloak>
 					<mobile>
-						<p><a href="{{ route('admin.form-center.show', [$form->key, $entry->id]) }}" class="btn btn-default btn-lg btn-block">{!! icon('visible') !!}<span>View</span></a></p>
+						<p><a href="{{ route('admin.form-center.show', [$form->key, $entry->id]) }}" class="btn btn-secondary btn-lg btn-block">{!! icon('visible') !!}<span>View</span></a></p>
 
 						@can('editEntries', $form)
-							<p><a href="{{ route('admin.form-center.edit', [$form->key, $entry->id]) }}" class="btn btn-default btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
+							<p><a href="{{ route('admin.form-center.edit', [$form->key, $entry->id]) }}" class="btn btn-secondary btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
 						@endcan
 
 						@can('removeEntries', $form)
@@ -39,10 +39,10 @@
 					<desktop>
 						<div class="btn-toolbar pull-right">
 							<div class="btn-group">
-								<a href="{{ route('admin.form-center.show', [$form->key, $entry->id]) }}" class="btn btn-default">{!! icon('visible') !!}<span>View</span></a>
+								<a href="{{ route('admin.form-center.show', [$form->key, $entry->id]) }}" class="btn btn-secondary">{!! icon('visible') !!}<span>View</span></a>
 
 								@can('editEntries', $form)
-									<a href="{{ route('admin.form-center.edit', [$form->key, $entry->id]) }}" class="btn btn-default">{!! icon('edit') !!}<span>Edit</span></a>
+									<a href="{{ route('admin.form-center.edit', [$form->key, $entry->id]) }}" class="btn btn-secondary">{!! icon('edit') !!}<span>Edit</span></a>
 								@endcan
 							</div>
 

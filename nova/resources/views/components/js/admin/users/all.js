@@ -6,6 +6,19 @@ vue = {
 	},
 
 	computed: {
+		filteredUsers: function () {
+			var self = this
+
+			return self.users.filter(function (user) {
+				var regex = new RegExp(self.search, 'i')
+
+				return regex.test(user.name) ||
+					regex.test(user.email) ||
+					regex.test(user.status) ||
+					regex.text(user.nickname)
+			})
+		},
+
 		pendingCount: function () {
 			return this.users.filter(function (user) {
 				return user.status == 'pending'
@@ -22,11 +35,6 @@ vue = {
 
 		resetFilters: function () {
 			this.search = ""
-			this.statuses = ["active"]
-
-			if (this.pendingCount > 0) {
-				this.statuses.push("pending")
-			}
 		},
 
 		statusClass: function (status) {
@@ -39,10 +47,14 @@ vue = {
 			}
 
 			return 'tag tag-default'
+		},
+
+		statusDisplay: function (user) {
+			return user[0].toUpperCase() + user.slice(1)
 		}
 	},
 
-	ready: function () {
+	mounted: function () {
 		if (this.pendingCount > 0) {
 			this.statuses.push("pending")
 		}

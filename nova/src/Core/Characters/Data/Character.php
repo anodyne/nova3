@@ -1,11 +1,12 @@
 <?php namespace Nova\Core\Characters\Data;
 
-use User, Model;
+use User;
+use Model;
 use Laracasts\Presenter\PresentableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Character extends Model {
-
+class Character extends Model
+{
 	use SoftDeletes, PresentableTrait;
 
 	protected $table = 'characters';
@@ -26,5 +27,4 @@ class Character extends Model {
 	{
 		return $this->belongsTo(User::class);
 	}
-	
 }

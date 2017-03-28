@@ -1,7 +1,7 @@
 <?php namespace Nova\Foundation\Services;
 
-class FlashNotifier {
-
+class FlashNotifier
+{
 	public function create($title = null, $message = null, $level = 'info', $key = 'flash_message')
 	{
 		session()->flash($key, [

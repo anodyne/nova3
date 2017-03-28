@@ -1,7 +1,7 @@
 <?php namespace Nova\Foundation\Services\Locator;
 
-interface Locatable {
-
+interface Locatable
+{
 	/**
 	 * Search for an ajax view file.
 	 *

@@ -1,7 +1,7 @@
 <?php namespace Nova\Foundation\Configuration;
 
-trait DoesSystemChecks {
-
+trait DoesSystemChecks
+{
 	/**
 	 * Check to see if a component is configured.
 	 *
@@ -14,16 +14,16 @@ trait DoesSystemChecks {
 			case 'db':
 			case 'database':
 				return file_exists(config_path('database.php'));
-			break;
+				break;
 
 			case 'mail':
 			case 'email':
 				return file_exists(config_path('mail.php'));
-			break;
+				break;
 
 			case 'session':
 				return file_exists(config_path('session.php'));
-			break;
+				break;
 		}
 
 		return false;

@@ -1,10 +1,11 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
 use Artisan;
-use Illuminate\Filesystem\{Filesystem, FilesystemManager};
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Filesystem\FilesystemManager;
 
-class SetupController extends BaseController {
-
+class SetupController extends BaseController
+{
 	public function index()
 	{
 		// Grab the instance of the Nova class
@@ -28,8 +29,7 @@ class SetupController extends BaseController {
 		$env = nova()->checkEnvironment();
 
 		// If everything checks out, head to the Setup Center
-		if ($env->get('passes'))
-		{
+		if ($env->get('passes')) {
 			return redirect()->route('setup.home');
 		}
 
@@ -42,8 +42,7 @@ class SetupController extends BaseController {
 		$storage->disk('local')->delete('installed.json');
 
 		// Clear the routes in production
-		if (app('env') == 'production')
-		{
+		if (app('env') == 'production') {
 			Artisan::call('route:clear');
 		}
 
@@ -58,8 +57,7 @@ class SetupController extends BaseController {
 		$files->delete(config_path('session.php'));
 
 		// Remove the SQLite database if it's there
-		if ($files->exists(config('database.connections.sqlite.database')))
-		{
+		if ($files->exists(config('database.connections.sqlite.database'))) {
 			$files->delete(config('database.connections.sqlite.database'));
 		}
 

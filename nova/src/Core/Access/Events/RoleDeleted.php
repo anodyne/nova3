@@ -3,8 +3,8 @@
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class RoleDeleted extends Event {
-
+class RoleDeleted extends Event
+{
 	use SerializesModels;
 
 	protected $key;
@@ -15,5 +15,4 @@ class RoleDeleted extends Event {
 		$this->key = $key;
 		$this->name = $name;
 	}
-
 }

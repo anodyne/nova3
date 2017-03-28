@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
-class FormSeeder extends Seeder {
-	
+class FormSeeder extends Seeder
+{
 	public function run()
 	{
 		$faker = \Faker\Factory::create();
@@ -43,6 +43,7 @@ class FormSeeder extends Seeder {
 			'attributes' => '[{"name":"class","value":"form-control input-lg"},{"name":"placeholder","value":""}]',
 			'restrictions' => '[{"type":"view","value":""},{"type":"create","value":""},{"type":"edit","value":""}]',
 		]);
+
 		$fields[] = $fieldRepo->create([
 			'form_id' => $form->id,
 			'type' => 'text-block',
@@ -52,6 +53,7 @@ class FormSeeder extends Seeder {
 			'attributes' => '[{"name":"class","value":"form-control input-lg"},{"name":"placeholder","value":""},{"name":"rows","value":"3"}]',
 			'restrictions' => '[{"type":"view","value":""},{"type":"create","value":""},{"type":"edit","value":""}]',
 		]);
+
 		$fields[] = $fieldRepo->create([
 			'form_id' => $form->id,
 			'type' => 'text-block',
@@ -66,8 +68,7 @@ class FormSeeder extends Seeder {
 		$form->save();
 
 		// Create some entries
-		for ($i = 1; $i <= 50; $i++)
-		{
+		for ($i = 1; $i <= 50; $i++) {
 			$userId = $faker->numberBetween(1, 11);
 
 			$entry = $entryRepo->create([
@@ -75,8 +76,7 @@ class FormSeeder extends Seeder {
 				'user_id' => $userId,
 			]);
 
-			foreach ($fields as $field)
-			{
+			foreach ($fields as $field) {
 				$value = ($field->type == 'text')
 					? ucwords($faker->words($faker->numberBetween(3, 8), true))
 					: $faker->paragraphs(1, true);
@@ -91,5 +91,4 @@ class FormSeeder extends Seeder {
 			}
 		}
 	}
-	
 }

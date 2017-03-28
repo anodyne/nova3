@@ -3,14 +3,13 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFormsTables extends Migration {
-
+class CreateFormsTables extends Migration
+{
 	protected $data;
 
 	public function up()
 	{
-		Schema::create('forms', function (Blueprint $table)
-		{
+		Schema::create('forms', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('key', 20)->unique();
 			$table->string('name');
@@ -29,8 +28,7 @@ class CreateFormsTables extends Migration {
 			$table->timestamps();
 		});
 
-		Schema::create('forms_tabs', function (Blueprint $table)
-		{
+		Schema::create('forms_tabs', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('form_id')->unsigned();
 			$table->integer('parent_id')->unsigned()->default(0);
@@ -42,8 +40,7 @@ class CreateFormsTables extends Migration {
 			$table->timestamps();
 		});
 
-		Schema::create('forms_sections', function (Blueprint $table)
-		{
+		Schema::create('forms_sections', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('form_id')->unsigned();
 			$table->integer('tab_id')->unsigned()->default(0);
@@ -54,8 +51,7 @@ class CreateFormsTables extends Migration {
 			$table->timestamps();
 		});
 
-		Schema::create('forms_fields', function (Blueprint $table)
-		{
+		Schema::create('forms_fields', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('form_id')->unsigned();
 			$table->integer('tab_id')->unsigned()->default(0);
@@ -74,8 +70,7 @@ class CreateFormsTables extends Migration {
 			$table->timestamps();
 		});
 
-		Schema::create('forms_entries', function (Blueprint $table)
-		{
+		Schema::create('forms_entries', function (Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->integer('form_id')->unsigned();
 			$table->integer('user_id')->unsigned()->nullable();
@@ -83,8 +78,7 @@ class CreateFormsTables extends Migration {
 			$table->timestamps();
 		});
 
-		Schema::create('forms_data', function (Blueprint $table)
-		{
+		Schema::create('forms_data', function (Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->integer('form_id')->unsigned();
 			$table->integer('field_id')->unsigned();
@@ -113,8 +107,7 @@ class CreateFormsTables extends Migration {
 
 		$this->data = require_once app('path.database').'/data/forms.php';
 
-		foreach ($this->data['forms'] as $form)
-		{
+		foreach ($this->data['forms'] as $form) {
 			app('FormRepository')->create($form);
 		}
 
@@ -126,8 +119,7 @@ class CreateFormsTables extends Migration {
 			['user', 'fields'],
 		];
 
-		foreach ($run as $r)
-		{
+		foreach ($run as $r) {
 			$this->run($r[0], $r[1]);
 		}
 	}
@@ -140,10 +132,8 @@ class CreateFormsTables extends Migration {
 			'fields'	=> 'FormFieldRepository',
 		];
 
-		foreach ($this->data[$form][$type] as $x)
-		{
+		foreach ($this->data[$form][$type] as $x) {
 			app($repos[$type])->create($x);
 		}
 	}
-
 }

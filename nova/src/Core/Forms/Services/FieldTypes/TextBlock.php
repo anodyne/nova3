@@ -1,9 +1,10 @@
 <?php namespace Nova\Core\Forms\Services\FieldTypes;
 
-use Form, Markdown;
+use Form;
+use Markdown;
 
-class TextBlock implements FieldTypeInterface {
-
+class TextBlock implements FieldTypeInterface
+{
 	public function info()
 	{
 		return [
@@ -24,8 +25,7 @@ class TextBlock implements FieldTypeInterface {
 
 	public function render($state, $name, $values, $data, array $attributes)
 	{
-		if ($state == 'view')
-		{
+		if ($state == 'view') {
 			return $this->renderStatic($data);
 		}
 
@@ -41,5 +41,4 @@ class TextBlock implements FieldTypeInterface {
 	{
 		return '<p class="form-field-static">'.Markdown::parse($data).'</p>';
 	}
-
 }

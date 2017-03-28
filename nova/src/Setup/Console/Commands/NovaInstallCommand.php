@@ -1,12 +1,14 @@
 <?php namespace Nova\Setup\Console\Commands;
 
-use Artisan, Storage;
+use Artisan;
+use Storage;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\FilesystemManager;
-use Symfony\Component\Console\Input\{InputOption, InputArgument};
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputArgument;
 
-class NovaInstallCommand extends Command {
-
+class NovaInstallCommand extends Command
+{
 	protected $name = 'nova:install';
 	protected $description = 'Install the Nova database schema';
 	protected $files;
@@ -37,8 +39,7 @@ class NovaInstallCommand extends Command {
 
 		$this->files->put('installed.json', json_encode(['installed' => true]));
 
-		if (app('env') == 'production')
-		{
+		if (app('env') == 'production') {
 			$this->call('route:cache');
 		}
 

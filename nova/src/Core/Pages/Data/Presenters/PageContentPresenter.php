@@ -2,8 +2,8 @@
 
 use BasePresenter;
 
-class PageContentPresenter extends BasePresenter {
-
+class PageContentPresenter extends BasePresenter
+{
 	public function value()
 	{
 		if ($this->entity->value) {

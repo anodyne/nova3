@@ -1,25 +1,28 @@
 <?php namespace Nova\Core\Forms\Http\Controllers;
 
-use NovaForm,
-	NovaFormTab,
-	NovaFormField,
-	BaseController,
-	NovaFormSection,
-	FormRepositoryContract,
-	PageRepositoryContract,
-	RoleRepositoryContract,
-	EditFormRequest, CreateFormRequest, RemoveFormRequest;
+use NovaForm;
+use NovaFormTab;
+use NovaFormField;
+use BaseController;
+use NovaFormSection;
+use FormRepositoryContract;
+use PageRepositoryContract;
+use RoleRepositoryContract;
+use EditFormRequest;
+use CreateFormRequest;
+use RemoveFormRequest;
 
-class FormController extends BaseController {
-
+class FormController extends BaseController
+{
 	protected $repo;
 	protected $pageRepo;
 	protected $roleRepo;
 
-	public function __construct(FormRepositoryContract $repo,
-			PageRepositoryContract $pages,
-			RoleRepositoryContract $roles)
-	{
+	public function __construct(
+		FormRepositoryContract $repo,
+		PageRepositoryContract $pages,
+		RoleRepositoryContract $roles
+	) {
 		parent::__construct();
 
 		$this->isAdmin = true;
@@ -118,12 +121,9 @@ class FormController extends BaseController {
 
 		$form = $this->repo->getByKey($formKey);
 
-		if ( ! $form)
-		{
+		if (! $form) {
 			$body = alert('danger', "Form [{$formKey}] not found.");
-		}
-		else
-		{
+		} else {
 			$body = (policy($form)->remove($this->user, $form))
 				? view(locate('page', 'admin/forms/form-remove'), compact('form'))
 				: alert('danger', "You do not have permission to remove forms.");
@@ -166,12 +166,10 @@ class FormController extends BaseController {
 
 		$count = $this->repo->countBy('key', request('key'));
 
-		if ($count > 0)
-		{
+		if ($count > 0) {
 			return json_encode(['code' => 0]);
 		}
 
 		return json_encode(['code' => 1]);
 	}
-
 }

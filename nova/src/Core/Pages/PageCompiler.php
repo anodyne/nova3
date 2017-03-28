@@ -1,9 +1,10 @@
 <?php namespace Nova\Core\Pages;
 
-use Nova\Foundation\Services\PageCompiler\{CompilerEngine, CompilerContract};
+use Nova\Foundation\Services\PageCompiler\CompilerEngine;
+use Nova\Foundation\Services\PageCompiler\CompilerContract;
 
-class PageCompiler implements CompilerContract {
-
+class PageCompiler implements CompilerContract
+{
 	protected $identifier = 'page';
 
 	/**

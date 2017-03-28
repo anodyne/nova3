@@ -1,9 +1,11 @@
 <?php namespace Nova\Core\Forms\Data\Presenters;
 
-use Status, Markdown, BasePresenter;
+use Status;
+use Markdown;
+use BasePresenter;
 
-class SectionPresenter extends BasePresenter {
-
+class SectionPresenter extends BasePresenter
+{
 	public function message()
 	{
 		return Markdown::parse($this->entity->message);
@@ -11,10 +13,8 @@ class SectionPresenter extends BasePresenter {
 
 	public function statusAsLabel()
 	{
-		if ($this->entity->status != Status::ACTIVE)
-		{
+		if ($this->entity->status != Status::ACTIVE) {
 			return label('danger', ucwords(Status::toString($this->entity->status)));
 		}
 	}
-	
 }

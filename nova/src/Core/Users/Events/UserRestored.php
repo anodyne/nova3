@@ -4,8 +4,8 @@ use User;
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class UserRestored extends Event {
-
+class UserRestored extends Event
+{
 	use SerializesModels;
 
 	public $user;

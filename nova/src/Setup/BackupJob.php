@@ -5,8 +5,8 @@ use Spatie\Backup\Exceptions\InvalidBackupJob;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Spatie\Backup\Tasks\Backup\BackupJob as BaseBackupJob;
 
-class BackupJob extends BaseBackupJob {
-
+class BackupJob extends BaseBackupJob
+{
 	public function run()
 	{
 		$this->temporaryDirectory = (new TemporaryDirectory())->create();

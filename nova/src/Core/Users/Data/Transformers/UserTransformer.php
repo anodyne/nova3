@@ -1,11 +1,11 @@
 <?php namespace Nova\Core\Users\Data\Transformers;
 
-use Status,
-	User as Resource;
+use Status;
+use User as Resource;
 use League\Fractal\TransformerAbstract as Transformer;
 
-class UserTransformer extends Transformer {
-
+class UserTransformer extends Transformer
+{
 	public function transform(Resource $resource)
 	{
 		$user = [

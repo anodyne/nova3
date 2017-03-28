@@ -2,8 +2,8 @@
 
 use User;
 
-class SectionPolicy {
-
+class SectionPolicy
+{
 	public function create(User $user)
 	{
 		return $user->can('form.create');
@@ -23,5 +23,4 @@ class SectionPolicy {
 	{
 		return $user->can('form.remove');
 	}
-
 }

@@ -1,9 +1,10 @@
 <?php namespace Nova\Core\Forms\Services\FieldTypes;
 
-use Form, Markdown;
+use Form;
+use Markdown;
 
-class Dropdown implements FieldTypeInterface {
-
+class Dropdown implements FieldTypeInterface
+{
 	public function info()
 	{
 		return [
@@ -23,8 +24,7 @@ class Dropdown implements FieldTypeInterface {
 
 	public function render($state, $name, $values, $data, array $attributes)
 	{
-		if ($state == 'view')
-		{
+		if ($state == 'view') {
 			return $this->renderStatic($data);
 		}
 
@@ -40,5 +40,4 @@ class Dropdown implements FieldTypeInterface {
 	{
 		return '<p class="form-field-static">'.Markdown::parse($data).'</p>';
 	}
-
 }

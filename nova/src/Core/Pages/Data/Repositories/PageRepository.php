@@ -1,19 +1,18 @@
 <?php namespace Nova\Core\Pages\Data\Repositories;
 
-use Page as Model,
-	PageRepositoryContract,
-	PageContentRepositoryContract;
+use Page as Model;
+use PageRepositoryContract;
+use PageContentRepositoryContract;
 use Nova\Core\Pages\Events;
 use Illuminate\Routing\Route;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class PageRepository extends BaseRepository implements PageRepositoryContract {
-
+class PageRepository extends BaseRepository implements PageRepositoryContract
+{
 	protected $model;
 	protected $contentRepo;
 
-	public function __construct(Model $model,
-			PageContentRepositoryContract $content)
+	public function __construct(Model $model, PageContentRepositoryContract $content)
 	{
 		$this->model = $model;
 		$this->contentRepo = $content;
@@ -52,7 +51,7 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 				'type'	=> $type,
 				'key'	=> "{$page->key}.{$type}",
 				'value' => (array_key_exists('content', $data) and array_key_exists($type, $data['content']))
-					? $data['content'][$type] 
+					? $data['content'][$type]
 					: null,
 			]);
 
@@ -150,7 +149,7 @@ class PageRepository extends BaseRepository implements PageRepositoryContract {
 			foreach ($contentToUpdate as $type) {
 				// Build the value
 				$value = (array_key_exists('content', $data) and array_key_exists($type, $data['content']))
-					? $data['content'][$type] 
+					? $data['content'][$type]
 					: null;
 
 				// Get the content item

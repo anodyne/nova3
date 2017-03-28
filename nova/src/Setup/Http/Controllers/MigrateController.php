@@ -1,10 +1,12 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use Date, Status, Artisan;
+use Date;
+use Status;
+use Artisan;
 use Illuminate\Database\DatabaseManager;
 
-class MigrateController extends BaseController {
-
+class MigrateController extends BaseController
+{
 	protected $db;
 	protected $userDictionary = [];
 	protected $characterDictionary = [];
@@ -66,7 +68,6 @@ class MigrateController extends BaseController {
 		$this->db->table('users')
 			->orderBy('userid')
 			->chunk(100, function ($users) use (&$self) {
-
 				$users->each(function ($user) use (&$self) {
 					$newUser = app('nova.userCreator')->create([
 						'name' => $user->name,
@@ -83,6 +84,6 @@ class MigrateController extends BaseController {
 
 					$self->userDictionary[$user->userid] = $newUser->id;
 				});
-		});
+			});
 	}
 }

@@ -1,11 +1,12 @@
 <?php namespace Nova\Core\Forms\Events;
 
-use NovaForm, NovaFormEntry;
+use NovaForm;
+use NovaFormEntry;
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class FormCenterFormUpdated extends Event {
-
+class FormCenterFormUpdated extends Event
+{
 	use SerializesModels;
 
 	public $form;
@@ -16,5 +17,4 @@ class FormCenterFormUpdated extends Event {
 		$this->form = $form;
 		$this->entry = $entry;
 	}
-
 }

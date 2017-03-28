@@ -3,8 +3,8 @@
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class PageContentDeleted extends Event {
-
+class PageContentDeleted extends Event
+{
 	use SerializesModels;
 
 	protected $key;

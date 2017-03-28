@@ -1,21 +1,23 @@
 <?php namespace Nova\Core\Pages\Http\Controllers;
 
-use Page,
-	BaseController,
-	MenuRepositoryContract,
-	PageRepositoryContract,
-	EditPageRequest, CreatePageRequest, RemovePageRequest;
+use Page;
+use BaseController;
+use MenuRepositoryContract;
+use PageRepositoryContract;
+use EditPageRequest;
+use CreatePageRequest;
+use RemovePageRequest;
 use Symfony\Component\Finder\Finder;
 use InvalidArgumentException;
-use ReflectionClass, ReflectionMethod;
+use ReflectionClass;
+use ReflectionMethod;
 
-class PageController extends BaseController {
-
+class PageController extends BaseController
+{
 	protected $repo;
 	protected $menuRepo;
 
-	public function __construct(PageRepositoryContract $repo,
-			MenuRepositoryContract $menus)
+	public function __construct(PageRepositoryContract $repo, MenuRepositoryContract $menus)
 	{
 		parent::__construct();
 

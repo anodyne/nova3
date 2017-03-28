@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class EditFormRequest extends Request {
-
+class EditFormRequest extends Request
+{
 	public function authorize()
 	{
 		return true;
@@ -41,5 +41,4 @@ class EditFormRequest extends Request {
 			'entry_identifier.required_if' => "Please select the field for identifying form entries",
 		];
 	}
-
 }

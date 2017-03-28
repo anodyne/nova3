@@ -1,14 +1,14 @@
 <?php namespace Nova\Core\Menus\Data;
 
-use Str,
-	Page,
-	Model,
-	MenuPresenter,
-	MenuItem as MenuItemModel;
+use Str;
+use Page;
+use Model;
+use MenuPresenter;
+use MenuItem as MenuItemModel;
 use Laracasts\Presenter\PresentableTrait;
 
-class Menu extends Model {
-
+class Menu extends Model
+{
 	use PresentableTrait;
 
 	protected $table = 'menus';
@@ -50,18 +50,15 @@ class Menu extends Model {
 
 	public function getMainMenuItems()
 	{
-		return $this->menuItems->filter(function ($m)
-		{
+		return $this->menuItems->filter(function ($m) {
 			return (int) $m->parent_id === 0;
 		});
 	}
 
 	public function getSubMenuItems()
 	{
-		return $this->menuItems->filter(function ($m)
-		{
+		return $this->menuItems->filter(function ($m) {
 			return (int) $m->parent_id > 0;
 		});
 	}
-	
 }

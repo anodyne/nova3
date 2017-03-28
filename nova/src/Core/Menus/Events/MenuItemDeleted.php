@@ -3,8 +3,8 @@
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class MenuItemDeleted extends Event {
-
+class MenuItemDeleted extends Event
+{
 	use SerializesModels;
 
 	protected $title;
@@ -15,5 +15,4 @@ class MenuItemDeleted extends Event {
 		$this->title = $title;
 		$this->link = $link;
 	}
-
 }

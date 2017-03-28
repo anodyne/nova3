@@ -1,12 +1,12 @@
 <?php namespace Nova\Core\Access\Data\Repositories;
 
-use Role as Model,
-	RoleRepositoryContract;
+use Role as Model;
+use RoleRepositoryContract;
 use Nova\Core\Access\Events;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class RoleRepository extends BaseRepository implements RoleRepositoryContract {
-
+class RoleRepository extends BaseRepository implements RoleRepositoryContract
+{
 	protected $model;
 
 	public function __construct(Model $model)
@@ -28,8 +28,7 @@ class RoleRepository extends BaseRepository implements RoleRepositoryContract {
 		$role = parent::create($data);
 
 		// Assign the permissions to the role
-		if (array_key_exists('permissions', $data))
-		{
+		if (array_key_exists('permissions', $data)) {
 			$role->addPermissions($data['permissions']);
 		}
 
@@ -47,8 +46,7 @@ class RoleRepository extends BaseRepository implements RoleRepositoryContract {
 		// Get the role we're removing
 		$role = $this->getResource($resource);
 
-		if ($role)
-		{
+		if ($role) {
 			// Remove all the permissions attached to this role
 			$role->permissions()->detach();
 
@@ -70,8 +68,7 @@ class RoleRepository extends BaseRepository implements RoleRepositoryContract {
 		// Get the item we're duplicate from
 		$originalRole = $this->getResource($resource);
 
-		if ($originalRole)
-		{
+		if ($originalRole) {
 			$newRole = $originalRole->replicate();
 			$newRole->name = ($newName) ? $newName : "Copy of ".$newRole->name;
 			$newRole->key = ($newKey) ? $newKey : $newRole->key."-copy";
@@ -102,8 +99,7 @@ class RoleRepository extends BaseRepository implements RoleRepositoryContract {
 		$role = parent::update($resource, $data);
 
 		// Assign the permissions to the role
-		if (array_key_exists('permissions', $data))
-		{
+		if (array_key_exists('permissions', $data)) {
 			$role->addPermissions($data['permissions']);
 		}
 
@@ -111,5 +107,4 @@ class RoleRepository extends BaseRepository implements RoleRepositoryContract {
 
 		return $role;
 	}
-
 }

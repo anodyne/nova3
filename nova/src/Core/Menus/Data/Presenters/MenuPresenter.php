@@ -2,8 +2,8 @@
 
 use BasePresenter;
 
-class MenuPresenter extends BasePresenter {
-
+class MenuPresenter extends BasePresenter
+{
 	public function key()
 	{
 		return $this->entity->key;
@@ -13,5 +13,4 @@ class MenuPresenter extends BasePresenter {
 	{
 		return $this->entity->name;
 	}
-
 }

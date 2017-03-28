@@ -3,8 +3,8 @@
 use stdClass;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 
-abstract class BaseRepository {
-
+abstract class BaseRepository
+{
 	public function all(array $with = [])
 	{
 		return $this->make($with)->get();
@@ -171,8 +171,8 @@ abstract class BaseRepository {
 	public function transform($transformer, $resource, array $parameters = [])
 	{
 		// Make sure we have a transformer object
-		$transformer = (is_object($transformer)) 
-			? $transformer 
+		$transformer = (is_object($transformer))
+			? $transformer
 			: new $transformer;
 
 		// Get the resource
@@ -186,8 +186,8 @@ abstract class BaseRepository {
 	public function transformAll($transformer, $resource, array $parameters = [])
 	{
 		// Make sure we have a transformer object
-		$transformer = (is_object($transformer)) 
-			? $transformer 
+		$transformer = (is_object($transformer))
+			? $transformer
 			: new $transformer;
 
 		// Get the resources
@@ -205,7 +205,7 @@ abstract class BaseRepository {
 	{
 		$item = $this->getResource($resource);
 
-		if ( ! $item) {
+		if (! $item) {
 			return false;
 		}
 
@@ -218,7 +218,7 @@ abstract class BaseRepository {
 	{
 		$item = $this->getResource($resource);
 
-		if ( ! $item) {
+		if (! $item) {
 			return false;
 		}
 
@@ -229,7 +229,6 @@ abstract class BaseRepository {
 	 * Get the resource that's passed to the method.
 	 *
 	 * If $resource is an instance of the model, just return it.
-	 
 	 */
 	protected function getResource($resource, $identifier = 'id', array $parameters = [])
 	{

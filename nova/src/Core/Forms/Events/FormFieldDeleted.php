@@ -3,8 +3,8 @@
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class FormFieldDeleted extends Event {
-
+class FormFieldDeleted extends Event
+{
 	use SerializesModels;
 
 	protected $id;
@@ -17,5 +17,4 @@ class FormFieldDeleted extends Event {
 		$this->label = $label;
 		$this->formKey = $formKey;
 	}
-
 }

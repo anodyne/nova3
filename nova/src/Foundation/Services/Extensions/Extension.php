@@ -2,8 +2,8 @@
 
 use Illuminate\Contracts\Foundation\Application;
 
-class Extension implements Extensible, ExtensibleInfo {
-
+class Extension implements Extensible, ExtensibleInfo
+{
 	protected $app;
 	protected $name;
 	protected $author;

@@ -1,7 +1,7 @@
 <?php namespace Nova\Core\Characters\Notifications;
 
-class CharacterLinkedToUser {
-
+class CharacterLinkedToUser
+{
 	public function via($notifiable)
 	{
 		return ['database'];

@@ -1,13 +1,13 @@
 <?php namespace Nova\Core\Forms\Data;
 
-use Model,
-	Status,
-	StatusTrait,
-	FormTabPresenter;
+use Model;
+use Status;
+use StatusTrait;
+use FormTabPresenter;
 use Laracasts\Presenter\PresentableTrait;
 
-class Tab extends Model {
-
+class Tab extends Model
+{
 	use StatusTrait, PresentableTrait;
 
 	protected $table = 'forms_tabs';
@@ -86,5 +86,4 @@ class Tab extends Model {
 	{
 		return $this->belongsTo(self::class, 'parent_id', 'id');
 	}
-	
 }

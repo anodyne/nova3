@@ -1,14 +1,14 @@
 <?php namespace Nova\Core\Menus\Data\Repositories;
 
-use Menu,
-	MenuItem as Model,
-	MenuItemRepositoryContract;
+use Menu;
+use MenuItem as Model;
+use MenuItemRepositoryContract;
 use Nova\Core\Menus\Events;
 use Illuminate\Support\Collection;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class MenuItemRepository extends BaseRepository implements MenuItemRepositoryContract {
-
+class MenuItemRepository extends BaseRepository implements MenuItemRepositoryContract
+{
 	protected $model;
 
 	public function __construct(Model $model)
@@ -23,8 +23,7 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 	public function create(array $data)
 	{
 		// Don't store a page ID unless the menu item type is page
-		if ($data['type'] != 'page')
-		{
+		if ($data['type'] != 'page') {
 			unset($data['page_id']);
 		}
 
@@ -64,10 +63,10 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 				return (int) $item->parent_id === 0;
 			})->sortBy('order');
 
-			if ( ! user()) {
+			if (! user()) {
 				/*$items = $items->filter(function ($item) {
 					return (bool) $item->authentication === false;
-				});*/	
+				});*/
 			}
 
 			return $items;
@@ -77,7 +76,7 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 			->where('parent_id', '=', 0)
 			->orderBy('order', 'asc');
 
-		if ( ! user()) {
+		if (! user()) {
 			//$query = $query->where('authentication', '=', (int) false);
 		}
 
@@ -94,7 +93,7 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 				return (int) $item->parent_id != 0;
 			})->sortBy('order');
 
-			if ( ! user()) {
+			if (! user()) {
 				/*$items = $items->filter(function ($item) {
 					return (bool) $item->authentication === false;
 				});*/
@@ -110,7 +109,7 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 			})*/
 			->orderBy('order', 'asc');
 
-		if ( ! user()) {
+		if (! user()) {
 			//$query = $query->where('authentication', '=', (int) false);
 		}
 
@@ -122,19 +121,14 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 		// Get all the menu items
 		$items = $menu->menuItems;
 
-		foreach ($newPositions as $parentId => $positions)
-		{
-			if (is_array($positions))
-			{
-				foreach ($positions as $order => $itemId)
-				{
-					$itemCollection = $items->filter(function ($i) use ($itemId)
-					{
+		foreach ($newPositions as $parentId => $positions) {
+			if (is_array($positions)) {
+				foreach ($positions as $order => $itemId) {
+					$itemCollection = $items->filter(function ($i) use ($itemId) {
 						return $i->id == $itemId;
 					});
 
-					foreach ($itemCollection as $item)
-					{
+					foreach ($itemCollection as $item) {
 						$item->fill([
 							'order'		=> $order,
 							'parent_id'	=> $parentId,
@@ -149,8 +143,7 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 	{
 		$list = [];
 
-		foreach ($menuItemCollection as $item)
-		{
+		foreach ($menuItemCollection as $item) {
 			$list[$item->parent_id][] = $item;
 		}
 
@@ -165,5 +158,4 @@ class MenuItemRepository extends BaseRepository implements MenuItemRepositoryCon
 
 		return $item;
 	}
-
 }

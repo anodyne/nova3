@@ -1,9 +1,10 @@
 <?php namespace Nova\Core\Forms\Mail;
 
-use User, BaseMailable;
+use User;
+use BaseMailable;
 
-class FormEntryAdded extends BaseMailable {
-
+class FormEntryAdded extends BaseMailable
+{
 	public $entry;
 	public $form;
 

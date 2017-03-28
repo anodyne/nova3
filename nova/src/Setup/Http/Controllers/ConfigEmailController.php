@@ -1,11 +1,10 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use Flash, Input;
 use Illuminate\Filesystem\Filesystem;
 use Nova\Setup\Http\Requests\CheckEmailSettingsRequest;
 
-class ConfigEmailController extends BaseController {
-
+class ConfigEmailController extends BaseController
+{
 	public function info()
 	{
 		return view('pages.setup.config.email.info');
@@ -31,8 +30,7 @@ class ConfigEmailController extends BaseController {
 		$mailDriver = $request->get('mail_driver');
 
 		// Setup the services config file
-		switch ($mailDriver)
-		{
+		switch ($mailDriver) {
 			case 'mailgun':
 				$writer->write('services', [
 					"#MAILGUN_DOMAIN#" => trim($request->get('services_mailgun_domain')),
@@ -40,7 +38,7 @@ class ConfigEmailController extends BaseController {
 
 					"#SPARKPOST_SECRET#" => '',
 				]);
-			break;
+				break;
 
 			case 'sparkpost':
 				$writer->write('services', [
@@ -49,11 +47,10 @@ class ConfigEmailController extends BaseController {
 					"#MAILGUN_DOMAIN#" => '',
 					"#MAILGUN_SECRET#" => '',
 				]);
-			break;
+				break;
 		}
 
-		if ($files->exists(app('path.config').'/mail.php'))
-		{
+		if ($files->exists(app('path.config').'/mail.php')) {
 			return redirect()->route("setup.{$this->setupType}.config.email.success");
 		}
 
@@ -67,5 +64,4 @@ class ConfigEmailController extends BaseController {
 	{
 		return view('pages.setup.config.email.success');
 	}
-
 }

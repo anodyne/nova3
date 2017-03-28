@@ -3,17 +3,11 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSystemTables extends Migration {
-
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
+class CreateSystemTables extends Migration
+{
 	public function up()
 	{
-		Schema::create('system_info', function (Blueprint $table)
-		{
+		Schema::create('system_info', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('uuid');
 			$table->tinyInteger('version_major')->default(3);
@@ -23,8 +17,7 @@ class CreateSystemTables extends Migration {
 			$table->timestamps();
 		});
 
-		Schema::create('system_events', function (Blueprint $table)
-		{
+		Schema::create('system_events', function (Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->string('email')->nullable();
 			$table->string('ip_address')->nullable();
@@ -39,15 +32,9 @@ class CreateSystemTables extends Migration {
 		# TODO: create a new system event for the installation
 	}
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
 	public function down()
 	{
 		Schema::dropIfExists('system_info');
 		Schema::dropIfExists('system_events');
 	}
-
 }

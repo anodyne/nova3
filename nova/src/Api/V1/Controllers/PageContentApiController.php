@@ -3,8 +3,8 @@
 use PageContentRepositoryContract;
 use Nova\Api\V1\Transformers\PageContentTransformer;
 
-class PageContentApiController extends ApiBaseController {
-
+class PageContentApiController extends ApiBaseController
+{
 	protected $repo;
 
 	public function __construct(PageContentRepositoryContract $repo)
@@ -24,12 +24,10 @@ class PageContentApiController extends ApiBaseController {
 	{
 		$content = $this->repo->getById($contentId);
 
-		if ( ! $content)
-		{
+		if (! $content) {
 			return $this->response->errorNotFound('Page content not found');
 		}
 
 		return $this->response->item($content, new PageContentTransformer);
 	}
-
 }

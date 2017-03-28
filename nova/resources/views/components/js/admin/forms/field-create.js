@@ -140,7 +140,7 @@ vue = {
 			this.rules.$remove(row)
 		},
 
-		buildValidationRules: function() {
+		buildValidationRules: function () {
 			var arrList = []
 
 			for (var i = 0; i < this.rules.length; ++i) {
@@ -238,7 +238,8 @@ vue = {
 	}
 }
 
-function find(item, name) {
+function find(item, name)
+{
 	if ( ! vue.data[item]) {
 		return
 	}

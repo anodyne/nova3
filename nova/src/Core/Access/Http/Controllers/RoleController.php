@@ -1,21 +1,24 @@
 <?php namespace Nova\Core\Access\Http\Controllers;
 
-use Role,
-	Permission,
-	BaseController,
-	RoleRepositoryContract,
-	PermissionRepositoryContract,
-	EditRoleRequest, CreateRoleRequest, RemoveRoleRequest;
+use Role;
+use Permission;
+use BaseController;
+use RoleRepositoryContract;
+use PermissionRepositoryContract;
+use EditRoleRequest;
+use CreateRoleRequest;
+use RemoveRoleRequest;
 use Illuminate\Http\Request;
 
-class RoleController extends BaseController {
-
+class RoleController extends BaseController
+{
 	protected $repo;
 	protected $permissionsRepo;
 
-	public function __construct(RoleRepositoryContract $repo,
-			PermissionRepositoryContract $permissions)
-	{
+	public function __construct(
+		RoleRepositoryContract $repo,
+		PermissionRepositoryContract $permissions
+	) {
 		parent::__construct();
 
 		$this->isAdmin = true;
@@ -96,14 +99,11 @@ class RoleController extends BaseController {
 
 		$role = $this->repo->find($roleId);
 
-		if (policy($role)->remove($this->user))
-		{
+		if (policy($role)->remove($this->user)) {
 			$body = ($role)
 				? view(locate('page', 'admin/access/role-remove'), compact('role'))
 				: alert('danger', "Role not found.");
-		}
-		else
-		{
+		} else {
 			$body = alert('danger', "You do not have permission to remove roles.");
 		}
 
@@ -131,8 +131,7 @@ class RoleController extends BaseController {
 
 		$count = $this->repo->countBy('key', request('key'));
 
-		if ($count > 0)
-		{
+		if ($count > 0) {
 			return json_encode(['code' => 0]);
 		}
 
@@ -145,14 +144,11 @@ class RoleController extends BaseController {
 
 		$role = $this->repo->find($roleId);
 
-		if (policy($role)->create($this->user))
-		{
+		if (policy($role)->create($this->user)) {
 			$body = ($role)
 				? view(locate('page', 'admin/access/role-duplicate'), compact('role'))
 				: alert('danger', "Role not found.");
-		}
-		else
-		{
+		} else {
 			$body = alert('danger', "You do not have permission to create roles.");
 		}
 
@@ -186,12 +182,9 @@ class RoleController extends BaseController {
 
 		$role = $this->repo->getById($roleId, ['users']);
 
-		if ( ! $role)
-		{
+		if (! $role) {
 			$body = alert('danger', "Role could not be found");
-		}
-		else
-		{
+		} else {
 			$body = view(locate()->page('admin/access/role-users'), compact('role'));
 		}
 
@@ -201,5 +194,4 @@ class RoleController extends BaseController {
 			'footer' => false,
 		]);
 	}
-
 }

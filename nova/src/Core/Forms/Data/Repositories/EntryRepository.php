@@ -1,24 +1,25 @@
 <?php namespace Nova\Core\Forms\Data\Repositories;
 
-use User,
-	NovaForm,
-	NovaFormData,
-	NovaFormEntry as Model,
-	FormDataRepositoryContract,
-	FormEntryRepositoryContract,
-	FormFieldRepositoryContract;
+use User;
+use NovaForm;
+use NovaFormData;
+use NovaFormEntry as Model;
+use FormDataRepositoryContract;
+use FormEntryRepositoryContract;
+use FormFieldRepositoryContract;
 use Nova\Core\Forms\Events;
 
-class EntryRepository extends BaseFormRepository implements FormEntryRepositoryContract {
-
+class EntryRepository extends BaseFormRepository implements FormEntryRepositoryContract
+{
 	protected $model;
 	protected $dataRepo;
 	protected $fieldRepo;
 
-	public function __construct(Model $model,
-			FormDataRepositoryContract $data,
-			FormFieldRepositoryContract $field)
-	{
+	public function __construct(
+		Model $model,
+		FormDataRepositoryContract $data,
+		FormFieldRepositoryContract $field
+	) {
 		$this->model = $model;
 		$this->dataRepo = $data;
 		$this->fieldRepo = $field;
@@ -28,18 +29,20 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryC
 	{
 		$item = $this->getResource($resource);
 
-		if ($item)
-		{
+		if ($item) {
 			// Remove all the data
-			$item->data->each(function ($d)
-			{
+			$item->data->each(function ($d) {
 				$d->delete();
 			});
 
 			// Remove the entry
 			$item->delete();
 
-			event(new Events\FormCenterFormDeleted($item->id, $item->present()->identifier, $item->form->key));
+			event(new Events\FormCenterFormDeleted(
+				$item->id,
+				$item->present()->identifier,
+				$item->form->key
+			));
 
 			return $item;
 		}
@@ -56,8 +59,7 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryC
 	{
 		$entries = $user->formCenterEntries->load(['form', 'data']);
 
-		if ($form)
-		{
+		if ($form) {
 			$entries = $entries->where('form_id', $form->id);
 		}
 
@@ -70,12 +72,9 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryC
 		$entry = new Model;
 		$entry->form()->associate($form);
 
-		if ($user)
-		{
+		if ($user) {
 			$entry->user()->associate($user);
-		}
-		else
-		{
+		} else {
 			$entry->ip_address = app('request')->ip();
 		}
 
@@ -84,14 +83,12 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryC
 		// We don't want the CSRF token in here
 		unset($data['_token']);
 
-		foreach ($data as $field => $value)
-		{
+		foreach ($data as $field => $value) {
 			// Get just the field ID out of the field name
 			preg_match('!\d+!', $field, $matches);
 			$fieldId = $matches[0];
 
-			if (is_numeric($fieldId))
-			{
+			if (is_numeric($fieldId)) {
 				$this->dataRepo->create([
 					'form_id' => $form->id,
 					'field_id' => $fieldId,
@@ -115,14 +112,12 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryC
 		unset($data['_method']);
 		unset($data['_token']);
 
-		foreach ($data as $field => $value)
-		{
+		foreach ($data as $field => $value) {
 			// Get just the field ID out of the field name
 			preg_match('!\d+!', $field, $matches);
 			$fieldId = $matches[0];
 
-			if (is_numeric($fieldId))
-			{
+			if (is_numeric($fieldId)) {
 				// Set the attributes for finding the record
 				$attributes = [
 					'form_id' => $entry->form_id,
@@ -148,5 +143,4 @@ class EntryRepository extends BaseFormRepository implements FormEntryRepositoryC
 
 		return $entry;
 	}
-
 }

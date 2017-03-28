@@ -1,7 +1,7 @@
 <?php namespace Nova\Foundation\Themes;
 
-interface ThemeableInfo {
-
+interface ThemeableInfo
+{
 	/**
 	 * Get the full name of the theme.
 	 *

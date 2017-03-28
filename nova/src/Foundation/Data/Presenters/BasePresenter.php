@@ -2,8 +2,8 @@
 
 use Laracasts\Presenter\Presenter;
 
-class BasePresenter extends Presenter {
-
+class BasePresenter extends Presenter
+{
 	public function createdAt()
 	{
 		$dateFormat = app('nova.settings')->get('format_datetime');

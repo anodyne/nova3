@@ -1,13 +1,13 @@
 <?php namespace Nova\Core\Users\Data\Repositories;
 
-use Status,
-	User as Model,
-	UserRepositoryContract;
+use Status;
+use User as Model;
+use UserRepositoryContract;
 use Nova\Core\Users\Events;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class UserRepository extends BaseRepository implements UserRepositoryContract {
-
+class UserRepository extends BaseRepository implements UserRepositoryContract
+{
 	protected $model;
 
 	public function __construct(Model $model)
@@ -37,22 +37,18 @@ class UserRepository extends BaseRepository implements UserRepositoryContract {
 		// exists in the system already, we're retore the record
 		$user = $this->model->withTrashed()->updateOrCreate(['email' => $data['email']], $data);
 
-		if ($role)
-		{
+		if ($role) {
 			$user->assignRole($role);
 		}
 
-		if ($user->trashed())
-		{
+		if ($user->trashed()) {
 			$user->status = Status::ACTIVE;
 			$user->save();
 
 			$user->restore();
 
 			event(new Events\UserRestored($user));
-		}
-		else
-		{
+		} else {
 			event(new Events\UserCreated($user));
 		}
 
@@ -64,8 +60,7 @@ class UserRepository extends BaseRepository implements UserRepositoryContract {
 		// Get the resource
 		$user = $this->getResource($resource);
 
-		if ($user)
-		{
+		if ($user) {
 			// Deactive the user first
 			$user->deactivate();
 
@@ -88,8 +83,7 @@ class UserRepository extends BaseRepository implements UserRepositoryContract {
 		// Get the resource
 		$user = $this->getResource($resource);
 
-		if ($user)
-		{
+		if ($user) {
 			$user->fill(['password' => null])->save();
 
 			return $user;

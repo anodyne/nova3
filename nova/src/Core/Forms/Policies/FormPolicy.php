@@ -1,10 +1,10 @@
 <?php namespace Nova\Core\Forms\Policies;
 
-use User,
-	NovaForm as Form;
+use User;
+use NovaForm as Form;
 
-class FormPolicy {
-
+class FormPolicy
+{
 	public function create(User $user)
 	{
 		return $user->can('form.create');
@@ -54,5 +54,4 @@ class FormPolicy {
 	{
 		return $user->canRemoveFormEntry($form);
 	}
-
 }

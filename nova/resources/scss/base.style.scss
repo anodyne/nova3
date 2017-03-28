@@ -81,7 +81,6 @@ a {
 	&:active, &:focus {
 		outline: none;
 		box-shadow: none;
-		color: inherit;
 	}
 
 	&.btn-cancel {
@@ -93,7 +92,7 @@ a {
 		}
 	}
 
-	&.btn-danger {
+	&.btn-danger, &.btn-primary, &.btn-success {
 		&:active, &:focus {
 			outline: none;
 			box-shadow: none;

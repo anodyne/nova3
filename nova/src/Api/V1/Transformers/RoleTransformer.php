@@ -1,10 +1,11 @@
 <?php namespace Nova\Api\V1\Transformers;
 
-use Auth, Role as Resource;
+use Auth;
+use Role as Resource;
 use League\Fractal\TransformerAbstract as Transformer;
 
-class RoleTransformer extends Transformer {
-
+class RoleTransformer extends Transformer
+{
 	public function transform(Resource $resource)
 	{
 		$role = [
@@ -18,12 +19,10 @@ class RoleTransformer extends Transformer {
 			],
 		];
 
-		if (Auth::guard('api')->check())
-		{
+		if (Auth::guard('api')->check()) {
 			$role['users'] = $resource->users->toArray();
 		}
 
 		return $role;
 	}
-
 }

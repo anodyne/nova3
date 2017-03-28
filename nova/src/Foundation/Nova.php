@@ -1,7 +1,7 @@
 <?php namespace Nova\Foundation;
 
-class Nova {
-
+class Nova
+{
 	use Configuration\DoesEnvironmentChecks,
 		Configuration\DoesSystemChecks,
 		Configuration\DoesVersionCheck,

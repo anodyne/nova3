@@ -1,10 +1,11 @@
 <?php namespace Nova\Core\Forms\Services\FieldTypes;
 
-use Form, Markdown;
+use Form;
+use Markdown;
 use Illuminate\Support\HtmlString;
 
-class RadioButton implements FieldTypeInterface {
-
+class RadioButton implements FieldTypeInterface
+{
 	public function info()
 	{
 		return [
@@ -21,8 +22,7 @@ class RadioButton implements FieldTypeInterface {
 
 	public function render($state, $name, $values, $data, array $attributes)
 	{
-		if ($state == 'view')
-		{
+		if ($state == 'view') {
 			return $this->renderStatic($data);
 		}
 
@@ -33,12 +33,10 @@ class RadioButton implements FieldTypeInterface {
 	{
 		$output = [];
 
-		foreach ($values as $value => $text)
-		{
+		foreach ($values as $value => $text) {
 			$checked = false;
 
-			if ($state == 'edit')
-			{
+			if ($state == 'edit') {
 				$checked = ($value == $data);
 			}
 
@@ -56,5 +54,4 @@ class RadioButton implements FieldTypeInterface {
 	{
 		return '<p class="form-field-static">'.Markdown::parse($data).'</p>';
 	}
-
 }

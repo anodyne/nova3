@@ -1,15 +1,15 @@
 <?php namespace Nova\Core\Menus\Data;
 
-use Str,
-	Page,
-	Model,
-	Menu as MenuModel,
-	MenuItemPresenter;
+use Str;
+use Page;
+use Model;
+use Menu as MenuModel;
+use MenuItemPresenter;
 use Illuminate\Support\Collection;
 use Laracasts\Presenter\PresentableTrait;
 
-class MenuItem extends Model {
-
+class MenuItem extends Model
+{
 	use PresentableTrait;
 
 	protected $table = 'menus_items';
@@ -59,16 +59,11 @@ class MenuItem extends Model {
 
 	public function setAccessAttribute($value)
 	{
-		if (is_array($value))
-		{
+		if (is_array($value)) {
 			$this->attributes['access'] = json_encode($value);
-		}
-		elseif ($value instanceof Collection)
-		{
+		} elseif ($value instanceof Collection) {
 			$this->attributes['access'] = $value->toJson();
-		}
-		else
-		{
+		} else {
 			$this->attributes['access'] = $value;
 		}
 	}
@@ -80,11 +75,15 @@ class MenuItem extends Model {
 	public function userHasAccess($user)
 	{
 		// If we don't have anything in the access column, we can see it
-		if (empty($this->access)) return true;
+		if (empty($this->access)) {
+			return true;
+		}
 
 		// If we do have something in the access column and there is no user
 		// then we're dealing with an unauthenticated user who can't see it
-		if ($user === null) return false;
+		if ($user === null) {
+			return false;
+		}
 
 		// Figure out if we're looking for a role or a permission
 		$method = (Str::contains($this->access_type, 'roles')) ? 'hasRole' : 'can';
@@ -92,9 +91,13 @@ class MenuItem extends Model {
 
 		foreach ($this->access as $access) {
 			if ($isStrict) {
-				if ( ! $user->{$method}($access['key'])) return false;
+				if (! $user->{$method}($access['key'])) {
+					return false;
+				}
 			} else {
-				if ($user->{$method}($access['key'])) return true;
+				if ($user->{$method}($access['key'])) {
+					return true;
+				}
 			}
 		}
 

@@ -4,8 +4,8 @@ use Str;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
-class RouteServiceProvider extends ServiceProvider {
-
+class RouteServiceProvider extends ServiceProvider
+{
 	/**
 	 * This namespace is applied to the controller routes in your routes file.
 	 *
@@ -79,11 +79,11 @@ class RouteServiceProvider extends ServiceProvider {
 		if (count($routes) > 0) {
 			foreach ($routes as $route) {
 				$options['as'] = $route['name'];
-				$options['resource'] = ( ! empty($route['resource'])) 
+				$options['resource'] = (! empty($route['resource']))
 					? $route['resource']
 					: $route['default_resource'];
 
-				if ( ! empty($route['conditions'])) {
+				if (! empty($route['conditions'])) {
 					$this->app['router']->addRoute($route['verb'], $route['uri'], $options)
 						->where($this->parseRouteConditions($route['conditions']));
 				} else {

@@ -1,7 +1,7 @@
 <?php namespace Nova\Foundation\Themes;
 
-interface ThemeIconsContract {
-
+interface ThemeIconsContract
+{
 	public function buildIconList($extraClasses = false): array;
 	public function getIcon($icon);
 	public function getIconMap();
@@ -10,5 +10,4 @@ interface ThemeIconsContract {
 	public function renderFontIcon($icon, $extraClasses = false);
 	public function renderImageIcon($icon, $extraClasses = false);
 	public function renderSvgIcon($icon, $extraClasses = false);
-
 }

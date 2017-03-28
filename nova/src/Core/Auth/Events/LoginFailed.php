@@ -3,8 +3,8 @@
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class LoginFailed extends Event {
-
+class LoginFailed extends Event
+{
 	use SerializesModels;
 
 	public $email;

@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class CreateUserRequest extends Request {
-
+class CreateUserRequest extends Request
+{
 	public function authorize()
 	{
 		return true;
@@ -33,5 +33,4 @@ class CreateUserRequest extends Request {
 			'character.first_name.required' => 'Please enter a first name for your character',
 		];
 	}
-
 }

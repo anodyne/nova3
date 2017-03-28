@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class CreateUserRequest extends Request {
-
+class CreateUserRequest extends Request
+{
 	public function authorize()
 	{
 		return true;
@@ -30,5 +30,4 @@ class CreateUserRequest extends Request {
 			'role.required' => "Please select an access role",
 		];
 	}
-
 }

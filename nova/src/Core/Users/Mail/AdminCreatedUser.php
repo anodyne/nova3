@@ -1,9 +1,10 @@
 <?php namespace Nova\Core\Users\Mail;
 
-use User, BaseMailable;
+use User;
+use BaseMailable;
 
-class AdminCreatedUser extends BaseMailable {
-
+class AdminCreatedUser extends BaseMailable
+{
 	public $user;
 	public $password;
 

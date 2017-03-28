@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Events\Event;
 
-class FormCenterFormDeleted extends Event {
-
+class FormCenterFormDeleted extends Event
+{
 	protected $id;
 	protected $identifier;
 	protected $formKey;
@@ -14,5 +14,4 @@ class FormCenterFormDeleted extends Event {
 		$this->identifier = $identifier;
 		$this->formKey = $formKey;
 	}
-
 }

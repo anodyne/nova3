@@ -4,11 +4,14 @@ use Artisan;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CachePageRoutes implements ShouldQueue {
-
+class CachePageRoutes implements ShouldQueue
+{
 	use InteractsWithQueue;
 
-	public function __construct() {}
+	public function __construct()
+	{
+		//
+	}
 
 	public function handle($event)
 	{

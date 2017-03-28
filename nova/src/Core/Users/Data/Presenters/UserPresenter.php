@@ -1,13 +1,13 @@
 <?php namespace Nova\Core\Users\Data\Presenters;
 
-use Status, BasePresenter;
+use Status;
+use BasePresenter;
 
-class UserPresenter extends BasePresenter {
-
+class UserPresenter extends BasePresenter
+{
 	public function firstName()
 	{
-		if ($this->entity->nickname)
-		{
+		if ($this->entity->nickname) {
 			return $this->entity->nickname;
 		}
 
@@ -18,29 +18,25 @@ class UserPresenter extends BasePresenter {
 	{
 		$dateFormat = app('nova.settings')->get('format_datetime');
 
-		if ($this->entity->last_password_reset)
-		{
+		if ($this->entity->last_password_reset) {
 			return $this->entity->last_password_reset->format($dateFormat);
 		}
 	}
 
 	public function lastPasswordResetRelative()
 	{
-		if ($this->entity->last_password_reset)
-		{
+		if ($this->entity->last_password_reset) {
 			return $this->entity->last_password_reset->diffForHumans();
 		}
 	}
 
 	public function name()
 	{
-		if ($this->entity->nickname)
-		{
+		if ($this->entity->nickname) {
 			return $this->entity->nickname;
 		}
 
-		if ($this->entity->name)
-		{
+		if ($this->entity->name) {
 			return $this->entity->name;
 		}
 
@@ -56,19 +52,18 @@ class UserPresenter extends BasePresenter {
 	{
 		$status = $this->entity->status;
 
-		switch ($status)
-		{
+		switch ($status) {
 			case Status::ACTIVE:
 				$level = 'success';
-			break;
+				break;
 
 			case Status::INACTIVE:
 				$level = 'default';
-			break;
+				break;
 
 			case Status::PENDING:
 				$level = 'warning';
-			break;
+				break;
 		}
 
 		return label($level, ucwords(Status::toString($status)));

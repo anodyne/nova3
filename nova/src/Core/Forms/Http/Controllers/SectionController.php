@@ -1,22 +1,25 @@
 <?php namespace Nova\Core\Forms\Http\Controllers;
 
-use BaseController,
-	NovaFormSection,
-	FormRepositoryContract,
-	FormTabRepositoryContract,
-	FormSectionRepositoryContract,
-	EditFormSectionRequest, CreateFormSectionRequest, RemoveFormSectionRequest;
+use BaseController;
+use NovaFormSection;
+use FormRepositoryContract;
+use FormTabRepositoryContract;
+use FormSectionRepositoryContract;
+use EditFormSectionRequest;
+use CreateFormSectionRequest;
+use RemoveFormSectionRequest;
 
-class SectionController extends BaseController {
-
+class SectionController extends BaseController
+{
 	protected $repo;
 	protected $tabRepo;
 	protected $formRepo;
 
-	public function __construct(FormSectionRepositoryContract $repo, 
-			FormRepositoryContract $forms,
-			FormTabRepositoryContract $tabs)
-	{
+	public function __construct(
+		FormSectionRepositoryContract $repo,
+		FormRepositoryContract $forms,
+		FormTabRepositoryContract $tabs
+	) {
 		parent::__construct();
 
 		$this->isAdmin = true;
@@ -108,12 +111,9 @@ class SectionController extends BaseController {
 
 		$section = $this->repo->getById($sectionId);
 
-		if ( ! $section)
-		{
+		if (! $section) {
 			$body = alert('danger', "Form section could not be found.");
-		}
-		else
-		{
+		} else {
 			$form = $this->formRepo->getByKey($formKey);
 
 			$sections = ['0' => "No section"];
@@ -137,12 +137,9 @@ class SectionController extends BaseController {
 
 		$this->authorize('remove', $section, "You do not have permission to remove form sections.");
 
-		if ($request->has('remove_section_content'))
-		{
+		if ($request->has('remove_section_content')) {
 			$this->repo->removeSectionContent($section);
-		}
-		else
-		{
+		} else {
 			$this->repo->reassignSectionContent($section, $request->get('new_section'));
 		}
 
@@ -159,13 +156,10 @@ class SectionController extends BaseController {
 
 		$section = new NovaFormSection;
 
-		if (policy($section)->edit($this->user, $section))
-		{
-			foreach (request('sections') as $order => $id)
-			{
+		if (policy($section)->edit($this->user, $section)) {
+			foreach (request('sections') as $order => $id) {
 				$updatedSection = $this->repo->updateOrder($id, $order);
 			}
 		}
 	}
-
 }

@@ -1,14 +1,14 @@
 <?php namespace Nova\Core\Users;
 
-use CharacterCreator, UserRepositoryContract;
+use CharacterCreator;
+use UserRepositoryContract;
 
-class UserCreator {
-
+class UserCreator
+{
 	protected $userRepo;
 	protected $characterCreator;
 
-	public function __construct(UserRepositoryContract $users,
-			CharacterCreator $creator)
+	public function __construct(UserRepositoryContract $users, CharacterCreator $creator)
 	{
 		$this->userRepo = $users;
 		$this->characterCreator = $creator;
@@ -45,8 +45,7 @@ class UserCreator {
 		// Create the character
 		$character = $this->characterCreator->create($data['character'], $user);
 
-		if ($user and $character)
-		{
+		if ($user and $character) {
 			return true;
 		}
 

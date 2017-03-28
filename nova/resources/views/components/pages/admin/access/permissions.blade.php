@@ -8,7 +8,7 @@
 			@endif
 
 			<div class="col-sm-6">
-				<p><a href="{{ route('admin.access.roles') }}" class="btn btn-default btn-lg btn-block">{!! icon('lock') !!}<span>Manage Roles</span></a></p>
+				<p><a href="{{ route('admin.access.roles') }}" class="btn btn-secondary btn-lg btn-block">{!! icon('lock') !!}<span>Manage Roles</span></a></p>
 			</div>
 		</div>
 	</mobile>
@@ -21,7 +21,7 @@
 			@endif
 
 			<div class="btn-group">
-				<a href="{{ route('admin.access.roles') }}" class="btn btn-default">{!! icon('lock') !!}<span>Manage Roles</span></a>
+				<a href="{{ route('admin.access.roles') }}" class="btn btn-secondary">{!! icon('lock') !!}<span>Manage Roles</span></a>
 			</div>
 		</div>
 	</desktop>
@@ -41,10 +41,10 @@
 
 				<div class="panel-footer" v-cloak>
 					<mobile>
-						<a class="btn btn-default btn-lg btn-block" @click="resetFilters">Reset Filter</a>
+						<a class="btn btn-secondary btn-lg btn-block" @click="resetFilters">Reset Filter</a>
 					</mobile>
 					<desktop>
-						<a class="btn btn-default btn-block" @click="resetFilters">Reset Filter</a>
+						<a class="btn btn-secondary btn-block" @click="resetFilters">Reset Filter</a>
 					</desktop>
 				</div>
 			</div>
@@ -63,7 +63,7 @@
 							<div class="row">
 								@if ($_user->can('access.edit'))
 									<div class="col-sm-6">
-										<p><a href="@{{ permission.editUrl }}" class="btn btn-default btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
+										<p><a href="@{{ permission.editUrl }}" class="btn btn-secondary btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
 									</div>
 								@endif
 
@@ -78,7 +78,7 @@
 							<div class="btn-toolbar pull-right">
 								@if ($_user->can('access.edit'))
 									<div class="btn-group">
-										<a href="@{{ permission.editUrl }}" class="btn btn-default">{!! icon('edit') !!}<span>Edit</span></a>
+										<a href="@{{ permission.editUrl }}" class="btn btn-secondary">{!! icon('edit') !!}<span>Edit</span></a>
 									</div>
 								@endif
 

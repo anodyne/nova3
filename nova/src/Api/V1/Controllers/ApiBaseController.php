@@ -4,8 +4,8 @@ use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
 use Symfony\Component\HttpKernel\Exception;
 
-abstract class ApiBaseController extends Controller {
-
+abstract class ApiBaseController extends Controller
+{
 	use Helpers;
 
 	/**

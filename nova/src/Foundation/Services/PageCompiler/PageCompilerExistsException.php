@@ -1,5 +1,6 @@
 <?php namespace Nova\Foundation\Services\PageCompiler;
 
-use Exception;
-
-class PageCompilerExistsException extends Exception {}
+class PageCompilerExistsException extends \Exception
+{
+	//
+}

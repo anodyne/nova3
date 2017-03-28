@@ -1,12 +1,12 @@
 <?php namespace Nova\Core\Forms\Data\Repositories;
 
-use User,
-	NovaForm as Model,
-	FormRepositoryContract;
+use User;
+use NovaForm as Model;
+use FormRepositoryContract;
 use Nova\Core\Forms\Events;
 
-class FormRepository extends BaseFormRepository implements FormRepositoryContract {
-
+class FormRepository extends BaseFormRepository implements FormRepositoryContract
+{
 	protected $model;
 
 	public function __construct(Model $model)
@@ -36,30 +36,25 @@ class FormRepository extends BaseFormRepository implements FormRepositoryContrac
 		// Get the resource
 		$form = $this->getResource($resource, 'key');
 
-		if ($form)
-		{
+		if ($form) {
 			// First, remove all the data
-			$form->data->each(function ($data)
-			{
+			$form->data->each(function ($data) {
 				$data->delete();
 			});
 
 			// Remove all the fields
-			$form->fieldsAll->each(function ($field)
-			{
+			$form->fieldsAll->each(function ($field) {
 				// Now we can delete the field
 				app('FormFieldRepository')->delete($field);
 			});
 
 			// Remove all the sections
-			$form->sectionsAll->each(function ($section)
-			{
+			$form->sectionsAll->each(function ($section) {
 				app('FormSectionRepository')->delete($section);
 			});
 
 			// Remove all the tabs
-			$form->tabsAll->each(function ($tab)
-			{
+			$form->tabsAll->each(function ($tab) {
 				app('FormTabRepository')->delete($tab);
 			});
 
@@ -117,14 +112,11 @@ class FormRepository extends BaseFormRepository implements FormRepositoryContrac
 		// Get all the fields
 		$fields = $form->fields;
 
-		if ($fields)
-		{
+		if ($fields) {
 			$rulesArr = [];
 
-			foreach ($fields as $field)
-			{
-				if (count($field->validation_rules) > 0)
-				{
+			foreach ($fields as $field) {
+				if (count($field->validation_rules) > 0) {
 					$fieldName = sprintf(config('nova.forms.fieldNameFormat'), $field->id);
 
 					$rulesArr[$fieldName] = $field->validationRules();
@@ -157,10 +149,8 @@ class FormRepository extends BaseFormRepository implements FormRepositoryContrac
 	protected function cleanFieldValues(array $data)
 	{
 		// Handle restrictions
-		if (array_key_exists('restrictionValues', $data))
-		{
-			foreach ($data['restrictionValues'] as $type => $value)
-			{
+		if (array_key_exists('restrictionValues', $data)) {
+			foreach ($data['restrictionValues'] as $type => $value) {
 				$data['restrictions'][] = [
 					'type' => $type,
 					'value' => $value,
@@ -172,5 +162,4 @@ class FormRepository extends BaseFormRepository implements FormRepositoryContrac
 
 		return $data;
 	}
-
 }

@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class CreateFormRequest extends Request {
-
+class CreateFormRequest extends Request
+{
 	public function authorize()
 	{
 		return true;
@@ -39,5 +39,4 @@ class CreateFormRequest extends Request {
 			'resource_destroy.required_if' => "Please select the resource for deleting form entries",
 		];
 	}
-
 }

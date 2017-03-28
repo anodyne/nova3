@@ -22,7 +22,7 @@
 	<div v-cloak>
 		<mobile>
 			<p>{!! Form::button("Duplicate Role", ['type' => 'submit', 'class' => 'btn btn-primary btn-lg btn-block']) !!}</p>
-			<p>{!! Form::button("Cancel", ['class' => 'btn btn-default btn-lg btn-block', 'data-dismiss' => 'modal']) !!}</p>
+			<p>{!! Form::button("Cancel", ['class' => 'btn btn-secondary btn-lg btn-block', 'data-dismiss' => 'modal']) !!}</p>
 		</mobile>
 		<desktop>
 			{!! Form::button("Duplicate Role", ['type' => 'submit', 'class' => 'btn btn-primary btn-lg']) !!}

@@ -1,11 +1,11 @@
 <div v-cloak>
 	<mobile>
-		<p><a href="{{ route('admin.forms.fields', [$form->key]) }}" class="btn btn-default btn-lg btn-block">{!! icon('arrow-back') !!}<span>Back to Form Fields</span></a></p>
+		<p><a href="{{ route('admin.forms.fields', [$form->key]) }}" class="btn btn-secondary btn-lg btn-block">{!! icon('arrow-back') !!}<span>Back to Form Fields</span></a></p>
 	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			<div class="btn-group">
-				<a href="{{ route('admin.forms.fields', [$form->key]) }}" class="btn btn-default">{!! icon('arrow-back') !!}<span>Back to Form Fields</span></a>
+				<a href="{{ route('admin.forms.fields', [$form->key]) }}" class="btn btn-secondary">{!! icon('arrow-back') !!}<span>Back to Form Fields</span></a>
 			</div>
 		</div>
 	</desktop>
@@ -217,10 +217,10 @@
 						</div>
 
 						<mobile>
-							<p><a @click="addAttribute" class="btn btn-block btn-default">{!! icon('add') !!}<span>Add Attribute</span></a></p>
+							<p><a @click="addAttribute" class="btn btn-block btn-secondary">{!! icon('add') !!}<span>Add Attribute</span></a></p>
 						</mobile>
 						<desktop>
-							<p><a @click="addAttribute" class="btn btn-default">{!! icon('add') !!}<span>Add Attribute</span></a></p>
+							<p><a @click="addAttribute" class="btn btn-secondary">{!! icon('add') !!}<span>Add Attribute</span></a></p>
 						</desktop>
 					</div>
 				</div>
@@ -272,10 +272,10 @@
 						</div>
 
 						<mobile>
-							<p><a @click="addOption" class="btn btn-block btn-default">{!! icon('add') !!}<span>Add Value</span></a></p>
+							<p><a @click="addOption" class="btn btn-block btn-secondary">{!! icon('add') !!}<span>Add Value</span></a></p>
 						</mobile>
 						<desktop>
-							<p><a @click="addOption" class="btn btn-default">{!! icon('add') !!}<span>Add Value</span></a></p>
+							<p><a @click="addOption" class="btn btn-secondary">{!! icon('add') !!}<span>Add Value</span></a></p>
 						</desktop>
 					</div>
 				</div>
@@ -349,10 +349,10 @@
 						</div>
 
 						<mobile>
-							<p><a @click="addRule" class="btn btn-block btn-default">{!! icon('add') !!}<span>Add Rule</span></a></p>
+							<p><a @click="addRule" class="btn btn-block btn-secondary">{!! icon('add') !!}<span>Add Rule</span></a></p>
 						</mobile>
 						<desktop>
-							<p><a @click="addRule" class="btn btn-default">{!! icon('add') !!}<span>Add Rule</span></a></p>
+							<p><a @click="addRule" class="btn btn-secondary">{!! icon('add') !!}<span>Add Rule</span></a></p>
 						</desktop>
 					</div>
 				</div>

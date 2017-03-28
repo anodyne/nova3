@@ -30,7 +30,7 @@
 		</div>
 		<div class="form-group">
 			<div class="col-md-8 col-md-offset-3">
-				<p class="help-block">Permission actions should describe the <em>action</em> being taken on the component (e.g. create, edit, delete, view). If you want to specific levels within an action, you can append <code>.{n}</code> where <code>{n}</code> is a numeric value.</p>
+				<p class="help-block">Permission actions should describe the <em>action</em> being taken on the component (e.g. create, edit, remove, view).</p>
 			</div>
 		</div>
 

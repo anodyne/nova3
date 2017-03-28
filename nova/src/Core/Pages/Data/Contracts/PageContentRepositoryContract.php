@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Data\Contracts\BaseRepositoryContract;
 
-interface PageContentRepositoryContract extends BaseRepositoryContract {
-
+interface PageContentRepositoryContract extends BaseRepositoryContract
+{
 	public function allExcept(array $except);
 	public function find($id);
 	public function getAllContent();

@@ -4,8 +4,8 @@ use NovaFormField;
 use Nova\Foundation\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
-class FormFieldOrderUpdated extends Event {
-
+class FormFieldOrderUpdated extends Event
+{
 	use SerializesModels;
 
 	protected $resource;
@@ -14,5 +14,4 @@ class FormFieldOrderUpdated extends Event {
 	{
 		$this->resource = $resource;
 	}
-
 }

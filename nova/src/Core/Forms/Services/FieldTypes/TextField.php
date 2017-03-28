@@ -1,9 +1,11 @@
 <?php namespace Nova\Core\Forms\Services\FieldTypes;
 
-use Form, HTML, Markdown;
+use Form;
+use HTML;
+use Markdown;
 
-class TextField implements FieldTypeInterface {
-
+class TextField implements FieldTypeInterface
+{
 	public function info()
 	{
 		return [
@@ -23,8 +25,7 @@ class TextField implements FieldTypeInterface {
 
 	public function render($state, $name, $values, $data, array $attributes)
 	{
-		if ($state == 'view')
-		{
+		if ($state == 'view') {
 			return $this->renderStatic($data);
 		}
 
@@ -40,5 +41,4 @@ class TextField implements FieldTypeInterface {
 	{
 		return HTML::tag('p', Markdown::parse($data), ['class' => 'form-control-static']);
 	}
-
 }

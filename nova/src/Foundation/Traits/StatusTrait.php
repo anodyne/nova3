@@ -2,8 +2,8 @@
 
 use Status;
 
-trait StatusTrait {
-
+trait StatusTrait
+{
 	public function scopeActive($query)
 	{
 		$query->where('status', Status::ACTIVE);

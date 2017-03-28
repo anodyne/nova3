@@ -1,11 +1,11 @@
 <div v-cloak>
 	<mobile>
-		<p><a href="{{ route('admin.form-center.index') }}" class="btn btn-default btn-lg btn-block">{!! icon('arrow-back') !!}<span>Back to Form Center</span></a></p>
+		<p><a href="{{ route('admin.form-center.index') }}" class="btn btn-secondary btn-lg btn-block">{!! icon('arrow-back') !!}<span>Back to Form Center</span></a></p>
 	</mobile>
 	<desktop>
 		<div class="btn-toolbar">
 			<div class="btn-group">
-				<a href="{{ route('admin.form-center.index') }}" class="btn btn-default">{!! icon('arrow-back') !!}<span>Back to Form Center</span></a>
+				<a href="{{ route('admin.form-center.index') }}" class="btn btn-secondary">{!! icon('arrow-back') !!}<span>Back to Form Center</span></a>
 			</div>
 		</div>
 	</desktop>
@@ -21,7 +21,7 @@
 					<p><a href="#" class="btn btn-success btn-lg btn-block" @click.prevent="switchToForm">{!! icon('add') !!}<span>Fill Out Form</span></a></p>
 				</div>
 				<div class="col-sm-6">
-					<p><a href="#" class="btn btn-default btn-lg btn-block" @click.prevent="switchToEntries">{!! icon('user') !!}<span>Show My {{ Str::plural('Entry', $entries->count()) }}</span></a></p>
+					<p><a href="#" class="btn btn-secondary btn-lg btn-block" @click.prevent="switchToEntries">{!! icon('user') !!}<span>Show My {{ Str::plural('Entry', $entries->count()) }}</span></a></p>
 				</div>
 			</div>
 		@endif
@@ -34,7 +34,7 @@
 				</div>
 
 				<div class="btn-group">
-					<a href="#" class="btn btn-default" @click.prevent="switchToEntries">{!! icon('user') !!}<span>Show My {{ Str::plural('Entry', $entries->count()) }}</span></a>
+					<a href="#" class="btn btn-secondary" @click.prevent="switchToEntries">{!! icon('user') !!}<span>Show My {{ Str::plural('Entry', $entries->count()) }}</span></a>
 				</div>
 			</div>
 		@endif
@@ -57,10 +57,10 @@
 					</div>
 					<div class="col-md-4">
 						<mobile>
-							<p><a href="#" class="btn btn-default btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToViewEntry">{!! icon('visible') !!}<span>View</span></a></p>
+							<p><a href="#" class="btn btn-secondary btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToViewEntry">{!! icon('visible') !!}<span>View</span></a></p>
 
 							@can('editFormCenterEntry', $form)
-								<p><a href="#" class="btn btn-default btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToEditEntry">{!! icon('edit') !!}<span>Edit</span></a></p>
+								<p><a href="#" class="btn btn-secondary btn-lg btn-block" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToEditEntry">{!! icon('edit') !!}<span>Edit</span></a></p>
 							@endcan
 
 							@can('removeFormCenterEntry', $form)
@@ -70,10 +70,10 @@
 						<desktop>
 							<div class="btn-toolbar pull-right">
 								<div class="btn-group">
-									<a href="#" class="btn btn-default" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToViewEntry">{!! icon('visible') !!}<span>View</span></a>
+									<a href="#" class="btn btn-secondary" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToViewEntry">{!! icon('visible') !!}<span>View</span></a>
 									
 									@can('editFormCenterEntry', $form)
-										<a href="#" class="btn btn-default" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToEditEntry">{!! icon('edit') !!}<span>Edit</span></a>
+										<a href="#" class="btn btn-secondary" data-form-key="{{ $form->key }}" data-id="{{ $entry->id }}" @click.prevent="switchToEditEntry">{!! icon('edit') !!}<span>Edit</span></a>
 									@endcan
 								</div>
 

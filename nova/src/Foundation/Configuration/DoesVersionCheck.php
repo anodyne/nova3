@@ -3,8 +3,8 @@
 use Date;
 use GuzzleHttp\Client;
 
-trait DoesVersionCheck {
-
+trait DoesVersionCheck
+{
 	public $updateObject;
 	public $updateVersion;
 
@@ -17,12 +17,12 @@ trait DoesVersionCheck {
 					->get('https://version.anodyne-productions.com');
 
 				$content = $response->getBody()->getContents();
-			break;
+				break;
 
 			case 'local':
 			case 'testing':
 				$content = app('files')->get(setup_path('version.json'));
-			break;
+				break;
 		}
 
 		$this->updateObject = json_decode($content);

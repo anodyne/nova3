@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class CreateMenuItemRequest extends Request {
-
+class CreateMenuItemRequest extends Request
+{
 	public function authorize()
 	{
 		return true;
@@ -32,5 +32,4 @@ class CreateMenuItemRequest extends Request {
 			'type:in'					=> "Page types can only be 'page' or 'external'",
 		];
 	}
-
 }

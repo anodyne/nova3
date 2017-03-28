@@ -1,9 +1,10 @@
 <?php namespace Nova\Core\Characters;
 
-use User, CharacterRepositoryContract;
+use User;
+use CharacterRepositoryContract;
 
-class CharacterCreator {
-
+class CharacterCreator
+{
 	protected $characterRepo;
 
 	public function __construct(CharacterRepositoryContract $characters)

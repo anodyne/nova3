@@ -5,8 +5,8 @@ use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class MakeThemeCommand extends Command {
-
+class MakeThemeCommand extends Command
+{
 	/**
 	 * The console command name.
 	 *
@@ -67,13 +67,13 @@ class MakeThemeCommand extends Command {
 			$this->files->makeDirectory($themePath."/design/css", 0775, true);
 
 			// Create the QuickInstall file
-			$this->createFileFromStub('quickinstall', $replacements, $themePath, "theme.json");
+			$this->createFileFromStub('quickinstall', $themePath, 'theme.json', $replacements);
 
 			// How do we want to handle styles?
 			if ($this->option('override-styles')) {
-				$this->createFileFromStub('style', $replacements, $themePath, "design/css/style.css");
+				$this->createFileFromStub('style', $themePath, 'design/css/style.css', $replacements);
 			} else {
-				$this->createFileFromStub('style-custom', $replacements, $themePath, "design/css/custom.css");
+				$this->createFileFromStub('style-custom', $themePath, 'design/css/custom.css', $replacements);
 			}
 
 			// Include some of the most used components for overriding
@@ -86,19 +86,19 @@ class MakeThemeCommand extends Command {
 
 			// Include the Theme class
 			if ($this->option('include-theme-class')) {
-				$this->createFileFromStub('theme', $replacements, $themePath, 'Theme.php');
+				$this->createFileFromStub('theme', $themePath, 'Theme.php', $replacements);
 			}
 
 			// Include the options file
 			if ($this->option('include-options')) {
-				$this->createFileFromStub('options', $replacements, $themePath, 'options.json');
+				$this->createFileFromStub('options', $themePath, 'options.json', $replacements);
 			}
 
 			$this->info("Theme structure created!");
 		}
 	}
 
-	private function createFileFromStub($stub, array $replacements = [], $path, $fileName)
+	private function createFileFromStub($stub, $path, $fileName, array $replacements = [])
 	{
 		// Grab the content from the generator
 		$content = $this->files->get(app_path("Foundation/Themes/stubs/{$stub}.stub"));

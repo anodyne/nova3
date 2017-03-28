@@ -2,8 +2,8 @@
 
 use Illuminate\Filesystem\Filesystem;
 
-class ConfigFileWriter {
-
+class ConfigFileWriter
+{
 	protected $files;
 
 	public function __construct(Filesystem $files)
@@ -16,10 +16,8 @@ class ConfigFileWriter {
 		// Grab the content from the generator
 		$content = $this->files->get(app_path("Setup/stubs/{$file}.stub"));
 
-		if (count($replacements) > 0)
-		{
-			foreach ($replacements as $placeholder => $replacement)
-			{
+		if (count($replacements) > 0) {
+			foreach ($replacements as $placeholder => $replacement) {
 				$content = str_replace($placeholder, $replacement, $content);
 			}
 		}

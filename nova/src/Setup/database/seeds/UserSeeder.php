@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
-class UserSeeder extends Seeder {
-
+class UserSeeder extends Seeder
+{
 	public $userCount = 10;
 	
 	public function run()
@@ -12,8 +12,7 @@ class UserSeeder extends Seeder {
 
 		$userCreator = app('nova.userCreator');
 
-		for ($i = 1; $i < $this->userCount; $i++)
-		{
+		for ($i = 1; $i < $this->userCount; $i++) {
 			$userCreator->create([
 				'email' => $faker->safeEmail,
 				'password' => 'password',

@@ -3,8 +3,8 @@
 use Str;
 use Illuminate\Support\Collection;
 
-trait ThemeIcons {
-
+trait ThemeIcons
+{
 	public $iconTemplate = '<i class="fa fa-%1$s %2$s fa-fw"></i>';
 
 	public function buildIconList($extraClasses = false): array

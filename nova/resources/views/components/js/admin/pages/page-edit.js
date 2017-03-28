@@ -79,12 +79,14 @@ vue = {
 						newKey = newKey.replace(/\.{2,}/g, ".");
 
 						// Take periods off the beginning of the string
-						if (newKey.charAt(0) == ".")
+						if (newKey.charAt(0) == ".") {
 							newKey = newKey.substr(1);
+						}
 
 						// Take periods off the end of the string
-						if (newKey.slice(-1) == ".")
+						if (newKey.slice(-1) == ".") {
 							newKey = newKey.substring(0, newKey.length - 1);
+						}
 
 						this.key = newKey
 					}

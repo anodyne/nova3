@@ -3,8 +3,8 @@
 use Page as Resource;
 use League\Fractal\TransformerAbstract as Transformer;
 
-class PageTransformer extends Transformer {
-
+class PageTransformer extends Transformer
+{
 	public function transform(Resource $resource)
 	{
 		return [
@@ -31,5 +31,4 @@ class PageTransformer extends Transformer {
 			],
 		];
 	}
-
 }

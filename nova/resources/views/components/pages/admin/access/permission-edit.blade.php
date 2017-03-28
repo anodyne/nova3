@@ -17,7 +17,7 @@
 		</div>
 		<div class="form-group">
 			<div class="col-md-8 col-md-offset-3">
-				<p class="help-block">Permission keys must be in the format of <code>component.action</code>, like <code>page.create</code>. If you need to provide levels within an action, simply append the level number to the end of the action: <code>post.edit.2</code>.</p>
+				<p class="help-block">Permission keys must be in the format of <code>component.action</code>, like <code>page.create</code>.</p>
 			</div>
 		</div>
 

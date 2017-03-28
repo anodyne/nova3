@@ -2,4 +2,7 @@
 
 use Nova\Foundation\Data\Contracts\BaseRepositoryContract;
 
-interface PreferenceDefaultRepositoryContract extends BaseRepositoryContract {}
+interface PreferenceDefaultRepositoryContract extends BaseRepositoryContract
+{
+	//
+}

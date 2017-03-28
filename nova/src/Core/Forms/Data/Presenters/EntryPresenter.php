@@ -2,19 +2,17 @@
 
 use BasePresenter;
 
-class EntryPresenter extends BasePresenter {
-
+class EntryPresenter extends BasePresenter
+{
 	public function identifier()
 	{
 		$entry = $this->entity;
 		$form = $entry->form;
 
-		if ( ! empty($form->entry_identifier))
-		{
+		if (! empty($form->entry_identifier)) {
 			$data = $entry->data->whereLoose('field_id', $form->entry_identifier);
 
-			if ($data->count() > 0)
-			{
+			if ($data->count() > 0) {
 				return $data->first()->present()->value;
 			}
 		}
@@ -24,12 +22,10 @@ class EntryPresenter extends BasePresenter {
 
 	public function submitter()
 	{
-		if ($this->entity->user)
-		{
+		if ($this->entity->user) {
 			return $this->entity->user->present()->name;
 		}
 
 		return $this->entity->ip_address;
 	}
-
 }

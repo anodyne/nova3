@@ -2,8 +2,8 @@
 
 use User;
 
-class RolePolicy {
-
+class RolePolicy
+{
 	public function create(User $user)
 	{
 		return $user->can('access.create');
@@ -23,5 +23,4 @@ class RolePolicy {
 	{
 		return $user->can('access.remove');
 	}
-
 }

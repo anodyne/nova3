@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class CreateFormTabRequest extends Request {
-
+class CreateFormTabRequest extends Request
+{
 	public function authorize()
 	{
 		return true;
@@ -28,5 +28,4 @@ class CreateFormTabRequest extends Request {
 			'status.required' => "Please set the status of the tab",
 		];
 	}
-
 }

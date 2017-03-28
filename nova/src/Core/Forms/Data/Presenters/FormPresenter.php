@@ -1,13 +1,13 @@
 <?php namespace Nova\Core\Forms\Data\Presenters;
 
-use Form,
-	HTML,
-	Status,
-	Markdown,
-	BasePresenter;
+use Form;
+use HTML;
+use Status;
+use Markdown;
+use BasePresenter;
 
-class FormPresenter extends BasePresenter {
-
+class FormPresenter extends BasePresenter
+{
 	public function hasHorizontalOrientation()
 	{
 		return $this->entity->orientation == 'horizontal';
@@ -55,11 +55,11 @@ class FormPresenter extends BasePresenter {
 		$form = $this->entity->load($relations);
 
 		// Build the opening/closing tags
-		$formOpenTag = ($includeFormTags) 
-			? $this->createFormOpenTag('create') 
+		$formOpenTag = ($includeFormTags)
+			? $this->createFormOpenTag('create')
 			: $this->createFormOpenTag('view');
-		$formCloseTag = ($includeFormTags) 
-			? $this->createFormCloseTag('create') 
+		$formCloseTag = ($includeFormTags)
+			? $this->createFormCloseTag('create')
 			: $this->createFormCloseTag('view');
 
 		// Keep an empty collection for the data
@@ -83,11 +83,11 @@ class FormPresenter extends BasePresenter {
 		$form = $this->entity->load($relations);
 
 		// Build the opening/closing tags
-		$formOpenTag = ($includeFormTags) 
-			? $this->createFormOpenTag('edit', $id) 
+		$formOpenTag = ($includeFormTags)
+			? $this->createFormOpenTag('edit', $id)
 			: $this->createFormOpenTag('view');
-		$formCloseTag = ($includeFormTags) 
-			? $this->createFormCloseTag('edit') 
+		$formCloseTag = ($includeFormTags)
+			? $this->createFormCloseTag('edit')
 			: $this->createFormCloseTag('view');
 
 		// Grab the data for the item we're editing
@@ -101,25 +101,23 @@ class FormPresenter extends BasePresenter {
 
 	public function statusAsLabel()
 	{
-		if ($this->entity->status != Status::ACTIVE)
-		{
+		if ($this->entity->status != Status::ACTIVE) {
 			return label('danger', ucwords(Status::toString($this->entity->status)));
 		}
 	}
 
 	protected function createFormCloseTag($type)
 	{
-		switch ($type)
-		{
+		switch ($type) {
 			case 'create':
 			case 'edit':
 				return Form::close();
-			break;
+				break;
 
 			case 'view':
 			default:
 				return '</div>';
-			break;
+				break;
 		}
 	}
 
@@ -127,28 +125,23 @@ class FormPresenter extends BasePresenter {
 	{
 		$attributes = [];
 
-		if ($this->hasHorizontalOrientation())
-		{
+		if ($this->hasHorizontalOrientation()) {
 			$attributes['class'] = 'form-horizontal';
 		}
 
-		if ($type == 'create')
-		{
+		if ($type == 'create') {
 			$attributes['route'] = [$this->entity->resource_store, $this->entity->key];
 		}
 
-		if ($type == 'edit')
-		{
+		if ($type == 'edit') {
 			$attributes['route'] = [$this->entity->resource_update, $this->entity->key, $id];
 			$attributes['method'] = 'put';
 		}
 
-		if ($type == 'view')
-		{
+		if ($type == 'view') {
 			return '<div'.HTML::attributes($attributes).'>';
 		}
 
 		return Form::open($attributes);
 	}
-
 }

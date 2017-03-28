@@ -1,9 +1,10 @@
 <?php namespace Nova\Core\Forms\Mailers;
 
-use NovaForm, BaseMailer;
+use NovaForm;
+use BaseMailer;
 
-class FormCenterMailer extends BaseMailer {
-
+class FormCenterMailer extends BaseMailer
+{
 	public function created($record, NovaForm $form)
 	{
 		return $this->send('admin/form-center/entry-added', [
@@ -21,5 +22,4 @@ class FormCenterMailer extends BaseMailer {
 			'subject' => $form->name." Entry Updated in Form Center",
 		]);
 	}
-
 }

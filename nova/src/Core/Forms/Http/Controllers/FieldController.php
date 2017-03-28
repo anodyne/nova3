@@ -1,28 +1,31 @@
 <?php namespace Nova\Core\Forms\Http\Controllers;
 
-use NovaFormField,
-	BaseController,
-	FormRepositoryContract,
-	RoleRepositoryContract,
-	FormTabRepositoryContract,
-	FormFieldRepositoryContract,
-	FormSectionRepositoryContract,
-	EditFormFieldRequest, CreateFormFieldRequest, RemoveFormFieldRequest;
+use NovaFormField;
+use BaseController;
+use FormRepositoryContract;
+use RoleRepositoryContract;
+use FormTabRepositoryContract;
+use FormFieldRepositoryContract;
+use FormSectionRepositoryContract;
+use EditFormFieldRequest;
+use CreateFormFieldRequest;
+use RemoveFormFieldRequest;
 
-class FieldController extends BaseController {
-
+class FieldController extends BaseController
+{
 	protected $repo;
 	protected $tabRepo;
 	protected $formRepo;
 	protected $roleRepo;
 	protected $sectionRepo;
 
-	public function __construct(FormFieldRepositoryContract $repo,
-			FormSectionRepositoryContract $sections, 
-			FormRepositoryContract $forms,
-			FormTabRepositoryContract $tabs,
-			RoleRepositoryContract $roles)
-	{
+	public function __construct(
+		FormFieldRepositoryContract $repo,
+		FormSectionRepositoryContract $sections,
+		FormRepositoryContract $forms,
+		FormTabRepositoryContract $tabs,
+		RoleRepositoryContract $roles
+	) {
 		parent::__construct();
 
 		$this->isAdmin = true;
@@ -46,7 +49,7 @@ class FieldController extends BaseController {
 		$this->authorize('manage', $field, "You do not have permission to manage form fields.");
 
 		$this->views->put('page', 'admin/forms/fields');
-		$this->views->put('scripts' [
+		$this->views->put('scripts', [
 			'Sortable.min',
 			'admin/forms/fields',
 		]);
@@ -168,12 +171,9 @@ class FieldController extends BaseController {
 
 		$field = $this->repo->getById($fieldId);
 
-		if ( ! $field)
-		{
+		if (! $field) {
 			$body = alert('danger', "Form field could not be found.");
-		}
-		else
-		{
+		} else {
 			$form = $this->formRepo->getByKey($formKey);
 
 			$body = (policy($field)->remove($this->user, $field))
@@ -205,10 +205,8 @@ class FieldController extends BaseController {
 
 		$field = new NovaFormField;
 
-		if (policy($field)->edit($this->user, $field))
-		{
-			foreach (request('fields') as $order => $id)
-			{
+		if (policy($field)->edit($this->user, $field)) {
+			foreach (request('fields') as $order => $id) {
 				$updatedField = $this->repo->updateOrder($id, $order);
 			}
 		}
@@ -220,8 +218,7 @@ class FieldController extends BaseController {
 		$typesArr = [];
 		$typesJson = [];
 
-		app('nova.forms.fields')->getAllFieldTypes()->map(function ($type) use (&$typesArr, &$typesJson)
-		{
+		app('nova.forms.fields')->getAllFieldTypes()->map(function ($type) use (&$typesArr, &$typesJson) {
 			$info = $type->info();
 
 			$typesArr[$info['value']] = $info['name'];
@@ -235,5 +232,4 @@ class FieldController extends BaseController {
 
 		return $fieldTypes;
 	}
-
 }

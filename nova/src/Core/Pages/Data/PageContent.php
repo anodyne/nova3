@@ -1,12 +1,12 @@
 <?php namespace Nova\Core\Pages\Data;
 
-use Model,
-	Page as PageModel,
-	PageContentPresenter;
+use Model;
+use Page as PageModel;
+use PageContentPresenter;
 use Laracasts\Presenter\PresentableTrait;
 
-class PageContent extends Model {
-
+class PageContent extends Model
+{
 	use PresentableTrait;
 
 	protected $table = 'pages_content';

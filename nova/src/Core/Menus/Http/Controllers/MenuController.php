@@ -1,22 +1,23 @@
 <?php namespace Nova\Core\Menus\Http\Controllers;
 
-use Str,
-	Menu,
-	BaseController,
-	MenuRepositoryContract,
-	PageRepositoryContract,
-	MenuItemRepositoryContract,
-	EditMenuRequest, CreateMenuRequest, RemoveMenuRequest;
+use Str;
+use Menu;
+use BaseController;
+use MenuRepositoryContract;
+use PageRepositoryContract;
+use MenuItemRepositoryContract;
+use EditMenuRequest;
+use CreateMenuRequest;
+use RemoveMenuRequest;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Foundation\Application;
 
-class MenuController extends BaseController {
-
+class MenuController extends BaseController
+{
 	protected $repo;
 	protected $itemRepo;
 
-	public function __construct(MenuRepositoryContract $repo,
-			MenuItemRepositoryContract $items)
+	public function __construct(MenuRepositoryContract $repo, MenuItemRepositoryContract $items)
 	{
 		parent::__construct();
 
@@ -93,16 +94,13 @@ class MenuController extends BaseController {
 
 		$menu = $this->repo->find($menuId);
 
-		if (policy($menu)->remove($this->user))
-		{
+		if (policy($menu)->remove($this->user)) {
 			$menus = $this->repo->listAllFiltered('name', 'id', $menu->id);
 
 			$body = ($menu)
 				? view(locate('page', 'admin/menus/menu-remove'), compact('menu', 'menus'))
 				: alert('danger', "Menu not found.");
-		}
-		else
-		{
+		} else {
 			$body = alert('danger', "You do not have permission to remove menus.");
 		}
 
@@ -130,8 +128,7 @@ class MenuController extends BaseController {
 
 		$count = $this->repo->countBy('key', request('key'));
 
-		if ($count > 0)
-		{
+		if ($count > 0) {
 			return json_encode(['code' => 0]);
 		}
 
@@ -170,5 +167,4 @@ class MenuController extends BaseController {
 
 		return redirect()->route('admin.menus.pages', [$menuKey]);
 	}
-
 }

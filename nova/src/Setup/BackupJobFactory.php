@@ -5,8 +5,8 @@ use Spatie\Backup\Tasks\Backup\FileSelection;
 use Spatie\Backup\Tasks\Backup\DbDumperFactory;
 use Spatie\Backup\BackupDestination\BackupDestinationFactory;
 
-class BackupJobFactory {
-
+class BackupJobFactory
+{
 	public static function createFromArray(array $config): BackupJob
 	{
 		return (new BackupJob())

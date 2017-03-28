@@ -2,8 +2,8 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class DeferredServiceProvider extends ServiceProvider {
-
+class DeferredServiceProvider extends ServiceProvider
+{
 	protected $defer = true;
 
 	public function register()

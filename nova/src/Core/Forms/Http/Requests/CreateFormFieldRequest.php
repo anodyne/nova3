@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class CreateFormFieldRequest extends Request {
-
+class CreateFormFieldRequest extends Request
+{
 	public function authorize()
 	{
 		return true;
@@ -24,5 +24,4 @@ class CreateFormFieldRequest extends Request {
 			'status.required' => "You must select a status",
 		];
 	}
-
 }

@@ -9,7 +9,7 @@
 
 			@can('manage', $permission)
 				<div class="col-sm-6">
-					<p><a href="{{ route('admin.access.permissions') }}" class="btn btn-default btn-lg btn-block">{!! icon('lock') !!}<span>Manage Permissions</span></a></p>
+					<p><a href="{{ route('admin.access.permissions') }}" class="btn btn-secondary btn-lg btn-block">{!! icon('lock') !!}<span>Manage Permissions</span></a></p>
 				</div>
 			@endcan
 		</div>
@@ -24,7 +24,7 @@
 
 			@can('manage', $permission)
 				<div class="btn-group">
-					<a href="{{ route('admin.access.permissions') }}" class="btn btn-default">{!! icon('lock') !!}<span>Manage Permissions</span></a>
+					<a href="{{ route('admin.access.permissions') }}" class="btn btn-secondary">{!! icon('lock') !!}<span>Manage Permissions</span></a>
 				</div>
 			@endcan
 		</div>
@@ -47,18 +47,18 @@
 				<div class="row">
 					@can('create', $role)
 						<div class="col-xs-12">
-							<p><a href="#" class="btn btn-default btn-lg btn-block" data-id="{{ $role->id }}" @click.prevent="duplicateRole">{!! icon('copy') !!}<span>Duplicate</span></a></p>
+							<p><a href="#" class="btn btn-secondary btn-lg btn-block" data-id="{{ $role->id }}" @click.prevent="duplicateRole">{!! icon('copy') !!}<span>Duplicate</span></a></p>
 						</div>
 					@endcan
 
 					@can('edit', $role)
 						<div class="col-xs-12">
-							<p><a href="{{ route('admin.access.roles.edit', [$role->id]) }}" class="btn btn-default btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
+							<p><a href="{{ route('admin.access.roles.edit', [$role->id]) }}" class="btn btn-secondary btn-lg btn-block">{!! icon('edit') !!}<span>Edit</span></a></p>
 						</div>
 
 						@if ($role->users->count() > 0)
 							<div class="col-xs-12">
-								<p><a href="#" class="btn btn-default btn-lg btn-block" data-id="{{ $role->id }}" @click.prevent="usersWithRole">{!! icon('users') !!}<span>Users With This Role</span></a></p>
+								<p><a href="#" class="btn btn-secondary btn-lg btn-block" data-id="{{ $role->id }}" @click.prevent="usersWithRole">{!! icon('users') !!}<span>Users With This Role</span></a></p>
 							</div>
 						@endif
 					@endcan
@@ -74,18 +74,18 @@
 				<div class="btn-toolbar pull-right">
 					@can('create', $role)
 						<div class="btn-group">
-							<a href="#" class="btn btn-default" data-id="{{ $role->id }}" @click.prevent="duplicateRole">{!! icon('copy') !!}<span>Duplicate</span></a>
+							<a href="#" class="btn btn-secondary" data-id="{{ $role->id }}" @click.prevent="duplicateRole">{!! icon('copy') !!}<span>Duplicate</span></a>
 						</div>
 					@endcan
 
 					@can('edit', $role)
 						<div class="btn-group">
-							<a href="{{ route('admin.access.roles.edit', [$role->id]) }}" class="btn btn-default">{!! icon('edit') !!}<span>Edit</span></a>
+							<a href="{{ route('admin.access.roles.edit', [$role->id]) }}" class="btn btn-secondary">{!! icon('edit') !!}<span>Edit</span></a>
 						</div>
 
 						@if ($role->users->count() > 0)
 							<div class="btn-group">
-								<a href="#" class="btn btn-default" data-id="{{ $role->id }}" @click.prevent="usersWithRole">{!! icon('users') !!}<span>Users With This Role</span></a>
+								<a href="#" class="btn btn-secondary" data-id="{{ $role->id }}" @click.prevent="usersWithRole">{!! icon('users') !!}<span>Users With This Role</span></a>
 							</div>
 						@endif
 					@endcan

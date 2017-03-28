@@ -36,34 +36,31 @@ $updateCompleted = [
 	'setup/update/success'
 ];
 
-if (in_array($path, $summaryActive))
-{
+if (in_array($path, $summaryActive)) {
 	$classes[1] = 'class="step active"';
 }
-if (in_array($path, $summaryCompleted))
-{
+
+if (in_array($path, $summaryCompleted)) {
 	$classes[1] = 'class="step completed"';
 }
 
-if (in_array($path, $backupActive))
-{
+if (in_array($path, $backupActive)) {
 	$classes[2] = 'class="step active"';
 }
-if (session('backupStatus') == 'success')
-{
+
+if (session('backupStatus') == 'success') {
 	$classes[2] = 'class="step completed"';
 }
-if (session('backupStatus') == 'failed')
-{
+
+if (session('backupStatus') == 'failed') {
 	$classes[2] = 'class="step failed"';
 }
 
-if (in_array($path, $updateActive))
-{
+if (in_array($path, $updateActive)) {
 	$classes[3] = 'class="step active"';
 }
-if (in_array($path, $updateCompleted))
-{
+
+if (in_array($path, $updateCompleted)) {
 	$classes[3] = 'class="step completed"';
 }
 

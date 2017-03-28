@@ -1,13 +1,13 @@
 <?php namespace Nova\Core\Forms\Data;
 
-use Model,
-	Status,
-	StatusTrait,
-	FormSectionPresenter;
+use Model;
+use Status;
+use StatusTrait;
+use FormSectionPresenter;
 use Laracasts\Presenter\PresentableTrait;
 
-class Section extends Model {
-
+class Section extends Model
+{
 	use StatusTrait, PresentableTrait;
 
 	protected $table = 'forms_sections';
@@ -45,5 +45,4 @@ class Section extends Model {
 	{
 		return $this->belongsTo('NovaFormTab');
 	}
-	
 }

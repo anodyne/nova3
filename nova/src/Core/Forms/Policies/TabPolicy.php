@@ -2,8 +2,8 @@
 
 use User;
 
-class TabPolicy {
-
+class TabPolicy
+{
 	public function create(User $user)
 	{
 		return $user->can('form.create');
@@ -23,5 +23,4 @@ class TabPolicy {
 	{
 		return $user->can('form.remove');
 	}
-
 }

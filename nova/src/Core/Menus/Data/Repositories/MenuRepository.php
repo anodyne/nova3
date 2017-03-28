@@ -1,22 +1,23 @@
 <?php namespace Nova\Core\Menus\Data\Repositories;
 
-use Menu as Model,
-	MenuRepositoryContract,
-	PageRepositoryContract,
-	MenuItemRepositoryContract;
+use Menu as Model;
+use MenuRepositoryContract;
+use PageRepositoryContract;
+use MenuItemRepositoryContract;
 use Nova\Core\Menus\Events;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class MenuRepository extends BaseRepository implements MenuRepositoryContract {
-
+class MenuRepository extends BaseRepository implements MenuRepositoryContract
+{
 	protected $model;
 	protected $pageRepo;
 	protected $menuItemRepo;
 
-	public function __construct(Model $model,
-			PageRepositoryContract $pages,
-			MenuItemRepositoryContract $menuItems)
-	{
+	public function __construct(
+		Model $model,
+		PageRepositoryContract $pages,
+		MenuItemRepositoryContract $menuItems
+	) {
 		$this->model = $model;
 		$this->pageRepo = $pages;
 		$this->menuItemRepo = $menuItems;
@@ -36,21 +37,18 @@ class MenuRepository extends BaseRepository implements MenuRepositoryContract {
 		// Get the menu we're deleting
 		$menu = $this->getResource($resource);
 
-		if ($menu)
-		{
+		if ($menu) {
 			// Grab the repositories we need
 			$pageRepo = $this->pageRepo;
 			$menuItemRepo = $this->menuItemRepo;
 
 			// Update any pages
-			$menu->pages->each(function ($page) use ($newId, $pageRepo)
-			{
+			$menu->pages->each(function ($page) use ($newId, $pageRepo) {
 				$pageRepo->update($page, ['menu_id' => $newId]);
 			});
 
 			// Remove the menu items
-			$menu->menuItems->each(function ($item) use ($menuItemRepo)
-			{
+			$menu->menuItems->each(function ($item) use ($menuItemRepo) {
 				$menuItemRepo->delete($item);
 			});
 
@@ -91,10 +89,8 @@ class MenuRepository extends BaseRepository implements MenuRepositoryContract {
 
 	public function updatePages(array $pages, $newMenuId)
 	{
-		if (count($pages) > 0)
-		{
-			foreach ($pages as $pageId)
-			{
+		if (count($pages) > 0) {
+			foreach ($pages as $pageId) {
 				$this->pageRepo->update($pageId, ['menu_id' => $newMenuId]);
 			}
 
@@ -103,5 +99,4 @@ class MenuRepository extends BaseRepository implements MenuRepositoryContract {
 
 		return false;
 	}
-
 }

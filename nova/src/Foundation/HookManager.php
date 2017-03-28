@@ -1,11 +1,12 @@
 <?php namespace Nova\Foundation;
 
-class HookManager {
-
+class HookManager
+{
 	protected $hooks = [
 		'nova.before-render',
 		'nova.after-render',
 	];
+
 	protected $listeners = [
 		'nova.before-render' => [],
 		'nova.after-render' => [],

@@ -2,8 +2,8 @@
 
 use Nova\Foundation\BaseNotification;
 
-class NewUserWelcome extends BaseNotification {
-
+class NewUserWelcome extends BaseNotification
+{
 	public function toArray($notifiable)
 	{
 		return [

@@ -2,12 +2,15 @@
 
 use Illuminate\Support\Facades\Facade;
 
-class FlashNotifierFacade extends Facade {
-
+class FlashNotifierFacade extends Facade
+{
 	/**
 	* Get the registered name of the component.
 	*
 	* @return string
 	*/
-	protected static function getFacadeAccessor() { return 'nova.flash'; }
+	protected static function getFacadeAccessor()
+	{
+		return 'nova.flash';
+	}
 }

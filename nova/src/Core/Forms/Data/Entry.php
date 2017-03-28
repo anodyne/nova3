@@ -1,10 +1,12 @@
 <?php namespace Nova\Core\Forms\Data;
 
-use User, Model, FormEntryPresenter;
+use User;
+use Model;
+use FormEntryPresenter;
 use Laracasts\Presenter\PresentableTrait;
 
-class Entry extends Model {
-
+class Entry extends Model
+{
 	use PresentableTrait;
 
 	protected $table = 'forms_entries';
@@ -33,5 +35,4 @@ class Entry extends Model {
 	{
 		return $this->belongsTo('User');
 	}
-	
 }

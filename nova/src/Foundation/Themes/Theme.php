@@ -1,13 +1,20 @@
 <?php namespace Nova\Foundation\Themes;
 
-use Auth, Form, HTML, Page, MenuItem;
-use Spatie\Menu\Laravel\{Html as HtmlBuilder, Link as LinkBuilder, Menu as MenuBuilder};
+use Auth;
+use Form;
+use HTML;
+use Page;
+use MenuItem;
+use Spatie\Menu\Laravel\Html as HtmlBuilder;
+use Spatie\Menu\Laravel\Link as LinkBuilder;
+use Spatie\Menu\Laravel\Menu as MenuBuilder;
 
-class Theme implements ThemeIconsContract,
-					   ThemeInfoContract,
-					   ThemeMenusContract,
-					   ThemeStructureContract {
-
+class Theme implements
+	ThemeIconsContract,
+	ThemeInfoContract,
+	ThemeMenusContract,
+	ThemeStructureContract
+{
 	use ThemeIcons;
 
 	public $name;
@@ -54,20 +61,21 @@ class Theme implements ThemeIconsContract,
 		return app()->themePath($this->location);
 	}
 
-	public function initialize(){}
+	public function initialize()
+	{
+		//
+	}
 
 	/**
 	 * ThemeMenus Contract Implementation
 	 */
 	public function adminMenu(Page $page = null)
 	{
-		if ( ! is_object($this->structure->template))
-		{
+		if (! is_object($this->structure->template)) {
 			throw new Exceptions\NoThemeTemplateException;
 		}
 
-		if ($page === null)
-		{
+		if ($page === null) {
 			return $this;
 		}
 
@@ -100,12 +108,11 @@ class Theme implements ThemeIconsContract,
 
 		$menu = MenuBuilder::new()->addClass('navbar-nav mr-auto');
 
-		foreach ($this->menuMainItems as $mainMenuItem)
-		{
-			if (array_key_exists($mainMenuItem->id, $menuSubItemsArr))
-			{
+		foreach ($this->menuMainItems as $mainMenuItem) {
+			if (array_key_exists($mainMenuItem->id, $menuSubItemsArr)) {
 				// Build the text for the header link
-				$headerText = sprintf('%s %s', 
+				$headerText = sprintf(
+					'%s %s',
 					$mainMenuItem->present()->title,
 					HtmlBuilder::raw('<span class="caret"></span>')->render()
 				);
@@ -122,8 +129,7 @@ class Theme implements ThemeIconsContract,
 				$submenu->prepend($header);
 
 				// Loop through the sub menu items and build the sub menu
-				foreach ($menuSubItemsArr[$mainMenuItem->id] as $subMenuItem)
-				{
+				foreach ($menuSubItemsArr[$mainMenuItem->id] as $subMenuItem) {
 					$submenu->addIf(
 						$subMenuItem->userHasAccess(user()),
 						$this->buildMenuItem($subMenuItem, 'dropdown-item')
@@ -132,9 +138,7 @@ class Theme implements ThemeIconsContract,
 
 				// Now add the sub menu to the menu
 				$menu->addIf(($submenu->count() > 0), $submenu);
-			}
-			else
-			{
+			} else {
 				$menu->addIf(
 					$mainMenuItem->userHasAccess(user()),
 					$this->buildMenuItem($mainMenuItem, 'nav-link')->addParentClass('nav-item')
@@ -142,8 +146,7 @@ class Theme implements ThemeIconsContract,
 			}
 		}
 
-		MenuBuilder::macro('menuCombined', function () use ($menu)
-		{
+		MenuBuilder::macro('menuCombined', function () use ($menu) {
 			return $menu;
 		});
 
@@ -154,16 +157,14 @@ class Theme implements ThemeIconsContract,
 	{
 		$menu = MenuBuilder::new()->addClass('navbar navbar-light bg-faded');
 
-		foreach ($this->menuMainItems as $mainMenuItem)
-		{
+		foreach ($this->menuMainItems as $mainMenuItem) {
 			$menu->addIf(
 				$mainMenuItem->userHasAccess(user()),
 				$this->buildMenuItem($mainMenuItem)
 			);
 		}
 
-		MenuBuilder::macro('menuMain', function () use ($menu)
-		{
+		MenuBuilder::macro('menuMain', function () use ($menu) {
 			return $menu;
 		});
 
@@ -173,16 +174,14 @@ class Theme implements ThemeIconsContract,
 	public function buildAdminSubMenu(Page $page)
 	{
 		// Filter out sub items to only what we would need for the sub menu
-		$menuSubItemsFiltered = $this->menuSubItems->filter(function ($item) use ($page)
-		{
+		$menuSubItemsFiltered = $this->menuSubItems->filter(function ($item) use ($page) {
 			return $item->parent_id === 9;
 			return $item->parent->page_id == $page->id;
 		});
 
 		$menu = MenuBuilder::new()->addClass('list-group');
 
-		foreach ($menuSubItemsFiltered as $subMenuItem)
-		{
+		foreach ($menuSubItemsFiltered as $subMenuItem) {
 			$menu->addIf(
 				$subMenuItem->userHasAccess(user()),
 				$this->buildMenuItem($subMenuItem, 'list-group-item')
@@ -233,7 +232,8 @@ class Theme implements ThemeIconsContract,
 		foreach ($this->menuMainItems as $mainMenuItem) {
 			if (array_key_exists($mainMenuItem->id, $menuSubItemsArr)) {
 				// Build the text for the header link
-				$headerText = sprintf('%s %s', 
+				$headerText = sprintf(
+					'%s %s',
 					$mainMenuItem->present()->title,
 					HtmlBuilder::raw('<span class="caret"></span>')->render()
 				);
@@ -305,8 +305,7 @@ class Theme implements ThemeIconsContract,
 		});
 
 		/*// Filter out sub items to only what we would need for the sub menu
-		$menuSubItemsFiltered = $this->menuSubItems->filter(function ($item) use ($page)
-		{
+		$menuSubItemsFiltered = $this->menuSubItems->filter(function ($item) use ($page) {
 			if ((int) $page->parent_id === 0)
 			{
 				return $item->menu_id == $page->menu_id and $item->parent_id == $page->menuItems->first()->id;
@@ -357,7 +356,8 @@ class Theme implements ThemeIconsContract,
 				->addParentClass('nav-item'));
 
 			// Build the text for the header link
-			$headerText = sprintf('%s %s', 
+			$headerText = sprintf(
+				'%s %s',
 				user()->present()->name,
 				HtmlBuilder::raw('<span class="caret"></span>')->render()
 			);
@@ -395,7 +395,7 @@ class Theme implements ThemeIconsContract,
 			return $this;
 		}
 
-		if ( ! is_object($this->structure->template)) {
+		if (! is_object($this->structure->template)) {
 			throw new Exceptions\NoThemeTemplateException;
 		}
 
@@ -433,8 +433,7 @@ class Theme implements ThemeIconsContract,
 
 	public function template($view, array $data)
 	{
-		if ( ! is_object($this->structure))
-		{
+		if (! is_object($this->structure)) {
 			throw new Exceptions\NoThemeStructureException;
 		}
 
@@ -445,8 +444,7 @@ class Theme implements ThemeIconsContract,
 
 	public function page($view, array $data)
 	{
-		if ( ! is_object($this->structure->template))
-		{
+		if (! is_object($this->structure->template)) {
 			throw new Exceptions\NoThemeTemplateException;
 		}
 
@@ -457,15 +455,13 @@ class Theme implements ThemeIconsContract,
 
 	public function scripts(array $scripts)
 	{
-		if ( ! is_object($this->structure))
-		{
+		if (! is_object($this->structure)) {
 			throw new Exceptions\NoThemeStructureException;
 		}
 
 		$output = "";
 
-		foreach ($scripts as $script)
-		{
+		foreach ($scripts as $script) {
 			$path = sprintf("%s.js", locate()->javascript($script));
 
 			$output.= HTML::script($path)."\r\n";
@@ -478,15 +474,13 @@ class Theme implements ThemeIconsContract,
 
 	public function styles(array $styles)
 	{
-		if ( ! is_object($this->structure))
-		{
+		if (! is_object($this->structure)) {
 			throw new Exceptions\NoThemeStructureException;
 		}
 
 		$output = "";
 
-		foreach ($styles as $style)
-		{
+		foreach ($styles as $style) {
 			$path = sprintf("%s.css", locate()->style($style));
 
 			$output.= HTML::style($path)."\r\n";
@@ -499,8 +493,7 @@ class Theme implements ThemeIconsContract,
 
 	public function footer(array $data = [])
 	{
-		if ( ! is_object($this->structure->template))
-		{
+		if (! is_object($this->structure->template)) {
 			throw new Exceptions\NoThemeTemplateException;
 		}
 
@@ -511,8 +504,7 @@ class Theme implements ThemeIconsContract,
 
 	public function panel()
 	{
-		if ( ! is_object($this->structure->template))
-		{
+		if (! is_object($this->structure->template)) {
 			throw new Exceptions\NoThemeTemplateException;
 		}
 
@@ -525,5 +517,4 @@ class Theme implements ThemeIconsContract,
 	{
 		return $this->structure->render();
 	}
-
 }

@@ -41,48 +41,38 @@ $settingsCompleted = [
 	'setup/install/settings/success',
 ];
 
-if (in_array($path, $dbActive))
-{
+if (in_array($path, $dbActive)) {
 	$classes[1] = 'class="step active"';
 }
-if (nova()->isConfigured('db'))
-{
+if (nova()->isConfigured('db')) {
 	$classes[1] = 'class="step completed"';
 }
 
-if (in_array($path, $emailActive))
-{
+if (in_array($path, $emailActive)) {
 	$classes[2] = 'class="step active"';
 }
-if (nova()->isConfigured('mail'))
-{
+if (nova()->isConfigured('mail')) {
 	$classes[2] = 'class="step completed"';
 }
 
-if (in_array($path, $novaActive))
-{
+if (in_array($path, $novaActive)) {
 	$classes[3] = 'class="step active"';
 }
-if (nova()->isInstalled())
-{
+if (nova()->isInstalled()) {
 	$classes[3] = 'class="step completed"';
 }
 
-if (in_array($path, $userActive))
-{
+if (in_array($path, $userActive)) {
 	$classes[4] = 'class="step active"';
 }
-if (in_array($path, $userCompleted))
-{
+if (in_array($path, $userCompleted)) {
 	$classes[4] = 'class="step completed"';
 }
 
-if (in_array($path, $settingsActive))
-{
+if (in_array($path, $settingsActive)) {
 	$classes[5] = 'class="step active"';
 }
-if (in_array($path, $settingsCompleted))
-{
+if (in_array($path, $settingsCompleted)) {
 	$classes[5] = 'class="step completed"';
 }
 

@@ -2,8 +2,8 @@
 
 use Nova\Foundation\Http\Requests\Request;
 
-class RemovePermissionRequest extends Request {
-
+class RemovePermissionRequest extends Request
+{
 	public function authorize()
 	{
 		return true;
@@ -18,5 +18,4 @@ class RemovePermissionRequest extends Request {
 	{
 		return [];
 	}
-
 }

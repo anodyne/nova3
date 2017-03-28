@@ -2,8 +2,8 @@
 
 use Closure;
 
-class CheckInstallationStatus {
-
+class CheckInstallationStatus
+{
 	/**
 	 * Handle an incoming request.
 	 *
@@ -13,12 +13,10 @@ class CheckInstallationStatus {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if ( ! nova()->isInstalled())
-		{
+		if (! nova()->isInstalled()) {
 			return redirect()->route('setup.env');
 		}
 		
 		return $next($request);
 	}
-
 }

@@ -2,8 +2,8 @@
 
 use Closure;
 
-class RenderController {
-
+class RenderController
+{
 	protected $theme;
 	protected $controller;
 
@@ -23,7 +23,7 @@ class RenderController {
 		$response = $next($request);
 
 		if (nova()->isInstalled() and empty($response->getContent())) {
-			if ( ! $this->controller->isAjax) {
+			if (! $this->controller->isAjax) {
 				hook('nova.before-render');
 
 				$this->buildThemeStructure();

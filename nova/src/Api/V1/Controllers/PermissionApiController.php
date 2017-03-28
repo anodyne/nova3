@@ -3,8 +3,8 @@
 use PermissionRepositoryContract;
 use Nova\Api\V1\Transformers\PermissionTransformer;
 
-class PermissionApiController extends ApiBaseController {
-
+class PermissionApiController extends ApiBaseController
+{
 	protected $repo;
 
 	public function __construct(PermissionRepositoryContract $repo)
@@ -21,12 +21,10 @@ class PermissionApiController extends ApiBaseController {
 	{
 		$permission = $this->repo->getById($permissionId);
 
-		if ( ! $permission)
-		{
+		if (! $permission) {
 			return $this->response->errorNotFound('Permission not found');
 		}
 
 		return $this->response->item($permission, new PermissionTransformer);
 	}
-
 }

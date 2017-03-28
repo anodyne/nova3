@@ -1,19 +1,22 @@
 <?php namespace Nova\Core\Pages\Http\Controllers;
 
-use PageContent,
-	BaseController,
-	PageRepositoryContract,
-	PageContentRepositoryContract,
-	EditPageContentRequest, CreatePageContentRequest, RemovePageContentRequest;
+use PageContent;
+use BaseController;
+use PageRepositoryContract;
+use PageContentRepositoryContract;
+use EditPageContentRequest;
+use CreatePageContentRequest;
+use RemovePageContentRequest;
 
-class PageContentController extends BaseController {
-
+class PageContentController extends BaseController
+{
 	protected $repo;
 	protected $pagesRepo;
 
-	public function __construct(PageContentRepositoryContract $repo,
-			PageRepositoryContract $pages)
-	{
+	public function __construct(
+		PageContentRepositoryContract $repo,
+		PageRepositoryContract $pages
+	) {
 		parent::__construct();
 
 		$this->isAdmin = true;
@@ -102,15 +105,12 @@ class PageContentController extends BaseController {
 
 		$content = $this->repo->find($contentId);
 
-		if (policy($content)->remove($this->user))
-		{
+		if (policy($content)->remove($this->user)) {
 			// Build the body based on whether we found the content or not
 			$body = ($content)
 				? view(locate('page', 'admin/pages/content-remove'), compact('content'))
 				: alert('danger', "Page content not found.");
-		}
-		else
-		{
+		} else {
 			$body = alert('danger', "You do not have permission to remove page content.");
 		}
 
@@ -138,12 +138,10 @@ class PageContentController extends BaseController {
 
 		$count = $this->repo->countBy('key', request('key'));
 
-		if ($count > 0)
-		{
+		if ($count > 0) {
 			return json_encode(['code' => 0]);
 		}
 
 		return json_encode(['code' => 1]);
 	}
-
 }

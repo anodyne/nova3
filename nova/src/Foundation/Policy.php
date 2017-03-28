@@ -2,8 +2,8 @@
 
 use User;
 
-abstract class Policy {
-
+abstract class Policy
+{
 	public function create(User $user)
 	{
 		return $user->can($this->createKey);

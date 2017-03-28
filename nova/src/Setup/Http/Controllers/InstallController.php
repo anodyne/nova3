@@ -1,17 +1,17 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use Status,
-	Artisan,
-	UserCreator,
-	SettingRepositoryContract,
-	PageContentRepositoryContract;
-use Illuminate\Filesystem\Filesystem,
-	Illuminate\Filesystem\FilesystemManager;
-use Nova\Setup\Http\Requests\CreateUserRequest,
-	Nova\Setup\Http\Requests\UpdateSettingsRequest;
+use Status;
+use Artisan;
+use UserCreator;
+use SettingRepositoryContract;
+use PageContentRepositoryContract;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Filesystem\FilesystemManager;
+use Nova\Setup\Http\Requests\CreateUserRequest;
+use Nova\Setup\Http\Requests\UpdateSettingsRequest;
 
-class InstallController extends BaseController {
-
+class InstallController extends BaseController
+{
 	public function index()
 	{
 		return view('pages.setup.install.landing');
@@ -64,8 +64,7 @@ class InstallController extends BaseController {
 		// Create a new user and character
 		$creator = $userCreator->createWithCharacter($request->all());
 
-		if ($creator)
-		{
+		if ($creator) {
 			$user = app('UserRepository')->getById(1);
 			$user->status = Status::ACTIVE;
 			$user->save();
@@ -92,10 +91,11 @@ class InstallController extends BaseController {
 		return view('pages.setup.install.settings-success');
 	}
 
-	public function updateSettings(SettingRepositoryContract $settings, 
-			PageContentRepositoryContract $content,
-			UpdateSettingsRequest $request)
-	{
+	public function updateSettings(
+		SettingRepositoryContract $settings,
+		PageContentRepositoryContract $content,
+		UpdateSettingsRequest $request
+	) {
 		// Grab the data
 		$data = request()->except(['_token']);
 
@@ -108,8 +108,7 @@ class InstallController extends BaseController {
 		$update = $settings->updateByKey($data);
 
 		// Update the keys we're using
-		array_walk($data, function ($value, $key) use (&$contentData)
-		{
+		array_walk($data, function ($value, $key) use (&$contentData) {
 			// Replace underscores with periods
 			$newKey = str_replace('_', '.', $key);
 
@@ -119,8 +118,7 @@ class InstallController extends BaseController {
 		// Update the content
 		$content->updateByKey($contentData);
 
-		if ($update)
-		{
+		if ($update) {
 			return redirect()->route('setup.install.settings.success');
 		}
 

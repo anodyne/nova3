@@ -2,8 +2,8 @@
 
 use User;
 
-class UserPolicy {
-
+class UserPolicy
+{
 	public function create(User $user)
 	{
 		return $user->can('user.create');
@@ -38,5 +38,4 @@ class UserPolicy {
 	{
 		return $user->can('user.remove');
 	}
-
 }

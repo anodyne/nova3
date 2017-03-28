@@ -2,8 +2,8 @@
 
 use League\CommonMark\CommonMarkConverter as Parser;
 
-class MarkdownParser {
-
+class MarkdownParser
+{
 	protected $parser;
 
 	public function __construct(Parser $parser)

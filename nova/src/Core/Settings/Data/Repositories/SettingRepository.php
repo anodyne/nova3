@@ -1,12 +1,12 @@
 <?php namespace Nova\Core\Settings\Data\Repositories;
 
-use Setting as Model,
-	SettingRepositoryContract;
+use Setting as Model;
+use SettingRepositoryContract;
 use Nova\Core\Settings\Events;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class SettingRepository extends BaseRepository implements SettingRepositoryContract {
-
+class SettingRepository extends BaseRepository implements SettingRepositoryContract
+{
 	protected $model;
 
 	public function __construct(Model $model)
@@ -37,13 +37,11 @@ class SettingRepository extends BaseRepository implements SettingRepositoryContr
 
 	public function updateByKey(array $data)
 	{
-		foreach ($data as $key => $value)
-		{
+		foreach ($data as $key => $value) {
 			// Get the setting
 			$setting = $this->getFirstBy('key', $key);
 
-			if ($setting)
-			{
+			if ($setting) {
 				// Update the setting
 				$item = $setting->fill(['value' => $value]);
 

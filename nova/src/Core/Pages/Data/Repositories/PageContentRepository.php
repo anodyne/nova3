@@ -1,12 +1,12 @@
 <?php namespace Nova\Core\Pages\Data\Repositories;
 
-use PageContent as Model,
-	PageContentRepositoryContract;
+use PageContent as Model;
+use PageContentRepositoryContract;
 use Nova\Core\Pages\Events;
 use Nova\Foundation\Data\Repositories\BaseRepository;
 
-class PageContentRepository extends BaseRepository implements PageContentRepositoryContract {
-
+class PageContentRepository extends BaseRepository implements PageContentRepositoryContract
+{
 	protected $model;
 
 	public function __construct(Model $model)
