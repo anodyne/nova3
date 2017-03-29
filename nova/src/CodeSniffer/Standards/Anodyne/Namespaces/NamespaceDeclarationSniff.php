@@ -36,7 +36,6 @@ class Anodyne_Sniffs_Namespaces_NamespaceDeclarationSniff implements PHP_CodeSni
 	public function register()
 	{
 		return array(T_NAMESPACE);
-
 	}
 
 	/**
