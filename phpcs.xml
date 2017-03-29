@@ -12,18 +12,29 @@
 	<exclude-pattern>*/nova/tests/*</exclude-pattern>
 	<exclude-pattern>*/nova/vendor/*</exclude-pattern>
 
-	<arg value="p"/>
+	<arg value="np"/>
 
 	<rule ref="PSR2">
 		<exclude name="Generic.WhiteSpace.DisallowTabIndent"/>
 		<exclude name="Generic.Files.LineLength"/>
 	</rule>
 	<rule ref="nova/src/CodeSniffer/Standards/Anodyne"/>
-	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
+	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent">
+		<exclude-pattern>*/themes/*</exclude-pattern>
+	</rule>
 	<rule ref="Generic.WhiteSpace.ScopeIndent">
 		<properties>
 			<property name="indent" value="4"/>
 			<property name="tabIndent" value="true"/>
 		</properties>
+	</rule>
+	<rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+		<exclude-pattern>*/nova/src/CodeSniffer/*</exclude-pattern>
+		<exclude-pattern>*/nova/src/Setup/database/migrations/*</exclude-pattern>
+		<exclude-pattern>*/nova/src/Setup/database/seeds/*</exclude-pattern>
+		<exclude-pattern>*/themes/*</exclude-pattern>
+	</rule>
+	<rule ref="Squiz.Classes.ValidClassName.NotCamelCaps">
+		<exclude-pattern>*/nova/src/CodeSniffer/*</exclude-pattern>
 	</rule>
 </ruleset>
