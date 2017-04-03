@@ -5,7 +5,7 @@ use Status;
 use Artisan;
 use Illuminate\Database\DatabaseManager;
 
-class MigrateController extends BaseController
+class MigrateController extends Controller
 {
 	protected $db;
 	protected $userDictionary = [];

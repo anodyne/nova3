@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Database\Connectors\Connector;
 
-class ConfigDbController extends BaseController
+class ConfigDbController extends Controller
 {
 	public function info()
 	{

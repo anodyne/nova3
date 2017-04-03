@@ -1,9 +1,9 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
 use Request;
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Controller as IlluminateController;
 
-abstract class BaseController extends Controller
+abstract class Controller extends IlluminateController
 {
 	protected $setupType;
 

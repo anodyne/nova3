@@ -3,7 +3,7 @@
 use Illuminate\Filesystem\Filesystem;
 use Nova\Setup\Http\Requests\CheckEmailSettingsRequest;
 
-class ConfigEmailController extends BaseController
+class ConfigEmailController extends Controller
 {
 	public function info()
 	{

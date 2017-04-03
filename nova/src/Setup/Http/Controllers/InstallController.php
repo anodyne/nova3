@@ -10,7 +10,7 @@ use Illuminate\Filesystem\FilesystemManager;
 use Nova\Setup\Http\Requests\CreateUserRequest;
 use Nova\Setup\Http\Requests\UpdateSettingsRequest;
 
-class InstallController extends BaseController
+class InstallController extends Controller
 {
 	public function index()
 	{

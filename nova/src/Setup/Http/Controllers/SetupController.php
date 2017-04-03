@@ -4,7 +4,7 @@ use Artisan;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemManager;
 
-class SetupController extends BaseController
+class SetupController extends Controller
 {
 	public function index()
 	{

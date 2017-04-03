@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Database\Connectors\Connector;
 
-class ConfigNova2Controller extends BaseController
+class ConfigNova2Controller extends Controller
 {
 	public function info()
 	{

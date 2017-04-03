@@ -10,7 +10,7 @@ use Illuminate\Console\Application as Artisan;
 #TODO: during the update process, re-generate the app key for security purposes
 #TODO: once the update process is complete, blow away the backupStatus session variable
 
-class UpdateController extends BaseController
+class UpdateController extends Controller
 {
 	protected $backupStatus;
 	protected $backupStatusMessage;
