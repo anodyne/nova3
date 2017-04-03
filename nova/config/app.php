@@ -222,8 +222,6 @@ return [
 		'View'      => Illuminate\Support\Facades\View::class,
 
 		'API'				=> Dingo\Api\Facade\API::class,
-		'BaseController'	=> Nova\Foundation\Http\Controllers\BaseController::class,
-		'BasePresenter'		=> Nova\Foundation\Data\Presenters\BasePresenter::class,
 		'Date'				=> Carbon\Carbon::class,
 		'Debugbar'			=> Barryvdh\Debugbar\Facade::class,
 		'Form'				=> Collective\Html\FormFacade::class,
