@@ -1,8 +1,8 @@
 <?php namespace Nova\Foundation\Data\Presenters;
 
-use Laracasts\Presenter\Presenter;
+use Laracasts\Presenter\Presenter as BasePresenter;
 
-class BasePresenter extends Presenter
+abstract class Presenter extends BasePresenter
 {
 	public function createdAt()
 	{
