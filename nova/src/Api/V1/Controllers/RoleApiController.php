@@ -3,7 +3,7 @@
 use RoleRepositoryContract;
 use Nova\Api\V1\Transformers\RoleTransformer;
 
-class RoleApiController extends ApiBaseController
+class RoleApiController extends ApiController
 {
 	protected $repo;
 

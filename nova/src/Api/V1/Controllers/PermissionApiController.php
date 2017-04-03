@@ -3,7 +3,7 @@
 use PermissionRepositoryContract;
 use Nova\Api\V1\Transformers\PermissionTransformer;
 
-class PermissionApiController extends ApiBaseController
+class PermissionApiController extends ApiController
 {
 	protected $repo;
 

@@ -3,7 +3,7 @@
 use PageRepositoryContract;
 use Nova\Api\V1\Transformers\PageTransformer;
 
-class PageApiController extends ApiBaseController
+class PageApiController extends ApiController
 {
 	protected $repo;
 

@@ -3,7 +3,7 @@
 use UserTransformer;
 use UserRepositoryContract;
 
-class UserApiController extends ApiBaseController
+class UserApiController extends ApiController
 {
 	protected $repo;
 

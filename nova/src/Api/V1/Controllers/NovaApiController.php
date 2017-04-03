@@ -1,6 +1,6 @@
 <?php namespace Nova\Api\V1\Controllers;
 
-class NovaApiController extends ApiBaseController
+class NovaApiController extends ApiController
 {
 	public function info()
 	{
