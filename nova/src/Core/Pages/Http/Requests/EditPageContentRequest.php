@@ -4,22 +4,11 @@ use Nova\Foundation\Http\Requests\Request;
 
 class EditPageContentRequest extends Request
 {
-	public function authorize()
-	{
-		return true;
-	}
+	protected $rules = [
+		'key' => 'required',
+	];
 
-	public function rules()
-	{
-		return [
-			'key' => 'required',
-		];
-	}
-
-	public function messages()
-	{
-		return [
-			'key.required' => "Please enter a key for the page content",
-		];
-	}
+	protected $messages = [
+		'key.required' => "Please enter a key for the page content",
+	];
 }
