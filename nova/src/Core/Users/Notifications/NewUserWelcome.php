@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Users\Notifications;
 
-use Nova\Foundation\BaseNotification;
+use Nova\Foundation\Notifications\Notification;
 
-class NewUserWelcome extends BaseNotification
+class NewUserWelcome extends Notification
 {
 	public function toArray($notifiable)
 	{

@@ -1,4 +1,4 @@
-<?php namespace Nova\Foundation;
+<?php namespace Nova\Foundation\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -8,8 +8,10 @@ abstract class Notification extends IlluminateNotification implements ShouldQueu
 {
 	use Queueable;
 
+	protected $via = ['database'];
+
 	public function via($notifiable)
 	{
-		return ['database'];
+		return $this->via;
 	}
 }
