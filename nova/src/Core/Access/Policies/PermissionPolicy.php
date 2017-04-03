@@ -1,26 +1,10 @@
 <?php namespace Nova\Core\Access\Policies;
 
-use User;
+use Nova\Foundation\Policies\Policy;
 
-class PermissionPolicy
+class PermissionPolicy extends Policy
 {
-	public function create(User $user)
-	{
-		return $user->can('access.create');
-	}
-
-	public function edit(User $user)
-	{
-		return $user->can('access.edit');
-	}
-
-	public function manage(User $user)
-	{
-		return ($this->create($user) or $this->edit($user) or $this->remove($user));
-	}
-
-	public function remove(User $user)
-	{
-		return $user->can('access.remove');
-	}
+	protected $createKey = 'access.create';
+	protected $editKey = 'access.edit';
+	protected $removeKey = 'access.remove';
 }

@@ -1,26 +1,10 @@
 <?php namespace Nova\Core\Forms\Policies;
 
-use User;
+use Nova\Foundation\Policies\Policy;
 
-class SectionPolicy
+class SectionPolicy extends Policy
 {
-	public function create(User $user)
-	{
-		return $user->can('form.create');
-	}
-
-	public function edit(User $user)
-	{
-		return $user->can('form.edit');
-	}
-
-	public function manage(User $user)
-	{
-		return ($this->create($user) or $this->edit($user) or $this->remove($user));
-	}
-
-	public function remove(User $user)
-	{
-		return $user->can('form.remove');
-	}
+	protected $createKey = 'form.create';
+	protected $editKey = 'form.edit';
+	protected $removeKey = 'form.remove';
 }

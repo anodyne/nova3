@@ -4,6 +4,10 @@ use User;
 
 abstract class Policy
 {
+	protected $editKey;
+	protected $createKey;
+	protected $removeKey;
+	
 	public function create(User $user)
 	{
 		return $user->can($this->createKey);

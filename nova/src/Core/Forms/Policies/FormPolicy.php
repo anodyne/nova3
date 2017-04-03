@@ -2,28 +2,13 @@
 
 use User;
 use NovaForm as Form;
+use Nova\Foundation\Policies\Policy;
 
-class FormPolicy
+class FormPolicy extends Policy
 {
-	public function create(User $user)
-	{
-		return $user->can('form.create');
-	}
-
-	public function edit(User $user)
-	{
-		return $user->can('form.edit');
-	}
-
-	public function manage(User $user)
-	{
-		return ($this->create($user) or $this->edit($user) or $this->remove($user));
-	}
-
-	public function remove(User $user, Form $form)
-	{
-		return $user->can('form.remove') and ! $form->protected;
-	}
+	protected $createKey = 'form.create';
+	protected $editKey = 'form.edit';
+	protected $removeKey = 'form.remove';
 
 	public function editEntries(User $user, Form $form)
 	{

@@ -1,13 +1,13 @@
 <?php namespace Nova\Core\Users\Policies;
 
 use User;
+use Nova\Foundation\Policies\Policy;
 
-class UserPolicy
+class UserPolicy extends Policy
 {
-	public function create(User $user)
-	{
-		return $user->can('user.create');
-	}
+	protected $createKey = 'user.create';
+	protected $editKey = 'user.edit';
+	protected $removeKey = 'user.remove';
 
 	public function edit(User $user, User $resource)
 	{
@@ -32,10 +32,5 @@ class UserPolicy
 	public function manage(User $user)
 	{
 		return ($this->create($user) or $this->editAll($user) or $this->remove($user));
-	}
-
-	public function remove(User $user)
-	{
-		return $user->can('user.remove');
 	}
 }
