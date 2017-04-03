@@ -2,12 +2,13 @@
 
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
-class ServiceProvider extends LaravelServiceProvider {
-
+class ServiceProvider extends LaravelServiceProvider
+{
 	public function boot()
 	{
 		// Register the extension's views directory with the locator
-		$this->app['nova.locator']->registerSearchPath('extensions/{ExtensionVendorName}/views/components');
+		$this->app['nova.locator']
+			->registerSearchPath('extensions/{ExtensionVendorName}/views/components');
 	}
 
 	public function register()
@@ -17,5 +18,4 @@ class ServiceProvider extends LaravelServiceProvider {
 		// Register a singleton for the extension class
 		$this->app->singleton('{ExtensionKey}', $extension);
 	}
-
 }

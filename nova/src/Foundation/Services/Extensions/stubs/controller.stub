@@ -1,12 +1,11 @@
 <?php namespace {ExtensionNamespace}\Http\Controllers;
 
-use BaseController;
+use Nova\Foundation\Http\Controllers\NovaController;
 
-class {ExtensionControllerName} extends BaseController {
-
+class {ExtensionControllerName} extends NovaController
+{
 	public function index()
 	{
 		$this->views->put('page', '{ExtensionLowercaseName}');
 	}
-
 }
