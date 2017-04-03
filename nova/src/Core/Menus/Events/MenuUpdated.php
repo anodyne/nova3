@@ -2,13 +2,10 @@
 
 use Menu;
 use Nova\Foundation\Events\Event;
-use Illuminate\Queue\SerializesModels;
 
 class MenuUpdated extends Event
 {
-	use SerializesModels;
-
-	protected $resource;
+	public $resource;
 
 	public function __construct(Menu $resource)
 	{

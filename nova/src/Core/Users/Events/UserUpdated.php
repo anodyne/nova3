@@ -5,10 +5,10 @@ use Nova\Foundation\Events\Event;
 
 class UserUpdated extends Event
 {
-	public $user;
+	public $resource;
 
-	public function __construct(User $user)
+	public function __construct(User $resource)
 	{
-		$this->user = $user;
+		$this->resource = $resource;
 	}
 }

@@ -2,16 +2,13 @@
 
 use User;
 use Nova\Foundation\Events\Event;
-use Illuminate\Queue\SerializesModels;
 
 class UserCreated extends Event
 {
-	use SerializesModels;
+	public $resource;
 
-	public $user;
-
-	public function __construct(User $user)
+	public function __construct(User $resource)
 	{
-		$this->user = $user;
+		$this->resource = $resource;
 	}
 }

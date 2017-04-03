@@ -2,18 +2,15 @@
 
 use User;
 use Nova\Foundation\Events\Event;
-use Illuminate\Queue\SerializesModels;
 
 class UserRestoredByAdmin extends Event
 {
-	use SerializesModels;
-
-	public $user;
+	public $resource;
 	public $password;
 
-	public function __construct(User $user, $password)
+	public function __construct(User $resource, $password)
 	{
-		$this->user = $user;
+		$this->resource = $resource;
 		$this->password = $password;
 	}
 }

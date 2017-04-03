@@ -1,12 +1,9 @@
 <?php namespace Nova\Core\Users\Events;
 
 use Nova\Foundation\Events\Event;
-use Illuminate\Queue\SerializesModels;
 
 class UserDeleted extends Event
 {
-	use SerializesModels;
-
 	public $id;
 	public $name;
 	public $email;
