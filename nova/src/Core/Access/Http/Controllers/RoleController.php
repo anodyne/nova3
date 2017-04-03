@@ -2,15 +2,15 @@
 
 use Role;
 use Permission;
-use BaseController;
 use RoleRepositoryContract;
 use PermissionRepositoryContract;
 use EditRoleRequest;
 use CreateRoleRequest;
 use RemoveRoleRequest;
 use Illuminate\Http\Request;
+use Nova\Foundation\Http\Controllers\NovaController;
 
-class RoleController extends BaseController
+class RoleController extends NovaController
 {
 	protected $repo;
 	protected $permissionsRepo;

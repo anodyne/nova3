@@ -3,7 +3,6 @@
 use NovaForm;
 use NovaFormTab;
 use NovaFormField;
-use BaseController;
 use NovaFormSection;
 use FormRepositoryContract;
 use PageRepositoryContract;
@@ -11,8 +10,9 @@ use RoleRepositoryContract;
 use EditFormRequest;
 use CreateFormRequest;
 use RemoveFormRequest;
+use Nova\Foundation\Http\Controllers\NovaController;
 
-class FormController extends BaseController
+class FormController extends NovaController
 {
 	protected $repo;
 	protected $pageRepo;

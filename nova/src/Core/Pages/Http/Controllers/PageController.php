@@ -1,7 +1,6 @@
 <?php namespace Nova\Core\Pages\Http\Controllers;
 
 use Page;
-use BaseController;
 use MenuRepositoryContract;
 use PageRepositoryContract;
 use EditPageRequest;
@@ -11,8 +10,9 @@ use Symfony\Component\Finder\Finder;
 use InvalidArgumentException;
 use ReflectionClass;
 use ReflectionMethod;
+use Nova\Foundation\Http\Controllers\NovaController;
 
-class PageController extends BaseController
+class PageController extends NovaController
 {
 	protected $repo;
 	protected $menuRepo;

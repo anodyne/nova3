@@ -1,14 +1,14 @@
 <?php namespace Nova\Core\Pages\Http\Controllers;
 
 use PageContent;
-use BaseController;
 use PageRepositoryContract;
 use PageContentRepositoryContract;
 use EditPageContentRequest;
 use CreatePageContentRequest;
 use RemovePageContentRequest;
+use Nova\Foundation\Http\Controllers\NovaController;
 
-class PageContentController extends BaseController
+class PageContentController extends NovaController
 {
 	protected $repo;
 	protected $pagesRepo;

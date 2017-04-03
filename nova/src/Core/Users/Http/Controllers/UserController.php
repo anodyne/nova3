@@ -3,16 +3,16 @@
 use User;
 use Status;
 use UserCreator;
-use BaseController;
 use UserTransformer;
-use UserRepositoryContract;
 use EditUserRequest;
 use CreateUserRequest;
 use RemoveUserRequest;
 use Nova\Core\Users\Events;
+use UserRepositoryContract;
 use Illuminate\Http\Request;
+use Nova\Foundation\Http\Controllers\NovaController;
 
-class UserController extends BaseController
+class UserController extends NovaController
 {
 	protected $repo;
 

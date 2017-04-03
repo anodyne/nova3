@@ -1,14 +1,14 @@
 <?php namespace Nova\Core\Forms\Http\Controllers;
 
 use NovaFormTab;
-use BaseController;
 use FormRepositoryContract;
 use FormTabRepositoryContract;
 use EditFormTabRequest;
 use CreateFormTabRequest;
 use RemoveFormTabRequest;
+use Nova\Foundation\Http\Controllers\NovaController;
 
-class TabController extends BaseController
+class TabController extends NovaController
 {
 	protected $repo;
 	protected $formRepo;

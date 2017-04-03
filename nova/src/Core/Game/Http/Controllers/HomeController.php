@@ -1,8 +1,8 @@
 <?php namespace Nova\Core\Game\Http\Controllers;
 
-use BaseController;
+use Nova\Foundation\Http\Controllers\NovaController;
 
-class HomeController extends BaseController
+class HomeController extends NovaController
 {
 	public function icons()
 	{

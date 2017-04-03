@@ -1,14 +1,14 @@
 <?php namespace Nova\Core\Auth\Http\Controllers;
 
 use Date;
-use BaseController;
 use Illuminate\Http\Request;
 use Nova\Core\Auth\Events;
 use Nova\Core\Auth\Notifications;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Nova\Foundation\Http\Controllers\NovaController;
 
-class ResetPasswordController extends BaseController
+class ResetPasswordController extends NovaController
 {
 	use ResetsPasswords;
 

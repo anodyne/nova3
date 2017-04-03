@@ -1,14 +1,14 @@
 <?php namespace Nova\Core\Access\Http\Controllers;
 
 use Permission;
-use BaseController;
 use RoleRepositoryContract;
 use PermissionRepositoryContract;
 use EditPermissionRequest;
 use CreatePermissionRequest;
 use RemovePermissionRequest;
+use Nova\Foundation\Http\Controllers\NovaController;
 
-class PermissionController extends BaseController
+class PermissionController extends NovaController
 {
 	protected $repo;
 	protected $roleRepo;

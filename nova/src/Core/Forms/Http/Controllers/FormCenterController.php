@@ -1,11 +1,11 @@
 <?php namespace Nova\Core\Forms\Http\Controllers;
 
-use BaseController;
 use FormRepositoryContract;
 use FormEntryRepositoryContract;
 use Illuminate\Http\Request;
+use Nova\Foundation\Http\Controllers\NovaController;
 
-class FormCenterController extends BaseController
+class FormCenterController extends NovaController
 {
 	protected $repo;
 	protected $formRepo;

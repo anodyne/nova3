@@ -6,7 +6,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
-abstract class BaseController extends Controller
+abstract class NovaController extends Controller
 {
 	use DispatchesJobs, ValidatesRequests;
 

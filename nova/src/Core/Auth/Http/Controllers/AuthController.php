@@ -1,13 +1,13 @@
 <?php namespace Nova\Core\Auth\Http\Controllers;
 
 use Date;
-use BaseController;
 use UserRepositoryContract;
 use Nova\Core\Auth\Events;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Nova\Foundation\Http\Controllers\NovaController;
 
-class AuthController extends BaseController
+class AuthController extends NovaController
 {
 	use AuthenticatesUsers;
 

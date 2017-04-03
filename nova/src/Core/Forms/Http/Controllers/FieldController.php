@@ -1,7 +1,6 @@
 <?php namespace Nova\Core\Forms\Http\Controllers;
 
 use NovaFormField;
-use BaseController;
 use FormRepositoryContract;
 use RoleRepositoryContract;
 use FormTabRepositoryContract;
@@ -10,8 +9,9 @@ use FormSectionRepositoryContract;
 use EditFormFieldRequest;
 use CreateFormFieldRequest;
 use RemoveFormFieldRequest;
+use Nova\Foundation\Http\Controllers\NovaController;
 
-class FieldController extends BaseController
+class FieldController extends NovaController
 {
 	protected $repo;
 	protected $tabRepo;

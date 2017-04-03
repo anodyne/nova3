@@ -2,7 +2,6 @@
 
 use Str;
 use Menu;
-use BaseController;
 use MenuRepositoryContract;
 use PageRepositoryContract;
 use MenuItemRepositoryContract;
@@ -11,8 +10,9 @@ use CreateMenuRequest;
 use RemoveMenuRequest;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Foundation\Application;
+use Nova\Foundation\Http\Controllers\NovaController;
 
-class MenuController extends BaseController
+class MenuController extends NovaController
 {
 	protected $repo;
 	protected $itemRepo;
