@@ -465,16 +465,16 @@
         },
         {
             "name": "erusev/parsedown",
-            "version": "1.6.1",
+            "version": "1.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "20ff8bbb57205368b4b42d094642a3e52dac85fb"
+                "reference": "1bf24f7334fe16c88bf9d467863309ceaf285b01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/20ff8bbb57205368b4b42d094642a3e52dac85fb",
-                "reference": "20ff8bbb57205368b4b42d094642a3e52dac85fb",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/1bf24f7334fe16c88bf9d467863309ceaf285b01",
+                "reference": "1bf24f7334fe16c88bf9d467863309ceaf285b01",
                 "shasum": ""
             },
             "require": {
@@ -503,7 +503,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2016-11-02T15:56:58+00:00"
+            "time": "2017-03-29T16:04:15+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -884,16 +884,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.4.16",
+            "version": "v5.4.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "6cf379ec34d08bcdc9c7183e369a8fdf04ade80d"
+                "reference": "f7675d59e3863a58ecdff1a5ee1dcd0cff788f4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/6cf379ec34d08bcdc9c7183e369a8fdf04ade80d",
-                "reference": "6cf379ec34d08bcdc9c7183e369a8fdf04ade80d",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/f7675d59e3863a58ecdff1a5ee1dcd0cff788f4b",
+                "reference": "f7675d59e3863a58ecdff1a5ee1dcd0cff788f4b",
                 "shasum": ""
             },
             "require": {
@@ -1009,7 +1009,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-03-21T19:34:41+00:00"
+            "time": "2017-04-03T13:07:39+00:00"
         },
         {
             "name": "laravelcollective/html",
@@ -2200,16 +2200,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "4.7.1",
+            "version": "4.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "5f231d431fb791d988ea4d36f6945a3be4e7fb4d"
+                "reference": "a28d802b88bd8f4e23fda081b61f27dadba6369b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/5f231d431fb791d988ea4d36f6945a3be4e7fb4d",
-                "reference": "5f231d431fb791d988ea4d36f6945a3be4e7fb4d",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/a28d802b88bd8f4e23fda081b61f27dadba6369b",
+                "reference": "a28d802b88bd8f4e23fda081b61f27dadba6369b",
                 "shasum": ""
             },
             "require": {
@@ -2262,7 +2262,7 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2017-03-14T19:35:02+00:00"
+            "time": "2017-04-02T13:21:44+00:00"
         },
         {
             "name": "spatie/laravel-glide",
@@ -2309,16 +2309,16 @@
         },
         {
             "name": "spatie/laravel-medialibrary",
-            "version": "4.13.4",
+            "version": "4.13.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-medialibrary.git",
-                "reference": "bbbdddb4840f73d0d9f54f62838a67bdfbc2d2dc"
+                "reference": "b795d50f95286fc71454522eb14a8f495e6b289b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/bbbdddb4840f73d0d9f54f62838a67bdfbc2d2dc",
-                "reference": "bbbdddb4840f73d0d9f54f62838a67bdfbc2d2dc",
+                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/b795d50f95286fc71454522eb14a8f495e6b289b",
+                "reference": "b795d50f95286fc71454522eb14a8f495e6b289b",
                 "shasum": ""
             },
             "require": {
@@ -2376,7 +2376,7 @@
                 "media",
                 "spatie"
             ],
-            "time": "2017-03-22T18:34:06+00:00"
+            "time": "2017-03-29T15:17:59+00:00"
         },
         {
             "name": "spatie/laravel-menu",
@@ -3912,16 +3912,16 @@
         },
         {
             "name": "laravel/dusk",
-            "version": "v1.0.10",
+            "version": "v1.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/dusk.git",
-                "reference": "11537ac1a939a2194e9e3cdc2536e6e34eff9ea6"
+                "reference": "fc079ddbe34fd7f227f80b5b125abebb51f98c43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/dusk/zipball/11537ac1a939a2194e9e3cdc2536e6e34eff9ea6",
-                "reference": "11537ac1a939a2194e9e3cdc2536e6e34eff9ea6",
+                "url": "https://api.github.com/repos/laravel/dusk/zipball/fc079ddbe34fd7f227f80b5b125abebb51f98c43",
+                "reference": "fc079ddbe34fd7f227f80b5b125abebb51f98c43",
                 "shasum": ""
             },
             "require": {
@@ -3963,7 +3963,7 @@
                 "testing",
                 "webdriver"
             ],
-            "time": "2017-03-03T14:36:19+00:00"
+            "time": "2017-03-20T20:56:17+00:00"
         },
         {
             "name": "maximebf/debugbar",
@@ -4198,16 +4198,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "4.0.7",
+            "version": "4.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "09e2277d14ea467e5a984010f501343ef29ffc69"
+                "reference": "ef7b2f56815df854e66ceaee8ebe9393ae36a40d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/09e2277d14ea467e5a984010f501343ef29ffc69",
-                "reference": "09e2277d14ea467e5a984010f501343ef29ffc69",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/ef7b2f56815df854e66ceaee8ebe9393ae36a40d",
+                "reference": "ef7b2f56815df854e66ceaee8ebe9393ae36a40d",
                 "shasum": ""
             },
             "require": {
@@ -4257,7 +4257,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-03-01T09:12:17+00:00"
+            "time": "2017-04-02T07:44:40+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -4447,16 +4447,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.7.17",
+            "version": "5.7.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "68752b665d3875f9a38a357e3ecb35c79f8673bf"
+                "reference": "69c4f49ff376af2692bad9cebd883d17ebaa98a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/68752b665d3875f9a38a357e3ecb35c79f8673bf",
-                "reference": "68752b665d3875f9a38a357e3ecb35c79f8673bf",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/69c4f49ff376af2692bad9cebd883d17ebaa98a1",
+                "reference": "69c4f49ff376af2692bad9cebd883d17ebaa98a1",
                 "shasum": ""
             },
             "require": {
@@ -4525,7 +4525,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-03-19T16:52:12+00:00"
+            "time": "2017-04-03T02:22:27+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
