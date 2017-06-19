@@ -6,7 +6,7 @@ class Application extends LaravelApp
 {
 	public function bootstrapPath($path = '')
 	{
-		return implode(DIRECTORY_SEPARATOR, [
+		return join(DIRECTORY_SEPARATOR, [
 			$this->basePath,
 			'nova',
 			'bootstrap',
@@ -16,7 +16,7 @@ class Application extends LaravelApp
 
 	public function configPath($path = '')
 	{
-		return implode(DIRECTORY_SEPARATOR, [
+		return join(DIRECTORY_SEPARATOR, [
 			$this->basePath,
 			'nova',
 			'config',
@@ -26,12 +26,26 @@ class Application extends LaravelApp
 
 	public function databasePath($path = '')
 	{
-		return implode(DIRECTORY_SEPARATOR, [
+		return join(DIRECTORY_SEPARATOR, [
 			$this->basePath,
 			'nova',
 			'database',
 			$path
 		]);
+	}
+
+	public function langPath()
+    {
+    	return join(DIRECTORY_SEPARATOR, [
+    		$this->basePath,
+    		'resources',
+    		'lang'
+    	]);
+    }
+
+	public function novaLangPath()
+	{
+		return $this->resourcePath('lang');
 	}
 
 	public function publicPath()
@@ -41,11 +55,18 @@ class Application extends LaravelApp
 
 	public function resourcePath($path = '')
 	{
-		return implode(DIRECTORY_SEPARATOR, [
+		return join(DIRECTORY_SEPARATOR, [
 			$this->basePath,
 			'nova',
 			'resources',
 			$path
 		]);
 	}
+
+	protected function bindPathsInContainer()
+    {
+    	parent::bindPathsInContainer();
+
+    	$this->instance('path.nova.lang', $this->novaLangPath());
+    }
 }
