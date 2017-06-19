@@ -76,5 +76,13 @@
 
     <!-- Scripts -->
     <script src="{{ asset('resources/js/app.js') }}"></script>
+	<script>var vue = {}</script>
+	@yield('js')
+	<script>
+		const app = new Vue({
+			el: '#app',
+			mixins: [vue]
+		})
+	</script>
 </body>
 </html>
