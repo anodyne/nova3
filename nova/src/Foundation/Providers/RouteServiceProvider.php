@@ -12,7 +12,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Nova\Foundation\Http\Controllers';
+    protected $namespace = false;
 
     /**
      * Define your route model bindings, pattern filters, etc.
