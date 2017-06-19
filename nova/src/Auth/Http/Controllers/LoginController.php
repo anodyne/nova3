@@ -1,5 +1,6 @@
 <?php namespace Nova\Auth\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Nova\Foundation\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -7,14 +8,10 @@ class LoginController extends Controller
 {
 	use AuthenticatesUsers;
 
-	protected $redirectTo = '/home';
-
 	public function __construct()
 	{
 		parent::__construct();
 		
-		$this->redirectTo = route('home');
-
 		$this->middleware('guest')->except('logout');
 	}
 
@@ -23,8 +20,38 @@ class LoginController extends Controller
 		return view('pages.auth.login');
 	}
 
-	protected function authenticated(Request $request, $user)
+	public function redirectTo()
 	{
-		//
+		return route('home');
+	}
+
+	protected function sendFailedLoginResponse(Request $request)
+	{
+		$errors = [$this->username() => _m('auth-failed')];
+
+		if ($request->expectsJson()) {
+			return response()->json($errors, 422);
+		}
+
+		return redirect()->back()
+			->withInput($request->only($this->username()))
+			->withErrors($errors);
+	}
+
+	protected function sendLockoutResponse(Request $request)
+	{
+		$seconds = $this->limiter()->availableIn(
+			$this->throttleKey($request)
+		);
+
+		$errors = [$this->username() => _m('auth-attempts', [1 => $seconds])];
+
+		if ($request->expectsJson()) {
+			return response()->json($errors, 423);
+		}
+
+		return redirect()->back()
+			->withInput($request->only($this->username()))
+			->withErrors($errors);
 	}
 }
