@@ -2,13 +2,6 @@
 Thumbs.db
 
 .env
-extensions/*/
 node_modules
 nova/vendor
-config/*.php
-!config/nova.php
 storage/debugbar
-_setup.php
-
-*.sublime-project
-*.sublime-workspace
