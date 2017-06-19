@@ -29,8 +29,11 @@
 	},
 
 	"autoload-dev": {
+		"files": [
+			"nova/tests/utilities/functions.php"
+		],
 		"psr-4": {
-			"Tests\\": "tests/"
+			"Tests\\": "nova/tests/"
 		}
 	},
 
