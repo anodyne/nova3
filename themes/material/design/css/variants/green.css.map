@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAIA,eAAgB,CACf,gBAAgB,CCmJC,OAAO,CDjJxB,6BAAc,CACb,KAAK,CC4RO,IAAO,CDvRlB,gCAAG,CACF,KAAK,CCuIS,OAAO,CDrIrB,sCAAQ,CACP,KAAK,CCkIQ,OAAO,CD3HzB,MAAO,CACN,gBAAgB,CEjBD,OAAgB,CFqB/B,eAAG,CACF,KAAK,CEtBS,OAAgB",
-"sources": ["../../scss/variants/green.scss","../../../../../nova/resources/views/design/scss/_colors.scss","../../scss/_variables.scss"],
-"names": [],
-"file": "green.css"
-}

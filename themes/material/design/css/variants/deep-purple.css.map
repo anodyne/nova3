@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAIA,eAAgB,CACf,gBAAgB,CCmDO,OAAO,CDjD9B,6BAAc,CACb,KAAK,CC4RO,IAAO,CDvRlB,gCAAG,CACF,KAAK,CCuCe,OAAO,CDrC3B,sCAAQ,CACP,KAAK,CCkCc,OAAO,CD3B/B,MAAO,CACN,gBAAgB,CC6BO,OAAO,CDzB9B,eAAG,CACF,KAAK,CCwBiB,OAAO",
-"sources": ["../../scss/variants/deep-purple.scss","../../../../../nova/resources/views/design/scss/_colors.scss"],
-"names": [],
-"file": "deep-purple.css"
-}

@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAIA,eAAgB,CACf,gBAAgB,CCmLA,OAAO,CDjLvB,6BAAc,CACb,KAAK,CC4RO,IAAO,CDvRlB,gCAAG,CACF,KAAK,CCuKQ,OAAO,CDrKpB,sCAAQ,CACP,KAAK,CCkKO,OAAO,CD3JxB,MAAO,CACN,gBAAgB,CC6JA,OAAO,CDzJvB,eAAG,CACF,KAAK,CCwJU,OAAO",
-"sources": ["../../scss/variants/lime.scss","../../../../../nova/resources/views/design/scss/_colors.scss"],
-"names": [],
-"file": "lime.css"
-}

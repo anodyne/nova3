@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAAA,eAAgB,CACf,SAAS,CAAE,MAAM,CAEjB,kBAAK,CACJ,SAAS,CAAE,MAAM,CAElB,kBAAK,CACJ,SAAS,CAAE,MAAM,CAElB,kBAAK,CACJ,SAAS,CAAE,MAAM",
-"sources": ["../scss/icons.scss"],
-"names": [],
-"file": "icons.css"
-}

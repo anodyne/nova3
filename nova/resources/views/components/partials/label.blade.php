@@ -1,1 +1,0 @@
-<span class="badge badge-{{ $type or 'default' }}">{{ $content }}</span>

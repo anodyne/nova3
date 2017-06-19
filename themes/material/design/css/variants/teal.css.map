@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAIA,eAAgB,CACf,gBAAgB,CCmIA,OAAO,CDjIvB,6BAAc,CACb,KAAK,CC4RO,IAAO,CDvRlB,gCAAG,CACF,KAAK,CCuHQ,OAAO,CDrHpB,sCAAQ,CACP,KAAK,CCkHO,OAAO,CD3GxB,MAAO,CACN,gBAAgB,CC6GA,OAAO,CDzGvB,eAAG,CACF,KAAK,CCwGU,OAAO",
-"sources": ["../../scss/variants/teal.scss","../../../../../nova/resources/views/design/scss/_colors.scss"],
-"names": [],
-"file": "teal.css"
-}

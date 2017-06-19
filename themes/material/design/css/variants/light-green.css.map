@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAIA,eAAgB,CACf,gBAAgB,CCmKO,OAAO,CDjK9B,6BAAc,CACb,KAAK,CC4RO,IAAO,CDvRlB,gCAAG,CACF,KAAK,CCuJe,OAAO,CDrJ3B,sCAAQ,CACP,KAAK,CCkJc,OAAO,CD3I/B,MAAO,CACN,gBAAgB,CC6IO,OAAO,CDzI9B,eAAG,CACF,KAAK,CCwIiB,OAAO",
-"sources": ["../../scss/variants/light-green.scss","../../../../../nova/resources/views/design/scss/_colors.scss"],
-"names": [],
-"file": "light-green.css"
-}

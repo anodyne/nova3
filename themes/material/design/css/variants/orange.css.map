@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAIA,eAAgB,CACf,gBAAgB,CCmOE,OAAO,CDjOzB,6BAAc,CACb,KAAK,CC4RO,IAAO,CDvRlB,gCAAG,CACF,KAAK,CCuNU,OAAO,CDrNtB,sCAAQ,CACP,KAAK,CCkNS,OAAO,CD3M1B,MAAO,CACN,gBAAgB,CC6ME,OAAO,CDzMzB,eAAG,CACF,KAAK,CCwMY,OAAO",
-"sources": ["../../scss/variants/orange.scss","../../../../../nova/resources/views/design/scss/_colors.scss"],
-"names": [],
-"file": "orange.css"
-}

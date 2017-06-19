@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAIA,eAAgB,CACf,gBAAgB,CCmNC,OAAO,CDjNxB,6BAAc,CACb,KAAK,CC4RO,IAAO,CDvRlB,gCAAG,CACF,KAAK,CCuMS,OAAO,CDrMrB,sCAAQ,CACP,KAAK,CCkMQ,OAAO,CD3LzB,MAAO,CACN,gBAAgB,CEhBD,OAAgB,CFoB/B,eAAG,CACF,KAAK,CErBS,OAAgB",
-"sources": ["../../scss/variants/amber.scss","../../../../../nova/resources/views/design/scss/_colors.scss","../../scss/_variables.scss"],
-"names": [],
-"file": "amber.css"
-}

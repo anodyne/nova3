@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAIA,eAAgB,CACf,gBAAgB,CCmCE,OAAO,CDjCzB,6BAAc,CACb,KAAK,CC4RO,IAAO,CDvRlB,gCAAG,CACF,KAAK,CCuBU,OAAO,CDrBtB,sCAAQ,CACP,KAAK,CCkBS,OAAO,CDX1B,MAAO,CACN,gBAAgB,CCaE,OAAO,CDTzB,eAAG,CACF,KAAK,CCQY,OAAO",
-"sources": ["../../scss/variants/purple.scss","../../../../../nova/resources/views/design/scss/_colors.scss"],
-"names": [],
-"file": "purple.css"
-}
