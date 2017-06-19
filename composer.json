@@ -3,7 +3,8 @@
 		"php": ">=7.0.0",
 		"laravel/framework": "5.4.*",
 		"laravelcollective/html": "5.4.*",
-		"laravel/tinker": "~1.0"
+		"laravel/tinker": "~1.0",
+		"Krinkle/intuition": "~0.5"
 	},
 
 	"require-dev": {
@@ -17,10 +18,12 @@
 
 	"autoload": {
 		"classmap": [
-			"database"
+			"nova/database"
+		],
+		"files": [
+			"nova/src/helpers.php"
 		],
 		"psr-4": {
-			"App\\": "app/",
 			"Nova\\": "nova/src/"
 		}
 	},
