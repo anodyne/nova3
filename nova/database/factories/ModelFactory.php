@@ -13,13 +13,13 @@ $factory->define(Nova\Foundation\User::class, function (Faker\Generator $faker) 
 
 $factory->define(Nova\Authorize\Role::class, function (Faker\Generator $faker) {
 	return [
-		'name' => $faker->name
+		'name' => $faker->words(3, true)
 	];
 });
 
 $factory->define(Nova\Authorize\Permission::class, function (Faker\Generator $faker) {
 	return [
-		'name' => $faker->name,
-		'key' => 'key'
+		'name' => $faker->words(3, true),
+		'key' => Str::slug($faker->words(3, true))
 	];
 });
