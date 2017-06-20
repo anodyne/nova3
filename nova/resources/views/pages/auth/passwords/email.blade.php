@@ -28,7 +28,7 @@
 
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary btn-block">
-							Send Password Reset Link
+							{{ _m('auth-send-reset-link') }}
 						</button>
 					</div>
 				</form>

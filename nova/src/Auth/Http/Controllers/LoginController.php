@@ -33,7 +33,7 @@ class LoginController extends Controller
 			return response()->json($errors, 422);
 		}
 
-		return redirect()->back()
+		return back()
 			->withInput($request->only($this->username()))
 			->withErrors($errors);
 	}
@@ -50,7 +50,7 @@ class LoginController extends Controller
 			return response()->json($errors, 423);
 		}
 
-		return redirect()->back()
+		return back()
 			->withInput($request->only($this->username()))
 			->withErrors($errors);
 	}

@@ -9,13 +9,17 @@
 		 processIsolation="false"
 		 stopOnFailure="false">
 	<testsuites>
-		<testsuite name="Feature">
+		<testsuite name="Nova Test Suite">
+            <directory suffix="Test.php">./nova/tests</directory>
+        </testsuite>
+		
+		<!-- <testsuite name="Feature">
 			<directory suffix="Test.php">./nova/tests/Feature</directory>
 		</testsuite>
 
 		<testsuite name="Unit">
 			<directory suffix="Test.php">./nova/tests/Unit</directory>
-		</testsuite>
+		</testsuite> -->
 	</testsuites>
 	<filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">

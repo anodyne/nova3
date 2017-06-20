@@ -52,7 +52,7 @@
 
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary btn-block">
-							Reset Password
+							{{ _m('auth-reset-password') }}
 						</button>
 					</div>
 				</form>

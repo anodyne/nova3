@@ -16,10 +16,15 @@
 	"auth-password-link-sent": "Your password reset link has been sent.",
 	"auth-password-requirements": "Passwords must be at least six characters and match the confirmation.",
 	"auth-password-reset-success": "Your password has been reset.",
-	"auth-password-subject": "Your Password Reset Link",
 	"auth-required-reset": "Password Reset Required",
 	"auth-required-reset-explain": "An administrator has required you to reset your password before you can continue.",
 	"auth-reset-password": "Reset Password",
 	"auth-send-reset-link": "Send Password Reset Link",
-	"auth-success": "You are now signed in"
+	"auth-success": "You are now signed in",
+	"auth-validation-email": "Please enter a valid email address",
+	"auth-validation-email-required": "Please enter an email address",
+	"auth-validation-password": "Please enter a new password",
+	"auth-validation-password-confirm": "Both passwords must match",
+	"auth-validation-password-min": "Passwords must be at least 6 characters",
+	"auth-validation-token": "You must have a password reset token"
 }

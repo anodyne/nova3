@@ -17,18 +17,18 @@ class ForgotPasswordController extends Controller
 	}
 
 	public function showLinkRequestForm()
-    {
-        return view('pages.auth.passwords.email');
-    }
+	{
+		return view('pages.auth.passwords.email');
+	}
 
-    protected function sendResetLinkResponse($response)
-    {
-        return back()->with('status', _m('auth-password-link-sent'));
-    }
+	protected function sendResetLinkResponse($response)
+	{
+		return back()->with('status', _m('auth-password-link-sent'));
+	}
 
-    protected function sendResetLinkFailedResponse(Request $request, $response)
-    {
-    	switch ($response) {
+	protected function sendResetLinkFailedResponse(Request $request, $response)
+	{
+		switch ($response) {
 			case PasswordBroker::INVALID_USER:
 				$message = _m('auth-password-invalid-user');
 				break;
@@ -42,6 +42,6 @@ class ForgotPasswordController extends Controller
 				break;
 		}
 
-        return back()->withErrors(['email' => $message]);
-    }
+		return back()->withErrors(['email' => $message]);
+	}
 }
