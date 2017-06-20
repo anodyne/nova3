@@ -11,3 +11,9 @@ before_install:
 
 install:
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
+  - cp .env.travis .env
+  - php artisan key:generate
+
+script:
+  - nova/vendor/bin/phpunit
+  - nova/vendor/bin/phpcs
