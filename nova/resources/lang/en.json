@@ -1,5 +1,7 @@
 {
 	"cancel": "Cancel",
+	"delete": "Delete",
+	"edit": "Edit",
 	"email-address": "Email Address",
 	"join": "Join",
 	"password": "Password",
@@ -27,5 +29,15 @@
 	"auth-validation-password": "Please enter a new password",
 	"auth-validation-password-confirm": "Both passwords must match",
 	"auth-validation-password-min": "Passwords must be at least 6 characters",
-	"auth-validation-token": "You must have a password reset token"
+	"auth-validation-token": "You must have a password reset token",
+
+	"authorize-permissions": "Permissions",
+	"authorize-permission-add": "Add Permission",
+	"authorize-permission-update": "Update Permission",
+	"authorize-permission-key": "Permission Key",
+	"authorize-permission-name": "Permission Name",
+	"authorize-roles": "Roles",
+	"authorize-role-add": "Add Role",
+	"authorize-role-update": "Update Role",
+	"authorize-role-name": "Role Name"
 }
