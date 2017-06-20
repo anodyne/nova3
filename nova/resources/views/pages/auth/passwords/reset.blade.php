@@ -3,7 +3,7 @@
 @section('content')
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 offset-md-3">
+			<div class="col-md-6 col-xl-4 offset-md-3 offset-xl-4">
 				<h1>{{ _m('auth-reset-password') }}</h1>
 
 				@if (session('status'))
@@ -44,6 +44,8 @@
 						<button type="submit" class="btn btn-primary btn-block">
 							{{ _m('auth-reset-password') }}
 						</button>
+
+						<a href="{{ route('home') }}" class="btn btn-link btn-block">{{ _m('cancel') }}</a>
 					</div>
 				</form>
 			</div>

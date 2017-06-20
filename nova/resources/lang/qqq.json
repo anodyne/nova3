@@ -5,6 +5,7 @@
 		]
 	},
 
+	"cancel": "Button label to cancel an action",
 	"email-address": "Label for the text field that collects email address",
 	"join": "Button label to go to the page to join the game",
 	"password": "Label for the text field that collects a password",

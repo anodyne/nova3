@@ -4,6 +4,8 @@ use Mail;
 use Tests\DatabaseTestCase;
 use Nova\Auth\Mail\SendPasswordReset;
 
+# TODO: how would we catch an issue where the view doesn't exist?
+
 class PasswordResetTest extends DatabaseTestCase
 {
 	protected $user;
