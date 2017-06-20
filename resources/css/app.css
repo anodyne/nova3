@@ -10200,3 +10200,25 @@ a.text-gray-dark:hover {
   }
 }
 
+.btn-toolbar {
+  margin-bottom: 1rem;
+}
+
+.btn-toolbar .btn-group + .btn-group {
+  margin-left: 0.5rem;
+}
+
+.btn {
+  font-family: "Raleway", sans-serif;
+}
+
+.btn:active {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  color: inherit;
+}
+
+.form-control {
+  font-family: "Raleway", sans-serif;
+}
+
