@@ -27,7 +27,7 @@ class LoginController extends Controller
 
 	protected function sendFailedLoginResponse(Request $request)
 	{
-		$errors = [$this->username() => _m('auth-failed')];
+		$errors = [$this->username() => _m('auth-validation-credentials')];
 
 		if ($request->expectsJson()) {
 			return response()->json($errors, 422);

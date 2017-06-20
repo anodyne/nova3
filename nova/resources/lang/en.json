@@ -9,7 +9,6 @@
 
 	"auth-attempts": "You've attempted to sign in too many times. Please try again in $2 seconds.",
 	"auth-back-home": "Back Home",
-	"auth-failed": "These credentials do not match our records.",
 	"auth-forgot-password": "Forgot Your Password?",
 	"auth-password-invalid-token": "This password reset token is invalid.",
 	"auth-password-invalid-user": "No user with that email address found.",
@@ -21,6 +20,7 @@
 	"auth-reset-password": "Reset Password",
 	"auth-send-reset-link": "Send Password Reset Link",
 	"auth-success": "You are now signed in",
+	"auth-validation-credentials": "These credentials do not match our records.",
 	"auth-validation-email": "Please enter a valid email address",
 	"auth-validation-email-required": "Please enter an email address",
 	"auth-validation-password": "Please enter a new password",

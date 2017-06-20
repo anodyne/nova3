@@ -6,7 +6,8 @@
 	},
 
 	"email-address": "Label for the text field that collects email address",
-	"password": "Label for the text field label that collects a password",
+	"join": "Button label to go to the page to join the game",
+	"password": "Label for the text field that collects a password",
 	"password-new": "Label for the text field that collects a new password",
 	"password-new-confirm": "Label for the text field that confirms a new password",
 	"sign-in": "Button label for signing in",
@@ -14,17 +15,22 @@
 
 	"auth-attempts": "Message that explains the user has attempted to sign in to the system too many times and tells them how long they have to wait before attempting again.\n\nParameters:\n* $2 - the number of seconds the user has to wait before attempting to sign in again",
 	"auth-back-home": "Button label to leave the sign in page and go back to the main page",
-	"auth-failed": "Message that explains to the user that their email address or password did not match",
 	"auth-forgot-password": "Button label to go to the password reset page",
 	"auth-password-invalid-token": "Error message that the password reset token is invalid",
 	"auth-password-invalid-user": "Error message that a user record could not be found with the email address the user provided",
 	"auth-password-link-sent": "Message that the password reset link has been successfully sent",
 	"auth-password-requirements": "Error message that explains what the requirements for a password are",
 	"auth-password-reset-success": "Message that the user's password has been successfully reset",
-	//"auth-password-subject": "Email subject line for the password reset link email",
 	"auth-required-reset": "Message that a password reset is required, shown in the header",
 	"auth-required-reset-explain": "Message that explains an administrator has required the user to reset their password",
 	"auth-reset-password": "Button label to reset a password",
 	"auth-send-reset-link": "Button label to send the password reset link",
-	"auth-success": "Message that a user has successfully signed in, shown in the header"
+	"auth-success": "Message that a user has successfully signed in, shown in the header",
+	"auth-validation-credentials": "Message that explains to the user that their email address or password did not match",
+	"auth-validation-email": "Validation message that explains the user needs to enter a valid email address",
+	"auth-validation-email-required": "Validation message that explains the user needs to enter an email address",
+	"auth-validation-password": "Validation message that explains the user needs to enter a password",
+	"auth-validation-password-confirm": "Validation message that explains the new password and confirmation password need to match",
+	"auth-validation-password-min": "Validation message that explains the password must be a certain number of characters",
+	"auth-validation-token": "Validation message that explains there must be a password reset token"
 }

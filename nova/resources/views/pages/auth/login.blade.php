@@ -8,27 +8,22 @@
 
 				<form role="form" method="POST" action="{{ route('login') }}">
 					{{ csrf_field() }}
+					<input type="hidden" name="remember" value="true">
 
 					<div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-						<label for="email" class="sr-only control-label">{{ _m('email-address') }}</label>
+						<label for="email" class="form-control-label sr-only">{{ _m('email-address') }}</label>
+						
 						<input id="email" type="email" class="form-control form-control-lg" name="email" value="{{ old('email') }}" placeholder="{{ _m('email-address') }}" required autofocus>
 
-						@if ($errors->has('email'))
-							<span class="help-block">
-								<strong>{{ $errors->first('email') }}</strong>
-							</span>
-						@endif
+						{!! $errors->first('email', '<p class="form-control-feedback">:message</p>') !!}
 					</div>
 
 					<div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
-						<label for="password" class="sr-only control-label">{{ _m('password') }}</label>
+						<label for="password" class="form-control-label sr-only">{{ _m('password') }}</label>
+						
 						<input id="password" type="password" class="form-control form-control-lg" name="password" placeholder="{{ _m('password') }}" required>
 
-						@if ($errors->has('password'))
-							<span class="help-block">
-								<strong>{{ $errors->first('password') }}</strong>
-							</span>
-						@endif
+						{!! $errors->first('password', '<p class="form-control-feedback">:message</p>') !!}
 					</div>
 
 					<div class="form-group">
@@ -51,8 +46,6 @@
 						<a href="{{ route('password.request') }}">
 							{{ _m('auth-forgot-password') }}
 						</a>
-
-						<input type="hidden" name="remember" value="true">
 					</div>
 				</form>
 			</div>

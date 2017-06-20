@@ -74,4 +74,10 @@ class AuthenticationTest extends DatabaseTestCase
 		$this->post('/login', ['email' => 'foo@example.com', 'password' => new \stdClass])
 			->assertSessionHasErrors('password');
 	}
+
+	/** @test **/
+	public function only_users_in_the_database_can_sign_in()
+	{
+		# code...
+	}
 }

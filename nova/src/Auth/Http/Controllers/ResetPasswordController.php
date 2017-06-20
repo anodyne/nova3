@@ -59,11 +59,11 @@ class ResetPasswordController extends Controller
 	{
 		return [
 			'token.required' => _m('auth-validation-token'),
-            'email.required' => _m('auth-validation-email-required'),
-            'email.email' => _m('auth-validation-email'),
-            'password.required' => _m('auth-validation-password'),
-            'password.confirmed' => _m('auth-validation-password-confirm'),
-            'password.min' => _m('auth-validation-password-min'),
+			'email.required' => _m('auth-validation-email-required'),
+			'email.email' => _m('auth-validation-email'),
+			'password.required' => _m('auth-validation-password'),
+			'password.confirmed' => _m('auth-validation-password-confirm'),
+			'password.min' => _m('auth-validation-password-min'),
 		];
 	}
 }
