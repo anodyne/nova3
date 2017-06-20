@@ -35,13 +35,13 @@ class Application extends LaravelApp
 	}
 
 	public function langPath()
-    {
-    	return join(DIRECTORY_SEPARATOR, [
-    		$this->basePath,
-    		'resources',
-    		'lang'
-    	]);
-    }
+	{
+		return join(DIRECTORY_SEPARATOR, [
+			$this->basePath,
+			'resources',
+			'lang'
+		]);
+	}
 
 	public function novaLangPath()
 	{
@@ -64,9 +64,9 @@ class Application extends LaravelApp
 	}
 
 	protected function bindPathsInContainer()
-    {
-    	parent::bindPathsInContainer();
+	{
+		parent::bindPathsInContainer();
 
-    	$this->instance('path.nova.lang', $this->novaLangPath());
-    }
+		$this->instance('path.nova.lang', $this->novaLangPath());
+	}
 }
