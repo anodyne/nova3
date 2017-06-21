@@ -25,14 +25,12 @@ class Role extends Eloquent
 	// Model Methods
 	//--------------------------------------------------------------------------
 
-	public static function createWithPermissions(array $data)
+	public static function create(array $attributes)
 	{
-		// Create the role
-		$role = static::create($data);
+		$role = (new static)->newQuery()->create($attributes);
 
-		if (array_key_exists('permissions', $data)) {
-			// Sync the permissions
-			$role->permissions()->sync($data['permissions']);
+		if (array_key_exists('permissions', $attributes)) {
+			$role->permissions()->sync($attributes['permissions']);
 		}
 
 		return $role;
@@ -41,6 +39,24 @@ class Role extends Eloquent
 	public function scopeName($query, $roleName)
 	{
 		return $query->where('name', $roleName);
+	}
+
+	public function delete()
+	{
+		$this->permissions()->sync([]);
+
+		parent::delete();
+	}
+
+	public function update(array $attributes = [], array $options = [])
+	{
+		parent::update($attributes);
+
+		if (array_key_exists('permissions', $attributes)) {
+			$this->updatePermissions($attributes['permissions']);
+		}
+
+		return $this;
 	}
 
 	public function updatePermissions(array $data)

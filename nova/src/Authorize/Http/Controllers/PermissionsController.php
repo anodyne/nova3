@@ -63,7 +63,7 @@ class PermissionsController extends Controller
 			'key' => 'required'
 		]);
 
-		$permission->fill($request->all())->save();
+		$permission->update($request->all());
 
 		return redirect()->route('permissions.index');
 	}
@@ -72,8 +72,6 @@ class PermissionsController extends Controller
 	{
 		$this->authorize('delete', $permission);
 
-		$permission->roles()->sync([]);
-		
 		$permission->delete();
 
 		return redirect()->route('permissions.index');

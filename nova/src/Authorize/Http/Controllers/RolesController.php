@@ -43,7 +43,7 @@ class RolesController extends Controller
 			'name' => 'required'
 		]);
 
-		Role::createWithPermissions($request->all());
+		Role::create($request->all());
 
 		return redirect()->route('roles.index');
 	}
@@ -67,11 +67,7 @@ class RolesController extends Controller
 			'name' => 'required'
 		]);
 
-		$role->fill($request->all())->save();
-
-		if ($request->has('permissions')) {
-			$role->updatePermissions($request->get('permissions'));
-		}
+		$role->update($request->all());
 
 		return redirect()->route('roles.index');
 	}
@@ -80,8 +76,6 @@ class RolesController extends Controller
 	{
 		$this->authorize('delete', $role);
 
-		$role->permissions()->sync([]);
-		
 		$role->delete();
 
 		return redirect()->route('roles.index');
