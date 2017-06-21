@@ -1,7 +1,7 @@
 <?php namespace Nova\Authorize\Policies;
 
+use Nova\Users\User;
 use Nova\Authorize\Role;
-use Nova\Foundation\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RolePolicy

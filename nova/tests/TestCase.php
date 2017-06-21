@@ -32,7 +32,7 @@ abstract class TestCase extends BaseTestCase
 
 	protected function createUser()
 	{
-		return create('Nova\Foundation\User');
+		return create('Nova\Users\User');
 	}
 
 	protected function disableExceptionHandling()

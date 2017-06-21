@@ -1,6 +1,6 @@
 <?php namespace Nova\Authorize\Policies;
 
-use Nova\Foundation\User;
+use Nova\Users\User;
 use Nova\Authorize\Permission;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

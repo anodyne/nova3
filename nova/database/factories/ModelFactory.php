@@ -1,6 +1,6 @@
 <?php
 
-$factory->define(Nova\Foundation\User::class, function (Faker\Generator $faker) {
+$factory->define(Nova\Users\User::class, function (Faker\Generator $faker) {
 	static $password;
 
 	return [
