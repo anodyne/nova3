@@ -237,16 +237,16 @@
         },
         {
             "name": "krinkle/intuition",
-            "version": "v0.6.0",
+            "version": "v0.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Krinkle/intuition.git",
-                "reference": "de94f2f3a8cfa4b773b851b31b51a8b0c0f2a503"
+                "reference": "c57f0be6524f7944035c90269a59bbec858ea704"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Krinkle/intuition/zipball/de94f2f3a8cfa4b773b851b31b51a8b0c0f2a503",
-                "reference": "de94f2f3a8cfa4b773b851b31b51a8b0c0f2a503",
+                "url": "https://api.github.com/repos/Krinkle/intuition/zipball/c57f0be6524f7944035c90269a59bbec858ea704",
+                "reference": "c57f0be6524f7944035c90269a59bbec858ea704",
                 "shasum": ""
             },
             "require": {
@@ -277,7 +277,7 @@
                 "CC-BY-3.0"
             ],
             "description": "Framework for localisation in PHP.",
-            "time": "2017-04-20T22:11:36+00:00"
+            "time": "2017-06-20T19:54:10+00:00"
         },
         {
             "name": "laravel/framework",
