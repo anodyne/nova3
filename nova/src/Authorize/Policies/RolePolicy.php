@@ -21,8 +21,8 @@ class RolePolicy
 
 	public function manage(User $user, Role $role)
 	{
-		return ($this->create($user) 
-			or $this->update($user, $role) 
+		return ($this->create($user)
+			or $this->update($user, $role)
 			or $this->delete($user, $role));
 	}
 
