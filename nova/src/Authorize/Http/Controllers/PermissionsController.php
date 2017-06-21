@@ -40,6 +40,9 @@ class PermissionsController extends Controller
 		$this->validate($request, [
 			'name' => 'required',
 			'key' => 'required'
+		], [
+			'name.required' => _m('authorize-permission-validation-name'),
+			'key.required' => _m('authorize-permission-validation-key')
 		]);
 
 		Permission::create($request->all());
@@ -61,6 +64,9 @@ class PermissionsController extends Controller
 		$this->validate($request, [
 			'name' => 'required',
 			'key' => 'required'
+		], [
+			'name.required' => _m('authorize-permission-validation-name'),
+			'key.required' => _m('authorize-permission-validation-key')
 		]);
 
 		$permission->update($request->all());

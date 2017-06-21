@@ -8,9 +8,10 @@
 	{!! Form::model($role, ['route' => ['roles.update', $role], 'method' => 'put']) !!}
 		<div class="row">
 			<div class="col-md-4">
-				<div class="form-group">
+				<div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
 					<label class="form-control-label sr-only">{{ _m('authorize-role-name') }}</label>
-					{!! Form::text('name', null, ['class' => 'form-control']) !!}
+					{!! Form::text('name', null, ['class' => 'form-control'.($errors->has('name') ? ' form-control-danger' : '')]) !!}
+					{!! $errors->first('name', '<p class="form-control-feedback">:message</p>') !!}
 				</div>
 			</div>
 		</div>

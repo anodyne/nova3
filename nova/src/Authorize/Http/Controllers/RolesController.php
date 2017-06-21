@@ -41,6 +41,8 @@ class RolesController extends Controller
 
 		$this->validate($request, [
 			'name' => 'required'
+		], [
+			'name.required' => _m('authorize-role-validation-name')
 		]);
 
 		Role::create($request->all());
@@ -65,6 +67,8 @@ class RolesController extends Controller
 
 		$this->validate($request, [
 			'name' => 'required'
+		], [
+			'name.required' => _m('authorize-role-validation-name')
 		]);
 
 		$role->update($request->all());
