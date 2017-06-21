@@ -70,8 +70,20 @@ class ManagePermissionsTests extends DatabaseTestCase
 	{
 		$this->signIn();
 
+		create('Nova\Authorize\Permission', [], 2);
+
+		$role1 = create('Nova\Authorize\Role');
+		$role2 = create('Nova\Authorize\Role');
+
+		$role1->permissions()->sync([1, 2, 3]);
+		$role2->permissions()->sync([1, 3]);
+
 		$this->delete(route('permissions.destroy', [$this->permission]));
 
 		$this->assertDatabaseMissing('permissions', ['name' => $this->permission->name]);
+		$this->assertDatabaseMissing('permissions_roles', ['permission_id' => $this->permission->id]);
+		$this->assertDatabaseHas('permissions_roles', ['role_id' => $role1->id, 'permission_id' => 2]);
+		$this->assertDatabaseHas('permissions_roles', ['role_id' => $role1->id, 'permission_id' => 3]);
+		$this->assertDatabaseHas('permissions_roles', ['role_id' => $role2->id, 'permission_id' => 3]);
 	}
 }

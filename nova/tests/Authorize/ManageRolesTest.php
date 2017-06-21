@@ -41,11 +41,19 @@ class ManageRolesTests extends DatabaseTestCase
 	{
 		$this->signIn();
 
+		create('Nova\Authorize\Permission', [], 5);
+
 		$role = make('Nova\Authorize\Role');
 
-		$this->post(route('roles.store'), $role->toArray());
+		$this->post(
+			route('roles.store'),
+			array_merge($role->toArray(), ['permissions' => [1, 2, 5]])
+		);
 
 		$this->assertDatabaseHas('roles', ['name' => $role->name]);
+		$this->assertDatabaseHas('permissions_roles', ['role_id' => 2, 'permission_id' => 1]);
+		$this->assertDatabaseHas('permissions_roles', ['role_id' => 2, 'permission_id' => 2]);
+		$this->assertDatabaseHas('permissions_roles', ['role_id' => 2, 'permission_id' => 5]);
 	}
 
 	/** @test **/
@@ -53,9 +61,21 @@ class ManageRolesTests extends DatabaseTestCase
 	{
 		$this->signIn();
 
-		$this->put(route('roles.update', [$this->role]), ['name' => 'New Name']);
+		create('Nova\Authorize\Permission', [], 5);
+
+		$this->role->permissions()->sync([1, 2, 5]);
+
+		$this->put(
+			route('roles.update', [$this->role]),
+			['name' => 'New Name', 'permissions' => [3, 4]]
+		);
 
 		$this->assertDatabaseHas('roles', ['name' => 'New Name']);
+		$this->assertDatabaseMissing('permissions_roles', ['role_id' => 1, 'permission_id' => 1]);
+		$this->assertDatabaseMissing('permissions_roles', ['role_id' => 1, 'permission_id' => 2]);
+		$this->assertDatabaseMissing('permissions_roles', ['role_id' => 1, 'permission_id' => 5]);
+		$this->assertDatabaseHas('permissions_roles', ['role_id' => 1, 'permission_id' => 3]);
+		$this->assertDatabaseHas('permissions_roles', ['role_id' => 1, 'permission_id' => 4]);
 	}
 
 	/** @test **/
@@ -63,8 +83,13 @@ class ManageRolesTests extends DatabaseTestCase
 	{
 		$this->signIn();
 
+		create('Nova\Authorize\Permission', [], 5);
+
+		$this->role->permissions()->sync([1, 2, 5]);
+
 		$this->delete(route('roles.destroy', [$this->role]));
 
 		$this->assertDatabaseMissing('roles', ['name' => $this->role->name]);
+		$this->assertDatabaseMissing('permissions_roles', ['role_id' => $this->role->id]);
 	}
 }

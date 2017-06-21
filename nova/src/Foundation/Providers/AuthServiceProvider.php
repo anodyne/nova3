@@ -11,7 +11,8 @@ class AuthServiceProvider extends ServiceProvider
 	 * @var array
 	 */
 	protected $policies = [
-		'Nova\Foundation\Model' => 'Nova\Foundation\Policies\ModelPolicy',
+		'Nova\Authorize\Role' => 'Nova\Authorize\Policies\RolePolicy',
+		'Nova\Authorize\Permission' => 'Nova\Authorize\Policies\PermissionPolicy',
 	];
 
 	/**

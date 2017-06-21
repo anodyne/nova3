@@ -7,37 +7,57 @@
 
 	@if ($permissions->count() > 0)
 		<div class="btn-toolbar">
-			<div class="btn-group">
-				<a href="{{ route('permissions.create') }}" class="btn btn-success">{{ _m('authorize-permission-add') }}</a>
-			</div>
-			<div class="btn-group">
-				<a href="{{ route('roles.index') }}" class="btn btn-secondary">{{ _m('authorize-roles') }}</a>
+			@can('create', $permissionClass)
+				<div class="btn-group">
+					<a href="{{ route('permissions.create') }}" class="btn btn-success">{{ _m('authorize-permission-add') }}</a>
+				</div>
+			@endcan
+
+			@can('manage', $roleClass)
+				<div class="btn-group">
+					<a href="{{ route('roles.index') }}" class="btn btn-secondary">{{ _m('authorize-roles') }}</a>
+				</div>
+			@endcan
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="{{ _m('authorize-permission-find') }}" v-model="permissionSearch">
+						<span class="input-group-btn">
+							<a class="btn btn-secondary" href="#" @click.prevent="permissionSearch = ''"><i class="fa fa-fw fa-close"></i></a>
+						</span>
+					</div>
+				</div>
 			</div>
 		</div>
 
 		<table class="table">
-			<thead>
+			<thead class="thead-default">
 				<tr>
-					<th>Name</th>
-					<th></th>
+					<th colspan="2">{{ _m('name') }}</th>
 				</tr>
 			</thead>
 			<tbody>
-				@foreach ($permissions as $permission)
-					<tr>
-						<td>{{ $permission->name }}</td>
-						<td>
-							<div class="btn-toolbar">
+				<tr v-for="permission in filteredPermissions">
+					<td>@{{ permission.name }}</td>
+					<td>
+						<div class="btn-toolbar">
+							@can('update', $permissionClass)
 								<div class="btn-group">
-									<a href="{{ route('permissions.edit', [$permission]) }}" class="btn btn-sm btn-secondary">{{ _m('edit') }}</a>
+									<a :href="'/admin/permissions/' + permission.id + '/edit'" class="btn btn-sm btn-secondary">{{ _m('edit') }}</a>
 								</div>
+							@endcan
+
+							@can('delete', $permissionClass)
 								<div class="btn-group">
-									<a href="#" class="btn btn-sm btn-outline-danger" data-permission="{{ $permission->id }}" @click.prevent="deletePermission">{{ _m('delete') }}</a>
+									<a href="#" class="btn btn-sm btn-outline-danger" :data-permission="permission.id" @click.prevent="deletePermission">{{ _m('delete') }}</a>
 								</div>
-							</div>
-						</td>
-					</tr>
-				@endforeach
+							@endcan
+						</div>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	@else
@@ -50,19 +70,36 @@
 @section('js')
 	<script>
 		vue = {
-			methods: {
-				deletePermission (event) {
-					let confirm = window.confirm('Are you sure you want to delete this permission?');
+			data: {
+				permissions: {!! $permissions !!},
+				permissionSearch: ''
+			},
 
-					if (confirm) {
-						let permission = event.target.getAttribute('data-permission');
+			computed: {
+				filteredPermissions () {
+					let self = this
 
-						axios.delete('/admin/permissions/' + permission);
+					return self.permissions.filter(function (permission) {
+						let searchRegex = new RegExp(self.permissionSearch, 'i')
 
-						window.location.replace('/admin/permissions');
-					}
+						return searchRegex.test(permission.name) || searchRegex.test(permission.key)
+					})
 				}
 			},
-		};
+
+			methods: {
+				deletePermission (event) {
+					let confirm = window.confirm("{{ _m('authorize-permission-delete') }}")
+
+					if (confirm) {
+						let permission = event.target.getAttribute('data-permission')
+
+						axios.delete('/admin/permissions/' + permission)
+
+						window.location.replace('/admin/permissions')
+					}
+				}
+			}
+		}
 	</script>
 @endsection

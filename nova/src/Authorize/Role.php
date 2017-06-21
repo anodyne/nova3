@@ -11,7 +11,7 @@ class Role extends Eloquent
 	// Relationships
 	//--------------------------------------------------------------------------
 
-	public function perms()
+	public function permissions()
 	{
 		return $this->belongsToMany(Permission::class, 'permissions_roles');
 	}
@@ -25,8 +25,28 @@ class Role extends Eloquent
 	// Model Methods
 	//--------------------------------------------------------------------------
 
+	public static function createWithPermissions(array $data)
+	{
+		// Create the role
+		$role = static::create($data);
+
+		if (array_key_exists('permissions', $data)) {
+			// Sync the permissions
+			$role->permissions()->sync($data['permissions']);
+		}
+
+		return $role;
+	}
+
 	public function scopeName($query, $roleName)
 	{
 		return $query->where('name', $roleName);
+	}
+
+	public function updatePermissions(array $data)
+	{
+		$this->permissions()->sync($data);
+
+		return $this;
 	}
 }

@@ -2,6 +2,7 @@
 
 use Nova\Authorize\Role;
 use Illuminate\Http\Request;
+use Nova\Authorize\Permission;
 use Nova\Foundation\Http\Controllers\Controller;
 
 class RolesController extends Controller
@@ -15,43 +16,52 @@ class RolesController extends Controller
 
 	public function index()
 	{
-		// Authorize
+		$roleClass = new Role;
+		$permissionClass = new Permission;
+
+		$this->authorize('manage', $roleClass);
 
 		$roles = Role::get();
 
-		return view('pages.authorize.all-roles', compact('roles'));
+		return view('pages.authorize.all-roles', compact('roles', 'roleClass', 'permissionClass'));
 	}
 
 	public function create()
 	{
-		// Authorize
+		$this->authorize('create', new Role);
 
-		return view('pages.authorize.create-role');
+		$permissions = Permission::get();
+
+		return view('pages.authorize.create-role', compact('permissions'));
 	}
 
 	public function store(Request $request)
 	{
-		// Authorize
+		$this->authorize('create', new Role);
 
 		$this->validate($request, [
 			'name' => 'required'
 		]);
 
-		Role::create($request->all());
+		Role::createWithPermissions($request->all());
 
 		return redirect()->route('roles.index');
 	}
 
 	public function edit(Role $role)
 	{
-		// Authorize
+		$this->authorize('update', $role);
 
-		return view('pages.authorize.update-role', compact('role'));
+		$role->load('permissions');
+
+		$permissions = Permission::get();
+
+		return view('pages.authorize.update-role', compact('role', 'permissions'));
 	}
 
 	public function update(Request $request, Role $role)
 	{
-		// Authorize
+		$this->authorize('update', $role);
 
 		$this->validate($request, [
 			'name' => 'required'
@@ -59,13 +69,19 @@ class RolesController extends Controller
 
 		$role->fill($request->all())->save();
 
+		if ($request->has('permissions')) {
+			$role->updatePermissions($request->get('permissions'));
+		}
+
 		return redirect()->route('roles.index');
 	}
 
 	public function destroy(Role $role)
 	{
-		// Authorize
+		$this->authorize('delete', $role);
 
+		$role->permissions()->sync([]);
+		
 		$role->delete();
 
 		return redirect()->route('roles.index');
