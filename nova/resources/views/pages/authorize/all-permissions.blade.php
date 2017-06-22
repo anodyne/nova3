@@ -5,28 +5,28 @@
 @section('content')
 	<h1>{{ _m('authorize-permissions') }}</h1>
 
+	<div class="btn-toolbar">
+		@can('create', $permissionClass)
+			<div class="btn-group">
+				<a href="{{ route('permissions.create') }}" class="btn btn-success">{{ _m('authorize-permission-add') }}</a>
+			</div>
+		@endcan
+
+		@can('manage', $roleClass)
+			<div class="btn-group">
+				<a href="{{ route('roles.index') }}" class="btn btn-secondary">{{ _m('authorize-roles') }}</a>
+			</div>
+		@endcan
+	</div>
+
 	@if ($permissions->count() > 0)
-		<div class="btn-toolbar">
-			@can('create', $permissionClass)
-				<div class="btn-group">
-					<a href="{{ route('permissions.create') }}" class="btn btn-success">{{ _m('authorize-permission-add') }}</a>
-				</div>
-			@endcan
-
-			@can('manage', $roleClass)
-				<div class="btn-group">
-					<a href="{{ route('roles.index') }}" class="btn btn-secondary">{{ _m('authorize-roles') }}</a>
-				</div>
-			@endcan
-		</div>
-
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="{{ _m('authorize-permission-find') }}" v-model="permissionSearch">
+						<input type="text" class="form-control" placeholder="{{ _m('authorize-permission-find') }}" v-model="searchPermissions">
 						<span class="input-group-btn">
-							<a class="btn btn-secondary" href="#" @click.prevent="permissionSearch = ''"><i class="fa fa-fw fa-close"></i></a>
+							<a class="btn btn-secondary" href="#" @click.prevent="searchPermissions = ''"><i class="fa fa-fw fa-close"></i></a>
 						</span>
 					</div>
 				</div>
@@ -72,7 +72,7 @@
 		vue = {
 			data: {
 				permissions: {!! $permissions !!},
-				permissionSearch: ''
+				searchPermissions: ''
 			},
 
 			computed: {
@@ -80,7 +80,7 @@
 					let self = this
 
 					return self.permissions.filter(function (permission) {
-						let searchRegex = new RegExp(self.permissionSearch, 'i')
+						let searchRegex = new RegExp(self.searchPermissions, 'i')
 
 						return searchRegex.test(permission.name) || searchRegex.test(permission.key)
 					})
