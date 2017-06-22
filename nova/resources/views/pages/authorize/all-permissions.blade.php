@@ -62,7 +62,7 @@
 		</table>
 	@else
 		<div class="alert alert-warning">
-			No permissions found. <a href="{{ route('permissions.create') }}" class="alert-link">Add a permission</a> now.
+			{{ _m('authorize-permission-error-not-found') }} <a href="{{ route('permissions.create') }}" class="alert-link">{{ _m('authorize-permission-error-add') }}</a>
 		</div>
 	@endif
 @endsection

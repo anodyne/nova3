@@ -51,7 +51,7 @@
 		</table>
 	@else
 		<div class="alert alert-warning">
-			No roles found. <a href="{{ route('roles.create') }}" class="alert-link">Add a role</a> now.
+			{{ _m('authorize-role-error-not-found') }} <a href="{{ route('roles.create') }}" class="alert-link">{{ _m('authorize-role-error-add') }}</a>
 		</div>
 	@endif
 @endsection

@@ -35,6 +35,8 @@
 	"authorize-permissions": "Permissions",
 	"authorize-permission-add": "Add Permission",
 	"authorize-permission-delete": "Are you sure you want to delete this permission?",
+	"authorize-permission-error-not-found": "No permissions found.",
+	"authorize-permission-error-add": "Add a permission now.",
 	"authorize-permission-update": "Update Permission",
 	"authorize-permission-find": "Find permissions...",
 	"authorize-permission-key": "Permission Key",
@@ -44,6 +46,8 @@
 	"authorize-roles": "Roles",
 	"authorize-role-add": "Add Role",
 	"authorize-role-delete": "Are you sure you want to delete this role?",
+	"authorize-role-error-not-found": "No roles found.",
+	"authorize-role-error-add": "Add a role now.",
 	"authorize-role-update": "Update Role",
 	"authorize-role-name": "Role Name",
 	"authorize-role-validation-name": "Please enter a role name"
