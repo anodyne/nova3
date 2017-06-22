@@ -23,3 +23,4 @@ Route::get('join', function () {
 
 Route::resource('admin/roles', 'Nova\Authorize\Http\Controllers\RolesController');
 Route::resource('admin/permissions', 'Nova\Authorize\Http\Controllers\PermissionsController');
+Route::resource('admin/users', 'Nova\Users\Http\Controllers\UsersController');
