@@ -27,14 +27,14 @@
 								<input type="text"
 									   class="form-control"
 									   placeholder="{{ _m('authorize-permission-find') }}"
-									   v-model="permissionSearch">
+									   v-model="searchPermissions">
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-4 mb-3" v-for="permission in filteredPermissions">
-							<input type="checkbox" name="permissions[]" :value="permission.id" :checked="checked(permission.id)"> @{{ permission.name }}
+							<input type="checkbox" name="permissions[]" :value="permission.id" :checked="isChecked(permission.id)"> @{{ permission.name }}
 						</div>
 					</div>
 				</fieldset>
@@ -53,7 +53,8 @@
 		vue = {
 			data: {
 				permissions: {!! $permissions !!},
-				permissionSearch: '',
+				oldPermissions: [],
+				searchPermissions: '',
 				role: {!! $role !!}
 			},
 
@@ -61,26 +62,36 @@
 				filteredPermissions () {
 					let self = this
 
-					return self.permissions.filter(function (permission) {
-						let searchRegex = new RegExp(self.permissionSearch, 'i')
+					return this.permissions.filter(function (permission) {
+						let regex = new RegExp(self.searchPermissions, 'i')
 
-						return searchRegex.test(permission.name) || searchRegex.test(permission.key)
+						return regex.test(permission.name) || regex.test(permission.key)
 					})
 				}
 			},
 
 			methods: {
-				checked (permission) {
-					let search = _.find(this.role.permissions, function (p) {
+				isChecked (permission) {
+					let searchRole = _.find(this.role.permissions, function (p) {
 						return p.id == permission
 					})
 
-					if (search) {
+					let searchOld = _.findIndex(this.oldPermissions, function (p) {
+						return p == permission
+					})
+
+					if (searchRole || searchOld >= 0) {
 						return true
 					}
 
 					return false
 				}
+			},
+
+			mounted () {
+				@if (old('permissions'))
+					this.oldPermissions = {!! json_encode(old('permissions')) !!}
+				@endif
 			}
 		}
 	</script>
