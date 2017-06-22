@@ -10,6 +10,7 @@ class AppServiceProvider extends ServiceProvider
 		Schema::defaultStringLength(191);
 
 		$this->registerTranslator();
+		$this->registerFlashNotifier();
 	}
 
 	public function register()
@@ -19,6 +20,13 @@ class AppServiceProvider extends ServiceProvider
 				$this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
 			}
 		}
+	}
+
+	protected function registerFlashNotifier()
+	{
+		$this->app->singleton('nova.flash', function ($app) {
+			return new \Nova\Foundation\FlashNotifier($app['session']);
+		});
 	}
 
 	protected function registerTranslator()

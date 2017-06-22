@@ -10208,6 +10208,10 @@ a.text-gray-dark:hover {
   margin-left: 0.5rem;
 }
 
+.alert p:last-child {
+  margin-bottom: 0;
+}
+
 .btn {
   font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }

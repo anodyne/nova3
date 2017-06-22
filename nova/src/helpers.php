@@ -21,3 +21,10 @@ if (! function_exists('d')) {
 		}, func_get_args());
 	}
 }
+
+if (! function_exists('flash')) {
+	function flash()
+	{
+		return app('nova.flash');
+	}
+}

@@ -69,6 +69,17 @@
 		</nav>
 
 		<div class="container">
+			@if (session()->has('flash'))
+				<div class="alert alert-{{ session('flash.level') }}" role="alert">
+					@if (session()->has('flash.title'))
+						<h4 class="alert-heading">{{ session('flash.title') }}</h4>
+						<p>{{ session('flash.message') }}</p>
+					@else
+						<p>{{ session('flash.title') }}</p>
+					@endif
+				</div>
+			@endif
+
 			@yield('content')
 		</div>
 	</div>
