@@ -47,6 +47,11 @@ class PermissionsController extends Controller
 
 		Permission::create($request->all());
 
+		flash()->success(
+			_m('authorize-permission-flash-added-title'),
+			_m('authorize-permission-flash-added-message')
+		);
+
 		return redirect()->route('permissions.index');
 	}
 
@@ -71,6 +76,11 @@ class PermissionsController extends Controller
 
 		$permission->update($request->all());
 
+		flash()->success(
+			_m('authorize-permission-flash-updated-title'),
+			_m('authorize-permission-flash-updated-message')
+		);
+
 		return redirect()->route('permissions.index');
 	}
 
@@ -79,6 +89,11 @@ class PermissionsController extends Controller
 		$this->authorize('delete', $permission);
 
 		$permission->delete();
+
+		flash()->success(
+			_m('authorize-permission-flash-deleted-title'),
+			_m('authorize-permission-flash-deleted-message')
+		);
 
 		return redirect()->route('permissions.index');
 	}
