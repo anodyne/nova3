@@ -22,4 +22,9 @@ class User extends Authenticatable
 	{
 		Mail::to($this->email)->send(new SendPasswordReset($token));
 	}
+
+	public function setPasswordAttribute($value)
+	{
+		$this->attributes['password'] = bcrypt($value);
+	}
 }
