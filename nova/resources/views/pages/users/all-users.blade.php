@@ -45,8 +45,14 @@
 							@endcan
 
 							@can('delete', $userClass)
-								<div class="btn-group">
+								<div class="btn-group" v-if="!isTrashed(user)">
 									<a href="#" class="btn btn-sm btn-outline-danger" :data-user="user.id" @click.prevent="deleteUser">{{ _m('delete') }}</a>
+								</div>
+							@endcan
+
+							@can('update', $userClass)
+								<div class="btn-group" v-if="isTrashed(user)">
+									<a href="#" class="btn btn-sm btn-outline-success" :data-user="user.id" @click.prevent="restoreUser">{{ _m('restore') }}</a>
 								</div>
 							@endcan
 						</div>
@@ -76,7 +82,9 @@
 					return self.users.filter(function (user) {
 						let regex = new RegExp(self.searchUsers, 'i')
 
-						return regex.test(user.name) || regex.test(user.email)
+						return regex.test(user.name)
+							|| regex.test(user.email)
+							|| regex.test(user.nickname)
 					})
 				}
 			},
@@ -92,6 +100,18 @@
 
 						window.location.replace('/admin/users')
 					}
+				},
+
+				isTrashed (user) {
+					return user.deleted_at != null
+				},
+
+				restoreUser (event) {
+					let user = event.target.getAttribute('data-user')
+
+					axios.patch('/admin/users/' + user + '/restore')
+
+					window.location.replace('/admin/users')
 				}
 			}
 		}

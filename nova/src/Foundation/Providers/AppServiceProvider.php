@@ -10,7 +10,7 @@ class AppServiceProvider extends ServiceProvider
 		Schema::defaultStringLength(191);
 
 		$this->registerTranslator();
-		$this->registerFlashNotifier();
+		$this->registerRepositoryBindings();
 	}
 
 	public function register()
@@ -20,13 +20,6 @@ class AppServiceProvider extends ServiceProvider
 				$this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
 			}
 		}
-	}
-
-	protected function registerFlashNotifier()
-	{
-		$this->app->singleton('nova.flash', function ($app) {
-			return new \Nova\Foundation\FlashNotifier($app['session']);
-		});
 	}
 
 	protected function registerTranslator()
@@ -60,5 +53,24 @@ class AppServiceProvider extends ServiceProvider
 
 		// Bind the translator instance into the container
 		$this->app->instance('nova.translator', $translator);
+	}
+
+	protected function registerRepositoryBindings()
+	{
+		// Build a list of repositories that should be built
+		$bindings = collect([
+			'User',
+		]);
+
+		$bindings->each(function ($binding) {
+			// Set the abstract and concrete names
+			$abstract = "{$binding}RepositoryContract";
+			$abstractFQN = alias($abstract);
+			$concrete = alias("{$binding}Repository");
+
+			// Bind to the container and set the alias
+			app()->bind($abstractFQN, $concrete);
+			app()->alias($abstractFQN, $abstract);
+		});
 	}
 }
