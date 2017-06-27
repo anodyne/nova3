@@ -10,8 +10,10 @@
 
 	<title>{{ config('app.name', 'Laravel') }}</title>
 
+	<script defer src="{{ asset('resources/js/packs/regular.js') }}"></script>
+	<script defer src="{{ asset('resources/js/fontawesome.js') }}"></script>
+
 	<!-- Styles -->
-	<link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">
 	<link href="{{ asset('resources/css/app.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -47,7 +49,7 @@
 						@else
 							<div class="nav-item dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-									{{ Auth::user()->present()->name }} <span class="caret"></span>
+									<i class="far fa-user mr-1"></i> {{ Auth::user()->present()->name }} <span class="caret"></span>
 								</a>
 
 								<div class="dropdown-menu dropdown-menu-right">
