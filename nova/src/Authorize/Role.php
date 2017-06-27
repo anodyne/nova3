@@ -1,11 +1,15 @@
 <?php namespace Nova\Authorize;
 
 use Eloquent;
+use Laracasts\Presenter\PresentableTrait;
 
 class Role extends Eloquent
 {
+	use PresentableTrait;
+
 	protected $table = 'roles';
 	protected $fillable = ['name'];
+	protected $presenter = Presenters\RolePresenter::class;
 
 	//--------------------------------------------------------------------------
 	// Relationships
