@@ -4,7 +4,8 @@
 		"laravel/framework": "5.4.*",
 		"laravelcollective/html": "5.4.*",
 		"laravel/tinker": "~1.0",
-		"Krinkle/intuition": "~0.5"
+		"Krinkle/intuition": "~0.5",
+		"laracasts/presenter": "^0.2"
 	},
 
 	"require-dev": {
