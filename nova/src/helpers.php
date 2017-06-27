@@ -13,6 +13,13 @@ if (! function_exists('_m')) {
 	}
 }
 
+if (! function_exists('alias')) {
+	function alias($name)
+	{
+		return config("app.aliases.{$name}");
+	}
+}
+
 if (! function_exists('d')) {
 	function d()
 	{
