@@ -90,10 +90,15 @@
 		var vue = {}
 
 		$(function () {
-			// $('[data-toggle="tooltip"]').tooltip({
-			// 	container: 'body',
-			// 	html: true
-			// })
+			$('[data-toggle="tooltip"]').tooltip({
+				container: 'body',
+				html: true
+			})
+
+			$('[data-toggle="popover"]').popover({
+				container: 'body',
+				html: true
+			})
 		})
 	</script>
 	@yield('js')
