@@ -5,7 +5,7 @@
 @section('content')
 	<h1>{{ _m('authorize-role-update') }}</h1>
 
-	{!! Form::model($role, ['route' => ['roles.update', $role], 'method' => 'put']) !!}
+	{!! Form::model($role, ['route' => ['roles.update', $role], 'method' => 'patch']) !!}
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">

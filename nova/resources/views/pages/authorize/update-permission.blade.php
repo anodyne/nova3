@@ -5,7 +5,7 @@
 @section('content')
 	<h1>{{ _m('authorize-permission-update') }}</h1>
 
-	{!! Form::model($permission, ['route' => ['permissions.update', $permission], 'method' => 'put']) !!}
+	{!! Form::model($permission, ['route' => ['permissions.update', $permission], 'method' => 'patch']) !!}
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
