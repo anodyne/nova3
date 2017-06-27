@@ -177,6 +177,7 @@ return [
         // Nova\Foundation\Providers\BroadcastServiceProvider::class,
         Nova\Foundation\Providers\EventServiceProvider::class,
         Nova\Foundation\Providers\RouteServiceProvider::class,
+        Nova\Foundation\Providers\DeferredServiceProvider::class,
 
     ],
 
@@ -227,9 +228,14 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Date' => Carbon\Carbon::class,
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
         'Str' => Illuminate\Support\Str::class,
+
+        'User' => Nova\Users\User::class,
+        'UserRepository' => Nova\Users\UserRepository::class,
+        'UserRepositoryContract' => Nova\Users\UserRepositoryContract::class,
 
     ],
 
