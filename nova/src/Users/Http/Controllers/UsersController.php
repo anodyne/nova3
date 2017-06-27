@@ -68,7 +68,7 @@ class UsersController extends Controller
 	{
 		$this->authorize('update', $user);
 
-		$roles = Role::get();
+		$roles = Role::with('permissions')->get();
 
 		return view('pages.users.update-user', compact('user', 'roles'));
 	}
