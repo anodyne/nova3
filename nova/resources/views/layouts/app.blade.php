@@ -85,6 +85,8 @@
 	</div>
 
 	<!-- Scripts -->
+	<script src="{{ asset('resources/js/manifest.js') }}"></script>
+	<script src="{{ asset('resources/js/vendor.js') }}"></script>
 	<script src="{{ asset('resources/js/app.js') }}"></script>
 	<script>
 		var vue = {}
