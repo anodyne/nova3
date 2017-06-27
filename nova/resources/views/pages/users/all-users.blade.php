@@ -20,7 +20,7 @@
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="{{ _m('user-find') }}" v-model="searchUsers">
 						<span class="input-group-btn">
-							<a class="btn btn-secondary" href="#" @click.prevent="searchUsers = ''"><i class="fa fa-fw fa-close"></i></a>
+							<a class="btn btn-secondary" href="#" @click.prevent="searchUsers = ''"><i class="far fa-times"></i></a>
 						</span>
 					</div>
 				</div>

@@ -26,7 +26,7 @@
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="{{ _m('authorize-permission-find') }}" v-model="searchPermissions">
 						<span class="input-group-btn">
-							<a class="btn btn-secondary" href="#" @click.prevent="searchPermissions = ''"><i class="fa fa-fw fa-close"></i></a>
+							<a class="btn btn-secondary" href="#" @click.prevent="searchPermissions = ''"><i class="far fa-times"></i></a>
 						</span>
 					</div>
 				</div>

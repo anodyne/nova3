@@ -49,8 +49,10 @@
 										{!! Form::checkbox('roles[]', $role->id, null, ['class' => 'form-check-input']) !!}
 										
 										{{ $role->name }}
-										
-										<i class="fa fa-fw fa-question-circle text-muted" data-toggle="popover" data-trigger="hover" data-placement="top" title="{{ _m('authorize-role-can') }}" data-content="{{ $role->present()->includedPermissions }}"></i>
+
+										<span data-toggle="popover" data-trigger="hover" data-placement="top" title="{{ _m('authorize-role-can') }}" data-content="{{ $role->present()->includedPermissions }}">
+											<i class="far fa-question-circle text-muted"></i>
+										</span>
 									</label>
 								</div>
 							</div>
