@@ -11,8 +11,8 @@ class EventServiceProvider extends ServiceProvider
 	 * @var array
 	 */
 	protected $listen = [
-		'Nova\Foundation\Events\Event' => [
-			'Nova\Foundation\Listeners\EventListener',
+		'Nova\Users\Events\PasswordWasGenerated' => [
+			'Nova\Users\Listeners\SendPasswordToUser',
 		],
 	];
 
