@@ -13,5 +13,9 @@ mix.setPublicPath('resources');
  |
  */
 
-mix.js('nova/resources/assets/js/app.js', 'resources/js')
+mix.autoload({
+		tether: ['Tether', 'window.Tether']
+	})
+   .js('nova/resources/assets/js/app.js', 'resources/js')
+   .extract(['vue', 'jquery', 'tether', 'axios'])
    .sass('nova/resources/assets/sass/app.scss', 'resources/css');

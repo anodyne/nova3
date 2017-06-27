@@ -10227,3 +10227,11 @@ a.text-gray-dark:hover {
   font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
+.form-text {
+  margin-left: 0.15rem;
+}
+
+.form-check-input {
+  margin-top: 0.4rem;
+}
+
