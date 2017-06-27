@@ -6,14 +6,10 @@
 @import "_variables";
 
 // Bootstrap
-@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/bootstrap", "~bootstrap-float-label/bootstrap-float-label";
 
-.btn-toolbar {
-	margin-bottom: 1rem;
-
-	.btn-group + .btn-group {
-		margin-left: 0.5rem;
-	}
+h1 {
+	margin-bottom: 2rem;
 }
 
 .alert {
@@ -21,6 +17,14 @@
 		&:last-child {
 			margin-bottom: 0;
 		}
+	}
+}
+
+.btn-toolbar {
+	margin-bottom: 1rem;
+
+	.btn-group + .btn-group {
+		margin-left: 0.5rem;
 	}
 }
 
@@ -33,6 +37,10 @@
 	}
 }
 
+.form-control-label {
+	font-weight: 500;
+}
+
 .form-control {
 	font-family: $font-family-sans-serif;
 }
@@ -43,4 +51,28 @@
 
 .form-check-input {
 	margin-top: 0.4rem;
+}
+
+.has-float-label {
+	.form-control {
+		&:placeholder-shown:not(:focus) + * {
+			font-size: 100%;
+			top: 0.6em;
+		}
+
+		&.form-control-lg {
+			&:placeholder-shown:not(:focus) + * {
+				font-size: 125%;
+				top: 0.7em;
+			}
+
+			+ label {
+				left: 1.5rem;
+			}
+		}
+	}
+
+	label {
+		margin-bottom: 0;
+	}
 }
