@@ -22,7 +22,7 @@ class ManagePermissionsTests extends DatabaseTestCase
 		$this->get(route('permissions.create'))->assertRedirect(route('login'));
 		$this->post(route('permissions.store'))->assertRedirect(route('login'));
 		$this->get(route('permissions.edit', $this->permission))->assertRedirect(route('login'));
-		$this->put(route('permissions.update', $this->permission))->assertRedirect(route('login'));
+		$this->patch(route('permissions.update', $this->permission))->assertRedirect(route('login'));
 		$this->delete(route('permissions.destroy', $this->permission))->assertRedirect(route('login'));
 
 		// $this->signIn();
@@ -31,8 +31,8 @@ class ManagePermissionsTests extends DatabaseTestCase
 		// $this->get(route('roles.create'))->assertStatus(403);
 		// $this->post(route('roles.store'))->assertStatus(403);
 		// $this->get(route('roles.edit', $this->role))->assertStatus(403);
-		// $this->put(route('roles.update', $this->role))->assertStatus(403);
-		// $this->put(route('roles.restore', $this->role))->assertStatus(403);
+		// $this->patch(route('roles.update', $this->role))->assertStatus(403);
+		// $this->patch(route('roles.restore', $this->role))->assertStatus(403);
 		// $this->delete(route('roles.destroy', $this->role))->assertStatus(403);
 	}
 
@@ -56,7 +56,7 @@ class ManagePermissionsTests extends DatabaseTestCase
 	{
 		$this->signIn();
 
-		$this->put(
+		$this->patch(
 			route('permissions.update',
 			[$this->permission]),
 			['name' => 'New Name', 'key' => $this->permission->key]

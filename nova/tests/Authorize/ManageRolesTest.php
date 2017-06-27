@@ -22,7 +22,7 @@ class ManageRolesTests extends DatabaseTestCase
 		$this->get(route('roles.create'))->assertRedirect(route('login'));
 		$this->post(route('roles.store'))->assertRedirect(route('login'));
 		$this->get(route('roles.edit', $this->role))->assertRedirect(route('login'));
-		$this->put(route('roles.update', $this->role))->assertRedirect(route('login'));
+		$this->patch(route('roles.update', $this->role))->assertRedirect(route('login'));
 		$this->delete(route('roles.destroy', $this->role))->assertRedirect(route('login'));
 
 		// $this->signIn();
@@ -31,8 +31,8 @@ class ManageRolesTests extends DatabaseTestCase
 		// $this->get(route('roles.create'))->assertStatus(403);
 		// $this->post(route('roles.store'))->assertStatus(403);
 		// $this->get(route('roles.edit', $this->role))->assertStatus(403);
-		// $this->put(route('roles.update', $this->role))->assertStatus(403);
-		// $this->put(route('roles.restore', $this->role))->assertStatus(403);
+		// $this->patch(route('roles.update', $this->role))->assertStatus(403);
+		// $this->patch(route('roles.restore', $this->role))->assertStatus(403);
 		// $this->delete(route('roles.destroy', $this->role))->assertStatus(403);
 	}
 
@@ -47,13 +47,13 @@ class ManageRolesTests extends DatabaseTestCase
 
 		$this->post(
 			route('roles.store'),
-			array_merge($role->toArray(), ['permissions' => [1, 2, 5]])
+			array_merge($role->toArray(), ['permissions' => [6, 7, 11]])
 		);
 
 		$this->assertDatabaseHas('roles', ['name' => $role->name]);
-		$this->assertDatabaseHas('permissions_roles', ['role_id' => 2, 'permission_id' => 1]);
-		$this->assertDatabaseHas('permissions_roles', ['role_id' => 2, 'permission_id' => 2]);
-		$this->assertDatabaseHas('permissions_roles', ['role_id' => 2, 'permission_id' => 5]);
+		$this->assertDatabaseHas('permissions_roles', ['role_id' => 3, 'permission_id' => 6]);
+		$this->assertDatabaseHas('permissions_roles', ['role_id' => 3, 'permission_id' => 7]);
+		$this->assertDatabaseHas('permissions_roles', ['role_id' => 3, 'permission_id' => 11]);
 	}
 
 	/** @test **/
@@ -63,19 +63,19 @@ class ManageRolesTests extends DatabaseTestCase
 
 		create('Nova\Authorize\Permission', [], 5);
 
-		$this->role->permissions()->sync([1, 2, 5]);
+		$this->role->permissions()->sync([6, 7, 11]);
 
-		$this->put(
+		$this->patch(
 			route('roles.update', [$this->role]),
-			['name' => 'New Name', 'permissions' => [3, 4]]
+			['name' => 'New Name', 'permissions' => [8, 9]]
 		);
 
 		$this->assertDatabaseHas('roles', ['name' => 'New Name']);
-		$this->assertDatabaseMissing('permissions_roles', ['role_id' => 1, 'permission_id' => 1]);
-		$this->assertDatabaseMissing('permissions_roles', ['role_id' => 1, 'permission_id' => 2]);
-		$this->assertDatabaseMissing('permissions_roles', ['role_id' => 1, 'permission_id' => 5]);
-		$this->assertDatabaseHas('permissions_roles', ['role_id' => 1, 'permission_id' => 3]);
-		$this->assertDatabaseHas('permissions_roles', ['role_id' => 1, 'permission_id' => 4]);
+		$this->assertDatabaseMissing('permissions_roles', ['role_id' => 2, 'permission_id' => 6]);
+		$this->assertDatabaseMissing('permissions_roles', ['role_id' => 2, 'permission_id' => 7]);
+		$this->assertDatabaseMissing('permissions_roles', ['role_id' => 2, 'permission_id' => 11]);
+		$this->assertDatabaseHas('permissions_roles', ['role_id' => 2, 'permission_id' => 8]);
+		$this->assertDatabaseHas('permissions_roles', ['role_id' => 2, 'permission_id' => 9]);
 	}
 
 	/** @test **/
