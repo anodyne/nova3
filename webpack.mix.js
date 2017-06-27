@@ -1,6 +1,6 @@
 let mix = require('laravel-mix');
 
-mix.setPublicPath('resources');
+mix.setPublicPath('assets');
 
 /*
  |--------------------------------------------------------------------------
@@ -16,6 +16,6 @@ mix.setPublicPath('resources');
 mix.autoload({
 		tether: ['Tether', 'window.Tether']
 	})
-   .js('nova/resources/assets/js/app.js', 'resources/js')
+   .js('nova/resources/assets/js/app.js', 'assets/js')
    .extract(['vue', 'jquery', 'tether', 'axios'])
-   .sass('nova/resources/assets/sass/app.scss', 'resources/css');
+   .sass('nova/resources/assets/sass/app.scss', 'assets/css');

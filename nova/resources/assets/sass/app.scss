@@ -6,7 +6,7 @@
 @import "_variables";
 
 // Bootstrap
-@import "~bootstrap/scss/bootstrap", "~bootstrap-float-label/bootstrap-float-label";
+@import "~bootstrap/scss/bootstrap";
 
 h1 {
 	margin-bottom: 2rem;
@@ -51,28 +51,4 @@ h1 {
 
 .form-check-input {
 	margin-top: 0.4rem;
-}
-
-.has-float-label {
-	.form-control {
-		&:placeholder-shown:not(:focus) + * {
-			font-size: 100%;
-			top: 0.6em;
-		}
-
-		&.form-control-lg {
-			&:placeholder-shown:not(:focus) + * {
-				font-size: 125%;
-				top: 0.7em;
-			}
-
-			+ label {
-				left: 1.5rem;
-			}
-		}
-	}
-
-	label {
-		margin-bottom: 0;
-	}
 }

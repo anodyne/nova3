@@ -10,11 +10,11 @@
 
 	<title>{{ config('app.name', 'Laravel') }}</title>
 
-	<script defer src="{{ asset('resources/js/packs/regular.js') }}"></script>
-	<script defer src="{{ asset('resources/js/fontawesome.js') }}"></script>
+	<script defer src="{{ asset('assets/js/packs/regular.js') }}"></script>
+	<script defer src="{{ asset('assets/js/fontawesome.js') }}"></script>
 
 	<!-- Styles -->
-	<link href="{{ asset('resources/css/app.css') }}" rel="stylesheet">
+	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
 </head>
 <body>
 	<div id="app">
@@ -22,9 +22,9 @@
 	</div>
 
 	<!-- Scripts -->
-	<script src="{{ asset('resources/js/manifest.js') }}"></script>
-	<script src="{{ asset('resources/js/vendor.js') }}"></script>
-	<script src="{{ asset('resources/js/app.js') }}"></script>
+	<script src="{{ asset('assets/js/manifest.js') }}"></script>
+	<script src="{{ asset('assets/js/vendor.js') }}"></script>
+	<script src="{{ asset('assets/js/app.js') }}"></script>
 	<script>var vue = {}</script>
 	@yield('js')
 	<script>
