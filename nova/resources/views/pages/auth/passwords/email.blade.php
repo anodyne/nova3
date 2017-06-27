@@ -16,15 +16,15 @@
 					{{ csrf_field() }}
 
 					<div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-						<label for="email" class="form-control-label sr-only">{{ _m('email-address') }}</label>
+						<label for="email" class="form-control-label">{{ _m('email-address') }}</label>
 						
-						<input id="email" type="email" class="form-control form-control-lg" name="email" value="{{ old('email') }}" placeholder="{{ _m('email-address') }}" required>
+						<input id="email" type="email" class="form-control form-control-lg" name="email" value="{{ old('email') }}" autofocus required>
 
 						{!! $errors->first('email', '<p class="form-control-feedback">:message</p>') !!}
 					</div>
 
 					<div class="form-group">
-						<button type="submit" class="btn btn-primary btn-block">
+						<button type="submit" class="btn btn-lg btn-primary btn-block">
 							{{ _m('auth-send-reset-link') }}
 						</button>
 
