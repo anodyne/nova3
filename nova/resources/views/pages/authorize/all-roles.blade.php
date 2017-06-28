@@ -5,19 +5,37 @@
 @section('content')
 	<h1>{{ _m('authorize-roles') }}</h1>
 
-	<div class="btn-toolbar">
-		@can('create', $roleClass)
-			<div class="btn-group">
-				<a href="{{ route('roles.create') }}" class="btn btn-success">{{ _m('authorize-role-add') }}</a>
-			</div>
-		@endcan
+	<mobile>
+		<div class="row">
+			@can('create', $roleClass)
+				<div class="col">
+					<p><a href="{{ route('roles.create') }}" class="btn btn-success btn-block">{{ _m('authorize-role-add') }}</a></p>
+				</div>
+			@endcan
 
-		@can('manage', $permissionClass)
-			<div class="btn-group">
-				<a href="{{ route('permissions.index') }}" class="btn btn-secondary">{{ _m('authorize-permissions') }}</a>
-			</div>
-		@endcan
-	</div>
+			@can('manage', $permissionClass)
+				<div class="col">
+					<p><a href="{{ route('permissions.index') }}" class="btn btn-secondary btn-block">{{ _m('authorize-permissions') }}</a></p>
+				</div>
+			@endcan
+		</div>
+	</mobile>
+
+	<desktop>
+		<div class="btn-toolbar">
+			@can('create', $roleClass)
+				<div class="btn-group">
+					<a href="{{ route('roles.create') }}" class="btn btn-success">{{ _m('authorize-role-add') }}</a>
+				</div>
+			@endcan
+
+			@can('manage', $permissionClass)
+				<div class="btn-group">
+					<a href="{{ route('permissions.index') }}" class="btn btn-secondary">{{ _m('authorize-permissions') }}</a>
+				</div>
+			@endcan
+		</div>
+	</desktop>
 
 	@if ($roles->count() > 0)
 		<table class="table">
@@ -31,18 +49,25 @@
 					<tr>
 						<td>{{ $role->name }}</td>
 						<td>
-							<div class="btn-toolbar">
-								@can('update', $role)
-									<div class="btn-group">
-										<a href="{{ route('roles.edit', [$role]) }}" class="btn btn-sm btn-secondary">{{ _m('edit') }}</a>
-									</div>
-								@endcan
+							<div class="dropdown pull-right">
+								<button class="btn btn-secondary"
+										type="button"
+										id="dropdownMenuButton"
+										data-toggle="dropdown"
+										aria-haspopup="true"
+										aria-expanded="false">
+									{!! icon('more') !!}
+								</button>
+								<div class="dropdown-menu dropdown-menu-right"
+									 aria-labelledby="dropdownMenuButton">
+									@can('update', $role)
+										<a class="dropdown-item" href="{{ route('roles.edit', [$role]) }}">{!! icon('edit') !!} {{ _m('edit') }}</a>
+									@endcan
 
-								@can('delete', $role)
-									<div class="btn-group">
-										<a href="#" class="btn btn-sm btn-outline-danger" data-role="{{ $role->id }}" @click.prevent="deleteRole">{{ _m('delete') }}</a>
-									</div>
-								@endcan
+									@can('delete', $role)
+										<a class="dropdown-item text-danger" href="#" data-role="{{ $role->id }}" @click.prevent="deleteRole">{!! icon('delete') !!} {{ _m('delete') }}</a>
+									@endcan
+								</div>
 							</div>
 						</td>
 					</tr>

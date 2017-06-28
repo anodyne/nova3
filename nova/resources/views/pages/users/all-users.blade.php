@@ -5,29 +5,44 @@
 @section('content')
 	<h1>{{ _m('users') }}</h1>
 
-	<div class="btn-toolbar">
-		@can('create', $userClass)
-			<div class="btn-group">
-				<a href="{{ route('users.create') }}" class="btn btn-success">{{ _m('user-add') }}</a>
-			</div>
-		@endcan
-	</div>
+	<mobile>
+		<div class="row">
+			@can('create', $userClass)
+				<div class="col">
+					<p><a href="{{ route('users.create') }}" class="btn btn-success btn-block">{{ _m('user-add') }}</a></p>
+				</div>
+			@endcan
+		</div>
+	</mobile>
+
+	<desktop>
+		<div class="btn-toolbar">
+			@can('create', $userClass)
+				<div class="btn-group">
+					<a href="{{ route('users.create') }}" class="btn btn-success">{{ _m('user-add') }}</a>
+				</div>
+			@endcan
+		</div>
+	</desktop>
 
 	@if ($users->count() > 0)
 		<div class="row">
 			<div class="col-md-4">
-				<div class="form-group">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="{{ _m('user-find') }}" v-model="searchUsers">
-						<span class="input-group-btn">
-							<a class="btn btn-secondary" href="#" @click.prevent="searchUsers = ''"><i class="far fa-times"></i></a>
-						</span>
-					</div>
+				<div class="form-group input-group">
+					<input type="text"
+						   class="form-control"
+						   placeholder="{{ _m('user-find') }}"
+						   v-model="search">
+					<span class="input-group-btn">
+						<a class="btn btn-secondary" href="#" @click.prevent="search = ''">
+							{!! icon('close') !!}
+						</a>
+					</span>
 				</div>
 			</div>
 		</div>
 
-		<table class="table">
+		<table class="table" v-cloak>
 			<thead class="thead-default">
 				<tr>
 					<th colspan="2">{{ _m('name') }}</th>
@@ -35,26 +50,31 @@
 			</thead>
 			<tbody>
 				<tr v-for="user in filteredUsers">
-					<td>@{{ user.name }}</td>
+					<td>@{{ user.displayName }}</td>
 					<td>
-						<div class="btn-toolbar">
-							@can('update', $userClass)
-								<div class="btn-group">
-									<a :href="'/admin/users/' + user.id + '/edit'" class="btn btn-sm btn-secondary">{{ _m('edit') }}</a>
-								</div>
-							@endcan
+						<div class="dropdown pull-right">
+							<button class="btn btn-secondary"
+									type="button"
+									id="dropdownMenuButton"
+									data-toggle="dropdown"
+									aria-haspopup="true"
+									aria-expanded="false">
+								{!! icon('more') !!}
+							</button>
+							<div class="dropdown-menu dropdown-menu-right"
+								 aria-labelledby="dropdownMenuButton">
+								@can('update', $userClass)
+									<a :href="'/admin/users/' + user.id + '/edit'" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
+								@endcan
 
-							@can('delete', $userClass)
-								<div class="btn-group" v-if="!isTrashed(user)">
-									<a href="#" class="btn btn-sm btn-outline-danger" :data-user="user.id" @click.prevent="deleteUser">{{ _m('delete') }}</a>
-								</div>
-							@endcan
+								@can('delete', $userClass)
+									<a href="#" class="dropdown-item text-danger" :data-user="user.id" @click.prevent="deleteUser" v-if="!isTrashed(user)">{!! icon('delete') !!} {{ _m('delete') }}</a>
+								@endcan
 
-							@can('update', $userClass)
-								<div class="btn-group" v-if="isTrashed(user)">
-									<a href="#" class="btn btn-sm btn-outline-success" :data-user="user.id" @click.prevent="restoreUser">{{ _m('restore') }}</a>
-								</div>
-							@endcan
+								@can('update', $userClass)
+									<a href="#" class="dropdown-item text-success" :data-user="user.id" @click.prevent="restoreUser" v-if="isTrashed(user)">{!! icon('undo') !!} {{ _m('restore') }}</a>
+								@endcan
+							</div>
 						</div>
 					</td>
 				</tr>
@@ -72,7 +92,7 @@
 		vue = {
 			data: {
 				users: {!! $users !!},
-				searchUsers: ''
+				search: ''
 			},
 
 			computed: {
@@ -80,11 +100,12 @@
 					let self = this
 
 					return self.users.filter(function (user) {
-						let regex = new RegExp(self.searchUsers, 'i')
+						let regex = new RegExp(self.search, 'i')
 
 						return regex.test(user.name)
 							|| regex.test(user.email)
 							|| regex.test(user.nickname)
+							// || regex.test(user.status)
 					})
 				}
 			},

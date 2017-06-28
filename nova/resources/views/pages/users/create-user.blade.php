@@ -50,17 +50,21 @@
 					<div class="row">
 						@foreach ($roles as $role)
 							<div class="col-md-4 mb-3">
-								<div class="form-check">
-									<label class="form-check-label">
-										{!! Form::checkbox('roles[]', $role->id, null, ['class' => 'form-check-input']) !!}
-										
-										{{ $role->name }}
+								<label class="custom-control custom-checkbox">
+									{!! Form::checkbox('roles[]', $role->id, null, ['class' => 'custom-control-input']) !!}
+									<span class="custom-control-indicator"></span>
+									
+									<span class="custom-control-description">{{ $role->name }}</span>
 
-										<span data-toggle="popover" data-trigger="hover" data-placement="top" title="{{ _m('authorize-role-can') }}" data-content="{{ $role->present()->includedPermissions }}">
-											<i class="far fa-question-circle text-muted"></i>
-										</span>
-									</label>
-								</div>
+									<span class="ml-1"
+										  data-toggle="popover"
+										  data-trigger="hover"
+										  data-placement="top"
+										  title="{{ _m('authorize-role-can') }}"
+										  data-content="{{ $role->present()->includedPermissions }}">
+										{!! icon('question', 'text-muted') !!}
+									</span>
+								</label>
 							</div>
 						@endforeach
 					</div>
