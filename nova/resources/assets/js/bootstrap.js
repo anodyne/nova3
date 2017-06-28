@@ -9,9 +9,10 @@ window._ = require('lodash');
 try {
 	window.$ = window.jQuery = require('jquery');
 
-	// require('tether');
 	require('bootstrap');
 } catch (e) {}
+
+window.Vue = require('vue');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -37,17 +38,8 @@ if (token) {
 	console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
+window.events = new Vue();
 
-// import Echo from 'laravel-echo'
-
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
-// });
+window.flash = function (message, title = '', level = 'success') {
+	window.events.$emit('flash', { message, title, level });
+};
