@@ -28,10 +28,10 @@ Route::resource('admin/roles', 'Nova\Authorize\Http\Controllers\RolesController'
 Route::resource('admin/permissions', 'Nova\Authorize\Http\Controllers\PermissionsController');
 
 // Make sure for restoring we can get the actual object
-app('router')->bind('deletedUser', function ($value) {
+app('router')->bind('user', function ($value) {
 	return Nova\Users\User::withTrashed()->where('id', $value)->first();
 });
 
 Route::resource('admin/users', 'Nova\Users\Http\Controllers\UsersController');
-Route::patch('admin/users/{deletedUser}/restore', 'Nova\Users\Http\Controllers\UsersController@restore')
+Route::patch('admin/users/{user}/restore', 'Nova\Users\Http\Controllers\UsersController@restore')
 	->name('users.restore');
