@@ -9,6 +9,7 @@ class AppServiceProvider extends ServiceProvider
 	{
 		Schema::defaultStringLength(191);
 
+		$this->registerTheme();
 		$this->registerTranslator();
 		$this->registerRepositoryBindings();
 	}
@@ -20,6 +21,13 @@ class AppServiceProvider extends ServiceProvider
 				$this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
 			}
 		}
+	}
+
+	protected function registerTheme()
+	{
+		$this->app->singleton('nova.theme', function ($app) {
+			return new \Nova\Foundation\Theme\Theme;
+		});
 	}
 
 	protected function registerTranslator()

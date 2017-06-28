@@ -35,3 +35,10 @@ if (! function_exists('flash')) {
 		return app('nova.flash');
 	}
 }
+
+if (! function_exists('icon')) {
+	function icon($icon, $additional = false)
+	{
+		return app('nova.theme')->renderIcon($icon, $additional);
+	}
+}
