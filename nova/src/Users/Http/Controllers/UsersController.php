@@ -79,12 +79,11 @@ class UsersController extends Controller
 
 		$this->validate($request, [
 			'name' => 'required',
-			'email' => 'required|email|unique:users'
+			'email' => 'required|email'
 		], [
 			'name.required' => _m('user-validation-name'),
 			'email.required' => _m('user-validation-email-required'),
-			'email.email' => _m('user-validation-email-email'),
-			'email.unique' => _m('user-validation-email-unique')
+			'email.email' => _m('user-validation-email-email')
 		]);
 
 		$this->usersRepo->update($user, $request->all());
