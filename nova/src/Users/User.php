@@ -16,6 +16,7 @@ class User extends Authenticatable
 	protected $table = 'users';
 	protected $fillable = ['name', 'email', 'password', 'nickname'];
 	protected $hidden = ['password', 'remember_token'];
+	protected $appends = ['displayName'];
 	protected $presenter = Presenters\UserPresenter::class;
 
 	//--------------------------------------------------------------------------
@@ -40,6 +41,11 @@ class User extends Authenticatable
 		}
 
 		return $user;
+	}
+
+	public function getDisplayNameAttribute()
+	{
+		return $this->present()->name;
 	}
 
 	public function sendPasswordResetNotification($token)
