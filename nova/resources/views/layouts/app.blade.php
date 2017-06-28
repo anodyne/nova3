@@ -49,7 +49,7 @@
 						@else
 							<div class="nav-item dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-									<i class="far fa-user mr-1"></i> {{ Auth::user()->present()->name }} <span class="caret"></span>
+									{!! icon('user', 'mr-1') !!} {{ Auth::user()->present()->name }} <span class="caret"></span>
 								</a>
 
 								<div class="dropdown-menu dropdown-menu-right">
@@ -70,20 +70,24 @@
 			</div>
 		</nav>
 
-		<div class="container">
-			@if (session()->has('flash'))
-				<div class="alert alert-{{ session('flash.level') }}" role="alert">
-					@if (session()->has('flash.title'))
-						<h4 class="alert-heading">{{ session('flash.title') }}</h4>
-						<p>{{ session('flash.message') }}</p>
-					@else
-						<p>{{ session('flash.title') }}</p>
-					@endif
-				</div>
-			@endif
+		<main v-cloak>
+			<div class="container">
+				@if (session()->has('flash'))
+					<div class="alert alert-{{ session('flash.level') }}" role="alert">
+						@if (session()->has('flash.title'))
+							<h4 class="alert-heading">{{ session('flash.title') }}</h4>
+							<p>{{ session('flash.message') }}</p>
+						@else
+							<p>{{ session('flash.title') }}</p>
+						@endif
+					</div>
+				@endif
 
-			@yield('content')
-		</div>
+				@yield('content')
+			</div>
+		</main>
+
+		<flash message="{{ session('flash') }}"></flash>
 	</div>
 
 	<!-- Scripts -->

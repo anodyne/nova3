@@ -55,7 +55,7 @@
 			font-size: 84px;
 		}
 
-		.links > a {
+		.links a {
 			color: #636b6f;
 			padding: 0 25px;
 			font-size: 12px;
@@ -68,11 +68,25 @@
 		.m-b-md {
 			margin-bottom: 30px;
 		}
+
+		.dropdown-item {
+			padding: 0.5rem 1rem !important;
+		}
+
+		.dropdown-menu {
+			top: 140%;
+		}
+
+		.dropdown-menu-right {
+			right: 20px;
+		}
 	</style>
 </head>
 <body>
 	@yield('content')
 
+	<script src="{{ asset('assets/js/manifest.js') }}"></script>
+	<script src="{{ asset('assets/js/vendor.js') }}"></script>
 	<script src="{{ asset('assets/js/app.js') }}"></script>
 	<script>var vue = {}</script>
 	@yield('js')
