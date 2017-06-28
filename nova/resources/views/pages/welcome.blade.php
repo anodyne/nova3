@@ -6,6 +6,21 @@
 			<div class="top-right links">
 				@if (Auth::check())
 					<a href="{{ route('home') }}">Home</a>
+					<span class="dropdown">
+						<a class="dropdown-toggle"
+						   href="#"
+						   id="dropdownMenuLink"
+						   data-toggle="dropdown"
+						   aria-haspopup="true"
+						   aria-expanded="false">
+						   Admin
+						</a>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+							<a class="dropdown-item" href="{{ route('roles.index') }}">Roles</a>
+							<a class="dropdown-item" href="{{ route('permissions.index') }}">Permissions</a>
+							<a class="dropdown-item" href="{{ route('users.index') }}">Users</a>
+						</div>
+					</span>
 					<a href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
@@ -41,20 +56,7 @@
 				</div>
 			@endif
 		</div>
+
+		<flash message="{{ session('flash') }}"></flash>
 	</div>
-@endsection
-
-@section('js')
-	<script>
-		vue = {
-			data: {
-				bar: 'bar',
-				foo: 'foo'
-			},
-
-			mounted: function () {
-				console.log('foo');
-			}
-		};
-	</script>
 @endsection
