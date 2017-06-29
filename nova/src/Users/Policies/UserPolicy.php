@@ -14,8 +14,7 @@ class UserPolicy
 
 	public function create(User $user)
 	{
-		return true;
-		return $user->can('role.create');
+		return $user->can('user.create');
 	}
 
 	public function manage(User $user, User $actionUser)
@@ -27,13 +26,11 @@ class UserPolicy
 
 	public function update(User $user, User $actionUser)
 	{
-		return true;
-		return $user->can('role.update');
+		return $user->can('user.update');
 	}
 
 	public function delete(User $user, User $actionUser)
 	{
-		return true;
-		return $user->can('role.delete');
+		return $user->can('user.delete');
 	}
 }

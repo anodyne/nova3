@@ -15,7 +15,6 @@ class PermissionPolicy
 
 	public function create(User $user)
 	{
-		return true;
 		return $user->can('permission.create');
 	}
 
@@ -28,13 +27,11 @@ class PermissionPolicy
 
 	public function update(User $user, Permission $permission)
 	{
-		return true;
 		return $user->can('permission.update');
 	}
 
 	public function delete(User $user, Permission $permission)
 	{
-		return true;
 		return $user->can('permission.delete');
 	}
 }
