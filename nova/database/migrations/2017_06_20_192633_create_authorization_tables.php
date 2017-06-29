@@ -54,6 +54,15 @@ class CreateAuthorizationTables extends Migration
 
 	public function seed()
 	{
+		$this->permissions();
+
+		$this->roles();
+
+		$this->roleAssignments();
+	}
+
+	protected function permissions()
+	{
 		// Create permissions
 		$permissions = [
 			['name' => "Create roles", 'key' => "role.create"],
@@ -72,14 +81,45 @@ class CreateAuthorizationTables extends Migration
 		foreach ($permissions as $permission) {
 			Permission::create($permission);
 		}
+	}
 
+	protected function roles()
+	{
 		// Create roles
 		$roles = [
-			['name' => 'System Admin']
+			['name' => 'System Admin'],
+			['name' => 'Active User']
 		];
 
 		foreach ($roles as $role) {
 			Role::create($role);
+		}
+	}
+
+	protected function roleAssignments()
+	{
+		$assignments = [
+			"System Admin" => ['role.create', 'role.update', 'role.delete', 'permission.create', 'permission.update', 'permission.delete', 'user.create', 'user.update', 'user.delete'],
+			"Active User" => [],
+		];
+
+		foreach ($assignments as $roleName => $permissionKeys) {
+			// Find the role
+			$role = Role::name($roleName)->first();
+
+			if ($role) {
+				// Find the permission IDs
+				$permissionIds = Permission::whereIn('key', $permissionKeys)
+					->get()
+					->map(function ($p) {
+						return $p->id;
+					});
+
+				if ($permissionIds->count() > 0) {
+					// Associate the permissions with the role
+					$role->permissions()->attach($permissionIds->all());
+				}
+			}
 		}
 	}
 }
