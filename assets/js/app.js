@@ -21350,11 +21350,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.hide();
 		},
 		hide: function hide() {
-			console.log('inside hide()');
 			var self = this;
 
 			setTimeout(function () {
-				console.log('inside setTimeout');
 				self.startTransition = true;
 			}, 4000);
 		}
@@ -21362,10 +21360,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	watch: {
 		startTransition: function startTransition(newValue, oldValue) {
-			console.log('inside startTransition()');
-			console.log(newValue, oldValue);
 			if (newValue) {
-				console.log('has newValue');
 				var self = this;
 
 				$('.alert-flash').fadeOut(function () {
@@ -21411,7 +21406,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [(_vm.heading != '') ? _c('h4', {
     staticClass: "alert-heading"
-  }, [_vm._v(_vm._s(_vm.heading))]) : _vm._e(), _vm._v(" "), (_vm.heading != '') ? _c('p', [_vm._v(_vm._s(_vm.body))]) : _vm._e(), _vm._v(" "), (_vm.heading == '') ? _c('p', [_vm._v(_vm._s(_vm.heading))]) : _vm._e()])])
+  }, [_vm._v(_vm._s(_vm.heading))]) : _vm._e(), _vm._v(" "), (_vm.heading != '') ? _c('p', [_vm._v(_vm._s(_vm.body))]) : _vm._e(), _vm._v(" "), (_vm.heading == '') ? _c('p', [_vm._v(_vm._s(_vm.body))]) : _vm._e()])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
