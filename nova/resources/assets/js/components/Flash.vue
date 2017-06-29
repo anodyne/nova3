@@ -3,7 +3,7 @@
 		<div :class="classes" role="alert" v-show="show">
 			<h4 class="alert-heading" v-if="heading != ''">{{ heading }}</h4>
 			<p v-if="heading != ''">{{ body }}</p>
-			<p v-if="heading == ''">{{ heading }}</p>
+			<p v-if="heading == ''">{{ body }}</p>
 		</div>
 	</transition>
 </template>
@@ -39,11 +39,9 @@
 			},
 
 			hide () {
-				console.log('inside hide()');
 				var self = this;
 
 				setTimeout(() => {
-					console.log('inside setTimeout');
 					self.startTransition = true;
 				}, 4000);
 			}
@@ -51,10 +49,7 @@
 
 		watch: {
 			startTransition (newValue, oldValue) {
-				console.log('inside startTransition()');
-				console.log(newValue, oldValue);
 				if (newValue) {
-					console.log('has newValue');
 					var self = this;
 
 					$('.alert-flash').fadeOut(() => {
