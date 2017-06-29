@@ -57,6 +57,8 @@
 			@endif
 		</div>
 
-		<flash message="{{ session('flash') }}"></flash>
+		<flash message="{{ session('flash.message') }}"
+			   title="{{ session('flash.title') }}"
+			   level="{{ session('flash.level') }}"></flash>
 	</div>
 @endsection

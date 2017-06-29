@@ -40,6 +40,6 @@ if (token) {
 
 window.events = new Vue();
 
-window.flash = function (message, title = '', level = 'success') {
-	window.events.$emit('flash', { message, title, level });
+window.flash = function (message, title, level = 'success') {
+	window.events.$emit('flash', message, title, level);
 };

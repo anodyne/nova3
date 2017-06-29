@@ -100,11 +100,10 @@ if (token) {
 
 window.events = new Vue();
 
-window.flash = function (message) {
-  var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+window.flash = function (message, title) {
   var level = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'success';
 
-  window.events.$emit('flash', { message: message, title: title, level: level });
+  window.events.$emit('flash', message, title, level);
 };
 
 /***/ }),
@@ -21322,38 +21321,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['message'],
+	props: ['message', 'title', 'level'],
 
 	data: function data() {
 		return {
 			body: '',
-			level: 'success',
 			show: false,
-			startTransition: false,
-			title: ''
+			type: '',
+			heading: '',
+			startTransition: false
 		};
 	},
 
 
 	computed: {
 		classes: function classes() {
-			return ['alert', 'alert-flash', 'alert-' + this.level];
+			return ['alert', 'alert-flash', 'alert-' + this.type];
 		}
 	},
 
 	methods: {
-		flash: function flash(data) {
-			this.body = data.message;
-			this.level = data.level;
-			this.title = data.title;
+		flash: function flash(message, title, level) {
+			this.body = message;
+			this.type = level;
+			this.heading = title;
 			this.show = true;
 
 			this.hide();
 		},
 		hide: function hide() {
+			console.log('inside hide()');
 			var self = this;
 
 			setTimeout(function () {
+				console.log('inside setTimeout');
 				self.startTransition = true;
 			}, 4000);
 		}
@@ -21361,26 +21362,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	watch: {
 		startTransition: function startTransition(newValue, oldValue) {
+			console.log('inside startTransition()');
+			console.log(newValue, oldValue);
 			if (newValue) {
+				console.log('has newValue');
 				var self = this;
 
 				$('.alert-flash').fadeOut(function () {
 					self.show = false;
+					self.startTransition = false;
 				});
 			}
 		}
 	},
 
-	created: function created() {
-		var _this = this;
+	mounted: function mounted() {
+		var self = this;
 
 		if (this.message) {
-			console.log(this.message);
-			this.flash(this.message, '', this.level);
+			this.flash(this.message, this.title, this.level);
 		}
 
-		window.events.$on('flash', function (message, level) {
-			return _this.flash(message, level);
+		window.events.$on('flash', function (message, title, level) {
+			return self.flash(message, title, level);
 		});
 	}
 });
@@ -21405,9 +21409,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "role": "alert"
     }
-  }, [(_vm.title != '') ? _c('h4', {
+  }, [(_vm.heading != '') ? _c('h4', {
     staticClass: "alert-heading"
-  }, [_vm._v(_vm._s(_vm.title))]) : _vm._e(), _vm._v(" "), (_vm.title != '') ? _c('p', [_vm._v(_vm._s(_vm.body))]) : _vm._e(), _vm._v(" "), (_vm.title == '') ? _c('p', [_vm._v(_vm._s(_vm.title))]) : _vm._e()])])
+  }, [_vm._v(_vm._s(_vm.heading))]) : _vm._e(), _vm._v(" "), (_vm.heading != '') ? _c('p', [_vm._v(_vm._s(_vm.body))]) : _vm._e(), _vm._v(" "), (_vm.heading == '') ? _c('p', [_vm._v(_vm._s(_vm.heading))]) : _vm._e()])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

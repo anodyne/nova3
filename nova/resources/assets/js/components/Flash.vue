@@ -1,47 +1,49 @@
 <template>
 	<transition name="fade">
 		<div :class="classes" role="alert" v-show="show">
-			<h4 class="alert-heading" v-if="title != ''">{{ title }}</h4>
-			<p v-if="title != ''">{{ body }}</p>
-			<p v-if="title == ''">{{ title }}</p>
+			<h4 class="alert-heading" v-if="heading != ''">{{ heading }}</h4>
+			<p v-if="heading != ''">{{ body }}</p>
+			<p v-if="heading == ''">{{ heading }}</p>
 		</div>
 	</transition>
 </template>
 
 <script>
 	export default {
-		props: ['message'],
+		props: ['message', 'title', 'level'],
 
 		data () {
 			return {
 				body: '',
-				level: 'success',
 				show: false,
-				startTransition: false,
-				title: ''
+				type: '',
+				heading: '',
+				startTransition: false
 			}
 		},
 
 		computed: {
 			classes () {
-				return ['alert', 'alert-flash', 'alert-' + this.level];
+				return ['alert', 'alert-flash', 'alert-' + this.type];
 			}
 		},
 
 		methods: {
-			flash (data) {
-				this.body = data.message;
-				this.level = data.level;
-				this.title = data.title;
+			flash (message, title, level) {
+				this.body = message;
+				this.type = level;
+				this.heading = title;
 				this.show = true;
 
 				this.hide();
 			},
 
 			hide () {
+				console.log('inside hide()');
 				var self = this;
 
 				setTimeout(() => {
+					console.log('inside setTimeout');
 					self.startTransition = true;
 				}, 4000);
 			}
@@ -49,23 +51,28 @@
 
 		watch: {
 			startTransition (newValue, oldValue) {
+				console.log('inside startTransition()');
+				console.log(newValue, oldValue);
 				if (newValue) {
+					console.log('has newValue');
 					var self = this;
 
 					$('.alert-flash').fadeOut(() => {
 						self.show = false;
+						self.startTransition = false;
 					});
 				}
 			}
 		},
 
-		created () {
+		mounted () {
+			var self = this;
+
 			if (this.message) {
-				console.log(this.message);
-				this.flash(this.message, '', this.level);
+				this.flash(this.message, this.title, this.level);
 			}
 
-			window.events.$on('flash', (message, level) => this.flash(message, level));
+			window.events.$on('flash', (message, title, level) => self.flash(message, title, level));
 		}
 	};
 </script>
