@@ -1,9 +1,11 @@
 <?php
 
 Route::get('test', function () {
-	$role = Nova\Authorize\Role::find(1);
+	$theme = new Nova\Foundation\Theme\Theme;
 
-	dd($role, $role->present()->includedPermissions);
+	session()->flash('flash', 'message');
+
+	//dd($theme->iconMap(), $theme->getIcon('delete'), $theme->renderIcon('delete', 'fa-2x'));
 });
 
 Route::get('status', function () {

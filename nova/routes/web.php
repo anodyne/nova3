@@ -1,7 +1,7 @@
 <?php
 
 Route::get('/', function () {
-    return view('pages.welcome');
+	return view('pages.welcome');
 })->name('home');
 
 Route::group(['namespace' => 'Nova\Auth\Http\Controllers'], function () {
