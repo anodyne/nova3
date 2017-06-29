@@ -26,7 +26,7 @@
 	"auth-required-reset-explain": "An administrator has required you to reset your password before you can continue.",
 	"auth-reset-password": "Reset Password",
 	"auth-send-reset-link": "Send Password Reset Link",
-	"auth-success": "You are now signed in",
+	"auth-success": "Welcome back, $2!",
 	"auth-validation-credentials": "These credentials do not match our records.",
 	"auth-validation-email": "Please enter a valid email address",
 	"auth-validation-email-required": "Please enter an email address",

@@ -54,4 +54,16 @@ class LoginController extends Controller
 			->withInput($request->only($this->username()))
 			->withErrors($errors);
 	}
+
+	protected function sendLoginResponse(Request $request)
+	{
+		flash()->message(_m('auth-success', [auth()->user()->present()->name]))->success();
+
+		$request->session()->regenerate();
+
+		$this->clearLoginAttempts($request);
+
+		return $this->authenticated($request, $this->guard()->user())
+				?: redirect()->intended($this->redirectPath());
+	}
 }
