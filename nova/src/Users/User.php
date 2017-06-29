@@ -32,6 +32,19 @@ class User extends Authenticatable
 	// Model Methods
 	//--------------------------------------------------------------------------
 
+	public function attachRole($role)
+	{
+		if (is_object($role)) {
+			$role = $role->getKey();
+		}
+
+		if (is_array($role)) {
+			$role = $role['id'];
+		}
+
+		$this->roles()->attach($role);
+	}
+
 	public static function create(array $attributes = [], array $options = [])
 	{
 		$user = (new static)->newQuery()->create($attributes);
@@ -46,6 +59,15 @@ class User extends Authenticatable
 	public function getDisplayNameAttribute()
 	{
 		return $this->present()->name;
+	}
+
+	public function hasRole($role)
+	{
+		if (is_string($role)) {
+			return $this->roles->contains('key', $role);
+		}
+		
+		return !! $role->intersect($this->roles)->count();
 	}
 
 	public function sendPasswordResetNotification($token)
