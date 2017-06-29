@@ -21,6 +21,16 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 col-xl-4 offset-md-3 offset-xl-4">
+					@if (session()->has('flash'))
+						<div class="alert alert-{{ session('flash.level') }}">
+							@if (session('flash.title'))
+								<h4 class="alert-heading">{{ session('flash.title') }}</h4>
+							@endif
+
+							<p>{{ session('flash.message') }}</p>
+						</div>
+					@endif
+
 					@yield('content')
 				</div>
 			</div>

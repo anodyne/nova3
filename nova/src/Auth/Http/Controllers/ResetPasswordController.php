@@ -30,8 +30,9 @@ class ResetPasswordController extends Controller
 
 	protected function sendResetResponse($response)
 	{
-		return redirect($this->redirectPath())
-			->with('status', _m('auth-password-reset-success'));
+		flash()->message(_m('auth-password-reset-success'))->success();
+
+		return redirect($this->redirectPath());
 	}
 
 	protected function sendResetFailedResponse(Request $request, $response)
