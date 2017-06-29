@@ -1,5 +1,6 @@
 <?php namespace Nova\Foundation\Providers;
 
+use Nova\Authorize\Permission;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -25,6 +26,11 @@ class AuthServiceProvider extends ServiceProvider
 	{
 		$this->registerPolicies();
 
-		//
+		// Grab all of the permissions, loop through them, and define the abilities
+		Permission::with('roles')->get()->each(function ($permission) {
+			Gate::define($permission->key, function ($user) use ($permission) {
+				return $user->hasRole($permission->roles);
+			});
+		});
 	}
 }
