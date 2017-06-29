@@ -10,8 +10,12 @@
 
 	<title>{{ config('app.name', 'Laravel') }}</title>
 
+	<script defer src="{{ asset('assets/js/packs/regular.js') }}"></script>
+	<script defer src="{{ asset('assets/js/packs/light.js') }}"></script>
+	<script defer src="{{ asset('assets/js/fontawesome.js') }}"></script>
+
 	<!-- Fonts -->
-	<link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,600" rel="stylesheet">
 
 	<!-- Styles -->
 	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
@@ -20,9 +24,9 @@
 	<style>
 		html, body {
 			background-color: #fff;
-			color: #636b6f;
+			color: #546E7A;
 			font-family: 'Raleway', sans-serif;
-			font-weight: 100;
+			font-weight: 300;
 			height: 100vh;
 			margin: 0;
 		}
@@ -53,16 +57,22 @@
 
 		.title {
 			font-size: 84px;
+			font-weight: 100;
+			color: #259b24;
 		}
 
 		.links a {
-			color: #636b6f;
+			color: #546E7A;
 			padding: 0 25px;
 			font-size: 12px;
 			font-weight: 600;
 			letter-spacing: .1rem;
 			text-decoration: none;
 			text-transform: uppercase;
+		}
+
+		.links strong {
+			font-weight: 600;
 		}
 
 		.m-b-md {
@@ -80,10 +90,80 @@
 		.dropdown-menu-right {
 			right: 20px;
 		}
+
+		.card {
+			margin-bottom: 2rem;
+
+			text-align: left;
+			border-width: 2px;
+		}
+
+		.card > .card-block ul {
+			margin-bottom: 0;
+		}
+
+		.card > .card-block ul li {
+			font-weight: 400;
+		}
+
+		.card-inverse {
+			color: #fff;
+		}
+
+		.card-outline-success {
+			color: #5cb85c;
+		}
+
+		.text-subtle {
+			opacity: 0.6;
+		}
 	</style>
 </head>
 <body>
-	@yield('content')
+	<div id="app" class="flex-center position-ref">
+		@if (Route::has('login'))
+			<div class="top-right links">
+				@if (Auth::check())
+					<a href="{{ route('home') }}">Home</a>
+					<span class="dropdown">
+						<a class="dropdown-toggle"
+						   href="#"
+						   id="dropdownMenuLink"
+						   data-toggle="dropdown"
+						   aria-haspopup="true"
+						   aria-expanded="false">
+						   Admin
+						</a>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+							<a class="dropdown-item" href="{{ route('roles.index') }}">Roles</a>
+							<a class="dropdown-item" href="{{ route('permissions.index') }}">Permissions</a>
+							<a class="dropdown-item" href="{{ route('users.index') }}">Users</a>
+						</div>
+					</span>
+					<a href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                        Sign Out
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+				@else
+					<a href="{{ route('login') }}">Sign In</a>
+					<a href="{{ route('join') }}">Register</a>
+				@endif
+			</div>
+		@endif
+
+		<div class="content">
+			@yield('content')
+		</div>
+
+		<flash message="{{ session('flash.message') }}"
+			   title="{{ session('flash.title') }}"
+			   level="{{ session('flash.level') }}"></flash>
+	</div>
 
 	<script src="{{ asset('assets/js/manifest.js') }}"></script>
 	<script src="{{ asset('assets/js/vendor.js') }}"></script>

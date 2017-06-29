@@ -5,3 +5,7 @@ Route::get('test', function () {
 
 	dd($role, $role->present()->includedPermissions);
 });
+
+Route::get('status', function () {
+	return view('pages.status');
+})->name('status');
