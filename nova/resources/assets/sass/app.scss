@@ -62,6 +62,14 @@ h1 {
 	margin-top: 0.4rem;
 }
 
+.dropdown-item {
+	.fa-fw {
+		margin-right: 0.25rem;
+		
+		opacity: 0.8;
+	}
+}
+
 [v-cloak] {
 	display: none !important;
 }
