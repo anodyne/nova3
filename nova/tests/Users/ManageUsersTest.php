@@ -29,21 +29,23 @@ class ManageUsersTests extends DatabaseTestCase
 		$this->patch(route('users.update', $this->user))->assertRedirect(route('login'));
 		$this->delete(route('users.destroy', $this->user))->assertRedirect(route('login'));
 
-		// $this->signIn();
+		$this->signIn();
 
-		// $this->get(route('roles.index'))->assertStatus(403);
-		// $this->get(route('roles.create'))->assertStatus(403);
-		// $this->post(route('roles.store'))->assertStatus(403);
-		// $this->get(route('roles.edit', $this->role))->assertStatus(403);
-		// $this->patch(route('roles.update', $this->role))->assertStatus(403);
-		// $this->patch(route('roles.restore', $this->role))->assertStatus(403);
-		// $this->delete(route('roles.destroy', $this->role))->assertStatus(403);
+		// $this->get(route('users.index'))->assertStatus(403);
+		$this->get(route('users.create'))->assertStatus(403);
+		$this->post(route('users.store'))->assertStatus(403);
+		$this->get(route('users.edit', $this->user))->assertStatus(403);
+		$this->patch(route('users.update', $this->user))->assertStatus(403);
+		// $this->patch(route('users.restore', $this->user))->assertStatus(403);
+		$this->delete(route('users.destroy', $this->user))->assertStatus(403);
 	}
 
 	/** @test **/
 	public function a_user_can_be_created()
 	{
-		$this->signIn();
+		$admin = $this->createAdmin();
+
+		$this->signIn($admin);
 
 		create('Nova\Authorize\Role', [], 3);
 
@@ -63,7 +65,9 @@ class ManageUsersTests extends DatabaseTestCase
 	{
 		Mail::fake();
 
-		$this->signIn();
+		$admin = $this->createAdmin();
+
+		$this->signIn($admin);
 
 		$user = make('Nova\Users\User', ['roles' => [1,3]]);
 
@@ -79,7 +83,9 @@ class ManageUsersTests extends DatabaseTestCase
 	/** @test **/
 	public function a_user_can_be_updated()
 	{
-		$this->signIn();
+		$admin = $this->createAdmin();
+
+		$this->signIn($admin);
 
 		$this->patch(
 			route('users.update',
@@ -96,7 +102,9 @@ class ManageUsersTests extends DatabaseTestCase
 	/** @test **/
 	public function a_user_can_be_deleted()
 	{
-		$this->signIn();
+		$admin = $this->createAdmin();
+
+		$this->signIn($admin);
 
 		$user = create('Nova\Users\User');
 
@@ -110,7 +118,9 @@ class ManageUsersTests extends DatabaseTestCase
 	/** @test **/
 	public function a_user_can_be_restored()
 	{
-		$this->signIn();
+		$admin = $this->createAdmin();
+
+		$this->signIn($admin);
 
 		$user = create('Nova\Users\User', ['deleted_at' => Date::now()]);
 

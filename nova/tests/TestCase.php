@@ -1,5 +1,6 @@
 <?php namespace Tests;
 
+use Nova\Authorize\Role;
 use Nova\Foundation\Exceptions\Handler;
 use Nova\Foundation\Providers\AuthServiceProvider;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -14,6 +15,8 @@ abstract class TestCase extends BaseTestCase
 	protected function setUp()
 	{
 		parent::setUp();
+
+		$this->defineAuthorizationGates();
 
 		$this->disableExceptionHandling();
 	}
@@ -32,7 +35,18 @@ abstract class TestCase extends BaseTestCase
 
 	protected function createUser()
 	{
-		return create('Nova\Users\User');
+		$user = create('Nova\Users\User');
+		$user->attachRole(Role::name('Active User')->first());
+
+		return $user;
+	}
+
+	protected function createAdmin()
+	{
+		$user = $this->createUser();
+		$user->attachRole(Role::name('System Admin')->first());
+
+		return $user;
 	}
 
 	protected function disableExceptionHandling()
@@ -65,5 +79,10 @@ abstract class TestCase extends BaseTestCase
 			[],
 			['HTTP_REFERER' => $redirect]
 		);
+	}
+
+	protected function defineAuthorizationGates()
+	{
+		return (new AuthServiceProvider(app()))->defineGates();
 	}
 }

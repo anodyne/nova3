@@ -25,21 +25,22 @@ class ManagePermissionsTests extends DatabaseTestCase
 		$this->patch(route('permissions.update', $this->permission))->assertRedirect(route('login'));
 		$this->delete(route('permissions.destroy', $this->permission))->assertRedirect(route('login'));
 
-		// $this->signIn();
+		$this->signIn();
 
-		// $this->get(route('roles.index'))->assertStatus(403);
-		// $this->get(route('roles.create'))->assertStatus(403);
-		// $this->post(route('roles.store'))->assertStatus(403);
-		// $this->get(route('roles.edit', $this->role))->assertStatus(403);
-		// $this->patch(route('roles.update', $this->role))->assertStatus(403);
-		// $this->patch(route('roles.restore', $this->role))->assertStatus(403);
-		// $this->delete(route('roles.destroy', $this->role))->assertStatus(403);
+		$this->get(route('permissions.index'))->assertStatus(403);
+		$this->get(route('permissions.create'))->assertStatus(403);
+		$this->post(route('permissions.store'))->assertStatus(403);
+		$this->get(route('permissions.edit', $this->permission))->assertStatus(403);
+		$this->patch(route('permissions.update', $this->permission))->assertStatus(403);
+		$this->delete(route('permissions.destroy', $this->permission))->assertStatus(403);
 	}
 
 	/** @test **/
 	public function a_permission_can_be_created()
 	{
-		$this->signIn();
+		$admin = $this->createAdmin();
+
+		$this->signIn($admin);
 
 		$permission = make('Nova\Authorize\Permission');
 
@@ -54,7 +55,9 @@ class ManagePermissionsTests extends DatabaseTestCase
 	/** @test **/
 	public function a_permission_can_be_updated()
 	{
-		$this->signIn();
+		$admin = $this->createAdmin();
+
+		$this->signIn($admin);
 
 		$this->patch(
 			route('permissions.update',
@@ -68,22 +71,34 @@ class ManagePermissionsTests extends DatabaseTestCase
 	/** @test **/
 	public function a_permission_can_be_deleted()
 	{
-		$this->signIn();
+		$admin = $this->createAdmin();
 
-		create('Nova\Authorize\Permission', [], 2);
+		$this->signIn($admin);
+
+		$permission1 = create('Nova\Authorize\Permission');
+		$permission2 = create('Nova\Authorize\Permission');
 
 		$role1 = create('Nova\Authorize\Role');
 		$role2 = create('Nova\Authorize\Role');
 
-		$role1->permissions()->sync([1, 2, 3]);
-		$role2->permissions()->sync([1, 3]);
+		$role1->permissions()->sync([$permission1->id, $permission2->id, $this->permission->id]);
+		$role2->permissions()->sync([$permission2->id, $this->permission->id]);
 
 		$this->delete(route('permissions.destroy', [$this->permission]));
 
 		$this->assertDatabaseMissing('permissions', ['name' => $this->permission->name]);
 		$this->assertDatabaseMissing('permissions_roles', ['permission_id' => $this->permission->id]);
-		$this->assertDatabaseHas('permissions_roles', ['role_id' => $role1->id, 'permission_id' => 2]);
-		$this->assertDatabaseHas('permissions_roles', ['role_id' => $role1->id, 'permission_id' => 3]);
-		$this->assertDatabaseHas('permissions_roles', ['role_id' => $role2->id, 'permission_id' => 3]);
+		$this->assertDatabaseHas('permissions_roles', [
+			'role_id' => $role1->id,
+			'permission_id' => $permission1->id
+		]);
+		$this->assertDatabaseHas('permissions_roles', [
+			'role_id' => $role1->id,
+			'permission_id' => $permission2->id
+		]);
+		$this->assertDatabaseHas('permissions_roles', [
+			'role_id' => $role2->id,
+			'permission_id' => $permission2->id
+		]);
 	}
 }

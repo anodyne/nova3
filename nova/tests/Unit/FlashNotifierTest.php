@@ -1,8 +1,8 @@
 <?php namespace Tests\Unit;
 
-use Tests\TestCase;
+use Tests\DatabaseTestCase;
 
-class FlashNotifierTest extends TestCase
+class FlashNotifierTest extends DatabaseTestCase
 {
 	/** @test **/
 	public function it_sends_a_success_message()

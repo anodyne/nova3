@@ -1,9 +1,9 @@
 <?php namespace Tests\Unit;
 
-use Tests\TestCase;
+use Tests\DatabaseTestCase;
 use Nova\Foundation\TranslationFileLoader;
 
-class TranslationFileLoaderTest extends TestCase
+class TranslationFileLoaderTest extends DatabaseTestCase
 {
 	protected $loader;
 

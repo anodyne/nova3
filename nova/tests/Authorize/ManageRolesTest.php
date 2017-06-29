@@ -1,5 +1,6 @@
 <?php namespace Tests\Authorize;
 
+use Nova\Authorize\Role;
 use Tests\DatabaseTestCase;
 
 class ManageRolesTests extends DatabaseTestCase
@@ -25,67 +26,79 @@ class ManageRolesTests extends DatabaseTestCase
 		$this->patch(route('roles.update', $this->role))->assertRedirect(route('login'));
 		$this->delete(route('roles.destroy', $this->role))->assertRedirect(route('login'));
 
-		// $this->signIn();
+		$this->signIn();
 
-		// $this->get(route('roles.index'))->assertStatus(403);
-		// $this->get(route('roles.create'))->assertStatus(403);
-		// $this->post(route('roles.store'))->assertStatus(403);
-		// $this->get(route('roles.edit', $this->role))->assertStatus(403);
-		// $this->patch(route('roles.update', $this->role))->assertStatus(403);
-		// $this->patch(route('roles.restore', $this->role))->assertStatus(403);
-		// $this->delete(route('roles.destroy', $this->role))->assertStatus(403);
+		$this->get(route('roles.index'))->assertStatus(403);
+		$this->get(route('roles.create'))->assertStatus(403);
+		$this->post(route('roles.store'))->assertStatus(403);
+		$this->get(route('roles.edit', $this->role))->assertStatus(403);
+		$this->patch(route('roles.update', $this->role))->assertStatus(403);
+		$this->delete(route('roles.destroy', $this->role))->assertStatus(403);
 	}
 
 	/** @test **/
 	public function a_role_can_be_created()
 	{
-		$this->signIn();
+		$admin = $this->createAdmin();
 
-		create('Nova\Authorize\Permission', [], 5);
+		$this->signIn($admin);
+
+		$permission = create('Nova\Authorize\Permission');
 
 		$role = make('Nova\Authorize\Role');
 
 		$this->post(
 			route('roles.store'),
-			array_merge($role->toArray(), ['permissions' => [6, 7, 11]])
+			array_merge($role->toArray(), ['permissions' => [$permission->id]])
 		);
 
+		$createdRole = Role::orderByDesc('id')->first();
+
 		$this->assertDatabaseHas('roles', ['name' => $role->name]);
-		$this->assertDatabaseHas('permissions_roles', ['role_id' => 3, 'permission_id' => 6]);
-		$this->assertDatabaseHas('permissions_roles', ['role_id' => 3, 'permission_id' => 7]);
-		$this->assertDatabaseHas('permissions_roles', ['role_id' => 3, 'permission_id' => 11]);
+		$this->assertDatabaseHas('permissions_roles', [
+			'role_id' => $createdRole->id,
+			'permission_id' => $permission->id
+		]);
 	}
 
 	/** @test **/
 	public function a_role_can_be_updated()
 	{
-		$this->signIn();
+		$admin = $this->createAdmin();
 
-		create('Nova\Authorize\Permission', [], 5);
+		$this->signIn($admin);
 
-		$this->role->permissions()->sync([6, 7, 11]);
+		$permission1 = create('Nova\Authorize\Permission');
+		$permission2 = create('Nova\Authorize\Permission');
+
+		$this->role->permissions()->sync([$permission1->id]);
 
 		$this->patch(
 			route('roles.update', [$this->role]),
-			['name' => 'New Name', 'permissions' => [8, 9]]
+			['name' => 'New Name', 'permissions' => [$permission2->id]]
 		);
 
 		$this->assertDatabaseHas('roles', ['name' => 'New Name']);
-		$this->assertDatabaseMissing('permissions_roles', ['role_id' => 2, 'permission_id' => 6]);
-		$this->assertDatabaseMissing('permissions_roles', ['role_id' => 2, 'permission_id' => 7]);
-		$this->assertDatabaseMissing('permissions_roles', ['role_id' => 2, 'permission_id' => 11]);
-		$this->assertDatabaseHas('permissions_roles', ['role_id' => 2, 'permission_id' => 8]);
-		$this->assertDatabaseHas('permissions_roles', ['role_id' => 2, 'permission_id' => 9]);
+		$this->assertDatabaseMissing('permissions_roles', [
+			'role_id' => $this->role->id,
+			'permission_id' => $permission1->id
+		]);
+		$this->assertDatabaseHas('permissions_roles', [
+			'role_id' => $this->role->id,
+			'permission_id' => $permission2->id
+		]);
 	}
 
 	/** @test **/
 	public function a_role_can_be_deleted()
 	{
-		$this->signIn();
+		$admin = $this->createAdmin();
 
-		create('Nova\Authorize\Permission', [], 5);
+		$this->signIn($admin);
 
-		$this->role->permissions()->sync([1, 2, 5]);
+		$permission = create('Nova\Authorize\Permission');
+
+		$this->role->permissions()->sync([$permission->id]);
 
 		$this->delete(route('roles.destroy', [$this->role]));
 
