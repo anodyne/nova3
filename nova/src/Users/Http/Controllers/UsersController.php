@@ -2,7 +2,6 @@
 
 use Nova\Users\User;
 use Nova\Authorize\Role;
-use Nova\Users\UserCreator;
 use Illuminate\Http\Request;
 use Nova\Users\UserRepository;
 use Nova\Foundation\Http\Controllers\Controller;
