@@ -11,11 +11,7 @@ class AuthServiceProvider extends ServiceProvider
 	 *
 	 * @var array
 	 */
-	protected $policies = [
-		'Nova\Authorize\Role' => 'Nova\Authorize\Policies\RolePolicy',
-		'Nova\Authorize\Permission' => 'Nova\Authorize\Policies\PermissionPolicy',
-		'Nova\Users\User' => 'Nova\Users\Policies\UserPolicy',
-	];
+	protected $policies = [];
 
 	/**
 	 * Register any authentication / authorization services.
@@ -24,6 +20,8 @@ class AuthServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
+		$this->policies = config('maps.policies');
+
 		$this->registerPolicies();
 
 		if (app()->environment() != 'testing') {
