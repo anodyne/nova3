@@ -20,6 +20,13 @@ if (! function_exists('alias')) {
 	}
 }
 
+if (! function_exists('creator')) {
+	function creator($model)
+	{
+		return app(config('maps.creators')[$model]);
+	}
+}
+
 if (! function_exists('d')) {
 	function d()
 	{
@@ -40,5 +47,12 @@ if (! function_exists('icon')) {
 	function icon($icon, $additional = false)
 	{
 		return app('nova.theme')->renderIcon($icon, $additional);
+	}
+}
+
+if (! function_exists('updater')) {
+	function updater($model)
+	{
+		return app(config('maps.updaters')[$model]);
 	}
 }
