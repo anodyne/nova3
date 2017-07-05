@@ -1,6 +1,5 @@
 <?php namespace Nova\Foundation\Providers;
 
-use Nova\Users\UserCreator;
 use Illuminate\Support\ServiceProvider;
 
 class DeferredServiceProvider extends ServiceProvider
@@ -12,12 +11,23 @@ class DeferredServiceProvider extends ServiceProvider
 		$this->app->singleton('nova.flash', function ($app) {
 			return new \Nova\Foundation\FlashNotifier($app['session']);
 		});
+
+		$this->creators();
+	}
+
+	protected function creators()
+	{
+		$this->app->bind(\Nova\Users\UserCreator::class, function ($app) {
+			return new \Nova\Users\UserCreator($app['UserRepository']);
+		});
 	}
 
 	public function provides()
 	{
 		return [
-			'nova.flash'
+			'nova.flash',
+
+			\Nova\Users\UserCreator::class,
 		];
 	}
 }
