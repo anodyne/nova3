@@ -65,20 +65,8 @@ class AppServiceProvider extends ServiceProvider
 
 	protected function registerRepositoryBindings()
 	{
-		// Build a list of repositories that should be built
-		$bindings = collect([
-			'User',
-		]);
-
-		$bindings->each(function ($binding) {
-			// Set the abstract and concrete names
-			$abstract = "{$binding}RepositoryContract";
-			$abstractFQN = alias($abstract);
-			$concrete = alias("{$binding}Repository");
-
-			// Bind to the container and set the alias
-			app()->bind($abstractFQN, $concrete);
-			app()->alias($abstractFQN, $abstract);
+		collect(config('maps.repositories'))->each(function ($repo, $contract) {
+			app()->bind($contract, $repo);
 		});
 	}
 }
