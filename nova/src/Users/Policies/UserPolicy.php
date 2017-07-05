@@ -29,6 +29,11 @@ class UserPolicy
 		return $user->can('user.update');
 	}
 
+	public function updateProfile(User $user, User $actionUser)
+	{
+		return (int) $user->id === (int) $actionUser->id;
+	}
+
 	public function delete(User $user, User $actionUser)
 	{
 		return $user->can('user.delete');

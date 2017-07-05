@@ -63,6 +63,12 @@
 							</button>
 							<div class="dropdown-menu dropdown-menu-right"
 								 aria-labelledby="dropdownMenuButton">
+								<a :href="'/admin/users/' + user.id + '/show'" class="dropdown-item">{!! icon('user') !!} Profile</a>
+
+								@can('manage', $userClass)
+									<div class="dropdown-divider"></div>
+								@endcan
+								
 								@can('update', $userClass)
 									<a :href="'/admin/users/' + user.id + '/edit'" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
 								@endcan

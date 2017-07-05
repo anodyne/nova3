@@ -74,7 +74,15 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
 		// Update the resource
 		$resource->restore();
 
-		// Fire an event that the user was updated by an admin
+		// Generate a new password for the user
+		$password = Str::random(12);
+
+		// Update the password for the user
+		$this->update($resource, ['password' => $password]);
+
+		// Fire events for a new password and the user being restored by an admin
+		event(new Events\UserWasRestoredByAdmin($resource));
+		event(new Events\PasswordWasGenerated($resource, $password));
 
 		return $resource;
 	}

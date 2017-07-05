@@ -90,5 +90,6 @@
 	"user-validation-email-unique": "That email address is already in use",
 	"user-validation-password-required": "Please enter a password",
 	"user-validation-password-confirmed": "The password confirmation doesn't match",
-	"user-validation-password-min": "Passwords must be at least 6 characters"
+	"user-validation-password-min": "Passwords must be at least 6 characters",
+	"user-profile-update": "Update My Profile"
 }
