@@ -32,9 +32,10 @@ app('router')->bind('user', function ($value) {
 	return Nova\Users\User::withTrashed()->where('id', $value)->first();
 });
 
-Route::resource('admin/users', 'Nova\Users\Http\Controllers\UsersController');
 Route::patch('admin/users/{user}/restore', 'Nova\Users\Http\Controllers\UsersController@restore')
 	->name('users.restore');
+Route::resource('admin/users', 'Nova\Users\Http\Controllers\UsersController');
+
 Route::resource('profile', 'Nova\Users\Http\Controllers\ProfilesController', [
 	'only' => ['show', 'edit', 'update'],
 	'parameters' => ['profile' => 'user'],
