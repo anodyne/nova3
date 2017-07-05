@@ -6,7 +6,7 @@ use Nova\Users\User;
 use Tests\DatabaseTestCase;
 use Nova\Users\Mail\SendNewPassword;
 
-class ManageUsersTests extends DatabaseTestCase
+class ManageUsersTest extends DatabaseTestCase
 {
 	protected $user;
 
