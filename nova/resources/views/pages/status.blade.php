@@ -25,7 +25,7 @@
 		</div>
 	</div>
 
-	<div class="card card-outline-success">
+	<div class="card card-success card-inverse">
 		<div class="card-block">
 			<h3 class="d-flex align-items-center justify-content-start">
 				<span class="mr-auto">Manage Permissions</span>
@@ -37,16 +37,15 @@
 				<li>Update permission</li>
 				<li>Delete permission
 					<ul>
-						<li>When a permission is deleted, any roles with that permission are updated as well</li>
+						<li>When a permission is deleted, any roles with that permission are updated</li>
 					</ul>
 				</li>
 				<li>Authorize access to permission management</li>
-				<li class="text-warning">Better handling of permission validation</li>
 			</ul>
 		</div>
 	</div>
 
-	<div class="card card-outline-success">
+	<div class="card card-success card-inverse">
 		<div class="card-block">
 			<h3 class="d-flex align-items-center justify-content-start">
 				<span class="mr-auto">Manage Roles</span>
@@ -62,7 +61,6 @@
 					</ul>
 				</li>
 				<li>Authorize access to role management</li>
-				<li class="text-warning">Better handling of role validation</li>
 			</ul>
 		</div>
 	</div>
