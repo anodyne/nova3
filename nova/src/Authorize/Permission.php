@@ -15,15 +15,4 @@ class Permission extends Eloquent
 	{
 		return $this->belongsToMany(Role::class, 'permissions_roles');
 	}
-
-	//--------------------------------------------------------------------------
-	// Model Methods
-	//--------------------------------------------------------------------------
-
-	public function delete()
-	{
-		$this->roles()->sync([]);
-
-		parent::delete();
-	}
 }

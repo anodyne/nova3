@@ -1,15 +1,19 @@
 <?php namespace Nova\Authorize\Http\Controllers;
 
 use Nova\Authorize\Role;
-use Illuminate\Http\Request;
 use Nova\Authorize\Permission;
 use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Authorize\Repositories\PermissionRepositoryContract;
 
 class PermissionsController extends Controller
 {
-	public function __construct()
+	protected $repo;
+
+	public function __construct(PermissionRepositoryContract $repo)
 	{
 		parent::__construct();
+
+		$this->repo = $repo;
 
 		$this->middleware('auth');
 	}
@@ -21,7 +25,7 @@ class PermissionsController extends Controller
 
 		$this->authorize('manage', $permissionClass);
 
-		$permissions = Permission::get();
+		$permissions = $this->repo->all();
 
 		return view('pages.authorize.all-permissions', compact('permissions', 'roleClass', 'permissionClass'));
 	}
@@ -33,11 +37,11 @@ class PermissionsController extends Controller
 		return view('pages.authorize.create-permission');
 	}
 
-	public function store(Request $request)
+	public function store()
 	{
 		$this->authorize('create', new Permission);
 
-		$this->validate($request, [
+		$this->validate(request(), [
 			'name' => 'required',
 			'key' => 'required'
 		], [
@@ -45,7 +49,7 @@ class PermissionsController extends Controller
 			'key.required' => _m('authorize-permission-validation-key')
 		]);
 
-		Permission::create($request->all());
+		creator(Permission::class)->data(request()->all())->create();
 
 		flash()->success(
 			_m('authorize-permission-flash-added-title'),
@@ -62,11 +66,11 @@ class PermissionsController extends Controller
 		return view('pages.authorize.update-permission', compact('permission'));
 	}
 
-	public function update(Request $request, Permission $permission)
+	public function update(Permission $permission)
 	{
 		$this->authorize('update', $permission);
 
-		$this->validate($request, [
+		$this->validate(request(), [
 			'name' => 'required',
 			'key' => 'required'
 		], [
@@ -74,7 +78,7 @@ class PermissionsController extends Controller
 			'key.required' => _m('authorize-permission-validation-key')
 		]);
 
-		$permission->update($request->all());
+		updater(Permission::class)->data(request()->all())->update($permission);
 
 		flash()->success(
 			_m('authorize-permission-flash-updated-title'),
@@ -88,7 +92,7 @@ class PermissionsController extends Controller
 	{
 		$this->authorize('delete', $permission);
 
-		$permission->delete();
+		$this->repo->delete($permission);
 
 		flash()->success(
 			_m('authorize-permission-flash-deleted-title'),

@@ -1,6 +1,7 @@
 <?php namespace Nova\Authorize;
 
 use Eloquent;
+use Nova\Users\User;
 use Laracasts\Presenter\PresentableTrait;
 
 class Role extends Eloquent
@@ -29,43 +30,21 @@ class Role extends Eloquent
 	// Model Methods
 	//--------------------------------------------------------------------------
 
-	public static function create(array $attributes)
-	{
-		$role = (new static)->newQuery()->create($attributes);
-
-		if (array_key_exists('permissions', $attributes)) {
-			$role->permissions()->sync($attributes['permissions']);
-		}
-
-		return $role;
-	}
-
 	public function scopeName($query, $roleName)
 	{
 		return $query->where('name', $roleName);
 	}
 
-	public function delete()
+	public function updatePermissions(array $data)
 	{
-		$this->permissions()->sync([]);
-
-		parent::delete();
-	}
-
-	public function update(array $attributes = [], array $options = [])
-	{
-		parent::update($attributes);
-
-		if (array_key_exists('permissions', $attributes)) {
-			$this->updatePermissions($attributes['permissions']);
-		}
+		$this->permissions()->sync($data);
 
 		return $this;
 	}
 
-	public function updatePermissions(array $data)
+	public function removePermissions()
 	{
-		$this->permissions()->sync($data);
+		$this->updatePermissions([]);
 
 		return $this;
 	}

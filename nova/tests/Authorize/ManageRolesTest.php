@@ -3,7 +3,7 @@
 use Nova\Authorize\Role;
 use Tests\DatabaseTestCase;
 
-class ManageRolesTests extends DatabaseTestCase
+class ManageRolesTest extends DatabaseTestCase
 {
 	protected $role;
 
@@ -75,10 +75,10 @@ class ManageRolesTests extends DatabaseTestCase
 
 		$this->patch(
 			route('roles.update', [$this->role]),
-			['name' => 'New Name', 'permissions' => [$permission2->id]]
+			['name' => "New Name", 'permissions' => [$permission2->id]]
 		);
 
-		$this->assertDatabaseHas('roles', ['name' => 'New Name']);
+		$this->assertDatabaseHas('roles', ['name' => "New Name"]);
 		$this->assertDatabaseMissing('permissions_roles', [
 			'role_id' => $this->role->id,
 			'permission_id' => $permission1->id

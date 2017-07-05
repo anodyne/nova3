@@ -2,7 +2,7 @@
 
 use Tests\DatabaseTestCase;
 
-class ManagePermissionsTests extends DatabaseTestCase
+class ManagePermissionsTest extends DatabaseTestCase
 {
 	protected $permission;
 
@@ -60,12 +60,11 @@ class ManagePermissionsTests extends DatabaseTestCase
 		$this->signIn($admin);
 
 		$this->patch(
-			route('permissions.update',
-			[$this->permission]),
-			['name' => 'New Name', 'key' => $this->permission->key]
+			route('permissions.update', [$this->permission]),
+			['name' => "New Name", 'key' => $this->permission->key]
 		);
 
-		$this->assertDatabaseHas('permissions', ['name' => 'New Name']);
+		$this->assertDatabaseHas('permissions', ['name' => "New Name"]);
 	}
 
 	/** @test **/

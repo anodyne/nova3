@@ -1,15 +1,19 @@
 <?php namespace Nova\Authorize\Http\Controllers;
 
 use Nova\Authorize\Role;
-use Illuminate\Http\Request;
 use Nova\Authorize\Permission;
 use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Authorize\Repositories\RoleRepositoryContract;
 
 class RolesController extends Controller
 {
-	public function __construct()
+	protected $repo;
+
+	public function __construct(RoleRepositoryContract $repo)
 	{
 		parent::__construct();
+
+		$this->repo = $repo;
 
 		$this->middleware('auth');
 	}
@@ -35,17 +39,17 @@ class RolesController extends Controller
 		return view('pages.authorize.create-role', compact('permissions'));
 	}
 
-	public function store(Request $request)
+	public function store()
 	{
 		$this->authorize('create', new Role);
 
-		$this->validate($request, [
+		$this->validate(request(), [
 			'name' => 'required'
 		], [
 			'name.required' => _m('authorize-role-validation-name')
 		]);
 
-		Role::create($request->all());
+		creator(Role::class)->data(request()->all())->create();
 
 		flash()->success(
 			_m('authorize-role-flash-added-title'),
@@ -66,17 +70,17 @@ class RolesController extends Controller
 		return view('pages.authorize.update-role', compact('role', 'permissions'));
 	}
 
-	public function update(Request $request, Role $role)
+	public function update(Role $role)
 	{
 		$this->authorize('update', $role);
 
-		$this->validate($request, [
+		$this->validate(request(), [
 			'name' => 'required'
 		], [
 			'name.required' => _m('authorize-role-validation-name')
 		]);
 
-		$role->update($request->all());
+		updater(Role::class)->data(request()->all())->update($role);
 
 		flash()->success(
 			_m('authorize-role-flash-updated-title'),
@@ -90,7 +94,7 @@ class RolesController extends Controller
 	{
 		$this->authorize('delete', $role);
 
-		$role->delete();
+		$this->repo->delete($role);
 
 		flash()->success(
 			_m('authorize-role-flash-deleted-title'),
