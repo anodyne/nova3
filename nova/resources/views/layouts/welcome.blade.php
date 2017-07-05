@@ -120,7 +120,7 @@
 	</style>
 </head>
 <body>
-	<div id="app" class="flex-center position-ref">
+	<div id="app" class="flex-center position-ref {{ Request::is('/') ? 'full-height' : '' }}">
 		@if (Route::has('login'))
 			<div class="top-right links">
 				@if (Auth::check())
