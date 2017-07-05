@@ -9,22 +9,28 @@
 		 processIsolation="false"
 		 stopOnFailure="false">
 	<testsuites>
-		<testsuite name="Nova Test Suite">
-            <directory suffix="Test.php">./nova/tests</directory>
-        </testsuite>
-		
-		<!-- <testsuite name="Feature">
-			<directory suffix="Test.php">./nova/tests/Feature</directory>
+		<testsuite name="nova-all">
+			<directory suffix="Test.php">./nova/tests</directory>
 		</testsuite>
-
-		<testsuite name="Unit">
+		<testsuite name="nova-auth">
+			<directory suffix="Test.php">./nova/tests/Auth</directory>
+		</testsuite>
+		<testsuite name="nova-authorize">
+			<directory suffix="Test.php">./nova/tests/Authorize</directory>
+		</testsuite>
+		<testsuite name="nova-unit">
 			<directory suffix="Test.php">./nova/tests/Unit</directory>
-		</testsuite> -->
+		</testsuite>
+		<testsuite name="nova-users">
+			<directory suffix="Test.php">./nova/tests/Users</directory>
+		</testsuite>
 	</testsuites>
 	<filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">
 			<directory suffix=".php">./nova/src/Auth</directory>
+			<directory suffix=".php">./nova/src/Authorize</directory>
 			<directory suffix=".php">./nova/src/Foundation</directory>
+			<directory suffix=".php">./nova/src/Users</directory>
 		</whitelist>
 	</filter>
 	<php>
