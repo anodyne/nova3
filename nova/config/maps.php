@@ -13,6 +13,12 @@ return [
 		Nova\Users\User::class => Nova\Users\Data\UserDeletor::class,
 	],
 
+	'events' => [
+		Nova\Users\Events\PasswordWasGenerated::class => [
+			Nova\Users\Listeners\SendPasswordToUser::class
+		]
+	],
+
 	'policies' => [
 		Nova\Authorize\Permission::class => Nova\Authorize\Policies\PermissionPolicy::class,
 		Nova\Authorize\Role::class => Nova\Authorize\Policies\RolePolicy::class,

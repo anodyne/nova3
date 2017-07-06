@@ -10,11 +10,7 @@ class EventServiceProvider extends ServiceProvider
 	 *
 	 * @var array
 	 */
-	protected $listen = [
-		'Nova\Users\Events\PasswordWasGenerated' => [
-			'Nova\Users\Listeners\SendPasswordToUser',
-		],
-	];
+	protected $listen = [];
 
 	/**
 	 * Register any events for your application.
@@ -25,6 +21,6 @@ class EventServiceProvider extends ServiceProvider
 	{
 		parent::boot();
 
-		//
+		$this->listen = config('maps.events');
 	}
 }
