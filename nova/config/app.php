@@ -228,14 +228,14 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Controller' => Nova\Foundation\Http\Controllers\Controller::class,
         'Date' => Carbon\Carbon::class,
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
+        'Status' => Nova\Foundation\Status::class,
         'Str' => Illuminate\Support\Str::class,
 
         'User' => Nova\Users\User::class,
-        'UserRepository' => Nova\Users\UserRepository::class,
-        'UserRepositoryContract' => Nova\Users\UserRepositoryContract::class,
 
     ],
 
