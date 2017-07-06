@@ -14,7 +14,7 @@ class User extends Authenticatable
 	use Notifiable, SoftDeletes, PresentableTrait;
 
 	protected $table = 'users';
-	protected $fillable = ['name', 'email', 'password', 'nickname'];
+	protected $fillable = ['name', 'email', 'password', 'nickname', 'status'];
 	protected $hidden = ['password', 'remember_token'];
 	protected $appends = ['displayName'];
 	protected $presenter = Presenters\UserPresenter::class;
