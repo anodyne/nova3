@@ -11,23 +11,12 @@ class DeferredServiceProvider extends ServiceProvider
 		$this->app->singleton('nova.flash', function ($app) {
 			return new \Nova\Foundation\FlashNotifier($app['session']);
 		});
-
-		$this->creators();
-	}
-
-	protected function creators()
-	{
-		$this->app->bind(\Nova\Users\UserCreator::class, function ($app) {
-			return new \Nova\Users\UserCreator($app['UserRepository']);
-		});
 	}
 
 	public function provides()
 	{
 		return [
-			'nova.flash',
-
-			\Nova\Users\UserCreator::class,
+			'nova.flash'
 		];
 	}
 }
