@@ -49,7 +49,7 @@
 						@else
 							<div class="nav-item dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-									{!! icon('user', 'mr-1') !!} {{ Auth::user()->present()->name }} <span class="caret"></span>
+									{!! icon('user', 'mr-1') !!} {{ $_user->present()->name }} <span class="caret"></span>
 								</a>
 
 								<div class="dropdown-menu dropdown-menu-right">
