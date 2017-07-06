@@ -1,9 +1,9 @@
 <?php namespace Nova\Auth\Http\Controllers;
 
+use Controller;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use Nova\Foundation\Http\Controllers\Controller;
 
 class ResetPasswordController extends Controller
 {

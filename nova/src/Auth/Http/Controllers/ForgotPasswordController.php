@@ -1,8 +1,8 @@
 <?php namespace Nova\Auth\Http\Controllers;
 
+use Controller;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\PasswordBroker;
-use Nova\Foundation\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller

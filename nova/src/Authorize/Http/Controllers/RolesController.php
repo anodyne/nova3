@@ -1,8 +1,8 @@
 <?php namespace Nova\Authorize\Http\Controllers;
 
+use Controller;
 use Nova\Authorize\Role;
 use Nova\Authorize\Permission;
-use Nova\Foundation\Http\Controllers\Controller;
 
 class RolesController extends Controller
 {

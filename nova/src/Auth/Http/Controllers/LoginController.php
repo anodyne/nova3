@@ -1,7 +1,7 @@
 <?php namespace Nova\Auth\Http\Controllers;
 
+use Controller;
 use Illuminate\Http\Request;
-use Nova\Foundation\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
