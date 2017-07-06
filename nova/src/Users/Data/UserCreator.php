@@ -1,31 +1,33 @@
-<?php namespace Nova\Users;
+<?php namespace Nova\Users\Data;
 
 use Str;
-use Status;
-use Nova\Foundation\Creator;
-use Nova\Users\UserRepositoryContract as Repository;
+use Nova\Users\User;
+use Nova\Foundation\Data\BindsData;
+use Nova\Foundation\Data\Creatable;
 
-class UserCreator extends Creator
+class UserCreator implements Creatable
 {
-	protected $password;
-	protected $adminCreated = false;
-	protected $passwordWasGenerated = false;
+	use BindsData;
 
-	public function __construct(Repository $repo)
-	{
-		$this->repo = $repo;
-	}
+	protected $user;
+	protected $password;
+	protected $passwordWasGenerated = false;
+	protected $adminCreated = false;
 
 	public function create()
 	{
 		// Make sure we set a pending status on the user
-		// $this->data(['status' => Status::PENDING]);
+		if (! $this->adminCreated) {
+			// $this->data(['status' => Status::PENDING]);
+		}
 
 		// Create the user
-		$this->item = $this->repo->create($this->data);
+		$user = $this->user = User::create($this->data);
 
 		// Attach the role(s)
-		$this->attachRoles();
+		if (array_key_exists('roles', $this->data)) {
+			$user->roles()->attach($this->data['roles']);
+		}
 
 		// Fire any events we need to
 		$this->fireEvents();
@@ -34,38 +36,34 @@ class UserCreator extends Creator
 		$this->password = null;
 		$this->passwordWasGenerated = false;
 
-		return $this->item;
+		return $user;
 	}
 
 	public function adminCreate()
 	{
+		// Set the adminCreated flag
 		$this->adminCreated = true;
 
-		$this->create();
+		// Generate a password then create the user
+		$this->generatePassword()->create();
 
-		return $this->item;
+		return $this->user;
 	}
 
 	public function generatePassword()
 	{
-		if (! array_key_exists('password', $this->data)) {
+		if ($this->adminCreated or ! array_key_exists('password', $this->data)) {
+			// Generate a password
 			$this->password = Str::random(12);
+
+			// Set the flag that we generated a password
 			$this->passwordWasGenerated = true;
 		}
 
 		return $this;
 	}
 
-	public function attachRoles()
-	{
-		if (array_key_exists('roles', $this->data)) {
-			$this->user->roles()->attach($this->data['roles']);
-		}
-
-		return $this;
-	}
-
-	public function fireEvents()
+	protected function fireEvents()
 	{
 		// Notify the user of their password
 		if ($this->passwordWasGenerated) {

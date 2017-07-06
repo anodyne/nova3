@@ -11,7 +11,7 @@ class AppServiceProvider extends ServiceProvider
 
 		$this->registerTheme();
 		$this->registerTranslator();
-		$this->registerRepositoryBindings();
+		// $this->registerRepositoryBindings();
 	}
 
 	public function register()

@@ -2,21 +2,15 @@
 
 use Nova\Users\User;
 use Nova\Authorize\Role;
-use Illuminate\Http\Request;
-use Nova\Users\UserRepository;
 use Nova\Foundation\Http\Controllers\Controller;
 
 class UsersController extends Controller
 {
-	protected $usersRepo;
-
-	public function __construct(UserRepository $usersRepo)
+	public function __construct()
 	{
 		parent::__construct();
 
 		$this->middleware('auth');
-
-		$this->usersRepo = $usersRepo;
 	}
 
 	public function index()
@@ -25,7 +19,7 @@ class UsersController extends Controller
 
 		$this->authorize('manage', $userClass);
 
-		$users = $this->usersRepo->all([], true);
+		$users = User::withTrashed()->get();
 
 		return view('pages.users.all-users', compact('users', 'userClass'));
 	}
@@ -39,11 +33,11 @@ class UsersController extends Controller
 		return view('pages.users.create-user', compact('roles'));
 	}
 
-	public function store(Request $request)
+	public function store()
 	{
 		$this->authorize('create', new User);
 
-		$this->validate($request, [
+		$this->validate(request(), [
 			'name' => 'required',
 			'email' => 'required|email|unique:users'
 		], [
@@ -53,7 +47,7 @@ class UsersController extends Controller
 			'email.unique' => _m('user-validation-email-unique')
 		]);
 
-		$this->usersRepo->create($request->all());
+		creator(User::class)->with(request()->all())->create();
 
 		flash()->success(
 			_m('user-flash-added-title'),
@@ -72,11 +66,11 @@ class UsersController extends Controller
 		return view('pages.users.update-user', compact('user', 'roles'));
 	}
 
-	public function update(Request $request, User $user)
+	public function update(User $user)
 	{
 		$this->authorize('update', $user);
 
-		$this->validate($request, [
+		$this->validate(request(), [
 			'name' => 'required',
 			'email' => 'required|email'
 		], [
@@ -85,7 +79,7 @@ class UsersController extends Controller
 			'email.email' => _m('user-validation-email-email')
 		]);
 
-		$this->usersRepo->update($user, $request->all());
+		updater(User::class)->with(request()->all())->update($user);
 
 		flash()->success(
 			_m('user-flash-updated-title'),
@@ -99,7 +93,7 @@ class UsersController extends Controller
 	{
 		$this->authorize('delete', $user);
 
-		$this->usersRepo->delete($user);
+		deletor(User::class)->delete($user);
 
 		flash()->success(
 			_m('user-flash-deleted-title'),
@@ -113,7 +107,7 @@ class UsersController extends Controller
 	{
 		$this->authorize('update', $user);
 
-		$this->usersRepo->restore($user);
+		restorer(User::class)->restore($user);
 
 		flash()->success(
 			_m('user-flash-restored-title'),

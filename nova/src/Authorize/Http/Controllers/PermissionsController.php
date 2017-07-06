@@ -3,17 +3,12 @@
 use Nova\Authorize\Role;
 use Nova\Authorize\Permission;
 use Nova\Foundation\Http\Controllers\Controller;
-use Nova\Authorize\Repositories\PermissionRepositoryContract;
 
 class PermissionsController extends Controller
 {
-	protected $repo;
-
-	public function __construct(PermissionRepositoryContract $repo)
+	public function __construct()
 	{
 		parent::__construct();
-
-		$this->repo = $repo;
 
 		$this->middleware('auth');
 	}
@@ -25,7 +20,7 @@ class PermissionsController extends Controller
 
 		$this->authorize('manage', $permissionClass);
 
-		$permissions = $this->repo->all();
+		$permissions = Permission::get();
 
 		return view('pages.authorize.all-permissions', compact('permissions', 'roleClass', 'permissionClass'));
 	}
@@ -49,7 +44,7 @@ class PermissionsController extends Controller
 			'key.required' => _m('authorize-permission-validation-key')
 		]);
 
-		creator(Permission::class)->data(request()->all())->create();
+		creator(Permission::class)->with(request()->all())->create();
 
 		flash()->success(
 			_m('authorize-permission-flash-added-title'),
@@ -78,7 +73,7 @@ class PermissionsController extends Controller
 			'key.required' => _m('authorize-permission-validation-key')
 		]);
 
-		updater(Permission::class)->data(request()->all())->update($permission);
+		updater(Permission::class)->with(request()->all())->update($permission);
 
 		flash()->success(
 			_m('authorize-permission-flash-updated-title'),
@@ -92,7 +87,7 @@ class PermissionsController extends Controller
 	{
 		$this->authorize('delete', $permission);
 
-		$this->repo->delete($permission);
+		deletor(Permission::class)->delete($permission);
 
 		flash()->success(
 			_m('authorize-permission-flash-deleted-title'),

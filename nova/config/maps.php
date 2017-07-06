@@ -2,9 +2,15 @@
 
 return [
 	'creators' => [
-		Nova\Authorize\Permission::class => Nova\Authorize\PermissionCreator::class,
-		Nova\Authorize\Role::class => Nova\Authorize\RoleCreator::class,
-		Nova\Users\User::class => Nova\Users\UserCreator::class,
+		Nova\Authorize\Permission::class => Nova\Authorize\Data\PermissionCreator::class,
+		Nova\Authorize\Role::class => Nova\Authorize\Data\RoleCreator::class,
+		Nova\Users\User::class => Nova\Users\Data\UserCreator::class,
+	],
+
+	'deletors' => [
+		Nova\Authorize\Permission::class => Nova\Authorize\Data\PermissionDeletor::class,
+		Nova\Authorize\Role::class => Nova\Authorize\Data\RoleDeletor::class,
+		Nova\Users\User::class => Nova\Users\Data\UserDeletor::class,
 	],
 
 	'policies' => [
@@ -13,15 +19,13 @@ return [
 		Nova\Users\User::class => Nova\Users\Policies\UserPolicy::class,
 	],
 
-	'repositories' => [
-		Nova\Authorize\Repositories\PermissionRepositoryContract::class => Nova\Authorize\Repositories\PermissionRepository::class,
-		Nova\Authorize\Repositories\RoleRepositoryContract::class => Nova\Authorize\Repositories\RoleRepository::class,
-		Nova\Users\UserRepositoryContract::class => Nova\Users\UserRepository::class,
+	'restorers' => [
+		Nova\Users\User::class => Nova\Users\Data\UserRestorer::class,
 	],
 
 	'updaters' => [
-		Nova\Authorize\Permission::class => Nova\Authorize\PermissionUpdater::class,
-		Nova\Authorize\Role::class => Nova\Authorize\RoleUpdater::class,
-		Nova\Users\User::class => Nova\Users\UserUpdater::class,
+		Nova\Authorize\Permission::class => Nova\Authorize\Data\PermissionUpdater::class,
+		Nova\Authorize\Role::class => Nova\Authorize\Data\RoleUpdater::class,
+		Nova\Users\User::class => Nova\Users\Data\UserUpdater::class,
 	],
 ];

@@ -3,17 +3,12 @@
 use Nova\Authorize\Role;
 use Nova\Authorize\Permission;
 use Nova\Foundation\Http\Controllers\Controller;
-use Nova\Authorize\Repositories\RoleRepositoryContract;
 
 class RolesController extends Controller
 {
-	protected $repo;
-
-	public function __construct(RoleRepositoryContract $repo)
+	public function __construct()
 	{
 		parent::__construct();
-
-		$this->repo = $repo;
 
 		$this->middleware('auth');
 	}
@@ -49,7 +44,7 @@ class RolesController extends Controller
 			'name.required' => _m('authorize-role-validation-name')
 		]);
 
-		creator(Role::class)->data(request()->all())->create();
+		creator(Role::class)->with(request()->all())->create();
 
 		flash()->success(
 			_m('authorize-role-flash-added-title'),
@@ -80,7 +75,7 @@ class RolesController extends Controller
 			'name.required' => _m('authorize-role-validation-name')
 		]);
 
-		updater(Role::class)->data(request()->all())->update($role);
+		updater(Role::class)->with(request()->all())->update($role);
 
 		flash()->success(
 			_m('authorize-role-flash-updated-title'),
@@ -94,7 +89,7 @@ class RolesController extends Controller
 	{
 		$this->authorize('delete', $role);
 
-		$this->repo->delete($role);
+		deletor(Role::class)->delete($role);
 
 		flash()->success(
 			_m('authorize-role-flash-deleted-title'),
