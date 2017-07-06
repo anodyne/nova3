@@ -1,9 +1,9 @@
 <?php namespace Nova\Users\Http\Controllers;
 
+use Controller;
 use Nova\Users\User;
 use Illuminate\Http\Request;
 use Nova\Users\UserRepository;
-use Nova\Foundation\Http\Controllers\Controller;
 
 class ProfilesController extends Controller
 {
@@ -32,11 +32,11 @@ class ProfilesController extends Controller
 		return view('pages.users.update-profile', compact('user'));
 	}
 
-	public function update(Request $request, User $user)
+	public function update(User $user)
 	{
 		$this->authorize('updateProfile', $user);
 
-		$this->validate($request, [
+		$this->validate(request(), [
 			'name' => 'required',
 			'email' => 'required|email'
 		], [
@@ -45,7 +45,7 @@ class ProfilesController extends Controller
 			'email.email' => _m('user-validation-email-email')
 		]);
 
-		$this->usersRepo->update($user, $request->all());
+		updater(User::class)->with(request()->all())->update($user);
 
 		flash()->success(
 			_m('user-flash-updated-title'),

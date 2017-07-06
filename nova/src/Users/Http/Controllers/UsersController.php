@@ -1,8 +1,8 @@
 <?php namespace Nova\Users\Http\Controllers;
 
+use Controller;
 use Nova\Users\User;
 use Nova\Authorize\Role;
-use Nova\Foundation\Http\Controllers\Controller;
 
 class UsersController extends Controller
 {
@@ -47,7 +47,7 @@ class UsersController extends Controller
 			'email.unique' => _m('user-validation-email-unique')
 		]);
 
-		creator(User::class)->with(request()->all())->create();
+		creator(User::class)->with(request()->all())->adminCreate();
 
 		flash()->success(
 			_m('user-flash-added-title'),
