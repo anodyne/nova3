@@ -44,7 +44,7 @@
 					
 					<div class="navbar-nav">
 						@if (Auth::guest())
-							<a class="nav-item nav-link" href="{{ route('login') }}">Sign In</a>
+							<a class="nav-item nav-link" href="{{ route('login') }}">{{ _m('sign-in') }}</a>
 							<a class="nav-item nav-link" href="{{ route('join') }}">Register</a>
 						@else
 							<div class="nav-item dropdown">
@@ -53,10 +53,13 @@
 								</a>
 
 								<div class="dropdown-menu dropdown-menu-right">
+									<a class="dropdown-item" href="{{ route('profile.show', [$_user]) }}">{{ _m('user-my-profile') }}</a>
+									<a class="dropdown-item" href="{{ route('profile.edit', [$_user]) }}">{{ _m('user-profile-update') }}</a>
+									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="{{ route('logout') }}"
 									   onclick="event.preventDefault();
 												document.getElementById('logout-form').submit();">
-										Sign Out
+										{{ _m('sign-out') }}
 									</a>
 
 									<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
