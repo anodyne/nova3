@@ -2,6 +2,7 @@
 
 use Mail;
 use Nova\Authorize\Role;
+use Nova\Foundation\HasStatus;
 use Nova\Auth\Mail\SendPasswordReset;
 use Illuminate\Notifications\Notifiable;
 use Laracasts\Presenter\PresentableTrait;
@@ -11,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-	use Notifiable, SoftDeletes, PresentableTrait;
+	use Notifiable, SoftDeletes, PresentableTrait, HasStatus;
 
 	protected $table = 'users';
 	protected $fillable = ['name', 'email', 'password', 'nickname', 'status'];
@@ -77,6 +78,6 @@ class User extends Authenticatable
 
 	public function setPasswordAttribute($value)
 	{
-		$this->attributes['password'] = bcrypt($value);
+		$this->attributes['password'] = ($value !== null) ? bcrypt($value) : null;
 	}
 }

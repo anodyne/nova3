@@ -10,6 +10,7 @@
 			@can('create', $userClass)
 				<div class="col">
 					<p><a href="{{ route('users.create') }}" class="btn btn-success btn-block">{{ _m('user-add') }}</a></p>
+					<p><a href="{{ route('users.force-password-reset') }}" class="btn btn-secondary btn-block">{{ _m('user-password-reset') }}</a></p>
 				</div>
 			@endcan
 		</div>
@@ -20,6 +21,12 @@
 			@can('create', $userClass)
 				<div class="btn-group">
 					<a href="{{ route('users.create') }}" class="btn btn-success">{{ _m('user-add') }}</a>
+				</div>
+			@endcan
+
+			@can('update', $userClass)
+				<div class="btn-group">
+					<a href="{{ route('users.force-password-reset') }}" class="btn btn-secondary">{{ _m('user-password-reset') }}</a>
 				</div>
 			@endcan
 		</div>
@@ -63,7 +70,7 @@
 							</button>
 							<div class="dropdown-menu dropdown-menu-right"
 								 aria-labelledby="dropdownMenuButton">
-								<a :href="'/admin/users/' + user.id + '/show'" class="dropdown-item">{!! icon('user') !!} Profile</a>
+								<a :href="'/profile/' + user.id" class="dropdown-item">{!! icon('user') !!} {{ _m('user-profile') }}</a>
 
 								@can('manage', $userClass)
 									<div class="dropdown-divider"></div>

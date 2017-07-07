@@ -2,20 +2,14 @@
 
 use Controller;
 use Nova\Users\User;
-use Illuminate\Http\Request;
-use Nova\Users\UserRepository;
 
 class ProfilesController extends Controller
 {
-	protected $usersRepo;
-
-	public function __construct(UserRepository $usersRepo)
+	public function __construct()
 	{
 		parent::__construct();
 
 		$this->middleware('auth');
-
-		$this->usersRepo = $usersRepo;
 	}
 
 	public function show(User $user)
@@ -53,5 +47,35 @@ class ProfilesController extends Controller
 		);
 
 		return back();
+	}
+
+	public function updatePassword(User $user)
+	{
+		$this->authorize('updateProfile', $user);
+
+		// Make sure they entered their current password correctly
+		if (bcrypt(request('password_current')) !== $user->password) {
+			flash()->message(_m('user-profile-validation-current-password'))->error();
+
+			return back();
+		}
+
+		$this->validate(request(), [
+			'name' => 'required',
+			'email' => 'required|email'
+		], [
+			'name.required' => _m('user-validation-name'),
+			'email.required' => _m('user-validation-email-required'),
+			'email.email' => _m('user-validation-email-email')
+		]);
+
+		updater(User::class)->with(request()->all())->update($user);
+
+		flash()->success(
+			_m('user-flash-updated-title'),
+			_m('user-flash-updated-message')
+		);
+
+		return redirect()->route('profile.show', $this->user);
 	}
 }

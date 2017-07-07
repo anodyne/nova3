@@ -1,6 +1,8 @@
 <?php
 
 Route::get('/', function () {
+	view()->share('_user', auth()->user());
+
 	return view('pages.welcome');
 })->name('home');
 
@@ -34,9 +36,17 @@ app('router')->bind('user', function ($value) {
 
 Route::patch('admin/users/{user}/restore', 'Nova\Users\Http\Controllers\UsersController@restore')
 	->name('users.restore');
+Route::get('admin/users/password-resets', 'Nova\Users\Http\Controllers\ForcePasswordResetsController@index')
+	->name('users.force-password-reset');
+Route::patch('admin/users/password-resets', 'Nova\Users\Http\Controllers\ForcePasswordResetsController@update')
+	->name('users.reset-passwords');
 Route::resource('admin/users', 'Nova\Users\Http\Controllers\UsersController');
 
-Route::resource('profile', 'Nova\Users\Http\Controllers\ProfilesController', [
-	'only' => ['show', 'edit', 'update'],
-	'parameters' => ['profile' => 'user'],
-]);
+Route::get('profile/{user}', 'Nova\Users\Http\Controllers\ProfilesController@show')
+	->name('profile.show');
+Route::get('profile/{user}/edit', 'Nova\Users\Http\Controllers\ProfilesController@edit')
+	->name('profile.edit');
+Route::patch('profile/{user}', 'Nova\Users\Http\Controllers\ProfilesController@update')
+	->name('profile.update');
+Route::patch('profile/{user}/change-password', 'Nova\Users\Http\Controllers\ProfilesController@updatePassword')
+	->name('profile.password');

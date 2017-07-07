@@ -14,6 +14,9 @@ return [
 	],
 
 	'events' => [
+		Nova\Users\Events\AdminForcedPasswordResets::class => [
+			Nova\Users\Listeners\NotifyUsersOfAdminForcedPasswordReset::class
+		],
 		Nova\Users\Events\PasswordWasGenerated::class => [
 			Nova\Users\Listeners\SendPasswordToUser::class
 		]

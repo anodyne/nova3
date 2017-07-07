@@ -1,5 +1,6 @@
 {
 	"cancel": "Cancel",
+	"close": "Close",
 	"delete": "Delete",
 	"edit": "Edit",
 	"email-address": "Email Address",
@@ -11,6 +12,7 @@
 	"password-new": "New Password",
 	"password-new-confirm": "Confirm New Password",
 	"restore": "Restore",
+	"save": "Save",
 	"sign-in": "Sign In",
 	"sign-out": "Sign Out",
 
@@ -78,11 +80,15 @@
 	"user-flash-added-message": "The new user has been created and their password has been emailed to them.",
 	"user-flash-deleted-title": "User deleted.",
 	"user-flash-deleted-message": "The user has been deleted.",
+	"user-flash-password-reset-title": "Password(s) reset.",
+	"user-flash-password-reset-message": "The selected user(s) have had their password(s) reset. An email has been sent to notify them.",
 	"user-flash-restored-title": "User restored.",
 	"user-flash-restored-message": "The user and all of their content has been restored. A new password has been created for their account and emailed to them.",
 	"user-flash-updated-title": "User updated.",
 	"user-flash-updated-message": "The user has been updated.",
 	"user-nickname-explain": "A nickname will be displayed instead of your full name.",
+	"user-password-reset": "Force Password Resets",
+	"user-password-do-reset": "Reset Password(s)",
 	"user-update": "Update User",
 	"user-validation-name": "Please enter a name",
 	"user-validation-email-required": "Please enter an email address",
@@ -91,5 +97,9 @@
 	"user-validation-password-required": "Please enter a password",
 	"user-validation-password-confirmed": "The password confirmation doesn't match",
 	"user-validation-password-min": "Passwords must be at least 6 characters",
-	"user-profile-update": "Update My Profile"
+	"user-profile": "Profile",
+	"user-my-profile": "My Profile",
+	"user-profile-password-change": "Change My Password",
+	"user-profile-update": "Update My Profile",
+	"user-profile-validation-current-password": "The password you entered doesn't match the password we have for you."
 }

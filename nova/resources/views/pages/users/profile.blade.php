@@ -22,5 +22,6 @@
 		<li>Show last sign in</li>
 		<li>Show some stats</li>
 		<li>Show social media links</li>
+		<li>Show all characters tied to the account</li>
 	</ul>
 @endsection
