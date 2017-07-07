@@ -5,81 +5,177 @@
 		Status
 	</div>
 
-	<div class="card">
-		<div class="card-block">
-			<h3 class="d-flex align-items-center justify-content-start">
-				<span class="mr-auto">Manage Users</span>
-				<i class="fal fa-code fa-fw"></i>
-			</h3>
+	<ul class="nav nav-pills nav-justified mb-3" role="tablist">
+		<li class="nav-item">
+			<a class="nav-link active" data-toggle="tab" href="#aries" role="tab">NextGen Aries</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" data-toggle="tab" href="#gemini" role="tab">NextGen Gemini</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" data-toggle="tab" href="#orion" role="tab">NextGen Orion</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" data-toggle="tab" href="#beta1" role="tab">3.0 Beta 1</a>
+		</li>
+	</ul>
 
-			<ul>
-				<li>Create user</li>
-				<li>Update user</li>
-				<li>Delete user</li>
-				<li>Restore deleted user</li>
-				<li>Authorize access to user managemt</li>
-				<li class="text-subtle">Admin-forced password resets</li>
-				<li class="text-subtle">User avatars</li>
-				<li class="text-subtle">Events around admin-triggered actions on users</li>
-			</ul>
-		</div>
-	</div>
+	<div class="tab-content">
+		<div id="aries" class="tab-pane active" role="tabpanel">
+			<div class="card">
+				<div class="card-block">
+					<h3 class="d-flex align-items-center justify-content-start">
+						<span class="mr-auto">Users</span>
+						<i class="fal fa-code fa-fw"></i>
+					</h3>
 
-	<div class="card card-success card-inverse">
-		<div class="card-block">
-			<h3 class="d-flex align-items-center justify-content-start">
-				<span class="mr-auto">Manage Permissions</span>
-				<i class="fal fa-check-circle fa-fw"></i>
-			</h3>
-
-			<ul>
-				<li>Create permission</li>
-				<li>Update permission</li>
-				<li>Delete permission
 					<ul>
-						<li>When a permission is deleted, any roles with that permission are updated</li>
+						<li>Authorized users can create, update, delete, and restore users</li>
+						<li>Authenticated users can view the profile of any user</li>
+						<li class="text-subtle">Authorized users can force a password reset</li>
+						<li class="text-subtle">Users can update their user profile</li>
+						<li class="text-subtle">Users can set an avatar for their account</li>
+						<li class="text-subtle">User notifications</li>
 					</ul>
-				</li>
-				<li>Authorize access to permission management</li>
-			</ul>
-		</div>
-	</div>
+				</div>
+			</div>
 
-	<div class="card card-success card-inverse">
-		<div class="card-block">
-			<h3 class="d-flex align-items-center justify-content-start">
-				<span class="mr-auto">Manage Roles</span>
-				<i class="fal fa-check-circle fa-fw"></i>
-			</h3>
+			<div class="card card-success card-inverse">
+				<div class="card-block">
+					<h3 class="d-flex align-items-center justify-content-start">
+						<span class="mr-auto">Authorization</span>
+						<i class="fal fa-check-circle fa-fw"></i>
+					</h3>
 
-			<ul>
-				<li>Create role</li>
-				<li>Update role</li>
-				<li>Delete role
 					<ul>
-						<li>When a role is deleted, any users with that role are updated</li>
+						<li>Authorized users can create, update, and delete roles</li>
+						<li>Authorized users can create, update, and delete permissions</li>
 					</ul>
-				</li>
-				<li>Authorize access to role management</li>
-			</ul>
+				</div>
+			</div>
+
+			<div class="card card-outline-success">
+				<div class="card-block">
+					<h3 class="d-flex align-items-center justify-content-start">
+						<span class="mr-auto">Authentication</span>
+						<i class="fal fa-check-circle fa-fw"></i>
+					</h3>
+
+					<ul>
+						<li>Users can sign in</li>
+						<li>Users can sign out</li>
+						<li>Users can reset their password</li>
+						<li>Users are locked out for 30 minutes after 5 unsuccessful sign in attempts</li>
+						<li class="text-warning">Track a user's last sign in</li>
+						<li class="text-warning">Handle admin-forced password resets</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-block">
+					<h3 class="d-flex align-items-center justify-content-start mb-0">
+						<span class="mr-auto">Characters</span>
+						<i class="fal fa-road fa-fw"></i>
+					</h3>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-block">
+					<h3 class="d-flex align-items-center justify-content-start mb-0">
+						<span class="mr-auto">Genre Assets</span>
+						<i class="fal fa-road fa-fw"></i>
+					</h3>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-block">
+					<h3 class="d-flex align-items-center justify-content-start mb-0">
+						<span class="mr-auto">Setup</span>
+						<i class="fal fa-road fa-fw"></i>
+					</h3>
+				</div>
+			</div>
 		</div>
-	</div>
 
-	<div class="card card-outline-success">
-		<div class="card-block">
-			<h3 class="d-flex align-items-center justify-content-start">
-				<span class="mr-auto">Authentication</span>
-				<i class="fal fa-check-circle fa-fw"></i>
-			</h3>
+		<div id="gemini" class="tab-pane">
+			<div class="card">
+				<div class="card-block">
+					<h3 class="d-flex align-items-center justify-content-start mb-0">
+						<span class="mr-auto">Dynamic Forms</span>
+						<i class="fal fa-road fa-fw"></i>
+					</h3>
+				</div>
+			</div>
 
-			<ul>
-				<li>Users can sign in</li>
-				<li>Users can reset their password</li>
-				<li>Users are locked out for 30 minutes after 5 unsuccessful sign in attempts</li>
-				<li>Users can sign out</li>
-				<li class="text-warning">Track a user's last sign in</li>
-				<li class="text-warning">Handle admin-forced password resets</li>
-			</ul>
+			<div class="card">
+				<div class="card-block">
+					<h3 class="d-flex align-items-center justify-content-start mb-0">
+						<span class="mr-auto">Settings</span>
+						<i class="fal fa-road fa-fw"></i>
+					</h3>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-block">
+					<h3 class="d-flex align-items-center justify-content-start mb-0">
+						<span class="mr-auto">Application Review Center</span>
+						<i class="fal fa-road fa-fw"></i>
+					</h3>
+				</div>
+			</div>
+		</div>
+
+		<div id="orion" class="tab-pane">
+			<div class="card">
+				<div class="card-block">
+					<h3 class="d-flex align-items-center justify-content-start mb-0">
+						<span class="mr-auto">Stories</span>
+						<i class="fal fa-road fa-fw"></i>
+					</h3>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-block">
+					<h3 class="d-flex align-items-center justify-content-start mb-0">
+						<span class="mr-auto">Private Messages</span>
+						<i class="fal fa-road fa-fw"></i>
+					</h3>
+				</div>
+			</div>
+		</div>
+
+		<div id="beta1" class="tab-pane">
+			<div class="card">
+				<div class="card-block">
+					<h3 class="d-flex align-items-center justify-content-start mb-0">
+						<span class="mr-auto">Themes</span>
+						<i class="fal fa-road fa-fw"></i>
+					</h3>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-block">
+					<h3 class="d-flex align-items-center justify-content-start mb-0">
+						<span class="mr-auto">Extensions</span>
+						<i class="fal fa-road fa-fw"></i>
+					</h3>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-block">
+					<h3 class="d-flex align-items-center justify-content-start mb-0">
+						<span class="mr-auto">Menus</span>
+						<i class="fal fa-road fa-fw"></i>
+					</h3>
+				</div>
+			</div>
 		</div>
 	</div>
 @endsection

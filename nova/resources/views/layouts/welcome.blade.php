@@ -52,6 +52,9 @@
 		}
 
 		.content {
+			width: 55vw;
+			margin: 0 auto;
+
 			text-align: center;
 		}
 
@@ -116,6 +119,15 @@
 
 		.text-subtle {
 			opacity: 0.6;
+		}
+
+		a {
+			color: #259b24;
+			font-weight: 400;
+		}
+
+		.nav-pills .nav-link.active, .nav-pills .nav-item.show .nav-link {
+			background: #259b24;
 		}
 	</style>
 </head>
