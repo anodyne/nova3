@@ -66,8 +66,8 @@
 						<li>Users can sign out</li>
 						<li>Users can reset their password</li>
 						<li>Users are locked out for 30 minutes after 5 unsuccessful sign in attempts</li>
+						<li>If an admin forces a reset, the user is redirected to the password reset screen on their next sign in attempt</li>
 						<li class="text-warning">Track a user's last sign in</li>
-						<li class="text-warning">Handle admin-forced password resets</li>
 					</ul>
 				</div>
 			</div>

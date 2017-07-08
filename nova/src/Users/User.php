@@ -80,4 +80,9 @@ class User extends Authenticatable
 	{
 		$this->attributes['password'] = ($value !== null) ? bcrypt($value) : null;
 	}
+
+	public function getPassword()
+	{
+		return $this->attributes['password'];
+	}
 }
