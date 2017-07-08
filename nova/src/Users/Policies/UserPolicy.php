@@ -20,8 +20,8 @@ class UserPolicy
 	public function manage(User $user, User $actionUser)
 	{
 		return ($this->create($user)
-			or $this->update($user, $role)
-			or $this->delete($user, $role));
+			or $this->update($user, $actionUser)
+			or $this->delete($user, $actionUser));
 	}
 
 	public function update(User $user, User $actionUser)
