@@ -54,17 +54,15 @@ class ProfilesController extends Controller
 		$this->authorize('updateProfile', $user);
 
 		$this->validate(request(), [
-			'password_current' => 'required',
-			'password_new' => 'required|confirmed|min:6'
+			'password' => 'required|confirmed|min:6'
 		], [
-			'password_current.required' => _m('user-validation-password-required'),
-			'password_new.required' => _m('user-validation-password-required'),
-			'password_new.confirmed' => _m('user-validation-password-confirmed'),
-			'password_new.min' => _m('user-validation-password-min'),
+			'password.required' => _m('user-validation-password-required'),
+			'password.confirmed' => _m('user-validation-password-confirmed'),
+			'password.min' => _m('user-validation-password-min'),
 		]);
 
 		updater(User::class)
-			->with(['password' => request('password_new')])
+			->with(['password' => request('password')])
 			->update($user);
 
 		flash()->success(
