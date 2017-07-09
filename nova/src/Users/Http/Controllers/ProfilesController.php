@@ -2,6 +2,7 @@
 
 use Controller;
 use Nova\Users\User;
+use Illuminate\Contracts\Hashing\Hasher;
 
 class ProfilesController extends Controller
 {
@@ -49,20 +50,28 @@ class ProfilesController extends Controller
 		return back();
 	}
 
-	public function updatePassword(User $user)
+	public function updatePassword(Hasher $hasher, User $user)
 	{
 		$this->authorize('updateProfile', $user);
 
+		if (! $hasher->check(request('password_current'), $user->getPassword())) {
+			flash()->message(_m('user-profile-validation-current-password'))->error();
+
+			return back();
+		}
+
 		$this->validate(request(), [
-			'password' => 'required|confirmed|min:6'
+			'password_current' => 'required',
+			'password_new' => 'required|confirmed|min:6'
 		], [
-			'password.required' => _m('user-validation-password-required'),
-			'password.confirmed' => _m('user-validation-password-confirmed'),
-			'password.min' => _m('user-validation-password-min'),
+			'password_current.required' => _m('user-validation-password-required'),
+			'password_new.required' => _m('user-validation-password-required'),
+			'password_new.confirmed' => _m('user-validation-password-confirmed'),
+			'password_new.min' => _m('user-validation-password-min'),
 		]);
 
 		updater(User::class)
-			->with(['password' => request('password')])
+			->with(['password' => request('password_new')])
 			->update($user);
 
 		flash()->success(

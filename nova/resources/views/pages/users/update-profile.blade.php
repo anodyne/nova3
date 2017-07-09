@@ -72,13 +72,18 @@
 				{!! Form::open(['route' => ['profile.password', $_user], 'method' => 'patch']) !!}
 					<div class="modal-body">
 						<div class="form-group">
-							<label class="form-control-label">New Password</label>
-							{!! Form::password('password', ['class' => 'form-control']) !!}
+							<label class="form-control-label">{{ _m('password-current') }}</label>
+							{!! Form::password('password_current', ['class' => 'form-control']) !!}
 						</div>
 
 						<div class="form-group">
-							<label class="form-control-label">Confirm New Password</label>
-							{!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
+							<label class="form-control-label">{{ _m('password-new') }}</label>
+							{!! Form::password('password_new', ['class' => 'form-control']) !!}
+						</div>
+
+						<div class="form-group">
+							<label class="form-control-label">{{ _m('password-new-confirm') }}</label>
+							{!! Form::password('password_new_confirmation', ['class' => 'form-control']) !!}
 						</div>
 					</div>
 					<div class="modal-footer">

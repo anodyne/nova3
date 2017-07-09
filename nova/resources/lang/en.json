@@ -9,6 +9,7 @@
 	"nickname": "Nickname",
 	"password": "Password",
 	"password-confirm": "Confirm Password",
+	"password-current": "Current Password",
 	"password-new": "New Password",
 	"password-new-confirm": "Confirm New Password",
 	"restore": "Restore",
