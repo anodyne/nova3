@@ -10233,7 +10233,12 @@ h1 {
 .btn:focus {
   -webkit-box-shadow: none;
           box-shadow: none;
-  color: inherit;
+  color: #fff;
+}
+
+.btn.btn-link:active,
+.btn.btn-link:focus {
+  color: #0275d8;
 }
 
 .form-control-label {

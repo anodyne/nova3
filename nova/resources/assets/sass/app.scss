@@ -42,7 +42,13 @@ h1 {
 
 	&:active, &:focus {
 		box-shadow: none;
-		color: inherit;
+		color: #fff;
+	}
+
+	&.btn-link {
+		&:active, &:focus {
+			color: $brand-primary;
+		}
 	}
 }
 
