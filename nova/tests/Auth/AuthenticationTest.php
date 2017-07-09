@@ -76,8 +76,15 @@ class AuthenticationTest extends DatabaseTestCase
 	}
 
 	/** @test **/
-	public function only_users_in_the_database_can_sign_in()
+	public function a_user_can_be_forced_to_reset_their_password()
 	{
-		# code...
+		$user = $this->createUser();
+		$user->update(['password' => null]);
+
+		$this->post('/login', [
+				'email' => $user->email,
+				'password' => 'secret'
+			])
+			->assertRedirect(route('password.request'));
 	}
 }

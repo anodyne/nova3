@@ -71,6 +71,7 @@
 	"authorize-role-validation-name": "Please enter a role name",
 
 	"users": "Users",
+	"users-manage": "Manage Users",
 	"user-add": "Add User",
 	"user-delete": "Are you sure you want to delete this user?",
 	"user-error-not-found": "No users found.",

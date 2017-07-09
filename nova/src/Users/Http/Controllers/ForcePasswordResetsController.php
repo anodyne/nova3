@@ -35,8 +35,13 @@ class ForcePasswordResetsController extends Controller
 			'remember_token' => null
 		]);
 
+		// Get an array of email addresses
+		$recipients = $users->map(function ($user) {
+			return $user->email;
+		})->all();
+
 		// Notify the users that they have to reset their password
-		event(new AdminForcedPasswordReset($users));
+		$event = event(new AdminForcedPasswordReset($recipients));
 
 		flash()->success(
 			_m('user-flash-password-reset-title'),
