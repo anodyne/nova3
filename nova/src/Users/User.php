@@ -1,5 +1,6 @@
 <?php namespace Nova\Users;
 
+use Hash;
 use Mail;
 use Nova\Authorize\Role;
 use Nova\Foundation\HasStatus;
@@ -78,7 +79,7 @@ class User extends Authenticatable
 
 	public function setPasswordAttribute($value)
 	{
-		$this->attributes['password'] = ($value !== null) ? bcrypt($value) : null;
+		$this->attributes['password'] = ($value !== null) ? Hash::make($value) : null;
 	}
 
 	public function getPassword()
