@@ -47,6 +47,19 @@
 					</span>
 				</div>
 			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<select name="" class="custom-select" v-model="status">
+						<option value="">{{ _m('user-status-all') }}</option>
+						<option value="{{ Status::ACTIVE }}">{{ _m('user-status-active') }}</option>
+						<option value="{{ Status::INACTIVE }}">{{ _m('user-status-inactive') }}</option>
+						{{-- <option value="{{ Status::PENDING }}">{{ _m('user-status-pending') }}</option> --}}
+						<option value="{{ Status::REMOVED }}">{{ _m('user-status-removed') }}</option>
+					</select>
+
+					{{-- <span class="badge badge-warning ml-2" v-show="pendingCount > 0">There are @{{ pendingCount }} pending users</span> --}}
+				</div>
+			</div>
 		</div>
 
 		<table class="table" v-cloak>
@@ -105,14 +118,22 @@
 		vue = {
 			data: {
 				users: {!! $users !!},
-				search: ''
+				search: '',
+				status: {{ Status::ACTIVE }}
 			},
 
 			computed: {
 				filteredUsers () {
 					let self = this
+					let filteredUsers = this.users
 
-					return self.users.filter(function (user) {
+					if (this.status != '') {
+						filteredUsers = filteredUsers.filter(function (user) {
+							return user.status == self.status
+						})
+					}
+
+					return filteredUsers.filter(function (user) {
 						let regex = new RegExp(self.search, 'i')
 
 						return regex.test(user.name)
@@ -120,6 +141,12 @@
 							|| regex.test(user.nickname)
 							// || regex.test(user.status)
 					})
+				},
+
+				pendingCount () {
+					return this.users.filter(function (user) {
+						return user.status == {{ Status::PENDING }}
+					}).length
 				}
 			},
 
