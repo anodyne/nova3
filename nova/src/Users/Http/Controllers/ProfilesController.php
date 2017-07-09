@@ -53,29 +53,25 @@ class ProfilesController extends Controller
 	{
 		$this->authorize('updateProfile', $user);
 
-		// Make sure they entered their current password correctly
-		if (bcrypt(request('password_current')) !== $user->password) {
-			flash()->message(_m('user-profile-validation-current-password'))->error();
-
-			return back();
-		}
-
 		$this->validate(request(), [
-			'name' => 'required',
-			'email' => 'required|email'
+			'password_current' => 'required',
+			'password_new' => 'required|confirmed|min:6'
 		], [
-			'name.required' => _m('user-validation-name'),
-			'email.required' => _m('user-validation-email-required'),
-			'email.email' => _m('user-validation-email-email')
+			'password_current.required' => _m('user-validation-password-required'),
+			'password_new.required' => _m('user-validation-password-required'),
+			'password_new.confirmed' => _m('user-validation-password-confirmed'),
+			'password_new.min' => _m('user-validation-password-min'),
 		]);
 
-		updater(User::class)->with(request()->all())->update($user);
+		updater(User::class)
+			->with(['password' => request('password_new')])
+			->update($user);
 
 		flash()->success(
-			_m('user-flash-updated-title'),
-			_m('user-flash-updated-message')
+			_m('user-profile-flash-password-update-title'),
+			_m('user-profile-flash-password-update-message')
 		);
 
-		return redirect()->route('profile.show', $this->user);
+		return redirect()->route('profile.show', $user);
 	}
 }

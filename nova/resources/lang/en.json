@@ -100,6 +100,8 @@
 	"user-validation-password-min": "Passwords must be at least 6 characters",
 	"user-profile": "Profile",
 	"user-my-profile": "My Profile",
+	"user-profile-flash-password-update-title": "Password updated.",
+	"user-profile-flash-password-update-message": "Your password has been updated. Don't forget your password for the next time you sign in!",
 	"user-profile-password-change": "Change My Password",
 	"user-profile-update": "Update My Profile",
 	"user-profile-validation-current-password": "The password you entered doesn't match the password we have for you."
