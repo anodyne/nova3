@@ -19,8 +19,8 @@ class EventServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
-		parent::boot();
-
 		$this->listen = config('maps.events');
+
+		parent::boot();
 	}
 }
