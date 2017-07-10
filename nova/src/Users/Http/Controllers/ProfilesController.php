@@ -43,8 +43,8 @@ class ProfilesController extends Controller
 		updater(User::class)->with(request()->all())->update($user);
 
 		flash()
-			->title(_m('user-flash-updated-title'))
-			->message(_m('user-flash-updated-message'))
+			->title(_m('user-profile-flash-profile-updated-title'))
+			->message(_m('user-profile-flash-profile-updated-message'))
 			->success();
 
 		return back();
@@ -75,8 +75,8 @@ class ProfilesController extends Controller
 			->update($user);
 
 		flash()
-			->title(_m('user-profile-flash-password-update-title'))
-			->message(_m('user-profile-flash-password-update-message'))
+			->title(_m('user-profile-flash-password-updated-title'))
+			->message(_m('user-profile-flash-password-updated-message'))
 			->success();
 
 		return redirect()->route('profile.show', $user);
