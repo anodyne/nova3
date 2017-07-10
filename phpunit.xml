@@ -18,6 +18,9 @@
 		<testsuite name="nova-authorize">
 			<directory suffix="Test.php">./nova/tests/Authorize</directory>
 		</testsuite>
+		<testsuite name="nova-genres">
+			<directory suffix="Test.php">./nova/tests/Genres</directory>
+		</testsuite>
 		<testsuite name="nova-unit">
 			<directory suffix="Test.php">./nova/tests/Unit</directory>
 		</testsuite>

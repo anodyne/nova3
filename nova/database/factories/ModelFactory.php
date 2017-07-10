@@ -23,3 +23,10 @@ $factory->define(Nova\Authorize\Permission::class, function (Faker\Generator $fa
 		'key' => Str::slug($faker->words(3, true))
 	];
 });
+
+$factory->define(Nova\Genres\Department::class, function (Faker\Generator $faker) {
+	return [
+		'name' => $faker->words(3, true),
+		'description' => $faker->sentences(3, true)
+	];
+});

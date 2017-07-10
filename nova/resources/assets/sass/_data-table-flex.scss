@@ -1,0 +1,67 @@
+// http://inlehmansterms.net/2014/10/11/responsive-tables-with-flexbox/
+
+.data-table {
+	$light-color: #ffffff;
+	$dark-color: rgba(0, 0, 0, 0.025);
+	$md: 768px;
+
+	display: flex;
+	flex-flow: column nowrap;
+	margin: 0.5rem;
+	line-height: 1.5;
+
+	justify-content: space-between;
+	border: 1px solid $dark-color;
+	font-size: 1rem;
+
+	&-header {
+		display: none;
+
+		@media (min-width: $md) {
+			font-weight: 700;
+			background-color: $dark-color;
+		}
+	}
+
+	&-row {
+		width: 100%;
+		&:nth-of-type(even) { background-color: $dark-color; }
+		&:nth-of-type(odd) { background-color: $light-color; }
+
+		@media (min-width: $md) {
+			display: flex;
+			flex-flow: row nowrap;
+
+			&:nth-of-type(even) { background-color: $light-color; }
+			&:nth-of-type(odd) { background-color: $dark-color; }
+		}
+
+		&-item {
+			display: flex;
+			flex-flow: row nowrap;
+			flex-grow: 1;
+			flex-basis: 0;
+			padding: 0.5em;
+			word-break: break-word;
+			
+			&:before {
+				content: attr(data-header);
+				width: 30%;
+				font-weight: 700;
+			}
+
+			@media (min-width: $md) {
+				border: 1px solid $light-color;
+				padding: 0.5em;
+
+				&:before { content: none; }
+			}
+		}
+	}
+}
+
+@for $i from 1 through 10 {
+  .u-flex-grow#{$i} {
+    flex-grow: i;
+  }
+}

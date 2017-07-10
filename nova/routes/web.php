@@ -26,6 +26,7 @@ Route::get('join', function () {
 	// Placeholder for the join page
 })->name('join');
 
+Route::resource('admin/departments', 'Nova\Genres\Http\Controllers\DepartmentsController');
 Route::resource('admin/roles', 'Nova\Authorize\Http\Controllers\RolesController');
 Route::resource('admin/permissions', 'Nova\Authorize\Http\Controllers\PermissionsController');
 
