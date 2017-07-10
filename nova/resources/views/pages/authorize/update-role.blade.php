@@ -9,10 +9,8 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-					<label class="form-control-label">{{ _m('authorize-role-name') }}</label>
-					
+					<label class="form-control-label">{{ _m('name') }}</label>
 					{!! Form::text('name', null, ['class' => 'form-control'.($errors->has('name') ? ' form-control-danger' : '')]) !!}
-					
 					{!! $errors->first('name', '<p class="form-control-feedback">:message</p>') !!}
 				</div>
 			</div>
