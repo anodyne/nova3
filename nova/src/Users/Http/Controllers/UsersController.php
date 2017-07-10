@@ -49,10 +49,10 @@ class UsersController extends Controller
 
 		creator(User::class)->with(request()->all())->adminCreate();
 
-		flash()->success(
-			_m('user-flash-added-title'),
-			_m('user-flash-added-message')
-		);
+		flash()
+			->title(_m('user-flash-added-title'))
+			->message(_m('user-flash-added-message'))
+			->success();
 
 		return redirect()->route('users.index');
 	}
@@ -81,10 +81,10 @@ class UsersController extends Controller
 
 		updater(User::class)->with(request()->all())->update($user);
 
-		flash()->success(
-			_m('user-flash-updated-title'),
-			_m('user-flash-updated-message')
-		);
+		flash()
+			->title(_m('user-flash-updated-title'))
+			->message(_m('user-flash-updated-message'))
+			->success();
 
 		return redirect()->route('users.index');
 	}
@@ -95,10 +95,10 @@ class UsersController extends Controller
 
 		deletor(User::class)->delete($user);
 
-		flash()->success(
-			_m('user-flash-deleted-title'),
-			_m('user-flash-deleted-message')
-		);
+		flash()
+			->title(_m('user-flash-deleted-title'))
+			->message(_m('user-flash-deleted-message'))
+			->success();
 
 		return redirect()->route('users.index');
 	}
@@ -109,10 +109,10 @@ class UsersController extends Controller
 
 		restorer(User::class)->restore($user);
 
-		flash()->success(
-			_m('user-flash-restored-title'),
-			_m('user-flash-restored-message')
-		);
+		flash()
+			->title(_m('user-flash-restored-title'))
+			->message(_m('user-flash-restored-message'))
+			->success();
 
 		return redirect()->route('users.index');
 	}

@@ -42,10 +42,10 @@ class ProfilesController extends Controller
 
 		updater(User::class)->with(request()->all())->update($user);
 
-		flash()->success(
-			_m('user-flash-updated-title'),
-			_m('user-flash-updated-message')
-		);
+		flash()
+			->title(_m('user-flash-updated-title'))
+			->message(_m('user-flash-updated-message'))
+			->success();
 
 		return back();
 	}
@@ -74,10 +74,10 @@ class ProfilesController extends Controller
 			->with(['password' => request('password_new')])
 			->update($user);
 
-		flash()->success(
-			_m('user-profile-flash-password-update-title'),
-			_m('user-profile-flash-password-update-message')
-		);
+		flash()
+			->title(_m('user-profile-flash-password-update-title'))
+			->message(_m('user-profile-flash-password-update-message'))
+			->success();
 
 		return redirect()->route('profile.show', $user);
 	}

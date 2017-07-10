@@ -46,10 +46,10 @@ class RolesController extends Controller
 
 		creator(Role::class)->with(request()->all())->create();
 
-		flash()->success(
-			_m('authorize-role-flash-added-title'),
-			_m('authorize-role-flash-added-message')
-		);
+		flash()
+			->title(_m('authorize-role-flash-added-title'))
+			->message(_m('authorize-role-flash-added-message'))
+			->success();
 
 		return redirect()->route('roles.index');
 	}
@@ -77,10 +77,10 @@ class RolesController extends Controller
 
 		updater(Role::class)->with(request()->all())->update($role);
 
-		flash()->success(
-			_m('authorize-role-flash-updated-title'),
-			_m('authorize-role-flash-updated-message')
-		);
+		flash()
+			->title(_m('authorize-role-flash-updated-title'))
+			->message(_m('authorize-role-flash-updated-message'))
+			->success();
 
 		return redirect()->route('roles.index');
 	}
@@ -91,10 +91,10 @@ class RolesController extends Controller
 
 		deletor(Role::class)->delete($role);
 
-		flash()->success(
-			_m('authorize-role-flash-deleted-title'),
-			_m('authorize-role-flash-deleted-message')
-		);
+		flash()
+			->title(_m('authorize-role-flash-deleted-title'))
+			->message(_m('authorize-role-flash-deleted-message'))
+			->success();
 
 		return redirect()->route('roles.index');
 	}

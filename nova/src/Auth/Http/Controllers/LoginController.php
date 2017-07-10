@@ -120,10 +120,10 @@ class LoginController extends Controller
 
 	protected function sendResetPasswordLoginResponse(Request $request)
 	{
-		flash()->warning(
-			_m('auth-required-reset'),
-			_m('auth-required-reset-explain')
-		);
+		flash()
+			->title(_m('auth-required-reset'))
+			->message(_m('auth-required-reset-explain'))
+			->warning();
 
 		$this->clearLoginAttempts($request);
 
