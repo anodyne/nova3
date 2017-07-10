@@ -114,15 +114,29 @@
 
 			methods: {
 				deletePermission (event) {
-					let confirm = window.confirm("{{ _m('authorize-permission-delete') }}")
+					$.confirm({
+						title: "{{ _m('authorize-permission-delete-title') }}",
+						content: "{{ _m('authorize-permission-delete-message') }}",
+						theme: "dark",
+						buttons: {
+							confirm: {
+								text: "{{ _m('delete') }}",
+								btnClass: "btn-danger",
+								action () {
+									let permission = event.target.getAttribute('data-permission')
 
-					if (confirm) {
-						let permission = event.target.getAttribute('data-permission')
+									axios.delete('/admin/permissions/' + permission)
 
-						axios.delete('/admin/permissions/' + permission)
-
-						window.location.replace('/admin/permissions')
-					}
+									window.setTimeout(() => {
+										window.location.replace('/admin/permissions')
+									}, 2000)
+								}
+							},
+							cancel: {
+								text: "{{ _m('cancel') }}"
+							}
+						}
+					})
 				}
 			}
 		}

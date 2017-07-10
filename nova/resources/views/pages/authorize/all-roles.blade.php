@@ -86,15 +86,29 @@
 		vue = {
 			methods: {
 				deleteRole (event) {
-					let confirm = window.confirm("{{ _m('authorize-role-delete') }}")
+					$.confirm({
+						title: "{{ _m('authorize-role-delete-title') }}",
+						content: "{{ _m('authorize-role-delete-message') }}",
+						theme: "dark",
+						buttons: {
+							confirm: {
+								text: "{{ _m('delete') }}",
+								btnClass: "btn-danger",
+								action () {
+									let role = event.target.getAttribute('data-role')
 
-					if (confirm) {
-						let role = event.target.getAttribute('data-role')
+									axios.delete('/admin/roles/' + role)
 
-						axios.delete('/admin/roles/' + role)
-
-						window.location.replace('/admin/roles')
-					}
+									window.setTimeout(() => {
+										window.location.replace('/admin/roles')
+									}, 2000)
+								}
+							},
+							cancel: {
+								text: "{{ _m('cancel') }}"
+							}
+						}
+					})
 				}
 			}
 		}
