@@ -48,8 +48,10 @@
 							<a class="nav-item nav-link" href="{{ route('join') }}">Register</a>
 						@else
 							<div class="nav-item dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-									{!! icon('user', 'mr-1') !!} {{ $_user->present()->name }} <span class="caret"></span>
+								<a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-toggle="dropdown" role="button" aria-expanded="false">
+									<span class="mr-2"><avatar :user="{{ $_user }}" type="image" size="xs"></avatar></span>
+									{{ $_user->present()->name }}
+									<span class="caret ml-1"></span>
 								</a>
 
 								<div class="dropdown-menu dropdown-menu-right">

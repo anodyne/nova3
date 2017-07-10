@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-	<h1>{{ $user->present()->name }}</h1>
+	<div class="mb-4">
+		<avatar :user="{{ $user }}" type="image" :has-label="true" size="lg"></avatar>
+	</div>
 
 	@can('updateProfile', $user)
 		<mobile>

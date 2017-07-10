@@ -12,6 +12,10 @@ class AppServiceProvider extends ServiceProvider
 		$this->registerTheme();
 		$this->registerTranslator();
 		// $this->registerRepositoryBindings();
+
+		$this->app->bind('nova.avatar', function ($app) {
+			return new \Nova\Foundation\Avatar;
+		});
 	}
 
 	public function register()

@@ -70,7 +70,9 @@
 			</thead>
 			<tbody>
 				<tr v-for="user in filteredUsers">
-					<td>@{{ user.displayName }}</td>
+					<td>
+						<avatar :user="user" type="link" :has-label="true" size="xs"></avatar>
+					</td>
 					<td>
 						<div class="dropdown pull-right">
 							<button class="btn btn-secondary"
@@ -94,11 +96,11 @@
 								@endcan
 
 								@can('delete', $userClass)
-									<a href="#" class="dropdown-item text-danger" :data-user="user.id" @click.prevent="deleteUser" v-if="!isTrashed(user)">{!! icon('delete') !!} {{ _m('delete') }}</a>
+									<a href="#" class="dropdown-item text-danger" :data-user="user.id" @click.prevent="deleteUser" v-show="!isTrashed(user)">{!! icon('delete') !!} {{ _m('delete') }}</a>
 								@endcan
 
 								@can('update', $userClass)
-									<a href="#" class="dropdown-item text-success" :data-user="user.id" @click.prevent="restoreUser" v-if="isTrashed(user)">{!! icon('undo') !!} {{ _m('restore') }}</a>
+									<a href="#" class="dropdown-item text-success" :data-user="user.id" @click.prevent="restoreUser" v-show="isTrashed(user)">{!! icon('undo') !!} {{ _m('restore') }}</a>
 								@endcan
 							</div>
 						</div>
@@ -171,8 +173,9 @@
 					let user = event.target.getAttribute('data-user')
 
 					axios.patch('/admin/users/' + user + '/restore')
-
-					window.location.replace('/admin/users')
+						 .then(function (response) {
+						 	window.location.replace('/admin/users')
+						 })
 				}
 			}
 		}

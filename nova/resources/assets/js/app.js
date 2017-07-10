@@ -13,6 +13,7 @@ require('./bootstrap');
  */
 
 Vue.component('flash', require('./components/Flash.vue'));
+Vue.component('avatar', require('./components/Avatar.vue'));
 
 Vue.component('desktop', {
 	template: '<div class="hidden-md-down" v-cloak><slot></slot></div>'

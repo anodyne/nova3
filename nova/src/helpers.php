@@ -20,6 +20,13 @@ if (! function_exists('alias')) {
 	}
 }
 
+if (! function_exists('avatar')) {
+	function avatar($user)
+	{
+		return app('nova.avatar')->setUser($user);
+	}
+}
+
 if (! function_exists('d')) {
 	function d()
 	{

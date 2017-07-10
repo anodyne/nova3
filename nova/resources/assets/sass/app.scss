@@ -29,6 +29,60 @@ h1 {
 	}
 }
 
+.avatar-container {
+	display: flex;
+	align-items: center;
+
+	.avatar-label {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.avatar {
+		height: 50px;
+		width: 50px;
+		display: block;
+
+		background-color: transparent;
+		background-repeat: no-repeat;
+		background-size: contain;
+		background-position: center;
+		border-radius: 50%;
+
+		&.xs {
+			height: 24px;
+			width: 24px;
+		}
+
+		&.sm {
+			height: 36px;
+			width: 36px;
+		}
+
+		&.md {
+			height: 72px;
+			width: 72px;
+		}
+
+		&.lg {
+			height: 100px;
+			width: 100px;
+		}
+	}
+
+	.avatar-text {
+		margin-left: 120px;
+
+		font-weight: 500;
+	}
+	.avatar-text-xs {
+		margin-left: 46px;
+	}
+	.avatar-text-sm {
+		margin-left: 65px;
+	}
+}
+
 .btn-toolbar {
 	margin-bottom: 1rem;
 
