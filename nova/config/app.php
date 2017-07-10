@@ -236,8 +236,6 @@ return [
         'Status' => Nova\Foundation\Status::class,
         'Str' => Illuminate\Support\Str::class,
 
-        'User' => Nova\Users\User::class,
-
     ],
 
 ];
