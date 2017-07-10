@@ -1,5 +1,6 @@
 <?php namespace Nova\Users\Data;
 
+use Status;
 use Nova\Foundation\Data\BindsData;
 use Nova\Foundation\Data\Restorable;
 
@@ -9,11 +10,12 @@ class UserRestorer implements Restorable
 
 	public function restore($user)
 	{
+		// Restore the user
 		$user->restore();
 
-		// $user->status = Status::ACTIVE;
-		// $user->save();
+		// Update their status
+		$user->fresh()->update(['status' => Status::ACTIVE]);
 
-		return $user;
+		return $user->fresh();
 	}
 }
