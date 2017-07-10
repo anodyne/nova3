@@ -62,6 +62,10 @@
 			</div>
 		</div>
 
+		<div class="alert alert-info" v-show="status == '{{ Status::REMOVED }}'">
+			<p>{{ _m('user-deleted-notice') }}</p>
+		</div>
+
 		<table class="table" v-cloak>
 			<thead class="thead-default">
 				<tr>
@@ -154,15 +158,29 @@
 
 			methods: {
 				deleteUser (event) {
-					let confirm = window.confirm("{{ _m('user-delete') }}")
+					$.confirm({
+						title: "{{ _m('user-delete-title') }}",
+						content: "{{ _m('user-delete-message') }}",
+						theme: "dark",
+						buttons: {
+							confirm: {
+								text: "{{ _m('delete') }}",
+								btnClass: "btn-danger",
+								action () {
+									let user = event.target.getAttribute('data-user')
 
-					if (confirm) {
-						let user = event.target.getAttribute('data-user')
+									axios.delete('/admin/users/' + user)
 
-						axios.delete('/admin/users/' + user)
-
-						window.location.replace('/admin/users')
-					}
+									window.setTimeout(() => {
+										window.location.replace('/admin/users')
+									}, 2000)
+								}
+							},
+							cancel: {
+								text: "{{ _m('cancel') }}"
+							}
+						}
+					})
 				},
 
 				isTrashed (user) {
@@ -170,12 +188,29 @@
 				},
 
 				restoreUser (event) {
-					let user = event.target.getAttribute('data-user')
+					$.confirm({
+						title: "{{ _m('user-restore-title') }}",
+						content: "{{ _m('user-restore-message') }}",
+						theme: "dark",
+						buttons: {
+							confirm: {
+								text: "{{ _m('restore') }}",
+								btnClass: "btn-success",
+								action () {
+									let user = event.target.getAttribute('data-user')
 
-					axios.patch('/admin/users/' + user + '/restore')
-						 .then(function (response) {
-						 	window.location.replace('/admin/users')
-						 })
+									axios.patch('/admin/users/' + user + '/restore')
+
+									window.setTimeout(() => {
+										window.location.replace('/admin/users')
+									}, 2000)
+								}
+							},
+							cancel: {
+								text: "{{ _m('cancel') }}"
+							}
+						}
+					})
 				}
 			}
 		}
