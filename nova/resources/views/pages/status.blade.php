@@ -25,17 +25,31 @@
 			<div class="card">
 				<div class="card-block">
 					<h3 class="d-flex align-items-center justify-content-start">
-						<span class="mr-auto">Users</span>
+						<span class="mr-auto">Genre Assets</span>
 						<i class="fal fa-code fa-fw"></i>
 					</h3>
 
 					<ul>
+						<li class="text-subtle">Authorized users can create, delete, and update departments</li>
+						<li class="text-subtle">Authorized users can create, delete, and update positions</li>
+						<li class="text-subtle">Authorized users can create, delete, and update ranks</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="card card-success card-inverse">
+				<div class="card-block">
+					<h3 class="d-flex align-items-center justify-content-start">
+						<span class="mr-auto">Users</span>
+						<i class="fal fa-check-circle fa-fw"></i>
+					</h3>
+
+					<ul>
 						<li>Authorized users can create, update, delete, and restore users</li>
+						<li>Authorized users can force a password reset</li>
 						<li>Authenticated users can view the profile of any user</li>
-						<li class="text-subtle">Authorized users can force a password reset</li>
-						<li class="text-subtle">Users can update their user profile</li>
-						<li class="text-subtle">Users can set an avatar for their account</li>
-						<li class="text-subtle">User notifications</li>
+						<li>Users can update their user profile</li>
+						<li>Users can update their password</li>
 					</ul>
 				</div>
 			</div>
@@ -54,7 +68,7 @@
 				</div>
 			</div>
 
-			<div class="card card-outline-success">
+			<div class="card card-success card-inverse">
 				<div class="card-block">
 					<h3 class="d-flex align-items-center justify-content-start">
 						<span class="mr-auto">Authentication</span>
@@ -67,7 +81,6 @@
 						<li>Users can reset their password</li>
 						<li>Users are locked out for 30 minutes after 5 unsuccessful sign in attempts</li>
 						<li>If an admin forces a reset, the user is redirected to the password reset screen on their next sign in attempt</li>
-						<li class="text-warning">Track a user's last sign in</li>
 					</ul>
 				</div>
 			</div>
@@ -76,15 +89,6 @@
 				<div class="card-block">
 					<h3 class="d-flex align-items-center justify-content-start mb-0">
 						<span class="mr-auto">Characters</span>
-						<i class="fal fa-road fa-fw"></i>
-					</h3>
-				</div>
-			</div>
-
-			<div class="card">
-				<div class="card-block">
-					<h3 class="d-flex align-items-center justify-content-start mb-0">
-						<span class="mr-auto">Genre Assets</span>
 						<i class="fal fa-road fa-fw"></i>
 					</h3>
 				</div>
