@@ -67,7 +67,8 @@ a:hover {
 abbr[title] {
   border-bottom: none;
   text-decoration: underline;
-  text-decoration: underline dotted;
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
 }
 
 b,
@@ -10215,6 +10216,69 @@ h1 {
 
 .alert p:last-child {
   margin-bottom: 0;
+}
+
+.avatar-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.avatar-container .avatar-label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.avatar-container .avatar {
+  height: 50px;
+  width: 50px;
+  display: block;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  border-radius: 50%;
+}
+
+.avatar-container .avatar.xs {
+  height: 24px;
+  width: 24px;
+}
+
+.avatar-container .avatar.sm {
+  height: 36px;
+  width: 36px;
+}
+
+.avatar-container .avatar.md {
+  height: 72px;
+  width: 72px;
+}
+
+.avatar-container .avatar.lg {
+  height: 100px;
+  width: 100px;
+}
+
+.avatar-container .avatar-text {
+  margin-left: 120px;
+  font-weight: 500;
+}
+
+.avatar-container .avatar-text-xs {
+  margin-left: 46px;
+}
+
+.avatar-container .avatar-text-sm {
+  margin-left: 65px;
 }
 
 .btn-toolbar {
