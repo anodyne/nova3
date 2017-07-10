@@ -10,6 +10,7 @@ try {
 	window.$ = window.jQuery = require('jquery');
 
 	require('bootstrap');
+	window.jconfirm = require('jquery-confirm');
 } catch (e) {}
 
 window.Vue = require('vue');

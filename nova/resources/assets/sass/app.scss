@@ -6,7 +6,7 @@
 @import "_variables";
 
 // Bootstrap
-@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/bootstrap", "~jquery-confirm/css/jquery-confirm";
 
 h1 {
 	margin-bottom: 2rem;
@@ -97,6 +97,12 @@ h1 {
 	&:active, &:focus {
 		box-shadow: none;
 		color: #fff;
+	}
+
+	&.btn-secondary, &.btn-outline-secondary {
+		&:active, &:focus {
+			color: inherit;
+		}
 	}
 
 	&.btn-link {
