@@ -32,7 +32,9 @@
 						<label class="custom-control custom-checkbox">
 							<input type="checkbox" name="users[]" :value="user.id" class="custom-control-input" v-model="selected">
 							<span class="custom-control-indicator"></span>
-							<span class="custom-control-description" v-text="user.displayName"></span>
+							<span class="custom-control-description">
+								<avatar :user="user" size="xs" type="image" :has-label="true"></avatar>
+							</span>
 						</label>
 					</td>
 				</tr>
