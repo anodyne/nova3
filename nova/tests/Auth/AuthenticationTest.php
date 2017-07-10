@@ -87,4 +87,17 @@ class AuthenticationTest extends DatabaseTestCase
 			])
 			->assertRedirect(route('password.request'));
 	}
+
+	/** @test **/
+	public function a_timestamp_is_recorded_when_a_user_signs_in()
+	{
+		$user = $this->createUser();
+
+		$this->post('/login', [
+			'email' => $user->email,
+			'password' => 'secret'
+		]);
+
+		$this->assertNotEquals(null, auth()->user()->last_sign_in);
+	}
 }

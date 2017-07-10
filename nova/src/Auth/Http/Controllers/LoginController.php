@@ -108,7 +108,11 @@ class LoginController extends Controller
 
 	protected function sendLoginResponse(Request $request)
 	{
-		flash()->message(_m('auth-success', [auth()->user()->present()->name]))->success();
+		$this->guard()->user()->recordSignIn();
+
+		flash()
+			->message(_m('auth-success', [$this->guard()->user()->present()->name]))
+			->success();
 
 		$request->session()->regenerate();
 

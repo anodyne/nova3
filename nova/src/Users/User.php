@@ -1,5 +1,6 @@
 <?php namespace Nova\Users;
 
+use Date;
 use Hash;
 use Mail;
 use Nova\Authorize\Role;
@@ -16,10 +17,11 @@ class User extends Authenticatable
 	use Notifiable, SoftDeletes, PresentableTrait, HasStatus;
 
 	protected $table = 'users';
-	protected $fillable = ['name', 'email', 'password', 'nickname', 'status'];
+	protected $fillable = ['name', 'email', 'password', 'nickname', 'status', 'last_sign_in'];
 	protected $hidden = ['password', 'remember_token'];
 	protected $appends = ['displayName'];
 	protected $presenter = Presenters\UserPresenter::class;
+	protected $dates = ['created_at', 'updated_at', 'deleted_at', 'last_sign_in'];
 
 	//--------------------------------------------------------------------------
 	// Relationships
@@ -70,6 +72,12 @@ class User extends Authenticatable
 		}
 		
 		return !! $role->intersect($this->roles)->count();
+	}
+
+	public function recordSignIn()
+	{
+		$this->last_sign_in = Date::now();
+		$this->save();
 	}
 
 	public function sendPasswordResetNotification($token)
