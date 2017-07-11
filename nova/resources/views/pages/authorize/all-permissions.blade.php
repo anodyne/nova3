@@ -5,42 +5,10 @@
 @section('content')
 	<h1>{{ _m('authorize-permissions') }}</h1>
 
-	<mobile>
-		<div class="row">
-			@can('create', $permissionClass)
-				<div class="col">
-					<p><a href="{{ route('permissions.create') }}" class="btn btn-success btn-block">{{ _m('authorize-permission-add') }}</a></p>
-				</div>
-			@endcan
-
-			@can('manage', $roleClass)
-				<div class="col">
-					<p><a href="{{ route('roles.index') }}" class="btn btn-secondary btn-block">{{ _m('authorize-roles') }}</a></p>
-				</div>
-			@endcan
-		</div>
-	</mobile>
-
-	<desktop>
-		<div class="btn-toolbar">
-			@can('create', $permissionClass)
-				<div class="btn-group">
-					<a href="{{ route('permissions.create') }}" class="btn btn-success">{{ _m('authorize-permission-add') }}</a>
-				</div>
-			@endcan
-
-			@can('manage', $roleClass)
-				<div class="btn-group">
-					<a href="{{ route('roles.index') }}" class="btn btn-secondary">{{ _m('authorize-roles') }}</a>
-				</div>
-			@endcan
-		</div>
-	</desktop>
-
 	@if ($permissions->count() > 0)
-		<div class="row">
-			<div class="col-md-4">
-				<div class="form-group">
+		<div class="data-table bordered striped">
+			<div class="row header">
+				<div class="col-8 col-md-6">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="{{ _m('authorize-permission-find') }}" v-model="searchPermissions">
 						<span class="input-group-btn">
@@ -48,43 +16,56 @@
 						</span>
 					</div>
 				</div>
-			</div>
-		</div>
-
-		<table class="table">
-			<thead class="thead-default">
-				<tr>
-					<th colspan="2">{{ _m('name') }}</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="permission in filteredPermissions">
-					<td>@{{ permission.name }}</td>
-					<td>
-						<div class="dropdown pull-right">
-							<button class="btn btn-secondary"
-									type="button"
-									id="dropdownMenuButton"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false">
-								{!! icon('more') !!}
+				<div class="col hidden-sm-down"></div>
+				<div class="col col-xs-auto">
+					@can('create', $permissionClass)
+						<div class="btn-group pull-right">
+							<a href="{{ route('permissions.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
+  							<button type="button"
+  									class="btn btn-success dropdown-toggle dropdown-toggle-split"
+  									data-toggle="dropdown"
+  									aria-haspopup="true"
+  									aria-expanded="false">
+								<span class="sr-only">Toggle Dropdown</span>
 							</button>
-							<div class="dropdown-menu dropdown-menu-right"
-								 aria-labelledby="dropdownMenuButton">
-								@can('update', $permissionClass)
-									<a :href="'/admin/permissions/' + permission.id + '/edit'" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
-								@endcan
 
-								@can('delete', $permissionClass)
-									<a href="#" class="dropdown-item text-danger" :data-permission="permission.id" @click.prevent="deletePermission">{!! icon('delete') !!} {{ _m('delete') }}</a>
+							<div class="dropdown-menu dropdown-menu-right">
+								@can('manage', $roleClass)
+									<a href="{{ route('roles.index') }}" class="dropdown-item">{!! icon('lock') !!} {{ _m('authorize-roles') }}</a>
 								@endcan
 							</div>
 						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+					@endcan
+				</div>
+			</div>
+
+			<div class="row align-items-center" v-for="permission in filteredPermissions">
+				<div class="col-9">
+					@{{ permission.name }}
+				</div>
+				<div class="col col-xs-auto">
+					<div class="dropdown pull-right">
+						<button class="btn btn-secondary"
+								type="button"
+								id="dropdownMenuButton"
+								data-toggle="dropdown"
+								aria-haspopup="true"
+								aria-expanded="false">
+							{!! icon('more') !!}
+						</button>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+							@can('update', $permissionClass)
+								<a :href="'/admin/permissions/' + permission.id + '/edit'" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
+							@endcan
+
+							@can('delete', $permissionClass)
+								<a href="#" class="dropdown-item text-danger" :data-permission="permission.id" @click.prevent="deletePermission">{!! icon('delete') !!} {{ _m('delete') }}</a>
+							@endcan
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	@else
 		<div class="alert alert-warning">
 			{{ _m('authorize-permission-error-not-found') }} <a href="{{ route('permissions.create') }}" class="alert-link">{{ _m('authorize-permission-error-add') }}</a>

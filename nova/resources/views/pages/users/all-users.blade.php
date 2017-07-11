@@ -5,50 +5,36 @@
 @section('content')
 	<h1>{{ _m('users') }}</h1>
 
-	<mobile>
-		<div class="row">
-			@can('create', $userClass)
-				<div class="col">
-					<p><a href="{{ route('users.create') }}" class="btn btn-success btn-block">{{ _m('user-add') }}</a></p>
-					<p><a href="{{ route('users.force-password-reset') }}" class="btn btn-secondary btn-block">{{ _m('user-password-reset') }}</a></p>
-				</div>
-			@endcan
-		</div>
-	</mobile>
-
-	<desktop>
-		<div class="btn-toolbar">
-			@can('create', $userClass)
-				<div class="btn-group">
-					<a href="{{ route('users.create') }}" class="btn btn-success">{{ _m('user-add') }}</a>
-				</div>
-			@endcan
-
-			@can('update', $userClass)
-				<div class="btn-group">
-					<a href="{{ route('users.force-password-reset') }}" class="btn btn-secondary">{{ _m('user-password-reset') }}</a>
-				</div>
-			@endcan
-		</div>
-	</desktop>
-
 	@if ($users->count() > 0)
-		<div class="row">
-			<div class="col-md-4">
-				<div class="form-group input-group">
-					<input type="text"
-						   class="form-control"
-						   placeholder="{{ _m('user-find') }}"
-						   v-model="search">
-					<span class="input-group-btn">
-						<a class="btn btn-secondary" href="#" @click.prevent="search = ''">
-							{!! icon('close') !!}
-						</a>
-					</span>
+		<div class="alert alert-info" v-show="status == '{{ Status::REMOVED }}'">
+			<p>{{ _m('user-deleted-notice') }}</p>
+		</div>
+
+		<div class="data-table bordered striped">
+			<div class="row header align-items-start align-items-md-center">
+				<div class="col-9 col-md-6">
+					<div class="input-group">
+						<input type="text"
+							   class="form-control"
+							   placeholder="{{ _m('user-find') }}"
+							   v-model="search">
+						<span class="input-group-btn">
+							<a class="btn btn-secondary" href="#" @click.prevent="search = ''">
+								{!! icon('close') !!}
+							</a>
+						</span>
+					</div>
+					<div class="mt-2 hidden-md-up">
+						<select name="" class="custom-select" v-model="status">
+							<option value="">{{ _m('user-status-all') }}</option>
+							<option value="{{ Status::ACTIVE }}">{{ _m('user-status-active') }}</option>
+							<option value="{{ Status::INACTIVE }}">{{ _m('user-status-inactive') }}</option>
+							{{-- <option value="{{ Status::PENDING }}">{{ _m('user-status-pending') }}</option> --}}
+							<option value="{{ Status::REMOVED }}">{{ _m('user-status-removed') }}</option>
+						</select>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="form-group">
+				<div class="col hidden-sm-down">
 					<select name="" class="custom-select" v-model="status">
 						<option value="">{{ _m('user-status-all') }}</option>
 						<option value="{{ Status::ACTIVE }}">{{ _m('user-status-active') }}</option>
@@ -56,62 +42,74 @@
 						{{-- <option value="{{ Status::PENDING }}">{{ _m('user-status-pending') }}</option> --}}
 						<option value="{{ Status::REMOVED }}">{{ _m('user-status-removed') }}</option>
 					</select>
+				</div>
+				<div class="col col-xs-auto">
+					@can('create', $userClass)
+						<div class="btn-group pull-right">
+							<a href="{{ route('users.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
+							
+							@can('update', $userClass)
+								<button type="button"
+	  									class="btn btn-success dropdown-toggle dropdown-toggle-split"
+	  									data-toggle="dropdown"
+	  									aria-haspopup="true"
+	  									aria-expanded="false">
+									<span class="sr-only">Toggle Dropdown</span>
+								</button>
 
-					{{-- <span class="badge badge-warning ml-2" v-show="pendingCount > 0">There are @{{ pendingCount }} pending users</span> --}}
+								<div class="dropdown-menu dropdown-menu-right">
+									<a href="{{ route('users.force-password-reset') }}" class="dropdown-item">
+										{!! icon('users') !!} {{ _m('user-password-reset') }}
+									</a>
+								</div>
+							@endcan
+						</div>
+					@endcan
+
+					@cannot('create', $userClass)
+						@can('update', $userClass)
+							<a href="{{ route('users.force-password-reset') }}" class="btn btn-secondary">{!! icon('users') !!}</a>
+						@endcan
+					@endcannot
+				</div>
+			</div>
+			<div class="row align-items-center" v-for="user in filteredUsers">
+				<div class="col-9">
+					<avatar :user="user" type="link" :has-label="true" size="xs"></avatar>
+				</div>
+				<div class="col col-xs-auto">
+					<div class="dropdown pull-right">
+						<button class="btn btn-secondary"
+								type="button"
+								id="dropdownMenuButton"
+								data-toggle="dropdown"
+								aria-haspopup="true"
+								aria-expanded="false">
+							{!! icon('more') !!}
+						</button>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+							<a :href="'/profile/' + user.id" class="dropdown-item">{!! icon('user') !!} {{ _m('user-profile') }}</a>
+
+							@can('manage', $userClass)
+								<div class="dropdown-divider"></div>
+							@endcan
+							
+							@can('update', $userClass)
+								<a :href="'/admin/users/' + user.id + '/edit'" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
+							@endcan
+
+							@can('delete', $userClass)
+								<a href="#" class="dropdown-item text-danger" :data-user="user.id" @click.prevent="deleteUser" v-show="!isTrashed(user)">{!! icon('delete') !!} {{ _m('delete') }}</a>
+							@endcan
+
+							@can('update', $userClass)
+								<a href="#" class="dropdown-item text-success" :data-user="user.id" @click.prevent="restoreUser" v-show="isTrashed(user)">{!! icon('undo') !!} {{ _m('restore') }}</a>
+							@endcan
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-
-		<div class="alert alert-info" v-show="status == '{{ Status::REMOVED }}'">
-			<p>{{ _m('user-deleted-notice') }}</p>
-		</div>
-
-		<table class="table" v-cloak>
-			<thead class="thead-default">
-				<tr>
-					<th colspan="2">{{ _m('name') }}</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="user in filteredUsers">
-					<td>
-						<avatar :user="user" type="link" :has-label="true" size="xs"></avatar>
-					</td>
-					<td>
-						<div class="dropdown pull-right">
-							<button class="btn btn-secondary"
-									type="button"
-									id="dropdownMenuButton"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false">
-								{!! icon('more') !!}
-							</button>
-							<div class="dropdown-menu dropdown-menu-right"
-								 aria-labelledby="dropdownMenuButton">
-								<a :href="'/profile/' + user.id" class="dropdown-item">{!! icon('user') !!} {{ _m('user-profile') }}</a>
-
-								@can('manage', $userClass)
-									<div class="dropdown-divider"></div>
-								@endcan
-								
-								@can('update', $userClass)
-									<a :href="'/admin/users/' + user.id + '/edit'" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
-								@endcan
-
-								@can('delete', $userClass)
-									<a href="#" class="dropdown-item text-danger" :data-user="user.id" @click.prevent="deleteUser" v-show="!isTrashed(user)">{!! icon('delete') !!} {{ _m('delete') }}</a>
-								@endcan
-
-								@can('update', $userClass)
-									<a href="#" class="dropdown-item text-success" :data-user="user.id" @click.prevent="restoreUser" v-show="isTrashed(user)">{!! icon('undo') !!} {{ _m('restore') }}</a>
-								@endcan
-							</div>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
 	@else
 		<div class="alert alert-warning">
 			{{ _m('user-error-not-found') }} <a href="{{ route('users.create') }}" class="alert-link">{{ _m('user-error-add') }}
