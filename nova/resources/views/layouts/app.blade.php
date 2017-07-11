@@ -50,9 +50,9 @@
 						@else
 							<div class="nav-item dropdown">
 								<a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-toggle="dropdown" role="button" aria-expanded="false">
-									<span class="mr-2"><avatar :user="{{ $_user }}" type="image" size="xs"></avatar></span>
-									{{ $_user->present()->name }}
-									<span class="caret ml-1"></span>
+									<span class="mr-1"><avatar :user="{{ $_user }}" type="image" size="xs"></avatar></span>
+									{{-- {{ $_user->present()->name }} --}}
+									<span class="caret"></span>
 								</a>
 
 								<div class="dropdown-menu dropdown-menu-right">
