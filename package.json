@@ -20,6 +20,7 @@
 		"lodash": "^4.17.4",
 		"md5": "^2.2",
 		"pluralize": "^5.0",
+		"sortablejs": "^1.6",
 		"tether": "^1.4",
 		"vue": "^2.1.10"
 	}
