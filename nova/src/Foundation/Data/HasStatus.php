@@ -1,4 +1,4 @@
-<?php namespace Nova\Foundation;
+<?php namespace Nova\Foundation\Data;
 
 use Status;
 

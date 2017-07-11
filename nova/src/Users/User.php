@@ -4,7 +4,7 @@ use Date;
 use Hash;
 use Mail;
 use Nova\Authorize\Role;
-use Nova\Foundation\HasStatus;
+use Nova\Foundation\Data\HasStatus;
 use Nova\Auth\Mail\SendPasswordReset;
 use Illuminate\Notifications\Notifiable;
 use Laracasts\Presenter\PresentableTrait;
