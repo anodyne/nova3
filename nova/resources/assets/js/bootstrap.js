@@ -13,6 +13,7 @@ try {
 	window.jconfirm = require('jquery-confirm');
 } catch (e) {}
 
+window.Sortable = require('sortablejs');
 window.Vue = require('vue');
 
 /**

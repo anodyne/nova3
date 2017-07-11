@@ -17,5 +17,5 @@ mix.autoload({
 		tether: ['Tether', 'window.Tether']
 	})
    .js('nova/resources/assets/js/app.js', 'assets/js')
-   .extract(['vue', 'jquery', 'tether', 'axios'])
+   .extract(['vue', 'jquery', 'tether', 'axios', 'sortablejs'])
    .sass('nova/resources/assets/sass/app.scss', 'assets/css');
