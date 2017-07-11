@@ -1,15 +1,16 @@
 .data-table {
 	margin: 1rem 0;
-	
+
 	> .row {
 		margin-left: 0;
 		margin-right: 0;
-		padding: 1rem 0;
+		padding: 0.75rem 0;
 
 		border-top: 1px solid rgba(0, 0, 0, 0.15);
 
 		&.header, .header {
-			padding: 0.75em 0;
+			background: rgba(0, 0, 0, 0.075) !important;
+			font-weight: bold;
 
 			.title {
 				margin: 0;
@@ -20,30 +21,11 @@
 			}
 		}
 
-		p {
-			margin: 1rem 0;
-		}
-
-		.controls {
-			display: none;
-
-			.btn {
-				span {
-					display: none;
-					padding-left: 0.5rem;
+		> .col {
+			> .row {
+				+ .row {
+					padding-top: 0.75rem;
 				}
-
-				&:hover {
-					span {
-						display: inline-block;
-					}
-				}
-			}
-		}
-
-		&:hover {
-			.controls {
-				display: block;
 			}
 		}
 	}
@@ -57,7 +39,7 @@
 	}
 
 	&.bordered {
-		> .row {
+		> div {
 			border-left: 1px solid rgba(0, 0, 0, 0.15);
 			border-right: 1px solid rgba(0, 0, 0, 0.15);
 
