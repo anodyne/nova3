@@ -14,7 +14,7 @@ trait Icons
 	public function iconMap()
 	{
 		return collect([
-			'add' => 'plus-circle',
+			'add' => 'plus',
 			'arrow-down' => 'arrow-circle-down',
 			'arrow-left' => 'arrow-circle-left',
 			'arrow-right' => 'arrow-circle-right',
@@ -35,16 +35,20 @@ trait Icons
 			'info' => 'info-circle',
 			'link' => 'link',
 			'list' => 'list-alt',
+			'lock' => 'lock-alt',
 			'magic' => 'magic',
 			'minus' => 'minus-circle',
 			'more' => 'chevron-down',
 			'question' => 'question-circle',
+			'reorder' => 'bars',
 			'search' => 'search',
 			'settings' => 'cog',
 			'share' => 'share-alt',
 			'star' => 'star',
+			'submit' => 'check',
 			'undo' => 'undo',
 			'user' => 'user',
+			'users' => 'user',
 			'warning' => 'exclamation-triangle',
 			'write' => 'edit',
 		]);
