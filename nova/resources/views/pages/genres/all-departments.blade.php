@@ -23,10 +23,11 @@
 					@endcan
 				</div>
 			</div>
-			<div class="row" v-for="dept in filteredDepartments">
+			<div class="row sortable" v-for="dept in filteredDepartments">
 				<div class="col">
-					<div class="row align-items-center">
+					<div class="row align-items-center" :data-id="dept.id">
 						<div class="col-9" data-header="{{ _m('name') }}">
+							{!! icon('reorder', 'sortable-handle') !!}
 							@{{ dept.name }}
 						</div>
 						<div class="col col-xs-auto">
@@ -55,7 +56,10 @@
 
 					<div class="row align-items-center" v-if="dept.children.length > 0" v-for="subDept in dept.children">
 						<div class="col-9" data-header="{{ _m('name') }}">
-							<span class="ml-4">@{{ subDept.name }}</span>
+							<span class="ml-4">
+								{!! icon('reorder', 'sortable-handle') !!}
+								@{{ subDept.name }}
+							</span>
 						</div>
 						<div class="col col-xs-auto">
 							<div class="dropdown pull-right">
@@ -135,6 +139,28 @@
 						}
 					})
 				}
+			},
+
+			mounted () {
+				$.each(document.getElementsByClassName('sortable'), function () {
+					Sortable.create(this, {
+						handle: ".sortable-handle",
+						onEnd (event) {
+							var fieldOrder = new Array()
+
+							$(event.from).children().each(function () {
+								fieldOrder.push($(this).data('id'))
+							})
+
+							var url = Nova.data.orderUpdateUrl
+							var data = {
+								fields: fieldOrder
+							}
+
+							this.$http.post(url, data)
+						}
+					})
+				})
 			}
 		}
 	</script>

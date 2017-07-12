@@ -1,6 +1,18 @@
 .data-table {
 	margin: 1rem 0;
 
+	.row {
+		.sortable-handle {
+			color: transparent;
+		}
+
+		&:hover {
+			.sortable-handle {
+				color: rgba(0, 0, 0, 0.35);
+			}
+		}
+	}
+
 	> .row {
 		margin-left: 0;
 		margin-right: 0;

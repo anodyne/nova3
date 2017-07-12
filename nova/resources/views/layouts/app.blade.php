@@ -91,6 +91,7 @@
 	<script src="{{ asset('assets/js/manifest.js') }}"></script>
 	<script src="{{ asset('assets/js/vendor.js') }}"></script>
 	<script src="{{ asset('assets/js/app.js') }}"></script>
+	@stack('scripts')
 	<script>
 		var vue = {}
 

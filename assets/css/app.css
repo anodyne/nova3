@@ -2,6 +2,14 @@
   margin: 1rem 0;
 }
 
+.data-table .row .sortable-handle {
+  color: transparent;
+}
+
+.data-table .row:hover .sortable-handle {
+  color: rgba(0, 0, 0, 0.35);
+}
+
 .data-table > .row {
   margin-left: 0;
   margin-right: 0;
@@ -11490,6 +11498,10 @@ h1 {
 
 label.custom-control {
   margin-bottom: 0;
+}
+
+.text-subtle {
+  color: rgba(0, 0, 0, 0.35);
 }
 
 [v-cloak] {
