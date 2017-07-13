@@ -45,16 +45,17 @@
 				</div>
 				<div class="col col-xs-auto">
 					@can('create', $userClass)
-						<div class="btn-group pull-right">
+						<div class="btn-toolbar pull-right">
 							<a href="{{ route('users.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
-							
-							@can('update', $userClass)
+
+						@can('update', $userClass)
+							<div class="dropdown ml-2">
 								<button type="button"
-	  									class="btn btn-success dropdown-toggle dropdown-toggle-split"
+	  									class="btn btn-secondary btn-action"
 	  									data-toggle="dropdown"
 	  									aria-haspopup="true"
 	  									aria-expanded="false">
-									<span class="sr-only">Toggle Dropdown</span>
+									{!! icon('more') !!}
 								</button>
 
 								<div class="dropdown-menu dropdown-menu-right">
@@ -62,7 +63,8 @@
 										{!! icon('users') !!} {{ _m('user-password-reset') }}
 									</a>
 								</div>
-							@endcan
+							</div>
+						@endcan
 						</div>
 					@endcan
 
@@ -79,7 +81,7 @@
 				</div>
 				<div class="col col-xs-auto">
 					<div class="dropdown pull-right">
-						<button class="btn btn-secondary"
+						<button class="btn btn-secondary btn-action"
 								type="button"
 								id="dropdownMenuButton"
 								data-toggle="dropdown"

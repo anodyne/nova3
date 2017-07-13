@@ -18,24 +18,29 @@
 				</div>
 				<div class="col hidden-sm-down"></div>
 				<div class="col col-xs-auto">
-					@can('create', $permissionClass)
-						<div class="btn-group pull-right">
+					<div class="btn-toolbar pull-right">
+						@can('create', $permissionClass)
 							<a href="{{ route('permissions.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
-  							<button type="button"
-  									class="btn btn-success dropdown-toggle dropdown-toggle-split"
-  									data-toggle="dropdown"
-  									aria-haspopup="true"
-  									aria-expanded="false">
-								<span class="sr-only">Toggle Dropdown</span>
-							</button>
+						@endcan
 
-							<div class="dropdown-menu dropdown-menu-right">
-								@can('manage', $roleClass)
-									<a href="{{ route('roles.index') }}" class="dropdown-item">{!! icon('lock') !!} {{ _m('authorize-roles') }}</a>
-								@endcan
+						@can('manage', $roleClass)
+							<div class="dropdown ml-2">
+								<button type="button"
+	  									class="btn btn-secondary btn-action"
+	  									data-toggle="dropdown"
+	  									aria-haspopup="true"
+	  									aria-expanded="false">
+									{!! icon('more') !!}
+								</button>
+
+								<div class="dropdown-menu dropdown-menu-right">
+									@can('manage', $roleClass)
+										<a href="{{ route('roles.index') }}" class="dropdown-item">{!! icon('lock') !!} {{ _m('authorize-roles') }}</a>
+									@endcan
+								</div>
 							</div>
-						</div>
-					@endcan
+						@endcan
+					</div>
 				</div>
 			</div>
 
@@ -45,7 +50,7 @@
 				</div>
 				<div class="col col-xs-auto">
 					<div class="dropdown pull-right">
-						<button class="btn btn-secondary"
+						<button class="btn btn-secondary btn-action"
 								type="button"
 								id="dropdownMenuButton"
 								data-toggle="dropdown"
