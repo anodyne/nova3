@@ -148,8 +148,11 @@
 						</a>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
 							<a class="dropdown-item" href="{{ route('departments.index') }}">Departments</a>
+							<a class="dropdown-item" href="{{ route('positions.index') }}">Positions</a>
+							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="{{ route('roles.index') }}">Roles</a>
 							<a class="dropdown-item" href="{{ route('permissions.index') }}">Permissions</a>
+							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="{{ route('users.index') }}">Users</a>
 						</div>
 					</span>

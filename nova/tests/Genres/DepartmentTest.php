@@ -29,4 +29,12 @@ class DepartmentTest extends DatabaseTestCase
 
 		$this->assertInstanceOf('Nova\Genres\Department', $childDept->parent);
 	}
+
+	/** @test **/
+	public function it_can_have_positions()
+	{
+		create('Nova\Genres\Position', ['department_id' => $this->department->id]);
+
+		$this->assertCount(1, $this->department->fresh()->positions);
+	}
 }

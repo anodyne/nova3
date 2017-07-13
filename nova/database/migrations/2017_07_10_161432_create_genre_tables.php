@@ -18,12 +18,23 @@ class CreateGenreTables extends Migration
 			$table->timestamps();
 		});
 
+		Schema::create('positions', function (Blueprint $table) {
+			$table->increments('id');
+			$table->unsignedInteger('department_id')->nullable();
+			$table->unsignedInteger('order')->default(99);
+			$table->string('name');
+			$table->text('description')->nullable();
+			$table->unsignedTinyInteger('available')->default(1);
+			$table->timestamps();
+		});
+
 		$this->departments();
 	}
 
 	public function down()
 	{
 		Schema::dropIfExists('departments');
+		Schema::dropIfExists('positions');
 	}
 
 	protected function departments()

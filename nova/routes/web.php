@@ -29,6 +29,7 @@ Route::get('join', function () {
 Route::get('admin/departments/reorder', 'Nova\Genres\Http\Controllers\ReorderDepartmentsController@index')->name('departments.reorder');
 Route::patch('admin/departments/reorder', 'Nova\Genres\Http\Controllers\ReorderDepartmentsController@update');
 Route::resource('admin/departments', 'Nova\Genres\Http\Controllers\DepartmentsController');
+Route::resource('admin/positions', 'Nova\Genres\Http\Controllers\PositionsController');
 Route::resource('admin/roles', 'Nova\Authorize\Http\Controllers\RolesController');
 Route::resource('admin/permissions', 'Nova\Authorize\Http\Controllers\PermissionsController');
 

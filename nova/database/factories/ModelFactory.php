@@ -30,3 +30,13 @@ $factory->define(Nova\Genres\Department::class, function (Faker\Generator $faker
 		'description' => $faker->sentences(3, true)
 	];
 });
+
+$factory->define(Nova\Genres\Position::class, function (Faker\Generator $faker) {
+	return [
+		'name' => $faker->words(2, true),
+		'description' => $faker->sentences(3, true),
+		'department_id' => function () {
+			return factory('Nova\Genres\Department')->create()->id;
+		}
+	];
+});
