@@ -2,5 +2,5 @@
 
 class Theme
 {
-	use Icons;
+	use Icons, NavMain, NavSub;
 }
