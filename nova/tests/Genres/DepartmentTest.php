@@ -15,11 +15,11 @@ class DepartmentTest extends DatabaseTestCase
 	}
 
 	/** @test **/
-	public function it_can_have_child_departments()
+	public function it_can_have_sub_departments()
 	{
 		create('Nova\Genres\Department', ['parent_id' => $this->department->id]);
 
-		$this->assertCount(1, $this->department->fresh()->children);
+		$this->assertCount(1, $this->department->fresh()->subDepartments);
 	}
 
 	/** @test **/

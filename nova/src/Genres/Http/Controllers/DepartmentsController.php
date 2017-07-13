@@ -18,7 +18,7 @@ class DepartmentsController extends Controller
 
 		$this->authorize('manage', $deptClass);
 
-		$departments = Department::with('children')->parents()->get();
+		$departments = Department::with('subDepartments')->parents()->get();
 
 		return view('pages.genres.all-departments', compact('deptClass', 'departments'));
 	}

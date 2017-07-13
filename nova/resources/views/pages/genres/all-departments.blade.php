@@ -18,21 +18,40 @@
 				</div>
 				<div class="col hidden-sm-down"></div>
 				<div class="col col-xs-auto">
-					@can('create', $deptClass)
-						<a href="{{ route('departments.create') }}" class="btn btn-success pull-right">{!! icon('add') !!}</a>
-					@endcan
+					<div class="btn-toolbar pull-right">
+						@can('create', $deptClass)
+							<a href="{{ route('departments.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
+						@endcan
+
+						@can('update', $deptClass)
+							<div class="dropdown ml-2">
+								<button type="button"
+	  									class="btn btn-secondary btn-action"
+	  									data-toggle="dropdown"
+	  									aria-haspopup="true"
+	  									aria-expanded="false">
+									{!! icon('more') !!}
+								</button>
+
+								<div class="dropdown-menu dropdown-menu-right">
+									<a href="{{ route('departments.reorder') }}" class="dropdown-item">
+										{!! icon('move') !!} {{ _m('genre-depts-reorder') }}
+									</a>
+								</div>
+							</div>
+						@endcan
+					</div>
 				</div>
 			</div>
-			<div class="row sortable" v-for="dept in filteredDepartments">
+			<div class="row" v-for="dept in filteredDepartments">
 				<div class="col">
-					<div class="row align-items-center" :data-id="dept.id">
-						<div class="col-9" data-header="{{ _m('name') }}">
-							{!! icon('reorder', 'sortable-handle') !!}
+					<div class="row align-items-center">
+						<div class="col-9">
 							@{{ dept.name }}
 						</div>
 						<div class="col col-xs-auto">
 							<div class="dropdown pull-right">
-								<button class="btn btn-secondary"
+								<button class="btn btn-secondary btn-action"
 										type="button"
 										id="dropdownMenuButton"
 										data-toggle="dropdown"
@@ -40,8 +59,7 @@
 										aria-expanded="false">
 									{!! icon('more') !!}
 								</button>
-								<div class="dropdown-menu dropdown-menu-right"
-									 aria-labelledby="dropdownMenuButton">
+								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
 									@can('update', $deptClass)
 										<a :href="'/admin/departments/' + dept.id + '/edit'" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
 									@endcan
@@ -54,16 +72,17 @@
 						</div>
 					</div>
 
-					<div class="row align-items-center" v-if="dept.children.length > 0" v-for="subDept in dept.children">
-						<div class="col-9" data-header="{{ _m('name') }}">
+					<div class="row align-items-center"
+						 v-if="dept.sub_departments.length > 0"
+						 v-for="subDept in dept.sub_departments">
+						<div class="col-9">
 							<span class="ml-4">
-								{!! icon('reorder', 'sortable-handle') !!}
 								@{{ subDept.name }}
 							</span>
 						</div>
 						<div class="col col-xs-auto">
 							<div class="dropdown pull-right">
-								<button class="btn btn-secondary"
+								<button class="btn btn-secondary btn-action"
 										type="button"
 										id="dropdownMenuButton"
 										data-toggle="dropdown"
@@ -139,28 +158,6 @@
 						}
 					})
 				}
-			},
-
-			mounted () {
-				$.each(document.getElementsByClassName('sortable'), function () {
-					Sortable.create(this, {
-						handle: ".sortable-handle",
-						onEnd (event) {
-							var fieldOrder = new Array()
-
-							$(event.from).children().each(function () {
-								fieldOrder.push($(this).data('id'))
-							})
-
-							var url = Nova.data.orderUpdateUrl
-							var data = {
-								fields: fieldOrder
-							}
-
-							this.$http.post(url, data)
-						}
-					})
-				})
 			}
 		}
 	</script>

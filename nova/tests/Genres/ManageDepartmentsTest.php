@@ -24,6 +24,8 @@ class ManageDepartmentsTest extends DatabaseTestCase
 		$this->get(route('departments.edit', $this->department))->assertRedirect(route('login'));
 		$this->patch(route('departments.update', $this->department))->assertRedirect(route('login'));
 		$this->delete(route('departments.destroy', $this->department))->assertRedirect(route('login'));
+		$this->get(route('departments.reorder'))->assertRedirect(route('login'));
+		$this->patch('/admin/departments/reorder')->assertRedirect(route('login'));
 
 		$this->signIn();
 
@@ -33,6 +35,8 @@ class ManageDepartmentsTest extends DatabaseTestCase
 		$this->get(route('departments.edit', $this->department))->assertStatus(403);
 		$this->patch(route('departments.update', $this->department))->assertStatus(403);
 		$this->delete(route('departments.destroy', $this->department))->assertStatus(403);
+		$this->get(route('departments.reorder'))->assertStatus(403);
+		$this->patch('/admin/departments/reorder')->assertStatus(403);
 	}
 
 	/** @test **/
@@ -77,5 +81,29 @@ class ManageDepartmentsTest extends DatabaseTestCase
 		$this->delete(route('departments.destroy', [$this->department]));
 
 		$this->assertDatabaseMissing('departments', ['name' => $this->department->name]);
+	}
+
+	/** @test **/
+	public function a_department_can_be_reordered()
+	{
+		$admin = $this->createAdmin();
+
+		$this->signIn($admin);
+
+		$this->department->update(['order' => 0]);
+		create('Nova\Genres\Department', ['order' => 1]);
+		create('Nova\Genres\Department', ['order' => 2]);
+		create('Nova\Genres\Department', ['order' => 3]);
+		create('Nova\Genres\Department', ['order' => 4]);
+
+		$response = $this->patch('/admin/departments/reorder', ['depts' => [2, 4, 1, 5, 3]]);
+
+		$response->assertStatus(200);
+
+		$this->assertDatabaseHas('departments', ['id' => 2, 'order' => 0]);
+		$this->assertDatabaseHas('departments', ['id' => 4, 'order' => 1]);
+		$this->assertDatabaseHas('departments', ['id' => $this->department->id, 'order' => 2]);
+		$this->assertDatabaseHas('departments', ['id' => 5, 'order' => 3]);
+		$this->assertDatabaseHas('departments', ['id' => 3, 'order' => 4]);
 	}
 }
