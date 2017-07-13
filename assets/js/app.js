@@ -21612,7 +21612,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			return '/profile/' + this.user.id;
 		},
 		url: function url() {
-			var img = ['https://www.gravatar.com/avatar/', __WEBPACK_IMPORTED_MODULE_0_md5___default.a(this.user.email.trim().toLowerCase()), '?s=240', '&d=retro', '&r=pg'];
+			var img = ['https://www.gravatar.com/avatar/', __WEBPACK_IMPORTED_MODULE_0_md5___default()(this.user.email.trim().toLowerCase()), '?s=240', '&d=retro', '&r=pg'];
 
 			return img.join('');
 		}

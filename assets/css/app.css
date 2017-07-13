@@ -11475,6 +11475,11 @@ h1 {
   color: #0275d8;
 }
 
+.btn.btn-action {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .form-control-label {
   font-weight: 500;
 }
