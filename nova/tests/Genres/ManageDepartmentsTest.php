@@ -90,20 +90,11 @@ class ManageDepartmentsTest extends DatabaseTestCase
 
 		$this->signIn($admin);
 
-		$this->department->update(['order' => 0]);
-		create('Nova\Genres\Department', ['order' => 1]);
-		create('Nova\Genres\Department', ['order' => 2]);
-		create('Nova\Genres\Department', ['order' => 3]);
-		create('Nova\Genres\Department', ['order' => 4]);
-
-		$response = $this->patch('/admin/departments/reorder', ['depts' => [2, 4, 1, 5, 3]]);
+		$response = $this->patch('/admin/departments/reorder', ['depts' => [2,1,3,4,5,6,7,8,9,10,11,12,13,14]]);
 
 		$response->assertStatus(200);
 
 		$this->assertDatabaseHas('departments', ['id' => 2, 'order' => 0]);
-		$this->assertDatabaseHas('departments', ['id' => 4, 'order' => 1]);
-		$this->assertDatabaseHas('departments', ['id' => $this->department->id, 'order' => 2]);
-		$this->assertDatabaseHas('departments', ['id' => 5, 'order' => 3]);
-		$this->assertDatabaseHas('departments', ['id' => 3, 'order' => 4]);
+		$this->assertDatabaseHas('departments', ['id' => 1, 'order' => 1]);
 	}
 }
