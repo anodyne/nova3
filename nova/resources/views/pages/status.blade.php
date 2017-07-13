@@ -30,7 +30,7 @@
 					</h3>
 
 					<ul>
-						<li class="text-subtle">Authorized users can create, delete, and update departments</li>
+						<li>Authorized users can create, delete, reorder, and update departments</li>
 						<li class="text-subtle">Authorized users can create, delete, and update positions</li>
 						<li class="text-subtle">Authorized users can create, delete, and update ranks</li>
 					</ul>
