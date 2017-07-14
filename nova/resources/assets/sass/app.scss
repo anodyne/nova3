@@ -155,6 +155,21 @@ label.custom-control {
 	color: rgba(0, 0, 0, 0.35);
 }
 
+.vue-js-switch.toggle-switch {
+	.v-switch-core {
+		background: #ccc !important;
+	}
+  
+	&.toggled > .v-switch-core {
+		background: $brand-success !important;
+	}
+
+	&.lg {
+		--h: 2rem !important;
+		--w: 3.875rem !important;
+	}
+}
+
 [v-cloak] {
 	display: none !important;
 }
