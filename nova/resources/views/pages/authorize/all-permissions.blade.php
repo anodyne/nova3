@@ -109,13 +109,13 @@
 								text: "{{ _m('delete') }}",
 								btnClass: "btn-danger",
 								action () {
-									let permission = event.target.getAttribute('data-permission')
+									let permission = $(event.target).closest('a').data('permission')
 
 									axios.delete('/admin/permissions/' + permission)
 
-									window.setTimeout(() => {
+									window.setTimeout(function () {
 										window.location.replace('/admin/permissions')
-									}, 2000)
+									}, 1000)
 								}
 							},
 							cancel: {

@@ -88,13 +88,13 @@
 								text: "{{ _m('delete') }}",
 								btnClass: "btn-danger",
 								action () {
-									let role = event.target.getAttribute('data-role')
+									let role = $(event.target).closest('a').data('role')
 
 									axios.delete('/admin/roles/' + role)
 
-									window.setTimeout(() => {
+									window.setTimeout(function () {
 										window.location.replace('/admin/roles')
-									}, 2000)
+									}, 1000)
 								}
 							},
 							cancel: {

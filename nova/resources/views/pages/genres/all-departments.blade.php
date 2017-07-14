@@ -143,13 +143,13 @@
 								text: "{{ _m('delete') }}",
 								btnClass: "btn-danger",
 								action () {
-									let department = event.target.getAttribute('data-department')
+									let department = $(event.target).closest('a').data('department')
 
 									axios.delete('/admin/departments/' + department)
 
-									window.setTimeout(() => {
+									window.setTimeout(function () {
 										window.location.replace('/admin/departments')
-									}, 2000)
+									}, 1000)
 								}
 							},
 							cancel: {

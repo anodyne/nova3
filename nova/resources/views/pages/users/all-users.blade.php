@@ -167,13 +167,13 @@
 								text: "{{ _m('delete') }}",
 								btnClass: "btn-danger",
 								action () {
-									let user = event.target.getAttribute('data-user')
+									let user = $(event.target).closest('a').data('user')
 
 									axios.delete('/admin/users/' + user)
 
-									window.setTimeout(() => {
+									window.setTimeout(function () {
 										window.location.replace('/admin/users')
-									}, 2000)
+									}, 1000)
 								}
 							},
 							cancel: {
@@ -197,13 +197,13 @@
 								text: "{{ _m('restore') }}",
 								btnClass: "btn-success",
 								action () {
-									let user = event.target.getAttribute('data-user')
+									let user = $(event.target).closest('a').data('user')
 
 									axios.patch('/admin/users/' + user + '/restore')
 
-									window.setTimeout(() => {
+									window.setTimeout(function () {
 										window.location.replace('/admin/users')
-									}, 2000)
+									}, 1000)
 								}
 							},
 							cancel: {
