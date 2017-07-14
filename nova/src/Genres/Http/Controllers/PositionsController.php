@@ -2,6 +2,7 @@
 
 use Controller;
 use Nova\Genres\Position;
+use Nova\Genres\Department;
 
 class PositionsController extends Controller
 {
@@ -14,48 +15,54 @@ class PositionsController extends Controller
 
 	public function index()
 	{
-		$deptClass = new Position;
+		$positionClass = new Position;
 
-		$this->authorize('manage', $deptClass);
+		$this->authorize('manage', $positionClass);
 
-		$departments = Department::with('subDepartments')->parents()->get();
+		// Get all of the positions
+		$positions = Position::get();
 
-		return view('pages.genres.all-departments', compact('deptClass', 'departments'));
+		// Get all of the departments
+		$departments = Department::with('subDepartments')->orderBy('order')->get();
+
+		return view('pages.genres.all-positions', compact('positionClass', 'positions', 'departments'));
 	}
 
 	public function create()
 	{
-		$this->authorize('create', new Department);
+		$this->authorize('create', new Position);
 
-		// Get all of the departments that are parents
-		$parentDepartments = Department::parents()->get()->pluck('name', 'id');
+		$departments = Department::orderBy('order')->get()->pluck('name', 'id');
 
-		return view('pages.genres.create-department', compact('parentDepartments'));
+		return view('pages.genres.create-position', compact('departments'));
 	}
 
 	public function store()
 	{
-		$this->authorize('create', new Department);
+		$this->authorize('create', new Position);
 
 		$this->validate(request(), [
 			'name' => 'required',
+			'department_id' => 'required|exists:departments,id'
 		], [
 			'name.required' => _m('validation-required-name'),
+			'department_id.required' => _m('genre-positions-validation-dept-required'),
+			'department_id.exists' => _m('genre-positions-validation-dept-exists'),
 		]);
 
-		creator(Department::class)->with(request()->all())->create();
+		creator(Position::class)->with(request()->all())->create();
 
 		flash()
-			->title(_m('genre-dept-flash-added-title'))
-			->message(_m('genre-dept-flash-added-message'))
+			->title(_m('genre-positions-flash-added-title'))
+			->message(_m('genre-positions-flash-added-message'))
 			->success();
 
-		return redirect()->route('departments.index');
+		return redirect()->route('positions.index');
 	}
 
-	public function edit(Department $department)
+	public function edit(Position $position)
 	{
-		$this->authorize('update', $department);
+		$this->authorize('update', $position);
 
 		// Get all of the departments that are parents
 		$parentDepartments = Department::parents()->get()->pluck('name', 'id');
@@ -63,37 +70,51 @@ class PositionsController extends Controller
 		return view('pages.genres.update-department', compact('department', 'parentDepartments'));
 	}
 
-	public function update(Department $department)
+	public function update()
 	{
-		$this->authorize('update', $department);
+		$this->authorize('update', new Position);
 
 		$this->validate(request(), [
-			'name' => 'required'
+			'positions.*.name' => 'required',
+			'positions.*.department_id' => 'required|exists:departments,id'
 		], [
-			'name.required' => _m('validation-required-name')
+			'positions.*.name.required' => _m('validation-required-name'),
+			'positions.*.department_id.required' => _m('genre-positions-validation-dept-required'),
+			'positions.*.department_id.exists' => _m('genre-positions-validation-dept-exists'),
 		]);
 
-		updater(Department::class)->with(request()->all())->update($department);
+		updater(Position::class)->with(request('positions'))->updateAll();
 
 		flash()
-			->title(_m('genre-dept-flash-updated-title'))
-			->message(_m('genre-dept-flash-updated-message'))
+			->title(_m('genre-positions-flash-updated-title'))
+			->message(_m('genre-positions-flash-updated-message'))
 			->success();
 
-		return redirect()->route('departments.index');
+		return response([200]);
 	}
 
-	public function destroy(Department $department)
+	public function destroy(Position $position)
 	{
-		$this->authorize('delete', $department);
+		$this->authorize('delete', $position);
 
-		deletor(Department::class)->delete($department);
+		deletor(Position::class)->delete($position);
 
-		flash()
-			->title(_m('genre-dept-flash-deleted-title'))
-			->message(_m('genre-dept-flash-deleted-message'))
-			->success();
+		// flash()
+		// 	->title(_m('genre-positions-flash-deleted-title'))
+		// 	->message(_m('genre-positions-flash-deleted-message'))
+		// 	->success();
 
-		return redirect()->route('departments.index');
+		return response([200]);
+	}
+
+	public function reorder()
+	{
+		$this->authorize('update', new Position);
+
+		collect(request('positions'))->each(function ($id, $index) {
+			Position::find($id)->reorder($index);
+		});
+
+		return response([200]);
 	}
 }

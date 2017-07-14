@@ -1,109 +1,116 @@
 <?php namespace Tests\Genres;
 
+use Status;
 use Tests\DatabaseTestCase;
 
 class ManagePositionsTest extends DatabaseTestCase
 {
-	// protected $department;
+	protected $position;
 
-	// public function setUp()
-	// {
-	// 	parent::setUp();
+	public function setUp()
+	{
+		parent::setUp();
 
-	// 	$this->department = create('Nova\Genres\Department');
-	// }
+		$this->position = create('Nova\Genres\Position');
+	}
 
-	// /** @test **/
-	// public function unauthorized_users_cannot_manage_departments()
-	// {
-	// 	$this->withExceptionHandling();
+	/** @test **/
+	public function unauthorized_users_cannot_manage_positions()
+	{
+		$this->withExceptionHandling();
 
-	// 	$this->get(route('departments.index'))->assertRedirect(route('login'));
-	// 	$this->get(route('departments.create'))->assertRedirect(route('login'));
-	// 	$this->post(route('departments.store'))->assertRedirect(route('login'));
-	// 	$this->get(route('departments.edit', $this->department))->assertRedirect(route('login'));
-	// 	$this->patch(route('departments.update', $this->department))->assertRedirect(route('login'));
-	// 	$this->delete(route('departments.destroy', $this->department))->assertRedirect(route('login'));
-	// 	$this->get(route('departments.reorder'))->assertRedirect(route('login'));
-	// 	$this->patch('/admin/departments/reorder')->assertRedirect(route('login'));
+		$this->get(route('positions.index'))->assertRedirect(route('login'));
+		$this->get(route('positions.create'))->assertRedirect(route('login'));
+		$this->post(route('positions.store'))->assertRedirect(route('login'));
+		$this->get(route('positions.edit', $this->position))->assertRedirect(route('login'));
+		$this->patch(route('positions.update', $this->position))->assertRedirect(route('login'));
+		$this->delete(route('positions.destroy', $this->position))->assertRedirect(route('login'));
 
-	// 	$this->signIn();
+		$this->signIn();
 
-	// 	$this->get(route('departments.index'))->assertStatus(403);
-	// 	$this->get(route('departments.create'))->assertStatus(403);
-	// 	$this->post(route('departments.store'))->assertStatus(403);
-	// 	$this->get(route('departments.edit', $this->department))->assertStatus(403);
-	// 	$this->patch(route('departments.update', $this->department))->assertStatus(403);
-	// 	$this->delete(route('departments.destroy', $this->department))->assertStatus(403);
-	// 	$this->get(route('departments.reorder'))->assertStatus(403);
-	// 	$this->patch('/admin/departments/reorder')->assertStatus(403);
-	// }
+		$this->get(route('positions.index'))->assertStatus(403);
+		$this->get(route('positions.create'))->assertStatus(403);
+		$this->post(route('positions.store'))->assertStatus(403);
+		$this->get(route('positions.edit', $this->position))->assertStatus(403);
+		$this->patch(route('positions.update', $this->position))->assertStatus(403);
+		$this->delete(route('positions.destroy', $this->position))->assertStatus(403);
+	}
 
-	// /** @test **/
-	// public function a_department_can_be_created()
-	// {
-	// 	$admin = $this->createAdmin();
+	/** @test **/
+	public function a_position_can_be_created()
+	{
+		$admin = $this->createAdmin();
 
-	// 	$this->signIn($admin);
+		$this->signIn($admin);
 
-	// 	$department = make('Nova\Genres\Department');
+		$position = make('Nova\Genres\Position', ['department_id' => 1]);
 
-	// 	$this->post(route('departments.store'), $department->toArray());
+		$this->post(route('positions.store'), $position->toArray());
 
-	// 	$this->assertDatabaseHas('departments', [
-	// 		'name' => $department->name,
-	// 		'description' => $department->description
-	// 	]);
-	// }
+		$this->assertDatabaseHas('positions', [
+			'name' => $position->name,
+			'description' => $position->description,
+			'department_id' => $position->department_id,
+		]);
+	}
 
-	// /** @test **/
-	// public function a_department_can_be_updated()
-	// {
-	// 	$admin = $this->createAdmin();
+	/** @test **/
+	public function all_positions_can_be_updated()
+	{
+		$admin = $this->createAdmin();
 
-	// 	$this->signIn($admin);
+		$this->signIn($admin);
 
-	// 	$this->patch(
-	// 		route('departments.update', [$this->department]),
-	// 		['name' => "New Name"]
-	// 	);
+		$position1 = create('Nova\Genres\Position');
+		$position2 = create('Nova\Genres\Position');
+		$position3 = create('Nova\Genres\Position');
 
-	// 	$this->assertDatabaseHas('departments', ['name' => "New Name"]);
-	// }
+		$position1->fill(['name' => "New Name"]);
+		$position2->fill(['available' => 3]);
+		$position3->fill(['display' => (int) false]);
 
-	// /** @test **/
-	// public function a_department_can_be_deleted()
-	// {
-	// 	$admin = $this->createAdmin();
+		$positionsData['positions'] = [
+			$position1->toArray(),
+			$position2->toArray(),
+			$position3->toArray(),
+		];
 
-	// 	$this->signIn($admin);
+		$this->patch(route('positions.update'), $positionsData);
 
-	// 	$this->delete(route('departments.destroy', [$this->department]));
+		$this->assertDatabaseHas('positions', ['id' => $position1->id, 'name' => "New Name"]);
+		$this->assertDatabaseHas('positions', ['id' => $position2->id, 'available' => 3]);
+		$this->assertDatabaseHas('positions', ['id' => $position3->id, 'display' => (int) false]);
+	}
 
-	// 	$this->assertDatabaseMissing('departments', ['name' => $this->department->name]);
-	// }
+	/** @test **/
+	public function a_position_can_be_deleted()
+	{
+		$admin = $this->createAdmin();
 
-	// /** @test **/
-	// public function a_department_can_be_reordered()
-	// {
-	// 	$admin = $this->createAdmin();
+		$this->signIn($admin);
 
-	// 	$this->signIn($admin);
+		$this->delete(route('positions.destroy', [$this->position]));
 
-	// 	$this->department->update(['order' => 0]);
-	// 	create('Nova\Genres\Department', ['order' => 1]);
-	// 	create('Nova\Genres\Department', ['order' => 2]);
-	// 	create('Nova\Genres\Department', ['order' => 3]);
-	// 	create('Nova\Genres\Department', ['order' => 4]);
+		$this->assertDatabaseMissing('positions', ['id' => $this->position->id]);
+	}
 
-	// 	$response = $this->patch('/admin/departments/reorder', ['depts' => [2, 4, 1, 5, 3]]);
+	/** @test **/
+	public function a_position_can_be_reordered()
+	{
+		$admin = $this->createAdmin();
 
-	// 	$response->assertStatus(200);
+		$this->signIn($admin);
 
-	// 	$this->assertDatabaseHas('departments', ['id' => 2, 'order' => 0]);
-	// 	$this->assertDatabaseHas('departments', ['id' => 4, 'order' => 1]);
-	// 	$this->assertDatabaseHas('departments', ['id' => $this->department->id, 'order' => 2]);
-	// 	$this->assertDatabaseHas('departments', ['id' => 5, 'order' => 3]);
-	// 	$this->assertDatabaseHas('departments', ['id' => 3, 'order' => 4]);
-	// }
+		$position1 = create('Nova\Genres\Position', ['order' => 0]);
+		$position2 = create('Nova\Genres\Position', ['order' => 1]);
+		$position3 = create('Nova\Genres\Position', ['order' => 2]);
+
+		$response = $this->patch('/admin/positions/reorder', ['positions' => [$position2->id, $position3->id, $position1->id]]);
+
+		$response->assertStatus(200);
+
+		$this->assertDatabaseHas('positions', ['id' => $position2->id, 'order' => 0]);
+		$this->assertDatabaseHas('positions', ['id' => $position3->id, 'order' => 1]);
+		$this->assertDatabaseHas('positions', ['id' => $position1->id, 'order' => 2]);
+	}
 }

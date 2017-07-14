@@ -25,6 +25,7 @@ class CreateGenreTables extends Migration
 			$table->string('name');
 			$table->text('description')->nullable();
 			$table->unsignedTinyInteger('available')->default(1);
+			$table->unsignedTinyInteger('display')->default((int) true);
 			$table->timestamps();
 		});
 

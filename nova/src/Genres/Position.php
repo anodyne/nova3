@@ -8,7 +8,9 @@ class Position extends Eloquent
 	use Reorderable;
 	
 	protected $table = 'positions';
-	protected $fillable = ['name', 'description', 'department_id', 'order'];
+	protected $fillable = [
+		'name', 'description', 'department_id', 'order', 'display', 'available',
+	];
 
 	//--------------------------------------------------------------------------
 	// Relationships
