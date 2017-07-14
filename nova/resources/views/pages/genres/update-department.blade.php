@@ -30,7 +30,7 @@
 				<div class="form-group">
 					<label class="form-control-label">{{ _m('genre-dept-parent') }}</label>
 					<div>
-						{!! Form::select('parent_id', $parentDepartments, null, ['class' => 'custom-select', 'placeholder' => _m('genre-dept-parent-none')]) !!}
+						{!! Form::departments('parent_id', null, null, ['placeholder' => _m('genre-dept-parent-none')], true) !!}
 					</div>
 				</div>
 			</div>
