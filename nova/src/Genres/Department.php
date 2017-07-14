@@ -21,7 +21,7 @@ class Department extends Eloquent
 
 	public function positions()
 	{
-		return $this->hasMany(Position::class);
+		return $this->hasMany(Position::class, 'department_id');
 	}
 
 	public function subDepartments()
