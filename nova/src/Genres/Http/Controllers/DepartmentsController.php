@@ -18,7 +18,7 @@ class DepartmentsController extends Controller
 
 		$this->authorize('manage', $deptClass);
 
-		$departments = Department::with('subDepartments')->parents()->get();
+		$departments = Department::with('subDepartments')->parents()->orderBy('order')->get();
 
 		return view('pages.genres.all-departments', compact('deptClass', 'departments'));
 	}
@@ -27,10 +27,7 @@ class DepartmentsController extends Controller
 	{
 		$this->authorize('create', new Department);
 
-		// Get all of the departments that are parents
-		$parentDepartments = Department::parents()->get()->pluck('name', 'id');
-
-		return view('pages.genres.create-department', compact('parentDepartments'));
+		return view('pages.genres.create-department');
 	}
 
 	public function store()
@@ -57,10 +54,7 @@ class DepartmentsController extends Controller
 	{
 		$this->authorize('update', $department);
 
-		// Get all of the departments that are parents
-		$parentDepartments = Department::parents()->get()->pluck('name', 'id');
-
-		return view('pages.genres.update-department', compact('department', 'parentDepartments'));
+		return view('pages.genres.update-department', compact('department'));
 	}
 
 	public function update(Department $department)
