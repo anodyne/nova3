@@ -2,14 +2,6 @@
   margin: 1rem 0;
 }
 
-.data-table .row .sortable-handle {
-  color: transparent;
-}
-
-.data-table .row:hover .sortable-handle {
-  color: rgba(0, 0, 0, 0.35);
-}
-
 .data-table > .row {
   margin-left: 0;
   margin-right: 0;
@@ -11496,6 +11488,10 @@ h1 {
   margin-top: 0.4rem;
 }
 
+.has-danger .custom-select {
+  border-color: #d9534f;
+}
+
 .dropdown-item .fa-fw {
   margin-right: 0.25rem;
   opacity: 0.8;
@@ -11507,6 +11503,19 @@ label.custom-control {
 
 .text-subtle {
   color: rgba(0, 0, 0, 0.35);
+}
+
+.vue-js-switch.toggle-switch .v-switch-core {
+  background: #ccc !important;
+}
+
+.vue-js-switch.toggle-switch.toggled > .v-switch-core {
+  background: #5cb85c !important;
+}
+
+.vue-js-switch.toggle-switch.lg {
+  --h: 2rem !important;
+  --w: 3.875rem !important;
 }
 
 [v-cloak] {
