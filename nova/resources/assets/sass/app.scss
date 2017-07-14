@@ -133,6 +133,12 @@ h1 {
 	margin-top: 0.4rem;
 }
 
+.has-danger {
+	.custom-select {
+		border-color: $brand-danger;
+	}
+}
+
 .dropdown-item {
 	.fa-fw {
 		margin-right: 0.25rem;
