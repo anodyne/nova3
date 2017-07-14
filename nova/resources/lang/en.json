@@ -168,5 +168,13 @@
 	"genre-positions-validation-dept-exists": "Please select a valid department",
 	"genre-positions-validation-dept-required": "Please select a department",
 
+	"genre-ranks": "Ranks",
+	"genre-rank-groups": "Rank Groups",
+	"genre-rank-groups-explain": "Rank groups allow you to quickly and easily group ranks together. If you want to create a whole new rank group, you can simply duplicate the group and all the ranks in the group will be duplicated as well.",
+	"genre-rank-info": "Rank Info",
+	"genre-rank-info-explain": "Rank info records allow you to re-use much of the basic information about a rank (its name, short name, etc.). When you need to change a rank name, you'll just change it once and all your ranks will be updated.",
+	"genre-rank-items": "Rank Items",
+	"genre-rank-items-explain": "Rank items are the actual ranks that bring together the group and info as well as being able to set the rank's background and overlay. This gives you the ultimate control when creating and managing your ranks.",
+
 	"validation-required-name": "Please enter a name"
 }

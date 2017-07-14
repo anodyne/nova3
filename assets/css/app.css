@@ -11472,6 +11472,20 @@ h1 {
   padding-right: 0.5rem;
 }
 
+a.card {
+  color: #292b2c;
+}
+
+a.card:hover {
+  text-decoration: none;
+  border-color: #0275d8;
+}
+
+a.card:hover svg,
+a.card:hover i {
+  color: #0275d8;
+}
+
 .form-control-label {
   font-weight: 500;
 }

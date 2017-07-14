@@ -168,5 +168,13 @@
 	"genre-positions-validation-dept-exists": "Validation message that prompts the user to select a valid department when creating a position",
 	"genre-positions-validation-dept-required": "Validation message when the department is missing",
 
+	"genre-ranks": "Label for rank management landing page",
+	"genre-rank-groups": "Label for rank groups",
+	"genre-rank-groups-explain": "Text that explains what rank groups are",
+	"genre-rank-info": "Label for rank info",
+	"genre-rank-info-explain": "Text that explains what rank info is",
+	"genre-rank-items": "Label for rank items",
+	"genre-rank-items-explain": "Text that explains what rank items are and how they work with rank groups and rank info",
+
 	"validation-required-name": "Validation message when a name is missing"
 }

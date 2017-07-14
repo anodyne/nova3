@@ -34,6 +34,11 @@ Route::patch('admin/positions/reorder', 'Nova\Genres\Http\Controllers\PositionsC
 Route::patch('admin/positions', 'Nova\Genres\Http\Controllers\PositionsController@update')->name('positions.update');
 Route::resource('admin/positions', 'Nova\Genres\Http\Controllers\PositionsController', ['except' => ['update']]);
 
+Route::get('admin/ranks', 'Nova\Genres\Http\Controllers\RanksController@index')->name('ranks.index');
+Route::resource('admin/ranks/groups', 'Nova\Genres\Http\Controllers\RankGroupsController', ['names' => 'ranks.groups']);
+Route::resource('admin/ranks/info', 'Nova\Genres\Http\Controllers\RankInfoController', ['names' => 'ranks.info']);
+Route::resource('admin/ranks/items', 'Nova\Genres\Http\Controllers\RankItemsController', ['names' => 'ranks.items']);
+
 Route::resource('admin/roles', 'Nova\Authorize\Http\Controllers\RolesController');
 Route::resource('admin/permissions', 'Nova\Authorize\Http\Controllers\PermissionsController');
 
