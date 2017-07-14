@@ -1,5 +1,6 @@
 <?php namespace Nova\Foundation\Providers;
 
+use Form;
 use Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -11,6 +12,7 @@ class AppServiceProvider extends ServiceProvider
 
 		$this->registerTheme();
 		$this->registerTranslator();
+		$this->registerMacros();
 		// $this->registerRepositoryBindings();
 
 		$this->app->bind('nova.avatar', function ($app) {
@@ -71,6 +73,37 @@ class AppServiceProvider extends ServiceProvider
 	{
 		collect(config('maps.repositories'))->each(function ($repo, $contract) {
 			app()->bind($contract, $repo);
+		});
+	}
+
+	protected function registerMacros()
+	{
+		Form::macro('departments', function ($name, $options = null, $value = null, $attributes = [], $onlyParents = false) {
+			if ($options == null) {
+				$options = \Nova\Genres\Department::with('subDepartments')->parents()->get();
+			}
+
+			$options = $options->mapWithKeys(function ($d) use ($onlyParents) {
+				if (! $onlyParents and $d->subDepartments->count() > 0) {
+					return [$d->name => [$d->id => $d->name] + $d->subDepartments->pluck('name', 'id')->all()];
+				} else {
+					return [$d->id => $d->name];
+				}
+			})->all();
+
+			$class = 'custom-select';
+
+			if (array_key_exists('class', $attributes)) {
+				$class.= " {$attributes['class']}";
+				unset($attributes['class']);
+			}
+
+			return Form::select(
+				$name,
+				$options,
+				$value,
+				array_merge(['class' => $class], $attributes)
+			);
 		});
 	}
 }
