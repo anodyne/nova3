@@ -1,12 +1,13 @@
 <?php namespace Nova\Authorize\Data;
 
 use Nova\Authorize\Role;
+use Nova\Foundation\CacheBuster;
 use Nova\Foundation\Data\BindsData;
 use Nova\Foundation\Data\Creatable;
 
 class RoleCreator implements Creatable
 {
-	use BindsData;
+	use BindsData, BustsCache;
 
 	public function create()
 	{
@@ -17,6 +18,11 @@ class RoleCreator implements Creatable
 		if (array_key_exists('permissions', $this->data)) {
 			$role->updatePermissions($this->data['permissions']);
 		}
+
+		// Bust the cache
+		$this->refreshCacheForever('nova.roles', function () {
+			return Role::with('permissions')->get();
+		});
 
 		return $role;
 	}
