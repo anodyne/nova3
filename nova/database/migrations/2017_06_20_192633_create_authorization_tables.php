@@ -59,6 +59,8 @@ class CreateAuthorizationTables extends Migration
 		$this->roles();
 
 		$this->roleAssignments();
+
+		$this->cache();
 	}
 
 	protected function permissions()
@@ -133,5 +135,16 @@ class CreateAuthorizationTables extends Migration
 				}
 			}
 		}
+	}
+
+	protected function cache()
+	{
+		cache()->rememberForever('nova.permissions', function () {
+			return \Nova\Authorize\Permission::with('roles')->get();
+		});
+
+		cache()->rememberForever('nova.roles', function () {
+			return \Nova\Authorize\Role::with('permissions')->get();
+		});
 	}
 }

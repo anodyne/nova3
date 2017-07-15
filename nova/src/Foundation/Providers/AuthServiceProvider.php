@@ -32,7 +32,7 @@ class AuthServiceProvider extends ServiceProvider
 	public function defineGates()
 	{
 		// Grab all of the permissions, loop through them, and define the abilities
-		Permission::with('roles')->get()->each(function ($permission) {
+		cache('nova.permissions')->each(function ($permission) {
 			Gate::define($permission->key, function ($user) use ($permission) {
 				return $user->hasRole($permission->roles);
 			});
