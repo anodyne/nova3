@@ -6,6 +6,7 @@ return [
 		Nova\Authorize\Role::class => Nova\Authorize\Data\RoleCreator::class,
 		Nova\Genres\Department::class => Nova\Genres\Data\DepartmentCreator::class,
 		Nova\Genres\Position::class => Nova\Genres\Data\PositionCreator::class,
+		Nova\Genres\RankGroup::class => Nova\Genres\Data\RankGroupCreator::class,
 		Nova\Users\User::class => Nova\Users\Data\UserCreator::class,
 	],
 
@@ -31,6 +32,7 @@ return [
 		Nova\Authorize\Role::class => Nova\Authorize\Policies\RolePolicy::class,
 		Nova\Genres\Department::class => Nova\Genres\Policies\DepartmentPolicy::class,
 		Nova\Genres\Position::class => Nova\Genres\Policies\PositionPolicy::class,
+		Nova\Genres\RankGroup::class => Nova\Genres\Policies\RankPolicy::class,
 		Nova\Users\User::class => Nova\Users\Policies\UserPolicy::class,
 	],
 
@@ -43,6 +45,7 @@ return [
 		Nova\Authorize\Role::class => Nova\Authorize\Data\RoleUpdater::class,
 		Nova\Genres\Department::class => Nova\Genres\Data\DepartmentUpdater::class,
 		Nova\Genres\Position::class => Nova\Genres\Data\PositionUpdater::class,
+		Nova\Genres\RankGroup::class => Nova\Genres\Data\RankGroupUpdater::class,
 		Nova\Users\User::class => Nova\Users\Data\UserUpdater::class,
 	],
 ];

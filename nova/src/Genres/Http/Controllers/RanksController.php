@@ -1,6 +1,7 @@
 <?php namespace Nova\Genres\Http\Controllers;
 
 use Controller;
+use Nova\Genres\RankGroup;
 
 class RanksController extends Controller
 {
@@ -13,6 +14,8 @@ class RanksController extends Controller
 
 	public function index()
 	{
-		return view('pages.genres.ranks');
+		$this->authorize('manage', new RankGroup);
+
+		return view('pages.genres.ranks.index');
 	}
 }
