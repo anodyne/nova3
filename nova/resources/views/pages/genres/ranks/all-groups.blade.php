@@ -26,7 +26,24 @@
 						@can('update', $rankGroupClass)
 							<a href="#"
 							   class="btn btn-primary ml-2"
-							   @click.prevent="updatePositions">{!! icon('submit') !!}</a>
+							   @click.prevent="updateGroups">{!! icon('submit') !!}</a>
+						@endcan
+
+						@can('manage', $rankGroupClass)
+							<div class="dropdown ml-2">
+								<button type="button"
+	  									class="btn btn-secondary btn-action"
+	  									data-toggle="dropdown"
+	  									aria-haspopup="true"
+	  									aria-expanded="false">
+									{!! icon('more') !!}
+								</button>
+
+								<div class="dropdown-menu dropdown-menu-right">
+									<a href="{{ route('ranks.info.index') }}" class="dropdown-item">{!! icon('info') !!} {{ _m('genre-rank-info') }}</a>
+									<a href="{{ route('ranks.items.index') }}" class="dropdown-item">{!! icon('star') !!} {{ _m('genre-ranks') }}</a>
+								</div>
+							</div>
 						@endcan
 					</div>
 				</div>
@@ -59,12 +76,25 @@
 					</div>
 				</div>
 				<div class="col col-xs-auto">
-					@can('delete', $rankGroupClass)
-						<a href="#"
-						   class="btn btn-outline-danger btn-action pull-right"
-						   :data-group="group.id"
-						   @click.prevent="deleteGroup">{!! icon('delete') !!}</a>
-					@endcan
+					<div class="dropdown pull-right">
+						<button class="btn btn-secondary btn-action"
+								type="button"
+								id="dropdownMenuButton"
+								data-toggle="dropdown"
+								aria-haspopup="true"
+								aria-expanded="false">
+							{!! icon('more') !!}
+						</button>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+							@can('create', $rankGroupClass)
+								<a class="dropdown-item" href="#" @click.prevent="duplicateGroup(group.id)">{!! icon('copy') !!} {{ _m('duplicate') }}</a>
+							@endcan
+
+							@can('delete', $rankGroupClass)
+								<a class="dropdown-item text-danger" href="#" @click.prevent="deleteGroup(group.id)">{!! icon('delete') !!} {{ _m('delete') }}</a>
+							@endcan
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -96,31 +126,29 @@
 			},
 
 			methods: {
-				deleteGroup (event) {
+				deleteGroup (id) {
 					let self = this
 
 					$.confirm({
-						title: "{{ _m('genre-positions-delete-title') }}",
-						content: "{{ _m('genre-positions-delete-message') }}",
+						title: "{{ _m('genre-rank-groups-confirm-delete-title') }}",
+						content: "{{ _m('genre-rank-groups-confirm-delete-message') }}",
 						theme: "dark",
 						buttons: {
 							confirm: {
 								text: "{{ _m('delete') }}",
 								btnClass: "btn-danger",
 								action () {
-									let position = $(event.target).closest('a').data('position')
-
-									axios.delete('/admin/positions/' + position)
+									axios.delete('/admin/ranks/groups/' + id)
 										.then(function (response) {
-											let index = _.findIndex(self.positions, function (p) {
-												return p.id == position
+											let index = _.findIndex(self.groups, function (p) {
+												return p.id == id
 											})
 
-											self.positions.splice(index, 1)
+											self.groups.splice(index, 1)
 
 											flash(
-												'{{ _m('genre-positions-flash-deleted-message') }}',
-												'{{ _m('genre-positions-flash-deleted-title') }}'
+												'{{ _m('genre-rank-groups-flash-deleted-message') }}',
+												'{{ _m('genre-rank-groups-flash-deleted-title') }}'
 											)
 										})
 								}
@@ -130,6 +158,14 @@
 							}
 						}
 					})
+				},
+
+				duplicateGroup (id) {
+					axios.post('/admin/ranks/groups/' + id + '/duplicate')
+
+					window.setTimeout(function () {
+						window.location.replace('/admin/ranks/groups')
+					}, 1000)
 				},
 
 				toggleDisplay (event) {
@@ -147,15 +183,15 @@
 						groups: this.groups
 					}).then(function (response) {
 						flash(
-							'{{ _m('genre-positions-flash-updated-message') }}',
-							'{{ _m('genre-positions-flash-updated-title') }}'
+							'{{ _m('genre-rank-groups-flash-updated-message') }}',
+							'{{ _m('genre-rank-groups-flash-updated-title') }}'
 						)
 					}).catch(function (error) {
 						if (error.response.status == 422) {
 							// Validation error
 							flash(
-								'{{ _m('genre-positions-flash-validation-message') }}',
-								'{{ _m('genre-positions-flash-validation-title') }}',
+								'{{ _m('genre-rank-groups-flash-validation-message') }}',
+								'{{ _m('genre-rank-groups-flash-validation-title') }}',
 								'danger'
 							)
 						}

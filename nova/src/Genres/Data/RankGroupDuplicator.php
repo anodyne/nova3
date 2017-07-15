@@ -14,7 +14,7 @@ class RankGroupDuplicator implements Duplicatable
 		$newGroup = $group->replicate();
 
 		// Fill with the values and save it
-		$newGroup->fill($this->data)->save();
+		$newGroup->fill(['name' => 'Copy of '.$group->name])->save();
 
 		return $newGroup;
 	}

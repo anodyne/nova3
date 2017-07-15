@@ -112,10 +112,8 @@ class ManageRankGroupsTest extends DatabaseTestCase
 
 		$group = create('Nova\Genres\RankGroup');
 
-		$response = $this->post(route('ranks.groups.duplicate', [$group]), [
-			'name' => 'Copied Rank Group'
-		]);
+		$response = $this->post(route('ranks.groups.duplicate', [$group]));
 
-		$this->assertDatabaseHas('ranks_groups', ['name' => 'Copied Rank Group']);
+		$this->assertDatabaseHas('ranks_groups', ['name' => 'Copy of '.$group->name]);
 	}
 }

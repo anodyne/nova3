@@ -94,14 +94,13 @@ class RankGroupsController extends Controller
 	{
 		$this->authorize('create', $group);
 
-		$this->validate(request(), [
-			'name' => 'required',
-		], [
-			'name.required' => _m('validation-required-name'),
-		]);
-
 		duplicator(RankGroup::class)->with(request()->all())->duplicate($group);
 
-		return redirect()->route('ranks.groups.index');
+		flash()
+			->title(_m('genre-rank-groups-flash-duplicated-title'))
+			->message(_m('genre-rank-groups-flash-duplicated-message'))
+			->success();
+
+		return response(200);
 	}
 }
