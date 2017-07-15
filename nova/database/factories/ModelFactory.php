@@ -40,3 +40,9 @@ $factory->define(Nova\Genres\Position::class, function (Faker\Generator $faker) 
 		}
 	];
 });
+
+$factory->define(Nova\Genres\RankGroup::class, function (Faker\Generator $faker) {
+	return [
+		'name' => $faker->words(2, true),
+	];
+});

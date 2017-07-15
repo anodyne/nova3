@@ -64,6 +64,13 @@ if (! function_exists('deletor')) {
 	}
 }
 
+if (! function_exists('duplicator')) {
+	function duplicator($model)
+	{
+		return app(config('maps.duplicators')[$model]);
+	}
+}
+
 if (! function_exists('restorer')) {
 	function restorer($model)
 	{

@@ -183,6 +183,9 @@
 	"genre-rank-groups-find": "Find rank groups",
 	"genre-rank-groups-flash-added-message": "The rank group has been created. You can now assign ranks to this group.",
 	"genre-rank-groups-flash-added-title": "Rank group added",
+	"genre-rank-groups-flash-updated-message": "All of the rank groups have been updated.",
+	"genre-rank-groups-flash-updated-title": "Rank groups updated",
+	"genre-rank-groups-flash-validation-message": "Rank groups could not be updated because of missing information. Please correct the issue(s) and try again.",
 
 	"validation-required-name": "Please enter a name"
 }

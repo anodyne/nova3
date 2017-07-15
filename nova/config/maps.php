@@ -15,7 +15,12 @@ return [
 		Nova\Authorize\Role::class => Nova\Authorize\Data\RoleDeletor::class,
 		Nova\Genres\Department::class => Nova\Genres\Data\DepartmentDeletor::class,
 		Nova\Genres\Position::class => Nova\Genres\Data\PositionDeletor::class,
+		Nova\Genres\RankGroup::class => Nova\Genres\Data\RankGroupDeletor::class,
 		Nova\Users\User::class => Nova\Users\Data\UserDeletor::class,
+	],
+
+	'duplicators' => [
+		Nova\Genres\RankGroup::class => Nova\Genres\Data\RankGroupDuplicator::class,
 	],
 
 	'events' => [

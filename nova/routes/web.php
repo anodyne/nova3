@@ -36,12 +36,16 @@ Route::resource('admin/positions', 'Nova\Genres\Http\Controllers\PositionsContro
 
 Route::get('admin/ranks', 'Nova\Genres\Http\Controllers\RanksController@index')->name('ranks.index');
 
-Route::patch('admin/ranks/groups/reorder', 'Nova\Genres\Http\Controllers\RankGroupsController@reorder');
-Route::patch('admin/ranks/groups', 'Nova\Genres\Http\Controllers\RankGroupsController@update')->name('ranks.groups.update');
+Route::post('admin/ranks/groups/{group}/duplicate', 'Nova\Genres\Http\Controllers\RankGroupsController@duplicate')
+	->name('ranks.groups.duplicate');
+Route::patch('admin/ranks/groups/reorder', 'Nova\Genres\Http\Controllers\RankGroupsController@reorder')
+	->name('ranks.groups.reorder');
+Route::patch('admin/ranks/groups', 'Nova\Genres\Http\Controllers\RankGroupsController@update')
+	->name('ranks.groups.update');
 Route::resource(
 	'admin/ranks/groups',
 	'Nova\Genres\Http\Controllers\RankGroupsController',
-	['names' => 'ranks.groups', 'except' => ['update']]
+	['names' => 'ranks.groups', 'except' => ['edit', 'update']]
 );
 Route::resource('admin/ranks/info', 'Nova\Genres\Http\Controllers\RankInfoController', ['names' => 'ranks.info']);
 Route::resource('admin/ranks/items', 'Nova\Genres\Http\Controllers\RankItemsController', ['names' => 'ranks.items']);

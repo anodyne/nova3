@@ -52,12 +52,31 @@ class RankGroupsController extends Controller
 
 	public function update()
 	{
-		# code...
+		$this->authorize('update', new RankGroup);
+
+		$this->validate(request(), [
+			'groups.*.name' => 'required',
+		], [
+			'groups.*.name.required' => _m('validation-required-name'),
+		]);
+
+		updater(RankGroup::class)->with(request('groups'))->updateAll();
+
+		flash()
+			->title(_m('genre-rank-groups-flash-updated-title'))
+			->message(_m('genre-rank-groups-flash-updated-message'))
+			->success();
+
+		return response(200);
 	}
 
-	public function destroy(RankGroup $rankGroup)
+	public function destroy(RankGroup $group)
 	{
-		# code...
+		$this->authorize('delete', $group);
+
+		deletor(RankGroup::class)->delete($group);
+
+		return response(200);
 	}
 
 	public function reorder()
@@ -68,6 +87,21 @@ class RankGroupsController extends Controller
 			RankGroup::find($id)->reorder($index);
 		});
 
-		return response([200]);
+		return response(200);
+	}
+
+	public function duplicate(RankGroup $group)
+	{
+		$this->authorize('create', $group);
+
+		$this->validate(request(), [
+			'name' => 'required',
+		], [
+			'name.required' => _m('validation-required-name'),
+		]);
+
+		duplicator(RankGroup::class)->with(request()->all())->duplicate($group);
+
+		return redirect()->route('ranks.groups.index');
 	}
 }
