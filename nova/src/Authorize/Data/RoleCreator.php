@@ -1,7 +1,7 @@
 <?php namespace Nova\Authorize\Data;
 
 use Nova\Authorize\Role;
-use Nova\Foundation\CacheBuster;
+use Nova\Foundation\BustsCache;
 use Nova\Foundation\Data\BindsData;
 use Nova\Foundation\Data\Creatable;
 

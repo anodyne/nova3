@@ -20,7 +20,7 @@ class PermissionsController extends Controller
 
 		$this->authorize('manage', $permissionClass);
 
-		$permissions = Permission::get();
+		$permissions = cache('nova.permissions');
 
 		return view('pages.authorize.all-permissions', compact('permissions', 'roleClass', 'permissionClass'));
 	}

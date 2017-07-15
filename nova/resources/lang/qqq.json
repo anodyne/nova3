@@ -13,6 +13,7 @@
 	"edit": "Button label to edit a resource",
 	"email-address": "Label for a text field that collects email address",
 	"join": "Button label to go to the page to join the game",
+	"key": "Label for a text field that collects a unique key for a resource",
 	"name": "Label for a text field that collects a name",
 	"password": "Label for a text field that collects a password",
 	"password-confirm": "Label for a text field that confirms the password",

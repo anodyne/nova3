@@ -20,7 +20,7 @@ class RolesController extends Controller
 
 		$this->authorize('manage', $roleClass);
 
-		$roles = Role::get();
+		$roles = cache('nova.roles');
 
 		return view('pages.authorize.all-roles', compact('roles', 'roleClass', 'permissionClass'));
 	}
@@ -29,7 +29,7 @@ class RolesController extends Controller
 	{
 		$this->authorize('create', new Role);
 
-		$permissions = Permission::get();
+		$permissions = cache('nova.permissions');
 
 		return view('pages.authorize.create-role', compact('permissions'));
 	}
@@ -60,7 +60,7 @@ class RolesController extends Controller
 
 		$role->load('permissions');
 
-		$permissions = Permission::get();
+		$permissions = cache('nova.permissions');
 
 		return view('pages.authorize.update-role', compact('role', 'permissions'));
 	}

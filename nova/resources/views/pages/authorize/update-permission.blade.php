@@ -19,7 +19,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group{{ $errors->has('key') ? ' has-danger' : '' }}">
-					<label class="form-control-label">{{ _m('authorize-permission-key') }}</label>
+					<label class="form-control-label">{{ _m('key') }}</label>
 					{!! Form::text('key', null, ['class' => 'form-control'.($errors->has('key') ? ' form-control-danger' : '')]) !!}
 					{!! $errors->first('key', '<p class="form-control-feedback">:message</p>') !!}
 				</div>
