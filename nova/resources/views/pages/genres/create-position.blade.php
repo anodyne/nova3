@@ -49,7 +49,7 @@
 		<div class="form-group">
 			<label class="form-control-label">{{ _m('displayed') }}</label>
 			<div>
-				<toggle-button class="toggle-switch md" :value="true" @change="toggleDisplay"></toggle-button>
+				<toggle-button class="toggle-switch lg" :value="true" @change="toggleDisplay"></toggle-button>
 				<input type="hidden" name="display" v-model="display">
 			</div>
 		</div>
