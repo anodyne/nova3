@@ -11,7 +11,7 @@ class Kernel extends ConsoleKernel
 
 	protected function schedule(Schedule $schedule)
 	{
-		$schedule->command('nova:refresh-demo')
+		$schedule->command('nova:refresh')
 				 ->dailyAt('04:30');
 	}
 
