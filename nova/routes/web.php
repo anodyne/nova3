@@ -56,6 +56,8 @@ Route::resource(
  */
 Route::patch('admin/ranks/info', 'Nova\Genres\Http\Controllers\RankInfoController@update')
 	->name('ranks.info.update');
+Route::patch('admin/ranks/info/reorder', 'Nova\Genres\Http\Controllers\RankInfoController@reorder')
+	->name('ranks.info.reorder');
 Route::resource(
 	'admin/ranks/info',
 	'Nova\Genres\Http\Controllers\RankInfoController',

@@ -171,8 +171,6 @@
 	"genre-positions-validation-dept-required": "Validation message when the department is missing",
 
 	"genre-ranks": "Label for rank management landing page",
-	"genre-rank-info": "Label for rank info",
-	"genre-rank-info-explain": "Text that explains what rank info is",
 	"genre-rank-items": "Label for rank items",
 	"genre-rank-items-explain": "Text that explains what rank items are and how they work with rank groups and rank info",
 
@@ -183,7 +181,7 @@
 	"genre-rank-groups-error-add": "Text for the call to action link when no rank groups were found in the database",
 	"genre-rank-groups-error-not-found": "Error message when no rank groups were found in the database",
 	"genre-rank-groups-explain": "Text that explains what rank groups are",
-	"genre-rank-groups-find": "Label for the text field that filters rank gkroups down to what the user types",
+	"genre-rank-groups-find": "Label for the text field that filters rank groups down to what the user types",
 	"genre-rank-groups-flash-added-message": "Flash message notifying a user that a rank group has been created",
 	"genre-rank-groups-flash-added-title": "Title for the flash message notifying a user that a rank group has been created",
 	"genre-rank-groups-flash-deleted-message": "Flash message notifying a user that a rank group has been deleted",
@@ -194,6 +192,25 @@
 	"genre-rank-groups-flash-updated-title": "Title for the flash message notifying a user that all rank groups have been updated",
 	"genre-rank-groups-flash-validation-message": "Flash message notifying the user that there were validation issues with updating rank groups",
 	"genre-rank-groups-flash-validation-title": "Title for the flash message notifying a user that there were validation issues with updating rank groups",
+
+	"genre-rank-info": "Label for rank info",
+	"genre-rank-info-add": "Label for adding a new rank info; appears in the header and button",
+	"genre-rank-info-confirm-delete-message": "Confirmation message before deleting a rank info",
+	"genre-rank-info-confirm-delete-title": "Title for the confirmation message before deleting a rank info",
+	"genre-rank-info-error-add": "Text for the call to action link when no rank info was found in the database",
+	"genre-rank-info-error-not-found": "Error message when no rank info was found in the database",
+	"genre-rank-info-explain": "Text that explains what rank info is",
+	"genre-rank-info-find": "Label for the text field that filters rank info down to what the user types",
+	"genre-rank-info-flash-added-message": "Flash message notifying a user that a rank info has been created",
+	"genre-rank-info-flash-added-title": "Title for the flash message notifying a user that a rank info has been created",
+	"genre-rank-info-flash-deleted-message": "Flash message notifying a user that a rank info has been deleted",
+	"genre-rank-info-flash-deleted-title": "Title for the flash message notifying a user that a rank info has been deleted",
+	"genre-rank-info-flash-updated-message": "Flash message notifying a user that all the rank info have been updated",
+	"genre-rank-info-flash-updated-title": "Title for the flash message notifying a user that all rank info have been updated",
+	"genre-rank-info-flash-validation-message": "Flash message notifying the user that there were validation issues with updating rank info",
+	"genre-rank-info-flash-validation-title": "Title for the flash message notifying a user that there were validation issues with updating rank info",
+	"genre-rank-info-short_name": "Label for a text field that collects the rank short name",
+	"genre-rank-info-validation-required-short_name": "Validation message when there is a missing rank short name",
 
 	"validation-required-name": "Validation message when a name is missing"
 }

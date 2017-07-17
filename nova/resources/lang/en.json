@@ -194,7 +194,13 @@
 	"genre-rank-groups-flash-validation-title": "Update failed",
 
 	"genre-rank-info": "Rank Info",
+	"genre-rank-info-add": "Add Rank Info",
+	"genre-rank-info-confirm-delete-message": "Are you sure you want to delete this rank info?",
+	"genre-rank-info-confirm-delete-title": "Delete Rank Info",
+	"genre-rank-info-error-add": "Add rank info now.",
+	"genre-rank-info-error-not-found": "No rank info found.",
 	"genre-rank-info-explain": "Rank info records allow you to re-use much of the basic information about a rank (its name, short name, etc.). When you need to change a rank name, you'll just change it once and all your ranks will be updated.",
+	"genre-rank-info-find": "Find rank info",
 	"genre-rank-info-flash-added-message": "The rank info has been created. You can now assign this info to ranks.",
 	"genre-rank-info-flash-added-title": "Rank info added",
 	"genre-rank-info-flash-deleted-message": "The rank info has been deleted.",
@@ -203,6 +209,7 @@
 	"genre-rank-info-flash-updated-title": "Rank info updated",
 	"genre-rank-info-flash-validation-message": "Rank info could not be updated because of missing information. Please correct the issue(s) and try again.",
 	"genre-rank-info-flash-validation-title": "Update failed",
+	"genre-rank-info-short_name": "Short Name",
 	"genre-rank-info-validation-required-short_name": "Please enter a rank short name",
 
 	"validation-required-name": "Please enter a name"

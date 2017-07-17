@@ -17,11 +17,17 @@ class RankInfoController extends Controller
 		$rankInfoClass = new RankInfo;
 
 		$this->authorize('manage', $rankInfoClass);
+
+		$info = RankInfo::orderBy('order')->get();
+
+		return view('pages.genres.all-rank-info', compact('info', 'rankInfoClass'));
 	}
 
 	public function create()
 	{
 		$this->authorize('create', new RankInfo);
+
+		return view('pages.genres.create-rank-info');
 	}
 
 	public function store()
@@ -68,6 +74,17 @@ class RankInfoController extends Controller
 		$this->authorize('delete', $info);
 
 		deletor(RankInfo::class)->delete($info);
+
+		return response(200);
+	}
+
+	public function reorder()
+	{
+		$this->authorize('update', new RankInfo);
+
+		collect(request('info'))->each(function ($id, $index) {
+			RankInfo::find($id)->reorder($index);
+		});
 
 		return response(200);
 	}

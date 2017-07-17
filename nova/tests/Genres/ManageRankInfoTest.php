@@ -77,4 +77,24 @@ class ManageRankInfoTest extends DatabaseTestCase
 
 		$this->assertDatabaseMissing('ranks_info', ['id' => $info->id]);
 	}
+
+	/** @test **/
+	public function rank_info_can_be_reordered()
+	{
+		$admin = $this->createAdmin();
+
+		$this->signIn($admin);
+
+		$info1 = create('Nova\Genres\RankInfo', ['order' => 0]);
+		$info2 = create('Nova\Genres\RankInfo', ['order' => 1]);
+		$info3 = create('Nova\Genres\RankInfo', ['order' => 2]);
+
+		$response = $this->patch('/admin/ranks/info/reorder', ['info' => [$info2->id, $info3->id, $info1->id]]);
+
+		$response->assertStatus(200);
+
+		$this->assertDatabaseHas('ranks_info', ['id' => $info2->id, 'order' => 0]);
+		$this->assertDatabaseHas('ranks_info', ['id' => $info3->id, 'order' => 1]);
+		$this->assertDatabaseHas('ranks_info', ['id' => $info1->id, 'order' => 2]);
+	}
 }
