@@ -59,7 +59,7 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label class="form-control-label">{{ _m('name') }}</label>
-								<input type="text" class="form-control" v-model=group.name>
+								<input type="text" class="form-control" v-model="group.name">
 							</div>
 						</div>
 						<div class="col-md-6">
