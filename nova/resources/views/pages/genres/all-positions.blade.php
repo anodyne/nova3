@@ -146,8 +146,8 @@
 					let self = this
 
 					$.confirm({
-						title: "{{ _m('genre-positions-delete-title') }}",
-						content: "{{ _m('genre-positions-delete-message') }}",
+						title: "{{ _m('genre-positions-confirm-delete-title') }}",
+						content: "{{ _m('genre-positions-confirm-delete-message') }}",
 						theme: "dark",
 						buttons: {
 							confirm: {

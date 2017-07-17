@@ -80,8 +80,8 @@
 			methods: {
 				deleteRole (event) {
 					$.confirm({
-						title: "{{ _m('authorize-role-delete-title') }}",
-						content: "{{ _m('authorize-role-delete-message') }}",
+						title: "{{ _m('authorize-role-confirm-delete-title') }}",
+						content: "{{ _m('authorize-role-confirm-delete-message') }}",
 						theme: "dark",
 						buttons: {
 							confirm: {

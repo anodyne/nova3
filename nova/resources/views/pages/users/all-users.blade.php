@@ -159,8 +159,8 @@
 			methods: {
 				deleteUser (event) {
 					$.confirm({
-						title: "{{ _m('user-delete-title') }}",
-						content: "{{ _m('user-delete-message') }}",
+						title: "{{ _m('user-confirm-delete-title') }}",
+						content: "{{ _m('user-confirm-delete-message') }}",
 						theme: "dark",
 						buttons: {
 							confirm: {

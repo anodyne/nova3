@@ -135,8 +135,8 @@
 			methods: {
 				deleteDepartment (event) {
 					$.confirm({
-						title: "{{ _m('genre-dept-delete-title') }}",
-						content: "{{ _m('genre-dept-delete-message') }}",
+						title: "{{ _m('genre-dept-confirm-delete-title') }}",
+						content: "{{ _m('genre-dept-confirm-delete-message') }}",
 						theme: "dark",
 						buttons: {
 							confirm: {

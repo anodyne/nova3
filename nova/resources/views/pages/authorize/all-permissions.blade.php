@@ -101,8 +101,8 @@
 			methods: {
 				deletePermission (event) {
 					$.confirm({
-						title: "{{ _m('authorize-permission-delete-title') }}",
-						content: "{{ _m('authorize-permission-delete-message') }}",
+						title: "{{ _m('authorize-permission-confirm-delete-title') }}",
+						content: "{{ _m('authorize-permission-confirm-delete-message') }}",
 						theme: "dark",
 						buttons: {
 							confirm: {
