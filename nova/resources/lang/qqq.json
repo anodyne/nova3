@@ -21,6 +21,7 @@
 	"password-current": "Label for a text field that collects the current password",
 	"password-new": "Label for a text field that collects a new password",
 	"password-new-confirm": "Label for a text field that confirms a new password",
+	"preview": "Label for a section that provides a preview of a resource",
 	"restore": "Button label to restore a resource from a deleted state",
 	"save": "Button label to save a resource",
 	"sign-in": "Button label for signing in",

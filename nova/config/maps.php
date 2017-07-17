@@ -8,6 +8,7 @@ return [
 		Nova\Genres\Position::class => Nova\Genres\Data\PositionCreator::class,
 		Nova\Genres\RankGroup::class => Nova\Genres\Data\RankGroupCreator::class,
 		Nova\Genres\RankInfo::class => Nova\Genres\Data\RankInfoCreator::class,
+		Nova\Genres\Rank::class => Nova\Genres\Data\RankCreator::class,
 		Nova\Users\User::class => Nova\Users\Data\UserCreator::class,
 	],
 
@@ -18,11 +19,13 @@ return [
 		Nova\Genres\Position::class => Nova\Genres\Data\PositionDeletor::class,
 		Nova\Genres\RankGroup::class => Nova\Genres\Data\RankGroupDeletor::class,
 		Nova\Genres\RankInfo::class => Nova\Genres\Data\RankInfoDeletor::class,
+		Nova\Genres\Rank::class => Nova\Genres\Data\RankDeletor::class,
 		Nova\Users\User::class => Nova\Users\Data\UserDeletor::class,
 	],
 
 	'duplicators' => [
 		Nova\Genres\RankGroup::class => Nova\Genres\Data\RankGroupDuplicator::class,
+		Nova\Genres\Rank::class => Nova\Genres\Data\RankDuplicator::class,
 	],
 
 	'events' => [
@@ -32,9 +35,9 @@ return [
 		Nova\Users\Events\UserWasCreatedByAdmin::class => [
 			Nova\Users\Listeners\NotifyUserOfAdminAccountCreation::class
 		],
-		Nova\Users\Events\PasswordWasGenerated::class => [
-			Nova\Users\Listeners\SendPasswordToUser::class
-		],
+		// Nova\Users\Events\PasswordWasGenerated::class => [
+		// 	Nova\Users\Listeners\SendPasswordToUser::class
+		// ],
 	],
 
 	'policies' => [
@@ -44,6 +47,7 @@ return [
 		Nova\Genres\Position::class => Nova\Genres\Policies\PositionPolicy::class,
 		Nova\Genres\RankGroup::class => Nova\Genres\Policies\RankPolicy::class,
 		Nova\Genres\RankInfo::class => Nova\Genres\Policies\RankPolicy::class,
+		Nova\Genres\Rank::class => Nova\Genres\Policies\RankPolicy::class,
 		Nova\Users\User::class => Nova\Users\Policies\UserPolicy::class,
 	],
 
@@ -58,6 +62,7 @@ return [
 		Nova\Genres\Position::class => Nova\Genres\Data\PositionUpdater::class,
 		Nova\Genres\RankGroup::class => Nova\Genres\Data\RankGroupUpdater::class,
 		Nova\Genres\RankInfo::class => Nova\Genres\Data\RankInfoUpdater::class,
+		Nova\Genres\Rank::class => Nova\Genres\Data\RankUpdater::class,
 		Nova\Users\User::class => Nova\Users\Data\UserUpdater::class,
 	],
 ];

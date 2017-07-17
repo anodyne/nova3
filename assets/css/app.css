@@ -11519,6 +11519,29 @@ label.custom-control {
   color: rgba(0, 0, 0, 0.35);
 }
 
+.rank-container {
+  position: relative;
+}
+
+.rank-container > .rank-base,
+.rank-container > .rank-overlay {
+  height: 40px;
+  width: 144px;
+  background-color: transparent;
+  background-position: top left;
+  background-repeat: no-repeat;
+}
+
+.rank-container > .rank-base {
+  position: relative;
+  z-index: 100;
+}
+
+.rank-container > .rank-overlay {
+  position: absolute;
+  z-index: 200;
+}
+
 .vue-js-switch.toggle-switch .v-switch-core {
   background: #ccc !important;
 }

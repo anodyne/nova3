@@ -63,6 +63,12 @@ Route::resource(
 	'Nova\Genres\Http\Controllers\RankInfoController',
 	['names' => 'ranks.info', 'except' => ['edit', 'update']]
 );
+
+/**
+ * Rank Items
+ */
+Route::patch('admin/ranks/items/reorder', 'Nova\Genres\Http\Controllers\RankItemsController@reorder')
+	->name('ranks.items.reorder');
 Route::resource('admin/ranks/items', 'Nova\Genres\Http\Controllers\RankItemsController', ['names' => 'ranks.items']);
 
 Route::resource('admin/roles', 'Nova\Authorize\Http\Controllers\RolesController');

@@ -12,6 +12,7 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.component('rank', require('./components/Rank.vue'));
 Vue.component('flash', require('./components/Flash.vue'));
 Vue.component('avatar', require('./components/Avatar.vue'));
 

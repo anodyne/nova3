@@ -15,6 +15,16 @@
 
 	<!-- Styles -->
 	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
+
+	<script>
+		window.Nova = {!! json_encode([
+			'csrfToken' => csrf_token(),
+			'signedIn' => auth()->check(),
+			'siteUrl' => request()->root(),
+			'timezone' => config('app.timezone'),
+			'user' => auth()->user(),
+		]) !!}
+	</script>
 </head>
 <body>
 	<div id="app">

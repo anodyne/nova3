@@ -53,3 +53,16 @@ $factory->define(Nova\Genres\RankInfo::class, function (Faker\Generator $faker) 
 		'short_name' => $faker->words(1, true),
 	];
 });
+
+$factory->define(Nova\Genres\Rank::class, function (Faker\Generator $faker) {
+	return [
+		'group_id' => function () {
+			return factory('Nova\Genre\RankGroup')->create()->id;
+		},
+		'info_id' => function () {
+			return factory('Nova\Genre\RankIno')->create()->id;
+		},
+		'base' => '',
+		'overlay' => '',
+	];
+});
