@@ -66,9 +66,9 @@ class UserCreator implements Creatable
 	protected function fireEvents()
 	{
 		// Notify the user of their password
-		if ($this->passwordWasGenerated) {
-			event(new Events\PasswordWasGenerated($this->user, $this->password));
-		}
+		// if ($this->passwordWasGenerated) {
+		// 	event(new Events\PasswordWasGenerated($this->user, $this->password));
+		// }
 
 		// Fire an event that a user was created by an admin
 		if ($this->adminCreated) {

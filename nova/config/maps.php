@@ -29,6 +29,9 @@ return [
 		Nova\Users\Events\AdminForcedPasswordReset::class => [
 			Nova\Users\Listeners\NotifyUsersOfAdminForcedPasswordReset::class
 		],
+		Nova\Users\Events\UserWasCreatedByAdmin::class => [
+			Nova\Users\Listeners\NotifyUserOfAdminAccountCreation::class
+		],
 		Nova\Users\Events\PasswordWasGenerated::class => [
 			Nova\Users\Listeners\SendPasswordToUser::class
 		],
