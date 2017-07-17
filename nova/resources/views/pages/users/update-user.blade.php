@@ -68,7 +68,6 @@
 
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary mr-2">{{ _m('user-update') }}</button>
-			<button type="submit" class="btn btn-secondary mr-2">Force Password Reset</button>
 			<a href="{{ route('users.index') }}" class="btn btn-link">{{ _m('cancel') }}</a>
 		</div>
 	{!! Form::close() !!}
