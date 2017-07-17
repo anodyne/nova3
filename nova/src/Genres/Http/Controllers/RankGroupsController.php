@@ -62,10 +62,10 @@ class RankGroupsController extends Controller
 
 		updater(RankGroup::class)->with(request('groups'))->updateAll();
 
-		flash()
-			->title(_m('genre-rank-groups-flash-updated-title'))
-			->message(_m('genre-rank-groups-flash-updated-message'))
-			->success();
+		// flash()
+		// 	->title(_m('genre-rank-groups-flash-updated-title'))
+		// 	->message(_m('genre-rank-groups-flash-updated-message'))
+		// 	->success();
 
 		return response(200);
 	}
