@@ -17,7 +17,6 @@ class RankGroupUpdater implements Updatable
 
 	public function updateAll()
 	{
-		// dd('updateAll', $this->data);
 		foreach ($this->data as $data) {
 			$group = RankGroup::find($data['id']);
 

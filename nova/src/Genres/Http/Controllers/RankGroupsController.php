@@ -20,14 +20,14 @@ class RankGroupsController extends Controller
 
 		$rankGroups = RankGroup::orderBy('order')->get();
 
-		return view('pages.genres.ranks.all-groups', compact('rankGroups', 'rankGroupClass'));
+		return view('pages.genres.all-rank-groups', compact('rankGroups', 'rankGroupClass'));
 	}
 
 	public function create()
 	{
 		$this->authorize('create', new RankGroup);
 
-		return view('pages.genres.ranks.create-group');
+		return view('pages.genres.create-rank-group');
 	}
 
 	public function store()
@@ -61,11 +61,6 @@ class RankGroupsController extends Controller
 		]);
 
 		updater(RankGroup::class)->with(request('groups'))->updateAll();
-
-		// flash()
-		// 	->title(_m('genre-rank-groups-flash-updated-title'))
-		// 	->message(_m('genre-rank-groups-flash-updated-message'))
-		// 	->success();
 
 		return response(200);
 	}

@@ -17,7 +17,6 @@ class PositionUpdater implements Updatable
 
 	public function updateAll()
 	{
-		// dd('updateAll', $this->data);
 		foreach ($this->data as $data) {
 			$position = Position::find($data['id']);
 

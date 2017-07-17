@@ -7,11 +7,11 @@ class RankGroupDeletor implements Deletable
 {
 	use BindsData;
 
-	public function delete($rankGroup)
+	public function delete($group)
 	{
 		// Delete the rank group
-		$rankGroup->delete();
+		$group->delete();
 
-		return $rankGroup;
+		return $group;
 	}
 }
