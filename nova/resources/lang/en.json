@@ -171,8 +171,6 @@
 	"genre-positions-validation-dept-required": "Please select a department",
 
 	"genre-ranks": "Ranks",
-	"genre-rank-info": "Rank Info",
-	"genre-rank-info-explain": "Rank info records allow you to re-use much of the basic information about a rank (its name, short name, etc.). When you need to change a rank name, you'll just change it once and all your ranks will be updated.",
 	"genre-rank-items": "Rank Items",
 	"genre-rank-items-explain": "Rank items are the actual ranks that bring together the group and info as well as being able to set the rank's background and overlay. This gives you the ultimate control when creating and managing your ranks.",
 
@@ -194,6 +192,18 @@
 	"genre-rank-groups-flash-updated-title": "Rank groups updated",
 	"genre-rank-groups-flash-validation-message": "Rank groups could not be updated because of missing information. Please correct the issue(s) and try again.",
 	"genre-rank-groups-flash-validation-title": "Update failed",
+
+	"genre-rank-info": "Rank Info",
+	"genre-rank-info-explain": "Rank info records allow you to re-use much of the basic information about a rank (its name, short name, etc.). When you need to change a rank name, you'll just change it once and all your ranks will be updated.",
+	"genre-rank-info-flash-added-message": "The rank info has been created. You can now assign this info to ranks.",
+	"genre-rank-info-flash-added-title": "Rank info added",
+	"genre-rank-info-flash-deleted-message": "The rank info has been deleted.",
+	"genre-rank-info-flash-deleted-title": "Rank info deleted",
+	"genre-rank-info-flash-updated-message": "All of the rank info has been updated.",
+	"genre-rank-info-flash-updated-title": "Rank info updated",
+	"genre-rank-info-flash-validation-message": "Rank info could not be updated because of missing information. Please correct the issue(s) and try again.",
+	"genre-rank-info-flash-validation-title": "Update failed",
+	"genre-rank-info-validation-required-short_name": "Please enter a rank short name",
 
 	"validation-required-name": "Please enter a name"
 }

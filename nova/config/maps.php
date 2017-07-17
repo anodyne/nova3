@@ -7,6 +7,7 @@ return [
 		Nova\Genres\Department::class => Nova\Genres\Data\DepartmentCreator::class,
 		Nova\Genres\Position::class => Nova\Genres\Data\PositionCreator::class,
 		Nova\Genres\RankGroup::class => Nova\Genres\Data\RankGroupCreator::class,
+		Nova\Genres\RankInfo::class => Nova\Genres\Data\RankInfoCreator::class,
 		Nova\Users\User::class => Nova\Users\Data\UserCreator::class,
 	],
 
@@ -16,6 +17,7 @@ return [
 		Nova\Genres\Department::class => Nova\Genres\Data\DepartmentDeletor::class,
 		Nova\Genres\Position::class => Nova\Genres\Data\PositionDeletor::class,
 		Nova\Genres\RankGroup::class => Nova\Genres\Data\RankGroupDeletor::class,
+		Nova\Genres\RankInfo::class => Nova\Genres\Data\RankInfoDeletor::class,
 		Nova\Users\User::class => Nova\Users\Data\UserDeletor::class,
 	],
 
@@ -38,6 +40,7 @@ return [
 		Nova\Genres\Department::class => Nova\Genres\Policies\DepartmentPolicy::class,
 		Nova\Genres\Position::class => Nova\Genres\Policies\PositionPolicy::class,
 		Nova\Genres\RankGroup::class => Nova\Genres\Policies\RankPolicy::class,
+		Nova\Genres\RankInfo::class => Nova\Genres\Policies\RankPolicy::class,
 		Nova\Users\User::class => Nova\Users\Policies\UserPolicy::class,
 	],
 
@@ -51,6 +54,7 @@ return [
 		Nova\Genres\Department::class => Nova\Genres\Data\DepartmentUpdater::class,
 		Nova\Genres\Position::class => Nova\Genres\Data\PositionUpdater::class,
 		Nova\Genres\RankGroup::class => Nova\Genres\Data\RankGroupUpdater::class,
+		Nova\Genres\RankInfo::class => Nova\Genres\Data\RankInfoUpdater::class,
 		Nova\Users\User::class => Nova\Users\Data\UserUpdater::class,
 	],
 ];

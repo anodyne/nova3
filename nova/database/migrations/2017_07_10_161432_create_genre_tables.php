@@ -37,6 +37,13 @@ class CreateGenreTables extends Migration
 			$table->timestamps();
 		});
 
+		Schema::create('ranks_info', function (Blueprint $table) {
+			$table->increments('id');
+			$table->string('name');
+			$table->string('short_name');
+			$table->timestamps();
+		});
+
 		$this->departments();
 	}
 
@@ -45,6 +52,7 @@ class CreateGenreTables extends Migration
 		Schema::dropIfExists('departments');
 		Schema::dropIfExists('positions');
 		Schema::dropIfExists('ranks_groups');
+		Schema::dropIfExists('ranks_info');
 	}
 
 	protected function departments()
