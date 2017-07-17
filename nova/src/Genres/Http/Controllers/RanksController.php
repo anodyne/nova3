@@ -16,6 +16,6 @@ class RanksController extends Controller
 	{
 		$this->authorize('manage', new RankGroup);
 
-		return view('pages.genres.ranks.index');
+		return view('pages.genres.ranks-landing');
 	}
 }
