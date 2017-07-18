@@ -41,6 +41,8 @@ Route::get('admin/ranks', 'Nova\Genres\Http\Controllers\RanksController@index')-
  */
 Route::post('admin/ranks/groups/{group}/duplicate', 'Nova\Genres\Http\Controllers\RankGroupsController@duplicate')
 	->name('ranks.groups.duplicate');
+Route::get('admin/ranks/groups/duplicate-confirm', 'Nova\Genres\Http\Controllers\RankGroupsController@duplicateConfirm')
+	->name('ranks.groups.duplicate-confirm');
 Route::patch('admin/ranks/groups/reorder', 'Nova\Genres\Http\Controllers\RankGroupsController@reorder')
 	->name('ranks.groups.reorder');
 Route::patch('admin/ranks/groups', 'Nova\Genres\Http\Controllers\RankGroupsController@update')
@@ -67,10 +69,15 @@ Route::resource(
 /**
  * Rank Items
  */
+Route::post('admin/ranks/items/{item}/duplicate', 'Nova\Genres\Http\Controllers\RankItemsController@duplicate')
+	->name('ranks.items.duplicate');
 Route::patch('admin/ranks/items/reorder', 'Nova\Genres\Http\Controllers\RankItemsController@reorder')
 	->name('ranks.items.reorder');
 Route::resource('admin/ranks/items', 'Nova\Genres\Http\Controllers\RankItemsController', ['names' => 'ranks.items']);
 
+/**
+ * Authorization
+ */
 Route::resource('admin/roles', 'Nova\Authorize\Http\Controllers\RolesController');
 Route::resource('admin/permissions', 'Nova\Authorize\Http\Controllers\PermissionsController');
 

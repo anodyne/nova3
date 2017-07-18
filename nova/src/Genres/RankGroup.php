@@ -9,4 +9,13 @@ class RankGroup extends Eloquent
 
 	protected $table = 'ranks_groups';
 	protected $fillable = ['name', 'order', 'display'];
+
+	//--------------------------------------------------------------------------
+	// Relationships
+	//--------------------------------------------------------------------------
+
+	public function ranks()
+	{
+		return $this->hasMany(Rank::class, 'group_id');
+	}
 }

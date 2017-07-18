@@ -2,6 +2,7 @@
 
 use Controller;
 use Nova\Genres\RankGroup;
+use Symfony\Component\Finder\Finder;
 
 class RankGroupsController extends Controller
 {
@@ -41,7 +42,7 @@ class RankGroupsController extends Controller
 		$this->validate(request(), [
 			'name' => 'required',
 		], [
-			'name.required' => _m('validation-required-name'),
+			'name.required' => _m('validation-name-required'),
 		]);
 
 		creator(RankGroup::class)->with(request()->all())->create();
@@ -65,7 +66,7 @@ class RankGroupsController extends Controller
 		$this->validate(request(), [
 			'groups.*.name' => 'required',
 		], [
-			'groups.*.name.required' => _m('validation-required-name'),
+			'groups.*.name.required' => _m('validation-name-required'),
 		]);
 
 		updater(RankGroup::class)->with(request('groups'))->updateAll();
@@ -104,6 +105,26 @@ class RankGroupsController extends Controller
 			->message(_m('genre-rank-groups-flash-duplicated-message'))
 			->success();
 
-		return response(200);
+		return redirect()->route('ranks.groups.index');
+	}
+
+	public function duplicateConfirm()
+	{
+		$this->authorize('create', new RankGroup);
+
+		// Get the base images
+		$finderBaseImages = (new Finder)->files()->in(base_path('ranks/st-24/duty/base'));
+		$baseImages = [];
+
+		foreach ($finderBaseImages as $file) {
+			$pathName = str_replace('\\', '/', $file->getRelativePathname());
+
+			$baseImages[$pathName] = $pathName;
+		}
+
+		// Grab the group ID from the request string
+		$group = request('group');
+
+		return view('pages.genres._rank-group-duplicate', compact('baseImages', 'group'));
 	}
 }

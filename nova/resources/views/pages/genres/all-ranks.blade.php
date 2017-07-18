@@ -9,7 +9,7 @@
 		<div class="row header">
 			<div class="col-8 col-md-5">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="{{ _m('genre-rank-find') }}" v-model="search">
+					<input type="text" class="form-control" placeholder="{{ _m('genre-ranks-find') }}" v-model="search">
 					<span class="input-group-btn">
 						<a class="btn btn-secondary" href="#" @click.prevent="search = ''">{!! icon('close') !!}</a>
 					</span>
@@ -38,7 +38,7 @@
 							</button>
 
 							<div class="dropdown-menu dropdown-menu-right">
-								<a href="{{ route('ranks.groups.index') }}" class="dropdown-item">{!! icon('list') !!} {{ _m('genre-rank-groups') }}</a>
+								<a href="{{ route('ranks.groups.index') }}" class="dropdown-item">{!! icon('list') !!} {{ _m('genre-rank-groups', [2]) }}</a>
 								<a href="{{ route('ranks.info.index') }}" class="dropdown-item">{!! icon('info') !!} {{ _m('genre-rank-info') }}</a>
 							</div>
 						</div>
@@ -49,18 +49,18 @@
 		<div class="row" v-if="group == ''">
 			<div class="col">
 				<div class="alert alert-info mb-0">
-					{{ _m('genre-rank-start') }}
+					{{ _m('genre-ranks-start') }}
 				</div>
 			</div>
 		</div>
 		<div class="row" v-if="group != '' && filteredRanks().length == 0">
 			<div class="col">
 				<div class="alert alert-warning mb-0">
-					{{ _m('genre-rank-error-not-found-group') }}
+					{{ _m('genre-ranks-error-not-found-group') }}
 				</div>
 			</div>
 		</div>
-		<div class="row align-items-start"
+		<div class="row align-items-start draggable-item"
 			 :data-id="rank.id"
 			 v-if="group != '' && filteredRanks().length > 0"
 			 v-for="rank in filteredRanks()">
@@ -71,7 +71,31 @@
 				<rank :item="rank"></rank>
 				<div class="ml-3">@{{ rank.info.name }}</div>
 			</div>
-			<div class="col col-xs-auto"></div>
+			<div class="col col-xs-auto">
+				<div class="dropdown pull-right">
+					<button class="btn btn-secondary btn-action"
+							type="button"
+							id="dropdownMenuButton"
+							data-toggle="dropdown"
+							aria-haspopup="true"
+							aria-expanded="false">
+						{!! icon('more') !!}
+					</button>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+						@can('create', $rankClass)
+							<a href="#" class="dropdown-item" @click.prevent="duplicateRank(rank.id)">{!! icon('copy') !!} {{ _m('duplicate') }}</a>
+						@endcan
+
+						@can('update', $rankClass)
+							<a :href="'/admin/ranks/items/' + rank.id + '/edit'" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
+						@endcan
+
+						@can('delete', $rankClass)
+							<a href="#" class="dropdown-item text-danger" @click.prevent="deleteRank(rank.id)">{!! icon('delete') !!} {{ _m('delete') }}</a>
+						@endcan
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 @endsection
@@ -85,22 +109,49 @@
 				search: ''
 			},
 
-			// computed: {
-			// 	filteredRanks () {
-			// 		let self = this
-			// 		let filteredRanks = this.ranks.filter(function (rank) {
-			// 			return rank.group_id == self.group
-			// 		})
-
-			// 		return filteredRanks.filter(function (rank) {
-			// 			let searchRegex = new RegExp(self.search, 'i')
-
-			// 			return searchRegex.test(rank.info.name) || searchRegex.test(rank.info.short_name)
-			// 		})
-			// 	}
-			// },
-
 			methods: {
+				deleteRank (id) {
+					let self = this
+
+					$.confirm({
+						title: "{{ _m('genre-ranks-confirm-delete-title') }}",
+						content: "{{ _m('genre-ranks-confirm-delete-message') }}",
+						theme: "dark",
+						buttons: {
+							confirm: {
+								text: "{{ _m('delete') }}",
+								btnClass: "btn-danger",
+								action () {
+									axios.delete('/admin/ranks/items/' + id)
+										.then(function (response) {
+											let index = _.findIndex(self.ranks, function (r) {
+												return r.id == id
+											})
+
+											self.ranks.splice(index, 1)
+
+											flash(
+												'{{ _m('genre-ranks-flash-deleted-message') }}',
+												'{{ _m('genre-ranks-flash-deleted-title') }}'
+											)
+										})
+								}
+							},
+							cancel: {
+								text: "{{ _m('cancel') }}"
+							}
+						}
+					})
+				},
+
+				duplicateRank (id) {
+					axios.post('/admin/ranks/items/' + id + '/duplicate')
+
+					window.setTimeout(function () {
+						window.location.replace('/admin/ranks/items')
+					}, 1000)
+				},
+
 				filteredRanks () {
 					let self = this
 					let filteredRanks = this.ranks.filter(function (rank) {
@@ -117,6 +168,7 @@
 
 			mounted () {
 				Sortable.create(document.getElementById('sortable'), {
+					draggable: '.draggable-item',
 					handle: '.sortable-handle',
 					onEnd (event) {
 						let order = new Array()

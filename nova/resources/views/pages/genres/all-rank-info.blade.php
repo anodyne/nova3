@@ -41,7 +41,7 @@
 								</button>
 
 								<div class="dropdown-menu dropdown-menu-right">
-									<a href="{{ route('ranks.groups.index') }}" class="dropdown-item">{!! icon('list') !!} {{ _m('genre-rank-groups') }}</a>
+									<a href="{{ route('ranks.groups.index') }}" class="dropdown-item">{!! icon('list') !!} {{ _m('genre-rank-groups', [2]) }}</a>
 									<a href="{{ route('ranks.items.index') }}" class="dropdown-item">{!! icon('star') !!} {{ _m('genre-ranks') }}</a>
 								</div>
 							</div>
@@ -56,7 +56,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row align-items-start"
+			<div class="row align-items-start draggable-item"
 				 :data-id="info.id"
 				 v-for="info in filteredInfo">
 				<div class="col col-auto">
@@ -170,6 +170,7 @@
 
 			mounted () {
 				Sortable.create(document.getElementById('sortable'), {
+					draggable: '.draggable-item',
 					handle: '.sortable-handle',
 					onEnd (event) {
 						let order = new Array()

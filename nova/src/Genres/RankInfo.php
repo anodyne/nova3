@@ -9,4 +9,13 @@ class RankInfo extends Eloquent
 
 	protected $table = 'ranks_info';
 	protected $fillable = ['name', 'short_name', 'order'];
+
+	//--------------------------------------------------------------------------
+	// Relationships
+	//--------------------------------------------------------------------------
+
+	public function ranks()
+	{
+		return $this->hasMany(Rank::class, 'info_id');
+	}
 }

@@ -32,7 +32,10 @@
 					<ul>
 						<li>Authorized users can create, delete, reorder, and update departments</li>
 						<li>Authorized users can create, delete, reorder, and update positions</li>
-						<li class="text-subtle">Authorized users can create, delete, and update ranks</li>
+						<li>Authorized users can create, delete, reorder, duplicate, and update rank groups</li>
+						<li>Authorized users can create, delete, reorder, and update rank info</li>
+						<li class="text-subtle">Authorized users can create, delete, reorder, dupliate, and update ranks</li>
+						<li>Genre data for departments, positions, rank groups, rank info, and ranks is inserted during install</li>
 					</ul>
 				</div>
 			</div>

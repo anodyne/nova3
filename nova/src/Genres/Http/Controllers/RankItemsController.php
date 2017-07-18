@@ -41,7 +41,7 @@ class RankItemsController extends Controller
 		$info = RankInfo::orderBy('order')->get()->pluck('name', 'id');
 
 		// Get the base images
-		$finderBaseImages = (new Finder)->files()->in(base_path('ranks/st24/duty/base'));
+		$finderBaseImages = (new Finder)->files()->in(base_path('ranks/st-24/duty/base'));
 		$baseImages = [];
 
 		foreach ($finderBaseImages as $file) {
@@ -57,7 +57,7 @@ class RankItemsController extends Controller
 		krsort($baseImages);
 
 		// Get the overlay images
-		$finderOverlayImages = (new Finder)->files()->in(base_path('ranks/st24/duty/overlay'));
+		$finderOverlayImages = (new Finder)->files()->in(base_path('ranks/st-24/duty/overlay'));
 		$overlayImages = [];
 
 		foreach ($finderOverlayImages as $file) {
@@ -84,17 +84,17 @@ class RankItemsController extends Controller
 			'group_id' => 'required|exists:ranks_groups,id',
 			'info_id' => 'required|exists:ranks_info,id',
 		], [
-			'group_id.required' => _m('genre-rank-validation-group-required'),
-			'group_id.exists' => _m('genre-rank-validation-group-exists'),
-			'info_id.required' => _m('genre-rank-validation-info-required'),
-			'info_id.exists' => _m('genre-rank-validation-info-exists'),
+			'group_id.required' => _m('genre-ranks-validation-group-required'),
+			'group_id.exists' => _m('genre-ranks-validation-group-exists'),
+			'info_id.required' => _m('genre-ranks-validation-info-required'),
+			'info_id.exists' => _m('genre-ranks-validation-info-exists'),
 		]);
 
 		creator(Rank::class)->with(request()->all())->create();
 
 		flash()
-			->title(_m('genre-rank-flash-added-title'))
-			->message(_m('genre-rank-flash-added-message'))
+			->title(_m('genre-ranks-flash-added-title'))
+			->message(_m('genre-ranks-flash-added-message'))
 			->success();
 
 		session()->forget('return-to-ranks');
@@ -105,16 +105,77 @@ class RankItemsController extends Controller
 	public function edit(Rank $item)
 	{
 		$this->authorize('update', $item);
+
+		// Get all of the rank groups
+		$groups = RankGroup::orderBy('order')->get()->pluck('name', 'id');
+
+		// Get all of the rank info
+		$info = RankInfo::orderBy('order')->get()->pluck('name', 'id');
+
+		// Get the base images
+		$finderBaseImages = (new Finder)->files()->in(base_path('ranks/st-24/duty/base'));
+		$baseImages = [];
+
+		foreach ($finderBaseImages as $file) {
+			$relativePath = str_replace('_', ' ', $file->getRelativePath());
+			$relativePath = str_replace('\\', ' ', $relativePath);
+			$relativePath = ucwords($relativePath);
+
+			$pathName = str_replace('\\', '/', $file->getRelativePathname());
+
+			$baseImages[$relativePath][] = $pathName;
+		}
+
+		krsort($baseImages);
+
+		// Get the overlay images
+		$finderOverlayImages = (new Finder)->files()->in(base_path('ranks/st-24/duty/overlay'));
+		$overlayImages = [];
+
+		foreach ($finderOverlayImages as $file) {
+			$relativePath = str_replace('_', ' ', $file->getRelativePath());
+			$relativePath = str_replace('\\', ' ', $relativePath);
+			$relativePath = ucwords($relativePath);
+
+			$pathName = str_replace('\\', '/', $file->getRelativePathname());
+
+			$overlayImages[$relativePath][] = $pathName;
+		}
+
+		return view('pages.genres.update-rank', compact('item', 'groups', 'info', 'baseImages', 'overlayImages'));
 	}
 
 	public function update(Rank $item)
 	{
 		$this->authorize('update', $item);
+
+		$this->validate(request(), [
+			'group_id' => 'required|exists:ranks_groups,id',
+			'info_id' => 'required|exists:ranks_info,id',
+		], [
+			'group_id.required' => _m('genre-ranks-validation-group-required'),
+			'group_id.exists' => _m('genre-ranks-validation-group-exists'),
+			'info_id.required' => _m('genre-ranks-validation-info-required'),
+			'info_id.exists' => _m('genre-ranks-validation-info-exists'),
+		]);
+
+		updater(Rank::class)->with(request()->all())->update($item);
+
+		flash()
+			->title(_m('genre-ranks-flash-updated-title'))
+			->message(_m('genre-ranks-flash-updated-message'))
+			->success();
+
+		return redirect()->route('ranks.items.index');
 	}
 
 	public function destroy(Rank $item)
 	{
 		$this->authorize('delete', $item);
+
+		deletor(Rank::class)->delete($item);
+
+		return response(200);
 	}
 
 	public function reorder()
@@ -131,5 +192,14 @@ class RankItemsController extends Controller
 	public function duplicate(Rank $item)
 	{
 		$this->authorize('create', $item);
+
+		duplicator(Rank::class)->with(request()->all())->duplicate($item);
+
+		flash()
+			->title(_m('genre-ranks-flash-duplicated-title'))
+			->message(_m('genre-ranks-flash-duplicated-message'))
+			->success();
+
+		return response(200);
 	}
 }

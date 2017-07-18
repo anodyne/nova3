@@ -9,7 +9,7 @@
 		<a href="{{ route('ranks.groups.index') }}" class="card">
 			<div class="card-block">
 				<div class="text-center text-subtle mb-4">{!! icon('list', 'fa-5x') !!}</div>
-				<h4 class="card-title text-center">{{ _m('genre-rank-groups') }}</h4>
+				<h4 class="card-title text-center">{{ _m('genre-rank-groups', [2]) }}</h4>
 				<p class="card-text">{{ _m('genre-rank-groups-explain') }}</p>
 			</div>
 		</a>
@@ -25,8 +25,8 @@
 		<a href="{{ route('ranks.items.index') }}" class="card">
 			<div class="card-block">
 				<div class="text-center text-subtle mb-4">{!! icon('star', 'fa-5x') !!}</div>
-				<h4 class="card-title text-center">{{ _m('genre-rank-items') }}</h4>
-				<p class="card-text">{{ _m('genre-rank-items-explain') }}</p>
+				<h4 class="card-title text-center">{{ _m('genre-ranks') }}</h4>
+				<p class="card-text">{{ _m('genre-ranks-explain') }}</p>
 			</div>
 		</a>
 	</div>

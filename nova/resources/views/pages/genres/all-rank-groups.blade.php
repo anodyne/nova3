@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('genre-rank-groups'))
+@section('title', _m('genre-rank-groups', [2]))
 
 @section('content')
-	<h1>{{ _m('genre-rank-groups') }}</h1>
+	<h1>{{ _m('genre-rank-groups', [2]) }}</h1>
 
 	@if ($rankGroups->count() > 0)
 		<div class="data-table bordered striped" id="sortable">
@@ -48,7 +48,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row align-items-start"
+			<div class="row align-items-start draggable-item"
 				 :data-id="group.id"
 				 v-for="group in filteredGroups">
 				<div class="col col-auto">
@@ -161,11 +161,24 @@
 				},
 
 				duplicateGroup (id) {
-					axios.post('/admin/ranks/groups/' + id + '/duplicate')
-
-					window.setTimeout(function () {
-						window.location.replace('/admin/ranks/groups')
-					}, 1000)
+					$.confirm({
+						title: "{{ _m('genre-rank-groups-confirm-duplicate-title') }}",
+						columnClass: 'medium',
+						content: "URL:{{ route('ranks.groups.duplicate-confirm') }}?group=" + id,
+						theme: "dark",
+						buttons: {
+							formSubmit: {
+								text: "{{ _m('duplicate') }}",
+								btnClass: "btn-success",
+								action () {
+									$('#duplicateForm').submit()
+								}
+							},
+							cancel: {
+								text: "{{ _m('cancel') }}"
+							}
+						}
+					})
 				},
 
 				toggleDisplay (event) {
@@ -201,6 +214,7 @@
 
 			mounted () {
 				Sortable.create(document.getElementById('sortable'), {
+					draggable: '.draggable-item',
 					handle: '.sortable-handle',
 					onEnd (event) {
 						let order = new Array()

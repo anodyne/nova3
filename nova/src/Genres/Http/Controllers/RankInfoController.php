@@ -42,7 +42,7 @@ class RankInfoController extends Controller
 			'name' => 'required',
 			'short_name' => 'required',
 		], [
-			'name.required' => _m('validation-required-name'),
+			'name.required' => _m('validation-name-required'),
 			'short_name.required' => _m('genre-rank-info-validation-required-short_name'),
 		]);
 
@@ -68,7 +68,7 @@ class RankInfoController extends Controller
 			'info.*.name' => 'required',
 			'info.*.short_name' => 'required',
 		], [
-			'info.*.name.required' => _m('validation-required-name'),
+			'info.*.name.required' => _m('validation-name-required'),
 			'info.*.short_name.required' => _m('genre-rank-info-validation-required-short_name'),
 		]);
 
