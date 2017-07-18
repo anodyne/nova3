@@ -23,6 +23,7 @@
 			'siteUrl' => request()->root(),
 			'timezone' => config('app.timezone'),
 			'user' => auth()->user(),
+			'genre' => config('nova.genre'),
 		]) !!}
 	</script>
 </head>
