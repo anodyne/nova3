@@ -7,7 +7,7 @@
 
 	@if ($users->count() > 0)
 		<div class="alert alert-info" v-show="status == '{{ Status::REMOVED }}'">
-			<p>{{ _m('user-deleted-notice') }}</p>
+			<p>{{ _m('users-deleted-notice') }}</p>
 		</div>
 
 		<div class="data-table bordered striped">
@@ -16,7 +16,7 @@
 					<div class="input-group">
 						<input type="text"
 							   class="form-control"
-							   placeholder="{{ _m('user-find') }}"
+							   placeholder="{{ _m('users-find') }}"
 							   v-model="search">
 						<span class="input-group-btn">
 							<a class="btn btn-secondary" href="#" @click.prevent="search = ''">
@@ -26,21 +26,21 @@
 					</div>
 					<div class="mt-2 hidden-md-up">
 						<select name="" class="custom-select" v-model="status">
-							<option value="">{{ _m('user-status-all') }}</option>
-							<option value="{{ Status::ACTIVE }}">{{ _m('user-status-active') }}</option>
-							<option value="{{ Status::INACTIVE }}">{{ _m('user-status-inactive') }}</option>
-							{{-- <option value="{{ Status::PENDING }}">{{ _m('user-status-pending') }}</option> --}}
-							<option value="{{ Status::REMOVED }}">{{ _m('user-status-removed') }}</option>
+							<option value="">{{ _m('users-status-all') }}</option>
+							<option value="{{ Status::ACTIVE }}">{{ _m('users-status-active') }}</option>
+							<option value="{{ Status::INACTIVE }}">{{ _m('users-status-inactive') }}</option>
+							{{-- <option value="{{ Status::PENDING }}">{{ _m('users-status-pending') }}</option> --}}
+							<option value="{{ Status::REMOVED }}">{{ _m('users-status-removed') }}</option>
 						</select>
 					</div>
 				</div>
 				<div class="col hidden-sm-down">
 					<select name="" class="custom-select" v-model="status">
-						<option value="">{{ _m('user-status-all') }}</option>
-						<option value="{{ Status::ACTIVE }}">{{ _m('user-status-active') }}</option>
-						<option value="{{ Status::INACTIVE }}">{{ _m('user-status-inactive') }}</option>
-						{{-- <option value="{{ Status::PENDING }}">{{ _m('user-status-pending') }}</option> --}}
-						<option value="{{ Status::REMOVED }}">{{ _m('user-status-removed') }}</option>
+						<option value="">{{ _m('users-status-all') }}</option>
+						<option value="{{ Status::ACTIVE }}">{{ _m('users-status-active') }}</option>
+						<option value="{{ Status::INACTIVE }}">{{ _m('users-status-inactive') }}</option>
+						{{-- <option value="{{ Status::PENDING }}">{{ _m('users-status-pending') }}</option> --}}
+						<option value="{{ Status::REMOVED }}">{{ _m('users-status-removed') }}</option>
 					</select>
 				</div>
 				<div class="col col-xs-auto">
@@ -60,7 +60,7 @@
 
 								<div class="dropdown-menu dropdown-menu-right">
 									<a href="{{ route('users.force-password-reset') }}" class="dropdown-item">
-										{!! icon('users') !!} {{ _m('user-password-reset') }}
+										{!! icon('users') !!} {{ _m('users-password-reset') }}
 									</a>
 								</div>
 							</div>
@@ -90,7 +90,7 @@
 							{!! icon('more') !!}
 						</button>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-							<a :href="'/profile/' + user.id" class="dropdown-item">{!! icon('user') !!} {{ _m('user-profile') }}</a>
+							<a :href="'/profile/' + user.id" class="dropdown-item">{!! icon('user') !!} {{ _m('users-profile') }}</a>
 
 							@can('manage', $userClass)
 								<div class="dropdown-divider"></div>
@@ -114,7 +114,7 @@
 		</div>
 	@else
 		<div class="alert alert-warning">
-			{{ _m('user-error-not-found') }} <a href="{{ route('users.create') }}" class="alert-link">{{ _m('user-error-add') }}
+			{{ _m('users-error-not-found') }} <a href="{{ route('users.create') }}" class="alert-link">{{ _m('users-error-add') }}
 		</div>
 	@endif
 @endsection
@@ -159,8 +159,8 @@
 			methods: {
 				deleteUser (event) {
 					$.confirm({
-						title: "{{ _m('user-confirm-delete-title') }}",
-						content: "{{ _m('user-confirm-delete-message') }}",
+						title: "{{ _m('users-confirm-delete-title') }}",
+						content: "{{ _m('users-confirm-delete-message') }}",
 						theme: "dark",
 						buttons: {
 							confirm: {
@@ -189,8 +189,8 @@
 
 				restoreUser (event) {
 					$.confirm({
-						title: "{{ _m('user-restore-title') }}",
-						content: "{{ _m('user-restore-message') }}",
+						title: "{{ _m('users-restore-title') }}",
+						content: "{{ _m('users-restore-message') }}",
 						theme: "dark",
 						buttons: {
 							confirm: {

@@ -7,13 +7,13 @@
 
 	@can('updateProfile', $user)
 		<mobile>
-			<p><a href="{{ route('profile.edit', $user) }}" class="btn btn-secondary btn-block">{{ _m('user-profile-update') }}</a></p>
+			<p><a href="{{ route('profile.edit', $user) }}" class="btn btn-secondary btn-block">{{ _m('users-profile-update') }}</a></p>
 		</mobile>
 
 		<desktop>
 			<div class="btn-toolbar">
 				<div class="btn-group">
-					<a href="{{ route('profile.edit', $user) }}" class="btn btn-secondary">{{ _m('user-profile-update') }}</a>
+					<a href="{{ route('profile.edit', $user) }}" class="btn btn-secondary">{{ _m('users-profile-update') }}</a>
 				</div>
 			</div>
 		</desktop>

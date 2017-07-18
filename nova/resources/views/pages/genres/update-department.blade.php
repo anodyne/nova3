@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('genre-dept-update'))
+@section('title', _m('genre-depts-update'))
 
 @section('content')
-	<h1>{{ _m('genre-dept-update') }}</h1>
+	<h1>{{ _m('genre-depts-update') }}</h1>
 
 	{!! Form::model($department, ['route' => ['departments.update', $department], 'method' => 'patch']) !!}
 		<div class="row">
@@ -28,16 +28,16 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label class="form-control-label">{{ _m('genre-dept-parent') }}</label>
+					<label class="form-control-label">{{ _m('genre-depts-parent') }}</label>
 					<div>
-						{!! Form::departments('parent_id', null, null, ['placeholder' => _m('genre-dept-parent-none')], true) !!}
+						{!! Form::departments('parent_id', null, null, ['placeholder' => _m('genre-depts-parent-none')], true) !!}
 					</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary">{{ _m('genre-dept-update') }}</button>
+			<button type="submit" class="btn btn-primary">{{ _m('genre-depts-update') }}</button>
 			<a href="{{ route('departments.index') }}" class="btn btn-link">{{ _m('cancel') }}</a>
 		</div>
 	{!! Form::close() !!}

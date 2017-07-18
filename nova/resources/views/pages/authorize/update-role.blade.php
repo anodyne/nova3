@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('authorize-role-update'))
+@section('title', _m('authorize-roles-update'))
 
 @section('content')
-	<h1>{{ _m('authorize-role-update') }}</h1>
+	<h1>{{ _m('authorize-roles-update') }}</h1>
 
 	{!! Form::model($role, ['route' => ['roles.update', $role], 'method' => 'patch']) !!}
 		<div class="row">
@@ -26,7 +26,7 @@
 							<div class="form-group">
 								<input type="text"
 									   class="form-control"
-									   placeholder="{{ _m('authorize-permission-find') }}"
+									   placeholder="{{ _m('authorize-permissions-find') }}"
 									   v-model="searchPermissions">
 							</div>
 						</div>
@@ -42,7 +42,7 @@
 		</div>
 
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary">{{ _m('authorize-role-update') }}</button>
+			<button type="submit" class="btn btn-primary">{{ _m('authorize-roles-update') }}</button>
 			<a href="{{ route('roles.index') }}" class="btn btn-link">{{ _m('cancel') }}</a>
 		</div>
 	{!! Form::close() !!}

@@ -40,15 +40,15 @@ class PermissionsController extends Controller
 			'name' => 'required',
 			'key' => 'required'
 		], [
-			'name.required' => _m('authorize-permission-validation-name'),
-			'key.required' => _m('authorize-permission-validation-key')
+			'name.required' => _m('validation-name-required'),
+			'key.required' => _m('validation-key-required')
 		]);
 
 		creator(Permission::class)->with(request()->all())->create();
 
 		flash()
-			->title(_m('authorize-permission-flash-added-title'))
-			->message(_m('authorize-permission-flash-added-message'))
+			->title(_m('authorize-permissions-flash-added-title'))
+			->message(_m('authorize-permissions-flash-added-message'))
 			->success();
 
 		return redirect()->route('permissions.index');
@@ -69,15 +69,15 @@ class PermissionsController extends Controller
 			'name' => 'required',
 			'key' => 'required'
 		], [
-			'name.required' => _m('authorize-permission-validation-name'),
-			'key.required' => _m('authorize-permission-validation-key')
+			'name.required' => _m('validation-name-required'),
+			'key.required' => _m('validation-key-required')
 		]);
 
 		updater(Permission::class)->with(request()->all())->update($permission);
 
 		flash()
-			->title(_m('authorize-permission-flash-updated-title'))
-			->message(_m('authorize-permission-flash-updated-message'))
+			->title(_m('authorize-permissions-flash-updated-title'))
+			->message(_m('authorize-permissions-flash-updated-message'))
 			->success();
 
 		return redirect()->route('permissions.index');
@@ -90,8 +90,8 @@ class PermissionsController extends Controller
 		deletor(Permission::class)->delete($permission);
 
 		flash()
-			->title(_m('authorize-permission-flash-deleted-title'))
-			->message(_m('authorize-permission-flash-deleted-message'))
+			->title(_m('authorize-permissions-flash-deleted-title'))
+			->message(_m('authorize-permissions-flash-deleted-message'))
 			->success();
 
 		return redirect()->route('permissions.index');

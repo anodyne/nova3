@@ -71,8 +71,8 @@
 								</a>
 
 								<div class="dropdown-menu dropdown-menu-right">
-									<a class="dropdown-item" href="{{ route('profile.show', [$_user]) }}">{{ _m('user-my-profile') }}</a>
-									<a class="dropdown-item" href="{{ route('profile.edit', [$_user]) }}">{{ _m('user-profile-update') }}</a>
+									<a class="dropdown-item" href="{{ route('profile.show', [$_user]) }}">{{ _m('users-my-profile') }}</a>
+									<a class="dropdown-item" href="{{ route('profile.edit', [$_user]) }}">{{ _m('users-profile-update') }}</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="{{ route('logout') }}"
 									   onclick="event.preventDefault();

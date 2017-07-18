@@ -41,17 +41,17 @@ class UsersController extends Controller
 			'name' => 'required',
 			'email' => 'required|email|unique:users'
 		], [
-			'name.required' => _m('user-validation-name'),
-			'email.required' => _m('user-validation-email-required'),
-			'email.email' => _m('user-validation-email-email'),
-			'email.unique' => _m('user-validation-email-unique')
+			'name.required' => _m('users-validation-name'),
+			'email.required' => _m('users-validation-email-required'),
+			'email.email' => _m('users-validation-email-email'),
+			'email.unique' => _m('users-validation-email-unique')
 		]);
 
 		creator(User::class)->with(request()->all())->adminCreate();
 
 		flash()
-			->title(_m('user-flash-added-title'))
-			->message(_m('user-flash-added-message'))
+			->title(_m('users-flash-added-title'))
+			->message(_m('users-flash-added-message'))
 			->success();
 
 		return redirect()->route('users.index');
@@ -74,16 +74,16 @@ class UsersController extends Controller
 			'name' => 'required',
 			'email' => 'required|email'
 		], [
-			'name.required' => _m('user-validation-name'),
-			'email.required' => _m('user-validation-email-required'),
-			'email.email' => _m('user-validation-email-email')
+			'name.required' => _m('users-validation-name'),
+			'email.required' => _m('users-validation-email-required'),
+			'email.email' => _m('users-validation-email-email')
 		]);
 
 		updater(User::class)->with(request()->all())->update($user);
 
 		flash()
-			->title(_m('user-flash-updated-title'))
-			->message(_m('user-flash-updated-message'))
+			->title(_m('users-flash-updated-title'))
+			->message(_m('users-flash-updated-message'))
 			->success();
 
 		return redirect()->route('users.index');
@@ -96,8 +96,8 @@ class UsersController extends Controller
 		deletor(User::class)->delete($user);
 
 		flash()
-			->title(_m('user-flash-deleted-title'))
-			->message(_m('user-flash-deleted-message'))
+			->title(_m('users-flash-deleted-title'))
+			->message(_m('users-flash-deleted-message'))
 			->success();
 
 		return redirect()->route('users.index');
@@ -110,8 +110,8 @@ class UsersController extends Controller
 		restorer(User::class)->restore($user);
 
 		flash()
-			->title(_m('user-flash-restored-title'))
-			->message(_m('user-flash-restored-message'))
+			->title(_m('users-flash-restored-title'))
+			->message(_m('users-flash-restored-message'))
 			->success();
 
 		return redirect()->route('users.index');

@@ -41,14 +41,14 @@ class RolesController extends Controller
 		$this->validate(request(), [
 			'name' => 'required'
 		], [
-			'name.required' => _m('authorize-role-validation-name')
+			'name.required' => _m('validation-name-required')
 		]);
 
 		creator(Role::class)->with(request()->all())->create();
 
 		flash()
-			->title(_m('authorize-role-flash-added-title'))
-			->message(_m('authorize-role-flash-added-message'))
+			->title(_m('authorize-roles-flash-added-title'))
+			->message(_m('authorize-roles-flash-added-message'))
 			->success();
 
 		return redirect()->route('roles.index');
@@ -72,14 +72,14 @@ class RolesController extends Controller
 		$this->validate(request(), [
 			'name' => 'required'
 		], [
-			'name.required' => _m('authorize-role-validation-name')
+			'name.required' => _m('validation-name-required')
 		]);
 
 		updater(Role::class)->with(request()->all())->update($role);
 
 		flash()
-			->title(_m('authorize-role-flash-updated-title'))
-			->message(_m('authorize-role-flash-updated-message'))
+			->title(_m('authorize-roles-flash-updated-title'))
+			->message(_m('authorize-roles-flash-updated-message'))
 			->success();
 
 		return redirect()->route('roles.index');
@@ -92,8 +92,8 @@ class RolesController extends Controller
 		deletor(Role::class)->delete($role);
 
 		flash()
-			->title(_m('authorize-role-flash-deleted-title'))
-			->message(_m('authorize-role-flash-deleted-message'))
+			->title(_m('authorize-roles-flash-deleted-title'))
+			->message(_m('authorize-roles-flash-deleted-message'))
 			->success();
 
 		return redirect()->route('roles.index');

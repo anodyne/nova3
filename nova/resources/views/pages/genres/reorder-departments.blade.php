@@ -33,7 +33,7 @@
 		</ul>
 	@else
 		<div class="alert alert-warning">
-			{{ _m('genre-dept-error-not-found') }} <a href="{{ route('departments.create') }}" class="alert-link">{{ _m('genre-dept-error-add') }}</a>
+			{{ _m('genre-depts-error-not-found') }} <a href="{{ route('departments.create') }}" class="alert-link">{{ _m('genre-depts-error-add') }}</a>
 		</div>
 	@endif
 @endsection

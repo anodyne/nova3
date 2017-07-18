@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('authorize-role-add'))
+@section('title', _m('authorize-roles-add'))
 
 @section('content')
-	<h1>{{ _m('authorize-role-add') }}</h1>
+	<h1>{{ _m('authorize-roles-add') }}</h1>
 
 	{!! Form::open(['route' => 'roles.store']) !!}
 		<div class="row">
@@ -26,7 +26,7 @@
 							<div class="form-group">
 								<input type="text"
 									   class="form-control"
-									   placeholder="{{ _m('authorize-permission-find') }}"
+									   placeholder="{{ _m('authorize-permissions-find') }}"
 									   v-model="searchPermissions">
 							</div>
 						</div>
@@ -43,7 +43,7 @@
 		</div>
 
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary">{{ _m('authorize-role-add') }}</button>
+			<button type="submit" class="btn btn-primary">{{ _m('authorize-roles-add') }}</button>
 			<a href="{{ route('roles.index') }}" class="btn btn-link">{{ _m('cancel') }}</a>
 		</div>
 	{!! Form::close() !!}

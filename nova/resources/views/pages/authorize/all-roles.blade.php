@@ -69,7 +69,7 @@
 		</div>
 	@else
 		<div class="alert alert-warning">
-			{{ _m('authorize-role-error-not-found') }} <a href="{{ route('roles.create') }}" class="alert-link">{{ _m('authorize-role-error-add') }}</a>
+			{{ _m('authorize-roles-error-not-found') }} <a href="{{ route('roles.create') }}" class="alert-link">{{ _m('authorize-roles-error-add') }}</a>
 		</div>
 	@endif
 @endsection
@@ -80,8 +80,8 @@
 			methods: {
 				deleteRole (event) {
 					$.confirm({
-						title: "{{ _m('authorize-role-confirm-delete-title') }}",
-						content: "{{ _m('authorize-role-confirm-delete-message') }}",
+						title: "{{ _m('authorize-roles-confirm-delete-title') }}",
+						content: "{{ _m('authorize-roles-confirm-delete-message') }}",
 						theme: "dark",
 						buttons: {
 							confirm: {

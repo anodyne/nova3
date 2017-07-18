@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('genre-dept-add'))
+@section('title', _m('genre-depts-add'))
 
 @section('content')
-	<h1>{{ _m('genre-dept-add') }}</h1>
+	<h1>{{ _m('genre-depts-add') }}</h1>
 
 	{!! Form::open(['route' => 'departments.store']) !!}
 		<div class="row">
@@ -28,16 +28,16 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label class="form-control-label">{{ _m('genre-dept-parent') }}</label>
+					<label class="form-control-label">{{ _m('genre-depts-parent') }}</label>
 					<div>
-						{!! Form::departments('parent_id', null, null, ['placeholder' => _m('genre-dept-parent-none')], true) !!}
+						{!! Form::departments('parent_id', null, null, ['placeholder' => _m('genre-depts-parent-none')], true) !!}
 					</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary">{{ _m('genre-dept-add') }}</button>
+			<button type="submit" class="btn btn-primary">{{ _m('genre-depts-add') }}</button>
 			<a href="{{ route('departments.index') }}" class="btn btn-link">{{ _m('cancel') }}</a>
 		</div>
 	{!! Form::close() !!}

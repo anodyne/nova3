@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('user-update'))
+@section('title', _m('users-update'))
 
 @section('content')
-	<h1>{{ _m('user-update') }}</h1>
+	<h1>{{ _m('users-update') }}</h1>
 
 	{!! Form::model($user, ['route' => ['users.update', $user], 'method' => 'patch']) !!}
 		<div class="row">
@@ -29,9 +29,9 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label class="form-control-label">{{ _m('user-nickname') }}</label>
+					<label class="form-control-label">{{ _m('users-nickname') }}</label>
 					{!! Form::text('nickname', null, ['class' => 'form-control']) !!}
-					<small class="form-text text-muted">{{ _m('user-nickname-explain') }}</small>
+					<small class="form-text text-muted">{{ _m('users-nickname-explain') }}</small>
 				</div>
 			</div>
 		</div>
@@ -54,7 +54,7 @@
 										  data-toggle="popover"
 										  data-trigger="hover"
 										  data-placement="top"
-										  title="{{ _m('authorize-role-can') }}"
+										  title="{{ _m('authorize-roles-can') }}"
 										  data-content="{{ $role->present()->includedPermissions }}">
 										{!! icon('question', 'text-muted') !!}
 									</span>
@@ -67,7 +67,7 @@
 		</div>
 
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary mr-2">{{ _m('user-update') }}</button>
+			<button type="submit" class="btn btn-primary mr-2">{{ _m('users-update') }}</button>
 			<a href="{{ route('users.index') }}" class="btn btn-link">{{ _m('cancel') }}</a>
 		</div>
 	{!! Form::close() !!}

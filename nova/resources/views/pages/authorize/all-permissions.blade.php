@@ -10,7 +10,7 @@
 			<div class="row header">
 				<div class="col-8 col-md-6">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="{{ _m('authorize-permission-find') }}" v-model="searchPermissions">
+						<input type="text" class="form-control" placeholder="{{ _m('authorize-permissions-find') }}" v-model="searchPermissions">
 						<span class="input-group-btn">
 							<a class="btn btn-secondary" href="#" @click.prevent="searchPermissions = ''">{!! icon('close') !!}</a>
 						</span>
@@ -73,7 +73,7 @@
 		</div>
 	@else
 		<div class="alert alert-warning">
-			{{ _m('authorize-permission-error-not-found') }} <a href="{{ route('permissions.create') }}" class="alert-link">{{ _m('authorize-permission-error-add') }}</a>
+			{{ _m('authorize-permissions-error-not-found') }} <a href="{{ route('permissions.create') }}" class="alert-link">{{ _m('authorize-permissions-error-add') }}</a>
 		</div>
 	@endif
 @endsection
@@ -101,8 +101,8 @@
 			methods: {
 				deletePermission (event) {
 					$.confirm({
-						title: "{{ _m('authorize-permission-confirm-delete-title') }}",
-						content: "{{ _m('authorize-permission-confirm-delete-message') }}",
+						title: "{{ _m('authorize-permissions-confirm-delete-title') }}",
+						content: "{{ _m('authorize-permissions-confirm-delete-message') }}",
 						theme: "dark",
 						buttons: {
 							confirm: {

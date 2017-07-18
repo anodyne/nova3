@@ -28,9 +28,9 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group{{ $errors->has('department_id') ? ' has-danger' : '' }}">
-					<label class="form-control-label">{{ _m('genre-dept') }}</label>
+					<label class="form-control-label">{{ _m('genre-dept', [1]) }}</label>
 					<div>
-						{!! Form::departments('department_id', null, null, ['placeholder' => _m('genre-dept-select')]) !!}
+						{!! Form::departments('department_id', null, null, ['placeholder' => _m('genre-depts-select')]) !!}
 					</div>
 					{!! $errors->first('department_id', '<p class="form-control-feedback">:message</p>') !!}
 				</div>

@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('authorize-permission-update'))
+@section('title', _m('authorize-permissions-update'))
 
 @section('content')
-	<h1>{{ _m('authorize-permission-update') }}</h1>
+	<h1>{{ _m('authorize-permissions-update') }}</h1>
 
 	{!! Form::model($permission, ['route' => ['permissions.update', $permission], 'method' => 'patch']) !!}
 		<div class="row">
@@ -27,7 +27,7 @@
 		</div>
 
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary">{{ _m('authorize-permission-update') }}</button>
+			<button type="submit" class="btn btn-primary">{{ _m('authorize-permissions-update') }}</button>
 			<a href="{{ route('permissions.index') }}" class="btn btn-link">{{ _m('cancel') }}</a>
 		</div>
 	{!! Form::close() !!}

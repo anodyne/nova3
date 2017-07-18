@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('title', _m('genre-depts'))
+@section('title', _m('genre-depts', [2]))
 
 @section('content')
-	<h1>{{ _m('genre-depts') }}</h1>
+	<h1>{{ _m('genre-depts', [2]) }}</h1>
 
 	@if ($departments->count() > 0)
 		<div class="data-table bordered striped">
 			<div class="row header">
 				<div class="col-9 col-md-6">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="{{ _m('genre-dept-find') }}" v-model="searchDepartments">
+						<input type="text" class="form-control" placeholder="{{ _m('genre-depts-find') }}" v-model="searchDepartments">
 						<span class="input-group-btn">
 							<a class="btn btn-secondary" href="#" @click.prevent="searchDepartments = ''">{!! icon('close') !!}</a>
 						</span>
@@ -107,7 +107,7 @@
 		</div>
 	@else
 		<div class="alert alert-warning">
-			{{ _m('genre-dept-error-not-found') }} <a href="{{ route('departments.create') }}" class="alert-link">{{ _m('genre-dept-error-add') }}</a>
+			{{ _m('genre-depts-error-not-found') }} <a href="{{ route('departments.create') }}" class="alert-link">{{ _m('genre-depts-error-add') }}</a>
 		</div>
 	@endif
 @endsection
@@ -135,8 +135,8 @@
 			methods: {
 				deleteDepartment (event) {
 					$.confirm({
-						title: "{{ _m('genre-dept-confirm-delete-title') }}",
-						content: "{{ _m('genre-dept-confirm-delete-message') }}",
+						title: "{{ _m('genre-depts-confirm-delete-title') }}",
+						content: "{{ _m('genre-depts-confirm-delete-message') }}",
 						theme: "dark",
 						buttons: {
 							confirm: {

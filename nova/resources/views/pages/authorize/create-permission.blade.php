@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('authorize-permission-add'))
+@section('title', _m('authorize-permissions-add'))
 
 @section('content')
-	<h1>{{ _m('authorize-permission-add') }}</h1>
+	<h1>{{ _m('authorize-permissions-add') }}</h1>
 
 	{!! Form::open(['route' => 'permissions.store']) !!}
 		<div class="row">
@@ -27,7 +27,7 @@
 		</div>
 
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary">{{ _m('authorize-permission-add') }}</button>
+			<button type="submit" class="btn btn-primary">{{ _m('authorize-permissions-add') }}</button>
 			<a href="{{ route('permissions.index') }}" class="btn btn-link">{{ _m('cancel') }}</a>
 		</div>
 	{!! Form::close() !!}

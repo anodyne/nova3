@@ -26,9 +26,13 @@ class ReorderDepartmentsController extends Controller
 		$this->authorize('update', new Department);
 
 		$departments = collect(request('depts'))->each(function ($id, $index) {
-			Department::find($id)->reorder($index);
+			$dept = Department::find($id);
+
+			if ($dept) {
+				$dept->reorder($index);
+			}
 		});
 
-		return response([200]);
+		return response(200);
 	}
 }

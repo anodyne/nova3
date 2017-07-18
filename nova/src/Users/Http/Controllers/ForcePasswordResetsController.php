@@ -44,8 +44,8 @@ class ForcePasswordResetsController extends Controller
 		$event = event(new AdminForcedPasswordReset($recipients));
 
 		flash()
-			->title(_m('user-flash-password-reset-title'))
-			->message(_m('user-flash-password-reset-message'))
+			->title(_m('users-flash-password-reset-title'))
+			->message(_m('users-flash-password-reset-message'))
 			->success();
 
 		return back();

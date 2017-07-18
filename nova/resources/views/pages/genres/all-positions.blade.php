@@ -16,11 +16,11 @@
 						</span>
 					</div>
 					<div class="mt-2 hidden-md-up">
-						{!! Form::departments(null, $departments, null, ['v-model' => 'department', 'placeholder' => _m('genre-dept-select')]) !!}
+						{!! Form::departments(null, $departments, null, ['v-model' => 'department', 'placeholder' => _m('genre-depts-select')]) !!}
 					</div>
 				</div>
 				<div class="col hidden-sm-down">
-					{!! Form::departments(null, $departments, null, ['v-model' => 'department', 'placeholder' => _m('genre-dept-select')]) !!}
+					{!! Form::departments(null, $departments, null, ['v-model' => 'department', 'placeholder' => _m('genre-depts-select')]) !!}
 				</div>
 				<div class="col col-xs-auto">
 					<div class="btn-toolbar pull-right">
@@ -51,7 +51,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row align-items-start"
+			<div class="row align-items-start draggable-item"
 				 :data-id="position.id"
 				 v-if="department != '' && filteredPositions.length > 0"
 				 v-for="position in filteredPositions">
@@ -68,7 +68,7 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<label class="form-control-label">{{ _m('genre-dept') }}</label>
+								<label class="form-control-label">{{ _m('genre-depts', [1]) }}</label>
 								<div>
 									{!! Form::departments(null, $departments, null, ['v-model' => 'position.department_id']) !!}
 								</div>
@@ -211,6 +211,7 @@
 
 			mounted () {
 				Sortable.create(document.getElementById('sortable'), {
+					draggable: '.draggable-item',
 					handle: '.sortable-handle',
 					onEnd (event) {
 						let order = new Array()

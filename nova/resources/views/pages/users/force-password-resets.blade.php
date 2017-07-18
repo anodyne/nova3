@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('user-password-reset'))
+@section('title', _m('users-password-reset'))
 
 @section('content')
-	<h1>{{ _m('user-password-reset') }}</h1>
+	<h1>{{ _m('users-password-reset') }}</h1>
 
 	{!! Form::open(['route' => 'users.reset-passwords', 'method' => 'patch']) !!}
 		<div class="data-table bordered striped">

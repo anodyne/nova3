@@ -45,7 +45,7 @@ class PositionsController extends Controller
 			'name' => 'required',
 			'department_id' => 'required|exists:departments,id'
 		], [
-			'name.required' => _m('validation-required-name'),
+			'name.required' => _m('validation-name-required'),
 			'department_id.required' => _m('genre-positions-validation-dept-required'),
 			'department_id.exists' => _m('genre-positions-validation-dept-exists'),
 		]);
@@ -78,7 +78,7 @@ class PositionsController extends Controller
 			'positions.*.name' => 'required',
 			'positions.*.department_id' => 'required|exists:departments,id'
 		], [
-			'positions.*.name.required' => _m('validation-required-name'),
+			'positions.*.name.required' => _m('validation-name-required'),
 			'positions.*.department_id.required' => _m('genre-positions-validation-dept-required'),
 			'positions.*.department_id.exists' => _m('genre-positions-validation-dept-exists'),
 		]);

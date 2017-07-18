@@ -37,14 +37,14 @@ class DepartmentsController extends Controller
 		$this->validate(request(), [
 			'name' => 'required',
 		], [
-			'name.required' => _m('validation-required-name'),
+			'name.required' => _m('validation-name-required'),
 		]);
 
 		creator(Department::class)->with(request()->all())->create();
 
 		flash()
-			->title(_m('genre-dept-flash-added-title'))
-			->message(_m('genre-dept-flash-added-message'))
+			->title(_m('genre-depts-flash-added-title'))
+			->message(_m('genre-depts-flash-added-message'))
 			->success();
 
 		return redirect()->route('departments.index');
@@ -64,14 +64,14 @@ class DepartmentsController extends Controller
 		$this->validate(request(), [
 			'name' => 'required'
 		], [
-			'name.required' => _m('validation-required-name')
+			'name.required' => _m('validation-name-required')
 		]);
 
 		updater(Department::class)->with(request()->all())->update($department);
 
 		flash()
-			->title(_m('genre-dept-flash-updated-title'))
-			->message(_m('genre-dept-flash-updated-message'))
+			->title(_m('genre-depts-flash-updated-title'))
+			->message(_m('genre-depts-flash-updated-message'))
 			->success();
 
 		return redirect()->route('departments.index');
@@ -84,8 +84,8 @@ class DepartmentsController extends Controller
 		deletor(Department::class)->delete($department);
 
 		flash()
-			->title(_m('genre-dept-flash-deleted-title'))
-			->message(_m('genre-dept-flash-deleted-message'))
+			->title(_m('genre-depts-flash-deleted-title'))
+			->message(_m('genre-depts-flash-deleted-message'))
 			->success();
 
 		return redirect()->route('departments.index');
