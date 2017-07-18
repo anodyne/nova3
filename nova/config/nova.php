@@ -2,6 +2,6 @@
 
 return [
 
-	'genre' => 'st24'
+	'genre' => 'st-24'
 
 ];
