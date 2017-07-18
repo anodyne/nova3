@@ -11542,6 +11542,22 @@ label.custom-control {
   z-index: 200;
 }
 
+.rank-selector {
+  padding: 0.5rem;
+  border: 0.1rem solid transparent;
+  border-radius: 0.25rem;
+}
+
+.rank-selector:hover {
+  background-color: rgba(2, 117, 216, 0.1);
+  border-color: rgba(2, 117, 216, 0.3);
+}
+
+.rank-selector.selected {
+  background-color: rgba(2, 117, 216, 0.2);
+  border-color: rgba(2, 117, 216, 0.5);
+}
+
 .vue-js-switch.toggle-switch .v-switch-core {
   background: #ccc !important;
 }

@@ -191,6 +191,23 @@ label.custom-control {
 	}
 }
 
+.rank-selector {
+	padding: 0.5rem;
+
+	border: 0.1rem solid transparent;
+	border-radius: $radius;
+
+	&:hover {
+		background-color: transparentize($brand-primary, 0.9);
+		border-color: transparentize($brand-primary, 0.7);
+	}
+
+	&.selected {
+		background-color: transparentize($brand-primary, 0.8);
+		border-color: transparentize($brand-primary, 0.5);
+	}
+}
+
 .vue-js-switch.toggle-switch {
 	.v-switch-core {
 		background: #ccc !important;
