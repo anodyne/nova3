@@ -69,7 +69,9 @@ class RankItemsController extends Controller
 
 			$overlayImages[$relativePath][] = $pathName;
 		}
-		// dd($overlayImages);
+
+		// Store something in the session in case we go out to create a group or info
+		session()->flash('return-to-ranks', true);
 
 		return view('pages.genres.create-rank', compact('groups', 'info', 'baseImages', 'overlayImages'));
 	}
@@ -94,6 +96,8 @@ class RankItemsController extends Controller
 			->title(_m('genre-rank-flash-added-title'))
 			->message(_m('genre-rank-flash-added-message'))
 			->success();
+
+		session()->forget('return-to-ranks');
 
 		return redirect()->route('ranks.items.index');
 	}

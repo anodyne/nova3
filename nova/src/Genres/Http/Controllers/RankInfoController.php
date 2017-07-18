@@ -27,6 +27,10 @@ class RankInfoController extends Controller
 	{
 		$this->authorize('create', new RankInfo);
 
+		if (session()->has('return-to-ranks')) {
+			session()->reflash();
+		}
+
 		return view('pages.genres.create-rank-info');
 	}
 
@@ -48,6 +52,10 @@ class RankInfoController extends Controller
 			->title(_m('genre-rank-info-flash-added-title'))
 			->message(_m('genre-rank-info-flash-added-message'))
 			->success();
+
+		if (session()->has('return-to-ranks')) {
+			return redirect()->route('ranks.items.create');
+		}
 
 		return redirect()->route('ranks.info.index');
 	}

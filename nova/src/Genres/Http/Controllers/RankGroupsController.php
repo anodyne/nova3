@@ -27,6 +27,10 @@ class RankGroupsController extends Controller
 	{
 		$this->authorize('create', new RankGroup);
 
+		if (session()->has('return-to-ranks')) {
+			session()->reflash();
+		}
+
 		return view('pages.genres.create-rank-group');
 	}
 
@@ -46,6 +50,10 @@ class RankGroupsController extends Controller
 			->title(_m('genre-rank-groups-flash-added-title'))
 			->message(_m('genre-rank-groups-flash-added-message'))
 			->success();
+
+		if (session()->has('return-to-ranks')) {
+			return redirect()->route('ranks.items.create');
+		}
 
 		return redirect()->route('ranks.groups.index');
 	}

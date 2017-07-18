@@ -15,6 +15,7 @@ trait Icons
 	{
 		return collect([
 			'add' => 'plus',
+			'add-alt' => 'plus-circle',
 			'arrow-down' => 'arrow-circle-down',
 			'arrow-left' => 'arrow-circle-left',
 			'arrow-right' => 'arrow-circle-right',

@@ -10,16 +10,18 @@
 			<div class="col-md-6">
 				<div class="form-group{{ $errors->has('group_id') ? ' has-danger' : '' }}">
 					<label class="form-control-label">{{ _m('genre-rank-group') }}</label>
-					<div>
+					<div class="d-flex align-items-center">
 						{!! Form::select('group_id', $groups, null, ['class' => 'custom-select', 'placeholder' => _m('genre-rank-groups-select')]) !!}
+						<a href="{{ route('ranks.groups.create') }}" class="btn btn-link" data-toggle="tooltip" title="{{ _m('genre-rank-groups-add') }}">{!! icon('add-alt') !!}</a>
 					</div>
 					{!! $errors->first('group_id', '<p class="form-control-feedback">:message</p>') !!}
 				</div>
 
 				<div class="form-group{{ $errors->has('info_id') ? ' has-danger' : '' }}">
 					<label class="form-control-label">{{ _m('genre-rank-info') }}</label>
-					<div>
+					<div class="d-flex align-items-center">
 						{!! Form::select('info_id', $info, null, ['class' => 'custom-select', 'placeholder' => _m('genre-rank-info-select')]) !!}
+						<a href="{{ route('ranks.info.create') }}" class="btn btn-link" data-toggle="tooltip" title="{{ _m('genre-rank-info-add') }}">{!! icon('add-alt') !!}</a>
 					</div>
 					{!! $errors->first('info_id', '<p class="form-control-feedback">:message</p>') !!}
 				</div>
