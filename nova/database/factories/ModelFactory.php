@@ -57,12 +57,12 @@ $factory->define(Nova\Genres\RankInfo::class, function (Faker\Generator $faker) 
 $factory->define(Nova\Genres\Rank::class, function (Faker\Generator $faker) {
 	return [
 		'group_id' => function () {
-			return factory('Nova\Genre\RankGroup')->create()->id;
+			return factory('Nova\Genres\RankGroup')->create()->id;
 		},
 		'info_id' => function () {
-			return factory('Nova\Genre\RankIno')->create()->id;
+			return factory('Nova\Genres\RankInfo')->create()->id;
 		},
-		'base' => '',
-		'overlay' => '',
+		'base' => 'foo.png',
+		'overlay' => 'bar.png',
 	];
 });
