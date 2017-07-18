@@ -100,4 +100,16 @@ class ManageDepartmentsTest extends DatabaseTestCase
 
 		$this->assertDatabaseMissing('departments', ['name' => $this->department->name]);
 	}
+
+	/** @test **/
+	public function has_no_errors()
+	{
+		$admin = $this->createAdmin();
+		$this->signIn($admin);
+		
+		$this->get(route('departments.index'))->assertSuccessful();
+		$this->get(route('departments.create'))->assertSuccessful();
+		$this->get(route('departments.edit', $this->department))->assertSuccessful();
+		$this->get(route('departments.reorder'))->assertSuccessful();
+	}
 }

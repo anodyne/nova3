@@ -139,4 +139,14 @@ class ManageRankGroupsTest extends DatabaseTestCase
 
 		$this->assertDatabaseHas('ranks', ['group_id' => $newGroup->id, 'base' => 'new-base.png']);
 	}
+
+	/** @test **/
+	public function has_no_errors()
+	{
+		$admin = $this->createAdmin();
+		$this->signIn($admin);
+		
+		$this->get(route('ranks.groups.index'))->assertSuccessful();
+		$this->get(route('ranks.groups.create'))->assertSuccessful();
+	}
 }

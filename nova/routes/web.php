@@ -32,7 +32,7 @@ Route::resource('admin/departments', 'Nova\Genres\Http\Controllers\DepartmentsCo
 
 Route::patch('admin/positions/reorder', 'Nova\Genres\Http\Controllers\PositionsController@reorder');
 Route::patch('admin/positions', 'Nova\Genres\Http\Controllers\PositionsController@update')->name('positions.update');
-Route::resource('admin/positions', 'Nova\Genres\Http\Controllers\PositionsController', ['except' => ['update']]);
+Route::resource('admin/positions', 'Nova\Genres\Http\Controllers\PositionsController', ['except' => ['edit', 'update']]);
 
 Route::get('admin/ranks', 'Nova\Genres\Http\Controllers\RanksController@index')->name('ranks.index');
 

@@ -105,4 +105,15 @@ class ManageRolesTest extends DatabaseTestCase
 		$this->assertDatabaseMissing('roles', ['name' => $this->role->name]);
 		$this->assertDatabaseMissing('permissions_roles', ['role_id' => $this->role->id]);
 	}
+
+	/** @test **/
+	public function has_no_errors()
+	{
+		$admin = $this->createAdmin();
+		$this->signIn($admin);
+		
+		$this->get(route('roles.index'))->assertSuccessful();
+		$this->get(route('roles.create'))->assertSuccessful();
+		$this->get(route('roles.edit', $this->role))->assertSuccessful();
+	}
 }

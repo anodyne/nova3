@@ -60,16 +60,6 @@ class PositionsController extends Controller
 		return redirect()->route('positions.index');
 	}
 
-	public function edit(Position $position)
-	{
-		$this->authorize('update', $position);
-
-		// Get all of the departments that are parents
-		$parentDepartments = Department::parents()->get()->pluck('name', 'id');
-
-		return view('pages.genres.update-department', compact('department', 'parentDepartments'));
-	}
-
 	public function update()
 	{
 		$this->authorize('update', new Position);

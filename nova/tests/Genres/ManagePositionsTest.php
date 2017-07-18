@@ -22,7 +22,6 @@ class ManagePositionsTest extends DatabaseTestCase
 		$this->get(route('positions.index'))->assertRedirect(route('login'));
 		$this->get(route('positions.create'))->assertRedirect(route('login'));
 		$this->post(route('positions.store'))->assertRedirect(route('login'));
-		$this->get(route('positions.edit', $this->position))->assertRedirect(route('login'));
 		$this->patch(route('positions.update', $this->position))->assertRedirect(route('login'));
 		$this->delete(route('positions.destroy', $this->position))->assertRedirect(route('login'));
 
@@ -31,7 +30,6 @@ class ManagePositionsTest extends DatabaseTestCase
 		$this->get(route('positions.index'))->assertStatus(403);
 		$this->get(route('positions.create'))->assertStatus(403);
 		$this->post(route('positions.store'))->assertStatus(403);
-		$this->get(route('positions.edit', $this->position))->assertStatus(403);
 		$this->patch(route('positions.update', $this->position))->assertStatus(403);
 		$this->delete(route('positions.destroy', $this->position))->assertStatus(403);
 	}
@@ -112,5 +110,15 @@ class ManagePositionsTest extends DatabaseTestCase
 		$this->assertDatabaseHas('positions', ['id' => $position2->id, 'order' => 0]);
 		$this->assertDatabaseHas('positions', ['id' => $position3->id, 'order' => 1]);
 		$this->assertDatabaseHas('positions', ['id' => $position1->id, 'order' => 2]);
+	}
+
+	/** @test **/
+	public function has_no_errors()
+	{
+		$admin = $this->createAdmin();
+		$this->signIn($admin);
+		
+		$this->get(route('positions.index'))->assertSuccessful();
+		$this->get(route('positions.create'))->assertSuccessful();
 	}
 }

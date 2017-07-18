@@ -97,4 +97,14 @@ class ManageRankInfoTest extends DatabaseTestCase
 		$this->assertDatabaseHas('ranks_info', ['id' => $info3->id, 'order' => 1]);
 		$this->assertDatabaseHas('ranks_info', ['id' => $info1->id, 'order' => 2]);
 	}
+
+	/** @test **/
+	public function has_no_errors()
+	{
+		$admin = $this->createAdmin();
+		$this->signIn($admin);
+		
+		$this->get(route('ranks.info.index'))->assertSuccessful();
+		$this->get(route('ranks.info.create'))->assertSuccessful();
+	}
 }

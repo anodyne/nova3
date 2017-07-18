@@ -100,4 +100,10 @@ class AuthenticationTest extends DatabaseTestCase
 
 		$this->assertNotEquals(null, auth()->user()->last_sign_in);
 	}
+
+	/** @test **/
+	public function has_no_errors()
+	{
+		$this->get(route('login'))->assertSuccessful();
+	}
 }

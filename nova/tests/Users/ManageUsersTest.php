@@ -135,4 +135,17 @@ class ManageUsersTest extends DatabaseTestCase
 	{
 		# code...
 	}
+
+	/** @test **/
+	public function has_no_errors()
+	{
+		$admin = $this->createAdmin();
+		$this->signIn($admin);
+		
+		$this->get(route('users.index'))->assertSuccessful();
+		$this->get(route('users.create'))->assertSuccessful();
+		$this->get(route('users.edit', $this->user))->assertSuccessful();
+		$this->get(route('profile.show', $this->user))->assertSuccessful();
+		$this->get(route('profile.edit', $admin))->assertSuccessful();
+	}
 }

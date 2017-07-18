@@ -108,4 +108,17 @@ class ManageRankItemsTest extends DatabaseTestCase
 
 		$this->assertDatabaseHas('ranks', []);
 	}
+
+	/** @test **/
+	public function has_no_errors()
+	{
+		$admin = $this->createAdmin();
+		$this->signIn($admin);
+
+		$item = create('Nova\Genres\Rank');
+		
+		$this->get(route('ranks.items.index'))->assertSuccessful();
+		$this->get(route('ranks.items.create'))->assertSuccessful();
+		$this->get(route('ranks.items.edit', $item))->assertSuccessful();
+	}
 }

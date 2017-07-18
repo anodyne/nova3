@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('genre-rank-add'))
+@section('title', _m('genre-ranks-add'))
 
 @section('content')
-	<h1>{{ _m('genre-rank-add') }}</h1>
+	<h1>{{ _m('genre-ranks-add') }}</h1>
 
 	{!! Form::open(['route' => 'ranks.items.store']) !!}
 		<div class="row mb-4">
@@ -30,7 +30,7 @@
 				<input type="hidden" name="overlay" v-model="overlay">
 
 				<div class="form-group">
-					<button type="submit" class="btn btn-primary">{{ _m('genre-rank-add') }}</button>
+					<button type="submit" class="btn btn-primary">{{ _m('genre-ranks-add') }}</button>
 					<a href="{{ route('ranks.items.index') }}" class="btn btn-link">{{ _m('cancel') }}</a>
 				</div>
 			</div>
@@ -45,10 +45,10 @@
 
 		<ul class="nav nav-pills" id="rank-images" role="tablist">
 			<li class="nav-item">
-				<a class="nav-link active" data-toggle="tab" href="#base" role="tab">{{ _m('genre-rank-image-base') }}</a>
+				<a class="nav-link active" data-toggle="tab" href="#base" role="tab">{{ _m('genre-ranks-image-base') }}</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" href="#overlay" role="tab">{{ _m('genre-rank-image-overlay') }}</a>
+				<a class="nav-link" data-toggle="tab" href="#overlay" role="tab">{{ _m('genre-ranks-image-overlay') }}</a>
 			</li>
 		</ul>
 

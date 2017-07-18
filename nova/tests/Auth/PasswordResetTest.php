@@ -81,4 +81,11 @@ class PasswordResetTest extends DatabaseTestCase
 		$this->post('/password/reset', ['token' => \Str::random(40)])
 			->assertSessionHasErrors('email');
 	}
+
+	/** @test **/
+	public function has_no_errors()
+	{
+		$this->get(route('password.request'))->assertSuccessful();
+		$this->get(route('password.reset', 'abc123'))->assertSuccessful();
+	}
 }

@@ -45,4 +45,13 @@ class ForcePasswordResetsTest extends DatabaseTestCase
 			return $mail->hasBcc($recipients);
 		});
 	}
+
+	/** @test **/
+	public function has_no_errors()
+	{
+		$admin = $this->createAdmin();
+		$this->signIn($admin);
+		
+		$this->get(route('users.force-password-reset'))->assertSuccessful();
+	}
 }

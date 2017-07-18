@@ -100,4 +100,15 @@ class ManagePermissionsTest extends DatabaseTestCase
 			'permission_id' => $permission2->id
 		]);
 	}
+
+	/** @test **/
+	public function has_no_errors()
+	{
+		$admin = $this->createAdmin();
+		$this->signIn($admin);
+
+		$this->get(route('permissions.index'))->assertSuccessful();
+		$this->get(route('permissions.create'))->assertSuccessful();
+		$this->get(route('permissions.edit', $this->permission))->assertSuccessful();
+	}
 }

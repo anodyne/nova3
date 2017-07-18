@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', _m('genre-rank-update'))
+@section('title', _m('genre-ranks-update'))
 
 @section('content')
-	<h1>{{ _m('genre-rank-update') }}</h1>
+	<h1>{{ _m('genre-ranks-update') }}</h1>
 
 	{!! Form::model($item, ['route' => ['ranks.items.update', $item], 'method' => 'patch']) !!}
 		<div class="row mb-4">
 			<div class="col-md-6">
 				<div class="form-group{{ $errors->has('group_id') ? ' has-danger' : '' }}">
-					<label class="form-control-label">{{ _m('genre-rank-group', [1]) }}</label>
+					<label class="form-control-label">{{ _m('genre-rank-groups', [1]) }}</label>
 					<div class="d-flex align-items-center">
 						{!! Form::select('group_id', $groups, null, ['class' => 'custom-select', 'placeholder' => _m('genre-rank-groups-select')]) !!}
 						<a href="{{ route('ranks.groups.create') }}" class="btn btn-link" data-toggle="tooltip" title="{{ _m('genre-rank-groups-add') }}">{!! icon('add-alt') !!}</a>
@@ -30,7 +30,7 @@
 				<input type="hidden" name="overlay" v-model="overlay">
 
 				<div class="form-group">
-					<button type="submit" class="btn btn-primary">{{ _m('genre-rank-update') }}</button>
+					<button type="submit" class="btn btn-primary">{{ _m('genre-ranks-update') }}</button>
 					<a href="{{ route('ranks.items.index') }}" class="btn btn-link">{{ _m('cancel') }}</a>
 				</div>
 			</div>
@@ -45,10 +45,10 @@
 
 		<ul class="nav nav-pills" id="rank-images" role="tablist">
 			<li class="nav-item">
-				<a class="nav-link active" data-toggle="tab" href="#base" role="tab">{{ _m('genre-rank-image-base') }}</a>
+				<a class="nav-link active" data-toggle="tab" href="#base" role="tab">{{ _m('genre-ranks-image-base') }}</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" href="#overlay" role="tab">{{ _m('genre-rank-image-overlay') }}</a>
+				<a class="nav-link" data-toggle="tab" href="#overlay" role="tab">{{ _m('genre-ranks-image-overlay') }}</a>
 			</li>
 		</ul>
 
