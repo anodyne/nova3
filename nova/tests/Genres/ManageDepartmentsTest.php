@@ -72,6 +72,24 @@ class ManageDepartmentsTest extends DatabaseTestCase
 	}
 
 	/** @test **/
+	public function a_department_can_be_reordered()
+	{
+		$admin = $this->createAdmin();
+
+		$this->signIn($admin);
+
+		$dept1 = create('Nova\Genres\Department', ['order' => 0]);
+		$dept2 = create('Nova\Genres\Department', ['order' => 1]);
+
+		$response = $this->patch('/admin/departments/reorder', ['depts' => [$dept2->id, $dept1->id]]);
+
+		$response->assertStatus(200);
+
+		$this->assertDatabaseHas('departments', ['id' => $dept2->id, 'order' => 0]);
+		$this->assertDatabaseHas('departments', ['id' => $dept1->id, 'order' => 1]);
+	}
+
+	/** @test **/
 	public function a_department_can_be_deleted()
 	{
 		$admin = $this->createAdmin();
@@ -81,20 +99,5 @@ class ManageDepartmentsTest extends DatabaseTestCase
 		$this->delete(route('departments.destroy', [$this->department]));
 
 		$this->assertDatabaseMissing('departments', ['name' => $this->department->name]);
-	}
-
-	/** @test **/
-	public function a_department_can_be_reordered()
-	{
-		$admin = $this->createAdmin();
-
-		$this->signIn($admin);
-
-		$response = $this->patch('/admin/departments/reorder', ['depts' => [2,1,3,4,5,6,7,8,9,10,11,12,13,14]]);
-
-		$response->assertStatus(200);
-
-		$this->assertDatabaseHas('departments', ['id' => 2, 'order' => 0]);
-		$this->assertDatabaseHas('departments', ['id' => 1, 'order' => 1]);
 	}
 }

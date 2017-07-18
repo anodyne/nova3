@@ -1,6 +1,7 @@
 <?php namespace Tests\Genres;
 
 use Status;
+use Nova\Genres\RankGroup;
 use Tests\DatabaseTestCase;
 
 class ManageRankGroupsTest extends DatabaseTestCase
@@ -78,9 +79,16 @@ class ManageRankGroupsTest extends DatabaseTestCase
 
 		$group = create('Nova\Genres\RankGroup');
 
+		$item1 = create('Nova\Genres\Rank', ['group_id' => $group->id]);
+		$item2 = create('Nova\Genres\Rank', ['group_id' => $group->id]);
+		$item3 = create('Nova\Genres\Rank', ['group_id' => $group->id]);
+
 		$this->delete(route('ranks.groups.destroy', [$group]));
 
 		$this->assertDatabaseMissing('ranks_groups', ['id' => $group->id]);
+		$this->assertDatabaseMissing('ranks', ['id' => $item1->id]);
+		$this->assertDatabaseMissing('ranks', ['id' => $item2->id]);
+		$this->assertDatabaseMissing('ranks', ['id' => $item3->id]);
 	}
 
 	/** @test **/
@@ -112,8 +120,23 @@ class ManageRankGroupsTest extends DatabaseTestCase
 
 		$group = create('Nova\Genres\RankGroup');
 
-		$response = $this->post(route('ranks.groups.duplicate', [$group]));
+		sleep(1);
 
-		$this->assertDatabaseHas('ranks_groups', ['name' => 'Copy of '.$group->name]);
+		$item1 = create('Nova\Genres\Rank', ['group_id' => $group->id]);
+		$item2 = create('Nova\Genres\Rank', ['group_id' => $group->id]);
+		$item3 = create('Nova\Genres\Rank', ['group_id' => $group->id]);
+
+		$response = $this->post(route('ranks.groups.duplicate', [$group]), [
+			'base' => 'new-base.png',
+			'name' => 'My New Group',
+		]);
+
+		$newGroup = RankGroup::latest()->first();
+
+		$this->assertDatabaseHas('ranks_groups', ['name' => 'My New Group']);
+
+		$this->assertCount(3, $newGroup->ranks->fresh());
+
+		$this->assertDatabaseHas('ranks', ['group_id' => $newGroup->id, 'base' => 'new-base.png']);
 	}
 }
