@@ -236,6 +236,10 @@ label.custom-control {
 	}
 }
 
+.jconfirm .jconfirm-box.loading:before {
+	background: #444 !important;
+}
+
 [v-cloak] {
 	display: none !important;
 }
