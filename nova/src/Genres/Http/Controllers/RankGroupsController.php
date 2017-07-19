@@ -80,7 +80,7 @@ class RankGroupsController extends Controller
 
 		deletor(RankGroup::class)->delete($group);
 
-		return response(200);
+		return response($group, 200);
 	}
 
 	public function reorder()

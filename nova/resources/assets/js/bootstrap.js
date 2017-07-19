@@ -45,3 +45,14 @@ window.events = new Vue();
 window.flash = function (message, title, level = 'success') {
 	window.events.$emit('flash', message, title, level);
 };
+
+window.route = function (name, args = {}) {
+	// Grab the URI from the list of routes
+	let uri = window.Nova.routes[name]
+
+	// Loop through the arguments and replace the variable with its value
+	Object.keys(args).map((a) => uri = uri.replace(`{${a}}`, args[a]))
+
+	// Put the full URL back together
+	return [window.Nova.system.baseUrl, uri].join('/')
+};

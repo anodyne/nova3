@@ -26,12 +26,15 @@ Route::get('join', function () {
 	// Placeholder for the join page
 })->name('join');
 
-Route::get('admin/departments/reorder', 'Nova\Genres\Http\Controllers\ReorderDepartmentsController@index')->name('departments.reorder');
+Route::get('admin/departments/reorder', 'Nova\Genres\Http\Controllers\ReorderDepartmentsController@index')
+	->name('departments.reorder');
 Route::patch('admin/departments/reorder', 'Nova\Genres\Http\Controllers\ReorderDepartmentsController@update');
 Route::resource('admin/departments', 'Nova\Genres\Http\Controllers\DepartmentsController');
 
-Route::patch('admin/positions/reorder', 'Nova\Genres\Http\Controllers\PositionsController@reorder');
-Route::patch('admin/positions', 'Nova\Genres\Http\Controllers\PositionsController@update')->name('positions.update');
+Route::patch('admin/positions/reorder', 'Nova\Genres\Http\Controllers\PositionsController@reorder')
+	->name('positions.reorder');
+Route::patch('admin/positions', 'Nova\Genres\Http\Controllers\PositionsController@update')
+	->name('positions.update');
 Route::resource('admin/positions', 'Nova\Genres\Http\Controllers\PositionsController', ['except' => ['edit', 'update']]);
 
 Route::get('admin/ranks', 'Nova\Genres\Http\Controllers\RanksController@index')->name('ranks.index');

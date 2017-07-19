@@ -56,6 +56,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="row align-items-start draggable-item"
 				 :data-id="info.id"
 				 v-for="info in filteredInfo">
@@ -125,7 +126,7 @@
 								text: "{{ _m('delete') }}",
 								btnClass: "btn-danger",
 								action () {
-									axios.delete('/admin/ranks/info/' + id)
+									axios.delete(route('ranks.info.destroy', {info:id}))
 										.then(function (response) {
 											let index = _.findIndex(self.info, function (i) {
 												return i.id == id
@@ -147,8 +148,8 @@
 					})
 				},
 
-				updateInfo (event) {
-					axios.patch("{{ route('ranks.info.update') }}", {
+				updateInfo () {
+					axios.patch(route('ranks.info.update'), {
 						info: this.info
 					}).then(function (response) {
 						flash(
@@ -183,7 +184,7 @@
 							}
 						})
 
-						axios.patch('/admin/ranks/info/reorder', {
+						axios.patch(route('ranks.info.reorder'), {
 							info: order
 						})
 					}

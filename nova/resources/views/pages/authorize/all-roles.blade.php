@@ -38,34 +38,36 @@
 				</div>
 			</div>
 
-			@foreach ($roles as $role)
-				<div class="row align-items-center" data-id="{{ $role->id }}">
-					<div class="col-9">
-						{{ $role->name }}
-					</div>
-					<div class="col col-xs-auto">
-						<div class="dropdown pull-right">
-							<button class="btn btn-secondary btn-action"
-									type="button"
-									id="dropdownMenuButton"
-									data-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false">
-								{!! icon('more') !!}
-							</button>
-							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-								@can('update', $role)
-									<a class="dropdown-item" href="{{ route('roles.edit', [$role]) }}">{!! icon('edit') !!} {{ _m('edit') }}</a>
-								@endcan
+			<div class="row align-items-center" v-for="role in roles">
+				<div class="col-9">
+					@{{ role.name }}
+				</div>
+				<div class="col col-xs-auto">
+					<div class="dropdown pull-right">
+						<button class="btn btn-secondary btn-action"
+								type="button"
+								id="dropdownMenuButton"
+								data-toggle="dropdown"
+								aria-haspopup="true"
+								aria-expanded="false">
+							{!! icon('more') !!}
+						</button>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+							@can('update', $roleClass)
+								<a class="dropdown-item" :href="editLink(role.id)">
+									{!! icon('edit') !!} {{ _m('edit') }}
+								</a>
+							@endcan
 
-								@can('delete', $role)
-									<a class="dropdown-item text-danger" href="#" data-role="{{ $role->id }}" @click.prevent="deleteRole">{!! icon('delete') !!} {{ _m('delete') }}</a>
-								@endcan
-							</div>
+							@can('delete', $roleClass)
+								<a class="dropdown-item text-danger" href="#" @click.prevent="deleteRole(role.id)">
+									{!! icon('delete') !!} {{ _m('delete') }}
+								</a>
+							@endcan
 						</div>
 					</div>
 				</div>
-			@endforeach
+			</div>
 		</div>
 	@else
 		<div class="alert alert-warning">
@@ -77,8 +79,14 @@
 @section('js')
 	<script>
 		vue = {
+			data: {
+				roles: {!! $roles !!}
+			},
+
 			methods: {
-				deleteRole (event) {
+				deleteRole (id) {
+					let self = this
+
 					$.confirm({
 						title: "{{ _m('authorize-roles-confirm-delete-title') }}",
 						content: "{{ _m('authorize-roles-confirm-delete-message') }}",
@@ -88,13 +96,19 @@
 								text: "{{ _m('delete') }}",
 								btnClass: "btn-danger",
 								action () {
-									let role = $(event.target).closest('a').data('role')
+									axios.delete(route('roles.destroy', {role:id}))
+										 .then(function (response) {
+										 	let index = _.findIndex(self.roles, function (r) {
+												return r.id == id
+											})
 
-									axios.delete('/admin/roles/' + role)
+											self.roles.splice(index, 1)
 
-									window.setTimeout(function () {
-										window.location.replace('/admin/roles')
-									}, 1000)
+											flash(
+												'{{ _m('authorize-roles-flash-deleted-message') }}',
+												'{{ _m('authorize-roles-flash-deleted-title') }}'
+											)
+										 })
 								}
 							},
 							cancel: {
@@ -102,6 +116,10 @@
 							}
 						}
 					})
+				},
+
+				editLink (id) {
+					return route('roles.edit', {role:id})
 				}
 			}
 		}

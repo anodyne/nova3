@@ -83,11 +83,6 @@ class DepartmentsController extends Controller
 
 		deletor(Department::class)->delete($department);
 
-		flash()
-			->title(_m('genre-depts-flash-deleted-title'))
-			->message(_m('genre-depts-flash-deleted-message'))
-			->success();
-
-		return redirect()->route('departments.index');
+		return response($department, 200);
 	}
 }

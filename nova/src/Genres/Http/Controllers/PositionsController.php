@@ -20,7 +20,7 @@ class PositionsController extends Controller
 		$this->authorize('manage', $positionClass);
 
 		// Get all of the positions
-		$positions = Position::get();
+		$positions = Position::orderBy('order')->get();
 
 		// Get all of the departments
 		$departments = Department::with('subDepartments')->orderBy('order')->get();
@@ -32,6 +32,7 @@ class PositionsController extends Controller
 	{
 		$this->authorize('create', new Position);
 
+		// Get all of the departments
 		$departments = Department::orderBy('order')->get()->pluck('name', 'id');
 
 		return view('pages.genres.create-position', compact('departments'));
@@ -75,12 +76,7 @@ class PositionsController extends Controller
 
 		updater(Position::class)->with(request('positions'))->updateAll();
 
-		flash()
-			->title(_m('genre-positions-flash-updated-title'))
-			->message(_m('genre-positions-flash-updated-message'))
-			->success();
-
-		return response([200]);
+		return response(200);
 	}
 
 	public function destroy(Position $position)
@@ -89,12 +85,7 @@ class PositionsController extends Controller
 
 		deletor(Position::class)->delete($position);
 
-		// flash()
-		// 	->title(_m('genre-positions-flash-deleted-title'))
-		// 	->message(_m('genre-positions-flash-deleted-message'))
-		// 	->success();
-
-		return response([200]);
+		return response($position, 200);
 	}
 
 	public function reorder()
@@ -105,6 +96,6 @@ class PositionsController extends Controller
 			Position::find($id)->reorder($index);
 		});
 
-		return response([200]);
+		return response(200);
 	}
 }

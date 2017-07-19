@@ -175,7 +175,7 @@ class RankItemsController extends Controller
 
 		deletor(Rank::class)->delete($item);
 
-		return response(200);
+		return response($item, 200);
 	}
 
 	public function reorder()
@@ -193,13 +193,13 @@ class RankItemsController extends Controller
 	{
 		$this->authorize('create', $item);
 
-		duplicator(Rank::class)->with(request()->all())->duplicate($item);
+		$newItem = duplicator(Rank::class)->with(request()->all())->duplicate($item);
 
 		flash()
 			->title(_m('genre-ranks-flash-duplicated-title'))
 			->message(_m('genre-ranks-flash-duplicated-message'))
 			->success();
 
-		return response(200);
+		return response($newItem, 200);
 	}
 }

@@ -10,9 +10,9 @@
 			<div class="row header">
 				<div class="col-9 col-md-6">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="{{ _m('genre-depts-find') }}" v-model="searchDepartments">
+						<input type="text" class="form-control" placeholder="{{ _m('genre-depts-find') }}" v-model="search">
 						<span class="input-group-btn">
-							<a class="btn btn-secondary" href="#" @click.prevent="searchDepartments = ''">{!! icon('close') !!}</a>
+							<a class="btn btn-secondary" href="#" @click.prevent="search = ''">{!! icon('close') !!}</a>
 						</span>
 					</div>
 				</div>
@@ -43,6 +43,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="row" v-for="dept in filteredDepartments">
 				<div class="col">
 					<div class="row align-items-center">
@@ -61,11 +62,15 @@
 								</button>
 								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
 									@can('update', $deptClass)
-										<a :href="'/admin/departments/' + dept.id + '/edit'" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
+										<a :href="editLink(dept.id)" class="dropdown-item">
+											{!! icon('edit') !!} {{ _m('edit') }}
+										</a>
 									@endcan
 
 									@can('delete', $deptClass)
-										<a href="#" class="dropdown-item text-danger" :data-department="dept.id" @click.prevent="deleteDepartment">{!! icon('delete') !!} {{ _m('delete') }}</a>
+										<a href="#" class="dropdown-item text-danger" @click.prevent="deleteDepartment(dept.id)">
+											{!! icon('delete') !!} {{ _m('delete') }}
+										</a>
 									@endcan
 								</div>
 							</div>
@@ -92,11 +97,13 @@
 								</button>
 								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
 									@can('update', $deptClass)
-										<a :href="'/admin/departments/' + subDept.id + '/edit'" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
+										<a :href="editLink(subDept.id)" class="dropdown-item">
+											{!! icon('edit') !!} {{ _m('edit') }}
+										</a>
 									@endcan
 
 									@can('delete', $deptClass)
-										<a href="#" class="dropdown-item text-danger" :data-department="subDept.id" @click.prevent="deleteDepartment">{!! icon('delete') !!} {{ _m('delete') }}</a>
+										<a href="#" class="dropdown-item text-danger" @click.prevent="deleteDepartment(subDept.id)">{!! icon('delete') !!} {{ _m('delete') }}</a>
 									@endcan
 								</div>
 							</div>
@@ -117,7 +124,7 @@
 		vue = {
 			data: {
 				departments: {!! $departments !!},
-				searchDepartments: ''
+				search: ''
 			},
 
 			computed: {
@@ -125,7 +132,7 @@
 					let self = this
 
 					return self.departments.filter(function (dept) {
-						let searchRegex = new RegExp(self.searchDepartments, 'i')
+						let searchRegex = new RegExp(self.search, 'i')
 
 						return searchRegex.test(dept.name)
 					})
@@ -133,7 +140,9 @@
 			},
 
 			methods: {
-				deleteDepartment (event) {
+				deleteDepartment (id) {
+					let self = this
+
 					$.confirm({
 						title: "{{ _m('genre-depts-confirm-delete-title') }}",
 						content: "{{ _m('genre-depts-confirm-delete-message') }}",
@@ -143,13 +152,19 @@
 								text: "{{ _m('delete') }}",
 								btnClass: "btn-danger",
 								action () {
-									let department = $(event.target).closest('a').data('department')
+									axios.delete(route('departments.destroy', {department:id}))
+										 .then(function (response) {
+										 	let index = _.findIndex(self.departments, function (d) {
+												return d.id == id
+											})
 
-									axios.delete('/admin/departments/' + department)
+											self.departments.splice(index, 1)
 
-									window.setTimeout(function () {
-										window.location.replace('/admin/departments')
-									}, 1000)
+											flash(
+												'{{ _m('genre-depts-flash-deleted-message') }}',
+												'{{ _m('genre-depts-flash-deleted-title') }}'
+											)
+										 })
 								}
 							},
 							cancel: {
@@ -157,6 +172,10 @@
 							}
 						}
 					})
+				},
+
+				editLink (id) {
+					return route('departments.edit', {department:id})
 				}
 			}
 		}

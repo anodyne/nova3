@@ -76,7 +76,7 @@
 				}
 			})
 
-			axios.patch('/admin/departments/reorder', {
+			axios.patch(route('departments.reorder'), {
 				depts: order
 			})
 		}

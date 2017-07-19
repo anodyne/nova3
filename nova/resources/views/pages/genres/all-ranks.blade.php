@@ -60,6 +60,7 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="row align-items-start draggable-item"
 			 :data-id="rank.id"
 			 v-if="group != '' && filteredRanks().length > 0"
@@ -83,11 +84,13 @@
 					</button>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
 						@can('create', $rankClass)
-							<a href="#" class="dropdown-item" @click.prevent="duplicateRank(rank.id)">{!! icon('copy') !!} {{ _m('duplicate') }}</a>
+							<a href="#" class="dropdown-item" @click.prevent="duplicateRank(rank.id)">
+								{!! icon('copy') !!} {{ _m('duplicate') }}
+							</a>
 						@endcan
 
 						@can('update', $rankClass)
-							<a :href="'/admin/ranks/items/' + rank.id + '/edit'" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
+							<a :href="editLink(rank.id)" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
 						@endcan
 
 						@can('delete', $rankClass)
@@ -122,7 +125,7 @@
 								text: "{{ _m('delete') }}",
 								btnClass: "btn-danger",
 								action () {
-									axios.delete('/admin/ranks/items/' + id)
+									axios.delete(route('ranks.items.destroy', {item:id}))
 										.then(function (response) {
 											let index = _.findIndex(self.ranks, function (r) {
 												return r.id == id
@@ -145,11 +148,15 @@
 				},
 
 				duplicateRank (id) {
-					axios.post('/admin/ranks/items/' + id + '/duplicate')
+					axios.post(route('ranks.items.duplicate', {item:id}))
 
 					window.setTimeout(function () {
-						window.location.replace('/admin/ranks/items')
+						window.location.replace(route('ranks.items.index'))
 					}, 1000)
+				},
+
+				editLink (id) {
+					return route('ranks.items.edit', {item:id})
 				},
 
 				filteredRanks () {
@@ -181,7 +188,7 @@
 							}
 						})
 
-						axios.patch('/admin/ranks/items/reorder', {
+						axios.patch(route('ranks.items.reorder'), {
 							items: order
 						})
 					}

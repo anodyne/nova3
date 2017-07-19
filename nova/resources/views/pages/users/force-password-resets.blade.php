@@ -50,7 +50,7 @@
 
 			methods: {
 				toggleAll () {
-					var self = this
+					let self = this
 
 					if (this.selected.length == this.users.length) {
 						// Everything is selected and CheckAll is unchecked
@@ -63,11 +63,11 @@
 					} else if (this.selected.length > 0 && this.selected.length < this.users.length) {
 						// Something is selected and CheckAll is checked
 						_.forEach(this.users, function (user) {
-							var find = _.findIndex(self.selected, function (s) {
+							let find = _.findIndex(self.selected, function (s) {
 								return s == user.id
 							})
 
-							var inSelected = find >= 0
+							let inSelected = find >= 0
 
 							if (! inSelected) {
 								self.selected.push(user.id)

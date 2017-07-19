@@ -95,12 +95,7 @@ class UsersController extends Controller
 
 		deletor(User::class)->delete($user);
 
-		flash()
-			->title(_m('users-flash-deleted-title'))
-			->message(_m('users-flash-deleted-message'))
-			->success();
-
-		return redirect()->route('users.index');
+		return response($user, 200);
 	}
 
 	public function restore(User $user)
@@ -109,11 +104,6 @@ class UsersController extends Controller
 
 		restorer(User::class)->restore($user);
 
-		flash()
-			->title(_m('users-flash-restored-title'))
-			->message(_m('users-flash-restored-message'))
-			->success();
-
-		return redirect()->route('users.index');
+		return response($user, 200);
 	}
 }

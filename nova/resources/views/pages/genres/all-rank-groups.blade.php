@@ -48,6 +48,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="row align-items-start draggable-item"
 				 :data-id="group.id"
 				 v-for="group in filteredGroups">
@@ -87,11 +88,15 @@
 						</button>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
 							@can('create', $rankGroupClass)
-								<a class="dropdown-item" href="#" @click.prevent="duplicateGroup(group.id)">{!! icon('copy') !!} {{ _m('duplicate') }}</a>
+								<a class="dropdown-item" href="#" @click.prevent="duplicateGroup(group.id)">
+									{!! icon('copy') !!} {{ _m('duplicate') }}
+								</a>
 							@endcan
 
 							@can('delete', $rankGroupClass)
-								<a class="dropdown-item text-danger" href="#" @click.prevent="deleteGroup(group.id)">{!! icon('delete') !!} {{ _m('delete') }}</a>
+								<a class="dropdown-item text-danger" href="#" @click.prevent="deleteGroup(group.id)">
+									{!! icon('delete') !!} {{ _m('delete') }}
+								</a>
 							@endcan
 						</div>
 					</div>
@@ -138,10 +143,10 @@
 								text: "{{ _m('delete') }}",
 								btnClass: "btn-danger",
 								action () {
-									axios.delete('/admin/ranks/groups/' + id)
+									axios.delete(route('ranks.groups.destroy', {group:id}))
 										.then(function (response) {
-											let index = _.findIndex(self.groups, function (p) {
-												return p.id == id
+											let index = _.findIndex(self.groups, function (g) {
+												return g.id == id
 											})
 
 											self.groups.splice(index, 1)
@@ -163,8 +168,8 @@
 				duplicateGroup (id) {
 					$.confirm({
 						title: "{{ _m('genre-rank-groups-confirm-duplicate-title') }}",
-						columnClass: 'medium',
-						content: "URL:{{ route('ranks.groups.duplicate-confirm') }}?group=" + id,
+						columnClass: "medium",
+						content: "URL:" + route('ranks.groups.duplicate-confirm') + "?group=" + id,
 						theme: "dark",
 						buttons: {
 							formSubmit: {
@@ -191,8 +196,8 @@
 					}
 				},
 
-				updateGroups (event) {
-					axios.patch("{{ route('ranks.groups.update') }}", {
+				updateGroups () {
+					axios.patch(route('ranks.groups.update'), {
 						groups: this.groups
 					}).then(function (response) {
 						flash(
@@ -227,7 +232,7 @@
 							}
 						})
 
-						axios.patch('/admin/ranks/groups/reorder', {
+						axios.patch(route('ranks.groups.reorder'), {
 							groups: order
 						})
 					}

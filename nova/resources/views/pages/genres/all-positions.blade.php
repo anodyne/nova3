@@ -79,13 +79,13 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label class="form-control-label">{{ _m('description') }}</label>
-								<textarea class="form-control" rows="5" v-model=position.description></textarea>
+								<textarea class="form-control" rows="5" v-model="position.description"></textarea>
 							</div>
 						</div>
 						<div class="col-md-3">
 							<div class="form-group">
 								<label class="form-control-label">{{ _m('genre-positions-available') }}</label>
-								<input type="number" class="form-control" v-model=position.available>
+								<input type="number" class="form-control" v-model="position.available">
 							</div>
 
 							<div class="form-group">
@@ -104,8 +104,7 @@
 					@can('delete', $positionClass)
 						<a href="#"
 						   class="btn btn-outline-danger btn-action pull-right"
-						   :data-position="position.id"
-						   @click.prevent="deletePosition">{!! icon('delete') !!}</a>
+						   @click.prevent="deletePosition(position.id)">{!! icon('delete') !!}</a>
 					@endcan
 				</div>
 			</div>
@@ -129,6 +128,7 @@
 			computed: {
 				filteredPositions () {
 					let self = this
+
 					let filteredPositions = this.positions.filter(function (position) {
 						return position.department_id == self.department
 					})
@@ -142,7 +142,7 @@
 			},
 
 			methods: {
-				deletePosition (event) {
+				deletePosition (id) {
 					let self = this
 
 					$.confirm({
@@ -154,12 +154,10 @@
 								text: "{{ _m('delete') }}",
 								btnClass: "btn-danger",
 								action () {
-									let position = $(event.target).closest('a').data('position')
-
-									axios.delete('/admin/positions/' + position)
-										.then(function (response) {
-											let index = _.findIndex(self.positions, function (p) {
-												return p.id == position
+									axios.delete(route('positions.destroy', {position:id}))
+										 .then(function (response) {
+										 	let index = _.findIndex(self.positions, function (p) {
+												return p.id == id
 											})
 
 											self.positions.splice(index, 1)
@@ -168,7 +166,7 @@
 												'{{ _m('genre-positions-flash-deleted-message') }}',
 												'{{ _m('genre-positions-flash-deleted-title') }}'
 											)
-										})
+										 })
 								}
 							},
 							cancel: {
@@ -188,8 +186,8 @@
 					}
 				},
 
-				updatePositions (event) {
-					axios.patch("{{ route('positions.update') }}", {
+				updatePositions () {
+					axios.patch(route('positions.update'), {
 						positions: this.positions
 					}).then(function (response) {
 						flash(
@@ -224,7 +222,7 @@
 							}
 						})
 
-						axios.patch('/admin/positions/reorder', {
+						axios.patch(route('positions.reorder'), {
 							positions: order
 						})
 					}

@@ -89,11 +89,6 @@ class PermissionsController extends Controller
 
 		deletor(Permission::class)->delete($permission);
 
-		flash()
-			->title(_m('authorize-permissions-flash-deleted-title'))
-			->message(_m('authorize-permissions-flash-deleted-message'))
-			->success();
-
-		return redirect()->route('permissions.index');
+		return response($permission, 200);
 	}
 }

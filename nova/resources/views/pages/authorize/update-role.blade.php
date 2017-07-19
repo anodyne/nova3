@@ -27,7 +27,7 @@
 								<input type="text"
 									   class="form-control"
 									   placeholder="{{ _m('authorize-permissions-find') }}"
-									   v-model="searchPermissions">
+									   v-model="search">
 							</div>
 						</div>
 					</div>
@@ -54,7 +54,7 @@
 			data: {
 				permissions: {!! $permissions !!},
 				oldPermissions: [],
-				searchPermissions: '',
+				search: '',
 				role: {!! $role !!}
 			},
 
@@ -63,7 +63,7 @@
 					let self = this
 
 					return this.permissions.filter(function (permission) {
-						let regex = new RegExp(self.searchPermissions, 'i')
+						let regex = new RegExp(self.search, 'i')
 
 						return regex.test(permission.name) || regex.test(permission.key)
 					})

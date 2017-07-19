@@ -29,7 +29,6 @@
 							<option value="">{{ _m('users-status-all') }}</option>
 							<option value="{{ Status::ACTIVE }}">{{ _m('users-status-active') }}</option>
 							<option value="{{ Status::INACTIVE }}">{{ _m('users-status-inactive') }}</option>
-							{{-- <option value="{{ Status::PENDING }}">{{ _m('users-status-pending') }}</option> --}}
 							<option value="{{ Status::REMOVED }}">{{ _m('users-status-removed') }}</option>
 						</select>
 					</div>
@@ -39,7 +38,6 @@
 						<option value="">{{ _m('users-status-all') }}</option>
 						<option value="{{ Status::ACTIVE }}">{{ _m('users-status-active') }}</option>
 						<option value="{{ Status::INACTIVE }}">{{ _m('users-status-inactive') }}</option>
-						{{-- <option value="{{ Status::PENDING }}">{{ _m('users-status-pending') }}</option> --}}
 						<option value="{{ Status::REMOVED }}">{{ _m('users-status-removed') }}</option>
 					</select>
 				</div>
@@ -48,33 +46,36 @@
 						<div class="btn-toolbar pull-right">
 							<a href="{{ route('users.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
 
-						@can('update', $userClass)
-							<div class="dropdown ml-2">
-								<button type="button"
-	  									class="btn btn-secondary btn-action"
-	  									data-toggle="dropdown"
-	  									aria-haspopup="true"
-	  									aria-expanded="false">
-									{!! icon('more') !!}
-								</button>
+							@can('update', $userClass)
+								<div class="dropdown ml-2">
+									<button type="button"
+		  									class="btn btn-secondary btn-action"
+		  									data-toggle="dropdown"
+		  									aria-haspopup="true"
+		  									aria-expanded="false">
+										{!! icon('more') !!}
+									</button>
 
-								<div class="dropdown-menu dropdown-menu-right">
-									<a href="{{ route('users.force-password-reset') }}" class="dropdown-item">
-										{!! icon('users') !!} {{ _m('users-password-reset') }}
-									</a>
+									<div class="dropdown-menu dropdown-menu-right">
+										<a href="{{ route('users.force-password-reset') }}" class="dropdown-item">
+											{!! icon('users') !!} {{ _m('users-password-reset') }}
+										</a>
+									</div>
 								</div>
-							</div>
-						@endcan
+							@endcan
 						</div>
 					@endcan
 
 					@cannot('create', $userClass)
 						@can('update', $userClass)
-							<a href="{{ route('users.force-password-reset') }}" class="btn btn-secondary">{!! icon('users') !!}</a>
+							<a href="{{ route('users.force-password-reset') }}" class="btn btn-secondary">
+								{!! icon('users') !!}
+							</a>
 						@endcan
 					@endcannot
 				</div>
 			</div>
+
 			<div class="row align-items-center" v-for="user in filteredUsers">
 				<div class="col-9">
 					<user-avatar :user="user" type="link" :has-label="true" size="xs"></user-avatar>
@@ -90,22 +91,34 @@
 							{!! icon('more') !!}
 						</button>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-							<a :href="'/profile/' + user.id" class="dropdown-item">{!! icon('user') !!} {{ _m('users-profile') }}</a>
+							<a :href="profileLink(user.id)" class="dropdown-item">
+								{!! icon('user') !!} {{ _m('users-profile') }}
+							</a>
 
 							@can('manage', $userClass)
 								<div class="dropdown-divider"></div>
 							@endcan
 							
 							@can('update', $userClass)
-								<a :href="'/admin/users/' + user.id + '/edit'" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
+								<a :href="editLink(user.id)" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
 							@endcan
 
 							@can('delete', $userClass)
-								<a href="#" class="dropdown-item text-danger" :data-user="user.id" @click.prevent="deleteUser" v-show="!isTrashed(user)">{!! icon('delete') !!} {{ _m('delete') }}</a>
+								<a href="#"
+								   class="dropdown-item text-danger"
+								   @click.prevent="deleteUser(user.id)"
+								   v-show="!isTrashed(user)">
+									{!! icon('delete') !!} {{ _m('delete') }}
+								</a>
 							@endcan
 
 							@can('update', $userClass)
-								<a href="#" class="dropdown-item text-success" :data-user="user.id" @click.prevent="restoreUser" v-show="isTrashed(user)">{!! icon('undo') !!} {{ _m('restore') }}</a>
+								<a href="#"
+								   class="dropdown-item text-success"
+								   @click.prevent="restoreUser(user.id)"
+								   v-show="isTrashed(user)">
+									{!! icon('undo') !!} {{ _m('restore') }}
+								</a>
 							@endcan
 						</div>
 					</div>
@@ -145,7 +158,6 @@
 						return regex.test(user.name)
 							|| regex.test(user.email)
 							|| regex.test(user.nickname)
-							// || regex.test(user.status)
 					})
 				},
 
@@ -157,7 +169,9 @@
 			},
 
 			methods: {
-				deleteUser (event) {
+				deleteUser (id) {
+					let self = this
+
 					$.confirm({
 						title: "{{ _m('users-confirm-delete-title') }}",
 						content: "{{ _m('users-confirm-delete-message') }}",
@@ -167,13 +181,19 @@
 								text: "{{ _m('delete') }}",
 								btnClass: "btn-danger",
 								action () {
-									let user = $(event.target).closest('a').data('user')
+									axios.delete(route('users.destroy', {user:id}))
+										 .then(function (response) {
+										 	let index = _.findIndex(self.users, function (u) {
+												return u.id == id
+											})
 
-									axios.delete('/admin/users/' + user)
+											self.users.splice(index, 1)
 
-									window.setTimeout(function () {
-										window.location.replace('/admin/users')
-									}, 1000)
+											flash(
+												'{{ _m('users-flash-deleted-message') }}',
+												'{{ _m('users-flash-deleted-title') }}'
+											)
+										 })
 								}
 							},
 							cancel: {
@@ -183,11 +203,21 @@
 					})
 				},
 
+				editLink (id) {
+					return route('users.edit', {user:id})
+				},
+
 				isTrashed (user) {
 					return user.deleted_at != null
 				},
 
-				restoreUser (event) {
+				profileLink (id) {
+					return route('profile.show', {user:id})
+				},
+
+				restoreUser (id) {
+					let self = this
+
 					$.confirm({
 						title: "{{ _m('users-restore-title') }}",
 						content: "{{ _m('users-restore-message') }}",
@@ -197,13 +227,19 @@
 								text: "{{ _m('restore') }}",
 								btnClass: "btn-success",
 								action () {
-									let user = $(event.target).closest('a').data('user')
+									axios.patch(route('users.restore', {user:id}))
+										 .then(function (response) {
+										 	let index = _.findIndex(self.users, function (u) {
+												return u.id == id
+											})
 
-									axios.patch('/admin/users/' + user + '/restore')
+											self.users[index].status = {{ Status::ACTIVE }}
 
-									window.setTimeout(function () {
-										window.location.replace('/admin/users')
-									}, 1000)
+											flash(
+												'{{ _m('users-flash-restored-message') }}',
+												'{{ _m('users-flash-restored-title') }}'
+											)
+										 })
 								}
 							},
 							cancel: {

@@ -10,9 +10,9 @@
 			<div class="row header">
 				<div class="col-8 col-md-6">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="{{ _m('authorize-permissions-find') }}" v-model="searchPermissions">
+						<input type="text" class="form-control" placeholder="{{ _m('authorize-permissions-find') }}" v-model="search">
 						<span class="input-group-btn">
-							<a class="btn btn-secondary" href="#" @click.prevent="searchPermissions = ''">{!! icon('close') !!}</a>
+							<a class="btn btn-secondary" href="#" @click.prevent="search = ''">{!! icon('close') !!}</a>
 						</span>
 					</div>
 				</div>
@@ -60,11 +60,15 @@
 						</button>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
 							@can('update', $permissionClass)
-								<a :href="'/admin/permissions/' + permission.id + '/edit'" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
+								<a :href="editLink(permission.id)" class="dropdown-item">
+									{!! icon('edit') !!} {{ _m('edit') }}
+								</a>
 							@endcan
 
 							@can('delete', $permissionClass)
-								<a href="#" class="dropdown-item text-danger" :data-permission="permission.id" @click.prevent="deletePermission">{!! icon('delete') !!} {{ _m('delete') }}</a>
+								<a href="#" class="dropdown-item text-danger" @click.prevent="deletePermission(permission.id)">
+									{!! icon('delete') !!} {{ _m('delete') }}
+								</a>
 							@endcan
 						</div>
 					</div>
@@ -83,7 +87,7 @@
 		vue = {
 			data: {
 				permissions: {!! $permissions !!},
-				searchPermissions: ''
+				search: ''
 			},
 
 			computed: {
@@ -91,7 +95,7 @@
 					let self = this
 
 					return self.permissions.filter(function (permission) {
-						let searchRegex = new RegExp(self.searchPermissions, 'i')
+						let searchRegex = new RegExp(self.search, 'i')
 
 						return searchRegex.test(permission.name) || searchRegex.test(permission.key)
 					})
@@ -99,7 +103,9 @@
 			},
 
 			methods: {
-				deletePermission (event) {
+				deletePermission (id) {
+					let self = this
+
 					$.confirm({
 						title: "{{ _m('authorize-permissions-confirm-delete-title') }}",
 						content: "{{ _m('authorize-permissions-confirm-delete-message') }}",
@@ -109,13 +115,19 @@
 								text: "{{ _m('delete') }}",
 								btnClass: "btn-danger",
 								action () {
-									let permission = $(event.target).closest('a').data('permission')
+									axios.delete(route('permissions.destroy', {permission:id}))
+										 .then(function (response) {
+										 	let index = _.findIndex(self.permissions, function (p) {
+												return p.id == id
+											})
 
-									axios.delete('/admin/permissions/' + permission)
+											self.permissions.splice(index, 1)
 
-									window.setTimeout(function () {
-										window.location.replace('/admin/permissions')
-									}, 1000)
+											flash(
+												'{{ _m('authorize-permissions-flash-deleted-message') }}',
+												'{{ _m('authorize-permissions-flash-deleted-title') }}'
+											)
+										 })
 								}
 							},
 							cancel: {
@@ -123,6 +135,10 @@
 							}
 						}
 					})
+				},
+
+				editLink (id) {
+					return route('permissions.edit', {permission:id})
 				}
 			}
 		}
