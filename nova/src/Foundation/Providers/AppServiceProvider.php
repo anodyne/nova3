@@ -10,6 +10,10 @@ class AppServiceProvider extends ServiceProvider
 	{
 		Schema::defaultStringLength(191);
 
+		$this->app->singleton('nova', function ($app) {
+			return new \Nova\Foundation\Nova;
+		});
+
 		$this->registerTheme();
 		$this->registerTranslator();
 		$this->registerMacros();

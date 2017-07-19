@@ -17,14 +17,7 @@
 	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
 
 	<script>
-		window.Nova = {!! json_encode([
-			'csrfToken' => csrf_token(),
-			'signedIn' => auth()->check(),
-			'siteUrl' => request()->root(),
-			'timezone' => config('app.timezone'),
-			'user' => auth()->user(),
-			'genre' => config('nova.genre'),
-		]) !!}
+		window.Nova = {!! json_encode(Nova::scriptVariables()) !!}
 	</script>
 </head>
 <body>

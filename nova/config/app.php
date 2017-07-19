@@ -234,6 +234,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Gravatar' => forxer\Gravatar\Gravatar::class,
         'HTML' => Collective\Html\HtmlFacade::class,
+        'Nova' => Nova\Foundation\NovaFacade::class,
         'Status' => Nova\Foundation\Status::class,
         'Str' => Illuminate\Support\Str::class,
 
