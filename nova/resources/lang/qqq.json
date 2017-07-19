@@ -5,6 +5,7 @@
 		]
 	},
 
+	"basic-info": "Label for basic information about a resource",
 	"cancel": "Button label to cancel an action",
 	"close": "Button label to close a dialog",
 	"delete": "Button label to delete a resource",
@@ -164,6 +165,7 @@
 
 	"genre-ranks": "Label for rank management landing page",
 	"genre-ranks-add": "Label for adding a new rank; appears in the header and button",
+	"genre-ranks-build": "Message to start the rank building process by selecting options",
 	"genre-ranks-confirm-delete-message": "Confirmation message before deleting a rank",
 	"genre-ranks-confirm-delete-title": "Title for the confirmation message before deleting a rank",
 	"genre-ranks-error-not-found-group": "Error message when no ranks are found for a selected rank group",
