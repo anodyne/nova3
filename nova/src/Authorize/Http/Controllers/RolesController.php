@@ -91,11 +91,6 @@ class RolesController extends Controller
 
 		deletor(Role::class)->delete($role);
 
-		flash()
-			->title(_m('authorize-roles-flash-deleted-title'))
-			->message(_m('authorize-roles-flash-deleted-message'))
-			->success();
-
-		return redirect()->route('roles.index');
+		return response($role, 200);
 	}
 }
