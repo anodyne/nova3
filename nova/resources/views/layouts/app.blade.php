@@ -44,7 +44,6 @@
 								<a class="dropdown-item" href="{{ route('ranks.index') }}">Ranks</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="{{ route('roles.index') }}">Roles</a>
-								<a class="dropdown-item" href="{{ route('permissions.index') }}">Permissions</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="{{ route('users.index') }}">Users</a>
 							</div>
