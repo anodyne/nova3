@@ -41,7 +41,7 @@ class RankItemsController extends Controller
 		$info = RankInfo::orderBy('order')->get()->pluck('name', 'id');
 
 		// Get the base images
-		$finderBaseImages = (new Finder)->files()->in(base_path('ranks/st-24/duty/base'));
+		$finderBaseImages = (new Finder)->files()->in(base_path('ranks/'.config('nova.genre').'/duty/base'));
 		$baseImages = [];
 
 		foreach ($finderBaseImages as $file) {
@@ -57,7 +57,7 @@ class RankItemsController extends Controller
 		krsort($baseImages);
 
 		// Get the overlay images
-		$finderOverlayImages = (new Finder)->files()->in(base_path('ranks/st-24/duty/overlay'));
+		$finderOverlayImages = (new Finder)->files()->in(base_path('ranks/'.config('nova.genre').'/duty/overlay'));
 		$overlayImages = [];
 
 		foreach ($finderOverlayImages as $file) {
@@ -113,7 +113,7 @@ class RankItemsController extends Controller
 		$info = RankInfo::orderBy('order')->get()->pluck('name', 'id');
 
 		// Get the base images
-		$finderBaseImages = (new Finder)->files()->in(base_path('ranks/st-24/duty/base'));
+		$finderBaseImages = (new Finder)->files()->in(base_path('ranks/'.config('nova.genre').'/duty/base'));
 		$baseImages = [];
 
 		foreach ($finderBaseImages as $file) {
@@ -129,7 +129,7 @@ class RankItemsController extends Controller
 		krsort($baseImages);
 
 		// Get the overlay images
-		$finderOverlayImages = (new Finder)->files()->in(base_path('ranks/st-24/duty/overlay'));
+		$finderOverlayImages = (new Finder)->files()->in(base_path('ranks/'.config('nova.genre').'/duty/overlay'));
 		$overlayImages = [];
 
 		foreach ($finderOverlayImages as $file) {

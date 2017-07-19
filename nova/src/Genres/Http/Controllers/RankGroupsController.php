@@ -113,7 +113,7 @@ class RankGroupsController extends Controller
 		$this->authorize('create', new RankGroup);
 
 		// Get the base images
-		$finderBaseImages = (new Finder)->files()->in(base_path('ranks/st-24/duty/base'));
+		$finderBaseImages = (new Finder)->files()->in(base_path('ranks/'.config('nova.genre').'/duty/base'));
 		$baseImages = [];
 
 		foreach ($finderBaseImages as $file) {
