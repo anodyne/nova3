@@ -69,8 +69,9 @@ class CreateGenreTables extends Migration
 
 	public function down()
 	{
-		Schema::dropIfExists('departments');
 		Schema::dropIfExists('positions');
+		Schema::dropIfExists('departments');
+
 		Schema::dropIfExists('ranks');
 		Schema::dropIfExists('ranks_info');
 		Schema::dropIfExists('ranks_groups');
