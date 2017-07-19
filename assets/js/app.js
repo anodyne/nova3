@@ -179,7 +179,7 @@ __webpack_require__(17);
 
 Vue.component('rank', __webpack_require__(40));
 Vue.component('flash', __webpack_require__(43));
-Vue.component('avatar', __webpack_require__(51));
+Vue.component('user-avatar', __webpack_require__(51));
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_js_toggle_button___default.a);
@@ -20966,7 +20966,7 @@ var Component = __webpack_require__(3)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\mamp\\htdocs\\nova3\\nova\\resources\\assets\\js\\components\\Rank.vue"
+Component.options.__file = "/Users/DVS/Sites/nova/dev3/nova/resources/assets/js/components/Rank.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Rank.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -20977,9 +20977,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-ca296a98", Component.options)
+    hotAPI.createRecord("data-v-dbfa799e", Component.options)
   } else {
-    hotAPI.reload("data-v-ca296a98", Component.options)
+    hotAPI.reload("data-v-dbfa799e", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -21051,7 +21051,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-ca296a98", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-dbfa799e", module.exports)
   }
 }
 
@@ -21076,7 +21076,7 @@ var Component = __webpack_require__(3)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\mamp\\htdocs\\nova3\\nova\\resources\\assets\\js\\components\\Flash.vue"
+Component.options.__file = "/Users/DVS/Sites/nova/dev3/nova/resources/assets/js/components/Flash.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Flash.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -21087,9 +21087,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-b207b2d0", Component.options)
+    hotAPI.createRecord("data-v-da58848a", Component.options)
   } else {
-    hotAPI.reload("data-v-b207b2d0", Component.options)
+    hotAPI.reload("data-v-da58848a", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -21110,13 +21110,13 @@ var content = __webpack_require__(45);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(47)("ea7790e0", content, false);
+var update = __webpack_require__(47)("1c1a2c3e", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b207b2d0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b207b2d0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da58848a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da58848a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -21584,7 +21584,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-b207b2d0", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-da58848a", module.exports)
   }
 }
 
@@ -21605,9 +21605,9 @@ var Component = __webpack_require__(3)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\mamp\\htdocs\\nova3\\nova\\resources\\assets\\js\\components\\Avatar.vue"
+Component.options.__file = "/Users/DVS/Sites/nova/dev3/nova/resources/assets/js/components/UserAvatar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Avatar.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] UserAvatar.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -21616,9 +21616,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6a57a561", Component.options)
+    hotAPI.createRecord("data-v-08c45a49", Component.options)
   } else {
-    hotAPI.reload("data-v-6a57a561", Component.options)
+    hotAPI.reload("data-v-08c45a49", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -22058,16 +22058,6 @@ function isSlowBuffer (obj) {
   var irregularSingles = {};
 
   /**
-   * Title case a string.
-   *
-   * @param  {string} str
-   * @return {string}
-   */
-  function toTitleCase (str) {
-    return str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();
-  }
-
-  /**
    * Sanitize a pluralization rule to a usable regular expression.
    *
    * @param  {(RegExp|string)} rule
@@ -22091,18 +22081,14 @@ function isSlowBuffer (obj) {
    */
   function restoreCase (word, token) {
     // Tokens are an exact match.
-    if (word === token) {
-      return token;
-    }
+    if (word === token) return token;
 
     // Upper cased words. E.g. "HELLO".
-    if (word === word.toUpperCase()) {
-      return token.toUpperCase();
-    }
+    if (word === word.toUpperCase()) return token.toUpperCase();
 
     // Title cased words. E.g. "Title".
     if (word[0] === word[0].toUpperCase()) {
-      return toTitleCase(token);
+      return token.charAt(0).toUpperCase() + token.substr(1).toLowerCase();
     }
 
     // Lower cased words. E.g. "test".
@@ -22123,37 +22109,45 @@ function isSlowBuffer (obj) {
   }
 
   /**
+   * Replace a word using a rule.
+   *
+   * @param  {string} word
+   * @param  {Array}  rule
+   * @return {string}
+   */
+  function replace (word, rule) {
+    return word.replace(rule[0], function (match, index) {
+      var result = interpolate(rule[1], arguments);
+
+      if (match === '') {
+        return restoreCase(word[index - 1], result);
+      }
+
+      return restoreCase(match, result);
+    });
+  }
+
+  /**
    * Sanitize a word by passing in the word and sanitization rules.
    *
    * @param  {string}   token
    * @param  {string}   word
-   * @param  {Array}    collection
+   * @param  {Array}    rules
    * @return {string}
    */
-  function sanitizeWord (token, word, collection) {
+  function sanitizeWord (token, word, rules) {
     // Empty string or doesn't need fixing.
     if (!token.length || uncountables.hasOwnProperty(token)) {
       return word;
     }
 
-    var len = collection.length;
+    var len = rules.length;
 
     // Iterate over the sanitization rules and use the first one to match.
     while (len--) {
-      var rule = collection[len];
+      var rule = rules[len];
 
-      // If the rule passes, return the replacement.
-      if (rule[0].test(word)) {
-        return word.replace(rule[0], function (match, index, word) {
-          var result = interpolate(rule[1], arguments);
-
-          if (match === '') {
-            return restoreCase(word[index - 1], result);
-          }
-
-          return restoreCase(match, result);
-        });
-      }
+      if (rule[0].test(word)) return replace(word, rule);
     }
 
     return word;
@@ -22188,6 +22182,20 @@ function isSlowBuffer (obj) {
   }
 
   /**
+   * Check if a word is part of the map.
+   */
+  function checkWord (replaceMap, keepMap, rules, bool) {
+    return function (word) {
+      var token = word.toLowerCase();
+
+      if (keepMap.hasOwnProperty(token)) return true;
+      if (replaceMap.hasOwnProperty(token)) return false;
+
+      return sanitizeWord(token, token, rules) === token;
+    };
+  }
+
+  /**
    * Pluralize or singularize a word based on the passed in count.
    *
    * @param  {string}  word
@@ -22212,11 +22220,29 @@ function isSlowBuffer (obj) {
   );
 
   /**
+   * Check if a word is plural.
+   *
+   * @type {Function}
+   */
+  pluralize.isPlural = checkWord(
+    irregularSingles, irregularPlurals, pluralRules
+  );
+
+  /**
    * Singularize a word.
    *
    * @type {Function}
    */
   pluralize.singular = replaceWord(
+    irregularPlurals, irregularSingles, singularRules
+  );
+
+  /**
+   * Check if a word is singular.
+   *
+   * @type {Function}
+   */
+  pluralize.isSingular = checkWord(
     irregularPlurals, irregularSingles, singularRules
   );
 
@@ -22401,12 +22427,13 @@ function isSlowBuffer (obj) {
    */
   [
     // Singular words with no plurals.
-    'advice',
     'adulthood',
+    'advice',
     'agenda',
     'aid',
     'alcohol',
     'ammo',
+    'anime',
     'athletics',
     'bison',
     'blood',
@@ -22418,16 +22445,16 @@ function isSlowBuffer (obj) {
     'chassis',
     'chess',
     'clothing',
-    'commerce',
     'cod',
+    'commerce',
     'cooperation',
     'corps',
-    'digestion',
     'debris',
     'diabetes',
+    'digestion',
+    'elk',
     'energy',
     'equipment',
-    'elk',
     'excretion',
     'expertise',
     'flounder',
@@ -22454,6 +22481,7 @@ function isSlowBuffer (obj) {
     'mews',
     'moose',
     'music',
+    'manga',
     'news',
     'pike',
     'plankton',
@@ -22473,9 +22501,9 @@ function isSlowBuffer (obj) {
     'staff',
     'swine',
     'tennis',
-    'trout',
     'traffic',
     'transporation',
+    'trout',
     'tuna',
     'wealth',
     'welfare',
@@ -22484,13 +22512,13 @@ function isSlowBuffer (obj) {
     'wildlife',
     'you',
     // Regexes.
-    /pox$/i, // "chickpox", "smallpox"
-    /ois$/i,
+    /[^aeiou]ese$/i, // "chinese", "japanese"
     /deer$/i, // "deer", "reindeer"
     /fish$/i, // "fish", "blowfish", "angelfish"
-    /sheep$/i,
     /measles$/i,
-    /[^aeiou]ese$/i // "chinese", "japanese"
+    /o[iu]s$/i, // "carnivorous"
+    /pox$/i, // "chickpox", "smallpox"
+    /sheep$/i
   ].forEach(pluralize.addUncountableRule);
 
   return pluralize;
@@ -22571,7 +22599,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-6a57a561", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-08c45a49", module.exports)
   }
 }
 

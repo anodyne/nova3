@@ -65,8 +65,9 @@
 						@else
 							<div class="nav-item dropdown">
 								<a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-toggle="dropdown" role="button" aria-expanded="false">
-									<span class="mr-1"><avatar :user="{{ $_user }}" type="image" size="xs"></avatar></span>
-									{{-- {{ $_user->present()->name }} --}}
+									<span class="mr-1">
+										<user-avatar :user="{{ $_user }}" type="image" size="xs"></user-avatar>
+									</span>
 									<span class="caret"></span>
 								</a>
 

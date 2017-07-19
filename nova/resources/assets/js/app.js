@@ -14,7 +14,7 @@ require('./bootstrap');
 
 Vue.component('rank', require('./components/Rank.vue'));
 Vue.component('flash', require('./components/Flash.vue'));
-Vue.component('avatar', require('./components/Avatar.vue'));
+Vue.component('user-avatar', require('./components/UserAvatar.vue'));
 
 import ToggleButton from 'vue-js-toggle-button';
 Vue.use(ToggleButton);

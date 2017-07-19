@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class="mb-4">
-		<avatar :user="{{ $user }}" type="image" :has-label="true" size="lg"></avatar>
+		<user-avatar :user="{{ $user }}" type="image" :has-label="true" size="lg"></user-avatar>
 	</div>
 
 	@can('updateProfile', $user)

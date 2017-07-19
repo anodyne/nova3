@@ -77,7 +77,7 @@
 			</div>
 			<div class="row align-items-center" v-for="user in filteredUsers">
 				<div class="col-9">
-					<avatar :user="user" type="link" :has-label="true" size="xs"></avatar>
+					<user-avatar :user="user" type="link" :has-label="true" size="xs"></user-avatar>
 				</div>
 				<div class="col col-xs-auto">
 					<div class="dropdown pull-right">
