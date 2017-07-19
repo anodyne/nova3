@@ -120,12 +120,25 @@ h1 {
 a.card {
 	color: rgb(41, 43, 44);
 
+	svg.icon {
+		height: 8em;
+		width: 8em;
+
+		g {
+			fill: rgba(0, 0, 0, 0.35);
+		}
+	}
+
 	&:hover {
 		text-decoration: none;
 		border-color: $brand-primary;
 
 		svg, i {
 			color: $brand-primary;
+		}
+
+		svg.icon g {
+			fill: $brand-primary;
 		}
 	}
 }

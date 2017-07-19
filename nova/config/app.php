@@ -168,6 +168,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        BladeSvg\BladeSvgServiceProvider::class,
 
         /*
          * Application Service Providers...
