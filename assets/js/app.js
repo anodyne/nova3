@@ -254,6 +254,21 @@ window.flash = function (message, title) {
   window.events.$emit('flash', message, title, level);
 };
 
+window.route = function (name) {
+  var args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  // Grab the URI from the list of routes
+  var uri = window.Nova.routes[name];
+
+  // Loop through the arguments and replace the variable with its value
+  Object.keys(args).map(function (a) {
+    return uri = uri.replace('{' + a + '}', args[a]);
+  });
+
+  // Put the full URL back together
+  return [window.Nova.system.baseUrl, uri].join('/');
+};
+
 /***/ }),
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -21019,13 +21034,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	methods: {
 		baseStyle: function baseStyle() {
 			var image = this.item ? this.item.base : this.base;
-			var imagePath = [window.Nova.siteUrl, 'ranks', window.Nova.genre, 'duty', 'base', image].join('/');
+			var imagePath = [window.Nova.system.baseUrl, 'ranks', window.Nova.system.genre, 'duty', 'base', image].join('/');
 
 			return 'background-image:url(' + imagePath + ')';
 		},
 		overlayStyle: function overlayStyle() {
 			var image = this.item ? this.item.overlay : this.overlay;
-			var imagePath = [window.Nova.siteUrl, 'ranks', window.Nova.genre, 'duty', 'overlay', image].join('/');
+			var imagePath = [window.Nova.system.baseUrl, 'ranks', window.Nova.system.genre, 'duty', 'overlay', image].join('/');
 
 			return 'background-image:url(' + imagePath + ')';
 		}

@@ -11476,6 +11476,15 @@ a.card {
   color: #292b2c;
 }
 
+a.card svg.icon {
+  height: 8em;
+  width: 8em;
+}
+
+a.card svg.icon g {
+  fill: rgba(0, 0, 0, 0.35);
+}
+
 a.card:hover {
   text-decoration: none;
   border-color: #0275d8;
@@ -11484,6 +11493,10 @@ a.card:hover {
 a.card:hover svg,
 a.card:hover i {
   color: #0275d8;
+}
+
+a.card:hover svg.icon g {
+  fill: #0275d8;
 }
 
 .form-control-label {
@@ -11569,6 +11582,10 @@ label.custom-control {
 .vue-js-switch.toggle-switch.lg {
   --h: 2rem !important;
   --w: 3.875rem !important;
+}
+
+.jconfirm .jconfirm-box.loading:before {
+  background: #444 !important;
 }
 
 [v-cloak] {
