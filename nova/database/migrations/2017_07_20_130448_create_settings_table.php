@@ -36,5 +36,7 @@ class CreateSettingsTable extends Migration
 		$settings->each(function ($s) {
 			factory(Settings::class)->create($s);
 		});
+
+		Eloquent::reguard();
 	}
 }
