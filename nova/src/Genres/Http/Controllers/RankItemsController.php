@@ -4,6 +4,7 @@ use Controller;
 use Nova\Genres\Rank;
 use Nova\Genres\RankInfo;
 use Nova\Genres\RankGroup;
+use Nova\Settings\Settings;
 use Symfony\Component\Finder\Finder;
 
 class RankItemsController extends Controller
@@ -40,8 +41,11 @@ class RankItemsController extends Controller
 		// Get all of the rank info
 		$info = RankInfo::orderBy('order')->get()->pluck('name', 'id');
 
+		// Set the path to the correct rank folder
+		$rankPath = base_path('ranks/'.config('nova.genre').'/'.Settings::find(1)->value);
+
 		// Get the base images
-		$finderBaseImages = (new Finder)->files()->in(base_path('ranks/'.config('nova.genre').'/duty/base'));
+		$finderBaseImages = (new Finder)->files()->in("{$rankPath}/base");
 		$baseImages = [];
 
 		foreach ($finderBaseImages as $file) {
@@ -57,7 +61,7 @@ class RankItemsController extends Controller
 		krsort($baseImages);
 
 		// Get the overlay images
-		$finderOverlayImages = (new Finder)->files()->in(base_path('ranks/'.config('nova.genre').'/duty/overlay'));
+		$finderOverlayImages = (new Finder)->files()->in("{$rankPath}/overlay");
 		$overlayImages = [];
 
 		foreach ($finderOverlayImages as $file) {
@@ -112,8 +116,11 @@ class RankItemsController extends Controller
 		// Get all of the rank info
 		$info = RankInfo::orderBy('order')->get()->pluck('name', 'id');
 
+		// Set the path to the correct rank folder
+		$rankPath = base_path('ranks/'.config('nova.genre').'/'.Settings::find(1)->value);
+
 		// Get the base images
-		$finderBaseImages = (new Finder)->files()->in(base_path('ranks/'.config('nova.genre').'/duty/base'));
+		$finderBaseImages = (new Finder)->files()->in("{$rankPath}/base");
 		$baseImages = [];
 
 		foreach ($finderBaseImages as $file) {
@@ -129,7 +136,7 @@ class RankItemsController extends Controller
 		krsort($baseImages);
 
 		// Get the overlay images
-		$finderOverlayImages = (new Finder)->files()->in(base_path('ranks/'.config('nova.genre').'/duty/overlay'));
+		$finderOverlayImages = (new Finder)->files()->in("{$rankPath}/overlay");
 		$overlayImages = [];
 
 		foreach ($finderOverlayImages as $file) {

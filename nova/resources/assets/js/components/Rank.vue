@@ -22,14 +22,28 @@
 		methods: {
 			baseStyle () {
 				let image = (this.item) ? this.item.base : this.base
-				let imagePath = [window.Nova.system.baseUrl, 'ranks', window.Nova.system.genre, 'duty', 'base', image].join('/')
+				let imagePath = [
+					window.Nova.system.baseUrl,
+					'ranks',
+					window.Nova.system.genre,
+					window.Nova.settings.rank,
+					'base',
+					image
+				].join('/')
 
 				return 'background-image:url(' + imagePath + ')'
 			},
 
 			overlayStyle () {
 				let image = (this.item) ? this.item.overlay : this.overlay
-				let imagePath = [window.Nova.system.baseUrl, 'ranks', window.Nova.system.genre, 'duty', 'overlay', image].join('/')
+				let imagePath = [
+					window.Nova.system.baseUrl,
+					'ranks',
+					window.Nova.system.genre,
+					window.Nova.settings.rank,
+					'overlay',
+					image
+				].join('/')
 
 				return 'background-image:url(' + imagePath + ')'
 			}

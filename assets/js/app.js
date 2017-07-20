@@ -21034,13 +21034,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	methods: {
 		baseStyle: function baseStyle() {
 			var image = this.item ? this.item.base : this.base;
-			var imagePath = [window.Nova.system.baseUrl, 'ranks', window.Nova.system.genre, 'duty', 'base', image].join('/');
+			var imagePath = [window.Nova.system.baseUrl, 'ranks', window.Nova.system.genre, window.Nova.settings.rank, 'base', image].join('/');
 
 			return 'background-image:url(' + imagePath + ')';
 		},
 		overlayStyle: function overlayStyle() {
 			var image = this.item ? this.item.overlay : this.overlay;
-			var imagePath = [window.Nova.system.baseUrl, 'ranks', window.Nova.system.genre, 'duty', 'overlay', image].join('/');
+			var imagePath = [window.Nova.system.baseUrl, 'ranks', window.Nova.system.genre, window.Nova.settings.rank, 'overlay', image].join('/');
 
 			return 'background-image:url(' + imagePath + ')';
 		}
