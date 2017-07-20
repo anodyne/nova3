@@ -1,5 +1,7 @@
 <?php namespace Nova\Foundation\Configuration;
 
+use Nova\Settings\Settings;
+
 trait ProvidesScriptVariables
 {
 	public function scriptVariables()
@@ -14,6 +16,11 @@ trait ProvidesScriptVariables
 			'token' => csrf_token(),
 			'genre' => config('nova.genre'),
 			'timezone' => config('app.timezone'),
+		]];
+
+		// Nova's settings
+		$settings = ['settings' => [
+			'rank' => Settings::find(1)->value
 		]];
 
 		if ($currentUser) {
@@ -44,7 +51,7 @@ trait ProvidesScriptVariables
 		// Nova's controller data
 		// $data = ['data' => (array) app('nova.controller')->data];
 
-		return array_merge($system, $user, $routes);
+		return array_merge($system, $settings, $user, $routes);
 	}
 
 	protected function buildRoutesList()

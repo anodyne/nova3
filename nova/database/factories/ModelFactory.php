@@ -66,3 +66,10 @@ $factory->define(Nova\Genres\Rank::class, function (Faker\Generator $faker) {
 		'overlay' => 'bar.png',
 	];
 });
+
+$factory->define(Nova\Settings\Settings::class, function (Faker\Generator $faker) {
+	return [
+		'key' => $faker->words(1, true),
+		'value' => $faker->words(3, true),
+	];
+});

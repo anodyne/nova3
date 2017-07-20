@@ -235,6 +235,7 @@ return [
         'Gravatar' => forxer\Gravatar\Gravatar::class,
         'HTML' => Collective\Html\HtmlFacade::class,
         'Nova' => Nova\Foundation\NovaFacade::class,
+        'Settings' => Nova\Settings\Settings::class,
         'Status' => Nova\Foundation\Status::class,
         'Str' => Illuminate\Support\Str::class,
 
