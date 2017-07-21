@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('genre-positions-add'))
+@section('title', _m('genre-positions-add', [1]))
 
 @section('content')
-	<h1>{{ _m('genre-positions-add') }}</h1>
+	<h1>{{ _m('genre-positions-add', [1]) }}</h1>
 
 	{!! Form::open(['route' => 'positions.store']) !!}
 		<div class="row">
@@ -55,7 +55,7 @@
 		</div>
 
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary">{{ _m('genre-positions-add') }}</button>
+			<button type="submit" class="btn btn-primary">{{ _m('genre-positions-add', [1]) }}</button>
 			<a href="{{ route('positions.index') }}" class="btn btn-link">{{ _m('cancel') }}</a>
 		</div>
 	{!! Form::close() !!}
