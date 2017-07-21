@@ -143,7 +143,8 @@
 	"genre-depts-update": "Update Department",
 
 	"genre-positions": "Positions",
-	"genre-positions-add": "Add Position",
+	"genre-positions-add": "{{PLURAL:$2|Add Position|Add Positions}}",
+	"genre-positions-add-another": "Add Another Position",
 	"genre-positions-available": "Available",
 	"genre-positions-confirm-delete-message": "Are you sure you want to delete this position?",
 	"genre-positions-confirm-delete-title": "Delete Position",

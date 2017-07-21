@@ -1,5 +1,6 @@
 <?php namespace Tests\Genres;
 
+use Nova\Genres\Department;
 use Tests\DatabaseTestCase;
 
 class ManageDepartmentsTest extends DatabaseTestCase
@@ -53,6 +54,29 @@ class ManageDepartmentsTest extends DatabaseTestCase
 		$this->assertDatabaseHas('departments', [
 			'name' => $department->name,
 			'description' => $department->description
+		]);
+	}
+
+	/** @test **/
+	public function positions_can_be_created_when_creating_a_department()
+	{
+		$admin = $this->createAdmin();
+
+		$this->signIn($admin);
+
+		$department = make('Nova\Genres\Department');
+		$position = make('Nova\Genres\Position');
+
+		$data = $department->toArray();
+		$data['positions'][] = $position->toArray();
+
+		$this->post(route('departments.store'), $data);
+
+		$createdDepartment = Department::get()->last();
+
+		$this->assertDatabaseHas('positions', [
+			'name' => $position->name,
+			'department_id' => $createdDepartment->id
 		]);
 	}
 

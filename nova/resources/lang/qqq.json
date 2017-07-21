@@ -144,6 +144,7 @@
 
 	"genre-positions": "Label for position management; appears in headers and buttons",
 	"genre-positions-add": "Label for adding a new position; appears in the header and button",
+	"genre-positions-add-another": "Button label for adding another position in department management",
 	"genre-positions-available": "Label for the field that sets the number of available slots for users to fill",
 	"genre-positions-confirm-delete-message": "Confirmation message before deleting a position",
 	"genre-positions-confirm-delete-title": "Title for the confirmation message to delete a position",
