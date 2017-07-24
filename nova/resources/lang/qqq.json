@@ -25,6 +25,7 @@
 	"preview": "Label for a section that provides a preview of a resource",
 	"restore": "Button label to restore a resource from a deleted state",
 	"save": "Button label to save a resource",
+	"save-now": "Button label to save resources immediately",
 	"sign-in": "Button label for signing in",
 	"sign-out": "Button label for signing out",
 
@@ -161,6 +162,7 @@
 	"genre-positions-flash-validation-message": "Flash message notifying the user that there were validation issues with updating positions",
 	"genre-positions-flash-validation-title": "Title of the flash message notifying a user that there were validation issues",
 	"genre-positions-start": "Message that prompts the user to select a department to show its positions",
+	"genre-positions-unsaved": "Message that notifies a user they have unsaved changes to their positions",
 	"genre-positions-validation-dept-exists": "Validation message that prompts the user to select a valid department when creating a position",
 	"genre-positions-validation-dept-required": "Validation message when the department is missing",
 
@@ -211,6 +213,7 @@
 	"genre-rank-groups-flash-validation-title": "Title for the flash message notifying a user that there were validation issues with updating rank groups",
 	"genre-rank-groups-new-base-image": "Label for the dropdown menu that lets users pick a new rank base image",
 	"genre-rank-groups-select": "Placeholder that prompts the user to select a rank group",
+	"genre-rank-groups-unsaved": "Message that notifies a user they have unsaved changes to their rank groups",
 
 	"genre-rank-info": "Label for rank info",
 	"genre-rank-info-add": "Label for adding a new rank info; appears in the header and button",
@@ -230,6 +233,7 @@
 	"genre-rank-info-flash-validation-title": "Title for the flash message notifying a user that there were validation issues with updating rank info",
 	"genre-rank-info-select": "Placeholder prompting th user to select a rank info",
 	"genre-rank-info-short_name": "Label for a text field that collects the rank short name",
+	"genre-rank-info-unsaved": "Message that notifies a user they have unsaved changes to their rank info",
 	"genre-rank-info-validation-required-short_name": "Validation message when there is a missing rank short name",
 
 	"validation-email-required": "Validation message when there's a missing email address",

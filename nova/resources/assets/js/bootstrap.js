@@ -15,6 +15,7 @@ try {
 
 window.Sortable = require('sortablejs');
 window.Vue = require('vue');
+window.md5 = require('md5');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

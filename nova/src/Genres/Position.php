@@ -11,6 +11,9 @@ class Position extends Eloquent
 	protected $fillable = [
 		'name', 'description', 'department_id', 'order', 'display', 'available',
 	];
+	protected $casts = [
+		'available' => 'string'
+	];
 
 	//--------------------------------------------------------------------------
 	// Relationships

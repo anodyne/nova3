@@ -25,6 +25,7 @@
 	"preview": "Preview",
 	"restore": "Restore",
 	"save": "Save",
+	"save-now": "Save now",
 	"sign-in": "Sign In",
 	"sign-out": "Sign Out",
 
@@ -161,6 +162,7 @@
 	"genre-positions-flash-validation-message": "Positions could not be updated because of missing information. Please correct the issue(s) and try again.",
 	"genre-positions-flash-validation-title": "Update failed",
 	"genre-positions-start": "Please select a department to view its positions.",
+	"genre-positions-unsaved": "You have unsaved changes to your positions.",
 	"genre-positions-validation-dept-exists": "Please select a valid department",
 	"genre-positions-validation-dept-required": "Please select a department",
 
@@ -211,6 +213,7 @@
 	"genre-rank-groups-flash-validation-title": "Update failed",
 	"genre-rank-groups-new-base-image": "New Base Image",
 	"genre-rank-groups-select": "Please select a rank group",
+	"genre-rank-groups-unsaved": "You have unsaved changes to your rank groups.",
 
 	"genre-rank-info": "Rank Info",
 	"genre-rank-info-add": "Add Rank Info",
@@ -230,6 +233,7 @@
 	"genre-rank-info-flash-validation-title": "Update failed",
 	"genre-rank-info-select": "Please select a rank info",
 	"genre-rank-info-short_name": "Short Name",
+	"genre-rank-info-unsaved": "You have unsaved changes to your rank info.",
 	"genre-rank-info-validation-required-short_name": "Please enter a rank short name",
 
 	"validation-email-required": "Please enter an email address",

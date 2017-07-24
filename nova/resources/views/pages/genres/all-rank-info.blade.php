@@ -91,17 +91,28 @@
 			{{ _m('genre-rank-info-error-not-found') }} <a href="{{ route('ranks.info.create') }}" class="alert-link">{{ _m('genre-rank-info-error-add') }}</a>
 		</div>
 	@endif
+
+	<div class="alert alert-warning dirty d-flex align-items-center" v-if="dirtyInfo">
+		{{ _m('genre-rank-info-unsaved') }} <a href="#" class="alert-btn" @click.prevent="updateInfo">{{ _m('save-now') }}</a>
+	</div>
 @endsection
 
 @section('js')
 	<script>
 		vue = {
 			data: {
+				hashOfInfo: '',
+				hashOfInitialInfo: '',
 				info: {!! $info !!},
+				initialInfo: {!! $info !!},
 				search: ''
 			},
 
 			computed: {
+				dirtyInfo () {
+					return this.hashOfInfo != this.hashOfInitialInfo
+				},
+
 				filteredInfo () {
 					let self = this
 
@@ -133,6 +144,8 @@
 											})
 
 											self.info.splice(index, 1)
+											
+											self.resetInitialHash()
 
 											flash(
 												'{{ _m('genre-rank-info-flash-deleted-message') }}',
@@ -146,6 +159,11 @@
 							}
 						}
 					})
+				},
+
+				resetInitialHash () {
+					this.initialInfo = this.info
+					this.hashOfInitialInfo = md5(JSON.stringify(this.initialInfo))
 				},
 
 				updateInfo () {
@@ -166,10 +184,25 @@
 							)
 						}
 					})
+
+					this.resetInitialHash()
+				}
+			},
+
+			watch: {
+				'info': {
+					deep: true,
+					handler (newValue, oldValue) {
+						this.hashOfInfo = md5(JSON.stringify(this.info))
+					}
 				}
 			},
 
 			mounted () {
+				// Hash the info
+				this.hashOfInitialInfo = md5(JSON.stringify(this.initialInfo))
+				this.hashOfInfo = md5(JSON.stringify(this.info))
+
 				Sortable.create(document.getElementById('sortable'), {
 					draggable: '.draggable-item',
 					handle: '.sortable-handle',

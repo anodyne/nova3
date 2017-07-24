@@ -9,14 +9,12 @@
 		"prod": "npm run production",
 		"production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
 	},
-	"devDependencies": {
+	"dependencies": {
 		"axios": "^0.15.3",
 		"bootstrap": "^4.0.0-alpha.6",
-		"cross-env": "^3.2.3",
 		"humanize-number": "^0.0.2",
 		"jquery": "^3.1.1",
 		"jquery-confirm": "^3.2",
-		"laravel-mix": "^1.0.0",
 		"lodash": "^4.17.4",
 		"md5": "^2.2",
 		"pluralize": "^5.0",
@@ -24,5 +22,9 @@
 		"tether": "^1.4",
 		"vue": "^2.1",
 		"vue-js-toggle-button": "^1.1"
+	},
+	"devDependencies": {
+		"cross-env": "^3.2.3",
+		"laravel-mix": "^1.0.0"
 	}
 }

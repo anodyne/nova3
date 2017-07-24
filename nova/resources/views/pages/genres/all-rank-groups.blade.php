@@ -108,6 +108,10 @@
 			{{ _m('genre-rank-groups-error-not-found') }} <a href="{{ route('ranks.groups.create') }}" class="alert-link">{{ _m('genre-rank-groups-error-add') }}</a>
 		</div>
 	@endif
+
+	<div class="alert alert-warning dirty d-flex align-items-center" v-if="dirtyGroups">
+		{{ _m('genre-rank-groups-unsaved') }} <a href="#" class="alert-btn" @click.prevent="updateGroups">{{ _m('save-now') }}</a>
+	</div>
 @endsection
 
 @section('js')
@@ -115,10 +119,17 @@
 		vue = {
 			data: {
 				groups: {!! $rankGroups !!},
+				hashOfInitialGroups: '',
+				hashOfGroups: '',
+				initialGroups: {!! $rankGroups !!},
 				search: ''
 			},
 
 			computed: {
+				dirtyGroups () {
+					return this.hashOfGroups != this.hashOfInitialGroups
+				},
+
 				filteredGroups () {
 					let self = this
 
@@ -150,6 +161,8 @@
 											})
 
 											self.groups.splice(index, 1)
+
+											self.resetInitialHash()
 
 											flash(
 												'{{ _m('genre-rank-groups-flash-deleted-message') }}',
@@ -186,6 +199,11 @@
 					})
 				},
 
+				resetInitialHash () {
+					this.initialGroups = this.groups
+					this.hashOfInitialGroups = md5(JSON.stringify(this.initialGroups))
+				},
+
 				toggleDisplay (event) {
 					let index = _.findIndex(this.groups, function (g) {
 						return g.id == $(event.srcEvent.target).parent().data('group')
@@ -214,10 +232,25 @@
 							)
 						}
 					})
+
+					this.resetInitialHash()
+				}
+			},
+
+			watch: {
+				'groups': {
+					deep: true,
+					handler (newValue, oldValue) {
+						this.hashOfGroups = md5(JSON.stringify(this.groups))
+					}
 				}
 			},
 
 			mounted () {
+				// Hash the groups
+				this.hashOfInitialGroups = md5(JSON.stringify(this.initialGroups))
+				this.hashOfGroups = md5(JSON.stringify(this.groups))
+
 				Sortable.create(document.getElementById('sortable'), {
 					draggable: '.draggable-item',
 					handle: '.sortable-handle',

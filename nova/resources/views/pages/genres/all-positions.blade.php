@@ -114,6 +114,10 @@
 			{{ _m('genre-positions-error-not-found') }} <a href="{{ route('positions.create') }}" class="alert-link">{{ _m('genre-positions-error-add') }}</a>
 		</div>
 	@endif
+
+	<div class="alert alert-warning dirty d-flex align-items-center" v-if="dirtyPositions">
+		{{ _m('genre-positions-unsaved') }} <a href="#" class="alert-btn" @click.prevent="updatePositions">{{ _m('save-now') }}</a>
+	</div>
 @endsection
 
 @section('js')
@@ -121,11 +125,18 @@
 		vue = {
 			data: {
 				department: '',
+				hashOfInitialPositions: '',
+				hashOfPositions: '',
+				initialPositions: {!! $positions !!},
 				positions: {!! $positions !!},
 				search: ''
 			},
 
 			computed: {
+				dirtyPositions () {
+					return this.hashOfPositions != this.hashOfInitialPositions
+				},
+
 				filteredPositions () {
 					let self = this
 
@@ -162,6 +173,8 @@
 
 											self.positions.splice(index, 1)
 
+											self.resetInitialHash()
+
 											flash(
 												'{{ _m('genre-positions-flash-deleted-message') }}',
 												'{{ _m('genre-positions-flash-deleted-title') }}'
@@ -174,6 +187,11 @@
 							}
 						}
 					})
+				},
+
+				resetInitialHash () {
+					this.initialPositions = this.positions
+					this.hashOfInitialPositions = md5(JSON.stringify(this.initialPositions))
 				},
 
 				toggleDisplay (event) {
@@ -204,10 +222,25 @@
 							)
 						}
 					})
+
+					this.resetInitialHash()
+				}
+			},
+
+			watch: {
+				'positions': {
+					handler (newValue, oldValue) {
+						this.hashOfPositions = md5(JSON.stringify(this.positions))
+					},
+					deep: true
 				}
 			},
 
 			mounted () {
+				// Hash the position objects
+				this.hashOfInitialPositions = md5(JSON.stringify(this.initialPositions))
+				this.hashOfPositions = md5(JSON.stringify(this.positions))
+
 				Sortable.create(document.getElementById('sortable'), {
 					draggable: '.draggable-item',
 					handle: '.sortable-handle',

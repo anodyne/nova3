@@ -11373,6 +11373,39 @@ h1 {
   margin-bottom: 0;
 }
 
+.alert.dirty {
+  position: fixed;
+  top: 5rem;
+  right: 2rem;
+  z-index: 1000;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+}
+
+.alert .alert-btn {
+  margin-left: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid;
+  font-size: 85%;
+}
+
+.alert .alert-btn:hover,
+.alert .alert-btn:active {
+  text-decoration: none;
+}
+
+.alert.alert-warning .alert-btn {
+  background-color: #f5e79e;
+  border: 1px solid #f2e187;
+  color: #8a6d3b;
+}
+
+.alert.alert-warning .alert-btn:hover {
+  background-color: #f2e187;
+  border: 1px solid #f0db70;
+}
+
 .avatar-container {
   display: -webkit-box;
   display: -ms-flexbox;

@@ -27,6 +27,41 @@ h1 {
 			margin-bottom: 0;
 		}
 	}
+
+	&.dirty {
+		position: fixed;
+		top: 5rem;
+		right: 2rem;
+		z-index: 1000;
+
+		box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+	}
+
+	.alert-btn {
+		margin-left: 0.5rem;
+		padding: 0.25rem 0.5rem;
+
+		border-radius: $radius;
+		border: 1px solid;
+		font-size: 85%;
+
+		&:hover, &:active {
+			text-decoration: none;
+		}
+	}
+
+	&.alert-warning {
+		.alert-btn {
+			background-color: darken($state-warning-bg, 15%);
+			border: 1px solid darken($state-warning-border, 15%);
+			color: $state-warning-text;
+
+			&:hover {
+				background-color: darken($state-warning-bg, 20%);
+				border: 1px solid darken($state-warning-border, 20%);
+			}
+		}
+	}
 }
 
 .avatar-container {
