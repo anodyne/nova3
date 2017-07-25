@@ -120,21 +120,21 @@ return [
 		],
 			
 		[
-			'name' => 'Head of Engineering &amp; Maintenance',
+			'name' => 'Head of Engineering & Maintenance',
 			'description' => "The most senior Engineer on board the vessel.  An expert in all aspects of vessel systems operations.",
 			'department_id' => 3,
 			'order' => 0,
 			'available' => 1,
 		],
 		[
-			'name' => 'Deputy Head of Engineering &amp; Maintenance',
+			'name' => 'Deputy Head of Engineering & Maintenance',
 			'description' => "The second most senior Engineer on board the vessel.  An expert in all aspects of vessel systems operations.",
 			'department_id' => 3,
 			'order' => 1,
 			'available' => 1,
 		],
 		[
-			'name' => 'Assistant Deputy Head of Engineering &amp; Maintenance',
+			'name' => 'Assistant Deputy Head of Engineering & Maintenance',
 			'description' => "An expert in all aspects of vessel systems operations.",
 			'department_id' => 3,
 			'order' => 2,
@@ -265,21 +265,21 @@ return [
 		],
 			
 		[
-			'name' => 'Head of Medicine &amp; Surgery',
+			'name' => 'Head of Medicine & Surgery',
 			'description' => "The most Senior Doctor on board the vessel, considered to be an expert in the both Medicine and Surgery.",
 			'department_id' => 8,
 			'order' => 0,
 			'available' => 1,
 		],
 		[
-			'name' => 'Deputy Head of Medicine &amp; Surgery',
+			'name' => 'Deputy Head of Medicine & Surgery',
 			'description' => "The second most senior Doctor on the vessel.  Experienced in both Medicine and Surgery.",
 			'department_id' => 8,
 			'order' => 1,
 			'available' => 1,
 		],
 		[
-			'name' => 'Assistant Deputy Head of Medicine &amp; Surgery',
+			'name' => 'Assistant Deputy Head of Medicine & Surgery',
 			'description' => "The third most senior Doctor on the vessel.  Experienced in both Medicine and Surgery.",
 			'department_id' => 8,
 			'order' => 2,
