@@ -637,9 +637,14 @@ return [
 		['name' => 'Operations', 'order' => 2],
 		['name' => 'Sciences', 'order' => 3],
 		['name' => 'Marines', 'order' => 4],
+		['name' => 'Bajoran Militia', 'order' => 5, 'display' => (int) false],
+		['name' => 'Klingon Defense Force', 'order' => 6, 'display' => (int) false],
 	],
 
 	'rankInfo' => [
+		/**
+		 * Starfleet Naval
+		 */
 		['name' => 'Admiral', 'short_name' => 'ADM', 'order' => 0],
 		['name' => 'Vice Admiral', 'short_name' => 'VADM', 'order' => 1],
 		['name' => 'Rear Admiral', 'short_name' => 'RADM', 'order' => 2],
@@ -660,6 +665,9 @@ return [
 		['name' => 'Crewman 2nd Class', 'short_name' => 'CR2', 'order' => 17],
 		['name' => 'Crewman 3rd Class', 'short_name' => 'CR3', 'order' => 18],
 
+		/**
+		 * Starfleet Marines
+		 */
 		['name' => 'General', 'short_name' => 'GEN', 'order' => 20],
 		['name' => 'Lieutenant General', 'short_name' => 'LT GEN', 'order' => 21],
 		['name' => 'Major General', 'short_name' => 'MAJ GEN', 'order' => 22],
@@ -679,6 +687,39 @@ return [
 		['name' => 'Private 1st Class', 'short_name' => 'PVT1', 'order' => 36],
 		['name' => 'Private E-2', 'short_name' => 'PVT E2', 'order' => 37],
 		['name' => 'Private E-1', 'short_name' => 'PVT E1', 'order' => 38],
+
+		/**
+		 * Bajoran Militia
+		 */
+		['name' => 'General', 'short_name' => 'GEN', 'order' => 39],
+		['name' => 'Lieutenant General', 'short_name' => 'LT GEN', 'order' => 40],
+		['name' => 'Major General', 'short_name' => 'MAJ GEN', 'order' => 41],
+		['name' => 'Brigadier General', 'short_name' => 'BRG GEN', 'order' => 42],
+		['name' => 'Colonel', 'short_name' => 'COL', 'order' => 43],
+		['name' => 'Lieutenant Colonel', 'short_name' => 'LT COL', 'order' => 44],
+		['name' => 'Major', 'short_name' => 'MAJ', 'order' => 45],
+		['name' => 'Captain', 'short_name' => 'CAPT', 'order' => 46],
+		['name' => '1st Lieutenant', 'short_name' => '1LT', 'order' => 47],
+		['name' => '2nd Lieutenant', 'short_name' => '2LT', 'order' => 48],
+
+		/**
+		 * Klingon Defense Force
+		 */
+		['name' => 'General', 'short_name' => 'GEN', 'order' => 49],
+		['name' => 'Lieutenant General', 'short_name' => 'LT GEN', 'order' => 50],
+		['name' => 'Brigadier General', 'short_name' => 'BRG GEN', 'order' => 51],
+		['name' => 'Colonel', 'short_name' => 'COL', 'order' => 52],
+		['name' => 'Lieutenant Colonel', 'short_name' => 'LT COL', 'order' => 53],
+		['name' => 'Major', 'short_name' => 'MAJ', 'order' => 54],
+		['name' => 'Captain', 'short_name' => 'CAPT', 'order' => 55],
+		['name' => '1st Lieutenant', 'short_name' => '1LT', 'order' => 56],
+		['name' => '2nd Lieutenant', 'short_name' => '2LT', 'order' => 57],
+		['name' => 'Sergeant Major', 'short_name' => 'SGTM', 'order' => 58],
+		['name' => 'Master Sergeant', 'short_name' => 'MSGT', 'order' => 59],
+		['name' => 'Sergeant', 'short_name' => 'SGT', 'order' => 60],
+		['name' => 'Corporal', 'short_name' => 'CPL', 'order' => 61],
+		['name' => 'Bekk 1st Class', 'short_name' => 'BEK1', 'order' => 62],
+		['name' => 'Bekk 2nd Class', 'short_name' => 'BEK2', 'order' => 63],
 	],
 
 	'ranks' => [
@@ -752,6 +793,48 @@ return [
 		['group_id' => 5, 'info_id' => 36, 'order' => 12, 'base' => 'enlisted/green.png', 'overlay' => 'marines/e3.png'],
 		['group_id' => 5, 'info_id' => 37, 'order' => 13, 'base' => 'enlisted/green.png', 'overlay' => 'marines/e2.png'],
 		['group_id' => 5, 'info_id' => 38, 'order' => 14, 'base' => 'enlisted/green.png', 'overlay' => 'marines/e1.png'],
+
+		['group_id' => 6, 'info_id' => 39, 'order' => 0, 'base' => 'bajoran/left/grey2.png', 'overlay' => 'bajoran/left/o6a.png'],
+		['group_id' => 6, 'info_id' => 40, 'order' => 1, 'base' => 'bajoran/left/grey2.png', 'overlay' => 'bajoran/left/o5a.png'],
+		['group_id' => 6, 'info_id' => 41, 'order' => 2, 'base' => 'bajoran/left/grey2.png', 'overlay' => 'bajoran/left/o4.png'],
+		['group_id' => 6, 'info_id' => 42, 'order' => 3, 'base' => 'bajoran/left/grey2.png', 'overlay' => 'bajoran/left/o3.png'],
+		['group_id' => 6, 'info_id' => 43, 'order' => 4, 'base' => 'bajoran/right/red1.png', 'overlay' => 'bajoran/right/o6.png'],
+		['group_id' => 6, 'info_id' => 44, 'order' => 5, 'base' => 'bajoran/right/red1.png', 'overlay' => 'bajoran/right/o5.png'],
+		['group_id' => 6, 'info_id' => 45, 'order' => 6, 'base' => 'bajoran/right/red1.png', 'overlay' => 'bajoran/right/o4.png'],
+		['group_id' => 6, 'info_id' => 46, 'order' => 7, 'base' => 'bajoran/right/red1.png', 'overlay' => 'bajoran/right/o3.png'],
+		['group_id' => 6, 'info_id' => 47, 'order' => 8, 'base' => 'bajoran/right/red1.png', 'overlay' => 'bajoran/right/o2.png'],
+		['group_id' => 6, 'info_id' => 48, 'order' => 9, 'base' => 'bajoran/right/red1.png', 'overlay' => 'bajoran/right/o1.png'],
+		['group_id' => 6, 'info_id' => 44, 'order' => 10, 'base' => 'bajoran/right/green.png', 'overlay' => 'bajoran/right/o5.png'],
+		['group_id' => 6, 'info_id' => 45, 'order' => 11, 'base' => 'bajoran/right/green.png', 'overlay' => 'bajoran/right/o4.png'],
+		['group_id' => 6, 'info_id' => 46, 'order' => 12, 'base' => 'bajoran/right/green.png', 'overlay' => 'bajoran/right/o3.png'],
+		['group_id' => 6, 'info_id' => 47, 'order' => 13, 'base' => 'bajoran/right/green.png', 'overlay' => 'bajoran/right/o2.png'],
+		['group_id' => 6, 'info_id' => 48, 'order' => 14, 'base' => 'bajoran/right/green.png', 'overlay' => 'bajoran/right/o1.png'],
+		['group_id' => 6, 'info_id' => 44, 'order' => 15, 'base' => 'bajoran/right/brown.png', 'overlay' => 'bajoran/right/o5.png'],
+		['group_id' => 6, 'info_id' => 45, 'order' => 16, 'base' => 'bajoran/right/brown.png', 'overlay' => 'bajoran/right/o4.png'],
+		['group_id' => 6, 'info_id' => 46, 'order' => 17, 'base' => 'bajoran/right/brown.png', 'overlay' => 'bajoran/right/o3.png'],
+		['group_id' => 6, 'info_id' => 47, 'order' => 18, 'base' => 'bajoran/right/brown.png', 'overlay' => 'bajoran/right/o2.png'],
+		['group_id' => 6, 'info_id' => 48, 'order' => 19, 'base' => 'bajoran/right/brown.png', 'overlay' => 'bajoran/right/o1.png'],
+		['group_id' => 6, 'info_id' => 44, 'order' => 20, 'base' => 'bajoran/right/medical.png', 'overlay' => 'bajoran/right/o5.png'],
+		['group_id' => 6, 'info_id' => 45, 'order' => 21, 'base' => 'bajoran/right/medical.png', 'overlay' => 'bajoran/right/o4.png'],
+		['group_id' => 6, 'info_id' => 46, 'order' => 22, 'base' => 'bajoran/right/medical.png', 'overlay' => 'bajoran/right/o3.png'],
+		['group_id' => 6, 'info_id' => 47, 'order' => 23, 'base' => 'bajoran/right/medical.png', 'overlay' => 'bajoran/right/o2.png'],
+		['group_id' => 6, 'info_id' => 48, 'order' => 24, 'base' => 'bajoran/right/medical.png', 'overlay' => 'bajoran/right/o1.png'],
+
+		['group_id' => 7, 'info_id' => 49, 'order' => 0, 'base' => 'klingon/1.png', 'overlay' => 'klingon/marine_gold/21.png'],
+		['group_id' => 7, 'info_id' => 50, 'order' => 1, 'base' => 'klingon/1.png', 'overlay' => 'klingon/marine_gold/20.png'],
+		['group_id' => 7, 'info_id' => 51, 'order' => 2, 'base' => 'klingon/1.png', 'overlay' => 'klingon/marine_gold/19.png'],
+		['group_id' => 7, 'info_id' => 52, 'order' => 3, 'base' => 'klingon/1.png', 'overlay' => 'klingon/marine_gold/16.png'],
+		['group_id' => 7, 'info_id' => 53, 'order' => 4, 'base' => 'klingon/1.png', 'overlay' => 'klingon/marine_gold/09.png'],
+		['group_id' => 7, 'info_id' => 54, 'order' => 5, 'base' => 'klingon/1.png', 'overlay' => 'klingon/marine_gold/14.png'],
+		['group_id' => 7, 'info_id' => 55, 'order' => 6, 'base' => 'klingon/1.png', 'overlay' => 'klingon/marine_gold/08.png'],
+		['group_id' => 7, 'info_id' => 56, 'order' => 7, 'base' => 'klingon/1.png', 'overlay' => 'klingon/marine_gold/13.png'],
+		['group_id' => 7, 'info_id' => 57, 'order' => 8, 'base' => 'klingon/1.png', 'overlay' => 'klingon/marine_gold/12.png'],
+		['group_id' => 7, 'info_id' => 58, 'order' => 9, 'base' => 'klingon/1.png', 'overlay' => 'klingon/marine_gold/24.png'],
+		['group_id' => 7, 'info_id' => 59, 'order' => 10, 'base' => 'klingon/1.png', 'overlay' => 'klingon/marine_gold/27.png'],
+		['group_id' => 7, 'info_id' => 60, 'order' => 11, 'base' => 'klingon/1.png', 'overlay' => 'klingon/marine_gold/05.png'],
+		['group_id' => 7, 'info_id' => 61, 'order' => 12, 'base' => 'klingon/1.png', 'overlay' => 'klingon/marine_gold/04.png'],
+		['group_id' => 7, 'info_id' => 62, 'order' => 13, 'base' => 'klingon/1.png', 'overlay' => 'klingon/marine_gold/02.png'],
+		['group_id' => 7, 'info_id' => 63, 'order' => 14, 'base' => 'klingon/1.png', 'overlay' => 'klingon/marine_gold/01.png'],
 	],
 
 ];
