@@ -27,7 +27,7 @@ trait Icons
 			'close' => 'times',
 			'close-alt' => 'times-alt',
 			'comment' => 'comment-alt',
-			'copy' => 'copy',
+			'copy' => 'clone',
 			'delete' => 'trash-alt',
 			'edit' => 'pencil',
 			'email' => 'paper-plane',
