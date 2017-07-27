@@ -17,7 +17,7 @@
 	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-	<div id="app">
+	<div id="nova-app">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 col-xl-4 offset-md-3 offset-xl-4">
@@ -45,7 +45,7 @@
 	@yield('js')
 	<script>
 		const app = new Vue({
-			el: '#app',
+			el: '#nova-app',
 			mixins: [vue]
 		})
 	</script>

@@ -132,7 +132,7 @@
 	</style>
 </head>
 <body>
-	<div id="app" class="flex-center position-ref {{ Request::is('/') ? 'full-height' : '' }}">
+	<div id="nova-app" class="flex-center position-ref {{ Request::is('/') ? 'full-height' : '' }}">
 		@if (Route::has('login'))
 			<div class="top-right links">
 				@if (Auth::check())
@@ -187,7 +187,7 @@
 	@yield('js')
 	<script>
 		const app = new Vue({
-			el: '#app',
+			el: '#nova-app',
 			mixins: [vue]
 		})
 	</script>

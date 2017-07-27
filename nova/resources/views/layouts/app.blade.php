@@ -11,6 +11,8 @@
 	<title>{{ config('app.name', 'Laravel') }}</title>
 
 	<script defer src="{{ asset('assets/js/packs/regular.js') }}"></script>
+	<script defer src="{{ asset('assets/js/packs/solid.js') }}"></script>
+	<script defer src="{{ asset('assets/js/packs/light.js') }}"></script>
 	<script defer src="{{ asset('assets/js/fontawesome.js') }}"></script>
 
 	<!-- Styles -->
@@ -21,7 +23,7 @@
 	</script>
 </head>
 <body>
-	<div id="app">
+	<div id="nova-app">
 		<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse mb-4">
 			<div class="container">
 				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,7 +120,7 @@
 	@yield('js')
 	<script>
 		const app = new Vue({
-			el: '#app',
+			el: '#nova-app',
 			mixins: [vue]
 		})
 	</script>
