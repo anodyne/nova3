@@ -18,4 +18,13 @@ class RankGroup extends Eloquent
 	{
 		return $this->hasMany(Rank::class, 'group_id');
 	}
+
+	//--------------------------------------------------------------------------
+	// Model Methods
+	//--------------------------------------------------------------------------
+
+	public function scopeActive($query)
+	{
+		return $query->where('display', (int) true);
+	}
 }
