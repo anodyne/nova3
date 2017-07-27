@@ -466,7 +466,7 @@ return [
 		],
 		[
 			'name' => 'Support',
-			'description' => "",
+			'description' => "The Support department provides ancillary mission services to the command team to assist them in completing the mission. These services include intelligence and diplomatic support, but other mission-specific tasks can also be assigned to the Support department.",
 			'order' => 10,
 		],
 		[
