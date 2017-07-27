@@ -1,0 +1,138 @@
+// Variables
+@import "_variables";
+
+$size-xs: 0;
+$size-sm: 576px;
+$size-md: 768px;
+$size-lg: 992px;
+$size-xl: 1200px;
+
+// xs
+@media (max-width: ($size-sm - 1)) {}
+
+// sm
+@media (min-width: $size-sm) and (max-width: ($size-md - 1)) {}
+
+// md
+@media (min-width: $size-md) and (max-width: ($size-lg - 1)) {
+	nav.navbar {
+		.dropdown-menu {
+			&::before {
+				top: -0.83rem;
+				left: 0.6rem;
+				right: auto;
+
+				border: 0.4rem solid transparent;
+				border-bottom-color: #fff;
+			}
+
+			&::after, &::before {
+				position: absolute;
+				display: inline-block;
+				content: "";
+			}
+		}
+
+		.dropdown-menu-right {
+			&::before {
+				right: 0.6rem;
+				left: auto;
+			}
+		}
+	}
+
+	.alert {
+		&.alert-flash {
+			right: 2rem;
+			bottom: 1rem;
+			width: auto;
+			max-width: 50%;
+
+			box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+			border-radius: $radius;
+		}
+
+		&.dirty {
+			position: fixed;
+			top: 5rem;
+			right: 2rem;
+			width: auto;
+
+			box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+			border-radius: $radius;
+		}
+	}
+}
+
+// lg+
+@media (min-width: $size-lg) {
+	nav.navbar {
+		.dropdown-menu {
+			&::before {
+				top: -0.83rem;
+				left: 0.6rem;
+				right: auto;
+
+				border: 0.4rem solid transparent;
+				border-bottom-color: #fff;
+			}
+
+			&::after, &::before {
+				position: absolute;
+				display: inline-block;
+				content: "";
+			}
+		}
+
+		.dropdown-menu-right {
+			&::before {
+				right: 0.6rem;
+				left: auto;
+			}
+		}
+	}
+
+	.alert {
+		&.alert-flash {
+			right: 2rem;
+			bottom: 1rem;
+			width: auto;
+			max-width: 50%;
+
+			box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+			border-radius: $radius;
+		}
+
+		&.dirty {
+			top: 5rem;
+			right: 2rem;
+			width: auto;
+
+			box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+			border-radius: $radius;
+		}
+	}
+
+	.data-table {
+		.header {
+			> div {
+				&:first-child {
+					margin-bottom: 0 !important;
+				}
+			}
+		}
+	}
+
+	.btn {
+		&.btn-action {
+			padding-left: 0.65rem;
+			padding-right: 0.65rem;
+		}
+	}
+}
+
+// lg
+@media (min-width: $size-lg) and (max-width: ($size-xl - 1)) {}
+
+// xl
+@media (min-width: $size-xl) {}

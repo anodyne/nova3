@@ -8,32 +8,6 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap", "~jquery-confirm/css/jquery-confirm";
 
-nav.navbar {
-	.dropdown-menu {
-		&::before {
-			top: -0.83rem;
-			left: 0.6rem;
-			right: auto;
-
-			border: 0.4rem solid transparent;
-			border-bottom-color: #fff;
-		}
-
-		&::after, &::before {
-			position: absolute;
-			display: inline-block;
-			content: "";
-		}
-	}
-
-	.dropdown-menu-right {
-		&::before {
-			right: 0.6rem;
-			left: auto;
-		}
-	}
-}
-
 h1 {
 	margin-bottom: 2rem;
 }
@@ -41,12 +15,13 @@ h1 {
 .alert {
 	&.alert-flash {
 		position: fixed;
-		right: 2rem;
-		bottom: 1rem;
+		right: 0;
+		bottom: 0;
 		z-index: 1000;
-		max-width: 50%;
+		width: 100%;
+		margin: 0;
 
-		box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+		border-radius: 0;
 	}
 
 	p {
@@ -56,12 +31,20 @@ h1 {
 	}
 
 	&.dirty {
-		position: fixed;
-		top: 5rem;
-		right: 2rem;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		position: absolute;
+		top: -1.5rem;
+		right: 0;
 		z-index: 1000;
+		width: 100%;
 
-		box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+		border-radius: 0;
+
+		.alert-btn {
+			margin-left: auto !important;
+		}
 	}
 
 	.alert-btn {
@@ -172,11 +155,10 @@ h1 {
 			color: $brand-primary;
 		}
 	}
+}
 
-	&.btn-action {
-		padding-left: 0.65rem;
-		padding-right: 0.65rem;
-	}
+.card {
+	margin-bottom: $space;
 }
 
 a.card {
