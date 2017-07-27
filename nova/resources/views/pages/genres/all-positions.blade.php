@@ -85,7 +85,7 @@
 						<div class="col-md-3">
 							<div class="form-group">
 								<label class="form-control-label">{{ _m('genre-positions-available') }}</label>
-								<input type="number" class="form-control" v-model="position.available">
+								<input type="number" class="form-control" min="0" v-model="position.available">
 							</div>
 
 							<div class="form-group">
