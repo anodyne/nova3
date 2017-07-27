@@ -84,7 +84,7 @@ class AppServiceProvider extends ServiceProvider
 	{
 		Form::macro('departments', function ($name, $options = null, $value = null, $attributes = [], $onlyParents = false) {
 			if ($options == null) {
-				$options = \Nova\Genres\Department::with('subDepartments')->parents()->get();
+				$options = \Nova\Genres\Department::with('subDepartments')->parents()->orderBy('order')->get();
 			}
 
 			$options = $options->mapWithKeys(function ($d) use ($onlyParents) {
