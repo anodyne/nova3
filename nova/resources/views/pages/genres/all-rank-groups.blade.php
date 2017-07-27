@@ -8,7 +8,7 @@
 	@if ($rankGroups->count() > 0)
 		<div class="data-table bordered striped" id="sortable">
 			<div class="row header">
-				<div class="col-8 col-md-5">
+				<div class="col-12 col-md-5">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="{{ _m('genre-rank-groups-find') }}" v-model="search">
 						<span class="input-group-btn">
@@ -17,7 +17,7 @@
 					</div>
 				</div>
 				<div class="col hidden-sm-down"></div>
-				<div class="col col-xs-auto">
+				<div class="col col-md-auto">
 					<div class="btn-toolbar pull-right">
 						@can('create', $rankGroupClass)
 							<a href="{{ route('ranks.groups.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
@@ -52,10 +52,12 @@
 			<div class="row align-items-start draggable-item"
 				 :data-id="group.id"
 				 v-for="(group, index) in filteredGroups">
-				<div class="col col-auto">
-					<span class="sortable-handle text-subtle">{!! icon('reorder') !!}</span>
-				</div>
-				<div class="col-9">
+				<desktop>
+					<div class="col col-auto">
+						<span class="sortable-handle text-subtle">{!! icon('reorder') !!}</span>
+					</div>
+				</desktop>
+				<div class="col">
 					<div class="row">
 						<div class="col-md-6">
 							<div :class="formGroupClasses('name', index)">
@@ -76,9 +78,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="col col-xs-auto">
-					<div class="dropdown pull-right">
-						<button class="btn btn-secondary btn-action"
+				<div class="col col-auto">
+					<div class="dropdown">
+						<button class="btn btn-secondary btn-action mb-4"
 								type="button"
 								id="dropdownMenuButton"
 								data-toggle="dropdown"
@@ -99,6 +101,10 @@
 								</a>
 							@endcan
 						</div>
+
+						<mobile>
+							<div class="btn btn-block btn-outline-secondary sortable-handle">{!! icon('reorder') !!}</div>
+						</mobile>
 					</div>
 				</div>
 			</div>

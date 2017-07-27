@@ -8,7 +8,7 @@
 	@if ($permissions->count() > 0)
 		<div class="data-table bordered striped">
 			<div class="row header">
-				<div class="col-8 col-md-6">
+				<div class="col-12 col-md-6">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="{{ _m('authorize-permissions-find') }}" v-model="search">
 						<span class="input-group-btn">

@@ -7,7 +7,7 @@
 
 	<div class="data-table bordered striped" id="sortable">
 		<div class="row header">
-			<div class="col-8 col-md-5">
+			<div class="col-12 col-md-5">
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="{{ _m('genre-ranks-find') }}" v-model="search">
 					<span class="input-group-btn">

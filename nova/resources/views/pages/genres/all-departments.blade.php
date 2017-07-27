@@ -8,7 +8,7 @@
 	@if ($departments->count() > 0)
 		<div class="data-table bordered striped">
 			<div class="row header">
-				<div class="col-9 col-md-6">
+				<div class="col-12 col-md-6">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="{{ _m('genre-depts-find') }}" v-model="search">
 						<span class="input-group-btn">
@@ -35,7 +35,7 @@
 
 								<div class="dropdown-menu dropdown-menu-right">
 									<a href="{{ route('departments.reorder') }}" class="dropdown-item">
-										{!! icon('move') !!} {{ _m('genre-depts-reorder') }}
+										{!! icon('reorder') !!} {{ _m('genre-depts-reorder') }}
 									</a>
 								</div>
 							</div>

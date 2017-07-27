@@ -8,7 +8,7 @@
 	{!! Form::open(['route' => 'users.reset-passwords', 'method' => 'patch']) !!}
 		<div class="data-table bordered striped">
 			<div class="row header align-items-center">
-				<div class="col-8">
+				<div class="col mb-0">
 					<label class="custom-control custom-checkbox">
 						<input type="checkbox" name="check-all" class="custom-control-input" @change="toggleAll">
 						<span class="custom-control-indicator"></span>

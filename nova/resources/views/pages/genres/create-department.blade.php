@@ -20,7 +20,7 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<label class="form-control-label">{{ _m('description') }}</label>
-					{!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => 4]) !!}
+					{!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => 8]) !!}
 				</div>
 			</div>
 		</div>
@@ -55,7 +55,7 @@
 					</div>
 
 					<div class="form-group mb-5">
-						<a href="#" class="btn btn-sm btn-secondary" @click.prevent="addPosition">
+						<a href="#" class="btn btn-secondary" @click.prevent="addPosition">
 							{{ _m('genre-positions-add-another') }}
 						</a>
 					</div>

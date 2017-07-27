@@ -8,7 +8,7 @@
 	@if ($info->count() > 0)
 		<div class="data-table bordered striped" id="sortable">
 			<div class="row header">
-				<div class="col-8 col-md-5">
+				<div class="col-12 col-md-5">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="{{ _m('genre-rank-info-find') }}" v-model="search">
 						<span class="input-group-btn">
@@ -60,10 +60,12 @@
 			<div class="row align-items-start draggable-item"
 				 :data-id="info.id"
 				 v-for="(info, index) in filteredInfo">
-				<div class="col col-auto">
-					<span class="sortable-handle text-subtle">{!! icon('reorder') !!}</span>
-				</div>
-				<div class="col-9">
+				<desktop>
+					<div class="col col-auto">
+						<span class="sortable-handle text-subtle">{!! icon('reorder') !!}</span>
+					</div>
+				</desktop>
+				<div class="col">
 					<div class="row">
 						<div class="col-md-6">
 							<div :class="formGroupClasses('name', index)">
@@ -79,10 +81,15 @@
 						</div>
 					</div>
 				</div>
-				<div class="col col-xs-auto">
+				<div class="col col-auto">
 					@can('delete', $rankInfoClass)
-						<a class="btn btn-action btn-outline-danger pull-right" href="#" @click.prevent="deleteInfo(info.id)">{!! icon('delete') !!}</a>
+						<a class="btn btn-action btn-outline-danger mb-4" href="#" @click.prevent="deleteInfo(info.id)">
+							{!! icon('delete') !!}
+						</a>
 					@endcan
+					<mobile>
+						<div class="btn btn-block btn-outline-secondary sortable-handle">{!! icon('reorder') !!}</div>
+					</mobile>
 				</div>
 			</div>
 		</div>

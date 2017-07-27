@@ -8,7 +8,7 @@
 	@if ($roles->count() > 0)
 		<div class="data-table bordered striped">
 			<div class="row header align-items-center">
-				<div class="col-8">
+				<div class="col mb-0">
 					{{ _m('name') }}
 				</div>
 				<div class="col col-xs-auto">

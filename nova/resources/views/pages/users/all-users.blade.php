@@ -12,7 +12,7 @@
 
 		<div class="data-table bordered striped">
 			<div class="row header align-items-start align-items-md-center">
-				<div class="col-9 col-md-6">
+				<div class="col-12 col-md-6">
 					<div class="input-group">
 						<input type="text"
 							   class="form-control"

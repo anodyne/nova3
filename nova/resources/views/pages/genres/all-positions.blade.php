@@ -8,7 +8,7 @@
 	@if ($positions->count() > 0)
 		<div class="data-table bordered striped" id="sortable">
 			<div class="row header">
-				<div class="col-8 col-md-5">
+				<div class="col-12 col-md-5">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="{{ _m('genre-positions-find') }}" v-model="search">
 						<span class="input-group-btn">
@@ -55,10 +55,12 @@
 				 :data-id="position.id"
 				 v-if="department != '' && filteredPositions.length > 0"
 				 v-for="position in filteredPositions">
-				<div class="col col-auto">
-					<span class="sortable-handle text-subtle">{!! icon('reorder') !!}</span>
-				</div>
-				<div class="col-9">
+				<desktop>
+					<div class="col col-auto">
+						<span class="sortable-handle text-subtle">{!! icon('reorder') !!}</span>
+					</div>
+				</desktop>
+				<div class="col">
 					<div class="row">
 						<div class="col-md-6">
 							<div :class="formGroupClasses('name', position.id)">
@@ -100,12 +102,16 @@
 						</div>
 					</div>
 				</div>
-				<div class="col col-xs-auto">
+				<div class="col col-auto">
 					@can('delete', $positionClass)
 						<a href="#"
-						   class="btn btn-outline-danger btn-action pull-right"
+						   class="btn btn-outline-danger btn-action mb-4"
 						   @click.prevent="deletePosition(position.id)">{!! icon('delete') !!}</a>
 					@endcan
+
+					<mobile>
+						<div class="btn btn-block btn-outline-secondary sortable-handle">{!! icon('reorder') !!}</div>
+					</mobile>
 				</div>
 			</div>
 		</div>
@@ -115,8 +121,9 @@
 		</div>
 	@endif
 
-	<div class="alert alert-warning dirty d-flex align-items-center" v-if="dirtyPositions">
-		{{ _m('genre-positions-unsaved') }} <a href="#" class="alert-btn" @click.prevent="updatePositions">{{ _m('save-now') }}</a>
+	<div class="alert alert-warning dirty" v-if="dirtyPositions">
+		<span>{{ _m('genre-positions-unsaved') }}</span>
+		<a href="#" class="alert-btn" @click.prevent="updatePositions">{{ _m('save-now') }}</a>
 	</div>
 @endsection
 
