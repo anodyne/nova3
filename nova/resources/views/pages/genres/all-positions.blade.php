@@ -61,7 +61,7 @@
 				<div class="col-9">
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group">
+							<div :class="formGroupClasses('name', position.id)">
 								<label class="form-control-label">{{ _m('name') }}</label>
 								<input type="text" class="form-control" v-model=position.name>
 							</div>
@@ -187,6 +187,16 @@
 							}
 						}
 					})
+				},
+
+				formGroupClasses (field, id) {
+					let index = _.findIndex(this.positions, function (p) {
+						return p.id == id
+					})
+
+					let classes = ['form-group', (this.positions[index][field] == '' ? 'has-danger' : '')]
+
+					return classes
 				},
 
 				resetInitialHash () {
