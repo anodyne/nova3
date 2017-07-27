@@ -23,7 +23,7 @@ class PositionsController extends Controller
 		$positions = Position::orderBy('order')->get();
 
 		// Get all of the departments
-		$departments = Department::with('subDepartments')->orderBy('order')->get();
+		$departments = Department::with('subDepartments')->parents()->orderBy('order')->get();
 
 		return view('pages.genres.all-positions', compact('positionClass', 'positions', 'departments'));
 	}
