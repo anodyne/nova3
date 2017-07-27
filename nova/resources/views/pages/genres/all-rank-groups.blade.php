@@ -51,14 +51,14 @@
 
 			<div class="row align-items-start draggable-item"
 				 :data-id="group.id"
-				 v-for="group in filteredGroups">
+				 v-for="(group, index) in filteredGroups">
 				<div class="col col-auto">
 					<span class="sortable-handle text-subtle">{!! icon('reorder') !!}</span>
 				</div>
 				<div class="col-9">
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group">
+							<div :class="formGroupClasses('name', index)">
 								<label class="form-control-label">{{ _m('name') }}</label>
 								<input type="text" class="form-control" v-model="group.name">
 							</div>
@@ -197,6 +197,12 @@
 							}
 						}
 					})
+				},
+
+				formGroupClasses (field, index) {
+					let classes = ['form-group', (this.groups[index][field] == '' ? 'has-danger' : '')]
+
+					return classes
 				},
 
 				resetInitialHash () {
