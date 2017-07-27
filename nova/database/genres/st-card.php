@@ -361,23 +361,25 @@ return [
 	],
 
 	'rankGroups' => [
-		['name' => 'Cardassian Union', 'order' => 0],
+		['name' => 'Central Command', 'order' => 0],
+		['name' => 'Cardassian Defense Force', 'order' => 0],
+		['name' => 'Obsidian Order', 'order' => 2],
 	],
 
 	'rankInfo' => [
 		['name' => 'Legate (3rd Order)', 'short_name' => 'LEG', 'order' => 0],
 		['name' => 'Legate (2nd Order)', 'short_name' => 'LEG', 'order' => 1],
 		['name' => 'Legate (1st Order)', 'short_name' => 'LEG', 'order' => 2],
-		['name' => 'Jagual', 'short_name' => 'JAG', 'order' => 3],
+		['name' => 'Jagul', 'short_name' => 'JAG', 'order' => 3],
 		['name' => 'Gul', 'short_name' => 'GUL', 'order' => 4],
-		['name' => 'Glinn', 'short_name' => 'GLI', 'order' => 5],
-		['name' => 'Kel', 'short_name' => 'KEL', 'order' => 6],
-		['name' => 'Gil', 'short_name' => 'GIL', 'order' => 7],
-		['name' => 'Dalin', 'short_name' => 'DAL', 'order' => 8],
-		['name' => 'Riyak', 'short_name' => 'RIY', 'order' => 9],
-		['name' => 'Ragoc', 'short_name' => 'RAG', 'order' => 10],
-		['name' => 'Gor', 'short_name' => 'GOR', 'order' => 11],
-		['name' => 'Garhec', 'short_name' => 'GAR', 'order' => 12],
+		['name' => 'Dal', 'short_name' => 'DAL', 'order' => 5],
+		['name' => 'Dalin', 'short_name' => 'DLN', 'order' => 6],
+		['name' => 'Glinn', 'short_name' => 'GLN', 'order' => 7],
+		
+		['name' => 'Gil', 'short_name' => 'GIL', 'order' => 8],
+		
+		['name' => 'Garresh', 'short_name' => 'GRS', 'order' => 9],
+		['name' => 'Gorr', 'short_name' => 'GOR', 'order' => 10],
 	],
 
 	'ranks' => [
