@@ -89,12 +89,23 @@ class CreateGenreTables extends Migration
 
 			// Create the departments
 			collect($data['departments'])->each(function ($department) {
-				factory(Department::class)->create($department);
-			});
+				$positions = [];
 
-			// Create the positions
-			collect($data['positions'])->each(function ($position) {
-				factory(Position::class)->create($position);
+				if (array_key_exists('positions', $department)) {
+					// Grab the positions
+					$positions = $department['positions'];
+
+					// Get rid of the positions stuff to avoid issues
+					unset($department['positions']);
+				}
+				
+				// Create the department
+				$dept = factory(Department::class)->create($department);
+
+				// Create the positions now
+				collect($positions)->each(function ($position) use ($dept) {
+					$dept->positions()->create($position);
+				});
 			});
 
 			// Create the rank groups
