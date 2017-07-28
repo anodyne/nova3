@@ -28,7 +28,6 @@
 					imagePath = [
 						window.Nova.system.baseUrl,
 						'ranks',
-						window.Nova.system.genre,
 						window.Nova.settings.rank,
 						'base',
 						image
@@ -37,7 +36,6 @@
 					imagePath = [
 						window.Nova.system.baseUrl,
 						'ranks',
-						window.Nova.system.genre,
 						window.Nova.settings.rank,
 						'blank.png'
 					].join('/')
@@ -54,7 +52,6 @@
 					imagePath = [
 						window.Nova.system.baseUrl,
 						'ranks',
-						window.Nova.system.genre,
 						window.Nova.settings.rank,
 						'overlay',
 						image

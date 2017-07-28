@@ -107,12 +107,12 @@
 											</div>
 											@foreach ($bImage as $baseImg)
 												<div class="col col-auto mb-3" :class="baseSelector('{{ $baseImg }}')">
-													<a href="#" @click.prevent="changeImage('base', '{{ $baseImg }}')">{!! HTML::image('ranks/'.config('nova.genre').'/'.Settings::find(1)->value.'/base/'.$baseImg) !!}</a>
+													<a href="#" @click.prevent="changeImage('base', '{{ $baseImg }}')">{!! HTML::image('ranks/'.Settings::find(1)->value.'/base/'.$baseImg) !!}</a>
 												</div>
 											@endforeach
 										@else
 											<div class="col col-auto mb-3" :class="baseSelector('{{ $bImage }}')">
-												<a href="#" @click.prevent="changeImage('base', '{{ $bImage }}')">{!! HTML::image('ranks/'.config('nova.genre').'/'.Settings::find(1)->value.'/base/'.$bImage) !!}</a>
+												<a href="#" @click.prevent="changeImage('base', '{{ $bImage }}')">{!! HTML::image('ranks/'.Settings::find(1)->value.'/base/'.$bImage) !!}</a>
 											</div>
 										@endif
 									@endforeach
@@ -151,12 +151,12 @@
 											</div>
 											@foreach ($oImage as $overlayImg)
 												<div class="col col-auto mb-3" :class="overlaySelector('{{ $overlayImg }}')">
-													<a href="#" @click.prevent="changeImage('overlay', '{{ $overlayImg }}')">{!! HTML::image('ranks/'.config('nova.genre').'/'.Settings::find(1)->value.'/overlay/'.$overlayImg) !!}</a>
+													<a href="#" @click.prevent="changeImage('overlay', '{{ $overlayImg }}')">{!! HTML::image('ranks/'.Settings::find(1)->value.'/overlay/'.$overlayImg) !!}</a>
 												</div>
 											@endforeach
 										@else
 											<div class="col col-auto mb-3" :class="overlaySelector('{{ $oImage }}')">
-												<a href="#" @click.prevent="changeImage('overlay', '{{ $oImage }}')">{!! HTML::image('ranks/'.config('nova.genre').'/'.Settings::find(1)->value.'/overlay/'.$oImage) !!}</a>
+												<a href="#" @click.prevent="changeImage('overlay', '{{ $oImage }}')">{!! HTML::image('ranks/'.Settings::find(1)->value.'/overlay/'.$oImage) !!}</a>
 											</div>
 										@endif
 									@endforeach
@@ -181,11 +181,11 @@
 
 			computed: {
 				baseStyles () {
-					return 'background-image:url(/ranks/' + {{ config('nova.genre') }} + '/' + {{ Settings::find(1)->value }} + '/base/' + this.base + ')'
+					return 'background-image:url(/ranks/' + {{ Settings::find(1)->value }} + '/base/' + this.base + ')'
 				},
 
 				overlayStyles () {
-					return 'background-image:url(/ranks/' + {{ config('nova.genre') }} + '/' + {{ Settings::find(1)->value }} + '/overlay/' + this.overlay + ')'
+					return 'background-image:url(/ranks/' + {{ Settings::find(1)->value }} + '/overlay/' + this.overlay + ')'
 				}
 			},
 
