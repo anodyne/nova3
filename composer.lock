@@ -150,16 +150,16 @@
         },
         {
             "name": "forxer/gravatar",
-            "version": "1.3.1",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/forxer/gravatar.git",
-                "reference": "98a17ed7880b986d03356baa7bc01b0162761c05"
+                "reference": "ed26d994a73f2316709671afef447107124e0083"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/forxer/gravatar/zipball/98a17ed7880b986d03356baa7bc01b0162761c05",
-                "reference": "98a17ed7880b986d03356baa7bc01b0162761c05",
+                "url": "https://api.github.com/repos/forxer/gravatar/zipball/ed26d994a73f2316709671afef447107124e0083",
+                "reference": "ed26d994a73f2316709671afef447107124e0083",
                 "shasum": ""
             },
             "require": {
@@ -186,7 +186,7 @@
             "keywords": [
                 "gravatar"
             ],
-            "time": "2016-02-26T21:12:47+00:00"
+            "time": "2017-07-27T12:21:32+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
