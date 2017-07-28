@@ -330,8 +330,7 @@ return [
 
 	'rankGroups' => [
 		['name' => 'Central Command', 'order' => 0],
-		['name' => 'Cardassian Defense Force', 'order' => 0],
-		['name' => 'Obsidian Order', 'order' => 2],
+		['name' => 'Cardassian Defense Force', 'order' => 1],
 	],
 
 	'rankInfo' => [
@@ -343,9 +342,8 @@ return [
 		['name' => 'Dal', 'short_name' => 'DAL', 'order' => 5],
 		['name' => 'Dalin', 'short_name' => 'DLN', 'order' => 6],
 		['name' => 'Glinn', 'short_name' => 'GLN', 'order' => 7],
-		
 		['name' => 'Gil', 'short_name' => 'GIL', 'order' => 8],
-		
+		['name' => 'Kel', 'short_name' => 'KEL', 'order' => 8],
 		['name' => 'Garresh', 'short_name' => 'GRS', 'order' => 9],
 		['name' => 'Gorr', 'short_name' => 'GOR', 'order' => 10],
 	],
@@ -355,15 +353,15 @@ return [
 		['group_id' => 1, 'order' => 1, 'info_id' => 2, 'base' => 'card1.png', 'overlay' => 'a3.png'],
 		['group_id' => 1, 'order' => 2, 'info_id' => 3, 'base' => 'card1.png', 'overlay' => 'a2.png'],
 		['group_id' => 1, 'order' => 3, 'info_id' => 4, 'base' => 'card1.png', 'overlay' => 'a1.png'],
-		['group_id' => 1, 'order' => 4, 'info_id' => 5, 'base' => 'card1.png', 'overlay' => 'o6.png'],
-		['group_id' => 1, 'order' => 5, 'info_id' => 6, 'base' => 'card1.png', 'overlay' => 'o5.png'],
-		['group_id' => 1, 'order' => 6, 'info_id' => 7, 'base' => 'card1.png', 'overlay' => 'o4.png'],
-		['group_id' => 1, 'order' => 7, 'info_id' => 8, 'base' => 'card1.png', 'overlay' => 'o3.png'],
-		['group_id' => 1, 'order' => 8, 'info_id' => 9, 'base' => 'card1.png', 'overlay' => 'o2.png'],
-		['group_id' => 1, 'order' => 9, 'info_id' => 10, 'base' => 'card1.png', 'overlay' => 'o1.png'],
-		['group_id' => 1, 'order' => 10, 'info_id' => 11, 'base' => 'card2.png', 'overlay' => 'e3.png'],
-		['group_id' => 1, 'order' => 11, 'info_id' => 12, 'base' => 'card2.png', 'overlay' => 'e2.png'],
-		['group_id' => 1, 'order' => 12, 'info_id' => 13, 'base' => 'card2.png', 'overlay' => 'e1.png'],
+		
+		['group_id' => 2, 'order' => 0, 'info_id' => 5, 'base' => 'card1.png', 'overlay' => 'o6.png'],
+		['group_id' => 2, 'order' => 1, 'info_id' => 6, 'base' => 'card1.png', 'overlay' => 'o5.png'],
+		['group_id' => 2, 'order' => 2, 'info_id' => 7, 'base' => 'card1.png', 'overlay' => 'o4.png'],
+		['group_id' => 2, 'order' => 3, 'info_id' => 8, 'base' => 'card1.png', 'overlay' => 'o3.png'],
+		['group_id' => 2, 'order' => 4, 'info_id' => 9, 'base' => 'card1.png', 'overlay' => 'o2.png'],
+		['group_id' => 2, 'order' => 5, 'info_id' => 10, 'base' => 'card1.png', 'overlay' => 'o1.png'],
+		['group_id' => 2, 'order' => 6, 'info_id' => 11, 'base' => 'card2.png', 'overlay' => 'e2.png'],
+		['group_id' => 2, 'order' => 7, 'info_id' => 12, 'base' => 'card2.png', 'overlay' => 'e1.png'],
 	],
 
 ];
