@@ -28,7 +28,7 @@
 			</div>
 
 			<div class="col-12 col-md-9">
-				<div id="accordion" role="tablist" aria-multiselectable="true">
+				<div id="accordion" class="accordion" role="tablist" aria-multiselectable="true">
 					<div class="card mb-2">
 						<div class="card-header d-flex align-items-center justify-content-end" role="tab" id="rankInfoHeading">
 							<h5 class="mb-0 mr-auto">
@@ -107,12 +107,22 @@
 											</div>
 											@foreach ($bImage as $baseImg)
 												<div class="col col-auto mb-3" :class="baseSelector('{{ $baseImg }}')">
-													<a href="#" @click.prevent="changeImage('base', '{{ $baseImg }}')">{!! HTML::image('ranks/'.Settings::find(1)->value.'/base/'.$baseImg) !!}</a>
+													<a href="#"
+													   class="d-flex flex-column text-center"
+													   @click.prevent="changeImage('base', '{{ $baseImg }}')">
+													   {!! HTML::image('ranks/'.Settings::find(1)->value.'/base/'.$baseImg) !!}
+													   <small>{{ $baseImg }}</small>
+													</a>
 												</div>
 											@endforeach
 										@else
 											<div class="col col-auto mb-3" :class="baseSelector('{{ $bImage }}')">
-												<a href="#" @click.prevent="changeImage('base', '{{ $bImage }}')">{!! HTML::image('ranks/'.Settings::find(1)->value.'/base/'.$bImage) !!}</a>
+												<a href="#"
+												   class="d-flex flex-column text-center"
+												   @click.prevent="changeImage('base', '{{ $bImage }}')">
+												   {!! HTML::image('ranks/'.Settings::find(1)->value.'/base/'.$bImage) !!}
+												   <small>{{ $bImage }}</small>
+												</a>
 											</div>
 										@endif
 									@endforeach
@@ -151,12 +161,22 @@
 											</div>
 											@foreach ($oImage as $overlayImg)
 												<div class="col col-auto mb-3" :class="overlaySelector('{{ $overlayImg }}')">
-													<a href="#" @click.prevent="changeImage('overlay', '{{ $overlayImg }}')">{!! HTML::image('ranks/'.Settings::find(1)->value.'/overlay/'.$overlayImg) !!}</a>
+													<a href="#"
+													   class="d-flex flex-column text-center"
+													   @click.prevent="changeImage('overlay', '{{ $overlayImg }}')">
+													   {!! HTML::image('ranks/'.Settings::find(1)->value.'/overlay/'.$overlayImg) !!}
+													   <small>{{ $overlayImg }}</small>
+													</a>
 												</div>
 											@endforeach
 										@else
 											<div class="col col-auto mb-3" :class="overlaySelector('{{ $oImage }}')">
-												<a href="#" @click.prevent="changeImage('overlay', '{{ $oImage }}')">{!! HTML::image('ranks/'.Settings::find(1)->value.'/overlay/'.$oImage) !!}</a>
+												<a href="#"
+												   class="d-flex flex-column text-center"
+												   @click.prevent="changeImage('overlay', '{{ $oImage }}')">
+												   {!! HTML::image('ranks/'.Settings::find(1)->value.'/overlay/'.$oImage) !!}
+												   <small>{{ $oImage }}</small>
+												</a>
 											</div>
 										@endif
 									@endforeach

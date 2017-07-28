@@ -11365,6 +11365,20 @@ h1 {
   margin-bottom: 2rem;
 }
 
+.accordion .card-header a {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.accordion .card-header a:hover {
+  color: rgba(0, 0, 0, 0.8);
+  text-decoration: none;
+}
+
+.accordion .card-header a:active,
+.accordion .card-header a:focus {
+  text-decoration: none;
+}
+
 .alert.alert-flash {
   position: fixed;
   right: 0;
@@ -11742,16 +11756,24 @@ label.custom-control {
   padding: 0.5rem;
   border: 0.1rem solid transparent;
   border-radius: 0.25rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  color: #0275d8;
 }
 
 .rank-selector:hover {
   background-color: rgba(2, 117, 216, 0.1);
   border-color: rgba(2, 117, 216, 0.3);
+  color: #0275d8;
+  text-decoration: none;
 }
 
 .rank-selector.selected {
   background-color: rgba(2, 117, 216, 0.2);
   border-color: rgba(2, 117, 216, 0.5);
+  color: #0275d8;
 }
 
 .vue-js-switch.toggle-switch .v-switch-core {
