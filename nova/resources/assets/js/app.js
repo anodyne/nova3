@@ -13,6 +13,7 @@ require('./bootstrap');
  */
 
 Vue.component('rank', require('./components/Rank.vue'));
+Vue.component('rank-picker', require('./components/RankPicker.vue'));
 Vue.component('flash', require('./components/Flash.vue'));
 Vue.component('user-avatar', require('./components/UserAvatar.vue'));
 

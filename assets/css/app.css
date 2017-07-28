@@ -11488,6 +11488,138 @@ h1 {
   margin-left: 65px;
 }
 
+.rank-picker {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  position: relative;
+}
+
+.rank-picker .selected-toggle {
+  margin-bottom: 2px;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  background: #fff;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.rank-picker .selected-toggle:hover {
+  background: rgba(0, 0, 0, 0.0425);
+}
+
+.rank-picker .selected-toggle .selected-rank {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.rank-picker .selected-toggle .selected-rank svg {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.rank-picker .selected-toggle .meta {
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+}
+
+.rank-picker .ranks-menu {
+  position: absolute;
+  top: 100%;
+  z-index: 1000;
+  max-height: 20rem;
+  overflow-y: scroll;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  background: #fff;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.rank-picker .ranks-menu > .rank-menu-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.rank-picker .ranks-menu > .rank-menu-item:hover {
+  background: rgba(0, 0, 0, 0.0425);
+}
+
+.rank-picker .ranks-menu > .rank-menu-item .meta {
+  margin-left: 0.5rem;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 400;
+}
+
+.rank-picker .ranks-menu .rank-search-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.rank-picker .ranks-menu .rank-search-group .rank-search-field {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 0.5rem;
+  border-radius: 0.25rem;
+  background: rgba(0, 0, 0, 0.0425);
+}
+
+.rank-picker .ranks-menu .rank-search-group .rank-search-field svg {
+  color: rgba(0, 0, 0, 0.35);
+}
+
+.rank-picker .ranks-menu .rank-search-group .rank-search-field input[type="text"] {
+  width: 12rem;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  font-size: 85%;
+  border-radius: 0;
+  background: transparent;
+}
+
+.rank-picker .ranks-menu .rank-search-group .rank-search-field input[type="text"]:focus {
+  outline: none;
+}
+
+.rank-picker .ranks-menu .rank-search-group .clear-search {
+  color: rgba(0, 0, 0, 0.35);
+}
+
+.rank-picker .ranks-menu .rank-search-group .clear-search:hover {
+  color: #d9534f;
+}
+
+.rank-picker .ranks-menu .rank-menu-alert {
+  margin-top: 0.75rem;
+}
+
+.rank-picker .ranks-menu .rank-menu-alert .alert {
+  border-radius: 0;
+}
+
 .btn-toolbar {
   margin-bottom: 1rem;
 }
