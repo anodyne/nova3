@@ -21486,9 +21486,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	props: {
 		selected: {
 			type: Object
-		},
-		ranks: {
-			type: Array
 		}
 	},
 
@@ -21496,6 +21493,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	data: function data() {
 		return {
+			ranks: [],
 			search: '',
 			selectedRank: false,
 			show: false
@@ -21526,10 +21524,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		}
 	},
 
-	mounted: function mounted() {
+	created: function created() {
+		var self = this;
+
 		if (this.selected) {
 			this.selectedRank = this.selected;
 		}
+
+		axios.get(route('api.ranks')).then(function (response) {
+			self.ranks = response.data;
+		});
 	}
 });
 

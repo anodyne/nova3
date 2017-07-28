@@ -56,9 +56,6 @@
 		props: {
 			selected: {
 				type: Object
-			},
-			ranks: {
-				type: Array
 			}
 		},
 
@@ -66,6 +63,7 @@
 
 		data () {
 			return {
+				ranks: [],
 				search: '',
 				selectedRank: false,
 				show: false
@@ -96,10 +94,16 @@
 			}
 		},
 
-		mounted () {
+		created () {
+			let self = this;
+
 			if (this.selected) {
 				this.selectedRank = this.selected;
 			}
+
+			axios.get(route('api.ranks')).then((response) => {
+				self.ranks = response.data;
+			});
 		}
 	}
 </script>
