@@ -1,6 +1,7 @@
 <?php namespace Nova\Genres;
 
 use Eloquent;
+use Nova\Characters\Character;
 use Nova\Foundation\Data\Reorderable;
 
 class Rank extends Eloquent
@@ -13,6 +14,11 @@ class Rank extends Eloquent
 	//--------------------------------------------------------------------------
 	// Relationships
 	//--------------------------------------------------------------------------
+
+	public function characters()
+	{
+		return $this->hasMany(Character::class);
+	}
 
 	public function group()
 	{
