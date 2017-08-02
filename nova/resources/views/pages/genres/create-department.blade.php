@@ -36,6 +36,14 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="form-control-label">{{ _m('displayed') }}</label>
+			<div>
+				<toggle-button class="toggle-switch lg" :value="true" @change="toggleDisplay"></toggle-button>
+				<input type="hidden" name="display" v-model="display">
+			</div>
+		</div>
+
 		<fieldset>
 			<legend>{{ _m('genre-positions-add', [2]) }}</legend>
 
@@ -74,6 +82,7 @@
 	<script>
 		vue = {
 			data: {
+				display: 1,
 				positions: [{name:''}]
 			},
 
@@ -84,6 +93,10 @@
 
 				removePosition (index) {
 					this.positions.splice(index, 1)
+				},
+
+				toggleDisplay (event) {
+					this.display = (event.value === true) ? 1 : 0
 				}
 			}
 		}

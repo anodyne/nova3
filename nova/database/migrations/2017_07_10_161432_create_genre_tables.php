@@ -19,6 +19,7 @@ class CreateGenreTables extends Migration
 			$table->unsignedInteger('order')->default(99);
 			$table->string('name');
 			$table->text('description')->nullable();
+			$table->unsignedTinyInteger('display')->default((int) true);
 			$table->timestamps();
 		});
 

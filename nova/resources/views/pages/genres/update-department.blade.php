@@ -37,8 +37,34 @@
 		</div>
 
 		<div class="form-group">
+			<label class="form-control-label">{{ _m('displayed') }}</label>
+			<div>
+				<toggle-button class="toggle-switch lg"
+							   :value="{{ ($department->display == 1) ? 'true' : 'false' }}"
+							   @change="toggleDisplay"></toggle-button>
+				<input type="hidden" name="display" v-model="display">
+			</div>
+		</div>
+
+		<div class="form-group">
 			<button type="submit" class="btn btn-primary">{{ _m('genre-depts-update') }}</button>
 			<a href="{{ route('departments.index') }}" class="btn btn-link">{{ _m('cancel') }}</a>
 		</div>
 	{!! Form::close() !!}
+@endsection
+
+@section('js')
+	<script>
+		vue = {
+			data: {
+				display: 1
+			},
+
+			methods: {
+				toggleDisplay (event) {
+					this.display = (event.value === true) ? 1 : 0
+				}
+			}
+		}
+	</script>
 @endsection

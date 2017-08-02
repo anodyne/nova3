@@ -8,7 +8,7 @@ class Department extends Eloquent
 	use Reorderable;
 	
 	protected $table = 'departments';
-	protected $fillable = ['name', 'description', 'parent_id', 'order'];
+	protected $fillable = ['name', 'description', 'parent_id', 'order', 'display'];
 
 	//--------------------------------------------------------------------------
 	// Relationships
