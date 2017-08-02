@@ -13,4 +13,10 @@ class UserTest extends DatabaseTestCase
 
 		$this->user = create('Nova\Users\User');
 	}
+
+	/** @test **/
+	public function it_can_have_multiple_roles()
+	{
+		# code...
+	}
 }
