@@ -21,12 +21,16 @@ class Department extends Eloquent
 
 	public function positions()
 	{
-		return $this->hasMany(Position::class, 'department_id');
+		return $this->hasMany(Position::class, 'department_id')
+			->where('display', (int) true)
+			->orderBy('order');
 	}
 
 	public function subDepartments()
 	{
-		return $this->hasMany(self::class, 'parent_id')->orderBy('order');
+		return $this->hasMany(self::class, 'parent_id')
+			->where('display', (int) true)
+			->orderBy('order');
 	}
 
 	//--------------------------------------------------------------------------
