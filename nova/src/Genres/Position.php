@@ -1,6 +1,7 @@
 <?php namespace Nova\Genres;
 
 use Eloquent;
+use Nova\Characters\Character;
 use Nova\Foundation\Data\Reorderable;
 
 class Position extends Eloquent
@@ -18,6 +19,11 @@ class Position extends Eloquent
 	//--------------------------------------------------------------------------
 	// Relationships
 	//--------------------------------------------------------------------------
+
+	public function characters()
+	{
+		return $this->hasMany(Character::class);
+	}
 
 	public function department()
 	{
