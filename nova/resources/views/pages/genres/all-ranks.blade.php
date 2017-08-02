@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('genre-ranks'))
+@section('title', _m('genre-ranks', [2]))
 
 @section('content')
-	<h1>{{ _m('genre-ranks') }}</h1>
+	<h1>{{ _m('genre-ranks', [2]) }}</h1>
 
 	<div class="data-table bordered striped" id="sortable">
 		<div class="row header">

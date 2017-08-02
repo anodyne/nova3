@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('genre-ranks'))
+@section('title', _m('genre-ranks', [2]))
 
 @section('content')
-	<h1>{{ _m('genre-ranks') }}</h1>
+	<h1>{{ _m('genre-ranks', [2]) }}</h1>
 
 	<div class="card-deck">
 		<a href="{{ route('ranks.groups.index') }}" class="card">
@@ -31,7 +31,7 @@
 				<div class="text-center text-subtle mb-4">
 					{{ svg_icon('rank-army-4') }}
 				</div>
-				<h4 class="card-title text-center">{{ _m('genre-ranks') }}</h4>
+				<h4 class="card-title text-center">{{ _m('genre-ranks', [2]) }}</h4>
 				<p class="card-text">{{ _m('genre-ranks-explain') }}</p>
 			</div>
 		</a>

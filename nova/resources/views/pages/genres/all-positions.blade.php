@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('genre-positions'))
+@section('title', _m('genre-positions', [2]))
 
 @section('content')
-	<h1>{{ _m('genre-positions') }}</h1>
+	<h1>{{ _m('genre-positions', [2]) }}</h1>
 
 	@if ($positions->count() > 0)
 		<div class="data-table bordered striped" id="sortable">

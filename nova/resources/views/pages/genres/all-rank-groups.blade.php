@@ -41,7 +41,7 @@
 
 								<div class="dropdown-menu dropdown-menu-right">
 									<a href="{{ route('ranks.info.index') }}" class="dropdown-item">{!! icon('info') !!} {{ _m('genre-rank-info') }}</a>
-									<a href="{{ route('ranks.items.index') }}" class="dropdown-item">{!! icon('star') !!} {{ _m('genre-ranks') }}</a>
+									<a href="{{ route('ranks.items.index') }}" class="dropdown-item">{!! icon('star') !!} {{ _m('genre-ranks', [2]) }}</a>
 								</div>
 							</div>
 						@endcan
