@@ -121,17 +121,6 @@ class AppServiceProvider extends ServiceProvider
 					->get();
 			}
 
-			$options = $options->each(function ($d) {
-				if ($d->subDepartments->count() == 0) {
-					//
-				}
-				$deptName = ($d->subDepartments->count() == 0)
-					? $d->name
-					: false;
-
-
-			});
-
 			$finalOptions = [];
 
 			foreach ($options as $key => $dept) {
