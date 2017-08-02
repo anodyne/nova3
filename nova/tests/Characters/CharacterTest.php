@@ -17,12 +17,18 @@ class CharacterTest extends DatabaseTestCase
 	/** @test **/
 	public function it_has_a_position()
 	{
-		# code...
+		$this->assertInstanceOf('Nova\Genres\Position', $this->character->position);
+	}
+
+	/** @test **/
+	public function it_can_have_a_rank()
+	{
+		$this->assertInstanceOf('Nova\Genres\Rank', $this->character->rank);
 	}
 
 	/** @test **/
 	public function it_can_have_a_user()
 	{
-		# code...
+		$this->assertInstanceOf('Nova\Users\User', $this->character->user);
 	}
 }

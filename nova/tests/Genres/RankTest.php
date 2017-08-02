@@ -24,4 +24,17 @@ class RankTest extends DatabaseTestCase
 	{
 		$this->assertInstanceOf('Nova\Genres\RankInfo', $this->rank->info);
 	}
+
+	/** @test **/
+	public function it_has_characters()
+	{
+		$this->assertInstanceOf(
+			'Illuminate\Database\Eloquent\Collection',
+			$this->rank->characters
+		);
+
+		$character = create('Nova\Characters\Character', ['rank_id' => $this->rank->id]);
+
+		$this->assertCount(1, $this->rank->fresh()->characters);
+	}
 }

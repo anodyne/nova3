@@ -4,6 +4,7 @@ use Date;
 use Hash;
 use Mail;
 use Nova\Authorize\Role;
+use Nova\Characters\Character;
 use Nova\Foundation\Data\HasStatus;
 use Nova\Auth\Mail\SendPasswordReset;
 use Illuminate\Notifications\Notifiable;
@@ -30,6 +31,11 @@ class User extends Authenticatable
 	// Relationships
 	//--------------------------------------------------------------------------
 
+	public function characters()
+	{
+		return $this->hasMany(Character::class);
+	}
+
 	public function roles()
 	{
 		return $this->belongsToMany(Role::class, 'users_roles', 'user_id', 'role_id');
@@ -52,26 +58,20 @@ class User extends Authenticatable
 		$this->roles()->attach($role);
 	}
 
-	public static function create(array $attributes = [], array $options = [])
-	{
-		$user = (new static)->newQuery()->create($attributes);
-
-		if (array_key_exists('roles', $attributes)) {
-			$user->roles()->sync($attributes['roles']);
-		}
-
-		return $user;
-	}
-
 	public function getDisplayNameAttribute()
 	{
 		return $this->present()->name;
 	}
 
+	public function getPassword()
+	{
+		return $this->attributes['password'];
+	}
+
 	public function hasRole($role)
 	{
 		if (is_string($role)) {
-			return $this->roles->contains('key', $role);
+			return $this->roles->contains('name', $role);
 		}
 		
 		return !! $role->intersect($this->roles)->count();
@@ -91,10 +91,5 @@ class User extends Authenticatable
 	public function setPasswordAttribute($value)
 	{
 		$this->attributes['password'] = ($value !== null) ? Hash::make($value) : null;
-	}
-
-	public function getPassword()
-	{
-		return $this->attributes['password'];
 	}
 }
