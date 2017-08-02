@@ -401,6 +401,14 @@ label.custom-control {
 	}
 }
 
+fieldset {
+	fieldset {
+		legend {
+			font-size: 1.15rem;
+		}
+	}
+}
+
 .vue-js-switch.toggle-switch {
 	.v-switch-core {
 		background: #ccc !important;

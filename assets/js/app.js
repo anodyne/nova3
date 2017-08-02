@@ -1,7 +1,6 @@
 webpackJsonp([0],[
 /* 0 */,
-/* 1 */,
-/* 2 */
+/* 1 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -98,12 +97,8 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */
+/* 2 */,
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function(){
@@ -269,6 +264,11 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
 /* 9 */
 /***/ (function(module, exports) {
 
@@ -318,7 +318,7 @@ module.exports = charenc;
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var Component = __webpack_require__(2)(
+var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(44),
   /* template */
@@ -358,8 +358,8 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(18);
-__webpack_require__(64);
-module.exports = __webpack_require__(65);
+__webpack_require__(67);
+module.exports = __webpack_require__(68);
 
 
 /***/ }),
@@ -368,7 +368,7 @@ module.exports = __webpack_require__(65);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_js_toggle_button__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_js_toggle_button__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_js_toggle_button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_js_toggle_button__);
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -388,6 +388,7 @@ Vue.component('rank', __webpack_require__(16));
 Vue.component('rank-picker', __webpack_require__(46));
 Vue.component('flash', __webpack_require__(50));
 Vue.component('user-avatar', __webpack_require__(58));
+Vue.component('character-avatar', __webpack_require__(63));
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_js_toggle_button___default.a);
@@ -421,15 +422,15 @@ window._ = __webpack_require__(20);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(5);
+  window.$ = window.jQuery = __webpack_require__(6);
 
   __webpack_require__(22);
   window.jconfirm = __webpack_require__(23);
 } catch (e) {}
 
-window.Sortable = __webpack_require__(7);
-window.Vue = __webpack_require__(1);
-window.md5 = __webpack_require__(8);
+window.Sortable = __webpack_require__(8);
+window.Vue = __webpack_require__(2);
+window.md5 = __webpack_require__(3);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -17568,7 +17569,7 @@ window.route = function (name) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(21)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(21)(module)))
 
 /***/ }),
 /* 21 */
@@ -21138,7 +21139,7 @@ var Popover = function ($) {
 
 }();
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
 /* 23 */
@@ -21383,7 +21384,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var Component = __webpack_require__(2)(
+var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(47),
   /* template */
@@ -21544,7 +21545,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 
 
-var Vue = __webpack_require__(1);
+var Vue = __webpack_require__(2);
 Vue = 'default' in Vue ? Vue['default'] : Vue;
 
 var version = '2.1.0';
@@ -21781,7 +21782,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(51)
 }
-var Component = __webpack_require__(2)(
+var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(56),
   /* template */
@@ -22310,7 +22311,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var Component = __webpack_require__(2)(
+var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(59),
   /* template */
@@ -22351,7 +22352,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_md5__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_md5__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_md5___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_md5__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pluralize__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pluralize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_pluralize__);
@@ -23029,9 +23030,200 @@ if (false) {
 /* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var disposed = false
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(64),
+  /* template */
+  __webpack_require__(65),
+  /* styles */
+  null,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/Users/DVS/Sites/nova/dev3/nova/resources/assets/js/components/CharacterAvatar.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] CharacterAvatar.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-ed3bf226", Component.options)
+  } else {
+    hotAPI.reload("data-v-ed3bf226", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 64 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_md5__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_md5___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_md5__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: {
+		character: {
+			type: Object,
+			required: true
+		},
+		hasContent: {
+			type: Boolean,
+			default: true
+		},
+		showName: {
+			type: Boolean,
+			default: true
+		},
+		showMetadata: {
+			type: Boolean,
+			default: true
+		},
+		size: {
+			type: String,
+			default: ''
+		},
+		type: {
+			type: String,
+			default: 'link'
+		}
+	},
+
+	computed: {
+		classes: function classes() {
+			return ['avatar', this.size];
+		},
+		displayName: function displayName() {
+			var pieces = [];
+
+			if (this.character.rank) {
+				pieces.push(this.character.rank.info.name);
+			}
+
+			pieces.push(this.character.name);
+
+			return pieces.join(' ');
+		},
+		profileLink: function profileLink() {
+			return '/character/' + this.character.id;
+		},
+		url: function url() {
+			var img = ['https://www.gravatar.com/avatar/', __WEBPACK_IMPORTED_MODULE_0_md5___default()(this.character.name.trim().toLowerCase()), '?s=240', '&d=retro', '&r=pg'];
+
+			return img.join('');
+		}
+	}
+});
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "avatar-container"
+  }, [(_vm.type == 'link') ? _c('a', {
+    class: _vm.classes,
+    style: ('background-image:url(' + _vm.url + ')'),
+    attrs: {
+      "href": _vm.profileLink
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.type != 'link') ? _c('div', {
+    class: _vm.classes,
+    style: ('background-image:url(' + _vm.url + ')')
+  }) : _vm._e(), _vm._v(" "), (_vm.hasContent) ? _c('div', [(_vm.size == 'lg') ? _c('div', {
+    staticClass: "avatar-label ml-3"
+  }, [(_vm.showName) ? _c('span', {
+    staticClass: "h1"
+  }, [_vm._v(_vm._s(this.displayName))]) : _vm._e(), _vm._v(" "), (_vm.showMetadata) ? _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v(_vm._s(this.character.position.name))]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.size == 'md') ? _c('div', {
+    staticClass: "avatar-label ml-3"
+  }, [(_vm.showName) ? _c('span', {
+    staticClass: "h4"
+  }, [_vm._v(_vm._s(this.displayName))]) : _vm._e(), _vm._v(" "), (_vm.showMetadata) ? _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v(_vm._s(this.character.position.name))]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.size == 'sm') ? _c('div', {
+    staticClass: "avatar-label ml-2"
+  }, [(_vm.showName) ? _c('span', {
+    staticClass: "h5 mb-0"
+  }, [_vm._v(_vm._s(this.displayName))]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.size == 'xs') ? _c('div', {
+    staticClass: "avatar-label ml-2"
+  }, [(_vm.showName) ? _c('span', {
+    staticClass: "h6 mb-0"
+  }, [_vm._v(_vm._s(this.displayName))]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.size == '') ? _c('div', {
+    staticClass: "avatar-label ml-3"
+  }, [(_vm.showName) ? _c('span', {
+    staticClass: "h6 mb-1"
+  }, [_vm._v(_vm._s(this.displayName))]) : _vm._e(), _vm._v(" "), (_vm.showMetadata) ? _c('small', {
+    staticClass: "text-muted"
+  }, [_vm._v("\n\t\t\t\t" + _vm._s(this.character.position.name) + "\n\t\t\t")]) : _vm._e()]) : _vm._e()]) : _vm._e()])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-ed3bf226", module.exports)
+  }
+}
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(true)
-		module.exports = factory(__webpack_require__(1));
+		module.exports = factory(__webpack_require__(2));
 	else if(typeof define === 'function' && define.amd)
 		define(["vue"], factory);
 	else if(typeof exports === 'object')
@@ -23738,13 +23930,13 @@ module.exports = function listToStyles (parentId, list) {
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 64 */
+/* 67 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 65 */
+/* 68 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

@@ -105,3 +105,14 @@ Route::patch('profile/{user}', 'Nova\Users\Http\Controllers\ProfilesController@u
 	->name('profile.update');
 Route::patch('profile/{user}/change-password', 'Nova\Users\Http\Controllers\ProfilesController@updatePassword')
 	->name('profile.password');
+
+// Make sure for restoring we can get the actual object
+app('router')->bind('character', function ($value) {
+	return Nova\Characters\Character::withTrashed()->where('id', $value)->first();
+});
+
+Route::patch('admin/characters/{character}/restore', 'Nova\Characters\Http\Controllers\CharactersController@restore')
+	->name('characters.restore');
+Route::resource('admin/characters', 'Nova\Characters\Http\Controllers\CharactersController');
+Route::get('characters/manifest', 'Nova\Characters\Http\Controllers\CharacterManifestController@index')
+	->name('characters.manifest');

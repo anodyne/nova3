@@ -1,0 +1,229 @@
+@extends('layouts.app')
+
+@section('title', _m('characters'))
+
+@section('content')
+	<h1>{{ _m('characters') }}</h1>
+
+	@if ($characters->count() > 0)
+		<div class="alert alert-info" v-show="status == '{{ Status::REMOVED }}'">
+			<p>{{ _m('users-deleted-notice') }}</p>
+		</div>
+
+		<div class="data-table bordered striped">
+			<div class="row header align-items-start align-items-md-center">
+				<div class="col-12 col-md-6">
+					<div class="input-group">
+						<input type="text"
+							   class="form-control"
+							   placeholder="{{ _m('characters-find') }}"
+							   v-model="search">
+						<span class="input-group-btn">
+							<a class="btn btn-secondary" href="#" @click.prevent="search = ''">
+								{!! icon('close') !!}
+							</a>
+						</span>
+					</div>
+					<div class="mt-2 hidden-md-up">
+						<select name="" class="custom-select" v-model="status">
+							<option value="">{{ _m('users-status-all') }}</option>
+							<option value="{{ Status::ACTIVE }}">{{ _m('users-status-active') }}</option>
+							<option value="{{ Status::INACTIVE }}">{{ _m('users-status-inactive') }}</option>
+							<option value="{{ Status::REMOVED }}">{{ _m('users-status-removed') }}</option>
+						</select>
+					</div>
+				</div>
+				<div class="col hidden-sm-down">
+					<select name="" class="custom-select" v-model="status">
+						<option value="">{{ _m('users-status-all') }}</option>
+						<option value="{{ Status::ACTIVE }}">{{ _m('users-status-active') }}</option>
+						<option value="{{ Status::INACTIVE }}">{{ _m('users-status-inactive') }}</option>
+						<option value="{{ Status::REMOVED }}">{{ _m('users-status-removed') }}</option>
+					</select>
+				</div>
+				<div class="col col-xs-auto">
+					@can('create', $characterClass)
+						<div class="btn-toolbar pull-right">
+							<a href="{{ route('characters.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
+						</div>
+					@endcan
+				</div>
+			</div>
+
+			<div class="row align-items-center" v-for="character in filteredCharacters">
+				<div class="col-9">
+					<character-avatar :character="character" type="image"></character-avatar>
+				</div>
+				<div class="col col-xs-auto">
+					<div class="dropdown pull-right">
+						<button class="btn btn-secondary btn-action"
+								type="button"
+								id="dropdownMenuButton"
+								data-toggle="dropdown"
+								aria-haspopup="true"
+								aria-expanded="false">
+							{!! icon('more') !!}
+						</button>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+							<a :href="profileLink(character.id)" class="dropdown-item">
+								{!! icon('user') !!} {{ _m('users-profile') }}
+							</a>
+
+							@can('manage', $characterClass)
+								<div class="dropdown-divider"></div>
+							@endcan
+							
+							@can('update', $characterClass)
+								<a :href="editLink(character.id)" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
+							@endcan
+
+							@can('delete', $characterClass)
+								<a href="#"
+								   class="dropdown-item text-danger"
+								   @click.prevent="deleteCharacter(character.id)"
+								   v-show="!isTrashed(character)">
+									{!! icon('delete') !!} {{ _m('delete') }}
+								</a>
+							@endcan
+
+							@can('update', $characterClass)
+								<a href="#"
+								   class="dropdown-item text-success"
+								   @click.prevent="restoreCharacter(character.id)"
+								   v-show="isTrashed(character)">
+									{!! icon('undo') !!} {{ _m('restore') }}
+								</a>
+							@endcan
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	@else
+		<div class="alert alert-warning">
+			{{ _m('characters-error-not-found') }} <a href="{{ route('characters.create') }}" class="alert-link">{{ _m('characters-error-add') }}
+		</div>
+	@endif
+@endsection
+
+@section('js')
+	<script>
+		vue = {
+			data: {
+				characters: {!! $characters !!},
+				search: '',
+				status: {{ Status::ACTIVE }}
+			},
+
+			computed: {
+				filteredCharacters () {
+					let self = this
+					let filteredCharacters = this.characters
+
+					// if (this.status != '') {
+					// 	filteredCharacters = filteredCharacters.filter(function (character) {
+					// 		return character.status == self.status
+					// 	})
+					// }
+
+					return filteredCharacters.filter(function (character) {
+						let regex = new RegExp(self.search, 'i')
+
+						return regex.test(character.displayName)
+							|| regex.test(character.position.name)
+							|| regex.test(character.rank.info.name)
+							|| regex.test(character.position.department.name)
+					})
+				},
+
+				pendingCount () {
+					return this.characters.filter(function (character) {
+						return character.status == {{ Status::PENDING }}
+					}).length
+				}
+			},
+
+			methods: {
+				deleteCharacter (id) {
+					let self = this
+
+					$.confirm({
+						title: "{{ _m('users-confirm-delete-title') }}",
+						content: "{{ _m('users-confirm-delete-message') }}",
+						theme: "dark",
+						buttons: {
+							confirm: {
+								text: "{{ _m('delete') }}",
+								btnClass: "btn-danger",
+								action () {
+									axios.delete(route('users.destroy', {user:id}))
+										 .then(function (response) {
+										 	let index = _.findIndex(self.users, function (u) {
+												return u.id == id
+											})
+
+											self.users.splice(index, 1)
+
+											flash(
+												'{{ _m('users-flash-deleted-message') }}',
+												'{{ _m('users-flash-deleted-title') }}'
+											)
+										 })
+								}
+							},
+							cancel: {
+								text: "{{ _m('cancel') }}"
+							}
+						}
+					})
+				},
+
+				editLink (id) {
+					return route('characters.edit', {character:id})
+				},
+
+				isTrashed (character) {
+					return character.deleted_at != null
+				},
+
+				profileLink (id) {
+					return route('profile.show', {user:id})
+				},
+
+				restoreCharacter (id) {
+					let self = this
+
+					$.confirm({
+						title: "{{ _m('users-restore-title') }}",
+						content: "{{ _m('users-restore-message') }}",
+						theme: "dark",
+						buttons: {
+							confirm: {
+								text: "{{ _m('restore') }}",
+								btnClass: "btn-success",
+								action () {
+									axios.patch(route('users.restore', {user:id}))
+										 .then(function (response) {
+										 	let index = _.findIndex(self.users, function (u) {
+												return u.id == id
+											})
+
+											self.users[index].status = {{ Status::ACTIVE }}
+
+											flash(
+												'{{ _m('users-flash-restored-message') }}',
+												'{{ _m('users-flash-restored-title') }}'
+											)
+										 })
+								}
+							},
+							cancel: {
+								text: "{{ _m('cancel') }}"
+							}
+						}
+					})
+				}
+			}
+		}
+	</script>
+@endsection

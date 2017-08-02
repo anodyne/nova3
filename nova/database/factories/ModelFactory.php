@@ -73,3 +73,18 @@ $factory->define(Nova\Settings\Settings::class, function (Faker\Generator $faker
 		'value' => $faker->words(3, true),
 	];
 });
+
+$factory->define(Nova\Characters\Character::class, function (Faker\Generator $faker) {
+	return [
+		'user_id' => function () {
+			return factory('Nova\Users\User')->create()->id;
+		},
+		'position_id' => function () {
+			return factory('Nova\Genres\Position')->create()->id;
+		},
+		'rank_id' => function () {
+			return factory('Nova\Genres\Rank')->create()->id;
+		},
+		'name' => "{$faker->firstName()} {$faker->lastName}",
+	];
+});

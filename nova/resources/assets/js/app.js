@@ -16,6 +16,7 @@ Vue.component('rank', require('./components/Rank.vue'));
 Vue.component('rank-picker', require('./components/RankPicker.vue'));
 Vue.component('flash', require('./components/Flash.vue'));
 Vue.component('user-avatar', require('./components/UserAvatar.vue'));
+Vue.component('character-avatar', require('./components/CharacterAvatar.vue'));
 
 import ToggleButton from 'vue-js-toggle-button';
 Vue.use(ToggleButton);
