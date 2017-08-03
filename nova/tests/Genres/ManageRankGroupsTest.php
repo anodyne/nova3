@@ -122,11 +122,11 @@ class ManageRankGroupsTest extends DatabaseTestCase
 
 		sleep(1);
 
-		$item1 = create('Nova\Genres\Rank', ['group_id' => $group->id]);
-		$item2 = create('Nova\Genres\Rank', ['group_id' => $group->id]);
-		$item3 = create('Nova\Genres\Rank', ['group_id' => $group->id]);
+		create('Nova\Genres\Rank', ['group_id' => $group->id]);
+		create('Nova\Genres\Rank', ['group_id' => $group->id]);
+		create('Nova\Genres\Rank', ['group_id' => $group->id]);
 
-		$response = $this->post(route('ranks.groups.duplicate', [$group]), [
+		$this->post(route('ranks.groups.duplicate', [$group]), [
 			'base' => 'new-base.png',
 			'name' => 'My New Group',
 		]);
