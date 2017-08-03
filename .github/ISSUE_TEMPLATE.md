@@ -1,4 +1,4 @@
-Please prefix your issue with one of the following: [BUG] [PROPOSAL] [QUESTION].
+Please prefix your issue with one of the following: [ISSUE] [PROPOSAL] [QUESTION].
 
 __In raising this issue, I confirm the following (please check boxes):__
 
