@@ -15,6 +15,9 @@ engines:
     enabled: true
   scss-lint:
     enabled: true
+    checks:
+      Indentation:
+        enabled: false
 
 ratings:
   paths:
