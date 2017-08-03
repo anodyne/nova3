@@ -17,6 +17,16 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
+Route::get('characters', function () {
+	return Nova\Characters\Character::with(['user', 'position', 'rank.info'])
+		->where('status', Status::ACTIVE)
+		->get();
+})->name('api.characters');
+
 Route::get('ranks', function () {
 	return Nova\Genres\Rank::with('info', 'group')->get();
 })->name('api.ranks');
+
+Route::get('users', function () {
+	return Nova\Users\User::where('status', Status::ACTIVE)->get();
+})->name('api.users');
