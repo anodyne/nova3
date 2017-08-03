@@ -8,7 +8,7 @@ engines:
         javascript:
           mass_threshold: 40
         php:
-          mass_threshold: 50
+          mass_threshold: 75
   fixme:
     enabled: true
   phpmd:
