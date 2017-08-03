@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('users'))
+@section('title', _m('users', [1]))
 
 @section('content')
-	<h1>{{ _m('users') }}</h1>
+	<h1>{{ _m('users', [1]) }}</h1>
 
 	@if ($users->count() > 0)
 		<div class="alert alert-info" v-show="status == '{{ Status::REMOVED }}'">

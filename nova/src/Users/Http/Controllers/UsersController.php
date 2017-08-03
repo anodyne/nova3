@@ -41,7 +41,7 @@ class UsersController extends Controller
 			'name' => 'required',
 			'email' => 'required|email|unique:users'
 		], [
-			'name.required' => _m('users-validation-name'),
+			'name.required' => _m('validation-name-required'),
 			'email.required' => _m('users-validation-email-required'),
 			'email.email' => _m('users-validation-email-email'),
 			'email.unique' => _m('users-validation-email-unique')
@@ -74,7 +74,7 @@ class UsersController extends Controller
 			'name' => 'required',
 			'email' => 'required|email'
 		], [
-			'name.required' => _m('users-validation-name'),
+			'name.required' => _m('validation-name-required'),
 			'email.required' => _m('users-validation-email-required'),
 			'email.email' => _m('users-validation-email-email')
 		]);
