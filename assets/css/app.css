@@ -11380,13 +11380,13 @@ h1 {
 }
 
 .alert.alert-flash {
+  bottom: 0;
+  border-radius: 0;
+  margin: 0;
   position: fixed;
   right: 0;
-  bottom: 0;
-  z-index: 1000;
   width: 100%;
-  margin: 0;
-  border-radius: 0;
+  z-index: 1000;
 }
 
 .alert p:last-child {
@@ -11394,33 +11394,33 @@ h1 {
 }
 
 .alert.dirty {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  border-radius: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
   position: absolute;
-  top: -1.5rem;
   right: 0;
-  z-index: 1000;
+  top: -1.5rem;
   width: 100%;
-  border-radius: 0;
+  z-index: 1000;
 }
 
 .alert.dirty .alert-btn {
-  margin-left: auto !important;
+  margin-left: auto;
 }
 
 .alert .alert-btn {
-  margin-left: 0.5rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
   border: 1px solid;
+  border-radius: 0.25rem;
   font-size: 85%;
+  margin-left: .5rem;
+  padding: .25rem .5rem;
 }
 
 .alert .alert-btn:hover,
@@ -11440,12 +11440,12 @@ h1 {
 }
 
 .avatar-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .avatar-container .avatar-label {
@@ -11459,14 +11459,14 @@ h1 {
 }
 
 .avatar-container .avatar {
-  height: 50px;
-  width: 50px;
-  display: block;
   background-color: transparent;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  background-position: center;
   border-radius: 50%;
+  display: block;
+  height: 50px;
+  width: 50px;
 }
 
 .avatar-container .avatar.xs {
@@ -11490,8 +11490,8 @@ h1 {
 }
 
 .avatar-container .avatar-text {
-  margin-left: 120px;
   font-weight: 500;
+  margin-left: 120px;
 }
 
 .avatar-container .avatar-text-xs {
@@ -11510,11 +11510,11 @@ h1 {
 }
 
 .rank-picker .selected-toggle {
-  margin-bottom: 2px;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  border: 1px solid rgba(0, 0, 0, 0.125);
   background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  margin-bottom: 2px;
+  padding: .5rem 1rem;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -11526,12 +11526,12 @@ h1 {
 }
 
 .rank-picker .selected-toggle .selected-rank {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .rank-picker .selected-toggle .selected-rank svg {
@@ -11544,29 +11544,29 @@ h1 {
 }
 
 .rank-picker .ranks-menu {
-  position: absolute;
-  top: 100%;
-  z-index: 1000;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
   max-height: 20rem;
   overflow-y: scroll;
-  border-radius: 0.25rem;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  background: #fff;
+  position: absolute;
+  top: 100%;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  z-index: 1000;
 }
 
 .rank-picker .ranks-menu > .rank-menu-item {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 0.5rem 1rem;
   cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: .5rem 1rem;
 }
 
 .rank-picker .ranks-menu > .rank-menu-item:hover {
@@ -11574,31 +11574,31 @@ h1 {
 }
 
 .rank-picker .ranks-menu > .rank-menu-item .meta {
-  margin-left: 0.5rem;
   color: rgba(0, 0, 0, 0.5);
   font-weight: 400;
+  margin-left: .5rem;
 }
 
 .rank-picker .ranks-menu .rank-search-group {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 0.5rem 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: .5rem 1rem;
 }
 
 .rank-picker .ranks-menu .rank-search-group .rank-search-field {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 0 0.5rem;
-  border-radius: 0.25rem;
   background: rgba(0, 0, 0, 0.0425);
+  border-radius: 0.25rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 .5rem;
 }
 
 .rank-picker .ranks-menu .rank-search-group .rank-search-field svg {
@@ -11606,12 +11606,12 @@ h1 {
 }
 
 .rank-picker .ranks-menu .rank-search-group .rank-search-field input[type="text"] {
-  width: 12rem;
-  padding: 0.5rem 0.75rem;
-  border: none;
-  font-size: 85%;
-  border-radius: 0;
   background: transparent;
+  border: none;
+  border-radius: 0;
+  font-size: 85%;
+  padding: .5rem .75rem;
+  width: 12rem;
 }
 
 .rank-picker .ranks-menu .rank-search-group .rank-search-field input[type="text"]:focus {
@@ -11627,7 +11627,7 @@ h1 {
 }
 
 .rank-picker .ranks-menu .rank-menu-alert {
-  margin-top: 0.75rem;
+  margin-top: .75rem;
 }
 
 .rank-picker .ranks-menu .rank-menu-alert .alert {
@@ -11639,7 +11639,7 @@ h1 {
 }
 
 .btn-toolbar .btn-group + .btn-group {
-  margin-left: 0.5rem;
+  margin-left: .5rem;
 }
 
 .btn {
@@ -11683,8 +11683,8 @@ a.card svg.icon g {
 }
 
 a.card:hover {
-  text-decoration: none;
   border-color: #0275d8;
+  text-decoration: none;
 }
 
 a.card:hover svg,
@@ -11705,11 +11705,11 @@ a.card:hover svg.icon g {
 }
 
 .form-text {
-  margin-left: 0.15rem;
+  margin-left: .15rem;
 }
 
 .form-check-input {
-  margin-top: 0.4rem;
+  margin-top: .4rem;
 }
 
 .has-danger .custom-select {
@@ -11717,8 +11717,8 @@ a.card:hover svg.icon g {
 }
 
 .dropdown-item .fa-fw {
-  margin-right: 0.25rem;
-  opacity: 0.8;
+  margin-right: .25rem;
+  opacity: .8;
 }
 
 label.custom-control {
@@ -11735,11 +11735,11 @@ label.custom-control {
 
 .rank-container > .rank-base,
 .rank-container > .rank-overlay {
-  height: 40px;
-  width: 144px;
   background-color: transparent;
   background-position: center left;
   background-repeat: no-repeat;
+  height: 40px;
+  width: 144px;
 }
 
 .rank-container > .rank-base {
@@ -11753,14 +11753,14 @@ label.custom-control {
 }
 
 .rank-selector {
-  padding: 0.5rem;
-  border: 0.1rem solid transparent;
+  border: 1px solid transparent;
   border-radius: 0.25rem;
+  color: #0275d8;
+  padding: .5rem;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  color: #0275d8;
 }
 
 .rank-selector:hover {
