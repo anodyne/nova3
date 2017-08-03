@@ -1,23 +1,23 @@
 engines:
-	csslint:
-		enabled: true
-	duplication:
-		enabled: true
-		config:
-			languages:
-				javascript:
-					mass_threshold: 40
-				php:
-					mass_threshold: 50
-	fixme:
-		enabled: true
-	phpmd:
-		enabled: true
-	scss-lint:
-		enabled: true
+  csslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+        javascript:
+          mass_threshold: 40
+        php:
+          mass_threshold: 50
+  fixme:
+    enabled: true
+  phpmd:
+    enabled: true
+  scss-lint:
+    enabled: true
 
 ratings:
-	paths:
-		- "**.css"
-		- "**.php"
-		- "**.scss"
+  paths:
+    - "**.css"
+    - "**.php"
+    - "**.scss"
