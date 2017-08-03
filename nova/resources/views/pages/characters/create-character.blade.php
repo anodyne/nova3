@@ -19,11 +19,22 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label class="form-control-label">{{ _m('genre-positions', [1]) }}</label>
-					{!! Form::text('position_id', 1, ['class' => 'form-control']) !!}
+					<label class="form-control-label">{{ _m('users', [1]) }}</label>
 					<div>
-						{!! Form::positions('position_id') !!}
+						<user-picker></user-picker>
 					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group{{ $errors->has('position_id') ? ' has-danger' : '' }}">
+					<label class="form-control-label">{{ _m('genre-positions', [1]) }}</label>
+					<div>
+						{!! Form::positions('position_id', null, null, ['placeholder' => _m('genre-positions-select'), 'class' => ($errors->has('position_id') ? ' form-control-danger' : '')]) !!}
+					</div>
+					{!! $errors->first('position_id', '<p class="form-control-feedback">:message</p>') !!}
 				</div>
 			</div>
 		</div>

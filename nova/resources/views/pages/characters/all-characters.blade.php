@@ -26,27 +26,45 @@
 					</div>
 					<div class="mt-2 hidden-md-up">
 						<select name="" class="custom-select" v-model="status">
-							<option value="">{{ _m('users-status-all') }}</option>
-							<option value="{{ Status::ACTIVE }}">{{ _m('users-status-active') }}</option>
-							<option value="{{ Status::INACTIVE }}">{{ _m('users-status-inactive') }}</option>
-							<option value="{{ Status::REMOVED }}">{{ _m('users-status-removed') }}</option>
+							<option value="">{{ _m('characters-status-all') }}</option>
+							<option value="{{ Status::ACTIVE }}">{{ _m('characters-status-active') }}</option>
+							<option value="{{ Status::INACTIVE }}">{{ _m('characters-status-inactive') }}</option>
+							<option value="{{ Status::REMOVED }}">{{ _m('characters-status-removed') }}</option>
 						</select>
 					</div>
 				</div>
 				<div class="col hidden-sm-down">
 					<select name="" class="custom-select" v-model="status">
-						<option value="">{{ _m('users-status-all') }}</option>
-						<option value="{{ Status::ACTIVE }}">{{ _m('users-status-active') }}</option>
-						<option value="{{ Status::INACTIVE }}">{{ _m('users-status-inactive') }}</option>
-						<option value="{{ Status::REMOVED }}">{{ _m('users-status-removed') }}</option>
+						<option value="">{{ _m('characters-status-all') }}</option>
+						<option value="{{ Status::ACTIVE }}">{{ _m('characters-status-active') }}</option>
+						<option value="{{ Status::INACTIVE }}">{{ _m('characters-status-inactive') }}</option>
+						<option value="{{ Status::REMOVED }}">{{ _m('characters-status-removed') }}</option>
 					</select>
 				</div>
 				<div class="col col-xs-auto">
-					@can('create', $characterClass)
-						<div class="btn-toolbar pull-right">
-							<a href="{{ route('characters.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
-						</div>
-					@endcan
+					<div class="btn-toolbar pull-right">
+						@can('create', $characterClass)
+							<div class="btn-toolbar pull-right">
+								<a href="{{ route('characters.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
+							</div>
+						@endcan
+
+						@can('update', $characterClass)
+							<div class="dropdown ml-2">
+								<button type="button"
+	  									class="btn btn-secondary btn-action"
+	  									data-toggle="dropdown"
+	  									aria-haspopup="true"
+	  									aria-expanded="false">
+									{!! icon('more') !!}
+								</button>
+
+								<div class="dropdown-menu dropdown-menu-right">
+									<a href="{{ route('ranks.info.index') }}" class="dropdown-item">{!! icon('link') !!} {{ _m('characters-link') }}</a>
+								</div>
+							</div>
+						@endcan
+					</div>
 				</div>
 			</div>
 
@@ -65,8 +83,8 @@
 							{!! icon('more') !!}
 						</button>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-							<a :href="profileLink(character.id)" class="dropdown-item">
-								{!! icon('user') !!} {{ _m('users-profile') }}
+							<a :href="bioLink(character.id)" class="dropdown-item">
+								{!! icon('user') !!} {{ _m('characters-bio') }}
 							</a>
 
 							@can('manage', $characterClass)
@@ -120,19 +138,30 @@
 					let self = this
 					let filteredCharacters = this.characters
 
-					// if (this.status != '') {
-					// 	filteredCharacters = filteredCharacters.filter(function (character) {
-					// 		return character.status == self.status
-					// 	})
-					// }
+					if (this.status != '') {
+						filteredCharacters = filteredCharacters.filter(function (character) {
+							return character.status == self.status
+						})
+					}
 
 					return filteredCharacters.filter(function (character) {
 						let regex = new RegExp(self.search, 'i')
 
-						return regex.test(character.displayName)
+						let search = regex.test(character.name)
 							|| regex.test(character.position.name)
-							|| regex.test(character.rank.info.name)
 							|| regex.test(character.position.department.name)
+
+						if (character.rank) {
+							search = search || regex.test(character.rank.info.name)
+						}
+
+						if (character.user) {
+							search = search
+								|| regex.test(character.user.displayName)
+								|| regex.test(character.user.email)
+						}
+
+						return search
 					})
 				},
 
@@ -144,6 +173,10 @@
 			},
 
 			methods: {
+				bioLink (id) {
+					return route('characters.bio', {character:id})
+				},
+
 				deleteCharacter (id) {
 					let self = this
 
@@ -184,10 +217,6 @@
 
 				isTrashed (character) {
 					return character.deleted_at != null
-				},
-
-				profileLink (id) {
-					return route('profile.show', {user:id})
 				},
 
 				restoreCharacter (id) {

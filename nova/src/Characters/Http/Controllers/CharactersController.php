@@ -19,7 +19,7 @@ class CharactersController extends Controller
 		$this->authorize('manage', $characterClass);
 
 		$characters = Character::withTrashed()
-			->with(['rank.info', 'position.department'])
+			->with(['rank.info', 'position.department', 'user'])
 			->get();
 
 		return view('pages.characters.all-characters', compact('characters', 'characterClass'));
@@ -36,17 +36,16 @@ class CharactersController extends Controller
 	{
 		$this->authorize('create', new Character);
 
-		// $this->validate(request(), [
-		// 	'name' => 'required',
-		// 	'email' => 'required|email|unique:users'
-		// ], [
-		// 	'name.required' => _m('users-validation-name'),
-		// 	'email.required' => _m('users-validation-email-required'),
-		// 	'email.email' => _m('users-validation-email-email'),
-		// 	'email.unique' => _m('users-validation-email-unique')
-		// ]);
+		$this->validate(request(), [
+			'name' => 'required',
+			'position_id' => 'required|exists:positions,id',
+		], [
+			'name.required' => _m('validation-name-required'),
+			'position_id.required' => _m('characters-validation-position-required'),
+			'position_id.exists' => _m('characters-validation-position-exists'),
+		]);
 
-		creator(Character::class)->with(request()->all())->create();
+		creator(Character::class)->with(request()->all())->adminCreate();
 
 		flash()
 			->title(_m('characters-flash-added-title'))
@@ -60,7 +59,7 @@ class CharactersController extends Controller
 	{
 		$this->authorize('update', $character);
 
-		$character->load('position', 'rank.info');
+		$character->load(['position', 'rank.info', 'user']);
 
 		return view('pages.characters.update-character', compact('character'));
 	}
@@ -69,14 +68,14 @@ class CharactersController extends Controller
 	{
 		$this->authorize('update', $character);
 
-		// $this->validate(request(), [
-		// 	'name' => 'required',
-		// 	'email' => 'required|email'
-		// ], [
-		// 	'name.required' => _m('users-validation-name'),
-		// 	'email.required' => _m('users-validation-email-required'),
-		// 	'email.email' => _m('users-validation-email-email')
-		// ]);
+		$this->validate(request(), [
+			'name' => 'required',
+			'position_id' => 'required|exists:positions,id',
+		], [
+			'name.required' => _m('validation-name-required'),
+			'position_id.required' => _m('characters-validation-position-required'),
+			'position_id.exists' => _m('characters-validation-position-exists'),
+		]);
 
 		updater(Character::class)->with(request()->all())->update($character);
 

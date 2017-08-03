@@ -116,3 +116,5 @@ Route::patch('admin/characters/{character}/restore', 'Nova\Characters\Http\Contr
 Route::resource('admin/characters', 'Nova\Characters\Http\Controllers\CharactersController');
 Route::get('characters/manifest', 'Nova\Characters\Http\Controllers\CharacterManifestController@index')
 	->name('characters.manifest');
+Route::get('characters/bio/{character}', 'Nova\Characters\Http\Controllers\CharacterBioController@show')
+	->name('characters.bio');
