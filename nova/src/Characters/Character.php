@@ -12,7 +12,7 @@ class Character extends Eloquent
 	use PresentableTrait, SoftDeletes;
 
 	protected $table = 'characters';
-	protected $fillable = ['name', 'user_id', 'position_id', 'rank_id'];
+	protected $fillable = ['name', 'user_id', 'position_id', 'rank_id', 'status'];
 	protected $presenter = Presenters\CharacterPresenter::class;
 
 	//--------------------------------------------------------------------------

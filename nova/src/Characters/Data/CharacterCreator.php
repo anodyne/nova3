@@ -24,6 +24,17 @@ class CharacterCreator implements Creatable
 		return $character;
 	}
 
+	public function adminCreate()
+	{
+		// Make sure we set an active status on the character
+		$this->with(['status' => Status::ACTIVE]);
+
+		// Create the character
+		$this->create();
+
+		return $this->character;
+	}
+
 	protected function fireEvents()
 	{
 		//

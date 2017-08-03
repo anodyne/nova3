@@ -14,6 +14,7 @@ class CreateCharactersTables extends Migration
 			$table->unsignedInteger('position_id');
 			$table->unsignedInteger('rank_id')->nullable();
 			$table->string('name')->nullable();
+			$table->unsignedTinyInteger('status')->default(Status::PENDING);
 			$table->timestamps();
 			$table->softDeletes();
 		});
