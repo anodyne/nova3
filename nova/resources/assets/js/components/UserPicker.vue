@@ -2,21 +2,20 @@
 	<div class="item-picker" v-on-clickaway="away">
 		<div role="button"
 			 class="selected-toggle"
-			 v-if="selectedRank"
+			 v-if="selectedUser"
 			 @click.prevent="show = !show">
 			<div class="selected-item">
-				<rank :item="selectedRank"></rank>
+				<user-avatar :user="selectedUser" :has-label="true" size="xs" type="image"></user-avatar>
 				<i class="far fa-angle-down fa-fw ml-3"></i>
 			</div>
-			<small class="meta">{{ selectedRank.info.name }}</small>
-			<input type="hidden" name="rank_id" v-model="selectedRank.id">
+			<input type="hidden" name="user_id" v-model="selectedUser.id">
 		</div>
 		<div role="button"
 			 class="selected-toggle"
-			 v-if="!selectedRank"
+			 v-if="!selectedUser"
 			 @click.prevent="show = !show">
 			<div class="selected-item">
-				<rank></rank>
+				<span>No user</span>
 				<i class="far fa-angle-down fa-fw ml-3"></i>
 			</div>
 		</div>
@@ -25,7 +24,7 @@
 			<div class="search-group">
 				<span class="search-field">
 					<i class="far fa-search fa-fw"></i>
-					<input type="text" placeholder="Find by name or group" v-model="search">
+					<input type="text" placeholder="Find by name or email" v-model="search">
 				</span>
 				<a href="#"
 				   class="clear-search"
@@ -34,50 +33,55 @@
 				</a>
 			</div>
 
-			<div class="items-menu-alert" v-show="filteredRanks.length == 0">
-				<div class="alert alert-warning">No ranks found</div>
+			<div class="items-menu-alert" v-show="filteredUsers.length == 0">
+				<div class="alert alert-warning">No users found</div>
 			</div>
 
-			<div class="items-menu-item" v-for="rank in filteredRanks" @click.prevent="selectRank(rank)">
-				<rank :item="rank"></rank>
-				<small class="meta">{{ rank.info.name }}</small>
+			<div class="items-menu-item" v-if="selectedUser != false" @click.prevent="selectUser(false)">
+				No user
+			</div>
+
+			<div class="items-menu-item" v-for="user in filteredUsers" @click.prevent="selectUser(user)">
+				<user-avatar :user="user" :has-label="true" size="xs" type="image"></user-avatar>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-	import Rank from './Rank.vue';
+	import UserAvatar from './UserAvatar.vue';
 	import { mixin as clickaway } from 'vue-clickaway';
 
 	export default {
-		components: { Rank },
-
 		props: {
 			selected: {
 				type: Object
 			}
 		},
 
+		components: { UserAvatar },
+
 		mixins: [ clickaway ],
 
 		data () {
 			return {
-				ranks: [],
+				users: [],
 				search: '',
-				selectedRank: false,
+				selectedUser: false,
 				show: false
 			}
 		},
 
 		computed: {
-			filteredRanks () {
+			filteredUsers () {
 				let self = this;
 
-				return this.ranks.filter(function (rank) {
+				return this.users.filter(function (user) {
 					let searchRegex = new RegExp(self.search, 'i');
 
-					return searchRegex.test(rank.info.name) || searchRegex.test(rank.group.name);
+					return searchRegex.test(user.name)
+						|| searchRegex.test(user.nickname)
+						|| searchRegex.test(user.email);
 				});
 			}
 		},
@@ -87,8 +91,8 @@
 				this.show = false;
 			},
 
-			selectRank (rank) {
-				this.selectedRank = rank;
+			selectUser (user) {
+				this.selectedUser = user;
 				this.show = false;
 				this.search = '';
 			}
@@ -98,11 +102,11 @@
 			let self = this;
 
 			if (this.selected) {
-				this.selectedRank = this.selected;
+				this.selectedUser = this.selected;
 			}
 
-			axios.get(route('api.ranks')).then((response) => {
-				self.ranks = response.data;
+			axios.get(route('api.users')).then((response) => {
+				self.users = response.data;
 			});
 		}
 	}

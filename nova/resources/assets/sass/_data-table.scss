@@ -2,14 +2,14 @@
 	margin: 1rem 0;
 
 	> .row {
+		border-top: 1px solid rgba(0, 0, 0, .15);
 		margin-left: 0;
 		margin-right: 0;
 		padding: 0.75rem 0;
 
-		border-top: 1px solid rgba(0, 0, 0, 0.15);
-
-		&.header, .header {
-			background: rgba(0, 0, 0, 0.075) !important;
+		&.header,
+		.header {
+			background: rgba(0, 0, 0, .075) !important;
 			font-weight: bold;
 
 			.title {
@@ -20,46 +20,42 @@
 				margin: 0;
 			}
 
-			> div {
-				&:first-child {
-					margin-bottom: $space-sm;
-				}
+			> div:first-child {
+				margin-bottom: $space-sm;
 			}
 		}
 
 		> .col {
 			> .row {
 				+ .row {
-					padding-top: 0.75rem;
+					padding-top: .75rem;
 				}
 			}
 		}
 	}
 
 	&.striped {
-		> .row {
-			&:nth-child(odd) {
-				background: rgba(0, 0, 0, 0.025);
-			}
+		> .row:nth-child(odd) {
+			background: rgba(0, 0, 0, .025);
 		}
 	}
 
 	&.bordered {
 		> div {
-			border-left: 1px solid rgba(0, 0, 0, 0.15);
-			border-right: 1px solid rgba(0, 0, 0, 0.15);
+			border-left: 1px solid rgba(0, 0, 0, .15);
+			border-right: 1px solid rgba(0, 0, 0, .15);
 
 			&:first-child {
 				border-radius: $radius $radius 0 0;
 			}
 
 			&:last-child {
-				border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+				border-bottom: 1px solid rgba(0, 0, 0, .15);
 				border-radius: 0 0 $radius $radius;
 			}
 
 			&:nth-child(1):nth-last-child(1) {
-				border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+				border-bottom: 1px solid rgba(0, 0, 0, .15);
 				border-radius: $radius;
 			}
 		}

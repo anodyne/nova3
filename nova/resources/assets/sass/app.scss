@@ -144,9 +144,10 @@ h1 {
 	}
 }
 
-.rank-picker {
+.item-picker {
 	display: inline-flex;
 	position: relative;
+	width: 100%;
 
 	.selected-toggle {
 		background: $white;
@@ -157,7 +158,7 @@ h1 {
 		user-select: none;
 	}
 
-	.selected-rank {
+	.selected-item {
 		align-items: center;
 		display: flex;
 
@@ -171,7 +172,7 @@ h1 {
 		}
 	}
 
-	.ranks-menu {
+	.items-menu {
 		background: $white;
 		border: 1px solid $gray-lighter;
 		border-radius: $radius;
@@ -180,9 +181,10 @@ h1 {
 		position: absolute;
 		top: 100%;
 		user-select: none;
+		width: 100%;
 		z-index: 1000;
 
-		.rank-menu-alert {
+		.items-menu-alert {
 			margin-top: .75rem;
 
 			.alert {
@@ -191,7 +193,7 @@ h1 {
 		}
 	}
 
-	.rank-menu-item {
+	.items-menu-item {
 		align-items: center;
 		cursor: pointer;
 		display: flex;
@@ -208,17 +210,19 @@ h1 {
 		}
 	}
 
-	.rank-search-group {
+	.search-group {
 		align-items: center;
 		display: flex;
+		justify-content: space-between;
 		padding: .5rem 1rem;
 	}
 
-	.rank-search-field {
+	.search-field {
 		align-items: center;
-		background: $gray-lightest;
+		background: $gray-lighter;
 		border-radius: $radius;
 		display: flex;
+		flex-grow: 1;
 		padding: 0 .5rem;
 
 		input[type="text"] {
@@ -239,9 +243,9 @@ h1 {
 		}
 	}
 
-	.clear-rank-search {
-		color: $gray-lighter;
-		
+	.clear-search {
+		color: $gray-light;
+
 		&:hover {
 			color: $brand-danger;
 		}
@@ -378,7 +382,7 @@ label.custom-control {
 	color: $brand-primary;
 	padding: .5rem;
 	user-select: none;
-	
+
 	&:hover {
 		background-color: transparentize($brand-primary, .9);
 		border-color: transparentize($brand-primary, .7);
@@ -403,7 +407,7 @@ fieldset {
 
 .vue-js-switch.toggle-switch {
 	.v-switch-core {
-		background: #ccc !important;
+		background: $gray-light !important;
 	}
   
 	&.toggled > .v-switch-core {
@@ -417,7 +421,7 @@ fieldset {
 }
 
 .jconfirm .jconfirm-box.loading:before {
-	background: #444 !important;
+	background: $gray !important;
 }
 
 [v-cloak] {

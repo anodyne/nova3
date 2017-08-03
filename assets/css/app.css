@@ -3,10 +3,10 @@
 }
 
 .data-table > .row {
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
   margin-left: 0;
   margin-right: 0;
   padding: 0.75rem 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .data-table > .row.header,
@@ -31,7 +31,7 @@
 }
 
 .data-table > .row > .col > .row + .row {
-  padding-top: 0.75rem;
+  padding-top: .75rem;
 }
 
 .data-table.striped > .row:nth-child(odd) {
@@ -11502,14 +11502,15 @@ h1 {
   margin-left: 65px;
 }
 
-.rank-picker {
+.item-picker {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
   position: relative;
+  width: 100%;
 }
 
-.rank-picker .selected-toggle {
+.item-picker .selected-toggle {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
@@ -11521,7 +11522,7 @@ h1 {
           user-select: none;
 }
 
-.rank-picker .selected-rank {
+.item-picker .selected-item {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -11530,16 +11531,16 @@ h1 {
   display: flex;
 }
 
-.rank-picker .selected-rank svg {
+.item-picker .selected-item svg {
   color: #636c72;
 }
 
-.rank-picker .selected-rank .meta {
+.item-picker .selected-item .meta {
   color: #636c72;
   font-weight: 700;
 }
 
-.rank-picker .ranks-menu {
+.item-picker .items-menu {
   background: #fff;
   border: 1px solid #eceeef;
   border-radius: 0.25rem;
@@ -11551,18 +11552,19 @@ h1 {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  width: 100%;
   z-index: 1000;
 }
 
-.rank-picker .ranks-menu .rank-menu-alert {
+.item-picker .items-menu .items-menu-alert {
   margin-top: .75rem;
 }
 
-.rank-picker .ranks-menu .rank-menu-alert .alert {
+.item-picker .items-menu .items-menu-alert .alert {
   border-radius: 0;
 }
 
-.rank-picker .rank-menu-item {
+.item-picker .items-menu-item {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -11573,39 +11575,45 @@ h1 {
   padding: .5rem 1rem;
 }
 
-.rank-picker .rank-menu-item:hover {
+.item-picker .items-menu-item:hover {
   background: #eceeef;
 }
 
-.rank-picker .rank-menu-item .meta {
+.item-picker .items-menu-item .meta {
   color: #636c72;
   font-weight: 400;
   margin-left: .5rem;
 }
 
-.rank-picker .rank-search-group {
+.item-picker .search-group {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   padding: .5rem 1rem;
 }
 
-.rank-picker .rank-search-field {
+.item-picker .search-field {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background: #f7f7f9;
+  background: #eceeef;
   border-radius: 0.25rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   padding: 0 .5rem;
 }
 
-.rank-picker .rank-search-field input[type="text"] {
+.item-picker .search-field input[type="text"] {
   background: transparent;
   border: none;
   border-radius: 0;
@@ -11614,19 +11622,19 @@ h1 {
   width: 12rem;
 }
 
-.rank-picker .rank-search-field input[type="text"]:focus {
+.item-picker .search-field input[type="text"]:focus {
   outline: none;
 }
 
-.rank-picker .rank-search-field svg {
+.item-picker .search-field svg {
   color: #636c72;
 }
 
-.rank-picker .clear-rank-search {
-  color: #eceeef;
+.item-picker .clear-search {
+  color: #636c72;
 }
 
-.rank-picker .clear-rank-search:hover {
+.item-picker .clear-search:hover {
   color: #d9534f;
 }
 
@@ -11777,7 +11785,7 @@ fieldset fieldset legend {
 }
 
 .vue-js-switch.toggle-switch .v-switch-core {
-  background: #ccc !important;
+  background: #636c72 !important;
 }
 
 .vue-js-switch.toggle-switch.toggled > .v-switch-core {
@@ -11790,7 +11798,7 @@ fieldset fieldset legend {
 }
 
 .jconfirm .jconfirm-box.loading:before {
-  background: #444 !important;
+  background: #464a4c !important;
 }
 
 [v-cloak] {
