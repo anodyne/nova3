@@ -11366,11 +11366,11 @@ h1 {
 }
 
 .accordion .card-header a {
-  color: rgba(0, 0, 0, 0.65);
+  color: #464a4c;
 }
 
 .accordion .card-header a:hover {
-  color: rgba(0, 0, 0, 0.8);
+  color: #292b2c;
   text-decoration: none;
 }
 
@@ -11380,8 +11380,8 @@ h1 {
 }
 
 .alert.alert-flash {
-  bottom: 0;
   border-radius: 0;
+  bottom: 0;
   margin: 0;
   position: fixed;
   right: 0;
@@ -11511,7 +11511,7 @@ h1 {
 
 .rank-picker .selected-toggle {
   background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
   margin-bottom: 2px;
   padding: .5rem 1rem;
@@ -11521,11 +11521,7 @@ h1 {
           user-select: none;
 }
 
-.rank-picker .selected-toggle:hover {
-  background: rgba(0, 0, 0, 0.0425);
-}
-
-.rank-picker .selected-toggle .selected-rank {
+.rank-picker .selected-rank {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -11534,18 +11530,18 @@ h1 {
   display: flex;
 }
 
-.rank-picker .selected-toggle .selected-rank svg {
-  color: rgba(0, 0, 0, 0.5);
+.rank-picker .selected-rank svg {
+  color: #636c72;
 }
 
-.rank-picker .selected-toggle .meta {
-  color: rgba(0, 0, 0, 0.5);
+.rank-picker .selected-rank .meta {
+  color: #636c72;
   font-weight: 700;
 }
 
 .rank-picker .ranks-menu {
   background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: 1px solid #eceeef;
   border-radius: 0.25rem;
   max-height: 20rem;
   overflow-y: scroll;
@@ -11558,7 +11554,15 @@ h1 {
   z-index: 1000;
 }
 
-.rank-picker .ranks-menu > .rank-menu-item {
+.rank-picker .ranks-menu .rank-menu-alert {
+  margin-top: .75rem;
+}
+
+.rank-picker .ranks-menu .rank-menu-alert .alert {
+  border-radius: 0;
+}
+
+.rank-picker .rank-menu-item {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -11569,17 +11573,17 @@ h1 {
   padding: .5rem 1rem;
 }
 
-.rank-picker .ranks-menu > .rank-menu-item:hover {
-  background: rgba(0, 0, 0, 0.0425);
+.rank-picker .rank-menu-item:hover {
+  background: #eceeef;
 }
 
-.rank-picker .ranks-menu > .rank-menu-item .meta {
-  color: rgba(0, 0, 0, 0.5);
+.rank-picker .rank-menu-item .meta {
+  color: #636c72;
   font-weight: 400;
   margin-left: .5rem;
 }
 
-.rank-picker .ranks-menu .rank-search-group {
+.rank-picker .rank-search-group {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -11589,11 +11593,11 @@ h1 {
   padding: .5rem 1rem;
 }
 
-.rank-picker .ranks-menu .rank-search-group .rank-search-field {
+.rank-picker .rank-search-field {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background: rgba(0, 0, 0, 0.0425);
+  background: #f7f7f9;
   border-radius: 0.25rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -11601,11 +11605,7 @@ h1 {
   padding: 0 .5rem;
 }
 
-.rank-picker .ranks-menu .rank-search-group .rank-search-field svg {
-  color: rgba(0, 0, 0, 0.35);
-}
-
-.rank-picker .ranks-menu .rank-search-group .rank-search-field input[type="text"] {
+.rank-picker .rank-search-field input[type="text"] {
   background: transparent;
   border: none;
   border-radius: 0;
@@ -11614,24 +11614,20 @@ h1 {
   width: 12rem;
 }
 
-.rank-picker .ranks-menu .rank-search-group .rank-search-field input[type="text"]:focus {
+.rank-picker .rank-search-field input[type="text"]:focus {
   outline: none;
 }
 
-.rank-picker .ranks-menu .rank-search-group .clear-search {
-  color: rgba(0, 0, 0, 0.35);
+.rank-picker .rank-search-field svg {
+  color: #636c72;
 }
 
-.rank-picker .ranks-menu .rank-search-group .clear-search:hover {
+.rank-picker .clear-rank-search {
+  color: #eceeef;
+}
+
+.rank-picker .clear-rank-search:hover {
   color: #d9534f;
-}
-
-.rank-picker .ranks-menu .rank-menu-alert {
-  margin-top: .75rem;
-}
-
-.rank-picker .ranks-menu .rank-menu-alert .alert {
-  border-radius: 0;
 }
 
 .btn-toolbar {
@@ -11679,7 +11675,7 @@ a.card svg.icon {
 }
 
 a.card svg.icon g {
-  fill: rgba(0, 0, 0, 0.35);
+  fill: #636c72;
 }
 
 a.card:hover {
@@ -11726,7 +11722,7 @@ label.custom-control {
 }
 
 .text-subtle {
-  color: rgba(0, 0, 0, 0.35);
+  color: #636c72;
 }
 
 .rank-container {

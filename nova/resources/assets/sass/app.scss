@@ -15,11 +15,11 @@ h1 {
 .accordion {
 	.card-header {
 		a {
-			color: rgba(0, 0, 0, .65);
+			color: $gray;
 		}
 
 		a:hover {
-			color: rgba(0, 0, 0, .8);
+			color: $gray-dark;
 			text-decoration: none;
 		}
 
@@ -150,15 +150,11 @@ h1 {
 
 	.selected-toggle {
 		background: $white;
-		border: 1px solid rgba(0, 0, 0, .125);
+		border: 1px solid $input-border-color;
 		border-radius: $radius;
 		margin-bottom: 2px;
 		padding: .5rem 1rem;
 		user-select: none;
-
-		&:hover {
-			background: rgba(0, 0, 0, .0425);
-		}
 	}
 
 	.selected-rank {
@@ -166,18 +162,18 @@ h1 {
 		display: flex;
 
 		svg {
-			color: rgba(0, 0, 0, .5);
+			color: $gray-light;
 		}
 
 		.meta {
-			color: rgba(0, 0, 0, .5);
+			color: $gray-light;
 			font-weight: 700;
 		}
 	}
 
 	.ranks-menu {
 		background: $white;
-		border: 1px solid rgba(0, 0, 0, .125);
+		border: 1px solid $gray-lighter;
 		border-radius: $radius;
 		max-height: 20rem;
 		overflow-y: scroll;
@@ -186,68 +182,68 @@ h1 {
 		user-select: none;
 		z-index: 1000;
 
-		> .rank-menu-item {
-			align-items: center;
-			cursor: pointer;
-			display: flex;
-			padding: .5rem 1rem;
-		}
-
-		> .rank-menu-item:hover {
-			background: rgba(0, 0, 0, .0425);
-		}
-
-		> .rank-menu-item .meta {
-			color: rgba(0, 0, 0, .5);
-			font-weight: 400;
-			margin-left: .5rem;
-		}
-
-		.rank-search-group {
-			align-items: center;
-			display: flex;
-			padding: .5rem 1rem;
-
-			.rank-search-field {
-				align-items: center;
-				background: rgba(0, 0, 0, .0425);
-				border-radius: $radius;
-				display: flex;
-				padding: 0 .5rem;
-
-				svg {
-					color: rgba(0, 0, 0, .35);
-				}
-
-				input[type="text"] {
-					background: transparent;
-					border: none;
-					border-radius: 0;
-					font-size: 85%;
-					padding: .5rem .75rem;
-					width: 12rem;
-
-					&:focus {
-						outline: none;
-					}
-				}
-			}
-
-			.clear-search {
-				color: rgba(0, 0, 0, .35);
-				
-				&:hover {
-					color: $brand-danger;
-				}
-			}
-		}
-
 		.rank-menu-alert {
 			margin-top: .75rem;
 
 			.alert {
 				border-radius: 0;
 			}
+		}
+	}
+
+	.rank-menu-item {
+		align-items: center;
+		cursor: pointer;
+		display: flex;
+		padding: .5rem 1rem;
+
+		&:hover {
+			background: $gray-lighter;
+		}
+
+		.meta {
+			color: $gray-light;
+			font-weight: 400;
+			margin-left: .5rem;
+		}
+	}
+
+	.rank-search-group {
+		align-items: center;
+		display: flex;
+		padding: .5rem 1rem;
+	}
+
+	.rank-search-field {
+		align-items: center;
+		background: $gray-lightest;
+		border-radius: $radius;
+		display: flex;
+		padding: 0 .5rem;
+
+		input[type="text"] {
+			background: transparent;
+			border: none;
+			border-radius: 0;
+			font-size: 85%;
+			padding: .5rem .75rem;
+			width: 12rem;
+
+			&:focus {
+				outline: none;
+			}
+		}
+
+		svg {
+			color: $gray-light;
+		}
+	}
+
+	.clear-rank-search {
+		color: $gray-lighter;
+		
+		&:hover {
+			color: $brand-danger;
 		}
 	}
 }
@@ -297,7 +293,7 @@ a.card {
 		width: 8em;
 
 		g {
-			fill: rgba(0, 0, 0, .35);
+			fill: $gray-light;
 		}
 	}
 
@@ -350,7 +346,7 @@ label.custom-control {
 }
 
 .text-subtle {
-	color: rgba(0, 0, 0, .35);
+	color: $gray-light;
 }
 
 .rank-container {

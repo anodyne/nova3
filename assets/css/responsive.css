@@ -1,83 +1,83 @@
 @media (min-width: 768px) and (max-width: 991px) {
   nav.navbar .dropdown-menu::before {
-    top: -0.83rem;
-    left: 0.6rem;
-    right: auto;
-    border: 0.4rem solid transparent;
+    border: .4rem solid transparent;
     border-bottom-color: #fff;
+    left: .6rem;
+    right: auto;
+    top: -.83rem;
   }
 
   nav.navbar .dropdown-menu::after,
   nav.navbar .dropdown-menu::before {
-    position: absolute;
-    display: inline-block;
     content: "";
+    display: inline-block;
+    position: absolute;
   }
 
   nav.navbar .dropdown-menu-right::before {
-    right: 0.6rem;
     left: auto;
+    right: .6rem;
   }
 
   .alert.alert-flash {
-    right: 2rem;
+    border-radius: 0.25rem;
     bottom: 1rem;
-    width: auto;
-    max-width: 50%;
     -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
             box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
-    border-radius: 0.25rem;
+    max-width: 50%;
+    right: 2rem;
+    width: auto;
   }
 
   .alert.dirty {
-    position: fixed;
-    top: 5rem;
-    right: 2rem;
-    width: auto;
+    border-radius: 0.25rem;
     -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
             box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
-    border-radius: 0.25rem;
+    position: fixed;
+    right: 2rem;
+    top: 5rem;
+    width: auto;
   }
 }
 
 @media (min-width: 992px) {
   nav.navbar .dropdown-menu::before {
-    top: -0.83rem;
-    left: 0.6rem;
-    right: auto;
-    border: 0.4rem solid transparent;
+    border: .4rem solid transparent;
     border-bottom-color: #fff;
+    left: .6rem;
+    right: auto;
+    top: -.83rem;
   }
 
   nav.navbar .dropdown-menu::after,
   nav.navbar .dropdown-menu::before {
-    position: absolute;
-    display: inline-block;
     content: "";
+    display: inline-block;
+    position: absolute;
   }
 
   nav.navbar .dropdown-menu-right::before {
-    right: 0.6rem;
     left: auto;
+    right: .6rem;
   }
 
   .alert.alert-flash {
-    right: 2rem;
     bottom: 1rem;
-    width: auto;
-    max-width: 50%;
+    border-radius: 0.25rem;
     -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
             box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
-    border-radius: 0.25rem;
+    max-width: 50%;
+    right: 2rem;
+    width: auto;
   }
 
   .alert.dirty {
-    top: 5rem;
-    right: 2rem;
-    width: auto;
+    border-radius: 0.25rem;
     -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
             box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
-    border-radius: 0.25rem;
+    right: 2rem;
+    top: 5rem;
+    width: auto;
   }
 
   .data-table .header > div:first-child {
@@ -85,8 +85,8 @@
   }
 
   .btn.btn-action {
-    padding-left: 0.35rem;
-    padding-right: 0.35rem;
+    padding-left: .35rem;
+    padding-right: .35rem;
   }
 }
 

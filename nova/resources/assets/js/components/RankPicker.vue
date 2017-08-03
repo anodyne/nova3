@@ -28,7 +28,7 @@
 					<input type="text" placeholder="Find by name or group" v-model="search">
 				</span>
 				<a href="#"
-				   class="clear-search"
+				   class="clear-rank-search"
 				   @click.prevent="search = ''">
 				   <i class="far fa-times-circle fa-fw ml-2"></i>
 				</a>
