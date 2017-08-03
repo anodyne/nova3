@@ -62,7 +62,7 @@ class ManageCharactersTest extends DatabaseTestCase
 		$this->patch(
 			route('characters.update',
 			[$this->character]),
-			['name' => 'Jack Sparrow']
+			['name' => 'Jack Sparrow', 'position_id' => $this->character->position_id]
 		);
 
 		$this->assertDatabaseHas('characters', ['name' => 'Jack Sparrow']);
