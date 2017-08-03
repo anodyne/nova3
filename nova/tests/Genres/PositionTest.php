@@ -19,4 +19,17 @@ class PositionTest extends DatabaseTestCase
 	{
 		$this->assertInstanceOf('Nova\Genres\Department', $this->position->fresh()->department);
 	}
+
+	/** @test **/
+	public function it_can_have_characters()
+	{
+		$this->assertInstanceOf(
+			'Illuminate\Database\Eloquent\Collection',
+			$this->position->characters
+		);
+
+		$character = create('Nova\Characters\Character', ['position_id' => $this->position->id]);
+
+		$this->assertCount(1, $this->position->fresh()->characters);
+	}
 }
