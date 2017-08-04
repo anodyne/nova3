@@ -29,6 +29,7 @@ exclude_paths:
   - "assets/js/"
   - "assets/mix-manifest.json"
   - "nova/tests/"
+  - "nova/vendor/"
 
 ratings:
   paths:
