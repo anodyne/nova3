@@ -24,6 +24,12 @@ engines:
       Indentation:
         enabled: false
 
+exclude_paths:
+  - "assets/css/"
+  - "assets/js/"
+  - "assets/mix-manifest.json"
+  - "nova/tests/"
+
 ratings:
   paths:
     - "**.css"
