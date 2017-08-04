@@ -7,7 +7,7 @@
 
 	@if ($characters->count() > 0)
 		<div class="alert alert-info" v-show="status == '{{ Status::REMOVED }}'">
-			<p>{{ _m('users-deleted-notice') }}</p>
+			<p>{{ _m('characters-deleted-notice') }}</p>
 		</div>
 
 		<div class="data-table bordered striped">
@@ -69,11 +69,14 @@
 			</div>
 
 			<div class="row align-items-center" v-for="character in filteredCharacters">
-				<div class="col-9">
+				<div class="col">
 					<character-avatar :character="character" type="image"></character-avatar>
 				</div>
-				<div class="col col-xs-auto">
-					<div class="dropdown pull-right">
+				<div class="col hidden-md-down">
+					<rank :item="character.rank"></rank>
+				</div>
+				<div class="col col-auto">
+					<div class="dropdown">
 						<button class="btn btn-secondary btn-action"
 								type="button"
 								id="dropdownMenuButton"
@@ -181,25 +184,25 @@
 					let self = this
 
 					$.confirm({
-						title: "{{ _m('users-confirm-delete-title') }}",
-						content: "{{ _m('users-confirm-delete-message') }}",
+						title: "{{ _m('characters-confirm-delete-title') }}",
+						content: "{{ _m('characters-confirm-delete-message') }}",
 						theme: "dark",
 						buttons: {
 							confirm: {
 								text: "{{ _m('delete') }}",
 								btnClass: "btn-danger",
 								action () {
-									axios.delete(route('users.destroy', {user:id}))
+									axios.delete(route('characters.destroy', {character:id}))
 										 .then(function (response) {
-										 	let index = _.findIndex(self.users, function (u) {
-												return u.id == id
+										 	let index = _.findIndex(self.characters, function (c) {
+												return c.id == id
 											})
 
-											self.users.splice(index, 1)
+											self.characters.splice(index, 1)
 
 											flash(
-												'{{ _m('users-flash-deleted-message') }}',
-												'{{ _m('users-flash-deleted-title') }}'
+												'{{ _m('characters-flash-deleted-message') }}',
+												'{{ _m('characters-flash-deleted-title') }}'
 											)
 										 })
 								}
@@ -223,25 +226,26 @@
 					let self = this
 
 					$.confirm({
-						title: "{{ _m('users-restore-title') }}",
-						content: "{{ _m('users-restore-message') }}",
+						title: "{{ _m('characters-confirm-restore-title') }}",
+						content: "{{ _m('characters-confirm-restore-message') }}",
 						theme: "dark",
 						buttons: {
 							confirm: {
 								text: "{{ _m('restore') }}",
 								btnClass: "btn-success",
 								action () {
-									axios.patch(route('users.restore', {user:id}))
+									axios.patch(route('characters.restore', {character:id}))
 										 .then(function (response) {
-										 	let index = _.findIndex(self.users, function (u) {
-												return u.id == id
+										 	let index = _.findIndex(self.characters, function (c) {
+												return c.id == id
 											})
 
-											self.users[index].status = {{ Status::ACTIVE }}
+										 	self.characters[index].deleted_at = null
+											self.characters[index].status = {{ Status::ACTIVE }}
 
 											flash(
-												'{{ _m('users-flash-restored-message') }}',
-												'{{ _m('users-flash-restored-title') }}'
+												'{{ _m('characters-flash-restored-message') }}',
+												'{{ _m('characters-flash-restored-title') }}'
 											)
 										 })
 								}
