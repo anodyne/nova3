@@ -10,13 +10,17 @@ class CreateCharactersTables extends Migration
 	{
 		Schema::create('characters', function (Blueprint $table) {
 			$table->bigIncrements('id');
-			$table->unsignedInteger('user_id')->nullable();
 			$table->unsignedInteger('position_id');
 			$table->unsignedInteger('rank_id')->nullable();
+			$table->unsignedInteger('user_id')->nullable();
 			$table->string('name')->nullable();
 			$table->unsignedTinyInteger('status')->default(Status::PENDING);
 			$table->timestamps();
 			$table->softDeletes();
+
+			$table->foreign('rank_id')->references('id')->on('ranks');
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->foreign('position_id')->references('id')->on('positions');
 		});
 	}
 
