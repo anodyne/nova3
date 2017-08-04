@@ -219,8 +219,8 @@
 					let self = this
 
 					$.confirm({
-						title: "{{ _m('users-restore-title') }}",
-						content: "{{ _m('users-restore-message') }}",
+						title: "{{ _m('users-confirm-restore-title') }}",
+						content: "{{ _m('users-confirm-restore-message') }}",
 						theme: "dark",
 						buttons: {
 							confirm: {
