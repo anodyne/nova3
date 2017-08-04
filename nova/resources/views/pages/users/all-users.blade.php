@@ -158,6 +158,7 @@
 						return regex.test(user.name)
 							|| regex.test(user.email)
 							|| regex.test(user.nickname)
+							|| regex.test(user.characters.name)
 					})
 				},
 

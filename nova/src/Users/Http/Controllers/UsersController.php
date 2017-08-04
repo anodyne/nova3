@@ -19,7 +19,7 @@ class UsersController extends Controller
 
 		$this->authorize('manage', $userClass);
 
-		$users = User::withTrashed()->get();
+		$users = User::with('characters')->withTrashed()->get();
 
 		return view('pages.users.all-users', compact('users', 'userClass'));
 	}
