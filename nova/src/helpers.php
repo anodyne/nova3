@@ -30,8 +30,8 @@ if (! function_exists('avatar')) {
 if (! function_exists('d')) {
 	function d()
 	{
-		array_map(function ($x) {
-			(new Illuminate\Support\Debug\Dumper)->dump($x);
+		array_map(function ($debug) {
+			(new Illuminate\Support\Debug\Dumper)->dump($debug);
 		}, func_get_args());
 	}
 }
