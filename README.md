@@ -1,7 +1,7 @@
 # Nova NextGen
 
 [![Build Status](https://travis-ci.org/anodyne/nova3.svg?branch=develop)](https://travis-ci.org/anodyne/nova3)
-[![Code Climate](https://img.shields.io/codeclimate/github/kabisaict/flow.svg)](https://codeclimate.com/github/anodyne/nova3)
+[![Code Climate](https://img.shields.io/codeclimate/github/anodyne/nova3.svg)](https://codeclimate.com/github/anodyne/nova3)
 
 A powerful and easy-to-use online RPG management system with a wide range of features for managing online RPGs.
 
