@@ -24,9 +24,18 @@
 		<div id="aries" class="tab-pane active" role="tabpanel">
 			<div class="card">
 				<div class="card-block">
+					<h3 class="d-flex align-items-center justify-content-start mb-0">
+						<span class="mr-auto">Characters</span>
+						<i class="fal fa-code fa-fw"></i>
+					</h3>
+				</div>
+			</div>
+
+			<div class="card card-success card-inverse">
+				<div class="card-block">
 					<h3 class="d-flex align-items-center justify-content-start">
 						<span class="mr-auto">Genre Assets</span>
-						<i class="fal fa-code fa-fw"></i>
+						<i class="fal fa-check-circle fa-fw"></i>
 					</h3>
 
 					<ul>
@@ -34,7 +43,7 @@
 						<li>Authorized users can create, delete, reorder, and update positions</li>
 						<li>Authorized users can create, delete, reorder, duplicate, and update rank groups</li>
 						<li>Authorized users can create, delete, reorder, and update rank info</li>
-						<li class="text-subtle">Authorized users can create, delete, reorder, dupliate, and update ranks</li>
+						<li>Authorized users can create, delete, reorder, dupliate, and update ranks</li>
 						<li>Genre data for departments, positions, rank groups, rank info, and ranks is inserted during install</li>
 					</ul>
 				</div>
@@ -91,15 +100,6 @@
 			<div class="card">
 				<div class="card-block">
 					<h3 class="d-flex align-items-center justify-content-start mb-0">
-						<span class="mr-auto">Characters</span>
-						<i class="fal fa-road fa-fw"></i>
-					</h3>
-				</div>
-			</div>
-
-			<div class="card">
-				<div class="card-block">
-					<h3 class="d-flex align-items-center justify-content-start mb-0">
 						<span class="mr-auto">Setup</span>
 						<i class="fal fa-road fa-fw"></i>
 					</h3>
@@ -107,7 +107,7 @@
 			</div>
 		</div>
 
-		<div id="gemini" class="tab-pane">
+		<div id="orion" class="tab-pane">
 			<div class="card">
 				<div class="card-block">
 					<h3 class="d-flex align-items-center justify-content-start mb-0">
@@ -136,7 +136,16 @@
 			</div>
 		</div>
 
-		<div id="orion" class="tab-pane">
+		<div id="gemini" class="tab-pane">
+			<div class="card">
+				<div class="card-block">
+					<h3 class="d-flex align-items-center justify-content-start mb-0">
+						<span class="mr-auto">Themes</span>
+						<i class="fal fa-road fa-fw"></i>
+					</h3>
+				</div>
+			</div>
+			
 			<div class="card">
 				<div class="card-block">
 					<h3 class="d-flex align-items-center justify-content-start mb-0">
@@ -157,15 +166,6 @@
 		</div>
 
 		<div id="beta1" class="tab-pane">
-			<div class="card">
-				<div class="card-block">
-					<h3 class="d-flex align-items-center justify-content-start mb-0">
-						<span class="mr-auto">Themes</span>
-						<i class="fal fa-road fa-fw"></i>
-					</h3>
-				</div>
-			</div>
-
 			<div class="card">
 				<div class="card-block">
 					<h3 class="d-flex align-items-center justify-content-start mb-0">
