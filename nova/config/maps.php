@@ -5,6 +5,7 @@ return [
 		Nova\Authorize\Permission::class => Nova\Authorize\Data\PermissionCreator::class,
 		Nova\Authorize\Role::class => Nova\Authorize\Data\RoleCreator::class,
 		Nova\Characters\Character::class => Nova\Characters\Data\CharacterCreator::class,
+		Nova\Foundation\Media::class => Nova\Foundation\Data\MediaCreator::class,
 		Nova\Genres\Department::class => Nova\Genres\Data\DepartmentCreator::class,
 		Nova\Genres\Position::class => Nova\Genres\Data\PositionCreator::class,
 		Nova\Genres\RankGroup::class => Nova\Genres\Data\RankGroupCreator::class,
@@ -40,6 +41,11 @@ return [
 		// Nova\Users\Events\PasswordWasGenerated::class => [
 		// 	Nova\Users\Listeners\SendPasswordToUser::class
 		// ],
+	],
+
+	'morph' => [
+		'character' => Nova\Characters\Character::class,
+		'user' => Nova\Users\User::class,
 	],
 
 	'policies' => [

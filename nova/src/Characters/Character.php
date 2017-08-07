@@ -4,6 +4,7 @@ use Eloquent;
 use Nova\Users\User;
 use Nova\Genres\Rank;
 use Nova\Genres\Position;
+use Nova\Foundation\Media;
 use Laracasts\Presenter\PresentableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -18,6 +19,11 @@ class Character extends Eloquent
 	//--------------------------------------------------------------------------
 	// Relationships
 	//--------------------------------------------------------------------------
+
+	public function media()
+	{
+		return $this->morphMany(Media::class, 'mediable');
+	}
 
 	public function position()
 	{

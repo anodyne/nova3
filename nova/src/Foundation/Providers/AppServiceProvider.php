@@ -3,6 +3,7 @@
 use Form;
 use Schema;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
 		$this->app->bind('nova.avatar', function ($app) {
 			return new \Nova\Foundation\Avatar;
 		});
+
+		// Build up the morph map
+		Relation::morphMap(config('maps.morph'));
 	}
 
 	public function register()
