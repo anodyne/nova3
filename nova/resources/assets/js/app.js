@@ -20,6 +20,8 @@ Vue.component('user-picker', require('./components/UserPicker.vue'));
 Vue.component('character-avatar', require('./components/CharacterAvatar.vue'));
 Vue.component('character-picker', require('./components/CharacterPicker.vue'));
 
+Vue.component('file-upload', require('vue-core-image-upload'));
+
 import ToggleButton from 'vue-js-toggle-button';
 Vue.use(ToggleButton);
 

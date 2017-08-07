@@ -54,6 +54,20 @@
 			</div>
 		</div>
 
+		<fieldset>
+			<legend>Images</legend>
+
+			<div class="form-group">
+				<file-upload :class="['btn', 'btn-secondary']"
+							 compress="80"
+							 crop="local"
+							 :cropBtn="{ok:'{{ _m('ok') }}', cancel:'{{ _m('cancel') }}'}"
+							 maxWidth="1000",
+							 maxHeight="1000"
+							 text="{{ _m('media-add-image') }}"></file-upload>
+			</div>
+		</fieldset>
+
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary">{{ _m('characters-update') }}</button>
 			<a href="{{ route('characters.index') }}" class="btn btn-link">{{ _m('cancel') }}</a>

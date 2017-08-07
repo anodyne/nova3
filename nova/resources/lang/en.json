@@ -17,6 +17,7 @@
 	"join": "Join",
 	"key": "Key",
 	"name": "Name",
+	"ok": "OK",
 	"password": "Password",
 	"password-confirm": "Confirm Password",
 	"password-current": "Current Password",
@@ -265,6 +266,8 @@
 	"characters-update": "Update Character",
 	"characters-validation-position-exists": "Please select a valid position",
 	"characters-validation-position-required": "Please select a position",
+
+	"media-add-image": "Add Image",
 
 	"validation-email-required": "Please enter an email address",
 	"validation-email-valid": "Please enter a valid email address",

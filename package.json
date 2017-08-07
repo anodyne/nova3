@@ -22,6 +22,7 @@
 		"tether": "^1.4",
 		"vue": "^2.1",
 		"vue-clickaway": "^2.1",
+		"vue-core-image-upload": "^2.3",
 		"vue-js-toggle-button": "^1.1"
 	},
 	"devDependencies": {
