@@ -69,11 +69,11 @@
 			</div>
 
 			<div class="row align-items-center" v-for="character in filteredCharacters">
+				<div class="col col-auto hidden-md-down">
+					<rank :item="character.rank"></rank>
+				</div>
 				<div class="col">
 					<character-avatar :character="character" type="image"></character-avatar>
-				</div>
-				<div class="col hidden-md-down">
-					<rank :item="character.rank"></rank>
 				</div>
 				<div class="col col-auto">
 					<div class="dropdown">
