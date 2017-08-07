@@ -118,3 +118,11 @@ Route::get('characters/manifest', 'Nova\Characters\Http\Controllers\CharacterMan
 	->name('characters.manifest');
 Route::get('characters/bio/{character}', 'Nova\Characters\Http\Controllers\CharacterBioController@show')
 	->name('characters.bio');
+
+/**
+ * Media
+ */
+Route::post('admin/media', 'Nova\Foundation\Http\Controllers\MediaController@store')
+	->name('media.store');
+Route::delete('admin/media/{media}', 'Nova\Foundation\Http\Controllers\MediaController@destroy')
+	->name('media.destroy');
