@@ -6,7 +6,7 @@
 @import 'variables', 'data-table';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap', '~jquery-confirm/css/jquery-confirm';
+@import '~bootstrap/scss/bootstrap', '~jquery-confirm/css/jquery-confirm', '~croppie/croppie';
 
 h1 {
 	margin-bottom: 2rem;
@@ -103,7 +103,7 @@ h1 {
 		background-color: transparent;
 		background-position: center;
 		background-repeat: no-repeat;
-		background-size: contain;
+		background-size: cover;
 		border-radius: 50%;
 		display: block;
 		height: 50px;
@@ -287,6 +287,11 @@ h1 {
 
 .card {
 	margin-bottom: $space;
+
+	.card-img-top {
+		display: block;
+		max-width: 100%;
+	}
 }
 
 a.card {
@@ -422,6 +427,10 @@ fieldset {
 
 .jconfirm .jconfirm-box.loading:before {
 	background: $gray !important;
+}
+
+.hidden {
+	display: none;
 }
 
 [v-cloak] {
