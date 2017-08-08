@@ -17,7 +17,7 @@
 				</div>
 				<div class="col col-xs-auto">
 					<div class="pull-right" v-show="selected.length > 0">
-						<button type="submit" class="btn btn-primary">{!! icon('submit') !!}</button>
+						<button type="submit" class="btn btn-primary">{!! icon('check') !!}</button>
 						<a href="{{ route('users.index') }}" class="btn btn-secondary ml-1">{!! icon('close') !!}</a>
 					</div>
 					<div class="pull-right" v-show="selected.length == 0">

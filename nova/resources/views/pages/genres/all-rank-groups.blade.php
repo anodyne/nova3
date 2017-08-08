@@ -26,7 +26,7 @@
 						@can('update', $rankGroupClass)
 							<a href="#"
 							   class="btn btn-primary ml-2"
-							   @click.prevent="updateGroups">{!! icon('submit') !!}</a>
+							   @click.prevent="updateGroups">{!! icon('check') !!}</a>
 						@endcan
 
 						@can('manage', $rankGroupClass)

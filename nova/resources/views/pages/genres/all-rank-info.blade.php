@@ -27,7 +27,7 @@
 							<a href="#"
 							   class="btn btn-primary ml-2"
 							   @click.prevent="updateInfo"
-							   v-if="filteredInfo.length > 0">{!! icon('submit') !!}</a>
+							   v-if="filteredInfo.length > 0">{!! icon('check') !!}</a>
 						@endcan
 
 						@can('manage', $rankInfoClass)

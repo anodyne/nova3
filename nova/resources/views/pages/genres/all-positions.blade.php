@@ -32,7 +32,7 @@
 							<a href="#"
 							   class="btn btn-primary ml-2"
 							   v-if="department != ''"
-							   @click.prevent="updatePositions">{!! icon('submit') !!}</a>
+							   @click.prevent="updatePositions">{!! icon('check') !!}</a>
 						@endcan
 					</div>
 				</div>
