@@ -6,7 +6,7 @@
 			 @click.prevent="show = !show">
 			<div class="selected-item">
 				<rank :item="selectedRank"></rank>
-				<i class="far fa-angle-down fa-fw ml-3"></i>
+				<div class="ml-3" v-html="showIcon('more')"></div>
 			</div>
 			<small class="meta">{{ selectedRank.info.name }}</small>
 			<input type="hidden" name="rank_id" v-model="selectedRank.id">
@@ -17,21 +17,20 @@
 			 @click.prevent="show = !show">
 			<div class="selected-item">
 				<rank></rank>
-				<i class="far fa-angle-down fa-fw ml-3"></i>
+				<div class="ml-3" v-html="showIcon('more')"></div>
 			</div>
 		</div>
 
 		<div v-show="show" class="items-menu">
 			<div class="search-group">
 				<span class="search-field">
-					<i class="far fa-search fa-fw"></i>
+					<div v-html="showIcon('search')"></div>
 					<input type="text" placeholder="Find by name or group" v-model="search">
 				</span>
 				<a href="#"
-				   class="clear-search"
-				   @click.prevent="search = ''">
-				   <i class="far fa-times-circle fa-fw ml-2"></i>
-				</a>
+				   class="clear-search ml-2"
+				   @click.prevent="search = ''"
+				   v-html="showIcon('close-alt')"></a>
 			</div>
 
 			<div class="items-menu-alert" v-show="filteredRanks.length == 0">
@@ -54,9 +53,7 @@
 		components: { Rank },
 
 		props: {
-			selected: {
-				type: Object
-			}
+			selected: { type: Object }
 		},
 
 		mixins: [ clickaway ],
@@ -91,6 +88,10 @@
 				this.selectedRank = rank;
 				this.show = false;
 				this.search = '';
+			},
+
+			showIcon (icon) {
+				return window.icon(icon)
 			}
 		},
 

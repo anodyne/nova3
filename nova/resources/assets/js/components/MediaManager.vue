@@ -2,9 +2,7 @@
 	<div class="form-group">
 		<div v-show="!uploadedFile">
 			<div v-if="allowMultiple || (!allowMultiple && files.length == 0)">
-				<label for="file-upload" class="btn btn-secondary">
-					<i class="far fa-plus fa-fw"></i>
-				</label>
+				<label for="file-upload" class="btn btn-secondary" v-html="showIcon('add')"></label>
 				<input type="file" id="file-upload" name="file" class="hidden" @change="processFile">
 			</div>
 
@@ -18,21 +16,19 @@
 									<a href="#"
 									   class="card-link mr-2"
 									   v-if="!isPrimary(file)"
-									   @click.prevent="makePrimary">
-									   <i class="far fa-star fa-fw"></i>
-									</a>
-									<span class="card-link text-warning mr-2" v-if="isPrimary(file)">
-										<i class="fa fa-star fa-fw"></i>
-									</span>
+									   @click.prevent="makePrimary"
+									   v-html="showIcon('star')"></a>
+									<span class="card-link text-warning mr-2"
+										  v-if="isPrimary(file)"
+										  v-html="showIcon('star')"></span>
 								</span>
 								<a href="#"
 								   class="card-link text-danger"
-								   @click.prevent="removeFile">
-								   <i class="far fa-trash-alt fa-fw"></i>
-								</a>
+								   @click.prevent="removeFile"
+								   v-html="showIcon('delete')"></a>
 							</div>
 							<div v-if="allowMultiple">
-								<a href="#" class="card-link text-subtle"><i class="far fa-bars fa-fw"></i></a>
+								<div class="card-link text-subtle" v-html="showIcon('bars')"></div>
 							</div>
 						</div>
 					</div>
@@ -46,13 +42,11 @@
 			<div class="d-flex justify-content-around">
 				<span>
 					<button class="btn btn-success"
-							@click.prevent="saveFile">
-						<i class="far fa-cloud-upload-alt fa-fw"></i>
-					</button>
+							@click.prevent="saveFile"
+							v-html="showIcon('upload')"></button>
 					<button class="btn btn-secondary ml-2"
-							@click.prevent="reset">
-						<i class="far fa-times fa-fw"></i>
-					</button>
+							@click.prevent="reset"
+							v-html="showIcon('close')"></button>
 				</span>
 			</div>
 		</div>
@@ -151,6 +145,10 @@
 				})
 
 				this.reset()
+			},
+
+			showIcon (icon) {
+				return window.icon(icon)
 			}
 		},
 

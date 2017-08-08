@@ -58,3 +58,13 @@ window.route = function (name, args = {}) {
 	// Put the full URL back together
 	return [window.Nova.system.baseUrl, uri].join('/')
 };
+
+window.icon = function (name, attributes = '') {
+	// Grab the template
+	let template = window.Nova.iconTemplate
+	let icon = window.Nova.icons[name]
+
+	template = template.replace('%2$s', attributes)
+
+	return template.replace('%1$s', icon)
+}

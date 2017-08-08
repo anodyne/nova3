@@ -6,7 +6,7 @@
 			 @click.prevent="show = !show">
 			<div class="selected-item">
 				<character-avatar :character="selectedCharacter" size="xs" type="image"></character-avatar>
-				<i class="far fa-angle-down fa-fw ml-3"></i>
+				<div class="ml-3" v-html="showIcon('more')"></div>
 			</div>
 			<input type="hidden" name="character_id" v-model="selectedCharacter.id">
 		</div>
@@ -16,21 +16,20 @@
 			 @click.prevent="show = !show">
 			<div class="selected-item">
 				<span>No character</span>
-				<i class="far fa-angle-down fa-fw ml-3"></i>
+				<div class="ml-3" v-html="showIcon('more')"></div>
 			</div>
 		</div>
 
 		<div v-show="show" class="items-menu">
 			<div class="search-group">
 				<span class="search-field">
-					<i class="far fa-search fa-fw"></i>
+					<div v-html="showIcon('search')"></div>
 					<input type="text" placeholder="Find characters..." v-model="search">
 				</span>
 				<a href="#"
-				   class="clear-search"
-				   @click.prevent="search = ''">
-				   <i class="far fa-times-circle fa-fw ml-2"></i>
-				</a>
+				   class="clear-search ml-2"
+				   @click.prevent="search = ''"
+				   v-html="showIcon('close-alt')"></a>
 			</div>
 
 			<div class="items-menu-alert" v-show="filteredCharacters.length == 0">
@@ -54,9 +53,7 @@
 
 	export default {
 		props: {
-			selected: {
-				type: Object
-			}
+			selected: { type: Object }
 		},
 
 		components: { CharacterAvatar },
@@ -95,6 +92,10 @@
 				this.selectedCharacter = character;
 				this.show = false;
 				this.search = '';
+			},
+
+			showIcon (icon) {
+				return window.icon(icon)
 			}
 		},
 

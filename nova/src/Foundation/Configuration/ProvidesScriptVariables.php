@@ -42,6 +42,12 @@ trait ProvidesScriptVariables
 		// Nova's routes
 		$routes = ['routes' => $this->buildRoutesList()];
 
+		// Nova's icons
+		$icons = [
+			'icons' => app('nova.theme')->iconMap()->toArray(),
+			'iconTemplate' => app('nova.theme')->iconTemplate,
+		];
+
 		// Nova's API options
 		// $api = ['api' => config('nova.api')];
 		
@@ -51,7 +57,7 @@ trait ProvidesScriptVariables
 		// Nova's controller data
 		// $data = ['data' => (array) app('nova.controller')->data];
 
-		return array_merge($system, $settings, $user, $routes);
+		return array_merge($system, $settings, $user, $routes, $icons);
 	}
 
 	protected function buildRoutesList()
