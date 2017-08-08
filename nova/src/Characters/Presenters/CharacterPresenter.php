@@ -11,6 +11,6 @@ class CharacterPresenter extends Presenter
 			return asset("storage/app/public/characters/{$this->entity->getPrimaryMedia()->filename}");
 		}
 
-		return Gravatar::image($this->entity->user->email, null, null, null, true).'?s=240&d=mm&r=pg';
+		return Gravatar::image($this->entity->user->email, null, null, null, true)."?s=240&d=retro&r=pg";
 	}
 }
