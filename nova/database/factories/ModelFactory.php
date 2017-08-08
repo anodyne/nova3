@@ -88,3 +88,14 @@ $factory->define(Nova\Characters\Character::class, function (Faker\Generator $fa
 		'name' => "{$faker->firstName()} {$faker->lastName}",
 	];
 });
+
+$factory->define(Nova\Foundation\Media::class, function (Faker\Generator $faker) {
+	$character = factory(Nova\Characters\Character::class)->create();
+
+	return [
+		'mediable_id' => $character->id,
+		'mediable_type' => 'character',
+		'filename' => Str::random().'.png',
+		'mime_type' => 'image/png',
+	];
+});
