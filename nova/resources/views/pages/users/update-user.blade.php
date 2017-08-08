@@ -36,6 +36,12 @@
 			</div>
 		</div>
 
+		<fieldset>
+			<legend>{{ _m('image', [1]) }}</legend>
+
+			<media-manager :item="{{ $user }}" type="user" :allow-multiple="false"></media-manager>
+		</fieldset>
+
 		<div class="row">
 			<div class="col-md-8">
 				<fieldset>

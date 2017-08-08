@@ -1,5 +1,7 @@
 <?php namespace Nova\Foundation\Http\Controllers;
 
+use Str;
+use Image;
 use Storage;
 use Nova\Foundation\Media;
 
@@ -14,12 +16,20 @@ class MediaController extends Controller
 
 	public function store()
 	{
-		dd(request(), request()->all(), request()->file());
-		// Put the image where it belongs
-		request()->file('file')->store(request('type'));
+		$location = request('location');
+		$imageName = Str::random().'.png';
+		$path = storage_path("app/public/{$location}/{$imageName}");
 
-		// Create the media object
-		$media = creator(Media::class)->with(request()->all())->create();
+		Storage::makeDirectory("public/{$location}");
+
+		$image = Image::make(file_get_contents(request('image')))->save($path);
+
+		$data = array_merge(request()->all(), [
+			'filename' => $imageName,
+			'mime' => $image->mime(),
+		]);
+
+		$media = creator(Media::class)->with($data)->create();
 
 		return response($media, 200);
 	}

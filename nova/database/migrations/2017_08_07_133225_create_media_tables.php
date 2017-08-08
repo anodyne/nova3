@@ -14,6 +14,8 @@ class CreateMediaTables extends Migration
 			$table->string('mediable_type');
 			$table->string('filename');
 			$table->string('mime_type');
+			$table->unsignedInteger('order')->default(99);
+			$table->unsignedTinyInteger('primary')->default((int) false);
 			$table->timestamps();
 		});
 	}

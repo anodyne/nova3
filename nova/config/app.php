@@ -169,6 +169,7 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         BladeSvg\BladeSvgServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -234,6 +235,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Gravatar' => forxer\Gravatar\Gravatar::class,
         'HTML' => Collective\Html\HtmlFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
         'Nova' => Nova\Foundation\NovaFacade::class,
         'Settings' => Nova\Settings\Settings::class,
         'Status' => Nova\Foundation\Status::class,

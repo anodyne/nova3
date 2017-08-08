@@ -5,6 +5,7 @@ use Hash;
 use Mail;
 use Nova\Authorize\Role;
 use Nova\Characters\Character;
+use Nova\Foundation\Data\HasMedia;
 use Nova\Foundation\Data\HasStatus;
 use Nova\Auth\Mail\SendPasswordReset;
 use Illuminate\Notifications\Notifiable;
@@ -15,7 +16,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-	use Notifiable, SoftDeletes, PresentableTrait, HasStatus;
+	use Notifiable, SoftDeletes, PresentableTrait, HasStatus, HasMedia;
 
 	protected $table = 'users';
 	protected $fillable = [
@@ -23,9 +24,10 @@ class User extends Authenticatable
 		'remember_token',
 	];
 	protected $hidden = ['password', 'remember_token'];
-	protected $appends = ['displayName'];
+	protected $appends = ['avatarImage', 'displayName'];
 	protected $presenter = Presenters\UserPresenter::class;
 	protected $dates = ['created_at', 'updated_at', 'deleted_at', 'last_sign_in'];
+	protected $with = ['media'];
 
 	//--------------------------------------------------------------------------
 	// Relationships
@@ -44,6 +46,11 @@ class User extends Authenticatable
 	//--------------------------------------------------------------------------
 	// Model Methods
 	//--------------------------------------------------------------------------
+
+	public function getAvatarImageAttribute()
+	{
+		return $this->present()->avatarImage;
+	}
 
 	public function attachRole($role)
 	{

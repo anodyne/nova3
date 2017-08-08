@@ -47,27 +47,14 @@
 
 <script>
 	import md5 from 'md5';
-	import pluralize from 'pluralize';
 	import humanize from 'humanize-number';
 
 	export default {
 		props: {
-			hasLabel: {
-				type: Boolean,
-				default: false
-			},
-			size: {
-				type: String,
-				default: ''
-			},
-			type: {
-				type: String,
-				default: 'link'
-			},
-			user: {
-				type: Object,
-				required: true
-			}
+			hasLabel: { type: Boolean, default: false },
+			size: { type: String, default: '' },
+			type: { type: String, default: 'link' },
+			user: { type: Object, required: true }
 		},
 
 		computed: {
@@ -88,15 +75,7 @@
 			},
 
 			url () {
-				const img = [
-					'https://www.gravatar.com/avatar/',
-					md5(this.user.email.trim().toLowerCase()),
-					'?s=240',
-					'&d=retro',
-					'&r=pg'
-				];
-
-				return img.join('');
+				return this.user.avatarImage;
 			}
 		}
 	};

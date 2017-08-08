@@ -55,17 +55,9 @@
 		</div>
 
 		<fieldset>
-			<legend>Images</legend>
+			<legend>{{ _m('image', [2]) }}</legend>
 
-			<div class="form-group">
-				<file-upload :class="['btn', 'btn-secondary']"
-							 compress="80"
-							 crop="local"
-							 :cropBtn="{ok:'{{ _m('ok') }}', cancel:'{{ _m('cancel') }}'}"
-							 maxWidth="1000",
-							 maxHeight="1000"
-							 text="{{ _m('media-add-image') }}"></file-upload>
-			</div>
+			<media-manager :item="{{ $character }}" type="character"></media-manager>
 		</fieldset>
 
 		<div class="form-group">

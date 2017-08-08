@@ -8,6 +8,11 @@ class MediaCreator implements Creatable
 
 	public function create()
 	{
-		return Media::create($this->data);
+		return Media::create([
+			'mediable_id' => $this->data['id'],
+			'mediable_type' => $this->data['type'],
+			'filename' => $this->data['filename'],
+			'mime_type' => $this->data['mime'],
+		]);
 	}
 }

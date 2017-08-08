@@ -85,15 +85,7 @@
 			},
 
 			url () {
-				const img = [
-					'https://www.gravatar.com/avatar/',
-					md5(this.character.name.trim().toLowerCase()),
-					'?s=240',
-					'&d=retro',
-					'&r=pg'
-				];
-
-				return img.join('');
+				return this.character.avatarImage;
 			}
 		}
 	};

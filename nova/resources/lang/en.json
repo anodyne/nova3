@@ -14,6 +14,7 @@
 	"duplicate": "Duplicate",
 	"edit": "Edit",
 	"email-address": "Email Address",
+	"image": "{{PLURAL:$2|Image|Images}}",
 	"join": "Join",
 	"key": "Key",
 	"name": "Name",
