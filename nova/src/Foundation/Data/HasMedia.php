@@ -19,9 +19,10 @@ trait HasMedia
 	{
 		return $this->media()->count() > 0;
 	}
-	
+
 	public function media()
 	{
-		return $this->morphMany(Media::class, 'mediable');
+		return $this->morphMany(Media::class, 'mediable')
+			->orderBy('order');
 	}
 }
