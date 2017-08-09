@@ -126,3 +126,5 @@ Route::post('admin/media', 'Nova\Foundation\Http\Controllers\MediaController@sto
 	->name('media.store');
 Route::delete('admin/media/{media}', 'Nova\Foundation\Http\Controllers\MediaController@destroy')
 	->name('media.destroy');
+Route::patch('admin/media', 'Nova\Foundation\Http\Controllers\MediaController@reorder')
+	->name('media.reorder');

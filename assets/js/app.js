@@ -25434,6 +25434,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	mounted: function mounted() {
 		this.createCropper();
+
+		if (this.allowMultiple) {
+			Sortable.create(document.getElementById('sortable'), {
+				draggable: '.draggable-item',
+				handle: '.sortable-handle',
+				onEnd: function onEnd(event) {
+					var order = new Array();
+
+					$(event.from).children().each(function () {
+						var id = $(this).data('id');
+
+						if (id) {
+							order.push(id);
+						}
+					});
+
+					axios.patch(route('media.reorder'), {
+						media: order
+					});
+				}
+			});
+		}
 	}
 });
 
@@ -25967,10 +25989,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "change": _vm.processFile
     }
   })]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row mt-3"
+    staticClass: "row mt-3",
+    attrs: {
+      "id": "sortable"
+    }
   }, _vm._l((_vm.files), function(file) {
     return _c('div', {
-      staticClass: "col-sm-6 col-lg-3"
+      staticClass: "col-sm-6 col-lg-3 draggable-item",
+      attrs: {
+        "data-id": file.id
+      }
     }, [_c('div', {
       staticClass: "card"
     }, [_c('img', {
@@ -26014,7 +26042,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })]), _vm._v(" "), (_vm.allowMultiple) ? _c('div', [_c('div', {
-      staticClass: "card-link text-subtle",
+      staticClass: "card-link text-subtle sortable-handle",
       domProps: {
         "innerHTML": _vm._s(_vm.showIcon('bars'))
       }

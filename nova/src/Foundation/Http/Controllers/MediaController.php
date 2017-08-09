@@ -38,4 +38,13 @@ class MediaController extends Controller
 	{
 		# code...
 	}
+
+	public function reorder()
+	{
+		collect(request('media'))->each(function ($id, $index) {
+			Media::find($id)->reorder($index);
+		});
+
+		return response(200);
+	}
 }

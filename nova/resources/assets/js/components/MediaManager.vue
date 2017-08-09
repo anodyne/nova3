@@ -6,8 +6,8 @@
 				<input type="file" id="file-upload" name="file" class="hidden" @change="processFile">
 			</div>
 
-			<div class="row mt-3">
-				<div class="col-sm-6 col-lg-3" v-for="file in files">
+			<div class="row mt-3" id="sortable">
+				<div class="col-sm-6 col-lg-3 draggable-item" :data-id="file.id" v-for="file in files">
 					<div class="card">
 						<img class="card-img-top" :src="getFile(file)">
 						<div class="card-footer d-flex justify-content-between">
@@ -28,7 +28,7 @@
 								   v-html="showIcon('delete')"></a>
 							</div>
 							<div v-if="allowMultiple">
-								<div class="card-link text-subtle" v-html="showIcon('bars')"></div>
+								<div class="card-link text-subtle sortable-handle" v-html="showIcon('bars')"></div>
 							</div>
 						</div>
 					</div>
@@ -154,6 +154,28 @@
 
 		mounted () {
 			this.createCropper()
+
+			if (this.allowMultiple) {
+				Sortable.create(document.getElementById('sortable'), {
+					draggable: '.draggable-item',
+					handle: '.sortable-handle',
+					onEnd (event) {
+						let order = new Array()
+
+						$(event.from).children().each(function () {
+							let id = $(this).data('id')
+
+							if (id) {
+								order.push(id)
+							}
+						})
+
+						axios.patch(route('media.reorder'), {
+							media: order
+						})
+					}
+				})
+			}
 		}
 	}
 </script>

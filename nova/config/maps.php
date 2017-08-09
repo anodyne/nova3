@@ -69,6 +69,7 @@ return [
 		Nova\Authorize\Permission::class => Nova\Authorize\Data\PermissionUpdater::class,
 		Nova\Authorize\Role::class => Nova\Authorize\Data\RoleUpdater::class,
 		Nova\Characters\Character::class => Nova\Characters\Data\CharacterUpdater::class,
+		Nova\Foundation\Media::class => Nova\Foundation\Data\MediaUpdater::class,
 		Nova\Genres\Department::class => Nova\Genres\Data\DepartmentUpdater::class,
 		Nova\Genres\Position::class => Nova\Genres\Data\PositionUpdater::class,
 		Nova\Genres\RankGroup::class => Nova\Genres\Data\RankGroupUpdater::class,
