@@ -43,7 +43,9 @@ class MediaController extends Controller
 
 	public function destroy(Media $media)
 	{
-		# code...
+		deletor(Media::class)->delete($media);
+
+		return response($media, 200);
 	}
 
 	public function reorder()

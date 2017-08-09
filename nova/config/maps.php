@@ -18,6 +18,7 @@ return [
 		Nova\Authorize\Permission::class => Nova\Authorize\Data\PermissionDeletor::class,
 		Nova\Authorize\Role::class => Nova\Authorize\Data\RoleDeletor::class,
 		Nova\Characters\Character::class => Nova\Characters\Data\CharacterDeletor::class,
+		Nova\Foundation\Media::class => Nova\Foundation\Data\MediaDeletor::class,
 		Nova\Genres\Department::class => Nova\Genres\Data\DepartmentDeletor::class,
 		Nova\Genres\Position::class => Nova\Genres\Data\PositionDeletor::class,
 		Nova\Genres\RankGroup::class => Nova\Genres\Data\RankGroupDeletor::class,
