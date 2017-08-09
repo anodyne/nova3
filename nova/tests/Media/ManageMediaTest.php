@@ -11,10 +11,12 @@ class ManageMediaTest extends DatabaseTestCase
 	{
 		$this->withExceptionHandling();
 
+		$media = create(Media::class);
+
 		$this->post(route('media.store'))->assertRedirect(route('login'));
-		$this->patch(route('media.update', []))->assertRedirect(route('login'));
-		$this->delete(route('media.destroy', []))->assertRedirect(route('login'));
-		$this->get(route('media.reorder'))->assertRedirect(route('login'));
+		$this->patch(route('media.update', $media))->assertRedirect(route('login'));
+		$this->delete(route('media.destroy', $media))->assertRedirect(route('login'));
+		$this->patch(route('media.reorder'))->assertRedirect(route('login'));
 	}
 
 	/** @test **/
@@ -50,7 +52,19 @@ class ManageMediaTest extends DatabaseTestCase
 	/** @test **/
 	public function media_can_be_reordered()
 	{
-		//
+		$this->signIn();
+
+		$media1 = create(Media::class);
+		$media2 = create(Media::class);
+		$media3 = create(Media::class);
+
+		$response = $this->patch(route('media.reorder'), ['media' => [$media2->id, $media3->id, $media1->id]]);
+
+		$response->assertStatus(200);
+
+		$this->assertDatabaseHas('media', ['id' => $media2->id, 'order' => 0]);
+		$this->assertDatabaseHas('media', ['id' => $media3->id, 'order' => 1]);
+		$this->assertDatabaseHas('media', ['id' => $media1->id, 'order' => 2]);
 	}
 
 	/** @test **/
