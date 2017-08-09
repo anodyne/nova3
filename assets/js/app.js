@@ -25392,6 +25392,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			reader.readAsDataURL(file);
 		},
+		deleteFile: function deleteFile(id) {
+			var self = this;
+
+			$.confirm({
+				title: "Delete Media",
+				content: "Are you sure you want to delete this media?",
+				theme: "dark",
+				buttons: {
+					confirm: {
+						text: "Delete",
+						btnClass: "btn-danger",
+						action: function action() {
+							axios.delete(route('media.destroy', { media: id })).then(function (response) {
+								var index = _.findIndex(self.files, function (f) {
+									return f.id == id;
+								});
+
+								self.files.splice(index, 1);
+
+								flash('The media has been deleted', '');
+							});
+						}
+					},
+					cancel: {
+						text: "Cancel"
+					}
+				}
+			});
+		},
 		isPrimary: function isPrimary(file) {
 			return file.primary === 1;
 		},
@@ -26051,7 +26080,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       on: {
         "click": function($event) {
           $event.preventDefault();
-          _vm.removeFile($event)
+          _vm.deleteFile(file.id)
         }
       }
     })]), _vm._v(" "), (_vm.allowMultiple) ? _c('div', [_c('div', {

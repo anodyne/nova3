@@ -24,7 +24,7 @@
 								</span>
 								<a href="#"
 								   class="card-link text-danger"
-								   @click.prevent="removeFile"
+								   @click.prevent="deleteFile(file.id)"
 								   v-html="showIcon('delete')"></a>
 							</div>
 							<div v-if="allowMultiple">
@@ -98,6 +98,37 @@
 				}
 
 				reader.readAsDataURL(file)
+			},
+
+			deleteFile (id) {
+				let self = this
+
+				$.confirm({
+					title: "Delete Media",
+					content: "Are you sure you want to delete this media?",
+					theme: "dark",
+					buttons: {
+						confirm: {
+							text: "Delete",
+							btnClass: "btn-danger",
+							action () {
+								axios.delete(route('media.destroy', {media:id}))
+									 .then(function (response) {
+									 	let index = _.findIndex(self.files, function (f) {
+											return f.id == id
+										})
+
+										self.files.splice(index, 1)
+
+										flash('The media has been deleted', '')
+									 })
+							}
+						},
+						cancel: {
+							text: "Cancel"
+						}
+					}
+				})
 			},
 
 			isPrimary (file) {
