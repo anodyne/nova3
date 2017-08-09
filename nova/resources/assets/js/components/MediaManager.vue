@@ -16,7 +16,7 @@
 									<a href="#"
 									   class="card-link mr-2"
 									   v-if="!isPrimary(file)"
-									   @click.prevent="makePrimary"
+									   @click.prevent="makePrimary(file.id)"
 									   v-html="showIcon('star')"></a>
 									<span class="card-link text-warning mr-2"
 										  v-if="isPrimary(file)"
@@ -123,6 +123,20 @@
 					pluralize(this.type),
 					file.filename
 				].join('/')
+			},
+
+			makePrimary (id) {
+				axios.patch(route('media.update', {media:id}))
+
+				_.each(this.files, (file) => {
+					if (file.id != id) {
+						file.primary = 0
+					} else {
+						file.primary = 1
+					}
+				})
+
+				flash('Primary image updated', '', 'success')
 			},
 
 			reset () {

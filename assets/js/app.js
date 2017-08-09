@@ -25407,6 +25407,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		getFile: function getFile(file) {
 			return [window.Nova.baseUrl, 'storage', 'app', 'public', __WEBPACK_IMPORTED_MODULE_0_pluralize___default()(this.type), file.filename].join('/');
 		},
+		makePrimary: function makePrimary(id) {
+			axios.patch(route('media.update', { media: id }));
+
+			_.each(this.files, function (file) {
+				if (file.id != id) {
+					file.primary = 0;
+				} else {
+					file.primary = 1;
+				}
+			});
+
+			flash('Primary image updated', '', 'success');
+		},
 		reset: function reset() {
 			document.getElementById('file-upload').value = '';
 			this.image = '';
@@ -26019,7 +26032,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       on: {
         "click": function($event) {
           $event.preventDefault();
-          _vm.makePrimary($event)
+          _vm.makePrimary(file.id)
         }
       }
     }) : _vm._e(), _vm._v(" "), (_vm.isPrimary(file)) ? _c('span', {

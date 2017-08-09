@@ -36,7 +36,9 @@ class MediaController extends Controller
 
 	public function update(Media $media)
 	{
-		//
+		$media->makePrimary();
+
+		return response($media, 200);
 	}
 
 	public function destroy(Media $media)
