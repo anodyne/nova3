@@ -25367,11 +25367,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	methods: {
 		createCropper: function createCropper() {
-			this.crop = $('#cropper').croppie({
+			this.crop = $('#crop').croppie({
 				boundary: {
-					width: Math.min(600, window.innerWidth - 10),
-					height: Math.min(600, window.innerHeight - 10)
+					width: Math.min(500, window.innerWidth - 10),
+					height: Math.min(500, window.innerHeight - 10)
 				},
+				customClass: 'crop-container',
 				viewport: {
 					width: Math.min(500, window.innerWidth - 10),
 					height: Math.min(500, window.innerHeight - 10)
@@ -26098,7 +26099,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }]
   }, [_c('div', {
     attrs: {
-      "id": "cropper"
+      "id": "crop"
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "d-flex justify-content-around"

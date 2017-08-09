@@ -12084,6 +12084,14 @@ fieldset fieldset legend {
   background: #464a4c !important;
 }
 
+.crop-container .cr-boundary {
+  border-radius: 0.6rem;
+}
+
+.crop-container .cr-viewport {
+  border-radius: 0.5rem;
+}
+
 .hidden {
   display: none;
 }

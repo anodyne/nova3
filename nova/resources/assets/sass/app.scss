@@ -414,7 +414,7 @@ fieldset {
 	.v-switch-core {
 		background: $gray-light !important;
 	}
-  
+
 	&.toggled > .v-switch-core {
 		background: $brand-success !important;
 	}
@@ -427,6 +427,16 @@ fieldset {
 
 .jconfirm .jconfirm-box.loading:before {
 	background: $gray !important;
+}
+
+.crop-container {
+	.cr-boundary {
+		border-radius: $radius-lg + .1;
+	}
+
+	.cr-viewport {
+		border-radius: $radius-lg;
+	}
 }
 
 .hidden {
