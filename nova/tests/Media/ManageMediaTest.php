@@ -33,7 +33,7 @@ class ManageMediaTest extends DatabaseTestCase
 			'type' => 'character',
 		];
 
-		$response = $this->post(route('media.store'), $data);
+		$this->post(route('media.store'), $data);
 
 		$media = Media::first();
 
@@ -46,7 +46,7 @@ class ManageMediaTest extends DatabaseTestCase
 
 		$this->assertFileExists(storage_path("app/public/characters/{$media->filename}"));
 
-		Storage::deleteDirectory(storage_path('storage/app/public/characters'));
+		deletor(Media::class)->delete($media);
 	}
 
 	/** @test **/
@@ -70,7 +70,42 @@ class ManageMediaTest extends DatabaseTestCase
 	/** @test **/
 	public function media_can_be_deleted()
 	{
-		//
+		$this->signIn();
+
+		$media = create(Media::class);
+
+		$response = $this->delete(route('media.destroy', $media));
+
+		$response->assertStatus(200);
+
+		$this->assertDatabaseMissing('media', ['id' => $media->id]);
+	}
+
+	/** @test **/
+	public function media_can_be_set_as_the_primary_object()
+	{
+		$this->signIn();
+
+		$character = create('Nova\Characters\Character');
+
+		$media1 = create(Media::class, [
+			'mediable_type' => 'character',
+			'mediable_id' => $character->id,
+			'primary' => (int) true
+		]);
+
+		$media2 = create(Media::class, [
+			'mediable_type' => 'character',
+			'mediable_id' => $character->id,
+			'primary' => (int) false
+		]);
+
+		$response = $this->patch(route('media.update', $media2));
+
+		$response->assertStatus(200);
+
+		$this->assertDatabaseHas('media', ['id' => $media1->id, 'primary' => 0]);
+		$this->assertDatabaseHas('media', ['id' => $media2->id, 'primary' => 1]);
 	}
 
 	protected function base64Image()
