@@ -24,6 +24,9 @@
 		<testsuite name="nova-genres">
 			<directory suffix="Test.php">./nova/tests/Genres</directory>
 		</testsuite>
+		<testsuite name="nova-media">
+			<directory suffix="Test.php">./nova/tests/Media</directory>
+		</testsuite>
 		<testsuite name="nova-unit">
 			<directory suffix="Test.php">./nova/tests/Unit</directory>
 		</testsuite>
