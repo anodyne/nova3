@@ -34,6 +34,11 @@ class MediaController extends Controller
 		return response($media, 200);
 	}
 
+	public function update(Media $media)
+	{
+		//
+	}
+
 	public function destroy(Media $media)
 	{
 		# code...

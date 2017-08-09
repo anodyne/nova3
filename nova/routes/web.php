@@ -124,6 +124,8 @@ Route::get('characters/bio/{character}', 'Nova\Characters\Http\Controllers\Chara
  */
 Route::post('admin/media', 'Nova\Foundation\Http\Controllers\MediaController@store')
 	->name('media.store');
+Route::patch('admin/media/{media}', 'Nova\Foundation\Http\Controllers\MediaController@update')
+	->name('media.update');
 Route::delete('admin/media/{media}', 'Nova\Foundation\Http\Controllers\MediaController@destroy')
 	->name('media.destroy');
 Route::patch('admin/media', 'Nova\Foundation\Http\Controllers\MediaController@reorder')
