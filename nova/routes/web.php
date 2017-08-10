@@ -111,9 +111,12 @@ app('router')->bind('character', function ($value) {
 	return Nova\Characters\Character::withTrashed()->where('id', $value)->first();
 });
 
+Route::get('admin/characters/link', 'Nova\Characters\Http\Controllers\LinkCharactersController@create')
+	->name('characters.link');
 Route::patch('admin/characters/{character}/restore', 'Nova\Characters\Http\Controllers\CharactersController@restore')
 	->name('characters.restore');
 Route::resource('admin/characters', 'Nova\Characters\Http\Controllers\CharactersController');
+
 Route::get('characters/manifest', 'Nova\Characters\Http\Controllers\CharacterManifestController@index')
 	->name('characters.manifest');
 Route::get('characters/bio/{character}', 'Nova\Characters\Http\Controllers\CharacterBioController@show')
