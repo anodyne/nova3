@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('characters'))
+@section('title', _m('characters', [1]))
 
 @section('content')
-	<h1>{{ _m('characters') }}</h1>
+	<h1>{{ _m('characters', [1]) }}</h1>
 
 	@if ($characters->count() > 0)
 		<div class="alert alert-info" v-show="status == '{{ Status::REMOVED }}'">
@@ -93,7 +93,7 @@
 							@can('manage', $characterClass)
 								<div class="dropdown-divider"></div>
 							@endcan
-							
+
 							@can('update', $characterClass)
 								<a :href="editLink(character.id)" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
 							@endcan

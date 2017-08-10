@@ -239,7 +239,7 @@
 	"genre-rank-info-unsaved": "You have unsaved changes to your rank info.",
 	"genre-rank-info-validation-required-short_name": "Please enter a rank short name",
 
-	"characters": "Characters",
+	"characters": "{{PLURAL:$2|Character|Characters}}",
 	"characters-add": "Create Character",
 	"characters-bio": "Character Bio",
 	"characters-confirm-delete-message": "Are you sure you want to delete this character?",
