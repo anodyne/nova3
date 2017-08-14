@@ -11,8 +11,8 @@
 				<div class="col mb-0">
 					{{ _m('name') }}
 				</div>
-				<div class="col col-xs-auto">
-					<div class="btn-toolbar pull-right">
+				<div class="col col-auto">
+					<div class="btn-toolbar">
 						@can('create', $roleClass)
 							<a href="{{ route('roles.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
 						@endcan
@@ -39,11 +39,11 @@
 			</div>
 
 			<div class="row align-items-center" v-for="role in roles">
-				<div class="col-9">
+				<div class="col">
 					@{{ role.name }}
 				</div>
-				<div class="col col-xs-auto">
-					<div class="dropdown pull-right">
+				<div class="col col-auto">
+					<div class="dropdown">
 						<button class="btn btn-secondary btn-action"
 								type="button"
 								id="dropdownMenuButton"
