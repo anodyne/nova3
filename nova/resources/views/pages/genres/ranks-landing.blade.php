@@ -7,7 +7,7 @@
 
 	<div class="card-deck">
 		<a href="{{ route('ranks.groups.index') }}" class="card">
-			<div class="card-block">
+			<div class="card-body">
 				<div class="text-center text-subtle mb-4">
 					{{ svg_icon('hierarchy-3') }}
 				</div>
@@ -17,7 +17,7 @@
 		</a>
 
 		<a href="{{ route('ranks.info.index') }}" class="card">
-			<div class="card-block">
+			<div class="card-body">
 				<div class="text-center text-subtle mb-4">
 					{{ svg_icon('information-circle') }}
 				</div>
@@ -27,7 +27,7 @@
 		</a>
 
 		<a href="{{ route('ranks.items.index') }}" class="card">
-			<div class="card-block">
+			<div class="card-body">
 				<div class="text-center text-subtle mb-4">
 					{{ svg_icon('rank-army-4') }}
 				</div>

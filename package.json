@@ -10,9 +10,9 @@
 		"production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
 	},
 	"dependencies": {
+		"animate.css": "^3.5",
 		"axios": "^0.15.3",
 		"bootstrap": "^4.0.0-alpha.6",
-		"cropperjs": "^1.0.0-rc.3",
 		"croppie": "^2.5",
 		"humanize-number": "^0.0.2",
 		"jquery": "^3.1.1",
@@ -20,11 +20,10 @@
 		"lodash": "^4.17.4",
 		"md5": "^2.2",
 		"pluralize": "^5.0",
+		"popper.js": "^1.11",
 		"sortablejs": "^1.6",
-		"tether": "^1.4",
 		"vue": "^2.1",
 		"vue-clickaway": "^2.1",
-		"vue-core-image-upload": "^2.3",
 		"vue-js-toggle-button": "^1.1"
 	},
 	"devDependencies": {

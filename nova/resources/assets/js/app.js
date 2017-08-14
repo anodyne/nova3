@@ -26,17 +26,17 @@ import ToggleButton from 'vue-js-toggle-button';
 Vue.use(ToggleButton);
 
 Vue.component('desktop', {
-	template: '<div class="hidden-md-down" v-cloak><slot></slot></div>'
+	template: '<div class="d-none d-md-block" v-cloak><slot></slot></div>'
 });
 
 Vue.component('mobile', {
-	template: '<div class="hidden-lg-up" v-cloak><slot></slot></div>'
+	template: '<div class="d-xs-block d-md-none" v-cloak><slot></slot></div>'
 });
 
 Vue.component('phone', {
-	template: '<div class="hidden-sm-up" v-cloak><slot></slot></div>'
+	template: '<div class="d-xs-block d-md-none" v-cloak><slot></slot></div>'
 });
 
 Vue.component('tablet', {
-	template: '<div class="hidden-xs-down hidden-md-up" v-cloak><slot></slot></div>'
+	template: '<div class="d-xs-none d-sm-block d-md-none" v-cloak><slot></slot></div>'
 });

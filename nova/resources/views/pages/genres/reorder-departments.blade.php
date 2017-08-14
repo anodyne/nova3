@@ -11,7 +11,7 @@
 		<div id="sortable">
 			@foreach ($departments as $dept)
 				<div class="card mb-3" data-id="{{ $dept->id }}">
-					<div class="card-block">
+					<div class="card-body">
 						<div class="d-flex align-items-center">
 							<span class="sortable-handle text-subtle mr-2">{!! icon('reorder') !!}</span>
 							<span>{{ $dept->name }}</span>

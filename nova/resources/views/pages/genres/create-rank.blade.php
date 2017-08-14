@@ -49,7 +49,7 @@
 								   @click="accordion = 'base'">{!! icon('arrow-right') !!}</a>
 						</div>
 						<div id="rankInfo" class="collapse show" role="tabpanel" aria-labelledby="rankInfoHeading">
-							<div class="card-block">
+							<div class="card-body">
 								<div class="form-group{{ $errors->has('group_id') ? ' has-danger' : '' }}">
 									<label class="form-control-label">{{ _m('genre-rank-groups', [1]) }}</label>
 									<div class="d-flex align-items-center">
@@ -98,7 +98,7 @@
 							</div>
 						</div>
 						<div id="rankBaseImage" class="collapse" role="tabpanel" aria-labelledby="rankBaseImageHeading">
-							<div class="card-block">
+							<div class="card-body">
 								<div class="row">
 									@foreach ($baseImages as $key => $bImage)
 										@if (is_array($bImage))
@@ -152,7 +152,7 @@
 								   @click="accordion = 'base'">{!! icon('arrow-left') !!}</a>
 						</div>
 						<div id="rankOverlayImage" class="collapse" role="tabpanel" aria-labelledby="rankOverlayImageHeading">
-							<div class="card-block">
+							<div class="card-body">
 								<div class="row">
 									@foreach ($overlayImages as $key => $oImage)
 										@if (is_array($oImage))

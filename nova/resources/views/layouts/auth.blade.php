@@ -20,8 +20,8 @@
 <body>
 	<div id="nova-app">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-6 col-xl-4 offset-md-3 offset-xl-4">
+			<div class="row justify-content-around">
+				<div class="col-xs-12 col-md-6 col-lg-4">
 					@if (session()->has('flash'))
 						<div class="alert alert-{{ session('flash.level') }}">
 							@if (session('flash.title'))

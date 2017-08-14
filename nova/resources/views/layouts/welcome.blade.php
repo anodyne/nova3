@@ -102,11 +102,11 @@
 			border-width: 2px;
 		}
 
-		.card > .card-block ul {
+		.card > .card-body ul {
 			margin-bottom: 0;
 		}
 
-		.card > .card-block ul li {
+		.card > .card-body ul li {
 			font-weight: 400;
 		}
 

@@ -9,17 +9,13 @@
 
 		<div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
 			<label class="form-control-label">{{ _m('email-address') }}</label>
-
 			<input id="email" type="email" class="form-control form-control-lg" name="email" value="{{ old('email') }}" required autofocus>
-			
 			{!! $errors->first('email', '<p class="form-control-feedback">:message</p>') !!}
 		</div>
 
 		<div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
 			<label class="form-control-label">{{ _m('password') }}</label>
-
 			<input id="password" type="password" class="form-control form-control-lg" name="password" required>
-
 			{!! $errors->first('password', '<p class="form-control-feedback">:message</p>') !!}
 		</div>
 

@@ -1,12 +1,5 @@
-// Fonts
-// @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-// @import url("https://fonts.googleapis.com/css?family=Overpass:300,400,600");
-
-// Variables
+@import '~bootstrap/scss/functions', '~bootstrap/scss/variables';
 @import 'variables', 'data-table';
-
-// Bootstrap
-@import '~bootstrap/scss/bootstrap', '~jquery-confirm/css/jquery-confirm', '~croppie/croppie';
 
 h1 {
 	margin-bottom: 2rem;
@@ -15,11 +8,11 @@ h1 {
 .accordion {
 	.card-header {
 		a {
-			color: $gray;
+			color: map-get($colors, 'gray');
 		}
 
 		a:hover {
-			color: $gray-dark;
+			color: map-get($colors, 'gray-dark');
 			text-decoration: none;
 		}
 
@@ -77,16 +70,16 @@ h1 {
 	}
 
 	&.alert-warning {
-		.alert-btn {
-			background-color: darken($state-warning-bg, 15%);
-			border: 1px solid darken($state-warning-border, 15%);
-			color: $state-warning-text;
+		// .alert-btn {
+		// 	background-color: darken(theme-color-level(map-get($theme-colors, 'warning'), -10), 15%);
+		// 	border: 1px solid darken(theme-color-level(map-get($theme-colors, 'warning'), -9), 15%);
+		// 	color: theme-color-level(map-get($theme-colors, 'warning'), 6);
 
-			&:hover {
-				background-color: darken($state-warning-bg, 20%);
-				border: 1px solid darken($state-warning-border, 20%);
-			}
-		}
+		// 	&:hover {
+		// 		background-color: darken(theme-color-level(map-get($theme-colors, 'warning'), -10), 20%);
+		// 		border: 1px solid darken(theme-color-level(map-get($theme-colors, 'warning'), -9), 20%);
+		// 	}
+		// }
 	}
 }
 
@@ -163,18 +156,18 @@ h1 {
 		display: flex;
 
 		svg {
-			color: $gray-light;
+			color: $gray-500;
 		}
 
 		.meta {
-			color: $gray-light;
+			color: $gray-500;
 			font-weight: 700;
 		}
 	}
 
 	.items-menu {
 		background: $white;
-		border: 1px solid $gray-lighter;
+		border: 1px solid $gray-200;
 		border-radius: $radius;
 		max-height: 20rem;
 		overflow-y: scroll;
@@ -200,11 +193,11 @@ h1 {
 		padding: .5rem 1rem;
 
 		&:hover {
-			background: $gray-lighter;
+			background: $gray-200;
 		}
 
 		.meta {
-			color: $gray-light;
+			color: $gray-500;
 			font-weight: 400;
 			margin-left: .5rem;
 		}
@@ -219,7 +212,7 @@ h1 {
 
 	.search-field {
 		align-items: center;
-		background: $gray-lighter;
+		background: $gray-200;
 		border-radius: $radius;
 		display: flex;
 		flex-grow: 1;
@@ -239,15 +232,15 @@ h1 {
 		}
 
 		svg {
-			color: $gray-light;
+			color: $gray-500;
 		}
 	}
 
 	.clear-search {
-		color: $gray-light;
+		color: $gray-500;
 
 		&:hover {
-			color: $brand-danger;
+			color: map-get($theme-colors, 'danger');
 		}
 	}
 }
@@ -261,28 +254,28 @@ h1 {
 }
 
 .btn {
-	font-family: $font-family-sans-serif;
+	// font-family: $font-family-sans-serif;
 
 	&:active,
 	&:focus {
 		box-shadow: none;
-		color: $white;
+		// color: $white;
 	}
 
-	&.btn-secondary,
-	&.btn-outline-secondary {
-		&:active,
-		&:focus {
-			color: inherit;
-		}
-	}
+	// &.btn-secondary,
+	// &.btn-outline-secondary {
+	// 	&:active,
+	// 	&:focus {
+	// 		color: inherit;
+	// 	}
+	// }
 
-	&.btn-link {
-		&:active,
-		&:focus {
-			color: $brand-primary;
-		}
-	}
+	// &.btn-link {
+	// 	&:active,
+	// 	&:focus {
+	// 		color: map-get($theme-colors, 'primary');
+	// 	}
+	// }
 }
 
 .card {
@@ -302,21 +295,21 @@ a.card {
 		width: 8em;
 
 		g {
-			fill: $gray-light;
+			fill: $gray-500;
 		}
 	}
 
 	&:hover {
-		border-color: $brand-primary;
+		border-color: map-get($theme-colors, 'primary');
 		text-decoration: none;
 
 		svg,
 		i {
-			color: $brand-primary;
+			color: map-get($theme-colors, 'primary');
 		}
 
 		svg.icon g {
-			fill: $brand-primary;
+			fill: map-get($theme-colors, 'primary');
 		}
 	}
 }
@@ -325,9 +318,9 @@ a.card {
 	font-weight: 500;
 }
 
-.form-control {
-	font-family: $font-family-sans-serif;
-}
+// .form-control {
+// 	font-family: $font-family-sans-serif;
+// }
 
 .form-text {
 	margin-left: .15rem;
@@ -339,7 +332,7 @@ a.card {
 
 .has-danger {
 	.custom-select {
-		border-color: $brand-danger;
+		border-color: map-get($theme-colors, 'danger');
 	}
 }
 
@@ -355,7 +348,7 @@ label.custom-control {
 }
 
 .text-subtle {
-	color: $gray-light;
+	color: $gray-500;
 }
 
 .rank-container {
@@ -384,21 +377,21 @@ label.custom-control {
 .rank-selector {
 	border: 1px solid transparent;
 	border-radius: $radius;
-	color: $brand-primary;
+	color: map-get($theme-colors, 'primary');
 	padding: .5rem;
 	user-select: none;
 
 	&:hover {
-		background-color: transparentize($brand-primary, .9);
-		border-color: transparentize($brand-primary, .7);
-		color: $brand-primary;
+		background-color: transparentize(map-get($theme-colors, 'primary'), .9);
+		border-color: transparentize(map-get($theme-colors, 'primary'), .7);
+		color: map-get($theme-colors, 'primary');
 		text-decoration: none;
 	}
 
 	&.selected {
-		background-color: transparentize($brand-primary, .8);
-		border-color: transparentize($brand-primary, .5);
-		color: $brand-primary;
+		background-color: transparentize(map-get($theme-colors, 'primary'), .8);
+		border-color: transparentize(map-get($theme-colors, 'primary'), .5);
+		color: map-get($theme-colors, 'primary');
 	}
 }
 
@@ -412,11 +405,11 @@ fieldset {
 
 .vue-js-switch.toggle-switch {
 	.v-switch-core {
-		background: $gray-light !important;
+		background: $gray-500 !important;
 	}
 
 	&.toggled > .v-switch-core {
-		background: $brand-success !important;
+		background: map-get($theme-colors, 'success') !important;
 	}
 
 	&.lg {
@@ -426,7 +419,7 @@ fieldset {
 }
 
 .jconfirm .jconfirm-box.loading:before {
-	background: $gray !important;
+	background: map-get($colors, 'gray') !important;
 }
 
 .crop-container {
@@ -445,4 +438,27 @@ fieldset {
 
 [v-cloak] {
 	display: none !important;
+}
+
+.animated {
+	&.animated-2x {
+		-webkit-animation-duration: .5s;
+		-webkit-animation-fill-mode: both;
+		animation-duration: .5s;
+		animation-fill-mode: both;
+	}
+
+	&.animated-3x {
+		-webkit-animation-duration: .3s;
+		-webkit-animation-fill-mode: both;
+		animation-duration: .3s;
+		animation-fill-mode: both;
+	}
+
+	&.animated-4x {
+		-webkit-animation-duration: .25s;
+		-webkit-animation-fill-mode: both;
+		animation-duration: .25s;
+		animation-fill-mode: both;
+	}
 }

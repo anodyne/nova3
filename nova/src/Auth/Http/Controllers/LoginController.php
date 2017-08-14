@@ -12,13 +12,13 @@ class LoginController extends Controller
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->middleware('guest')->except('logout');
 	}
 
 	public function showLoginForm()
 	{
-		return view('pages.auth.login');
+		return view('pages.auth.sign-in');
 	}
 
 	public function redirectTo()
@@ -46,7 +46,7 @@ class LoginController extends Controller
 		if (is_string($attempt)) {
 			return $this->sendResetPasswordLoginResponse($request);
 		}
-		
+
 		if ($attempt) {
 			return $this->sendLoginResponse($request);
 		}

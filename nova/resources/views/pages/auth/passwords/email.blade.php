@@ -8,9 +8,7 @@
 
 		<div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
 			<label for="email" class="form-control-label">{{ _m('email-address') }}</label>
-			
 			<input id="email" type="email" class="form-control form-control-lg" name="email" value="{{ old('email') }}" autofocus required>
-
 			{!! $errors->first('email', '<p class="form-control-feedback">:message</p>') !!}
 		</div>
 
@@ -18,7 +16,6 @@
 			<button type="submit" class="btn btn-lg btn-primary btn-block">
 				{{ _m('auth-send-reset-link') }}
 			</button>
-
 			<a href="{{ route('home') }}" class="btn btn-link btn-block">{{ _m('cancel') }}</a>
 		</div>
 	</form>

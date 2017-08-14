@@ -24,8 +24,9 @@
 </head>
 <body>
 	<div id="nova-app">
-		<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse mb-4">
-			<button class="navbar-toggler navbar-toggler-right"
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+			<a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name', 'Laravel') }}</a>
+			<button class="navbar-toggler"
 					type="button"
 					data-toggle="collapse"
 					data-target="#navbarSupportedContent"
@@ -35,59 +36,55 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<div class="container">
-				<a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name', 'Laravel') }}</a>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<div class="navbar-nav mr-auto">
+					<a class="nav-item nav-link" href="{{ route('home') }}">Home</a>
+					<div class="nav-item dropdown">
+						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							Admin <span class="caret"></span>
+						</a>
 
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<div class="navbar-nav mr-auto">
-						<a class="nav-item nav-link" href="{{ route('home') }}">Home</a>
-						<div class="nav-item dropdown">
-							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-								Admin <span class="caret"></span>
-							</a>
-
-							<div class="dropdown-menu">
-								<a class="dropdown-item" href="{{ route('departments.index') }}">Departments</a>
-								<a class="dropdown-item" href="{{ route('positions.index') }}">Positions</a>
-								<a class="dropdown-item" href="{{ route('ranks.index') }}">Ranks</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="{{ route('characters.index') }}">Characters</a>
-								<a class="dropdown-item" href="{{ route('roles.index') }}">Roles</a>
-								<a class="dropdown-item" href="{{ route('users.index') }}">Users</a>
-							</div>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="{{ route('departments.index') }}">Departments</a>
+							<a class="dropdown-item" href="{{ route('positions.index') }}">Positions</a>
+							<a class="dropdown-item" href="{{ route('ranks.index') }}">Ranks</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="{{ route('characters.index') }}">Characters</a>
+							<a class="dropdown-item" href="{{ route('roles.index') }}">Roles</a>
+							<a class="dropdown-item" href="{{ route('users.index') }}">Users</a>
 						</div>
 					</div>
-					
-					<div class="navbar-nav">
-						@if (Auth::guest())
-							<a class="nav-item nav-link" href="{{ route('login') }}">{{ _m('sign-in') }}</a>
-							<a class="nav-item nav-link" href="{{ route('join') }}">Register</a>
-						@else
-							<div class="nav-item dropdown">
-								<a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-toggle="dropdown" role="button" aria-expanded="false">
-									<span class="mr-1">
-										<user-avatar :user="{{ $_user }}" type="image" size="xs"></user-avatar>
-									</span>
-									<span class="caret"></span>
+				</div>
+
+				<div class="navbar-nav">
+					@if (Auth::guest())
+						<a class="nav-item nav-link" href="{{ route('login') }}">{{ _m('sign-in') }}</a>
+						<a class="nav-item nav-link" href="{{ route('join') }}">Register</a>
+					@else
+						<div class="nav-item dropdown">
+							<a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-toggle="dropdown" role="button" aria-expanded="false">
+								<span class="mr-1">
+									<user-avatar :user="{{ $_user }}" type="image" size="xs"></user-avatar>
+								</span>
+								<span class="caret"></span>
+							</a>
+
+							<div class="dropdown-menu dropdown-menu-right">
+								<a class="dropdown-item" href="{{ route('profile.show', [$_user]) }}">{{ _m('users-my-profile') }}</a>
+								<a class="dropdown-item" href="{{ route('profile.edit', [$_user]) }}">{{ _m('users-profile-update') }}</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="{{ route('logout') }}"
+								   onclick="event.preventDefault();
+											document.getElementById('logout-form').submit();">
+									{{ _m('sign-out') }}
 								</a>
 
-								<div class="dropdown-menu dropdown-menu-right">
-									<a class="dropdown-item" href="{{ route('profile.show', [$_user]) }}">{{ _m('users-my-profile') }}</a>
-									<a class="dropdown-item" href="{{ route('profile.edit', [$_user]) }}">{{ _m('users-profile-update') }}</a>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="{{ route('logout') }}"
-									   onclick="event.preventDefault();
-												document.getElementById('logout-form').submit();">
-										{{ _m('sign-out') }}
-									</a>
-
-									<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-										{{ csrf_field() }}
-									</form>
-								</div>
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+									{{ csrf_field() }}
+								</form>
 							</div>
-						@endif
-					</div>
+						</div>
+					@endif
 				</div>
 			</div>
 		</nav>

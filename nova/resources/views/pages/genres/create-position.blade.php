@@ -8,10 +8,10 @@
 	{!! Form::open(['route' => 'positions.store']) !!}
 		<div class="row">
 			<div class="col-md-4">
-				<div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+				<div class="form-group">
 					<label class="form-control-label">{{ _m('name') }}</label>
-					{!! Form::text('name', null, ['class' => 'form-control'.($errors->has('name') ? ' form-control-danger' : '')]) !!}
-					{!! $errors->first('name', '<p class="form-control-feedback">:message</p>') !!}
+					{!! Form::text('name', null, ['class' => 'form-control'.($errors->has('name') ? ' is-invalid' : '')]) !!}
+					{!! $errors->first('name', '<p class="invalid-feedback">:message</p>') !!}
 				</div>
 			</div>
 		</div>
@@ -27,12 +27,12 @@
 
 		<div class="row">
 			<div class="col-md-6">
-				<div class="form-group{{ $errors->has('department_id') ? ' has-danger' : '' }}">
+				<div class="form-group">
 					<label class="form-control-label">{{ _m('genre-depts', [1]) }}</label>
 					<div>
 						{!! Form::departments('department_id', null, null, ['placeholder' => _m('genre-depts-select')]) !!}
 					</div>
-					{!! $errors->first('department_id', '<p class="form-control-feedback">:message</p>') !!}
+					{!! $errors->first('department_id', '<p class="invalid-feedback">:message</p>') !!}
 				</div>
 			</div>
 		</div>

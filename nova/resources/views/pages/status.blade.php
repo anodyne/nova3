@@ -23,7 +23,7 @@
 	<div class="tab-content">
 		<div id="aries" class="tab-pane active" role="tabpanel">
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start mb-0">
 						<span class="mr-auto">Characters</span>
 						<i class="fal fa-code fa-fw"></i>
@@ -32,7 +32,7 @@
 			</div>
 
 			<div class="card card-success card-inverse">
-				<div class="card-block">
+				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start">
 						<span class="mr-auto">Genre Assets</span>
 						<i class="fal fa-check-circle fa-fw"></i>
@@ -50,7 +50,7 @@
 			</div>
 
 			<div class="card card-success card-inverse">
-				<div class="card-block">
+				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start">
 						<span class="mr-auto">Users</span>
 						<i class="fal fa-check-circle fa-fw"></i>
@@ -67,7 +67,7 @@
 			</div>
 
 			<div class="card card-success card-inverse">
-				<div class="card-block">
+				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start">
 						<span class="mr-auto">Authorization</span>
 						<i class="fal fa-check-circle fa-fw"></i>
@@ -81,7 +81,7 @@
 			</div>
 
 			<div class="card card-success card-inverse">
-				<div class="card-block">
+				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start">
 						<span class="mr-auto">Authentication</span>
 						<i class="fal fa-check-circle fa-fw"></i>
@@ -98,7 +98,7 @@
 			</div>
 
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start mb-0">
 						<span class="mr-auto">Setup</span>
 						<i class="fal fa-road fa-fw"></i>
@@ -109,7 +109,7 @@
 
 		<div id="orion" class="tab-pane">
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start mb-0">
 						<span class="mr-auto">Dynamic Forms</span>
 						<i class="fal fa-road fa-fw"></i>
@@ -118,7 +118,7 @@
 			</div>
 
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start mb-0">
 						<span class="mr-auto">Settings</span>
 						<i class="fal fa-road fa-fw"></i>
@@ -127,7 +127,7 @@
 			</div>
 
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start mb-0">
 						<span class="mr-auto">Application Review Center</span>
 						<i class="fal fa-road fa-fw"></i>
@@ -138,16 +138,16 @@
 
 		<div id="gemini" class="tab-pane">
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start mb-0">
 						<span class="mr-auto">Themes</span>
 						<i class="fal fa-road fa-fw"></i>
 					</h3>
 				</div>
 			</div>
-			
+
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start mb-0">
 						<span class="mr-auto">Stories</span>
 						<i class="fal fa-road fa-fw"></i>
@@ -156,7 +156,7 @@
 			</div>
 
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start mb-0">
 						<span class="mr-auto">Private Messages</span>
 						<i class="fal fa-road fa-fw"></i>
@@ -167,7 +167,7 @@
 
 		<div id="beta1" class="tab-pane">
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start mb-0">
 						<span class="mr-auto">Extensions</span>
 						<i class="fal fa-road fa-fw"></i>
@@ -176,7 +176,7 @@
 			</div>
 
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start mb-0">
 						<span class="mr-auto">Menus</span>
 						<i class="fal fa-road fa-fw"></i>
