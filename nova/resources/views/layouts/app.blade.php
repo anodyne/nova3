@@ -8,7 +8,7 @@
 	<!-- CSRF Token -->
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<title>{{ config('app.name', 'Laravel') }}</title>
+	<title>@yield('title') &bull; {{ config('app.name', 'Laravel') }}</title>
 
 	<script defer src="{{ asset('assets/js/packs/regular.min.js') }}"></script>
 	<script defer src="{{ asset('assets/js/fontawesome.min.js') }}"></script>
