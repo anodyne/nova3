@@ -65,6 +65,7 @@ class AppServiceProvider extends ServiceProvider
 		// Create a new instance of the translator
 		$translator = new \Krinkle\Intuition\Intuition([
 			'globalfunctions' => false,
+			'lang' => $lang,
 			'stayalive' => true,
 			'suppressfatal' => false,
 			'suppressnotice' => false,
