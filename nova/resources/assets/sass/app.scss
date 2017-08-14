@@ -330,10 +330,9 @@ a.card {
 	margin-top: .4rem;
 }
 
-.has-danger {
-	.custom-select {
-		border-color: map-get($theme-colors, 'danger');
-	}
+.custom-select {
+	display: block;
+	width: 100%;
 }
 
 .dropdown-item {

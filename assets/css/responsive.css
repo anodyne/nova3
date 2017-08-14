@@ -97,5 +97,10 @@
     padding-left: .35rem;
     padding-right: .35rem;
   }
+
+  .custom-select {
+    display: inline-block;
+    width: auto;
+  }
 }
 

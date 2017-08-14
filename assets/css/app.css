@@ -376,8 +376,9 @@ a.card:hover svg.icon g {
   margin-top: .4rem;
 }
 
-.has-danger .custom-select {
-  border-color: #dc3545;
+.custom-select {
+  display: block;
+  width: 100%;
 }
 
 .dropdown-item .fa-fw {
