@@ -12,38 +12,65 @@
 
 		<div class="data-table bordered striped">
 			<div class="row header align-items-start align-items-md-center">
-				<div class="col-12 col-md-6">
-					<div class="input-group">
-						<input type="text"
-							   class="form-control"
-							   placeholder="{{ _m('users-find') }}"
-							   v-model="search">
-						<span class="input-group-btn">
-							<a class="btn btn-secondary" href="#" @click.prevent="search = ''">
-								{!! icon('close') !!}
-							</a>
-						</span>
-					</div>
-					<div class="mt-2 hidden-md-up">
+				<div class="col">
+					<mobile>
+						<div v-show="!mobileFilter && !mobileSearch">
+							<a href="#" class="btn btn-secondary" @click.prevent="mobileFilter = true">{!! icon('filter') !!}</a>
+							<a href="#" class="btn btn-secondary" @click.prevent="mobileSearch = true">{!! icon('search') !!}</a>
+						</div>
+
+						<div v-show="mobileFilter">
+							<select name="" class="custom-select" v-model="status" v-show="mobileFilter" @change="mobileFilter = false">
+								<option value="">{{ _m('users-status-all') }}</option>
+								<option value="{{ Status::ACTIVE }}">{{ _m('users-status-active') }}</option>
+								<option value="{{ Status::INACTIVE }}">{{ _m('users-status-inactive') }}</option>
+								<option value="{{ Status::REMOVED }}">{{ _m('users-status-removed') }}</option>
+							</select>
+						</div>
+
+						<div class="input-group" v-show="mobileSearch">
+							<input type="text"
+								   class="form-control"
+								   placeholder="{{ _m('users-find') }}"
+								   v-model="search">
+							<span class="input-group-btn">
+								<a class="btn btn-secondary" href="#" @click.prevent="resetSearch">
+									{!! icon('close') !!}
+								</a>
+							</span>
+						</div>
+					</mobile>
+					<desktop>
+						<div class="input-group">
+							<input type="text"
+								   class="form-control"
+								   placeholder="{{ _m('users-find') }}"
+								   v-model="search">
+							<span class="input-group-btn">
+								<a class="btn btn-secondary" href="#" @click.prevent="resetSearch">
+									{!! icon('close') !!}
+								</a>
+							</span>
+						</div>
+					</desktop>
+				</div>
+				<div class="col d-none d-lg-block">
+					<desktop>
 						<select name="" class="custom-select" v-model="status">
 							<option value="">{{ _m('users-status-all') }}</option>
 							<option value="{{ Status::ACTIVE }}">{{ _m('users-status-active') }}</option>
 							<option value="{{ Status::INACTIVE }}">{{ _m('users-status-inactive') }}</option>
 							<option value="{{ Status::REMOVED }}">{{ _m('users-status-removed') }}</option>
 						</select>
-					</div>
+					</desktop>
 				</div>
-				<div class="col hidden-sm-down">
-					<select name="" class="custom-select" v-model="status">
-						<option value="">{{ _m('users-status-all') }}</option>
-						<option value="{{ Status::ACTIVE }}">{{ _m('users-status-active') }}</option>
-						<option value="{{ Status::INACTIVE }}">{{ _m('users-status-inactive') }}</option>
-						<option value="{{ Status::REMOVED }}">{{ _m('users-status-removed') }}</option>
-					</select>
-				</div>
-				<div class="col col-xs-auto">
+				<div class="col col-auto" v-show="!mobileSearch">
+					<a class="btn btn-secondary" href="#" @click.prevent="mobileFilter = false" v-show="mobileFilter">
+						{!! icon('close') !!}
+					</a>
+
 					@can('create', $userClass)
-						<div class="btn-toolbar pull-right">
+						<div class="btn-toolbar" v-show="!mobileFilter">
 							<a href="{{ route('users.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
 
 							@can('update', $userClass)
@@ -77,11 +104,11 @@
 			</div>
 
 			<div class="row align-items-center" v-for="user in filteredUsers">
-				<div class="col-9">
+				<div class="col">
 					<user-avatar :user="user" type="link" :has-label="true" size="xs"></user-avatar>
 				</div>
-				<div class="col col-xs-auto">
-					<div class="dropdown pull-right">
+				<div class="col col-auto">
+					<div class="dropdown">
 						<button class="btn btn-secondary btn-action"
 								type="button"
 								id="dropdownMenuButton"
@@ -137,6 +164,8 @@
 		vue = {
 			data: {
 				users: {!! $users !!},
+				mobileFilter: false,
+				mobileSearch: false,
 				search: '',
 				status: {{ Status::ACTIVE }}
 			},
@@ -214,6 +243,11 @@
 
 				profileLink (id) {
 					return route('profile.show', {user:id})
+				},
+
+				resetSearch () {
+					this.search = ''
+					this.mobileSearch = false
 				},
 
 				restoreUser (id) {

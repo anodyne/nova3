@@ -12,28 +12,49 @@
 
 		<div class="data-table bordered striped">
 			<div class="row header align-items-start align-items-md-center">
-				<div class="col-12 col-md-6">
-					<div class="input-group">
-						<input type="text"
-							   class="form-control"
-							   placeholder="{{ _m('characters-find') }}"
-							   v-model="search">
-						<span class="input-group-btn">
-							<a class="btn btn-secondary" href="#" @click.prevent="search = ''">
-								{!! icon('close') !!}
-							</a>
-						</span>
-					</div>
-					{{-- <div class="mt-2 d-block d-md-none">
-						<select name="" class="custom-select" v-model="status">
-							<option value="">{{ _m('characters-status-all') }}</option>
-							<option value="{{ Status::ACTIVE }}">{{ _m('characters-status-active') }}</option>
-							<option value="{{ Status::INACTIVE }}">{{ _m('characters-status-inactive') }}</option>
-							<option value="{{ Status::REMOVED }}">{{ _m('characters-status-removed') }}</option>
-						</select>
-					</div> --}}
-				</div>
 				<div class="col">
+					<mobile>
+						<div v-show="!mobileFilter && !mobileSearch">
+							<a href="#" class="btn btn-secondary" @click.prevent="mobileFilter = true">{!! icon('filter') !!}</a>
+							<a href="#" class="btn btn-secondary" @click.prevent="mobileSearch = true">{!! icon('search') !!}</a>
+						</div>
+
+						<div v-show="mobileFilter">
+							<select name="" class="custom-select" v-model="status" v-show="mobileFilter" @change="mobileFilter = false">
+								<option value="">{{ _m('characters-status-all') }}</option>
+								<option value="{{ Status::ACTIVE }}">{{ _m('characters-status-active') }}</option>
+								<option value="{{ Status::INACTIVE }}">{{ _m('characters-status-inactive') }}</option>
+								<option value="{{ Status::REMOVED }}">{{ _m('characters-status-removed') }}</option>
+							</select>
+						</div>
+
+						<div class="input-group" v-show="mobileSearch">
+							<input type="text"
+								   class="form-control"
+								   placeholder="{{ _m('characters-find') }}"
+								   v-model="search">
+							<span class="input-group-btn">
+								<a class="btn btn-secondary" href="#" @click.prevent="resetSearch">
+									{!! icon('close') !!}
+								</a>
+							</span>
+						</div>
+					</mobile>
+					<desktop>
+						<div class="input-group">
+							<input type="text"
+								   class="form-control"
+								   placeholder="{{ _m('characters-find') }}"
+								   v-model="search">
+							<span class="input-group-btn">
+								<a class="btn btn-secondary" href="#" @click.prevent="resetSearch">
+									{!! icon('close') !!}
+								</a>
+							</span>
+						</div>
+					</desktop>
+				</div>
+				<div class="col d-none d-lg-block">
 					<select name="" class="custom-select" v-model="status">
 						<option value="">{{ _m('characters-status-all') }}</option>
 						<option value="{{ Status::ACTIVE }}">{{ _m('characters-status-active') }}</option>
@@ -41,8 +62,12 @@
 						<option value="{{ Status::REMOVED }}">{{ _m('characters-status-removed') }}</option>
 					</select>
 				</div>
-				<div class="col col-auto">
-					<div class="btn-toolbar">
+				<div class="col col-auto" v-show="!mobileSearch">
+					<a class="btn btn-secondary" href="#" @click.prevent="mobileFilter = false" v-show="mobileFilter">
+						{!! icon('close') !!}
+					</a>
+
+					<div class="btn-toolbar" v-show="!mobileFilter">
 						@can('create', $characterClass)
 							<div class="btn-toolbar">
 								<a href="{{ route('characters.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
@@ -132,6 +157,8 @@
 		vue = {
 			data: {
 				characters: {!! $characters !!},
+				mobileFilter: false,
+				mobileSearch: false,
 				search: '',
 				status: {{ Status::ACTIVE }}
 			},
@@ -220,6 +247,11 @@
 
 				isTrashed (character) {
 					return character.deleted_at != null
+				},
+
+				resetSearch () {
+					this.search = ''
+					this.mobileSearch = false
 				},
 
 				restoreCharacter (id) {

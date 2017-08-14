@@ -8,17 +8,32 @@
 	@if ($info->count() > 0)
 		<div class="data-table bordered striped" id="sortable">
 			<div class="row header">
-				<div class="col-12 col-md-5">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="{{ _m('genre-rank-info-find') }}" v-model="search">
-						<span class="input-group-btn">
-							<a class="btn btn-secondary" href="#" @click.prevent="search = ''">{!! icon('close') !!}</a>
-						</span>
-					</div>
+				<div class="col">
+					<mobile>
+						<a href="#"
+						   class="btn btn-secondary btn-action"
+						   v-show="!mobileSearch"
+						   @click.prevent="mobileSearch = true">{!! icon('search') !!}</a>
+
+						<div class="input-group" v-show="mobileSearch">
+							<input type="text" class="form-control" placeholder="{{ _m('genre-rank-info-find') }}" v-model="search">
+							<span class="input-group-btn">
+								<a class="btn btn-secondary" href="#" @click.prevent="resetSearch">{!! icon('close') !!}</a>
+							</span>
+						</div>
+					</mobile>
+					<desktop>
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="{{ _m('genre-rank-info-find') }}" v-model="search">
+							<span class="input-group-btn">
+								<a class="btn btn-secondary" href="#" @click.prevent="resetSearch">{!! icon('close') !!}</a>
+							</span>
+						</div>
+					</desktop>
 				</div>
-				<div class="col hidden-sm-down"></div>
-				<div class="col col-xs-auto">
-					<div class="btn-toolbar pull-right">
+				<div class="col d-none d-lg-block"></div>
+				<div class="col col-auto" v-show="!mobileSearch">
+					<div class="btn-toolbar">
 						@can('create', $rankInfoClass)
 							<a href="{{ route('ranks.info.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
 						@endcan
@@ -112,6 +127,7 @@
 				hashOfInitialInfo: '',
 				info: {!! $info !!},
 				initialInfo: {!! $info !!},
+				mobileSearch: false,
 				search: ''
 			},
 
@@ -177,6 +193,11 @@
 				resetInitialHash () {
 					this.initialInfo = this.info
 					this.hashOfInitialInfo = md5(JSON.stringify(this.initialInfo))
+				},
+
+				resetSearch () {
+					this.search = ''
+					this.mobileSearch = false
 				},
 
 				updateInfo () {

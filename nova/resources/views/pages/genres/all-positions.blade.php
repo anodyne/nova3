@@ -8,22 +8,50 @@
 	@if ($positions->count() > 0)
 		<div class="data-table bordered striped" id="sortable">
 			<div class="row header">
-				<div class="col-12 col-md-5">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="{{ _m('genre-positions-find') }}" v-model="search">
-						<span class="input-group-btn">
-							<a class="btn btn-secondary" href="#" @click.prevent="search = ''">{!! icon('close') !!}</a>
-						</span>
-					</div>
-					<div class="mt-2 hidden-md-up">
-						{!! Form::departments(null, $departments, null, ['v-model' => 'department', 'placeholder' => _m('genre-depts-select')]) !!}
-					</div>
+				<div class="col">
+					<mobile>
+						<div v-show="mobileFilter || department == ''">
+							{!! Form::departments(null, $departments, null, ['v-model' => 'department', 'placeholder' => _m('genre-depts-select'), '@change' => 'mobileFilter = false']) !!}
+						</div>
+
+						<div class="input-group" v-show="mobileSearch">
+							<input type="text" class="form-control" placeholder="{{ _m('genre-positions-find') }}" v-model="search">
+							<span class="input-group-btn">
+								<a class="btn btn-secondary" href="#" @click.prevent="resetSearch">{!! icon('close') !!}</a>
+							</span>
+						</div>
+
+						<a href="#"
+						   class="btn btn-secondary"
+						   @click.prevent="mobileFilter = true"
+						   v-show="!mobileFilter && !mobileSearch && department != ''">{!! icon('filter') !!}</a>
+
+						<a href="#"
+						   class="btn btn-secondary"
+						   @click.prevent="mobileSearch = true"
+						   v-show="!mobileFilter && !mobileSearch && department != ''">{!! icon('search') !!}</a>
+					</mobile>
+					<desktop>
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="{{ _m('genre-positions-find') }}" v-model="search">
+							<span class="input-group-btn">
+								<a class="btn btn-secondary" href="#" @click.prevent="search = ''">{!! icon('close') !!}</a>
+							</span>
+						</div>
+					</desktop>
 				</div>
-				<div class="col hidden-sm-down">
+				<div class="col d-none d-lg-block">
 					{!! Form::departments(null, $departments, null, ['v-model' => 'department', 'placeholder' => _m('genre-depts-select')]) !!}
 				</div>
-				<div class="col col-xs-auto">
-					<div class="btn-toolbar pull-right">
+				<div class="col col-auto" v-show="!mobileSearch">
+					<mobile>
+						<a href="#"
+						   class="btn btn-secondary"
+						   @click.prevent="mobileFilter = false"
+						   v-show="mobileFilter && department != ''">{!! icon('close') !!}</a>
+					</mobile>
+
+					<div class="btn-toolbar" v-show="!mobileFilter">
 						@can('create', $positionClass)
 							<a href="{{ route('positions.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
 						@endcan
@@ -105,12 +133,12 @@
 				<div class="col col-auto">
 					@can('delete', $positionClass)
 						<a href="#"
-						   class="btn btn-danger btn-action mb-4"
+						   class="btn btn-danger btn-action"
 						   @click.prevent="deletePosition(position.id)">{!! icon('delete') !!}</a>
 					@endcan
 
 					<mobile>
-						<div class="btn btn-block btn-secondary sortable-handle">{!! icon('reorder') !!}</div>
+						<div class="btn btn-block btn-secondary sortable-handle mt-3">{!! icon('reorder') !!}</div>
 					</mobile>
 				</div>
 			</div>
@@ -135,6 +163,8 @@
 				hashOfInitialPositions: '',
 				hashOfPositions: '',
 				initialPositions: {!! $positions !!},
+				mobileFilter: false,
+				mobileSearch: false,
 				positions: {!! $positions !!},
 				search: ''
 			},
@@ -209,6 +239,11 @@
 				resetInitialHash () {
 					this.initialPositions = this.positions
 					this.hashOfInitialPositions = md5(JSON.stringify(this.initialPositions))
+				},
+
+				resetSearch () {
+					this.search = ''
+					this.mobileSearch = false
 				},
 
 				toggleDisplay (event) {
