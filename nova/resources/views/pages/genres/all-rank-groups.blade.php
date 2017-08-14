@@ -103,7 +103,7 @@
 						</div>
 
 						<mobile>
-							<div class="btn btn-block btn-outline-secondary sortable-handle">{!! icon('reorder') !!}</div>
+							<div class="btn btn-block btn-secondary sortable-handle">{!! icon('reorder') !!}</div>
 						</mobile>
 					</div>
 				</div>

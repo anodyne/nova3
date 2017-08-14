@@ -68,12 +68,12 @@
 			<div class="col col-auto">
 				<span class="sortable-handle text-subtle">{!! icon('reorder') !!}</span>
 			</div>
-			<div class="col-9 d-flex align-items-center">
+			<div class="col d-flex align-items-center">
 				<rank :item="rank"></rank>
 				<div class="ml-3">@{{ rank.info.name }}</div>
 			</div>
-			<div class="col col-xs-auto">
-				<div class="dropdown pull-right">
+			<div class="col col-auto">
+				<div class="dropdown">
 					<button class="btn btn-secondary btn-action"
 							type="button"
 							id="dropdownMenuButton"

@@ -8,10 +8,10 @@
 	{!! Form::open(['route' => 'roles.store']) !!}
 		<div class="row">
 			<div class="col-md-4">
-				<div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+				<div class="form-group">
 					<label class="form-control-label">{{ _m('name') }}</label>
-					{!! Form::text('name', null, ['class' => 'form-control'.($errors->has('name') ? ' form-control-danger' : '')]) !!}
-					{!! $errors->first('name', '<p class="form-control-feedback">:message</p>') !!}
+					{!! Form::text('name', null, ['class' => 'form-control'.($errors->has('name') ? ' is-invalid' : '')]) !!}
+					{!! $errors->first('name', '<p class="invalid-feedback">:message</p>') !!}
 				</div>
 			</div>
 		</div>
@@ -20,10 +20,13 @@
 			<div class="col-md-8">
 				<fieldset>
 					<legend>{{ _m('authorize-permissions') }}</legend>
-					
+
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group">
+							<div class="form-group input-group">
+								<span class="input-group-addon">
+									{!! icon('search') !!}
+								</span>
 								<input type="text"
 									   class="form-control"
 									   placeholder="{{ _m('authorize-permissions-find') }}"
@@ -34,8 +37,15 @@
 
 					<div class="row">
 						<div class="col-md-4 mb-3" v-for="permission in filteredPermissions">
-							<input type="checkbox" name="permissions[]" :value="permission.id" :checked="isChecked(permission.id)">
-							@{{ permission.name }}
+							<label class="custom-control custom-checkbox">
+								<input type="checkbox"
+									   name="permissions[]"
+									   class="custom-control-input"
+									   :value="permission.id"
+									   :checked="isChecked(permission.id)">
+								<span class="custom-control-indicator"></span>
+								<span class="custom-control-description">@{{ permission.name }}</span>
+							</label>
 						</div>
 					</div>
 				</fieldset>

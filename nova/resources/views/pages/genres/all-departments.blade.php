@@ -47,11 +47,11 @@
 			<div class="row" v-for="dept in filteredDepartments">
 				<div class="col">
 					<div class="row align-items-center">
-						<div class="col-9">
+						<div class="col">
 							@{{ dept.name }}
 						</div>
-						<div class="col col-xs-auto">
-							<div class="dropdown pull-right">
+						<div class="col col-auto">
+							<div class="dropdown">
 								<button class="btn btn-secondary btn-action"
 										type="button"
 										id="dropdownMenuButton"
@@ -80,13 +80,13 @@
 					<div class="row align-items-center"
 						 v-if="dept.sub_departments.length > 0"
 						 v-for="subDept in dept.sub_departments">
-						<div class="col-9">
+						<div class="col">
 							<span class="ml-4">
 								@{{ subDept.name }}
 							</span>
 						</div>
-						<div class="col col-xs-auto">
-							<div class="dropdown pull-right">
+						<div class="col col-auto">
+							<div class="dropdown">
 								<button class="btn btn-secondary btn-action"
 										type="button"
 										id="dropdownMenuButton"

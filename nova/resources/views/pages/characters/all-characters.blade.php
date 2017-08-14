@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('characters', [1]))
+@section('title', _m('characters', [2]))
 
 @section('content')
-	<h1>{{ _m('characters', [1]) }}</h1>
+	<h1>{{ _m('characters', [2]) }}</h1>
 
 	@if ($characters->count() > 0)
 		<div class="alert alert-info" v-show="status == '{{ Status::REMOVED }}'">
@@ -24,16 +24,16 @@
 							</a>
 						</span>
 					</div>
-					<div class="mt-2 hidden-md-up">
+					{{-- <div class="mt-2 d-block d-md-none">
 						<select name="" class="custom-select" v-model="status">
 							<option value="">{{ _m('characters-status-all') }}</option>
 							<option value="{{ Status::ACTIVE }}">{{ _m('characters-status-active') }}</option>
 							<option value="{{ Status::INACTIVE }}">{{ _m('characters-status-inactive') }}</option>
 							<option value="{{ Status::REMOVED }}">{{ _m('characters-status-removed') }}</option>
 						</select>
-					</div>
+					</div> --}}
 				</div>
-				<div class="col hidden-sm-down">
+				<div class="col">
 					<select name="" class="custom-select" v-model="status">
 						<option value="">{{ _m('characters-status-all') }}</option>
 						<option value="{{ Status::ACTIVE }}">{{ _m('characters-status-active') }}</option>
@@ -41,10 +41,10 @@
 						<option value="{{ Status::REMOVED }}">{{ _m('characters-status-removed') }}</option>
 					</select>
 				</div>
-				<div class="col col-xs-auto">
-					<div class="btn-toolbar pull-right">
+				<div class="col col-auto">
+					<div class="btn-toolbar">
 						@can('create', $characterClass)
-							<div class="btn-toolbar pull-right">
+							<div class="btn-toolbar">
 								<a href="{{ route('characters.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
 							</div>
 						@endcan
@@ -69,7 +69,7 @@
 			</div>
 
 			<div class="row align-items-center" v-for="character in filteredCharacters">
-				<div class="col col-auto hidden-md-down">
+				<div class="col col-auto d-none d-lg-block">
 					<rank :item="character.rank"></rank>
 				</div>
 				<div class="col">

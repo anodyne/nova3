@@ -83,12 +83,12 @@
 				</div>
 				<div class="col col-auto">
 					@can('delete', $rankInfoClass)
-						<a class="btn btn-action btn-outline-danger mb-4" href="#" @click.prevent="deleteInfo(info.id)">
+						<a class="btn btn-action btn-danger mb-4" href="#" @click.prevent="deleteInfo(info.id)">
 							{!! icon('delete') !!}
 						</a>
 					@endcan
 					<mobile>
-						<div class="btn btn-block btn-outline-secondary sortable-handle">{!! icon('reorder') !!}</div>
+						<div class="btn btn-block btn-secondary sortable-handle">{!! icon('reorder') !!}</div>
 					</mobile>
 				</div>
 			</div>
@@ -151,7 +151,7 @@
 											})
 
 											self.info.splice(index, 1)
-											
+
 											self.resetInitialHash()
 
 											flash(

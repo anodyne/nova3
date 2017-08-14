@@ -105,12 +105,12 @@
 				<div class="col col-auto">
 					@can('delete', $positionClass)
 						<a href="#"
-						   class="btn btn-outline-danger btn-action mb-4"
+						   class="btn btn-danger btn-action mb-4"
 						   @click.prevent="deletePosition(position.id)">{!! icon('delete') !!}</a>
 					@endcan
 
 					<mobile>
-						<div class="btn btn-block btn-outline-secondary sortable-handle">{!! icon('reorder') !!}</div>
+						<div class="btn btn-block btn-secondary sortable-handle">{!! icon('reorder') !!}</div>
 					</mobile>
 				</div>
 			</div>
