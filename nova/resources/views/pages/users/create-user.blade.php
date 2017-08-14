@@ -37,6 +37,18 @@
 		</div>
 
 		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="form-control-label">{{ _m('users-gender') }}</label>
+					<div>
+						{!! Form::select('gender', $genders, null, ['class' => 'custom-select']) !!}
+					</div>
+					<small class="form-text text-muted">{{ _m('users-gender-explain') }}</small>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
 			<div class="col-md-8">
 				<fieldset>
 					<legend>{{ _m('authorize-roles') }}</legend>
@@ -47,7 +59,7 @@
 								<label class="custom-control custom-checkbox">
 									{!! Form::checkbox('roles[]', $role->id, null, ['class' => 'custom-control-input']) !!}
 									<span class="custom-control-indicator"></span>
-									
+
 									<span class="custom-control-description">{{ $role->name }}</span>
 
 									<span class="ml-1"

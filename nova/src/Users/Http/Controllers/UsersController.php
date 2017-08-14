@@ -30,7 +30,13 @@ class UsersController extends Controller
 
 		$roles = Role::with('permissions')->get();
 
-		return view('pages.users.create-user', compact('roles'));
+		$genders = [
+			'male' => _m('users-gender-option-male'),
+			'female' => _m('users-gender-option-female'),
+			'neutral' => _m('users-gender-option-neutral'),
+		];
+
+		return view('pages.users.create-user', compact('roles', 'genders'));
 	}
 
 	public function store()
@@ -63,7 +69,13 @@ class UsersController extends Controller
 
 		$roles = Role::with('permissions')->get();
 
-		return view('pages.users.update-user', compact('user', 'roles'));
+		$genders = [
+			'male' => _m('users-gender-option-male'),
+			'female' => _m('users-gender-option-female'),
+			'neutral' => _m('users-gender-option-neutral'),
+		];
+
+		return view('pages.users.update-user', compact('user', 'roles', 'genders'));
 	}
 
 	public function update(User $user)
