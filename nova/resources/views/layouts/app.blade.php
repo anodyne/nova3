@@ -14,6 +14,7 @@
 	<script defer src="{{ asset('assets/js/fontawesome.js') }}"></script>
 
 	<!-- Styles -->
+	<link href="{{ asset('assets/css/vendor.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet">
 

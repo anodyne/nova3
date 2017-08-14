@@ -18,6 +18,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,600" rel="stylesheet">
 
 	<!-- Styles -->
+	<link href="{{ asset('assets/css/vendor.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
 
 	<!-- Styles -->
