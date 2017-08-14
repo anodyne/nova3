@@ -8,17 +8,34 @@
 	@if ($permissions->count() > 0)
 		<div class="data-table bordered striped">
 			<div class="row header">
-				<div class="col-12 col-md-6">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="{{ _m('authorize-permissions-find') }}" v-model="search">
-						<span class="input-group-btn">
-							<a class="btn btn-secondary" href="#" @click.prevent="search = ''">{!! icon('close') !!}</a>
-						</span>
-					</div>
+				<div class="col">
+					<mobile>
+						<a href="#"
+						   class="btn btn-secondary btn-action"
+						   v-show="!mobileSearch"
+						   @click.prevent="mobileSearch = true">{!! icon('search') !!}</a>
+
+						<div class="input-group" v-show="mobileSearch">
+							<input type="text" class="form-control" placeholder="{{ _m('authorize-permissions-find') }}" v-model="search">
+							<span class="input-group-btn">
+								<a class="btn btn-secondary"
+								   href="#"
+								   @click.prevent="resetSearch">{!! icon('close') !!}</a>
+							</span>
+						</div>
+					</mobile>
+					<desktop>
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="{{ _m('authorize-permissions-find') }}" v-model="search">
+							<span class="input-group-btn">
+								<a class="btn btn-secondary" href="#" @click.prevent="resetSearch">{!! icon('close') !!}</a>
+							</span>
+						</div>
+					</desktop>
 				</div>
-				<div class="col hidden-sm-down"></div>
-				<div class="col col-xs-auto">
-					<div class="btn-toolbar pull-right">
+				<div class="col d-none d-lg-block"></div>
+				<div class="col col-auto" v-show="!mobileSearch">
+					<div class="btn-toolbar">
 						@can('create', $permissionClass)
 							<a href="{{ route('permissions.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
 						@endcan
@@ -45,11 +62,11 @@
 			</div>
 
 			<div class="row align-items-center" v-for="permission in filteredPermissions">
-				<div class="col-9">
+				<div class="col">
 					@{{ permission.name }}
 				</div>
-				<div class="col col-xs-auto">
-					<div class="dropdown pull-right">
+				<div class="col col-auto">
+					<div class="dropdown">
 						<button class="btn btn-secondary btn-action"
 								type="button"
 								id="dropdownMenuButton"
@@ -86,6 +103,7 @@
 	<script>
 		vue = {
 			data: {
+				mobileSearch: false,
 				permissions: {!! $permissions !!},
 				search: ''
 			},
@@ -139,6 +157,11 @@
 
 				editLink (id) {
 					return route('permissions.edit', {permission:id})
+				},
+
+				resetSearch () {
+					this.search = ''
+					this.mobileSearch = false
 				}
 			}
 		}

@@ -35,6 +35,7 @@ trait Icons
 			'edit' => 'pencil',
 			'email' => 'paper-plane',
 			'exclamation' => 'exclamation-circle',
+			'filter' => 'filter',
 			'heart' => 'heart',
 			'info' => 'info-circle',
 			'link' => 'link',
@@ -66,7 +67,7 @@ trait Icons
 		if (Str::contains($icon, '.svg')) {
 			return $this->renderSvgIcon(locate()->svg($icon), $additional);
 		}
-		
+
 		if (strrpos($icon, '.')) {
 			return $this->renderImageIcon(locate()->image($icon), $additional);
 		}
