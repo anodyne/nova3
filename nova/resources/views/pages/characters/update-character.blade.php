@@ -48,7 +48,11 @@
 				<div class="form-group">
 					<label class="form-control-label">{{ _m('genre-ranks', [1]) }}</label>
 					<div>
-						<rank-picker :selected="{{ $character->rank }}"></rank-picker>
+						@if ($character->rank)
+							<rank-picker :selected="{{ $character->rank }}"></rank-picker>
+						@else
+							<rank-picker></rank-picker>
+						@endif
 					</div>
 				</div>
 			</div>
