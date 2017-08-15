@@ -213,6 +213,7 @@
 					$.confirm({
 						title: "{{ _m('characters-confirm-delete-title') }}",
 						content: "{{ _m('characters-confirm-delete-message') }}",
+						columnClass: "medium",
 						theme: "dark",
 						buttons: {
 							confirm: {
@@ -260,6 +261,7 @@
 					$.confirm({
 						title: "{{ _m('characters-confirm-restore-title') }}",
 						content: "{{ _m('characters-confirm-restore-message') }}",
+						columnClass: "medium",
 						theme: "dark",
 						buttons: {
 							confirm: {

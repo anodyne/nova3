@@ -127,6 +127,7 @@
 					$.confirm({
 						title: "{{ _m('authorize-permissions-confirm-delete-title') }}",
 						content: "{{ _m('authorize-permissions-confirm-delete-message') }}",
+						columnClass: "medium",
 						theme: "dark",
 						buttons: {
 							confirm: {

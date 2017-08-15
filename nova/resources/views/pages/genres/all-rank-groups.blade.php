@@ -170,6 +170,7 @@
 					$.confirm({
 						title: "{{ _m('genre-rank-groups-confirm-delete-title') }}",
 						content: "{{ _m('genre-rank-groups-confirm-delete-message') }}",
+						columnClass: "medium",
 						theme: "dark",
 						buttons: {
 							confirm: {
@@ -203,8 +204,8 @@
 				duplicateGroup (id) {
 					$.confirm({
 						title: "{{ _m('genre-rank-groups-confirm-duplicate-title') }}",
-						columnClass: "medium",
 						content: "URL:" + route('ranks.groups.duplicate-confirm') + "?group=" + id,
+						columnClass: "medium",
 						theme: "dark",
 						buttons: {
 							formSubmit: {

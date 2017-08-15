@@ -90,6 +90,7 @@
 					$.confirm({
 						title: "{{ _m('authorize-roles-confirm-delete-title') }}",
 						content: "{{ _m('authorize-roles-confirm-delete-message') }}",
+						columnClass: "medium",
 						theme: "dark",
 						buttons: {
 							confirm: {

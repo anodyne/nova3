@@ -154,6 +154,7 @@
 					$.confirm({
 						title: "{{ _m('genre-rank-info-confirm-delete-title') }}",
 						content: "{{ _m('genre-rank-info-confirm-delete-message') }}",
+						columnClass: "medium",
 						theme: "dark",
 						buttons: {
 							confirm: {

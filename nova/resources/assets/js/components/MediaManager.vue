@@ -108,6 +108,7 @@
 				$.confirm({
 					title: "Delete Media",
 					content: "Are you sure you want to delete this media?",
+					columnClass: "medium",
 					theme: "dark",
 					buttons: {
 						confirm: {

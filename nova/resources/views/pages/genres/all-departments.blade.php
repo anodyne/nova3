@@ -162,6 +162,7 @@
 					$.confirm({
 						title: "{{ _m('genre-depts-confirm-delete-title') }}",
 						content: "{{ _m('genre-depts-confirm-delete-message') }}",
+						columnClass: "medium",
 						theme: "dark",
 						buttons: {
 							confirm: {
