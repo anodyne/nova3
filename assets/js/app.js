@@ -2460,6 +2460,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			$.confirm({
 				title: "Delete Media",
+				columnClass: "medium",
 				content: "Are you sure you want to delete this media?",
 				theme: "dark",
 				buttons: {
@@ -2514,7 +2515,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		reset: function reset() {
 			document.getElementById('file-upload').value = '';
-			this.image = '';
+			this.uploadedFile = '';
 		},
 		saveFile: function saveFile() {
 			var self = this;
@@ -2526,6 +2527,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					id: self.item.id,
 					type: self.type
 				}).then(function (response) {
+					self.files.push(response.data);
+
 					flash('Media saved', 'File saved', 'success');
 				});
 			});
