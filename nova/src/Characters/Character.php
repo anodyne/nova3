@@ -15,7 +15,7 @@ class Character extends Eloquent
 	protected $table = 'characters';
 	protected $fillable = ['name', 'user_id', 'position_id', 'rank_id', 'status'];
 	protected $presenter = Presenters\CharacterPresenter::class;
-	protected $with = ['media'];
+	protected $with = ['media', 'rank.info'];
 	protected $appends = ['avatarImage'];
 
 	//--------------------------------------------------------------------------

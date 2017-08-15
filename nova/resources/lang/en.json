@@ -276,6 +276,8 @@
 
 	"media-add-image": "Add Image",
 
+	"dashboard-characters": "My Characters",
+
 	"validation-email-required": "Please enter an email address",
 	"validation-email-valid": "Please enter a valid email address",
 	"validation-key-required": "Please enter a unique key",
