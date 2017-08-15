@@ -174,7 +174,7 @@
 
 			reset () {
 				document.getElementById('file-upload').value = ''
-				this.image = ''
+				this.uploadedFile = ''
 			},
 
 			saveFile () {
