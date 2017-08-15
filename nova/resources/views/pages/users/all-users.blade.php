@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('users', [1]))
+@section('title', _m('users', [2]))
 
 @section('content')
-	<h1>{{ _m('users', [1]) }}</h1>
+	<h1>{{ _m('users', [2]) }}</h1>
 
 	@if ($users->count() > 0)
 		<div class="alert alert-info" v-show="status == '{{ Status::REMOVED }}'">
@@ -106,6 +106,12 @@
 			<div class="row align-items-center" v-for="user in filteredUsers">
 				<div class="col">
 					<user-avatar :user="user" type="link" :has-label="true" size="xs"></user-avatar>
+					<div class="mt-1" v-if="showCharacters">
+						<small class="text-muted" v-if="usersCharacters(user).length > 0">
+							<strong>{{ _m('users-characters') }}</strong>
+							@{{ usersCharacters(user) }}
+						</small>
+					</div>
 				</div>
 				<div class="col col-auto">
 					<div class="dropdown">
@@ -125,7 +131,7 @@
 							@can('manage', $userClass)
 								<div class="dropdown-divider"></div>
 							@endcan
-							
+
 							@can('update', $userClass)
 								<a :href="editLink(user.id)" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
 							@endcan
@@ -167,6 +173,7 @@
 				mobileFilter: false,
 				mobileSearch: false,
 				search: '',
+				showCharacters: false,
 				status: {{ Status::ACTIVE }}
 			},
 
@@ -180,6 +187,8 @@
 							return user.status == self.status
 						})
 					}
+
+					return filter(filteredUsers, this.search)
 
 					return filteredUsers.filter(function (user) {
 						let regex = new RegExp(self.search, 'i')
@@ -247,7 +256,6 @@
 
 				resetSearch () {
 					this.search = ''
-					this.mobileSearch = false
 				},
 
 				restoreUser (id) {
@@ -282,8 +290,49 @@
 							}
 						}
 					})
+				},
+
+				usersCharacters (user) {
+					let characters = []
+
+					_.forEach(user.characters, function (character) {
+						characters.push(character.name)
+					})
+
+					return characters.join(', ')
+				}
+			},
+
+			watch: {
+				search (newValue, oldValue) {
+					this.mobileSearch = false
+					this.showCharacters = false
 				}
 			}
+		}
+
+		function filter (data, term) {
+			let matches = []
+			let regex = new RegExp(term, 'i')
+
+			if (! Array.isArray(data)) {
+				return matches
+			}
+
+			data.forEach(function (d) {
+				if (regex.test(d.name) || regex.test(d.email) || regex.test(d.nickname)) {
+					matches.push(d)
+				} else {
+					let charactersResults = filter(d.characters, term)
+					if (charactersResults.length > 0) {
+						matches.push(Object.assign({}, d, { characters: charactersResults }))
+
+						vue.data.showCharacters = true
+					}
+				}
+			})
+
+			return matches
 		}
 	</script>
 @endsection
