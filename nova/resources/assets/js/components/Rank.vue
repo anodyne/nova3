@@ -8,15 +8,9 @@
 <script>
 	export default {
 		props: {
-			item: {
-				type: Object
-			},
-			base: {
-				type: String
-			},
-			overlay: {
-				type: String
-			}
+			item: { type: Object },
+			base: { type: String },
+			overlay: { type: String }
 		},
 
 		methods: {
