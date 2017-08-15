@@ -133,3 +133,9 @@ Route::delete('admin/media/{media}', 'Nova\Foundation\Http\Controllers\MediaCont
 	->name('media.destroy');
 Route::patch('admin/media', 'Nova\Foundation\Http\Controllers\MediaController@reorder')
 	->name('media.reorder');
+
+/**
+ * Dashboard
+ */
+Route::get('dashboard/characters', 'Nova\Dashboard\Http\Controllers\DashboardController@characters')
+	->name('dashboard.characters');
