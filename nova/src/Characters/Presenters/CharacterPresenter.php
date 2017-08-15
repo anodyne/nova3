@@ -13,4 +13,12 @@ class CharacterPresenter extends Presenter
 
 		return Gravatar::image($this->entity->user->email, null, null, null, true)."?s=240&d=retro&r=pg";
 	}
+
+	public function name()
+	{
+		return join(' ', [
+			($this->entity->rank) ? $this->entity->rank->info->name : null,
+			$this->entity->name
+		]);
+	}
 }
