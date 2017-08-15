@@ -1,7 +1,7 @@
 <template>
 	<div class="avatar-container" v-cloak>
 		<a :href="profileLink" :class="classes" :style="'background-image:url(' + url + ')'" v-if="type == 'link'"></a>
-		<div :class="classes" :style="'background-image:url(' + url + ')'" v-if="type != 'link'"></div>
+		<div :class="classes" :style="'background-image:url(' + url + ')'" v-if="type == 'image'"></div>
 
 		<div v-if="hasContent">
 			<div class="avatar-label ml-3" v-if="size == 'lg'" v-cloak>
@@ -37,30 +37,12 @@
 
 	export default {
 		props: {
-			character: {
-				type: Object,
-				required: true
-			},
-			hasContent: {
-				type: Boolean,
-				default: true
-			},
-			showName: {
-				type: Boolean,
-				default: true
-			},
-			showMetadata: {
-				type: Boolean,
-				default: true
-			},
-			size: {
-				type: String,
-				default: ''
-			},
-			type: {
-				type: String,
-				default: 'link'
-			}
+			character: { type: Object, required: true },
+			hasContent: { type: Boolean, default: true },
+			showName: { type: Boolean, default: true },
+			showMetadata: { type: Boolean, default: true },
+			size: { type: String, default: '' },
+			type: { type: String, default: 'link' }
 		},
 
 		computed: {
@@ -71,7 +53,7 @@
 			displayName () {
 				let pieces = [];
 
-				if (this.character.rank) {
+				if (this.character.rank != null) {
 					pieces.push(this.character.rank.info.name);
 				}
 
