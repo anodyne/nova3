@@ -573,7 +573,7 @@ function makeLayersTextHtml(params) {
 
 var noop = function noop() {};
 var p = config.measurePerformance && performance && performance.mark && performance.measure ? performance : { mark: noop, measure: noop };
-var preamble = 'FA "5.0.0-beta2"';
+var preamble = 'FA "5.0.0-beta3"';
 
 var begin = function begin(name) {
   p.mark(preamble + ' ' + name + ' begins');
