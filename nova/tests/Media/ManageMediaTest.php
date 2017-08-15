@@ -42,6 +42,7 @@ class ManageMediaTest extends DatabaseTestCase
 			'mediable_type' => 'character',
 			'mediable_id' => $character->id,
 			'filename' => $media->filename,
+			'primary' => (int) true
 		]);
 
 		$this->assertFileExists(storage_path("app/public/characters/{$media->filename}"));
@@ -106,6 +107,18 @@ class ManageMediaTest extends DatabaseTestCase
 
 		$this->assertDatabaseHas('media', ['id' => $media1->id, 'primary' => 0]);
 		$this->assertDatabaseHas('media', ['id' => $media2->id, 'primary' => 1]);
+	}
+
+	public function the_first_media_item_is_set_as_the_primary_media()
+	{
+		$this->signIn();
+
+		$character = create('Nova\Characters\Character');
+
+		$media = create(Media::class, [
+			'mediable_type' => 'character',
+			'mediable_id' => $character->id,
+		]);
 	}
 
 	protected function base64Image()

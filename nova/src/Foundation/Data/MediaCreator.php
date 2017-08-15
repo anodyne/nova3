@@ -15,7 +15,15 @@ class MediaCreator implements Creatable
 			'mime_type' => $this->data['mime'],
 		]);
 
-		$media->update(['order' => $media->mediable->media->count()]);
+		$updateData = [
+			'order' => $media->mediable->media->count()
+		];
+
+		if ($updateData['order'] == 1) {
+			$updateData['primary'] = (int) true;
+		}
+
+		$media->update($updateData);
 
 		return $media;
 	}
