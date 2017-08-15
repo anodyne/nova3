@@ -5,7 +5,19 @@
 @section('content')
 	<h1>Manifest</h1>
 
-	<input type="search" v-model="search">
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group input-group">
+				<input type="text"
+					   class="form-control"
+					   placeholder="Find characters, departments, or positions"
+					   v-model="search">
+				<span class="input-group-btn">
+					<a href="#" class="btn btn-secondary" @click.prevent="search = ''">{!! icon('close') !!}</a>
+				</span>
+			</div>
+		</div>
+	</div>
 
 	<fieldset v-for="dept in filteredDepartments">
 		<legend>@{{ dept.name }}</legend>
@@ -69,24 +81,6 @@
 				</div>
 			</fieldset>
 		</div>
-
-		{{-- @if ($department->subDepartments->count() > 0)
-			@foreach ($department->subDepartments as $subDepartment)
-				<fieldset class="ml-3">
-					<legend>{{ $subDepartment->name }}</legend>
-
-					<div class="data-table">
-						@foreach ($subDepartment->positions as $subPosition)
-							<div class="row">
-								<div class="col">
-									<p class="mb-0">{{ $subPosition->name }}</p>
-								</div>
-							</div>
-						@endforeach
-					</div>
-				</fieldset>
-			@endforeach
-		@endif --}}
 	</fieldset>
 @endsection
 
@@ -100,70 +94,41 @@
 
 			computed: {
 				filteredDepartments () {
-					let self = this
-
-					const flattenItems = (items, key) => {
-						return items.reduce((flattenedItems, item) => {
-							flattenedItems.push(item)
-
-							if (Array.isArray(item[key])) {
-								flattenedItems = flattenedItems.concat(flattenItems(item[key], key))
-							}
-
-							return flattenedItems
-						}, [])
-					}
-					let items = pickDeep(this.departments, 'name', ['name'])
-					let filtered = items.filter(function (item) {
-						let regex = new RegExp(self.search, 'i')
-
-						return regex.test(item.name)
-					})
-					console.log(filtered)
-
-					return this.departments
-
-					return this.departments.filter(function (dept) {
-						let regex = new RegExp(self.search, 'i')
-
-						return regex.test(dept.name) ||
-							   regex.test(dept.positions.name) ||
-							   regex.test(dept.positions.characters.displayName) ||
-							   regex.test(dept.sub_departments.name) ||
-							   regex.test(dept.sub_departments.positions.name) ||
-							   regex.test(dept.sub_departments.positions.characters.displayName)
-					})
-
-					// department.name
-					// department.positions.name
-					// department.positions.characters.name
-					// department.sub_departments.name
-					// department.sub_departments.positions.name
-					// department.sub_departments.positions.characters.name
+					return filter(this.departments, this.search)
 				}
 			}
 		}
 
-		function pickDeep(collection, predicate, thisArg) {
-			if (_.isFunction(predicate)) {
-				predicate = _.iteratee(predicate, thisArg);
-			} else {
-				var keys = _.flatten(_.tail(arguments));
-				predicate = function(val, key) {
-					return _.includes(keys, key);
-				}
+		function filter (data, term) {
+			let matches = []
+			let regex = new RegExp(term, 'i')
+
+			if (! Array.isArray(data)) {
+				return matches
 			}
 
-			return _.transform(collection, function(memo, val, key) {
-				var include = predicate(val, key);
-				if (!include && _.isObject(val)) {
-					val = pickDeep(val, predicate);
-					include = !_.isEmpty(val);
+			data.forEach(function (d) {
+				if (regex.test(d.name)) {
+					matches.push(d)
+				} else {
+					let positionsResults = filter(d.positions, term)
+					if (positionsResults.length > 0) {
+						matches.push(Object.assign({}, d, { positions: positionsResults }))
+					}
+
+					let subDepartmentsResults = filter(d.sub_departments, term)
+					if (subDepartmentsResults.length > 0) {
+						matches.push(Object.assign({}, d, { sub_departments: subDepartmentsResults }))
+					}
+
+					let charactersResults = filter(d.characters, term)
+					if (charactersResults.length > 0) {
+						matches.push(Object.assign({}, d, { characters: charactersResults }))
+					}
 				}
-				if (include) {
-					_.isArray(collection) ? memo.push(val) : memo[key] = val;
-				}
-			});
+			})
+
+			return matches
 		}
 	</script>
 @endsection
