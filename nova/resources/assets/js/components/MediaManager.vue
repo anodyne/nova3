@@ -187,6 +187,8 @@
 						id: self.item.id,
 						type: self.type
 					}).then(function (response) {
+						self.files.push(response.data)
+
 						flash('Media saved', 'File saved', 'success')
 					})
 				})
