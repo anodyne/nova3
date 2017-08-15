@@ -425,15 +425,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: {
-		item: {
-			type: Object
-		},
-		base: {
-			type: String
-		},
-		overlay: {
-			type: String
-		}
+		item: { type: Object },
+		base: { type: String },
+		overlay: { type: String }
 	},
 
 	methods: {
@@ -1870,30 +1864,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: {
-		character: {
-			type: Object,
-			required: true
-		},
-		hasContent: {
-			type: Boolean,
-			default: true
-		},
-		showName: {
-			type: Boolean,
-			default: true
-		},
-		showMetadata: {
-			type: Boolean,
-			default: true
-		},
-		size: {
-			type: String,
-			default: ''
-		},
-		type: {
-			type: String,
-			default: 'link'
-		}
+		character: { type: Object, required: true },
+		hasContent: { type: Boolean, default: true },
+		showName: { type: Boolean, default: true },
+		showMetadata: { type: Boolean, default: true },
+		size: { type: String, default: '' },
+		type: { type: String, default: 'link' }
 	},
 
 	computed: {
@@ -1903,7 +1879,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		displayName: function displayName() {
 			var pieces = [];
 
-			if (this.character.rank) {
+			if (this.character.rank != null) {
 				pieces.push(this.character.rank.info.name);
 			}
 
@@ -1933,7 +1909,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": _vm.profileLink
     }
-  }) : _vm._e(), _vm._v(" "), (_vm.type != 'link') ? _c('div', {
+  }) : _vm._e(), _vm._v(" "), (_vm.type == 'image') ? _c('div', {
     class: _vm.classes,
     style: ('background-image:url(' + _vm.url + ')')
   }) : _vm._e(), _vm._v(" "), (_vm.hasContent) ? _c('div', [(_vm.size == 'lg') ? _c('div', {
@@ -2460,8 +2436,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			$.confirm({
 				title: "Delete Media",
-				columnClass: "medium",
 				content: "Are you sure you want to delete this media?",
+				columnClass: "medium",
 				theme: "dark",
 				buttons: {
 					confirm: {
