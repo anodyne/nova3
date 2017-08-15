@@ -54,6 +54,7 @@
 </template>
 
 <script>
+	import Croppie from 'croppie'
 	import pluralize from 'pluralize'
 
 	export default {
@@ -73,7 +74,7 @@
 
 		methods: {
 			createCropper () {
-				this.crop = $('#crop').croppie({
+				this.crop = new Croppie(document.getElementById('crop'), {
 					boundary: {
 						width: Math.min(500, window.innerWidth - 10),
 						height: Math.min(500, window.innerHeight - 10)
@@ -93,7 +94,7 @@
 				reader.onload = (event) => {
 					self.uploadedFile = event.target.result
 
-					self.crop.croppie('bind', {
+					self.crop.bind({
 						url: self.uploadedFile
 					})
 				}
@@ -179,7 +180,7 @@
 			saveFile () {
 				let self = this
 
-				this.crop.croppie('result', 'canvas').then(function (canvas) {
+				this.crop.result('canvas').then(function (canvas) {
 					axios.post(route('media.store'), {
 						image: canvas,
 						location: pluralize(self.type),
