@@ -41,6 +41,7 @@
 			</div>
 
 			<div class="items-menu-item" v-for="character in filteredCharacters" @click.prevent="selectCharacter(character)">
+				<span :class="statusClasses(character)" v-if="status"></span>
 				<character-avatar :character="character" size="xs" type="image"></character-avatar>
 			</div>
 		</div>
@@ -53,7 +54,9 @@
 
 	export default {
 		props: {
-			selected: { type: Object }
+			items: { type: Array },
+			selected: { type: Object },
+			status: { type: Boolean, default: false }
 		},
 
 		components: { CharacterAvatar },
@@ -96,6 +99,16 @@
 
 			showIcon (icon) {
 				return window.icon(icon)
+			},
+
+			statusClasses (character) {
+				let classes = ['status', 'sm', 'mr-2']
+
+				if (character.user) {
+					classes.push('secondary')
+				}
+
+				return classes
 			}
 		},
 
@@ -106,9 +119,13 @@
 				this.selectedCharacter = this.selected;
 			}
 
-			axios.get(route('api.characters')).then((response) => {
-				self.characters = response.data;
-			});
+			if (this.items) {
+				this.characters = this.items;
+			} else {
+				axios.get(route('api.characters')).then((response) => {
+					self.characters = response.data;
+				});
+			}
 		}
 	}
 </script>
