@@ -20,7 +20,7 @@ class AuthenticationTest extends DatabaseTestCase
 				'email' => $this->user->email,
 				'password' => 'secret'
 			])
-			->assertRedirect('/');
+			->assertRedirect(route('dashboard'));
 	}
 
 	/** @test **/
