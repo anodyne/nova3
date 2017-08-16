@@ -11,6 +11,7 @@
 	<title>@yield('title') &bull; {{ config('app.name', 'Laravel') }}</title>
 
 	<script defer src="{{ asset('assets/js/packs/regular.min.js') }}"></script>
+	<script defer src="{{ asset('assets/js/packs/solid.min.js') }}"></script>
 	<script defer src="{{ asset('assets/js/fontawesome.min.js') }}"></script>
 
 	<!-- Styles -->
@@ -38,10 +39,11 @@
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<div class="navbar-nav mr-auto">
-					<a class="nav-item nav-link" href="{{ route('home') }}">Home</a>
+					<a class="nav-item nav-link" href="{{ route('home') }}"><i class="fa fa-home fa-fw"></i> Home</a>
+					<a class="nav-item nav-link" href="{{ route('characters.manifest') }}"><i class="fa fa-users fa-fw"></i> Manifest</a>
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-							Admin <span class="caret"></span>
+							<i class="fa fa-cogs fa-fw"></i> Admin <span class="caret"></span>
 						</a>
 
 						<div class="dropdown-menu">
