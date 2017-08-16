@@ -160,7 +160,7 @@
 		</div>
 	@else
 		<div class="alert alert-warning">
-			{{ _m('users-error-not-found') }} <a href="{{ route('users.create') }}" class="alert-link">{{ _m('users-error-add') }}
+			{{ _m('users-error-not-found') }} <a href="{{ route('users.create') }}" class="alert-link">{{ _m('users-error-add') }}</a>
 		</div>
 	@endif
 @endsection

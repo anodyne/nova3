@@ -5,10 +5,11 @@
 			 v-if="selectedCharacter"
 			 @click.prevent="show = !show">
 			<div class="selected-item">
+				<span :class="statusClasses(selectedCharacter)" v-if="showStatus"></span>
 				<character-avatar :character="selectedCharacter" size="xs" type="image"></character-avatar>
 				<div class="ml-3" v-html="showIcon('more')"></div>
 			</div>
-			<input type="hidden" name="character_id" v-model="selectedCharacter.id">
+			<input type="hidden" :name="fieldName" v-model="selectedCharacter.id">
 		</div>
 		<div role="button"
 			 class="selected-toggle"
@@ -18,6 +19,7 @@
 				<span>No character</span>
 				<div class="ml-3" v-html="showIcon('more')"></div>
 			</div>
+			<input type="hidden" :name="fieldName" value="">
 		</div>
 
 		<div v-show="show" class="items-menu">
@@ -41,7 +43,7 @@
 			</div>
 
 			<div class="items-menu-item" v-for="character in filteredCharacters" @click.prevent="selectCharacter(character)">
-				<span :class="statusClasses(character)" v-if="status"></span>
+				<span :class="statusClasses(character)" v-if="showStatus"></span>
 				<character-avatar :character="character" size="xs" type="image"></character-avatar>
 			</div>
 		</div>
@@ -54,9 +56,10 @@
 
 	export default {
 		props: {
+			fieldName: { type: String, default: 'character_id' },
 			items: { type: Array },
 			selected: { type: Object },
-			status: { type: Boolean, default: false }
+			showStatus: { type: Boolean, default: false }
 		},
 
 		components: { CharacterAvatar },
@@ -78,10 +81,15 @@
 
 				return this.characters.filter(function (character) {
 					let searchRegex = new RegExp(self.search, 'i');
+					let userSearch;
+
+					if (character.user) {
+						userSearch = searchRegex.test(character.user.displayName)
+					}
 
 					return searchRegex.test(character.name)
-						|| searchRegex.test(character.user.displayName)
-						|| searchRegex.test(character.position.name);
+						|| searchRegex.test(character.position.name)
+						|| userSearch;
 				});
 			}
 		},
@@ -104,8 +112,12 @@
 			statusClasses (character) {
 				let classes = ['status', 'sm', 'mr-2']
 
-				if (character.user) {
+				if (character.user && !character.isPrimaryCharacter) {
 					classes.push('secondary')
+				}
+
+				if (character.user && character.isPrimaryCharacter) {
+					classes.push('primary')
 				}
 
 				return classes

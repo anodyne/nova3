@@ -21,7 +21,7 @@ class User extends Authenticatable
 	protected $table = 'users';
 	protected $fillable = [
 		'name', 'email', 'password', 'nickname', 'status', 'last_sign_in',
-		'remember_token',
+		'remember_token', 'primary_character',
 	];
 	protected $hidden = ['password', 'remember_token'];
 	protected $appends = ['avatarImage', 'displayName'];
@@ -36,6 +36,11 @@ class User extends Authenticatable
 	public function characters()
 	{
 		return $this->hasMany(Character::class);
+	}
+
+	public function primaryCharacter()
+	{
+		return $this->hasOne(Character::class, 'id', 'primary_character');
 	}
 
 	public function roles()

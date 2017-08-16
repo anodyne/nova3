@@ -48,9 +48,41 @@
 			</div>
 		</div>
 
+		<div class="row">
+			@if ($user->characters->count() > 0)
+				<div class="col-md-4">
+					<div class="form-group">					
+						<label class="form-control-label">{{ _m('users-primary-character') }}</label>
+						<div>
+							@if ($user->primaryCharacter)
+								<character-picker :items="{{ $user->characters }}"
+												  field-name="primary_character"
+												  :selected="{{ $user->primaryCharacter }}"
+												  :show-status="true">
+								</character-picker>
+							@else
+								<character-picker :items="{{ $user->characters }}"
+												  field-name="primary_character"
+												  :show-status="true">
+								</character-picker>
+							@endif
+						</div>
+					</div>
+				</div>
+			@else
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="form-control-label">{{ _m('users-primary-character') }}</label>
+						<div class="alert alert-warning">
+							{{ _m('users-error-no-characters') }} <a href="{{ route('characters.link') }}" class="alert-link">{{ _m('users-error-assign-character') }}</a>
+						</div>
+					</div>
+				</div>
+			@endif
+		</div>
+
 		<fieldset>
 			<legend>{{ _m('image', [1]) }}</legend>
-
 			<media-manager :item="{{ $user }}" type="user" :allow-multiple="false"></media-manager>
 		</fieldset>
 

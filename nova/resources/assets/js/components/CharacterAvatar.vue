@@ -1,7 +1,13 @@
 <template>
 	<div class="avatar-container" v-cloak>
-		<a :href="profileLink" :class="classes" :style="'background-image:url(' + url + ')'" v-if="type == 'link'"></a>
-		<div :class="classes" :style="'background-image:url(' + url + ')'" v-if="type == 'image'"></div>
+		<div class="avatar-image">
+			<a :href="profileLink" :class="classes" :style="'background-image:url(' + url + ')'" v-if="type == 'link'"></a>
+			<div :class="classes" :style="'background-image:url(' + url + ')'" v-if="type == 'image'"></div>
+			<span :class="statusClasses"
+				  :title="statusTooltip"
+				  data-toggle="tooltip"
+				  v-if="showStatus"></span>
+		</div>
 
 		<div v-if="hasContent">
 			<div class="avatar-label ml-3" v-if="size == 'lg'" v-cloak>
@@ -41,6 +47,7 @@
 			hasContent: { type: Boolean, default: true },
 			showName: { type: Boolean, default: true },
 			showMetadata: { type: Boolean, default: true },
+			showStatus: { type: Boolean, default: false },
 			size: { type: String, default: '' },
 			type: { type: String, default: 'link' }
 		},
@@ -64,6 +71,36 @@
 
 			profileLink () {
 				return '/character/' + this.character.id;
+			},
+
+			statusClasses () {
+				let classes = ['status']
+
+				if (this.character.user && !this.character.isPrimaryCharacter) {
+					classes.push('secondary')
+				}
+
+				if (this.character.user && this.character.isPrimaryCharacter) {
+					classes.push('primary')
+				}
+
+				return classes
+			},
+
+			statusTooltip () {
+				if (window.Nova.user == null) {
+					return ''
+				}
+
+				if (this.character.user) {
+					if (this.character.isPrimaryCharacter) {
+						return 'Primary character of ' + this.character.user.displayName
+					} else {
+						return 'PNPC of ' + this.character.user.displayName
+					}
+				}
+
+				return 'NPC'
 			},
 
 			url () {

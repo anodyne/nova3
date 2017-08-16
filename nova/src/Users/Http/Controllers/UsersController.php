@@ -67,6 +67,8 @@ class UsersController extends Controller
 	{
 		$this->authorize('update', $user);
 
+		$user->load('characters.user', 'characters.position', 'primaryCharacter.position');
+
 		$roles = Role::with('permissions')->get();
 
 		$genders = [

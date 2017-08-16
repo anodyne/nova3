@@ -16,7 +16,7 @@ class Character extends Eloquent
 	protected $fillable = ['name', 'user_id', 'position_id', 'rank_id', 'status'];
 	protected $presenter = Presenters\CharacterPresenter::class;
 	protected $with = ['media', 'rank.info'];
-	protected $appends = ['avatarImage'];
+	protected $appends = ['avatarImage', 'isPrimaryCharacter'];
 
 	//--------------------------------------------------------------------------
 	// Relationships
@@ -44,5 +44,19 @@ class Character extends Eloquent
 	public function getAvatarImageAttribute()
 	{
 		return $this->present()->avatarImage;
+	}
+
+	public function getIsPrimaryCharacterAttribute()
+	{
+		return $this->isPrimaryCharacter();
+	}
+
+	public function isPrimaryCharacter()
+	{
+		if ($this->user) {
+			return $this->user->primary_character == $this->id;
+		}
+
+		return false;
 	}
 }

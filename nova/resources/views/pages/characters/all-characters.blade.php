@@ -98,7 +98,7 @@
 					<rank :item="character.rank"></rank>
 				</div>
 				<div class="col">
-					<character-avatar :character="character" type="image"></character-avatar>
+					<character-avatar :character="character" type="image" :show-status="true"></character-avatar>
 				</div>
 				<div class="col col-auto">
 					<div class="dropdown">
@@ -147,7 +147,7 @@
 		</div>
 	@else
 		<div class="alert alert-warning">
-			{{ _m('characters-error-not-found') }} <a href="{{ route('characters.create') }}" class="alert-link">{{ _m('characters-error-add') }}
+			{{ _m('characters-error-not-found') }} <a href="{{ route('characters.create') }}" class="alert-link">{{ _m('characters-error-add') }}</a>
 		</div>
 	@endif
 @endsection
