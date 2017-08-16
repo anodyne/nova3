@@ -59,7 +59,7 @@ class CharactersController extends Controller
 	{
 		$this->authorize('update', $character);
 
-		$character->load(['position', 'rank.info', 'user']);
+		$character->load(['position', 'user']);
 
 		return view('pages.characters.update-character', compact('character'));
 	}
