@@ -11,6 +11,11 @@ class DashboardController extends Controller
 		$this->middleware('auth');
 	}
 
+	public function index()
+	{
+		return view('pages.dashboard.index');
+	}
+
 	public function characters()
 	{
 		$this->user->load('characters.position');

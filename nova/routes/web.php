@@ -137,5 +137,7 @@ Route::patch('admin/media', 'Nova\Foundation\Http\Controllers\MediaController@re
 /**
  * Dashboard
  */
+Route::get('dashboard', 'Nova\Dashboard\Http\Controllers\DashboardController@index')
+	->name('dashboard');
 Route::get('dashboard/characters', 'Nova\Dashboard\Http\Controllers\DashboardController@characters')
 	->name('dashboard.characters');
