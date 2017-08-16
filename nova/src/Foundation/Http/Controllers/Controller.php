@@ -15,7 +15,7 @@ class Controller extends BaseController
 	{
 		$this->middleware(function ($request, $next) {
 			// Set the current user on the controller
-			$this->_user = $request->user();
+			$this->user = $request->user();
 
 			// Share the current user with every view
 			view()->share('_user', $request->user());
