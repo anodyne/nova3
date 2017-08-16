@@ -47,6 +47,18 @@
 			</div>
 		</div>
 
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="form-control-label">{{ _m('users-gender') }}</label>
+					<div>
+						{!! Form::select('gender', $genders, null, ['class' => 'custom-select']) !!}
+					</div>
+					<small class="form-text text-muted">{{ _m('users-gender-explain') }}</small>
+				</div>
+			</div>
+		</div>
+
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary mr-2">{{ _m('users-profile-update') }}</button>
 			<a href="{{ route('profile.show', $user) }}" class="btn btn-link">{{ _m('cancel') }}</a>

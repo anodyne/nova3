@@ -24,7 +24,13 @@ class ProfilesController extends Controller
 	{
 		$this->authorize('updateProfile', $user);
 
-		return view('pages.users.update-profile', compact('user'));
+		$genders = [
+			'male' => _m('users-gender-option-male'),
+			'female' => _m('users-gender-option-female'),
+			'neutral' => _m('users-gender-option-neutral'),
+		];
+
+		return view('pages.users.update-profile', compact('user', 'genders'));
 	}
 
 	public function update(User $user)
