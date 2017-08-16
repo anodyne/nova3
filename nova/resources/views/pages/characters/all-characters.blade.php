@@ -85,7 +85,7 @@
 								</button>
 
 								<div class="dropdown-menu dropdown-menu-right">
-									<a href="{{ route('ranks.info.index') }}" class="dropdown-item">{!! icon('link') !!} {{ _m('characters-link') }}</a>
+									<a href="{{ route('characters.link') }}" class="dropdown-item">{!! icon('link') !!} {{ _m('characters-link') }}</a>
 								</div>
 							</div>
 						@endcan
