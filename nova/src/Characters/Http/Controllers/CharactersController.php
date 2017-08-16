@@ -19,7 +19,7 @@ class CharactersController extends Controller
 		$this->authorize('manage', $characterClass);
 
 		$characters = Character::withTrashed()
-			->with(['rank.info', 'position.department', 'user'])
+			->with(['position', 'user'])
 			->get();
 
 		return view('pages.characters.all-characters', compact('characters', 'characterClass'));

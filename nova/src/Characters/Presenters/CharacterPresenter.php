@@ -12,8 +12,6 @@ class CharacterPresenter extends Presenter
 		}
 
 		return asset("assets/images/no-avatar.svg");
-
-		return Gravatar::image($this->entity->user->email, null, null, null, true)."?s=240&d=retro&r=pg";
 	}
 
 	public function name()
