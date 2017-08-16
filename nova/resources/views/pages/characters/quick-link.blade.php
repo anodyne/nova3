@@ -5,6 +5,16 @@
 @section('content')
 	<h1>Quick Link</h1>
 
+	<div class="d-flex align-items-center mb-3">
+		<span class="status secondary sm mr-1"></span> Status
+	</div>
+	<div class="d-flex align-items-center mb-3">
+		<span class="status mr-1"></span> Status
+	</div>
+	<div class="d-flex align-items-center mb-3">
+		<span class="status lg mr-1"></span> Status
+	</div>
+
 	<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">
@@ -21,7 +31,7 @@
 			<div class="form-group">
 				<label class="form-control-label">{{ _m('characters', [1]) }}</label>
 				<div>
-					<character-picker></character-picker>
+					<character-picker :status="true"></character-picker>
 				</div>
 			</div>
 		</div>
@@ -34,4 +44,7 @@
 @endsection
 
 @section('js')
+	<script>
+		vue = {}
+	</script>
 @endsection

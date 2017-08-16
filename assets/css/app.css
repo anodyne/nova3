@@ -478,6 +478,48 @@ fieldset fieldset legend {
   display: none !important;
 }
 
+.status {
+  background-color: #ced4da;
+  border-radius: 50%;
+  height: 12px;
+  width: 12px;
+}
+
+.status.sm {
+  height: 8px;
+  width: 8px;
+}
+
+.status.lg {
+  height: 24px;
+  width: 24px;
+}
+
+.status.active,
+.status.primary {
+  background-color: #007bff;
+}
+
+.status.danger {
+  background-color: #dc3545;
+}
+
+.status.info {
+  background-color: #17a2b8;
+}
+
+.status.secondary {
+  background-color: #868e96;
+}
+
+.status.success {
+  background-color: #28a745;
+}
+
+.status.warning {
+  background-color: #ffc107;
+}
+
 .animated.animated-2x {
   -webkit-animation-duration: .5s;
   -webkit-animation-fill-mode: both;
