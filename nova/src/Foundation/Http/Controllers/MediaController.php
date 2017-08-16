@@ -38,7 +38,7 @@ class MediaController extends Controller
 	{
 		$media->makePrimary();
 
-		return response($media, 200);
+		return response($media->fresh(), 200);
 	}
 
 	public function destroy(Media $media)
