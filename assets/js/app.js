@@ -1859,6 +1859,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1868,6 +1874,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		hasContent: { type: Boolean, default: true },
 		showName: { type: Boolean, default: true },
 		showMetadata: { type: Boolean, default: true },
+		showStatus: { type: Boolean, default: false },
 		size: { type: String, default: '' },
 		type: { type: String, default: 'link' }
 	},
@@ -1890,6 +1897,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		profileLink: function profileLink() {
 			return '/character/' + this.character.id;
 		},
+		statusClasses: function statusClasses() {
+			var classes = ['status'];
+
+			if (this.character.user && !this.character.isPrimaryCharacter) {
+				classes.push('secondary');
+			}
+
+			if (this.character.user && this.character.isPrimaryCharacter) {
+				classes.push('primary');
+			}
+
+			return classes;
+		},
+		statusTooltip: function statusTooltip() {
+			if (window.Nova.user == null) {
+				return '';
+			}
+
+			if (this.character.user) {
+				if (this.character.isPrimaryCharacter) {
+					return 'Primary character of ' + this.character.user.displayName;
+				} else {
+					return 'PNPC of ' + this.character.user.displayName;
+				}
+			}
+
+			return 'NPC';
+		},
 		url: function url() {
 			return this.character.avatarImage;
 		}
@@ -1903,6 +1938,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "avatar-container"
+  }, [_c('div', {
+    staticClass: "avatar-image"
   }, [(_vm.type == 'link') ? _c('a', {
     class: _vm.classes,
     style: ('background-image:url(' + _vm.url + ')'),
@@ -1912,7 +1949,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }) : _vm._e(), _vm._v(" "), (_vm.type == 'image') ? _c('div', {
     class: _vm.classes,
     style: ('background-image:url(' + _vm.url + ')')
-  }) : _vm._e(), _vm._v(" "), (_vm.hasContent) ? _c('div', [(_vm.size == 'lg') ? _c('div', {
+  }) : _vm._e(), _vm._v(" "), (_vm.showStatus) ? _c('span', {
+    class: _vm.statusClasses,
+    attrs: {
+      "title": _vm.statusTooltip,
+      "data-toggle": "tooltip"
+    }
+  }) : _vm._e()]), _vm._v(" "), (_vm.hasContent) ? _c('div', [(_vm.size == 'lg') ? _c('div', {
     staticClass: "avatar-label ml-3"
   }, [(_vm.showName) ? _c('span', {
     staticClass: "h1"
@@ -2048,15 +2091,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: {
+		fieldName: { type: String, default: 'character_id' },
 		items: { type: Array },
 		selected: { type: Object },
-		status: { type: Boolean, default: false }
+		showStatus: { type: Boolean, default: false }
 	},
 
 	components: { CharacterAvatar: __WEBPACK_IMPORTED_MODULE_0__CharacterAvatar_vue___default.a },
@@ -2079,8 +2125,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			return this.characters.filter(function (character) {
 				var searchRegex = new RegExp(self.search, 'i');
+				var userSearch = void 0;
 
-				return searchRegex.test(character.name) || searchRegex.test(character.user.displayName) || searchRegex.test(character.position.name);
+				if (character.user) {
+					userSearch = searchRegex.test(character.user.displayName);
+				}
+
+				return searchRegex.test(character.name) || searchRegex.test(character.position.name) || userSearch;
 			});
 		}
 	},
@@ -2100,8 +2151,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		statusClasses: function statusClasses(character) {
 			var classes = ['status', 'sm', 'mr-2'];
 
-			if (character.user) {
+			if (character.user && !character.isPrimaryCharacter) {
 				classes.push('secondary');
+			}
+
+			if (character.user && character.isPrimaryCharacter) {
+				classes.push('primary');
 			}
 
 			return classes;
@@ -2151,7 +2206,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "selected-item"
-  }, [_c('character-avatar', {
+  }, [(_vm.showStatus) ? _c('span', {
+    class: _vm.statusClasses(_vm.selectedCharacter)
+  }) : _vm._e(), _vm._v(" "), _c('character-avatar', {
     attrs: {
       "character": _vm.selectedCharacter,
       "size": "xs",
@@ -2171,7 +2228,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     attrs: {
       "type": "hidden",
-      "name": "character_id"
+      "name": _vm.fieldName
     },
     domProps: {
       "value": (_vm.selectedCharacter.id)
@@ -2200,7 +2257,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "innerHTML": _vm._s(_vm.showIcon('more'))
     }
-  })])]) : _vm._e(), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": _vm.fieldName,
+      "value": ""
+    }
+  })]) : _vm._e(), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -2277,7 +2340,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.selectCharacter(character)
         }
       }
-    }, [(_vm.status) ? _c('span', {
+    }, [(_vm.showStatus) ? _c('span', {
       class: _vm.statusClasses(character)
     }) : _vm._e(), _vm._v(" "), _c('character-avatar', {
       attrs: {

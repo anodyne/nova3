@@ -3,7 +3,7 @@
 }
 
 .data-table > .row {
-  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  border-top: 1px solid #dee2e6;
   margin-left: 0;
   margin-right: 0;
   padding: .75rem 0;
@@ -11,7 +11,7 @@
 
 .data-table > .row.header,
 .data-table > .row .header {
-  background: rgba(0, 0, 0, 0.075) !important;
+  background: #e9ecef !important;
   font-weight: bold;
 }
 
@@ -30,12 +30,16 @@
 }
 
 .data-table.striped > .row:nth-child(odd) {
-  background: rgba(0, 0, 0, 0.025);
+  background: #f8f9fa;
+}
+
+.data-table.striped > .row:nth-child(odd) .avatar-image .status {
+  border-color: #f8f9fa;
 }
 
 .data-table.bordered > div {
-  border-left: 1px solid rgba(0, 0, 0, 0.15);
-  border-right: 1px solid rgba(0, 0, 0, 0.15);
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
 }
 
 .data-table.bordered > div:first-child {
@@ -43,12 +47,12 @@
 }
 
 .data-table.bordered > div:last-child {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid #dee2e6;
   border-radius: 0 0 0.25rem 0.25rem;
 }
 
 .data-table.bordered > div:nth-child(1):nth-last-child(1) {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid #dee2e6;
   border-radius: 0.25rem;
 }
 
@@ -122,6 +126,7 @@ h1 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  position: relative;
 }
 
 .avatar-container .avatar-label {
@@ -132,6 +137,19 @@ h1 {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.avatar-container .avatar-image {
+  position: relative;
+}
+
+.avatar-container .avatar-image .status {
+  border: 4px solid #fff;
+  bottom: 0;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  position: absolute;
+  right: 0;
 }
 
 .avatar-container .avatar {
@@ -216,6 +234,10 @@ h1 {
   font-weight: 700;
 }
 
+.item-picker .selected-item .avatar-label {
+  cursor: default;
+}
+
 .item-picker .items-menu {
   background: #fff;
   border: 1px solid #e9ecef;
@@ -238,6 +260,10 @@ h1 {
 
 .item-picker .items-menu .items-menu-alert .alert {
   border-radius: 0;
+}
+
+.item-picker .items-menu .avatar-label {
+  cursor: pointer;
 }
 
 .item-picker .items-menu-item {
@@ -439,6 +465,10 @@ label.custom-control {
   background-color: rgba(0, 123, 255, 0.2);
   border-color: rgba(0, 123, 255, 0.5);
   color: #007bff;
+}
+
+fieldset {
+  margin-bottom: .75rem;
 }
 
 fieldset fieldset legend {

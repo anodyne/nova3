@@ -2,14 +2,14 @@
 	margin: 1rem 0;
 
 	> .row {
-		border-top: 1px solid rgba(0, 0, 0, .15);
+		border-top: 1px solid $gray-300;
 		margin-left: 0;
 		margin-right: 0;
 		padding: .75rem 0;
 
 		&.header,
 		.header {
-			background: rgba(0, 0, 0, .075) !important;
+			background: $gray-200 !important;
 			font-weight: bold;
 
 			.title {
@@ -19,10 +19,6 @@
 			.btn-toolbar {
 				margin: 0;
 			}
-
-			// > div:first-child {
-			// 	margin-bottom: $space-sm;
-			// }
 		}
 
 		> .col {
@@ -36,26 +32,30 @@
 
 	&.striped {
 		> .row:nth-child(odd) {
-			background: rgba(0, 0, 0, .025);
+			background: $gray-100;
+
+			.avatar-image .status {
+				border-color: $gray-100;
+			}
 		}
 	}
 
 	&.bordered {
 		> div {
-			border-left: 1px solid rgba(0, 0, 0, .15);
-			border-right: 1px solid rgba(0, 0, 0, .15);
+			border-left: 1px solid $gray-300;
+			border-right: 1px solid $gray-300;
 
 			&:first-child {
 				border-radius: $radius $radius 0 0;
 			}
 
 			&:last-child {
-				border-bottom: 1px solid rgba(0, 0, 0, .15);
+				border-bottom: 1px solid $gray-300;
 				border-radius: 0 0 $radius $radius;
 			}
 
 			&:nth-child(1):nth-last-child(1) {
-				border-bottom: 1px solid rgba(0, 0, 0, .15);
+				border-bottom: 1px solid $gray-300;
 				border-radius: $radius;
 			}
 		}
