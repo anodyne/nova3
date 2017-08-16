@@ -6,7 +6,7 @@ trait HasMedia
 {
 	public function getPrimaryMedia()
 	{
-		$media = $this->media();
+		$media = $this->media;
 
 		if ($media->count() == 1) {
 			return $media->first();
@@ -17,7 +17,7 @@ trait HasMedia
 
 	public function hasMedia()
 	{
-		return $this->media()->count() > 0;
+		return $this->media->count() > 0;
 	}
 
 	public function media()
