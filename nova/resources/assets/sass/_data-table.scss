@@ -30,6 +30,12 @@
 		}
 	}
 
+	&.clean {
+		> .row {
+			border: none;
+		}
+	}
+
 	&.striped {
 		> .row:nth-child(odd) {
 			background: $gray-100;

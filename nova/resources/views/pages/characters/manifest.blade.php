@@ -38,7 +38,7 @@
 	<fieldset v-for="dept in filteredDepartments">
 		<legend>@{{ dept.name }}</legend>
 
-		<div class="data-table">
+		<div class="data-table clean striped">
 			<div class="row align-items-center"
 				 v-for="position in dept.positions">
 				<div class="col" v-show="position.characters.length > 0">
@@ -48,6 +48,9 @@
 						</div>
 						<div class="col">
 							<character-avatar :character="character"></character-avatar>
+						</div>
+						<div class="col col-auto">
+							<a href="#"><img src="{{ asset('assets/images/starfleet-vector-logo.svg') }}"></a>
 						</div>
 					</div>
 				</div>
@@ -69,7 +72,7 @@
 			<fieldset class="ml-3" v-for="subDept in dept.sub_departments">
 				<legend>@{{ subDept.name }}</legend>
 
-				<div class="data-table">
+				<div class="data-table clean striped">
 					<div class="row align-items-center"
 						 v-for="subPosition in subDept.positions">
 						<div class="col" v-show="subPosition.characters.length > 0">
@@ -79,6 +82,9 @@
 								</div>
 								<div class="col">
 									<character-avatar :character="character"></character-avatar>
+								</div>
+								<div class="col col-auto">
+									<a href="#"><img src="{{ asset('assets/images/starfleet-vector-logo.svg') }}"></a>
 								</div>
 							</div>
 						</div>
@@ -142,7 +148,7 @@
 					<input name="layout" type="radio" value="card" class="custom-control-input" v-model="layout">
 					<span class="custom-control-indicator"></span>
 					<span class="custom-control-description d-flex align-items-center">
-						<i class="far fa-address-card fa-lg mr-2 text-muted"></i>
+						{!! icon('card', 'fa-lg mr-2 text-muted') !!}
 						<span>Cards</span>
 					</span>
 				</label>
