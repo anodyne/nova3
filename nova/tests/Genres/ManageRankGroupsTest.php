@@ -13,13 +13,13 @@ class ManageRankGroupsTest extends DatabaseTestCase
 
 		$this->withExceptionHandling();
 
-		$this->get(route('ranks.groups.index'))->assertRedirect(route('login'));
-		$this->get(route('ranks.groups.create'))->assertRedirect(route('login'));
-		$this->post(route('ranks.groups.store'))->assertRedirect(route('login'));
-		$this->patch(route('ranks.groups.update'))->assertRedirect(route('login'));
-		$this->delete(route('ranks.groups.destroy', $group))->assertRedirect(route('login'));
-		$this->patch(route('ranks.groups.reorder'))->assertRedirect(route('login'));
-		$this->post(route('ranks.groups.duplicate', $group))->assertRedirect(route('login'));
+		$this->get(route('ranks.groups.index'))->assertRedirect(route('sign-in'));
+		$this->get(route('ranks.groups.create'))->assertRedirect(route('sign-in'));
+		$this->post(route('ranks.groups.store'))->assertRedirect(route('sign-in'));
+		$this->patch(route('ranks.groups.update'))->assertRedirect(route('sign-in'));
+		$this->delete(route('ranks.groups.destroy', $group))->assertRedirect(route('sign-in'));
+		$this->patch(route('ranks.groups.reorder'))->assertRedirect(route('sign-in'));
+		$this->post(route('ranks.groups.duplicate', $group))->assertRedirect(route('sign-in'));
 
 		$this->signIn();
 

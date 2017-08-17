@@ -18,12 +18,12 @@ class ManagePermissionsTest extends DatabaseTestCase
 	{
 		$this->withExceptionHandling();
 
-		$this->get(route('permissions.index'))->assertRedirect(route('login'));
-		$this->get(route('permissions.create'))->assertRedirect(route('login'));
-		$this->post(route('permissions.store'))->assertRedirect(route('login'));
-		$this->get(route('permissions.edit', $this->permission))->assertRedirect(route('login'));
-		$this->patch(route('permissions.update', $this->permission))->assertRedirect(route('login'));
-		$this->delete(route('permissions.destroy', $this->permission))->assertRedirect(route('login'));
+		$this->get(route('permissions.index'))->assertRedirect(route('sign-in'));
+		$this->get(route('permissions.create'))->assertRedirect(route('sign-in'));
+		$this->post(route('permissions.store'))->assertRedirect(route('sign-in'));
+		$this->get(route('permissions.edit', $this->permission))->assertRedirect(route('sign-in'));
+		$this->patch(route('permissions.update', $this->permission))->assertRedirect(route('sign-in'));
+		$this->delete(route('permissions.destroy', $this->permission))->assertRedirect(route('sign-in'));
 
 		$this->signIn();
 

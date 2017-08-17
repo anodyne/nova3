@@ -1,5 +1,7 @@
 @extends('layouts.auth')
 
+@section('title', _m('auth-reset-password'))
+
 @section('content')
 	<h1>{{ _m('auth-reset-password') }}</h1>
 

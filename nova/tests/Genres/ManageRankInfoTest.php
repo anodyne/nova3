@@ -11,11 +11,11 @@ class ManageRankInfoTest extends DatabaseTestCase
 
 		$this->withExceptionHandling();
 
-		$this->get(route('ranks.info.index'))->assertRedirect(route('login'));
-		$this->get(route('ranks.info.create'))->assertRedirect(route('login'));
-		$this->post(route('ranks.info.store'))->assertRedirect(route('login'));
-		$this->patch(route('ranks.info.update'))->assertRedirect(route('login'));
-		$this->delete(route('ranks.info.destroy', $info))->assertRedirect(route('login'));
+		$this->get(route('ranks.info.index'))->assertRedirect(route('sign-in'));
+		$this->get(route('ranks.info.create'))->assertRedirect(route('sign-in'));
+		$this->post(route('ranks.info.store'))->assertRedirect(route('sign-in'));
+		$this->patch(route('ranks.info.update'))->assertRedirect(route('sign-in'));
+		$this->delete(route('ranks.info.destroy', $info))->assertRedirect(route('sign-in'));
 
 		$this->signIn();
 

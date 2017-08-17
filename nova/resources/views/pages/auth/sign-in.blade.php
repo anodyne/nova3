@@ -1,9 +1,26 @@
 @extends('layouts.auth')
 
+@section('title', _m('sign-in'))
+
 @section('content')
 	<h1>{{ _m('sign-in') }}</h1>
 
-	<form role="form" method="POST" action="{{ route('login') }}">
+	<div class="alert alert-info">
+		<h4 class="alert-heading">Demo Mode</h4>
+		<p>You can sign in with one of these demo accounts:</p>
+
+		<dl>
+			<dt>System Administrator</dt>
+			<dd>Email: admin@example.com</dd>
+			<dd>Password: <code>secret</code></dd>
+
+			<dt>General User</dt>
+			<dd>Email: user@example.com</dd>
+			<dd>Password: <code>secret</code></dd>
+		</dl>
+	</div>
+
+	<form role="form" method="POST" action="{{ route('sign-in') }}">
 		{{ csrf_field() }}
 		<input type="hidden" name="remember" value="true">
 

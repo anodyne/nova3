@@ -19,12 +19,12 @@ class ManageRolesTest extends DatabaseTestCase
 	{
 		$this->withExceptionHandling();
 
-		$this->get(route('roles.index'))->assertRedirect(route('login'));
-		$this->get(route('roles.create'))->assertRedirect(route('login'));
-		$this->post(route('roles.store'))->assertRedirect(route('login'));
-		$this->get(route('roles.edit', $this->role))->assertRedirect(route('login'));
-		$this->patch(route('roles.update', $this->role))->assertRedirect(route('login'));
-		$this->delete(route('roles.destroy', $this->role))->assertRedirect(route('login'));
+		$this->get(route('roles.index'))->assertRedirect(route('sign-in'));
+		$this->get(route('roles.create'))->assertRedirect(route('sign-in'));
+		$this->post(route('roles.store'))->assertRedirect(route('sign-in'));
+		$this->get(route('roles.edit', $this->role))->assertRedirect(route('sign-in'));
+		$this->patch(route('roles.update', $this->role))->assertRedirect(route('sign-in'));
+		$this->delete(route('roles.destroy', $this->role))->assertRedirect(route('sign-in'));
 
 		$this->signIn();
 

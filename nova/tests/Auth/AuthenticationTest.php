@@ -16,7 +16,7 @@ class AuthenticationTest extends DatabaseTestCase
 	/** @test **/
 	public function a_user_can_sign_in()
 	{
-		$this->post('/login', [
+		$this->post('/sign-in', [
 				'email' => $this->user->email,
 				'password' => 'secret'
 			])
@@ -30,7 +30,7 @@ class AuthenticationTest extends DatabaseTestCase
 
 		$this->assertNotEquals(null, auth()->user());
 
-		$this->post(route('logout'));
+		$this->post(route('sign-out'));
 
 		$this->assertEquals(null, auth()->user());
 	}
@@ -39,7 +39,7 @@ class AuthenticationTest extends DatabaseTestCase
 	public function a_user_gets_locked_out_after_five_wrong_sign_in_attempts()
 	{
 		for ($a = 1; $a <= 6; $a++) {
-			$response = $this->json('POST', '/login', [
+			$response = $this->json('POST', '/sign-in', [
 				'email' => $this->user->email,
 				'password' => 'foo'
 			]);
@@ -53,13 +53,13 @@ class AuthenticationTest extends DatabaseTestCase
 	{
 		$this->withExceptionHandling();
 
-		$this->post('/login', ['email' => '', 'password' => 'password'])
+		$this->post('/sign-in', ['email' => '', 'password' => 'password'])
 			->assertSessionHasErrors('email');
 
-		$this->post('/login', ['email' => 'foo', 'password' => 'password'])
+		$this->post('/sign-in', ['email' => 'foo', 'password' => 'password'])
 			->assertSessionHasErrors('email');
 
-		$this->post('/login', ['email' => new \stdClass, 'password' => 'password'])
+		$this->post('/sign-in', ['email' => new \stdClass, 'password' => 'password'])
 			->assertSessionHasErrors('email');
 	}
 
@@ -68,10 +68,10 @@ class AuthenticationTest extends DatabaseTestCase
 	{
 		$this->withExceptionHandling();
 
-		$this->post('/login', ['email' => 'foo@example.com', 'password' => ''])
+		$this->post('/sign-in', ['email' => 'foo@example.com', 'password' => ''])
 			->assertSessionHasErrors('password');
 
-		$this->post('/login', ['email' => 'foo@example.com', 'password' => new \stdClass])
+		$this->post('/sign-in', ['email' => 'foo@example.com', 'password' => new \stdClass])
 			->assertSessionHasErrors('password');
 	}
 
@@ -81,7 +81,7 @@ class AuthenticationTest extends DatabaseTestCase
 		$user = $this->createUser();
 		$user->update(['password' => null]);
 
-		$this->post('/login', [
+		$this->post('/sign-in', [
 				'email' => $user->email,
 				'password' => 'secret'
 			])
@@ -93,7 +93,7 @@ class AuthenticationTest extends DatabaseTestCase
 	{
 		$user = $this->createUser();
 
-		$this->post('/login', [
+		$this->post('/sign-in', [
 			'email' => $user->email,
 			'password' => 'secret'
 		]);
@@ -104,6 +104,6 @@ class AuthenticationTest extends DatabaseTestCase
 	/** @test **/
 	public function has_no_errors()
 	{
-		$this->get(route('login'))->assertSuccessful();
+		$this->get(route('sign-in'))->assertSuccessful();
 	}
 }

@@ -8,9 +8,9 @@ Route::get('/', function () {
 
 Route::group(['namespace' => 'Nova\Auth\Http\Controllers'], function () {
 	// Authentication Routes...
-	Route::get('login', 'LoginController@showLoginForm')->name('login');
-	Route::post('login', 'LoginController@login');
-	Route::post('logout', 'LoginController@logout')->name('logout');
+	Route::get('sign-in', 'SignInController@showSignInForm')->name('sign-in');
+	Route::post('sign-in', 'SignInController@login');
+	Route::post('sign-out', 'SignInController@logout')->name('sign-out');
 
 	// Password Reset Routes...
 	Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm')

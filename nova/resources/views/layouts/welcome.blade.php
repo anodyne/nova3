@@ -157,17 +157,17 @@
 							<a class="dropdown-item" href="{{ route('characters.index') }}">Characters</a>
 						</div>
 					</span>
-					<a href="{{ route('logout') }}"
+					<a href="{{ route('sign-out') }}"
                        onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
                         Sign Out
                     </a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    <form id="logout-form" action="{{ route('sign-out') }}" method="POST" style="display: none;">
                         {{ csrf_field() }}
                     </form>
 				@else
-					<a href="{{ route('login') }}">Sign In</a>
+					<a href="{{ route('sign-in') }}">Sign In</a>
 					<a href="{{ route('join') }}">Register</a>
 				@endif
 			</div>

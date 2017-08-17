@@ -60,7 +60,7 @@
 
 				<div class="navbar-nav">
 					@if (Auth::guest())
-						<a class="nav-item nav-link" href="{{ route('login') }}">{{ _m('sign-in') }}</a>
+						<a class="nav-item nav-link" href="{{ route('sign-in') }}">{{ _m('sign-in') }}</a>
 						<a class="nav-item nav-link" href="{{ route('join') }}">Register</a>
 					@else
 						<div class="nav-item dropdown">
@@ -77,13 +77,13 @@
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="{{ route('dashboard.characters') }}">{{ _m('dashboard-characters') }}</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="{{ route('logout') }}"
+								<a class="dropdown-item" href="{{ route('sign-out') }}"
 								   onclick="event.preventDefault();
 											document.getElementById('logout-form').submit();">
 									{{ _m('sign-out') }}
 								</a>
 
-								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+								<form id="logout-form" action="{{ route('sign-out') }}" method="POST" style="display: none;">
 									{{ csrf_field() }}
 								</form>
 							</div>
