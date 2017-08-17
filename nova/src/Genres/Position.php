@@ -22,7 +22,8 @@ class Position extends Eloquent
 
 	public function characters()
 	{
-		return $this->hasMany(Character::class)
+		// return $this->hasMany(Character::class)->orderBy('name');
+		return $this->belongsToMany(Character::class, 'characters_positions')
 			->orderBy('name');
 	}
 

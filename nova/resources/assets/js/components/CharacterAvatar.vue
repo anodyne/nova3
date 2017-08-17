@@ -12,12 +12,12 @@
 		<div v-if="hasContent">
 			<div class="avatar-label ml-3" v-if="size == 'lg'" v-cloak>
 				<span class="h1" v-if="showName">{{ this.displayName }}</span>
-				<span class="text-muted" v-if="showMetadata">{{ this.character.position.name }}</span>
+				<span class="text-muted" v-if="showMetadata" v-text="positionName"></span>
 			</div>
 
 			<div class="avatar-label ml-3" v-if="size == 'md'" v-cloak>
 				<span class="h4" v-if="showName">{{ this.displayName }}</span>
-				<span class="text-muted" v-if="showMetadata">{{ this.character.position.name }}</span>
+				<span class="text-muted" v-if="showMetadata" v-text="positionName"></span>
 			</div>
 
 			<div class="avatar-label ml-2" v-if="size == 'sm'">
@@ -30,9 +30,7 @@
 
 			<div class="avatar-label ml-3" v-if="size == ''" v-cloak>
 				<span class="h6 mb-1" v-if="showName">{{ this.displayName }}</span>
-				<small class="text-muted" v-if="showMetadata">
-					{{ this.character.position.name }}
-				</small>
+				<small class="text-muted" v-if="showMetadata" v-text="positionName"></small>
 			</div>
 		</div>
 	</div>
@@ -67,6 +65,14 @@
 				pieces.push(this.character.name);
 
 				return pieces.join(' ');
+			},
+
+			positionName () {
+				if (this.character.primaryPosition) {
+					return this.character.primaryPosition.name
+				}
+
+				return null
 			},
 
 			profileLink () {

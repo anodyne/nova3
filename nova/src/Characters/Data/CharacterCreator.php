@@ -18,12 +18,20 @@ class CharacterCreator implements Creatable
 		// Create the character
 		$character = $this->character = Character::create($this->data);
 
+		// Map the positions data to figure out what's the primary position
+		$positionSync = collect($this->data['positions'])->mapWithKeys(function ($p, $index) {
+			return [$p => ['primary' => ($index == 0) ? (int) true : (int) false]];
+		})->all();
+
+		// Sync the positions to the pivot table
+		$character->positions()->sync($positionSync);
+
 		// Get the assigned user
 		$user = $character->user;
 
 		// If the user doesn't have a primary character, set this one
 		// as the primary character
-		if (! $user->primaryCharacter) {
+		if ($user and ! $user->primaryCharacter) {
 			$character->setAsPrimaryCharacter();
 		}
 

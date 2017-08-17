@@ -1,9 +1,9 @@
 <?php
 
 Route::get('test', function () {
-	$finder = (new Nova\Genres\RankFinder)->getBaseImages();
+	$character = Nova\Characters\Character::find(2);
 
-	dd($finder);
+	dd($character->positions, $character->primaryPosition);
 });
 
 Route::get('status', function () {

@@ -19,7 +19,7 @@ class CharactersController extends Controller
 		$this->authorize('manage', $characterClass);
 
 		$characters = Character::withTrashed()
-			->with(['position', 'user'])
+			->with(['positions', 'primaryPosition', 'user'])
 			->orderBy('name')
 			->get();
 
@@ -39,11 +39,11 @@ class CharactersController extends Controller
 
 		$this->validate(request(), [
 			'name' => 'required',
-			'position_id' => 'required|exists:positions,id',
+			'positions.*' => 'required|exists:positions,id',
 		], [
 			'name.required' => _m('validation-name-required'),
-			'position_id.required' => _m('characters-validation-position-required'),
-			'position_id.exists' => _m('characters-validation-position-exists'),
+			'positions.*.required' => _m('characters-validation-position-required'),
+			'positions.*.exists' => _m('characters-validation-position-exists'),
 		]);
 
 		creator(Character::class)->with(request()->all())->adminCreate();

@@ -13,18 +13,24 @@ class Character extends Eloquent
 	use PresentableTrait, SoftDeletes, HasMedia;
 
 	protected $table = 'characters';
-	protected $fillable = ['name', 'user_id', 'position_id', 'rank_id', 'status'];
+	protected $fillable = ['name', 'user_id', 'rank_id', 'status'];
 	protected $presenter = Presenters\CharacterPresenter::class;
 	protected $with = ['media', 'rank.info'];
-	protected $appends = ['avatarImage', 'isPrimaryCharacter'];
+	protected $appends = ['avatarImage', 'isPrimaryCharacter', 'primaryPosition'];
 
 	//--------------------------------------------------------------------------
 	// Relationships
 	//--------------------------------------------------------------------------
 
-	public function position()
+	public function positions()
 	{
-		return $this->belongsTo(Position::class);
+		return $this->belongsToMany(Position::class, 'characters_positions');
+	}
+
+	public function primaryPosition()
+	{
+		return $this->belongsToMany(Position::class, 'characters_positions')
+			->wherePivot('primary', (int) true);
 	}
 
 	public function rank()
@@ -49,6 +55,17 @@ class Character extends Eloquent
 	public function getIsPrimaryCharacterAttribute()
 	{
 		return $this->isPrimaryCharacter();
+	}
+
+	public function getPrimaryPositionAttribute()
+	{
+		$primary = $this->primaryPosition();
+
+		if ($primary) {
+			return $primary->first();
+		}
+
+		return $primary;
 	}
 
 	public function isPrimaryCharacter()
