@@ -9,7 +9,7 @@
 		<a href="{{ route('ranks.groups.index') }}" class="card">
 			<div class="card-body">
 				<div class="text-center text-subtle mb-4">
-					{{ svg_icon('hierarchy-3') }}
+					{{ svg_icon('sitemap') }}
 				</div>
 				<h4 class="card-title text-center">{{ _m('genre-rank-groups', [2]) }}</h4>
 				<p class="card-text">{{ _m('genre-rank-groups-explain') }}</p>
@@ -19,7 +19,7 @@
 		<a href="{{ route('ranks.info.index') }}" class="card">
 			<div class="card-body">
 				<div class="text-center text-subtle mb-4">
-					{{ svg_icon('information-circle') }}
+					{{ svg_icon('info-circle') }}
 				</div>
 				<h4 class="card-title text-center">{{ _m('genre-rank-info') }}</h4>
 				<p class="card-text">{{ _m('genre-rank-info-explain') }}</p>
@@ -29,7 +29,7 @@
 		<a href="{{ route('ranks.items.index') }}" class="card">
 			<div class="card-body">
 				<div class="text-center text-subtle mb-4">
-					{{ svg_icon('rank-army-4') }}
+					{{ svg_icon('angle-double-up') }}
 				</div>
 				<h4 class="card-title text-center">{{ _m('genre-ranks', [2]) }}</h4>
 				<p class="card-text">{{ _m('genre-ranks-explain') }}</p>
