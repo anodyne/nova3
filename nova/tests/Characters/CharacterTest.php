@@ -31,4 +31,39 @@ class CharacterTest extends DatabaseTestCase
 	{
 		$this->assertInstanceOf('Nova\Users\User', $this->character->user);
 	}
+
+	/** @test **/
+	public function it_knows_if_its_a_primary_character()
+	{
+		$user = $this->character->user;
+
+		$character = create('Nova\Characters\Character', ['user_id' => $user->id]);
+
+		$this->assertFalse($character->isPrimaryCharacter());
+
+		$character->setAsPrimaryCharacter();
+
+		$this->assertTrue($character->isPrimaryCharacter());
+	}
+
+	/** @test **/
+	public function it_can_make_itself_a_primary_character()
+	{
+		$user = $this->character->user;
+
+		$character = create('Nova\Characters\Character', ['user_id' => $user->id]);
+
+		$character->setAsPrimaryCharacter();
+
+		$this->assertTrue($character->isPrimaryCharacter());
+	}
+
+	/** @test **/
+	public function is_has_media()
+	{
+		$this->assertInstanceOf(
+			'Illuminate\Database\Eloquent\Collection',
+			$this->character->media
+		);
+	}
 }

@@ -15,7 +15,7 @@ class ManageUsersTest extends DatabaseTestCase
 	{
 		parent::setUp();
 
-		$this->user = create('Nova\Users\User');
+		$this->user = create(User::class);
 	}
 
 	/** @test **/
@@ -50,7 +50,7 @@ class ManageUsersTest extends DatabaseTestCase
 
 		create('Nova\Authorize\Role', [], 3);
 
-		$user = make('Nova\Users\User', ['roles' => [1,3]]);
+		$user = make(User::class, ['roles' => [1,3]]);
 
 		$this->post(route('users.store'), $user->toArray());
 
@@ -70,7 +70,7 @@ class ManageUsersTest extends DatabaseTestCase
 
 	// 	$this->signIn($admin);
 
-	// 	$user = make('Nova\Users\User', ['roles' => [1,3]]);
+	// 	$user = make(User::class, ['roles' => [1,3]]);
 
 	// 	$this->post(route('users.store'), $user->toArray());
 
@@ -104,16 +104,26 @@ class ManageUsersTest extends DatabaseTestCase
 	public function a_user_can_be_deleted()
 	{
 		$admin = $this->createAdmin();
-
 		$this->signIn($admin);
 
-		$user = create('Nova\Users\User');
+		$user = create(User::class);
+
+		$character = create('Nova\Characters\Character', ['user_id' => $user->id]);
+
+		$userMedia = create('Nova\Foundation\Media', [
+			'mediable_id' => $user->id,
+			'mediable_type' => 'user'
+		]);
+
+		$characterMedia = create('Nova\Foundation\Media', ['mediable_id' => $character->id]);
 
 		$this->delete(route('users.destroy', [$user]));
 
 		$this->assertSoftDeleted('users', ['id' => $user->id]);
-
-		// TODO: Make sure any characters are also soft deleted
+		$this->assertSoftDeleted('characters', ['id' => $character->id]);
+		$this->assertDatabaseMissing('media', ['user_id' => $user->id]);
+		$this->assertDatabaseMissing('media', ['character_id' => $character->id]);
+		$this->assertDatabaseMissing('users_roles', ['user_id' => $user->id]);
 	}
 
 	/** @test **/
@@ -123,17 +133,11 @@ class ManageUsersTest extends DatabaseTestCase
 
 		$this->signIn($admin);
 
-		$user = create('Nova\Users\User', ['deleted_at' => Date::now()]);
+		$user = create(User::class, ['deleted_at' => Date::now()]);
 
 		$this->patch(route('users.restore', [$user]));
 
 		$this->assertDatabaseHas('users', ['id' => $user->id, 'deleted_at' => null]);
-	}
-
-	/** @test **/
-	public function a_user_can_be_force_deleted()
-	{
-		# code...
 	}
 
 	/** @test **/

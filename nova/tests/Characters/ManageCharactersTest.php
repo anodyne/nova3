@@ -54,6 +54,19 @@ class ManageCharactersTest extends DatabaseTestCase
 	}
 
 	/** @test **/
+	public function a_character_is_set_as_a_primary_character_when_the_user_has_no_primary_character_set()
+	{
+		$admin = $this->createAdmin();
+		$this->signIn($admin);
+
+		$character = make('Nova\Characters\Character');
+
+		$this->post(route('characters.store'), $character->toArray());
+
+		$this->assertDatabaseHas('users', ['primary_character' => $character->id]);
+	}
+
+	/** @test **/
 	public function a_character_can_be_updated()
 	{
 		$admin = $this->createAdmin();
@@ -92,12 +105,6 @@ class ManageCharactersTest extends DatabaseTestCase
 		$this->patch(route('characters.restore', [$character]));
 
 		$this->assertDatabaseHas('characters', ['id' => $character->id, 'deleted_at' => null]);
-	}
-
-	/** @test **/
-	public function a_character_can_be_force_deleted()
-	{
-		# code...
 	}
 
 	/** @test **/

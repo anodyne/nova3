@@ -11,7 +11,7 @@ class UserTest extends DatabaseTestCase
 	{
 		parent::setUp();
 
-		$this->user = create('Nova\Users\User');
+		$this->user = create(User::class);
 	}
 
 	/** @test **/
@@ -22,6 +22,22 @@ class UserTest extends DatabaseTestCase
 		$this->user->attachRole(create('Nova\Authorize\Role'));
 
 		$this->assertCount(1, $this->user->fresh()->roles);
+	}
+
+	/** @test **/
+	public function it_can_detach_roles()
+	{
+		$this->assertCount(0, $this->user->roles);
+
+		$role = create('Nova\Authorize\Role');
+
+		$this->user->attachRole($role);
+
+		$this->assertCount(1, $this->user->fresh()->roles);
+
+		$this->user->detachRole($role);
+
+		$this->assertCount(0, $this->user->fresh()->roles);
 	}
 
 	/** @test **/
@@ -36,6 +52,16 @@ class UserTest extends DatabaseTestCase
 		$this->user->attachRole(create('Nova\Authorize\Role'));
 
 		$this->assertCount(2, $this->user->fresh()->roles);
+	}
+
+	/** @test **/
+	public function it_can_verify_a_role_it_has()
+	{
+		$role = create('Nova\Authorize\Role');
+
+		$this->user->attachRole($role);
+
+		$this->assertTrue($this->user->fresh()->hasRole($role->name));
 	}
 
 	/** @test **/
@@ -55,16 +81,6 @@ class UserTest extends DatabaseTestCase
 	}
 
 	/** @test **/
-	public function it_can_verify_a_role_it_has()
-	{
-		$role = create('Nova\Authorize\Role');
-
-		$this->user->attachRole($role);
-
-		$this->assertTrue($this->user->fresh()->hasRole($role->name));
-	}
-
-	/** @test **/
 	public function it_has_characters()
 	{
 		$this->assertInstanceOf(
@@ -75,5 +91,36 @@ class UserTest extends DatabaseTestCase
 		$character = create('Nova\Characters\Character', ['user_id' => $this->user->id]);
 
 		$this->assertCount(1, $this->user->fresh()->characters);
+	}
+
+	/** @test **/
+	public function it_can_set_its_primary_character()
+	{
+		$character = create('Nova\Characters\Character', ['user_id' => $this->user->id]);
+
+		$this->user->setPrimaryCharacterAs($character);
+
+		$this->assertEquals($this->user->fresh()->primaryCharacter->id, $character->id);
+	}
+
+	/** @test **/
+	public function is_has_media()
+	{
+		$this->assertInstanceOf(
+			'Illuminate\Database\Eloquent\Collection',
+			$this->user->media
+		);
+	}
+
+	/** @test **/
+	public function it_shows_the_correct_name()
+	{
+		$user = create(User::class);
+
+		$this->assertEquals($user->displayName, $user->name);
+
+		$user->update(['nickname' => 'Johnny']);
+
+		$this->assertEquals($user->displayName, 'Johnny');
 	}
 }
