@@ -20,6 +20,7 @@ class CharactersController extends Controller
 
 		$characters = Character::withTrashed()
 			->with(['position', 'user'])
+			->orderBy('name')
 			->get();
 
 		return view('pages.characters.all-characters', compact('characters', 'characterClass'));
