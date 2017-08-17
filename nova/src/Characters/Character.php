@@ -59,4 +59,11 @@ class Character extends Eloquent
 
 		return false;
 	}
+
+	public function setAsPrimaryCharacter()
+	{
+		if ($this->user) {
+			$this->user->setPrimaryCharacterAs($this);
+		}
+	}
 }

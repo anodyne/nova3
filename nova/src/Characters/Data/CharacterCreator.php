@@ -18,8 +18,14 @@ class CharacterCreator implements Creatable
 		// Create the character
 		$character = $this->character = Character::create($this->data);
 
-		// TODO: if the character is the only character for the user,
-		// set the character as the primary character
+		// Get the assigned user
+		$user = $character->user;
+
+		// If the user doesn't have a primary character, set this one
+		// as the primary character
+		if (! $user->primaryCharacter) {
+			$character->setAsPrimaryCharacter();
+		}
 
 		// TODO: decrement the available positions
 

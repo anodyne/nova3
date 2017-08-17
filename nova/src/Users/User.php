@@ -104,4 +104,11 @@ class User extends Authenticatable
 	{
 		$this->attributes['password'] = ($value !== null) ? Hash::make($value) : null;
 	}
+
+	public function setPrimaryCharacterAs(Character $character)
+	{
+		updater(self::class)->with(['primary_character' => $character->id])->update($this);
+
+		return $this;
+	}
 }
