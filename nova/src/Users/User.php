@@ -70,6 +70,19 @@ class User extends Authenticatable
 		$this->roles()->attach($role);
 	}
 
+	public function detachRole($role)
+	{
+		if (is_object($role)) {
+			$role = $role->getKey();
+		}
+
+		if (is_array($role)) {
+			$role = $role['id'];
+		}
+
+		$this->roles()->detach($role);
+	}
+
 	public function getDisplayNameAttribute()
 	{
 		return $this->present()->name;
