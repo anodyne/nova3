@@ -98,7 +98,7 @@ h1 {
 
 		.status {
 			border: 4px solid $white;
-			bottom: 0;
+			bottom: -4px;
 			box-sizing: content-box;
 			position: absolute;
 			right: 0;
@@ -315,7 +315,8 @@ a.card {
 		height: 8em;
 		width: 8em;
 
-		g {
+		g,
+		path {
 			fill: $gray-500;
 		}
 	}
@@ -325,11 +326,13 @@ a.card {
 		text-decoration: none;
 
 		svg,
-		i {
+		i,
+		path {
 			color: map-get($theme-colors, 'primary');
 		}
 
-		svg.icon g {
+		svg.icon g,
+		svg.icon path {
 			fill: map-get($theme-colors, 'primary');
 		}
 	}
@@ -413,7 +416,7 @@ label.custom-control {
 
 fieldset {
 	margin-bottom: .75rem;
-	
+
 	fieldset {
 		legend {
 			font-size: 1.15rem;

@@ -145,7 +145,7 @@ h1 {
 
 .avatar-container .avatar-image .status {
   border: 4px solid #fff;
-  bottom: 0;
+  bottom: -4px;
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
   position: absolute;
@@ -372,7 +372,8 @@ a.card svg.icon {
   width: 8em;
 }
 
-a.card svg.icon g {
+a.card svg.icon g,
+a.card svg.icon path {
   fill: #adb5bd;
 }
 
@@ -382,11 +383,13 @@ a.card:hover {
 }
 
 a.card:hover svg,
-a.card:hover i {
+a.card:hover i,
+a.card:hover path {
   color: #007bff;
 }
 
-a.card:hover svg.icon g {
+a.card:hover svg.icon g,
+a.card:hover svg.icon path {
   fill: #007bff;
 }
 
