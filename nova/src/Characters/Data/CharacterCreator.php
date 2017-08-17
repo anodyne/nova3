@@ -18,6 +18,11 @@ class CharacterCreator implements Creatable
 		// Create the character
 		$character = $this->character = Character::create($this->data);
 
+		// TODO: if the character is the only character for the user,
+		// set the character as the primary character
+
+		// TODO: decrement the available positions
+
 		// Fire any events we need to
 		$this->fireEvents();
 
