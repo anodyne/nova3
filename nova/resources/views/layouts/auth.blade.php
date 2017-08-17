@@ -21,7 +21,7 @@
 	<div id="nova-app">
 		<div class="container">
 			<div class="row justify-content-around">
-				<div class="col-xs-12 col-md-6 col-lg-4">
+				<div class="col-xs-12 col-md-8 col-lg-5">
 					@if (session()->has('flash'))
 						<div class="alert alert-{{ session('flash.level') }}">
 							@if (session('flash.title'))
