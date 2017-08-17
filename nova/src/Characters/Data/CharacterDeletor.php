@@ -13,6 +13,14 @@ class CharacterDeletor implements Deletable
 		// Update the character status
 		$character->update(['status' => Status::REMOVED]);
 
+		// Delete any media the character has
+		$character->media->each(function ($media) {
+			deletor('Nova\Foundation\Media')->delete($media);
+		});
+
+		// TODO: when a character is deleted, we need to increment
+		// the available positions
+
 		// Delete the character
 		$character->delete();
 
