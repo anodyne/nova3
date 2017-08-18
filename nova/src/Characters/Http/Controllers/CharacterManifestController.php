@@ -11,9 +11,9 @@ class CharacterManifestController extends Controller
 			->where('display', (int) true)
 			->with([
 				'positions.characters.rank.info',
-				'positions.characters.position',
+				'positions.characters.positions',
 				'subDepartments.positions.characters.rank.info',
-				'subDepartments.positions.characters.position'
+				'subDepartments.positions.characters.positions'
 			])
 			->orderBy('order')
 			->get();
