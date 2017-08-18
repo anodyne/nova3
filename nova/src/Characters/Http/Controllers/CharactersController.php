@@ -19,7 +19,7 @@ class CharactersController extends Controller
 		$this->authorize('manage', $characterClass);
 
 		$characters = Character::withTrashed()
-			->with(['positions', 'primaryPosition', 'user'])
+			->with(['positions', 'user'])
 			->orderBy('name')
 			->get();
 
