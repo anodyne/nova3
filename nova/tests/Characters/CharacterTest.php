@@ -15,9 +15,12 @@ class CharacterTest extends DatabaseTestCase
 	}
 
 	/** @test **/
-	public function it_has_a_position()
+	public function it_has_positions()
 	{
-		$this->assertInstanceOf('Nova\Genres\Position', $this->character->position);
+		$this->assertInstanceOf(
+			'Illuminate\Database\Eloquent\Collection',
+			$this->character->positions
+		);
 	}
 
 	/** @test **/
