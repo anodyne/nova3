@@ -134,7 +134,7 @@
 </head>
 <body>
 	<div id="nova-app" class="flex-center position-ref {{ Request::is('/') ? 'full-height' : '' }}">
-		@if (Route::has('login'))
+		@if (Route::has('sign-in'))
 			<div class="top-right links">
 				@if (Auth::check())
 					<a href="{{ route('home') }}">Home</a>
