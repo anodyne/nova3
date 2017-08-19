@@ -5,3 +5,6 @@ Thumbs.db
 node_modules
 nova/vendor
 storage/debugbar
+
+.codeclimate.yml
+.travis.yml
