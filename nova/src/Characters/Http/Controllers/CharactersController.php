@@ -60,9 +60,13 @@ class CharactersController extends Controller
 	{
 		$this->authorize('update', $character);
 
-		$character->load(['position', 'user']);
+		$character->load(['positions', 'user']);
 
-		return view('pages.characters.update-character', compact('character'));
+		$positions = $character->positions->map(function ($p) {
+			return ['id' => $p->id];
+		});
+
+		return view('pages.characters.update-character', compact('character', 'positions'));
 	}
 
 	public function update(Character $character)
@@ -71,11 +75,11 @@ class CharactersController extends Controller
 
 		$this->validate(request(), [
 			'name' => 'required',
-			'position_id' => 'required|exists:positions,id',
+			'positions.*' => 'required|exists:positions,id',
 		], [
 			'name.required' => _m('validation-name-required'),
-			'position_id.required' => _m('characters-validation-position-required'),
-			'position_id.exists' => _m('characters-validation-position-exists'),
+			'position.*.required' => _m('characters-validation-position-required'),
+			'position.*.exists' => _m('characters-validation-position-exists'),
 		]);
 
 		updater(Character::class)->with(request()->all())->update($character);

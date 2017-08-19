@@ -33,18 +33,6 @@
 
 		<div class="row">
 			<div class="col-md-4">
-				<div class="form-group{{ $errors->has('position_id') ? ' has-danger' : '' }}">
-					<label class="form-control-label">{{ _m('genre-positions', [1]) }}</label>
-					<div>
-						{!! Form::positions('position_id', null, $character->position->id, ['placeholder' => _m('genre-positions-select'), 'class' => ($errors->has('position_id') ? ' form-control-danger' : '')]) !!}
-					</div>
-					{!! $errors->first('position_id', '<p class="form-control-feedback">:message</p>') !!}
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-4">
 				<div class="form-group">
 					<label class="form-control-label">{{ _m('genre-ranks', [1]) }}</label>
 					<div>
@@ -54,6 +42,27 @@
 							<rank-picker></rank-picker>
 						@endif
 					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<fieldset>
+					<legend>{{ _m('genre-positions', [2]) }}</legend>
+				</fieldset>
+
+				<div class="form-group" v-for="(position, index) in positions">
+					<div class="d-flex align-items-center">
+						{!! Form::positions('positions[]', null, null, ['placeholder' => _m('genre-positions-select'), 'v-model' => 'position.id', 'class' => ($errors->has('positions') ? ' is-invalid' : '')]) !!}
+
+						<a href="#" class="text-secondary mx-2" @click.prevent="addPosition">{!! icon('add-alt') !!}</a>
+						<a href="#"
+						   class="text-danger"
+						   v-show="positions.length > 1"
+						   @click.prevent="removePosition(index)">{!! icon('minus') !!}</a>
+					</div>
+					{!! $errors->first('positions', '<p class="invalid-feedback">:message</p>') !!}
 				</div>
 			</div>
 		</div>
@@ -69,4 +78,24 @@
 			<a href="{{ route('characters.index') }}" class="btn btn-link">{{ _m('cancel') }}</a>
 		</div>
 	{!! Form::close() !!}
+@endsection
+
+@section('js')
+	<script>
+		vue = {
+			data: {
+				positions: {!! $positions !!}
+			},
+
+			methods: {
+				addPosition () {
+					this.positions.push({ id:'' })
+				},
+
+				removePosition (index) {
+					this.positions.splice(index, 1)
+				}
+			}
+		}
+	</script>
 @endsection
