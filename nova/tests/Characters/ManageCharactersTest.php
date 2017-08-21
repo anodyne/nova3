@@ -72,10 +72,12 @@ class ManageCharactersTest extends DatabaseTestCase
 		$admin = $this->createAdmin();
 		$this->signIn($admin);
 
+		$position = create('Nova\Genres\Position');
+
 		$this->patch(
 			route('characters.update',
 			[$this->character]),
-			['name' => 'Jack Sparrow', 'position_id' => $this->character->position_id]
+			['name' => 'Jack Sparrow', 'positions' => [$position->id]]
 		);
 
 		$this->assertDatabaseHas('characters', ['name' => 'Jack Sparrow']);
@@ -112,7 +114,7 @@ class ManageCharactersTest extends DatabaseTestCase
 	{
 		$admin = $this->createAdmin();
 		$this->signIn($admin);
-		
+
 		$this->get(route('characters.index'))->assertSuccessful();
 		$this->get(route('characters.create'))->assertSuccessful();
 		$this->get(route('characters.edit', $this->character))->assertSuccessful();

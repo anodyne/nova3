@@ -28,7 +28,8 @@ class PositionTest extends DatabaseTestCase
 			$this->position->characters
 		);
 
-		$character = create('Nova\Characters\Character', ['position_id' => $this->position->id]);
+		$character = create('Nova\Characters\Character');
+		$character->positions()->save($this->position);
 
 		$this->assertCount(1, $this->position->fresh()->characters);
 	}
