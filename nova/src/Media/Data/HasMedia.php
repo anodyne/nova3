@@ -1,6 +1,6 @@
-<?php namespace Nova\Foundation\Data;
+<?php namespace Nova\Media\Data;
 
-use Nova\Foundation\Media;
+use Nova\Media\Media;
 
 trait HasMedia
 {

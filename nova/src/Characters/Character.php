@@ -1,7 +1,7 @@
 <?php namespace Nova\Characters;
 
 use Eloquent;
-use Nova\Foundation\Data\HasMedia;
+use Nova\Media\Data\HasMedia;
 use Laracasts\Presenter\PresentableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

@@ -20,7 +20,7 @@ class UserDeletor implements Deletable
 
 		// Delete any media the user has
 		$user->media->each(function ($media) {
-			deletor('Nova\Foundation\Media')->delete($media);
+			deletor('Nova\Media\Media')->delete($media);
 		});
 
 		// Delete any characters the user has

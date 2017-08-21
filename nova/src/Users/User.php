@@ -4,8 +4,8 @@ use Date;
 use Hash;
 use Mail;
 use Nova\Authorize\Role;
+use Nova\Media\Data\HasMedia;
 use Nova\Characters\Character;
-use Nova\Foundation\Data\HasMedia;
 use Nova\Foundation\Data\HasStatus;
 use Nova\Auth\Mail\SendPasswordReset;
 use Illuminate\Notifications\Notifiable;
@@ -98,7 +98,7 @@ class User extends Authenticatable
 		if (is_string($role)) {
 			return $this->roles->contains('name', $role);
 		}
-		
+
 		return !! $role->intersect($this->roles)->count();
 	}
 
