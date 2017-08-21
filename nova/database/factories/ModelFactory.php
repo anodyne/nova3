@@ -76,9 +76,6 @@ $factory->define(Nova\Settings\Settings::class, function (Faker\Generator $faker
 
 $factory->define(Nova\Characters\Character::class, function (Faker\Generator $faker) {
 	return [
-		'position_id' => function () {
-			return factory('Nova\Genres\Position')->create()->id;
-		},
 		'rank_id' => function () {
 			return factory('Nova\Genres\Rank')->create()->id;
 		},
@@ -89,7 +86,7 @@ $factory->define(Nova\Characters\Character::class, function (Faker\Generator $fa
 	];
 });
 
-$factory->define(Nova\Foundation\Media::class, function (Faker\Generator $faker) {
+$factory->define(Nova\Media\Media::class, function (Faker\Generator $faker) {
 	$character = factory(Nova\Characters\Character::class)->create();
 
 	return [
