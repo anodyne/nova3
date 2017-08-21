@@ -22,6 +22,7 @@
 	<script>
 		window.Nova = {!! json_encode(Nova::scriptVariables()) !!}
 	</script>
+	@routes
 </head>
 <body>
 	<div id="nova-app">
