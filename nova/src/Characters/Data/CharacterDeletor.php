@@ -18,8 +18,8 @@ class CharacterDeletor implements Deletable
 			deletor('Nova\Media\Media')->delete($media);
 		});
 
-		// TODO: when a character is deleted, we need to increment
-		// the available positions
+		// When a character is deleted, add an available slot
+		$character->positions->each->addAvailableSlot();
 
 		// Delete the character
 		$character->delete();

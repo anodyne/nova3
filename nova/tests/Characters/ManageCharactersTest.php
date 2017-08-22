@@ -89,11 +89,17 @@ class ManageCharactersTest extends DatabaseTestCase
 		$admin = $this->createAdmin();
 		$this->signIn($admin);
 
+		$position1 = create('Nova\Genres\Position', ['available' => 0]);
+		$position2 = create('Nova\Genres\Position', ['available' => 0]);
+
 		$character = create('Nova\Characters\Character');
+		$character->positions()->saveMany([$position1, $position2]);
 
 		$this->delete(route('characters.destroy', [$character]));
 
 		$this->assertSoftDeleted('characters', ['id' => $character->id]);
+		$this->assertEquals(1, $position1->fresh()->available);
+		$this->assertEquals(1, $position2->fresh()->available);
 	}
 
 	/** @test **/

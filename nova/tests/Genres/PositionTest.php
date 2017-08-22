@@ -33,4 +33,20 @@ class PositionTest extends DatabaseTestCase
 
 		$this->assertCount(1, $this->position->fresh()->characters);
 	}
+
+	/** @test **/
+	public function it_can_increment_available_positions()
+	{
+		$this->position->addAvailableSlot();
+
+		$this->assertEquals(2, $this->position->available);
+	}
+
+	/** @test **/
+	public function it_can_decrement_available_positions()
+	{
+		$this->position->removeAvailableSlot();
+
+		$this->assertEquals(0, $this->position->available);
+	}
 }
