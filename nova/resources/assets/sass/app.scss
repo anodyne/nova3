@@ -70,16 +70,16 @@ h1 {
 	}
 
 	&.alert-warning {
-		// .alert-btn {
-		// 	background-color: darken(theme-color-level(map-get($theme-colors, 'warning'), -10), 15%);
-		// 	border: 1px solid darken(theme-color-level(map-get($theme-colors, 'warning'), -9), 15%);
-		// 	color: theme-color-level(map-get($theme-colors, 'warning'), 6);
+		.alert-btn {
+			background-color: darken(theme-color-level('warning', -10), 15%);
+			border: 1px solid darken(theme-color-level('warning', -9), 15%);
+			color: theme-color-level('warning', 6);
 
-		// 	&:hover {
-		// 		background-color: darken(theme-color-level(map-get($theme-colors, 'warning'), -10), 20%);
-		// 		border: 1px solid darken(theme-color-level(map-get($theme-colors, 'warning'), -9), 20%);
-		// 	}
-		// }
+			&:hover {
+				background-color: darken(theme-color-level('warning', -10), 20%);
+				border: 1px solid darken(theme-color-level('warning', -9), 20%);
+			}
+		}
 	}
 }
 
