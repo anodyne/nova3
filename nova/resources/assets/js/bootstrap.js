@@ -70,3 +70,16 @@ window.icon = function (name, attributes = '') {
 
 	return template.replace('%1$s', icon)
 }
+
+window._m = function (key, variables = '') {
+	// Get the string
+	let string = window.Nova.lang[key]
+
+	// TODO: handle PLURAL
+
+	// TODO: handle GENDER
+
+	// TODO: handle variables
+
+	return string;
+}
