@@ -18,24 +18,11 @@ class CharacterCreator implements Creatable
 		// Create the character
 		$character = $this->character = Character::create($this->data);
 
-		// Map the positions data to figure out what's the primary position
-		$positionSync = collect($this->data['positions'])->mapWithKeys(function ($p, $index) {
-			return [$p => ['primary' => ($index == 0) ? (int) true : (int) false]];
-		})->all();
+		// Handle anything related to positions with the character
+		$character = $this->handlePositionUpdates($character);
 
-		// Sync the positions to the pivot table
-		$character->positions()->sync($positionSync);
-
-		// Get the assigned user
-		$user = $character->user;
-
-		// If the user doesn't have a primary character, set this one
-		// as the primary character
-		if ($user and ! $user->primaryCharacter) {
-			$character->setAsPrimaryCharacter();
-		}
-
-		// TODO: decrement the available positions
+		// Handle anything related to users with the character
+		$character = $this->handleUserUpdates($character);
 
 		// Fire any events we need to
 		$this->fireEvents();
@@ -57,5 +44,35 @@ class CharacterCreator implements Creatable
 	protected function fireEvents()
 	{
 		//
+	}
+
+	protected function handlePositionUpdates(Character $character)
+	{
+		// Map the positions data to figure out what's the primary position
+		$positionSync = collect($this->data['positions'])->mapWithKeys(function ($p, $index) {
+			return [$p => ['primary' => ($index == 0) ? (int) true : (int) false]];
+		})->all();
+
+		// Sync the positions to the pivot table
+		$character->positions()->sync($positionSync);
+
+		// Update position availability
+		$character->fresh()->positions->each->removeAvailableSlot();
+
+		return $character->fresh();
+	}
+
+	protected function handleUserUpdates(Character $character)
+	{
+		// Get the assigned user
+		$user = $character->user;
+
+		// If the user doesn't have a primary character, set this one
+		// as the primary character
+		if ($user and ! $user->primaryCharacter) {
+			$character->setAsPrimaryCharacter();
+		}
+
+		return $character->fresh();
 	}
 }

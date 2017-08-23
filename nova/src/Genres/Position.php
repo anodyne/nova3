@@ -45,7 +45,9 @@ class Position extends Eloquent
 
 	public function removeAvailableSlot()
 	{
-		$this->decrement('available');
+		if ($this->available > 0) {
+			$this->decrement('available');
+		}
 
 		return $this;
 	}

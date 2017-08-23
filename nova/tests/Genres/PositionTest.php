@@ -49,4 +49,13 @@ class PositionTest extends DatabaseTestCase
 
 		$this->assertEquals(0, $this->position->available);
 	}
+
+	/** @test **/
+	public function it_cannot_have_availability_less_than_zero()
+	{
+		$this->position->removeAvailableSlot();
+		$this->position->removeAvailableSlot();
+
+		$this->assertEquals(0, $this->position->available);
+	}
 }

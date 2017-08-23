@@ -82,7 +82,10 @@ class CharactersController extends Controller
 			'position.*.exists' => _m('characters-validation-position-exists'),
 		]);
 
-		updater(Character::class)->with(request()->all())->update($character);
+		// Make sure we have the old positions data as well
+		$data = array_merge(request()->all(), ['old_positions' => $character->positions]);
+
+		updater(Character::class)->with($data)->update($character);
 
 		flash()
 			->title(_m('characters-flash-updated-title'))
