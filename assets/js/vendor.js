@@ -10597,6 +10597,89 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+var Vue = __webpack_require__(5);
+Vue = 'default' in Vue ? Vue['default'] : Vue;
+
+var version = '2.1.0';
+
+var compatible = (/^2\./).test(Vue.version);
+if (!compatible) {
+  Vue.util.warn('VueClickaway ' + version + ' only supports Vue 2.x, and does not support Vue ' + Vue.version);
+}
+
+
+
+// @SECTION: implementation
+
+var HANDLER = '_vue_clickaway_handler';
+
+function bind(el, binding) {
+  unbind(el);
+
+  var callback = binding.value;
+  if (typeof callback !== 'function') {
+    if (true) {
+      Vue.util.warn(
+        'v-' + binding.name + '="' +
+        binding.expression + '" expects a function value, ' +
+        'got ' + callback
+      );
+    }
+    return;
+  }
+
+  // @NOTE: Vue binds directives in microtasks, while UI events are dispatched
+  //        in macrotasks. This causes the listener to be set up before
+  //        the "origin" click event (the event that lead to the binding of
+  //        the directive) arrives at the document root. To work around that,
+  //        we ignore events until the end of the "initial" macrotask.
+  // @REFERENCE: https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
+  // @REFERENCE: https://github.com/simplesmiler/vue-clickaway/issues/8
+  var initialMacrotaskEnded = false;
+  setTimeout(function() {
+    initialMacrotaskEnded = true;
+  }, 0);
+
+  el[HANDLER] = function(ev) {
+    // @NOTE: IE 5.0+
+    // @REFERENCE: https://developer.mozilla.org/en/docs/Web/API/Node/contains
+    if (initialMacrotaskEnded && !el.contains(ev.target)) {
+      return callback(ev);
+    }
+  };
+
+  document.documentElement.addEventListener('click', el[HANDLER], false);
+}
+
+function unbind(el) {
+  document.documentElement.removeEventListener('click', el[HANDLER], false);
+  delete el[HANDLER];
+}
+
+var directive = {
+  bind: bind,
+  update: function(el, binding) {
+    if (binding.value === binding.oldValue) return;
+    bind(el, binding);
+  },
+  unbind: unbind,
+};
+
+var mixin = {
+  directives: { onClickaway: directive },
+};
+
+exports.version = version;
+exports.directive = directive;
+exports.mixin = mixin;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/*!
  * Vue.js v2.4.2
  * (c) 2014-2017 Evan You
@@ -20688,7 +20771,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function(){
@@ -20852,89 +20935,6 @@ module.exports = Vue$3;
 
 })();
 
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var Vue = __webpack_require__(4);
-Vue = 'default' in Vue ? Vue['default'] : Vue;
-
-var version = '2.1.0';
-
-var compatible = (/^2\./).test(Vue.version);
-if (!compatible) {
-  Vue.util.warn('VueClickaway ' + version + ' only supports Vue 2.x, and does not support Vue ' + Vue.version);
-}
-
-
-
-// @SECTION: implementation
-
-var HANDLER = '_vue_clickaway_handler';
-
-function bind(el, binding) {
-  unbind(el);
-
-  var callback = binding.value;
-  if (typeof callback !== 'function') {
-    if (true) {
-      Vue.util.warn(
-        'v-' + binding.name + '="' +
-        binding.expression + '" expects a function value, ' +
-        'got ' + callback
-      );
-    }
-    return;
-  }
-
-  // @NOTE: Vue binds directives in microtasks, while UI events are dispatched
-  //        in macrotasks. This causes the listener to be set up before
-  //        the "origin" click event (the event that lead to the binding of
-  //        the directive) arrives at the document root. To work around that,
-  //        we ignore events until the end of the "initial" macrotask.
-  // @REFERENCE: https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
-  // @REFERENCE: https://github.com/simplesmiler/vue-clickaway/issues/8
-  var initialMacrotaskEnded = false;
-  setTimeout(function() {
-    initialMacrotaskEnded = true;
-  }, 0);
-
-  el[HANDLER] = function(ev) {
-    // @NOTE: IE 5.0+
-    // @REFERENCE: https://developer.mozilla.org/en/docs/Web/API/Node/contains
-    if (initialMacrotaskEnded && !el.contains(ev.target)) {
-      return callback(ev);
-    }
-  };
-
-  document.documentElement.addEventListener('click', el[HANDLER], false);
-}
-
-function unbind(el) {
-  document.documentElement.removeEventListener('click', el[HANDLER], false);
-  delete el[HANDLER];
-}
-
-var directive = {
-  bind: bind,
-  update: function(el, binding) {
-    if (binding.value === binding.oldValue) return;
-    bind(el, binding);
-  },
-  unbind: unbind,
-};
-
-var mixin = {
-  directives: { onClickaway: directive },
-};
-
-exports.version = version;
-exports.directive = directive;
-exports.mixin = mixin;
 
 /***/ }),
 /* 7 */
@@ -46454,8 +46454,7 @@ module.exports = function(n, options){
 };
 
 /***/ }),
-/* 24 */,
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*************************
@@ -48033,10 +48032,10 @@ module.exports = function(n, options){
     }
 }));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(76).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(65).setImmediate))
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* global define */
@@ -48533,12 +48532,13 @@ module.exports = function(n, options){
 
 
 /***/ }),
+/* 26 */,
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(true)
-		module.exports = factory(__webpack_require__(4));
+		module.exports = factory(__webpack_require__(5));
 	else if(typeof define === 'function' && define.amd)
 		define(["vue"], factory);
 	else if(typeof exports === 'object')
@@ -50254,18 +50254,7 @@ module.exports = function spread(callback) {
 /* 62 */,
 /* 63 */,
 /* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -50318,13 +50307,13 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(77);
+__webpack_require__(66);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 77 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -50517,31 +50506,45 @@ exports.clearImmediate = clearImmediate;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(16)))
 
 /***/ }),
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */,
 /* 78 */,
 /* 79 */,
 /* 80 */,
 /* 81 */,
-/* 82 */
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(2);
 __webpack_require__(14);
 __webpack_require__(10);
-__webpack_require__(25);
+__webpack_require__(24);
 __webpack_require__(23);
 __webpack_require__(11);
 __webpack_require__(9);
-__webpack_require__(5);
-__webpack_require__(26);
-__webpack_require__(83);
-__webpack_require__(13);
-__webpack_require__(4);
 __webpack_require__(6);
+__webpack_require__(25);
+__webpack_require__(86);
+__webpack_require__(13);
+__webpack_require__(5);
+__webpack_require__(4);
 module.exports = __webpack_require__(27);
 
 
 /***/ }),
-/* 83 */
+/* 86 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -52990,4 +52993,4 @@ Popper.Defaults = Defaults;
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ })
-],[82]);
+],[85]);
