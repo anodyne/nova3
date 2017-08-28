@@ -28,8 +28,34 @@ class PositionTest extends DatabaseTestCase
 			$this->position->characters
 		);
 
-		$character = create('Nova\Characters\Character', ['position_id' => $this->position->id]);
+		$character = create('Nova\Characters\Character');
+		$character->positions()->save($this->position);
 
 		$this->assertCount(1, $this->position->fresh()->characters);
+	}
+
+	/** @test **/
+	public function it_can_increment_available_positions()
+	{
+		$this->position->addAvailableSlot();
+
+		$this->assertEquals(2, $this->position->available);
+	}
+
+	/** @test **/
+	public function it_can_decrement_available_positions()
+	{
+		$this->position->removeAvailableSlot();
+
+		$this->assertEquals(0, $this->position->available);
+	}
+
+	/** @test **/
+	public function it_cannot_have_availability_less_than_zero()
+	{
+		$this->position->removeAvailableSlot();
+		$this->position->removeAvailableSlot();
+
+		$this->assertEquals(0, $this->position->available);
 	}
 }

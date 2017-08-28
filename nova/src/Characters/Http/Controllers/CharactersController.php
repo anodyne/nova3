@@ -19,7 +19,7 @@ class CharactersController extends Controller
 		$this->authorize('manage', $characterClass);
 
 		$characters = Character::withTrashed()
-			->with(['positions', 'primaryPosition', 'user'])
+			->with(['positions', 'user'])
 			->orderBy('name')
 			->get();
 
@@ -60,9 +60,13 @@ class CharactersController extends Controller
 	{
 		$this->authorize('update', $character);
 
-		$character->load(['position', 'user']);
+		$character->load(['positions.department', 'user']);
 
-		return view('pages.characters.update-character', compact('character'));
+		$positions = $character->positions->map(function ($p) {
+			return ['id' => $p->id];
+		});
+
+		return view('pages.characters.update-character', compact('character', 'positions'));
 	}
 
 	public function update(Character $character)
@@ -71,14 +75,17 @@ class CharactersController extends Controller
 
 		$this->validate(request(), [
 			'name' => 'required',
-			'position_id' => 'required|exists:positions,id',
+			'positions.*' => 'required|exists:positions,id',
 		], [
 			'name.required' => _m('validation-name-required'),
-			'position_id.required' => _m('characters-validation-position-required'),
-			'position_id.exists' => _m('characters-validation-position-exists'),
+			'position.*.required' => _m('characters-validation-position-required'),
+			'position.*.exists' => _m('characters-validation-position-exists'),
 		]);
 
-		updater(Character::class)->with(request()->all())->update($character);
+		// Make sure we have the old positions data as well
+		$data = array_merge(request()->all(), ['old_positions' => $character->positions]);
+
+		updater(Character::class)->with($data)->update($character);
 
 		flash()
 			->title(_m('characters-flash-updated-title'))

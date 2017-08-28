@@ -18,7 +18,7 @@ class DashboardController extends Controller
 
 	public function characters()
 	{
-		$this->user->load('characters.position');
+		$this->user->load('characters.positions');
 
 		$characters = $this->user->characters;
 

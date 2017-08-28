@@ -2,26 +2,19 @@
 
 use Illuminate\Http\Request;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 Route::get('characters', function () {
 	return Nova\Characters\Character::with(['user', 'position', 'rank.info'])
 		->where('status', Status::ACTIVE)
 		->get();
 })->name('api.characters');
+
+Route::get('departments', function () {
+	return Nova\Genres\Department::with('positions', 'subDepartments.positions')->get();
+})->name('api.departments');
+
+Route::get('positions', function () {
+	return Nova\Genres\Position::with('department')->get();
+})->name('api.positions');
 
 Route::get('ranks', function () {
 	return Nova\Genres\Rank::with('info', 'group')->get();

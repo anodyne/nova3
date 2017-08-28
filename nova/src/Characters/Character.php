@@ -1,10 +1,7 @@
 <?php namespace Nova\Characters;
 
 use Eloquent;
-use Nova\Users\User;
-use Nova\Genres\Rank;
-use Nova\Genres\Position;
-use Nova\Foundation\Data\HasMedia;
+use Nova\Media\Data\HasMedia;
 use Laracasts\Presenter\PresentableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -24,23 +21,18 @@ class Character extends Eloquent
 
 	public function positions()
 	{
-		return $this->belongsToMany(Position::class, 'characters_positions');
-	}
-
-	public function primaryPosition()
-	{
-		return $this->belongsToMany(Position::class, 'characters_positions')
-			->wherePivot('primary', (int) true);
+		return $this->belongsToMany('Nova\Genres\Position', 'characters_positions')
+			->withPivot('primary');
 	}
 
 	public function rank()
 	{
-		return $this->belongsTo(Rank::class);
+		return $this->belongsTo('Nova\Genres\Rank');
 	}
 
 	public function user()
 	{
-		return $this->belongsTo(User::class);
+		return $this->belongsTo('Nova\Users\User');
 	}
 
 	//--------------------------------------------------------------------------
@@ -59,7 +51,9 @@ class Character extends Eloquent
 
 	public function getPrimaryPositionAttribute()
 	{
-		$primary = $this->primaryPosition();
+		$primary = $this->positions->filter(function ($position) {
+			return $position->pivot->primary === (int) true;
+		});
 
 		if ($primary) {
 			return $primary->first();

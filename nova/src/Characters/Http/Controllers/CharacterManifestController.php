@@ -11,13 +11,18 @@ class CharacterManifestController extends Controller
 			->where('display', (int) true)
 			->with([
 				'positions.characters.rank.info',
-				'positions.characters.position',
+				'positions.characters.positions',
 				'subDepartments.positions.characters.rank.info',
-				'subDepartments.positions.characters.position'
+				'subDepartments.positions.characters.positions'
 			])
 			->orderBy('order')
 			->get();
 
-		return view('pages.characters.manifest', compact('departments'));
+		$character1 = \Nova\Characters\Character::find(3);
+		$character2 = \Nova\Characters\Character::find(2);
+
+		$position = \Nova\Genres\Position::find(1);
+
+		return view('pages.characters.manifest', compact('departments', 'character1', 'character2', 'position'));
 	}
 }

@@ -31,7 +31,7 @@
 				</div>
 			</div>
 
-			<div class="card card-success card-inverse">
+			<div class="card text-white bg-success">
 				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start">
 						<span class="mr-auto">Genre Assets</span>
@@ -49,7 +49,7 @@
 				</div>
 			</div>
 
-			<div class="card card-success card-inverse">
+			<div class="card text-white bg-success">
 				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start">
 						<span class="mr-auto">Users</span>
@@ -66,7 +66,7 @@
 				</div>
 			</div>
 
-			<div class="card card-success card-inverse">
+			<div class="card text-white bg-success">
 				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start">
 						<span class="mr-auto">Authorization</span>
@@ -80,7 +80,7 @@
 				</div>
 			</div>
 
-			<div class="card card-success card-inverse">
+			<div class="card text-white bg-success">
 				<div class="card-body">
 					<h3 class="d-flex align-items-center justify-content-start">
 						<span class="mr-auto">Authentication</span>

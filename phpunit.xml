@@ -38,8 +38,17 @@
 		<whitelist processUncoveredFilesFromWhitelist="true">
 			<directory suffix=".php">./nova/src/Auth</directory>
 			<directory suffix=".php">./nova/src/Authorize</directory>
+			<directory suffix=".php">./nova/src/Characters</directory>
+			<directory suffix=".php">./nova/src/Dashboard</directory>
 			<directory suffix=".php">./nova/src/Foundation</directory>
+			<directory suffix=".php">./nova/src/Genres</directory>
+			<directory suffix=".php">./nova/src/Media</directory>
+			<directory suffix=".php">./nova/src/Settings</directory>
+			<directory suffix=".php">./nova/src/Setup</directory>
 			<directory suffix=".php">./nova/src/Users</directory>
+			<!-- <exclude>
+				<file>./nova/routes/web.php</file>
+			</exclude> -->
 		</whitelist>
 	</filter>
 	<php>

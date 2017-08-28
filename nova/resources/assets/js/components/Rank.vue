@@ -15,8 +15,8 @@
 
 		methods: {
 			baseStyle () {
-				let image = (this.item) ? this.item.base : this.base
-				let imagePath
+				let image = (this.item) ? this.item.base : this.base;
+				let imagePath;
 
 				if (image) {
 					imagePath = [
@@ -25,22 +25,22 @@
 						window.Nova.settings.rank,
 						'base',
 						image
-					].join('/')
+					].join('/');
 				} else {
 					imagePath = [
 						window.Nova.system.baseUrl,
 						'ranks',
 						window.Nova.settings.rank,
 						'blank.png'
-					].join('/')
+					].join('/');
 				}
 
-				return 'background-image:url(' + imagePath + ')'
+				return 'background-image:url(' + imagePath + ')';
 			},
 
 			overlayStyle () {
-				let image = (this.item) ? this.item.overlay : this.overlay
-				let imagePath = [].join('/')
+				let image = (this.item) ? this.item.overlay : this.overlay;
+				let imagePath = [].join('/');
 
 				if (image) {
 					imagePath = [
@@ -49,11 +49,11 @@
 						window.Nova.settings.rank,
 						'overlay',
 						image
-					].join('/')
+					].join('/');
 				}
 
-				return 'background-image:url(' + imagePath + ')'
+				return 'background-image:url(' + imagePath + ')';
 			}
 		}
-	}
+	};
 </script>

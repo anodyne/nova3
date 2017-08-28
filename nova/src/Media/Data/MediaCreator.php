@@ -1,6 +1,7 @@
 <?php namespace Nova\Foundation\Data;
 
-use Nova\Foundation\Media;
+use Nova\Media\Media;
+use Nova\Foundation\Data\BindsData;
 
 class MediaCreator implements Creatable
 {

@@ -22,6 +22,7 @@
 	<script>
 		window.Nova = {!! json_encode(Nova::scriptVariables()) !!}
 	</script>
+	@routes
 </head>
 <body>
 	<div id="nova-app">
@@ -40,7 +41,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<div class="navbar-nav mr-auto">
 					<a class="nav-item nav-link" href="{{ route('home') }}"><i class="fa fa-home fa-fw"></i> Home</a>
-					<a class="nav-item nav-link" href="{{ route('characters.manifest') }}"><i class="fa fa-users fa-fw"></i> Manifest</a>
+					{{-- <a class="nav-item nav-link" href="{{ route('characters.manifest') }}"><i class="fa fa-users fa-fw"></i> Manifest</a> --}}
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 							<i class="fa fa-cogs fa-fw"></i> Admin <span class="caret"></span>
@@ -96,6 +97,14 @@
 		<main v-cloak>
 			<div class="container">
 				@yield('content')
+
+				@if (app()->environment() == 'local')
+					<span class="badge badge-dark d-sm-none">xs</span>
+					<span class="badge badge-info d-none d-sm-inline d-md-none">sm</span>
+					<span class="badge badge-warning d-none d-md-inline d-lg-none">md</span>
+					<span class="badge badge-success d-none d-lg-inline d-xl-none">lg</span>
+					<span class="badge badge-danger d-none d-xl-inline">xl</span>
+				@endif
 			</div>
 		</main>
 

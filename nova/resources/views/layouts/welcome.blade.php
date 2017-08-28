@@ -13,6 +13,10 @@
 	<script defer src="{{ asset('assets/js/packs/regular.js') }}"></script>
 	<script defer src="{{ asset('assets/js/packs/light.js') }}"></script>
 	<script defer src="{{ asset('assets/js/fontawesome.js') }}"></script>
+	<script>
+		window.Nova = {!! json_encode(Nova::scriptVariables()) !!}
+	</script>
+	@routes
 
 	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,600" rel="stylesheet">
@@ -134,7 +138,7 @@
 </head>
 <body>
 	<div id="nova-app" class="flex-center position-ref {{ Request::is('/') ? 'full-height' : '' }}">
-		@if (Route::has('login'))
+		@if (Route::has('sign-in'))
 			<div class="top-right links">
 				@if (Auth::check())
 					<a href="{{ route('home') }}">Home</a>

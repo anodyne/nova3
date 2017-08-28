@@ -59,6 +59,11 @@
 			</div>
 		</div>
 
+		<fieldset>
+			<legend>{{ _m('image', [1]) }}</legend>
+			<media-manager :item="{{ $user }}" type="user" :allow-multiple="false"></media-manager>
+		</fieldset>
+
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary mr-2">{{ _m('users-profile-update') }}</button>
 			<a href="{{ route('profile.show', $user) }}" class="btn btn-link">{{ _m('cancel') }}</a>

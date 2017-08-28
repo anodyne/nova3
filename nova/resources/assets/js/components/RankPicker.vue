@@ -1,31 +1,37 @@
 <template>
 	<div class="item-picker" v-on-clickaway="away">
-		<div role="button"
-			 class="selected-toggle"
-			 v-if="selectedRank"
-			 @click.prevent="show = !show">
-			<div class="selected-item">
-				<rank :item="selectedRank"></rank>
-				<div class="ml-3" v-html="showIcon('more')"></div>
+		<div class="item-picker-selector">
+			<div role="button"
+				 class="item-picker-toggle"
+				 v-if="selectedRank"
+				 @click.prevent="show = !show">
+				<div class="item-picker-selected">
+					<div class="spread">
+						<rank :item="selectedRank"></rank>
+						<small class="meta" v-text="selectedRank.info.name"></small>
+					</div>
+					<div class="ml-3" v-html="showIcon('more')"></div>
+				</div>
+				<input type="hidden" name="rank_id" v-model="selectedRank.id">
 			</div>
-			<small class="meta">{{ selectedRank.info.name }}</small>
-			<input type="hidden" name="rank_id" v-model="selectedRank.id">
-		</div>
-		<div role="button"
-			 class="selected-toggle"
-			 v-if="!selectedRank"
-			 @click.prevent="show = !show">
-			<div class="selected-item">
-				<rank></rank>
-				<div class="ml-3" v-html="showIcon('more')"></div>
+			<div role="button"
+				 class="item-picker-toggle"
+				 v-if="!selectedRank"
+				 @click.prevent="show = !show">
+				<div class="item-picker-selected">
+					<rank></rank>
+					<div class="ml-3" v-html="showIcon('more')"></div>
+				</div>
 			</div>
+
+			<slot></slot>
 		</div>
 
 		<div v-show="show" class="items-menu">
 			<div class="search-group">
 				<span class="search-field">
 					<div v-html="showIcon('search')"></div>
-					<input type="text" placeholder="Find by name or group" v-model="search">
+					<input type="text" :placeholder="_m('genre-ranks-find')" v-model="search">
 				</span>
 				<a href="#"
 				   class="clear-search ml-2"
@@ -34,7 +40,12 @@
 			</div>
 
 			<div class="items-menu-alert" v-show="filteredRanks.length == 0">
-				<div class="alert alert-warning">No ranks found</div>
+				<div class="alert alert-warning" v-text="_m('genre-ranks-error-not-found')"></div>
+			</div>
+
+			<div class="items-menu-item" v-if="selectedRank != false" @click.prevent="selectRank(false)">
+				<rank></rank>
+				<small class="meta" v-text="_m('genre-ranks-none')"></small>
 			</div>
 
 			<div class="items-menu-item" v-for="rank in filteredRanks" @click.prevent="selectRank(rank)">
@@ -71,7 +82,7 @@
 			filteredRanks () {
 				let self = this;
 
-				return this.ranks.filter(function (rank) {
+				return this.ranks.filter((rank) => {
 					let searchRegex = new RegExp(self.search, 'i');
 
 					return searchRegex.test(rank.info.name) || searchRegex.test(rank.group.name);
@@ -80,6 +91,10 @@
 		},
 
 		methods: {
+			_m (key, attributes = '') {
+				return window._m(key, attributes);
+			},
+
 			away () {
 				this.show = false;
 			},
@@ -91,7 +106,7 @@
 			},
 
 			showIcon (icon) {
-				return window.icon(icon)
+				return window.icon(icon);
 			}
 		},
 
@@ -106,5 +121,5 @@
 				self.ranks = response.data;
 			});
 		}
-	}
+	};
 </script>

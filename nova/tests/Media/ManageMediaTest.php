@@ -1,7 +1,7 @@
 <?php namespace Tests\Media;
 
 use Storage;
-use Nova\Foundation\Media;
+use Nova\Media\Media;
 use Tests\DatabaseTestCase;
 
 class ManageMediaTest extends DatabaseTestCase
@@ -24,7 +24,7 @@ class ManageMediaTest extends DatabaseTestCase
 	{
 		$this->signIn();
 
-		$character = create('Nova\Characters\Character');
+		$character = create('Nova\Characters\Character', ['user_id' => auth()->id()]);
 
 		$data = [
 			'location' => 'characters',
@@ -71,9 +71,9 @@ class ManageMediaTest extends DatabaseTestCase
 	/** @test **/
 	public function media_can_be_deleted()
 	{
-		$this->signIn();
-
 		$media = create(Media::class);
+
+		$this->signIn($media->mediable->user);
 
 		$response = $this->delete(route('media.destroy', $media));
 
@@ -87,7 +87,7 @@ class ManageMediaTest extends DatabaseTestCase
 	{
 		$this->signIn();
 
-		$character = create('Nova\Characters\Character');
+		$character = create('Nova\Characters\Character', ['user_id' => auth()->id()]);
 
 		$media1 = create(Media::class, [
 			'mediable_type' => 'character',
@@ -109,13 +109,62 @@ class ManageMediaTest extends DatabaseTestCase
 		$this->assertDatabaseHas('media', ['id' => $media2->id, 'primary' => 1]);
 	}
 
+	/** @test **/
 	public function the_first_media_item_is_set_as_the_primary_media()
 	{
 		$this->signIn();
 
-		$character = create('Nova\Characters\Character');
+		$character = create('Nova\Characters\Character', ['user_id' => auth()->id()]);
 
 		$media = create(Media::class, [
+			'mediable_type' => 'character',
+			'mediable_id' => $character->id,
+		]);
+	}
+
+	/** @test **/
+	public function only_authorized_users_can_manage_media()
+	{
+		$this->withExceptionHandling();
+
+		$this->signIn();
+
+		$user = create('Nova\Users\User');
+
+		$data = [
+			'location' => 'users',
+			'image' => $this->base64Image(),
+			'id' => $user->id,
+			'type' => 'user',
+		];
+
+		$this->post(route('media.store'), $data)->assertStatus(403);
+
+		$this->assertDatabaseMissing('media', [
+			'mediable_type' => 'user',
+			'mediable_id' => $user->id,
+		]);
+	}
+
+	/** @test **/
+	public function only_authorized_users_can_manage_character_media()
+	{
+		$this->withExceptionHandling();
+
+		$this->signIn();
+
+		$character = create('Nova\Characters\Character');
+
+		$data = [
+			'location' => 'characters',
+			'image' => $this->base64Image(),
+			'id' => $character->id,
+			'type' => 'character',
+		];
+
+		$this->post(route('media.store'), $data)->assertStatus(403);
+
+		$this->assertDatabaseMissing('media', [
 			'mediable_type' => 'character',
 			'mediable_id' => $character->id,
 		]);

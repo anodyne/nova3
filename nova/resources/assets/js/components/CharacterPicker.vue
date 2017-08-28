@@ -1,32 +1,36 @@
 <template>
 	<div class="item-picker" v-on-clickaway="away">
-		<div role="button"
-			 class="selected-toggle"
-			 v-if="selectedCharacter"
-			 @click.prevent="show = !show">
-			<div class="selected-item">
-				<span :class="statusClasses(selectedCharacter)" v-if="showStatus"></span>
-				<character-avatar :character="selectedCharacter" size="xs" type="image"></character-avatar>
-				<div class="ml-3" v-html="showIcon('more')"></div>
+		<div class="item-picker-selector">
+			<div role="button"
+				 class="item-picker-toggle"
+				 v-if="selectedCharacter"
+				 @click.prevent="show = !show">
+				<div class="item-picker-selected">
+					<span :class="statusClasses(selectedCharacter)" v-if="showStatus"></span>
+					<character-avatar :character="selectedCharacter" size="xs" type="image"></character-avatar>
+					<div class="ml-3" v-html="showIcon('more')"></div>
+				</div>
+				<input type="hidden" :name="fieldName" v-model="selectedCharacter.id">
 			</div>
-			<input type="hidden" :name="fieldName" v-model="selectedCharacter.id">
-		</div>
-		<div role="button"
-			 class="selected-toggle"
-			 v-if="!selectedCharacter"
-			 @click.prevent="show = !show">
-			<div class="selected-item">
-				<span>No character</span>
-				<div class="ml-3" v-html="showIcon('more')"></div>
+			<div role="button"
+				 class="item-picker-toggle"
+				 v-if="!selectedCharacter"
+				 @click.prevent="show = !show">
+				<div class="item-picker-selected">
+					<span v-text="_m('characters-none')"></span>
+					<div class="ml-3" v-html="showIcon('more')"></div>
+				</div>
+				<input type="hidden" :name="fieldName" value="">
 			</div>
-			<input type="hidden" :name="fieldName" value="">
+
+			<slot></slot>
 		</div>
 
 		<div v-show="show" class="items-menu">
 			<div class="search-group">
 				<span class="search-field">
 					<div v-html="showIcon('search')"></div>
-					<input type="text" placeholder="Find characters..." v-model="search">
+					<input type="text" :placeholder="_m('characters-find')" v-model="search">
 				</span>
 				<a href="#"
 				   class="clear-search ml-2"
@@ -35,12 +39,13 @@
 			</div>
 
 			<div class="items-menu-alert" v-show="filteredCharacters.length == 0">
-				<div class="alert alert-warning">No characters found</div>
+				<div class="alert alert-warning" v-text="_m('characters-error-not-found')"></div>
 			</div>
 
-			<div class="items-menu-item" v-if="selectedCharacter != false" @click.prevent="selectCharacter(false)">
-				No character
-			</div>
+			<div class="items-menu-item"
+				 v-if="selectedCharacter != false"
+				 v-text="_m('characters-none')"
+				 @click.prevent="selectCharacter(false)"></div>
 
 			<div class="items-menu-item" v-for="character in filteredCharacters" @click.prevent="selectCharacter(character)">
 				<span :class="statusClasses(character)" v-if="showStatus"></span>
@@ -79,12 +84,12 @@
 			filteredCharacters () {
 				let self = this;
 
-				return this.characters.filter(function (character) {
+				return this.characters.filter((character) => {
 					let searchRegex = new RegExp(self.search, 'i');
 					let userSearch;
 
 					if (character.user) {
-						userSearch = searchRegex.test(character.user.displayName)
+						userSearch = searchRegex.test(character.user.displayName);
 					}
 
 					return searchRegex.test(character.name)
@@ -95,6 +100,10 @@
 		},
 
 		methods: {
+			_m (key, attributes = '') {
+				return window._m(key, attributes);
+			},
+
 			away () {
 				this.show = false;
 			},
@@ -106,21 +115,21 @@
 			},
 
 			showIcon (icon) {
-				return window.icon(icon)
+				return window.icon(icon);
 			},
 
 			statusClasses (character) {
-				let classes = ['status', 'sm', 'mr-2']
+				let classes = ['status', 'sm', 'mr-2'];
 
 				if (character.user && !character.isPrimaryCharacter) {
-					classes.push('secondary')
+					classes.push('secondary');
 				}
 
 				if (character.user && character.isPrimaryCharacter) {
-					classes.push('primary')
+					classes.push('primary');
 				}
 
-				return classes
+				return classes;
 			}
 		},
 
@@ -139,5 +148,5 @@
 				});
 			}
 		}
-	}
+	};
 </script>
