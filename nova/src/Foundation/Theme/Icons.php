@@ -21,6 +21,7 @@ trait Icons
 			'arrow-right' => 'arrow-alt-circle-right',
 			'arrow-up' => 'arrow-alt-circle-up',
 			'bars' => 'bars',
+			'card' => 'address-card',
 			'check' => 'check',
 			'check-alt' => 'check-circle',
 			'chevron-left' => 'chevron-left',
