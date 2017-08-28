@@ -28,7 +28,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col-md-4">
+			<div class="col-md-6 col-lg-4">
 				<div class="form-group">
 					<label class="form-control-label">{{ _m('genre-ranks', [1]) }}</label>
 					<div>
