@@ -5,10 +5,128 @@
 @section('content')
 	<h1>Manifest</h1>
 
+	<h2>Tiny</h2>
 	<div class="row">
 		<div class="col">
+			<div class="mb-4">
+				<character-avatar :character="{{ $character1 }}"
+								  layout="stacked"
+								  size="xs"
+								  :show-status="true"></character-avatar>
+			</div>
+		</div>
+		<div class="col">
+			<div class="mb-4">
+				<character-avatar :character="{{ $character1 }}"
+								  layout="spread"
+								  size="xs"
+								  :show-status="true"></character-avatar>
+			</div>
+		</div>
+	</div>
+
+	<h2>Small</h2>
+	<div class="row">
+		<div class="col">
+			<div class="mb-4">
+				<character-avatar :character="{{ $character1 }}"
+								  layout="stacked"
+								  size="sm"
+								  :show-status="true"></character-avatar>
+			</div>
+		</div>
+		<div class="col">
+			<div class="mb-4">
+				<character-avatar :character="{{ $character1 }}"
+								  layout="spread"
+								  size="sm"
+								  :show-status="true"></character-avatar>
+			</div>
+		</div>
+	</div>
+
+	<h2>Normal</h2>
+	<div class="row">
+		<div class="col">
+			<div class="mb-4">
+				<character-avatar :character="{{ $character1 }}"
+								  layout="stacked"
+								  :show-status="true"></character-avatar>
+			</div>
+		</div>
+		<div class="col">
+			<div class="mb-4">
+				<character-avatar :character="{{ $character1 }}"
+								  layout="spread"
+								  :show-status="true"></character-avatar>
+			</div>
+		</div>
+	</div>
+
+	<h2>Medium</h2>
+	<div class="row">
+		<div class="col">
+			<div class="mb-4">
+				<character-avatar :character="{{ $character1 }}"
+								  layout="stacked"
+								  size="md"
+								  :show-status="true"></character-avatar>
+			</div>
+		</div>
+		<div class="col">
+			<div class="mb-4">
+				<character-avatar :character="{{ $character1 }}"
+								  layout="spread"
+								  size="md"
+								  :show-status="true"></character-avatar>
+			</div>
+		</div>
+	</div>
+
+	<h2>Large</h2>
+	<div class="row">
+		<div class="col">
+			<div class="mb-4">
+				<character-avatar :character="{{ $character1 }}"
+								  layout="stacked"
+								  size="lg"
+								  :show-status="true"></character-avatar>
+			</div>
+		</div>
+		<div class="col">
+			<div class="mb-4">
+				<character-avatar :character="{{ $character1 }}"
+								  layout="spread"
+								  size="lg"
+								  :show-status="true"></character-avatar>
+			</div>
+		</div>
+	</div>
+
+	<h2>Jumbo</h2>
+	<div class="row">
+		<div class="col">
+			<div class="mb-4">
+				<character-avatar :character="{{ $character1 }}"
+								  layout="stacked"
+								  size="xl"
+								  :show-status="true"></character-avatar>
+			</div>
+		</div>
+		<div class="col">
+			<div class="mb-4">
+				<character-avatar :character="{{ $character1 }}"
+								  layout="spread"
+								  size="xl"
+								  :show-status="true"></character-avatar>
+			</div>
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col">
 			<div class="row">
-				<div class="col-md-5">
+				<div class="col-md-9 col-lg-5">
 					<div class="form-group input-group">
 						<input type="text"
 							   class="form-control"
@@ -35,75 +153,115 @@
 		</div>
 	</div>
 
-	<fieldset v-for="dept in filteredDepartments">
-		<legend>@{{ dept.name }}</legend>
+	<div v-show="layout == 'list'">
+		<fieldset v-for="dept in filteredDepartments">
+			<legend>@{{ dept.name }}</legend>
 
-		<div class="data-table clean striped">
-			<div class="row align-items-center"
-				 v-for="position in dept.positions">
-				<div class="col" v-show="position.characters.length > 0">
-					<div class="row align-items-center" v-for="character in position.characters">
-						<div class="col col-auto">
-							<rank :item="character.rank"></rank>
-						</div>
-						<div class="col">
-							<character-avatar :character="character"></character-avatar>
-						</div>
-						<div class="col col-auto">
-							<a href="#"><img src="{{ asset('assets/images/starfleet-vector-logo.svg') }}"></a>
+			<div class="data-table clean striped">
+				<div class="row align-items-center"
+					 v-for="position in dept.positions">
+					<div class="col" v-show="position.characters.length > 0">
+						<div class="row align-items-center" v-for="character in position.characters">
+							<div class="col col-auto">
+								<rank :item="character.rank"></rank>
+							</div>
+							<div class="col">
+								<character-avatar :character="character"></character-avatar>
+							</div>
+							<div class="col col-auto">
+								<a href="#"><img src="{{ asset('assets/images/starfleet-vector-logo.svg') }}"></a>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col" v-show="position.characters.length == 0 && showAvailable">
-					<div class="row align-items-center">
-						<div class="col col-auto">
-							<rank></rank>
-						</div>
-						<div class="col">
-							<p class="mb-0"><strong v-text="position.name"></strong></p>
-							<small><a href="#">Position Open &ndash; Apply Now</a></small>
+					<div class="col" v-show="position.characters.length == 0 && showAvailable">
+						<div class="row align-items-center">
+							<div class="col col-auto">
+								<rank></rank>
+							</div>
+							<div class="col">
+								<p class="mb-0"><strong v-text="position.name"></strong></p>
+								<small><a href="#">Position Open &ndash; Apply Now</a></small>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
-		<div v-if="dept.sub_departments.length > 0">
-			<fieldset class="ml-3" v-for="subDept in dept.sub_departments">
-				<legend>@{{ subDept.name }}</legend>
+			<div v-if="dept.sub_departments.length > 0">
+				<fieldset class="ml-3" v-for="subDept in dept.sub_departments">
+					<legend>@{{ subDept.name }}</legend>
 
-				<div class="data-table clean striped">
-					<div class="row align-items-center"
-						 v-for="subPosition in subDept.positions">
-						<div class="col" v-show="subPosition.characters.length > 0">
-							<div class="row align-items-center" v-for="character in subPosition.characters">
-								<div class="col col-auto">
-									<rank :item="character.rank"></rank>
-								</div>
-								<div class="col">
-									<character-avatar :character="character"></character-avatar>
-								</div>
-								<div class="col col-auto">
-									<a href="#"><img src="{{ asset('assets/images/starfleet-vector-logo.svg') }}"></a>
+					<div class="data-table clean striped">
+						<div class="row align-items-center"
+							 v-for="subPosition in subDept.positions">
+							<div class="col" v-show="subPosition.characters.length > 0">
+								<div class="row align-items-center" v-for="character in subPosition.characters">
+									<div class="col col-auto">
+										<rank :item="character.rank"></rank>
+									</div>
+									<div class="col">
+										<character-avatar :character="character"></character-avatar>
+									</div>
+									<div class="col col-auto">
+										<a href="#"><img src="{{ asset('assets/images/starfleet-vector-logo.svg') }}"></a>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col" v-show="subPosition.characters.length == 0 && showAvailable">
-							<div class="row align-items-center">
-								<div class="col col-auto">
-									<rank></rank>
-								</div>
-								<div class="col">
-									<p class="mb-0"><strong v-text="subPosition.name"></strong></p>
-									<small><a href="#">Position Open &ndash; Apply Now</a></small>
+							<div class="col" v-show="subPosition.characters.length == 0 && showAvailable">
+								<div class="row align-items-center">
+									<div class="col col-auto">
+										<rank></rank>
+									</div>
+									<div class="col">
+										<p class="mb-0"><strong v-text="subPosition.name"></strong></p>
+										<small><a href="#">Position Open &ndash; Apply Now</a></small>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+				</fieldset>
+			</div>
+		</fieldset>
+	</div>
+
+	<div v-show="layout == 'cards'">
+		<fieldset v-for="dept in filteredDepartments">
+			<legend>@{{ dept.name }}</legend>
+
+			<div class="row">
+				<div class="col-md-6 col-lg-4">
+					<a href="#" class="card">
+						<div class="card-body">
+							<div class="d-flex align-items-center justify-content-around flex-column">
+								<div class="mb-2">
+									<position-available :position="{{ $position }}"></position-available>
+								</div>
+								<rank></rank>
+							</div>
+						</div>
+					</a>
 				</div>
-			</fieldset>
-		</div>
-	</fieldset>
+
+				<div class="col-md-6 col-lg-4">
+					<a href="#" class="card">
+						<div class="card-body">
+							<div class="d-flex align-items-center justify-content-around flex-column">
+								<div class="mb-2">
+									<character-avatar :character="{{ $character1 }}"
+													  :show-status="true"
+													  size="md"
+													  layout="stacked">
+									</character-avatar>
+								</div>
+								<rank :item="{{ $character1->rank }}"></rank>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</fieldset>
+	</div>
 
 	<div class="d-none">
 		<div id="manifest-filters-content">
@@ -164,7 +322,7 @@
 		vue = {
 			data: {
 				departments: {!! $departments !!},
-				layout: 'list',
+				layout: 'cards',
 				search: '',
 				showAvailable: true
 			},

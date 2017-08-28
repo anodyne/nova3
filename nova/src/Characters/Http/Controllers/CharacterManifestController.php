@@ -18,6 +18,11 @@ class CharacterManifestController extends Controller
 			->orderBy('order')
 			->get();
 
-		return view('pages.characters.manifest', compact('departments'));
+		$character1 = \Nova\Characters\Character::find(3);
+		$character2 = \Nova\Characters\Character::find(2);
+
+		$position = \Nova\Genres\Position::find(1);
+
+		return view('pages.characters.manifest', compact('departments', 'character1', 'character2', 'position'));
 	}
 }
