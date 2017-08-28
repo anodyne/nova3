@@ -75,11 +75,15 @@ window._m = function (key, variables = '') {
 	// Get the string
 	let string = window.Nova.lang[key]
 
+	// TODO: Add the gender to the variables
+	// variables.push({1: window.Nova.user.gender})
+
 	// TODO: handle PLURAL
 
 	// TODO: handle GENDER
 
-	// TODO: handle variables
+	// Loop through the variables and replace the variable with its value
+	Object.keys(variables).map((v) => string = string.replace(`$${v}`, variables[v]));
 
 	return string;
 }

@@ -4,7 +4,7 @@
 		<div :class="classes" :style="'background-image:url(' + url + ')'" v-if="type != 'link'"></div>
 
 		<div v-if="hasLabel">
-			<div class="avatar-label ml-3" v-if="size == 'lg'" v-cloak>
+			<div class="avatar-label ml-2" v-if="size == 'lg'" v-cloak>
 				<span class="h1">{{ this.user.displayName }}</span>
 				<span class="text-muted">
 					<slot name="beforeLabel"></slot>
@@ -14,7 +14,7 @@
 				</span>
 			</div>
 
-			<div class="avatar-label ml-3" v-if="size == 'md'" v-cloak>
+			<div class="avatar-label ml-2" v-if="size == 'md'" v-cloak>
 				<span class="h4">{{ this.user.displayName }}</span>
 				<span class="text-muted">
 					<slot name="beforeLabel"></slot>
@@ -32,7 +32,7 @@
 				<span class="h6 mb-0">{{ this.user.displayName }}</span>
 			</div>
 
-			<div class="avatar-label ml-3" v-if="size == ''" v-cloak>
+			<div class="avatar-label ml-2" v-if="size == ''" v-cloak>
 				<span class="h6 mb-1">{{ this.user.displayName }}</span>
 				<small class="text-muted">
 					<slot name="beforeLabel"></slot>
@@ -71,7 +71,7 @@
 			},
 
 			profileLink () {
-				return '/profile/' + this.user.id;
+				return route('profile.show', {user:this.user.id});
 			},
 
 			url () {

@@ -114,51 +114,5 @@ class AppServiceProvider extends ServiceProvider
 				array_merge(['class' => $class], $attributes)
 			);
 		});
-
-		Form::macro('positions', function ($name, $options = null, $value = null, $attributes = []) {
-			if ($options == null) {
-				$options = \Nova\Genres\Department::parents()
-					->with([
-						'subDepartments.positions',
-						'positions'
-					])
-					->orderBy('order')
-					->get();
-			}
-
-			$finalOptions = [];
-
-			foreach ($options as $key => $dept) {
-				if ($dept->positions->count() > 0) {
-					foreach ($dept->positions as $position) {
-						$finalOptions[$dept->name][$position->id] = $position->name;
-					}
-				}
-
-				if ($dept->subDepartments->count() > 0) {
-					foreach ($dept->subDepartments as $subDept) {
-						$deptName = "{$dept->name}/{$subDept->name}";
-
-						foreach ($subDept->positions as $subPosition) {
-							$finalOptions[$deptName][$subPosition->id] = $subPosition->name;
-						}
-					}
-				}
-			}
-
-			$class = 'custom-select';
-
-			if (array_key_exists('class', $attributes)) {
-				$class.= " {$attributes['class']}";
-				unset($attributes['class']);
-			}
-
-			return Form::select(
-				$name,
-				$finalOptions,
-				$value,
-				array_merge(['class' => $class], $attributes)
-			);
-		});
 	}
 }

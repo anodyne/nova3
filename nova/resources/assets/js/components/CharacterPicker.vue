@@ -84,12 +84,12 @@
 			filteredCharacters () {
 				let self = this;
 
-				return this.characters.filter(function (character) {
+				return this.characters.filter((character) => {
 					let searchRegex = new RegExp(self.search, 'i');
 					let userSearch;
 
 					if (character.user) {
-						userSearch = searchRegex.test(character.user.displayName)
+						userSearch = searchRegex.test(character.user.displayName);
 					}
 
 					return searchRegex.test(character.name)
@@ -101,7 +101,7 @@
 
 		methods: {
 			_m (key, attributes = '') {
-				return window._m(key, attributes)
+				return window._m(key, attributes);
 			},
 
 			away () {
@@ -115,21 +115,21 @@
 			},
 
 			showIcon (icon) {
-				return window.icon(icon)
+				return window.icon(icon);
 			},
 
 			statusClasses (character) {
-				let classes = ['status', 'sm', 'mr-2']
+				let classes = ['status', 'sm', 'mr-2'];
 
 				if (character.user && !character.isPrimaryCharacter) {
-					classes.push('secondary')
+					classes.push('secondary');
 				}
 
 				if (character.user && character.isPrimaryCharacter) {
-					classes.push('primary')
+					classes.push('primary');
 				}
 
-				return classes
+				return classes;
 			}
 		},
 
@@ -148,5 +148,5 @@
 				});
 			}
 		}
-	}
+	};
 </script>

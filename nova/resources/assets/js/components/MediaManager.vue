@@ -73,6 +73,10 @@
 		},
 
 		methods: {
+			_m (key, variables = '') {
+				return window._m(key, variables)
+			},
+
 			createCropper () {
 				this.crop = new Croppie(document.getElementById('crop'), {
 					boundary: {
@@ -106,29 +110,32 @@
 				let self = this
 
 				$.confirm({
-					title: "Delete Media",
-					content: "Are you sure you want to delete this media?",
+					title: self._m('media-confirm-delete-title'),
+					content: self._m('media-confirm-delete-message'),
 					columnClass: "medium",
 					theme: "dark",
 					buttons: {
 						confirm: {
-							text: "Delete",
+							text: self._m('delete'),
 							btnClass: "btn-danger",
 							action () {
 								axios.delete(route('media.destroy', {media:id}))
-									 .then(function (response) {
-									 	let index = _.findIndex(self.files, function (f) {
+									.then((response) => {
+									 	let index = _.findIndex(self.files, (f) => {
 											return f.id == id
 										})
 
 										self.files.splice(index, 1)
 
-										flash('The media has been deleted', '')
-									 })
+										flash(
+											self._m('media-flash-deleted-message'),
+											self._m('media-flash-deleted-title')
+										)
+									})
 							}
 						},
 						cancel: {
-							text: "Cancel"
+							text: self._m('cancel')
 						}
 					}
 				})
@@ -161,6 +168,13 @@
 
 			makePrimary (id) {
 				axios.patch(route('media.update', {media:id}))
+					.catch((error) => {
+						flash(
+							self._m('error-unauthorized-explain'),
+							self._m('error-unauthorized'),
+							'error'
+						)
+					})
 
 				_.each(this.files, (file) => {
 					if (file.id != id) {
@@ -170,7 +184,10 @@
 					}
 				})
 
-				flash('Primary image updated', '', 'success')
+				flash(
+					self._m('media-flash-primary-image-updated-message'),
+					self._m('media-flash-primary-image-updated-title')
+				)
 			},
 
 			reset () {
@@ -181,16 +198,26 @@
 			saveFile () {
 				let self = this
 
-				this.crop.result('canvas').then(function (canvas) {
+				this.crop.result('canvas').then((canvas) => {
 					axios.post(route('media.store'), {
 						image: canvas,
 						location: pluralize(self.type),
 						id: self.item.id,
 						type: self.type
-					}).then(function (response) {
+					}).then((response) => {
 						self.files.push(response.data)
 
-						flash('Media saved', 'File saved', 'success')
+						flash(
+							self._m('media-flash-saved-message'),
+							self._m('media-flash-saved-title'),
+							'success'
+						)
+					}).catch((error) => {
+						flash(
+							self._m('error-unauthorized-explain'),
+							self._m('error-unauthorized'),
+							'error'
+						)
 					})
 				})
 
@@ -212,7 +239,7 @@
 					onEnd (event) {
 						let order = new Array()
 
-						$(event.from).children().each(function () {
+						$(event.from).children().each(() => {
 							let id = $(this).data('id')
 
 							if (id) {
@@ -227,5 +254,5 @@
 				})
 			}
 		}
-	}
+	};
 </script>

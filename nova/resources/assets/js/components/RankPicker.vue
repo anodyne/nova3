@@ -6,7 +6,7 @@
 				 v-if="selectedRank"
 				 @click.prevent="show = !show">
 				<div class="item-picker-selected">
-					<div class="stacked">
+					<div class="spread">
 						<rank :item="selectedRank"></rank>
 						<small class="meta" v-text="selectedRank.info.name"></small>
 					</div>
@@ -43,6 +43,11 @@
 				<div class="alert alert-warning" v-text="_m('genre-ranks-error-not-found')"></div>
 			</div>
 
+			<div class="items-menu-item" v-if="selectedRank != false" @click.prevent="selectRank(false)">
+				<rank></rank>
+				<small class="meta" v-text="_m('genre-ranks-none')"></small>
+			</div>
+
 			<div class="items-menu-item" v-for="rank in filteredRanks" @click.prevent="selectRank(rank)">
 				<rank :item="rank"></rank>
 				<small class="meta">{{ rank.info.name }}</small>
@@ -77,7 +82,7 @@
 			filteredRanks () {
 				let self = this;
 
-				return this.ranks.filter(function (rank) {
+				return this.ranks.filter((rank) => {
 					let searchRegex = new RegExp(self.search, 'i');
 
 					return searchRegex.test(rank.info.name) || searchRegex.test(rank.group.name);
@@ -87,7 +92,7 @@
 
 		methods: {
 			_m (key, attributes = '') {
-				return window._m(key, attributes)
+				return window._m(key, attributes);
 			},
 
 			away () {
@@ -101,7 +106,7 @@
 			},
 
 			showIcon (icon) {
-				return window.icon(icon)
+				return window.icon(icon);
 			}
 		},
 
@@ -116,5 +121,5 @@
 				self.ranks = response.data;
 			});
 		}
-	}
+	};
 </script>

@@ -78,7 +78,7 @@
 			filteredUsers () {
 				let self = this;
 
-				return this.users.filter(function (user) {
+				return this.users.filter((user) => {
 					let searchRegex = new RegExp(self.search, 'i');
 
 					return searchRegex.test(user.name)
@@ -90,7 +90,7 @@
 
 		methods: {
 			_m (key, attributes = '') {
-				return window._m(key, attributes)
+				return window._m(key, attributes);
 			},
 
 			away () {
@@ -104,7 +104,7 @@
 			},
 
 			showIcon (icon) {
-				return window.icon(icon)
+				return window.icon(icon);
 			}
 		},
 
@@ -119,5 +119,5 @@
 				self.users = response.data;
 			});
 		}
-	}
+	};
 </script>

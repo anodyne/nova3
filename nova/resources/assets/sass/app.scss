@@ -1,5 +1,5 @@
 @import '~bootstrap/scss/functions', '~bootstrap/scss/variables';
-@import 'variables', 'data-table', 'item-picker';
+@import 'variables', 'data-table', 'item-picker', 'avatar';
 
 h1 {
 	margin-bottom: 2rem;
@@ -80,73 +80,6 @@ h1 {
 				border: 1px solid darken(theme-color-level('warning', -9), 20%);
 			}
 		}
-	}
-}
-
-.avatar-container {
-	align-items: center;
-	display: flex;
-	position: relative;
-
-	.avatar-label {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.avatar-image {
-		position: relative;
-
-		.status {
-			border: 4px solid $white;
-			bottom: -4px;
-			box-sizing: content-box;
-			position: absolute;
-			right: 0;
-		}
-	}
-
-	.avatar {
-		background-color: transparent;
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
-		border-radius: 50%;
-		display: block;
-		height: 50px;
-		width: 50px;
-
-		&.xs {
-			height: 24px;
-			width: 24px;
-		}
-
-		&.sm {
-			height: 36px;
-			width: 36px;
-		}
-
-		&.md {
-			height: 72px;
-			width: 72px;
-		}
-
-		&.lg {
-			height: 100px;
-			width: 100px;
-		}
-	}
-
-	.avatar-text {
-		font-weight: 500;
-		margin-left: 120px;
-	}
-
-	.avatar-text-xs {
-		margin-left: 46px;
-	}
-
-	.avatar-text-sm {
-		margin-left: 65px;
 	}
 }
 

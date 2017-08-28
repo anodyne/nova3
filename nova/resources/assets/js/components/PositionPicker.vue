@@ -60,8 +60,7 @@
 		props: {
 			items: { type: Array },
 			onlyAvailable: { type: Boolean, default: true },
-			selected: { type: Object, required: false },
-			showDepartments: { type: Array }
+			selected: { type: Object, required: false }
 		},
 
 		mixins: [ clickaway ],
@@ -78,8 +77,15 @@
 		computed: {
 			filteredPositions () {
 				let self = this;
+				let positions = this.positions;
 
-				return this.positions.filter(function (position) {
+				if (this.onlyAvailable) {
+					positions = positions.filter((position) => {
+						return parseInt(position.available) > 0;
+					});
+				}
+
+				return positions.filter((position) => {
 					let searchRegex = new RegExp(self.search, 'i');
 
 					return searchRegex.test(position.name) || searchRegex.test(position.department.name);
@@ -89,7 +95,7 @@
 
 		methods: {
 			_m (key, attributes = '') {
-				return window._m(key, attributes)
+				return window._m(key, attributes);
 			},
 
 			away () {
@@ -103,7 +109,7 @@
 			},
 
 			showIcon (icon) {
-				return window.icon(icon)
+				return window.icon(icon);
 			}
 		},
 
@@ -122,5 +128,5 @@
 				});
 			}
 		}
-	}
+	};
 </script>

@@ -17,6 +17,7 @@ Vue.component('flash', require('./components/Flash.vue'));
 Vue.component('user-avatar', require('./components/UserAvatar.vue'));
 Vue.component('media-manager', require('./components/MediaManager.vue'));
 Vue.component('character-avatar', require('./components/CharacterAvatar.vue'));
+Vue.component('position-available', require('./components/PositionAvailable.vue'));
 
 Vue.component('rank-picker', require('./components/RankPicker.vue'));
 Vue.component('user-picker', require('./components/UserPicker.vue'));
