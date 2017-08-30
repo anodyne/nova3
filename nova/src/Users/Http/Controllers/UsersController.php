@@ -67,7 +67,7 @@ class UsersController extends Controller
 	{
 		$this->authorize('update', $user);
 
-		$user->load('characters.user', 'characters.positions', 'primaryCharacter.positions');
+		$user->loadMissing('characters.user', 'characters.positions', 'primaryCharacter.positions');
 
 		$roles = Role::with('permissions')->get();
 

@@ -60,7 +60,7 @@ class CharactersController extends Controller
 	{
 		$this->authorize('update', $character);
 
-		$character->load(['positions.department', 'user']);
+		$character->loadMissing(['positions.department', 'user']);
 
 		$positions = $character->positions->map(function ($p) {
 			return ['id' => $p->id];

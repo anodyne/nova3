@@ -58,7 +58,7 @@ class RolesController extends Controller
 	{
 		$this->authorize('update', $role);
 
-		$role->load('permissions');
+		$role->loadMissing('permissions');
 
 		$permissions = cache('nova.permissions');
 
