@@ -87,6 +87,7 @@
 										<a href="{{ route('users.force-password-reset') }}" class="dropdown-item">
 											{!! icon('users') !!} {{ _m('users-password-reset') }}
 										</a>
+										<a href="{{ route('characters.link') }}" class="dropdown-item">{!! icon('link') !!} {{ _m('characters-link') }}</a>
 									</div>
 								</div>
 							@endcan
