@@ -6,8 +6,7 @@
 				 v-if="selectedCharacter"
 				 @click.prevent="show = !show">
 				<div class="item-picker-selected">
-					<span :class="statusClasses(selectedCharacter)" v-if="showStatus"></span>
-					<character-avatar :character="selectedCharacter" size="xs" type="image"></character-avatar>
+					<avatar :item="selectedCharacter" :show-status="showStatus" size="sm" type="image"></avatar>
 					<div class="ml-3" v-html="showIcon('more')"></div>
 				</div>
 				<input type="hidden" :name="fieldName" v-model="selectedCharacter.id">
@@ -48,8 +47,7 @@
 				 @click.prevent="selectCharacter(false)"></div>
 
 			<div class="items-menu-item" v-for="character in filteredCharacters" @click.prevent="selectCharacter(character)">
-				<span :class="statusClasses(character)" v-if="showStatus"></span>
-				<character-avatar :character="character" size="xs" type="image"></character-avatar>
+				<avatar :item="character" :show-status="showStatus" size="sm" type="image"></avatar>
 			</div>
 		</div>
 	</div>
@@ -62,6 +60,7 @@
 	export default {
 		props: {
 			fieldName: { type: String, default: 'character_id' },
+			filter: { type: String },
 			items: { type: Array },
 			selected: { type: Object },
 			showStatus: { type: Boolean, default: false }
@@ -83,8 +82,15 @@
 		computed: {
 			filteredCharacters () {
 				let self = this;
+				let filteredCharacters = this.characters;
 
-				return this.characters.filter((character) => {
+				if (this.filter == 'unassigned') {
+					filteredCharacters = filteredCharacters.filter((character) => {
+						return character.user_id == null;
+					});
+				}
+
+				return filteredCharacters.filter((character) => {
 					let searchRegex = new RegExp(self.search, 'i');
 					let userSearch;
 
@@ -112,6 +118,8 @@
 				this.selectedCharacter = character;
 				this.show = false;
 				this.search = '';
+
+				window.events.$emit('character-picker-selected', this.selectedCharacter);
 			},
 
 			showIcon (icon) {
@@ -147,6 +155,10 @@
 					self.characters = response.data;
 				});
 			}
+
+			window.events.$on('character-picker-reset', () => {
+				self.selectedCharacter = false;
+			});
 		}
 	};
 </script>

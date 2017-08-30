@@ -101,6 +101,8 @@
 				this.selectedUser = user;
 				this.show = false;
 				this.search = '';
+
+				window.events.$emit('user-picker-selected', this.selectedUser);
 			},
 
 			showIcon (icon) {
@@ -117,6 +119,10 @@
 
 			axios.get(route('api.users')).then((response) => {
 				self.users = response.data;
+			});
+
+			window.events.$on('user-picker-reset', () => {
+				self.selectedUser = false;
 			});
 		}
 	};
