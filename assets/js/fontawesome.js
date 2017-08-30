@@ -25,7 +25,13 @@ var UNITS_IN_GRID = 16;
 var DEFAULT_FAMILY_PREFIX = 'fa';
 var DEFAULT_REPLACEMENT_CLASS = 'svg-inline--fa';
 
-var PRODUCTION = typeof process !== 'undefined' && process.env && "production" === 'production';
+var PRODUCTION = function () {
+  try {
+    return "production" === 'production';
+  } catch (e) {
+    return false;
+  }
+}();
 
 var oneToTen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 var oneToTwenty = oneToTen.concat([11, 12, 13, 14, 15, 16, 17, 18, 19, 20]);
@@ -37,6 +43,36 @@ var RESERVED_CLASSES = ['xs', 'sm', 'lg', 'fw', 'ul', 'li', 'border', 'pull-left
 })).concat(oneToTwenty.map(function (n) {
   return 'w-' + n;
 }));
+
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+
+
+
+
+
 
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
@@ -552,7 +588,7 @@ function makeLayersTextHtml(params) {
 
 var noop$1 = function noop() {};
 var p = config.measurePerformance && PERFORMANCE ? PERFORMANCE : { mark: noop$1, measure: noop$1 };
-var preamble = 'FA "5.0.0-beta4"';
+var preamble = 'FA "5.0.0-beta5"';
 
 var begin = function begin(name) {
   p.mark(preamble + ' ' + name + ' begins');
@@ -790,6 +826,16 @@ function getCanonicalIcon(values) {
 
     return acc;
   }, emptyCanonicalIcon());
+}
+
+function iconFromMapping(mapping, prefix, iconName) {
+  if (mapping && mapping[prefix] && mapping[prefix][iconName]) {
+    return {
+      prefix: prefix,
+      iconName: iconName,
+      icon: mapping[prefix][iconName]
+    };
+  }
 }
 
 var classParser = function (node) {
@@ -1087,6 +1133,56 @@ var styles = function () {
   return s;
 };
 
+var Library = function () {
+  function Library() {
+    classCallCheck(this, Library);
+
+    this.definitions = {};
+  }
+
+  createClass(Library, [{
+    key: "add",
+    value: function add() {
+      var _this = this;
+
+      for (var _len = arguments.length, definitions = Array(_len), _key = 0; _key < _len; _key++) {
+        definitions[_key] = arguments[_key];
+      }
+
+      var additions = definitions.reduce(this._pullDefinitions, {});
+
+      Object.keys(additions).forEach(function (key) {
+        _this.definitions[key] = _extends({}, _this.definitions[key] || {}, additions[key]);
+      });
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      this.definitions = {};
+    }
+  }, {
+    key: "_pullDefinitions",
+    value: function _pullDefinitions(additions, definition) {
+      var normalized = definition.prefix && definition.iconName && definition.icon ? { 0: definition } : definition;
+
+      Object.keys(normalized).map(function (key) {
+        var _normalized$key = normalized[key],
+            prefix = _normalized$key.prefix,
+            iconName = _normalized$key.iconName,
+            icon = _normalized$key.icon;
+
+
+        if (!additions[prefix]) additions[prefix] = {};
+
+        additions[prefix][iconName] = icon;
+      });
+
+      return additions;
+    }
+  }]);
+  return Library;
+}();
+
 function prepIcon(icon) {
   var width = icon[0];
   var height = icon[1];
@@ -1140,6 +1236,19 @@ function apiObject(val, abstractCreator) {
   return val;
 }
 
+function findIconDefinition(params) {
+  var _params$prefix = params.prefix,
+      prefix = _params$prefix === undefined ? 'fa' : _params$prefix,
+      iconName = params.iconName;
+
+
+  if (!iconName) return;
+
+  return iconFromMapping(library.definitions, prefix, iconName) || iconFromMapping(namespace.packs, prefix, iconName);
+}
+
+var library = new Library();
+
 var api = {
   dom: {
     i2svg: function i2svg() {
@@ -1163,25 +1272,15 @@ var api = {
     }
   },
 
+  library: library,
+
   parse: {
     transform: function transform(transformString) {
       return parseTransformString(transformString);
-    },
-
-    iconFromPack: function iconFromPack(iconString) {
-      var _getCanonicalIcon = getCanonicalIcon(iconString.split(' ')),
-          prefix = _getCanonicalIcon.prefix,
-          iconName = _getCanonicalIcon.iconName;
-
-      if (namespace.packs && namespace.packs[prefix] && namespace.packs[prefix][iconName]) {
-        return {
-          prefix: prefix,
-          iconName: iconName,
-          icon: namespace.packs[prefix][iconName]
-        };
-      }
     }
   },
+
+  findIconDefinition: findIconDefinition,
 
   icon: function icon(iconDefinition) {
     var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -1197,10 +1296,11 @@ var api = {
         attributes = _params$attributes === undefined ? {} : _params$attributes,
         _params$style = params.style,
         style = _params$style === undefined ? {} : _params$style;
-    var prefix = iconDefinition.prefix,
-        iconName = iconDefinition.iconName,
-        icon = iconDefinition.icon;
 
+    var _ref = iconDefinition.icon ? iconDefinition : findIconDefinition(iconDefinition),
+        prefix = _ref.prefix,
+        iconName = _ref.iconName,
+        icon = _ref.icon;
 
     return apiObject(_extends({ type: 'icon' }, iconDefinition), function () {
       ensureStyles();

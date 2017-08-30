@@ -372,7 +372,6 @@
 
 .avatar-stacked .avatar {
   height: 72px;
-  margin-bottom: .5rem;
   width: 72px;
 }
 
@@ -399,7 +398,7 @@
 }
 
 .avatar-stacked.avatar-xs .avatar-status {
-  bottom: 6px;
+  bottom: -1px;
   right: 2px;
 }
 
@@ -409,6 +408,7 @@
 }
 
 .avatar-sm .avatar-status {
+  border-width: 3px;
   bottom: -3px;
   height: 8px;
   right: -2px;
@@ -425,8 +425,8 @@
 }
 
 .avatar-stacked.avatar-sm .avatar-status {
-  bottom: 5px;
-  right: 2px;
+  bottom: -2px;
+  right: 3px;
 }
 
 .avatar-md .avatar {
@@ -452,8 +452,8 @@
 }
 
 .avatar-stacked.avatar-md .avatar-status {
-  bottom: 8px;
-  right: 6px;
+  bottom: -1px;
+  right: 5px;
 }
 
 .avatar-lg .avatar {

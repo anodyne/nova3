@@ -97,7 +97,7 @@ $sizes: (
 
 	.avatar {
 		height: map-get($sizes, 'medium');
-		margin-bottom: .5rem;
+		// margin-bottom: .5rem;
 		width: map-get($sizes, 'medium');
 	}
 }
@@ -128,7 +128,7 @@ $sizes: (
 	}
 
 	.avatar-status {
-		bottom: 6px;
+		bottom: -1px;
 		right: 2px;
 	}
 }
@@ -140,6 +140,7 @@ $sizes: (
 	}
 
 	.avatar-status {
+		border-width: 3px;
 		bottom: -3px;
 		height: 8px;
 		right: -2px;
@@ -158,8 +159,8 @@ $sizes: (
 	}
 
 	.avatar-status {
-		bottom: 5px;
-		right: 2px;
+		bottom: -2px;
+		right: 3px;
 	}
 }
 
@@ -189,8 +190,8 @@ $sizes: (
 	}
 
 	.avatar-status {
-		bottom: 8px;
-		right: 6px;
+		bottom: -1px;
+		right: 5px;
 	}
 }
 
