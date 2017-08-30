@@ -80,7 +80,8 @@
 
 	"users": "{{PLURAL:$2|User|Users}}",
 	"users-add": "Add User",
-	"users-characters": "Assigned Characters:",
+	"users-assign-character": "Assign Character",
+	"users-assigned-characters": "Assigned Characters",
 	"users-confirm-delete-message": "Are you sure you want to delete this user?",
 	"users-confirm-delete-title": "Delete User",
 	"users-confirm-restore-message": "Are you sure you want to restore this user?",
@@ -262,6 +263,7 @@
 	"characters-confirm-restore-title": "Restore Character",
 	"characters-deleted-notice": "Characters with content associated with their account (users, story entries, etc.) can be restored, but characters without associated content have been deleted from the system.",
 	"characters-error-add": "Add a character now.",
+	"characters-error-assign": "Assign a character now.",
 	"characters-error-not-found": "No characters found.",
 	"characters-find": "Find characters",
 	"characters-flash-added-message": "The new character has been created and images can now be added to the character bio.",
