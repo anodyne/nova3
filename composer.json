@@ -1,8 +1,8 @@
 {
 	"require": {
 		"php": ">=7.0.0",
-		"laravel/framework": "5.4.*",
-		"laravelcollective/html": "5.4.*",
+		"laravel/framework": "5.5.*",
+		"laravelcollective/html": "dev-master",
 		"laravel/tinker": "~1.0",
 		"Krinkle/intuition": "~0.5",
 		"laracasts/presenter": "^0.2",
@@ -15,9 +15,9 @@
 	"require-dev": {
 		"fzaninotto/faker": "^1.4",
 		"mockery/mockery": "0.9.*",
-		"phpunit/phpunit": "5.7.*",
+		"phpunit/phpunit": "~6.0",
 		"barryvdh/laravel-debugbar": "^2.1",
-		"laravel/dusk": "^1.0",
+		"laravel/dusk": "^2.0",
 		"squizlabs/php_codesniffer": "^2.8"
 	},
 
