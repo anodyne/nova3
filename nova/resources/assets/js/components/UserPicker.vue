@@ -6,7 +6,7 @@
 				 v-if="selectedUser"
 				 @click.prevent="show = !show">
 				<div class="item-picker-selected">
-					<user-avatar :user="selectedUser" :has-label="true" size="xs" type="image"></user-avatar>
+					<avatar :item="selectedUser" :show-metadata="false" :show-status="false" size="sm" type="image"></avatar>
 					<div class="ml-3" v-html="showIcon('more')"></div>
 				</div>
 				<input type="hidden" name="user_id" v-model="selectedUser.id">
@@ -46,7 +46,7 @@
 				 @click.prevent="selectUser(false)"></div>
 
 			<div class="items-menu-item" v-for="user in filteredUsers" @click.prevent="selectUser(user)">
-				<user-avatar :user="user" :has-label="true" size="xs" type="image"></user-avatar>
+				<avatar :item="user" :show-metadata="false" :show-status="false" size="sm" type="image"></avatar>
 			</div>
 		</div>
 	</div>

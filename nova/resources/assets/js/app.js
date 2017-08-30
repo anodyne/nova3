@@ -14,9 +14,10 @@ require('./bootstrap');
 
 Vue.component('rank', require('./components/Rank.vue'));
 Vue.component('flash', require('./components/Flash.vue'));
-Vue.component('user-avatar', require('./components/UserAvatar.vue'));
+Vue.component('avatar', require('./components/Avatar.vue'));
+// Vue.component('user-avatar', require('./components/UserAvatar.vue'));
 Vue.component('media-manager', require('./components/MediaManager.vue'));
-Vue.component('character-avatar', require('./components/CharacterAvatar.vue'));
+// Vue.component('character-avatar', require('./components/CharacterAvatar.vue'));
 Vue.component('position-available', require('./components/PositionAvailable.vue'));
 
 Vue.component('rank-picker', require('./components/RankPicker.vue'));

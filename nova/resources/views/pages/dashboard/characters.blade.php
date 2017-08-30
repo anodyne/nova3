@@ -11,7 +11,7 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="d-flex justify-content-around">
-							<character-avatar :character="{{ $character }}" :has-content="false" size="lg"></character-avatar>
+							<avatar :item="{{ $character }}" :show-content="false" :show-status="false" size="lg"></avatar>
 						</div>
 						<div class="d-flex justify-content-around mt-3">
 							@if ($character->rank)

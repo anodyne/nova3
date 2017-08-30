@@ -31,7 +31,12 @@
 						<input type="checkbox" name="users[]" :value="user.id" class="custom-control-input" v-model="selected">
 						<span class="custom-control-indicator"></span>
 						<span class="custom-control-description">
-							<user-avatar :user="user" size="xs" type="image" :has-label="true"></user-avatar>
+							<avatar :item="user"
+									:show-metadata="false"
+									:show-status="false"
+									type="image"
+									size="sm">
+							</avatar>
 						</span>
 					</label>
 				</div>

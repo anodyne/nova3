@@ -98,7 +98,7 @@
 					<rank :item="character.rank"></rank>
 				</div>
 				<div class="col">
-					<character-avatar :character="character" type="image" :show-status="true"></character-avatar>
+					<avatar :item="character" type="image"></avatar>
 				</div>
 				<div class="col col-auto">
 					<div class="dropdown">

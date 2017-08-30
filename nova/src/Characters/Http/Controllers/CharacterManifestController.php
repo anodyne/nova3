@@ -21,8 +21,10 @@ class CharacterManifestController extends Controller
 		$character1 = \Nova\Characters\Character::find(3);
 		$character2 = \Nova\Characters\Character::find(2);
 
+		$user = \Nova\Users\User::first();
+
 		$position = \Nova\Genres\Position::find(1);
 
-		return view('pages.characters.manifest', compact('departments', 'character1', 'character2', 'position'));
+		return view('pages.characters.manifest', compact('departments', 'character1', 'character2', 'position', 'user'));
 	}
 }

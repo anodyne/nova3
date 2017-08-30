@@ -2,7 +2,12 @@
 
 @section('content')
 	<div class="mb-4">
-		<user-avatar :user="{{ $user }}" type="image" :has-label="true" size="lg"></user-avatar>
+		<avatar :item="{{ $user }}"
+				:show-metadata="false"
+				:show-status="false"
+				size="lg"
+				type="image">
+		</avatar>
 	</div>
 
 	@can('updateProfile', $user)
