@@ -1,6 +1,7 @@
 <?php namespace Nova\Characters;
 
 use Eloquent;
+use Nova\Users\User;
 use Nova\Media\Data\HasMedia;
 use Laracasts\Presenter\PresentableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -32,12 +33,21 @@ class Character extends Eloquent
 
 	public function user()
 	{
-		return $this->belongsTo('Nova\Users\User');
+		return $this->belongsTo(User::class);
 	}
 
 	//--------------------------------------------------------------------------
 	// Model Methods
 	//--------------------------------------------------------------------------
+
+	public function assignToUser(User $user)
+	{
+		$this->user()->associate($user);
+
+		$this->save();
+		
+		return $this;
+	}
 
 	public function getAvatarImageAttribute()
 	{
@@ -76,5 +86,14 @@ class Character extends Eloquent
 		if ($this->user) {
 			$this->user->setPrimaryCharacterAs($this);
 		}
+	}
+
+	public function unassignFromUser()
+	{
+		$this->user()->dissociate();
+
+		$this->save();
+		
+		return $this;
 	}
 }

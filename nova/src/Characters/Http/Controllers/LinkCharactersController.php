@@ -1,6 +1,8 @@
 <?php namespace Nova\Characters\Http\Controllers;
 
 use Controller;
+use Nova\Users\User;
+use Nova\Characters\Character;
 
 class LinkCharactersController extends Controller
 {
@@ -18,6 +20,29 @@ class LinkCharactersController extends Controller
 
 	public function store()
 	{
-		# code...
+		// Get the user
+		$user = User::find(request('user'));
+
+		// Get the character
+		$character = Character::find(request('character'));
+
+		// Assign the character to the user
+		$character->assignToUser($user);
+
+		return response($user->fresh()->characters, 200);
+	}
+
+	public function destroy()
+	{
+		// Get the user
+		$user = User::find(request('user'));
+
+		// Get the character
+		$character = Character::find(request('character'));
+
+		// Detach the character from the user
+		$character->unassignFromUser();
+
+		return response($user->fresh()->characters, 200);
 	}
 }

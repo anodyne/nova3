@@ -52,11 +52,6 @@ class User extends Authenticatable
 	// Model Methods
 	//--------------------------------------------------------------------------
 
-	public function getAvatarImageAttribute()
-	{
-		return $this->present()->avatarImage;
-	}
-
 	public function attachRole($role)
 	{
 		if (is_object($role)) {
@@ -81,6 +76,11 @@ class User extends Authenticatable
 		}
 
 		$this->roles()->detach($role);
+	}
+
+	public function getAvatarImageAttribute()
+	{
+		return $this->present()->avatarImage;
 	}
 
 	public function getDisplayNameAttribute()

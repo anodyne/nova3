@@ -71,31 +71,49 @@
 			},
 
 			methods: {
-				removeUserAssignment (character) {
-					let index = _.findIndex(this.usersCharacters, function (c) {
-						return c.id == character.id
-					})
+				assignCharacter () {
+					axios.post(route('characters.link.store'), {
+						user: this.selectedUser.id,
+						character: this.selectedCharacter.id
+					}).then(function (response) {
+						console.log(response);
+						self.usersCharacters = response.data;
 
-					this.usersCharacters.splice(index, 1)
+						flash('Character succesfully assigned.', 'Character assigned.');
+					});
+				},
+
+				removeUserAssignment (character) {
+					axios.delete(route('characters.link.destroy'), {
+						user: this.selectedUser.id,
+						character: character.id
+					})
+					
+					let index = _.findIndex(this.usersCharacters, function (c) {
+						return c.id == character.id;
+					});
+
+					this.usersCharacters.splice(index, 1);
 				}
 			},
 
 			mounted () {
-				let self = this
+				let self = this;
 
 				window.events.$on('user-picker-selected', function (user) {
-					self.selectedUser = user
-					self.usersCharacters = user.characters
-				})
+					self.selectedUser = user;
+					self.usersCharacters = user.characters;
+				});
 
 				window.events.$on('character-picker-selected', function (character) {
-					self.selectedCharacter = character
-					self.usersCharacters.push(character)
+					self.selectedCharacter = character;
+					//self.usersCharacters.push(character);
 
-					window.events.$emit('character-picker-reset')
+					window.events.$emit('character-picker-reset');
 
 					// Now assign the character to the user
-				})
+					self.assignCharacter();
+				});
 			}
 		}
 	</script>

@@ -69,4 +69,26 @@ class CharacterTest extends DatabaseTestCase
 			$this->character->media
 		);
 	}
+
+	/** @test **/
+	public function it_can_assign_itself_to_a_user()
+	{
+		$user = create('Nova\Users\User');
+		$character = create(Character::class, ['user_id' => null]);
+
+		$character->assignToUser($user);
+
+		$this->assertEquals($user->id, $character->user_id);
+	}
+
+	/** @test **/
+	public function it_can_unassign_itself_from_a_user()
+	{
+		$user = create('Nova\Users\User');
+		$character = create(Character::class, ['user_id' => $user->id]);
+
+		$character->unassignFromUser($user);
+
+		$this->assertEquals(null, $character->user_id);
+	}
 }

@@ -113,6 +113,11 @@ app('router')->bind('character', function ($value) {
 
 Route::get('admin/characters/link', 'Nova\Characters\Http\Controllers\LinkCharactersController@create')
 	->name('characters.link');
+Route::post('admin/characters/link', 'Nova\Characters\Http\Controllers\LinkCharactersController@store')
+	->name('characters.link.store');
+Route::delete('admin/characters/link', 'Nova\Characters\Http\Controllers\LinkCharactersController@destroy')
+	->name('characters.link.destroy');
+
 Route::patch('admin/characters/{character}/restore', 'Nova\Characters\Http\Controllers\CharactersController@restore')
 	->name('characters.restore');
 Route::resource('admin/characters', 'Nova\Characters\Http\Controllers\CharactersController');
