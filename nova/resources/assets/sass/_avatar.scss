@@ -77,7 +77,7 @@ $sizes: (
 
 	.avatar-meta {
 		color: $gray-600;
-		margin-top: .5rem;
+		font-size: 85%;
 	}
 }
 
@@ -116,12 +116,8 @@ $sizes: (
 		width: 6px;
 	}
 
-	.avatar-title {
+	.avatar-label {
 		font-size: map-get($sizes, 'tiny') * .6;
-	}
-
-	.avatar-meta {
-		display: none;
 	}
 }
 
@@ -134,12 +130,6 @@ $sizes: (
 	.avatar-status {
 		bottom: 6px;
 		right: 2px;
-	}
-
-	.avatar-meta {
-		display: block;
-		font-size: map-get($sizes, 'tiny') * .5;
-		margin-top: 0;
 	}
 }
 
@@ -156,12 +146,8 @@ $sizes: (
 		width: 8px;
 	}
 
-	.avatar-title {
+	.avatar-label {
 		font-size: map-get($sizes, 'small') * .45;
-	}
-
-	.avatar-meta {
-		display: none;
 	}
 }
 
@@ -174,12 +160,6 @@ $sizes: (
 	.avatar-status {
 		bottom: 5px;
 		right: 2px;
-	}
-
-	.avatar-meta {
-		display: block;
-		font-size: map-get($sizes, 'small') * .35;
-		margin-top: 0;
 	}
 }
 
@@ -197,13 +177,8 @@ $sizes: (
 		width: 12px;
 	}
 
-	.avatar-title {
+	.avatar-label {
 		font-size: map-get($sizes, 'medium') * .3;
-	}
-
-	.avatar-meta {
-		font-size: map-get($sizes, 'medium') * .2;
-		margin-top: .25rem;
 	}
 }
 
@@ -217,8 +192,35 @@ $sizes: (
 		bottom: 8px;
 		right: 6px;
 	}
+}
 
-	.avatar-meta {
-		margin-top: 0;
+.avatar-lg {
+	.avatar {
+		height: map-get($sizes, 'large');
+		width: map-get($sizes, 'large');
+	}
+
+	.avatar-status {
+		border-width: 4px;
+		bottom: -4px;
+		height: 12px;
+		right: 0;
+		width: 12px;
+	}
+
+	.avatar-label {
+		font-size: map-get($sizes, 'large') * .6;
+	}
+}
+
+.avatar-stacked.avatar-lg {
+	.avatar {
+		height: map-get($sizes, 'jumbo');
+		width: map-get($sizes, 'jumbo');
+	}
+
+	.avatar-status {
+		bottom: 8px;
+		right: 6px;
 	}
 }
