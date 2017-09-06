@@ -2,7 +2,7 @@
 	"require": {
 		"php": ">=7.0.0",
 		"laravel/framework": "5.5.*",
-		"laravelcollective/html": "dev-master",
+		"laravelcollective/html": "5.5.*",
 		"laravel/tinker": "~1.0",
 		"Krinkle/intuition": "~0.5",
 		"laracasts/presenter": "^0.2",
