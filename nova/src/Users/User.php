@@ -20,7 +20,7 @@ class User extends Authenticatable
 
 	protected $appends = ['avatarImage', 'displayName'];
 	protected $dates = ['created_at', 'updated_at', 'deleted_at', 'last_sign_in'];
-		protected $fillable = [
+	protected $fillable = [
 		'name', 'email', 'password', 'nickname', 'status', 'last_sign_in',
 		'remember_token', 'primary_character',
 	];
