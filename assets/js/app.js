@@ -3175,6 +3175,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		away: function away() {
 			this.show = false;
 		},
+		fetch: function fetch() {
+			var self = this;
+
+			if (this.items) {
+				this.characters = this.items;
+			} else {
+				axios.get(route('api.characters')).then(function (response) {
+					self.characters = response.data;
+				});
+			}
+		},
 		selectCharacter: function selectCharacter(character) {
 			this.selectedCharacter = character;
 			this.show = false;
@@ -3207,13 +3218,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.selectedCharacter = this.selected;
 		}
 
-		if (this.items) {
-			this.characters = this.items;
-		} else {
-			axios.get(route('api.characters')).then(function (response) {
-				self.characters = response.data;
-			});
-		}
+		this.fetch();
+
+		window.events.$on('character-picker-refresh', function () {
+			self.fetch();
+		});
 
 		window.events.$on('character-picker-reset', function () {
 			self.selectedCharacter = false;

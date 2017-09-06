@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Quick Link')
+@section('title', _m('characters-quick-link'))
 
 @section('content')
-	<h1>Quick Link</h1>
+	<h1>{{ _m('characters-quick-link') }}</h1>
 
 	<div class="row">
 		<div class="col-md-6 col-lg-4">
@@ -72,43 +72,68 @@
 
 			methods: {
 				assignCharacter () {
+					let self = this;
+
 					axios.post(route('characters.link.store'), {
 						user: this.selectedUser.id,
 						character: this.selectedCharacter.id
 					}).then(function (response) {
-						console.log(response);
+						// Refresh the character picker to make sure we have
+						// an accurate list of unassigned characters
+						window.events.$emit('character-picker-refresh');
+
+						// Update the list of assigned characters
 						self.usersCharacters = response.data;
 
-						flash('Character succesfully assigned.', 'Character assigned.');
+						flash(_m('characters-flash-assigned-message'), _m('characters-flash-assigned-title'));
 					});
 				},
 
 				removeUserAssignment (character) {
-					axios.delete(route('characters.link.destroy'), {
-						user: this.selectedUser.id,
-						character: character.id
-					})
-					
-					let index = _.findIndex(this.usersCharacters, function (c) {
-						return c.id == character.id;
-					});
+					let self = this;
 
-					this.usersCharacters.splice(index, 1);
+					axios.delete(route('characters.link.destroy', { character: character.id }))
+						.then(function (response) {
+							// Refresh the character picker to make sure we have
+							// an accurate list of unassigned characters
+							window.events.$emit('character-picker-refresh');
+
+							// Find the index of the character we just unassigned
+							let index = _.findIndex(self.usersCharacters, function (c) {
+								return c.id == character.id;
+							});
+
+							// Now remove that character from the list
+							self.usersCharacters.splice(index, 1);
+							
+							flash(_m('characters-flash-unassigned-message'), _m('characters-flash-unassigned-title'));
+						})
+						.catch(function (error) {
+							flash(
+								_m('characters-flash-unassigned-error-message'),
+								_m('characters-flash-unassigned-error-title'),
+								'danger'
+							);
+						});
 				}
 			},
 
-			mounted () {
+			created () {
 				let self = this;
 
 				window.events.$on('user-picker-selected', function (user) {
+					// Set the selected user
 					self.selectedUser = user;
+
+					// Grab the user's characters
 					self.usersCharacters = user.characters;
 				});
 
 				window.events.$on('character-picker-selected', function (character) {
+					// Set the selected character
 					self.selectedCharacter = character;
-					//self.usersCharacters.push(character);
 
+					// Reset the character picker to a clean state
 					window.events.$emit('character-picker-reset');
 
 					// Now assign the character to the user

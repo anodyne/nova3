@@ -114,6 +114,18 @@
 				this.show = false;
 			},
 
+			fetch () {
+				let self = this;
+
+				if (this.items) {
+					this.characters = this.items;
+				} else {
+					axios.get(route('api.characters')).then((response) => {
+						self.characters = response.data;
+					});
+				}
+			},
+
 			selectCharacter (character) {
 				this.selectedCharacter = character;
 				this.show = false;
@@ -148,13 +160,11 @@
 				this.selectedCharacter = this.selected;
 			}
 
-			if (this.items) {
-				this.characters = this.items;
-			} else {
-				axios.get(route('api.characters')).then((response) => {
-					self.characters = response.data;
-				});
-			}
+			this.fetch();
+
+			window.events.$on('character-picker-refresh', () => {
+				self.fetch();
+			});
 
 			window.events.$on('character-picker-reset', () => {
 				self.selectedCharacter = false;

@@ -32,17 +32,11 @@ class LinkCharactersController extends Controller
 		return response($user->fresh()->characters, 200);
 	}
 
-	public function destroy()
+	public function destroy(Character $character)
 	{
-		// Get the user
-		$user = User::find(request('user'));
-
-		// Get the character
-		$character = Character::find(request('character'));
-
 		// Detach the character from the user
 		$character->unassignFromUser();
 
-		return response($user->fresh()->characters, 200);
+		return response(200);
 	}
 }
