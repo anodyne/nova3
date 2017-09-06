@@ -116,10 +116,16 @@ class ManageMediaTest extends DatabaseTestCase
 
 		$character = create('Nova\Characters\Character', ['user_id' => auth()->id()]);
 
-		$media = create(Media::class, [
-			'mediable_type' => 'character',
-			'mediable_id' => $character->id,
-		]);
+		$media = creator(Media::class)
+			->with([
+				'type' => 'character',
+				'id' => $character->id,
+				'filename' => \Str::random().'.png',
+				'mime' => 'image/png'
+			])
+			->create();
+
+		$this->assertDatabaseHas('media', ['mediable_id' => $character->id, 'primary' => (int) true]);
 	}
 
 	/** @test **/
