@@ -18,15 +18,15 @@ class User extends Authenticatable
 {
 	use Notifiable, SoftDeletes, PresentableTrait, HasStatus, HasMedia;
 
-	protected $table = 'users';
-	protected $fillable = [
+	protected $appends = ['avatarImage', 'displayName'];
+	protected $dates = ['created_at', 'updated_at', 'deleted_at', 'last_sign_in'];
+		protected $fillable = [
 		'name', 'email', 'password', 'nickname', 'status', 'last_sign_in',
 		'remember_token', 'primary_character',
 	];
 	protected $hidden = ['password', 'remember_token'];
-	protected $appends = ['avatarImage', 'displayName'];
 	protected $presenter = Presenters\UserPresenter::class;
-	protected $dates = ['created_at', 'updated_at', 'deleted_at', 'last_sign_in'];
+	protected $table = 'users';
 	protected $with = ['media'];
 
 	//--------------------------------------------------------------------------

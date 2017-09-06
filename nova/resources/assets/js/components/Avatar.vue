@@ -51,6 +51,8 @@
 			},
 
 			displayName () {
+				return this.item.displayName;
+				
 				let pieces = [];
 
 				if (this.isCharacter && this.item.rank != null) {

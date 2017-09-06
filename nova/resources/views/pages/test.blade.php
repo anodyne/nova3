@@ -7,18 +7,18 @@
 	<div class="row">
 		<div class="col">
 			<div class="mb-4">
-				<character-avatar :character="{{ $character1 }}"
-								  layout="stacked"
-								  size="xs"
-								  :show-status="true"></character-avatar>
+				<avatar :item="{{ $character1 }}"
+						layout="stacked"
+						size="xs"
+						:show-status="true"></avatar>
 			</div>
 		</div>
 		<div class="col">
 			<div class="mb-4">
-				<character-avatar :character="{{ $character1 }}"
-								  layout="spread"
-								  size="xs"
-								  :show-status="true"></character-avatar>
+				<avatar :item="{{ $character1 }}"
+						layout="spread"
+						size="xs"
+						:show-status="true"></avatar>
 			</div>
 		</div>
 	</div>
@@ -27,18 +27,18 @@
 	<div class="row">
 		<div class="col">
 			<div class="mb-4">
-				<character-avatar :character="{{ $character1 }}"
-								  layout="stacked"
-								  size="sm"
-								  :show-status="true"></character-avatar>
+				<avatar :item="{{ $character1 }}"
+						layout="stacked"
+						size="sm"
+						:show-status="true"></avatar>
 			</div>
 		</div>
 		<div class="col">
 			<div class="mb-4">
-				<character-avatar :character="{{ $character1 }}"
-								  layout="spread"
-								  size="sm"
-								  :show-status="true"></character-avatar>
+				<avatar :item="{{ $character1 }}"
+						layout="spread"
+						size="sm"
+						:show-status="true"></avatar>
 			</div>
 		</div>
 	</div>
@@ -47,16 +47,16 @@
 	<div class="row">
 		<div class="col">
 			<div class="mb-4">
-				<character-avatar :character="{{ $character1 }}"
-								  layout="stacked"
-								  :show-status="true"></character-avatar>
+				<avatar :item="{{ $character1 }}"
+						layout="stacked"
+						:show-status="true"></avatar>
 			</div>
 		</div>
 		<div class="col">
 			<div class="mb-4">
-				<character-avatar :character="{{ $character1 }}"
-								  layout="spread"
-								  :show-status="true"></character-avatar>
+				<avatar :item="{{ $character1 }}"
+						layout="spread"
+						:show-status="true"></avatar>
 			</div>
 		</div>
 	</div>
@@ -65,18 +65,18 @@
 	<div class="row">
 		<div class="col">
 			<div class="mb-4">
-				<character-avatar :character="{{ $character1 }}"
-								  layout="stacked"
-								  size="md"
-								  :show-status="true"></character-avatar>
+				<avatar :item="{{ $character1 }}"
+						layout="stacked"
+						size="md"
+						:show-status="true"></avatar>
 			</div>
 		</div>
 		<div class="col">
 			<div class="mb-4">
-				<character-avatar :character="{{ $character1 }}"
-								  layout="spread"
-								  size="md"
-								  :show-status="true"></character-avatar>
+				<avatar :item="{{ $character1 }}"
+						layout="spread"
+						size="md"
+						:show-status="true"></avatar>
 			</div>
 		</div>
 	</div>
@@ -85,18 +85,18 @@
 	<div class="row">
 		<div class="col">
 			<div class="mb-4">
-				<character-avatar :character="{{ $character1 }}"
-								  layout="stacked"
-								  size="lg"
-								  :show-status="true"></character-avatar>
+				<avatar :item="{{ $character1 }}"
+						layout="stacked"
+						size="lg"
+						:show-status="true"></avatar>
 			</div>
 		</div>
 		<div class="col">
 			<div class="mb-4">
-				<character-avatar :character="{{ $character1 }}"
-								  layout="spread"
-								  size="lg"
-								  :show-status="true"></character-avatar>
+				<avatar :item="{{ $character1 }}"
+						layout="spread"
+						size="lg"
+						:show-status="true"></avatar>
 			</div>
 		</div>
 	</div>
@@ -105,18 +105,18 @@
 	<div class="row">
 		<div class="col">
 			<div class="mb-4">
-				<character-avatar :character="{{ $character1 }}"
-								  layout="stacked"
-								  size="xl"
-								  :show-status="true"></character-avatar>
+				<avatar :item="{{ $character1 }}"
+						layout="stacked"
+						size="xl"
+						:show-status="true"></avatar>
 			</div>
 		</div>
 		<div class="col">
 			<div class="mb-4">
-				<character-avatar :character="{{ $character1 }}"
-								  layout="spread"
-								  size="xl"
-								  :show-status="true"></character-avatar>
+				<avatar :item="{{ $character1 }}"
+						layout="spread"
+						size="xl"
+						:show-status="true"></avatar>
 			</div>
 		</div>
 	</div>

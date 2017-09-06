@@ -296,14 +296,14 @@
 
 .avatar-status {
   background-color: #ced4da;
-  border: 3px solid #fff;
+  border: 4px solid #fff;
   border-radius: 50%;
-  bottom: -4px;
+  bottom: 0;
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
   height: 10px;
   position: absolute;
-  right: 2px;
+  right: 0;
   width: 10px;
 }
 
@@ -365,9 +365,11 @@
 }
 
 .avatar-stacked .avatar-status {
-  border-width: 4px;
-  bottom: 7px;
-  right: 6px;
+  border-width: 5px;
+  bottom: 1px;
+  height: 12px;
+  right: 1px;
+  width: 12px;
 }
 
 .avatar-stacked .avatar {
@@ -382,9 +384,7 @@
 
 .avatar-xs .avatar-status {
   border-width: 2px;
-  bottom: -3px;
   height: 6px;
-  right: -2px;
   width: 6px;
 }
 
@@ -398,8 +398,9 @@
 }
 
 .avatar-stacked.avatar-xs .avatar-status {
-  bottom: -1px;
-  right: 2px;
+  border-width: 3px;
+  height: 8px;
+  width: 8px;
 }
 
 .avatar-sm .avatar {
@@ -409,9 +410,7 @@
 
 .avatar-sm .avatar-status {
   border-width: 3px;
-  bottom: -3px;
   height: 8px;
-  right: -2px;
   width: 8px;
 }
 
@@ -425,8 +424,9 @@
 }
 
 .avatar-stacked.avatar-sm .avatar-status {
-  bottom: -2px;
-  right: 3px;
+  border-width: 4px;
+  height: 10px;
+  width: 10px;
 }
 
 .avatar-md .avatar {
@@ -435,10 +435,10 @@
 }
 
 .avatar-md .avatar-status {
-  border-width: 4px;
-  bottom: -4px;
+  border-width: 5px;
+  bottom: 1px;
   height: 12px;
-  right: 0;
+  right: 1px;
   width: 12px;
 }
 
@@ -452,8 +452,11 @@
 }
 
 .avatar-stacked.avatar-md .avatar-status {
-  bottom: -1px;
-  right: 5px;
+  border-width: 6px;
+  bottom: 3px;
+  height: 14px;
+  right: 3px;
+  width: 14px;
 }
 
 .avatar-lg .avatar {
@@ -462,11 +465,11 @@
 }
 
 .avatar-lg .avatar-status {
-  border-width: 4px;
-  bottom: -4px;
-  height: 12px;
-  right: 0;
-  width: 12px;
+  border-width: 6px;
+  bottom: 3px;
+  height: 14px;
+  right: 3px;
+  width: 14px;
 }
 
 .avatar-lg .avatar-label {
@@ -479,8 +482,41 @@
 }
 
 .avatar-stacked.avatar-lg .avatar-status {
+  border-width: 7px;
   bottom: 8px;
-  right: 6px;
+  height: 16px;
+  right: 8px;
+  width: 16px;
+}
+
+.avatar-xl .avatar {
+  height: 144px;
+  width: 144px;
+}
+
+.avatar-xl .avatar-status {
+  border-width: 7px;
+  bottom: 8px;
+  height: 16px;
+  right: 8px;
+  width: 16px;
+}
+
+.avatar-xl .avatar-label {
+  font-size: 86.4px;
+}
+
+.avatar-stacked.avatar-xl .avatar {
+  height: 192px;
+  width: 192px;
+}
+
+.avatar-stacked.avatar-xl .avatar-status {
+  border-width: 8px;
+  bottom: 15px;
+  height: 18px;
+  right: 15px;
+  width: 18px;
 }
 
 h1 {

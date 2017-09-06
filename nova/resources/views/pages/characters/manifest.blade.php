@@ -5,164 +5,7 @@
 @section('content')
 	<h1>Manifest</h1>
 
-	<div>
-		<small>Character, tiny, stacked, with status</small>
-		<avatar :item="{{ $character1 }}" layout="stacked" size="xs" :show-status="true"></avatar>
-	</div>
-
-	<div>
-		<small>Character, tiny, spread, with status</small>
-		<avatar :item="{{ $character1 }}" layout="spread" size="xs" :show-status="true"></avatar>
-	</div>
-
-	<div>
-		<small>Character, tiny, image only</small>
-		<avatar :item="{{ $character1 }}" size="xs" :show-status="false" :show-content="false"></avatar>
-	</div>
-
-	<div>
-		<small>Character, tiny, spread, with other metadata</small>
-		<avatar :item="{{ $character1 }}" layout="spread" size="xs" :show-status="false">
-			Some other metadata
-		</avatar>
-	</div>
-
-	<div>
-		<small>User, tiny, image only</small>
-		<avatar :item="{{ $user }}" size="xs" :show-status="false" :show-content="false"></avatar>
-	</div>
-
-	<div>
-		<small>User, tiny, no metadata</small>
-		<avatar :item="{{ $user }}" size="xs" :show-status="false" :show-metadata="false"></avatar>
-	</div>
-
-	<div>
-		<small>User, tiny, w/ metadata</small>
-		<avatar :item="{{ $user }}" size="xs" :show-status="false">
-			1,000 XP &bull; Joined 2 years ago
-		</avatar>
-	</div>
-
-	<h2>Tiny</h2>
 	<div class="row">
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-						layout="stacked"
-						size="xs"
-						:show-status="true"></avatar>
-			</div>
-		</div>
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-						layout="spread"
-						size="xs"
-						:show-status="true"></avatar>
-			</div>
-		</div>
-	</div>
-
-	<h2>Small</h2>
-	<div class="row">
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-								  layout="stacked"
-								  size="sm"
-								  :show-status="true"></avatar>
-			</div>
-		</div>
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-								  layout="spread"
-								  size="sm"
-								  :show-status="true"></avatar>
-			</div>
-		</div>
-	</div>
-
-	<h2>Normal</h2>
-	<div class="row">
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-								  layout="stacked"
-								  :show-status="true"></avatar>
-			</div>
-		</div>
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-								  layout="spread"
-								  :show-status="true"></avatar>
-			</div>
-		</div>
-	</div>
-
-	<h2>Medium</h2>
-	<div class="row">
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-								  layout="stacked"
-								  size="md"
-								  :show-status="true"></avatar>
-			</div>
-		</div>
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-								  layout="spread"
-								  size="md"
-								  :show-status="true"></avatar>
-			</div>
-		</div>
-	</div>
-
-	<h2>Large</h2>
-	<div class="row">
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-								  layout="stacked"
-								  size="lg"
-								  :show-status="true"></avatar>
-			</div>
-		</div>
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-								  layout="spread"
-								  size="lg"
-								  :show-status="true"></avatar>
-			</div>
-		</div>
-	</div>
-
-	<h2>Jumbo</h2>
-	<div class="row">
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-								  layout="stacked"
-								  size="xl"
-								  :show-status="true"></avatar>
-			</div>
-		</div>
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-								  layout="spread"
-								  size="xl"
-								  :show-status="true"></avatar>
-			</div>
-		</div>
-	</div>
-
-	<div class="row mt-4">
 		<div class="col">
 			<div class="row">
 				<div class="col-md-9 col-lg-5">
@@ -274,7 +117,7 @@
 						<div class="card-body">
 							<div class="d-flex align-items-center justify-content-around flex-column">
 								<div class="mb-2">
-									<position-available :position="{{ $position }}"></position-available>
+									<position-available :position="{{ $position }}" layout="stacked"></position-available>
 								</div>
 								<rank></rank>
 							</div>
@@ -288,9 +131,8 @@
 							<div class="d-flex align-items-center justify-content-around flex-column">
 								<div class="mb-2">
 									<avatar :item="{{ $character1 }}"
-													  :show-status="true"
-													  size="md"
-													  layout="stacked">
+											:show-status="true"
+											layout="stacked">
 									</avatar>
 								</div>
 								<rank :item="{{ $character1->rank }}"></rank>

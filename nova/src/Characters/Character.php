@@ -10,11 +10,13 @@ class Character extends Eloquent
 {
 	use PresentableTrait, SoftDeletes, HasMedia;
 
-	protected $table = 'characters';
+	protected $appends = [
+		'avatarImage', 'isPrimaryCharacter', 'primaryPosition', 'displayName'
+	];
 	protected $fillable = ['name', 'user_id', 'rank_id', 'status'];
 	protected $presenter = Presenters\CharacterPresenter::class;
+	protected $table = 'characters';
 	protected $with = ['media', 'rank.info'];
-	protected $appends = ['avatarImage', 'isPrimaryCharacter', 'primaryPosition'];
 
 	//--------------------------------------------------------------------------
 	// Relationships
@@ -52,6 +54,11 @@ class Character extends Eloquent
 	public function getAvatarImageAttribute()
 	{
 		return $this->present()->avatarImage;
+	}
+
+	public function getDisplayNameAttribute()
+	{
+		return $this->present()->name;
 	}
 
 	public function getIsPrimaryCharacterAttribute()
