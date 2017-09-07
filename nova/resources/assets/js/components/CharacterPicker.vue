@@ -98,8 +98,8 @@
 						userSearch = searchRegex.test(character.user.displayName);
 					}
 
-					return searchRegex.test(character.name)
-						|| searchRegex.test(character.position.name)
+					return searchRegex.test(character.displayName)
+						|| searchRegex.test(character.primaryPosition.name)
 						|| userSearch;
 				});
 			}
