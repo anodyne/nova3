@@ -21,7 +21,7 @@ Route::get('ranks', function () {
 })->name('api.ranks');
 
 Route::get('users', function () {
-	return Nova\Users\User::with('characters')
+	return Nova\Users\User::with('characters', 'allCharacters')
 		->where('status', Status::ACTIVE)
 		->get();
 })->name('api.users');

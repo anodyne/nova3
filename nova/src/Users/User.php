@@ -23,7 +23,7 @@ class User extends Authenticatable
 	protected $dates = ['created_at', 'updated_at', 'deleted_at', 'last_sign_in'];
 	protected $fillable = [
 		'name', 'email', 'password', 'nickname', 'status', 'last_sign_in',
-		'remember_token', 'primary_character',
+		'remember_token', 'primary_character', 'gender',
 	];
 	protected $hidden = ['password', 'remember_token'];
 	protected $presenter = Presenters\UserPresenter::class;
@@ -33,6 +33,11 @@ class User extends Authenticatable
 	//--------------------------------------------------------------------------
 	// Relationships
 	//--------------------------------------------------------------------------
+
+	public function allCharacters()
+	{
+		return $this->hasMany(Character::class)->withTrashed();
+	}
 
 	public function characters()
 	{
