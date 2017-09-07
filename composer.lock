@@ -613,16 +613,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.5.2",
+            "version": "v5.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "65da63c8ad4836e2bcddcff75becd49c71c5041c"
+                "reference": "779a98d3b2ebed2128db1a668dcc10a65c9b01be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/65da63c8ad4836e2bcddcff75becd49c71c5041c",
-                "reference": "65da63c8ad4836e2bcddcff75becd49c71c5041c",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/779a98d3b2ebed2128db1a668dcc10a65c9b01be",
+                "reference": "779a98d3b2ebed2128db1a668dcc10a65c9b01be",
                 "shasum": ""
             },
             "require": {
@@ -741,7 +741,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-09-04T14:09:04+00:00"
+            "time": "2017-09-07T13:50:21+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -2823,16 +2823,16 @@
         },
         {
             "name": "laravel/dusk",
-            "version": "v2.0.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/dusk.git",
-                "reference": "7f75d602dd6d59311ff46777eff44fa14d39e5af"
+                "reference": "5e0ceaa27c9a78897f201a26f176b23bef20210f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/dusk/zipball/7f75d602dd6d59311ff46777eff44fa14d39e5af",
-                "reference": "7f75d602dd6d59311ff46777eff44fa14d39e5af",
+                "url": "https://api.github.com/repos/laravel/dusk/zipball/5e0ceaa27c9a78897f201a26f176b23bef20210f",
+                "reference": "5e0ceaa27c9a78897f201a26f176b23bef20210f",
                 "shasum": ""
             },
             "require": {
@@ -2880,7 +2880,7 @@
                 "testing",
                 "webdriver"
             ],
-            "time": "2017-08-28T10:03:58+00:00"
+            "time": "2017-09-06T13:19:28+00:00"
         },
         {
             "name": "maximebf/debugbar",
