@@ -39,9 +39,6 @@ trait ProvidesScriptVariables
 			]];
 		}
 
-		// Nova's routes
-		$routes = ['routes' => $this->buildRoutesList()];
-
 		// Nova's icons
 		$icons = [
 			'icons' => app('nova.theme')->iconMap()->toArray(),
@@ -50,14 +47,14 @@ trait ProvidesScriptVariables
 
 		// Nova's API options
 		// $api = ['api' => config('nova.api')];
-		
+
 		// Nova's translation values
-		// $lang = ['lang' => app('nova.translator.messages')];
+		$lang = ['lang' => app('nova.translator.messages')];
 
 		// Nova's controller data
 		// $data = ['data' => (array) app('nova.controller')->data];
 
-		return array_merge($system, $settings, $user, $routes, $icons);
+		return array_merge($system, $settings, $user, $icons, $lang);
 	}
 
 	protected function buildRoutesList()

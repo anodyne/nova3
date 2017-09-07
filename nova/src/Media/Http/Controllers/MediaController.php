@@ -1,9 +1,12 @@
-<?php namespace Nova\Foundation\Http\Controllers;
+<?php namespace Nova\Media\Http\Controllers;
 
 use Str;
 use Image;
 use Storage;
-use Nova\Foundation\Media;
+use Controller;
+use Nova\Users\User;
+use Nova\Media\Media;
+use Nova\Characters\Character;
 
 class MediaController extends Controller
 {
@@ -16,6 +19,16 @@ class MediaController extends Controller
 
 	public function store()
 	{
+		switch (request('type')) {
+			case 'character':
+				$this->authorize('media', Character::find(request('id')));
+				break;
+
+			case 'user':
+				$this->authorize('media', User::find(request('id')));
+				break;
+		}
+
 		$location = request('location');
 		$imageName = Str::random().'.png';
 		$path = storage_path("app/public/{$location}/{$imageName}");
@@ -36,6 +49,8 @@ class MediaController extends Controller
 
 	public function update(Media $media)
 	{
+		$this->authorize('media', $media->mediable);
+
 		$media->makePrimary();
 
 		return response($media->fresh(), 200);
@@ -43,6 +58,8 @@ class MediaController extends Controller
 
 	public function destroy(Media $media)
 	{
+		$this->authorize('media', $media->mediable);
+
 		deletor(Media::class)->delete($media);
 
 		return response($media, 200);

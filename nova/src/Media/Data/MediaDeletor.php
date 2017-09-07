@@ -1,6 +1,7 @@
 <?php namespace Nova\Foundation\Data;
 
 use Storage;
+use Nova\Foundation\Data\BindsData;
 
 class MediaDeletor implements Deletable
 {

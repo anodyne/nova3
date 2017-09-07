@@ -1,19 +1,23 @@
 <?php namespace Nova\Characters;
 
 use Eloquent;
-use Nova\Foundation\Data\HasMedia;
+use Nova\Users\User;
+use Nova\Media\Data\HasMedia;
+use Nova\Foundation\Data\HasStatus;
 use Laracasts\Presenter\PresentableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Character extends Eloquent
 {
-	use PresentableTrait, SoftDeletes, HasMedia;
+	use PresentableTrait, SoftDeletes, HasMedia, HasStatus;
 
-	protected $table = 'characters';
+	protected $appends = [
+		'avatarImage', 'isPrimaryCharacter', 'primaryPosition', 'displayName'
+	];
 	protected $fillable = ['name', 'user_id', 'rank_id', 'status'];
 	protected $presenter = Presenters\CharacterPresenter::class;
+	protected $table = 'characters';
 	protected $with = ['media', 'rank.info'];
-	protected $appends = ['avatarImage', 'isPrimaryCharacter', 'primaryPosition'];
 
 	//--------------------------------------------------------------------------
 	// Relationships
@@ -32,16 +36,34 @@ class Character extends Eloquent
 
 	public function user()
 	{
-		return $this->belongsTo('Nova\Users\User');
+		return $this->belongsTo(User::class);
 	}
 
 	//--------------------------------------------------------------------------
 	// Model Methods
 	//--------------------------------------------------------------------------
 
+	public function assignToUser(User $user)
+	{
+		$this->user()->associate($user);
+
+		$this->save();
+
+		if ($this->user->fresh()->primaryCharacter === null) {
+			$this->setAsPrimaryCharacter();
+		}
+
+		return $this;
+	}
+
 	public function getAvatarImageAttribute()
 	{
 		return $this->present()->avatarImage;
+	}
+
+	public function getDisplayNameAttribute()
+	{
+		return $this->present()->name;
 	}
 
 	public function getIsPrimaryCharacterAttribute()
@@ -76,5 +98,21 @@ class Character extends Eloquent
 		if ($this->user) {
 			$this->user->setPrimaryCharacterAs($this);
 		}
+	}
+
+	public function unassignFromUser()
+	{
+		$user = $this->user;
+		$wasPrimaryCharacter = $this->isPrimaryCharacter();
+
+		$this->user()->dissociate();
+
+		$this->save();
+
+		if ($wasPrimaryCharacter) {
+			$user->fresh()->setPrimaryCharacter();
+		}
+
+		return $this;
 	}
 }

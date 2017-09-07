@@ -1,4 +1,4 @@
-<?php namespace Nova\Foundation;
+<?php namespace Nova\Media;
 
 use Eloquent;
 use Nova\Foundation\Data\Reorderable;

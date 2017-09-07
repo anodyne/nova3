@@ -97,14 +97,14 @@ Route::patch('admin/users/password-resets', 'Nova\Users\Http\Controllers\ForcePa
 	->name('users.reset-passwords');
 Route::resource('admin/users', 'Nova\Users\Http\Controllers\UsersController');
 
+Route::get('profile/edit', 'Nova\Users\Http\Controllers\ProfilesController@edit')
+	->name('profile.edit');
+Route::patch('profile', 'Nova\Users\Http\Controllers\ProfilesController@update')
+	->name('profile.update');
+Route::patch('profile/change-password', 'Nova\Users\Http\Controllers\ProfilesController@updatePassword')
+	->name('profile.password');
 Route::get('profile/{user}', 'Nova\Users\Http\Controllers\ProfilesController@show')
 	->name('profile.show');
-Route::get('profile/{user}/edit', 'Nova\Users\Http\Controllers\ProfilesController@edit')
-	->name('profile.edit');
-Route::patch('profile/{user}', 'Nova\Users\Http\Controllers\ProfilesController@update')
-	->name('profile.update');
-Route::patch('profile/{user}/change-password', 'Nova\Users\Http\Controllers\ProfilesController@updatePassword')
-	->name('profile.password');
 
 // Make sure for restoring we can get the actual object
 app('router')->bind('character', function ($value) {
@@ -113,6 +113,13 @@ app('router')->bind('character', function ($value) {
 
 Route::get('admin/characters/link', 'Nova\Characters\Http\Controllers\LinkCharactersController@create')
 	->name('characters.link');
+Route::post('admin/characters/link', 'Nova\Characters\Http\Controllers\LinkCharactersController@store')
+	->name('characters.link.store');
+Route::patch('admin/characters/link', 'Nova\Characters\Http\Controllers\LinkCharactersController@update')
+	->name('characters.link.update');
+Route::delete('admin/characters/unlink/{character}', 'Nova\Characters\Http\Controllers\LinkCharactersController@destroy')
+	->name('characters.link.destroy');
+
 Route::patch('admin/characters/{character}/restore', 'Nova\Characters\Http\Controllers\CharactersController@restore')
 	->name('characters.restore');
 Route::resource('admin/characters', 'Nova\Characters\Http\Controllers\CharactersController');
@@ -125,13 +132,13 @@ Route::get('characters/bio/{character}', 'Nova\Characters\Http\Controllers\Chara
 /**
  * Media
  */
-Route::post('admin/media', 'Nova\Foundation\Http\Controllers\MediaController@store')
+Route::post('admin/media', 'Nova\Media\Http\Controllers\MediaController@store')
 	->name('media.store');
-Route::patch('admin/media/{media}', 'Nova\Foundation\Http\Controllers\MediaController@update')
+Route::patch('admin/media/{media}', 'Nova\Media\Http\Controllers\MediaController@update')
 	->name('media.update');
-Route::delete('admin/media/{media}', 'Nova\Foundation\Http\Controllers\MediaController@destroy')
+Route::delete('admin/media/{media}', 'Nova\Media\Http\Controllers\MediaController@destroy')
 	->name('media.destroy');
-Route::patch('admin/media', 'Nova\Foundation\Http\Controllers\MediaController@reorder')
+Route::patch('admin/media', 'Nova\Media\Http\Controllers\MediaController@reorder')
 	->name('media.reorder');
 
 /**

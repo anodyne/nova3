@@ -72,13 +72,40 @@ class ManageCharactersTest extends DatabaseTestCase
 		$admin = $this->createAdmin();
 		$this->signIn($admin);
 
+		$position = create('Nova\Genres\Position');
+
 		$this->patch(
 			route('characters.update',
 			[$this->character]),
-			['name' => 'Jack Sparrow', 'position_id' => $this->character->position_id]
+			['name' => 'Jack Sparrow', 'positions' => [$position->id]]
 		);
 
 		$this->assertDatabaseHas('characters', ['name' => 'Jack Sparrow']);
+	}
+
+	/** @test **/
+	public function when_a_character_is_updated_position_availability_is_updated_too()
+	{
+		$admin = $this->createAdmin();
+		$this->signIn($admin);
+
+		$position1 = create('Nova\Genres\Position', ['available' => 0]);
+		$position2 = create('Nova\Genres\Position', ['available' => 0]);
+		$position3 = create('Nova\Genres\Position', ['available' => 1]);
+		$position4 = create('Nova\Genres\Position', ['available' => 1]);
+
+		$character = create(Character::class);
+		$character->positions()->saveMany([$position1, $position2]);
+
+		$this->patch(route('characters.update', $character->fresh()), [
+			'name' => $character->name,
+			'positions' => [$position3->id, $position4->id]
+		]);
+
+		$this->assertDatabaseHas('positions', ['id' => $position1->id, 'available' => 1]);
+		$this->assertDatabaseHas('positions', ['id' => $position2->id, 'available' => 1]);
+		$this->assertDatabaseHas('positions', ['id' => $position3->id, 'available' => 0]);
+		$this->assertDatabaseHas('positions', ['id' => $position4->id, 'available' => 0]);
 	}
 
 	/** @test **/
@@ -87,11 +114,17 @@ class ManageCharactersTest extends DatabaseTestCase
 		$admin = $this->createAdmin();
 		$this->signIn($admin);
 
+		$position1 = create('Nova\Genres\Position', ['available' => 0]);
+		$position2 = create('Nova\Genres\Position', ['available' => 0]);
+
 		$character = create('Nova\Characters\Character');
+		$character->positions()->saveMany([$position1, $position2]);
 
 		$this->delete(route('characters.destroy', [$character]));
 
 		$this->assertSoftDeleted('characters', ['id' => $character->id]);
+		$this->assertEquals(1, $position1->fresh()->available);
+		$this->assertEquals(1, $position2->fresh()->available);
 	}
 
 	/** @test **/
@@ -112,7 +145,7 @@ class ManageCharactersTest extends DatabaseTestCase
 	{
 		$admin = $this->createAdmin();
 		$this->signIn($admin);
-		
+
 		$this->get(route('characters.index'))->assertSuccessful();
 		$this->get(route('characters.create'))->assertSuccessful();
 		$this->get(route('characters.edit', $this->character))->assertSuccessful();

@@ -7,7 +7,7 @@ use Nova\Foundation\Data\Reorderable;
 class Position extends Eloquent
 {
 	use Reorderable;
-	
+
 	protected $table = 'positions';
 	protected $fillable = [
 		'name', 'description', 'department_id', 'order', 'display', 'available',
@@ -30,5 +30,25 @@ class Position extends Eloquent
 	public function department()
 	{
 		return $this->belongsTo(Department::class);
+	}
+
+	//--------------------------------------------------------------------------
+	// Model Methods
+	//--------------------------------------------------------------------------
+
+	public function addAvailableSlot()
+	{
+		$this->increment('available');
+
+		return $this;
+	}
+
+	public function removeAvailableSlot()
+	{
+		if ($this->available > 0) {
+			$this->decrement('available');
+		}
+
+		return $this;
 	}
 }

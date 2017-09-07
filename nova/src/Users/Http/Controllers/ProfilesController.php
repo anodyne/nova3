@@ -20,8 +20,10 @@ class ProfilesController extends Controller
 		return view('pages.users.profile', compact('user'));
 	}
 
-	public function edit(User $user)
+	public function edit()
 	{
+		$user = auth()->user();
+
 		$this->authorize('updateProfile', $user);
 
 		$genders = [
@@ -33,8 +35,10 @@ class ProfilesController extends Controller
 		return view('pages.users.update-profile', compact('user', 'genders'));
 	}
 
-	public function update(User $user)
+	public function update()
 	{
+		$user = auth()->user();
+
 		$this->authorize('updateProfile', $user);
 
 		$this->validate(request(), [
@@ -56,8 +60,10 @@ class ProfilesController extends Controller
 		return back();
 	}
 
-	public function updatePassword(Hasher $hasher, User $user)
+	public function updatePassword(Hasher $hasher)
 	{
+		$user = auth()->user();
+
 		$this->authorize('updateProfile', $user);
 
 		if (! $hasher->check(request('password_current'), $user->getPassword())) {

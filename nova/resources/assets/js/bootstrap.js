@@ -50,16 +50,16 @@ window.flash = function (message, title, level = 'success') {
 	window.events.$emit('flash', message, title, level);
 };
 
-window.route = function (name, args = {}) {
-	// Grab the URI from the list of routes
-	let uri = window.Nova.routes[name]
+// window.route = function (name, args = {}) {
+// 	// Grab the URI from the list of routes
+// 	let uri = window.Nova.routes[name]
 
-	// Loop through the arguments and replace the variable with its value
-	Object.keys(args).map((a) => uri = uri.replace(`{${a}}`, args[a]))
+// 	// Loop through the arguments and replace the variable with its value
+// 	Object.keys(args).map((a) => uri = uri.replace(`{${a}}`, args[a]))
 
-	// Put the full URL back together
-	return [window.Nova.system.baseUrl, uri].join('/')
-};
+// 	// Put the full URL back together
+// 	return [window.Nova.system.baseUrl, uri].join('/')
+// };
 
 window.icon = function (name, attributes = '') {
 	// Grab the template
@@ -69,4 +69,21 @@ window.icon = function (name, attributes = '') {
 	template = template.replace('%2$s', attributes)
 
 	return template.replace('%1$s', icon)
+}
+
+window._m = function (key, variables = '') {
+	// Get the string
+	let string = window.Nova.lang[key]
+
+	// TODO: Add the gender to the variables
+	// variables.push({1: window.Nova.user.gender})
+
+	// TODO: handle PLURAL
+
+	// TODO: handle GENDER
+
+	// Loop through the variables and replace the variable with its value
+	Object.keys(variables).map((v) => string = string.replace(`$${v}`, variables[v]));
+
+	return string;
 }

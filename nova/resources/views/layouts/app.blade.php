@@ -22,6 +22,7 @@
 	<script>
 		window.Nova = {!! json_encode(Nova::scriptVariables()) !!}
 	</script>
+	@routes
 </head>
 <body>
 	<div id="nova-app">
@@ -66,7 +67,12 @@
 						<div class="nav-item dropdown">
 							<a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-toggle="dropdown" role="button" aria-expanded="false">
 								<span class="mr-1">
-									<user-avatar :user="{{ $_user }}" type="image" size="xs"></user-avatar>
+									<avatar :item="{{ $_user }}"
+											:show-content="false"
+											:show-status="false"
+											size="xs"
+											type="image">
+									</avatar>
 								</span>
 								<span class="caret"></span>
 							</a>
@@ -96,6 +102,14 @@
 		<main v-cloak>
 			<div class="container">
 				@yield('content')
+
+				@if (app()->environment() == 'local')
+					<span class="badge badge-dark d-sm-none">xs</span>
+					<span class="badge badge-info d-none d-sm-inline d-md-none">sm</span>
+					<span class="badge badge-warning d-none d-md-inline d-lg-none">md</span>
+					<span class="badge badge-success d-none d-lg-inline d-xl-none">lg</span>
+					<span class="badge badge-danger d-none d-xl-inline">xl</span>
+				@endif
 			</div>
 		</main>
 

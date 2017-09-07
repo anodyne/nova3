@@ -25,6 +25,12 @@ class CharacterPolicy
 			or $this->delete($user, $character));
 	}
 
+	public function media(User $user, Character $character)
+	{
+		return $this->manage($user, $character)
+			or $user->characters->contains($character->id);
+	}
+
 	public function update(User $user, Character $character)
 	{
 		return $user->can('character.update');

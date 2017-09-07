@@ -24,6 +24,12 @@ class UserPolicy
 			or $this->delete($user, $actionUser));
 	}
 
+	public function media(User $user, User $actionUser)
+	{
+		return $this->manage($user, $actionUser)
+			or (int) $user->id === (int) $actionUser->id;
+	}
+
 	public function update(User $user, User $actionUser)
 	{
 		return $user->can('user.update');

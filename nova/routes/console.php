@@ -10,6 +10,7 @@ Artisan::command('nova:refresh', function () {
 	// Flush the caches
 	Cache::flush();
 	Session::flush();
+	Artisan::call('cache:clear');
 	Artisan::call('config:clear');
 	Artisan::call('route:clear');
 	$this->info('Cleared system caches.');

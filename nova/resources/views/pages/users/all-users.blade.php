@@ -87,6 +87,7 @@
 										<a href="{{ route('users.force-password-reset') }}" class="dropdown-item">
 											{!! icon('users') !!} {{ _m('users-password-reset') }}
 										</a>
+										<a href="{{ route('characters.link') }}" class="dropdown-item">{!! icon('link') !!} {{ _m('characters-link') }}</a>
 									</div>
 								</div>
 							@endcan
@@ -105,13 +106,15 @@
 
 			<div class="row align-items-center" v-for="user in filteredUsers">
 				<div class="col">
-					<user-avatar :user="user" type="link" :has-label="true" size="xs"></user-avatar>
-					<div class="mt-1" v-if="showCharacters">
-						<small class="text-muted" v-if="usersCharacters(user).length > 0">
-							<strong>{{ _m('users-characters') }}</strong>
+					<avatar :item="user"
+							:show-status="false"
+							size="sm"
+							type="link">
+						<span class="text-muted" v-if="showCharacters && usersCharacters(user).length > 0">
+							<strong>{{ _m('users-assigned-characters') }}:</strong>
 							@{{ usersCharacters(user) }}
-						</small>
-					</div>
+						</span>
+					</avatar>
 				</div>
 				<div class="col col-auto">
 					<div class="dropdown">

@@ -3,9 +3,10 @@
 use Date;
 use Hash;
 use Mail;
+use Status;
 use Nova\Authorize\Role;
+use Nova\Media\Data\HasMedia;
 use Nova\Characters\Character;
-use Nova\Foundation\Data\HasMedia;
 use Nova\Foundation\Data\HasStatus;
 use Nova\Auth\Mail\SendPasswordReset;
 use Illuminate\Notifications\Notifiable;
@@ -18,15 +19,15 @@ class User extends Authenticatable
 {
 	use Notifiable, SoftDeletes, PresentableTrait, HasStatus, HasMedia;
 
-	protected $table = 'users';
+	protected $appends = ['avatarImage', 'displayName'];
+	protected $dates = ['created_at', 'updated_at', 'deleted_at', 'last_sign_in'];
 	protected $fillable = [
 		'name', 'email', 'password', 'nickname', 'status', 'last_sign_in',
 		'remember_token', 'primary_character',
 	];
 	protected $hidden = ['password', 'remember_token'];
-	protected $appends = ['avatarImage', 'displayName'];
 	protected $presenter = Presenters\UserPresenter::class;
-	protected $dates = ['created_at', 'updated_at', 'deleted_at', 'last_sign_in'];
+	protected $table = 'users';
 	protected $with = ['media'];
 
 	//--------------------------------------------------------------------------
@@ -51,11 +52,6 @@ class User extends Authenticatable
 	//--------------------------------------------------------------------------
 	// Model Methods
 	//--------------------------------------------------------------------------
-
-	public function getAvatarImageAttribute()
-	{
-		return $this->present()->avatarImage;
-	}
 
 	public function attachRole($role)
 	{
@@ -83,6 +79,11 @@ class User extends Authenticatable
 		$this->roles()->detach($role);
 	}
 
+	public function getAvatarImageAttribute()
+	{
+		return $this->present()->avatarImage;
+	}
+
 	public function getDisplayNameAttribute()
 	{
 		return $this->present()->name;
@@ -98,7 +99,7 @@ class User extends Authenticatable
 		if (is_string($role)) {
 			return $this->roles->contains('name', $role);
 		}
-		
+
 		return !! $role->intersect($this->roles)->count();
 	}
 
@@ -116,6 +117,20 @@ class User extends Authenticatable
 	public function setPasswordAttribute($value)
 	{
 		$this->attributes['password'] = ($value !== null) ? Hash::make($value) : null;
+	}
+
+	public function setPrimaryCharacter()
+	{
+		$activeCharacters = $this->characters->filter(function ($character) {
+			return $character->isActive();
+		});
+
+		if ($activeCharacters->count() > 0) {
+			$this->setPrimaryCharacterAs($activeCharacters->first());
+		} else {
+			$this->attributes['primary_character'] = null;
+			$this->save();
+		}
 	}
 
 	public function setPrimaryCharacterAs(Character $character)

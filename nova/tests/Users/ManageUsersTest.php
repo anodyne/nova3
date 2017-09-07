@@ -110,12 +110,12 @@ class ManageUsersTest extends DatabaseTestCase
 
 		$character = create('Nova\Characters\Character', ['user_id' => $user->id]);
 
-		$userMedia = create('Nova\Foundation\Media', [
+		$userMedia = create('Nova\Media\Media', [
 			'mediable_id' => $user->id,
 			'mediable_type' => 'user'
 		]);
 
-		$characterMedia = create('Nova\Foundation\Media', ['mediable_id' => $character->id]);
+		$characterMedia = create('Nova\Media\Media', ['mediable_id' => $character->id]);
 
 		$this->delete(route('users.destroy', [$user]));
 
@@ -145,7 +145,7 @@ class ManageUsersTest extends DatabaseTestCase
 	{
 		$admin = $this->createAdmin();
 		$this->signIn($admin);
-		
+
 		$this->get(route('users.index'))->assertSuccessful();
 		$this->get(route('users.create'))->assertSuccessful();
 		$this->get(route('users.edit', $this->user))->assertSuccessful();
