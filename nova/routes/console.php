@@ -16,7 +16,7 @@ Artisan::command('nova:refresh', function () {
 	$this->info('Cleared system caches.');
 
 	// Refresh the migrations
-	Artisan::call('migrate:refresh', ['--force' => true]);
+	Artisan::call('migrate:fresh', ['--force' => true]);
 	$this->info('Refreshed database.');
 
 	// Create a user with the System Admin role
