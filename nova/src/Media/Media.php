@@ -7,10 +7,10 @@ class Media extends Eloquent
 {
 	use Reorderable;
 
-	protected $table = 'media';
 	protected $fillable = [
 		'mediable_id', 'mediable_type', 'filename', 'mime_type', 'order', 'primary'
 	];
+	protected $table = 'media';
 
 	//--------------------------------------------------------------------------
 	// Relationships
