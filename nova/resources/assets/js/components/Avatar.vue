@@ -105,12 +105,46 @@
 			statusClasses () {
 				let classes = ['avatar-status'];
 
-				if (this.item.user && !this.item.isPrimaryCharacter) {
-					classes.push('secondary');
+				// Character
+				if (this.item.user_id !== undefined) {
+					if (this.item.isPrimaryCharacter) {
+						classes.push('primary');
+					}
+
+					if (this.item.isPrimaryCharacter) {
+						classes.push('secondary');
+					}
+
+					if (this.item.status == 1) {
+						classes.push('success');
+					}
+
+					if (this.item.status == 3) {
+						classes.push('warning');
+					}
+
+					if (this.item.status == 4) {
+						classes.push('danger');
+					}
 				}
 
-				if (this.item.user && this.item.isPrimaryCharacter) {
-					classes.push('primary');
+				// User
+				if (this.item.primary_character !== undefined) {
+					if (this.item.status == 1) {
+						classes.push('success');
+					}
+
+					if (this.item.status == 2) {
+						classes.push('primary');
+					}
+
+					if (this.item.status == 3) {
+						classes.push('warning');
+					}
+
+					if (this.item.status == 4) {
+						classes.push('danger');
+					}
 				}
 
 				return classes;
