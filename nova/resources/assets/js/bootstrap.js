@@ -19,6 +19,7 @@ try {
 
 window.Vue = require('vue');
 window.md5 = require('md5');
+window.moment = require('moment');
 window.Sortable = require('sortablejs');
 
 /**
