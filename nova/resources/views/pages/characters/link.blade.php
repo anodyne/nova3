@@ -143,7 +143,7 @@
 					self.selectedUser = user;
 
 					// Grab the user's characters
-					self.usersCharacters = user.characters;
+					self.usersCharacters = user.all_characters;
 				});
 
 				window.events.$on('character-picker-selected', function (character) {
