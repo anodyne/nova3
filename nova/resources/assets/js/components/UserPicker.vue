@@ -9,7 +9,7 @@
 					<avatar :item="selectedUser" :show-metadata="false" :show-status="false" size="sm" type="image"></avatar>
 					<div class="ml-3" v-html="showIcon('more')"></div>
 				</div>
-				<input type="hidden" name="user_id" v-model="selectedUser.id">
+				<input type="hidden" :name="fieldName" v-model="selectedUser.id">
 			</div>
 			<div role="button"
 				 class="item-picker-toggle"
@@ -58,6 +58,8 @@
 
 	export default {
 		props: {
+			fieldName: { type: String, default: 'user_id' },
+			items: { type: Array },
 			selected: { type: Object }
 		},
 
@@ -97,6 +99,18 @@
 				this.show = false;
 			},
 
+			fetch () {
+				let self = this;
+
+				if (this.items) {
+					this.users = this.items;
+				} else {
+					axios.get(route('api.users')).then((response) => {
+						self.users = response.data;
+					});
+				}
+			},
+
 			selectUser (user) {
 				this.selectedUser = user;
 				this.show = false;
@@ -117,8 +131,10 @@
 				this.selectedUser = this.selected;
 			}
 
-			axios.get(route('api.users')).then((response) => {
-				self.users = response.data;
+			this.fetch();
+
+			window.events.$on('user-picker-refresh', () => {
+				self.fetch();
 			});
 
 			window.events.$on('user-picker-reset', () => {
