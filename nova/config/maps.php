@@ -14,6 +14,10 @@ return [
 		Nova\Users\User::class => Nova\Users\Data\UserCreator::class,
 	],
 
+	'deactivators' => [
+		Nova\Characters\Character::class => Nova\Characters\Data\CharacterDeactivator::class,
+	],
+
 	'deletors' => [
 		Nova\Authorize\Permission::class => Nova\Authorize\Data\PermissionDeletor::class,
 		Nova\Authorize\Role::class => Nova\Authorize\Data\RoleDeletor::class,

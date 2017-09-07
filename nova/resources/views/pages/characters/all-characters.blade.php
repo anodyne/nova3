@@ -139,6 +139,22 @@
 								   v-show="isTrashed(character)">
 									{!! icon('undo') !!} {{ _m('restore') }}
 								</a>
+
+								<div class="dropdown-divider"></div>
+
+								<a href="#"
+								   class="dropdown-item text-success"
+								   @click.prevent="activateCharacter(character.id)"
+								   v-show="isInactive(character)">
+									{!! icon('check-alt') !!} {{ _m('activate') }}
+								</a>
+
+								<a href="#"
+								   class="dropdown-item"
+								   @click.prevent="deactivateCharacter(character.id)"
+								   v-show="isActive(character)">
+									{!! icon('close-alt') !!} {{ _m('deactivate') }}
+								</a>
 							@endcan
 						</div>
 					</div>
@@ -207,6 +223,41 @@
 					return route('characters.bio', {character:id})
 				},
 
+				deactivateCharacter (id) {
+					let self = this;
+
+					$.confirm({
+						title: _m('characters-confirm-deactivate-title'),
+						content: _m('characters-confirm-deactivate-message'),
+						columnClass: "medium",
+						theme: "dark",
+						buttons: {
+							confirm: {
+								text: _m('deactivate'),
+								btnClass: "btn-danger",
+								action () {
+									axios.delete(route('characters.deactivate', { character:id }))
+										 .then(function (response) {
+										 	let index = _.findIndex(self.characters, function (c) {
+												return c.id == id;
+											});
+
+											self.characters[index].status = {{ Status::INACTIVE }};
+
+											flash(
+												_m('characters-flash-deactivated-message'),
+												_m('characters-flash-deactivated-title')
+											);
+										 });
+								}
+							},
+							cancel: {
+								text: _m('cancel')
+							}
+						}
+					});
+				},
+
 				deleteCharacter (id) {
 					let self = this
 
@@ -243,11 +294,23 @@
 				},
 
 				editLink (id) {
-					return route('characters.edit', {character:id})
+					return route('characters.edit', { character:id });
+				},
+
+				isActive (character) {
+					return character.status == {{ Status::ACTIVE }};
+				},
+
+				isInactive (character) {
+					return character.status == {{ Status::INACTIVE }};
+				},
+
+				isPending (character) {
+					return character.status == {{ Status::PENDING }};
 				},
 
 				isTrashed (character) {
-					return character.deleted_at != null
+					return character.status == {{ Status::REMOVED }};
 				},
 
 				resetSearch () {

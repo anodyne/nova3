@@ -122,6 +122,12 @@ Route::delete('admin/characters/unlink/{character}', 'Nova\Characters\Http\Contr
 
 Route::patch('admin/characters/{character}/restore', 'Nova\Characters\Http\Controllers\CharactersController@restore')
 	->name('characters.restore');
+
+Route::patch('admin/characters/{character}/activate', 'Nova\Characters\Http\Controllers\CharacterActivatorController@update')
+	->name('characters.activate');
+Route::delete('admin/characters/{character}/deactivate', 'Nova\Characters\Http\Controllers\CharacterActivatorController@destroy')
+	->name('characters.deactivate');
+
 Route::resource('admin/characters', 'Nova\Characters\Http\Controllers\CharactersController');
 
 Route::get('characters/manifest', 'Nova\Characters\Http\Controllers\CharacterManifestController@index')

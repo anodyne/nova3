@@ -56,6 +56,13 @@ if (! function_exists('creator')) {
 	}
 }
 
+if (! function_exists('deactivator')) {
+	function deactivator($model)
+	{
+		return app(config('maps.deactivators')[$model]);
+	}
+}
+
 if (! function_exists('deletor')) {
 	function deletor($model)
 	{

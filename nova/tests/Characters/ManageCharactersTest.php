@@ -28,6 +28,7 @@ class ManageCharactersTest extends DatabaseTestCase
 		$this->patch(route('characters.update', $this->character))->assertRedirect(route('sign-in'));
 		$this->patch(route('characters.restore', $this->character))->assertRedirect(route('sign-in'));
 		$this->delete(route('characters.destroy', $this->character))->assertRedirect(route('sign-in'));
+		$this->delete(route('characters.deactivate', $this->character))->assertRedirect(route('sign-in'));
 
 		$this->signIn();
 
@@ -38,6 +39,7 @@ class ManageCharactersTest extends DatabaseTestCase
 		$this->patch(route('characters.update', $this->character))->assertStatus(403);
 		$this->patch(route('characters.restore', $this->character))->assertStatus(403);
 		$this->delete(route('characters.destroy', $this->character))->assertStatus(403);
+		$this->delete(route('characters.deactivate', $this->character))->assertStatus(403);
 	}
 
 	/** @test **/
@@ -140,8 +142,34 @@ class ManageCharactersTest extends DatabaseTestCase
 		$this->assertDatabaseHas('characters', ['id' => $character->id, 'deleted_at' => null]);
 	}
 
+	/**
+	 * @test
+	 * @coversNothing
+	 */
+	public function a_character_can_be_deactivated()
+	{
+		$admin = $this->createAdmin();
+		$this->signIn($admin);
+
+		$position = create('Nova\Genres\Position', ['available' => 0]);
+		$character = create(Character::class, ['status' => Status::ACTIVE]);
+		$character->positions()->save($position);
+
+		$this->delete(route('characters.deactivate', $character));
+
+		$this->assertDatabaseHas('characters', [
+			'id' => $character->id,
+			'status' => Status::INACTIVE
+		]);
+
+		$this->assertDatabaseHas('positions', [
+			'id' => $position->id,
+			'available' => 1
+		]);
+	}
+
 	/** @test **/
-	public function has_no_errors()
+	public function character_management_has_no_errors()
 	{
 		$admin = $this->createAdmin();
 		$this->signIn($admin);
