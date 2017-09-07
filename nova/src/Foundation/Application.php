@@ -48,6 +48,16 @@ class Application extends LaravelApp
 		return $this->resourcePath('lang');
 	}
 
+	public function path($path = '')
+	{
+		return join(DIRECTORY_SEPARATOR, [
+			$this->basePath,
+			'nova',
+			'src',
+			$path
+		]);
+	}
+
 	public function publicPath()
 	{
 		return $this->basePath;
