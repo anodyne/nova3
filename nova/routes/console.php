@@ -39,4 +39,4 @@ Artisan::command('nova:refresh', function () {
 	$user->attachRole(Nova\Authorize\Role::name('Active User')->first());
 	
 	$this->info('Created test users.');
-});
+})->describe('Refresh Nova with a fresh copy of the database and data');
