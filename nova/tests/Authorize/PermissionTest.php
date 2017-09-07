@@ -1,7 +1,7 @@
 <?php namespace Tests\Authorize;
 
-use Nova\Authorize\Permission;
 use Tests\DatabaseTestCase;
+use Nova\Authorize\Permission;
 
 class PermissionTest extends DatabaseTestCase
 {
@@ -11,10 +11,13 @@ class PermissionTest extends DatabaseTestCase
 	{
 		parent::setUp();
 
-		$this->permission = create('Nova\Authorize\Permission');
+		$this->permission = create(Permission::class);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @covers Nova\Authorize\Permission::roles
+	 */
 	public function it_belongs_to_roles()
 	{
 		$this->assertInstanceOf(

@@ -4,8 +4,8 @@ use Eloquent;
 
 class Permission extends Eloquent
 {
-	protected $table = 'permissions';
 	protected $fillable = ['name', 'key'];
+	protected $table = 'permissions';
 
 	//--------------------------------------------------------------------------
 	// Relationships

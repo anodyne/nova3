@@ -1,6 +1,7 @@
 <?php namespace Tests\Authorize;
 
 use Tests\DatabaseTestCase;
+use Nova\Authorize\Permission;
 
 class ManagePermissionsTest extends DatabaseTestCase
 {
@@ -10,10 +11,13 @@ class ManagePermissionsTest extends DatabaseTestCase
 	{
 		parent::setUp();
 
-		$this->permission = create('Nova\Authorize\Permission');
+		$this->permission = create(Permission::class);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @coversNothing
+	 */
 	public function unauthorized_users_cannot_manage_permissions()
 	{
 		$this->withExceptionHandling();
@@ -35,14 +39,16 @@ class ManagePermissionsTest extends DatabaseTestCase
 		$this->delete(route('permissions.destroy', $this->permission))->assertStatus(403);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @covers Nova\Http\Controllers\PermissionsController::store
+	 */
 	public function a_permission_can_be_created()
 	{
 		$admin = $this->createAdmin();
-
 		$this->signIn($admin);
 
-		$permission = make('Nova\Authorize\Permission');
+		$permission = make(Permission::class);
 
 		$this->post(route('permissions.store'), $permission->toArray());
 
@@ -52,31 +58,34 @@ class ManagePermissionsTest extends DatabaseTestCase
 		]);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @covers Nova\Http\Controllers\PermissionsController::update
+	 */
 	public function a_permission_can_be_updated()
 	{
 		$admin = $this->createAdmin();
-
 		$this->signIn($admin);
 
 		$this->patch(
 			route('permissions.update', [$this->permission]),
-			['name' => "New Name", 'key' => $this->permission->key]
+			['name' => 'New Name', 'key' => $this->permission->key]
 		);
 
-		$this->assertDatabaseHas('permissions', ['name' => "New Name"]);
+		$this->assertDatabaseHas('permissions', ['name' => 'New Name']);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @covers Nova\Http\Controllers\PermissionsController::destroy
+	 */
 	public function a_permission_can_be_deleted()
 	{
 		$admin = $this->createAdmin();
-
 		$this->signIn($admin);
 
-		$permission1 = create('Nova\Authorize\Permission');
-		$permission2 = create('Nova\Authorize\Permission');
-
+		$permission1 = create(Permission::class);
+		$permission2 = create(Permission::class);
 		$role1 = create('Nova\Authorize\Role');
 		$role2 = create('Nova\Authorize\Role');
 
@@ -101,8 +110,11 @@ class ManagePermissionsTest extends DatabaseTestCase
 		]);
 	}
 
-	/** @test **/
-	public function has_no_errors()
+	/**
+	 * @test
+	 * @coversNothing
+	 */
+	public function permission_management_has_no_errors()
 	{
 		$admin = $this->createAdmin();
 		$this->signIn($admin);
