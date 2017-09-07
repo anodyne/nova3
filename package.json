@@ -19,6 +19,7 @@
 		"jquery-confirm": "^3.2",
 		"lodash": "^4.17.4",
 		"md5": "^2.2",
+		"moment": "^2.18",
 		"pluralize": "^5.0",
 		"popper.js": "^1.11",
 		"sortablejs": "^1.6",

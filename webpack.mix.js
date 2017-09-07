@@ -4,13 +4,13 @@ mix.setPublicPath('assets');
 
 mix.autoload({
 		'popper.js/dist/umd/popper.js': ['Popper'],
-		jquery: ['$', 'jquery', 'jQuery', 'window.jquery']
+		jquery: ['$', 'jquery', 'jQuery', 'window.jquery'],
+		'moment': ['moment', 'window.moment']
 	})
 	.extract([
-		'jquery', 'axios', 'bootstrap', 'croppie',
-		'humanize-number', 'jquery-confirm', 'lodash',
-		'md5', 'pluralize', 'popper.js', 'sortablejs',
-		'vue', 'vue-clickaway', 'vue-js-toggle-button'
+		'jquery', 'axios', 'bootstrap', 'croppie', 'humanize-number',
+		'jquery-confirm', 'lodash', 'md5', 'moment', 'pluralize', 'popper.js',
+		'sortablejs', 'vue', 'vue-clickaway', 'vue-js-toggle-button'
 	])
    .js('nova/resources/assets/js/app.js', 'assets/js')
    .sass('nova/resources/assets/sass/app.scss', 'assets/css')
