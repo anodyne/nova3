@@ -1,5 +1,6 @@
 <?php namespace Tests\Users;
 
+use Status;
 use Nova\Users\User;
 use Tests\DatabaseTestCase;
 
@@ -101,6 +102,37 @@ class UserTest extends DatabaseTestCase
 		$this->user->setPrimaryCharacterAs($character);
 
 		$this->assertEquals($this->user->fresh()->primaryCharacter->id, $character->id);
+	}
+
+	/** @test **/
+	public function it_can_set_a_primary_character_when_a_primary_character_is_unassigned()
+	{
+		$character1 = create('Nova\Characters\Character', [
+			'user_id' => $this->user->id,
+			'status' => Status::ACTIVE
+		]);
+		$character2 = create('Nova\Characters\Character', [
+			'user_id' => $this->user->id,
+			'status' => Status::ACTIVE
+		]);
+
+		$this->user->setPrimaryCharacterAs($character1);
+
+		$character1->unassignFromUser();
+
+		$this->assertEquals($this->user->fresh()->primaryCharacter->id, $character2->id);
+	}
+
+	/** @test **/
+	public function it_sets_the_primary_character_to_null()
+	{
+		$character = create('Nova\Characters\Character', ['user_id' => $this->user->id]);
+
+		$this->user->setPrimaryCharacterAs($character);
+
+		$character->unassignFromUser();
+
+		$this->assertEquals($this->user->fresh()->primaryCharacter, null);
 	}
 
 	/** @test **/

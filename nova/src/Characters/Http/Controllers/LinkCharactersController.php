@@ -15,7 +15,7 @@ class LinkCharactersController extends Controller
 
 	public function create()
 	{
-		return view('pages.characters.quick-link');
+		return view('pages.characters.link');
 	}
 
 	public function store()
@@ -30,6 +30,17 @@ class LinkCharactersController extends Controller
 		$character->assignToUser($user);
 
 		return response($user->fresh()->characters, 200);
+	}
+
+	public function update()
+	{
+		// Get the character
+		$character = Character::findOrFail(request('character'));
+
+		// Set the character as the primary character
+		$character->setAsPrimaryCharacter();
+
+		return response($character->user->fresh()->characters, 200);
 	}
 
 	public function destroy(Character $character)

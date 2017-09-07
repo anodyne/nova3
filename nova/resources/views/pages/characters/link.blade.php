@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', _m('characters-quick-link'))
+@section('title', _m('characters-link'))
 
 @section('content')
-	<h1>{{ _m('characters-quick-link') }}</h1>
+	<h1>{{ _m('characters-link') }}</h1>
 
 	<div class="row">
 		<div class="col-md-6 col-lg-4">
@@ -40,6 +40,7 @@
 						<div class="col col-auto d-flex align-items-center">
 							<a href="#"
 							   class="text-subtle mr-2"
+							   @click.prevent="setAsPrimaryCharacter(character)"
 							   v-if="!character.isPrimaryCharacter">
 								{!! icon('star') !!}
 							</a>
@@ -105,7 +106,7 @@
 
 							// Now remove that character from the list
 							self.usersCharacters.splice(index, 1);
-							
+
 							flash(_m('characters-flash-unassigned-message'), _m('characters-flash-unassigned-title'));
 						})
 						.catch(function (error) {
@@ -115,6 +116,22 @@
 								'danger'
 							);
 						});
+				},
+
+				setAsPrimaryCharacter (character) {
+					let self = this;
+
+					axios.patch(route('characters.link.update'), {
+						character: character.id
+					}).then(function (response) {
+						console.log(response.data);
+						// Update the list of assigned characters
+						self.usersCharacters = response.data;
+
+						flash(_m('characters-flash-primary-message'), _m('characters-flash-primary-title'));
+					}).catch(function (error) {
+						//
+					});
 				}
 			},
 

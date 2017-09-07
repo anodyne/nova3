@@ -3,12 +3,13 @@
 use Eloquent;
 use Nova\Users\User;
 use Nova\Media\Data\HasMedia;
+use Nova\Foundation\Data\HasStatus;
 use Laracasts\Presenter\PresentableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Character extends Eloquent
 {
-	use PresentableTrait, SoftDeletes, HasMedia;
+	use PresentableTrait, SoftDeletes, HasMedia, HasStatus;
 
 	protected $appends = [
 		'avatarImage', 'isPrimaryCharacter', 'primaryPosition', 'displayName'
@@ -47,7 +48,11 @@ class Character extends Eloquent
 		$this->user()->associate($user);
 
 		$this->save();
-		
+
+		if ($this->user->fresh()->primaryCharacter === null) {
+			$this->setAsPrimaryCharacter();
+		}
+
 		return $this;
 	}
 
@@ -97,10 +102,17 @@ class Character extends Eloquent
 
 	public function unassignFromUser()
 	{
+		$user = $this->user;
+		$wasPrimaryCharacter = $this->isPrimaryCharacter();
+
 		$this->user()->dissociate();
 
 		$this->save();
-		
+
+		if ($wasPrimaryCharacter) {
+			$user->fresh()->setPrimaryCharacter();
+		}
+
 		return $this;
 	}
 }

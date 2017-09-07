@@ -62,6 +62,17 @@ class CharacterTest extends DatabaseTestCase
 	}
 
 	/** @test **/
+	public function it_makes_itself_the_primary_character_when_its_the_first_character_assigned_to_a_user()
+	{
+		$user = create('Nova\Users\User');
+		$character = create(Character::class);
+
+		$character->assignToUser($user);
+
+		$this->assertEquals($user->fresh()->primaryCharacter->id, $character->id);
+	}
+
+	/** @test **/
 	public function is_has_media()
 	{
 		$this->assertInstanceOf(

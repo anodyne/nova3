@@ -115,6 +115,8 @@ Route::get('admin/characters/link', 'Nova\Characters\Http\Controllers\LinkCharac
 	->name('characters.link');
 Route::post('admin/characters/link', 'Nova\Characters\Http\Controllers\LinkCharactersController@store')
 	->name('characters.link.store');
+Route::patch('admin/characters/link', 'Nova\Characters\Http\Controllers\LinkCharactersController@update')
+	->name('characters.link.update');
 Route::delete('admin/characters/unlink/{character}', 'Nova\Characters\Http\Controllers\LinkCharactersController@destroy')
 	->name('characters.link.destroy');
 

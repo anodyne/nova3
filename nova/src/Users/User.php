@@ -3,6 +3,7 @@
 use Date;
 use Hash;
 use Mail;
+use Status;
 use Nova\Authorize\Role;
 use Nova\Media\Data\HasMedia;
 use Nova\Characters\Character;
@@ -116,6 +117,20 @@ class User extends Authenticatable
 	public function setPasswordAttribute($value)
 	{
 		$this->attributes['password'] = ($value !== null) ? Hash::make($value) : null;
+	}
+
+	public function setPrimaryCharacter()
+	{
+		$activeCharacters = $this->characters->filter(function ($character) {
+			return $character->isActive();
+		});
+
+		if ($activeCharacters->count() > 0) {
+			$this->setPrimaryCharacterAs($activeCharacters->first());
+		} else {
+			$this->attributes['primary_character'] = null;
+			$this->save();
+		}
 	}
 
 	public function setPrimaryCharacterAs(Character $character)
