@@ -33,10 +33,7 @@ class LinkCharactersTest extends DatabaseTestCase
 		$user = create('Nova\Users\User');
 		$character = create('Nova\Characters\Character', ['user_id' => $user->id]);
 
-		$this->delete(route('characters.link.destroy'), [
-			'user' => $user->id,
-			'character' => $character->id
-		]);
+		$this->delete(route('characters.link.destroy', $character->id));
 
 		$this->assertDatabaseMissing('characters', ['id' => $character->id, 'user_id' => $user->id]);
 	}
