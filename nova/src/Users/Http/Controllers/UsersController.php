@@ -3,6 +3,7 @@
 use Controller;
 use Nova\Users\User;
 use Nova\Authorize\Role;
+use Nova\Characters\Character;
 
 class UsersController extends Controller
 {
@@ -16,12 +17,13 @@ class UsersController extends Controller
 	public function index()
 	{
 		$userClass = new User;
+		$characterClass = new Character;
 
 		$this->authorize('manage', $userClass);
 
 		$users = User::with('characters')->withTrashed()->get();
 
-		return view('pages.users.all-users', compact('users', 'userClass'));
+		return view('pages.users.all-users', compact('users', 'userClass', 'characterClass'));
 	}
 
 	public function create()
