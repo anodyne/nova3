@@ -52,7 +52,7 @@
 
 			displayName () {
 				return this.item.displayName;
-				
+
 				let pieces = [];
 
 				if (this.isCharacter && this.item.rank != null) {
@@ -111,7 +111,7 @@
 						classes.push('primary');
 					}
 
-					if (this.item.isPrimaryCharacter) {
+					if (this.item.user !== null && ! this.item.isPrimaryCharacter) {
 						classes.push('secondary');
 					}
 
