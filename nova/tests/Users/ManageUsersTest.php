@@ -29,6 +29,8 @@ class ManageUsersTest extends DatabaseTestCase
 		$this->get(route('users.edit', $this->user))->assertRedirect(route('sign-in'));
 		$this->patch(route('users.update', $this->user))->assertRedirect(route('sign-in'));
 		$this->delete(route('users.destroy', $this->user))->assertRedirect(route('sign-in'));
+		$this->patch(route('users.activate', $this->user))->assertRedirect(route('sign-in'));
+		$this->delete(route('users.deactivate', $this->user))->assertRedirect(route('sign-in'));
 
 		$this->signIn();
 
@@ -39,6 +41,8 @@ class ManageUsersTest extends DatabaseTestCase
 		$this->patch(route('users.update', $this->user))->assertStatus(403);
 		// $this->patch(route('users.restore', $this->user))->assertStatus(403);
 		$this->delete(route('users.destroy', $this->user))->assertStatus(403);
+		$this->patch(route('users.activate', $this->user))->assertStatus(403);
+		$this->delete(route('users.deactivate', $this->user))->assertStatus(403);
 	}
 
 	/** @test **/
@@ -140,8 +144,52 @@ class ManageUsersTest extends DatabaseTestCase
 		$this->assertDatabaseHas('users', ['id' => $user->id, 'deleted_at' => null]);
 	}
 
+	/**
+	 * @test
+	 * @coversNothing
+	 */
+	public function a_user_can_be_deactivated()
+	{
+		$admin = $this->createAdmin();
+		$this->signIn($admin);
+
+		$user = create(User::class);
+		$character = create('Nova\Characters\Character', ['status' => Status::ACTIVE]);
+		$character->assignToUser($user);
+
+		$this->delete(route('users.deactivate', $user));
+
+		$this->assertDatabaseHas('users', [
+			'id' => $user->id,
+			'status' => Status::INACTIVE
+		]);
+		$this->assertDatabaseHas('characters', [
+			'id' => $character->id,
+			'status' => Status::INACTIVE
+		]);
+	}
+
+	/**
+	 * @test
+	 * @coversNothing
+	 */
+	public function a_user_can_be_activated()
+	{
+		$admin = $this->createAdmin();
+		$this->signIn($admin);
+
+		$user = create(User::class, ['status' => Status::INACTIVE]);
+
+		$this->patch(route('users.activate', $user));
+
+		$this->assertDatabaseHas('users', [
+			'id' => $user->id,
+			'status' => Status::ACTIVE
+		]);
+	}
+
 	/** @test **/
-	public function has_no_errors()
+	public function user_management_has_no_errors()
 	{
 		$admin = $this->createAdmin();
 		$this->signIn($admin);

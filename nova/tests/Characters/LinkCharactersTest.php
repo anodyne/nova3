@@ -8,6 +8,35 @@ use Nova\Characters\Character;
 class LinkCharactersTest extends DatabaseTestCase
 {
 	/** @test **/
+	public function unauthorized_users_cannot_link_characters()
+	{
+		$this->withExceptionHandling();
+
+		$character = create('Nova\Characters\Character');
+
+		$this->get(route('characters.link'))->assertRedirect(route('sign-in'));
+		$this->post(route('characters.link.store'))->assertRedirect(route('sign-in'));
+		$this->patch(route('characters.link.update'))->assertRedirect(route('sign-in'));
+		$this->delete(route('characters.link.destroy', $character))->assertRedirect(route('sign-in'));
+
+		$this->signIn();
+
+		$this->get(route('characters.link'))->assertStatus(403);
+		$this->post(route('characters.link.store'))->assertStatus(403);
+		$this->patch(route('characters.link.update'))->assertStatus(403);
+		$this->delete(route('characters.link.destroy', $character))->assertStatus(403);
+	}
+
+	/** @test **/
+	public function character_linking_has_no_errors()
+	{
+		$admin = $this->createAdmin();
+		$this->signIn($admin);
+
+		$this->get(route('characters.link'))->assertSuccessful();
+	}
+
+	/** @test **/
 	public function a_character_can_be_assigned_to_a_user()
 	{
 		$admin = $this->createAdmin();

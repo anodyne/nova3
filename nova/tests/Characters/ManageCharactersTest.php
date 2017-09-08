@@ -28,6 +28,7 @@ class ManageCharactersTest extends DatabaseTestCase
 		$this->patch(route('characters.update', $this->character))->assertRedirect(route('sign-in'));
 		$this->patch(route('characters.restore', $this->character))->assertRedirect(route('sign-in'));
 		$this->delete(route('characters.destroy', $this->character))->assertRedirect(route('sign-in'));
+		$this->patch(route('characters.activate', $this->character))->assertRedirect(route('sign-in'));
 		$this->delete(route('characters.deactivate', $this->character))->assertRedirect(route('sign-in'));
 
 		$this->signIn();
@@ -39,6 +40,7 @@ class ManageCharactersTest extends DatabaseTestCase
 		$this->patch(route('characters.update', $this->character))->assertStatus(403);
 		$this->patch(route('characters.restore', $this->character))->assertStatus(403);
 		$this->delete(route('characters.destroy', $this->character))->assertStatus(403);
+		$this->patch(route('characters.activate', $this->character))->assertStatus(403);
 		$this->delete(route('characters.deactivate', $this->character))->assertStatus(403);
 	}
 
@@ -168,6 +170,32 @@ class ManageCharactersTest extends DatabaseTestCase
 		]);
 	}
 
+	/**
+	 * @test
+	 * @coversNothing
+	 */
+	public function a_character_can_be_activated()
+	{
+		$admin = $this->createAdmin();
+		$this->signIn($admin);
+
+		$position = create('Nova\Genres\Position', ['available' => 1]);
+		$character = create(Character::class, ['status' => Status::INACTIVE]);
+		$character->positions()->save($position);
+
+		$this->patch(route('characters.activate', $character));
+
+		$this->assertDatabaseHas('characters', [
+			'id' => $character->id,
+			'status' => Status::ACTIVE
+		]);
+
+		$this->assertDatabaseHas('positions', [
+			'id' => $position->id,
+			'available' => 0
+		]);
+	}
+
 	/** @test **/
 	public function character_management_has_no_errors()
 	{
@@ -177,5 +205,6 @@ class ManageCharactersTest extends DatabaseTestCase
 		$this->get(route('characters.index'))->assertSuccessful();
 		$this->get(route('characters.create'))->assertSuccessful();
 		$this->get(route('characters.edit', $this->character))->assertSuccessful();
+		$this->get(route('characters.link'))->assertSuccessful();
 	}
 }
