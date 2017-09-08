@@ -15,11 +15,15 @@ class LinkCharactersController extends Controller
 
 	public function create()
 	{
+		$this->authorize('update', new Character);
+
 		return view('pages.characters.link');
 	}
 
 	public function store()
 	{
+		$this->authorize('update', new Character);
+
 		// Get the user
 		$user = User::find(request('user'));
 
@@ -34,6 +38,8 @@ class LinkCharactersController extends Controller
 
 	public function update()
 	{
+		$this->authorize('update', new Character);
+
 		// Get the character
 		$character = Character::findOrFail(request('character'));
 
@@ -45,6 +51,8 @@ class LinkCharactersController extends Controller
 
 	public function destroy(Character $character)
 	{
+		$this->authorize('update', $character);
+
 		// Detach the character from the user
 		$character->unassignFromUser();
 
