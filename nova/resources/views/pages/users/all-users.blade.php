@@ -158,18 +158,27 @@
 									{!! icon('undo') !!} {{ _m('restore') }}
 								</a>
 
+								<div class="dropdown-divider"></div>
+
 								<a href="#"
-								   class="dropdown-item text-success"
+								   class="dropdown-item text-warning"
 								   @click.prevent="deactivateUser(user.id)"
 								   v-show="isActive(user)">
-									{!! icon('undo') !!} {{ _m('users-deactivate') }}
+									{!! icon('close-alt') !!} {{ _m('deactivate') }}
 								</a>
 
 								<a href="#"
 								   class="dropdown-item text-success"
 								   @click.prevent="activateUser(user.id)"
 								   v-show="isInactive(user)">
-									{!! icon('undo') !!} {{ _m('users-activate') }}
+									{!! icon('check-alt') !!} {{ _m('activate') }}
+								</a>
+
+								<a href="#"
+								   class="dropdown-item text-success"
+								   @click.prevent="activateUser(user.id)"
+								   v-show="isPending(user)">
+									{!! icon('user-alt') !!} {{ _m('activate') }}
 								</a>
 							@endcan
 						</div>
@@ -218,6 +227,73 @@
 			},
 
 			methods: {
+				activateUser (id) {
+					let self = this;
+
+					$.confirm({
+						title: _m('users-confirm-activate-title'),
+						content: _m('users-confirm-activate-message'),
+						columnClass: "medium",
+						theme: "dark",
+						buttons: {
+							confirm: {
+								text: _m('activate'),
+								btnClass: "btn-success",
+								action () {
+									axios.patch(route('users.activate', { user:id }))
+										 .then(function (response) {
+										 	let index = _.findIndex(self.users, function (u) {
+												return u.id == id;
+											});
+
+											self.users[index].status = {{ Status::ACTIVE }};
+
+											flash(_m('users-flash-activated-message'), _m('users-flash-activated-title'));
+										 });
+								}
+							},
+							cancel: {
+								text: _m('cancel')
+							}
+						}
+					});
+				},
+
+				deactivateUser (id) {
+					let self = this;
+
+					$.confirm({
+						title: _m('users-confirm-deactivate-title'),
+						content: _m('users-confirm-deactivate-message'),
+						columnClass: "medium",
+						theme: "dark",
+						buttons: {
+							confirm: {
+								text: _m('deactivate'),
+								btnClass: "btn-danger",
+								action () {
+									axios.delete(route('users.deactivate', { user:id }))
+										 .then(function (response) {
+										 	let index = _.findIndex(self.users, function (u) {
+												return u.id == id;
+											});
+
+											self.users[index].status = {{ Status::INACTIVE }};
+
+											flash(
+												_m('users-flash-deactivated-message'),
+												_m('users-flash-deactivated-title')
+											);
+										 });
+								}
+							},
+							cancel: {
+								text: _m('cancel')
+							}
+						}
+					});
+				},
+
 				deleteUser (id) {
 					let self = this;
 

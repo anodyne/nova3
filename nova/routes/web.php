@@ -95,6 +95,10 @@ Route::get('admin/users/password-resets', 'Nova\Users\Http\Controllers\ForcePass
 	->name('users.force-password-reset');
 Route::patch('admin/users/password-resets', 'Nova\Users\Http\Controllers\ForcePasswordResetsController@update')
 	->name('users.reset-passwords');
+Route::patch('admin/users/{user}/activate', 'Nova\Users\Http\Controllers\UsersActivatorController@update')
+	->name('users.activate');
+Route::delete('admin/users/{user}/deactivate', 'Nova\Users\Http\Controllers\UsersActivatorController@destroy')
+	->name('users.deactivate');
 Route::resource('admin/users', 'Nova\Users\Http\Controllers\UsersController');
 
 Route::get('profile/edit', 'Nova\Users\Http\Controllers\ProfilesController@edit')
@@ -123,9 +127,9 @@ Route::delete('admin/characters/unlink/{character}', 'Nova\Characters\Http\Contr
 Route::patch('admin/characters/{character}/restore', 'Nova\Characters\Http\Controllers\CharactersController@restore')
 	->name('characters.restore');
 
-Route::patch('admin/characters/{character}/activate', 'Nova\Characters\Http\Controllers\CharacterActivatorController@update')
+Route::patch('admin/characters/{character}/activate', 'Nova\Characters\Http\Controllers\CharactersActivatorController@update')
 	->name('characters.activate');
-Route::delete('admin/characters/{character}/deactivate', 'Nova\Characters\Http\Controllers\CharacterActivatorController@destroy')
+Route::delete('admin/characters/{character}/deactivate', 'Nova\Characters\Http\Controllers\CharactersActivatorController@destroy')
 	->name('characters.deactivate');
 
 Route::resource('admin/characters', 'Nova\Characters\Http\Controllers\CharactersController');

@@ -150,10 +150,17 @@
 								</a>
 
 								<a href="#"
-								   class="dropdown-item"
+								   class="dropdown-item text-warning"
 								   @click.prevent="deactivateCharacter(character.id)"
 								   v-show="isActive(character)">
 									{!! icon('close-alt') !!} {{ _m('deactivate') }}
+								</a>
+
+								<a href="#"
+								   class="dropdown-item"
+								   @click.prevent="deactivateCharacter(character.id)"
+								   v-show="isPending(character)">
+									{!! icon('user-alt') !!} {{ _m('deactivate') }}
 								</a>
 							@endcan
 						</div>
@@ -219,8 +226,43 @@
 			},
 
 			methods: {
+				activateCharacter (id) {
+					let self = this;
+
+					$.confirm({
+						title: _m('characters-confirm-activate-title'),
+						content: _m('characters-confirm-activate-message'),
+						columnClass: "medium",
+						theme: "dark",
+						buttons: {
+							confirm: {
+								text: _m('activate'),
+								btnClass: "btn-success",
+								action () {
+									axios.patch(route('characters.activate', { character:id }))
+										 .then(function (response) {
+										 	let index = _.findIndex(self.characters, function (c) {
+												return c.id == id;
+											});
+
+											self.characters[index].status = {{ Status::ACTIVE }};
+
+											flash(
+												_m('characters-flash-activated-message'),
+												_m('characters-flash-activated-title')
+											);
+										 });
+								}
+							},
+							cancel: {
+								text: _m('cancel')
+							}
+						}
+					});
+				},
+
 				bioLink (id) {
-					return route('characters.bio', {character:id})
+					return route('characters.bio', { character:id });
 				},
 
 				deactivateCharacter (id) {
@@ -259,38 +301,38 @@
 				},
 
 				deleteCharacter (id) {
-					let self = this
+					let self = this;
 
 					$.confirm({
-						title: "{{ _m('characters-confirm-delete-title') }}",
-						content: "{{ _m('characters-confirm-delete-message') }}",
+						title: _m('characters-confirm-delete-title'),
+						content: _m('characters-confirm-delete-message'),
 						columnClass: "medium",
 						theme: "dark",
 						buttons: {
 							confirm: {
-								text: "{{ _m('delete') }}",
+								text: _m('delete'),
 								btnClass: "btn-danger",
 								action () {
-									axios.delete(route('characters.destroy', {character:id}))
+									axios.delete(route('characters.destroy', { character:id }))
 										 .then(function (response) {
 										 	let index = _.findIndex(self.characters, function (c) {
-												return c.id == id
-											})
+												return c.id == id;
+											});
 
-											self.characters.splice(index, 1)
+											self.characters[index].status = {{ Status::REMOVED }};
 
 											flash(
-												'{{ _m('characters-flash-deleted-message') }}',
-												'{{ _m('characters-flash-deleted-title') }}'
-											)
-										 })
+												_m('characters-flash-deleted-message'),
+												_m('characters-flash-deleted-title')
+											);
+										 });
 								}
 							},
 							cancel: {
-								text: "{{ _m('cancel') }}"
+								text: _m('cancel')
 							}
 						}
-					})
+					});
 				},
 
 				editLink (id) {
@@ -314,46 +356,46 @@
 				},
 
 				resetSearch () {
-					this.search = ''
-					this.mobileSearch = false
+					this.search = '';
+					this.mobileSearch = false;
 				},
 
 				restoreCharacter (id) {
-					let self = this
+					let self = this;
 
 					$.confirm({
-						title: "{{ _m('characters-confirm-restore-title') }}",
-						content: "{{ _m('characters-confirm-restore-message') }}",
+						title: _m('characters-confirm-restore-title'),
+						content: _m('characters-confirm-restore-message'),
 						columnClass: "medium",
 						theme: "dark",
 						buttons: {
 							confirm: {
-								text: "{{ _m('restore') }}",
+								text: _m('restore'),
 								btnClass: "btn-success",
 								action () {
-									axios.patch(route('characters.restore', {character:id}))
+									axios.patch(route('characters.restore', { character:id }))
 										 .then(function (response) {
 										 	let index = _.findIndex(self.characters, function (c) {
-												return c.id == id
-											})
+												return c.id == id;
+											});
 
-										 	self.characters[index].deleted_at = null
-											self.characters[index].status = {{ Status::ACTIVE }}
+										 	self.characters[index].deleted_at = null;
+											self.characters[index].status = {{ Status::ACTIVE }};
 
 											flash(
-												'{{ _m('characters-flash-restored-message') }}',
-												'{{ _m('characters-flash-restored-title') }}'
-											)
-										 })
+												_m('characters-flash-restored-message'),
+												_m('characters-flash-restored-title')
+											);
+										 });
 								}
 							},
 							cancel: {
-								text: "{{ _m('cancel') }}"
+								text: _m('cancel')
 							}
 						}
-					})
+					});
 				}
 			}
-		}
+		};
 	</script>
 @endsection

@@ -3,7 +3,7 @@
 use Controller;
 use Nova\Characters\Character;
 
-class CharacterActivatorController extends Controller
+class CharactersActivatorController extends Controller
 {
 	public function __construct()
 	{
@@ -16,15 +16,17 @@ class CharacterActivatorController extends Controller
 	{
 		$this->authorize('update', $character);
 
-		//
+		updater(Character::class)->activate($character);
+
+		return response($character, 200);
 	}
 
 	public function destroy(Character $character)
 	{
 		$this->authorize('update', $character);
 
-		deactivator(Character::class)->deactivate($character);
+		updater(Character::class)->deactivate($character);
 
-		return response($character->fresh(), 200);
+		return response($character, 200);
 	}
 }
