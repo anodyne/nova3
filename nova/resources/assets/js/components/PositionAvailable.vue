@@ -1,6 +1,6 @@
 <template>
 	<div :class="containerClasses" v-cloak>
-		<div class="avatar-image">
+		<div class="avatar-image" v-show="showImage">
 			<a :class="imageClasses"
 			   :href="joinLink"
 			   :style="'background-image:url(' + imageUrl + ')'"
@@ -30,6 +30,7 @@
 			layout: { type: String, default: 'spread' },
 			position: { type: Object, required: true },
 			showContent: { type: Boolean, default: true },
+			showImage: { type: Boolean, default: true },
 			showName: { type: Boolean, default: true },
 			showMetadata: { type: Boolean, default: true },
 			size: { type: String, default: '' },
