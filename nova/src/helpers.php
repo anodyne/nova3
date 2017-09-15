@@ -3,7 +3,7 @@
 if (! function_exists('_m')) {
 	function _m($key, $args = [])
 	{
-		$gender = (auth()->check()) ? auth()->user()->gender : 'male';
+		$gender = (auth()->check()) ? auth()->user()->gender : 'neutral';
 
 		return app('nova.translator')->msg($key, [
 			'parsemag' => true,
