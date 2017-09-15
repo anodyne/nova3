@@ -15,6 +15,7 @@ try {
 
 	require('bootstrap');
 	window.jconfirm = require('jquery-confirm');
+	window.webuiPopover = require('webui-popover');
 } catch (e) {}
 
 window.Vue = require('vue');
