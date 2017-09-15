@@ -70,8 +70,8 @@
 		},
 
 		methods: {
-			_m (key, variables = '') {
-				return window._m(key, variables);
+			lang (key, variables = '') {
+				return window.lang(key, variables);
 			}
 		}
 	};

@@ -31,7 +31,7 @@
 			<div class="search-group">
 				<span class="search-field">
 					<div v-html="showIcon('search')"></div>
-					<input type="text" :placeholder="_m('genre-ranks-find')" v-model="search">
+					<input type="text" :placeholder="lang('genre-ranks-find')" v-model="search">
 				</span>
 				<a href="#"
 				   class="clear-search ml-2"
@@ -40,12 +40,12 @@
 			</div>
 
 			<div class="items-menu-alert" v-show="filteredRanks.length == 0">
-				<div class="alert alert-warning" v-text="_m('genre-ranks-error-not-found')"></div>
+				<div class="alert alert-warning" v-text="lang('genre-ranks-error-not-found')"></div>
 			</div>
 
 			<div class="items-menu-item" v-if="selectedRank != false" @click.prevent="selectRank(false)">
 				<rank></rank>
-				<small class="meta" v-text="_m('genre-ranks-none')"></small>
+				<small class="meta" v-text="lang('genre-ranks-none')"></small>
 			</div>
 
 			<div class="items-menu-item" v-for="rank in filteredRanks" @click.prevent="selectRank(rank)">
@@ -91,12 +91,12 @@
 		},
 
 		methods: {
-			_m (key, attributes = '') {
-				return window._m(key, attributes);
-			},
-
 			away () {
 				this.show = false;
+			},
+
+			lang (key, attributes = '') {
+				return window.lang(key, attributes);
 			},
 
 			selectRank (rank) {

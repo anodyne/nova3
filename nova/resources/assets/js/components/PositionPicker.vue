@@ -19,7 +19,7 @@
 				 v-if="!selectedPosition"
 				 @click.prevent="show = !show">
 				<div class="item-picker-selected">
-					<span v-text="_m('genre-positions-select')"></span>
+					<span v-text="lang('genre-positions-select')"></span>
 					<div class="ml-3" v-html="showIcon('more')"></div>
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 			<div class="search-group">
 				<span class="search-field">
 					<div v-html="showIcon('search')"></div>
-					<input type="text" :placeholder="_m('genre-positions-find')" v-model="search">
+					<input type="text" :placeholder="lang('genre-positions-find')" v-model="search">
 				</span>
 				<a href="#"
 				   class="clear-search ml-2"
@@ -40,7 +40,7 @@
 			</div>
 
 			<div class="items-menu-alert" v-show="filteredPositions.length == 0">
-				<div class="alert alert-warning" v-text="_m('genre-positions-error-not-found')"></div>
+				<div class="alert alert-warning" v-text="lang('genre-positions-error-not-found')"></div>
 			</div>
 
 			<div class="items-menu-item stacked"
@@ -94,12 +94,12 @@
 		},
 
 		methods: {
-			_m (key, attributes = '') {
-				return window._m(key, attributes);
-			},
-
 			away () {
 				this.show = false;
+			},
+
+			lang (key, attributes = '') {
+				return window.lang(key, attributes);
 			},
 
 			selectPosition (position) {

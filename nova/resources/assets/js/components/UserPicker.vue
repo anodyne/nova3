@@ -16,7 +16,7 @@
 				 v-if="!selectedUser"
 				 @click.prevent="show = !show">
 				<div class="item-picker-selected">
-					<span v-text="_m('users-none')"></span>
+					<span v-text="lang('users-none')"></span>
 					<span class="ml-3" v-html="showIcon('more')"></span>
 				</div>
 			</div>
@@ -28,7 +28,7 @@
 			<div class="search-group">
 				<span class="search-field">
 					<div v-html="showIcon('search')"></div>
-					<input type="text" :placeholder="_m('users-find')" v-model="search">
+					<input type="text" :placeholder="lang('users-find')" v-model="search">
 				</span>
 				<a href="#"
 				   class="clear-search ml-2"
@@ -37,12 +37,12 @@
 			</div>
 
 			<div class="items-menu-alert" v-show="filteredUsers.length == 0">
-				<div class="alert alert-warning" v-text="_m('users-error-not-found')"></div>
+				<div class="alert alert-warning" v-text="lang('users-error-not-found')"></div>
 			</div>
 
 			<div class="items-menu-item"
 				 v-if="selectedUser != false"
-				 v-text="_m('users-none')"
+				 v-text="lang('users-none')"
 				 @click.prevent="selectUser(false)"></div>
 
 			<div class="items-menu-item" v-for="user in filteredUsers" @click.prevent="selectUser(user)">
@@ -91,10 +91,6 @@
 		},
 
 		methods: {
-			_m (key, attributes = '') {
-				return window._m(key, attributes);
-			},
-
 			away () {
 				this.show = false;
 			},
@@ -109,6 +105,10 @@
 						self.users = response.data;
 					});
 				}
+			},
+
+			lang (key, attributes = '') {
+				return window.lang(key, attributes);
 			},
 
 			selectUser (user) {
