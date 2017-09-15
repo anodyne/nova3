@@ -1831,7 +1831,7 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            __webpack_require__(146)("./" + name);
+            __webpack_require__(147)("./" + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
@@ -4466,7 +4466,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
 /* 1 */
@@ -4475,7 +4475,7 @@ return hooks;
 "use strict";
 
 
-var bind = __webpack_require__(132);
+var bind = __webpack_require__(134);
 
 /*global toString:true*/
 
@@ -15066,176 +15066,10 @@ module.exports = g;
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-(function(){
-  var crypt = __webpack_require__(147),
-      utf8 = __webpack_require__(129).utf8,
-      isBuffer = __webpack_require__(148),
-      bin = __webpack_require__(129).bin,
-
-  // The core
-  md5 = function (message, options) {
-    // Convert to byte array
-    if (message.constructor == String)
-      if (options && options.encoding === 'binary')
-        message = bin.stringToBytes(message);
-      else
-        message = utf8.stringToBytes(message);
-    else if (isBuffer(message))
-      message = Array.prototype.slice.call(message, 0);
-    else if (!Array.isArray(message))
-      message = message.toString();
-    // else, assume byte array already
-
-    var m = crypt.bytesToWords(message),
-        l = message.length * 8,
-        a =  1732584193,
-        b = -271733879,
-        c = -1732584194,
-        d =  271733878;
-
-    // Swap endian
-    for (var i = 0; i < m.length; i++) {
-      m[i] = ((m[i] <<  8) | (m[i] >>> 24)) & 0x00FF00FF |
-             ((m[i] << 24) | (m[i] >>>  8)) & 0xFF00FF00;
-    }
-
-    // Padding
-    m[l >>> 5] |= 0x80 << (l % 32);
-    m[(((l + 64) >>> 9) << 4) + 14] = l;
-
-    // Method shortcuts
-    var FF = md5._ff,
-        GG = md5._gg,
-        HH = md5._hh,
-        II = md5._ii;
-
-    for (var i = 0; i < m.length; i += 16) {
-
-      var aa = a,
-          bb = b,
-          cc = c,
-          dd = d;
-
-      a = FF(a, b, c, d, m[i+ 0],  7, -680876936);
-      d = FF(d, a, b, c, m[i+ 1], 12, -389564586);
-      c = FF(c, d, a, b, m[i+ 2], 17,  606105819);
-      b = FF(b, c, d, a, m[i+ 3], 22, -1044525330);
-      a = FF(a, b, c, d, m[i+ 4],  7, -176418897);
-      d = FF(d, a, b, c, m[i+ 5], 12,  1200080426);
-      c = FF(c, d, a, b, m[i+ 6], 17, -1473231341);
-      b = FF(b, c, d, a, m[i+ 7], 22, -45705983);
-      a = FF(a, b, c, d, m[i+ 8],  7,  1770035416);
-      d = FF(d, a, b, c, m[i+ 9], 12, -1958414417);
-      c = FF(c, d, a, b, m[i+10], 17, -42063);
-      b = FF(b, c, d, a, m[i+11], 22, -1990404162);
-      a = FF(a, b, c, d, m[i+12],  7,  1804603682);
-      d = FF(d, a, b, c, m[i+13], 12, -40341101);
-      c = FF(c, d, a, b, m[i+14], 17, -1502002290);
-      b = FF(b, c, d, a, m[i+15], 22,  1236535329);
-
-      a = GG(a, b, c, d, m[i+ 1],  5, -165796510);
-      d = GG(d, a, b, c, m[i+ 6],  9, -1069501632);
-      c = GG(c, d, a, b, m[i+11], 14,  643717713);
-      b = GG(b, c, d, a, m[i+ 0], 20, -373897302);
-      a = GG(a, b, c, d, m[i+ 5],  5, -701558691);
-      d = GG(d, a, b, c, m[i+10],  9,  38016083);
-      c = GG(c, d, a, b, m[i+15], 14, -660478335);
-      b = GG(b, c, d, a, m[i+ 4], 20, -405537848);
-      a = GG(a, b, c, d, m[i+ 9],  5,  568446438);
-      d = GG(d, a, b, c, m[i+14],  9, -1019803690);
-      c = GG(c, d, a, b, m[i+ 3], 14, -187363961);
-      b = GG(b, c, d, a, m[i+ 8], 20,  1163531501);
-      a = GG(a, b, c, d, m[i+13],  5, -1444681467);
-      d = GG(d, a, b, c, m[i+ 2],  9, -51403784);
-      c = GG(c, d, a, b, m[i+ 7], 14,  1735328473);
-      b = GG(b, c, d, a, m[i+12], 20, -1926607734);
-
-      a = HH(a, b, c, d, m[i+ 5],  4, -378558);
-      d = HH(d, a, b, c, m[i+ 8], 11, -2022574463);
-      c = HH(c, d, a, b, m[i+11], 16,  1839030562);
-      b = HH(b, c, d, a, m[i+14], 23, -35309556);
-      a = HH(a, b, c, d, m[i+ 1],  4, -1530992060);
-      d = HH(d, a, b, c, m[i+ 4], 11,  1272893353);
-      c = HH(c, d, a, b, m[i+ 7], 16, -155497632);
-      b = HH(b, c, d, a, m[i+10], 23, -1094730640);
-      a = HH(a, b, c, d, m[i+13],  4,  681279174);
-      d = HH(d, a, b, c, m[i+ 0], 11, -358537222);
-      c = HH(c, d, a, b, m[i+ 3], 16, -722521979);
-      b = HH(b, c, d, a, m[i+ 6], 23,  76029189);
-      a = HH(a, b, c, d, m[i+ 9],  4, -640364487);
-      d = HH(d, a, b, c, m[i+12], 11, -421815835);
-      c = HH(c, d, a, b, m[i+15], 16,  530742520);
-      b = HH(b, c, d, a, m[i+ 2], 23, -995338651);
-
-      a = II(a, b, c, d, m[i+ 0],  6, -198630844);
-      d = II(d, a, b, c, m[i+ 7], 10,  1126891415);
-      c = II(c, d, a, b, m[i+14], 15, -1416354905);
-      b = II(b, c, d, a, m[i+ 5], 21, -57434055);
-      a = II(a, b, c, d, m[i+12],  6,  1700485571);
-      d = II(d, a, b, c, m[i+ 3], 10, -1894986606);
-      c = II(c, d, a, b, m[i+10], 15, -1051523);
-      b = II(b, c, d, a, m[i+ 1], 21, -2054922799);
-      a = II(a, b, c, d, m[i+ 8],  6,  1873313359);
-      d = II(d, a, b, c, m[i+15], 10, -30611744);
-      c = II(c, d, a, b, m[i+ 6], 15, -1560198380);
-      b = II(b, c, d, a, m[i+13], 21,  1309151649);
-      a = II(a, b, c, d, m[i+ 4],  6, -145523070);
-      d = II(d, a, b, c, m[i+11], 10, -1120210379);
-      c = II(c, d, a, b, m[i+ 2], 15,  718787259);
-      b = II(b, c, d, a, m[i+ 9], 21, -343485551);
-
-      a = (a + aa) >>> 0;
-      b = (b + bb) >>> 0;
-      c = (c + cc) >>> 0;
-      d = (d + dd) >>> 0;
-    }
-
-    return crypt.endian([a, b, c, d]);
-  };
-
-  // Auxiliary functions
-  md5._ff  = function (a, b, c, d, x, s, t) {
-    var n = a + (b & c | ~b & d) + (x >>> 0) + t;
-    return ((n << s) | (n >>> (32 - s))) + b;
-  };
-  md5._gg  = function (a, b, c, d, x, s, t) {
-    var n = a + (b & d | c & ~d) + (x >>> 0) + t;
-    return ((n << s) | (n >>> (32 - s))) + b;
-  };
-  md5._hh  = function (a, b, c, d, x, s, t) {
-    var n = a + (b ^ c ^ d) + (x >>> 0) + t;
-    return ((n << s) | (n >>> (32 - s))) + b;
-  };
-  md5._ii  = function (a, b, c, d, x, s, t) {
-    var n = a + (c ^ (b | ~d)) + (x >>> 0) + t;
-    return ((n << s) | (n >>> (32 - s))) + b;
-  };
-
-  // Package private blocksize
-  md5._blocksize = 16;
-  md5._digestsize = 16;
-
-  module.exports = function (message, options) {
-    if (message === undefined || message === null)
-      throw new Error('Illegal argument ' + message);
-
-    var digestbytes = crypt.wordsToBytes(md5(message, options));
-    return options && options.asBytes ? digestbytes :
-        options && options.asString ? bin.bytesToString(digestbytes) :
-        crypt.bytesToHex(digestbytes);
-  };
-
-})();
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 
 
-var Vue = __webpack_require__(7);
+var Vue = __webpack_require__(6);
 Vue = 'default' in Vue ? Vue['default'] : Vue;
 
 var version = '2.1.0';
@@ -15312,12 +15146,12 @@ exports.directive = directive;
 exports.mixin = mixin;
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/*!
- * Vue.js v2.4.2
+ * Vue.js v2.4.4
  * (c) 2014-2017 Evan You
  * Released under the MIT License.
  */
@@ -15482,12 +15316,9 @@ var capitalize = cached(function (str) {
 /**
  * Hyphenate a camelCase string.
  */
-var hyphenateRE = /([^-])([A-Z])/g;
+var hyphenateRE = /\B([A-Z])/g;
 var hyphenate = cached(function (str) {
-  return str
-    .replace(hyphenateRE, '$1-$2')
-    .replace(hyphenateRE, '$1-$2')
-    .toLowerCase()
+  return str.replace(hyphenateRE, '-$1').toLowerCase()
 });
 
 /**
@@ -15906,7 +15737,7 @@ var isAndroid = UA && UA.indexOf('android') > 0;
 var isIOS = UA && /iphone|ipad|ipod|ios/.test(UA);
 var isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge;
 
-// Firefix has a "watch" function on Object.prototype...
+// Firefox has a "watch" function on Object.prototype...
 var nativeWatch = ({}).watch;
 
 var supportsPassive = false;
@@ -15988,13 +15819,13 @@ var nextTick = (function () {
       // "force" the microtask queue to be flushed by adding an empty timer.
       if (isIOS) { setTimeout(noop); }
     };
-  } else if (typeof MutationObserver !== 'undefined' && (
+  } else if (!isIE && typeof MutationObserver !== 'undefined' && (
     isNative(MutationObserver) ||
     // PhantomJS and iOS 7.x
     MutationObserver.toString() === '[object MutationObserverConstructor]'
   )) {
     // use MutationObserver where native Promise is not available,
-    // e.g. PhantomJS IE11, iOS7, Android 4.4
+    // e.g. PhantomJS, iOS7, Android 4.4
     var counter = 1;
     var observer = new MutationObserver(nextTickHandler);
     var textNode = document.createTextNode(String(counter));
@@ -16294,9 +16125,9 @@ function defineReactive$$1 (
         dep.depend();
         if (childOb) {
           childOb.dep.depend();
-        }
-        if (Array.isArray(value)) {
-          dependArray(value);
+          if (Array.isArray(value)) {
+            dependArray(value);
+          }
         }
       }
       return value
@@ -16473,7 +16304,7 @@ function mergeDataOrFn (
         : childVal;
       var defaultData = typeof parentVal === 'function'
         ? parentVal.call(vm)
-        : undefined;
+        : parentVal;
       if (instanceData) {
         return mergeData(instanceData, defaultData)
       } else {
@@ -16876,7 +16707,12 @@ function assertType (value, type) {
   var valid;
   var expectedType = getType(type);
   if (simpleCheckRE.test(expectedType)) {
-    valid = typeof value === expectedType.toLowerCase();
+    var t = typeof value;
+    valid = t === expectedType.toLowerCase();
+    // for primitive wrapper objects
+    if (!valid && t === 'object') {
+      valid = value instanceof type;
+    }
   } else if (expectedType === 'Object') {
     valid = isPlainObject(value);
   } else if (expectedType === 'Array') {
@@ -17074,7 +16910,7 @@ function createTextVNode (val) {
 // used for static nodes and slot nodes because they may be reused across
 // multiple renders, cloning them avoids errors when DOM manipulations rely
 // on their elm reference.
-function cloneVNode (vnode) {
+function cloneVNode (vnode, deep) {
   var cloned = new VNode(
     vnode.tag,
     vnode.data,
@@ -17090,14 +16926,17 @@ function cloneVNode (vnode) {
   cloned.key = vnode.key;
   cloned.isComment = vnode.isComment;
   cloned.isCloned = true;
+  if (deep && vnode.children) {
+    cloned.children = cloneVNodes(vnode.children);
+  }
   return cloned
 }
 
-function cloneVNodes (vnodes) {
+function cloneVNodes (vnodes, deep) {
   var len = vnodes.length;
   var res = new Array(len);
   for (var i = 0; i < len; i++) {
-    res[i] = cloneVNode(vnodes[i]);
+    res[i] = cloneVNode(vnodes[i], deep);
   }
   return res
 }
@@ -17111,8 +16950,10 @@ var normalizeEvent = cached(function (name) {
   name = once$$1 ? name.slice(1) : name;
   var capture = name.charAt(0) === '!';
   name = capture ? name.slice(1) : name;
+  var plain = !(passive || once$$1 || capture);
   return {
     name: name,
+    plain: plain,
     once: once$$1,
     capture: capture,
     passive: passive
@@ -17138,6 +16979,11 @@ function createFnInvoker (fns) {
   return invoker
 }
 
+// #6552
+function prioritizePlainEvents (a, b) {
+  return a.plain ? -1 : b.plain ? 1 : 0
+}
+
 function updateListeners (
   on,
   oldOn,
@@ -17146,10 +16992,13 @@ function updateListeners (
   vm
 ) {
   var name, cur, old, event;
+  var toAdd = [];
+  var hasModifier = false;
   for (name in on) {
     cur = on[name];
     old = oldOn[name];
     event = normalizeEvent(name);
+    if (!event.plain) { hasModifier = true; }
     if (isUndef(cur)) {
       "development" !== 'production' && warn(
         "Invalid handler for event \"" + (event.name) + "\": got " + String(cur),
@@ -17159,10 +17008,18 @@ function updateListeners (
       if (isUndef(cur.fns)) {
         cur = on[name] = createFnInvoker(cur);
       }
-      add(event.name, cur, event.once, event.capture, event.passive);
+      event.handler = cur;
+      toAdd.push(event);
     } else if (cur !== old) {
       old.fns = cur;
       on[name] = old;
+    }
+  }
+  if (toAdd.length) {
+    if (hasModifier) { toAdd.sort(prioritizePlainEvents); }
+    for (var i = 0; i < toAdd.length; i++) {
+      var event$1 = toAdd[i];
+      add(event$1.name, event$1.handler, event$1.once, event$1.capture, event$1.passive);
     }
   }
   for (name in oldOn) {
@@ -17479,11 +17336,17 @@ function resolveAsyncComponent (
 
 /*  */
 
+function isAsyncPlaceholder (node) {
+  return node.isComment && node.asyncFactory
+}
+
+/*  */
+
 function getFirstComponentChild (children) {
   if (Array.isArray(children)) {
     for (var i = 0; i < children.length; i++) {
       var c = children[i];
-      if (isDef(c) && isDef(c.componentOptions)) {
+      if (isDef(c) && (isDef(c.componentOptions) || isAsyncPlaceholder(c))) {
         return c
       }
     }
@@ -17570,8 +17433,8 @@ function eventsMixin (Vue) {
     }
     // array of events
     if (Array.isArray(event)) {
-      for (var i$1 = 0, l = event.length; i$1 < l; i$1++) {
-        this$1.$off(event[i$1], fn);
+      for (var i = 0, l = event.length; i < l; i++) {
+        this$1.$off(event[i], fn);
       }
       return vm
     }
@@ -17584,14 +17447,16 @@ function eventsMixin (Vue) {
       vm._events[event] = null;
       return vm
     }
-    // specific handler
-    var cb;
-    var i = cbs.length;
-    while (i--) {
-      cb = cbs[i];
-      if (cb === fn || cb.fn === fn) {
-        cbs.splice(i, 1);
-        break
+    if (fn) {
+      // specific handler
+      var cb;
+      var i$1 = cbs.length;
+      while (i$1--) {
+        cb = cbs[i$1];
+        if (cb === fn || cb.fn === fn) {
+          cbs.splice(i$1, 1);
+          break
+        }
       }
     }
     return vm
@@ -17643,10 +17508,15 @@ function resolveSlots (
   var defaultSlot = [];
   for (var i = 0, l = children.length; i < l; i++) {
     var child = children[i];
+    var data = child.data;
+    // remove slot attribute if the node is resolved as a Vue slot node
+    if (data && data.attrs && data.attrs.slot) {
+      delete data.attrs.slot;
+    }
     // named slots should only be respected if the vnode was rendered in the
     // same context.
     if ((child.context === context || child.functionalContext === context) &&
-      child.data && child.data.slot != null
+      data && data.slot != null
     ) {
       var name = child.data.slot;
       var slot = (slots[name] || (slots[name] = []));
@@ -17899,11 +17769,11 @@ function updateChildComponent (
   }
   vm.$options._renderChildren = renderChildren;
 
-  // update $attrs and $listensers hash
+  // update $attrs and $listeners hash
   // these are also reactive so they may trigger child update if the child
   // used them during render
-  vm.$attrs = parentVnode.data && parentVnode.data.attrs;
-  vm.$listeners = listeners;
+  vm.$attrs = (parentVnode.data && parentVnode.data.attrs) || emptyObject;
+  vm.$listeners = listeners || emptyObject;
 
   // update props
   if (propsData && vm.$options.props) {
@@ -18490,7 +18360,7 @@ function initData (vm) {
     if (true) {
       if (methods && hasOwn(methods, key)) {
         warn(
-          ("method \"" + key + "\" has already been defined as a data property."),
+          ("Method \"" + key + "\" has already been defined as a data property."),
           vm
         );
       }
@@ -18523,6 +18393,8 @@ var computedWatcherOptions = { lazy: true };
 function initComputed (vm, computed) {
   "development" !== 'production' && checkOptionType(vm, 'computed');
   var watchers = vm._computedWatchers = Object.create(null);
+  // computed properties are just getters during SSR
+  var isSSR = isServerRendering();
 
   for (var key in computed) {
     var userDef = computed[key];
@@ -18533,8 +18405,16 @@ function initComputed (vm, computed) {
         vm
       );
     }
-    // create internal watcher for the computed property.
-    watchers[key] = new Watcher(vm, getter || noop, noop, computedWatcherOptions);
+
+    if (!isSSR) {
+      // create internal watcher for the computed property.
+      watchers[key] = new Watcher(
+        vm,
+        getter || noop,
+        noop,
+        computedWatcherOptions
+      );
+    }
 
     // component-defined computed properties are already defined on the
     // component prototype. We only need to define computed properties defined
@@ -18551,13 +18431,20 @@ function initComputed (vm, computed) {
   }
 }
 
-function defineComputed (target, key, userDef) {
+function defineComputed (
+  target,
+  key,
+  userDef
+) {
+  var shouldCache = !isServerRendering();
   if (typeof userDef === 'function') {
-    sharedPropertyDefinition.get = createComputedGetter(key);
+    sharedPropertyDefinition.get = shouldCache
+      ? createComputedGetter(key)
+      : userDef;
     sharedPropertyDefinition.set = noop;
   } else {
     sharedPropertyDefinition.get = userDef.get
-      ? userDef.cache !== false
+      ? shouldCache && userDef.cache !== false
         ? createComputedGetter(key)
         : userDef.get
       : noop;
@@ -18596,22 +18483,28 @@ function initMethods (vm, methods) {
   "development" !== 'production' && checkOptionType(vm, 'methods');
   var props = vm.$options.props;
   for (var key in methods) {
-    vm[key] = methods[key] == null ? noop : bind(methods[key], vm);
     if (true) {
       if (methods[key] == null) {
         warn(
-          "method \"" + key + "\" has an undefined value in the component definition. " +
+          "Method \"" + key + "\" has an undefined value in the component definition. " +
           "Did you reference the function correctly?",
           vm
         );
       }
       if (props && hasOwn(props, key)) {
         warn(
-          ("method \"" + key + "\" has already been defined as a prop."),
+          ("Method \"" + key + "\" has already been defined as a prop."),
           vm
         );
       }
+      if ((key in vm) && isReserved(key)) {
+        warn(
+          "Method \"" + key + "\" conflicts with an existing Vue instance method. " +
+          "Avoid defining component methods that start with _ or $."
+        );
+      }
     }
+    vm[key] = methods[key] == null ? noop : bind(methods[key], vm);
   }
 }
 
@@ -18731,7 +18624,10 @@ function resolveInject (inject, vm) {
     // inject is :any because flow is not smart enough to figure out cached
     var result = Object.create(null);
     var keys = hasSymbol
-        ? Reflect.ownKeys(inject)
+        ? Reflect.ownKeys(inject).filter(function (key) {
+          /* istanbul ignore next */
+          return Object.getOwnPropertyDescriptor(inject, key).enumerable
+        })
         : Object.keys(inject);
 
     for (var i = 0; i < keys.length; i++) {
@@ -18766,7 +18662,7 @@ function createFunctionalComponent (
   var propOptions = Ctor.options.props;
   if (isDef(propOptions)) {
     for (var key in propOptions) {
-      props[key] = validateProp(key, propOptions, propsData || {});
+      props[key] = validateProp(key, propOptions, propsData || emptyObject);
     }
   } else {
     if (isDef(data.attrs)) { mergeProps(props, data.attrs); }
@@ -18781,7 +18677,7 @@ function createFunctionalComponent (
     props: props,
     children: children,
     parent: context,
-    listeners: data.on || {},
+    listeners: data.on || emptyObject,
     injections: resolveInject(Ctor.options.inject, context),
     slots: function () { return resolveSlots(children, context); }
   });
@@ -19105,7 +19001,7 @@ function _createElement (
   var vnode, ns;
   if (typeof tag === 'string') {
     var Ctor;
-    ns = config.getTagNamespace(tag);
+    ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag);
     if (config.isReservedTag(tag)) {
       // platform built-in elements
       vnode = new VNode(
@@ -19401,17 +19297,18 @@ function initRender (vm) {
   // $attrs & $listeners are exposed for easier HOC creation.
   // they need to be reactive so that HOCs using them are always updated
   var parentData = parentVnode && parentVnode.data;
+
   /* istanbul ignore else */
   if (true) {
-    defineReactive$$1(vm, '$attrs', parentData && parentData.attrs, function () {
+    defineReactive$$1(vm, '$attrs', parentData && parentData.attrs || emptyObject, function () {
       !isUpdatingChildComponent && warn("$attrs is readonly.", vm);
     }, true);
-    defineReactive$$1(vm, '$listeners', vm.$options._parentListeners, function () {
+    defineReactive$$1(vm, '$listeners', vm.$options._parentListeners || emptyObject, function () {
       !isUpdatingChildComponent && warn("$listeners is readonly.", vm);
     }, true);
   } else {
-    defineReactive$$1(vm, '$attrs', parentData && parentData.attrs, null, true);
-    defineReactive$$1(vm, '$listeners', vm.$options._parentListeners, null, true);
+    defineReactive$$1(vm, '$attrs', parentData && parentData.attrs || emptyObject, null, true);
+    defineReactive$$1(vm, '$listeners', vm.$options._parentListeners || emptyObject, null, true);
   }
 }
 
@@ -19428,9 +19325,13 @@ function renderMixin (Vue) {
     var _parentVnode = ref._parentVnode;
 
     if (vm._isMounted) {
-      // clone slot nodes on re-renders
+      // if the parent didn't update, the slot nodes will be the ones from
+      // last render. They need to be cloned to ensure "freshness" for this render.
       for (var key in vm.$slots) {
-        vm.$slots[key] = cloneVNodes(vm.$slots[key]);
+        var slot = vm.$slots[key];
+        if (slot._rendered) {
+          vm.$slots[key] = cloneVNodes(slot, true /* deep */);
+        }
       }
     }
 
@@ -19975,7 +19876,7 @@ Object.defineProperty(Vue$3.prototype, '$ssrContext', {
   }
 });
 
-Vue$3.version = '2.4.2';
+Vue$3.version = '2.4.4';
 
 /*  */
 
@@ -19984,7 +19885,7 @@ Vue$3.version = '2.4.2';
 var isReservedAttr = makeMap('style,class');
 
 // attributes that should be using props for binding
-var acceptValue = makeMap('input,textarea,option,select');
+var acceptValue = makeMap('input,textarea,option,select,progress');
 var mustUseProp = function (tag, type, attr) {
   return (
     (attr === 'value' && acceptValue(tag)) && type !== 'button' ||
@@ -20173,6 +20074,8 @@ function isUnknownElement (tag) {
   }
 }
 
+var isTextInputType = makeMap('text,number,password,search,email,tel,url');
+
 /*  */
 
 /**
@@ -20319,8 +20222,6 @@ function registerRef (vnode, isRemoval) {
  *
  * modified by Evan You (@yyx990803)
  *
-
-/*
  * Not type-checking this because this file is perf-critical and the cost
  * of making flow understand it is not worth it.
  */
@@ -20346,14 +20247,12 @@ function sameVnode (a, b) {
   )
 }
 
-// Some browsers do not support dynamically changing type for <input>
-// so they need to be treated as different nodes
 function sameInputType (a, b) {
   if (a.tag !== 'input') { return true }
   var i;
   var typeA = isDef(i = a.data) && isDef(i = i.attrs) && i.type;
   var typeB = isDef(i = b.data) && isDef(i = i.attrs) && i.type;
-  return typeA === typeB
+  return typeA === typeB || isTextInputType(typeA) && isTextInputType(typeB)
 }
 
 function createKeyToOldIdx (children, beginIdx, endIdx) {
@@ -20685,10 +20584,11 @@ function createPatchFunction (backend) {
         newStartVnode = newCh[++newStartIdx];
       } else {
         if (isUndef(oldKeyToIdx)) { oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx); }
-        idxInOld = isDef(newStartVnode.key) ? oldKeyToIdx[newStartVnode.key] : null;
+        idxInOld = isDef(newStartVnode.key)
+          ? oldKeyToIdx[newStartVnode.key]
+          : findIdxInOld(newStartVnode, oldCh, oldStartIdx, oldEndIdx);
         if (isUndef(idxInOld)) { // New element
           createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm);
-          newStartVnode = newCh[++newStartIdx];
         } else {
           elmToMove = oldCh[idxInOld];
           /* istanbul ignore if */
@@ -20702,13 +20602,12 @@ function createPatchFunction (backend) {
             patchVnode(elmToMove, newStartVnode, insertedVnodeQueue);
             oldCh[idxInOld] = undefined;
             canMove && nodeOps.insertBefore(parentElm, elmToMove.elm, oldStartVnode.elm);
-            newStartVnode = newCh[++newStartIdx];
           } else {
             // same key but different element. treat as new element
             createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm);
-            newStartVnode = newCh[++newStartIdx];
           }
         }
+        newStartVnode = newCh[++newStartIdx];
       }
     }
     if (oldStartIdx > oldEndIdx) {
@@ -20716,6 +20615,13 @@ function createPatchFunction (backend) {
       addVnodes(parentElm, refElm, newCh, newStartIdx, newEndIdx, insertedVnodeQueue);
     } else if (newStartIdx > newEndIdx) {
       removeVnodes(parentElm, oldCh, oldStartIdx, oldEndIdx);
+    }
+  }
+
+  function findIdxInOld (node, oldCh, start, end) {
+    for (var i = start; i < end; i++) {
+      var c = oldCh[i];
+      if (isDef(c) && sameVnode(node, c)) { return i }
     }
   }
 
@@ -20826,27 +20732,46 @@ function createPatchFunction (backend) {
         if (!elm.hasChildNodes()) {
           createChildren(vnode, children, insertedVnodeQueue);
         } else {
-          var childrenMatch = true;
-          var childNode = elm.firstChild;
-          for (var i$1 = 0; i$1 < children.length; i$1++) {
-            if (!childNode || !hydrate(childNode, children[i$1], insertedVnodeQueue)) {
-              childrenMatch = false;
-              break
+          // v-html and domProps: innerHTML
+          if (isDef(i = data) && isDef(i = i.domProps) && isDef(i = i.innerHTML)) {
+            if (i !== elm.innerHTML) {
+              /* istanbul ignore if */
+              if ("development" !== 'production' &&
+                typeof console !== 'undefined' &&
+                !bailed
+              ) {
+                bailed = true;
+                console.warn('Parent: ', elm);
+                console.warn('server innerHTML: ', i);
+                console.warn('client innerHTML: ', elm.innerHTML);
+              }
+              return false
             }
-            childNode = childNode.nextSibling;
-          }
-          // if childNode is not null, it means the actual childNodes list is
-          // longer than the virtual children list.
-          if (!childrenMatch || childNode) {
-            if ("development" !== 'production' &&
-              typeof console !== 'undefined' &&
-              !bailed
-            ) {
-              bailed = true;
-              console.warn('Parent: ', elm);
-              console.warn('Mismatching childNodes vs. VNodes: ', elm.childNodes, children);
+          } else {
+            // iterate and compare children lists
+            var childrenMatch = true;
+            var childNode = elm.firstChild;
+            for (var i$1 = 0; i$1 < children.length; i$1++) {
+              if (!childNode || !hydrate(childNode, children[i$1], insertedVnodeQueue)) {
+                childrenMatch = false;
+                break
+              }
+              childNode = childNode.nextSibling;
             }
-            return false
+            // if childNode is not null, it means the actual childNodes list is
+            // longer than the virtual children list.
+            if (!childrenMatch || childNode) {
+              /* istanbul ignore if */
+              if ("development" !== 'production' &&
+                typeof console !== 'undefined' &&
+                !bailed
+              ) {
+                bailed = true;
+                console.warn('Parent: ', elm);
+                console.warn('Mismatching childNodes vs. VNodes: ', elm.childNodes, children);
+              }
+              return false
+            }
           }
         }
       }
@@ -20937,14 +20862,28 @@ function createPatchFunction (backend) {
           // component root element replaced.
           // update parent placeholder node element, recursively
           var ancestor = vnode.parent;
+          var patchable = isPatchable(vnode);
           while (ancestor) {
-            ancestor.elm = vnode.elm;
-            ancestor = ancestor.parent;
-          }
-          if (isPatchable(vnode)) {
-            for (var i = 0; i < cbs.create.length; ++i) {
-              cbs.create[i](emptyNode, vnode.parent);
+            for (var i = 0; i < cbs.destroy.length; ++i) {
+              cbs.destroy[i](ancestor);
             }
+            ancestor.elm = vnode.elm;
+            if (patchable) {
+              for (var i$1 = 0; i$1 < cbs.create.length; ++i$1) {
+                cbs.create[i$1](emptyNode, ancestor);
+              }
+              // #6513
+              // invoke insert hooks that may have been merged by create hooks.
+              // e.g. for directives that uses the "inserted" hook.
+              var insert = ancestor.data.hook.insert;
+              if (insert.merged) {
+                // start at index 1 to avoid re-invoking component mounted hook
+                for (var i$2 = 1; i$2 < insert.fns.length; i$2++) {
+                  insert.fns[i$2]();
+                }
+              }
+            }
+            ancestor = ancestor.parent;
           }
         }
 
@@ -21128,7 +21067,12 @@ function setAttr (el, key, value) {
     if (isFalsyAttrValue(value)) {
       el.removeAttribute(key);
     } else {
-      el.setAttribute(key, key);
+      // technically allowfullscreen is a boolean attribute for <iframe>,
+      // but Flash expects a value of "true" when used on <embed> tag
+      value = key === 'allowfullscreen' && el.tagName === 'EMBED'
+        ? 'true'
+        : key;
+      el.setAttribute(key, value);
     }
   } else if (isEnumeratedAttr(key)) {
     el.setAttribute(key, isFalsyAttrValue(value) || value === 'false' ? 'false' : 'true');
@@ -21635,7 +21579,7 @@ function genCheckboxModel (
     'if(Array.isArray($$a)){' +
       "var $$v=" + (number ? '_n(' + valueBinding + ')' : valueBinding) + "," +
           '$$i=_i($$a,$$v);' +
-      "if($$el.checked){$$i<0&&(" + value + "=$$a.concat($$v))}" +
+      "if($$el.checked){$$i<0&&(" + value + "=$$a.concat([$$v]))}" +
       "else{$$i>-1&&(" + value + "=$$a.slice(0,$$i).concat($$a.slice($$i+1)))}" +
     "}else{" + (genAssignmentCode(value, '$$c')) + "}",
     null, true
@@ -22004,7 +21948,7 @@ function updateStyle (oldVnode, vnode) {
   var style = normalizeStyleBinding(vnode.data.style) || {};
 
   // store normalized style under a different key for next diff
-  // make sure to clone it if it's reactive, since the user likley wants
+  // make sure to clone it if it's reactive, since the user likely wants
   // to mutate it.
   vnode.data.normalizedStyle = isDef(style.__ob__)
     ? extend({}, style)
@@ -22609,8 +22553,6 @@ var patch = createPatchFunction({ nodeOps: nodeOps, modules: modules });
  * properties to Elements.
  */
 
-var isTextInputType = makeMap('text,number,password,search,email,tel,url');
-
 /* istanbul ignore if */
 if (isIE9) {
   // http://www.matts411.com/post/internet-explorer-9-oninput/
@@ -22625,14 +22567,7 @@ if (isIE9) {
 var model$1 = {
   inserted: function inserted (el, binding, vnode) {
     if (vnode.tag === 'select') {
-      var cb = function () {
-        setSelected(el, binding, vnode.context);
-      };
-      cb();
-      /* istanbul ignore if */
-      if (isIE || isEdge) {
-        setTimeout(cb, 0);
-      }
+      setSelected(el, binding, vnode.context);
       el._vOptions = [].map.call(el.options, getValue);
     } else if (vnode.tag === 'textarea' || isTextInputType(el.type)) {
       el._vModifiers = binding.modifiers;
@@ -22663,13 +22598,30 @@ var model$1 = {
       var prevOptions = el._vOptions;
       var curOptions = el._vOptions = [].map.call(el.options, getValue);
       if (curOptions.some(function (o, i) { return !looseEqual(o, prevOptions[i]); })) {
-        trigger(el, 'change');
+        // trigger change event if
+        // no matching option found for at least one value
+        var needReset = el.multiple
+          ? binding.value.some(function (v) { return hasNoMatchingOption(v, curOptions); })
+          : binding.value !== binding.oldValue && hasNoMatchingOption(binding.value, curOptions);
+        if (needReset) {
+          trigger(el, 'change');
+        }
       }
     }
   }
 };
 
 function setSelected (el, binding, vm) {
+  actuallySetSelected(el, binding, vm);
+  /* istanbul ignore if */
+  if (isIE || isEdge) {
+    setTimeout(function () {
+      actuallySetSelected(el, binding, vm);
+    }, 0);
+  }
+}
+
+function actuallySetSelected (el, binding, vm) {
   var value = binding.value;
   var isMultiple = el.multiple;
   if (isMultiple && !Array.isArray(value)) {
@@ -22700,6 +22652,10 @@ function setSelected (el, binding, vm) {
   if (!isMultiple) {
     el.selectedIndex = -1;
   }
+}
+
+function hasNoMatchingOption (value, options) {
+  return options.every(function (o) { return !looseEqual(o, value); })
 }
 
 function getValue (option) {
@@ -22862,10 +22818,6 @@ function hasParentTransition (vnode) {
 
 function isSameChild (child, oldChild) {
   return oldChild.key === child.key && oldChild.tag === child.tag
-}
-
-function isAsyncPlaceholder (node) {
-  return node.isComment && node.asyncFactory
 }
 
 var Transition = {
@@ -23435,29 +23387,14 @@ var he = {
  */
 
 // Regular Expressions for parsing tags and attributes
-var singleAttrIdentifier = /([^\s"'<>/=]+)/;
-var singleAttrAssign = /(?:=)/;
-var singleAttrValues = [
-  // attr value double quotes
-  /"([^"]*)"+/.source,
-  // attr value, single quotes
-  /'([^']*)'+/.source,
-  // attr value, no quotes
-  /([^\s"'=<>`]+)/.source
-];
-var attribute = new RegExp(
-  '^\\s*' + singleAttrIdentifier.source +
-  '(?:\\s*(' + singleAttrAssign.source + ')' +
-  '\\s*(?:' + singleAttrValues.join('|') + '))?'
-);
-
+var attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
 // could use https://www.w3.org/TR/1999/REC-xml-names-19990114/#NT-QName
 // but for Vue templates we can enforce a simple charset
 var ncname = '[a-zA-Z_][\\w\\-\\.]*';
-var qnameCapture = '((?:' + ncname + '\\:)?' + ncname + ')';
-var startTagOpen = new RegExp('^<' + qnameCapture);
+var qnameCapture = "((?:" + ncname + "\\:)?" + ncname + ")";
+var startTagOpen = new RegExp(("^<" + qnameCapture));
 var startTagClose = /^\s*(\/?)>/;
-var endTag = new RegExp('^<\\/' + qnameCapture + '[^>]*>');
+var endTag = new RegExp(("^<\\/" + qnameCapture + "[^>]*>"));
 var doctype = /^<!DOCTYPE [^>]+>/i;
 var comment = /^<!--/;
 var conditionalComment = /^<!\[/;
@@ -24157,6 +24094,8 @@ function processSlot (el) {
     var slotTarget = getBindingAttr(el, 'slot');
     if (slotTarget) {
       el.slotTarget = slotTarget === '""' ? '"default"' : slotTarget;
+      // preserve slot as an attribute for native shadow DOM compat
+      addAttr(el, 'slot', slotTarget);
     }
     if (el.tag === 'template') {
       el.slotScope = getAndRemoveAttr(el, 'scope');
@@ -24693,7 +24632,7 @@ function genOnce (el, state) {
       );
       return genElement(el, state)
     }
-    return ("_o(" + (genElement(el, state)) + "," + (state.onceId++) + (key ? ("," + key) : "") + ")")
+    return ("_o(" + (genElement(el, state)) + "," + (state.onceId++) + "," + key + ")")
   } else {
     return genStatic(el, state)
   }
@@ -25407,14 +25346,1414 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
+ *  webui popover plugin  - v1.2.17
+ *  A lightWeight popover plugin with jquery ,enchance the  popover plugin of bootstrap with some awesome new features. It works well with bootstrap ,but bootstrap is not necessary!
+ *  https://github.com/sandywalker/webui-popover
+ *
+ *  Made by Sandy Duan
+ *  Under MIT License
+ */
+(function(window, document, undefined) {
+    'use strict';
+    (function(factory) {
+        if (true) {
+            // Register as an anonymous AMD module.
+            !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(3)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+        } else if (typeof exports === 'object') {
+            // Node/CommonJS
+            module.exports = factory(require('jquery'));
+        } else {
+            // Browser globals
+            factory(window.jQuery);
+        }
+    }(function($) {
+        // Create the defaults once
+        var pluginName = 'webuiPopover';
+        var pluginClass = 'webui-popover';
+        var pluginType = 'webui.popover';
+        var defaults = {
+            placement: 'auto',
+            container: null,
+            width: 'auto',
+            height: 'auto',
+            trigger: 'click', //hover,click,sticky,manual
+            style: '',
+            selector: false, // jQuery selector, if a selector is provided, popover objects will be delegated to the specified. 
+            delay: {
+                show: null,
+                hide: 300
+            },
+            async: {
+                type: 'GET',
+                before: null, //function(that, xhr, settings){}
+                success: null, //function(that, xhr){}
+                error: null //function(that, xhr, data){}
+            },
+            cache: true,
+            multi: false,
+            arrow: true,
+            title: '',
+            content: '',
+            closeable: false,
+            padding: true,
+            url: '',
+            type: 'html',
+            direction: '', // ltr,rtl
+            animation: null,
+            template: '<div class="webui-popover">' +
+                '<div class="webui-arrow"></div>' +
+                '<div class="webui-popover-inner">' +
+                '<a href="#" class="close"></a>' +
+                '<h3 class="webui-popover-title"></h3>' +
+                '<div class="webui-popover-content"><i class="icon-refresh"></i> <p>&nbsp;</p></div>' +
+                '</div>' +
+                '</div>',
+            backdrop: false,
+            dismissible: true,
+            onShow: null,
+            onHide: null,
+            abortXHR: true,
+            autoHide: false,
+            offsetTop: 0,
+            offsetLeft: 0,
+            iframeOptions: {
+                frameborder: '0',
+                allowtransparency: 'true',
+                id: '',
+                name: '',
+                scrolling: '',
+                onload: '',
+                height: '',
+                width: ''
+            },
+            hideEmpty: false
+        };
+
+        var rtlClass = pluginClass + '-rtl';
+        var _srcElements = [];
+        var backdrop = $('<div class="webui-popover-backdrop"></div>');
+        var _globalIdSeed = 0;
+        var _isBodyEventHandled = false;
+        var _offsetOut = -2000; // the value offset  out of the screen
+        var $document = $(document);
+
+        var toNumber = function(numeric, fallback) {
+            return isNaN(numeric) ? (fallback || 0) : Number(numeric);
+        };
+
+        var getPopFromElement = function($element) {
+            return $element.data('plugin_' + pluginName);
+        };
+
+        var hideAllPop = function() {
+            var pop = null;
+            for (var i = 0; i < _srcElements.length; i++) {
+                pop = getPopFromElement(_srcElements[i]);
+                if (pop) {
+                    pop.hide(true);
+                }
+            }
+            $document.trigger('hiddenAll.' + pluginType);
+        };
+
+        var hideOtherPops = function(currentPop) {
+            var pop = null;
+            for (var i = 0; i < _srcElements.length; i++) {
+                pop = getPopFromElement(_srcElements[i]);
+                if (pop && pop.id !== currentPop.id) {
+                    pop.hide(true);
+                }
+            }
+            $document.trigger('hiddenAll.' + pluginType);
+        };
+
+        var isMobile = ('ontouchstart' in document.documentElement) && (/Mobi/.test(navigator.userAgent));
+
+        var pointerEventToXY = function(e) {
+            var out = {
+                x: 0,
+                y: 0
+            };
+            if (e.type === 'touchstart' || e.type === 'touchmove' || e.type === 'touchend' || e.type === 'touchcancel') {
+                var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+                out.x = touch.pageX;
+                out.y = touch.pageY;
+            } else if (e.type === 'mousedown' || e.type === 'mouseup' || e.type === 'click') {
+                out.x = e.pageX;
+                out.y = e.pageY;
+            }
+            return out;
+        };
+
+
+
+        // The actual plugin constructor
+        function WebuiPopover(element, options) {
+            this.$element = $(element);
+            if (options) {
+                if ($.type(options.delay) === 'string' || $.type(options.delay) === 'number') {
+                    options.delay = {
+                        show: options.delay,
+                        hide: options.delay
+                    }; // bc break fix
+                }
+            }
+            this.options = $.extend({}, defaults, options);
+            this._defaults = defaults;
+            this._name = pluginName;
+            this._targetclick = false;
+            this.init();
+            _srcElements.push(this.$element);
+            return this;
+
+        }
+
+        WebuiPopover.prototype = {
+            //init webui popover
+            init: function() {
+                if (this.$element[0] instanceof document.constructor && !this.options.selector) {
+                    throw new Error('`selector` option must be specified when initializing ' + this.type + ' on the window.document object!');
+                }
+
+                if (this.getTrigger() !== 'manual') {
+                    //init the event handlers
+                    if (isMobile) {
+                        this.$element.off('touchend', this.options.selector).on('touchend', this.options.selector, $.proxy(this.toggle, this));
+                    } else if (this.getTrigger() === 'click') {
+                        this.$element.off('click', this.options.selector).on('click', this.options.selector, $.proxy(this.toggle, this));
+                    } else if (this.getTrigger() === 'hover') {
+                        this.$element
+                            .off('mouseenter mouseleave click', this.options.selector)
+                            .on('mouseenter', this.options.selector, $.proxy(this.mouseenterHandler, this))
+                            .on('mouseleave', this.options.selector, $.proxy(this.mouseleaveHandler, this));
+                    }
+                }
+                this._poped = false;
+                this._inited = true;
+                this._opened = false;
+                this._idSeed = _globalIdSeed;
+                this.id = pluginName + this._idSeed;
+                // normalize container
+                this.options.container = $(this.options.container || document.body).first();
+
+                if (this.options.backdrop) {
+                    backdrop.appendTo(this.options.container).hide();
+                }
+                _globalIdSeed++;
+                if (this.getTrigger() === 'sticky') {
+                    this.show();
+                }
+
+                if (this.options.selector) {
+                    this._options = $.extend({}, this.options, {
+                        selector: ''
+                    });
+                }
+
+            },
+            /* api methods and actions */
+            destroy: function() {
+                var index = -1;
+
+                for (var i = 0; i < _srcElements.length; i++) {
+                    if (_srcElements[i] === this.$element) {
+                        index = i;
+                        break;
+                    }
+                }
+
+                _srcElements.splice(index, 1);
+
+
+                this.hide();
+                this.$element.data('plugin_' + pluginName, null);
+                if (this.getTrigger() === 'click') {
+                    this.$element.off('click');
+                } else if (this.getTrigger() === 'hover') {
+                    this.$element.off('mouseenter mouseleave');
+                }
+                if (this.$target) {
+                    this.$target.remove();
+                }
+            },
+            getDelegateOptions: function() {
+                var options = {};
+
+                this._options && $.each(this._options, function(key, value) {
+                    if (defaults[key] !== value) {
+                        options[key] = value;
+                    }
+                });
+                return options;
+            },
+            /*
+                param: force    boolean value, if value is true then force hide the popover
+                param: event    dom event,
+            */
+            hide: function(force, event) {
+
+                if (!force && this.getTrigger() === 'sticky') {
+                    return;
+                }
+                if (!this._opened) {
+                    return;
+                }
+                if (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                if (this.xhr && this.options.abortXHR === true) {
+                    this.xhr.abort();
+                    this.xhr = null;
+                }
+
+
+                var e = $.Event('hide.' + pluginType);
+                this.$element.trigger(e, [this.$target]);
+                if (this.$target) {
+                    this.$target.removeClass('in').addClass(this.getHideAnimation());
+                    var that = this;
+                    setTimeout(function() {
+                        that.$target.hide();
+                        if (!that.getCache()) {
+                            that.$target.remove();
+                            //that.getTriggerElement.removeAttr('data-target');
+                        }
+                    }, that.getHideDelay());
+                }
+                if (this.options.backdrop) {
+                    backdrop.hide();
+                }
+                this._opened = false;
+                this.$element.trigger('hidden.' + pluginType, [this.$target]);
+
+                if (this.options.onHide) {
+                    this.options.onHide(this.$target);
+                }
+
+            },
+            resetAutoHide: function() {
+                var that = this;
+                var autoHide = that.getAutoHide();
+                if (autoHide) {
+                    if (that.autoHideHandler) {
+                        clearTimeout(that.autoHideHandler);
+                    }
+                    that.autoHideHandler = setTimeout(function() {
+                        that.hide();
+                    }, autoHide);
+                }
+            },
+            delegate: function(eventTarget) {
+                var self = $(eventTarget).data('plugin_' + pluginName);
+                if (!self) {
+                    self = new WebuiPopover(eventTarget, this.getDelegateOptions());
+                    $(eventTarget).data('plugin_' + pluginName, self);
+                }
+                return self;
+            },
+            toggle: function(e) {
+                var self = this;
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (this.options.selector) {
+                        self = this.delegate(e.currentTarget);
+                    }
+                }
+                self[self.getTarget().hasClass('in') ? 'hide' : 'show']();
+            },
+            hideAll: function() {
+                hideAllPop();
+            },
+            hideOthers: function() {
+                hideOtherPops(this);
+            },
+            /*core method ,show popover */
+            show: function() {
+                if (this._opened) {
+                    return;
+                }
+                //removeAllTargets();
+                var
+                    $target = this.getTarget().removeClass().addClass(pluginClass).addClass(this._customTargetClass);
+                if (!this.options.multi) {
+                    this.hideOthers();
+                }
+
+                // use cache by default, if not cache setted  , reInit the contents
+                if (!this.getCache() || !this._poped || this.content === '') {
+                    this.content = '';
+                    this.setTitle(this.getTitle());
+                    if (!this.options.closeable) {
+                        $target.find('.close').off('click').remove();
+                    }
+                    if (!this.isAsync()) {
+                        this.setContent(this.getContent());
+                    } else {
+                        this.setContentASync(this.options.content);
+                    }
+
+                    if (this.canEmptyHide() && this.content === '') {
+                        return;
+                    }
+                    $target.show();
+                }
+
+                this.displayContent();
+
+                if (this.options.onShow) {
+                    this.options.onShow($target);
+                }
+
+                this.bindBodyEvents();
+                if (this.options.backdrop) {
+                    backdrop.show();
+                }
+                this._opened = true;
+                this.resetAutoHide();
+            },
+            displayContent: function() {
+                var
+                //element postion
+                    elementPos = this.getElementPosition(),
+                    //target postion
+                    $target = this.getTarget().removeClass().addClass(pluginClass).addClass(this._customTargetClass),
+                    //target content
+                    $targetContent = this.getContentElement(),
+                    //target Width
+                    targetWidth = $target[0].offsetWidth,
+                    //target Height
+                    targetHeight = $target[0].offsetHeight,
+                    //placement
+                    placement = 'bottom',
+                    e = $.Event('show.' + pluginType);
+
+                if (this.canEmptyHide()) {
+
+                    var content = $targetContent.children().html();
+                    if (content !== null && content.trim().length === 0) {
+                        return;
+                    }
+                }
+
+                //if (this.hasContent()){
+                this.$element.trigger(e, [$target]);
+                //}
+                // support width as data attribute
+                var optWidth = this.$element.data('width') || this.options.width;
+                if (optWidth === '') {
+                    optWidth = this._defaults.width;
+                }
+
+                if (optWidth !== 'auto') {
+                    $target.width(optWidth);
+                }
+
+                // support height as data attribute
+                var optHeight = this.$element.data('height') || this.options.height;
+                if (optHeight === '') {
+                    optHeight = this._defaults.height;
+                }
+
+                if (optHeight !== 'auto') {
+                    $targetContent.height(optHeight);
+                }
+
+                if (this.options.style) {
+                    this.$target.addClass(pluginClass + '-' + this.options.style);
+                }
+
+                //check rtl
+                if (this.options.direction === 'rtl' && !$targetContent.hasClass(rtlClass)) {
+                    $targetContent.addClass(rtlClass);
+                }
+
+                //init the popover and insert into the document body
+                if (!this.options.arrow) {
+                    $target.find('.webui-arrow').remove();
+                }
+                $target.detach().css({
+                    top: _offsetOut,
+                    left: _offsetOut,
+                    display: 'block'
+                });
+
+                if (this.getAnimation()) {
+                    $target.addClass(this.getAnimation());
+                }
+                $target.appendTo(this.options.container);
+
+
+                placement = this.getPlacement(elementPos);
+
+                //This line is just for compatible with knockout custom binding
+                this.$element.trigger('added.' + pluginType);
+
+                this.initTargetEvents();
+
+                if (!this.options.padding) {
+                    if (this.options.height !== 'auto') {
+                        $targetContent.css('height', $targetContent.outerHeight());
+                    }
+                    this.$target.addClass('webui-no-padding');
+                }
+
+                // add maxHeight and maxWidth support by limodou@gmail.com 2016/10/1
+                if (this.options.maxHeight) {
+                    $targetContent.css('maxHeight', this.options.maxHeight);
+                }
+
+                if (this.options.maxWidth) {
+                    $targetContent.css('maxWidth', this.options.maxWidth);
+                }
+                // end
+
+                targetWidth = $target[0].offsetWidth;
+                targetHeight = $target[0].offsetHeight;
+
+                var postionInfo = this.getTargetPositin(elementPos, placement, targetWidth, targetHeight);
+
+                this.$target.css(postionInfo.position).addClass(placement).addClass('in');
+
+                if (this.options.type === 'iframe') {
+                    var $iframe = $target.find('iframe');
+                    var iframeWidth = $target.width();
+                    var iframeHeight = $iframe.parent().height();
+
+                    if (this.options.iframeOptions.width !== '' && this.options.iframeOptions.width !== 'auto') {
+                        iframeWidth = this.options.iframeOptions.width;
+                    }
+
+                    if (this.options.iframeOptions.height !== '' && this.options.iframeOptions.height !== 'auto') {
+                        iframeHeight = this.options.iframeOptions.height;
+                    }
+
+                    $iframe.width(iframeWidth).height(iframeHeight);
+                }
+
+                if (!this.options.arrow) {
+                    this.$target.css({
+                        'margin': 0
+                    });
+                }
+                if (this.options.arrow) {
+                    var $arrow = this.$target.find('.webui-arrow');
+                    $arrow.removeAttr('style');
+
+                    //prevent arrow change by content size
+                    if (placement === 'left' || placement === 'right') {
+                        $arrow.css({
+                            top: this.$target.height() / 2
+                        });
+                    } else if (placement === 'top' || placement === 'bottom') {
+                        $arrow.css({
+                            left: this.$target.width() / 2
+                        });
+                    }
+
+                    if (postionInfo.arrowOffset) {
+                        //hide the arrow if offset is negative
+                        if (postionInfo.arrowOffset.left === -1 || postionInfo.arrowOffset.top === -1) {
+                            $arrow.hide();
+                        } else {
+                            $arrow.css(postionInfo.arrowOffset);
+                        }
+                    }
+
+                }
+                this._poped = true;
+                this.$element.trigger('shown.' + pluginType, [this.$target]);
+            },
+
+            isTargetLoaded: function() {
+                return this.getTarget().find('i.glyphicon-refresh').length === 0;
+            },
+
+            /*getter setters */
+            getTriggerElement: function() {
+                return this.$element;
+            },
+            getTarget: function() {
+                if (!this.$target) {
+                    var id = pluginName + this._idSeed;
+                    this.$target = $(this.options.template)
+                        .attr('id', id);
+                    this._customTargetClass = this.$target.attr('class') !== pluginClass ? this.$target.attr('class') : null;
+                    this.getTriggerElement().attr('data-target', id);
+                }
+                if (!this.$target.data('trigger-element')) {
+                    this.$target.data('trigger-element', this.getTriggerElement());
+                }
+                return this.$target;
+            },
+            removeTarget: function() {
+                this.$target.remove();
+                this.$target = null;
+                this.$contentElement = null;
+            },
+            getTitleElement: function() {
+                return this.getTarget().find('.' + pluginClass + '-title');
+            },
+            getContentElement: function() {
+                if (!this.$contentElement) {
+                    this.$contentElement = this.getTarget().find('.' + pluginClass + '-content');
+                }
+                return this.$contentElement;
+            },
+            getTitle: function() {
+                return this.$element.attr('data-title') || this.options.title || this.$element.attr('title');
+            },
+            getUrl: function() {
+                return this.$element.attr('data-url') || this.options.url;
+            },
+            getAutoHide: function() {
+                return this.$element.attr('data-auto-hide') || this.options.autoHide;
+            },
+            getOffsetTop: function() {
+                return toNumber(this.$element.attr('data-offset-top')) || this.options.offsetTop;
+            },
+            getOffsetLeft: function() {
+                return toNumber(this.$element.attr('data-offset-left')) || this.options.offsetLeft;
+            },
+            getCache: function() {
+                var dataAttr = this.$element.attr('data-cache');
+                if (typeof(dataAttr) !== 'undefined') {
+                    switch (dataAttr.toLowerCase()) {
+                        case 'true':
+                        case 'yes':
+                        case '1':
+                            return true;
+                        case 'false':
+                        case 'no':
+                        case '0':
+                            return false;
+                    }
+                }
+                return this.options.cache;
+            },
+            getTrigger: function() {
+                return this.$element.attr('data-trigger') || this.options.trigger;
+            },
+            getDelayShow: function() {
+                var dataAttr = this.$element.attr('data-delay-show');
+                if (typeof(dataAttr) !== 'undefined') {
+                    return dataAttr;
+                }
+                return this.options.delay.show === 0 ? 0 : this.options.delay.show || 100;
+            },
+            getHideDelay: function() {
+                var dataAttr = this.$element.attr('data-delay-hide');
+                if (typeof(dataAttr) !== 'undefined') {
+                    return dataAttr;
+                }
+                return this.options.delay.hide === 0 ? 0 : this.options.delay.hide || 100;
+            },
+            getAnimation: function() {
+                var dataAttr = this.$element.attr('data-animation');
+                return dataAttr || this.options.animation;
+            },
+            getHideAnimation: function() {
+                var ani = this.getAnimation();
+                return ani ? ani + '-out' : 'out';
+            },
+            setTitle: function(title) {
+                var $titleEl = this.getTitleElement();
+                if (title) {
+                    //check rtl
+                    if (this.options.direction === 'rtl' && !$titleEl.hasClass(rtlClass)) {
+                        $titleEl.addClass(rtlClass);
+                    }
+                    $titleEl.html(title);
+                } else {
+                    $titleEl.remove();
+                }
+            },
+            hasContent: function() {
+                return this.getContent();
+            },
+            canEmptyHide: function() {
+                return this.options.hideEmpty && this.options.type === 'html';
+            },
+            getIframe: function() {
+                var $iframe = $('<iframe></iframe>').attr('src', this.getUrl());
+                var self = this;
+                $.each(this._defaults.iframeOptions, function(opt) {
+                    if (typeof self.options.iframeOptions[opt] !== 'undefined') {
+                        $iframe.attr(opt, self.options.iframeOptions[opt]);
+                    }
+                });
+
+                return $iframe;
+            },
+            getContent: function() {
+                if (this.getUrl()) {
+                    switch (this.options.type) {
+                        case 'iframe':
+                            this.content = this.getIframe();
+                            break;
+                        case 'html':
+                            try {
+                                this.content = $(this.getUrl());
+                                if (!this.content.is(':visible')) {
+                                    this.content.show();
+                                }
+                            } catch (error) {
+                                throw new Error('Unable to get popover content. Invalid selector specified.');
+                            }
+                            break;
+                    }
+                } else if (!this.content) {
+                    var content = '';
+                    if ($.isFunction(this.options.content)) {
+                        content = this.options.content.apply(this.$element[0], [this]);
+                    } else {
+                        content = this.options.content;
+                    }
+                    this.content = this.$element.attr('data-content') || content;
+                    if (!this.content) {
+                        var $next = this.$element.next();
+
+                        if ($next && $next.hasClass(pluginClass + '-content')) {
+                            this.content = $next;
+                        }
+                    }
+                }
+                return this.content;
+            },
+            setContent: function(content) {
+                var $target = this.getTarget();
+                var $ct = this.getContentElement();
+                if (typeof content === 'string') {
+                    $ct.html(content);
+                } else if (content instanceof $) {
+                    $ct.html('');
+                    //Don't want to clone too many times.
+                    if (!this.options.cache) {
+                        content.clone(true, true).removeClass(pluginClass + '-content').appendTo($ct);
+                    } else {
+                        content.removeClass(pluginClass + '-content').appendTo($ct);
+                    }
+                }
+                this.$target = $target;
+            },
+            isAsync: function() {
+                return this.options.type === 'async';
+            },
+            setContentASync: function(content) {
+                var that = this;
+                if (this.xhr) {
+                    return;
+                }
+                this.xhr = $.ajax({
+                    url: this.getUrl(),
+                    type: this.options.async.type,
+                    cache: this.getCache(),
+                    beforeSend: function(xhr, settings) {
+                        if (that.options.async.before) {
+                            that.options.async.before(that, xhr, settings);
+                        }
+                    },
+                    success: function(data) {
+                        that.bindBodyEvents();
+                        if (content && $.isFunction(content)) {
+                            that.content = content.apply(that.$element[0], [data]);
+                        } else {
+                            that.content = data;
+                        }
+                        that.setContent(that.content);
+                        var $targetContent = that.getContentElement();
+                        $targetContent.removeAttr('style');
+                        that.displayContent();
+                        if (that.options.async.success) {
+                            that.options.async.success(that, data);
+                        }
+                    },
+                    complete: function() {
+                        that.xhr = null;
+                    },
+                    error: function(xhr, data) {
+                        if (that.options.async.error) {
+                            that.options.async.error(that, xhr, data);
+                        }
+                    }
+                });
+            },
+
+            bindBodyEvents: function() {
+                if (_isBodyEventHandled) {
+                    return;
+                }
+                if (this.options.dismissible && this.getTrigger() === 'click') {
+                    if (isMobile) {
+                        $document.off('touchstart.webui-popover').on('touchstart.webui-popover', $.proxy(this.bodyTouchStartHandler, this));
+                    } else {
+                        $document.off('keyup.webui-popover').on('keyup.webui-popover', $.proxy(this.escapeHandler, this));
+                        $document.off('click.webui-popover').on('click.webui-popover', $.proxy(this.bodyClickHandler, this));
+                    }
+                } else if (this.getTrigger() === 'hover') {
+                    $document.off('touchend.webui-popover')
+                        .on('touchend.webui-popover', $.proxy(this.bodyClickHandler, this));
+                }
+            },
+
+            /* event handlers */
+            mouseenterHandler: function(e) {
+                var self = this;
+
+                if (e && this.options.selector) {
+                    self = this.delegate(e.currentTarget);
+                }
+
+                if (self._timeout) {
+                    clearTimeout(self._timeout);
+                }
+                self._enterTimeout = setTimeout(function() {
+                    if (!self.getTarget().is(':visible')) {
+                        self.show();
+                    }
+                }, this.getDelayShow());
+            },
+            mouseleaveHandler: function() {
+                var self = this;
+                clearTimeout(self._enterTimeout);
+                //key point, set the _timeout  then use clearTimeout when mouse leave
+                self._timeout = setTimeout(function() {
+                    self.hide();
+                }, this.getHideDelay());
+            },
+            escapeHandler: function(e) {
+                if (e.keyCode === 27) {
+                    this.hideAll();
+                }
+            },
+            bodyTouchStartHandler: function(e) {
+                var self = this;
+                var $eventEl = $(e.currentTarget);
+                $eventEl.on('touchend', function(e) {
+                    self.bodyClickHandler(e);
+                    $eventEl.off('touchend');
+                });
+                $eventEl.on('touchmove', function() {
+                    $eventEl.off('touchend');
+                });
+            },
+            bodyClickHandler: function(e) {
+                _isBodyEventHandled = true;
+                var canHide = true;
+                for (var i = 0; i < _srcElements.length; i++) {
+                    var pop = getPopFromElement(_srcElements[i]);
+                    if (pop && pop._opened) {
+                        var offset = pop.getTarget().offset();
+                        var popX1 = offset.left;
+                        var popY1 = offset.top;
+                        var popX2 = offset.left + pop.getTarget().width();
+                        var popY2 = offset.top + pop.getTarget().height();
+                        var pt = pointerEventToXY(e);
+                        var inPop = pt.x >= popX1 && pt.x <= popX2 && pt.y >= popY1 && pt.y <= popY2;
+                        if (inPop) {
+                            canHide = false;
+                            break;
+                        }
+                    }
+                }
+                if (canHide) {
+                    hideAllPop();
+                }
+            },
+
+            /*
+            targetClickHandler: function() {
+                this._targetclick = true;
+            },
+            */
+
+            //reset and init the target events;
+            initTargetEvents: function() {
+                if (this.getTrigger() === 'hover') {
+                    this.$target
+                        .off('mouseenter mouseleave')
+                        .on('mouseenter', $.proxy(this.mouseenterHandler, this))
+                        .on('mouseleave', $.proxy(this.mouseleaveHandler, this));
+                }
+                this.$target.find('.close').off('click').on('click', $.proxy(this.hide, this, true));
+                //this.$target.off('click.webui-popover').on('click.webui-popover', $.proxy(this.targetClickHandler, this));
+            },
+            /* utils methods */
+            //caculate placement of the popover
+            getPlacement: function(pos) {
+                var
+                    placement,
+                    container = this.options.container,
+                    clientWidth = container.innerWidth(),
+                    clientHeight = container.innerHeight(),
+                    scrollTop = container.scrollTop(),
+                    scrollLeft = container.scrollLeft(),
+                    pageX = Math.max(0, pos.left - scrollLeft),
+                    pageY = Math.max(0, pos.top - scrollTop);
+                //arrowSize = 20;
+
+                //if placement equals auto，caculate the placement by element information;
+                if (typeof(this.options.placement) === 'function') {
+                    placement = this.options.placement.call(this, this.getTarget()[0], this.$element[0]);
+                } else {
+                    placement = this.$element.data('placement') || this.options.placement;
+                }
+
+                var isH = placement === 'horizontal';
+                var isV = placement === 'vertical';
+                var detect = placement === 'auto' || isH || isV;
+
+                if (detect) {
+                    if (pageX < clientWidth / 3) {
+                        if (pageY < clientHeight / 3) {
+                            placement = isH ? 'right-bottom' : 'bottom-right';
+                        } else if (pageY < clientHeight * 2 / 3) {
+                            if (isV) {
+                                placement = pageY <= clientHeight / 2 ? 'bottom-right' : 'top-right';
+                            } else {
+                                placement = 'right';
+                            }
+                        } else {
+                            placement = isH ? 'right-top' : 'top-right';
+                        }
+                        //placement= pageY>targetHeight+arrowSize?'top-right':'bottom-right';
+                    } else if (pageX < clientWidth * 2 / 3) {
+                        if (pageY < clientHeight / 3) {
+                            if (isH) {
+                                placement = pageX <= clientWidth / 2 ? 'right-bottom' : 'left-bottom';
+                            } else {
+                                placement = 'bottom';
+                            }
+                        } else if (pageY < clientHeight * 2 / 3) {
+                            if (isH) {
+                                placement = pageX <= clientWidth / 2 ? 'right' : 'left';
+                            } else {
+                                placement = pageY <= clientHeight / 2 ? 'bottom' : 'top';
+                            }
+                        } else {
+                            if (isH) {
+                                placement = pageX <= clientWidth / 2 ? 'right-top' : 'left-top';
+                            } else {
+                                placement = 'top';
+                            }
+                        }
+                    } else {
+                        //placement = pageY>targetHeight+arrowSize?'top-left':'bottom-left';
+                        if (pageY < clientHeight / 3) {
+                            placement = isH ? 'left-bottom' : 'bottom-left';
+                        } else if (pageY < clientHeight * 2 / 3) {
+                            if (isV) {
+                                placement = pageY <= clientHeight / 2 ? 'bottom-left' : 'top-left';
+                            } else {
+                                placement = 'left';
+                            }
+                        } else {
+                            placement = isH ? 'left-top' : 'top-left';
+                        }
+                    }
+                } else if (placement === 'auto-top') {
+                    if (pageX < clientWidth / 3) {
+                        placement = 'top-right';
+                    } else if (pageX < clientWidth * 2 / 3) {
+                        placement = 'top';
+                    } else {
+                        placement = 'top-left';
+                    }
+                } else if (placement === 'auto-bottom') {
+                    if (pageX < clientWidth / 3) {
+                        placement = 'bottom-right';
+                    } else if (pageX < clientWidth * 2 / 3) {
+                        placement = 'bottom';
+                    } else {
+                        placement = 'bottom-left';
+                    }
+                } else if (placement === 'auto-left') {
+                    if (pageY < clientHeight / 3) {
+                        placement = 'left-top';
+                    } else if (pageY < clientHeight * 2 / 3) {
+                        placement = 'left';
+                    } else {
+                        placement = 'left-bottom';
+                    }
+                } else if (placement === 'auto-right') {
+                    if (pageY < clientHeight / 3) {
+                        placement = 'right-bottom';
+                    } else if (pageY < clientHeight * 2 / 3) {
+                        placement = 'right';
+                    } else {
+                        placement = 'right-top';
+                    }
+                }
+                return placement;
+            },
+            getElementPosition: function() {
+                // If the container is the body or normal conatiner, just use $element.offset()
+                var elRect = this.$element[0].getBoundingClientRect();
+                var container = this.options.container;
+                var cssPos = container.css('position');
+
+                if (container.is(document.body) || cssPos === 'static') {
+                    return $.extend({}, this.$element.offset(), {
+                        width: this.$element[0].offsetWidth || elRect.width,
+                        height: this.$element[0].offsetHeight || elRect.height
+                    });
+                    // Else fixed container need recalculate the  position
+                } else if (cssPos === 'fixed') {
+                    var containerRect = container[0].getBoundingClientRect();
+                    return {
+                        top: elRect.top - containerRect.top + container.scrollTop(),
+                        left: elRect.left - containerRect.left + container.scrollLeft(),
+                        width: elRect.width,
+                        height: elRect.height
+                    };
+                } else if (cssPos === 'relative') {
+                    return {
+                        top: this.$element.offset().top - container.offset().top,
+                        left: this.$element.offset().left - container.offset().left,
+                        width: this.$element[0].offsetWidth || elRect.width,
+                        height: this.$element[0].offsetHeight || elRect.height
+                    };
+                }
+            },
+
+            getTargetPositin: function(elementPos, placement, targetWidth, targetHeight) {
+                var pos = elementPos,
+                    container = this.options.container,
+                    //clientWidth = container.innerWidth(),
+                    //clientHeight = container.innerHeight(),
+                    elementW = this.$element.outerWidth(),
+                    elementH = this.$element.outerHeight(),
+                    scrollTop = document.documentElement.scrollTop + container.scrollTop(),
+                    scrollLeft = document.documentElement.scrollLeft + container.scrollLeft(),
+                    position = {},
+                    arrowOffset = null,
+                    arrowSize = this.options.arrow ? 20 : 0,
+                    padding = 10,
+                    fixedW = elementW < arrowSize + padding ? arrowSize : 0,
+                    fixedH = elementH < arrowSize + padding ? arrowSize : 0,
+                    refix = 0,
+                    pageH = document.documentElement.clientHeight + scrollTop,
+                    pageW = document.documentElement.clientWidth + scrollLeft;
+
+                var validLeft = pos.left + pos.width / 2 - fixedW > 0;
+                var validRight = pos.left + pos.width / 2 + fixedW < pageW;
+                var validTop = pos.top + pos.height / 2 - fixedH > 0;
+                var validBottom = pos.top + pos.height / 2 + fixedH < pageH;
+
+
+                switch (placement) {
+                    case 'bottom':
+                        position = {
+                            top: pos.top + pos.height,
+                            left: pos.left + pos.width / 2 - targetWidth / 2
+                        };
+                        break;
+                    case 'top':
+                        position = {
+                            top: pos.top - targetHeight,
+                            left: pos.left + pos.width / 2 - targetWidth / 2
+                        };
+                        break;
+                    case 'left':
+                        position = {
+                            top: pos.top + pos.height / 2 - targetHeight / 2,
+                            left: pos.left - targetWidth
+                        };
+                        break;
+                    case 'right':
+                        position = {
+                            top: pos.top + pos.height / 2 - targetHeight / 2,
+                            left: pos.left + pos.width
+                        };
+                        break;
+                    case 'top-right':
+                        position = {
+                            top: pos.top - targetHeight,
+                            left: validLeft ? pos.left - fixedW : padding
+                        };
+                        arrowOffset = {
+                            left: validLeft ? Math.min(elementW, targetWidth) / 2 + fixedW : _offsetOut
+                        };
+                        break;
+                    case 'top-left':
+                        refix = validRight ? fixedW : -padding;
+                        position = {
+                            top: pos.top - targetHeight,
+                            left: pos.left - targetWidth + pos.width + refix
+                        };
+                        arrowOffset = {
+                            left: validRight ? targetWidth - Math.min(elementW, targetWidth) / 2 - fixedW : _offsetOut
+                        };
+                        break;
+                    case 'bottom-right':
+                        position = {
+                            top: pos.top + pos.height,
+                            left: validLeft ? pos.left - fixedW : padding
+                        };
+                        arrowOffset = {
+                            left: validLeft ? Math.min(elementW, targetWidth) / 2 + fixedW : _offsetOut
+                        };
+                        break;
+                    case 'bottom-left':
+                        refix = validRight ? fixedW : -padding;
+                        position = {
+                            top: pos.top + pos.height,
+                            left: pos.left - targetWidth + pos.width + refix
+                        };
+                        arrowOffset = {
+                            left: validRight ? targetWidth - Math.min(elementW, targetWidth) / 2 - fixedW : _offsetOut
+                        };
+                        break;
+                    case 'right-top':
+                        refix = validBottom ? fixedH : -padding;
+                        position = {
+                            top: pos.top - targetHeight + pos.height + refix,
+                            left: pos.left + pos.width
+                        };
+                        arrowOffset = {
+                            top: validBottom ? targetHeight - Math.min(elementH, targetHeight) / 2 - fixedH : _offsetOut
+                        };
+                        break;
+                    case 'right-bottom':
+                        position = {
+                            top: validTop ? pos.top - fixedH : padding,
+                            left: pos.left + pos.width
+                        };
+                        arrowOffset = {
+                            top: validTop ? Math.min(elementH, targetHeight) / 2 + fixedH : _offsetOut
+                        };
+                        break;
+                    case 'left-top':
+                        refix = validBottom ? fixedH : -padding;
+                        position = {
+                            top: pos.top - targetHeight + pos.height + refix,
+                            left: pos.left - targetWidth
+                        };
+                        arrowOffset = {
+                            top: validBottom ? targetHeight - Math.min(elementH, targetHeight) / 2 - fixedH : _offsetOut
+                        };
+                        break;
+                    case 'left-bottom':
+                        position = {
+                            top: validTop ? pos.top - fixedH : padding,
+                            left: pos.left - targetWidth
+                        };
+                        arrowOffset = {
+                            top: validTop ? Math.min(elementH, targetHeight) / 2 + fixedH : _offsetOut
+                        };
+                        break;
+
+                }
+                position.top += this.getOffsetTop();
+                position.left += this.getOffsetLeft();
+
+                return {
+                    position: position,
+                    arrowOffset: arrowOffset
+                };
+            }
+        };
+        $.fn[pluginName] = function(options, noInit) {
+            var results = [];
+            var $result = this.each(function() {
+
+                var webuiPopover = $.data(this, 'plugin_' + pluginName);
+                if (!webuiPopover) {
+                    if (!options) {
+                        webuiPopover = new WebuiPopover(this, null);
+                    } else if (typeof options === 'string') {
+                        if (options !== 'destroy') {
+                            if (!noInit) {
+                                webuiPopover = new WebuiPopover(this, null);
+                                results.push(webuiPopover[options]());
+                            }
+                        }
+                    } else if (typeof options === 'object') {
+                        webuiPopover = new WebuiPopover(this, options);
+                    }
+                    $.data(this, 'plugin_' + pluginName, webuiPopover);
+                } else {
+                    if (options === 'destroy') {
+                        webuiPopover.destroy();
+                    } else if (typeof options === 'string') {
+                        results.push(webuiPopover[options]());
+                    }
+                }
+            });
+            return (results.length) ? results : $result;
+        };
+
+        //Global object exposes to window.
+        var webuiPopovers = (function() {
+            var _hideAll = function() {
+                hideAllPop();
+            };
+            var _create = function(selector, options) {
+                options = options || {};
+                $(selector).webuiPopover(options);
+            };
+            var _isCreated = function(selector) {
+                var created = true;
+                $(selector).each(function(i, item) {
+                    created = created && $(item).data('plugin_' + pluginName) !== undefined;
+                });
+                return created;
+            };
+            var _show = function(selector, options) {
+                if (options) {
+                    $(selector).webuiPopover(options).webuiPopover('show');
+                } else {
+                    $(selector).webuiPopover('show');
+                }
+            };
+            var _hide = function(selector) {
+                $(selector).webuiPopover('hide');
+            };
+
+            var _setDefaultOptions = function(options) {
+                defaults = $.extend({}, defaults, options);
+            };
+
+            var _updateContent = function(selector, content) {
+                var pop = $(selector).data('plugin_' + pluginName);
+                if (pop) {
+                    var cache = pop.getCache();
+                    pop.options.cache = false;
+                    pop.options.content = content;
+                    if (pop._opened) {
+                        pop._opened = false;
+                        pop.show();
+                    } else {
+                        if (pop.isAsync()) {
+                            pop.setContentASync(content);
+                        } else {
+                            pop.setContent(content);
+                        }
+                    }
+                    pop.options.cache = cache;
+                }
+            };
+
+            var _updateContentAsync = function(selector, url) {
+                var pop = $(selector).data('plugin_' + pluginName);
+                if (pop) {
+                    var cache = pop.getCache();
+                    var type = pop.options.type;
+                    pop.options.cache = false;
+                    pop.options.url = url;
+
+                    if (pop._opened) {
+                        pop._opened = false;
+                        pop.show();
+                    } else {
+                        pop.options.type = 'async';
+                        pop.setContentASync(pop.content);
+                    }
+                    pop.options.cache = cache;
+                    pop.options.type = type;
+                }
+            };
+
+            return {
+                show: _show,
+                hide: _hide,
+                create: _create,
+                isCreated: _isCreated,
+                hideAll: _hideAll,
+                updateContent: _updateContent,
+                updateContentAsync: _updateContentAsync,
+                setDefaultOptions: _setDefaultOptions
+            };
+        })();
+        window.WebuiPopovers = webuiPopovers;
+    }));
+})(window, document);
+
+
+/***/ }),
 /* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+(function(){
+  var crypt = __webpack_require__(148),
+      utf8 = __webpack_require__(131).utf8,
+      isBuffer = __webpack_require__(149),
+      bin = __webpack_require__(131).bin,
+
+  // The core
+  md5 = function (message, options) {
+    // Convert to byte array
+    if (message.constructor == String)
+      if (options && options.encoding === 'binary')
+        message = bin.stringToBytes(message);
+      else
+        message = utf8.stringToBytes(message);
+    else if (isBuffer(message))
+      message = Array.prototype.slice.call(message, 0);
+    else if (!Array.isArray(message))
+      message = message.toString();
+    // else, assume byte array already
+
+    var m = crypt.bytesToWords(message),
+        l = message.length * 8,
+        a =  1732584193,
+        b = -271733879,
+        c = -1732584194,
+        d =  271733878;
+
+    // Swap endian
+    for (var i = 0; i < m.length; i++) {
+      m[i] = ((m[i] <<  8) | (m[i] >>> 24)) & 0x00FF00FF |
+             ((m[i] << 24) | (m[i] >>>  8)) & 0xFF00FF00;
+    }
+
+    // Padding
+    m[l >>> 5] |= 0x80 << (l % 32);
+    m[(((l + 64) >>> 9) << 4) + 14] = l;
+
+    // Method shortcuts
+    var FF = md5._ff,
+        GG = md5._gg,
+        HH = md5._hh,
+        II = md5._ii;
+
+    for (var i = 0; i < m.length; i += 16) {
+
+      var aa = a,
+          bb = b,
+          cc = c,
+          dd = d;
+
+      a = FF(a, b, c, d, m[i+ 0],  7, -680876936);
+      d = FF(d, a, b, c, m[i+ 1], 12, -389564586);
+      c = FF(c, d, a, b, m[i+ 2], 17,  606105819);
+      b = FF(b, c, d, a, m[i+ 3], 22, -1044525330);
+      a = FF(a, b, c, d, m[i+ 4],  7, -176418897);
+      d = FF(d, a, b, c, m[i+ 5], 12,  1200080426);
+      c = FF(c, d, a, b, m[i+ 6], 17, -1473231341);
+      b = FF(b, c, d, a, m[i+ 7], 22, -45705983);
+      a = FF(a, b, c, d, m[i+ 8],  7,  1770035416);
+      d = FF(d, a, b, c, m[i+ 9], 12, -1958414417);
+      c = FF(c, d, a, b, m[i+10], 17, -42063);
+      b = FF(b, c, d, a, m[i+11], 22, -1990404162);
+      a = FF(a, b, c, d, m[i+12],  7,  1804603682);
+      d = FF(d, a, b, c, m[i+13], 12, -40341101);
+      c = FF(c, d, a, b, m[i+14], 17, -1502002290);
+      b = FF(b, c, d, a, m[i+15], 22,  1236535329);
+
+      a = GG(a, b, c, d, m[i+ 1],  5, -165796510);
+      d = GG(d, a, b, c, m[i+ 6],  9, -1069501632);
+      c = GG(c, d, a, b, m[i+11], 14,  643717713);
+      b = GG(b, c, d, a, m[i+ 0], 20, -373897302);
+      a = GG(a, b, c, d, m[i+ 5],  5, -701558691);
+      d = GG(d, a, b, c, m[i+10],  9,  38016083);
+      c = GG(c, d, a, b, m[i+15], 14, -660478335);
+      b = GG(b, c, d, a, m[i+ 4], 20, -405537848);
+      a = GG(a, b, c, d, m[i+ 9],  5,  568446438);
+      d = GG(d, a, b, c, m[i+14],  9, -1019803690);
+      c = GG(c, d, a, b, m[i+ 3], 14, -187363961);
+      b = GG(b, c, d, a, m[i+ 8], 20,  1163531501);
+      a = GG(a, b, c, d, m[i+13],  5, -1444681467);
+      d = GG(d, a, b, c, m[i+ 2],  9, -51403784);
+      c = GG(c, d, a, b, m[i+ 7], 14,  1735328473);
+      b = GG(b, c, d, a, m[i+12], 20, -1926607734);
+
+      a = HH(a, b, c, d, m[i+ 5],  4, -378558);
+      d = HH(d, a, b, c, m[i+ 8], 11, -2022574463);
+      c = HH(c, d, a, b, m[i+11], 16,  1839030562);
+      b = HH(b, c, d, a, m[i+14], 23, -35309556);
+      a = HH(a, b, c, d, m[i+ 1],  4, -1530992060);
+      d = HH(d, a, b, c, m[i+ 4], 11,  1272893353);
+      c = HH(c, d, a, b, m[i+ 7], 16, -155497632);
+      b = HH(b, c, d, a, m[i+10], 23, -1094730640);
+      a = HH(a, b, c, d, m[i+13],  4,  681279174);
+      d = HH(d, a, b, c, m[i+ 0], 11, -358537222);
+      c = HH(c, d, a, b, m[i+ 3], 16, -722521979);
+      b = HH(b, c, d, a, m[i+ 6], 23,  76029189);
+      a = HH(a, b, c, d, m[i+ 9],  4, -640364487);
+      d = HH(d, a, b, c, m[i+12], 11, -421815835);
+      c = HH(c, d, a, b, m[i+15], 16,  530742520);
+      b = HH(b, c, d, a, m[i+ 2], 23, -995338651);
+
+      a = II(a, b, c, d, m[i+ 0],  6, -198630844);
+      d = II(d, a, b, c, m[i+ 7], 10,  1126891415);
+      c = II(c, d, a, b, m[i+14], 15, -1416354905);
+      b = II(b, c, d, a, m[i+ 5], 21, -57434055);
+      a = II(a, b, c, d, m[i+12],  6,  1700485571);
+      d = II(d, a, b, c, m[i+ 3], 10, -1894986606);
+      c = II(c, d, a, b, m[i+10], 15, -1051523);
+      b = II(b, c, d, a, m[i+ 1], 21, -2054922799);
+      a = II(a, b, c, d, m[i+ 8],  6,  1873313359);
+      d = II(d, a, b, c, m[i+15], 10, -30611744);
+      c = II(c, d, a, b, m[i+ 6], 15, -1560198380);
+      b = II(b, c, d, a, m[i+13], 21,  1309151649);
+      a = II(a, b, c, d, m[i+ 4],  6, -145523070);
+      d = II(d, a, b, c, m[i+11], 10, -1120210379);
+      c = II(c, d, a, b, m[i+ 2], 15,  718787259);
+      b = II(b, c, d, a, m[i+ 9], 21, -343485551);
+
+      a = (a + aa) >>> 0;
+      b = (b + bb) >>> 0;
+      c = (c + cc) >>> 0;
+      d = (d + dd) >>> 0;
+    }
+
+    return crypt.endian([a, b, c, d]);
+  };
+
+  // Auxiliary functions
+  md5._ff  = function (a, b, c, d, x, s, t) {
+    var n = a + (b & c | ~b & d) + (x >>> 0) + t;
+    return ((n << s) | (n >>> (32 - s))) + b;
+  };
+  md5._gg  = function (a, b, c, d, x, s, t) {
+    var n = a + (b & d | c & ~d) + (x >>> 0) + t;
+    return ((n << s) | (n >>> (32 - s))) + b;
+  };
+  md5._hh  = function (a, b, c, d, x, s, t) {
+    var n = a + (b ^ c ^ d) + (x >>> 0) + t;
+    return ((n << s) | (n >>> (32 - s))) + b;
+  };
+  md5._ii  = function (a, b, c, d, x, s, t) {
+    var n = a + (c ^ (b | ~d)) + (x >>> 0) + t;
+    return ((n << s) | (n >>> (32 - s))) + b;
+  };
+
+  // Package private blocksize
+  md5._blocksize = 16;
+  md5._digestsize = 16;
+
+  module.exports = function (message, options) {
+    if (message === undefined || message === null)
+      throw new Error('Illegal argument ' + message);
+
+    var digestbytes = crypt.wordsToBytes(md5(message, options));
+    return options && options.asBytes ? digestbytes :
+        options && options.asString ? bin.bytesToString(digestbytes) :
+        crypt.bytesToHex(digestbytes);
+  };
+
+})();
+
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(1);
-var normalizeHeaderName = __webpack_require__(151);
+var normalizeHeaderName = __webpack_require__(152);
 
 var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 var DEFAULT_CONTENT_TYPE = {
@@ -25431,10 +26770,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(134);
+    adapter = __webpack_require__(136);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(134);
+    adapter = __webpack_require__(136);
   }
   return adapter;
 }
@@ -25505,10 +26844,11 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(133)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(135)))
 
 /***/ }),
-/* 9 */
+/* 10 */,
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -25536,7 +26876,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25614,7 +26954,7 @@ return af;
 
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25761,7 +27101,7 @@ return ar;
 
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25825,7 +27165,7 @@ return arDz;
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25889,7 +27229,7 @@ return arKw;
 
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26020,7 +27360,7 @@ return arLy;
 
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26085,7 +27425,7 @@ return arMa;
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26195,7 +27535,7 @@ return arSa;
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26259,7 +27599,7 @@ return arTn;
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26369,7 +27709,7 @@ return az;
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26508,7 +27848,7 @@ return be;
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26603,7 +27943,7 @@ return bg;
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26727,7 +28067,7 @@ return bn;
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26851,7 +28191,7 @@ return bo;
 
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26964,7 +28304,7 @@ return br;
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27112,7 +28452,7 @@ return bs;
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27205,7 +28545,7 @@ return ca;
 
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27382,7 +28722,7 @@ return cs;
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27450,7 +28790,7 @@ return cv;
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27536,7 +28876,7 @@ return cy;
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27601,7 +28941,7 @@ return da;
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27684,7 +29024,7 @@ return de;
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27768,7 +29108,7 @@ return deAt;
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27851,7 +29191,7 @@ return deCh;
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27956,7 +29296,7 @@ return dv;
 
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28061,7 +29401,7 @@ return el;
 
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28133,7 +29473,7 @@ return enAu;
 
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28201,7 +29541,7 @@ return enCa;
 
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28273,7 +29613,7 @@ return enGb;
 
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28345,7 +29685,7 @@ return enIe;
 
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28417,7 +29757,7 @@ return enNz;
 
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28495,7 +29835,7 @@ return eo;
 
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28583,7 +29923,7 @@ return es;
 
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28670,7 +30010,7 @@ return esDo;
 
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28755,7 +30095,7 @@ return et;
 
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28826,7 +30166,7 @@ return eu;
 
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28938,7 +30278,7 @@ return fa;
 
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29050,7 +30390,7 @@ return fi;
 
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29115,7 +30455,7 @@ return fo;
 
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29203,7 +30543,7 @@ return fr;
 
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29282,7 +30622,7 @@ return frCa;
 
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29365,7 +30705,7 @@ return frCh;
 
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29445,7 +30785,7 @@ return fy;
 
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29526,7 +30866,7 @@ return gd;
 
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29608,7 +30948,7 @@ return gl;
 
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29735,7 +31075,7 @@ return gomLatn;
 
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29839,7 +31179,7 @@ return he;
 
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29968,7 +31308,7 @@ return hi;
 
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30118,7 +31458,7 @@ return hr;
 
 
 /***/ }),
-/* 58 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30232,7 +31572,7 @@ return hu;
 
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30332,7 +31672,7 @@ return hyAm;
 
 
 /***/ }),
-/* 60 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30420,7 +31760,7 @@ return id;
 
 
 /***/ }),
-/* 61 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30552,7 +31892,7 @@ return is;
 
 
 /***/ }),
-/* 62 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30627,7 +31967,7 @@ return it;
 
 
 /***/ }),
-/* 63 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30712,7 +32052,7 @@ return ja;
 
 
 /***/ }),
-/* 64 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30800,7 +32140,7 @@ return jv;
 
 
 /***/ }),
-/* 65 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30894,7 +32234,7 @@ return ka;
 
 
 /***/ }),
-/* 66 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30986,7 +32326,7 @@ return kk;
 
 
 /***/ }),
-/* 67 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31049,7 +32389,7 @@ return km;
 
 
 /***/ }),
-/* 68 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31180,7 +32520,7 @@ return kn;
 
 
 /***/ }),
-/* 69 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31254,7 +32594,7 @@ return ko;
 
 
 /***/ }),
-/* 70 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31347,7 +32687,7 @@ return ky;
 
 
 /***/ }),
-/* 71 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31489,7 +32829,7 @@ return lb;
 
 
 /***/ }),
-/* 72 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31564,7 +32904,7 @@ return lo;
 
 
 /***/ }),
-/* 73 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31686,7 +33026,7 @@ return lt;
 
 
 /***/ }),
-/* 74 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31788,7 +33128,7 @@ return lv;
 
 
 /***/ }),
-/* 75 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31904,7 +33244,7 @@ return me;
 
 
 /***/ }),
-/* 76 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31973,7 +33313,7 @@ return mi;
 
 
 /***/ }),
-/* 77 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32068,7 +33408,7 @@ return mk;
 
 
 /***/ }),
-/* 78 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32154,7 +33494,7 @@ return ml;
 
 
 /***/ }),
-/* 79 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32318,7 +33658,7 @@ return mr;
 
 
 /***/ }),
-/* 80 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32405,7 +33745,7 @@ return ms;
 
 
 /***/ }),
-/* 81 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32493,7 +33833,7 @@ return msMy;
 
 
 /***/ }),
-/* 82 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32594,7 +33934,7 @@ return my;
 
 
 /***/ }),
-/* 83 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32662,7 +34002,7 @@ return nb;
 
 
 /***/ }),
-/* 84 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32790,7 +34130,7 @@ return ne;
 
 
 /***/ }),
-/* 85 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32883,7 +34223,7 @@ return nl;
 
 
 /***/ }),
-/* 86 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32976,7 +34316,7 @@ return nlBe;
 
 
 /***/ }),
-/* 87 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33041,7 +34381,7 @@ return nn;
 
 
 /***/ }),
-/* 88 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33170,7 +34510,7 @@ return paIn;
 
 
 /***/ }),
-/* 89 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33282,7 +34622,7 @@ return pl;
 
 
 /***/ }),
-/* 90 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33352,7 +34692,7 @@ return pt;
 
 
 /***/ }),
-/* 91 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33418,7 +34758,7 @@ return ptBr;
 
 
 /***/ }),
-/* 92 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33498,7 +34838,7 @@ return ro;
 
 
 /***/ }),
-/* 93 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33686,7 +35026,7 @@ return ru;
 
 
 /***/ }),
-/* 94 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33789,7 +35129,7 @@ return sd;
 
 
 /***/ }),
-/* 95 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33855,7 +35195,7 @@ return se;
 
 
 /***/ }),
-/* 96 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33931,7 +35271,7 @@ return si;
 
 
 /***/ }),
-/* 97 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34086,7 +35426,7 @@ return sk;
 
 
 /***/ }),
-/* 98 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34253,7 +35593,7 @@ return sl;
 
 
 /***/ }),
-/* 99 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34328,7 +35668,7 @@ return sq;
 
 
 /***/ }),
-/* 100 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34443,7 +35783,7 @@ return sr;
 
 
 /***/ }),
-/* 101 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34558,7 +35898,7 @@ return srCyrl;
 
 
 /***/ }),
-/* 102 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34652,7 +35992,7 @@ return ss;
 
 
 /***/ }),
-/* 103 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34726,7 +36066,7 @@ return sv;
 
 
 /***/ }),
-/* 104 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34790,7 +36130,7 @@ return sw;
 
 
 /***/ }),
-/* 105 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34925,7 +36265,7 @@ return ta;
 
 
 /***/ }),
-/* 106 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35019,7 +36359,7 @@ return te;
 
 
 /***/ }),
-/* 107 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35092,7 +36432,7 @@ return tet;
 
 
 /***/ }),
-/* 108 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35164,7 +36504,7 @@ return th;
 
 
 /***/ }),
-/* 109 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35231,7 +36571,7 @@ return tlPh;
 
 
 /***/ }),
-/* 110 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35356,7 +36696,7 @@ return tlh;
 
 
 /***/ }),
-/* 111 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35451,7 +36791,7 @@ return tr;
 
 
 /***/ }),
-/* 112 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35547,7 +36887,7 @@ return tzl;
 
 
 /***/ }),
-/* 113 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35610,7 +36950,7 @@ return tzm;
 
 
 /***/ }),
-/* 114 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35673,7 +37013,7 @@ return tzmLatn;
 
 
 /***/ }),
-/* 115 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35829,7 +37169,7 @@ return uk;
 
 
 /***/ }),
-/* 116 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35933,7 +37273,7 @@ return ur;
 
 
 /***/ }),
-/* 117 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35996,7 +37336,7 @@ return uz;
 
 
 /***/ }),
-/* 118 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36059,7 +37399,7 @@ return uzLatn;
 
 
 /***/ }),
-/* 119 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36143,7 +37483,7 @@ return vi;
 
 
 /***/ }),
-/* 120 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36216,7 +37556,7 @@ return xPseudo;
 
 
 /***/ }),
-/* 121 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36281,7 +37621,7 @@ return yo;
 
 
 /***/ }),
-/* 122 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36397,7 +37737,7 @@ return zhCn;
 
 
 /***/ }),
-/* 123 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36507,7 +37847,7 @@ return zhHk;
 
 
 /***/ }),
-/* 124 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36616,7 +37956,7 @@ return zhTw;
 
 
 /***/ }),
-/* 125 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**!
@@ -39071,7 +40411,7 @@ return Popper;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 126 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -56160,10 +57500,10 @@ return Popper;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(9)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(11)(module)))
 
 /***/ }),
-/* 127 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery, Popper) {/*!
@@ -59997,10 +61337,10 @@ var Popover = function ($) {
 
 
 })();
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(125)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(127)))
 
 /***/ }),
-/* 128 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -60016,7 +61356,7 @@ if(typeof jQuery==="undefined"){throw new Error("jquery-confirm requires jQuery"
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 129 */
+/* 131 */
 /***/ (function(module, exports) {
 
 var charenc = {
@@ -60055,7 +61395,7 @@ module.exports = charenc;
 
 
 /***/ }),
-/* 130 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
@@ -61556,13 +62896,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
 
 
 /***/ }),
-/* 131 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(149);
+module.exports = __webpack_require__(150);
 
 /***/ }),
-/* 132 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61580,7 +62920,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 133 */
+/* 135 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -61770,19 +63110,19 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 134 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(1);
-var settle = __webpack_require__(152);
-var buildURL = __webpack_require__(154);
-var parseHeaders = __webpack_require__(155);
-var isURLSameOrigin = __webpack_require__(156);
-var createError = __webpack_require__(135);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(157);
+var settle = __webpack_require__(153);
+var buildURL = __webpack_require__(155);
+var parseHeaders = __webpack_require__(156);
+var isURLSameOrigin = __webpack_require__(157);
+var createError = __webpack_require__(137);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(158);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -61878,7 +63218,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(158);
+      var cookies = __webpack_require__(159);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -61954,13 +63294,13 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 135 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(153);
+var enhanceError = __webpack_require__(154);
 
 /**
  * Create an Error with the specified message, config, error code, and response.
@@ -61978,7 +63318,7 @@ module.exports = function createError(message, config, code, response) {
 
 
 /***/ }),
-/* 136 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61990,7 +63330,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 137 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62016,8 +63356,8 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 138 */,
-/* 139 */
+/* 140 */,
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*************************
@@ -63598,7 +64938,7 @@ module.exports = Cancel;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(181).setImmediate))
 
 /***/ }),
-/* 140 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* global define */
@@ -64095,26 +65435,12 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 141 */
-/***/ (function(module, exports) {
-
-
-module.exports = function(n, options){
-  options = options || {};
-  var d = options.delimiter || ',';
-  var s = options.separator || '.';
-  n = n.toString().split('.');
-  n[0] = n[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + d);
-  return n.join(s);
-};
-
-/***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(true)
-		module.exports = factory(__webpack_require__(7));
+		module.exports = factory(__webpack_require__(6));
 	else if(typeof define === 'function' && define.amd)
 		define(["vue"], factory);
 	else if(typeof exports === 'object')
@@ -64393,7 +65719,7 @@ exports = module.exports = __webpack_require__(5)();
 
 
 // module
-exports.push([module.i, ".vue-js-switch[data-v-25adc6c0]{display:inline-block;position:relative;overflow:hidden;vertical-align:middle;user-select:none;font-size:10px;cursor:pointer}.vue-js-switch .v-switch-input[data-v-25adc6c0]{display:none}.vue-js-switch .v-switch-label[data-v-25adc6c0]{position:absolute;top:0;font-weight:600;color:#fff}.vue-js-switch .v-switch-label.v-left[data-v-25adc6c0]{left:10px}.vue-js-switch .v-switch-label.v-right[data-v-25adc6c0]{right:10px}.vue-js-switch .v-switch-core[data-v-25adc6c0]{margin:0;display:inline-block;position:relative;outline:0;box-sizing:border-box;background:#bfcbd9;transition:border-color .3s,background-color .3s;user-select:none}.vue-js-switch .v-switch-core[data-v-25adc6c0]:before{display:block;position:absolute;overflow:hidden;top:0;left:0;z-index:20;transform:translate(3px,3px);transition:transform .3s;border-radius:100%;background-color:#fff;content:\"\"}.vue-js-switch.toggled .v-switch-core[data-v-25adc6c0]:before{transform:translate(30px,3px);transform:translate(var(--d),3px)}.vue-js-switch.disabled[data-v-25adc6c0]{pointer-events:none;cursor:not-allowed;opacity:.6}.vue-js-switch .v-switch-label[data-v-25adc6c0],.vue-js-switch[data-v-25adc6c0]{line-height:var(--h);height:var(--h)}.vue-js-switch .v-switch-core[data-v-25adc6c0]{border-radius:999px;width:50px;width:var(--w);height:var(--h)}.vue-js-switch .v-switch-core[data-v-25adc6c0]:before{width:calc(var(--h) - 6px);height:calc(var(--h) - 6px)}", ""]);
+exports.push([module.i, ".vue-js-switch[data-v-25adc6c0]{display:inline-block;position:relative;overflow:hidden;vertical-align:middle;user-select:none;font-size:10px;cursor:pointer}.vue-js-switch .v-switch-input[data-v-25adc6c0]{display:none}.vue-js-switch .v-switch-label[data-v-25adc6c0]{position:absolute;top:0;font-weight:600;color:#fff}.vue-js-switch .v-switch-label.v-left[data-v-25adc6c0]{left:10px}.vue-js-switch .v-switch-label.v-right[data-v-25adc6c0]{right:10px}.vue-js-switch .v-switch-core[data-v-25adc6c0]{margin:0;display:inline-block;position:relative;outline:0;box-sizing:border-box;background:#bfcbd9;transition:border-color .3s,background-color .3s;user-select:none}.vue-js-switch .v-switch-core[data-v-25adc6c0]:before{display:block;position:absolute;overflow:hidden;top:0;left:0;z-index:20;transform:translate(3px,3px);transition:transform .3s;border-radius:100%;background-color:#fff;content:\"\"}.vue-js-switch.disabled[data-v-25adc6c0]{pointer-events:none;cursor:not-allowed;opacity:.6}.vue-js-switch .v-switch-label[data-v-25adc6c0],.vue-js-switch[data-v-25adc6c0]{line-height:22px;height:22px;line-height:var(--h);height:var(--h)}.vue-js-switch .v-switch-core[data-v-25adc6c0]{border-radius:999px;width:50px;height:22px;width:var(--w);height:var(--h)}.vue-js-switch .v-switch-core[data-v-25adc6c0]:before{width:16px;height:16px;width:calc(var(--h) - 6px);height:calc(var(--h) - 6px)}.vue-js-switch.toggled .v-switch-core[data-v-25adc6c0]:before{transform:translate(30px,3px);transform:translate(var(--d),3px)}", ""]);
 
 // exports
 
@@ -64540,10 +65866,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "aria-checked": _vm.ariaChecked
     }
   }), _vm._v(" "), (_vm.labels) ? _c('div', [(_vm.toggled) ? _c('span', {
-    staticClass: "v-switch-label v-left"
-  }, [_vm._v(_vm._s(_vm.labelChecked))]) : _c('span', {
-    staticClass: "v-switch-label v-right"
-  }, [_vm._v(_vm._s(_vm.labelUnchecked))])]) : _vm._e()])
+    staticClass: "v-switch-label v-left",
+    domProps: {
+      "innerHTML": _vm._s(_vm.labelChecked)
+    }
+  }) : _c('span', {
+    staticClass: "v-switch-label v-right",
+    domProps: {
+      "innerHTML": _vm._s(_vm.labelUnchecked)
+    }
+  })]) : _vm._e()])
 },staticRenderFns: []}
 
 /***/ }),
@@ -64819,243 +66151,243 @@ module.exports = function listToStyles (parentId, list) {
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 143 */,
 /* 144 */,
 /* 145 */,
-/* 146 */
+/* 146 */,
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 10,
-	"./af.js": 10,
-	"./ar": 11,
-	"./ar-dz": 12,
-	"./ar-dz.js": 12,
-	"./ar-kw": 13,
-	"./ar-kw.js": 13,
-	"./ar-ly": 14,
-	"./ar-ly.js": 14,
-	"./ar-ma": 15,
-	"./ar-ma.js": 15,
-	"./ar-sa": 16,
-	"./ar-sa.js": 16,
-	"./ar-tn": 17,
-	"./ar-tn.js": 17,
-	"./ar.js": 11,
-	"./az": 18,
-	"./az.js": 18,
-	"./be": 19,
-	"./be.js": 19,
-	"./bg": 20,
-	"./bg.js": 20,
-	"./bn": 21,
-	"./bn.js": 21,
-	"./bo": 22,
-	"./bo.js": 22,
-	"./br": 23,
-	"./br.js": 23,
-	"./bs": 24,
-	"./bs.js": 24,
-	"./ca": 25,
-	"./ca.js": 25,
-	"./cs": 26,
-	"./cs.js": 26,
-	"./cv": 27,
-	"./cv.js": 27,
-	"./cy": 28,
-	"./cy.js": 28,
-	"./da": 29,
-	"./da.js": 29,
-	"./de": 30,
-	"./de-at": 31,
-	"./de-at.js": 31,
-	"./de-ch": 32,
-	"./de-ch.js": 32,
-	"./de.js": 30,
-	"./dv": 33,
-	"./dv.js": 33,
-	"./el": 34,
-	"./el.js": 34,
-	"./en-au": 35,
-	"./en-au.js": 35,
-	"./en-ca": 36,
-	"./en-ca.js": 36,
-	"./en-gb": 37,
-	"./en-gb.js": 37,
-	"./en-ie": 38,
-	"./en-ie.js": 38,
-	"./en-nz": 39,
-	"./en-nz.js": 39,
-	"./eo": 40,
-	"./eo.js": 40,
-	"./es": 41,
-	"./es-do": 42,
-	"./es-do.js": 42,
-	"./es.js": 41,
-	"./et": 43,
-	"./et.js": 43,
-	"./eu": 44,
-	"./eu.js": 44,
-	"./fa": 45,
-	"./fa.js": 45,
-	"./fi": 46,
-	"./fi.js": 46,
-	"./fo": 47,
-	"./fo.js": 47,
-	"./fr": 48,
-	"./fr-ca": 49,
-	"./fr-ca.js": 49,
-	"./fr-ch": 50,
-	"./fr-ch.js": 50,
-	"./fr.js": 48,
-	"./fy": 51,
-	"./fy.js": 51,
-	"./gd": 52,
-	"./gd.js": 52,
-	"./gl": 53,
-	"./gl.js": 53,
-	"./gom-latn": 54,
-	"./gom-latn.js": 54,
-	"./he": 55,
-	"./he.js": 55,
-	"./hi": 56,
-	"./hi.js": 56,
-	"./hr": 57,
-	"./hr.js": 57,
-	"./hu": 58,
-	"./hu.js": 58,
-	"./hy-am": 59,
-	"./hy-am.js": 59,
-	"./id": 60,
-	"./id.js": 60,
-	"./is": 61,
-	"./is.js": 61,
-	"./it": 62,
-	"./it.js": 62,
-	"./ja": 63,
-	"./ja.js": 63,
-	"./jv": 64,
-	"./jv.js": 64,
-	"./ka": 65,
-	"./ka.js": 65,
-	"./kk": 66,
-	"./kk.js": 66,
-	"./km": 67,
-	"./km.js": 67,
-	"./kn": 68,
-	"./kn.js": 68,
-	"./ko": 69,
-	"./ko.js": 69,
-	"./ky": 70,
-	"./ky.js": 70,
-	"./lb": 71,
-	"./lb.js": 71,
-	"./lo": 72,
-	"./lo.js": 72,
-	"./lt": 73,
-	"./lt.js": 73,
-	"./lv": 74,
-	"./lv.js": 74,
-	"./me": 75,
-	"./me.js": 75,
-	"./mi": 76,
-	"./mi.js": 76,
-	"./mk": 77,
-	"./mk.js": 77,
-	"./ml": 78,
-	"./ml.js": 78,
-	"./mr": 79,
-	"./mr.js": 79,
-	"./ms": 80,
-	"./ms-my": 81,
-	"./ms-my.js": 81,
-	"./ms.js": 80,
-	"./my": 82,
-	"./my.js": 82,
-	"./nb": 83,
-	"./nb.js": 83,
-	"./ne": 84,
-	"./ne.js": 84,
-	"./nl": 85,
-	"./nl-be": 86,
-	"./nl-be.js": 86,
-	"./nl.js": 85,
-	"./nn": 87,
-	"./nn.js": 87,
-	"./pa-in": 88,
-	"./pa-in.js": 88,
-	"./pl": 89,
-	"./pl.js": 89,
-	"./pt": 90,
-	"./pt-br": 91,
-	"./pt-br.js": 91,
-	"./pt.js": 90,
-	"./ro": 92,
-	"./ro.js": 92,
-	"./ru": 93,
-	"./ru.js": 93,
-	"./sd": 94,
-	"./sd.js": 94,
-	"./se": 95,
-	"./se.js": 95,
-	"./si": 96,
-	"./si.js": 96,
-	"./sk": 97,
-	"./sk.js": 97,
-	"./sl": 98,
-	"./sl.js": 98,
-	"./sq": 99,
-	"./sq.js": 99,
-	"./sr": 100,
-	"./sr-cyrl": 101,
-	"./sr-cyrl.js": 101,
-	"./sr.js": 100,
-	"./ss": 102,
-	"./ss.js": 102,
-	"./sv": 103,
-	"./sv.js": 103,
-	"./sw": 104,
-	"./sw.js": 104,
-	"./ta": 105,
-	"./ta.js": 105,
-	"./te": 106,
-	"./te.js": 106,
-	"./tet": 107,
-	"./tet.js": 107,
-	"./th": 108,
-	"./th.js": 108,
-	"./tl-ph": 109,
-	"./tl-ph.js": 109,
-	"./tlh": 110,
-	"./tlh.js": 110,
-	"./tr": 111,
-	"./tr.js": 111,
-	"./tzl": 112,
-	"./tzl.js": 112,
-	"./tzm": 113,
-	"./tzm-latn": 114,
-	"./tzm-latn.js": 114,
-	"./tzm.js": 113,
-	"./uk": 115,
-	"./uk.js": 115,
-	"./ur": 116,
-	"./ur.js": 116,
-	"./uz": 117,
-	"./uz-latn": 118,
-	"./uz-latn.js": 118,
-	"./uz.js": 117,
-	"./vi": 119,
-	"./vi.js": 119,
-	"./x-pseudo": 120,
-	"./x-pseudo.js": 120,
-	"./yo": 121,
-	"./yo.js": 121,
-	"./zh-cn": 122,
-	"./zh-cn.js": 122,
-	"./zh-hk": 123,
-	"./zh-hk.js": 123,
-	"./zh-tw": 124,
-	"./zh-tw.js": 124
+	"./af": 12,
+	"./af.js": 12,
+	"./ar": 13,
+	"./ar-dz": 14,
+	"./ar-dz.js": 14,
+	"./ar-kw": 15,
+	"./ar-kw.js": 15,
+	"./ar-ly": 16,
+	"./ar-ly.js": 16,
+	"./ar-ma": 17,
+	"./ar-ma.js": 17,
+	"./ar-sa": 18,
+	"./ar-sa.js": 18,
+	"./ar-tn": 19,
+	"./ar-tn.js": 19,
+	"./ar.js": 13,
+	"./az": 20,
+	"./az.js": 20,
+	"./be": 21,
+	"./be.js": 21,
+	"./bg": 22,
+	"./bg.js": 22,
+	"./bn": 23,
+	"./bn.js": 23,
+	"./bo": 24,
+	"./bo.js": 24,
+	"./br": 25,
+	"./br.js": 25,
+	"./bs": 26,
+	"./bs.js": 26,
+	"./ca": 27,
+	"./ca.js": 27,
+	"./cs": 28,
+	"./cs.js": 28,
+	"./cv": 29,
+	"./cv.js": 29,
+	"./cy": 30,
+	"./cy.js": 30,
+	"./da": 31,
+	"./da.js": 31,
+	"./de": 32,
+	"./de-at": 33,
+	"./de-at.js": 33,
+	"./de-ch": 34,
+	"./de-ch.js": 34,
+	"./de.js": 32,
+	"./dv": 35,
+	"./dv.js": 35,
+	"./el": 36,
+	"./el.js": 36,
+	"./en-au": 37,
+	"./en-au.js": 37,
+	"./en-ca": 38,
+	"./en-ca.js": 38,
+	"./en-gb": 39,
+	"./en-gb.js": 39,
+	"./en-ie": 40,
+	"./en-ie.js": 40,
+	"./en-nz": 41,
+	"./en-nz.js": 41,
+	"./eo": 42,
+	"./eo.js": 42,
+	"./es": 43,
+	"./es-do": 44,
+	"./es-do.js": 44,
+	"./es.js": 43,
+	"./et": 45,
+	"./et.js": 45,
+	"./eu": 46,
+	"./eu.js": 46,
+	"./fa": 47,
+	"./fa.js": 47,
+	"./fi": 48,
+	"./fi.js": 48,
+	"./fo": 49,
+	"./fo.js": 49,
+	"./fr": 50,
+	"./fr-ca": 51,
+	"./fr-ca.js": 51,
+	"./fr-ch": 52,
+	"./fr-ch.js": 52,
+	"./fr.js": 50,
+	"./fy": 53,
+	"./fy.js": 53,
+	"./gd": 54,
+	"./gd.js": 54,
+	"./gl": 55,
+	"./gl.js": 55,
+	"./gom-latn": 56,
+	"./gom-latn.js": 56,
+	"./he": 57,
+	"./he.js": 57,
+	"./hi": 58,
+	"./hi.js": 58,
+	"./hr": 59,
+	"./hr.js": 59,
+	"./hu": 60,
+	"./hu.js": 60,
+	"./hy-am": 61,
+	"./hy-am.js": 61,
+	"./id": 62,
+	"./id.js": 62,
+	"./is": 63,
+	"./is.js": 63,
+	"./it": 64,
+	"./it.js": 64,
+	"./ja": 65,
+	"./ja.js": 65,
+	"./jv": 66,
+	"./jv.js": 66,
+	"./ka": 67,
+	"./ka.js": 67,
+	"./kk": 68,
+	"./kk.js": 68,
+	"./km": 69,
+	"./km.js": 69,
+	"./kn": 70,
+	"./kn.js": 70,
+	"./ko": 71,
+	"./ko.js": 71,
+	"./ky": 72,
+	"./ky.js": 72,
+	"./lb": 73,
+	"./lb.js": 73,
+	"./lo": 74,
+	"./lo.js": 74,
+	"./lt": 75,
+	"./lt.js": 75,
+	"./lv": 76,
+	"./lv.js": 76,
+	"./me": 77,
+	"./me.js": 77,
+	"./mi": 78,
+	"./mi.js": 78,
+	"./mk": 79,
+	"./mk.js": 79,
+	"./ml": 80,
+	"./ml.js": 80,
+	"./mr": 81,
+	"./mr.js": 81,
+	"./ms": 82,
+	"./ms-my": 83,
+	"./ms-my.js": 83,
+	"./ms.js": 82,
+	"./my": 84,
+	"./my.js": 84,
+	"./nb": 85,
+	"./nb.js": 85,
+	"./ne": 86,
+	"./ne.js": 86,
+	"./nl": 87,
+	"./nl-be": 88,
+	"./nl-be.js": 88,
+	"./nl.js": 87,
+	"./nn": 89,
+	"./nn.js": 89,
+	"./pa-in": 90,
+	"./pa-in.js": 90,
+	"./pl": 91,
+	"./pl.js": 91,
+	"./pt": 92,
+	"./pt-br": 93,
+	"./pt-br.js": 93,
+	"./pt.js": 92,
+	"./ro": 94,
+	"./ro.js": 94,
+	"./ru": 95,
+	"./ru.js": 95,
+	"./sd": 96,
+	"./sd.js": 96,
+	"./se": 97,
+	"./se.js": 97,
+	"./si": 98,
+	"./si.js": 98,
+	"./sk": 99,
+	"./sk.js": 99,
+	"./sl": 100,
+	"./sl.js": 100,
+	"./sq": 101,
+	"./sq.js": 101,
+	"./sr": 102,
+	"./sr-cyrl": 103,
+	"./sr-cyrl.js": 103,
+	"./sr.js": 102,
+	"./ss": 104,
+	"./ss.js": 104,
+	"./sv": 105,
+	"./sv.js": 105,
+	"./sw": 106,
+	"./sw.js": 106,
+	"./ta": 107,
+	"./ta.js": 107,
+	"./te": 108,
+	"./te.js": 108,
+	"./tet": 109,
+	"./tet.js": 109,
+	"./th": 110,
+	"./th.js": 110,
+	"./tl-ph": 111,
+	"./tl-ph.js": 111,
+	"./tlh": 112,
+	"./tlh.js": 112,
+	"./tr": 113,
+	"./tr.js": 113,
+	"./tzl": 114,
+	"./tzl.js": 114,
+	"./tzm": 115,
+	"./tzm-latn": 116,
+	"./tzm-latn.js": 116,
+	"./tzm.js": 115,
+	"./uk": 117,
+	"./uk.js": 117,
+	"./ur": 118,
+	"./ur.js": 118,
+	"./uz": 119,
+	"./uz-latn": 120,
+	"./uz-latn.js": 120,
+	"./uz.js": 119,
+	"./vi": 121,
+	"./vi.js": 121,
+	"./x-pseudo": 122,
+	"./x-pseudo.js": 122,
+	"./yo": 123,
+	"./yo.js": 123,
+	"./zh-cn": 124,
+	"./zh-cn.js": 124,
+	"./zh-hk": 125,
+	"./zh-hk.js": 125,
+	"./zh-tw": 126,
+	"./zh-tw.js": 126
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -65071,10 +66403,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 146;
+webpackContext.id = 147;
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, exports) {
 
 (function() {
@@ -65176,7 +66508,7 @@ webpackContext.id = 146;
 
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports) {
 
 /*!
@@ -65203,16 +66535,16 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(1);
-var bind = __webpack_require__(132);
-var Axios = __webpack_require__(150);
-var defaults = __webpack_require__(8);
+var bind = __webpack_require__(134);
+var Axios = __webpack_require__(151);
+var defaults = __webpack_require__(9);
 
 /**
  * Create an instance of Axios
@@ -65245,15 +66577,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(137);
-axios.CancelToken = __webpack_require__(164);
-axios.isCancel = __webpack_require__(136);
+axios.Cancel = __webpack_require__(139);
+axios.CancelToken = __webpack_require__(165);
+axios.isCancel = __webpack_require__(138);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(165);
+axios.spread = __webpack_require__(166);
 
 module.exports = axios;
 
@@ -65262,18 +66594,18 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__(8);
+var defaults = __webpack_require__(9);
 var utils = __webpack_require__(1);
-var InterceptorManager = __webpack_require__(159);
-var dispatchRequest = __webpack_require__(160);
-var isAbsoluteURL = __webpack_require__(162);
-var combineURLs = __webpack_require__(163);
+var InterceptorManager = __webpack_require__(160);
+var dispatchRequest = __webpack_require__(161);
+var isAbsoluteURL = __webpack_require__(163);
+var combineURLs = __webpack_require__(164);
 
 /**
  * Create a new instance of Axios
@@ -65354,7 +66686,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65373,13 +66705,13 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(135);
+var createError = __webpack_require__(137);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -65405,7 +66737,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65431,7 +66763,7 @@ module.exports = function enhanceError(error, config, code, response) {
 
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65506,7 +66838,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65550,7 +66882,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65625,7 +66957,7 @@ module.exports = (
 
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65668,7 +67000,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65728,7 +67060,7 @@ module.exports = (
 
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65787,16 +67119,16 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(1);
-var transformData = __webpack_require__(161);
-var isCancel = __webpack_require__(136);
-var defaults = __webpack_require__(8);
+var transformData = __webpack_require__(162);
+var isCancel = __webpack_require__(138);
+var defaults = __webpack_require__(9);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -65873,7 +67205,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 161 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65900,7 +67232,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 162 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65921,7 +67253,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 163 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65940,13 +67272,13 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 164 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(137);
+var Cancel = __webpack_require__(139);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -66004,7 +67336,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -66038,7 +67370,6 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 166 */,
 /* 167 */,
 /* 168 */,
 /* 169 */,
@@ -66302,7 +67633,7 @@ exports.clearImmediate = clearImmediate;
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(133)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(135)))
 
 /***/ }),
 /* 183 */,
@@ -66324,34 +67655,43 @@ exports.clearImmediate = clearImmediate;
 /* 199 */,
 /* 200 */,
 /* 201 */,
-/* 202 */,
-/* 203 */,
-/* 204 */,
-/* 205 */,
-/* 206 */,
-/* 207 */,
-/* 208 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(3);
-__webpack_require__(131);
-__webpack_require__(127);
-__webpack_require__(139);
+__webpack_require__(133);
+__webpack_require__(129);
 __webpack_require__(141);
-__webpack_require__(128);
-__webpack_require__(126);
-__webpack_require__(5);
-__webpack_require__(0);
-__webpack_require__(140);
-__webpack_require__(209);
+__webpack_require__(203);
 __webpack_require__(130);
-__webpack_require__(7);
+__webpack_require__(128);
+__webpack_require__(8);
+__webpack_require__(0);
+__webpack_require__(142);
+__webpack_require__(204);
+__webpack_require__(132);
 __webpack_require__(6);
-module.exports = __webpack_require__(142);
+__webpack_require__(5);
+__webpack_require__(143);
+module.exports = __webpack_require__(7);
 
 
 /***/ }),
-/* 209 */
+/* 203 */
+/***/ (function(module, exports) {
+
+
+module.exports = function(n, options){
+  options = options || {};
+  var d = options.delimiter || ',';
+  var s = options.separator || '.';
+  n = n.toString().split('.');
+  n[0] = n[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + d);
+  return n.join(s);
+};
+
+/***/ }),
+/* 204 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68800,4 +70140,4 @@ Popper.Defaults = Defaults;
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ })
-],[208]);
+],[202]);
