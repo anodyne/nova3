@@ -53,7 +53,7 @@
 </template>
 
 <script>
-	import UserAvatar from './UserAvatar.vue';
+	import Avatar from './Avatar.vue';
 	import { mixin as clickaway } from 'vue-clickaway';
 
 	export default {
@@ -63,7 +63,7 @@
 			selected: { type: Object }
 		},
 
-		components: { UserAvatar },
+		components: { Avatar },
 
 		mixins: [ clickaway ],
 
