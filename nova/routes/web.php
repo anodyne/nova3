@@ -158,3 +158,11 @@ Route::get('dashboard', 'Nova\Dashboard\Http\Controllers\DashboardController@ind
 	->name('dashboard');
 Route::get('dashboard/characters', 'Nova\Dashboard\Http\Controllers\DashboardController@characters')
 	->name('dashboard.characters');
+
+/**
+ * Settings
+ */
+Route::get('admin/settings', 'Nova\Settings\Http\Controllers\SettingsController@index')
+	->name('settings');
+Route::patch('admin/settings', 'Nova\Settings\Http\Controllers\SettingsController@update')
+	->name('settings.update');

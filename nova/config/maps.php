@@ -58,6 +58,7 @@ return [
 		Nova\Genres\RankGroup::class => Nova\Genres\Policies\RankPolicy::class,
 		Nova\Genres\RankInfo::class => Nova\Genres\Policies\RankPolicy::class,
 		Nova\Genres\Rank::class => Nova\Genres\Policies\RankPolicy::class,
+		Nova\Settings\Settings::class => Nova\Settings\Policies\SettingsPolicy::class,
 		Nova\Users\User::class => Nova\Users\Policies\UserPolicy::class,
 	],
 
@@ -76,6 +77,7 @@ return [
 		Nova\Genres\RankGroup::class => Nova\Genres\Data\RankGroupUpdater::class,
 		Nova\Genres\RankInfo::class => Nova\Genres\Data\RankInfoUpdater::class,
 		Nova\Genres\Rank::class => Nova\Genres\Data\RankUpdater::class,
+		Nova\Settings\Settings::class => Nova\Settings\Data\SettingsUpdater::class,
 		Nova\Users\User::class => Nova\Users\Data\UserUpdater::class,
 	],
 ];

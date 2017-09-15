@@ -152,6 +152,8 @@
 						   Admin
 						</a>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+							<a class="dropdown-item" href="{{ route('settings') }}">Settings</a>
+							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="{{ route('departments.index') }}">Departments</a>
 							<a class="dropdown-item" href="{{ route('positions.index') }}">Positions</a>
 							<a class="dropdown-item" href="{{ route('ranks.index') }}">Ranks</a>

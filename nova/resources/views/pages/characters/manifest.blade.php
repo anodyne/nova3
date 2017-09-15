@@ -22,27 +22,89 @@
 			</div>
 		</div>
 		<div class="col col-auto">
-			<a class="btn btn-secondary btn-action js-popover"
+			<a class="btn btn-secondary js-webuiPopover"
 			   id="manifest-filters-trigger"
 			   tabindex="0"
-			   data-placement="bottom"
-			   title="Filter Manifest">{!! icon('filter') !!}</a>
-			<a class="btn btn-secondary btn-action js-popover ml-1"
-			   id="manifest-options-trigger"
-			   tabindex="0"
-			   data-placement="bottom"
-			   title="Manifest Options">{!! icon('settings-alt') !!}</a>
+			   data-animation="pop"
+			   data-placement="bottom-left"
+			   data-offset-top="3"
+			   data-width="275"
+			   data-title="Filter Manifest"
+			   data-url="#manifest-filters-content">{!! icon('filter') !!}</a>
+
+			@can('update', $settingsClass)
+				<a class="btn btn-secondary js-webuiPopover ml-1"
+				   id="manifest-options-trigger"
+				   tabindex="0"
+				   data-animation="pop"
+				   data-placement="bottom-left"
+				   data-offset-top="3"
+				   data-title="Manifest Options"
+				   data-url="#manifest-options-content">{!! icon('settings-alt') !!}</a>
+			@endcan
 		</div>
 	</div>
 
 	<div v-show="layout == 'list'">
-		<fieldset v-for="dept in filteredDepartments">
+		<div class="row my-5" v-for="dept in filteredDepartments">
+			<div class="col-lg-3">
+				<p class="lead my-0">@{{ dept.name }}</p>
+				{{-- <small class="text-muted d-block mb-3">
+					We're looking for a creative pilot to fill the Chief Flight Control Officer position and point us in the right direction as we boldly go where no one has gone before!
+				</small> --}}
+			</div>
+
+			<div class="col">
+				<div v-for="position in dept.positions">
+					<div class="row d-flex align-items-center mb-4"
+						 v-for="character in filterCharacters(position.characters)"
+						 v-if="position.characters.length > 0">
+						<div class="col col-auto">
+							<rank :item="character.rank"></rank>
+						</div>
+						<div class="col">
+							<avatar :item="character">
+								@{{ position.name }}
+							</avatar>
+						</div>
+						<div class="col col-auto">
+							<a href="#" class="btn btn-lg btn-link text-muted">{!! icon('user-alt') !!}</a>
+						</div>
+					</div>
+
+					<div class="row d-flex align-items-center mb-4" v-if="position.available > 0 && showAvailable">
+						<div class="col col-auto">
+							<rank></rank>
+						</div>
+						<div class="col">
+							<position-available :position="position" :show-image="false"></position-available>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{{-- <fieldset v-for="dept in filteredDepartments">
 			<legend>@{{ dept.name }}</legend>
 
 			<div class="data-table clean striped">
+				<div class="row align-items-center" v-for="position in dept.positions">
+					<div v-show="position.characters.length == 0">
+						<div class="col col-auto">
+							<rank></rank>
+						</div>
+						<div class="col">
+							<p class="mb-0"><strong v-text="position.name"></strong></p>
+							<small><a href="#">Position Open &ndash; Apply Now</a></small>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="data-table clean striped">
 				<div class="row align-items-center"
-					 v-for="position in dept.positions">
-					<div class="col" v-show="position.characters.length > 0">
+					 v-for="position in dept.positions"
+					 v-show="position.characters.length > 0">
+					<div class="col">
 						<div class="row align-items-center" v-for="character in position.characters">
 							<div class="col col-auto">
 								<rank :item="character.rank"></rank>
@@ -52,6 +114,15 @@
 							</div>
 							<div class="col col-auto">
 								<a href="#"><img src="{{ asset('assets/images/starfleet-vector-logo.svg') }}"></a>
+							</div>
+						</div>
+						<div class="row align-items-center" v-if="position.available > 0 && showAvailable">
+							<div class="col col-auto">
+								<rank></rank>
+							</div>
+							<div class="col">
+								<p class="mb-0"><strong v-text="position.name"></strong></p>
+								<small><a href="#">Position Open &ndash; Apply Now</a></small>
 							</div>
 						</div>
 					</div>
@@ -104,61 +175,34 @@
 					</div>
 				</fieldset>
 			</div>
-		</fieldset>
+		</fieldset> --}}
 	</div>
 
-	<div v-show="layout == 'cards'">
-		<fieldset v-for="dept in filteredDepartments">
-			<legend>@{{ dept.name }}</legend>
-
-			<div class="row">
-				<div class="col-md-6 col-lg-4">
-					<a href="#" class="card">
-						<div class="card-body">
-							<div class="d-flex align-items-center justify-content-around flex-column">
-								<div class="mb-2">
-									<position-available :position="{{ $position }}" layout="stacked"></position-available>
-								</div>
-								<rank></rank>
-							</div>
-						</div>
-					</a>
-				</div>
-
-				<div class="col-md-6 col-lg-4">
-					<a href="#" class="card">
-						<div class="card-body">
-							<div class="d-flex align-items-center justify-content-around flex-column">
-								<div class="mb-2">
-									<avatar :item="{{ $character1 }}"
-											:show-status="true"
-											layout="stacked">
-									</avatar>
-								</div>
-								<rank :item="{{ $character1->rank }}"></rank>
-							</div>
-						</div>
-					</a>
-				</div>
-			</div>
-		</fieldset>
-	</div>
+	<div v-show="layout == 'cards'"></div>
 
 	<div class="d-none">
 		<div id="manifest-filters-content">
 			<div class="form-group">
 				<label class="custom-control custom-checkbox">
-					<input type="checkbox" class="custom-control-input">
+					<input type="checkbox" class="custom-control-input" v-model="showCharacters">
 					<span class="custom-control-indicator"></span>
-					<span class="custom-control-description">Primary characters</span>
+					<span class="custom-control-description">Characters</span>
 				</label>
 			</div>
 
 			<div class="form-group">
 				<label class="custom-control custom-checkbox">
-					<input type="checkbox" class="custom-control-input">
+					<input type="checkbox" class="custom-control-input" v-model="showNPCs">
 					<span class="custom-control-indicator"></span>
 					<span class="custom-control-description">NPCs</span>
+				</label>
+			</div>
+
+			<div class="form-group">
+				<label class="custom-control custom-checkbox">
+					<input type="checkbox" class="custom-control-input" v-model="showInactive">
+					<span class="custom-control-indicator"></span>
+					<span class="custom-control-description">Inactive characters</span>
 				</label>
 			</div>
 
@@ -167,34 +211,35 @@
 				<span class="custom-control-indicator"></span>
 				<span class="custom-control-description">Available positions</span>
 			</label>
-
 		</div>
 
-		<div id="manifest-options-content">
-			<div class="form-group">
-				<label class="custom-control custom-radio d-flex align-items-center">
-					<input name="layout" type="radio" value="list" class="custom-control-input" v-model="layout">
-					<span class="custom-control-indicator"></span>
-					<span class="custom-control-description d-flex align-items-center">
-						<i class="far fa-list fa-lg mr-2 text-muted"></i>
-						<span>List</span>
-					</span>
-				</label>
-			</div>
+		@can('update', $settingsClass)
+			<div id="manifest-options-content">
+				<div class="form-group">
+					<label class="custom-control custom-radio d-flex align-items-center">
+						<input name="layout" type="radio" value="list" class="custom-control-input" v-model="layout">
+						<span class="custom-control-indicator"></span>
+						<span class="custom-control-description d-flex align-items-center">
+							<i class="far fa-list fa-lg fa-fw mr-2 text-muted"></i>
+							<span>List</span>
+						</span>
+					</label>
+				</div>
 
-			<div class="form-group">
-				<label class="custom-control custom-radio d-flex align-items-center">
-					<input name="layout" type="radio" value="card" class="custom-control-input" v-model="layout">
-					<span class="custom-control-indicator"></span>
-					<span class="custom-control-description d-flex align-items-center">
-						{!! icon('card', 'fa-lg mr-2 text-muted') !!}
-						<span>Cards</span>
-					</span>
-				</label>
-			</div>
+				<div class="form-group">
+					<label class="custom-control custom-radio d-flex align-items-center">
+						<input name="layout" type="radio" value="card" class="custom-control-input" v-model="layout">
+						<span class="custom-control-indicator"></span>
+						<span class="custom-control-description d-flex align-items-center">
+							{!! icon('card', 'fa-lg fa-fw mr-2 text-muted') !!}
+							<span>Cards</span>
+						</span>
+					</label>
+				</div>
 
-			<p class="text-info mb-0"><strong>Note:</strong> Manifest layout changes will apply to all visitors.</p>
-		</div>
+				<p class="text-info mb-0"><strong>Note:</strong> Manifest layout changes will apply to all visitors.</p>
+			</div>
+		@endcan
 	</div>
 @endsection
 
@@ -203,9 +248,12 @@
 		vue = {
 			data: {
 				departments: {!! $departments !!},
-				layout: 'cards',
+				layout: 'list',
 				search: '',
-				showAvailable: true
+				showAvailable: {{ $settings['manifest_show_available'] }},
+				showInactive: {{ $settings['manifest_show_inactive'] }},
+				showNPCs: {{ $settings['manifest_show_npcs'] }},
+				showCharacters: {{ $settings['manifest_show_assigned'] }}
 			},
 
 			computed: {
@@ -214,30 +262,45 @@
 				}
 			},
 
+			methods: {
+				filterCharacters (characters) {
+					let self = this;
+
+					let charactersToShow = characters.filter(function (c) {
+						if (self.showInactive) {
+							return c.status == {{ Status::ACTIVE }}
+								|| c.status == {{ Status::INACTIVE }};
+						}
+
+						return c.status == {{ Status::ACTIVE }};
+					});
+
+					if (! this.showNPCs) {
+						charactersToShow = charactersToShow.filter(function (c) {
+							return c.user_id !== null;
+						});
+					}
+
+					if (! this.showCharacters) {
+						charactersToShow = charactersToShow.filter(function (c) {
+							return c.user_id === null;
+						});
+					}
+
+					return charactersToShow;
+				}
+			},
+
+			watch: {
+				showCharacters (newValue, oldValue) {
+					if (newValue == false) {
+						this.showInactive = false;
+					}
+				}
+			},
+
 			mounted () {
-				$('#manifest-filters-trigger').on('click', function (e) {
-					e.preventDefault()
-					$('#manifest-options-trigger').popover('hide')
-				}).popover({
-					container: 'body',
-					content: $('#manifest-filters-content'),
-					html: true,
-					trigger: 'focus'
-				})
-
-				$('#manifest-options-trigger').on('click', function (e) {
-					e.preventDefault()
-					$('#manifest-filters-trigger').popover('hide')
-				}).popover({
-					container: 'body',
-					content: $('#manifest-options-content'),
-					html: true,
-					trigger: 'focus'
-				})
-
-				$('body').on('click', function (e) {
-					console.log(e.target.parentElement)
-				})
+				$('.js-webuiPopover').webuiPopover();
 			}
 		}
 
