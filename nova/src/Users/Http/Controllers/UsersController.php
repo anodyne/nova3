@@ -79,7 +79,7 @@ class UsersController extends Controller
 			'neutral' => _m('users-gender-option-neutral'),
 		];
 
-		return view('pages.users.update-user', compact('user', 'roles', 'genders'));
+		return view('pages.users.edit-user', compact('user', 'roles', 'genders'));
 	}
 
 	public function update(User $user)

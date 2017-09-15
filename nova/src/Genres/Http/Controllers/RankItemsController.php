@@ -149,7 +149,7 @@ class RankItemsController extends Controller
 			$overlayImages[$relativePath][] = $pathName;
 		}
 
-		return view('pages.genres.update-rank', compact('item', 'groups', 'info', 'baseImages', 'overlayImages'));
+		return view('pages.genres.edit-rank', compact('item', 'groups', 'info', 'baseImages', 'overlayImages'));
 	}
 
 	public function update(Rank $item)

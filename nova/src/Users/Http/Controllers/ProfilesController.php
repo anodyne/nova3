@@ -32,7 +32,7 @@ class ProfilesController extends Controller
 			'neutral' => _m('users-gender-option-neutral'),
 		];
 
-		return view('pages.users.update-profile', compact('user', 'genders'));
+		return view('pages.users.edit-profile', compact('user', 'genders'));
 	}
 
 	public function update()
