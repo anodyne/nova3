@@ -62,7 +62,7 @@ class RolesController extends Controller
 
 		$permissions = cache('nova.permissions');
 
-		return view('pages.authorize.update-role', compact('role', 'permissions'));
+		return view('pages.authorize.edit-role', compact('role', 'permissions'));
 	}
 
 	public function update(Role $role)

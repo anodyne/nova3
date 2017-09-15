@@ -58,7 +58,7 @@ class PermissionsController extends Controller
 	{
 		$this->authorize('update', $permission);
 
-		return view('pages.authorize.update-permission', compact('permission'));
+		return view('pages.authorize.edit-permission', compact('permission'));
 	}
 
 	public function update(Permission $permission)
