@@ -1,3 +1,7 @@
+/**
+ * Font Awesome 5.0.0-rc1
+ */
+
 (function () {
 'use strict';
 
@@ -231,13 +235,13 @@ function getIconName(familyPrefix, cls) {
 }
 
 function htmlEscape(str) {
-  return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return ('' + str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 function joinAttributes(attributes) {
   return Object.keys(attributes || {}).reduce(function (acc, attributeName) {
-    return acc + (attributeName + '="' + attributes[attributeName] + '" ');
-  }, '');
+    return acc + (attributeName + '="' + htmlEscape(attributes[attributeName]) + '" ');
+  }, '').trim();
 }
 
 function joinStyles(styles) {
@@ -551,7 +555,7 @@ var namespace = w[NAMESPACE_IDENTIFIER];
 
 var noop$1 = function noop() {};
 var p = config.measurePerformance && PERFORMANCE && PERFORMANCE.mark && PERFORMANCE.measure ? PERFORMANCE : { mark: noop$1, measure: noop$1 };
-var preamble = 'FA "5.0.0-beta7"';
+var preamble = 'FA "5.0.0-rc1"';
 
 var begin = function begin(name) {
   p.mark(preamble + ' ' + name + ' begins');
@@ -777,7 +781,7 @@ var build = function build() {
     var iconName = shim[2];
 
     if (prefix === 'far' && !hasRegular) {
-      prefix = 'fa';
+      prefix = 'fas';
     }
 
     acc[oldName] = { prefix: prefix, iconName: iconName };
@@ -825,7 +829,7 @@ function getCanonicalIcon(values) {
     if (packs$3[cls]) {
       acc.prefix = cls;
     } else if (iconName) {
-      var shim = byOldName(iconName);
+      var shim = acc.prefix === 'fa' ? byOldName(iconName) : {};
 
       acc.iconName = shim.iconName || iconName;
       acc.prefix = shim.prefix || acc.prefix;
