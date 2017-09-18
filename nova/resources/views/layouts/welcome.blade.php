@@ -10,8 +10,7 @@
 
 	<title>{{ config('app.name', 'Laravel') }}</title>
 
-	<script defer src="{{ asset('assets/js/packs/regular.js') }}"></script>
-	<script defer src="{{ asset('assets/js/packs/light.js') }}"></script>
+	<script defer src="{{ asset('assets/js/packs/solid.js') }}"></script>
 	<script defer src="{{ asset('assets/js/fontawesome.js') }}"></script>
 	<script>
 		window.Nova = {!! json_encode(Nova::scriptVariables()) !!}

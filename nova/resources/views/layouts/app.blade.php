@@ -10,7 +10,6 @@
 
 	<title>@yield('title') &bull; {{ config('app.name', 'Laravel') }}</title>
 
-	<script defer src="{{ asset('assets/js/packs/regular.min.js') }}"></script>
 	<script defer src="{{ asset('assets/js/packs/solid.min.js') }}"></script>
 	<script defer src="{{ asset('assets/js/fontawesome.min.js') }}"></script>
 

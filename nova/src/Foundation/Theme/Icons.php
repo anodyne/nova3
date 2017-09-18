@@ -4,7 +4,7 @@ use Str;
 
 trait Icons
 {
-	public $iconTemplate = '<i class="far fa-%1$s %2$s fa-fw"></i>';
+	public $iconTemplate = '<i class="fa fa-%1$s %2$s fa-fw"></i>';
 
 	public function getIcon($icon)
 	{
