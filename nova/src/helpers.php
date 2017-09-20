@@ -77,9 +77,23 @@ if (! function_exists('restorer')) {
 	}
 }
 
+if (! function_exists('setup_path')) {
+	function setup_path($path = false)
+	{
+		return app()->path("Setup/{$path}");
+	}
+}
+
 if (! function_exists('updater')) {
 	function updater($model)
 	{
 		return app(config('maps.updaters')[$model]);
+	}
+}
+
+if (! function_exists('nova')) {
+	function nova()
+	{
+		return app('nova');
 	}
 }
