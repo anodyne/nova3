@@ -47,14 +47,14 @@
 
 	<div v-show="layout == 'list'">
 		<div class="row my-5" v-for="dept in filteredDepartments">
-			<div class="col-lg-3">
+			<div class="col-12 col-lg-3">
 				<p class="lead my-0">@{{ dept.name }}</p>
 				{{-- <small class="text-muted d-block mb-3">
 					We're looking for a creative pilot to fill the Chief Flight Control Officer position and point us in the right direction as we boldly go where no one has gone before!
 				</small> --}}
 			</div>
 
-			<div class="col">
+			<div class="col-12 col-lg-9">
 				<div v-for="position in dept.positions">
 					<div class="row d-flex align-items-center mb-4"
 						 v-for="character in filterCharacters(position.characters)"
@@ -78,6 +78,46 @@
 						</div>
 						<div class="col">
 							<position-available :position="position" :show-image="false"></position-available>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col" v-if="dept.sub_departments.length > 0">
+				<div class="row my-5" v-for="subDept in dept.sub_departments">
+					<div class="col-12 col-lg-3">
+						<p class="lead my-0">@{{ subDept.name }}</p>
+						{{-- <small class="text-muted d-block mb-3">
+							We're looking for a creative pilot to fill the Chief Flight Control Officer position and point us in the right direction as we boldly go where no one has gone before!
+						</small> --}}
+					</div>
+
+					<div class="col-12 col-lg-9">
+						<div v-for="position in subDept.positions">
+							<div class="row d-flex align-items-center mb-4"
+								 v-for="character in filterCharacters(position.characters)"
+								 v-if="position.characters.length > 0">
+								<div class="col col-auto">
+									<rank :item="character.rank"></rank>
+								</div>
+								<div class="col">
+									<avatar :item="character">
+										@{{ position.name }}
+									</avatar>
+								</div>
+								<div class="col col-auto">
+									<a href="#" class="btn btn-lg btn-link text-muted">{!! icon('user-alt') !!}</a>
+								</div>
+							</div>
+
+							<div class="row d-flex align-items-center mb-4" v-if="position.available > 0 && showAvailable">
+								<div class="col col-auto">
+									<rank></rank>
+								</div>
+								<div class="col">
+									<position-available :position="position" :show-image="false"></position-available>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
