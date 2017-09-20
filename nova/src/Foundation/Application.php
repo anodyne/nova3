@@ -18,7 +18,6 @@ class Application extends LaravelApp
 	{
 		return join(DIRECTORY_SEPARATOR, [
 			$this->basePath,
-			'nova',
 			'config',
 			$path
 		]);
@@ -40,6 +39,16 @@ class Application extends LaravelApp
 			$this->basePath,
 			'resources',
 			'lang'
+		]);
+	}
+
+	public function novaConfigPath($path = '')
+	{
+		return join(DIRECTORY_SEPARATOR, [
+			$this->basePath,
+			'nova',
+			'config',
+			$path
 		]);
 	}
 

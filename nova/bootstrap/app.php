@@ -41,6 +41,11 @@ $app->singleton(
     Nova\Foundation\Exceptions\Handler::class
 );
 
+$app->singleton(
+	Illuminate\Foundation\Bootstrap\LoadConfiguration::class,
+	Nova\Foundation\Bootstrap\LoadConfiguration::class
+);
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application
