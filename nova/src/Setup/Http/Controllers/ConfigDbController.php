@@ -13,7 +13,7 @@ class ConfigDbController extends Controller
 		$prefix = ($this->setupType == 'install') ? 'nova_' : 'nova3_';
 		$nova2Prefix = ($this->setupType == 'migrate') ? session('nova2_prefix') : false;
 
-		return view('pages.setup.config.db.info', compact('prefix', 'nova2Prefix'));
+		return view('setup.config.db.info', compact('prefix', 'nova2Prefix'));
 	}
 
 	public function check(Request $request, Connector $connector, Filesystem $files)

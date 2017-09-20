@@ -14,7 +14,7 @@ class InstallController extends Controller
 {
 	public function index()
 	{
-		return view('pages.setup.install.landing');
+		return view('setup.install.landing');
 	}
 
 	public function installLanding()

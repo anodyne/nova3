@@ -8,8 +8,6 @@ use Illuminate\Database\DatabaseManager;
 class MigrateController extends Controller
 {
 	protected $db;
-	protected $userDictionary = [];
-	protected $characterDictionary = [];
 
 	public function __construct(DatabaseManager $db)
 	{
@@ -20,7 +18,7 @@ class MigrateController extends Controller
 
 	public function index()
 	{
-		return view('pages.setup.migrate.landing');
+		return view('setup.migrate.landing');
 	}
 
 	public function migrateLanding()

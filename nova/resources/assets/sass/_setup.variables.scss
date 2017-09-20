@@ -1,0 +1,50 @@
+@import '~bootstrap/scss/functions', '~bootstrap/scss/variables', '~bootstrap/scss/mixins';
+@import 'variables';
+
+$font: "Roboto", helvetica, arial, sans-serif;
+$font-heading: "Roboto Condensed";
+$font-size: 1rem;
+$font-size-sm: 0.9rem;
+$line-height: 1.75;
+$header-height: 8.5rem;
+
+$spacing: 1rem;
+$spacing-sm: 0.75rem;
+$spacing-lg: 2rem;
+$radius: 0.3rem;
+$radius-lg: 0.6rem;
+$radius-sm: 0.15rem;
+
+$color-danger: hsl(0, 100%, 64%);
+$color-dark-danger: hsl(0, 100%, 54%);
+$color-light-danger: hsl(0, 100%, 69%);
+$color-danger-compliment: hsl(25, 100%, 64%);
+
+$color-success: hsl(130, 50%, 50%);
+$color-dark-success: hsl(130, 50%, 40%);
+$color-light-success: hsl(130, 50%, 55%);
+$color-success-compliment: hsl(210, 100%, 60%);
+
+$color-warning: hsl(44, 100%, 59%);
+$color-warning-compliment: hsl(14, 90%, 59%);
+
+$color-info: #1FB6FF;
+
+$color-primary: hsl(201, 98%, 41%);
+$color-dark-primary: hsl(201, 98%, 31%);
+$color-extra-dark-primary: hsl(201, 98%, 21%);
+$color-light-primary: hsl(201, 98%, 46%);
+$color-extra-light-primary: hsl(201, 98%, 71%);
+$color-primary-compliment: hsl(181, 98%, 44%);
+
+$color-black: #1F2D3D;
+$color-steel: #273444;
+$color-slate: #3C4858;
+$color-silver: #8492A6;
+$color-smoke: #E0E6ED;
+$color-dark-smoke: #D3DCE6;
+$color-extra-dark-smoke: #C0CCDA;
+$color-snow: #F9FAFC;
+$color-dark-snow: #EFF2F7;
+$color-extra-dark-snow: #E5E9F2;
+$color-white: #FFFFFF;

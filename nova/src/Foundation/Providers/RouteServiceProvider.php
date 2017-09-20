@@ -21,6 +21,8 @@ class RouteServiceProvider extends ServiceProvider
 		$this->mapWebRoutes();
 
 		$this->mapOverrideRoutes();
+
+		$this->mapSetupRoutes();
 	}
 
 	protected function mapWebRoutes()
@@ -42,5 +44,13 @@ class RouteServiceProvider extends ServiceProvider
 	{
 		Route::middleware('web')
 			->group(base_path('routes.php'));
+	}
+
+	protected function mapSetupRoutes()
+	{
+		Route::prefix('setup')
+			->middleware('web')
+			->namespace('Nova\Setup\Http\Controllers')
+			->group(base_path('nova/routes/setup.php'));
 	}
 }

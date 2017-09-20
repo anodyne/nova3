@@ -18,6 +18,8 @@ mix.autoload({
    .sass('nova/resources/assets/sass/app.scss', 'assets/css')
    .sass('nova/resources/assets/sass/responsive.scss', 'assets/css')
    .sass('nova/resources/assets/sass/vendor.scss', 'assets/css')
+   .sass('nova/resources/assets/sass/setup.scss', 'assets/css')
+   .sass('nova/resources/assets/sass/setup.responsive.scss', 'assets/css')
    .options({
 		processCssUrls: false
 	});
