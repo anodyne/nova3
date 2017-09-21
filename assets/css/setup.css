@@ -254,7 +254,6 @@ main .controls {
   background: #EFF2F7;
   border-bottom-left-radius: 0.6rem;
   border-bottom-right-radius: 0.6rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.125);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -266,7 +265,7 @@ main .controls {
 }
 
 main .controls .btn {
-  font-weight: 500;
+  font-weight: 400;
   margin-bottom: .5rem;
   width: 100%;
 }
@@ -458,6 +457,12 @@ h1, h2, h3, h4, h5, h6 {
 .btn.btn-primary:hover {
   background-color: #0298e8;
   border-color: #0298e8;
+}
+
+.btn.btn-primary.disabled {
+  background: transparent;
+  border-color: transparent;
+  color: #C0CCDA;
 }
 
 .btn.btn-outline-primary {

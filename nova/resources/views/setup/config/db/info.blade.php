@@ -174,7 +174,7 @@
 	@if (file_exists(app('path.config').'/database.php'))
 		<a href="{{ route('setup.'.$_setupType.'.config.email') }}" class="btn btn-primary btn-lg">Next: Email Settings</a>
 	@else
-		<a class="btn btn-link btn-lg disabled">Next: Email Settings</a>
+		<a class="btn btn-primary btn-lg disabled">Next: Email Settings</a>
 	@endif
 
 	@if ($_setupType == 'install')
