@@ -1,5 +1,6 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
+use Nova\Setup\ConfigFileWriter;
 use Illuminate\Filesystem\Filesystem;
 use Nova\Setup\Http\Requests\CheckEmailSettingsRequest;
 
@@ -7,14 +8,11 @@ class ConfigEmailController extends Controller
 {
 	public function info()
 	{
-		return view('pages.setup.config.email.info');
+		return view('setup.config.email-info');
 	}
 
-	public function write(CheckEmailSettingsRequest $request, Filesystem $files)
+	public function write(CheckEmailSettingsRequest $request, ConfigFileWriter $writer, Filesystem $files)
 	{
-		// Grab the config writer
-		$writer = app('nova.configWriter');
-
 		// Write the mail config
 		$writer->write('mail', [
 			"#MAIL_DRIVER#" => trim($request->get('mail_driver')),
@@ -55,13 +53,15 @@ class ConfigEmailController extends Controller
 		}
 
 		// Set the flash message
-		flash()->error(null, "We couldn't write the email configuration file because of your server's settings. Please contact your web host to ensure PHP files can write to the server.");
+		flash()
+			->message("We couldn't write the email configuration file because of your server's settings. Please contact your web host to ensure PHP files can write to the server.")
+			->error();
 
 		return redirect()->route("setup.{$this->setupType}.config.email");
 	}
 
 	public function success()
 	{
-		return view('pages.setup.config.email.success');
+		return view('setup.config.email-success');
 	}
 }

@@ -1,3 +1,4 @@
+@import '~sweetalert2/src/sweetalert2';
 @import 'setup.variables', 'data-table';
 
 html {
@@ -180,16 +181,43 @@ main {
 		padding: 1.5rem;
 
 		.btn {
+			align-items: center;
+			display: flex;
 			font-weight: 400;
 			margin-bottom: .5rem;
 			width: 100%;
 
-			&:focus {
-				// box-shadow: none;
-			}
-
 			&:last-child {
 				margin-bottom: 0;
+			}
+
+			.icon {
+				height: 1.5em;
+				margin-left: .25rem;
+				width: 1.5em;
+
+				path {
+					fill: $color-extra-light-primary;
+				}
+			}
+
+			&.btn-link-secondary {
+				.icon {
+					margin-left: 0;
+					margin-right: .25rem;
+
+					path {
+						fill: $color-extra-dark-smoke;
+					}
+				}
+
+				&:hover {
+					.icon {
+						path {
+							fill: $color-silver;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -576,7 +604,7 @@ hr {
 	}
 
 	&.alert-warning {
-		@include alert-variant($color-warning, $color-warning, $color-white);
+		@include alert-variant($color-warning, $color-warning, $color-extra-dark-warning);
 	}
 }
 
@@ -803,6 +831,29 @@ code {
 
 [v-cloak] {
 	display: none;
+}
+
+.swal2-modal {
+	border-radius: $radius-lg;
+	box-shadow: 0 3px 12px rgba(0, 0, 0, .4);
+	font-family: $font;
+
+	.swal2-content {
+		font-weight: 400;
+		line-height: $line-height;
+		margin-bottom: $spacing-lg;
+		margin-top: $spacing-lg;
+	}
+}
+
+.swal2-icon {
+	&.swal2-error {
+		border-color: $color-danger;
+	}
+
+	&.swal2-success {
+		border-color: $color-success;
+	}
 }
 
 .spinner {

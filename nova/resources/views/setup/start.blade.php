@@ -76,23 +76,25 @@
 
 @section('js')
 	<script>
-		app = {
+		vue = {
 			methods: {
-				uninstall: function ($event) {
+				uninstall (event) {
 					swal({
 						title: "Are you sure?",
-						text: "Uninstalling Nova will remove all your data and cannot be undone. If you want to keep your data, make sure you have a backup of your files and database before continuing.",
-						type: "warning",
+						text: "Uninstalling Nova will remove all of your data and cannot be undone. If you want to keep your data, make sure to backup your files and database before continuing.",
+						type: "error",
 						showCancelButton: true,
 						confirmButtonText: "Uninstall Now",
-						confirmButtonColor: "#ff6f00"
-					}, function (confirmed) {
+						confirmButtonClass: "btn btn-danger",
+						cancelButtonClass: "btn btn-link-secondary",
+						buttonsStyling: false
+					}).then(function (confirmed) {
 						if (confirmed) {
-							document.getElementById("uninstall").submit()
+							event.target.submit();
 						}
-					})
+					}, function (dismiss) { });
 				}
 			}
-		}
+		};
 	</script>
 @endsection

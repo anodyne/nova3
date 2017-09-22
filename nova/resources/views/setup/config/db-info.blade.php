@@ -68,7 +68,7 @@
 					<div class="col-lg-10">
 						<h2>MariaDB</h2>
 
-						<p>MySQL is the database system all previous versions of Nova have used and is one of the most widely available database systems in the world. Most shared hosts have MySQL installed by default so this is most often the best option for running {{ config('nova.app.name') }}. If you have questions about MySQL, get in touch with your web host.</p>
+						<p>MariaDB is an open-source database system based on MySQL that many web hosts are starting to offer. Since it's a "drop-in replacement" for MySQL, you should be able to use MySQL and MariaDB interchangably. If you have questions about MariaDB, get in touch with your web host.</p>
 					</div>
 				</div>
 
@@ -81,61 +81,71 @@
 				</div>
 
 				<div class="row justify-content-around">
-					<div class="col-md-9 col-lg-8">
-						<div class="form-group">
-							<label>Host</label>
-							<div class="control-wrapper">
-								{!! Form::text('db_host', 'localhost', ['class' => 'form-control form-control-lg']) !!}
-								<small class="form-text text-muted">For most web hosts, <code>localhost</code> will be correct. If you aren't sure, refer to the information you received from your web host or contact them directly.</small>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-3 col-lg-2">&nbsp;</div>
-				</div>
-
-				<div class="row justify-content-around">
-					<div class="col-md-6 col-lg-5">
-						<div class="form-group">
-							<label>Database Name</label>
-							<div class="control-wrapper">
-								{!! Form::text('db_name', false, ['class' => 'form-control form-control-lg']) !!}
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-6 col-lg-5">
-						<div :class="tablePrefixClass">
-							<label>Table Prefix</label>
-							<div class="control-wrapper">
-								{!! Form::text('db_prefix', false, ['class' => 'form-control form-control-lg', 'v-model' => 'prefix', '@change' => 'checkPrefix']) !!}
-								<small v-if="prefixWarning" class="form-text">You cannot use the same database table prefix as your Nova 2 installation. Please choose a different table prefix.</small>
+					<div class="col-lg-10">
+						<div class="row">
+							<div class="col-md-8 col-lg-6">
+								<div class="form-group">
+									<label>Host</label>
+									<div class="control-wrapper">
+										{!! Form::text('db_host', 'localhost', ['class' => 'form-control form-control-lg']) !!}
+										<small class="form-text text-muted">For most web hosts, <code>localhost</code> will be correct. If you aren't sure, refer to the information you received from your web host or contact them directly.</small>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="row justify-content-around">
-					<div class="col-md-6 col-lg-5">
-						<div class="form-group">
-							<label>Username</label>
-							<div class="control-wrapper">
-								{!! Form::text('db_user', false, ['class' => 'form-control form-control-lg']) !!}
+					<div class="col-lg-10">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Database Name</label>
+									<div class="control-wrapper">
+										{!! Form::text('db_name', false, ['class' => 'form-control form-control-lg']) !!}
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
 
-					<div class="col-md-6 col-lg-5">
-						<div class="form-group">
-							<label>Password</label>
-							<div class="control-wrapper">
-								{!! Form::password('db_password', ['class' => 'form-control form-control-lg']) !!}
+							<div class="col-md-6">
+								<div :class="tablePrefixClass">
+									<label>Table Prefix</label>
+									<div class="control-wrapper">
+										{!! Form::text('db_prefix', false, ['class' => 'form-control form-control-lg', 'v-model' => 'prefix', '@change' => 'checkPrefix']) !!}
+										<small v-if="prefixWarning" class="form-text">You cannot use the same database table prefix as your Nova 2 installation. Please choose a different table prefix.</small>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="form-group row justify-content-around">
+				<div class="row justify-content-around">
+					<div class="col-lg-10">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Username</label>
+									<div class="control-wrapper">
+										{!! Form::text('db_user', false, ['class' => 'form-control form-control-lg']) !!}
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Password</label>
+									<div class="control-wrapper">
+										{!! Form::password('db_password', ['class' => 'form-control form-control-lg']) !!}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group row justify-content-around mt-3">
 					<div class="col-lg-10">
 						{!! Form::button('Create Database Connection', ['class' => 'btn btn-outline-primary', 'type' => 'submit']) !!}
 					</div>
@@ -152,15 +162,19 @@
 				</div>
 
 				<div class="row justify-content-around">
-					<div class="col-md-6 col-lg-5">
-						<div class="form-group">
-							<label>Table Prefix</label>
-							{!! Form::text('db_prefix', $prefix, ['class' => 'form-control form-control-lg']) !!}
+					<div class="col-lg-10">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Table Prefix</label>
+									{!! Form::text('db_prefix', $prefix, ['class' => 'form-control form-control-lg']) !!}
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="form-group row justify-content-around">
+				<div class="form-group row justify-content-around mt-3">
 					<div class="col-lg-10">
 						{!! Form::button('Create Database Connection', ['class' => 'btn btn-outline-primary', 'type' => 'submit']) !!}
 					</div>
@@ -172,15 +186,21 @@
 
 @section('controls')
 	@if (file_exists(app('path.config').'/database.php'))
-		<a href="{{ route('setup.'.$_setupType.'.config.email') }}" class="btn btn-primary btn-lg">Next: Email Settings</a>
+		<a href="{{ route('setup.'.$_setupType.'.config.email') }}" class="btn btn-primary btn-lg">
+			Next: Email Settings
+		</a>
 	@else
 		<a class="btn btn-primary btn-lg disabled">Next: Email Settings</a>
 	@endif
 
 	@if ($_setupType == 'install')
-		<a href="{{ route('setup.'.$_setupType) }}" class="btn btn-link-secondary btn-lg">Back: Fresh Install Info</a>
+		<a href="{{ route('setup.'.$_setupType) }}" class="btn btn-link-secondary btn-lg">
+			Back: Fresh Install Info
+		</a>
 	@else
-		<a href="{{ route('setup.'.$_setupType.'.config.nova2') }}" class="btn btn-link-secondary btn-lg">Back: Nova 2 Info</a>
+		<a href="{{ route('setup.'.$_setupType.'.config.nova2') }}" class="btn btn-link-secondary btn-lg">
+			Back: Nova 2 Info
+		</a>
 	@endif
 @endsection
 
@@ -193,29 +213,35 @@
 				oldPrefix: "{{ config('nova2.db_prefix') }}",
 				prefixWarning: false
 			},
+
 			computed: {
-				tablePrefixClass: function () {
+				tablePrefixClass () {
 					if (this.prefixWarning) {
-						return 'form-group has-danger'
+						return ['form-group', 'has-danger'];
 					}
-					return 'form-group'
+
+					return ['form-group'];
 				}
 			},
+
 			methods: {
-				cardClassName: function (driverType) {
+				cardClassName (driverType) {
 					if (this.driver == driverType) {
-						return 'card card-outline-primary'
+						return ['card', 'card-outline-primary'];
 					}
-					return 'card'
+
+					return ['card'];
 				},
-				checkPrefix: function () {
-					this.prefixWarning = false
+
+				checkPrefix () {
+					this.prefixWarning = false;
+
 					if (this.driver == 'mysql' && this.prefix == this.oldPrefix) {
-						this.prefix = ""
-						this.prefixWarning = true
+						this.prefix = "";
+						this.prefixWarning = true;
 					}
 				}
 			}
-		}
+		};
 	</script>
 @endsection

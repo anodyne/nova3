@@ -56,17 +56,16 @@
 	<script>
 		var vue = {};
 
-		$(function () {
-			$('[data-toggle="tooltip"]').tooltip({
-				container: 'body',
+		@if (session()->has('flash'))
+			swal({
+				title: "{{ session('flash.title') }}",
+				text: "{{ session('flash.message') }}",
+				type: "{{ session('flash.level') }}",
+				timer: 2250,
+				showConfirmButton: false,
 				html: true
 			});
-
-			$('[data-toggle="popover"]').popover({
-				container: 'body',
-				html: true
-			});
-		});
+		@endif
 	</script>
 	@yield('js')
 	<script>

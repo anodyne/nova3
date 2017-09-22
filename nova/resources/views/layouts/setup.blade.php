@@ -39,7 +39,7 @@
 	<div class="container">
 		<main id="nova-setup">
 			<div class="content">
-				{!! view("setup.steps.{$_setupType}") !!}
+				{!! view("setup.{$_setupType}.{$_setupType}-steps") !!}
 
 				@yield('content')
 			</div>
@@ -48,6 +48,14 @@
 				@yield('controls')
 			</div>
 		</main>
+
+		@if (app()->environment() == 'local')
+			<span class="badge badge-dark d-sm-none">xs</span>
+			<span class="badge badge-info d-none d-sm-inline d-md-none">sm</span>
+			<span class="badge badge-warning d-none d-md-inline d-lg-none">md</span>
+			<span class="badge badge-success d-none d-lg-inline d-xl-none">lg</span>
+			<span class="badge badge-danger d-none d-xl-inline">xl</span>
+		@endif
 	</div>
 
 	<footer>

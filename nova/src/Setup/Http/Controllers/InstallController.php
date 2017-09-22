@@ -2,13 +2,8 @@
 
 use Status;
 use Artisan;
-use UserCreator;
-use SettingRepositoryContract;
-use PageContentRepositoryContract;
+use Nova\Setup\ConfigFileWriter;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Filesystem\FilesystemManager;
-use Nova\Setup\Http\Requests\CreateUserRequest;
-use Nova\Setup\Http\Requests\UpdateSettingsRequest;
 
 class InstallController extends Controller
 {
@@ -19,44 +14,32 @@ class InstallController extends Controller
 
 	public function installLanding()
 	{
-		return view('pages.setup.install.nova');
+		return view('setup.install.nova');
 	}
 
-	public function install(FilesystemManager $storage)
+	public function install()
 	{
 		Artisan::call('nova:install');
-		/*// Run the migrate commands
-		Artisan::call('migrate', ['--force' => true]);
-
-		// Create the installed file
-		$storage->disk('local')->put('installed.json', json_encode(['installed' => true]));
-
-		// Cache the routes in production
-		if (app('env') == 'production')
-		{
-			Artisan::call('route:cache');
-		}*/
 	}
 
-	public function novaSuccess()
+	public function novaSuccess(ConfigFileWriter $writer, Filesystem $files)
 	{
-		// Get an instance of the writer
-		$writer = app('nova.configWriter');
-
 		// Write the session config file
-		$writer->write('session');
+		if (! $files->exists(app('path.config').'/session.php')) {
+			$writer->write('session');
+		}
 
-		return view('pages.setup.install.nova-success');
+		return view('setup.install.nova-success');
 	}
 
 	public function user()
 	{
-		return view('pages.setup.install.user');
+		return view('setup.install.user');
 	}
 
 	public function userSuccess()
 	{
-		return view('pages.setup.install.user-success');
+		return view('setup.install.user-success');
 	}
 
 	public function createUser(UserCreator $userCreator, CreateUserRequest $request)
@@ -83,12 +66,12 @@ class InstallController extends Controller
 			'pulsar' => 'Pulsar'
 		];
 
-		return view('pages.setup.install.settings', compact('themes'));
+		return view('setup.install.settings', compact('themes'));
 	}
 
 	public function settingsSuccess()
 	{
-		return view('pages.setup.install.settings-success');
+		return view('setup.install.settings-success');
 	}
 
 	public function updateSettings(

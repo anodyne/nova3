@@ -16,6 +16,12 @@ $size-xl: 1200px;
 // md
 @media (min-width: $size-md) and (max-width: ($size-lg - 1)) {
 main {
+	.content {
+		.btn {
+			width: auto;
+		}
+	}
+	
 	.controls {
 		align-items: center;
 		flex-direction: row-reverse;
