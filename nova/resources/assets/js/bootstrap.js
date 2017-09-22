@@ -22,6 +22,7 @@ window.Vue = require('vue');
 window.md5 = require('md5');
 window.moment = require('moment');
 window.Sortable = require('sortablejs');
+window.swal = require('sweetalert2');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

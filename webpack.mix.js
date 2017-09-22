@@ -12,7 +12,7 @@ mix.autoload({
 		'jquery', 'axios', 'bootstrap', 'croppie', 'humanize-number',
 		'jquery-confirm', 'lodash', 'md5', 'moment', 'pluralize', 'popper.js',
 		'sortablejs', 'vue', 'vue-clickaway', 'vue-js-toggle-button',
-		'webui-popover'
+		'webui-popover', 'sweetalert2'
 	])
    .js('nova/resources/assets/js/app.js', 'assets/js')
    .sass('nova/resources/assets/sass/app.scss', 'assets/css')

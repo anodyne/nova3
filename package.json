@@ -23,6 +23,7 @@
 		"pluralize": "^5.0",
 		"popper.js": "^1.11",
 		"sortablejs": "^1.6",
+		"sweetalert2": "^6.9",
 		"vue": "^2.1",
 		"vue-clickaway": "^2.1",
 		"vue-js-toggle-button": "^1.1",
