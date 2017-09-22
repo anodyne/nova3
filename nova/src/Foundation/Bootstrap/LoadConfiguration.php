@@ -22,16 +22,16 @@ class LoadConfiguration extends IlluminateLoadConfig
 		$appConfig = [];
 
 		// Loop through the core config files
-		foreach (Finder::create()->files()->name('*.php')->in($app->novaConfigPath()) as $file) {
+		foreach (Finder::create()->files()->name('*.php')->in($app->configPath()) as $file) {
 			$key = basename($file->getRealPath(), '.php');
 
 			$novaConfig[$key] = require $file->getRealPath();
 		}
 
 		// Loop through the "app" config files
-		foreach (Finder::create()->files()->name('*.php')->in($app->configPath()) as $file) {
+		foreach (Finder::create()->files()->name('*.php')->in($app->appConfigPath()) as $file) {
 			$key = basename($file->getRealPath(), '.php');
-			
+
 			$appConfig[$key] = require $file->getRealPath();
 		}
 
