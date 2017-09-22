@@ -8,8 +8,8 @@
 	<h1>Configure Your Database Connection</h1>
 	<h3>Tell us a little bit about the database {{ config('nova.app.name') }} is being installed into</h3>
 
-	<div class="row justify-content-around">
-		<div class="col-lg-10">
+	<div class="row" v-cloak>
+		<div class="col-lg-10 mx-auto">
 			<div class="card-deck">
 				@if (in_array('mysql', PDO::getAvailableDrivers()))
 					<div :class="cardClassName('mysql')">
@@ -49,138 +49,102 @@
 					</div>
 				@endif
 			</div>
-		</div>
-	</div>
 
-	<div v-cloak>
-		{!! Form::open(['route' => "setup.{$_setupType}.config.db.check"]) !!}
-			{!! Form::hidden('db_driver', null, ['v-model' => 'driver']) !!}
-			<div v-show="driver && driver != 'sqlite'">
-				<div class="form-group row justify-content-around" v-show="driver == 'mysql'">
-					<div class="col-lg-10">
+			{!! Form::open(['route' => "setup.{$_setupType}.config.db.check"]) !!}
+				{!! Form::hidden('db_driver', null, ['v-model' => 'driver']) !!}
+				<div v-show="driver && driver != 'sqlite'">
+					<div class="form-group" v-show="driver == 'mysql'">
 						<h2>MySQL</h2>
 
 						<p>MySQL is the database system all previous versions of Nova have used and is one of the most widely available database systems in the world. Most shared hosts have MySQL installed by default so this is most often the best option for running {{ config('nova.app.name') }}. If you have questions about MySQL, get in touch with your web host.</p>
 					</div>
-				</div>
 
-				<div class="form-group row justify-content-around" v-show="driver == 'mariadb'">
-					<div class="col-lg-10">
+					<div class="form-group" v-show="driver == 'mariadb'">
 						<h2>MariaDB</h2>
 
 						<p>MariaDB is an open-source database system based on MySQL that many web hosts are starting to offer. Since it's a "drop-in replacement" for MySQL, you should be able to use MySQL and MariaDB interchangably. If you have questions about MariaDB, get in touch with your web host.</p>
 					</div>
-				</div>
 
-				<div class="form-group row justify-content-around" v-show="driver == 'pgsql'">
-					<div class="col-lg-10">
+					<div class="form-group" v-show="driver == 'pgsql'">
 						<h2>PostgreSQL</h2>
 
 						<p>Though often considered to be geared more toward enterprise applications, PostgreSQL is a mature database system in the vein of Oracle. In most cases, PostgresSQL isn't available on shared hosts and will need to be installed separately. If you have questions about PostgresSQL, get in touch with your web host. <strong class="text-warning">This option is currently experimental.</strong></p>
 					</div>
-				</div>
 
-				<div class="row justify-content-around">
-					<div class="col-lg-10">
-						<div class="row">
-							<div class="col-md-8 col-lg-6">
-								<div class="form-group">
-									<label>Host</label>
-									<div class="control-wrapper">
-										{!! Form::text('db_host', 'localhost', ['class' => 'form-control form-control-lg']) !!}
-										<small class="form-text text-muted">For most web hosts, <code>localhost</code> will be correct. If you aren't sure, refer to the information you received from your web host or contact them directly.</small>
-									</div>
+					<div class="row">
+						<div class="col-md-8 col-lg-6">
+							<div class="form-group">
+								<label>Host</label>
+								<div class="control-wrapper">
+									{!! Form::text('db_host', 'localhost', ['class' => 'form-control form-control-lg']) !!}
+									<small class="form-text text-muted">For most web hosts, <code>localhost</code> will be correct. If you aren't sure, refer to the information you received from your web host or contact them directly.</small>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Database Name</label>
+								<div class="control-wrapper">
+									{!! Form::text('db_name', false, ['class' => 'form-control form-control-lg']) !!}
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div :class="tablePrefixClass">
+								<label>Table Prefix</label>
+								<div class="control-wrapper">
+									{!! Form::text('db_prefix', false, ['class' => 'form-control form-control-lg', 'v-model' => 'prefix', '@change' => 'checkPrefix']) !!}
+									<small v-if="prefixWarning" class="form-text">You cannot use the same database table prefix as your Nova 2 installation. Please choose a different table prefix.</small>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Username</label>
+								<div class="control-wrapper">
+									{!! Form::text('db_user', false, ['class' => 'form-control form-control-lg']) !!}
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Password</label>
+								<div class="control-wrapper">
+									{!! Form::password('db_password', ['class' => 'form-control form-control-lg']) !!}
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="row justify-content-around">
-					<div class="col-lg-10">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Database Name</label>
-									<div class="control-wrapper">
-										{!! Form::text('db_name', false, ['class' => 'form-control form-control-lg']) !!}
-									</div>
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<div :class="tablePrefixClass">
-									<label>Table Prefix</label>
-									<div class="control-wrapper">
-										{!! Form::text('db_prefix', false, ['class' => 'form-control form-control-lg', 'v-model' => 'prefix', '@change' => 'checkPrefix']) !!}
-										<small v-if="prefixWarning" class="form-text">You cannot use the same database table prefix as your Nova 2 installation. Please choose a different table prefix.</small>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row justify-content-around">
-					<div class="col-lg-10">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Username</label>
-									<div class="control-wrapper">
-										{!! Form::text('db_user', false, ['class' => 'form-control form-control-lg']) !!}
-									</div>
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Password</label>
-									<div class="control-wrapper">
-										{!! Form::password('db_password', ['class' => 'form-control form-control-lg']) !!}
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="form-group row justify-content-around mt-3">
-					<div class="col-lg-10">
-						{!! Form::button('Create Database Connection', ['class' => 'btn btn-outline-primary', 'type' => 'submit']) !!}
-					</div>
-				</div>
-			</div>
-
-			<div v-show="driver == 'sqlite'">
-				<div class="form-group row justify-content-around">
-					<div class="col-lg-10">
+				<div v-show="driver == 'sqlite'">
+					<div class="form-group">
 						<h2>SQLite</h2>
 
 						<p>SQLite is a file-based database that uses a single database file on the server. Because of this, a good rule of thumb is that you should avoid using SQLite in situations where the database will be accessed simultaneously from multiple locations. <strong class="text-danger">SQLite is only advised for development purposes.</strong></p>
 					</div>
-				</div>
 
-				<div class="row justify-content-around">
-					<div class="col-lg-10">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Table Prefix</label>
-									{!! Form::text('db_prefix', $prefix, ['class' => 'form-control form-control-lg']) !!}
-								</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Table Prefix</label>
+								{!! Form::text('db_prefix', $prefix, ['class' => 'form-control form-control-lg']) !!}
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="form-group row justify-content-around mt-3">
-					<div class="col-lg-10">
-						{!! Form::button('Create Database Connection', ['class' => 'btn btn-outline-primary', 'type' => 'submit']) !!}
-					</div>
+				<div class="form-group mt-3" v-show="driver">
+					{!! Form::button('Create Database Connection', ['class' => 'btn btn-outline-primary', 'type' => 'submit']) !!}
 				</div>
-			</div>
-		{!! Form::close() !!}
+			{!! Form::close() !!}
+		</div>
 	</div>
 @endsection
 
