@@ -48,63 +48,59 @@
 			<fieldset v-show="active == 'manifest'">
 				<legend>Manifest</legend>
 
-				<fieldset>
-					<legend>Defaults</legend>
-
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="form-control-label">Show Assigned Characters</label>
-								<div>
-									<toggle-button class="toggle-switch"
-												   :value="{{ $settings['manifest_show_assigned'] }}"
-												   @change="toggleSwitch('manifestShowAssigned')">
-									</toggle-button>
-									<input type="hidden" name="manifest_show_assigned" v-model="manifestShowAssigned">
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="form-control-label">Show NPCs</label>
-								<div>
-									<toggle-button class="toggle-switch"
-												   :value="{{ $settings['manifest_show_npcs'] }}"
-												   @change="toggleSwitch('manifestShowNPCs')">
-									</toggle-button>
-									<input type="hidden" name="manifest_show_npcs" v-model="manifestShowNPCs">
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="form-control-label">Show Inactive Characters</label>
-								<div>
-									<toggle-button class="toggle-switch"
-												   :value="{{ $settings['manifest_show_inactive'] }}"
-												   @change="toggleSwitch('manifestShowInactive')">
-									</toggle-button>
-									<input type="hidden" name="manifest_show_inactive" v-model="manifestShowInactive">
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="form-control-label">Show Available Positions</label>
-								<div>
-									<toggle-button class="toggle-switch"
-												   :value="{{ $settings['manifest_show_available'] }}"
-												   @change="toggleSwitch('manifestShowAvailable')">
-									</toggle-button>
-									<input type="hidden" name="manifest_show_available" v-model="manifestShowAvailable">
-								</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="form-control-label">Show Assigned Characters</label>
+							<div>
+								<toggle-button class="toggle-switch"
+											   :value="{{ $settings['manifest_show_assigned'] }}"
+											   @change="toggleSwitch('manifestShowAssigned')">
+								</toggle-button>
+								<input type="hidden" name="manifest_show_assigned" v-model="manifestShowAssigned">
 							</div>
 						</div>
 					</div>
-				</fieldset>
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="form-control-label">Show NPCs</label>
+							<div>
+								<toggle-button class="toggle-switch"
+											   :value="{{ $settings['manifest_show_npcs'] }}"
+											   @change="toggleSwitch('manifestShowNPCs')">
+								</toggle-button>
+								<input type="hidden" name="manifest_show_npcs" v-model="manifestShowNPCs">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="form-control-label">Show Inactive Characters</label>
+							<div>
+								<toggle-button class="toggle-switch"
+											   :value="{{ $settings['manifest_show_inactive'] }}"
+											   @change="toggleSwitch('manifestShowInactive')">
+								</toggle-button>
+								<input type="hidden" name="manifest_show_inactive" v-model="manifestShowInactive">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="form-control-label">Show Available Positions</label>
+							<div>
+								<toggle-button class="toggle-switch"
+											   :value="{{ $settings['manifest_show_available'] }}"
+											   @change="toggleSwitch('manifestShowAvailable')">
+								</toggle-button>
+								<input type="hidden" name="manifest_show_available" v-model="manifestShowAvailable">
+							</div>
+						</div>
+					</div>
+				</div>
 
 				<div class="form-group">
 					<a href="#" class="btn btn-primary mt-4" @click.prevent="saveSettings">{{ _m('save') }}</a>
