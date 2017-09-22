@@ -18,7 +18,8 @@
 		"phpunit/phpunit": "~6.0",
 		"barryvdh/laravel-debugbar": "^2.1",
 		"laravel/dusk": "^2.0",
-		"squizlabs/php_codesniffer": "^2.8"
+		"squizlabs/php_codesniffer": "^2.8",
+		"filp/whoops": "~2.0"
 	},
 
 	"autoload": {
@@ -40,6 +41,21 @@
 		"psr-4": {
 			"Tests\\": "nova/tests/"
 		}
+	},
+
+	"scripts": {
+		"post-install-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postInstall"
+        ],
+
+		"post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate"
+        ],
+
+	    "post-autoload-dump": [
+	        "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+	        "@php artisan package:discover"
+	    ]
 	},
 
 	"config": {
