@@ -6,9 +6,9 @@ webpackJsonp([1],{
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(177)
+var __vue_script__ = __webpack_require__(178)
 /* template */
-var __vue_template__ = __webpack_require__(178)
+var __vue_template__ = __webpack_require__(179)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -22,7 +22,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "nova/resources/assets/js/components/Avatar.vue"
+Component.options.__file = "nova\\resources\\assets\\js\\components\\Avatar.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Avatar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -33,9 +33,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0d1a1ac4", Component.options)
+    hotAPI.createRecord("data-v-6a57a561", Component.options)
   } else {
-    hotAPI.reload("data-v-0d1a1ac4", Component.options)
+    hotAPI.reload("data-v-6a57a561", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -47,15 +47,15 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 140:
+/***/ 141:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(167)
+var __vue_script__ = __webpack_require__(168)
 /* template */
-var __vue_template__ = __webpack_require__(168)
+var __vue_template__ = __webpack_require__(169)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -69,7 +69,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "nova/resources/assets/js/components/Rank.vue"
+Component.options.__file = "nova\\resources\\assets\\js\\components\\Rank.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Rank.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -80,9 +80,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-dbfa799e", Component.options)
+    hotAPI.createRecord("data-v-ca296a98", Component.options)
   } else {
-    hotAPI.reload("data-v-dbfa799e", Component.options)
+    hotAPI.reload("data-v-ca296a98", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -94,25 +94,25 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 144:
+/***/ 145:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(145);
-__webpack_require__(199);
+__webpack_require__(146);
 __webpack_require__(200);
 __webpack_require__(201);
 __webpack_require__(202);
-module.exports = __webpack_require__(203);
+__webpack_require__(203);
+module.exports = __webpack_require__(204);
 
 
 /***/ }),
 
-/***/ 145:
+/***/ 146:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_js_toggle_button__ = __webpack_require__(143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_js_toggle_button__ = __webpack_require__(144);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_js_toggle_button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_js_toggle_button__);
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -120,7 +120,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(146);
+__webpack_require__(147);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -128,16 +128,16 @@ __webpack_require__(146);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('rank', __webpack_require__(140));
-Vue.component('flash', __webpack_require__(169));
+Vue.component('rank', __webpack_require__(141));
+Vue.component('flash', __webpack_require__(170));
 Vue.component('avatar', __webpack_require__(10));
-Vue.component('media-manager', __webpack_require__(179));
-Vue.component('position-available', __webpack_require__(184));
+Vue.component('media-manager', __webpack_require__(180));
+Vue.component('position-available', __webpack_require__(185));
 
-Vue.component('rank-picker', __webpack_require__(187));
-Vue.component('user-picker', __webpack_require__(190));
-Vue.component('position-picker', __webpack_require__(193));
-Vue.component('character-picker', __webpack_require__(196));
+Vue.component('rank-picker', __webpack_require__(188));
+Vue.component('user-picker', __webpack_require__(191));
+Vue.component('position-picker', __webpack_require__(194));
+Vue.component('character-picker', __webpack_require__(197));
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_js_toggle_button___default.a);
@@ -152,7 +152,7 @@ Vue.component('mobile', {
 
 /***/ }),
 
-/***/ 146:
+/***/ 147:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -183,6 +183,7 @@ window.Vue = __webpack_require__(6);
 window.md5 = __webpack_require__(8);
 __webpack_provided_window_dot_moment = __webpack_require__(0);
 window.Sortable = __webpack_require__(132);
+window.swal = __webpack_require__(133);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -190,7 +191,7 @@ window.Sortable = __webpack_require__(132);
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(133);
+window.axios = __webpack_require__(134);
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
@@ -262,7 +263,7 @@ window.lang = function (key) {
 
 /***/ }),
 
-/***/ 167:
+/***/ 168:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -310,7 +311,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 168:
+/***/ 169:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -329,25 +330,25 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-dbfa799e", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-ca296a98", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 169:
+/***/ 170:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(170)
+  __webpack_require__(171)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(175)
+var __vue_script__ = __webpack_require__(176)
 /* template */
-var __vue_template__ = __webpack_require__(176)
+var __vue_template__ = __webpack_require__(177)
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
@@ -361,7 +362,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "nova/resources/assets/js/components/Flash.vue"
+Component.options.__file = "nova\\resources\\assets\\js\\components\\Flash.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Flash.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -372,9 +373,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-da58848a", Component.options)
+    hotAPI.createRecord("data-v-b207b2d0", Component.options)
   } else {
-    hotAPI.reload("data-v-da58848a", Component.options)
+    hotAPI.reload("data-v-b207b2d0", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -386,23 +387,23 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 170:
+/***/ 171:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(171);
+var content = __webpack_require__(172);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(173)("1c1a2c3e", content, false);
+var update = __webpack_require__(174)("ea7790e0", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da58848a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-da58848a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b207b2d0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b207b2d0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -413,10 +414,10 @@ if(false) {
 
 /***/ }),
 
-/***/ 171:
+/***/ 172:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(172)(undefined);
+exports = module.exports = __webpack_require__(173)(undefined);
 // imports
 
 
@@ -428,7 +429,7 @@ exports.push([module.i, "\n.fade-enter-active, .fade-leave-active {\n  transitio
 
 /***/ }),
 
-/***/ 172:
+/***/ 173:
 /***/ (function(module, exports) {
 
 /*
@@ -511,7 +512,7 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ 173:
+/***/ 174:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -530,7 +531,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(174)
+var listToStyles = __webpack_require__(175)
 
 /*
 type StyleObject = {
@@ -733,7 +734,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 174:
+/***/ 175:
 /***/ (function(module, exports) {
 
 /**
@@ -767,7 +768,7 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 175:
+/***/ 176:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -850,7 +851,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 176:
+/***/ 177:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -892,13 +893,13 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-da58848a", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-b207b2d0", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 177:
+/***/ 178:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1086,7 +1087,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 178:
+/***/ 179:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1145,21 +1146,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-0d1a1ac4", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-6a57a561", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 179:
+/***/ 180:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(180)
+var __vue_script__ = __webpack_require__(181)
 /* template */
-var __vue_template__ = __webpack_require__(183)
+var __vue_template__ = __webpack_require__(184)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -1173,7 +1174,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "nova/resources/assets/js/components/MediaManager.vue"
+Component.options.__file = "nova\\resources\\assets\\js\\components\\MediaManager.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] MediaManager.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -1184,9 +1185,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-69a642ae", Component.options)
+    hotAPI.createRecord("data-v-001c9731", Component.options)
   } else {
-    hotAPI.reload("data-v-69a642ae", Component.options)
+    hotAPI.reload("data-v-001c9731", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -1198,14 +1199,14 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 180:
+/***/ 181:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_croppie__ = __webpack_require__(141);
+/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_croppie__ = __webpack_require__(142);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_croppie___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_croppie__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pluralize__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pluralize__ = __webpack_require__(143);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pluralize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_pluralize__);
 //
 //
@@ -1436,7 +1437,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 183:
+/***/ 184:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1612,21 +1613,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-69a642ae", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-001c9731", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 184:
+/***/ 185:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(185)
+var __vue_script__ = __webpack_require__(186)
 /* template */
-var __vue_template__ = __webpack_require__(186)
+var __vue_template__ = __webpack_require__(187)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -1640,7 +1641,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "nova/resources/assets/js/components/PositionAvailable.vue"
+Component.options.__file = "nova\\resources\\assets\\js\\components\\PositionAvailable.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] PositionAvailable.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -1651,9 +1652,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-edfade2a", Component.options)
+    hotAPI.createRecord("data-v-7a28d370", Component.options)
   } else {
-    hotAPI.reload("data-v-edfade2a", Component.options)
+    hotAPI.reload("data-v-7a28d370", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -1665,7 +1666,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 185:
+/***/ 186:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1740,7 +1741,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 186:
+/***/ 187:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1817,21 +1818,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-edfade2a", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-7a28d370", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 187:
+/***/ 188:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(188)
+var __vue_script__ = __webpack_require__(189)
 /* template */
-var __vue_template__ = __webpack_require__(189)
+var __vue_template__ = __webpack_require__(190)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -1845,7 +1846,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "nova/resources/assets/js/components/RankPicker.vue"
+Component.options.__file = "nova\\resources\\assets\\js\\components\\RankPicker.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] RankPicker.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -1856,9 +1857,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-d777cbc2", Component.options)
+    hotAPI.createRecord("data-v-6b88993c", Component.options)
   } else {
-    hotAPI.reload("data-v-d777cbc2", Component.options)
+    hotAPI.reload("data-v-6b88993c", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -1870,12 +1871,12 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 188:
+/***/ 189:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Rank_vue__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Rank_vue__ = __webpack_require__(141);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Rank_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Rank_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_clickaway__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_clickaway___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_clickaway__);
@@ -2006,7 +2007,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 189:
+/***/ 190:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -2269,21 +2270,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-d777cbc2", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-6b88993c", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 190:
+/***/ 191:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(191)
+var __vue_script__ = __webpack_require__(192)
 /* template */
-var __vue_template__ = __webpack_require__(192)
+var __vue_template__ = __webpack_require__(193)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -2297,7 +2298,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "nova/resources/assets/js/components/UserPicker.vue"
+Component.options.__file = "nova\\resources\\assets\\js\\components\\UserPicker.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] UserPicker.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -2308,9 +2309,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-67d40204", Component.options)
+    hotAPI.createRecord("data-v-020d9841", Component.options)
   } else {
-    hotAPI.reload("data-v-67d40204", Component.options)
+    hotAPI.reload("data-v-020d9841", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -2322,7 +2323,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 191:
+/***/ 192:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2475,7 +2476,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 192:
+/***/ 193:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -2722,21 +2723,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-67d40204", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-020d9841", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 193:
+/***/ 194:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(194)
+var __vue_script__ = __webpack_require__(195)
 /* template */
-var __vue_template__ = __webpack_require__(195)
+var __vue_template__ = __webpack_require__(196)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -2750,7 +2751,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "nova/resources/assets/js/components/PositionPicker.vue"
+Component.options.__file = "nova\\resources\\assets\\js\\components\\PositionPicker.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] PositionPicker.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -2761,9 +2762,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-d4ba1f48", Component.options)
+    hotAPI.createRecord("data-v-67d6301f", Component.options)
   } else {
-    hotAPI.reload("data-v-d4ba1f48", Component.options)
+    hotAPI.reload("data-v-67d6301f", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -2775,7 +2776,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 194:
+/***/ 195:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2916,7 +2917,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 195:
+/***/ 196:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -3157,21 +3158,21 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-d4ba1f48", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-67d6301f", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 196:
+/***/ 197:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(197)
+var __vue_script__ = __webpack_require__(198)
 /* template */
-var __vue_template__ = __webpack_require__(198)
+var __vue_template__ = __webpack_require__(199)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -3185,7 +3186,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "nova/resources/assets/js/components/CharacterPicker.vue"
+Component.options.__file = "nova\\resources\\assets\\js\\components\\CharacterPicker.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CharacterPicker.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -3196,9 +3197,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4cb3aba2", Component.options)
+    hotAPI.createRecord("data-v-7e2f3782", Component.options)
   } else {
-    hotAPI.reload("data-v-4cb3aba2", Component.options)
+    hotAPI.reload("data-v-7e2f3782", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -3210,7 +3211,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 197:
+/***/ 198:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3391,7 +3392,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 198:
+/***/ 199:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -3645,16 +3646,9 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-4cb3aba2", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-7e2f3782", module.exports)
   }
 }
-
-/***/ }),
-
-/***/ 199:
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ }),
 
@@ -3782,6 +3776,13 @@ module.exports = function normalizeComponent (
 
 // removed by extract-text-webpack-plugin
 
+/***/ }),
+
+/***/ 204:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
 /***/ })
 
-},[144]);
+},[145]);
