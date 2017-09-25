@@ -751,83 +751,96 @@ code {
 	}
 }
 
-.sweet-alert {
-	font-family: $font;
-	border-radius: $radius-lg;
-	box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4);
+fieldset {
+	margin-bottom: 1.5rem;
 
-	p {
-		line-height: 1.5;
-
-		font-size: 1rem;
-		font-weight: 400;
-	}
-
-	h2 {
-		font-weight: 400;
+	legend {
+		color: $color-silver;
 		font-family: $font-heading;
-	}
-
-	button {
-		font-family: $font;
-		font-size: 1.2rem;
-		font-weight: 400;
-		border-radius: $radius;
-		letter-spacing: 0.01rem;
-
-		&.cancel {
-			background-color: $color-smoke;
-			color: $color-slate;
-
-			&:hover {
-				background-color: lighten($color-smoke, 2%);
-				color: $color-slate;
-			}
-		}
-	}
-
-	.sa-icon {
-		&.sa-error {
-			border-color: $color-danger;
-
-			.sa-line {
-				background-color: $color-danger;
-			}
-		}
-
-		&.sa-success {
-			border-color: $color-success;
-
-			.sa-line {
-				background-color: $color-success;
-			}
-		}
-
-		&.sa-warning {
-			border-color: $color-warning;
-
-			.sa-body {
-				background-color: $color-warning;
-			}
-
-			.sa-dot {
-				background-color: $color-warning;
-			}
-		}
-
-		&.sa-info {
-			border-color: $color-info;
-
-			&::before {
-				background-color: $color-info;
-			}
-
-			&::after {
-				background-color: $color-info;
-			}
-		}
+		font-size: 2rem;
+		font-weight: 300;
+		margin-bottom: $spacing;
+		text-align: left;
 	}
 }
+
+// .sweet-alert {
+// 	font-family: $font;
+// 	border-radius: $radius-lg;
+// 	box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4);
+
+// 	p {
+// 		line-height: 1.5;
+
+// 		font-size: 1rem;
+// 		font-weight: 400;
+// 	}
+
+// 	h2 {
+// 		font-weight: 400;
+// 		font-family: $font-heading;
+// 	}
+
+// 	button {
+// 		font-family: $font;
+// 		font-size: 1.2rem;
+// 		font-weight: 400;
+// 		border-radius: $radius;
+// 		letter-spacing: 0.01rem;
+
+// 		&.cancel {
+// 			background-color: $color-smoke;
+// 			color: $color-slate;
+
+// 			&:hover {
+// 				background-color: lighten($color-smoke, 2%);
+// 				color: $color-slate;
+// 			}
+// 		}
+// 	}
+
+// 	.sa-icon {
+// 		&.sa-error {
+// 			border-color: $color-danger;
+
+// 			.sa-line {
+// 				background-color: $color-danger;
+// 			}
+// 		}
+
+// 		&.sa-success {
+// 			border-color: $color-success;
+
+// 			.sa-line {
+// 				background-color: $color-success;
+// 			}
+// 		}
+
+// 		&.sa-warning {
+// 			border-color: $color-warning;
+
+// 			.sa-body {
+// 				background-color: $color-warning;
+// 			}
+
+// 			.sa-dot {
+// 				background-color: $color-warning;
+// 			}
+// 		}
+
+// 		&.sa-info {
+// 			border-color: $color-info;
+
+// 			&::before {
+// 				background-color: $color-info;
+// 			}
+
+// 			&::after {
+// 				background-color: $color-info;
+// 			}
+// 		}
+// 	}
+// }
 
 [v-cloak] {
 	display: none;

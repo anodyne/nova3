@@ -11,10 +11,19 @@
 
 	<title>@yield('title') &bull; {{ config('nova.app.name') }}</title>
 
+	<script defer src="{{ asset('assets/js/packs/solid.min.js') }}"></script>
+	<script defer src="{{ asset('assets/js/fontawesome.min.js') }}"></script>
+
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700|Roboto:300,400,500,700" rel="stylesheet">
 	<link href="{{ asset('assets/css/vendor.css') }}" rel="stylesheet">
+	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/setup.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/setup.responsive.css') }}" rel="stylesheet">
+
+	<script>
+		window.Nova = {!! json_encode(Nova::scriptVariables()) !!}
+	</script>
+	@routes
 </head>
 <body>
 	<header>

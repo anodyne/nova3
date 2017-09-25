@@ -1902,80 +1902,17 @@ code {
   fill: #ff4747;
 }
 
-.sweet-alert {
-  font-family: "Roboto", helvetica, arial, sans-serif;
-  border-radius: 0.6rem;
-  -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4);
-          box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4);
+fieldset {
+  margin-bottom: 1.5rem;
 }
 
-.sweet-alert p {
-  line-height: 1.5;
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-.sweet-alert h2 {
-  font-weight: 400;
+fieldset legend {
+  color: #8492A6;
   font-family: "Roboto Condensed";
-}
-
-.sweet-alert button {
-  font-family: "Roboto", helvetica, arial, sans-serif;
-  font-size: 1.2rem;
-  font-weight: 400;
-  border-radius: 0.3rem;
-  letter-spacing: 0.01rem;
-}
-
-.sweet-alert button.cancel {
-  background-color: #E0E6ED;
-  color: #3C4858;
-}
-
-.sweet-alert button.cancel:hover {
-  background-color: #e6ebf1;
-  color: #3C4858;
-}
-
-.sweet-alert .sa-icon.sa-error {
-  border-color: #ff4747;
-}
-
-.sweet-alert .sa-icon.sa-error .sa-line {
-  background-color: #ff4747;
-}
-
-.sweet-alert .sa-icon.sa-success {
-  border-color: #40bf55;
-}
-
-.sweet-alert .sa-icon.sa-success .sa-line {
-  background-color: #40bf55;
-}
-
-.sweet-alert .sa-icon.sa-warning {
-  border-color: #ffc933;
-}
-
-.sweet-alert .sa-icon.sa-warning .sa-body {
-  background-color: #ffc933;
-}
-
-.sweet-alert .sa-icon.sa-warning .sa-dot {
-  background-color: #ffc933;
-}
-
-.sweet-alert .sa-icon.sa-info {
-  border-color: #1FB6FF;
-}
-
-.sweet-alert .sa-icon.sa-info::before {
-  background-color: #1FB6FF;
-}
-
-.sweet-alert .sa-icon.sa-info::after {
-  background-color: #1FB6FF;
+  font-size: 2rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  text-align: left;
 }
 
 [v-cloak] {
