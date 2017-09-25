@@ -62900,7 +62900,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
- * sweetalert2 v6.9.0
+ * sweetalert2 v6.9.1
  * Released under the MIT License.
  */
 (function (global, factory) {
@@ -63251,7 +63251,6 @@ var animationEndEvent = function () {
   var transEndEventNames = {
     'WebkitAnimation': 'webkitAnimationEnd',
     'OAnimation': 'oAnimationEnd oanimationend',
-    'msAnimation': 'MSAnimationEnd',
     'animation': 'animationend'
   };
   for (var i in transEndEventNames) {
@@ -64663,7 +64662,7 @@ sweetAlert.resetDefaults = function () {
 
 sweetAlert.noop = function () {};
 
-sweetAlert.version = '6.9.0';
+sweetAlert.version = '6.9.1';
 
 sweetAlert.default = sweetAlert;
 

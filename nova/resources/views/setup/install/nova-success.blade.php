@@ -9,16 +9,18 @@
 @endsection
 
 @section('content')
-	<h1>{{ config('nova.app.name') }} Installed</h1>
+	<div class="row">
+		<div class="col-lg-10 mx-auto">
+			<h1>{{ config('nova.app.name') }} Installed</h1>
 
-	<p>{{ config('nova.app.name') }}'s database tables and data have been created for you. Next, you'll need to create your user account and character.</p>
+			<p>{{ config('nova.app.name') }}'s database tables and data have been created for you. Next, you'll need to create your user account and character.</p>
 
-	<div class="alert alert-warning" role="alert">
-		<h4 class="alert-heading">Please Excuse Our Dust...</h4>
-		<p>{{ config('nova.app.name') }} remains a work in progress. The database structure is not yet complete, so features and data you might be expecting will undoubtedly be missing at this stage of development. Future work will flesh out those features and add much of that data. If you have questions, please don't hesitate to drop by the <a href="http://forums.anodyne-productions.com" class="alert-link" target="_blank">Anodyne forums</a> and ask!</p>
+			<div class="alert alert-warning" role="alert">
+				<h4 class="alert-heading">Please Excuse Our Dust...</h4>
+				<p>{{ config('nova.app.name') }} remains a work in progress. The database structure is not yet complete, so features and data you might be expecting will undoubtedly be missing at this stage of development. Future work will flesh out those features and add much of that data. If you have questions, please don't hesitate to drop by the <a href="http://forums.anodyne-productions.com" class="alert-link" target="_blank">Anodyne forums</a> and ask!</p>
+			</div>
+		</div>
 	</div>
-
-	{{ dd(config('database')) }}
 @endsection
 
 @section('controls')
