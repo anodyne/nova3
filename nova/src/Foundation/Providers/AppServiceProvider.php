@@ -18,10 +18,13 @@ class AppServiceProvider extends ServiceProvider
 		$this->registerTheme();
 		$this->registerTranslator();
 		$this->registerMacros();
-		// $this->registerRepositoryBindings();
 
 		$this->app->bind('nova.avatar', function ($app) {
 			return new \Nova\Foundation\Avatar;
+		});
+
+		$this->app->bind('nova.markdown', function ($app) {
+			return new \Nova\Foundation\MarkdownParser(new \Parsedown);
 		});
 
 		// Build up the morph map

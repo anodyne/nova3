@@ -13,16 +13,16 @@ trait DoesSystemChecks
 		switch ($component) {
 			case 'db':
 			case 'database':
-				return file_exists(config_path('database.php'));
+				return file_exists(app()->appConfigPath('database.php'));
 				break;
 
 			case 'mail':
 			case 'email':
-				return file_exists(config_path('mail.php'));
+				return file_exists(app()->appConfigPath('mail.php'));
 				break;
 
 			case 'session':
-				return file_exists(config_path('session.php'));
+				return file_exists(app()->appConfigPath('session.php'));
 				break;
 		}
 

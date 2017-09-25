@@ -7,7 +7,7 @@ trait ProvidesScriptVariables
 	public function scriptVariables()
 	{
 		// Grab the user so we can manually build the user object
-		$currentUser = auth()->user();
+		$currentUser = (app('nova')->isInstalled()) ? auth()->user() : null;
 
 		// Nova's system variables
 		$system = ['system' => [
@@ -20,7 +20,7 @@ trait ProvidesScriptVariables
 
 		// Nova's settings
 		$settings = ['settings' => [
-			'rank' => Settings::find(1)->value
+			'rank' => (app('nova')->isInstalled()) ? Settings::find(1)->value : 'duty'
 		]];
 
 		if ($currentUser) {

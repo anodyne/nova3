@@ -25,7 +25,7 @@ class InstallController extends Controller
 	public function novaSuccess(ConfigFileWriter $writer, Filesystem $files)
 	{
 		// Write the session config file
-		if (! $files->exists(app('path.config').'/session.php')) {
+		if (! $files->exists(app()->appConfigPath('session.php'))) {
 			$writer->write('session');
 		}
 
@@ -42,7 +42,7 @@ class InstallController extends Controller
 		return view('setup.install.user-success');
 	}
 
-	public function createUser(UserCreator $userCreator, CreateUserRequest $request)
+	public function createUser(CreateUserRequest $request)
 	{
 		// Create a new user and character
 		$creator = $userCreator->createWithCharacter($request->all());
@@ -55,7 +55,9 @@ class InstallController extends Controller
 			return redirect()->route('setup.install.user.success');
 		}
 
-		flash()->error(null, "User and character could not be created.");
+		flash()
+			->message('User and character could not be created.')
+			->error();
 
 		return redirect()->route('setup.install.user');
 	}

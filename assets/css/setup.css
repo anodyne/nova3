@@ -1282,27 +1282,35 @@ main form .form-control {
 
 main .form-text {
   line-height: 1.75;
-  padding-left: .25rem;
+}
+
+main .invalid-feedback {
+  margin-bottom: 0;
 }
 
 main .has-danger .control-wrapper,
 main .has-warning .control-wrapper,
 main .has-success .control-wrapper {
-  padding: 0.3rem;
   border-radius: 0.3rem;
+  padding: .3rem;
 }
 
 main .has-danger .form-text,
+main .has-danger .invalid-feedback,
 main .has-warning .form-text,
-main .has-success .form-text {
-  margin-bottom: 0;
-  padding: 0 0.5rem;
+main .has-warning .invalid-feedback,
+main .has-success .form-text,
+main .has-success .invalid-feedback {
   color: #FFFFFF;
+  margin-bottom: 0;
 }
 
 main .has-danger .form-text a,
+main .has-danger .invalid-feedback a,
 main .has-warning .form-text a,
-main .has-success .form-text a {
+main .has-warning .invalid-feedback a,
+main .has-success .form-text a,
+main .has-success .invalid-feedback a {
   text-decoration: underline;
 }
 
@@ -1314,7 +1322,8 @@ main .has-danger label {
   color: #ff4747;
 }
 
-main .has-danger .form-text a {
+main .has-danger .form-text a,
+main .has-danger .invalid-feedback a {
   color: #ff1414;
 }
 
@@ -1327,10 +1336,16 @@ main .has-warning .control-wrapper {
 }
 
 main .has-warning label {
-  color: #ffc933;
+  color: #d4a011;
 }
 
-main .has-warning .form-text a {
+main .has-warning .form-text,
+main .has-warning .invalid-feedback {
+  color: #6c5513;
+}
+
+main .has-warning .form-text a,
+main .has-warning .invalid-feedback a {
   color: #ffbb00;
 }
 
@@ -1346,7 +1361,8 @@ main .has-success label {
   color: #40bf55;
 }
 
-main .has-success .form-text a {
+main .has-success .form-text a,
+main .has-success .invalid-feedback a {
   color: #339944;
 }
 
@@ -1385,11 +1401,11 @@ small, .small {
 }
 
 .text-warning {
-  color: #ffc933;
+  color: #d4a011;
 }
 
 .text-warning:hover {
-  color: #ffc933;
+  color: #d4a011;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -1676,7 +1692,7 @@ hr {
 }
 
 .alert {
-  border-radius: 0.3rem;
+  border-radius: 0.6rem;
 }
 
 .alert .alert-heading {

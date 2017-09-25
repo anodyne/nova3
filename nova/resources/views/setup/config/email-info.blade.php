@@ -59,51 +59,51 @@
 
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group{{ ($errors->has('mail_host')) ? ' has-error' : '' }}">
+							<div class="form-group{{ ($errors->has('mail_host')) ? ' has-danger' : '' }}">
 								<label>Host</label>
 								<div class="control-wrapper">
 									{!! Form::text('mail_host', false, ['class' => 'form-control form-control-lg']) !!}
-									{!! $errors->first('mail_host', '<p class="form-control-feedback">:message</p>') !!}
+									{!! $errors->first('mail_host', '<p class="invalid-feedback">:message</p>') !!}
 								</div>
 							</div>
 						</div>
 
 						<div class="col-md-3">
-							<div class="form-group{{ ($errors->has('mail_port')) ? ' has-error' : '' }}">
+							<div class="form-group{{ ($errors->has('mail_port')) ? ' has-danger' : '' }}">
 								<label>Port</label>
 								<div class="control-wrapper">
 									{!! Form::text('mail_port', 587, ['class' => 'form-control form-control-lg']) !!}
-									{!! $errors->first('mail_port', '<p class="form-control-feedback">:message</p>') !!}
+									{!! $errors->first('mail_port', '<p class="invalid-feedback">:message</p>') !!}
 								</div>
 							</div>
 						</div>
 
 						<div class="col-md-3">
-							<div class="form-group{{ ($errors->has('mail_encryption')) ? ' has-error' : '' }}">
+							<div class="form-group{{ ($errors->has('mail_encryption')) ? ' has-danger' : '' }}">
 								<label>Encryption</label>
 								<div class="control-wrapper">
 									{!! Form::text('mail_encryption', 'tls', ['class' => 'form-control form-control-lg']) !!}
-									{!! $errors->first('mail_encryption', '<p class="form-control-feedback">:message</p>') !!}
+									{!! $errors->first('mail_encryption', '<p class="invalid-feedback">:message</p>') !!}
 								</div>
 							</div>
 						</div>
 
 						<div class="col-md-6">
-							<div class="form-group{{ ($errors->has('mail_username')) ? ' has-error' : '' }}">
+							<div class="form-group{{ ($errors->has('mail_username')) ? ' has-danger' : '' }}">
 								<label>Username</label>
 								<div class="control-wrapper">
 									{!! Form::text('mail_username', false, ['class' => 'form-control form-control-lg']) !!}
-									{!! $errors->first('mail_username', '<p class="form-control-feedback">:message</p>') !!}
+									{!! $errors->first('mail_username', '<p class="invalid-feedback">:message</p>') !!}
 								</div>
 							</div>
 						</div>
 
 						<div class="col-md-6">
-							<div class="form-group{{ ($errors->has('mail_password')) ? ' has-error' : '' }}">
+							<div class="form-group{{ ($errors->has('mail_password')) ? ' has-danger' : '' }}">
 								<label>Password</label>
 								<div class="control-wrapper">
 									{!! Form::password('mail_password', ['class' => 'form-control form-control-lg']) !!}
-									{!! $errors->first('mail_password', '<p class="form-control-feedback">:message</p>') !!}
+									{!! $errors->first('mail_password', '<p class="invalid-feedback">:message</p>') !!}
 								</div>
 							</div>
 						</div>
@@ -119,11 +119,11 @@
 
 					<div class="row">
 						<div class="col-md-8 col-lg-6">
-							<div class="form-group{{ ($errors->has('mail_sendmail')) ? ' has-error' : '' }}">
+							<div class="form-group{{ ($errors->has('mail_sendmail')) ? ' has-danger' : '' }}">
 								<label>Sendmail Path</label>
 								<div class="control-wrapper">
 									{!! Form::text('mail_sendmail', '/usr/sbin/sendmail -bs', ['class' => 'form-control form-control-lg']) !!}
-									{!! $errors->first('mail_sendmail', '<p class="form-control-feedback">:message</p>') !!}
+									{!! $errors->first('mail_sendmail', '<p class="invalid-feedback">:message</p>') !!}
 								</div>
 							</div>
 						</div>
@@ -151,21 +151,21 @@
 
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group{{ ($errors->has('services_mailgun_domain')) ? ' has-error' : '' }}">
+							<div class="form-group{{ ($errors->has('services_mailgun_domain')) ? ' has-danger' : '' }}">
 								<label>Domain</label>
 								<div class="control-wrapper">
 									{!! Form::text('services_mailgun_domain', null, ['class' => 'form-control form-control-lg']) !!}
-									{!! $errors->first('services_mailgun_domain', '<p class="form-control-feedback">:message</p>') !!}
+									{!! $errors->first('services_mailgun_domain', '<p class="form-p">:message</small>') !!}
 								</div>
 							</div>
 						</div>
 
 						<div class="col-md-6">
-							<div class="form-group{{ ($errors->has('services_mailgun_secret')) ? ' has-error' : '' }}">
+							<div class="form-group{{ ($errors->has('services_mailgun_secret')) ? ' has-danger' : '' }}">
 								<label>Secret Key</label>
 								<div class="control-wrapper">
 									{!! Form::text('services_mailgun_secret', null, ['class' => 'form-control form-control-lg']) !!}
-									{!! $errors->first('services_mailgun_secret', '<p class="form-control-feedback">:message</p>') !!}
+									{!! $errors->first('services_mailgun_secret', '<p class="form-p">:message</small>') !!}
 								</div>
 							</div>
 						</div>
@@ -181,11 +181,11 @@
 
 					<div class="row">
 						<div class="col-md-8 col-lg-6">
-							<div class="form-group{{ ($errors->has('services_sparkpost_secret')) ? ' has-error' : '' }}">
+							<div class="form-group{{ ($errors->has('services_sparkpost_secret')) ? ' has-danger' : '' }}">
 								<label>Secret Key</label>
 								<div class="control-wrapper">
 									{!! Form::text('services_sparkpost_secret', null, ['class' => 'form-control form-control-lg']) !!}
-									{!! $errors->first('services_sparkpost_secret', '<p class="form-control-feedback">:message</p>') !!}
+									{!! $errors->first('services_sparkpost_secret', '<p class="form-p">:message</small>') !!}
 								</div>
 							</div>
 						</div>
@@ -202,7 +202,7 @@
 
 @section('controls')
 	@if ($_setupType == 'install')
-		@if (file_exists(app('path.config').'/mail.php'))
+		@if (file_exists(app()->appConfigPath('mail.php')))
 			<a href="{{ route('setup.'.$_setupType.'.nova') }}" class="btn btn-primary btn-lg">
 				Next: Install {{ config('nova.app.name') }}
 			</a>
@@ -210,7 +210,7 @@
 			<a class="btn btn-primary btn-lg disabled">Next: Install {{ config('nova.app.name') }}</a>
 		@endif
 	@else
-		@if (file_exists(app('path.config').'/mail.php'))
+		@if (file_exists(app()->appConfigPath('mail.php')))
 			<a href="{{ route('setup.'.$_setupType.'.nova') }}" class="btn btn-primary btn-lg">
 				Next: Migrate Nova 2
 			</a>
@@ -246,6 +246,12 @@
 
 					return ['form-group'];
 				}
+			},
+
+			mounted () {
+				@if (session()->has('errors'))
+					this.driver = "{{ old('mail_driver') }}";
+				@endif
 			}
 		};
 	</script>
