@@ -21,6 +21,10 @@ class InstallController extends Controller
 
 	public function install()
 	{
+		// Make sure we have enough time to do everything
+		ini_set('max_execution_time', 60);
+
+		// Run the install process
 		Artisan::call('nova:install');
 	}
 
