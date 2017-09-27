@@ -2,6 +2,8 @@
 
 use Status;
 use Artisan;
+use Nova\Users\User;
+use Nova\Setup\Http\Requests;
 use Nova\Setup\ConfigFileWriter;
 use Illuminate\Filesystem\Filesystem;
 
@@ -34,7 +36,9 @@ class InstallController extends Controller
 
 	public function user()
 	{
-		return view('setup.install.user');
+		$hasUser = User::count() > 0;
+
+		return view('setup.install.user', compact('hasUser'));
 	}
 
 	public function userSuccess()
@@ -42,21 +46,32 @@ class InstallController extends Controller
 		return view('setup.install.user-success');
 	}
 
-	public function createUser(CreateUserRequest $request)
+	public function createUser(Requests\CreateUserRequest $request)
 	{
-		// Create a new user and character
-		$creator = $userCreator->createWithCharacter($request->all());
+		// Create a new user
+		$user = creator('Nova\Users\User')
+			->with(array_merge(
+				$request->get('user'),
+				['status' => Status::ACTIVE]
+			))
+			->create();
 
-		if ($creator) {
-			$user = app('UserRepository')->getById(1);
-			$user->status = Status::ACTIVE;
-			$user->save();
+		// Create a new character
+		$character = creator('Nova\Characters\Character')
+			->with(array_merge(
+				$request->get('character'),
+				['user_id' => $user->id],
+				['positions' => $request->get('positions')]
+			))
+			->create()
+			->setAsPrimaryCharacter();
 
+		if ($user and $character) {
 			return redirect()->route('setup.install.user.success');
 		}
 
 		flash()
-			->message('User and character could not be created.')
+			->message('User and/or character could not be created.')
 			->error();
 
 		return redirect()->route('setup.install.user');
@@ -76,39 +91,12 @@ class InstallController extends Controller
 		return view('setup.install.settings-success');
 	}
 
-	public function updateSettings(
-		SettingRepositoryContract $settings,
-		PageContentRepositoryContract $content,
-		UpdateSettingsRequest $request
-	) {
-		// Grab the data
-		$data = request()->except(['_token']);
+	public function updateSettings(Requests\UpdateSettingsRequest $request)
+	{
+		updater('Nova\Settings\Settings')
+			->with(request()->all())
+			->updateAll();
 
-		// We need to handle content data separately because of the
-		// fact that content keys can have periods and setting keys
-		// cannot have periods
-		$contentData = $data;
-
-		// Update the settings
-		$update = $settings->updateByKey($data);
-
-		// Update the keys we're using
-		array_walk($data, function ($value, $key) use (&$contentData) {
-			// Replace underscores with periods
-			$newKey = str_replace('_', '.', $key);
-
-			$contentData[$newKey] = $value;
-		});
-
-		// Update the content
-		$content->updateByKey($contentData);
-
-		if ($update) {
-			return redirect()->route('setup.install.settings.success');
-		}
-
-		flash()->error(null, "Settings could not be updated.");
-
-		return redirect()->route('setup.install.settings');
+		return redirect()->route('setup.install.settings.success');
 	}
 }

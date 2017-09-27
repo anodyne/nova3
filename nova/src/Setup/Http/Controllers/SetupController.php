@@ -6,17 +6,14 @@ class SetupController extends Controller
 {
 	public function index()
 	{
-		// Grab the instance of the Nova class
-		$nova = app('nova');
-
 		// Is Nova installed?
-		$installed = $nova->isInstalled();
+		$installed = nova()->isInstalled();
 
 		// Is there an update available for Nova?
-		$hasUpdate = $nova->hasUpdate();
+		$hasUpdate = nova()->hasUpdate();
 
 		// If there is an update available, grab the info
-		$update = ($hasUpdate) ? $nova->getLatestVersion() : false;
+		$update = ($hasUpdate) ? nova()->getLatestVersion() : false;
 
 		return view('setup.start', compact('installed', 'update', 'hasUpdate'));
 	}

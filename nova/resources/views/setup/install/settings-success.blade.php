@@ -11,12 +11,8 @@
 @stop
 
 @section('controls')
-	<div class="row">
-		<div class="col-md-6 push-md-6 text-right">
-			<p><a href="{{ route('home') }}" class="btn btn-primary btn-lg">Next: Go to Your Site</a></p>
-		</div>
-		<div class="col-md-6 pull-md-6">
-			<p><a href="{{ route('setup.'.$_setupType.'.settings') }}" class="btn btn-link btn-lg">Back: Update {{ config('nova.app.name') }} Settings</a></p>
-		</div>
-	</div>
+	<a href="{{ route('home') }}" class="btn btn-primary btn-lg">Next: Go to Your Site</a>
+	<a href="{{ route('setup.'.$_setupType.'.settings') }}" class="btn btn-link-secondary btn-lg">
+		Back: Update {{ config('nova.app.name') }} Settings
+	</a>
 @stop

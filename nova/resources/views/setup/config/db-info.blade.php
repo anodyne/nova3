@@ -216,7 +216,7 @@
 			},
 
 			mounted () {
-				@if (session()->has('errors'))
+				@if (session()->has('flash'))
 					this.driver = "{{ old('db_driver') }}";
 				@endif
 			}

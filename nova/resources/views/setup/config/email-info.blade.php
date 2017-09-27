@@ -16,7 +16,7 @@
 						<div :class="driverClassName">
 							<label>Driver</label>
 							<div class="control-wrapper">
-								<select name="mail_driver" class="form-control form-control-lg" v-model="driver">
+								<select name="mail_driver" class="form-control form-control-lg custom-select" v-model="driver">
 									<option value="smtp">SMTP Service</option>
 									<option value="sendmail">Sendmail</option>
 									<option value="mail">PHP Mail</option>
