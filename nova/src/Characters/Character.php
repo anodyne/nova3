@@ -98,6 +98,8 @@ class Character extends Eloquent
 		if ($this->user) {
 			$this->user->setPrimaryCharacterAs($this);
 		}
+
+		return $this;
 	}
 
 	public function unassignFromUser()
