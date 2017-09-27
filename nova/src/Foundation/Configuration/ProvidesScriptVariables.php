@@ -20,7 +20,7 @@ trait ProvidesScriptVariables
 
 		// Nova's settings
 		$settings = ['settings' => [
-			'rank' => (nova()->isInstalled()) ? Settings::find(1)->value : 'duty'
+			'rank' => (nova()->isInstalled()) ? Settings::item('rank')->first()->value : 'duty'
 		]];
 
 		if ($currentUser) {
