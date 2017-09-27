@@ -13,6 +13,9 @@ class Controller extends BaseController
 
 	public function __construct()
 	{
+		// Make sure Nova is installed
+		$this->middleware('nova.installed');
+		
 		$this->middleware(function ($request, $next) {
 			// Set the current user on the controller
 			$this->user = $request->user();

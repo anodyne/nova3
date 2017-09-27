@@ -54,5 +54,7 @@ class Kernel extends HttpKernel
 		'can' => \Illuminate\Auth\Middleware\Authorize::class,
 		'guest' => \Nova\Foundation\Http\Middleware\RedirectIfAuthenticated::class,
 		'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+
+		'nova.installed' => \Nova\Setup\Http\Middleware\CheckInstallationStatus::class,
 	];
 }

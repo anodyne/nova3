@@ -4,7 +4,7 @@ Route::get('/', function () {
 	view()->share('_user', auth()->user());
 
 	return view('pages.welcome');
-})->name('home');
+})->name('home')->middleware('nova.installed');
 
 Route::group(['namespace' => 'Nova\Auth\Http\Controllers'], function () {
 	// Authentication Routes...
