@@ -25,6 +25,6 @@ class ConfigFileWriter
 		$filename = ($fileToWrite) ?: $file;
 
 		// Create the file and store the content
-		$this->files->put(app()->appConfigPath("/{$filename}.php"), $content);
+		$this->files->put(app()->appConfigPath("{$filename}.php"), $content);
 	}
 }
