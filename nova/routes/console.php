@@ -6,7 +6,7 @@ Artisan::command('inspire', function () {
 	$this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
-Artisan::command('nova:refresh', function () {
+/*Artisan::command('nova:refresh', function () {
 	// Flush the caches
 	Cache::flush();
 	Session::flush();
@@ -39,4 +39,4 @@ Artisan::command('nova:refresh', function () {
 	$user->attachRole(Nova\Authorize\Role::name('Active User')->first());
 	
 	$this->info('Created test users.');
-})->describe('Refresh Nova with a fresh copy of the database and data');
+})->describe('Refresh Nova with a fresh copy of the database and data');*/

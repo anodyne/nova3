@@ -41,15 +41,17 @@ class UninstallNova extends Command
 		$this->call('migrate:reset', ['--force' => true]);
 
 		// Remove the config files
-		$this->files->delete(app()->configPath('app.php'));
-		$this->files->delete(app()->configPath('database.php'));
-		$this->files->delete(app()->configPath('mail.php'));
-		$this->files->delete(app()->configPath('services.php'));
-		$this->files->delete(app()->configPath('session.php'));
+		$this->files->delete(app()->appConfigPath('app.php'));
+		$this->files->delete(app()->appConfigPath('database.php'));
+		$this->files->delete(app()->appConfigPath('mail.php'));
+		$this->files->delete(app()->appConfigPath('services.php'));
+		$this->files->delete(app()->appConfigPath('session.php'));
 
 		// Remove the SQLite database if it's there
 		if ($this->files->exists(config('database.connections.sqlite.database'))) {
 			$this->files->delete(config('database.connections.sqlite.database'));
 		}
+
+		$this->info(config('nova.app.name').' removal completed.');
 	}
 }

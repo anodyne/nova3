@@ -218,7 +218,121 @@
 		</fieldset> --}}
 	</div>
 
-	<div v-show="layout == 'cards'"></div>
+	<div v-show="layout == 'cards'">
+		<div class="row my-5" v-for="dept in filteredDepartments">
+			<div class="col-12">
+				<p class="lead">@{{ dept.name }}</p>
+				{{-- <small class="text-muted d-block mb-3">
+					We're looking for a creative pilot to fill the Chief Flight Control Officer position and point us in the right direction as we boldly go where no one has gone before!
+				</small> --}}
+			</div>
+
+			<div class="col-12">
+				<div class="row mb-4">
+					<div class="col-md-6 col-lg-4" v-for="position in dept.positions">
+						<span v-for="character in filterCharacters(position.characters)"
+							  v-if="position.characters.length > 0">
+							<div class="card">
+								<div class="card-body">
+									<div class="d-flex justify-content-around">
+										<avatar :item="character" layout="stacked">
+											@{{ position.name }}
+										</avatar>
+									</div>
+									<div class="d-flex justify-content-around mt-3">
+										<div v-if="character.rank">
+											<rank :item="character.rank"></rank>
+										</div>
+										<div v-else>
+											<rank></rank>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer">
+									<a href="#" class="btn btn-lg btn-link text-muted">{!! icon('user-alt') !!}</a>
+								</div>
+							</div>
+						</span>
+
+						<span v-if="position.available > 0 && showAvailable">
+							<div class="card">
+								<div class="card-body">
+									<div class="d-flex justify-content-around">
+										<position-available :position="position" layout="stacked"></position-available>
+									</div>
+									<div class="d-flex justify-content-around mt-3">
+										<rank></rank>
+									</div>
+								</div>
+								<div class="card-footer">
+									<a href="#" class="btn btn-lg btn-link text-muted">{!! icon('arrow-right') !!}</a>
+								</div>
+							</div>
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col" v-if="dept.sub_departments.length > 0">
+				<div class="row my-5" v-for="subDept in dept.sub_departments">
+					<div class="col-12">
+						<p class="lead">@{{ subDept.name }}</p>
+						{{-- <small class="text-muted d-block mb-3">
+							We're looking for a creative pilot to fill the Chief Flight Control Officer position and point us in the right direction as we boldly go where no one has gone before!
+						</small> --}}
+					</div>
+
+					<div class="col-12">
+						<div class="row mb-4">
+							<div class="col-md-6 col-lg-4" v-for="position in subDept.positions">
+								<span v-for="character in filterCharacters(position.characters)"
+									  v-if="position.characters.length > 0">
+									<div class="card">
+										<div class="card-body">
+											<div class="d-flex justify-content-around">
+												<avatar :item="character" layout="stacked">
+													@{{ position.name }}
+												</avatar>
+											</div>
+											<div class="d-flex justify-content-around mt-3">
+												<div v-if="character.rank">
+													<rank :item="character.rank"></rank>
+												</div>
+												<div v-else>
+													<rank></rank>
+												</div>
+											</div>
+										</div>
+										<div class="card-footer">
+											<a href="#" class="btn btn-lg btn-link text-muted">{!! icon('user-alt') !!}</a>
+										</div>
+									</div>
+								</span>
+
+								<span v-if="position.available > 0 && showAvailable">
+									<div class="card">
+										<div class="card-body">
+											<div class="d-flex justify-content-around">
+												<position-available :position="position"
+																	layout="stacked">
+												</position-available>
+											</div>
+											<div class="d-flex justify-content-around mt-3">
+												<rank></rank>
+											</div>
+										</div>
+										<div class="card-footer">
+											<a href="#" class="btn btn-lg btn-link text-muted">{!! icon('arrow-right') !!}</a>
+										</div>
+									</div>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<div class="d-none">
 		<div id="manifest-filters-content">
@@ -260,7 +374,7 @@
 						<input name="layout" type="radio" value="list" class="custom-control-input" v-model="layout">
 						<span class="custom-control-indicator"></span>
 						<span class="custom-control-description d-flex align-items-center">
-							<i class="far fa-list fa-lg fa-fw mr-2 text-muted"></i>
+							{!! icon('list', 'fa-lg fa-fw mr-2 text-muted') !!}
 							<span>List</span>
 						</span>
 					</label>
@@ -288,7 +402,7 @@
 		vue = {
 			data: {
 				departments: {!! $departments !!},
-				layout: 'list',
+				layout: 'cards',
 				search: '',
 				showAvailable: {{ $settings['manifest_show_available'] }},
 				showInactive: {{ $settings['manifest_show_inactive'] }},

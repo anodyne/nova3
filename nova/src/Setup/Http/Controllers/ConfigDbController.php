@@ -105,31 +105,40 @@ class ConfigDbController extends Controller
 			$msg = (string) $e->getMessage();
 
 			if (stripos($msg, 'No such host is known') !== false) {
+				$message = "The database host you provided couldn't be found. Most of the time, web hosts use `localhost`, but in some instances, they set up their servers differently. Check with your web host about the proper database host to use and try again.";
+
 				flash()
 					->title("Database Host Not Found")
-					->message("The database host you provided couldn't be found. Most of the time, web hosts use `localhost`, but in some instances, they set up their servers differently. Check with your web host about the proper database host to use and try again.")
+					->message(app('nova.markdown')->transform($message))
 					->error();
 			} elseif (stripos($msg, 'could not find driver') !== false) {
+				$message = "Your server doesn't have the necessary PDO driver for connecting to the database. Contact your web host to resolve this issue.";
+
 				flash()
 					->title("PDO Driver Not Found")
-					->message("Your server doesn't have the necessary PDO driver for connecting to the database. Contact your web host to resolve this issue.")
+					->message(app('nova.markdown')->transform($message))
 					->error();
 			} elseif (stripos($msg, 'Access denied for user') !== false) {
+				$message = "The username and/or password you provided doesn't seem to work. Double check your username and/or password and try again.";
+
 				flash()
 					->title("User/Password Issue")
-					->message("The username and/or password you provided doesn't seem to work. Double check your username and/or password and try again.")
+					->message(app('nova.markdown')->transform($message))
 					->error();
 			} elseif (stripos($msg, 'Unknown database') !== false) {
 				$dbName = session('dbName');
+				$message = sprintf("A successful connection was made to your database server (which means your username and password are fine) but the database `%s` couldn't be found.\r\n\r\n- Are you sure it exists?\r\n- Do you have permissions to use the `%s` database?\r\n- On some systems the name of your database is prefixed with your username, like `%s_%s`. Could that be the problem?\r\n\r\nIf you're not sure how to setup a database or what your database connection settings are, you should contact your web host.", $dbName, $dbName, session('dbUser'), $dbName);
 
 				flash()
 					->title("Database Not Found")
-					->message(sprintf("A successful connection was made to your database server (which means your username and password are fine) but the database `%s` couldn't be found.\r\n\r\n- Are you sure it exists?\r\n- Do you have permissions to use the `%s` database?\r\n- On some systems the name of your database is prefixed with your username, like `%s_%s`. Could that be the problem?\r\n\r\nIf you're not sure how to setup a database or what your database connection settings are, you should contact your web host.", $dbName, $dbName, session('dbUser'), $dbName))
+					->message(app('nova.markdown')->transform($message))
 					->error();
 			} else {
+				$message = "There was an unidentified error when trying to connect to the database. This could be caused by incorrect database connection settings or the database server being down. Check with your web host to see if there are any issues and try again.\r\n\r\n`".$e->getMessage()."`";
+
 				flash()
 					->title("Unknown Database Issue")
-					->message("There was an unidentified error when trying to connect to the database. This could be caused by incorrect database connection settings or the database server being down. Check with your web host to see if there are any issues and try again.\r\n\r\n`".$e->getMessage()."`")
+					->message(app('nova.markdown')->transform($message))
 					->error();
 			}
 
@@ -166,7 +175,7 @@ class ConfigDbController extends Controller
 				$writer->write('database-nova2', $dbConfigValues, 'database');
 			}
 
-			if ($files->exists(app('path.config').'/database.php')) {
+			if ($files->exists(app()->appConfigPath('database.php'))) {
 				// Flush all the session info
 				session()->flush();
 

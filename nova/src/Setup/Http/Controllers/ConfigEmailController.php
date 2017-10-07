@@ -48,7 +48,7 @@ class ConfigEmailController extends Controller
 				break;
 		}
 
-		if ($files->exists(app('path.config').'/mail.php')) {
+		if ($files->exists(app()->appConfigPath('mail.php'))) {
 			return redirect()->route("setup.{$this->setupType}.config.email.success");
 		}
 

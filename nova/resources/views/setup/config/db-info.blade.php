@@ -10,6 +10,13 @@
 
 	<div class="row" v-cloak>
 		<div class="col-lg-10 mx-auto">
+			@if (session()->has('flash'))
+				<div class="alert alert-danger">
+					<h4 class="alert-heading">{{ session('flash.title') }}</h4>
+					{!! session('flash.message') !!}
+				</div>
+			@endif
+
 			<div class="card-deck">
 				@if (in_array('mysql', PDO::getAvailableDrivers()))
 					<div :class="cardClassName('mysql')">
@@ -51,7 +58,8 @@
 			</div>
 
 			{!! Form::open(['route' => "setup.{$_setupType}.config.db.check"]) !!}
-				{!! Form::hidden('db_driver', null, ['v-model' => 'driver']) !!}
+				<input type="hidden" name="db_driver" v-model="driver">
+
 				<div v-show="driver && driver != 'sqlite'">
 					<div class="form-group" v-show="driver == 'mysql'">
 						<h2>MySQL</h2>
@@ -149,7 +157,7 @@
 @endsection
 
 @section('controls')
-	@if (file_exists(app('path.config').'/database.php'))
+	@if (file_exists(app()->appConfigPath('database.php')))
 		<a href="{{ route('setup.'.$_setupType.'.config.email') }}" class="btn btn-primary btn-lg">
 			Next: Email Settings
 		</a>
@@ -205,6 +213,12 @@
 						this.prefixWarning = true;
 					}
 				}
+			},
+
+			mounted () {
+				@if (session()->has('flash'))
+					this.driver = "{{ old('db_driver') }}";
+				@endif
 			}
 		};
 	</script>

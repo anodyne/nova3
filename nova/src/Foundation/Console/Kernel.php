@@ -8,6 +8,7 @@ class Kernel extends ConsoleKernel
 {
 	protected $commands = [
 		Commands\InstallNova::class,
+		Commands\RefreshNova::class,
 		Commands\UninstallNova::class,
 	];
 

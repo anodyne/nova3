@@ -139,8 +139,9 @@
 	<div id="nova-app" class="flex-center position-ref {{ Request::is('/') ? 'full-height' : '' }}">
 		@if (Route::has('sign-in'))
 			<div class="top-right links">
-				@if (Auth::check())
+				@auth
 					<a href="{{ route('home') }}">Home</a>
+					<a href="{{ route('setup.home') }}">Setup Center</a>
 					<span class="dropdown">
 						<a class="dropdown-toggle"
 						   href="#"
@@ -171,10 +172,12 @@
                     <form id="logout-form" action="{{ route('sign-out') }}" method="POST" style="display: none;">
                         {{ csrf_field() }}
                     </form>
-				@else
+				@endauth
+
+				@guest
 					<a href="{{ route('sign-in') }}">Sign In</a>
 					<a href="{{ route('join') }}">Register</a>
-				@endif
+				@endguest
 			</div>
 		@endif
 

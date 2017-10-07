@@ -2,6 +2,8 @@
 Thumbs.db
 
 .env
+config/*.php
+!config/nova.php
 node_modules
 nova/vendor
 storage/debugbar

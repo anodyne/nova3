@@ -274,23 +274,24 @@ main {
 
 	.form-text {
 		line-height: $line-height;
-		padding-left: .25rem;
+	}
+
+	.invalid-feedback {
+		margin-bottom: 0;
 	}
 
 	.has-danger,
 	.has-warning,
 	.has-success {
 		.control-wrapper {
-			padding: 0.3rem;
-
 			border-radius: $radius;
+			padding: .3rem;
 		}
 
-		.form-text {
-			margin-bottom: 0;
-			padding: 0 0.5rem;
-
+		.form-text,
+		.invalid-feedback {
 			color: $color-white;
+			margin-bottom: 0;
 
 			a {
 				text-decoration: underline;
@@ -303,7 +304,8 @@ main {
 
 		label { color: $color-danger; }
 
-		.form-text {
+		.form-text,
+		.invalid-feedback {
 			a { color: darken($color-danger, 10%); }
 		}
 
@@ -313,9 +315,12 @@ main {
 	.has-warning {
 		.control-wrapper { background-color: $color-warning; }
 
-		label { color: $color-warning; }
+		label { color: $color-dark-warning; }
 
-		.form-text {
+		.form-text,
+		.invalid-feedback {
+			color: $color-extra-dark-warning;
+
 			a { color: darken($color-warning, 10%); }
 		}
 
@@ -327,7 +332,8 @@ main {
 
 		label { color: $color-success; }
 
-		.form-text {
+		.form-text,
+		.invalid-feedback {
 			a { color: darken($color-success, 10%); }
 		}
 
@@ -366,10 +372,10 @@ small, .small {
 }
 
 .text-warning {
-	color: $color-warning;
+	color: $color-dark-warning;
 
 	&:hover {
-		color: $color-warning;
+		color: $color-dark-warning;
 	}
 }
 
@@ -576,7 +582,7 @@ hr {
 }
 
 .alert {
-	border-radius: $radius;
+	border-radius: $radius-lg;
 
 	.alert-heading {
 		font-weight: 500;
