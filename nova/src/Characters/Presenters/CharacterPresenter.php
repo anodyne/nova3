@@ -17,7 +17,7 @@ class CharacterPresenter extends Presenter
 	public function name()
 	{
 		return join(' ', [
-			($this->entity->rank) ? $this->entity->rank->info->name : null,
+			($this->entity->rank) ? $this->entity->rank->info->short_name : null,
 			$this->entity->name
 		]);
 	}
