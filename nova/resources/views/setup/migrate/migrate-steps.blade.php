@@ -49,21 +49,21 @@ $accountsCompleted = [
 if (in_array($path, $nova2Active)) {
 	$classes[1] = 'class="step active"';
 }
-if (File::exists(app('path.config').'/nova2.php')) {
+if (File::exists(app()->appConfigPath('nova2.php'))) {
 	$classes[1] = 'class="step completed"';
 }
 
 if (in_array($path, $dbActive)) {
 	$classes[2] = 'class="step active"';
 }
-if (File::exists(app('path.config').'/database.php')) {
+if (File::exists(app()->appConfigPath('database.php'))) {
 	$classes[2] = 'class="step completed"';
 }
 
 if (in_array($path, $emailActive)) {
 	$classes[3] = 'class="step active"';
 }
-if (File::exists(app('path.config').'/mail.php')) {
+if (File::exists(app()->appConfigPath('mail.php'))) {
 	$classes[3] = 'class="step completed"';
 }
 
