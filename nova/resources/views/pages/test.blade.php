@@ -1,122 +1,54 @@
-@extends('layouts.welcome')
+@extends('layouts.app')
 
 @section('content')
-	<h1>Test</h1>
+	<h1>Write Story Entry</h1>
 
-	<h2>Tiny</h2>
 	<div class="row">
 		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-						layout="stacked"
-						size="xs"
-						:show-status="true"></avatar>
+			<div class="form-group">
+				<label>Title</label>
+				<input type="text" class="form-control">
 			</div>
-		</div>
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-						layout="spread"
-						size="xs"
-						:show-status="true"></avatar>
-			</div>
-		</div>
-	</div>
 
-	<h2>Small</h2>
-	<div class="row">
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-						layout="stacked"
-						size="sm"
-						:show-status="true"></avatar>
+			<div class="form-group">
+				<label>Location</label>
+				<input type="text" class="form-control">
 			</div>
-		</div>
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-						layout="spread"
-						size="sm"
-						:show-status="true"></avatar>
-			</div>
-		</div>
-	</div>
 
-	<h2>Normal</h2>
-	<div class="row">
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-						layout="stacked"
-						:show-status="true"></avatar>
+			<div class="form-group">
+				<label>Body</label>
+				<textarea class="form-control" rows="15"></textarea>
 			</div>
-		</div>
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-						layout="spread"
-						:show-status="true"></avatar>
-			</div>
-		</div>
-	</div>
 
-	<h2>Medium</h2>
-	<div class="row">
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-						layout="stacked"
-						size="md"
-						:show-status="true"></avatar>
+			<div class="form-group">
+				<button class="btn btn-primary">Submit</button>
 			</div>
 		</div>
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-						layout="spread"
-						size="md"
-						:show-status="true"></avatar>
-			</div>
-		</div>
-	</div>
 
-	<h2>Large</h2>
-	<div class="row">
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-						layout="stacked"
-						size="lg"
-						:show-status="true"></avatar>
+		<div class="col-auto">
+			<div class="d-flex align-items-center mb-3">
+				<i class="fa fa-check-circle fa-fw fa-lg text-success"></i>
+				<span class="ml-2">
+					<avatar :item="{{ Nova\Characters\Character::find(1) }}" :show-status="false" size="sm"></avatar>
+				</span>
 			</div>
-		</div>
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-						layout="spread"
-						size="lg"
-						:show-status="true"></avatar>
-			</div>
-		</div>
-	</div>
 
-	<h2>Jumbo</h2>
-	<div class="row">
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-						layout="stacked"
-						size="xl"
-						:show-status="true"></avatar>
+			<div class="d-flex align-items-center mb-3">
+				<i class="fa fa-exclamation-circle fa-fw fa-lg text-warning"></i>
+				<span class="ml-2">
+					<avatar :item="{{ Nova\Characters\Character::find(2) }}" :show-status="false" size="sm"></avatar>
+				</span>
 			</div>
-		</div>
-		<div class="col">
-			<div class="mb-4">
-				<avatar :item="{{ $character1 }}"
-						layout="spread"
-						size="xl"
-						:show-status="true"></avatar>
+
+			<div class="d-flex align-items-center mb-3">
+				<i class="fa fa-check-circle fa-fw fa-lg text-success"></i>
+				<span class="ml-2">
+					<avatar :item="{{ Nova\Characters\Character::find(3) }}" :show-status="false" size="sm"></avatar>
+				</span>
+			</div>
+
+			<div class="mt-4">
+				<button class="btn btn-sm btn-secondary">Add author</button>
 			</div>
 		</div>
 	</div>
