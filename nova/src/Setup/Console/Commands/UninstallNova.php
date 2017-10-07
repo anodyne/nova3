@@ -51,5 +51,7 @@ class UninstallNova extends Command
 		if ($this->files->exists(config('database.connections.sqlite.database'))) {
 			$this->files->delete(config('database.connections.sqlite.database'));
 		}
+
+		$this->info(config('nova.app.name').' removal completed.');
 	}
 }

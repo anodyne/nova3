@@ -41,8 +41,6 @@ class InstallNova extends Command
 			$this->call('route:cache');
 		}
 		
-		$this->info("");
-		$this->info(config('nova.app.name').' database schema has been installed!');
-		$this->info("");
+		$this->info(config('nova.app.name').' installation completed.');
 	}
 }
