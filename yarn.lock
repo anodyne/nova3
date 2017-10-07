@@ -5541,8 +5541,8 @@ svgo@^0.7.0:
     whet.extend "~0.9.9"
 
 sweetalert2@^6.9:
-  version "6.9.1"
-  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-6.9.1.tgz#2fa57eb9310777e07e6f11baf63cc8a42f61dbe7"
+  version "6.10.1"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-6.10.1.tgz#5b284777a546fb11429915b577088473aa24e0fd"
 
 tapable@^0.2.7:
   version "0.2.8"
