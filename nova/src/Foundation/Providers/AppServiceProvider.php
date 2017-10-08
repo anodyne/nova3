@@ -27,6 +27,20 @@ class AppServiceProvider extends ServiceProvider
 			return new \Nova\Foundation\MarkdownParser(new \Parsedown);
 		});
 
+		$this->app->bind('nova.settings', function ($app) {
+			if ($app['nova']->isInstalled()) {
+				$settings = \Nova\Settings\Settings::get()
+					->pluck('value', 'key')
+					->all();
+
+				return (object)$settings;
+			}
+
+			return (object)collect();
+		});
+
+		$this->app['view']->share('_settings', $this->app['nova.settings']);
+
 		// Build up the morph map
 		Relation::morphMap(config('maps.morph'));
 	}

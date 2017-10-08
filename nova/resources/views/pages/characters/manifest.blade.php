@@ -382,7 +382,7 @@
 
 				<div class="form-group">
 					<label class="custom-control custom-radio d-flex align-items-center">
-						<input name="layout" type="radio" value="card" class="custom-control-input" v-model="layout">
+						<input name="layout" type="radio" value="cards" class="custom-control-input" v-model="layout">
 						<span class="custom-control-indicator"></span>
 						<span class="custom-control-description d-flex align-items-center">
 							{!! icon('cards', 'fa-lg fa-fw mr-2 text-muted') !!}
@@ -402,12 +402,12 @@
 		vue = {
 			data: {
 				departments: {!! $departments !!},
-				layout: 'cards',
+				layout: "{{ $_settings->manifest_layout }}",
 				search: '',
-				showAvailable: {{ $settings['manifest_show_available'] }},
-				showInactive: {{ $settings['manifest_show_inactive'] }},
-				showNPCs: {{ $settings['manifest_show_npcs'] }},
-				showCharacters: {{ $settings['manifest_show_assigned'] }}
+				showAvailable: {{ $_settings->manifest_show_available }},
+				showInactive: {{ $_settings->manifest_show_inactive }},
+				showNPCs: {{ $_settings->manifest_show_npcs }},
+				showCharacters: {{ $_settings->manifest_show_assigned }}
 			},
 
 			computed: {
@@ -446,6 +446,20 @@
 			},
 
 			watch: {
+				layout (newValue, oldValue) {
+					let data = {
+						'manifest_layout': newValue
+					};
+
+					axios.patch(route('settings.update'), data)
+						 .then(function (response) {
+						 	flash('Manifest layout option has been updated.', 'Settings updated');
+						 })
+						 .catch(function (error) {
+						 	//
+						 });
+				},
+
 				showCharacters (newValue, oldValue) {
 					if (newValue == false) {
 						this.showInactive = false;

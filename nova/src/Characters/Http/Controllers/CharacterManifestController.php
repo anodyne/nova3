@@ -19,9 +19,8 @@ class CharacterManifestController extends Controller
 			->orderBy('order')
 			->get();
 
-		$settings = Settings::get()->pluck('value', 'key');
 		$settingsClass = new Settings;
 
-		return view('pages.characters.manifest', compact('departments', 'settings', 'settingsClass'));
+		return view('pages.characters.manifest', compact('departments', 'settingsClass'));
 	}
 }
