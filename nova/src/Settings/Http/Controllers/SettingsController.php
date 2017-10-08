@@ -18,7 +18,7 @@ class SettingsController extends Controller
 
 		$settings = Settings::get()->pluck('value', 'key');
 
-		return view('pages.settings.all-settings', compact('settings'));
+		return view('pages.settings.settings', compact('settings'));
 	}
 
 	public function update()

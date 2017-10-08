@@ -49,6 +49,34 @@
 				<legend>Manifest</legend>
 
 				<div class="row">
+					<div class="col-12">
+						<div class="form-group">
+							<label class="form-control-label">Manifest Layout</label>
+
+							<div>
+								<div class="d-inline-flex">
+									<label class="custom-control custom-radio d-flex align-items-center">
+										<input name="manifest_layout" type="radio" value="list" class="custom-control-input" v-model="manifestLayout">
+										<span class="custom-control-indicator"></span>
+										<span class="custom-control-description d-flex align-items-center">
+											{!! icon('list', 'fa-lg fa-fw mr-2 text-muted') !!}
+											<span>List</span>
+										</span>
+									</label>
+
+									<label class="custom-control custom-radio d-flex align-items-center ml-3">
+										<input name="manifest_layout" type="radio" value="cards" class="custom-control-input" v-model="manifestLayout">
+										<span class="custom-control-indicator"></span>
+										<span class="custom-control-description d-flex align-items-center">
+											{!! icon('cards', 'fa-lg fa-fw mr-2 text-muted') !!}
+											<span>Cards</span>
+										</span>
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+
 					<div class="col-md-6">
 						<div class="form-group">
 							<label class="form-control-label">Show Assigned Characters</label>
@@ -123,6 +151,7 @@
 		vue = {
 			data: {
 				active: 'manifest',
+				manifestLayout: "{{ $settings['manifest_layout'] }}",
 				manifestShowAssigned: {{ $settings['manifest_show_assigned'] }},
 				manifestShowAvailable: {{ $settings['manifest_show_available'] }},
 				manifestShowInactive: {{ $settings['manifest_show_inactive'] }},
@@ -145,6 +174,7 @@
 
 				saveSettings () {
 					let data = {
+						'manifest_layout': this.manifestLayout,
 						'manifest_show_assigned': this.manifestShowAssigned,
 						'manifest_show_inactive': this.manifestShowInactive,
 						'manifest_show_npcs': this.manifestShowNPCs,
