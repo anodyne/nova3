@@ -385,7 +385,7 @@
 						<input name="layout" type="radio" value="card" class="custom-control-input" v-model="layout">
 						<span class="custom-control-indicator"></span>
 						<span class="custom-control-description d-flex align-items-center">
-							{!! icon('card', 'fa-lg fa-fw mr-2 text-muted') !!}
+							{!! icon('cards', 'fa-lg fa-fw mr-2 text-muted') !!}
 							<span>Cards</span>
 						</span>
 					</label>

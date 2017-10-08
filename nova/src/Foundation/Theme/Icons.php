@@ -22,6 +22,7 @@ trait Icons
 			'arrow-up' => 'arrow-alt-circle-up',
 			'bars' => 'bars',
 			'card' => 'address-card',
+			'cards' => 'th-large',
 			'check' => 'check',
 			'check-alt' => 'check-circle',
 			'chevron-left' => 'chevron-left',
