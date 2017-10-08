@@ -5541,8 +5541,8 @@ svgo@^0.7.0:
     whet.extend "~0.9.9"
 
 sweetalert2@^6.9:
-  version "6.10.1"
-  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-6.10.1.tgz#5b284777a546fb11429915b577088473aa24e0fd"
+  version "6.10.2"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-6.10.2.tgz#2fdd0d70027d142a08b6b96d4525c71fddfcfe85"
 
 tapable@^0.2.7:
   version "0.2.8"
@@ -5948,8 +5948,8 @@ vue-hot-reload-api@^2.1.0:
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.1.0.tgz#9ca58a6e0df9078554ce1708688b6578754d86de"
 
 vue-js-toggle-button@^1.1:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/vue-js-toggle-button/-/vue-js-toggle-button-1.1.5.tgz#856634a7328fe53135439e495c6e08f50145b249"
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/vue-js-toggle-button/-/vue-js-toggle-button-1.2.0.tgz#d7ae11b9ec0ab57346faf89a34dec36b00b73eb5"
 
 vue-loader@^13.0.5:
   version "13.0.5"
