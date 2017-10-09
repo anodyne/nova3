@@ -3,25 +3,9 @@
 @section('title', 'Manifest')
 
 @section('content')
-	<h1>Manifest</h1>
-
-	<div class="row">
-		<div class="col">
-			<div class="row">
-				<div class="col-md-9 col-lg-5">
-					<div class="form-group input-group">
-						<input type="text"
-							   class="form-control"
-							   placeholder="Find characters, departments, or positions"
-							   v-model="search">
-						<span class="input-group-btn">
-							<a href="#" class="btn btn-secondary" @click.prevent="search = ''">{!! icon('close') !!}</a>
-						</span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col col-auto">
+	<div class="d-flex align-items-center justify-content-between">
+		<h1 class="my-0">Manifest</h1>
+		<div>
 			<a class="btn btn-secondary js-webuiPopover"
 			   id="manifest-filters-trigger"
 			   tabindex="0"
@@ -46,7 +30,7 @@
 	</div>
 
 	<div v-show="layout == 'list'">
-		<div class="row my-5" v-for="dept in filteredDepartments">
+		<div class="row my-4" v-for="dept in filteredDepartments">
 			<div class="col-12 col-lg-3">
 				<p class="lead my-0">@{{ dept.name }}</p>
 			</div>
@@ -120,7 +104,7 @@
 	</div>
 
 	<div v-show="layout == 'cards'">
-		<div class="row my-5" v-for="dept in filteredDepartments">
+		<div class="row my-4" v-for="dept in filteredDepartments">
 			<div class="col-12">
 				<p class="lead">@{{ dept.name }}</p>
 			</div>
