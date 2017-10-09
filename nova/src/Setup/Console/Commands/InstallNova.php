@@ -16,7 +16,7 @@ class InstallNova extends Command
 	public function __construct(FilesystemManager $storage, ConfigFileWriter $writer)
 	{
 		parent::__construct();
-		
+
 		$this->files = $storage->disk('local');
 		$this->writer = $writer;
 	}
@@ -36,11 +36,11 @@ class InstallNova extends Command
 		]);
 
 		$this->files->put('installed.json', json_encode(['installed' => true]));
-		
+
 		if (app('env') == 'production') {
 			$this->call('route:cache');
 		}
-		
+
 		$this->info(config('nova.app.name').' installation completed.');
 	}
 }

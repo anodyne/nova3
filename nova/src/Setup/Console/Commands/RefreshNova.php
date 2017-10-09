@@ -19,7 +19,7 @@ class RefreshNova extends Command
 	public function __construct(FilesystemManager $storage, ConfigFileWriter $writer)
 	{
 		parent::__construct();
-		
+
 		$this->files = $storage->disk('local');
 		$this->writer = $writer;
 	}
@@ -93,7 +93,7 @@ class RefreshNova extends Command
 			'user_id' => $admin->id,
 			'rank_id' => 9,
 		]);
-		$character1->positions()->sync([1]);
+		$character1->positions()->sync([1 => ['primary' => true]]);
 		$character1->setAsPrimaryCharacter();
 		Position::find(1)->removeAvailableSlot();
 
@@ -103,7 +103,7 @@ class RefreshNova extends Command
 			'user_id' => $user->id,
 			'rank_id' => 10,
 		]);
-		$character2->positions()->sync([2]);
+		$character2->positions()->sync([2 => ['primary' => true]]);
 		$character2->setAsPrimaryCharacter();
 		Position::find(2)->removeAvailableSlot();
 
@@ -113,7 +113,7 @@ class RefreshNova extends Command
 			'user_id' => null,
 			'rank_id' => 25,
 		]);
-		$character3->positions()->sync([23,3]);
+		$character3->positions()->sync([23 => ['primary' => true],3]);
 		Position::find(23)->removeAvailableSlot();
 		Position::find(3)->removeAvailableSlot();
 
@@ -123,7 +123,7 @@ class RefreshNova extends Command
 			'user_id' => null,
 			'rank_id' => 25,
 		]);
-		$character4->positions()->sync([29]);
+		$character4->positions()->sync([29 => ['primary' => true]]);
 		Position::find(29)->removeAvailableSlot();
 
 		$character5 = factory('Nova\Characters\Character')->create([
@@ -132,7 +132,7 @@ class RefreshNova extends Command
 			'user_id' => null,
 			'rank_id' => 26,
 		]);
-		$character5->positions()->sync([16]);
+		$character5->positions()->sync([16 => ['primary' => true]]);
 		Position::find(16)->removeAvailableSlot();
 
 		$character6 = factory('Nova\Characters\Character')->create([
@@ -141,7 +141,7 @@ class RefreshNova extends Command
 			'user_id' => null,
 			'rank_id' => 39,
 		]);
-		$character6->positions()->sync([47]);
+		$character6->positions()->sync([47 => ['primary' => true]]);
 		Position::find(47)->removeAvailableSlot();
 
 		$character7 = factory('Nova\Characters\Character')->create([
@@ -150,7 +150,7 @@ class RefreshNova extends Command
 			'user_id' => null,
 			'rank_id' => 38,
 		]);
-		$character7->positions()->sync([46]);
+		$character7->positions()->sync([46 => ['primary' => true]]);
 		Position::find(46)->removeAvailableSlot();
 
 		$character7 = factory('Nova\Characters\Character')->create([
@@ -159,7 +159,7 @@ class RefreshNova extends Command
 			'user_id' => $user->id,
 			'rank_id' => 14,
 		]);
-		$character7->positions()->sync([9]);
+		$character7->positions()->sync([9 => ['primary' => true]]);
 		Position::find(9)->removeAvailableSlot();
 
 		$this->info('Created test characters.');
