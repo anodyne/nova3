@@ -49,9 +49,6 @@
 		<div class="row my-5" v-for="dept in filteredDepartments">
 			<div class="col-12 col-lg-3">
 				<p class="lead my-0">@{{ dept.name }}</p>
-				{{-- <small class="text-muted d-block mb-3">
-					We're looking for a creative pilot to fill the Chief Flight Control Officer position and point us in the right direction as we boldly go where no one has gone before!
-				</small> --}}
 			</div>
 
 			<div class="col-12 col-lg-9">
@@ -68,7 +65,7 @@
 							</avatar>
 						</div>
 						<div class="col col-auto">
-							<a href="#" class="btn btn-lg btn-link text-muted">{!! icon('user-alt') !!}</a>
+							<a :href="bioLink(character.id)" class="btn btn-lg btn-link text-muted">{!! icon('user-alt') !!}</a>
 						</div>
 					</div>
 
@@ -87,9 +84,6 @@
 				<div class="row my-5" v-for="subDept in dept.sub_departments">
 					<div class="col-12 col-lg-3">
 						<p class="lead my-0">@{{ subDept.name }}</p>
-						{{-- <small class="text-muted d-block mb-3">
-							We're looking for a creative pilot to fill the Chief Flight Control Officer position and point us in the right direction as we boldly go where no one has gone before!
-						</small> --}}
 					</div>
 
 					<div class="col-12 col-lg-9">
@@ -106,7 +100,7 @@
 									</avatar>
 								</div>
 								<div class="col col-auto">
-									<a href="#" class="btn btn-lg btn-link text-muted">{!! icon('user-alt') !!}</a>
+									<a :href="bioLink(character.id)" class="btn btn-lg btn-link text-muted">{!! icon('user-alt') !!}</a>
 								</div>
 							</div>
 
@@ -123,152 +117,56 @@
 				</div>
 			</div>
 		</div>
-		{{-- <fieldset v-for="dept in filteredDepartments">
-			<legend>@{{ dept.name }}</legend>
-
-			<div class="data-table clean striped">
-				<div class="row align-items-center" v-for="position in dept.positions">
-					<div v-show="position.characters.length == 0">
-						<div class="col col-auto">
-							<rank></rank>
-						</div>
-						<div class="col">
-							<p class="mb-0"><strong v-text="position.name"></strong></p>
-							<small><a href="#">Position Open &ndash; Apply Now</a></small>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="data-table clean striped">
-				<div class="row align-items-center"
-					 v-for="position in dept.positions"
-					 v-show="position.characters.length > 0">
-					<div class="col">
-						<div class="row align-items-center" v-for="character in position.characters">
-							<div class="col col-auto">
-								<rank :item="character.rank"></rank>
-							</div>
-							<div class="col">
-								<avatar :item="character"></avatar>
-							</div>
-							<div class="col col-auto">
-								<a href="#"><img src="{{ asset('assets/images/starfleet-vector-logo.svg') }}"></a>
-							</div>
-						</div>
-						<div class="row align-items-center" v-if="position.available > 0 && showAvailable">
-							<div class="col col-auto">
-								<rank></rank>
-							</div>
-							<div class="col">
-								<p class="mb-0"><strong v-text="position.name"></strong></p>
-								<small><a href="#">Position Open &ndash; Apply Now</a></small>
-							</div>
-						</div>
-					</div>
-					<div class="col" v-show="position.characters.length == 0 && showAvailable">
-						<div class="row align-items-center">
-							<div class="col col-auto">
-								<rank></rank>
-							</div>
-							<div class="col">
-								<p class="mb-0"><strong v-text="position.name"></strong></p>
-								<small><a href="#">Position Open &ndash; Apply Now</a></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div v-if="dept.sub_departments.length > 0">
-				<fieldset class="ml-3" v-for="subDept in dept.sub_departments">
-					<legend>@{{ subDept.name }}</legend>
-
-					<div class="data-table clean striped">
-						<div class="row align-items-center"
-							 v-for="subPosition in subDept.positions">
-							<div class="col" v-show="subPosition.characters.length > 0">
-								<div class="row align-items-center" v-for="character in subPosition.characters">
-									<div class="col col-auto">
-										<rank :item="character.rank"></rank>
-									</div>
-									<div class="col">
-										<avatar :item="character"></avatar>
-									</div>
-									<div class="col col-auto">
-										<a href="#"><img src="{{ asset('assets/images/starfleet-vector-logo.svg') }}"></a>
-									</div>
-								</div>
-							</div>
-							<div class="col" v-show="subPosition.characters.length == 0 && showAvailable">
-								<div class="row align-items-center">
-									<div class="col col-auto">
-										<rank></rank>
-									</div>
-									<div class="col">
-										<p class="mb-0"><strong v-text="subPosition.name"></strong></p>
-										<small><a href="#">Position Open &ndash; Apply Now</a></small>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</fieldset>
-			</div>
-		</fieldset> --}}
 	</div>
 
 	<div v-show="layout == 'cards'">
 		<div class="row my-5" v-for="dept in filteredDepartments">
 			<div class="col-12">
 				<p class="lead">@{{ dept.name }}</p>
-				{{-- <small class="text-muted d-block mb-3">
-					We're looking for a creative pilot to fill the Chief Flight Control Officer position and point us in the right direction as we boldly go where no one has gone before!
-				</small> --}}
 			</div>
 
 			<div class="col-12">
 				<div class="row mb-4">
-					<div class="col-md-6 col-lg-4" v-for="position in dept.positions">
-						<span v-for="character in filterCharacters(position.characters)"
-							  v-if="position.characters.length > 0">
-							<div class="card">
-								<div class="card-body">
-									<div class="d-flex justify-content-around">
-										<avatar :item="character" layout="stacked">
-											@{{ position.name }}
-										</avatar>
-									</div>
-									<div class="d-flex justify-content-around mt-3">
-										<div v-if="character.rank">
-											<rank :item="character.rank"></rank>
-										</div>
-										<div v-else>
-											<rank></rank>
-										</div>
-									</div>
+					<div class="col-md-6 col-lg-4"
+						 :data-position="position.id"
+						 v-for="position in dept.positions"
+						 v-if="shouldShow(position.id)">
+						<div class="card"
+							 v-for="character in filterCharacters(position.characters)"
+							 v-if="position.characters.length > 0">
+							<div class="card-body">
+								<div class="d-flex justify-content-around">
+									<avatar :item="character" layout="stacked">
+										@{{ position.name }}
+									</avatar>
 								</div>
-								<div class="card-footer">
-									<a href="#" class="btn btn-lg btn-link text-muted">{!! icon('user-alt') !!}</a>
-								</div>
-							</div>
-						</span>
-
-						<span v-if="position.available > 0 && showAvailable">
-							<div class="card">
-								<div class="card-body">
-									<div class="d-flex justify-content-around">
-										<position-available :position="position" layout="stacked"></position-available>
+								<div class="d-flex justify-content-around mt-3">
+									<div v-if="character.rank">
+										<rank :item="character.rank"></rank>
 									</div>
-									<div class="d-flex justify-content-around mt-3">
+									<div v-else>
 										<rank></rank>
 									</div>
 								</div>
-								<div class="card-footer">
-									<a href="#" class="btn btn-lg btn-link text-muted">{!! icon('arrow-right') !!}</a>
+							</div>
+							<div class="card-footer">
+								<a :href="bioLink(character.id)" class="btn btn-lg btn-link text-muted">{!! icon('user-alt') !!}</a>
+							</div>
+						</div>
+
+						<div class="card" v-if="position.available > 0 && showAvailable">
+							<div class="card-body">
+								<div class="d-flex justify-content-around">
+									<position-available :position="position" layout="stacked"></position-available>
+								</div>
+								<div class="d-flex justify-content-around mt-3">
+									<rank></rank>
 								</div>
 							</div>
-						</span>
+							<div class="card-footer">
+								<a href="#" class="btn btn-lg btn-link text-muted">{!! icon('arrow-right') !!}</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -277,9 +175,6 @@
 				<div class="row my-5" v-for="subDept in dept.sub_departments">
 					<div class="col-12">
 						<p class="lead">@{{ subDept.name }}</p>
-						{{-- <small class="text-muted d-block mb-3">
-							We're looking for a creative pilot to fill the Chief Flight Control Officer position and point us in the right direction as we boldly go where no one has gone before!
-						</small> --}}
 					</div>
 
 					<div class="col-12">
@@ -304,7 +199,7 @@
 											</div>
 										</div>
 										<div class="card-footer">
-											<a href="#" class="btn btn-lg btn-link text-muted">{!! icon('user-alt') !!}</a>
+											<a :href="bioLink(character.id)" class="btn btn-lg btn-link text-muted">{!! icon('user-alt') !!}</a>
 										</div>
 									</div>
 								</span>
@@ -417,6 +312,10 @@
 			},
 
 			methods: {
+				bioLink (id) {
+					return route('characters.bio', {character:id});
+				},
+
 				filterCharacters (characters) {
 					let self = this;
 
@@ -442,6 +341,11 @@
 					}
 
 					return charactersToShow;
+				},
+
+				shouldShow (position) {
+					console.log(document.querySelectorAll('[data-position="' + position + '"]'));
+					return $('[data-position="' + position + '"]').html() != '';
 				}
 			},
 
