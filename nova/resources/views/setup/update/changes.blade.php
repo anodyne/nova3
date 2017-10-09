@@ -10,7 +10,7 @@
 
 	@foreach ($releases as $release)
 		<div class="card">
-			<div class="card-block">
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-3 col-lg-2">
 						<h1 class="text-left">v{{ $release->version }}</h1>
@@ -23,15 +23,9 @@
 			</div>
 		</div>
 	@endforeach
-@stop
+@endsection
 
 @section('controls')
-	<div class="row">
-		<div class="col-md-6 push-md-6 text-right">
-			<p><a href="{{ route('setup.update.backup') }}" class="btn btn-primary btn-lg">Next: Site Backup</a></p>
-		</div>
-		<div class="col-md-6 pull-md-6">
-			<p><a href="{{ route('setup.update') }}" class="btn btn-link btn-lg">Cancel</a></p>
-		</div>
-	</div>
-@stop
+	<a href="{{ route('setup.update.backup') }}" class="btn btn-primary btn-lg">Next: Site Backup</a>
+	<a href="{{ route('setup.update') }}" class="btn btn-link btn-lg">Cancel</a>
+@endsection

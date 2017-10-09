@@ -23,23 +23,23 @@ class UpdateController extends Controller
 		// If there is an update available, grab the info
 		$update = ($hasUpdate) ? nova()->getLatestVersion() : false;
 
-		return view('pages.setup.update.landing', compact('hasUpdate', 'update', 'nova'));
+		return view('setup.update.landing', compact('hasUpdate', 'update'));
 	}
 
 	public function backup()
 	{
-		return view('pages.setup.update.backup');
+		return view('setup.update.backup');
 	}
 
 	public function backupFailed()
 	{
-		return view('pages.setup.update.backup-failed')
+		return view('setup.update.backup-failed')
 			->with('errorMessage', session()->get('backupStatusMessage'));
 	}
 
 	public function backupSuccess()
 	{
-		return view('pages.setup.update.backup-success');
+		return view('setup.update.backup-success');
 	}
 
 	public function runBackup(Request $request)
@@ -65,19 +65,19 @@ class UpdateController extends Controller
 		// Get the release notes to display
 		$releases = nova()->getReleaseNotes();
 
-		return view('pages.setup.update.changes', compact('releases'));
+		return view('setup.update.changes', compact('releases'));
 	}
 
 	public function update()
 	{
 		$update = nova()->getLatestVersion();
 
-		return view('pages.setup.update.run', compact('update'));
+		return view('setup.update.run', compact('update'));
 	}
 
 	public function updateSuccess()
 	{
-		return view('pages.setup.update.run-success');
+		return view('setup.update.run-success');
 	}
 
 	public function updateFailed()

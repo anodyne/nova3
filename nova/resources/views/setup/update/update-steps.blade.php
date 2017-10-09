@@ -64,32 +64,28 @@ if (in_array($path, $updateCompleted)) {
 	$classes[3] = 'class="step completed"';
 }
 
-?><div class="row">
-	<div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-		<div class="wizard space-around">
-			<div {!! $classes[1] !!}>
-				@icon('nova/src/Setup/views/design/images/list-ol')
-				<span class="label">
-					<span class="short">Changes</span>
-					<span class="long">Summary of Changes</span>
-				</span>
-			</div>
+?><div class="wizard">
+	<div {!! $classes[1] !!}>
+		@icon('setup/list-ol')
+		<span class="label">
+			<span class="short">Changes</span>
+			<span class="long">Summary of Changes</span>
+		</span>
+	</div>
 
-			<div {!! $classes[2] !!}>
-				@icon('nova/src/Setup/views/design/images/download')
-				<span class="label">
-					<span class="short">Backup</span>
-					<span class="long">Backup Your Site</span>
-				</span>
-			</div>
+	<div {!! $classes[2] !!}>
+		@icon('setup/download')
+		<span class="label">
+			<span class="short">Backup</span>
+			<span class="long">Backup Your Site</span>
+		</span>
+	</div>
 
-			<div {!! $classes[3] !!}>
-				@icon('nova/src/Setup/views/design/images/rocket')
-				<span class="label">
-					<span class="short">Update</span>
-					<span class="long">Update to {{ config('nova.app.name') }} 3.0.1</span>
-				</span>
-			</div>
-		</div>
+	<div {!! $classes[3] !!}>
+		@icon('setup/rocket')
+		<span class="label">
+			<span class="short">Update</span>
+			<span class="long">Update to {{ config('nova.app.name') }} 3.0.1</span>
+		</span>
 	</div>
 </div>

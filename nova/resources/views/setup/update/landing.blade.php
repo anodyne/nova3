@@ -2,18 +2,18 @@
 
 @section('title')
 	Update {{ config('nova.app.name') }}
-@stop
+@endsection
 
 @section('header')
 	Update {{ config('nova.app.name') }}
-@stop
+@endsection
 
 @section('content')
 	@if ($hasUpdate)
 		<h1>Update to {{ config('nova.app.name') }} {{ $update->version }}</h1>
 
 		<div class="row">
-			<div class="col-sm-10 offset-sm-1">
+			<div class="col-sm-10 mx-auto">
 				<p class="lead"><em>{{ $update->summary }}</em></p>
 			</div>
 		</div>
@@ -23,8 +23,6 @@
 		<h2>Getting Help</h2>
 
 		<p>The links below provide information about how to update to the latest version of {{ config('nova.app.name') }} as well as a brief tour of some of {{ config('nova.app.name') }}'s major features. If you have additional questions, please visit the Anodyne Help Center or the Anodyne forums for more help.</p>
-
-		<hr>
 
 		<div class="row">
 			<div class="col-sm-6 col-lg-3">
@@ -48,17 +46,11 @@
 
 		{!! alert('info', 'You have the latest version of '.config('nova.app.name').' installed.') !!}
 	@endif
-@stop
+@endsection
 
 @section('controls')
-	<div class="row">
-		<div class="col-md-6 push-md-6 text-right">
-			@if ($hasUpdate)
-				<p><a href="{{ route('setup.update.changes') }}" class="btn btn-primary btn-lg">Next: Summary of Changes</a></p>
-			@endif
-		</div>
-		<div class="col-md-6 pull-md-6">
-			<p><a href="{{ route('setup.home') }}" class="btn btn-link btn-lg">Cancel</a></p>
-		</div>
-	</div>
-@stop
+	@if ($hasUpdate)
+		<a href="{{ route('setup.update.changes') }}" class="btn btn-primary btn-lg">Next: Summary of Changes</a>
+	@endif
+	<a href="{{ route('setup.home') }}" class="btn btn-link-secondary btn-lg">Cancel</a>
+@endsection

@@ -51,7 +51,7 @@ trait DoesVersionChecks
 
 			$release->date = $date->format('d M Y');
 			$release->prettyDate = $date->diffForHumans();
-			$release->notes = app('nova.markdown')->parse($release->notes);
+			$release->notes = app('nova.markdown')->transform($release->notes);
 
 			return $release;
 		})->sortByDesc('version');
