@@ -40,6 +40,8 @@ trait Icons
 			'extension' => 'puzzle-piece',
 			'filter' => 'filter',
 			'heart' => 'heart',
+			'image' => 'image',
+			'images' => 'images',
 			'info' => 'info-circle',
 			'link' => 'link',
 			'list' => 'list-alt',
