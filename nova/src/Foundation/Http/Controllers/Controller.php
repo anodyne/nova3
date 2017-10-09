@@ -15,13 +15,14 @@ class Controller extends BaseController
 	{
 		// Make sure Nova is installed
 		$this->middleware('nova.installed');
-		
+
 		$this->middleware(function ($request, $next) {
 			// Set the current user on the controller
 			$this->user = $request->user();
 
 			// Share the current user with every view
 			view()->share('_user', $request->user());
+			view()->share('_settings', app('nova.settings'));
 
 			return $next($request);
 		});
