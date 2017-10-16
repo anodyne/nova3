@@ -102,7 +102,7 @@ if (in_array($path, $settingsCompleted)) {
 	</div>
 
 	<div {!! $classes[4] !!}>
-		@icon('setup/user-circle-o')
+		@icon('setup/user-circle')
 		<span class="label">
 			<span class="short">Account</span>
 			<span class="long">Create User &amp; Character</span>

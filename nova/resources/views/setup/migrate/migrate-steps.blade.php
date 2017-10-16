@@ -136,7 +136,7 @@ if (in_array($path, $settingsCompleted)) {
 	</div>
 
 	<div {!! $classes[5] !!}>
-		@icon('setup/group')
+		@icon('setup/users')
 		<span class="label">
 			<span class="short">Accounts</span>
 			<span class="long">Update User Accounts</span>
