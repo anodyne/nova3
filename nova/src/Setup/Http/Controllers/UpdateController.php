@@ -45,7 +45,7 @@ class UpdateController extends Controller
 	public function runBackup(Request $request)
 	{
 		try {
-			$backupJob = BackupJobFactory::createFromArray(config('laravel-backup'));
+			$backupJob = BackupJobFactory::createFromArray(config('backup'));
 
 			$backupJob->run();
 

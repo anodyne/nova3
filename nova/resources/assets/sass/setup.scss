@@ -425,7 +425,16 @@ h1, h2, h3, h4, h5, h6 {
 		@include button-variant($color-dark-smoke, $color-smoke, $color-smoke);
 	}
 	&.btn-outline-secondary {
-		@include button-outline-variant($color-dark-snow);
+		background-color: transparent;
+		border-color: $color-silver;
+		border-width: 2px;
+		color: $color-silver;
+
+		&:hover {
+			background-color: $color-silver;
+			border-color: $color-silver;
+			color: $color-dark-snow;
+		}
 	}
 
 	&.btn-danger {
