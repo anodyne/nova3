@@ -25,6 +25,14 @@ class Media extends Eloquent
 	// Model Methods
 	//--------------------------------------------------------------------------
 
+	public function getUrlAttribute()
+	{
+		$type = str_plural($this->mediable_type);
+		$filename = $this->filename;
+
+		return asset("storage/app/public/{$type}/{$filename}");
+	}
+
 	public function makePrimary()
 	{
 		// Reset everything to not be primary
