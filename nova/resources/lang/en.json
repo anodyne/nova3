@@ -307,6 +307,8 @@
 	"characters-npc": "NPC",
 	"characters-none": "No character",
 	"characters-pending": "Pending character",
+	"characters-position-other": "Other Positions",
+	"characters-position-primary": "Primary Position",
 	"characters-primary": "Primary Character",
 	"characters-primary-of": "Primary character of $2",
 	"characters-removed": "Removed character",
