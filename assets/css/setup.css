@@ -246,6 +246,12 @@ body.swal2-iosfix {
   color: #cccccc;
 }
 
+.swal2-modal .swal2-input::-ms-input-placeholder,
+.swal2-modal .swal2-file::-ms-input-placeholder,
+.swal2-modal .swal2-textarea::-ms-input-placeholder {
+  color: #cccccc;
+}
+
 .swal2-modal .swal2-input::placeholder,
 .swal2-modal .swal2-file::placeholder,
 .swal2-modal .swal2-textarea::placeholder {
@@ -1482,33 +1488,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn.btn-outline-secondary {
-  color: #EFF2F7;
   background-color: transparent;
-  background-image: none;
-  border-color: #EFF2F7;
+  border-color: #8492A6;
+  border-width: 2px;
+  color: #8492A6;
 }
 
 .btn.btn-outline-secondary:hover {
-  color: #fff;
-  background-color: #EFF2F7;
-  border-color: #EFF2F7;
-}
-
-.btn.btn-outline-secondary:focus, .btn.btn-outline-secondary.focus {
-  -webkit-box-shadow: 0 0 0 3px rgba(239, 242, 247, 0.5);
-          box-shadow: 0 0 0 3px rgba(239, 242, 247, 0.5);
-}
-
-.btn.btn-outline-secondary.disabled, .btn.btn-outline-secondary:disabled {
+  background-color: #8492A6;
+  border-color: #8492A6;
   color: #EFF2F7;
-  background-color: transparent;
-}
-
-.btn.btn-outline-secondary:active, .btn.btn-outline-secondary.active,
-.show > .btn.btn-outline-secondary.dropdown-toggle {
-  color: #fff;
-  background-color: #EFF2F7;
-  border-color: #EFF2F7;
 }
 
 .btn.btn-danger {

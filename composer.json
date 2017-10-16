@@ -10,7 +10,8 @@
 		"nothingworks/blade-svg": "^0.1",
 		"intervention/image": "^2.0",
 		"tightenco/ziggy": "^0.3",
-		"erusev/parsedown": "^1.6"
+		"erusev/parsedown": "^1.6",
+		"spatie/laravel-backup": "^5.0"
 	},
 
 	"require-dev": {
@@ -46,17 +47,17 @@
 
 	"scripts": {
 		"post-install-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postInstall"
-        ],
+			"Illuminate\\Foundation\\ComposerScripts::postInstall"
+		],
 
 		"post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate"
-        ],
+			"Illuminate\\Foundation\\ComposerScripts::postUpdate"
+		],
 
-	    "post-autoload-dump": [
-	        "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-	        "@php artisan package:discover"
-	    ]
+		"post-autoload-dump": [
+			"Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+			"@php artisan package:discover"
+		]
 	},
 
 	"config": {
