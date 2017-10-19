@@ -48,16 +48,18 @@ class CharacterCreator implements Creatable
 
 	protected function handlePositionUpdates(Character $character)
 	{
-		// Map the positions data to figure out what's the primary position
-		$positionSync = collect($this->data['positions'])->mapWithKeys(function ($p, $index) {
-			return [$p => ['primary' => ($index == 0) ? (int) true : (int) false]];
-		})->all();
+		if (array_key_exists('positions', $this->data)) {
+			// Map the positions data to figure out what's the primary position
+			$positionSync = collect($this->data['positions'])->mapWithKeys(function ($p, $index) {
+				return [$p => ['primary' => ($index == 0) ? (int) true : (int) false]];
+			})->all();
 
-		// Sync the positions to the pivot table
-		$character->positions()->sync($positionSync);
+			// Sync the positions to the pivot table
+			$character->positions()->sync($positionSync);
 
-		// Update position availability
-		$character->fresh()->positions->each->removeAvailableSlot();
+			// Update position availability
+			$character->fresh()->positions->each->removeAvailableSlot();
+		}
 
 		return $character->fresh();
 	}
