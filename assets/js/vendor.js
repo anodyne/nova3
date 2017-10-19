@@ -63900,7 +63900,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
- * sweetalert2 v6.10.3
+ * sweetalert2 v6.11.0
  * Released under the MIT License.
  */
 (function (global, factory) {
@@ -63974,9 +63974,12 @@ var defaultParams = {
   inputClass: null,
   inputAttributes: {},
   inputValidator: null,
+  grow: false,
+  position: 'center',
   progressSteps: [],
   currentProgressStep: null,
   progressStepsDistance: '40px',
+  onBeforeOpen: null,
   onOpen: null,
   onClose: null,
   useRejections: true
@@ -63992,7 +63995,7 @@ var prefix = function prefix(items) {
   return result;
 };
 
-var swalClasses = prefix(['container', 'shown', 'iosfix', 'modal', 'overlay', 'fade', 'show', 'hide', 'noanimation', 'close', 'title', 'content', 'buttonswrapper', 'confirm', 'cancel', 'icon', 'image', 'input', 'file', 'range', 'select', 'radio', 'checkbox', 'textarea', 'inputerror', 'validationerror', 'progresssteps', 'activeprogressstep', 'progresscircle', 'progressline', 'loading', 'styled']);
+var swalClasses = prefix(['container', 'shown', 'iosfix', 'modal', 'overlay', 'fade', 'show', 'hide', 'noanimation', 'close', 'title', 'content', 'buttonswrapper', 'confirm', 'cancel', 'icon', 'image', 'input', 'file', 'range', 'select', 'radio', 'checkbox', 'textarea', 'inputerror', 'validationerror', 'progresssteps', 'activeprogressstep', 'progresscircle', 'progressline', 'loading', 'styled', 'top', 'top-left', 'top-right', 'center', 'center-left', 'center-right', 'bottom', 'bottom-left', 'bottom-right', 'grow-row', 'grow-column', 'grow-fullscreen']);
 
 var iconTypes = prefix(['success', 'warning', 'info', 'question', 'error']);
 
@@ -64533,6 +64536,7 @@ var setParameters = function setParameters(params) {
     successIconParts[i].style.background = params.background;
   }
 
+  var container = getContainer();
   var title = getTitle();
   var content = getContent();
   var buttonsWrapper = getButtonsWrapper();
@@ -64566,6 +64570,19 @@ var setParameters = function setParameters(params) {
     show(content);
   } else {
     hide(content);
+  }
+
+  // Position
+  if (params.position in swalClasses) {
+    addClass(container, swalClasses[params.position]);
+  }
+
+  // Grow
+  if (params.grow && typeof params.grow === 'string') {
+    var growClass = 'grow-' + params.grow;
+    if (growClass in swalClasses) {
+      addClass(container, swalClasses[growClass]);
+    }
   }
 
   // Close button
@@ -64744,9 +64761,13 @@ var setParameters = function setParameters(params) {
 /*
  * Animations
  */
-var openModal = function openModal(animation, onComplete) {
+var openModal = function openModal(animation, onBeforeOpen, onComplete) {
   var container = getContainer();
   var modal = getModal();
+
+  if (onBeforeOpen !== null && typeof onBeforeOpen === 'function') {
+    onBeforeOpen(modal);
+  }
 
   if (animation) {
     addClass(modal, swalClasses.show);
@@ -65491,7 +65512,7 @@ var sweetAlert = function sweetAlert() {
       }
     }
 
-    openModal(params.animation, params.onOpen);
+    openModal(params.animation, params.onBeforeOpen, params.onOpen);
 
     if (!params.allowEnterKey) {
       if (document.activeElement) {
@@ -65697,7 +65718,7 @@ sweetAlert.resetDefaults = function () {
 
 sweetAlert.noop = function () {};
 
-sweetAlert.version = '6.10.3';
+sweetAlert.version = '6.11.0';
 
 sweetAlert.default = sweetAlert;
 
@@ -65986,7 +66007,7 @@ module.exports = Cancel;
  * Croppie
  * Copyright 2017
  * Foliotek
- * Version: 2.5.0
+ * Version: 2.5.1
  *************************/
 (function (root, factory) {
     if (true) {
@@ -66137,6 +66158,12 @@ module.exports = Cancel;
         }
     }
 
+    function setAttributes(el, attrs) {
+        for (var key in attrs) {
+            el.setAttribute(key, attrs[key]);
+        }
+    }
+
     function num(v) {
         return parseInt(v, 10);
     }
@@ -66156,7 +66183,7 @@ module.exports = Cancel;
             if (img.src === src) {// If image source hasn't changed resolve immediately
                 _resolve();
                 return;
-            } 
+            }
 
             img.exifdata = null;
             img.removeAttribute('crossOrigin');
@@ -66167,7 +66194,7 @@ module.exports = Cancel;
                 if (doExif) {
                     EXIF.getData(img, function () {
                         _resolve();
-                    });    
+                    });
                 }
                 else {
                     _resolve();
@@ -66342,6 +66369,7 @@ module.exports = Cancel;
         }
 
         addClass(boundary, 'cr-boundary');
+        boundary.setAttribute('aria-dropeffect', 'none');
         bw = self.options.boundary.width;
         bh = self.options.boundary.height;
         css(boundary, {
@@ -66360,6 +66388,7 @@ module.exports = Cancel;
         viewport.setAttribute('tabindex', 0);
 
         addClass(self.elements.preview, 'cr-image');
+        setAttributes(self.elements.preview, { 'alt': 'preview', 'aria-grabbed': 'false' });
         addClass(overlay, 'cr-overlay');
 
         self.element.appendChild(boundary);
@@ -66527,7 +66556,7 @@ module.exports = Cancel;
                 self.options.viewport.width += deltaX;
                 css(self.elements.viewport, {
                     width: self.options.viewport.width + 'px'
-                }); 
+                });
             }
 
             _updateOverlay.call(self);
@@ -66578,6 +66607,7 @@ module.exports = Cancel;
         zoomer.step = '0.0001';
         zoomer.value = 1;
         zoomer.style.display = self.options.showZoomer ? '' : 'none';
+        zoomer.setAttribute('aria-label', 'zoom');
 
         self.element.appendChild(wrap);
         wrap.appendChild(zoomer);
@@ -66637,6 +66667,7 @@ module.exports = Cancel;
 
         self._currentZoom = ui ? ui.value : self._currentZoom;
         transform.scale = self._currentZoom;
+        self.elements.zoomer.setAttribute('aria-valuenow', self._currentZoom);
         applyCss();
 
         if (self.options.enforceBoundary) {
@@ -66766,6 +66797,11 @@ module.exports = Cancel;
             }
         }
 
+        function toggleGrabState(isDragging) {
+          self.elements.preview.setAttribute('aria-grabbed', isDragging);
+          self.elements.boundary.setAttribute('aria-dropeffect', isDragging? 'move': 'none');
+        }
+
         function keyDown(ev) {
             var LEFT_ARROW  = 37,
                 UP_ARROW    = 38,
@@ -66836,7 +66872,7 @@ module.exports = Cancel;
                 originalX = touches.pageX;
                 originalY = touches.pageY;
             }
-
+            toggleGrabState(isDragging);
             transform = Transform.parse(self.elements.preview);
             window.addEventListener('mousemove', mouseMove);
             window.addEventListener('touchmove', mouseMove);
@@ -66890,6 +66926,7 @@ module.exports = Cancel;
 
         function mouseUp() {
             isDragging = false;
+            toggleGrabState(isDragging);
             window.removeEventListener('mousemove', mouseMove);
             window.removeEventListener('touchmove', mouseMove);
             window.removeEventListener('mouseup', mouseUp);
@@ -66930,7 +66967,7 @@ module.exports = Cancel;
 
         self.options.update.call(self, data);
         if (self.$ && typeof Prototype == 'undefined') {
-            self.$(self.element).trigger('update', data); 
+            self.$(self.element).trigger('update', data);
         }
         else {
             var ev;
@@ -67088,7 +67125,7 @@ module.exports = Cancel;
         if (exif && !customOrientation) {
             var orientation = getExifOrientation(img);
             drawCanvas(canvas, img, num(orientation || 0, 10));
-        } 
+        }
         else if (customOrientation) {
             drawCanvas(canvas, img, customOrientation);
         }
@@ -67255,7 +67292,7 @@ module.exports = Cancel;
                 var y1 = y0 + height;
 
                 self.data.points = [x0, y0, x1, y1];
-            } 
+            }
             else if (self.options.relative) {
                 points = [
                     points[0] * img.naturalWidth / 100,
@@ -67466,6 +67503,7 @@ module.exports = Cancel;
         if (this.element.tagName.toLowerCase() === 'img') {
             var origImage = this.element;
             addClass(origImage, 'cr-original-image');
+            setAttributes(origImage, {'aria-hidden' : 'true', 'alt' : '' });
             var replacementDiv = document.createElement('div');
             this.element.parentNode.appendChild(replacementDiv);
             replacementDiv.appendChild(origImage);
