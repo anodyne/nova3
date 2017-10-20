@@ -20,7 +20,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-					<label class="form-control-label">{{ _m('name') }}</label>
+					<label>{{ _m('name') }}</label>
 					{!! Form::text('name', null, ['class' => 'form-control'.($errors->has('name') ? ' form-control-danger' : '')]) !!}
 					{!! $errors->first('name', '<p class="form-control-feedback">:message</p>') !!}
 				</div>
@@ -30,7 +30,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-					<label class="form-control-label">{{ _m('email-address') }}</label>
+					<label>{{ _m('email-address') }}</label>
 					{!! Form::email('email', null, ['class' => 'form-control'.($errors->has('email') ? ' form-control-danger' : '')]) !!}
 					{!! $errors->first('email', '<p class="form-control-feedback">:message</p>') !!}
 				</div>
@@ -40,7 +40,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label class="form-control-label">{{ _m('users-nickname') }}</label>
+					<label>{{ _m('users-nickname') }}</label>
 					{!! Form::text('nickname', null, ['class' => 'form-control']) !!}
 					<small class="form-text text-muted">{{ _m('users-nickname-explain') }}</small>
 				</div>
@@ -50,7 +50,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label class="form-control-label">{{ _m('users-gender') }}</label>
+					<label>{{ _m('users-gender') }}</label>
 					<div>
 						{!! Form::select('gender', $genders, null, ['class' => 'custom-select']) !!}
 					</div>
@@ -83,17 +83,17 @@
 				{!! Form::open(['route' => ['profile.password', $_user], 'method' => 'patch']) !!}
 					<div class="modal-body">
 						<div class="form-group">
-							<label class="form-control-label">{{ _m('password-current') }}</label>
+							<label>{{ _m('password-current') }}</label>
 							{!! Form::password('password_current', ['class' => 'form-control']) !!}
 						</div>
 
 						<div class="form-group">
-							<label class="form-control-label">{{ _m('password-new') }}</label>
+							<label>{{ _m('password-new') }}</label>
 							{!! Form::password('password_new', ['class' => 'form-control']) !!}
 						</div>
 
 						<div class="form-group">
-							<label class="form-control-label">{{ _m('password-new-confirm') }}</label>
+							<label>{{ _m('password-new-confirm') }}</label>
 							{!! Form::password('password_new_confirmation', ['class' => 'form-control']) !!}
 						</div>
 					</div>

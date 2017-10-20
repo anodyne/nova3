@@ -8,7 +8,7 @@
 	<div class="row">
 		<div class="col-md-6 col-lg-4">
 			<div class="form-group">
-				<label class="form-control-label">{{ _m('users', [1]) }}</label>
+				<label>{{ _m('users', [1]) }}</label>
 				<div>
 					<user-picker></user-picker>
 				</div>
@@ -19,7 +19,7 @@
 	<div class="row" v-show="selectedUser">
 		<div class="col-md-8 col-lg-5">
 			<div class="form-group">
-				<label class="form-control-label">{{ _m('users-assign-character') }}</label>
+				<label>{{ _m('users-assign-character') }}</label>
 				<div>
 					<character-picker filter="unassigned"></character-picker>
 				</div>

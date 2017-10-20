@@ -38,16 +38,16 @@
 
 				<div class="form-group">
 					@if ($character->positions->count() > 1)
-						<label class="form-control-label">{{ _m('characters-position-primary') }}</label>
+						<label>{{ _m('characters-position-primary') }}</label>
 					@else
-						<label class="form-control-label">{{ _m('genre-positions', [1]) }}</label>
+						<label>{{ _m('genre-positions', [1]) }}</label>
 					@endif
 					<p>{{ $character->primaryPosition->name }}</p>
 				</div>
 
 				@if ($character->positions->count() > 1)
 					<div class="form-group">
-						<label class="form-control-label">{{ _m('characters-position-other') }}</label>
+						<label>{{ _m('characters-position-other') }}</label>
 						@foreach ($character->positions as $position)
 							<p>{{ $position->name }}</p>
 						@endforeach

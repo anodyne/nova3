@@ -110,7 +110,7 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label class="form-control-label">Position</label>
+								<label>Position</label>
 								<position-picker></position-picker>
 							</div>
 						</div>
@@ -119,7 +119,7 @@
 					<div class="row">
 						<div class="col-md-6 col-lg-4">
 							<div class="form-group">
-								<label class="form-control-label">Rank</label>
+								<label>Rank</label>
 								<div>
 									<rank-picker></rank-picker>
 								</div>
@@ -147,7 +147,7 @@
 	@else
 		<a class="btn btn-primary btn-lg disabled">Next: Update Settings</a>
 	@endif
-	
+
 	<a href="{{ route('setup.install.nova') }}" class="btn btn-link-secondary btn-lg">
 		Back: Install {{ config('nova.app.name') }}
 	</a>

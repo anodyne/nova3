@@ -51,7 +51,7 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="form-group">
-							<label class="form-control-label">Manifest Layout</label>
+							<label>Manifest Layout</label>
 
 							<div>
 								<div class="d-inline-flex">
@@ -79,7 +79,7 @@
 
 					<div class="col-md-6">
 						<div class="form-group">
-							<label class="form-control-label">Show Assigned Characters</label>
+							<label>Show Assigned Characters</label>
 							<div>
 								<toggle-button class="toggle-switch"
 											   :value="{{ $settings['manifest_show_assigned'] }}"
@@ -92,7 +92,7 @@
 
 					<div class="col-md-6">
 						<div class="form-group">
-							<label class="form-control-label">Show NPCs</label>
+							<label>Show NPCs</label>
 							<div>
 								<toggle-button class="toggle-switch"
 											   :value="{{ $settings['manifest_show_npcs'] }}"
@@ -105,7 +105,7 @@
 
 					<div class="col-md-6">
 						<div class="form-group">
-							<label class="form-control-label">Show Inactive Characters</label>
+							<label>Show Inactive Characters</label>
 							<div>
 								<toggle-button class="toggle-switch"
 											   :value="{{ $settings['manifest_show_inactive'] }}"
@@ -118,7 +118,7 @@
 
 					<div class="col-md-6">
 						<div class="form-group">
-							<label class="form-control-label">Show Available Positions</label>
+							<label>Show Available Positions</label>
 							<div>
 								<toggle-button class="toggle-switch"
 											   :value="{{ $settings['manifest_show_available'] }}"

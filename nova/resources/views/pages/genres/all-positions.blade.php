@@ -92,13 +92,13 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div :class="formGroupClasses('name', position.id)">
-								<label class="form-control-label">{{ _m('name') }}</label>
+								<label>{{ _m('name') }}</label>
 								<input type="text" class="form-control" v-model=position.name>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<label class="form-control-label">{{ _m('genre-depts', [1]) }}</label>
+								<label>{{ _m('genre-depts', [1]) }}</label>
 								<div>
 									{!! Form::departments(null, $departments, null, ['v-model' => 'position.department_id']) !!}
 								</div>
@@ -108,18 +108,18 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label class="form-control-label">{{ _m('description') }}</label>
+								<label>{{ _m('description') }}</label>
 								<textarea class="form-control" rows="5" v-model="position.description"></textarea>
 							</div>
 						</div>
 						<div class="col-md-3">
 							<div class="form-group">
-								<label class="form-control-label">{{ _m('genre-positions-available') }}</label>
+								<label>{{ _m('genre-positions-available') }}</label>
 								<input type="number" class="form-control" min="0" v-model="position.available">
 							</div>
 
 							<div class="form-group">
-								<label class="form-control-label">{{ _m('displayed') }}</label>
+								<label>{{ _m('displayed') }}</label>
 								<div>
 									<toggle-button class="toggle-switch"
 												   :value="position.display == 1"

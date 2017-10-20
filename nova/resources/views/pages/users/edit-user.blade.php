@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-					<label class="form-control-label">{{ _m('name') }}</label>
+					<label>{{ _m('name') }}</label>
 					{!! Form::text('name', null, ['class' => 'form-control'.($errors->has('name') ? ' form-control-danger' : '')]) !!}
 					{!! $errors->first('name', '<p class="form-control-feedback">:message</p>') !!}
 				</div>
@@ -19,7 +19,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-					<label class="form-control-label">{{ _m('email-address') }}</label>
+					<label>{{ _m('email-address') }}</label>
 					{!! Form::email('email', null, ['class' => 'form-control'.($errors->has('email') ? ' form-control-danger' : '')]) !!}
 					{!! $errors->first('email', '<p class="form-control-feedback">:message</p>') !!}
 				</div>
@@ -29,7 +29,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label class="form-control-label">{{ _m('users-nickname') }}</label>
+					<label>{{ _m('users-nickname') }}</label>
 					{!! Form::text('nickname', null, ['class' => 'form-control']) !!}
 					<small class="form-text text-muted">{{ _m('users-nickname-explain') }}</small>
 				</div>
@@ -39,7 +39,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label class="form-control-label">{{ _m('users-gender') }}</label>
+					<label>{{ _m('users-gender') }}</label>
 					<div>
 						{!! Form::select('gender', $genders, null, ['class' => 'custom-select']) !!}
 					</div>
@@ -51,8 +51,8 @@
 		<div class="row">
 			@if ($user->characters->count() > 0)
 				<div class="col-md-4">
-					<div class="form-group">					
-						<label class="form-control-label">{{ _m('users-primary-character') }}</label>
+					<div class="form-group">
+						<label>{{ _m('users-primary-character') }}</label>
 						<div>
 							@if ($user->primaryCharacter)
 								<character-picker :items="{{ $user->characters }}"
@@ -72,7 +72,7 @@
 			@else
 				<div class="col-md-6">
 					<div class="form-group">
-						<label class="form-control-label">{{ _m('users-primary-character') }}</label>
+						<label>{{ _m('users-primary-character') }}</label>
 						<div class="alert alert-warning">
 							{{ _m('users-error-no-characters') }} <a href="{{ route('characters.link') }}" class="alert-link">{{ _m('users-error-assign-character') }}</a>
 						</div>

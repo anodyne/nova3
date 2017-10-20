@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-12 col-md-3">
 				<div class="form-group">
-					<label class="form-control-label">{{ _m('preview') }}</label>
+					<label>{{ _m('preview') }}</label>
 					<div v-if="base == '' && overlay == ''">
 						<small class="text-warning">{{ _m('genre-ranks-build') }}</small>
 					</div>
@@ -51,7 +51,7 @@
 						<div id="rankInfo" class="collapse show" role="tabpanel" aria-labelledby="rankInfoHeading">
 							<div class="card-body">
 								<div class="form-group{{ $errors->has('group_id') ? ' has-danger' : '' }}">
-									<label class="form-control-label">{{ _m('genre-rank-groups', [1]) }}</label>
+									<label>{{ _m('genre-rank-groups', [1]) }}</label>
 									<div class="d-flex align-items-center">
 										{!! Form::select('group_id', $groups, null, ['class' => 'custom-select', 'placeholder' => _m('genre-rank-groups-select')]) !!}
 										<a href="{{ route('ranks.groups.create') }}" class="btn btn-link" data-toggle="tooltip" title="{{ _m('genre-rank-groups-add') }}">{!! icon('add-alt') !!}</a>
@@ -60,7 +60,7 @@
 								</div>
 
 								<div class="form-group{{ $errors->has('info_id') ? ' has-danger' : '' }}">
-									<label class="form-control-label">{{ _m('genre-rank-info') }}</label>
+									<label>{{ _m('genre-rank-info') }}</label>
 									<div class="d-flex align-items-center">
 										{!! Form::select('info_id', $info, null, ['class' => 'custom-select', 'placeholder' => _m('genre-rank-info-select')]) !!}
 										<a href="{{ route('ranks.info.create') }}" class="btn btn-link" data-toggle="tooltip" title="{{ _m('genre-rank-info-add') }}">{!! icon('add-alt') !!}</a>

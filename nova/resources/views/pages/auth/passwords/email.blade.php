@@ -9,7 +9,7 @@
 		{{ csrf_field() }}
 
 		<div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-			<label for="email" class="form-control-label">{{ _m('email-address') }}</label>
+			<label for="email">{{ _m('email-address') }}</label>
 			<input id="email" type="email" class="form-control form-control-lg" name="email" value="{{ old('email') }}" autofocus required>
 			{!! $errors->first('email', '<p class="form-control-feedback">:message</p>') !!}
 		</div>

@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-					<label class="form-control-label">{{ _m('name') }}</label>
+					<label>{{ _m('name') }}</label>
 					{!! Form::text('name', null, ['class' => 'form-control'.($errors->has('name') ? ' form-control-danger' : '')]) !!}
 					{!! $errors->first('name', '<p class="form-control-feedback">:message</p>') !!}
 				</div>
@@ -19,7 +19,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label class="form-control-label">{{ _m('users', [1]) }}</label>
+					<label>{{ _m('users', [1]) }}</label>
 					<div>
 						<user-picker></user-picker>
 					</div>
@@ -30,7 +30,7 @@
 		<div class="row">
 			<div class="col-md-6 col-lg-4">
 				<div class="form-group">
-					<label class="form-control-label">{{ _m('genre-ranks', [1]) }}</label>
+					<label>{{ _m('genre-ranks', [1]) }}</label>
 					<div>
 						<rank-picker></rank-picker>
 					</div>
@@ -40,7 +40,7 @@
 
 		<div class="row">
 			<div class="col-md-6 col-lg-5">
-				<label class="form-control-label">{{ _m('genre-positions', [2]) }}</label>
+				<label>{{ _m('genre-positions', [2]) }}</label>
 
 				<div class="form-group" v-for="(position, index) in positions">
 					<div class="d-flex align-items-center">
