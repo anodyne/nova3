@@ -156,8 +156,10 @@ a.card {
 	}
 }
 
-.form-control-label {
-	font-weight: 500;
+form {
+	label {
+		font-weight: 500;
+	}
 }
 
 .form-text {

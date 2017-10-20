@@ -571,7 +571,7 @@
 
 .item-picker-toggle {
   background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid #ced4da;
   border-radius: 0.25rem;
   margin-bottom: 2px;
   padding: .5rem 1rem;
@@ -897,6 +897,10 @@ h1 {
   margin-bottom: 2rem;
 }
 
+.accordion .card-header a {
+  color: #868e96;
+}
+
 .accordion .card-header a:hover {
   color: #343a40;
   text-decoration: none;
@@ -1018,7 +1022,7 @@ a.card:hover svg.icon path {
   fill: #007bff;
 }
 
-.form-control-label {
+form label {
   font-weight: 500;
 }
 
@@ -1117,7 +1121,7 @@ fieldset fieldset legend {
 }
 
 .jconfirm .jconfirm-box.loading:before {
-  background: !important;
+  background: #868e96 !important;
 }
 
 .crop-container .cr-boundary {
