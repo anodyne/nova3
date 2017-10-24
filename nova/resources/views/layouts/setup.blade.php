@@ -48,7 +48,9 @@
 	<div class="container">
 		<main id="nova-setup">
 			<div class="content">
-				{!! view("setup.{$_setupType}.{$_setupType}-steps") !!}
+				@if ($_setupType != 'update')
+					{!! view("setup.{$_setupType}.{$_setupType}-steps") !!}
+				@endif
 
 				@yield('content')
 			</div>

@@ -26,6 +26,8 @@
 @endsection
 
 @section('controls')
-	<a href="{{ route('setup.update.backup') }}" class="btn btn-primary btn-lg">Next: Site Backup</a>
-	<a href="{{ route('setup.update') }}" class="btn btn-link btn-lg">Cancel</a>
+	<a href="{{ route('setup.update.preRun') }}" class="btn btn-primary btn-lg">
+		Next: Update {{ config('nova.app.name') }}
+	</a>
+	<a href="{{ route('setup.update') }}" class="btn btn-link-secondary btn-lg">Cancel</a>
 @endsection

@@ -64,7 +64,7 @@ if (in_array($path, $updateCompleted)) {
 	$classes[3] = 'class="step completed"';
 }
 
-?><div class="wizard">
+?><div class="wizard justify-content-around">
 	<div {!! $classes[1] !!}>
 		@icon('setup/list-ol')
 		<span class="label">
@@ -73,13 +73,13 @@ if (in_array($path, $updateCompleted)) {
 		</span>
 	</div>
 
-	<div {!! $classes[2] !!}>
+	{{-- <div {!! $classes[2] !!}>
 		@icon('setup/download')
 		<span class="label">
 			<span class="short">Backup</span>
 			<span class="long">Backup Your Site</span>
 		</span>
-	</div>
+	</div> --}}
 
 	<div {!! $classes[3] !!}>
 		@icon('setup/rocket')

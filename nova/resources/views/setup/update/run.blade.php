@@ -34,37 +34,33 @@
 @stop
 
 @section('controls')
-	<div class="row">
-		<div class="col-md-6 push-md-6 text-right">
-			<p><a class="btn btn-link btn-lg disabled">Next: Go to Your Site</a></p>
-		</div>
-		<div class="col-md-6 pull-md-6">
-			<p><a href="{{ route('setup.update.backup') }}" class="btn btn-link btn-lg">Back: Site Backup</a></p>
-		</div>
-	</div>
+	<a class="btn btn-primary btn-lg disabled">Next: Go to Your Site</a>
+	<a href="{{ route('setup.update.changes') }}" class="btn btn-link-secondary btn-lg">
+		Back: Summary of Changes
+	</a>
 @stop
 
 @section('js')
 	<script>
-		app = {
+		vue = {
 			data: {
 				loading: false
 			},
 
 			methods: {
-				runUpdate: function () {
-					var url = "{{ url('setup/update/run') }}"
+				runUpdate () {
+					let url = route('setup.update.run');
 
 					this.loading = true
-					var self = this
+					let self = this
 
-					Vue.axios.post(url).then(function (response) {
-						window.location = url + "/success"
+					axios.post(url).then(function (response) {
+						window.location = route('setup.update.success');
 					}).catch(function (error) {
-						window.location = url + "/failed"
-					})
+						window.location = route('setup.update.failed');
+					});
 				}
 			}
-		}
+		};
 	</script>
 @stop
