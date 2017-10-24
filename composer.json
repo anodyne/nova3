@@ -10,8 +10,7 @@
 		"nothingworks/blade-svg": "^0.1",
 		"intervention/image": "^2.0",
 		"tightenco/ziggy": "^0.3",
-		"erusev/parsedown": "^1.6",
-		"spatie/laravel-backup": "^5.0"
+		"erusev/parsedown": "^1.6"
 	},
 
 	"require-dev": {
