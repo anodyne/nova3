@@ -7,6 +7,7 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
 	protected $commands = [
+		Commands\UpdateNova::class,
 		Commands\InstallNova::class,
 		Commands\RefreshNova::class,
 		Commands\UninstallNova::class,
