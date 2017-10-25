@@ -1,6 +1,7 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use Illuminate\Console\Application as Artisan;
+use Artisan;
+use Nova\Foundation\SystemInfo;
 
 #TODO: during the update process, re-generate the app key for security purposes
 
@@ -43,22 +44,9 @@ class UpdateController extends Controller
 			->with('errorMessage', session()->get('updateStatusMessage'));
 	}
 
-	public function runUpdate(Artisan $artisan)
+	public function runUpdate()
 	{
-		// Run the migrate commands
-		$artisan->call('migrate', ['--force' => true]);
-
-		// Update the system version in the database
-		// $sysinfo->setVersionNumber(config('nova.app.version.full'));
-
-		// Do some cleanup
-		$artisan->call('view:clear');
-		$artisan->call('cache:clear');
-		$artisan->call('auth:clear-resets');
-
-		// Cache the routes in production
-		if (app('env') == 'production') {
-			$artisan->call('route:cache');
-		}
+		// Run the update command
+		Artisan::call('nova:update');
 	}
 }

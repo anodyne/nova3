@@ -51,12 +51,13 @@
 				runUpdate () {
 					let url = route('setup.update.run');
 
-					this.loading = true
-					let self = this
+					this.loading = true;
+					let self = this;
 
 					axios.post(url).then(function (response) {
 						window.location = route('setup.update.success');
 					}).catch(function (error) {
+						console.log(error);
 						window.location = route('setup.update.failed');
 					});
 				}

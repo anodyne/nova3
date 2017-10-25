@@ -14,8 +14,8 @@
 @endsection
 
 @section('controls')
-	<a href="{{ route('setup.update.preRun') }}" class="btn btn-primary btn-lg">
-		Next: Update {{ config('nova.app.name') }}
+	<a class="btn btn-primary btn-lg disabled">Next: Go to Your Site</a>
+	<a href="{{ route('setup.update.changes') }}" class="btn btn-link-secondary btn-lg">
+		Back: Summary of Changes
 	</a>
-	<a href="{{ route('setup.update') }}" class="btn btn-link-secondary btn-lg">Cancel</a>
 @endsection
