@@ -55,21 +55,6 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="col-md-6">
-				<div class="card text-center">
-					<div class="card-topper-danger"></div>
-					<div class="card-body">
-						<h1>Uninstall</h1>
-						<div>
-							@icon('setup/delete')
-						</div>
-						{!! Form::open(['route' => 'setup.uninstall', '@submit.prevent' => 'uninstall', 'id' => 'uninstall']) !!}
-							<p>{!! Form::button('Remove '.config('nova.app.name'), ['type' => 'submit', 'class' => 'btn btn-danger btn-lg btn-block']) !!}</p>
-						{!! Form::close() !!}
-					</div>
-				</div>
-			</div>
 		</div>
 	@endif
 @endsection
