@@ -30,16 +30,4 @@ class SetupController extends Controller
 
 		return view('setup.environment', compact('env'));
 	}
-
-	public function uninstall()
-	{
-		Artisan::call('nova:uninstall');
-
-		// Set the flash message
-		flash()
-			->message(config('nova.app.name')." has been removed!")
-			->success();
-
-		return redirect()->route('setup.home');
-	}
 }

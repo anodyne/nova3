@@ -2,7 +2,6 @@
 
 Route::get('/', 'SetupController@index')->name('setup.home');
 Route::get('env', 'SetupController@environment')->name('setup.env');
-Route::post('uninstall', 'SetupController@uninstall')->name('setup.uninstall');
 
 Route::group(['prefix' => 'install'], function () {
 	Route::get('/', 'InstallController@index')->name('setup.install');
@@ -31,12 +30,10 @@ Route::group(['prefix' => 'install'], function () {
 
 Route::group(['prefix' => 'update'], function () {
 	Route::get('/', 'UpdateController@index')->name('setup.update');
-
 	Route::get('changes', 'UpdateController@changes')->name('setup.update.changes');
 
 	Route::get('run', 'UpdateController@update')->name('setup.update.preRun');
 	Route::post('run', 'UpdateController@runUpdate')->name('setup.update.run');
-
 	Route::get('success', 'UpdateController@updateSuccess')->name('setup.update.success');
 	Route::get('failed', 'UpdateController@updateFailed')->name('setup.update.failed');
 });
