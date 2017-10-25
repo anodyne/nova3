@@ -3,13 +3,9 @@
 use Illuminate\Console\Application as Artisan;
 
 #TODO: during the update process, re-generate the app key for security purposes
-#TODO: once the update process is complete, blow away the backupStatus session variable
 
 class UpdateController extends Controller
 {
-	protected $backupStatus;
-	protected $backupStatusMessage;
-
 	public function index()
 	{
 		// Is there an update available for Nova?
@@ -20,40 +16,6 @@ class UpdateController extends Controller
 
 		return view('setup.update.landing', compact('hasUpdate', 'update'));
 	}
-
-	// public function backup()
-	// {
-	// 	return view('setup.update.backup');
-	// }
-
-	// public function backupFailed()
-	// {
-	// 	return view('setup.update.backup-failed')
-	// 		->with('errorMessage', session()->get('backupStatusMessage'));
-	// }
-
-	// public function backupSuccess()
-	// {
-	// 	return view('setup.update.backup-success');
-	// }
-
-	// public function runBackup()
-	// {
-	// 	try {
-	// 		$backupJob = BackupJobFactory::createFromArray(config('backup'));
-
-	// 		$backupJob->run();
-
-	// 		session()->put('backupStatus', 'success');
-
-	// 		return true;
-	// 	} catch (Exception $ex) {
-	// 		session()->put('backupStatus', 'failed');
-	// 		session()->flash('backupStatusMessage', str_replace('\r\n', ' ', $ex->getMessage()));
-
-	// 		throw new Exception(str_replace('\r\n', ' ', $ex->getMessage()));
-	// 	}
-	// }
 
 	public function changes()
 	{
