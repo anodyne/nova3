@@ -11,14 +11,14 @@
 	},
 	"dependencies": {
 		"animate.css": "^3.5",
-		"axios": "^0.15.3",
+		"axios": "^0.15",
 		"bootstrap": "^4.0.0-alpha.6",
 		"croppie": "^2.5",
 		"humanize-number": "^0.0.2",
-		"jquery": "^3.1.1",
+		"jquery": "^3.1",
 		"jquery-confirm": "^3.2",
 		"lightbox2": "^2.9",
-		"lodash": "^4.17.4",
+		"lodash": "^4.17",
 		"md5": "^2.2",
 		"moment": "^2.18",
 		"pluralize": "^5.0",
@@ -31,7 +31,7 @@
 		"webui-popover": "^1.2"
 	},
 	"devDependencies": {
-		"cross-env": "^3.2.3",
-		"laravel-mix": "^1.0.0"
+		"cross-env": "^3.2",
+		"laravel-mix": "^1.0"
 	}
 }
