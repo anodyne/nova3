@@ -24,7 +24,10 @@ class UpdateNova extends Command
 
 	public function handle()
 	{
-		$this->call('migrate', ['--force' => true]);
+		$this->call('migrate', [
+			'--force' => true,
+			'--path' => 'nova/database/migrations',
+		]);
 
 		// Update the system version in the database
 		SystemInfo::first()->setVersion(config('nova.version'));
