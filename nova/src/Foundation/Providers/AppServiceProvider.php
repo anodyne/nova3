@@ -39,6 +39,10 @@ class AppServiceProvider extends ServiceProvider
 			return (object)collect();
 		});
 
+		$this->app->singleton('nova2-migrator', function ($app) {
+			return new \Nova\Setup\Migrations\MigrationManager;
+		});
+
 		$this->app['view']->share('_settings', $this->app['nova.settings']);
 
 		// Build up the morph map

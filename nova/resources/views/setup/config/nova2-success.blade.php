@@ -1,22 +1,20 @@
 @extends('layouts.setup')
 
-@section('title', 'Nova 2 Connection')
+@section('title', 'Configure Nova 2')
 
-@section('header', 'Nova 2 Connection')
+@section('header', 'Configure Nova 2')
 
 @section('content')
-	<h1>Nova 2 Connection Configured</h1>
+	<h1>Nova 2 Configured</h1>
 
-	<p>We've successfully connected to your Nova 2 instance and saved the connection details for the migration.</p>
-@stop
+	<p>We've successfully connected to your Nova 2 instance and saved the connection details and options for the migration.</p>
+@endsection
 
 @section('controls')
-	<div class="row">
-		<div class="col-md-6 push-md-6 text-right">
-			<p><a href="{{ route('setup.'.$_setupType.'.config.db') }}" class="btn btn-primary btn-lg">Next: Configure Database</a></p>
-		</div>
-		<div class="col-md-6 pull-md-6">
-			<p><a href="{{ route('setup.'.$_setupType.'.config.nova2') }}" class="btn btn-link btn-lg">Back: Restart Nova 2 Connection</a></p>
-		</div>
-	</div>
-@stop
+	<a href="{{ route('setup.'.$_setupType.'.config.db') }}" class="btn btn-primary btn-lg">
+		Next: Configure Database
+	</a>
+	<a href="{{ route('setup.'.$_setupType.'.config.nova2') }}" class="btn btn-link-secondary btn-lg">
+		Back: Restart Nova 2 Configuration
+	</a>
+@endsection

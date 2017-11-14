@@ -37,12 +37,19 @@ $migrateActive = [
 	'setup/migrate/nova'
 ];
 
-$accountsActive = [
-	'setup/migrate/accounts',
+$charactersActive = [
+	'setup/migrate/characters',
 ];
-$accountsCompleted = [
-	'setup/migrate/accounts/success',
+$charactersCompleted = [
+	'setup/migrate/characters/success',
 	'setup/migrate/settings',
+	'setup/migrate/settings/success'
+];
+
+$settingsActive = [
+	'setup/migrate/settings',
+];
+$settingsCompleted = [
 	'setup/migrate/settings/success'
 ];
 
@@ -74,40 +81,26 @@ if (nova()->isInstalled()) {
 	$classes[4] = 'class="step completed"';
 }
 
-if (in_array($path, $accountsActive)) {
+if (in_array($path, $charactersActive)) {
 	$classes[5] = 'class="step active"';
 }
-if (in_array($path, $accountsCompleted)) {
+if (in_array($path, $charactersCompleted)) {
 	$classes[5] = 'class="step completed"';
-}
-
-/*if (in_array($path, $novaActive)) {
-	$classes[3] = 'class="step active"';
-}
-if (app('filesystem')->disk('local')->has('installed.json')) {
-	$classes[3] = 'class="step completed"';
-}
-
-if (in_array($path, $userActive)) {
-	$classes[4] = 'class="step active"';
-}
-if (in_array($path, $userCompleted)) {
-	$classes[4] = 'class="step completed"';
 }
 
 if (in_array($path, $settingsActive)) {
-	$classes[5] = 'class="step active"';
+	$classes[6] = 'class="step active"';
 }
 if (in_array($path, $settingsCompleted)) {
-	$classes[5] = 'class="step completed"';
-}*/
+	$classes[6] = 'class="step completed"';
+}
 
 ?><div class="wizard">
 	<div {!! $classes[1] !!}>
 		@icon('setup/bolt')
 		<span class="label">
 			<span class="short">Nova 2</span>
-			<span class="long">Connect to Nova 2</span>
+			<span class="long">Configure Nova 2</span>
 		</span>
 	</div>
 
@@ -138,8 +131,8 @@ if (in_array($path, $settingsCompleted)) {
 	<div {!! $classes[5] !!}>
 		@icon('setup/users')
 		<span class="label">
-			<span class="short">Accounts</span>
-			<span class="long">Update User Accounts</span>
+			<span class="short">Characters</span>
+			<span class="long">Verify Character Data</span>
 		</span>
 	</div>
 

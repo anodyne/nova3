@@ -57,6 +57,14 @@ Route::group(['prefix' => 'migrate'], function () {
 	Route::get('nova', 'MigrateController@migrateLanding')->name('setup.migrate.nova');
 	Route::get('nova/success', 'MigrateController@migrateSuccess')->name('setup.migrate.nova.success');
 	Route::post('nova', 'MigrateController@runMigration');
+	Route::post('nova/migrate/{key}', 'MigrateController@runSingleMigration')->name('setup.migrate.run-single');
 
-	Route::get('accounts', 'MigrateController@accounts')->name('setup.migrate.accounts');
+	Route::get('characters', 'MigrateController@verifyCharacters')->name('setup.migrate.characters');
+	Route::post('characters', 'MigrateController@updateCharacters')->name('setup.migrate.characters.update');
+	Route::get('characters/success', 'MigrateController@charactersSuccess')
+		->name('setup.migrate.characters.success');
+
+	Route::get('settings', 'MigrateController@settings')->name('setup.migrate.settings');
+	Route::get('settings/success', 'MigrateController@settingsSuccess')->name('setup.migrate.settings.success');
+	Route::post('settings', 'MigrateController@updateSettings')->name('setup.migrate.settings.store');
 });
