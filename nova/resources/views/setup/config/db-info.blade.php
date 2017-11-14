@@ -17,7 +17,7 @@
 				</div>
 			@endif
 
-			<div class="card-deck">
+			<div class="card-deck mb-4">
 				@if (in_array('mysql', PDO::getAvailableDrivers()))
 					<div :class="cardClassName('mysql')">
 						<div class="card-body">
@@ -60,7 +60,7 @@
 			{!! Form::open(['route' => "setup.{$_setupType}.config.db.check"]) !!}
 				<input type="hidden" name="db_driver" v-model="driver">
 
-				<div v-show="driver && driver != 'sqlite'">
+				<div v-if="driver && driver != 'sqlite'">
 					<div class="form-group" v-show="driver == 'mysql'">
 						<h2>MySQL</h2>
 
@@ -131,7 +131,7 @@
 					</div>
 				</div>
 
-				<div v-show="driver == 'sqlite'">
+				<div v-if="driver == 'sqlite'">
 					<div class="form-group">
 						<h2>SQLite</h2>
 
