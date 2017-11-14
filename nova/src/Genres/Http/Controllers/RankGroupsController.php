@@ -2,6 +2,7 @@
 
 use Controller;
 use Nova\Genres\RankGroup;
+use Nova\Settings\Settings;
 use Symfony\Component\Finder\Finder;
 
 class RankGroupsController extends Controller
@@ -113,7 +114,7 @@ class RankGroupsController extends Controller
 		$this->authorize('create', new RankGroup);
 
 		// Get the path to the rank folder
-		$rankPath = base_path('ranks/'.Settings::find(1)->value);
+		$rankPath = base_path('ranks/'.Settings::item('rank')->first()->value);
 
 		// Get the base images
 		$finderBaseImages = (new Finder)->files()->in("{$rankPath}/base");
