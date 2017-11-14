@@ -4,6 +4,7 @@ use Status;
 use Artisan;
 use Nova\Users\User;
 use Nova\Setup\Http\Requests;
+use Nova\Foundation\SystemInfo;
 use Nova\Setup\ConfigFileWriter;
 use Illuminate\Filesystem\Filesystem;
 
@@ -97,9 +98,13 @@ class InstallController extends Controller
 
 	public function updateSettings(Requests\UpdateSettingsRequest $request)
 	{
+		// Update the settings
 		updater('Nova\Settings\Settings')
 			->with(request()->all())
 			->updateAll();
+
+		// Set the install phase
+		SystemInfo::first()->setPhase('install', 1);
 
 		return redirect()->route('setup.install.settings.success');
 	}

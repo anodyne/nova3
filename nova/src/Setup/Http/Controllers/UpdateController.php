@@ -48,5 +48,8 @@ class UpdateController extends Controller
 	{
 		// Run the update command
 		Artisan::call('nova:update');
+
+		// Reset the update phase
+		SystemInfo::first()->setPhase('update', 1);
 	}
 }
