@@ -45,7 +45,7 @@
 						<p>Here are a list of free and/or cheap SMTP email services to check out:</p>
 
 						<ul>
-							<li><a href="http://www.mailgun.com/" target="_blank">Mailgun</a></li>
+							<li><a href="https://www.mailgun.com/" target="_blank">Mailgun</a></li>
 							<li><a href="https://postmarkapp.com/" target="_blank">Postmark</a></li>
 							<li><a href="https://sendgrid.com/" target="_blank">SendGrid</a></li>
 							<li><a href="https://www.sparkpost.com/" target="_blank">SparkPost</a></li>
