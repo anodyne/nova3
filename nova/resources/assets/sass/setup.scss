@@ -339,6 +339,12 @@ main {
 
 		.form-control { border-color: $color-success; }
 	}
+
+	.custom-checkbox {
+		.custom-control-description {
+			font-weight: 400;
+		}
+	}
 }
 
 footer {

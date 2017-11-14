@@ -1538,6 +1538,10 @@ main .has-success .form-control {
   border-color: #40bf55;
 }
 
+main .custom-checkbox .custom-control-description {
+  font-weight: 400;
+}
+
 footer {
   color: #8492A6;
   padding: 2rem 0;

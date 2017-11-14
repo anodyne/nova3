@@ -82,6 +82,16 @@ h1 {
 			}
 		}
 	}
+
+	&.alert-info {
+		.custom-control-indicator {
+			background-color: rgba(0, 0, 0, .15);
+		}
+
+		.custom-control-input:checked ~ .custom-control-indicator {
+			background-color: #007bff;
+		}
+	}
 }
 
 .btn-toolbar {

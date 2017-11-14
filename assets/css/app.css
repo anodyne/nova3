@@ -970,6 +970,14 @@ h1 {
   border: 1px solid #ffd554;
 }
 
+.alert.alert-info .custom-control-indicator {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.alert.alert-info .custom-control-input:checked ~ .custom-control-indicator {
+  background-color: #007bff;
+}
+
 .btn-toolbar {
   margin-bottom: 1rem;
 }
