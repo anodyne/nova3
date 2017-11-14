@@ -12,6 +12,9 @@ class CreateSystemInfoTable extends Migration
 		Schema::create('system_info', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('version')->default(config('nova.version'));
+			$table->tinyInteger('install_phase')->default(0);
+			$table->tinyInteger('migration_phase')->default(0);
+			$table->tinyInteger('update_phase')->default(0);
 			$table->timestamps();
 		});
 
