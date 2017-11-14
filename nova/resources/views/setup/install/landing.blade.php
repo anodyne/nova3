@@ -7,7 +7,7 @@
 @section('content')
 	<h1>Fresh Install</h1>
 
-	<p>{{ config('nova.app.name') }} is a dynamic, database-driven web system which means there's some work to do before you can use it. Start to finish, the installation should only take a few minutes to complete and then you'll be on your way. If you have questions, you can refer to the <a href='http://docs.anodyne-productions.com' target='_blank'>Anodyne Help Center</a> or drop in to our <a href='http://forums.anodyne-productions.com' target='_blank'>forums</a>.</p>
+	<p>{{ config('nova.app.name') }} is a dynamic, database-driven web system which means there's some work to do before you can use it. Start to finish, the installation should only take a few minutes to complete and then you'll be on your way. If you have questions, you can refer to the <a href='https://help.anodyne-productions.com' target='_blank'>Anodyne Help Center</a> or drop in to our <a href='https://forums.anodyne-productions.com' target='_blank'>forums</a>.</p>
 
 	<h2>Before You Begin</h2>
 
