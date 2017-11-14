@@ -64,6 +64,7 @@
 		components: { Rank },
 
 		props: {
+			initialRanks: null,
 			selected: { type: Object }
 		},
 
@@ -117,9 +118,13 @@
 				this.selectedRank = this.selected;
 			}
 
-			axios.get(route('api.ranks')).then((response) => {
-				self.ranks = response.data;
-			});
+			if (this.initialRanks != null) {
+				this.ranks = this.initialRanks;
+			} else {
+				axios.get(route('api.ranks')).then((response) => {
+					self.ranks = response.data;
+				});
+			}
 		}
 	};
 </script>
