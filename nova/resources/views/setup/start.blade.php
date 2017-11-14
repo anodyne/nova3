@@ -35,22 +35,29 @@
 		</div>
 	@else
 		<div class="row">
-			<div class="col-md-6">
+			<div class="{{ ($hasUpdate) ? 'col-md-12' : 'col-md-6' }} mx-auto">
 				<div class="card text-center">
 					<div class="card-topper-primary"></div>
 					<div class="card-body">
 						@if ($hasUpdate)
-							<h1>Update to {{ config('nova.app.name') }} {{ $update->version }}</h1>
-							<div>
-								@icon('setup/cloud-upload')
+							<div class="row align-items-center">
+								<div class="col-lg-6">
+									<h1>Update to {{ config('nova.app.name') }} {{ $update->version }}</h1>
+									<div>
+										@icon('setup/cloud-upload')
+									</div>
+									<p><a href="{{ route('setup.update') }}" class="btn btn-primary btn-lg btn-block">Update {{ config('nova.app.name') }}</a></p>
+								</div>
+								<div class="col-lg-6">
+									<p class="lead mt-4 mt-lg-0">{{ $update->summary }}</p>
+								</div>
 							</div>
-							<p><a href="{{ route('setup.update') }}" class="btn btn-primary btn-lg btn-block">Update {{ config('nova.app.name') }}</a></p>
 						@else
 							<h1>{{ config('nova.app.name') }} Is Up-To-Date</h1>
 							<div>
 								@icon('setup/cloud-done')
 							</div>
-							<p><a href="{{ route('setup.update') }}" class="btn btn-link btn-lg btn-block disabled">No Updates Available</a></p>
+							<p><a href="{{ route('home') }}" class="btn btn-primary btn-lg btn-block">Go to your site</a></p>
 						@endif
 					</div>
 				</div>
