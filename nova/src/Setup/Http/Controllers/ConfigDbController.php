@@ -9,6 +9,13 @@ use Illuminate\Database\Connectors\Connector;
 
 class ConfigDbController extends Controller
 {
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->middleware('nova.auth-setup');
+	}
+
 	public function info()
 	{
 		$prefix = ($this->setupType == 'install') ? 'nova_' : 'nova3_';

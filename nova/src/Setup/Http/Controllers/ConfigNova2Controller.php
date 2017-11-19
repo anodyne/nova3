@@ -9,6 +9,13 @@ use Illuminate\Database\Connectors\Connector;
 
 class ConfigNova2Controller extends Controller
 {
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->middleware('nova.auth-setup');
+	}
+
 	public function info()
 	{
 		return view('setup.config.nova2-info');

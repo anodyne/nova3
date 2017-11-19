@@ -6,6 +6,13 @@ use Nova\Setup\Http\Requests\CheckEmailSettingsRequest;
 
 class ConfigEmailController extends Controller
 {
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->middleware('nova.auth-setup');
+	}
+
 	public function info()
 	{
 		return view('setup.config.email-info');

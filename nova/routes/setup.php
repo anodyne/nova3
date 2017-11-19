@@ -2,6 +2,7 @@
 
 Route::get('/', 'SetupController@index')->name('setup.home');
 Route::get('env', 'SetupController@environment')->name('setup.env');
+Route::get('error/{code}', 'SetupController@showError')->name('setup.error');
 
 Route::group(['prefix' => 'install'], function () {
 	Route::get('/', 'InstallController@index')->name('setup.install');

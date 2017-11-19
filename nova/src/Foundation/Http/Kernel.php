@@ -56,5 +56,6 @@ class Kernel extends HttpKernel
 		'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
 		'nova.installed' => \Nova\Setup\Http\Middleware\CheckInstallationStatus::class,
+		'nova.auth-setup' => \Nova\Setup\Http\Middleware\AuthenticateSetupCenter::class,
 	];
 }

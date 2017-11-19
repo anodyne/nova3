@@ -28,14 +28,20 @@ class Users extends Migrator implements Migratable
 					? Date::createFromTimeStampUTC($user->join_date)
 					: Date::now();
 
-				$newUser = creator(User::class)->with([
+				// Because we could be dealing with a special case migration,
+				// let's start by checking to see if there's already a user
+				// in the database with this email address. If there is, we'll
+				// simply update that record, otherwise we'll create a new one
+				$newUser = User::updateOrCreate(['email' => $user->email], [
 					'name' => $user->name,
-					'email' => $user->email,
 					'status' => Status::toInt($user->status),
 					'created_at' => $createdAt,
-				])->create();
+				]);
 
-				// Every user has the Active User role
+				// Make sure we don't have any roles
+				$newUser->roles()->detach();
+
+				// Every active user should have the Active User role
 				if ($user->status == 'active') {
 					$newUser->attachRole(Role::name('Active User')->first());
 				}

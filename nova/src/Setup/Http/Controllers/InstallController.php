@@ -10,6 +10,13 @@ use Illuminate\Filesystem\Filesystem;
 
 class InstallController extends Controller
 {
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->middleware('nova.auth-setup');
+	}
+
 	public function index()
 	{
 		return view('setup.install.landing');

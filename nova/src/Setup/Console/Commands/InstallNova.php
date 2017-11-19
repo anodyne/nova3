@@ -23,6 +23,13 @@ class InstallNova extends Command
 
 	public function handle()
 	{
+		// Before we start, let's make sure we've cleared all the caches
+		cache()->flush();
+		session()->flush();
+		$this->call('cache:clear');
+		$this->call('config:clear');
+
+		// Migrate the database
 		$this->call('migrate', ['--force' => true]);
 
 		// Generate the new key

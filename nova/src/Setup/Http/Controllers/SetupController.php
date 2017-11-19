@@ -4,6 +4,13 @@ use Artisan;
 
 class SetupController extends Controller
 {
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->middleware('nova.auth-setup')->except('showError');
+	}
+
 	public function index()
 	{
 		// Is Nova installed?
@@ -29,5 +36,31 @@ class SetupController extends Controller
 		}
 
 		return view('setup.environment', compact('env'));
+	}
+
+	public function showError($error)
+	{
+		switch ($error)
+		{
+			case 100:
+				$title = 'Error!';
+				$header = 'Operation Not Allowed';
+				$message = "";
+			break;
+
+			case 200:
+				$title = 'Error!';
+				$header = 'Access Denied';
+				$message = "You don't have the proper permissions to access the Setup Center!";
+
+				// Log a message
+
+				// Put a message into the Nova event log
+
+				// Email the system administrators
+			break;
+		}
+
+		return view('setup.error', compact('title', 'header', 'message'));
 	}
 }

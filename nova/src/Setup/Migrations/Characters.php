@@ -28,11 +28,13 @@ class Characters extends Migrator implements Migratable
 			// Get the Nova 2 genre
 			$genre = config('nova2.genre');
 
-			// Grab all of the positions from Nova 2
-			$positions = $this->db->table("positions_{$genre}")->get();
+			// Grab all of the positions from both systems
+			$oldPositions = $this->db->table("positions_{$genre}")->get();
+			$newPositions = Position::get();
 
-			// Grab all of the ranks from Nova 2
-			$ranks = $this->db->table("ranks_{$genre}")->get();
+			// Grab all of the ranks from both systems
+			$oldRanks = $this->db->table("ranks_{$genre}")->get();
+			$newRanks = Rank::get();
 
 			// Because we're messing around with protected fields, we need
 			// to unguard the Eloquent models
@@ -42,17 +44,24 @@ class Characters extends Migrator implements Migratable
 			$assignPositions = $this->assignPositions();
 			$assignRank = $this->assignRank();
 
-			$this->characters->each(function ($character) use ($users, $positions, $ranks, &$charactersDictionary, $assignPositions, $assignRank) {
+			// We want to allow an update query if a record exists, but only once
+			$allowUpdate = true;
+
+			$this->characters->each(function ($character) use (
+				$users, $oldPositions, $oldRanks, $newPositions, $newRanks,
+				&$charactersDictionary, $assignPositions, $assignRank,
+				&$allowUpdate
+			) {
 				// Grab the data from the user dictionary
 				$user = array_get($users, "{$character->user}", null);
 
-				// Build up an array of the names to combine into one field
-				$nameArr = [
-					$character->first_name,
-					$character->middle_name,
-					$character->last_name,
-					$character->suffix
-				];
+				// Set the name of the character
+				$name = htmlspecialchars_decode(implode(' ', array_filter([
+					trim($character->first_name),
+					trim($character->middle_name),
+					trim($character->last_name),
+					trim($character->suffix),
+				])));
 
 				// Translate character status
 				$status = ($character->crew_type == 'npc')
@@ -64,24 +73,67 @@ class Characters extends Migrator implements Migratable
 					? Date::createFromTimeStampUTC($character->date_activate)
 					: Date::now();
 
-				// Create a new character with the old data
-				$newCharacter = creator(Character::class)->with([
-					'name' => implode(' ', array_filter($nameArr)),
+				// Start with a null character object
+				$newCharacter = null;
+
+				// Are we allowed to do an update?
+				if ($allowUpdate) {
+					// See if we have a character by that name already
+					$newCharacter = Character::where('name', $name)->first();
+
+					// If we do, don't allow anymore updates
+					if ($newCharacter) {
+						$allowUpdate = false;
+					}
+				}
+
+				// If we don't have a character, create a new one
+				if ($newCharacter === null) {
+					$newCharacter = new Character(['name' => $name]);
+				}
+
+				// Fill the character data with data from Nova 2
+				$newCharacter->fill([
 					'user_id' => ($user !== null) ? $user['id'] : null,
+					'rank_id' => $assignRank($character, $oldRanks, $newRanks),
 					'status' => $status,
 					'created_at' => $createdAt,
-				])->create();
+				]);
+
+				// And finally, save the character
+				$newCharacter->save();
+
+				// Because we could be dealing with a special case migration,
+				// let's start by checking to see if there's already a character
+				// in the database with this name. If there is, we'll simply
+				// update that record, otherwise we'll create a new one
+				// $newCharacter = Character::updateOrCreate(['name' => $name], [
+				// 	'user_id' => ($user !== null) ? $user['id'] : null,
+				// 	'status' => $status,
+				// 	'created_at' => $createdAt,
+				// ]);
+
+				// Create a new character with the old data
+				// $newCharacter = creator(Character::class)->with([
+				// 	'name' => $name,
+				// 	'user_id' => ($user !== null) ? $user['id'] : null,
+				// 	'status' => $status,
+				// 	'created_at' => $createdAt,
+				// ])->create();
 
 				// Figure out if we need to set the character as a main character
 				if ($user !== null and $user['main_character'] == $character->charid) {
 					$newCharacter->setAsPrimaryCharacter();
 				}
 
+				// Clear any positions we may have already for the character
+				$newCharacter->positions()->detach();
+
 				// Assign the position(s) to the new character
-				$assignPositions($character, $newCharacter, $positions);
+				$assignPositions($character, $newCharacter, $oldPositions, $newPositions);
 
 				// Assign the rank to the new character
-				$assignRank($character, $newCharacter, $ranks);
+				$assignRank($character, $newCharacter, $oldRanks, $newRanks);
 
 				// Store the character info in the dictionary
 				$charactersDictionary[$character->charid] = $newCharacter->id;
@@ -108,7 +160,14 @@ class Characters extends Migrator implements Migratable
 			return ['status' => 'success', 'message' => ''];
 		}
 
-		return ['status' => 'failed', 'message' => 'All characters were not properly migrated.'];
+		$message = "%d of %d characters were migrated.";
+		$newCount = (int)Character::count();
+		$oldCount = (int)$this->characters->count();
+
+		return [
+			'status' => 'failed',
+			'message' => sprintf($message, $newCount, $oldCount)
+		];
 	}
 
 	public function getData()
@@ -129,52 +188,52 @@ class Characters extends Migrator implements Migratable
 
 	protected function assignPositions()
 	{
-		return function ($oldCharacter, &$newCharacter, $positions) {
+		return function ($oldCharacter, &$newCharacter, $oldPositions, $newPositions) {
 			// Create an array to track positions for syncing
-			$newPositions = [];
+			$newPositionsArr = [];
 
 			if (config('nova2.use_nova2_data') == 1) {
 				// Get the positions dictionary out of session
 				$positions = session('nova2.positions');
 
 				if ($oldCharacter->position_1 != 0) {
-					$newPositions[] = array_get($positions, $oldCharacter->position_1);
+					$newPositionsArr[] = array_get($positions, $oldCharacter->position_1);
 				}
 
 				if ($oldCharacter->position_2 != 0) {
-					$newPositions[] = array_get($positions, $oldCharacter->position_2);
+					$newPositionsArr[] = array_get($positions, $oldCharacter->position_2);
 				}
 			} else {
 				// Get the data of the first position
-				$position1 = $positions->filter(function ($p) use ($oldCharacter) {
+				$position1 = $oldPositions->filter(function ($p) use ($oldCharacter) {
 					return $p->pos_id == $oldCharacter->position_1;
 				})->first();
 
 				// Try to find the matching position in the new table
-				$newPosition1 = Position::where('name', 'like', $position1->pos_name)->first();
+				$newPosition1 = $newPositions->where('name', $position1->pos_name)->first();
 
 				if ($newPosition1) {
-					$newPositions[] = $newPosition1->id;
+					$newPositionsArr[] = $newPosition1->id;
 				}
 
 				// Get the data of the second position
 				if ($oldCharacter->position_2 != 0) {
 					// Get the data of the second position
-					$position2 = $positions->filter(function ($p) use ($oldCharacter) {
+					$position2 = $oldPositions->filter(function ($p) use ($oldCharacter) {
 						return $p->pos_id == $oldCharacter->position_2;
 					})->first();
 
 					// Try to find the matching position in the new table
-					$newPosition2 = Position::where('name', 'like', $position2->pos_name)->first();
+					$newPosition2 = $newPositions->where('name', $position2->pos_name)->first();
 
 					if ($newPosition2) {
-						$newPositions[] = $newPosition2->id;
+						$newPositionsArr[] = $newPosition2->id;
 					}
 				}
 			}
 
 			// Map the positions data to figure out what's the primary position
-			$positionSync = collect($newPositions)->mapWithKeys(function ($p, $index) {
+			$positionSync = collect($newPositionsArr)->mapWithKeys(function ($p, $index) {
 				return [$p => ['primary' => ($index == 0) ? (int) true : (int) false]];
 			})->all();
 
@@ -185,9 +244,9 @@ class Characters extends Migrator implements Migratable
 
 	protected function assignRank()
 	{
-		return function ($oldCharacter, &$newCharacter, $ranks) {
+		return function ($oldCharacter, $oldRanks, $newRanks) {
 			// Get the old rank image string
-			$oldRank = $ranks->filter(function ($r) use ($oldCharacter) {
+			$oldRank = $oldRanks->filter(function ($r) use ($oldCharacter) {
 				return $r->rank_id == $oldCharacter->rank;
 			})->first();
 
@@ -198,14 +257,12 @@ class Characters extends Migrator implements Migratable
 			if (count($rankArr) > 1) {
 				// Pull out the individual pieces
 				$color = $rankArr[0];
-				// $grade = str_replace(substr($rankArr[1], strpos($rankArr[1], '.')), '', $rankArr[1]);
 				$grade = $rankArr[1];
 
 				// Find all ranks with the proper grade
-				$newRanksWithGrade = Rank::where('overlay', 'like', "%{$grade}%")->get();
-
-				// Find the rank that matches the color from Nova 2
-				$newRank = $newRanksWithGrade->filter(function ($r) use ($color) {
+				$newRank = $newRanks->filter(function ($r) use ($grade) {
+					return str_contains($r->overlay, $grade);
+				})->filter(function ($r) use ($color) {
 					// Break the path to the base image at the directory separator
 					$baseArr = explode('/', $r->base);
 
@@ -217,9 +274,10 @@ class Characters extends Migrator implements Migratable
 				})->first();
 
 				if ($newRank) {
-					// Assign the rank
-					$newCharacter->update(['rank_id' => $newRank->id]);
+					return $newRank->id;
 				}
+
+				return null;
 			}
 		};
 	}

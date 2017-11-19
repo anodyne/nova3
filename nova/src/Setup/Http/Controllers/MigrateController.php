@@ -12,6 +12,13 @@ use Nova\Setup\Migrations\MigrationManager;
 
 class MigrateController extends Controller
 {
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->middleware('nova.auth-setup');
+	}
+
 	public function index()
 	{
 		return view('setup.migrate.landing');
@@ -56,7 +63,9 @@ class MigrateController extends Controller
 
 	public function updateCharacters()
 	{
-		//
+		collect(request('characters'))->each(function ($c) {
+			Character::find($c['id'])->update(['rank_id' => $c['rank']]);
+		});
 	}
 
 	public function charactersSuccess()

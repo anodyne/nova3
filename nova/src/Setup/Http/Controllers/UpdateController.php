@@ -7,6 +7,13 @@ use Nova\Foundation\SystemInfo;
 
 class UpdateController extends Controller
 {
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->middleware('nova.auth-setup');
+	}
+
 	public function index()
 	{
 		// Is there an update available for Nova?
