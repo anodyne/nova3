@@ -119,11 +119,6 @@ class User extends Authenticatable
 		Mail::to($this->email)->send(new SendPasswordReset($token));
 	}
 
-	public function setPasswordAttribute($value)
-	{
-		$this->attributes['password'] = ($value !== null) ? Hash::make($value) : null;
-	}
-
 	public function setPrimaryCharacter()
 	{
 		$activeCharacters = $this->characters->filter(function ($character) {
