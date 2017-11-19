@@ -154,10 +154,24 @@ Route::patch('admin/media', 'Nova\Media\Http\Controllers\MediaController@reorder
 /**
  * Dashboard
  */
-Route::get('dashboard', 'Nova\Dashboard\Http\Controllers\DashboardController@index')
-	->name('dashboard');
-Route::get('dashboard/characters', 'Nova\Dashboard\Http\Controllers\DashboardController@characters')
-	->name('dashboard.characters');
+$dashboardOptions = [
+	'prefix' => 'dashboard',
+	'namespace' => 'Nova\Dashboard\Http\Controllers'
+];
+
+Route::group($dashboardOptions, function () {
+	Route::get('/', 'DashboardController@index')
+		->name('dashboard');
+	Route::get('dashboard/characters', 'DashboardController@characters')
+		->name('dashboard.characters');
+
+	Route::post('dashboard/finish-install', 'DashboardController@finishInstallation')
+		->name('dashboard.finish-install');
+	Route::post('dashboard/finish-migrate', 'DashboardController@finishMigration')
+		->name('dashboard.finish-migrate');
+	Route::post('dashboard/send-test-email', 'DashboardController@sendTestEmail')
+		->name('dashboard.send-test-email');
+});
 
 /**
  * Settings
