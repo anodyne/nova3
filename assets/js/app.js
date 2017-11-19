@@ -1958,8 +1958,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	components: { Rank: __WEBPACK_IMPORTED_MODULE_0__Rank_vue___default.a },
 
 	props: {
-		initialRanks: null,
-		selected: { type: Object }
+		character: { type: Object, required: false, default: null },
+		initialRanks: { type: Array, required: false, default: null },
+		selected: { type: Object, required: false, default: null }
 	},
 
 	mixins: [__WEBPACK_IMPORTED_MODULE_1_vue_clickaway__["mixin"]],
@@ -1999,6 +2000,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.selectedRank = rank;
 			this.show = false;
 			this.search = '';
+
+			window.events.$emit('rank-picker-selected', this.selectedRank, this.character);
 		},
 		showIcon: function showIcon(icon) {
 			return window.icon(icon);
