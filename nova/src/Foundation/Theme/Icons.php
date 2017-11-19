@@ -57,6 +57,7 @@ trait Icons
 			'settings-alt' => 'cogs',
 			'share' => 'share-alt',
 			'star' => 'star',
+			'tasks' => 'tasks',
 			'theme' => 'paint-brush',
 			'undo' => 'undo',
 			'upload' => 'cloud-upload-alt',
