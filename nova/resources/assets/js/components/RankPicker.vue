@@ -64,8 +64,9 @@
 		components: { Rank },
 
 		props: {
-			initialRanks: null,
-			selected: { type: Object }
+			character: { type: Object, required: false, default: null },
+			initialRanks: { type: Array, required: false, default: null },
+			selected: { type: Object, required: false, default: null }
 		},
 
 		mixins: [ clickaway ],
@@ -104,6 +105,8 @@
 				this.selectedRank = rank;
 				this.show = false;
 				this.search = '';
+
+				window.events.$emit('rank-picker-selected', this.selectedRank, this.character);
 			},
 
 			showIcon (icon) {
