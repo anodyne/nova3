@@ -55,11 +55,8 @@ class CreateAuthorizationTables extends Migration
 	public function seed()
 	{
 		$this->permissions();
-
 		$this->roles();
-
 		$this->roleAssignments();
-
 		$this->cache();
 	}
 
@@ -98,6 +95,8 @@ class CreateAuthorizationTables extends Migration
 			['name' => "Create settings", 'key' => "settings.create"],
 			['name' => "Update settings", 'key' => "settings.update"],
 			['name' => "Delete settings", 'key' => "settings.delete"],
+
+			['name' => "Webmaster", 'key' => "system.update"],
 		];
 
 		foreach ($permissions as $permission) {
@@ -121,7 +120,7 @@ class CreateAuthorizationTables extends Migration
 	protected function roleAssignments()
 	{
 		$assignments = [
-			"System Admin" => ['role.create', 'role.update', 'role.delete', 'permission.create', 'permission.update', 'permission.delete', 'user.create', 'user.update', 'user.delete', 'dept.create', 'dept.delete', 'dept.update', 'position.create', 'position.delete', 'position.update', 'rank.create', 'rank.delete', 'rank.update', 'character.create', 'character.delete', 'character.update', 'settings.create', 'settings.update', 'settings.delete'],
+			"System Admin" => ['role.create', 'role.update', 'role.delete', 'permission.create', 'permission.update', 'permission.delete', 'user.create', 'user.update', 'user.delete', 'dept.create', 'dept.delete', 'dept.update', 'position.create', 'position.delete', 'position.update', 'rank.create', 'rank.delete', 'rank.update', 'character.create', 'character.delete', 'character.update', 'settings.create', 'settings.update', 'settings.delete', 'system.update'],
 			"Active User" => [],
 		];
 
