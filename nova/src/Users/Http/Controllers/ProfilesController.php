@@ -83,7 +83,7 @@ class ProfilesController extends Controller
 		]);
 
 		updater(User::class)
-			->with(['password' => request('password_new')])
+			->with(['password' => Hash::make(request('password_new'))])
 			->update($user);
 
 		flash()
