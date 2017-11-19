@@ -1542,6 +1542,11 @@ main .custom-checkbox .custom-control-description {
   font-weight: 400;
 }
 
+main .custom-select:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
 footer {
   color: #8492A6;
   padding: 2rem 0;

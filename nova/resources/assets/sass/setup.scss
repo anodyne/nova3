@@ -345,6 +345,12 @@ main {
 			font-weight: 400;
 		}
 	}
+
+	.custom-select {
+		&:focus {
+			box-shadow: none;
+		}
+	}
 }
 
 footer {
