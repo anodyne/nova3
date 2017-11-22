@@ -6,7 +6,7 @@ class SystemInfo extends Eloquent
 {
 	protected $fillable = [
 		'version', 'install_phase', 'migration_phase', 'update_phase',
-		'install_checklist', 'migration_checklist',
+		// 'install_checklist', 'migration_checklist',
 	];
 	protected $table = 'system_info';
 
