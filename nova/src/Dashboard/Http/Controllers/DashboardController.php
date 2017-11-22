@@ -1,5 +1,6 @@
 <?php namespace Nova\Dashboard\Http\Controllers;
 
+use Mail;
 use Controller;
 use Nova\Foundation\SystemInfo;
 
@@ -15,6 +16,8 @@ class DashboardController extends Controller
 	public function index()
 	{
 		$sysinfo = SystemInfo::first();
+
+		// $installChecklist = $sysinfo->install_checklist;
 
 		return view('pages.dashboard.index', compact('sysinfo'));
 	}
@@ -45,6 +48,7 @@ class DashboardController extends Controller
 
 	public function sendTestEmail()
 	{
-		//
+		Mail::to(request()->user()->email)
+			->queue(new \Nova\Dashboard\Mail\SendTestEmail);
 	}
 }

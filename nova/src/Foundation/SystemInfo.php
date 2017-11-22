@@ -5,7 +5,8 @@ use Eloquent;
 class SystemInfo extends Eloquent
 {
 	protected $fillable = [
-		'version', 'install_phase', 'migration_phase', 'update_phase'
+		'version', 'install_phase', 'migration_phase', 'update_phase',
+		'install_checklist', 'migration_checklist',
 	];
 	protected $table = 'system_info';
 

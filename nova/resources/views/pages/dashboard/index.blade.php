@@ -10,8 +10,8 @@
 		<span>Welcome to Nova NextGen's dashboard! The dashboard is currently under construction and will be built out through the development process. If you have suggestions about things that should be on the dashboard, let us know.</span>
 	</div>
 
-	@include('pages.dashboard._checklist-install')
-	@include('pages.dashboard._checklist-migrate')
+	{{-- @include('pages.dashboard._checklist-install')
+	@include('pages.dashboard._checklist-migrate') --}}
 @endsection
 
 @section('js')
@@ -36,7 +36,17 @@
 				},
 
 				sendTestEmail () {
-					axios.post(route('dashboard.send-test-email'));
+					axios.post(route('dashboard.send-test-email'))
+						.then(function (response) {
+							$.alert({
+								title: "{{ _m('dashboard-test-email-confirm-header') }}",
+								content: "{{ _m('dashboard-test-email-confirm-message') }}",
+								theme: "dark"
+							});
+						})
+						.catch(function (error) {
+							//
+						});
 				}
 			}
 		};

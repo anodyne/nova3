@@ -18,7 +18,7 @@
 
 			<div class="form-group">
 				<label class="custom-control custom-checkbox">
-					<input type="checkbox" class="custom-control-input">
+					<input type="checkbox" class="custom-control-input" v-model="install.settings.complete">
 					<span class="custom-control-indicator"></span>
 					<span class="custom-control-description">Manage your site's <a href="{{ route('settings') }}" class="alert-link">settings</a></span>
 				</label>

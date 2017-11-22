@@ -332,6 +332,8 @@
 	"media-flash-saved-title": "Media saved",
 
 	"dashboard-characters": "My Characters",
+	"dashboard-test-email-confirm-header": "Test Email Sent",
+	"dashboard-test-email-confirm-message": "We've sent you a test email to confirm that all email settings are correct and email is being delivered.",
 
 	"error-unauthorized": "Permission Denied!",
 	"error-unauthorized-explain": "You do not have permission to take this action.",
