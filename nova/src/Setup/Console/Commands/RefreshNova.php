@@ -4,6 +4,7 @@ use Status;
 use Artisan;
 use Nova\Authorize\Role;
 use Nova\Genres\Position;
+use Nova\Foundation\SystemInfo;
 use Illuminate\Console\Command;
 use Nova\Setup\ConfigFileWriter;
 use Illuminate\Filesystem\FilesystemManager;
@@ -35,6 +36,9 @@ class RefreshNova extends Command
 		 * Install a fresh copy of Nova.
 		 */
 		$this->call('nova:install', ['--quiet' => true]);
+
+		// Make sure the install phase is set to 2
+		SystemInfo::first()->setPhase('install', 2);
 
 		/**
 		 * Add the config files we need to ensure Nova doesn't think
