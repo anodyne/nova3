@@ -108,6 +108,11 @@ class User extends Authenticatable
 		return !! $role->intersect($this->roles)->count();
 	}
 
+	public function passwordIsHashed($value)
+	{
+		return (strlen($value) == 60 and preg_match('/^\$\d[a-zA-z]\$/', $value));
+	}
+
 	public function recordSignIn()
 	{
 		$this->last_sign_in = Date::now();
@@ -117,6 +122,15 @@ class User extends Authenticatable
 	public function sendPasswordResetNotification($token)
 	{
 		Mail::to($this->email)->send(new SendPasswordReset($token));
+	}
+
+	public function setPasswordAttribute($value)
+	{
+		if ($this->passwordIsHashed($value)) {
+			$this->attributes['password'] = $value;
+		} else {
+			$this->attributes['password'] = ($value !== null) ? Hash::make($value) : null;
+		}
 	}
 
 	public function setPrimaryCharacter()
