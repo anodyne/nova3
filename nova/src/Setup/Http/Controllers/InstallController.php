@@ -83,6 +83,9 @@ class InstallController extends Controller
 			->setAsPrimaryCharacter();
 
 		if ($user and $character) {
+			// Sign the user that was just created in
+			auth()->login($user, true);
+
 			return redirect()->route('setup.install.user.success');
 		}
 
