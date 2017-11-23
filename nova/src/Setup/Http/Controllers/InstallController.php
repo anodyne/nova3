@@ -72,8 +72,12 @@ class InstallController extends Controller
 		$character = creator('Nova\Characters\Character')
 			->with(array_merge(
 				$request->get('character'),
-				['user_id' => $user->id],
-				['positions' => $request->get('positions')]
+				[
+					'user_id' => $user->id,
+					'rank_id' => $request->get('rank_id'),
+					'positions' => $request->get('positions'),
+					'status' => Status::ACTIVE
+				]
 			))
 			->create()
 			->setAsPrimaryCharacter();
