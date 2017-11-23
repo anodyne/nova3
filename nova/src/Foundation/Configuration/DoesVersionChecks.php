@@ -11,16 +11,18 @@ trait DoesVersionChecks
 	public function getLatestVersion()
 	{
 		switch (app('env')) {
-			case 'production':
-			default:
-				$response = (new Client)
-					->get('https://version.anodyne-productions.com');
+			// case 'production':
+			// default:
+			// 	$response = (new Client)
+			// 		->get('https://version.anodyne-productions.com');
 
-				$content = $response->getBody()->getContents();
-				break;
+			// 	$content = $response->getBody()->getContents();
+			// 	break;
 
 			case 'local':
 			case 'testing':
+			case 'production':
+			default:
 				$content = app('files')->get(setup_path('version.json'));
 				break;
 		}
