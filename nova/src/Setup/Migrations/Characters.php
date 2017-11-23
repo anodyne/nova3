@@ -15,9 +15,6 @@ class Characters extends Migrator implements Migratable
 
 	public function migrate()
 	{
-		// Grab all the characters from Nova 2
-		$this->characters = $this->db->table('characters')->get();
-
 		if (! $this->check()) {
 			// Start the character dictionary
 			$charactersDictionary = [];
@@ -47,96 +44,79 @@ class Characters extends Migrator implements Migratable
 			// We want to allow an update query if a record exists, but only once
 			$allowUpdate = true;
 
-			$this->characters->each(function ($character) use (
-				$users, $oldPositions, $oldRanks, $newPositions, $newRanks,
-				&$charactersDictionary, $assignPositions, $assignRank,
-				&$allowUpdate
-			) {
-				// Grab the data from the user dictionary
-				$user = array_get($users, "{$character->user}", null);
+			// Build up the query we need from Nova 2
+			$query = $this->db->table('characters')->orderBy('charid');
 
-				// Set the name of the character
-				$name = htmlspecialchars_decode(implode(' ', array_filter([
-					trim($character->first_name),
-					trim($character->middle_name),
-					trim($character->last_name),
-					trim($character->suffix),
-				])));
+			// Chunk the results into sections of 50
+			$query->chunk(50, function ($characters) use ($users, $oldPositions, $oldRanks, $newPositions, $newRanks, &$charactersDictionary, $assignPositions, $assignRank, &$allowUpdate) {
+					foreach ($characters as $character) {
+						// Grab the data from the user dictionary
+						$user = array_get($users, "{$character->user}", null);
 
-				// Translate character status
-				$status = ($character->crew_type == 'npc')
-					? Status::ACTIVE
-					: Status::toInt($character->crew_type);
+						// Set the name of the character
+						$name = htmlspecialchars_decode(implode(' ', array_filter([
+							trim($character->first_name),
+							trim($character->middle_name),
+							trim($character->last_name),
+							trim($character->suffix),
+						])));
 
-				// Set the created_at field
-				$createdAt = ($character->date_activate != 0)
-					? Date::createFromTimeStampUTC($character->date_activate)
-					: Date::now();
+						// Translate character status
+						$status = ($character->crew_type == 'npc')
+							? Status::ACTIVE
+							: Status::toInt($character->crew_type);
 
-				// Start with a null character object
-				$newCharacter = null;
+						// Set the created_at field
+						$createdAt = ($character->date_activate != 0)
+							? Date::createFromTimeStampUTC($character->date_activate)
+							: Date::now();
 
-				// Are we allowed to do an update?
-				if ($allowUpdate) {
-					// See if we have a character by that name already
-					$newCharacter = Character::where('name', $name)->first();
+						// Start with a null character object
+						$newCharacter = null;
 
-					// If we do, don't allow anymore updates
-					if ($newCharacter) {
-						$allowUpdate = false;
+						// Are we allowed to do an update?
+						if ($allowUpdate) {
+							// See if we have a character by that name already
+							$newCharacter = Character::where('name', $name)->first();
+
+							// If we do, don't allow anymore updates
+							if ($newCharacter) {
+								$allowUpdate = false;
+							}
+						}
+
+						// If we don't have a character, create a new one
+						if ($newCharacter === null) {
+							$newCharacter = new Character(['name' => $name]);
+						}
+
+						// Fill the character data with data from Nova 2
+						$newCharacter->fill([
+							'user_id' => ($user !== null) ? $user['id'] : null,
+							'rank_id' => $assignRank($character, $oldRanks, $newRanks),
+							'status' => $status,
+							'created_at' => $createdAt,
+						]);
+
+						// And finally, save the character
+						$newCharacter->save();
+
+						// Figure out if we need to set the character as a main character
+						if ($user !== null and $user['main_character'] == $character->charid) {
+							$newCharacter->setAsPrimaryCharacter();
+						}
+
+						// Clear any positions we may have already for the character
+						if ($newCharacter->positions->count() > 0) {
+							$newCharacter->positions()->detach();
+						}
+
+						// Assign the position(s) to the new character
+						$assignPositions($character, $newCharacter, $oldPositions, $newPositions);
+
+						// Store the character info in the dictionary
+						$charactersDictionary[$character->charid] = $newCharacter->id;
 					}
-				}
-
-				// If we don't have a character, create a new one
-				if ($newCharacter === null) {
-					$newCharacter = new Character(['name' => $name]);
-				}
-
-				// Fill the character data with data from Nova 2
-				$newCharacter->fill([
-					'user_id' => ($user !== null) ? $user['id'] : null,
-					'rank_id' => $assignRank($character, $oldRanks, $newRanks),
-					'status' => $status,
-					'created_at' => $createdAt,
-				]);
-
-				// And finally, save the character
-				$newCharacter->save();
-
-				// Because we could be dealing with a special case migration,
-				// let's start by checking to see if there's already a character
-				// in the database with this name. If there is, we'll simply
-				// update that record, otherwise we'll create a new one
-				// $newCharacter = Character::updateOrCreate(['name' => $name], [
-				// 	'user_id' => ($user !== null) ? $user['id'] : null,
-				// 	'status' => $status,
-				// 	'created_at' => $createdAt,
-				// ]);
-
-				// Create a new character with the old data
-				// $newCharacter = creator(Character::class)->with([
-				// 	'name' => $name,
-				// 	'user_id' => ($user !== null) ? $user['id'] : null,
-				// 	'status' => $status,
-				// 	'created_at' => $createdAt,
-				// ])->create();
-
-				// Figure out if we need to set the character as a main character
-				if ($user !== null and $user['main_character'] == $character->charid) {
-					$newCharacter->setAsPrimaryCharacter();
-				}
-
-				// Clear any positions we may have already for the character
-				$newCharacter->positions()->detach();
-
-				// Assign the position(s) to the new character
-				$assignPositions($character, $newCharacter, $oldPositions, $newPositions);
-
-				// Assign the rank to the new character
-				$assignRank($character, $newCharacter, $oldRanks, $newRanks);
-
-				// Store the character info in the dictionary
-				$charactersDictionary[$character->charid] = $newCharacter->id;
 			});
 
 			// Update the characters dictionary
@@ -151,7 +131,7 @@ class Characters extends Migrator implements Migratable
 
 	public function check()
 	{
-		return ((int)Character::count() === (int)$this->characters->count());
+		return ((int)Character::count() === (int)$this->db->table('characters')->count());
 	}
 
 	public function status()
@@ -245,7 +225,6 @@ class Characters extends Migrator implements Migratable
 	protected function assignRank()
 	{
 		return function ($oldCharacter, $oldRanks, $newRanks) {
-			// Get the old rank image string
 			$oldRank = $oldRanks->filter(function ($r) use ($oldCharacter) {
 				return $r->rank_id == $oldCharacter->rank;
 			})->first();
@@ -272,6 +251,8 @@ class Characters extends Migrator implements Migratable
 					// We only need to check the first character of the image string
 					return $image{0} == $color;
 				})->first();
+
+				$oldRank = null;
 
 				if ($newRank) {
 					return $newRank->id;
