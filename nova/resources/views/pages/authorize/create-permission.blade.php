@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label class="form-control-label">{{ _m('name') }}</label>
+					<label>{{ _m('name') }}</label>
 					{!! Form::text('name', null, ['class' => 'form-control'.($errors->has('name') ? ' is-invalid' : '')]) !!}
 					{!! $errors->first('name', '<p class="invalid-feedback">:message</p>') !!}
 				</div>
@@ -19,7 +19,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group{{ $errors->has('key') ? ' has-danger' : '' }}">
-					<label class="form-control-label">{{ _m('key') }}</label>
+					<label>{{ _m('key') }}</label>
 					{!! Form::text('key', null, ['class' => 'form-control'.($errors->has('key') ? ' is-invalid' : '')]) !!}
 					{!! $errors->first('key', '<p class="invalid-feedback">:message</p>') !!}
 				</div>

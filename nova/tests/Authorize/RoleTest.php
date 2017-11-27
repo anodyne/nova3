@@ -11,10 +11,13 @@ class RoleTest extends DatabaseTestCase
 	{
 		parent::setUp();
 
-		$this->role = create('Nova\Authorize\Role');
+		$this->role = create(Role::class);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @covers Nova\Authorize\Role::permissions
+	 */
 	public function it_has_permissions()
 	{
 		$this->assertInstanceOf(
@@ -29,7 +32,10 @@ class RoleTest extends DatabaseTestCase
 		$this->assertCount(1, $this->role->fresh()->permissions);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @covers Nova\Authorize\Role::users
+	 */
 	public function it_has_users()
 	{
 		$this->assertInstanceOf(
@@ -44,7 +50,10 @@ class RoleTest extends DatabaseTestCase
 		$this->assertCount(1, $this->role->fresh()->users);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @covers Nova\Authorize\Role::updatePermissions
+	 */
 	public function it_can_update_permissions()
 	{
 		$permission = create('Nova\Authorize\Permission');
@@ -54,15 +63,16 @@ class RoleTest extends DatabaseTestCase
 		$this->assertCount(1, $this->role->fresh()->permissions);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @covers Nova\Authorize\Role::removePermissions
+	 */
 	public function it_can_remove_permissions()
 	{
 		$permission = create('Nova\Authorize\Permission');
 
 		$this->role->updatePermissions([$permission->id]);
-
-		$this->assertCount(1, $this->role->fresh()->permissions);
-
+		
 		$this->role->removePermissions();
 
 		$this->assertCount(0, $this->role->fresh()->permissions);
@@ -85,5 +95,20 @@ class RoleTest extends DatabaseTestCase
 			"{$permission1->name}, {$permission2->name}, {$permission3->name}",
 			$this->role->present()->includedPermissions
 		);
+	}
+
+	/**
+	 * @test
+	 * @covers Nova\Authorize\Role::scopeName
+	 */
+	public function it_can_query_by_role_name()
+	{
+		$role = create(Role::class);
+
+		$queriedRoles1 = Role::name($role->name)->get();
+		$queriedRoles2 = Role::name('Foo')->get();
+
+		$this->assertCount(1, $queriedRoles1);
+		$this->assertCount(0, $queriedRoles2);
 	}
 }

@@ -4,7 +4,7 @@ use Str;
 
 trait Icons
 {
-	public $iconTemplate = '<i class="far fa-%1$s %2$s fa-fw"></i>';
+	public $iconTemplate = '<i class="fa fa-%1$s %2$s fa-fw"></i>';
 
 	public function getIcon($icon)
 	{
@@ -22,6 +22,7 @@ trait Icons
 			'arrow-up' => 'arrow-alt-circle-up',
 			'bars' => 'bars',
 			'card' => 'address-card',
+			'cards' => 'th-large',
 			'check' => 'check',
 			'check-alt' => 'check-circle',
 			'chevron-left' => 'chevron-left',
@@ -36,8 +37,11 @@ trait Icons
 			'edit' => 'pencil',
 			'email' => 'paper-plane',
 			'exclamation' => 'exclamation-circle',
+			'extension' => 'puzzle-piece',
 			'filter' => 'filter',
 			'heart' => 'heart',
+			'image' => 'image',
+			'images' => 'images',
 			'info' => 'info-circle',
 			'link' => 'link',
 			'list' => 'list-alt',
@@ -53,6 +57,8 @@ trait Icons
 			'settings-alt' => 'cogs',
 			'share' => 'share-alt',
 			'star' => 'star',
+			'tasks' => 'tasks',
+			'theme' => 'paint-brush',
 			'undo' => 'undo',
 			'upload' => 'cloud-upload-alt',
 			'user' => 'user',

@@ -7,10 +7,10 @@ class Media extends Eloquent
 {
 	use Reorderable;
 
-	protected $table = 'media';
 	protected $fillable = [
 		'mediable_id', 'mediable_type', 'filename', 'mime_type', 'order', 'primary'
 	];
+	protected $table = 'media';
 
 	//--------------------------------------------------------------------------
 	// Relationships
@@ -24,6 +24,14 @@ class Media extends Eloquent
 	//--------------------------------------------------------------------------
 	// Model Methods
 	//--------------------------------------------------------------------------
+
+	public function getUrlAttribute()
+	{
+		$type = str_plural($this->mediable_type);
+		$filename = $this->filename;
+
+		return asset("storage/app/public/{$type}/{$filename}");
+	}
 
 	public function makePrimary()
 	{

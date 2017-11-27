@@ -73,10 +73,6 @@
 		},
 
 		methods: {
-			_m (key, variables = '') {
-				return window._m(key, variables)
-			},
-
 			createCropper () {
 				this.crop = new Croppie(document.getElementById('crop'), {
 					boundary: {
@@ -110,13 +106,13 @@
 				let self = this
 
 				$.confirm({
-					title: self._m('media-confirm-delete-title'),
-					content: self._m('media-confirm-delete-message'),
+					title: self.lang('media-confirm-delete-title'),
+					content: self.lang('media-confirm-delete-message'),
 					columnClass: "medium",
 					theme: "dark",
 					buttons: {
 						confirm: {
-							text: self._m('delete'),
+							text: self.lang('delete'),
 							btnClass: "btn-danger",
 							action () {
 								axios.delete(route('media.destroy', {media:id}))
@@ -128,14 +124,14 @@
 										self.files.splice(index, 1)
 
 										flash(
-											self._m('media-flash-deleted-message'),
-											self._m('media-flash-deleted-title')
+											self.lang('media-flash-deleted-message'),
+											self.lang('media-flash-deleted-title')
 										)
 									})
 							}
 						},
 						cancel: {
-							text: self._m('cancel')
+							text: self.lang('cancel')
 						}
 					}
 				})
@@ -143,6 +139,10 @@
 
 			isPrimary (file) {
 				return file.primary === 1
+			},
+
+			lang (key, variables = '') {
+				return window.lang(key, variables)
 			},
 
 			processFile (event) {
@@ -170,8 +170,8 @@
 				axios.patch(route('media.update', {media:id}))
 					.catch((error) => {
 						flash(
-							self._m('error-unauthorized-explain'),
-							self._m('error-unauthorized'),
+							self.lang('error-unauthorized-explain'),
+							self.lang('error-unauthorized'),
 							'error'
 						)
 					})
@@ -185,8 +185,8 @@
 				})
 
 				flash(
-					self._m('media-flash-primary-image-updated-message'),
-					self._m('media-flash-primary-image-updated-title')
+					self.lang('media-flash-primary-image-updated-message'),
+					self.lang('media-flash-primary-image-updated-title')
 				)
 			},
 
@@ -208,14 +208,14 @@
 						self.files.push(response.data)
 
 						flash(
-							self._m('media-flash-saved-message'),
-							self._m('media-flash-saved-title'),
+							self.lang('media-flash-saved-message'),
+							self.lang('media-flash-saved-title'),
 							'success'
 						)
 					}).catch((error) => {
 						flash(
-							self._m('error-unauthorized-explain'),
-							self._m('error-unauthorized'),
+							self.lang('error-unauthorized-explain'),
+							self.lang('error-unauthorized'),
 							'error'
 						)
 					})

@@ -1,31 +1,32 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
+use DB;
 use Date;
 use Status;
 use Artisan;
-use Illuminate\Database\DatabaseManager;
+use Nova\Genres\Rank;
+use Nova\Setup\Http\Requests;
+use Nova\Characters\Character;
+use Nova\Foundation\SystemInfo;
+use Nova\Setup\Migrations\MigrationManager;
 
 class MigrateController extends Controller
 {
-	protected $db;
-	protected $userDictionary = [];
-	protected $characterDictionary = [];
-
-	public function __construct(DatabaseManager $db)
+	public function __construct()
 	{
 		parent::__construct();
 
-		$this->db = $db->connection('nova2');
+		$this->middleware('nova.auth-setup');
 	}
 
 	public function index()
 	{
-		return view('pages.setup.migrate.landing');
+		return view('setup.migrate.landing');
 	}
 
 	public function migrateLanding()
 	{
-		return view('pages.setup.migrate.nova');
+		return view('setup.migrate.nova');
 	}
 
 	public function migrateSuccess()
@@ -36,54 +37,66 @@ class MigrateController extends Controller
 		// Write the session config file
 		$writer->write('session');
 
-		return view('pages.setup.migrate.nova-success');
+		return view('setup.migrate.nova-success');
 	}
 
-	public function runMigration()
+	public function runSingleMigration($key)
 	{
-		$this->installNova();
-
-		$this->migrateUsers();
+		return app('nova2-migrator')->run($key);
 	}
 
-	public function accounts()
+	public function verifyCharacters()
 	{
-		return view('pages.setup.migrate.accounts');
+		// Get all of the ranks
+		$ranks = Rank::with('info', 'group')->get();
+
+		// Get all of the characters
+		$characters = Character::with('user', 'positions')->get();
+
+		// Make sure we have a way to mark a character as verified
+		$characters = $characters->map(function ($c) {
+			return array_merge($c->toArray(), ['finished' => false]);
+		});
+
+		return view('setup.migrate.characters', compact('characters', 'ranks'));
 	}
 
-	public function updateAccounts()
+	public function updateCharacters()
 	{
-		// TODO: remove the Nova 2 config file
+		collect(request('characters'))->each(function ($c) {
+			Character::find($c['id'])->update(['rank_id' => $c['rank']]);
+		});
 	}
 
-	protected function installNova()
+	public function charactersSuccess()
 	{
-		Artisan::call('nova:install');
+		return view('setup.migrate.characters-success');
 	}
 
-	protected function migrateUsers()
+	public function settings()
 	{
-		$self = $this;
+		$themes = [
+			'pulsar' => 'Pulsar'
+		];
 
-		$this->db->table('users')
-			->orderBy('userid')
-			->chunk(100, function ($users) use (&$self) {
-				$users->each(function ($user) use (&$self) {
-					$newUser = app('nova.userCreator')->create([
-						'name' => $user->name,
-						'email' => $user->email,
-						'password' => config('nova2.temp_password'),
-						'status' => Status::toInt($user->status),
-						'created_at' => Date::createFromTimestampUTC($user->join_date),
-						'deleted_at' => (empty($user->leave_date)) ? null : Date::createFromTimestampUTC($user->leave_date),
-					]);
-					//$newUser->roles()->attach();
+		return view('setup.install.settings', compact('themes'));
+	}
 
-					//$preferences = [];
-					//$newUser->prefs()->create($preferences);
+	public function settingsSuccess()
+	{
+		return view('setup.migrate.settings-success');
+	}
 
-					$self->userDictionary[$user->userid] = $newUser->id;
-				});
-			});
+	public function updateSettings(Requests\UpdateSettingsRequest $request)
+	{
+		// Update the settings
+		updater('Nova\Settings\Settings')
+			->with(request()->all())
+			->updateAll();
+
+		// Set the migration phase
+		SystemInfo::first()->setPhase('migration', 1);
+
+		return redirect()->route('setup.migrate.settings.success');
 	}
 }

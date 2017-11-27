@@ -84,13 +84,13 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div :class="formGroupClasses('name', index)">
-								<label class="form-control-label">{{ _m('name') }}</label>
+								<label>{{ _m('name') }}</label>
 								<input type="text" class="form-control" v-model="info.name">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div :class="formGroupClasses('short_name', index)">
-								<label class="form-control-label">{{ _m('genre-rank-info-short_name') }}</label>
+								<label>{{ _m('genre-rank-info-short_name') }}</label>
 								<input type="text" class="form-control" v-model="info.short_name">
 							</div>
 						</div>

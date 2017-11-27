@@ -9,14 +9,14 @@
 					<avatar :item="selectedUser" :show-metadata="false" :show-status="false" size="sm" type="image"></avatar>
 					<div class="ml-3" v-html="showIcon('more')"></div>
 				</div>
-				<input type="hidden" name="user_id" v-model="selectedUser.id">
+				<input type="hidden" :name="fieldName" v-model="selectedUser.id">
 			</div>
 			<div role="button"
 				 class="item-picker-toggle"
 				 v-if="!selectedUser"
 				 @click.prevent="show = !show">
 				<div class="item-picker-selected">
-					<span v-text="_m('users-none')"></span>
+					<span v-text="lang('users-none')"></span>
 					<span class="ml-3" v-html="showIcon('more')"></span>
 				</div>
 			</div>
@@ -28,7 +28,7 @@
 			<div class="search-group">
 				<span class="search-field">
 					<div v-html="showIcon('search')"></div>
-					<input type="text" :placeholder="_m('users-find')" v-model="search">
+					<input type="text" :placeholder="lang('users-find')" v-model="search">
 				</span>
 				<a href="#"
 				   class="clear-search ml-2"
@@ -37,12 +37,12 @@
 			</div>
 
 			<div class="items-menu-alert" v-show="filteredUsers.length == 0">
-				<div class="alert alert-warning" v-text="_m('users-error-not-found')"></div>
+				<div class="alert alert-warning" v-text="lang('users-error-not-found')"></div>
 			</div>
 
 			<div class="items-menu-item"
 				 v-if="selectedUser != false"
-				 v-text="_m('users-none')"
+				 v-text="lang('users-none')"
 				 @click.prevent="selectUser(false)"></div>
 
 			<div class="items-menu-item" v-for="user in filteredUsers" @click.prevent="selectUser(user)">
@@ -53,15 +53,17 @@
 </template>
 
 <script>
-	import UserAvatar from './UserAvatar.vue';
+	import Avatar from './Avatar.vue';
 	import { mixin as clickaway } from 'vue-clickaway';
 
 	export default {
 		props: {
+			fieldName: { type: String, default: 'user_id' },
+			items: { type: Array },
 			selected: { type: Object }
 		},
 
-		components: { UserAvatar },
+		components: { Avatar },
 
 		mixins: [ clickaway ],
 
@@ -89,12 +91,24 @@
 		},
 
 		methods: {
-			_m (key, attributes = '') {
-				return window._m(key, attributes);
-			},
-
 			away () {
 				this.show = false;
+			},
+
+			fetch () {
+				let self = this;
+
+				if (this.items) {
+					this.users = this.items;
+				} else {
+					axios.get(route('api.users')).then((response) => {
+						self.users = response.data;
+					});
+				}
+			},
+
+			lang (key, attributes = '') {
+				return window.lang(key, attributes);
 			},
 
 			selectUser (user) {
@@ -117,8 +131,10 @@
 				this.selectedUser = this.selected;
 			}
 
-			axios.get(route('api.users')).then((response) => {
-				self.users = response.data;
+			this.fetch();
+
+			window.events.$on('user-picker-refresh', () => {
+				self.fetch();
 			});
 
 			window.events.$on('user-picker-reset', () => {

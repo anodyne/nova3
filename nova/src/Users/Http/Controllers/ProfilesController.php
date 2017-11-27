@@ -32,7 +32,7 @@ class ProfilesController extends Controller
 			'neutral' => _m('users-gender-option-neutral'),
 		];
 
-		return view('pages.users.update-profile', compact('user', 'genders'));
+		return view('pages.users.edit-profile', compact('user', 'genders'));
 	}
 
 	public function update()
@@ -83,7 +83,7 @@ class ProfilesController extends Controller
 		]);
 
 		updater(User::class)
-			->with(['password' => request('password_new')])
+			->with(['password' => Hash::make(request('password_new'))])
 			->update($user);
 
 		flash()

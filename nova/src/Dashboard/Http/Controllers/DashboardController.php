@@ -1,6 +1,8 @@
 <?php namespace Nova\Dashboard\Http\Controllers;
 
+use Mail;
 use Controller;
+use Nova\Foundation\SystemInfo;
 
 class DashboardController extends Controller
 {
@@ -13,7 +15,11 @@ class DashboardController extends Controller
 
 	public function index()
 	{
-		return view('pages.dashboard.index');
+		$sysinfo = SystemInfo::first();
+
+		// $installChecklist = $sysinfo->install_checklist;
+
+		return view('pages.dashboard.index', compact('sysinfo'));
 	}
 
 	public function characters()
@@ -23,5 +29,26 @@ class DashboardController extends Controller
 		$characters = $this->user->characters;
 
 		return view('pages.dashboard.characters', compact('characters'));
+	}
+
+	public function finishInstallation()
+	{
+		// Set the install phase to 2
+		SystemInfo::first()->setPhase('install', 2);
+	}
+
+	public function finishMigration()
+	{
+		// Set the install and migrate phases to 2
+		SystemInfo::first()->setPhase('install', 2);
+		SystemInfo::first()->setPhase('migration', 2);
+
+		// Send the email to the active users
+	}
+
+	public function sendTestEmail()
+	{
+		Mail::to(request()->user()->email)
+			->queue(new \Nova\Dashboard\Mail\SendTestEmail);
 	}
 }

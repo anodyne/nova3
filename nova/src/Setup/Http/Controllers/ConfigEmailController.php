@@ -1,20 +1,25 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
+use Nova\Setup\ConfigFileWriter;
 use Illuminate\Filesystem\Filesystem;
 use Nova\Setup\Http\Requests\CheckEmailSettingsRequest;
 
 class ConfigEmailController extends Controller
 {
-	public function info()
+	public function __construct()
 	{
-		return view('pages.setup.config.email.info');
+		parent::__construct();
+
+		$this->middleware('nova.auth-setup');
 	}
 
-	public function write(CheckEmailSettingsRequest $request, Filesystem $files)
+	public function info()
 	{
-		// Grab the config writer
-		$writer = app('nova.configWriter');
+		return view('setup.config.email-info');
+	}
 
+	public function write(CheckEmailSettingsRequest $request, ConfigFileWriter $writer, Filesystem $files)
+	{
 		// Write the mail config
 		$writer->write('mail', [
 			"#MAIL_DRIVER#" => trim($request->get('mail_driver')),
@@ -50,18 +55,20 @@ class ConfigEmailController extends Controller
 				break;
 		}
 
-		if ($files->exists(app('path.config').'/mail.php')) {
+		if ($files->exists(app()->appConfigPath('mail.php'))) {
 			return redirect()->route("setup.{$this->setupType}.config.email.success");
 		}
 
 		// Set the flash message
-		flash()->error(null, "We couldn't write the email configuration file because of your server's settings. Please contact your web host to ensure PHP files can write to the server.");
+		flash()
+			->message("We couldn't write the email configuration file because of your server's settings. Please contact your web host to ensure PHP files can write to the server.")
+			->error();
 
 		return redirect()->route("setup.{$this->setupType}.config.email");
 	}
 
 	public function success()
 	{
-		return view('pages.setup.config.email.success');
+		return view('setup.config.email-success');
 	}
 }

@@ -2,6 +2,10 @@
 
 return [
 
-	'genre' => 'st-24'
+	'app' => [
+		'name'	=> "Nova NextGen"
+	],
+
+	'version' => '0.4',
 
 ];

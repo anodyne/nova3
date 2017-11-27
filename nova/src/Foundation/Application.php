@@ -4,6 +4,15 @@ use Illuminate\Foundation\Application as LaravelApp;
 
 class Application extends LaravelApp
 {
+	public function appConfigPath($path = '')
+	{
+		return join(DIRECTORY_SEPARATOR, [
+			$this->basePath,
+			'config',
+			$path
+		]);
+	}
+
 	public function bootstrapPath($path = '')
 	{
 		return join(DIRECTORY_SEPARATOR, [
@@ -46,6 +55,16 @@ class Application extends LaravelApp
 	public function novaLangPath()
 	{
 		return $this->resourcePath('lang');
+	}
+
+	public function path($path = '')
+	{
+		return join(DIRECTORY_SEPARATOR, [
+			$this->basePath,
+			'nova',
+			'src',
+			$path
+		]);
 	}
 
 	public function publicPath()

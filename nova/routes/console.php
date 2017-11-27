@@ -6,7 +6,7 @@ Artisan::command('inspire', function () {
 	$this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
-Artisan::command('nova:refresh', function () {
+/*Artisan::command('nova:refresh', function () {
 	// Flush the caches
 	Cache::flush();
 	Session::flush();
@@ -16,7 +16,7 @@ Artisan::command('nova:refresh', function () {
 	$this->info('Cleared system caches.');
 
 	// Refresh the migrations
-	Artisan::call('migrate:refresh', ['--force' => true]);
+	Artisan::call('migrate:fresh', ['--force' => true]);
 	$this->info('Refreshed database.');
 
 	// Create a user with the System Admin role
@@ -39,4 +39,4 @@ Artisan::command('nova:refresh', function () {
 	$user->attachRole(Nova\Authorize\Role::name('Active User')->first());
 	
 	$this->info('Created test users.');
-});
+})->describe('Refresh Nova with a fresh copy of the database and data');*/

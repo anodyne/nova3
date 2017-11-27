@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label class="form-control-label">{{ _m('name') }}</label>
+					<label>{{ _m('name') }}</label>
 					{!! Form::text('name', null, ['class' => 'form-control'.($errors->has('name') ? ' is-invalid' : '')]) !!}
 					{!! $errors->first('name', '<p class="invalid-feedback">:message</p>') !!}
 				</div>
@@ -19,7 +19,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-					<label class="form-control-label">{{ _m('description') }}</label>
+					<label>{{ _m('description') }}</label>
 					{!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => 8]) !!}
 				</div>
 			</div>
@@ -28,7 +28,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label class="form-control-label">{{ _m('genre-depts-parent') }}</label>
+					<label>{{ _m('genre-depts-parent') }}</label>
 					<div>
 						{!! Form::departments('parent_id', null, null, ['placeholder' => _m('genre-depts-parent-none')], true) !!}
 					</div>
@@ -37,7 +37,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="form-control-label">{{ _m('displayed') }}</label>
+			<label>{{ _m('displayed') }}</label>
 			<div>
 				<toggle-button class="toggle-switch lg" :value="true" @change="toggleDisplay"></toggle-button>
 				<input type="hidden" name="display" v-model="display">

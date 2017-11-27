@@ -6,7 +6,10 @@ use Tests\DatabaseTestCase;
 
 class ManageMediaTest extends DatabaseTestCase
 {
-	/** @test **/
+	/**
+	 * @test
+	 * @coversNothing
+	 */
 	public function unauthenticated_users_cannot_manage_media()
 	{
 		$this->withExceptionHandling();
@@ -19,7 +22,10 @@ class ManageMediaTest extends DatabaseTestCase
 		$this->patch(route('media.reorder'))->assertRedirect(route('sign-in'));
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @covers Nova\Media\Http\Controllers\MediaController::store
+	 */
 	public function media_can_be_created()
 	{
 		$this->signIn();
@@ -50,7 +56,10 @@ class ManageMediaTest extends DatabaseTestCase
 		deletor(Media::class)->delete($media);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @covers Nova\Media\Http\Controllers\MediaController::reorder
+	 */
 	public function media_can_be_reordered()
 	{
 		$this->signIn();
@@ -68,7 +77,10 @@ class ManageMediaTest extends DatabaseTestCase
 		$this->assertDatabaseHas('media', ['id' => $media1->id, 'order' => 2]);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @covers Nova\Media\Http\Controllers\MediaController::destroy
+	 */
 	public function media_can_be_deleted()
 	{
 		$media = create(Media::class);
@@ -82,7 +94,10 @@ class ManageMediaTest extends DatabaseTestCase
 		$this->assertDatabaseMissing('media', ['id' => $media->id]);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @covers Nova\Media\Http\Controllers\MediaController::update
+	 */
 	public function media_can_be_set_as_the_primary_object()
 	{
 		$this->signIn();
@@ -109,7 +124,10 @@ class ManageMediaTest extends DatabaseTestCase
 		$this->assertDatabaseHas('media', ['id' => $media2->id, 'primary' => 1]);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @coversNothing
+	 */
 	public function the_first_media_item_is_set_as_the_primary_media()
 	{
 		$this->signIn();
@@ -128,7 +146,10 @@ class ManageMediaTest extends DatabaseTestCase
 		$this->assertDatabaseHas('media', ['mediable_id' => $character->id, 'primary' => (int) true]);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @covers Nova\Media\Http\Controllers\MediaController::store
+	 */
 	public function only_authorized_users_can_manage_media()
 	{
 		$this->withExceptionHandling();
@@ -152,7 +173,10 @@ class ManageMediaTest extends DatabaseTestCase
 		]);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @covers Nova\Media\Http\Controllers\MediaController::store
+	 */
 	public function only_authorized_users_can_manage_character_media()
 	{
 		$this->withExceptionHandling();

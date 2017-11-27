@@ -66,7 +66,7 @@ class CharactersController extends Controller
 			return ['id' => $p->id];
 		});
 
-		return view('pages.characters.update-character', compact('character', 'positions'));
+		return view('pages.characters.edit-character', compact('character', 'positions'));
 	}
 
 	public function update(Character $character)

@@ -54,7 +54,7 @@ class DepartmentsController extends Controller
 	{
 		$this->authorize('update', $department);
 
-		return view('pages.genres.update-department', compact('department'));
+		return view('pages.genres.edit-department', compact('department'));
 	}
 
 	public function update(Department $department)

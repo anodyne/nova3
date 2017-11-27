@@ -87,7 +87,10 @@
 										<a href="{{ route('users.force-password-reset') }}" class="dropdown-item">
 											{!! icon('users') !!} {{ _m('users-password-reset') }}
 										</a>
-										<a href="{{ route('characters.link') }}" class="dropdown-item">{!! icon('link') !!} {{ _m('characters-link') }}</a>
+
+										@can('update', $characterClass)
+											<a href="{{ route('characters.link') }}" class="dropdown-item">{!! icon('link') !!} {{ _m('characters-link') }}</a>
+										@endcan
 									</div>
 								</div>
 							@endcan
@@ -107,7 +110,6 @@
 			<div class="row align-items-center" v-for="user in filteredUsers">
 				<div class="col">
 					<avatar :item="user"
-							:show-status="false"
 							size="sm"
 							type="link">
 						<span class="text-muted" v-if="showCharacters && usersCharacters(user).length > 0">
@@ -155,6 +157,29 @@
 								   v-show="isTrashed(user)">
 									{!! icon('undo') !!} {{ _m('restore') }}
 								</a>
+
+								<div class="dropdown-divider"></div>
+
+								<a href="#"
+								   class="dropdown-item text-warning"
+								   @click.prevent="deactivateUser(user.id)"
+								   v-show="isActive(user)">
+									{!! icon('close-alt') !!} {{ _m('deactivate') }}
+								</a>
+
+								<a href="#"
+								   class="dropdown-item text-success"
+								   @click.prevent="activateUser(user.id)"
+								   v-show="isInactive(user)">
+									{!! icon('check-alt') !!} {{ _m('activate') }}
+								</a>
+
+								<a href="#"
+								   class="dropdown-item text-success"
+								   @click.prevent="activateUser(user.id)"
+								   v-show="isPending(user)">
+									{!! icon('user-alt') !!} {{ _m('activate') }}
+								</a>
 							@endcan
 						</div>
 					</div>
@@ -182,162 +207,228 @@
 
 			computed: {
 				filteredUsers () {
-					let self = this
-					let filteredUsers = this.users
+					let self = this;
+					let filteredUsers = this.users;
 
 					if (this.status != '') {
 						filteredUsers = filteredUsers.filter(function (user) {
-							return user.status == self.status
-						})
+							return user.status == self.status;
+						});
 					}
 
-					return filter(filteredUsers, this.search)
-
-					return filteredUsers.filter(function (user) {
-						let regex = new RegExp(self.search, 'i')
-
-						return regex.test(user.name)
-							|| regex.test(user.email)
-							|| regex.test(user.nickname)
-							|| regex.test(user.characters.name)
-					})
+					return filter(filteredUsers, this.search);
 				},
 
 				pendingCount () {
 					return this.users.filter(function (user) {
-						return user.status == {{ Status::PENDING }}
-					}).length
+						return user.status == {{ Status::PENDING }};
+					}).length;
 				}
 			},
 
 			methods: {
-				deleteUser (id) {
-					let self = this
+				activateUser (id) {
+					let self = this;
 
 					$.confirm({
-						title: "{{ _m('users-confirm-delete-title') }}",
-						content: "{{ _m('users-confirm-delete-message') }}",
+						title: _m('users-confirm-activate-title'),
+						content: _m('users-confirm-activate-message'),
 						columnClass: "medium",
 						theme: "dark",
 						buttons: {
 							confirm: {
-								text: "{{ _m('delete') }}",
-								btnClass: "btn-danger",
+								text: _m('activate'),
+								btnClass: "btn-success",
 								action () {
-									axios.delete(route('users.destroy', {user:id}))
+									axios.patch(route('users.activate', { user:id }))
 										 .then(function (response) {
 										 	let index = _.findIndex(self.users, function (u) {
-												return u.id == id
-											})
+												return u.id == id;
+											});
 
-											self.users.splice(index, 1)
+											self.users[index].status = {{ Status::ACTIVE }};
 
-											flash(
-												'{{ _m('users-flash-deleted-message') }}',
-												'{{ _m('users-flash-deleted-title') }}'
-											)
-										 })
+											flash(_m('users-flash-activated-message'), _m('users-flash-activated-title'));
+										 });
 								}
 							},
 							cancel: {
-								text: "{{ _m('cancel') }}"
+								text: _m('cancel')
 							}
 						}
-					})
+					});
+				},
+
+				deactivateUser (id) {
+					let self = this;
+
+					$.confirm({
+						title: _m('users-confirm-deactivate-title'),
+						content: _m('users-confirm-deactivate-message'),
+						columnClass: "medium",
+						theme: "dark",
+						buttons: {
+							confirm: {
+								text: _m('deactivate'),
+								btnClass: "btn-danger",
+								action () {
+									axios.delete(route('users.deactivate', { user:id }))
+										 .then(function (response) {
+										 	let index = _.findIndex(self.users, function (u) {
+												return u.id == id;
+											});
+
+											self.users[index].status = {{ Status::INACTIVE }};
+
+											flash(
+												_m('users-flash-deactivated-message'),
+												_m('users-flash-deactivated-title')
+											);
+										 });
+								}
+							},
+							cancel: {
+								text: _m('cancel')
+							}
+						}
+					});
+				},
+
+				deleteUser (id) {
+					let self = this;
+
+					$.confirm({
+						title: _m('users-confirm-delete-title'),
+						content: _m('users-confirm-delete-message'),
+						columnClass: "medium",
+						theme: "dark",
+						buttons: {
+							confirm: {
+								text: _m('delete'),
+								btnClass: "btn-danger",
+								action () {
+									axios.delete(route('users.destroy', { user:id }))
+										 .then(function (response) {
+										 	let index = _.findIndex(self.users, function (u) {
+												return u.id == id;
+											});
+
+											self.users[index].status = {{ Status::REMOVED }};
+											self.users[index].deleted_at = moment().format('YYYY-MM-DD HH:mm:ss');
+
+											flash(_m('users-flash-deleted-message'), _m('users-flash-deleted-title'));
+										 });
+								}
+							},
+							cancel: {
+								text: _m('cancel')
+							}
+						}
+					});
 				},
 
 				editLink (id) {
-					return route('users.edit', {user:id})
+					return route('users.edit', { user:id });
+				},
+
+				isActive (user) {
+					return user.status == {{ Status::ACTIVE }};
+				},
+
+				isInactive (user) {
+					return user.status == {{ Status::INACTIVE }};
+				},
+
+				isPending (user) {
+					return user.status == {{ Status::PENDING }};
 				},
 
 				isTrashed (user) {
-					return user.deleted_at != null
+					return user.status == {{ Status::REMOVED }};
 				},
 
 				profileLink (id) {
-					return route('profile.show', {user:id})
+					return route('profile.show', { user:id });
 				},
 
 				resetSearch () {
-					this.search = ''
+					this.search = '';
 				},
 
 				restoreUser (id) {
-					let self = this
+					let self = this;
 
 					$.confirm({
-						title: "{{ _m('users-confirm-restore-title') }}",
-						content: "{{ _m('users-confirm-restore-message') }}",
+						title: _m('users-confirm-restore-title'),
+						content: _m('users-confirm-restore-message'),
 						columnClass: "medium",
 						theme: "dark",
 						buttons: {
 							confirm: {
-								text: "{{ _m('restore') }}",
+								text: _m('restore'),
 								btnClass: "btn-success",
 								action () {
-									axios.patch(route('users.restore', {user:id}))
+									axios.patch(route('users.restore', { user:id }))
 										 .then(function (response) {
 										 	let index = _.findIndex(self.users, function (u) {
-												return u.id == id
-											})
+												return u.id == id;
+											});
 
-											self.users[index].status = {{ Status::ACTIVE }}
+											self.users[index].status = {{ Status::ACTIVE }};
+											self.users[index].deleted_at = null;
 
-											flash(
-												'{{ _m('users-flash-restored-message') }}',
-												'{{ _m('users-flash-restored-title') }}'
-											)
-										 })
+											flash(_m('users-flash-restored-message'), _m('users-flash-restored-title'));
+										 });
 								}
 							},
 							cancel: {
-								text: "{{ _m('cancel') }}"
+								text: _m('cancel')
 							}
 						}
-					})
+					});
 				},
 
 				usersCharacters (user) {
-					let characters = []
+					let characters = [];
 
 					_.forEach(user.characters, function (character) {
-						characters.push(character.name)
-					})
+						characters.push(character.name);
+					});
 
-					return characters.join(', ')
+					return characters.join(', ');
 				}
 			},
 
 			watch: {
 				search (newValue, oldValue) {
-					this.mobileSearch = false
-					this.showCharacters = false
+					this.mobileSearch = false;
+					this.showCharacters = false;
 				}
 			}
 		}
 
 		function filter (data, term) {
-			let matches = []
-			let regex = new RegExp(term, 'i')
+			let matches = [];
+			let regex = new RegExp(term, 'i');
 
 			if (! Array.isArray(data)) {
-				return matches
+				return matches;
 			}
 
 			data.forEach(function (d) {
 				if (regex.test(d.name) || regex.test(d.email) || regex.test(d.nickname)) {
-					matches.push(d)
+					matches.push(d);
 				} else {
-					let charactersResults = filter(d.characters, term)
+					let charactersResults = filter(d.characters, term);
 					if (charactersResults.length > 0) {
-						matches.push(Object.assign({}, d, { characters: charactersResults }))
+						matches.push(Object.assign({}, d, { characters: charactersResults }));
 
-						vue.data.showCharacters = true
+						vue.data.showCharacters = true;
 					}
 				}
-			})
+			});
 
-			return matches
-		}
+			return matches;
+		};
 	</script>
 @endsection

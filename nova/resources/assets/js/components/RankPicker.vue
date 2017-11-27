@@ -31,7 +31,7 @@
 			<div class="search-group">
 				<span class="search-field">
 					<div v-html="showIcon('search')"></div>
-					<input type="text" :placeholder="_m('genre-ranks-find')" v-model="search">
+					<input type="text" :placeholder="lang('genre-ranks-find')" v-model="search">
 				</span>
 				<a href="#"
 				   class="clear-search ml-2"
@@ -40,12 +40,12 @@
 			</div>
 
 			<div class="items-menu-alert" v-show="filteredRanks.length == 0">
-				<div class="alert alert-warning" v-text="_m('genre-ranks-error-not-found')"></div>
+				<div class="alert alert-warning" v-text="lang('genre-ranks-error-not-found')"></div>
 			</div>
 
 			<div class="items-menu-item" v-if="selectedRank != false" @click.prevent="selectRank(false)">
 				<rank></rank>
-				<small class="meta" v-text="_m('genre-ranks-none')"></small>
+				<small class="meta" v-text="lang('genre-ranks-none')"></small>
 			</div>
 
 			<div class="items-menu-item" v-for="rank in filteredRanks" @click.prevent="selectRank(rank)">
@@ -64,7 +64,9 @@
 		components: { Rank },
 
 		props: {
-			selected: { type: Object }
+			character: { type: Object, required: false, default: null },
+			initialRanks: { type: Array, required: false, default: null },
+			selected: { type: Object, required: false, default: null }
 		},
 
 		mixins: [ clickaway ],
@@ -91,18 +93,20 @@
 		},
 
 		methods: {
-			_m (key, attributes = '') {
-				return window._m(key, attributes);
-			},
-
 			away () {
 				this.show = false;
+			},
+
+			lang (key, attributes = '') {
+				return window.lang(key, attributes);
 			},
 
 			selectRank (rank) {
 				this.selectedRank = rank;
 				this.show = false;
 				this.search = '';
+
+				window.events.$emit('rank-picker-selected', this.selectedRank, this.character);
 			},
 
 			showIcon (icon) {
@@ -117,9 +121,13 @@
 				this.selectedRank = this.selected;
 			}
 
-			axios.get(route('api.ranks')).then((response) => {
-				self.ranks = response.data;
-			});
+			if (this.initialRanks != null) {
+				this.ranks = this.initialRanks;
+			} else {
+				axios.get(route('api.ranks')).then((response) => {
+					self.ranks = response.data;
+				});
+			}
 		}
 	};
 </script>

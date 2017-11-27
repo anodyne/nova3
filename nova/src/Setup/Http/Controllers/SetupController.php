@@ -1,32 +1,34 @@
-<?php namespace Nova\Setup;
+<?php namespace Nova\Setup\Http\Controllers;
 
 use Artisan;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Filesystem\FilesystemManager;
 
 class SetupController extends Controller
 {
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->middleware('nova.auth-setup')->except('showError');
+	}
+
 	public function index()
 	{
-		// Grab the instance of the Nova class
-		$nova = nova();
-
 		// Is Nova installed?
-		$installed = $nova->isInstalled();
+		$installed = nova()->isInstalled();
 
 		// Is there an update available for Nova?
-		$hasUpdate = $nova->hasUpdate();
+		$hasUpdate = nova()->hasUpdate();
 
 		// If there is an update available, grab the info
-		$update = ($hasUpdate) ? $nova->getLatestVersion() : false;
+		$update = ($hasUpdate) ? nova()->getLatestVersion() : false;
 
-		return view('setup.landing', compact('installed', 'update', 'hasUpdate'));
+		return view('setup.start', compact('installed', 'update', 'hasUpdate'));
 	}
 
 	public function environment()
 	{
 		// Check the environment
-		$env = nova()->checkEnvironment();
+		$env = app('nova')->checkEnvironment();
 
 		// If everything checks out, head to the Setup Center
 		if ($env->get('passes')) {
@@ -36,34 +38,29 @@ class SetupController extends Controller
 		return view('setup.environment', compact('env'));
 	}
 
-	public function uninstall(FilesystemManager $storage, Filesystem $files)
+	public function showError($error)
 	{
-		// Clear the cache
-		$storage->disk('local')->delete('installed.json');
+		switch ($error)
+		{
+			case 100:
+				$title = 'Error!';
+				$header = 'Operation Not Allowed';
+				$message = "";
+			break;
 
-		// Clear the routes in production
-		if (app('env') == 'production') {
-			Artisan::call('route:clear');
+			case 200:
+				$title = 'Error!';
+				$header = 'Access Denied';
+				$message = "You don't have the proper permissions to access the Setup Center!";
+
+				// Log a message
+
+				// Put a message into the Nova event log
+
+				// Email the system administrators
+			break;
 		}
 
-		// Reset the database
-		Artisan::call('migrate:reset', ['--force' => true]);
-
-		// Remove the config files
-		$files->delete(config_path('app.php'));
-		$files->delete(config_path('database.php'));
-		$files->delete(config_path('mail.php'));
-		$files->delete(config_path('services.php'));
-		$files->delete(config_path('session.php'));
-
-		// Remove the SQLite database if it's there
-		if ($files->exists(config('database.connections.sqlite.database'))) {
-			$files->delete(config('database.connections.sqlite.database'));
-		}
-
-		// Set the flash message
-		flash()->success(config('nova.app.name')." has been removed!");
-
-		return redirect()->route('setup.home');
+		return view('setup.error', compact('title', 'header', 'message'));
 	}
 }

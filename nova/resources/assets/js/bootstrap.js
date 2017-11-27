@@ -15,11 +15,14 @@ try {
 
 	require('bootstrap');
 	window.jconfirm = require('jquery-confirm');
+	window.webuiPopover = require('webui-popover');
 } catch (e) {}
 
 window.Vue = require('vue');
 window.md5 = require('md5');
+window.moment = require('moment');
 window.Sortable = require('sortablejs');
+window.swal = require('sweetalert2');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -71,7 +74,7 @@ window.icon = function (name, attributes = '') {
 	return template.replace('%1$s', icon)
 }
 
-window._m = function (key, variables = '') {
+window.lang = function (key, variables = '') {
 	// Get the string
 	let string = window.Nova.lang[key]
 

@@ -52,7 +52,7 @@
 
 			displayName () {
 				return this.item.displayName;
-				
+
 				let pieces = [];
 
 				if (this.isCharacter && this.item.rank != null) {
@@ -105,12 +105,46 @@
 			statusClasses () {
 				let classes = ['avatar-status'];
 
-				if (this.item.user && !this.item.isPrimaryCharacter) {
-					classes.push('secondary');
+				// Character
+				if (this.item.user_id !== undefined) {
+					if (this.item.isPrimaryCharacter) {
+						classes.push('primary');
+					}
+
+					if (this.item.user !== null && ! this.item.isPrimaryCharacter) {
+						classes.push('secondary');
+					}
+
+					if (this.item.status == 1) {
+						classes.push('success');
+					}
+
+					if (this.item.status == 3) {
+						classes.push('warning');
+					}
+
+					if (this.item.status == 4) {
+						classes.push('danger');
+					}
 				}
 
-				if (this.item.user && this.item.isPrimaryCharacter) {
-					classes.push('primary');
+				// User
+				if (this.item.primary_character !== undefined) {
+					if (this.item.status == 1) {
+						classes.push('success');
+					}
+
+					if (this.item.status == 2) {
+						classes.push('primary');
+					}
+
+					if (this.item.status == 3) {
+						classes.push('warning');
+					}
+
+					if (this.item.status == 4) {
+						classes.push('danger');
+					}
 				}
 
 				return classes;
@@ -122,15 +156,27 @@
 				}
 
 				if (this.isCharacter) {
-					if (this.item.user) {
+					if (this.item.user && this.item.status == 2) {
 						if (this.item.isPrimaryCharacter) {
-							return this._m('characters-primary-of', {2:this.item.user.displayName});
+							return this.lang('characters-primary-of', {2:this.item.user.displayName});
 						} else {
-							return this._m('characters-pnpc-of', {2:this.item.user.displayName});
+							return this.lang('characters-character-of', {2:this.item.user.displayName});
 						}
 					}
 
-					return this._m('characters-npc');
+					if (this.item.status == 1) {
+						return this.lang('characters-pending');
+					}
+
+					if (this.item.status == 3) {
+						return this.lang('characters-inactive');
+					}
+
+					if (this.item.status == 4) {
+						return this.lang('characters-removed');
+					}
+
+					return this.lang('characters-npc');
 				}
 
 				return null;
@@ -138,8 +184,8 @@
 		},
 
 		methods: {
-			_m (key, variables = '') {
-				return window._m(key, variables);
+			lang (key, variables = '') {
+				return window.lang(key, variables);
 			}
 		}
 	};

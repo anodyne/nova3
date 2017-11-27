@@ -28,7 +28,16 @@ class CreateSettingsTable extends Migration
 	protected function seed()
 	{
 		$settings = collect([
-			['key' => 'rank', 'value' => 'duty', 'protected' => (int) true],
+			['key' => 'mail_default_address', 'value' => '', 'protected' => (int)true],
+			['key' => 'mail_default_name', 'value' => '', 'protected' => (int)true],
+			['key' => 'mail_subject_prefix', 'value' => '', 'protected' => (int)true],
+			['key' => 'manifest_layout', 'value' => 'list', 'protected' => (int)true],
+			['key' => 'manifest_show_assigned', 'value' => 'true', 'protected' => (int)true],
+			['key' => 'manifest_show_available', 'value' => 'true', 'protected' => (int)true],
+			['key' => 'manifest_show_inactive', 'value' => 'false', 'protected' => (int)true],
+			['key' => 'manifest_show_npcs', 'value' => 'true', 'protected' => (int)true],
+			['key' => 'rank', 'value' => 'duty', 'protected' => (int)true],
+			['key' => 'theme', 'value' => 'pulsar', 'protected' => (int)true],
 		]);
 
 		Eloquent::unguard();

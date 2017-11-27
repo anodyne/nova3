@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label class="form-control-label">{{ _m('name') }}</label>
+					<label>{{ _m('name') }}</label>
 					{!! Form::text('name', null, ['class' => 'form-control'.($errors->has('name') ? ' is-invalid' : '')]) !!}
 					{!! $errors->first('name', '<p class="invalid-feedback">:message</p>') !!}
 				</div>
@@ -19,7 +19,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label class="form-control-label">{{ _m('genre-rank-info-short_name') }}</label>
+					<label>{{ _m('genre-rank-info-short_name') }}</label>
 					{!! Form::text('short_name', null, ['class' => 'form-control'.($errors->has('short_name') ? ' is-invalid' : '')]) !!}
 					{!! $errors->first('short_name', '<p class="invalid-feedback">:message</p>') !!}
 				</div>

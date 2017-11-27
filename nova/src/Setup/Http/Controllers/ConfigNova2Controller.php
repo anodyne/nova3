@@ -3,14 +3,22 @@
 use PDO;
 use PDOException;
 use Illuminate\Http\Request;
+use Nova\Setup\ConfigFileWriter;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Database\Connectors\Connector;
 
 class ConfigNova2Controller extends Controller
 {
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->middleware('nova.auth-setup');
+	}
+
 	public function info()
 	{
-		return view('pages.setup.config.nova2.info');
+		return view('setup.config.nova2-info');
 	}
 
 	public function check(Request $request, Connector $connector, Filesystem $files)
@@ -27,7 +35,8 @@ class ConfigNova2Controller extends Controller
 		session(['nova2_dbPass' => trim($request->get('nova2_db_password'))]);
 		session(['nova2_dbHost' => trim($request->get('nova2_db_host'))]);
 		session(['nova2_prefix' => trim($request->get('nova2_db_prefix'))]);
-		session(['nova2_temp_password' => trim($request->get('nova2_temp_password'))]);
+		session(['nova2_genre' => trim($request->get('nova2_genre'))]);
+		session(['nova2_use_data' => ($request->get('nova2_use_data') == 'on') ? 1 : 0]);
 
 		config([
 			"database.connections.nova2.host" => session('nova2_dbHost'),
@@ -57,12 +66,13 @@ class ConfigNova2Controller extends Controller
 			);
 
 			// Grab the config writer
-			$writer = app('nova.configWriter');
+			$writer = new ConfigFileWriter($files);
 
 			// Write the Nova 2 config file
 			$writer->write('nova2', [
 				"#NOVA2_DB_PREFIX#" => session('nova2_prefix'),
-				"#NOVA2_TEMP_PASS#" => session('nova2_temp_password'),
+				"#NOVA2_GENRE#" => session('nova2_genre'),
+				"#NOVA2_USE_DATA#" => session('nova2_use_data'),
 			]);
 
 			return redirect()->route("setup.{$this->setupType}.config.nova2.success");
@@ -87,6 +97,6 @@ class ConfigNova2Controller extends Controller
 
 	public function success()
 	{
-		return view('pages.setup.config.nova2.success');
+		return view('setup.config.nova2-success');
 	}
 }

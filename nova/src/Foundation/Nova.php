@@ -2,7 +2,10 @@
 
 class Nova
 {
-	use Configuration\ProvidesScriptVariables;
+	use Configuration\DoesEnvironmentChecks,
+		Configuration\DoesSystemChecks,
+		Configuration\DoesVersionChecks,
+		Configuration\ProvidesScriptVariables;
 
 	/**
 	 * The Nova version.

@@ -18,11 +18,32 @@ class AppServiceProvider extends ServiceProvider
 		$this->registerTheme();
 		$this->registerTranslator();
 		$this->registerMacros();
-		// $this->registerRepositoryBindings();
 
 		$this->app->bind('nova.avatar', function ($app) {
 			return new \Nova\Foundation\Avatar;
 		});
+
+		$this->app->bind('nova.markdown', function ($app) {
+			return new \Nova\Foundation\MarkdownParser(new \Parsedown);
+		});
+
+		$this->app->bind('nova.settings', function ($app) {
+			if ($app['nova']->isInstalled()) {
+				$settings = \Nova\Settings\Settings::get()
+					->pluck('value', 'key')
+					->all();
+
+				return (object)$settings;
+			}
+
+			return (object)collect();
+		});
+
+		$this->app->singleton('nova2-migrator', function ($app) {
+			return new \Nova\Setup\Migrations\MigrationManager;
+		});
+
+		$this->app['view']->share('_settings', $this->app['nova.settings']);
 
 		// Build up the morph map
 		Relation::morphMap(config('maps.morph'));

@@ -14,7 +14,10 @@ class ManageRolesTest extends DatabaseTestCase
 		$this->role = create('Nova\Authorize\Role');
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @coversNothing
+	 */
 	public function unauthorized_users_cannot_manage_roles()
 	{
 		$this->withExceptionHandling();
@@ -36,15 +39,16 @@ class ManageRolesTest extends DatabaseTestCase
 		$this->delete(route('roles.destroy', $this->role))->assertStatus(403);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @covers Nova\Authorize\Http\Controllers\RolesController::store
+	 */
 	public function a_role_can_be_created()
 	{
 		$admin = $this->createAdmin();
-
 		$this->signIn($admin);
 
 		$permission = create('Nova\Authorize\Permission');
-
 		$role = make('Nova\Authorize\Role');
 
 		$this->post(
@@ -61,11 +65,13 @@ class ManageRolesTest extends DatabaseTestCase
 		]);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @covers Nova\Authorize\Http\Controllers\RolesController::update
+	 */
 	public function a_role_can_be_updated()
 	{
 		$admin = $this->createAdmin();
-
 		$this->signIn($admin);
 
 		$permission1 = create('Nova\Authorize\Permission');
@@ -89,11 +95,13 @@ class ManageRolesTest extends DatabaseTestCase
 		]);
 	}
 
-	/** @test **/
+	/**
+	 * @test
+	 * @covers Nova\Authorize\Http\Controllers\RolesController::destroy
+	 */
 	public function a_role_can_be_deleted()
 	{
 		$admin = $this->createAdmin();
-
 		$this->signIn($admin);
 
 		$permission = create('Nova\Authorize\Permission');
@@ -106,8 +114,11 @@ class ManageRolesTest extends DatabaseTestCase
 		$this->assertDatabaseMissing('permissions_roles', ['role_id' => $this->role->id]);
 	}
 
-	/** @test **/
-	public function has_no_errors()
+	/**
+	 * @test
+	 * @coversNothing
+	 */
+	public function role_management_has_no_errors()
 	{
 		$admin = $this->createAdmin();
 		$this->signIn($admin);

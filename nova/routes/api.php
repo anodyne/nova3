@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 
 Route::get('characters', function () {
 	return Nova\Characters\Character::with(['user', 'positions', 'rank.info'])
-		->where('status', Status::ACTIVE)
+		->active()
 		->get();
 })->name('api.characters');
 
@@ -21,7 +21,7 @@ Route::get('ranks', function () {
 })->name('api.ranks');
 
 Route::get('users', function () {
-	return Nova\Users\User::with('characters')
-		->where('status', Status::ACTIVE)
+	return Nova\Users\User::with('characters', 'allCharacters')
+		->active()
 		->get();
 })->name('api.users');

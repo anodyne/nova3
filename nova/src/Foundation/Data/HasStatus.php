@@ -21,16 +21,16 @@ trait HasStatus
 
 	public function scopeActive($query)
 	{
-		return $query->where('status', '=', Status::ACTIVE);
+		return $query->where('status', Status::ACTIVE);
 	}
 
 	public function scopeInactive($query)
 	{
-		return $query->where('status', '=', Status::INACTIVE);
+		return $query->where('status', Status::INACTIVE);
 	}
 
 	public function scopePending($query)
 	{
-		return $query->where('status', '=', Status::PENDING);
+		return $query->where('status', Status::PENDING);
 	}
 }

@@ -1,4 +1,5 @@
 @import '~bootstrap/scss/functions', '~bootstrap/scss/variables';
+@import '~webui-popover/dist/jquery.webui-popover';
 @import 'variables', 'data-table', 'item-picker', 'avatar';
 
 h1 {
@@ -81,6 +82,16 @@ h1 {
 			}
 		}
 	}
+
+	&.alert-info {
+		.custom-control-indicator {
+			background-color: rgba(0, 0, 0, .15);
+		}
+
+		.custom-control-input:checked ~ .custom-control-indicator {
+			background-color: #007bff;
+		}
+	}
 }
 
 .btn-toolbar {
@@ -155,8 +166,10 @@ a.card {
 	}
 }
 
-.form-control-label {
-	font-weight: 500;
+form {
+	label {
+		font-weight: 500;
+	}
 }
 
 .form-text {

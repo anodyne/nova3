@@ -4,7 +4,7 @@ Route::get('/', function () {
 	view()->share('_user', auth()->user());
 
 	return view('pages.welcome');
-})->name('home');
+})->name('home')->middleware('nova.installed');
 
 Route::group(['namespace' => 'Nova\Auth\Http\Controllers'], function () {
 	// Authentication Routes...
@@ -95,6 +95,10 @@ Route::get('admin/users/password-resets', 'Nova\Users\Http\Controllers\ForcePass
 	->name('users.force-password-reset');
 Route::patch('admin/users/password-resets', 'Nova\Users\Http\Controllers\ForcePasswordResetsController@update')
 	->name('users.reset-passwords');
+Route::patch('admin/users/{user}/activate', 'Nova\Users\Http\Controllers\UsersActivatorController@update')
+	->name('users.activate');
+Route::delete('admin/users/{user}/deactivate', 'Nova\Users\Http\Controllers\UsersActivatorController@destroy')
+	->name('users.deactivate');
 Route::resource('admin/users', 'Nova\Users\Http\Controllers\UsersController');
 
 Route::get('profile/edit', 'Nova\Users\Http\Controllers\ProfilesController@edit')
@@ -122,6 +126,12 @@ Route::delete('admin/characters/unlink/{character}', 'Nova\Characters\Http\Contr
 
 Route::patch('admin/characters/{character}/restore', 'Nova\Characters\Http\Controllers\CharactersController@restore')
 	->name('characters.restore');
+
+Route::patch('admin/characters/{character}/activate', 'Nova\Characters\Http\Controllers\CharactersActivatorController@update')
+	->name('characters.activate');
+Route::delete('admin/characters/{character}/deactivate', 'Nova\Characters\Http\Controllers\CharactersActivatorController@destroy')
+	->name('characters.deactivate');
+
 Route::resource('admin/characters', 'Nova\Characters\Http\Controllers\CharactersController');
 
 Route::get('characters/manifest', 'Nova\Characters\Http\Controllers\CharacterManifestController@index')
@@ -144,7 +154,29 @@ Route::patch('admin/media', 'Nova\Media\Http\Controllers\MediaController@reorder
 /**
  * Dashboard
  */
-Route::get('dashboard', 'Nova\Dashboard\Http\Controllers\DashboardController@index')
-	->name('dashboard');
-Route::get('dashboard/characters', 'Nova\Dashboard\Http\Controllers\DashboardController@characters')
-	->name('dashboard.characters');
+$dashboardOptions = [
+	'prefix' => 'dashboard',
+	'namespace' => 'Nova\Dashboard\Http\Controllers'
+];
+
+Route::group($dashboardOptions, function () {
+	Route::get('/', 'DashboardController@index')
+		->name('dashboard');
+	Route::get('dashboard/characters', 'DashboardController@characters')
+		->name('dashboard.characters');
+
+	Route::post('dashboard/finish-install', 'DashboardController@finishInstallation')
+		->name('dashboard.finish-install');
+	Route::post('dashboard/finish-migrate', 'DashboardController@finishMigration')
+		->name('dashboard.finish-migrate');
+	Route::post('dashboard/send-test-email', 'DashboardController@sendTestEmail')
+		->name('dashboard.send-test-email');
+});
+
+/**
+ * Settings
+ */
+Route::get('admin/settings', 'Nova\Settings\Http\Controllers\SettingsController@index')
+	->name('settings');
+Route::patch('admin/settings', 'Nova\Settings\Http\Controllers\SettingsController@update')
+	->name('settings.update');

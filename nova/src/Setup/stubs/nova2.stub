@@ -1,0 +1,11 @@
+<?php
+
+return [
+
+	'db_prefix' => '#NOVA2_DB_PREFIX#',
+
+	'genre' => '#NOVA2_GENRE#',
+
+	'use_nova2_data' => #NOVA2_USE_DATA#,
+
+];

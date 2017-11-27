@@ -10,8 +10,7 @@
 
 	<title>{{ config('app.name', 'Laravel') }}</title>
 
-	<script defer src="{{ asset('assets/js/packs/regular.js') }}"></script>
-	<script defer src="{{ asset('assets/js/packs/light.js') }}"></script>
+	<script defer src="{{ asset('assets/js/packs/solid.js') }}"></script>
 	<script defer src="{{ asset('assets/js/fontawesome.js') }}"></script>
 	<script>
 		window.Nova = {!! json_encode(Nova::scriptVariables()) !!}
@@ -140,8 +139,9 @@
 	<div id="nova-app" class="flex-center position-ref {{ Request::is('/') ? 'full-height' : '' }}">
 		@if (Route::has('sign-in'))
 			<div class="top-right links">
-				@if (Auth::check())
+				@auth
 					<a href="{{ route('home') }}">Home</a>
+					<a href="{{ route('setup.home') }}">Setup Center</a>
 					<span class="dropdown">
 						<a class="dropdown-toggle"
 						   href="#"
@@ -152,6 +152,8 @@
 						   Admin
 						</a>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+							<a class="dropdown-item" href="{{ route('settings') }}">Settings</a>
+							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="{{ route('departments.index') }}">Departments</a>
 							<a class="dropdown-item" href="{{ route('positions.index') }}">Positions</a>
 							<a class="dropdown-item" href="{{ route('ranks.index') }}">Ranks</a>
@@ -170,10 +172,12 @@
                     <form id="logout-form" action="{{ route('sign-out') }}" method="POST" style="display: none;">
                         {{ csrf_field() }}
                     </form>
-				@else
+				@endauth
+
+				@guest
 					<a href="{{ route('sign-in') }}">Sign In</a>
 					<a href="{{ route('join') }}">Register</a>
-				@endif
+				@endguest
 			</div>
 		@endif
 

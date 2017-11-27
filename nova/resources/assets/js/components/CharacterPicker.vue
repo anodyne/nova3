@@ -16,7 +16,7 @@
 				 v-if="!selectedCharacter"
 				 @click.prevent="show = !show">
 				<div class="item-picker-selected">
-					<span v-text="_m('characters-none')"></span>
+					<span v-text="lang('characters-none')"></span>
 					<div class="ml-3" v-html="showIcon('more')"></div>
 				</div>
 				<input type="hidden" :name="fieldName" value="">
@@ -29,7 +29,7 @@
 			<div class="search-group">
 				<span class="search-field">
 					<div v-html="showIcon('search')"></div>
-					<input type="text" :placeholder="_m('characters-find')" v-model="search">
+					<input type="text" :placeholder="lang('characters-find')" v-model="search">
 				</span>
 				<a href="#"
 				   class="clear-search ml-2"
@@ -38,12 +38,12 @@
 			</div>
 
 			<div class="items-menu-alert" v-show="filteredCharacters.length == 0">
-				<div class="alert alert-warning" v-text="_m('characters-error-not-found')"></div>
+				<div class="alert alert-warning" v-text="lang('characters-error-not-found')"></div>
 			</div>
 
 			<div class="items-menu-item"
 				 v-if="selectedCharacter != false"
-				 v-text="_m('characters-none')"
+				 v-text="lang('characters-none')"
 				 @click.prevent="selectCharacter(false)"></div>
 
 			<div class="items-menu-item" v-for="character in filteredCharacters" @click.prevent="selectCharacter(character)">
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-	import CharacterAvatar from './CharacterAvatar.vue';
+	import Avatar from './Avatar.vue';
 	import { mixin as clickaway } from 'vue-clickaway';
 
 	export default {
@@ -66,7 +66,7 @@
 			showStatus: { type: Boolean, default: false }
 		},
 
-		components: { CharacterAvatar },
+		components: { Avatar },
 
 		mixins: [ clickaway ],
 
@@ -106,10 +106,6 @@
 		},
 
 		methods: {
-			_m (key, attributes = '') {
-				return window._m(key, attributes);
-			},
-
 			away () {
 				this.show = false;
 			},
@@ -124,6 +120,10 @@
 						self.characters = response.data;
 					});
 				}
+			},
+
+			lang (key, attributes = '') {
+				return window.lang(key, attributes);
 			},
 
 			selectCharacter (character) {
