@@ -201,8 +201,8 @@
 						let regex = new RegExp(self.search, 'i')
 
 						let search = regex.test(character.name)
-							|| regex.test(character.position.name)
-							|| regex.test(character.position.department.name)
+							// || regex.test(character.position.name)
+							// || regex.test(character.position.department.name)
 
 						if (character.rank) {
 							search = search || regex.test(character.rank.info.name)
