@@ -7,6 +7,18 @@
  * @author   Taylor Otwell <taylor@laravel.com>
  */
 
+// Are we in maintenance mode?
+if (file_exists('./storage/app/maintenance.json')) {
+	header("Location: error-maintenance.html");
+	exit;
+}
+
+// Does the vendor folder exist?
+if (! file_exists('./nova/vendor')) {
+	header("Location: error-vendor.html");
+	exit;
+}
+
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
