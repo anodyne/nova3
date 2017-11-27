@@ -2,75 +2,35 @@
 
 return [
 
-	/*
-	|--------------------------------------------------------------------------
-	| Gravatar Size
-	|--------------------------------------------------------------------------
-	|
-	| You may request a specific image size (1 - 2048px), which will be
-	| dynamically delivered by Gravatar. If no size parameter is
-	| supplied, images are presented at 80px by default.
-	|
-	*/
+	'default' => [
 
-	'size' => null,
+		// By default, images are presented at 80px by 80px if no size parameter is supplied.
+		// You may request a specific image size, which will be dynamically delivered from Gravatar
+		// by passing a single pixel dimension (since the images are square):
+		'size'   => 240,
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Image
-	|--------------------------------------------------------------------------
-	|
-	| If there is no image associated with the requested email, Gravatar will
-	| automatically serve up that image. Gravatar has a number of built
-	| in options which you can use, or you can supply a image url.
-	|
-	| Options: '404', 'mm', 'identicon', 'monsterid',
-	|          'wavatar', 'retro', 'blank'
-	|
-	*/
+		// the fallback image, can be a string or a url
+		// for more info, visit: http://en.gravatar.com/site/implement/images/#default-image
+		'fallback' => 'retro',
 
-	'default-image' => null,
+		// would you like to return a https://... image
+		'secure' => true,
 
-	/*
-	|--------------------------------------------------------------------------
-	| Force Default Image
-	|--------------------------------------------------------------------------
-	|
-	| If enabled, the default image forced to always load. That means
-	| Gravatar returns the default image, even if the requested
-	| email already have an associated image to display.
-	|
-	*/
+		// Gravatar allows users to self-rate their images so that they can indicate if an image
+		// is appropriate for a certain audience. By default, only 'G' rated images are displayed
+		// unless you indicate that you would like to see higher ratings.
+		// Available options:
+		// g: suitable for display on all websites with any audience type.
+		// pg: may contain rude gestures, provocatively dressed individuals, the lesser swear words, or mild violence.
+		// r: may contain such things as harsh profanity, intense violence, nudity, or hard drug use.
+		// x: may contain hardcore sexual imagery or extremely disturbing violence.
+		'maximumRating' => 'pg',
 
-	'force-default' => false,
+		// If for some reason you wanted to force the default image to always load, you can do that setting this to true
+		'forceDefault' => false,
 
-	/*
-	|--------------------------------------------------------------------------
-	| Rating Level
-	|--------------------------------------------------------------------------
-	|
-	| If the requested email doesn't have an image meeting the requested
-	| rating level, then the default image is returned. By default,
-	| Gravatar displays suitable images for all websites.
-	|
-	|
-	| Options: 'pg', 'r', 'x'
-	|
-	*/
-
-	'rating' => null,
-
-	/*
-	|--------------------------------------------------------------------------
-	| Secure Requests
-	|--------------------------------------------------------------------------
-	|
-	| When your application is being served over SSL, then you'll want to
-	| serve your Gravatars via SSL as well. If disabled, you'll get
-	| annoying security warnings in most browsers.
-	|
-	*/
-
-	'secure' => true,
+		// If you require a file-type extension (some places do) then you may also add an (optional) .jpg extension to that URL
+		'forceExtension' => 'jpg',
+	]
 
 ];

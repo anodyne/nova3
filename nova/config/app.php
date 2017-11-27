@@ -4,6 +4,18 @@ return [
 
 	/*
 	|--------------------------------------------------------------------------
+	| Application Name
+	|--------------------------------------------------------------------------
+	|
+	| This value is the name of your application. This value is used when the
+	| framework needs to place the application's name in a notification or
+	| any other location as required by the application or its packages.
+	*/
+
+	'name' => env('APP_NAME', 'Nova NextGen'),
+
+	/*
+	|--------------------------------------------------------------------------
 	| Application Environment
 	|--------------------------------------------------------------------------
 	|
@@ -12,7 +24,8 @@ return [
 	| services your application utilizes. Set this in your ".env" file.
 	|
 	*/
-	'env' => env('APP_ENV', 'production'),
+
+	'env' => env('APP_ENV', 'local'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -25,7 +38,7 @@ return [
 	|
 	*/
 
-	'debug' => env('APP_DEBUG', true),
+	'debug' => env('APP_DEBUG', false),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -38,7 +51,7 @@ return [
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => env('APP_URL', 'http://localhost'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -90,9 +103,9 @@ return [
 	|
 	*/
 
-	'key' => env('APP_KEY', 'SomeRandomString'),
+	'key' => env('APP_KEY', 'base64:HOmEC0YRLMMo5gQdBs/Qq+Ag5vM+aGHjg4P4cLl/EQw='),
 
-	'cipher' => MCRYPT_RIJNDAEL_128,
+	'cipher' => 'AES-256-CBC',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -103,11 +116,13 @@ return [
 	| the box, Laravel uses the Monolog PHP logging library. This gives
 	| you a variety of powerful log handlers / formatters to utilize.
 	|
-	| Available Settings: "single", "daily", "syslog"
+	| Available Settings: "single", "daily", "syslog", "errorlog"
 	|
 	*/
 
-	'log' => 'daily',
+	'log' => env('APP_LOG', 'daily'),
+
+	'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -137,6 +152,7 @@ return [
 		Illuminate\Foundation\Providers\FoundationServiceProvider::class,
 		Illuminate\Hashing\HashServiceProvider::class,
 		Illuminate\Mail\MailServiceProvider::class,
+		Illuminate\Notifications\NotificationServiceProvider::class,
 		Illuminate\Pagination\PaginationServiceProvider::class,
 		Illuminate\Pipeline\PipelineServiceProvider::class,
 		Illuminate\Queue\QueueServiceProvider::class,
@@ -148,20 +164,24 @@ return [
 		Illuminate\View\ViewServiceProvider::class,
 
 		/*
-		 * Nova Service Providers
+		 * Package Service Providers...
 		 */
-
-		Dingo\Api\Provider\LaravelServiceProvider::class,
+		Laravel\Tinker\TinkerServiceProvider::class,
 		Collective\Html\HtmlServiceProvider::class,
-		Nova\Setup\Providers\SetupServiceProvider::class,
-		Nova\Setup\Providers\SetupRouteServiceProvider::class,
-		//Nova\Foundation\Providers\ErrorServiceProvider::class,
-		Nova\Foundation\Providers\NovaServiceProvider::class,
+		BladeSvg\BladeSvgServiceProvider::class,
+		Intervention\Image\ImageServiceProvider::class,
+		Tightenco\Ziggy\ZiggyServiceProvider::class,
+		Creativeorange\Gravatar\GravatarServiceProvider::class,
+
+		/*
+		 * Application Service Providers...
+		 */
+		Nova\Foundation\Providers\AppServiceProvider::class,
+		Nova\Foundation\Providers\AuthServiceProvider::class,
+		// Nova\Foundation\Providers\BroadcastServiceProvider::class,
 		Nova\Foundation\Providers\EventServiceProvider::class,
 		Nova\Foundation\Providers\RouteServiceProvider::class,
-		Nova\Foundation\Providers\AuthServiceProvider::class,
-		Nova\Foundation\Providers\ExtensionServiceProvider::class,
-		Peslis\Gravatar\Laravel\GravatarServiceProvider::class,
+		Nova\Foundation\Providers\DeferredServiceProvider::class,
 
 	],
 
@@ -178,203 +198,51 @@ return [
 
 	'aliases' => [
 
-		'App'       => Illuminate\Support\Facades\App::class,
-		'Artisan'   => Illuminate\Support\Facades\Artisan::class,
-		'Auth'      => Illuminate\Support\Facades\Auth::class,
-		'Blade'     => Illuminate\Support\Facades\Blade::class,
-		'Bus'       => Illuminate\Support\Facades\Bus::class,
-		'Cache'     => Illuminate\Support\Facades\Cache::class,
-		'Config'    => Illuminate\Support\Facades\Config::class,
-		'Cookie'    => Illuminate\Support\Facades\Cookie::class,
-		'Crypt'     => Illuminate\Support\Facades\Crypt::class,
-		'DB'        => Illuminate\Support\Facades\DB::class,
-		'Eloquent'  => Illuminate\Database\Eloquent\Model::class,
-		'Event'     => Illuminate\Support\Facades\Event::class,
-		'File'      => Illuminate\Support\Facades\File::class,
-		'Gate'      => Illuminate\Support\Facades\Gate::class,
-		'Hash'      => Illuminate\Support\Facades\Hash::class,
-		'Input'     => Illuminate\Support\Facades\Input::class,
-		'Inspiring' => Illuminate\Foundation\Inspiring::class,
-		'Lang'      => Illuminate\Support\Facades\Lang::class,
-		'Log'       => Illuminate\Support\Facades\Log::class,
-		'Mail'      => Illuminate\Support\Facades\Mail::class,
-		'Password'  => Illuminate\Support\Facades\Password::class,
-		'Queue'     => Illuminate\Support\Facades\Queue::class,
-		'Redirect'  => Illuminate\Support\Facades\Redirect::class,
-		'Redis'     => Illuminate\Support\Facades\Redis::class,
-		'Request'   => Illuminate\Support\Facades\Request::class,
-		'Response'  => Illuminate\Support\Facades\Response::class,
-		'Route'     => Illuminate\Support\Facades\Route::class,
-		'Schema'    => Illuminate\Support\Facades\Schema::class,
-		'Session'   => Illuminate\Support\Facades\Session::class,
-		'Storage'   => Illuminate\Support\Facades\Storage::class,
-		'URL'       => Illuminate\Support\Facades\URL::class,
+		'App' => Illuminate\Support\Facades\App::class,
+		'Artisan' => Illuminate\Support\Facades\Artisan::class,
+		'Auth' => Illuminate\Support\Facades\Auth::class,
+		'Blade' => Illuminate\Support\Facades\Blade::class,
+		'Broadcast' => Illuminate\Support\Facades\Broadcast::class,
+		'Bus' => Illuminate\Support\Facades\Bus::class,
+		'Cache' => Illuminate\Support\Facades\Cache::class,
+		'Config' => Illuminate\Support\Facades\Config::class,
+		'Cookie' => Illuminate\Support\Facades\Cookie::class,
+		'Crypt' => Illuminate\Support\Facades\Crypt::class,
+		'DB' => Illuminate\Support\Facades\DB::class,
+		'Eloquent' => Illuminate\Database\Eloquent\Model::class,
+		'Event' => Illuminate\Support\Facades\Event::class,
+		'File' => Illuminate\Support\Facades\File::class,
+		'Gate' => Illuminate\Support\Facades\Gate::class,
+		'Hash' => Illuminate\Support\Facades\Hash::class,
+		'Lang' => Illuminate\Support\Facades\Lang::class,
+		'Log' => Illuminate\Support\Facades\Log::class,
+		'Mail' => Illuminate\Support\Facades\Mail::class,
+		'Notification' => Illuminate\Support\Facades\Notification::class,
+		'Password' => Illuminate\Support\Facades\Password::class,
+		'Queue' => Illuminate\Support\Facades\Queue::class,
+		'Redirect' => Illuminate\Support\Facades\Redirect::class,
+		'Redis' => Illuminate\Support\Facades\Redis::class,
+		'Request' => Illuminate\Support\Facades\Request::class,
+		'Response' => Illuminate\Support\Facades\Response::class,
+		'Route' => Illuminate\Support\Facades\Route::class,
+		'Schema' => Illuminate\Support\Facades\Schema::class,
+		'Session' => Illuminate\Support\Facades\Session::class,
+		'Storage' => Illuminate\Support\Facades\Storage::class,
+		'URL' => Illuminate\Support\Facades\URL::class,
 		'Validator' => Illuminate\Support\Facades\Validator::class,
-		'View'      => Illuminate\Support\Facades\View::class,
+		'View' => Illuminate\Support\Facades\View::class,
 
-		'API'				=> Dingo\Api\Facade\API::class,
-		'BaseController'	=> Nova\Foundation\Http\Controllers\BaseController::class,
-		'BasePresenter'		=> Nova\Foundation\Data\Presenters\BasePresenter::class,
-		'Date'				=> Carbon\Carbon::class,
-		'Form'				=> Collective\Html\FormFacade::class,
-		'Flash'				=> Nova\Foundation\Services\FlashNotifierFacade::class,
-		'Gravatar'			=> Peslis\Gravatar\Laravel\GravatarFacade::class,
-		'HTML'				=> Collective\Html\HtmlFacade::class,
-		'Locate'			=> Nova\Foundation\Services\Locator\LocatorFacade::class,
-		'Markdown'			=> Nova\Foundation\Services\MarkdownParserFacade::class,
-		'Model'				=> Illuminate\Database\Eloquent\Model::class,
-		'Status'			=> Nova\Foundation\Services\StatusService::class,
-		'StatusTrait'		=> Nova\Foundation\Traits\StatusTrait::class,
-		'Str'				=> Illuminate\Support\Str::class,
+		'Controller' => Nova\Foundation\Http\Controllers\Controller::class,
+		'Date' => Carbon\Carbon::class,
+		'Form' => Collective\Html\FormFacade::class,
+		'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
+		'HTML' => Collective\Html\HtmlFacade::class,
+		'Image' => Intervention\Image\Facades\Image::class,
+		'Nova' => Nova\Foundation\NovaFacade::class,
+		'Settings' => Nova\Settings\Settings::class,
+		'Status' => Nova\Foundation\Status::class,
+		'Str' => Illuminate\Support\Str::class,
 
-		/**
-		 * Mailers
-		 */
-		'BaseMailer' => Nova\Foundation\Services\Mailers\BaseMailer::class,
-
-		/**
-		 * Models
-		 */
-		'Character' => Nova\Core\Characters\Data\Character::class,
-		'Setting' => Nova\Core\Settings\Data\Setting::class,
-		'System' => Nova\Foundation\Data\System::class,
-		'User' => Nova\Core\Users\Data\User::class,
-
-		/**
-		 * Repository Interfaces
-		 */
-		'CharacterRepositoryInterface' => Nova\Core\Characters\Data\Interfaces\CharacterRepositoryInterface::class,
-		'SettingRepositoryInterface' => Nova\Core\Settings\Data\Interfaces\SettingRepositoryInterface::class,
-		'SystemRepositoryInterface' => Nova\Foundation\Data\Interfaces\SystemRepositoryInterface::class,
-		'UserRepositoryInterface' => Nova\Core\Users\Data\Interfaces\UserRepositoryInterface::class,
-
-		/**
-		 * Repositories
-		 */
-		'CharacterRepository' => Nova\Core\Characters\Data\Repositories\CharacterRepository::class,
-		'SettingRepository' => Nova\Core\Settings\Data\Repositories\SettingRepository::class,
-		'SystemRepository' => Nova\Foundation\Data\Repositories\SystemRepository::class,
-		'UserRepository' => Nova\Core\Users\Data\Repositories\UserRepository::class,
-
-		/**
-		 * Services
-		 */
-		'CharacterCreator' => Nova\Core\Characters\Services\CharacterCreatorService::class,
-		'UserCreator' => Nova\Core\Users\Services\UserCreatorService::class,
-
-		/**
-		 * Pages
-		 */
-		'Page' => Nova\Core\Pages\Data\Page::class,
-		'PageContent' => Nova\Core\Pages\Data\PageContent::class,
-		'PagePresenter' => Nova\Core\Pages\Data\Presenters\PagePresenter::class,
-		'PageContentPresenter' => Nova\Core\Pages\Data\Presenters\PageContentPresenter::class,
-		'PageRepositoryInterface' => Nova\Core\Pages\Data\Interfaces\PageRepositoryInterface::class,
-		'PageContentRepositoryInterface' => Nova\Core\Pages\Data\Interfaces\PageContentRepositoryInterface::class,
-		'PageRepository' => Nova\Core\Pages\Data\Repositories\PageRepository::class,
-		'PageContentRepository' => Nova\Core\Pages\Data\Repositories\PageContentRepository::class,
-		'CachePageRoutes' => Nova\Core\Pages\Listeners\CachePageRoutes::class,
-		'CreatePageContentRequest' => Nova\Core\Pages\Http\Requests\CreatePageContentRequest::class,
-		'EditPageContentRequest' => Nova\Core\Pages\Http\Requests\EditPageContentRequest::class,
-		'RemovePageContentRequest' => Nova\Core\Pages\Http\Requests\RemovePageContentRequest::class,
-		'CreatePageRequest' => Nova\Core\Pages\Http\Requests\CreatePageRequest::class,
-		'EditPageRequest' => Nova\Core\Pages\Http\Requests\EditPageRequest::class,
-		'RemovePageRequest' => Nova\Core\Pages\Http\Requests\RemovePageRequest::class,
-		'PagePolicy' => Nova\Core\Pages\Policies\PagePolicy::class,
-		'PageContentPolicy' => Nova\Core\Pages\Policies\PageContentPolicy::class,
-
-		/**
-		 * Menus
-		 */
-		'Menu' => Nova\Core\Menus\Data\Menu::class,
-		'MenuItem' => Nova\Core\Menus\Data\MenuItem::class,
-		'MenuPresenter' => Nova\Core\Menus\Data\Presenters\MenuPresenter::class,
-		'MenuItemPresenter' => Nova\Core\Menus\Data\Presenters\MenuItemPresenter::class,
-		'MenuRepositoryInterface' => Nova\Core\Menus\Data\Interfaces\MenuRepositoryInterface::class,
-		'MenuItemRepositoryInterface' => Nova\Core\Menus\Data\Interfaces\MenuItemRepositoryInterface::class,
-		'MenuRepository' => Nova\Core\Menus\Data\Repositories\MenuRepository::class,
-		'MenuItemRepository' => Nova\Core\Menus\Data\Repositories\MenuItemRepository::class,
-		'CreateMenuItemRequest' => Nova\Core\Menus\Http\Requests\CreateMenuItemRequest::class,
-		'EditMenuItemRequest' => Nova\Core\Menus\Http\Requests\EditMenuItemRequest::class,
-		'RemoveMenuItemRequest' => Nova\Core\Menus\Http\Requests\RemoveMenuItemRequest::class,
-		'CreateMenuRequest' => Nova\Core\Menus\Http\Requests\CreateMenuRequest::class,
-		'EditMenuRequest' => Nova\Core\Menus\Http\Requests\EditMenuRequest::class,
-		'RemoveMenuRequest' => Nova\Core\Menus\Http\Requests\RemoveMenuRequest::class,
-		'MenuPolicy' => Nova\Core\Menus\Policies\MenuPolicy::class,
-		'MenuItemPolicy' => Nova\Core\Menus\Policies\MenuItemPolicy::class,
-
-		/**
-		 * Access
-		 */
-		'Permission' => Nova\Core\Access\Data\Permission::class,
-		'Role' => Nova\Core\Access\Data\Role::class,
-		'RolePresenter' => Nova\Core\Access\Data\Presenters\RolePresenter::class,
-		'PermissionPresenter' => Nova\Core\Access\Data\Presenters\PermissionPresenter::class,
-		'PermissionRepositoryInterface' => Nova\Core\Access\Data\Interfaces\PermissionRepositoryInterface::class,
-		'RoleRepositoryInterface' => Nova\Core\Access\Data\Interfaces\RoleRepositoryInterface::class,
-		'PermissionRepository' => Nova\Core\Access\Data\Repositories\PermissionRepository::class,
-		'RoleRepository' => Nova\Core\Access\Data\Repositories\RoleRepository::class,
-		'CreatePermissionRequest' => Nova\Core\Access\Http\Requests\CreatePermissionRequest::class,
-		'EditPermissionRequest' => Nova\Core\Access\Http\Requests\EditPermissionRequest::class,
-		'RemovePermissionRequest' => Nova\Core\Access\Http\Requests\RemovePermissionRequest::class,
-		'CreateRoleRequest' => Nova\Core\Access\Http\Requests\CreateRoleRequest::class,
-		'EditRoleRequest' => Nova\Core\Access\Http\Requests\EditRoleRequest::class,
-		'RemoveRoleRequest' => Nova\Core\Access\Http\Requests\RemoveRoleRequest::class,
-		'HasRoles' => Nova\Core\Access\Traits\HasRoles::class,
-		'RolePolicy' => Nova\Core\Access\Policies\RolePolicy::class,
-		'PermissionPolicy' => Nova\Core\Access\Policies\PermissionPolicy::class,
-
-		/**
-		 * Forms
-		 */
-		'NovaForm' => Nova\Core\Forms\Data\Form::class,
-		'FormPresenter' => Nova\Core\Forms\Data\Presenters\FormPresenter::class,
-		'FormRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\FormRepositoryInterface::class,
-		'FormRepository' => Nova\Core\Forms\Data\Repositories\FormRepository::class,
-		'FormPolicy' => Nova\Core\Forms\Policies\FormPolicy::class,
-		'CreateFormRequest' => Nova\Core\Forms\Http\Requests\CreateFormRequest::class,
-		'EditFormRequest' => Nova\Core\Forms\Http\Requests\EditFormRequest::class,
-		'RemoveFormRequest' => Nova\Core\Forms\Http\Requests\RemoveFormRequest::class,
-
-		'NovaFormField' => Nova\Core\Forms\Data\Field::class,
-		'FormFieldPresenter' => Nova\Core\Forms\Data\Presenters\FieldPresenter::class,
-		'FormFieldRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\FieldRepositoryInterface::class,
-		'FormFieldRepository' => Nova\Core\Forms\Data\Repositories\FieldRepository::class,
-		'FieldPolicy' => Nova\Core\Forms\Policies\FieldPolicy::class,
-		'CreateFormFieldRequest' => Nova\Core\Forms\Http\Requests\CreateFormFieldRequest::class,
-		'EditFormFieldRequest' => Nova\Core\Forms\Http\Requests\EditFormFieldRequest::class,
-		'RemoveFormFieldRequest' => Nova\Core\Forms\Http\Requests\RemoveFormFieldRequest::class,
-		
-		'NovaFormSection' => Nova\Core\Forms\Data\Section::class,
-		'FormSectionPresenter' => Nova\Core\Forms\Data\Presenters\SectionPresenter::class,
-		'FormSectionRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\SectionRepositoryInterface::class,
-		'FormSectionRepository' => Nova\Core\Forms\Data\Repositories\SectionRepository::class,
-		'SectionPolicy' => Nova\Core\Forms\Policies\SectionPolicy::class,
-		'CreateFormSectionRequest' => Nova\Core\Forms\Http\Requests\CreateFormSectionRequest::class,
-		'EditFormSectionRequest' => Nova\Core\Forms\Http\Requests\EditFormSectionRequest::class,
-		'RemoveFormSectionRequest' => Nova\Core\Forms\Http\Requests\RemoveFormTabRequest::class,
-		
-		'NovaFormTab' => Nova\Core\Forms\Data\Tab::class,
-		'FormTabPresenter' => Nova\Core\Forms\Data\Presenters\TabPresenter::class,
-		'FormTabRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\TabRepositoryInterface::class,
-		'FormTabRepository' => Nova\Core\Forms\Data\Repositories\TabRepository::class,
-		'TabPolicy' => Nova\Core\Forms\Policies\TabPolicy::class,
-		'CreateFormTabRequest' => Nova\Core\Forms\Http\Requests\CreateFormTabRequest::class,
-		'EditFormTabRequest' => Nova\Core\Forms\Http\Requests\EditFormTabRequest::class,
-		'RemoveFormTabRequest' => Nova\Core\Forms\Http\Requests\RemoveFormTabRequest::class,
-		
-		'NovaFormData' => Nova\Core\Forms\Data\Data::class,
-		'FormDataPresenter' => Nova\Core\Forms\Data\Presenters\DataPresenter::class,
-		'FormDataRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\DataRepositoryInterface::class,
-		'FormDataRepository' => Nova\Core\Forms\Data\Repositories\DataRepository::class,
-
-		'FormEntryRepositoryInterface' => Nova\Core\Forms\Data\Interfaces\EntryRepositoryInterface::class,
-		'FormEntryRepository' => Nova\Core\Forms\Data\Repositories\EntryRepository::class,
-		'EmailFormCenterRecipients' => Nova\Core\Forms\Listeners\EmailFormCenterRecipients::class,
-		'FormCenterMailer' => Nova\Core\Forms\Mailers\FormCenterMailer::class,
-		'FormEntryPresenter' => Nova\Core\Forms\Data\Presenters\EntryPresenter::class,
-		'NovaFormEntry' => Nova\Core\Forms\Data\Entry::class,
-		'FormCenterUserTrait' => Nova\Core\Forms\Traits\FormCenterUserTrait::class,
 	],
 
 ];

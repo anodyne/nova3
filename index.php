@@ -1,25 +1,28 @@
 <?php
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
  * @package  Laravel
- * @author   Taylor Otwell <taylorotwell@gmail.com>
+ * @author   Taylor Otwell <taylor@laravel.com>
  */
 
-/*
-|--------------------------------------------------------------------------
-| Check the PHP Version
-|--------------------------------------------------------------------------
-|
-| Laravel 5 requires PHP 5.4+, so if we find that the server isn't actually
-| running PHP 5.5.0 or higher, we need to bail out immediately and let the
-| user know that they aren't running a new enough version of PHP.
-|
-*/
+// Does the .htaccess file exist?
+if (! file_exists('./.htaccess')) {
+	header("Location: error-htaccess.html");
+	exit;
+}
 
-if (version_compare(PHP_VERSION, '5.5.9', '<'))
-{
-	die("Your server isn't running a compatible version of PHP. You need PHP 5.5.9 or higher in order to run Nova NextGen.");
+// Are we in maintenance mode?
+if (file_exists('./storage/app/maintenance.json')) {
+	header("Location: error-maintenance.html");
+	exit;
+}
+
+// Does the vendor folder exist?
+if (! file_exists('./nova/vendor')) {
+	header("Location: error-vendor.html");
+	exit;
 }
 
 /*
@@ -30,7 +33,7 @@ if (version_compare(PHP_VERSION, '5.5.9', '<'))
 | Composer provides a convenient, automatically generated class loader for
 | our application. We just need to utilize it! We'll simply require it
 | into the script here so that we don't have to worry about manual
-| loading any of our classes later on. It feels nice to relax.
+| loading any of our classes later on. It feels great to relax.
 |
 */
 
@@ -55,8 +58,8 @@ $app = require_once __DIR__.'/nova/bootstrap/app.php';
 | Run The Application
 |--------------------------------------------------------------------------
 |
-| Once we have the application, we can simply call the run method,
-| which will execute the request and send the response back to
+| Once we have the application, we can handle the incoming request
+| through the kernel, and send the associated response back to
 | the client's browser allowing them to enjoy the creative
 | and wonderful application we have prepared for them.
 |
@@ -65,7 +68,7 @@ $app = require_once __DIR__.'/nova/bootstrap/app.php';
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
 $response = $kernel->handle(
-    $request = Illuminate\Http\Request::capture()
+	$request = Illuminate\Http\Request::capture()
 );
 
 $response->send();

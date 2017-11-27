@@ -1,24 +1,14 @@
 <?php namespace Nova\Setup\Http\Requests;
 
-use Nova\Foundation\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateSettingsRequest extends Request {
-
-	/**
-	 * Determine if the user is authorized to make this request.
-	 *
-	 * @return bool
-	 */
+class UpdateSettingsRequest extends FormRequest
+{
 	public function authorize()
 	{
 		return true;
 	}
 
-	/**
-	 * Get the validation rules that apply to the request.
-	 *
-	 * @return array
-	 */
 	public function rules()
 	{
 		return [
@@ -34,5 +24,4 @@ class UpdateSettingsRequest extends Request {
 			'theme.required' => "Please select a theme",
 		];
 	}
-
 }

@@ -5,38 +5,36 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Config\Repository as RepositoryContract;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as IlluminateLoadConfig;
 
-class LoadConfiguration extends IlluminateLoadConfig {
-
-	protected function loadConfigurationFiles(Application $app, RepositoryContract $config)
+class LoadConfiguration extends IlluminateLoadConfig
+{
+	protected function loadConfigurationFiles(Application $app, RepositoryContract $repository)
 	{
-		foreach ($this->getConfigurationFiles($app) as $key => $value)
-		{
-			$config->set($key, $value);
+		$files = $this->getConfigurationFiles($app);
+
+		foreach ($files as $key => $value) {
+			$repository->set($key, $value);
 		}
 	}
 
 	protected function getConfigurationFiles(Application $app)
 	{
-		$configCore = [];
-		$configOverride = [];
+		$novaConfig = [];
+		$appConfig = [];
 
 		// Loop through the core config files
-		foreach (Finder::create()->files()->name('*.php')->in($app->coreConfigPath()) as $file)
-		{
+		foreach (Finder::create()->files()->name('*.php')->in($app->configPath()) as $file) {
 			$key = basename($file->getRealPath(), '.php');
 
-			$configCore[$key] = require $file->getRealPath();
+			$novaConfig[$key] = require $file->getRealPath();
 		}
 
 		// Loop through the "app" config files
-		foreach (Finder::create()->files()->name('*.php')->in($app->configPath()) as $file)
-		{
+		foreach (Finder::create()->files()->name('*.php')->in($app->appConfigPath()) as $file) {
 			$key = basename($file->getRealPath(), '.php');
-			
-			$configOverride[$key] = require $file->getRealPath();
+
+			$appConfig[$key] = require $file->getRealPath();
 		}
 
-		return array_replace_recursive($configCore, $configOverride);
+		return array_replace_recursive($novaConfig, $appConfig);
 	}
-
 }

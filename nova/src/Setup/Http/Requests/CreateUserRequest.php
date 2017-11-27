@@ -1,24 +1,14 @@
 <?php namespace Nova\Setup\Http\Requests;
 
-use Nova\Foundation\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
-class CreateUserRequest extends Request {
-
-	/**
-	 * Determine if the user is authorized to make this request.
-	 *
-	 * @return bool
-	 */
+class CreateUserRequest extends FormRequest
+{
 	public function authorize()
 	{
 		return true;
 	}
 
-	/**
-	 * Get the validation rules that apply to the request.
-	 *
-	 * @return array
-	 */
 	public function rules()
 	{
 		return [
@@ -26,7 +16,7 @@ class CreateUserRequest extends Request {
 			'user.email' => 'required|email|unique:users,email',
 			'user.password' => 'required',
 			'user.confirm_password' => 'required|same:user.password',
-			'character.first_name' => 'required',
+			'character.name' => 'required',
 		];
 	}
 
@@ -40,8 +30,7 @@ class CreateUserRequest extends Request {
 			'user.password.required' => 'You must enter a password',
 			'user.confirm_password.required' => 'You must enter your password again',
 			'user.confirm_password.same' => "Your passwords didn't match",
-			'character.first_name.required' => 'Please enter a first name for your character',
+			'character.name.required' => 'Please enter a first name for your character',
 		];
 	}
-
 }

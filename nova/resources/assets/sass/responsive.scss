@@ -1,0 +1,146 @@
+// Variables
+@import 'variables';
+
+$size-xs: 0;
+$size-sm: 576px;
+$size-md: 768px;
+$size-lg: 992px;
+$size-xl: 1200px;
+
+// xs
+@media (max-width: ($size-sm - 1)) {}
+
+// sm
+@media (min-width: $size-sm) and (max-width: ($size-md - 1)) {}
+
+// md
+@media (min-width: $size-md) and (max-width: ($size-lg - 1)) {
+nav.navbar {
+	.dropdown-menu {
+		&::before {
+			border: .4rem solid transparent;
+			border-bottom-color: #fff;
+			left: .6rem;
+			right: auto;
+			top: -.83rem;
+		}
+
+		&::after,
+		&::before {
+			content: "";
+			display: inline-block;
+			position: absolute;
+		}
+	}
+
+	.dropdown-menu-right {
+		&::before {
+			left: auto;
+			right: .6rem;
+		}
+	}
+}
+
+.alert {
+	&.alert-flash {
+		border-radius: $radius;
+		bottom: 1rem;
+		box-shadow: 0 3px 9px rgba(0, 0, 0, .25);
+		max-width: 50%;
+		right: 2rem;
+		width: auto;
+	}
+
+	&.dirty {
+		border-radius: $radius;
+		box-shadow: 0 3px 9px rgba(0, 0, 0, .25);
+		position: fixed;
+		right: 2rem;
+		top: 5rem;
+		width: auto;
+
+		.alert-btn {
+			margin-left: .5rem;
+		}
+	}
+}
+}
+
+// lg+
+@media (min-width: $size-lg) {
+nav.navbar {
+	.dropdown-menu {
+		&::before {
+			border: .4rem solid transparent;
+			border-bottom-color: #fff;
+			left: .6rem;
+			right: auto;
+			top: -.83rem;
+		}
+
+		&::after,
+		&::before {
+			content: "";
+			display: inline-block;
+			position: absolute;
+		}
+	}
+
+	.dropdown-menu-right {
+		&::before {
+			left: auto;
+			right: .6rem;
+		}
+	}
+}
+
+.alert {
+	&.alert-flash {
+		bottom: 1rem;
+		border-radius: $radius;
+		box-shadow: 0 3px 9px rgba(0, 0, 0, .25);
+		max-width: 50%;
+		right: 2rem;
+		width: auto;
+	}
+
+	&.dirty {
+		border-radius: $radius;
+		box-shadow: 0 3px 9px rgba(0, 0, 0, .25);
+		position: fixed;
+		right: 2rem;
+		top: 5rem;
+		width: auto;
+
+		.alert-btn {
+			margin-left: .5rem;
+		}
+	}
+}
+
+.data-table {
+	.header {
+		> div:first-child {
+			margin-bottom: 0 !important;
+		}
+	}
+}
+
+.btn {
+	&.btn-action {
+		padding-left: .35rem;
+		padding-right: .35rem;
+	}
+}
+
+.custom-select {
+	display: inline-block;
+	width: auto;
+}
+}
+
+// lg
+@media (min-width: $size-lg) and (max-width: ($size-xl - 1)) {}
+
+// xl
+@media (min-width: $size-xl) {}

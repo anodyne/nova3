@@ -1,242 +1,91 @@
 <?php namespace Nova\Foundation;
 
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Foundation\ProviderRepository,
-	Illuminate\Foundation\Application as IlluminateApp;
+use Illuminate\Foundation\Application as LaravelApp;
 
-class Application extends IlluminateApp {
-
-	/**
-	 * Bind all of the application paths in the container.
-	 *
-	 * @return	$this
-	 */
-	protected function bindPathsInContainer()
+class Application extends LaravelApp
+{
+	public function appConfigPath($path = '')
 	{
-		parent::bindPathsInContainer();
-
-		//$this->instance('path', $this->path());
-
-		// The paths established by the Laravel core
-		//$corePaths = ['base', 'config', 'database', 'lang', 'public', 'storage'];
-
-		// The paths established by the Nova core
-		$novaPaths = ['asset', 'coreAsset', 'coreConfig', 'extension', 'nova',
-			'rank', 'theme', 'themeRelative'];
-
-		// Combine the core paths with our own
-		//$paths = array_merge($corePaths, $novaPaths);
-
-		foreach ($novaPaths as $path)
-		{
-			$this->instance('path.'.$path, $this->{$path.'Path'}());
-		}
+		return join(DIRECTORY_SEPARATOR, [
+			$this->basePath,
+			'config',
+			$path
+		]);
 	}
 
-	/**
-	 * Get the path to the application directory.
-	 *
-	 * @return	string
-	 */
-	public function path()
+	public function bootstrapPath($path = '')
 	{
-		return $this->novaPath('src');
+		return join(DIRECTORY_SEPARATOR, [
+			$this->basePath,
+			'nova',
+			'bootstrap',
+			$path
+		]);
 	}
 
-	/**
-	 * Get the path to the assets directory.
-	 *
-	 * @param	string	$asset	An asset to append
-	 * @return	string
-	 */
-	public function assetPath($asset = false)
+	public function configPath($path = '')
 	{
-		if ($asset)
-		{
-			return $this->basePath."/assets/{$asset}";
-		}
-
-		return $this->basePath.'/assets';
+		return join(DIRECTORY_SEPARATOR, [
+			$this->basePath,
+			'nova',
+			'config',
+			$path
+		]);
 	}
 
-	/**
-	 * Get the path to the bootstrap directory.
-	 *
-	 * @return string
-	 */
-	public function bootstrapPath()
+	public function databasePath($path = '')
 	{
-		return $this->basePath.DIRECTORY_SEPARATOR.'nova'.DIRECTORY_SEPARATOR.'bootstrap';
+		return join(DIRECTORY_SEPARATOR, [
+			$this->basePath,
+			'nova',
+			'database',
+			$path
+		]);
 	}
 
-	/**
-	 * Get the path to the assets directory inside Nova.
-	 *
-	 * @param	string	$asset	An asset to append
-	 * @return	string
-	 */
-	public function coreAssetPath($asset = false)
-	{
-		if ($asset)
-		{
-			return $this->novaPath("resources/{$asset}");
-		}
-
-		return $this->novaPath('resources');
-	}
-
-	/**
-	 * Get the path to the config directory inside Nova.
-	 *
-	 * @return	string
-	 */
-	public function coreConfigPath()
-	{
-		return $this->novaPath('config');
-	}
-
-	/**
-	 * Get the path to the database directory.
-	 *
-	 * @return	string
-	 */
-	public function databasePath()
-	{
-		return $this->novaPath('src/Setup/database');
-	}
-
-	/**
-	 * Get the path to the extensions directory.
-	 *
-	 * @param	string	$identifier	An extension vendor/name identifier to use
-	 * @return	string
-	 */
-	public function extensionPath($identifier = false)
-	{
-		if ($identifier)
-		{
-			list($vendor, $name) = explode('/', $identifier);
-
-			return $this->basePath."/extensions/{$vendor}/{$name}";
-		}
-
-		return $this->basePath.'/extensions';
-	}
-
-	/**
-	 * Get the path to the language files.
-	 *
-	 * @return	string
-	 */
 	public function langPath()
 	{
-		return $this->novaPath('resources/lang');
+		return join(DIRECTORY_SEPARATOR, [
+			$this->basePath,
+			'resources',
+			'lang'
+		]);
 	}
 
-	/**
-	 * Get the path to the nova directory.
-	 *
-	 * @param	mixed	$location	A location within the nova directory
-	 * @return	string
-	 */
-	public function novaPath($location = false)
+	public function novaLangPath()
 	{
-		if ($location)
-		{
-			return $this->basePath."/nova/{$location}";
-		}
-
-		return $this->basePath.'/nova';
+		return $this->resourcePath('lang');
 	}
 
-	/**
-	 * Get the path to the public / web directory.
-	 *
-	 * @return	string
-	 */
+	public function path($path = '')
+	{
+		return join(DIRECTORY_SEPARATOR, [
+			$this->basePath,
+			'nova',
+			'src',
+			$path
+		]);
+	}
+
 	public function publicPath()
 	{
 		return $this->basePath;
 	}
 
-	/**
-	 * Get the path to the ranks directory.
-	 *
-	 * @param	string	$location	A rank set location to append
-	 * @return	string
-	 */
-	public function rankPath($location = false)
+	public function resourcePath($path = '')
 	{
-		if ($location)
-		{
-			return $this->basePath."/ranks/{$location}";
-		}
-
-		return $this->basePath.'/ranks';
+		return join(DIRECTORY_SEPARATOR, [
+			$this->basePath,
+			'nova',
+			'resources',
+			$path
+		]);
 	}
 
-	/**
-	 * Get the path to the themes directory.
-	 *
-	 * @param	string	$location	A theme location to append
-	 * @return	string
-	 */
-	public function themePath($location = false)
+	protected function bindPathsInContainer()
 	{
-		if ($location)
-		{
-			return $this->basePath."/themes/{$location}";
-		}
+		parent::bindPathsInContainer();
 
-		return $this->basePath.'/themes';
+		$this->instance('path.nova.lang', $this->novaLangPath());
 	}
-
-	/**
-	 * Get the relative path to the themes directory.
-	 *
-	 * @param	string	$location	A theme location to append
-	 * @return	string
-	 */
-	public function themeRelativePath($location = false)
-	{
-		if ($location)
-		{
-			return "themes/{$location}";
-		}
-
-		return 'themes';
-	}
-
-	public function buildStorageDirectory()
-	{
-		$directories = [
-			'logs'
-		];
-
-		foreach ($directories as $dir)
-		{
-			$this->app['files']->makeDirectory(storage_path($dir));
-		}
-	}
-
-	public function setDirectoryPermissions()
-	{
-		$directories = [
-			storage_path('logs'),
-			storage_path('framework/cache'),
-			storage_path('framework/sessions'),
-			storage_path('framework/views'),
-		];
-
-		foreach ($directories as $dir)
-		{
-			if ( ! $this->app['files']->isWritable($dir))
-			{
-				dd("The [$dir] directory is not writable and must be for Laravel to work. Please set the permissions on this directory to 777.");
-				//throw new RuntimeException("The [$directory] directory is not writable. Please make sure you set permissions on the directory.");
-				//exec(escapeshellcmd("chmod 775 $directory"));
-			}
-		}
-	}
-
 }

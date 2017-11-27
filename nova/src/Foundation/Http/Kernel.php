@@ -1,10 +1,9 @@
 <?php namespace Nova\Foundation\Http;
 
-use Nova\Foundation\Http\Middleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
-class Kernel extends HttpKernel {
-
+class Kernel extends HttpKernel
+{
 	/**
 	 * The application's global HTTP middleware stack.
 	 *
@@ -14,6 +13,9 @@ class Kernel extends HttpKernel {
 	 */
 	protected $middleware = [
 		\Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+		\Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
+		\Nova\Foundation\Http\Middleware\TrimStrings::class,
+		\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
 	];
 
 	/**
@@ -23,35 +25,37 @@ class Kernel extends HttpKernel {
 	 */
 	protected $middlewareGroups = [
 		'web' => [
-			Middleware\EncryptCookies::class,
+			\Nova\Foundation\Http\Middleware\EncryptCookies::class,
 			\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
 			\Illuminate\Session\Middleware\StartSession::class,
+			// \Illuminate\Session\Middleware\AuthenticateSession::class,
 			\Illuminate\View\Middleware\ShareErrorsFromSession::class,
-			Middleware\VerifyCsrfToken::class,
+			\Nova\Foundation\Http\Middleware\VerifyCsrfToken::class,
+			\Illuminate\Routing\Middleware\SubstituteBindings::class,
 		],
+
 		'api' => [
 			'throttle:60,1',
+			'bindings',
 		],
 	];
 
 	/**
 	 * The application's route middleware.
 	 *
+	 * These middleware may be assigned to groups or used individually.
+	 *
 	 * @var array
 	 */
 	protected $routeMiddleware = [
-		'auth' => Middleware\Authenticate::class,
+		'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
 		'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-		'guest' => Middleware\RedirectIfAuthenticated::class,
+		'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+		'can' => \Illuminate\Auth\Middleware\Authorize::class,
+		'guest' => \Nova\Foundation\Http\Middleware\RedirectIfAuthenticated::class,
 		'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-		
-		'nova.installed' => Middleware\CheckInstallationStatus::class,
-		'nova.render' => Middleware\RenderController::class,
+
+		'nova.installed' => \Nova\Setup\Http\Middleware\CheckInstallationStatus::class,
+		'nova.auth-setup' => \Nova\Setup\Http\Middleware\AuthenticateSetupCenter::class,
 	];
-
-	public function handle($request)
-	{
-		return parent::handle($request);
-	}
-
 }

@@ -1,7 +1,10 @@
 <?php
 
-/**
- * THIS FILE IS FOR TEST PURPOSES ONLY AND WILL NOT BE AVAILABLE WHEN NOVA 3.0
- * IS RELEASED. ONLY USE THIS FILE FOR TESTING OR DEBUGGING DURING NOVA
- * NEXTGEN DEVELOPMENT!
- */
+Route::get('test', function () {
+	view()->share('_user', auth()->user());
+	return view('pages.test');
+});
+
+Route::get('status', function () {
+	return view('pages.status');
+})->name('status');

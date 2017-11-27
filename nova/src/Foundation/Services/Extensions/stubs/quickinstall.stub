@@ -1,7 +1,0 @@
-{
-	"name": "{ExtensionProperName}",
-	"author": "{ExtensionVendor}",
-	"location": "{ExtensionVendor}/{ExtensionName}",
-	"credits": "Credits...",
-	"version": 1.0
-}

@@ -1,81 +1,97 @@
 <?php namespace Nova\Setup\Http\Controllers;
 
-use Str,
-	Flash,
-	Input,
-	Artisan,
-	UserCreator,
-	SettingRepositoryInterface,
-	PageContentRepositoryInterface;
-use Illuminate\Filesystem\Filesystem,
-	Illuminate\Filesystem\FilesystemManager;
-use Nova\Setup\Http\Requests\CreateUserRequest,
-	Nova\Setup\Http\Requests\UpdateSettingsRequest;
+use Status;
+use Artisan;
+use Nova\Users\User;
+use Nova\Setup\Http\Requests;
+use Nova\Foundation\SystemInfo;
+use Nova\Setup\ConfigFileWriter;
+use Illuminate\Filesystem\Filesystem;
 
-class InstallController extends BaseController {
+class InstallController extends Controller
+{
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->middleware('nova.auth-setup');
+	}
 
 	public function index()
 	{
-		return view('pages.setup.install.landing');
+		return view('setup.install.landing');
 	}
 
 	public function installLanding()
 	{
-		return view('pages.setup.install.nova');
+		return view('setup.install.nova');
 	}
 
-	public function install(FilesystemManager $storage)
+	public function install()
 	{
-		// Run the migrate commands
-		Artisan::call('migrate', ['--force' => true]);
+		// Make sure we have enough time to do everything
+		ini_set('max_execution_time', 60);
 
-		// Create the installed file
-		$storage->disk('local')->put('installed.json', json_encode(['installed' => true]));
-
-		// Cache the routes in production
-		if (app('env') == 'production')
-		{
-			Artisan::call('route:cache');
-		}
+		// Run the install process
+		Artisan::call('nova:install');
 	}
 
-	public function novaSuccess()
+	public function novaSuccess(ConfigFileWriter $writer, Filesystem $files)
 	{
-		// Get an instance of the writer
-		$writer = app('nova.setup.configWriter');
-
-		// Write the app config file
-		$writer->write('app', [
-			'#APP_KEY#' => Str::random(32),
-		]);
-
 		// Write the session config file
-		$writer->write('session');
+		if (! $files->exists(app()->appConfigPath('session.php'))) {
+			$writer->write('session');
+		}
 
-		return view('pages.setup.install.nova-success');
+		return view('setup.install.nova-success');
 	}
 
 	public function user()
 	{
-		return view('pages.setup.install.user');
+		$hasUser = User::count() > 0;
+
+		return view('setup.install.user', compact('hasUser'));
 	}
 
 	public function userSuccess()
 	{
-		return view('pages.setup.install.user-success');
+		return view('setup.install.user-success');
 	}
 
-	public function createUser(UserCreator $userCreator, CreateUserRequest $request)
+	public function createUser(Requests\CreateUserRequest $request)
 	{
-		// Create a new user and character
-		$creator = $userCreator->create($request->all());
+		// Create a new user
+		$user = creator('Nova\Users\User')
+			->with(array_merge(
+				$request->get('user'),
+				['status' => Status::ACTIVE]
+			))
+			->create();
 
-		if ($creator)
-		{
+		// Create a new character
+		$character = creator('Nova\Characters\Character')
+			->with(array_merge(
+				$request->get('character'),
+				[
+					'user_id' => $user->id,
+					'rank_id' => $request->get('rank_id'),
+					'positions' => $request->get('positions'),
+					'status' => Status::ACTIVE
+				]
+			))
+			->create()
+			->setAsPrimaryCharacter();
+
+		if ($user and $character) {
+			// Sign the user that was just created in
+			auth()->login($user, true);
+
 			return redirect()->route('setup.install.user.success');
 		}
 
-		flash()->error(null, "User and character could not be created.");
+		flash()
+			->message('User and/or character could not be created.')
+			->error();
 
 		return redirect()->route('setup.install.user');
 	}
@@ -86,49 +102,24 @@ class InstallController extends BaseController {
 			'pulsar' => 'Pulsar'
 		];
 
-		return view('pages.setup.install.settings', compact('themes'));
+		return view('setup.install.settings', compact('themes'));
 	}
 
 	public function settingsSuccess()
 	{
-		return view('pages.setup.install.settings-success');
+		return view('setup.install.settings-success');
 	}
 
-	public function updateSettings(SettingRepositoryInterface $settings, 
-			PageContentRepositoryInterface $content,
-			UpdateSettingsRequest $request)
+	public function updateSettings(Requests\UpdateSettingsRequest $request)
 	{
-		// Grab the data
-		$data = request()->except(['_token']);
-
-		// We need to handle content data separately because of the
-		// fact that content keys can have periods and setting keys
-		// cannot have periods
-		$contentData = $data;
-
 		// Update the settings
-		$update = $settings->updateByKey($data);
+		updater('Nova\Settings\Settings')
+			->with(request()->all())
+			->updateAll();
 
-		// Update the keys we're using
-		array_walk($data, function ($value, $key) use (&$contentData)
-		{
-			// Replace underscores with periods
-			$newKey = str_replace('_', '.', $key);
+		// Set the install phase
+		SystemInfo::first()->setPhase('install', 1);
 
-			$contentData[$newKey] = $value;
-		});
-
-		// Update the content
-		$content->updateByKey($contentData);
-
-		if ($update)
-		{
-			return redirect()->route('setup.install.settings.success');
-		}
-
-		flash()->error(null, "Settings could not be updated.");
-
-		return redirect()->route('setup.install.settings');
+		return redirect()->route('setup.install.settings.success');
 	}
-
 }

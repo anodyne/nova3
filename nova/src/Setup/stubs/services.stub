@@ -1,0 +1,14 @@
+<?php
+
+return [
+
+	'mailgun' => [
+		'domain' => env('MAILGUN_DOMAIN', '#MAILGUN_DOMAIN#'),
+		'secret' => env('MAILGUN_SECRET', '#MAILGUN_SECRET#'),
+	],
+
+	'sparkpost' => [
+		'secret' => env('SPARKPOST_SECRET', '#SPARKPOST_SECRET#'),
+	],
+
+];

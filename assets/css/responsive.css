@@ -1,0 +1,90 @@
+@media (min-width: 768px) and (max-width: 991px) {
+  nav.navbar .dropdown-menu::before {
+    border: .4rem solid transparent;
+    border-bottom-color: #fff;
+    left: .6rem;
+    right: auto;
+    top: -.83rem;
+  }
+  nav.navbar .dropdown-menu::after, nav.navbar .dropdown-menu::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+  }
+  nav.navbar .dropdown-menu-right::before {
+    left: auto;
+    right: .6rem;
+  }
+  .alert.alert-flash {
+    border-radius: 0.25rem;
+    bottom: 1rem;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+    max-width: 50%;
+    right: 2rem;
+    width: auto;
+  }
+  .alert.dirty {
+    border-radius: 0.25rem;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+    position: fixed;
+    right: 2rem;
+    top: 5rem;
+    width: auto;
+  }
+  .alert.dirty .alert-btn {
+    margin-left: .5rem;
+  }
+}
+
+@media (min-width: 992px) {
+  nav.navbar .dropdown-menu::before {
+    border: .4rem solid transparent;
+    border-bottom-color: #fff;
+    left: .6rem;
+    right: auto;
+    top: -.83rem;
+  }
+  nav.navbar .dropdown-menu::after, nav.navbar .dropdown-menu::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+  }
+  nav.navbar .dropdown-menu-right::before {
+    left: auto;
+    right: .6rem;
+  }
+  .alert.alert-flash {
+    bottom: 1rem;
+    border-radius: 0.25rem;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+    max-width: 50%;
+    right: 2rem;
+    width: auto;
+  }
+  .alert.dirty {
+    border-radius: 0.25rem;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+    position: fixed;
+    right: 2rem;
+    top: 5rem;
+    width: auto;
+  }
+  .alert.dirty .alert-btn {
+    margin-left: .5rem;
+  }
+  .data-table .header > div:first-child {
+    margin-bottom: 0 !important;
+  }
+  .btn.btn-action {
+    padding-left: .35rem;
+    padding-right: .35rem;
+  }
+  .custom-select {
+    display: inline-block;
+    width: auto;
+  }
+}

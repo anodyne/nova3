@@ -1,31 +1,26 @@
 <?php namespace Nova\Foundation\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
+use Nova\Setup\Console\Commands;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
-class Kernel extends ConsoleKernel {
-
-	/**
-	 * The Artisan commands provided by your application.
-	 *
-	 * @var array
-	 */
+class Kernel extends ConsoleKernel
+{
 	protected $commands = [
-		Commands\MakeExtensionCommand::class,
-		Commands\MakeThemeCommand::class,
-		Commands\NovaRefreshCommand::class,
-		Commands\NovaUninstallCommand::class,
+		Commands\UpdateNova::class,
+		Commands\InstallNova::class,
+		Commands\RefreshNova::class,
+		Commands\UninstallNova::class,
 	];
 
-	/**
-	 * Define the application's command schedule.
-	 *
-	 * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-	 * @return void
-	 */
 	protected function schedule(Schedule $schedule)
 	{
-		//$schedule->command('inspire')->hourly();
+		$schedule->command('nova:refresh')
+				 ->dailyAt('04:30');
 	}
 
+	protected function commands()
+	{
+		require base_path('nova/routes/console.php');
+	}
 }

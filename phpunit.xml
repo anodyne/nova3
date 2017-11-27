@@ -1,28 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         bootstrap="nova/bootstrap/autoload.php"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false"
-         syntaxCheck="false">
-    <testsuites>
-        <testsuite name="Application Test Suite">
-            <directory>./nova/tests/</directory>
-        </testsuite>
-    </testsuites>
-    <php>
-        <env name="APP_ENV" value="testing"/>
-        <env name="CACHE_DRIVER" value="array"/>
-        <env name="SESSION_DRIVER" value="array"/>
-
-        <env name="DB_HOST" value="localhost"/>
-        <env name="DB_DATABASE" value="anodyne_nova3_testing"/>
-        <env name="DB_USERNAME" value="root"/>
-        <env name="DB_PASSWORD" value="root"/>
-        <env name="DB_PREFIX" value="nova_"/>
-    </php>
+		 backupStaticAttributes="false"
+		 bootstrap="nova/bootstrap/autoload.php"
+		 colors="true"
+		 convertErrorsToExceptions="true"
+		 convertNoticesToExceptions="true"
+		 convertWarningsToExceptions="true"
+		 processIsolation="false"
+		 stopOnFailure="false">
+	<testsuites>
+		<testsuite name="nova-all">
+			<directory suffix="Test.php">./nova/tests</directory>
+		</testsuite>
+		<testsuite name="nova-auth">
+			<directory suffix="Test.php">./nova/tests/Auth</directory>
+		</testsuite>
+		<testsuite name="nova-authorize">
+			<directory suffix="Test.php">./nova/tests/Authorize</directory>
+		</testsuite>
+		<testsuite name="nova-characters">
+			<directory suffix="Test.php">./nova/tests/Characters</directory>
+		</testsuite>
+		<testsuite name="nova-genres">
+			<directory suffix="Test.php">./nova/tests/Genres</directory>
+		</testsuite>
+		<testsuite name="nova-media">
+			<directory suffix="Test.php">./nova/tests/Media</directory>
+		</testsuite>
+		<testsuite name="nova-unit">
+			<directory suffix="Test.php">./nova/tests/Unit</directory>
+		</testsuite>
+		<testsuite name="nova-users">
+			<directory suffix="Test.php">./nova/tests/Users</directory>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">./nova/src/Auth</directory>
+			<directory suffix=".php">./nova/src/Authorize</directory>
+			<directory suffix=".php">./nova/src/Characters</directory>
+			<directory suffix=".php">./nova/src/Dashboard</directory>
+			<directory suffix=".php">./nova/src/Foundation</directory>
+			<directory suffix=".php">./nova/src/Genres</directory>
+			<directory suffix=".php">./nova/src/Media</directory>
+			<directory suffix=".php">./nova/src/Settings</directory>
+			<directory suffix=".php">./nova/src/Setup</directory>
+			<directory suffix=".php">./nova/src/Users</directory>
+			<!-- <exclude>
+				<file>./nova/routes/web.php</file>
+			</exclude> -->
+		</whitelist>
+	</filter>
+	<php>
+		<env name="APP_ENV" value="testing"/>
+		<env name="CACHE_DRIVER" value="array"/>
+		<env name="SESSION_DRIVER" value="array"/>
+		<env name="QUEUE_DRIVER" value="sync"/>
+		<env name="DB_CONNECTION" value="sqlite"/>
+		<env name="DB_DATABASE" value=":memory:"/>
+	</php>
 </phpunit>

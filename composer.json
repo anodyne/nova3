@@ -1,40 +1,62 @@
 {
 	"require": {
-		"laravel/framework": "~5.2",
-		"dflydev/symfony-finder-factory": "*",
-		"league/commonmark": "*",
-		"laracasts/presenter": "*",
-		"laravelcollective/html": "~5.2",
-		"dingo/api": "1.0.*@dev",
-		"pespantelis/gravatar": "~1.0"
+		"php": ">=7.0.0",
+		"laravel/framework": "5.5.*",
+		"laravelcollective/html": "5.5.*",
+		"laravel/tinker": "~1.0",
+		"Krinkle/intuition": "~0.5",
+		"laracasts/presenter": "^0.2",
+		"creativeorange/gravatar": "^1.0",
+		"nothingworks/blade-svg": "^0.1",
+		"intervention/image": "^2.0",
+		"tightenco/ziggy": "^0.3",
+		"erusev/parsedown": "^1.6",
+		"guzzlehttp/guzzle": "^6.3"
 	},
 
 	"require-dev": {
-		"fzaninotto/faker": "~1.4",
+		"fzaninotto/faker": "^1.4",
 		"mockery/mockery": "0.9.*",
-		"phpunit/phpunit": "~4.0",
-		"phpspec/phpspec": "~2.1",
-		"symfony/dom-crawler": "~3.0",
-		"symfony/css-selector": "~3.0",
-		"barryvdh/laravel-debugbar": "~2.1"
+		"phpunit/phpunit": "~6.0",
+		"barryvdh/laravel-debugbar": "^3.1",
+		"laravel/dusk": "^2.0",
+		"squizlabs/php_codesniffer": "^2.8",
+		"filp/whoops": "~2.0"
 	},
 
 	"autoload": {
 		"classmap": [
-			"nova/src/Setup/database"
+			"nova/database"
 		],
 		"files": [
-			"nova/src/Foundation/helpers.php"
+			"nova/src/helpers.php"
 		],
 		"psr-4": {
-			"Extensions\\": "extensions/",
 			"Nova\\": "nova/src/"
 		}
 	},
 
 	"autoload-dev": {
-		"classmap": [
-			"nova/tests/TestCase.php"
+		"files": [
+			"nova/tests/utilities/functions.php"
+		],
+		"psr-4": {
+			"Tests\\": "nova/tests/"
+		}
+	},
+
+	"scripts": {
+		"post-install-cmd": [
+			"Illuminate\\Foundation\\ComposerScripts::postInstall"
+		],
+
+		"post-update-cmd": [
+			"Illuminate\\Foundation\\ComposerScripts::postUpdate"
+		],
+
+		"post-autoload-dump": [
+			"Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+			"@php artisan package:discover"
 		]
 	},
 
@@ -42,7 +64,8 @@
 		"vendor-dir": "nova/vendor",
 		"bin-dir": "nova/vendor/bin",
 		"preferred-install": "dist",
-		"process-timeout": 500
+		"sort-packages": true,
+		"optimize-autoloader": true
 	},
 
 	"minimum-stability": "dev",

@@ -1,0 +1,39 @@
+engines:
+  csslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+        javascript:
+          mass_threshold: 40
+        php:
+          mass_threshold: 75
+  fixme:
+    enabled: true
+  phpmd:
+    enabled: true
+    checks:
+      CleanCode/StaticAccess:
+        enabled: false
+      Naming/ShortMethodName:
+        enabled: false
+  scss-lint:
+    enabled: true
+    checks:
+      Indentation:
+        enabled: false
+
+exclude_paths:
+  - "assets/css/"
+  - "assets/js/"
+  - "assets/mix-manifest.json"
+  - "nova/src/CodeSniffer/"
+  - "nova/tests/"
+  - "nova/vendor/"
+
+ratings:
+  paths:
+    - "**.css"
+    - "**.php"
+    - "**.scss"

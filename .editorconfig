@@ -10,6 +10,9 @@ insert_final_newline = false
 indent_style = tab
 charset = utf-8
 
+[.codeclimate.yml]
+indent_style = space
+
 [nova/vendor/**]
 indent_style = ignore
 charset = ignore
