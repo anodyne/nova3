@@ -7,6 +7,12 @@
  * @author   Taylor Otwell <taylor@laravel.com>
  */
 
+// Does the .htaccess file exist?
+if (! file_exists('./.htaccess')) {
+	header("Location: error-htaccess.html");
+	exit;
+}
+
 // Are we in maintenance mode?
 if (file_exists('./storage/app/maintenance.json')) {
 	header("Location: error-maintenance.html");
