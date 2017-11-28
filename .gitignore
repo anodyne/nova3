@@ -4,7 +4,7 @@ Thumbs.db
 .env
 config/*.php
 !config/nova.php
-extensions
+extensions/*/
 node_modules
 nova/vendor
 storage/debugbar
