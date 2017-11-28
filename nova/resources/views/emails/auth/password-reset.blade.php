@@ -1,7 +1,7 @@
 @component('mail::message')
 You are receiving this email because we received a password reset request for your account.
 
-@component('mail::button', ['url' => url(config('app.url').route('password.reset', $token, false))])
+@component('mail::button', ['url' => route('password.reset', $token)])
 Reset Password
 @endcomponent
 
