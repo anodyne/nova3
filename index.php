@@ -7,21 +7,27 @@
  * @author   Taylor Otwell <taylor@laravel.com>
  */
 
+// Are we running PHP 7+?
+if (version_compare(PHP_VERSION, '7.0.0', '<')) {
+	header("Location: error-php7.php");
+	exit;
+}
+
 // Does the .htaccess file exist?
 if (! file_exists('./.htaccess')) {
-	header("Location: error-htaccess.html");
+	header("Location: error-htaccess.php");
 	exit;
 }
 
 // Are we in maintenance mode?
 if (file_exists('./storage/app/maintenance.json')) {
-	header("Location: error-maintenance.html");
+	header("Location: error-maintenance.php");
 	exit;
 }
 
 // Does the vendor folder exist?
 if (! file_exists('./nova/vendor')) {
-	header("Location: error-vendor.html");
+	header("Location: error-vendor.php");
 	exit;
 }
 
