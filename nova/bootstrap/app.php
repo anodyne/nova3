@@ -12,7 +12,7 @@
 */
 
 $app = new Nova\Foundation\Application(
-    realpath(__DIR__.'/../../')
+	realpath(__DIR__.'/../../')
 );
 
 /*
@@ -27,18 +27,18 @@ $app = new Nova\Foundation\Application(
 */
 
 $app->singleton(
-    Illuminate\Contracts\Http\Kernel::class,
-    Nova\Foundation\Http\Kernel::class
+	Illuminate\Contracts\Http\Kernel::class,
+	Nova\Foundation\Http\Kernel::class
 );
 
 $app->singleton(
-    Illuminate\Contracts\Console\Kernel::class,
-    Nova\Foundation\Console\Kernel::class
+	Illuminate\Contracts\Console\Kernel::class,
+	Nova\Foundation\Console\Kernel::class
 );
 
 $app->singleton(
-    Illuminate\Contracts\Debug\ExceptionHandler::class,
-    Nova\Foundation\Exceptions\Handler::class
+	Illuminate\Contracts\Debug\ExceptionHandler::class,
+	Nova\Foundation\Exceptions\Handler::class
 );
 
 $app->singleton(
