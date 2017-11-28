@@ -10,6 +10,6 @@ class Nova
 	/**
 	 * The Nova version.
 	 */
-	public $version = '3.0.0-alpha.1';
-	public $fileVersion = '3.0.0-alpha.1';
+	public $version = '3.0.0-alpha.2';
+	public $fileVersion = '3.0.0-alpha.2';
 }
