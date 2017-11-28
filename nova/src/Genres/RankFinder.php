@@ -8,7 +8,7 @@ class RankFinder
 	public function getBaseImages()
 	{
 		// Set the path to the correct rank folder
-		$rankPath = base_path('ranks/'.Settings::find(1)->value);
+		$rankPath = base_path('ranks/'.Settings::item('rank')->first()->value);
 
 		// Get the base images
 		$finderBaseImages = (new Finder)->files()->in("{$rankPath}/base");

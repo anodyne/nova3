@@ -110,7 +110,7 @@
 													<a href="#"
 													   class="d-flex flex-column text-center"
 													   @click.prevent="changeImage('base', '{{ $baseImg }}')">
-													   {!! HTML::image('ranks/'.Settings::find(1)->value.'/base/'.$baseImg) !!}
+													   {!! HTML::image('ranks/'.Settings::item('rank')->first()->value.'/base/'.$baseImg) !!}
 													   <small>{{ $baseImg }}</small>
 													</a>
 												</div>
@@ -120,7 +120,7 @@
 												<a href="#"
 												   class="d-flex flex-column text-center"
 												   @click.prevent="changeImage('base', '{{ $bImage }}')">
-												   {!! HTML::image('ranks/'.Settings::find(1)->value.'/base/'.$bImage) !!}
+												   {!! HTML::image('ranks/'.Settings::item('rank')->first()->value.'/base/'.$bImage) !!}
 												   <small>{{ $bImage }}</small>
 												</a>
 											</div>
@@ -164,7 +164,7 @@
 													<a href="#"
 													   class="d-flex flex-column text-center"
 													   @click.prevent="changeImage('overlay', '{{ $overlayImg }}')">
-													   {!! HTML::image('ranks/'.Settings::find(1)->value.'/overlay/'.$overlayImg) !!}
+													   {!! HTML::image('ranks/'.Settings::item('rank')->first()->value.'/overlay/'.$overlayImg) !!}
 													   <small>{{ $overlayImg }}</small>
 													</a>
 												</div>
@@ -174,7 +174,7 @@
 												<a href="#"
 												   class="d-flex flex-column text-center"
 												   @click.prevent="changeImage('overlay', '{{ $oImage }}')">
-												   {!! HTML::image('ranks/'.Settings::find(1)->value.'/overlay/'.$oImage) !!}
+												   {!! HTML::image('ranks/'.Settings::item('rank')->first()->value.'/overlay/'.$oImage) !!}
 												   <small>{{ $oImage }}</small>
 												</a>
 											</div>
@@ -201,11 +201,11 @@
 
 			computed: {
 				baseStyles () {
-					return 'background-image:url(/ranks/' + {{ Settings::find(1)->value }} + '/base/' + this.base + ')'
+					return 'background-image:url(/ranks/' + {{ Settings::item('rank')->first()->value }} + '/base/' + this.base + ')'
 				},
 
 				overlayStyles () {
-					return 'background-image:url(/ranks/' + {{ Settings::find(1)->value }} + '/overlay/' + this.overlay + ')'
+					return 'background-image:url(/ranks/' + {{ Settings::item('rank')->first()->value }} + '/overlay/' + this.overlay + ')'
 				}
 			},
 
