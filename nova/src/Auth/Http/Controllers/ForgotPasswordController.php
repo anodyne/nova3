@@ -12,13 +12,22 @@ class ForgotPasswordController extends Controller
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->middleware('guest');
+
+		$this->views->put('structure', 'auth');
+		$this->views->put('template', 'auth');
+
+		$this->isAjax = true;
 	}
 
 	public function showLinkRequestForm()
 	{
-		return view('pages.auth.passwords.email');
+		$this->isAjax = false;
+
+		$this->views->put('page', 'auth.passwords.email');
+
+		$this->pageTitle = _m('auth-reset-password');
 	}
 
 	protected function sendResetLinkResponse($response)

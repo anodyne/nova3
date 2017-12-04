@@ -10,20 +10,28 @@ class SettingsController extends Controller
 		parent::__construct();
 
 		$this->middleware('auth');
+
+		$this->views->put('structure', 'admin');
+		$this->views->put('template', 'admin');
 	}
 
 	public function index()
 	{
 		$this->authorize('manage', new Settings);
 
-		$settings = Settings::get()->pluck('value', 'key');
+		$this->pageTitle = 'Settings';
 
-		return view('pages.settings.settings', compact('settings'));
+		$this->views->put('page', 'settings.settings');
+		$this->views->put('scripts', 'settings.settings');
+
+		$this->data->settings = Settings::get()->pluck('value', 'key');
 	}
 
 	public function update()
 	{
 		$this->authorize('update', new Settings);
+
+		$this->isAjax = true;
 
 		updater(Settings::class)->with(request()->all())->updateAll();
 

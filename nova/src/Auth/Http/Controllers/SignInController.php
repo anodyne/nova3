@@ -14,11 +14,20 @@ class SignInController extends Controller
 		parent::__construct();
 
 		$this->middleware('guest')->except('logout');
+
+		$this->views->put('structure', 'auth');
+		$this->views->put('template', 'auth');
+
+		$this->isAjax = true;
 	}
 
 	public function showSignInForm()
 	{
-		return view('pages.auth.sign-in');
+		$this->isAjax = false;
+
+		$this->pageTitle = _m('sign-in');
+
+		$this->views->put('page', 'auth.sign-in');
 	}
 
 	public function redirectTo()
