@@ -57,5 +57,6 @@ class Kernel extends HttpKernel
 
 		'nova.installed' => \Nova\Setup\Http\Middleware\CheckInstallationStatus::class,
 		'nova.auth-setup' => \Nova\Setup\Http\Middleware\AuthenticateSetupCenter::class,
+		'nova.render-controller' => Middleware\RenderController::class,
 	];
 }

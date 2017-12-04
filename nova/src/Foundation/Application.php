@@ -82,10 +82,27 @@ class Application extends LaravelApp
 		]);
 	}
 
+	public function themePath($theme = false)
+	{
+		if ($theme) {
+			return join(DIRECTORY_SEPARATOR, [
+				$this->basePath,
+				'themes',
+				$theme,
+			]);
+		}
+
+		return join(DIRECTORY_SEPARATOR, [
+			$this->basePath,
+			'themes',
+		]);
+	}
+
 	protected function bindPathsInContainer()
 	{
 		parent::bindPathsInContainer();
 
 		$this->instance('path.nova.lang', $this->novaLangPath());
+		$this->instance('path.themes', $this->themePath());
 	}
 }

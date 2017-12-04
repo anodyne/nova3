@@ -60,9 +60,9 @@ class AppServiceProvider extends ServiceProvider
 
 	protected function registerTheme()
 	{
-		$this->app->singleton('nova.theme', function ($app) {
-			return new \Nova\Foundation\Theme\Theme;
-		});
+		$theme = new \Nova\Foundation\Theme\Theme;
+
+		$this->app->instance('nova.theme', $theme);
 	}
 
 	protected function registerTranslator()

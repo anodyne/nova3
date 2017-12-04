@@ -35,6 +35,12 @@ if (! function_exists('d')) {
 	}
 }
 
+if (! function_exists('theme_path')) {
+	function theme_path($identifier = false)
+	{
+		return app()->themePath($identifier);
+	}
+}
 if (! function_exists('flash')) {
 	function flash()
 	{

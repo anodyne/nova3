@@ -19,9 +19,13 @@ trait ProvidesScriptVariables
 		]];
 
 		// Nova's settings
-		$settings = ['settings' => [
-			'rank' => (nova()->isInstalled()) ? Settings::item('rank')->first()->value : 'duty'
-		]];
+		if (nova()->isInstalled()) {
+			$settings = ['settings' => Settings::get()->pluck('value', 'key')->all()];
+		} else {
+			$settings = ['settings' => [
+				'rank' => (nova()->isInstalled()) ? Settings::item('rank')->first()->value : 'duty'
+			]];
+		}
 
 		if ($currentUser) {
 			$user = ['user' => [
@@ -52,9 +56,9 @@ trait ProvidesScriptVariables
 		$lang = ['lang' => app('nova.translator.messages')];
 
 		// Nova's controller data
-		// $data = ['data' => (array) app('nova.controller')->data];
+		$data = ['data' => (array) app('nova.controller')->data];
 
-		return array_merge($system, $settings, $user, $icons, $lang);
+		return array_merge($system, $settings, $user, $icons, $lang, $data);
 	}
 
 	protected function buildRoutesList()
