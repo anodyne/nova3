@@ -11,27 +11,35 @@ class RolesController extends Controller
 		parent::__construct();
 
 		$this->middleware('auth');
+
+		$this->views('admin', 'structure|template');
 	}
 
 	public function index()
 	{
 		$roleClass = new Role;
-		$permissionClass = new Permission;
 
 		$this->authorize('manage', $roleClass);
 
-		$roles = cache('nova.roles');
+		$this->views('authorize.all-roles', 'page|script');
 
-		return view('pages.authorize.all-roles', compact('roles', 'roleClass', 'permissionClass'));
+		$this->pageTitle = _m('authorize-roles');
+
+		$this->data->roles = cache('nova.roles');
+		$this->data->roleClass = $roleClass;
+		$this->data->permissionClass = new Permission;
 	}
 
 	public function create()
 	{
 		$this->authorize('create', new Role);
 
-		$permissions = cache('nova.permissions');
+		$this->views('authorize.create-role', 'page|script');
 
-		return view('pages.authorize.create-role', compact('permissions'));
+		$this->pageTitle = _m('authorize-roles-add');
+
+		$this->data->permissions = cache('nova.permissions');
+		$this->data->oldPermissions = old('permissions');
 	}
 
 	public function store()
@@ -58,11 +66,13 @@ class RolesController extends Controller
 	{
 		$this->authorize('update', $role);
 
-		$role->loadMissing('permissions');
+		$this->views('authorize.edit-role', 'page|script');
 
-		$permissions = cache('nova.permissions');
+		$this->pageTitle = _m('authorize-roles-update');
 
-		return view('pages.authorize.edit-role', compact('role', 'permissions'));
+		$this->data->role = $role->loadMissing('permissions');
+		$this->data->permissions = cache('nova.permissions');
+		$this->data->oldPermissions = old('permissions');
 	}
 
 	public function update(Role $role)

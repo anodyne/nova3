@@ -11,17 +11,23 @@ class LinkCharactersController extends Controller
 		parent::__construct();
 
 		$this->middleware('auth');
+
+		$this->views('admin', 'structure|template');
 	}
 
 	public function create()
 	{
 		$this->authorize('update', new Character);
 
-		return view('pages.characters.link');
+		$this->views('characters.link', 'page|script');
+
+		$this->pageTitle = _m('characters-link');
 	}
 
 	public function store()
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('update', new Character);
 
 		// Get the user
@@ -38,6 +44,8 @@ class LinkCharactersController extends Controller
 
 	public function update()
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('update', new Character);
 
 		// Get the character
@@ -51,6 +59,8 @@ class LinkCharactersController extends Controller
 
 	public function destroy(Character $character)
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('update', $character);
 
 		// Detach the character from the user

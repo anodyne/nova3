@@ -33,7 +33,7 @@ trait RendersTheme
 
 		foreach ($scripts as $script) {
 			// Start by figuring out where the right file is
-			$filePath = view()->getFinder()->find("components.js.{$script}");
+			$filePath = view()->getFinder()->find("components.scripts.{$script}");
 
 			// Next, strip out the base path information
 			$path = str_replace(base_path(), '', $filePath);
@@ -43,26 +43,6 @@ trait RendersTheme
 		}
 
 		$this->structure->scripts = $output;
-
-		return $this;
-	}
-
-	public function styles(array $styles)
-	{
-		$output = "";
-
-		foreach ($styles as $style) {
-			// Start by figuring out where the right file is
-			$filePath = view()->getFinder()->find("components.styles.{$style}");
-
-			// Next, strip out the base path information
-			$path = str_replace(base_path(), '', $filePath);
-
-			// Finally, add a style tag
-			$output.= HTML::style(url($path))."\r\n";
-		}
-
-		$this->structure->styles = $output;
 
 		return $this;
 	}

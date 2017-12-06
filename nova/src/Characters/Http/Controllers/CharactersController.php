@@ -10,6 +10,8 @@ class CharactersController extends Controller
 		parent::__construct();
 
 		$this->middleware('auth');
+
+		$this->views('admin', 'structure|template');
 	}
 
 	public function index()
@@ -18,23 +20,30 @@ class CharactersController extends Controller
 
 		$this->authorize('manage', $characterClass);
 
-		$characters = Character::withTrashed()
+		$this->views('characters.all-characters', 'page|script');
+
+		$this->pageTitle = _m('characters', [2]);
+
+		$this->data->characterClass = $characterClass;
+		$this->data->characters = Character::withTrashed()
 			->with(['positions', 'user'])
 			->orderBy('name')
 			->get();
-
-		return view('pages.characters.all-characters', compact('characters', 'characterClass'));
 	}
 
 	public function create()
 	{
 		$this->authorize('create', new Character);
 
-		return view('pages.characters.create-character');
+		$this->views('characters.create-character', 'page|script');
+
+		$this->pageTitle = _m('characters-add');
 	}
 
 	public function store()
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('create', new Character);
 
 		$this->validate(request(), [
@@ -60,17 +69,20 @@ class CharactersController extends Controller
 	{
 		$this->authorize('update', $character);
 
-		$character->loadMissing(['positions.department', 'user']);
+		$this->views('characters.edit-character', 'page|script');
 
-		$positions = $character->positions->map(function ($p) {
+		$this->pageTitle = _m('characters-update');
+
+		$this->data->character = $character->loadMissing(['positions.department', 'user']);
+		$this->data->positions = $character->positions->map(function ($p) {
 			return ['id' => $p->id];
 		});
-
-		return view('pages.characters.edit-character', compact('character', 'positions'));
 	}
 
 	public function update(Character $character)
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('update', $character);
 
 		$this->validate(request(), [
@@ -97,6 +109,8 @@ class CharactersController extends Controller
 
 	public function destroy(Character $character)
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('delete', $character);
 
 		deletor(Character::class)->delete($character);
@@ -106,6 +120,8 @@ class CharactersController extends Controller
 
 	public function restore(Character $character)
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('update', $character);
 
 		restorer(Character::class)->restore($character);

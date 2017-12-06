@@ -17,12 +17,11 @@ class RenderController
 		$response = $next($request);
 
 		if (nova()->isInstalled() and empty($response->getContent())) {
-			if (! $this->controller->isAjax) {
+			if ($this->controller->renderWithTheme) {
 				$this->buildThemeStructure();
 				$this->buildThemeTemplate();
 				$this->buildPage();
 				$this->buildScripts();
-				$this->buildStyles();
 
 				$response->setContent($this->output);
 			}
@@ -58,14 +57,7 @@ class RenderController
 	protected function buildScripts()
 	{
 		$this->output = app('nova.theme')->scripts(
-			(array) $this->controller->views->get('scripts')
-		);
-	}
-
-	protected function buildStyles()
-	{
-		$this->output = app('nova.theme')->styles(
-			(array) $this->controller->views->get('styles')
+			(array) $this->controller->views->get('script')
 		);
 	}
 }

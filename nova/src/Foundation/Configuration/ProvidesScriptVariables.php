@@ -1,5 +1,6 @@
 <?php namespace Nova\Foundation\Configuration;
 
+use Status;
 use Nova\Settings\Settings;
 
 trait ProvidesScriptVariables
@@ -58,7 +59,10 @@ trait ProvidesScriptVariables
 		// Nova's controller data
 		$data = ['data' => (array) app('nova.controller')->data];
 
-		return array_merge($system, $settings, $user, $icons, $lang, $data);
+		// Nova's statuses
+		$statuses = ['status' => Status::all()];
+
+		return array_merge($system, $settings, $user, $icons, $lang, $data, $statuses);
 	}
 
 	protected function buildRoutesList()

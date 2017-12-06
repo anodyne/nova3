@@ -8,7 +8,12 @@ class CharacterManifestController extends Controller
 {
 	public function index()
 	{
-		$departments = Department::parents()
+		$this->views('characters.manifest', 'page|script');
+
+		$this->pageTitle = 'Manifest';
+
+		$this->data->settingsClass = new Settings;
+		$this->data->departments = Department::parents()
 			->where('display', (int) true)
 			->with([
 				'positions.characters.rank.info',
@@ -18,9 +23,5 @@ class CharacterManifestController extends Controller
 			])
 			->orderBy('order')
 			->get();
-
-		$settingsClass = new Settings;
-
-		return view('pages.characters.manifest', compact('departments', 'settingsClass'));
 	}
 }

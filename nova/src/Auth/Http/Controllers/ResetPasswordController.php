@@ -15,17 +15,16 @@ class ResetPasswordController extends Controller
 
 		$this->middleware('guest');
 
-		$this->views->put('structure', 'auth');
-		$this->views->put('template', 'auth');
+		$this->views('auth', 'structure|template');
 
-		$this->isAjax = true;
+		$this->renderWithTheme = false;
 	}
 
 	public function showResetForm(Request $request, $token = null)
 	{
-		$this->isAjax = false;
+		$this->renderWithTheme = true;
 
-		$this->views->put('page', 'auth.passwords.reset');
+		$this->views('auth.passwords.reset');
 
 		$this->pageTitle = _m('auth-reset-password');
 

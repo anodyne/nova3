@@ -11,29 +11,38 @@ class PermissionsController extends Controller
 		parent::__construct();
 
 		$this->middleware('auth');
+
+		$this->views('admin', 'structure|template');
 	}
 
 	public function index()
 	{
-		$roleClass = new Role;
 		$permissionClass = new Permission;
 
 		$this->authorize('manage', $permissionClass);
 
-		$permissions = cache('nova.permissions');
+		$this->views('authorize.all-permissions', 'page|script');
 
-		return view('pages.authorize.all-permissions', compact('permissions', 'roleClass', 'permissionClass'));
+		$this->pageTitle = _m('authorize-permissions');
+
+		$this->data->permissions = cache('nova.permissions');
+		$this->data->roleClass = new Role;
+		$this->data->permissionClass = $permissionClass;
 	}
 
 	public function create()
 	{
 		$this->authorize('create', new Permission);
 
-		return view('pages.authorize.create-permission');
+		$this->views('authorize.create-permission');
+
+		$this->pageTitle = _m('authorize-permissions-add');
 	}
 
 	public function store()
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('create', new Permission);
 
 		$this->validate(request(), [
@@ -58,11 +67,17 @@ class PermissionsController extends Controller
 	{
 		$this->authorize('update', $permission);
 
-		return view('pages.authorize.edit-permission', compact('permission'));
+		$this->views('authorize.edit-permission');
+
+		$this->pageTitle = _m('authorize-permissions-update');
+
+		$this->data->permission = $permission;
 	}
 
 	public function update(Permission $permission)
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('update', $permission);
 
 		$this->validate(request(), [
@@ -85,6 +100,8 @@ class PermissionsController extends Controller
 
 	public function destroy(Permission $permission)
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('delete', $permission);
 
 		deletor(Permission::class)->delete($permission);

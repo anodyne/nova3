@@ -7,12 +7,11 @@ class CharacterBioController extends Controller
 {
 	public function show(Character $character)
 	{
-		// Make sure we load all the positions
-		$character->load('positions');
+		$this->views('characters.bio');
 
-		// Make sure the images we have don't include the primary media
-		$images = $character->media->where('primary', (int)false);
+		$this->pageTitle = $character->name;
 
-		return view('pages.characters.bio', compact('character', 'images'));
+		$this->data->character = $character->load('positions');
+		$this->data->images = $character->media->where('primary', (int)false);
 	}
 }

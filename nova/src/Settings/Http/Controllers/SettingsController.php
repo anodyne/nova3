@@ -11,8 +11,7 @@ class SettingsController extends Controller
 
 		$this->middleware('auth');
 
-		$this->views->put('structure', 'admin');
-		$this->views->put('template', 'admin');
+		$this->views('admin', 'structure|template');
 	}
 
 	public function index()
@@ -21,17 +20,16 @@ class SettingsController extends Controller
 
 		$this->pageTitle = 'Settings';
 
-		$this->views->put('page', 'settings.settings');
-		$this->views->put('scripts', 'settings.settings');
+		$this->views('settings.settings', 'page|script');
 
 		$this->data->settings = Settings::get()->pluck('value', 'key');
 	}
 
 	public function update()
 	{
-		$this->authorize('update', new Settings);
+		$this->renderWithTheme = false;
 
-		$this->isAjax = true;
+		$this->authorize('update', new Settings);
 
 		updater(Settings::class)->with(request()->all())->updateAll();
 

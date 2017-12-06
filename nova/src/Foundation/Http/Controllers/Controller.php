@@ -16,7 +16,7 @@ class Controller extends BaseController
 	public $pageTitle;
 	public $structureData;
 	public $templateData;
-	public $isAjax = false;
+	public $renderWithTheme = true;
 
 	public function __construct()
 	{
@@ -63,5 +63,14 @@ class Controller extends BaseController
 			'structure'	=> 'public',
 			'template' => 'public',
 		]);
+	}
+
+	protected function views($name, $type = 'page')
+	{
+		collect(explode('|', $type))->each(function ($viewType) use ($name) {
+			$this->views->put($viewType, $name);
+		});
+
+		return $this;
 	}
 }

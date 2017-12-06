@@ -13,6 +13,22 @@ class Status
 	const UNASSIGNED	= 9;
 	const COMPLETED		= 10;
 
+	public static function all()
+	{
+		return [
+			'pending' => static::PENDING,
+			'active' => static::ACTIVE,
+			'inactive' => static::INACTIVE,
+			'removed' => static::REMOVED,
+			'in_progress' => static::IN_PROGRESS,
+			'approved' => static::APPROVED,
+			'rejected' => static::REJECTED,
+			'assigned' => static::ASSIGNED,
+			'unassigned' => static::UNASSIGNED,
+			'completed' => static::COMPLETED,
+		];
+	}
+
 	public static function toInt($value)
 	{
 		switch ($value) {

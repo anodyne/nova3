@@ -15,19 +15,18 @@ class SignInController extends Controller
 
 		$this->middleware('guest')->except('logout');
 
-		$this->views->put('structure', 'auth');
-		$this->views->put('template', 'auth');
+		$this->views('auth', 'structure|template');
 
-		$this->isAjax = true;
+		$this->renderWithTheme = false;
 	}
 
 	public function showSignInForm()
 	{
-		$this->isAjax = false;
+		$this->renderWithTheme = true;
 
 		$this->pageTitle = _m('sign-in');
 
-		$this->views->put('page', 'auth.sign-in');
+		$this->views('auth.sign-in');
 	}
 
 	public function redirectTo()

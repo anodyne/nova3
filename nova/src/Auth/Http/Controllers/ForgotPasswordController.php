@@ -15,17 +15,16 @@ class ForgotPasswordController extends Controller
 
 		$this->middleware('guest');
 
-		$this->views->put('structure', 'auth');
-		$this->views->put('template', 'auth');
+		$this->views('auth', 'structure|template');
 
-		$this->isAjax = true;
+		$this->renderWithTheme = false;
 	}
 
 	public function showLinkRequestForm()
 	{
-		$this->isAjax = false;
+		$this->renderWithTheme = true;
 
-		$this->views->put('page', 'auth.passwords.email');
+		$this->views('auth.passwords.email');
 
 		$this->pageTitle = _m('auth-reset-password');
 	}

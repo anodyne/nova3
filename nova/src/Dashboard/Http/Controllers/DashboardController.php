@@ -11,34 +11,42 @@ class DashboardController extends Controller
 		parent::__construct();
 
 		$this->middleware('auth');
+
+		$this->views('admin', 'structure|template');
 	}
 
 	public function index()
 	{
-		$sysinfo = SystemInfo::first();
+		$this->views('dashboard.dashboard', 'page|script');
 
-		// $installChecklist = $sysinfo->install_checklist;
+		$this->pageTitle = 'Dashboard';
 
-		return view('pages.dashboard.index', compact('sysinfo'));
+		$this->data->sysinfo = SystemInfo::first();
 	}
 
 	public function characters()
 	{
+		$this->views('dashboard.characters');
+
+		$this->pageTitle = _m('dashboard-characters');
+
 		$this->user->loadMissing('characters.positions');
 
-		$characters = $this->user->characters;
-
-		return view('pages.dashboard.characters', compact('characters'));
+		$this->data->characters = $this->user->characters;
 	}
 
 	public function finishInstallation()
 	{
+		$this->renderWithTheme = false;
+
 		// Set the install phase to 2
 		SystemInfo::first()->setPhase('install', 2);
 	}
 
 	public function finishMigration()
 	{
+		$this->renderWithTheme = false;
+
 		// Set the install and migrate phases to 2
 		SystemInfo::first()->setPhase('install', 2);
 		SystemInfo::first()->setPhase('migration', 2);
@@ -48,6 +56,8 @@ class DashboardController extends Controller
 
 	public function sendTestEmail()
 	{
+		$this->renderWithTheme = false;
+
 		Mail::to(request()->user()->email)
 			->queue(new \Nova\Dashboard\Mail\SendTestEmail);
 	}
