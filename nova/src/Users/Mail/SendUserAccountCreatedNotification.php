@@ -10,6 +10,6 @@ class SendUserAccountCreatedNotification extends Mailable
 
 	public function build()
 	{
-		return $this->markdown('emails.users.admin-created-user', ['url' => route('password.request')]);
+		return $this->markdown('components.emails.users.admin-created-user', ['url' => route('password.request')]);
 	}
 }

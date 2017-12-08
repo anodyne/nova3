@@ -17,6 +17,6 @@ class SendNewPassword extends Mailable
 
 	public function build()
 	{
-		return $this->markdown('emails.users.password', ['password' => $this->password]);
+		return $this->markdown('components.emails.users.password', ['password' => $this->password]);
 	}
 }

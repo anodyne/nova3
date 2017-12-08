@@ -10,6 +10,6 @@ class SendAdminForcedPasswordResetNotification extends Mailable
 
 	public function build()
 	{
-		return $this->markdown('emails.users.admin-forced-password-reset', ['url' => route('password.request')]);
+		return $this->markdown('components.emails.users.admin-forced-password-reset', ['url' => route('password.request')]);
 	}
 }

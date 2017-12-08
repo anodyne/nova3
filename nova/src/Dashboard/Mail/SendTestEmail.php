@@ -15,6 +15,6 @@ class SendTestEmail extends Mailable
 		$prefix = Settings::item('mail_subject_prefix')->first()->value;
 
 		return $this->subject("{$prefix} Test Email")
-			->markdown('emails.dashboard.test', compact('date'));
+			->markdown('components.emails.dashboard.email-test', compact('date'));
 	}
 }

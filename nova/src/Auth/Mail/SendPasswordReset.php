@@ -17,6 +17,6 @@ class SendPasswordReset extends Mailable
 
 	public function build()
 	{
-		return $this->markdown('emails.auth.password-reset', ['token' => $this->token]);
+		return $this->markdown('components.emails.auth.password-reset', ['token' => $this->token]);
 	}
 }
