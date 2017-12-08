@@ -14,6 +14,8 @@ class RankItemsController extends Controller
 		parent::__construct();
 
 		$this->middleware('auth');
+
+		$this->views('admin', 'structure|template');
 	}
 
 	public function index()
@@ -22,26 +24,23 @@ class RankItemsController extends Controller
 
 		$this->authorize('manage', $rankClass);
 
-		// Get all of the rank groups
-		$groups = RankGroup::orderBy('order')->get()->pluck('name', 'id');
+		$this->views('genres.all-ranks', 'page|script');
 
-		// Get all of the ranks
-		$ranks = Rank::with('info')->orderBy('order')->get();
+		$this->pageTitle = _m('genre-ranks', [2]);
 
-		return view('pages.genres.all-ranks', compact('rankClass', 'groups', 'ranks'));
+		$this->data->rankClass = $rankClass;
+		$this->data->groups = RankGroup::orderBy('order')->get()->pluck('name', 'id');
+		$this->data->ranks = Rank::with('info')->orderBy('order')->get();
 	}
 
 	public function create()
 	{
 		$this->authorize('create', new Rank);
 
-		// Get all of the rank groups
-		$groups = RankGroup::orderBy('order')->get()->pluck('name', 'id');
+		$this->views('genres.create-rank', 'page|script');
 
-		// Get all of the rank info
-		$info = RankInfo::orderBy('order')->get()->pluck('name', 'id');
+		$this->pageTitle = _m('genre-ranks-add');
 
-		// Set the path to the correct rank folder
 		$rankPath = base_path('ranks/'.Settings::item('rank')->first()->value);
 
 		// Get the base images
@@ -77,11 +76,16 @@ class RankItemsController extends Controller
 		// Store something in the session in case we go out to create a group or info
 		session()->flash('return-to-ranks', true);
 
-		return view('pages.genres.create-rank', compact('groups', 'info', 'baseImages', 'overlayImages'));
+		$this->data->groups = RankGroup::orderBy('order')->get()->pluck('name', 'id');
+		$this->data->info = RankInfo::orderBy('order')->get()->pluck('name', 'id');
+		$this->data->baseImages = $baseImages;
+		$this->data->overlayImages = $overlayImages;
 	}
 
 	public function store()
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('create', new Rank);
 
 		$this->validate(request(), [
@@ -110,11 +114,9 @@ class RankItemsController extends Controller
 	{
 		$this->authorize('update', $item);
 
-		// Get all of the rank groups
-		$groups = RankGroup::orderBy('order')->get()->pluck('name', 'id');
+		$this->views('genres.edit-rank', 'page|script');
 
-		// Get all of the rank info
-		$info = RankInfo::orderBy('order')->get()->pluck('name', 'id');
+		$this->pageTitle = _m('genre-ranks-update');
 
 		// Set the path to the correct rank folder
 		$rankPath = base_path('ranks/'.Settings::item('rank')->first()->value);
@@ -149,11 +151,17 @@ class RankItemsController extends Controller
 			$overlayImages[$relativePath][] = $pathName;
 		}
 
-		return view('pages.genres.edit-rank', compact('item', 'groups', 'info', 'baseImages', 'overlayImages'));
+		$this->data->groups = RankGroup::orderBy('order')->get()->pluck('name', 'id');
+		$this->data->info = RankInfo::orderBy('order')->get()->pluck('name', 'id');
+		$this->data->item = $item;
+		$this->data->baseImages = $baseImages;
+		$this->data->overlayImages = $overlayImages;
 	}
 
 	public function update(Rank $item)
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('update', $item);
 
 		$this->validate(request(), [
@@ -178,6 +186,8 @@ class RankItemsController extends Controller
 
 	public function destroy(Rank $item)
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('delete', $item);
 
 		deletor(Rank::class)->delete($item);
@@ -187,6 +197,8 @@ class RankItemsController extends Controller
 
 	public function reorder()
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('update', new Rank);
 
 		collect(request('items'))->each(function ($id, $index) {
@@ -198,6 +210,8 @@ class RankItemsController extends Controller
 
 	public function duplicate(Rank $item)
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('create', $item);
 
 		$newItem = duplicator(Rank::class)->with(request()->all())->duplicate($item);

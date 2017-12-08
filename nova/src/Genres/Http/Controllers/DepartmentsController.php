@@ -10,6 +10,8 @@ class DepartmentsController extends Controller
 		parent::__construct();
 
 		$this->middleware('auth');
+
+		$this->views('admin', 'structure|template');
 	}
 
 	public function index()
@@ -18,20 +20,29 @@ class DepartmentsController extends Controller
 
 		$this->authorize('manage', $deptClass);
 
-		$departments = Department::with('subDepartments')->parents()->orderBy('order')->get();
+		$this->views('genres.all-departments', 'page|script');
 
-		return view('pages.genres.all-departments', compact('deptClass', 'departments'));
+		$this->pageTitle = _m('genre-depts', [2]);
+
+		$this->data->deptClass = $deptClass;
+		$this->data->departments = Department::with('subDepartments')
+			->parents()
+			->orderBy('order')->get();
 	}
 
 	public function create()
 	{
 		$this->authorize('create', new Department);
 
-		return view('pages.genres.create-department');
+		$this->views('genres.create-department', 'page|script');
+
+		$this->pageTitle = _m('genre-depts-add');
 	}
 
 	public function store()
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('create', new Department);
 
 		$this->validate(request(), [
@@ -54,11 +65,17 @@ class DepartmentsController extends Controller
 	{
 		$this->authorize('update', $department);
 
-		return view('pages.genres.edit-department', compact('department'));
+		$this->views('genres.edit-department', 'page|script');
+
+		$this->pageTitle = _m('genre-depts-update');
+
+		$this->data->department = $department;
 	}
 
 	public function update(Department $department)
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('update', $department);
 
 		$this->validate(request(), [
@@ -79,6 +96,8 @@ class DepartmentsController extends Controller
 
 	public function destroy(Department $department)
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('delete', $department);
 
 		deletor(Department::class)->delete($department);

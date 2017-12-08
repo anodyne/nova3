@@ -10,19 +10,27 @@ class ReorderDepartmentsController extends Controller
 		parent::__construct();
 
 		$this->middleware('auth');
+
+		$this->views('admin', 'structure|template');
 	}
 
 	public function index()
 	{
 		$this->authorize('update', new Department);
 
-		$departments = Department::with('subDepartments')->parents()->orderBy('order')->get();
+		$this->views('genres.reorder-departments', 'page|script');
 
-		return view('pages.genres.reorder-departments', compact('departments'));
+		$this->pageTitle = _m('genre-depts-reorder');
+
+		$this->data->departments = Department::with('subDepartments')
+			->parents()
+			->orderBy('order')->get();
 	}
 
 	public function update()
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('update', new Department);
 
 		$departments = collect(request('depts'))->each(function ($id, $index) {

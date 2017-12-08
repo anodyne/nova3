@@ -10,6 +10,8 @@ class RankInfoController extends Controller
 		parent::__construct();
 
 		$this->middleware('auth');
+
+		$this->views('admin', 'structure|template');
 	}
 
 	public function index()
@@ -18,9 +20,12 @@ class RankInfoController extends Controller
 
 		$this->authorize('manage', $rankInfoClass);
 
-		$info = RankInfo::orderBy('order')->get();
+		$this->views('genres.all-rank-info', 'page|script');
 
-		return view('pages.genres.all-rank-info', compact('info', 'rankInfoClass'));
+		$this->pageTitle = _m('genre-rank-info');
+
+		$this->data->rankInfoClass = $rankInfoClass;
+		$this->data->info = RankInfo::orderBy('order')->get();
 	}
 
 	public function create()
@@ -31,11 +36,15 @@ class RankInfoController extends Controller
 			session()->reflash();
 		}
 
-		return view('pages.genres.create-rank-info');
+		$this->views('genres.create-rank-info');
+
+		$this->pageTitle = _m('genre-rank-info-add');
 	}
 
 	public function store()
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('create', new RankInfo);
 
 		$this->validate(request(), [
@@ -62,6 +71,8 @@ class RankInfoController extends Controller
 
 	public function update()
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('update', new RankInfo);
 
 		$this->validate(request(), [
@@ -79,6 +90,8 @@ class RankInfoController extends Controller
 
 	public function destroy(RankInfo $info)
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('delete', $info);
 
 		deletor(RankInfo::class)->delete($info);
@@ -88,6 +101,8 @@ class RankInfoController extends Controller
 
 	public function reorder()
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('update', new RankInfo);
 
 		collect(request('info'))->each(function ($id, $index) {

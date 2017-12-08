@@ -10,12 +10,16 @@ class RanksController extends Controller
 		parent::__construct();
 
 		$this->middleware('auth');
+
+		$this->views('admin', 'structure|template');
 	}
 
 	public function index()
 	{
 		$this->authorize('manage', new RankGroup);
 
-		return view('pages.genres.ranks-landing');
+		$this->views('genres.ranks-landing');
+
+		$this->pageTitle = _m('genre-ranks', [2]);
 	}
 }

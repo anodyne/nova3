@@ -12,6 +12,8 @@ class RankGroupsController extends Controller
 		parent::__construct();
 
 		$this->middleware('auth');
+
+		$this->views('admin', 'structure|template');
 	}
 
 	public function index()
@@ -20,9 +22,12 @@ class RankGroupsController extends Controller
 
 		$this->authorize('manage', $rankGroupClass);
 
-		$rankGroups = RankGroup::orderBy('order')->get();
+		$this->views('genres.all-rank-groups', 'page|script');
 
-		return view('pages.genres.all-rank-groups', compact('rankGroups', 'rankGroupClass'));
+		$this->pageTitle = _m('genre-rank-groups', [2]);
+
+		$this->data->rankGroupClass = $rankGroupClass;
+		$this->data->rankGroups = RankGroup::orderBy('order')->get();
 	}
 
 	public function create()
@@ -33,11 +38,15 @@ class RankGroupsController extends Controller
 			session()->reflash();
 		}
 
-		return view('pages.genres.create-rank-group');
+		$this->views('genres.create-rank-group', 'page|script');
+
+		$this->pageTitle = _m('genre-rank-groups-add');
 	}
 
 	public function store()
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('create', new RankGroup);
 
 		$this->validate(request(), [
@@ -62,6 +71,8 @@ class RankGroupsController extends Controller
 
 	public function update()
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('update', new RankGroup);
 
 		$this->validate(request(), [
@@ -77,6 +88,8 @@ class RankGroupsController extends Controller
 
 	public function destroy(RankGroup $group)
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('delete', $group);
 
 		deletor(RankGroup::class)->delete($group);
@@ -86,6 +99,8 @@ class RankGroupsController extends Controller
 
 	public function reorder()
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('update', new RankGroup);
 
 		collect(request('groups'))->each(function ($id, $index) {
@@ -97,6 +112,8 @@ class RankGroupsController extends Controller
 
 	public function duplicate(RankGroup $group)
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('create', $group);
 
 		duplicator(RankGroup::class)->with(request()->all())->duplicate($group);
@@ -111,6 +128,8 @@ class RankGroupsController extends Controller
 
 	public function duplicateConfirm()
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('create', new RankGroup);
 
 		// Get the path to the rank folder
@@ -129,6 +148,6 @@ class RankGroupsController extends Controller
 		// Grab the group ID from the request string
 		$group = request('group');
 
-		return view('pages.genres._rank-group-duplicate', compact('baseImages', 'group'));
+		return view('components.pages.genres._rank-group-duplicate', compact('baseImages', 'group'));
 	}
 }
