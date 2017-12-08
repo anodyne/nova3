@@ -10,6 +10,8 @@ class UsersActivatorController extends Controller
 		parent::__construct();
 
 		$this->middleware('auth');
+
+		$this->renderWithTheme = false;
 	}
 
 	public function update(User $user)

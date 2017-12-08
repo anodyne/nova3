@@ -11,13 +11,20 @@ class ProfilesController extends Controller
 		parent::__construct();
 
 		$this->middleware('auth');
+
+		$this->views('admin', 'structure|template');
 	}
 
 	public function show(User $user)
 	{
 		$this->authorize('view', $user);
 
-		return view('pages.users.profile', compact('user'));
+		$this->views('public', 'structure|template');
+		$this->views('users.profile');
+
+		$this->pageTitle = $user->present()->name;
+
+		$this->data->user = $user;
 	}
 
 	public function edit()
@@ -26,17 +33,22 @@ class ProfilesController extends Controller
 
 		$this->authorize('updateProfile', $user);
 
-		$genders = [
+		$this->views('users.edit-profile');
+
+		$this->pageTitle = _m('users-profile-update');
+
+		$this->data->user = $user;
+		$this->data->genders = [
 			'male' => _m('users-gender-option-male'),
 			'female' => _m('users-gender-option-female'),
 			'neutral' => _m('users-gender-option-neutral'),
 		];
-
-		return view('pages.users.edit-profile', compact('user', 'genders'));
 	}
 
 	public function update()
 	{
+		$this->renderWithTheme = false;
+
 		$user = auth()->user();
 
 		$this->authorize('updateProfile', $user);
@@ -62,6 +74,8 @@ class ProfilesController extends Controller
 
 	public function updatePassword(Hasher $hasher)
 	{
+		$this->renderWithTheme = false;
+
 		$user = auth()->user();
 
 		$this->authorize('updateProfile', $user);

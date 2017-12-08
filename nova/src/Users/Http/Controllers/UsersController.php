@@ -12,37 +12,45 @@ class UsersController extends Controller
 		parent::__construct();
 
 		$this->middleware('auth');
+
+		$this->views('admin', 'structure|template');
 	}
 
 	public function index()
 	{
 		$userClass = new User;
-		$characterClass = new Character;
 
 		$this->authorize('manage', $userClass);
 
-		$users = User::with('characters')->withTrashed()->get();
+		$this->views('users.all-users', 'page|script');
 
-		return view('pages.users.all-users', compact('users', 'userClass', 'characterClass'));
+		$this->pageTitle = _m('users', [2]);
+
+		$this->data->userClass = $userClass;
+		$this->data->characterClass = new Character;
+		$this->data->users = User::with('characters')->withTrashed()->get();
 	}
 
 	public function create()
 	{
 		$this->authorize('create', new User);
 
-		$roles = Role::with('permissions')->get();
+		$this->views('users.create-user');
 
-		$genders = [
+		$this->pageTitle = _m('users-add');
+
+		$this->data->roles = Role::with('permissions')->get();
+		$this->data->genders = [
 			'male' => _m('users-gender-option-male'),
 			'female' => _m('users-gender-option-female'),
 			'neutral' => _m('users-gender-option-neutral'),
 		];
-
-		return view('pages.users.create-user', compact('roles', 'genders'));
 	}
 
 	public function store()
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('create', new User);
 
 		$this->validate(request(), [
@@ -69,21 +77,23 @@ class UsersController extends Controller
 	{
 		$this->authorize('update', $user);
 
-		$user->loadMissing('characters.user', 'characters.positions', 'primaryCharacter.positions');
+		$this->views('users.edit-user');
 
-		$roles = Role::with('permissions')->get();
+		$this->pageTitle = _m('users-update');
 
-		$genders = [
+		$this->data->user = $user->loadMissing('characters.user', 'characters.positions', 'primaryCharacter.positions');
+		$this->data->roles = Role::with('permissions')->get();
+		$this->data->genders = [
 			'male' => _m('users-gender-option-male'),
 			'female' => _m('users-gender-option-female'),
 			'neutral' => _m('users-gender-option-neutral'),
 		];
-
-		return view('pages.users.edit-user', compact('user', 'roles', 'genders'));
 	}
 
 	public function update(User $user)
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('update', $user);
 
 		$this->validate(request(), [
@@ -107,6 +117,8 @@ class UsersController extends Controller
 
 	public function destroy(User $user)
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('delete', $user);
 
 		deletor(User::class)->delete($user);
@@ -116,6 +128,8 @@ class UsersController extends Controller
 
 	public function restore(User $user)
 	{
+		$this->renderWithTheme = false;
+
 		$this->authorize('update', $user);
 
 		restorer(User::class)->restore($user);
