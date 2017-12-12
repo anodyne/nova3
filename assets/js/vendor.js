@@ -3,7 +3,7 @@ webpackJsonp([0],[
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var require;//! moment.js
-//! version : 2.19.3
+//! version : 2.19.4
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -2033,7 +2033,7 @@ function currentDateArray(config) {
 // note: all values past the year are optional and will default to the lowest possible value.
 // [year, month, day , hour, minute, second, millisecond]
 function configFromArray (config) {
-    var i, date, input = [], currentDate, yearToUse;
+    var i, date, input = [], currentDate, expectedWeekday, yearToUse;
 
     if (config._d) {
         return;
@@ -2083,6 +2083,8 @@ function configFromArray (config) {
     }
 
     config._d = (config._useUTC ? createUTCDate : createDate).apply(null, input);
+    expectedWeekday = config._useUTC ? config._d.getUTCDay() : config._d.getDay();
+
     // Apply timezone offset from input. The actual utcOffset can be changed
     // with parseZone.
     if (config._tzm != null) {
@@ -2094,7 +2096,7 @@ function configFromArray (config) {
     }
 
     // check for mismatching day of week
-    if (config._w && typeof config._w.d !== 'undefined' && config._w.d !== config._d.getDay()) {
+    if (config._w && typeof config._w.d !== 'undefined' && config._w.d !== expectedWeekday) {
         getParsingFlags(config).weekdayMismatch = true;
     }
 }
@@ -3670,7 +3672,7 @@ addRegexToken('Do', function (isStrict, locale) {
 
 addParseToken(['D', 'DD'], DATE);
 addParseToken('Do', function (input, array) {
-    array[DATE] = toInt(input.match(match1to2)[0], 10);
+    array[DATE] = toInt(input.match(match1to2)[0]);
 });
 
 // MOMENTS
@@ -4482,7 +4484,7 @@ addParseToken('x', function (input, array, config) {
 // Side effect imports
 
 
-hooks.version = '2.19.3';
+hooks.version = '2.19.4';
 
 setHookCallback(createLocal);
 
@@ -68317,6 +68319,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 var constants = {
   colorChecked: '#75C791',
   colorUnchecked: '#bfcbd9',
+  cssColors: false,
   labelChecked: 'on',
   labelUnchecked: 'off',
   width: 50,
@@ -68357,6 +68360,10 @@ var px = function px(v) {
         return (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' ? value.checked || value.unchecked : typeof value === 'string';
       }
     },
+    cssColors: {
+      type: Boolean,
+      default: false
+    },
     labels: {
       type: [Boolean, Object],
       default: false,
@@ -68388,7 +68395,7 @@ var px = function px(v) {
       return {
         width: px(this.width),
         height: px(this.height),
-        backgroundColor: this.colorCurrent,
+        backgroundColor: this.cssColors ? null : this.colorCurrent,
         borderRadius: px(Math.round(this.height / 2))
       };
     },
@@ -68446,7 +68453,7 @@ var px = function px(v) {
   },
   data: function data() {
     return {
-      toggled: this.value
+      toggled: !!this.value
     };
   },
 
