@@ -11,7 +11,11 @@ class UserPresenter extends Presenter
 			return asset("storage/app/public/users/{$this->entity->getPrimaryMedia()->filename}");
 		}
 
-		return Gravatar::get($this->entity->email);
+		if (! empty($this->entity->email)) {
+			return Gravatar::get($this->entity->email);
+		}
+
+		return false;
 	}
 
 	public function name()
