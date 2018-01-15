@@ -10,8 +10,8 @@
 
 	<title>{{ $pageTitle or '' }} &bull; {{ config('app.name', 'Laravel') }}</title>
 
-	<script defer src="{{ asset('assets/js/packs/solid.min.js') }}"></script>
-	<script defer src="{{ asset('assets/js/fontawesome.min.js') }}"></script>
+	<script defer src="{{ asset('assets/js/fa-solid.min.js') }}"></script>
+	<script src="{{ asset('assets/js/fontawesome.min.js') }}"></script>
 
 	<!-- Styles -->
 	<link href="{{ asset('assets/css/vendor.css') }}" rel="stylesheet">
