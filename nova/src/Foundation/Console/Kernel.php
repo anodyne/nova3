@@ -11,6 +11,7 @@ class Kernel extends ConsoleKernel
 		Commands\InstallNova::class,
 		Commands\RefreshNova::class,
 		Commands\UninstallNova::class,
+		\Nova\Extensions\Console\Commands\MakeExtension::class,
 	];
 
 	protected function schedule(Schedule $schedule)

@@ -1,0 +1,11 @@
+<?php namespace {ExtensionNamespace}\Http\Controllers;
+
+use Controller;
+
+class {ExtensionControllerName} extends Controller
+{
+	public function index()
+	{
+		$this->views->put('page', '{ExtensionLowercaseName}');
+	}
+}

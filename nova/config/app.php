@@ -181,6 +181,7 @@ return [
 		// Nova\Foundation\Providers\BroadcastServiceProvider::class,
 		Nova\Foundation\Providers\EventServiceProvider::class,
 		Nova\Foundation\Providers\RouteServiceProvider::class,
+		Nova\Foundation\Providers\ExtensionServiceProvider::class,
 		Nova\Foundation\Providers\DeferredServiceProvider::class,
 
 	],

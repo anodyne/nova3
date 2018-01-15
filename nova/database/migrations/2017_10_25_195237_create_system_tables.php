@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSystemInfoTable extends Migration
+class CreateSystemTables extends Migration
 {
 	public function up()
 	{
@@ -13,29 +13,32 @@ class CreateSystemInfoTable extends Migration
 			$table->increments('id');
 			$table->string('version')->default(config('nova.version'));
 			$table->tinyInteger('install_phase')->default(0);
-			// $table->text('install_checklist')->nullable();
 			$table->tinyInteger('migration_phase')->default(0);
-			// $table->text('migration_checklist')->nullable();
 			$table->tinyInteger('update_phase')->default(0);
 			$table->timestamps();
 		});
 
-		// $installChecklist = [
-		// 	['key' => 'settings', 'complete' => false],
-		// 	['key' => 'genre-data', 'complete' => false],
-		// 	['key' => 'ranks', 'complete' => false],
-		// 	['key' => 'email-test', 'complete' => false],
-		// ];
-		$migrationChecklist = [];
+		Schema::create('system_extensions', function (Blueprint $table) {
+			$table->increments('id');
+			$table->string('title');
+			$table->text('description')->nullable();
+			$table->text('credits')->nullable();
+			$table->string('author');
+			$table->string('version')->nullable();
+			$table->text('link')->nullable();
+			$table->string('vendor');
+			$table->string('name');
+			$table->boolean('status')->default(Status::ACTIVE);
+			$table->integer('order')->default(99);
+			$table->timestamps();
+		});
 
-		SystemInfo::create([
-			// 'install_checklist' => json_encode($installChecklist),
-			// 'migration_checklist' => json_encode($migrationChecklist),
-		]);
+		SystemInfo::create([]);
 	}
 
 	public function down()
 	{
 		Schema::dropIfExists('system_info');
+		Schema::dropIfExists('system_extensions');
 	}
 }

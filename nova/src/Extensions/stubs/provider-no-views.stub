@@ -1,0 +1,19 @@
+<?php namespace {ExtensionNamespace};
+
+use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
+
+class ServiceProvider extends LaravelServiceProvider
+{
+	public function boot()
+	{
+		//
+	}
+
+	public function register()
+	{
+		$extension = new Extension('{ExtensionVendorName}', $this->app);
+
+		// Register a singleton for the extension class
+		$this->app->singleton('{ExtensionKey}', $extension);
+	}
+}

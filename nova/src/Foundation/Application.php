@@ -43,6 +43,25 @@ class Application extends LaravelApp
 		]);
 	}
 
+	public function extensionPath($identifier = false)
+	{
+		if ($identifier) {
+			list($vendor, $name) = explode('/', $identifier);
+
+			return join(DIRECTORY_SEPARATOR, [
+				$this->basePath,
+				'extensions',
+				$vendor,
+				$name
+			]);
+		}
+
+		return join(DIRECTORY_SEPARATOR, [
+			$this->basePath,
+			'extensions'
+		]);
+	}
+
 	public function langPath()
 	{
 		return join(DIRECTORY_SEPARATOR, [
@@ -103,6 +122,7 @@ class Application extends LaravelApp
 		parent::bindPathsInContainer();
 
 		$this->instance('path.nova.lang', $this->novaLangPath());
+		$this->instance('path.extensions', $this->extensionPath());
 		$this->instance('path.themes', $this->themePath());
 	}
 }

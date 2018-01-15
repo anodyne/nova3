@@ -1,0 +1,11 @@
+<?php namespace {ExtensionNamespace};
+
+use Nova\Extensions\ExtensionException;
+use Nova\Extensions\ExtensionInstallException;
+use Nova\Extensions\Extension as BaseExtension;
+use Nova\Extensions\ExtensionUninstallException;
+
+class Extension extends BaseExtension
+{
+	//
+}

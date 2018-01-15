@@ -20,6 +20,7 @@
 				</a>
 
 				<div class="dropdown-menu">
+					<a class="dropdown-item" href="{{ route('extensions.index') }}">Extensions</a>
 					<a class="dropdown-item" href="{{ route('settings') }}">Settings</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="{{ route('departments.index') }}">Departments</a>

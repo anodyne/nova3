@@ -180,3 +180,9 @@ Route::get('admin/settings', 'Nova\Settings\Http\Controllers\SettingsController@
 	->name('settings');
 Route::patch('admin/settings', 'Nova\Settings\Http\Controllers\SettingsController@update')
 	->name('settings.update');
+
+/**
+ * Extensions & Themes
+ */
+Route::resource('admin/extensions', 'Nova\Extensions\Http\Controllers\ExtensionsController');
+Route::resource('admin/themes', 'Nova\Themes\Http\Controllers\ThemesController');

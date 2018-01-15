@@ -35,12 +35,20 @@ if (! function_exists('d')) {
 	}
 }
 
+if (! function_exists('extension_path')) {
+	function extension_path($identifier = false)
+	{
+		return app()->extensionPath($identifier);
+	}
+}
+
 if (! function_exists('theme_path')) {
 	function theme_path($identifier = false)
 	{
 		return app()->themePath($identifier);
 	}
 }
+
 if (! function_exists('flash')) {
 	function flash()
 	{

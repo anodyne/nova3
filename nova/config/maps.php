@@ -53,6 +53,7 @@ return [
 		Nova\Authorize\Permission::class => Nova\Authorize\Policies\PermissionPolicy::class,
 		Nova\Authorize\Role::class => Nova\Authorize\Policies\RolePolicy::class,
 		Nova\Characters\Character::class => Nova\Characters\Policies\CharacterPolicy::class,
+		Nova\Extensions\SystemExtension::class => Nova\Extensions\Policies\ExtensionPolicy::class,
 		Nova\Genres\Department::class => Nova\Genres\Policies\DepartmentPolicy::class,
 		Nova\Genres\Position::class => Nova\Genres\Policies\PositionPolicy::class,
 		Nova\Genres\RankGroup::class => Nova\Genres\Policies\RankPolicy::class,
