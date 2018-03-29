@@ -164,6 +164,8 @@ Route::group($dashboardOptions, function () {
 		->name('dashboard');
 	Route::get('dashboard/characters', 'DashboardController@characters')
 		->name('dashboard.characters');
+	Route::get('audit', 'AuditController@index')
+		->name('dashboard.audit');
 
 	Route::post('dashboard/finish-install', 'DashboardController@finishInstallation')
 		->name('dashboard.finish-install');
