@@ -12,12 +12,14 @@ use Nova\Auth\Mail\SendPasswordReset;
 use Illuminate\Notifications\Notifiable;
 use Laracasts\Presenter\PresentableTrait;
 use Nova\Auth\Notifications\ResetPassword;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Traits\CausesActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-	use Notifiable, SoftDeletes, PresentableTrait, HasStatus, HasMedia;
+	use Notifiable, SoftDeletes, PresentableTrait, HasStatus, HasMedia, CausesActivity;
 
 	protected $appends = ['avatarImage', 'displayName'];
 	protected $dates = ['created_at', 'updated_at', 'deleted_at', 'last_sign_in'];
