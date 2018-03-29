@@ -155,6 +155,7 @@ return [
 		Intervention\Image\ImageServiceProvider::class,
 		Tightenco\Ziggy\ZiggyServiceProvider::class,
 		Creativeorange\Gravatar\GravatarServiceProvider::class,
+		Spatie\Activitylog\ActivitylogServiceProvider::class,
 
 		/*
 		 * Application Service Providers...
