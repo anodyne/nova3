@@ -1,6 +1,15 @@
-import Popper from 'popper.js/dist/umd/popper.js';
+import LoDash from 'lodash'
+import jQuery from 'jquery'
+import Vue from 'vue'
+import Moment from 'moment'
+import JConfirm from 'jquery-confirm'
+import WebUIPopover from 'webui-popover'
+import md5 from 'md5'
+import Sortable from 'sortablejs'
+import SweetAlert from 'sweetalert2'
+import Axios from 'axios'
 
-window._ = require('lodash');
+window._ = LoDash
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -9,20 +18,16 @@ window._ = require('lodash');
  */
 
 try {
-	window.$ = window.jQuery = require('jquery');
-
-	window.Popper = Popper;
-
-	require('bootstrap');
-	window.jconfirm = require('jquery-confirm');
-	window.webuiPopover = require('webui-popover');
+	window.$ = window.jQuery = jQuery
+	window.jconfirm = JConfirm
+	window.webuiPopover = WebUIPopover
 } catch (e) {}
 
-window.Vue = require('vue');
-window.md5 = require('md5');
-window.moment = require('moment');
-window.Sortable = require('sortablejs');
-window.swal = require('sweetalert2');
+window.Vue = Vue
+window.md5 = md5
+window.moment = Moment
+window.Sortable = Sortable
+window.swal = SweetAlert
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -30,8 +35,8 @@ window.swal = require('sweetalert2');
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios = Axios
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
@@ -39,18 +44,18 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  * a simple convenience so we don't have to attach every token manually.
  */
 
-let token = document.head.querySelector('meta[name="csrf-token"]');
+let token = document.head.querySelector('meta[name="csrf-token"]')
 
 if (token) {
-	window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+	window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content
 } else {
-	console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+	console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token')
 }
 
-window.events = new Vue();
+window.events = new Vue()
 
 window.flash = function (message, title, level = 'success') {
-	window.events.$emit('flash', message, title, level);
+	window.events.$emit('flash', message, title, level)
 };
 
 // window.route = function (name, args = {}) {
@@ -86,7 +91,7 @@ window.lang = function (key, variables = '') {
 	// TODO: handle GENDER
 
 	// Loop through the variables and replace the variable with its value
-	Object.keys(variables).map((v) => string = string.replace(`$${v}`, variables[v]));
+	Object.keys(variables).map((v) => string = string.replace(`$${v}`, variables[v]))
 
-	return string;
+	return string
 }

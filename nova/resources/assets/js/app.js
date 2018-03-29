@@ -4,7 +4,8 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require('./bootstrap')
+require('./event-listeners')
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -12,24 +13,37 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('rank', require('./components/Rank.vue'));
-Vue.component('flash', require('./components/Flash.vue'));
-Vue.component('avatar', require('./components/Avatar.vue'));
-Vue.component('media-manager', require('./components/MediaManager.vue'));
-Vue.component('position-available', require('./components/PositionAvailable.vue'));
+import Icon from './components/Icon.vue'
+import Rank from './components/Rank.vue'
+import Flash from './components/Flash.vue'
+import Avatar from './components/Avatar.vue'
+import RankPicker from './components/RankPicker.vue'
+import UserPicker from './components/UserPicker.vue'
+import MediaManager from './components/MediaManager.vue'
+import PrettyToggle from './components/PrettyToggle.vue'
+import PositionPicker from './components/PositionPicker.vue'
+import CharacterPicker from './components/CharacterPicker.vue'
+import PositionAvailable from './components/PositionAvailable.vue'
 
-Vue.component('rank-picker', require('./components/RankPicker.vue'));
-Vue.component('user-picker', require('./components/UserPicker.vue'));
-Vue.component('position-picker', require('./components/PositionPicker.vue'));
-Vue.component('character-picker', require('./components/CharacterPicker.vue'));
+Vue.component('rank', Vue.extend(Rank))
+Vue.component('flash', Vue.extend(Flash))
+Vue.component('avatar', Vue.extend(Avatar))
+Vue.component('media-manager', Vue.extend(MediaManager))
+Vue.component('position-available', Vue.extend(PositionAvailable))
+Vue.component('icon', Vue.extend(Icon))
+Vue.component('toggle', Vue.extend(PrettyToggle))
+Vue.component('rank-picker', Vue.extend(RankPicker))
+Vue.component('user-picker', Vue.extend(UserPicker))
+Vue.component('position-picker', Vue.extend(PositionPicker))
+Vue.component('character-picker', Vue.extend(CharacterPicker))
 
-import ToggleButton from 'vue-js-toggle-button';
-Vue.use(ToggleButton);
+import ToggleButton from 'vue-js-toggle-button'
+Vue.use(ToggleButton)
 
 Vue.component('desktop', {
-	template: '<div class="d-none d-md-block" v-cloak><slot></slot></div>'
-});
+	template: '<div class="hidden md:block" v-cloak><slot></slot></div>'
+})
 
 Vue.component('mobile', {
-	template: '<div class="d-xs-block d-md-none" v-cloak><slot></slot></div>'
-});
+	template: '<div class="sm:block md:hidden" v-cloak><slot></slot></div>'
+})
