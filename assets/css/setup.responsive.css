@@ -2,6 +2,7 @@
   main .content .btn {
     width: auto;
   }
+
   main .controls {
     -webkit-box-align: center;
         -ms-flex-align: center;
@@ -14,10 +15,12 @@
         -ms-flex-pack: justify;
             justify-content: space-between;
   }
+
   main .controls .btn {
     margin-bottom: 0;
     width: auto;
   }
+
   .wizard {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -33,13 +36,16 @@
         -ms-flex-direction: row;
             flex-direction: row;
   }
+
   header .header .masthead .process {
     margin-top: 0;
     padding-left: .35rem;
   }
+
   main .content .btn {
     width: auto;
   }
+
   main .controls {
     -webkit-box-align: center;
         -ms-flex-align: center;
@@ -55,10 +61,12 @@
         -ms-flex-pack: justify;
             justify-content: space-between;
   }
+
   main .controls .btn {
     margin-bottom: 0;
     width: auto;
   }
+
   .wizard {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;

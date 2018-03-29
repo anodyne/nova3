@@ -1,0 +1,143 @@
+.data-table {
+	@apply .my-4;
+}
+
+.data-row,
+.data-table-header {
+	@apply .flex .flex-row .flex-no-wrap .w-full .px-4 .py-2 .border-t .justify-between .items-center;
+
+	&.items-start {
+		@apply .items-start;
+	}
+
+	&.items-end {
+		@apply .items-end;
+	}
+}
+
+.data-col {
+	@apply .flex-no-grow .flex-no-shrink .align-top .content-start;
+
+	&.is-last {
+		@apply .flex-shrink;
+	}
+
+	&.is-centered {
+		@apply .content-center;
+	}
+
+	&.is-right {
+		@apply .content-end;
+	}
+}
+
+.data-table-header {
+	@apply .bg-grey-light .text-grey-dark .font-bold;
+}
+
+.data-table {
+	&.is-bordered {
+		.data-row {
+			@apply .border-l .border-r;
+
+			&:first-child {
+				@apply .rounded-t;
+			}
+
+			&:last-child {
+				@apply .border-b .rounded-b;
+			}
+
+			&:nth-child(1):nth-last-child(1) {
+				@apply .rounded .border-b;
+			}
+		}
+
+		.data-table-header {
+			@apply .rounded-t;
+
+			+ .data-row:first-child {
+				@apply .rounded-none;
+			}
+		}
+	}
+
+	&.is-clean {
+		.data-row {
+			@apply .border-none;
+		}
+	}
+
+	&.is-striped {
+		.data-row:nth-child(odd) {
+			@apply .bg-grey-lighter;
+
+			.avatar-image .status {
+				@apply .border-grey-lighter;
+			}
+		}
+	}
+}
+
+// .data-table {
+// 	@apply .my-4;
+
+// 	> .row {
+// 		@apply .border-t .mx-0 .py-3 .flex;
+
+// 		&.header,
+// 		.header {
+// 			@apply .bg-grey-lighter .font-bold;
+
+// 			.title {
+// 				@apply .m-0;
+// 			}
+
+// 			.btn-toolbar {
+// 				@apply .m-0;
+// 			}
+// 		}
+
+// 		> .col {
+// 			> .row {
+// 				+ .row {
+// 					@apply .pt-3;
+// 				}
+// 			}
+// 		}
+// 	}
+
+// 	&.is-clean {
+// 		> .row {
+// 			@apply .border-none;
+// 		}
+// 	}
+
+// 	&.is-striped {
+// 		> .row:nth-child(odd) {
+// 			@apply .bg-grey-lightest;
+
+// 			.avatar-image .status {
+// 				@apply .border-grey-lightest;
+// 			}
+// 		}
+// 	}
+
+// 	&.is-bordered {
+// 		> div {
+// 			@apply .border-l .border-r;
+
+// 			&:first-child {
+// 				@apply .rounded-t;
+// 			}
+
+// 			&:last-child {
+// 				@apply .border-b .rounded-b;
+// 			}
+
+// 			&:nth-child(1):nth-last-child(1) {
+// 				@apply .rounded .border-b;
+// 			}
+// 		}
+// 	}
+// }

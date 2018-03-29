@@ -1,0 +1,100 @@
+@tailwind preflight;
+
+@import "components/alert.less";
+@import "components/avatar.less";
+@import "components/button.less";
+@import "components/card.less";
+@import "components/data-table.less";
+@import "components/dropdown.less";
+@import "components/forms.less";
+@import "components/hero.less";
+@import "components/icon.less";
+@import "components/navbar.less";
+@import "dark.less";
+
+@tailwind utilities;
+
+[v-cloak] {
+	@apply .hidden;
+}
+
+body {
+	@apply .font-sans .leading-normal .bg-grey-lighter .text-grey-dark;
+}
+
+h1 {
+	@apply .font-sans .font-black .text-5xl .text-grey-darker;
+
+	letter-spacing: .05rem;
+}
+
+textarea {
+	@apply .resize-y;
+}
+
+img {
+	@apply .max-w-full;
+}
+
+button, [role=button] {
+	@apply .font-sans .cursor-pointer;
+}
+
+a {
+	@apply .no-underline;
+}
+
+.container {
+	@apply .mx-auto;
+}
+
+.transition {
+	transition: all .1s ease-in;
+}
+
+.backdrop {
+	@apply .hidden .bg-grey-darkest .min-w-full .min-h-screen .absolute .opacity-50;
+
+	left: 0;
+	top: 0;
+
+	&.is-active {
+		@apply .block;
+	}
+}
+
+.pretty {
+	.state {
+		label:before {
+			@apply .border-grey-dark;
+		}
+	}
+
+	&.p-default {
+		input:checked ~ .state label:after {
+			background-color: config('colors.grey-dark') !important;
+		}
+	}
+
+	&.p-switch {
+		.state {
+			&:before {
+				@apply .border-grey-dark;
+			}
+
+			label:after {
+				background-color: config('colors.grey-dark') !important;
+			}
+		}
+
+		&.p-fill {
+			input:checked ~ .state.p-success:before {
+				background-color: config('colors.success') !important;
+			}
+		}
+
+		input:checked ~ .state.p-success:before {
+			border-color: config('colors.success') !important;
+		}
+	}
+}

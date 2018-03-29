@@ -1,0 +1,61 @@
+.field-group {
+	@apply .block .w-full .relative .mb-6;
+}
+
+.field {
+	@apply .relative;
+
+	input:not([type="radio"]),
+	input:not([type="checkbox"]) {
+		@apply .block .w-full .appearance-none .bg-grey-light .rounded .px-4 .py-3 .border-2 .border-transparent .transition .text-grey-darker;
+
+		&:focus {
+			@apply .border-primary-light .bg-grey-lightest;
+
+			outline: none;
+		}
+	}
+
+	.addon-before,
+	.addon-after {
+		@apply .pointer-events-none .absolute .pin-y .flex .items-center .px-3 .text-grey-dark;
+	}
+
+	.addon-before {
+		@apply .pin-l;
+	}
+
+	.addon-after {
+		@apply .pin-r;
+	}
+
+	&.has-addon-before {
+		input {
+			@apply .pl-12;
+		}
+	}
+
+	&.has-addon-after {
+		input {
+			@apply .pr-12;
+		}
+	}
+}
+
+.field-label {
+	@apply .block .font-medium .mb-1 .uppercase .text-sm .flex .items-center .justify-between;
+
+	letter-spacing: .015rem;
+}
+
+.field-help {
+	@apply .mt-1 .text-sm .text-grey-dark;
+}
+
+.form-title {
+	@apply .flex .items-center .font-normal .text-xl .mb-4;
+}
+
+.form-group {
+	@apply .mx-3 .mb-6;
+}
