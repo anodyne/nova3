@@ -12,8 +12,9 @@
 	"dependencies": {
 		"animate.css": "^3.5",
 		"axios": "^0.15",
-		"bootstrap": "^4.0.0-alpha.6",
 		"croppie": "^2.5",
+		"feather-icons": "^4.6",
+		"flexboxgrid": "^6.3",
 		"humanize-number": "^0.0.2",
 		"jquery": "^3.1",
 		"jquery-confirm": "^3.2",
@@ -22,10 +23,10 @@
 		"md5": "^2.2",
 		"moment": "^2.18",
 		"pluralize": "^5.0",
-		"popper.js": "^1.11",
+		"pretty-checkbox": "^3.0",
 		"sortablejs": "^1.6",
 		"sweetalert2": "^6.9",
-		"tailwindcss": "^0.2.2",
+		"tailwindcss": "^0.4",
 		"vue": "^2.1",
 		"vue-clickaway": "^2.1",
 		"vue-js-toggle-button": "^1.1",
@@ -33,6 +34,8 @@
 	},
 	"devDependencies": {
 		"cross-env": "^3.2",
-		"laravel-mix": "^1.0"
+		"laravel-mix": "^2.0",
+		"less": "^3.0.0",
+		"less-loader": "^4.0.5"
 	}
 }
