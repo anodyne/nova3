@@ -104,7 +104,7 @@
 			</div>
 
 			<div class="links">
-				Nova 3 requires PHP 7.0 and higher. You are running PHP <?php echo PHP_VERSION;?>.
+				Nova 3 requires PHP 7.1.3 or higher. You are running PHP <?php echo PHP_VERSION;?>.
 			</div>
 		</div>
 	</div>
