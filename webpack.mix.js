@@ -1,25 +1,28 @@
-let mix = require('laravel-mix');
+let mix = require('laravel-mix')
+let tailwindcss = require('tailwindcss')
 
-mix.setPublicPath('assets');
+mix.setPublicPath('assets')
 
 mix.autoload({
-		'popper.js/dist/umd/popper.js': ['Popper'],
 		jquery: ['$', 'jquery', 'jQuery', 'window.jquery'],
 		'moment': ['moment', 'window.moment'],
 		'webui-popover': ['webuiPopover', 'window.webuiPopover']
 	})
 	.extract([
-		'jquery', 'axios', 'bootstrap', 'croppie', 'humanize-number',
-		'jquery-confirm', 'lodash', 'md5', 'moment', 'pluralize', 'popper.js',
+		'jquery', 'axios', 'croppie', 'humanize-number',
+		'jquery-confirm', 'lodash', 'md5', 'moment', 'pluralize',
 		'sortablejs', 'vue', 'vue-clickaway', 'vue-js-toggle-button',
 		'webui-popover', 'sweetalert2', 'lightbox2'
 	])
    .js('nova/resources/assets/js/app.js', 'assets/js')
-   .sass('nova/resources/assets/sass/app.scss', 'assets/css')
-   .sass('nova/resources/assets/sass/responsive.scss', 'assets/css')
-   .sass('nova/resources/assets/sass/vendor.scss', 'assets/css')
-   .sass('nova/resources/assets/sass/setup.scss', 'assets/css')
-   .sass('nova/resources/assets/sass/setup.responsive.scss', 'assets/css')
+   .less('nova/resources/assets/less/app.less', 'assets/css')
+   // .less('nova/resources/assets/less/responsive.less', 'assets/css')
+   // .less('nova/resources/assets/less/msie.less', 'assets/css')
+   .less('nova/resources/assets/less/vendor.less', 'assets/css')
+   // .less('nova/resources/assets/less/setup.less', 'assets/css')
    .options({
+   		postCss: [
+			tailwindcss('./nova/resources/assets/js/tailwind.js'),
+		],
 		processCssUrls: false
-	});
+	})
