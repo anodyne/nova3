@@ -204,9 +204,9 @@ module.exports = {
 	*/
 
 	screens: {
-		'sm': {'max': '575px'},
-		'md': {'min': '576px', 'max': '991px'},
-		'lg': {'min': '992px'},
+		'sm': '576px',
+		'md': '768px',
+		'lg': '992px',
 	},
 
 	/*
