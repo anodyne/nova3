@@ -7,10 +7,10 @@
 
 	input:not([type="radio"]),
 	input:not([type="checkbox"]) {
-		@apply .block .w-full .appearance-none .bg-grey-light .rounded .px-4 .py-3 .border-2 .border-transparent .transition .text-grey-darker;
+		@apply .block .w-full .appearance-none .bg-grey-lightest .rounded .px-4 .py-3 .transition .text-grey-darker .shadow;
 
 		&:focus {
-			@apply .border-primary-light .bg-grey-lightest;
+			@apply .bg-white .shadow-md;
 
 			outline: none;
 		}
