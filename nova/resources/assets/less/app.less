@@ -1,19 +1,5 @@
 @tailwind preflight;
 
-@import "components/alert.less";
-@import "components/avatar.less";
-@import "components/button.less";
-@import "components/card.less";
-@import "components/data-table.less";
-@import "components/dropdown.less";
-@import "components/forms.less";
-@import "components/hero.less";
-@import "components/icon.less";
-@import "components/navbar.less";
-@import "dark.less";
-
-@tailwind utilities;
-
 [v-cloak] {
 	@apply .hidden;
 }
@@ -98,3 +84,20 @@ a {
 		}
 	}
 }
+
+@import "components/alert.less";
+@import "components/avatar.less";
+@import "components/button.less";
+@import "components/card.less";
+@import "components/data-table.less";
+@import "components/dropdown.less";
+@import "components/forms.less";
+@import "components/grid.less";
+@import "components/hero.less";
+@import "components/icon.less";
+@import "components/navbar.less";
+@import "dark.less";
+
+@tailwind components;
+
+@tailwind utilities;
