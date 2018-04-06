@@ -1,15 +1,101 @@
+@grid-columns: 12;
+
+.buildColumns (@i) when (@i > 0) {
+	@responsive {
+		.col-@{i} {
+			flex-basis: percentage((@i / 12));
+			max-width: percentage((@i / 12));
+		}
+	}
+
+	.buildColumns (@i - 1);
+}
+
+.buildColumnOffsets (@i) when (@i > 0) {
+	@responsive {
+		.col-offset-@{i} {
+			margin-left: percentage((@i / 12));
+		}
+	}
+
+	.buildColumnOffsets (@i - 1);
+}
+
 .row {
-	@apply .w-full .flex .flex-row .flex-wrap .-mx-2;
+	@apply .flex .flex-wrap .-mt-4 .-ml-4;
 
-	flex: 0 1 auto;
+	&.no-gutters {
+		@apply .mt-0 .ml-0;
 
-	&.reverse {
+		[class*="col"] {
+			@apply .pt-0 .pl-0;
+		}
+	}
+}
+
+@responsive {
+	.row.start {
+		@apply .justify-start;
+	}
+
+	.row.center {
+		@apply .justify-center;
+	}
+
+	.row.end {
+		@apply .justify-end;
+	}
+
+	.row.top {
+		@apply .items-start;
+	}
+
+	.row.middle {
+		@apply .items-center;
+	}
+
+	.row.bottom {
+		@apply .items-end;
+	}
+
+	.row.around {
+		@apply .justify-around;
+	}
+
+	.row.between {
+		@apply .justify-between;
+	}
+
+	.row.first {
+		order: -1;
+	}
+
+	.row.last {
+		order: 1;
+	}
+
+	.row.reverse {
 		@apply .flex-row-reverse;
 	}
 }
 
-.col {
-	@apply .px-2;
+[class*="col"] {
+	@apply .pt-4 .pl-4;
 
 	flex: 0 0 auto;
 }
+
+.col {
+	@apply .flex-1;
+}
+
+@responsive {
+	.col-auto {
+		flex-grow: 1;
+		flex-basis: 0;
+		max-width: 100%;
+	}
+}
+
+.buildColumns (@grid-columns);
+.buildColumnOffsets (@grid-columns - 1);
