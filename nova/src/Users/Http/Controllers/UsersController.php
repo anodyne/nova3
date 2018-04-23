@@ -13,7 +13,7 @@ class UsersController extends Controller
 
 		$this->middleware('auth');
 
-		$this->views('admin', 'structure|template');
+		$this->views('admin', 'template');
 	}
 
 	public function index()
@@ -24,7 +24,7 @@ class UsersController extends Controller
 
 		$this->views('users.all-users', 'page|script');
 
-		$this->pageTitle = _m('users', [2]);
+		$this->setPageTitle(_m('users', [2]));
 
 		$this->data->userClass = $userClass;
 		$this->data->characterClass = new Character;
@@ -37,7 +37,7 @@ class UsersController extends Controller
 
 		$this->views('users.create-user');
 
-		$this->pageTitle = _m('users-add');
+		$this->setPageTitle(_m('users-add'));
 
 		$this->data->roles = Role::with('permissions')->get();
 		$this->data->genders = [
@@ -79,7 +79,7 @@ class UsersController extends Controller
 
 		$this->views('users.edit-user');
 
-		$this->pageTitle = _m('users-update');
+		$this->setPageTitle(_m('users-update'));
 
 		$this->data->user = $user->loadMissing('characters.user', 'characters.positions', 'primaryCharacter.positions');
 		$this->data->roles = Role::with('permissions')->get();

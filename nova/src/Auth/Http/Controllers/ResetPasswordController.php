@@ -15,7 +15,7 @@ class ResetPasswordController extends Controller
 
 		$this->middleware('guest');
 
-		$this->views('auth', 'structure|template');
+		$this->views('auth', 'template');
 
 		$this->renderWithTheme = false;
 	}
@@ -26,7 +26,7 @@ class ResetPasswordController extends Controller
 
 		$this->views('auth.passwords.reset');
 
-		$this->pageTitle = _m('auth-reset-password');
+		$this->setPageTitle(_m('auth-reset-password'));
 
 		$this->data->token = $token;
 		$this->data->email = $request->email;

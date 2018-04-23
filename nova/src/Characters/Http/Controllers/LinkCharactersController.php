@@ -12,7 +12,7 @@ class LinkCharactersController extends Controller
 
 		$this->middleware('auth');
 
-		$this->views('admin', 'structure|template');
+		$this->views('admin', 'template');
 	}
 
 	public function create()
@@ -21,7 +21,7 @@ class LinkCharactersController extends Controller
 
 		$this->views('characters.link', 'page|script');
 
-		$this->pageTitle = _m('characters-link');
+		$this->setPageTitle(_m('characters-link'));
 	}
 
 	public function store()

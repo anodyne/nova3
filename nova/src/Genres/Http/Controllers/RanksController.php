@@ -11,7 +11,7 @@ class RanksController extends Controller
 
 		$this->middleware('auth');
 
-		$this->views('admin', 'structure|template');
+		$this->views('admin', 'template');
 	}
 
 	public function index()
@@ -20,6 +20,6 @@ class RanksController extends Controller
 
 		$this->views('genres.ranks-landing');
 
-		$this->pageTitle = _m('genre-ranks', [2]);
+		$this->setPageTitle(_m('genre-ranks', [2]));
 	}
 }

@@ -10,7 +10,7 @@ class CharacterManifestController extends Controller
 	{
 		$this->views('characters.manifest', 'page|script');
 
-		$this->pageTitle = 'Manifest';
+		$this->setPageTitle('Manifest');
 
 		$this->data->settingsClass = new Settings;
 		$this->data->departments = Department::parents()

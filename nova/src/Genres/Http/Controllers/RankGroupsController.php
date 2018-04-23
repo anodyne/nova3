@@ -13,7 +13,7 @@ class RankGroupsController extends Controller
 
 		$this->middleware('auth');
 
-		$this->views('admin', 'structure|template');
+		$this->views('admin', 'template');
 	}
 
 	public function index()
@@ -24,7 +24,7 @@ class RankGroupsController extends Controller
 
 		$this->views('genres.all-rank-groups', 'page|script');
 
-		$this->pageTitle = _m('genre-rank-groups', [2]);
+		$this->setPageTitle(_m('genre-rank-groups', [2]));
 
 		$this->data->rankGroupClass = $rankGroupClass;
 		$this->data->rankGroups = RankGroup::orderBy('order')->get();
@@ -40,7 +40,7 @@ class RankGroupsController extends Controller
 
 		$this->views('genres.create-rank-group', 'page|script');
 
-		$this->pageTitle = _m('genre-rank-groups-add');
+		$this->setPageTitle(_m('genre-rank-groups-add'));
 	}
 
 	public function store()

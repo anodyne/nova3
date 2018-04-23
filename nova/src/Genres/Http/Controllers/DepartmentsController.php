@@ -11,7 +11,7 @@ class DepartmentsController extends Controller
 
 		$this->middleware('auth');
 
-		$this->views('admin', 'structure|template');
+		$this->views('admin', 'template');
 	}
 
 	public function index()
@@ -22,7 +22,7 @@ class DepartmentsController extends Controller
 
 		$this->views('genres.all-departments', 'page|script');
 
-		$this->pageTitle = _m('genre-depts', [2]);
+		$this->setPageTitle(_m('genre-depts', [2]));
 
 		$this->data->deptClass = $deptClass;
 		$this->data->departments = Department::with('subDepartments')
@@ -36,7 +36,7 @@ class DepartmentsController extends Controller
 
 		$this->views('genres.create-department', 'page|script');
 
-		$this->pageTitle = _m('genre-depts-add');
+		$this->setPageTitle(_m('genre-depts-add'));
 	}
 
 	public function store()
@@ -67,7 +67,7 @@ class DepartmentsController extends Controller
 
 		$this->views('genres.edit-department', 'page|script');
 
-		$this->pageTitle = _m('genre-depts-update');
+		$this->setPageTitle(_m('genre-depts-update'));
 
 		$this->data->department = $department;
 	}

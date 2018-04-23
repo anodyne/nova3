@@ -12,7 +12,7 @@ class RolesController extends Controller
 
 		$this->middleware('auth');
 
-		$this->views('admin', 'structure|template');
+		$this->views('admin', 'template');
 	}
 
 	public function index()
@@ -23,7 +23,7 @@ class RolesController extends Controller
 
 		$this->views('authorize.all-roles', 'page|script');
 
-		$this->pageTitle = _m('authorize-roles');
+		$this->setPageTitle(_m('authorize-roles'));
 
 		$this->data->roles = cache('nova.roles');
 		$this->data->roleClass = $roleClass;
@@ -36,7 +36,7 @@ class RolesController extends Controller
 
 		$this->views('authorize.create-role', 'page|script');
 
-		$this->pageTitle = _m('authorize-roles-add');
+		$this->setPageTitle(_m('authorize-roles-add'));
 
 		$this->data->permissions = cache('nova.permissions');
 		$this->data->oldPermissions = old('permissions');
@@ -68,7 +68,7 @@ class RolesController extends Controller
 
 		$this->views('authorize.edit-role', 'page|script');
 
-		$this->pageTitle = _m('authorize-roles-update');
+		$this->setPageTitle(_m('authorize-roles-update'));
 
 		$this->data->role = $role->loadMissing('permissions');
 		$this->data->permissions = cache('nova.permissions');

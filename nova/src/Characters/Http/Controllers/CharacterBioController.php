@@ -9,7 +9,7 @@ class CharacterBioController extends Controller
 	{
 		$this->views('characters.bio');
 
-		$this->pageTitle = $character->name;
+		$this->setPageTitle($character->name);
 
 		$this->data->character = $character->load('positions');
 		$this->data->images = $character->media->where('primary', (int)false);

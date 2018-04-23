@@ -12,17 +12,17 @@ class ProfilesController extends Controller
 
 		$this->middleware('auth');
 
-		$this->views('admin', 'structure|template');
+		$this->views('admin', 'template');
 	}
 
 	public function show(User $user)
 	{
 		$this->authorize('view', $user);
 
-		$this->views('public', 'structure|template');
+		$this->views('public', 'template');
 		$this->views('users.profile');
 
-		$this->pageTitle = $user->present()->name;
+		$this->setPageTitle($user->present()->name);
 
 		$this->data->user = $user;
 	}
@@ -35,7 +35,7 @@ class ProfilesController extends Controller
 
 		$this->views('users.edit-profile');
 
-		$this->pageTitle = _m('users-profile-update');
+		$this->setPageTitle(_m('users-profile-update'));
 
 		$this->data->user = $user;
 		$this->data->genders = [

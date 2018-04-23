@@ -15,7 +15,7 @@ class RankItemsController extends Controller
 
 		$this->middleware('auth');
 
-		$this->views('admin', 'structure|template');
+		$this->views('admin', 'template');
 	}
 
 	public function index()
@@ -26,7 +26,7 @@ class RankItemsController extends Controller
 
 		$this->views('genres.all-ranks', 'page|script');
 
-		$this->pageTitle = _m('genre-ranks', [2]);
+		$this->setPageTitle(_m('genre-ranks', [2]));
 
 		$this->data->rankClass = $rankClass;
 		$this->data->groups = RankGroup::orderBy('order')->get()->pluck('name', 'id');
@@ -39,7 +39,7 @@ class RankItemsController extends Controller
 
 		$this->views('genres.create-rank', 'page|script');
 
-		$this->pageTitle = _m('genre-ranks-add');
+		$this->setPageTitle(_m('genre-ranks-add'));
 
 		$rankPath = base_path('ranks/'.Settings::item('rank')->first()->value);
 
@@ -116,7 +116,7 @@ class RankItemsController extends Controller
 
 		$this->views('genres.edit-rank', 'page|script');
 
-		$this->pageTitle = _m('genre-ranks-update');
+		$this->setPageTitle(_m('genre-ranks-update'));
 
 		// Set the path to the correct rank folder
 		$rankPath = base_path('ranks/'.Settings::item('rank')->first()->value);

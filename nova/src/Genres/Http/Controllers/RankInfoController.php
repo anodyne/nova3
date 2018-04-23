@@ -11,7 +11,7 @@ class RankInfoController extends Controller
 
 		$this->middleware('auth');
 
-		$this->views('admin', 'structure|template');
+		$this->views('admin', 'template');
 	}
 
 	public function index()
@@ -22,7 +22,7 @@ class RankInfoController extends Controller
 
 		$this->views('genres.all-rank-info', 'page|script');
 
-		$this->pageTitle = _m('genre-rank-info');
+		$this->setPageTitle(_m('genre-rank-info'));
 
 		$this->data->rankInfoClass = $rankInfoClass;
 		$this->data->info = RankInfo::orderBy('order')->get();
@@ -38,7 +38,7 @@ class RankInfoController extends Controller
 
 		$this->views('genres.create-rank-info');
 
-		$this->pageTitle = _m('genre-rank-info-add');
+		$this->setPageTitle(_m('genre-rank-info-add'));
 	}
 
 	public function store()

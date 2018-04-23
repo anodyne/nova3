@@ -12,14 +12,14 @@ class DashboardController extends Controller
 
 		$this->middleware('auth');
 
-		$this->views('admin', 'structure|template');
+		$this->views('admin', 'template');
 	}
 
 	public function index()
 	{
 		$this->views('dashboard.dashboard', 'page|script');
 
-		$this->pageTitle = 'Dashboard';
+		$this->setPageTitle('Dashboard');
 
 		$this->data->sysinfo = SystemInfo::first();
 	}
@@ -28,7 +28,7 @@ class DashboardController extends Controller
 	{
 		$this->views('dashboard.characters');
 
-		$this->pageTitle = _m('dashboard-characters');
+		$this->setPageTitle(_m('dashboard-characters'));
 
 		$this->user->loadMissing('characters.positions');
 

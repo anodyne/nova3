@@ -12,7 +12,7 @@ class PermissionsController extends Controller
 
 		$this->middleware('auth');
 
-		$this->views('admin', 'structure|template');
+		$this->views('admin', 'template');
 	}
 
 	public function index()
@@ -23,7 +23,7 @@ class PermissionsController extends Controller
 
 		$this->views('authorize.all-permissions', 'page|script');
 
-		$this->pageTitle = _m('authorize-permissions');
+		$this->setPageTitle(_m('authorize-permissions'));
 
 		$this->data->permissions = cache('nova.permissions');
 		$this->data->roleClass = new Role;
@@ -36,7 +36,7 @@ class PermissionsController extends Controller
 
 		$this->views('authorize.create-permission');
 
-		$this->pageTitle = _m('authorize-permissions-add');
+		$this->setPageTitle(_m('authorize-permissions-add'));
 	}
 
 	public function store()
@@ -69,7 +69,7 @@ class PermissionsController extends Controller
 
 		$this->views('authorize.edit-permission');
 
-		$this->pageTitle = _m('authorize-permissions-update');
+		$this->setPageTitle(_m('authorize-permissions-update'));
 
 		$this->data->permission = $permission;
 	}

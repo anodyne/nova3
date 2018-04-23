@@ -44,6 +44,16 @@ class Controller extends BaseController
 
 		// Process the controller and render it to the response
 		$this->middleware('nova.render-controller');
+
+		// Pull in the structure file
+		$this->views('app', 'structure');
+	}
+
+	public function setPageTitle($value)
+	{
+		$this->pageTitle = $value;
+
+		return $this;
 	}
 
 	protected function setupController()

@@ -11,7 +11,7 @@ class CharactersController extends Controller
 
 		$this->middleware('auth');
 
-		$this->views('admin', 'structure|template');
+		$this->views('admin', 'template');
 	}
 
 	public function index()
@@ -22,7 +22,7 @@ class CharactersController extends Controller
 
 		$this->views('characters.all-characters', 'page|script');
 
-		$this->pageTitle = _m('characters', [2]);
+		$this->setPageTitle(_m('characters', [2]));
 
 		$this->data->characterClass = $characterClass;
 		$this->data->characters = Character::withTrashed()
@@ -37,7 +37,7 @@ class CharactersController extends Controller
 
 		$this->views('characters.create-character', 'page|script');
 
-		$this->pageTitle = _m('characters-add');
+		$this->setPageTitle(_m('characters-add'));
 	}
 
 	public function store()
@@ -71,7 +71,7 @@ class CharactersController extends Controller
 
 		$this->views('characters.edit-character', 'page|script');
 
-		$this->pageTitle = _m('characters-update');
+		$this->setPageTitle(_m('characters-update'));
 
 		$this->data->character = $character->loadMissing(['positions.department', 'user']);
 		$this->data->positions = $character->positions->map(function ($p) {

@@ -12,7 +12,7 @@ class PositionsController extends Controller
 
 		$this->middleware('auth');
 
-		$this->views('admin', 'structure|template');
+		$this->views('admin', 'template');
 	}
 
 	public function index()
@@ -23,7 +23,7 @@ class PositionsController extends Controller
 
 		$this->views('genres.all-positions', 'page|script');
 
-		$this->pageTitle = _m('genre-positions', [2]);
+		$this->setPageTitle(_m('genre-positions', [2]));
 
 		$this->data->positionClass = $positionClass;
 		$this->data->positions = Position::orderBy('order')->get();
@@ -39,7 +39,7 @@ class PositionsController extends Controller
 
 		$this->views('genres.create-position', 'page|script');
 
-		$this->pageTitle = _m('genre-positions-add', [1]);
+		$this->setPageTitle(_m('genre-positions-add', [1]));
 
 		$this->data->departments = Department::orderBy('order')
 			->get()

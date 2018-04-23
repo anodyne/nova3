@@ -12,7 +12,7 @@ class ForcePasswordResetsController extends Controller
 
 		$this->middleware('auth');
 
-		$this->views('admin', 'structure|template');
+		$this->views('admin', 'template');
 	}
 
 	public function index()
@@ -21,7 +21,7 @@ class ForcePasswordResetsController extends Controller
 
 		$this->views('users.force-password-resets', 'page|script');
 
-		$this->pageTitle = _m('users-password-reset');
+		$this->setPageTitle(_m('users-password-reset'));
 
 		$this->data->users = User::active()->get();
 	}

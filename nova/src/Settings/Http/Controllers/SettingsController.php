@@ -11,18 +11,18 @@ class SettingsController extends Controller
 
 		$this->middleware('auth');
 
-		$this->views('admin', 'structure|template');
+		$this->views('admin', 'template');
 	}
 
 	public function index()
 	{
 		$this->authorize('manage', new Settings);
 
-		$this->pageTitle = 'Settings';
+		$this->setPageTitle('Settings');
 
 		$this->views('settings.settings', 'page|script');
 
-		$this->data->settings = Settings::get()->pluck('value', 'key');
+		$this->data->settings = (array)app('nova.settings');
 	}
 
 	public function update()
