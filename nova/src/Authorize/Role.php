@@ -2,10 +2,11 @@
 
 use Eloquent;
 use Laracasts\Presenter\PresentableTrait;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Role extends Eloquent
 {
-	use PresentableTrait;
+	use PresentableTrait, LogsActivity;
 
 	protected $fillable = ['name'];
 	protected $presenter = Presenters\RolePresenter::class;
@@ -46,5 +47,21 @@ class Role extends Eloquent
 		$this->updatePermissions([]);
 
 		return $this;
+	}
+
+	//--------------------------------------------------------------------------
+	// Activity Logging
+	//--------------------------------------------------------------------------
+
+	protected static $logAttributes = ['name'];
+
+	public function getDescriptionForEvent(string $eventName): string
+	{
+		return "Role :subject.name was {$eventName}";
+	}
+
+	public function getLogNameToUse(string $eventName = ''): string
+	{
+		return 'nova-authorize';
 	}
 }

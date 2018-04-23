@@ -5,11 +5,12 @@ use Nova\Users\User;
 use Nova\Media\Data\HasMedia;
 use Nova\Foundation\Data\HasStatus;
 use Laracasts\Presenter\PresentableTrait;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Character extends Eloquent
 {
-	use PresentableTrait, SoftDeletes, HasMedia, HasStatus;
+	use PresentableTrait, SoftDeletes, HasMedia, HasStatus, LogsActivity;
 
 	protected $appends = [
 		'avatarImage', 'isPrimaryCharacter', 'primaryPosition', 'displayName'
@@ -116,5 +117,21 @@ class Character extends Eloquent
 		}
 
 		return $this;
+	}
+
+	//--------------------------------------------------------------------------
+	// Activity Logging
+	//--------------------------------------------------------------------------
+
+	protected static $logAttributes = ['name', 'rank_id', 'status'];
+
+	public function getDescriptionForEvent(string $eventName): string
+	{
+		return "Character :subject.name was {$eventName}";
+	}
+
+	public function getLogNameToUse(string $eventName = ''): string
+	{
+		return 'nova-characters';
 	}
 }
