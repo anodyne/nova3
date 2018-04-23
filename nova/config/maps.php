@@ -46,6 +46,8 @@ return [
 
 	'morph' => [
 		'character' => Nova\Characters\Character::class,
+		'permission' => Nova\Authorize\Permission::class,
+		'role' => Nova\Authorize\Role::class,
 		'user' => Nova\Users\User::class,
 	],
 
