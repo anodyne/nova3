@@ -2,7 +2,9 @@ vue = {
 	data: {
 		mobileSearch: false,
 		permissions: Nova.data.permissions,
-		search: ''
+		search: '',
+		detail: false,
+		selected: null
 	},
 
 	computed: {
@@ -64,6 +66,11 @@ vue = {
 		resetSearch () {
 			this.search = ''
 			this.mobileSearch = false
+		},
+
+		showDetail (permission) {
+			this.detail = true
+			this.selected = permission
 		}
 	}
 }
