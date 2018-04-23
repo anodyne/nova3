@@ -16,10 +16,7 @@ mix.autoload({
 	])
    .js('nova/resources/assets/js/app.js', 'assets/js')
    .less('nova/resources/assets/less/app.less', 'assets/css')
-   // .less('nova/resources/assets/less/responsive.less', 'assets/css')
-   // .less('nova/resources/assets/less/msie.less', 'assets/css')
    .less('nova/resources/assets/less/vendor.less', 'assets/css')
-   // .less('nova/resources/assets/less/setup.less', 'assets/css')
    .options({
    		postCss: [
 			tailwindcss('./nova/resources/assets/js/tailwind.js'),
