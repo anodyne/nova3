@@ -2,6 +2,8 @@
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -31,6 +33,37 @@ class Handler extends ExceptionHandler
 	public function report(Exception $exception)
 	{
 		parent::report($exception);
+
+		// Set some defaults so we don't bomb out
+		$errorCode = 0;
+		$logMessage = "An error occurred";
+
+		// 404 error
+		if ($exception instanceof NotFoundHttpException) {
+			$errorCode = $exception->getStatusCode();
+	        $logMessage = 'Page not found [/'.request()->path().']';
+	    }
+
+	    // Log authentication errors
+	    if ($exception instanceof AuthenticationException) {
+	    	$errorCode = 403;
+	    	$logMessage = 'An unauthenticated user attempted to access a page that requires authentication';
+	    }
+
+	    // Log authorization errors
+
+	    if ($exception instanceof HttpException) {
+			$errorCode = $exception->getStatusCode();
+	    }
+
+		activity('nova-error')
+			->withProperties([
+				'code' => $errorCode,
+				'ip_address' => request()->ip(),
+				'message' => $exception->getMessage(),
+				'uri' => request()->path(),
+			])
+			->log($logMessage);
 	}
 
 	/**
