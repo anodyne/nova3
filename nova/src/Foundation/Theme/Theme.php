@@ -11,7 +11,8 @@ class Theme
 		// Prepend the theme path to the view locations
 		view()->getFinder()->prependLocation(theme_path($this->path));
 
-		// Allow finding Javascript files
+		// Allow finding Javascript and CSS files
+		// view()->addExtension('css', 'file');
 		view()->addExtension('js', 'file');
 
 		$this->initialize();
