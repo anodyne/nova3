@@ -18,10 +18,15 @@ class RenderController
 
 		if (nova()->isInstalled() and empty($response->getContent())) {
 			if ($this->controller->renderWithTheme) {
+				// If there is a hook registered for this route, run it
+				app('nova.hooks')->run($request->route()->getName());
+
 				$this->buildThemeStructure();
 				$this->buildThemeTemplate();
 				$this->buildPage();
 				$this->buildScripts();
+				$this->buildSpriteMap();
+				// $this->buildStyles();
 
 				$response->setContent($this->output);
 			}
@@ -59,5 +64,17 @@ class RenderController
 		$this->output = app('nova.theme')->scripts(
 			(array) $this->controller->views->get('script')
 		);
+	}
+
+	protected function buildStyles()
+	{
+		$this->output = app('nova.theme')->styles(
+			(array) $this->controller->views->get('style')
+		);
+	}
+
+	protected function buildSpriteMap()
+	{
+		$this->output = app('nova.theme')->spriteMap();
 	}
 }
