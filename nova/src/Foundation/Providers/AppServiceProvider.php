@@ -1,9 +1,13 @@
 <?php namespace Nova\Foundation\Providers;
 
+use Date;
 use Form;
 use Schema;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Nova\Foundation\Http\Middleware\CaptureRequestExtension;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,11 +27,15 @@ class AppServiceProvider extends ServiceProvider
 			return new \Nova\Foundation\Avatar;
 		});
 
+		$this->app->singleton('nova.hooks', function ($app) {
+			return new \Nova\Foundation\HookManager;
+		});
+
 		$this->app->bind('nova.markdown', function ($app) {
 			return new \Nova\Foundation\MarkdownParser(new \Parsedown);
 		});
 
-		$this->app->bind('nova.settings', function ($app) {
+		$this->app->singleton('nova.settings', function ($app) {
 			if ($app['nova']->isInstalled()) {
 				$settings = \Nova\Settings\Settings::get()
 					->pluck('value', 'key')
@@ -39,11 +47,12 @@ class AppServiceProvider extends ServiceProvider
 			return (object)collect();
 		});
 
+		// Make sure we can use the _settings object in every view
+		$this->app['view']->share('_settings', $this->app['nova.settings']);
+
 		$this->app->singleton('nova2-migrator', function ($app) {
 			return new \Nova\Setup\Migrations\MigrationManager;
 		});
-
-		$this->app['view']->share('_settings', $this->app['nova.settings']);
 
 		// Build up the morph map
 		Relation::morphMap(config('maps.morph'));
@@ -51,6 +60,9 @@ class AppServiceProvider extends ServiceProvider
 
 	public function register()
 	{
+		// Set the locale for Carbon
+		Date::setLocale(app()->getLocale());
+
 		if ($this->app['env'] == 'local') {
 			if (class_exists('Barryvdh\Debugbar\ServiceProvider')) {
 				$this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
@@ -61,6 +73,13 @@ class AppServiceProvider extends ServiceProvider
 	protected function registerTheme()
 	{
 		$theme = new \Nova\Foundation\Theme\Theme;
+
+		// spl_autoload_register(function ($class) {
+		// 	include_once app()->themePath('pulsar').DIRECTORY_SEPARATOR.'Theme.php';
+		// });
+
+		// Make a new theme
+		// $theme = new \Theme;
 
 		$this->app->instance('nova.theme', $theme);
 	}
@@ -135,5 +154,33 @@ class AppServiceProvider extends ServiceProvider
 				array_merge(['class' => $class], $attributes)
 			);
 		});
+
+		Route::macro('multiformat', function () {
+            // Hello darkness, my old friend
+            if (count($this->parameterNames()) > 0 && ends_with($this->uri(), '}')) {
+                $lastParameter = array_last($this->parameterNames());
+                // I've come to talk with you again
+                if (! isset($this->wheres[$lastParameter])) {
+                    $this->where($lastParameter, '[^\/.]+');
+                }
+            }
+
+            $this->uri = $this->uri . '{_extension?}';
+            $this->where('_extension', '(\..+)');
+            $this->middleware(CaptureRequestExtension::class);
+            $this->parameterNames = $this->compileParameterNames();
+
+            return $this;
+        });
+
+        Request::macro('match', function ($responses, $defaultFormat = 'html') {
+            if ($this->attributes->get('_extension') !== null) {
+                return value(array_get($responses, $this->attributes->get('_extension'), function () {
+                    abort(404);
+                }));
+            }
+
+            return value(array_get($responses, $this->format($defaultFormat)));
+        });
 	}
 }

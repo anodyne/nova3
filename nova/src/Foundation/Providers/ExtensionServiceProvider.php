@@ -13,7 +13,7 @@ class ExtensionServiceProvider extends ServiceProvider
 	{
 		if ($this->app['nova']->isInstalled()) {
 			// Grab the list of active extensions from the cache
-			$extensions = cache('nova.extensions', ['Anodyne/ThemeKit']);
+			$extensions = cache('nova.extensions', ['Anodyne/ThemeKit', 'Acme/Hooks']);
 
 			foreach ($extensions as $path) {
 				// If the extension has a service provider, register it now
