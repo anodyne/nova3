@@ -18,6 +18,9 @@ class Kernel extends ConsoleKernel
 	{
 		$schedule->command('nova:refresh')
 				 ->dailyAt('04:30');
+
+		// $schedule->command('activitylog:clean')
+		// 		 ->dailyAt('02:00');
 	}
 
 	protected function commands()
