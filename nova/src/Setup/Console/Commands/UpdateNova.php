@@ -45,6 +45,7 @@ class UpdateNova extends Command
 		$this->call('view:clear');
 		$this->call('cache:clear');
 		$this->call('auth:clear-resets');
+		$this->call('activitylog:clean');
 
 		if (app('env') == 'production') {
 			$this->call('route:cache');
