@@ -4,96 +4,84 @@ use Str;
 
 trait Icons
 {
-	public $iconTemplate = '<i class="fa fa-%1$s %2$s fa-fw"></i>';
-
-	public function getIcon($icon)
-	{
-		return $this->iconMap()->get($icon);
-	}
+	public $spriteMap = 'nova/resources/assets/svg/feather-map.svg';
 
 	public function iconMap()
 	{
 		return collect([
-			'add' => 'plus',
-			'add-alt' => 'plus-circle',
-			'arrow-down' => 'arrow-alt-circle-down',
-			'arrow-left' => 'arrow-alt-circle-left',
-			'arrow-right' => 'arrow-alt-circle-right',
-			'arrow-up' => 'arrow-alt-circle-up',
-			'bars' => 'bars',
-			'card' => 'address-card',
-			'cards' => 'th-large',
+			'activity' => 'activity',
+			'add' => 'plus-circle',
+			'alert' => 'alert-circle',
+			'arrow-down' => 'arrow-down',
+			'arrow-left' => 'arrow-left',
+			'arrow-right' => 'arrow-right',
+			'arrow-up' => 'arrow-up',
+			'award' => 'award',
+			'notification' => 'bell',
+			'bookmark' => 'bookmark',
+			'calendar' => 'calendar',
 			'check' => 'check',
 			'check-alt' => 'check-circle',
+			'chevron-down' => 'chevron-down',
 			'chevron-left' => 'chevron-left',
 			'chevron-right' => 'chevron-right',
+			'chevron-up' => 'chevron-up',
 			'clock' => 'clock',
-			'close' => 'times',
-			'close-alt' => 'times-circle',
-			'comment' => 'comment',
-			'copy' => 'clone',
+			'close' => 'x',
+			'close-alt' => 'x-circle',
+			'code' => 'code',
+			'comment' => 'message-circle',
+			'copy' => 'copy',
 			'delete' => 'trash',
-			'download' => 'cloud-download-alt',
-			'edit' => 'pencil-alt',
-			'email' => 'paper-plane',
-			'exclamation' => 'exclamation-circle',
-			'extension' => 'puzzle-piece',
+			'download' => 'download-cloud',
+			'edit' => 'edit-2',
+			'email' => 'at-sign',
+			'file' => 'file-text',
 			'filter' => 'filter',
+			'flag' => 'flag',
+			'grid' => 'grid',
 			'heart' => 'heart',
+			'home' => 'home',
 			'image' => 'image',
-			'images' => 'images',
-			'info' => 'info-circle',
+			'inbox' => 'inbox',
+			'info' => 'info',
+			'layers' => 'layers',
+			'layout' => 'layout',
 			'link' => 'link',
-			'list' => 'list-alt',
+			'list' => 'list',
 			'lock' => 'lock',
-			'magic' => 'magic',
+			'menu' => 'menu',
 			'minus' => 'minus-circle',
-			'more' => 'angle-down',
-			'move' => 'arrows-alt',
-			'question' => 'question-circle',
-			'reorder' => 'arrows-alt-v',
+			'more' => 'more-horizontal',
+			'move' => 'move',
+			'question' => 'help-circle',
+			'refresh' => 'refresh-cw',
+			'report' => 'trending-up',
 			'search' => 'search',
-			'settings' => 'cog',
-			'settings-alt' => 'cogs',
-			'share' => 'share-alt',
+			'send' => 'send',
+			'settings' => 'settings',
+			'share' => 'share',
+			'shield' => 'shield',
+			'sign-in' => 'log-in',
+			'sign-out' => 'log-out',
+			'slash' => 'slash',
 			'star' => 'star',
-			'tasks' => 'tasks',
-			'theme' => 'paint-brush',
-			'undo' => 'undo-alt',
-			'upload' => 'cloud-upload-alt',
+			'tag' => 'tag',
+			'undo' => 'rotate-ccw',
+			'upload' => 'upload-cloud',
 			'user' => 'user',
-			'user-alt' => 'user-circle',
+			'user-alt' => 'user',
 			'users' => 'users',
-			'warning' => 'exclamation-triangle',
+			'view' => 'eye',
+			'warning' => 'alert-triangle',
 			'write' => 'edit',
 		]);
 	}
 
-	public function renderIcon($icon, $additional = false)
+	public function iconTemplate()
 	{
-		if (Str::contains($icon, '.svg')) {
-			return $this->renderSvgIcon(locate()->svg($icon), $additional);
-		}
+		$path = url($this->spriteMap);
 
-		if (strrpos($icon, '.')) {
-			return $this->renderImageIcon(locate()->image($icon), $additional);
-		}
-
-		return $this->renderFontIcon($icon, $additional);
-	}
-
-	public function renderImageIcon($icon, $additional = false)
-	{
-		return app('html')->image($icon, $additional);
-	}
-
-	public function renderFontIcon($icon, $additional = false)
-	{
-		return sprintf($this->iconTemplate, $this->getIcon($icon), $additional);
-	}
-
-	public function renderSvgIcon($icon, $additional = false)
-	{
-		return svg_icon($icon, $additional)->toHtml();
+		return '<svg class="icon feather-{icon}"><use xlink:href="'.$path.'#{icon}"/></svg>';
 	}
 }
