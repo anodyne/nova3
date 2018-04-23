@@ -21,7 +21,7 @@ trait ProvidesScriptVariables
 
 		// Nova's settings
 		if (nova()->isInstalled()) {
-			$settings = ['settings' => Settings::get()->pluck('value', 'key')->all()];
+			$settings = ['settings' => (array)app('nova.settings')];
 		} else {
 			$settings = ['settings' => [
 				'rank' => (nova()->isInstalled()) ? Settings::item('rank')->first()->value : 'duty'
@@ -47,7 +47,7 @@ trait ProvidesScriptVariables
 		// Nova's icons
 		$icons = [
 			'icons' => app('nova.theme')->iconMap()->toArray(),
-			'iconTemplate' => app('nova.theme')->iconTemplate,
+			'iconTemplate' => app('nova.theme')->iconTemplate(),
 		];
 
 		// Nova's API options
