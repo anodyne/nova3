@@ -20,17 +20,17 @@
 
 				if (image) {
 					imagePath = [
-						window.Nova.system.baseUrl,
+						Nova.system.baseUrl,
 						'ranks',
-						window.Nova.settings.rank,
+						Nova.settings.rank,
 						'base',
 						image
 					].join('/');
 				} else {
 					imagePath = [
-						window.Nova.system.baseUrl,
+						Nova.system.baseUrl,
 						'ranks',
-						window.Nova.settings.rank,
+						Nova.settings.rank,
 						'blank.png'
 					].join('/');
 				}
@@ -44,9 +44,9 @@
 
 				if (image) {
 					imagePath = [
-						window.Nova.system.baseUrl,
+						Nova.system.baseUrl,
 						'ranks',
-						window.Nova.settings.rank,
+						Nova.settings.rank,
 						'overlay',
 						image
 					].join('/');

@@ -46,7 +46,7 @@
 
 				if (this.type == 'switch') {
 					pieces.push('p-switch')
-					pieces.push('p-fill')
+					pieces.push('p-slim')
 				}
 
 				return pieces

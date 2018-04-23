@@ -11,12 +11,6 @@
 				 :style="'background-image:url(' + imageUrl + ')'"
 				 v-if="type == 'image'">
 			</div>
-
-			<span :class="statusClasses"
-				  :title="statusTooltip"
-				  data-toggle="tooltip"
-				  v-if="showStatus">
-			</span>
 		</div>
 
 		<div class="avatar-label" v-if="showContent">
@@ -37,7 +31,7 @@
 			showName: { type: Boolean, default: true },
 			showMetadata: { type: Boolean, default: true },
 			showStatus: { type: Boolean, default: true },
-			size: { type: String, default: '' },
+			size: { type: String, default: 'md' },
 			type: { type: String, default: 'link' }
 		},
 
@@ -47,146 +41,144 @@
 					'avatar-container',
 					'avatar-' + this.layout,
 					'avatar-' + this.size
-				];
+				]
 			},
 
 			displayName () {
-				return this.item.displayName;
+				return this.item.displayName
 
-				let pieces = [];
+				let pieces = []
 
 				if (this.isCharacter && this.item.rank != null) {
-					pieces.push(this.item.rank.info.name);
+					pieces.push(this.item.rank.info.name)
 				}
 
-				pieces.push(this.item.name);
+				pieces.push(this.item.name)
 
-				return pieces.join(' ');
+				return pieces.join(' ')
 			},
 
 			imageClasses () {
-				return ['avatar', this.size];
+				let classes = ['avatar', this.size]
+
+				if (this.showStatus) {
+					// Character
+					if (this.item.user_id !== undefined) {
+						if (this.item.isPrimaryCharacter) {
+							classes.push('primary')
+						}
+
+						if (this.item.user !== null && ! this.item.isPrimaryCharacter) {
+							classes.push('secondary')
+						}
+
+						if (this.item.status == 1) {
+							classes.push('success')
+						}
+
+						if (this.item.status == 3) {
+							classes.push('warning')
+						}
+
+						if (this.item.status == 4) {
+							classes.push('danger')
+						}
+					}
+
+					// User
+					if (this.item.primary_character !== undefined) {
+						if (this.item.status == 1) {
+							classes.push('success')
+						}
+
+						if (this.item.status == 2) {
+							classes.push('primary')
+						}
+
+						if (this.item.status == 3) {
+							classes.push('warning')
+						}
+
+						if (this.item.status == 4) {
+							classes.push('danger')
+						}
+					}
+				}
+
+				return classes
 			},
 
 			imageUrl () {
-				return this.item.avatarImage;
+				return this.item.avatarImage
 			},
 
 			isCharacter () {
-				return _.has(this.item, 'rank_id');
+				return _.has(this.item, 'rank_id')
 			},
 
 			isUser () {
-				return _.has(this.item, 'primary_character');
+				return _.has(this.item, 'primary_character')
 			},
 
 			link () {
 				if (this.isUser) {
-					return route('profile.show', { user: this.item.id });
+					return route('profile.show', { user: this.item.id })
 				}
 
-				return route('characters.bio', { character: this.item.id });
+				return route('characters.bio', { character: this.item.id })
 			},
 
 			positionName () {
 				if (this.isCharacter) {
 					if (this.position) {
-						return this.position.name;
+						return this.position.name
 					}
 
 					if (this.item.primaryPosition) {
-						return this.item.primaryPosition.name;
+						return this.item.primaryPosition.name
 					}
 				}
 
-				return null;
-			},
-
-			statusClasses () {
-				let classes = ['avatar-status'];
-
-				// Character
-				if (this.item.user_id !== undefined) {
-					if (this.item.isPrimaryCharacter) {
-						classes.push('primary');
-					}
-
-					if (this.item.user !== null && ! this.item.isPrimaryCharacter) {
-						classes.push('secondary');
-					}
-
-					if (this.item.status == 1) {
-						classes.push('success');
-					}
-
-					if (this.item.status == 3) {
-						classes.push('warning');
-					}
-
-					if (this.item.status == 4) {
-						classes.push('danger');
-					}
-				}
-
-				// User
-				if (this.item.primary_character !== undefined) {
-					if (this.item.status == 1) {
-						classes.push('success');
-					}
-
-					if (this.item.status == 2) {
-						classes.push('primary');
-					}
-
-					if (this.item.status == 3) {
-						classes.push('warning');
-					}
-
-					if (this.item.status == 4) {
-						classes.push('danger');
-					}
-				}
-
-				return classes;
+				return null
 			},
 
 			statusTooltip () {
 				if (window.Nova.user == null) {
-					return null;
+					return null
 				}
 
 				if (this.isCharacter) {
 					if (this.item.user && this.item.status == 2) {
 						if (this.item.isPrimaryCharacter) {
-							return this.lang('characters-primary-of', {2:this.item.user.displayName});
+							return this.lang('characters-primary-of', {2:this.item.user.displayName})
 						} else {
-							return this.lang('characters-character-of', {2:this.item.user.displayName});
+							return this.lang('characters-character-of', {2:this.item.user.displayName})
 						}
 					}
 
 					if (this.item.status == 1) {
-						return this.lang('characters-pending');
+						return this.lang('characters-pending')
 					}
 
 					if (this.item.status == 3) {
-						return this.lang('characters-inactive');
+						return this.lang('characters-inactive')
 					}
 
 					if (this.item.status == 4) {
-						return this.lang('characters-removed');
+						return this.lang('characters-removed')
 					}
 
-					return this.lang('characters-npc');
+					return this.lang('characters-npc')
 				}
 
-				return null;
+				return null
 			}
 		},
 
 		methods: {
 			lang (key, variables = '') {
-				return window.lang(key, variables);
+				return window.lang(key, variables)
 			}
 		}
-	};
+	}
 </script>
