@@ -15,7 +15,7 @@ class SignInController extends Controller
 
 		$this->middleware('guest')->except('logout');
 
-		$this->views('auth', 'structure|template');
+		$this->views('auth', 'template');
 
 		$this->renderWithTheme = false;
 	}
@@ -24,7 +24,7 @@ class SignInController extends Controller
 	{
 		$this->renderWithTheme = true;
 
-		$this->pageTitle = _m('sign-in');
+		$this->setPageTitle(_m('sign-in'));
 
 		$this->views('auth.sign-in');
 	}
