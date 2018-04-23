@@ -2,52 +2,60 @@
 
 class HookManager
 {
-	protected $hooks = [
-		'nova.before-render',
-		'nova.after-render',
-	];
+	protected $hooks = [];
 
-	protected $listeners = [
-		'nova.before-render' => [],
-		'nova.after-render' => [],
-	];
-
-	public function call($name, array $args = [])
+	/**
+	 * Register a hook for a named route with a callback.
+	 *
+	 * @param 	$routeName
+	 * @param 	$callback
+	 * @return 	$this
+	 */
+	public function register($routeName, $callback)
 	{
-		$params = [
-			'route' => request()->route(),
-			'controller' => app('nova.controller'),
-			'theme' => theme(),
-		];
-
-		foreach ($args as $key => $value) {
-			$params[$key] = $value;
-		}
-
-		foreach ($this->listeners[$name] as $listener) {
-			if (is_string($listener)) {
-				list($class, $method) = explode('@', $listener);
-
-				echo call_user_func_array([new $class, $method], $params);
-			}
-
-			if (is_callable($listener)) {
-				echo call_user_func_array($listener, $params);
-			}
-		}
-	}
-
-	public function listen($hookName, $callback)
-	{
-		$this->listeners[$hookName][] = $callback;
+		$this->hooks[$routeName][] = $callback;
 
 		return $this;
 	}
 
-	public function add($hookName)
+	/**
+	 * Run all the hooks for a named route with its callback(s).
+	 *
+	 * @param 	$routeName
+	 * @return 	$this
+	 */
+	public function run($routeName)
 	{
-		$this->hooks[] = $hookName;
-		$this->listeners[$hookName] = [];
+		// See if we have a hook for this route
+		$routeCallbacks = (array_key_exists($routeName, $this->hooks))
+			? collect($this->hooks[$routeName])
+			: collect();
+
+		// See if we have any global hooks
+		$globalCallbacks = (array_key_exists('*', $this->hooks))
+			? collect($this->hooks['*'])
+			: collect();
+
+		// Combine the two collections
+		$callbacks = $globalCallbacks->concat($routeCallbacks);
+
+		// Loop through the callbacks
+		$callbacks->each(function ($callback) {
+			if (is_callable($callback)) {
+				// Grab the controller out of the container
+				$controller = app('nova.controller');
+
+				// Setup the parameters available to the callback
+				$parameters = [
+					$controller->data,
+					$controller,
+					request()->route(),
+				];
+
+				// Now execute the callback
+				call_user_func_array($callback, $parameters);
+			}
+		});
 
 		return $this;
 	}
