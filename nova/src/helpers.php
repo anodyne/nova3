@@ -26,47 +26,19 @@ if (! function_exists('avatar')) {
 	}
 }
 
+if (! function_exists('creator')) {
+	function creator($model)
+	{
+		return app(config('maps.creators')[$model]);
+	}
+}
+
 if (! function_exists('d')) {
 	function d()
 	{
 		array_map(function ($debug) {
 			(new Illuminate\Support\Debug\Dumper)->dump($debug);
 		}, func_get_args());
-	}
-}
-
-if (! function_exists('extension_path')) {
-	function extension_path($identifier = false)
-	{
-		return app()->extensionPath($identifier);
-	}
-}
-
-if (! function_exists('theme_path')) {
-	function theme_path($identifier = false)
-	{
-		return app()->themePath($identifier);
-	}
-}
-
-if (! function_exists('flash')) {
-	function flash()
-	{
-		return app('nova.flash');
-	}
-}
-
-if (! function_exists('icon')) {
-	function icon($icon, $additional = false)
-	{
-		return app('nova.theme')->renderIcon($icon, $additional);
-	}
-}
-
-if (! function_exists('creator')) {
-	function creator($model)
-	{
-		return app(config('maps.creators')[$model]);
 	}
 }
 
@@ -84,6 +56,48 @@ if (! function_exists('duplicator')) {
 	}
 }
 
+if (! function_exists('extension_path')) {
+	function extension_path($identifier = false)
+	{
+		return app()->extensionPath($identifier);
+	}
+}
+
+if (! function_exists('flash')) {
+	function flash()
+	{
+		return app('nova.flash');
+	}
+}
+
+if (! function_exists('hook')) {
+	function hook($routeName, $callback)
+	{
+		return app('nova.hooks')->register($routeName, $callback);
+	}
+}
+
+if (! function_exists('icon')) {
+	function icon($icon, $additionalClasses = null)
+	{
+		return '<icon name="'.$icon.'" classes="'.$additionalClasses.'"></icon>';
+	}
+}
+
+if (! function_exists('nova')) {
+	function nova()
+	{
+		return app('nova');
+	}
+}
+
+if (! function_exists('partial')) {
+	function partial($view, array $data = [])
+	{
+		return view("components.partials.{$view}", $data);
+	}
+}
+
 if (! function_exists('restorer')) {
 	function restorer($model)
 	{
@@ -98,16 +112,16 @@ if (! function_exists('setup_path')) {
 	}
 }
 
+if (! function_exists('theme_path')) {
+	function theme_path($identifier = false)
+	{
+		return app()->themePath($identifier);
+	}
+}
+
 if (! function_exists('updater')) {
 	function updater($model)
 	{
 		return app(config('maps.updaters')[$model]);
-	}
-}
-
-if (! function_exists('nova')) {
-	function nova()
-	{
-		return app('nova');
 	}
 }
