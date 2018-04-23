@@ -1,64 +1,60 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-	<a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name', 'Laravel') }}</a>
-	<button class="navbar-toggler"
-			type="button"
-			data-toggle="collapse"
-			data-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent"
-			aria-expanded="false"
-			aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
+<nav class="navbar">
+	<a href="{{ route('home') }}" class="text-blue navbar-brand">{{ config('app.name', 'Laravel') }}</a>
 
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		<div class="navbar-nav mr-auto">
-			<a class="nav-item nav-link" href="{{ route('home') }}"><i class="fa fa-home fa-fw"></i> Home</a>
-			<a class="nav-item nav-link" href="{{ route('characters.manifest') }}"><i class="fa fa-users fa-fw"></i> Manifest</a>
-			<div class="nav-item dropdown">
-				<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-					<i class="fa fa-cogs fa-fw"></i> Admin <span class="caret"></span>
+	<div class="navbar-menu">
+		<div class="navbar-start">
+			<a class="navbar-link" href="{{ route('home') }}">
+				<icon name="home"></icon>
+				<span>Home</span>
+			</a>
+			<a class="navbar-link" href="{{ route('characters.manifest') }}">
+				<icon name="users"></icon>
+				<span>Manifest</span>
+			</a>
+			<div class="navbar-item has-dropdown is-hoverable">
+				<a class="navbar-link">
+					<icon name="settings"></icon>
+					<span>Admin</span>
+					<icon name="chevron-down" size="small" classes="ml-1"></icon>
 				</a>
 
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="{{ route('extensions.index') }}">Extensions</a>
-					<a class="dropdown-item" href="{{ route('settings') }}">Settings</a>
+				<div class="navbar-dropdown">
+					<a class="navbar-item" href="{{ route('extensions.index') }}">Extensions</a>
+					<a class="navbar-item" href="{{ route('settings') }}">Settings</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="{{ route('departments.index') }}">Departments</a>
-					<a class="dropdown-item" href="{{ route('positions.index') }}">Positions</a>
-					<a class="dropdown-item" href="{{ route('ranks.index') }}">Ranks</a>
+					<a class="navbar-item" href="{{ route('departments.index') }}">Departments</a>
+					<a class="navbar-item" href="{{ route('positions.index') }}">Positions</a>
+					<a class="navbar-item" href="{{ route('ranks.index') }}">Ranks</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="{{ route('characters.index') }}">Characters</a>
-					<a class="dropdown-item" href="{{ route('roles.index') }}">Roles</a>
-					<a class="dropdown-item" href="{{ route('users.index') }}">Users</a>
+					<a class="navbar-item" href="{{ route('characters.index') }}">Characters</a>
+					<a class="navbar-item" href="{{ route('roles.index') }}">Roles</a>
+					<a class="navbar-item" href="{{ route('users.index') }}">Users</a>
 				</div>
 			</div>
 		</div>
 
-		<div class="navbar-nav">
+		<div class="navbar-end">
 			@if (Auth::guest())
-				<a class="nav-item nav-link" href="{{ route('sign-in') }}">{{ _m('sign-in') }}</a>
-				<a class="nav-item nav-link" href="{{ route('join') }}">Register</a>
+				<a class="navbar-link" href="{{ route('sign-in') }}">{{ _m('sign-in') }}</a>
+				<a class="navbar-link" href="{{ route('join') }}">Register</a>
 			@else
-				<div class="nav-item dropdown">
-					<a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-toggle="dropdown" role="button" aria-expanded="false">
-						<span class="mr-1">
-							<avatar :item="{{ $_user }}"
-									:show-content="false"
-									:show-status="false"
-									size="xs"
-									type="image">
-							</avatar>
-						</span>
-						<span class="caret"></span>
+				<div class="navbar-item has-dropdown is-hoverable">
+					<a class="navbar-link">
+						<avatar :item="{{ $_user }}"
+								:show-content="false"
+								:show-status="false"
+								size="xs"
+								type="image"></avatar>
+						<icon name="chevron-down" size="small" classes="ml-1"></icon>
 					</a>
 
-					<div class="dropdown-menu dropdown-menu-right">
-						<a class="dropdown-item" href="{{ route('profile.show', [$_user]) }}">{{ _m('users-my-profile') }}</a>
-						<a class="dropdown-item" href="{{ route('profile.edit', [$_user]) }}">{{ _m('users-profile-update') }}</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="{{ route('dashboard.characters') }}">{{ _m('dashboard-characters') }}</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="{{ route('sign-out') }}"
+					<div class="navbar-dropdown is-right">
+						<a class="navbar-item" href="{{ route('profile.show', [$_user]) }}">{{ _m('users-my-profile') }}</a>
+						<a class="navbar-item" href="{{ route('profile.edit', [$_user]) }}">{{ _m('users-profile-update') }}</a>
+						<div class="navbar-divider"></div>
+						<a class="navbar-item" href="{{ route('dashboard.characters') }}">{{ _m('dashboard-characters') }}</a>
+						<div class="navbar-divider"></div>
+						<a class="navbar-item" href="{{ route('sign-out') }}"
 						   onclick="event.preventDefault();
 									document.getElementById('logout-form').submit();">
 							{{ _m('sign-out') }}
@@ -72,6 +68,12 @@
 			@endif
 		</div>
 	</div>
+
+	<button class="navbar-burger">
+		<span></span>
+		<span></span>
+		<span></span>
+	</button>
 </nav>
 
 <main v-cloak>
@@ -79,11 +81,9 @@
 		{!! $content or false !!}
 
 		@if (app()->environment() == 'local')
-			<span class="badge badge-dark d-sm-none">xs</span>
-			<span class="badge badge-info d-none d-sm-inline d-md-none">sm</span>
-			<span class="badge badge-warning d-none d-md-inline d-lg-none">md</span>
-			<span class="badge badge-success d-none d-lg-inline d-xl-none">lg</span>
-			<span class="badge badge-danger d-none d-xl-inline">xl</span>
+			<span class="hidden mobile:inline-block bg-blue text-white rounded-sm p-1 my-2 text-xs">mobile</span>
+			<span class="hidden tablet:inline-block bg-green text-white rounded-sm p-1 my-2 text-xs">tablet</span>
+			<span class="hidden desktop:inline-block bg-purple text-white rounded-sm p-1 my-2 text-xs">desktop</span>
 		@endif
 	</div>
 </main>

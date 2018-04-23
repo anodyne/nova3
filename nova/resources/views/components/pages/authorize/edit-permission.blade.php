@@ -2,27 +2,19 @@
 
 {!! Form::model($permission, ['route' => ['permissions.update', $permission], 'method' => 'patch']) !!}
 	<div class="row">
-		<div class="col-md-4">
-			<div class="form-group">
-				<label>{{ _m('name') }}</label>
-				{!! Form::text('name', null, ['class' => 'form-control'.($errors->has('name') ? ' is-invalid' : '')]) !!}
-				{!! $errors->first('name', '<p class="invalid-feedback">:message</p>') !!}
-			</div>
+		<div class="col md:col-4">
+			<text-input label="{{ _m('name') }}" name="name" value="{{ $permission->name }}" error="{{ $errors->first('name') }}"></text-input>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-md-4">
-			<div class="form-group{{ $errors->has('key') ? ' has-danger' : '' }}">
-				<label>{{ _m('key') }}</label>
-				{!! Form::text('key', null, ['class' => 'form-control'.($errors->has('key') ? ' is-invalid' : '')]) !!}
-				{!! $errors->first('key', '<p class="invalid-feedback">:message</p>') !!}
-			</div>
+		<div class="col md:col-4">
+			<text-input label="{{ _m('key') }}" name="key" value="{{ $permission->key }}" error="{{ $errors->first('key') }}"></text-input>
 		</div>
 	</div>
 
-	<div class="form-group">
-		<button type="submit" class="btn btn-primary">{{ _m('authorize-permissions-update') }}</button>
-		<a href="{{ route('permissions.index') }}" class="btn btn-link">{{ _m('cancel') }}</a>
+	<div class="submit-controls">
+		<button type="submit" class="button is-primary">{{ _m('authorize-permissions-update') }}</button>
+		<a href="{{ route('permissions.index') }}" class="button is-secondary">{{ _m('cancel') }}</a>
 	</div>
 {!! Form::close() !!}

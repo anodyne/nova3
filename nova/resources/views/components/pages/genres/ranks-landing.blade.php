@@ -2,8 +2,8 @@
 
 <div class="card-deck">
 	<a href="{{ route('ranks.groups.index') }}" class="card">
-		<div class="card-body">
-			<div class="text-center text-subtle mb-4">
+		<div class="card-content">
+			<div class="text-center text-grey-light mb-4">
 				{{ svg_icon('sitemap') }}
 			</div>
 			<h4 class="card-title text-center">{{ _m('genre-rank-groups', [2]) }}</h4>
@@ -12,7 +12,7 @@
 	</a>
 
 	<a href="{{ route('ranks.info.index') }}" class="card">
-		<div class="card-body">
+		<div class="card-content">
 			<div class="text-center text-subtle mb-4">
 				{{ svg_icon('info-circle') }}
 			</div>
@@ -22,7 +22,7 @@
 	</a>
 
 	<a href="{{ route('ranks.items.index') }}" class="card">
-		<div class="card-body">
+		<div class="card-content">
 			<div class="text-center text-subtle mb-4">
 				{{ svg_icon('angle-double-up') }}
 			</div>

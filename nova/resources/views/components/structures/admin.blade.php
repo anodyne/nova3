@@ -14,6 +14,7 @@
 	<script src="{{ asset('assets/js/fontawesome.min.js') }}"></script>
 
 	<!-- Styles -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
 	<link href="{{ asset('assets/css/vendor.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet">
@@ -24,7 +25,7 @@
 	</script>
 	@routes
 </head>
-<body>
+<body class="font-sans bg-grey-lighter text-grey-dark">
 	<div id="nova-app">
 		{!! $template or false !!}
 	</div>
@@ -37,15 +38,15 @@
 		var vue = {}
 
 		$(function () {
-			$('[data-toggle="tooltip"]').tooltip({
-				container: 'body',
-				html: true
-			})
+			// $('[data-toggle="tooltip"]').tooltip({
+			// 	container: 'body',
+			// 	html: true
+			// })
 
-			$('[data-toggle="popover"]').popover({
-				container: 'body',
-				html: true
-			})
+			// $('[data-toggle="popover"]').popover({
+			// 	container: 'body',
+			// 	html: true
+			// })
 		})
 	</script>
 	{!! $scripts or false !!}
