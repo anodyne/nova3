@@ -1,4 +1,4 @@
-@sizes: 24px, 36px, 48px, 72px, 96px, 144px;
+@sizes: 24px, 32px, 48px, 64px;
 
 .avatar-container {
 	@apply .flex .items-center .relative .flex-row;
@@ -15,41 +15,6 @@
 	}
 }
 
-.avatar-status {
-	@apply .bg-grey .border-4 .border-white .rounded-full .absolute;
-
-	bottom: 0;
-	box-sizing: content-box;
-	height: 10px;
-	right: 0;
-	width: 10px;
-
-	&.active,
-	&.primary {
-		@apply .bg-primary;
-	}
-
-	&.danger {
-		@apply .bg-danger;
-	}
-
-	&.info {
-		@apply .bg-info;
-	}
-
-	&.secondary {
-		@apply .bg-grey-light;
-	}
-
-	&.success {
-		@apply .bg-success;
-	}
-
-	&.warning {
-		@apply .bg-warning-dark;
-	}
-}
-
 .avatar-label {
 	@apply .flex .flex-col .ml-2;
 
@@ -58,28 +23,39 @@
 	}
 
 	.avatar-meta {
-		@apply .text-grey .text-sm;
+		@apply .text-grey-dark .text-sm;
 	}
 }
 
-.avatar-stacked {
-	@apply .flex-col;
+.avatar {
+	@apply .border-2 .border-transparent;
 
-	.avatar-label {
-		@apply .ml-0 .text-center;
+	background-clip: content-box;
+	padding: 2px;
+
+	&.active,
+	&.primary {
+		@apply .border-primary;
 	}
 
-	.avatar-status {
-		border-width: 5px;
-		bottom: 1px;
-		height: 12px;
-		right: 1px;
-		width: 12px;
+	&.danger {
+		@apply .border-danger;
 	}
 
-	.avatar {
-		height: extract(@sizes, 4);
-		width: extract(@sizes, 4);
+	&.info {
+		@apply .border-info;
+	}
+
+	&.secondary {
+		@apply .border-grey-light;
+	}
+
+	&.success {
+		@apply .border-success;
+	}
+
+	&.warning {
+		@apply .border-warning-dark;
 	}
 }
 
@@ -89,27 +65,14 @@
 		width: extract(@sizes, 1);
 	}
 
-	.avatar-status {
-		border-width: 2px;
-		height: 6px;
-		width: 6px;
-	}
-
 	.avatar-label {
-		font-size: extract(@sizes, 1) * .6;
-	}
-}
+		.avatar-title {
+			@apply .text-sm;
+		}
 
-.avatar-stacked.avatar-xs {
-	.avatar {
-		height: extract(@sizes, 2);
-		width: extract(@sizes, 2);
-	}
-
-	.avatar-status {
-		border-width: 3px;
-		height: 8px;
-		width: 8px;
+		.avatar-meta {
+			@apply .text-xs;
+		}
 	}
 }
 
@@ -119,128 +82,49 @@
 		width: extract(@sizes, 2);
 	}
 
-	.avatar-status {
-		border-width: 3px;
-		height: 8px;
-		width: 8px;
-	}
-
 	.avatar-label {
-		font-size: extract(@sizes, 2) * .45;
-	}
-}
+		.avatar-title {
+			@apply .text-base;
+		}
 
-.avatar-stacked.avatar-sm {
-	.avatar {
-		height: extract(@sizes, 3);
-		width: extract(@sizes, 3);
-	}
-
-	.avatar-status {
-		border-width: 4px;
-		height: 10px;
-		width: 10px;
+		.avatar-meta {
+			@apply .text-sm;
+		}
 	}
 }
 
 .avatar-md {
 	.avatar {
-		height: extract(@sizes, 4);
-		width: extract(@sizes, 4);
-	}
-
-	.avatar-status {
-		border-width: 5px;
-		bottom: 1px;
-		height: 12px;
-		right: 1px;
-		width: 12px;
+		height: extract(@sizes, 3);
+		padding: 3px;
+		width: extract(@sizes, 3);
 	}
 
 	.avatar-label {
-		font-size: extract(@sizes, 4) * .3;
-	}
-}
+		.avatar-title {
+			@apply .text-lg;
+		}
 
-.avatar-stacked.avatar-md {
-	.avatar {
-		height: extract(@sizes, 5);
-		width: extract(@sizes, 5);
-	}
-
-	.avatar-status {
-		border-width: 6px;
-		bottom: 3px;
-		height: 14px;
-		right: 3px;
-		width: 14px;
+		.avatar-meta {
+			@apply .text-base;
+		}
 	}
 }
 
 .avatar-lg {
 	.avatar {
-		height: extract(@sizes, 5);
-		width: extract(@sizes, 5);
-	}
-
-	.avatar-status {
-		border-width: 6px;
-		bottom: 3px;
-		height: 14px;
-		right: 3px;
-		width: 14px;
+		height: extract(@sizes, 4);
+		padding: 3px;
+		width: extract(@sizes, 4);
 	}
 
 	.avatar-label {
-		font-size: extract(@sizes, 5) * .6;
-	}
-}
+		.avatar-title {
+			@apply .text-xl;
+		}
 
-.avatar-stacked.avatar-lg {
-	.avatar {
-		height: extract(@sizes, 6);
-		width: extract(@sizes, 6);
-	}
-
-	.avatar-status {
-		border-width: 7px;
-		bottom: 8px;
-		height: 16px;
-		right: 8px;
-		width: 16px;
-	}
-}
-
-.avatar-xl {
-	.avatar {
-		height: extract(@sizes, 6);
-		width: extract(@sizes, 6);
-	}
-
-	.avatar-status {
-		border-width: 7px;
-		bottom: 8px;
-		height: 16px;
-		right: 8px;
-		width: 16px;
-	}
-
-	.avatar-label {
-		font-size: extract(@sizes, 6) * .6;
-	}
-}
-
-.avatar-stacked.avatar-xl {
-	.avatar {
-		height: 192px;
-		width: 192px;
-	}
-
-	.avatar-status {
-		border-width: 8px;
-		bottom: 15px;
-		height: 18px;
-		right: 15px;
-		width: 18px;
+		.avatar-meta {
+			@apply .text-lg;
+		}
 	}
 }

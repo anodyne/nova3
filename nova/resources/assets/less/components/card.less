@@ -1,115 +1,77 @@
 .card {
-	@apply .relative
-	.flex
-	.flex-col
-	.mb-4
-	.rounded
-	.w-full
-	.overflow-hidden
-	.shadow
-	.bg-white;
+	@apply .w-full .bg-white .rounded .shadow .mb-6;
 }
 
-.card-image {
-	@apply .w-full;
-}
+.card-title,
+.card-subtitle {
+	@apply .flex .items-center .font-semibold .text-lg;
 
-.card-header {
-	@apply .flex .items-center .justify-between .pt-3 .px-4 .mb-3;
-
-	.card-icon {
-		@apply .mr-2 .p-1 .rounded .leading-none;
-
-		.feather {
-			vertical-align: -3px;
-		}
-
-		&.is-dark {
-			@apply .bg-grey-darkest .text-grey;
-		}
-
-		&.is-grey {
-			@apply .bg-grey .text-grey-lightest;
-		}
-
-		&.is-purple {
-			@apply .bg-purple .text-purple-lightest;
-		}
-
-		&.is-green {
-			@apply .bg-green .text-green-lightest;
-		}
-
-		&.is-blue {
-			@apply .bg-blue .text-blue-lightest;
-		}
-
-		&.is-red {
-			@apply .bg-red .text-red-lightest;
-		}
-
-		&.is-indigo {
-			@apply .bg-indigo .text-indigo-lightest;
-		}
-
-		&.is-orange {
-			@apply .bg-orange .text-orange-lightest;
-		}
-
-		&.is-yellow {
-			@apply .bg-yellow-dark .text-yellow-lightest;
-		}
-
-		&.is-pink {
-			@apply .bg-pink .text-pink-lightest;
-		}
-
-		&.is-teal {
-			@apply .bg-teal .text-teal-lightest;
-		}
-
-		&.is-info {
-			@apply .bg-info .text-info-lightest;
-		}
-
-		&.is-success {
-			@apply .bg-success .text-success-lightest;
-		}
-
-		&.is-primary {
-			@apply .bg-primary .text-primary-lightest;
-		}
-	}
-
-	.card-title {
-		@apply .text-lg .font-medium;
-	}
-}
-
-.card-content {
-	@apply .px-4 .mb-4;
-}
-
-.card-footer {
-	@apply .flex .items-center .justify-between .px-4 .py-3 .bg-grey-lighter;
-}
-
-.card-deck {
-	@apply .flex;
-
-	.card {
-		@apply .mx-4;
-
-		.card-content {
-			@apply .flex-1;
-		}
-
-		&:first-child {
-			@apply .ml-0;
-		}
+	> * {
+		@apply .mr-2;
 
 		&:last-child {
 			@apply .mr-0;
+		}
+	}
+}
+
+.card-subtitle {
+	@apply .text-grey-dark .font-normal .text-base;
+}
+
+.card-header,
+.card-footer {
+	@apply .flex .items-center .justify-between;
+}
+
+.card-header {
+	@apply .rounded-t;
+}
+
+.card-footer {
+	@apply .p-4 .rounded-b .text-grey-dark .bg-grey-lighter;
+}
+
+.card-media {
+	> * {
+		@apply .block .rounded-t .max-w-full;
+	}
+}
+
+.card-block {
+	@apply .p-4;
+}
+
+.card-content {
+	@apply .my-4;
+}
+
+.card.is-inverse {
+	@apply .bg-grey-darkest .text-grey-lighter;
+
+	.card-subtitle {
+		@apply .text-grey-dark;
+	}
+
+	.card-footer {
+		@apply .bg-grey-darker .text-grey;
+	}
+}
+
+@responsive {
+	.card-deck {
+		@apply .flex .w-full .items-stretch;
+
+		> .card {
+			@apply .mx-4;
+
+			&:first-child {
+				@apply .ml-0;
+			}
+
+			&:last-child {
+				@apply .mr-0;
+			}
 		}
 	}
 }

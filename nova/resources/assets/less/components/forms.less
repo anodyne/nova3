@@ -1,24 +1,31 @@
-.field-group {
+.field-wrapper {
 	@apply .block .w-full .relative .mb-6;
 }
 
 .field {
-	@apply .relative;
+	@apply .block .w-full .appearance-none .bg-grey-lightest .rounded .px-4 .py-3 .transition .text-grey-darker .shadow;
 
-	input:not([type="radio"]),
-	input:not([type="checkbox"]) {
-		@apply .block .w-full .appearance-none .bg-grey-lightest .rounded .px-4 .py-3 .transition .text-grey-darker .shadow;
+	&:focus {
+		@apply .bg-white .shadow-md;
 
-		&:focus {
-			@apply .bg-white .shadow-md;
-
-			outline: none;
-		}
+		outline: none;
 	}
+}
+
+.field-group {
+	@apply .relative;
 
 	.addon-before,
 	.addon-after {
 		@apply .pointer-events-none .absolute .pin-y .flex .items-center .px-3 .text-grey-dark;
+
+		> a {
+			@apply .pointer-events-auto .text-grey-dark;
+
+			&:hover {
+				@apply .text-grey-darker;
+			}
+		}
 	}
 
 	.addon-before {
@@ -30,13 +37,13 @@
 	}
 
 	&.has-addon-before {
-		input {
+		.field {
 			@apply .pl-12;
 		}
 	}
 
 	&.has-addon-after {
-		input {
+		.field {
 			@apply .pr-12;
 		}
 	}
@@ -52,10 +59,87 @@
 	@apply .mt-1 .text-sm .text-grey-dark;
 }
 
+.field-error {
+	@apply .text-danger .font-semibold;
+}
+
 .form-title {
 	@apply .flex .items-center .font-normal .text-xl .mb-4;
 }
 
 .form-group {
 	@apply .mx-3 .mb-6;
+}
+
+.switch-wrapper {
+	@apply .inline-block .relative .rounded-full .cursor-pointer .h-6 .w-12;
+
+	&:focus {
+		outline: 0;
+		box-shadow: 0 0 0 2px rgba(52,144,220,.5);
+	}
+}
+
+.switch-background {
+	@apply .inline-block .rounded-full .h-full .w-full .bg-grey-light;
+
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+	transition: background-color .2s ease;
+
+	&.active {
+		@apply .bg-primary;
+	}
+}
+
+.switch-indicator {
+	@apply .absolute .h-4 .w-4 .bg-white .rounded-full;
+
+	top: config('height.1');
+	left: config('height.1');
+	box-shadow:  0 1px 2px rgba(0,0,0,0.1);
+	transform: translateX(0);
+	transition: transform .2s ease;
+
+	&.active {
+		transform: translateX(1.5rem);
+	}
+}
+
+.switch-wrapper.is-large {
+	@apply .h-8 .w-16;
+
+	&:focus {
+		box-shadow: 0 0 0 4px rgba(52,144,220,.5);
+	}
+
+	.switch-background {
+		box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+	}
+
+	.switch-indicator {
+		@apply .h-6 .w-6;
+
+		box-shadow:  0 2px 4px rgba(0,0,0,0.1);
+
+		&.active {
+			transform: translateX(2rem);
+		}
+	}
+}
+
+.field-wrapper.has-error {
+	.field-label {
+		@apply .text-danger;
+	}
+
+	.field-group {
+		.addon-before,
+		.addon-after {
+			@apply .text-danger;
+		}
+
+		.field {
+			@apply .border-danger;
+		}
+	}
 }
