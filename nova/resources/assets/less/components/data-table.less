@@ -6,7 +6,7 @@
 
 		&.is-header,
 		.is-header {
-			@apply .bg-grey-lighter .font-bold;
+			@apply .bg-grey-lighter .font-bold .text-sm .uppercase .tracking-uppercase;
 
 			.title {
 				@apply .m-0;
@@ -43,6 +43,10 @@
 			.avatar-image .status {
 				@apply .border-grey-lightest;
 			}
+
+			&.is-header {
+				@apply .bg-grey-lighter;
+			}
 		}
 	}
 
@@ -50,17 +54,90 @@
 		> div {
 			@apply .border-l .border-r;
 
+			&:last-child {
+				@apply .border-b;
+			}
+
+			&:nth-child(1):nth-last-child(1) {
+				@apply .border-b;
+			}
+		}
+	}
+
+	&.is-rounded {
+		> div {
 			&:first-child {
 				@apply .rounded-t;
 			}
 
 			&:last-child {
-				@apply .border-b .rounded-b;
+				@apply .rounded-b;
 			}
 
 			&:nth-child(1):nth-last-child(1) {
-				@apply .rounded .border-b;
+				@apply .rounded;
 			}
+		}
+	}
+
+	&.is-rounded-bottom {
+		> div {
+			&:last-child {
+				@apply .rounded-b;
+			}
+		}
+	}
+
+	&.is-rounded-top {
+		> div {
+			&:first-child {
+				@apply .rounded-t;
+			}
+		}
+	}
+
+	&.is-hoverable {
+		.row:not(.is-header):hover {
+			@apply .text-grey-darker;
+		}
+	}
+}
+
+.data-table.is-inverse {
+	@apply .text-grey;
+
+	> .row {
+		@apply .border-black;
+
+		&.is-header,
+		.is-header {
+			@apply .bg-black;
+		}
+	}
+
+	&.is-striped {
+		> .row:nth-child(odd) {
+			@apply .bg-grey-darker;
+
+			.avatar-image .status {
+				@apply .border-grey-darkest;
+			}
+
+			&.is-header {
+				@apply .bg-black;
+			}
+		}
+	}
+
+	&.is-bordered {
+		> div {
+			@apply .border-black;
+		}
+	}
+
+	&.is-hoverable {
+		.row:not(.is-header):hover {
+			@apply .text-grey-light;
 		}
 	}
 }

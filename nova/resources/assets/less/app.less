@@ -6,12 +6,16 @@
 
 body {
 	@apply .font-sans .leading-normal .bg-grey-lighter .text-grey-dark;
+
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 h1 {
 	@apply .font-sans .font-black .text-5xl .text-grey-darker;
 
-	letter-spacing: .05rem;
+	// letter-spacing: .05rem;
 }
 
 textarea {
@@ -85,8 +89,34 @@ a {
 	}
 }
 
+.rank-container {
+	@apply .relative;
+
+	> .rank-base,
+	> .rank-overlay {
+		background-color: transparent;
+		background-position: center left;
+		background-repeat: no-repeat;
+		height: 40px;
+		width: 144px;
+	}
+
+	> .rank-base {
+		@apply .relative;
+
+		z-index: 100;
+	}
+
+	>.rank-overlay {
+		@apply .absolute;
+
+		z-index: 200;
+	}
+}
+
 @import "components/alert.less";
 @import "components/avatar.less";
+@import "components/badge.less";
 @import "components/button.less";
 @import "components/card.less";
 @import "components/data-table.less";
@@ -96,6 +126,8 @@ a {
 @import "components/hero.less";
 @import "components/icon.less";
 @import "components/navbar.less";
+@import "components/picker.less";
+@import "components/switch.less";
 @import "dark.less";
 
 @tailwind components;
