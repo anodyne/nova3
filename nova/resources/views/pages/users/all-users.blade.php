@@ -10,8 +10,8 @@
 			<p>{{ _m('users-deleted-notice') }}</p>
 		</div>
 
-		<div class="data-table bordered striped">
-			<div class="row header align-items-start align-items-md-center">
+		<div class="data-table is-bordered is-striped">
+			<div class="row is-header items-start md:items-center">
 				<div class="col">
 					<mobile>
 						<div v-show="!mobileFilter && !mobileSearch">
@@ -47,7 +47,7 @@
 								   placeholder="{{ _m('users-find') }}"
 								   v-model="search">
 							<span class="input-group-btn">
-								<a class="btn btn-secondary" href="#" @click.prevent="resetSearch">
+								<a class="button is-secondary" href="#" @click.prevent="resetSearch">
 									{!! icon('close') !!}
 								</a>
 							</span>
