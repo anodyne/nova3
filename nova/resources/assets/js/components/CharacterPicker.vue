@@ -131,7 +131,7 @@
 				this.show = false;
 				this.search = '';
 
-				window.events.$emit('character-picker-selected', this.selectedCharacter);
+				this.$events.$emit('character-picker-selected', this.selectedCharacter);
 			},
 
 			showIcon (icon) {
@@ -162,11 +162,11 @@
 
 			this.fetch();
 
-			window.events.$on('character-picker-refresh', () => {
+			this.$events.$on('character-picker-refresh', () => {
 				self.fetch();
 			});
 
-			window.events.$on('character-picker-reset', () => {
+			this.$events.$on('character-picker-reset', () => {
 				self.selectedCharacter = false;
 			});
 		}

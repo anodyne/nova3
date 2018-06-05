@@ -25,31 +25,35 @@
 		<div class="card-footer" v-if="hasSlot('card-footer')">
 			<slot name="card-footer"></slot>
 		</div>
+
+		<div class="card-content" v-if="hasSlot('card-block')">
+			<slot name="card-block"></slot>
+		</div>
 	</div>
 </template>
 
 <script>
-	export default {
-		props: {
-			inverted: { type: Boolean, default: false }
-		},
+export default {
+	props: {
+		inverted: { type: Boolean, default: false }
+	},
 
-		computed: {
-			wrapper () {
-				let classes = ['card']
+	computed: {
+		wrapper () {
+			let classes = ['card']
 
-				if (this.inverted) {
-					classes.push('is-inverse')
-				}
-
-				return classes
+			if (this.inverted) {
+				classes.push('is-inverse')
 			}
-		},
 
-		methods: {
-			hasSlot (slotName) {
-				return !!this.$slots[slotName]
-			}
+			return classes
+		}
+	},
+
+	methods: {
+		hasSlot (slotName) {
+			return !!this.$slots[slotName]
 		}
 	}
+}
 </script>

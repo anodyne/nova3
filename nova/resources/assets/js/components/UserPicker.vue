@@ -116,7 +116,7 @@
 				this.show = false;
 				this.search = '';
 
-				window.events.$emit('user-picker-selected', this.selectedUser);
+				this.$events.$emit('user-picker-selected', this.selectedUser);
 			},
 
 			showIcon (icon) {
@@ -133,11 +133,11 @@
 
 			this.fetch();
 
-			window.events.$on('user-picker-refresh', () => {
+			this.$events.$on('user-picker-refresh', () => {
 				self.fetch();
 			});
 
-			window.events.$on('user-picker-reset', () => {
+			this.$events.$on('user-picker-reset', () => {
 				self.selectedUser = false;
 			});
 		}

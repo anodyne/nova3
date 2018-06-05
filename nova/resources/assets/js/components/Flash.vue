@@ -67,7 +67,7 @@
 				this.flash(this.message, this.title, this.level);
 			}
 
-			window.events.$on('flash', (message, title, level) => self.flash(message, title, level));
+			this.$events.$on('flash', (message, title, level) => self.flash(message, title, level));
 		}
 	};
 </script>

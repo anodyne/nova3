@@ -106,7 +106,7 @@
 				this.show = false;
 				this.search = '';
 
-				window.events.$emit('rank-picker-selected', this.selectedRank, this.character);
+				this.$events.$emit('rank-picker-selected', this.selectedRank, this.character);
 			},
 
 			showIcon (icon) {
