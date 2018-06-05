@@ -20,6 +20,14 @@ $factory->define(Nova\Genres\Position::class, function (Faker $faker) {
 	];
 });
 
+$factory->states(Nova\Genres\Position::class, 'available', [
+	'available' => 1
+]);
+
+$factory->states(Nova\Genres\Position::class, 'unavailable', [
+	'available' => 0
+]);
+
 $factory->define(Nova\Genres\RankGroup::class, function (Faker $faker) {
 	return [
 		'name' => $faker->words(2, true),
