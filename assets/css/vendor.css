@@ -6120,4 +6120,64 @@ html.lb-disable-scrolling {
             print-color-adjust: exact;
   }
 }
+@font-face {
+  font-family: 'Agane';
+  src: url('../fonts/agane_45_light.eot');
+  src: url('../fonts/agane_45_light.eot?#iefix') format('embedded-opentype'), url('../fonts/agane_45_light.woff2') format('woff2'), url('../fonts/agane_45_light.woff') format('woff'), url('../fonts/agane_45_light.ttf') format('truetype'), url('../fonts/agane_45_light.svg#aganlight') format('svg');
+  font-weight: 300;
+  font-style: normal;
+}
 
+@font-face {
+  font-family: 'Agane';
+  src: url('../fonts/agane_55_roman.eot');
+  src: url('../fonts/agane_55_roman.eot?#iefix') format('embedded-opentype'), url('../fonts/agane_55_roman.woff2') format('woff2'), url('../fonts/agane_55_roman.woff') format('woff'), url('../fonts/agane_55_roman.ttf') format('truetype'), url('../fonts/agane_55_roman.svg#aganregular') format('svg');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Agane';
+  src: url('../fonts/agane_65_bold.eot');
+  src: url('../fonts/agane_65_bold.eot?#iefix') format('embedded-opentype'), url('../fonts/agane_65_bold.woff2') format('woff2'), url('../fonts/agane_65_bold.woff') format('woff'), url('../fonts/agane_65_bold.ttf') format('truetype'), url('../fonts/agane_65_bold.svg#aganextra_bold') format('svg');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Agane';
+  src: url('../fonts/agane_75_extra_bold.eot');
+  src: url('../fonts/agane_75_extra_bold.eot?#iefix') format('embedded-opentype'), url('../fonts/agane_75_extra_bold.woff2') format('woff2'), url('../fonts/agane_75_extra_bold.woff') format('woff'), url('../fonts/agane_75_extra_bold.ttf') format('truetype'), url('../fonts/agane_75_extra_bold.svg#aganlight') format('svg');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Camphor;
+  font-weight: 900;
+  src: url("../fonts/CamphorPro-Heavy.woff2") format("woff");
+}
+
+@font-face {
+  font-family: Camphor;
+  font-weight: 600;
+  src: url("../fonts/CamphorStd-Bold.woff2") format("woff");
+}
+
+@font-face {
+  font-family: Camphor;
+  font-weight: 500;
+  src: url("../fonts/CamphorStd-Medium.woff2") format("woff");
+}
+
+@font-face {
+  font-family: Camphor;
+  font-weight: 400;
+  src: url("../fonts/CamphorStd-Medium.woff2") format("woff");
+}
+
+@font-face {
+  font-family: Camphor;
+  font-weight: 300;
+  src: url("../fonts/CamphorStd-Thin.woff2") format("woff");
+}
