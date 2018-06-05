@@ -32,7 +32,7 @@ class ExtensionsController extends Controller
 		$finder = Finder::create()
 			->directories()
 			->in(extension_path())
-			->depth('> 0')
+			->depth('== 1')
 			->exclude('Override');
 
 		// Start a new collection to store the paths
@@ -50,7 +50,7 @@ class ExtensionsController extends Controller
 
 		// Get the difference between what's in the database and what's on the
 		// filesystem so we know which extensions haven't been installed yet
-		$this->data->extensionsToBeInstalled = $filesystemExtensions->diff($installedExtensions);
+		$this->data->extensionsToBeInstalled = $filesystemExtensions->unique()->diff($installedExtensions);
 	}
 
 	public function create()
