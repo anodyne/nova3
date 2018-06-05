@@ -134,14 +134,6 @@ let colors = {
 	'danger-lighter': 'var(--color-danger-lighter, #f9acaa)',
 	'danger-lightest': 'var(--color-danger-lightest, #fcebea)',
 
-	'primary-darkest': 'var(--color-primary-darkest, #12283a)',
-	'primary-darker': 'var(--color-primary-darker, #1c3d5a)',
-	'primary-dark': 'var(--color-primary-dark, #2779bd)',
-	'primary': 'var(--color-primary, #3490dc)',
-	'primary-light': 'var(--color-primary-light, #6cb2eb)',
-	'primary-lighter': 'var(--color-primary-lighter, #bcdefa)',
-	'primary-lightest': 'var(--color-primary-lightest, #eff8ff)',
-
 	'info-darkest': 'var(--color-info-darkest, #0d3331)',
 	'info-darker': 'var(--color-info-darker, #20504f)',
 	'info-dark': 'var(--color-info-dark, #38a89d)',
@@ -149,6 +141,14 @@ let colors = {
 	'info-light': 'var(--color-info-light, #64d5ca)',
 	'info-lighter': 'var(--color-info-lighter, #a0f0ed)',
 	'info-lightest': 'var(--color-info-lightest, #e8fffe)',
+
+	'primary-darkest': 'var(--color-primary-darkest, #12283a)',
+	'primary-darker': 'var(--color-primary-darker, #1c3d5a)',
+	'primary-dark': 'var(--color-primary-dark, #2779bd)',
+	'primary': 'var(--color-primary, #3490dc)',
+	'primary-light': 'var(--color-primary-light, #6cb2eb)',
+	'primary-lighter': 'var(--color-primary-lighter, #bcdefa)',
+	'primary-lightest': 'var(--color-primary-lightest, #eff8ff)',
 
 	'success-darkest': 'var(--color-success-darkest, #0f2f21)',
 	'success-darker': 'var(--color-success-darker, #1a4731)',
@@ -158,13 +158,13 @@ let colors = {
 	'success-lighter': 'var(--color-success-lighter, #a2f5bf)',
 	'success-lightest': 'var(--color-success-lightest, #e3fcec)',
 
-	'warning-darkest': 'var(--color-warning-darkest, #453411)',
-	'warning-darker': 'var(--color-warning-darker, #684f1d)',
-	'warning-dark': 'var(--color-warning-dark, #f2d024)',
-	'warning': 'var(--color-warning, #ffed4a)',
-	'warning-light': 'var(--color-warning-light, #fff382)',
-	'warning-lighter': 'var(--color-warning-lighter, #fff9c2)',
-	'warning-lightest': 'var(--color-warning-lightest, #fcfbeb)',
+	'warning-darkest': 'var(--color-warning-darkest, #ff6f00)',
+	'warning-darker': 'var(--color-warning-darker, #ff8f00)',
+	'warning-dark': 'var(--color-warning-dark, #ffb300)',
+	'warning': 'var(--color-warning, #ffc107)',
+	'warning-light': 'var(--color-warning-light, #ffca28)',
+	'warning-lighter': 'var(--color-warning-lighter, #ffd54f)',
+	'warning-lightest': 'var(--color-warning-lightest, #ffecb3)',
 }
 
 module.exports = {
@@ -229,6 +229,8 @@ module.exports = {
 
 	fonts: {
 		'sans': [
+			// 'Agane',
+			// 'Camphor',
 			'Roboto',
 			'system-ui',
 			'BlinkMacSystemFont',
@@ -358,6 +360,7 @@ module.exports = {
 		'tight': '-0.05em',
 		'normal': '0',
 		'wide': '0.05em',
+		'uppercase': '0.025rem',
 	},
 
 	/*
