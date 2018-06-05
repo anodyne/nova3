@@ -1,4 +1,4 @@
-vue = {
+NovaVue = {
 	mounted () {
 		Sortable.create(document.getElementById('sortable'), {
 			handle: '.sortable-handle',

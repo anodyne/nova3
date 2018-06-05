@@ -1,4 +1,4 @@
-vue = {
+NovaVue = {
 	data: {
 		positions: Nova.data.character.positions
 	},

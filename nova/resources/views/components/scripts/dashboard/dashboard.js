@@ -1,4 +1,4 @@
-vue = {
+NovaVue = {
 	data: {
 		showInstallChecklist: true,
 		showMigrateChecklist: true

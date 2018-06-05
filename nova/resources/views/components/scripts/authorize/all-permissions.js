@@ -1,4 +1,4 @@
-vue = {
+NovaVue = {
 	data: {
 		mobileSearch: false,
 		permissions: Nova.data.permissions,

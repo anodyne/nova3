@@ -1,4 +1,4 @@
-vue = {
+NovaVue = {
 	data: {
 		departments: Nova.data.departments,
 		layout: Nova.settings.manifest_layout,

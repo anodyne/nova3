@@ -1,4 +1,4 @@
-vue = {
+NovaVue = {
 	data: {
 		selected: [],
 		users: Nova.data.users

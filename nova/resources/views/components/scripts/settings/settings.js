@@ -1,4 +1,4 @@
-vue = {
+NovaVue = {
 	data: {
 		active: 'manifest',
 		manifestLayout: window.Nova.settings.manifest_layout,

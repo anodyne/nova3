@@ -1,4 +1,4 @@
-vue = {
+NovaVue = {
 	data: {
 		characters: Nova.data.characters,
 		mobileFilter: false,

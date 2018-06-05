@@ -1,4 +1,4 @@
-vue = {
+NovaVue = {
 	data: {
 		group: '',
 		ranks: Nova.data.ranks,

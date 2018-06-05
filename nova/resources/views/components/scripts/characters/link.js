@@ -1,4 +1,4 @@
-vue = {
+NovaVue = {
 	data: {
 		selectedCharacter: '',
 		selectedUser: '',
@@ -15,7 +15,7 @@ vue = {
 			}).then(function (response) {
 				// Refresh the character picker to make sure we have
 				// an accurate list of unassigned characters
-				window.events.$emit('character-picker-refresh');
+				this.$events.$emit('character-picker-refresh');
 
 				// Update the list of assigned characters
 				self.usersCharacters = response.data;
@@ -31,7 +31,7 @@ vue = {
 				.then(function (response) {
 					// Refresh the character picker to make sure we have
 					// an accurate list of unassigned characters
-					window.events.$emit('character-picker-refresh');
+					this.$events.$emit('character-picker-refresh');
 
 					// Find the index of the character we just unassigned
 					let index = _.findIndex(self.usersCharacters, function (c) {
@@ -72,7 +72,7 @@ vue = {
 	created () {
 		let self = this;
 
-		window.events.$on('user-picker-selected', function (user) {
+		this.$events.$on('user-picker-selected', function (user) {
 			// Set the selected user
 			self.selectedUser = user;
 
@@ -80,12 +80,12 @@ vue = {
 			self.usersCharacters = user.all_characters;
 		});
 
-		window.events.$on('character-picker-selected', function (character) {
+		this.$events.$on('character-picker-selected', function (character) {
 			// Set the selected character
 			self.selectedCharacter = character;
 
 			// Reset the character picker to a clean state
-			window.events.$emit('character-picker-reset');
+			this.$events.$emit('character-picker-reset');
 
 			// Now assign the character to the user
 			self.assignCharacter();

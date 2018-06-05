@@ -1,4 +1,4 @@
-vue = {
+NovaVue = {
 	data: {
 		users: Nova.data.users,
 		mobileFilter: false,

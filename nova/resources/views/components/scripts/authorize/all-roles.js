@@ -1,4 +1,4 @@
-vue = {
+NovaVue = {
 	data: {
 		roles: Nova.data.roles
 	},

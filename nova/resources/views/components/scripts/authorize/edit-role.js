@@ -1,4 +1,4 @@
-vue = {
+NovaVue = {
 	data: {
 		permissions: Nova.data.permissions,
 		oldPermissions: [],

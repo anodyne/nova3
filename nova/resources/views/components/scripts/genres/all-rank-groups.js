@@ -1,4 +1,4 @@
-vue = {
+NovaVue = {
 	data: {
 		groups: Nova.data.rankGroups,
 		hashOfInitialGroups: '',

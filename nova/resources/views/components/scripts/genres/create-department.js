@@ -1,4 +1,4 @@
-vue = {
+NovaVue = {
 	data: {
 		display: 1,
 		positions: [{name:''}]

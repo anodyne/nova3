@@ -1,4 +1,4 @@
-vue = {
+NovaVue = {
 	data: {
 		logs: Nova.data.logs,
 		search: ''

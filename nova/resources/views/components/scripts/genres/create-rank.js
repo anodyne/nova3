@@ -1,4 +1,4 @@
-vue = {
+NovaVue = {
 	data: {
 		accordion: 'info',
 		base: '',
