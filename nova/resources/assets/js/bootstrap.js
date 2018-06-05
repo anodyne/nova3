@@ -1,15 +1,20 @@
-import LoDash from 'lodash'
-import jQuery from 'jquery'
-import Vue from 'vue'
-import Moment from 'moment'
-import JConfirm from 'jquery-confirm'
-import WebUIPopover from 'webui-popover'
 import md5 from 'md5'
+import Vue from 'vue'
+import Axios from 'axios'
+import jQuery from 'jquery'
+import LoDash from 'lodash'
+import Moment from 'moment'
 import Sortable from 'sortablejs'
 import SweetAlert from 'sweetalert2'
-import Axios from 'axios'
+import JConfirm from 'jquery-confirm'
+import WebUIPopover from 'webui-popover'
 
+window.md5 = md5
+window.Vue = Vue
 window._ = LoDash
+window.moment = Moment
+window.swal = SweetAlert
+window.Sortable = Sortable
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -22,12 +27,6 @@ try {
 	window.jconfirm = JConfirm
 	window.webuiPopover = WebUIPopover
 } catch (e) {}
-
-window.Vue = Vue
-window.md5 = md5
-window.moment = Moment
-window.Sortable = Sortable
-window.swal = SweetAlert
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -52,32 +51,11 @@ if (token) {
 	console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token')
 }
 
-window.events = new Vue()
+Vue.prototype.$events = new Vue()
 
 window.flash = function (message, title, level = 'success') {
 	window.events.$emit('flash', message, title, level)
 };
-
-// window.route = function (name, args = {}) {
-// 	// Grab the URI from the list of routes
-// 	let uri = window.Nova.routes[name]
-
-// 	// Loop through the arguments and replace the variable with its value
-// 	Object.keys(args).map((a) => uri = uri.replace(`{${a}}`, args[a]))
-
-// 	// Put the full URL back together
-// 	return [window.Nova.system.baseUrl, uri].join('/')
-// };
-
-window.icon = function (name, attributes = '') {
-	// Grab the template
-	let template = window.Nova.iconTemplate
-	let icon = window.Nova.icons[name]
-
-	template = template.replace('%2$s', attributes)
-
-	return template.replace('%1$s', icon)
-}
 
 window.lang = function (key, variables = '') {
 	// Get the string
