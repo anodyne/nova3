@@ -5,8 +5,8 @@
 		<p>{{ _m('users-deleted-notice') }}</p>
 	</div>
 
-	<div class="data-table bordered striped">
-		<div class="row header align-items-start align-items-md-center">
+	<div class="data-table is-bordered is-striped">
+		<div class="row is-header">
 			<div class="col">
 				<mobile>
 					<div v-show="!mobileFilter && !mobileSearch">
@@ -36,20 +36,16 @@
 					</div>
 				</mobile>
 				<desktop>
-					<div class="input-group">
-						<input type="text"
-							   class="form-control"
-							   placeholder="{{ _m('users-find') }}"
-							   v-model="search">
-						<span class="input-group-btn">
-							<a class="btn btn-secondary" href="#" @click.prevent="resetSearch">
-								{!! icon('close') !!}
+					<text-input placeholder="{{ _m('users-find') }}" v-model="search">
+						<template slot="field-addon-after">
+							<a href="#" class="leading-0" @click.prevent="resetSearch">
+								<icon name="close" />
 							</a>
-						</span>
-					</div>
+						</template>
+					</text-input>
 				</desktop>
 			</div>
-			<div class="col d-none d-lg-block">
+			<div class="col">
 				<desktop>
 					<select name="" class="custom-select" v-model="status">
 						<option value="">{{ _m('users-status-all') }}</option>
@@ -59,33 +55,41 @@
 					</select>
 				</desktop>
 			</div>
-			<div class="col col-auto" v-show="!mobileSearch">
+			<div class="col-auto" v-show="!mobileSearch">
 				<a class="btn btn-secondary" href="#" @click.prevent="mobileFilter = false" v-show="mobileFilter">
 					{!! icon('close') !!}
 				</a>
 
 				@can('create', $userClass)
-					<div class="btn-toolbar" v-show="!mobileFilter">
-						<a href="{{ route('users.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
+					<div v-show="!mobileFilter">
+						<a href="{{ route('users.create') }}" class="button is-success">{!! icon('add') !!}</a>
 
 						@can('update', $userClass)
-							<div class="dropdown ml-2">
-								<button type="button"
-	  									class="btn btn-secondary btn-action"
-	  									data-toggle="dropdown"
-	  									aria-haspopup="true"
-	  									aria-expanded="false">
-									{!! icon('more') !!}
-								</button>
+							<div class="dropdown is-right ml-2">
+								<div class="dropdown-trigger">
+									<button type="button"
+		  									class="button is-secondary btn-action"
+		  									data-toggle="dropdown"
+		  									aria-haspopup="true"
+		  									aria-expanded="false">
+										<icon name="more" />
+									</button>
+								</div>
 
-								<div class="dropdown-menu dropdown-menu-right">
-									<a href="{{ route('users.force-password-reset') }}" class="dropdown-item">
-										{!! icon('users') !!} {{ _m('users-password-reset') }}
-									</a>
+								<div class="dropdown-menu">
+									<div class="dropdown-content">
+										<a href="{{ route('users.force-password-reset') }}" class="dropdown-item">
+											<icon name="users" :wrapper="{ class:'dropdown-icon' }"></icon>
+											{{ _m('users-password-reset') }}
+										</a>
 
-									@can('update', $characterClass)
-										<a href="{{ route('characters.link') }}" class="dropdown-item">{!! icon('link') !!} {{ _m('characters-link') }}</a>
-									@endcan
+										@can('update', $characterClass)
+											<a href="{{ route('characters.link') }}" class="dropdown-item">
+												<icon name="link" :wrapper="{ class:'dropdown-icon' }"></icon>
+												{{ _m('characters-link') }}
+											</a>
+										@endcan
+									</div>
 								</div>
 							</div>
 						@endcan
@@ -94,7 +98,7 @@
 
 				@cannot('create', $userClass)
 					@can('update', $userClass)
-						<a href="{{ route('users.force-password-reset') }}" class="btn btn-secondary">
+						<a href="{{ route('users.force-password-reset') }}" class="button is-secondary">
 							{!! icon('users') !!}
 						</a>
 					@endcan
@@ -102,7 +106,7 @@
 			</div>
 		</div>
 
-		<div class="row align-items-center" v-for="user in filteredUsers">
+		<div class="row items-center" v-for="user in filteredUsers">
 			<div class="col">
 				<avatar :item="user"
 						size="sm"
@@ -113,69 +117,82 @@
 					</span>
 				</avatar>
 			</div>
-			<div class="col col-auto">
-				<div class="dropdown">
-					<button class="btn btn-secondary btn-action"
-							type="button"
-							id="dropdownMenuButton"
-							data-toggle="dropdown"
-							aria-haspopup="true"
-							aria-expanded="false">
-						{!! icon('more') !!}
-					</button>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-						<a :href="profileLink(user.id)" class="dropdown-item">
-							{!! icon('user') !!} {{ _m('users-profile') }}
-						</a>
+			<div class="col-auto">
+				<div class="dropdown is-right ml-2">
+					<div class="dropdown-trigger">
+						<button type="button"
+								class="button is-secondary btn-action"
+								data-toggle="dropdown"
+								aria-haspopup="true"
+								aria-expanded="false">
+							<icon name="more" />
+						</button>
+					</div>
 
-						@can('manage', $userClass)
-							<div class="dropdown-divider"></div>
-						@endcan
-
-						@can('update', $userClass)
-							<a :href="editLink(user.id)" class="dropdown-item">{!! icon('edit') !!} {{ _m('edit') }}</a>
-						@endcan
-
-						@can('delete', $userClass)
-							<a href="#"
-							   class="dropdown-item text-danger"
-							   @click.prevent="deleteUser(user.id)"
-							   v-show="!isTrashed(user)">
-								{!! icon('delete') !!} {{ _m('delete') }}
-							</a>
-						@endcan
-
-						@can('update', $userClass)
-							<a href="#"
-							   class="dropdown-item text-success"
-							   @click.prevent="restoreUser(user.id)"
-							   v-show="isTrashed(user)">
-								{!! icon('undo') !!} {{ _m('restore') }}
+					<div class="dropdown-menu">
+						<div class="dropdown-content">
+							<a :href="profileLink(user.id)" class="dropdown-item">
+								<icon name="user" :wrapper="{ class:'dropdown-icon' }"></icon>
+								{{ _m('users-profile') }}
 							</a>
 
-							<div class="dropdown-divider"></div>
+							@can('manage', $userClass)
+								<div class="dropdown-divider"></div>
+							@endcan
 
-							<a href="#"
-							   class="dropdown-item text-warning"
-							   @click.prevent="deactivateUser(user.id)"
-							   v-show="isActive(user)">
-								{!! icon('close-alt') !!} {{ _m('deactivate') }}
-							</a>
+							@can('update', $userClass)
+								<a :href="editLink(user.id)" class="dropdown-item">
+									<icon name="edit" :wrapper="{ class:'dropdown-icon' }"></icon>
+									{{ _m('edit') }}
+								</a>
+							@endcan
 
-							<a href="#"
-							   class="dropdown-item text-success"
-							   @click.prevent="activateUser(user.id)"
-							   v-show="isInactive(user)">
-								{!! icon('check-alt') !!} {{ _m('activate') }}
-							</a>
+							@can('delete', $userClass)
+								<a href="#"
+								   class="dropdown-item text-danger"
+								   @click.prevent="deleteUser(user.id)"
+								   v-show="!isTrashed(user)">
+									<icon name="delete" :wrapper="{ class:'dropdown-icon' }"></icon>
+									{{ _m('delete') }}
+								</a>
+							@endcan
 
-							<a href="#"
-							   class="dropdown-item text-success"
-							   @click.prevent="activateUser(user.id)"
-							   v-show="isPending(user)">
-								{!! icon('user-alt') !!} {{ _m('activate') }}
-							</a>
-						@endcan
+							@can('update', $userClass)
+								<a href="#"
+								   class="dropdown-item text-success"
+								   @click.prevent="restoreUser(user.id)"
+								   v-show="isTrashed(user)">
+									<icon name="undo" :wrapper="{ class:'dropdown-icon' }"></icon>
+									{{ _m('restore') }}
+								</a>
+
+								<div class="dropdown-divider"></div>
+
+								<a href="#"
+								   class="dropdown-item text-warning-dark"
+								   @click.prevent="deactivateUser(user.id)"
+								   v-show="isActive(user)">
+									<icon name="close-alt" :wrapper="{ class:'dropdown-icon' }"></icon>
+									{{ _m('deactivate') }}
+								</a>
+
+								<a href="#"
+								   class="dropdown-item text-success"
+								   @click.prevent="activateUser(user.id)"
+								   v-show="isInactive(user)">
+									<icon name="check-alt" :wrapper="{ class:'dropdown-icon' }"></icon>
+									{{ _m('activate') }}
+								</a>
+
+								<a href="#"
+								   class="dropdown-item text-success"
+								   @click.prevent="activateUser(user.id)"
+								   v-show="isPending(user)">
+									<icon name="user-alt" :wrapper="{ class:'dropdown-icon' }"></icon>
+									{{ _m('activate') }}
+								</a>
+							@endcan
+						</div>
 					</div>
 				</div>
 			</div>

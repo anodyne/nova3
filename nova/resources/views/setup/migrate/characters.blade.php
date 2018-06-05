@@ -131,7 +131,7 @@
 			mounted () {
 				let self = this;
 
-				window.events.$on('rank-picker-selected', (rank, character) => {
+				this.$events.$on('rank-picker-selected', (rank, character) => {
 					self.updateCharacter(character.id, rank.id);
 				});
 			}

@@ -31,20 +31,20 @@
 	{!! $spriteMap or false !!}
 
 	<!-- Scripts -->
-	<script src="{{ asset('assets/js/manifest.js') }}"></script>
-	<script src="{{ asset('assets/js/vendor.js') }}"></script>
-	<script src="{{ asset('assets/js/app.js') }}"></script>
 	<script>
 		feather.replace()
 
-		let vue = {}
+		var VueNova = {}
 	</script>
 	{!! $scripts or false !!}
-	<script>
+	{{-- <script>
 		const app = new Vue({
 			el: '#nova-app',
 			mixins: [vue]
 		})
-	</script>
+	</script> --}}
+	<script src="{{ asset('assets/js/manifest.js') }}"></script>
+	<script src="{{ asset('assets/js/vendor.js') }}"></script>
+	<script src="{{ asset('assets/js/app.js') }}"></script>
 </body>
 </html>
