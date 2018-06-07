@@ -167,6 +167,34 @@ let colors = {
 	'warning-lightest': 'var(--color-warning-lightest, #ffecb3)',
 }
 
+let spacing = {
+	'auto': 'auto',
+	'px': '1px',
+	'2px': '2px',
+	'0': '0rem',
+	'1': '0.25rem',
+	'2': '0.5rem',
+	'3': '0.75rem',
+	'4': '1rem',
+	'5': '1.25rem',
+	'6': '1.5rem',
+	'7': '1.75rem',
+	'8': '2rem',
+	'9': '2.25rem',
+	'10': '2.5rem',
+	'11': '2.75rem',
+	'12': '3rem',
+	'14': '3.5rem',
+	'16': '4rem',
+	'18': '4.5rem',
+	'20': '5rem',
+	'24': '6rem',
+	'32': '8rem',
+	'40': '10rem',
+	'48': '12rem',
+	'64': '16rem',
+}
+
 module.exports = {
 
 	/*
@@ -459,45 +487,27 @@ module.exports = {
 	},
 
 	/*
-	|-----------------------------------------------------------------------------
-	| Width                                    https://tailwindcss.com/docs/width
-	|-----------------------------------------------------------------------------
-	|
-	| Here is where you define your width utility sizes. These can be
-	| percentage based, pixels, rems, or any other units. By default
-	| we provide a sensible rem based numeric scale, a percentage
-	| based fraction scale, plus some other common use-cases. You
-	| can, of course, modify these values as needed.
-	|
-	|
-	| It's also worth mentioning that Tailwind automatically escapes
-	| invalid CSS class name characters, which allows you to have
-	| awesome classes like .w-2/3.
-	|
-	| Class name: .w-{size}
-	|
-	*/
+    |-----------------------------------------------------------------------------
+    | Width                                    https://tailwindcss.com/docs/width
+    |-----------------------------------------------------------------------------
+    |
+    | Here is where you define your width utility sizes. These can be
+    | percentage based, pixels, rems, or any other units. By default
+    | we provide a sensible rem based numeric scale, a percentage
+    | based fraction scale, plus some other common use-cases. You
+    | can, of course, modify these values as needed.
+    |
+    |
+    | It's also worth mentioning that Tailwind automatically escapes
+    | invalid CSS class name characters, which allows you to have
+    | awesome classes like .w-2/3.
+    |
+    | Class name: .w-{size}
+    |
+    */
 
-	width: {
+	width: global.Object.assign({
 		'auto': 'auto',
-		'px': '1px',
-		'1': '0.25rem',
-		'2': '0.5rem',
-		'3': '0.75rem',
-		'4': '1rem',
-		'5': '1.25rem',
-		'6': '1.5rem',
-		'8': '2rem',
-		'10': '2.5rem',
-		'12': '3rem',
-		'14': '3.5rem',
-		'16': '4rem',
-		'20': '5rem',
-		'24': '6rem',
-		'32': '8rem',
-		'40': '10rem',
-		'48': '12rem',
-		'64': '16rem',
 		'1/2': '50%',
 		'1/3': '33.33333%',
 		'2/3': '66.66667%',
@@ -511,134 +521,84 @@ module.exports = {
 		'5/6': '83.33333%',
 		'full': '100%',
 		'screen': '100vw'
-	},
+	}, spacing),
 
-	/*
-	|-----------------------------------------------------------------------------
-	| Height                                  https://tailwindcss.com/docs/height
-	|-----------------------------------------------------------------------------
-	|
-	| Here is where you define your height utility sizes. These can be
-	| percentage based, pixels, rems, or any other units. By default
-	| we provide a sensible rem based numeric scale plus some other
-	| common use-cases. You can, of course, modify these values as
-	| needed.
-	|
-	| Class name: .h-{size}
-	|
-	*/
 
-	height: {
+    /*
+    |-----------------------------------------------------------------------------
+    | Height                                  https://tailwindcss.com/docs/height
+    |-----------------------------------------------------------------------------
+    |
+    | Here is where you define your height utility sizes. These can be
+    | percentage based, pixels, rems, or any other units. By default
+    | we provide a sensible rem based numeric scale plus some other
+    | common use-cases. You can, of course, modify these values as
+    | needed.
+    |
+    | Class name: .h-{size}
+    |
+    */
+
+	height: global.Object.assign({
 		'auto': 'auto',
-		'px': '1px',
-		'1': '0.25rem',
-		'2': '0.5rem',
-		'3': '0.75rem',
-		'4': '1rem',
-		'5': '1.25rem',
-		'6': '1.5rem',
-		'8': '2rem',
-		'10': '2.5rem',
-		'12': '3rem',
-		'14': '3.5rem',
-		'16': '4rem',
-		'20': '5rem',
-		'24': '6rem',
-		'32': '8rem',
-		'40': '10rem',
-		'48': '12rem',
-		'64': '16rem',
 		'full': '100%',
 		'screen': '100vh'
-	},
+	}, spacing),
 
-	/*
-	|-----------------------------------------------------------------------------
-	| Minimum width                        https://tailwindcss.com/docs/min-width
-	|-----------------------------------------------------------------------------
-	|
-	| Here is where you define your minimum width utility sizes. These can
-	| be percentage based, pixels, rems, or any other units. We provide a
-	| couple common use-cases by default. You can, of course, modify
-	| these values as needed.
-	|
-	| Class name: .min-w-{size}
-	|
-	*/
 
-	minWidth: {
-		'0': '0',
-		'1': '0.25rem',
-		'2': '0.5rem',
-		'3': '0.75rem',
-		'4': '1rem',
-		'5': '1.25rem',
-		'6': '1.5rem',
-		'8': '2rem',
-		'10': '2.5rem',
-		'12': '3rem',
-		'14': '3.5rem',
-		'16': '4rem',
-		'20': '5rem',
-		'24': '6rem',
-		'32': '8rem',
-		'40': '10rem',
-		'48': '12rem',
-		'64': '16rem',
+    /*
+    |-----------------------------------------------------------------------------
+    | Minimum width                        https://tailwindcss.com/docs/min-width
+    |-----------------------------------------------------------------------------
+    |
+    | Here is where you define your minimum width utility sizes. These can
+    | be percentage based, pixels, rems, or any other units. We provide a
+    | couple common use-cases by default. You can, of course, modify
+    | these values as needed.
+    |
+    | Class name: .min-w-{size}
+    |
+    */
+
+	minWidth: global.Object.assign({
 		'full': '100%',
-	},
+	}, spacing),
 
-	/*
-	|-----------------------------------------------------------------------------
-	| Minimum height                      https://tailwindcss.com/docs/min-height
-	|-----------------------------------------------------------------------------
-	|
-	| Here is where you define your minimum height utility sizes. These can
-	| be percentage based, pixels, rems, or any other units. We provide a
-	| few common use-cases by default. You can, of course, modify these
-	| values as needed.
-	|
-	| Class name: .min-h-{size}
-	|
-	*/
 
-	minHeight: {
-		'0': '0',
-		'1': '0.25rem',
-		'2': '0.5rem',
-		'3': '0.75rem',
-		'4': '1rem',
-		'5': '1.25rem',
-		'6': '1.5rem',
-		'8': '2rem',
-		'10': '2.5rem',
-		'12': '3rem',
-		'14': '3.5rem',
-		'16': '4rem',
-		'20': '5rem',
-		'24': '6rem',
-		'32': '8rem',
-		'40': '10rem',
-		'48': '12rem',
-		'64': '16rem',
+    /*
+    |-----------------------------------------------------------------------------
+    | Minimum height                      https://tailwindcss.com/docs/min-height
+    |-----------------------------------------------------------------------------
+    |
+    | Here is where you define your minimum height utility sizes. These can
+    | be percentage based, pixels, rems, or any other units. We provide a
+    | few common use-cases by default. You can, of course, modify these
+    | values as needed.
+    |
+    | Class name: .min-h-{size}
+    |
+    */
+
+	minHeight: global.Object.assign({
 		'full': '100%',
 		'screen': '100vh'
-	},
+	}, spacing),
 
-	/*
-	|-----------------------------------------------------------------------------
-	| Maximum width                        https://tailwindcss.com/docs/max-width
-	|-----------------------------------------------------------------------------
-	|
-	| Here is where you define your maximum width utility sizes. These can
-	| be percentage based, pixels, rems, or any other units. By default
-	| we provide a sensible rem based scale and a "full width" size,
-	| which is basically a reset utility. You can, of course,
-	| modify these values as needed.
-	|
-	| Class name: .max-w-{size}
-	|
-	*/
+
+    /*
+    |-----------------------------------------------------------------------------
+    | Maximum width                        https://tailwindcss.com/docs/max-width
+    |-----------------------------------------------------------------------------
+    |
+    | Here is where you define your maximum width utility sizes. These can
+    | be percentage based, pixels, rems, or any other units. By default
+    | we provide a sensible rem based scale and a "full width" size,
+    | which is basically a reset utility. You can, of course,
+    | modify these values as needed.
+    |
+    | Class name: .max-w-{size}
+    |
+    */
 
 	maxWidth: {
 		'xs': '20rem',
@@ -653,133 +613,79 @@ module.exports = {
 		'full': '100%',
 	},
 
-	/*
-	|-----------------------------------------------------------------------------
-	| Maximum height                      https://tailwindcss.com/docs/max-height
-	|-----------------------------------------------------------------------------
-	|
-	| Here is where you define your maximum height utility sizes. These can
-	| be percentage based, pixels, rems, or any other units. We provide a
-	| couple common use-cases by default. You can, of course, modify
-	| these values as needed.
-	|
-	| Class name: .max-h-{size}
-	|
-	*/
+
+    /*
+    |-----------------------------------------------------------------------------
+    | Maximum height                      https://tailwindcss.com/docs/max-height
+    |-----------------------------------------------------------------------------
+    |
+    | Here is where you define your maximum height utility sizes. These can
+    | be percentage based, pixels, rems, or any other units. We provide a
+    | couple common use-cases by default. You can, of course, modify
+    | these values as needed.
+    |
+    | Class name: .max-h-{size}
+    |
+    */
 
 	maxHeight: {
 		'full': '100%',
 		'screen': '100vh',
 	},
 
-	/*
-	|-----------------------------------------------------------------------------
-	| Padding                                https://tailwindcss.com/docs/padding
-	|-----------------------------------------------------------------------------
-	|
-	| Here is where you define your padding utility sizes. These can be
-	| percentage based, pixels, rems, or any other units. By default we
-	| provide a sensible rem based numeric scale plus a couple other
-	| common use-cases like "1px". You can, of course, modify these
-	| values as needed.
-	|
-	| Class name: .p{side?}-{size}
-	|
-	*/
 
-	padding: {
-		'px': '1px',
-		'0': '0',
-		'1': '0.25rem',
-		'2': '0.5rem',
-		'3': '0.75rem',
-		'4': '1rem',
-		'5': '1.25rem',
-		'6': '1.5rem',
-		'8': '2rem',
-		'10': '2.5rem',
-		'12': '3rem',
-		'16': '4rem',
-		'20': '5rem',
-		'24': '6rem',
-		'32': '8rem',
-		'40': '10rem',
-		'48': '12rem',
-		'64': '16rem',
-	},
+    /*
+    |-----------------------------------------------------------------------------
+    | Padding                                https://tailwindcss.com/docs/padding
+    |-----------------------------------------------------------------------------
+    |
+    | Here is where you define your padding utility sizes. These can be
+    | percentage based, pixels, rems, or any other units. By default we
+    | provide a sensible rem based numeric scale plus a couple other
+    | common use-cases like "1px". You can, of course, modify these
+    | values as needed.
+    |
+    | Class name: .p{side?}-{size}
+    |
+    */
 
-	/*
-	|-----------------------------------------------------------------------------
-	| Margin                                  https://tailwindcss.com/docs/margin
-	|-----------------------------------------------------------------------------
-	|
-	| Here is where you define your margin utility sizes. These can be
-	| percentage based, pixels, rems, or any other units. By default we
-	| provide a sensible rem based numeric scale plus a couple other
-	| common use-cases like "1px". You can, of course, modify these
-	| values as needed.
-	|
-	| Class name: .m{side?}-{size}
-	|
-	*/
+	padding: spacing,
 
-	margin: {
-		'auto': 'auto',
-		'px': '1px',
-		'0': '0',
-		'1': '0.25rem',
-		'2': '0.5rem',
-		'3': '0.75rem',
-		'4': '1rem',
-		'5': '1.25rem',
-		'6': '1.5rem',
-		'8': '2rem',
-		'10': '2.5rem',
-		'12': '3rem',
-		'16': '4rem',
-		'20': '5rem',
-		'24': '6rem',
-		'32': '8rem',
-		'40': '10rem',
-		'48': '12rem',
-		'64': '16rem',
-	},
 
-	/*
-	|-----------------------------------------------------------------------------
-	| Negative margin                https://tailwindcss.com/docs/negative-margin
-	|-----------------------------------------------------------------------------
-	|
-	| Here is where you define your negative margin utility sizes. These can
-	| be percentage based, pixels, rems, or any other units. By default we
-	| provide matching values to the padding scale since these utilities
-	| generally get used together. You can, of course, modify these
-	| values as needed.
-	|
-	| Class name: .-m{side?}-{size}
-	|
-	*/
+    /*
+    |-----------------------------------------------------------------------------
+    | Margin                                  https://tailwindcss.com/docs/margin
+    |-----------------------------------------------------------------------------
+    |
+    | Here is where you define your margin utility sizes. These can be
+    | percentage based, pixels, rems, or any other units. By default we
+    | provide a sensible rem based numeric scale plus a couple other
+    | common use-cases like "1px". You can, of course, modify these
+    | values as needed.
+    |
+    | Class name: .m{side?}-{size}
+    |
+    */
 
-	negativeMargin: {
-		'px': '1px',
-		'0': '0',
-		'1': '0.25rem',
-		'2': '0.5rem',
-		'3': '0.75rem',
-		'4': '1rem',
-		'5': '1.25rem',
-		'6': '1.5rem',
-		'8': '2rem',
-		'10': '2.5rem',
-		'12': '3rem',
-		'16': '4rem',
-		'20': '5rem',
-		'24': '6rem',
-		'32': '8rem',
-		'40': '10rem',
-		'48': '12rem',
-		'64': '16rem',
-	},
+	margin: spacing,
+
+
+    /*
+    |-----------------------------------------------------------------------------
+    | Negative margin                https://tailwindcss.com/docs/negative-margin
+    |-----------------------------------------------------------------------------
+    |
+    | Here is where you define your negative margin utility sizes. These can
+    | be percentage based, pixels, rems, or any other units. By default we
+    | provide matching values to the padding scale since these utilities
+    | generally get used together. You can, of course, modify these
+    | values as needed.
+    |
+    | Class name: .-m{side?}-{size}
+    |
+    */
+
+	negativeMargin: spacing,
 
 	/*
 	|-----------------------------------------------------------------------------
