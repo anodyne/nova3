@@ -1,5 +1,5 @@
 export default {
-	render(h) {
+	render (h) {
 		return h('div', {
 			attrs: {
 				class: 'hidden lg:block'
