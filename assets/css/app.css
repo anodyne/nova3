@@ -2330,7 +2330,6 @@ a.navbar-link.is-active {
 
 .item-picker .items-menu {
   background-color: var(--color-white, #fff);
-  border-width: 1px;
   border-radius: var(--radius, .25rem);
   position: absolute;
   width: 100%;
@@ -2340,6 +2339,8 @@ a.navbar-link.is-active {
           user-select: none;
   overflow-y: auto;
   -ms-overflow-style: -ms-autohiding-scrollbar;
+  -webkit-box-shadow: 0 1px 3px rgba(50, 50, 93, .15), 0 1px 0 rgba(0, 0, 0, .02);
+          box-shadow: 0 1px 3px rgba(50, 50, 93, .15), 0 1px 0 rgba(0, 0, 0, .02);
   max-height: 20rem;
   top: 100%;
   z-index: 1000;
@@ -2431,10 +2432,10 @@ a.navbar-link.is-active {
   background-color: transparent;
   border-style: none;
   border-radius: 0;
-  padding-top: .5rem;
-  padding-bottom: .5rem;
-  padding-left: .75rem;
-  padding-right: .75rem;
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   width: 100%;
   font-size: .875rem;
 }
@@ -2471,15 +2472,15 @@ a.navbar-link.is-active {
   width: 100%;
   -webkit-box-shadow: 0 1px 3px rgba(50, 50, 93, .15), 0 1px 0 rgba(0, 0, 0, .02);
           box-shadow: 0 1px 3px rgba(50, 50, 93, .15), 0 1px 0 rgba(0, 0, 0, .02);
-  padding-top: .5rem;
-  padding-bottom: .5rem;
   padding-left: 1rem;
   padding-right: 1rem;
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  margin-bottom: .25rem;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  margin-bottom: 2px;
 }
 
 .item-picker-selected {
@@ -5210,6 +5211,10 @@ form.is-dark .form-control {
   font-weight: 900;
 }
 
+.h-0 {
+  height: 0;
+}
+
 .h-1 {
   height: .25rem;
 }
@@ -5234,12 +5239,24 @@ form.is-dark .form-control {
   height: 1.5rem;
 }
 
+.h-7 {
+  height: 1.75rem;
+}
+
 .h-8 {
   height: 2rem;
 }
 
+.h-9 {
+  height: 2.25rem;
+}
+
 .h-10 {
   height: 2.5rem;
+}
+
+.h-11 {
+  height: 2.75rem;
 }
 
 .h-12 {
@@ -5252,6 +5269,10 @@ form.is-dark .form-control {
 
 .h-16 {
   height: 4rem;
+}
+
+.h-18 {
+  height: 4.5rem;
 }
 
 .h-20 {
@@ -5282,16 +5303,20 @@ form.is-dark .form-control {
   height: auto;
 }
 
-.h-px {
-  height: 1px;
-}
-
 .h-full {
   height: 100%;
 }
 
 .h-screen {
   height: 100vh;
+}
+
+.h-px {
+  height: 1px;
+}
+
+.h-2px {
+  height: 2px;
 }
 
 .leading-0 {
@@ -5342,20 +5367,40 @@ form.is-dark .form-control {
   margin: 1.5rem;
 }
 
+.m-7 {
+  margin: 1.75rem;
+}
+
 .m-8 {
   margin: 2rem;
+}
+
+.m-9 {
+  margin: 2.25rem;
 }
 
 .m-10 {
   margin: 2.5rem;
 }
 
+.m-11 {
+  margin: 2.75rem;
+}
+
 .m-12 {
   margin: 3rem;
 }
 
+.m-14 {
+  margin: 3.5rem;
+}
+
 .m-16 {
   margin: 4rem;
+}
+
+.m-18 {
+  margin: 4.5rem;
 }
 
 .m-20 {
@@ -5388,6 +5433,10 @@ form.is-dark .form-control {
 
 .m-px {
   margin: 1px;
+}
+
+.m-2px {
+  margin: 2px;
 }
 
 .my-0 {
@@ -5460,6 +5509,16 @@ form.is-dark .form-control {
   margin-right: 1.5rem;
 }
 
+.my-7 {
+  margin-top: 1.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.mx-7 {
+  margin-left: 1.75rem;
+  margin-right: 1.75rem;
+}
+
 .my-8 {
   margin-top: 2rem;
   margin-bottom: 2rem;
@@ -5468,6 +5527,16 @@ form.is-dark .form-control {
 .mx-8 {
   margin-left: 2rem;
   margin-right: 2rem;
+}
+
+.my-9 {
+  margin-top: 2.25rem;
+  margin-bottom: 2.25rem;
+}
+
+.mx-9 {
+  margin-left: 2.25rem;
+  margin-right: 2.25rem;
 }
 
 .my-10 {
@@ -5480,6 +5549,16 @@ form.is-dark .form-control {
   margin-right: 2.5rem;
 }
 
+.my-11 {
+  margin-top: 2.75rem;
+  margin-bottom: 2.75rem;
+}
+
+.mx-11 {
+  margin-left: 2.75rem;
+  margin-right: 2.75rem;
+}
+
 .my-12 {
   margin-top: 3rem;
   margin-bottom: 3rem;
@@ -5490,6 +5569,16 @@ form.is-dark .form-control {
   margin-right: 3rem;
 }
 
+.my-14 {
+  margin-top: 3.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.mx-14 {
+  margin-left: 3.5rem;
+  margin-right: 3.5rem;
+}
+
 .my-16 {
   margin-top: 4rem;
   margin-bottom: 4rem;
@@ -5498,6 +5587,16 @@ form.is-dark .form-control {
 .mx-16 {
   margin-left: 4rem;
   margin-right: 4rem;
+}
+
+.my-18 {
+  margin-top: 4.5rem;
+  margin-bottom: 4.5rem;
+}
+
+.mx-18 {
+  margin-left: 4.5rem;
+  margin-right: 4.5rem;
 }
 
 .my-20 {
@@ -5578,6 +5677,16 @@ form.is-dark .form-control {
 .mx-px {
   margin-left: 1px;
   margin-right: 1px;
+}
+
+.my-2px {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.mx-2px {
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .mt-0 {
@@ -5692,6 +5801,22 @@ form.is-dark .form-control {
   margin-left: 1.5rem;
 }
 
+.mt-7 {
+  margin-top: 1.75rem;
+}
+
+.mr-7 {
+  margin-right: 1.75rem;
+}
+
+.mb-7 {
+  margin-bottom: 1.75rem;
+}
+
+.ml-7 {
+  margin-left: 1.75rem;
+}
+
 .mt-8 {
   margin-top: 2rem;
 }
@@ -5706,6 +5831,22 @@ form.is-dark .form-control {
 
 .ml-8 {
   margin-left: 2rem;
+}
+
+.mt-9 {
+  margin-top: 2.25rem;
+}
+
+.mr-9 {
+  margin-right: 2.25rem;
+}
+
+.mb-9 {
+  margin-bottom: 2.25rem;
+}
+
+.ml-9 {
+  margin-left: 2.25rem;
 }
 
 .mt-10 {
@@ -5724,6 +5865,22 @@ form.is-dark .form-control {
   margin-left: 2.5rem;
 }
 
+.mt-11 {
+  margin-top: 2.75rem;
+}
+
+.mr-11 {
+  margin-right: 2.75rem;
+}
+
+.mb-11 {
+  margin-bottom: 2.75rem;
+}
+
+.ml-11 {
+  margin-left: 2.75rem;
+}
+
 .mt-12 {
   margin-top: 3rem;
 }
@@ -5740,6 +5897,22 @@ form.is-dark .form-control {
   margin-left: 3rem;
 }
 
+.mt-14 {
+  margin-top: 3.5rem;
+}
+
+.mr-14 {
+  margin-right: 3.5rem;
+}
+
+.mb-14 {
+  margin-bottom: 3.5rem;
+}
+
+.ml-14 {
+  margin-left: 3.5rem;
+}
+
 .mt-16 {
   margin-top: 4rem;
 }
@@ -5754,6 +5927,22 @@ form.is-dark .form-control {
 
 .ml-16 {
   margin-left: 4rem;
+}
+
+.mt-18 {
+  margin-top: 4.5rem;
+}
+
+.mr-18 {
+  margin-right: 4.5rem;
+}
+
+.mb-18 {
+  margin-bottom: 4.5rem;
+}
+
+.ml-18 {
+  margin-left: 4.5rem;
 }
 
 .mt-20 {
@@ -5884,6 +6073,22 @@ form.is-dark .form-control {
   margin-left: 1px;
 }
 
+.mt-2px {
+  margin-top: 2px;
+}
+
+.mr-2px {
+  margin-right: 2px;
+}
+
+.mb-2px {
+  margin-bottom: 2px;
+}
+
+.ml-2px {
+  margin-left: 2px;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -5960,12 +6165,24 @@ form.is-dark .form-control {
   min-height: 1.5rem;
 }
 
+.min-h-7 {
+  min-height: 1.75rem;
+}
+
 .min-h-8 {
   min-height: 2rem;
 }
 
+.min-h-9 {
+  min-height: 2.25rem;
+}
+
 .min-h-10 {
   min-height: 2.5rem;
+}
+
+.min-h-11 {
+  min-height: 2.75rem;
 }
 
 .min-h-12 {
@@ -5978,6 +6195,10 @@ form.is-dark .form-control {
 
 .min-h-16 {
   min-height: 4rem;
+}
+
+.min-h-18 {
+  min-height: 4.5rem;
 }
 
 .min-h-20 {
@@ -6012,6 +6233,18 @@ form.is-dark .form-control {
   min-height: 100vh;
 }
 
+.min-h-auto {
+  min-height: auto;
+}
+
+.min-h-px {
+  min-height: 1px;
+}
+
+.min-h-2px {
+  min-height: 2px;
+}
+
 .min-w-0 {
   min-width: 0;
 }
@@ -6040,12 +6273,24 @@ form.is-dark .form-control {
   min-width: 1.5rem;
 }
 
+.min-w-7 {
+  min-width: 1.75rem;
+}
+
 .min-w-8 {
   min-width: 2rem;
 }
 
+.min-w-9 {
+  min-width: 2.25rem;
+}
+
 .min-w-10 {
   min-width: 2.5rem;
+}
+
+.min-w-11 {
+  min-width: 2.75rem;
 }
 
 .min-w-12 {
@@ -6058,6 +6303,10 @@ form.is-dark .form-control {
 
 .min-w-16 {
   min-width: 4rem;
+}
+
+.min-w-18 {
+  min-width: 4.5rem;
 }
 
 .min-w-20 {
@@ -6088,6 +6337,18 @@ form.is-dark .form-control {
   min-width: 100%;
 }
 
+.min-w-auto {
+  min-width: auto;
+}
+
+.min-w-px {
+  min-width: 1px;
+}
+
+.min-w-2px {
+  min-width: 2px;
+}
+
 .-m-0 {
   margin: 0;
 }
@@ -6116,20 +6377,40 @@ form.is-dark .form-control {
   margin: -1.5rem;
 }
 
+.-m-7 {
+  margin: -1.75rem;
+}
+
 .-m-8 {
   margin: -2rem;
+}
+
+.-m-9 {
+  margin: -2.25rem;
 }
 
 .-m-10 {
   margin: -2.5rem;
 }
 
+.-m-11 {
+  margin: -2.75rem;
+}
+
 .-m-12 {
   margin: -3rem;
 }
 
+.-m-14 {
+  margin: -3.5rem;
+}
+
 .-m-16 {
   margin: -4rem;
+}
+
+.-m-18 {
+  margin: -4.5rem;
 }
 
 .-m-20 {
@@ -6156,8 +6437,16 @@ form.is-dark .form-control {
   margin: -16rem;
 }
 
+.-m-auto {
+  margin: -auto;
+}
+
 .-m-px {
   margin: -1px;
+}
+
+.-m-2px {
+  margin: -2px;
 }
 
 .-my-0 {
@@ -6230,6 +6519,16 @@ form.is-dark .form-control {
   margin-right: -1.5rem;
 }
 
+.-my-7 {
+  margin-top: -1.75rem;
+  margin-bottom: -1.75rem;
+}
+
+.-mx-7 {
+  margin-left: -1.75rem;
+  margin-right: -1.75rem;
+}
+
 .-my-8 {
   margin-top: -2rem;
   margin-bottom: -2rem;
@@ -6238,6 +6537,16 @@ form.is-dark .form-control {
 .-mx-8 {
   margin-left: -2rem;
   margin-right: -2rem;
+}
+
+.-my-9 {
+  margin-top: -2.25rem;
+  margin-bottom: -2.25rem;
+}
+
+.-mx-9 {
+  margin-left: -2.25rem;
+  margin-right: -2.25rem;
 }
 
 .-my-10 {
@@ -6250,6 +6559,16 @@ form.is-dark .form-control {
   margin-right: -2.5rem;
 }
 
+.-my-11 {
+  margin-top: -2.75rem;
+  margin-bottom: -2.75rem;
+}
+
+.-mx-11 {
+  margin-left: -2.75rem;
+  margin-right: -2.75rem;
+}
+
 .-my-12 {
   margin-top: -3rem;
   margin-bottom: -3rem;
@@ -6260,6 +6579,16 @@ form.is-dark .form-control {
   margin-right: -3rem;
 }
 
+.-my-14 {
+  margin-top: -3.5rem;
+  margin-bottom: -3.5rem;
+}
+
+.-mx-14 {
+  margin-left: -3.5rem;
+  margin-right: -3.5rem;
+}
+
 .-my-16 {
   margin-top: -4rem;
   margin-bottom: -4rem;
@@ -6268,6 +6597,16 @@ form.is-dark .form-control {
 .-mx-16 {
   margin-left: -4rem;
   margin-right: -4rem;
+}
+
+.-my-18 {
+  margin-top: -4.5rem;
+  margin-bottom: -4.5rem;
+}
+
+.-mx-18 {
+  margin-left: -4.5rem;
+  margin-right: -4.5rem;
 }
 
 .-my-20 {
@@ -6330,6 +6669,16 @@ form.is-dark .form-control {
   margin-right: -16rem;
 }
 
+.-my-auto {
+  margin-top: -auto;
+  margin-bottom: -auto;
+}
+
+.-mx-auto {
+  margin-left: -auto;
+  margin-right: -auto;
+}
+
 .-my-px {
   margin-top: -1px;
   margin-bottom: -1px;
@@ -6338,6 +6687,16 @@ form.is-dark .form-control {
 .-mx-px {
   margin-left: -1px;
   margin-right: -1px;
+}
+
+.-my-2px {
+  margin-top: -2px;
+  margin-bottom: -2px;
+}
+
+.-mx-2px {
+  margin-left: -2px;
+  margin-right: -2px;
 }
 
 .-mt-0 {
@@ -6452,6 +6811,22 @@ form.is-dark .form-control {
   margin-left: -1.5rem;
 }
 
+.-mt-7 {
+  margin-top: -1.75rem;
+}
+
+.-mr-7 {
+  margin-right: -1.75rem;
+}
+
+.-mb-7 {
+  margin-bottom: -1.75rem;
+}
+
+.-ml-7 {
+  margin-left: -1.75rem;
+}
+
 .-mt-8 {
   margin-top: -2rem;
 }
@@ -6466,6 +6841,22 @@ form.is-dark .form-control {
 
 .-ml-8 {
   margin-left: -2rem;
+}
+
+.-mt-9 {
+  margin-top: -2.25rem;
+}
+
+.-mr-9 {
+  margin-right: -2.25rem;
+}
+
+.-mb-9 {
+  margin-bottom: -2.25rem;
+}
+
+.-ml-9 {
+  margin-left: -2.25rem;
 }
 
 .-mt-10 {
@@ -6484,6 +6875,22 @@ form.is-dark .form-control {
   margin-left: -2.5rem;
 }
 
+.-mt-11 {
+  margin-top: -2.75rem;
+}
+
+.-mr-11 {
+  margin-right: -2.75rem;
+}
+
+.-mb-11 {
+  margin-bottom: -2.75rem;
+}
+
+.-ml-11 {
+  margin-left: -2.75rem;
+}
+
 .-mt-12 {
   margin-top: -3rem;
 }
@@ -6500,6 +6907,22 @@ form.is-dark .form-control {
   margin-left: -3rem;
 }
 
+.-mt-14 {
+  margin-top: -3.5rem;
+}
+
+.-mr-14 {
+  margin-right: -3.5rem;
+}
+
+.-mb-14 {
+  margin-bottom: -3.5rem;
+}
+
+.-ml-14 {
+  margin-left: -3.5rem;
+}
+
 .-mt-16 {
   margin-top: -4rem;
 }
@@ -6514,6 +6937,22 @@ form.is-dark .form-control {
 
 .-ml-16 {
   margin-left: -4rem;
+}
+
+.-mt-18 {
+  margin-top: -4.5rem;
+}
+
+.-mr-18 {
+  margin-right: -4.5rem;
+}
+
+.-mb-18 {
+  margin-bottom: -4.5rem;
+}
+
+.-ml-18 {
+  margin-left: -4.5rem;
 }
 
 .-mt-20 {
@@ -6612,6 +7051,22 @@ form.is-dark .form-control {
   margin-left: -16rem;
 }
 
+.-mt-auto {
+  margin-top: -auto;
+}
+
+.-mr-auto {
+  margin-right: -auto;
+}
+
+.-mb-auto {
+  margin-bottom: -auto;
+}
+
+.-ml-auto {
+  margin-left: -auto;
+}
+
 .-mt-px {
   margin-top: -1px;
 }
@@ -6626,6 +7081,22 @@ form.is-dark .form-control {
 
 .-ml-px {
   margin-left: -1px;
+}
+
+.-mt-2px {
+  margin-top: -2px;
+}
+
+.-mr-2px {
+  margin-right: -2px;
+}
+
+.-mb-2px {
+  margin-bottom: -2px;
+}
+
+.-ml-2px {
+  margin-left: -2px;
 }
 
 .opacity-0 {
@@ -6710,20 +7181,40 @@ form.is-dark .form-control {
   padding: 1.5rem;
 }
 
+.p-7 {
+  padding: 1.75rem;
+}
+
 .p-8 {
   padding: 2rem;
+}
+
+.p-9 {
+  padding: 2.25rem;
 }
 
 .p-10 {
   padding: 2.5rem;
 }
 
+.p-11 {
+  padding: 2.75rem;
+}
+
 .p-12 {
   padding: 3rem;
 }
 
+.p-14 {
+  padding: 3.5rem;
+}
+
 .p-16 {
   padding: 4rem;
+}
+
+.p-18 {
+  padding: 4.5rem;
 }
 
 .p-20 {
@@ -6750,8 +7241,16 @@ form.is-dark .form-control {
   padding: 16rem;
 }
 
+.p-auto {
+  padding: auto;
+}
+
 .p-px {
   padding: 1px;
+}
+
+.p-2px {
+  padding: 2px;
 }
 
 .py-0 {
@@ -6824,6 +7323,16 @@ form.is-dark .form-control {
   padding-right: 1.5rem;
 }
 
+.py-7 {
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
+}
+
+.px-7 {
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+}
+
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -6832,6 +7341,16 @@ form.is-dark .form-control {
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
+}
+
+.py-9 {
+  padding-top: 2.25rem;
+  padding-bottom: 2.25rem;
+}
+
+.px-9 {
+  padding-left: 2.25rem;
+  padding-right: 2.25rem;
 }
 
 .py-10 {
@@ -6844,6 +7363,16 @@ form.is-dark .form-control {
   padding-right: 2.5rem;
 }
 
+.py-11 {
+  padding-top: 2.75rem;
+  padding-bottom: 2.75rem;
+}
+
+.px-11 {
+  padding-left: 2.75rem;
+  padding-right: 2.75rem;
+}
+
 .py-12 {
   padding-top: 3rem;
   padding-bottom: 3rem;
@@ -6854,6 +7383,16 @@ form.is-dark .form-control {
   padding-right: 3rem;
 }
 
+.py-14 {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+
+.px-14 {
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+}
+
 .py-16 {
   padding-top: 4rem;
   padding-bottom: 4rem;
@@ -6862,6 +7401,16 @@ form.is-dark .form-control {
 .px-16 {
   padding-left: 4rem;
   padding-right: 4rem;
+}
+
+.py-18 {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
+.px-18 {
+  padding-left: 4.5rem;
+  padding-right: 4.5rem;
 }
 
 .py-20 {
@@ -6924,6 +7473,16 @@ form.is-dark .form-control {
   padding-right: 16rem;
 }
 
+.py-auto {
+  padding-top: auto;
+  padding-bottom: auto;
+}
+
+.px-auto {
+  padding-left: auto;
+  padding-right: auto;
+}
+
 .py-px {
   padding-top: 1px;
   padding-bottom: 1px;
@@ -6932,6 +7491,16 @@ form.is-dark .form-control {
 .px-px {
   padding-left: 1px;
   padding-right: 1px;
+}
+
+.py-2px {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.px-2px {
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
 .pt-0 {
@@ -7046,6 +7615,22 @@ form.is-dark .form-control {
   padding-left: 1.5rem;
 }
 
+.pt-7 {
+  padding-top: 1.75rem;
+}
+
+.pr-7 {
+  padding-right: 1.75rem;
+}
+
+.pb-7 {
+  padding-bottom: 1.75rem;
+}
+
+.pl-7 {
+  padding-left: 1.75rem;
+}
+
 .pt-8 {
   padding-top: 2rem;
 }
@@ -7060,6 +7645,22 @@ form.is-dark .form-control {
 
 .pl-8 {
   padding-left: 2rem;
+}
+
+.pt-9 {
+  padding-top: 2.25rem;
+}
+
+.pr-9 {
+  padding-right: 2.25rem;
+}
+
+.pb-9 {
+  padding-bottom: 2.25rem;
+}
+
+.pl-9 {
+  padding-left: 2.25rem;
 }
 
 .pt-10 {
@@ -7078,6 +7679,22 @@ form.is-dark .form-control {
   padding-left: 2.5rem;
 }
 
+.pt-11 {
+  padding-top: 2.75rem;
+}
+
+.pr-11 {
+  padding-right: 2.75rem;
+}
+
+.pb-11 {
+  padding-bottom: 2.75rem;
+}
+
+.pl-11 {
+  padding-left: 2.75rem;
+}
+
 .pt-12 {
   padding-top: 3rem;
 }
@@ -7094,6 +7711,22 @@ form.is-dark .form-control {
   padding-left: 3rem;
 }
 
+.pt-14 {
+  padding-top: 3.5rem;
+}
+
+.pr-14 {
+  padding-right: 3.5rem;
+}
+
+.pb-14 {
+  padding-bottom: 3.5rem;
+}
+
+.pl-14 {
+  padding-left: 3.5rem;
+}
+
 .pt-16 {
   padding-top: 4rem;
 }
@@ -7108,6 +7741,22 @@ form.is-dark .form-control {
 
 .pl-16 {
   padding-left: 4rem;
+}
+
+.pt-18 {
+  padding-top: 4.5rem;
+}
+
+.pr-18 {
+  padding-right: 4.5rem;
+}
+
+.pb-18 {
+  padding-bottom: 4.5rem;
+}
+
+.pl-18 {
+  padding-left: 4.5rem;
 }
 
 .pt-20 {
@@ -7206,6 +7855,22 @@ form.is-dark .form-control {
   padding-left: 16rem;
 }
 
+.pt-auto {
+  padding-top: auto;
+}
+
+.pr-auto {
+  padding-right: auto;
+}
+
+.pb-auto {
+  padding-bottom: auto;
+}
+
+.pl-auto {
+  padding-left: auto;
+}
+
 .pt-px {
   padding-top: 1px;
 }
@@ -7220,6 +7885,22 @@ form.is-dark .form-control {
 
 .pl-px {
   padding-left: 1px;
+}
+
+.pt-2px {
+  padding-top: 2px;
+}
+
+.pr-2px {
+  padding-right: 2px;
+}
+
+.pb-2px {
+  padding-bottom: 2px;
+}
+
+.pl-2px {
+  padding-left: 2px;
 }
 
 .pointer-events-none {
@@ -8439,6 +9120,10 @@ form.is-dark .form-control {
   white-space: nowrap;
 }
 
+.w-0 {
+  width: 0;
+}
+
 .w-1 {
   width: .25rem;
 }
@@ -8463,12 +9148,24 @@ form.is-dark .form-control {
   width: 1.5rem;
 }
 
+.w-7 {
+  width: 1.75rem;
+}
+
 .w-8 {
   width: 2rem;
 }
 
+.w-9 {
+  width: 2.25rem;
+}
+
 .w-10 {
   width: 2.5rem;
+}
+
+.w-11 {
+  width: 2.75rem;
 }
 
 .w-12 {
@@ -8481,6 +9178,10 @@ form.is-dark .form-control {
 
 .w-16 {
   width: 4rem;
+}
+
+.w-18 {
+  width: 4.5rem;
 }
 
 .w-20 {
@@ -8509,10 +9210,6 @@ form.is-dark .form-control {
 
 .w-auto {
   width: auto;
-}
-
-.w-px {
-  width: 1px;
 }
 
 .w-1\/2 {
@@ -8565,6 +9262,14 @@ form.is-dark .form-control {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-px {
+  width: 1px;
+}
+
+.w-2px {
+  width: 2px;
 }
 
 .z-0 {
@@ -11260,6 +11965,10 @@ form.is-dark .form-control {
     font-weight: 900;
   }
 
+  .sm\:h-0 {
+    height: 0;
+  }
+
   .sm\:h-1 {
     height: .25rem;
   }
@@ -11284,12 +11993,24 @@ form.is-dark .form-control {
     height: 1.5rem;
   }
 
+  .sm\:h-7 {
+    height: 1.75rem;
+  }
+
   .sm\:h-8 {
     height: 2rem;
   }
 
+  .sm\:h-9 {
+    height: 2.25rem;
+  }
+
   .sm\:h-10 {
     height: 2.5rem;
+  }
+
+  .sm\:h-11 {
+    height: 2.75rem;
   }
 
   .sm\:h-12 {
@@ -11302,6 +12023,10 @@ form.is-dark .form-control {
 
   .sm\:h-16 {
     height: 4rem;
+  }
+
+  .sm\:h-18 {
+    height: 4.5rem;
   }
 
   .sm\:h-20 {
@@ -11332,16 +12057,20 @@ form.is-dark .form-control {
     height: auto;
   }
 
-  .sm\:h-px {
-    height: 1px;
-  }
-
   .sm\:h-full {
     height: 100%;
   }
 
   .sm\:h-screen {
     height: 100vh;
+  }
+
+  .sm\:h-px {
+    height: 1px;
+  }
+
+  .sm\:h-2px {
+    height: 2px;
   }
 
   .sm\:leading-0 {
@@ -11392,20 +12121,40 @@ form.is-dark .form-control {
     margin: 1.5rem;
   }
 
+  .sm\:m-7 {
+    margin: 1.75rem;
+  }
+
   .sm\:m-8 {
     margin: 2rem;
+  }
+
+  .sm\:m-9 {
+    margin: 2.25rem;
   }
 
   .sm\:m-10 {
     margin: 2.5rem;
   }
 
+  .sm\:m-11 {
+    margin: 2.75rem;
+  }
+
   .sm\:m-12 {
     margin: 3rem;
   }
 
+  .sm\:m-14 {
+    margin: 3.5rem;
+  }
+
   .sm\:m-16 {
     margin: 4rem;
+  }
+
+  .sm\:m-18 {
+    margin: 4.5rem;
   }
 
   .sm\:m-20 {
@@ -11438,6 +12187,10 @@ form.is-dark .form-control {
 
   .sm\:m-px {
     margin: 1px;
+  }
+
+  .sm\:m-2px {
+    margin: 2px;
   }
 
   .sm\:my-0 {
@@ -11510,6 +12263,16 @@ form.is-dark .form-control {
     margin-right: 1.5rem;
   }
 
+  .sm\:my-7 {
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .sm\:mx-7 {
+    margin-left: 1.75rem;
+    margin-right: 1.75rem;
+  }
+
   .sm\:my-8 {
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -11518,6 +12281,16 @@ form.is-dark .form-control {
   .sm\:mx-8 {
     margin-left: 2rem;
     margin-right: 2rem;
+  }
+
+  .sm\:my-9 {
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .sm\:mx-9 {
+    margin-left: 2.25rem;
+    margin-right: 2.25rem;
   }
 
   .sm\:my-10 {
@@ -11530,6 +12303,16 @@ form.is-dark .form-control {
     margin-right: 2.5rem;
   }
 
+  .sm\:my-11 {
+    margin-top: 2.75rem;
+    margin-bottom: 2.75rem;
+  }
+
+  .sm\:mx-11 {
+    margin-left: 2.75rem;
+    margin-right: 2.75rem;
+  }
+
   .sm\:my-12 {
     margin-top: 3rem;
     margin-bottom: 3rem;
@@ -11540,6 +12323,16 @@ form.is-dark .form-control {
     margin-right: 3rem;
   }
 
+  .sm\:my-14 {
+    margin-top: 3.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .sm\:mx-14 {
+    margin-left: 3.5rem;
+    margin-right: 3.5rem;
+  }
+
   .sm\:my-16 {
     margin-top: 4rem;
     margin-bottom: 4rem;
@@ -11548,6 +12341,16 @@ form.is-dark .form-control {
   .sm\:mx-16 {
     margin-left: 4rem;
     margin-right: 4rem;
+  }
+
+  .sm\:my-18 {
+    margin-top: 4.5rem;
+    margin-bottom: 4.5rem;
+  }
+
+  .sm\:mx-18 {
+    margin-left: 4.5rem;
+    margin-right: 4.5rem;
   }
 
   .sm\:my-20 {
@@ -11628,6 +12431,16 @@ form.is-dark .form-control {
   .sm\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
+  }
+
+  .sm\:my-2px {
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+
+  .sm\:mx-2px {
+    margin-left: 2px;
+    margin-right: 2px;
   }
 
   .sm\:mt-0 {
@@ -11742,6 +12555,22 @@ form.is-dark .form-control {
     margin-left: 1.5rem;
   }
 
+  .sm\:mt-7 {
+    margin-top: 1.75rem;
+  }
+
+  .sm\:mr-7 {
+    margin-right: 1.75rem;
+  }
+
+  .sm\:mb-7 {
+    margin-bottom: 1.75rem;
+  }
+
+  .sm\:ml-7 {
+    margin-left: 1.75rem;
+  }
+
   .sm\:mt-8 {
     margin-top: 2rem;
   }
@@ -11756,6 +12585,22 @@ form.is-dark .form-control {
 
   .sm\:ml-8 {
     margin-left: 2rem;
+  }
+
+  .sm\:mt-9 {
+    margin-top: 2.25rem;
+  }
+
+  .sm\:mr-9 {
+    margin-right: 2.25rem;
+  }
+
+  .sm\:mb-9 {
+    margin-bottom: 2.25rem;
+  }
+
+  .sm\:ml-9 {
+    margin-left: 2.25rem;
   }
 
   .sm\:mt-10 {
@@ -11774,6 +12619,22 @@ form.is-dark .form-control {
     margin-left: 2.5rem;
   }
 
+  .sm\:mt-11 {
+    margin-top: 2.75rem;
+  }
+
+  .sm\:mr-11 {
+    margin-right: 2.75rem;
+  }
+
+  .sm\:mb-11 {
+    margin-bottom: 2.75rem;
+  }
+
+  .sm\:ml-11 {
+    margin-left: 2.75rem;
+  }
+
   .sm\:mt-12 {
     margin-top: 3rem;
   }
@@ -11790,6 +12651,22 @@ form.is-dark .form-control {
     margin-left: 3rem;
   }
 
+  .sm\:mt-14 {
+    margin-top: 3.5rem;
+  }
+
+  .sm\:mr-14 {
+    margin-right: 3.5rem;
+  }
+
+  .sm\:mb-14 {
+    margin-bottom: 3.5rem;
+  }
+
+  .sm\:ml-14 {
+    margin-left: 3.5rem;
+  }
+
   .sm\:mt-16 {
     margin-top: 4rem;
   }
@@ -11804,6 +12681,22 @@ form.is-dark .form-control {
 
   .sm\:ml-16 {
     margin-left: 4rem;
+  }
+
+  .sm\:mt-18 {
+    margin-top: 4.5rem;
+  }
+
+  .sm\:mr-18 {
+    margin-right: 4.5rem;
+  }
+
+  .sm\:mb-18 {
+    margin-bottom: 4.5rem;
+  }
+
+  .sm\:ml-18 {
+    margin-left: 4.5rem;
   }
 
   .sm\:mt-20 {
@@ -11934,6 +12827,22 @@ form.is-dark .form-control {
     margin-left: 1px;
   }
 
+  .sm\:mt-2px {
+    margin-top: 2px;
+  }
+
+  .sm\:mr-2px {
+    margin-right: 2px;
+  }
+
+  .sm\:mb-2px {
+    margin-bottom: 2px;
+  }
+
+  .sm\:ml-2px {
+    margin-left: 2px;
+  }
+
   .sm\:max-h-full {
     max-height: 100%;
   }
@@ -12010,12 +12919,24 @@ form.is-dark .form-control {
     min-height: 1.5rem;
   }
 
+  .sm\:min-h-7 {
+    min-height: 1.75rem;
+  }
+
   .sm\:min-h-8 {
     min-height: 2rem;
   }
 
+  .sm\:min-h-9 {
+    min-height: 2.25rem;
+  }
+
   .sm\:min-h-10 {
     min-height: 2.5rem;
+  }
+
+  .sm\:min-h-11 {
+    min-height: 2.75rem;
   }
 
   .sm\:min-h-12 {
@@ -12028,6 +12949,10 @@ form.is-dark .form-control {
 
   .sm\:min-h-16 {
     min-height: 4rem;
+  }
+
+  .sm\:min-h-18 {
+    min-height: 4.5rem;
   }
 
   .sm\:min-h-20 {
@@ -12062,6 +12987,18 @@ form.is-dark .form-control {
     min-height: 100vh;
   }
 
+  .sm\:min-h-auto {
+    min-height: auto;
+  }
+
+  .sm\:min-h-px {
+    min-height: 1px;
+  }
+
+  .sm\:min-h-2px {
+    min-height: 2px;
+  }
+
   .sm\:min-w-0 {
     min-width: 0;
   }
@@ -12090,12 +13027,24 @@ form.is-dark .form-control {
     min-width: 1.5rem;
   }
 
+  .sm\:min-w-7 {
+    min-width: 1.75rem;
+  }
+
   .sm\:min-w-8 {
     min-width: 2rem;
   }
 
+  .sm\:min-w-9 {
+    min-width: 2.25rem;
+  }
+
   .sm\:min-w-10 {
     min-width: 2.5rem;
+  }
+
+  .sm\:min-w-11 {
+    min-width: 2.75rem;
   }
 
   .sm\:min-w-12 {
@@ -12108,6 +13057,10 @@ form.is-dark .form-control {
 
   .sm\:min-w-16 {
     min-width: 4rem;
+  }
+
+  .sm\:min-w-18 {
+    min-width: 4.5rem;
   }
 
   .sm\:min-w-20 {
@@ -12138,6 +13091,18 @@ form.is-dark .form-control {
     min-width: 100%;
   }
 
+  .sm\:min-w-auto {
+    min-width: auto;
+  }
+
+  .sm\:min-w-px {
+    min-width: 1px;
+  }
+
+  .sm\:min-w-2px {
+    min-width: 2px;
+  }
+
   .sm\:-m-0 {
     margin: 0;
   }
@@ -12166,20 +13131,40 @@ form.is-dark .form-control {
     margin: -1.5rem;
   }
 
+  .sm\:-m-7 {
+    margin: -1.75rem;
+  }
+
   .sm\:-m-8 {
     margin: -2rem;
+  }
+
+  .sm\:-m-9 {
+    margin: -2.25rem;
   }
 
   .sm\:-m-10 {
     margin: -2.5rem;
   }
 
+  .sm\:-m-11 {
+    margin: -2.75rem;
+  }
+
   .sm\:-m-12 {
     margin: -3rem;
   }
 
+  .sm\:-m-14 {
+    margin: -3.5rem;
+  }
+
   .sm\:-m-16 {
     margin: -4rem;
+  }
+
+  .sm\:-m-18 {
+    margin: -4.5rem;
   }
 
   .sm\:-m-20 {
@@ -12206,8 +13191,16 @@ form.is-dark .form-control {
     margin: -16rem;
   }
 
+  .sm\:-m-auto {
+    margin: -auto;
+  }
+
   .sm\:-m-px {
     margin: -1px;
+  }
+
+  .sm\:-m-2px {
+    margin: -2px;
   }
 
   .sm\:-my-0 {
@@ -12280,6 +13273,16 @@ form.is-dark .form-control {
     margin-right: -1.5rem;
   }
 
+  .sm\:-my-7 {
+    margin-top: -1.75rem;
+    margin-bottom: -1.75rem;
+  }
+
+  .sm\:-mx-7 {
+    margin-left: -1.75rem;
+    margin-right: -1.75rem;
+  }
+
   .sm\:-my-8 {
     margin-top: -2rem;
     margin-bottom: -2rem;
@@ -12288,6 +13291,16 @@ form.is-dark .form-control {
   .sm\:-mx-8 {
     margin-left: -2rem;
     margin-right: -2rem;
+  }
+
+  .sm\:-my-9 {
+    margin-top: -2.25rem;
+    margin-bottom: -2.25rem;
+  }
+
+  .sm\:-mx-9 {
+    margin-left: -2.25rem;
+    margin-right: -2.25rem;
   }
 
   .sm\:-my-10 {
@@ -12300,6 +13313,16 @@ form.is-dark .form-control {
     margin-right: -2.5rem;
   }
 
+  .sm\:-my-11 {
+    margin-top: -2.75rem;
+    margin-bottom: -2.75rem;
+  }
+
+  .sm\:-mx-11 {
+    margin-left: -2.75rem;
+    margin-right: -2.75rem;
+  }
+
   .sm\:-my-12 {
     margin-top: -3rem;
     margin-bottom: -3rem;
@@ -12310,6 +13333,16 @@ form.is-dark .form-control {
     margin-right: -3rem;
   }
 
+  .sm\:-my-14 {
+    margin-top: -3.5rem;
+    margin-bottom: -3.5rem;
+  }
+
+  .sm\:-mx-14 {
+    margin-left: -3.5rem;
+    margin-right: -3.5rem;
+  }
+
   .sm\:-my-16 {
     margin-top: -4rem;
     margin-bottom: -4rem;
@@ -12318,6 +13351,16 @@ form.is-dark .form-control {
   .sm\:-mx-16 {
     margin-left: -4rem;
     margin-right: -4rem;
+  }
+
+  .sm\:-my-18 {
+    margin-top: -4.5rem;
+    margin-bottom: -4.5rem;
+  }
+
+  .sm\:-mx-18 {
+    margin-left: -4.5rem;
+    margin-right: -4.5rem;
   }
 
   .sm\:-my-20 {
@@ -12380,6 +13423,16 @@ form.is-dark .form-control {
     margin-right: -16rem;
   }
 
+  .sm\:-my-auto {
+    margin-top: -auto;
+    margin-bottom: -auto;
+  }
+
+  .sm\:-mx-auto {
+    margin-left: -auto;
+    margin-right: -auto;
+  }
+
   .sm\:-my-px {
     margin-top: -1px;
     margin-bottom: -1px;
@@ -12388,6 +13441,16 @@ form.is-dark .form-control {
   .sm\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
+  }
+
+  .sm\:-my-2px {
+    margin-top: -2px;
+    margin-bottom: -2px;
+  }
+
+  .sm\:-mx-2px {
+    margin-left: -2px;
+    margin-right: -2px;
   }
 
   .sm\:-mt-0 {
@@ -12502,6 +13565,22 @@ form.is-dark .form-control {
     margin-left: -1.5rem;
   }
 
+  .sm\:-mt-7 {
+    margin-top: -1.75rem;
+  }
+
+  .sm\:-mr-7 {
+    margin-right: -1.75rem;
+  }
+
+  .sm\:-mb-7 {
+    margin-bottom: -1.75rem;
+  }
+
+  .sm\:-ml-7 {
+    margin-left: -1.75rem;
+  }
+
   .sm\:-mt-8 {
     margin-top: -2rem;
   }
@@ -12516,6 +13595,22 @@ form.is-dark .form-control {
 
   .sm\:-ml-8 {
     margin-left: -2rem;
+  }
+
+  .sm\:-mt-9 {
+    margin-top: -2.25rem;
+  }
+
+  .sm\:-mr-9 {
+    margin-right: -2.25rem;
+  }
+
+  .sm\:-mb-9 {
+    margin-bottom: -2.25rem;
+  }
+
+  .sm\:-ml-9 {
+    margin-left: -2.25rem;
   }
 
   .sm\:-mt-10 {
@@ -12534,6 +13629,22 @@ form.is-dark .form-control {
     margin-left: -2.5rem;
   }
 
+  .sm\:-mt-11 {
+    margin-top: -2.75rem;
+  }
+
+  .sm\:-mr-11 {
+    margin-right: -2.75rem;
+  }
+
+  .sm\:-mb-11 {
+    margin-bottom: -2.75rem;
+  }
+
+  .sm\:-ml-11 {
+    margin-left: -2.75rem;
+  }
+
   .sm\:-mt-12 {
     margin-top: -3rem;
   }
@@ -12550,6 +13661,22 @@ form.is-dark .form-control {
     margin-left: -3rem;
   }
 
+  .sm\:-mt-14 {
+    margin-top: -3.5rem;
+  }
+
+  .sm\:-mr-14 {
+    margin-right: -3.5rem;
+  }
+
+  .sm\:-mb-14 {
+    margin-bottom: -3.5rem;
+  }
+
+  .sm\:-ml-14 {
+    margin-left: -3.5rem;
+  }
+
   .sm\:-mt-16 {
     margin-top: -4rem;
   }
@@ -12564,6 +13691,22 @@ form.is-dark .form-control {
 
   .sm\:-ml-16 {
     margin-left: -4rem;
+  }
+
+  .sm\:-mt-18 {
+    margin-top: -4.5rem;
+  }
+
+  .sm\:-mr-18 {
+    margin-right: -4.5rem;
+  }
+
+  .sm\:-mb-18 {
+    margin-bottom: -4.5rem;
+  }
+
+  .sm\:-ml-18 {
+    margin-left: -4.5rem;
   }
 
   .sm\:-mt-20 {
@@ -12662,6 +13805,22 @@ form.is-dark .form-control {
     margin-left: -16rem;
   }
 
+  .sm\:-mt-auto {
+    margin-top: -auto;
+  }
+
+  .sm\:-mr-auto {
+    margin-right: -auto;
+  }
+
+  .sm\:-mb-auto {
+    margin-bottom: -auto;
+  }
+
+  .sm\:-ml-auto {
+    margin-left: -auto;
+  }
+
   .sm\:-mt-px {
     margin-top: -1px;
   }
@@ -12676,6 +13835,22 @@ form.is-dark .form-control {
 
   .sm\:-ml-px {
     margin-left: -1px;
+  }
+
+  .sm\:-mt-2px {
+    margin-top: -2px;
+  }
+
+  .sm\:-mr-2px {
+    margin-right: -2px;
+  }
+
+  .sm\:-mb-2px {
+    margin-bottom: -2px;
+  }
+
+  .sm\:-ml-2px {
+    margin-left: -2px;
   }
 
   .sm\:opacity-0 {
@@ -12760,20 +13935,40 @@ form.is-dark .form-control {
     padding: 1.5rem;
   }
 
+  .sm\:p-7 {
+    padding: 1.75rem;
+  }
+
   .sm\:p-8 {
     padding: 2rem;
+  }
+
+  .sm\:p-9 {
+    padding: 2.25rem;
   }
 
   .sm\:p-10 {
     padding: 2.5rem;
   }
 
+  .sm\:p-11 {
+    padding: 2.75rem;
+  }
+
   .sm\:p-12 {
     padding: 3rem;
   }
 
+  .sm\:p-14 {
+    padding: 3.5rem;
+  }
+
   .sm\:p-16 {
     padding: 4rem;
+  }
+
+  .sm\:p-18 {
+    padding: 4.5rem;
   }
 
   .sm\:p-20 {
@@ -12800,8 +13995,16 @@ form.is-dark .form-control {
     padding: 16rem;
   }
 
+  .sm\:p-auto {
+    padding: auto;
+  }
+
   .sm\:p-px {
     padding: 1px;
+  }
+
+  .sm\:p-2px {
+    padding: 2px;
   }
 
   .sm\:py-0 {
@@ -12874,6 +14077,16 @@ form.is-dark .form-control {
     padding-right: 1.5rem;
   }
 
+  .sm\:py-7 {
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+  }
+
+  .sm\:px-7 {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+  }
+
   .sm\:py-8 {
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -12882,6 +14095,16 @@ form.is-dark .form-control {
   .sm\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .sm\:py-9 {
+    padding-top: 2.25rem;
+    padding-bottom: 2.25rem;
+  }
+
+  .sm\:px-9 {
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
   }
 
   .sm\:py-10 {
@@ -12894,6 +14117,16 @@ form.is-dark .form-control {
     padding-right: 2.5rem;
   }
 
+  .sm\:py-11 {
+    padding-top: 2.75rem;
+    padding-bottom: 2.75rem;
+  }
+
+  .sm\:px-11 {
+    padding-left: 2.75rem;
+    padding-right: 2.75rem;
+  }
+
   .sm\:py-12 {
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -12904,6 +14137,16 @@ form.is-dark .form-control {
     padding-right: 3rem;
   }
 
+  .sm\:py-14 {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .sm\:px-14 {
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+  }
+
   .sm\:py-16 {
     padding-top: 4rem;
     padding-bottom: 4rem;
@@ -12912,6 +14155,16 @@ form.is-dark .form-control {
   .sm\:px-16 {
     padding-left: 4rem;
     padding-right: 4rem;
+  }
+
+  .sm\:py-18 {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+
+  .sm\:px-18 {
+    padding-left: 4.5rem;
+    padding-right: 4.5rem;
   }
 
   .sm\:py-20 {
@@ -12974,6 +14227,16 @@ form.is-dark .form-control {
     padding-right: 16rem;
   }
 
+  .sm\:py-auto {
+    padding-top: auto;
+    padding-bottom: auto;
+  }
+
+  .sm\:px-auto {
+    padding-left: auto;
+    padding-right: auto;
+  }
+
   .sm\:py-px {
     padding-top: 1px;
     padding-bottom: 1px;
@@ -12982,6 +14245,16 @@ form.is-dark .form-control {
   .sm\:px-px {
     padding-left: 1px;
     padding-right: 1px;
+  }
+
+  .sm\:py-2px {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  .sm\:px-2px {
+    padding-left: 2px;
+    padding-right: 2px;
   }
 
   .sm\:pt-0 {
@@ -13096,6 +14369,22 @@ form.is-dark .form-control {
     padding-left: 1.5rem;
   }
 
+  .sm\:pt-7 {
+    padding-top: 1.75rem;
+  }
+
+  .sm\:pr-7 {
+    padding-right: 1.75rem;
+  }
+
+  .sm\:pb-7 {
+    padding-bottom: 1.75rem;
+  }
+
+  .sm\:pl-7 {
+    padding-left: 1.75rem;
+  }
+
   .sm\:pt-8 {
     padding-top: 2rem;
   }
@@ -13110,6 +14399,22 @@ form.is-dark .form-control {
 
   .sm\:pl-8 {
     padding-left: 2rem;
+  }
+
+  .sm\:pt-9 {
+    padding-top: 2.25rem;
+  }
+
+  .sm\:pr-9 {
+    padding-right: 2.25rem;
+  }
+
+  .sm\:pb-9 {
+    padding-bottom: 2.25rem;
+  }
+
+  .sm\:pl-9 {
+    padding-left: 2.25rem;
   }
 
   .sm\:pt-10 {
@@ -13128,6 +14433,22 @@ form.is-dark .form-control {
     padding-left: 2.5rem;
   }
 
+  .sm\:pt-11 {
+    padding-top: 2.75rem;
+  }
+
+  .sm\:pr-11 {
+    padding-right: 2.75rem;
+  }
+
+  .sm\:pb-11 {
+    padding-bottom: 2.75rem;
+  }
+
+  .sm\:pl-11 {
+    padding-left: 2.75rem;
+  }
+
   .sm\:pt-12 {
     padding-top: 3rem;
   }
@@ -13144,6 +14465,22 @@ form.is-dark .form-control {
     padding-left: 3rem;
   }
 
+  .sm\:pt-14 {
+    padding-top: 3.5rem;
+  }
+
+  .sm\:pr-14 {
+    padding-right: 3.5rem;
+  }
+
+  .sm\:pb-14 {
+    padding-bottom: 3.5rem;
+  }
+
+  .sm\:pl-14 {
+    padding-left: 3.5rem;
+  }
+
   .sm\:pt-16 {
     padding-top: 4rem;
   }
@@ -13158,6 +14495,22 @@ form.is-dark .form-control {
 
   .sm\:pl-16 {
     padding-left: 4rem;
+  }
+
+  .sm\:pt-18 {
+    padding-top: 4.5rem;
+  }
+
+  .sm\:pr-18 {
+    padding-right: 4.5rem;
+  }
+
+  .sm\:pb-18 {
+    padding-bottom: 4.5rem;
+  }
+
+  .sm\:pl-18 {
+    padding-left: 4.5rem;
   }
 
   .sm\:pt-20 {
@@ -13256,6 +14609,22 @@ form.is-dark .form-control {
     padding-left: 16rem;
   }
 
+  .sm\:pt-auto {
+    padding-top: auto;
+  }
+
+  .sm\:pr-auto {
+    padding-right: auto;
+  }
+
+  .sm\:pb-auto {
+    padding-bottom: auto;
+  }
+
+  .sm\:pl-auto {
+    padding-left: auto;
+  }
+
   .sm\:pt-px {
     padding-top: 1px;
   }
@@ -13270,6 +14639,22 @@ form.is-dark .form-control {
 
   .sm\:pl-px {
     padding-left: 1px;
+  }
+
+  .sm\:pt-2px {
+    padding-top: 2px;
+  }
+
+  .sm\:pr-2px {
+    padding-right: 2px;
+  }
+
+  .sm\:pb-2px {
+    padding-bottom: 2px;
+  }
+
+  .sm\:pl-2px {
+    padding-left: 2px;
   }
 
   .sm\:pointer-events-none {
@@ -14481,6 +15866,10 @@ form.is-dark .form-control {
     white-space: nowrap;
   }
 
+  .sm\:w-0 {
+    width: 0;
+  }
+
   .sm\:w-1 {
     width: .25rem;
   }
@@ -14505,12 +15894,24 @@ form.is-dark .form-control {
     width: 1.5rem;
   }
 
+  .sm\:w-7 {
+    width: 1.75rem;
+  }
+
   .sm\:w-8 {
     width: 2rem;
   }
 
+  .sm\:w-9 {
+    width: 2.25rem;
+  }
+
   .sm\:w-10 {
     width: 2.5rem;
+  }
+
+  .sm\:w-11 {
+    width: 2.75rem;
   }
 
   .sm\:w-12 {
@@ -14523,6 +15924,10 @@ form.is-dark .form-control {
 
   .sm\:w-16 {
     width: 4rem;
+  }
+
+  .sm\:w-18 {
+    width: 4.5rem;
   }
 
   .sm\:w-20 {
@@ -14551,10 +15956,6 @@ form.is-dark .form-control {
 
   .sm\:w-auto {
     width: auto;
-  }
-
-  .sm\:w-px {
-    width: 1px;
   }
 
   .sm\:w-1\/2 {
@@ -14607,6 +16008,14 @@ form.is-dark .form-control {
 
   .sm\:w-screen {
     width: 100vw;
+  }
+
+  .sm\:w-px {
+    width: 1px;
+  }
+
+  .sm\:w-2px {
+    width: 2px;
   }
 
   .sm\:z-0 {
@@ -17303,6 +18712,10 @@ form.is-dark .form-control {
     font-weight: 900;
   }
 
+  .md\:h-0 {
+    height: 0;
+  }
+
   .md\:h-1 {
     height: .25rem;
   }
@@ -17327,12 +18740,24 @@ form.is-dark .form-control {
     height: 1.5rem;
   }
 
+  .md\:h-7 {
+    height: 1.75rem;
+  }
+
   .md\:h-8 {
     height: 2rem;
   }
 
+  .md\:h-9 {
+    height: 2.25rem;
+  }
+
   .md\:h-10 {
     height: 2.5rem;
+  }
+
+  .md\:h-11 {
+    height: 2.75rem;
   }
 
   .md\:h-12 {
@@ -17345,6 +18770,10 @@ form.is-dark .form-control {
 
   .md\:h-16 {
     height: 4rem;
+  }
+
+  .md\:h-18 {
+    height: 4.5rem;
   }
 
   .md\:h-20 {
@@ -17375,16 +18804,20 @@ form.is-dark .form-control {
     height: auto;
   }
 
-  .md\:h-px {
-    height: 1px;
-  }
-
   .md\:h-full {
     height: 100%;
   }
 
   .md\:h-screen {
     height: 100vh;
+  }
+
+  .md\:h-px {
+    height: 1px;
+  }
+
+  .md\:h-2px {
+    height: 2px;
   }
 
   .md\:leading-0 {
@@ -17435,20 +18868,40 @@ form.is-dark .form-control {
     margin: 1.5rem;
   }
 
+  .md\:m-7 {
+    margin: 1.75rem;
+  }
+
   .md\:m-8 {
     margin: 2rem;
+  }
+
+  .md\:m-9 {
+    margin: 2.25rem;
   }
 
   .md\:m-10 {
     margin: 2.5rem;
   }
 
+  .md\:m-11 {
+    margin: 2.75rem;
+  }
+
   .md\:m-12 {
     margin: 3rem;
   }
 
+  .md\:m-14 {
+    margin: 3.5rem;
+  }
+
   .md\:m-16 {
     margin: 4rem;
+  }
+
+  .md\:m-18 {
+    margin: 4.5rem;
   }
 
   .md\:m-20 {
@@ -17481,6 +18934,10 @@ form.is-dark .form-control {
 
   .md\:m-px {
     margin: 1px;
+  }
+
+  .md\:m-2px {
+    margin: 2px;
   }
 
   .md\:my-0 {
@@ -17553,6 +19010,16 @@ form.is-dark .form-control {
     margin-right: 1.5rem;
   }
 
+  .md\:my-7 {
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .md\:mx-7 {
+    margin-left: 1.75rem;
+    margin-right: 1.75rem;
+  }
+
   .md\:my-8 {
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -17561,6 +19028,16 @@ form.is-dark .form-control {
   .md\:mx-8 {
     margin-left: 2rem;
     margin-right: 2rem;
+  }
+
+  .md\:my-9 {
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .md\:mx-9 {
+    margin-left: 2.25rem;
+    margin-right: 2.25rem;
   }
 
   .md\:my-10 {
@@ -17573,6 +19050,16 @@ form.is-dark .form-control {
     margin-right: 2.5rem;
   }
 
+  .md\:my-11 {
+    margin-top: 2.75rem;
+    margin-bottom: 2.75rem;
+  }
+
+  .md\:mx-11 {
+    margin-left: 2.75rem;
+    margin-right: 2.75rem;
+  }
+
   .md\:my-12 {
     margin-top: 3rem;
     margin-bottom: 3rem;
@@ -17583,6 +19070,16 @@ form.is-dark .form-control {
     margin-right: 3rem;
   }
 
+  .md\:my-14 {
+    margin-top: 3.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .md\:mx-14 {
+    margin-left: 3.5rem;
+    margin-right: 3.5rem;
+  }
+
   .md\:my-16 {
     margin-top: 4rem;
     margin-bottom: 4rem;
@@ -17591,6 +19088,16 @@ form.is-dark .form-control {
   .md\:mx-16 {
     margin-left: 4rem;
     margin-right: 4rem;
+  }
+
+  .md\:my-18 {
+    margin-top: 4.5rem;
+    margin-bottom: 4.5rem;
+  }
+
+  .md\:mx-18 {
+    margin-left: 4.5rem;
+    margin-right: 4.5rem;
   }
 
   .md\:my-20 {
@@ -17671,6 +19178,16 @@ form.is-dark .form-control {
   .md\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
+  }
+
+  .md\:my-2px {
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+
+  .md\:mx-2px {
+    margin-left: 2px;
+    margin-right: 2px;
   }
 
   .md\:mt-0 {
@@ -17785,6 +19302,22 @@ form.is-dark .form-control {
     margin-left: 1.5rem;
   }
 
+  .md\:mt-7 {
+    margin-top: 1.75rem;
+  }
+
+  .md\:mr-7 {
+    margin-right: 1.75rem;
+  }
+
+  .md\:mb-7 {
+    margin-bottom: 1.75rem;
+  }
+
+  .md\:ml-7 {
+    margin-left: 1.75rem;
+  }
+
   .md\:mt-8 {
     margin-top: 2rem;
   }
@@ -17799,6 +19332,22 @@ form.is-dark .form-control {
 
   .md\:ml-8 {
     margin-left: 2rem;
+  }
+
+  .md\:mt-9 {
+    margin-top: 2.25rem;
+  }
+
+  .md\:mr-9 {
+    margin-right: 2.25rem;
+  }
+
+  .md\:mb-9 {
+    margin-bottom: 2.25rem;
+  }
+
+  .md\:ml-9 {
+    margin-left: 2.25rem;
   }
 
   .md\:mt-10 {
@@ -17817,6 +19366,22 @@ form.is-dark .form-control {
     margin-left: 2.5rem;
   }
 
+  .md\:mt-11 {
+    margin-top: 2.75rem;
+  }
+
+  .md\:mr-11 {
+    margin-right: 2.75rem;
+  }
+
+  .md\:mb-11 {
+    margin-bottom: 2.75rem;
+  }
+
+  .md\:ml-11 {
+    margin-left: 2.75rem;
+  }
+
   .md\:mt-12 {
     margin-top: 3rem;
   }
@@ -17833,6 +19398,22 @@ form.is-dark .form-control {
     margin-left: 3rem;
   }
 
+  .md\:mt-14 {
+    margin-top: 3.5rem;
+  }
+
+  .md\:mr-14 {
+    margin-right: 3.5rem;
+  }
+
+  .md\:mb-14 {
+    margin-bottom: 3.5rem;
+  }
+
+  .md\:ml-14 {
+    margin-left: 3.5rem;
+  }
+
   .md\:mt-16 {
     margin-top: 4rem;
   }
@@ -17847,6 +19428,22 @@ form.is-dark .form-control {
 
   .md\:ml-16 {
     margin-left: 4rem;
+  }
+
+  .md\:mt-18 {
+    margin-top: 4.5rem;
+  }
+
+  .md\:mr-18 {
+    margin-right: 4.5rem;
+  }
+
+  .md\:mb-18 {
+    margin-bottom: 4.5rem;
+  }
+
+  .md\:ml-18 {
+    margin-left: 4.5rem;
   }
 
   .md\:mt-20 {
@@ -17977,6 +19574,22 @@ form.is-dark .form-control {
     margin-left: 1px;
   }
 
+  .md\:mt-2px {
+    margin-top: 2px;
+  }
+
+  .md\:mr-2px {
+    margin-right: 2px;
+  }
+
+  .md\:mb-2px {
+    margin-bottom: 2px;
+  }
+
+  .md\:ml-2px {
+    margin-left: 2px;
+  }
+
   .md\:max-h-full {
     max-height: 100%;
   }
@@ -18053,12 +19666,24 @@ form.is-dark .form-control {
     min-height: 1.5rem;
   }
 
+  .md\:min-h-7 {
+    min-height: 1.75rem;
+  }
+
   .md\:min-h-8 {
     min-height: 2rem;
   }
 
+  .md\:min-h-9 {
+    min-height: 2.25rem;
+  }
+
   .md\:min-h-10 {
     min-height: 2.5rem;
+  }
+
+  .md\:min-h-11 {
+    min-height: 2.75rem;
   }
 
   .md\:min-h-12 {
@@ -18071,6 +19696,10 @@ form.is-dark .form-control {
 
   .md\:min-h-16 {
     min-height: 4rem;
+  }
+
+  .md\:min-h-18 {
+    min-height: 4.5rem;
   }
 
   .md\:min-h-20 {
@@ -18105,6 +19734,18 @@ form.is-dark .form-control {
     min-height: 100vh;
   }
 
+  .md\:min-h-auto {
+    min-height: auto;
+  }
+
+  .md\:min-h-px {
+    min-height: 1px;
+  }
+
+  .md\:min-h-2px {
+    min-height: 2px;
+  }
+
   .md\:min-w-0 {
     min-width: 0;
   }
@@ -18133,12 +19774,24 @@ form.is-dark .form-control {
     min-width: 1.5rem;
   }
 
+  .md\:min-w-7 {
+    min-width: 1.75rem;
+  }
+
   .md\:min-w-8 {
     min-width: 2rem;
   }
 
+  .md\:min-w-9 {
+    min-width: 2.25rem;
+  }
+
   .md\:min-w-10 {
     min-width: 2.5rem;
+  }
+
+  .md\:min-w-11 {
+    min-width: 2.75rem;
   }
 
   .md\:min-w-12 {
@@ -18151,6 +19804,10 @@ form.is-dark .form-control {
 
   .md\:min-w-16 {
     min-width: 4rem;
+  }
+
+  .md\:min-w-18 {
+    min-width: 4.5rem;
   }
 
   .md\:min-w-20 {
@@ -18181,6 +19838,18 @@ form.is-dark .form-control {
     min-width: 100%;
   }
 
+  .md\:min-w-auto {
+    min-width: auto;
+  }
+
+  .md\:min-w-px {
+    min-width: 1px;
+  }
+
+  .md\:min-w-2px {
+    min-width: 2px;
+  }
+
   .md\:-m-0 {
     margin: 0;
   }
@@ -18209,20 +19878,40 @@ form.is-dark .form-control {
     margin: -1.5rem;
   }
 
+  .md\:-m-7 {
+    margin: -1.75rem;
+  }
+
   .md\:-m-8 {
     margin: -2rem;
+  }
+
+  .md\:-m-9 {
+    margin: -2.25rem;
   }
 
   .md\:-m-10 {
     margin: -2.5rem;
   }
 
+  .md\:-m-11 {
+    margin: -2.75rem;
+  }
+
   .md\:-m-12 {
     margin: -3rem;
   }
 
+  .md\:-m-14 {
+    margin: -3.5rem;
+  }
+
   .md\:-m-16 {
     margin: -4rem;
+  }
+
+  .md\:-m-18 {
+    margin: -4.5rem;
   }
 
   .md\:-m-20 {
@@ -18249,8 +19938,16 @@ form.is-dark .form-control {
     margin: -16rem;
   }
 
+  .md\:-m-auto {
+    margin: -auto;
+  }
+
   .md\:-m-px {
     margin: -1px;
+  }
+
+  .md\:-m-2px {
+    margin: -2px;
   }
 
   .md\:-my-0 {
@@ -18323,6 +20020,16 @@ form.is-dark .form-control {
     margin-right: -1.5rem;
   }
 
+  .md\:-my-7 {
+    margin-top: -1.75rem;
+    margin-bottom: -1.75rem;
+  }
+
+  .md\:-mx-7 {
+    margin-left: -1.75rem;
+    margin-right: -1.75rem;
+  }
+
   .md\:-my-8 {
     margin-top: -2rem;
     margin-bottom: -2rem;
@@ -18331,6 +20038,16 @@ form.is-dark .form-control {
   .md\:-mx-8 {
     margin-left: -2rem;
     margin-right: -2rem;
+  }
+
+  .md\:-my-9 {
+    margin-top: -2.25rem;
+    margin-bottom: -2.25rem;
+  }
+
+  .md\:-mx-9 {
+    margin-left: -2.25rem;
+    margin-right: -2.25rem;
   }
 
   .md\:-my-10 {
@@ -18343,6 +20060,16 @@ form.is-dark .form-control {
     margin-right: -2.5rem;
   }
 
+  .md\:-my-11 {
+    margin-top: -2.75rem;
+    margin-bottom: -2.75rem;
+  }
+
+  .md\:-mx-11 {
+    margin-left: -2.75rem;
+    margin-right: -2.75rem;
+  }
+
   .md\:-my-12 {
     margin-top: -3rem;
     margin-bottom: -3rem;
@@ -18353,6 +20080,16 @@ form.is-dark .form-control {
     margin-right: -3rem;
   }
 
+  .md\:-my-14 {
+    margin-top: -3.5rem;
+    margin-bottom: -3.5rem;
+  }
+
+  .md\:-mx-14 {
+    margin-left: -3.5rem;
+    margin-right: -3.5rem;
+  }
+
   .md\:-my-16 {
     margin-top: -4rem;
     margin-bottom: -4rem;
@@ -18361,6 +20098,16 @@ form.is-dark .form-control {
   .md\:-mx-16 {
     margin-left: -4rem;
     margin-right: -4rem;
+  }
+
+  .md\:-my-18 {
+    margin-top: -4.5rem;
+    margin-bottom: -4.5rem;
+  }
+
+  .md\:-mx-18 {
+    margin-left: -4.5rem;
+    margin-right: -4.5rem;
   }
 
   .md\:-my-20 {
@@ -18423,6 +20170,16 @@ form.is-dark .form-control {
     margin-right: -16rem;
   }
 
+  .md\:-my-auto {
+    margin-top: -auto;
+    margin-bottom: -auto;
+  }
+
+  .md\:-mx-auto {
+    margin-left: -auto;
+    margin-right: -auto;
+  }
+
   .md\:-my-px {
     margin-top: -1px;
     margin-bottom: -1px;
@@ -18431,6 +20188,16 @@ form.is-dark .form-control {
   .md\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
+  }
+
+  .md\:-my-2px {
+    margin-top: -2px;
+    margin-bottom: -2px;
+  }
+
+  .md\:-mx-2px {
+    margin-left: -2px;
+    margin-right: -2px;
   }
 
   .md\:-mt-0 {
@@ -18545,6 +20312,22 @@ form.is-dark .form-control {
     margin-left: -1.5rem;
   }
 
+  .md\:-mt-7 {
+    margin-top: -1.75rem;
+  }
+
+  .md\:-mr-7 {
+    margin-right: -1.75rem;
+  }
+
+  .md\:-mb-7 {
+    margin-bottom: -1.75rem;
+  }
+
+  .md\:-ml-7 {
+    margin-left: -1.75rem;
+  }
+
   .md\:-mt-8 {
     margin-top: -2rem;
   }
@@ -18559,6 +20342,22 @@ form.is-dark .form-control {
 
   .md\:-ml-8 {
     margin-left: -2rem;
+  }
+
+  .md\:-mt-9 {
+    margin-top: -2.25rem;
+  }
+
+  .md\:-mr-9 {
+    margin-right: -2.25rem;
+  }
+
+  .md\:-mb-9 {
+    margin-bottom: -2.25rem;
+  }
+
+  .md\:-ml-9 {
+    margin-left: -2.25rem;
   }
 
   .md\:-mt-10 {
@@ -18577,6 +20376,22 @@ form.is-dark .form-control {
     margin-left: -2.5rem;
   }
 
+  .md\:-mt-11 {
+    margin-top: -2.75rem;
+  }
+
+  .md\:-mr-11 {
+    margin-right: -2.75rem;
+  }
+
+  .md\:-mb-11 {
+    margin-bottom: -2.75rem;
+  }
+
+  .md\:-ml-11 {
+    margin-left: -2.75rem;
+  }
+
   .md\:-mt-12 {
     margin-top: -3rem;
   }
@@ -18593,6 +20408,22 @@ form.is-dark .form-control {
     margin-left: -3rem;
   }
 
+  .md\:-mt-14 {
+    margin-top: -3.5rem;
+  }
+
+  .md\:-mr-14 {
+    margin-right: -3.5rem;
+  }
+
+  .md\:-mb-14 {
+    margin-bottom: -3.5rem;
+  }
+
+  .md\:-ml-14 {
+    margin-left: -3.5rem;
+  }
+
   .md\:-mt-16 {
     margin-top: -4rem;
   }
@@ -18607,6 +20438,22 @@ form.is-dark .form-control {
 
   .md\:-ml-16 {
     margin-left: -4rem;
+  }
+
+  .md\:-mt-18 {
+    margin-top: -4.5rem;
+  }
+
+  .md\:-mr-18 {
+    margin-right: -4.5rem;
+  }
+
+  .md\:-mb-18 {
+    margin-bottom: -4.5rem;
+  }
+
+  .md\:-ml-18 {
+    margin-left: -4.5rem;
   }
 
   .md\:-mt-20 {
@@ -18705,6 +20552,22 @@ form.is-dark .form-control {
     margin-left: -16rem;
   }
 
+  .md\:-mt-auto {
+    margin-top: -auto;
+  }
+
+  .md\:-mr-auto {
+    margin-right: -auto;
+  }
+
+  .md\:-mb-auto {
+    margin-bottom: -auto;
+  }
+
+  .md\:-ml-auto {
+    margin-left: -auto;
+  }
+
   .md\:-mt-px {
     margin-top: -1px;
   }
@@ -18719,6 +20582,22 @@ form.is-dark .form-control {
 
   .md\:-ml-px {
     margin-left: -1px;
+  }
+
+  .md\:-mt-2px {
+    margin-top: -2px;
+  }
+
+  .md\:-mr-2px {
+    margin-right: -2px;
+  }
+
+  .md\:-mb-2px {
+    margin-bottom: -2px;
+  }
+
+  .md\:-ml-2px {
+    margin-left: -2px;
   }
 
   .md\:opacity-0 {
@@ -18803,20 +20682,40 @@ form.is-dark .form-control {
     padding: 1.5rem;
   }
 
+  .md\:p-7 {
+    padding: 1.75rem;
+  }
+
   .md\:p-8 {
     padding: 2rem;
+  }
+
+  .md\:p-9 {
+    padding: 2.25rem;
   }
 
   .md\:p-10 {
     padding: 2.5rem;
   }
 
+  .md\:p-11 {
+    padding: 2.75rem;
+  }
+
   .md\:p-12 {
     padding: 3rem;
   }
 
+  .md\:p-14 {
+    padding: 3.5rem;
+  }
+
   .md\:p-16 {
     padding: 4rem;
+  }
+
+  .md\:p-18 {
+    padding: 4.5rem;
   }
 
   .md\:p-20 {
@@ -18843,8 +20742,16 @@ form.is-dark .form-control {
     padding: 16rem;
   }
 
+  .md\:p-auto {
+    padding: auto;
+  }
+
   .md\:p-px {
     padding: 1px;
+  }
+
+  .md\:p-2px {
+    padding: 2px;
   }
 
   .md\:py-0 {
@@ -18917,6 +20824,16 @@ form.is-dark .form-control {
     padding-right: 1.5rem;
   }
 
+  .md\:py-7 {
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+  }
+
+  .md\:px-7 {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+  }
+
   .md\:py-8 {
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -18925,6 +20842,16 @@ form.is-dark .form-control {
   .md\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .md\:py-9 {
+    padding-top: 2.25rem;
+    padding-bottom: 2.25rem;
+  }
+
+  .md\:px-9 {
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
   }
 
   .md\:py-10 {
@@ -18937,6 +20864,16 @@ form.is-dark .form-control {
     padding-right: 2.5rem;
   }
 
+  .md\:py-11 {
+    padding-top: 2.75rem;
+    padding-bottom: 2.75rem;
+  }
+
+  .md\:px-11 {
+    padding-left: 2.75rem;
+    padding-right: 2.75rem;
+  }
+
   .md\:py-12 {
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -18947,6 +20884,16 @@ form.is-dark .form-control {
     padding-right: 3rem;
   }
 
+  .md\:py-14 {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .md\:px-14 {
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+  }
+
   .md\:py-16 {
     padding-top: 4rem;
     padding-bottom: 4rem;
@@ -18955,6 +20902,16 @@ form.is-dark .form-control {
   .md\:px-16 {
     padding-left: 4rem;
     padding-right: 4rem;
+  }
+
+  .md\:py-18 {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+
+  .md\:px-18 {
+    padding-left: 4.5rem;
+    padding-right: 4.5rem;
   }
 
   .md\:py-20 {
@@ -19017,6 +20974,16 @@ form.is-dark .form-control {
     padding-right: 16rem;
   }
 
+  .md\:py-auto {
+    padding-top: auto;
+    padding-bottom: auto;
+  }
+
+  .md\:px-auto {
+    padding-left: auto;
+    padding-right: auto;
+  }
+
   .md\:py-px {
     padding-top: 1px;
     padding-bottom: 1px;
@@ -19025,6 +20992,16 @@ form.is-dark .form-control {
   .md\:px-px {
     padding-left: 1px;
     padding-right: 1px;
+  }
+
+  .md\:py-2px {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  .md\:px-2px {
+    padding-left: 2px;
+    padding-right: 2px;
   }
 
   .md\:pt-0 {
@@ -19139,6 +21116,22 @@ form.is-dark .form-control {
     padding-left: 1.5rem;
   }
 
+  .md\:pt-7 {
+    padding-top: 1.75rem;
+  }
+
+  .md\:pr-7 {
+    padding-right: 1.75rem;
+  }
+
+  .md\:pb-7 {
+    padding-bottom: 1.75rem;
+  }
+
+  .md\:pl-7 {
+    padding-left: 1.75rem;
+  }
+
   .md\:pt-8 {
     padding-top: 2rem;
   }
@@ -19153,6 +21146,22 @@ form.is-dark .form-control {
 
   .md\:pl-8 {
     padding-left: 2rem;
+  }
+
+  .md\:pt-9 {
+    padding-top: 2.25rem;
+  }
+
+  .md\:pr-9 {
+    padding-right: 2.25rem;
+  }
+
+  .md\:pb-9 {
+    padding-bottom: 2.25rem;
+  }
+
+  .md\:pl-9 {
+    padding-left: 2.25rem;
   }
 
   .md\:pt-10 {
@@ -19171,6 +21180,22 @@ form.is-dark .form-control {
     padding-left: 2.5rem;
   }
 
+  .md\:pt-11 {
+    padding-top: 2.75rem;
+  }
+
+  .md\:pr-11 {
+    padding-right: 2.75rem;
+  }
+
+  .md\:pb-11 {
+    padding-bottom: 2.75rem;
+  }
+
+  .md\:pl-11 {
+    padding-left: 2.75rem;
+  }
+
   .md\:pt-12 {
     padding-top: 3rem;
   }
@@ -19187,6 +21212,22 @@ form.is-dark .form-control {
     padding-left: 3rem;
   }
 
+  .md\:pt-14 {
+    padding-top: 3.5rem;
+  }
+
+  .md\:pr-14 {
+    padding-right: 3.5rem;
+  }
+
+  .md\:pb-14 {
+    padding-bottom: 3.5rem;
+  }
+
+  .md\:pl-14 {
+    padding-left: 3.5rem;
+  }
+
   .md\:pt-16 {
     padding-top: 4rem;
   }
@@ -19201,6 +21242,22 @@ form.is-dark .form-control {
 
   .md\:pl-16 {
     padding-left: 4rem;
+  }
+
+  .md\:pt-18 {
+    padding-top: 4.5rem;
+  }
+
+  .md\:pr-18 {
+    padding-right: 4.5rem;
+  }
+
+  .md\:pb-18 {
+    padding-bottom: 4.5rem;
+  }
+
+  .md\:pl-18 {
+    padding-left: 4.5rem;
   }
 
   .md\:pt-20 {
@@ -19299,6 +21356,22 @@ form.is-dark .form-control {
     padding-left: 16rem;
   }
 
+  .md\:pt-auto {
+    padding-top: auto;
+  }
+
+  .md\:pr-auto {
+    padding-right: auto;
+  }
+
+  .md\:pb-auto {
+    padding-bottom: auto;
+  }
+
+  .md\:pl-auto {
+    padding-left: auto;
+  }
+
   .md\:pt-px {
     padding-top: 1px;
   }
@@ -19313,6 +21386,22 @@ form.is-dark .form-control {
 
   .md\:pl-px {
     padding-left: 1px;
+  }
+
+  .md\:pt-2px {
+    padding-top: 2px;
+  }
+
+  .md\:pr-2px {
+    padding-right: 2px;
+  }
+
+  .md\:pb-2px {
+    padding-bottom: 2px;
+  }
+
+  .md\:pl-2px {
+    padding-left: 2px;
   }
 
   .md\:pointer-events-none {
@@ -20524,6 +22613,10 @@ form.is-dark .form-control {
     white-space: nowrap;
   }
 
+  .md\:w-0 {
+    width: 0;
+  }
+
   .md\:w-1 {
     width: .25rem;
   }
@@ -20548,12 +22641,24 @@ form.is-dark .form-control {
     width: 1.5rem;
   }
 
+  .md\:w-7 {
+    width: 1.75rem;
+  }
+
   .md\:w-8 {
     width: 2rem;
   }
 
+  .md\:w-9 {
+    width: 2.25rem;
+  }
+
   .md\:w-10 {
     width: 2.5rem;
+  }
+
+  .md\:w-11 {
+    width: 2.75rem;
   }
 
   .md\:w-12 {
@@ -20566,6 +22671,10 @@ form.is-dark .form-control {
 
   .md\:w-16 {
     width: 4rem;
+  }
+
+  .md\:w-18 {
+    width: 4.5rem;
   }
 
   .md\:w-20 {
@@ -20594,10 +22703,6 @@ form.is-dark .form-control {
 
   .md\:w-auto {
     width: auto;
-  }
-
-  .md\:w-px {
-    width: 1px;
   }
 
   .md\:w-1\/2 {
@@ -20650,6 +22755,14 @@ form.is-dark .form-control {
 
   .md\:w-screen {
     width: 100vw;
+  }
+
+  .md\:w-px {
+    width: 1px;
+  }
+
+  .md\:w-2px {
+    width: 2px;
   }
 
   .md\:z-0 {
@@ -23346,6 +25459,10 @@ form.is-dark .form-control {
     font-weight: 900;
   }
 
+  .lg\:h-0 {
+    height: 0;
+  }
+
   .lg\:h-1 {
     height: .25rem;
   }
@@ -23370,12 +25487,24 @@ form.is-dark .form-control {
     height: 1.5rem;
   }
 
+  .lg\:h-7 {
+    height: 1.75rem;
+  }
+
   .lg\:h-8 {
     height: 2rem;
   }
 
+  .lg\:h-9 {
+    height: 2.25rem;
+  }
+
   .lg\:h-10 {
     height: 2.5rem;
+  }
+
+  .lg\:h-11 {
+    height: 2.75rem;
   }
 
   .lg\:h-12 {
@@ -23388,6 +25517,10 @@ form.is-dark .form-control {
 
   .lg\:h-16 {
     height: 4rem;
+  }
+
+  .lg\:h-18 {
+    height: 4.5rem;
   }
 
   .lg\:h-20 {
@@ -23418,16 +25551,20 @@ form.is-dark .form-control {
     height: auto;
   }
 
-  .lg\:h-px {
-    height: 1px;
-  }
-
   .lg\:h-full {
     height: 100%;
   }
 
   .lg\:h-screen {
     height: 100vh;
+  }
+
+  .lg\:h-px {
+    height: 1px;
+  }
+
+  .lg\:h-2px {
+    height: 2px;
   }
 
   .lg\:leading-0 {
@@ -23478,20 +25615,40 @@ form.is-dark .form-control {
     margin: 1.5rem;
   }
 
+  .lg\:m-7 {
+    margin: 1.75rem;
+  }
+
   .lg\:m-8 {
     margin: 2rem;
+  }
+
+  .lg\:m-9 {
+    margin: 2.25rem;
   }
 
   .lg\:m-10 {
     margin: 2.5rem;
   }
 
+  .lg\:m-11 {
+    margin: 2.75rem;
+  }
+
   .lg\:m-12 {
     margin: 3rem;
   }
 
+  .lg\:m-14 {
+    margin: 3.5rem;
+  }
+
   .lg\:m-16 {
     margin: 4rem;
+  }
+
+  .lg\:m-18 {
+    margin: 4.5rem;
   }
 
   .lg\:m-20 {
@@ -23524,6 +25681,10 @@ form.is-dark .form-control {
 
   .lg\:m-px {
     margin: 1px;
+  }
+
+  .lg\:m-2px {
+    margin: 2px;
   }
 
   .lg\:my-0 {
@@ -23596,6 +25757,16 @@ form.is-dark .form-control {
     margin-right: 1.5rem;
   }
 
+  .lg\:my-7 {
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .lg\:mx-7 {
+    margin-left: 1.75rem;
+    margin-right: 1.75rem;
+  }
+
   .lg\:my-8 {
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -23604,6 +25775,16 @@ form.is-dark .form-control {
   .lg\:mx-8 {
     margin-left: 2rem;
     margin-right: 2rem;
+  }
+
+  .lg\:my-9 {
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .lg\:mx-9 {
+    margin-left: 2.25rem;
+    margin-right: 2.25rem;
   }
 
   .lg\:my-10 {
@@ -23616,6 +25797,16 @@ form.is-dark .form-control {
     margin-right: 2.5rem;
   }
 
+  .lg\:my-11 {
+    margin-top: 2.75rem;
+    margin-bottom: 2.75rem;
+  }
+
+  .lg\:mx-11 {
+    margin-left: 2.75rem;
+    margin-right: 2.75rem;
+  }
+
   .lg\:my-12 {
     margin-top: 3rem;
     margin-bottom: 3rem;
@@ -23626,6 +25817,16 @@ form.is-dark .form-control {
     margin-right: 3rem;
   }
 
+  .lg\:my-14 {
+    margin-top: 3.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .lg\:mx-14 {
+    margin-left: 3.5rem;
+    margin-right: 3.5rem;
+  }
+
   .lg\:my-16 {
     margin-top: 4rem;
     margin-bottom: 4rem;
@@ -23634,6 +25835,16 @@ form.is-dark .form-control {
   .lg\:mx-16 {
     margin-left: 4rem;
     margin-right: 4rem;
+  }
+
+  .lg\:my-18 {
+    margin-top: 4.5rem;
+    margin-bottom: 4.5rem;
+  }
+
+  .lg\:mx-18 {
+    margin-left: 4.5rem;
+    margin-right: 4.5rem;
   }
 
   .lg\:my-20 {
@@ -23714,6 +25925,16 @@ form.is-dark .form-control {
   .lg\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
+  }
+
+  .lg\:my-2px {
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+
+  .lg\:mx-2px {
+    margin-left: 2px;
+    margin-right: 2px;
   }
 
   .lg\:mt-0 {
@@ -23828,6 +26049,22 @@ form.is-dark .form-control {
     margin-left: 1.5rem;
   }
 
+  .lg\:mt-7 {
+    margin-top: 1.75rem;
+  }
+
+  .lg\:mr-7 {
+    margin-right: 1.75rem;
+  }
+
+  .lg\:mb-7 {
+    margin-bottom: 1.75rem;
+  }
+
+  .lg\:ml-7 {
+    margin-left: 1.75rem;
+  }
+
   .lg\:mt-8 {
     margin-top: 2rem;
   }
@@ -23842,6 +26079,22 @@ form.is-dark .form-control {
 
   .lg\:ml-8 {
     margin-left: 2rem;
+  }
+
+  .lg\:mt-9 {
+    margin-top: 2.25rem;
+  }
+
+  .lg\:mr-9 {
+    margin-right: 2.25rem;
+  }
+
+  .lg\:mb-9 {
+    margin-bottom: 2.25rem;
+  }
+
+  .lg\:ml-9 {
+    margin-left: 2.25rem;
   }
 
   .lg\:mt-10 {
@@ -23860,6 +26113,22 @@ form.is-dark .form-control {
     margin-left: 2.5rem;
   }
 
+  .lg\:mt-11 {
+    margin-top: 2.75rem;
+  }
+
+  .lg\:mr-11 {
+    margin-right: 2.75rem;
+  }
+
+  .lg\:mb-11 {
+    margin-bottom: 2.75rem;
+  }
+
+  .lg\:ml-11 {
+    margin-left: 2.75rem;
+  }
+
   .lg\:mt-12 {
     margin-top: 3rem;
   }
@@ -23876,6 +26145,22 @@ form.is-dark .form-control {
     margin-left: 3rem;
   }
 
+  .lg\:mt-14 {
+    margin-top: 3.5rem;
+  }
+
+  .lg\:mr-14 {
+    margin-right: 3.5rem;
+  }
+
+  .lg\:mb-14 {
+    margin-bottom: 3.5rem;
+  }
+
+  .lg\:ml-14 {
+    margin-left: 3.5rem;
+  }
+
   .lg\:mt-16 {
     margin-top: 4rem;
   }
@@ -23890,6 +26175,22 @@ form.is-dark .form-control {
 
   .lg\:ml-16 {
     margin-left: 4rem;
+  }
+
+  .lg\:mt-18 {
+    margin-top: 4.5rem;
+  }
+
+  .lg\:mr-18 {
+    margin-right: 4.5rem;
+  }
+
+  .lg\:mb-18 {
+    margin-bottom: 4.5rem;
+  }
+
+  .lg\:ml-18 {
+    margin-left: 4.5rem;
   }
 
   .lg\:mt-20 {
@@ -24020,6 +26321,22 @@ form.is-dark .form-control {
     margin-left: 1px;
   }
 
+  .lg\:mt-2px {
+    margin-top: 2px;
+  }
+
+  .lg\:mr-2px {
+    margin-right: 2px;
+  }
+
+  .lg\:mb-2px {
+    margin-bottom: 2px;
+  }
+
+  .lg\:ml-2px {
+    margin-left: 2px;
+  }
+
   .lg\:max-h-full {
     max-height: 100%;
   }
@@ -24096,12 +26413,24 @@ form.is-dark .form-control {
     min-height: 1.5rem;
   }
 
+  .lg\:min-h-7 {
+    min-height: 1.75rem;
+  }
+
   .lg\:min-h-8 {
     min-height: 2rem;
   }
 
+  .lg\:min-h-9 {
+    min-height: 2.25rem;
+  }
+
   .lg\:min-h-10 {
     min-height: 2.5rem;
+  }
+
+  .lg\:min-h-11 {
+    min-height: 2.75rem;
   }
 
   .lg\:min-h-12 {
@@ -24114,6 +26443,10 @@ form.is-dark .form-control {
 
   .lg\:min-h-16 {
     min-height: 4rem;
+  }
+
+  .lg\:min-h-18 {
+    min-height: 4.5rem;
   }
 
   .lg\:min-h-20 {
@@ -24148,6 +26481,18 @@ form.is-dark .form-control {
     min-height: 100vh;
   }
 
+  .lg\:min-h-auto {
+    min-height: auto;
+  }
+
+  .lg\:min-h-px {
+    min-height: 1px;
+  }
+
+  .lg\:min-h-2px {
+    min-height: 2px;
+  }
+
   .lg\:min-w-0 {
     min-width: 0;
   }
@@ -24176,12 +26521,24 @@ form.is-dark .form-control {
     min-width: 1.5rem;
   }
 
+  .lg\:min-w-7 {
+    min-width: 1.75rem;
+  }
+
   .lg\:min-w-8 {
     min-width: 2rem;
   }
 
+  .lg\:min-w-9 {
+    min-width: 2.25rem;
+  }
+
   .lg\:min-w-10 {
     min-width: 2.5rem;
+  }
+
+  .lg\:min-w-11 {
+    min-width: 2.75rem;
   }
 
   .lg\:min-w-12 {
@@ -24194,6 +26551,10 @@ form.is-dark .form-control {
 
   .lg\:min-w-16 {
     min-width: 4rem;
+  }
+
+  .lg\:min-w-18 {
+    min-width: 4.5rem;
   }
 
   .lg\:min-w-20 {
@@ -24224,6 +26585,18 @@ form.is-dark .form-control {
     min-width: 100%;
   }
 
+  .lg\:min-w-auto {
+    min-width: auto;
+  }
+
+  .lg\:min-w-px {
+    min-width: 1px;
+  }
+
+  .lg\:min-w-2px {
+    min-width: 2px;
+  }
+
   .lg\:-m-0 {
     margin: 0;
   }
@@ -24252,20 +26625,40 @@ form.is-dark .form-control {
     margin: -1.5rem;
   }
 
+  .lg\:-m-7 {
+    margin: -1.75rem;
+  }
+
   .lg\:-m-8 {
     margin: -2rem;
+  }
+
+  .lg\:-m-9 {
+    margin: -2.25rem;
   }
 
   .lg\:-m-10 {
     margin: -2.5rem;
   }
 
+  .lg\:-m-11 {
+    margin: -2.75rem;
+  }
+
   .lg\:-m-12 {
     margin: -3rem;
   }
 
+  .lg\:-m-14 {
+    margin: -3.5rem;
+  }
+
   .lg\:-m-16 {
     margin: -4rem;
+  }
+
+  .lg\:-m-18 {
+    margin: -4.5rem;
   }
 
   .lg\:-m-20 {
@@ -24292,8 +26685,16 @@ form.is-dark .form-control {
     margin: -16rem;
   }
 
+  .lg\:-m-auto {
+    margin: -auto;
+  }
+
   .lg\:-m-px {
     margin: -1px;
+  }
+
+  .lg\:-m-2px {
+    margin: -2px;
   }
 
   .lg\:-my-0 {
@@ -24366,6 +26767,16 @@ form.is-dark .form-control {
     margin-right: -1.5rem;
   }
 
+  .lg\:-my-7 {
+    margin-top: -1.75rem;
+    margin-bottom: -1.75rem;
+  }
+
+  .lg\:-mx-7 {
+    margin-left: -1.75rem;
+    margin-right: -1.75rem;
+  }
+
   .lg\:-my-8 {
     margin-top: -2rem;
     margin-bottom: -2rem;
@@ -24374,6 +26785,16 @@ form.is-dark .form-control {
   .lg\:-mx-8 {
     margin-left: -2rem;
     margin-right: -2rem;
+  }
+
+  .lg\:-my-9 {
+    margin-top: -2.25rem;
+    margin-bottom: -2.25rem;
+  }
+
+  .lg\:-mx-9 {
+    margin-left: -2.25rem;
+    margin-right: -2.25rem;
   }
 
   .lg\:-my-10 {
@@ -24386,6 +26807,16 @@ form.is-dark .form-control {
     margin-right: -2.5rem;
   }
 
+  .lg\:-my-11 {
+    margin-top: -2.75rem;
+    margin-bottom: -2.75rem;
+  }
+
+  .lg\:-mx-11 {
+    margin-left: -2.75rem;
+    margin-right: -2.75rem;
+  }
+
   .lg\:-my-12 {
     margin-top: -3rem;
     margin-bottom: -3rem;
@@ -24396,6 +26827,16 @@ form.is-dark .form-control {
     margin-right: -3rem;
   }
 
+  .lg\:-my-14 {
+    margin-top: -3.5rem;
+    margin-bottom: -3.5rem;
+  }
+
+  .lg\:-mx-14 {
+    margin-left: -3.5rem;
+    margin-right: -3.5rem;
+  }
+
   .lg\:-my-16 {
     margin-top: -4rem;
     margin-bottom: -4rem;
@@ -24404,6 +26845,16 @@ form.is-dark .form-control {
   .lg\:-mx-16 {
     margin-left: -4rem;
     margin-right: -4rem;
+  }
+
+  .lg\:-my-18 {
+    margin-top: -4.5rem;
+    margin-bottom: -4.5rem;
+  }
+
+  .lg\:-mx-18 {
+    margin-left: -4.5rem;
+    margin-right: -4.5rem;
   }
 
   .lg\:-my-20 {
@@ -24466,6 +26917,16 @@ form.is-dark .form-control {
     margin-right: -16rem;
   }
 
+  .lg\:-my-auto {
+    margin-top: -auto;
+    margin-bottom: -auto;
+  }
+
+  .lg\:-mx-auto {
+    margin-left: -auto;
+    margin-right: -auto;
+  }
+
   .lg\:-my-px {
     margin-top: -1px;
     margin-bottom: -1px;
@@ -24474,6 +26935,16 @@ form.is-dark .form-control {
   .lg\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
+  }
+
+  .lg\:-my-2px {
+    margin-top: -2px;
+    margin-bottom: -2px;
+  }
+
+  .lg\:-mx-2px {
+    margin-left: -2px;
+    margin-right: -2px;
   }
 
   .lg\:-mt-0 {
@@ -24588,6 +27059,22 @@ form.is-dark .form-control {
     margin-left: -1.5rem;
   }
 
+  .lg\:-mt-7 {
+    margin-top: -1.75rem;
+  }
+
+  .lg\:-mr-7 {
+    margin-right: -1.75rem;
+  }
+
+  .lg\:-mb-7 {
+    margin-bottom: -1.75rem;
+  }
+
+  .lg\:-ml-7 {
+    margin-left: -1.75rem;
+  }
+
   .lg\:-mt-8 {
     margin-top: -2rem;
   }
@@ -24602,6 +27089,22 @@ form.is-dark .form-control {
 
   .lg\:-ml-8 {
     margin-left: -2rem;
+  }
+
+  .lg\:-mt-9 {
+    margin-top: -2.25rem;
+  }
+
+  .lg\:-mr-9 {
+    margin-right: -2.25rem;
+  }
+
+  .lg\:-mb-9 {
+    margin-bottom: -2.25rem;
+  }
+
+  .lg\:-ml-9 {
+    margin-left: -2.25rem;
   }
 
   .lg\:-mt-10 {
@@ -24620,6 +27123,22 @@ form.is-dark .form-control {
     margin-left: -2.5rem;
   }
 
+  .lg\:-mt-11 {
+    margin-top: -2.75rem;
+  }
+
+  .lg\:-mr-11 {
+    margin-right: -2.75rem;
+  }
+
+  .lg\:-mb-11 {
+    margin-bottom: -2.75rem;
+  }
+
+  .lg\:-ml-11 {
+    margin-left: -2.75rem;
+  }
+
   .lg\:-mt-12 {
     margin-top: -3rem;
   }
@@ -24636,6 +27155,22 @@ form.is-dark .form-control {
     margin-left: -3rem;
   }
 
+  .lg\:-mt-14 {
+    margin-top: -3.5rem;
+  }
+
+  .lg\:-mr-14 {
+    margin-right: -3.5rem;
+  }
+
+  .lg\:-mb-14 {
+    margin-bottom: -3.5rem;
+  }
+
+  .lg\:-ml-14 {
+    margin-left: -3.5rem;
+  }
+
   .lg\:-mt-16 {
     margin-top: -4rem;
   }
@@ -24650,6 +27185,22 @@ form.is-dark .form-control {
 
   .lg\:-ml-16 {
     margin-left: -4rem;
+  }
+
+  .lg\:-mt-18 {
+    margin-top: -4.5rem;
+  }
+
+  .lg\:-mr-18 {
+    margin-right: -4.5rem;
+  }
+
+  .lg\:-mb-18 {
+    margin-bottom: -4.5rem;
+  }
+
+  .lg\:-ml-18 {
+    margin-left: -4.5rem;
   }
 
   .lg\:-mt-20 {
@@ -24748,6 +27299,22 @@ form.is-dark .form-control {
     margin-left: -16rem;
   }
 
+  .lg\:-mt-auto {
+    margin-top: -auto;
+  }
+
+  .lg\:-mr-auto {
+    margin-right: -auto;
+  }
+
+  .lg\:-mb-auto {
+    margin-bottom: -auto;
+  }
+
+  .lg\:-ml-auto {
+    margin-left: -auto;
+  }
+
   .lg\:-mt-px {
     margin-top: -1px;
   }
@@ -24762,6 +27329,22 @@ form.is-dark .form-control {
 
   .lg\:-ml-px {
     margin-left: -1px;
+  }
+
+  .lg\:-mt-2px {
+    margin-top: -2px;
+  }
+
+  .lg\:-mr-2px {
+    margin-right: -2px;
+  }
+
+  .lg\:-mb-2px {
+    margin-bottom: -2px;
+  }
+
+  .lg\:-ml-2px {
+    margin-left: -2px;
   }
 
   .lg\:opacity-0 {
@@ -24846,20 +27429,40 @@ form.is-dark .form-control {
     padding: 1.5rem;
   }
 
+  .lg\:p-7 {
+    padding: 1.75rem;
+  }
+
   .lg\:p-8 {
     padding: 2rem;
+  }
+
+  .lg\:p-9 {
+    padding: 2.25rem;
   }
 
   .lg\:p-10 {
     padding: 2.5rem;
   }
 
+  .lg\:p-11 {
+    padding: 2.75rem;
+  }
+
   .lg\:p-12 {
     padding: 3rem;
   }
 
+  .lg\:p-14 {
+    padding: 3.5rem;
+  }
+
   .lg\:p-16 {
     padding: 4rem;
+  }
+
+  .lg\:p-18 {
+    padding: 4.5rem;
   }
 
   .lg\:p-20 {
@@ -24886,8 +27489,16 @@ form.is-dark .form-control {
     padding: 16rem;
   }
 
+  .lg\:p-auto {
+    padding: auto;
+  }
+
   .lg\:p-px {
     padding: 1px;
+  }
+
+  .lg\:p-2px {
+    padding: 2px;
   }
 
   .lg\:py-0 {
@@ -24960,6 +27571,16 @@ form.is-dark .form-control {
     padding-right: 1.5rem;
   }
 
+  .lg\:py-7 {
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+  }
+
+  .lg\:px-7 {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+  }
+
   .lg\:py-8 {
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -24968,6 +27589,16 @@ form.is-dark .form-control {
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .lg\:py-9 {
+    padding-top: 2.25rem;
+    padding-bottom: 2.25rem;
+  }
+
+  .lg\:px-9 {
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
   }
 
   .lg\:py-10 {
@@ -24980,6 +27611,16 @@ form.is-dark .form-control {
     padding-right: 2.5rem;
   }
 
+  .lg\:py-11 {
+    padding-top: 2.75rem;
+    padding-bottom: 2.75rem;
+  }
+
+  .lg\:px-11 {
+    padding-left: 2.75rem;
+    padding-right: 2.75rem;
+  }
+
   .lg\:py-12 {
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -24990,6 +27631,16 @@ form.is-dark .form-control {
     padding-right: 3rem;
   }
 
+  .lg\:py-14 {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .lg\:px-14 {
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+  }
+
   .lg\:py-16 {
     padding-top: 4rem;
     padding-bottom: 4rem;
@@ -24998,6 +27649,16 @@ form.is-dark .form-control {
   .lg\:px-16 {
     padding-left: 4rem;
     padding-right: 4rem;
+  }
+
+  .lg\:py-18 {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+
+  .lg\:px-18 {
+    padding-left: 4.5rem;
+    padding-right: 4.5rem;
   }
 
   .lg\:py-20 {
@@ -25060,6 +27721,16 @@ form.is-dark .form-control {
     padding-right: 16rem;
   }
 
+  .lg\:py-auto {
+    padding-top: auto;
+    padding-bottom: auto;
+  }
+
+  .lg\:px-auto {
+    padding-left: auto;
+    padding-right: auto;
+  }
+
   .lg\:py-px {
     padding-top: 1px;
     padding-bottom: 1px;
@@ -25068,6 +27739,16 @@ form.is-dark .form-control {
   .lg\:px-px {
     padding-left: 1px;
     padding-right: 1px;
+  }
+
+  .lg\:py-2px {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  .lg\:px-2px {
+    padding-left: 2px;
+    padding-right: 2px;
   }
 
   .lg\:pt-0 {
@@ -25182,6 +27863,22 @@ form.is-dark .form-control {
     padding-left: 1.5rem;
   }
 
+  .lg\:pt-7 {
+    padding-top: 1.75rem;
+  }
+
+  .lg\:pr-7 {
+    padding-right: 1.75rem;
+  }
+
+  .lg\:pb-7 {
+    padding-bottom: 1.75rem;
+  }
+
+  .lg\:pl-7 {
+    padding-left: 1.75rem;
+  }
+
   .lg\:pt-8 {
     padding-top: 2rem;
   }
@@ -25196,6 +27893,22 @@ form.is-dark .form-control {
 
   .lg\:pl-8 {
     padding-left: 2rem;
+  }
+
+  .lg\:pt-9 {
+    padding-top: 2.25rem;
+  }
+
+  .lg\:pr-9 {
+    padding-right: 2.25rem;
+  }
+
+  .lg\:pb-9 {
+    padding-bottom: 2.25rem;
+  }
+
+  .lg\:pl-9 {
+    padding-left: 2.25rem;
   }
 
   .lg\:pt-10 {
@@ -25214,6 +27927,22 @@ form.is-dark .form-control {
     padding-left: 2.5rem;
   }
 
+  .lg\:pt-11 {
+    padding-top: 2.75rem;
+  }
+
+  .lg\:pr-11 {
+    padding-right: 2.75rem;
+  }
+
+  .lg\:pb-11 {
+    padding-bottom: 2.75rem;
+  }
+
+  .lg\:pl-11 {
+    padding-left: 2.75rem;
+  }
+
   .lg\:pt-12 {
     padding-top: 3rem;
   }
@@ -25230,6 +27959,22 @@ form.is-dark .form-control {
     padding-left: 3rem;
   }
 
+  .lg\:pt-14 {
+    padding-top: 3.5rem;
+  }
+
+  .lg\:pr-14 {
+    padding-right: 3.5rem;
+  }
+
+  .lg\:pb-14 {
+    padding-bottom: 3.5rem;
+  }
+
+  .lg\:pl-14 {
+    padding-left: 3.5rem;
+  }
+
   .lg\:pt-16 {
     padding-top: 4rem;
   }
@@ -25244,6 +27989,22 @@ form.is-dark .form-control {
 
   .lg\:pl-16 {
     padding-left: 4rem;
+  }
+
+  .lg\:pt-18 {
+    padding-top: 4.5rem;
+  }
+
+  .lg\:pr-18 {
+    padding-right: 4.5rem;
+  }
+
+  .lg\:pb-18 {
+    padding-bottom: 4.5rem;
+  }
+
+  .lg\:pl-18 {
+    padding-left: 4.5rem;
   }
 
   .lg\:pt-20 {
@@ -25342,6 +28103,22 @@ form.is-dark .form-control {
     padding-left: 16rem;
   }
 
+  .lg\:pt-auto {
+    padding-top: auto;
+  }
+
+  .lg\:pr-auto {
+    padding-right: auto;
+  }
+
+  .lg\:pb-auto {
+    padding-bottom: auto;
+  }
+
+  .lg\:pl-auto {
+    padding-left: auto;
+  }
+
   .lg\:pt-px {
     padding-top: 1px;
   }
@@ -25356,6 +28133,22 @@ form.is-dark .form-control {
 
   .lg\:pl-px {
     padding-left: 1px;
+  }
+
+  .lg\:pt-2px {
+    padding-top: 2px;
+  }
+
+  .lg\:pr-2px {
+    padding-right: 2px;
+  }
+
+  .lg\:pb-2px {
+    padding-bottom: 2px;
+  }
+
+  .lg\:pl-2px {
+    padding-left: 2px;
   }
 
   .lg\:pointer-events-none {
@@ -26567,6 +29360,10 @@ form.is-dark .form-control {
     white-space: nowrap;
   }
 
+  .lg\:w-0 {
+    width: 0;
+  }
+
   .lg\:w-1 {
     width: .25rem;
   }
@@ -26591,12 +29388,24 @@ form.is-dark .form-control {
     width: 1.5rem;
   }
 
+  .lg\:w-7 {
+    width: 1.75rem;
+  }
+
   .lg\:w-8 {
     width: 2rem;
   }
 
+  .lg\:w-9 {
+    width: 2.25rem;
+  }
+
   .lg\:w-10 {
     width: 2.5rem;
+  }
+
+  .lg\:w-11 {
+    width: 2.75rem;
   }
 
   .lg\:w-12 {
@@ -26609,6 +29418,10 @@ form.is-dark .form-control {
 
   .lg\:w-16 {
     width: 4rem;
+  }
+
+  .lg\:w-18 {
+    width: 4.5rem;
   }
 
   .lg\:w-20 {
@@ -26637,10 +29450,6 @@ form.is-dark .form-control {
 
   .lg\:w-auto {
     width: auto;
-  }
-
-  .lg\:w-px {
-    width: 1px;
   }
 
   .lg\:w-1\/2 {
@@ -26693,6 +29502,14 @@ form.is-dark .form-control {
 
   .lg\:w-screen {
     width: 100vw;
+  }
+
+  .lg\:w-px {
+    width: 1px;
+  }
+
+  .lg\:w-2px {
+    width: 2px;
   }
 
   .lg\:z-0 {
