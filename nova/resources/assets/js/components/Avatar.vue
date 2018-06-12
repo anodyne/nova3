@@ -45,7 +45,7 @@
 			},
 
 			displayName () {
-				return this.item.displayName
+				return this.item.name
 
 				let pieces = []
 
@@ -150,9 +150,9 @@
 				if (this.isCharacter) {
 					if (this.item.user && this.item.status == 2) {
 						if (this.item.isPrimaryCharacter) {
-							return this.lang('characters-primary-of', {2:this.item.user.displayName})
+							return this.lang('characters-primary-of', {2:this.item.user.name})
 						} else {
-							return this.lang('characters-character-of', {2:this.item.user.displayName})
+							return this.lang('characters-character-of', {2:this.item.user.name})
 						}
 					}
 
