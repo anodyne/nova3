@@ -6,6 +6,7 @@ use Schema;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\PackageManifest;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Nova\Foundation\Http\Middleware\CaptureRequestExtension;
 
@@ -14,6 +15,8 @@ class AppServiceProvider extends ServiceProvider
 	public function boot()
 	{
 		Schema::defaultStringLength(191);
+
+		$this->app[PackageManifest::class]->vendorPath = $this->app->basePath().'/nova/vendor';
 
 		$this->app->singleton('nova', function ($app) {
 			return new \Nova\Foundation\Nova;
@@ -62,12 +65,6 @@ class AppServiceProvider extends ServiceProvider
 	{
 		// Set the locale for Carbon
 		Date::setLocale(app()->getLocale());
-
-		if ($this->app['env'] == 'local') {
-			if (class_exists('Barryvdh\Debugbar\ServiceProvider')) {
-				$this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
-			}
-		}
 	}
 
 	protected function registerTheme()

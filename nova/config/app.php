@@ -149,13 +149,8 @@ return [
 		/*
 		 * Package Service Providers...
 		 */
-		Laravel\Tinker\TinkerServiceProvider::class,
-		Collective\Html\HtmlServiceProvider::class,
 		BladeSvg\BladeSvgServiceProvider::class,
-		Intervention\Image\ImageServiceProvider::class,
-		Tightenco\Ziggy\ZiggyServiceProvider::class,
-		Creativeorange\Gravatar\GravatarServiceProvider::class,
-		Spatie\Activitylog\ActivitylogServiceProvider::class,
+		Robbo\Presenter\PresenterServiceProvider::class,
 
 		/*
 		 * Application Service Providers...
@@ -165,6 +160,7 @@ return [
 		// Nova\Foundation\Providers\BroadcastServiceProvider::class,
 		Nova\Foundation\Providers\EventServiceProvider::class,
 		Nova\Foundation\Providers\RouteServiceProvider::class,
+		Nova\Foundation\Providers\SanitizerServiceProvider::class,
 		Nova\Foundation\Providers\ExtensionServiceProvider::class,
 		Nova\Foundation\Providers\DeferredServiceProvider::class,
 
@@ -219,10 +215,6 @@ return [
 
 		'Controller' => Nova\Foundation\Http\Controllers\Controller::class,
 		'Date' => Carbon\Carbon::class,
-		'Form' => Collective\Html\FormFacade::class,
-		'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
-		'HTML' => Collective\Html\HtmlFacade::class,
-		'Image' => Intervention\Image\Facades\Image::class,
 		'Nova' => Nova\Foundation\NovaFacade::class,
 		'Settings' => Nova\Settings\Settings::class,
 		'Status' => Nova\Foundation\Status::class,
