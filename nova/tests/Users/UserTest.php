@@ -143,16 +143,4 @@ class UserTest extends DatabaseTestCase
 			$this->user->media
 		);
 	}
-
-	/** @test **/
-	public function it_shows_the_correct_name()
-	{
-		$user = create(User::class);
-
-		$this->assertEquals($user->displayName, $user->name);
-
-		$user->update(['nickname' => 'Johnny']);
-
-		$this->assertEquals($user->displayName, 'Johnny');
-	}
 }
