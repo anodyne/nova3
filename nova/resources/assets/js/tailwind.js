@@ -257,8 +257,6 @@ module.exports = {
 
 	fonts: {
 		'sans': [
-			// 'Agane',
-			// 'Camphor',
 			'Roboto',
 			'system-ui',
 			'BlinkMacSystemFont',
