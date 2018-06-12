@@ -416,7 +416,7 @@
 			}
 
 			data.forEach(function (d) {
-				if (regex.test(d.name) || regex.test(d.email) || regex.test(d.nickname)) {
+				if (regex.test(d.name) || regex.test(d.email)) {
 					matches.push(d);
 				} else {
 					let charactersResults = filter(d.characters, term);

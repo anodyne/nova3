@@ -95,8 +95,6 @@
 	"users-flash-updated-message": "Flash message that notifies when a user has been updated",
 	"users-flash-updated-title": "Title of the flash message that notifies when a user has been updated",
 	"users-manage": "Button label for going to the user management page",
-	"users-nickname": "Label for a text field that collects a nickname",
-	"users-nickname-explain": "Text that explains when a nickname is used instead of the user's full name",
 	"users-password-do-reset": "Button label for initiating password resets",
 	"users-password-reset": "Button label for going to the admin-forced password reset page",
 	"users-status-all": "Label for all users; appears in a dropdown of user statuses",

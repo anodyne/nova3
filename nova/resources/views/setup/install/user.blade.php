@@ -31,16 +31,6 @@
 								</div>
 							</div>
 						</div>
-
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Nickname</label>
-								<div class="control-wrapper">
-									{!! Form::text('user[nickname]', null, ['class' => 'form-control form-control-lg']) !!}
-									<small class="form-text text-muted">If you specify a nickname, it will be displayed throughout {{ config('nova.app.name') }} instead of your full name.</small>
-								</div>
-							</div>
-						</div>
 					</div>
 
 					<div class="row">

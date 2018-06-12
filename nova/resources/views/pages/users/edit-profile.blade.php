@@ -40,16 +40,6 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label>{{ _m('users-nickname') }}</label>
-					{!! Form::text('nickname', null, ['class' => 'form-control']) !!}
-					<small class="form-text text-muted">{{ _m('users-nickname-explain') }}</small>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-4">
-				<div class="form-group">
 					<label>{{ _m('users-gender') }}</label>
 					<div>
 						{!! Form::select('gender', $genders, null, ['class' => 'custom-select']) !!}
