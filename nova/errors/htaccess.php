@@ -7,14 +7,10 @@
 
 	<title>Error!</title>
 
-	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,600" rel="stylesheet">
+	<link href="../../assets/css/vendor.css" rel="stylesheet">
+	<link href="../../assets/css/app.css" rel="stylesheet">
 
-	<!-- Styles -->
-	<link href="nova/assets/css/vendor.css" rel="stylesheet">
-	<link href="nova/assets/css/app.css" rel="stylesheet">
-
-	<!-- Styles -->
 	<style>
 		html, body {
 			background-color: #fff;
@@ -108,7 +104,7 @@
 			</div>
 
 			<div class="links">
-				Please rename the <code>example.htaccess</code> file to <code>.htaccess</code> to continue
+				Please rename the <code>example.htaccess</code> file to <code>.htaccess</code> to continue.
 			</div>
 		</div>
 	</div>

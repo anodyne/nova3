@@ -7,12 +7,9 @@
 
 	<title>Error!</title>
 
-	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,600" rel="stylesheet">
-
-	<!-- Styles -->
-	<link href="nova/assets/css/vendor.css" rel="stylesheet">
-	<link href="nova/assets/css/app.css" rel="stylesheet">
+	<link href="../../assets/css/vendor.css" rel="stylesheet">
+	<link href="../../assets/css/app.css" rel="stylesheet">
 
 	<!-- Styles -->
 	<style>
@@ -104,7 +101,7 @@
 			</div>
 
 			<div class="links">
-				Nova 3 requires PHP 7.1.3 or higher. You are running PHP <?php echo PHP_VERSION;?>.
+				Nova 3 requires PHP 7.1.3 or higher. You are running PHP <?php echo PHP_VERSION;?>. Please contact your host about upgrading to a newer version of PHP in order to continue.
 			</div>
 		</div>
 	</div>

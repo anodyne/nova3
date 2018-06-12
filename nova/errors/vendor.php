@@ -7,12 +7,9 @@
 
 	<title>Error!</title>
 
-	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,600" rel="stylesheet">
-
-	<!-- Styles -->
-	<link href="nova/assets/css/vendor.css" rel="stylesheet">
-	<link href="nova/assets/css/app.css" rel="stylesheet">
+	<link href="../../assets/css/vendor.css" rel="stylesheet">
+	<link href="../../assets/css/app.css" rel="stylesheet">
 
 	<!-- Styles -->
 	<style>
@@ -104,7 +101,7 @@
 			</div>
 
 			<div class="links">
-				The required <code>vendor</code> directory is missing or incomplete.
+				The required <code>vendor</code> directory is missing or incomplete. Please ensure you've uploaded the directory to your <code>nova</code> directory and try again.
 			</div>
 		</div>
 	</div>

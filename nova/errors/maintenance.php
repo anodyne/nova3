@@ -7,12 +7,9 @@
 
 	<title>Maintenance Mode</title>
 
-	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,600" rel="stylesheet">
-
-	<!-- Styles -->
-	<link href="nova/assets/css/vendor.css" rel="stylesheet">
-	<link href="nova/assets/css/app.css" rel="stylesheet">
+	<link href="../../assets/css/vendor.css" rel="stylesheet">
+	<link href="../../assets/css/app.css" rel="stylesheet">
 
 	<!-- Styles -->
 	<style>
