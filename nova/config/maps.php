@@ -1,6 +1,7 @@
 <?php
 
 return [
+
 	'creators' => [
 		Nova\Authorize\Permission::class => Nova\Authorize\Data\PermissionCreator::class,
 		Nova\Authorize\Role::class => Nova\Authorize\Data\RoleCreator::class,
@@ -83,4 +84,5 @@ return [
 		Nova\Settings\Settings::class => Nova\Settings\Data\SettingsUpdater::class,
 		Nova\Users\User::class => Nova\Users\Data\UserUpdater::class,
 	],
+
 ];

@@ -31,6 +31,7 @@ return [
 
 		// If you require a file-type extension (some places do) then you may also add an (optional) .jpg extension to that URL
 		'forceExtension' => 'jpg',
-	]
+
+	],
 
 ];
