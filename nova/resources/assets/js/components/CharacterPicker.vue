@@ -95,7 +95,7 @@
 					let userSearch;
 
 					if (character.user) {
-						userSearch = searchRegex.test(character.user.displayName);
+						userSearch = searchRegex.test(character.user.name);
 					}
 
 					return searchRegex.test(character.displayName)

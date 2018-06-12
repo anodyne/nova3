@@ -1,7 +1,7 @@
 <template>
 	<div class="item-picker">
 		<div class="item-picker-selector">
-			<div role="button" class="item-picker-toggle" @click.prevent="show = !show" v-if="selectedItem">
+			<div role="button" class="item-picker-toggle" @click.prevent="show = !show">
 				<div class="item-picker-selected">
 					<div class="spread" v-if="selectedItem">
 						<slot name="picker-selected-item" :item="selectedItem"></slot>
@@ -53,7 +53,11 @@
 import Icon from '../Icon.vue'
 
 export default {
-	props: ['items', 'selected'],
+	props: {
+		items: { type: Array, required: true },
+		selected: { type: Object },
+		showSearch: { type: Boolean, default: true }
+	},
 
 	components: { Icon },
 

@@ -2,7 +2,7 @@
 	@apply .inline-flex .relative .w-full;
 
 	.items-menu {
-		@apply .bg-white .border .rounded .absolute .w-full .select-none .overflow-y-scroll;
+		@apply .bg-white  .rounded .absolute .w-full .select-none .overflow-y-scroll .shadow;
 
 		max-height: 20rem;
 		top: 100%;
@@ -49,7 +49,7 @@
 		@apply .flex .items-center .bg-grey-lighter .rounded .py-0 .px-2 .flex-grow;
 
 		input[type="text"] {
-			@apply .bg-transparent .border-none .rounded-none .py-2 .px-3 .w-full .text-sm;
+			@apply .bg-transparent .border-none .rounded-none .py-3 .px-4 .w-full .text-sm;
 
 			&:focus {
 				outline: none;
@@ -75,9 +75,7 @@
 }
 
 .item-picker-toggle {
-	@apply .bg-white .rounded .w-full .shadow .py-2 .px-4 .select-none;
-
-	margin-bottom: 2px;
+	@apply .bg-white .rounded .w-full .shadow .px-4 .py-3 .mb-1 .select-none;
 }
 
 .item-picker-selected {

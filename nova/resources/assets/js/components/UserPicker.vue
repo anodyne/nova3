@@ -83,9 +83,7 @@
 				return this.users.filter((user) => {
 					let searchRegex = new RegExp(self.search, 'i');
 
-					return searchRegex.test(user.name)
-						|| searchRegex.test(user.nickname)
-						|| searchRegex.test(user.email);
+					return searchRegex.test(user.name) || searchRegex.test(user.email);
 				});
 			}
 		},
