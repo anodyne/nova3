@@ -1,29 +1,20 @@
 <?php namespace Nova\Users\Presenters;
 
 use Gravatar;
-use Laracasts\Presenter\Presenter;
+use Nova\Foundation\Presenters\Presenter;
 
 class UserPresenter extends Presenter
 {
-	public function avatarImage()
+	public function presentAvatarImage()
 	{
-		if ($this->entity->hasMedia()) {
-			return asset("storage/app/public/users/{$this->entity->getPrimaryMedia()->filename}");
+		if ($this->hasMedia()) {
+			return asset("storage/app/public/users/{$this->getPrimaryMedia()->filename}");
 		}
 
-		if (! empty($this->entity->email)) {
-			return Gravatar::get($this->entity->email);
+		if (! empty($this->email)) {
+			return Gravatar::get($this->email);
 		}
 
 		return false;
-	}
-
-	public function name()
-	{
-		if (! empty($this->entity->nickname)) {
-			return $this->entity->nickname;
-		}
-
-		return $this->entity->name;
 	}
 }

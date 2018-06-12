@@ -10,22 +10,23 @@ use Nova\Characters\Character;
 use Nova\Foundation\Data\HasStatus;
 use Nova\Auth\Mail\SendPasswordReset;
 use Illuminate\Notifications\Notifiable;
-use Laracasts\Presenter\PresentableTrait;
+use Robbo\Presenter\PresentableInterface;
 use Nova\Auth\Notifications\ResetPassword;
+use Nova\Foundation\Presenters\Presentable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements PresentableInterface
 {
-	use Notifiable, SoftDeletes, PresentableTrait, HasStatus, HasMedia, CausesActivity;
+	use Notifiable, SoftDeletes, Presentable, HasStatus, HasMedia, CausesActivity;
 
-	protected $appends = ['avatarImage', 'displayName'];
+	protected $appends = ['avatarImage'];
 	protected $dates = ['created_at', 'updated_at', 'deleted_at', 'last_sign_in'];
 	protected $fillable = [
-		'name', 'email', 'password', 'nickname', 'status', 'last_sign_in',
-		'remember_token', 'primary_character', 'gender',
+		'name', 'email', 'password', 'status', 'last_sign_in', 'remember_token',
+		'primary_character', 'gender',
 	];
 	protected $hidden = ['password', 'remember_token'];
 	protected $presenter = Presenters\UserPresenter::class;
@@ -88,12 +89,7 @@ class User extends Authenticatable
 
 	public function getAvatarImageAttribute()
 	{
-		return $this->present()->avatarImage;
-	}
-
-	public function getDisplayNameAttribute()
-	{
-		return $this->present()->name;
+		return $this->getPresenter()->avatarImage;
 	}
 
 	public function getPassword()

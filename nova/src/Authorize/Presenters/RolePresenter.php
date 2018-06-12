@@ -1,11 +1,11 @@
 <?php namespace Nova\Authorize\Presenters;
 
-use Laracasts\Presenter\Presenter;
+use Nova\Foundation\Presenters\Presenter;
 
 class RolePresenter extends Presenter
 {
-	public function includedPermissions()
+	public function presentIncludedPermissions()
 	{
-		return implode(', ', $this->entity->permissions->pluck('name')->all());
+		return implode(', ', $this->permissions->pluck('name')->all());
 	}
 }

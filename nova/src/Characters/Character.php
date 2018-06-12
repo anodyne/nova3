@@ -4,13 +4,14 @@ use Eloquent;
 use Nova\Users\User;
 use Nova\Media\Data\HasMedia;
 use Nova\Foundation\Data\HasStatus;
-use Laracasts\Presenter\PresentableTrait;
+use Robbo\Presenter\PresentableInterface;
+use Nova\Foundation\Presenters\Presentable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Character extends Eloquent
+class Character extends Eloquent implements PresentableInterface
 {
-	use PresentableTrait, SoftDeletes, HasMedia, HasStatus, LogsActivity;
+	use Presentable, SoftDeletes, HasMedia, HasStatus, LogsActivity;
 
 	protected $appends = [
 		'avatarImage', 'isPrimaryCharacter', 'primaryPosition', 'displayName'
@@ -59,12 +60,12 @@ class Character extends Eloquent
 
 	public function getAvatarImageAttribute()
 	{
-		return $this->present()->avatarImage;
+		return $this->getPresenter()->avatarImage;
 	}
 
 	public function getDisplayNameAttribute()
 	{
-		return $this->present()->name;
+		return $this->getPresenter()->name;
 	}
 
 	public function getIsPrimaryCharacterAttribute()

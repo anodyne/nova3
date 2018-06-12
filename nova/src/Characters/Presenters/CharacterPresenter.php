@@ -1,24 +1,24 @@
 <?php namespace Nova\Characters\Presenters;
 
 use Gravatar;
-use Laracasts\Presenter\Presenter;
+use Nova\Foundation\Presenters\Presenter;
 
 class CharacterPresenter extends Presenter
 {
-	public function avatarImage()
+	public function presentAvatarImage()
 	{
-		if ($this->entity->hasMedia()) {
-			return asset("storage/app/public/characters/{$this->entity->getPrimaryMedia()->filename}");
+		if ($this->hasMedia()) {
+			return asset("storage/app/public/characters/{$this->getPrimaryMedia()->filename}");
 		}
 
 		return asset("nova/resources/assets/svg/no-avatar.svg");
 	}
 
-	public function name()
+	public function presentName()
 	{
 		return join(' ', [
-			($this->entity->rank) ? $this->entity->rank->info->short_name : null,
-			$this->entity->name
+			($this->rank) ? $this->rank->info->short_name : null,
+			$this->object->name
 		]);
 	}
 }
