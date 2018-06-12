@@ -7,6 +7,7 @@ class CharacterBioController extends Controller
 {
 	public function show(Character $character)
 	{
+		$this->views($this->page->template->filename, 'template');
 		$this->views('characters.bio');
 
 		$this->setPageTitle($character->name);
