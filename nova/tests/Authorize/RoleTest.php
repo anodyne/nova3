@@ -72,7 +72,7 @@ class RoleTest extends DatabaseTestCase
 		$permission = create('Nova\Authorize\Permission');
 
 		$this->role->updatePermissions([$permission->id]);
-		
+
 		$this->role->removePermissions();
 
 		$this->assertCount(0, $this->role->fresh()->permissions);
@@ -93,7 +93,7 @@ class RoleTest extends DatabaseTestCase
 
 		$this->assertEquals(
 			"{$permission1->name}, {$permission2->name}, {$permission3->name}",
-			$this->role->present()->includedPermissions
+			$this->role->getPresenter()->includedPermissions
 		);
 	}
 
