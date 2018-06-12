@@ -5,10 +5,10 @@
 		<p>{{ _m('users-deleted-notice') }}</p>
 	</div>
 
-	<div class="data-table is-bordered is-striped">
+	<div class="data-table is-bordered is-striped is-rounded">
 		<div class="row is-header">
 			<div class="col">
-				<mobile>
+				<mobile-view>
 					<div v-show="!mobileFilter && !mobileSearch">
 						<a href="#" class="btn btn-secondary" @click.prevent="mobileFilter = true">{!! icon('filter') !!}</a>
 						<a href="#" class="btn btn-secondary" @click.prevent="mobileSearch = true">{!! icon('search') !!}</a>
@@ -34,8 +34,8 @@
 							</a>
 						</span>
 					</div>
-				</mobile>
-				<desktop>
+				</mobile-view>
+				<desktop-view>
 					<text-input placeholder="{{ _m('users-find') }}" v-model="search">
 						<template slot="field-addon-after">
 							<a href="#" class="leading-0" @click.prevent="resetSearch">
@@ -43,17 +43,17 @@
 							</a>
 						</template>
 					</text-input>
-				</desktop>
+				</desktop-view>
 			</div>
 			<div class="col">
-				<desktop>
+				<desktop-view>
 					<select name="" class="custom-select" v-model="status">
 						<option value="">{{ _m('users-status-all') }}</option>
 						<option value="{{ Status::ACTIVE }}">{{ _m('users-status-active') }}</option>
 						<option value="{{ Status::INACTIVE }}">{{ _m('users-status-inactive') }}</option>
 						<option value="{{ Status::REMOVED }}">{{ _m('users-status-removed') }}</option>
 					</select>
-				</desktop>
+				</desktop-view>
 			</div>
 			<div class="col-auto" v-show="!mobileSearch">
 				<a class="btn btn-secondary" href="#" @click.prevent="mobileFilter = false" v-show="mobileFilter">

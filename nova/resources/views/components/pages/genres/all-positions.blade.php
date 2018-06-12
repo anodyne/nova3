@@ -1,10 +1,10 @@
 <h1>{{ _m('genre-positions', [2]) }}</h1>
 
 @if ($positions->count() > 0)
-	<div class="data-table bordered striped" id="sortable">
-		<div class="row header">
+	<div class="data-table is-bordered is-striped is-rounded" id="sortable">
+		<div class="row is-header">
 			<div class="col">
-				<mobile>
+				<mobile-view>
 					<div v-show="mobileFilter || department == ''">
 						{!! Form::departments(null, $departments, null, ['v-model' => 'department', 'placeholder' => _m('genre-depts-select'), '@change' => 'mobileFilter = false']) !!}
 					</div>
@@ -25,35 +25,35 @@
 					   class="btn btn-secondary"
 					   @click.prevent="mobileSearch = true"
 					   v-show="!mobileFilter && !mobileSearch && department != ''">{!! icon('search') !!}</a>
-				</mobile>
-				<desktop>
+				</mobile-view>
+				<desktop-view>
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="{{ _m('genre-positions-find') }}" v-model="search">
 						<span class="input-group-btn">
 							<a class="btn btn-secondary" href="#" @click.prevent="search = ''">{!! icon('close') !!}</a>
 						</span>
 					</div>
-				</desktop>
+				</desktop-view>
 			</div>
 			<div class="col d-none d-lg-block">
 				{!! Form::departments(null, $departments, null, ['v-model' => 'department', 'placeholder' => _m('genre-depts-select')]) !!}
 			</div>
 			<div class="col col-auto" v-show="!mobileSearch">
-				<mobile>
+				<mobile-view>
 					<a href="#"
-					   class="btn btn-secondary"
+					   class="button is-secondary"
 					   @click.prevent="mobileFilter = false"
 					   v-show="mobileFilter && department != ''">{!! icon('close') !!}</a>
-				</mobile>
+				</mobile-view>
 
-				<div class="btn-toolbar" v-show="!mobileFilter">
+				<div class="button-toolbar" v-show="!mobileFilter">
 					@can('create', $positionClass)
-						<a href="{{ route('positions.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
+						<a href="{{ route('positions.create') }}" class="button is-success">{!! icon('add') !!}</a>
 					@endcan
 
 					@can('update', $positionClass)
 						<a href="#"
-						   class="btn btn-primary ml-2"
+						   class="button is-primary-primary ml-2"
 						   v-if="department != ''"
 						   @click.prevent="updatePositions">{!! icon('check') !!}</a>
 					@endcan
@@ -74,7 +74,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row align-items-start draggable-item"
+		<div class="row items-start draggable-item"
 			 :data-id="position.id"
 			 v-if="department != '' && filteredPositions.length > 0"
 			 v-for="position in filteredPositions">
@@ -128,7 +128,7 @@
 			<div class="col col-auto">
 				@can('delete', $positionClass)
 					<a href="#"
-					   class="btn btn-danger btn-action"
+					   class="button is-danger btn-action"
 					   @click.prevent="deletePosition(position.id)">{!! icon('delete') !!}</a>
 				@endcan
 

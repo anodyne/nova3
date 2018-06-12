@@ -1,10 +1,10 @@
 <h1>{{ _m('genre-depts', [2]) }}</h1>
 
 @if ($departments->count() > 0)
-	<div class="data-table bordered striped">
+	<div class="data-table is-bordered is-striped is-rounded">
 		<div class="row header">
 			<div class="col">
-				<mobile>
+				<mobile-view>
 					<a href="#"
 					   class="btn btn-secondary btn-action"
 					   v-show="!mobileSearch"
@@ -16,27 +16,27 @@
 							<a class="btn btn-secondary" href="#" @click.prevent="resetSearch">{!! icon('close') !!}</a>
 						</span>
 					</div>
-				</mobile>
-				<desktop>
+				</mobile-view>
+				<desktop-view>
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="{{ _m('genre-depts-find') }}" v-model="search">
 						<span class="input-group-btn">
 							<a class="btn btn-secondary" href="#" @click.prevent="resetSearch">{!! icon('close') !!}</a>
 						</span>
 					</div>
-				</desktop>
+				</desktop-view>
 			</div>
 			<div class="col d-none d-lg-block"></div>
 			<div class="col col-auto" v-show="!mobileSearch">
-				<div class="btn-toolbar">
+				<div class="button-toolbar">
 					@can('create', $deptClass)
-						<a href="{{ route('departments.create') }}" class="btn btn-success">{!! icon('add') !!}</a>
+						<a href="{{ route('departments.create') }}" class="button is-success">{!! icon('add') !!}</a>
 					@endcan
 
 					@can('update', $deptClass)
 						<div class="dropdown ml-2">
 							<button type="button"
-  									class="btn btn-secondary btn-action"
+  									class="button is-secondary"
   									data-toggle="dropdown"
   									aria-haspopup="true"
   									aria-expanded="false">
@@ -56,13 +56,13 @@
 
 		<div class="row" v-for="dept in filteredDepartments">
 			<div class="col">
-				<div class="row align-items-center">
+				<div class="row items-center">
 					<div class="col">
 						@{{ dept.name }}
 					</div>
 					<div class="col col-auto">
 						<div class="dropdown">
-							<button class="btn btn-secondary btn-action"
+							<button class="button is-secondary"
 									type="button"
 									id="dropdownMenuButton"
 									data-toggle="dropdown"
@@ -87,7 +87,7 @@
 					</div>
 				</div>
 
-				<div class="row align-items-center"
+				<div class="row items-center"
 					 v-if="dept.sub_departments.length > 0"
 					 v-for="subDept in dept.sub_departments">
 					<div class="col">
@@ -97,7 +97,7 @@
 					</div>
 					<div class="col col-auto">
 						<div class="dropdown">
-							<button class="btn btn-secondary btn-action"
+							<button class="button is-secondary btn-action"
 									type="button"
 									id="dropdownMenuButton"
 									data-toggle="dropdown"
