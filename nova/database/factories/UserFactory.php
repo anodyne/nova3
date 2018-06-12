@@ -1,8 +1,6 @@
 <?php
 
-use Faker\Generator as Faker;
-
-$factory->define(Nova\Users\User::class, function (Faker $faker) {
+$factory->define(Nova\Users\User::class, function ($faker) {
 	static $password;
 
 	return [

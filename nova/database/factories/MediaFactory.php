@@ -1,8 +1,6 @@
 <?php
 
-use Faker\Generator as Faker;
-
-$factory->define(Nova\Media\Media::class, function (Faker $faker) {
+$factory->define(Nova\Media\Media::class, function ($faker) {
 	$character = factory(Nova\Characters\Character::class)->create();
 
 	return [

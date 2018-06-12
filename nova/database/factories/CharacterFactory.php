@@ -1,8 +1,6 @@
 <?php
 
-use Faker\Generator as Faker;
-
-$factory->define(Nova\Characters\Character::class, function (Faker $faker) {
+$factory->define(Nova\Characters\Character::class, function ($faker) {
 	return [
 		'rank_id' => function () {
 			return factory(Nova\Genres\Rank::class)->create()->id;
@@ -10,6 +8,6 @@ $factory->define(Nova\Characters\Character::class, function (Faker $faker) {
 		'user_id' => function () {
 			return factory(Nova\Users\User::class)->create()->id;
 		},
-		'name' => "{$faker->firstName()} {$faker->lastName}",
+		'name' => sprintf('%s %s', $faker->firstName(), $faker->lastName),
 	];
 });
