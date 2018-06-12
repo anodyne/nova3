@@ -24,18 +24,33 @@
 
 @if ($extensionsToBeInstalled->count() > 0)
 	<div class="w-2/5">
-		<card>
+		<card :inverted="true">
 			<template slot="card-title">Extensions to be Installed</template>
 
-			<template slot="card-content">
-				@foreach ($extensionsToBeInstalled as $path)
-					<div class="py-2 px-2 flex items-center justify-between rounded{{ ($loop->index % 2 == 0) ?: ' bg-grey-lighter' }}">
-						<div>{{ $path }}</div>
-						<div class="flex-shrink">
+			<template slot="card-block">
+				<div class="data-table is-hoverable is-inverse">
+					<div class="row is-header">
+						<div class="col">Extension</div>
+					</div>
+
+					@foreach ($extensionsToBeInstalled as $path)
+					<div class="row">
+						<div class="col">
+							{{ $path }}
+						</div>
+						<div class="col-auto">
 							<button class="bg-transparent border-2 border-grey-light text-grey-dark py-1 px-2 text-sm button">Install</button>
 						</div>
 					</div>
-				@endforeach
+					{{-- </div>
+						<div class="py-2 px-2 flex items-center justify-between rounded{{ ($loop->index % 2 == 0) ?: ' bg-grey-lighter' }}">
+							<div>{{ $path }}</div>
+							<div class="flex-shrink">
+								<button class="bg-transparent border-2 border-grey-light text-grey-dark py-1 px-2 text-sm button">Install</button>
+							</div>
+						</div> --}}
+					@endforeach
+				</div>
 			</template>
 		</card>
 

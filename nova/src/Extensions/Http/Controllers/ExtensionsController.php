@@ -21,7 +21,7 @@ class ExtensionsController extends Controller
 
 		$this->authorize('manage', $extensionClass);
 
-		$this->views('extensions.all-extensions', 'page|script');
+		$this->views('extensions.all-extensions', 'page');
 
 		$this->setPageTitle("Extensions");
 
