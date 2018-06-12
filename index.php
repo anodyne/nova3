@@ -43,7 +43,7 @@ if (! file_exists('./nova/vendor')) {
 |
 */
 
-require __DIR__.'/nova/bootstrap/autoload.php';
+require __DIR__.'/nova/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------

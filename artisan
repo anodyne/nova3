@@ -13,7 +13,7 @@
 |
 */
 
-require __DIR__.'/nova/bootstrap/autoload.php';
+require __DIR__.'/nova/vendor/autoload.php';
 
 $app = require_once __DIR__.'/nova/bootstrap/app.php';
 
