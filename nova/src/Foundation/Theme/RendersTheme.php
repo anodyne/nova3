@@ -1,12 +1,10 @@
 <?php namespace Nova\Foundation\Theme;
 
-use HTML;
-
 trait RendersTheme
 {
 	public $structure;
 
-	public function structure($view, array $data)
+	final public function structure($view, array $data)
 	{
 		$this->structure = view("components.structures.{$view}", (array) $data);
 
@@ -39,7 +37,7 @@ trait RendersTheme
 			$path = str_replace(base_path(), '', $filePath);
 
 			// Finally, add a script tag
-			$output.= HTML::script(url($path))."\r\n";
+			$output.= app('html')->script(url($path))."\r\n";
 		}
 
 		$this->structure->scripts = $output;
@@ -69,12 +67,27 @@ trait RendersTheme
 			$path = str_replace(base_path(), '', $filePath);
 
 			// Finally, add a style tag
-			$output.= HTML::style(url($path))."\r\n";
+			$output.= app('html')->style(url($path))."\r\n";
 		}
 
 		$this->structure->styles = $output;
 
 		return $this;
+	}
+
+	public function entryAfterHead()
+	{
+		$this->structure->entryAfterHead = '';
+	}
+
+	public function entryBeforeTemplate()
+	{
+		$this->structure->entryBeforeTemplate = '';
+	}
+
+	public function entryAfterTemplate()
+	{
+		$this->structure->entryAfterTemplate = '';
 	}
 
 	public function __toString()
