@@ -30,16 +30,12 @@ trait ProvidesScriptVariables
 
 		if ($currentUser) {
 			$user = ['user' => [
-				'name' => $currentUser->present()->name,
-				'nickname' => $currentUser->nickname,
-				'realName' => $currentUser->name,
+				'name' => $currentUser->name,
 				'email' => $currentUser->email,
 			]];
 		} else {
 			$user = ['user' => [
 				'name' => null,
-				'nickname' => null,
-				'realName' => null,
 				'email' => null,
 			]];
 		}
@@ -66,7 +62,7 @@ trait ProvidesScriptVariables
 		// Nova's statuses
 		$statuses = ['status' => Status::all()];
 
-		return array_merge($system, $settings, $user, $icons, $lang, $data, $statuses);
+		return collect(array_merge($system, $settings, $user, $icons, $lang, $data, $statuses));
 	}
 
 	protected function buildRoutesList()

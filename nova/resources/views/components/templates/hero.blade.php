@@ -51,7 +51,7 @@
 				<div class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-toggle="dropdown" role="button" aria-expanded="false">
 						<span class="mr-1">
-							<avatar :item="{{ $_user }}"
+							<avatar :item="{{ $_user->toJson() }}"
 									:show-content="false"
 									:show-status="false"
 									size="xs"
@@ -62,8 +62,8 @@
 					</a>
 
 					<div class="dropdown-menu dropdown-menu-right">
-						<a class="dropdown-item" href="{{ route('profile.show', [$_user]) }}">{{ _m('users-my-profile') }}</a>
-						<a class="dropdown-item" href="{{ route('profile.edit', [$_user]) }}">{{ _m('users-profile-update') }}</a>
+						<a class="dropdown-item" href="{{ route('profile.show', $_user->id) }}">{{ _m('users-my-profile') }}</a>
+						<a class="dropdown-item" href="{{ route('profile.edit', $_user->id) }}">{{ _m('users-profile-update') }}</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="{{ route('dashboard.characters') }}">{{ _m('dashboard-characters') }}</a>
 						<div class="dropdown-divider"></div>

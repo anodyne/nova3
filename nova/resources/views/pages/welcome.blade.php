@@ -15,7 +15,7 @@
 
 	@if (auth()->check())
 		<div class="links">
-			<strong>Signed In as</strong> {{ $_user->present()->name }} ({{ $_user->email }})
+			<strong>Signed In as</strong> {{ $_user->name }} ({{ $_user->email }})
 		</div>
 	@endif
 @endsection

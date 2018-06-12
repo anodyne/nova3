@@ -119,7 +119,7 @@ class SignInController extends Controller
 		$this->guard()->user()->recordSignIn();
 
 		flash()
-			->message(_m('auth-success', [$this->guard()->user()->present()->name]))
+			->message(_m('auth-success', [$this->guard()->user()->getPresenter()->name]))
 			->success();
 
 		$request->session()->regenerate();

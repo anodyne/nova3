@@ -8,17 +8,15 @@
 </div>
 
 @can('updateProfile', $user)
-	<mobile>
-		<p><a href="{{ route('profile.edit', $user) }}" class="btn btn-secondary btn-block">{{ _m('users-profile-update') }}</a></p>
-	</mobile>
+	<mobile-view>
+		<p><a href="{{ route('profile.edit') }}" class="button is-block">{{ _m('users-profile-update') }}</a></p>
+	</mobile-view>
 
-	<desktop>
-		<div class="btn-toolbar">
-			<div class="btn-group">
-				<a href="{{ route('profile.edit', $user) }}" class="btn btn-secondary">{{ _m('users-profile-update') }}</a>
-			</div>
+	<desktop-view>
+		<div class="button-toolbar">
+			<a href="{{ route('profile.edit') }}" class="button">{{ _m('users-profile-update') }}</a>
 		</div>
-	</desktop>
+	</desktop-view>
 @endcan
 
 <ul>

@@ -5,10 +5,10 @@
 		<p>{{ _m('characters-deleted-notice') }}</p>
 	</div>
 
-	<div class="data-table is-bordered is-striped">
+	<div class="data-table is-bordered is-striped is-rounded">
 		<div class="row is-header">
 			<div class="col">
-				<mobile>
+				<mobile-view>
 					<div v-show="!mobileFilter && !mobileSearch">
 						<a href="#" class="btn btn-secondary" @click.prevent="mobileFilter = true">{!! icon('filter') !!}</a>
 						<a href="#" class="btn btn-secondary" @click.prevent="mobileSearch = true">{!! icon('search') !!}</a>
@@ -34,8 +34,8 @@
 							</a>
 						</span>
 					</div>
-				</mobile>
-				<desktop>
+				</mobile-view>
+				<desktop-view>
 					<text-input placeholder="{{ _m('characters-find') }}" v-model="search">
 						<template slot="field-addon-after">
 							<a href="#" class="leading-0" @click.prevent="resetSearch">
@@ -43,7 +43,7 @@
 							</a>
 						</template>
 					</text-input>
-				</desktop>
+				</desktop-view>
 			</div>
 			<div class="col">
 				<select name="" class="custom-select" v-model="status">

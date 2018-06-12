@@ -6,25 +6,30 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<title>{{ $pageTitle or '' }} &bull; {{ config('app.name', 'Laravel') }}</title>
+	<title>{{ $pageTitle or '' }} &bull; {{ config('app.name', 'Nova') }}</title>
 
 	{!! partial('icons') !!}
 	{!! partial('fonts') !!}
 
-	<!-- Styles -->
 	<link href="{{ asset('assets/css/vendor.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet">
 	{!! $styles or false !!}
 
 	<script>
-		window.Nova = {!! json_encode(Nova::scriptVariables()) !!}
+		window.Nova = Object.freeze({!! Nova::scriptVariables()->toJson() !!})
 	</script>
 	@routes
+
+	{!! $entryAfterHead or false !!}
 </head>
 <body>
 	<div id="nova-app">
+		{!! $entryBeforeTemplate or false !!}
+
 		{!! $template or false !!}
+
+		{!! $entryAfterTemplate or false !!}
 	</div>
 
 	<!-- Sprite Map -->
@@ -34,15 +39,9 @@
 	<script>
 		feather.replace()
 
-		var VueNova = {}
+		var NovaVue = {}
 	</script>
 	{!! $scripts or false !!}
-	{{-- <script>
-		const app = new Vue({
-			el: '#nova-app',
-			mixins: [vue]
-		})
-	</script> --}}
 	<script src="{{ asset('assets/js/manifest.js') }}"></script>
 	<script src="{{ asset('assets/js/vendor.js') }}"></script>
 	<script src="{{ asset('assets/js/app.js') }}"></script>

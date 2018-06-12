@@ -15,7 +15,7 @@
 							<rank></rank>
 						@endif
 					</div>
-					<p class="text-center mt-3 mb-0">{{ $character->present()->name }}</p>
+					<p class="text-center mt-3 mb-0">{{ $character->name }}</p>
 					<small class="d-block text-muted text-center">{{ $character->primaryPosition->name }}</small>
 				</div>
 				<div class="card-footer">

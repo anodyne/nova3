@@ -1,8 +1,8 @@
 <div class="row">
 	<div class="col-md-3">
 		<div class="mb-3">
-			<a href="{{ $character->present()->avatarImage }}" data-lightbox="gallery">
-				<img src="{{ $character->present()->avatarImage }}" alt="" class="img-fluid rounded">
+			<a href="{{ $character->avatarImage }}" data-lightbox="gallery">
+				<img src="{{ $character->avatarImage }}" alt="" class="img-fluid rounded">
 			</a>
 
 			@if ($images->count() > 0)

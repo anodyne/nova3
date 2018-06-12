@@ -40,7 +40,7 @@
 			@else
 				<div class="navbar-item has-dropdown is-hoverable">
 					<a class="navbar-link">
-						<avatar :item="{{ $_user }}"
+						<avatar :item="{{ $_user->toJson() }}"
 								:show-content="false"
 								:show-status="false"
 								size="xs"
@@ -49,8 +49,8 @@
 					</a>
 
 					<div class="navbar-dropdown is-right">
-						<a class="navbar-item" href="{{ route('profile.show', [$_user]) }}">{{ _m('users-my-profile') }}</a>
-						<a class="navbar-item" href="{{ route('profile.edit', [$_user]) }}">{{ _m('users-profile-update') }}</a>
+						<a class="navbar-item" href="{{ route('profile.show', $_user->id) }}">{{ _m('users-my-profile') }}</a>
+						<a class="navbar-item" href="{{ route('profile.edit', $_user->id) }}">{{ _m('users-profile-update') }}</a>
 						<div class="navbar-divider"></div>
 						<a class="navbar-item" href="{{ route('dashboard.characters') }}">{{ _m('dashboard-characters') }}</a>
 						<div class="navbar-divider"></div>
