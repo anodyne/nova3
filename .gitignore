@@ -8,3 +8,4 @@ extensions/*/
 node_modules
 nova/vendor
 storage/debugbar
+*.key
