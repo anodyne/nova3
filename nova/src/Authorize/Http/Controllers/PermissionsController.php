@@ -1,8 +1,15 @@
-<?php namespace Nova\Authorize\Http\Controllers;
+<?php
+
+namespace Nova\Authorize\Http\Controllers;
 
 use Controller;
 use Nova\Authorize\Role;
 use Nova\Authorize\Permission;
+use Nova\Authorize\Jobs\CreatePermissionJob;
+use Nova\Authorize\Jobs\DeletePermissionJob;
+use Nova\Authorize\Jobs\UpdatePermissionJob;
+use Nova\Authorize\Http\Requests\CreatePermissionRequest;
+use Nova\Authorize\Http\Requests\UpdatePermissionRequest;
 
 class PermissionsController extends Controller
 {
@@ -39,21 +46,11 @@ class PermissionsController extends Controller
 		$this->setPageTitle(_m('authorize-permissions-add'));
 	}
 
-	public function store()
+	public function store(CreatePermissionRequest $request)
 	{
 		$this->renderWithTheme = false;
 
-		$this->authorize('create', new Permission);
-
-		$this->validate(request(), [
-			'name' => 'required',
-			'key' => 'required'
-		], [
-			'name.required' => _m('validation-name-required'),
-			'key.required' => _m('validation-key-required')
-		]);
-
-		creator(Permission::class)->with(request()->all())->create();
+		$this->dispatch(new CreatePermissionJob($request->validated()));
 
 		flash()
 			->title(_m('authorize-permissions-flash-added-title'))
@@ -74,21 +71,11 @@ class PermissionsController extends Controller
 		$this->data->permission = $permission;
 	}
 
-	public function update(Permission $permission)
+	public function update(UpdatePermissionRequest $request, Permission $permission)
 	{
 		$this->renderWithTheme = false;
 
-		$this->authorize('update', $permission);
-
-		$this->validate(request(), [
-			'name' => 'required',
-			'key' => 'required'
-		], [
-			'name.required' => _m('validation-name-required'),
-			'key.required' => _m('validation-key-required')
-		]);
-
-		updater(Permission::class)->with(request()->all())->update($permission);
+		$this->dispatch(new UpdatePermissionJob($request->validated(), $permission));
 
 		flash()
 			->title(_m('authorize-permissions-flash-updated-title'))
@@ -104,8 +91,8 @@ class PermissionsController extends Controller
 
 		$this->authorize('delete', $permission);
 
-		deletor(Permission::class)->delete($permission);
+		$this->dispatch(new DeletePermissionJob([], $permission));
 
-		return response($permission, 200);
+		return response()->json($permission, Response::HTTP_NO_CONTENT);
 	}
 }

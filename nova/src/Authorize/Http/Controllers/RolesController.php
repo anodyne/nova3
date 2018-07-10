@@ -1,8 +1,16 @@
-<?php namespace Nova\Authorize\Http\Controllers;
+<?php
+
+namespace Nova\Authorize\Http\Controllers;
 
 use Controller;
 use Nova\Authorize\Role;
+use Illuminate\Http\Response;
 use Nova\Authorize\Permission;
+use Nova\Authorize\Jobs\CreateRoleJob;
+use Nova\Authorize\Jobs\DeleteRoleJob;
+use Nova\Authorize\Jobs\UpdateRoleJob;
+use Nova\Authorize\Http\Requests\CreateRoleRequest;
+use Nova\Authorize\Http\Requests\UpdateRoleRequest;
 
 class RolesController extends Controller
 {
@@ -32,7 +40,7 @@ class RolesController extends Controller
 
 	public function create()
 	{
-		$this->authorize('create', new Role);
+		$this->authorize('create', Role::class);
 
 		$this->views('authorize.create-role', 'page|script');
 
@@ -42,17 +50,11 @@ class RolesController extends Controller
 		$this->data->oldPermissions = old('permissions');
 	}
 
-	public function store()
+	public function store(CreateRoleRequest $request)
 	{
-		$this->authorize('create', new Role);
+		$this->authorize('create', Role::class);
 
-		$this->validate(request(), [
-			'name' => 'required'
-		], [
-			'name.required' => _m('validation-name-required')
-		]);
-
-		creator(Role::class)->with(request()->all())->create();
+		$this->dispatch(new CreateRoleJob($request->validated()));
 
 		flash()
 			->title(_m('authorize-roles-flash-added-title'))
@@ -75,17 +77,11 @@ class RolesController extends Controller
 		$this->data->oldPermissions = old('permissions');
 	}
 
-	public function update(Role $role)
+	public function update(UpdateRoleRequest $request, Role $role)
 	{
 		$this->authorize('update', $role);
 
-		$this->validate(request(), [
-			'name' => 'required'
-		], [
-			'name.required' => _m('validation-name-required')
-		]);
-
-		updater(Role::class)->with(request()->all())->update($role);
+		$this->dispatch(new UpdateRoleJob($request->validated(), $role));
 
 		flash()
 			->title(_m('authorize-roles-flash-updated-title'))
@@ -99,8 +95,8 @@ class RolesController extends Controller
 	{
 		$this->authorize('delete', $role);
 
-		deletor(Role::class)->delete($role);
+		$this->dispatch(new DeleteRoleJob([], $role));
 
-		return response($role, 200);
+		return response()->json($role, Response::HTTP_NO_CONTENT);
 	}
 }
