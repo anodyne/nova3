@@ -188,3 +188,5 @@ Route::patch('admin/settings', 'Nova\Settings\Http\Controllers\SettingsControlle
  */
 Route::resource('admin/extensions', 'Nova\Extensions\Http\Controllers\ExtensionsController');
 Route::resource('admin/themes', 'Nova\Themes\Http\Controllers\ThemesController');
+
+Route::get('admin/tokens', 'Nova\Tokens\Http\Controllers\TokensController@handle')->name('tokens');
