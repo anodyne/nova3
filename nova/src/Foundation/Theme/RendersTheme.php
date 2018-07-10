@@ -11,16 +11,21 @@ trait RendersTheme
 		return $this;
 	}
 
+	public function layout($view, array $data)
+	{
+		$this->structure->layout = view("components.layouts.{$view}", (array) $data);
+	}
+
 	public function template($view, array $data)
 	{
-		$this->structure->template = view("components.templates.{$view}", (array) $data);
+		$this->structure->layout->template = view("components.templates.{$view}", (array) $data);
 
 		return $this;
 	}
 
 	public function page($view, array $data)
 	{
-		$this->structure->template->content = view("components.pages.{$view}", (array) $data);
+		$this->structure->layout->template->content = view("components.pages.{$view}", (array) $data);
 
 		return $this;
 	}
@@ -47,8 +52,7 @@ trait RendersTheme
 
 	public function spriteMap()
 	{
-		if ($this->spriteMap != false)
-		{
+		if ($this->spriteMap) {
 			$this->structure->spriteMap = file_get_contents(url($this->spriteMap));
 		}
 
@@ -75,19 +79,34 @@ trait RendersTheme
 		return $this;
 	}
 
+	public function entryBeforeHead()
+	{
+		$this->structure->entryBeforeHead = '';
+	}
+
 	public function entryAfterHead()
 	{
 		$this->structure->entryAfterHead = '';
 	}
 
+	public function entryBeforeLayout()
+	{
+		$this->structure->entryBeforeLayout = '';
+	}
+
 	public function entryBeforeTemplate()
 	{
-		$this->structure->entryBeforeTemplate = '';
+		$this->structure->layout->entryBeforeTemplate = '';
+	}
+
+	public function entryAfterLayout()
+	{
+		$this->structure->entryAfterLayout = '';
 	}
 
 	public function entryAfterTemplate()
 	{
-		$this->structure->entryAfterTemplate = '';
+		$this->structure->layout->entryAfterTemplate = '';
 	}
 
 	public function __toString()

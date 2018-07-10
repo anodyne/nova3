@@ -22,6 +22,7 @@ class RenderController
 				app('nova.hooks')->run($request->route()->getName());
 
 				$this->buildThemeStructure();
+				$this->buildThemeLayout();
 				$this->buildThemeTemplate();
 				$this->buildPage();
 				$this->buildScripts();
@@ -40,6 +41,14 @@ class RenderController
 		$this->output = app('nova.theme')->structure(
 			$this->controller->views->get('structure'),
 			(array) $this->controller->structureData
+		);
+	}
+
+	protected function buildThemeLayout()
+	{
+		$this->output = app('nova.theme')->layout(
+			$this->controller->views->get('layout'),
+			(array)$this->controller->layoutData
 		);
 	}
 
