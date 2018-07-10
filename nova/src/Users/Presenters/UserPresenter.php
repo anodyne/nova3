@@ -5,14 +5,14 @@ use Nova\Foundation\Presenters\Presenter;
 
 class UserPresenter extends Presenter
 {
-	public function presentAvatarImage()
+	public function avatarImage()
 	{
-		if ($this->hasMedia()) {
-			return asset("storage/app/public/users/{$this->getPrimaryMedia()->filename}");
+		if ($this->entity->hasMedia()) {
+			return asset("storage/app/public/users/{$this->entity->getPrimaryMedia()->filename}");
 		}
 
-		if (! empty($this->email)) {
-			return Gravatar::get($this->email);
+		if (! empty($this->entity->email)) {
+			return Gravatar::get($this->entity->email);
 		}
 
 		return false;

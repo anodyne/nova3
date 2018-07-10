@@ -1,13 +1,15 @@
 <?php namespace Nova\Authorize;
 
-use Eloquent;
+use Illuminate\Database\Eloquent\Model;
+use Laracasts\Presenter\PresentableTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Permission extends Eloquent
+class Permission extends Model
 {
-	use LogsActivity;
+	use LogsActivity, PresentableTrait;
 
 	protected $fillable = ['name', 'key'];
+	protected $presenter = Presenters\PermissionPresenter::class;
 	protected $table = 'permissions';
 
 	//--------------------------------------------------------------------------

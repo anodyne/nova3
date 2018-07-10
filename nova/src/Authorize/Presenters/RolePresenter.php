@@ -4,8 +4,8 @@ use Nova\Foundation\Presenters\Presenter;
 
 class RolePresenter extends Presenter
 {
-	public function presentIncludedPermissions()
+	public function includedPermissions()
 	{
-		return implode(', ', $this->permissions->pluck('name')->all());
+		return implode(', ', $this->entity->permissions->pluck('name')->all());
 	}
 }

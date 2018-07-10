@@ -7,20 +7,20 @@ use Status;
 use Nova\Authorize\Role;
 use Nova\Media\Data\HasMedia;
 use Nova\Characters\Character;
+use Laravel\Passport\HasApiTokens;
 use Nova\Foundation\Data\HasStatus;
 use Nova\Auth\Mail\SendPasswordReset;
 use Illuminate\Notifications\Notifiable;
-use Robbo\Presenter\PresentableInterface;
+use Laracasts\Presenter\PresentableTrait;
 use Nova\Auth\Notifications\ResetPassword;
-use Nova\Foundation\Presenters\Presentable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements PresentableInterface
+class User extends Authenticatable
 {
-	use Notifiable, SoftDeletes, Presentable, HasStatus, HasMedia, CausesActivity;
+	use HasApiTokens, Notifiable, SoftDeletes, PresentableTrait, HasStatus, HasMedia, CausesActivity;
 
 	protected $appends = ['avatarImage'];
 	protected $dates = ['created_at', 'updated_at', 'deleted_at', 'last_sign_in'];
@@ -89,7 +89,7 @@ class User extends Authenticatable implements PresentableInterface
 
 	public function getAvatarImageAttribute()
 	{
-		return $this->getPresenter()->avatarImage;
+		return $this->present()->avatarImage;
 	}
 
 	public function getPassword()

@@ -1,13 +1,12 @@
 <?php namespace Nova\Authorize;
 
-use Eloquent;
-use Robbo\Presenter\PresentableInterface;
+use Illuminate\Database\Eloquent\Model;
+use Laracasts\Presenter\PresentableTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Nova\Foundation\Presenters\Presentable;
 
-class Role extends Eloquent implements PresentableInterface
+class Role extends Model
 {
-	use LogsActivity, Presentable;
+	use LogsActivity, PresentableTrait;
 
 	protected $fillable = ['name'];
 	protected $presenter = Presenters\RolePresenter::class;
