@@ -1,12 +1,16 @@
 <?php
 
-$factory->define(Nova\Characters\Character::class, function ($faker) {
+use Nova\Users\User;
+use Nova\Genres\Rank;
+use Nova\Characters\Character;
+
+$factory->define(Character::class, function ($faker) {
 	return [
 		'rank_id' => function () {
-			return factory(Nova\Genres\Rank::class)->create()->id;
+			return factory(Rank::class)->create()->id;
 		},
 		'user_id' => function () {
-			return factory(Nova\Users\User::class)->create()->id;
+			return factory(User::class)->create()->id;
 		},
 		'name' => sprintf('%s %s', $faker->firstName(), $faker->lastName),
 	];

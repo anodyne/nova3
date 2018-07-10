@@ -1,7 +1,10 @@
 <?php
 
-$factory->define(Nova\Media\Media::class, function ($faker) {
-	$character = factory(Nova\Characters\Character::class)->create();
+use Nova\Media\Media;
+use Nova\Characters\Character;
+
+$factory->define(Media::class, function ($faker) {
+	$character = factory(Character::class)->create();
 
 	return [
 		'mediable_id' => $character->id,

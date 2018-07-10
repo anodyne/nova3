@@ -18,11 +18,11 @@ $factory->define(Nova\Genres\Position::class, function ($faker) {
 	];
 });
 
-$factory->states(Nova\Genres\Position::class, 'available', [
+$factory->state(Nova\Genres\Position::class, 'available', [
 	'available' => 1
 ]);
 
-$factory->states(Nova\Genres\Position::class, 'unavailable', [
+$factory->state(Nova\Genres\Position::class, 'unavailable', [
 	'available' => 0
 ]);
 
