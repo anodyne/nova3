@@ -15,7 +15,9 @@ class SignInController extends Controller
 
 		$this->middleware('guest')->except('logout');
 
-		$this->views('auth', 'template');
+		// $this->views($this->theme->getPageLayout($this->page), 'layout');
+		$this->views('auth-basic', 'layout');
+		$this->views('basic', 'template');
 
 		$this->renderWithTheme = false;
 	}
@@ -119,7 +121,7 @@ class SignInController extends Controller
 		$this->guard()->user()->recordSignIn();
 
 		flash()
-			->message(_m('auth-success', [$this->guard()->user()->getPresenter()->name]))
+			->message(_m('auth-success', [$this->guard()->user()->name]))
 			->success();
 
 		$request->session()->regenerate();
