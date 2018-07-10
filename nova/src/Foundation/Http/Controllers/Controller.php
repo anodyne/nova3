@@ -11,10 +11,13 @@ class Controller extends BaseController
 	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
 	public $data;
+	public $page;
 	public $user;
 	public $views;
+	public $theme;
 	public $pageTitle;
 	public $structureData;
+	public $layoutData;
 	public $templateData;
 	public $renderWithTheme = true;
 
@@ -28,11 +31,13 @@ class Controller extends BaseController
 
 		// Set up shared variables on the controller instance
 		$this->middleware(function ($request, $next) {
-			// Set the current user on the controller
+			$this->page = '';
 			$this->user = $request->user();
+			$this->theme = app('nova.theme');
 
-			// Share the current user with every view
-			view()->share('_user', $request->user());
+			view()->share('_page', $this->page);
+			view()->share('_user', $this->user);
+			view()->share('_theme', $this->theme);
 			view()->share('_settings', app('nova.settings'));
 
 			return $next($request);
@@ -47,6 +52,12 @@ class Controller extends BaseController
 
 		// Pull in the structure file
 		$this->views('app', 'structure');
+
+		// Pull in the layout file
+		// $this->views($this->theme->getPageLayout($this->page), 'layout');
+
+		// Pull in the template file
+		// $this->views($this->page->getPageTemplate(), 'template');
 	}
 
 	public function setPageTitle($value)
@@ -65,13 +76,15 @@ class Controller extends BaseController
 		$this->structureData = new stdClass;
 		$this->structureData->pageTitle = &$this->pageTitle;
 
+		// Setup how we'll store data for the layout
+		$this->layoutData = new stdClass;
+
 		// Setup how we'll store data for the template
 		$this->templateData = new stdClass;
 
 		// Build up the views collection
 		$this->views = collect([
-			'structure'	=> 'public',
-			'template' => 'public',
+			'structure'	=> 'app',
 		]);
 	}
 

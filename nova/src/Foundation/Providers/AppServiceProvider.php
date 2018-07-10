@@ -9,6 +9,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\PackageManifest;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Nova\Foundation\Http\Middleware\CaptureRequestExtension;
+use Nova\Foundation\Theme\ThemeFactory;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,36 +27,16 @@ class AppServiceProvider extends ServiceProvider
 		$this->registerTranslator();
 		$this->registerMacros();
 
-		$this->app->bind('nova.avatar', function ($app) {
-			return new \Nova\Foundation\Avatar;
-		});
+		// $this->app->bind('nova.avatar', function ($app) {
+		// 	return new \Nova\Foundation\Avatar;
+		// });
 
 		$this->app->singleton('nova.hooks', function ($app) {
 			return new \Nova\Foundation\HookManager;
 		});
 
-		$this->app->bind('nova.markdown', function ($app) {
-			return new \Nova\Foundation\MarkdownParser(new \Parsedown);
-		});
-
-		$this->app->singleton('nova.settings', function ($app) {
-			if ($app['nova']->isInstalled()) {
-				$settings = \Nova\Settings\Settings::get()
-					->pluck('value', 'key')
-					->all();
-
-				return (object)$settings;
-			}
-
-			return (object)collect();
-		});
-
 		// Make sure we can use the _settings object in every view
-		$this->app['view']->share('_settings', $this->app['nova.settings']);
-
-		$this->app->singleton('nova2-migrator', function ($app) {
-			return new \Nova\Setup\Migrations\MigrationManager;
-		});
+		// $this->app['view']->share('_settings', $this->app['nova.settings']);
 
 		// Build up the morph map
 		Relation::morphMap(config('maps.morph'));
@@ -69,16 +50,23 @@ class AppServiceProvider extends ServiceProvider
 
 	protected function registerTheme()
 	{
-		$theme = new \Nova\Foundation\Theme\Theme;
+		$theme = 'pulsar';
 
-		// spl_autoload_register(function ($class) {
-		// 	include_once app()->themePath('pulsar').DIRECTORY_SEPARATOR.'Theme.php';
-		// });
+		// if ($this->app['nova']->isInstalled()) {
+		// 	$theme = (auth()->check())
+		// 		? auth()->user()->preference('theme')
+		// 		: cache('nova.settings')->theme;
+		// }
 
-		// Make a new theme
-		// $theme = new \Theme;
+		$this->app->singleton('nova.theme', function ($app) use ($theme) {
+			return ThemeFactory::make($theme);
+		});
 
-		$this->app->instance('nova.theme', $theme);
+		// Make sure the file finder can find Javascript files
+		$this->app['view']->addExtension('js', 'file');
+
+		// Add the theme location to the file finder
+		$this->app['view']->getFinder()->prependLocation(theme_path($theme));
 	}
 
 	protected function registerTranslator()
@@ -124,34 +112,6 @@ class AppServiceProvider extends ServiceProvider
 
 	protected function registerMacros()
 	{
-		Form::macro('departments', function ($name, $options = null, $value = null, $attributes = [], $onlyParents = false) {
-			if ($options == null) {
-				$options = \Nova\Genres\Department::with('subDepartments')->parents()->orderBy('order')->get();
-			}
-
-			$options = $options->mapWithKeys(function ($d) use ($onlyParents) {
-				if (! $onlyParents and $d->subDepartments->count() > 0) {
-					return [$d->name => [$d->id => $d->name] + $d->subDepartments->pluck('name', 'id')->all()];
-				} else {
-					return [$d->id => $d->name];
-				}
-			})->all();
-
-			$class = 'custom-select';
-
-			if (array_key_exists('class', $attributes)) {
-				$class.= " {$attributes['class']}";
-				unset($attributes['class']);
-			}
-
-			return Form::select(
-				$name,
-				$options,
-				$value,
-				array_merge(['class' => $class], $attributes)
-			);
-		});
-
 		Route::macro('multiformat', function () {
             // Hello darkness, my old friend
             if (count($this->parameterNames()) > 0 && ends_with($this->uri(), '}')) {

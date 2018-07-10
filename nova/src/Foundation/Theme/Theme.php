@@ -1,4 +1,9 @@
-<?php namespace Nova\Foundation\Theme;
+<?php
+
+namespace Nova\Foundation\Theme;
+
+use Nova\Themes\Theme as ThemeModel;
+use Nova\Pages\Page;
 
 class Theme
 {
@@ -8,15 +13,29 @@ class Theme
 
 	final public function __construct()
 	{
-		// Prepend the theme path to the view locations
-		view()->getFinder()->prependLocation(theme_path($this->path));
-
-		// Allow finding Javascript and CSS files
-		// view()->addExtension('css', 'file');
-		view()->addExtension('js', 'file');
-
 		$this->initialize();
 	}
 
 	public function initialize() {}
+
+	/**
+	 * Get the model for this theme.
+	 *
+	 * @return \Nova\Themes\Theme
+	 */
+	public function getModel()
+	{
+		return ThemeModel::path($this->path)->firstOrFail();
+	}
+
+	/**
+	 * Get the layout for a specific page.
+	 *
+	 * @param  \Nova\Pages\Page  $page
+	 * @return string
+	 */
+	public function getPageLayout(Page $page)
+	{
+		return $this->getModel()->getLayoutForPage($page);
+	}
 }
