@@ -2,11 +2,11 @@
 	@apply .my-4;
 
 	> .row {
-		@apply .border-t .mx-0 .py-3 .flex .items-center;
+		@apply .border-t .border-grey-lighter .mx-0 .py-3 .flex .items-center;
 
 		&.is-header,
 		.is-header {
-			@apply .bg-grey-lighter .font-bold .text-sm .uppercase .tracking-uppercase;
+			@apply .bg-grey-lightest .text-grey-dark .font-medium .text-xs .uppercase .tracking-uppercase;
 
 			.title {
 				@apply .m-0;
@@ -99,6 +99,16 @@
 	&.is-hoverable {
 		.row:not(.is-header):hover {
 			@apply .text-grey-darker;
+		}
+	}
+
+	&.has-controls {
+		.row-controls {
+			@apply .hidden;
+		}
+
+		.row:hover .row-controls {
+			@apply .flex;
 		}
 	}
 }

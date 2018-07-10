@@ -22,7 +22,7 @@
 }
 
 .row {
-	@apply .flex .flex-wrap .-mx-4;
+	@apply .flex .flex-wrap .-mx-6;
 }
 
 .no-gutters {
@@ -35,46 +35,6 @@
 }
 
 @responsive {
-	// .row.start {
-	// 	@apply .justify-start;
-	// }
-
-	// .row.center {
-	// 	@apply .justify-center;
-	// }
-
-	// .row.end {
-	// 	@apply .justify-end;
-	// }
-
-	// .row.top {
-	// 	@apply .items-start;
-	// }
-
-	// .row.middle {
-	// 	@apply .items-center;
-	// }
-
-	// .row.bottom {
-	// 	@apply .items-end;
-	// }
-
-	// .row.around {
-	// 	@apply .justify-around;
-	// }
-
-	// .row.between {
-	// 	@apply .justify-between;
-	// }
-
-	// .row.first {
-	// 	order: -1;
-	// }
-
-	// .row.last {
-	// 	order: 1;
-	// }
-
 	.row.reverse {
 		@apply .flex-row-reverse;
 	}
@@ -82,7 +42,7 @@
 
 .col,
 [class*="col-"] {
-	@apply .relative .w-full .px-4;
+	@apply .flex .items-center .relative .w-full .px-6;
 
 	min-height: 1px;
 }

@@ -17,7 +17,7 @@
 
 	&.is-up {
 		.dropdown-menu {
-			@apply .pb-1;
+			@apply .pb-2;
 
 			bottom: 100%;
 			padding-top: initial;
@@ -26,24 +26,23 @@
 	}
 }
 
-.dropdown-trigger {}
-
 .dropdown-menu {
-	@apply .hidden .min-w-48 .pt-1 .absolute .z-10;
+	@apply .hidden .pt-2 .absolute .z-10;
+	// .min-w-48
 
 	left: 0;
 	top: 100%;
 }
 
 .dropdown-content {
-	@apply .bg-white .rounded .shadow .py-2;
+	@apply .bg-white .rounded .border .py-2;
 }
 
 .dropdown-item {
-	@apply .flex .items-center .text-grey-dark .text-sm .leading-normal .py-2 .px-4 .relative .font-normal;
+	@apply .flex .items-center .text-grey-dark .text-sm .leading-normal .py-1 .px-4 .relative .font-normal;
 
 	.dropdown-icon {
-		@apply .mr-2;
+		@apply .h-5 .w-5 .mr-2 .text-grey;
 	}
 
 	&.is-subtle {
@@ -52,15 +51,49 @@
 }
 
 a.dropdown-item {
-	@apply .pr-12 .whitespace-no-wrap;
+	@apply .pr-12 .whitespace-no-wrap .font-medium;
 
 	&:hover {
-		@apply .bg-grey-lighter;
+		@apply .text-grey-darker;
 	}
 
-	&.is-active {}
+	&.is-danger {
+		@apply .text-danger;
+
+		&:hover {
+			@apply .text-danger-dark;
+		}
+	}
 }
 
 .dropdown-divider {
 	@apply .bg-grey-lighter .border-none .block .h-px .my-2;
+}
+
+.dropdown.is-inverted {
+	.dropdown-content {
+		@apply .bg-grey-darkest .border-transparent;
+	}
+
+	.dropdown-item {
+		@apply .text-grey-light;
+
+		.dropdown-icon {
+			@apply .text-grey-light;
+		}
+	}
+
+	a.dropdown-item {
+		&:hover {
+			@apply .text-grey-lighter;
+		}
+
+		&.is-danger {
+			@apply .text-danger-light;
+
+			&:hover {
+				@apply .text-danger;
+			}
+		}
+	}
 }

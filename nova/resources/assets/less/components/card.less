@@ -1,5 +1,5 @@
 .card {
-	@apply .w-full .bg-white .rounded .shadow .mb-6 .overflow-hidden;
+	@apply .w-full .bg-white .rounded .border .mb-6;
 }
 
 .card-title,
@@ -39,11 +39,11 @@
 }
 
 .card-block {
-	@apply .p-4;
+	@apply .p-6;
 }
 
 .card-content {
-	@apply .my-4;
+	@apply .my-6;
 }
 
 .card.is-inverse {
@@ -63,7 +63,7 @@
 		@apply .flex .w-full .items-stretch;
 
 		> .card {
-			@apply .mx-4;
+			@apply .mx-6;
 
 			&:first-child {
 				@apply .ml-0;
@@ -74,4 +74,16 @@
 			}
 		}
 	}
+}
+
+.data-table.in-card {
+	@apply .-my-6;
+}
+
+.data-table.in-card-top {
+	@apply .-mt-6;
+}
+
+.data-table.in-card-bottom {
+	@apply .-mb-6;
 }
