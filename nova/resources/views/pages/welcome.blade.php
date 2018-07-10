@@ -10,7 +10,6 @@
 		<a href="http://anodyne-productions.com/nova/nextgen" target="_blank">Preview Site</a>
 		<a href="https://github.com/anodyne/nova3" target="_blank">GitHub</a>
 		<a href="http://anodyne-productions.com" target="_blank">Anodyne</a>
-		<a href="{{ route('status') }}">Current Status</a>
 	</div>
 
 	@if (auth()->check())
