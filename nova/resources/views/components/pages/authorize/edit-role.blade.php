@@ -1,6 +1,6 @@
 <h1>{{ _m('authorize-roles-update') }}</h1>
 
-{!! Form::model($role, ['route' => ['roles.update', $role], 'method' => 'patch']) !!}
+{!! Form::model($role, ['route' => ['roles.update', $role->id], 'method' => 'patch']) !!}
 	<div class="row">
 		<div class="col md:col-4">
 			<text-input label="{{ _m('name') }}"
