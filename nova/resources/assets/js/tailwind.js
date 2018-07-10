@@ -193,6 +193,9 @@ let spacing = {
 	'40': '10rem',
 	'48': '12rem',
 	'64': '16rem',
+	'72': '18rem',
+	'80': '20rem',
+	'128': '32rem',
 }
 
 module.exports = {
@@ -257,7 +260,6 @@ module.exports = {
 
 	fonts: {
 		'sans': [
-			'Roboto',
 			'system-ui',
 			'BlinkMacSystemFont',
 			'-apple-system',
@@ -313,6 +315,7 @@ module.exports = {
 	*/
 
 	textSizes: {
+		'2xs': '.625rem',   // 10px
 		'xs': '.75rem',     // 12px
 		'sm': '.875rem',    // 14px
 		'base': '1rem',     // 16px
@@ -421,6 +424,25 @@ module.exports = {
 
 	/*
 	|-----------------------------------------------------------------------------
+	| Background sizes               https://tailwindcss.com/docs/background-size
+	|-----------------------------------------------------------------------------
+	|
+	| Here is where you define your background sizes. We provide some common
+	| values that are useful in most projects, but feel free to add other sizes
+	| that are specific to your project here as well.
+	|
+	| Class name: .bg-{size}
+	|
+	*/
+
+	backgroundSize: {
+		'auto': 'auto',
+		'cover': 'cover',
+		'contain': 'contain',
+	},
+
+	/*
+	|-----------------------------------------------------------------------------
 	| Border widths                     https://tailwindcss.com/docs/border-width
 	|-----------------------------------------------------------------------------
 	|
@@ -478,9 +500,12 @@ module.exports = {
 
 	borderRadius: {
 		'none': '0',
-		'sm': 'var(--radius-sm, .125rem)',
-		default: 'var(--radius, .25rem)',
-		'lg': 'var(--radius-lg, .5rem)',
+		'sm': 'var(--radius-sm, .21875rem)',
+		default: 'var(--radius, .4375rem)',
+		'lg': 'var(--radius-lg, .875rem)',
+		// 'sm': 'var(--radius-sm, .125rem)',
+		// default: 'var(--radius, .25rem)',
+		// 'lg': 'var(--radius-lg, .5rem)',
 		'full': 'var(--radius-full, 9999px)',
 	},
 
