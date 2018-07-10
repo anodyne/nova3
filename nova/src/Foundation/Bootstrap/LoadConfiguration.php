@@ -9,11 +9,10 @@ class LoadConfiguration extends IlluminateLoadConfig
 {
 	protected function loadConfigurationFiles(Application $app, RepositoryContract $repository)
 	{
-		$files = $this->getConfigurationFiles($app);
-
-		foreach ($files as $key => $value) {
-			$repository->set($key, $value);
-		}
+		collect($this->getConfigurationFiles($app))
+			->each(function ($values, $file) use (&$repository) {
+				$repository->set($file, $values);
+			});
 	}
 
 	protected function getConfigurationFiles(Application $app)
@@ -21,14 +20,12 @@ class LoadConfiguration extends IlluminateLoadConfig
 		$novaConfig = [];
 		$appConfig = [];
 
-		// Loop through the core config files
 		foreach (Finder::create()->files()->name('*.php')->in($app->configPath()) as $file) {
 			$key = basename($file->getRealPath(), '.php');
 
 			$novaConfig[$key] = require $file->getRealPath();
 		}
 
-		// Loop through the "app" config files
 		foreach (Finder::create()->files()->name('*.php')->in($app->appConfigPath()) as $file) {
 			$key = basename($file->getRealPath(), '.php');
 
