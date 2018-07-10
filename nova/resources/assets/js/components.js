@@ -44,6 +44,9 @@ Vue.component('icon', Vue.extend(Icon))
 // import RankPicker from './components/forms/RankPicker.vue'
 // Vue.component('rank-picker', Vue.extend(RankPicker))
 
+import Dropdown from './components/Dropdown.vue'
+Vue.component('nova-dropdown', Dropdown)
+
 import PickList from './components/forms/Picker.vue'
 Vue.component('pick-list', Vue.extend(PickList))
 

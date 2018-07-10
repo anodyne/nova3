@@ -1,12 +1,5 @@
 <template>
     <div>
-		<dropdown>
-			<template slot="text">Dropdown</template>
-
-			<dropdown-link href="#1">Link 1</dropdown-link>
-			<dropdown-link href="#2" class="is-danger">Link 2</dropdown-link>
-		</dropdown>
-
 		<app-card>
 			<template slot="card-header">
 				<div class="card-title">OAuth Clients</div>
@@ -201,11 +194,10 @@
 </template>
 
 <script>
-import Dropdown from '../dropdown/Dropdown.vue'
-import DropdownLink from '../dropdown/DropdownLink.vue'
+import Dropdown from '../Dropdown.vue'
 
     export default {
-		components: { Dropdown, DropdownLink },
+		components: { Dropdown },
 
         /*
          * The component's data.

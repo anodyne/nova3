@@ -2,15 +2,17 @@
 	<div :class="dropdownClasses">
 		<div class="dropdown-trigger">
 			<button type="button"
-					class="button is-flush"
+					:class="buttonClasses"
 					data-toggle="dropdown"
 					aria-haspopup="true"
 					aria-expanded="false"
 			>
-				<span v-if="hasSlot('text')">
-					<slot name="text"></slot>
+				<slot name="trigger-simple"></slot>
+
+				<span v-if="hasSlot('trigger')">
+					<slot name="trigger"></slot>
 				</span>
-				<icon name="chevron-down" class="caret" v-if="caret"></icon>
+				<icon name="chevron-down" class="dropdown-caret" v-if="hasSlot('trigger')"></icon>
 			</button>
 		</div>
 
@@ -23,27 +25,31 @@
 </template>
 
 <script>
-import slots from '../../mixins/slots'
+import slots from '../mixins/slots'
 
 export default {
 	props: {
-		caret: { type: Boolean, default: true },
-		direction: { type: String, default: 'left' },
+		direction: { type: String, default: '' },
 		inverted: { type: Boolean, default: true },
 	},
 
 	mixins: [slots],
 
 	computed: {
+		buttonClasses () {
+			return [
+				'button',
+				this.hasSlot('trigger-simple') ? 'is-flush' : ''
+			]
+		},
+
 		dropdownClasses () {
 			return [
 				'dropdown',
-				this.direction == 'right' ? 'is-right' : '',
+				this.direction != '' ? 'is-' + this.direction : '',
 				this.inverted ? 'is-inverted' : '',
 			]
 		}
-	},
-
-	created () {}
+	}
 }
 </script>
