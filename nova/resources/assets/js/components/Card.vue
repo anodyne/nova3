@@ -4,7 +4,7 @@
 			<slot name="card-media"></slot>
 		</div>
 
-		<div class="card-block">
+		<div class="card-block" v-if="blockShouldShow">
 			<div class="card-header" v-if="hasSlot('card-header')">
 				<slot name="card-header"></slot>
 			</div>
@@ -39,6 +39,10 @@ export default {
 	},
 
 	computed: {
+		blockShouldShow () {
+			return this.hasSlot('card-header') || this.hasSlot('card-title') || this.hasSlot('card-subtitle') || this.hasSlot('card-content')
+		},
+
 		wrapper () {
 			let classes = ['card']
 

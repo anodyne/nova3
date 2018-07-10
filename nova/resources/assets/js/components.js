@@ -1,4 +1,3 @@
-import Card from './components/Card.vue'
 import Icon from './components/Icon.vue'
 import Rank from './components/Rank.vue'
 import Flash from './components/Flash.vue'
@@ -22,7 +21,12 @@ Vue.component('toggle', Vue.extend(Toggle))
 import Switch from './components/forms/Switch.vue'
 Vue.component('toggle-switch', Vue.extend(Switch))
 
-Vue.component('card', Vue.extend(Card))
+import PageHeader from './components/PageHeader.vue'
+Vue.component('page-header', Vue.extend(PageHeader))
+
+import Card from './components/Card.vue'
+Vue.component('app-card', Vue.extend(Card))
+
 Vue.component('rank', Vue.extend(Rank))
 Vue.component('flash', Vue.extend(Flash))
 Vue.component('avatar', Vue.extend(Avatar))
@@ -46,3 +50,15 @@ Vue.component('pick-list', Vue.extend(PickList))
 Vue.component('mobile-view', require('./components/responsive-mobile').default)
 Vue.component('tablet-view', require('./components/responsive-tablet').default)
 Vue.component('desktop-view', require('./components/responsive-desktop').default)
+
+import LayoutPicker from './components/LayoutPicker.vue'
+Vue.component('layout-picker', Vue.extend(LayoutPicker))
+
+import PassportClients from './components/passport/Clients.vue'
+Vue.component('passport-clients', Vue.extend(PassportClients))
+
+import PassportAuthorizedClients from './components/passport/AuthorizedClients.vue'
+Vue.component('passport-authorized-clients', Vue.extend(PassportAuthorizedClients))
+
+import PassportPersonalAccessTokens from './components/passport/PersonalAccessTokens.vue'
+Vue.component('passport-personal-access-tokens', Vue.extend(PassportPersonalAccessTokens))
