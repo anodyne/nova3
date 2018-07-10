@@ -26,6 +26,13 @@ if (! function_exists('avatar')) {
 	}
 }
 
+if (! function_exists('carbon')) {
+	function carbon($parseString, $tz = null)
+	{
+		return new Carbon\Carbon($parseString, $tz);
+	}
+}
+
 if (! function_exists('creator')) {
 	function creator($model)
 	{
