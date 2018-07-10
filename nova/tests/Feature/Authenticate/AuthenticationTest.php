@@ -1,6 +1,10 @@
-<?php namespace Tests\Auth;
+<?php
+
+namespace Tests\Feature\Authenticate;
 
 use Tests\DatabaseTestCase;
+use Tests\ManagesTestUsers;
+use Illuminate\Http\Response;
 
 class AuthenticationTest extends DatabaseTestCase
 {
@@ -39,20 +43,18 @@ class AuthenticationTest extends DatabaseTestCase
 	public function a_user_gets_locked_out_after_five_wrong_sign_in_attempts()
 	{
 		for ($a = 1; $a <= 6; $a++) {
-			$response = $this->json('POST', '/sign-in', [
+			$response = $this->postJson('/sign-in', [
 				'email' => $this->user->email,
 				'password' => 'foo'
 			]);
 		}
 
-		$response->assertStatus(423);
+		$response->assertStatus(Response::HTTP_LOCKED);
 	}
 
 	/** @test **/
 	public function sign_in_requires_a_valid_email_address()
 	{
-		$this->withExceptionHandling();
-
 		$this->post('/sign-in', ['email' => '', 'password' => 'password'])
 			->assertSessionHasErrors('email');
 
@@ -66,8 +68,6 @@ class AuthenticationTest extends DatabaseTestCase
 	/** @test **/
 	public function sign_in_requires_a_password()
 	{
-		$this->withExceptionHandling();
-
 		$this->post('/sign-in', ['email' => 'foo@example.com', 'password' => ''])
 			->assertSessionHasErrors('password');
 
@@ -93,12 +93,14 @@ class AuthenticationTest extends DatabaseTestCase
 	{
 		$user = $this->createUser();
 
+		$this->assertEquals(null, $user->last_sign_in);
+
 		$this->post('/sign-in', [
 			'email' => $user->email,
 			'password' => 'secret'
 		]);
 
-		$this->assertNotEquals(null, auth()->user()->last_sign_in);
+		$this->assertNotEquals(null, $user->fresh()->last_sign_in);
 	}
 
 	/** @test **/

@@ -1,7 +1,10 @@
 <?php namespace Tests\Authorize;
 
+use RolesSeeder;
+use PermissionsSeeder;
 use Nova\Authorize\Role;
 use Tests\DatabaseTestCase;
+
 
 class ManageRolesTest extends DatabaseTestCase
 {
@@ -11,7 +14,10 @@ class ManageRolesTest extends DatabaseTestCase
 	{
 		parent::setUp();
 
-		$this->role = create('Nova\Authorize\Role');
+		$this->artisan('db:seed', ['--class' => PermissionsSeeder::class]);
+		$this->artisan('db:seed', ['--class' => RolesSeeder::class]);
+
+		$this->role = factory(Role::class)->create();
 	}
 
 	/**
@@ -20,8 +26,6 @@ class ManageRolesTest extends DatabaseTestCase
 	 */
 	public function unauthorized_users_cannot_manage_roles()
 	{
-		$this->withExceptionHandling();
-
 		$this->get(route('roles.index'))->assertRedirect(route('sign-in'));
 		$this->get(route('roles.create'))->assertRedirect(route('sign-in'));
 		$this->post(route('roles.store'))->assertRedirect(route('sign-in'));
@@ -122,7 +126,7 @@ class ManageRolesTest extends DatabaseTestCase
 	{
 		$admin = $this->createAdmin();
 		$this->signIn($admin);
-		
+
 		$this->get(route('roles.index'))->assertSuccessful();
 		$this->get(route('roles.create'))->assertSuccessful();
 		$this->get(route('roles.edit', $this->role))->assertSuccessful();

@@ -1,7 +1,10 @@
-<?php namespace Tests\Authorize;
+<?php
+
+namespace Tests\Unit;
 
 use Nova\Authorize\Role;
 use Tests\DatabaseTestCase;
+use Nova\Authorize\Permission;
 
 class RoleTest extends DatabaseTestCase
 {
@@ -25,7 +28,7 @@ class RoleTest extends DatabaseTestCase
 			$this->role->permissions
 		);
 
-		$permission = create('Nova\Authorize\Permission');
+		$permission = create(Permission::class);
 
 		$this->role->permissions()->attach($permission->id);
 
@@ -56,7 +59,7 @@ class RoleTest extends DatabaseTestCase
 	 */
 	public function it_can_update_permissions()
 	{
-		$permission = create('Nova\Authorize\Permission');
+		$permission = create(Permission::class);
 
 		$this->role->updatePermissions([$permission->id]);
 
@@ -69,7 +72,7 @@ class RoleTest extends DatabaseTestCase
 	 */
 	public function it_can_remove_permissions()
 	{
-		$permission = create('Nova\Authorize\Permission');
+		$permission = create(Permission::class);
 
 		$this->role->updatePermissions([$permission->id]);
 
@@ -81,9 +84,9 @@ class RoleTest extends DatabaseTestCase
 	/** @test **/
 	public function it_presents_included_permissions()
 	{
-		$permission1 = create('Nova\Authorize\Permission');
-		$permission2 = create('Nova\Authorize\Permission');
-		$permission3 = create('Nova\Authorize\Permission');
+		$permission1 = create(Permission::class);
+		$permission2 = create(Permission::class);
+		$permission3 = create(Permission::class);
 
 		$this->role->updatePermissions([
 			$permission1->id,
@@ -93,7 +96,7 @@ class RoleTest extends DatabaseTestCase
 
 		$this->assertEquals(
 			"{$permission1->name}, {$permission2->name}, {$permission3->name}",
-			$this->role->getPresenter()->includedPermissions
+			$this->role->present()->includedPermissions
 		);
 	}
 

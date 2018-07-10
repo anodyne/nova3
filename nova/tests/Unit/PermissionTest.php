@@ -1,5 +1,8 @@
-<?php namespace Tests\Authorize;
+<?php
 
+namespace Tests\Unit;
+
+use Nova\Authorize\Role;
 use Tests\DatabaseTestCase;
 use Nova\Authorize\Permission;
 
@@ -25,7 +28,7 @@ class PermissionTest extends DatabaseTestCase
 			$this->permission->roles
 		);
 
-		$role = create('Nova\Authorize\Role');
+		$role = create(Role::class);
 
 		$this->permission->roles()->attach($role->id);
 

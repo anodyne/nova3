@@ -1,4 +1,6 @@
-<?php namespace Tests\Auth;
+<?php
+
+namespace Tests\Feature\Authenticate;
 
 use Mail;
 use Tests\DatabaseTestCase;
@@ -20,8 +22,6 @@ class PasswordResetTest extends DatabaseTestCase
 	/** @test **/
 	public function password_reset_request_requires_a_valid_email_address()
 	{
-		$this->withExceptionHandling();
-
 		$this->post(route('password.email'), ['email' => ''])
 			->assertSessionHasErrors('email');
 
@@ -49,8 +49,6 @@ class PasswordResetTest extends DatabaseTestCase
 	/** @test **/
 	public function password_reset_requires_a_valid_email_address()
 	{
-		$this->withExceptionHandling();
-
 		$this->post('/password/reset', ['email' => ''])
 			->assertSessionHasErrors('email');
 	}
@@ -73,8 +71,6 @@ class PasswordResetTest extends DatabaseTestCase
 	/** @test **/
 	public function password_reset_requires_a_valid_token()
 	{
-		$this->withExceptionHandling();
-
 		$this->post('/password/reset', ['token' => ''])
 			->assertSessionHasErrors('token');
 

@@ -1,7 +1,12 @@
-<?php namespace Tests\Authorize;
+<?php
+
+namespace Tests\Feature\Authorize;
 
 use Tests\DatabaseTestCase;
+use Illuminate\Http\Response;
 use Nova\Authorize\Permission;
+use Illuminate\Support\Facades\Queue;
+use Nova\Authorize\Jobs\CreatePermission;
 
 class ManagePermissionsTest extends DatabaseTestCase
 {
@@ -20,8 +25,6 @@ class ManagePermissionsTest extends DatabaseTestCase
 	 */
 	public function unauthorized_users_cannot_manage_permissions()
 	{
-		$this->withExceptionHandling();
-
 		$this->get(route('permissions.index'))->assertRedirect(route('sign-in'));
 		$this->get(route('permissions.create'))->assertRedirect(route('sign-in'));
 		$this->post(route('permissions.store'))->assertRedirect(route('sign-in'));
@@ -31,12 +34,12 @@ class ManagePermissionsTest extends DatabaseTestCase
 
 		$this->signIn();
 
-		$this->get(route('permissions.index'))->assertStatus(403);
-		$this->get(route('permissions.create'))->assertStatus(403);
-		$this->post(route('permissions.store'))->assertStatus(403);
-		$this->get(route('permissions.edit', $this->permission))->assertStatus(403);
-		$this->patch(route('permissions.update', $this->permission))->assertStatus(403);
-		$this->delete(route('permissions.destroy', $this->permission))->assertStatus(403);
+		$this->get(route('permissions.index'))->assertStatus(Response::HTTP_FORBIDDEN);
+		$this->get(route('permissions.create'))->assertStatus(Response::HTTP_FORBIDDEN);
+		$this->post(route('permissions.store'))->assertStatus(Response::HTTP_FORBIDDEN);
+		$this->get(route('permissions.edit', $this->permission))->assertStatus(Response::HTTP_FORBIDDEN);
+		$this->patch(route('permissions.update', $this->permission))->assertStatus(Response::HTTP_FORBIDDEN);
+		$this->delete(route('permissions.destroy', $this->permission))->assertStatus(Response::HTTP_FORBIDDEN);
 	}
 
 	/**
@@ -45,6 +48,8 @@ class ManagePermissionsTest extends DatabaseTestCase
 	 */
 	public function a_permission_can_be_created()
 	{
+		$this->withoutExceptionHandling();
+
 		$admin = $this->createAdmin();
 		$this->signIn($admin);
 
@@ -64,6 +69,8 @@ class ManagePermissionsTest extends DatabaseTestCase
 	 */
 	public function a_permission_can_be_updated()
 	{
+		$this->withoutExceptionHandling();
+
 		$admin = $this->createAdmin();
 		$this->signIn($admin);
 
