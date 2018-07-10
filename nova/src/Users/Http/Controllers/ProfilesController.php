@@ -22,7 +22,7 @@ class ProfilesController extends Controller
 		$this->views('public', 'template');
 		$this->views('users.profile');
 
-		$this->setPageTitle($user->getPresenter()->name);
+		$this->setPageTitle($user->present()->name);
 
 		$this->data->user = $user;
 	}
