@@ -1,8 +1,8 @@
 <?php
 
-namespace Nova\Pages\Data;
+namespace Nova\Pages;
 
-use Model;
+use Illuminate\Database\Eloquent\Model;
 
 class PageTemplate extends Model
 {
