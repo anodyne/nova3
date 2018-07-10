@@ -23,3 +23,7 @@ mix.autoload({
 		],
 		processCssUrls: false
 	})
+	.sourceMaps(false)
+
+// mix.less('themes/pulsar/design/custom.less', 'themes/pulsar/design')
+// mix.less('themes/titan/design/custom.less', 'themes/titan/design')
