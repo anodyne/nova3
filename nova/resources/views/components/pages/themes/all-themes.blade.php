@@ -18,30 +18,16 @@
 						@{{ role.name }}
 					</div>
 					<div class="col-auto row-controls">
-						<div class="dropdown is-right ml-2">
-							<div class="dropdown-trigger">
-								<button type="button"
-										class="button is-flush"
-										data-toggle="dropdown"
-										aria-haspopup="true"
-										aria-expanded="false"
-								>
-									<icon name="more" class="btn-icon" />
-								</button>
-							</div>
+						<nova-dropdown direction="right">
+							<icon name="more" class="btn-icon" slot="trigger-simple"></icon>
 
-							<div class="dropdown-menu">
-								<div class="dropdown-content">
-									<a class="dropdown-item" :href="editLink(role.id)">
-										{{ _m('edit') }}
-									</a>
-
-									<a class="dropdown-item is-danger" href="#" @click.prevent="deleteRole(role.id)">
-										{{ _m('delete') }}
-									</a>
-								</div>
-							</div>
-						</div>
+							<a class="dropdown-item" :href="editLink(role.id)">
+								{{ _m('edit') }}
+							</a>
+							<a class="dropdown-item is-danger" href="#" @click.prevent="deleteRole(role.id)">
+								{{ _m('delete') }}
+							</a>
+						</nova-dropdown>
 					</div>
 				</div>
 			</div>
