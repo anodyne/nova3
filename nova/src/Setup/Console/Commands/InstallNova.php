@@ -30,7 +30,7 @@ class InstallNova extends Command
 		$this->call('config:clear');
 
 		// Migrate the database
-		$this->call('migrate', ['--force' => true]);
+		$this->call('migrate', ['--seed' => true, '--force' => true]);
 
 		// Generate the new key
 		$newKey = 'base64:'.base64_encode(random_bytes(

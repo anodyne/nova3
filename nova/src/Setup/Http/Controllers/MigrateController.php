@@ -42,7 +42,7 @@ class MigrateController extends Controller
 
 	public function runSingleMigration($key)
 	{
-		return app('nova2-migrator')->run($key);
+		return app('nova2.migrator')->run($key);
 	}
 
 	public function verifyCharacters()
