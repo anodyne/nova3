@@ -1,5 +1,6 @@
 <?php namespace Nova\Foundation\Providers;
 
+use Laravel\Passport\Passport;
 use Nova\Authorize\Permission;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -23,6 +24,8 @@ class AuthServiceProvider extends ServiceProvider
 		$this->policies = config('maps.policies');
 
 		$this->registerPolicies();
+
+		Passport::routes();
 
 		if (app()->environment() != 'testing') {
 			$this->defineGates();
