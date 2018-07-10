@@ -8,6 +8,8 @@
 
 	<title>{{ $pageTitle or '' }} &bull; {{ config('app.name', 'Nova') }}</title>
 
+	{!! $entryBeforeHead or false !!}
+
 	{!! partial('icons') !!}
 	{!! partial('fonts') !!}
 
@@ -25,11 +27,11 @@
 </head>
 <body>
 	<div id="nova-app">
-		{!! $entryBeforeTemplate or false !!}
+		{!! $entryBeforeLayout or false !!}
 
-		{!! $template or false !!}
+		{!! $layout or false !!}
 
-		{!! $entryAfterTemplate or false !!}
+		{!! $entryAfterLayout or false !!}
 	</div>
 
 	<!-- Sprite Map -->
