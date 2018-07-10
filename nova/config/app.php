@@ -150,7 +150,6 @@ return [
 		 * Package Service Providers...
 		 */
 		BladeSvg\BladeSvgServiceProvider::class,
-		Robbo\Presenter\PresenterServiceProvider::class,
 
 		/*
 		 * Application Service Providers...

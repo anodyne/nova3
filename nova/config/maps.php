@@ -3,8 +3,6 @@
 return [
 
 	'creators' => [
-		Nova\Authorize\Permission::class => Nova\Authorize\Data\PermissionCreator::class,
-		Nova\Authorize\Role::class => Nova\Authorize\Data\RoleCreator::class,
 		Nova\Characters\Character::class => Nova\Characters\Data\CharacterCreator::class,
 		Nova\Media\Media::class => Nova\Foundation\Data\MediaCreator::class,
 		Nova\Genres\Department::class => Nova\Genres\Data\DepartmentCreator::class,
@@ -16,8 +14,6 @@ return [
 	],
 
 	'deletors' => [
-		Nova\Authorize\Permission::class => Nova\Authorize\Data\PermissionDeletor::class,
-		Nova\Authorize\Role::class => Nova\Authorize\Data\RoleDeletor::class,
 		Nova\Characters\Character::class => Nova\Characters\Data\CharacterDeletor::class,
 		Nova\Media\Media::class => Nova\Foundation\Data\MediaDeletor::class,
 		Nova\Genres\Department::class => Nova\Genres\Data\DepartmentDeletor::class,
@@ -54,7 +50,11 @@ return [
 
 	'policies' => [
 		Nova\Authorize\Permission::class => Nova\Authorize\Policies\PermissionPolicy::class,
+		Nova\Authorize\Presenters\PermissionPresenter::class => Nova\Authorize\Policies\PermissionPolicy::class,
+
 		Nova\Authorize\Role::class => Nova\Authorize\Policies\RolePolicy::class,
+		Nova\Authorize\Presenters\RolePresenter::class => Nova\Authorize\Policies\RolePolicy::class,
+
 		Nova\Characters\Character::class => Nova\Characters\Policies\CharacterPolicy::class,
 		Nova\Extensions\SystemExtension::class => Nova\Extensions\Policies\ExtensionPolicy::class,
 		Nova\Genres\Department::class => Nova\Genres\Policies\DepartmentPolicy::class,
@@ -72,8 +72,6 @@ return [
 	],
 
 	'updaters' => [
-		Nova\Authorize\Permission::class => Nova\Authorize\Data\PermissionUpdater::class,
-		Nova\Authorize\Role::class => Nova\Authorize\Data\RoleUpdater::class,
 		Nova\Characters\Character::class => Nova\Characters\Data\CharacterUpdater::class,
 		Nova\Media\Media::class => Nova\Foundation\Data\MediaUpdater::class,
 		Nova\Genres\Department::class => Nova\Genres\Data\DepartmentUpdater::class,

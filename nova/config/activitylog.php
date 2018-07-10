@@ -5,7 +5,7 @@ return [
     /*
      * If set to false, no activities will be saved to the database.
      */
-    'enabled' => env('ACTIVITY_LOGGER_ENABLED', true),
+    'enabled' => env('ACTIVITY_LOGGER_ENABLED', false),
 
     /*
      * When the clean-command is executed, all recording activities older than
