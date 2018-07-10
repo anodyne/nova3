@@ -1,5 +1,7 @@
 <?php
 
+namespace Themes\Titan;
+
 use Nova\Foundation\Theme\Theme as BaseTheme;
 
 class Theme extends BaseTheme
