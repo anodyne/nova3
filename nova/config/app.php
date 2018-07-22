@@ -40,6 +40,21 @@ return [
 
 	'debug' => env('APP_DEBUG', true),
 
+	/**
+	 * Configure the editor that you want to use. Available options:
+	 *
+	 * - sublime
+	 * - textmate
+	 * - emacs
+	 * - macvim
+	 * - phpstorm
+	 * - idea
+	 * - vscode
+	 * - atom
+	 */
+
+	'editor' => env('OPEN_FILES_IN_EDITOR', ''),
+
 	/*
 	|--------------------------------------------------------------------------
 	| Application URL
