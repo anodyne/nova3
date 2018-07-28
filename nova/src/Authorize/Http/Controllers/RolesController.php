@@ -11,6 +11,7 @@ use Nova\Authorize\Jobs\DeleteRoleJob;
 use Nova\Authorize\Jobs\UpdateRoleJob;
 use Nova\Authorize\Http\Requests\CreateRoleRequest;
 use Nova\Authorize\Http\Requests\UpdateRoleRequest;
+use Nova\Authorize\Http\Responses\RoleIndexResponse;
 
 class RolesController extends Controller
 {
@@ -25,17 +26,15 @@ class RolesController extends Controller
 
 	public function index()
 	{
-		$roleClass = new Role;
-
-		$this->authorize('manage', $roleClass);
-
-		$this->views('authorize.all-roles', 'page|script');
+		$this->authorize('manage', Role::class);
 
 		$this->setPageTitle(_m('authorize-roles'));
 
-		$this->data->roles = cache('nova.roles');
-		$this->data->roleClass = $roleClass;
-		$this->data->permissionClass = new Permission;
+		return app(RoleIndexResponse::class)->with([
+			'roles' => cache('nova.roles'),
+			'roleClass' => Role::class,
+			'permissionClass' => Permission::class,
+		]);
 	}
 
 	public function create()

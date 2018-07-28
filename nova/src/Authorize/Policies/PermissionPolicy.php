@@ -14,19 +14,19 @@ class PermissionPolicy
 		return $user->can('permission.create');
 	}
 
-	public function delete(User $user, $permission)
+	public function delete(User $user)
 	{
 		return $user->can('permission.delete');
 	}
 
-	public function manage(User $user, $permission)
+	public function manage(User $user)
 	{
 		return ($this->create($user)
-			or $this->update($user, $permission)
-			or $this->delete($user, $permission));
+			or $this->update($user)
+			or $this->delete($user));
 	}
 
-	public function update(User $user, $permission)
+	public function update(User $user)
 	{
 		return $user->can('permission.update');
 	}

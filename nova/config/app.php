@@ -177,6 +177,7 @@ return [
 		Nova\Foundation\Providers\SanitizerServiceProvider::class,
 		Nova\Foundation\Providers\ExtensionServiceProvider::class,
 		Nova\Foundation\Providers\DeferredServiceProvider::class,
+		Nova\Foundation\Providers\ResponsableServiceProvider::class,
 
 	],
 
