@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'icon_path' => 'nova/resources/assets/svg',
+    'icon_path' => 'nova/resources/svg',
 
     /*
     |--------------------------------------------------------------------------
