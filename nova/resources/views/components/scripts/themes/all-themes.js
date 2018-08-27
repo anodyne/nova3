@@ -1,6 +1,6 @@
-NovaVue = {
+Nova.inject({
 	data: {
-		roles: Nova.data.themes
+		roles: Nova.config.data.themes
 	},
 
 	methods: {
@@ -42,5 +42,9 @@ NovaVue = {
 		editLink(id) {
 			return route('roles.edit', { role: id })
 		}
+	},
+
+	mounted () {
+		console.log('page mounted')
 	}
-}
+})

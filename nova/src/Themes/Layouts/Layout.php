@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Themes;
+namespace Nova\Themes\Layouts;
 
 use Symfony\Component\Finder\Finder;
 

@@ -19,7 +19,7 @@
 	{!! $styles or false !!}
 
 	<script>
-		window.Nova = Object.freeze({!! Nova::scriptVariables()->toJson() !!})
+		window.config = Object.freeze({!! Nova::scriptVariables()->toJson() !!})
 	</script>
 	@routes
 
@@ -38,14 +38,17 @@
 	{!! $spriteMap or false !!}
 
 	<!-- Scripts -->
-	<script>
-		feather.replace()
-
-		var NovaVue = {}
-	</script>
-	{!! $scripts or false !!}
 	<script src="{{ asset('assets/js/manifest.js') }}"></script>
 	<script src="{{ asset('assets/js/vendor.js') }}"></script>
 	<script src="{{ asset('assets/js/app.js') }}"></script>
+	<script>
+		feather.replace()
+
+		window.Nova = new CreateNova(config)
+	</script>
+	{!! $scripts or false !!}
+	<script>
+		Nova.run()
+	</script>
 </body>
 </html>

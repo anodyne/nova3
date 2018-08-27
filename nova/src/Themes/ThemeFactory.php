@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Foundation\Theme;
+namespace Nova\Themes;
 
 class ThemeFactory
 {
@@ -12,6 +12,6 @@ class ThemeFactory
 			return new $class;
 		}
 
-		return new Theme;
+		return new BaseTheme;
 	}
 }

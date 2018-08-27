@@ -1,4 +1,6 @@
-<?php namespace Nova\Foundation\Theme;
+<?php
+
+namespace Nova\Themes;
 
 trait RendersTheme
 {
@@ -32,20 +34,23 @@ trait RendersTheme
 
 	public function scripts(array $scripts)
 	{
-		$output = "";
+		$output = [];
 
 		foreach ($scripts as $script) {
-			// Start by figuring out where the right file is
-			$filePath = view()->getFinder()->find("components.scripts.{$script}");
+			if (starts_with($script, ['http://', 'https://', '//'])) {
+				$path = $script;
+			} else {
+				$filePath = view()->getFinder()->find("components.scripts.{$script}");
 
-			// Next, strip out the base path information
-			$path = str_replace(base_path(), '', $filePath);
+				// Strip out the base path information
+				$path = url(str_replace(base_path(), '', $filePath));
+			}
 
 			// Finally, add a script tag
-			$output.= app('html')->script(url($path))."\r\n";
+			$output[] = app('html')->script($path);
 		}
 
-		$this->structure->scripts = $output;
+		$this->structure->scripts = implode("\r\n", $output);
 
 		return $this;
 	}

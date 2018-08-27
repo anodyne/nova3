@@ -1,11 +1,10 @@
 <?php
 
-namespace Nova\Foundation\Theme;
+namespace Nova\Themes;
 
-use Nova\Themes\Theme as ThemeModel;
 use Nova\Pages\Page;
 
-class Theme
+class BaseTheme
 {
 	use Icons, NavMain, NavSub, RendersTheme;
 
@@ -25,7 +24,7 @@ class Theme
 	 */
 	public function getModel()
 	{
-		return ThemeModel::path($this->path)->firstOrFail();
+		return Themel::path($this->path)->firstOrFail();
 	}
 
 	/**

@@ -1,10 +1,12 @@
-<?php namespace Nova\Foundation\Theme;
+<?php
+
+namespace Nova\Themes;
 
 use Str;
 
 trait Icons
 {
-	public $spriteMap = 'nova/resources/assets/svg/feather-map.svg';
+	public $spriteMap = 'nova/resources/svg/feather-map.svg';
 
 	public function iconMap()
 	{

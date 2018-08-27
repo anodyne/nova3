@@ -27,6 +27,8 @@ class ResponsableServiceProvider extends ServiceProvider
 	{
 		return [
 			\Nova\Authorize\Http\Responses\RoleIndexResponse::class,
+
+			\Nova\Themes\Http\Responses\ThemeIndexResponse::class,
 		];
 	}
 }

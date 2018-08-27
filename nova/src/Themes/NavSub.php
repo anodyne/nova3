@@ -1,4 +1,6 @@
-<?php namespace Nova\Foundation\Theme;
+<?php
+
+namespace Nova\Themes;
 
 trait NavSub
 {

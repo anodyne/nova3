@@ -70,8 +70,9 @@
 		<div class="flex items-center">
 			<avatar :item="{{ $_user->toJson() }}"
 					:show-content="false"
-					:show-status="false"
-					type="image"></avatar>
+					:show-status="true"
+					type="image"
+			></avatar>
 			<icon name="chevron-down" size="small" classes="ml-1"></icon>
 		</div>
 

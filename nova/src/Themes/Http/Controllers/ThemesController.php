@@ -4,6 +4,7 @@ namespace Nova\Themes\Http\Controllers;
 
 use Nova\Themes\Theme;
 use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Themes\Http\Responses\ThemeIndexResponse;
 
 class ThemesController extends Controller
 {
@@ -19,9 +20,9 @@ class ThemesController extends Controller
 
 	public function index()
 	{
-		$this->views('themes.all-themes', 'page|script');
-
-		$this->data->themes = Theme::get();
+		return app(ThemeIndexResponse::class)->with([
+			'themes' => Theme::get(),
+		]);
 	}
 
 	public function create()

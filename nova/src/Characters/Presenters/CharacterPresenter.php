@@ -11,7 +11,7 @@ class CharacterPresenter extends Presenter
 			return asset("storage/app/public/characters/{$this->entity->getPrimaryMedia()->filename}");
 		}
 
-		return asset("nova/resources/assets/svg/no-avatar.svg");
+		return asset("nova/resources/svg/no-avatar.svg");
 	}
 
 	public function name()
