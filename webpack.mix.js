@@ -14,14 +14,22 @@ mix.autoload({
 		'sortablejs', 'vue', 'vue-clickaway', 'vue-js-toggle-button',
 		'webui-popover', 'sweetalert2', 'lightbox2'
 	])
-   .js('nova/resources/assets/js/app.js', 'assets/js')
-   .less('nova/resources/assets/less/app.less', 'assets/css')
-   .less('nova/resources/assets/less/vendor.less', 'assets/css')
+   .js('nova/resources/js/app.js', 'assets/js')
+   .less('nova/resources/less/app.less', 'assets/css')
+   .less('nova/resources/less/vendor.less', 'assets/css')
    .options({
    		postCss: [
-			tailwindcss('./nova/resources/assets/js/tailwind.js'),
+			tailwindcss('./nova/resources/js/tailwind.js'),
 		],
 		processCssUrls: false
+	})
+	.webpackConfig({
+		resolve: {
+			symlinks: false,
+			alias: {
+				'@': path.resolve(__dirname, 'nova/resources/js/'),
+			}
+		}
 	})
 	.sourceMaps(false)
 
