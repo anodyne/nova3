@@ -24,6 +24,10 @@
 			<file>./nova/tests/Unit/PermissionTest.php</file>
 			<file>./nova/tests/Unit/PermissionPolicyTest.php</file>
 		</testsuite>
+
+		<testsuite name="nova-themes">
+			<directory suffix="Test.php">./nova/tests/Themes</directory>
+		</testsuite>
 	</testsuites>
 	<filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">
