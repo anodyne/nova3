@@ -838,8 +838,8 @@ a:hover {
   background-position: center;
   border-radius: var(--radius-full, 9999px);
   display: block;
-  height: 48px;
-  width: 48px;
+  height: extract(, 3);
+  width: extract(, 3);
 }
 
 .avatar-label {
@@ -864,37 +864,40 @@ a:hover {
   letter-spacing: .02rem;
 }
 
-.avatar {
-  border-width: 2px;
-  border-color: transparent;
-  background-clip: content-box;
-  padding: 2px;
+.avatar::before {
+  position: absolute;
+  border-radius: var(--radius-full, 9999px);
+  content: '';
+  height: calc(100% + 6px);
+  left: -3px;
+  top: -3px;
+  width: calc(100% + 6px);
 }
 
-.avatar.active,
-.avatar.primary {
-  border-color: var(--color-primary, #3490dc);
+.avatar.active::before,
+.avatar.primary::before {
+  -webkit-box-shadow: 0 0 0 2px var(--color-primary, #3490dc);
+          box-shadow: 0 0 0 2px var(--color-primary, #3490dc);
 }
 
-.avatar.danger {
-  border-color: var(--color-danger, #e3342f);
+.avatar.danger::before {
+  -webkit-box-shadow: 0 0 0 2px var(--color-danger, #e3342f);
+          box-shadow: 0 0 0 2px var(--color-danger, #e3342f);
 }
 
-.avatar.secondary {
-  border-color: var(--color-grey-light, #dae1e7);
+.avatar.secondary::before {
+  -webkit-box-shadow: 0 0 0 2px var(--color-grey-light, #dae1e7);
+          box-shadow: 0 0 0 2px var(--color-grey-light, #dae1e7);
 }
 
-.avatar.success {
-  border-color: var(--color-success, #38c172);
+.avatar.success::before {
+  -webkit-box-shadow: 0 0 0 2px var(--color-success, #38c172);
+          box-shadow: 0 0 0 2px var(--color-success, #38c172);
 }
 
 .avatar-xs .avatar {
   height: 24px;
   width: 24px;
-}
-
-.avatar-xs .avatar-label .avatar-title {
-  font-size: .875rem;
 }
 
 .avatar-xs .avatar-label .avatar-meta {
@@ -906,6 +909,36 @@ a:hover {
   width: 32px;
 }
 
+.avatar-sm .avatar-label .avatar-meta {
+  font-size: .875rem;
+}
+
+.avatar-md .avatar {
+  height: 48px;
+  width: 48px;
+}
+
+.avatar-md .avatar-label .avatar-meta {
+  font-size: undefined;
+}
+
+.avatar-lg .avatar {
+  height: 64px;
+  width: 64px;
+}
+
+.avatar-lg .avatar-label .avatar-meta {
+  font-size: 1.125rem;
+}
+
+.avatar-xs .avatar-label .avatar-title {
+  font-size: .875rem;
+}
+
+.avatar-xs .avatar-label .avatar-meta {
+  font-size: .75rem;
+}
+
 .avatar-sm .avatar-label .avatar-title {
   font-size: 1rem;
 }
@@ -915,9 +948,7 @@ a:hover {
 }
 
 .avatar-md .avatar {
-  height: 48px;
   padding: 3px;
-  width: 48px;
 }
 
 .avatar-md .avatar-label .avatar-title {
@@ -925,9 +956,7 @@ a:hover {
 }
 
 .avatar-lg .avatar {
-  height: 64px;
   padding: 3px;
-  width: 64px;
 }
 
 .avatar-lg .avatar-label .avatar-title {
