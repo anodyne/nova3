@@ -13,7 +13,7 @@ class ResponsableServiceProvider extends ServiceProvider
 	{
 		collect($this->getResponsableClasses())->each(function ($responsable) {
 			$this->app->singleton($responsable, function ($app) use ($responsable) {
-				return new $responsable($app['nova.theme'], Page::first());
+				return new $responsable($app['nova.theme'], Page::first(), $app);
 			});
 		});
 	}
