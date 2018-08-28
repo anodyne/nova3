@@ -24,7 +24,7 @@
 
 		methods: {
 			renderIcon () {
-				let template = Nova.iconTemplate.replace(/{icon}/g, Nova.icons[this.name])
+				let template = Nova.config.iconTemplate.replace(/{icon}/g, Nova.config.icons[this.name])
 
 				let parser = new DOMParser()
 
@@ -55,6 +55,8 @@
 				_.forEach(attributes, (value, name) => {
 					$icon.setAttribute(name, value)
 				})
+
+				console.log(template, parser, $icon, attributes)
 
 				return $icon.outerHTML
 			}
