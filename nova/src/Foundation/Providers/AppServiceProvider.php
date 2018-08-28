@@ -35,6 +35,10 @@ class AppServiceProvider extends ServiceProvider
 			return new \Nova\Foundation\HookManager;
 		});
 
+		$this->app->singleton('nova.response.data', function ($app) {
+			return [];
+		});
+
 		// Make sure we can use the _settings object in every view
 		// $this->app['view']->share('_settings', $this->app['nova.settings']);
 
