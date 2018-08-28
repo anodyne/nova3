@@ -18,7 +18,7 @@ export default class Nova {
 		this.bootingCallbacks = []
 	}
 
-	inject (mixin) {
+	extend (mixin) {
 		this.mixin = mixin
 	}
 
