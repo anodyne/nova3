@@ -5,82 +5,77 @@
  * their framework!
  */
 
-document.addEventListener('DOMContentLoaded', function () {
-	/**
-	 * Dropdowns
-	 */
+function getAll (selector) {
+    return Array.prototype.slice.call(document.querySelectorAll(selector), 0);
+}
 
-	var $dropdowns = getAll('.dropdown:not(.is-hoverable)')
+document.addEventListener('DOMContentLoaded', () => {
+    /**
+     * Dropdowns
+     */
 
-	if ($dropdowns.length > 0) {
-		$dropdowns.forEach(function ($el) {
-			$el.addEventListener('click', function (event) {
-				event.stopPropagation()
-				$el.classList.toggle('is-active')
-			})
-		})
+    const $dropdowns = getAll('.dropdown:not(.is-hoverable)');
 
-		document.addEventListener('click', function (event) {
-			closeDropdowns()
-		})
-	}
+    function closeDropdowns () {
+        $dropdowns.forEach(($el) => {
+            $el.classList.remove('is-active');
+        });
+    }
 
-	function closeDropdowns() {
-		$dropdowns.forEach(function ($el) {
-			$el.classList.remove('is-active')
-		})
-	}
+    if ($dropdowns.length > 0) {
+        $dropdowns.forEach(($el) => {
+            $el.addEventListener('click', (event) => {
+                event.stopPropagation();
+                $el.classList.toggle('is-active');
+            });
+        });
 
-	/**
-	 * Modals
-	 */
+        document.addEventListener('click', () => {
+            closeDropdowns();
+        });
+    }
 
-	var rootEl = document.documentElement
-	var $modals = getAll('.modal')
-	var $modalButtons = getAll('.modal-button')
-	var $modalCloses = getAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button')
+    /**
+     * Modals
+     */
 
-	if ($modalButtons.length > 0) {
-		$modalButtons.forEach(function ($el) {
-			$el.addEventListener('click', function () {
-				var target = $el.dataset.target
-				var $target = document.getElementById(target)
-				rootEl.classList.add('is-clipped')
-				$target.classList.add('is-active')
-			})
-		})
-	}
+    const rootEl = document.documentElement;
+    const $modals = getAll('.modal');
+    const $modalButtons = getAll('.modal-button');
+    const $modalCloses = getAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button');
 
-	if ($modalCloses.length > 0) {
-		$modalCloses.forEach(function ($el) {
-			$el.addEventListener('click', function () {
-				closeModals()
-			})
-		})
-	}
+    function closeModals () {
+        rootEl.classList.remove('is-clipped');
 
-	document.addEventListener('keydown', function (event) {
-		var e = event || window.event
+        $modals.forEach(($el) => {
+            $el.classList.remove('is-active');
+        });
+    }
 
-		if (e.keyCode === 27) {
-			closeModals()
-			closeDropdowns()
-		}
-	})
+    if ($modalButtons.length > 0) {
+        $modalButtons.forEach(($el) => {
+            $el.addEventListener('click', ({ dataset }) => {
+                const $target = document.getElementById(dataset.target);
+                rootEl.classList.add('is-clipped');
+                $target.classList.add('is-active');
+            });
+        });
+    }
 
-	function closeModals() {
-		rootEl.classList.remove('is-clipped')
+    if ($modalCloses.length > 0) {
+        $modalCloses.forEach(($el) => {
+            $el.addEventListener('click', () => {
+                closeModals();
+            });
+        });
+    }
 
-		$modals.forEach(function ($el) {
-			$el.classList.remove('is-active')
-		})
-	}
+    document.addEventListener('keydown', (event) => {
+        const e = event || window.event;
 
-	/**
-	 * Functions
-	 */
-
-	function getAll(selector) {
-		return Array.prototype.slice.call(document.querySelectorAll(selector), 0)
-	}
-})
+        if (e.keyCode === 27) {
+            closeModals();
+            closeDropdowns();
+        }
+    });
+});

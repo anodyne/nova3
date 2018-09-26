@@ -1,7 +1,7 @@
 export default {
-	methods: {
-		hasSlot (name) {
-			return !! this.$slots[name]
-		}
-	}
-}
+    methods: {
+        hasSlot (name) {
+            return !!this.$slots[name];
+        }
+    }
+};

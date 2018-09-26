@@ -1,22 +1,19 @@
-import axios from 'axios'
+import axios from 'axios';
 
-const instance = axios.create()
+const instance = axios.create();
 
 instance.interceptors.response.use(
-	response => response,
-	error => {
-		const { status } = error.response
+    (response) => { return response; },
 
-		if (status >= 500) {
-			Nova.$emit('error', error.response.data.message)
-		}
+    (error) => {
+        const { status } = error.response;
 
-		if (status == 403) {
-			//
-		}
+        if (status >= 500) {
+            Nova.$emit('error', error.response.data.message);
+        }
 
-		return Promise.reject(error)
-	}
-)
+        return Promise.reject(error);
+    }
+);
 
-export default instance
+export default instance;
