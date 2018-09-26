@@ -33,6 +33,13 @@
 	</template>
 </page-header>
 
+<icon-r name="more"
+		wrapper-class="foo"
+		:wrapper-attrs="{ id: 'bar' }"
+		icon-class="bar"
+		:icon-attrs="{ id: 'foo' }"
+></icon-r>
+
 @if ($themes->count() > 0)
 	<app-card>
 		<template slot="card-block">

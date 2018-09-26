@@ -83,8 +83,9 @@ trait Icons
 
 	public function iconTemplate()
 	{
-		$path = url($this->spriteMap);
-
-		return '<svg class="icon feather-{icon}"><use xlink:href="'.$path.'#{icon}"/></svg>';
+		return sprintf(
+			'<svg class="icon feather-{icon}"><use xlink:href="%s#{icon}"/></svg>',
+			url($this->spriteMap)
+		);
 	}
 }
