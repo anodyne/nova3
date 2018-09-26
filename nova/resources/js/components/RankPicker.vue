@@ -1,133 +1,191 @@
 <template>
-	<div class="item-picker" v-on-clickaway="away">
-		<div class="item-picker-selector">
-			<div role="button"
-				 class="item-picker-toggle"
-				 v-if="selectedRank"
-				 @click.prevent="show = !show">
-				<div class="item-picker-selected">
-					<div class="spread">
-						<rank :item="selectedRank"></rank>
-						<small class="meta" v-text="selectedRank.info.name"></small>
-					</div>
-					<div class="ml-3" v-html="showIcon('more')"></div>
-				</div>
-				<input type="hidden" name="rank_id" v-model="selectedRank.id">
-			</div>
-			<div role="button"
-				 class="item-picker-toggle"
-				 v-if="!selectedRank"
-				 @click.prevent="show = !show">
-				<div class="item-picker-selected">
-					<rank></rank>
-					<div class="ml-3" v-html="showIcon('more')"></div>
-				</div>
-			</div>
+    <div
+        v-on-clickaway="away"
+        class="item-picker"
+    >
+        <div class="item-picker-selector">
+            <div
+                v-if="selectedRank"
+                role="button"
+                class="item-picker-toggle"
+                @click.prevent="show = !show"
+            >
+                <div class="item-picker-selected">
+                    <div class="spread">
+                        <rank :item="selectedRank"/>
+                        <small
+                            class="meta"
+                            v-text="selectedRank.info.name"
+                        />
+                    </div>
+                    <div
+                        class="ml-3"
+                        v-html="showIcon('more')"
+                    />
+                </div>
+                <input
+                    v-model="selectedRank.id"
+                    type="hidden"
+                    name="rank_id"
+                >
+            </div>
+            <div
+                v-if="!selectedRank"
+                role="button"
+                class="item-picker-toggle"
+                @click.prevent="show = !show"
+            >
+                <div class="item-picker-selected">
+                    <rank/>
+                    <div
+                        class="ml-3"
+                        v-html="showIcon('more')"
+                    />
+                </div>
+            </div>
 
-			<slot></slot>
-		</div>
+            <slot/>
+        </div>
 
-		<div v-show="show" class="items-menu">
-			<div class="search-group">
-				<span class="search-field">
-					<div v-html="showIcon('search')"></div>
-					<input type="text" :placeholder="lang('genre-ranks-find')" v-model="search">
-				</span>
-				<a href="#"
-				   class="clear-search ml-2"
-				   @click.prevent="search = ''"
-				   v-html="showIcon('close-alt')"></a>
-			</div>
+        <div
+            v-show="show"
+            class="items-menu"
+        >
+            <div class="search-group">
+                <span class="search-field">
+                    <div v-html="showIcon('search')"/>
+                    <input
+                        :placeholder="lang('genre-ranks-find')"
+                        v-model="search"
+                        type="text"
+                    >
+                </span>
+                <a
+                    href="#"
+                    class="clear-search ml-2"
+                    @click.prevent="search = ''"
+                    v-html="showIcon('close-alt')"
+                />
+            </div>
 
-			<div class="items-menu-alert" v-show="filteredRanks.length == 0">
-				<div class="alert alert-warning" v-text="lang('genre-ranks-error-not-found')"></div>
-			</div>
+            <div
+                v-show="filteredRanks.length == 0"
+                class="items-menu-alert"
+            >
+                <div
+                    class="alert alert-warning"
+                    v-text="lang('genre-ranks-error-not-found')"
+                />
+            </div>
 
-			<div class="items-menu-item" v-if="selectedRank != false" @click.prevent="selectRank(false)">
-				<rank></rank>
-				<small class="meta" v-text="lang('genre-ranks-none')"></small>
-			</div>
+            <div
+                v-if="selectedRank != false"
+                class="items-menu-item"
+                @click.prevent="selectRank(false)"
+            >
+                <rank/>
+                <small
+                    class="meta"
+                    v-text="lang('genre-ranks-none')"
+                />
+            </div>
 
-			<div class="items-menu-item" v-for="rank in filteredRanks" @click.prevent="selectRank(rank)">
-				<rank :item="rank"></rank>
-				<small class="meta">{{ rank.info.name }}</small>
-			</div>
-		</div>
-	</div>
+            <div
+                v-for="rank in filteredRanks"
+                :key="rank.id"
+                class="items-menu-item"
+                @click.prevent="selectRank(rank)"
+            >
+                <rank :item="rank"/>
+                <small class="meta">{{ rank.info.name }}</small>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-	import Rank from './Rank.vue';
-	import { mixin as clickaway } from 'vue-clickaway';
+import { mixin as clickaway } from 'vue-clickaway';
+import Rank from './Rank.vue';
 
-	export default {
-		components: { Rank },
+export default {
+    components: { Rank },
 
-		props: {
-			character: { type: Object, required: false, default: null },
-			initialRanks: { type: Array, required: false, default: null },
-			selected: { type: Object, required: false, default: null }
-		},
+    mixins: [clickaway],
 
-		mixins: [ clickaway ],
+    props: {
+        character: {
+            type: Object,
+            required: false,
+            default: null
+        },
+        initialRanks: {
+            type: Array,
+            required: false,
+            default: null
+        },
+        selected: {
+            type: Object,
+            required: false,
+            default: null
+        }
+    },
 
-		data () {
-			return {
-				ranks: [],
-				search: '',
-				selectedRank: false,
-				show: false
-			}
-		},
+    data () {
+        return {
+            ranks: [],
+            search: '',
+            selectedRank: false,
+            show: false
+        };
+    },
 
-		computed: {
-			filteredRanks () {
-				let self = this;
+    computed: {
+        filteredRanks () {
+            return this.ranks.filter((rank) => {
+                const searchRegex = new RegExp(this.search, 'i');
 
-				return this.ranks.filter((rank) => {
-					let searchRegex = new RegExp(self.search, 'i');
+                return searchRegex.test(rank.info.name) || searchRegex.test(rank.group.name);
+            });
+        }
+    },
 
-					return searchRegex.test(rank.info.name) || searchRegex.test(rank.group.name);
-				});
-			}
-		},
+    created () {
+        if (this.selected) {
+            this.selectedRank = this.selected;
+        }
 
-		methods: {
-			away () {
-				this.show = false;
-			},
+        if (this.initialRanks !== null) {
+            this.ranks = this.initialRanks;
+        } else {
+            Nova.request({
+                url: route('api.ranks'),
+                method: 'get'
+            }).then((response) => {
+                this.ranks = response.data;
+            });
+        }
+    },
 
-			lang (key, attributes = '') {
-				return window.lang(key, attributes);
-			},
+    methods: {
+        away () {
+            this.show = false;
+        },
 
-			selectRank (rank) {
-				this.selectedRank = rank;
-				this.show = false;
-				this.search = '';
+        lang (key, attributes = '') {
+            return window.lang(key, attributes);
+        },
 
-				this.$events.$emit('rank-picker-selected', this.selectedRank, this.character);
-			},
+        selectRank (rank) {
+            this.selectedRank = rank;
+            this.show = false;
+            this.search = '';
 
-			showIcon (icon) {
-				return window.icon(icon);
-			}
-		},
+            Nova.$emit('rank-picker-selected', this.selectedRank, this.character);
+        },
 
-		created () {
-			let self = this;
-
-			if (this.selected) {
-				this.selectedRank = this.selected;
-			}
-
-			if (this.initialRanks != null) {
-				this.ranks = this.initialRanks;
-			} else {
-				axios.get(route('api.ranks')).then((response) => {
-					self.ranks = response.data;
-				});
-			}
-		}
-	};
+        showIcon (icon) {
+            return window.icon(icon);
+        }
+    }
+};
 </script>

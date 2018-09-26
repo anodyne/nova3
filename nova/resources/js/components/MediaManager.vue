@@ -1,258 +1,292 @@
 <template>
-	<div class="form-group">
-		<div v-show="!uploadedFile">
-			<div v-if="allowMultiple || (!allowMultiple && files.length == 0)">
-				<label for="file-upload" class="btn btn-secondary" v-html="showIcon('add')"></label>
-				<input type="file" id="file-upload" name="file" class="hidden" @change="processFile">
-			</div>
+    <div class="form-group">
+        <div v-show="!uploadedFile">
+            <div v-if="allowMultiple || (!allowMultiple && files.length == 0)">
+                <label
+                    for="file-upload"
+                    class="btn btn-secondary"
+                    v-html="showIcon('add')"
+                />
+                <input
+                    id="file-upload"
+                    type="file"
+                    name="file"
+                    class="hidden"
+                    @change="processFile"
+                >
+            </div>
 
-			<div class="row mt-3" id="sortable">
-				<div class="col-sm-6 col-lg-3 draggable-item" :data-id="file.id" v-for="file in files">
-					<div class="card">
-						<img class="card-img-top" :src="getFile(file)">
-						<div class="card-footer d-flex justify-content-between">
-							<div>
-								<span v-if="allowMultiple">
-									<a href="#"
-									   class="card-link mr-2"
-									   v-if="!isPrimary(file)"
-									   @click.prevent="makePrimary(file.id)"
-									   v-html="showIcon('star')"></a>
-									<span class="card-link text-warning mr-2"
-										  v-if="isPrimary(file)"
-										  v-html="showIcon('star')"></span>
-								</span>
-								<a href="#"
-								   class="card-link text-danger"
-								   @click.prevent="deleteFile(file.id)"
-								   v-html="showIcon('delete')"></a>
-							</div>
-							<div v-if="allowMultiple">
-								<div class="card-link text-subtle sortable-handle" v-html="showIcon('bars')"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+            <div
+                id="sortable"
+                class="row mt-3"
+            >
+                <div
+                    v-for="file in files"
+                    :key="file.id"
+                    :data-id="file.id"
+                    class="col-sm-6 col-lg-3 draggable-item"
+                >
+                    <div class="card">
+                        <img
+                            :src="getFile(file)"
+                            class="card-img-top"
+                        >
+                        <div class="card-footer d-flex justify-content-between">
+                            <div>
+                                <span v-if="allowMultiple">
+                                    <a
+                                        v-if="!isPrimary(file)"
+                                        href="#"
+                                        class="card-link mr-2"
+                                        @click.prevent="makePrimary(file.id)"
+                                        v-html="showIcon('star')"
+                                    />
+                                    <span
+                                        v-if="isPrimary(file)"
+                                        class="card-link text-warning mr-2"
+                                        v-html="showIcon('star')"
+                                    />
+                                </span>
+                                <a
+                                    href="#"
+                                    class="card-link text-danger"
+                                    @click.prevent="deleteFile(file.id)"
+                                    v-html="showIcon('delete')"
+                                />
+                            </div>
+                            <div v-if="allowMultiple">
+                                <div
+                                    class="card-link text-subtle sortable-handle"
+                                    v-html="showIcon('bars')"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-		<div v-show="uploadedFile">
-			<div id="crop"></div>
+        <div v-show="uploadedFile">
+            <div id="crop"/>
 
-			<div class="d-flex justify-content-around">
-				<span>
-					<button class="btn btn-success"
-							@click.prevent="saveFile"
-							v-html="showIcon('upload')"></button>
-					<button class="btn btn-secondary ml-2"
-							@click.prevent="reset"
-							v-html="showIcon('close')"></button>
-				</span>
-			</div>
-		</div>
-	</div>
+            <div class="d-flex justify-content-around">
+                <span>
+                    <button
+                        class="btn btn-success"
+                        @click.prevent="saveFile"
+                        v-html="showIcon('upload')"
+                    />
+                    <button
+                        class="btn btn-secondary ml-2"
+                        @click.prevent="reset"
+                        v-html="showIcon('close')"
+                    />
+                </span>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-	import Croppie from 'croppie'
-	import pluralize from 'pluralize'
+import _ from 'lodash';
+import Croppie from 'croppie';
+import pluralize from 'pluralize';
+import Sortable from 'sortablejs';
 
-	export default {
-		props: {
-			allowMultiple: { type: Boolean, default: true },
-			item: { type: Object, required: true },
-			type: { type: String, required: true }
-		},
+export default {
+    props: {
+        allowMultiple: { type: Boolean, default: true },
+        item: { type: Object, required: true },
+        type: { type: String, required: true }
+    },
 
-		data () {
-			return {
-				crop: {},
-				files: this.item.media,
-				uploadedFile: '',
-			}
-		},
+    data () {
+        return {
+            crop: {},
+            files: this.item.media,
+            uploadedFile: ''
+        };
+    },
 
-		methods: {
-			createCropper () {
-				this.crop = new Croppie(document.getElementById('crop'), {
-					boundary: {
-						width: Math.min(500, window.innerWidth - 10),
-						height: Math.min(500, window.innerHeight - 10)
-					},
-					customClass: 'crop-container',
-					viewport: {
-						width: Math.min(500, window.innerWidth - 10),
-						height: Math.min(500, window.innerHeight - 10)
-					}
-				})
-			},
+    mounted () {
+        this.createCropper();
 
-			createFile (file) {
-				let reader = new FileReader()
-				let self = this
+        if (this.allowMultiple) {
+            Sortable.create(document.getElementById('sortable'), {
+                draggable: '.draggable-item',
+                handle: '.sortable-handle',
+                onEnd (event) {
+                    const order = [];
 
-				reader.onload = (event) => {
-					self.uploadedFile = event.target.result
+                    $(event.from).children().each(() => {
+                        const id = $(this).data('id');
 
-					self.crop.bind({
-						url: self.uploadedFile
-					})
-				}
+                        if (id) {
+                            order.push(id);
+                        }
+                    });
 
-				reader.readAsDataURL(file)
-			},
+                    Nova.request().patch(route('media.reorder'), {
+                        media: order
+                    });
+                }
+            });
+        }
+    },
 
-			deleteFile (id) {
-				let self = this
+    methods: {
+        createCropper () {
+            this.crop = new Croppie(document.getElementById('crop'), {
+                boundary: {
+                    width: Math.min(500, window.innerWidth - 10),
+                    height: Math.min(500, window.innerHeight - 10)
+                },
+                customClass: 'crop-container',
+                viewport: {
+                    width: Math.min(500, window.innerWidth - 10),
+                    height: Math.min(500, window.innerHeight - 10)
+                }
+            });
+        },
 
-				$.confirm({
-					title: self.lang('media-confirm-delete-title'),
-					content: self.lang('media-confirm-delete-message'),
-					columnClass: "medium",
-					theme: "dark",
-					buttons: {
-						confirm: {
-							text: self.lang('delete'),
-							btnClass: "btn-danger",
-							action () {
-								axios.delete(route('media.destroy', {media:id}))
-									.then((response) => {
-									 	let index = _.findIndex(self.files, (f) => {
-											return f.id == id
-										})
+        createFile (file) {
+            const reader = new FileReader();
+            const self = this;
 
-										self.files.splice(index, 1)
+            reader.onload = (event) => {
+                self.uploadedFile = event.target.result;
 
-										flash(
-											self.lang('media-flash-deleted-message'),
-											self.lang('media-flash-deleted-title')
-										)
-									})
-							}
-						},
-						cancel: {
-							text: self.lang('cancel')
-						}
-					}
-				})
-			},
+                self.crop.bind({
+                    url: self.uploadedFile
+                });
+            };
 
-			isPrimary (file) {
-				return file.primary === 1
-			},
+            reader.readAsDataURL(file);
+        },
 
-			lang (key, variables = '') {
-				return window.lang(key, variables)
-			},
+        deleteFile (id) {
+            const self = this;
 
-			processFile (event) {
-				let files = event.target.files || event.dataTransfer.files
+            $.confirm({
+                title: self.lang('media-confirm-delete-title'),
+                content: self.lang('media-confirm-delete-message'),
+                columnClass: 'medium',
+                theme: 'dark',
+                buttons: {
+                    confirm: {
+                        text: self.lang('delete'),
+                        btnClass: 'btn-danger',
+                        action () {
+                            Nova.request().delete(route('media.destroy', { media: id }))
+                                .then(() => {
+                                    const index = _.findIndex(self.files, (file) => {
+                                        return file.id === id;
+                                    });
 
-				if (! files.length) {
-					return
-				}
+                                    self.files.splice(index, 1);
 
-				this.createFile(files[0])
-			},
+                                    flash(
+                                        self.lang('media-flash-deleted-message'),
+                                        self.lang('media-flash-deleted-title')
+                                    );
+                                });
+                        }
+                    },
+                    cancel: {
+                        text: self.lang('cancel')
+                    }
+                }
+            });
+        },
 
-			getFile (file) {
-				return [
-					window.Nova.baseUrl,
-					'storage',
-					'app',
-					'public',
-					pluralize(this.type),
-					file.filename
-				].join('/')
-			},
+        isPrimary (file) {
+            return file.primary === 1;
+        },
 
-			makePrimary (id) {
-				axios.patch(route('media.update', {media:id}))
-					.catch((error) => {
-						flash(
-							self.lang('error-unauthorized-explain'),
-							self.lang('error-unauthorized'),
-							'error'
-						)
-					})
+        lang (key, variables = '') {
+            return window.lang(key, variables);
+        },
 
-				_.each(this.files, (file) => {
-					if (file.id != id) {
-						file.primary = 0
-					} else {
-						file.primary = 1
-					}
-				})
+        processFile (event) {
+            const files = event.target.files || event.dataTransfer.files;
 
-				flash(
-					self.lang('media-flash-primary-image-updated-message'),
-					self.lang('media-flash-primary-image-updated-title')
-				)
-			},
+            if (!files.length) {
+                return;
+            }
 
-			reset () {
-				document.getElementById('file-upload').value = ''
-				this.uploadedFile = ''
-			},
+            this.createFile(files[0]);
+        },
 
-			saveFile () {
-				let self = this
+        getFile (file) {
+            return [
+                window.Nova.baseUrl,
+                'storage',
+                'app',
+                'public',
+                pluralize(this.type),
+                file.filename
+            ].join('/');
+        },
 
-				this.crop.result('canvas').then((canvas) => {
-					axios.post(route('media.store'), {
-						image: canvas,
-						location: pluralize(self.type),
-						id: self.item.id,
-						type: self.type
-					}).then((response) => {
-						self.files.push(response.data)
+        makePrimary (id) {
+            Nova.request().patch(route('media.update', { media: id }))
+                .catch(() => {
+                    flash(
+                        this.lang('error-unauthorized-explain'),
+                        this.lang('error-unauthorized'),
+                        'error'
+                    );
+                });
 
-						flash(
-							self.lang('media-flash-saved-message'),
-							self.lang('media-flash-saved-title'),
-							'success'
-						)
-					}).catch((error) => {
-						flash(
-							self.lang('error-unauthorized-explain'),
-							self.lang('error-unauthorized'),
-							'error'
-						)
-					})
-				})
+            _.each(this.files, (file) => {
+                if (file.id !== id) {
+                    file.primary = 0;
+                } else {
+                    file.primary = 1;
+                }
+            });
 
-				this.reset()
-			},
+            flash(
+                this.lang('media-flash-primary-image-updated-message'),
+                this.lang('media-flash-primary-image-updated-title')
+            );
+        },
 
-			showIcon (icon) {
-				return window.icon(icon)
-			}
-		},
+        reset () {
+            document.getElementById('file-upload').value = '';
+            this.uploadedFile = '';
+        },
 
-		mounted () {
-			this.createCropper()
+        saveFile () {
+            this.crop.result('canvas').then((canvas) => {
+                Nova.request().post(route('media.store'), {
+                    image: canvas,
+                    location: pluralize(self.type),
+                    id: this.item.id,
+                    type: this.type
+                }).then((response) => {
+                    this.files.push(response.data);
 
-			if (this.allowMultiple) {
-				Sortable.create(document.getElementById('sortable'), {
-					draggable: '.draggable-item',
-					handle: '.sortable-handle',
-					onEnd (event) {
-						let order = new Array()
+                    flash(
+                        this.lang('media-flash-saved-message'),
+                        this.lang('media-flash-saved-title'),
+                        'success'
+                    );
+                }).catch(() => {
+                    flash(
+                        this.lang('error-unauthorized-explain'),
+                        this.lang('error-unauthorized'),
+                        'error'
+                    );
+                });
+            });
 
-						$(event.from).children().each(() => {
-							let id = $(this).data('id')
+            this.reset();
+        },
 
-							if (id) {
-								order.push(id)
-							}
-						})
-
-						axios.patch(route('media.reorder'), {
-							media: order
-						})
-					}
-				})
-			}
-		}
-	};
+        showIcon (icon) {
+            return window.icon(icon);
+        }
+    }
+};
 </script>

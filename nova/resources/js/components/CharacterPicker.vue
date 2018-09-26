@@ -1,174 +1,224 @@
 <template>
-	<div class="item-picker" v-on-clickaway="away">
-		<div class="item-picker-selector">
-			<div role="button"
-				 class="item-picker-toggle"
-				 v-if="selectedCharacter"
-				 @click.prevent="show = !show">
-				<div class="item-picker-selected">
-					<avatar :item="selectedCharacter" :show-status="showStatus" size="sm" type="image"></avatar>
-					<div class="ml-3" v-html="showIcon('more')"></div>
-				</div>
-				<input type="hidden" :name="fieldName" v-model="selectedCharacter.id">
-			</div>
-			<div role="button"
-				 class="item-picker-toggle"
-				 v-if="!selectedCharacter"
-				 @click.prevent="show = !show">
-				<div class="item-picker-selected">
-					<span v-text="lang('characters-none')"></span>
-					<div class="ml-3" v-html="showIcon('more')"></div>
-				</div>
-				<input type="hidden" :name="fieldName" value="">
-			</div>
+    <div
+        v-on-clickaway="away"
+        class="item-picker"
+    >
+        <div class="item-picker-selector">
+            <div
+                v-if="selectedCharacter"
+                role="button"
+                class="item-picker-toggle"
+                @click.prevent="show = !show"
+            >
+                <div class="item-picker-selected">
+                    <avatar
+                        :item="selectedCharacter"
+                        :show-status="showStatus"
+                        size="sm"
+                        type="image"
+                    />
+                    <div
+                        class="ml-3"
+                        v-html="showIcon('more')"
+                    />
+                </div>
+                <input
+                    :name="fieldName"
+                    v-model="selectedCharacter.id"
+                    type="hidden"
+                >
+            </div>
+            <div
+                v-if="!selectedCharacter"
+                role="button"
+                class="item-picker-toggle"
+                @click.prevent="show = !show"
+            >
+                <div class="item-picker-selected">
+                    <span v-text="lang('characters-none')"/>
+                    <div
+                        class="ml-3"
+                        v-html="showIcon('more')"
+                    />
+                </div>
+                <input
+                    :name="fieldName"
+                    type="hidden"
+                    value=""
+                >
+            </div>
 
-			<slot></slot>
-		</div>
+            <slot/>
+        </div>
 
-		<div v-show="show" class="items-menu">
-			<div class="search-group">
-				<span class="search-field">
-					<div v-html="showIcon('search')"></div>
-					<input type="text" :placeholder="lang('characters-find')" v-model="search">
-				</span>
-				<a href="#"
-				   class="clear-search ml-2"
-				   @click.prevent="search = ''"
-				   v-html="showIcon('close-alt')"></a>
-			</div>
+        <div
+            v-show="show"
+            class="items-menu"
+        >
+            <div class="search-group">
+                <span class="search-field">
+                    <div v-html="showIcon('search')"/>
+                    <input
+                        :placeholder="lang('characters-find')"
+                        v-model="search"
+                        type="text"
+                    >
+                </span>
+                <a
+                    href="#"
+                    class="clear-search ml-2"
+                    @click.prevent="search = ''"
+                    v-html="showIcon('close-alt')"
+                />
+            </div>
 
-			<div class="items-menu-alert" v-show="filteredCharacters.length == 0">
-				<div class="alert alert-warning" v-text="lang('characters-error-not-found')"></div>
-			</div>
+            <div
+                v-show="filteredCharacters.length == 0"
+                class="items-menu-alert"
+            >
+                <div
+                    class="alert alert-warning"
+                    v-text="lang('characters-error-not-found')"
+                />
+            </div>
 
-			<div class="items-menu-item"
-				 v-if="selectedCharacter != false"
-				 v-text="lang('characters-none')"
-				 @click.prevent="selectCharacter(false)"></div>
+            <div
+                v-if="selectedCharacter != false"
+                class="items-menu-item"
+                @click.prevent="selectCharacter(false)"
+                v-text="lang('characters-none')"
+            />
 
-			<div class="items-menu-item" v-for="character in filteredCharacters" @click.prevent="selectCharacter(character)">
-				<avatar :item="character" :show-status="showStatus" size="sm" type="image"></avatar>
-			</div>
-		</div>
-	</div>
+            <div
+                v-for="character in filteredCharacters"
+                class="items-menu-item"
+                @click.prevent="selectCharacter(character)"
+            >
+                <avatar
+                    :item="character"
+                    :show-status="showStatus"
+                    size="sm"
+                    type="image"
+                />
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-	import Avatar from './Avatar.vue';
-	import { mixin as clickaway } from 'vue-clickaway';
+import { mixin as clickaway } from 'vue-clickaway';
+import Avatar from './Avatar.vue';
 
-	export default {
-		props: {
-			fieldName: { type: String, default: 'character_id' },
-			filter: { type: String },
-			items: { type: Array },
-			selected: { type: Object },
-			showStatus: { type: Boolean, default: false }
-		},
+export default {
 
-		components: { Avatar },
+    components: { Avatar },
 
-		mixins: [ clickaway ],
+    mixins: [clickaway],
+    props: {
+        fieldName: { type: String, default: 'character_id' },
+        filter: { type: String },
+        items: { type: Array },
+        selected: { type: Object },
+        showStatus: { type: Boolean, default: false }
+    },
 
-		data () {
-			return {
-				characters: [],
-				search: '',
-				selectedCharacter: false,
-				show: false
-			}
-		},
+	data () {
+        return {
+            characters: [],
+            search: '',
+            selectedCharacter: false,
+            show: false,
+        };
+    },
 
-		computed: {
-			filteredCharacters () {
-				let self = this;
-				let filteredCharacters = this.characters;
+    computed: {
+        filteredCharacters () {
+            const self = this;
+            let filteredCharacters = this.characters;
 
-				if (this.filter == 'unassigned') {
-					filteredCharacters = filteredCharacters.filter((character) => {
-						return character.user_id == null;
-					});
-				}
+            if (this.filter == 'unassigned') {
+                filteredCharacters = filteredCharacters.filter((character) => { return character.user_id == null; });
+            }
 
-				return filteredCharacters.filter((character) => {
-					let searchRegex = new RegExp(self.search, 'i');
-					let userSearch;
+            return filteredCharacters.filter((character) => {
+                const searchRegex = new RegExp(self.search, 'i');
+                let userSearch;
 
-					if (character.user) {
-						userSearch = searchRegex.test(character.user.name);
-					}
+                if (character.user) {
+                    userSearch = searchRegex.test(character.user.name);
+                }
 
-					return searchRegex.test(character.displayName)
+                return searchRegex.test(character.displayName)
 						|| searchRegex.test(character.primaryPosition.name)
 						|| userSearch;
-				});
-			}
-		},
+            });
+        }
+    },
 
-		methods: {
-			away () {
-				this.show = false;
-			},
+    created () {
+        const self = this;
 
-			fetch () {
-				let self = this;
+        if (this.selected) {
+            this.selectedCharacter = this.selected;
+        }
 
-				if (this.items) {
-					this.characters = this.items;
-				} else {
-					axios.get(route('api.characters')).then((response) => {
-						self.characters = response.data;
-					});
-				}
-			},
+        this.fetch();
 
-			lang (key, attributes = '') {
-				return window.lang(key, attributes);
-			},
+        this.$events.$on('character-picker-refresh', () => {
+            self.fetch();
+        });
 
-			selectCharacter (character) {
-				this.selectedCharacter = character;
-				this.show = false;
-				this.search = '';
+        this.$events.$on('character-picker-reset', () => {
+            self.selectedCharacter = false;
+        });
+    },
 
-				this.$events.$emit('character-picker-selected', this.selectedCharacter);
-			},
+    methods: {
+        away () {
+            this.show = false;
+        },
 
-			showIcon (icon) {
-				return window.icon(icon);
-			},
+        fetch () {
+            const self = this;
 
-			statusClasses (character) {
-				let classes = ['status', 'sm', 'mr-2'];
+            if (this.items) {
+                this.characters = this.items;
+            } else {
+                axios.get(route('api.characters')).then((response) => {
+                    self.characters = response.data;
+                });
+            }
+        },
 
-				if (character.user && !character.isPrimaryCharacter) {
-					classes.push('secondary');
-				}
+        lang (key, attributes = '') {
+            return window.lang(key, attributes);
+        },
 
-				if (character.user && character.isPrimaryCharacter) {
-					classes.push('primary');
-				}
+        selectCharacter (character) {
+            this.selectedCharacter = character;
+            this.show = false;
+            this.search = '';
 
-				return classes;
-			}
-		},
+            this.$events.$emit('character-picker-selected', this.selectedCharacter);
+        },
 
-		created () {
-			let self = this;
+        showIcon (icon) {
+            return window.icon(icon);
+        },
 
-			if (this.selected) {
-				this.selectedCharacter = this.selected;
-			}
+        statusClasses (character) {
+            const classes = ['status', 'sm', 'mr-2'];
 
-			this.fetch();
+            if (character.user && !character.isPrimaryCharacter) {
+                classes.push('secondary');
+            }
 
-			this.$events.$on('character-picker-refresh', () => {
-				self.fetch();
-			});
+            if (character.user && character.isPrimaryCharacter) {
+                classes.push('primary');
+            }
 
-			this.$events.$on('character-picker-reset', () => {
-				self.selectedCharacter = false;
-			});
-		}
-	};
+            return classes;
+        }
+    }
+};
 </script>

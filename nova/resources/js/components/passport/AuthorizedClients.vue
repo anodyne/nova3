@@ -11,12 +11,15 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Scopes</th>
-                                <th></th>
+                                <th/>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr v-for="token in tokens">
+                            <tr
+                                v-for="token in tokens"
+                                :key="token.id"
+                            >
                                 <!-- Client Name -->
                                 <td style="vertical-align: middle;">
                                     {{ token.client.name }}
@@ -31,7 +34,10 @@
 
                                 <!-- Revoke Button -->
                                 <td style="vertical-align: middle;">
-                                    <a class="action-link text-danger" @click="revoke(token)">
+                                    <a
+                                        class="action-link text-danger"
+                                        @click="revoke(token)"
+                                    >
                                         Revoke
                                     </a>
                                 </td>
@@ -45,57 +51,57 @@
 </template>
 
 <script>
-    export default {
-        /*
+export default {
+    /*
          * The component's data.
          */
-        data() {
-            return {
-                tokens: []
-            };
-        },
+    data () {
+        return {
+            tokens: []
+        };
+    },
 
-        /**
+    /**
          * Prepare the component (Vue 1.x).
          */
-        ready() {
-            this.prepareComponent();
+    ready () {
+        this.prepareComponent();
+    },
+
+    /**
+         * Prepare the component (Vue 2.x).
+         */
+    mounted () {
+        this.prepareComponent();
+    },
+
+    methods: {
+        /**
+             * Prepare the component (Vue 2.x).
+             */
+        prepareComponent () {
+            this.getTokens();
         },
 
         /**
-         * Prepare the component (Vue 2.x).
-         */
-        mounted() {
-            this.prepareComponent();
-        },
-
-        methods: {
-            /**
-             * Prepare the component (Vue 2.x).
-             */
-            prepareComponent() {
-                this.getTokens();
-            },
-
-            /**
              * Get all of the authorized tokens for the user.
              */
-            getTokens() {
-                axios.get('/oauth/tokens')
-                        .then(response => {
-                            this.tokens = response.data;
-                        });
-            },
+        getTokens () {
+            Nova.request().get('/oauth/tokens')
+                .then((response) => {
+                    this.tokens = response.data;
+                });
+        },
 
-            /**
+        /**
              * Revoke the given token.
              */
-            revoke(token) {
-                axios.delete('/oauth/tokens/' + token.id)
-                        .then(response => {
-                            this.getTokens();
-                        });
-            }
+        revoke (token) {
+            Nova.request().delete(`/oauth/tokens/${token.id}`)
+                .then(() => {
+                    this.getTokens();
+                });
         }
     }
+};
 </script>

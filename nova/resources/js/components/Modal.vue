@@ -1,29 +1,34 @@
 <template>
-	<div></div>
+    <div/>
 </template>
 
 <script>
 export default {
-	props: ['show'],
+    props: {
+        show: {
+            type: String,
+            default: ''
+        }
+    },
 
-	methods: {
-		dismiss () {
-			this.$emit('close')
-		}
-	},
+    created () {
+        const escapeHandler = (e) => {
+            if (e.key === 'Escape' && this.show) {
+                this.dismiss();
+            }
+        };
 
-	created () {
-		const escapeHandler = (e) => {
-			if (e.key == 'Escape' && this.show) {
-				this.dismiss()
-			}
-		}
+        document.addEventListener('keydown', escapeHandler);
 
-		document.addEventListener('keydown', escapeHandler)
+        this.$once('hook:destroyed', () => {
+            document.removeEventListener('keydown', escapeHandler);
+        });
+    },
 
-		this.$once('hook:destroyed', () => {
-			document.removeEventListener('keydown', escapeHandler)
-		})
-	},
-}
+    methods: {
+        dismiss () {
+            this.$emit('close');
+        }
+    }
+};
 </script>

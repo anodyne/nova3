@@ -1,63 +1,87 @@
 <template>
-	<div :class="wrapper">
-		<div class="card-media" v-if="hasSlot('card-media')">
-			<slot name="card-media"></slot>
-		</div>
+    <div :class="wrapper">
+        <div
+            v-if="hasSlot('card-media')"
+            class="card-media"
+        >
+            <slot name="card-media"/>
+        </div>
 
-		<div class="card-block" v-if="blockShouldShow">
-			<div class="card-header" v-if="hasSlot('card-header')">
-				<slot name="card-header"></slot>
-			</div>
+        <div
+            v-if="blockShouldShow"
+            class="card-block"
+        >
+            <div
+                v-if="hasSlot('card-header')"
+                class="card-header"
+            >
+                <slot name="card-header"/>
+            </div>
 
-			<div class="card-title" v-if="hasSlot('card-title')">
-				<slot name="card-title"></slot>
-			</div>
+            <div
+                v-if="hasSlot('card-title')"
+                class="card-title"
+            >
+                <slot name="card-title"/>
+            </div>
 
-			<div class="card-subtitle" v-if="hasSlot('card-subtitle')">
-				<slot name="card-subtitle"></slot>
-			</div>
+            <div
+                v-if="hasSlot('card-subtitle')"
+                class="card-subtitle"
+            >
+                <slot name="card-subtitle"/>
+            </div>
 
-			<div class="card-content" v-if="hasSlot('card-content')">
-				<slot name="card-content"></slot>
-			</div>
-		</div>
+            <div
+                v-if="hasSlot('card-content')"
+                class="card-content"
+            >
+                <slot name="card-content"/>
+            </div>
+        </div>
 
-		<div class="card-footer" v-if="hasSlot('card-footer')">
-			<slot name="card-footer"></slot>
-		</div>
+        <div
+            v-if="hasSlot('card-footer')"
+            class="card-footer"
+        >
+            <slot name="card-footer"/>
+        </div>
 
-		<div class="card-content" v-if="hasSlot('card-block')">
-			<slot name="card-block"></slot>
-		</div>
-	</div>
+        <div
+            v-if="hasSlot('card-block')"
+            class="card-content"
+        >
+            <slot name="card-block"/>
+        </div>
+    </div>
 </template>
 
 <script>
 export default {
-	props: {
-		inverted: { type: Boolean, default: false }
-	},
+    props: {
+        inverted: { type: Boolean, default: false }
+    },
 
-	computed: {
-		blockShouldShow () {
-			return this.hasSlot('card-header') || this.hasSlot('card-title') || this.hasSlot('card-subtitle') || this.hasSlot('card-content')
-		},
+    computed: {
+        blockShouldShow () {
+            return this.hasSlot('card-header') || this.hasSlot('card-title') || this.hasSlot('card-subtitle') || this.hasSlot('card-content');
+        },
 
-		wrapper () {
-			let classes = ['card']
+        wrapper () {
+            const classes = ['card'];
 
-			if (this.inverted) {
-				classes.push('is-inverse')
-			}
+            if (this.inverted) {
+                classes.push('is-inverse');
+            }
 
-			return classes
-		}
-	},
+            return classes;
+        }
+    },
 
-	methods: {
-		hasSlot (slotName) {
-			return !!this.$slots[slotName]
-		}
-	}
-}
+    methods: {
+        hasSlot (slotName) {
+            return !!this.$slots[slotName];
+        }
+    }
+};
 </script>

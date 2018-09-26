@@ -1,75 +1,82 @@
 <template>
-	<transition name="fade">
-		<div :class="classes" role="alert" v-show="show">
-			<h4 class="alert-heading" v-if="heading != ''">{{ heading }}</h4>
-			<p v-if="heading != ''">{{ body }}</p>
-			<p v-if="heading == ''">{{ body }}</p>
-		</div>
-	</transition>
+    <transition name="fade">
+        <div
+            v-show="show"
+            :class="classes"
+            role="alert"
+        >
+            <h4
+                v-if="heading != ''"
+                class="alert-heading"
+            >{{ heading }}</h4>
+            <p v-if="heading != ''">{{ body }}</p>
+            <p v-if="heading == ''">{{ body }}</p>
+        </div>
+    </transition>
 </template>
 
 <script>
-	export default {
-		props: ['message', 'title', 'level'],
+export default {
+    props: ['message', 'title', 'level'],
 
-		data () {
-			return {
-				body: '',
-				show: false,
-				type: '',
-				heading: '',
-				startTransition: false
-			}
-		},
+    data () {
+        return {
+            body: '',
+            show: false,
+            type: '',
+            heading: '',
+            startTransition: false
+        };
+    },
 
-		computed: {
-			classes () {
-				return ['alert', 'alert-flash', 'alert-' + this.type];
-			}
-		},
+    computed: {
+        classes () {
+            return ['alert', 'alert-flash', `alert-${this.type}`];
+        }
+    },
 
-		methods: {
-			flash (message, title, level) {
-				this.body = message;
-				this.type = level;
-				this.heading = title;
-				this.show = true;
+    watch: {
+        startTransition (newValue, oldValue) {
+            if (newValue) {
+                const self = this;
 
-				this.hide();
-			},
+                $('.alert-flash').fadeOut(() => {
+                    self.show = false;
+                    self.startTransition = false;
+                });
+            }
+        }
+    },
 
-			hide () {
-				var self = this;
+    mounted () {
+        const self = this;
 
-				setTimeout(() => {
-					self.startTransition = true;
-				}, 4000);
-			}
-		},
+        if (this.message) {
+            this.flash(this.message, this.title, this.level);
+        }
 
-		watch: {
-			startTransition (newValue, oldValue) {
-				if (newValue) {
-					var self = this;
+        this.$events.$on('flash', (message, title, level) => { return self.flash(message, title, level); });
+    },
 
-					$('.alert-flash').fadeOut(() => {
-						self.show = false;
-						self.startTransition = false;
-					});
-				}
-			}
-		},
+    methods: {
+        flash (message, title, level) {
+            this.body = message;
+            this.type = level;
+            this.heading = title;
+            this.show = true;
 
-		mounted () {
-			var self = this;
+            this.hide();
+        },
 
-			if (this.message) {
-				this.flash(this.message, this.title, this.level);
-			}
+        hide () {
+            const self = this;
 
-			this.$events.$on('flash', (message, title, level) => self.flash(message, title, level));
-		}
-	};
+            setTimeout(() => {
+                self.startTransition = true;
+            }, 4000);
+        }
+    }
+};
 </script>
 
 <style lang="scss">

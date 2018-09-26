@@ -1,139 +1,161 @@
 <template>
-	<div :class="wrapperClass">
-		<label :class="labelClass" :for="id" v-if="label" v-html="label"></label>
-		<div :class="fieldGroupClass">
-			<input v-bind="fieldAttributes"
-				   v-if="type != 'textarea'"
-				   @input="$emit('input')"
-				   @change="$emit('change')">
+    <div :class="wrapperClass">
+        <label
+            v-if="label"
+            :class="labelClass"
+            :for="id"
+            v-html="label"
+        />
+        <div :class="fieldGroupClass">
+            <input
+                v-if="type != 'textarea'"
+                v-bind="fieldAttributes"
+                @input="$emit('input')"
+                @change="$emit('change')"
+            >
 
-			<textarea v-bind="fieldAttributes"
-					  v-if="type == 'textarea'"
-					  @input="$emit('input')"></textarea>
+            <textarea
+                v-if="type == 'textarea'"
+                v-bind="fieldAttributes"
+                @input="$emit('input')"
+            />
 
-			<div class="addon-before" v-if="hasAddonBefore">
-				<slot name="field-addon-before"></slot>
-			</div>
+            <div
+                v-if="hasAddonBefore"
+                class="addon-before"
+            >
+                <slot name="field-addon-before"/>
+            </div>
 
-			<div class="addon-after" v-if="hasAddonAfter">
-				<slot name="field-addon-after"></slot>
-			</div>
-		</div>
+            <div
+                v-if="hasAddonAfter"
+                class="addon-after"
+            >
+                <slot name="field-addon-after"/>
+            </div>
+        </div>
 
-		<div class="field-help" v-html="help"></div>
+        <div
+            class="field-help"
+            v-html="help"
+        />
 
-		<div class="field-error" v-if="hasError" v-html="error"></div>
-	</div>
+        <div
+            v-if="hasError"
+            class="field-error"
+            v-html="error"
+        />
+    </div>
 </template>
 
 <script>
-	export default {
-		props: {
-			id: { type: String },
-			max: { type: String },
-			min: { type: String },
-			help: { type: String },
-			name: { type: String, required: true },
-			rows: { type: String, default: "0" },
-			step: { type: String },
-			type: { type: String, default: "text" },
-			error: { type: String },
-			label: { type: String },
-			value: { type: String },
-			disabled: { type: Boolean, default: false },
-			required: { type: Boolean, default: false },
-		},
+export default {
+    props: {
+        id: { type: String },
+        max: { type: String },
+        min: { type: String },
+        help: { type: String },
+        name: { type: String, required: true },
+        rows: { type: String, default: '0' },
+        step: { type: String },
+        type: { type: String, default: 'text' },
+        error: { type: String },
+        label: { type: String },
+        value: { type: String },
+        disabled: { type: Boolean, default: false },
+        required: { type: Boolean, default: false }
+    },
 
-		computed: {
-			fieldAttributes () {
-				let attrs = {}
-				attr['class'] = this.fieldClass
-				attr['name'] = this.name
+    computed: {
+        fieldAttributes () {
+            const attrs = {};
+            attr.class = this.fieldClass;
+            attr.name = this.name;
 
-				if (this.disabled) {
-					attrs['disabled'] = true
-				}
+            if (this.disabled) {
+                attrs.disabled = true;
+            }
 
-				if (this.required) {
-					attrs['required'] = true
-				}
+            if (this.required) {
+                attrs.required = true;
+            }
 
-				if (this.id) {
-					attrs['id'] = this.id
-				}
+            if (this.id) {
+                attrs.id = this.id;
+            }
 
-				if (this.value) {
-					attrs['value'] = this.value
-				}
+            if (this.value) {
+                attrs.value = this.value;
+            }
 
-				if (this.placeholder) {
-					attrs['placeholder'] = this.placeholder
-				}
+            if (this.placeholder) {
+                attrs.placeholder = this.placeholder;
+            }
 
-				if (this.type == 'number') {
-					attrs['max'] = this.max
-					attrs['min'] = this.min
-					attrs['step'] = this.step
-				}
+            if (this.type == 'number') {
+                attrs.max = this.max;
+                attrs.min = this.min;
+                attrs.step = this.step;
+            }
 
-				if (this.type != 'textarea') {
-					attrs['type'] = this.type
-				}
+            if (this.type != 'textarea') {
+                attrs.type = this.type;
+            }
 
-				if (this.type == 'textarea') {
-					attrs['rows'] = this.rows
-				}
+            if (this.type == 'textarea') {
+                attrs.rows = this.rows;
+            }
 
-				return attrs
-			},
+            return attrs;
+        },
 
-			fieldClass () {
-				let pieces = ['field']
+        fieldClass () {
+            const pieces = ['field'];
 
-				return pieces
-			},
+            return pieces;
+        },
 
-			fieldGroupClass () {
-				let pieces = ['field-group']
+        fieldGroupClass () {
+            const pieces = ['field-group'];
 
-				if (this.hasAddonAfter) {
-					pieces.push('has-addon-after')
-				}
+            if (this.hasAddonAfter) {
+                pieces.push('has-addon-after');
+            }
 
-				if (this.hasAddonBefore) {
-					pieces.push('has-addon-before')
-				}
+            if (this.hasAddonBefore) {
+                pieces.push('has-addon-before');
+            }
 
-				return pieces
-			},
+            return pieces;
+        },
 
-			hasAddonAfter () {
-				return !!this.$slots['field-addon-after'] && type != 'textarea'
-			},
+        hasAddonAfter () {
+            return !!this.$slots['field-addon-after'] && type != 'textarea';
+        },
 
-			hasAddonBefore () {
-				return !!this.$slots['field-addon-before'] && type != 'textarea'
-			},
+        hasAddonBefore () {
+            return !!this.$slots['field-addon-before'] && type != 'textarea';
+        },
 
-			hasError () {
-				return this.error != null
-			},
+        hasError () {
+            return this.error != null;
+        },
 
-			labelClass () {
-				let pieces = ['field-label']
+        labelClass () {
+            const pieces = ['field-label'];
 
-				return pieces
-			},
+            return pieces;
+        },
 
-			wrapperClass () {
-				let pieces = ['field-wrapper']
+        wrapperClass () {
+            const pieces = ['field-wrapper'];
 
-				if (this.hasError) {
-					pieces.push('is-invalid')
-				}
+            if (this.hasError) {
+                pieces.push('is-invalid');
+            }
 
-				return pieces
-			}
-		}
-	}
+            return pieces;
+        }
+    }
+};
 </script>

@@ -1,73 +1,81 @@
 <template>
-	<span :class="wrapperClasses" role="checkbox" tabindex="0"
-		  :aria-checked="value.toString()"
-		  @click="toggle"
-		  @keydown.space.prevent="toggle"
-	>
-		<span :class="backgroundClasses"></span>
-		<span :class="indicatorClasses"></span>
+    <span
+        :class="wrapperClasses"
+        :aria-checked="value.toString()"
+        role="checkbox"
+        tabindex="0"
+        @click="toggle"
+        @keydown.space.prevent="toggle"
+    >
+        <span :class="backgroundClasses"/>
+        <span :class="indicatorClasses"/>
 
-		<input type="checkbox" class="hidden" :name="name" :value="value">
-	</span>
+        <input
+            :name="name"
+            :value="value"
+            type="checkbox"
+            class="hidden"
+        >
+    </span>
 </template>
 
 <script>
 export default {
-	props: {
-		name: { type: String, required: true },
-		small: { type: Boolean, default: false },
-		large: { type: Boolean, default: false },
-		value: { required: true }
-	},
+    props: {
+        name: { type: String, required: true },
+        small: { type: Boolean, default: false },
+        large: { type: Boolean, default: false },
+        value: { required: true }
+    },
 
-	computed: {
-		backgroundClasses () {
-			let classes = ['switch-background']
+    computed: {
+        backgroundClasses () {
+            const classes = ['switch-background'];
 
-			if (this.isChecked) {
-				classes.push('active')
-			}
+            if (this.isChecked) {
+                classes.push('active');
+            }
 
-			return classes
-		},
+            return classes;
+        },
 
-		indicatorClasses () {
-			let classes = ['switch-indicator']
+        indicatorClasses () {
+            const classes = ['switch-indicator'];
 
-			if (this.isChecked) {
-				classes.push('active')
-			}
+            if (this.isChecked) {
+                classes.push('active');
+            }
 
-			return classes
-		},
+            return classes;
+        },
 
-		isChecked () {
-			if (typeof(this.value) == typeof(true)) {
-				return this.value
-			}
+        isChecked () {
+            if (typeof (this.value) === typeof (true)) {
+                return this.value;
+            }
 
-			return this.value == "true"
-		},
+            return this.value == 'true';
+        },
 
-		wrapperClasses () {
-			let classes = ['switch-wrapper']
+        wrapperClasses () {
+            const classes = ['switch-wrapper'];
 
-			if (this.large) {
-				classes.push('is-large')
-			}
+            if (this.large) {
+                classes.push('is-large');
+            }
 
-			if (this.small) {
-				classes.push('is-small')
-			}
+            if (this.small) {
+                classes.push('is-small');
+            }
 
-			return classes
-		}
-	},
+            return classes;
+        }
+    },
 
-	methods: {
-		toggle () {
-			this.$emit('input', !this.isChecked)
-		}
-	}
-}
+    methods: {
+        toggle () {
+            this.$emit('input', !this.isChecked);
+        }
+    }
+};
 </script>
