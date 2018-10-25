@@ -1,42 +1,59 @@
 .badge {
-	@apply .inline-flex .text-xs .rounded-full .font-semibold .text-grey-dark .border .border-grey .uppercase .px-2 .pt-px;
+	@apply .inline-flex
+	.text-xs
+	.rounded-full
+	.font-semibold
+	.bg-grey-lighter
+	.text-grey-darker
+	.border
+	.uppercase
+	.tracking-wide
+	.px-3
+	.py-2px;
 
-	letter-spacing: 0.02rem;
-	transition: border ease-in-out .2s, color ease-in-out .2s;
+	transition: border ease-in-out .15s, color ease-in-out .15s;
+
+	&.is-small {
+		@apply .text-2xs .px-2;
+	}
+
+	&.is-large {
+		@apply .text-sm .px-4;
+	}
 
 	&.is-danger {
-		@apply .text-danger-dark .border-danger;
+		@apply .bg-danger-lightest .text-danger .border-danger-lighter;
 	}
 
 	&.is-primary {
-		@apply .text-primary-dark .border-primary;
+		@apply .bg-primary-lightest .text-primary .border-primary-lighter;
 	}
 
 	&.is-success {
-		@apply .text-success-dark .border-success;
+		@apply .bg-success-lightest .text-success-dark .border-success-lighter;
 	}
 
 	&.is-warning {
-		@apply .text-warning-dark .border-warning;
+		@apply .bg-warning-lightest .text-warning-darkest .border-warning-lighter;
 	}
 }
 
 a.badge:hover {
-	@apply .text-grey-darker .border-grey-dark;
+	@apply .text-grey-darkest .border-grey;
 
 	&.is-danger {
-		@apply .text-danger-dark .border-danger-dark;
+		@apply .text-danger-dark .border-danger-light;
 	}
 
 	&.is-primary {
-		@apply .text-primary-dark .border-primary-dark;
+		@apply .text-primary-dark .border-primary-light;
 	}
 
 	&.is-success {
-		@apply .text-success-dark .border-success-dark;
+		@apply .text-success-darker .border-success-light;
 	}
 
 	&.is-warning {
-		@apply .text-warning-dark .border-warning-dark;
+		@apply .text-warning-darkest .border-warning-light;
 	}
 }
