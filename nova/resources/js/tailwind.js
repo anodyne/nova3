@@ -260,6 +260,7 @@ module.exports = {
 
     fonts: {
         sans: [
+			'Roboto',
             'system-ui',
             'BlinkMacSystemFont',
             '-apple-system',
@@ -292,7 +293,10 @@ module.exports = {
             'Liberation Mono',
             'Courier New',
             'monospace'
-        ]
+		],
+		title: [
+			'Roboto Condensed'
+		]
     },
 
     /*
