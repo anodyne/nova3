@@ -29,7 +29,7 @@ class ForgotPasswordController extends Controller
 		$this->setPageTitle(_m('auth-reset-password'));
 	}
 
-	protected function sendResetLinkResponse($response)
+	protected function sendResetLinkResponse(Request $request, $response)
 	{
 		flash()->message(_m('auth-password-link-sent'))->success();
 

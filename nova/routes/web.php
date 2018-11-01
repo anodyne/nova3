@@ -89,6 +89,10 @@ app('router')->bind('user', function ($value) {
 	return Nova\Users\User::withTrashed()->where('id', $value)->first();
 });
 
+// In iOS 12 and new versions of Safari, this is where people who are trying to
+// change their password will be directed
+Route::get('.well-known/change-password', 'Nova\Users\Http\Controllers\UsersController@edit');
+
 Route::patch('admin/users/{user}/restore', 'Nova\Users\Http\Controllers\UsersController@restore')
 	->name('users.restore');
 Route::get('admin/users/password-resets', 'Nova\Users\Http\Controllers\ForcePasswordResetsController@index')

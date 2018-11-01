@@ -48,15 +48,32 @@ class Kernel extends HttpKernel
 	 * @var array
 	 */
 	protected $routeMiddleware = [
-		'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+		'auth' => \Nova\Foundation\Http\Middleware\Authenticate::class,
 		'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
 		'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
 		'can' => \Illuminate\Auth\Middleware\Authorize::class,
 		'guest' => \Nova\Foundation\Http\Middleware\RedirectIfAuthenticated::class,
 		'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+		'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
 		'nova.installed' => \Nova\Setup\Http\Middleware\CheckInstallationStatus::class,
 		'nova.auth-setup' => \Nova\Setup\Http\Middleware\AuthenticateSetupCenter::class,
 		'nova.render-controller' => Middleware\RenderController::class,
+	];
+
+	/**
+	 * The priority-sorted list of middleware.
+	 *
+	 * This forces the listed middleware to always be in the given order.
+	 *
+	 * @var array
+	 */
+	protected $middlewarePriority = [
+		\Illuminate\Session\Middleware\StartSession::class,
+		\Illuminate\View\Middleware\ShareErrorsFromSession::class,
+		\Nova\Foundation\Http\Middleware\Authenticate::class,
+		\Illuminate\Session\Middleware\AuthenticateSession::class,
+		\Illuminate\Routing\Middleware\SubstituteBindings::class,
+		\Illuminate\Auth\Middleware\Authorize::class,
 	];
 }

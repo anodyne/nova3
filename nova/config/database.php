@@ -36,7 +36,8 @@ return [
         'sqlite' => [
             'driver' => 'sqlite',
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
-            'prefix' => '',
+			'prefix' => '',
+			'prefix_indexes' => true,
         ],
 
         'mysql' => [
@@ -49,7 +50,8 @@ return [
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => env('DB_PREFIX', 'nova3_'),
+			'prefix' => env('DB_PREFIX', 'nova3_'),
+			'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
         ],
@@ -64,7 +66,8 @@ return [
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => 'nova_',
+			'prefix' => 'nova_',
+			'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
         ],
@@ -77,7 +80,8 @@ return [
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
-            'prefix' => '',
+			'prefix' => '',
+			'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
         ],
@@ -90,7 +94,8 @@ return [
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
-            'prefix' => '',
+			'prefix' => '',
+			'prefix_indexes' => true,
         ],
 
     ],
@@ -127,8 +132,15 @@ return [
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', 6379),
-            'database' => 0,
-        ],
+			'database' => env('REDIS_DB', 0),
+		],
+
+		'cache' => [
+			'host' => env('REDIS_HOST', '127.0.0.1'),
+			'password' => env('REDIS_PASSWORD', null),
+			'port' => env('REDIS_PORT', 6379),
+			'database' => env('REDIS_CACHE_DB', 1),
+		],
 
     ],
 

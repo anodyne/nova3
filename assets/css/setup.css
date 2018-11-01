@@ -2020,19 +2020,19 @@ code {
 }
 
 .logo.mysql {
-  background-image: url(../../nova/resources/assets/svg/setup/mysql.svg);
+  background-image: url(../../nova/resources/svg/setup/mysql.svg);
 }
 
 .logo.mariadb {
-  background-image: url(../../nova/resources/assets/svg/setup/mariadb.svg);
+  background-image: url(../../nova/resources/svg/setup/mariadb.svg);
 }
 
 .logo.postgresql {
-  background-image: url(../../nova/resources/assets/svg/setup/postgresql.svg);
+  background-image: url(../../nova/resources/svg/setup/postgresql.svg);
 }
 
 .logo.sqlite {
-  background-image: url(../../nova/resources/assets/svg/setup/sqlite.svg);
+  background-image: url(../../nova/resources/svg/setup/sqlite.svg);
 }
 
 .table-icon {

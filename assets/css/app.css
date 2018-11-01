@@ -611,12 +611,6 @@ textarea::-webkit-input-placeholder {
   opacity: .5;
 }
 
-input:-ms-input-placeholder,
-textarea:-ms-input-placeholder {
-  color: inherit;
-  opacity: .5;
-}
-
 input::-ms-input-placeholder,
 textarea::-ms-input-placeholder {
   color: inherit;
@@ -639,7 +633,7 @@ button,
 }
 
 body {
-  font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Roboto, system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   line-height: 1.5;
   background-color: var(--color-grey-lighter, #f1f5f8);
   color: var(--color-grey-darkest, #3d4852);
@@ -658,7 +652,7 @@ img {
 
 button,
 [role=button] {
-  font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Roboto, system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   cursor: pointer;
 }
 
@@ -838,8 +832,8 @@ a:hover {
   background-position: center;
   border-radius: var(--radius-full, 9999px);
   display: block;
-  height: 48px;
-  width: 48px;
+  height: extract(, 3);
+  width: extract(, 3);
 }
 
 .avatar-label {
@@ -864,37 +858,40 @@ a:hover {
   letter-spacing: .02rem;
 }
 
-.avatar {
-  border-width: 2px;
-  border-color: transparent;
-  background-clip: content-box;
-  padding: 2px;
+.avatar::before {
+  position: absolute;
+  border-radius: var(--radius-full, 9999px);
+  content: '';
+  height: calc(100% + 6px);
+  left: -3px;
+  top: -3px;
+  width: calc(100% + 6px);
 }
 
-.avatar.active,
-.avatar.primary {
-  border-color: var(--color-primary, #3490dc);
+.avatar.active::before,
+.avatar.primary::before {
+  -webkit-box-shadow: 0 0 0 2px var(--color-primary, #3490dc);
+          box-shadow: 0 0 0 2px var(--color-primary, #3490dc);
 }
 
-.avatar.danger {
-  border-color: var(--color-danger, #e3342f);
+.avatar.danger::before {
+  -webkit-box-shadow: 0 0 0 2px var(--color-danger, #e3342f);
+          box-shadow: 0 0 0 2px var(--color-danger, #e3342f);
 }
 
-.avatar.secondary {
-  border-color: var(--color-grey-light, #dae1e7);
+.avatar.secondary::before {
+  -webkit-box-shadow: 0 0 0 2px var(--color-grey-light, #dae1e7);
+          box-shadow: 0 0 0 2px var(--color-grey-light, #dae1e7);
 }
 
-.avatar.success {
-  border-color: var(--color-success, #38c172);
+.avatar.success::before {
+  -webkit-box-shadow: 0 0 0 2px var(--color-success, #38c172);
+          box-shadow: 0 0 0 2px var(--color-success, #38c172);
 }
 
 .avatar-xs .avatar {
   height: 24px;
   width: 24px;
-}
-
-.avatar-xs .avatar-label .avatar-title {
-  font-size: .875rem;
 }
 
 .avatar-xs .avatar-label .avatar-meta {
@@ -906,6 +903,36 @@ a:hover {
   width: 32px;
 }
 
+.avatar-sm .avatar-label .avatar-meta {
+  font-size: .875rem;
+}
+
+.avatar-md .avatar {
+  height: 48px;
+  width: 48px;
+}
+
+.avatar-md .avatar-label .avatar-meta {
+  font-size: undefined;
+}
+
+.avatar-lg .avatar {
+  height: 64px;
+  width: 64px;
+}
+
+.avatar-lg .avatar-label .avatar-meta {
+  font-size: 1.125rem;
+}
+
+.avatar-xs .avatar-label .avatar-title {
+  font-size: .875rem;
+}
+
+.avatar-xs .avatar-label .avatar-meta {
+  font-size: .75rem;
+}
+
 .avatar-sm .avatar-label .avatar-title {
   font-size: 1rem;
 }
@@ -915,9 +942,7 @@ a:hover {
 }
 
 .avatar-md .avatar {
-  height: 48px;
   padding: 3px;
-  width: 48px;
 }
 
 .avatar-md .avatar-label .avatar-title {
@@ -925,9 +950,7 @@ a:hover {
 }
 
 .avatar-lg .avatar {
-  height: 64px;
   padding: 3px;
-  width: 64px;
 }
 
 .avatar-lg .avatar-label .avatar-title {
@@ -973,64 +996,119 @@ a:hover {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-size: .75rem;
   border-radius: var(--radius-full, 9999px);
   font-weight: 600;
-  color: var(--color-grey-dark, #8795a1);
+  background-color: var(--color-grey-lighter, #f1f5f8);
+  color: var(--color-grey-darker, #606f7b);
   border-width: 1px;
-  border-color: var(--color-grey, #b8c2cc);
   text-transform: uppercase;
+  letter-spacing: .05em;
+  padding-left: .75rem;
+  padding-right: .75rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+  line-height: 1;
+  -webkit-transition: border ease-in-out .15s, color ease-in-out .15s;
+  transition: border ease-in-out .15s, color ease-in-out .15s;
+}
+
+.badge .meta {
+  margin-left: .5rem;
+  border-radius: var(--radius-full, 9999px);
+  color: var(--color-grey-lightest, #f8fafc);
+  background-color: var(--color-grey-darker, #606f7b);
+  padding-top: .25rem;
+  padding-bottom: .25rem;
   padding-left: .5rem;
   padding-right: .5rem;
-  padding-top: 1px;
-  letter-spacing: .02rem;
-  -webkit-transition: border ease-in-out .2s, color ease-in-out .2s;
-  transition: border ease-in-out .2s, color ease-in-out .2s;
+  font-size: .625rem;
+  margin-right: -0.25rem;
+  line-height: 1;
+}
+
+.badge.is-small {
+  font-size: .625rem;
+  padding-left: .5rem;
+  padding-right: .5rem;
+}
+
+.badge.is-large {
+  font-size: .875rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .badge.is-danger {
-  color: var(--color-danger-dark, #cc1f1a);
-  border-color: var(--color-danger, #e3342f);
+  background-color: var(--color-danger-lightest, #fcebea);
+  color: var(--color-danger, #e3342f);
+  border-color: var(--color-danger-lighter, #f9acaa);
+}
+
+.badge.is-danger .meta {
+  background-color: var(--color-danger, #e3342f);
+  color: var(--color-danger-lightest, #fcebea);
 }
 
 .badge.is-primary {
-  color: var(--color-primary-dark, #2779bd);
-  border-color: var(--color-primary, #3490dc);
+  background-color: var(--color-primary-lightest, #eff8ff);
+  color: var(--color-primary, #3490dc);
+  border-color: var(--color-primary-lighter, #bcdefa);
+}
+
+.badge.is-primary .meta {
+  background-color: var(--color-primary, #3490dc);
+  color: var(--color-primary-lightest, #eff8ff);
 }
 
 .badge.is-success {
+  background-color: var(--color-success-lightest, #e3fcec);
   color: var(--color-success-dark, #1f9d55);
-  border-color: var(--color-success, #38c172);
+  border-color: var(--color-success-lighter, #a2f5bf);
+}
+
+.badge.is-success .meta {
+  background-color: var(--color-success, #38c172);
+  color: var(--color-success-lightest, #e3fcec);
 }
 
 .badge.is-warning {
-  color: var(--color-warning-dark, #ffb300);
-  border-color: var(--color-warning, #ffc107);
+  background-color: var(--color-warning-lightest, #ffecb3);
+  color: var(--color-warning-darkest, #ff6f00);
+  border-color: var(--color-warning-lighter, #ffd54f);
+}
+
+.badge.is-warning .meta {
+  background-color: var(--color-warning-darker, #ff8f00);
+  color: var(--color-warning-lightest, #ffecb3);
 }
 
 a.badge:hover {
-  color: var(--color-grey-darker, #606f7b);
-  border-color: var(--color-grey-dark, #8795a1);
+  color: var(--color-grey-darkest, #3d4852);
+  border-color: var(--color-grey, #b8c2cc);
 }
 
 a.badge:hover.is-danger {
   color: var(--color-danger-dark, #cc1f1a);
-  border-color: var(--color-danger-dark, #cc1f1a);
+  border-color: var(--color-danger-light, #ef5753);
 }
 
 a.badge:hover.is-primary {
   color: var(--color-primary-dark, #2779bd);
-  border-color: var(--color-primary-dark, #2779bd);
+  border-color: var(--color-primary-light, #6cb2eb);
 }
 
 a.badge:hover.is-success {
-  color: var(--color-success-dark, #1f9d55);
-  border-color: var(--color-success-dark, #1f9d55);
+  color: var(--color-success-darker, #1a4731);
+  border-color: var(--color-success-light, #51d88a);
 }
 
 a.badge:hover.is-warning {
-  color: var(--color-warning-dark, #ffb300);
-  border-color: var(--color-warning-dark, #ffb300);
+  color: var(--color-warning-darkest, #ff6f00);
+  border-color: var(--color-warning-light, #ffca28);
 }
 
 .button {
@@ -5283,7 +5361,7 @@ form.is-dark .form-control {
 }
 
 .font-sans {
-  font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Roboto, system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 .font-serif {
@@ -5292,6 +5370,10 @@ form.is-dark .form-control {
 
 .font-mono {
   font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+}
+
+.font-title {
+  font-family: Roboto Condensed;
 }
 
 .font-hairline {
@@ -12359,7 +12441,7 @@ form.is-dark .form-control {
   }
 
   .sm\:font-sans {
-    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-family: Roboto, system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   }
 
   .sm\:font-serif {
@@ -12368,6 +12450,10 @@ form.is-dark .form-control {
 
   .sm\:font-mono {
     font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+  }
+
+  .sm\:font-title {
+    font-family: Roboto Condensed;
   }
 
   .sm\:font-hairline {
@@ -19428,7 +19514,7 @@ form.is-dark .form-control {
   }
 
   .md\:font-sans {
-    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-family: Roboto, system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   }
 
   .md\:font-serif {
@@ -19437,6 +19523,10 @@ form.is-dark .form-control {
 
   .md\:font-mono {
     font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+  }
+
+  .md\:font-title {
+    font-family: Roboto Condensed;
   }
 
   .md\:font-hairline {
@@ -26497,7 +26587,7 @@ form.is-dark .form-control {
   }
 
   .lg\:font-sans {
-    font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-family: Roboto, system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   }
 
   .lg\:font-serif {
@@ -26506,6 +26596,10 @@ form.is-dark .form-control {
 
   .lg\:font-mono {
     font-family: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+  }
+
+  .lg\:font-title {
+    font-family: Roboto Condensed;
   }
 
   .lg\:font-hairline {

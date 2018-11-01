@@ -2,7 +2,7 @@
 
 namespace Themes\Titan;
 
-use Nova\Foundation\Theme\Theme as BaseTheme;
+use Nova\Themes\BaseTheme;
 
 class Theme extends BaseTheme
 {

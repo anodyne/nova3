@@ -1,0 +1,81 @@
+.badge {
+	@apply .inline-flex
+	.items-center
+	.text-xs
+	.rounded-full
+	.font-semibold
+	.bg-grey-lighter
+	.text-grey-darker
+	.border
+	.uppercase
+	.tracking-wide
+	.px-3
+	.py-1
+	.leading-none;
+
+	transition: border ease-in-out .15s, color ease-in-out .15s;
+
+	.meta {
+		@apply .ml-2 .rounded-full .text-grey-lightest .bg-grey-darker .py-1 .px-2 .text-2xs .-mr-1 .leading-none;
+	}
+
+	&.is-small {
+		@apply .text-2xs .px-2;
+	}
+
+	&.is-large {
+		@apply .text-sm .px-4;
+	}
+
+	&.is-danger {
+		@apply .bg-danger-lightest .text-danger .border-danger-lighter;
+
+		.meta {
+			@apply .bg-danger .text-danger-lightest;
+		}
+	}
+
+	&.is-primary {
+		@apply .bg-primary-lightest .text-primary .border-primary-lighter;
+
+		.meta {
+			@apply .bg-primary .text-primary-lightest;
+		}
+	}
+
+	&.is-success {
+		@apply .bg-success-lightest .text-success-dark .border-success-lighter;
+
+		.meta {
+			@apply .bg-success .text-success-lightest;
+		}
+	}
+
+	&.is-warning {
+		@apply .bg-warning-lightest .text-warning-darkest .border-warning-lighter;
+
+		.meta {
+			@apply .bg-warning-darker .text-warning-lightest;
+		}
+	}
+}
+
+a.badge:hover {
+	@apply .text-grey-darkest .border-grey;
+
+	&.is-danger {
+		@apply .text-danger-dark .border-danger-light;
+	}
+
+	&.is-primary {
+		@apply .text-primary-dark .border-primary-light;
+	}
+
+	&.is-success {
+		@apply .text-success-darker .border-success-light;
+	}
+
+	&.is-warning {
+		@apply .text-warning-darkest .border-warning-light;
+	}
+}

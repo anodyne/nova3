@@ -24,6 +24,10 @@
 			<file>./nova/tests/Unit/PermissionTest.php</file>
 			<file>./nova/tests/Unit/PermissionPolicyTest.php</file>
 		</testsuite>
+
+		<testsuite name="nova-themes">
+			<directory suffix="Test.php">./nova/tests/Themes</directory>
+		</testsuite>
 	</testsuites>
 	<filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">
@@ -35,7 +39,7 @@
 		<env name="BCRYPT_ROUNDS" value="4"/>
 		<env name="CACHE_DRIVER" value="array"/>
 		<env name="SESSION_DRIVER" value="array"/>
-		<env name="QUEUE_DRIVER" value="sync"/>
+		<env name="QUEUE_CONNECTION" value="sync"/>
 		<env name="MAIL_DRIVER" value="array"/>
 		<env name="DB_CONNECTION" value="sqlite"/>
 		<env name="DB_DRIVER" value="sqlite"/>

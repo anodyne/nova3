@@ -53,11 +53,7 @@ trait ProvidesScriptVariables
 		$lang = ['lang' => app('nova.translator.messages')];
 
 		// Nova's controller data
-		if (app()->has('nova.controller')) {
-			$data = ['data' => (array) app('nova.controller')->data];
-		} else {
-			$data = [];
-		}
+		$data = ['data' => (array) app('nova.response.data')];
 
 		// Nova's statuses
 		$statuses = ['status' => Status::all()];

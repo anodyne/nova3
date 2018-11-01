@@ -44,7 +44,7 @@ if (! function_exists('d')) {
 	function d()
 	{
 		array_map(function ($debug) {
-			(new Illuminate\Support\Debug\Dumper)->dump($debug);
+			(new Symfony\Component\VarDumper\VarDumper)->dump($debug);
 		}, func_get_args());
 	}
 }

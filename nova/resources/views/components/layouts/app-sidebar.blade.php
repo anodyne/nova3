@@ -70,8 +70,9 @@
 		<div class="flex items-center">
 			<avatar :item="{{ $_user->toJson() }}"
 					:show-content="false"
-					:show-status="false"
-					type="image"></avatar>
+					:show-status="true"
+					type="image"
+			></avatar>
 			<icon name="chevron-down" size="small" classes="ml-1"></icon>
 		</div>
 
@@ -82,5 +83,5 @@
 </nav>
 
 <main class="flex-1 ml-72 py-6 px-12">
-	{!! $template or '' !!}
+	{!! $template ?? '' !!}
 </main>

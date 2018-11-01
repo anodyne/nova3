@@ -10,3 +10,4 @@ node_modules
 nova/vendor
 storage/debugbar
 *.key
+.phpunit.result.cache

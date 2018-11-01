@@ -8,7 +8,7 @@
 	<!-- CSRF Token -->
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<title>{{ $pageTitle or '' }} &bull; {{ config('app.name', 'Laravel') }}</title>
+	<title>{{ $pageTitle ?? '' }} &bull; {{ config('app.name', 'Laravel') }}</title>
 
 	<script defer src="{{ asset('assets/js/fa-solid.min.js') }}"></script>
 	<script src="{{ asset('assets/js/fontawesome.min.js') }}"></script>
@@ -18,7 +18,7 @@
 	<link href="{{ asset('assets/css/vendor.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet">
-	{!! $styles or false !!}
+	{!! $styles ?? false !!}
 
 	<script>
 		window.Nova = {!! json_encode(Nova::scriptVariables()) !!}
@@ -27,7 +27,7 @@
 </head>
 <body class="font-sans bg-grey-lighter text-grey-dark">
 	<div id="nova-app">
-		{!! $template or false !!}
+		{!! $template ?? false !!}
 	</div>
 
 	<!-- Scripts -->
@@ -49,7 +49,7 @@
 			// })
 		})
 	</script>
-	{!! $scripts or false !!}
+	{!! $scripts ?? false !!}
 	<script>
 		const app = new Vue({
 			el: '#nova-app',

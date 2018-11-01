@@ -4,12 +4,12 @@ use Date;
 use Form;
 use Schema;
 use Illuminate\Http\Request;
+use Nova\Themes\ThemeFactory;
 use Illuminate\Routing\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\PackageManifest;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Nova\Foundation\Http\Middleware\CaptureRequestExtension;
-use Nova\Foundation\Theme\ThemeFactory;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +33,10 @@ class AppServiceProvider extends ServiceProvider
 
 		$this->app->singleton('nova.hooks', function ($app) {
 			return new \Nova\Foundation\HookManager;
+		});
+
+		$this->app->singleton('nova.response.data', function ($app) {
+			return [];
 		});
 
 		// Make sure we can use the _settings object in every view

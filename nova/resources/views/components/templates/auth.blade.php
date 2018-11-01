@@ -35,7 +35,7 @@
 
 	<div class="flex flex-col min-h-screen w-1/2 bg-white text-grey-darker items-center justify-center">
 		<div class="w-3/5 mx-auto">
-			{!! $content or false !!}
+			{!! $content ?? false !!}
 		</div>
 	</div>
 </div>

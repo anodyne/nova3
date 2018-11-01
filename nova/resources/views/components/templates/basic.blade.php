@@ -1,1 +1,1 @@
-{!! $content or '' !!}
+{!! $content ?? '' !!}

@@ -2,8 +2,8 @@
 
 namespace Nova\Themes;
 
-use Illuminate\Database\Eloquent\Model;
 use Nova\Pages\Page;
+use Illuminate\Database\Eloquent\Model;
 
 class Theme extends Model
 {
@@ -15,7 +15,7 @@ class Theme extends Model
 	/**
 	 * Scope the query to the theme path.
 	 *
-	 * @param  \Illuminate\Database\Eloquen\Builder  $query
+	 * @param  \Illuminate\Database\Eloquent\Builder  $query
 	 * @param  string
 	 * @return \Illuminate\Database\Eloquent\Builder
 	 */
@@ -32,9 +32,6 @@ class Theme extends Model
 	 */
 	public function getLayoutForPage(Page $page)
 	{
-		return sprintf(
-			'layouts.%s',
-			$this->{"{$page->layout}_layout"}
-		);
+		return sprintf('layouts.%s', $this->{"{$page->layout}_layout"});
 	}
 }

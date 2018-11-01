@@ -52,6 +52,6 @@
 
 <div class="container my-6">
 	<main>
-		{!! $template or '' !!}
+		{!! $template ?? '' !!}
 	</main>
 </div>
