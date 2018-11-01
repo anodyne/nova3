@@ -78,7 +78,7 @@
 
 <main v-cloak>
 	<div class="container">
-		{!! $content or false !!}
+		{!! $content ?? false !!}
 
 		@if (app()->environment() == 'local')
 			<span class="hidden mobile:inline-block bg-blue text-white rounded-sm p-1 my-2 text-xs">mobile</span>

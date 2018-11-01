@@ -11,25 +11,25 @@
 
 	<title>@yield('title') &bull; {{ config('nova.app.name') }}</title>
 
-	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700|Roboto:300,400,500,700" rel="stylesheet">
 	<link href="{{ asset('assets/css/vendor.css') }}" rel="stylesheet">
-	<link href="{{ asset('assets/css/setup.css') }}" rel="stylesheet">
-	<link href="{{ asset('assets/css/setup.responsive.css') }}" rel="stylesheet">
+	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-	<header>
-		<div class="header-border"></div>
+<body class="font-sans bg-grey-lighter text-grey-darkest leading-normal">
+	<header class="block relative mb-8">
+		<div class="h-1 bg-blue"></div>
 
 		<div class="container">
-			<div class="header">
-				<div class="header-group">
-					@icon('anodyne', ['class' => 'brand'])
+			<div class="flex justify-between items-center">
+				<div>
+					@icon('anodyne', ['class' => 'leading-none h-16 w-16'])
 				</div>
 
-				<div class="header-group">
-					<div class="masthead">
-						<span class="product">{{ config('nova.app.name') }} Setup</span>
-						<span class="process">@yield('header')</span>
+				<div>
+					<div>
+						<span class="font-medium text-xl text-grey-dark">
+							{{ config('nova.app.name') }} Setup
+						</span>
+						<span class="font-black text-blue-dark text-xl">@yield('header')</span>
 					</div>
 				</div>
 			</div>

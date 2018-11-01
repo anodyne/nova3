@@ -83,5 +83,5 @@
 </nav>
 
 <main class="flex-1 ml-72 py-6 px-12">
-	{!! $template or '' !!}
+	{!! $template ?? '' !!}
 </main>

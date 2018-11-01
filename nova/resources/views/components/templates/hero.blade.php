@@ -85,7 +85,7 @@
 
 <main v-cloak>
 	<div class="container">
-		{!! $content or false !!}
+		{!! $content ?? false !!}
 
 		@if (app()->environment() == 'local')
 			<span class="badge badge-dark d-sm-none">xs</span>
