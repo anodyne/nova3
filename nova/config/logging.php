@@ -16,7 +16,7 @@ return [
 	|
 	*/
 
-	'default' => env('LOG_CHANNEL', 'daily'),
+	'default' => env('LOG_CHANNEL', 'stack'),
 
 	/*
 	|--------------------------------------------------------------------------
