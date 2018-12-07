@@ -1178,8 +1178,8 @@ a.badge:hover.is-warning {
 }
 
 .button.is-large {
-  padding-top: .75rem;
-  padding-bottom: .75rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   font-size: 1.125rem;
@@ -5552,8 +5552,16 @@ form.is-dark .form-control {
   height: auto;
 }
 
+.h-half {
+  height: 50%;
+}
+
 .h-full {
   height: 100%;
+}
+
+.h-half-screen {
+  height: 50vh;
 }
 
 .h-screen {
@@ -9815,8 +9823,16 @@ form.is-dark .form-control {
   width: 83.33333%;
 }
 
+.w-half {
+  width: 50%;
+}
+
 .w-full {
   width: 100%;
+}
+
+.w-half-screen {
+  width: 50vw;
 }
 
 .w-screen {
@@ -12632,8 +12648,16 @@ form.is-dark .form-control {
     height: auto;
   }
 
+  .sm\:h-half {
+    height: 50%;
+  }
+
   .sm\:h-full {
     height: 100%;
+  }
+
+  .sm\:h-half-screen {
+    height: 50vh;
   }
 
   .sm\:h-screen {
@@ -16887,8 +16911,16 @@ form.is-dark .form-control {
     width: 83.33333%;
   }
 
+  .sm\:w-half {
+    width: 50%;
+  }
+
   .sm\:w-full {
     width: 100%;
+  }
+
+  .sm\:w-half-screen {
+    width: 50vw;
   }
 
   .sm\:w-screen {
@@ -19705,8 +19737,16 @@ form.is-dark .form-control {
     height: auto;
   }
 
+  .md\:h-half {
+    height: 50%;
+  }
+
   .md\:h-full {
     height: 100%;
+  }
+
+  .md\:h-half-screen {
+    height: 50vh;
   }
 
   .md\:h-screen {
@@ -23960,8 +24000,16 @@ form.is-dark .form-control {
     width: 83.33333%;
   }
 
+  .md\:w-half {
+    width: 50%;
+  }
+
   .md\:w-full {
     width: 100%;
+  }
+
+  .md\:w-half-screen {
+    width: 50vw;
   }
 
   .md\:w-screen {
@@ -26778,8 +26826,16 @@ form.is-dark .form-control {
     height: auto;
   }
 
+  .lg\:h-half {
+    height: 50%;
+  }
+
   .lg\:h-full {
     height: 100%;
+  }
+
+  .lg\:h-half-screen {
+    height: 50vh;
   }
 
   .lg\:h-screen {
@@ -31033,8 +31089,16 @@ form.is-dark .form-control {
     width: 83.33333%;
   }
 
+  .lg\:w-half {
+    width: 50%;
+  }
+
   .lg\:w-full {
     width: 100%;
+  }
+
+  .lg\:w-half-screen {
+    width: 50vw;
   }
 
   .lg\:w-screen {
