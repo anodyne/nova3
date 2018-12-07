@@ -9,25 +9,25 @@
 
 // Are we running PHP 7.1.3+?
 if (version_compare(PHP_VERSION, '7.1.3', '<')) {
-	header("Location: nova/errors/php.php");
+	header("Location: ./nova/errors/php.php");
 	exit;
 }
 
 // Does the .htaccess file exist?
 if (! file_exists('./.htaccess')) {
-	header("Location: nova/errors/htaccess.php");
+	header("Location: ./nova/errors/htaccess.php");
 	exit;
 }
 
 // Are we in maintenance mode?
 if (file_exists('./storage/app/maintenance.json')) {
-	header("Location: nova/errors/maintenance.php");
+	header("Location: ./nova/errors/maintenance.php");
 	exit;
 }
 
 // Does the vendor folder exist?
 if (! file_exists('./nova/vendor')) {
-	header("Location: nova/errors/vendor.php");
+	header("Location: ./nova/errors/vendor.php");
 	exit;
 }
 
