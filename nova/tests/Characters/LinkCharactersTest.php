@@ -14,10 +14,10 @@ class LinkCharactersTest extends DatabaseTestCase
 
 		$character = create('Nova\Characters\Character');
 
-		$this->get(route('characters.link'))->assertRedirect(route('sign-in'));
-		$this->post(route('characters.link.store'))->assertRedirect(route('sign-in'));
-		$this->patch(route('characters.link.update'))->assertRedirect(route('sign-in'));
-		$this->delete(route('characters.link.destroy', $character))->assertRedirect(route('sign-in'));
+		$this->get(route('characters.link'))->assertRedirect(route('login'));
+		$this->post(route('characters.link.store'))->assertRedirect(route('login'));
+		$this->patch(route('characters.link.update'))->assertRedirect(route('login'));
+		$this->delete(route('characters.link.destroy', $character))->assertRedirect(route('login'));
 
 		$this->signIn();
 

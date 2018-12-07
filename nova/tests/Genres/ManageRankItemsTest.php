@@ -12,13 +12,13 @@ class ManageRankItemsTest extends DatabaseTestCase
 
 		$this->withExceptionHandling();
 
-		$this->get(route('ranks.items.index'))->assertRedirect(route('sign-in'));
-		$this->get(route('ranks.items.create'))->assertRedirect(route('sign-in'));
-		$this->post(route('ranks.items.store'))->assertRedirect(route('sign-in'));
-		$this->patch(route('ranks.items.update', $item))->assertRedirect(route('sign-in'));
-		$this->delete(route('ranks.items.destroy', $item))->assertRedirect(route('sign-in'));
-		$this->patch(route('ranks.items.reorder'))->assertRedirect(route('sign-in'));
-		$this->post(route('ranks.items.duplicate', $item))->assertRedirect(route('sign-in'));
+		$this->get(route('ranks.items.index'))->assertRedirect(route('login'));
+		$this->get(route('ranks.items.create'))->assertRedirect(route('login'));
+		$this->post(route('ranks.items.store'))->assertRedirect(route('login'));
+		$this->patch(route('ranks.items.update', $item))->assertRedirect(route('login'));
+		$this->delete(route('ranks.items.destroy', $item))->assertRedirect(route('login'));
+		$this->patch(route('ranks.items.reorder'))->assertRedirect(route('login'));
+		$this->post(route('ranks.items.duplicate', $item))->assertRedirect(route('login'));
 
 		$this->signIn();
 
@@ -116,7 +116,7 @@ class ManageRankItemsTest extends DatabaseTestCase
 		$this->signIn($admin);
 
 		$item = create('Nova\Genres\Rank');
-		
+
 		$this->get(route('ranks.items.index'))->assertSuccessful();
 		$this->get(route('ranks.items.create'))->assertSuccessful();
 		$this->get(route('ranks.items.edit', $item))->assertSuccessful();

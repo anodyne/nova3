@@ -19,14 +19,14 @@ class ManageDepartmentsTest extends DatabaseTestCase
 	{
 		$this->withExceptionHandling();
 
-		$this->get(route('departments.index'))->assertRedirect(route('sign-in'));
-		$this->get(route('departments.create'))->assertRedirect(route('sign-in'));
-		$this->post(route('departments.store'))->assertRedirect(route('sign-in'));
-		$this->get(route('departments.edit', $this->department))->assertRedirect(route('sign-in'));
-		$this->patch(route('departments.update', $this->department))->assertRedirect(route('sign-in'));
-		$this->delete(route('departments.destroy', $this->department))->assertRedirect(route('sign-in'));
-		$this->get(route('departments.reorder'))->assertRedirect(route('sign-in'));
-		$this->patch('/admin/departments/reorder')->assertRedirect(route('sign-in'));
+		$this->get(route('departments.index'))->assertRedirect(route('login'));
+		$this->get(route('departments.create'))->assertRedirect(route('login'));
+		$this->post(route('departments.store'))->assertRedirect(route('login'));
+		$this->get(route('departments.edit', $this->department))->assertRedirect(route('login'));
+		$this->patch(route('departments.update', $this->department))->assertRedirect(route('login'));
+		$this->delete(route('departments.destroy', $this->department))->assertRedirect(route('login'));
+		$this->get(route('departments.reorder'))->assertRedirect(route('login'));
+		$this->patch('/admin/departments/reorder')->assertRedirect(route('login'));
 
 		$this->signIn();
 
@@ -130,7 +130,7 @@ class ManageDepartmentsTest extends DatabaseTestCase
 	{
 		$admin = $this->createAdmin();
 		$this->signIn($admin);
-		
+
 		$this->get(route('departments.index'))->assertSuccessful();
 		$this->get(route('departments.create'))->assertSuccessful();
 		$this->get(route('departments.edit', $this->department))->assertSuccessful();

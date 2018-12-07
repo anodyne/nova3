@@ -21,15 +21,15 @@ class ManageCharactersTest extends DatabaseTestCase
 	{
 		$this->withExceptionHandling();
 
-		$this->get(route('characters.index'))->assertRedirect(route('sign-in'));
-		$this->get(route('characters.create'))->assertRedirect(route('sign-in'));
-		$this->post(route('characters.store'))->assertRedirect(route('sign-in'));
-		$this->get(route('characters.edit', $this->character))->assertRedirect(route('sign-in'));
-		$this->patch(route('characters.update', $this->character))->assertRedirect(route('sign-in'));
-		$this->patch(route('characters.restore', $this->character))->assertRedirect(route('sign-in'));
-		$this->delete(route('characters.destroy', $this->character))->assertRedirect(route('sign-in'));
-		$this->patch(route('characters.activate', $this->character))->assertRedirect(route('sign-in'));
-		$this->delete(route('characters.deactivate', $this->character))->assertRedirect(route('sign-in'));
+		$this->get(route('characters.index'))->assertRedirect(route('login'));
+		$this->get(route('characters.create'))->assertRedirect(route('login'));
+		$this->post(route('characters.store'))->assertRedirect(route('login'));
+		$this->get(route('characters.edit', $this->character))->assertRedirect(route('login'));
+		$this->patch(route('characters.update', $this->character))->assertRedirect(route('login'));
+		$this->patch(route('characters.restore', $this->character))->assertRedirect(route('login'));
+		$this->delete(route('characters.destroy', $this->character))->assertRedirect(route('login'));
+		$this->patch(route('characters.activate', $this->character))->assertRedirect(route('login'));
+		$this->delete(route('characters.deactivate', $this->character))->assertRedirect(route('login'));
 
 		$this->signIn();
 

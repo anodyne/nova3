@@ -19,11 +19,11 @@ class ManagePositionsTest extends DatabaseTestCase
 	{
 		$this->withExceptionHandling();
 
-		$this->get(route('positions.index'))->assertRedirect(route('sign-in'));
-		$this->get(route('positions.create'))->assertRedirect(route('sign-in'));
-		$this->post(route('positions.store'))->assertRedirect(route('sign-in'));
-		$this->patch(route('positions.update', $this->position))->assertRedirect(route('sign-in'));
-		$this->delete(route('positions.destroy', $this->position))->assertRedirect(route('sign-in'));
+		$this->get(route('positions.index'))->assertRedirect(route('login'));
+		$this->get(route('positions.create'))->assertRedirect(route('login'));
+		$this->post(route('positions.store'))->assertRedirect(route('login'));
+		$this->patch(route('positions.update', $this->position))->assertRedirect(route('login'));
+		$this->delete(route('positions.destroy', $this->position))->assertRedirect(route('login'));
 
 		$this->signIn();
 
@@ -117,7 +117,7 @@ class ManagePositionsTest extends DatabaseTestCase
 	{
 		$admin = $this->createAdmin();
 		$this->signIn($admin);
-		
+
 		$this->get(route('positions.index'))->assertSuccessful();
 		$this->get(route('positions.create'))->assertSuccessful();
 	}

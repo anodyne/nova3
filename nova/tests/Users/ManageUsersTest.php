@@ -23,14 +23,14 @@ class ManageUsersTest extends DatabaseTestCase
 	{
 		$this->withExceptionHandling();
 
-		$this->get(route('users.index'))->assertRedirect(route('sign-in'));
-		$this->get(route('users.create'))->assertRedirect(route('sign-in'));
-		$this->post(route('users.store'))->assertRedirect(route('sign-in'));
-		$this->get(route('users.edit', $this->user))->assertRedirect(route('sign-in'));
-		$this->patch(route('users.update', $this->user))->assertRedirect(route('sign-in'));
-		$this->delete(route('users.destroy', $this->user))->assertRedirect(route('sign-in'));
-		$this->patch(route('users.activate', $this->user))->assertRedirect(route('sign-in'));
-		$this->delete(route('users.deactivate', $this->user))->assertRedirect(route('sign-in'));
+		$this->get(route('users.index'))->assertRedirect(route('login'));
+		$this->get(route('users.create'))->assertRedirect(route('login'));
+		$this->post(route('users.store'))->assertRedirect(route('login'));
+		$this->get(route('users.edit', $this->user))->assertRedirect(route('login'));
+		$this->patch(route('users.update', $this->user))->assertRedirect(route('login'));
+		$this->delete(route('users.destroy', $this->user))->assertRedirect(route('login'));
+		$this->patch(route('users.activate', $this->user))->assertRedirect(route('login'));
+		$this->delete(route('users.deactivate', $this->user))->assertRedirect(route('login'));
 
 		$this->signIn();
 
