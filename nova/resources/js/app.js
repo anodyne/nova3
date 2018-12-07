@@ -2,6 +2,8 @@ import Nova from './Nova';
 
 import './bootstrap';
 import './event-listeners';
+import './plugins';
+import './directives';
 import './components';
 
 (function () {

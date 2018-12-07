@@ -6,6 +6,7 @@ export default class Nova {
         this.bus = new Vue();
         this.bootingCallbacks = [];
         this.config = config;
+        this.mixin = {};
     }
 
     booting (callback) {
