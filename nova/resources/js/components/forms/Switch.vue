@@ -1,5 +1,5 @@
 <template>
-    <span
+    <div
         :class="wrapperClasses"
         :aria-checked="value.toString()"
         role="checkbox"
@@ -7,8 +7,8 @@
         @click="toggle"
         @keydown.space.prevent="toggle"
     >
-        <span :class="backgroundClasses"/>
-        <span :class="indicatorClasses"/>
+        <div :class="backgroundClasses"></div>
+        <div :class="indicatorClasses"></div>
 
         <input
             :name="name"
@@ -16,7 +16,7 @@
             type="checkbox"
             class="hidden"
         >
-    </span>
+    </div>
 </template>
 
 <script>
