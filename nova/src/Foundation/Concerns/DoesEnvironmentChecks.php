@@ -1,4 +1,6 @@
-<?php namespace Nova\Foundation\Configuration;
+<?php
+
+namespace Nova\Foundation\Concerns;
 
 use PDO;
 
@@ -23,7 +25,7 @@ trait DoesEnvironmentChecks
 		]);
 
 		// PHP version
-		if (version_compare(PHP_VERSION, '7.0.0', '<')) {
+		if (version_compare(PHP_VERSION, '7.1.3', '<')) {
 			$checks->put('php', false);
 			$checks->put('passes', false);
 		}

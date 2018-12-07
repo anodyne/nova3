@@ -1,4 +1,6 @@
-<?php namespace Nova\Foundation\Configuration;
+<?php
+
+namespace Nova\Foundation\Concerns;
 
 use Date;
 use GuzzleHttp\Client;
