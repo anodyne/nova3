@@ -1,8 +1,9 @@
 <?php namespace Nova\Auth\Http\Controllers;
 
-use Controller;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\PasswordBroker;
+use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Auth\Http\Responses\RequestPasswordResponse;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller
@@ -15,8 +16,6 @@ class ForgotPasswordController extends Controller
 
 		$this->middleware('guest');
 
-		$this->views('auth', 'template');
-
 		$this->renderWithTheme = false;
 	}
 
@@ -24,9 +23,7 @@ class ForgotPasswordController extends Controller
 	{
 		$this->renderWithTheme = true;
 
-		$this->views('auth.passwords.email');
-
-		$this->setPageTitle(_m('auth-reset-password'));
+		return app(RequestPasswordResponse::class);
 	}
 
 	protected function sendResetLinkResponse(Request $request, $response)

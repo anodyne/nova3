@@ -1,26 +1,16 @@
 <?php
 
+try {
+	$pages = Nova\Pages\Page::get();
+} catch (Exception $ex) {
+	$pages = collect();
+}
+
 Route::get('/', function () {
 	view()->share('_user', auth()->user());
 
 	return view('pages.welcome');
 })->name('home')->middleware('nova.installed');
-
-Route::group(['namespace' => 'Nova\Auth\Http\Controllers'], function () {
-	// Authentication Routes...
-	Route::get('sign-in', 'SignInController@showSignInForm')->name('sign-in');
-	Route::post('sign-in', 'SignInController@login');
-	Route::post('sign-out', 'SignInController@logout')->name('sign-out');
-
-	// Password Reset Routes...
-	Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm')
-		->name('password.request');
-	Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')
-		->name('password.email');
-	Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')
-		->name('password.reset');
-	Route::post('password/reset', 'ResetPasswordController@reset');
-});
 
 Route::get('join', function () {
 	// Placeholder for the join page
@@ -194,3 +184,9 @@ Route::resource('admin/extensions', 'Nova\Extensions\Http\Controllers\Extensions
 Route::resource('admin/themes', 'Nova\Themes\Http\Controllers\ThemesController');
 
 Route::get('admin/tokens', 'Nova\Tokens\Http\Controllers\TokensController@handle')->name('tokens');
+
+$pages->each(function ($page) use ($router) {
+    $router
+        ->{$page->verb}($page->uri, $page->resource)
+        ->name($page->key);
+});

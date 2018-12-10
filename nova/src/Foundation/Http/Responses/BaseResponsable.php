@@ -12,16 +12,16 @@ use Nova\Foundation\Events\NovaResponseEvent;
 abstract class BaseResponsable implements Responsable
 {
 	protected $app;
-	protected $data;
+	protected $data = [];
 	protected $page;
 	protected $theme;
 	protected $output;
 
-	public function __construct($theme, Page $page, Application $app)
+	public function __construct(Page $page, Application $app)
 	{
 		$this->app = $app;
 		$this->page = $page;
-		$this->theme = $theme;
+		$this->theme = $app['nova.theme'];
 	}
 
 	/**
@@ -132,14 +132,22 @@ abstract class BaseResponsable implements Responsable
 	protected function getView($view)
 	{
 		$views = array_merge([
-			'structure' => 'app',
-			'layout' => $this->page->layout,
+			'structure' => 'master',
+			'layout' => [
+				'view' => $this->theme->getPageLayout($this->page),
+				'data' => $this->theme->getPageLayoutData($this->page)
+			],
 			'template' => $this->page->content_template,
 			'page' => null,
 			'script' => null,
 		], $this->views() ?? []);
 
 		return data_get($views, $view, null);
+	}
+
+	protected function getViewData($key, $default = null)
+	{
+		return data_get($this->data, $key, $default);
 	}
 
 	/**
@@ -162,14 +170,21 @@ abstract class BaseResponsable implements Responsable
 
 	protected function buildThemeStructure()
 	{
-		$this->output = $this->theme->structure($this->getView('structure'), []);
+		$this->output = $this->theme->structure($this->getView('structure'), [
+			'pageTitle' => $this->getViewData('pageTitle', $this->page->getContentByType('page-title')->content)
+		]);
 
 		return $this;
 	}
 
 	protected function buildThemeLayout()
 	{
-		$this->output = $this->theme->layout($this->getView('layout'), []);
+		$view = $this->getView('layout');
+
+		$this->output = $this->theme->layout(
+			data_get($view, 'view'),
+			data_get($view, 'data')
+		);
 
 		return $this;
 	}

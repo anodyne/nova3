@@ -1,18 +1,18 @@
-<h1>{{ _m('auth-reset-password') }}</h1>
+<div class="text-center text-4xl font-extrabold mb-12 text-primary-dark">{{ _m('auth-forgot-password') }}</div>
 
 <form role="form" method="POST" action="{{ route('password.email') }}">
-	{{ csrf_field() }}
+	@csrf
 
-	<div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-		<label for="email">{{ _m('email-address') }}</label>
-		<input id="email" type="email" class="form-control form-control-lg" name="email" value="{{ old('email') }}" autofocus required>
-		{!! $errors->first('email', '<p class="form-control-feedback">:message</p>') !!}
+	<div class="mb-6">
+		<label class="block mb-2 text-grey-darker uppercase tracking-wide text-sm font-medium">{{ _m('email-address') }}</label>
+		<input type="email" id="email" name="email" class="block w-full rounded border p-3 bg-transparent focus:outline-none focus:border-blue" placeholder="name@example.com" value="{{ old('email') }}" autofocus required>
 	</div>
 
-	<div class="form-group">
-		<button type="submit" class="btn btn-lg btn-primary btn-block">
-			{{ _m('auth-send-reset-link') }}
-		</button>
-		<a href="{{ route('home') }}" class="btn btn-link btn-block">{{ _m('cancel') }}</a>
+	<button type="submit" class="block w-full p-4 uppercase tracking-wide font-semibold bg-primary text-white rounded hover:bg-primary-dark transition">
+		{{ _m('auth-send-reset-link') }}
+	</button>
+
+	<div class="mt-6 text-grey-dark text-sm text-center">
+		Don't have an account yet? <a href="{{ route('home') }}" class="no-underline text-blue">Cancel</a>
 	</div>
 </form>

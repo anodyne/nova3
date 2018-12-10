@@ -1,5 +1,9 @@
-<div class="text-center text-4xl font-semibold mb-1 text-black">{{ _m('sign-in') }}</div>
+<div class="text-center text-4xl font-extrabold mb-1 text-primary-dark">{{ _m('sign-in') }}</div>
 <div class="text-center text-grey-dark text-sm mb-12">Free access to our dashboard</div>
+
+{{-- <a role="button" v-popover:name>Popover</a> --}}
+
+{{-- <nova-popover name="name"></nova-popover> --}}
 
 <form role="form" method="POST" action="{{ route('sign-in') }}">
 	@csrf
@@ -7,28 +11,28 @@
 
 	<div>
 		<div>
-			<label class="block mb-3 text-black text-sm font-medium">Email Address</label>
+			<label class="block mb-2 text-grey-darker uppercase tracking-wide text-sm font-medium">Email Address</label>
 			<input type="email" id="email" name="email" class="block w-full rounded border p-3 bg-transparent focus:outline-none focus:border-blue" placeholder="name@example.com">
 		</div>
 
 		<div class="my-6">
-			<div class="flex items-center justify-between mb-3">
-				<label class="text-black text-sm font-medium">Password</label>
-				<a href="{{ route('password.request') }}" class="no-underline text-grey text-sm hover:underline hover:text-grey-dark" tabindex="-1">{{ _m('auth-forgot-password') }}</a>
+			<div class="flex items-center justify-between mb-2">
+				<label class="text-grey-darker uppercase tracking-wide text-sm font-medium">Password</label>
+				<a href="{{ route('password.request') }}" class="no-underline text-grey-dark text-sm hover:underline hover:text-grey-darker" tabindex="-1">{{ _m('auth-forgot-password') }}</a>
 			</div>
 
 			<input type="password" name="password" id="password" class="block w-full rounded border p-3 bg-transparent focus:outline-none focus:border-blue" placeholder="Enter your password">
 		</div>
 
-		<button type="submit" class="w-full button is-primary is-large">Sign In</button>
+		<button type="submit" class="block w-full p-4 uppercase tracking-wide font-semibold bg-primary text-white rounded hover:bg-primary-dark transition">Sign In</button>
 
-		<div class="mt-6 text-grey-dark text-xs text-center">Don't have an account yet? <a href="#" class="no-underline text-blue">Sign up.</a></div>
+		<div class="mt-6 text-grey-dark text-sm text-center">Don't have an account yet? <a href="#" class="no-underline text-blue">Sign up.</a></div>
 	</div>
 </form>
 
 {{-- <h1>{{ _m('sign-in') }}</h1>
 
-<form role="form" method="POST" action="{{ route('sign-in') }}">
+<form role="form" method="POST" action="{{ route('login') }}">
 	{{ csrf_field() }}
 	<input type="hidden" name="remember" value="true">
 

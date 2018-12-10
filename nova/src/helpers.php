@@ -98,6 +98,13 @@ if (! function_exists('nova')) {
 	}
 }
 
+if (! function_exists('now')) {
+	function now()
+	{
+		return Carbon\Carbon::now();
+	}
+}
+
 if (! function_exists('partial')) {
 	function partial($view, array $data = [])
 	{

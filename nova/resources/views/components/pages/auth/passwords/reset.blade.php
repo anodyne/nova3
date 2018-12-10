@@ -1,31 +1,33 @@
-<h1>{{ _m('auth-reset-password') }}</h1>
+<div class="text-center text-4xl font-extrabold mb-12 text-primary-dark">{{ _m('auth-reset-password') }}</div>
 
 <form role="form" method="POST" action="{{ route('password.request') }}">
-	{{ csrf_field() }}
+	@csrf
 	<input type="hidden" name="token" value="{{ $token }}">
 
-	<div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-		<label for="email">{{ _m('email-address') }}</label>
-		<input id="email" type="email" class="form-control form-control-lg" name="email" value="{{ $email or old('email') }}" required autofocus>
-		{!! $errors->first('email', '<p class="form-control-feedback">:message</p>') !!}
+	<div class="mb-6">
+		<label class="block mb-2 text-grey-darker uppercase tracking-wide text-sm font-medium">{{ _m('email-address') }}</label>
+		<input type="email" id="email" name="email" class="block w-full rounded border p-3 bg-transparent focus:outline-none focus:border-blue" placeholder="name@example.com" value="{{ $email ?? old('email') }}" required autofocus>
 	</div>
 
-	<div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
-		<label for="password">{{ _m('password-new') }}</label>
-		<input id="password" type="password" class="form-control form-control-lg" name="password" required>
-		{!! $errors->first('password', '<p class="form-control-feedback">:message</p>') !!}
+	<div class="mb-6">
+		<label class="block mb-2 text-grey-darker uppercase tracking-wide text-sm font-medium">{{ _m('password-new') }}</label>
+		<input type="password" id="password" name="password" class="block w-full rounded border p-3 bg-transparent focus:outline-none focus:border-blue" required>
 	</div>
 
-	<div class="form-group{{ $errors->has('password_confirmation') ? ' has-danger' : '' }}">
-		<label for="password-confirm">{{ _m('password-new-confirm') }}</label>
-		<input id="password-confirm" type="password" class="form-control form-control-lg" name="password_confirmation" required>
-		{!! $errors->first('password_confirmation', '<p class="form-control-feedback">:message</p>') !!}
+	<div class="mb-6">
+		<label class="block mb-2 text-grey-darker uppercase tracking-wide text-sm font-medium">{{ _m('password-new-confirm') }}</label>
+		<input type="password" id="password-confirm" name="password_confirmation" class="block w-full rounded border p-3 bg-transparent focus:outline-none focus:border-blue" required>
 	</div>
 
-	<div class="form-group">
-		<button type="submit" class="btn btn-primary btn-block">
-			{{ _m('auth-reset-password') }}
-		</button>
-		<a href="{{ route('home') }}" class="btn btn-link btn-block">{{ _m('cancel') }}</a>
+	<button type="submit" class="block w-full p-4 uppercase tracking-wide font-semibold bg-primary text-white rounded hover:bg-primary-dark transition">
+		{{ _m('auth-reset-password') }}
+	</button>
+
+	<a href="{{ route('home') }}" class="block w-full p-4 uppercase tracking-wide font-semibold bg-grey-light text-grey-darker rounded hover:bg-grey hover:text-grey-darker transition mt-6 text-center">
+		{{ _m('cancel') }}
+	</a>
+
+	<div class="mt-6 text-grey-dark text-sm text-center">
+		Don't have an account yet? <a href="{{ route('home') }}" class="no-underline text-blue">Cancel</a>
 	</div>
 </form>

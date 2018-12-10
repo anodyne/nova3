@@ -50,6 +50,10 @@
 	"auth-success": "Welcome back, $2!",
 	"auth-validation-credentials": "These credentials do not match our records.",
 	"auth-validation-token": "You must have a password reset token",
+	"auth-verify-email": "Verify Your Email Address",
+	"auth-verify-email-before": "Before proceeding, please check your email for a verification link.",
+	"auth-verify-email-request": "If you did not receive the email, ",
+	"auth-verify-email-resent": "A fresh verification link has been sent to your email address.",
 
 	"authorize-permissions": "Permissions",
 	"authorize-permissions-add": "Add Permission",

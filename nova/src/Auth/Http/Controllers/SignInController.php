@@ -1,8 +1,12 @@
-<?php namespace Nova\Auth\Http\Controllers;
+<?php
 
-use Controller;
+namespace Nova\Auth\Http\Controllers;
+
 use Nova\Users\User;
 use Illuminate\Http\Request;
+use Nova\Auth\Http\Responses\SignInResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Nova\Foundation\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class SignInController extends Controller
@@ -15,10 +19,6 @@ class SignInController extends Controller
 
 		$this->middleware('guest')->except('logout');
 
-		// $this->views($this->theme->getPageLayout($this->page), 'layout');
-		$this->views('auth-basic', 'layout');
-		$this->views('basic', 'template');
-
 		$this->renderWithTheme = false;
 	}
 
@@ -26,9 +26,7 @@ class SignInController extends Controller
 	{
 		$this->renderWithTheme = true;
 
-		$this->setPageTitle(_m('sign-in'));
-
-		$this->views('auth.sign-in');
+		return app(SignInResponse::class);
 	}
 
 	public function redirectTo()
@@ -40,9 +38,10 @@ class SignInController extends Controller
 	{
 		$this->validateLogin($request);
 
-		// If the class is using the ThrottlesLogins trait, we can automatically throttle
-		// the login attempts for this application. We'll key this by the username and
-		// the IP address of the client making these requests into this application.
+		// If the class is using the ThrottlesLogins trait, we can
+		// automatically throttle the login attempts for this application.
+		// We'll key this by the username and the IP address of the client
+		// making these requests into this application.
 		if ($this->hasTooManyLoginAttempts($request)) {
 			$this->fireLockoutEvent($request);
 
@@ -71,12 +70,10 @@ class SignInController extends Controller
 
 	protected function attemptLogin(Request $request)
 	{
-		// Get the user
-		$user = User::where('email', $request->get('email'))->first();
+		$user = User::whereEmail($request->get('email'))->first();
 
 		// Does the user have a null password? If so, time to reset...
-		if ($user and $user->getPassword() == null) {
-			return 'reset';
+		if ($user and $user->getPassword() === null) {
 			return $this->sendResetPasswordLoginResponse($request);
 		}
 
@@ -91,7 +88,7 @@ class SignInController extends Controller
 		$errors = [$this->username() => _m('auth-validation-credentials')];
 
 		if ($request->expectsJson()) {
-			return response()->json($errors, 422);
+			return response()->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
 		}
 
 		return back()
@@ -101,14 +98,13 @@ class SignInController extends Controller
 
 	protected function sendLockoutResponse(Request $request)
 	{
-		$seconds = $this->limiter()->availableIn(
-			$this->throttleKey($request)
-		);
+		$seconds = $this->limiter()
+			->availableIn($this->throttleKey($request));
 
 		$errors = [$this->username() => _m('auth-attempts', [1 => $seconds])];
 
 		if ($request->expectsJson()) {
-			return response()->json($errors, 423);
+			return response()->json($errors, Response::HTTP_LOCKED);
 		}
 
 		return back()

@@ -1,9 +1,10 @@
 <?php namespace Nova\Auth\Http\Controllers;
 
-use Controller;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Auth\Http\Responses\ResetPasswordResponse;
 
 class ResetPasswordController extends Controller
 {
@@ -15,8 +16,6 @@ class ResetPasswordController extends Controller
 
 		$this->middleware('guest');
 
-		$this->views('auth', 'template');
-
 		$this->renderWithTheme = false;
 	}
 
@@ -24,12 +23,10 @@ class ResetPasswordController extends Controller
 	{
 		$this->renderWithTheme = true;
 
-		$this->views('auth.passwords.reset');
-
-		$this->setPageTitle(_m('auth-reset-password'));
-
-		$this->data->token = $token;
-		$this->data->email = $request->email;
+		return app(ResetPasswordResponse::class)->with([
+			'token' => $token,
+			'email' => $request->email
+		]);
 	}
 
 	public function redirectTo()
