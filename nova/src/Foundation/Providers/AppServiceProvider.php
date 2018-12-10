@@ -10,6 +10,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\PackageManifest;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Nova\Foundation\Http\Middleware\CaptureRequestExtension;
+use Nova\Pages\Page;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,7 +24,6 @@ class AppServiceProvider extends ServiceProvider
 			return new \Nova\Foundation\Nova;
 		});
 
-		$this->registerTheme();
 		$this->registerTranslator();
 		$this->registerMacros();
 
@@ -50,6 +50,8 @@ class AppServiceProvider extends ServiceProvider
 	{
 		// Set the locale for Carbon
 		Date::setLocale(app()->getLocale());
+
+		$this->registerTheme();
 	}
 
 	protected function registerTheme()
@@ -142,6 +144,10 @@ class AppServiceProvider extends ServiceProvider
             }
 
             return value(array_get($responses, $this->format($defaultFormat)));
-        });
+		});
+
+		Route::macro('findPageFromRoute', function () {
+			return Page::where('key', $this->getName())->first();
+		});
 	}
 }

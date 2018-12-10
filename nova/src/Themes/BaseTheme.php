@@ -24,7 +24,7 @@ class BaseTheme
 	 */
 	public function getModel()
 	{
-		return Themel::path($this->path)->firstOrFail();
+		return Theme::path($this->path)->firstOrFail();
 	}
 
 	/**
@@ -36,5 +36,10 @@ class BaseTheme
 	public function getPageLayout(Page $page)
 	{
 		return $this->getModel()->getLayoutForPage($page);
+	}
+
+	public function getPageLayoutData(Page $page)
+	{
+		return $this->getModel()->getLayoutDataForPage($page);
 	}
 }

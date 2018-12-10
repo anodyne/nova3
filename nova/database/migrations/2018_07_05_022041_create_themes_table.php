@@ -19,6 +19,7 @@ class CreateThemesTable extends Migration
 			$table->string('path');
 			$table->string('layout_admin')->default('app-sidebar');
 			$table->string('layout_auth')->default('auth-basic');
+			$table->json('layout_data_auth')->nullable();
 			$table->string('layout_landing')->default('app-landing');
 			$table->string('layout_site')->default('app-topnav');
 			$table->json('layout_settings')->nullable();

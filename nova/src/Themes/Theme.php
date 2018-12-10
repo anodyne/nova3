@@ -8,8 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Theme extends Model
 {
 	protected $fillable = [
-		'name', 'path', 'layout_admin', 'layout_auth', 'layout_landing',
+		'name', 'path', 'layout_admin', 'layout_auth', 'layout_data_auth', 'layout_landing',
 		'layout_site', 'layout_settings',
+	];
+
+	protected $casts = [
+		'layout_data_auth' => 'array'
 	];
 
 	/**
@@ -32,6 +36,11 @@ class Theme extends Model
 	 */
 	public function getLayoutForPage(Page $page)
 	{
-		return sprintf('layouts.%s', $this->{"{$page->layout}_layout"});
+		return $this->getAttribute("layout_{$page->layout}");
+	}
+
+	public function getLayoutDataForPage(Page $page)
+	{
+		return $this->getAttribute("layout_data_{$page->layout}");
 	}
 }
