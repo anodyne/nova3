@@ -56,7 +56,9 @@
 
 	"extra": {
 		"laravel": {
-			"dont-discover": []
+			"dont-discover": [
+				"beyondcode/laravel-query-detector"
+			]
 		}
 	},
 
