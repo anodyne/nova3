@@ -29,18 +29,6 @@ return [
 		Nova\Genres\Rank::class => Nova\Genres\Data\RankDuplicator::class,
 	],
 
-	'events' => [
-		Nova\Users\Events\AdminForcedPasswordReset::class => [
-			Nova\Users\Listeners\NotifyUsersOfAdminForcedPasswordReset::class
-		],
-		Nova\Users\Events\UserWasCreatedByAdmin::class => [
-			Nova\Users\Listeners\NotifyUserOfAdminAccountCreation::class
-		],
-		// Nova\Users\Events\PasswordWasGenerated::class => [
-		// 	Nova\Users\Listeners\SendPasswordToUser::class
-		// ],
-	],
-
 	'morph' => [
 		'character' => Nova\Characters\Character::class,
 		'permission' => Nova\Authorize\Permission::class,
