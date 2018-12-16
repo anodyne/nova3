@@ -44,6 +44,7 @@ trait Icons
 			'flag' => 'flag',
 			'grid' => 'grid',
 			'heart' => 'heart',
+			'hide' => 'eye-off',
 			'home' => 'home',
 			'image' => 'image',
 			'inbox' => 'inbox',

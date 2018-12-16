@@ -1,64 +1,61 @@
-<?php namespace Nova\Dashboard\Http\Controllers;
+<?php
+
+namespace Nova\Dashboard\Http\Controllers;
 
 use Mail;
-use Controller;
 use Nova\Foundation\SystemInfo;
+use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Dashboard\Http\Responses\DashboardResponse;
 
 class DashboardController extends Controller
 {
-	public function __construct()
-	{
-		parent::__construct();
+    public function __construct()
+    {
+        parent::__construct();
 
-		$this->middleware('auth');
+        $this->middleware('auth');
+    }
 
-		$this->views('admin', 'template');
-	}
+    public function index()
+    {
+        return app(DashboardResponse::class);
+    }
 
-	public function index()
-	{
-		$this->views('dashboard.dashboard', 'page|script');
+    public function characters()
+    {
+        $this->views('dashboard.characters');
 
-		$this->setPageTitle('Dashboard');
+        $this->setPageTitle(_m('dashboard-characters'));
 
-		$this->data->sysinfo = SystemInfo::first();
-	}
+        $this->user->loadMissing('characters.positions');
 
-	public function characters()
-	{
-		$this->views('dashboard.characters');
+        $this->data->characters = $this->user->characters;
+    }
 
-		$this->setPageTitle(_m('dashboard-characters'));
+    public function finishInstallation()
+    {
+        $this->renderWithTheme = false;
 
-		$this->user->loadMissing('characters.positions');
+        // Set the install phase to 2
+        SystemInfo::first()->setPhase('install', 2);
+    }
 
-		$this->data->characters = $this->user->characters;
-	}
+    public function finishMigration()
+    {
+        $this->renderWithTheme = false;
 
-	public function finishInstallation()
-	{
-		$this->renderWithTheme = false;
+        // Set the install and migrate phases to 2
+        SystemInfo::first()->setPhase('install', 2);
+        SystemInfo::first()->setPhase('migration', 2);
 
-		// Set the install phase to 2
-		SystemInfo::first()->setPhase('install', 2);
-	}
+        // Send the email to the active users
+    }
 
-	public function finishMigration()
-	{
-		$this->renderWithTheme = false;
+    public function sendTestEmail()
+    {
+        $this->renderWithTheme = false;
 
-		// Set the install and migrate phases to 2
-		SystemInfo::first()->setPhase('install', 2);
-		SystemInfo::first()->setPhase('migration', 2);
-
-		// Send the email to the active users
-	}
-
-	public function sendTestEmail()
-	{
-		$this->renderWithTheme = false;
-
-		Mail::to(request()->user()->email)
-			->queue(new \Nova\Dashboard\Mail\SendTestEmail);
-	}
+        Mail::to(request()->user()->email)
+            ->queue(new \Nova\Dashboard\Mail\SendTestEmail);
+    }
 }

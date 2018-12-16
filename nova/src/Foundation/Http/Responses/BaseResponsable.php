@@ -183,7 +183,7 @@ abstract class BaseResponsable implements Responsable
 
 		$this->output = $this->theme->layout(
 			data_get($view, 'view'),
-			data_get($view, 'data')
+			data_get($view, 'data', [])
 		);
 
 		return $this;

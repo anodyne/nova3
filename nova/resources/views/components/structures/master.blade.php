@@ -27,7 +27,9 @@
 	</div>
 
 	<!-- Sprite Map -->
-	{!! $spriteMap ?? false !!}
+	<div class="h-0 w-0 hidden">
+		{!! $spriteMap ?? false !!}
+	</div>
 
 	<!-- Scripts -->
 	<script src="{{ asset('assets/js/manifest.js') }}"></script>

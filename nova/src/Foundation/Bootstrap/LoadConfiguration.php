@@ -1,4 +1,6 @@
-<?php namespace Nova\Foundation\Bootstrap;
+<?php
+
+namespace Nova\Foundation\Bootstrap;
 
 use Symfony\Component\Finder\Finder;
 use Illuminate\Contracts\Foundation\Application;

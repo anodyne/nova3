@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
 			return new \Nova\Foundation\Nova;
 		});
 
-		$this->registerTranslator();
+		// $this->registerTranslator();
 		$this->registerMacros();
 
 		// $this->app->bind('nova.avatar', function ($app) {

@@ -13,7 +13,7 @@ trait RendersTheme
 		return $this;
 	}
 
-	public function layout($view, array $data)
+	public function layout($view, $data)
 	{
 		$this->structure->layout = view("components.layouts.{$view}", (array) $data);
 	}

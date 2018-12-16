@@ -113,7 +113,7 @@ class User extends Authenticatable
 
 	public function recordSignIn()
 	{
-		$this->last_sign_in = Date::now();
+		$this->last_sign_in = now();
 		$this->save();
 	}
 

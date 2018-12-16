@@ -175,7 +175,7 @@
 				@endauth
 
 				@guest
-					<a href="{{ route('login') }}">Sign In</a>
+					<a href="{{ route('sign-in') }}">Sign In</a>
 					<a href="{{ route('join') }}">Register</a>
 				@endguest
 			</div>

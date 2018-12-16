@@ -1,8 +1,10 @@
-<?php namespace Nova\Foundation\Http\Middleware;
+<?php
 
-use Illuminate\Cookie\Middleware\EncryptCookies as BaseEncrypter;
+namespace Nova\Foundation\Http\Middleware;
 
-class EncryptCookies extends BaseEncrypter
+use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
+
+class EncryptCookies extends Middleware
 {
 	/**
 	 * The names of the cookies that should not be encrypted.
@@ -10,6 +12,6 @@ class EncryptCookies extends BaseEncrypter
 	 * @var array
 	 */
 	protected $except = [
-		//
+        //
 	];
 }

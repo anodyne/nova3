@@ -1,11 +1,13 @@
-<?php namespace Nova\Foundation;
+<?php
+
+namespace Nova\Foundation;
 
 class Nova
 {
-	use Configuration\DoesEnvironmentChecks,
-		Configuration\DoesSystemChecks,
-		Configuration\DoesVersionChecks,
-		Configuration\ProvidesScriptVariables;
+	use Concerns\DoesEnvironmentChecks,
+		Concerns\DoesSystemChecks,
+		Concerns\DoesVersionChecks,
+		Concerns\ProvidesScriptVariables;
 
 	/**
 	 * The Nova version.

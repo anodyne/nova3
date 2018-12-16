@@ -13,9 +13,6 @@ class ThemesController extends Controller
 		parent::__construct();
 
 		$this->middleware('auth');
-
-		$this->views('basic', 'template');
-		$this->views('app-topnav', 'layout');
 	}
 
 	public function index()

@@ -1,8 +1,10 @@
-<?php namespace Nova\Foundation\Http\Middleware;
+<?php
 
-use Illuminate\Foundation\Http\Middleware\TrimStrings as BaseTrimmer;
+namespace Nova\Foundation\Http\Middleware;
 
-class TrimStrings extends BaseTrimmer
+use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
+
+class TrimStrings extends Middleware
 {
 	/**
 	 * The names of the attributes that should not be trimmed.

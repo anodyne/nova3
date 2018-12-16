@@ -16,10 +16,10 @@ class ManageMediaTest extends DatabaseTestCase
 
 		$media = create(Media::class);
 
-		$this->post(route('media.store'))->assertRedirect(route('login'));
-		$this->patch(route('media.update', $media))->assertRedirect(route('login'));
-		$this->delete(route('media.destroy', $media))->assertRedirect(route('login'));
-		$this->patch(route('media.reorder'))->assertRedirect(route('login'));
+		$this->post(route('media.store'))->assertRedirect(route('sign-in'));
+		$this->patch(route('media.update', $media))->assertRedirect(route('sign-in'));
+		$this->delete(route('media.destroy', $media))->assertRedirect(route('sign-in'));
+		$this->patch(route('media.reorder'))->assertRedirect(route('sign-in'));
 	}
 
 	/**

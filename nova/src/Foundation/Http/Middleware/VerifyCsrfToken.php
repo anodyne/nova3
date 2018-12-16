@@ -1,8 +1,10 @@
-<?php namespace Nova\Foundation\Http\Middleware;
+<?php
 
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
+namespace Nova\Foundation\Http\Middleware;
 
-class VerifyCsrfToken extends BaseVerifier
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+
+class VerifyCsrfToken extends Middleware
 {
 	/**
 	 * Indicates whether the XSRF-TOKEN cookie should be set on the response.

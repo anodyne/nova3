@@ -106,6 +106,6 @@ class AuthenticationTest extends DatabaseTestCase
 	/** @test **/
 	public function has_no_errors()
 	{
-		$this->get(route('login'))->assertSuccessful();
+		$this->get(route('sign-in'))->assertSuccessful();
 	}
 }

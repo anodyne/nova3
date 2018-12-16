@@ -27,11 +27,11 @@ class Controller extends BaseController
 		$this->middleware('nova.installed');
 
 		// Handle setup of the controller data
-		$this->setupController();
+		// $this->setupController();
 
 		// Set up shared variables on the controller instance
 		$this->middleware(function ($request, $next) {
-			$this->page = '';
+			$this->page = $request->route()->findPageFromRoute();
 			$this->user = $request->user();
 			$this->theme = app('nova.theme');
 
@@ -45,13 +45,13 @@ class Controller extends BaseController
 
 		// Bind a reference to the current controller so that we can use that
 		// data from within the template rendering middleware
-		app()->instance('nova.controller', $this);
+		// app()->instance('nova.controller', $this);
 
 		// Process the controller and render it to the response
-		$this->middleware('nova.render-controller');
+		// $this->middleware('nova.render-controller');
 
 		// Pull in the structure file
-		$this->views('app', 'structure');
+		// $this->views('app', 'structure');
 
 		// Pull in the layout file
 		// $this->views($this->theme->getPageLayout($this->page), 'layout');
@@ -91,7 +91,7 @@ class Controller extends BaseController
 	protected function views($name, $type = 'page')
 	{
 		collect(explode('|', $type))->each(function ($viewType) use ($name) {
-			$this->views->put($viewType, $name);
+			// $this->views->put($viewType, $name);
 		});
 
 		return $this;
