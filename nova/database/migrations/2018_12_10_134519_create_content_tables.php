@@ -84,6 +84,18 @@ class CreateContentTables extends Migration
 				['type_id' => 2, 'order' => 0, 'content' => 'Reset Password'],
 				['type_id' => 3, 'order' => 0, 'content' => 'Reset Password'],
 			],
+
+			'dashboard' => [
+				['type_id' => 1, 'order' => 0, 'content' => 'Dashboard'],
+				['type_id' => 2, 'order' => 0, 'content' => 'Dashboard'],
+				['type_id' => 3, 'order' => 0, 'content' => 'Dashboard'],
+			],
+
+			'admin.themes' => [
+				['type_id' => 1, 'order' => 0, 'content' => 'Themes'],
+				['type_id' => 2, 'order' => 0, 'content' => 'Themes'],
+				['type_id' => 3, 'order' => 0, 'content' => 'Themes'],
+			],
 		]);
 
 		Page::get()->each(function ($page) use ($content) {

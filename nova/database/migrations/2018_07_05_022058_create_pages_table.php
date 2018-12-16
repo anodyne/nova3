@@ -44,15 +44,17 @@ class CreatePagesTable extends Migration
 		$pages = [
 			$this->buildPageRecord(['name' => 'Home page', 'key' => 'home', 'uri' => '/', 'layout' => 'landing']),
 
-			$this->buildPageRecord(['name' => 'Sign In', 'key' => 'sign-in', 'uri' => 'sign-in', 'layout' => 'auth', 'resource' => 'Nova\\Auth\\Http\\Controllers\\SignInController@showSignInForm']),
-			$this->buildPageRecord(['name' => 'Handle Sign In', 'uri' => 'sign-in', 'verb' => 'post', 'resource' => 'Nova\\Auth\\Http\\Controllers\\SignInController@login']),
-			$this->buildPageRecord(['name' => 'Sign Out', 'key' => 'sign-out', 'uri' => 'sign-out', 'verb' => 'post', 'resource' => 'Nova\\Auth\\Http\\Controllers\\SignInController@logout']),
+			$this->buildPageRecord(['name' => 'Sign In', 'key' => 'sign-in', 'uri' => 'sign-in', 'layout' => 'auth', 'resource' => 'Nova\\Auth\\Http\\Controllers\\LoginController@showLoginForm']),
+			$this->buildPageRecord(['name' => 'Handle Sign In', 'uri' => 'sign-in', 'verb' => 'post', 'resource' => 'Nova\\Auth\\Http\\Controllers\\LoginController@login']),
+			$this->buildPageRecord(['name' => 'Sign Out', 'key' => 'sign-out', 'uri' => 'sign-out', 'verb' => 'post', 'resource' => 'Nova\\Auth\\Http\\Controllers\\LoginController@logout']),
 			$this->buildPageRecord(['name' => 'Request New Password', 'key' => 'password.request', 'uri' => 'password/reset', 'layout' => 'auth', 'resource' => 'Nova\\Auth\\Http\\Controllers\\ForgotPasswordController@showLinkRequestForm']),
 			$this->buildPageRecord(['name' => 'Send Password Reset Link', 'key' => 'password.email', 'uri' => 'password/email', 'verb' => 'post', 'resource' => 'Nova\\Auth\\Http\\Controllers\\ForgotPasswordController@sendResetLinkEmail']),
 			$this->buildPageRecord(['name' => 'Reset Password', 'key' => 'password.reset', 'uri' => 'password/reset/{token}', 'layout' => 'auth', 'resource' => 'Nova\\Auth\\Http\\Controllers\\ResetPasswordController@showResetForm']),
 			$this->buildPageRecord(['name' => 'Handle Password Reset', 'uri' => 'password/reset', 'verb' => 'post', 'resource' => 'Nova\\Auth\\Http\\Controllers\\ResetPasswordController@reset']),
 
-			$this->buildPageRecord(['name' => 'Dashboard', 'key' => 'dashboard', 'uri' => 'dashboard', 'layout' => 'app-sidebar']),
+			$this->buildPageRecord(['name' => 'Dashboard', 'key' => 'dashboard', 'uri' => 'dashboard', 'layout' => 'app-sidebar', 'resource' => 'Nova\\Dashboard\\Http\\Controllers\\DashboardController@index']),
+
+			$this->buildPageRecord(['name' => 'Theme Management', 'key' => 'admin.themes', 'uri' => 'admin/themes', 'layout' => 'site', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemesController@index']),
 		];
 
 		Page::insert($pages);

@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
 			$table->string('gender')->default('neutral')->nullable();
 			$table->rememberToken();
 			$table->datetime('last_sign_in')->nullable();
+			$table->boolean('reset_required')->default(false);
 			$table->timestamps();
 			$table->softDeletes();
 		});
