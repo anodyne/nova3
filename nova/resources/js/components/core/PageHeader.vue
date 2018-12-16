@@ -5,7 +5,7 @@
                 v-if="hasSlot('pretitle')"
                 class="page-header-pretitle"
             >
-                <slot name="pretitle"/>
+                <slot name="pretitle"></slot>
             </div>
 
             <div class="page-header-title">
@@ -17,16 +17,16 @@
             v-if="hasSlot('controls')"
             class="page-header-controls"
         >
-            <slot name="controls"/>
+            <slot name="controls"></slot>
         </div>
     </div>
 </template>
 
 <script>
-import slots from '../mixins/slots';
+import SlotHelpers from '@/mixins/SlotHelpers';
 
 export default {
-    mixins: [slots],
+    mixins: [SlotHelpers],
 
     computed: {
         pageTitle () {

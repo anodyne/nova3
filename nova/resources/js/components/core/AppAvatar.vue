@@ -9,13 +9,13 @@
                 :class="imageClasses"
                 :href="link"
                 :style="'background-image:url(' + imageUrl + ')'"
-            />
+            ></a>
 
             <div
                 v-if="type == 'image'"
                 :class="imageClasses"
                 :style="'background-image:url(' + imageUrl + ')'"
-            />
+            ></div>
         </div>
 
         <div
@@ -26,7 +26,7 @@
                 v-if="showName"
                 class="avatar-title"
                 v-text="displayName"
-            />
+            ></span>
             <span
                 v-if="showMetadata"
                 class="avatar-meta"

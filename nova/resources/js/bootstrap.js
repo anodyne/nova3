@@ -1,20 +1,20 @@
-import md5 from 'md5';
+// import md5 from 'md5';
 import Vue from 'vue';
 import Axios from 'axios';
-import jQuery from 'jquery';
+// import jQuery from 'jquery';
 import LoDash from 'lodash';
-import Moment from 'moment';
-import Sortable from 'sortablejs';
-import SweetAlert from 'sweetalert2';
-import JConfirm from 'jquery-confirm';
-import WebUIPopover from 'webui-popover';
+// import Moment from 'moment';
+// import Sortable from 'sortablejs';
+// import SweetAlert from 'sweetalert2';
+// import JConfirm from 'jquery-confirm';
+// import WebUIPopover from 'webui-popover';
 
-window.md5 = md5;
+// window.md5 = md5;
 window.Vue = Vue;
 window._ = LoDash;
-window.moment = Moment;
-window.swal = SweetAlert;
-window.Sortable = Sortable;
+// window.moment = Moment;
+// window.swal = SweetAlert;
+// window.Sortable = Sortable;
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -23,10 +23,10 @@ window.Sortable = Sortable;
  */
 
 try {
-    window.$ = jQuery;
-    window.jQuery = jQuery;
-    window.jconfirm = JConfirm;
-    window.webuiPopover = WebUIPopover;
+    // window.$ = jQuery;
+    // window.jQuery = jQuery;
+    // window.jconfirm = JConfirm;
+    // window.webuiPopover = WebUIPopover;
 } catch (e) {}
 
 /**
