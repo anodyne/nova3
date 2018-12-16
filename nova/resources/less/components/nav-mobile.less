@@ -1,0 +1,54 @@
+.nav-mobile-user {
+	@apply .relative .w-full .flex .justify-end;
+
+	.trigger {
+		@apply .leading-none .z-10;
+	}
+
+	.popup {
+		@apply .absolute .pin-r .w-full;
+
+		.popup-container {
+			@apply .relative .flex .flex-col .justify-between .bg-grey-900 .text-grey-50 .rounded .shadow-lg .text-grey-darkest .overflow-hidden;
+
+			transform: scale(.95);
+			transform-origin: 100% 0;
+			will-change: transform, opacity;
+			opacity: 0;
+			transition-duration: .25s;
+			height: 95vh;
+			z-index: -10;
+		}
+
+		&.active {
+			z-index: 100;
+
+			> .popup-container {
+				opacity: 1;
+				transform: none;
+				pointer-events: auto;
+				z-index: 100;
+			}
+		}
+	}
+
+	.popup-close {
+		@apply .no-underline .text-grey-500 .absolute .pin-t .pin-r .mt-3 .mr-3;
+	}
+
+	.tab-bar {
+		@apply .flex .flex-no-shrink .justify-between .bg-grey-800;
+	}
+
+	.tab-bar-item {
+		@apply .relative .flex-1 .flex .items-center .justify-center .text-grey-500 .py-3;
+
+		&.active {
+			@apply .bg-grey-900 .text-yellow-400;
+		}
+	}
+
+	.tab-content {
+		overflow-y: scroll;
+	}
+}
