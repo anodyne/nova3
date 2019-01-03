@@ -22,4 +22,9 @@ mix.autoload({
    .sass('nova/resources/assets/sass/setup.responsive.scss', 'assets/css')
    .options({
 		processCssUrls: false
+	})
+	.webpackConfig({
+		externals: {
+			jsdom: 'require("jsdom")'
+		}
 	});
