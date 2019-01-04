@@ -7,12 +7,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Auth\Notifications\ResetPassword;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ForgotPasswordTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function a_user_can_view_the_email_password_page()
     {

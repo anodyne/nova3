@@ -3,12 +3,9 @@
 namespace Tests\Unit\Users;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $user;
 
     public function setUp()

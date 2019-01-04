@@ -3,12 +3,9 @@
 namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function a_user_can_view_the_login_page()
     {

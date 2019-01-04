@@ -4,16 +4,13 @@ namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
 use Nova\Users\User;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 
 class ResetPasswordTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function a_user_can_view_the_email_reset_page()
     {

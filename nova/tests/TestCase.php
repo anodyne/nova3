@@ -2,17 +2,22 @@
 
 namespace Tests;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Foundation\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication, ManagesTestUsers, AddsCustomAssertions;
+    use CreatesApplication,
+        ManagesTestUsers,
+        AddsCustomAssertions,
+        RefreshDatabase;
 
     public function setUp()
     {
         parent::setUp();
 
+        $this->seedDatabase();
         $this->remapRouteCollection();
         $this->setupTestResponseMacros();
     }
@@ -38,5 +43,18 @@ abstract class TestCase extends BaseTestCase
 
         $this->app['router']->getRoutes()->refreshNameLookups();
         $this->app['router']->getRoutes()->refreshActionLookups();
+    }
+
+    /**
+     * Production data is inserted through seeders. Since testing utilities do
+     * not seed the database, we need to manually seed specific items so that
+     * our tests can pass.
+     *
+     * @return void
+     */
+    protected function seedDatabase()
+    {
+        $this->artisan('db:seed', ['--class' => \PageSeeder::class]);
+        $this->artisan('db:seed', ['--class' => \ThemeSeeder::class]);
     }
 }
