@@ -1,5 +1,0 @@
-<div class="page-header">
-	<h1>{ExtensionProperName}</h1>
-</div>
-
-<p>{{ _m('{ExtensionLowercaseVendor}.{ExtensionLowercaseName}-welcome') }}</p>
