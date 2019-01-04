@@ -74,6 +74,7 @@ class ManageThemesTest extends TestCase
     public function an_event_is_dispatched_when_a_theme_is_created()
     {
         Event::fake();
+        Storage::fake('themes');
 
         $data = factory(Theme::class)->make()->toArray();
 
