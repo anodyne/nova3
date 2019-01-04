@@ -10,7 +10,7 @@ use Nova\Themes\Http\Requests\EditThemeRequest;
 use Nova\Foundation\Http\Controllers\Controller;
 use Nova\Themes\Http\Requests\CreateThemeRequest;
 
-class ThemesController extends Controller
+class ThemeController extends Controller
 {
     public function __construct()
     {
