@@ -156,6 +156,8 @@ class ManageThemesTest extends TestCase
     /** @test **/
     public function a_theme_must_have_a_name()
     {
+        Storage::fake('themes');
+
         $this->signIn();
 
         $this->from(route('themes.index'))
@@ -169,6 +171,8 @@ class ManageThemesTest extends TestCase
     /** @test **/
     public function a_theme_must_have_a_location()
     {
+        Storage::fake('themes');
+
         $this->signIn();
 
         $this->from(route('themes.index'))
