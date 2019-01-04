@@ -32,5 +32,6 @@ composer install
 yarn install
 yarn run dev
 
+php artisan cache:clear
 php artisan migrate:fresh --seed
 ```
