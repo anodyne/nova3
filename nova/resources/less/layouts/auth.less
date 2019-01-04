@@ -1,0 +1,27 @@
+.layout-auth-simple {
+    @apply .flex .items-center .h-screen;
+
+    main {
+        @apply .flex .flex-col .w-5/6 .mx-auto .p-6 .bg-white .rounded .shadow-lg;
+    }
+}
+
+@screen sm {
+    .layout-auth-simple {
+        main {
+            @apply .w-128;
+        }
+    }
+}
+
+.layout-auth-cover {}
+
+@screen md {
+    .layout-auth-cover {}
+}
+
+.layout-auth-two-pane {}
+
+@screen md {
+    .layout-auth-two-pane {}
+}

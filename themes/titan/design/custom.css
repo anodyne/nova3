@@ -1,0 +1,7 @@
+:root {
+    --color-primary: 'blue';
+    --color-warning: 'orange';
+    --color-success: 'green';
+    --color-info: 'teal';
+    --color-error: 'red';
+}

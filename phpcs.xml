@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ruleset name="Nova">
+	<description>The coding standard for Anodyne's Nova 3 role playing system.</description>
+
+	<file>nova/foundation</file>
+	<file>nova/src</file>
+
+	<exclude-pattern>*/nova/tests/*</exclude-pattern>
+	<exclude-pattern>*/nova/vendor/*</exclude-pattern>
+
+	<arg value="np"/>
+</ruleset>

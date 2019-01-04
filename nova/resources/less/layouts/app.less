@@ -1,0 +1,49 @@
+.layout-app-sidebar {
+    .sidebar {
+        @apply .flex .flex-col .items-stretch .justify-between .fixed .w-72 .bg-white .border-r .h-screen .py-3 .px-6 .text-grey-dark;
+
+        .sidebar-link {
+            @apply .flex .items-center .justify-between .no-underline .text-grey-dark .font-medium .py-2 .px-6;
+
+            &:hover {
+                @apply .text-grey-darkest;
+            }
+        }
+
+        .sidebar-header {
+            @apply .text-xs .uppercase .tracking-wide .py-3 .text-grey .font-medium;
+        }
+
+        .sidebar-divider {
+            @apply .my-3 .border-t;
+        }
+
+        .sidebar-footer {
+            @apply .flex .flex-row .items-center .justify-around .-mx-6 .border-t .pt-3 .px-6;
+
+            .sidebar-footer-link {
+                @apply .no-underline .text-grey .leading-0;
+
+                &:hover {
+                    @apply .text-grey-darker;
+                }
+            }
+        }
+    }
+
+    main {
+        @apply .flex-1 .ml-72 .py-6 .px-12;
+
+        section {
+            @apply .bg-white .rounded .border .p-6;
+
+            + section {
+                @apply .mt-8;
+            }
+        }
+    }
+}
+
+@screen sm {
+    .layout-app-sidebar {}
+}

@@ -1,0 +1,38 @@
+.button {
+    @apply .inline-flex .items-center .justify-center .w-full .my-3 .py-3 .px-6 .leading-none .rounded .font-medium .bg-grey-lighter .text-grey-dark .whitespace-no-wrap .transition .uppercase .tracking-wide .no-underline;
+
+    &:focus,
+    &:active {
+        @apply .outline-none;
+    }
+
+    &:hover {
+        @apply .bg-grey-light .text-grey-darker;
+    }
+}
+
+.button-small {
+    @apply .text-sm .py-1 .px-2;
+}
+
+.button-medium {
+    @apply .py-3 .px-6;
+}
+
+.button-large {
+    @apply .text-lg .py-4 .px-8;
+}
+
+.button-primary {
+    @apply .bg-blue .text-white;
+
+    &:hover {
+        @apply .bg-blue-dark .text-white;
+    }
+}
+
+@screen sm {
+    .button {
+        @apply .w-auto;
+    }
+}

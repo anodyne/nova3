@@ -1,0 +1,18 @@
+language: php
+
+php:
+  - 7.1
+
+sudo: false
+
+before_install:
+  - travis_retry composer self-update
+
+install:
+  - travis_retry composer install --no-interaction --prefer-dist --no-suggest
+  - cp .env.travis .env
+  - php artisan key:generate --ansi
+
+script:
+  - nova/vendor/bin/phpunit
+  - nova/vendor/bin/phpcs

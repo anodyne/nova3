@@ -1,0 +1,16 @@
+<?php
+
+namespace DummyNamespace;
+
+use Nova\Foundation\Http\Responses\BaseResponsable;
+
+class DummyClass extends BaseResponsable
+{
+    public function views() : array
+    {
+        return [
+            'page' => '',
+            'scripts' => '',
+        ];
+    }
+}
