@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Nova\Themes\Theme;
 
 class CreateThemeTables extends Migration
 {
@@ -24,8 +23,6 @@ class CreateThemeTables extends Migration
             $table->string('layout_admin')->default('app-sidebar');
             $table->timestamps();
         });
-
-        $this->populateTable();
     }
 
     /**
@@ -36,17 +33,5 @@ class CreateThemeTables extends Migration
     public function down()
     {
         Schema::dropIfExists('themes');
-    }
-
-    protected function populateTable()
-    {
-        $themes = [
-            ['name' => 'Pulsar', 'location' => 'pulsar'],
-            ['name' => 'Titan', 'location' => 'titan'],
-        ];
-
-        collect($themes)->each(function ($theme) {
-            Theme::create($theme);
-        });
     }
 }
