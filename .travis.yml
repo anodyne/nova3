@@ -10,7 +10,7 @@ before_install:
 
 install:
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
-  - cp .env.travis .env
+  - cp ./nova/travis/env.travis ./.env
   - php artisan key:generate --ansi
 
 script:
