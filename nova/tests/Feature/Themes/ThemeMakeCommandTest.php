@@ -4,23 +4,19 @@ namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ThemeMakeCommandTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test **/
     public function a_user_can_scaffold_a_new_theme()
     {
         Storage::fake('themes');
 
-        $disk = Storage::disk('themes');
-
         $this->artisan('nova:make:theme', [
             'name' => 'Foo',
         ]);
 
+        $disk = Storage::disk('themes');
         $files = $disk->allFiles('foo');
 
         $this->assertCount(1, $disk->directories());
@@ -34,14 +30,12 @@ class ThemeMakeCommandTest extends TestCase
     {
         Storage::fake('themes');
 
-        $disk = Storage::disk('themes');
-
         $this->artisan('nova:make:theme', [
             'name' => 'Foo',
             '--location' => 'bar',
         ]);
 
-        $directories = $disk->directories();
+        $directories = Storage::disk('themes')->directories();
 
         $this->assertContains('bar', $directories);
         $this->assertNotContains('foo', $directories);
@@ -52,14 +46,12 @@ class ThemeMakeCommandTest extends TestCase
     {
         Storage::fake('themes');
 
-        $disk = Storage::disk('themes');
-
         $this->artisan('nova:make:theme', [
             'name' => 'Foo',
             '--variants' => ['blue', 'red']
         ]);
 
-        $files = $disk->allFiles('foo');
+        $files = Storage::disk('themes')->allFiles('foo');
 
         $this->assertContains('foo/design/variants/blue.css', $files);
         $this->assertContains('foo/design/variants/red.css', $files);
@@ -70,11 +62,9 @@ class ThemeMakeCommandTest extends TestCase
     {
         Storage::fake('themes');
 
-        $disk = Storage::disk('themes');
-
         $this->expectException('RuntimeException');
 
-        $disk->makeDirectory('foo');
+        Storage::disk('themes')->makeDirectory('foo');
 
         $this->artisan('nova:make:theme', [
             'name' => 'Foo'

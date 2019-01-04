@@ -15,7 +15,6 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        $this->seedDatabase();
         $this->remapRouteCollection();
         $this->setupTestResponseMacros();
     }
@@ -41,18 +40,5 @@ abstract class TestCase extends BaseTestCase
 
         $this->app['router']->getRoutes()->refreshNameLookups();
         $this->app['router']->getRoutes()->refreshActionLookups();
-    }
-
-    /**
-     * Production data is inserted through seeders. Since testing utilities do
-     * not seed the database, we need to manually seed specific items so that
-     * our tests can pass.
-     *
-     * @return void
-     */
-    protected function seedDatabase()
-    {
-        $this->artisan('db:seed', ['--class' => \PageSeeder::class]);
-        $this->artisan('db:seed', ['--class' => \ThemeSeeder::class]);
     }
 }

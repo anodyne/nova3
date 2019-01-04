@@ -11,21 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->productionSeeders();
-
-        $this->devSeeders();
-    }
-
-    protected function devSeeders()
-    {
-        if ($this->container->environment() === 'local') {
-            $this->call(UserSeeder::class);
-        }
-    }
-
-    protected function productionSeeders()
-    {
-        $this->call(PageSeeder::class);
-        $this->call(ThemeSeeder::class);
+        $this->call(UserSeeder::class);
     }
 }
