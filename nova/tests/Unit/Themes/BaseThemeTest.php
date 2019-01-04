@@ -4,9 +4,12 @@ namespace Tests\Unit\Themes;
 
 use Tests\TestCase;
 use Nova\Themes\BaseTheme;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BaseThemeTest extends TestCase
 {
+    use RefreshDatabase;
+
     protected $theme;
 
     public function setUp()

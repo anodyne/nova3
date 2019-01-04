@@ -8,9 +8,12 @@ use Nova\Themes\Theme;
 use Nova\Themes\Events;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ManageThemesTest extends TestCase
 {
+    use RefreshDatabase;
+
     protected $theme;
 
     public function setUp()

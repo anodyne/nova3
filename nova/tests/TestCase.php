@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Foundation\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
@@ -10,8 +9,7 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication,
         ManagesTestUsers,
-        AddsCustomAssertions,
-        RefreshDatabase;
+        AddsCustomAssertions;
 
     public function setUp()
     {

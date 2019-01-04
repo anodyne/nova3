@@ -4,9 +4,12 @@ namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ThemeMakeCommandTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test **/
     public function a_user_can_scaffold_a_new_theme()
     {
