@@ -165,7 +165,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Spatie\Html\HtmlServiceProvider::class,
         Nova\Themes\Providers\ThemesServiceProvider::class,
 
         /*
