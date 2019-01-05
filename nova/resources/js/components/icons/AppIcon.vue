@@ -3,8 +3,7 @@
 </template>
 
 <script>
-import IconFeather from './IconFeather.vue';
-import IconFontAwesome from './IconFontAwesome.vue';
+import find from 'lodash/find';
 
 export default {
     name: 'AppIcon',
@@ -16,24 +15,30 @@ export default {
         }
     },
 
-    data () {
-        return {
-            icon: this.name
-        }
-    },
-
     computed: {
         component () {
             switch (Nova.config.theme.iconSet) {
                 case 'feather':
-                    return IconFeather;
+                    return 'IconFeather';
                     break;
 
                 case 'fa5':
-                    return IconFontAwesome;
+                    return 'IconFontAwesome';
                     break;
             }
-        }
+        },
+
+        icon () {
+            const name = find(Nova.config.icons, (icon, key) => {
+                return key === this.name;
+            });
+
+            if (name === undefined) {
+                return this.name;
+            }
+
+            return name;
+        },
     }
 };
 </script>

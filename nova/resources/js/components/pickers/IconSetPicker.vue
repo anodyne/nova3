@@ -35,7 +35,6 @@
 import find from 'lodash/find';
 import IconFeather from '@/components/icons/IconFeather.vue';
 import IconFontAwesome from '@/components/icons/IconFontAwesome.vue';
-import IconMaterialDesign from '@/components/icons/IconMaterialDesign.vue';
 
 export default {
     name: 'IconSetPicker',
@@ -50,9 +49,8 @@ export default {
     data () {
         return {
             iconSets: [
-                { id: 1, name: 'Feather Icons', value: 'feather', icon: 'feather', component: IconFeather },
-                { id: 2, name: 'Font Awesome 5', value: 'fa5', icon: 'fas fa-flag', component: IconFontAwesome },
-                { id: 3, name: 'Material Design', value: 'mdi', icon: 'fas fa-plane', component: IconMaterialDesign }
+                { id: 1, name: 'Feather Icons', value: 'feather', icon: 'user', component: 'IconFeather' },
+                { id: 2, name: 'Font Awesome 5', value: 'fa5', icon: 'user', component: 'IconFontAwesome' }
             ],
             selectedIconSet: null
         }

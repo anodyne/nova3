@@ -1,0 +1,1 @@
+import './plugins/font-awesome';
