@@ -23,7 +23,7 @@
 
     <script src="{{ asset('dist/js/app.js') }}"></script>
     <script>
-        Nova.setConfig(Object.freeze({!! json_encode(nova()->provideScriptVariables()) !!}));
+        Nova.setConfig(Object.freeze({!! nova()->provideScriptVariables() !!}));
     </script>
     {!! $scripts ?? false !!}
     <script>

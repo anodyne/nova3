@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-        Nova\Themes\Providers\ThemeServiceProvider::class,
+        //
 
         /*
          * Application Service Providers...
@@ -176,6 +176,11 @@ return [
         Nova\Foundation\Providers\EventServiceProvider::class,
         Nova\Foundation\Providers\RouteServiceProvider::class,
         Nova\Foundation\Providers\ResponsesServiceProvider::class,
+
+        /**
+         * Nova Module Service Provides
+         */
+        Nova\Themes\Providers\ThemeServiceProvider::class,
 
     ],
 

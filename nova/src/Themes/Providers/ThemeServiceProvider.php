@@ -19,8 +19,15 @@ class ThemeServiceProvider extends ServiceProvider
             ThemeMakeCommand::class,
         ]);
 
-        $this->app->bind('nova.theme', function ($app) {
-            return new \Themes\Pulsar\Theme;
+        $theme = new \Themes\Pulsar\Theme;
+
+        $this->app->instance('nova.theme', $theme);
+
+        $this->app->extend('nova.data.frontend', function ($data) use ($theme) {
+            $data->put('theme', $theme);
+            $data->put('icons', $theme->iconMap());
+
+            return $data;
         });
     }
 
