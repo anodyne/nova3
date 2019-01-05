@@ -6,7 +6,7 @@ use Nova\Themes\BaseTheme;
 use Illuminate\Support\ServiceProvider;
 use Nova\Themes\Console\Commands\ThemeMakeCommand;
 
-class ThemesServiceProvider extends ServiceProvider
+class ThemeServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
@@ -15,11 +15,13 @@ class ThemesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                ThemeMakeCommand::class,
-            ]);
-        }
+        $this->commands([
+            ThemeMakeCommand::class,
+        ]);
+
+        $this->app->bind('nova.theme', function ($app) {
+            return new \Themes\Pulsar\Theme;
+        });
     }
 
     /**
@@ -29,8 +31,6 @@ class ThemesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('nova.theme', function ($app) {
-            return new \Themes\Pulsar\Theme('pulsar');
-        });
+        //
     }
 }

@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-        Nova\Themes\Providers\ThemesServiceProvider::class,
+        Nova\Themes\Providers\ThemeServiceProvider::class,
 
         /*
          * Application Service Providers...
