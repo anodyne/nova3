@@ -20,7 +20,8 @@ class BaseThemeTest extends TestCase
 
         $this->themeModel = factory(Theme::class)->create();
 
-        $this->theme = (new class($this->themeModel->location) extends BaseTheme {});
+        $this->theme = (new class extends BaseTheme {});
+        $this->theme->location = $this->themeModel->location;
     }
 
     /** @test **/

@@ -12,11 +12,6 @@ abstract class BaseTheme
 
     public $location;
 
-    public function __construct($location)
-    {
-        $this->location = $location;
-    }
-
     /**
      * Get the layout for a specific page.
      *
