@@ -30,7 +30,7 @@ class ThemesServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('nova.theme', function ($app) {
-            return new \Themes\Pulsar\Theme;
+            return new \Themes\Pulsar\Theme('pulsar');
         });
     }
 }

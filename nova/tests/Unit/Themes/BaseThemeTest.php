@@ -3,6 +3,7 @@
 namespace Tests\Unit\Themes;
 
 use Tests\TestCase;
+use Nova\Themes\Theme;
 use Nova\Themes\BaseTheme;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -11,12 +12,21 @@ class BaseThemeTest extends TestCase
     use RefreshDatabase;
 
     protected $theme;
+    protected $themeModel;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->theme = (new class extends BaseTheme {});
+        $this->themeModel = factory(Theme::class)->create();
+
+        $this->theme = (new class($this->themeModel->location) extends BaseTheme {});
+    }
+
+    /** @test **/
+    public function it_can_access_the_theme_model()
+    {
+        $this->assertTrue($this->theme->getModel()->is($this->themeModel));
     }
 
     /** @test **/
