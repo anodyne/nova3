@@ -15,8 +15,8 @@ __My familiarity with the project is as follows (check one):__
 
 | Q            | A
 | -------------| ---
-| Nova version | 2.x.y / 3.x.y
-| PHP version  | 5.5.x
+| Nova version | 3.x.y
+| PHP version  | 7.x.x
 
 ---
 
