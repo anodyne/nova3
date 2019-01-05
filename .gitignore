@@ -4,6 +4,7 @@
 /dist/storage
 /storage/*.key
 /nova/vendor
+/vendor
 /.idea
 /.vscode
 /.vagrant
