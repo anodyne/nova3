@@ -11,6 +11,8 @@ abstract class BaseTheme
         Concerns\InteractsWithModel;
 
     public $location;
+    public $iconSet;
+    protected $model;
 
     /**
      * Get the layout for a specific page.

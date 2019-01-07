@@ -11,7 +11,14 @@ class Theme extends Model
 {
     protected $fillable = [
         'name', 'location', 'credits', 'layout_auth', 'layout_public',
-        'layout_admin',
+        'layout_admin', 'layout_auth_settings', 'layout_public_settings',
+        'layout_admin_settings', 'icon_set',
+    ];
+
+    protected $casts = [
+        'layout_auth_settings' => 'json',
+        'layout_public_settings' => 'json',
+        'layout_admin_settings' => 'json',
     ];
 
     protected $dispatchesEvents = [
