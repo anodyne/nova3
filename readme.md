@@ -27,11 +27,11 @@ yarn run dev
 ```bash
 git pull origin dev
 
+composer dump
 composer install
 
 yarn install
 yarn run dev
 
-php artisan cache:clear
-php artisan migrate:fresh --seed
+php artisan nova:refresh
 ```
