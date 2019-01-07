@@ -23,22 +23,6 @@ class Application extends IlluminateApp
     }
 
     /**
-     * Register the basic bindings into the container.
-     *
-     * NOTE: We override this method so that we can set the proper vendor path
-     * for the package manifest. This is necessary for generating the automatic
-     * auto-loading that Laravel provides for service providers.
-     *
-     * @return void
-     */
-    protected function registerBaseBindings()
-    {
-        parent::registerBaseBindings();
-
-        $this[PackageManifest::class]->vendorPath = $this->novaPath('vendor');
-    }
-
-    /**
      * Get the path to the bootstrap directory.
      *
      * NOTE: We override this method so that we can move the bootstrap folder
