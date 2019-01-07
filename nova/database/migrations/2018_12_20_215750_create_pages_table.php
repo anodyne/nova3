@@ -49,7 +49,7 @@ class CreatePagesTable extends Migration
             ['uri' => 'password/reset/{token}', 'key' => 'password.reset', 'resource' => 'Nova\\Auth\\Http\\Controllers\\ResetPasswordController@showResetForm', 'layout' => 'auth'],
             ['uri' => 'password/reset', 'key' => 'password.update', 'verb' => 'post', 'resource' => 'Nova\\Auth\\Http\\Controllers\\ResetPasswordController@reset', 'layout' => 'auth'],
 
-            ['uri' => 'home', 'key' => 'home', 'resource' => 'Nova\\Foundation\\Http\\Controllers\\WelcomeController'],
+            ['uri' => '/', 'key' => 'home', 'resource' => 'Nova\\Foundation\\Http\\Controllers\\WelcomeController'],
 
             ['uri' => 'themes', 'key' => 'themes.index', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@index', 'layout' => 'admin'],
             ['uri' => 'themes/create', 'key' => 'themes.create', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@create', 'layout' => 'admin'],

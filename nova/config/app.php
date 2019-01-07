@@ -180,6 +180,7 @@ return [
         /**
          * Nova Module Service Provides
          */
+        Nova\Setup\Providers\SetupServiceProvider::class,
         Nova\Themes\Providers\ThemeServiceProvider::class,
 
     ],
