@@ -51,7 +51,7 @@
         <div class="form-section">
             <div class="form-section-column-content">
                 <div class="form-section-header">Presentation</div>
-                <p class="form-section-message">Set the defaults you would like used for the presentation of your theme.</p>
+                <p class="form-section-message">Set the presentation defaults you'd like to use for your theme.</p>
             </div>
 
             <div class="form-section-column-form">
@@ -84,7 +84,7 @@
                         <label for="variants">Icon Set</label>
                     </div>
 
-                    <icon-set-picker></icon-set-picker>
+                    <icon-set-picker name="icon_set"></icon-set-picker>
                 </div>
             </div>
         </div>

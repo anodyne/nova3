@@ -27,7 +27,7 @@ export default {
     props: {
         name: {
             type: String,
-            default: 'icon_set'
+            required: true
         },
 
         type: {
