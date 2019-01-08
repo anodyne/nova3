@@ -6,8 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 abstract class BaseThemeRequest extends FormRequest
 {
-    protected $rules = [];
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,7 +23,7 @@ abstract class BaseThemeRequest extends FormRequest
      */
     public function rules()
     {
-        $baseRules = [
+        return array_merge_recursive([
             'name' => ['required'],
             'location' => ['required'],
             'credits' => ['nullable'],
@@ -37,8 +35,17 @@ abstract class BaseThemeRequest extends FormRequest
             'layout_public_settings' => ['nullable'],
             'variants' => ['nullable'],
             'icon_set' => ['nullable'],
-        ];
+        ], $this->rulesOverride());
+    }
 
-        return array_merge_recursive($baseRules, $this->rules);
+    /**
+     * Get the validation rules that are different from the base rules for this
+     * type of request.
+     *
+     * @return array
+     */
+    public function rulesOverride()
+    {
+        return [];
     }
 }
