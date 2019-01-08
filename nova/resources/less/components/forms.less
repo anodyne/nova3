@@ -31,7 +31,7 @@
     }
 
     &:focus-within {
-        @apply .border-blue .bg-grey-lightest;
+        @apply .border-primary .bg-grey-lightest;
     }
 }
 
@@ -74,6 +74,23 @@
 
         > .form-section-column-content {
             @apply .w-96 .mr-16 .mb-0;
+        }
+    }
+}
+
+.form-controls {
+    @apply .flex .flex-col;
+}
+
+@screen lg {
+    .form-controls {
+        @apply .flex-row-reverse .items-center;
+
+        button + button,
+        button + a,
+        a + button,
+        a + a {
+            @apply .mr-6;
         }
     }
 }
