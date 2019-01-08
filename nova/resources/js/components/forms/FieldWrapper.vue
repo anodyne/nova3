@@ -6,8 +6,20 @@
 
         <slot></slot>
 
-        <div class="field-error" v-if="hasError">
+        <div
+            class="field-error"
+            role="alert"
+            v-if="hasError"
+        >
             {{ error }}
+        </div>
+
+        <div
+            class="field-help"
+            role="note"
+            v-if="hasHelp"
+        >
+            {{ help }}
         </div>
     </div>
 </template>
@@ -22,6 +34,10 @@ export default {
             default: ''
         },
         fieldId: {
+            type: String,
+            default: '',
+        },
+        help: {
             type: String,
             default: '',
         },
@@ -40,6 +56,10 @@ export default {
 
         hasError () {
             return this.error !== '';
+        },
+
+        hasHelp () {
+            return this.help !== '';
         },
 
         hasLabel () {
