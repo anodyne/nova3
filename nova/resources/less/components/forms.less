@@ -48,10 +48,6 @@
     @apply .block .w-full .relative .mt-1 .ml-2px .text-sm .text-grey-dark;
 }
 
-.field-error {
-    @apply .text-red;
-}
-
 .form-section {
     @apply .flex .flex-col .mb-8;
 
@@ -80,4 +76,18 @@
             @apply .w-96 .mr-16 .mb-0;
         }
     }
+}
+
+.field-wrapper.has-error {
+    .field-label {
+        @apply .text-danger;
+    }
+
+    .field-group {
+        @apply .border-danger;
+    }
+}
+
+.field-error {
+    @apply .text-danger;
 }
