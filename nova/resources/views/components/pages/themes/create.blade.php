@@ -14,37 +14,33 @@
             </div>
 
             <div class="flex-1">
-                <div class="field-wrapper">
-                    <div class="field-label">
-                        <label for="name">Name</label>
-                    </div>
-
+                <field-wrapper
+                    label="Name"
+                    field-id="name"
+                    error="{{ $errors->first('name') }}"
+                >
                     <div class="field-group">
                         <input type="text" name="name" id="name" class="field">
                     </div>
-                </div>
+                </field-wrapper>
 
-                <div class="field-wrapper">
-                    <div class="field-label">
-                        <label for="location">Location</label>
-                    </div>
-
+                <field-wrapper
+                    label="Location"
+                    field-id="location"
+                    error="{{ $errors->first('location') }}"
+                >
                     <div class="field-group">
                         <div class="field-addon font-mono text-sm text-grey-dark">themes/</div>
 
                         <input type="text" name="location" id="location" class="field">
                     </div>
-                </div>
+                </field-wrapper>
 
-                <div class="field-wrapper">
-                    <div class="field-label">
-                        <label for="credits">Credits</label>
-                    </div>
-
+                <field-wrapper label="Credits" field-id="credits">
                     <div class="field-group">
                         <textarea name="credits" id="credits" rows="5" class="field"></textarea>
                     </div>
-                </div>
+                </field-wrapper>
             </div>
         </div>
 
@@ -55,37 +51,37 @@
             </div>
 
             <div class="form-section-column-form">
-                <div class="field-wrapper">
-                    <div class="field-label">
-                        <label for="icons">Auth Layout</label>
-                    </div>
-
+                <field-wrapper
+                    label="Auth Layout"
+                    field-id="layout_auth"
+                    error="{{ $errors->first('layout_auth') }}"
+                >
                     <layout-picker name="layout_auth" type="auth"></layout-picker>
-                </div>
+                </field-wrapper>
 
-                <div class="field-wrapper">
-                    <div class="field-label">
-                        <label for="variants">Public Site Layout</label>
-                    </div>
-
+                <field-wrapper
+                    label="Public Site Layout"
+                    field-id="layout_public"
+                    error="{{ $errors->first('layout_public') }}"
+                >
                     <layout-picker name="layout_public" type="public"></layout-picker>
-                </div>
+                </field-wrapper>
 
-                <div class="field-wrapper">
-                    <div class="field-label">
-                        <label for="variants">Admin Site Layout</label>
-                    </div>
-
+                <field-wrapper
+                    label="Admin Site Layout"
+                    field-id="layout_admin"
+                    error="{{ $errors->first('layout_admin') }}"
+                >
                     <layout-picker name="layout_admin" type="admin"></layout-picker>
-                </div>
+                </field-wrapper>
 
-                <div class="field-wrapper">
-                    <div class="field-label">
-                        <label for="variants">Icon Set</label>
-                    </div>
-
+                <field-wrapper
+                    label="Icon Set"
+                    field-id="icon_set"
+                    error="{{ $errors->first('icon_set') }}"
+                >
                     <icon-set-picker name="icon_set"></icon-set-picker>
-                </div>
+                </field-wrapper>
             </div>
         </div>
 
@@ -96,11 +92,7 @@
             </div>
 
             <div class="form-section-column-form">
-                <div class="field-wrapper">
-                    <div class="field-label">
-                        <label for="variants">Variants</label>
-                    </div>
-
+                <field-wrapper label="Variants" field-id="variants">
                     <div class="field-group">
                         <input type="text" name="variants" id="variants" class="field">
                     </div>
@@ -108,7 +100,7 @@
                     <div class="field-help">
                         Enter the names of any variants you want for your theme, separated by commas.
                     </div>
-                </div>
+                </field-wrapper>
             </div>
         </div>
 
