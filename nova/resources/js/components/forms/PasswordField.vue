@@ -1,9 +1,5 @@
 <template>
-    <div class="field-wrapper">
-        <div class="field-label">
-            <label>{{ label }}</label>
-        </div>
-
+    <field-wrapper :label="label" :field-id="name">
         <div class="field-group">
             <input v-bind="fieldAttributes">
 
@@ -16,7 +12,7 @@
                 </div>
             </a>
         </div>
-    </div>
+    </field-wrapper>
 </template>
 
 <script>
@@ -28,17 +24,14 @@ export default {
             type: Boolean,
             default: false
         },
-
         label: {
             type: String,
             default: ''
         },
-
         name: {
             type: String,
             required: true
         },
-
         placeholder: {
             type: String,
             default: ''
@@ -56,6 +49,7 @@ export default {
             return {
                 class: 'field',
                 name: this.name,
+                id: this.name,
                 placeholder: this.placeholder,
                 type: this.fieldType
             }
