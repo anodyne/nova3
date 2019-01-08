@@ -11,7 +11,7 @@
             role="alert"
             v-if="hasError"
         >
-            {{ error }}
+            {{ errorMessage }}
         </div>
 
         <div
@@ -29,10 +29,6 @@ export default {
     name: 'FieldWrapper',
 
     props: {
-        error: {
-            type: String,
-            default: ''
-        },
         fieldId: {
             type: String,
             default: '',
@@ -44,10 +40,22 @@ export default {
         label: {
             type: String,
             default: ''
+        },
+        name: {
+            type: String,
+            default: ''
         }
     },
 
     computed: {
+        errorMessage () {
+            if (this.hasError) {
+                return Nova.formErrors.first(this.name);
+            }
+
+            return false;
+        },
+
         errorStyles () {
             return {
                 'has-error': this.hasError
@@ -55,7 +63,7 @@ export default {
         },
 
         hasError () {
-            return this.error !== '';
+            return Nova.formErrors.has(this.name);
         },
 
         hasHelp () {

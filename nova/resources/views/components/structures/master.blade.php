@@ -27,6 +27,7 @@
     </script>
     {!! $scripts ?? false !!}
     <script>
+        Nova.setFormErrors({!! $errors->toJson() !!});
         Nova.run();
     </script>
 </body>

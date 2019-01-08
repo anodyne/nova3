@@ -10,6 +10,10 @@ instance.interceptors.response.use(
     (error) => {
         const { status } = error.response;
 
+        if (status === 422) {
+            Nova.setFormErrors(error.response.data.errors);
+        }
+
         if (status >= 500) {
             Nova.$emit('error', error.response.data.message);
         }

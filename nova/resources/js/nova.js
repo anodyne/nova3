@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import axios from '@/util/axios';
+import FormErrors from './util/form-errors';
 
 export default class Nova {
     constructor () {
@@ -7,6 +8,7 @@ export default class Nova {
         this.bootingCallbacks = [];
         this.config = {};
         this.mixin = {};
+        this.formErrors = {};
     }
 
     booting (callback) {
@@ -35,7 +37,7 @@ export default class Nova {
         });
     }
 
-    static request (options) {
+    request (options) {
         if (options !== undefined) {
             return axios(options);
         }
@@ -45,6 +47,10 @@ export default class Nova {
 
     setConfig (config) {
         this.config = config;
+    }
+
+    setFormErrors (errors) {
+        this.formErrors = new FormErrors(errors);
     }
 
     $on (...args) {

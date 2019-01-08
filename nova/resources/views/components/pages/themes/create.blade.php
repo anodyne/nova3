@@ -17,7 +17,7 @@
                 <field-wrapper
                     label="Name"
                     field-id="name"
-                    error="{{ $errors->first('name') }}"
+                    name="name"
                 >
                     <div class="field-group">
                         <input type="text" name="name" id="name" class="field">
@@ -27,7 +27,7 @@
                 <field-wrapper
                     label="Location"
                     field-id="location"
-                    error="{{ $errors->first('location') }}"
+                    name="location"
                 >
                     <div class="field-group">
                         <div class="field-addon font-mono text-sm text-grey-dark">themes/</div>
@@ -54,7 +54,7 @@
                 <field-wrapper
                     label="Auth Layout"
                     field-id="layout_auth"
-                    error="{{ $errors->first('layout_auth') }}"
+                    name="layout_auth"
                 >
                     <layout-picker name="layout_auth" type="auth"></layout-picker>
                 </field-wrapper>
@@ -62,7 +62,7 @@
                 <field-wrapper
                     label="Public Site Layout"
                     field-id="layout_public"
-                    error="{{ $errors->first('layout_public') }}"
+                    name="layout_public"
                 >
                     <layout-picker name="layout_public" type="public"></layout-picker>
                 </field-wrapper>
@@ -70,7 +70,7 @@
                 <field-wrapper
                     label="Admin Site Layout"
                     field-id="layout_admin"
-                    error="{{ $errors->first('layout_admin') }}"
+                    name="layout_admin"
                 >
                     <layout-picker name="layout_admin" type="admin"></layout-picker>
                 </field-wrapper>
@@ -78,7 +78,7 @@
                 <field-wrapper
                     label="Icon Set"
                     field-id="icon_set"
-                    error="{{ $errors->first('icon_set') }}"
+                    name="icon_set"
                 >
                     <icon-set-picker name="icon_set"></icon-set-picker>
                 </field-wrapper>
@@ -95,6 +95,7 @@
                 <field-wrapper
                     label="Variants"
                     field-id="variants"
+                    name="variants"
                     help="Enter the names of any variants you want for your theme, separated by commas."
                 >
                     <div class="field-group">
@@ -104,6 +105,10 @@
             </div>
         </div>
 
-        <button type="submit" class="button button-primary button-large">Create</button>
+        <div class="form-controls">
+            <button type="submit" class="button button-primary button-large">Create</button>
+
+            <a href="{{ route('themes.index') }}" class="button button-large">Cancel</a>
+        </div>
     </form>
 </section>
