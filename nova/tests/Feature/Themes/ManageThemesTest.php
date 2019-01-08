@@ -104,6 +104,9 @@ class ManageThemesTest extends TestCase
             ->patch(route('themes.update', $this->theme), [
                 'name' => 'New Name',
                 'location' => $this->theme->location,
+                'layout_auth' => $this->theme->layout_auth,
+                'layout_admin' => $this->theme->layout_admin,
+                'layout_public' => $this->theme->layout_public,
             ])
             ->assertSuccessful();
 
@@ -182,5 +185,47 @@ class ManageThemesTest extends TestCase
                 'location' => null,
             ])
             ->assertSessionHasErrors('location');
+    }
+
+    /** @test **/
+    public function a_theme_must_have_an_auth_layout()
+    {
+        Storage::fake('themes');
+
+        $this->signIn();
+
+        $this->from(route('themes.index'))
+            ->post(route('themes.store'), [
+                'layout_auth' => null,
+            ])
+            ->assertSessionHasErrors('layout_auth');
+    }
+
+    /** @test **/
+    public function a_theme_must_have_an_admin_layout()
+    {
+        Storage::fake('themes');
+
+        $this->signIn();
+
+        $this->from(route('themes.index'))
+            ->post(route('themes.store'), [
+                'layout_admin' => null,
+            ])
+            ->assertSessionHasErrors('layout_admin');
+    }
+
+    /** @test **/
+    public function a_theme_must_have_a_public_layout()
+    {
+        Storage::fake('themes');
+
+        $this->signIn();
+
+        $this->from(route('themes.index'))
+            ->post(route('themes.store'), [
+                'layout_public' => null,
+            ])
+            ->assertSessionHasErrors('layout_public');
     }
 }
