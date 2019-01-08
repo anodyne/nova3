@@ -92,13 +92,13 @@
             </div>
 
             <div class="form-section-column-form">
-                <field-wrapper label="Variants" field-id="variants">
+                <field-wrapper
+                    label="Variants"
+                    field-id="variants"
+                    help="Enter the names of any variants you want for your theme, separated by commas."
+                >
                     <div class="field-group">
                         <input type="text" name="variants" id="variants" class="field">
-                    </div>
-
-                    <div class="field-help">
-                        Enter the names of any variants you want for your theme, separated by commas.
                     </div>
                 </field-wrapper>
             </div>
