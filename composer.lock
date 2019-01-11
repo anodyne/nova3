@@ -314,16 +314,16 @@
         },
         {
             "name": "fideloper/proxy",
-            "version": "4.0.0",
+            "version": "4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fideloper/TrustedProxy.git",
-                "reference": "cf8a0ca4b85659b9557e206c90110a6a4dba980a"
+                "reference": "177c79a2d1f9970f89ee2fb4c12b429af38b6dfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fideloper/TrustedProxy/zipball/cf8a0ca4b85659b9557e206c90110a6a4dba980a",
-                "reference": "cf8a0ca4b85659b9557e206c90110a6a4dba980a",
+                "url": "https://api.github.com/repos/fideloper/TrustedProxy/zipball/177c79a2d1f9970f89ee2fb4c12b429af38b6dfb",
+                "reference": "177c79a2d1f9970f89ee2fb4c12b429af38b6dfb",
                 "shasum": ""
             },
             "require": {
@@ -364,7 +364,7 @@
                 "proxy",
                 "trusted proxy"
             ],
-            "time": "2018-02-07T20:20:57+00:00"
+            "time": "2019-01-10T14:06:47+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -2001,16 +2001,16 @@
         },
         {
             "name": "spatie/laravel-html",
-            "version": "2.19.8",
+            "version": "2.19.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-html.git",
-                "reference": "45da25ffb6cf44449d2ce1dcaf39e61366bcf185"
+                "reference": "8fc81b6026eb2515069b4806e875508d8f81d747"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-html/zipball/45da25ffb6cf44449d2ce1dcaf39e61366bcf185",
-                "reference": "45da25ffb6cf44449d2ce1dcaf39e61366bcf185",
+                "url": "https://api.github.com/repos/spatie/laravel-html/zipball/8fc81b6026eb2515069b4806e875508d8f81d747",
+                "reference": "8fc81b6026eb2515069b4806e875508d8f81d747",
                 "shasum": ""
             },
             "require": {
@@ -2065,7 +2065,7 @@
                 "html",
                 "spatie"
             ],
-            "time": "2018-09-04T09:16:42+00:00"
+            "time": "2019-01-09T08:05:44+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
