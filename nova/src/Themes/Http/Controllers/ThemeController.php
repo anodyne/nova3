@@ -21,9 +21,8 @@ class ThemeController extends Controller
 
     public function index()
     {
-        return app(Responses\ManageThemesResponse::class)->with([
-            'themes' => Theme::get()
-        ]);
+        return app(Responses\ManageThemesResponse::class)
+            ->withThemes(Theme::get());
     }
 
     public function create()
@@ -42,9 +41,8 @@ class ThemeController extends Controller
 
     public function edit(Theme $theme)
     {
-        return app(Responses\EditThemeResponse::class)->with([
-            'theme' => $theme
-        ]);
+        return app(Responses\EditThemeResponse::class)
+            ->withTheme($theme);
     }
 
     public function update(EditThemeRequest $request, Theme $theme)
