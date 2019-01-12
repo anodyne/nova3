@@ -14,7 +14,7 @@
 @if ($themes->count() > 0)
     <div class="row">
     @foreach ($themes as $theme)
-        <div class="col-6">
+        <div class="col-6 mb-6">
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">{{ $theme->name }}</div>
