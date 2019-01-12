@@ -21,6 +21,8 @@
         {!! $layout ?? false !!}
     </div>
 
+    <script src="{{ asset('dist/js/manifest.js') }}"></script>
+    <script src="{{ asset('dist/js/vendor.js') }}"></script>
     <script src="{{ asset('dist/js/app.js') }}"></script>
     <script>
         Nova.setConfig(Object.freeze({!! nova()->provideScriptVariables() !!}));

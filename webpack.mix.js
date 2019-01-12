@@ -6,4 +6,5 @@ mix.setPublicPath('dist');
 mix.js('nova/resources/js/app.js', 'dist/js')
    .less('nova/resources/less/app.less', 'dist/css')
    .tailwind()
-   .webpackConfig(require('./webpack-custom-config'));
+   .webpackConfig(require('./webpack-custom-config'))
+   .extract();
