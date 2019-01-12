@@ -31,6 +31,14 @@
     }
 }
 
+.button-danger {
+    @apply .bg-danger-lightest .text-danger-dark;
+
+    &:hover {
+        @apply .bg-danger-lighter .text-danger-darker;
+    }
+}
+
 @screen sm {
     .button {
         @apply .w-auto;
