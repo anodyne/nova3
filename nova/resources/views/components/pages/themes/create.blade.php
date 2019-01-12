@@ -14,7 +14,7 @@
             </div>
 
             <div class="flex-1">
-                <field-wrapper
+                <form-field
                     label="Name"
                     field-id="name"
                     name="name"
@@ -22,9 +22,9 @@
                     <div class="field-group">
                         <input type="text" name="name" id="name" class="field">
                     </div>
-                </field-wrapper>
+                </form-field>
 
-                <field-wrapper
+                <form-field
                     label="Location"
                     field-id="location"
                     name="location"
@@ -34,13 +34,13 @@
 
                         <input type="text" name="location" id="location" class="field">
                     </div>
-                </field-wrapper>
+                </form-field>
 
-                <field-wrapper label="Credits" field-id="credits">
+                <form-field label="Credits" field-id="credits">
                     <div class="field-group">
                         <textarea name="credits" id="credits" rows="5" class="field"></textarea>
                     </div>
-                </field-wrapper>
+                </form-field>
             </div>
         </div>
 
@@ -51,37 +51,37 @@
             </div>
 
             <div class="form-section-column-form">
-                <field-wrapper
+                <form-field
                     label="Auth Layout"
                     field-id="layout_auth"
                     name="layout_auth"
                 >
                     <layout-picker name="layout_auth" type="auth"></layout-picker>
-                </field-wrapper>
+                </form-field>
 
-                <field-wrapper
+                <form-field
                     label="Public Site Layout"
                     field-id="layout_public"
                     name="layout_public"
                 >
                     <layout-picker name="layout_public" type="public"></layout-picker>
-                </field-wrapper>
+                </form-field>
 
-                <field-wrapper
+                <form-field
                     label="Admin Site Layout"
                     field-id="layout_admin"
                     name="layout_admin"
                 >
                     <layout-picker name="layout_admin" type="admin"></layout-picker>
-                </field-wrapper>
+                </form-field>
 
-                <field-wrapper
+                <form-field
                     label="Icon Set"
                     field-id="icon_set"
                     name="icon_set"
                 >
                     <icon-set-picker name="icon_set"></icon-set-picker>
-                </field-wrapper>
+                </form-field>
             </div>
         </div>
 
@@ -92,7 +92,7 @@
             </div>
 
             <div class="form-section-column-form">
-                <field-wrapper
+                <form-field
                     label="Variants"
                     field-id="variants"
                     name="variants"
@@ -101,7 +101,7 @@
                     <div class="field-group">
                         <input type="text" name="variants" id="variants" class="field">
                     </div>
-                </field-wrapper>
+                </form-field>
             </div>
         </div>
 

@@ -3,7 +3,7 @@
 <form action="{{ route('login') }}" method="POST">
     @csrf
 
-    <field-wrapper
+    <form-field
         label="Email Address"
         field-id="email"
         error="{{ $errors->first('email') }}"
@@ -11,7 +11,7 @@
         <div class="field-group">
             <input id="email" type="email" class="field" name="email" value="{{ old('email') }}" required autofocus>
         </div>
-    </field-wrapper>
+    </form-field>
 
     <password-field :allow-showing-password="true" label="Password" name="password"></password-field>
 

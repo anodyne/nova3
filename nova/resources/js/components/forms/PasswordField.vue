@@ -1,5 +1,5 @@
 <template>
-    <field-wrapper :label="label" :field-id="name">
+    <form-field :label="label" :field-id="name">
         <div class="field-group">
             <input v-bind="fieldAttributes">
 
@@ -12,7 +12,7 @@
                 </div>
             </a>
         </div>
-    </field-wrapper>
+    </form-field>
 </template>
 
 <script>
