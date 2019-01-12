@@ -16,7 +16,7 @@
             </template>
         </base-picker>
 
-        <input type="hidden" :name="name" v-model="selectedLayout">
+        <input type="hidden" :name="name" v-model="selectedLayoutValue">
     </div>
 </template>
 
@@ -58,6 +58,16 @@ export default {
                 ]
             },
             selectedLayout: null
+        }
+    },
+
+    computed: {
+        selectedLayoutValue () {
+            if (this.selectedLayout === null) {
+                return '';
+            }
+
+            return this.selectedLayout.value;
         }
     },
 
