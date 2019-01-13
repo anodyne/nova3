@@ -7,6 +7,7 @@ use Illuminate\Routing\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Nova\Foundation\Nova;
+use Nova\Foundation\Alert;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(Nova::class, function ($app) {
             return new Nova;
+        });
+
+        $this->app->bind(Alert::class, function ($app) {
+            return new Alert;
         });
     }
 
