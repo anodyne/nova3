@@ -1,0 +1,27 @@
+.alert {
+    @apply .block .mb-6 .rounded .border-2 .bg-grey-lightest .p-6;
+
+    &.alert-danger {
+        @apply .bg-danger-lightest .border-danger-lighter .text-danger-darker;
+    }
+
+    &.alert-info {
+        @apply .bg-info-lightest .border-info-lighter .text-info-darker;
+    }
+
+    &.alert-success {
+        @apply .bg-success-lightest .border-success-lighter .text-success-darker;
+    }
+
+    &.alert-warning {
+        @apply .bg-warning-lightest .border-warning-lighter .text-warning-darkest;
+    }
+}
+
+.alert-title {
+    @apply .block .mb-6 .font-semibold;
+}
+
+.alert-message {
+    @apply .block;
+}
