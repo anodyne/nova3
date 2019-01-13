@@ -36,6 +36,11 @@ class ThemeController extends Controller
 
         event(new Events\ThemeCreated($theme));
 
+        alert()
+            ->withTitle('Success!')
+            ->withMessage('Theme was successfully created.')
+            ->success();
+
         return redirect()->route('themes.index');
     }
 
@@ -51,6 +56,11 @@ class ThemeController extends Controller
 
         event(new Events\ThemeUpdated($theme->fresh()));
 
+        alert()
+            ->withTitle('Success!')
+            ->withMessage('Theme was successfully updated.')
+            ->success();
+
         return redirect()->route('themes.index');
     }
 
@@ -59,6 +69,11 @@ class ThemeController extends Controller
         $theme = dispatch_now(new Jobs\DeleteThemeJob($theme));
 
         event(new Events\ThemeDeleted($theme));
+
+        alert()
+            ->withTitle('Success!')
+            ->withMessage('Theme was successfully deleted.')
+            ->success();
 
         return response()->json($theme);
     }
