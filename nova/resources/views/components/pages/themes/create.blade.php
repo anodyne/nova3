@@ -20,7 +20,7 @@
                     name="name"
                 >
                     <div class="field-group">
-                        <input type="text" name="name" id="name" class="field">
+                        <input type="text" name="name" id="name" class="field" value="{{ old('name') }}">
                     </div>
                 </form-field>
 
@@ -32,7 +32,7 @@
                     <div class="field-group">
                         <div class="field-addon font-mono text-sm text-grey-dark">themes/</div>
 
-                        <input type="text" name="location" id="location" class="field">
+                        <input type="text" name="location" id="location" class="field" value="{{ old('location') }}">
                     </div>
                 </form-field>
 
