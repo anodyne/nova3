@@ -32,16 +32,25 @@ class ThemeController extends Controller
 
     public function store(CreateThemeRequest $request)
     {
-        $theme = dispatch_now(new Jobs\CreateThemeJob($request->validated()));
+        try {
+            $theme = dispatch_now(new Jobs\CreateThemeJob($request->validated()));
 
-        event(new Events\ThemeCreated($theme));
+            event(new Events\ThemeCreated($theme));
 
-        alert()
-            ->withTitle('Success!')
-            ->withMessage('Theme was successfully created.')
-            ->success();
+            alert()
+                ->withTitle('Success!')
+                ->withMessage('Theme was successfully created.')
+                ->success();
 
-        return redirect()->route('themes.index');
+            return redirect()->route('themes.index');
+        } catch (\Throwable $th) {
+            alert()
+                ->withTitle('Error!')
+                ->withMessage($th->getMessage())
+                ->error();
+
+            return redirect()->back()->withInput();
+        }
     }
 
     public function edit(Theme $theme)
