@@ -19,12 +19,11 @@ export default {
         component () {
             switch (Nova.config.theme.iconSet) {
                 case 'feather':
+                default:
                     return 'IconFeather';
-                    break;
 
                 case 'fa5':
                     return 'IconFontAwesome';
-                    break;
             }
         },
 
@@ -38,7 +37,7 @@ export default {
             }
 
             return name;
-        },
+        }
     }
 };
 </script>

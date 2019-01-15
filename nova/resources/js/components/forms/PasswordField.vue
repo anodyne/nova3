@@ -3,11 +3,16 @@
         <div class="field-group">
             <input v-bind="fieldAttributes">
 
-            <a role="button" v-if="allowShowingPassword" @click="toggleFieldType" class="field-addon">
-                <div class="leading-none" v-show="showPassword">
+            <a
+                v-if="allowShowingPassword"
+                role="button"
+                class="field-addon"
+                @click="toggleFieldType"
+            >
+                <div v-show="showPassword" class="leading-none">
                     <app-icon name="hide"></app-icon>
                 </div>
-                <div class="leading-none" v-show="!showPassword">
+                <div v-show="!showPassword" class="leading-none">
                     <app-icon name="show"></app-icon>
                 </div>
             </a>
@@ -41,7 +46,7 @@ export default {
     data () {
         return {
             showPassword: false
-        }
+        };
     },
 
     computed: {
@@ -52,7 +57,7 @@ export default {
                 id: this.name,
                 placeholder: this.placeholder,
                 type: this.fieldType
-            }
+            };
         },
 
         fieldType () {

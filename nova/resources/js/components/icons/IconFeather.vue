@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import kebab from 'lodash/kebabcase';
+import kebab from 'lodash/kebabCase';
 import * as icons from 'vue-feather-icons';
 
 export default {
@@ -22,7 +22,7 @@ export default {
 
     computed: {
         icon () {
-            return kebab(this.name) + '-icon';
+            return `${kebab(this.name)}-icon`;
         }
     }
 };

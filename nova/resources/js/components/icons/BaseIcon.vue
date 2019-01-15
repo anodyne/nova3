@@ -14,13 +14,13 @@ export default {
     data () {
         return {
             icon: this.name
-        }
+        };
     },
 
     computed: {
         iconClasses () {
             return {
-                'icon': true
+                icon: true
             };
         },
 

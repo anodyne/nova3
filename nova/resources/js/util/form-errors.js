@@ -20,6 +20,6 @@ export default class FormErrors {
     }
 
     has (key) {
-        return this.errors.hasOwnProperty(key);
+        return Object.prototype.hasOwnProperty.call(this.errors, key);
     }
 }

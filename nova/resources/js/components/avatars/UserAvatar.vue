@@ -28,7 +28,7 @@ export default {
     render (h) {
         return h('base-avatar', {
             props: this.baseProps
-        }, this.$slots.default)
+        }, this.$slots.default);
     }
 };
 </script>

@@ -1,23 +1,23 @@
 <template>
     <div class="field-wrapper" :class="errorStyles">
-        <div class="field-label" v-if="hasLabel">
+        <div v-if="hasLabel" class="field-label">
             <label :for="fieldId">{{ label }}</label>
         </div>
 
         <slot></slot>
 
         <div
+            v-if="hasError"
             class="field-error"
             role="alert"
-            v-if="hasError"
         >
             {{ errorMessage }}
         </div>
 
         <div
+            v-if="hasHelp"
             class="field-help"
             role="note"
-            v-if="hasHelp"
         >
             {{ help }}
         </div>
@@ -31,11 +31,11 @@ export default {
     props: {
         fieldId: {
             type: String,
-            default: '',
+            default: ''
         },
         help: {
             type: String,
-            default: '',
+            default: ''
         },
         label: {
             type: String,

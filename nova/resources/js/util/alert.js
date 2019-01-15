@@ -7,7 +7,7 @@ export default class Alert {
                 position: 'center',
                 showConfirmButton: false,
                 timer: 3500,
-                toast: false,
+                toast: false
             },
             ...config
         };
@@ -33,17 +33,17 @@ export default class Alert {
         this.info();
     }
 
-    persistQuestion() {
+    persistQuestion () {
         this.persist();
         this.question();
     }
 
-    persistSuccess() {
+    persistSuccess () {
         this.persist();
         this.success();
     }
 
-    persistWarning() {
+    persistWarning () {
         this.persist();
         this.warning();
     }
