@@ -53,6 +53,16 @@ class AlertTest extends TestCase
     }
 
     /** @test **/
+    public function it_can_set_a_type_of_question()
+    {
+        $this->alert->question();
+
+        $this->assertEquals('question', $this->alert->getData('type'));
+        $this->assertTrue(session()->has('alert'));
+        $this->assertEquals('question', session('alert.type'));
+    }
+
+    /** @test **/
     public function it_can_set_a_type_of_success()
     {
         $this->alert->success();
@@ -77,7 +87,10 @@ class AlertTest extends TestCase
     {
         $this->alert->persist();
 
-        $this->assertTrue($this->alert->getData('persist'));
+        $this->assertTrue($this->alert->getConfig('showConfirmButton'));
+        $this->assertEquals('center', $this->alert->getConfig('position'));
+        $this->assertNull($this->alert->getConfig('timer'));
+        $this->assertFalse($this->alert->getConfig('toast'));
         $this->assertNull($this->alert->getData('type'));
     }
 
@@ -86,7 +99,34 @@ class AlertTest extends TestCase
     {
         $this->alert->persistSuccess();
 
-        $this->assertTrue($this->alert->getData('persist'));
+        $this->assertTrue($this->alert->getConfig('showConfirmButton'));
+        $this->assertEquals('center', $this->alert->getConfig('position'));
+        $this->assertNull($this->alert->getConfig('timer'));
+        $this->assertFalse($this->alert->getConfig('toast'));
+        $this->assertEquals('success', $this->alert->getData('type'));
+    }
+
+    /** @test **/
+    public function it_can_be_a_toast_notification()
+    {
+        $this->alert->toast();
+
+        $this->assertFalse($this->alert->getConfig('showConfirmButton'));
+        $this->assertEquals('bottom-end', $this->alert->getConfig('position'));
+        $this->assertEquals(3500, $this->alert->getConfig('timer'));
+        $this->assertTrue($this->alert->getConfig('toast'));
+        $this->assertNull($this->alert->getData('type'));
+    }
+
+    /** @test **/
+    public function it_can_use_dynamic_methods_to_create_toast_alerts()
+    {
+        $this->alert->toastSuccess();
+
+        $this->assertFalse($this->alert->getConfig('showConfirmButton'));
+        $this->assertEquals('bottom-end', $this->alert->getConfig('position'));
+        $this->assertEquals(3500, $this->alert->getConfig('timer'));
+        $this->assertTrue($this->alert->getConfig('toast'));
         $this->assertEquals('success', $this->alert->getData('type'));
     }
 }
