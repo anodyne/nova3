@@ -1,14 +1,21 @@
 import Vue from 'vue';
 import axios from '@/util/axios';
+import Alert from '@/util/alert';
 import FormErrors from './util/form-errors';
 
 export default class Nova {
     constructor () {
         this.bus = new Vue();
         this.bootingCallbacks = [];
-        this.config = {};
+        this.config = {
+            alert: {}
+        };
         this.mixin = {};
         this.formErrors = {};
+    }
+
+    alert () {
+        return new Alert(this.config.alert);
     }
 
     booting (callback) {
@@ -45,8 +52,18 @@ export default class Nova {
         return axios;
     }
 
+    extendConfig (config) {
+        this.config = {
+            ...config,
+            ...this.config
+        };
+    }
+
     setConfig (config) {
-        this.config = config;
+        this.config = {
+            ...this.config,
+            ...config
+        };
     }
 
     setFormErrors (errors) {
