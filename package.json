@@ -18,6 +18,8 @@
         "@fortawesome/vue-fontawesome": "^0.1.4",
         "axios": "^0.18",
         "feather-icons": "^4.10.0",
+        "laravel-mix": "^4.0.7",
+        "laravel-mix-tailwind": "^0.1.0",
         "lodash": "^4.17.5",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
@@ -36,8 +38,6 @@
         "eslint-import-resolver-webpack": "^0.10.1",
         "eslint-plugin-import": "^2.14.0",
         "eslint-plugin-vue": "^5.0.0-beta.3",
-        "laravel-mix": "^4.0.7",
-        "laravel-mix-tailwind": "^0.1.0",
         "less": "^3.9.0",
         "less-loader": "^4.1.0",
         "vue-template-compiler": "^2.5.21"
