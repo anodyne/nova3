@@ -1,9 +1,5 @@
 <template>
-    <div
-        v-show="isActive"
-        v-cloak
-        class="tab-item"
-    >
+    <div v-if="isActive" class="tab-item">
         <slot></slot>
     </div>
 </template>

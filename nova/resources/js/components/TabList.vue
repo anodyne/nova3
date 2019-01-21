@@ -1,5 +1,5 @@
 <template>
-    <div v-cloak class="tabs">
+    <div class="tabs">
         <ul
             class="tabs-nav"
             :class="{ 'tabs-nav-pills': pills }"
