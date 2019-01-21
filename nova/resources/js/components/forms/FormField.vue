@@ -26,7 +26,7 @@
 
 <script>
 export default {
-    name: 'FieldWrapper',
+    name: 'FormField',
 
     props: {
         fieldId: {

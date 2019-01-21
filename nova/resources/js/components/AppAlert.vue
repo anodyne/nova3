@@ -15,9 +15,9 @@ export default {
         return {
             config: null,
             message: null,
+            show: false,
             title: null,
-            type: 'success',
-            show: false
+            type: 'success'
         };
     },
 
