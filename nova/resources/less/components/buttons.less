@@ -20,14 +20,22 @@
 }
 
 .button-large {
-    @apply .text-lg .py-4 .px-8;
+    @apply .py-4 .px-8;
 }
 
 .button-primary {
-    @apply .bg-blue .text-white;
+    @apply .bg-primary .text-white;
 
     &:hover {
-        @apply .bg-blue-dark .text-white;
+        @apply .bg-primary-dark .text-white;
+    }
+}
+
+.button-danger {
+    @apply .bg-danger-lightest .text-danger-dark;
+
+    &:hover {
+        @apply .bg-danger-lighter .text-danger-darker;
     }
 }
 

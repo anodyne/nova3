@@ -6,19 +6,13 @@ use Nova\Pages\Page;
 
 abstract class BaseTheme
 {
-    use Concerns\RendersTheme, Concerns\Icons;
+    use Concerns\RendersTheme,
+        Concerns\Icons,
+        Concerns\InteractsWithModel;
 
     public $location;
-
-    /**
-     * Get the model for the theme.
-     *
-     * @return \Nova\Themes\Theme
-     */
-    public function getModel()
-    {
-        return Theme::location($this->location)->firstOrFail();
-    }
+    public $iconSet;
+    protected $model;
 
     /**
      * Get the layout for a specific page.

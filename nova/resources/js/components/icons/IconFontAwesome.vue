@@ -1,31 +1,22 @@
+<template>
+    <font-awesome-icon :icon="name" class="icon"></font-awesome-icon>
+</template>
+
 <script>
-import BaseIcon from './BaseIcon.vue';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
-import { library, dom } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
     name: 'IconFontAwesome',
 
-    extends: BaseIcon,
-
-    computed: {
-        iconClasses () {
-            const iconClasses = {
-                'icon': true,
-                'fa-fw': true
-            };
-
-            iconClasses[this.iconName] = true;
-
-            return iconClasses;
-        }
+    components: {
+        FontAwesomeIcon
     },
 
-    mounted () {
-        library.add(fas, far);
-
-        dom.watch();
+    props: {
+        name: {
+            type: String,
+            required: true
+        }
     }
 };
 </script>

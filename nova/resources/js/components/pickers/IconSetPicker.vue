@@ -1,23 +1,23 @@
 <template>
     <div>
         <base-picker
+            v-model="selectedIconSet"
             :items="iconSets"
             placeholder-empty-state="Select an icon set"
             placeholder-search="Find an icon set"
             :filter-function="filterIconSets"
-            v-model="selectedIconSet"
         >
-            <template slot-scope="{ selected }" slot="picker-select-input">
+            <template slot="picker-select-input" slot-scope="{ selected }">
                 <component
                     :is="selected.component"
-                    :name="selected.icon"
                     :key="selected.value"
+                    :name="selected.icon"
                     class="mr-2 text-grey-darker"
                 ></component>
                 {{ selected.name }}
             </template>
 
-            <template slot-scope="{ item }" slot="picker-select-item">
+            <template slot="picker-select-item" slot-scope="{ item }">
                 <component
                     :is="item.component"
                     :name="item.icon"
@@ -27,35 +27,37 @@
             </template>
         </base-picker>
 
-        <input type="hidden" :name="name" :value="selectedIconSetValue">
+        <input
+            type="hidden"
+            :name="name"
+            :value="selectedIconSetValue"
+        >
     </div>
 </template>
 
 <script>
-import find from 'lodash/find';
-import IconFeather from '@/components/icons/IconFeather.vue';
-import IconFontAwesome from '@/components/icons/IconFontAwesome.vue';
-import IconMaterialDesign from '@/components/icons/IconMaterialDesign.vue';
-
 export default {
     name: 'IconSetPicker',
 
     props: {
         name: {
             type: String,
-            default: 'icon_set'
+            required: true
         }
     },
 
     data () {
         return {
             iconSets: [
-                { id: 1, name: 'Feather Icons', value: 'feather', icon: 'feather', component: IconFeather },
-                { id: 2, name: 'Font Awesome 5', value: 'fa5', icon: 'fas fa-flag', component: IconFontAwesome },
-                { id: 3, name: 'Material Design', value: 'mdi', icon: 'fas fa-plane', component: IconMaterialDesign }
+                {
+                    id: 1, name: 'Feather Icons', value: 'feather', icon: 'user', component: 'IconFeather'
+                },
+                {
+                    id: 2, name: 'Font Awesome 5', value: 'fa5', icon: 'user', component: 'IconFontAwesome'
+                }
             ],
             selectedIconSet: null
-        }
+        };
     },
 
     computed: {

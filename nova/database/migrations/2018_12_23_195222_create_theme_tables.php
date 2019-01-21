@@ -20,8 +20,12 @@ class CreateThemeTables extends Migration
             $table->string('location');
             $table->text('credits')->nullable();
             $table->string('layout_auth')->default('auth-simple');
-            $table->string('layout_public')->default('auth-simple');
+            $table->json('layout_auth_settings')->nullable();
+            $table->string('layout_public')->default('app-hero');
+            $table->json('layout_public_settings')->nullable();
             $table->string('layout_admin')->default('app-sidebar');
+            $table->json('layout_admin_settings')->nullable();
+            $table->string('icon_set')->default('feather');
             $table->timestamps();
         });
 

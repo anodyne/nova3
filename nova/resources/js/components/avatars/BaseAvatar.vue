@@ -2,9 +2,9 @@
     <div class="avatar" :class="containerStyles">
         <div class="avatar-image"></div>
 
-        <div class="avatar-meta" v-if="showMeta">
+        <div v-if="showMeta" class="avatar-meta">
             <div class="avatar-meta-title">{{ name }}</div>
-            <div class="avatar-meta-subtitle" v-if="size !== 'sm'">
+            <div v-if="size !== 'sm'" class="avatar-meta-subtitle">
                 <slot>Position name</slot>
             </div>
         </div>
@@ -50,7 +50,7 @@ export default {
                 'avatar-sm': this.size === 'sm',
                 'avatar-md': this.size === 'md' || !this.size,
                 'avatar-lg': this.size === 'lg',
-                'avatar-xl': this.size === 'xl',
+                'avatar-xl': this.size === 'xl'
             };
         },
 

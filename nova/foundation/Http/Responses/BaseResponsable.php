@@ -3,17 +3,48 @@
 namespace Nova\Foundation\Http\Responses;
 
 use Nova\Pages\Page;
+use BadMethodCallException;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Nova\Foundation\Application;
 use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Contracts\Foundation\Application;
 
 abstract class BaseResponsable implements Responsable
 {
+    /**
+     * The application instance.
+     *
+     * @var \Nova\Foundation\Application
+     */
     protected $app;
+
+    /**
+     * The array of response data.
+     *
+     * @var array
+     */
     protected $data = [];
+
+    /**
+     * The page instance for the response.
+     *
+     * @var \Nova\Pages\Page
+     */
     protected $page;
+
+    /**
+     * The theme instance for the response.
+     *
+     * @var \Nova\Themes\BaseTheme
+     */
     protected $theme;
+
+    /**
+     * The final output of the response.
+     *
+     * @var string
+     */
     protected $output;
 
     public function __construct(Page $page, Application $app)
@@ -21,6 +52,29 @@ abstract class BaseResponsable implements Responsable
         $this->app = $app;
         $this->page = $page;
         $this->theme = $app['nova.theme'];
+    }
+
+    /**
+     * The list of views for the response.
+     *
+     * @return array
+     */
+    abstract public function views();
+
+    /**
+     * Get the array of response data.
+     *
+     * @param  string  $key
+     * @param  string  $default
+     * @return array
+     */
+    public function getData($key = null, $default = null)
+    {
+        if ($key === null) {
+            return $this->data;
+        }
+
+        return data_get($this->data, $key, $default);
     }
 
     /**
@@ -35,6 +89,30 @@ abstract class BaseResponsable implements Responsable
     }
 
     /**
+     * Get a specific view name.
+     *
+     * @param  string  $view
+     * @return string
+     */
+    public function getView($view)
+    {
+        $views = array_merge([
+            'structure' => 'master',
+            'layout' => [
+                'view' => $this->theme->getPageLayout($this->page),
+                'data' => 'data',
+                // 'view' => 'app-sidebar',
+                // 'data' => $this->theme->getPageLayoutData($this->page)
+            ],
+            // 'template' => $this->page->content_template,
+            'page' => null,
+            'script' => null,
+        ], $this->views() ?? []);
+
+        return data_get($views, $view, null);
+    }
+
+    /**
      * Handle preparing the data to be used by the view.
      *
      * This is a method that's meant to be used in the individual Responsable
@@ -46,6 +124,22 @@ abstract class BaseResponsable implements Responsable
     public function prepareData() : array
     {
         return $this->data;
+    }
+
+    /**
+     * Render the response.
+     *
+     * @return string
+     */
+    public function render()
+    {
+        $this->buildStructure()
+            ->buildLayout()
+            ->buildTemplate()
+            ->buildPage()
+            ->buildScripts();
+
+        return $this->output;
     }
 
     /**
@@ -69,24 +163,78 @@ abstract class BaseResponsable implements Responsable
     }
 
     /**
-     * The list of views for this response.
-     *
-     * @return array
-     */
-    public function views() : array
-    {
-        return [];
-    }
-
-    /**
      * Any data that should be sent with the response.
      *
      * @param  array  $data
      * @return \Nova\Foundation\Http\Responses\BaseResponsable
      */
-    public function with(array $data = [])
+    public function with($key, $value = null)
     {
-        $this->data = $data;
+        if (is_array($key)) {
+            $this->data = array_merge($this->data, $key);
+        } else {
+            $this->data[$key] = $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Build the structure.
+     *
+     * @return \Nova\Foundation\Http\Responses\BaseResponsable
+     */
+    protected function buildStructure()
+    {
+        $this->output = $this->theme->structure('master');
+
+        return $this;
+    }
+
+    /**
+     * Build the layout.
+     *
+     * @return \Nova\Foundation\Http\Responses\BaseResponsable
+     */
+    protected function buildLayout()
+    {
+        $this->output = $this->theme->layout($this->getView('layout.view'));
+
+        return $this;
+    }
+
+    /**
+     * Build the content template.
+     *
+     * @return \Nova\Foundation\Http\Responses\BaseResponsable
+     */
+    protected function buildTemplate()
+    {
+        $this->output = $this->theme->template('simple');
+
+        return $this;
+    }
+
+    /**
+     * Build the page.
+     *
+     * @return \Nova\Foundation\Http\Responses\BaseResponsable
+     */
+    protected function buildPage()
+    {
+        $this->output = $this->theme->page($this->getView('page'), $this->data);
+
+        return $this;
+    }
+
+    /**
+     * Build the scripts.
+     *
+     * @return \Nova\Foundation\Http\Responses\BaseResponsable
+     */
+    protected function buildScripts()
+    {
+        $this->output = $this->theme->scripts((array)$this->getView('script'));
 
         return $this;
     }
@@ -98,98 +246,28 @@ abstract class BaseResponsable implements Responsable
      */
     protected function passDataToContainer()
     {
-        $this->app['nova.response.data'] = $this->data;
+        $this->app['nova.data.response'] = $this->data;
 
         return $this;
     }
 
     /**
-     * Get a specific view name.
+     * Dynamically bind parameters to the response.
      *
-     * @param  string  $view
-     * @return string
-     */
-    protected function getView($view)
-    {
-        $views = array_merge([
-            'structure' => 'master',
-            'layout' => [
-                'view' => $this->theme->getPageLayout($this->page),
-                'data' => 'data',
-                // 'view' => 'app-sidebar',
-                // 'data' => $this->theme->getPageLayoutData($this->page)
-            ],
-            // 'template' => $this->page->content_template,
-            'page' => null,
-            'script' => null,
-        ], $this->views() ?? []);
-
-        return data_get($views, $view, null);
-    }
-
-    protected function getViewData($key, $default = null)
-    {
-        return data_get($this->data, $key, $default);
-    }
-
-    /**
-     * Handle rendering the final output.
+     * @param  string  $method
+     * @param  array   $parameters
+     * @return \Nova\Foundation\Http\Responses\BaseResponsable
      *
-     * @return string
+     * @throws \BadMethodCallException
      */
-    protected function render()
+    public function __call($method, $parameters)
     {
-        $this
-            ->buildStructure()
-            ->buildLayout()
-            ->buildTemplate()
-            ->buildPage()
-            ->buildScripts()
-            // ->buildSpriteMap()
-            ;
+        if (! Str::startsWith($method, 'with')) {
+            throw new BadMethodCallException(sprintf(
+                'Method %s::%s does not exist.', static::class, $method
+            ));
+        }
 
-        return $this->output;
-    }
-
-    protected function buildStructure()
-    {
-        $this->output = $this->theme->structure('master');
-
-        return $this;
-    }
-
-    protected function buildLayout()
-    {
-        $this->output = $this->theme->layout($this->getView('layout.view'));
-
-        return $this;
-    }
-
-    protected function buildTemplate()
-    {
-        $this->output = $this->theme->template('simple');
-
-        return $this;
-    }
-
-    protected function buildPage()
-    {
-        $this->output = $this->theme->page($this->getView('page'), $this->data);
-
-        return $this;
-    }
-
-    protected function buildScripts()
-    {
-        $this->output = $this->theme->scripts((array)$this->getView('script'));
-
-        return $this;
-    }
-
-    protected function buildSpriteMap()
-    {
-        $this->output = $this->theme->spriteMap();
-
-        return $this;
+        return $this->with(Str::camel(substr($method, 4)), $parameters[0]);
     }
 }

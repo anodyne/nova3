@@ -9,16 +9,10 @@ class Nova
     /**
      * Provide data from the backend for the frontend to use.
      *
-     * @return array
+     * @return Json
      */
     public function provideScriptVariables()
     {
-        return [
-            'icons' => app('nova.theme')->iconMap(),
-            'system' => [
-                'version' => $this->version
-            ],
-            'theme' => app('nova.theme'),
-        ];
+        return app('nova.data.frontend')->toJson();
     }
 }

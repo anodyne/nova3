@@ -21,9 +21,8 @@ class ThemeController extends Controller
 
     public function index()
     {
-        return app(Responses\ManageThemesResponse::class)->with([
-            'themes' => Theme::get()
-        ]);
+        return app(Responses\ManageThemesResponse::class)
+            ->withThemes(Theme::get());
     }
 
     public function create()
@@ -33,18 +32,31 @@ class ThemeController extends Controller
 
     public function store(CreateThemeRequest $request)
     {
-        $theme = dispatch_now(new Jobs\CreateThemeJob($request->validated()));
+        try {
+            $theme = dispatch_now(new Jobs\CreateThemeJob($request->validated()));
 
-        event(new Events\ThemeCreated($theme));
+            event(new Events\ThemeCreated($theme));
 
-        return redirect()->route('themes.index');
+            alert()
+                ->withTitle('Success!')
+                ->withMessage('Theme was successfully created.')
+                ->success();
+
+            return redirect()->route('themes.index');
+        } catch (\Throwable $th) {
+            alert()
+                ->withTitle('Error!')
+                ->withMessage($th->getMessage())
+                ->error();
+
+            return redirect()->back()->withInput();
+        }
     }
 
     public function edit(Theme $theme)
     {
-        return app(Responses\EditThemeResponse::class)->with([
-            'theme' => $theme
-        ]);
+        return app(Responses\EditThemeResponse::class)
+            ->withTheme($theme);
     }
 
     public function update(EditThemeRequest $request, Theme $theme)
@@ -52,6 +64,11 @@ class ThemeController extends Controller
         $theme = dispatch_now(new Jobs\UpdateThemeJob($theme, $request->validated()));
 
         event(new Events\ThemeUpdated($theme->fresh()));
+
+        alert()
+            ->withTitle('Success!')
+            ->withMessage('Theme was successfully updated.')
+            ->success();
 
         return redirect()->route('themes.index');
     }
@@ -61,6 +78,11 @@ class ThemeController extends Controller
         $theme = dispatch_now(new Jobs\DeleteThemeJob($theme));
 
         event(new Events\ThemeDeleted($theme));
+
+        alert()
+            ->withTitle('Success!')
+            ->withMessage('Theme was successfully deleted.')
+            ->success();
 
         return response()->json($theme);
     }

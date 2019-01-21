@@ -14,78 +14,74 @@
             </div>
 
             <div class="flex-1">
-                <div class="field-wrapper">
-                    <div class="field-label">
-                        <label for="name">Name</label>
-                    </div>
-
+                <form-field
+                    label="Name"
+                    field-id="name"
+                    name="name"
+                >
                     <div class="field-group">
-                        <input type="text" name="name" id="name" class="field">
+                        <input type="text" name="name" id="name" class="field" value="{{ old('name') }}">
                     </div>
-                </div>
+                </form-field>
 
-                <div class="field-wrapper">
-                    <div class="field-label">
-                        <label for="location">Location</label>
-                    </div>
-
+                <form-field
+                    label="Location"
+                    field-id="location"
+                    name="location"
+                >
                     <div class="field-group">
                         <div class="field-addon font-mono text-sm text-grey-dark">themes/</div>
 
-                        <input type="text" name="location" id="location" class="field">
+                        <input type="text" name="location" id="location" class="field" value="{{ old('location') }}">
                     </div>
-                </div>
+                </form-field>
 
-                <div class="field-wrapper">
-                    <div class="field-label">
-                        <label for="credits">Credits</label>
-                    </div>
-
+                <form-field label="Credits" field-id="credits">
                     <div class="field-group">
                         <textarea name="credits" id="credits" rows="5" class="field"></textarea>
                     </div>
-                </div>
+                </form-field>
             </div>
         </div>
 
         <div class="form-section">
             <div class="form-section-column-content">
                 <div class="form-section-header">Presentation</div>
-                <p class="form-section-message">Set the defaults you would like used for the presentation of your theme.</p>
+                <p class="form-section-message">Set the presentation defaults you'd like to use for your theme.</p>
             </div>
 
             <div class="form-section-column-form">
-                <div class="field-wrapper">
-                    <div class="field-label">
-                        <label for="icons">Auth Layout</label>
-                    </div>
-
+                <form-field
+                    label="Auth Layout"
+                    field-id="layout_auth"
+                    name="layout_auth"
+                >
                     <layout-picker name="layout_auth" type="auth"></layout-picker>
-                </div>
+                </form-field>
 
-                <div class="field-wrapper">
-                    <div class="field-label">
-                        <label for="variants">Public Site Layout</label>
-                    </div>
-
+                <form-field
+                    label="Public Site Layout"
+                    field-id="layout_public"
+                    name="layout_public"
+                >
                     <layout-picker name="layout_public" type="public"></layout-picker>
-                </div>
+                </form-field>
 
-                <div class="field-wrapper">
-                    <div class="field-label">
-                        <label for="variants">Admin Site Layout</label>
-                    </div>
-
+                <form-field
+                    label="Admin Site Layout"
+                    field-id="layout_admin"
+                    name="layout_admin"
+                >
                     <layout-picker name="layout_admin" type="admin"></layout-picker>
-                </div>
+                </form-field>
 
-                <div class="field-wrapper">
-                    <div class="field-label">
-                        <label for="variants">Icon Set</label>
-                    </div>
-
-                    <icon-set-picker></icon-set-picker>
-                </div>
+                <form-field
+                    label="Icon Set"
+                    field-id="icon_set"
+                    name="icon_set"
+                >
+                    <icon-set-picker name="icon_set"></icon-set-picker>
+                </form-field>
             </div>
         </div>
 
@@ -96,22 +92,23 @@
             </div>
 
             <div class="form-section-column-form">
-                <div class="field-wrapper">
-                    <div class="field-label">
-                        <label for="variants">Variants</label>
-                    </div>
-
+                <form-field
+                    label="Variants"
+                    field-id="variants"
+                    name="variants"
+                    help="Enter the names of any variants you want for your theme, separated by commas."
+                >
                     <div class="field-group">
                         <input type="text" name="variants" id="variants" class="field">
                     </div>
-
-                    <div class="field-help">
-                        Enter the names of any variants you want for your theme, separated by commas.
-                    </div>
-                </div>
+                </form-field>
             </div>
         </div>
 
-        <button type="submit" class="button button-primary button-large">Create</button>
+        <div class="form-controls">
+            <button type="submit" class="button button-primary button-large">Create</button>
+
+            <a href="{{ route('themes.index') }}" class="button button-large">Cancel</a>
+        </div>
     </form>
 </section>

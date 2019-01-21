@@ -1,23 +1,29 @@
+<template>
+    <component :is="icon" class="icon"></component>
+</template>
+
 <script>
-import feather from 'feather-icons';
-import BaseIcon from './BaseIcon.vue';
+import kebab from 'lodash/kebabCase';
+import * as icons from 'vue-feather-icons';
 
 export default {
     name: 'IconFeather',
 
-    extends: BaseIcon,
-
-    mounted () {
-        feather.replace();
+    components: {
+        ...icons
     },
 
-    render (h) {
-        return h(this.tagName, {
-            attrs: {
-                'data-feather': this.iconName
-            },
-            class: this.iconClasses
-        }, this.$slots.default);
+    props: {
+        name: {
+            type: String,
+            required: true
+        }
+    },
+
+    computed: {
+        icon () {
+            return `${kebab(this.name)}-icon`;
+        }
     }
 };
 </script>

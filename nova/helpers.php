@@ -1,6 +1,14 @@
 <?php
 
 use Nova\Foundation\Nova;
+use Nova\Foundation\Alert;
+
+if (! function_exists('alert')) {
+    function alert()
+    {
+        return app(Alert::class);
+    }
+}
 
 if (! function_exists('nova')) {
     function nova()

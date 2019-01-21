@@ -3,19 +3,15 @@
 <form action="{{ route('login') }}" method="POST">
     @csrf
 
-    <div class="field-wrapper">
-        <div class="field-label">
-            <label for="email">{{ __('Email Address') }}</label>
-        </div>
-
+    <form-field
+        label="Email Address"
+        field-id="email"
+        error="{{ $errors->first('email') }}"
+    >
         <div class="field-group">
             <input id="email" type="email" class="field" name="email" value="{{ old('email') }}" required autofocus>
         </div>
-
-        @if ($errors->has('email'))
-            <div class="field-error" role="alert">{{ $errors->first('email') }}</div>
-        @endif
-    </div>
+    </form-field>
 
     <password-field :allow-showing-password="true" label="Password" name="password"></password-field>
 

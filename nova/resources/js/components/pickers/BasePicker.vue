@@ -1,22 +1,22 @@
 <template>
     <div
+        v-click-outside="close"
         class="picker"
         :class="{ 'is-active': isOpen }"
-        v-click-outside="close"
     >
         <button
+            ref="trigger"
             type="button"
             class="picker-select-input"
             @click="toggle"
-            ref="trigger"
         >
             <div>
-                <div class="flex-1 flex items-center" v-if="hasValue">
+                <div v-if="hasValue" class="flex-1 flex items-center">
                     <slot :selected="value" name="picker-select-input">
                         {{ value }}
                     </slot>
                 </div>
-                <div class="picker-select-placeholder" v-else>
+                <div v-else class="picker-select-placeholder">
                     {{ placeholderEmptyState }}
                 </div>
             </div>
@@ -24,17 +24,17 @@
         </button>
 
         <div
-            class="picker-select-dropdown"
             v-show="isOpen"
             ref="dropdown"
+            class="picker-select-dropdown"
         >
             <div v-if="isSearchable">
                 <input
-                    type="text"
+                    ref="search"
                     v-model="search"
+                    type="text"
                     class="picker-select-search"
                     :placeholder="placeholderSearch"
-                    ref="search"
                     @keydown.escape="close"
                     @keydown.down="highlightNext"
                     @keydown.up="highlightPrev"
@@ -44,22 +44,22 @@
             </div>
 
             <ul
-                class="picker-select-items"
                 v-show="filteredItems.length > 0"
                 ref="items"
+                class="picker-select-items"
             >
                 <li
-                    class="picker-select-item"
-                    :class="{ 'is-active': index === highlightedIndex }"
                     v-for="(item, index) in filteredItems"
                     :key="item.id"
+                    class="picker-select-item"
+                    :class="{ 'is-active': index === highlightedIndex }"
                     @click="select(item)"
                 >
                     <slot :item="item" name="picker-select-item"></slot>
                 </li>
             </ul>
 
-            <div class="picker-select-empty" v-show="filteredItems.length === 0">
+            <div v-show="filteredItems.length === 0" class="picker-select-empty">
                 No results found for "{{ search }}".
             </div>
         </div>
@@ -110,8 +110,12 @@ export default {
         }
     },
 
-    beforeDestroy () {
-        this.popper.destroy();
+    data () {
+        return {
+            highlightedIndex: 0,
+            isOpen: false,
+            search: ''
+        };
     },
 
     computed: {
@@ -124,17 +128,13 @@ export default {
         }
     },
 
-    data () {
-        return {
-            highlightedIndex: 0,
-            isOpen: false,
-            search: ''
-        }
+    beforeDestroy () {
+        this.popper.destroy();
     },
 
     methods: {
         close () {
-            if (! this.isOpen) {
+            if (!this.isOpen) {
                 return;
             }
 

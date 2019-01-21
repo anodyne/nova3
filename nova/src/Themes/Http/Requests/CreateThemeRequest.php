@@ -25,9 +25,28 @@ class CreateThemeRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'location' => ['required'],
+            'location' => ['required', 'unique:themes,location'],
             'credits' => ['nullable'],
+            'layout_auth' => ['required'],
+            'layout_auth_settings' => ['nullable'],
+            'layout_admin' => ['required'],
+            'layout_admin_settings' => ['nullable'],
+            'layout_public' => ['required'],
+            'layout_public_settings' => ['nullable'],
             'variants' => ['nullable'],
+            'icon_set' => ['nullable'],
+        ];
+    }
+
+    /**
+     * Get the validation messages that apply to the request.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'location.unique' => 'A theme already exists at that location.'
         ];
     }
 }
