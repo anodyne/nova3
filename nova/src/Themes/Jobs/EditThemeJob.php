@@ -9,11 +9,22 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class UpdateThemeJob implements ShouldQueue
+class EditThemeJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * The data for updating the theme.
+     *
+     * @var array
+     */
     public $data;
+
+    /**
+     * The theme being updated.
+     *
+     * @var \Nova\Themes\Theme
+     */
     public $theme;
 
     /**
