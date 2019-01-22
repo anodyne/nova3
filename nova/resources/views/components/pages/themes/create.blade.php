@@ -80,7 +80,8 @@
                     field-id="icon_set"
                     name="icon_set"
                 >
-                    <icon-set-picker name="icon_set"></icon-set-picker>
+                    <icon-set-picker name="icon_set" v-model="iconSet"></icon-set-picker>
+                    <input type="hidden" name="icon_set" :value="iconSet">
                 </form-field>
             </div>
         </div>
@@ -108,7 +109,7 @@
         <div class="form-controls">
             <button type="submit" class="button button-primary button-large">Create</button>
 
-            <a href="{{ route('themes.index') }}" class="button button-large">Cancel</a>
+            <a href="{{ route('themes.index') }}" class="button button-secondary button-large">Cancel</a>
         </div>
     </form>
 </section>
