@@ -10,8 +10,9 @@ export default class Nova {
         this.config = {
             alert: {}
         };
-        this.mixin = {};
+        this.data = {};
         this.formErrors = {};
+        this.mixin = {};
     }
 
     alert () {
@@ -64,6 +65,8 @@ export default class Nova {
             ...this.config,
             ...config
         };
+
+        this.data = config.response;
     }
 
     setFormErrors (errors) {
