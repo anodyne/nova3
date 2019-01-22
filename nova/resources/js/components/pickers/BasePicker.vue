@@ -114,11 +114,17 @@ export default {
         },
 
         hasValue () {
-            return !! this.value;
+            return !!this.value;
         },
 
         isSearchable () {
             return this.filterFunction !== null;
+        }
+    },
+
+    watch: {
+        value (newValue) {
+            this.selected = newValue;
         }
     },
 
@@ -224,12 +230,6 @@ export default {
             } else {
                 this.open();
             }
-        }
-    },
-
-    watch: {
-        value (newValue) {
-            this.selected = newValue;
         }
     }
 };
