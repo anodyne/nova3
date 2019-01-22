@@ -190,9 +190,11 @@ class Alert
     protected function createAlert()
     {
         session()->flash('alert', [
-            'message' => $this->getData('message'),
-            'title' => $this->getData('title'),
-            'type' => $this->getData('type'),
+            'content' => [
+                'message' => $this->getData('message'),
+                'title' => $this->getData('title'),
+                'type' => $this->getData('type'),
+            ],
             'config' => $this->getConfig(),
         ]);
 
