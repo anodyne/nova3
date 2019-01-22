@@ -1,30 +1,24 @@
 <template>
-    <div>
-        <base-picker
-            v-model="selectedLayout"
-            :items="layouts[type]"
-            placeholder-empty-state="Select a layout"
-            placeholder-search="Find a layout"
-            :filter-function="filterLayouts"
-        >
-            <template slot="picker-select-input" slot-scope="{ selected }">
-                {{ selected.name }}
-            </template>
+    <base-picker
+        v-model="selected"
+        :items="layouts[type]"
+        placeholder-empty-state="Select a layout"
+        placeholder-search="Find a layout"
+        :filter-function="filterLayouts"
+    >
+        <template slot="picker-select-input" slot-scope="{ selected }">
+            {{ selected.name }}
+        </template>
 
-            <template slot="picker-select-item" slot-scope="{ item }">
-                {{ item.name }}
-            </template>
-        </base-picker>
-
-        <input
-            v-model="selectedLayoutValue"
-            type="hidden"
-            :name="name"
-        >
-    </div>
+        <template slot="picker-select-item" slot-scope="{ item }">
+            {{ item.name }}
+        </template>
+    </base-picker>
 </template>
 
 <script>
+import find from 'lodash/find';
+
 export default {
     name: 'LayoutPicker',
 
@@ -33,10 +27,13 @@ export default {
             type: String,
             required: true
         },
-
         type: {
             type: String,
             required: true
+        },
+        value: {
+            type: [String, Object, Number],
+            default: null
         }
     },
 
@@ -61,17 +58,31 @@ export default {
                     { id: 11, name: 'Hero', value: 'app-hero' }
                 ]
             },
-            selectedLayout: null
+            selected: null
         };
     },
 
     computed: {
-        selectedLayoutValue () {
-            if (this.selectedLayout === null) {
-                return '';
+        getSelected () {
+            if (this.value === null) {
+                return null;
             }
 
-            return this.selectedLayout.value;
+            return find(this.layouts[this.type], (layout) => {
+                return layout.value === this.value;
+            });
+        }
+    },
+
+    watch: {
+        selected (newValue) {
+            this.$emit('input', newValue.value);
+        }
+    },
+
+    mounted () {
+        if (this.selected === null) {
+            this.selected = this.getSelected;
         }
     },
 

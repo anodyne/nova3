@@ -1,41 +1,35 @@
 <template>
-    <div>
-        <base-picker
-            v-model="selectedIconSet"
-            :items="iconSets"
-            placeholder-empty-state="Select an icon set"
-            placeholder-search="Find an icon set"
-            :filter-function="filterIconSets"
-        >
-            <template slot="picker-select-input" slot-scope="{ selected }">
-                <component
-                    :is="selected.component"
-                    :key="selected.value"
-                    :name="selected.icon"
-                    class="mr-2 text-grey-darker"
-                ></component>
-                {{ selected.name }}
-            </template>
+    <base-picker
+        v-model="selected"
+        :items="iconSets"
+        placeholder-empty-state="Select an icon set"
+        placeholder-search="Find an icon set"
+        :filter-function="filterIconSets"
+    >
+        <template slot="picker-select-input" slot-scope="{ selected }">
+            <component
+                :is="selected.component"
+                :key="selected.value"
+                :name="selected.icon"
+                class="mr-2 text-grey-darker"
+            ></component>
+            {{ selected.name }}
+        </template>
 
-            <template slot="picker-select-item" slot-scope="{ item }">
-                <component
-                    :is="item.component"
-                    :name="item.icon"
-                    class="mr-2"
-                ></component>
-                {{ item.name }}
-            </template>
-        </base-picker>
-
-        <input
-            type="hidden"
-            :name="name"
-            :value="selectedIconSetValue"
-        >
-    </div>
+        <template slot="picker-select-item" slot-scope="{ item }">
+            <component
+                :is="item.component"
+                :name="item.icon"
+                class="mr-2"
+            ></component>
+            {{ item.name }}
+        </template>
+    </base-picker>
 </template>
 
 <script>
+import find from 'lodash/find';
+
 export default {
     name: 'IconSetPicker',
 
@@ -43,6 +37,10 @@ export default {
         name: {
             type: String,
             required: true
+        },
+        value: {
+            type: [String, Object, Number],
+            default: null
         }
     },
 
@@ -56,17 +54,31 @@ export default {
                     id: 2, name: 'Font Awesome 5', value: 'fa5', icon: 'user', component: 'IconFontAwesome'
                 }
             ],
-            selectedIconSet: null
+            selected: null
         };
     },
 
     computed: {
-        selectedIconSetValue () {
-            if (this.selectedIconSet === null) {
-                return '';
+        getSelected () {
+            if (this.value === null) {
+                return null;
             }
 
-            return this.selectedIconSet.value;
+            return find(this.iconSets, (i) => {
+                return i.value === this.value;
+            });
+        }
+    },
+
+    watch: {
+        selected (newValue) {
+            this.$emit('input', newValue.value);
+        }
+    },
+
+    mounted () {
+        if (this.selected === null) {
+            this.selected = this.getSelected;
         }
     },
 
