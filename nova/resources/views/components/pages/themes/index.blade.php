@@ -23,7 +23,7 @@
                 <div class="card-body"></div>
 
                 <div class="card-footer">
-                    <a href="{{ route('themes.edit', $theme) }}" class="button">
+                    <a href="{{ route('themes.edit', $theme) }}" class="button button-secondary">
                         <app-icon name="edit"></app-icon>
                     </a>
                     <a href="{{ route('themes.edit', $theme) }}" class="button button-danger">
