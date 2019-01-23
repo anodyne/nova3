@@ -9,10 +9,10 @@
                 class="field-addon"
                 @click="toggleFieldType"
             >
-                <div v-show="showPassword" class="leading-none">
+                <div v-show="showPassword" class="leading-0">
                     <app-icon name="hide"></app-icon>
                 </div>
-                <div v-show="!showPassword" class="leading-none">
+                <div v-show="!showPassword" class="leading-0">
                     <app-icon name="show"></app-icon>
                 </div>
             </a>
