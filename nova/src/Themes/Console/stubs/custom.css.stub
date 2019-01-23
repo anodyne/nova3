@@ -1,7 +1,56 @@
 :root {
-    --color-primary: 'blue';
-    --color-warning: 'orange';
-    --color-success: 'green';
-    --color-info: 'teal';
-    --color-error: 'red';
+    --color-primary-50: 'blue';
+    --color-primary-100: 'blue';
+    --color-primary-200: 'blue';
+    --color-primary-300: 'blue';
+    --color-primary-400: 'blue';
+    --color-primary-500: 'blue';
+    --color-primary-600: 'blue';
+    --color-primary-700: 'blue';
+    --color-primary-800: 'blue';
+    --color-primary-900: 'blue';
+
+    --color-warning-50: 'yellow';
+    --color-warning-100: 'yellow';
+    --color-warning-200: 'yellow';
+    --color-warning-300: 'yellow';
+    --color-warning-400: 'yellow';
+    --color-warning-500: 'yellow';
+    --color-warning-600: 'yellow';
+    --color-warning-700: 'yellow';
+    --color-warning-800: 'yellow';
+    --color-warning-900: 'yellow';
+
+    --color-success-50: 'green';
+    --color-success-100: 'green';
+    --color-success-200: 'green';
+    --color-success-300: 'green';
+    --color-success-400: 'green';
+    --color-success-500: 'green';
+    --color-success-600: 'green';
+    --color-success-700: 'green';
+    --color-success-800: 'green';
+    --color-success-900: 'green';
+
+    --color-info-50: 'teal';
+    --color-info-100: 'teal';
+    --color-info-200: 'teal';
+    --color-info-300: 'teal';
+    --color-info-400: 'teal';
+    --color-info-500: 'teal';
+    --color-info-600: 'teal';
+    --color-info-700: 'teal';
+    --color-info-800: 'teal';
+    --color-info-900: 'teal';
+
+    --color-danger-50: 'red';
+    --color-danger-100: 'red';
+    --color-danger-200: 'red';
+    --color-danger-300: 'red';
+    --color-danger-400: 'red';
+    --color-danger-500: 'red';
+    --color-danger-600: 'red';
+    --color-danger-700: 'red';
+    --color-danger-800: 'red';
+    --color-danger-900: 'red';
 }

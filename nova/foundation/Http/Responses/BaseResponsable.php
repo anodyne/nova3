@@ -246,7 +246,9 @@ abstract class BaseResponsable implements Responsable
      */
     protected function passDataToContainer()
     {
-        $this->app['nova.data.response'] = $this->data;
+        $this->app->extend('nova.data.response', function ($app) {
+            return $this->data;
+        });
 
         return $this;
     }

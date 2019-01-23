@@ -10,6 +10,7 @@ class CreateThemeResponse extends BaseResponsable
     {
         return [
             'page' => 'themes.create',
+            'script' => 'themes.create',
         ];
     }
 }

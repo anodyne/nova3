@@ -39,7 +39,7 @@ class AlertTest extends TestCase
 
         $this->assertEquals('error', $this->alert->getData('type'));
         $this->assertTrue(session()->has('alert'));
-        $this->assertEquals('error', session('alert.type'));
+        $this->assertEquals('error', session('alert.content.type'));
     }
 
     /** @test **/
@@ -49,7 +49,7 @@ class AlertTest extends TestCase
 
         $this->assertEquals('info', $this->alert->getData('type'));
         $this->assertTrue(session()->has('alert'));
-        $this->assertEquals('info', session('alert.type'));
+        $this->assertEquals('info', session('alert.content.type'));
     }
 
     /** @test **/
@@ -59,7 +59,7 @@ class AlertTest extends TestCase
 
         $this->assertEquals('question', $this->alert->getData('type'));
         $this->assertTrue(session()->has('alert'));
-        $this->assertEquals('question', session('alert.type'));
+        $this->assertEquals('question', session('alert.content.type'));
     }
 
     /** @test **/
@@ -69,7 +69,7 @@ class AlertTest extends TestCase
 
         $this->assertEquals('success', $this->alert->getData('type'));
         $this->assertTrue(session()->has('alert'));
-        $this->assertEquals('success', session('alert.type'));
+        $this->assertEquals('success', session('alert.content.type'));
     }
 
     /** @test **/
@@ -79,7 +79,7 @@ class AlertTest extends TestCase
 
         $this->assertEquals('warning', $this->alert->getData('type'));
         $this->assertTrue(session()->has('alert'));
-        $this->assertEquals('warning', session('alert.type'));
+        $this->assertEquals('warning', session('alert.content.type'));
     }
 
     /** @test **/
