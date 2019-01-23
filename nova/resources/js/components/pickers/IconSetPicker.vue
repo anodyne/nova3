@@ -11,7 +11,6 @@
                 :is="selected.component"
                 :key="selected.value"
                 :name="selected.icon"
-                class="mr-2 text-grey-darker"
             ></component>
             {{ selected.name }}
         </template>
@@ -20,7 +19,6 @@
             <component
                 :is="item.component"
                 :name="item.icon"
-                class="mr-2"
             ></component>
             {{ item.name }}
         </template>

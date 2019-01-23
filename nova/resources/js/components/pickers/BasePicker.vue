@@ -25,7 +25,7 @@
                     {{ placeholderEmptyState }}
                 </div>
             </div>
-            <app-icon name="chevron-down" class="h-5 w-5 text-grey-dark"></app-icon>
+            <app-icon name="chevron-down" class="picker-caret"></app-icon>
         </button>
 
         <div
