@@ -6,22 +6,23 @@
     @apply .flex .items-center .relative .w-full .p-3 .rounded .transition .border-2 .bg-transparent;
 
     > .field {
-        @apply .flex-auto .appearance-none .bg-transparent .text-grey-darker;
+        @apply .flex-auto .appearance-none .bg-transparent .text-grey-600;
 
         &:focus {
-            @apply .outline-none .text-grey-darkest;
+            @apply .outline-none .text-grey-800;
         }
     }
 
     > .field-addon {
         @apply .flex-shrink;
+    }
 
-        > a {
-            @apply .pointer-events-auto .text-grey .no-underline;
+    > a.field-addon,
+    > .field-addon a {
+        @apply .pointer-events-auto .text-grey-400 .no-underline;
 
-            &:hover {
-                @apply .text-grey-dark;
-            }
+        &:hover {
+            @apply .text-grey-600;
         }
     }
 
@@ -31,12 +32,12 @@
     }
 
     &:focus-within {
-        @apply .border-primary .bg-grey-lightest;
+        @apply .border-primary-500 .bg-grey-50;
     }
 }
 
 .field-label {
-    @apply .flex .items-center .justify-between .mb-2 .ml-2px .text-sm .text-grey-dark;
+    @apply .flex .items-center .justify-between .mb-2 .ml-2px .text-sm .text-grey-400;
 
     > label {
         @apply .uppercase .tracking-wide .font-medium;
@@ -45,7 +46,7 @@
 
 .field-help,
 .field-error {
-    @apply .block .w-full .relative .mt-1 .ml-2px .text-sm .text-grey-dark;
+    @apply .block .w-full .relative .mt-1 .ml-2px .text-sm .text-grey-400;
 }
 
 .form-section {
@@ -59,7 +60,7 @@
         }
 
         > .form-section-message {
-            @apply .text-grey-dark;
+            @apply .text-grey-400;
         }
     }
 
@@ -97,14 +98,14 @@
 
 .field-wrapper.has-error {
     .field-label {
-        @apply .text-danger;
+        @apply .text-danger-500;
     }
 
     .field-group {
-        @apply .border-danger;
+        @apply .border-danger-500;
     }
 }
 
 .field-error {
-    @apply .text-danger;
+    @apply .text-danger-500;
 }

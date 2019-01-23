@@ -1,5 +1,5 @@
 .button {
-    @apply .inline-flex .items-center .justify-center .w-full .my-3 .py-3 .px-6 .leading-none .rounded .font-medium .whitespace-no-wrap .transition .uppercase .tracking-wide .no-underline .text-grey-dark;
+    @apply .inline-flex .items-center .justify-center .w-full .my-3 .py-3 .px-6 .leading-none .rounded .font-medium .whitespace-no-wrap .transition .uppercase .tracking-wide .no-underline .text-grey-400;
 
     &:focus,
     &:active {
@@ -7,7 +7,7 @@
     }
 
     &:hover {
-        @apply .text-grey-darker;
+        @apply .text-grey-600;
     }
 }
 
@@ -24,31 +24,31 @@
 }
 
 .button-primary {
-    @apply .bg-primary .text-white;
+    @apply .bg-primary-400 .text-white;
 
     &:hover {
-        @apply .bg-primary-dark .text-white;
+        @apply .bg-primary-500 .text-white;
     }
 }
 
 .button-secondary {
-    @apply .bg-grey-lighter .text-grey-dark;
+    @apply .bg-grey-50 .text-grey-500;
 
     &:hover {
-        @apply .bg-grey-light .text-grey-darker;
+        @apply .bg-grey-100 .text-grey-600;
     }
 }
 
 .button-danger {
-    @apply .bg-danger-lightest .text-danger-dark;
+    @apply .bg-danger-50 .text-danger-500;
 
     &:hover {
-        @apply .bg-danger-lighter .text-danger-darker;
+        @apply .bg-danger-100 .text-danger-600;
     }
 }
 
 .button-text {
-    @apply .p-0 .bg-transparent;
+    @apply .p-0 .bg-transparent .normal-case;
 
     &:hover {
         @apply .bg-transparent;
