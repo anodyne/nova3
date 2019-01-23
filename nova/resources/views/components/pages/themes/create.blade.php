@@ -30,7 +30,7 @@
                     name="location"
                 >
                     <div class="field-group">
-                        <div class="field-addon font-mono text-sm text-grey-dark">themes/</div>
+                        <div class="field-addon font-mono text-sm text-grey-400">themes/</div>
 
                         <input type="text" name="location" id="location" class="field" value="{{ old('location') }}">
                     </div>
