@@ -4,6 +4,14 @@
     main {
         @apply .flex .flex-col .w-5/6 .mx-auto .p-6 .bg-white .rounded .shadow-lg;
     }
+
+    .header {
+        @apply .mb-8 .font-extrabold .text-primary-600 .text-5xl .leading-tight;
+    }
+
+    .controls {
+        @apply .flex .flex-col .items-center .justify-between;
+    }
 }
 
 @screen sm {
@@ -11,17 +19,77 @@
         main {
             @apply .w-128;
         }
+
+        .controls {
+            @apply .flex-row;
+        }
     }
 }
 
-.layout-auth-cover {}
+.layout-auth-cover {
+    @apply .flex .flex-col .items-center .h-screen;
 
-@screen md {
-    .layout-auth-cover {}
+    aside {
+        @apply .absolute .bg-cover .bg-center .bg-no-repeat .w-full .h-screen;
+    }
+
+    section {
+        @apply .flex .flex-col .justify-around .z-10 .w-full .h-screen;
+
+        > main {
+            @apply .w-5/6 .mx-auto .p-6 .rounded .shadow-lg;
+
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+    }
+
+    .header {
+        @apply .mb-8 .font-extrabold .text-primary-600 .text-5xl .leading-tight;
+    }
+
+    .controls {
+        @apply .flex .flex-col .items-center .justify-between;
+    }
+}
+
+@screen sm {
+    .layout-auth-cover {
+        section {
+            > main {
+                @apply .w-128;
+            }
+        }
+
+        .controls {
+            @apply .flex-row;
+        }
+    }
+}
+
+@screen lg {
+    .layout-auth-cover {
+        @apply .flex-row;
+
+        aside {
+            @apply .relative .w-1/2;
+        }
+
+        section {
+            @apply .h-screen .flex-1;
+
+            > main {
+                @apply .justify-center .flex-no-grow .bg-transparent .shadow-none .p-0 .w-2/3;
+            }
+        }
+
+        .controls {
+            @apply .flex-row;
+        }
+    }
 }
 
 .layout-auth-two-pane {}
 
-@screen md {
+@screen sm {
     .layout-auth-two-pane {}
 }
