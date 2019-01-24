@@ -233,13 +233,8 @@ module.exports = {
 
     screens: {
         sm: '576px',
-        md: {
-            min: '577px',
-            max: '768px'
-        },
-        lg: {
-            min: '769px'
-        }
+        md: '768px',
+        lg: '992px'
     },
 
     fonts: {
