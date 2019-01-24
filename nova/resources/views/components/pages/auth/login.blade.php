@@ -1,4 +1,4 @@
-<h1 class="mb-8 font-extrabold text-primary-600 text-5xl">Sign In</h1>
+<h1 class="header">Sign In</h1>
 
 <form action="{{ route('login') }}" method="POST">
     @csrf
@@ -6,25 +6,27 @@
     <form-field
         label="Email Address"
         field-id="email"
-        error="{{ $errors->first('email') }}"
+        name="email"
     >
         <div class="field-group">
             <input id="email" type="email" class="field" name="email" value="{{ old('email') }}" required autofocus>
         </div>
     </form-field>
 
-    <password-field :allow-showing-password="true" label="Password" name="password"></password-field>
+    <password-field
+        :allow-showing-password="true"
+        label="Password"
+        name="password"
+    ></password-field>
 
-    <div class="flex items-center justify-between">
-        <div>
-            <button type="submit" class="button button-primary button-large">
-                {{ __('Sign In') }}
-            </button>
-        </div>
+    <div class="controls">
+        <button type="submit" class="button button-primary button-large">
+            Sign In
+        </button>
 
         @if (Route::has('password.request'))
             <a class="button button-text" href="{{ route('password.request') }}">
-                {{ __('Forgot Your Password?') }}
+                Forgot Your Password?
             </a>
         @endif
     </div>

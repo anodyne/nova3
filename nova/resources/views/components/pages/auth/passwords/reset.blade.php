@@ -1,49 +1,31 @@
-<h1 class="mb-8 font-extrabold text-primary-600 text-5xl">Reset Password</h1>
+<h1 class="header">Reset Password</h1>
 
-<form action="{{ route('password.update') }}" method="POST">
+<form action="{{ route('password.update') }}" method="POST" role="form">
     @csrf
 
     <input type="hidden" name="token" value="{{ $token }}">
 
-    <div class="field-wrapper">
-        <div class="field-label">
-            <label for="email">{{ __('E-Mail Address') }}</label>
-        </div>
-
+    <form-field name="email" field-id="email" label="Email Address">
         <div class="field-group">
             <input id="email" type="email" class="field" name="email" value="{{ $email ?? old('email') }}" required autofocus>
         </div>
+    </form-field>
 
-        @if ($errors->has('email'))
-            <div class="field-error" role="alert">{{ $errors->first('email') }}</div>
-        @endif
-    </div>
-
-    <div class="field-wrapper">
-        <div class="field-label">
-            <label for="password">{{ __('Password') }}</label>
-        </div>
-
+    <form-field name="password" field-id="password" label="Password">
         <div class="field-group">
             <input id="password" type="password" class="field" name="password" required>
         </div>
+    </form-field>
 
-        @if ($errors->has('password'))
-            <div class="field-error" role="alert">{{ $errors->first('password') }}</div>
-        @endif
-    </div>
-
-    <div class="field-wrapper">
-        <div class="field-label">
-            <label for="password-confirm">{{ __('Confirm Password') }}</label>
-        </div>
-
+    <form-field name="password_confirmation" field-id="password-confirm" label="Confirm Password">
         <div class="field-group">
             <input id="password-confirm" type="password" class="field" name="password_confirmation" required>
         </div>
-    </div>
+    </form-field>
 
-    <button type="submit" class="button button-primary button-large">
-        {{ __('Reset Password') }}
-    </button>
+    <div class="controls">
+        <button type="submit" class="button button-primary button-large">
+            Reset Password
+        </button>
+    </div>
 </form>

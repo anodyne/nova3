@@ -1,4 +1,4 @@
-<h1 class="mb-8 font-extrabold text-primary-600 text-5xl">Reset Password</h1>
+<h1 class="header">Reset Password</h1>
 
 @if (session('status'))
     <div class="alert alert-success" role="alert">
@@ -12,24 +12,18 @@
     </div>
 @endif
 
-<form action="{{ route('password.email') }}" method="POST">
+<form action="{{ route('password.email') }}" method="POST" role="form">
     @csrf
 
-    <div class="field-wrapper">
-        <div class="field-label">
-            <label for="email">{{ __('E-Mail Address') }}</label>
-        </div>
-
+    <form-field field-id="email" label="Email Address">
         <div class="field-group">
             <input id="email" type="email" class="field" name="email" value="{{ old('email') }}" required>
         </div>
+    </form-field>
 
-        @if ($errors->has('email'))
-            <div class="form-error" role="alert">{{ $errors->first('email') }}</div>
-        @endif
+    <div class="controls">
+        <button type="submit" class="button button-primary button-large">
+            Send Password Reset Link
+        </button>
     </div>
-
-    <button type="submit" class="button button-primary button-large">
-        {{ __('Send Password Reset Link') }}
-    </button>
 </form>
