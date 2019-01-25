@@ -1522,9 +1522,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000929:
-  version "1.0.30000930"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000930.tgz#c238bab82bedb462bcbdc61d0334932dcc084d8a"
-  integrity sha512-KD+pw9DderBLB8CGqBzYyFWpnrPVOEjsjargU/CvkNyg60od3cxSPTcTeMPhxJhDbkQPWvOz5BAyBzNl/St9vg==
+  version "1.0.30000932"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000932.tgz#d01763e9ce77810962ca7391ff827b5949ce4272"
+  integrity sha512-4bghJFItvzz8m0T3lLZbacmEY9X1Z2AtIzTr7s7byqZIOumASfr4ynDx7rtm0J85nDmx8vsgR6vnaSoeU8Oh0A==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -2486,9 +2486,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.103:
-  version "1.3.106"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.106.tgz#672183160e783cb546cff83d9a98d5f69cd91874"
-  integrity sha512-eXX45p4q9CRxG0G8D3ZBZYSdN3DnrcZfrFvt6VUr1u7aKITEtRY/xwWzJ/UZcWXa7DMqPu/pYwuZ6Nm+bl0GmA==
+  version "1.3.108"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.108.tgz#2e79a6fcaa4b3e7c75abf871505bda8e268c910e"
+  integrity sha512-/QI4hMpAh48a1Sea6PALGv+kuVne9A2EWGd8HrWHMdYhIzGtbhVVHh6heL5fAzGaDnZuPyrlWJRl8WPm4RyiQQ==
 
 elliptic@^6.0.0:
   version "6.4.1"
@@ -3020,9 +3020,9 @@ faye-websocket@~0.11.1:
     websocket-driver ">=0.5.1"
 
 feather-icons@^4.10.0:
-  version "4.10.0"
-  resolved "https://registry.yarnpkg.com/feather-icons/-/feather-icons-4.10.0.tgz#5c2ba00ecf6f0529e99ab445d054fa6bd0b9c8d6"
-  integrity sha512-oxAlPBN6nO5IkRg0+hOOm26lDCEREcNpTTqSKKp8bYMyqKK1OIAjlbxMvLz8tSkS/hToTBEb/IhqIyt/aP9Z3w==
+  version "4.12.0"
+  resolved "https://registry.yarnpkg.com/feather-icons/-/feather-icons-4.12.0.tgz#534bd6ab58a6120b3ac56d44724e516ec47ce5ba"
+  integrity sha512-D25fdV9gHE1bjrivhO7pxTkn6rbrBILtpYcLY8PLK3YuCtot9HwMbozjB4OrSzd1ZJaAOmMCZG0qcaE0UKKJ9A==
   dependencies:
     classnames "^2.2.5"
     core-js "^2.5.3"
