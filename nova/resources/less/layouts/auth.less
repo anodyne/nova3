@@ -88,8 +88,50 @@
     }
 }
 
-.layout-auth-two-pane {}
+.layout-auth-two-pane {
+    @apply .flex .items-start .h-screen;
+
+    section {
+        @apply .flex .flex-col-reverse .w-full .mx-auto .bg-white;
+
+        aside,
+        main {
+            @apply .flex .flex-col .w-full .p-12;
+        }
+
+        aside {
+            @apply .bg-grey-800;
+        }
+    }
+
+    .header {
+        @apply .mb-8 .font-extrabold .text-primary-600 .text-5xl .leading-tight;
+    }
+
+    .controls {
+        @apply .flex .flex-col .items-center .justify-between;
+    }
+}
 
 @screen sm {
-    .layout-auth-two-pane {}
+    .layout-auth-two-pane {
+        @apply .items-center;
+
+        section {
+            @apply .w-2/3 .flex-row .rounded .shadow-lg;
+
+            aside,
+            main {
+                @apply .w-1/2 .self-center;
+            }
+
+            aside {
+                @apply .rounded-l;
+            }
+        }
+
+        .controls {
+            @apply .flex-row;
+        }
+    }
 }
