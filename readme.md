@@ -1,5 +1,9 @@
 # Nova NextGen
 
+[![Build Status](https://travis-ci.com/anodyne/nova3.svg?branch=dev)](https://travis-ci.com/anodyne/nova3)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c13ee0758ec75510e170/maintainability)](https://codeclimate.com/github/anodyne/nova3/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/c13ee0758ec75510e170/test_coverage)](https://codeclimate.com/github/anodyne/nova3/test_coverage)
+
 ## Installation
 
 ```bash
