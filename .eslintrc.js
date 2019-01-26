@@ -72,7 +72,7 @@ module.exports = {
         }],
         'vue/multiline-html-element-content-newline': 'off',
         'vue/no-unused-components': 'off',
-        'vue/no-v-html': 'warning',
+        'vue/no-v-html': 'warn',
         'vue/singleline-html-element-content-newline': 'off',
     }
 };
