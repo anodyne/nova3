@@ -25,7 +25,7 @@
                     {{ placeholderEmptyState }}
                 </div>
             </div>
-            <app-icon name="chevron-down" class="picker-caret"></app-icon>
+            <nova-icon name="chevron-down" class="picker-caret"></nova-icon>
         </button>
 
         <div
