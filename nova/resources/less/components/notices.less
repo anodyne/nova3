@@ -27,7 +27,21 @@
         }
     }
 
-    .snackbar {}
+    .snackbar {
+        @apply .inline-flex .items-center .justify-around .my-2 .rounded-sm .bg-grey-800 .text-grey-100 .shadow;
+
+        .message {
+            @apply .py-2 .px-4;
+        }
+
+        .action {
+            @apply .mr-4;
+
+            .button {
+                @apply .rounded-sm;
+            }
+        }
+    }
 
     .toast,
     .snackbar {
