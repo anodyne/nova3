@@ -1,0 +1,57 @@
+.notices {
+    @apply .fixed .flex .pin .p-6 .overflow-hidden .z-1000 .pointer-events-none;
+
+    .toast {
+        @apply .inline-flex .items-center .my-3 .text-center .shadow .rounded .py-3 .px-6 .pointer-events-auto .bg-grey-800 .text-grey-100 .font-medium;
+
+        opacity: 0.92;
+
+        .icon {
+            @apply .h-6 .w-6 .mr-3 .text-grey-200 .leading-0;
+        }
+
+        &.is-danger {
+            @apply .bg-danger-400 .text-white;
+
+            .icon {
+                @apply .text-danger-100;
+            }
+        }
+
+        &.is-success {
+            @apply .bg-success-400 .text-white;
+
+            .icon {
+                @apply .text-success-100;
+            }
+        }
+    }
+
+    .snackbar {}
+
+    .toast,
+    .snackbar {
+        &.is-top,
+        &.is-bottom {
+            @apply .self-center;
+        }
+
+        &.is-top-right,
+        &.is-bottom-right {
+            @apply .self-end;
+        }
+
+        &.is-top-left,
+        &.is-bottom-left {
+            @apply .self-start;
+        }
+    }
+
+    &.is-top {
+        @apply .flex-col;
+    }
+
+    &.is-bottom {
+        @apply .flex-col-reverse;
+    }
+}

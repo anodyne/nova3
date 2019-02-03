@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import axios from '@/util/axios';
 import Alert from '@/util/alert';
+import Toast from '@/util/toast';
 import FormErrors from './util/form-errors';
 
 export default class Nova {
@@ -17,6 +18,10 @@ export default class Nova {
 
     alert () {
         return new Alert(this.config.alert);
+    }
+
+    toast () {
+        return new Toast();
     }
 
     booting (callback) {
