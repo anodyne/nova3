@@ -1,5 +1,5 @@
 <template>
-    <transition
+    <!-- <transition
         :enter-active-class="transition.enter"
         :leave-active-class="transition.leave"
     >
@@ -19,44 +19,42 @@
                 <button class="button button-dark">{{ actionText }}</button>
             </div>
         </div>
-    </transition>
+    </transition> -->
+    <div></div>
 </template>
 
 <script>
-import config from '@/mixins/config';
-import NoticesMixin from '@/mixins/NoticesMixin';
-
 export default {
-    name: 'NovaSnackbar',
+    name: 'NovaSnackbar'
 
-    mixins: [NoticesMixin],
+    // mixins: [NoticesMixin],
 
-    props: {
-        actionText: {
-            type: String,
-            default: 'OK'
-        },
-        onAction: {
-            type: Function,
-            default: () => {}
-        },
-        indefinite: {
-            type: Boolean,
-            default: false
-        }
-    },
+    // props: {
+    //     actionText: {
+    //         type: String,
+    //         default: 'OK'
+    //     },
+    //     onAction: {
+    //         type: Function,
+    //         default: () => {}
+    //     },
+    //     indefinite: {
+    //         type: Boolean,
+    //         default: false
+    //     }
+    // },
 
-    data () {
-        return {
-            newDuration: this.duration || config.defaultSnackbarDuration
-        };
-    },
+    // data () {
+    //     return {
+    //         newDuration: this.duration || config.defaultSnackbarDuration
+    //     };
+    // },
 
-    methods: {
-        action () {
-            this.onAction();
-            this.close();
-        }
-    }
+    // methods: {
+    //     action () {
+    //         this.onAction();
+    //         this.close();
+    //     }
+    // }
 };
 </script>
