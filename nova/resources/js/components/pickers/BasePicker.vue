@@ -29,7 +29,7 @@
         </button>
 
         <div
-            v-if="isOpen"
+            v-show="isOpen"
             ref="dropdown"
             class="picker-select-dropdown"
         >
@@ -217,7 +217,30 @@ export default {
         setupPopper () {
             if (this.popper === undefined) {
                 this.popper = new Popper(this.$refs.trigger, this.$refs.dropdown, {
-                    placement: 'bottom'
+                    placement: 'bottom',
+                    positionFixed: true,
+                    modifiers: {
+                        flip: {
+                            boundariesElement: 'viewport'
+                        },
+                        preventOverflow: {
+                            boundariesElement: 'viewport'
+                        },
+                        autoSizing: {
+                            enabled: true,
+                            fn: (data) => {
+                                const newData = data;
+
+                                newData.offsets.popper.left = newData.offsets.reference.left;
+                                newData.offsets.popper.right = newData.offsets.reference.right;
+                                newData.styles.width = newData.offsets.reference.width;
+                                newData.offsets.popper.width = newData.styles.width;
+
+                                return newData;
+                            },
+                            order: 840
+                        }
+                    }
                 });
             } else {
                 this.popper.scheduleUpdate();
