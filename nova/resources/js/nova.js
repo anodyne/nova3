@@ -2,6 +2,7 @@ import Vue from 'vue';
 import axios from '@/util/axios';
 import Alert from '@/util/alert';
 import Toast from '@/util/toast';
+import Snackbar from '@/util/snackbar';
 import FormErrors from './util/form-errors';
 
 export default class Nova {
@@ -18,6 +19,10 @@ export default class Nova {
 
     alert () {
         return new Alert(this.config.alert);
+    }
+
+    snackbar () {
+        return new Snackbar();
     }
 
     toast () {

@@ -14,67 +14,20 @@
 </template>
 
 <script>
-import has from 'lodash/has';
+import NoticesHelpers from '@/mixins/NoticesHelpers';
 
 export default {
     name: 'NovaToast',
 
-    props: {
-        session: {
-            type: Object,
-            default: null
-        }
-    },
+    mixins: [NoticesHelpers],
 
     data () {
         return {
-            duration: 3000,
-            isActive: false,
-            message: '',
-            position: 'is-bottom-right',
-            type: 'is-dark'
+            duration: 3000
         };
     },
 
-    computed: {
-        transition () {
-            switch (this.position) {
-                case 'is-bottom':
-                default:
-                    return {
-                        enter: 'animated faster fadeInUp',
-                        leave: 'animated faster fadeOutDown'
-                    };
-
-                case 'is-top':
-                    return {
-                        enter: 'animated faster fadeInDown',
-                        leave: 'animated faster fadeOutUp'
-                    };
-
-                case 'is-bottom-right':
-                case 'is-top-right':
-                    return {
-                        enter: 'animated faster fadeInRight',
-                        leave: 'animated faster fadeOutRight'
-                    };
-
-                case 'is-bottom-left':
-                case 'is-top-left':
-                    return {
-                        enter: 'animated faster fadeInLeft',
-                        leave: 'animated faster fadeOutLeft'
-                    };
-            }
-        }
-    },
-
     mounted () {
-        if (this.session !== null) {
-            this.setData(this.session);
-            this.show();
-        }
-
         Nova.$on('nova.notices.toast', (params) => {
             this.setData(params);
             this.show();
@@ -82,17 +35,6 @@ export default {
     },
 
     methods: {
-        close () {
-            clearTimeout(this.timer);
-            this.isActive = false;
-        },
-
-        setData (data) {
-            this.message = has(data, 'message') ? data.message : '';
-            this.position = has(data, 'position') ? data.position : 'is-bottom';
-            this.type = has(data, 'type') ? data.type : 'is-dark';
-        },
-
         show () {
             this.isActive = true;
 

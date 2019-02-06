@@ -1,6 +1,7 @@
 <template>
     <div class="notices" :class="parentStyles">
         <nova-toast :session="toastData"></nova-toast>
+        <nova-snackbar :session="snackbarData"></nova-snackbar>
     </div>
 </template>
 
@@ -33,6 +34,14 @@ export default {
             };
         },
 
+        snackbarData () {
+            if (has(this.session, 'snackbar')) {
+                return this.session.snackbar;
+            }
+
+            return null;
+        },
+
         toastData () {
             if (has(this.session, 'toast')) {
                 return this.session.toast;
@@ -47,7 +56,15 @@ export default {
             if (has(this.session, 'toast')) {
                 this.setData(this.session.toast);
             }
+
+            if (has(this.session, 'snackbar')) {
+                this.setData(this.session.snackbar);
+            }
         }
+
+        Nova.$on('nova.notices.snackbar', (params) => {
+            this.setData(params);
+        });
 
         Nova.$on('nova.notices.toast', (params) => {
             this.setData(params);

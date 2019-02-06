@@ -1,8 +1,5 @@
 <template>
-    <!-- <transition
-        :enter-active-class="transition.enter"
-        :leave-active-class="transition.leave"
-    >
+    <transition :enter-active-class="transition.enter" :leave-active-class="transition.leave">
         <div
             v-show="isActive"
             class="snackbar"
@@ -10,51 +7,62 @@
         >
             <p class="message">{{ message }}</p>
 
-            <div
-                v-if="actionText"
-                class="action"
-                :class="type"
-                @click="action"
-            >
-                <button class="button button-dark">{{ actionText }}</button>
+            <div v-if="actionText" class="action">
+                <button
+                    class="button"
+                    :class="type"
+                    @click="action"
+                >
+                    {{ actionText }}
+                </button>
             </div>
         </div>
-    </transition> -->
-    <div></div>
+    </transition>
 </template>
 
 <script>
+import has from 'lodash/has';
+import NoticesHelpers from '@/mixins/NoticesHelpers';
+
 export default {
-    name: 'NovaSnackbar'
+    name: 'NovaSnackbar',
 
-    // mixins: [NoticesMixin],
+    mixins: [NoticesHelpers],
 
-    // props: {
-    //     actionText: {
-    //         type: String,
-    //         default: 'OK'
-    //     },
-    //     onAction: {
-    //         type: Function,
-    //         default: () => {}
-    //     },
-    //     indefinite: {
-    //         type: Boolean,
-    //         default: false
-    //     }
-    // },
+    data () {
+        return {
+            actionText: 'OK',
+            actionFunction: null
+        };
+    },
 
-    // data () {
-    //     return {
-    //         newDuration: this.duration || config.defaultSnackbarDuration
-    //     };
-    // },
+    mounted () {
+        Nova.$on('nova.notices.snackbar', (params) => {
+            this.setData(params);
+            this.show();
+        });
+    },
 
-    // methods: {
-    //     action () {
-    //         this.onAction();
-    //         this.close();
-    //     }
-    // }
+    methods: {
+        action () {
+            if (this.actionFunction) {
+                this.actionFunction();
+            } else {
+                this.close();
+            }
+        },
+
+        setData (data) {
+            this.message = has(data, 'message') ? data.message : '';
+            this.position = has(data, 'position') ? data.position : 'is-bottom';
+            this.type = has(data, 'type') ? data.type : 'is-dark';
+            this.actionText = has(data, 'actionText') ? data.actionText : 'OK';
+            this.actionFunction = has(data, 'actionFunction') ? data.actionFunction : null;
+        },
+
+        show () {
+            this.isActive = true;
+        }
+    }
 };
 </script>
