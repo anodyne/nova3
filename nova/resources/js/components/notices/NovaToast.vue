@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import NoticesHelpers from '@/mixins/NoticesHelpers';
+import Noticeable from '@/mixins/Noticeable';
 
 export default {
     name: 'NovaToast',
 
-    mixins: [NoticesHelpers],
+    mixins: [Noticeable],
 
     data () {
         return {

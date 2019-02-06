@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import axios from '@/util/axios';
-import Alert from '@/util/alert';
-import Toast from '@/util/toast';
-import Snackbar from '@/util/snackbar';
+import Alert from '@/util/notices/alert';
+import Toast from '@/util/notices/toast';
+import Snackbar from '@/util/notices/snackbar';
 import FormErrors from './util/form-errors';
 
 export default class Nova {

@@ -22,12 +22,12 @@
 
 <script>
 import has from 'lodash/has';
-import NoticesHelpers from '@/mixins/NoticesHelpers';
+import Noticeable from '@/mixins/Noticeable';
 
 export default {
     name: 'NovaSnackbar',
 
-    mixins: [NoticesHelpers],
+    mixins: [Noticeable],
 
     data () {
         return {
