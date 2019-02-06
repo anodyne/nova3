@@ -29,7 +29,7 @@
         @endif
     </div>
 
-    <button type="submit" class="button button-primary button-large">
+    <button type="submit" class="button is-primary is-large">
         {{ __('Send Password Reset Link') }}
     </button>
 </form>
