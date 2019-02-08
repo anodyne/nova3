@@ -11,19 +11,23 @@
     }
 }
 
-.button-small {
+.is-mini {
     @apply .text-sm .py-1 .px-2;
 }
 
-.button-medium {
-    @apply .py-3 .px-6;
+.is-small {
+    @apply .text-sm .py-2 .px-4;
 }
 
-.button-large {
+.is-large {
     @apply .py-4 .px-8;
 }
 
-.button-primary {
+.is-huge {
+    @apply .py-8 .px-16;
+}
+
+.is-primary {
     @apply .bg-primary-400 .text-white;
 
     &:hover {
@@ -31,7 +35,7 @@
     }
 }
 
-.button-secondary {
+.is-secondary {
     @apply .bg-grey-50 .text-grey-500;
 
     &:hover {
@@ -39,7 +43,7 @@
     }
 }
 
-.button-danger {
+.is-danger {
     @apply .bg-danger-50 .text-danger-500;
 
     &:hover {
@@ -47,7 +51,15 @@
     }
 }
 
-.button-text {
+.is-dark {
+    @apply .bg-grey-600 .text-grey-100;
+
+    &:hover {
+        @apply .bg-grey-500 .text-white;
+    }
+}
+
+.is-text {
     @apply .p-0 .bg-transparent .normal-case .tracking-normal;
 
     &:hover {

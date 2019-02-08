@@ -37,9 +37,8 @@ class ThemeController extends Controller
         event(new Events\ThemeCreated($theme));
 
         alert()
-            ->withTitle('Success!')
             ->withMessage('Theme was successfully created.')
-            ->success();
+            ->toastSuccess();
 
         return redirect()->route('themes.index');
     }
@@ -57,9 +56,8 @@ class ThemeController extends Controller
         event(new Events\ThemeUpdated($theme->fresh()));
 
         alert()
-            ->withTitle('Success!')
             ->withMessage('Theme was successfully updated.')
-            ->success();
+            ->toastSuccess();
 
         return redirect()->route('themes.index');
     }

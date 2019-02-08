@@ -4,7 +4,7 @@
     Themes
 
     @slot('controls')
-        <a href="{{ route('themes.create') }}" class="button button-primary">
+        <a href="{{ route('themes.create') }}" class="button is-primary">
             Create Theme
         </a>
     @endslot
@@ -23,11 +23,11 @@
                 <div class="card-body"></div>
 
                 <div class="card-footer">
-                    <a href="{{ route('themes.edit', $theme) }}" class="button button-secondary">
-                        <app-icon name="edit"></app-icon>
+                    <a href="{{ route('themes.edit', $theme) }}" class="button is-secondary">
+                        <nova-icon name="edit"></nova-icon>
                     </a>
-                    <a href="{{ route('themes.edit', $theme) }}" class="button button-danger">
-                        <app-icon name="delete"></app-icon>
+                    <a href="{{ route('themes.edit', $theme) }}" class="button is-danger">
+                        <nova-icon name="delete"></nova-icon>
                     </a>
                 </div>
             </div>

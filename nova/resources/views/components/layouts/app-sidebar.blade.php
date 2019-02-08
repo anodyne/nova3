@@ -8,30 +8,30 @@
             <div class="flex flex-col -mx-6">
                 <a href="#" class="sidebar-link">
                     <div class="flex items-center">
-                        <app-icon name="home" class="mr-3"></app-icon>
+                        <nova-icon name="home" class="mr-3"></nova-icon>
                         Dashboard
                     </div>
                 </a>
                 <a href="#" class="sidebar-link">
                     <div class="flex items-center">
-                        <app-icon name="file" class="mr-3"></app-icon>
+                        <nova-icon name="file" class="mr-3"></nova-icon>
                         Pages
                     </div>
-                    <app-icon name="chevron-down" class="h-4 w-4"></app-icon>
+                    <nova-icon name="chevron-down" class="h-4 w-4"></nova-icon>
                 </a>
                 <a href="#" class="sidebar-link">
                     <div class="flex items-center">
-                        <app-icon name="user" class="mr-3"></app-icon>
+                        <nova-icon name="user" class="mr-3"></nova-icon>
                         Authentication
                     </div>
-                    <app-icon name="chevron-down" class="h-4 w-4"></app-icon>
+                    <nova-icon name="chevron-down" class="h-4 w-4"></nova-icon>
                 </a>
                 <a href="#" class="sidebar-link">
                     <div class="flex items-center">
-                        <app-icon name="layout" class="mr-3"></app-icon>
+                        <nova-icon name="layout" class="mr-3"></nova-icon>
                         Layouts
                     </div>
-                    <app-icon name="chevron-down" class="h-4 w-4"></app-icon>
+                    <nova-icon name="chevron-down" class="h-4 w-4"></nova-icon>
                 </a>
             </div>
 
@@ -42,20 +42,20 @@
             <div class="flex flex-col -mx-6">
                 <a href="#" class="sidebar-link">
                     <div class="flex items-center">
-                        <app-icon name="clipboard" class="mr-3"></app-icon>
+                        <nova-icon name="clipboard" class="mr-3"></nova-icon>
                         Getting started
                     </div>
                 </a>
                 <a href="#" class="sidebar-link">
                     <div class="flex items-center">
-                        <app-icon name="book-open" class="mr-3"></app-icon>
+                        <nova-icon name="book-open" class="mr-3"></nova-icon>
                         Components
                     </div>
-                    <app-icon name="chevron-down" class="h-4 w-4"></app-icon>
+                    <nova-icon name="chevron-down" class="h-4 w-4"></nova-icon>
                 </a>
                 <a href="#" class="sidebar-link">
                     <div class="flex items-center">
-                        <app-icon name="git-branch" class="mr-3"></app-icon>
+                        <nova-icon name="git-branch" class="mr-3"></nova-icon>
                         Changelog
                     </div>
                     <div class="rounded bg-blue text-white text-2xs py-1 px-2">v1.0</div>
@@ -66,7 +66,7 @@
                     onclick="event.preventDefault();document.getElementById('logout-form').submit();"
                 >
                     <div class="flex items-center">
-                        <app-icon name="sign-out" class="mr-3"></app-icon>
+                        <nova-icon name="sign-out" class="mr-3"></nova-icon>
                         Log out
                     </div>
                 </a>
@@ -78,7 +78,7 @@
 
         <div class="sidebar-footer">
             <a href="#" class="sidebar-footer-link">
-                <app-icon name="notification"></app-icon>
+                <nova-icon name="notification"></nova-icon>
             </a>
 
             <div class="flex items-center">
@@ -88,11 +88,11 @@
                         :show-status="false"
                         type="image"></avatar>
                 <icon name="chevron-down" size="small" classes="ml-1"></icon> --}}
-                <app-icon name="chevron-down" class="h-4 w-4 ml-1 text-grey"></app-icon>
+                <nova-icon name="chevron-down" class="h-4 w-4 ml-1 text-grey"></nova-icon>
             </div>
 
             <a href="#" class="sidebar-footer-link">
-                <app-icon name="search"></app-icon>
+                <nova-icon name="search"></nova-icon>
             </a>
         </div>
     </nav>

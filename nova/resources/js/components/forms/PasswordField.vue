@@ -10,10 +10,10 @@
                 @click="toggleFieldType"
             >
                 <div v-show="showPassword" class="leading-0">
-                    <app-icon name="hide"></app-icon>
+                    <nova-icon name="hide"></nova-icon>
                 </div>
                 <div v-show="!showPassword" class="leading-0">
-                    <app-icon name="show"></app-icon>
+                    <nova-icon name="show"></nova-icon>
                 </div>
             </a>
         </div>
