@@ -6,11 +6,11 @@
         placeholder-search="Find a layout"
         :filter-function="filterLayouts"
     >
-        <template slot="picker-select-input" slot-scope="{ selected }">
+        <template v-slot:picker-select-input="{ selected }">
             {{ selected.name }}
         </template>
 
-        <template slot="picker-select-item" slot-scope="{ item }">
+        <template v-slot:picker-select-item="{ item }">
             {{ item.name }}
         </template>
     </base-picker>

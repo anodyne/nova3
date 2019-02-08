@@ -6,7 +6,7 @@
         placeholder-search="Find an icon set"
         :filter-function="filterIconSets"
     >
-        <template slot="picker-select-input" slot-scope="{ selected }">
+        <template v-slot:picker-select-input="{ selected }">
             <component
                 :is="selected.component"
                 :key="selected.value"
@@ -15,7 +15,7 @@
             {{ selected.name }}
         </template>
 
-        <template slot="picker-select-item" slot-scope="{ item }">
+        <template v-slot:picker-select-item="{ item }">
             <component
                 :is="item.component"
                 :name="item.icon"
