@@ -1,9 +1,10 @@
 <template>
-    <div class="avatar" :class="containerStyles">
+    <div :class="avatarStyles">
         <div class="avatar-image"></div>
 
         <div v-if="showMeta" class="avatar-meta">
             <div class="avatar-meta-title">{{ name }}</div>
+
             <div v-if="size !== 'sm'" class="avatar-meta-subtitle">
                 <slot>Position name</slot>
             </div>
@@ -20,22 +21,18 @@ export default {
             type: Object,
             default: () => { return {}; }
         },
-
         showMeta: {
             type: Boolean,
             default: true
         },
-
-        spread: {
-            type: Boolean,
-            default: true
-        },
-
         size: {
             type: String,
             default: 'md'
         },
-
+        spread: {
+            type: Boolean,
+            default: true
+        },
         stacked: {
             type: Boolean,
             default: false
@@ -43,8 +40,9 @@ export default {
     },
 
     computed: {
-        containerStyles () {
+        avatarStyles () {
             return {
+                avatar: true,
                 'avatar-spread': this.spread,
                 'avatar-stacked': this.stacked,
                 'avatar-sm': this.size === 'sm',
