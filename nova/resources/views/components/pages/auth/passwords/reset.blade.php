@@ -1,4 +1,4 @@
-<h1 class="mb-8 font-extrabold text-blue-dark text-5xl">Reset Password</h1>
+<h1 class="mb-8 font-extrabold text-primary-600 text-5xl">Reset Password</h1>
 
 <form action="{{ route('password.update') }}" method="POST">
     @csrf
@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <button type="submit" class="button button-primary button-large">
+    <button type="submit" class="button is-primary is-large">
         {{ __('Reset Password') }}
     </button>
 </form>

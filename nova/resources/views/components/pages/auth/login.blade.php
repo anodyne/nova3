@@ -1,4 +1,4 @@
-<h1 class="mb-8 font-extrabold text-blue-dark text-5xl">Sign In</h1>
+<h1 class="mb-8 font-extrabold text-primary-600 text-5xl">Sign In</h1>
 
 <form action="{{ route('login') }}" method="POST">
     @csrf
@@ -17,13 +17,13 @@
 
     <div class="flex items-center justify-between">
         <div>
-            <button type="submit" class="button button-primary button-large">
+            <button type="submit" class="button is-primary is-large">
                 {{ __('Sign In') }}
             </button>
         </div>
 
         @if (Route::has('password.request'))
-            <a class="btn btn-link" href="{{ route('password.request') }}">
+            <a class="button is-text" href="{{ route('password.request') }}">
                 {{ __('Forgot Your Password?') }}
             </a>
         @endif

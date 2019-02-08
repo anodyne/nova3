@@ -30,7 +30,7 @@
                     name="location"
                 >
                     <div class="field-group">
-                        <div class="field-addon font-mono text-sm text-grey-dark">themes/</div>
+                        <div class="field-addon font-mono text-sm text-grey-400">themes/</div>
 
                         <input type="text" name="location" id="location" class="field" value="{{ old('location') }}">
                     </div>
@@ -80,7 +80,8 @@
                     field-id="icon_set"
                     name="icon_set"
                 >
-                    <icon-set-picker name="icon_set"></icon-set-picker>
+                    <icon-set-picker name="icon_set" v-model="iconSet"></icon-set-picker>
+                    <input type="hidden" name="icon_set" :value="iconSet">
                 </form-field>
             </div>
         </div>
@@ -106,9 +107,9 @@
         </div>
 
         <div class="form-controls">
-            <button type="submit" class="button button-primary button-large">Create</button>
+            <button type="submit" class="button is-primary is-large">Create</button>
 
-            <a href="{{ route('themes.index') }}" class="button button-large">Cancel</a>
+            <a href="{{ route('themes.index') }}" class="button is-secondary is-large">Cancel</a>
         </div>
     </form>
 </section>

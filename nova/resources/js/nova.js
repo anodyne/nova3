@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import axios from '@/util/axios';
-import Alert from '@/util/alert';
+import Alert from '@/util/notices/alert';
+import Toast from '@/util/notices/toast';
+import Snackbar from '@/util/notices/snackbar';
 import FormErrors from './util/form-errors';
 
 export default class Nova {
@@ -10,12 +12,21 @@ export default class Nova {
         this.config = {
             alert: {}
         };
-        this.mixin = {};
+        this.data = {};
         this.formErrors = {};
+        this.mixin = {};
     }
 
     alert () {
         return new Alert(this.config.alert);
+    }
+
+    snackbar () {
+        return new Snackbar();
+    }
+
+    toast () {
+        return new Toast();
     }
 
     booting (callback) {
@@ -64,6 +75,8 @@ export default class Nova {
             ...this.config,
             ...config
         };
+
+        this.data = config.response;
     }
 
     setFormErrors (errors) {

@@ -43,6 +43,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('nova.data.response', function ($app) {
+            return [];
+        });
+
         $this->app->bind('nova.data.frontend', function ($app) {
             return collect(['system' => [
                 'name' => 'Nova NextGen'

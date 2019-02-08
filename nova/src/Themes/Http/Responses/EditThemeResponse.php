@@ -10,6 +10,7 @@ class EditThemeResponse extends BaseResponsable
     {
         return [
             'page' => 'themes.edit',
+            'script' => 'themes.edit',
         ];
     }
 }

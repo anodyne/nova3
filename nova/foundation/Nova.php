@@ -13,6 +13,8 @@ class Nova
      */
     public function provideScriptVariables()
     {
-        return app('nova.data.frontend')->toJson();
+        return app('nova.data.frontend')
+            ->merge(['response' => app('nova.data.response')])
+            ->toJson();
     }
 }

@@ -6,7 +6,7 @@
 import find from 'lodash/find';
 
 export default {
-    name: 'AppIcon',
+    name: 'NovaIcon',
 
     props: {
         name: {

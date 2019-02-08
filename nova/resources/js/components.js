@@ -3,7 +3,7 @@ import Vue from 'vue';
 const files = require.context('./', true, /\.vue$/i);
 
 const excludedComponents = [
-    './plugins/popover/Popover.vue'
+    //
 ];
 
 files.keys()

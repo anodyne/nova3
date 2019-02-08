@@ -2,7 +2,7 @@
 import Swal from 'sweetalert2';
 
 export default {
-    name: 'AppAlert',
+    name: 'NovaAlert',
 
     props: {
         session: {

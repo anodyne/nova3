@@ -1,4 +1,4 @@
-<h1 class="mb-8 font-extrabold text-blue-dark text-5xl">Reset Password</h1>
+<h1 class="mb-8 font-extrabold text-primary-600 text-5xl">Reset Password</h1>
 
 @if (session('status'))
     <div class="alert alert-success" role="alert">
@@ -29,7 +29,7 @@
         @endif
     </div>
 
-    <button type="submit" class="button button-primary button-large">
+    <button type="submit" class="button is-primary is-large">
         {{ __('Send Password Reset Link') }}
     </button>
 </form>
