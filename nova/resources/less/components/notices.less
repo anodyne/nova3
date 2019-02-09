@@ -2,19 +2,39 @@
     @apply .fixed .flex .pin .p-6 .overflow-hidden .z-1000 .pointer-events-none;
 
     .alert {
-        @apply .inline-flex .items-center .my-3 .text-center .shadow .rounded .py-3 .px-6 .pointer-events-auto .bg-grey-800 .text-grey-100 .font-medium;
+        @apply .inline-flex .items-center .my-3 .text-center .shadow .rounded .py-4 .px-8 .pointer-events-auto .font-medium;
 
         opacity: 0.92;
-
-        .icon {
-            @apply .h-6 .w-6 .mr-3 .text-grey-200 .leading-0;
-        }
 
         .action {
             @apply .ml-6;
 
             .button {
-                @apply .my-0 .rounded-sm;
+                @apply .m-0 .p-0 .rounded-none .bg-transparent .text-grey-300;
+
+                &.is-danger {
+                    @apply .text-danger-300;
+
+                    &:hover {
+                        @apply .text-danger-200;
+                    }
+                }
+
+                &.is-dark {
+                    @apply .text-primary-300;
+
+                    &:hover {
+                        @apply .text-primary-200;
+                    }
+                }
+
+                &.is-success {
+                    @apply .text-success-300;
+
+                    &:hover {
+                        @apply .text-success-200;
+                    }
+                }
             }
         }
 
@@ -35,18 +55,14 @@
 
         &.is-danger {
             @apply .bg-danger-400 .text-white;
+        }
 
-            .icon {
-                @apply .text-danger-100;
-            }
+        &.is-dark {
+            @apply .bg-grey-800 .text-grey-100;
         }
 
         &.is-success {
             @apply .bg-success-400 .text-white;
-
-            .icon {
-                @apply .text-success-100;
-            }
         }
     }
 
