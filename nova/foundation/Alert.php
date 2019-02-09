@@ -10,6 +10,7 @@ class Alert
     public $type;
     public $position = 'is-bottom';
     public $toast;
+    public $actionText;
 
     /**
      * Set the position of the alert.
@@ -86,7 +87,7 @@ class Alert
     }
 
     /**
-     * Fire the alert.
+     * Create the alert.
      *
      * @return \Nova\Foundation\Alert
      */
@@ -96,6 +97,7 @@ class Alert
             'message' => $this->message,
             'type' => $this->type,
             'position' => $this->position,
+            'actionText' => $this->actionText,
         ]);
 
         return $this;

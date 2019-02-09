@@ -25,6 +25,22 @@ class AlertTest extends TestCase
     }
 
     /** @test **/
+    public function it_can_set_action_text()
+    {
+        $this->alert->withActionText('Save');
+
+        $this->assertEquals('Save', $this->alert->actionText);
+    }
+
+    /** @test **/
+    public function it_can_set_a_type_of_dark()
+    {
+        $this->alert->dark();
+
+        $this->assertEquals('is-dark', $this->alert->type);
+    }
+
+    /** @test **/
     public function it_can_set_a_type_of_error()
     {
         $this->alert->error();
