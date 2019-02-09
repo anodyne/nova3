@@ -87,9 +87,9 @@
         </div>
 
         <div class="form-controls">
-            <button type="submit" class="button button-primary button-large">Update</button>
+            <button type="submit" class="button is-primary is-large">Update</button>
 
-            <a href="{{ route('themes.index') }}" class="button button-secondary button-large">Cancel</a>
+            <a href="{{ route('themes.index') }}" class="button is-secondary is-large">Cancel</a>
         </div>
     </form>
 </section>
