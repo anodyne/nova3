@@ -46,7 +46,7 @@ class AlertTest extends TestCase
         $this->alert->toast()->dark();
 
         $this->assertTrue($this->alert->toast);
-        $this->assertTrue(session()->has('nova.notices.toast'));
+        $this->assertTrue(session()->has('nova.alert'));
     }
 
     /** @test **/

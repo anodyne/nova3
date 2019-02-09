@@ -92,11 +92,7 @@ class Alert
      */
     protected function createAlert()
     {
-        $flashKey = ($this->toast)
-            ? 'nova.notices.toast'
-            : 'nova.notices.snackbar';
-
-        session()->flash($flashKey, [
+        session()->flash('nova.alert', [
             'message' => $this->message,
             'type' => $this->type,
             'position' => $this->position,
