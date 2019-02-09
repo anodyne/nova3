@@ -1,4 +1,4 @@
-export default class Toast {
+export default class Alert {
     constructor () {
         this.actionText = '';
         this.actionFunction = null;
@@ -43,16 +43,22 @@ export default class Toast {
         return this;
     }
 
+    dark () {
+        this.type = 'is-dark';
+
+        this.make();
+    }
+
     error () {
         this.type = 'is-danger';
 
-        this.createToast();
+        this.make();
     }
 
     success () {
         this.type = 'is-success';
 
-        this.createToast();
+        this.make();
     }
 
     withAction (callback) {
