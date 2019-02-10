@@ -8,33 +8,7 @@ class Alert
 {
     public $message;
     public $type;
-    public $position = 'is-bottom';
-    public $toast;
-
-    /**
-     * Set the position of the alert.
-     *
-     * @param  string  $value
-     * @return \Nova\Foundation\Alert
-     */
-    public function position($value)
-    {
-        $this->position = "is-{$value}";
-
-        return $this;
-    }
-
-    /**
-     * Toast the alert.
-     *
-     * @return \Nova\Foundation\Alert
-     */
-    public function toast()
-    {
-        $this->toast = true;
-
-        return $this;
-    }
+    public $actionText;
 
     /**
      * Data to be used by the alert.
@@ -50,14 +24,12 @@ class Alert
     }
 
     /**
-     * Set the alert type to dark.
+     * Create an alert.
      *
      * @return \Nova\Foundation\Alert
      */
-    public function dark()
+    public function make()
     {
-        $this->type = 'is-dark';
-
         return $this->createAlert();
     }
 
@@ -86,20 +58,16 @@ class Alert
     }
 
     /**
-     * Fire the alert.
+     * Create the alert.
      *
      * @return \Nova\Foundation\Alert
      */
     protected function createAlert()
     {
-        $flashKey = ($this->toast)
-            ? 'nova.notices.toast'
-            : 'nova.notices.snackbar';
-
-        session()->flash($flashKey, [
+        session()->flash('nova.alert', [
             'message' => $this->message,
             'type' => $this->type,
-            'position' => $this->position,
+            'actionText' => $this->actionText,
         ]);
 
         return $this;
@@ -116,18 +84,8 @@ class Alert
      */
     public function __call($method, $parameters)
     {
-        if (Str::startsWith($method, 'toast')) {
-            $methodName = Str::camel(substr($method, 5));
-
-            return $this->toast()->{$methodName}();
-        }
-
         if (Str::startsWith($method, 'with')) {
             return $this->with(Str::camel(substr($method, 4)), $parameters[0]);
-        }
-
-        if (Str::startsWith($method, 'at')) {
-            return $this->position(Str::slug(Str::snake(substr($method, 2))));
         }
     }
 }

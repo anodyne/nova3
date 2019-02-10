@@ -8,19 +8,19 @@
     @apply .inline-flex .mr-4 .-mb-2px;
 
     > .tabs-nav-link {
-        @apply .py-2 .px-4 .border-b-2 .border-transparent .text-grey-dark;
+        @apply .py-2 .px-4 .border-b-2 .border-transparent .text-grey-400;
 
         &:hover {
-            @apply .text-grey-darker .border-grey;
+            @apply .text-grey-600 .border-grey-300;
         }
     }
 
     &.active {
         > .tabs-nav-link {
-            @apply .border-primary .text-grey-darkest;
+            @apply .border-primary-400 .text-grey-800;
 
             &:hover {
-                @apply .border-primary;
+                @apply .border-primary-400;
             }
         }
     }
@@ -33,19 +33,19 @@
         @apply .mb-0;
 
         > .tabs-nav-link {
-            @apply .text-grey-dark .rounded .border-none;
+            @apply .text-grey-400 .rounded .border-none;
 
             &:hover {
-                @apply .bg-grey-light .text-grey-darker;
+                @apply .bg-grey-200 .text-grey-600;
             }
         }
 
         &.active {
             > .tabs-nav-link {
-                @apply .bg-primary .text-white;
+                @apply .bg-primary-400 .text-white;
 
                 &:hover {
-                    @apply .bg-primary .text-white;
+                    @apply .bg-primary-400 .text-white;
                 }
             }
         }

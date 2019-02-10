@@ -14,7 +14,7 @@
                 <p class="form-section-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, ratione minus animi esse sit dicta, eos, atque omnis placeat enim tempora. Unde accusantium ad illo earum a sit saepe explicabo.</p>
             </div>
 
-            <div class="flex-1">
+            <div class="form-section-column-form">
                 <form-field
                     label="Name"
                     field-id="name"
@@ -87,9 +87,9 @@
         </div>
 
         <div class="form-controls">
-            <button type="submit" class="button button-primary button-large">Update</button>
+            <button type="submit" class="button is-primary is-large">Update</button>
 
-            <a href="{{ route('themes.index') }}" class="button button-secondary button-large">Cancel</a>
+            <a href="{{ route('themes.index') }}" class="button is-secondary is-large">Cancel</a>
         </div>
     </form>
 </section>

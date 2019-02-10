@@ -1,71 +1,57 @@
 .notices {
-    @apply .fixed .flex .pin .p-6 .overflow-hidden .z-1000 .pointer-events-none;
+    @apply .fixed .flex .pin .p-6 .overflow-hidden .z-1000 .pointer-events-none .flex-col;
 
-    .toast {
-        @apply .inline-flex .items-center .my-3 .text-center .shadow .rounded .py-3 .px-6 .pointer-events-auto .bg-grey-800 .text-grey-100 .font-medium;
+    .alert {
+        @apply .inline-flex .items-center .my-3 .text-center .shadow .rounded .py-4 .px-8 .pointer-events-auto .font-medium .bg-grey-800 .text-grey-100 .self-center;
 
         opacity: 0.92;
 
-        .icon {
-            @apply .h-6 .w-6 .mr-3 .text-grey-200 .leading-0;
-        }
-    }
-
-    .snackbar {
-        @apply .inline-flex .items-center .justify-around .my-2 .rounded-sm .bg-grey-800 .text-grey-100 .shadow .pointer-events-auto;
-
-        .message {
-            @apply .py-2 .px-4;
-        }
-
         .action {
-            @apply .mr-4;
+            @apply .ml-6;
 
             .button {
-                @apply .rounded-sm;
+                @apply .m-0 .p-0 .rounded-none .bg-transparent .text-primary-300;
+
+                &:hover {
+                    @apply .text-primary-200;
+                }
+
+                &.is-danger {
+                    @apply .text-danger-300;
+
+                    &:hover {
+                        @apply .text-danger-200;
+                    }
+                }
+
+                &.is-success {
+                    @apply .text-success-300;
+
+                    &:hover {
+                        @apply .text-success-200;
+                    }
+                }
             }
-        }
-    }
-
-    .toast,
-    .snackbar {
-        &.is-top,
-        &.is-bottom {
-            @apply .self-center;
-        }
-
-        &.is-top-right,
-        &.is-bottom-right {
-            @apply .self-end;
-        }
-
-        &.is-top-left,
-        &.is-bottom-left {
-            @apply .self-start;
         }
 
         &.is-danger {
             @apply .bg-danger-400 .text-white;
-
-            .icon {
-                @apply .text-danger-100;
-            }
         }
 
         &.is-success {
             @apply .bg-success-400 .text-white;
-
-            .icon {
-                @apply .text-success-100;
-            }
         }
     }
+}
 
-    &.is-top {
-        @apply .flex-col;
-    }
+.alert-animated-enter-active {
+    @apply .animated .animated-faster;
 
-    &.is-bottom {
-        @apply .flex-col-reverse;
-    }
+    animation-name: fadeInDown;
+}
+
+.alert-animated-leave-active {
+    @apply .animated .animated-faster;
+
+    animation-name: fadeOutUp;
 }

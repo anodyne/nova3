@@ -21,7 +21,7 @@
     <div id="nova-app">
         {!! $layout ?? false !!}
 
-        <nova-notices :session="{{ json_encode(session('nova.notices')) }}"></nova-notices>
+        <nova-notices :session="{{ json_encode(session('nova.alert')) }}"></nova-notices>
     </div>
 
     <script src="{{ asset('dist/js/manifest.js') }}"></script>
