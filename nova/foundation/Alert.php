@@ -67,7 +67,6 @@ class Alert
         session()->flash('nova.alert', [
             'message' => $this->message,
             'type' => $this->type,
-            'position' => $this->position,
             'actionText' => $this->actionText,
         ]);
 
