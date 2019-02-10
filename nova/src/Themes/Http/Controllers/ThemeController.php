@@ -38,7 +38,7 @@ class ThemeController extends Controller
 
         alert()
             ->withMessage('Theme was successfully created.')
-            ->toastSuccess();
+            ->success();
 
         return redirect()->route('themes.index');
     }
@@ -57,7 +57,7 @@ class ThemeController extends Controller
 
         alert()
             ->withMessage('Theme was successfully updated.')
-            ->toastSuccess();
+            ->success();
 
         return redirect()->route('themes.index');
     }

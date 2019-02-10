@@ -1,13 +1,10 @@
 <template>
-    <div
-        class="notices"
-        :class="parentStyles"
-        aria-atomic="true"
-    >
+    <div class="notices" aria-atomic="true">
         <nova-alert
             v-for="(alert, index) in alerts"
             :key="index"
             :data="alert"
+            @alert-hidden="removeAlert(index)"
         ></nova-alert>
     </div>
 </template>
@@ -28,24 +25,13 @@ export default {
 
     data () {
         return {
-            alerts: [],
-            position: 'is-bottom',
-            type: 'is-dark'
+            alerts: []
         };
-    },
-
-    computed: {
-        parentStyles () {
-            return {
-                'is-bottom': this.position.includes('bottom'),
-                'is-top': this.position.includes('top')
-            };
-        }
     },
 
     mounted () {
         if (this.session !== null && !isArray(this.session)) {
-            this.setDadta(this.session);
+            this.setData(this.session);
         }
 
         Nova.$on('nova.alert', (params) => {
@@ -54,14 +40,16 @@ export default {
     },
 
     methods: {
-        setData (data) {
-            this.type = has(data, 'type') ? data.type : 'is-dark';
-            this.position = has(data, 'position') ? data.position : 'is-bottom';
+        removeAlert (index) {
+            setTimeout(() => {
+                this.alerts.splice(index, 1);
+            }, 2000);
+        },
 
+        setData (data) {
             this.alerts.push({
                 message: has(data, 'message') ? data.message : '',
-                type: this.type,
-                position: this.position,
+                type: has(data, 'type') ? data.type : '',
                 actionFunction: has(data, 'actionFunction') ? data.actionFunction : null,
                 actionText: has(data, 'actionText') ? data.actionText : ''
             });

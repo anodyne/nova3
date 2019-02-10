@@ -1,8 +1,8 @@
 .notices {
-    @apply .fixed .flex .pin .p-6 .overflow-hidden .z-1000 .pointer-events-none;
+    @apply .fixed .flex .pin .p-6 .overflow-hidden .z-1000 .pointer-events-none .flex-col;
 
     .alert {
-        @apply .inline-flex .items-center .my-3 .text-center .shadow .rounded .py-4 .px-8 .pointer-events-auto .font-medium;
+        @apply .inline-flex .items-center .my-3 .text-center .shadow .rounded .py-4 .px-8 .pointer-events-auto .font-medium .bg-grey-800 .text-grey-100 .self-center;
 
         opacity: 0.92;
 
@@ -10,21 +10,17 @@
             @apply .ml-6;
 
             .button {
-                @apply .m-0 .p-0 .rounded-none .bg-transparent .text-grey-300;
+                @apply .m-0 .p-0 .rounded-none .bg-transparent .text-primary-300;
+
+                &:hover {
+                    @apply .text-primary-200;
+                }
 
                 &.is-danger {
                     @apply .text-danger-300;
 
                     &:hover {
                         @apply .text-danger-200;
-                    }
-                }
-
-                &.is-dark {
-                    @apply .text-primary-300;
-
-                    &:hover {
-                        @apply .text-primary-200;
                     }
                 }
 
@@ -38,27 +34,23 @@
             }
         }
 
-        &.is-top,
-        &.is-bottom {
-            @apply .self-center;
-        }
+        // &.is-top,
+        // &.is-bottom {
+        //     @apply .self-center;
+        // }
 
-        &.is-top-right,
-        &.is-bottom-right {
-            @apply .self-end;
-        }
+        // &.is-top-right,
+        // &.is-bottom-right {
+        //     @apply .self-end;
+        // }
 
-        &.is-top-left,
-        &.is-bottom-left {
-            @apply .self-start;
-        }
+        // &.is-top-left,
+        // &.is-bottom-left {
+        //     @apply .self-start;
+        // }
 
         &.is-danger {
             @apply .bg-danger-400 .text-white;
-        }
-
-        &.is-dark {
-            @apply .bg-grey-800 .text-grey-100;
         }
 
         &.is-success {
@@ -66,11 +58,23 @@
         }
     }
 
-    &.is-top {
-        @apply .flex-col;
-    }
+    // &.is-top {
+    //     @apply .flex-col;
+    // }
 
-    &.is-bottom {
-        @apply .flex-col-reverse;
-    }
+    // &.is-bottom {
+    //     @apply .flex-col-reverse;
+    // }
+}
+
+.alert-animated-enter-active {
+    @apply .animated .animated-faster;
+
+    animation-name: fadeInDown;
+}
+
+.alert-animated-leave-active {
+    @apply .animated .animated-faster;
+
+    animation-name: fadeOutUp;
 }

@@ -3,62 +3,23 @@ export default class Alert {
         this.actionText = '';
         this.actionFunction = null;
         this.message = '';
-        this.type = 'is-dark';
-        this.position = 'is-bottom';
+        this.type = '';
     }
 
-    atBottom () {
-        this.position = 'is-bottom';
-
-        return this;
-    }
-
-    atBottomLeft () {
-        this.position = 'is-bottom-left';
-
-        return this;
-    }
-
-    atBottomRight () {
-        this.position = 'is-bottom-right';
-
-        return this;
-    }
-
-    atTop () {
-        this.position = 'is-top';
-
-        return this;
-    }
-
-    atTopLeft () {
-        this.position = 'is-top-left';
-
-        return this;
-    }
-
-    atTopRight () {
-        this.position = 'is-top-right';
-
-        return this;
-    }
-
-    dark () {
-        this.type = 'is-dark';
-
-        this.make();
+    make () {
+        this.createAlert();
     }
 
     error () {
         this.type = 'is-danger';
 
-        this.make();
+        this.createAlert();
     }
 
     success () {
         this.type = 'is-success';
 
-        this.make();
+        this.createAlert();
     }
 
     withAction (callback) {
@@ -79,13 +40,12 @@ export default class Alert {
         return this;
     }
 
-    make () {
+    createAlert () {
         Nova.$emit('nova.alert', {
             actionText: this.actionText,
             actionFunction: this.actionFunction,
             type: this.type,
-            message: this.message,
-            position: this.position
+            message: this.message
         });
     }
 }
