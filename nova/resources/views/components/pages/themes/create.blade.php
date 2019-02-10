@@ -56,7 +56,8 @@
                     field-id="layout_auth"
                     name="layout_auth"
                 >
-                    <layout-picker name="layout_auth" type="auth"></layout-picker>
+                    <layout-picker name="layout_auth" type="auth" v-model="layoutAuth"></layout-picker>
+                    <input type="hidden" name="layout_auth" :value="layoutAuth">
                 </form-field>
 
                 <form-field
@@ -64,7 +65,8 @@
                     field-id="layout_public"
                     name="layout_public"
                 >
-                    <layout-picker name="layout_public" type="public"></layout-picker>
+                    <layout-picker name="layout_public" type="public" v-model="layoutPublic"></layout-picker>
+                    <input type="hidden" name="layout_public" :value="layoutPublic">
                 </form-field>
 
                 <form-field
@@ -72,7 +74,8 @@
                     field-id="layout_admin"
                     name="layout_admin"
                 >
-                    <layout-picker name="layout_admin" type="admin"></layout-picker>
+                    <layout-picker name="layout_admin" type="admin" v-model="layoutAdmin"></layout-picker>
+                    <input type="hidden" name="layout_admin" :value="layoutAdmin">
                 </form-field>
 
                 <form-field
