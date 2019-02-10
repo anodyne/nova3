@@ -24,7 +24,6 @@
         "lodash": "^4.17",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
-        "sweetalert2": "^7.33.1",
         "tailwindcss": "^0.7.3",
         "vue": "^2.6.0",
         "vue-feather-icons": "^4.7",
