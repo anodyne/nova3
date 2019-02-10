@@ -13,7 +13,7 @@
                 <p class="form-section-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, ratione minus animi esse sit dicta, eos, atque omnis placeat enim tempora. Unde accusantium ad illo earum a sit saepe explicabo.</p>
             </div>
 
-            <div class="flex-1">
+            <div class="form-section-column-form">
                 <form-field
                     label="Name"
                     field-id="name"
