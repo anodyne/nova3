@@ -11,7 +11,18 @@
             <p class="message">{{ message }}</p>
 
             <div v-if="isActionable" class="action">
+                <a
+                    v-if="actionIsUrl"
+                    :href="actionFunction"
+                    class="button"
+                    :class="type"
+                    :target="actionUrlTarget"
+                >
+                    {{ actionText }}
+                </a>
+
                 <button
+                    v-else
                     class="button"
                     :class="type"
                     @click="action"
@@ -47,6 +58,20 @@ export default {
     },
 
     computed: {
+        actionIsUrl () {
+            return typeof this.actionFunction === 'string';
+        },
+
+        actionUrlTarget () {
+            if (this.actionIsUrl) {
+                if (this.actionFunction.includes(window.location.host)) {
+                    return '_self';
+                }
+
+                return '_blank';
+            }
+        },
+
         ariaLive () {
             if (this.isError) {
                 return 'assertive';
