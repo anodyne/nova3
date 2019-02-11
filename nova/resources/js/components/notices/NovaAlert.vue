@@ -16,6 +16,7 @@
                     :href="actionFunction"
                     class="button"
                     :class="type"
+                    :target="actionUrlTarget"
                 >
                     {{ actionText }}
                 </a>
@@ -59,6 +60,16 @@ export default {
     computed: {
         actionIsUrl () {
             return typeof this.actionFunction === 'string';
+        },
+
+        actionUrlTarget () {
+            if (this.actionIsUrl) {
+                if (this.actionFunction.includes(window.location.host)) {
+                    return '_self';
+                }
+
+                return '_blank';
+            }
         },
 
         ariaLive () {
