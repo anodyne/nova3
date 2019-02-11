@@ -9,7 +9,7 @@ We have worked hard to ensure the both the Javascript and PHP implementations of
 ```js
 Nova.alert()
     .withMessage('Hello, world! This is an alert message.')
-    .make()
+    .make();
 ```
 
 ```php
@@ -23,7 +23,7 @@ alert()
 ```js
 Nova.alert()
     .withMessage('Hello, world! This is an alert message.')
-    .success()
+    .success();
 ```
 
 ```php
@@ -37,7 +37,7 @@ alert()
 ```js
 Nova.alert()
     .withMessage('Hello, world! This is an alert message.')
-    .error()
+    .error();
 ```
 
 ```php
@@ -54,11 +54,18 @@ In addition to showing simple messages, alerts can be actionable with a single b
 Nova.alert()
     .withActionText('OK')
     .withMessage('Hello, world! This is an alert message.')
-    .make()
+    .make();
+
+Nova.alert()
+    .withAction('https://google.com')
+    .withActionText('OK')
+    .withMessage('Hello, world! This is an alert message.')
+    .make();
 ```
 
 ```php
 alert()
+    ->withActionLink('https://google.com')
     ->withActionText('OK')
     ->withMessage('Hello, world! This is an alert message.')
     ->error();
@@ -80,7 +87,7 @@ Nova.alert()
     .make();
 ```
 
-**Note:** Actionable alerts can only specify a callback function when called from Javascript.
+**Note:** Actionable alerts can specify a callback function (Javascript only) or a link.
 
 ## Customizing Alerts
 
