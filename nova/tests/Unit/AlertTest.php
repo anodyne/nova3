@@ -33,6 +33,14 @@ class AlertTest extends TestCase
     }
 
     /** @test **/
+    public function it_can_set_action_url()
+    {
+        $this->alert->withActionLink('https://google.com');
+
+        $this->assertEquals('https://google.com', $this->alert->actionLink);
+    }
+
+    /** @test **/
     public function it_can_set_a_type_of_error()
     {
         $this->alert->error();

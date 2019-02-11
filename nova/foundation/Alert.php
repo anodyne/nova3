@@ -8,6 +8,7 @@ class Alert
 {
     public $message;
     public $type;
+    public $actionLink;
     public $actionText;
 
     /**
@@ -67,6 +68,7 @@ class Alert
         session()->flash('nova.alert', [
             'message' => $this->message,
             'type' => $this->type,
+            'actionFunction' => $this->actionLink,
             'actionText' => $this->actionText,
         ]);
 
