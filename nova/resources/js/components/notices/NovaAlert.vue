@@ -11,7 +11,17 @@
             <p class="message">{{ message }}</p>
 
             <div v-if="isActionable" class="action">
+                <a
+                    v-if="actionIsUrl"
+                    :href="actionFunction"
+                    class="button"
+                    :class="type"
+                >
+                    {{ actionText }}
+                </a>
+
                 <button
+                    v-else
                     class="button"
                     :class="type"
                     @click="action"
@@ -47,6 +57,10 @@ export default {
     },
 
     computed: {
+        actionIsUrl () {
+            return typeof this.actionFunction === 'string';
+        },
+
         ariaLive () {
             if (this.isError) {
                 return 'assertive';
