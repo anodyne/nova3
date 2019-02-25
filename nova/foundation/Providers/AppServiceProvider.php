@@ -2,12 +2,13 @@
 
 namespace Nova\Foundation\Providers;
 
-use Nova\Pages\Page;
-use Illuminate\Routing\Route;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Blade;
 use Nova\Foundation\Nova;
 use Nova\Foundation\Alert;
+use Nova\Foundation\Macros;
+use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Factory as ViewFactory;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,10 +19,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Route::macro('findPageFromRoute', function () {
-            return Page::where('key', $this->getName())->first();
-        });
-
         // Make sure the file finder can find Javascript files
         view()->addExtension('js', 'file');
 
@@ -34,6 +31,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(Alert::class, function ($app) {
             return new Alert;
         });
+
+        Route::mixin(new Macros\RouteMacros);
+        ViewFactory::mixin(new Macros\ViewMacros);
     }
 
     /**
