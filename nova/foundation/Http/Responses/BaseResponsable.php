@@ -40,6 +40,9 @@ abstract class BaseResponsable implements Responsable
      */
     protected $theme;
 
+    const RENDER_CLIENT = 'csr';
+    const RENDER_SERVER = 'ssr';
+
     /**
      * The final output of the response.
      *
@@ -107,6 +110,7 @@ abstract class BaseResponsable implements Responsable
             // 'template' => $this->page->content_template,
             'page' => null,
             'script' => null,
+            'component' => null
         ], $this->views() ?? []);
 
         return data_get($views, $view, null);
@@ -153,6 +157,20 @@ abstract class BaseResponsable implements Responsable
     {
         $this->data = $this->prepareData();
 
+        if ($this->renderMode() === self::RENDER_CLIENT) {
+            return $this->renderClientSide($request);
+        }
+
+        return $this->renderServerSide($request);
+    }
+
+    protected function renderClientSide($request)
+    {
+        return view()->component($this->getView('component'), $this->data);
+    }
+
+    protected function renderServerSide($request)
+    {
         $this->passDataToContainer();
 
         if ($request->expectsJson()) {
@@ -186,7 +204,7 @@ abstract class BaseResponsable implements Responsable
      */
     protected function buildStructure()
     {
-        $this->output = $this->theme->structure('master');
+        $this->output = $this->theme->structure();
 
         return $this;
     }
@@ -251,6 +269,20 @@ abstract class BaseResponsable implements Responsable
         });
 
         return $this;
+    }
+
+    /**
+     * Determine what the render mode is.
+     *
+     * @return string
+     */
+    public function renderMode()
+    {
+        if ($this->getView('component') !== null) {
+            return self::RENDER_CLIENT;
+        }
+
+        return self::RENDER_SERVER;
     }
 
     /**
