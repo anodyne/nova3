@@ -9,8 +9,7 @@ class EditThemeResponse extends BaseResponsable
     public function views() : array
     {
         return [
-            'page' => 'themes.edit',
-            'script' => 'themes.edit',
+            'component' => 'EditTheme'
         ];
     }
 }
