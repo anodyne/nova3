@@ -1,17 +1,14 @@
 import Vue from 'vue';
 
-const files = require.context('./', true, /\.vue$/i);
+// Vue.component('nova-app', require('./components/NovaApp').default);
 
-const excludedComponents = [
-    //
-];
-
-files.keys()
-    .filter((file) => {
-        return excludedComponents.indexOf(file) === -1;
-    })
-    .map((key) => {
-        Vue.component(key.split('/').pop().split('.')[0], files(key).default);
-
-        return true;
+require.context('./', true, /\.vue$/i, 'lazy')
+    .keys()
+    .forEach((file) => {
+        Vue.component(file.split('/').pop().split('.')[0], (resolve) => {
+            import(`${file}`  /* webpackChunkName: "[request]" */)
+                .then((component) => {
+                    resolve(component.default);
+                });
+        });
     });
