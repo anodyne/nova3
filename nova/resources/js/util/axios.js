@@ -16,11 +16,11 @@ instance.interceptors.response.use(
         const { status } = error.response;
 
         if (status === 422) {
-            Nova.setFormErrors(error.response.data.errors);
+            // Nova.setFormErrors(error.response.data.errors);
         }
 
         if (status >= 500) {
-            Nova.$emit('error', error.response.data.message);
+            // Nova.$emit('error', error.response.data.message);
         }
 
         return Promise.reject(error);
