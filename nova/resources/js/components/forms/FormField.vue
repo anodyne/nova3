@@ -63,7 +63,8 @@ export default {
         },
 
         hasError () {
-            return Nova.formErrors.has(this.name);
+            return false;
+            // return Nova.formErrors.has(this.name);
         },
 
         hasHelp () {
