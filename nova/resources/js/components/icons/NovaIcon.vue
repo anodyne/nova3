@@ -17,7 +17,7 @@ export default {
 
     computed: {
         component () {
-            switch (Nova.config.theme.iconSet) {
+            switch (this.$store.get('Theme/iconSet')) {
                 case 'feather':
                 default:
                     return 'IconFeather';
@@ -28,7 +28,7 @@ export default {
         },
 
         icon () {
-            const name = find(Nova.config.icons, (icon, key) => {
+            const name = find(this.$store.get('Icons'), (icon, key) => {
                 return key === this.name;
             });
 
