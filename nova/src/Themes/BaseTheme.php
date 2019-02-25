@@ -10,9 +10,26 @@ abstract class BaseTheme
         Concerns\Icons,
         Concerns\InteractsWithModel;
 
+    /**
+     * The location of the theme.
+     *
+     * @var string
+     */
     public $location;
-    public $iconSet;
+
+    /**
+     * The model instance for the theme.
+     *
+     * @var \Nova\Themes\Theme
+     */
     protected $model;
+
+    public function __construct()
+    {
+        $this->model = $this->getModel();
+
+        $this->setThemeProperties();
+    }
 
     /**
      * Get the layout for a specific page.
