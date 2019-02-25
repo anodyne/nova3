@@ -7,5 +7,4 @@ mix.js('nova/resources/js/app.js', 'dist/js')
     .less('nova/resources/less/app.less', 'dist/css')
     .less('nova/resources/less/vendor.less', 'dist/css')
     .tailwind()
-    .webpackConfig(require('./webpack-custom-config'))
-    .extract();
+    .webpackConfig(require('./webpack-custom-config'));
