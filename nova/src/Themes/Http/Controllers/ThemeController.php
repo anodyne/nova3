@@ -71,7 +71,6 @@ class ThemeController extends Controller
         event(new Events\ThemeDeleted($theme));
 
         alert()
-            ->withTitle('Success!')
             ->withMessage('Theme was successfully deleted.')
             ->success();
 
