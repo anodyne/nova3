@@ -16,5 +16,23 @@ trait AddsCustomAssertions
 
             return $this;
         });
+
+        TestResponse::macro('assertViewContains', function ($key, $value) {
+            $this->data($key)->assertContains($value);
+
+            return $this;
+        });
+
+        TestResponse::macro('assertViewNotContains', function ($key, $value) {
+            $this->data($key)->assertNotContains($value);
+
+            return $this;
+        });
+
+        TestResponse::macro('assertViewData', function ($callback) {
+            PHPUnit::assertTrue($callback((object) $this->original->getData()));
+
+            return $this;
+        });
     }
 }

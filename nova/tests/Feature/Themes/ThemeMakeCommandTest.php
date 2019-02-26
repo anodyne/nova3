@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ThemeMakeCommandTest extends TestCase
 {
-    /** @test **/
-    public function a_user_can_scaffold_a_new_theme()
+    public function testAUserCanScaffoldANewTheme()
     {
         Storage::fake('themes');
 
@@ -25,8 +24,7 @@ class ThemeMakeCommandTest extends TestCase
         $this->assertContains('foo/design/custom.css', $files);
     }
 
-    /** @test **/
-    public function a_user_can_scaffold_a_new_theme_with_a_custom_location()
+    public function testAUserCanScaffoldANewThemeWithACustomLocation()
     {
         Storage::fake('themes');
 
@@ -41,8 +39,7 @@ class ThemeMakeCommandTest extends TestCase
         $this->assertNotContains('foo', $directories);
     }
 
-    /** @test **/
-    public function a_user_can_scaffold_a_new_theme_with_variants()
+    public function testAUserCanScaffoldANewThemeWithVariants()
     {
         Storage::fake('themes');
 
@@ -57,8 +54,7 @@ class ThemeMakeCommandTest extends TestCase
         $this->assertContains('foo/design/variants/red.css', $files);
     }
 
-    /** @test **/
-    public function a_user_cannot_scaffold_a_theme_with_a_location_that_exists()
+    public function testAUserCannotScaffoldAThemeWithALocationThatExists()
     {
         Storage::fake('themes');
 

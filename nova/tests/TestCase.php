@@ -33,8 +33,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function remapRouteCollection()
     {
-        $this
-            ->app
+        $this->app
             ->getProvider(RouteServiceProvider::class)
             ->map();
 

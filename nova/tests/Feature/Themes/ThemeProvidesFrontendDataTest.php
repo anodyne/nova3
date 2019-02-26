@@ -19,8 +19,7 @@ class ThemeProvidesFrontendDataTest extends TestCase
         $this->theme = factory(Theme::class)->create();
     }
 
-    /** @test **/
-    public function the_theme_location_is_available_to_the_frontend()
+    public function testTheThemeLocationIsAvailableToTheFrontend()
     {
         // $this->assertEquals(
         //     $this->theme->location,
@@ -31,8 +30,7 @@ class ThemeProvidesFrontendDataTest extends TestCase
         $this->markTestIncomplete();
     }
 
-    /** @test **/
-    public function the_theme_icon_set_is_available_to_the_frontend()
+    public function testTheThemeIconSetIsAvailableToTheFrontend()
     {
         // $this->assertEquals(
         //     $this->theme->iconSet,

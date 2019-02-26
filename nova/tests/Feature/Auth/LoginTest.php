@@ -9,15 +9,13 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test **/
-    public function a_user_can_view_the_login_page()
+    public function testAUserCanViewTheLoginPage()
     {
         $this->get(route('login'))
             ->assertSuccessful();
     }
 
-    /** @test **/
-    public function a_user_cannot_view_the_login_page_when_they_are_authenticated()
+    public function testAUserCannotViewTheLoginPageWhenTheyAreAuthenticated()
     {
         $this->signIn();
 
@@ -25,8 +23,7 @@ class LoginTest extends TestCase
             ->assertRedirect(route('home'));
     }
 
-    /** @test **/
-    public function a_user_can_login_with_correct_credentials()
+    public function testAUserCanLoginWithCorrectCredentials()
     {
         $user = $this->createUser();
 
@@ -40,8 +37,7 @@ class LoginTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    /** @test **/
-    public function a_user_cannot_login_with_non_existent_email()
+    public function testAUserCannotLoginWithNonExistentEmail()
     {
         $this->from(route('login'))
             ->post(route('login'), [
@@ -57,8 +53,7 @@ class LoginTest extends TestCase
         $this->assertGuest();
     }
 
-    /** @test **/
-    public function a_user_cannot_login_with_incorrect_password()
+    public function testAUserCannotLoginWithIncorrectPassword()
     {
         $user = $this->createUser();
 
@@ -75,8 +70,7 @@ class LoginTest extends TestCase
         $this->assertGuest();
     }
 
-    /** @test **/
-    public function an_authenticated_user_can_logout()
+    public function testAnAuthenticatedUserCanLogout()
     {
         $this->signIn();
 
@@ -86,8 +80,7 @@ class LoginTest extends TestCase
         $this->assertGuest();
     }
 
-    /** @test **/
-    public function an_unauthenticated_user_cannot_logout()
+    public function testAnUnauthenticatedUserCannotLogout()
     {
         $this->post(route('logout'))
             ->assertRedirect('/');
@@ -95,8 +88,7 @@ class LoginTest extends TestCase
         $this->assertGuest();
     }
 
-    /** @test **/
-    public function a_user_cannot_attempt_more_than_five_logins_in_one_minute()
+    public function testAUserCannotAttemptMoreThanFiveLoginsInOneMinute()
     {
         $user = $this->createUser();
 
@@ -127,8 +119,7 @@ class LoginTest extends TestCase
         $this->assertGuest();
     }
 
-    /** @test **/
-    public function a_timestamp_is_recorded_when_a_user_logs_in()
+    public function testATimestampIsRecordedWhenAUserLogsIn()
     {
         $user = $this->createUser();
 
@@ -147,8 +138,7 @@ class LoginTest extends TestCase
         );
     }
 
-    /** @test **/
-    public function a_user_is_prompted_to_change_their_password_if_an_admin_has_forced_a_reset()
+    public function testAUserIsPromptedToChangeTheirPasswordIfAnAdminHasForcedAReset()
     {
         $user = $this->createUser();
         $user->forcePasswordReset();

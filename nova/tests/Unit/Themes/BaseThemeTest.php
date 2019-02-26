@@ -24,14 +24,12 @@ class BaseThemeTest extends TestCase
         $this->theme->location = $this->themeModel->location;
     }
 
-    /** @test **/
-    public function it_can_access_the_theme_model()
+    public function testItCanAccessTheThemeModel()
     {
         $this->assertTrue($this->theme->getModel()->is($this->themeModel));
     }
 
-    /** @test **/
-    public function all_of_its_icon_maps_are_the_same_size()
+    public function testAllOfItsIconMapsAreIdentical()
     {
         $this->assertEquals(
             count($this->theme->getFeatherIconMap()),
