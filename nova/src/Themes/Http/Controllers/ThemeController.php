@@ -22,8 +22,11 @@ class ThemeController extends Controller
 
     public function index(Authorizers\Index $authorize)
     {
+        $themes = Theme::get();
+
         return app(Responses\ManageThemesResponse::class)
-            ->withThemes(Theme::get())
+            ->withThemes($themes)
+            ->withPendingThemes($themes->toBeInstalled())
             ->withCan($authorize->userPermissions());
     }
 
