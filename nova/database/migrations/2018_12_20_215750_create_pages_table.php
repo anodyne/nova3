@@ -57,6 +57,7 @@ class CreatePagesTable extends Migration
             ['uri' => 'themes/{theme}/edit', 'key' => 'themes.edit', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@edit', 'layout' => 'admin'],
             ['uri' => 'themes/{theme}', 'key' => 'themes.update', 'verb' => 'patch', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@update', 'layout' => 'admin'],
             ['uri' => 'themes/{theme}', 'key' => 'themes.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@destroy', 'layout' => 'admin'],
+            ['uri' => 'themes/install', 'key' => 'themes.install', 'verb' => 'post', 'resource' => 'Nova\\Themes\\Http\\Controllers\\InstallThemeController', 'layout' => 'admin'],
         ];
 
         collect($pages)->each(function ($page) {
