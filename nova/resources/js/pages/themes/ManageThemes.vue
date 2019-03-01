@@ -8,9 +8,11 @@
             </template>
         </page-header>
 
+        <install-themes :pending-themes="pendingThemes" @theme-installed="installedThemes.push($event)"></install-themes>
+
         <div class="row">
             <div
-                v-for="theme in themes"
+                v-for="theme in installedThemes"
                 :key="theme.id"
                 class="col-6 mb-6"
             >
@@ -55,9 +57,25 @@ export default {
             type: Array,
             required: true
         },
+        pendingThemes: {
+            type: [Array, Object],
+            required: true
+        },
         can: {
             type: Object,
             required: true
+        }
+    },
+
+    data () {
+        return {
+            installedThemes: this.themes
+        };
+    },
+
+    methods: {
+        handleThemeInstall (theme) {
+            this.installedThemes.push(theme);
         }
     }
 };
