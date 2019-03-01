@@ -26,9 +26,9 @@ abstract class BaseTheme
 
     public function __construct()
     {
-        $this->model = $this->getModel();
+        // $this->model = $this->getModel();
 
-        $this->setThemeProperties();
+        // $this->setThemeProperties();
     }
 
     /**
