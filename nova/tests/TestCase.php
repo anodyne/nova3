@@ -11,7 +11,7 @@ abstract class TestCase extends BaseTestCase
         ManagesTestUsers,
         AddsCustomAssertions;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

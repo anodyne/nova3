@@ -12,7 +12,7 @@ class ThemeProvidesFrontendDataTest extends TestCase
 
     protected $theme;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

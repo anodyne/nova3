@@ -5,11 +5,10 @@ namespace Nova\Foundation\Providers;
 use Nova\Pages\Page;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 
 class ResponsesServiceProvider extends ServiceProvider
 {
-    // protected $defer = true;
-
     public function register()
     {
         $this->registerResponseClasses();
