@@ -8,6 +8,14 @@
             </template>
         </page-header>
 
+        <base-dropdown>
+            <template #trigger="{ triggerFunction }">
+                <button class="button is-primary" @click="triggerFunction">Open</button>
+            </template>
+
+            This is my content.
+        </base-dropdown>
+
         <install-themes :pending-themes="pendingThemes" @theme-installed="installedThemes.push($event)"></install-themes>
 
         <div class="row">
@@ -34,8 +42,9 @@
                         </a>
                         <a
                             v-if="can.delete"
-                            :href="route('themes.edit', { theme: theme.id })"
+                            role="button"
                             class="button is-danger"
+                            @click="remove(theme)"
                         >
                             <nova-icon name="delete"></nova-icon>
                         </a>
@@ -76,6 +85,16 @@ export default {
     methods: {
         handleThemeInstall (theme) {
             this.installedThemes.push(theme);
+        },
+
+        remove (theme) {
+            axios.delete(route('themes.destroy', { theme: theme.id }))
+                .then(({ data }) => {
+                    //
+                })
+                .catch(({ error }) => {
+                    //
+                });
         }
     }
 };
