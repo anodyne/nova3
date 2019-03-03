@@ -1,6 +1,7 @@
 <?php
 
 use Nova\Users\User;
+use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Hash;
 
@@ -10,7 +11,7 @@ $factory->define(User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'password' => Hash::make('secret'),
-        'remember_token' => str_random(10),
+        'remember_token' => Str::random(10),
     ];
 });
 

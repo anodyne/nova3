@@ -9,7 +9,7 @@ class AlertTest extends TestCase
 {
     protected $alert;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
