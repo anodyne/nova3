@@ -8,14 +8,6 @@
             </template>
         </page-header>
 
-        <base-dropdown>
-            <template #trigger="{ triggerFunction }">
-                <button class="button is-primary" @click="triggerFunction">Open</button>
-            </template>
-
-            This is my content.
-        </base-dropdown>
-
         <install-themes :pending-themes="pendingThemes" @theme-installed="installedThemes.push($event)"></install-themes>
 
         <div class="row">

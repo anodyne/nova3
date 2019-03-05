@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import Nova from './nova';
 import store from './store';
+import Nova from './nova';
 import axios from '@/util/axios';
 
 import './components';
@@ -18,7 +18,7 @@ if (isCSR) {
     window.app = new Vue({
         store,
 
-        created () {
+        mounted () {
             axios.post(window.route('bootstrap-nova'))
                 .then(({ data }) => {
                     this.$store.set('Icons/initialIcons', data.icons);
@@ -45,7 +45,7 @@ if (isCSR) {
     window.app = new Vue({
         store,
 
-        created () {
+        mounted () {
             axios.post(window.route('bootstrap-nova'))
                 .then(({ data }) => {
                     this.$store.set('Icons/initialIcons', data.icons);

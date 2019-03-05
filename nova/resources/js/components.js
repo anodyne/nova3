@@ -1,7 +1,5 @@
 import Vue from 'vue';
 
-// Vue.component('nova-app', require('./components/NovaApp').default);
-
 require.context('./', true, /\.vue$/i, 'lazy')
     .keys()
     .forEach((file) => {

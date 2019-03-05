@@ -7,6 +7,7 @@ use Nova\Themes\Theme;
 use Nova\Themes\Events;
 use Nova\Themes\Http\Responses;
 use Nova\Themes\Http\Authorizers;
+use Symfony\Component\HttpFoundation\Response;
 use Nova\Themes\Http\Requests\EditThemeRequest;
 use Nova\Foundation\Http\Controllers\Controller;
 use Nova\Themes\Http\Requests\CreateThemeRequest;
@@ -41,11 +42,7 @@ class ThemeController extends Controller
 
         event(new Events\ThemeCreated($theme));
 
-        alert()
-            ->withMessage('Theme was successfully created.')
-            ->success();
-
-        return redirect()->route('themes.index');
+        return response()->json($theme, Response::HTTP_CREATED);
     }
 
     public function edit(Theme $theme)
@@ -60,11 +57,7 @@ class ThemeController extends Controller
 
         event(new Events\ThemeUpdated($theme->fresh()));
 
-        alert()
-            ->withMessage('Theme was successfully updated.')
-            ->success();
-
-        return redirect()->route('themes.index');
+        return response()->json($theme->fresh(), Response::HTTP_OK);
     }
 
     public function destroy(Theme $theme)
@@ -73,10 +66,6 @@ class ThemeController extends Controller
 
         event(new Events\ThemeDeleted($theme));
 
-        alert()
-            ->withMessage('Theme was successfully deleted.')
-            ->success();
-
-        return response()->json($theme);
+        return response()->json($theme, Response::HTTP_NO_CONTENT);
     }
 }

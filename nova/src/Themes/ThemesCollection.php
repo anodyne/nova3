@@ -14,11 +14,22 @@ class ThemesCollection extends Collection
      */
     public function toBeInstalled()
     {
-        return collect(Storage::disk('themes')->directories())
+        $disk = Storage::disk('themes');
+
+        return collect($disk->directories())
             ->diff($this->map(function ($theme) {
                 return $theme->location;
-            }))->filter(function ($location) {
-                return Storage::disk('themes')->exists("{$location}/theme.json");
+            }))
+            ->filter(function ($location) use ($disk) {
+                return $disk->exists("{$location}/theme.json");
+            })->map(function ($location) use ($disk) {
+                $theme = json_decode($disk->get("{$location}/theme.json"));
+
+                return [
+                    'name' => $theme->name,
+                    'location' => $location,
+                    'credits' => $theme->credits,
+                ];
             });
     }
 }
