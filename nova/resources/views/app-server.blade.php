@@ -14,6 +14,9 @@
     <link href="{{ asset('/dist/css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
+    <script>
+        window.novaSettings = @json(nova()->provideScriptVariables())
+    </script>
     <script src="{{ asset('/dist/js/app.js') }}" defer></script>
 
     <meta name="turbolinks-cache-control" content="no-cache">
