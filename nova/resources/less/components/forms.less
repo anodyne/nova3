@@ -6,10 +6,10 @@
     @apply .flex .items-center .relative .w-full .p-3 .rounded .transition .border-2 .bg-transparent;
 
     > .field {
-        @apply .flex-auto .appearance-none .bg-transparent .text-grey-600;
+        @apply .flex-auto .appearance-none .bg-transparent .text-grey-700;
 
         &:focus {
-            @apply .outline-none .text-grey-800;
+            @apply .outline-none .text-grey-900;
         }
     }
 
@@ -19,10 +19,10 @@
 
     > a.field-addon,
     > .field-addon a {
-        @apply .pointer-events-auto .text-grey-400 .no-underline;
+        @apply .pointer-events-auto .text-grey-500 .no-underline;
 
         &:hover {
-            @apply .text-grey-600;
+            @apply .text-grey-700;
         }
     }
 
@@ -32,12 +32,12 @@
     }
 
     &:focus-within {
-        @apply .border-primary-500 .bg-grey-50;
+        @apply .border-primary-500 .bg-grey-100;
     }
 }
 
 .field-label {
-    @apply .flex .items-center .justify-between .mb-2 .ml-2px .text-sm .text-grey-400;
+    @apply .flex .items-center .justify-between .mb-2 .ml-2px .text-sm .text-grey-500;
 
     > label {
         @apply .uppercase .tracking-wide .font-medium;
@@ -46,7 +46,7 @@
 
 .field-help,
 .field-error {
-    @apply .block .w-full .relative .mt-1 .ml-2px .text-sm .text-grey-400;
+    @apply .block .w-full .relative .mt-1 .ml-2px .text-sm .text-grey-500;
 }
 
 .form-section {
@@ -60,7 +60,7 @@
         }
 
         > .form-section-message {
-            @apply .text-grey-400;
+            @apply .text-grey-500;
         }
     }
 

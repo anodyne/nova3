@@ -1,3 +1,11 @@
+.switch-container {
+    @apply .flex .items-center;
+}
+
+.switch-label {
+    @apply .ml-3 .font-medium .text-grey-700;
+}
+
 .switch {
     @apply .inline-block .relative .flex-no-shrink .rounded-full .cursor-pointer .h-6 .w-11;
 
@@ -7,7 +15,7 @@
 }
 
 .switch:before {
-    @apply .inline-block .h-full .w-full .rounded-full .bg-grey-50;
+    @apply .inline-block .h-full .w-full .rounded-full .bg-grey-100;
 
     content: "";
     -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -17,11 +25,11 @@
 }
 
 .switch[aria-checked="true"]:before {
-    @apply .bg-primary-400;
+    @apply .bg-primary-500;
 }
 
 .switch:after {
-    @apply .absolute .pin-x .mt-1 .rounded-full .h-4 .w-4 .bg-grey-200;
+    @apply .absolute .pin-x .mt-1 .rounded-full .h-4 .w-4 .bg-grey-300;
 
     -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
