@@ -9,11 +9,17 @@ class Nova
     /**
      * Provide data from the backend for the frontend to use.
      *
-     * @return Json
+     * @return \Illuminate\Support\Collection
      */
     public function provideScriptVariables()
     {
-        return app('nova.data.frontend')
-            ->merge(['response' => app('nova.data.response')]);
+        $theme = app('nova.theme');
+
+        return collect([
+            'icons' => $theme->iconMap(),
+            'page' => request()->route()->findPageFromRoute(),
+            'theme' => $theme,
+            'user' => auth()->user(),
+        ]);
     }
 }
