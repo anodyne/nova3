@@ -1,5 +1,8 @@
 <template>
-    <component :is="component" :name="icon"></component>
+    <component
+        :is="component"
+        :name="icon"
+    ></component>
 </template>
 
 <script>
@@ -17,6 +20,8 @@ export default {
 
     computed: {
         component () {
+            return 'IconFeather';
+
             switch (this.$store.get('Theme/iconSet')) {
                 case 'feather':
                 default:

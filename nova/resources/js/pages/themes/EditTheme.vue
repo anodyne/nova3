@@ -1,6 +1,9 @@
 <template>
     <div>
-        <page-header pretitle="Presentation" title="Edit Theme"></page-header>
+        <page-header
+            pretitle="Presentation"
+            title="Edit Theme"
+        ></page-header>
 
         <section>
             <form
@@ -42,7 +45,10 @@
                             <div class="field-addon font-mono text-sm">themes/{{ location }}</div>
                         </form-field>
 
-                        <form-field label="Credits" field-id="credits">
+                        <form-field
+                            label="Credits"
+                            field-id="credits"
+                        >
                             <div class="field-group">
                                 <textarea
                                     id="credits"
@@ -52,6 +58,13 @@
                                     class="field"
                                 ></textarea>
                             </div>
+                        </form-field>
+
+                        <form-field>
+                            <toggle-switch
+                                v-model="form.active"
+                                label="Active"
+                            ></toggle-switch>
                         </form-field>
                     </div>
                 </div>
@@ -119,7 +132,10 @@
                             field-id="icon_set"
                             name="icon_set"
                         >
-                            <icon-set-picker v-model="form.iconSet" name="icon_set"></icon-set-picker>
+                            <icon-set-picker
+                                v-model="form.iconSet"
+                                name="icon_set"
+                            ></icon-set-picker>
                             <input
                                 type="hidden"
                                 name="icon_set"
@@ -130,9 +146,15 @@
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary is-large">Update</button>
+                    <button
+                        type="submit"
+                        class="button is-primary is-large"
+                    >Update</button>
 
-                    <a :href="route('themes.index')" class="button is-secondary is-large">Cancel</a>
+                    <a
+                        :href="route('themes.index')"
+                        class="button is-secondary is-large"
+                    >Cancel</a>
                 </div>
             </form>
         </section>
@@ -158,7 +180,8 @@ export default {
                 layoutAuth: this.theme.layout_auth,
                 layoutAdmin: this.theme.layout_admin,
                 layoutPublic: this.theme.layout_public,
-                iconSet: this.theme.icon_set
+                iconSet: this.theme.icon_set,
+                active: true
             }
         };
     },

@@ -1,12 +1,18 @@
 <template>
-    <div v-show="pendingThemes.length > 0" class="max-w-md mb-12">
+    <div
+        v-show="pendingThemes.length > 0"
+        class="max-w-md mb-12"
+    >
         <div class="card">
             <div class="card-header">
                 <div class="card-title">Awaiting Installation</div>
             </div>
 
             <div class="card-body mt-6">
-                <transition-group enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+                <transition-group
+                    enter-active-class="animated fadeIn"
+                    leave-active-class="animated fadeOut"
+                >
                     <div
                         v-for="(theme, index) in themes"
                         :key="theme.location"
@@ -14,7 +20,10 @@
                         :class="{ 'bg-grey-50': index % 2 === 0 }"
                     >
                         themes/{{ theme.location }}
-                        <button class="button is-small is-dark my-0" @click="install(index)">Install</button>
+                        <button
+                            class="button is-small is-dark my-0"
+                            @click="install(index)"
+                        >Install</button>
                     </div>
                 </transition-group>
             </div>
@@ -43,7 +52,7 @@ export default {
 
     methods: {
         install (index) {
-            this.$toasted.success('The theme was successfully installed.');
+            this.$toast.open('This is my toast');
             // axios.post(route('themes.install'), { theme: this.themes[index] })
             //     .then(({ data }) => {
             //         this.themes.splice(index, 1);

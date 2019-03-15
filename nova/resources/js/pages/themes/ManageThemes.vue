@@ -1,14 +1,26 @@
 <template>
     <div>
-        <page-header pretitle="Presentation" title="Themes">
-            <template v-if="can.create" v-slot:controls>
-                <a :href="route('themes.create')" class="button is-primary">
+        <page-header
+            pretitle="Presentation"
+            title="Themes"
+        >
+            <template
+                v-if="can.create"
+                v-slot:controls
+            >
+                <a
+                    :href="route('themes.create')"
+                    class="button is-primary"
+                >
                     Create Theme
                 </a>
             </template>
         </page-header>
 
-        <install-themes :pending-themes="pendingThemes" @theme-installed="installedThemes.push($event)"></install-themes>
+        <install-themes
+            :pending-themes="pendingThemes"
+            @theme-installed="installedThemes.push($event)"
+        ></install-themes>
 
         <div class="row">
             <div
@@ -54,16 +66,16 @@ export default {
     name: 'ManageThemes',
 
     props: {
-        themes: {
-            type: Array,
+        can: {
+            type: Object,
             required: true
         },
         pendingThemes: {
             type: [Array, Object],
             required: true
         },
-        can: {
-            type: Object,
+        themes: {
+            type: Array,
             required: true
         }
     },
@@ -75,12 +87,8 @@ export default {
     },
 
     methods: {
-        handleThemeInstall (theme) {
-            this.installedThemes.push(theme);
-        },
-
         remove (theme) {
-            axios.delete(route('themes.destroy', { theme: theme.id }))
+            axios.delete(route('themes.destroy', { theme }))
                 .then(({ data }) => {
                     //
                 })
