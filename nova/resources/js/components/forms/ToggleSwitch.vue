@@ -1,7 +1,8 @@
 <template>
-    <div class="switch-container">
+    <label class="switch-container">
         <div
             class="switch"
+            :class="{ 'is-small': this.small }"
             role="checkbox"
             tabindex="0"
             :aria-checked="value.toString()"
@@ -9,22 +10,28 @@
             @keydown.space.prevent="toggle"
         ></div>
 
-        <div class="switch-label">
-            <slot>
-                {{ label }}
-            </slot>
+        <div
+            v-if="hasSlot('default')"
+            class="switch-label"
+            @click="toggle"
+        >
+            <slot></slot>
         </div>
-    </div>
+    </label>
 </template>
 
 <script>
+import SlotHelpers from '@/mixins/SlotHelpers';
+
 export default {
     name: 'ToggleSwitch',
 
+    mixins: [SlotHelpers],
+
     props: {
-        label: {
-            type: String,
-            default: ''
+        small: {
+            type: Boolean,
+            default: false
         },
         value: {
             type: Boolean,
