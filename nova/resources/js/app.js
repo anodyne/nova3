@@ -1,49 +1,27 @@
+import Inertia from 'inertia-vue';
+import PortalVue from 'portal-vue';
 import Vue from 'vue';
-import store from './store';
-import Nova from './nova';
 
-import './components';
-import './directives';
-import './plugins';
-
-const root = document.getElementById('nova-app');
-const isCSR = root.dataset.props !== undefined;
-
-if (isCSR) {
-    if (window.app) {
-        window.app.$destroy(true);
+Vue.config.productionTip = false;
+Vue.mixin({
+    methods: {
+        route: window.route
     }
+});
+Vue.use(PortalVue);
 
-    window.app = new Vue({
-        store,
+let app = document.getElementById('app');
 
-        mounted () {
-            this.$store.set('Icons/initialIcons', window.novaSettings.icons);
-            this.$store.set('Theme/initialTheme', window.novaSettings.theme);
-            this.$store.set('User/initialUser', window.novaSettings.user);
-        },
-
-        render (h) {
-            return h(
-                Vue.component('NovaApp'), {
-                    props: {
-                        component: root.dataset.component,
-                        props: JSON.parse(root.dataset.props)
-                    }
+new Vue({
+    render(h) {
+        return h(Inertia, {
+            props: {
+                component: app.dataset.component,
+                props: JSON.parse(app.dataset.props),
+                resolveComponent: (component) => {
+                    return import(`@/pages/${component}`).then(module => module.default);
                 }
-            );
-        }
-    }).$mount(root);
-} else {
-    window.Nova = new Nova();
-
-    window.app = new Vue({
-        store,
-
-        mounted () {
-            this.$store.set('Icons/initialIcons', window.novaSettings.icons);
-            this.$store.set('Theme/initialTheme', window.novaSettings.theme);
-            this.$store.set('User/initialUser', window.novaSettings.user);
-        }
-    }).$mount(root);
-}
+            }
+        })
+    }
+}).$mount(app);
