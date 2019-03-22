@@ -6,23 +6,23 @@
     @apply .flex .items-center .relative .w-full .p-3 .rounded .transition .border-2 .bg-transparent;
 
     > .field {
-        @apply .flex-auto .appearance-none .bg-transparent .text-grey-600;
+        @apply .flex-auto .appearance-none .bg-transparent .text-gray-700;
 
         &:focus {
-            @apply .outline-none .text-grey-800;
+            @apply .outline-none;
         }
     }
 
     > .field-addon {
-        @apply .flex-shrink;
+        @apply .flex-shrink .text-gray-500;
     }
 
     > a.field-addon,
     > .field-addon a {
-        @apply .pointer-events-auto .text-grey-400 .no-underline;
+        @apply .pointer-events-auto .text-gray-500;
 
         &:hover {
-            @apply .text-grey-600;
+            @apply .text-gray-600;
         }
     }
 
@@ -32,12 +32,12 @@
     }
 
     &:focus-within {
-        @apply .border-primary-500 .bg-grey-50;
+        @apply .border-blue-500 .bg-gray-100;
     }
 }
 
 .field-label {
-    @apply .flex .items-center .justify-between .mb-2 .ml-2px .text-sm .text-grey-400;
+    @apply .flex .items-center .justify-between .mb-2 .ml-2px .text-sm .text-gray-600;
 
     > label {
         @apply .uppercase .tracking-wide .font-medium;
@@ -46,7 +46,7 @@
 
 .field-help,
 .field-error {
-    @apply .block .w-full .relative .mt-1 .ml-2px .text-sm .text-grey-400;
+    @apply .block .w-full .relative .mt-1 .ml-2px .text-sm .text-gray-600;
 }
 
 .form-section {
@@ -56,11 +56,11 @@
         @apply .mb-8 .w-full;;
 
         > .form-section-header {
-            @apply .font-semibold .text-xl .mb-4 .pb-2 .border-b;
+            @apply .font-semibold .text-xl .mb-4 .pb-2 .border-b .text-gray-700;
         }
 
         > .form-section-message {
-            @apply .text-grey-400;
+            @apply .text-gray-600;
         }
     }
 
@@ -98,14 +98,14 @@
 
 .field-wrapper.has-error {
     .field-label {
-        @apply .text-danger-500;
+        @apply .text-red-500;
     }
 
     .field-group {
-        @apply .border-danger-500;
+        @apply .border-red-500;
     }
 }
 
 .field-error {
-    @apply .text-danger-500;
+    @apply .text-red-500;
 }

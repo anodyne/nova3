@@ -1,6 +1,6 @@
 @pageHeader
-    @slot('pretitle', 'Presentation')
-    Create Theme
+    @slot('pretitle', 'Themes')
+    Create
 @endpageHeader
 
 <section>
