@@ -12,6 +12,10 @@ use Illuminate\Contracts\Foundation\Application;
 
 abstract class BaseResponsable implements Responsable
 {
+    const RENDER_CLIENT = 'csr';
+
+    const RENDER_SERVER = 'ssr';
+
     /**
      * The application instance.
      *
@@ -27,6 +31,13 @@ abstract class BaseResponsable implements Responsable
     protected $data = [];
 
     /**
+     * The final output of the response.
+     *
+     * @var string
+     */
+    protected $output;
+
+    /**
      * The page instance for the response.
      *
      * @var \Nova\Pages\Page
@@ -40,16 +51,6 @@ abstract class BaseResponsable implements Responsable
      */
     protected $theme;
 
-    const RENDER_CLIENT = 'csr';
-    const RENDER_SERVER = 'ssr';
-
-    /**
-     * The final output of the response.
-     *
-     * @var string
-     */
-    protected $output;
-
     public function __construct(Page $page, Application $app)
     {
         $this->app = $app;
@@ -58,17 +59,11 @@ abstract class BaseResponsable implements Responsable
     }
 
     /**
-     * The list of views for the response.
-     *
-     * @return array
-     */
-    abstract public function views();
-
-    /**
      * Get the array of response data.
      *
      * @param  string  $key
      * @param  string  $default
+     *
      * @return array
      */
     public function getData($key = null, $default = null)
@@ -84,6 +79,7 @@ abstract class BaseResponsable implements Responsable
      * Get the name of the current route from the request.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return string
      */
     public function getRouteName(Request $request)
@@ -95,6 +91,7 @@ abstract class BaseResponsable implements Responsable
      * Get a specific view name.
      *
      * @param  string  $view
+     *
      * @return string
      */
     public function getView($view)
@@ -110,7 +107,7 @@ abstract class BaseResponsable implements Responsable
             // 'template' => $this->page->content_template,
             'page' => null,
             'script' => null,
-            'component' => null
+            'component' => null,
         ], $this->views() ?? []);
 
         return data_get($views, $view, null);
@@ -147,10 +144,25 @@ abstract class BaseResponsable implements Responsable
     }
 
     /**
+     * Determine what the render mode is.
+     *
+     * @return string
+     */
+    public function renderMode()
+    {
+        if ($this->getView('component') !== null) {
+            return self::RENDER_CLIENT;
+        }
+
+        return self::RENDER_SERVER;
+    }
+
+    /**
      * Handle converting this to a response object that Laravel knows what
      * to do with.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     final public function toResponse($request)
@@ -164,26 +176,20 @@ abstract class BaseResponsable implements Responsable
         return $this->renderServerSide($request);
     }
 
-    protected function renderClientSide($request)
-    {
-        return view()->component($this->getView('component'), $this->data);
-    }
-
-    protected function renderServerSide($request)
-    {
-        $this->passDataToContainer();
-
-        if ($request->expectsJson()) {
-            return response()->json($this->data, Response::HTTP_OK);
-        }
-
-        return response($this->render(), Response::HTTP_OK);
-    }
+    /**
+     * The list of views for the response.
+     *
+     * @return array
+     */
+    abstract public function views();
 
     /**
      * Any data that should be sent with the response.
      *
      * @param  array  $data
+     * @param mixed $key
+     * @param null|mixed $value
+     *
      * @return \Nova\Foundation\Http\Responses\BaseResponsable
      */
     public function with($key, $value = null)
@@ -198,15 +204,27 @@ abstract class BaseResponsable implements Responsable
     }
 
     /**
-     * Build the structure.
+     * Dynamically bind parameters to the response.
+     *
+     * @param  string  $method
+     * @param  array   $parameters
+     *
+     * @throws \BadMethodCallException
      *
      * @return \Nova\Foundation\Http\Responses\BaseResponsable
+     *
      */
-    protected function buildStructure()
+    public function __call($method, $parameters)
     {
-        $this->output = $this->theme->structure();
+        if (! Str::startsWith($method, 'with')) {
+            throw new BadMethodCallException(sprintf(
+                'Method %s::%s does not exist.',
+                static::class,
+                $method
+            ));
+        }
 
-        return $this;
+        return $this->with(Str::camel(substr($method, 4)), $parameters[0]);
     }
 
     /**
@@ -217,18 +235,6 @@ abstract class BaseResponsable implements Responsable
     protected function buildLayout()
     {
         $this->output = $this->theme->layout($this->getView('layout.view'));
-
-        return $this;
-    }
-
-    /**
-     * Build the content template.
-     *
-     * @return \Nova\Foundation\Http\Responses\BaseResponsable
-     */
-    protected function buildTemplate()
-    {
-        $this->output = $this->theme->template('simple');
 
         return $this;
     }
@@ -252,7 +258,31 @@ abstract class BaseResponsable implements Responsable
      */
     protected function buildScripts()
     {
-        $this->output = $this->theme->scripts((array)$this->getView('script'));
+        $this->output = $this->theme->scripts((array) $this->getView('script'));
+
+        return $this;
+    }
+
+    /**
+     * Build the structure.
+     *
+     * @return \Nova\Foundation\Http\Responses\BaseResponsable
+     */
+    protected function buildStructure()
+    {
+        $this->output = $this->theme->structure();
+
+        return $this;
+    }
+
+    /**
+     * Build the content template.
+     *
+     * @return \Nova\Foundation\Http\Responses\BaseResponsable
+     */
+    protected function buildTemplate()
+    {
+        $this->output = $this->theme->template('simple');
 
         return $this;
     }
@@ -271,37 +301,19 @@ abstract class BaseResponsable implements Responsable
         return $this;
     }
 
-    /**
-     * Determine what the render mode is.
-     *
-     * @return string
-     */
-    public function renderMode()
+    protected function renderClientSide($request)
     {
-        if ($this->getView('component') !== null) {
-            return self::RENDER_CLIENT;
-        }
-
-        return self::RENDER_SERVER;
+        return view()->component($this->getView('component'), $this->data);
     }
 
-    /**
-     * Dynamically bind parameters to the response.
-     *
-     * @param  string  $method
-     * @param  array   $parameters
-     * @return \Nova\Foundation\Http\Responses\BaseResponsable
-     *
-     * @throws \BadMethodCallException
-     */
-    public function __call($method, $parameters)
+    protected function renderServerSide($request)
     {
-        if (! Str::startsWith($method, 'with')) {
-            throw new BadMethodCallException(sprintf(
-                'Method %s::%s does not exist.', static::class, $method
-            ));
+        $this->passDataToContainer();
+
+        if ($request->expectsJson()) {
+            return response()->json($this->data, Response::HTTP_OK);
         }
 
-        return $this->with(Str::camel(substr($method, 4)), $parameters[0]);
+        return response($this->render(), Response::HTTP_OK);
     }
 }
