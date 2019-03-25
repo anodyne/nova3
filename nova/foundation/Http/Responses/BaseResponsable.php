@@ -66,6 +66,7 @@ abstract class BaseResponsable implements Responsable
      *
      * @param  string  $key
      * @param  string  $default
+     *
      * @return array
      */
     public function getData($key = null, $default = null)
@@ -81,6 +82,7 @@ abstract class BaseResponsable implements Responsable
      * Get the name of the current route from the request.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return string
      */
     public function getRouteName(Request $request)
@@ -92,6 +94,7 @@ abstract class BaseResponsable implements Responsable
      * Get a specific view name.
      *
      * @param  string  $view
+     *
      * @return string
      */
     public function getView($view)
@@ -147,6 +150,7 @@ abstract class BaseResponsable implements Responsable
      * to do with.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     final public function toResponse($request)
@@ -166,6 +170,9 @@ abstract class BaseResponsable implements Responsable
      * Any data that should be sent with the response.
      *
      * @param  array  $data
+     * @param mixed $key
+     * @param null|mixed $value
+     *
      * @return \Nova\Foundation\Http\Responses\BaseResponsable
      */
     public function with($key, $value = null)
@@ -177,6 +184,30 @@ abstract class BaseResponsable implements Responsable
         }
 
         return $this;
+    }
+
+    /**
+     * Dynamically bind parameters to the response.
+     *
+     * @param  string  $method
+     * @param  array   $parameters
+     *
+     * @throws \BadMethodCallException
+     *
+     * @return \Nova\Foundation\Http\Responses\BaseResponsable
+     *
+     */
+    public function __call($method, $parameters)
+    {
+        if (! Str::startsWith($method, 'with')) {
+            throw new BadMethodCallException(sprintf(
+                'Method %s::%s does not exist.',
+                static::class,
+                $method
+            ));
+        }
+
+        return $this->with(Str::camel(substr($method, 4)), $parameters[0]);
     }
 
     /**
@@ -234,7 +265,7 @@ abstract class BaseResponsable implements Responsable
      */
     protected function buildScripts()
     {
-        $this->output = $this->theme->scripts((array)$this->getView('script'));
+        $this->output = $this->theme->scripts((array) $this->getView('script'));
 
         return $this;
     }
@@ -251,25 +282,5 @@ abstract class BaseResponsable implements Responsable
         });
 
         return $this;
-    }
-
-    /**
-     * Dynamically bind parameters to the response.
-     *
-     * @param  string  $method
-     * @param  array   $parameters
-     * @return \Nova\Foundation\Http\Responses\BaseResponsable
-     *
-     * @throws \BadMethodCallException
-     */
-    public function __call($method, $parameters)
-    {
-        if (! Str::startsWith($method, 'with')) {
-            throw new BadMethodCallException(sprintf(
-                'Method %s::%s does not exist.', static::class, $method
-            ));
-        }
-
-        return $this->with(Str::camel(substr($method, 4)), $parameters[0]);
     }
 }
