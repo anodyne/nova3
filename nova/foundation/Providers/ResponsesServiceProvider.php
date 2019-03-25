@@ -33,6 +33,10 @@ class ResponsesServiceProvider extends ServiceProvider
             \Nova\Themes\Http\Responses\ManageThemesResponse::class,
             \Nova\Themes\Http\Responses\CreateThemeResponse::class,
             \Nova\Themes\Http\Responses\EditThemeResponse::class,
+
+            \Nova\Authorization\Http\Responses\Roles\Index::class,
+            \Nova\Authorization\Http\Responses\Roles\Create::class,
+            \Nova\Authorization\Http\Responses\Roles\Edit::class,
         ];
     }
 
