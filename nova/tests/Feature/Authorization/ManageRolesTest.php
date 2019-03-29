@@ -29,45 +29,6 @@ class ManageRolesTest extends TestCase
             ->assertSuccessful();
     }
 
-    public function testUserCanViewCreateRolePage()
-    {
-        $this->signInWithAbility('role.create');
-
-        $this->get(route('roles.create'))
-            ->assertSuccessful();
-    }
-
-    public function testARoleCanBeCreated()
-    {
-        $this->signInWithAbility('role.create');
-
-        $data = factory(Role::class)->make()->toArray();
-
-        $this->followingRedirects()
-            ->from(route('roles.create'))
-            ->post(route('roles.store'), $data)
-            ->assertSuccessful();
-
-        $this->assertDatabaseHas('roles', $data);
-    }
-
-    public function testAnEventIsDispatchedWhenARoleIsCreated()
-    {
-        Event::fake();
-
-        $this->signInWithAbility('role.create');
-
-        $data = factory(Role::class)->make()->toArray();
-
-        $this->post(route('roles.store'), $data);
-
-        $role = Role::get()->last();
-
-        Event::assertDispatched(Events\RoleCreated::class, function ($event) use ($role) {
-            return $event->role->is($role);
-        });
-    }
-
     public function testUserCanViewEditRolePage()
     {
         $this->signInWithAbility('role.update');
