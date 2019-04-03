@@ -36,7 +36,7 @@ class RoleController extends Controller
 
         event(new Events\RoleCreated($role));
 
-        return redirect()->route('roles.index');
+        return $role->fresh();
     }
 
     public function edit(Authorizers\Roles\Edit $auth, Role $role)
@@ -51,7 +51,7 @@ class RoleController extends Controller
 
         event(new Events\RoleUpdated($role));
 
-        return redirect()->route('roles.index');
+        return $role->fresh();
     }
 
     public function destroy(Authorizers\Roles\Destroy $auth, Role $role)
