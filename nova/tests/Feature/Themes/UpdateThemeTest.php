@@ -9,7 +9,7 @@ use Nova\Themes\Events;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ManageThemesTest extends TestCase
+class UpdateThemeTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -22,32 +22,26 @@ class ManageThemesTest extends TestCase
         $this->theme = factory(Theme::class)->create();
     }
 
-    public function testUserCanViewManageThemesPage()
+    public function testUserCanViewEditThemePage()
     {
-        $this->signInWithAbility('theme.create');
-
-        $this->get(route('themes.index'))
-            ->assertSuccessful();
-    }
-
-    public function testUnauthorizedUserCannotManageThemes()
-    {
-        $this->get(route('themes.index'))->assertRedirect(route('login'));
-    }
-
-    /** @test **/
-    public function a_user_can_view_the_edit_theme_page()
-    {
-        $this->signIn();
+        $this->signInWithAbility('theme.update');
 
         $this->get(route('themes.edit', $this->theme))
             ->assertSuccessful();
     }
 
-    /** @test **/
-    public function a_user_can_edit_a_theme()
+    public function testUnauthorizedUserCannotUpdateTheme()
     {
-        $this->signIn();
+        $this->get(route('themes.edit', $this->theme))
+            ->assertRedirect(route('login'));
+
+        $this->put(route('themes.update', $this->theme), [])
+            ->assertRedirect(route('login'));
+    }
+
+    public function testThemeCanBeUpdated()
+    {
+        $this->signInWithAbility('theme.update');
 
         $this->followingRedirects()
             ->from(route('themes.edit', $this->theme))
@@ -66,8 +60,7 @@ class ManageThemesTest extends TestCase
         ]);
     }
 
-    /** @test **/
-    public function an_event_is_dispatched_when_a_theme_is_edited()
+    public function testEventIsDispatchedWhenThemeIsUpdated()
     {
         Event::fake();
 

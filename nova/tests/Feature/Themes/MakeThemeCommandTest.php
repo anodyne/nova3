@@ -5,7 +5,7 @@ namespace Tests\Feature\Themes;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Storage;
 
-class ThemeMakeCommandTest extends TestCase
+class MakeThemeCommandTest extends TestCase
 {
     /** @test **/
     public function a_user_can_scaffold_a_new_theme()
@@ -48,7 +48,7 @@ class ThemeMakeCommandTest extends TestCase
 
         $this->artisan('nova:make:theme', [
             'name' => 'Foo',
-            '--variants' => ['blue', 'red']
+            '--variants' => ['blue', 'red'],
         ]);
 
         $files = Storage::disk('themes')->allFiles('foo');
@@ -67,7 +67,7 @@ class ThemeMakeCommandTest extends TestCase
         Storage::disk('themes')->makeDirectory('foo');
 
         $this->artisan('nova:make:theme', [
-            'name' => 'Foo'
+            'name' => 'Foo',
         ]);
     }
 }
