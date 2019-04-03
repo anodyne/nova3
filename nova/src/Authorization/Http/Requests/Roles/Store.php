@@ -9,8 +9,9 @@ class Store extends BaseFormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique:roles',
             'title' => 'required',
+            'abilities' => 'nullable',
         ];
     }
 }

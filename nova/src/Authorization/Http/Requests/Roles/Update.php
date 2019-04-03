@@ -11,6 +11,7 @@ class Update extends BaseFormRequest
         return [
             'name' => 'required',
             'title' => 'required',
+            'abilities' => 'nullable',
         ];
     }
 }
