@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Authorization\Http\Requests\Roles;
+namespace Nova\Authorization\Http\Requests;
 
 use Nova\Foundation\Http\Requests\BaseFormRequest;
 

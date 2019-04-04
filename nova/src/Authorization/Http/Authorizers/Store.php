@@ -1,11 +1,11 @@
 <?php
 
-namespace Nova\Authorization\Http\Authorizers\Roles;
+namespace Nova\Authorization\Http\Authorizers;
 
 use Silber\Bouncer\Database\Role;
 use Nova\Foundation\Http\Authorizers\BaseAuthorizer;
 
-class Create extends BaseAuthorizer
+class Store extends BaseAuthorizer
 {
     public function authorize()
     {

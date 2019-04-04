@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Authorization\Http\Responses\Roles;
+namespace Nova\Authorization\Http\Responses;
 
 use Nova\Foundation\Http\Responses\BaseResponsable;
 
