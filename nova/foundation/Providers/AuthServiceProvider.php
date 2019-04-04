@@ -2,8 +2,9 @@
 
 namespace Nova\Foundation\Providers;
 
+use Nova\Themes\Theme;
 use Silber\Bouncer\Database\Role;
-use Illuminate\Support\Facades\Gate;
+use Nova\Themes\Policies\ThemePolicy;
 use Nova\Authorization\Policies\RolePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -16,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Role::class => RolePolicy::class,
+        Theme::class => ThemePolicy::class,
     ];
 
     /**
