@@ -23,7 +23,23 @@ class DeleteThemeTest extends TestCase
         $this->theme = factory(Theme::class)->create();
     }
 
+    public function testAuthorizedUserCanDeleteTheme()
+    {
+        $this->signInWithAbility('theme.delete');
+
+        $this->deleteJson(route('themes.destroy', $this->theme))
+            ->assertSuccessful();
+    }
+
     public function testUnauthorizedUserCannotDeleteTheme()
+    {
+        $this->signIn();
+
+        $this->deleteJson(route('themes.destroy', $this->theme))
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testGuestCannotDeleteTheme()
     {
         $this->deleteJson(route('themes.destroy', $this->theme))
             ->assertStatus(Response::HTTP_UNAUTHORIZED);

@@ -14,17 +14,29 @@ class CreateRoleTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testUserCanViewCreateRolePage()
+    public function testAuthorizedUserCanCreateRole()
     {
         $this->signInWithAbility('role.create');
 
-        $this->get(route('roles.create'))
-            ->assertSuccessful();
+        $this->get(route('roles.create'))->assertSuccessful();
     }
 
     public function testUnauthorizedUserCannotCreateRole()
     {
-        $this->get(route('roles.create'))->assertRedirect(route('login'));
+        $this->signIn();
+
+        $this->get(route('roles.create'))
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->postJson(route('roles.store'), [])
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testGuestCannotCreateRole()
+    {
+        $this->get(route('roles.create'))
+            ->assertRedirect(route('login'));
+
         $this->postJson(route('roles.store'), [])
             ->assertStatus(Response::HTTP_UNAUTHORIZED);
     }

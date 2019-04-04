@@ -22,7 +22,7 @@ class UpdateRoleTest extends TestCase
         $this->role = factory(Role::class)->create();
     }
 
-    public function testUserCanViewEditRolePage()
+    public function testAuthorizedUserCanUpdateRole()
     {
         $this->signInWithAbility('role.update');
 
@@ -32,7 +32,20 @@ class UpdateRoleTest extends TestCase
 
     public function testUnauthorizedUserCannotUpdateRole()
     {
-        $this->get(route('roles.edit', $this->role))->assertRedirect(route('login'));
+        $this->signIn();
+
+        $this->get(route('roles.edit', $this->role))
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->putJson(route('roles.update', $this->role), [])
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testGuestCannotUpdateRole()
+    {
+        $this->get(route('roles.edit', $this->role))
+            ->assertRedirect(route('login'));
+
         $this->putJson(route('roles.update', $this->role), [])
             ->assertStatus(Response::HTTP_UNAUTHORIZED);
     }

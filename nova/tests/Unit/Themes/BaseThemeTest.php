@@ -12,6 +12,7 @@ class BaseThemeTest extends TestCase
     use RefreshDatabase;
 
     protected $theme;
+
     protected $themeModel;
 
     public function setUp(): void
@@ -20,18 +21,17 @@ class BaseThemeTest extends TestCase
 
         $this->themeModel = factory(Theme::class)->create();
 
-        $this->theme = (new class extends BaseTheme {});
+        $this->theme = (new class extends BaseTheme {
+        });
         $this->theme->location = $this->themeModel->location;
     }
 
-    /** @test **/
-    public function it_can_access_the_theme_model()
+    public function testItCanAccessTheThemeModel()
     {
         $this->assertTrue($this->theme->getModel()->is($this->themeModel));
     }
 
-    /** @test **/
-    public function all_of_its_icon_maps_are_the_same_size()
+    public function testAllIconMapsAreTheSameLength()
     {
         $this->assertEquals(
             count($this->theme->getFeatherIconMap()),

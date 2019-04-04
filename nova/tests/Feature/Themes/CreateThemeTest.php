@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Nova\Themes\Jobs;
 use Nova\Themes\Theme;
 use Nova\Themes\Events;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,18 +24,31 @@ class CreateThemeTest extends TestCase
         $this->theme = factory(Theme::class)->create();
     }
 
-    public function testUserCanViewCreateThemePage()
+    public function testAuthorizedUserCanCreateTheme()
     {
         $this->signInWithAbility('theme.create');
 
-        $this->get(route('themes.create'))
-            ->assertSuccessful();
+        $this->get(route('themes.create'))->assertSuccessful();
     }
 
     public function testUnauthorizedUserCannotCreateTheme()
     {
-        $this->get(route('themes.create'))->assertRedirect(route('login'));
-        $this->post(route('themes.store'), [])->assertRedirect(route('login'));
+        $this->signIn();
+
+        $this->get(route('themes.create'))
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->post(route('themes.store'), [])
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testGuestCannotCreateTheme()
+    {
+        $this->get(route('themes.create'))
+            ->assertRedirect(route('login'));
+
+        $this->post(route('themes.store'), [])
+            ->assertRedirect(route('login'));
     }
 
     public function testThemeCanBeCreated()
@@ -82,7 +96,7 @@ class CreateThemeTest extends TestCase
     {
         Storage::fake('themes');
 
-        $this->signIn();
+        $this->signInWithAbility('theme.create');
 
         $this->from(route('themes.index'))
             ->post(route('themes.store'), [
@@ -96,7 +110,7 @@ class CreateThemeTest extends TestCase
     {
         Storage::fake('themes');
 
-        $this->signIn();
+        $this->signInWithAbility('theme.create');
 
         $this->from(route('themes.index'))
             ->post(route('themes.store'), [
@@ -110,7 +124,7 @@ class CreateThemeTest extends TestCase
     {
         Storage::fake('themes');
 
-        $this->signIn();
+        $this->signInWithAbility('theme.create');
 
         $this->from(route('themes.index'))
             ->post(route('themes.store'), [
@@ -123,7 +137,7 @@ class CreateThemeTest extends TestCase
     {
         Storage::fake('themes');
 
-        $this->signIn();
+        $this->signInWithAbility('theme.create');
 
         $this->from(route('themes.index'))
             ->post(route('themes.store'), [
@@ -136,7 +150,7 @@ class CreateThemeTest extends TestCase
     {
         Storage::fake('themes');
 
-        $this->signIn();
+        $this->signInWithAbility('theme.create');
 
         $this->from(route('themes.index'))
             ->post(route('themes.store'), [

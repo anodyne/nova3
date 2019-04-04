@@ -3,6 +3,7 @@
 namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
+use Illuminate\Http\Response;
 use Silber\Bouncer\Database\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -19,7 +20,7 @@ class ManageRolesTest extends TestCase
         $this->role = factory(Role::class)->create();
     }
 
-    public function testUserCanViewManageRolesPage()
+    public function testAuthorizedUserCanManageRoles()
     {
         $this->signInWithAbility('role.create');
 
@@ -27,8 +28,17 @@ class ManageRolesTest extends TestCase
             ->assertSuccessful();
     }
 
-    public function testUnauthorizedUsersCannotManageRoles()
+    public function testUnauthorizedUserCannotManageRoles()
     {
-        $this->get(route('roles.index'))->assertRedirect(route('login'));
+        $this->signIn();
+
+        $this->get(route('roles.index'))
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testGuestCannotManageRoles()
+    {
+        $this->get(route('roles.index'))
+            ->assertRedirect(route('login'));
     }
 }

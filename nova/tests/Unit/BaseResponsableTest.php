@@ -23,28 +23,25 @@ class BaseResponsableTest extends TestCase
             public function views()
             {
                 return [
-                    'page' => 'foo'
+                    'page' => 'foo',
                 ];
             }
         });
     }
 
-    /** @test **/
-    public function it_has_the_view_for_a_response()
+    public function testItHasResponseView()
     {
         $this->assertEquals('foo', $this->response->getView('page'));
     }
 
-    /** @test **/
-    public function it_can_use_dynamic_with_methods_to_set_data()
+    public function testItCanUseDynamicWithMethodsToSetData()
     {
         $this->response->withFoo('bar');
 
         $this->assertEquals('bar', $this->response->getData('foo'));
     }
 
-    /** @test **/
-    public function it_can_set_an_array_of_data()
+    public function testItCanSetAnArrayOfData()
     {
         $this->response->with([
             'foo' => 'foo',
@@ -59,8 +56,7 @@ class BaseResponsableTest extends TestCase
         });
     }
 
-    /** @test **/
-    public function it_only_allows_dynamic_methods_for_setting_with_data()
+    public function testItOnlyAllowsDynamicMethodsForSettingWithData()
     {
         $this->expectException('BadMethodCallException');
 

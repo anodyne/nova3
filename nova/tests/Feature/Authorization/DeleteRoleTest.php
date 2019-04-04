@@ -22,7 +22,23 @@ class DeleteRoleTest extends TestCase
         $this->role = factory(Role::class)->create();
     }
 
+    public function testAuthorizedUserCanDeleteRole()
+    {
+        $this->signInWithAbility('role.delete');
+
+        $this->deleteJson(route('roles.destroy', $this->role))
+            ->assertSuccessful();
+    }
+
     public function testUnauthorizedUserCannotDeleteRole()
+    {
+        $this->signIn();
+
+        $this->deleteJson(route('roles.destroy', $this->role))
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testGuestCannotDeleteRole()
     {
         $this->deleteJson(route('roles.destroy', $this->role))
             ->assertStatus(Response::HTTP_UNAUTHORIZED);

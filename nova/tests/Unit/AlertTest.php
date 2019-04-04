@@ -16,40 +16,35 @@ class AlertTest extends TestCase
         $this->alert = $this->app->make(Alert::class);
     }
 
-    /** @test **/
-    public function it_can_set_a_message()
+    public function testItCanSetMessage()
     {
         $this->alert->withMessage('Message');
 
         $this->assertEquals('Message', $this->alert->message);
     }
 
-    /** @test **/
-    public function it_can_set_action_text()
+    public function testItCanSetActionText()
     {
         $this->alert->withActionText('Save');
 
         $this->assertEquals('Save', $this->alert->actionText);
     }
 
-    /** @test **/
-    public function it_can_set_action_url()
+    public function testItCanSetActionUrl()
     {
         $this->alert->withActionLink('https://google.com');
 
         $this->assertEquals('https://google.com', $this->alert->actionLink);
     }
 
-    /** @test **/
-    public function it_can_set_a_type_of_error()
+    public function testItCanSetErrorType()
     {
         $this->alert->error();
 
         $this->assertEquals('is-danger', $this->alert->type);
     }
 
-    /** @test **/
-    public function it_can_set_a_type_of_success()
+    public function testItCanSetSuccessType()
     {
         $this->alert->success();
 
