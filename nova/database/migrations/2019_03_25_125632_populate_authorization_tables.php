@@ -32,6 +32,10 @@ class PopulateAuthorizationTables extends Migration
             ['name' => 'role.create', 'title' => 'Create role'],
             ['name' => 'role.delete', 'title' => 'Delete role'],
             ['name' => 'role.update', 'title' => 'Update role'],
+
+            ['name' => 'theme.create', 'title' => 'Create theme'],
+            ['name' => 'theme.delete', 'title' => 'Delete theme'],
+            ['name' => 'theme.update', 'title' => 'Update theme'],
         ];
 
         collect($abilities)->each(function ($ability) {
