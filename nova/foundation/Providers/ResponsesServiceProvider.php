@@ -2,10 +2,7 @@
 
 namespace Nova\Foundation\Providers;
 
-use Nova\Pages\Page;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Support\DeferrableProvider;
 
 class ResponsesServiceProvider extends ServiceProvider
 {
@@ -30,13 +27,13 @@ class ResponsesServiceProvider extends ServiceProvider
             \Nova\Auth\Http\Responses\ResetPasswordResponse::class,
             \Nova\Auth\Http\Responses\EmailVerificationResponse::class,
 
-            \Nova\Themes\Http\Responses\ManageThemesResponse::class,
-            \Nova\Themes\Http\Responses\CreateThemeResponse::class,
-            \Nova\Themes\Http\Responses\EditThemeResponse::class,
+            \Nova\Themes\Http\Responses\Index::class,
+            \Nova\Themes\Http\Responses\Create::class,
+            \Nova\Themes\Http\Responses\Edit::class,
 
-            \Nova\Authorization\Http\Responses\Roles\Index::class,
-            \Nova\Authorization\Http\Responses\Roles\Create::class,
-            \Nova\Authorization\Http\Responses\Roles\Edit::class,
+            \Nova\Authorization\Http\Responses\Index::class,
+            \Nova\Authorization\Http\Responses\Create::class,
+            \Nova\Authorization\Http\Responses\Edit::class,
         ];
     }
 
