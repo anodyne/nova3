@@ -2,9 +2,9 @@
 
 namespace Nova\Themes\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Nova\Foundation\Http\Requests\BaseFormRequest;
 
-class EditThemeRequest extends FormRequest
+class Update extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
