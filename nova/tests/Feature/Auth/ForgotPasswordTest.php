@@ -13,15 +13,13 @@ class ForgotPasswordTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test **/
-    public function a_user_can_view_the_email_password_page()
+    public function testGuestCanViewEmailPasswordPage()
     {
         $this->get(route('password.request'))
             ->assertSuccessful();
     }
 
-    /** @test **/
-    public function an_authenticated_user_cannot_view_the_email_password_page()
+    public function testAuthenticatedUserCannotViewEmailPasswordPage()
     {
         $this->signIn();
 
@@ -29,8 +27,7 @@ class ForgotPasswordTest extends TestCase
             ->assertRedirect(route('home'));
     }
 
-    /** @test **/
-    public function a_user_receives_an_email_with_a_password_reset_link()
+    public function testUserIsSentEmailWithPasswordResetLink()
     {
         Notification::fake();
 
@@ -49,8 +46,7 @@ class ForgotPasswordTest extends TestCase
         });
     }
 
-    /** @test **/
-    public function an_unregistered_user_does_not_receive_an_email_with_a_password_reset_link()
+    public function testGuestIsNotSentEmailWithPasswordResetLink()
     {
         Notification::fake();
 
@@ -64,8 +60,7 @@ class ForgotPasswordTest extends TestCase
         Notification::assertNotSentTo($this->makeUser(), ResetPassword::class);
     }
 
-    /** @test **/
-    public function email_is_required_on_email_password_page()
+    public function testEmailIsRequiredOnEmailPasswordPage()
     {
         $this->from(route('password.request'))
             ->post(route('password.email'), [])
@@ -73,12 +68,11 @@ class ForgotPasswordTest extends TestCase
             ->assertSessionHasErrors('email');
     }
 
-    /** @test **/
-    public function valid_email_is_required_on_email_password_page()
+    public function testValidEmailIsRequiredOnEmailPasswordPage()
     {
         $this->from(route('password.request'))
             ->post(route('password.email'), [
-                'email' => 'invalid-email'
+                'email' => 'invalid-email',
             ])
             ->assertRedirect(route('password.request'))
             ->assertSessionHasErrors('email');

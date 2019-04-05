@@ -16,11 +16,13 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "silber/bouncer": "v1.0.0-rc.5",
         "spatie/laravel-html": "^2.21"
     },
 
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
+        "codedungeon/phpunit-result-printer": "^0.26.1",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
         "itsgoingd/clockwork": "^3.1",

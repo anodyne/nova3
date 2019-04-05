@@ -9,15 +9,13 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test **/
-    public function a_user_can_view_the_login_page()
+    public function testGuestCanViewLoginPage()
     {
         $this->get(route('login'))
             ->assertSuccessful();
     }
 
-    /** @test **/
-    public function a_user_cannot_view_the_login_page_when_they_are_authenticated()
+    public function testAuthenticatedUserCannotViewLoginPage()
     {
         $this->signIn();
 
@@ -25,28 +23,26 @@ class LoginTest extends TestCase
             ->assertRedirect(route('home'));
     }
 
-    /** @test **/
-    public function a_user_can_login_with_correct_credentials()
+    public function testGuestCanLoginWithCorrectCredentials()
     {
         $user = $this->createUser();
 
         $this->from(route('login'))
             ->post(route('login'), [
                 'email' => $user->email,
-                'password' => 'secret'
+                'password' => 'secret',
             ])
             ->assertRedirect(route('home'));
 
         $this->assertAuthenticatedAs($user);
     }
 
-    /** @test **/
-    public function a_user_cannot_login_with_non_existent_email()
+    public function testGuestCannotLoginWithNonExistentEmail()
     {
         $this->from(route('login'))
             ->post(route('login'), [
                 'email' => 'go-away@example.com',
-                'password' => 'secret'
+                'password' => 'secret',
             ])
             ->assertRedirect(route('login'))
             ->assertSessionHasErrors('email');
@@ -57,15 +53,14 @@ class LoginTest extends TestCase
         $this->assertGuest();
     }
 
-    /** @test **/
-    public function a_user_cannot_login_with_incorrect_password()
+    public function testGuestCannotLoginWithIncorrectPassword()
     {
         $user = $this->createUser();
 
         $this->from(route('login'))
             ->post(route('login'), [
                 'email' => $user->email,
-                'password' => 'foo'
+                'password' => 'foo',
             ])
             ->assertRedirect(route('login'));
 
@@ -75,8 +70,7 @@ class LoginTest extends TestCase
         $this->assertGuest();
     }
 
-    /** @test **/
-    public function an_authenticated_user_can_logout()
+    public function testAuthenticatedUserCanLogout()
     {
         $this->signIn();
 
@@ -86,8 +80,7 @@ class LoginTest extends TestCase
         $this->assertGuest();
     }
 
-    /** @test **/
-    public function an_unauthenticated_user_cannot_logout()
+    public function testGuestCannotLogout()
     {
         $this->post(route('logout'))
             ->assertRedirect('/');
@@ -95,8 +88,7 @@ class LoginTest extends TestCase
         $this->assertGuest();
     }
 
-    /** @test **/
-    public function a_user_cannot_attempt_more_than_five_logins_in_one_minute()
+    public function testGuestCannotAttemptLoggingInMoreThanFiveTimesInOneMinute()
     {
         $user = $this->createUser();
 
@@ -127,15 +119,14 @@ class LoginTest extends TestCase
         $this->assertGuest();
     }
 
-    /** @test **/
-    public function a_timestamp_is_recorded_when_a_user_logs_in()
+    public function testTimestampIsRecordedWhenUserLogsIn()
     {
         $user = $this->createUser();
 
         $this->from(route('login'))
             ->post(route('login'), [
                 'email' => $user->email,
-                'password' => 'secret'
+                'password' => 'secret',
             ]);
 
         $timeFormat = 'Y-m-d H:i';
@@ -147,8 +138,7 @@ class LoginTest extends TestCase
         );
     }
 
-    /** @test **/
-    public function a_user_is_prompted_to_change_their_password_if_an_admin_has_forced_a_reset()
+    public function testUserIsPromptedToChangeTheirPasswordIfAnAdminHasForcedReset()
     {
         $user = $this->createUser();
         $user->forcePasswordReset();
@@ -157,7 +147,7 @@ class LoginTest extends TestCase
             ->from(route('login'))
             ->post(route('login'), [
                 'email' => $user->email,
-                'password' => 'secret'
+                'password' => 'secret',
             ])
             ->assertSeeText('An admin has required you to reset your password.');
     }

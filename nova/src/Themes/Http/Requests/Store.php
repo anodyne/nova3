@@ -2,9 +2,9 @@
 
 namespace Nova\Themes\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Nova\Foundation\Http\Requests\BaseFormRequest;
 
-class CreateThemeRequest extends FormRequest
+class Store extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -43,7 +43,7 @@ class CreateThemeRequest extends FormRequest
     public function messages()
     {
         return [
-            'location.unique' => 'A theme already exists at that location.'
+            'location.unique' => 'A theme already exists at that location.',
         ];
     }
 }

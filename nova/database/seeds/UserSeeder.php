@@ -12,14 +12,18 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class)->create([
+        $admin = factory(User::class)->create([
             'email' => 'admin@admin.com',
         ]);
 
-        factory(User::class)
+        $admin->assign('admin');
+
+        $user = factory(User::class)
             ->states('unverified-email')
             ->create([
                 'email' => 'user@user.com',
             ]);
+
+        $user->assign('user');
     }
 }

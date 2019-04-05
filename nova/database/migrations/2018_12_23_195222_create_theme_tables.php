@@ -7,11 +7,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateThemeTables extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('themes', function (Blueprint $table) {
@@ -32,11 +27,6 @@ class CreateThemeTables extends Migration
         $this->populateThemesTable();
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('themes');
