@@ -8,9 +8,9 @@ trait RendersTheme
 {
     public $structure;
 
-    public function structure($view, array $data = [])
+    public function structure(array $data = [])
     {
-        $this->structure = view("components.structures.{$view}", (array) $data);
+        $this->structure = view('app-server', (array) $data);
 
         return $this;
     }

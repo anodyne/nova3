@@ -49,4 +49,15 @@ class Theme extends Model
     {
         return $this->getAttribute("layout_{$page->layout}");
     }
+
+    /**
+     * Create a new Eloquent Collection instance.
+     *
+     * @param  array  $models
+     * @return \Nova\Themes\ThemesCollection
+     */
+    public function newCollection(array $models = [])
+    {
+        return new ThemesCollection($models);
+    }
 }

@@ -26,10 +26,6 @@ class Update extends BaseFormRequest
         return [
             'name' => ['required'],
             'credits' => ['nullable'],
-            'layout_auth' => ['required'],
-            'layout_admin' => ['required'],
-            'layout_public' => ['required'],
-            'icon_set' => ['nullable'],
         ];
     }
 }
