@@ -7,11 +7,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreatePagesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('pages', function (Blueprint $table) {
@@ -27,11 +22,6 @@ class CreatePagesTable extends Migration
         $this->populatePagesTable();
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('pages');
@@ -55,8 +45,15 @@ class CreatePagesTable extends Migration
             ['uri' => 'themes/create', 'key' => 'themes.create', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@create', 'layout' => 'admin'],
             ['uri' => 'themes', 'key' => 'themes.store', 'verb' => 'post', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@store', 'layout' => 'admin'],
             ['uri' => 'themes/{theme}/edit', 'key' => 'themes.edit', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@edit', 'layout' => 'admin'],
-            ['uri' => 'themes/{theme}', 'key' => 'themes.update', 'verb' => 'patch', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@update', 'layout' => 'admin'],
+            ['uri' => 'themes/{theme}', 'key' => 'themes.update', 'verb' => 'put', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@update', 'layout' => 'admin'],
             ['uri' => 'themes/{theme}', 'key' => 'themes.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@destroy', 'layout' => 'admin'],
+
+            ['uri' => 'roles', 'key' => 'roles.index', 'resource' => 'Nova\\Authorization\\Http\\Controllers\\RoleController@index', 'layout' => 'admin'],
+            ['uri' => 'roles/create', 'key' => 'roles.create', 'resource' => 'Nova\\Authorization\\Http\\Controllers\\RoleController@create', 'layout' => 'admin'],
+            ['uri' => 'roles', 'key' => 'roles.store', 'verb' => 'post', 'resource' => 'Nova\\Authorization\\Http\\Controllers\\RoleController@store', 'layout' => 'admin'],
+            ['uri' => 'roles/{role}/edit', 'key' => 'roles.edit', 'resource' => 'Nova\\Authorization\\Http\\Controllers\\RoleController@edit', 'layout' => 'admin'],
+            ['uri' => 'roles/{role}', 'key' => 'roles.update', 'verb' => 'put', 'resource' => 'Nova\\Authorization\\Http\\Controllers\\RoleController@update', 'layout' => 'admin'],
+            ['uri' => 'roles/{role}', 'key' => 'roles.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Authorization\\Http\\Controllers\\RoleController@destroy', 'layout' => 'admin'],
         ];
 
         collect($pages)->each(function ($page) {

@@ -4,7 +4,7 @@ namespace Nova\Themes\Http\Responses;
 
 use Nova\Foundation\Http\Responses\BaseResponsable;
 
-class EditThemeResponse extends BaseResponsable
+class Edit extends BaseResponsable
 {
     public function views() : array
     {
