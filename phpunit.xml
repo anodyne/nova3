@@ -23,8 +23,8 @@
             <directory suffix="Test.php">./nova/tests/Feature/Auth</directory>
         </testsuite>
 
-        <testsuite name="authorization">
-            <directory suffix="Test.php">./nova/tests/Feature/Authorization</directory>
+        <testsuite name="roles">
+            <directory suffix="Test.php">./nova/tests/Feature/Roles</directory>
         </testsuite>
 
         <testsuite name="themes">

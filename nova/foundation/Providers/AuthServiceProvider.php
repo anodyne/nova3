@@ -4,8 +4,8 @@ namespace Nova\Foundation\Providers;
 
 use Nova\Themes\Theme;
 use Silber\Bouncer\Database\Role;
+use Nova\Roles\Policies\RolePolicy;
 use Nova\Themes\Policies\ThemePolicy;
-use Nova\Authorization\Policies\RolePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
