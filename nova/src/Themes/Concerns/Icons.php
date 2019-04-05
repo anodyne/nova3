@@ -26,6 +26,7 @@ trait Icons
             'chevron-left' => 'chevron-left',
             'chevron-right' => 'chevron-right',
             'chevron-up' => 'chevron-up',
+            'close' => 'x-circle',
             'delete' => 'trash-2',
             'flag' => 'flag',
             'hide' => 'eye-off',
@@ -44,20 +45,21 @@ trait Icons
     public function getFontAwesomeIconMap(): array
     {
         return collect([
-                'add' => 'plus-square',
-                'chevron-down' => 'chevron-down',
-                'chevron-left' => 'chevron-left',
-                'chevron-right' => 'chevron-right',
-                'chevron-up' => 'chevron-up',
-                'delete' => 'trash',
-                'flag' => 'flag',
-                'hide' => 'eye-slash',
-                'home' => 'home',
-                'notification' => 'bell',
-                'search' => 'search',
-                'show' => 'eye',
-                'sign-out' => 'sign-out-alt',
-                'user' => 'user',
+            'add' => 'plus-square',
+            'chevron-down' => 'chevron-down',
+            'chevron-left' => 'chevron-left',
+            'chevron-right' => 'chevron-right',
+            'chevron-up' => 'chevron-up',
+            'close' => 'x-circle',
+            'delete' => 'trash',
+            'flag' => 'flag',
+            'hide' => 'eye-slash',
+            'home' => 'home',
+            'notification' => 'bell',
+            'search' => 'search',
+            'show' => 'eye',
+            'sign-out' => 'sign-out-alt',
+            'user' => 'user',
             ])
             ->map(function ($icon) {
                 if (strrpos($icon, ' ') !== false) {
