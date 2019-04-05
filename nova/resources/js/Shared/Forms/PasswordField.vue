@@ -1,5 +1,8 @@
 <template>
-    <form-field :label="label" :field-id="name">
+    <form-field
+        :label="label"
+        :field-id="name"
+    >
         <div class="field-group">
             <input v-bind="fieldAttributes">
 
@@ -9,10 +12,16 @@
                 class="field-addon"
                 @click="toggleFieldType"
             >
-                <div v-show="showPassword" class="leading-0">
+                <div
+                    v-show="showPassword"
+                    class="leading-zero"
+                >
                     <nova-icon name="hide"></nova-icon>
                 </div>
-                <div v-show="!showPassword" class="leading-0">
+                <div
+                    v-show="!showPassword"
+                    class="leading-zero"
+                >
                     <nova-icon name="show"></nova-icon>
                 </div>
             </a>

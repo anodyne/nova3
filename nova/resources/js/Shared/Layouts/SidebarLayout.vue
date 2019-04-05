@@ -2,7 +2,7 @@
     <div class="layout-app-sidebar">
         <nav class="sidebar">
             <div>
-                <a href="#" class="flex justify-center my-6 leading-0"></a>
+                <a href="#" class="flex justify-center my-6 leading-zero"></a>
 
                 <div class="flex flex-col -mx-6">
                     <inertia-link href="#" class="sidebar-link">
