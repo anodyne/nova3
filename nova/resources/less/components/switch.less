@@ -3,11 +3,11 @@
 }
 
 .switch-label {
-    @apply .ml-3 .font-medium .text-grey-700;
+    @apply .ml-3 .font-medium .text-gray-700;
 }
 
 .switch {
-    @apply .inline-block .relative .flex-no-shrink .rounded-full .cursor-pointer .h-6 .w-11;
+    @apply .inline-block .relative .flex-shrink-0 .rounded-full .cursor-pointer .h-6 .w-11;
 
     &:focus {
         @apply .outline-none;
@@ -15,7 +15,7 @@
 }
 
 .switch:before {
-    @apply .inline-block .h-full .w-full .rounded-full .bg-grey-100;
+    @apply .inline-block .h-full .w-full .rounded-full .bg-gray-100;
 
     content: "";
     -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -25,11 +25,11 @@
 }
 
 .switch[aria-checked="true"]:before {
-    @apply .bg-primary-500;
+    @apply .bg-blue-500;
 }
 
 .switch:after {
-    @apply .absolute .pin-x .mt-1 .rounded-full .h-4 .w-4 .bg-grey-300;
+    @apply .absolute .inset-x-0 .mt-1 .rounded-full .h-4 .w-4 .bg-gray-300;
 
     -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
