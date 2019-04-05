@@ -1,8 +1,8 @@
 .notices {
-    @apply .fixed .flex .pin .p-6 .overflow-hidden .z-1000 .pointer-events-none .flex-col;
+    @apply .fixed .flex .inset-0 .p-6 .overflow-hidden .z-1000 .pointer-events-none .flex-col;
 
     .alert {
-        @apply .inline-flex .items-center .my-3 .text-center .shadow .rounded .py-4 .px-8 .pointer-events-auto .font-medium .bg-grey-800 .text-grey-100 .self-center;
+        @apply .inline-flex .items-center .my-3 .text-center .shadow .rounded .py-4 .px-8 .pointer-events-auto .font-medium .bg-gray-800 .text-gray-100 .self-center;
 
         opacity: 0.92;
 
@@ -10,36 +10,36 @@
             @apply .ml-6;
 
             .button {
-                @apply .m-0 .p-0 .rounded-none .bg-transparent .text-primary-300;
+                @apply .m-0 .p-0 .rounded-none .bg-transparent .text-blue-300;
 
                 &:hover {
-                    @apply .text-primary-200;
+                    @apply .text-blue-200;
                 }
 
                 &.is-danger {
-                    @apply .text-danger-300;
+                    @apply .text-red-300;
 
                     &:hover {
-                        @apply .text-danger-200;
+                        @apply .text-red-200;
                     }
                 }
 
                 &.is-success {
-                    @apply .text-success-300;
+                    @apply .text-green-300;
 
                     &:hover {
-                        @apply .text-success-200;
+                        @apply .text-green-200;
                     }
                 }
             }
         }
 
         &.is-danger {
-            @apply .bg-danger-400 .text-white;
+            @apply .bg-red-400 .text-white;
         }
 
         &.is-success {
-            @apply .bg-success-400 .text-white;
+            @apply .bg-green-400 .text-white;
         }
     }
 }

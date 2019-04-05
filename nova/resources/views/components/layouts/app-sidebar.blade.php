@@ -1,7 +1,7 @@
 <div class="layout-app-sidebar">
     <nav class="sidebar">
         <div>
-            <a href="#" class="flex justify-center my-6 leading-0">
+            <a href="#" class="flex justify-center my-6 leading-zero">
                 {{-- {{ svg_icon('setup/anodyne', 'h-16 w-16') }} --}}
             </a>
 

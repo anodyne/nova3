@@ -1,11 +1,9 @@
 @pageHeader
-    @slot('pretitle', 'Presentation')
-
     Themes
 
     @slot('controls')
         <a href="{{ route('themes.create') }}" class="button is-primary">
-            Create Theme
+            Add Theme
         </a>
     @endslot
 @endpageHeader

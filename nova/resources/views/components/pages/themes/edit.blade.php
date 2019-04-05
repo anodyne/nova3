@@ -1,6 +1,6 @@
 @pageHeader
-    @slot('pretitle', 'Presentation')
-    Edit Theme
+    @slot('pretitle', 'Themes')
+    {{ $theme->name }}
 @endpageHeader
 
 <section>

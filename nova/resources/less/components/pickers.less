@@ -2,36 +2,36 @@
     @apply .block .w-full .relative;
 
     &.is-active {
-        @apply .border-primary-500;
+        @apply .border-blue-500;
     }
 }
 
 .picker-select-placeholder {
-    @apply .text-grey-600;
+    @apply .text-gray-600;
 }
 
 .picker-select-input {
-    @apply .appearance-none .text-left .flex .items-center .justify-between .w-full .border-2 .p-3 .bg-white .rounded .cursor-pointer .select-none .text-grey-800;
+    @apply .appearance-none .text-left .flex .items-center .justify-between .w-full .border-2 .p-3 .bg-white .rounded .cursor-pointer .select-none .text-gray-700;
 
     &:focus {
-        @apply .outline-none .border-primary-500;
+        @apply .outline-none .border-blue-500;
     }
 
     .icon {
-        @apply .flex-no-shrink .mr-2 .text-grey-600;
+        @apply .flex-shrink-0 .mr-2 .text-gray-600;
     }
 
     .picker-caret {
-        @apply .h-5 .w-5 .text-grey-400;
+        @apply .h-5 .w-5 .text-gray-500;
     }
 }
 
 .picker-select-dropdown {
-    @apply .absolute .z-10 .pin-x .my-2 .p-2 .bg-grey-600 .rounded .shadow;
+    @apply .absolute .z-10 .inset-x-0 .my-2 .p-2 .bg-gray-700 .rounded .shadow;
 }
 
 .picker-select-search {
-    @apply .block .w-full .mb-2 .px-3 .py-2 .bg-grey-400 .text-white .rounded-sm;
+    @apply .block .w-full .mb-2 .px-3 .py-2 .bg-gray-600 .text-white .rounded-sm;
 
     &:focus {
         @apply .outline-none;
@@ -39,29 +39,29 @@
 }
 
 .picker-select-items {
-    @apply .list-reset .relative .overflow-y-auto;
+    @apply .relative .overflow-y-auto;
 
     -webkit-overflow-scrolling: touch;
-    max-height: config('height.56');
+    max-height: theme('height.56');
 }
 
 .picker-select-item {
     @apply .flex .items-center .px-3 .py-2 .my-1 .text-white .cursor-pointer .rounded-sm .select-none;
 
     &:hover {
-        @apply .bg-grey-400 .cursor-pointer;
+        @apply .bg-gray-600 .cursor-pointer;
     }
 
     &.is-active,
     &.is-active:hover {
-        @apply .bg-primary-500;
+        @apply .bg-blue-500;
     }
 
     .icon {
-        @apply .flex-no-shrink .mr-2;
+        @apply .flex-shrink-0 .mr-2;
     }
 }
 
 .picker-select-empty {
-    @apply .px-3 .py-2 .text-grey-200;
+    @apply .px-3 .py-2 .text-gray-200;
 }

@@ -1,26 +1,26 @@
 .tabs {}
 
 .tabs-nav {
-    @apply .list-reset .border-b-2;
+    @apply .border-b-2;
 }
 
 .tabs-nav-item {
     @apply .inline-flex .mr-4 .-mb-2px;
 
     > .tabs-nav-link {
-        @apply .py-2 .px-4 .border-b-2 .border-transparent .text-grey-400;
+        @apply .py-2 .px-4 .border-b-2 .border-transparent .text-gray-400;
 
         &:hover {
-            @apply .text-grey-600 .border-grey-300;
+            @apply .text-gray-600 .border-gray-300;
         }
     }
 
     &.active {
         > .tabs-nav-link {
-            @apply .border-primary-400 .text-grey-800;
+            @apply .border-blue-400 .text-gray-800;
 
             &:hover {
-                @apply .border-primary-400;
+                @apply .border-blue-400;
             }
         }
     }
@@ -33,19 +33,19 @@
         @apply .mb-0;
 
         > .tabs-nav-link {
-            @apply .text-grey-400 .rounded .border-none;
+            @apply .text-gray-400 .rounded .border-none;
 
             &:hover {
-                @apply .bg-grey-200 .text-grey-600;
+                @apply .bg-gray-200 .text-gray-600;
             }
         }
 
         &.active {
             > .tabs-nav-link {
-                @apply .bg-primary-400 .text-white;
+                @apply .bg-blue-400 .text-white;
 
                 &:hover {
-                    @apply .bg-primary-400 .text-white;
+                    @apply .bg-blue-400 .text-white;
                 }
             }
         }
