@@ -13,12 +13,13 @@ module.exports = {
             padding: '1rem'
         },
         lineHeight: {
-            zero: 0,
+            0: 0,
             ...defaultTheme.lineHeight
         },
         spacing: {
             ...defaultTheme.spacing,
             '2px': '2px',
+            11: '2.75rem',
             72: '18rem',
             80: '20rem',
             96: '24rem',
