@@ -24,7 +24,7 @@
     <div
         id="nova-app"
         data-component="{{ $component }}"
-        data-props="{{ json_encode($props, JSON_FORCE_OBJECT) }}"
+        data-props="{{ json_encode((object) $props) }}"
     ></div>
 </body>
 </html>

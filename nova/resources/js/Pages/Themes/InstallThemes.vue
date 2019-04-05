@@ -1,8 +1,5 @@
 <template>
-    <div
-        v-show="pendingThemes.length > 0"
-        class="max-w-md mb-12"
-    >
+    <div v-show="hasThemeToBeInstalled" class="max-w-md mb-12">
         <div class="card">
             <div class="card-header">
                 <div class="card-title">Awaiting Installation</div>
@@ -20,10 +17,9 @@
                         :class="{ 'bg-grey-50': index % 2 === 0 }"
                     >
                         themes/{{ theme.location }}
-                        <button
-                            class="button is-small is-dark my-0"
-                            @click="install(index)"
-                        >Install</button>
+                        <button class="button is-small is-dark my-0" @click="install(index)">
+                            Install
+                        </button>
                     </div>
                 </transition-group>
             </div>
@@ -39,7 +35,7 @@ export default {
 
     props: {
         pendingThemes: {
-            type: [Array, Object],
+            type: Object,
             required: true
         }
     },
@@ -48,6 +44,12 @@ export default {
         return {
             themes: this.pendingThemes
         };
+    },
+
+    computed: {
+        hasThemeToBeInstalled () {
+            return Object.keys(this.themes).length > 0;
+        }
     },
 
     methods: {
