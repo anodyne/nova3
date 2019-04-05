@@ -46,21 +46,21 @@
                         Changelog
                     </inertia-link>
 
-                    <inertia-link
+                    <a
                         :href="route('logout')"
                         class="sidebar-link"
                         onclick="event.preventDefault();document.getElementById('logout-form').submit();"
                     >
                         <nova-icon name="sign-out" class="mr-3"></nova-icon>
                         Log out
-                    </inertia-link>
+                    </a>
                     <form
                         id="logout-form"
                         :action="route('logout')"
                         method="POST"
                         style="display: none;"
                     >
-                        @csrf
+                        <csrf-token></csrf-token>
                     </form>
                 </div>
             </div>
