@@ -6,8 +6,8 @@ use Tests\TestCase;
 use Nova\Themes\Jobs;
 use Nova\Themes\Theme;
 use Nova\Themes\Events;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UpdateThemeTest extends TestCase
@@ -16,28 +16,40 @@ class UpdateThemeTest extends TestCase
 
     protected $theme;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->theme = factory(Theme::class)->create();
     }
 
-    public function testAUserCanViewTheEditThemePage()
+    public function testAuthorizedUserCanUpdateTheme()
     {
-        $this->signIn();
+        $this->signInWithAbility('theme.update');
 
-        $this->get(route('themes.edit', $this->theme))
-            ->assertSuccessful();
+        $this->get(route('themes.edit', $this->theme))->assertSuccessful();
     }
 
-    public function testAUserCanEditATheme()
+    public function testUnauthorizedUserCannotUpdateTheme()
     {
         $this->signIn();
+
+        $this->get(route('themes.edit', $this->theme))->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testGuestCannotUpdateTheme()
+    {
+        $this->get(route('themes.edit', $this->theme))->assertRedirect(route('login'));
+        $this->put(route('themes.update', $this->theme), [])->assertRedirect(route('login'));
+    }
+
+    public function testThemeCanBeUpdated()
+    {
+        $this->signInWithAbility('theme.update');
 
         $this->followingRedirects()
             ->from(route('themes.edit', $this->theme))
-            ->patch(route('themes.update', $this->theme), [
+            ->put(route('themes.update', $this->theme), [
                 'name' => 'New Name',
                 'location' => $this->theme->location,
                 'layout_auth' => $this->theme->layout_auth,
@@ -48,11 +60,11 @@ class UpdateThemeTest extends TestCase
 
         $this->assertDatabaseHas('themes', [
             'id' => $this->theme->id,
-            'name' => 'New Name'
+            'name' => 'New Name',
         ]);
     }
 
-    public function testAnEventIsDispatchedWhenAThemeIsEdited()
+    public function testEventIsDispatchedWhenThemeIsUpdated()
     {
         Event::fake();
 
@@ -63,62 +75,5 @@ class UpdateThemeTest extends TestCase
         Event::assertDispatched(Events\ThemeUpdated::class, function ($event) use ($theme) {
             return $event->theme->is($theme);
         });
-    }
-
-    public function testAThemeMustHaveANameToBeUpdated()
-    {
-        Storage::fake('themes');
-
-        $this->signIn();
-
-        $this->from(route('themes.index'))
-            ->post(route('themes.update', $this->theme), [
-                'name' => null,
-            ])
-            ->assertSessionHasErrors('name');
-    }
-
-    public function testAThemeLocationCannotBeChanged()
-    {
-        $this->markTestIncomplete();
-    }
-
-    public function testAThemeMustHaveAnAuthLayoutToBeUpdated()
-    {
-        Storage::fake('themes');
-
-        $this->signIn();
-
-        $this->from(route('themes.index'))
-            ->post(route('themes.update', $this->theme), [
-                'layout_auth' => null,
-            ])
-            ->assertSessionHasErrors('layout_auth');
-    }
-
-    public function testAThemeMustHaveAnAdminLayoutToBeUpdated()
-    {
-        Storage::fake('themes');
-
-        $this->signIn();
-
-        $this->from(route('themes.index'))
-            ->post(route('themes.update', $this->theme), [
-                'layout_admin' => null,
-            ])
-            ->assertSessionHasErrors('layout_admin');
-    }
-
-    public function testAThemeMustHaveAPublicLayoutToBeUpdated()
-    {
-        Storage::fake('themes');
-
-        $this->signIn();
-
-        $this->from(route('themes.index'))
-            ->post(route('themes.update', $this->theme), [
-                'layout_public' => null,
-            ])
-            ->assertSessionHasErrors('layout_public');
     }
 }

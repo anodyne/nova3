@@ -18,14 +18,14 @@ class UserTest extends TestCase
         $this->user = $this->createUser();
     }
 
-    public function testItCanFlagAUserToResetTheirPassword()
+    public function testItCanFlagUserToResetTheirPassword()
     {
         $this->user->forcePasswordReset();
 
         $this->assertTrue($this->user->fresh()->force_password_reset);
     }
 
-    public function testItRecordsATimestampWhenAUserLogsIn()
+    public function testItRecordsTimestampWhenUserLogsIn()
     {
         $this->user->recordLoginTime();
 

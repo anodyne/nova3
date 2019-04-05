@@ -6,8 +6,8 @@ use Tests\TestCase;
 use Nova\Themes\Jobs;
 use Nova\Themes\Theme;
 use Nova\Themes\Events;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DeleteThemeTest extends TestCase
@@ -16,30 +16,49 @@ class DeleteThemeTest extends TestCase
 
     protected $theme;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->theme = factory(Theme::class)->create();
     }
 
-    public function testAUserCanDeleteATheme()
+    public function testAuthorizedUserCanDeleteTheme()
     {
-        $this->markTestIncomplete();
+        $this->signInWithAbility('theme.delete');
 
+        $this->deleteJson(route('themes.destroy', $this->theme))
+            ->assertSuccessful();
+    }
+
+    public function testUnauthorizedUserCannotDeleteTheme()
+    {
         $this->signIn();
 
-        $this->from(route('themes.index'))
-            ->deleteJson(route('themes.destroy', $this->theme))
+        $this->deleteJson(route('themes.destroy', $this->theme))
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testGuestCannotDeleteTheme()
+    {
+        $this->deleteJson(route('themes.destroy', $this->theme))
+            ->assertStatus(Response::HTTP_UNAUTHORIZED);
+    }
+
+    public function testThemeCanBeDeleted()
+    {
+        $this->signInWithAbility('theme.delete');
+
+        $this->deleteJson(route('themes.destroy', $this->theme))
             ->assertJson($this->theme->toArray());
 
         $this->assertDatabaseMissing('themes', [
             'id' => $this->theme->id,
-            'name' => $this->theme->name
+            'name' => $this->theme->name,
         ]);
     }
 
-    public function testAnEventIsDispatchedWhenAThemeIsDeleted()
+    public function testEventIsDispatchedWhenThemeIsDeleted()
     {
         Event::fake();
 
@@ -48,10 +67,5 @@ class DeleteThemeTest extends TestCase
         Event::assertDispatched(Events\ThemeDeleted::class, function ($event) use ($theme) {
             return $event->theme->is($theme);
         });
-    }
-
-    public function testAUserHasTheirThemePreferenceUpdatedWhenTheirThemeIsDeleted()
-    {
-        $this->markTestIncomplete();
     }
 }

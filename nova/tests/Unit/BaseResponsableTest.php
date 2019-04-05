@@ -23,13 +23,13 @@ class BaseResponsableTest extends TestCase
             public function views()
             {
                 return [
-                    'page' => 'foo'
+                    'page' => 'foo',
                 ];
             }
         });
     }
 
-    public function testItHasTheViewForAResponse()
+    public function testItHasResponseView()
     {
         $this->assertEquals('foo', $this->response->getView('page'));
     }

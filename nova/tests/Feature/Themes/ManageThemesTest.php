@@ -3,31 +3,30 @@
 namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
+use Illuminate\Http\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ManageThemesTest extends TestCase
 {
     use RefreshDatabase;
 
-<<<<<<< HEAD
-    public function testAnAuthorizedUserCanViewTheManageThemesPage()
-=======
-    protected $theme;
-
-    public function setUp(): void
+    public function testAuthorizedUserCanManageThemes()
     {
-        parent::setUp();
-
-        $this->theme = factory(Theme::class)->create();
-    }
-
-    /** @test **/
-    public function an_authorized_user_can_view_the_manage_themes_page()
->>>>>>> dev
-    {
-        $this->signIn();
+        $this->signInWithAbility('theme.create');
 
         $this->get(route('themes.index'))
             ->assertSuccessful();
+    }
+
+    public function testUnauthorizedUserCannotManageThemes()
+    {
+        $this->signIn();
+
+        $this->get(route('themes.index'))->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testGuestCannotManageThemes()
+    {
+        $this->get(route('themes.index'))->assertRedirect(route('login'));
     }
 }

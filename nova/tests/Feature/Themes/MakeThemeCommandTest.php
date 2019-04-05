@@ -5,9 +5,9 @@ namespace Tests\Feature\Themes;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Storage;
 
-class ThemeMakeCommandTest extends TestCase
+class MakeThemeCommandTest extends TestCase
 {
-    public function testAUserCanScaffoldANewTheme()
+    public function testThemeCanBeScoffolded()
     {
         Storage::fake('themes');
 
@@ -24,7 +24,7 @@ class ThemeMakeCommandTest extends TestCase
         $this->assertContains('foo/design/custom.css', $files);
     }
 
-    public function testAUserCanScaffoldANewThemeWithACustomLocation()
+    public function testThemeCanBeScaffoldedWithCustomLocation()
     {
         Storage::fake('themes');
 
@@ -39,13 +39,13 @@ class ThemeMakeCommandTest extends TestCase
         $this->assertNotContains('foo', $directories);
     }
 
-    public function testAUserCanScaffoldANewThemeWithVariants()
+    public function testThemeCanBeScaffoldedWithStyleVariants()
     {
         Storage::fake('themes');
 
         $this->artisan('nova:make:theme', [
             'name' => 'Foo',
-            '--variants' => ['blue', 'red']
+            '--variants' => ['blue', 'red'],
         ]);
 
         $files = Storage::disk('themes')->allFiles('foo');
@@ -54,7 +54,7 @@ class ThemeMakeCommandTest extends TestCase
         $this->assertContains('foo/design/variants/red.css', $files);
     }
 
-    public function testAUserCannotScaffoldAThemeWithALocationThatExists()
+    public function testThemeScaffoldingRequiresLocation()
     {
         Storage::fake('themes');
 
@@ -63,7 +63,7 @@ class ThemeMakeCommandTest extends TestCase
         Storage::disk('themes')->makeDirectory('foo');
 
         $this->artisan('nova:make:theme', [
-            'name' => 'Foo'
+            'name' => 'Foo',
         ]);
     }
 }

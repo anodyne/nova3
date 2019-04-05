@@ -13,13 +13,13 @@ class ForgotPasswordTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testAUserCanViewTheEmailPasswordPage()
+    public function testGuestCanViewEmailPasswordPage()
     {
         $this->get(route('password.request'))
             ->assertSuccessful();
     }
 
-    public function testAnAuthenticatedUserCannotViewTheEmailPasswordPage()
+    public function testAuthenticatedUserCannotViewEmailPasswordPage()
     {
         $this->signIn();
 
@@ -27,7 +27,7 @@ class ForgotPasswordTest extends TestCase
             ->assertRedirect(route('home'));
     }
 
-    public function testAUserReceivesAnEmailWithAPasswordResetLink()
+    public function testUserIsSentEmailWithPasswordResetLink()
     {
         Notification::fake();
 
@@ -46,7 +46,7 @@ class ForgotPasswordTest extends TestCase
         });
     }
 
-    public function testAnUnregisteredUserDoesNotReceiveAnEmailWithAPasswordResetLink()
+    public function testGuestIsNotSentEmailWithPasswordResetLink()
     {
         Notification::fake();
 
@@ -60,7 +60,7 @@ class ForgotPasswordTest extends TestCase
         Notification::assertNotSentTo($this->makeUser(), ResetPassword::class);
     }
 
-    public function testAnEmailIsRequiredOnEmailPasswordPage()
+    public function testEmailIsRequiredOnEmailPasswordPage()
     {
         $this->from(route('password.request'))
             ->post(route('password.email'), [])
@@ -68,11 +68,11 @@ class ForgotPasswordTest extends TestCase
             ->assertSessionHasErrors('email');
     }
 
-    public function testAValidEmailIsRequiredOnEmailPasswordPage()
+    public function testValidEmailIsRequiredOnEmailPasswordPage()
     {
         $this->from(route('password.request'))
             ->post(route('password.email'), [
-                'email' => 'invalid-email'
+                'email' => 'invalid-email',
             ])
             ->assertRedirect(route('password.request'))
             ->assertSessionHasErrors('email');

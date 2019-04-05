@@ -4,7 +4,7 @@ namespace Nova\Themes\Http\Responses;
 
 use Nova\Foundation\Http\Responses\BaseResponsable;
 
-class CreateThemeResponse extends BaseResponsable
+class Create extends BaseResponsable
 {
     public function views() : array
     {

@@ -7,15 +7,33 @@
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
+         printerClass="Codedungeon\PHPUnitPrettyResultPrinter\Printer"
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Unit">
+        <testsuite name="unit">
             <directory suffix="Test.php">./nova/tests/Unit</directory>
         </testsuite>
 
-        <testsuite name="Feature">
+        <testsuite name="feature">
             <directory suffix="Test.php">./nova/tests/Feature</directory>
+        </testsuite>
+
+        <testsuite name="authentication">
+            <directory suffix="Test.php">./nova/tests/Feature/Auth</directory>
+        </testsuite>
+
+        <testsuite name="authorization">
+            <directory suffix="Test.php">./nova/tests/Feature/Authorization</directory>
+        </testsuite>
+
+        <testsuite name="themes">
+            <directory suffix="Test.php">./nova/tests/Feature/Themes</directory>
+            <directory suffix="Test.php">./nova/tests/Unit/Themes</directory>
+        </testsuite>
+
+        <testsuite name="users">
+            <directory suffix="Test.php">./nova/tests/Unit/Users</directory>
         </testsuite>
     </testsuites>
     <filter>

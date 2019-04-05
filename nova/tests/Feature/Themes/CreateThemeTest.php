@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Nova\Themes\Jobs;
 use Nova\Themes\Theme;
 use Nova\Themes\Events;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -16,26 +17,45 @@ class CreateThemeTest extends TestCase
 
     protected $theme;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->theme = factory(Theme::class)->create();
     }
 
-    public function testAUserCanViewTheCreateThemePage()
+    public function testAuthorizedUserCanCreateTheme()
+    {
+        $this->signInWithAbility('theme.create');
+
+        $this->get(route('themes.create'))->assertSuccessful();
+    }
+
+    public function testUnauthorizedUserCannotCreateTheme()
     {
         $this->signIn();
 
         $this->get(route('themes.create'))
-            ->assertSuccessful();
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->post(route('themes.store'), [])
+            ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
-    public function testAUserCanCreateATheme()
+    public function testGuestCannotCreateTheme()
+    {
+        $this->get(route('themes.create'))
+            ->assertRedirect(route('login'));
+
+        $this->post(route('themes.store'), [])
+            ->assertRedirect(route('login'));
+    }
+
+    public function testThemeCanBeCreated()
     {
         Storage::fake('themes');
 
-        $this->signIn();
+        $this->signInWithAbility('theme.create');
 
         $theme = factory(Theme::class)->make()->toArray();
 
@@ -47,7 +67,7 @@ class CreateThemeTest extends TestCase
         $this->assertDatabaseHas('themes', $theme);
     }
 
-    public function testTheThemeDirectoryIsScaffoldedWithAThemeIsCreated()
+    public function testThemeDirectoryIsScaffoldedWhenThemeIsCreated()
     {
         Storage::fake('themes');
 
@@ -58,7 +78,7 @@ class CreateThemeTest extends TestCase
         $this->assertCount(1, Storage::disk('themes')->directories());
     }
 
-    public function testAnEventIsDispatchedWhenAThemeIsCreated()
+    public function testEventIsDispatchedWhenThemeIsCreated()
     {
         Event::fake();
         Storage::fake('themes');
@@ -72,25 +92,25 @@ class CreateThemeTest extends TestCase
         });
     }
 
-    public function testAThemeMustHaveANameToBeCreated()
+    public function testNameIsRequiredToCreateTheme()
     {
         Storage::fake('themes');
 
-        $this->signIn();
+        $this->signInWithAbility('theme.create');
 
         $this->from(route('themes.index'))
             ->post(route('themes.store'), [
                 'name' => null,
-                'location' => 'some-location'
+                'location' => 'some-location',
             ])
             ->assertSessionHasErrors('name');
     }
 
-    public function testAThemeMustHaveALocationToBeCreated()
+    public function testLocationIsRequiredToCreateTheme()
     {
         Storage::fake('themes');
 
-        $this->signIn();
+        $this->signInWithAbility('theme.create');
 
         $this->from(route('themes.index'))
             ->post(route('themes.store'), [
@@ -100,11 +120,11 @@ class CreateThemeTest extends TestCase
             ->assertSessionHasErrors('location');
     }
 
-    public function testAThemeMustHaveAnAuthLayoutToBeCreated()
+    public function testAuthLayoutIsRequiredToCreateTheme()
     {
         Storage::fake('themes');
 
-        $this->signIn();
+        $this->signInWithAbility('theme.create');
 
         $this->from(route('themes.index'))
             ->post(route('themes.store'), [
@@ -113,11 +133,11 @@ class CreateThemeTest extends TestCase
             ->assertSessionHasErrors('layout_auth');
     }
 
-    public function testAThemeMustHaveAnAdminLayoutToBeCreated()
+    public function testAdminLayoutIsRequiredToCreateTheme()
     {
         Storage::fake('themes');
 
-        $this->signIn();
+        $this->signInWithAbility('theme.create');
 
         $this->from(route('themes.index'))
             ->post(route('themes.store'), [
@@ -126,11 +146,11 @@ class CreateThemeTest extends TestCase
             ->assertSessionHasErrors('layout_admin');
     }
 
-    public function testAThemeMustHaveAPublicLayoutToBeCreated()
+    public function testPublicLayoutIsRequiredToCreateTheme()
     {
         Storage::fake('themes');
 
-        $this->signIn();
+        $this->signInWithAbility('theme.create');
 
         $this->from(route('themes.index'))
             ->post(route('themes.store'), [

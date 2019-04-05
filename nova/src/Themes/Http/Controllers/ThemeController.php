@@ -8,8 +8,6 @@ use Nova\Themes\Events;
 use Nova\Themes\Http\Requests;
 use Nova\Themes\Http\Responses;
 use Nova\Themes\Http\Authorizers;
-use Symfony\Component\HttpFoundation\Response;
-use Nova\Themes\Http\Requests\EditThemeRequest;
 use Nova\Foundation\Http\Controllers\Controller;
 
 class ThemeController extends Controller
@@ -25,18 +23,18 @@ class ThemeController extends Controller
     {
         $themes = Theme::get();
 
-        return app(Responses\ManageThemesResponse::class)
+        return app(Responses\Index::class)
             ->withThemes($themes)
             ->withPendingThemes($themes->toBeInstalled())
             ->withCan($authorize->userPermissions());
     }
 
-    public function create()
+    public function create(Authorizers\Create $auth)
     {
-        return app(Responses\CreateThemeResponse::class);
+        return app(Responses\Create::class);
     }
 
-    public function store(Requests\Store $request)
+    public function store(Authorizers\Store $auth, Requests\Store $request)
     {
         $theme = dispatch_now(new Jobs\CreateThemeJob($request->validated()));
 
@@ -45,13 +43,13 @@ class ThemeController extends Controller
         return response()->json($theme, Response::HTTP_CREATED);
     }
 
-    public function edit(Theme $theme)
+    public function edit(Authorizers\Edit $auth, Theme $theme)
     {
-        return app(Responses\EditThemeResponse::class)
+        return app(Responses\Edit::class)
             ->withTheme($theme);
     }
 
-    public function update(Requests\Update $request, Theme $theme)
+    public function update(Authorizers\Update $auth, Requests\Update $request, Theme $theme)
     {
         $theme = dispatch_now(new Jobs\EditThemeJob($theme, $request->validated()));
 
@@ -60,7 +58,7 @@ class ThemeController extends Controller
         return response()->json($theme->fresh(), Response::HTTP_OK);
     }
 
-    public function destroy(Theme $theme)
+    public function destroy(Authorizers\Destroy $auth, Theme $theme)
     {
         $theme = dispatch_now(new Jobs\DeleteThemeJob($theme));
 

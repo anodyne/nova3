@@ -18,10 +18,12 @@
         "laravel/tinker": "^1.0",
         "spatie/laravel-collection-macros": "^4.3",
         "spatie/laravel-html": "^2.21",
-        "tightenco/ziggy": "^0.6.9"
+        "tightenco/ziggy": "^0.6.9",
+        "silber/bouncer": "v1.0.0-rc.5"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
+        "codedungeon/phpunit-result-printer": "^0.26.1",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
         "itsgoingd/clockwork": "^3.1",

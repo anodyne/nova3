@@ -16,7 +16,7 @@ class AlertTest extends TestCase
         $this->alert = $this->app->make(Alert::class);
     }
 
-    public function testItCanSetAMessage()
+    public function testItCanSetMessage()
     {
         $this->alert->withMessage('Message');
 
