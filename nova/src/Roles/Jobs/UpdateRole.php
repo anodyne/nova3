@@ -9,20 +9,23 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class DeleteRoleJob implements ShouldQueue
+class UpdateRole implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $role;
+
+    public $data;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Role $role)
+    public function __construct(Role $role, array $data)
     {
         $this->role = $role;
+        $this->data = $data;
     }
 
     /**
@@ -32,8 +35,8 @@ class DeleteRoleJob implements ShouldQueue
      */
     public function handle()
     {
-        $this->role->delete();
+        $this->role->update($this->data);
 
-        return $this->role;
+        return $this->role->fresh();
     }
 }
