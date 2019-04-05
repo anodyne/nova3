@@ -12,16 +12,10 @@
                 class="field-addon"
                 @click="toggleFieldType"
             >
-                <div
-                    v-show="showPassword"
-                    class="leading-zero"
-                >
+                <div v-show="showPassword" class="leading-0">
                     <nova-icon name="hide"></nova-icon>
                 </div>
-                <div
-                    v-show="!showPassword"
-                    class="leading-zero"
-                >
+                <div v-show="!showPassword" class="leading-0">
                     <nova-icon name="show"></nova-icon>
                 </div>
             </a>
