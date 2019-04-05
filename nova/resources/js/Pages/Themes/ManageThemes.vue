@@ -51,7 +51,7 @@
 
 <script>
 import axios from '@/Utils/axios';
-import InstallThemes from '@/pages/themes/InstallThemes';
+import InstallThemes from '@/Pages/Themes/InstallThemes';
 
 export default {
     name: 'ManageThemes',
