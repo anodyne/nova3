@@ -1,6 +1,6 @@
 <h1 class="mb-8 font-extrabold text-primary-600 text-5xl">Sign In</h1>
 
-<form action="{{ route('login') }}" method="POST">
+<form action="{{ route('login') }}" method="POST" role="form">
     @csrf
 
     <form-field
