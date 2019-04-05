@@ -34,9 +34,9 @@ export default {
             this.setData(this.session);
         }
 
-        Nova.$on('nova.alert', (params) => {
-            this.setData(params);
-        });
+        // Nova.$on('nova.alert', (params) => {
+        //     this.setData(params);
+        // });
     },
 
     methods: {
