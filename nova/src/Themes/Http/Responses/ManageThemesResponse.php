@@ -9,7 +9,7 @@ class ManageThemesResponse extends BaseResponsable
     public function views() : array
     {
         return [
-            'component' => 'ManageThemes'
+            'component' => 'Themes/ManageThemes',
         ];
     }
 }

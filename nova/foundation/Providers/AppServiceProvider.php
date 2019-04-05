@@ -49,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind('nova.data.frontend', function ($app) {
             return collect(['system' => [
-                'name' => 'Nova NextGen'
+                'name' => 'Nova NextGen',
             ]]);
         });
     }

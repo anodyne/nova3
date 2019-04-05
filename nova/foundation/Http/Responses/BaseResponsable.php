@@ -2,6 +2,7 @@
 
 namespace Nova\Foundation\Http\Responses;
 
+use Inertia\Inertia;
 use Nova\Pages\Page;
 use BadMethodCallException;
 use Illuminate\Support\Str;
@@ -303,7 +304,9 @@ abstract class BaseResponsable implements Responsable
 
     protected function renderClientSide($request)
     {
-        return view()->component($this->getView('component'), $this->data);
+        Inertia::setRootView('app-client');
+
+        return Inertia::render($this->getView('component'), $this->data);
     }
 
     protected function renderServerSide($request)

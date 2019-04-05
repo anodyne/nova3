@@ -1,12 +1,17 @@
 <template>
-    <div>
-        <page-header pretitle="Presentation" title="Create Theme"></page-header>
+    <sidebar-layout>
+        <page-header title="Create Theme">
+            <template #pretitle>
+                <inertia-link :href="route('themes.index')">Themes</inertia-link>
+            </template>
+        </page-header>
 
         <section>
             <form
                 :action="route('themes.store')"
                 method="POST"
                 role="form"
+                @submit.prevent="submit"
             >
                 <csrf-token></csrf-token>
 
@@ -168,18 +173,29 @@
                 <div class="form-controls">
                     <button type="submit" class="button is-primary is-large">Create</button>
 
-                    <a :href="route('themes.index')" class="button is-secondary is-large">Cancel</a>
+                    <inertia-link :href="route('themes.index')" class="button is-secondary is-large">
+                        Cancel
+                    </inertia-link>
                 </div>
             </form>
         </section>
-    </div>
+    </sidebar-layout>
 </template>
 
 <script>
 import slug from 'slug';
+import axios from '@/Utils/axios';
+import { Inertia } from 'inertia-vue';
+import LayoutPicker from '@/Shared/Pickers/LayoutPicker';
+import IconSetPicker from '@/Shared/Pickers/IconSetPicker';
 
 export default {
     name: 'CreateTheme',
+
+    components: {
+        LayoutPicker,
+        IconSetPicker
+    },
 
     data () {
         return {
@@ -202,6 +218,18 @@ export default {
             if (this.suggestLocation) {
                 this.form.location = slug(newValue.toLowerCase());
             }
+        }
+    },
+
+    methods: {
+        submit () {
+            axios.post(this.route('themes.store'), this.form)
+                .then(() => {
+                    Inertia.replace(this.route('themes.index'));
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         }
     }
 };

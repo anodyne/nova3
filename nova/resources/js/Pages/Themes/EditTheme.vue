@@ -1,13 +1,14 @@
 <template>
-    <div>
-        <page-header
-            pretitle="Presentation"
-            title="Edit Theme"
-        ></page-header>
+    <sidebar-layout>
+        <page-header :title="theme.name">
+            <template #pretitle>
+                <inertia-link :href="route('themes.index')">Themes</inertia-link>
+            </template>
+        </page-header>
 
         <section>
             <form
-                :action="route('themes.update', { theme: theme.id })"
+                :action="route('themes.update', { theme })"
                 method="POST"
                 role="form"
             >
@@ -45,10 +46,7 @@
                             <div class="field-addon font-mono text-sm">themes/{{ location }}</div>
                         </form-field>
 
-                        <form-field
-                            label="Credits"
-                            field-id="credits"
-                        >
+                        <form-field label="Credits" field-id="credits">
                             <div class="field-group">
                                 <textarea
                                     id="credits"
@@ -61,10 +59,7 @@
                         </form-field>
 
                         <form-field>
-                            <toggle-switch
-                                v-model="form.active"
-                                label="Active"
-                            ></toggle-switch>
+                            <toggle-switch v-model="form.active">Active</toggle-switch>
                         </form-field>
                     </div>
                 </div>
@@ -132,10 +127,7 @@
                             field-id="icon_set"
                             name="icon_set"
                         >
-                            <icon-set-picker
-                                v-model="form.iconSet"
-                                name="icon_set"
-                            ></icon-set-picker>
+                            <icon-set-picker v-model="form.iconSet" name="icon_set"></icon-set-picker>
                             <input
                                 type="hidden"
                                 name="icon_set"
@@ -146,24 +138,30 @@
                 </div>
 
                 <div class="form-controls">
-                    <button
-                        type="submit"
-                        class="button is-primary is-large"
-                    >Update</button>
+                    <button type="submit" class="button is-primary is-large">
+                        Update
+                    </button>
 
-                    <a
-                        :href="route('themes.index')"
-                        class="button is-secondary is-large"
-                    >Cancel</a>
+                    <inertia-link :href="route('themes.index')" class="button is-secondary is-large">
+                        Cancel
+                    </inertia-link>
                 </div>
             </form>
         </section>
-    </div>
+    </sidebar-layout>
 </template>
 
 <script>
+import LayoutPicker from '@/Shared/Pickers/LayoutPicker';
+import IconSetPicker from '@/Shared/Pickers/IconSetPicker';
+
 export default {
     name: 'EditTheme',
+
+    components: {
+        LayoutPicker,
+        IconSetPicker
+    },
 
     props: {
         theme: {

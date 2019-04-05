@@ -18,9 +18,12 @@
 
 <script>
 import find from 'lodash/find';
+import BasePicker from '@/Shared/Pickers/BasePicker';
 
 export default {
     name: 'LayoutPicker',
+
+    components: { BasePicker },
 
     props: {
         name: {

@@ -5,12 +5,12 @@ namespace Nova\Themes\Http\Controllers;
 use Nova\Themes\Jobs;
 use Nova\Themes\Theme;
 use Nova\Themes\Events;
+use Nova\Themes\Http\Requests;
 use Nova\Themes\Http\Responses;
 use Nova\Themes\Http\Authorizers;
 use Symfony\Component\HttpFoundation\Response;
 use Nova\Themes\Http\Requests\EditThemeRequest;
 use Nova\Foundation\Http\Controllers\Controller;
-use Nova\Themes\Http\Requests\CreateThemeRequest;
 
 class ThemeController extends Controller
 {
@@ -36,7 +36,7 @@ class ThemeController extends Controller
         return app(Responses\CreateThemeResponse::class);
     }
 
-    public function store(CreateThemeRequest $request)
+    public function store(Requests\Store $request)
     {
         $theme = dispatch_now(new Jobs\CreateThemeJob($request->validated()));
 
@@ -51,7 +51,7 @@ class ThemeController extends Controller
             ->withTheme($theme);
     }
 
-    public function update(EditThemeRequest $request, Theme $theme)
+    public function update(Requests\Update $request, Theme $theme)
     {
         $theme = dispatch_now(new Jobs\EditThemeJob($theme, $request->validated()));
 

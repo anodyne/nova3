@@ -17,9 +17,7 @@
     <script>
         window.novaSettings = @json(nova()->provideScriptVariables())
     </script>
-    <script src="{{ asset('/dist/js/app.js') }}" defer></script>
-
-    <meta name="turbolinks-cache-control" content="no-cache">
+    <script src="{{ asset('/dist/js/app-server.js') }}" defer></script>
 
     @routes
 </head>

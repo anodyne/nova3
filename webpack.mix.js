@@ -4,6 +4,7 @@ require('laravel-mix-tailwind');
 mix.setPublicPath('dist');
 
 mix.js('nova/resources/js/app.js', 'dist/js')
+    .js('nova/resources/js/app-server.js', 'dist/js')
     .less('nova/resources/less/app.less', 'dist/css')
     .less('nova/resources/less/vendor.less', 'dist/css')
     .tailwind()

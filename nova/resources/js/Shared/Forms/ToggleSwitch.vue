@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import SlotHelpers from '@/mixins/SlotHelpers';
+import SlotHelpers from '@/Utils/Mixins/SlotHelpers';
 
 export default {
     name: 'ToggleSwitch',

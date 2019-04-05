@@ -16,10 +16,7 @@
         </template>
 
         <template v-slot:picker-select-item="{ item }">
-            <component
-                :is="item.component"
-                :name="item.icon"
-            ></component>
+            <component :is="item.component" :name="item.icon"></component>
             {{ item.name }}
         </template>
     </base-picker>
@@ -27,9 +24,18 @@
 
 <script>
 import find from 'lodash/find';
+import BasePicker from '@/Shared/Pickers/BasePicker';
+import IconFeather from '@/Shared/Icons/IconFeather';
+import IconFontAwesome from '@/Shared/Icons/IconFontAwesome';
 
 export default {
     name: 'IconSetPicker',
+
+    components: {
+        BasePicker,
+        IconFeather,
+        IconFontAwesome
+    },
 
     props: {
         name: {

@@ -10,10 +10,10 @@ class ViewMacros
             $name = str_replace(' ', '', ucwords(str_replace('.', ' ', $name)));
 
             return view('app-client', [
-                'name' => $name,
-                'data' => array_merge($data, [
-                    'config' => nova()->provideScriptVariables()
-                ])
+                'component' => $name,
+                'props' => array_merge($data, [
+                    'config' => nova()->provideScriptVariables(),
+                ]),
             ]);
         };
     }

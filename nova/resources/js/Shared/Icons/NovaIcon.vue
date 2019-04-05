@@ -1,15 +1,17 @@
 <template>
-    <component
-        :is="component"
-        :name="icon"
-    ></component>
+    <component :is="component" :name="icon"></component>
 </template>
 
 <script>
 import find from 'lodash/find';
+import IconFeather from './IconFeather';
 
 export default {
     name: 'NovaIcon',
+
+    components: {
+        IconFeather
+    },
 
     props: {
         name: {

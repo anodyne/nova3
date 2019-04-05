@@ -9,7 +9,7 @@ class CreateThemeResponse extends BaseResponsable
     public function views() : array
     {
         return [
-            'component' => 'CreateTheme'
+            'component' => 'Themes/CreateTheme',
         ];
     }
 }

@@ -1,19 +1,10 @@
 <template>
-    <div>
-        <page-header
-            pretitle="Presentation"
-            title="Themes"
-        >
-            <template
-                v-if="can.create"
-                v-slot:controls
-            >
-                <a
-                    :href="route('themes.create')"
-                    class="button is-primary"
-                >
+    <sidebar-layout>
+        <page-header title="Themes">
+            <template #controls>
+                <inertia-link :href="route('themes.create')" class="button is-primary">
                     Create Theme
-                </a>
+                </inertia-link>
             </template>
         </page-header>
 
@@ -37,13 +28,12 @@
                     <div class="card-body"></div>
 
                     <div class="card-footer">
-                        <a
-                            v-if="can.update"
-                            :href="route('themes.edit', { theme: theme.id })"
+                        <inertia-link
+                            :href="route('themes.edit', { theme })"
                             class="button is-secondary"
                         >
                             <nova-icon name="edit"></nova-icon>
-                        </a>
+                        </inertia-link>
                         <a
                             v-if="can.delete"
                             role="button"
@@ -56,14 +46,19 @@
                 </div>
             </div>
         </div>
-    </div>
+    </sidebar-layout>
 </template>
 
 <script>
-import axios from '@/util/axios';
+import axios from '@/Utils/axios';
+import InstallThemes from '@/pages/themes/InstallThemes';
 
 export default {
     name: 'ManageThemes',
+
+    components: {
+        InstallThemes
+    },
 
     props: {
         can: {
@@ -75,7 +70,7 @@ export default {
             required: true
         },
         themes: {
-            type: Array,
+            type: [Array, Object],
             required: true
         }
     },

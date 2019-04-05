@@ -2,7 +2,7 @@
     <div class="page-header">
         <div class="page-header-content">
             <div v-if="hasPreTitle" class="page-header-pretitle">
-                {{ pretitle }}
+                <slot name="pretitle">{{ pretitle }}</slot>
             </div>
 
             <div class="page-header-title">
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import SlotHelpers from '@/mixins/SlotHelpers';
+import SlotHelpers from '@/Utils/Mixins/SlotHelpers';
 
 export default {
     name: 'PageHeader',
@@ -37,7 +37,7 @@ export default {
 
     computed: {
         hasPreTitle () {
-            return this.pretitle !== '';
+            return this.pretitle !== '' || this.hasSlot('pretitle');
         }
     }
 };

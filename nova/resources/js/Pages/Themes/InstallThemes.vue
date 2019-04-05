@@ -32,14 +32,14 @@
 </template>
 
 <script>
-import axios from '@/util/axios';
+import axios from '@/Utils/axios';
 
 export default {
     name: 'InstallThemes',
 
     props: {
         pendingThemes: {
-            type: Array,
+            type: [Array, Object],
             required: true
         }
     },
