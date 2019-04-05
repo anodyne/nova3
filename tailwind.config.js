@@ -29,5 +29,9 @@ module.exports = {
             ...defaultTheme.zIndex,
             1000: 1000
         }
+    },
+
+    variants: {
+        borderColor: ['responsive', 'hover', 'focus', 'focus-within']
     }
 };
