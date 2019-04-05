@@ -47,6 +47,7 @@ class CreatePagesTable extends Migration
             ['uri' => 'themes/{theme}/edit', 'key' => 'themes.edit', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@edit', 'layout' => 'admin'],
             ['uri' => 'themes/{theme}', 'key' => 'themes.update', 'verb' => 'put', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@update', 'layout' => 'admin'],
             ['uri' => 'themes/{theme}', 'key' => 'themes.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@destroy', 'layout' => 'admin'],
+            ['uri' => 'themes/install', 'key' => 'themes.install', 'verb' => 'post', 'resource' => 'Nova\\Themes\\Http\\Controllers\\InstallThemeController', 'layout' => 'admin'],
 
             ['uri' => 'roles', 'key' => 'roles.index', 'resource' => 'Nova\\Authorization\\Http\\Controllers\\RoleController@index', 'layout' => 'admin'],
             ['uri' => 'roles/create', 'key' => 'roles.create', 'resource' => 'Nova\\Authorization\\Http\\Controllers\\RoleController@create', 'layout' => 'admin'],

@@ -2,6 +2,7 @@
 
 namespace Nova\Foundation\Http\Responses;
 
+use Inertia\Inertia;
 use Nova\Pages\Page;
 use BadMethodCallException;
 use Illuminate\Support\Str;
@@ -12,6 +13,10 @@ use Illuminate\Contracts\Foundation\Application;
 
 abstract class BaseResponsable implements Responsable
 {
+    const RENDER_CLIENT = 'csr';
+
+    const RENDER_SERVER = 'ssr';
+
     /**
      * The application instance.
      *
@@ -27,6 +32,13 @@ abstract class BaseResponsable implements Responsable
     protected $data = [];
 
     /**
+     * The final output of the response.
+     *
+     * @var string
+     */
+    protected $output;
+
+    /**
      * The page instance for the response.
      *
      * @var \Nova\Pages\Page
@@ -40,26 +52,12 @@ abstract class BaseResponsable implements Responsable
      */
     protected $theme;
 
-    /**
-     * The final output of the response.
-     *
-     * @var string
-     */
-    protected $output;
-
     public function __construct(Page $page, Application $app)
     {
         $this->app = $app;
         $this->page = $page;
         $this->theme = $app['nova.theme'];
     }
-
-    /**
-     * The list of views for the response.
-     *
-     * @return array
-     */
-    abstract public function views();
 
     /**
      * Get the array of response data.
@@ -110,6 +108,7 @@ abstract class BaseResponsable implements Responsable
             // 'template' => $this->page->content_template,
             'page' => null,
             'script' => null,
+            'component' => null,
         ], $this->views() ?? []);
 
         return data_get($views, $view, null);
@@ -146,6 +145,20 @@ abstract class BaseResponsable implements Responsable
     }
 
     /**
+     * Determine what the render mode is.
+     *
+     * @return string
+     */
+    public function renderMode()
+    {
+        if ($this->getView('component') !== null) {
+            return self::RENDER_CLIENT;
+        }
+
+        return self::RENDER_SERVER;
+    }
+
+    /**
      * Handle converting this to a response object that Laravel knows what
      * to do with.
      *
@@ -157,14 +170,19 @@ abstract class BaseResponsable implements Responsable
     {
         $this->data = $this->prepareData();
 
-        $this->passDataToContainer();
-
-        if ($request->expectsJson()) {
-            return response()->json($this->data, Response::HTTP_OK);
+        if ($this->renderMode() === self::RENDER_CLIENT) {
+            return $this->renderClientSide($request);
         }
 
-        return response($this->render(), Response::HTTP_OK);
+        return $this->renderServerSide($request);
     }
+
+    /**
+     * The list of views for the response.
+     *
+     * @return array
+     */
+    abstract public function views();
 
     /**
      * Any data that should be sent with the response.
@@ -211,18 +229,6 @@ abstract class BaseResponsable implements Responsable
     }
 
     /**
-     * Build the structure.
-     *
-     * @return \Nova\Foundation\Http\Responses\BaseResponsable
-     */
-    protected function buildStructure()
-    {
-        $this->output = $this->theme->structure('master');
-
-        return $this;
-    }
-
-    /**
      * Build the layout.
      *
      * @return \Nova\Foundation\Http\Responses\BaseResponsable
@@ -230,18 +236,6 @@ abstract class BaseResponsable implements Responsable
     protected function buildLayout()
     {
         $this->output = $this->theme->layout($this->getView('layout.view'));
-
-        return $this;
-    }
-
-    /**
-     * Build the content template.
-     *
-     * @return \Nova\Foundation\Http\Responses\BaseResponsable
-     */
-    protected function buildTemplate()
-    {
-        $this->output = $this->theme->template('simple');
 
         return $this;
     }
@@ -271,6 +265,30 @@ abstract class BaseResponsable implements Responsable
     }
 
     /**
+     * Build the structure.
+     *
+     * @return \Nova\Foundation\Http\Responses\BaseResponsable
+     */
+    protected function buildStructure()
+    {
+        $this->output = $this->theme->structure();
+
+        return $this;
+    }
+
+    /**
+     * Build the content template.
+     *
+     * @return \Nova\Foundation\Http\Responses\BaseResponsable
+     */
+    protected function buildTemplate()
+    {
+        $this->output = $this->theme->template('simple');
+
+        return $this;
+    }
+
+    /**
      * Pass the final data off to the container for use in the views.
      *
      * @return \Nova\Foundation\Http\Responses\BaseResponsable
@@ -282,5 +300,23 @@ abstract class BaseResponsable implements Responsable
         });
 
         return $this;
+    }
+
+    protected function renderClientSide($request)
+    {
+        Inertia::setRootView('app-client');
+
+        return Inertia::render($this->getView('component'), $this->data);
+    }
+
+    protected function renderServerSide($request)
+    {
+        $this->passDataToContainer();
+
+        if ($request->expectsJson()) {
+            return response()->json($this->data, Response::HTTP_OK);
+        }
+
+        return response($this->render(), Response::HTTP_OK);
     }
 }

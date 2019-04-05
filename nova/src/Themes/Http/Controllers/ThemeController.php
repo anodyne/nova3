@@ -5,6 +5,7 @@ namespace Nova\Themes\Http\Controllers;
 use Nova\Themes\Jobs;
 use Nova\Themes\Theme;
 use Nova\Themes\Events;
+use Illuminate\Http\Response;
 use Nova\Themes\Http\Requests;
 use Nova\Themes\Http\Responses;
 use Nova\Themes\Http\Authorizers;
@@ -21,8 +22,12 @@ class ThemeController extends Controller
 
     public function index(Authorizers\Index $auth)
     {
+        $themes = Theme::get();
+
         return app(Responses\Index::class)
-            ->withThemes(Theme::get());
+            ->withThemes($themes)
+            ->withPendingThemes($themes->toBeInstalled())
+            ->withCan($auth->userAbilities());
     }
 
     public function create(Authorizers\Create $auth)
@@ -36,11 +41,7 @@ class ThemeController extends Controller
 
         event(new Events\ThemeCreated($theme));
 
-        alert()
-            ->withMessage('Theme was successfully created.')
-            ->success();
-
-        return redirect()->route('themes.index');
+        return $theme->fresh();
     }
 
     public function edit(Authorizers\Edit $auth, Theme $theme)
@@ -55,11 +56,7 @@ class ThemeController extends Controller
 
         event(new Events\ThemeUpdated($theme->fresh()));
 
-        alert()
-            ->withMessage('Theme was successfully updated.')
-            ->success();
-
-        return redirect()->route('themes.index');
+        return $theme->fresh();
     }
 
     public function destroy(Authorizers\Destroy $auth, Theme $theme)
@@ -68,11 +65,6 @@ class ThemeController extends Controller
 
         event(new Events\ThemeDeleted($theme));
 
-        alert()
-            ->withTitle('Success!')
-            ->withMessage('Theme was successfully deleted.')
-            ->success();
-
-        return response()->json($theme);
+        return $theme;
     }
 }

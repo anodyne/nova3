@@ -17,6 +17,18 @@ class Store extends BaseFormRequest
     }
 
     /**
+     * Get the validation messages that apply to the request.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'location.unique' => 'A theme already exists at that location.',
+        ];
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -27,23 +39,7 @@ class Store extends BaseFormRequest
             'name' => ['required'],
             'location' => ['required', 'unique:themes,location'],
             'credits' => ['nullable'],
-            'layout_auth' => ['required'],
-            'layout_admin' => ['required'],
-            'layout_public' => ['required'],
             'variants' => ['nullable'],
-            'icon_set' => ['nullable'],
-        ];
-    }
-
-    /**
-     * Get the validation messages that apply to the request.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'location.unique' => 'A theme already exists at that location.',
         ];
     }
 }

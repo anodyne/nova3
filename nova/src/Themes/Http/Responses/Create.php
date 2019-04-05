@@ -9,8 +9,7 @@ class Create extends BaseResponsable
     public function views() : array
     {
         return [
-            'page' => 'themes.create',
-            'script' => 'themes.create',
+            'component' => 'Themes/CreateTheme',
         ];
     }
 }
