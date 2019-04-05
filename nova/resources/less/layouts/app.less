@@ -35,10 +35,14 @@
         @apply .flex-1 .ml-72 .py-6 .px-12;
 
         section {
-            @apply .bg-white .rounded .border .p-6;
+            @apply .bg-white .rounded .border .p-6 .overflow-hidden;
 
             + section {
                 @apply .mt-8;
+            }
+
+            .data-table {
+                @apply .-mx-6 .-mb-6;
             }
         }
     }
