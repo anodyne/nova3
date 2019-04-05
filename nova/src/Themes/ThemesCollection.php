@@ -28,7 +28,6 @@ class ThemesCollection extends Collection
                 return [
                     'name' => $theme->name,
                     'location' => $location,
-                    'credits' => $theme->credits,
                 ];
             });
     }

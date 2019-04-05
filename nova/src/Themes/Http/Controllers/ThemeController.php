@@ -5,6 +5,7 @@ namespace Nova\Themes\Http\Controllers;
 use Nova\Themes\Jobs;
 use Nova\Themes\Theme;
 use Nova\Themes\Events;
+use Illuminate\Http\Response;
 use Nova\Themes\Http\Requests;
 use Nova\Themes\Http\Responses;
 use Nova\Themes\Http\Authorizers;
@@ -19,14 +20,14 @@ class ThemeController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Authorizers\Index $authorize)
+    public function index(Authorizers\Index $auth)
     {
         $themes = Theme::get();
 
         return app(Responses\Index::class)
             ->withThemes($themes)
             ->withPendingThemes($themes->toBeInstalled())
-            ->withCan($authorize->userPermissions());
+            ->withCan($auth->userAbilities());
     }
 
     public function create(Authorizers\Create $auth)
@@ -40,7 +41,7 @@ class ThemeController extends Controller
 
         event(new Events\ThemeCreated($theme));
 
-        return response()->json($theme, Response::HTTP_CREATED);
+        return $theme->fresh();
     }
 
     public function edit(Authorizers\Edit $auth, Theme $theme)
@@ -55,7 +56,7 @@ class ThemeController extends Controller
 
         event(new Events\ThemeUpdated($theme->fresh()));
 
-        return response()->json($theme->fresh(), Response::HTTP_OK);
+        return $theme->fresh();
     }
 
     public function destroy(Authorizers\Destroy $auth, Theme $theme)
@@ -64,6 +65,6 @@ class ThemeController extends Controller
 
         event(new Events\ThemeDeleted($theme));
 
-        return response()->json($theme, Response::HTTP_NO_CONTENT);
+        return $theme;
     }
 }

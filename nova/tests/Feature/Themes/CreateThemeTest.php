@@ -61,8 +61,9 @@ class CreateThemeTest extends TestCase
 
         $this->followingRedirects()
             ->from(route('themes.create'))
-            ->post(route('themes.store'), $theme)
-            ->assertSuccessful();
+            ->postJson(route('themes.store'), $theme)
+            ->assertSuccessful()
+            ->assertJson($theme);
 
         $this->assertDatabaseHas('themes', $theme);
     }
@@ -118,44 +119,5 @@ class CreateThemeTest extends TestCase
                 'location' => null,
             ])
             ->assertSessionHasErrors('location');
-    }
-
-    public function testAuthLayoutIsRequiredToCreateTheme()
-    {
-        Storage::fake('themes');
-
-        $this->signInWithAbility('theme.create');
-
-        $this->from(route('themes.index'))
-            ->post(route('themes.store'), [
-                'layout_auth' => null,
-            ])
-            ->assertSessionHasErrors('layout_auth');
-    }
-
-    public function testAdminLayoutIsRequiredToCreateTheme()
-    {
-        Storage::fake('themes');
-
-        $this->signInWithAbility('theme.create');
-
-        $this->from(route('themes.index'))
-            ->post(route('themes.store'), [
-                'layout_admin' => null,
-            ])
-            ->assertSessionHasErrors('layout_admin');
-    }
-
-    public function testPublicLayoutIsRequiredToCreateTheme()
-    {
-        Storage::fake('themes');
-
-        $this->signInWithAbility('theme.create');
-
-        $this->from(route('themes.index'))
-            ->post(route('themes.store'), [
-                'layout_public' => null,
-            ])
-            ->assertSessionHasErrors('layout_public');
     }
 }
