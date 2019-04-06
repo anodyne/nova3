@@ -9,20 +9,20 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class DeleteThemeJob implements ShouldQueue
+class InstallTheme implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $theme;
+    public $data;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Theme $theme)
+    public function __construct(array $data)
     {
-        $this->theme = $theme;
+        $this->data = $data;
     }
 
     /**
@@ -32,8 +32,6 @@ class DeleteThemeJob implements ShouldQueue
      */
     public function handle()
     {
-        return tap($this->theme, function ($theme) {
-            $theme->delete();
-        });
+        return Theme::create($this->data);
     }
 }

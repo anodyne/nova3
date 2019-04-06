@@ -70,7 +70,7 @@ class UpdateThemeTest extends TestCase
 
         $data = factory(Theme::class)->make()->toArray();
 
-        $theme = Jobs\EditThemeJob::dispatchNow($this->theme, $data);
+        $theme = Jobs\UpdateTheme::dispatchNow($this->theme, $data);
 
         Event::assertDispatched(Events\ThemeUpdated::class, function ($event) use ($theme) {
             return $event->theme->is($theme);

@@ -23,7 +23,7 @@ class InstallThemeController extends Controller
             throw new MissingQuickInstallFileException;
         }
 
-        $theme = dispatch_now(new Jobs\InstallThemeJob($themeProperties));
+        $theme = dispatch_now(new Jobs\InstallTheme($themeProperties));
 
         event(new Events\ThemeInstalled($theme));
 

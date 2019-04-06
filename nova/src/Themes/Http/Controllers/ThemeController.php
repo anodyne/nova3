@@ -37,7 +37,7 @@ class ThemeController extends Controller
 
     public function store(Authorizers\Store $auth, Requests\Store $request)
     {
-        $theme = dispatch_now(new Jobs\CreateThemeJob($request->validated()));
+        $theme = dispatch_now(new Jobs\CreateTheme($request->validated()));
 
         event(new Events\ThemeCreated($theme));
 
@@ -52,7 +52,7 @@ class ThemeController extends Controller
 
     public function update(Authorizers\Update $auth, Requests\Update $request, Theme $theme)
     {
-        $theme = dispatch_now(new Jobs\EditThemeJob($theme, $request->validated()));
+        $theme = dispatch_now(new Jobs\UpdateTheme($theme, $request->validated()));
 
         event(new Events\ThemeUpdated($theme->fresh()));
 
@@ -61,7 +61,7 @@ class ThemeController extends Controller
 
     public function destroy(Authorizers\Destroy $auth, Theme $theme)
     {
-        $theme = dispatch_now(new Jobs\DeleteThemeJob($theme));
+        $theme = dispatch_now(new Jobs\DeleteTheme($theme));
 
         event(new Events\ThemeDeleted($theme));
 
