@@ -10,42 +10,20 @@
                         Dashboard
                     </inertia-link>
 
-                    <inertia-link href="#" class="sidebar-link">
-                        <nova-icon name="file" class="mr-3"></nova-icon>
-                        Pages
+                    <inertia-link :href="route('themes.index')" class="sidebar-link">
+                        <nova-icon name="droplet" class="mr-3"></nova-icon>
+                        Themes
                     </inertia-link>
 
-                    <inertia-link href="#" class="sidebar-link">
-                        <nova-icon name="user" class="mr-3"></nova-icon>
-                        Authentication
-                    </inertia-link>
-
-                    <inertia-link href="#" class="sidebar-link">
-                        <nova-icon name="layout" class="mr-3"></nova-icon>
-                        Layouts
+                    <inertia-link :href="route('roles.index')" class="sidebar-link">
+                        <nova-icon name="lock" class="mr-3"></nova-icon>
+                        Roles
                     </inertia-link>
                 </div>
 
                 <div class="sidebar-divider"></div>
 
-                <div class="sidebar-header">Documentation</div>
-
                 <div class="flex flex-col -mx-6">
-                    <inertia-link href="#" class="sidebar-link">
-                        <nova-icon name="clipboard" class="mr-3"></nova-icon>
-                        Getting started
-                    </inertia-link>
-
-                    <inertia-link href="#" class="sidebar-link">
-                        <nova-icon name="book-open" class="mr-3"></nova-icon>
-                        Components
-                    </inertia-link>
-
-                    <inertia-link href="#" class="sidebar-link">
-                        <nova-icon name="git-branch" class="mr-3"></nova-icon>
-                        Changelog
-                    </inertia-link>
-
                     <a
                         :href="route('logout')"
                         class="sidebar-link"
@@ -62,6 +40,30 @@
                     >
                         <csrf-token></csrf-token>
                     </form>
+                </div>
+
+                <div class="sidebar-divider"></div>
+
+                <div class="sidebar-header">Resources</div>
+
+                <div class="flex flex-col -mx-6">
+                    <a
+                        href="https://github.com/anodyne/nova3"
+                        target="_blank"
+                        class="sidebar-link"
+                    >
+                        <nova-icon name="github" class="mr-3"></nova-icon>
+                        Github Repo
+                    </a>
+
+                    <a
+                        href="https://github.com/anodyne/nova3/issues"
+                        target="_blank"
+                        class="sidebar-link"
+                    >
+                        <nova-icon name="frown" class="mr-3"></nova-icon>
+                        Issues
+                    </a>
                 </div>
             </div>
 
