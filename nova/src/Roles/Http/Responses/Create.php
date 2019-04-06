@@ -9,7 +9,7 @@ class Create extends BaseResponsable
     public function views(): array
     {
         return [
-            'page' => 'Roles/Create',
+            'component' => 'Roles/Create',
         ];
     }
 }

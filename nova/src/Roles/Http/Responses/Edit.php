@@ -9,7 +9,7 @@ class Edit extends BaseResponsable
     public function views(): array
     {
         return [
-            'page' => 'Roles/Edit',
+            'component' => 'Roles/Edit',
         ];
     }
 }
