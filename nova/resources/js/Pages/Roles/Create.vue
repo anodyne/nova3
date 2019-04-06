@@ -89,8 +89,8 @@ export default {
     data () {
         return {
             form: {
-                name: '',
                 title: '',
+                name: '',
                 abilities: []
             },
             suggestName: true

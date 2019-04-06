@@ -77,6 +77,7 @@
 
 <script>
 import axios from '@/Utils/axios';
+import findIndex from 'lodash/findIndex';
 
 export default {
     props: {
@@ -108,7 +109,7 @@ export default {
     },
 
     methods: {
-        remove (theme) {
+        remove (role) {
             axios.delete(route('roles.destroy', { role }))
                 .then(({ data }) => {
                     const index = findIndex(this.availableRoles, { id: data.id });
