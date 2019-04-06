@@ -19,7 +19,7 @@
             leave-active-class="animated fadeOut"
         >
             <div
-                v-for="(theme, index) in installedThemes"
+                v-for="theme in installedThemes"
                 :key="theme.id"
                 class="col-6 mb-6"
             >
@@ -43,7 +43,7 @@
                             v-if="can.delete"
                             role="button"
                             class="button is-danger"
-                            @click="remove(theme, index)"
+                            @click="remove(theme)"
                         >
                             <nova-icon name="delete"></nova-icon>
                         </a>
