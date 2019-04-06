@@ -9,7 +9,7 @@ class Create extends BaseResponsable
     public function views(): array
     {
         return [
-            'page' => 'authorization.roles.create',
+            'page' => 'Roles/Create',
         ];
     }
 }

@@ -31,8 +31,6 @@
 import axios from '@/Utils/axios';
 
 export default {
-    name: 'InstallThemes',
-
     props: {
         pendingThemes: {
             type: Object,

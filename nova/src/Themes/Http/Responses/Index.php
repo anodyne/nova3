@@ -9,7 +9,7 @@ class Index extends BaseResponsable
     public function views() : array
     {
         return [
-            'component' => 'Themes/ManageThemes',
+            'component' => 'Themes/Index',
         ];
     }
 }

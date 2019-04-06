@@ -57,11 +57,9 @@
 <script>
 import axios from '@/Utils/axios';
 import findIndex from 'lodash/findIndex';
-import InstallThemes from '@/Pages/Themes/InstallThemes';
+import InstallThemes from '@/Pages/Themes/Install';
 
 export default {
-    name: 'ManageThemes',
-
     components: {
         InstallThemes
     },

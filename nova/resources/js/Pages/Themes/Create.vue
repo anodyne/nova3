@@ -190,8 +190,6 @@ import LayoutPicker from '@/Shared/Pickers/LayoutPicker';
 import IconSetPicker from '@/Shared/Pickers/IconSetPicker';
 
 export default {
-    name: 'CreateTheme',
-
     components: {
         LayoutPicker,
         IconSetPicker

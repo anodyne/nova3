@@ -9,7 +9,7 @@ class Edit extends BaseResponsable
     public function views(): array
     {
         return [
-            'page' => 'authorization.roles.edit',
+            'page' => 'Roles/Edit',
         ];
     }
 }
