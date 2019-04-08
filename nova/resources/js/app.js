@@ -10,6 +10,7 @@ import './plugins';
 const app = document.getElementById('nova-app');
 
 import { InertiaLink } from 'inertia-vue';
+import AlertsManager from '@/Shared/Alerts/AlertsManager';
 import SidebarLayout from '@/Shared/Layouts/SidebarLayout';
 
 Vue.component('inertia-link', InertiaLink);
@@ -25,16 +26,19 @@ new Vue({
     },
 
     render (h) {
-        return h(Inertia, {
-            props: {
-                component: app.dataset.component,
-                props: JSON.parse(app.dataset.props),
-                resolveComponent: component => {
-                    return import(`@/Pages/${component}`).then(
-                        module => module.default
-                    );
+        return h('div', [
+            h(Inertia, {
+                props: {
+                    component: app.dataset.component,
+                    props: JSON.parse(app.dataset.props),
+                    resolveComponent: component => {
+                        return import(`@/Pages/${component}`).then(
+                            module => module.default
+                        );
+                    }
                 }
-            }
-        })
+            }),
+            h(AlertsManager)
+        ]);
     }
 }).$mount(app);

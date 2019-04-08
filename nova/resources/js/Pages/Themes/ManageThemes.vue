@@ -94,9 +94,11 @@ export default {
                     const index = findIndex(this.installedThemes, { id: data.id });
 
                     this.installedThemes.splice(index, 1);
+
+                    this.$alert.message('Theme was successfully deleted.').success();
                 })
                 .catch(({ error }) => {
-                    //
+                    this.$alert.message('There was a problem removing the theme.').error();
                 });
         }
     }

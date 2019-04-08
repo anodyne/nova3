@@ -2,10 +2,8 @@ import Vue from 'vue';
 
 export default class AlertService {
     constructor () {
-        this.actionText = '';
-        this.actionFunction = null;
-        this.message = '';
-        this.type = '';
+        this.reset();
+
         this.emitter = new Vue();
     }
 
@@ -14,41 +12,47 @@ export default class AlertService {
     }
 
     error () {
-        this.type = 'is-danger';
+        this.data.type = 'is-danger';
 
         this.createAlert();
     }
 
     success () {
-        this.type = 'is-success';
+        this.data.type = 'is-success';
 
         this.createAlert();
     }
 
-    withAction (callback) {
-        this.actionFunction = callback;
+    action (callback) {
+        this.data.actionFunction = callback;
 
         return this;
     }
 
-    withActionText (value) {
-        this.actionText = value;
+    actionText (value) {
+        this.data.actionText = value;
 
         return this;
     }
 
-    withMessage (value) {
-        this.message = value;
+    message (value) {
+        this.data.message = value;
 
         return this;
+    }
+
+    reset () {
+        this.data = {
+            type: '',
+            message: '',
+            actionText: '',
+            actionFunction: null
+        };
     }
 
     createAlert () {
-        this.emitter.$emit('nova.alert', {
-            actionText: this.actionText,
-            actionFunction: this.actionFunction,
-            type: this.type,
-            message: this.message
-        });
+        this.emitter.$emit('nova.alert', this.data);
+
+        this.reset();
     }
 }

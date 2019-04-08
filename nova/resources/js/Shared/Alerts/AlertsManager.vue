@@ -17,9 +17,7 @@ import Alert from './Alert';
 export default {
     name: 'AlertsManager',
 
-    components: {
-        Alert
-    },
+    components: { Alert },
 
     data () {
         return {

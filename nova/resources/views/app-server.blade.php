@@ -25,7 +25,7 @@
     <div id="nova-app">
         {!! $layout ?? false !!}
 
-        <alerts-manager :session="{{ json_encode(session('nova.alert')) }}"></alerts-manager>
+        <alerts-manager></alerts-manager>
     </div>
 
     {!! $scripts ?? false !!}

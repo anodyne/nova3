@@ -81,8 +81,6 @@
         <main>
             <slot></slot>
         </main>
-
-        <alerts-manager></alerts-manager>
     </div>
 </template>
 
@@ -92,9 +90,7 @@ import { InertiaLink } from 'inertia-vue';
 export default {
     name: 'SidebarLayout',
 
-    components: {
-        InertiaLink
-    },
+    components: { InertiaLink },
 
     props: {
         page: {
