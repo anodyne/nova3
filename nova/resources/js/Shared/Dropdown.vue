@@ -5,17 +5,22 @@
         :class="{ 'is-active': isOpen }"
         @keydown.escape.prevent="close"
     >
-        <div ref="trigger">
-            <slot name="trigger" :trigger-function="open"></slot>
-        </div>
+        <button
+            ref="trigger"
+            type="button"
+            class="dropdown-trigger"
+            @click="toggle"
+        >
+            <slot></slot>
+        </button>
 
-        <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+        <transition enter-active-class="animated-faster fadeIn" leave-active-class="animated-faster fadeOut">
             <div
                 v-show="isOpen"
                 ref="dropdown"
-                class="dropdown"
+                class="dropdown-menu"
             >
-                <slot></slot>
+                <slot name="dropdown"></slot>
             </div>
         </transition>
     </div>
@@ -25,9 +30,13 @@
 import Popper from 'popper.js';
 
 export default {
-    name: 'BaseDropdown',
+    name: 'Dropdown',
 
     props: {
+        boundary: {
+            type: String,
+            default: 'scrollParent'
+        },
         placement: {
             type: String,
             default: 'bottom-start'
@@ -65,10 +74,10 @@ export default {
                 placement: this.placement,
                 modifiers: {
                     flip: {
-                        boundariesElement: 'viewport'
+                        boundariesElement: this.boundary
                     },
                     preventOverflow: {
-                        boundariesElement: 'viewport'
+                        boundariesElement: this.boundary
                     }
                 }
             });

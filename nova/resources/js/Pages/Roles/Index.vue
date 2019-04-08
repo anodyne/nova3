@@ -1,11 +1,14 @@
 <template>
     <sidebar-layout>
         <page-header title="Roles">
-            <template v-if="can.create" #controls>
-                <inertia-link :href="route('roles.create')" class="button is-primary">
-                    Create Role
-                </inertia-link>
-            </template>
+            <inertia-link
+                v-if="can.create"
+                slot="controls"
+                :href="route('roles.create')"
+                class="button is-primary"
+            >
+                Create Role
+            </inertia-link>
         </page-header>
 
         <section>
@@ -53,21 +56,29 @@
                         {{ role.title }}
                     </div>
                     <div class="col-auto">
-                        <inertia-link
-                            v-if="can.update"
-                            :href="route('roles.edit', { role })"
-                            class="button is-secondary is-small mr-3 my-0"
-                        >
-                            <nova-icon name="edit"></nova-icon>
-                        </inertia-link>
-                        <a
-                            v-if="can.delete"
-                            role="button"
-                            class="button is-danger is-small my-0"
-                            @click="remove(role)"
-                        >
-                            <nova-icon name="delete"></nova-icon>
-                        </a>
+                        <dropdown placement="bottom-end">
+                            <nova-icon name="more-vertical"></nova-icon>
+
+                            <template #dropdown>
+                                <inertia-link
+                                    v-if="can.update"
+                                    :href="route('roles.edit', { role })"
+                                    class="dropdown-link"
+                                >
+                                    <nova-icon name="edit" class="dropdown-item-icon"></nova-icon>
+                                    Edit
+                                </inertia-link>
+                                <a
+                                    v-if="can.delete"
+                                    role="button"
+                                    class="dropdown-link-danger"
+                                    @click="remove(role)"
+                                >
+                                    <nova-icon name="delete" class="dropdown-item-icon"></nova-icon>
+                                    Delete
+                                </a>
+                            </template>
+                        </dropdown>
                     </div>
                 </div>
             </transition-group>
@@ -115,6 +126,8 @@ export default {
                     const index = findIndex(this.availableRoles, { id: data.id });
 
                     this.availableRoles.splice(index, 1);
+
+                    // this.$toast.message('Role was successfully deleted.').success().make();
                 })
                 .catch(({ error }) => {
                     //

@@ -80,33 +80,14 @@
             </div>
         </nav>
 
-        <main>
+        <main class="flex-1 ml-72 py-6 px-12">
             <slot></slot>
         </main>
     </div>
 </template>
 
 <script>
-import { InertiaLink } from 'inertia-vue';
-
 export default {
-    name: 'SidebarLayout',
-
-    components: { InertiaLink },
-
-    props: {
-        page: {
-            type: Object,
-            default: () => {
-                return {};
-            }
-        },
-        theme: {
-            type: Object,
-            default: () => {
-                return {};
-            }
-        }
-    }
+    name: 'SidebarLayout'
 };
 </script>
