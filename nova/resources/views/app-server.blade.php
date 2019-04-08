@@ -15,7 +15,8 @@
 
     <!-- Scripts -->
     <script>
-        window.novaSettings = @json(nova()->provideScriptVariables())
+        window.novaAlerts = @json(session('nova.alert', []));
+        window.novaSettings = @json(nova()->provideScriptVariables());
     </script>
     <script src="{{ asset('/dist/js/app-server.js') }}" defer></script>
     @routes
@@ -24,7 +25,7 @@
     <div id="nova-app">
         {!! $layout ?? false !!}
 
-        <nova-notices :session="{{ json_encode(session('nova.alert')) }}"></nova-notices>
+        <alerts-manager :session="{{ json_encode(session('nova.alert')) }}"></alerts-manager>
     </div>
 
     {!! $scripts ?? false !!}

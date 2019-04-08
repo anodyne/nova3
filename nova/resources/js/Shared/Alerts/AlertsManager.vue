@@ -1,26 +1,24 @@
 <template>
-    <div class="notices" aria-atomic="true">
-        <nova-alert
+    <div class="alerts" aria-atomic="true">
+        <alert
             v-for="(alert, index) in alerts"
             :key="index"
             :data="alert"
             @alert-hidden="removeAlert(index)"
-        ></nova-alert>
+        ></alert>
     </div>
 </template>
 
 <script>
 import has from 'lodash/has';
 import isArray from 'lodash/isArray';
+import Alert from './Alert';
 
 export default {
-    name: 'NovaNotices',
+    name: 'AlertsManager',
 
-    props: {
-        session: {
-            type: [Array, Object],
-            default: null
-        }
+    components: {
+        Alert
     },
 
     data () {
@@ -30,13 +28,13 @@ export default {
     },
 
     mounted () {
-        if (this.session !== null && !isArray(this.session)) {
-            this.setData(this.session);
+        if (novaAlerts) {
+            this.setData(novaAlerts);
         }
 
-        // Nova.$on('nova.alert', (params) => {
-        //     this.setData(params);
-        // });
+        this.$alert.emitter.$on('nova.alert', (alert) => {
+            this.setData(alert);
+        });
     },
 
     methods: {

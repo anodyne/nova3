@@ -5,6 +5,7 @@ import store from './Store';
 import './global';
 import './components';
 import './directives';
+import './plugins';
 
 const app = document.getElementById('nova-app');
 

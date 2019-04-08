@@ -38,7 +38,7 @@
 import has from 'lodash/has';
 
 export default {
-    name: 'NovaAlert',
+    name: 'Alert',
 
     props: {
         data: {

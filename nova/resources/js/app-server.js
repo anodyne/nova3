@@ -4,14 +4,9 @@ import store from './Store';
 import './global';
 import './components';
 import './directives';
-
-import NovaNotices from '@/Shared/Notices/NovaNotices';
-
-Vue.component('nova-notices', NovaNotices);
+import './plugins';
 
 const app = document.getElementById('nova-app');
-
-// window.Nova = new Nova();
 
 window.app = new Vue({
     store,

@@ -15,7 +15,8 @@
 
     <!-- Scripts -->
     <script>
-        window.novaSettings = @json(nova()->provideScriptVariables())
+        window.novaAlerts = @json(session('nova.alert', []));
+        window.novaSettings = @json(nova()->provideScriptVariables());
     </script>
     <script src="{{ asset('/dist/js/app.js') }}" defer></script>
     @routes

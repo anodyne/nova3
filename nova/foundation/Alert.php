@@ -6,9 +6,24 @@ use Illuminate\Support\Str;
 
 class Alert
 {
+    /**
+     * @var string  The alert message
+     */
     public $message;
+
+    /**
+     * @var string  The type of alert (success, error, make)
+     */
     public $type;
+
+    /**
+     * @var string  The link for an action alert
+     */
     public $actionLink;
+
+    /**
+     * @var string  The text for the button of an action alert
+     */
     public $actionText;
 
     /**
