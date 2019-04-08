@@ -16,6 +16,12 @@ module.exports = {
             0: 0,
             ...defaultTheme.lineHeight
         },
+        opacity: {
+            10: '.1',
+            15: '.15',
+            20: '.2',
+            ...defaultTheme.opacity
+        },
         spacing: {
             ...defaultTheme.spacing,
             '2px': '2px',
@@ -27,7 +33,10 @@ module.exports = {
         },
         zIndex: {
             ...defaultTheme.zIndex,
-            1000: 1000
+            1000: 1000,
+            9999: 9999,
+            99999: 99999,
+            999999: 999999
         }
     },
 
