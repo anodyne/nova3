@@ -15,7 +15,8 @@
 
     <!-- Scripts -->
     <script>
-        window.novaSettings = @json(nova()->provideScriptVariables())
+        window.novaToast = @json(session('nova.toast', []));
+        window.novaSettings = @json(nova()->provideScriptVariables());
     </script>
     <script src="{{ asset('/dist/js/app-server.js') }}" defer></script>
     @routes
@@ -24,7 +25,7 @@
     <div id="nova-app">
         {!! $layout ?? false !!}
 
-        <nova-notices :session="{{ json_encode(session('nova.alert')) }}"></nova-notices>
+        <toaster-oven></toaster-oven>
     </div>
 
     {!! $scripts ?? false !!}
