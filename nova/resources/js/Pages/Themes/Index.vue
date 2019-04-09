@@ -70,7 +70,7 @@ export default {
             required: true
         },
         pendingThemes: {
-            type: Object,
+            type: [Array, Object],
             required: true
         },
         themes: {
@@ -91,9 +91,11 @@ export default {
                 .then(({ data }) => {
                     const index = findIndex(this.installedThemes, { id: data.id });
 
-                    this.installedThemes.splice(index, 1);
+                    this.$toast
+                        .message(`${this.installedThemes[index].name} theme was removed.`)
+                        .success();
 
-                    this.$toast.message('Theme was successfully deleted.').success();
+                    this.installedThemes.splice(index, 1);
                 })
                 .catch(({ error }) => {
                     this.$toast.message('There was a problem removing the theme.').error();

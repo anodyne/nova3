@@ -11,9 +11,10 @@
                 :action="route('themes.update', { theme })"
                 method="POST"
                 role="form"
+                @submit.prevent="submit"
             >
                 <csrf-token></csrf-token>
-                <form-method patch></form-method>
+                <form-method put></form-method>
 
                 <div class="form-section">
                     <div class="form-section-column-content">
@@ -152,6 +153,8 @@
 </template>
 
 <script>
+import axios from '@/Utils/axios';
+import { Inertia } from 'inertia-vue';
 import LayoutPicker from '@/Shared/Pickers/LayoutPicker';
 import IconSetPicker from '@/Shared/Pickers/IconSetPicker';
 
@@ -185,6 +188,21 @@ export default {
     computed: {
         location () {
             return this.theme.location;
+        }
+    },
+
+    methods: {
+        submit () {
+            axios.put(this.route('themes.update', { theme: this.theme }), this.form)
+                .then(() => {
+                    this.$toast.message(`${this.form.name} theme was updated.`).success();
+
+                    Inertia.replace(this.route('themes.index'));
+                })
+                .catch((response) => {
+                    console.error(response);
+                    this.$toast.message('There was a problem updating the theme.').error();
+                });
         }
     }
 };

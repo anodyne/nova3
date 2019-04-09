@@ -33,7 +33,7 @@ import axios from '@/Utils/axios';
 export default {
     props: {
         pendingThemes: {
-            type: Object,
+            type: [Array, Object],
             required: true
         }
     },
@@ -52,18 +52,18 @@ export default {
 
     methods: {
         install (index) {
-            this.$toast.open('This is my toast');
-            // axios.post(route('themes.install'), { theme: this.themes[index] })
-            //     .then(({ data }) => {
-            //         this.themes.splice(index, 1);
+            axios.post(route('themes.install'), { theme: this.themes[index].location })
+                .then(({ data }) => {
+                    this.$toast.message(`${data.name} theme was installed.`).success();
 
-            //         this.$emit('theme-installed', { theme });
+                    this.themes.splice(index, 1);
 
-            //         // this.$toast.withMessage(`${theme.name} theme was successfully installed.`).success();
-            //     })
-            //     .catch(({ error }) => {
-            //         // this.$toast.withMessage('The theme does not have a QuickInstall file.').error();
-            //     });
+                    this.$emit('theme-installed', data);
+                })
+                .catch((response) => {
+                    console.error(response);
+                    this.$toast.message('The theme does not have a QuickInstall file.').error();
+                });
         }
     }
 };

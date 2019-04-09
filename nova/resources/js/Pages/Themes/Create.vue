@@ -223,12 +223,12 @@ export default {
         submit () {
             axios.post(this.route('themes.store'), this.form)
                 .then(() => {
-                    this.$toast.message('Theme was successfully created.').success();
+                    this.$toast.message(`${this.form.name} theme was created.`).success();
 
                     Inertia.replace(this.route('themes.index'));
                 })
                 .catch((error) => {
-                    this.$toast.message('There was a problem!').error();
+                    this.$toast.message('There was a problem creating the theme.').error();
                 });
         }
     }

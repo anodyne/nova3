@@ -62,7 +62,7 @@ export default class ToastService {
 
     defaultConfig () {
         return {
-            timeout: 3000
+            timeout: 5000
         };
     }
 

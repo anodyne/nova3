@@ -27,6 +27,6 @@ class InstallThemeController extends Controller
 
         event(new Events\ThemeInstalled($theme));
 
-        return response()->json($theme, 200);
+        return $theme->fresh();
     }
 }
