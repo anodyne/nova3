@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-export default class AlertService {
+export default class ToastService {
     constructor () {
         this.reset();
 
@@ -51,7 +51,7 @@ export default class AlertService {
     }
 
     createAlert () {
-        this.emitter.$emit('nova.alert', this.data);
+        this.emitter.$emit('nova.toast', this.data);
 
         this.reset();
     }

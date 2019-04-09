@@ -1,49 +1,49 @@
 <template>
-    <div class="alerts" aria-atomic="true">
-        <alert
-            v-for="(alert, index) in alerts"
+    <div class="toasts" aria-atomic="true">
+        <toast
+            v-for="(toast, index) in toasts"
             :key="index"
-            :data="alert"
-            @alert-hidden="removeAlert(index)"
-        ></alert>
+            :data="toast"
+            @toast-hidden="remove(index)"
+        ></toast>
     </div>
 </template>
 
 <script>
 import has from 'lodash/has';
 import isArray from 'lodash/isArray';
-import Alert from './Alert';
+import Toast from './Toast';
 
 export default {
-    name: 'AlertsManager',
+    name: 'ToastsManager',
 
-    components: { Alert },
+    components: { Toast },
 
     data () {
         return {
-            alerts: []
+            toasts: []
         };
     },
 
     mounted () {
-        if (novaAlerts) {
-            this.setData(novaAlerts);
+        if (novaToast) {
+            this.setData(novaToast);
         }
 
-        this.$alert.emitter.$on('nova.alert', (alert) => {
-            this.setData(alert);
+        this.$toast.emitter.$on('nova.toast', (toast) => {
+            this.setData(toast);
         });
     },
 
     methods: {
-        removeAlert (index) {
+        remove (index) {
             setTimeout(() => {
-                this.alerts.splice(index, 1);
+                this.toasts.splice(index, 1);
             }, 2000);
         },
 
         setData (data) {
-            this.alerts.push({
+            this.toasts.push({
                 message: has(data, 'message') ? data.message : '',
                 type: has(data, 'type') ? data.type : '',
                 actionFunction: has(data, 'actionFunction') ? data.actionFunction : null,

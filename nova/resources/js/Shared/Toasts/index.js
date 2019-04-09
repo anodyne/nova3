@@ -1,21 +1,21 @@
-import AlertService from './AlertService';
+import ToastService from './ToastService';
 
 const Plugin = {
     install (Vue) {
-        const alert = new AlertService();
+        const toast = new ToastService();
 
         /* eslint-disable */
-        Vue.prototype.$alert = alert;
+        Vue.prototype.$toast = toast;
         /* eslint-enable */
 
-        // auto install
+        // Auto-install
         if (typeof window !== 'undefined' && Object.prototype.hasOwnProperty.call(window, 'Vue')) {
-            window.Alert = alert;
+            window.Toast = toast;
         }
     }
 };
 
-// auto install
+// Auto-install
 if (typeof window !== 'undefined' && Object.prototype.hasOwnProperty.call(window, 'Vue')) {
     window.Vue.use(Plugin.install);
 }

@@ -4,33 +4,33 @@ namespace Nova\Foundation;
 
 use Illuminate\Support\Str;
 
-class Alert
+class Toast
 {
     /**
-     * @var string  The alert message
+     * @var string  The toast message
      */
     public $message;
 
     /**
-     * @var string  The type of alert (success, error, make)
+     * @var string  The type of toast (success, error, make)
      */
     public $type;
 
     /**
-     * @var string  The link for an action alert
+     * @var string  The link for an actionable toast
      */
     public $actionLink;
 
     /**
-     * @var string  The text for the button of an action alert
+     * @var string  The text for the button of an actionable toast
      */
     public $actionText;
 
     /**
-     * Data to be used by the alert.
+     * Data to be used by the toast.
      *
      * @param  array  $data
-     * @return \Nova\Foundation\Alert
+     * @return \Nova\Foundation\Toast
      */
     public function with($key, $value = null)
     {
@@ -40,47 +40,47 @@ class Alert
     }
 
     /**
-     * Create an alert.
+     * Create a toast.
      *
-     * @return \Nova\Foundation\Alert
+     * @return \Nova\Foundation\Toast
      */
     public function make()
     {
-        return $this->createAlert();
+        return $this->makeToast();
     }
 
     /**
-     * Set the alert type to error.
+     * Set the toast type to error.
      *
-     * @return \Nova\Foundation\Alert
+     * @return \Nova\Foundation\Toast
      */
     public function error()
     {
         $this->type = 'is-danger';
 
-        return $this->createAlert();
+        return $this->makeToast();
     }
 
     /**
-     * Set the alert type to success.
+     * Set the toast type to success.
      *
-     * @return \Nova\Foundation\Alert
+     * @return \Nova\Foundation\Toast
      */
     public function success()
     {
         $this->type = 'is-success';
 
-        return $this->createAlert();
+        return $this->makeToast();
     }
 
     /**
-     * Create the alert.
+     * Create the toast.
      *
-     * @return \Nova\Foundation\Alert
+     * @return \Nova\Foundation\Toast
      */
-    protected function createAlert()
+    protected function makeToast()
     {
-        session()->flash('nova.alert', [
+        session()->flash('nova.toast', [
             'message' => $this->message,
             'type' => $this->type,
             'actionFunction' => $this->actionLink,
@@ -91,11 +91,11 @@ class Alert
     }
 
     /**
-     * Dynamically bind parameters to the alert.
+     * Dynamically bind parameters to the toast.
      *
      * @param  string  $method
      * @param  array   $parameters
-     * @return \Nova\Foundation\Alert
+     * @return \Nova\Foundation\Toast
      *
      * @throws \BadMethodCallException
      */

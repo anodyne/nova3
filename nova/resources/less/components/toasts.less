@@ -1,7 +1,7 @@
-.alerts {
+.toasts {
     @apply .fixed .flex .inset-0 .p-6 .overflow-hidden .z-1000 .pointer-events-none .flex-col;
 
-    .alert {
+    .toast {
         @apply .inline-flex .items-center .my-3 .text-center .shadow .rounded .py-4 .px-8 .pointer-events-auto .font-medium .bg-gray-800 .text-gray-100 .self-center;
 
         opacity: 0.92;
@@ -44,13 +44,13 @@
     }
 }
 
-.alert-animated-enter-active {
+.toast-animated-enter-active {
     @apply .animated .animated-faster;
 
     animation-name: fadeInDown;
 }
 
-.alert-animated-leave-active {
+.toast-animated-leave-active {
     @apply .animated .animated-faster;
 
     animation-name: fadeOutUp;

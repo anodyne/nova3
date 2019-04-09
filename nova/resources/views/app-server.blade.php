@@ -15,7 +15,7 @@
 
     <!-- Scripts -->
     <script>
-        window.novaAlerts = @json(session('nova.alert', []));
+        window.novaToast = @json(session('nova.toast', []));
         window.novaSettings = @json(nova()->provideScriptVariables());
     </script>
     <script src="{{ asset('/dist/js/app-server.js') }}" defer></script>
@@ -25,7 +25,7 @@
     <div id="nova-app">
         {!! $layout ?? false !!}
 
-        <alerts-manager></alerts-manager>
+        <toasts-manager></toasts-manager>
     </div>
 
     {!! $scripts ?? false !!}

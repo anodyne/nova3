@@ -6,6 +6,10 @@ import './components';
 import './directives';
 import './plugins';
 
+import ToastsManager from '@/Shared/Toasts/ToastsManager';
+
+Vue.component('toasts-manager', ToastsManager);
+
 const app = document.getElementById('nova-app');
 
 window.app = new Vue({

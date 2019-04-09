@@ -95,10 +95,10 @@ export default {
 
                     this.installedThemes.splice(index, 1);
 
-                    this.$alert.message('Theme was successfully deleted.').success();
+                    this.$toast.message('Theme was successfully deleted.').success();
                 })
                 .catch(({ error }) => {
-                    this.$alert.message('There was a problem removing the theme.').error();
+                    this.$toast.message('There was a problem removing the theme.').error();
                 });
         }
     }
