@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import axios from '@/Utils/axios';
+import Form from '@/Utils/Form';
 import findIndex from 'lodash/findIndex';
 import InstallThemes from '@/Pages/Themes/Install';
 
@@ -81,25 +81,25 @@ export default {
 
     data () {
         return {
+            form: new Form(),
             installedThemes: this.themes
         };
     },
 
     methods: {
         remove (theme) {
-            axios.delete(route('themes.destroy', { theme }))
-                .then(({ data }) => {
+            this.form.delete({
+                url: this.route('themes.destroy', { theme }),
+                then: (data) => {
                     const index = findIndex(this.installedThemes, { id: data.id });
 
                     this.$toast
-                        .message(`${this.installedThemes[index].name} theme was removed.`)
+                        .message(`${theme.name} theme was removed.`)
                         .success();
 
                     this.installedThemes.splice(index, 1);
-                })
-                .catch(({ error }) => {
-                    this.$toast.message('There was a problem removing the theme.').error();
-                });
+                }
+            });
         }
     }
 };

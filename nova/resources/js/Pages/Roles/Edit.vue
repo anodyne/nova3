@@ -31,7 +31,7 @@
                             <div class="field-group">
                                 <input
                                     id="title"
-                                    v-model="form.title"
+                                    v-model="form.fields.title"
                                     type="text"
                                     name="title"
                                     class="field"
@@ -47,11 +47,10 @@
                             <div class="field-group">
                                 <input
                                     id="name"
-                                    v-model="form.name"
+                                    v-model="form.fields.name"
                                     type="text"
                                     name="name"
                                     class="field"
-                                    @change="suggestName = false"
                                 >
                             </div>
                         </form-field>
@@ -83,7 +82,7 @@
 
 <script>
 import slug from 'slug';
-import axios from '@/Utils/axios';
+import Form from '@/Utils/Form';
 import { Inertia } from 'inertia-vue';
 
 export default {
@@ -96,23 +95,24 @@ export default {
 
     data () {
         return {
-            form: {
+            form: new Form({
                 name: this.role.name,
                 title: this.role.title,
                 abilities: []
-            }
+            })
         };
     },
 
     methods: {
         submit () {
-            axios.post(route('roles.update', { role: this.role }), this.form)
-                .then(() => {
-                    Inertia.replace(route('roles.index'));
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+            this.form.put({
+                url: this.route('roles.update', { role: this.role }),
+                then: (data) => {
+                    this.$toast.message(`${data.title} role was updated.`).success();
+
+                    Inertia.replace(this.route('roles.index'));
+                }
+            });
         }
     }
 };

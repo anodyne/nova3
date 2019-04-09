@@ -31,7 +31,7 @@
                             <div class="field-group">
                                 <input
                                     id="name"
-                                    v-model="form.name"
+                                    v-model="form.fields.name"
                                     type="text"
                                     name="name"
                                     class="field"
@@ -51,7 +51,7 @@
                             <div class="field-group">
                                 <textarea
                                     id="credits"
-                                    v-model="form.credits"
+                                    v-model="form.fields.credits"
                                     name="credits"
                                     rows="5"
                                     class="field"
@@ -60,7 +60,7 @@
                         </form-field>
 
                         <form-field>
-                            <toggle-switch v-model="form.active">Active</toggle-switch>
+                            <toggle-switch v-model="form.fields.active">Active</toggle-switch>
                         </form-field>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                             name="layout_auth"
                         >
                             <layout-picker
-                                v-model="form.layoutAuth"
+                                v-model="form.fields.layoutAuth"
                                 name="layout_auth"
                                 type="auth"
                             ></layout-picker>
@@ -95,7 +95,7 @@
                             name="layout_public"
                         >
                             <layout-picker
-                                v-model="form.layoutPublic"
+                                v-model="form.fields.layoutPublic"
                                 name="layout_public"
                                 type="public"
                             ></layout-picker>
@@ -112,7 +112,7 @@
                             name="layout_admin"
                         >
                             <layout-picker
-                                v-model="form.layoutAdmin"
+                                v-model="form.fields.layoutAdmin"
                                 name="layout_admin"
                                 type="admin"
                             ></layout-picker>
@@ -128,7 +128,7 @@
                             field-id="icon_set"
                             name="icon_set"
                         >
-                            <icon-set-picker v-model="form.iconSet" name="icon_set"></icon-set-picker>
+                            <icon-set-picker v-model="form.fields.iconSet" name="icon_set"></icon-set-picker>
                             <input
                                 type="hidden"
                                 name="icon_set"
@@ -153,7 +153,7 @@
 </template>
 
 <script>
-import axios from '@/Utils/axios';
+import Form from '@/Utils/Form';
 import { Inertia } from 'inertia-vue';
 import LayoutPicker from '@/Shared/Pickers/LayoutPicker';
 import IconSetPicker from '@/Shared/Pickers/IconSetPicker';
@@ -173,7 +173,7 @@ export default {
 
     data () {
         return {
-            form: {
+            form: new Form({
                 name: this.theme.name,
                 credits: this.theme.credits,
                 layoutAuth: this.theme.layout_auth,
@@ -181,7 +181,7 @@ export default {
                 layoutPublic: this.theme.layout_public,
                 iconSet: this.theme.icon_set,
                 active: true
-            }
+            })
         };
     },
 
@@ -193,16 +193,14 @@ export default {
 
     methods: {
         submit () {
-            axios.put(this.route('themes.update', { theme: this.theme }), this.form)
-                .then(() => {
-                    this.$toast.message(`${this.form.name} theme was updated.`).success();
+            this.form.put({
+                url: this.route('themes.update', { theme: this.theme }),
+                then: (data) => {
+                    this.$toast.message(`${data.name} theme was updated.`).success();
 
                     Inertia.replace(this.route('themes.index'));
-                })
-                .catch((response) => {
-                    console.error(response);
-                    this.$toast.message('There was a problem updating the theme.').error();
-                });
+                }
+            });
         }
     }
 };

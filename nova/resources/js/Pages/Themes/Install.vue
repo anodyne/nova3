@@ -40,6 +40,9 @@ export default {
 
     data () {
         return {
+            form: new Form({
+                theme: ''
+            }),
             themes: this.pendingThemes
         };
     },
@@ -52,18 +55,18 @@ export default {
 
     methods: {
         install (index) {
-            axios.post(route('themes.install'), { theme: this.themes[index].location })
-                .then(({ data }) => {
+            this.form.fields.theme = this.themes[index].location;
+
+            this.form.post({
+                url: this.route('themes.install'),
+                then: (data) => {
                     this.$toast.message(`${data.name} theme was installed.`).success();
 
                     this.themes.splice(index, 1);
 
                     this.$emit('theme-installed', data);
-                })
-                .catch((response) => {
-                    console.error(response);
-                    this.$toast.message('The theme does not have a QuickInstall file.').error();
-                });
+                }
+            });
         }
     }
 };

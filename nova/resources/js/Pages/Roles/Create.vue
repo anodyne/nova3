@@ -30,7 +30,7 @@
                             <div class="field-group">
                                 <input
                                     id="title"
-                                    v-model="form.title"
+                                    v-model="form.fields.title"
                                     type="text"
                                     name="title"
                                     class="field"
@@ -46,7 +46,7 @@
                             <div class="field-group">
                                 <input
                                     id="name"
-                                    v-model="form.name"
+                                    v-model="form.fields.name"
                                     type="text"
                                     name="name"
                                     class="field"
@@ -82,38 +82,39 @@
 
 <script>
 import slug from 'slug';
-import axios from '@/Utils/axios';
+import Form from '@/Utils/Form';
 import { Inertia } from 'inertia-vue';
 
 export default {
     data () {
         return {
-            form: {
+            form: new Form({
                 title: '',
                 name: '',
                 abilities: []
-            },
+            }),
             suggestName: true
         };
     },
 
     watch: {
-        'form.title': function (newValue) {
+        'form.fields.title': function (newValue) {
             if (this.suggestName) {
-                this.form.name = slug(newValue.toLowerCase());
+                this.form.fields.name = slug(newValue.toLowerCase());
             }
         }
     },
 
     methods: {
         submit () {
-            axios.post(this.route('roles.store'), this.form)
-                .then(() => {
+            this.form.post({
+                url: this.route('roles.store'),
+                then: (data) => {
+                    this.$toast.message(`${data.title} role was created.`).success();
+
                     Inertia.replace(this.route('roles.index'));
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+                }
+            });
         }
     }
 };

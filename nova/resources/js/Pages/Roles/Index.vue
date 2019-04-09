@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import axios from '@/Utils/axios';
+import Form from '@/Utils/Form';
 import findIndex from 'lodash/findIndex';
 
 export default {
@@ -105,6 +105,7 @@ export default {
     data () {
         return {
             availableRoles: this.roles,
+            form: new Form(),
             search: ''
         };
     },
@@ -121,17 +122,18 @@ export default {
 
     methods: {
         remove (role) {
-            axios.delete(route('roles.destroy', { role }))
-                .then(({ data }) => {
+            this.form.delete({
+                url: this.route('roles.destroy', { role }),
+                then: (data) => {
                     const index = findIndex(this.availableRoles, { id: data.id });
 
-                    this.availableRoles.splice(index, 1);
+                    this.$toast
+                        .message(`${role.title} role was removed.`)
+                        .success();
 
-                    // this.$toast.message('Role was successfully deleted.').success().make();
-                })
-                .catch(({ error }) => {
-                    //
-                });
+                    this.availableRoles.splice(index, 1);
+                }
+            });
         }
     }
 };

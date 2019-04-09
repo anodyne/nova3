@@ -30,7 +30,7 @@
                             <div class="field-group">
                                 <input
                                     id="name"
-                                    v-model="form.name"
+                                    v-model="form.fields.name"
                                     type="text"
                                     name="name"
                                     class="field"
@@ -48,7 +48,7 @@
 
                                 <input
                                     id="location"
-                                    v-model="form.location"
+                                    v-model="form.fields.location"
                                     type="text"
                                     name="location"
                                     class="field"
@@ -61,7 +61,7 @@
                             <div class="field-group">
                                 <textarea
                                     id="credits"
-                                    v-model="form.credits"
+                                    v-model="form.fields.credits"
                                     name="credits"
                                     rows="5"
                                     class="field"
@@ -84,7 +84,7 @@
                             name="layout_auth"
                         >
                             <layout-picker
-                                v-model="form.layoutAuth"
+                                v-model="form.fields.layoutAuth"
                                 name="layout_auth"
                                 type="auth"
                             ></layout-picker>
@@ -101,7 +101,7 @@
                             name="layout_public"
                         >
                             <layout-picker
-                                v-model="form.layoutPublic"
+                                v-model="form.fields.layoutPublic"
                                 name="layout_public"
                                 type="public"
                             ></layout-picker>
@@ -118,7 +118,7 @@
                             name="layout_admin"
                         >
                             <layout-picker
-                                v-model="form.layoutAdmin"
+                                v-model="form.fields.layoutAdmin"
                                 name="layout_admin"
                                 type="admin"
                             ></layout-picker>
@@ -134,7 +134,7 @@
                             field-id="icon_set"
                             name="icon_set"
                         >
-                            <icon-set-picker v-model="form.iconSet" name="icon_set"></icon-set-picker>
+                            <icon-set-picker v-model="form.fields.iconSet" name="icon_set"></icon-set-picker>
                             <input
                                 type="hidden"
                                 name="icon_set"
@@ -160,7 +160,7 @@
                             <div class="field-group">
                                 <input
                                     id="variants"
-                                    v-model="form.variants"
+                                    v-model="form.fields.variants"
                                     type="text"
                                     name="variants"
                                     class="field"
@@ -184,7 +184,7 @@
 
 <script>
 import slug from 'slug';
-import axios from '@/Utils/axios';
+import Form from '@/Utils/Form';
 import { Inertia } from 'inertia-vue';
 import LayoutPicker from '@/Shared/Pickers/LayoutPicker';
 import IconSetPicker from '@/Shared/Pickers/IconSetPicker';
@@ -197,7 +197,7 @@ export default {
 
     data () {
         return {
-            form: {
+            form: new Form({
                 name: '',
                 location: '',
                 credits: '',
@@ -206,30 +206,29 @@ export default {
                 layoutPublic: null,
                 iconSet: null,
                 variants: ''
-            },
+            }),
             suggestLocation: true
         };
     },
 
     watch: {
-        'form.name': function (newValue) {
+        'form.fields.name': function (newValue) {
             if (this.suggestLocation) {
-                this.form.location = slug(newValue.toLowerCase());
+                this.form.fields.location = slug(newValue.toLowerCase());
             }
         }
     },
 
     methods: {
         submit () {
-            axios.post(this.route('themes.store'), this.form)
-                .then(() => {
-                    this.$toast.message(`${this.form.name} theme was created.`).success();
+            this.form.post({
+                url: this.route('themes.store'),
+                then: (data) => {
+                    this.$toast.message(`${data.name} theme was created.`).success();
 
                     Inertia.replace(this.route('themes.index'));
-                })
-                .catch((error) => {
-                    this.$toast.message('There was a problem creating the theme.').error();
-                });
+                }
+            });
         }
     }
 };
