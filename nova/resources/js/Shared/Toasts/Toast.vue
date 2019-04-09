@@ -7,28 +7,36 @@
             :role="role"
             :aria-live="ariaLive"
             aria-atomic="true"
+            @mouseenter="pauseTimer"
+            @mouseleave="unpauseTimer"
         >
-            <p class="message">{{ message }}</p>
+            <div class="progress-bar">
+                <span class="percentage" :style="{ 'width': (state.progress * 100) + '%' }"></span>
+            </div>
 
-            <div v-if="isActionable" class="action">
-                <a
-                    v-if="actionIsUrl"
-                    :href="actionFunction"
-                    class="button"
-                    :class="type"
-                    :target="actionUrlTarget"
-                >
-                    {{ actionText }}
-                </a>
+            <div class="content">
+                <p class="message">{{ message }}</p>
 
-                <button
-                    v-else
-                    class="button"
-                    :class="type"
-                    @click="action"
-                >
-                    {{ actionText }}
-                </button>
+                <div v-if="isActionable" class="action">
+                    <a
+                        v-if="actionIsUrl"
+                        :href="actionFunction"
+                        class="button"
+                        :class="type"
+                        :target="actionUrlTarget"
+                    >
+                        {{ actionText }}
+                    </a>
+
+                    <button
+                        v-else
+                        class="button"
+                        :class="type"
+                        @click="action"
+                    >
+                        {{ actionText }}
+                    </button>
+                </div>
             </div>
         </div>
     </transition>
@@ -41,7 +49,7 @@ export default {
     name: 'Toast',
 
     props: {
-        data: {
+        toast: {
             type: Object,
             required: true
         }
@@ -51,9 +59,14 @@ export default {
         return {
             actionFunction: null,
             actionText: '',
+            config: {},
             isActive: false,
             message: '',
-            type: ''
+            type: '',
+            state: {
+                paused: false,
+                progress: 0
+            }
         };
     },
 
@@ -80,14 +93,6 @@ export default {
             return 'polite';
         },
 
-        duration () {
-            if (this.isActionable) {
-                return 6000;
-            }
-
-            return 3000;
-        },
-
         isActionable () {
             return this.actionText !== '';
         },
@@ -112,9 +117,7 @@ export default {
     mounted () {
         this.setData();
 
-        if (this.shouldShow) {
-            this.show();
-        }
+        this.initToast();
     },
 
     methods: {
@@ -122,33 +125,67 @@ export default {
             if (this.actionFunction !== null) {
                 this.actionFunction();
             } else {
-                this.close();
+                this.remove();
             }
         },
 
-        close () {
+        initToast () {
+            if (this.shouldShow) {
+                this.isActive = true;
+                this.startTimer(0);
+            }
+        },
+
+        pauseTimer () {
+            this.state.paused = true;
+        },
+
+        remove () {
             if (!this.isActive) {
                 return;
             }
 
-            clearTimeout(this.timer);
             this.isActive = false;
             this.$emit('toast-hidden', true);
         },
 
         setData () {
-            this.message = has(this.data, 'message') ? this.data.message : '';
-            this.type = has(this.data, 'type') ? this.data.type : '';
-            this.actionText = has(this.data, 'actionText') ? this.data.actionText : '';
-            this.actionFunction = has(this.data, 'actionFunction') ? this.data.actionFunction : null;
+            this.message = has(this.toast, 'message') ? this.toast.message : '';
+            this.type = has(this.toast, 'type') ? this.toast.type : '';
+            this.actionText = has(this.toast, 'actionText') ? this.toast.actionText : '';
+            this.actionFunction = has(this.toast, 'actionFunction') ? this.toast.actionFunction : null;
+            this.config = has(this.toast, 'config') ? this.toast.config : {};
         },
 
-        show () {
-            this.isActive = true;
+        startTimer (startTime = 0) {
+            const start = performance.now();
 
-            this.timer = setTimeout(() => {
-                this.close();
-            }, this.duration);
+            const calculate = () => {
+                this.animationFrame = requestAnimationFrame((timestamp) => {
+                    const runtime = timestamp + startTime - start;
+                    const progress = Math.min(runtime / this.toast.config.timeout, 1);
+
+                    if (this.state.paused) {
+                        cancelAnimationFrame(this.animationFrame);
+                    } else if (runtime < this.toast.config.timeout) {
+                        this.state.progress = progress;
+                        calculate();
+                    } else {
+                        this.state.progress = 1;
+                        cancelAnimationFrame(this.animationFrame);
+                        this.remove();
+                    }
+                });
+            };
+
+            calculate();
+        },
+
+        unpauseTimer () {
+            if (this.toast.config.timeout) {
+                this.state.paused = false;
+                this.startTimer(this.toast.config.timeout * this.state.progress);
+            }
         }
     }
 };

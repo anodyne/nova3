@@ -85,6 +85,9 @@ class Toast
             'type' => $this->type,
             'actionFunction' => $this->actionLink,
             'actionText' => $this->actionText,
+            'config' => [
+                'timeout' => 3000
+            ]
         ]);
 
         return $this;

@@ -2,25 +2,34 @@ import Vue from 'vue';
 
 export default class ToastService {
     constructor () {
-        this.reset();
+        this.resetData();
 
         this.emitter = new Vue();
     }
 
+    config (options = {}) {
+        this.data.config = {
+            ...this.defaultConfig(),
+            ...options
+        };
+
+        return this;
+    }
+
     make () {
-        this.createAlert();
+        this.makeToast();
     }
 
     error () {
         this.data.type = 'is-danger';
 
-        this.createAlert();
+        this.makeToast();
     }
 
     success () {
         this.data.type = 'is-success';
 
-        this.createAlert();
+        this.makeToast();
     }
 
     action (callback) {
@@ -41,18 +50,25 @@ export default class ToastService {
         return this;
     }
 
-    reset () {
+    resetData () {
         this.data = {
             type: '',
             message: '',
             actionText: '',
-            actionFunction: null
+            actionFunction: null,
+            config: this.defaultConfig()
         };
     }
 
-    createAlert () {
+    defaultConfig () {
+        return {
+            timeout: 3000
+        };
+    }
+
+    makeToast () {
         this.emitter.$emit('nova.toast', this.data);
 
-        this.reset();
+        this.resetData();
     }
 }

@@ -3,7 +3,7 @@
         <toast
             v-for="(toast, index) in toasts"
             :key="index"
-            :data="toast"
+            :toast="toast"
             @toast-hidden="remove(index)"
         ></toast>
     </div>
@@ -26,7 +26,7 @@ export default {
     },
 
     mounted () {
-        if (novaToast) {
+        if (novaToast && novaToast.length > 0) {
             this.setData(novaToast);
         }
 
@@ -47,7 +47,8 @@ export default {
                 message: has(data, 'message') ? data.message : '',
                 type: has(data, 'type') ? data.type : '',
                 actionFunction: has(data, 'actionFunction') ? data.actionFunction : null,
-                actionText: has(data, 'actionText') ? data.actionText : ''
+                actionText: has(data, 'actionText') ? data.actionText : '',
+                config: has(data, 'config') ? data.config : {}
             });
         }
     }
