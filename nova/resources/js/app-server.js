@@ -6,9 +6,9 @@ import './components';
 import './directives';
 import './plugins';
 
-import ToastsManager from '@/Shared/Toasts/ToastsManager';
+import ToasterOven from '@/Shared/Toasts/ToasterOven';
 
-Vue.component('toasts-manager', ToastsManager);
+Vue.component('toaster-oven', ToasterOven);
 
 const app = document.getElementById('nova-app');
 

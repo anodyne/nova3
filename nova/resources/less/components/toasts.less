@@ -1,8 +1,12 @@
-.toasts {
+.toaster-oven {
     @apply .fixed .flex .inset-0 .p-6 .overflow-hidden .z-1000 .pointer-events-none .flex-col;
 
     .toast {
         @apply .inline-flex .items-center .my-3 .text-center .shadow .rounded .py-4 .px-8 .pointer-events-auto .font-medium .bg-gray-800 .text-gray-100 .self-center;
+
+        @media (min-width: theme('screens.md')) {
+            @apply .max-w-lg;
+        }
 
         opacity: 0.92;
 

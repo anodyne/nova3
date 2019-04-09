@@ -10,7 +10,7 @@ import './plugins';
 const app = document.getElementById('nova-app');
 
 import { InertiaLink } from 'inertia-vue';
-import ToastsManager from '@/Shared/Toasts/ToastsManager';
+import ToasterOven from '@/Shared/Toasts/ToasterOven';
 import SidebarLayout from '@/Shared/Layouts/SidebarLayout';
 
 Vue.component('inertia-link', InertiaLink);
@@ -38,7 +38,7 @@ new Vue({
                     }
                 }
             }),
-            h(ToastsManager)
+            h(ToasterOven)
         ]);
     }
 }).$mount(app);

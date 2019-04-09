@@ -25,7 +25,7 @@
     <div id="nova-app">
         {!! $layout ?? false !!}
 
-        <toasts-manager></toasts-manager>
+        <toaster-oven></toaster-oven>
     </div>
 
     {!! $scripts ?? false !!}

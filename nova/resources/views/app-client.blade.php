@@ -15,7 +15,7 @@
 
     <!-- Scripts -->
     <script>
-        window.novaToasts = @json(session('nova.toast', []));
+        window.novaToast = @json(session('nova.toast', []));
         window.novaSettings = @json(nova()->provideScriptVariables());
     </script>
     <script src="{{ asset('/dist/js/app.js') }}" defer></script>

@@ -29,7 +29,9 @@
                         <div class="card-subtitle">themes/{{ theme.location }}</div>
                     </div>
 
-                    <div class="card-body"></div>
+                    <div class="card-body">
+                        <button class="button is-small is-secondary" @click="makeToast">Test</button>
+                    </div>
 
                     <div class="card-footer">
                         <inertia-link
@@ -88,6 +90,10 @@ export default {
     },
 
     methods: {
+        makeToast () {
+            this.$toast.message('Duis culpa voluptate enim ullamco eiusmod. Sint ad et ut amet deserunt amet. Reprehenderit duis id aute nostrud fugiat elit. Elit elit id aute tempor dolore laborum labore velit cillum aliqua sunt laboris. Nisi qui do duis ullamco pariatur ad ad elit sint fugiat deserunt enim ullamco cillum.').make();
+        },
+
         remove (theme) {
             axios.delete(route('themes.destroy', { theme }))
                 .then(({ data }) => {

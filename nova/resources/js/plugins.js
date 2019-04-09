@@ -1,4 +1,4 @@
 import Vue from 'vue';
-import Alert from '@/Shared/Alerts';
+import Toast from '@/Shared/Toasts';
 
-Vue.use(Alert);
+Vue.use(Toast);

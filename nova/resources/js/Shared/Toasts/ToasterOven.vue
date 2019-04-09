@@ -1,5 +1,5 @@
 <template>
-    <div class="toasts" aria-atomic="true">
+    <div class="toaster-oven" aria-atomic="true">
         <toast
             v-for="(toast, index) in toasts"
             :key="index"
@@ -15,7 +15,7 @@ import isArray from 'lodash/isArray';
 import Toast from './Toast';
 
 export default {
-    name: 'ToastsManager',
+    name: 'ToasterOven',
 
     components: { Toast },
 
@@ -39,7 +39,7 @@ export default {
         remove (index) {
             setTimeout(() => {
                 this.toasts.splice(index, 1);
-            }, 2000);
+            }, 550);
         },
 
         setData (data) {
