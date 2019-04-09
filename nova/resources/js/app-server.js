@@ -4,14 +4,13 @@ import store from './Store';
 import './global';
 import './components';
 import './directives';
+import './plugins';
 
-import NovaNotices from '@/Shared/Notices/NovaNotices';
+import ToasterOven from '@/Shared/Toasts/ToasterOven';
 
-Vue.component('nova-notices', NovaNotices);
+Vue.component('toaster-oven', ToasterOven);
 
 const app = document.getElementById('nova-app');
-
-// window.Nova = new Nova();
 
 window.app = new Vue({
     store,

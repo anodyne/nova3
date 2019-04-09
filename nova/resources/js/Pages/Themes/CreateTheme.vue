@@ -225,10 +225,12 @@ export default {
         submit () {
             axios.post(this.route('themes.store'), this.form)
                 .then(() => {
+                    this.$toast.message('Theme was successfully created.').success();
+
                     Inertia.replace(this.route('themes.index'));
                 })
                 .catch((error) => {
-                    console.error(error);
+                    this.$toast.message('There was a problem!').error();
                 });
         }
     }

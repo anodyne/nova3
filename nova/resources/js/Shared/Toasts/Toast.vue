@@ -1,8 +1,8 @@
 <template>
-    <transition name="alert-animated">
+    <transition name="toast-animated">
         <div
             v-show="isActive"
-            class="alert"
+            class="toast"
             :class="type"
             :role="role"
             :aria-live="ariaLive"
@@ -38,7 +38,7 @@
 import has from 'lodash/has';
 
 export default {
-    name: 'NovaAlert',
+    name: 'Toast',
 
     props: {
         data: {
@@ -133,7 +133,7 @@ export default {
 
             clearTimeout(this.timer);
             this.isActive = false;
-            this.$emit('alert-hidden', true);
+            this.$emit('toast-hidden', true);
         },
 
         setData () {

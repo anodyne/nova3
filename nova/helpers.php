@@ -1,12 +1,12 @@
 <?php
 
 use Nova\Foundation\Nova;
-use Nova\Foundation\Alert;
+use Nova\Foundation\Toast;
 
-if (! function_exists('alert')) {
-    function alert()
+if (! function_exists('toast')) {
+    function toast()
     {
-        return app(Alert::class);
+        return app(Toast::class);
     }
 }
 
