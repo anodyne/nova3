@@ -55,6 +55,12 @@ return [
             'visibility' => 'public',
         ],
 
+        'nova' => [
+            'driver' => 'local',
+            'root' => nova_path(),
+            'url' => env('APP_URL').'/nova',
+        ],
+
         'themes' => [
             'driver' => 'local',
             'root' => base_path('themes'),
