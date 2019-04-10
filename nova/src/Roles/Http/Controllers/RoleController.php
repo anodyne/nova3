@@ -8,6 +8,7 @@ use Nova\Roles\Http\Requests;
 use Nova\Roles\Http\Responses;
 use Nova\Roles\Http\Authorizers;
 use Silber\Bouncer\Database\Role;
+use Silber\Bouncer\Database\Ability;
 use Nova\Foundation\Http\Controllers\Controller;
 
 class RoleController extends Controller
@@ -28,7 +29,8 @@ class RoleController extends Controller
 
     public function create(Authorizers\Create $auth)
     {
-        return app(Responses\Create::class);
+        return app(Responses\Create::class)
+            ->withAbilities(Ability::orderBy('title')->get());
     }
 
     public function store(Authorizers\Store $auth, Requests\Store $request)
@@ -43,7 +45,8 @@ class RoleController extends Controller
     public function edit(Authorizers\Edit $auth, Role $role)
     {
         return app(Responses\Edit::class)
-            ->withRole($role);
+            ->withRole($role)
+            ->withAbilities(Ability::orderBy('title')->get());
     }
 
     public function update(Authorizers\Update $auth, Requests\Update $request, Role $role)
