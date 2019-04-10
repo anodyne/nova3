@@ -80,7 +80,7 @@
             </div>
         </nav>
 
-        <main class="flex-1 ml-72 py-6 px-12">
+        <main class="flex-1 md:ml-72 py-6 px-12">
             <slot></slot>
         </main>
     </div>
