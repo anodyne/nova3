@@ -18,7 +18,7 @@
                 <div class="form-section">
                     <div class="form-section-column-content">
                         <div class="form-section-header">Theme Info</div>
-                        <p class="form-section-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, ratione minus animi esse sit dicta, eos, atque omnis placeat enim tempora. Unde accusantium ad illo earum a sit saepe explicabo.</p>
+                        <p class="form-section-message">A theme allows you to give your public-facing site the look-and-feel you want to any visitors. Using tools like regular HTML and CSS, you can show visitors the personality of your game and put your own spin Nova.</p>
                     </div>
 
                     <div class="form-section-column-form">
