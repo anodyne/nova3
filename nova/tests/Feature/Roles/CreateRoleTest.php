@@ -62,33 +62,6 @@ class CreateRoleTest extends TestCase
         $this->assertCount(3, $role->getAbilities());
     }
 
-    public function testRoleCanBeCreatedWithExistingRoleData()
-    {
-        $this->signInWithAbility('role.create');
-
-        $ability = Bouncer::ability()->firstOrCreate(['name' => 'foo']);
-
-        $originalRole = factory(Role::class)->create();
-        Bouncer::allow($originalRole)->to($ability);
-
-        $originalRoleAbilities = $originalRole->fresh()->getAbilities()
-            ->map(function ($ability) {
-                return $ability->name;
-            });
-
-        $roleData = factory(Role::class)->make()->toArray();
-
-        $this->postJson(route('roles.store'), array_merge(
-            $roleData,
-            ['abilities' => $originalRoleAbilities->all()]
-        ));
-
-        $role = Role::get()->last();
-
-        $this->assertCount(1, $originalRole->fresh()->getAbilities());
-        $this->assertCount(1, $role->getAbilities());
-    }
-
     public function testEventIsDispatchedWhenRoleIsCreated()
     {
         Event::fake();
