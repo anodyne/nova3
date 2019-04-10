@@ -19,7 +19,7 @@
                 <div class="form-section">
                     <div class="form-section-column-content">
                         <div class="form-section-header">Role Info</div>
-                        <p class="form-section-message">A role is a collection of abilities that allows users to take certain actions throughout Nova. Roles can be a combination of whatever abilities you'd like or can even be copied from existing roles.</p>
+                        <p class="form-section-message">A role is a collection of abilities that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer abilities to give yourself more freedom to add and remove permissions for a given user.</p>
                     </div>
 
                     <div class="form-section-column-form">
@@ -60,7 +60,7 @@
                 <div class="form-section">
                     <div class="form-section-column-content">
                         <div class="form-section-header">Abilities</div>
-                        <p class="form-section-message">Abilities are the actions users can take. You can choose to copy the abilities from another role to start or you can choose to start fresh and add any abilities you want to this role.</p>
+                        <p class="form-section-message">Abilities are the actions a user can take. Feel free to add whatever abilities to this role that you see fit, but be careful with assigning the <em>All Abilities</em> item to your role!</p>
                     </div>
 
                     <div class="form-section-column-form">

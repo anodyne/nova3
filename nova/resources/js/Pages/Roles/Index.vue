@@ -69,6 +69,15 @@
                                     Edit
                                 </inertia-link>
                                 <a
+                                    v-if="can.create"
+                                    role="button"
+                                    class="dropdown-link"
+                                    @click="duplicate(role)"
+                                >
+                                    <nova-icon name="copy" class="dropdown-item-icon"></nova-icon>
+                                    Duplicate
+                                </a>
+                                <a
                                     v-if="can.delete"
                                     role="button"
                                     class="dropdown-link-danger"
@@ -89,6 +98,7 @@
 <script>
 import Form from '@/Utils/Form';
 import findIndex from 'lodash/findIndex';
+import { Inertia } from 'inertia-vue';
 
 export default {
     props: {
@@ -121,6 +131,19 @@ export default {
     },
 
     methods: {
+        duplicate (role) {
+            this.form.post({
+                url: this.route('roles.duplicate', { originalRole: role }),
+                then: (data) => {
+                    this.$toast.message(`${role.title} role was duplicated.`).success();
+
+                    this.availableRoles.push(data);
+
+                    Inertia.replace(this.route('roles.edit', { role: data }));
+                }
+            });
+        },
+
         remove (role) {
             this.form.delete({
                 url: this.route('roles.destroy', { role }),
