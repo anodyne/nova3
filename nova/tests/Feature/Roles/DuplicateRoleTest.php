@@ -9,7 +9,6 @@ use Illuminate\Http\Response;
 use Silber\Bouncer\Database\Role;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nova\Roles\Jobs\DuplicateRole;
 
 class DuplicateRoleTest extends TestCase
 {
