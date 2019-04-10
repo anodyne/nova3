@@ -55,6 +55,7 @@ class CreatePagesTable extends Migration
             ['uri' => 'roles/{role}/edit', 'key' => 'roles.edit', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@edit', 'layout' => 'admin'],
             ['uri' => 'roles/{role}', 'key' => 'roles.update', 'verb' => 'put', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@update', 'layout' => 'admin'],
             ['uri' => 'roles/{role}', 'key' => 'roles.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@destroy', 'layout' => 'admin'],
+            ['uri' => 'roles/{originalRole}/duplicate', 'key' => 'roles.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Http\\Controllers\\DuplicateRoleController', 'layout' => 'admin'],
         ];
 
         collect($pages)->each(function ($page) {
