@@ -1,6 +1,10 @@
 .layout-app-sidebar {
     .sidebar {
-        @apply .flex .flex-col .items-stretch .justify-between .fixed .w-72 .bg-white .border-r .h-screen .py-3 .px-6 .text-gray-500;
+        @apply .hidden .flex-col .items-stretch .justify-between .fixed .w-72 .bg-white .border-r .h-screen .py-3 .px-6 .text-gray-500;
+
+        @media (min-width: theme('screens.md')) {
+            @apply .flex;
+        }
 
         .sidebar-link {
             @apply .flex .items-center .text-gray-600 .font-medium .py-2 .px-6;
