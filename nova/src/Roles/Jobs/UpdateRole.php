@@ -2,8 +2,9 @@
 
 namespace Nova\Roles\Jobs;
 
+use Bouncer;
+use Nova\Roles\Models\Role;
 use Illuminate\Bus\Queueable;
-use Silber\Bouncer\Database\Role;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -37,6 +38,17 @@ class UpdateRole implements ShouldQueue
     {
         $this->role->update($this->data);
 
+        $this->syncRoleAbilities();
+
         return $this->role->fresh();
+    }
+
+    protected function syncRoleAbilities()
+    {
+        $abilities = collect($this->data['abilities'])->map(function ($ability) {
+            return Bouncer::ability()->firstOrCreate(['name' => $ability]);
+        });
+
+        Bouncer::sync($this->role)->abilities($abilities);
     }
 }

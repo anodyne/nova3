@@ -2,8 +2,8 @@
 
 namespace Nova\Roles\Jobs;
 
+use Nova\Roles\Models\Role;
 use Illuminate\Bus\Queueable;
-use Silber\Bouncer\Database\Role;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

@@ -3,8 +3,8 @@
 namespace Nova\Roles\Jobs;
 
 use Bouncer;
+use Nova\Roles\Models\Role;
 use Illuminate\Bus\Queueable;
-use Silber\Bouncer\Database\Role;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -33,31 +33,22 @@ class CreateRole implements ShouldQueue
      */
     public function handle()
     {
-        $role = $this->createRole();
+        $role = Bouncer::role()->firstOrCreate([
+            'name' => data_get($this->data, 'name'),
+            'title' => data_get($this->data, 'title'),
+        ]);
 
-        $this->assignAbilitiesToRole($role);
+        $this->syncRoleAbilities($role);
 
         return $role->fresh();
     }
 
-    protected function createRole()
+    protected function syncRoleAbilities(Role $role)
     {
-        return Bouncer::role()->firstOrCreate([
-            'name' => data_get($this->data, 'name'),
-            'title' => data_get($this->data, 'title'),
-        ]);
-    }
+        $abilities = collect($this->data['abilities'])->map(function ($ability) {
+            return Bouncer::ability()->firstOrCreate(['name' => $ability]);
+        });
 
-    protected function assignAbilitiesToRole(Role $role)
-    {
-        if (! array_key_exists('abilities', $this->data)) {
-            return;
-        }
-        collect(data_get($this->data, 'abilities'))
-            ->each(function ($ability) use ($role) {
-                $permission = Bouncer::ability()->firstOrCreate(['name' => $ability]);
-
-                Bouncer::allow($role)->to($permission);
-            });
+        Bouncer::sync($role)->abilities($abilities);
     }
 }
