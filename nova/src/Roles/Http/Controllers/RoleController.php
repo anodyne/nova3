@@ -46,6 +46,7 @@ class RoleController extends Controller
     {
         return app(Responses\Edit::class)
             ->withRole($role)
+            ->withRoleAbilities($role->getAbilities()->pluck('name'))
             ->withAbilities(Ability::orderBy('title')->get());
     }
 
