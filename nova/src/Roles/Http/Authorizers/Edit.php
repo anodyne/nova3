@@ -2,15 +2,12 @@
 
 namespace Nova\Roles\Http\Authorizers;
 
-use Silber\Bouncer\Database\Role;
 use Nova\Foundation\Http\Authorizers\BaseAuthorizer;
 
 class Edit extends BaseAuthorizer
 {
     public function authorize()
     {
-        $role = Role::find($this->route('role'))->first();
-
-        return $role && $this->user()->can('update', $role);
+        return $this->user()->can('role.update') && ! $this->route('role')->locked;
     }
 }
