@@ -2,7 +2,7 @@
     <sidebar-layout>
         <page-header title="Roles">
             <inertia-link
-                v-if="can.create"
+                v-if="roles.can.create"
                 slot="controls"
                 :href="route('roles.create')"
                 class="button is-primary"
@@ -56,12 +56,20 @@
                         {{ role.title }}
                     </div>
                     <div class="col-auto">
-                        <dropdown placement="bottom-end">
+                        <nova-icon
+                            v-if="role.locked"
+                            v-tippy
+                            name="lock"
+                            class="text-gray-600"
+                            title="This role is locked and cannot be duplicated, edited, or deleted."
+                        ></nova-icon>
+
+                        <dropdown v-else placement="bottom-end">
                             <nova-icon name="more-vertical"></nova-icon>
 
                             <template #dropdown>
                                 <inertia-link
-                                    v-if="can.update"
+                                    v-if="role.can.update"
                                     :href="route('roles.edit', { role })"
                                     class="dropdown-link"
                                 >
@@ -69,7 +77,7 @@
                                     Edit
                                 </inertia-link>
                                 <a
-                                    v-if="can.create"
+                                    v-if="role.can.create"
                                     role="button"
                                     class="dropdown-link"
                                     @click="duplicate(role)"
@@ -78,7 +86,7 @@
                                     Duplicate
                                 </a>
                                 <a
-                                    v-if="can.delete"
+                                    v-if="role.can.delete"
                                     role="button"
                                     class="dropdown-link-danger"
                                     @click="remove(role)"
@@ -102,19 +110,15 @@ import { Inertia } from 'inertia-vue';
 
 export default {
     props: {
-        can: {
-            type: Object,
-            required: true
-        },
         roles: {
-            type: Array,
+            type: Object,
             required: true
         }
     },
 
     data () {
         return {
-            availableRoles: this.roles,
+            availableRoles: this.roles.data,
             form: new Form(),
             search: ''
         };

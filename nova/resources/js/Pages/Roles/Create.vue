@@ -60,7 +60,9 @@
                 <div class="form-section">
                     <div class="form-section-column-content">
                         <div class="form-section-header">Abilities</div>
-                        <p class="form-section-message">Abilities are the actions a user can take. Feel free to add whatever abilities to this role that you see fit, but be careful with assigning the <em>All Abilities</em> item to your role!</p>
+                        <p class="form-section-message mb-6">Abilities are the actions a user can take. Feel free to add whatever abilities to this role that you see fit.</p>
+
+                        <p class="form-section-message"><span class="font-medium text-orange-500">Take very special care when adding or removing the <em>All Abilities</em> ability!</span></p>
                     </div>
 
                     <div class="form-section-column-form">
@@ -129,12 +131,9 @@
 import slug from 'slug';
 import Form from '@/Utils/Form';
 import indexOf from 'lodash/indexOf';
-import BasePicker from '@/Shared/Pickers/BasePicker';
 import { Inertia } from 'inertia-vue';
 
 export default {
-    components: { BasePicker },
-
     props: {
         abilities: {
             type: Array,
