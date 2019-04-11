@@ -1,7 +1,8 @@
 <?php
 
-use Silber\Bouncer\Database\Role;
-use Silber\Bouncer\Database\Ability;
+use Nova\Roles\Models\Role;
+use Nova\Roles\Models\Ability;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Migrations\Migration;
 
 class PopulateAuthorizationTables extends Migration
@@ -46,12 +47,16 @@ class PopulateAuthorizationTables extends Migration
     protected function populateRolesTable()
     {
         $roles = [
-            ['name' => 'admin', 'title' => 'System Admin'],
+            ['name' => 'admin', 'title' => 'System Admin', 'locked' => true],
             ['name' => 'user', 'title' => 'Basic User'],
         ];
+
+        Model::unguard();
 
         collect($roles)->each(function ($role) {
             Bouncer::role()->firstOrCreate($role);
         });
+
+        Model::reguard();
     }
 }
