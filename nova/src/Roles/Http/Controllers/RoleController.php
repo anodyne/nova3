@@ -4,11 +4,13 @@ namespace Nova\Roles\Http\Controllers;
 
 use Nova\Roles\Jobs;
 use Nova\Roles\Events;
+use Nova\Roles\Models\Role;
 use Nova\Roles\Http\Requests;
 use Nova\Roles\Http\Responses;
+use Nova\Roles\Models\Ability;
 use Nova\Roles\Http\Authorizers;
-use Silber\Bouncer\Database\Role;
-use Silber\Bouncer\Database\Ability;
+use Nova\Roles\Http\Resources\RoleResource;
+use Nova\Roles\Http\Resources\RoleCollection;
 use Nova\Foundation\Http\Controllers\Controller;
 
 class RoleController extends Controller
@@ -23,8 +25,7 @@ class RoleController extends Controller
     public function index(Authorizers\Index $auth)
     {
         return app(Responses\Index::class)
-            ->withCan($auth->userAbilities())
-            ->withRoles(Role::orderBy('title')->get());
+            ->withRoles(new RoleCollection(Role::orderBy('title')->get()));
     }
 
     public function create(Authorizers\Create $auth)
@@ -45,8 +46,7 @@ class RoleController extends Controller
     public function edit(Authorizers\Edit $auth, Role $role)
     {
         return app(Responses\Edit::class)
-            ->withRole($role)
-            ->withRoleAbilities($role->getAbilities()->pluck('name'))
+            ->withRole(new RoleResource($role))
             ->withAbilities(Ability::orderBy('title')->get());
     }
 
