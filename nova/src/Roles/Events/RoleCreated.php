@@ -2,7 +2,7 @@
 
 namespace Nova\Roles\Events;
 
-use Silber\Bouncer\Database\Role;
+use Nova\Roles\Models\Role;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 
