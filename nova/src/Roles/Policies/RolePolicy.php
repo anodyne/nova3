@@ -3,7 +3,7 @@
 namespace Nova\Roles\Policies;
 
 use Nova\Users\User;
-use Silber\Bouncer\Database\Role;
+use Nova\Roles\Models\Role;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RolePolicy
@@ -26,7 +26,7 @@ class RolePolicy
      * Determine whether the user can update the Role.
      *
      * @param  \Nova\Users\User  $user
-     * @param  \Silber\Bouncer\Database\Role  $role
+     * @param  \Nova\Roles\Models\Role  $role
      *
      * @return mixed
      */
@@ -39,20 +39,20 @@ class RolePolicy
      * Determine whether the user can delete the Role.
      *
      * @param  \Nova\Users\User  $user
-     * @param  \Silber\Bouncer\Database\Role  $role
+     * @param  \Nova\Roles\Models\Role  $role
      *
      * @return mixed
      */
     public function delete(User $user, Role $role)
     {
-        return $user->can('role.delete');
+        return $user->can('role.delete') && ! $role->locked;
     }
 
     /**
      * Determine whether the user can manage the Role.
      *
      * @param  \Nova\Users\User  $user
-     * @param  \Silber\Bouncer\Database\Role  $role
+     * @param  \Nova\Roles\Models\Role  $role
      *
      * @return mixed
      */
