@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import axios from '@/Utils/axios';
+import Form from '@/Utils/Form';
 
 export default {
     props: {
