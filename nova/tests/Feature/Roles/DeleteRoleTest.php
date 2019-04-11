@@ -4,8 +4,8 @@ namespace Tests\Feature\Roles;
 
 use Tests\TestCase;
 use Nova\Roles\Events;
+use Nova\Roles\Models\Role;
 use Illuminate\Http\Response;
-use Silber\Bouncer\Database\Role;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -53,6 +53,22 @@ class DeleteRoleTest extends TestCase
 
         $this->assertDatabaseMissing('roles', [
             'id' => $this->role->id,
+        ]);
+    }
+
+    public function testLockedRoleCannotBeDeleted()
+    {
+        $role = factory(Role::class)->states('locked')->create();
+
+        $this->signInWithAbility('role.delete');
+
+        $this->deleteJson(route('roles.destroy', $role))
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertDatabaseHas('roles', [
+            'name' => $role->name,
+            'title' => $role->title,
+            'locked' => true,
         ]);
     }
 

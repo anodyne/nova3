@@ -3,8 +3,8 @@
 namespace Tests\Feature\Roles;
 
 use Tests\TestCase;
+use Nova\Roles\Models\Role;
 use Illuminate\Http\Response;
-use Silber\Bouncer\Database\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ManageRolesTest extends TestCase

@@ -2,11 +2,10 @@
 
 namespace Tests\Feature\Roles;
 
-use Bouncer;
 use Tests\TestCase;
 use Nova\Roles\Events;
+use Nova\Roles\Models\Role;
 use Illuminate\Http\Response;
-use Silber\Bouncer\Database\Role;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -45,10 +44,10 @@ class CreateRoleTest extends TestCase
     {
         $this->signInWithAbility('role.create');
 
-        $roleData = factory(Role::class)->make()->toArray();
+        $roleData = factory(Role::class)->make();
 
         $postData = array_merge(
-            $roleData,
+            $roleData->toArray(),
             ['abilities' => ['foo', 'bar', 'baz']]
         );
 
@@ -57,7 +56,10 @@ class CreateRoleTest extends TestCase
 
         $role = Role::get()->last();
 
-        $this->assertDatabaseHas('roles', $roleData);
+        $this->assertDatabaseHas('roles', [
+            'name' => $roleData->name,
+            'title' => $roleData->title,
+        ]);
 
         $this->assertCount(3, $role->getAbilities());
     }
@@ -68,7 +70,12 @@ class CreateRoleTest extends TestCase
 
         $this->signInWithAbility('role.create');
 
-        $this->postJson(route('roles.store'), factory(Role::class)->make()->toArray());
+        $data = array_merge(
+            factory(Role::class)->make()->toArray(),
+            ['abilities' => ['foo', 'bar', 'baz']]
+        );
+
+        $this->postJson(route('roles.store'), $data);
 
         $role = Role::get()->last();
 

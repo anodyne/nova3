@@ -4,6 +4,7 @@ namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
 use Nova\Themes\Theme;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Themes\Exceptions\MissingQuickInstallFileException;
@@ -24,27 +25,7 @@ class InstallThemeTest extends TestCase
         ]);
     }
 
-    public function testAUserSeesAnyThemesThatCanBeInstalled()
-    {
-        Storage::fake('themes');
-
-        $this->signInWithAbility('theme.create');
-
-        factory(Theme::class)->create([
-            'name' => 'Bar',
-            'location' => 'bar'
-        ]);
-
-        $disk = Storage::disk('themes');
-        $disk->makeDirectory('bar');
-        $disk->makeDirectory('foo');
-
-        $this->get(route('themes.index'))
-            ->assertSuccessful();
-            // ->assertResponseHas('pendingThemes', Theme::get()->toBeInstalled());
-    }
-
-    public function testAUserCanInstallATheme()
+    public function testAuthorizedUserCanInstallTheme()
     {
         Storage::fake('themes');
 
@@ -66,21 +47,54 @@ class InstallThemeTest extends TestCase
         ]);
     }
 
-    public function testAThemeWithoutAQuickInstallFileCannotBeInstalled()
+    public function testUnauthorizedUserCannotInstallTheme()
     {
-        $this->withoutExceptionHandling();
+        $this->signIn();
+
+        $this->postJson(route('themes.install'), [])
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testGuestCannotInstallTheme()
+    {
+        $this->postJson(route('themes.install'), [])
+            ->assertStatus(Response::HTTP_UNAUTHORIZED);
+    }
+
+    public function testInstallableThemesAreShown()
+    {
+        $this->markTestIncomplete();
 
         Storage::fake('themes');
+
+        $this->signInWithAbility('theme.create');
+
+        factory(Theme::class)->create([
+            'name' => 'Bar',
+            'location' => 'bar'
+        ]);
+
+        $disk = Storage::disk('themes');
+        $disk->makeDirectory('bar');
+        $disk->makeDirectory('foo');
+
+        $this->get(route('themes.index'))
+            ->assertSuccessful();
+    }
+
+    public function testThemeCannotBeInstalledWithoutQuickInstallFile()
+    {
+        Storage::fake('themes');
+
+        $this->signInWithAbility('theme.create');
 
         $disk = Storage::disk('themes');
         $disk->makeDirectory('bar');
 
+        $this->withoutExceptionHandling();
         $this->expectException(MissingQuickInstallFileException::class);
 
-        $this->from(route('themes.index'))
-            ->postJson(route('themes.install'), [
-                'theme' => 'bar'
-            ]);
+        $this->postJson(route('themes.install'), ['theme' => 'bar']);
 
         $this->assertDatabaseMissing('themes', [
             'location' => 'bar'

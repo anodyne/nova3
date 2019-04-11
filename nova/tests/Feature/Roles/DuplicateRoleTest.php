@@ -5,8 +5,8 @@ namespace Tests\Feature\Roles;
 use Bouncer;
 use Tests\TestCase;
 use Nova\Roles\Events;
+use Nova\Roles\Models\Role;
 use Illuminate\Http\Response;
-use Silber\Bouncer\Database\Role;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
