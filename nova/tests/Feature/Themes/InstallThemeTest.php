@@ -63,23 +63,33 @@ class InstallThemeTest extends TestCase
 
     public function testInstallableThemesAreShown()
     {
-        $this->markTestIncomplete();
-
         Storage::fake('themes');
 
         $this->signInWithAbility('theme.create');
 
-        factory(Theme::class)->create([
-            'name' => 'Bar',
-            'location' => 'bar'
-        ]);
+        $createData = [
+            'name' => 'Foo',
+            'location' => 'foo'
+        ];
+
+        factory(Theme::class)->create($createData);
 
         $disk = Storage::disk('themes');
+
+        $data = [
+            'name' => 'Bar',
+            'location' => 'bar'
+        ];
+
         $disk->makeDirectory('bar');
+        $disk->put('bar/theme.json', json_encode($data));
+
         $disk->makeDirectory('foo');
 
         $this->get(route('themes.index'))
-            ->assertSuccessful();
+            ->assertSuccessful()
+            ->assertResponseHas('pendingThemes', collect([$data]))
+            ->assertResponseMissing('pendingThemes', collect([$createData]));
     }
 
     public function testThemeCannotBeInstalledWithoutQuickInstallFile()
