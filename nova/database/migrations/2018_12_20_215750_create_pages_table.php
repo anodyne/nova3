@@ -59,9 +59,9 @@ class CreatePagesTable extends Migration
             ['uri' => 'users', 'key' => 'users.index', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@index', 'layout' => 'admin'],
             ['uri' => 'users/create', 'key' => 'users.create', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@create', 'layout' => 'admin'],
             ['uri' => 'users', 'key' => 'users.store', 'verb' => 'post', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@store', 'layout' => 'admin'],
-            ['uri' => 'users/{role}/edit', 'key' => 'users.edit', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@edit', 'layout' => 'admin'],
-            ['uri' => 'users/{role}', 'key' => 'users.update', 'verb' => 'put', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@update', 'layout' => 'admin'],
-            ['uri' => 'users/{role}', 'key' => 'users.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@destroy', 'layout' => 'admin'],
+            ['uri' => 'users/{user}/edit', 'key' => 'users.edit', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@edit', 'layout' => 'admin'],
+            ['uri' => 'users/{user}', 'key' => 'users.update', 'verb' => 'put', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@update', 'layout' => 'admin'],
+            ['uri' => 'users/{user}', 'key' => 'users.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@destroy', 'layout' => 'admin'],
         ];
 
         collect($pages)->each(function ($page) {

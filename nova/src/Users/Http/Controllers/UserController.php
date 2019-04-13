@@ -20,7 +20,7 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Authorizers\Index $auth)
+    public function index(Authorizers\Index $gate)
     {
         $users = User::get();
 
@@ -29,36 +29,36 @@ class UserController extends Controller
             ->withPendingUsers($users->pending());
     }
 
-    public function create(Authorizers\Create $auth)
+    public function create(Authorizers\Create $gate)
     {
         return app(Responses\Create::class);
     }
 
-    public function store(Authorizers\Store $auth, Requests\Store $request)
+    public function store(Authorizers\Store $gate, Requests\Store $request)
     {
-        $theme = dispatch_now(new Jobs\CreateThemeJob($request->validated()));
+        $user = dispatch_now(new Jobs\Create($request->validated()));
 
-        event(new Events\ThemeCreated($theme));
+        event(new Events\Created($user));
 
-        return $theme->fresh();
+        return $user->fresh();
     }
 
-    public function edit(Authorizers\Edit $auth, Theme $theme)
+    public function edit(Authorizers\Edit $gate, User $user)
     {
         return app(Responses\Edit::class)
-            ->withTheme($theme);
+            ->withUser($user);
     }
 
-    public function update(Authorizers\Update $auth, Requests\Update $request, Theme $theme)
+    public function update(Authorizers\Update $gate, Requests\Update $request, User $user)
     {
-        $theme = dispatch_now(new Jobs\EditThemeJob($theme, $request->validated()));
+        $user = dispatch_now(new Jobs\Update($user, $request->validated()));
 
-        event(new Events\ThemeUpdated($theme->fresh()));
+        event(new Events\Updated($user->fresh()));
 
-        return $theme->fresh();
+        return $user->fresh();
     }
 
-    public function destroy(Authorizers\Destroy $auth, Theme $theme)
+    public function destroy(Authorizers\Destroy $gate, Theme $theme)
     {
         $theme = dispatch_now(new Jobs\DeleteThemeJob($theme));
 

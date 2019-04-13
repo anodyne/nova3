@@ -12,7 +12,6 @@ class ManageUsersTest extends TestCase
 
     public function testAuthorizedUserCanManageUsers()
     {
-        $this->withoutExceptionHandling();
         $this->signInWithAbility('user.create');
 
         $this->get(route('users.index'))
