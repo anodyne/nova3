@@ -22,19 +22,19 @@ class RoleController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Authorizers\Index $auth)
+    public function index(Authorizers\Index $gate)
     {
         return app(Responses\Index::class)
             ->withRoles(new RoleCollection(Role::orderBy('title')->get()));
     }
 
-    public function create(Authorizers\Create $auth)
+    public function create(Authorizers\Create $gate)
     {
         return app(Responses\Create::class)
             ->withAbilities(Ability::orderBy('title')->get());
     }
 
-    public function store(Authorizers\Store $auth, Requests\Store $request)
+    public function store(Authorizers\Store $gate, Requests\Store $request)
     {
         $role = dispatch_now(new Jobs\CreateRole($request->validated()));
 
@@ -43,14 +43,14 @@ class RoleController extends Controller
         return $role->fresh();
     }
 
-    public function edit(Authorizers\Edit $auth, Role $role)
+    public function edit(Authorizers\Edit $gate, Role $role)
     {
         return app(Responses\Edit::class)
             ->withRole(new RoleResource($role))
             ->withAbilities(Ability::orderBy('title')->get());
     }
 
-    public function update(Authorizers\Update $auth, Requests\Update $request, Role $role)
+    public function update(Authorizers\Update $gate, Requests\Update $request, Role $role)
     {
         $role = dispatch_now(new Jobs\UpdateRole($role, $request->validated()));
 
@@ -59,7 +59,7 @@ class RoleController extends Controller
         return $role->fresh();
     }
 
-    public function destroy(Authorizers\Destroy $auth, Role $role)
+    public function destroy(Authorizers\Destroy $gate, Role $role)
     {
         $role = dispatch_now(new Jobs\DeleteRole($role));
 
