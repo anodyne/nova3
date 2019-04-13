@@ -58,12 +58,12 @@ class UserController extends Controller
         return $user->fresh();
     }
 
-    public function destroy(Authorizers\Destroy $gate, Theme $theme)
+    public function destroy(Authorizers\Destroy $gate, User $user)
     {
-        $theme = dispatch_now(new Jobs\DeleteThemeJob($theme));
+        $user = dispatch_now(new Jobs\Delete($user));
 
-        event(new Events\ThemeDeleted($theme));
+        event(new Events\Deleted($user));
 
-        return $theme;
+        return $user;
     }
 }
