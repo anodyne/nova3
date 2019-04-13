@@ -51,4 +51,15 @@ class User extends Authenticatable implements MustVerifyEmail
             $user->update(['force_password_reset' => true]);
         });
     }
+
+    /**
+     * Create a new Eloquent Collection instance.
+     *
+     * @param  array  $models
+     * @return \Nova\Users\UsersCollection
+     */
+    public function newCollection(array $models = [])
+    {
+        return new UsersCollection($models);
+    }
 }
