@@ -4,10 +4,10 @@ namespace Nova\Users\Http\Controllers;
 
 use Nova\Users\User;
 use Nova\Users\Jobs;
-use Nova\Users\Theme;
 use Nova\Users\Events;
 use Nova\Users\Http\Requests;
 use Nova\Users\Http\Responses;
+use Nova\Users\Http\Resources;
 use Nova\Users\Http\Authorizers;
 use Nova\Foundation\Http\Controllers\Controller;
 
@@ -25,7 +25,7 @@ class UserController extends Controller
         $users = User::get();
 
         return app(Responses\Index::class)
-            ->withUsers($users)
+            ->withUsers(new Resources\UserCollection($users))
             ->withPendingUsers($users->pending());
     }
 
@@ -46,7 +46,7 @@ class UserController extends Controller
     public function edit(Authorizers\Edit $gate, User $user)
     {
         return app(Responses\Edit::class)
-            ->withUser($user);
+            ->withUser(new Resources\UserResource($user));
     }
 
     public function update(Authorizers\Update $gate, Requests\Update $request, User $user)
