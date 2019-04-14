@@ -10,15 +10,19 @@ trait AddsCustomAssertions
     protected function setupTestResponseMacros()
     {
         TestResponse::macro('assertResponseHas', function ($key, $value) {
-            if ($this->original->data) {
-                PHPUnit::assertEquals($this->original->data[$key], $value);
+            $data = $this->original->getData();
+            $data = $data['props'] ?? $data;
 
-                return $this;
-            }
+            PHPUnit::assertEquals($data[$key], $value);
 
-            $view = $this->original->structure->layout->template->content;
+            return $this;
+        });
 
-            PHPUnit::assertEquals($view->{$key}, $value);
+        TestResponse::macro('assertResponseMissing', function ($key, $value) {
+            $data = $this->original->getData();
+            $data = $data['props'] ?? $data;
+
+            PHPUnit::assertNotEquals($data[$key], $value);
 
             return $this;
         });

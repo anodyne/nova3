@@ -2,10 +2,11 @@
 
 namespace Nova\Foundation\Providers;
 
+use Bouncer;
 use Nova\Themes\Theme;
-use Silber\Bouncer\Database\Role;
+use Nova\Roles\Models\Role;
+use Nova\Roles\Models\Ability;
 use Nova\Themes\Policies\ThemePolicy;
-use Nova\Authorization\Policies\RolePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -16,7 +17,6 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Role::class => RolePolicy::class,
         Theme::class => ThemePolicy::class,
     ];
 
@@ -27,6 +27,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Bouncer::useRoleModel(Role::class);
+        Bouncer::useAbilityModel(Ability::class);
+
         $this->registerPolicies();
     }
 }
