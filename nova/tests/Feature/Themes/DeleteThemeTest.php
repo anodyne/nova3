@@ -62,7 +62,7 @@ class DeleteThemeTest extends TestCase
     {
         Event::fake();
 
-        $theme = Jobs\DeleteThemeJob::dispatchNow($this->theme);
+        $theme = Jobs\DeleteTheme::dispatchNow($this->theme);
 
         Event::assertDispatched(Events\ThemeDeleted::class, function ($event) use ($theme) {
             return $event->theme->is($theme);

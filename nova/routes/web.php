@@ -1,9 +1,5 @@
 <?php
 
-use Nova\Foundation\Http\Controllers\BootstrapNovaController;
-
-Route::post('bootstrap-nova', BootstrapNovaController::class)->name('bootstrap-nova');
-
 try {
     $pages = cache()->rememberForever('nova.pages', function () {
         return \Nova\Pages\Page::get();

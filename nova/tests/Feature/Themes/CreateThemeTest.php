@@ -74,7 +74,7 @@ class CreateThemeTest extends TestCase
 
         $data = factory(Theme::class)->make()->toArray();
 
-        Jobs\CreateThemeJob::dispatchNow($data);
+        Jobs\CreateTheme::dispatchNow($data);
 
         $this->assertCount(1, Storage::disk('themes')->directories());
     }
@@ -86,7 +86,7 @@ class CreateThemeTest extends TestCase
 
         $data = factory(Theme::class)->make()->toArray();
 
-        $theme = Jobs\CreateThemeJob::dispatchNow($data);
+        $theme = Jobs\CreateTheme::dispatchNow($data);
 
         Event::assertDispatched(Events\ThemeCreated::class, function ($event) use ($theme) {
             return $event->theme->is($theme);

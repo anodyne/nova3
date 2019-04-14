@@ -27,6 +27,7 @@ class CreateBouncerTables extends Migration
             $table->string('title')->nullable();
             $table->integer('level')->unsigned()->nullable();
             $table->integer('scope')->nullable()->index();
+            $table->boolean('locked')->default(false);
             $table->timestamps();
 
             $table->unique(

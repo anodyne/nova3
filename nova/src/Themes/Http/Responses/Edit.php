@@ -9,7 +9,7 @@ class Edit extends BaseResponsable
     public function views() : array
     {
         return [
-            'component' => 'Themes/EditTheme'
+            'component' => 'Themes/Edit'
         ];
     }
 }

@@ -2,6 +2,38 @@
     @apply .relative;
 }
 
-.dropdown1 {
-    @apply .rounded .z-50 .bg-white .p-6 .border .shadow-md;
+.dropdown-trigger {
+    @apply .relative .flex .items-center .cursor-pointer .select-none .text-gray-600 .transition;
+
+    &:hover {
+        @apply .text-gray-700;
+    }
+
+    &:focus {
+        @apply .outline-none;
+    }
+}
+
+.dropdown-menu {
+    @apply .mt-1 .py-2 .shadow-lg .rounded .text-sm .bg-gray-700 .z-9999;
+}
+
+.dropdown-link {
+    @apply .flex .items-center .px-4 .py-2 .text-gray-300 .cursor-pointer;
+
+    &:hover {
+        @apply .bg-gray-600 .text-white;
+    }
+}
+
+.dropdown-link-danger {
+    @apply .dropdown-link .text-red-500;
+
+    &:hover {
+        @apply .bg-gray-600 .text-red-300;
+    }
+}
+
+.dropdown-item-icon {
+    @apply .h-5 .w-5 .mr-3;
 }
