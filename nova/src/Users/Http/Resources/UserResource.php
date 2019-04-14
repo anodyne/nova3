@@ -12,7 +12,7 @@ class UserResource extends JsonResource
 
         return [
             'can' => [
-                'delete' => $user->can('user.delete'),
+                'delete' => $user->can('user.delete') && $this->id !== $user->id,
                 'update' => $user->can('user.update'),
             ],
             'email' => $this->email,
