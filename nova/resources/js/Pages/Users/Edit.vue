@@ -1,0 +1,242 @@
+<template>
+    <sidebar-layout>
+        <page-header :title="user.name">
+            <template #pretitle>
+                <inertia-link :href="route('users.index')">Users</inertia-link>
+            </template>
+        </page-header>
+
+        <section>
+            <form
+                :action="route('users.update', { user })"
+                method="POST"
+                role="form"
+                @submit.prevent="submit"
+            >
+                <csrf-token></csrf-token>
+                <form-method put></form-method>
+
+                <div class="form-section">
+                    <div class="form-section-column-content">
+                        <div class="form-section-header">User Info</div>
+                        <p class="form-section-message mb-6">For privacy reasons, we don't recommend using a user's real name. Instead, you can use a nickname to help protect their identity.</p>
+                        <p class="form-section-message">For security reasons, you cannot specify the password for a user. After the account is created, a password will be generated and emailed to them.</p>
+                    </div>
+
+                    <div class="form-section-column-form">
+                        <form-field
+                            label="Name"
+                            field-id="name"
+                            name="name"
+                        >
+                            <div class="field-group">
+                                <input
+                                    id="name"
+                                    v-model="form.fields.name"
+                                    type="text"
+                                    name="name"
+                                    class="field"
+                                >
+                            </div>
+                        </form-field>
+
+                        <form-field
+                            label="Email Address"
+                            field-id="email"
+                            name="email"
+                        >
+                            <div class="field-group">
+                                <input
+                                    id="email"
+                                    v-model="form.fields.email"
+                                    type="email"
+                                    name="email"
+                                    class="field"
+                                >
+                            </div>
+                        </form-field>
+
+                        <form-field label="Avatar">
+                            <div class="avatar avatar-lg items-center">
+                                <div class="avatar-image">
+                                    <a role="button" class="absolute inset-0 flex justify-center items-center rounded-full transition-fast text-transparent hover:text-gray-100">
+                                        <nova-icon name="edit"></nova-icon>
+                                    </a>
+                                </div>
+
+                                <a role="button" class="button is-danger is-small ml-2">
+                                    <nova-icon name="trash" class="mr-2"></nova-icon>
+                                    Remove Image
+                                </a>
+                            </div>
+                        </form-field>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-column-content">
+                        <div class="form-section-header">Roles</div>
+                        <p class="form-section-message mb-6">Roles are made up of the abilities that users can take throughout the system. A user can be assigned as many roles as you'd like to give you more control over the actions your users can take.</p>
+
+                        <inertia-link :href="route('roles.index')" class="text-blue-600 hover:text-blue-500">
+                            Manage roles
+                        </inertia-link>
+                    </div>
+
+                    <div class="form-section-column-form">
+                        <form-field label="Assign Roles">
+                            <div class="field-group">
+                                <input
+                                    v-model="search"
+                                    type="text"
+                                    class="field"
+                                    placeholder="Find a role..."
+                                >
+
+                                <a
+                                    v-show="search !== ''"
+                                    role="button"
+                                    class="field-addon"
+                                    @click="search = ''"
+                                >
+                                    <nova-icon name="close"></nova-icon>
+                                </a>
+                            </div>
+                        </form-field>
+
+                        <toggle-switch
+                            v-model="showAssignedRolesOnly"
+                            small
+                            class="mb-4"
+                        >
+                            Show only assigned roles
+                        </toggle-switch>
+
+                        <div
+                            v-for="(role, index) in filteredRoles"
+                            :key="role.id"
+                            class="flex items-center justify-between w-full p-2 rounded"
+                            :class="{ 'bg-gray-200': index % 2 === 0 }"
+                        >
+                            <div class="text-gray-600">{{ role.title }}</div>
+
+                            <a
+                                v-if="!hasRole(role)"
+                                role="button"
+                                class="text-gray-500 hover:text-gray-600"
+                                @click="addRole(role)"
+                            >
+                                <nova-icon name="add"></nova-icon>
+                            </a>
+
+                            <a
+                                v-if="hasRole(role)"
+                                role="button"
+                                class="text-green-500"
+                                @click="removeRole(role)"
+                            >
+                                <nova-icon name="check-circle"></nova-icon>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-controls">
+                    <button type="submit" class="button is-primary is-large">Update</button>
+
+                    <inertia-link :href="route('roles.index')" class="button is-secondary is-large">
+                        Cancel
+                    </inertia-link>
+                </div>
+            </form>
+        </section>
+
+        <section>
+            <div class="font-semibold text-xl mb-4 text-gray-700">Reset Password</div>
+
+            <p class="text-gray-600">If you believe a user should reset their password or they're having issues logging in and are unable to reset their password themselves, you can force a password reset that will take effect next time they attempt to sign in.</p>
+
+            <div class="flex justify-end mt-6">
+                <a role="button" class="button is-danger is-large">
+                    Force Password Reset
+                </a>
+            </div>
+        </section>
+    </sidebar-layout>
+</template>
+
+<script>
+import Form from '@/Utils/Form';
+import indexOf from 'lodash/indexOf';
+import { Inertia } from 'inertia-vue';
+
+export default {
+    props: {
+        roles: {
+            type: Array,
+            required: true
+        },
+        user: {
+            type: Object,
+            required: true
+        }
+    },
+
+    data () {
+        return {
+            form: new Form({
+                name: this.user.name,
+                email: this.user.email,
+                roles: this.user.roles
+            }),
+            search: '',
+            showAssignedRolesOnly: true
+        };
+    },
+
+    computed: {
+        filteredRoles () {
+            const roles = (!this.showAssignedRolesOnly)
+                ? this.roles
+                : this.roles.filter((role) => { return this.hasRole(role); });
+
+            return roles.filter((role) => {
+                const searchRegex = new RegExp(this.search, 'i');
+
+                return searchRegex.test(role.name) || searchRegex.test(role.title);
+            });
+        }
+    },
+
+    methods: {
+        addRole (role) {
+            this.form.fields.roles.push(role.name);
+        },
+
+        hasRole (role) {
+            const name = (typeof role === 'string')
+                ? role
+                : role.name;
+
+            return indexOf(this.form.fields.roles, name) > -1;
+        },
+
+        removeRole (role) {
+            const index = indexOf(this.form.fields.roles, role.name);
+
+            this.form.fields.roles.splice(index, 1);
+        },
+
+        submit () {
+            this.form.post({
+                url: this.route('users.update', { user: this.user }),
+                then: (data) => {
+                    this.$toast.message(`User account for ${data.name} was updated.`).success();
+
+                    Inertia.replace(this.route('users.index'));
+                }
+            });
+        }
+    }
+};
+</script>

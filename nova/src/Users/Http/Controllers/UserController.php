@@ -48,6 +48,7 @@ class UserController extends Controller
     public function edit(Authorizers\Edit $gate, User $user)
     {
         return app(Responses\Edit::class)
+            ->withRoles(Role::orderBy('title')->get())
             ->withUser(new Resources\UserResource($user));
     }
 

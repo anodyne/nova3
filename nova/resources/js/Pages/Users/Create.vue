@@ -120,7 +120,7 @@
                 <div class="form-controls">
                     <button type="submit" class="button is-primary is-large">Create</button>
 
-                    <inertia-link :href="route('roles.index')" class="button is-secondary is-large">
+                    <inertia-link :href="route('users.index')" class="button is-secondary is-large">
                         Cancel
                     </inertia-link>
                 </div>
