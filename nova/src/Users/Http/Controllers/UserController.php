@@ -5,6 +5,7 @@ namespace Nova\Users\Http\Controllers;
 use Nova\Users\User;
 use Nova\Users\Jobs;
 use Nova\Users\Events;
+use Nova\Roles\Models\Role;
 use Nova\Users\Http\Requests;
 use Nova\Users\Http\Responses;
 use Nova\Users\Http\Resources;
@@ -31,7 +32,8 @@ class UserController extends Controller
 
     public function create(Authorizers\Create $gate)
     {
-        return app(Responses\Create::class);
+        return app(Responses\Create::class)
+            ->withRoles(Role::orderBy('title')->get());
     }
 
     public function store(Authorizers\Store $gate, Requests\Store $request)
