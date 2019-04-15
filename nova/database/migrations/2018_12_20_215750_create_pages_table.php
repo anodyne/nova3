@@ -49,12 +49,12 @@ class CreatePagesTable extends Migration
             ['uri' => 'themes/{theme}', 'key' => 'themes.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Themes\\Http\\Controllers\\ThemeController@destroy', 'layout' => 'admin'],
             ['uri' => 'themes/install', 'key' => 'themes.install', 'verb' => 'post', 'resource' => 'Nova\\Themes\\Http\\Controllers\\InstallThemeController', 'layout' => 'admin'],
 
-            ['uri' => 'roles', 'key' => 'roles.index', 'resource' => 'Nova\\Authorization\\Http\\Controllers\\RoleController@index', 'layout' => 'admin'],
-            ['uri' => 'roles/create', 'key' => 'roles.create', 'resource' => 'Nova\\Authorization\\Http\\Controllers\\RoleController@create', 'layout' => 'admin'],
-            ['uri' => 'roles', 'key' => 'roles.store', 'verb' => 'post', 'resource' => 'Nova\\Authorization\\Http\\Controllers\\RoleController@store', 'layout' => 'admin'],
-            ['uri' => 'roles/{role}/edit', 'key' => 'roles.edit', 'resource' => 'Nova\\Authorization\\Http\\Controllers\\RoleController@edit', 'layout' => 'admin'],
-            ['uri' => 'roles/{role}', 'key' => 'roles.update', 'verb' => 'put', 'resource' => 'Nova\\Authorization\\Http\\Controllers\\RoleController@update', 'layout' => 'admin'],
-            ['uri' => 'roles/{role}', 'key' => 'roles.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Authorization\\Http\\Controllers\\RoleController@destroy', 'layout' => 'admin'],
+            ['uri' => 'roles', 'key' => 'roles.index', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@index', 'layout' => 'admin'],
+            ['uri' => 'roles/create', 'key' => 'roles.create', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@create', 'layout' => 'admin'],
+            ['uri' => 'roles', 'key' => 'roles.store', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@store', 'layout' => 'admin'],
+            ['uri' => 'roles/{role}/edit', 'key' => 'roles.edit', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@edit', 'layout' => 'admin'],
+            ['uri' => 'roles/{role}', 'key' => 'roles.update', 'verb' => 'put', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@update', 'layout' => 'admin'],
+            ['uri' => 'roles/{role}', 'key' => 'roles.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@destroy', 'layout' => 'admin'],
             ['uri' => 'roles/{originalRole}/duplicate', 'key' => 'roles.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Http\\Controllers\\DuplicateRoleController', 'layout' => 'admin'],
 
             ['uri' => 'users', 'key' => 'users.index', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@index', 'layout' => 'admin'],
