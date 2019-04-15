@@ -7,6 +7,8 @@ use Nova\Users\User;
 use Nova\Users\Events;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
+use Nova\Users\Notifications\AccountCreated;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateUserTest extends TestCase
@@ -84,5 +86,35 @@ class CreateUserTest extends TestCase
 
         $this->postJson(route('users.store'), ['name' => 'foo'])
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function testPasswordIsGeneratedAfterCreation()
+    {
+        $this->signInWithAbility('user.create');
+
+        $this->postJson(route('users.store'), [
+            'name' => 'John Q. Public',
+            'email' => 'john@example.com'
+        ]);
+
+        $user = User::get()->last();
+
+        $this->assertNotNull($user->password);
+    }
+
+    public function testUserIsNotifiedWithPasswordAfterCreation()
+    {
+        Notification::fake();
+
+        $this->signInWithAbility('user.create');
+
+        $this->postJson(route('users.store'), [
+            'name' => 'John Q. Public',
+            'email' => 'john@example.com'
+        ]);
+
+        $user = User::get()->last();
+
+        Notification::assertSentTo([$user], AccountCreated::class);
     }
 }

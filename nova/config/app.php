@@ -179,6 +179,7 @@ return [
          */
         Nova\Setup\Providers\SetupServiceProvider::class,
         Nova\Themes\Providers\ThemeServiceProvider::class,
+        Nova\Users\Providers\UserServiceProvider::class,
     ],
 
     /*
