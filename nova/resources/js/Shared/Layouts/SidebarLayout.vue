@@ -77,7 +77,11 @@
                     <nova-icon name="notification"></nova-icon>
                 </a>
 
-                <div class="flex items-center"></div>
+                <div class="flex items-center">
+                    <div class="avatar avatar-md">
+                        <div class="avatar-image"></div>
+                    </div>
+                </div>
 
                 <a href="#" class="sidebar-footer-link">
                     <nova-icon name="search"></nova-icon>
