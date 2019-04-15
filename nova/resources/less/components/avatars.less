@@ -2,7 +2,9 @@
     @apply .flex;
 
     > .avatar-image {
-        @apply .rounded-full .bg-gray-500;
+        @apply .relative .rounded-full .bg-gray-500;
+
+        box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, .1);
     }
 
     > .avatar-meta {
