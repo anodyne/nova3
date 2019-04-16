@@ -68,7 +68,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Nova\Users\User::class,
+            'model' => Nova\Users\Models\User::class,
         ],
 
         // 'users' => [

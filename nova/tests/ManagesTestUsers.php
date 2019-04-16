@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Nova\Users\User;
+use Nova\Users\Models\User;
 
 trait ManagesTestUsers
 {

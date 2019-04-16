@@ -15,7 +15,7 @@ class UserServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app['events']->listen(Events\Created::class, Listeners\GeneratePassword::class);
+        $this->app['events']->listen(Events\AdminCreated::class, Listeners\GeneratePassword::class);
     }
 
     /**

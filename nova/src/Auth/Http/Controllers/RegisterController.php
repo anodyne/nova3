@@ -2,7 +2,7 @@
 
 namespace Nova\Auth\Http\Controllers;
 
-use Nova\Users\User;
+use Nova\Users\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -59,7 +59,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \Nova\Users\User
+     * @return \Nova\Users\Models\User
      */
     protected function create(array $data)
     {

@@ -2,7 +2,7 @@
 
 namespace Nova\Users\Http\Controllers;
 
-use Nova\Users\User;
+use Nova\Users\Models\User;
 use Nova\Users\Jobs;
 use Nova\Users\Events;
 use Nova\Roles\Models\Role;
@@ -40,7 +40,7 @@ class UserController extends Controller
     {
         $user = dispatch_now(new Jobs\Create($request->validated()));
 
-        event(new Events\Created($user));
+        event(new Events\AdminCreated($user));
 
         return $user->fresh();
     }
@@ -56,7 +56,7 @@ class UserController extends Controller
     {
         $user = dispatch_now(new Jobs\Update($user, $request->validated()));
 
-        event(new Events\Updated($user->fresh()));
+        event(new Events\AdminUpdated($user->fresh()));
 
         return $user->fresh();
     }
@@ -65,7 +65,7 @@ class UserController extends Controller
     {
         $user = dispatch_now(new Jobs\Delete($user));
 
-        event(new Events\Deleted($user));
+        event(new Events\AdminDeleted($user));
 
         return $user;
     }

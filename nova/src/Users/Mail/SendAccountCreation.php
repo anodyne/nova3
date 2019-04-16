@@ -2,7 +2,7 @@
 
 namespace Nova\Users\Mail;
 
-use Nova\Users\User;
+use Nova\Users\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;

@@ -1,6 +1,6 @@
 <?php
 
-use Nova\Users\User;
+use Nova\Users\Models\User;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Hash;
