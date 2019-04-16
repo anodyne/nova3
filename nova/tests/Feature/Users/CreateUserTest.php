@@ -3,7 +3,7 @@
 namespace Tests\Feature\Users;
 
 use Tests\TestCase;
-use Nova\Users\User;
+use Nova\Users\Models\User;
 use Nova\Users\Events;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
@@ -57,7 +57,7 @@ class CreateUserTest extends TestCase
         ]);
     }
 
-    public function testEventIsDispatchedWhenUserIsCreated()
+    public function testEventsAreDispatchedWhenUserIsCreated()
     {
         Event::fake();
 
@@ -66,6 +66,10 @@ class CreateUserTest extends TestCase
         $this->postJson(route('users.store'), factory(User::class)->make()->toArray());
 
         $user = User::get()->last();
+
+        Event::assertDispatched(Events\AdminCreated::class, function ($event) use ($user) {
+            return $event->user->is($user);
+        });
 
         Event::assertDispatched(Events\Created::class, function ($event) use ($user) {
             return $event->user->is($user);

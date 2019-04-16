@@ -1,6 +1,6 @@
 <?php
 
-use Nova\Users\User;
+use Nova\Users\Models\User;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder

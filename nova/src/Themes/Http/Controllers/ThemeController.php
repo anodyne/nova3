@@ -38,8 +38,6 @@ class ThemeController extends Controller
     {
         $theme = dispatch_now(new Jobs\Create($request->validated()));
 
-        event(new Events\Created($theme));
-
         return $theme->fresh();
     }
 
@@ -53,16 +51,12 @@ class ThemeController extends Controller
     {
         $theme = dispatch_now(new Jobs\Update($theme, $request->validated()));
 
-        event(new Events\Updated($theme->fresh()));
-
         return $theme->fresh();
     }
 
     public function destroy(Authorizers\Destroy $auth, Theme $theme)
     {
         $theme = dispatch_now(new Jobs\Delete($theme));
-
-        event(new Events\Deleted($theme));
 
         return $theme;
     }

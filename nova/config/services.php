@@ -35,7 +35,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => Nova\Users\User::class,
+        'model' => Nova\Users\Models\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
         'webhook' => [

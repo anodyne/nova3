@@ -2,8 +2,8 @@
 
 namespace Nova\Users\Listeners;
 
-use Nova\Users\Events\Created;
 use Nova\Foundation\WordGenerator;
+use Nova\Users\Events\AdminCreated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Nova\Users\Notifications\AccountCreated;
@@ -12,7 +12,7 @@ class GeneratePassword implements ShouldQueue
 {
     use InteractsWithQueue;
 
-    public function handle(Created $event)
+    public function handle(AdminCreated $event)
     {
         $password = implode('-', (new WordGenerator)->words(4));
 

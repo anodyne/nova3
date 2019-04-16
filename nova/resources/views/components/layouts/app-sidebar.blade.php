@@ -82,7 +82,7 @@
             </a>
 
             <div class="flex items-center">
-                <user-avatar :user="{{ Nova\Users\User::first() }}" :show-meta="false"></user-avatar>
+                <user-avatar :user="{{ Nova\Users\Models\User::first() }}" :show-meta="false"></user-avatar>
                 {{-- <avatar :item="{{ $_user->toJson() }}"
                         :show-content="false"
                         :show-status="false"

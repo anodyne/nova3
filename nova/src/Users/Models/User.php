@@ -1,7 +1,9 @@
 <?php
 
-namespace Nova\Users;
+namespace Nova\Users\Models;
 
+use Nova\Users\Events;
+use Nova\Users\UsersCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -28,10 +30,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'last_login',
     ];
 
+    protected $dispatchesEvents = [
+        'created' => Events\Created::class,
+        'updated' => Events\Updated::class,
+        'deleted' => Events\Deleted::class,
+    ];
+
     /**
      * Record a timestamp when a user logs in.
      *
-     * @return \Nova\Users\User
+     * @return \Nova\Users\Models\User
      */
     public function recordLoginTime()
     {
@@ -43,7 +51,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Force the user to reset their password.
      *
-     * @return \Nova\Users\User
+     * @return \Nova\Users\Models\User
      */
     public function forcePasswordReset()
     {
@@ -56,7 +64,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * Create a new Eloquent Collection instance.
      *
      * @param  array  $models
-     * @return \Nova\Users\UsersCollection
+     * @return \Nova\Users\Models\UsersCollection
      */
     public function newCollection(array $models = [])
     {

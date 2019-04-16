@@ -38,8 +38,6 @@ class RoleController extends Controller
     {
         $role = dispatch_now(new Jobs\Create($request->validated()));
 
-        event(new Events\Created($role));
-
         return $role->fresh();
     }
 
@@ -54,16 +52,12 @@ class RoleController extends Controller
     {
         $role = dispatch_now(new Jobs\Update($role, $request->validated()));
 
-        event(new Events\Updated($role));
-
         return $role->fresh();
     }
 
     public function destroy(Authorizers\Destroy $gate, Role $role)
     {
         $role = dispatch_now(new Jobs\Delete($role));
-
-        event(new Events\Deleted($role));
 
         return $role;
     }

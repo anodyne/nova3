@@ -4,7 +4,7 @@ namespace Tests\Feature\Users;
 
 use Tests\TestCase;
 use Nova\Users\Events;
-use Nova\Users\User;
+use Nova\Users\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -70,7 +70,7 @@ class DeleteUserTest extends TestCase
         ]);
     }
 
-    public function testEventIsDispatchedWhenUserIsDeleted()
+    public function testEventsAreDispatchedWhenUserIsDeleted()
     {
         Event::fake();
 
@@ -79,6 +79,10 @@ class DeleteUserTest extends TestCase
         $this->deleteJson(route('users.destroy', $this->user));
 
         Event::assertDispatched(Events\Deleted::class, function ($event) {
+            return $event->user->is($this->user);
+        });
+
+        Event::assertDispatched(Events\AdminDeleted::class, function ($event) {
             return $event->user->is($this->user);
         });
     }

@@ -2,7 +2,7 @@
 
 namespace Nova\Users\Jobs;
 
-use Nova\Users\User;
+use Nova\Users\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
