@@ -110,7 +110,7 @@ class UpdateRoleTest extends TestCase
 
         $role = $this->role->fresh();
 
-        Event::assertDispatched(Events\RoleUpdated::class, function ($event) use ($role) {
+        Event::assertDispatched(Events\Updated::class, function ($event) use ($role) {
             return $event->role->is($role);
         });
     }

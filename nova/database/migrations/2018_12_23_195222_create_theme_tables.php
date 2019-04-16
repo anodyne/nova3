@@ -1,6 +1,6 @@
 <?php
 
-use Nova\Themes\Theme;
+use Nova\Themes\Models\Theme;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;

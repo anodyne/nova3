@@ -79,7 +79,7 @@ class CreateRoleTest extends TestCase
 
         $role = Role::get()->last();
 
-        Event::assertDispatched(Events\RoleCreated::class, function ($event) use ($role) {
+        Event::assertDispatched(Events\Created::class, function ($event) use ($role) {
             return $event->role->is($role);
         });
     }

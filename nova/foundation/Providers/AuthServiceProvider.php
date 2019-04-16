@@ -3,10 +3,8 @@
 namespace Nova\Foundation\Providers;
 
 use Bouncer;
-use Nova\Themes\Theme;
 use Nova\Roles\Models\Role;
 use Nova\Roles\Models\Ability;
-use Nova\Themes\Policies\ThemePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -16,9 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $policies = [
-        Theme::class => ThemePolicy::class,
-    ];
+    protected $policies = [];
 
     /**
      * Register any authentication / authorization services.

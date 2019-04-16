@@ -22,11 +22,13 @@ class ManageThemesTest extends TestCase
     {
         $this->signIn();
 
-        $this->get(route('themes.index'))->assertStatus(Response::HTTP_FORBIDDEN);
+        $this->get(route('themes.index'))
+            ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     public function testGuestCannotManageThemes()
     {
-        $this->get(route('themes.index'))->assertRedirect(route('login'));
+        $this->get(route('themes.index'))
+            ->assertRedirect(route('login'));
     }
 }

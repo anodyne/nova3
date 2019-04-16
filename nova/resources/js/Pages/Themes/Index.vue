@@ -1,7 +1,7 @@
 <template>
     <sidebar-layout>
         <page-header title="Themes">
-            <template v-if="can.create" #controls>
+            <template v-if="themes.can.create" #controls>
                 <inertia-link :href="route('themes.create')" class="button is-primary">
                     Create Theme
                 </inertia-link>
@@ -33,14 +33,14 @@
 
                     <div class="card-footer">
                         <inertia-link
-                            v-if="can.update"
+                            v-if="themes.can.update"
                             :href="route('themes.edit', { theme })"
                             class="button is-secondary"
                         >
                             <nova-icon name="edit"></nova-icon>
                         </inertia-link>
                         <a
-                            v-if="can.delete"
+                            v-if="themes.can.delete"
                             role="button"
                             class="button is-danger"
                             @click="remove(theme)"
@@ -82,7 +82,7 @@ export default {
     data () {
         return {
             form: new Form(),
-            installedThemes: this.themes
+            installedThemes: this.themes.data
         };
     },
 

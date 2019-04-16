@@ -2,7 +2,7 @@
 
 namespace Nova\Themes\Concerns;
 
-use Nova\Themes\Theme;
+use Nova\Themes\Models\Theme;
 
 trait InteractsWithModel
 {
@@ -19,7 +19,7 @@ trait InteractsWithModel
     /**
      * Get the model for the theme.
      *
-     * @return \Nova\Themes\Theme
+     * @return \Nova\Themes\Models\Theme
      */
     public function getModel()
     {

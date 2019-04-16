@@ -1,6 +1,6 @@
 <?php
 
-use Nova\Themes\Theme;
+use Nova\Themes\Models\Theme;
 use Illuminate\Database\Seeder;
 
 class ThemeSeeder extends Seeder

@@ -56,6 +56,13 @@ class CreatePagesTable extends Migration
             ['uri' => 'roles/{role}', 'key' => 'roles.update', 'verb' => 'put', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@update', 'layout' => 'admin'],
             ['uri' => 'roles/{role}', 'key' => 'roles.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@destroy', 'layout' => 'admin'],
             ['uri' => 'roles/{originalRole}/duplicate', 'key' => 'roles.duplicate', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Http\\Controllers\\DuplicateRoleController', 'layout' => 'admin'],
+
+            ['uri' => 'users', 'key' => 'users.index', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@index', 'layout' => 'admin'],
+            ['uri' => 'users/create', 'key' => 'users.create', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@create', 'layout' => 'admin'],
+            ['uri' => 'users', 'key' => 'users.store', 'verb' => 'post', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@store', 'layout' => 'admin'],
+            ['uri' => 'users/{user}/edit', 'key' => 'users.edit', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@edit', 'layout' => 'admin'],
+            ['uri' => 'users/{user}', 'key' => 'users.update', 'verb' => 'put', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@update', 'layout' => 'admin'],
+            ['uri' => 'users/{user}', 'key' => 'users.destroy', 'verb' => 'delete', 'resource' => 'Nova\\Users\\Http\\Controllers\\UserController@destroy', 'layout' => 'admin'],
         ];
 
         collect($pages)->each(function ($page) {

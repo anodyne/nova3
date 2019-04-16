@@ -34,6 +34,10 @@ class ResponsesServiceProvider extends ServiceProvider
             \Nova\Roles\Http\Responses\Index::class,
             \Nova\Roles\Http\Responses\Create::class,
             \Nova\Roles\Http\Responses\Edit::class,
+
+            \Nova\Users\Http\Responses\Index::class,
+            \Nova\Users\Http\Responses\Create::class,
+            \Nova\Users\Http\Responses\Edit::class,
         ];
     }
 

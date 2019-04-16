@@ -3,7 +3,7 @@
 namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
-use Nova\Themes\Theme;
+use Nova\Themes\Models\Theme;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;

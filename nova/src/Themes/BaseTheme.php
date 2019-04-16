@@ -20,7 +20,7 @@ abstract class BaseTheme
     /**
      * The model instance for the theme.
      *
-     * @var \Nova\Themes\Theme
+     * @var \Nova\Themes\Models\Theme
      */
     protected $model;
 

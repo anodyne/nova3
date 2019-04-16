@@ -4,8 +4,8 @@ namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
 use Nova\Themes\Jobs;
-use Nova\Themes\Theme;
 use Nova\Themes\Events;
+use Nova\Themes\Models\Theme;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
@@ -74,7 +74,7 @@ class CreateThemeTest extends TestCase
 
         $data = factory(Theme::class)->make()->toArray();
 
-        Jobs\CreateTheme::dispatchNow($data);
+        Jobs\Create::dispatchNow($data);
 
         $this->assertCount(1, Storage::disk('themes')->directories());
     }
@@ -86,9 +86,9 @@ class CreateThemeTest extends TestCase
 
         $data = factory(Theme::class)->make()->toArray();
 
-        $theme = Jobs\CreateTheme::dispatchNow($data);
+        $theme = Jobs\Create::dispatchNow($data);
 
-        Event::assertDispatched(Events\ThemeCreated::class, function ($event) use ($theme) {
+        Event::assertDispatched(Events\Created::class, function ($event) use ($theme) {
             return $event->theme->is($theme);
         });
     }

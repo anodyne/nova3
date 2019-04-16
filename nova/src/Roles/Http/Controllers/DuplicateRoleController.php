@@ -20,9 +20,9 @@ class DuplicateRoleController extends Controller
 
     public function __invoke(AuthorizeDuplicatingRole $gate, ValidateDuplicatingRole $request, Role $originalRole)
     {
-        $role = dispatch_now(new Jobs\DuplicateRole($originalRole));
+        $role = dispatch_now(new Jobs\Duplicate($originalRole));
 
-        event(new Events\RoleDuplicated($role, $originalRole));
+        event(new Events\Duplicated($role, $originalRole));
 
         return $role->fresh();
     }

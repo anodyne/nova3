@@ -19,6 +19,11 @@
                         <nova-icon name="lock" class="mr-3"></nova-icon>
                         Roles
                     </inertia-link>
+
+                    <inertia-link :href="route('users.index')" class="sidebar-link">
+                        <nova-icon name="user" class="mr-3"></nova-icon>
+                        Users
+                    </inertia-link>
                 </div>
 
                 <div class="sidebar-divider"></div>
@@ -72,7 +77,11 @@
                     <nova-icon name="notification"></nova-icon>
                 </a>
 
-                <div class="flex items-center"></div>
+                <div class="flex items-center">
+                    <div class="avatar avatar-md">
+                        <div class="avatar-image"></div>
+                    </div>
+                </div>
 
                 <a href="#" class="sidebar-footer-link">
                     <nova-icon name="search"></nova-icon>

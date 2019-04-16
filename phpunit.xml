@@ -33,6 +33,7 @@
         </testsuite>
 
         <testsuite name="users">
+            <directory suffix="Test.php">./nova/tests/Feature/Users</directory>
             <directory suffix="Test.php">./nova/tests/Unit/Users</directory>
         </testsuite>
     </testsuites>
