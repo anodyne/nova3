@@ -36,9 +36,9 @@ class RoleController extends Controller
 
     public function store(Authorizers\Store $gate, Requests\Store $request)
     {
-        $role = dispatch_now(new Jobs\CreateRole($request->validated()));
+        $role = dispatch_now(new Jobs\Create($request->validated()));
 
-        event(new Events\RoleCreated($role));
+        event(new Events\Created($role));
 
         return $role->fresh();
     }
@@ -52,18 +52,18 @@ class RoleController extends Controller
 
     public function update(Authorizers\Update $gate, Requests\Update $request, Role $role)
     {
-        $role = dispatch_now(new Jobs\UpdateRole($role, $request->validated()));
+        $role = dispatch_now(new Jobs\Update($role, $request->validated()));
 
-        event(new Events\RoleUpdated($role));
+        event(new Events\Updated($role));
 
         return $role->fresh();
     }
 
     public function destroy(Authorizers\Destroy $gate, Role $role)
     {
-        $role = dispatch_now(new Jobs\DeleteRole($role));
+        $role = dispatch_now(new Jobs\Delete($role));
 
-        event(new Events\RoleDeleted($role));
+        event(new Events\Deleted($role));
 
         return $role;
     }

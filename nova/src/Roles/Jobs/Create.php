@@ -10,11 +10,9 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class UpdateRole implements ShouldQueue
+class Create implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    public $role;
 
     public $data;
 
@@ -23,9 +21,8 @@ class UpdateRole implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Role $role, array $data)
+    public function __construct(array $data)
     {
-        $this->role = $role;
         $this->data = $data;
     }
 
@@ -36,19 +33,22 @@ class UpdateRole implements ShouldQueue
      */
     public function handle()
     {
-        $this->role->update($this->data);
+        $role = Bouncer::role()->firstOrCreate([
+            'name' => data_get($this->data, 'name'),
+            'title' => data_get($this->data, 'title'),
+        ]);
 
-        $this->syncRoleAbilities();
+        $this->syncRoleAbilities($role);
 
-        return $this->role->fresh();
+        return $role->fresh();
     }
 
-    protected function syncRoleAbilities()
+    protected function syncRoleAbilities(Role $role)
     {
         $abilities = collect($this->data['abilities'])->map(function ($ability) {
             return Bouncer::ability()->firstOrCreate(['name' => $ability]);
         });
 
-        Bouncer::sync($this->role)->abilities($abilities);
+        Bouncer::sync($role)->abilities($abilities);
     }
 }

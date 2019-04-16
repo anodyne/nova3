@@ -80,7 +80,7 @@ class DeleteRoleTest extends TestCase
 
         $this->deleteJson(route('roles.destroy', $this->role));
 
-        Event::assertDispatched(Events\RoleDeleted::class, function ($event) {
+        Event::assertDispatched(Events\Deleted::class, function ($event) {
             return $event->role->is($this->role);
         });
     }

@@ -6,7 +6,7 @@ use Nova\Roles\Models\Role;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 
-class RoleUpdated
+class Created
 {
     use Dispatchable, SerializesModels;
 

@@ -6,16 +6,14 @@ use Nova\Roles\Models\Role;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 
-class RoleDuplicated
+class Updated
 {
     use Dispatchable, SerializesModels;
 
     public $role;
-    public $originalRole;
 
-    public function __construct(Role $role, Role $originalRole)
+    public function __construct(Role $role)
     {
         $this->role = $role;
-        $this->originalRole = $originalRole;
     }
 }

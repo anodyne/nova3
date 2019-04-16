@@ -86,7 +86,7 @@ class DuplicateRoleTest extends TestCase
 
         $role = Role::get()->last();
 
-        Event::assertDispatched(Events\RoleDuplicated::class, function ($event) use ($role, $originalRole) {
+        Event::assertDispatched(Events\Duplicated::class, function ($event) use ($role, $originalRole) {
             return $event->role->is($role) && $event->originalRole->is($originalRole);
         });
     }
