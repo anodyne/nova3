@@ -144,7 +144,7 @@
                 <div class="form-controls">
                     <button type="submit" class="button is-primary is-large">Update</button>
 
-                    <inertia-link :href="route('roles.index')" class="button is-secondary is-large">
+                    <inertia-link :href="route('users.index')" class="button is-secondary is-large">
                         Cancel
                     </inertia-link>
                 </div>
@@ -166,16 +166,14 @@
 </template>
 
 <script>
-import Form from '@/Utils/Form';
-import indexOf from 'lodash/indexOf';
 import { Inertia } from 'inertia-vue';
+import UserHelpers from './UserHelpers';
+import Form from '@/Utils/Form';
 
 export default {
+    mixins: [UserHelpers],
+
     props: {
-        roles: {
-            type: Array,
-            required: true
-        },
         user: {
             type: Object,
             required: true
@@ -209,24 +207,6 @@ export default {
     },
 
     methods: {
-        addRole (role) {
-            this.form.fields.roles.push(role.name);
-        },
-
-        hasRole (role) {
-            const name = (typeof role === 'string')
-                ? role
-                : role.name;
-
-            return indexOf(this.form.fields.roles, name) > -1;
-        },
-
-        removeRole (role) {
-            const index = indexOf(this.form.fields.roles, role.name);
-
-            this.form.fields.roles.splice(index, 1);
-        },
-
         submit () {
             this.form.post({
                 url: this.route('users.update', { user: this.user }),

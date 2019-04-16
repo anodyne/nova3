@@ -128,9 +128,7 @@ export default {
                 then: (data) => {
                     const index = findIndex(this.allUsers, { id: data.id });
 
-                    this.$toast
-                        .message(`${user.name} user was removed.`)
-                        .success();
+                    this.$toast.message(`User account for ${user.name} was removed.`).success();
 
                     this.allUsers.splice(index, 1);
                 }

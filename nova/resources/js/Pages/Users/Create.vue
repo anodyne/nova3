@@ -130,17 +130,12 @@
 </template>
 
 <script>
-import Form from '@/Utils/Form';
-import indexOf from 'lodash/indexOf';
 import { Inertia } from 'inertia-vue';
+import UserHelpers from './UserHelpers';
+import Form from '@/Utils/Form';
 
 export default {
-    props: {
-        roles: {
-            type: Array,
-            required: true
-        }
-    },
+    mixins: [UserHelpers],
 
     data () {
         return {
@@ -164,20 +159,6 @@ export default {
     },
 
     methods: {
-        addRole (role) {
-            this.form.fields.roles.push(role.name);
-        },
-
-        hasRole (role) {
-            return indexOf(this.form.fields.roles, role.name) > -1;
-        },
-
-        removeRole (role) {
-            const index = indexOf(this.form.fields.roles, role.name);
-
-            this.form.fields.roles.splice(index, 1);
-        },
-
         submit () {
             this.form.post({
                 url: this.route('users.store'),
