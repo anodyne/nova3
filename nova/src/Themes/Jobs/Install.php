@@ -2,15 +2,14 @@
 
 namespace Nova\Themes\Jobs;
 
-use Nova\Themes\Theme;
+use Nova\Themes\Models\Theme;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class CreateTheme implements ShouldQueue
+class Install implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -33,13 +32,6 @@ class CreateTheme implements ShouldQueue
      */
     public function handle()
     {
-        $theme = Theme::create($this->data);
-
-        Artisan::call('nova:make:theme', [
-            'name' => $theme->name,
-            '--location' => $theme->location
-        ]);
-
-        return $theme;
+        return Theme::create($this->data);
     }
 }

@@ -1,9 +1,10 @@
 <?php
 
-namespace Nova\Themes;
+namespace Nova\Themes\Models;
 
 use Nova\Pages\Page;
 use Nova\Themes\Events;
+use Nova\Themes\ThemesCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -22,9 +23,9 @@ class Theme extends Model
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\ThemeCreated::class,
-        'updated' => Events\ThemeUpdated::class,
-        'deleted' => Events\ThemeDeleted::class,
+        'created' => Events\Created::class,
+        'updated' => Events\Updated::class,
+        'deleted' => Events\Deleted::class,
     ];
 
     /**

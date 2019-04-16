@@ -4,8 +4,8 @@ namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
 use Nova\Themes\Jobs;
-use Nova\Themes\Theme;
 use Nova\Themes\Events;
+use Nova\Themes\Models\Theme;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -27,20 +27,25 @@ class UpdateThemeTest extends TestCase
     {
         $this->signInWithAbility('theme.update');
 
-        $this->get(route('themes.edit', $this->theme))->assertSuccessful();
+        $this->get(route('themes.edit', $this->theme))
+            ->assertSuccessful();
     }
 
     public function testUnauthorizedUserCannotUpdateTheme()
     {
         $this->signIn();
 
-        $this->get(route('themes.edit', $this->theme))->assertStatus(Response::HTTP_FORBIDDEN);
+        $this->get(route('themes.edit', $this->theme))
+            ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     public function testGuestCannotUpdateTheme()
     {
-        $this->get(route('themes.edit', $this->theme))->assertRedirect(route('login'));
-        $this->put(route('themes.update', $this->theme), [])->assertRedirect(route('login'));
+        $this->get(route('themes.edit', $this->theme))
+            ->assertRedirect(route('login'));
+
+        $this->put(route('themes.update', $this->theme), [])
+            ->assertRedirect(route('login'));
     }
 
     public function testThemeCanBeUpdated()
@@ -70,9 +75,9 @@ class UpdateThemeTest extends TestCase
 
         $data = factory(Theme::class)->make()->toArray();
 
-        $theme = Jobs\UpdateTheme::dispatchNow($this->theme, $data);
+        $theme = Jobs\Update::dispatchNow($this->theme, $data);
 
-        Event::assertDispatched(Events\ThemeUpdated::class, function ($event) use ($theme) {
+        Event::assertDispatched(Events\Updated::class, function ($event) use ($theme) {
             return $event->theme->is($theme);
         });
     }

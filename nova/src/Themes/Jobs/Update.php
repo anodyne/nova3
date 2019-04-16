@@ -2,14 +2,14 @@
 
 namespace Nova\Themes\Jobs;
 
-use Nova\Themes\Theme;
+use Nova\Themes\Models\Theme;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class UpdateTheme implements ShouldQueue
+class Update implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -23,7 +23,7 @@ class UpdateTheme implements ShouldQueue
     /**
      * The theme being updated.
      *
-     * @var \Nova\Themes\Theme
+     * @var \Nova\Themes\Models\Theme
      */
     public $theme;
 

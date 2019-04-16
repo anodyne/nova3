@@ -2,11 +2,11 @@
 
 namespace Nova\Themes\Events;
 
-use Nova\Themes\Theme;
+use Nova\Themes\Models\Theme;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 
-class ThemeInstalled
+class Created
 {
     use Dispatchable, SerializesModels;
 

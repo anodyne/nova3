@@ -3,11 +3,11 @@
 namespace Nova\Themes\Http\Controllers;
 
 use Nova\Themes\Jobs;
-use Nova\Themes\Theme;
 use Nova\Themes\Events;
-use Illuminate\Http\Response;
+use Nova\Themes\Models\Theme;
 use Nova\Themes\Http\Requests;
 use Nova\Themes\Http\Responses;
+use Nova\Themes\Http\Resources;
 use Nova\Themes\Http\Authorizers;
 use Nova\Foundation\Http\Controllers\Controller;
 
@@ -25,9 +25,8 @@ class ThemeController extends Controller
         $themes = Theme::get();
 
         return app(Responses\Index::class)
-            ->withThemes($themes)
-            ->withPendingThemes($themes->toBeInstalled())
-            ->withCan($auth->userAbilities());
+            ->withThemes(new Resources\ThemeCollection($themes))
+            ->withPendingThemes($themes->toBeInstalled());
     }
 
     public function create(Authorizers\Create $auth)
@@ -37,9 +36,9 @@ class ThemeController extends Controller
 
     public function store(Authorizers\Store $auth, Requests\Store $request)
     {
-        $theme = dispatch_now(new Jobs\CreateTheme($request->validated()));
+        $theme = dispatch_now(new Jobs\Create($request->validated()));
 
-        event(new Events\ThemeCreated($theme));
+        event(new Events\Created($theme));
 
         return $theme->fresh();
     }
@@ -47,23 +46,23 @@ class ThemeController extends Controller
     public function edit(Authorizers\Edit $auth, Theme $theme)
     {
         return app(Responses\Edit::class)
-            ->withTheme($theme);
+            ->withTheme(new Resources\ThemeResource($theme));
     }
 
     public function update(Authorizers\Update $auth, Requests\Update $request, Theme $theme)
     {
-        $theme = dispatch_now(new Jobs\UpdateTheme($theme, $request->validated()));
+        $theme = dispatch_now(new Jobs\Update($theme, $request->validated()));
 
-        event(new Events\ThemeUpdated($theme->fresh()));
+        event(new Events\Updated($theme->fresh()));
 
         return $theme->fresh();
     }
 
     public function destroy(Authorizers\Destroy $auth, Theme $theme)
     {
-        $theme = dispatch_now(new Jobs\DeleteTheme($theme));
+        $theme = dispatch_now(new Jobs\Delete($theme));
 
-        event(new Events\ThemeDeleted($theme));
+        event(new Events\Deleted($theme));
 
         return $theme;
     }

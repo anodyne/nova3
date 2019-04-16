@@ -24,9 +24,9 @@ class InstallThemeController extends Controller
     {
         $themeProperties = $this->getThemePropertiesFromQuickInstallFile($request->theme);
 
-        $theme = dispatch_now(new Jobs\InstallTheme($themeProperties));
+        $theme = dispatch_now(new Jobs\Install($themeProperties));
 
-        event(new Events\ThemeInstalled($theme));
+        event(new Events\Installed($theme));
 
         return $theme->fresh();
     }

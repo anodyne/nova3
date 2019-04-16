@@ -3,8 +3,8 @@
 namespace Tests\Unit\Themes;
 
 use Tests\TestCase;
-use Nova\Themes\Theme;
 use Nova\Themes\BaseTheme;
+use Nova\Themes\Models\Theme;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BaseThemeTest extends TestCase

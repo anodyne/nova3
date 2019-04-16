@@ -82,7 +82,7 @@ export default {
     data () {
         return {
             form: new Form(),
-            installedThemes: this.themes
+            installedThemes: this.themes.data
         };
     },
 

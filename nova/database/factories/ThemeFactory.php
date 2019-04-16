@@ -1,6 +1,6 @@
 <?php
 
-use Nova\Themes\Theme;
+use Nova\Themes\Models\Theme;
 use Faker\Generator as Faker;
 
 $factory->define(Theme::class, function (Faker $faker) {
