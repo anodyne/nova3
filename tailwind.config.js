@@ -16,6 +16,11 @@ module.exports = {
             0: 0,
             ...defaultTheme.lineHeight
         },
+        minWidth: {
+            ...defaultTheme.minWidth,
+            20: '5rem',
+            40: '10rem'
+        },
         opacity: {
             10: '.1',
             15: '.15',
