@@ -20,7 +20,7 @@
                 ref="dropdown"
                 class="dropdown-menu"
             >
-                <slot name="dropdown"></slot>
+                <slot name="dropdown" :dropdownProps="dropdownProps"></slot>
             </div>
         </transition>
     </div>
@@ -47,6 +47,14 @@ export default {
         return {
             isOpen: false
         };
+    },
+
+    computed: {
+        dropdownProps () {
+            return {
+                toggle: this.toggle
+            };
+        }
     },
 
     beforeDestroy () {
