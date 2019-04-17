@@ -1,5 +1,5 @@
 .avatar {
-    @apply .flex;
+    @apply .flex .flex-row .items-center;
 
     > .avatar-image {
         @apply .relative .rounded-full .bg-gray-500;
@@ -19,12 +19,8 @@
         }
     }
 
-    &.avatar-spread {
-        @apply .flex-row .items-center;
-
-        > .avatar-image + .avatar-meta {
-            @apply .ml-3;
-        }
+    > .avatar-image + .avatar-meta {
+        @apply .ml-3;
     }
 
     &.avatar-stacked {
@@ -32,6 +28,10 @@
 
         > .avatar-image {
             @apply .mb-2 .mx-auto;
+        }
+
+        > .avatar-image + .avatar-meta {
+            @apply .ml-0;
         }
     }
 

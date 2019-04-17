@@ -1,11 +1,11 @@
 <template>
-    <div :class="avatarStyles">
+    <div class="avatar" :class="additionalStyles">
         <div class="avatar-image"></div>
 
         <div v-if="showMeta" class="avatar-meta">
-            <div class="avatar-meta-title">{{ name }}</div>
+            <div v-if="showMetaTitle" class="avatar-meta-title">{{ name }}</div>
 
-            <div v-if="size !== 'sm'" class="avatar-meta-subtitle">
+            <div v-if="showMetaSubtitle" class="avatar-meta-subtitle">
                 <slot>Position name</slot>
             </div>
         </div>
@@ -13,36 +13,23 @@
 </template>
 
 <script>
+import AvatarHelpers from './AvatarHelpers';
+
 export default {
     name: 'BaseAvatar',
+
+    mixins: [AvatarHelpers],
 
     props: {
         person: {
             type: Object,
-            default: () => { return {}; }
-        },
-        showMeta: {
-            type: Boolean,
-            default: true
-        },
-        size: {
-            type: String,
-            default: 'md'
-        },
-        spread: {
-            type: Boolean,
-            default: true
-        },
-        stacked: {
-            type: Boolean,
-            default: false
+            required: true
         }
     },
 
     computed: {
-        avatarStyles () {
+        additionalStyles () {
             return {
-                avatar: true,
                 'avatar-spread': this.spread,
                 'avatar-stacked': this.stacked,
                 'avatar-sm': this.size === 'sm',
@@ -54,6 +41,10 @@ export default {
 
         name () {
             return this.person.name;
+        },
+
+        showMeta () {
+            return this.showMetaTitle || this.showMetaSubtitle;
         }
     }
 };
