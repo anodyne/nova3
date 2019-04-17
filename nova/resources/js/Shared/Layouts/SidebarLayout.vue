@@ -92,6 +92,8 @@
         <main class="flex-1 md:ml-72 py-6 px-12">
             <slot></slot>
         </main>
+
+        <portal-target name="modals"></portal-target>
     </div>
 </template>
 
