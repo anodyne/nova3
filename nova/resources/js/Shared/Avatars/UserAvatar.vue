@@ -1,10 +1,17 @@
+<template>
+    <base-avatar v-bind="avatarProps"></base-avatar>
+</template>
+
 <script>
-import BaseAvatar from './BaseAvatar.vue';
+import BaseAvatar from './BaseAvatar';
+import AvatarHelpers from './AvatarHelpers';
 
 export default {
     name: 'UserAvatar',
 
-    extends: BaseAvatar,
+    components: { BaseAvatar },
+
+    mixins: [AvatarHelpers],
 
     props: {
         user: {
@@ -14,21 +21,15 @@ export default {
     },
 
     computed: {
-        baseProps () {
+        avatarProps () {
             return {
                 person: this.user,
-                spread: this.spread,
-                stacked: this.stacked,
+                showMetaTitle: this.showMetaTitle,
+                showMetaSubtitle: false,
                 size: this.size,
-                showMeta: this.showMeta
+                stacked: this.stacked
             };
         }
-    },
-
-    render (h) {
-        return h('base-avatar', {
-            props: this.baseProps
-        }, this.$slots.default);
     }
 };
 </script>

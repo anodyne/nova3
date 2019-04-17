@@ -26,6 +26,7 @@
         "laravel-mix-tailwind": "^0.1.0",
         "lodash": "^4.17",
         "popper.js": "^1.12",
+        "portal-vue": "^2.1.0",
         "resolve-url-loader": "^2.3.1",
         "slug": "^0.9.3",
         "tailwindcss": "^1.0.0-beta.4",
