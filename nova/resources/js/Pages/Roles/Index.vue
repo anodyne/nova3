@@ -67,7 +67,7 @@
                         <dropdown v-else placement="bottom-end">
                             <nova-icon name="more-vertical"></nova-icon>
 
-                            <template #dropdown>
+                            <template #dropdown="{ dropdownProps }">
                                 <inertia-link
                                     v-if="role.can.update"
                                     :href="route('roles.edit', { role })"
@@ -89,7 +89,7 @@
                                     v-if="role.can.delete"
                                     role="button"
                                     class="dropdown-link-danger"
-                                    @click="remove(role)"
+                                    @click="confirmRemove(role, dropdownProps)"
                                 >
                                     <nova-icon name="delete" class="dropdown-item-icon"></nova-icon>
                                     Delete
@@ -100,6 +100,28 @@
                 </div>
             </transition-group>
         </section>
+
+        <modal
+            :open="modalIsShown"
+            title="Delete role?"
+            @close="hideModal"
+        >
+            Are you sure you want to delete the {{ this.deletingItem.title }} role?
+
+            <template #footer>
+                <button
+                    type="button"
+                    class="button is-danger-vivid mr-4"
+                    @click="remove"
+                >
+                    Delete
+                </button>
+
+                <button class="button is-secondary" @click="hideModal">
+                    Cancel
+                </button>
+            </template>
+        </modal>
     </sidebar-layout>
 </template>
 
@@ -107,8 +129,11 @@
 import Form from '@/Utils/Form';
 import findIndex from 'lodash/findIndex';
 import { Inertia } from 'inertia-vue';
+import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 
 export default {
+    mixins: [ModalHelpers],
+
     props: {
         roles: {
             type: Object,
@@ -135,6 +160,11 @@ export default {
     },
 
     methods: {
+        confirmRemove (role, { toggle }) {
+            toggle();
+            this.showModal(role);
+        },
+
         duplicate (role) {
             this.form.post({
                 url: this.route('roles.duplicate', { originalRole: role }),
@@ -148,9 +178,9 @@ export default {
             });
         },
 
-        remove (role) {
+        remove () {
             this.form.delete({
-                url: this.route('roles.destroy', { role }),
+                url: this.route('roles.destroy', { role: this.deletingItem }),
                 then: (data) => {
                     const index = findIndex(this.availableRoles, { id: data.id });
 

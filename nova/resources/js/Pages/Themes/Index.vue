@@ -43,7 +43,7 @@
                             v-if="themes.can.delete"
                             role="button"
                             class="button is-danger"
-                            @click="remove(theme)"
+                            @click="confirmRemove(theme)"
                         >
                             <nova-icon name="delete"></nova-icon>
                         </a>
@@ -51,6 +51,28 @@
                 </div>
             </div>
         </transition-group>
+
+        <modal
+            :open="modalIsShown"
+            title="Delete theme?"
+            @close="hideModal"
+        >
+            Are you sure you want to delete the {{ this.deletingItem.title }} theme?
+
+            <template #footer>
+                <button
+                    type="button"
+                    class="button is-danger-vivid mr-4"
+                    @click="remove"
+                >
+                    Delete
+                </button>
+
+                <button class="button is-secondary" @click="hideModal">
+                    Cancel
+                </button>
+            </template>
+        </modal>
     </sidebar-layout>
 </template>
 
@@ -58,23 +80,20 @@
 import Form from '@/Utils/Form';
 import findIndex from 'lodash/findIndex';
 import InstallThemes from '@/Pages/Themes/Install';
+import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 
 export default {
-    components: {
-        InstallThemes
-    },
+    components: { InstallThemes },
+
+    mixins: [ModalHelpers],
 
     props: {
-        can: {
-            type: Object,
-            required: true
-        },
         pendingThemes: {
             type: [Array, Object],
             required: true
         },
         themes: {
-            type: Array,
+            type: Object,
             required: true
         }
     },
@@ -87,9 +106,13 @@ export default {
     },
 
     methods: {
-        remove (theme) {
+        confirmRemove (theme) {
+            this.showModal(theme);
+        },
+
+        remove () {
             this.form.delete({
-                url: this.route('themes.destroy', { theme }),
+                url: this.route('themes.destroy', { theme: this.deletingItem }),
                 then: (data) => {
                     const index = findIndex(this.installedThemes, { id: data.id });
 

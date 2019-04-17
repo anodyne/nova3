@@ -53,13 +53,13 @@
                     class="row"
                 >
                     <div class="col">
-                        {{ user.name }}
+                        <user-avatar :user="user" size="sm"></user-avatar>
                     </div>
                     <div class="col-auto">
                         <dropdown placement="bottom-end">
                             <nova-icon name="more-vertical"></nova-icon>
 
-                            <template #dropdown>
+                            <template #dropdown="{ dropdownProps }">
                                 <inertia-link
                                     v-if="user.can.update"
                                     :href="route('users.edit', { user })"
@@ -72,7 +72,7 @@
                                     v-if="user.can.delete"
                                     role="button"
                                     class="dropdown-link-danger"
-                                    @click="remove(user)"
+                                    @click="confirmRemove(user, dropdownProps)"
                                 >
                                     <nova-icon name="delete" class="dropdown-item-icon"></nova-icon>
                                     Delete
@@ -83,6 +83,28 @@
                 </div>
             </transition-group>
         </section>
+
+        <modal
+            :open="modalIsShown"
+            title="Delete account?"
+            @close="hideModal"
+        >
+            Are you sure you want to delete {{ this.deletingItem.name }}'s account?
+
+            <template #footer>
+                <button
+                    type="button"
+                    class="button is-danger-vivid mr-4"
+                    @click="remove"
+                >
+                    Delete
+                </button>
+
+                <button class="button is-secondary" @click="hideModal">
+                    Cancel
+                </button>
+            </template>
+        </modal>
     </sidebar-layout>
 </template>
 
@@ -90,8 +112,14 @@
 import Form from '@/Utils/Form';
 import findIndex from 'lodash/findIndex';
 import { Inertia } from 'inertia-vue';
+import UserAvatar from '@/Shared/Avatars/UserAvatar';
+import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 
 export default {
+    components: { UserAvatar },
+
+    mixins: [ModalHelpers],
+
     props: {
         pendingUsers: {
             type: Array,
@@ -122,10 +150,17 @@ export default {
     },
 
     methods: {
-        remove (user) {
+        confirmRemove (user, { toggle }) {
+            toggle();
+            this.showModal(user);
+        },
+
+        remove () {
             this.form.delete({
-                url: this.route('users.destroy', { user }),
+                url: this.route('users.destroy', { user: this.deletingItem }),
                 then: (data) => {
+                    this.hideModal();
+
                     const index = findIndex(this.allUsers, { id: data.id });
 
                     this.$toast.message(`User account for ${user.name} was removed.`).success();
