@@ -22,7 +22,7 @@
     @routes
 </head>
 <body>
-    <div id="nova-app">
+    <div id="app">
         {!! $layout ?? false !!}
 
         <toaster-oven></toaster-oven>

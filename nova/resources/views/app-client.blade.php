@@ -22,10 +22,6 @@
     @routes
 </head>
 <body>
-    <div
-        id="nova-app"
-        data-component="{{ $component }}"
-        data-props="{{ json_encode((object) $props) }}"
-    ></div>
+    @inertia
 </body>
 </html>
