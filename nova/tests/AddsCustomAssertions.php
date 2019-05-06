@@ -11,7 +11,7 @@ trait AddsCustomAssertions
     {
         TestResponse::macro('assertResponseHas', function ($key, $value) {
             $data = $this->original->getData();
-            $data = $data['props'] ?? $data;
+            $data = $data['page']['props'] ?? $data;
 
             PHPUnit::assertEquals($data[$key], $value);
 
@@ -20,7 +20,7 @@ trait AddsCustomAssertions
 
         TestResponse::macro('assertResponseMissing', function ($key, $value) {
             $data = $this->original->getData();
-            $data = $data['props'] ?? $data;
+            $data = $data['page']['props'] ?? $data;
 
             PHPUnit::assertNotEquals($data[$key], $value);
 

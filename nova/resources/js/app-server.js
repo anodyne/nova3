@@ -10,7 +10,7 @@ import ToasterOven from '@/Shared/Toasts/ToasterOven';
 
 Vue.component('toaster-oven', ToasterOven);
 
-const app = document.getElementById('nova-app');
+const app = document.getElementById('app');
 
 window.app = new Vue({
     store,
