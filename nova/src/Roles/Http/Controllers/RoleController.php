@@ -5,9 +5,9 @@ namespace Nova\Roles\Http\Controllers;
 use Nova\Roles\Jobs;
 use Nova\Roles\Events;
 use Nova\Roles\Models\Role;
-use Nova\Roles\Http\Requests;
 use Nova\Roles\Http\Responses;
 use Nova\Roles\Models\Ability;
+use Nova\Roles\Http\Validators;
 use Nova\Roles\Http\Authorizers;
 use Nova\Roles\Http\Resources\RoleResource;
 use Nova\Roles\Http\Resources\RoleCollection;
@@ -34,7 +34,7 @@ class RoleController extends Controller
             ->withAbilities(Ability::orderBy('title')->get());
     }
 
-    public function store(Authorizers\Store $gate, Requests\Store $request)
+    public function store(Authorizers\Store $gate, Validators\Store $request)
     {
         $role = dispatch_now(new Jobs\Create($request->validated()));
 
@@ -48,7 +48,7 @@ class RoleController extends Controller
             ->withAbilities(Ability::orderBy('title')->get());
     }
 
-    public function update(Authorizers\Update $gate, Requests\Update $request, Role $role)
+    public function update(Authorizers\Update $gate, Validators\Update $request, Role $role)
     {
         $role = dispatch_now(new Jobs\Update($role, $request->validated()));
 

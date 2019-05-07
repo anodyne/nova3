@@ -1,10 +1,10 @@
 <?php
 
-namespace Nova\Roles\Http\Requests;
+namespace Nova\Roles\Http\Validators;
 
-use Nova\Foundation\Http\Requests\BaseFormRequest;
+use Nova\Foundation\Http\Requests\ValidatesRequest;
 
-class Update extends BaseFormRequest
+class Update extends ValidatesRequest
 {
     public function rules()
     {

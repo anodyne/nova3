@@ -1,10 +1,10 @@
 <?php
 
-namespace Nova\Foundation\Http\Authorizers;
+namespace Nova\Foundation\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-abstract class BaseAuthorizer extends FormRequest
+abstract class AuthorizesRequest extends FormRequest
 {
     /**
      * Is the current user authorized to take the action on this request?

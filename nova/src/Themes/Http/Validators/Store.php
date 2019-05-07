@@ -1,10 +1,10 @@
 <?php
 
-namespace Nova\Themes\Http\Requests;
+namespace Nova\Themes\Http\Validators;
 
-use Nova\Foundation\Http\Requests\BaseFormRequest;
+use Nova\Foundation\Http\Requests\ValidatesRequest;
 
-class Store extends BaseFormRequest
+class Store extends ValidatesRequest
 {
     public function messages()
     {

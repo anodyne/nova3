@@ -2,9 +2,9 @@
 
 namespace Nova\Users\Http\Authorizers;
 
-use Nova\Foundation\Http\Authorizers\BaseAuthorizer;
+use Nova\Foundation\Http\Requests\AuthorizesRequest;
 
-class Destroy extends BaseAuthorizer
+class Destroy extends AuthorizesRequest
 {
     public function authorize()
     {

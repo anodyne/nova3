@@ -5,9 +5,9 @@ namespace Nova\Themes\Http\Controllers;
 use Nova\Themes\Jobs;
 use Nova\Themes\Events;
 use Nova\Themes\Models\Theme;
-use Nova\Themes\Http\Requests;
 use Nova\Themes\Http\Responses;
 use Nova\Themes\Http\Resources;
+use Nova\Themes\Http\Validators;
 use Nova\Themes\Http\Authorizers;
 use Nova\Foundation\Http\Controllers\Controller;
 
@@ -34,7 +34,7 @@ class ThemeController extends Controller
         return app(Responses\Create::class);
     }
 
-    public function store(Authorizers\Store $auth, Requests\Store $request)
+    public function store(Authorizers\Store $auth, Validators\Store $request)
     {
         $theme = dispatch_now(new Jobs\Create($request->validated()));
 
@@ -47,7 +47,7 @@ class ThemeController extends Controller
             ->withTheme(new Resources\ThemeResource($theme));
     }
 
-    public function update(Authorizers\Update $auth, Requests\Update $request, Theme $theme)
+    public function update(Authorizers\Update $auth, Validators\Update $request, Theme $theme)
     {
         $theme = dispatch_now(new Jobs\Update($theme, $request->validated()));
 

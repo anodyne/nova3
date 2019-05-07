@@ -2,9 +2,9 @@
 
 namespace Nova\Themes\Http\Authorizers;
 
-use Nova\Foundation\Http\Authorizers\BaseAuthorizer;
+use Nova\Foundation\Http\Requests\AuthorizesRequest;
 
-class Store extends BaseAuthorizer
+class Store extends AuthorizesRequest
 {
     public function authorize()
     {

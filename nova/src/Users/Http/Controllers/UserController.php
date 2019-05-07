@@ -6,9 +6,9 @@ use Nova\Users\Models\User;
 use Nova\Users\Jobs;
 use Nova\Users\Events;
 use Nova\Roles\Models\Role;
-use Nova\Users\Http\Requests;
 use Nova\Users\Http\Responses;
 use Nova\Users\Http\Resources;
+use Nova\Users\Http\Validators;
 use Nova\Users\Http\Authorizers;
 use Nova\Foundation\Http\Controllers\Controller;
 
@@ -36,7 +36,7 @@ class UserController extends Controller
             ->withRoles(Role::orderBy('title')->get());
     }
 
-    public function store(Authorizers\Store $gate, Requests\Store $request)
+    public function store(Authorizers\Store $gate, Validators\Store $request)
     {
         $user = dispatch_now(new Jobs\Create($request->validated()));
 
@@ -52,7 +52,7 @@ class UserController extends Controller
             ->withUser(new Resources\UserResource($user));
     }
 
-    public function update(Authorizers\Update $gate, Requests\Update $request, User $user)
+    public function update(Authorizers\Update $gate, Validators\Update $request, User $user)
     {
         $user = dispatch_now(new Jobs\Update($user, $request->validated()));
 

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Nova\Foundation\Http\Controllers\Controller;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Nova\Themes\Exceptions\MissingQuickInstallFileException;
-use Nova\Themes\Http\Requests\Install as ValidateInstallingTheme;
+use Nova\Themes\Http\Validators\Install as ValidateInstallingTheme;
 use Nova\Themes\Http\Authorizers\Install as AuthorizeInstallingTheme;
 
 class InstallThemeController extends Controller

@@ -4,7 +4,7 @@ namespace Nova\Foundation\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-abstract class BaseFormRequest extends FormRequest
+abstract class ValidatesRequest extends FormRequest
 {
     /**
      * Is the current user authorized to take the action on this request?
