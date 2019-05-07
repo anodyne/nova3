@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Users\Http\Authorizors;
+namespace Nova\Roles\Http\Authorizers;
 
 use Nova\Foundation\Http\Requests\AuthorizesRequest;
 
@@ -8,6 +8,6 @@ class Update extends AuthorizesRequest
 {
     public function authorize()
     {
-        return $this->user()->can('user.update');
+        return $this->user()->can('role.update') && ! $this->route('role')->locked;
     }
 }

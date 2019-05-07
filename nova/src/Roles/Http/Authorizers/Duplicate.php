@@ -1,10 +1,10 @@
 <?php
 
-namespace Nova\Roles\Http\Authorizors;
+namespace Nova\Roles\Http\Authorizers;
 
 use Nova\Foundation\Http\Requests\AuthorizesRequest;
 
-class Create extends AuthorizesRequest
+class Duplicate extends AuthorizesRequest
 {
     public function authorize()
     {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Nova\Themes\Http\Authorizors;
+namespace Nova\Themes\Http\Authorizers;
 
 use Nova\Foundation\Http\Requests\AuthorizesRequest;
 
-class Create extends AuthorizesRequest
+class Install extends AuthorizesRequest
 {
     public function authorize()
     {

@@ -9,7 +9,7 @@ use Nova\Roles\Models\Role;
 use Nova\Users\Http\Responses;
 use Nova\Users\Http\Resources;
 use Nova\Users\Http\Validators;
-use Nova\Users\Http\Authorizors;
+use Nova\Users\Http\Authorizers;
 use Nova\Foundation\Http\Controllers\Controller;
 
 class UserController extends Controller
@@ -21,7 +21,7 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Authorizors\Index $gate)
+    public function index(Authorizers\Index $gate)
     {
         $users = User::get();
 
@@ -30,13 +30,13 @@ class UserController extends Controller
             ->withPendingUsers($users->pending());
     }
 
-    public function create(Authorizors\Create $gate)
+    public function create(Authorizers\Create $gate)
     {
         return app(Responses\Create::class)
             ->withRoles(Role::orderBy('title')->get());
     }
 
-    public function store(Authorizors\Store $gate, Validators\Store $request)
+    public function store(Authorizers\Store $gate, Validators\Store $request)
     {
         $user = dispatch_now(new Jobs\Create($request->validated()));
 
@@ -45,14 +45,14 @@ class UserController extends Controller
         return $user->fresh();
     }
 
-    public function edit(Authorizors\Edit $gate, User $user)
+    public function edit(Authorizers\Edit $gate, User $user)
     {
         return app(Responses\Edit::class)
             ->withRoles(Role::orderBy('title')->get())
             ->withUser(new Resources\UserResource($user));
     }
 
-    public function update(Authorizors\Update $gate, Validators\Update $request, User $user)
+    public function update(Authorizers\Update $gate, Validators\Update $request, User $user)
     {
         $user = dispatch_now(new Jobs\Update($user, $request->validated()));
 
@@ -61,7 +61,7 @@ class UserController extends Controller
         return $user->fresh();
     }
 
-    public function destroy(Authorizors\Destroy $gate, User $user)
+    public function destroy(Authorizers\Destroy $gate, User $user)
     {
         $user = dispatch_now(new Jobs\Delete($user));
 

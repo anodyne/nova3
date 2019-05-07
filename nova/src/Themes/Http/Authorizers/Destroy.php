@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Users\Http\Authorizors;
+namespace Nova\Themes\Http\Authorizers;
 
 use Nova\Foundation\Http\Requests\AuthorizesRequest;
 
@@ -8,6 +8,6 @@ class Destroy extends AuthorizesRequest
 {
     public function authorize()
     {
-        return $this->user()->can('user.delete');
+        return $this->user()->can('theme.delete');
     }
 }

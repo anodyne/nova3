@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Roles\Http\Authorizors;
+namespace Nova\Roles\Http\Authorizers;
 
 use Nova\Foundation\Http\Requests\AuthorizesRequest;
 

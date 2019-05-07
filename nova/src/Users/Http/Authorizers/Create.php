@@ -1,10 +1,10 @@
 <?php
 
-namespace Nova\Users\Http\Authorizors;
+namespace Nova\Users\Http\Authorizers;
 
 use Nova\Foundation\Http\Requests\AuthorizesRequest;
 
-class Store extends AuthorizesRequest
+class Create extends AuthorizesRequest
 {
     public function authorize()
     {

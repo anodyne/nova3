@@ -8,7 +8,7 @@ use Nova\Themes\Models\Theme;
 use Nova\Themes\Http\Responses;
 use Nova\Themes\Http\Resources;
 use Nova\Themes\Http\Validators;
-use Nova\Themes\Http\Authorizors;
+use Nova\Themes\Http\Authorizers;
 use Nova\Foundation\Http\Controllers\Controller;
 
 class ThemeController extends Controller
@@ -20,7 +20,7 @@ class ThemeController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Authorizors\Index $auth)
+    public function index(Authorizers\Index $auth)
     {
         $themes = Theme::get();
 
@@ -29,32 +29,32 @@ class ThemeController extends Controller
             ->withPendingThemes($themes->toBeInstalled());
     }
 
-    public function create(Authorizors\Create $auth)
+    public function create(Authorizers\Create $auth)
     {
         return app(Responses\Create::class);
     }
 
-    public function store(Authorizors\Store $auth, Validators\Store $request)
+    public function store(Authorizers\Store $auth, Validators\Store $request)
     {
         $theme = dispatch_now(new Jobs\Create($request->validated()));
 
         return $theme->fresh();
     }
 
-    public function edit(Authorizors\Edit $auth, Theme $theme)
+    public function edit(Authorizers\Edit $auth, Theme $theme)
     {
         return app(Responses\Edit::class)
             ->withTheme(new Resources\ThemeResource($theme));
     }
 
-    public function update(Authorizors\Update $auth, Validators\Update $request, Theme $theme)
+    public function update(Authorizers\Update $auth, Validators\Update $request, Theme $theme)
     {
         $theme = dispatch_now(new Jobs\Update($theme, $request->validated()));
 
         return $theme->fresh();
     }
 
-    public function destroy(Authorizors\Destroy $auth, Theme $theme)
+    public function destroy(Authorizers\Destroy $auth, Theme $theme)
     {
         $theme = dispatch_now(new Jobs\Delete($theme));
 
