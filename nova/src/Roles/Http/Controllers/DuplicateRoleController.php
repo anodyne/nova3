@@ -6,8 +6,8 @@ use Nova\Roles\Jobs;
 use Nova\Roles\Events;
 use Nova\Roles\Models\Role;
 use Nova\Foundation\Http\Controllers\Controller;
-use Nova\Roles\Http\Requests\Duplicate as ValidateDuplicatingRole;
-use Nova\Roles\Http\Authorizers\Duplicate as AuthorizeDuplicatingRole;
+use Nova\Roles\Http\Validators\Duplicate as ValidateDuplicatingRole;
+use Nova\Roles\Http\Authorizors\Duplicate as AuthorizeDuplicatingRole;
 
 class DuplicateRoleController extends Controller
 {
