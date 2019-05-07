@@ -7,13 +7,11 @@ import './components';
 import './directives';
 import './plugins';
 
-const app = document.getElementById('nova-app');
+const app = document.getElementById('app');
 
-import { InertiaLink } from 'inertia-vue';
 import ToasterOven from '@/Shared/Toasts/ToasterOven';
 import SidebarLayout from '@/Shared/Layouts/SidebarLayout';
 
-Vue.component('inertia-link', InertiaLink);
 Vue.component('sidebar-layout', SidebarLayout);
 
 new Vue({
@@ -29,10 +27,9 @@ new Vue({
         return h('div', [
             h(Inertia, {
                 props: {
-                    component: app.dataset.component,
-                    props: JSON.parse(app.dataset.props),
-                    resolveComponent: component => {
-                        return import(`@/Pages/${component}`).then(
+                    initialPage: JSON.parse(app.dataset.page),
+                    resolveComponent: name => {
+                        return import(`@/Pages/${name}`).then(
                             module => module.default
                         );
                     }
