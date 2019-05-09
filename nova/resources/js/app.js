@@ -28,11 +28,7 @@ new Vue({
             h(Inertia, {
                 props: {
                     initialPage: JSON.parse(app.dataset.page),
-                    resolveComponent: name => {
-                        return import(`@/Pages/${name}`).then(
-                            module => module.default
-                        );
-                    }
+                    resolveComponent: name => import(`@/Pages/${name}`).then(module => module.default)
                 }
             }),
             h(ToasterOven)
