@@ -2,14 +2,13 @@
 
 namespace Nova\Themes\Http\Authorizers;
 
+use Nova\Themes\Models\Theme;
 use Nova\Foundation\Http\Requests\AuthorizesRequest;
 
 class Index extends AuthorizesRequest
 {
     public function authorize()
     {
-        return $this->user()->can('theme.create')
-            || $this->user()->can('theme.delete')
-            || $this->user()->can('theme.update');
+        return gate()->any(['create', 'update', 'delete'], new Theme);
     }
 }

@@ -8,6 +8,6 @@ class Update extends AuthorizesRequest
 {
     public function authorize()
     {
-        return $this->user()->can('theme.update');
+        return gate()->allows('update', $this->route('theme'));
     }
 }
