@@ -306,7 +306,9 @@ abstract class BaseResponsable implements Responsable
     {
         Inertia::setRootView('app-client');
 
-        return Inertia::render($this->getView('component'), $this->data);
+        $response = Inertia::render($this->getView('component'), $this->data);
+
+        return $response->toResponse($request);
     }
 
     protected function renderServerSide($request)
