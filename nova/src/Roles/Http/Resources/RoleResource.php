@@ -13,9 +13,9 @@ class RoleResource extends JsonResource
         return [
             'abilities' => $this->getAbilities(),
             'can' => [
-                'create' => $user->can('role.create'),
-                'delete' => $user->can('role.delete') && ! $this->locked,
-                'update' => $user->can('role.update') && ! $this->locked,
+                'create' => gate()->allows('create', $this->resource),
+                'delete' => gate()->allows('delete', $this->resource),
+                'update' => gate()->allows('update', $this->resource),
             ],
             'id' => $this->id,
             'name' => $this->name,

@@ -15,6 +15,7 @@ class CreateRoleTest extends TestCase
 
     public function testAuthorizedUserCanCreateRole()
     {
+        $this->withoutExceptionHandling();
         $this->signInWithAbility('role.create');
 
         $this->get(route('roles.create'))->assertSuccessful();

@@ -2,6 +2,7 @@
 
 namespace Nova\Themes\Http\Resources;
 
+use Nova\Themes\Models\Theme;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ThemeCollection extends ResourceCollection
@@ -12,6 +13,7 @@ class ThemeCollection extends ResourceCollection
      * Transform the resource collection into an array.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return array
      */
     public function toArray($request)
@@ -20,11 +22,11 @@ class ThemeCollection extends ResourceCollection
 
         return [
             'can' => [
-                'create' => $user->can('theme.create'),
-                'delete' => $user->can('theme.delete'),
-                'update' => $user->can('theme.update'),
+                'create' => gate()->allows('create', Theme::class),
+                'delete' => gate()->allows('delete', Theme::class),
+                'update' => gate()->allows('update', Theme::class),
             ],
-            'data' => $this->collection
+            'data' => $this->collection,
         ];
     }
 }

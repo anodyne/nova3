@@ -12,8 +12,8 @@ class UserResource extends JsonResource
 
         return [
             'can' => [
-                'delete' => $user->can('user.delete') && $this->id !== $user->id,
-                'update' => $user->can('user.update'),
+                'delete' => gate()->allows('delete', $this->resource),
+                'update' => gate()->allows('update', $this->resource),
             ],
             'email' => $this->email,
             'id' => $this->id,

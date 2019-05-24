@@ -2,6 +2,7 @@
 
 namespace Nova\Users\Http\Resources;
 
+use Nova\Users\Models\User;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class UserCollection extends ResourceCollection
@@ -12,7 +13,7 @@ class UserCollection extends ResourceCollection
     {
         return [
             'can' => [
-                'create' => auth()->user()->can('user.create')
+                'create' => gate()->allows('create', User::class),
             ],
             'data' => $this->collection,
         ];

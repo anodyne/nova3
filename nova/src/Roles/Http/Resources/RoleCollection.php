@@ -2,6 +2,7 @@
 
 namespace Nova\Roles\Http\Resources;
 
+use Nova\Roles\Models\Role;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class RoleCollection extends ResourceCollection
@@ -12,7 +13,7 @@ class RoleCollection extends ResourceCollection
     {
         return [
             'can' => [
-                'create' => auth()->user()->can('role.create'),
+                'create' => gate()->allows('create', Role::class),
             ],
             'data' => $this->collection,
         ];
