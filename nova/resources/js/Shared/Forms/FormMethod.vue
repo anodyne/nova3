@@ -39,13 +39,11 @@ export default {
                 return 'PATCH';
             }
 
-            if (this.post) {
-                return 'POST';
-            }
-
             if (this.put) {
                 return 'PUT';
             }
+
+            return 'POST';
         }
     },
 

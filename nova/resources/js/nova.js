@@ -22,9 +22,7 @@ export default class Nova {
     }
 
     boot () {
-        this.bootingCallbacks.forEach((callback) => {
-            return callback(Vue);
-        });
+        this.bootingCallbacks.forEach(callback => callback(Vue));
 
         this.bootingCallbacks = [];
     }

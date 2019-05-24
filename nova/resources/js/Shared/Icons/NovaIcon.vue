@@ -23,21 +23,18 @@ export default {
     computed: {
         component () {
             return 'IconFeather';
+            // switch (this.$store.get('Theme/iconSet')) {
+            //     case 'feather':
+            //     default:
+            //         return 'IconFeather';
 
-            switch (this.$store.get('Theme/iconSet')) {
-                case 'feather':
-                default:
-                    return 'IconFeather';
-
-                case 'fa5':
-                    return 'IconFontAwesome';
-            }
+            //     case 'fa5':
+            //         return 'IconFontAwesome';
+            // }
         },
 
         icon () {
-            const name = find(this.$store.get('Icons'), (icon, key) => {
-                return key === this.name;
-            });
+            const name = find(this.$store.get('Icons'), (icon, key) => key === this.name);
 
             if (name === undefined) {
                 return this.name;

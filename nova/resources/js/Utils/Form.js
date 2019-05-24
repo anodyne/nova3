@@ -36,9 +36,11 @@ class Form {
 
             if (error.response && error.response.status === 422) {
                 this.errors.record(error.response.data.errors);
-            } else {
-                return Promise.reject(error);
+
+                return true;
             }
+
+            return Promise.reject(error);
         });
     }
 }

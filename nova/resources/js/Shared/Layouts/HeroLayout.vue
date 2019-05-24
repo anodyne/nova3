@@ -17,15 +17,11 @@ export default {
     props: {
         page: {
             type: Object,
-            default: () => {
-                return {};
-            }
+            default: () => ({})
         },
         theme: {
             type: Object,
-            default: () => {
-                return {};
-            }
+            default: () => ({})
         }
     }
 };

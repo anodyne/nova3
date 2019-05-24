@@ -28,7 +28,7 @@ module.exports = {
     },
 
     'rules': {
-        'arrow-body-style': ['error', 'always'],
+        'arrow-body-style': ['error', 'as-needed'],
         'class-methods-use-this': 'off',
         'comma-dangle': ['error', 'never'],
         'func-names': ['error', 'never'],

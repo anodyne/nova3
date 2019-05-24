@@ -89,7 +89,7 @@
             title="Delete account?"
             @close="hideModal"
         >
-            Are you sure you want to delete {{ this.deletingItem.name }}'s account?
+            Are you sure you want to delete {{ deletingItem.name }}'s account?
 
             <template #footer>
                 <button
@@ -111,7 +111,6 @@
 <script>
 import Form from '@/Utils/Form';
 import findIndex from 'lodash/findIndex';
-import { Inertia } from 'inertia-vue';
 import UserAvatar from '@/Shared/Avatars/UserAvatar';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 
@@ -163,7 +162,7 @@ export default {
 
                     const index = findIndex(this.allUsers, { id: data.id });
 
-                    this.$toast.message(`User account for ${user.name} was removed.`).success();
+                    this.$toast.message(`User account for ${data.name} was removed.`).success();
 
                     this.allUsers.splice(index, 1);
                 }

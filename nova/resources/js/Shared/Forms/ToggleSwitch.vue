@@ -2,7 +2,7 @@
     <label class="switch-container">
         <div
             class="switch"
-            :class="{ 'is-small': this.small }"
+            :class="{ 'is-small': small }"
             role="checkbox"
             tabindex="0"
             :aria-checked="value.toString()"

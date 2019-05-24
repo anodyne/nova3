@@ -57,7 +57,7 @@
             title="Delete theme?"
             @close="hideModal"
         >
-            Are you sure you want to delete the {{ this.deletingItem.title }} theme?
+            Are you sure you want to delete the {{ deletingItem.title }} theme?
 
             <template #footer>
                 <button
@@ -117,7 +117,7 @@ export default {
                     const index = findIndex(this.installedThemes, { id: data.id });
 
                     this.$toast
-                        .message(`${theme.name} theme was removed.`)
+                        .message(`${data.name} theme was removed.`)
                         .success();
 
                     this.installedThemes.splice(index, 1);
