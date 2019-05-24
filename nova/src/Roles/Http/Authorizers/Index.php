@@ -2,14 +2,13 @@
 
 namespace Nova\Roles\Http\Authorizers;
 
+use Nova\Roles\Models\Role;
 use Nova\Foundation\Http\Requests\AuthorizesRequest;
 
 class Index extends AuthorizesRequest
 {
     public function authorize()
     {
-        return $this->user()->can('role.create')
-            || $this->user()->can('role.delete')
-            || $this->user()->can('role.update');
+        return gate()->any(['create', 'update', 'delete'], new Role);
     }
 }

@@ -8,6 +8,6 @@ class Destroy extends AuthorizesRequest
 {
     public function authorize()
     {
-        return $this->user()->can('user.delete');
+        return gate()->allows('delete', $this->route('user'));
     }
 }

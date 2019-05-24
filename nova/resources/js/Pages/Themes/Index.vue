@@ -117,7 +117,7 @@ export default {
                     const index = findIndex(this.installedThemes, { id: data.id });
 
                     this.$toast
-                        .message(`${data.name} theme was removed.`)
+                        .message(`${this.installedThemes[index].name} theme was removed.`)
                         .success();
 
                     this.installedThemes.splice(index, 1);

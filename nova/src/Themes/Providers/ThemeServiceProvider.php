@@ -2,7 +2,9 @@
 
 namespace Nova\Themes\Providers;
 
-use Nova\Themes\BaseTheme;
+use Nova\Themes\Models\Theme;
+use Illuminate\Support\Facades\Gate;
+use Nova\Themes\Policies\ThemePolicy;
 use Illuminate\Support\ServiceProvider;
 use Nova\Themes\Console\Commands\ThemeMakeCommand;
 
@@ -15,6 +17,8 @@ class ThemeServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Gate::policy(Theme::class, ThemePolicy::class);
+
         $this->commands([
             ThemeMakeCommand::class,
         ]);
@@ -38,6 +42,5 @@ class ThemeServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 }

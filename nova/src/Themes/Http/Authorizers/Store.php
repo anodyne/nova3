@@ -2,12 +2,13 @@
 
 namespace Nova\Themes\Http\Authorizers;
 
+use Nova\Themes\Models\Theme;
 use Nova\Foundation\Http\Requests\AuthorizesRequest;
 
 class Store extends AuthorizesRequest
 {
     public function authorize()
     {
-        return $this->user()->can('theme.create');
+        return gate()->allows('create', Theme::class);
     }
 }
