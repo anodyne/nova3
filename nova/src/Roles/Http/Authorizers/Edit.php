@@ -8,6 +8,6 @@ class Edit extends AuthorizesRequest
 {
     public function authorize()
     {
-        return $this->user()->can('role.update') && ! $this->route('role')->locked;
+        return gate()->allows('update', $this->route('role'));
     }
 }
