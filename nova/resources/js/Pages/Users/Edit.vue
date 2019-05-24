@@ -196,7 +196,7 @@ export default {
         filteredRoles () {
             const roles = (!this.showAssignedRolesOnly)
                 ? this.roles
-                : this.roles.filter((role) => { return this.hasRole(role); });
+                : this.roles.filter(role => this.hasRole(role));
 
             return roles.filter((role) => {
                 const searchRegex = new RegExp(this.search, 'i');

@@ -11,7 +11,6 @@
 
 <script>
 import has from 'lodash/has';
-import isArray from 'lodash/isArray';
 import Toast from './Toast';
 
 export default {
@@ -26,8 +25,8 @@ export default {
     },
 
     mounted () {
-        if (novaToast && novaToast.length > 0) {
-            this.setData(novaToast);
+        if (window.novaToast && window.novaToast.length > 0) {
+            this.setData(window.novaToast);
         }
 
         this.$toast.emitter.$on('nova.toast', (toast) => {

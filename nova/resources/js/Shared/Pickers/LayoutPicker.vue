@@ -71,9 +71,7 @@ export default {
                 return null;
             }
 
-            return find(this.layouts[this.type], (layout) => {
-                return layout.value === this.value;
-            });
+            return find(this.layouts[this.type], layout => layout.value === this.value);
         }
     },
 

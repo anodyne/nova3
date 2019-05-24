@@ -8,9 +8,7 @@ const token = document.head.querySelector('meta[name="csrf-token"]');
 instance.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 
 instance.interceptors.response.use(
-    (response) => {
-        return response;
-    },
+    response => response,
 
     (error) => {
         const { status } = error.response;

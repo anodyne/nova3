@@ -68,9 +68,7 @@ export default {
                 return null;
             }
 
-            return find(this.iconSets, (i) => {
-                return i.value === this.value;
-            });
+            return find(this.iconSets, i => i.value === this.value);
         }
     },
 

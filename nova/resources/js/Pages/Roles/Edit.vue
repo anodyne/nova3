@@ -140,7 +140,6 @@
 </template>
 
 <script>
-import slug from 'slug';
 import Form from '@/Utils/Form';
 import indexOf from 'lodash/indexOf';
 import { Inertia } from 'inertia-vue';
@@ -162,7 +161,7 @@ export default {
             form: new Form({
                 name: this.role.name,
                 title: this.role.title,
-                abilities: this.role.abilities.map((ability) => { return ability.name; })
+                abilities: this.role.abilities.map(ability => ability.name)
             }),
             search: '',
             showAssignedAbilitiesOnly: true
@@ -173,7 +172,7 @@ export default {
         filteredAbilities () {
             const abilities = (!this.showAssignedAbilitiesOnly)
                 ? this.abilities
-                : this.abilities.filter((ability) => { return this.hasAbility(ability); });
+                : this.abilities.filter(ability => this.hasAbility(ability));
 
             return abilities.filter((ability) => {
                 const searchRegex = new RegExp(this.search, 'i');

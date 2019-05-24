@@ -106,7 +106,7 @@
             title="Delete role?"
             @close="hideModal"
         >
-            Are you sure you want to delete the {{ this.deletingItem.title }} role?
+            Are you sure you want to delete the {{ deletingItem.title }} role?
 
             <template #footer>
                 <button
@@ -185,7 +185,7 @@ export default {
                     const index = findIndex(this.availableRoles, { id: data.id });
 
                     this.$toast
-                        .message(`${role.title} role was removed.`)
+                        .message(`${data.title} role was removed.`)
                         .success();
 
                     this.availableRoles.splice(index, 1);
