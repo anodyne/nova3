@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be98e28db219dd0a55d652c8c93b0dbd",
+    "content-hash": "60136a41c1239f5fe2942a487c9b9a33",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1518,20 +1518,20 @@
         },
         {
             "name": "spatie/laravel-collection-macros",
-            "version": "4.3.2",
+            "version": "5.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-collection-macros.git",
-                "reference": "df8ec79f128ad09b98d3747386dc3a33b5874a28"
+                "reference": "270eeb8387d4f1c341feec9ad795d5a00cbc7d30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-collection-macros/zipball/df8ec79f128ad09b98d3747386dc3a33b5874a28",
-                "reference": "df8ec79f128ad09b98d3747386dc3a33b5874a28",
+                "url": "https://api.github.com/repos/spatie/laravel-collection-macros/zipball/270eeb8387d4f1c341feec9ad795d5a00cbc7d30",
+                "reference": "270eeb8387d4f1c341feec9ad795d5a00cbc7d30",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "~5.8.0",
+                "laravel/framework": "~5.8.4",
                 "php": "^7.2"
             },
             "require-dev": {
@@ -1582,7 +1582,7 @@
                 "laravel-collection-macros",
                 "spatie"
             ],
-            "time": "2019-02-27T23:35:00+00:00"
+            "time": "2019-03-19T18:07:58+00:00"
         },
         {
             "name": "spatie/laravel-html",
@@ -2793,16 +2793,16 @@
         },
         {
             "name": "tightenco/ziggy",
-            "version": "v0.6.9",
+            "version": "v0.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tightenco/ziggy.git",
-                "reference": "0f59b703236f6b19002bc28d1d3eafcbf479bd43"
+                "reference": "aa4c42aaec9516da892bc2e9f6e992582646af77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tightenco/ziggy/zipball/0f59b703236f6b19002bc28d1d3eafcbf479bd43",
-                "reference": "0f59b703236f6b19002bc28d1d3eafcbf479bd43",
+                "url": "https://api.github.com/repos/tightenco/ziggy/zipball/aa4c42aaec9516da892bc2e9f6e992582646af77",
+                "reference": "aa4c42aaec9516da892bc2e9f6e992582646af77",
                 "shasum": ""
             },
             "require": {
@@ -2840,7 +2840,7 @@
                 }
             ],
             "description": "Generates a Blade directive exporting all of your named Laravel routes. Also provides a nice route() helper function in JavaScript.",
-            "time": "2018-10-29T06:06:46+00:00"
+            "time": "2019-04-26T22:03:47+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -5155,7 +5155,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.1.3"
+        "php": "^7.2"
     },
     "platform-dev": []
 }
