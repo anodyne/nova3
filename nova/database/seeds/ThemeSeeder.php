@@ -12,6 +12,10 @@ class ThemeSeeder extends Seeder
      */
     public function run()
     {
+        activity()->disableLogging();
+
         factory(Theme::class)->times(10)->create();
+
+        activity()->enableLogging();
     }
 }
