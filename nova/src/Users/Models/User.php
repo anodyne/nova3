@@ -5,6 +5,7 @@ namespace Nova\Users\Models;
 use Nova\Users\Events;
 use Nova\Users\UsersCollection;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
@@ -12,7 +13,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, SoftDeletes, HasRolesAndAbilities;
+    use Notifiable, SoftDeletes, HasRolesAndAbilities, LogsActivity;
+
+    protected static $logFillable = true;
 
     protected $fillable = [
         'name', 'email', 'password', 'last_login', 'force_password_reset',
@@ -61,9 +64,22 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Set the description for logging.
+     *
+     * @param  string  $eventName
+     *
+     * @return string
+     */
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return ":subject.name was {$eventName}";
+    }
+
+    /**
      * Create a new Eloquent Collection instance.
      *
      * @param  array  $models
+     *
      * @return \Nova\Users\Models\UsersCollection
      */
     public function newCollection(array $models = [])
