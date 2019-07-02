@@ -1,34 +1,19 @@
 <?php
 
 use Nova\Pages\Page;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePagesTable extends Migration
+class PopulatePagesTable extends Migration
 {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('uri');
-            $table->string('key')->nullable();
-            $table->string('verb')->default('get');
-            $table->string('resource')->nullable();
-            $table->string('layout')->default('public');
-            $table->timestamps();
-        });
+        activity()->disableLogging();
 
-        $this->populatePagesTable();
-    }
-
-    public function down()
-    {
-        Schema::dropIfExists('pages');
-    }
-
-    protected function populatePagesTable()
-    {
         $pages = [
             ['uri' => 'login', 'key' => 'login', 'resource' => 'Nova\\Auth\\Http\\Controllers\\LoginController@showLoginForm', 'layout' => 'auth'],
             ['uri' => 'login', 'verb' => 'post', 'resource' => 'Nova\\Auth\\Http\\Controllers\\LoginController@login', 'layout' => 'auth'],
@@ -68,5 +53,17 @@ class CreatePagesTable extends Migration
         collect($pages)->each(function ($page) {
             Page::create($page);
         });
+
+        activity()->enableLogging();
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Page::truncate();
     }
 }
