@@ -9,6 +9,7 @@ use Nova\Users\Policies\UserPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class UserServiceProvider extends ServiceProvider
 {
@@ -31,5 +32,8 @@ class UserServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        Relation::morphMap([
+            'users' => User::class,
+        ]);
     }
 }
