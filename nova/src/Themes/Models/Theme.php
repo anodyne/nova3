@@ -7,9 +7,16 @@ use Nova\Themes\Events;
 use Nova\Themes\ThemesCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Theme extends Model
 {
+    use LogsActivity;
+
+    protected static $logFillable = true;
+
+    protected static $logName = 'admin';
+
     protected $fillable = [
         'name', 'location', 'credits', 'layout_auth', 'layout_public',
         'layout_admin', 'layout_auth_settings', 'layout_public_settings',
@@ -33,6 +40,7 @@ class Theme extends Model
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  string  $location
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeLocation(Builder $query, $location)
@@ -44,6 +52,7 @@ class Theme extends Model
      * Get the layout to use for the page.
      *
      * @param  \Nova\Pages\Page  $page
+     *
      * @return string
      */
     public function getLayoutForPage(Page $page)
@@ -52,9 +61,22 @@ class Theme extends Model
     }
 
     /**
+     * Set the description for logging.
+     *
+     * @param  string  $eventName
+     *
+     * @return string
+     */
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return ":subject.name theme was {$eventName}";
+    }
+
+    /**
      * Create a new Eloquent Collection instance.
      *
      * @param  array  $models
+     *
      * @return \Nova\Themes\ThemesCollection
      */
     public function newCollection(array $models = [])

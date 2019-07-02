@@ -1,6 +1,5 @@
 <?php
 
-use Nova\Themes\Models\Theme;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -23,24 +22,10 @@ class CreateThemeTables extends Migration
             $table->string('icon_set')->default('feather');
             $table->timestamps();
         });
-
-        $this->populateThemesTable();
     }
 
     public function down()
     {
         Schema::dropIfExists('themes');
-    }
-
-    protected function populateThemesTable()
-    {
-        $themes = [
-            ['name' => 'Pulsar', 'location' => 'pulsar'],
-            ['name' => 'Titan', 'location' => 'titan'],
-        ];
-
-        collect($themes)->each(function ($theme) {
-            Theme::create($theme);
-        });
     }
 }

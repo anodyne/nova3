@@ -12,6 +12,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        activity()->disableLogging();
+
         $admin = factory(User::class)->create([
             'email' => 'admin@admin.com',
         ]);
@@ -25,5 +27,7 @@ class UserSeeder extends Seeder
             ]);
 
         $user->assign('user');
+
+        activity()->enableLogging();
     }
 }

@@ -9,11 +9,15 @@ class PopulateAuthorizationTables extends Migration
 {
     public function up()
     {
+        activity()->disableLogging();
+
         $this->populateAbilitiesTable();
 
         $this->populateRolesTable();
 
         $this->assignAbilitiesToRoles();
+
+        activity()->enableLogging();
     }
 
     public function down()
