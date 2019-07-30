@@ -2,15 +2,12 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
     theme: {
-        borderRadius: {
-            ...defaultTheme.borderRadius,
-            sm: '.1875rem',
-            default: '.375rem',
-            lg: '.75rem'
-        },
         container: {
             center: true,
             padding: '1rem'
+        },
+        fontFamily: {
+            sans: ['Nunito', 'sans-serif']
         },
         lineHeight: {
             0: 0,

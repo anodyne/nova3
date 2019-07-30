@@ -1,15 +1,15 @@
 .layout-auth-simple {
-    @apply .flex .items-center .h-screen;
+    @apply .flex .flex-col .justify-center .items-center .min-h-screen;
 
     main {
-        @apply .flex .flex-col .w-5/6 .mx-auto .p-6 .bg-white .rounded .shadow-2xl .border;
+        @apply .flex .flex-col .w-96 .mt-6 .px-6 .py-4 .bg-white .rounded-lg .shadow-md .overflow-hidden;
     }
 }
 
 @screen sm {
     .layout-auth-simple {
         main {
-            @apply .w-128;
+            // @apply .w-128;
         }
     }
 }

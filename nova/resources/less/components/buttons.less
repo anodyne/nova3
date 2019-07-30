@@ -1,5 +1,5 @@
 .button {
-    @apply .inline-flex .items-center .justify-center .w-full .my-3 .py-3 .px-6 .leading-none .rounded .font-medium .whitespace-no-wrap .transition .uppercase .tracking-wide .text-gray-400;
+    @apply .inline-flex .items-center .justify-center .w-full .py-2 .px-4 .rounded .font-semibold .text-sm .border .whitespace-no-wrap .transition .uppercase .tracking-widest .text-gray-400;
 
     &:focus,
     &:active {
@@ -27,15 +27,15 @@
     }
 
     &.is-primary {
-        @apply .bg-blue-500 .text-white;
+        @apply .bg-blue-500 .text-white .border-transparent;
 
         &:hover {
-            @apply .bg-blue-600 .text-white;
+            @apply .bg-blue-600 .text-white .border-transparent;
         }
     }
 
     &.is-secondary {
-        @apply .bg-gray-200 .text-gray-600;
+        @apply .bg-white .text-gray-600;
 
         &:hover {
             @apply .bg-gray-300 .text-gray-600;
@@ -43,34 +43,34 @@
     }
 
     &.is-danger {
-        @apply .bg-red-100 .text-red-500;
+        @apply .bg-red-100 .text-red-500 .border-transparent;
 
         &:hover {
-            @apply .bg-red-200 .text-red-600;
+            @apply .bg-red-200 .text-red-600 .border-transparent;
         }
     }
 
     &.is-danger-vivid {
-        @apply .bg-red-600 .text-white;
+        @apply .bg-red-600 .text-white .border-transparent;
 
         &:hover {
-            @apply .bg-red-700 .text-white;
+            @apply .bg-red-700 .text-white .border-transparent;
         }
     }
 
     &.is-dark {
-        @apply .bg-gray-600 .text-gray-100;
+        @apply .bg-gray-600 .text-gray-100 .border-transparent;
 
         &:hover {
-            @apply .bg-gray-500 .text-white;
+            @apply .bg-gray-500 .text-white .border-transparent;
         }
     }
 
     &.is-text {
-        @apply .p-0 .bg-transparent .normal-case .tracking-wide .text-gray-500;
+        @apply .p-0 .bg-transparent .normal-case .font-normal .text-gray-600 .tracking-normal .border-transparent;
 
         &:hover {
-            @apply .bg-transparent .text-gray-600;
+            @apply .bg-transparent .text-gray-700 .border-transparent;
         }
     }
 }

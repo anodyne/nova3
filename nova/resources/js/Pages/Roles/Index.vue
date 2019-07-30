@@ -7,7 +7,7 @@
                 :href="route('roles.create')"
                 class="button is-primary"
             >
-                Create Role
+                Add Role
             </inertia-link>
         </page-header>
 
@@ -103,10 +103,10 @@
 
         <modal
             :open="modalIsShown"
-            title="Delete role?"
+            title="Delete Role"
             @close="hideModal"
         >
-            Are you sure you want to delete the {{ deletingItem.title }} role?
+            Are you sure you want to delete the <strong>{{ deletingItem.title }}</strong> role? This change is permanent and cannot be undone. Any users with this role will have any abilities defined by this role removed from their permissions.
 
             <template #footer>
                 <button
@@ -126,9 +126,9 @@
 </template>
 
 <script>
-import Form from '@/Utils/Form';
 import findIndex from 'lodash/findIndex';
 import { Inertia } from 'inertia-vue';
+import Form from '@/Utils/Form';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 
 export default {

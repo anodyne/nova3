@@ -9,6 +9,9 @@
 
     <title>{{ config('app.name', 'Nova NextGen') }}</title>
 
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+
     <!-- Styles -->
     <link href="{{ asset('/dist/css/vendor.css') }}" rel="stylesheet">
     <link href="{{ asset('/dist/css/app.css') }}" rel="stylesheet">
