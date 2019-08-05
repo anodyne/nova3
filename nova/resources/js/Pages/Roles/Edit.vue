@@ -7,7 +7,7 @@
         </page-header>
 
         <section>
-            <div v-if="hasAbility('*')" class="mb-8 bg-red-100 p-4 border border-red-200 text-red-600 rounded">
+            <div v-if="hasAbility('*')" class="mb-8 bg-danger-100 p-4 border border-danger-200 text-danger-600 rounded">
                 The {{ role.title }} role has <em>All Abilities</em> assigned to it. Be <strong>very careful</strong> editing this role as improper changes could cause any users with this role to lose all access to the admin screens.
             </div>
 
@@ -66,7 +66,7 @@
                         <div class="form-section-header">Abilities</div>
                         <p class="form-section-message mb-6">Abilities are the actions a user can take. Feel free to add whatever abilities to this role that you see fit.</p>
 
-                        <p class="form-section-message"><span class="font-medium text-orange-500">Take very special care when adding or removing the <em>All Abilities</em> ability!</span></p>
+                        <p class="form-section-message"><span class="font-medium text-warning-700">Take very special care when adding or removing the <em>All Abilities</em> ability!</span></p>
                     </div>
 
                     <div class="form-section-column-form">
@@ -118,7 +118,7 @@
                             <a
                                 v-if="hasAbility(ability)"
                                 role="button"
-                                class="text-green-500"
+                                class="text-success-500"
                                 @click="removeAbility(ability)"
                             >
                                 <nova-icon name="check-circle"></nova-icon>
@@ -128,9 +128,9 @@
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary is-large">Update</button>
+                    <button type="submit" class="button is-primary">Update</button>
 
-                    <inertia-link :href="route('roles.index')" class="button is-secondary is-large">
+                    <inertia-link :href="route('roles.index')" class="button is-secondary">
                         Cancel
                     </inertia-link>
                 </div>
@@ -140,9 +140,9 @@
 </template>
 
 <script>
-import Form from '@/Utils/Form';
 import indexOf from 'lodash/indexOf';
 import { Inertia } from 'inertia-vue';
+import Form from '@/Utils/Form';
 
 export default {
     props: {

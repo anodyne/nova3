@@ -78,7 +78,7 @@
                         <div class="form-section-header">Roles</div>
                         <p class="form-section-message mb-6">Roles are made up of the abilities that users can take throughout the system. A user can be assigned as many roles as you'd like to give you more control over the actions your users can take.</p>
 
-                        <inertia-link :href="route('roles.index')" class="text-blue-600 hover:text-blue-500">
+                        <inertia-link :href="route('roles.index')" class="text-primary-600 hover:text-primary-500">
                             Manage roles
                         </inertia-link>
                     </div>
@@ -132,7 +132,7 @@
                             <a
                                 v-if="hasRole(role)"
                                 role="button"
-                                class="text-green-500"
+                                class="text-success-500"
                                 @click="removeRole(role)"
                             >
                                 <nova-icon name="check-circle"></nova-icon>
@@ -142,9 +142,9 @@
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary is-large">Update</button>
+                    <button type="submit" class="button is-primary">Update</button>
 
-                    <inertia-link :href="route('users.index')" class="button is-secondary is-large">
+                    <inertia-link :href="route('users.index')" class="button is-secondary">
                         Cancel
                     </inertia-link>
                 </div>

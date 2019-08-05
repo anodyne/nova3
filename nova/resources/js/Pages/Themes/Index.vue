@@ -1,12 +1,10 @@
 <template>
     <sidebar-layout>
-        <page-header title="Themes">
-            <template v-if="themes.can.create" #controls>
-                <inertia-link :href="route('themes.create')" class="button is-primary">
-                    Create Theme
-                </inertia-link>
-            </template>
-        </page-header>
+        <page-header
+            slot="header"
+            title="Themes"
+            pretitle="Presentation"
+        ></page-header>
 
         <install-themes
             :pending-themes="pendingThemes"
@@ -15,41 +13,46 @@
 
         <transition-group
             tag="div"
-            class="row"
             leave-active-class="animated fadeOut"
         >
-            <div
+            <section
                 v-for="theme in installedThemes"
                 :key="theme.id"
-                class="col-6 mb-6"
+                class="flex items-center justify-between"
             >
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">{{ theme.name }}</div>
-                        <div class="card-subtitle">themes/{{ theme.location }}</div>
-                    </div>
-
-                    <div class="card-body"></div>
-
-                    <div class="card-footer">
-                        <inertia-link
-                            v-if="themes.can.update"
-                            :href="route('themes.edit', { theme })"
-                            class="button is-secondary"
-                        >
-                            <nova-icon name="edit"></nova-icon>
-                        </inertia-link>
-                        <a
-                            v-if="themes.can.delete"
-                            role="button"
-                            class="button is-danger"
-                            @click="confirmRemove(theme)"
-                        >
-                            <nova-icon name="delete"></nova-icon>
-                        </a>
+                <div class="flex items-center">
+                    <div class="flex flex-col">
+                        <div class="font-semibold">{{ theme.name }}</div>
+                        <div class="text-gray-600">themes/{{ theme.location }}</div>
                     </div>
                 </div>
-            </div>
+
+                <div>
+                    <dropdown placement="bottom-end">
+                        <nova-icon name="more-vertical" class="h-6 w-6"></nova-icon>
+
+                        <template #dropdown="{ dropdownProps }">
+                            <inertia-link
+                                v-if="themes.can.update"
+                                :href="route('themes.edit', { theme })"
+                                class="dropdown-link"
+                            >
+                                <nova-icon name="edit" class="dropdown-item-icon"></nova-icon>
+                                Edit
+                            </inertia-link>
+                            <a
+                                v-if="themes.can.delete"
+                                role="button"
+                                class="dropdown-link-danger"
+                                @click="confirmRemove(theme)"
+                            >
+                                <nova-icon name="delete" class="dropdown-item-icon"></nova-icon>
+                                Delete
+                            </a>
+                        </template>
+                    </dropdown>
+                </div>
+            </section>
         </transition-group>
 
         <modal
@@ -77,13 +80,14 @@
 </template>
 
 <script>
-import Form from '@/Utils/Form';
 import findIndex from 'lodash/findIndex';
+import Form from '@/Utils/Form';
 import InstallThemes from '@/Pages/Themes/Install';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
+import StateButton from '@/Shared/StateButton';
 
 export default {
-    components: { InstallThemes },
+    components: { InstallThemes, StateButton },
 
     mixins: [ModalHelpers],
 

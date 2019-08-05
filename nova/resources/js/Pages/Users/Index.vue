@@ -1,95 +1,95 @@
 <template>
     <sidebar-layout>
-        <page-header title="Users">
+        <page-header slot="header" title="Users"></page-header>
+
+        <div class="flex flex-col bg-white -mt-8 -mx-24 mb-8 py-2 px-8">
+            <div class="w-full border-t mb-4"></div>
+            <div class="flex items-center tracking-wide">
+                <div class="font-semibold text-gray-700 mr-8">Active</div>
+                <div class="flex items-center text-gray-600">Pending <div class="badge badge-info ml-2">4</div></div>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center w-1/2 p-2 rounded bg-white border text-gray-500 focus-within:border-primary-300 focus-within:text-primary-500">
+                <div class="mr-2 flex-shrink-0">
+                    <nova-icon name="search" class="h-5 w-5"></nova-icon>
+                </div>
+
+                <input
+                    v-model="search"
+                    type="text"
+                    placeholder="Find a user..."
+                    class="appearance-none flex-auto text-gray-800 focus:outline-none"
+                >
+
+                <a
+                    role="button"
+                    class="text-gray-600"
+                    @click="search = ''"
+                >
+                    <nova-icon name="close" class="h-5 w-5"></nova-icon>
+                </a>
+            </div>
+
             <inertia-link
                 v-if="users.can.create"
                 slot="controls"
                 :href="route('users.create')"
-                class="button is-primary"
+                class="button is-primary my-0"
             >
-                Create User
+                Add User
             </inertia-link>
-        </page-header>
+        </div>
 
-        <section>
-            <div class="mb-6 w-1/2">
-                <div class="search-field">
-                    <div class="field-addon">
-                        <nova-icon name="search" class="h-5 w-5"></nova-icon>
-                    </div>
+        <section
+            v-for="user in filteredUsers"
+            :key="user.id"
+            class="flex items-center justify-between"
+        >
+            <div class="flex items-center">
+                <user-avatar :user="user" size="sm"></user-avatar>
 
-                    <input
-                        v-model="search"
-                        type="text"
-                        placeholder="Find a user..."
-                        class="field"
-                    >
+                <div class="badge badge-success">Active</div>
 
-                    <a
-                        v-show="search != ''"
-                        role="button"
-                        class="field-addon"
-                        @click="search = ''"
-                    >
-                        <nova-icon name="close" class="h-5 w-5"></nova-icon>
-                    </a>
-                </div>
+                <div class="badge badge-warning">Pending</div>
+
+                <div class="badge badge-info">Live</div>
             </div>
 
-            <transition-group
-                tag="div"
-                class="data-table is-striped has-controls"
-                leave-active-class="animated fadeOut"
-            >
-                <div key="header" class="row is-header">
-                    <div class="col">
-                        User Name
-                    </div>
-                </div>
+            <div>
+                <dropdown placement="bottom-end">
+                    <nova-icon name="more-horizontal" class="h-6 w-6"></nova-icon>
 
-                <div
-                    v-for="user in filteredUsers"
-                    :key="user.id"
-                    class="row"
-                >
-                    <div class="col">
-                        <user-avatar :user="user" size="sm"></user-avatar>
-                    </div>
-                    <div class="col-auto">
-                        <dropdown placement="bottom-end">
-                            <nova-icon name="more-vertical"></nova-icon>
-
-                            <template #dropdown="{ dropdownProps }">
-                                <inertia-link
-                                    v-if="user.can.update"
-                                    :href="route('users.edit', { user })"
-                                    class="dropdown-link"
-                                >
-                                    <nova-icon name="edit" class="dropdown-item-icon"></nova-icon>
-                                    Edit
-                                </inertia-link>
-                                <a
-                                    v-if="user.can.delete"
-                                    role="button"
-                                    class="dropdown-link-danger"
-                                    @click="confirmRemove(user, dropdownProps)"
-                                >
-                                    <nova-icon name="delete" class="dropdown-item-icon"></nova-icon>
-                                    Delete
-                                </a>
-                            </template>
-                        </dropdown>
-                    </div>
-                </div>
-            </transition-group>
+                    <template #dropdown="{ dropdownProps }">
+                        <inertia-link
+                            v-if="user.can.update"
+                            :href="route('users.edit', { user })"
+                            class="dropdown-link"
+                        >
+                            <nova-icon name="edit" class="dropdown-item-icon"></nova-icon>
+                            Edit
+                        </inertia-link>
+                        <a
+                            v-if="user.can.delete"
+                            role="button"
+                            class="dropdown-link-danger"
+                            @click="confirmRemove(user, dropdownProps)"
+                        >
+                            <nova-icon name="delete" class="dropdown-item-icon"></nova-icon>
+                            Delete
+                        </a>
+                    </template>
+                </dropdown>
+            </div>
         </section>
 
         <modal
             :open="modalIsShown"
-            title="Delete account?"
+            title="Delete Account"
             @close="hideModal"
         >
-            Are you sure you want to delete {{ deletingItem.name }}'s account?
+            Are you sure you want to delete <strong>{{ deletingItem.name }}</strong>'s account?
 
             <template #footer>
                 <button
@@ -109,8 +109,8 @@
 </template>
 
 <script>
-import Form from '@/Utils/Form';
 import findIndex from 'lodash/findIndex';
+import Form from '@/Utils/Form';
 import UserAvatar from '@/Shared/Avatars/UserAvatar';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 

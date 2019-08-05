@@ -3,7 +3,7 @@
 }
 
 .dropdown-trigger {
-    @apply .relative .flex .items-center .cursor-pointer .select-none .text-gray-600 .transition;
+    @apply .relative .flex .items-center .cursor-pointer .select-none .text-gray-600;
 
     &:hover {
         @apply .text-gray-700;
@@ -15,7 +15,9 @@
 }
 
 .dropdown-menu {
-    @apply .mt-1 .py-2 .shadow-lg .rounded .text-sm .bg-gray-700 .z-9999 .min-w-40;
+    // @apply .absolute .mt-1 .py-2 .shadow-lg .rounded .text-sm .bg-gray-700 .z-9999 .min-w-40 .transform-origin-tr .transition-faster .transition-all;
+
+    @apply .absolute .flex .flex-col .w-64 .rounded .bg-gray-700 .z-9999 .shadow-md .mt-2 .transform-origin-tr .overflow-hidden .transition-slow;
 }
 
 .dropdown-link {
@@ -27,10 +29,10 @@
 }
 
 .dropdown-link-danger {
-    @apply .dropdown-link .text-red-500;
+    @apply .dropdown-link .text-danger-500;
 
     &:hover {
-        @apply .bg-gray-600 .text-red-300;
+        @apply .bg-gray-600 .text-danger-300;
     }
 }
 

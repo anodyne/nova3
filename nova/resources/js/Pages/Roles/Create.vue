@@ -62,7 +62,7 @@
                         <div class="form-section-header">Abilities</div>
                         <p class="form-section-message mb-6">Abilities are the actions a user can take. Feel free to add whatever abilities to this role that you see fit.</p>
 
-                        <p class="form-section-message"><span class="font-medium text-orange-500">Take very special care when adding or removing the <em>All Abilities</em> ability!</span></p>
+                        <p class="form-section-message"><span class="font-medium text-warning-700">Take very special care when adding or removing the <em>All Abilities</em> ability!</span></p>
                     </div>
 
                     <div class="form-section-column-form">
@@ -106,7 +106,7 @@
                             <a
                                 v-if="hasAbility(ability)"
                                 role="button"
-                                class="text-green-500"
+                                class="text-success-500"
                                 @click="removeAbility(ability)"
                             >
                                 <nova-icon name="check-circle"></nova-icon>
@@ -116,9 +116,9 @@
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary is-large">Create</button>
+                    <button type="submit" class="button is-primary">Create</button>
 
-                    <inertia-link :href="route('roles.index')" class="button is-secondary is-large">
+                    <inertia-link :href="route('roles.index')" class="button is-secondary">
                         Cancel
                     </inertia-link>
                 </div>
@@ -129,9 +129,9 @@
 
 <script>
 import slug from 'slug';
-import Form from '@/Utils/Form';
 import indexOf from 'lodash/indexOf';
 import { Inertia } from 'inertia-vue';
+import Form from '@/Utils/Form';
 
 export default {
     props: {

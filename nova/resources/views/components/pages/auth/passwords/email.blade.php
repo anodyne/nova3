@@ -1,5 +1,3 @@
-{{-- <h1 class="mb-8 font-extrabold text-blue-600 text-5xl">Reset Password</h1> --}}
-
 @if (session('status'))
     <div class="alert alert-success" role="alert">
         {{ session('status') }}

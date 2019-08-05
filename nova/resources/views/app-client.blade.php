@@ -15,6 +15,7 @@
     <!-- Styles -->
     <link href="{{ asset('/dist/css/vendor.css') }}" rel="stylesheet">
     <link href="{{ asset('/dist/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('/themes/pulsar/design/custom.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>

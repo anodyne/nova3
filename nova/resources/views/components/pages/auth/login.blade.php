@@ -1,5 +1,3 @@
-{{-- <h1 class="mb-8 font-extrabold text-blue-600 text-5xl">Sign In</h1> --}}
-
 <form action="{{ route('login') }}" method="POST" role="form">
     @csrf
 
@@ -17,9 +15,9 @@
 
     <div class="flex items-center justify-between">
         <div>
-            <button type="submit" class="button is-primary">
-                {{ __('Sign In') }}
-            </button>
+            <state-button type="submit" class="button is-primary">
+                Sign In
+            </state-button>
         </div>
 
         @if (Route::has('password.request'))

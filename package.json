@@ -48,6 +48,7 @@
         "eslint-plugin-vue": "^5.2.0",
         "less": "^3.9.0",
         "less-loader": "^4.1.0",
+        "tailwind-css-variables": "^2.0.2",
         "vue-class-component": "^7.0.2",
         "vue-template-compiler": "^2.6.0"
     }

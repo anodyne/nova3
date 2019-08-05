@@ -139,11 +139,11 @@
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary is-large">
+                    <button type="submit" class="button is-primary">
                         Update
                     </button>
 
-                    <inertia-link :href="route('themes.index')" class="button is-secondary is-large">
+                    <inertia-link :href="route('themes.index')" class="button is-secondary">
                         Cancel
                     </inertia-link>
                 </div>
@@ -153,8 +153,8 @@
 </template>
 
 <script>
-import Form from '@/Utils/Form';
 import { Inertia } from 'inertia-vue';
+import Form from '@/Utils/Form';
 import LayoutPicker from '@/Shared/Pickers/LayoutPicker';
 import IconSetPicker from '@/Shared/Pickers/IconSetPicker';
 
