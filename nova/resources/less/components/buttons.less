@@ -1,5 +1,5 @@
 .button {
-    @apply .inline-flex .items-center .justify-center .w-full .my-3 .py-3 .px-6 .leading-none .rounded .font-medium .whitespace-no-wrap .transition .uppercase .tracking-wide .text-gray-400;
+    @apply .inline-flex .items-center .justify-center .w-full .py-3 .px-6 .leading-none .rounded .font-medium .whitespace-no-wrap .transition .uppercase .tracking-wide .text-gray-400 .border .border-transparent;
 
     &:focus,
     &:active {
@@ -35,10 +35,10 @@
     }
 
     &.is-secondary {
-        @apply .bg-gray-200 .text-gray-600;
+        @apply .bg-white .text-gray-600 .border-gray-300;
 
         &:hover {
-            @apply .bg-gray-300 .text-gray-600;
+            @apply .bg-white .text-gray-600 .border-gray-400;
         }
     }
 

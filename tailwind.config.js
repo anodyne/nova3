@@ -27,6 +27,10 @@ module.exports = {
             20: '.2',
             ...defaultTheme.opacity
         },
+        scale: {
+            ...defaultTheme.scale,
+            120: '1.2'
+        },
         spacing: {
             ...defaultTheme.spacing,
             '2px': '2px',
