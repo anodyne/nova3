@@ -83,7 +83,7 @@
                                     class="field-addon"
                                     @click="search = ''"
                                 >
-                                    <nova-icon name="close"></nova-icon>
+                                    <icon name="close"></icon>
                                 </a>
                             </div>
                         </form-field>
@@ -102,7 +102,7 @@
                                 class="text-gray-500 hover:text-gray-600"
                                 @click="addRole(role)"
                             >
-                                <nova-icon name="add"></nova-icon>
+                                <icon name="add"></icon>
                             </a>
 
                             <a
@@ -111,7 +111,7 @@
                                 class="text-success-500"
                                 @click="removeRole(role)"
                             >
-                                <nova-icon name="check-circle"></nova-icon>
+                                <icon name="check-circle"></icon>
                             </a>
                         </div>
                     </div>

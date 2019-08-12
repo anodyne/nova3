@@ -7,7 +7,7 @@ import find from 'lodash/find';
 import IconFeather from './IconFeather';
 
 export default {
-    name: 'NovaIcon',
+    name: 'Icon',
 
     components: {
         IconFeather
@@ -23,14 +23,6 @@ export default {
     computed: {
         component () {
             return 'IconFeather';
-            // switch (this.$store.get('Theme/iconSet')) {
-            //     case 'feather':
-            //     default:
-            //         return 'IconFeather';
-
-            //     case 'fa5':
-            //         return 'IconFontAwesome';
-            // }
         },
 
         icon () {

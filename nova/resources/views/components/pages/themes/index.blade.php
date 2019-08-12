@@ -22,10 +22,10 @@
 
                 <div class="card-footer">
                     <a href="{{ route('themes.edit', $theme) }}" class="button is-secondary">
-                        <nova-icon name="edit"></nova-icon>
+                        <icon name="edit"></icon>
                     </a>
                     <a href="{{ route('themes.edit', $theme) }}" class="button is-danger">
-                        <nova-icon name="delete"></nova-icon>
+                        <icon name="delete"></icon>
                     </a>
                 </div>
             </div>

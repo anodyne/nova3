@@ -25,7 +25,7 @@
     <script src="{{ asset('/dist/js/app.js') }}" defer></script>
     @routes
 </head>
-<body>
+<body class="font-sans bg-gray-200 text-gray-900 antialiased dark:bg-gray-800 dark:text-gray-100">
     @inertia
 </body>
 </html>

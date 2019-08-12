@@ -1,8 +1,8 @@
 import Vue from 'vue';
 
+import Icon from '@/Shared/Icons/Icon';
 import Dropdown from '@/Shared/Dropdown';
 import PageHeader from '@/Shared/PageHeader';
-import NovaIcon from '@/Shared/Icons/NovaIcon';
 
 import FormField from '@/Shared/Forms/FormField';
 import CsrfToken from '@/Shared/Forms/CsrfToken';
@@ -14,8 +14,8 @@ import StateButton from '@/Shared/StateButton';
 /**
  * Global components
  */
+Vue.component('icon', Icon);
 Vue.component('dropdown', Dropdown);
-Vue.component('nova-icon', NovaIcon);
 Vue.component('page-header', PageHeader);
 
 /**

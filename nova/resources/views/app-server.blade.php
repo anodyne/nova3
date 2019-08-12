@@ -24,7 +24,7 @@
     <script src="{{ asset('/dist/js/app-server.js') }}" defer></script>
     @routes
 </head>
-<body>
+<body class="font-sans bg-gray-200 text-gray-900 antialiased">
     <div id="app">
         {!! $layout ?? false !!}
 

@@ -1,0 +1,57 @@
+.tabs {}
+
+.tabs-nav {
+    @apply border-b-2;
+}
+
+.tabs-nav-item {
+    @apply inline-flex mr-4 -mb-2px;
+
+    > .tabs-nav-link {
+        @apply py-2 px-4 border-b-2 border-transparent text-gray-400;
+
+        &:hover {
+            @apply text-gray-600 border-gray-300;
+        }
+    }
+
+    &.active {
+        > .tabs-nav-link {
+            @apply border-primary-400 text-gray-800;
+
+            &:hover {
+                @apply border-primary-400;
+            }
+        }
+    }
+}
+
+.tabs-nav-pills {
+    @apply border-none;
+
+    .tabs-nav-item {
+        @apply mb-0;
+
+        > .tabs-nav-link {
+            @apply text-gray-400 rounded border-none;
+
+            &:hover {
+                @apply bg-gray-200 text-gray-600;
+            }
+        }
+
+        &.active {
+            > .tabs-nav-link {
+                @apply bg-primary-400 text-white;
+
+                &:hover {
+                    @apply bg-primary-400 text-white;
+                }
+            }
+        }
+    }
+}
+
+.tabs-content {
+    @apply p-4;
+}

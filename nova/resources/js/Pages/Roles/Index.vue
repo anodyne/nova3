@@ -15,7 +15,7 @@
             <div class="mb-6 w-1/2">
                 <div class="search-field">
                     <div class="field-addon">
-                        <nova-icon name="search" class="h-5 w-5"></nova-icon>
+                        <icon name="search" class="h-5 w-5"></icon>
                     </div>
 
                     <input
@@ -31,7 +31,7 @@
                         class="field-addon"
                         @click="search = ''"
                     >
-                        <nova-icon name="close" class="h-5 w-5"></nova-icon>
+                        <icon name="close" class="h-5 w-5"></icon>
                     </a>
                 </div>
             </div>
@@ -56,16 +56,16 @@
                         {{ role.title }}
                     </div>
                     <div class="col-auto">
-                        <nova-icon
+                        <icon
                             v-if="role.locked"
                             v-tippy
                             name="lock"
                             class="text-gray-600"
                             title="This role is locked and cannot be duplicated, edited, or deleted."
-                        ></nova-icon>
+                        ></icon>
 
                         <dropdown v-else placement="bottom-end">
-                            <nova-icon name="more-vertical"></nova-icon>
+                            <icon name="more-vertical"></icon>
 
                             <template #dropdown="{ dropdownProps }">
                                 <inertia-link
@@ -73,7 +73,7 @@
                                     :href="route('roles.edit', { role })"
                                     class="dropdown-link"
                                 >
-                                    <nova-icon name="edit" class="dropdown-item-icon"></nova-icon>
+                                    <icon name="edit" class="dropdown-item-icon"></icon>
                                     Edit
                                 </inertia-link>
                                 <a
@@ -82,7 +82,7 @@
                                     class="dropdown-link"
                                     @click="duplicate(role)"
                                 >
-                                    <nova-icon name="copy" class="dropdown-item-icon"></nova-icon>
+                                    <icon name="copy" class="dropdown-item-icon"></icon>
                                     Duplicate
                                 </a>
                                 <a
@@ -91,7 +91,7 @@
                                     class="dropdown-link-danger"
                                     @click="confirmRemove(role, dropdownProps)"
                                 >
-                                    <nova-icon name="delete" class="dropdown-item-icon"></nova-icon>
+                                    <icon name="delete" class="dropdown-item-icon"></icon>
                                     Delete
                                 </a>
                             </template>

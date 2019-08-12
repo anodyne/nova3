@@ -128,10 +128,12 @@ module.exports = {
     },
 
     variants: {
-        backgroundColor: ['responsive', 'hover', 'focus', 'focus-within'],
+        backgroundColor: ['responsive', 'hover', 'focus', 'focus-within', 'dark'],
         borderColor: ['responsive', 'hover', 'focus', 'focus-within'],
-        textColor: ['responsive', 'hover', 'focus', 'focus-within']
+        textColor: ['responsive', 'hover', 'focus', 'focus-within', 'dark', 'dark-hover']
     },
 
-    plugins: []
+    plugins: [
+        require('tailwindcss-dark-mode')()
+    ]
 };

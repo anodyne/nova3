@@ -60,12 +60,12 @@
                             <div class="avatar avatar-lg items-center">
                                 <div class="avatar-image">
                                     <a role="button" class="absolute inset-0 flex justify-center items-center rounded-full transition-fast text-transparent hover:text-gray-100">
-                                        <nova-icon name="edit"></nova-icon>
+                                        <icon name="edit"></icon>
                                     </a>
                                 </div>
 
                                 <a role="button" class="button is-danger is-small ml-2">
-                                    <nova-icon name="trash" class="mr-2"></nova-icon>
+                                    <icon name="trash" class="mr-2"></icon>
                                     Remove Image
                                 </a>
                             </div>
@@ -99,7 +99,7 @@
                                     class="field-addon"
                                     @click="search = ''"
                                 >
-                                    <nova-icon name="close"></nova-icon>
+                                    <icon name="close"></icon>
                                 </a>
                             </div>
                         </form-field>
@@ -126,7 +126,7 @@
                                 class="text-gray-500 hover:text-gray-600"
                                 @click="addRole(role)"
                             >
-                                <nova-icon name="add"></nova-icon>
+                                <icon name="add"></icon>
                             </a>
 
                             <a
@@ -135,7 +135,7 @@
                                 class="text-success-500"
                                 @click="removeRole(role)"
                             >
-                                <nova-icon name="check-circle"></nova-icon>
+                                <icon name="check-circle"></icon>
                             </a>
                         </div>
                     </div>

@@ -29,7 +29,7 @@
 
                 <div>
                     <dropdown placement="bottom-end">
-                        <nova-icon name="more-vertical" class="h-6 w-6"></nova-icon>
+                        <icon name="more-horizontal" class="h-6 w-6"></icon>
 
                         <template #dropdown="{ dropdownProps }">
                             <inertia-link
@@ -37,7 +37,7 @@
                                 :href="route('themes.edit', { theme })"
                                 class="dropdown-link"
                             >
-                                <nova-icon name="edit" class="dropdown-item-icon"></nova-icon>
+                                <icon name="edit" class="dropdown-item-icon"></icon>
                                 Edit
                             </inertia-link>
                             <a
@@ -46,7 +46,7 @@
                                 class="dropdown-link-danger"
                                 @click="confirmRemove(theme)"
                             >
-                                <nova-icon name="delete" class="dropdown-item-icon"></nova-icon>
+                                <icon name="delete" class="dropdown-item-icon"></icon>
                                 Delete
                             </a>
                         </template>

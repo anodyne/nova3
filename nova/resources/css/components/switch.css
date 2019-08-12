@@ -1,53 +1,43 @@
 .switch-container {
-    @apply .flex .items-center;
+    @apply flex items-center;
 }
 
 .switch-label {
-    @apply .ml-3 .font-medium .text-gray-700;
+    @apply ml-3 font-medium text-gray-700;
 }
 
 .switch {
-    @apply .inline-block .relative .flex-shrink-0 .rounded-full .cursor-pointer .h-6 .w-11;
+    @apply inline-block relative flex-shrink-0 rounded-full cursor-pointer h-6 w-11;
 
     &.is-small {
-        @apply .h-5 .w-9;
+        @apply h-5 w-9;
     }
 
     &:focus {
-        @apply .outline-none;
+        @apply outline-none;
     }
 }
 
 .switch:before {
-    @apply .inline-block .h-full .w-full .rounded-full .bg-transparent .border .border-gray-400;
+    @apply inline-block h-full w-full rounded-full bg-transparent border border-gray-400;
 
     content: "";
-    // -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-    // box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
     -webkit-transition: background-color 0.2s ease;
     transition: background-color 0.2s ease;
 }
 
 .switch[aria-checked="true"]:before {
-    @apply .bg-primary-500 .border-transparent;
-
-    // -webkit-box-shadow: inset 0 0 2px theme('colors.blue-500');
-    // box-shadow: inset 0 0 2px theme('colors.blue-500');
+    @apply bg-primary-500 border-transparent;
 }
 
 .switch-success[aria-checked="true"]:before {
-    @apply .bg-success-500;
-
-    // -webkit-box-shadow: inset 0 0 2px theme('colors.green-500');
-    // box-shadow: inset 0 0 2px theme('colors.green-500');
+    @apply bg-success-500;
 }
 
 .switch:after {
-    @apply .absolute .inset-x-0 .mt-1 .rounded-full .h-4 .w-4 .bg-gray-300;
+    @apply absolute inset-x-0 mt-1 rounded-full h-4 w-4 bg-gray-300;
 
     content: "";
-    // -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     -webkit-transition: -webkit-transform 0.2s ease;
     transition: -webkit-transform 0.2s ease;
     transition: transform 0.2s ease;
@@ -63,7 +53,7 @@
 }
 
 .switch[aria-checked="true"]:after {
-    @apply .bg-white;
+    @apply bg-white;
 
     -webkit-transform: translateX(1.5rem);
     transform: translateX(1.5rem);

@@ -2,7 +2,7 @@
     <sidebar-layout>
         <page-header slot="header" title="Users"></page-header>
 
-        <div class="flex flex-col bg-white -mt-8 -mx-24 mb-8 py-2 px-8">
+        <div class="flex flex-col bg-white -mt-8 -mx-12 mb-8 py-2 px-8">
             <div class="w-full border-t mb-4"></div>
             <div class="flex items-center tracking-wide">
                 <div class="font-semibold text-gray-700 mr-8">Active</div>
@@ -13,7 +13,7 @@
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center w-1/2 p-2 rounded bg-white border text-gray-500 focus-within:border-primary-300 focus-within:text-primary-500">
                 <div class="mr-2 flex-shrink-0">
-                    <nova-icon name="search" class="h-5 w-5"></nova-icon>
+                    <icon name="search" class="h-5 w-5"></icon>
                 </div>
 
                 <input
@@ -28,7 +28,7 @@
                     class="text-gray-600"
                     @click="search = ''"
                 >
-                    <nova-icon name="close" class="h-5 w-5"></nova-icon>
+                    <icon name="close" class="h-5 w-5"></icon>
                 </a>
             </div>
 
@@ -45,7 +45,7 @@
         <section
             v-for="user in filteredUsers"
             :key="user.id"
-            class="flex items-center justify-between"
+            class="flex items-center justify-between bg-gray-700 rounded p-6 overflow-hidden shadow-md mt-6 first:mt-0"
         >
             <div class="flex items-center">
                 <user-avatar :user="user" size="sm"></user-avatar>
@@ -59,7 +59,7 @@
 
             <div>
                 <dropdown placement="bottom-end">
-                    <nova-icon name="more-horizontal" class="h-6 w-6"></nova-icon>
+                    <icon name="more-horizontal" class="h-6 w-6"></icon>
 
                     <template #dropdown="{ dropdownProps }">
                         <inertia-link
@@ -67,7 +67,7 @@
                             :href="route('users.edit', { user })"
                             class="dropdown-link"
                         >
-                            <nova-icon name="edit" class="dropdown-item-icon"></nova-icon>
+                            <icon name="edit" class="dropdown-item-icon"></icon>
                             Edit
                         </inertia-link>
                         <a
@@ -76,7 +76,7 @@
                             class="dropdown-link-danger"
                             @click="confirmRemove(user, dropdownProps)"
                         >
-                            <nova-icon name="delete" class="dropdown-item-icon"></nova-icon>
+                            <icon name="delete" class="dropdown-item-icon"></icon>
                             Delete
                         </a>
                     </template>

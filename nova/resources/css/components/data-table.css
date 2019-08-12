@@ -1,65 +1,65 @@
 .data-table {
-	@apply .my-4;
+	@apply my-4;
 
 	> .row {
-		@apply .border-t .mx-0 .py-3 .flex .items-center;
+		@apply border-t mx-0 py-3 flex items-center;
 
 		&.is-header,
 		.is-header {
-			@apply .bg-gray-100 .text-gray-600 .font-medium .text-xs .uppercase .tracking-wide;
+			@apply bg-gray-100 text-gray-600 font-medium text-xs uppercase tracking-wide;
 
 			.title {
-				@apply .m-0;
+				@apply m-0;
 			}
 
 			.btn-toolbar {
-				@apply .m-0;
+				@apply m-0;
 			}
 		}
 
 		> .col {
 			> .row {
 				+ .row {
-					@apply .pt-3;
+					@apply pt-3;
 				}
 			}
 
 			.field-wrapper {
-				@apply .mb-0;
+				@apply mb-0;
 			}
 		}
 	}
 
 	&.is-clean {
 		> .row {
-			@apply .border-none;
+			@apply border-none;
 		}
 	}
 
 	&.is-striped {
 		> .row:nth-child(odd) {
-			@apply .bg-gray-100;
+			@apply bg-gray-100;
 
 			.avatar-image .status {
-				@apply .border-gray-100;
+				@apply border-gray-100;
 			}
 
 			&.is-header {
-				@apply .bg-gray-200;
+				@apply bg-gray-200;
 			}
 		}
 	}
 
 	&.is-bordered {
 		> div {
-			@apply .border-l .border-r;
+			@apply border-l border-r;
 
 			&:last-child {
-				@apply .border-b;
+				@apply border-b;
 			}
 
 			&:nth-child(1):nth-last-child(1) {
-				@apply .border-b;
+				@apply border-b;
 			}
 		}
 	}
@@ -67,15 +67,15 @@
 	&.is-rounded {
 		> div {
 			&:first-child {
-				@apply .rounded-t;
+				@apply rounded-t;
 			}
 
 			&:last-child {
-				@apply .rounded-b;
+				@apply rounded-b;
 			}
 
 			&:nth-child(1):nth-last-child(1) {
-				@apply .rounded;
+				@apply rounded;
 			}
 		}
 	}
@@ -83,7 +83,7 @@
 	&.is-rounded-bottom {
 		> div {
 			&:last-child {
-				@apply .rounded-b;
+				@apply rounded-b;
 			}
 		}
 	}
@@ -91,63 +91,63 @@
 	&.is-rounded-top {
 		> div {
 			&:first-child {
-				@apply .rounded-t;
+				@apply rounded-t;
 			}
 		}
 	}
 
 	&.is-hoverable {
 		.row:not(.is-header):hover {
-			@apply .text-gray-800;
+			@apply text-gray-800;
 		}
 	}
 
 	&.has-controls {
 		.row-controls {
-			@apply .hidden;
+			@apply hidden;
 		}
 
 		.row:hover .row-controls {
-			@apply .flex;
+			@apply flex;
 		}
 	}
 }
 
 .data-table.is-inverse {
-	@apply .text-gray-500;
+	@apply text-gray-500;
 
 	> .row {
-		@apply .border-black;
+		@apply border-black;
 
 		&.is-header,
 		.is-header {
-			@apply .bg-black;
+			@apply bg-black;
 		}
 	}
 
 	&.is-striped {
 		> .row:nth-child(odd) {
-			@apply .bg-gray-800;
+			@apply bg-gray-800;
 
 			.avatar-image .status {
-				@apply .border-gray-900;
+				@apply border-gray-900;
 			}
 
 			&.is-header {
-				@apply .bg-black;
+				@apply bg-black;
 			}
 		}
 	}
 
 	&.is-bordered {
 		> div {
-			@apply .border-black;
+			@apply border-black;
 		}
 	}
 
 	&.is-hoverable {
 		.row:not(.is-header):hover {
-			@apply .text-gray-300;
+			@apply text-gray-300;
 		}
 	}
 }
