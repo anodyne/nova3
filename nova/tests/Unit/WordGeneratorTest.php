@@ -16,7 +16,10 @@ class WordGeneratorTest extends TestCase
         $this->generator = new WordGenerator;
     }
 
-    public function testItCanGenerateRandomWord()
+    /**
+     * @test
+     */
+    public function itCanGenerateWord()
     {
         $words = $this->generator->words();
 

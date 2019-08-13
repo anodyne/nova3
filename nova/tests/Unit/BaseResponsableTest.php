@@ -17,9 +17,7 @@ class BaseResponsableTest extends TestCase
     {
         parent::setUp();
 
-        $page = Page::first();
-
-        $this->response = (new class($page, $this->app) extends BaseResponsable {
+        $this->response = (new class($page = Page::first(), $this->app) extends BaseResponsable {
             public function views()
             {
                 return [
@@ -29,19 +27,28 @@ class BaseResponsableTest extends TestCase
         });
     }
 
-    public function testItHasResponseView()
+    /**
+     * @test
+     */
+    public function itHasResponseView()
     {
         $this->assertEquals('foo', $this->response->getView('page'));
     }
 
-    public function testItCanUseDynamicWithMethodsToSetData()
+    /**
+     * @test
+     */
+    public function itCanUseDynamicWithMethodsToSetData()
     {
         $this->response->withFoo('bar');
 
         $this->assertEquals('bar', $this->response->getData('foo'));
     }
 
-    public function testItCanSetAnArrayOfData()
+    /**
+     * @test
+     */
+    public function itCanSetAnArrayOfData()
     {
         $this->response->with([
             'foo' => 'foo',
@@ -56,7 +63,10 @@ class BaseResponsableTest extends TestCase
         });
     }
 
-    public function testItOnlyAllowsDynamicMethodsForSettingWithData()
+    /**
+     * @test
+     */
+    public function itOnlyAllowsDynamicMethodsForSettingWithData()
     {
         $this->expectException('BadMethodCallException');
 
