@@ -129,9 +129,8 @@
 
 <script>
 import slug from 'slug';
-import Form from '@/Utils/Form';
 import indexOf from 'lodash/indexOf';
-import { Inertia } from 'inertia-vue';
+import Form from '@/Utils/Form';
 
 export default {
     props: {
@@ -192,7 +191,7 @@ export default {
                 then: (data) => {
                     this.$toast.message(`${data.title} role was created.`).success();
 
-                    Inertia.replace(this.route('roles.index'));
+                    this.$inertia.replace(this.route('roles.index'));
                 }
             });
         }
