@@ -109,7 +109,7 @@ class CreateUserTest extends TestCase
         ]);
 
         $response->assertStatus(422);
-        $response->assertJsonValidationErrors('email');
+        $response->assertJsonValidationErrors('name');
     }
 
     /**
@@ -124,7 +124,7 @@ class CreateUserTest extends TestCase
         ]);
 
         $response->assertStatus(422);
-        $response->assertJsonValidationErrors('name');
+        $response->assertJsonValidationErrors('email');
     }
 
     /**
