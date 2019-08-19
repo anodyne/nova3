@@ -3,67 +3,88 @@
 namespace Tests\Feature\Users;
 
 use Tests\TestCase;
-use Nova\Users\Models\User;
 use Nova\Users\Events;
-use Illuminate\Http\Response;
+use Nova\Users\Models\User;
 use Illuminate\Support\Facades\Event;
-use Nova\Users\Notifications\AccountCreated;
 use Illuminate\Support\Facades\Notification;
+use Nova\Users\Notifications\AccountCreated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateUserTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testAuthorizedUserCanCreateUser()
+    /**
+     * @test
+     */
+    public function authorizedUserCanCreateUser()
     {
         $this->signInWithAbility('user.create');
 
-        $this->get(route('users.create'))->assertSuccessful();
+        $response = $this->get(route('users.create'));
+
+        $response->assertSuccessful();
     }
 
-    public function testUnauthorizedUserCannotCreateUser()
+    /**
+     * @test
+     */
+    public function unauthorizedUserCannotCreateUser()
     {
         $this->signIn();
 
-        $this->get(route('users.create'))
-            ->assertStatus(Response::HTTP_FORBIDDEN);
+        $response = $this->get(route('users.create'));
 
-        $this->postJson(route('users.store'), [])
-            ->assertStatus(Response::HTTP_FORBIDDEN);
+        $response->assertForbidden();
+
+        $response = $this->postJson(route('users.store'), []);
+
+        $response->assertForbidden();
     }
 
-    public function testGuestCannotCreateUser()
+    /**
+     * @test
+     */
+    public function guestCannotCreateUser()
     {
-        $this->get(route('users.create'))
-            ->assertRedirect(route('login'));
+        $response = $this->get(route('users.create'));
 
-        $this->postJson(route('users.store'), [])
-            ->assertStatus(Response::HTTP_UNAUTHORIZED);
+        $response->assertRedirect(route('login'));
+
+        $response = $this->postJson(route('users.store'), []);
+
+        $response->assertUnauthorized();
     }
 
-    public function testUserCanBeCreated()
+    /**
+     * @test
+     */
+    public function userCanBeCreated()
     {
         $this->signInWithAbility('user.create');
 
-        $userData = factory(User::class)->make();
+        $data = factory(User::class)->make();
 
-        $this->postJson(route('users.store'), $userData->toArray())
-            ->assertSuccessful();
+        $response = $this->postJson(route('users.store'), $data->toArray());
 
-        $this->assertDatabaseHas('users', [
-            'name' => $userData->name,
-            'email' => $userData->email,
-        ]);
+        $response->assertSuccessful();
+
+        $this->assertDatabaseHas('users', $data->only('name', 'email'));
     }
 
-    public function testEventsAreDispatchedWhenUserIsCreated()
+    /**
+     * @test
+     */
+    public function eventsAreDispatchedWhenUserIsCreated()
     {
         Event::fake();
 
         $this->signInWithAbility('user.create');
 
-        $this->postJson(route('users.store'), factory(User::class)->make()->toArray());
+        $response = $this->postJson(
+            route('users.store'),
+            factory(User::class)->make()->toArray()
+        );
 
         $user = User::get()->last();
 
@@ -76,29 +97,46 @@ class CreateUserTest extends TestCase
         });
     }
 
-    public function testNameIsRequiredToCreateUser()
+    /**
+     * @test
+     */
+    public function nameIsRequiredToCreateUser()
     {
         $this->signInWithAbility('user.create');
 
-        $this->postJson(route('users.store'), ['email' => 'john@example.com'])
-            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response = $this->postJson(route('users.store'), [
+            'email' => 'john@example.com',
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('name');
     }
 
-    public function testEmailIsRequiredToCreateUser()
+    /**
+     * @test
+     */
+    public function emailIsRequiredToCreateUser()
     {
         $this->signInWithAbility('user.create');
 
-        $this->postJson(route('users.store'), ['name' => 'foo'])
-            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response = $this->postJson(route('users.store'), [
+            'name' => 'foo',
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('email');
     }
 
-    public function testPasswordIsGeneratedAfterCreation()
+    /**
+     * @test
+     */
+    public function passwordIsGeneratedAfterCreation()
     {
         $this->signInWithAbility('user.create');
 
-        $this->postJson(route('users.store'), [
+        $response = $this->postJson(route('users.store'), [
             'name' => 'John Q. Public',
-            'email' => 'john@example.com'
+            'email' => 'john@example.com',
         ]);
 
         $user = User::get()->last();
@@ -106,15 +144,18 @@ class CreateUserTest extends TestCase
         $this->assertNotNull($user->password);
     }
 
-    public function testUserIsNotifiedWithPasswordAfterCreation()
+    /**
+     * @test
+     */
+    public function userIsNotifiedWithPasswordAfterCreation()
     {
         Notification::fake();
 
         $this->signInWithAbility('user.create');
 
-        $this->postJson(route('users.store'), [
+        $response = $this->postJson(route('users.store'), [
             'name' => 'John Q. Public',
-            'email' => 'john@example.com'
+            'email' => 'john@example.com',
         ]);
 
         $user = User::get()->last();

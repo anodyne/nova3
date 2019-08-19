@@ -3,8 +3,8 @@
 namespace Tests\Feature\Users;
 
 use Tests\TestCase;
-use Nova\Users\Models\User;
 use Nova\Users\Events;
+use Nova\Users\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -22,25 +22,38 @@ class UpdateUserTest extends TestCase
         $this->user = factory(User::class)->create();
     }
 
-    public function testAuthorizedUserCanUpdateUser()
+    /**
+     * @test
+     */
+    public function authorizedUserCanUpdateUser()
     {
         $this->signInWithAbility('user.update');
 
-        $this->get(route('users.edit', $this->user))->assertSuccessful();
+        $response = $this->get(route('users.edit', $this->user));
+
+        $response->assertSuccessful();
     }
 
-    public function testUnauthorizedUserCannotUpdateUser()
+    /**
+     * @test
+     */
+    public function unauthorizedUserCannotUpdateUser()
     {
         $this->signIn();
 
-        $this->get(route('users.edit', $this->user))
-            ->assertStatus(Response::HTTP_FORBIDDEN);
+        $response = $this->get(route('users.edit', $this->user));
 
-        $this->postJson(route('users.store', $this->user), [])
-            ->assertStatus(Response::HTTP_FORBIDDEN);
+        $response->assertForbidden();
+
+        $response = $this->postJson(route('users.store', $this->user), []);
+
+        $response->assertForbidden();
     }
 
-    public function testGuestCannotUpdateUser()
+    /**
+     * @test
+     */
+    public function GuestCannotUpdateUser()
     {
         $this->get(route('users.edit', $this->user))
             ->assertRedirect(route('login'));
@@ -49,7 +62,10 @@ class UpdateUserTest extends TestCase
             ->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
-    public function testUserCanBeUpdated()
+    /**
+     * @test
+     */
+    public function UserCanBeUpdated()
     {
         $this->signInWithAbility('user.update');
 
@@ -64,7 +80,10 @@ class UpdateUserTest extends TestCase
         });
     }
 
-    public function testEventsAreDispatchedWhenUserIsUpdated()
+    /**
+     * @test
+     */
+    public function EventsAreDispatchedWhenUserIsUpdated()
     {
         Event::fake();
 
@@ -83,7 +102,10 @@ class UpdateUserTest extends TestCase
         });
     }
 
-    public function testNameIsRequiredToCreateUser()
+    /**
+     * @test
+     */
+    public function NameIsRequiredToCreateUser()
     {
         $this->signInWithAbility('user.create');
 
@@ -91,7 +113,10 @@ class UpdateUserTest extends TestCase
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function testEmailIsRequiredToCreateUser()
+    /**
+     * @test
+     */
+    public function EmailIsRequiredToCreateUser()
     {
         $this->signInWithAbility('user.create');
 

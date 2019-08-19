@@ -1,11 +1,11 @@
 import Vue from 'vue';
-import Inertia from 'inertia-vue';
+import { InertiaApp } from '@inertiajs/inertia-vue';
 import VueTippy from 'vue-tippy';
-import Toast from '@/Shared/Toasts';
 import PortalVue from 'portal-vue';
+import Toast from '@/Shared/Toasts';
 
 Vue.use(Toast);
-Vue.use(Inertia);
+Vue.use(InertiaApp);
 Vue.use(PortalVue);
 Vue.use(VueTippy, {
     arrow: true,

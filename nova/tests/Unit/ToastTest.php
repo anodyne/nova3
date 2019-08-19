@@ -16,35 +16,50 @@ class ToastTest extends TestCase
         $this->toast = $this->app->make(Toast::class);
     }
 
-    public function testItCanSetMessage()
+    /**
+     * @test
+     */
+    public function itCanSetMessage()
     {
         $this->toast->withMessage('Message');
 
         $this->assertEquals('Message', $this->toast->message);
     }
 
-    public function testItCanSetActionText()
+    /**
+     * @test
+     */
+    public function itCanSetActionText()
     {
         $this->toast->withActionText('Save');
 
         $this->assertEquals('Save', $this->toast->actionText);
     }
 
-    public function testItCanSetActionUrl()
+    /**
+     * @test
+     */
+    public function itCanSetActionUrl()
     {
         $this->toast->withActionLink('https://google.com');
 
         $this->assertEquals('https://google.com', $this->toast->actionLink);
     }
 
-    public function testItCanSetErrorType()
+    /**
+     * @test
+     */
+    public function itCanSetErrorType()
     {
         $this->toast->error();
 
         $this->assertEquals('is-danger', $this->toast->type);
     }
 
-    public function testItCanSetSuccessType()
+    /**
+     * @test
+     */
+    public function itCanSetSuccessType()
     {
         $this->toast->success();
 

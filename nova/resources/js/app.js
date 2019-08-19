@@ -1,4 +1,4 @@
-import Inertia from 'inertia-vue';
+import { InertiaApp } from '@inertiajs/inertia-vue';
 import Vue from 'vue';
 import store from './Store';
 
@@ -25,7 +25,7 @@ new Vue({
 
     render (h) {
         return h('div', [
-            h(Inertia, {
+            h(InertiaApp, {
                 props: {
                     initialPage: JSON.parse(app.dataset.page),
                     resolveComponent: name => import(`@/Pages/${name}`).then(module => module.default)

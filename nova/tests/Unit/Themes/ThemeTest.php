@@ -11,7 +11,10 @@ class ThemeTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testItCanGetAListOfThemesToBeInstalled()
+    /**
+     * @test
+     */
+    public function itCanGetAListOfThemesToBeInstalled()
     {
         Storage::fake('themes');
 
@@ -25,7 +28,10 @@ class ThemeTest extends TestCase
         $this->assertCount(1, $themes->toBeInstalled());
     }
 
-    public function testItCollectsThemesWithAQuickInstallFileToBeInstalled()
+    /**
+     * @test
+     */
+    public function itCollectsThemesWithAQuickInstallFileToBeInstalled()
     {
         Storage::fake('themes');
 
