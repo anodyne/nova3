@@ -127,7 +127,6 @@
 
 <script>
 import findIndex from 'lodash/findIndex';
-import { Inertia } from 'inertia-vue';
 import Form from '@/Utils/Form';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 
@@ -173,7 +172,7 @@ export default {
 
                     this.availableRoles.push(data);
 
-                    Inertia.replace(this.route('roles.edit', { role: data }));
+                    this.$inertia.replace(this.route('roles.edit', { role: data }));
                 }
             });
         },

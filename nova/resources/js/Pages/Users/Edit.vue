@@ -166,7 +166,6 @@
 </template>
 
 <script>
-import { Inertia } from 'inertia-vue';
 import UserHelpers from './UserHelpers';
 import Form from '@/Utils/Form';
 
@@ -213,7 +212,7 @@ export default {
                 then: (data) => {
                     this.$toast.message(`User account for ${data.name} was updated.`).success();
 
-                    Inertia.replace(this.route('users.index'));
+                    this.$inertia.replace(this.route('users.index'));
                 }
             });
         }

@@ -141,7 +141,6 @@
 
 <script>
 import indexOf from 'lodash/indexOf';
-import { Inertia } from 'inertia-vue';
 import Form from '@/Utils/Form';
 
 export default {
@@ -213,7 +212,7 @@ export default {
                 then: (data) => {
                     this.$toast.message(`${data.title} role was updated.`).success();
 
-                    Inertia.replace(this.route('roles.index'));
+                    this.$inertia.replace(this.route('roles.index'));
                 }
             });
         }

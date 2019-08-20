@@ -26,7 +26,6 @@
 import find from 'lodash/find';
 import BasePicker from '@/Shared/Pickers/BasePicker';
 import IconFeather from '@/Shared/Icons/IconFeather';
-import IconFontAwesome from '@/Shared/Icons/IconFontAwesome';
 
 export default {
     name: 'IconSetPicker',
@@ -53,9 +52,6 @@ export default {
             iconSets: [
                 {
                     id: 1, name: 'Feather Icons', value: 'feather', icon: 'user', component: 'IconFeather'
-                },
-                {
-                    id: 2, name: 'Font Awesome 5', value: 'fa5', icon: 'user', component: 'IconFontAwesome'
                 }
             ],
             selected: null

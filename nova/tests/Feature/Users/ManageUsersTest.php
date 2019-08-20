@@ -3,37 +3,50 @@
 namespace Tests\Feature\Users;
 
 use Tests\TestCase;
-use Illuminate\Http\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ManageUsersTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testAuthorizedUserCanManageUsers()
+    /**
+     * @test
+     */
+    public function authorizedUserCanManageUsers()
     {
-        $this->withoutExceptionHandling();
         $this->signInWithAbility('user.create');
 
-        $this->get(route('users.index'))
-            ->assertSuccessful();
+        $response = $this->get(route('users.index'));
+
+        $response->assertSuccessful();
     }
 
-    public function testUnauthorizedUserCannotManageThemes()
+    /**
+     * @test
+     */
+    public function unauthorizedUserCannotManageThemes()
     {
         $this->signIn();
 
-        $this->get(route('users.index'))
-            ->assertStatus(Response::HTTP_FORBIDDEN);
+        $response = $this->get(route('users.index'));
+
+        $response->assertForbidden();
     }
 
-    public function testGuestCannotManageUsers()
+    /**
+     * @test
+     */
+    public function guestCannotManageUsers()
     {
-        $this->get(route('users.index'))
-            ->assertRedirect(route('login'));
+        $response = $this->get(route('users.index'));
+
+        $response->assertRedirect(route('login'));
     }
 
-    public function testPendingUsersAreShown()
+    /**
+     * @test
+     */
+    public function pendingUsersAreShown()
     {
         $this->markTestIncomplete();
     }

@@ -339,7 +339,6 @@
 
 <script>
 import slug from 'slug';
-import { Inertia } from 'inertia-vue';
 import Form from '@/Utils/Form';
 import LayoutPicker from '@/Shared/Pickers/LayoutPicker';
 import IconSetPicker from '@/Shared/Pickers/IconSetPicker';
@@ -381,7 +380,7 @@ export default {
                 then: (data) => {
                     this.$toast.message(`${data.name} theme was created.`).success();
 
-                    Inertia.replace(this.route('themes.index'));
+                    this.$inertia.replace(this.route('themes.index'));
                 }
             });
         }
