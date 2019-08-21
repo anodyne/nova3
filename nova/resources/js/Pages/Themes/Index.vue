@@ -42,11 +42,9 @@
                     :key="theme.id"
                     class="panel flex items-center justify-between"
                 >
-                    <div class="flex items-center">
-                        <div class="flex flex-col">
-                            <div class="font-semibold">{{ theme.name }}</div>
-                            <div class="text-gray-600">themes/{{ theme.location }}</div>
-                        </div>
+                    <div class="flex flex-col">
+                        <div class="font-semibold">{{ theme.name }}</div>
+                        <div class="text-gray-600">themes/{{ theme.location }}</div>
                     </div>
 
                     <div>
@@ -86,16 +84,16 @@
             Are you sure you want to delete the {{ deletingItem.title }} theme?
 
             <template #footer>
-                <button
-                    type="button"
-                    class="button is-danger-vivid mr-4"
-                    @click="remove"
-                >
-                    Delete
-                </button>
-
                 <button class="button is-secondary" @click="hideModal">
                     Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="button is-danger-vivid ml-4"
+                    @click="remove"
+                >
+                    Delete Theme
                 </button>
             </template>
         </modal>

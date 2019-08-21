@@ -38,12 +38,13 @@
                 <div
                     v-for="role in filteredRoles"
                     :key="role.id"
-                    class="panel flex items-center"
+                    class="panel flex items-center justify-between"
                 >
-                    <div class="flex-1">
+                    <div>
                         {{ role.title }}
                     </div>
-                    <div class="flex-shrink">
+
+                    <div>
                         <icon
                             v-if="role.locked"
                             v-tippy
@@ -53,7 +54,7 @@
                         ></icon>
 
                         <dropdown v-else placement="bottom-end">
-                            <icon name="more-horizontal"></icon>
+                            <icon name="more-horizontal" class="h-6 w-6"></icon>
 
                             <template #dropdown="{ dropdownProps }">
                                 <inertia-link

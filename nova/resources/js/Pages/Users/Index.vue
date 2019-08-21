@@ -38,13 +38,13 @@
                 <div
                     v-for="user in filteredUsers"
                     :key="user.id"
-                    class="panel flex items-center"
+                    class="panel flex items-center justify-between"
                 >
-                    <div class="flex items-center flex-1">
+                    <div>
                         <user-avatar :user="user" size="sm"></user-avatar>
                     </div>
 
-                    <div class="flex-shrink">
+                    <div>
                         <dropdown placement="bottom-end">
                             <icon name="more-horizontal" class="h-6 w-6"></icon>
 
@@ -81,16 +81,16 @@
             Are you sure you want to delete <strong>{{ deletingItem.name }}</strong>'s account?
 
             <template #footer>
-                <button
-                    type="button"
-                    class="button is-danger-vivid mr-4"
-                    @click="remove"
-                >
-                    Delete
-                </button>
-
                 <button class="button is-secondary" @click="hideModal">
                     Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="button is-danger-vivid ml-4"
+                    @click="remove"
+                >
+                    Delete User
                 </button>
             </template>
         </modal>
