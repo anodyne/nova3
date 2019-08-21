@@ -1,6 +1,6 @@
 <template>
     <div>
-        <header class="flex h-64 bg-blue-500 mb-12"></header>
+        <header class="flex h-64 bg-primary-500 mb-12"></header>
 
         <main>
             <div class="container">

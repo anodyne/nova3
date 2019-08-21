@@ -7,57 +7,46 @@
                 :href="route('users.create')"
                 class="button is-primary"
             >
-                Create User
+                Add User
             </inertia-link>
         </page-header>
 
         <section>
-            <div class="mb-6 w-1/2">
-                <div class="search-field">
-                    <div class="field-addon">
-                        <nova-icon name="search" class="h-5 w-5"></nova-icon>
-                    </div>
+            <div class="mb-6 w-1/3">
+                <div class="flex items-center py-1 px-2 rounded-full bg-white border-2 border-transparent text-gray-500 focus-within:bg-white focus-within:border-gray-400 focus-within:text-gray-600">
+                    <icon name="search" class="mr-2"></icon>
 
                     <input
                         v-model="search"
                         type="text"
                         placeholder="Find a user..."
-                        class="field"
+                        class="w-full appearance-none bg-transparent text-gray-800 focus:outline-none"
                     >
 
                     <a
                         v-show="search != ''"
                         role="button"
-                        class="field-addon"
+                        class="ml-2 text-gray-500 hover:text-danger-500"
                         @click="search = ''"
                     >
-                        <nova-icon name="close" class="h-5 w-5"></nova-icon>
+                        <icon name="close"></icon>
                     </a>
                 </div>
             </div>
 
-            <transition-group
-                tag="div"
-                class="data-table is-striped has-controls"
-                leave-active-class="animated fadeOut"
-            >
-                <div key="header" class="row is-header">
-                    <div class="col">
-                        User Name
-                    </div>
-                </div>
-
+            <transition-group leave-active-class="animated fadeOut">
                 <div
                     v-for="user in filteredUsers"
                     :key="user.id"
-                    class="row"
+                    class="panel flex items-center justify-between"
                 >
-                    <div class="col">
+                    <div>
                         <user-avatar :user="user" size="sm"></user-avatar>
                     </div>
-                    <div class="col-auto">
+
+                    <div>
                         <dropdown placement="bottom-end">
-                            <nova-icon name="more-vertical"></nova-icon>
+                            <icon name="more-horizontal" class="h-6 w-6"></icon>
 
                             <template #dropdown="{ dropdownProps }">
                                 <inertia-link
@@ -65,7 +54,7 @@
                                     :href="route('users.edit', { user })"
                                     class="dropdown-link"
                                 >
-                                    <nova-icon name="edit" class="dropdown-item-icon"></nova-icon>
+                                    <icon name="edit" class="dropdown-item-icon"></icon>
                                     Edit
                                 </inertia-link>
                                 <a
@@ -74,7 +63,7 @@
                                     class="dropdown-link-danger"
                                     @click="confirmRemove(user, dropdownProps)"
                                 >
-                                    <nova-icon name="delete" class="dropdown-item-icon"></nova-icon>
+                                    <icon name="delete" class="dropdown-item-icon"></icon>
                                     Delete
                                 </a>
                             </template>
@@ -86,22 +75,22 @@
 
         <modal
             :open="modalIsShown"
-            title="Delete account?"
+            title="Delete Account"
             @close="hideModal"
         >
-            Are you sure you want to delete {{ deletingItem.name }}'s account?
+            Are you sure you want to delete <strong>{{ deletingItem.name }}</strong>'s account?
 
             <template #footer>
-                <button
-                    type="button"
-                    class="button is-danger-vivid mr-4"
-                    @click="remove"
-                >
-                    Delete
-                </button>
-
                 <button class="button is-secondary" @click="hideModal">
                     Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="button is-danger-vivid ml-4"
+                    @click="remove"
+                >
+                    Delete User
                 </button>
             </template>
         </modal>
@@ -109,8 +98,8 @@
 </template>
 
 <script>
-import Form from '@/Utils/Form';
 import findIndex from 'lodash/findIndex';
+import Form from '@/Utils/Form';
 import UserAvatar from '@/Shared/Avatars/UserAvatar';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 

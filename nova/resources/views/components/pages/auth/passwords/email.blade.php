@@ -1,5 +1,3 @@
-<h1 class="mb-8 font-extrabold text-blue-600 text-5xl">Reset Password</h1>
-
 @if (session('status'))
     <div class="alert alert-success" role="alert">
         {{ session('status') }}
@@ -12,12 +10,14 @@
     </div>
 @endif
 
+<p class="text-sm text-gray-600 mb-4">If you can't remember your password, please provide your email address and we will send you a link which you may use to change your password.</p>
+
 <form action="{{ route('password.email') }}" method="POST">
     @csrf
 
     <div class="field-wrapper">
         <div class="field-label">
-            <label for="email">{{ __('E-Mail Address') }}</label>
+            <label for="email">{{ __('Email') }}</label>
         </div>
 
         <div class="field-group">
@@ -29,7 +29,7 @@
         @endif
     </div>
 
-    <button type="submit" class="button is-primary is-large">
-        {{ __('Send Password Reset Link') }}
+    <button type="submit" class="button is-primary">
+        {{ __('Send Reset Link') }}
     </button>
 </form>

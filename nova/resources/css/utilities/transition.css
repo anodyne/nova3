@@ -1,0 +1,78 @@
+.transition-fastest {
+    transition-duration: 50ms;
+}
+.transition-faster {
+    transition-duration: 100ms;
+}
+.transition-fast {
+    transition-duration: 150ms;
+}
+.transition-medium {
+    transition-duration: 200ms;
+}
+.transition-slow {
+    transition-duration: 250ms;
+}
+.transition-slower {
+    transition-duration: 300ms;
+}
+.transition-slowest {
+    transition-duration: 500ms;
+}
+
+.transition-all {
+    transition-property: all;
+}
+.transition-background {
+    transition-property: background-color;
+}
+.transition-border {
+    transition-property: border-color;
+}
+.transition-color {
+    transition-property: background-color, border-color, color;
+}
+.transition-none {
+    transition-property: none;
+}
+.transition-opacity {
+    transition-property: opacity;
+}
+.transition-text {
+    transition-property: color;
+}
+.transition-transform {
+    transition-property: transform;
+}
+
+.delay-fastest {
+    transition-delay: 50ms;
+}
+.delay-faster {
+    transition-delay: 100ms;
+}
+.delay-fast {
+    transition-delay: 150ms;
+}
+.delay-medium {
+    transition-delay: 200ms;
+}
+.delay-slow {
+    transition-delay: 250ms;
+}
+.delay-slower {
+    transition-delay: 300ms;
+}
+.delay-slowest {
+    transition-delay: 500ms;
+}
+
+.ease-in {
+    transition-timing-function: cubic-bezier(.55, .085, .68, .53);
+}
+.ease-in-out {
+    transition-timing-function: cubic-bezier(.455, .03, .515, .955);
+}
+.ease-out {
+    transition-timing-function: cubic-bezier(.25, .46, .45, .94);
+}

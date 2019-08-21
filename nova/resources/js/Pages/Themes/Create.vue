@@ -1,12 +1,12 @@
 <template>
     <sidebar-layout>
-        <page-header title="Create Theme">
+        <page-header title="Add Theme">
             <template #pretitle>
                 <inertia-link :href="route('themes.index')">Themes</inertia-link>
             </template>
         </page-header>
 
-        <section>
+        <section class="panel">
             <form
                 :action="route('themes.store')"
                 method="POST"
@@ -171,9 +171,9 @@
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary is-large">Create</button>
+                    <button type="submit" class="button is-primary">Create</button>
 
-                    <inertia-link :href="route('themes.index')" class="button is-secondary is-large">
+                    <inertia-link :href="route('themes.index')" class="button is-secondary">
                         Cancel
                     </inertia-link>
                 </div>

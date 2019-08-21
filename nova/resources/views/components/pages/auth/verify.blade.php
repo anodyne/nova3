@@ -1,5 +1,3 @@
-<h1 class="mb-8 font-extrabold text-blue-600 text-5xl">{{ __('Verify Your Email Address') }}</h1>
-
 @if (session('resent'))
     <div class="alert alert-success" role="alert">
         {{ __('A fresh verification link has been sent to your email address.') }}

@@ -2,12 +2,12 @@
 
 namespace Nova\Users\Http\Controllers;
 
-use Nova\Users\Models\User;
 use Nova\Users\Jobs;
 use Nova\Users\Events;
 use Nova\Roles\Models\Role;
-use Nova\Users\Http\Responses;
+use Nova\Users\Models\User;
 use Nova\Users\Http\Resources;
+use Nova\Users\Http\Responses;
 use Nova\Users\Http\Validators;
 use Nova\Users\Http\Authorizers;
 use Nova\Foundation\Http\Controllers\Controller;
@@ -38,11 +38,11 @@ class UserController extends Controller
 
     public function store(Authorizers\Store $gate, Validators\Store $request)
     {
-        $user = dispatch_now(new Jobs\Create($request->validated()));
+        $user = Jobs\Create::dispatchNow($request->validated());
 
         event(new Events\AdminCreated($user));
 
-        return $user->fresh();
+        return $user->refresh();
     }
 
     public function edit(Authorizers\Edit $gate, User $user)
@@ -54,16 +54,16 @@ class UserController extends Controller
 
     public function update(Authorizers\Update $gate, Validators\Update $request, User $user)
     {
-        $user = dispatch_now(new Jobs\Update($user, $request->validated()));
+        $user = Jobs\Update::dispatchNow($user, $request->validated());
 
-        event(new Events\AdminUpdated($user->fresh()));
+        event(new Events\AdminUpdated($user->refresh()));
 
-        return $user->fresh();
+        return $user;
     }
 
     public function destroy(Authorizers\Destroy $gate, User $user)
     {
-        $user = dispatch_now(new Jobs\Delete($user));
+        $user = Jobs\Delete::dispatchNow($user);
 
         event(new Events\AdminDeleted($user));
 
