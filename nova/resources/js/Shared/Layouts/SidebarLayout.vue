@@ -139,14 +139,9 @@
                         <icon name="notification"></icon>
                     </a>
 
-                    <div class="avatar avatar-sm">
-                        <div class="avatar-image"></div>
-                        <div class="avatar-meta text-gray-600">
-                            Jack Sparrow
-                        </div>
-                    </div>
+                    <user-avatar :user="$store.get('User')" size="sm"></user-avatar>
 
-                    <icon name="chevron-down" class="ml-1 text-gray-500 h-4 w-4"></icon>
+                    <icon name="chevron-down" class="ml-2 text-gray-500 h-4 w-4"></icon>
                 </div>
             </nav>
 
@@ -162,9 +157,12 @@
 
 <script>
 import Mousetrap from 'mousetrap';
+import UserAvatar from '@/Shared/Avatars/UserAvatar';
 
 export default {
     name: 'SidebarLayout',
+
+    components: { UserAvatar },
 
     created () {
         Mousetrap.bind('/', (e) => {
