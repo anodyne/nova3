@@ -6,7 +6,6 @@ module.exports = {
             black: 'var(--color-black, #000)',
             transparent: 'transparent',
             white: 'var(--color-white, #fff)',
-
             danger: {
                 100: 'var(--color-danger-100, #fff5f5)',
                 200: 'var(--color-danger-200, #fed7d7)',
@@ -18,7 +17,6 @@ module.exports = {
                 800: 'var(--color-danger-800, #9b2c2c)',
                 900: 'var(--color-danger-900, #742a2a)'
             },
-
             gray: {
                 100: 'var(--color-gray-100, #F7F7F7)',
                 200: 'var(--color-gray-200, #EAEBEC)',
@@ -29,20 +27,7 @@ module.exports = {
                 700: 'var(--color-gray-700, #565B5E)',
                 800: 'var(--color-gray-800, #3C4348)',
                 900: 'var(--color-gray-900, #283033)'
-                // 900: 'var(--color-gray-900, #141a21)'
             },
-            // gray: {
-            //     100: 'var(--color-gray-100, #f7fafc)',
-            //     200: 'var(--color-gray-200, #edf2f7)',
-            //     300: 'var(--color-gray-300, #e2e8f0)',
-            //     400: 'var(--color-gray-400, #cbd5e0)',
-            //     500: 'var(--color-gray-500, #a0aec0)',
-            //     600: 'var(--color-gray-600, #718096)',
-            //     700: 'var(--color-gray-700, #4a5568)',
-            //     800: 'var(--color-gray-800, #2d3748)',
-            //     900: 'var(--color-gray-900, #1a202c)'
-            // },
-
             info: {
                 100: 'var(--color-info-100, #faf5ff)',
                 200: 'var(--color-info-200, #e9d8fd)',
@@ -54,7 +39,6 @@ module.exports = {
                 800: 'var(--color-info-800, #553c9a)',
                 900: 'var(--color-info-900, #44337a)'
             },
-
             primary: {
                 100: 'var(--color-primary-100, #ebf8ff)',
                 200: 'var(--color-primary-200, #bee3f8)',
@@ -66,7 +50,6 @@ module.exports = {
                 800: 'var(--color-primary-800, #2c5282)',
                 900: 'var(--color-primary-900, #2a4365)'
             },
-
             success: {
                 100: 'var(--color-success-100, #f0fff4)',
                 200: 'var(--color-success-200, #c6f6d5)',
@@ -78,7 +61,6 @@ module.exports = {
                 800: 'var(--color-success-800, #276749)',
                 900: 'var(--color-success-900, #22543d)'
             },
-
             warning: {
                 100: 'var(--color-warning-100, #fffff0)',
                 200: 'var(--color-warning-200, #fefcbf)',
@@ -91,34 +73,33 @@ module.exports = {
                 900: 'var(--color-warning-900, #744210)'
             }
         },
-
         container: {
             center: true,
             padding: '1rem'
         },
-
         fontFamily: {
             sans: ['Nunito', 'sans-serif']
         },
-
         lineHeight: {
             0: 0,
             ...defaultTheme.lineHeight
         },
-
         minWidth: {
+            ...defaultTheme.maxWidth,
             ...defaultTheme.minWidth,
             20: '5rem',
             40: '10rem'
         },
-
         opacity: {
             10: '.1',
             15: '.15',
             20: '.2',
             ...defaultTheme.opacity
         },
-
+        scale: {
+            ...defaultTheme.scale,
+            125: '1.25'
+        },
         spacing: {
             ...defaultTheme.spacing,
             '2px': '2px',
@@ -129,7 +110,6 @@ module.exports = {
             96: '24rem',
             128: '32rem'
         },
-
         zIndex: {
             ...defaultTheme.zIndex,
             1000: 1000,
@@ -147,5 +127,7 @@ module.exports = {
         textColor: ['responsive', 'hover', 'focus', 'focus-within']
     },
 
-    plugins: []
+    plugins: [
+        require('@kirschbaum-development/tailwindcss-scale-utilities')
+    ]
 };

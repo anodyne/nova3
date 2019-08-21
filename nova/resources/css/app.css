@@ -11,7 +11,6 @@
 @import 'components/form.css';
 /* @import 'components/grid.css'; */
 @import 'components/icon.css';
-@import 'components/modal.css';
 @import 'components/page-header.css';
 @import 'components/panel.css';
 @import 'components/picker.css';
@@ -23,6 +22,5 @@
 @import 'tailwindcss/utilities';
 
 @import 'utilities/animation.css';
-@import 'utilities/scale.css';
 @import 'utilities/transform.css';
 @import 'utilities/transition.css';

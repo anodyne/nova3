@@ -64,7 +64,7 @@
                                     v-if="themes.can.delete"
                                     role="button"
                                     class="dropdown-link-danger"
-                                    @click="confirmRemove(theme)"
+                                    @click="confirmRemove(theme, dropdownProps)"
                                 >
                                     <icon name="delete" class="dropdown-item-icon"></icon>
                                     Delete
@@ -142,8 +142,9 @@ export default {
     },
 
     methods: {
-        confirmRemove (theme) {
-            this.showModal(theme);
+        confirmRemove (role, { toggle }) {
+            toggle();
+            this.showModal(role);
         },
 
         remove () {
