@@ -5,7 +5,6 @@ namespace Tests\Feature\Users;
 use Tests\TestCase;
 use Nova\Users\Events;
 use Nova\Users\Models\User;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -22,61 +21,78 @@ class DeleteUserTest extends TestCase
         $this->user = factory(User::class)->create();
     }
 
-    public function testAuthorizedUserCanDeleteUser()
+    /**
+     * @test
+     */
+    public function authorizedUserCanDeleteUser()
     {
         $this->signInWithAbility('user.delete');
 
-        $this->deleteJson(route('users.destroy', $this->user))
-            ->assertSuccessful();
+        $response = $this->deleteJson(route('users.destroy', $this->user));
+
+        $response->assertSuccessful();
     }
 
-    public function testUnauthorizedUserCannotDeleteUser()
+    /**
+     * @test
+     */
+    public function unauthorizedUserCannotDeleteUser()
     {
         $this->signIn();
 
-        $this->deleteJson(route('users.destroy', $this->user))
-            ->assertStatus(Response::HTTP_FORBIDDEN);
+        $response = $this->deleteJson(route('users.destroy', $this->user));
+
+        $response->assertForbidden();
     }
 
-    public function testGuestCannotDeleteUser()
+    /**
+     * @test
+     */
+    public function guestCannotDeleteUser()
     {
-        $this->deleteJson(route('users.destroy', $this->user))
-            ->assertStatus(Response::HTTP_UNAUTHORIZED);
+        $response = $this->deleteJson(route('users.destroy', $this->user));
+
+        $response->assertUnauthorized();
     }
 
-    public function testUserCanBeDeleted()
-    {
-        $this->signInWithAbility('user.delete');
-
-        $this->deleteJson(route('users.destroy', $this->user))
-            ->assertSuccessful();
-
-        $this->assertSoftDeleted('users', [
-            'id' => $this->user->id,
-        ]);
-    }
-
-    public function testCurrentUserCannotBeDeletedWhileTheyAreLoggedIn()
+    /**
+     * @test
+     */
+    public function userCanBeDeleted()
     {
         $this->signInWithAbility('user.delete');
 
-        $currentUser = auth()->user();
+        $response = $this->deleteJson(route('users.destroy', $this->user));
 
-        $this->deleteJson(route('users.destroy', $currentUser));
+        $response->assertSuccessful();
 
-        $this->assertDatabaseHas('users', [
-            'id' => $currentUser->id,
-            'email' => $currentUser->email,
-        ]);
+        $this->assertSoftDeleted('users', $this->user->only('id'));
     }
 
-    public function testEventsAreDispatchedWhenUserIsDeleted()
+    /**
+     * @test
+     */
+    public function currentUserCannotBeDeletedWhileTheyAreLoggedIn()
+    {
+        $this->signInWithAbility('user.delete');
+
+        $response = $this->deleteJson(
+            route('users.destroy', $currentUser = auth()->user())
+        );
+
+        $this->assertDatabaseHas('users', $currentUser->only('id', 'name'));
+    }
+
+    /**
+     * @test
+     */
+    public function eventsAreDispatchedWhenUserIsDeleted()
     {
         Event::fake();
 
         $this->signInWithAbility('user.delete');
 
-        $this->deleteJson(route('users.destroy', $this->user));
+        $response = $this->deleteJson(route('users.destroy', $this->user));
 
         Event::assertDispatched(Events\Deleted::class, function ($event) {
             return $event->user->is($this->user);
@@ -87,7 +103,10 @@ class DeleteUserTest extends TestCase
         });
     }
 
-    public function testAllUserDataIsRemovedWhenUserIsDeleted()
+    /**
+     * @test
+     */
+    public function allUserDataIsRemovedWhenUserIsDeleted()
     {
         $this->markTestIncomplete();
     }

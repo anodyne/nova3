@@ -1,4 +1,4 @@
-import Inertia from 'inertia-vue';
+import { InertiaApp } from '@inertiajs/inertia-vue';
 import Vue from 'vue';
 import store from './Store';
 
@@ -21,11 +21,15 @@ new Vue({
         this.$store.set('Icons/initialIcons', window.novaSettings.icons);
         this.$store.set('Theme/initialTheme', window.novaSettings.theme);
         this.$store.set('User/initialUser', window.novaSettings.user);
+
+        if (this.$store.get('darkMode') === true) {
+            document.documentElement.classList.add('mode-dark');
+        }
     },
 
     render (h) {
         return h('div', [
-            h(Inertia, {
+            h(InertiaApp, {
                 props: {
                     initialPage: JSON.parse(app.dataset.page),
                     resolveComponent: name => import(`@/Pages/${name}`).then(module => module.default)

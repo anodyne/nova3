@@ -3,6 +3,7 @@
 use Nova\Roles\Models\Role;
 use Nova\Roles\Models\Ability;
 use Illuminate\Database\Eloquent\Model;
+use Silber\Bouncer\BouncerFacade as Bouncer;
 use Illuminate\Database\Migrations\Migration;
 
 class PopulateAuthorizationTables extends Migration
@@ -28,7 +29,16 @@ class PopulateAuthorizationTables extends Migration
 
     protected function assignAbilitiesToRoles()
     {
-        Bouncer::allow('admin')->everything();
+        $permissions = [
+            'admin' => ['role.create', 'role.delete', 'role.update', 'theme.create', 'theme.delete', 'theme.update', 'user.create', 'user.delete', 'user.update'],
+            'user' => [],
+        ];
+
+        collect($permissions)->each(function ($permission, $role) {
+            Bouncer::allow($role)->to(
+                Ability::whereIn('name', $permission)->get()->pluck('id')->all()
+            );
+        });
     }
 
     protected function populateAbilitiesTable()

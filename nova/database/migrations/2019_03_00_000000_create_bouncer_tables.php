@@ -13,7 +13,7 @@ class CreateBouncerTables extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('title')->nullable();
-            $table->integer('entity_id')->unsigned()->nullable();
+            $table->unsignedInteger('entity_id')->nullable();
             $table->string('entity_type')->nullable();
             $table->boolean('only_owned')->default(false);
             $table->json('options')->nullable();
@@ -25,23 +25,20 @@ class CreateBouncerTables extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('title')->nullable();
-            $table->integer('level')->unsigned()->nullable();
+            $table->unsignedInteger('level')->nullable();
             $table->integer('scope')->nullable()->index();
             $table->boolean('locked')->default(false);
             $table->timestamps();
 
-            $table->unique(
-                ['name', 'scope'],
-                'roles_name_unique'
-            );
+            $table->unique(['name', 'scope'], 'roles_name_unique');
         });
 
         Schema::create(Models::table('assigned_roles'), function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('role_id')->unsigned()->index();
-            $table->integer('entity_id')->unsigned();
+            $table->unsignedInteger('role_id')->index();
+            $table->unsignedInteger('entity_id');
             $table->string('entity_type');
-            $table->integer('restricted_to_id')->unsigned()->nullable();
+            $table->unsignedInteger('restricted_to_id')->nullable();
             $table->string('restricted_to_type')->nullable();
             $table->integer('scope')->nullable()->index();
 
@@ -57,8 +54,8 @@ class CreateBouncerTables extends Migration
 
         Schema::create(Models::table('permissions'), function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('ability_id')->unsigned()->index();
-            $table->integer('entity_id')->unsigned()->nullable();
+            $table->unsignedInteger('ability_id')->index();
+            $table->unsignedInteger('entity_id')->nullable();
             $table->string('entity_type')->nullable();
             $table->boolean('forbidden')->default(false);
             $table->integer('scope')->nullable()->index();

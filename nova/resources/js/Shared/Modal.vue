@@ -2,7 +2,7 @@
     <portal to="modals">
         <div
             v-if="showModal"
-            class="fixed inset-0 flex items-center justify-center"
+            class="fixed inset-0 flex justify-center pt-16"
             @click="close"
         >
             <transition

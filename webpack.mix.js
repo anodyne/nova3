@@ -1,17 +1,29 @@
 const mix = require('laravel-mix');
 const path = require('path');
-require('laravel-mix-tailwind');
 
 mix.setPublicPath('dist');
 
 mix.js('nova/resources/js/app.js', 'dist/js')
     .js('nova/resources/js/app-server.js', 'dist/js')
-    .less('nova/resources/less/app.less', 'dist/css')
-    .less('nova/resources/less/vendor.less', 'dist/css')
-    .tailwind('./tailwind.config.js')
+
+    .postCss('nova/resources/css/app.css', 'dist/css')
+    .postCss('nova/resources/css/vendor.css', 'dist/css')
+
+    .options({
+        postCss: [
+            /* eslint-disable */
+            require('postcss-import'),
+            require('tailwindcss'),
+            require('postcss-nested')
+            /* eslint-enable */
+        ],
+        processCssUrls: false
+    })
+
     .babelConfig({
         plugins: ['@babel/plugin-syntax-dynamic-import']
     })
+
     .webpackConfig({
         output: {
             chunkFilename: 'js/[name].[contenthash].js',

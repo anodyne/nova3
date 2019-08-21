@@ -6,8 +6,8 @@
             </template>
         </page-header>
 
-        <section>
-            <div v-if="hasAbility('*')" class="mb-8 bg-red-100 p-4 border border-red-200 text-red-600 rounded">
+        <section class="panel">
+            <div v-if="hasAbility('*')" class="mb-8 bg-danger-100 p-4 border border-danger-200 text-danger-600 rounded">
                 The {{ role.title }} role has <em>All Abilities</em> assigned to it. Be <strong>very careful</strong> editing this role as improper changes could cause any users with this role to lose all access to the admin screens.
             </div>
 
@@ -66,7 +66,7 @@
                         <div class="form-section-header">Abilities</div>
                         <p class="form-section-message mb-6">Abilities are the actions a user can take. Feel free to add whatever abilities to this role that you see fit.</p>
 
-                        <p class="form-section-message"><span class="font-medium text-orange-500">Take very special care when adding or removing the <em>All Abilities</em> ability!</span></p>
+                        <p class="form-section-message"><span class="font-semibold text-warning-600">Take very special care when adding or removing the <em>All Abilities</em> ability!</span></p>
                     </div>
 
                     <div class="form-section-column-form">
@@ -85,7 +85,7 @@
                                     class="field-addon"
                                     @click="search = ''"
                                 >
-                                    <nova-icon name="close"></nova-icon>
+                                    <icon name="close"></icon>
                                 </a>
                             </div>
                         </form-field>
@@ -112,25 +112,25 @@
                                 class="text-gray-500 hover:text-gray-600"
                                 @click="addAbility(ability)"
                             >
-                                <nova-icon name="add"></nova-icon>
+                                <icon name="add"></icon>
                             </a>
 
                             <a
                                 v-if="hasAbility(ability)"
                                 role="button"
-                                class="text-green-500"
+                                class="text-success-500"
                                 @click="removeAbility(ability)"
                             >
-                                <nova-icon name="check-circle"></nova-icon>
+                                <icon name="check-circle"></icon>
                             </a>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary is-large">Update</button>
+                    <button type="submit" class="button is-primary">Update</button>
 
-                    <inertia-link :href="route('roles.index')" class="button is-secondary is-large">
+                    <inertia-link :href="route('roles.index')" class="button is-secondary">
                         Cancel
                     </inertia-link>
                 </div>
@@ -140,9 +140,8 @@
 </template>
 
 <script>
-import Form from '@/Utils/Form';
 import indexOf from 'lodash/indexOf';
-import { Inertia } from 'inertia-vue';
+import Form from '@/Utils/Form';
 
 export default {
     props: {
@@ -213,7 +212,7 @@ export default {
                 then: (data) => {
                     this.$toast.message(`${data.title} role was updated.`).success();
 
-                    Inertia.replace(this.route('roles.index'));
+                    this.$inertia.replace(this.route('roles.index'));
                 }
             });
         }
