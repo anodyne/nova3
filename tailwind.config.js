@@ -97,7 +97,9 @@ module.exports = {
             ...defaultTheme.opacity
         },
         scale: {
-            ...defaultTheme.scale,
+            0: 0,
+            75: '.75',
+            100: 1,
             125: '1.25'
         },
         spacing: {

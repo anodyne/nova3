@@ -77,23 +77,6 @@
                         <icon name="pie-chart" class="mr-3 text-gray-600"></icon>
                         Reports
                     </inertia-link>
-
-                    <a
-                        :href="route('logout')"
-                        class="flex items-center text-gray-400 py-2 transition-color transition-faster hover:text-gray-200"
-                        onclick="event.preventDefault();document.getElementById('logout-form').submit();"
-                    >
-                        <icon name="sign-out" class="mr-3 text-gray-600"></icon>
-                        Log out
-                    </a>
-                    <form
-                        id="logout-form"
-                        :action="route('logout')"
-                        method="POST"
-                        style="display: none;"
-                    >
-                        <csrf-token></csrf-token>
-                    </form>
                 </div>
 
                 <div class="text-xs uppercase tracking-widest py-3 px-6 text-gray-600 font-semibold">Links</div>
@@ -139,12 +122,45 @@
                         <icon name="notification"></icon>
                     </a>
 
-                    <user-avatar :user="$store.get('User')" size="sm"></user-avatar>
+                    <dropdown placement="bottom-end">
+                        <div class="flex items-center">
+                            <user-avatar :user="$store.get('User')" size="sm"></user-avatar>
+                            <icon name="chevron-down" class="ml-2 text-gray-500 h-4 w-4"></icon>
+                        </div>
 
-                    <icon name="chevron-down" class="ml-2 text-gray-500 h-4 w-4"></icon>
+                        <template #dropdown>
+                            <a href="#" class="dropdown-link">
+                                <icon name="user" class="dropdown-item-icon"></icon>
+                                My Account
+                            </a>
+
+                            <a href="#" class="dropdown-link">
+                                <icon name="users" class="dropdown-item-icon"></icon>
+                                My Characters
+                            </a>
+
+                            <hr class="block w-full border-gray-800">
+
+                            <a
+                                :href="route('logout')"
+                                class="dropdown-link"
+                                onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                            >
+                                <icon name="sign-out" class="dropdown-item-icon"></icon>
+                                Log out
+                            </a>
+                            <form
+                                id="logout-form"
+                                :action="route('logout')"
+                                method="POST"
+                                style="display: none;"
+                            >
+                                <csrf-token></csrf-token>
+                            </form>
+                        </template>
+                    </dropdown>
                 </div>
             </nav>
-
 
             <main class="py-8 px-12">
                 <slot></slot>
