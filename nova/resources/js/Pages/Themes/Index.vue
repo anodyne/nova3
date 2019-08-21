@@ -1,10 +1,12 @@
 <template>
     <sidebar-layout>
-        <page-header
-            slot="header"
-            title="Themes"
-            pretitle="Presentation"
-        ></page-header>
+        <page-header title="Themes">
+            <template v-if="themes.can.create" #controls>
+                <inertia-link :href="route('themes.create')" class="button is-primary">
+                    Add Theme
+                </inertia-link>
+            </template>
+        </page-header>
 
         <install-themes
             :pending-themes="pendingThemes"
@@ -15,10 +17,10 @@
             tag="div"
             leave-active-class="animated fadeOut"
         >
-            <section
+            <panel
                 v-for="theme in installedThemes"
                 :key="theme.id"
-                class="flex items-center justify-between"
+                class="flex items-center justify-between mt-8 first:mt-0"
             >
                 <div class="flex items-center">
                     <div class="flex flex-col">
@@ -52,7 +54,7 @@
                         </template>
                     </dropdown>
                 </div>
-            </section>
+            </panel>
         </transition-group>
 
         <modal

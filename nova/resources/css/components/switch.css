@@ -3,7 +3,7 @@
 }
 
 .switch-label {
-    @apply ml-3 font-medium text-gray-700;
+    @apply ml-3 font-semibold text-gray-700;
 }
 
 .switch {

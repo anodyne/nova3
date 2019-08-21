@@ -6,7 +6,7 @@
             </template>
         </page-header>
 
-        <section>
+        <section class="panel">
             <div v-if="hasAbility('*')" class="mb-8 bg-danger-100 p-4 border border-danger-200 text-danger-600 rounded">
                 The {{ role.title }} role has <em>All Abilities</em> assigned to it. Be <strong>very careful</strong> editing this role as improper changes could cause any users with this role to lose all access to the admin screens.
             </div>
@@ -66,7 +66,7 @@
                         <div class="form-section-header">Abilities</div>
                         <p class="form-section-message mb-6">Abilities are the actions a user can take. Feel free to add whatever abilities to this role that you see fit.</p>
 
-                        <p class="form-section-message"><span class="font-medium text-warning-700">Take very special care when adding or removing the <em>All Abilities</em> ability!</span></p>
+                        <p class="form-section-message"><span class="font-semibold text-warning-600">Take very special care when adding or removing the <em>All Abilities</em> ability!</span></p>
                     </div>
 
                     <div class="form-section-column-form">

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 
+import Panel from '@/Shared/Panel';
 import Icon from '@/Shared/Icons/Icon';
 import Dropdown from '@/Shared/Dropdown';
 import PageHeader from '@/Shared/PageHeader';
@@ -15,6 +16,7 @@ import StateButton from '@/Shared/StateButton';
  * Global components
  */
 Vue.component('icon', Icon);
+Vue.component('panel', Panel);
 Vue.component('dropdown', Dropdown);
 Vue.component('page-header', PageHeader);
 

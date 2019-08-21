@@ -1,16 +1,16 @@
 .page-header {
-	@apply flex flex-col items-center justify-between mb-8 pb-6 border-b;
+	@apply flex flex-col items-center justify-between mb-8;
 }
 
 .page-header-pretitle {
-	@apply flex items-center mb-2 leading-none text-sm text-gray-600 font-medium uppercase tracking-wide;
+	@apply flex items-center mb-2 leading-none text-sm text-gray-600 font-semibold uppercase tracking-wide;
 
 	> .page-header-icon {
 		@apply h-3 w-3 mr-1;
 	}
 
 	> a {
-		@apply no-underline text-gray-600 font-medium transition-color transition-medium;
+		@apply no-underline text-gray-600 font-semibold transition-color transition-medium;
 
 		&:hover {
 			@apply text-gray-700;

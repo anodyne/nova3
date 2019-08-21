@@ -32,8 +32,7 @@ export default {
 
     components: {
         BasePicker,
-        IconFeather,
-        IconFontAwesome
+        IconFeather
     },
 
     props: {

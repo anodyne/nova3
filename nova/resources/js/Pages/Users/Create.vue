@@ -6,7 +6,7 @@
             </template>
         </page-header>
 
-        <section>
+        <section class="panel">
             <form
                 :action="route('users.store')"
                 method="POST"

@@ -11,5 +11,5 @@
 }
 
 .modal-footer {
-    @apply mt-4 px-6 py-4 bg-gray-100;
+    @apply flex items-center justify-end mt-4 px-6 py-4 bg-gray-100;
 }

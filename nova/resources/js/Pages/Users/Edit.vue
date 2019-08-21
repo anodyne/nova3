@@ -6,7 +6,7 @@
             </template>
         </page-header>
 
-        <section>
+        <section class="panel">
             <form
                 :action="route('users.update', { user })"
                 method="POST"
@@ -151,13 +151,13 @@
             </form>
         </section>
 
-        <section>
+        <section class="panel">
             <div class="font-semibold text-xl mb-4 text-gray-700">Reset Password</div>
 
             <p class="text-gray-600">If you believe a user should reset their password or they're having issues logging in and are unable to reset their password themselves, you can force a password reset that will take effect next time they attempt to sign in.</p>
 
             <div class="flex justify-end mt-6">
-                <a role="button" class="button is-danger is-large">
+                <a role="button" class="button is-danger">
                     Force Password Reset
                 </a>
             </div>

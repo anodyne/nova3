@@ -1,13 +1,12 @@
 <template>
-    <div class="flex flex-col items-center justify-between lg:flex-row">
-        <div class="flex items-center w-full">
-            <div class="flex items-center leading-none text-gray-800 font-bold uppercase tracking-widest">
-                <slot>{{ title }}</slot>
+    <div class="page-header">
+        <div class="page-header-content">
+            <div v-if="hasPreTitle" class="page-header-pretitle">
+                <slot name="pretitle">{{ pretitle }}</slot>
             </div>
 
-            <div v-if="hasPreTitle" class="flex items-center text-gray-500 font-medium">
-                <div class="mx-3 text-xl">/</div>
-                <slot name="pretitle">{{ pretitle }}</slot>
+            <div class="page-header-title">
+                <slot>{{ title }}</slot>
             </div>
         </div>
 

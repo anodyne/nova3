@@ -6,7 +6,7 @@
 
 		&.is-header,
 		.is-header {
-			@apply bg-gray-100 text-gray-600 font-medium text-xs uppercase tracking-wide;
+			@apply bg-gray-100 text-gray-600 font-semibold text-xs uppercase tracking-wide;
 
 			.title {
 				@apply m-0;

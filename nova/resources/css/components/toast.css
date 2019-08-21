@@ -2,7 +2,7 @@
     @apply fixed flex inset-0 p-6 overflow-hidden z-1000 pointer-events-none flex-col-reverse;
 
     .toast {
-        @apply flex flex-col my-3 text-center shadow rounded pointer-events-auto font-medium bg-gray-800 text-gray-100 self-start overflow-hidden;
+        @apply flex flex-col my-3 text-center shadow rounded pointer-events-auto bg-gray-800 text-gray-100 self-start overflow-hidden;
 
         @media (min-width: theme('screens.md')) {
             @apply max-w-lg;

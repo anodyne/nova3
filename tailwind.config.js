@@ -20,16 +20,28 @@ module.exports = {
             },
 
             gray: {
-                100: 'var(--color-gray-100, #f7fafc)',
-                200: 'var(--color-gray-200, #edf2f7)',
-                300: 'var(--color-gray-300, #e2e8f0)',
-                400: 'var(--color-gray-400, #cbd5e0)',
-                500: 'var(--color-gray-500, #a0aec0)',
-                600: 'var(--color-gray-600, #718096)',
-                700: 'var(--color-gray-700, #4a5568)',
-                800: 'var(--color-gray-800, #2d3748)',
-                900: 'var(--color-gray-900, #1a202c)'
+                100: 'var(--color-gray-100, #F7F7F7)',
+                200: 'var(--color-gray-200, #EAEBEC)',
+                300: 'var(--color-gray-300, #D1D4D7)',
+                400: 'var(--color-gray-400, #BBBFC3)',
+                500: 'var(--color-gray-500, #A1A5AB)',
+                600: 'var(--color-gray-600, #6B6F73)',
+                700: 'var(--color-gray-700, #565B5E)',
+                800: 'var(--color-gray-800, #3C4348)',
+                900: 'var(--color-gray-900, #283033)'
+                // 900: 'var(--color-gray-900, #141a21)'
             },
+            // gray: {
+            //     100: 'var(--color-gray-100, #f7fafc)',
+            //     200: 'var(--color-gray-200, #edf2f7)',
+            //     300: 'var(--color-gray-300, #e2e8f0)',
+            //     400: 'var(--color-gray-400, #cbd5e0)',
+            //     500: 'var(--color-gray-500, #a0aec0)',
+            //     600: 'var(--color-gray-600, #718096)',
+            //     700: 'var(--color-gray-700, #4a5568)',
+            //     800: 'var(--color-gray-800, #2d3748)',
+            //     900: 'var(--color-gray-900, #1a202c)'
+            // },
 
             info: {
                 100: 'var(--color-info-100, #faf5ff)',
@@ -128,12 +140,12 @@ module.exports = {
     },
 
     variants: {
-        backgroundColor: ['responsive', 'hover', 'focus', 'focus-within', 'dark'],
+        backgroundColor: ['responsive', 'hover', 'focus', 'focus-within'],
         borderColor: ['responsive', 'hover', 'focus', 'focus-within'],
-        textColor: ['responsive', 'hover', 'focus', 'focus-within', 'dark', 'dark-hover']
+        boxShadow: ['responsive', 'hover', 'focus', 'focus-within'],
+        margin: ['responsive', 'hover', 'focus', 'first', 'last'],
+        textColor: ['responsive', 'hover', 'focus', 'focus-within']
     },
 
-    plugins: [
-        require('tailwindcss-dark-mode')()
-    ]
+    plugins: []
 };

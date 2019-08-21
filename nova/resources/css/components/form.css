@@ -37,7 +37,7 @@
 }
 
 .field-label {
-    @apply flex items-center justify-between mb-1 ml-2px text-sm text-gray-700;
+    @apply flex items-center justify-between mb-1 ml-2px text-sm text-gray-700 font-semibold;
 }
 
 .field-help,
