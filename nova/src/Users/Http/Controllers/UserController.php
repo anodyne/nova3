@@ -54,7 +54,7 @@ class UserController extends Controller
 
     public function update(Authorizers\Update $gate, Validators\Update $request, User $user)
     {
-        $user = Jobs\Update::dispatchNow($request->validated());
+        $user = Jobs\Update::dispatchNow($user, $request->validated());
 
         event(new Events\AdminUpdated($user->refresh()));
 
