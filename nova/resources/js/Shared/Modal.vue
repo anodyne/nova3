@@ -2,37 +2,37 @@
     <portal to="modals">
         <div
             v-if="showModal"
-            class="fixed inset-0 flex items-center justify-center"
+            class="fixed inset-0 flex justify-center pt-16"
             @click="close"
         >
             <transition
-                enter-active-class="transition-all transition-fast ease-out-quad"
-                leave-active-class="transition-all transition-medium ease-in-quad"
                 enter-class="opacity-0"
+                enter-active-class="ease-out"
                 enter-to-class="opacity-100"
                 leave-class="opacity-100"
+                leave-active-class="ease-in"
                 leave-to-class="opacity-0"
                 appear
                 @before-leave="backdropLeaving = true"
                 @after-leave="backdropLeaving = false"
             >
                 <div v-if="showBackdrop">
-                    <div class="absolute inset-0 bg-black opacity-25"></div>
+                    <div class="absolute inset-0 bg-black opacity-50 transition-color transition-fastest"></div>
                 </div>
             </transition>
 
             <transition
-                enter-active-class="transition-all transition-fast ease-out-quad"
-                leave-active-class="transition-all transition-medium ease-in-quad"
-                enter-class="opacity-0 scale-70"
+                enter-class="opacity-0 scale-125"
+                enter-active-class="ease-out"
                 enter-to-class="opacity-100 scale-100"
                 leave-class="opacity-100 scale-100"
-                leave-to-class="opacity-0 scale-70"
+                leave-active-class="ease-in"
+                leave-to-class="opacity-0 scale-125"
                 appear
                 @before-leave="cardLeaving = true"
                 @after-leave="cardLeaving = false"
             >
-                <div v-if="showContent" class="relative">
+                <div v-if="showContent" class="relative transition-all transition-fast transform-origin-c">
                     <div class="modal">
                         <div class="modal-title">{{ title }}</div>
 

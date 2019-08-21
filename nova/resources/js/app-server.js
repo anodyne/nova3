@@ -15,7 +15,7 @@ const app = document.getElementById('app');
 window.app = new Vue({
     store,
 
-    mounted () {
+    created () {
         this.$store.set('Icons/initialIcons', window.novaSettings.icons);
         this.$store.set('Theme/initialTheme', window.novaSettings.theme);
         this.$store.set('User/initialUser', window.novaSettings.user);

@@ -14,7 +14,14 @@
             <slot></slot>
         </button>
 
-        <transition enter-active-class="animated-faster fadeIn" leave-active-class="animated-faster fadeOut">
+        <transition
+            enter-class="opacity-0 scale-75"
+            enter-active-class="ease-out"
+            enter-to-class="opacity-100 scale-100"
+            leave-class="opacity-100 scale-100"
+            leave-active-class="ease-in"
+            leave-to-class="opacity-0 scale-75"
+        >
             <div
                 v-show="isOpen"
                 ref="dropdown"

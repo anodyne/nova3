@@ -21,6 +21,10 @@ new Vue({
         this.$store.set('Icons/initialIcons', window.novaSettings.icons);
         this.$store.set('Theme/initialTheme', window.novaSettings.theme);
         this.$store.set('User/initialUser', window.novaSettings.user);
+
+        if (this.$store.get('darkMode') === true) {
+            document.documentElement.classList.add('mode-dark');
+        }
     },
 
     render (h) {

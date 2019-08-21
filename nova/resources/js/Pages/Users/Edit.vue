@@ -6,7 +6,7 @@
             </template>
         </page-header>
 
-        <section>
+        <section class="panel">
             <form
                 :action="route('users.update', { user })"
                 method="POST"
@@ -60,12 +60,12 @@
                             <div class="avatar avatar-lg items-center">
                                 <div class="avatar-image">
                                     <a role="button" class="absolute inset-0 flex justify-center items-center rounded-full transition-fast text-transparent hover:text-gray-100">
-                                        <nova-icon name="edit"></nova-icon>
+                                        <icon name="edit"></icon>
                                     </a>
                                 </div>
 
                                 <a role="button" class="button is-danger is-small ml-2">
-                                    <nova-icon name="trash" class="mr-2"></nova-icon>
+                                    <icon name="trash" class="mr-2"></icon>
                                     Remove Image
                                 </a>
                             </div>
@@ -78,7 +78,7 @@
                         <div class="form-section-header">Roles</div>
                         <p class="form-section-message mb-6">Roles are made up of the abilities that users can take throughout the system. A user can be assigned as many roles as you'd like to give you more control over the actions your users can take.</p>
 
-                        <inertia-link :href="route('roles.index')" class="text-blue-600 hover:text-blue-500">
+                        <inertia-link :href="route('roles.index')" class="text-primary-600 hover:text-primary-500">
                             Manage roles
                         </inertia-link>
                     </div>
@@ -99,7 +99,7 @@
                                     class="field-addon"
                                     @click="search = ''"
                                 >
-                                    <nova-icon name="close"></nova-icon>
+                                    <icon name="close"></icon>
                                 </a>
                             </div>
                         </form-field>
@@ -126,38 +126,38 @@
                                 class="text-gray-500 hover:text-gray-600"
                                 @click="addRole(role)"
                             >
-                                <nova-icon name="add"></nova-icon>
+                                <icon name="add"></icon>
                             </a>
 
                             <a
                                 v-if="hasRole(role)"
                                 role="button"
-                                class="text-green-500"
+                                class="text-success-500"
                                 @click="removeRole(role)"
                             >
-                                <nova-icon name="check-circle"></nova-icon>
+                                <icon name="check-circle"></icon>
                             </a>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary is-large">Update</button>
+                    <button type="submit" class="button is-primary">Update</button>
 
-                    <inertia-link :href="route('users.index')" class="button is-secondary is-large">
+                    <inertia-link :href="route('users.index')" class="button is-secondary">
                         Cancel
                     </inertia-link>
                 </div>
             </form>
         </section>
 
-        <section>
+        <section class="panel">
             <div class="font-semibold text-xl mb-4 text-gray-700">Reset Password</div>
 
             <p class="text-gray-600">If you believe a user should reset their password or they're having issues logging in and are unable to reset their password themselves, you can force a password reset that will take effect next time they attempt to sign in.</p>
 
             <div class="flex justify-end mt-6">
-                <a role="button" class="button is-danger is-large">
+                <a role="button" class="button is-danger">
                     Force Password Reset
                 </a>
             </div>

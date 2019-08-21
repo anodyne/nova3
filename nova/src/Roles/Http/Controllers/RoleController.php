@@ -3,7 +3,6 @@
 namespace Nova\Roles\Http\Controllers;
 
 use Nova\Roles\Jobs;
-use Nova\Roles\Events;
 use Nova\Roles\Models\Role;
 use Nova\Roles\Http\Responses;
 use Nova\Roles\Models\Ability;
