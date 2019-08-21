@@ -1,39 +1,19 @@
-.dropdown {
-    @apply relative;
-}
-
-.dropdown-trigger {
-    @apply relative flex items-center cursor-pointer select-none text-gray-600;
-
-    &:hover {
-        @apply text-gray-700;
-    }
-
-    &:focus {
-        @apply outline-none;
-    }
-}
-
-.dropdown-menu {
-    @apply absolute flex flex-col w-64 rounded bg-gray-700 z-9999 shadow-md mt-2 origin-top-right overflow-hidden transition-all transition-medium;
-}
-
 .dropdown-link {
-    @apply flex items-center px-4 py-2 text-gray-300 cursor-pointer;
+    @apply flex items-center px-4 py-2 text-gray-300 cursor-pointer text-sm transition-all transition-fast;
 
     &:hover {
-        @apply bg-gray-600 text-white;
+        @apply bg-gray-800 text-white;
     }
 }
 
 .dropdown-link-danger {
-    @apply dropdown-link text-danger-500;
+    @apply dropdown-link;
 
     &:hover {
-        @apply bg-gray-600 text-danger-300;
+        @apply bg-danger-500 text-white;
     }
 }
 
 .dropdown-item-icon {
-    @apply h-5 w-5 mr-3;
+    @apply h-5 w-5 mr-2;
 }
