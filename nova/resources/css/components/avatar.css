@@ -10,10 +10,6 @@
     > .avatar-meta {
         @apply flex flex-col;
 
-        > .avatar-meta-title {
-            @apply font-semibold;
-        }
-
         > .avatar-meta-subtitle {
             @apply text-sm text-gray-500;
         }
