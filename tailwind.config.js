@@ -85,6 +85,7 @@ module.exports = {
             ...defaultTheme.lineHeight
         },
         minWidth: {
+            ...defaultTheme.maxWidth,
             ...defaultTheme.minWidth,
             20: '5rem',
             40: '10rem'
@@ -94,6 +95,10 @@ module.exports = {
             15: '.15',
             20: '.2',
             ...defaultTheme.opacity
+        },
+        scale: {
+            ...defaultTheme.scale,
+            125: '1.25'
         },
         spacing: {
             ...defaultTheme.spacing,
@@ -122,5 +127,7 @@ module.exports = {
         textColor: ['responsive', 'hover', 'focus', 'focus-within']
     },
 
-    plugins: []
+    plugins: [
+        require('@kirschbaum-development/tailwindcss-scale-utilities')
+    ]
 };
