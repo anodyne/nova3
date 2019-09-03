@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
-         bootstrap="nova/vendor/autoload.php"
+         bootstrap="nova/tests/bootstrap.php"
          cacheResult="true"
          colors="true"
          convertErrorsToExceptions="true"
@@ -51,5 +51,10 @@
         <server name="MAIL_DRIVER" value="array"/>
         <server name="QUEUE_CONNECTION" value="sync"/>
         <server name="SESSION_DRIVER" value="array"/>
+        <server name="APP_CONFIG_CACHE" value="nova/bootstrap/cache/config.phpunit.php"/>
+        <server name="APP_SERVICES_CACHE" value="nova/bootstrap/cache/services.phpunit.php"/>
+        <server name="APP_PACKAGES_CACHE" value="nova/bootstrap/cache/packages.phpunit.php"/>
+        <server name="APP_ROUTES_CACHE" value="nova/bootstrap/cache/routes.phpunit.php"/>
+        <server name="APP_EVENTS_CACHE" value="nova/bootstrap/cache/events.phpunit.php"/>
     </php>
 </phpunit>
