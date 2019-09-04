@@ -10,7 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class Update implements ShouldQueue
+class UpdateRole implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -40,7 +40,7 @@ class Update implements ShouldQueue
 
         $this->syncRoleAbilities();
 
-        return $this->role->fresh();
+        return $this->role->refresh();
     }
 
     protected function syncRoleAbilities()

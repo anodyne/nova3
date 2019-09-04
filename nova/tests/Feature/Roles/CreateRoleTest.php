@@ -3,9 +3,9 @@
 namespace Tests\Feature\Roles;
 
 use Tests\TestCase;
-use Nova\Roles\Events;
 use Nova\Roles\Models\Role;
 use Illuminate\Http\Response;
+use Nova\Roles\Events\RoleCreated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -80,7 +80,7 @@ class CreateRoleTest extends TestCase
 
         $role = Role::get()->last();
 
-        Event::assertDispatched(Events\Created::class, function ($event) use ($role) {
+        Event::assertDispatched(RoleCreated::class, function ($event) use ($role) {
             return $event->role->is($role);
         });
     }

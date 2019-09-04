@@ -2,12 +2,11 @@
 
 namespace Nova\Roles\Http\Controllers;
 
-use Nova\Roles\Jobs;
-use Nova\Roles\Events;
 use Nova\Roles\Models\Role;
+use Nova\Roles\Jobs\DuplicateRole;
+use Nova\Roles\Events\RoleDuplicated;
+use Nova\Roles\Http\Requests\Duplicate;
 use Nova\Foundation\Http\Controllers\Controller;
-use Nova\Roles\Http\Validators\Duplicate as ValidateDuplicatingRole;
-use Nova\Roles\Http\Authorizers\Duplicate as AuthorizeDuplicatingRole;
 
 class DuplicateRoleController extends Controller
 {
@@ -18,12 +17,14 @@ class DuplicateRoleController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(AuthorizeDuplicatingRole $gate, ValidateDuplicatingRole $request, Role $originalRole)
+    public function __invoke(Duplicate $request, Role $originalRole)
     {
-        $role = dispatch_now(new Jobs\Duplicate($originalRole));
+        $this->authorize('create', Role::class);
 
-        event(new Events\Duplicated($role, $originalRole));
+        $role = DuplicateRole::dispatchNow($originalRole);
 
-        return $role->fresh();
+        event(new RoleDuplicated($role, $originalRole));
+
+        return $role->refresh();
     }
 }

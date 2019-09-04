@@ -3,9 +3,9 @@
 namespace Tests\Feature\Roles;
 
 use Tests\TestCase;
-use Nova\Roles\Events;
 use Nova\Roles\Models\Role;
 use Illuminate\Http\Response;
+use Nova\Roles\Events\RoleDeleted;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -80,7 +80,7 @@ class DeleteRoleTest extends TestCase
 
         $this->deleteJson(route('roles.destroy', $this->role));
 
-        Event::assertDispatched(Events\Deleted::class, function ($event) {
+        Event::assertDispatched(RoleDeleted::class, function ($event) {
             return $event->role->is($this->role);
         });
     }
