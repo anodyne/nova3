@@ -3,15 +3,45 @@
 namespace Nova\Users\Policies;
 
 use Nova\Users\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
 {
+    use HandlesAuthorization;
+
     /**
-     * Determine if the current user can create a user.
+     * Determine whether the user can view any user.
      *
      * @param  \Nova\Users\Models\User  $user
      *
-     * @return bool
+     * @return mixed
+     */
+    public function viewAny(User $user)
+    {
+        return $user->can('user.create') ||
+            $user->can('user.delete') ||
+            $user->can('user.update');
+    }
+
+    /**
+     * Determine whether the user can view the theme.
+     *
+     * @param  \Nova\Users\Models\User  $user
+     * @param  \Nova\Users\Models\User  $actionableUser
+     *
+     * @return mixed
+     */
+    public function view(User $user, User $actionableUser)
+    {
+        return $user->can('user.view');
+    }
+
+    /**
+     * Determine whether the user can create users.
+     *
+     * @param  \Nova\Users\Models\User  $user
+     *
+     * @return mixed
      */
     public function create(User $user)
     {
@@ -19,27 +49,55 @@ class UserPolicy
     }
 
     /**
-     * Determine if the current user can delete the user.
+     * Determine whether the user can update the theme.
      *
      * @param  \Nova\Users\Models\User  $user
-     * @param  \Nova\Users\Models\User  $actionUser
+     * @param  \Nova\Users\Models\User  $actionableUser
      *
-     * @return bool
+     * @return mixed
      */
-    public function delete(User $user, User $actionUser)
+    public function update(User $user, User $actionableUser)
     {
-        return $user->can('user.delete') && $user->isNot($actionUser);
+        return $user->can('user.update');
     }
 
     /**
-     * Determine if the current user can update a theme.
+     * Determine whether the user can delete the theme.
      *
      * @param  \Nova\Users\Models\User  $user
+     * @param  \Nova\Users\Models\User  $actionableUser
      *
-     * @return bool
+     * @return mixed
      */
-    public function update(User $user)
+    public function delete(User $user, User $actionableUser)
     {
-        return $user->can('user.update');
+        return $user->can('user.delete') && $user->isNot($actionableUser);
+    }
+
+    /**
+     * Determine whether the user can restore the theme.
+     *
+     * @param  \Nova\Users\Models\User  $user
+     * @param  \Nova\Users\Models\User  $actionableUser
+     *
+     * @return mixed
+     */
+    public function restore(User $user, User $actionableUser)
+    {
+        return $user->can('user.create') ||
+            $user->can('user.delete');
+    }
+
+    /**
+     * Determine whether the user can permanently delete the theme.
+     *
+     * @param  \Nova\Users\Models\User  $user
+     * @param  \Nova\Users\Models\User  $actionableUser
+     *
+     * @return mixed
+     */
+    public function forceDelete(User $user, User $actionableUser)
+    {
+        return $this->delete($user, $actionableUser);
     }
 }

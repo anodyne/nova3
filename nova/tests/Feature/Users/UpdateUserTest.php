@@ -3,10 +3,11 @@
 namespace Tests\Feature\Users;
 
 use Tests\TestCase;
-use Nova\Users\Events;
 use Nova\Users\Models\User;
 use Illuminate\Http\Response;
+use Nova\Users\Events\UserUpdated;
 use Illuminate\Support\Facades\Event;
+use Nova\Users\Events\UserUpdatedByAdmin;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UpdateUserTest extends TestCase
@@ -93,11 +94,11 @@ class UpdateUserTest extends TestCase
 
         $user = $this->user->fresh();
 
-        Event::assertDispatched(Events\Updated::class, function ($event) use ($user) {
+        Event::assertDispatched(UserUpdated::class, function ($event) use ($user) {
             return $event->user->is($user);
         });
 
-        Event::assertDispatched(Events\AdminUpdated::class, function ($event) use ($user) {
+        Event::assertDispatched(UserUpdatedByAdmin::class, function ($event) use ($user) {
             return $event->user->is($user);
         });
     }

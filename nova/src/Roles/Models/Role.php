@@ -15,10 +15,9 @@ class Role extends BouncerRole
     protected static $logName = 'admin';
 
     protected $dispatchesEvents = [
-        'created' => Events\Created::class,
-        'updated' => Events\Updated::class,
-        'deleted' => Events\Deleted::class,
-        'replicated' => Events\Duplicated::class,
+        'created' => Events\RoleCreated::class,
+        'updated' => Events\RoleUpdated::class,
+        'deleted' => Events\RoleDeleted::class,
     ];
 
     /**

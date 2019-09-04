@@ -3,8 +3,8 @@
 namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
-use Nova\Themes\Models\Theme;
 use Illuminate\Http\Response;
+use Nova\Themes\Models\Theme;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nova\Themes\Exceptions\MissingQuickInstallFileException;
@@ -21,7 +21,7 @@ class InstallThemeTest extends TestCase
 
         $this->theme = factory(Theme::class)->make([
             'name' => 'Foo',
-            'location' => 'foo'
+            'location' => 'foo',
         ]);
     }
 
@@ -38,12 +38,12 @@ class InstallThemeTest extends TestCase
 
         $this->from(route('themes.index'))
             ->postJson(route('themes.install'), [
-                'theme' => $this->theme->location
+                'theme' => $this->theme->location,
             ])
             ->assertJson($this->theme->toArray());
 
         $this->assertDatabaseHas('themes', [
-            'name' => $this->theme->name
+            'name' => $this->theme->name,
         ]);
     }
 
@@ -51,7 +51,7 @@ class InstallThemeTest extends TestCase
     {
         $this->signIn();
 
-        $this->postJson(route('themes.install'), [])
+        $this->postJson(route('themes.install'), ['theme' => 'foo'])
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
@@ -69,7 +69,7 @@ class InstallThemeTest extends TestCase
 
         $createData = [
             'name' => 'Foo',
-            'location' => 'foo'
+            'location' => 'foo',
         ];
 
         factory(Theme::class)->create($createData);
@@ -78,7 +78,7 @@ class InstallThemeTest extends TestCase
 
         $data = [
             'name' => 'Bar',
-            'location' => 'bar'
+            'location' => 'bar',
         ];
 
         $disk->makeDirectory('bar');
@@ -107,7 +107,7 @@ class InstallThemeTest extends TestCase
         $this->postJson(route('themes.install'), ['theme' => 'bar']);
 
         $this->assertDatabaseMissing('themes', [
-            'location' => 'bar'
+            'location' => 'bar',
         ]);
     }
 }

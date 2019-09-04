@@ -3,10 +3,10 @@
 namespace Tests\Feature\Roles;
 
 use Tests\TestCase;
-use Nova\Roles\Events;
 use Nova\Roles\Models\Role;
 use Illuminate\Http\Response;
 use Nova\Roles\Models\Ability;
+use Nova\Roles\Events\RoleUpdated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -58,7 +58,7 @@ class UpdateRoleTest extends TestCase
         $data = [
             'name' => 'new-name',
             'title' => 'New title',
-            'abilities' => ['foo']
+            'abilities' => ['foo'],
         ];
 
         $this->assertCount(0, $this->role->getAbilities());
@@ -68,14 +68,14 @@ class UpdateRoleTest extends TestCase
 
         $this->assertDatabaseHas('roles', [
             'name' => 'new-name',
-            'title' => 'New title'
+            'title' => 'New title',
         ]);
 
         $this->assertDatabaseHas('abilities', ['name' => 'foo']);
 
         $this->assertDatabaseHas('permissions', [
             'ability_id' => Ability::get()->last()->id,
-            'entity_id' => $this->role->id
+            'entity_id' => $this->role->id,
         ]);
     }
 
@@ -103,14 +103,14 @@ class UpdateRoleTest extends TestCase
         $data = [
             'name' => 'new-name',
             'title' => 'New title',
-            'abilities' => ['foo', 'bar', 'baz']
+            'abilities' => ['foo', 'bar', 'baz'],
         ];
 
         $this->putJson(route('roles.update', $this->role), $data);
 
         $role = $this->role->fresh();
 
-        Event::assertDispatched(Events\Updated::class, function ($event) use ($role) {
+        Event::assertDispatched(RoleUpdated::class, function ($event) use ($role) {
             return $event->role->is($role);
         });
     }

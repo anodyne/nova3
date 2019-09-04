@@ -4,10 +4,10 @@ namespace Tests\Feature\Roles;
 
 use Bouncer;
 use Tests\TestCase;
-use Nova\Roles\Events;
 use Nova\Roles\Models\Role;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
+use Nova\Roles\Events\RoleDuplicated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DuplicateRoleTest extends TestCase
@@ -22,7 +22,7 @@ class DuplicateRoleTest extends TestCase
 
         $this->role = Bouncer::role()->firstOrCreate([
             'name' => 'foo',
-            'title' => 'Foo'
+            'title' => 'Foo',
         ]);
     }
 
@@ -54,7 +54,7 @@ class DuplicateRoleTest extends TestCase
         $this->signInWithAbility('role.create');
 
         $originalAbility = Bouncer::ability()->firstOrCreate([
-            'name' => 'bar'
+            'name' => 'bar',
         ]);
 
         Bouncer::allow($this->role)->to($originalAbility);
@@ -79,14 +79,14 @@ class DuplicateRoleTest extends TestCase
         $this->signInWithAbility('role.create');
 
         $originalRole = Bouncer::role()->firstOrCreate([
-            'name' => 'foo'
+            'name' => 'foo',
         ]);
 
         $this->postJson(route('roles.duplicate', $this->role));
 
         $role = Role::get()->last();
 
-        Event::assertDispatched(Events\Duplicated::class, function ($event) use ($role, $originalRole) {
+        Event::assertDispatched(RoleDuplicated::class, function ($event) use ($role, $originalRole) {
             return $event->role->is($role) && $event->originalRole->is($originalRole);
         });
     }

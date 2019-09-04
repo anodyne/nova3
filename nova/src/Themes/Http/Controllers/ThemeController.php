@@ -4,10 +4,9 @@ namespace Nova\Themes\Http\Controllers;
 
 use Nova\Themes\Jobs;
 use Nova\Themes\Models\Theme;
+use Nova\Themes\Http\Requests;
 use Nova\Themes\Http\Resources;
 use Nova\Themes\Http\Responses;
-use Nova\Themes\Http\Validators;
-use Nova\Themes\Http\Authorizers;
 use Nova\Foundation\Http\Controllers\Controller;
 
 class ThemeController extends Controller
@@ -17,9 +16,11 @@ class ThemeController extends Controller
         parent::__construct();
 
         $this->middleware('auth');
+
+        $this->authorizeResource(Theme::class);
     }
 
-    public function index(Authorizers\Index $auth)
+    public function index()
     {
         $themes = Theme::get();
 
@@ -28,35 +29,29 @@ class ThemeController extends Controller
             ->withPendingThemes($themes->toBeInstalled());
     }
 
-    public function create(Authorizers\Create $auth)
+    public function create()
     {
         return app(Responses\Create::class);
     }
 
-    public function store(Authorizers\Store $auth, Validators\Store $request)
+    public function store(Requests\Store $request)
     {
-        $theme = dispatch_now(new Jobs\Create($request->validated()));
-
-        return $theme->fresh();
+        return Jobs\CreateTheme::dispatchNow($request->validated());
     }
 
-    public function edit(Authorizers\Edit $auth, Theme $theme)
+    public function edit(Theme $theme)
     {
         return app(Responses\Edit::class)
             ->withTheme(new Resources\ThemeResource($theme));
     }
 
-    public function update(Authorizers\Update $auth, Validators\Update $request, Theme $theme)
+    public function update(Requests\Update $request, Theme $theme)
     {
-        $theme = dispatch_now(new Jobs\Update($theme, $request->validated()));
-
-        return $theme->fresh();
+        return Jobs\UpdateTheme::dispatchNow($theme, $request->validated());
     }
 
-    public function destroy(Authorizers\Destroy $auth, Theme $theme)
+    public function destroy(Theme $theme)
     {
-        $theme = dispatch_now(new Jobs\Delete($theme));
-
-        return $theme;
+        return Jobs\DeleteTheme::dispatchNow($theme);
     }
 }

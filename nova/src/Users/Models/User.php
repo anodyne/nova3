@@ -7,13 +7,18 @@ use Nova\Users\UsersCollection;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Nova\Foundation\Concerns\CanAuthorizeAny;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, SoftDeletes, HasRolesAndAbilities, LogsActivity;
+    use Notifiable,
+        SoftDeletes,
+        HasRolesAndAbilities,
+        LogsActivity,
+        CanAuthorizeAny;
 
     protected static $logFillable = true;
 
@@ -34,9 +39,9 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\Created::class,
-        'updated' => Events\Updated::class,
-        'deleted' => Events\Deleted::class,
+        'created' => Events\UserCreated::class,
+        'updated' => Events\UserUpdated::class,
+        'deleted' => Events\UserDeleted::class,
     ];
 
     /**

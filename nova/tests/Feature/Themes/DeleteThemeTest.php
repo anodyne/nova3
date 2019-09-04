@@ -3,10 +3,10 @@
 namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
-use Nova\Themes\Jobs;
-use Nova\Themes\Events;
-use Nova\Themes\Models\Theme;
 use Illuminate\Http\Response;
+use Nova\Themes\Models\Theme;
+use Nova\Themes\Jobs\DeleteTheme;
+use Nova\Themes\Events\ThemeDeleted;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -62,9 +62,9 @@ class DeleteThemeTest extends TestCase
     {
         Event::fake();
 
-        $theme = Jobs\Delete::dispatchNow($this->theme);
+        $theme = DeleteTheme::dispatchNow($this->theme);
 
-        Event::assertDispatched(Events\Deleted::class, function ($event) use ($theme) {
+        Event::assertDispatched(ThemeDeleted::class, function ($event) use ($theme) {
             return $event->theme->is($theme);
         });
     }
