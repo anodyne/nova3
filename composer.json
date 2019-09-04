@@ -16,15 +16,15 @@
         "inertiajs/inertia-laravel": "^0.1",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
-        "silber/bouncer": "v1.0.0-rc.5",
+        "silber/bouncer": "v1.0.0-rc.6",
         "spatie/laravel-activitylog": "^3.6",
-        "spatie/laravel-collection-macros": "^5.0",
+        "spatie/laravel-collection-macros": "^6.0",
         "spatie/laravel-html": "^2.21",
-        "tightenco/ziggy": "^0.7.1"
+        "tightenco/ziggy": "^0.8"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
-        "codedungeon/phpunit-result-printer": "^0.26.1",
+        "codedungeon/phpunit-result-printer": "^0.26",
         "facade/ignition": "^1.4",
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
