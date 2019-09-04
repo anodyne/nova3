@@ -3,10 +3,10 @@
 namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
-use Nova\Themes\Jobs;
-use Nova\Themes\Events;
-use Nova\Themes\Models\Theme;
 use Illuminate\Http\Response;
+use Nova\Themes\Models\Theme;
+use Nova\Themes\Jobs\UpdateTheme;
+use Nova\Themes\Events\ThemeUpdated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -75,9 +75,9 @@ class UpdateThemeTest extends TestCase
 
         $data = factory(Theme::class)->make()->toArray();
 
-        $theme = Jobs\Update::dispatchNow($this->theme, $data);
+        $theme = UpdateTheme::dispatchNow($this->theme, $data);
 
-        Event::assertDispatched(Events\Updated::class, function ($event) use ($theme) {
+        Event::assertDispatched(ThemeUpdated::class, function ($event) use ($theme) {
             return $event->theme->is($theme);
         });
     }

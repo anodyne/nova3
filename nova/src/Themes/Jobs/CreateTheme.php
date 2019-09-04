@@ -2,27 +2,28 @@
 
 namespace Nova\Themes\Jobs;
 
-use Nova\Themes\Models\Theme;
 use Illuminate\Bus\Queueable;
+use Nova\Themes\Models\Theme;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class Delete implements ShouldQueue
+class CreateTheme implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $theme;
+    public $data;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Theme $theme)
+    public function __construct(array $data)
     {
-        $this->theme = $theme;
+        $this->data = $data;
     }
 
     /**
@@ -32,8 +33,13 @@ class Delete implements ShouldQueue
      */
     public function handle()
     {
-        return tap($this->theme, function ($theme) {
-            $theme->delete();
-        });
+        $theme = Theme::create($this->data);
+
+        Artisan::call('nova:make:theme', [
+            'name' => $theme->name,
+            '--location' => $theme->location,
+        ]);
+
+        return $theme;
     }
 }

@@ -30,9 +30,9 @@ class Theme extends Model
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\Created::class,
-        'updated' => Events\Updated::class,
-        'deleted' => Events\Deleted::class,
+        'created' => Events\ThemeCreated::class,
+        'updated' => Events\ThemeUpdated::class,
+        'deleted' => Events\ThemeDeleted::class,
     ];
 
     /**

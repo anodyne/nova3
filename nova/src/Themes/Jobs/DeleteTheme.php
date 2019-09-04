@@ -2,29 +2,17 @@
 
 namespace Nova\Themes\Jobs;
 
-use Nova\Themes\Models\Theme;
 use Illuminate\Bus\Queueable;
+use Nova\Themes\Models\Theme;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class Update implements ShouldQueue
+class DeleteTheme implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * The data for updating the theme.
-     *
-     * @var array
-     */
-    public $data;
-
-    /**
-     * The theme being updated.
-     *
-     * @var \Nova\Themes\Models\Theme
-     */
     public $theme;
 
     /**
@@ -32,10 +20,9 @@ class Update implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Theme $theme, array $data)
+    public function __construct(Theme $theme)
     {
         $this->theme = $theme;
-        $this->data = $data;
     }
 
     /**
@@ -46,7 +33,7 @@ class Update implements ShouldQueue
     public function handle()
     {
         return tap($this->theme, function ($theme) {
-            $theme->update($this->data);
-        })->fresh();
+            $theme->delete();
+        });
     }
 }

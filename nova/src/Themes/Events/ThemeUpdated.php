@@ -6,7 +6,7 @@ use Nova\Themes\Models\Theme;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 
-class Updated
+class ThemeUpdated
 {
     use Dispatchable, SerializesModels;
 

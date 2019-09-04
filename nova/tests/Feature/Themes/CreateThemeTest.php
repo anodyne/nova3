@@ -3,10 +3,10 @@
 namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
-use Nova\Themes\Jobs;
-use Nova\Themes\Events;
-use Nova\Themes\Models\Theme;
 use Illuminate\Http\Response;
+use Nova\Themes\Models\Theme;
+use Nova\Themes\Jobs\CreateTheme;
+use Nova\Themes\Events\ThemeCreated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -59,9 +59,7 @@ class CreateThemeTest extends TestCase
 
         $theme = factory(Theme::class)->make()->toArray();
 
-        $this->followingRedirects()
-            ->from(route('themes.create'))
-            ->postJson(route('themes.store'), $theme)
+        $this->postJson(route('themes.store'), $theme)
             ->assertSuccessful()
             ->assertJson($theme);
 
@@ -74,7 +72,7 @@ class CreateThemeTest extends TestCase
 
         $data = factory(Theme::class)->make()->toArray();
 
-        Jobs\Create::dispatchNow($data);
+        CreateTheme::dispatchNow($data);
 
         $this->assertCount(1, Storage::disk('themes')->directories());
     }
@@ -86,9 +84,9 @@ class CreateThemeTest extends TestCase
 
         $data = factory(Theme::class)->make()->toArray();
 
-        $theme = Jobs\Create::dispatchNow($data);
+        $theme = CreateTheme::dispatchNow($data);
 
-        Event::assertDispatched(Events\Created::class, function ($event) use ($theme) {
+        Event::assertDispatched(ThemeCreated::class, function ($event) use ($theme) {
             return $event->theme->is($theme);
         });
     }

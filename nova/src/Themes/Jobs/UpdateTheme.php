@@ -2,27 +2,39 @@
 
 namespace Nova\Themes\Jobs;
 
-use Nova\Themes\Models\Theme;
 use Illuminate\Bus\Queueable;
+use Nova\Themes\Models\Theme;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class Create implements ShouldQueue
+class UpdateTheme implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * The data for updating the theme.
+     *
+     * @var array
+     */
     public $data;
+
+    /**
+     * The theme being updated.
+     *
+     * @var \Nova\Themes\Models\Theme
+     */
+    public $theme;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(array $data)
+    public function __construct(Theme $theme, array $data)
     {
+        $this->theme = $theme;
         $this->data = $data;
     }
 
@@ -33,13 +45,8 @@ class Create implements ShouldQueue
      */
     public function handle()
     {
-        $theme = Theme::create($this->data);
-
-        Artisan::call('nova:make:theme', [
-            'name' => $theme->name,
-            '--location' => $theme->location
-        ]);
-
-        return $theme;
+        return tap($this->theme, function ($theme) {
+            $theme->update($this->data);
+        })->refresh();
     }
 }
