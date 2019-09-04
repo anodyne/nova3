@@ -6,7 +6,7 @@
             </template>
         </page-header>
 
-        <section>
+        <section class="panel">
             <form
                 :action="route('roles.store')"
                 method="POST"
@@ -62,7 +62,7 @@
                         <div class="form-section-header">Abilities</div>
                         <p class="form-section-message mb-6">Abilities are the actions a user can take. Feel free to add whatever abilities to this role that you see fit.</p>
 
-                        <p class="form-section-message"><span class="font-medium text-orange-500">Take very special care when adding or removing the <em>All Abilities</em> ability!</span></p>
+                        <p class="form-section-message"><span class="font-semibold text-warning-600">Take very special care when adding or removing the <em>All Abilities</em> ability!</span></p>
                     </div>
 
                     <div class="form-section-column-form">
@@ -81,7 +81,7 @@
                                     class="field-addon"
                                     @click="search = ''"
                                 >
-                                    <nova-icon name="close"></nova-icon>
+                                    <icon name="close"></icon>
                                 </a>
                             </div>
                         </form-field>
@@ -100,25 +100,25 @@
                                 class="text-gray-500 hover:text-gray-600"
                                 @click="addAbility(ability)"
                             >
-                                <nova-icon name="add"></nova-icon>
+                                <icon name="add"></icon>
                             </a>
 
                             <a
                                 v-if="hasAbility(ability)"
                                 role="button"
-                                class="text-green-500"
+                                class="text-success-500"
                                 @click="removeAbility(ability)"
                             >
-                                <nova-icon name="check-circle"></nova-icon>
+                                <icon name="check-circle"></icon>
                             </a>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary is-large">Create</button>
+                    <button type="submit" class="button is-primary">Create</button>
 
-                    <inertia-link :href="route('roles.index')" class="button is-secondary is-large">
+                    <inertia-link :href="route('roles.index')" class="button is-secondary">
                         Cancel
                     </inertia-link>
                 </div>
@@ -129,9 +129,8 @@
 
 <script>
 import slug from 'slug';
-import Form from '@/Utils/Form';
 import indexOf from 'lodash/indexOf';
-import { Inertia } from 'inertia-vue';
+import Form from '@/Utils/Form';
 
 export default {
     props: {
@@ -192,7 +191,7 @@ export default {
                 then: (data) => {
                     this.$toast.message(`${data.title} role was created.`).success();
 
-                    Inertia.replace(this.route('roles.index'));
+                    this.$inertia.replace(this.route('roles.index'));
                 }
             });
         }

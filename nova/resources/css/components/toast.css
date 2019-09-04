@@ -1,0 +1,81 @@
+.toaster-oven {
+    @apply fixed flex inset-0 p-6 overflow-hidden z-1000 pointer-events-none flex-col-reverse;
+
+    .toast {
+        @apply flex flex-col my-3 text-center shadow rounded pointer-events-auto bg-gray-800 text-gray-100 self-start overflow-hidden;
+
+        @media (min-width: theme('screens.md')) {
+            @apply max-w-lg;
+        }
+
+        opacity: 0.92;
+
+        .content {
+            @apply flex items-center py-3 px-6;
+        }
+
+        .action {
+            @apply ml-6;
+
+            .button {
+                @apply m-0 p-0 rounded-none bg-transparent text-primary-300;
+
+                &:hover {
+                    @apply text-primary-200;
+                }
+
+                &.is-danger {
+                    @apply text-danger-300;
+
+                    &:hover {
+                        @apply text-danger-200;
+                    }
+                }
+
+                &.is-success {
+                    @apply text-success-300;
+
+                    &:hover {
+                        @apply text-success-200;
+                    }
+                }
+            }
+        }
+
+        .progress-bar {
+            @apply relative w-full h-1 bg-transparent;
+
+            > .percentage {
+                @apply absolute top-0 left-0 h-1 max-w-full bg-gray-700;
+            }
+        }
+
+        &.is-danger {
+            @apply bg-danger-500 text-white;
+
+            .progress-bar > .percentage {
+                @apply bg-danger-600;
+            }
+        }
+
+        &.is-success {
+            @apply bg-success-500 text-white;
+
+            .progress-bar > .percentage {
+                @apply bg-success-600;
+            }
+        }
+    }
+}
+
+.toast-animated-enter-active {
+    @apply animated animated-faster;
+
+    animation-name: fadeInUp;
+}
+
+.toast-animated-leave-active {
+    @apply animated animated-faster;
+
+    animation-name: fadeOutDown;
+}

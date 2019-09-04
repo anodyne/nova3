@@ -1,12 +1,12 @@
 <template>
     <sidebar-layout>
-        <page-header title="Create Theme">
+        <page-header title="Add Theme">
             <template #pretitle>
                 <inertia-link :href="route('themes.index')">Themes</inertia-link>
             </template>
         </page-header>
 
-        <section>
+        <section class="panel">
             <form
                 :action="route('themes.store')"
                 method="POST"
@@ -171,9 +171,9 @@
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary is-large">Create</button>
+                    <button type="submit" class="button is-primary">Create</button>
 
-                    <inertia-link :href="route('themes.index')" class="button is-secondary is-large">
+                    <inertia-link :href="route('themes.index')" class="button is-secondary">
                         Cancel
                     </inertia-link>
                 </div>
@@ -185,7 +185,6 @@
 <script>
 import slug from 'slug';
 import Form from '@/Utils/Form';
-import { Inertia } from 'inertia-vue';
 import LayoutPicker from '@/Shared/Pickers/LayoutPicker';
 import IconSetPicker from '@/Shared/Pickers/IconSetPicker';
 
@@ -226,7 +225,7 @@ export default {
                 then: (data) => {
                     this.$toast.message(`${data.name} theme was created.`).success();
 
-                    Inertia.replace(this.route('themes.index'));
+                    this.$inertia.replace(this.route('themes.index'));
                 }
             });
         }

@@ -39,11 +39,11 @@ class UserController extends Controller
 
     public function store(Validators\Store $request)
     {
-        $user = dispatch_now(new Jobs\Create($request->validated()));
+        $user = Jobs\Create::dispatchNow($request->validated());
 
         event(new Events\AdminCreated($user));
 
-        return $user->fresh();
+        return $user->refresh();
     }
 
     public function edit(User $user)
@@ -55,16 +55,16 @@ class UserController extends Controller
 
     public function update(Validators\Update $request, User $user)
     {
-        $user = dispatch_now(new Jobs\Update($user, $request->validated()));
+        $user = Jobs\Update::dispatchNow($user, $request->validated());
 
-        event(new Events\AdminUpdated($user->fresh()));
+        event(new Events\AdminUpdated($user->refresh()));
 
-        return $user->fresh();
+        return $user;
     }
 
     public function destroy(User $user)
     {
-        $user = dispatch_now(new Jobs\Delete($user));
+        $user = Jobs\Delete::dispatchNow($user);
 
         event(new Events\AdminDeleted($user));
 

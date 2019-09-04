@@ -1,24 +1,34 @@
 <template>
-    <div
-        v-click-outside="close"
-        class="dropdown"
-        :class="{ 'is-active': isOpen }"
-        @keydown.escape.prevent="close"
-    >
+    <div class="relative">
+        <div
+            v-if="open"
+            class="fixed inset-0"
+            @click="hide()"
+        ></div>
+
         <button
             ref="trigger"
             type="button"
-            class="dropdown-trigger"
-            @click="toggle"
+            class="relative flex items-center cursor-pointer select-none text-gray-600 hover:text-gray-700 focus:outline-none"
+            @click="toggle()"
         >
             <slot></slot>
         </button>
 
-        <transition enter-active-class="animated-faster fadeIn" leave-active-class="animated-faster fadeOut">
+        <transition
+            enter-active-class="transition-all transition-fastest ease-out"
+            enter-class="opacity-0 scale-75"
+            enter-to-class="opacity-100 scale-100"
+            leave-active-class="transition-all transition-faster ease-in"
+            leave-class="opacity-100 scale-100"
+            leave-to-class="opacity-0 scale-75"
+            appear
+        >
             <div
-                v-show="isOpen"
+                v-if="open"
                 ref="dropdown"
-                class="dropdown-menu"
+                class="absolute flex flex-col min-w-40 rounded bg-gray-900 z-9999 shadow-md mt-2 overflow-hidden"
+                :class="styles.origin"
             >
                 <slot name="dropdown" :dropdownProps="dropdownProps"></slot>
             </div>
@@ -27,16 +37,10 @@
 </template>
 
 <script>
-import Popper from 'popper.js';
-
 export default {
     name: 'Dropdown',
 
     props: {
-        boundary: {
-            type: String,
-            default: 'scrollParent'
-        },
         placement: {
             type: String,
             default: 'bottom-start'
@@ -45,7 +49,7 @@ export default {
 
     data () {
         return {
-            isOpen: false
+            open: false
         };
     },
 
@@ -54,60 +58,36 @@ export default {
             return {
                 toggle: this.toggle
             };
-        }
-    },
+        },
 
-    beforeDestroy () {
-        if (!this.popper) {
-            return;
+        styles () {
+            return {
+                origin: {
+                    'left-0 origin-bottom-left': this.placement === 'top-start',
+                    'right-0 origin-bottom-right': this.placement === 'top-end',
+                    'left-0 origin-top-left': this.placement === 'bottom-start',
+                    'right-0 origin-top-right': this.placement === 'bottom-end'
+                }
+            };
         }
-
-        this.popper.destroy();
     },
 
     methods: {
-        close () {
-            if (this.isOpen) {
-                this.isOpen = false;
+        hide () {
+            if (this.open) {
+                this.open = false;
             }
         },
 
-        initializePopper () {
-            if (this.popper) {
-                return;
-            }
-
-            this.popper = new Popper(this.$refs.trigger, this.$refs.dropdown, {
-                positionFixed: true,
-                placement: this.placement,
-                modifiers: {
-                    flip: {
-                        boundariesElement: this.boundary
-                    },
-                    preventOverflow: {
-                        boundariesElement: this.boundary
-                    }
-                }
-            });
-        },
-
-        open () {
-            this.isOpen = true;
-
-            this.$nextTick(() => {
-                this.initializePopper();
-
-                if (this.popper) {
-                    this.popper.scheduleUpdate();
-                }
-            });
+        show () {
+            this.open = true;
         },
 
         toggle () {
-            if (this.isOpen) {
-                this.close();
+            if (this.open) {
+                this.hide();
             } else {
-                this.open();
+                this.show();
             }
         }
     }

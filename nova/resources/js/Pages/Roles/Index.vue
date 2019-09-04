@@ -7,65 +7,54 @@
                 :href="route('roles.create')"
                 class="button is-primary"
             >
-                Create Role
+                Add Role
             </inertia-link>
         </page-header>
 
         <section>
-            <div class="mb-6 w-1/2">
-                <div class="search-field">
-                    <div class="field-addon">
-                        <nova-icon name="search" class="h-5 w-5"></nova-icon>
-                    </div>
+            <div class="mb-6 w-1/3">
+                <div class="flex items-center py-1 px-2 rounded-full bg-white border-2 border-transparent text-gray-500 focus-within:bg-white focus-within:border-gray-400 focus-within:text-gray-600">
+                    <icon name="search" class="mr-2"></icon>
 
                     <input
                         v-model="search"
                         type="text"
                         placeholder="Find a role..."
-                        class="field"
+                        class="w-full appearance-none bg-transparent text-gray-800 focus:outline-none"
                     >
 
                     <a
                         v-show="search != ''"
                         role="button"
-                        class="field-addon"
+                        class="ml-2 text-gray-500 hover:text-danger-500"
                         @click="search = ''"
                     >
-                        <nova-icon name="close" class="h-5 w-5"></nova-icon>
+                        <icon name="close"></icon>
                     </a>
                 </div>
             </div>
 
-            <transition-group
-                tag="div"
-                class="data-table is-striped has-controls"
-                leave-active-class="animated fadeOut"
-            >
-                <div key="header" class="row is-header">
-                    <div class="col">
-                        Role Name
-                    </div>
-                </div>
-
+            <transition-group leave-active-class="animated fadeOut">
                 <div
                     v-for="role in filteredRoles"
                     :key="role.id"
-                    class="row"
+                    class="panel flex items-center justify-between"
                 >
-                    <div class="col">
+                    <div>
                         {{ role.title }}
                     </div>
-                    <div class="col-auto">
-                        <nova-icon
+
+                    <div>
+                        <icon
                             v-if="role.locked"
                             v-tippy
                             name="lock"
                             class="text-gray-600"
                             title="This role is locked and cannot be duplicated, edited, or deleted."
-                        ></nova-icon>
+                        ></icon>
 
                         <dropdown v-else placement="bottom-end">
-                            <nova-icon name="more-vertical"></nova-icon>
+                            <icon name="more-horizontal" class="h-6 w-6"></icon>
 
                             <template #dropdown="{ dropdownProps }">
                                 <inertia-link
@@ -73,7 +62,7 @@
                                     :href="route('roles.edit', { role })"
                                     class="dropdown-link"
                                 >
-                                    <nova-icon name="edit" class="dropdown-item-icon"></nova-icon>
+                                    <icon name="edit" class="dropdown-item-icon"></icon>
                                     Edit
                                 </inertia-link>
                                 <a
@@ -82,7 +71,7 @@
                                     class="dropdown-link"
                                     @click="duplicate(role)"
                                 >
-                                    <nova-icon name="copy" class="dropdown-item-icon"></nova-icon>
+                                    <icon name="copy" class="dropdown-item-icon"></icon>
                                     Duplicate
                                 </a>
                                 <a
@@ -91,7 +80,7 @@
                                     class="dropdown-link-danger"
                                     @click="confirmRemove(role, dropdownProps)"
                                 >
-                                    <nova-icon name="delete" class="dropdown-item-icon"></nova-icon>
+                                    <icon name="delete" class="dropdown-item-icon"></icon>
                                     Delete
                                 </a>
                             </template>
@@ -103,22 +92,22 @@
 
         <modal
             :open="modalIsShown"
-            title="Delete role?"
+            title="Delete Role"
             @close="hideModal"
         >
-            Are you sure you want to delete the {{ deletingItem.title }} role?
+            Are you sure you want to delete the <strong>{{ deletingItem.title }}</strong> role? This change is permanent and cannot be undone. Any users with this role will have any abilities defined by this role removed from their permissions.
 
             <template #footer>
-                <button
-                    type="button"
-                    class="button is-danger-vivid mr-4"
-                    @click="remove"
-                >
-                    Delete
-                </button>
-
                 <button class="button is-secondary" @click="hideModal">
                     Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="button is-danger-vivid ml-4"
+                    @click="remove"
+                >
+                    Delete Role
                 </button>
             </template>
         </modal>
@@ -126,9 +115,8 @@
 </template>
 
 <script>
-import Form from '@/Utils/Form';
 import findIndex from 'lodash/findIndex';
-import { Inertia } from 'inertia-vue';
+import Form from '@/Utils/Form';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 
 export default {
@@ -173,7 +161,7 @@ export default {
 
                     this.availableRoles.push(data);
 
-                    Inertia.replace(this.route('roles.edit', { role: data }));
+                    this.$inertia.replace(this.route('roles.edit', { role: data }));
                 }
             });
         },

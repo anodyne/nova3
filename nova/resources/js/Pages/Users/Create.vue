@@ -6,7 +6,7 @@
             </template>
         </page-header>
 
-        <section>
+        <section class="panel">
             <form
                 :action="route('users.store')"
                 method="POST"
@@ -62,7 +62,7 @@
                         <div class="form-section-header">Roles</div>
                         <p class="form-section-message mb-6">Roles are made up of the abilities that users can take throughout the system. A user can be assigned as many roles as you'd like to give you more control over the actions your users can take.</p>
 
-                        <inertia-link :href="route('roles.index')" class="text-blue-600 hover:text-blue-500">
+                        <inertia-link :href="route('roles.index')" class="text-primary-600 hover:text-primary-500">
                             Manage roles
                         </inertia-link>
                     </div>
@@ -83,7 +83,7 @@
                                     class="field-addon"
                                     @click="search = ''"
                                 >
-                                    <nova-icon name="close"></nova-icon>
+                                    <icon name="close"></icon>
                                 </a>
                             </div>
                         </form-field>
@@ -102,25 +102,25 @@
                                 class="text-gray-500 hover:text-gray-600"
                                 @click="addRole(role)"
                             >
-                                <nova-icon name="add"></nova-icon>
+                                <icon name="add"></icon>
                             </a>
 
                             <a
                                 v-if="hasRole(role)"
                                 role="button"
-                                class="text-green-500"
+                                class="text-success-500"
                                 @click="removeRole(role)"
                             >
-                                <nova-icon name="check-circle"></nova-icon>
+                                <icon name="check-circle"></icon>
                             </a>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary is-large">Create</button>
+                    <button type="submit" class="button is-primary">Create</button>
 
-                    <inertia-link :href="route('users.index')" class="button is-secondary is-large">
+                    <inertia-link :href="route('users.index')" class="button is-secondary">
                         Cancel
                     </inertia-link>
                 </div>
@@ -130,7 +130,6 @@
 </template>
 
 <script>
-import { Inertia } from 'inertia-vue';
 import UserHelpers from './UserHelpers';
 import Form from '@/Utils/Form';
 
@@ -165,7 +164,7 @@ export default {
                 then: (data) => {
                     this.$toast.message(`User account for ${data.name} was created.`).success();
 
-                    Inertia.replace(this.route('users.index'));
+                    this.$inertia.replace(this.route('users.index'));
                 }
             });
         }
