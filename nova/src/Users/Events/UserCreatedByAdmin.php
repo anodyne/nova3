@@ -6,7 +6,7 @@ use Nova\Users\Models\User;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 
-class Deleted
+class UserCreatedByAdmin
 {
     use Dispatchable, SerializesModels;
 

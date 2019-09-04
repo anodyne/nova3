@@ -9,20 +9,20 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class Delete implements ShouldQueue
+class CreateUser implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $user;
+    public $data;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(array $data)
     {
-        $this->user = $user;
+        $this->data = $data;
     }
 
     /**
@@ -32,12 +32,6 @@ class Delete implements ShouldQueue
      */
     public function handle()
     {
-        if ($this->user->is(auth()->user())) {
-            throw new \Exception('You cannot delete your own account.');
-        }
-
-        return tap($this->user, function ($user) {
-            $user->delete();
-        });
+        return User::create($this->data);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Nova\Users\Http\Validators;
+namespace Nova\Users\Http\Requests;
 
 use Nova\Foundation\Http\Requests\ValidatesRequest;
 

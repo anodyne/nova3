@@ -3,9 +3,10 @@
 namespace Tests\Feature\Users;
 
 use Tests\TestCase;
-use Nova\Users\Events;
 use Nova\Users\Models\User;
+use Nova\Users\Events\UserCreated;
 use Illuminate\Support\Facades\Event;
+use Nova\Users\Events\UserCreatedByAdmin;
 use Illuminate\Support\Facades\Notification;
 use Nova\Users\Notifications\AccountCreated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -88,11 +89,11 @@ class CreateUserTest extends TestCase
 
         $user = User::get()->last();
 
-        Event::assertDispatched(Events\AdminCreated::class, function ($event) use ($user) {
+        Event::assertDispatched(UserCreatedByAdmin::class, function ($event) use ($user) {
             return $event->user->is($user);
         });
 
-        Event::assertDispatched(Events\Created::class, function ($event) use ($user) {
+        Event::assertDispatched(UserCreated::class, function ($event) use ($user) {
             return $event->user->is($user);
         });
     }

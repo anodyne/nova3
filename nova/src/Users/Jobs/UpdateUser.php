@@ -9,19 +9,22 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class Create implements ShouldQueue
+class UpdateUser implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $data;
+
+    public $user;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(array $data)
+    public function __construct(User $user, array $data)
     {
+        $this->user = $user;
         $this->data = $data;
     }
 
@@ -32,6 +35,8 @@ class Create implements ShouldQueue
      */
     public function handle()
     {
-        return User::create($this->data);
+        return tap($this->user, function ($user) {
+            $user->update($this->data);
+        })->refresh();
     }
 }
