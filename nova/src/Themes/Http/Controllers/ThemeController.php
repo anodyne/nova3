@@ -5,8 +5,9 @@ namespace Nova\Themes\Http\Controllers;
 use Nova\Themes\Jobs;
 use Nova\Themes\Models\Theme;
 use Nova\Themes\Http\Requests;
-use Nova\Themes\Http\Resources;
 use Nova\Themes\Http\Responses;
+use Nova\Themes\Http\Resources\ThemeResource;
+use Nova\Themes\Http\Resources\ThemeCollection;
 use Nova\Foundation\Http\Controllers\Controller;
 
 class ThemeController extends Controller
@@ -25,7 +26,7 @@ class ThemeController extends Controller
         $themes = Theme::get();
 
         return app(Responses\Index::class)
-            ->withThemes(new Resources\ThemeCollection($themes))
+            ->withThemes(new ThemeCollection($themes))
             ->withPendingThemes($themes->toBeInstalled());
     }
 
@@ -42,7 +43,7 @@ class ThemeController extends Controller
     public function edit(Theme $theme)
     {
         return app(Responses\Edit::class)
-            ->withTheme(new Resources\ThemeResource($theme));
+            ->withTheme(new ThemeResource($theme));
     }
 
     public function update(Requests\Update $request, Theme $theme)
