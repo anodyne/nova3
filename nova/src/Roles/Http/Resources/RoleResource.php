@@ -8,8 +8,6 @@ class RoleResource extends JsonResource
 {
     public function toArray($request)
     {
-        $user = auth()->user();
-
         return [
             'abilities' => $this->getAbilities(),
             'can' => [

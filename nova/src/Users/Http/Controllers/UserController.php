@@ -7,8 +7,9 @@ use Nova\Users\Events;
 use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
 use Nova\Users\Http\Requests;
-use Nova\Users\Http\Resources;
 use Nova\Users\Http\Responses;
+use Nova\Users\Http\Resources\UserResource;
+use Nova\Users\Http\Resources\UserCollection;
 use Nova\Foundation\Http\Controllers\Controller;
 
 class UserController extends Controller
@@ -27,7 +28,7 @@ class UserController extends Controller
         $users = User::get();
 
         return app(Responses\Index::class)
-            ->withUsers(new Resources\UserCollection($users))
+            ->withUsers(new UserCollection($users))
             ->withPendingUsers($users->pending());
     }
 
@@ -50,7 +51,7 @@ class UserController extends Controller
     {
         return app(Responses\Edit::class)
             ->withRoles(Role::orderBy('title')->get())
-            ->withUser(new Resources\UserResource($user));
+            ->withUser(new UserResource($user));
     }
 
     public function update(Requests\Update $request, User $user)

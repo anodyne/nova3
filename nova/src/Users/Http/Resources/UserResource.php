@@ -8,8 +8,6 @@ class UserResource extends JsonResource
 {
     public function toArray($request)
     {
-        $user = auth()->user();
-
         return [
             'can' => [
                 'delete' => gate()->allows('delete', $this->resource),
