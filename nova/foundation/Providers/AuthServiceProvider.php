@@ -23,6 +23,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Bouncer::cache();
+
         Bouncer::useRoleModel(Role::class);
         Bouncer::useAbilityModel(Ability::class);
 
