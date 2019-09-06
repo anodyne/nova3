@@ -27,6 +27,8 @@ class ResponsesServiceProvider extends ServiceProvider
             \Nova\Auth\Http\Responses\ResetPasswordResponse::class,
             \Nova\Auth\Http\Responses\EmailVerificationResponse::class,
 
+            \Nova\Dashboard\Http\Responses\DashboardResponse::class,
+
             \Nova\Themes\Http\Responses\Index::class,
             \Nova\Themes\Http\Responses\Create::class,
             \Nova\Themes\Http\Responses\Edit::class,
