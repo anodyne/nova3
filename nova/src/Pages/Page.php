@@ -18,6 +18,19 @@ class Page extends Model
     ];
 
     /**
+     * Scope the query to the page key.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  string  $key
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeKey($query, $key)
+    {
+        return $query->where('key', $key);
+    }
+
+    /**
      * Set the description for logging.
      *
      * @param  string  $eventName
