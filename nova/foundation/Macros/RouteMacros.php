@@ -9,7 +9,7 @@ class RouteMacros
     public function findPageFromRoute()
     {
         return function () {
-            return Page::where('key', $this->getName())->first();
+            return Page::key($this->getName())->first();
         };
     }
 }
