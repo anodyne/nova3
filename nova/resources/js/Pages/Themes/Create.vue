@@ -71,7 +71,7 @@
                     </div>
                 </div>
 
-                <div class="form-section">
+                <!-- <div class="form-section">
                     <div class="form-section-column-content">
                         <div class="form-section-header">Presentation</div>
                         <p class="form-section-message">Set the presentation defaults you'd like to use for your theme.</p>
@@ -142,7 +142,7 @@
                             >
                         </form-field>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="form-section">
                     <div class="form-section-column-content">
