@@ -6,10 +6,5 @@ use Nova\Foundation\Http\Responses\BaseResponsable;
 
 class Index extends BaseResponsable
 {
-    public function views(): array
-    {
-        return [
-            'component' => 'Roles/Index',
-        ];
-    }
+    public $component = 'Roles/Index';
 }
