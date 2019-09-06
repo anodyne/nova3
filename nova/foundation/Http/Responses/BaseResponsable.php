@@ -52,6 +52,13 @@ abstract class BaseResponsable implements Responsable
      */
     protected $theme;
 
+    /**
+     * The Inertia component for the response.
+     *
+     * @var string
+     */
+    public $component = null;
+
     public function __construct(Page $page, Application $app)
     {
         $this->app = $app;
@@ -151,7 +158,7 @@ abstract class BaseResponsable implements Responsable
      */
     public function renderMode()
     {
-        if ($this->getView('component') !== null) {
+        if ($this->component !== null) {
             return self::RENDER_CLIENT;
         }
 
@@ -182,7 +189,10 @@ abstract class BaseResponsable implements Responsable
      *
      * @return array
      */
-    abstract public function views();
+    public function views()
+    {
+        return [];
+    }
 
     /**
      * Any data that should be sent with the response.
@@ -226,6 +236,13 @@ abstract class BaseResponsable implements Responsable
         }
 
         return $this->with(Str::camel(substr($method, 4)), $parameters[0]);
+    }
+
+    public function component($component)
+    {
+        $this->component = $component;
+
+        return $this;
     }
 
     /**
@@ -306,7 +323,7 @@ abstract class BaseResponsable implements Responsable
     {
         Inertia::setRootView('app-client');
 
-        $response = Inertia::render($this->getView('component'), $this->data);
+        $response = Inertia::render($this->component, $this->data);
 
         return $response->toResponse($request);
     }
