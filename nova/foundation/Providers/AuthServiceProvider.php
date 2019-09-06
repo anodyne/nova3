@@ -5,6 +5,8 @@ namespace Nova\Foundation\Providers;
 use Bouncer;
 use Nova\Roles\Models\Role;
 use Nova\Roles\Models\Ability;
+use Illuminate\Cache\ArrayStore;
+use Nova\Foundation\Bouncer\AdvancedCachedClipboard;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -24,6 +26,8 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         Bouncer::cache();
+
+        Bouncer::setClipboard(new AdvancedCachedClipboard(new ArrayStore));
 
         Bouncer::useRoleModel(Role::class);
         Bouncer::useAbilityModel(Ability::class);
