@@ -16,7 +16,8 @@ services:
             dockerfile: docker/app.dockerfile
         volumes:
             - ./:/var/www:cached
-            - ./docker/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+            - ./docker/php/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
+            - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
         links:
             - database
         environment:
