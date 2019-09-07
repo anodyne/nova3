@@ -4,7 +4,6 @@ namespace Nova\Roles\Providers;
 
 use Nova\Roles\Models\Role;
 use Nova\Roles\Events\RoleCreated;
-use Nova\Roles\Events\RoleDeleted;
 use Nova\Roles\Events\RoleUpdated;
 use Nova\Roles\Policies\RolePolicy;
 use Illuminate\Support\Facades\Gate;
@@ -45,7 +44,6 @@ class RoleServiceProvider extends ServiceProvider
     {
         Event::listen(RoleCreated::class, RefreshPermissionsCache::class);
         Event::listen(RoleUpdated::class, RefreshPermissionsCache::class);
-        Event::listen(RoleDeleted::class, RefreshPermissionsCache::class);
         Event::listen(RoleDuplicated::class, RefreshPermissionsCache::class);
     }
 }
