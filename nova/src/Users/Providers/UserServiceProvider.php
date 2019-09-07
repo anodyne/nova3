@@ -20,9 +20,9 @@ class UserServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Gate::policy(User::class, UserPolicy::class);
+        $this->registerPolicies();
 
-        Event::listen(UserCreatedByAdmin::class, GeneratePassword::class);
+        $this->registerEventListeners();
     }
 
     /**
@@ -35,5 +35,15 @@ class UserServiceProvider extends ServiceProvider
         Relation::morphMap([
             'users' => User::class,
         ]);
+    }
+
+    protected function registerPolicies()
+    {
+        Gate::policy(User::class, UserPolicy::class);
+    }
+
+    protected function registerEventListeners()
+    {
+        Event::listen(UserCreatedByAdmin::class, GeneratePassword::class);
     }
 }

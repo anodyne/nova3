@@ -27,15 +27,17 @@ class UserController extends Controller
     {
         $users = User::get();
 
-        return app(Responses\Index::class)
-            ->withUsers(new UserCollection($users))
-            ->withPendingUsers($users->pending());
+        return app(Responses\Index::class)->with([
+            'users' => new UserCollection($users),
+            'pendingUsers' => $users->pending(),
+        ]);
     }
 
     public function create()
     {
-        return app(Responses\Create::class)
-            ->withRoles(Role::orderBy('title')->get());
+        return app(Responses\Create::class)->with([
+            'roles' => Role::orderBy('title')->get(),
+        ]);
     }
 
     public function store(Requests\Store $request)
@@ -49,9 +51,10 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return app(Responses\Edit::class)
-            ->withRoles(Role::orderBy('title')->get())
-            ->withUser(new UserResource($user));
+        return app(Responses\Edit::class)->with([
+            'roles' => Role::orderBy('title')->get(),
+            'user' => new UserResource($user),
+        ]);
     }
 
     public function update(Requests\Update $request, User $user)

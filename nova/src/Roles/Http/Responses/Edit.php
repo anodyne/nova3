@@ -6,10 +6,5 @@ use Nova\Foundation\Http\Responses\BaseResponsable;
 
 class Edit extends BaseResponsable
 {
-    public function views(): array
-    {
-        return [
-            'component' => 'Roles/Edit',
-        ];
-    }
+    public $component = 'Roles/Edit';
 }

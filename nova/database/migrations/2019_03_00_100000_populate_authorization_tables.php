@@ -3,7 +3,6 @@
 use Nova\Roles\Models\Role;
 use Nova\Roles\Models\Ability;
 use Illuminate\Database\Eloquent\Model;
-use Silber\Bouncer\BouncerFacade as Bouncer;
 use Illuminate\Database\Migrations\Migration;
 
 class PopulateAuthorizationTables extends Migration

@@ -25,9 +25,10 @@ class ThemeController extends Controller
     {
         $themes = Theme::get();
 
-        return app(Responses\Index::class)
-            ->withThemes(new ThemeCollection($themes))
-            ->withPendingThemes($themes->toBeInstalled());
+        return app(Responses\Index::class)->with([
+            'themes' => new ThemeCollection($themes),
+            'pendingThemes' => $themes->toBeInstalled(),
+        ]);
     }
 
     public function create()
@@ -42,8 +43,9 @@ class ThemeController extends Controller
 
     public function edit(Theme $theme)
     {
-        return app(Responses\Edit::class)
-            ->withTheme(new ThemeResource($theme));
+        return app(Responses\Edit::class)->with([
+            'theme' => new ThemeResource($theme),
+        ]);
     }
 
     public function update(Requests\Update $request, Theme $theme)

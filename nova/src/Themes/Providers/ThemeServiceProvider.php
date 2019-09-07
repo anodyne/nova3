@@ -17,11 +17,9 @@ class ThemeServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Gate::policy(Theme::class, ThemePolicy::class);
+        $this->registerPolicies();
 
-        $this->commands([
-            ThemeMakeCommand::class,
-        ]);
+        $this->registerCommands();
 
         $theme = new \Themes\Pulsar\Theme;
 
@@ -42,5 +40,17 @@ class ThemeServiceProvider extends ServiceProvider
      */
     public function register()
     {
+    }
+
+    protected function registerPolicies()
+    {
+        Gate::policy(Theme::class, ThemePolicy::class);
+    }
+
+    protected function registerCommands()
+    {
+        $this->commands([
+            ThemeMakeCommand::class,
+        ]);
     }
 }

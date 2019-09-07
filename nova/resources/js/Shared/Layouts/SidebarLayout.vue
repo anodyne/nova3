@@ -11,15 +11,15 @@
                 </a>
 
                 <div class="flex flex-col py-3 px-6">
-                    <inertia-link href="#" class="flex items-center text-gray-400 py-2 transition-color transition-faster hover:text-gray-200">
+                    <inertia-link :href="route('dashboard')" class="flex items-center text-gray-400 py-2 transition-color transition-faster hover:text-gray-200">
                         <icon name="activity" class="mr-3 text-gray-600"></icon>
                         Dashboard
                     </inertia-link>
 
-                    <inertia-link href="#" class="flex items-center text-gray-400 py-2 transition-color transition-faster hover:text-gray-200">
+                    <!-- <inertia-link href="#" class="flex items-center text-gray-400 py-2 transition-color transition-faster hover:text-gray-200">
                         <icon name="settings" class="mr-3 text-gray-600"></icon>
                         Settings
-                    </inertia-link>
+                    </inertia-link> -->
 
                     <inertia-link href="#" class="flex items-center text-gray-400 py-2 transition-color transition-faster hover:text-gray-200">
                         <icon name="sidebar" class="mr-3 text-gray-600"></icon>
@@ -27,21 +27,21 @@
                     </inertia-link>
 
                     <div class="ml-8 mb-2">
-                        <inertia-link
+                        <!-- <inertia-link
                             :href="route('roles.index')"
                             class="flex items-center py-1 text-sm transition-color transition-faster"
                             :class="navStyle('characters.*')"
                         >
                             Characters
-                        </inertia-link>
+                        </inertia-link> -->
 
-                        <inertia-link
+                        <!-- <inertia-link
                             :href="route('roles.index')"
                             class="flex items-center py-1 text-sm transition-color transition-faster"
                             :class="navStyle('pages.*')"
                         >
                             Pages
-                        </inertia-link>
+                        </inertia-link> -->
 
                         <inertia-link
                             :href="route('roles.index')"
@@ -68,15 +68,15 @@
                         </inertia-link>
                     </div>
 
-                    <inertia-link href="#" class="flex items-center text-gray-400 py-2 transition-color transition-faster hover:text-gray-200">
+                    <!-- <inertia-link href="#" class="flex items-center text-gray-400 py-2 transition-color transition-faster hover:text-gray-200">
                         <icon name="edit" class="mr-3 text-gray-600"></icon>
                         Write
-                    </inertia-link>
+                    </inertia-link> -->
 
-                    <inertia-link href="#" class="flex items-center text-gray-400 py-2 transition-color transition-faster hover:text-gray-200">
+                    <!-- <inertia-link href="#" class="flex items-center text-gray-400 py-2 transition-color transition-faster hover:text-gray-200">
                         <icon name="pie-chart" class="mr-3 text-gray-600"></icon>
                         Reports
-                    </inertia-link>
+                    </inertia-link> -->
                 </div>
 
                 <div class="text-xs uppercase tracking-widest py-3 px-6 text-gray-600 font-semibold">Links</div>

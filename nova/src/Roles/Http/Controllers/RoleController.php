@@ -24,14 +24,16 @@ class RoleController extends Controller
 
     public function index()
     {
-        return app(Responses\Index::class)
-            ->withRoles(new RoleCollection(Role::orderBy('title')->get()));
+        return app(Responses\Index::class)->with([
+            'roles' => new RoleCollection(Role::orderBy('title')->get()),
+        ]);
     }
 
     public function create()
     {
-        return app(Responses\Create::class)
-            ->withAbilities(Ability::orderBy('title')->get());
+        return app(Responses\Create::class)->with([
+            'abilities' => Ability::orderBy('title')->get(),
+        ]);
     }
 
     public function store(Requests\Store $request)
@@ -41,9 +43,10 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
-        return app(Responses\Edit::class)
-            ->withRole(new RoleResource($role))
-            ->withAbilities(Ability::orderBy('title')->get());
+        return app(Responses\Edit::class)->with([
+            'role' => new RoleResource($role),
+            'abilities' => Ability::orderBy('title')->get(),
+        ]);
     }
 
     public function update(Requests\Update $request, Role $role)

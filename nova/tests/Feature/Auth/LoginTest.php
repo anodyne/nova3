@@ -32,7 +32,7 @@ class LoginTest extends TestCase
                 'email' => $user->email,
                 'password' => 'secret',
             ])
-            ->assertRedirect(route('home'));
+            ->assertRedirect(route('dashboard'));
 
         $this->assertAuthenticatedAs($user);
     }
