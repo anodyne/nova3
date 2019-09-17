@@ -16,9 +16,7 @@ jobs:
     - name: Copy ENV configuration for CI
       run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
     - name: Install dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
-    - name: Generate key
-      run: php artisan key:generate --ansi
+      run: composer install
     - name: Create DB and schemas
       run: |
         mkdir -p database
