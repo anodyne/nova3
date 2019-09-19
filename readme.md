@@ -4,6 +4,8 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/c13ee0758ec75510e170/maintainability)](https://codeclimate.com/github/anodyne/nova3/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c13ee0758ec75510e170/test_coverage)](https://codeclimate.com/github/anodyne/nova3/test_coverage)
 
+https://app.chipperci.com/projects/3abd510d-9713-4155-9fed-f0fe30c08acc/status/dev
+
 ## Installation
 
 ```bash
