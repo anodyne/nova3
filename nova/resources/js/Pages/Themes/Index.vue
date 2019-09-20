@@ -105,10 +105,9 @@ import findIndex from 'lodash/findIndex';
 import Form from '@/Utils/Form';
 import InstallThemes from '@/Pages/Themes/Install';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
-import StateButton from '@/Shared/StateButton';
 
 export default {
-    components: { InstallThemes, StateButton },
+    components: { InstallThemes },
 
     mixins: [ModalHelpers],
 

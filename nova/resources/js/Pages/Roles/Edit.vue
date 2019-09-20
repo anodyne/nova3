@@ -90,11 +90,7 @@
                             </div>
                         </form-field>
 
-                        <toggle-switch
-                            v-model="showAssignedAbilitiesOnly"
-                            small
-                            class="mb-4"
-                        >
+                        <toggle-switch v-model="showAssignedAbilitiesOnly" class="mb-4">
                             Show only assigned abilities
                         </toggle-switch>
 

@@ -20,6 +20,21 @@
             </stateful-button>
         </div>
 
+        <div class="panel mt-8">
+            <div class="badge">Pending</div>
+            <div class="badge badge-success">Success</div>
+            <div class="badge badge-danger">Danger</div>
+            <div class="badge badge-warning">Warning</div>
+            <div class="badge badge-info">Info</div>
+        </div>
+
+        <div class="panel mt-8">
+            <toggle-switch v-model="toggleSwitch">
+                First Switch
+            </toggle-switch>
+            <toggle-switch v-model="toggleSwitch2" class="mt-2"></toggle-switch>
+        </div>
+
         <modal
             :open="modalIsShown"
             title="Modal title"
@@ -52,7 +67,9 @@ export default {
 
     data () {
         return {
-            buttonLoading: false
+            buttonLoading: false,
+            toggleSwitch: true,
+            toggleSwitch2: false
         };
     },
 

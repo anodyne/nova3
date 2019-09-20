@@ -104,11 +104,7 @@
                             </div>
                         </form-field>
 
-                        <toggle-switch
-                            v-model="showAssignedRolesOnly"
-                            small
-                            class="mb-4"
-                        >
+                        <toggle-switch v-model="showAssignedRolesOnly" class="mb-4">
                             Show only assigned roles
                         </toggle-switch>
 
