@@ -10,6 +10,16 @@
             >Launch modal</button>
         </section>
 
+        <div class="panel mt-8">
+            <stateful-button
+                class="is-primary"
+                :loading="buttonLoading"
+                @click="buttonLoading = true"
+            >
+                Create
+            </stateful-button>
+        </div>
+
         <modal
             :open="modalIsShown"
             title="Modal title"
@@ -38,6 +48,27 @@
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 
 export default {
-    mixins: [ModalHelpers]
+    mixins: [ModalHelpers],
+
+    data () {
+        return {
+            buttonLoading: false
+        };
+    },
+
+    watch: {
+        buttonLoading (newValue) {
+            if (newValue === true) {
+                setTimeout(() => {
+                    this.$toast
+                        .message('There was a problem creating your thing.')
+                        .actionText('OK')
+                        .error();
+
+                    this.buttonLoading = false;
+                }, 3000);
+            }
+        }
+    }
 };
 </script>
