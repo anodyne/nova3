@@ -17,3 +17,24 @@
 .badge-warning {
     @apply bg-warning-200 text-warning-800;
 }
+
+/* .badge {
+    @apply inline-block rounded-full py-1 px-2 text-xs font-bold uppercase tracking-widest bg-gray-200;
+}
+.badge span {
+    @apply text-gray-600;
+}
+
+.badge-danger {
+    @apply bg-danger-200;
+}
+.badge-danger span {
+    @apply text-danger-600;
+}
+
+.badge-success {
+    @apply bg-success-200;
+}
+.badge-success span {
+    @apply text-success-600;
+} */

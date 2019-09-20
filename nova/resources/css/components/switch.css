@@ -63,3 +63,46 @@
     -webkit-transform: translateX(1.125rem);
     transform: translateX(1.125rem);
 }
+
+/* .switch {
+    @apply relative inline-block w-11;
+
+    height: 1.625rem;
+}
+.switch input {
+    @apply opacity-0 w-0 h-0;
+}
+.slider {
+    @apply cursor-pointer top-0 bottom-0 left-0 right-0 bg-gray-400;
+}
+.slider,
+.slider:before {
+    @apply absolute;
+
+    transition:.4s
+}
+.slider:before {
+    @apply bg-white;
+
+    content:"";
+    height:18px;
+    width:18px;
+    left:4px;
+    bottom:4px;
+}
+input:checked + .slider {
+    @apply .bg-primary-500;
+}
+input:focus + .slider {
+    box-shadow:0 0 1px config("colors.primary-500")
+}
+input:checked + .slider:before {
+    transform:translateX(18px)
+}
+.slider.round {
+    @apply rounded-full;
+    border-radius:34px
+}
+.slider.round:before {
+    @apply rounded-full;
+} */
