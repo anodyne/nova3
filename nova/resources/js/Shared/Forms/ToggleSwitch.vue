@@ -1,20 +1,15 @@
 <template>
     <label class="switch-container">
-        <div
-            class="switch"
-            :class="{ 'is-small': small }"
-            role="checkbox"
-            tabindex="0"
-            :aria-checked="value.toString()"
-            @click="toggle"
-            @keydown.space.prevent="toggle"
-        ></div>
+        <div class="switch">
+            <input
+                type="checkbox"
+                :checked="value"
+                @input="$emit('input', !value)"
+            >
+            <span class="slider round"></span>
+        </div>
 
-        <div
-            v-if="hasSlot('default')"
-            class="switch-label"
-            @click="toggle"
-        >
+        <div v-if="hasSlot('default')" class="switch-label">
             <slot></slot>
         </div>
     </label>
@@ -29,19 +24,9 @@ export default {
     mixins: [SlotHelpers],
 
     props: {
-        small: {
-            type: Boolean,
-            default: false
-        },
         value: {
             type: Boolean,
             required: true
-        }
-    },
-
-    methods: {
-        toggle () {
-            this.$emit('input', !this.value);
         }
     }
 };
