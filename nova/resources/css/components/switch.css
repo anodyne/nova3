@@ -6,7 +6,7 @@
     @apply ml-3 font-semibold text-gray-700;
 }
 
-.switch {
+/* .switch {
     @apply inline-block relative flex-shrink-0 rounded-full cursor-pointer h-6 w-11;
 
     &.is-small {
@@ -62,9 +62,9 @@
 .switch.is-small[aria-checked="true"]:after {
     -webkit-transform: translateX(1.125rem);
     transform: translateX(1.125rem);
-}
+} */
 
-/* .switch {
+.switch {
     @apply relative inline-block w-11;
 
     height: 1.625rem;
@@ -77,9 +77,7 @@
 }
 .slider,
 .slider:before {
-    @apply absolute;
-
-    transition:.4s
+    @apply absolute transition-medium;
 }
 .slider:before {
     @apply bg-white;
@@ -105,4 +103,4 @@ input:checked + .slider:before {
 }
 .slider.round:before {
     @apply rounded-full;
-} */
+}
