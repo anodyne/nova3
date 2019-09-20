@@ -11,6 +11,16 @@
         </section>
 
         <div class="panel mt-8">
+            <stateful-button
+                class="is-primary"
+                :loading="buttonLoading"
+                @click="buttonLoading = true"
+            >
+                Create
+            </stateful-button>
+        </div>
+
+        <div class="panel mt-8">
             <div class="badge">Pending</div>
             <div class="badge badge-success">Success</div>
             <div class="badge badge-danger">Danger</div>
@@ -57,9 +67,25 @@ export default {
 
     data () {
         return {
+            buttonLoading: false,
             toggleSwitch: true,
-            toggleSwitch2: true
+            toggleSwitch2: false
         };
+    },
+
+    watch: {
+        buttonLoading (newValue) {
+            if (newValue === true) {
+                setTimeout(() => {
+                    this.$toast
+                        .message('There was a problem creating your thing.')
+                        .actionText('OK')
+                        .error();
+
+                    this.buttonLoading = false;
+                }, 3000);
+            }
+        }
     }
 };
 </script>

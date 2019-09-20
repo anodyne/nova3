@@ -125,7 +125,9 @@ module.exports = {
         backgroundColor: ['responsive', 'hover', 'focus', 'focus-within'],
         borderColor: ['responsive', 'hover', 'focus', 'focus-within'],
         boxShadow: ['responsive', 'hover', 'focus', 'focus-within'],
+        cursor: ['hover', 'group-hover', 'focus', 'focus-within', 'disabled'],
         margin: ['responsive', 'hover', 'focus', 'first', 'last'],
+        opacity: ['responsive', 'hover', 'focus', 'disabled'],
         textColor: ['responsive', 'hover', 'focus', 'focus-within']
     },
 

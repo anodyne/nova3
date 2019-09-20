@@ -10,7 +10,7 @@ import CsrfToken from '@/Shared/Forms/CsrfToken';
 import FormMethod from '@/Shared/Forms/FormMethod';
 import ToggleSwitch from '@/Shared/Forms/ToggleSwitch';
 import PasswordField from '@/Shared/Forms/PasswordField';
-import StateButton from '@/Shared/StateButton';
+import StatefulButton from '@/Shared/StatefulButton';
 
 /**
  * Global components
@@ -28,4 +28,4 @@ Vue.component('form-field', FormField);
 Vue.component('form-method', FormMethod);
 Vue.component('toggle-switch', ToggleSwitch);
 Vue.component('password-field', PasswordField);
-Vue.component('state-button', StateButton);
+Vue.component('stateful-button', StatefulButton);
