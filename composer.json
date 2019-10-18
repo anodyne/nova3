@@ -62,6 +62,7 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php -r \"file_exists('nova/vendor') && !file_exists('vendor') && symlink('nova/vendor', 'vendor');\"",
+            "@php artisan optimize:clear --ansi",
             "@php artisan package:discover --ansi"
         ],
         "post-root-package-install": [
