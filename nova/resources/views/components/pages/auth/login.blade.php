@@ -15,9 +15,9 @@
 
     <div class="flex items-center justify-between">
         <div>
-            <state-button type="submit" class="button is-primary">
+            <stateful-button type="submit" class="button is-primary">
                 Sign In
-            </state-button>
+            </stateful-button>
         </div>
 
         @if (Route::has('password.request'))
