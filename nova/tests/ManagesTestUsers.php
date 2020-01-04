@@ -6,7 +6,14 @@ use Nova\Users\Models\User;
 
 trait ManagesTestUsers
 {
-    protected function createAdmin(array $attributes = [])
+    /**
+     * Create an admin user.
+     *
+     * @param  array  $attributes
+     *
+     * @return User
+     */
+    protected function createAdmin(array $attributes = []): User
     {
         $admin = $this->createUser($attributes);
 
@@ -15,17 +22,38 @@ trait ManagesTestUsers
         return $admin;
     }
 
-    protected function createUser(array $attributes = [])
+    /**
+     * Create a user and persist it to the database.
+     *
+     * @param  array  $attributes
+     *
+     * @return User
+     */
+    protected function createUser(array $attributes = []): User
     {
         return factory(User::class)->create($attributes);
     }
 
-    protected function makeUser(array $attributes = [])
+    /**
+     * Make a user.
+     *
+     * @param  array  $attributes
+     *
+     * @return User
+     */
+    protected function makeUser(array $attributes = []): User
     {
         return factory(User::class)->make($attributes);
     }
 
-    protected function signIn(User $user = null)
+    /**
+     * Sign in to the app.
+     *
+     * @param  null|User  $user
+     *
+     * @return User
+     */
+    protected function signIn(User $user = null): User
     {
         $user = $user ?? $this->createUser();
 
@@ -34,7 +62,14 @@ trait ManagesTestUsers
         return $user;
     }
 
-    protected function signInAsAdmin(User $user = null)
+    /**
+     * Sign in to the app as an admin.
+     *
+     * @param  null|User  $user
+     *
+     * @return User
+     */
+    protected function signInAsAdmin(User $user = null): User
     {
         $user = $user ?? $this->createAdmin();
 
@@ -43,7 +78,15 @@ trait ManagesTestUsers
         return $user;
     }
 
-    protected function signInWithAbility($ability, User $user = null)
+    /**
+     * Sign in to the app with a specific ability.
+     *
+     * @param  string  $ability
+     * @param  null|User  $user
+     *
+     * @return User
+     */
+    protected function signInWithAbility($ability, User $user = null): User
     {
         $user = $user ?? $this->createUser();
 
@@ -54,7 +97,12 @@ trait ManagesTestUsers
         return $user;
     }
 
-    protected function signOut()
+    /**
+     * Sign out of the app.
+     *
+     * @return void
+     */
+    protected function signOut(): void
     {
         auth()->logout();
     }

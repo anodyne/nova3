@@ -7,7 +7,12 @@ use Illuminate\Foundation\Testing\TestResponse;
 
 trait AddsCustomAssertions
 {
-    protected function setupTestResponseMacros()
+    /**
+     * Setup macros to test Inertia responses.
+     *
+     * @return void
+     */
+    protected function setupTestResponseMacros(): void
     {
         TestResponse::macro('assertResponseHas', function ($key, $value) {
             $data = $this->original->getData();

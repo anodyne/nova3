@@ -7,9 +7,9 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication,
-        ManagesTestUsers,
-        AddsCustomAssertions;
+    use CreatesApplication;
+    use ManagesTestUsers;
+    use AddsCustomAssertions;
 
     public function setUp(): void
     {
@@ -31,11 +31,9 @@ abstract class TestCase extends BaseTestCase
      *
      * @return void
      */
-    protected function remapRouteCollection()
+    protected function remapRouteCollection(): void
     {
-        $this->app
-            ->getProvider(RouteServiceProvider::class)
-            ->map();
+        $this->app->getProvider(RouteServiceProvider::class)->map();
 
         $this->app['router']->getRoutes()->refreshNameLookups();
         $this->app['router']->getRoutes()->refreshActionLookups();
