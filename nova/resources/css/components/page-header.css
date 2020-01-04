@@ -19,7 +19,7 @@
 }
 
 .page-header-title {
-	@apply flex items-center leading-none text-3xl text-gray-800 font-extrabold;
+	@apply flex items-center leading-none text-3xl text-gray-800 font-extrabold tracking-tight;
 
 	> .page-header-icon {
 		@apply h-6 w-6 mr-2 text-gray-700;

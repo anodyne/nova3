@@ -52,7 +52,7 @@
         @apply mb-8 w-full;
 
         > .form-section-header {
-            @apply font-semibold text-xl mb-2 text-gray-700;
+            @apply font-semibold text-xl mb-2 text-gray-700 tracking-tight;
         }
 
         > .form-section-message {

@@ -162,7 +162,7 @@
                 </div>
             </nav>
 
-            <main class="py-8 px-12">
+            <main class="py-12 px-16">
                 <slot></slot>
             </main>
         </div>
