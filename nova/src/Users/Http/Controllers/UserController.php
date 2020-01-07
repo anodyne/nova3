@@ -2,13 +2,16 @@
 
 namespace Nova\Users\Http\Controllers;
 
-use Nova\Users\Jobs;
 use Nova\Users\Events;
 use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
 use Nova\Users\Http\Requests;
 use Nova\Users\Http\Responses;
+use Nova\Users\Actions\CreateUser;
+use Nova\Users\Actions\DeleteUser;
+use Nova\Users\Actions\UpdateUser;
 use Nova\Users\Http\Resources\UserResource;
+use Nova\Users\DataTransferObjects\UserData;
 use Nova\Users\Http\Resources\UserCollection;
 use Nova\Foundation\Http\Controllers\Controller;
 
@@ -40,9 +43,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(Requests\Store $request)
+    public function store(Requests\Store $request, CreateUser $action)
     {
-        $user = Jobs\CreateUser::dispatchNow($request->validated());
+        $user = $action->execute(UserData::fromRequest($request));
 
         event(new Events\UserCreatedByAdmin($user));
 
@@ -57,18 +60,18 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Requests\Update $request, User $user)
+    public function update(Requests\Update $request, UpdateUser $action, User $user)
     {
-        $user = Jobs\UpdateUser::dispatchNow($user, $request->validated());
+        $user = $action->execute($user, UserData::fromRequest($request));
 
         event(new Events\UserUpdatedByAdmin($user->refresh()));
 
-        return $user->refresh();
+        return $user;
     }
 
-    public function destroy(User $user)
+    public function destroy(DeleteUser $action, User $user)
     {
-        $user = Jobs\DeleteUser::dispatchNow($user);
+        $user = $action->execute($user);
 
         event(new Events\UserDeletedByAdmin($user));
 

@@ -54,7 +54,7 @@ class UpdateUserTest extends TestCase
     /**
      * @test
      */
-    public function GuestCannotUpdateUser()
+    public function guestCannotUpdateUser()
     {
         $this->get(route('users.edit', $this->user))
             ->assertRedirect(route('login'));
@@ -66,7 +66,7 @@ class UpdateUserTest extends TestCase
     /**
      * @test
      */
-    public function UserCanBeUpdated()
+    public function userCanBeUpdated()
     {
         $this->signInWithAbility('user.update');
 
@@ -84,7 +84,7 @@ class UpdateUserTest extends TestCase
     /**
      * @test
      */
-    public function EventsAreDispatchedWhenUserIsUpdated()
+    public function eventsAreDispatchedWhenUserIsUpdated()
     {
         Event::fake();
 
