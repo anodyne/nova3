@@ -13,15 +13,16 @@ class CreateRoleTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testAuthorizedUserCanCreateRole()
+    /** @test **/
+    public function authorizedUserCanCreateRole()
     {
-        $this->withoutExceptionHandling();
         $this->signInWithAbility('role.create');
 
         $this->get(route('roles.create'))->assertSuccessful();
     }
 
-    public function testUnauthorizedUserCannotCreateRole()
+    /** @test **/
+    public function unauthorizedUserCannotCreateRole()
     {
         $this->signIn();
 
@@ -32,7 +33,8 @@ class CreateRoleTest extends TestCase
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
-    public function testGuestCannotCreateRole()
+    /** @test **/
+    public function guestCannotCreateRole()
     {
         $this->get(route('roles.create'))
             ->assertRedirect(route('login'));
@@ -41,7 +43,8 @@ class CreateRoleTest extends TestCase
             ->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
-    public function testRoleCanBeCreated()
+    /** @test **/
+    public function roleCanBeCreated()
     {
         $this->signInWithAbility('role.create');
 
@@ -57,15 +60,16 @@ class CreateRoleTest extends TestCase
 
         $role = Role::get()->last();
 
+        $this->assertCount(3, $role->getAbilities());
+
         $this->assertDatabaseHas('roles', [
             'name' => $roleData->name,
             'title' => $roleData->title,
         ]);
-
-        $this->assertCount(3, $role->getAbilities());
     }
 
-    public function testEventIsDispatchedWhenRoleIsCreated()
+    /** @test **/
+    public function eventIsDispatchedWhenRoleIsCreated()
     {
         Event::fake();
 
@@ -85,7 +89,8 @@ class CreateRoleTest extends TestCase
         });
     }
 
-    public function testNameIsRequiredToCreateRole()
+    /** @test **/
+    public function nameIsRequiredToCreateRole()
     {
         $this->signInWithAbility('role.create');
 
@@ -93,7 +98,8 @@ class CreateRoleTest extends TestCase
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function testNameMustBeUnique()
+    /** @test **/
+    public function nameMustBeUnique()
     {
         $role = factory(Role::class)->create();
 
@@ -103,7 +109,8 @@ class CreateRoleTest extends TestCase
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function testTitleIsRequiredToCreateRole()
+    /** @test **/
+    public function titleIsRequiredToCreateRole()
     {
         $this->signInWithAbility('role.create');
 

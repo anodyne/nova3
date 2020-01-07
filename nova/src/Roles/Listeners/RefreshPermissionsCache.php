@@ -2,9 +2,9 @@
 
 namespace Nova\Roles\Listeners;
 
-use Bouncer;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Silber\Bouncer\BouncerFacade as Bouncer;
 
 class RefreshPermissionsCache implements ShouldQueue
 {

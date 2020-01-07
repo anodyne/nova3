@@ -2,9 +2,9 @@
 
 namespace Nova\Roles\Http\Responses;
 
-use Nova\Foundation\Http\Responses\BaseResponsable;
+use Nova\Foundation\Http\Responses\InertiaResponse;
 
-class Edit extends BaseResponsable
+class Edit extends InertiaResponse
 {
     public $component = 'Roles/Edit';
 }

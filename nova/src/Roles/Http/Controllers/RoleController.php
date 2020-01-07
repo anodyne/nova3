@@ -2,12 +2,15 @@
 
 namespace Nova\Roles\Http\Controllers;
 
-use Nova\Roles\Jobs;
 use Nova\Roles\Models\Role;
 use Nova\Roles\Http\Requests;
 use Nova\Roles\Http\Responses;
 use Nova\Roles\Models\Ability;
+use Nova\Roles\Actions\CreateRole;
+use Nova\Roles\Actions\DeleteRole;
+use Nova\Roles\Actions\UpdateRole;
 use Nova\Roles\Http\Resources\RoleResource;
+use Nova\Roles\DataTransferObjects\RoleData;
 use Nova\Roles\Http\Resources\RoleCollection;
 use Nova\Foundation\Http\Controllers\Controller;
 
@@ -36,9 +39,9 @@ class RoleController extends Controller
         ]);
     }
 
-    public function store(Requests\Store $request)
+    public function store(Requests\Store $request, CreateRole $action)
     {
-        return Jobs\CreateRole::dispatchNow($request->validated());
+        return $action->execute(RoleData::fromRequest($request));
     }
 
     public function edit(Role $role)
@@ -49,13 +52,13 @@ class RoleController extends Controller
         ]);
     }
 
-    public function update(Requests\Update $request, Role $role)
+    public function update(Requests\Update $request, UpdateRole $action, Role $role)
     {
-        return Jobs\UpdateRole::dispatchNow($role, $request->validated());
+        return $action->execute($role, RoleData::fromRequest($request));
     }
 
-    public function destroy(Role $role)
+    public function destroy(Role $role, DeleteRole $action)
     {
-        return Jobs\DeleteRole::dispatchNow($role);
+        return $action->execute($role);
     }
 }

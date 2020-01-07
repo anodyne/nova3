@@ -13,9 +13,9 @@ class RolePolicy
     /**
      * Determine whether the user can view any role.
      *
-     * @param  \Nova\Users\Models\User  $user
+     * @param  User  $user
      *
-     * @return mixed
+     * @return bool
      */
     public function viewAny(User $user)
     {
@@ -27,22 +27,24 @@ class RolePolicy
     /**
      * Determine whether the user can view the role.
      *
-     * @param  \Nova\Users\Models\User  $user
-     * @param  \Nova\Roles\Models\Role  $role
+     * @param  User  $user
+     * @param  Role  $role
      *
-     * @return mixed
+     * @return bool
      */
     public function view(User $user, Role $role)
     {
-        return true;
+        return $user->can('role.create') ||
+            $user->can('role.delete') ||
+            $user->can('role.update');
     }
 
     /**
      * Determine whether the user can create roles.
      *
-     * @param  \Nova\Users\Models\User  $user
+     * @param  User  $user
      *
-     * @return mixed
+     * @return bool
      */
     public function create(User $user)
     {
@@ -52,10 +54,10 @@ class RolePolicy
     /**
      * Determine whether the user can update the role.
      *
-     * @param  \Nova\Users\Models\User  $user
-     * @param  \Nova\Roles\Models\Role  $role
+     * @param  User  $user
+     * @param  Role  $role
      *
-     * @return mixed
+     * @return bool
      */
     public function update(User $user, Role $role)
     {
@@ -65,10 +67,10 @@ class RolePolicy
     /**
      * Determine whether the user can delete the role.
      *
-     * @param  \Nova\Users\Models\User  $user
-     * @param  \Nova\Roles\Models\Role  $role
+     * @param  User  $user
+     * @param  Role  $role
      *
-     * @return mixed
+     * @return bool
      */
     public function delete(User $user, Role $role)
     {
@@ -78,10 +80,10 @@ class RolePolicy
     /**
      * Determine whether the user can restore the role.
      *
-     * @param  \Nova\Users\Models\User  $user
-     * @param  \Nova\Roles\Models\Role  $role
+     * @param  User  $user
+     * @param  Role  $role
      *
-     * @return mixed
+     * @return bool
      */
     public function restore(User $user, Role $role)
     {
@@ -91,10 +93,10 @@ class RolePolicy
     /**
      * Determine whether the user can permanently delete the role.
      *
-     * @param  \Nova\Users\Models\User  $user
-     * @param  \Nova\Roles\Models\Role  $role
+     * @param  User  $user
+     * @param  Role  $role
      *
-     * @return mixed
+     * @return bool
      */
     public function forceDelete(User $user, Role $role)
     {
