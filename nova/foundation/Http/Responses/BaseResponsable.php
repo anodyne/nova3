@@ -101,7 +101,7 @@ abstract class BaseResponsable implements Responsable
                 // 'data' => $this->theme->getPageLayoutData($this->page)
             ],
             // 'template' => $this->page->content_template,
-            'page' => null,
+            'page' => $this->page,
             'script' => null,
             'component' => null,
         ], $this->views() ?? []);
