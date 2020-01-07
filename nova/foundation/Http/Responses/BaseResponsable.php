@@ -2,7 +2,6 @@
 
 namespace Nova\Foundation\Http\Responses;
 
-use Inertia\Inertia;
 use Nova\Pages\Page;
 use BadMethodCallException;
 use Illuminate\Support\Str;
@@ -13,51 +12,40 @@ use Illuminate\Contracts\Foundation\Application;
 
 abstract class BaseResponsable implements Responsable
 {
-    const RENDER_CLIENT = 'csr';
-
-    const RENDER_SERVER = 'ssr';
-
     /**
      * The application instance.
      *
-     * @var \Nova\Foundation\Application
+     * @var  \Nova\Foundation\Application
      */
     protected $app;
 
     /**
      * The array of response data.
      *
-     * @var array
+     * @var  array
      */
     protected $data = [];
 
     /**
      * The final output of the response.
      *
-     * @var string
+     * @var  string
      */
     protected $output;
 
     /**
      * The page instance for the response.
      *
-     * @var \Nova\Pages\Page
+     * @var  \Nova\Pages\Page
      */
     protected $page;
 
     /**
      * The theme instance for the response.
      *
-     * @var \Nova\Themes\BaseTheme
+     * @var  \Nova\Themes\BaseTheme
      */
     protected $theme;
-
-    /**
-     * The Inertia component for the response.
-     *
-     * @var string
-     */
-    public $component = null;
 
     public function __construct(Page $page, Application $app)
     {
@@ -130,7 +118,7 @@ abstract class BaseResponsable implements Responsable
      *
      * @return array
      */
-    public function prepareData() : array
+    public function prepareData(): array
     {
         return $this->data;
     }
@@ -152,20 +140,6 @@ abstract class BaseResponsable implements Responsable
     }
 
     /**
-     * Determine what the render mode is.
-     *
-     * @return string
-     */
-    public function renderMode()
-    {
-        if ($this->component !== null) {
-            return self::RENDER_CLIENT;
-        }
-
-        return self::RENDER_SERVER;
-    }
-
-    /**
      * Handle converting this to a response object that Laravel knows what
      * to do with.
      *
@@ -173,16 +147,7 @@ abstract class BaseResponsable implements Responsable
      *
      * @return \Illuminate\Http\Response
      */
-    final public function toResponse($request)
-    {
-        $this->data = $this->prepareData();
-
-        if ($this->renderMode() === self::RENDER_CLIENT) {
-            return $this->renderClientSide($request);
-        }
-
-        return $this->renderServerSide($request);
-    }
+    abstract public function toResponse($request);
 
     /**
      * The list of views for the response.
@@ -236,13 +201,6 @@ abstract class BaseResponsable implements Responsable
         }
 
         return $this->with(Str::camel(substr($method, 4)), $parameters[0]);
-    }
-
-    public function component($component)
-    {
-        $this->component = $component;
-
-        return $this;
     }
 
     /**
@@ -317,25 +275,5 @@ abstract class BaseResponsable implements Responsable
         });
 
         return $this;
-    }
-
-    protected function renderClientSide($request)
-    {
-        Inertia::setRootView('app-client');
-
-        $response = Inertia::render($this->component, $this->data);
-
-        return $response->toResponse($request);
-    }
-
-    protected function renderServerSide($request)
-    {
-        $this->passDataToContainer();
-
-        if ($request->expectsJson()) {
-            return response()->json($this->data, Response::HTTP_OK);
-        }
-
-        return response($this->render(), Response::HTTP_OK);
     }
 }
