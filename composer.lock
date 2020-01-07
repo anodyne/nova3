@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a1b1940f658b64ee93b46b395c02a452",
+    "content-hash": "9741885924d69507e0a7afdf1f0a42c2",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1705,6 +1705,53 @@
                 "roles"
             ],
             "time": "2019-09-04T03:29:16+00:00"
+        },
+        {
+            "name": "spatie/data-transfer-object",
+            "version": "1.12.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/data-transfer-object.git",
+                "reference": "6b929bf1f9c0e320f594d3d2db6c3249485f1b85"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/data-transfer-object/zipball/6b929bf1f9c0e320f594d3d2db6c3249485f1b85",
+                "reference": "6b929bf1f9c0e320f594d3d2db6c3249485f1b85",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.0",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\DataTransferObject\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brent Roose",
+                    "email": "brent@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Data transfer objects with batteries included",
+            "homepage": "https://github.com/spatie/data-transfer-object",
+            "keywords": [
+                "data-transfer-object",
+                "spatie"
+            ],
+            "time": "2019-12-19T13:30:38+00:00"
         },
         {
             "name": "spatie/laravel-activitylog",
