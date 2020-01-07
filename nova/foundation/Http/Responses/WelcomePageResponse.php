@@ -2,12 +2,12 @@
 
 namespace Nova\Foundation\Http\Responses;
 
-class WelcomePageResponse extends BaseResponsable
+class WelcomePageResponse extends ServerResponse
 {
-    public function views() : array
+    public function views(): array
     {
         return [
-            'page' => 'welcome'
+            'page' => 'welcome',
         ];
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Nova\Users\Http\Responses;
 
-use Nova\Foundation\Http\Responses\BaseResponsable;
+use Nova\Foundation\Http\Responses\InertiaResponse;
 
-class Create extends BaseResponsable
+class Create extends InertiaResponse
 {
     public $component = 'Users/Create';
 }
