@@ -2,14 +2,14 @@
 
 namespace Nova\Auth\Http\Responses;
 
-use Nova\Foundation\Http\Responses\BaseResponsable;
+use Nova\Foundation\Http\Responses\ServerResponse;
 
-class EmailVerificationResponse extends BaseResponsable
+class EmailVerificationResponse extends ServerResponse
 {
-    public function views() : array
+    public function views(): array
     {
         return [
-            'page' => 'auth.verify'
+            'page' => 'auth.verify',
         ];
     }
 }

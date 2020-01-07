@@ -2,14 +2,14 @@
 
 namespace Nova\Auth\Http\Responses;
 
-use Nova\Foundation\Http\Responses\BaseResponsable;
+use Nova\Foundation\Http\Responses\ServerResponse;
 
-class LoginResponse extends BaseResponsable
+class LoginResponse extends ServerResponse
 {
-    public function views() : array
+    public function views(): array
     {
         return [
-            'page' => 'auth.login'
+            'page' => 'auth.login',
         ];
     }
 }
