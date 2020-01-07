@@ -3,47 +3,28 @@
 namespace Nova\Roles\Providers;
 
 use Nova\Roles\Models\Role;
+use Nova\DomainServiceProvider;
 use Nova\Roles\Events\RoleCreated;
 use Nova\Roles\Events\RoleUpdated;
 use Nova\Roles\Policies\RolePolicy;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Event;
 use Nova\Roles\Events\RoleDuplicated;
-use Illuminate\Support\ServiceProvider;
 use Nova\Roles\Listeners\RefreshPermissionsCache;
 
-class RoleServiceProvider extends ServiceProvider
+class RoleServiceProvider extends DomainServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        $this->registerPolicies();
+    protected $listeners = [
+        RoleCreated::class => [
+            RefreshPermissionsCache::class,
+        ],
+        RoleDuplicated::class => [
+            RefreshPermissionsCache::class,
+        ],
+        RoleUpdated::class => [
+            RefreshPermissionsCache::class,
+        ],
+    ];
 
-        $this->registerEventListeners();
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-    }
-
-    protected function registerPolicies()
-    {
-        Gate::policy(Role::class, RolePolicy::class);
-    }
-
-    protected function registerEventListeners()
-    {
-        Event::listen(RoleCreated::class, RefreshPermissionsCache::class);
-        Event::listen(RoleUpdated::class, RefreshPermissionsCache::class);
-        Event::listen(RoleDuplicated::class, RefreshPermissionsCache::class);
-    }
+    protected $policies = [
+        Role::class => RolePolicy::class,
+    ];
 }
