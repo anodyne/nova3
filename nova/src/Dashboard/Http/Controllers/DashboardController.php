@@ -2,7 +2,6 @@
 
 namespace Nova\Dashboard\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Nova\Foundation\Http\Controllers\Controller;
 use Nova\Dashboard\Http\Responses\DashboardResponse;
 
@@ -15,7 +14,7 @@ class DashboardController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Request $request)
+    public function __invoke()
     {
         return app(DashboardResponse::class);
     }
