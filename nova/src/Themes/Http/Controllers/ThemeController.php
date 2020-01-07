@@ -2,11 +2,14 @@
 
 namespace Nova\Themes\Http\Controllers;
 
-use Nova\Themes\Jobs;
 use Nova\Themes\Models\Theme;
 use Nova\Themes\Http\Requests;
 use Nova\Themes\Http\Responses;
+use Nova\Themes\Actions\CreateTheme;
+use Nova\Themes\Actions\DeleteTheme;
+use Nova\Themes\Actions\UpdateTheme;
 use Nova\Themes\Http\Resources\ThemeResource;
+use Nova\Themes\DataTransferObjects\ThemeData;
 use Nova\Themes\Http\Resources\ThemeCollection;
 use Nova\Foundation\Http\Controllers\Controller;
 
@@ -36,9 +39,9 @@ class ThemeController extends Controller
         return app(Responses\Create::class);
     }
 
-    public function store(Requests\Store $request)
+    public function store(Requests\Store $request, CreateTheme $action)
     {
-        return Jobs\CreateTheme::dispatchNow($request->validated());
+        return $action->execute(ThemeData::fromRequest($request));
     }
 
     public function edit(Theme $theme)
@@ -48,13 +51,13 @@ class ThemeController extends Controller
         ]);
     }
 
-    public function update(Requests\Update $request, Theme $theme)
+    public function update(Requests\Update $request, UpdateTheme $action, Theme $theme)
     {
-        return Jobs\UpdateTheme::dispatchNow($theme, $request->validated());
+        return $action->execute($theme, ThemeData::fromRequest($request));
     }
 
-    public function destroy(Theme $theme)
+    public function destroy(DeleteTheme $action, Theme $theme)
     {
-        return Jobs\DeleteTheme::dispatchNow($theme);
+        return $action->execute($theme);
     }
 }

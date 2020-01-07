@@ -3,7 +3,6 @@
 namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
-use Illuminate\Http\Response;
 use Nova\Themes\Models\Theme;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -25,7 +24,8 @@ class InstallThemeTest extends TestCase
         ]);
     }
 
-    public function testAuthorizedUserCanInstallTheme()
+    /** @test **/
+    public function authorizedUserCanInstallTheme()
     {
         Storage::fake('themes');
 
@@ -47,21 +47,24 @@ class InstallThemeTest extends TestCase
         ]);
     }
 
-    public function testUnauthorizedUserCannotInstallTheme()
+    /** @test **/
+    public function unauthorizedUserCannotInstallTheme()
     {
         $this->signIn();
 
         $this->postJson(route('themes.install'), ['theme' => 'foo'])
-            ->assertStatus(Response::HTTP_FORBIDDEN);
+            ->assertForbidden();
     }
 
-    public function testGuestCannotInstallTheme()
+    /** @test **/
+    public function guestCannotInstallTheme()
     {
         $this->postJson(route('themes.install'), [])
-            ->assertStatus(Response::HTTP_UNAUTHORIZED);
+            ->assertUnauthorized();
     }
 
-    public function testInstallableThemesAreShown()
+    /** @test **/
+    public function installableThemesAreShown()
     {
         Storage::fake('themes');
 
@@ -92,7 +95,8 @@ class InstallThemeTest extends TestCase
             ->assertResponseMissing('pendingThemes', collect([$createData]));
     }
 
-    public function testThemeCannotBeInstalledWithoutQuickInstallFile()
+    /** @test **/
+    public function themeCannotBeInstalledWithoutQuickInstallFile()
     {
         Storage::fake('themes');
 

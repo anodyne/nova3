@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Storage;
 
 class MakeThemeCommandTest extends TestCase
 {
-    public function testThemeCanBeScoffolded()
+    /** @test **/
+    public function themeCanBeScoffolded()
     {
         Storage::fake('themes');
 
@@ -24,7 +25,8 @@ class MakeThemeCommandTest extends TestCase
         $this->assertContains('foo/design/custom.css', $files);
     }
 
-    public function testThemeCanBeScaffoldedWithCustomLocation()
+    /** @test **/
+    public function themeCanBeScaffoldedWithCustomLocation()
     {
         Storage::fake('themes');
 
@@ -39,7 +41,8 @@ class MakeThemeCommandTest extends TestCase
         $this->assertNotContains('foo', $directories);
     }
 
-    public function testThemeCanBeScaffoldedWithStyleVariants()
+    /** @test **/
+    public function themeCanBeScaffoldedWithStyleVariants()
     {
         Storage::fake('themes');
 
@@ -54,7 +57,8 @@ class MakeThemeCommandTest extends TestCase
         $this->assertContains('foo/design/variants/red.css', $files);
     }
 
-    public function testThemeScaffoldingRequiresLocation()
+    /** @test **/
+    public function themeScaffoldingRequiresLocation()
     {
         Storage::fake('themes');
 

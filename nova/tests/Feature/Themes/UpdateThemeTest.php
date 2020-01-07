@@ -5,9 +5,10 @@ namespace Tests\Feature\Themes;
 use Tests\TestCase;
 use Illuminate\Http\Response;
 use Nova\Themes\Models\Theme;
-use Nova\Themes\Jobs\UpdateTheme;
+use Nova\Themes\Actions\UpdateTheme;
 use Nova\Themes\Events\ThemeUpdated;
 use Illuminate\Support\Facades\Event;
+use Nova\Themes\DataTransferObjects\ThemeData;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UpdateThemeTest extends TestCase
@@ -23,7 +24,8 @@ class UpdateThemeTest extends TestCase
         $this->theme = factory(Theme::class)->create();
     }
 
-    public function testAuthorizedUserCanUpdateTheme()
+    /** @test **/
+    public function authorizedUserCanUpdateTheme()
     {
         $this->signInWithAbility('theme.update');
 
@@ -31,7 +33,8 @@ class UpdateThemeTest extends TestCase
             ->assertSuccessful();
     }
 
-    public function testUnauthorizedUserCannotUpdateTheme()
+    /** @test **/
+    public function unauthorizedUserCannotUpdateTheme()
     {
         $this->signIn();
 
@@ -39,7 +42,8 @@ class UpdateThemeTest extends TestCase
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
-    public function testGuestCannotUpdateTheme()
+    /** @test **/
+    public function guestCannotUpdateTheme()
     {
         $this->get(route('themes.edit', $this->theme))
             ->assertRedirect(route('login'));
@@ -48,7 +52,8 @@ class UpdateThemeTest extends TestCase
             ->assertRedirect(route('login'));
     }
 
-    public function testThemeCanBeUpdated()
+    /** @test **/
+    public function themeCanBeUpdated()
     {
         $this->signInWithAbility('theme.update');
 
@@ -69,13 +74,14 @@ class UpdateThemeTest extends TestCase
         ]);
     }
 
-    public function testEventIsDispatchedWhenThemeIsUpdated()
+    /** @test **/
+    public function eventIsDispatchedWhenThemeIsUpdated()
     {
         Event::fake();
 
         $data = factory(Theme::class)->make()->toArray();
 
-        $theme = UpdateTheme::dispatchNow($this->theme, $data);
+        $theme = (new UpdateTheme)->execute($this->theme, new ThemeData($data));
 
         Event::assertDispatched(ThemeUpdated::class, function ($event) use ($theme) {
             return $event->theme->is($theme);

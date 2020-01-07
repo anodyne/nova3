@@ -5,7 +5,7 @@ namespace Tests\Feature\Themes;
 use Tests\TestCase;
 use Illuminate\Http\Response;
 use Nova\Themes\Models\Theme;
-use Nova\Themes\Jobs\DeleteTheme;
+use Nova\Themes\Actions\DeleteTheme;
 use Nova\Themes\Events\ThemeDeleted;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,7 +23,8 @@ class DeleteThemeTest extends TestCase
         $this->theme = factory(Theme::class)->create();
     }
 
-    public function testAuthorizedUserCanDeleteTheme()
+    /** @test **/
+    public function authorizedUserCanDeleteTheme()
     {
         $this->signInWithAbility('theme.delete');
 
@@ -31,7 +32,8 @@ class DeleteThemeTest extends TestCase
             ->assertSuccessful();
     }
 
-    public function testUnauthorizedUserCannotDeleteTheme()
+    /** @test **/
+    public function unauthorizedUserCannotDeleteTheme()
     {
         $this->signIn();
 
@@ -39,13 +41,15 @@ class DeleteThemeTest extends TestCase
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
-    public function testGuestCannotDeleteTheme()
+    /** @test **/
+    public function guestCannotDeleteTheme()
     {
         $this->deleteJson(route('themes.destroy', $this->theme))
             ->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
-    public function testThemeCanBeDeleted()
+    /** @test **/
+    public function themeCanBeDeleted()
     {
         $this->signInWithAbility('theme.delete');
 
@@ -58,11 +62,12 @@ class DeleteThemeTest extends TestCase
         ]);
     }
 
-    public function testEventIsDispatchedWhenThemeIsDeleted()
+    /** @test **/
+    public function eventIsDispatchedWhenThemeIsDeleted()
     {
         Event::fake();
 
-        $theme = DeleteTheme::dispatchNow($this->theme);
+        $theme = (new DeleteTheme)->execute($this->theme);
 
         Event::assertDispatched(ThemeDeleted::class, function ($event) use ($theme) {
             return $event->theme->is($theme);

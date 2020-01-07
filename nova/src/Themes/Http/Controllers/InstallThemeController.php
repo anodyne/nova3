@@ -3,10 +3,11 @@
 namespace Nova\Themes\Http\Controllers;
 
 use Nova\Themes\Models\Theme;
-use Nova\Themes\Jobs\InstallTheme;
+use Nova\Themes\Actions\InstallTheme;
 use Nova\Themes\Events\ThemeInstalled;
 use Nova\Themes\Http\Requests\Install;
 use Illuminate\Support\Facades\Storage;
+use Nova\Themes\DataTransferObjects\ThemeData;
 use Nova\Foundation\Http\Controllers\Controller;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Nova\Themes\Exceptions\MissingQuickInstallFileException;
@@ -20,12 +21,12 @@ class InstallThemeController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Install $request)
+    public function __invoke(Install $request, InstallTheme $action)
     {
         $this->authorize('create', Theme::class);
 
-        $theme = InstallTheme::dispatchNow(
-            $this->getThemePropertiesFromQuickInstallFile($request->theme)
+        $theme = $action->execute(
+            new ThemeData($this->getThemePropertiesFromQuickInstallFile($request->theme))
         );
 
         event(new ThemeInstalled($theme));

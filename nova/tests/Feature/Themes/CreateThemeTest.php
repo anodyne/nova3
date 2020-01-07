@@ -3,12 +3,12 @@
 namespace Tests\Feature\Themes;
 
 use Tests\TestCase;
-use Illuminate\Http\Response;
 use Nova\Themes\Models\Theme;
-use Nova\Themes\Jobs\CreateTheme;
+use Nova\Themes\Actions\CreateTheme;
 use Nova\Themes\Events\ThemeCreated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
+use Nova\Themes\DataTransferObjects\ThemeData;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateThemeTest extends TestCase
@@ -24,25 +24,28 @@ class CreateThemeTest extends TestCase
         $this->theme = factory(Theme::class)->create();
     }
 
-    public function testAuthorizedUserCanCreateTheme()
+    /** @test  **/
+    public function authorizedUserCanCreateTheme()
     {
         $this->signInWithAbility('theme.create');
 
         $this->get(route('themes.create'))->assertSuccessful();
     }
 
-    public function testUnauthorizedUserCannotCreateTheme()
+    /** @test  **/
+    public function unauthorizedUserCannotCreateTheme()
     {
         $this->signIn();
 
         $this->get(route('themes.create'))
-            ->assertStatus(Response::HTTP_FORBIDDEN);
+            ->assertForbidden();
 
         $this->post(route('themes.store'), [])
-            ->assertStatus(Response::HTTP_FORBIDDEN);
+            ->assertForbidden();
     }
 
-    public function testGuestCannotCreateTheme()
+    /** @test  **/
+    public function guestCannotCreateTheme()
     {
         $this->get(route('themes.create'))
             ->assertRedirect(route('login'));
@@ -51,7 +54,8 @@ class CreateThemeTest extends TestCase
             ->assertRedirect(route('login'));
     }
 
-    public function testThemeCanBeCreated()
+    /** @test  **/
+    public function themeCanBeCreated()
     {
         Storage::fake('themes');
 
@@ -66,32 +70,35 @@ class CreateThemeTest extends TestCase
         $this->assertDatabaseHas('themes', $theme);
     }
 
-    public function testThemeDirectoryIsScaffoldedWhenThemeIsCreated()
+    /** @test  **/
+    public function themeDirectoryIsScaffoldedWhenThemeIsCreated()
     {
         Storage::fake('themes');
 
         $data = factory(Theme::class)->make()->toArray();
 
-        CreateTheme::dispatchNow($data);
+        (new CreateTheme)->execute(new ThemeData($data));
 
         $this->assertCount(1, Storage::disk('themes')->directories());
     }
 
-    public function testEventIsDispatchedWhenThemeIsCreated()
+    /** @test  **/
+    public function eventIsDispatchedWhenThemeIsCreated()
     {
         Event::fake();
         Storage::fake('themes');
 
         $data = factory(Theme::class)->make()->toArray();
 
-        $theme = CreateTheme::dispatchNow($data);
+        $theme = (new CreateTheme)->execute(new ThemeData($data));
 
         Event::assertDispatched(ThemeCreated::class, function ($event) use ($theme) {
             return $event->theme->is($theme);
         });
     }
 
-    public function testNameIsRequiredToCreateTheme()
+    /** @test  **/
+    public function nameIsRequiredToCreateTheme()
     {
         Storage::fake('themes');
 
@@ -105,7 +112,8 @@ class CreateThemeTest extends TestCase
             ->assertSessionHasErrors('name');
     }
 
-    public function testLocationIsRequiredToCreateTheme()
+    /** @test  **/
+    public function locationIsRequiredToCreateTheme()
     {
         Storage::fake('themes');
 
