@@ -7,7 +7,7 @@ use Nova\Users\Exceptions\CannotDeleteOwnAccountException;
 
 class DeleteUser
 {
-    public function execute(User $user)
+    public function execute(User $user): User
     {
         if ($user->is(auth()->user())) {
             throw new CannotDeleteOwnAccountException('You cannot delete your own account.');

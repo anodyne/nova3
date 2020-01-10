@@ -8,7 +8,7 @@ use Nova\Themes\DataTransferObjects\ThemeData;
 
 class CreateTheme
 {
-    public function execute(ThemeData $data)
+    public function execute(ThemeData $data): Theme
     {
         $theme = Theme::create($data->toArray());
 

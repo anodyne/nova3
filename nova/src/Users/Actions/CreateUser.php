@@ -7,7 +7,7 @@ use Nova\Users\DataTransferObjects\UserData;
 
 class CreateUser
 {
-    public function execute(UserData $data)
+    public function execute(UserData $data): User
     {
         return User::create($data->toArray());
     }

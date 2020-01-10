@@ -6,7 +6,7 @@ use Nova\Roles\Models\Role;
 
 class DeleteRole
 {
-    public function execute(Role $role)
+    public function execute(Role $role): Role
     {
         $role->delete();
 

@@ -7,7 +7,7 @@ use Nova\Users\DataTransferObjects\UserData;
 
 class UpdateUser
 {
-    public function execute(User $user, UserData $data)
+    public function execute(User $user, UserData $data): User
     {
         return tap($user, function ($user) use ($data) {
             $user->update($data->toArray());

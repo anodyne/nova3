@@ -8,7 +8,7 @@ use Silber\Bouncer\BouncerFacade as Bouncer;
 
 class UpdateRole
 {
-    public function execute(Role $role, RoleData $data)
+    public function execute(Role $role, RoleData $data): Role
     {
         $role->update($data->except('abilities')->toArray());
 

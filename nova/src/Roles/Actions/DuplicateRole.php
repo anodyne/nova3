@@ -8,7 +8,7 @@ use Silber\Bouncer\BouncerFacade as Bouncer;
 
 class DuplicateRole
 {
-    public function execute(Role $originalRole)
+    public function execute(Role $originalRole): Role
     {
         $role = $originalRole->replicate();
 

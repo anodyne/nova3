@@ -6,7 +6,7 @@ use Nova\Themes\Models\Theme;
 
 class DeleteTheme
 {
-    public function execute(Theme $theme)
+    public function execute(Theme $theme): Theme
     {
         return tap($theme, function ($theme) {
             $theme->delete();
