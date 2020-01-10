@@ -10,27 +10,25 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendAccountCreation extends Mailable implements ShouldQueue
 {
-    use Queueable, SerializesModels;
-
-    public $user;
-    public $password;
+    use Queueable;
+    use SerializesModels;
 
     /**
-     * Create a new message instance.
-     *
-     * @return void
+     * @var  User
      */
+    public $user;
+
+    /**
+     * @var  string
+     */
+    public $password;
+
     public function __construct(User $user, $password)
     {
         $this->user = $user;
         $this->password = $password;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
         return $this->markdown('emails.users.account-created')

@@ -3,25 +3,24 @@
 namespace Nova\Themes\Providers;
 
 use Nova\Themes\Models\Theme;
-use Illuminate\Support\Facades\Gate;
+use Nova\DomainServiceProvider;
 use Nova\Themes\Policies\ThemePolicy;
-use Illuminate\Support\ServiceProvider;
+use Themes\Pulsar\Theme as PulsarTheme;
 use Nova\Themes\Console\Commands\ThemeMakeCommand;
 
-class ThemeServiceProvider extends ServiceProvider
+class ThemeServiceProvider extends DomainServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
+    protected $commands = [
+        ThemeMakeCommand::class,
+    ];
+
+    protected $policies = [
+        Theme::class => ThemePolicy::class,
+    ];
+
+    protected function bootActions()
     {
-        $this->registerPolicies();
-
-        $this->registerCommands();
-
-        $theme = new \Themes\Pulsar\Theme;
+        $theme = new PulsarTheme;
 
         $this->app->instance('nova.theme', $theme);
 
@@ -31,26 +30,5 @@ class ThemeServiceProvider extends ServiceProvider
 
             return $data;
         });
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-    }
-
-    protected function registerPolicies()
-    {
-        Gate::policy(Theme::class, ThemePolicy::class);
-    }
-
-    protected function registerCommands()
-    {
-        $this->commands([
-            ThemeMakeCommand::class,
-        ]);
     }
 }

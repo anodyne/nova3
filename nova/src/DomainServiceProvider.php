@@ -27,6 +27,8 @@ abstract class DomainServiceProvider extends ServiceProvider
         $this->registerListeners();
 
         $this->registerPolicies();
+
+        $this->bootActions();
     }
 
     /**
@@ -35,6 +37,28 @@ abstract class DomainServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerMorphMaps();
+
+        $this->registerActions();
+    }
+
+    /**
+     * Allow a domain service provider to specify additional actions to run
+     * at the end of the boot process.
+     *
+     * @return void
+     */
+    protected function bootActions()
+    {
+    }
+
+    /**
+     * Allow a domain service provider to specify additional actions to run
+     * at the end of the register process.
+     *
+     * @return void
+     */
+    protected function registerActions()
+    {
     }
 
     /**

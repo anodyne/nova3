@@ -84,8 +84,7 @@ class UserPolicy
      */
     public function restore(User $user, User $actionableUser)
     {
-        return $user->can('user.create') ||
-            $user->can('user.delete');
+        return $user->can('user.create') || $user->can('user.delete');
     }
 
     /**
