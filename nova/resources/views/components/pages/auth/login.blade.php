@@ -13,7 +13,7 @@
 
     <password-field :allow-showing-password="true" label="Password" name="password"></password-field>
 
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between mt-8">
         <div>
             <stateful-button type="submit" class="button is-primary">
                 Sign In
