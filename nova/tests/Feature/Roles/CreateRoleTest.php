@@ -52,7 +52,10 @@ class CreateRoleTest extends TestCase
 
         $postData = array_merge(
             $roleData->toArray(),
-            ['abilities' => ['foo', 'bar', 'baz']]
+            [
+                'abilities' => ['foo', 'bar', 'baz'],
+                'users' => [],
+            ]
         );
 
         $this->postJson(route('roles.store'), $postData)
@@ -77,7 +80,10 @@ class CreateRoleTest extends TestCase
 
         $data = array_merge(
             factory(Role::class)->make()->toArray(),
-            ['abilities' => ['foo', 'bar', 'baz']]
+            [
+                'abilities' => ['foo', 'bar', 'baz'],
+                'users' => [],
+            ]
         );
 
         $this->postJson(route('roles.store'), $data);
@@ -116,5 +122,29 @@ class CreateRoleTest extends TestCase
 
         $this->postJson(route('roles.store'), ['name' => 'foo'])
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    /** @test **/
+    public function roleCanBeGivenToUser()
+    {
+        $this->signInWithAbility('role.create');
+
+        $user = $this->createUser();
+
+        $role = factory(Role::class)->make();
+
+        $data = array_merge(
+            $role->toArray(),
+            [
+                'abilities' => [],
+                'users' => [$user->id],
+            ]
+        );
+
+        $response = $this->postJson(route('roles.store'), $data);
+
+        $response->assertSuccessful();
+
+        $this->assertTrue($user->isA($role->name));
     }
 }

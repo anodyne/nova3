@@ -66,23 +66,22 @@
                     </div>
 
                     <div class="form-section-column-form">
-                        <form-field label="Assign Abilities">
+                        <form-field label="Assign Abilities" class="mb-8">
                             <div class="field-group">
                                 <input
-                                    v-model="search"
+                                    v-model="searchAbilities"
                                     type="text"
                                     class="field"
                                     placeholder="Find an ability..."
                                 >
 
-                                <a
-                                    v-show="search !== ''"
-                                    role="button"
+                                <button
+                                    v-show="searchAbilities !== ''"
                                     class="field-addon"
-                                    @click="search = ''"
+                                    @click="searchAbilities = ''"
                                 >
                                     <icon name="close"></icon>
-                                </a>
+                                </button>
                             </div>
                         </form-field>
 
@@ -94,23 +93,76 @@
                         >
                             <div class="text-gray-600">{{ ability.title }}</div>
 
-                            <a
+                            <button
                                 v-if="!hasAbility(ability)"
-                                role="button"
                                 class="text-gray-500 hover:text-gray-600"
-                                @click="addAbility(ability)"
+                                @click.prevent="addAbility(ability)"
                             >
                                 <icon name="add"></icon>
-                            </a>
+                            </button>
 
-                            <a
+                            <button
                                 v-if="hasAbility(ability)"
-                                role="button"
                                 class="text-success-500"
-                                @click="removeAbility(ability)"
+                                @click.prevent="removeAbility(ability)"
                             >
                                 <icon name="check-circle"></icon>
-                            </a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-column-content">
+                        <div class="form-section-header">Users with the Role</div>
+                        <p class="form-section-message mb-6">This list shows the users who have been assigned this role. You can quickly add or remove users to the role from here.</p>
+
+                        <p class="form-section-message"><span class="font-semibold text-warning-600">Take very special care when adding or removing roles from a user!</span></p>
+                    </div>
+
+                    <div class="form-section-column-form">
+                        <form-field label="Assign Users" class="mb-8">
+                            <div class="field-group">
+                                <input
+                                    v-model="searchUsers"
+                                    type="text"
+                                    class="field"
+                                    placeholder="Find a user..."
+                                >
+
+                                <button
+                                    v-show="searchUsers !== ''"
+                                    class="field-addon"
+                                    @click.prevent="searchUsers = ''"
+                                >
+                                    <icon name="close"></icon>
+                                </button>
+                            </div>
+                        </form-field>
+
+                        <div
+                            v-for="(user, index) in filteredUsers"
+                            :key="user.id"
+                            class="flex items-center justify-between w-full p-2 rounded"
+                            :class="{ 'bg-gray-200': index % 2 === 0 }"
+                        >
+                            <div class="text-gray-600">{{ user.name }}</div>
+
+                            <button
+                                v-if="!hasUser(user)"
+                                class="text-gray-500 hover:text-gray-600"
+                                @click.prevent="addUser(user)"
+                            >
+                                <icon name="add"></icon>
+                            </button>
+
+                            <button
+                                v-if="hasUser(user)"
+                                class="text-success-500"
+                                @click.prevent="removeUser(user)"
+                            >
+                                <icon name="check-circle"></icon>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -137,6 +189,10 @@ export default {
         abilities: {
             type: Array,
             required: true
+        },
+        users: {
+            type: Array,
+            required: true
         }
     },
 
@@ -145,9 +201,11 @@ export default {
             form: new Form({
                 title: '',
                 name: '',
-                abilities: []
+                abilities: [],
+                users: []
             }),
-            search: '',
+            searchAbilities: '',
+            searchUsers: '',
             suggestName: true
         };
     },
@@ -155,9 +213,21 @@ export default {
     computed: {
         filteredAbilities () {
             return this.abilities.filter((ability) => {
-                const searchRegex = new RegExp(this.search, 'i');
+                const searchRegex = new RegExp(this.searchAbilities, 'i');
 
                 return searchRegex.test(ability.name) || searchRegex.test(ability.title);
+            });
+        },
+
+        filteredUsers () {
+            const users = (!this.showAssignedUsersOnly)
+                ? this.users
+                : this.users.filter(user => this.hasUser(user));
+
+            return users.filter((user) => {
+                const searchRegex = new RegExp(this.searchUsers, 'i');
+
+                return searchRegex.test(user.name) || searchRegex.test(user.email);
             });
         }
     },
@@ -175,14 +245,28 @@ export default {
             this.form.fields.abilities.push(ability.name);
         },
 
+        addUser (user) {
+            this.form.fields.users.push(user.id);
+        },
+
         hasAbility (ability) {
             return indexOf(this.form.fields.abilities, ability.name) > -1;
+        },
+
+        hasUser (user) {
+            return indexOf(this.form.fields.users, user.id) > -1;
         },
 
         removeAbility (ability) {
             const index = indexOf(this.form.fields.abilities, ability.name);
 
             this.form.fields.abilities.splice(index, 1);
+        },
+
+        removeUser (user) {
+            const index = indexOf(this.form.fields.users, user.id);
+
+            this.form.fields.users.splice(index, 1);
         },
 
         submit () {

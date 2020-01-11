@@ -73,20 +73,19 @@
                         <form-field label="Manage Abilities">
                             <div class="field-group">
                                 <input
-                                    v-model="search"
+                                    v-model="searchAbilities"
                                     type="text"
                                     class="field"
                                     placeholder="Find an ability..."
                                 >
 
-                                <a
-                                    v-show="search !== ''"
-                                    role="button"
+                                <button
+                                    v-show="searchAbilities !== ''"
                                     class="field-addon"
-                                    @click="search = ''"
+                                    @click.prevent="searchAbilities = ''"
                                 >
                                     <icon name="close"></icon>
-                                </a>
+                                </button>
                             </div>
                         </form-field>
 
@@ -102,23 +101,21 @@
                         >
                             <div class="text-gray-600">{{ ability.title }}</div>
 
-                            <a
+                            <button
                                 v-if="!hasAbility(ability)"
-                                role="button"
                                 class="text-gray-500 hover:text-gray-600"
-                                @click="addAbility(ability)"
+                                @click.prevent="addAbility(ability)"
                             >
                                 <icon name="add"></icon>
-                            </a>
+                            </button>
 
-                            <a
+                            <button
                                 v-if="hasAbility(ability)"
-                                role="button"
                                 class="text-success-500"
-                                @click="removeAbility(ability)"
+                                @click.prevent="removeAbility(ability)"
                             >
                                 <icon name="check-circle"></icon>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -144,7 +141,7 @@
                                 <button
                                     v-show="searchUsers !== ''"
                                     class="field-addon"
-                                    @click="searchUsers = ''"
+                                    @click.prevent="searchUsers = ''"
                                 >
                                     <icon name="close"></icon>
                                 </button>
@@ -224,7 +221,7 @@ export default {
                 abilities: this.role.abilities.map(ability => ability.name),
                 users: this.role.users.map(user => user.id)
             }),
-            search: '',
+            searchAbilities: '',
             searchUsers: '',
             showAssignedAbilitiesOnly: true,
             showAssignedUsersOnly: true
@@ -238,7 +235,7 @@ export default {
                 : this.abilities.filter(ability => this.hasAbility(ability));
 
             return abilities.filter((ability) => {
-                const searchRegex = new RegExp(this.search, 'i');
+                const searchRegex = new RegExp(this.searchAbilities, 'i');
 
                 return searchRegex.test(ability.name) || searchRegex.test(ability.title);
             });
