@@ -7,11 +7,10 @@ use Nova\Users\Models\User;
 use Nova\Roles\Http\Requests;
 use Nova\Roles\Http\Responses;
 use Nova\Roles\Models\Ability;
-use Nova\Roles\Actions\CreateRole;
 use Nova\Roles\Actions\DeleteRole;
+use Nova\Roles\Actions\CreateRoleManager;
 use Nova\Roles\Actions\UpdateRoleManager;
 use Nova\Roles\Http\Resources\RoleResource;
-use Nova\Roles\DataTransferObjects\RoleData;
 use Nova\Roles\Http\Resources\RoleCollection;
 use Nova\Foundation\Http\Controllers\Controller;
 
@@ -37,12 +36,13 @@ class RoleController extends Controller
     {
         return app(Responses\Create::class)->with([
             'abilities' => Ability::orderBy('title')->get(),
+            'users' => User::get(),
         ]);
     }
 
-    public function store(Requests\Store $request, CreateRole $action)
+    public function store(Requests\Store $request, CreateRoleManager $action)
     {
-        return $action->execute(RoleData::fromRequest($request));
+        return $action->execute($request);
     }
 
     public function edit(Role $role)
