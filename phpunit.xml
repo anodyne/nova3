@@ -25,6 +25,7 @@
 
         <testsuite name="roles">
             <directory suffix="Test.php">./nova/tests/Feature/Roles</directory>
+            <directory suffix="Test.php">./nova/tests/Unit/Roles</directory>
         </testsuite>
 
         <testsuite name="themes">

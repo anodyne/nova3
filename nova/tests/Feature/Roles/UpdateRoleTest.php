@@ -4,10 +4,10 @@ namespace Tests\Feature\Roles;
 
 use Tests\TestCase;
 use Nova\Roles\Models\Role;
-use Illuminate\Http\Response;
 use Nova\Roles\Models\Ability;
 use Nova\Roles\Events\RoleUpdated;
 use Illuminate\Support\Facades\Event;
+use Silber\Bouncer\BouncerFacade as Bouncer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UpdateRoleTest extends TestCase
@@ -23,48 +23,54 @@ class UpdateRoleTest extends TestCase
         $this->role = factory(Role::class)->create();
     }
 
-    public function testAuthorizedUserCanUpdateRole()
+    /** @test **/
+    public function authorizedUserCanUpdateRole()
     {
         $this->signInWithAbility('role.update');
 
-        $this->get(route('roles.edit', $this->role))
-            ->assertSuccessful();
+        $response = $this->get(route('roles.edit', $this->role));
+        $response->assertSuccessful();
     }
 
-    public function testUnauthorizedUserCannotUpdateRole()
+    /** @test **/
+    public function unauthorizedUserCannotUpdateRole()
     {
         $this->signIn();
 
-        $this->get(route('roles.edit', $this->role))
-            ->assertStatus(Response::HTTP_FORBIDDEN);
+        $response = $this->get(route('roles.edit', $this->role));
+        $response->assertForbidden();
 
-        $this->putJson(route('roles.update', $this->role), [])
-            ->assertStatus(Response::HTTP_FORBIDDEN);
+        $response = $this->putJson(route('roles.update', $this->role), []);
+        $response->assertForbidden();
     }
 
-    public function testGuestCannotUpdateRole()
+    /** @test **/
+    public function guestCannotUpdateRole()
     {
-        $this->get(route('roles.edit', $this->role))
-            ->assertRedirect(route('login'));
+        $response = $this->get(route('roles.edit', $this->role));
+        $response->assertRedirect(route('login'));
 
-        $this->putJson(route('roles.update', $this->role), [])
-            ->assertStatus(Response::HTTP_UNAUTHORIZED);
+        $response = $this->putJson(route('roles.update', $this->role), []);
+        $response->assertUnauthorized();
     }
 
-    public function testRoleCanBeUpdated()
+    /** @test **/
+    public function roleCanBeUpdated()
     {
         $this->signInWithAbility('role.update');
 
         $data = [
+            'id' => $this->role->id,
             'name' => 'new-name',
             'title' => 'New title',
             'abilities' => ['foo'],
+            'users' => [],
         ];
 
         $this->assertCount(0, $this->role->getAbilities());
 
-        $this->putJson(route('roles.update', $this->role), $data)
-            ->assertSuccessful();
+        $response = $this->putJson(route('roles.update', $this->role), $data);
+        $response->assertSuccessful();
 
         $this->assertDatabaseHas('roles', [
             'name' => 'new-name',
@@ -79,14 +85,18 @@ class UpdateRoleTest extends TestCase
         ]);
     }
 
-    public function testLockedRoleCannotBeUpdated()
+    /** @test **/
+    public function lockedRoleCannotBeUpdated()
     {
         $role = factory(Role::class)->states('locked')->create();
 
         $this->signInWithAbility('role.update');
 
-        $this->putJson(route('roles.update', $role), ['title' => 'Foo'])
-            ->assertStatus(Response::HTTP_FORBIDDEN);
+        $response = $this->putJson(route('roles.update', $role), [
+            'title' => 'Foo',
+        ]);
+
+        $response->assertForbidden();
 
         $this->assertDatabaseHas('roles', [
             'name' => $role->name,
@@ -94,24 +104,74 @@ class UpdateRoleTest extends TestCase
         ]);
     }
 
-    public function testEventIsDispatchedWhenRoleIsUpdated()
+    /** @test **/
+    public function eventIsDispatchedWhenRoleIsUpdated()
     {
         Event::fake();
 
         $this->signInWithAbility('role.update');
 
         $data = [
+            'id' => $this->role->id,
             'name' => 'new-name',
             'title' => 'New title',
             'abilities' => ['foo', 'bar', 'baz'],
+            'users' => [],
         ];
 
         $this->putJson(route('roles.update', $this->role), $data);
 
-        $role = $this->role->fresh();
+        $role = $this->role->refresh();
 
         Event::assertDispatched(RoleUpdated::class, function ($event) use ($role) {
             return $event->role->is($role);
         });
+    }
+
+    /** @test **/
+    public function roleCanBeRevokedFromUser()
+    {
+        $this->signInWithAbility('role.update');
+
+        $user = $this->createUser();
+        $user->assign($this->role);
+
+        Bouncer::refresh();
+
+        $this->assertTrue($user->isA($this->role));
+
+        $response = $this->putJson(route('roles.update', $this->role), [
+            'id' => $this->role->id,
+            'name' => $this->role->name,
+            'title' => $this->role->title,
+            'users' => [],
+        ]);
+
+        $response->assertSuccessful();
+
+        Bouncer::refresh();
+
+        $this->assertFalse($user->refresh()->isA($this->role));
+    }
+
+    /** @test **/
+    public function roleCanBeGivenToUser()
+    {
+        $this->signInWithAbility('role.update');
+
+        $user = $this->createUser();
+
+        $this->assertFalse($user->isA($this->role));
+
+        $response = $this->putJson(route('roles.update', $this->role), [
+            'id' => $this->role->id,
+            'name' => $this->role->name,
+            'title' => $this->role->title,
+            'users' => [$user->id],
+        ]);
+
+        $response->assertSuccessful();
+
+        $this->assertTrue($user->isA($this->role));
     }
 }

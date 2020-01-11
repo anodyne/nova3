@@ -3,12 +3,13 @@
 namespace Nova\Roles\Http\Controllers;
 
 use Nova\Roles\Models\Role;
+use Nova\Users\Models\User;
 use Nova\Roles\Http\Requests;
 use Nova\Roles\Http\Responses;
 use Nova\Roles\Models\Ability;
 use Nova\Roles\Actions\CreateRole;
 use Nova\Roles\Actions\DeleteRole;
-use Nova\Roles\Actions\UpdateRole;
+use Nova\Roles\Actions\UpdateRoleManager;
 use Nova\Roles\Http\Resources\RoleResource;
 use Nova\Roles\DataTransferObjects\RoleData;
 use Nova\Roles\Http\Resources\RoleCollection;
@@ -49,12 +50,13 @@ class RoleController extends Controller
         return app(Responses\Edit::class)->with([
             'role' => new RoleResource($role),
             'abilities' => Ability::orderBy('title')->get(),
+            'users' => User::get(),
         ]);
     }
 
-    public function update(Requests\Update $request, UpdateRole $action, Role $role)
+    public function update(Requests\Update $request, UpdateRoleManager $action, Role $role)
     {
-        return $action->execute($role, RoleData::fromRequest($request));
+        return $action->execute($role, $request);
     }
 
     public function destroy(Role $role, DeleteRole $action)
