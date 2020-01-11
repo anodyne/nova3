@@ -19,6 +19,7 @@ class RoleResource extends JsonResource
             'name' => $this->name,
             'locked' => (bool) $this->locked,
             'title' => $this->title,
+            'users' => $this->users,
         ];
     }
 }

@@ -1,5 +1,9 @@
 .field-wrapper {
-    @apply block w-full relative mb-8;
+    @apply block w-full relative;
+
+    + .field-wrapper {
+        @apply mt-8;
+    }
 }
 
 .field-group {
@@ -46,7 +50,7 @@
 }
 
 .form-section {
-    @apply flex flex-col mb-8;
+    @apply flex flex-col mb-12;
 
     > .form-section-column-content {
         @apply mb-8 w-full;
