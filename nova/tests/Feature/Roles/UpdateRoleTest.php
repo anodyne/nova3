@@ -7,7 +7,6 @@ use Nova\Roles\Models\Role;
 use Nova\Roles\Models\Ability;
 use Nova\Roles\Events\RoleUpdated;
 use Illuminate\Support\Facades\Event;
-use Silber\Bouncer\BouncerFacade as Bouncer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UpdateRoleTest extends TestCase
@@ -136,8 +135,6 @@ class UpdateRoleTest extends TestCase
         $user = $this->createUser();
         $user->assign($this->role);
 
-        Bouncer::refresh();
-
         $this->assertTrue($user->isA($this->role));
 
         $response = $this->putJson(route('roles.update', $this->role), [
@@ -148,8 +145,6 @@ class UpdateRoleTest extends TestCase
         ]);
 
         $response->assertSuccessful();
-
-        Bouncer::refresh();
 
         $this->assertFalse($user->refresh()->isA($this->role));
     }
