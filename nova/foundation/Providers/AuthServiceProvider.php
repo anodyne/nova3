@@ -2,10 +2,10 @@
 
 namespace Nova\Foundation\Providers;
 
-use Bouncer;
 use Nova\Roles\Models\Role;
 use Nova\Roles\Models\Ability;
 use Illuminate\Cache\ArrayStore;
+use Silber\Bouncer\BouncerFacade as Bouncer;
 use Nova\Foundation\Bouncer\AdvancedCachedClipboard;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 

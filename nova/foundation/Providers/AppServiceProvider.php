@@ -3,7 +3,6 @@
 namespace Nova\Foundation\Providers;
 
 use Nova\Foundation\Nova;
-use Nova\Foundation\Alert;
 use Nova\Foundation\Macros;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Blade;
@@ -20,16 +19,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // Make sure the file finder can find Javascript files
-        view()->addExtension('js', 'file');
+        $this->app['view']->addExtension('js', 'file');
 
         Blade::component('components.partials.page-header', 'pageHeader');
 
         $this->app->bind(Nova::class, function ($app) {
             return new Nova;
-        });
-
-        $this->app->bind(Alert::class, function ($app) {
-            return new Alert;
         });
 
         Route::mixin(new Macros\RouteMacros);
