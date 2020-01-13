@@ -54,8 +54,6 @@ class UpdateUsersRolesTest extends TestCase
     {
         $this->user->assign('test-role');
 
-        Bouncer::refresh();
-
         $this->assertTrue($this->user->isA('test-role'));
 
         $data = new RoleAssignmentData;
