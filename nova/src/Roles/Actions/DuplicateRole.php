@@ -4,7 +4,6 @@ namespace Nova\Roles\Actions;
 
 use Nova\Roles\Models\Role;
 use Nova\Foundation\WordGenerator;
-use Silber\Bouncer\BouncerFacade as Bouncer;
 
 class DuplicateRole
 {
@@ -13,11 +12,11 @@ class DuplicateRole
         $role = $originalRole->replicate();
 
         $role->name = implode('-', (new WordGenerator)->words(2));
-        $role->title = "Copy of {$role->title}";
+        $role->display_name = "Copy of {$role->display_name}";
 
         $role->save();
 
-        Bouncer::sync($role)->abilities($originalRole->getAbilities());
+        $role->syncPermissions($originalRole->permissions);
 
         return $role->refresh();
     }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9741885924d69507e0a7afdf1f0a42c2",
+    "content-hash": "ca1c19bd53c00d8b2ded35aaafce63e7",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -565,6 +565,51 @@
             ],
             "description": "Highlight PHP code in terminal",
             "time": "2018-09-29T18:48:56+00:00"
+        },
+        {
+            "name": "kkszymanowski/traitor",
+            "version": "0.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KKSzymanowski/Traitor.git",
+                "reference": "9770fc7de72ff585601dc9c42b31715d9fc40a24"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KKSzymanowski/Traitor/zipball/9770fc7de72ff585601dc9c42b31715d9fc40a24",
+                "reference": "9770fc7de72ff585601dc9c42b31715d9fc40a24",
+                "shasum": ""
+            },
+            "require": {
+                "nikic/php-parser": "^1.0|^2.0|^3.0|^4.0",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Traitor\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kuba Szymanowski",
+                    "email": "kuba.szymanowski@inf24.pl"
+                }
+            ],
+            "description": "Add a trait use statement to existing PHP class",
+            "keywords": [
+                "add",
+                "php",
+                "trait"
+            ],
+            "time": "2018-04-19T12:24:36+00:00"
         },
         {
             "name": "laravel/framework",
@@ -1728,51 +1773,43 @@
             "time": "2019-12-17T08:18:51+00:00"
         },
         {
-            "name": "silber/bouncer",
-            "version": "v1.0.0-rc.6",
+            "name": "santigarcor/laratrust",
+            "version": "5.2.6",
             "source": {
                 "type": "git",
-                "url": "https://github.com/JosephSilber/bouncer.git",
-                "reference": "7a410f2bf7e9878cb5f80b07056e70d9ec5e2df0"
+                "url": "https://github.com/santigarcor/laratrust.git",
+                "reference": "8efac1ee9cc7750c9207e521776a9adbc35ce307"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JosephSilber/bouncer/zipball/7a410f2bf7e9878cb5f80b07056e70d9ec5e2df0",
-                "reference": "7a410f2bf7e9878cb5f80b07056e70d9ec5e2df0",
+                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/8efac1ee9cc7750c9207e521776a9adbc35ce307",
+                "reference": "8efac1ee9cc7750c9207e521776a9adbc35ce307",
                 "shasum": ""
             },
             "require": {
-                "illuminate/auth": "5.1.20 - 5.8|^6.0",
-                "illuminate/cache": "5.1.20 - 5.8|^6.0",
-                "illuminate/container": "5.1.20 - 5.8|^6.0",
-                "illuminate/contracts": "5.1.20 - 5.8|^6.0",
-                "illuminate/database": "5.1.20 - 5.8|^6.0"
+                "kkszymanowski/traitor": "^0.2.0",
+                "laravel/framework": "~5.6.0|~5.7.0|~5.8.0|~6.0",
+                "php": "^7.1"
             },
             "require-dev": {
-                "illuminate/console": "5.1.20 - 5.8|^6.0",
-                "illuminate/events": "5.1.20 - 5.8|^6.0",
-                "larapack/dd": "^1.1",
-                "mockery/mockery": "^0.9.5",
-                "phpunit/phpunit": "^4.8.35"
-            },
-            "suggest": {
-                "illuminate/console": "Allows running the bouncer:clean artisan command",
-                "illuminate/events": "Required for multi-tenancy support"
+                "mockery/mockery": ">=0.9.9",
+                "orchestra/testbench": "~3.6.0|~3.7.0|~3.8.0|~3.9.0",
+                "phpunit/phpunit": ">=4.1"
             },
             "type": "library",
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Silber\\Bouncer\\BouncerServiceProvider"
+                        "Laratrust\\LaratrustServiceProvider"
                     ],
                     "aliases": {
-                        "Bouncer": "Silber\\Bouncer\\BouncerFacade"
+                        "Laratrust": "Laratrust\\LaratrustFacade"
                     }
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Silber\\Bouncer\\": "src/"
+                    "Laratrust\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1781,21 +1818,24 @@
             ],
             "authors": [
                 {
-                    "name": "Joseph Silber",
-                    "email": "contact@josephsilber.com"
+                    "name": "Santiago Garcia",
+                    "homepage": "http://santigarcor.me"
                 }
             ],
-            "description": "Eloquent roles and abilities.",
+            "description": "This package provides a flexible way to add Role-based Permissions to Laravel",
             "keywords": [
-                "abilities",
+                "Teams",
                 "acl",
-                "capabilities",
-                "eloquent",
+                "authorization",
+                "laratrust",
                 "laravel",
+                "multiusers",
                 "permissions",
+                "php",
+                "rbac",
                 "roles"
             ],
-            "time": "2019-09-04T03:29:16+00:00"
+            "time": "2019-11-08T13:53:13+00:00"
         },
         {
             "name": "spatie/data-transfer-object",

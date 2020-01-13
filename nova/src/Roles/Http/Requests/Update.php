@@ -9,9 +9,9 @@ class Update extends ValidatesRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'title' => 'required',
-            'abilities' => 'nullable',
+            'name' => ['required'],
+            'display_name' => ['required'],
+            'permissions' => ['nullable'],
         ];
     }
 }

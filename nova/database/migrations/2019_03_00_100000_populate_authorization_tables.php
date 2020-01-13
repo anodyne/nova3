@@ -1,7 +1,7 @@
 <?php
 
 use Nova\Roles\Models\Role;
-use Nova\Roles\Models\Ability;
+use Nova\Roles\Models\Permission;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Migrations\Migration;
 
@@ -11,11 +11,11 @@ class PopulateAuthorizationTables extends Migration
     {
         activity()->disableLogging();
 
-        $this->populateAbilitiesTable();
+        $this->populatePermissionsTable();
 
         $this->populateRolesTable();
 
-        $this->assignAbilitiesToRoles();
+        $this->assignPermissionsToRoles();
 
         activity()->enableLogging();
     }
@@ -23,10 +23,10 @@ class PopulateAuthorizationTables extends Migration
     public function down()
     {
         Role::truncate();
-        Ability::truncate();
+        Permission::truncate();
     }
 
-    protected function assignAbilitiesToRoles()
+    protected function assignPermissionsToRoles()
     {
         $permissions = [
             'admin' => ['role.create', 'role.delete', 'role.update', 'theme.create', 'theme.delete', 'theme.update', 'user.create', 'user.delete', 'user.update'],
@@ -34,44 +34,46 @@ class PopulateAuthorizationTables extends Migration
         ];
 
         collect($permissions)->each(function ($permission, $role) {
-            Bouncer::allow($role)->to(
-                Ability::whereIn('name', $permission)->get()->pluck('id')->all()
+            $role = Role::whereName($role)->first();
+
+            $role->attachPermissions(
+                Permission::whereIn('name', $permission)->get()->pluck('id')->all()
             );
         });
     }
 
-    protected function populateAbilitiesTable()
+    protected function populatePermissionsTable()
     {
-        $abilities = [
-            ['name' => 'role.create', 'title' => 'Create role'],
-            ['name' => 'role.delete', 'title' => 'Delete role'],
-            ['name' => 'role.update', 'title' => 'Update role'],
+        $permissions = [
+            ['name' => 'role.create', 'display_name' => 'Create role'],
+            ['name' => 'role.delete', 'display_name' => 'Delete role'],
+            ['name' => 'role.update', 'display_name' => 'Update role'],
 
-            ['name' => 'theme.create', 'title' => 'Create theme'],
-            ['name' => 'theme.delete', 'title' => 'Delete theme'],
-            ['name' => 'theme.update', 'title' => 'Update theme'],
+            ['name' => 'theme.create', 'display_name' => 'Create theme'],
+            ['name' => 'theme.delete', 'display_name' => 'Delete theme'],
+            ['name' => 'theme.update', 'display_name' => 'Update theme'],
 
-            ['name' => 'user.create', 'title' => 'Create user'],
-            ['name' => 'user.delete', 'title' => 'Delete user'],
-            ['name' => 'user.update', 'title' => 'Update user'],
+            ['name' => 'user.create', 'display_name' => 'Create user'],
+            ['name' => 'user.delete', 'display_name' => 'Delete user'],
+            ['name' => 'user.update', 'display_name' => 'Update user'],
         ];
 
-        collect($abilities)->each(function ($ability) {
-            Bouncer::ability()->firstOrCreate($ability);
+        collect($permissions)->each(function ($permission) {
+            Permission::firstOrCreate($permission);
         });
     }
 
     protected function populateRolesTable()
     {
         $roles = [
-            ['name' => 'admin', 'title' => 'System Admin', 'locked' => true],
-            ['name' => 'user', 'title' => 'Basic User'],
+            ['name' => 'admin', 'display_name' => 'System Admin', 'locked' => true],
+            ['name' => 'user', 'display_name' => 'Basic User'],
         ];
 
         Model::unguard();
 
         collect($roles)->each(function ($role) {
-            Bouncer::role()->firstOrCreate($role);
+            Role::firstOrCreate($role);
         });
 
         Model::reguard();

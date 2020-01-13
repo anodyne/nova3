@@ -4,7 +4,7 @@ namespace Tests\Feature\Roles;
 
 use Tests\TestCase;
 use Nova\Roles\Models\Role;
-use Nova\Roles\Models\Ability;
+use Nova\Roles\Models\Permission;
 use Nova\Roles\Events\RoleUpdated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -25,7 +25,7 @@ class UpdateRoleTest extends TestCase
     /** @test **/
     public function authorizedUserCanUpdateRole()
     {
-        $this->signInWithAbility('role.update');
+        $this->signInWithPermission('role.update');
 
         $response = $this->get(route('roles.edit', $this->role));
         $response->assertSuccessful();
@@ -56,31 +56,31 @@ class UpdateRoleTest extends TestCase
     /** @test **/
     public function roleCanBeUpdated()
     {
-        $this->signInWithAbility('role.update');
+        $this->signInWithPermission('role.update');
 
         $data = [
             'id' => $this->role->id,
             'name' => 'new-name',
-            'title' => 'New title',
-            'abilities' => ['foo'],
+            'display_name' => 'New display name',
+            'permissions' => ['foo'],
             'users' => [],
         ];
 
-        $this->assertCount(0, $this->role->getAbilities());
+        $this->assertCount(0, $this->role->permissions);
 
         $response = $this->putJson(route('roles.update', $this->role), $data);
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('roles', [
             'name' => 'new-name',
-            'title' => 'New title',
+            'display_name' => 'New display name',
         ]);
 
-        $this->assertDatabaseHas('abilities', ['name' => 'foo']);
+        $this->assertDatabaseHas('permissions', ['name' => 'foo']);
 
-        $this->assertDatabaseHas('permissions', [
-            'ability_id' => Ability::get()->last()->id,
-            'entity_id' => $this->role->id,
+        $this->assertDatabaseHas('permission_role', [
+            'permission_id' => Permission::get()->last()->id,
+            'role_id' => $this->role->id,
         ]);
     }
 
@@ -89,17 +89,17 @@ class UpdateRoleTest extends TestCase
     {
         $role = factory(Role::class)->states('locked')->create();
 
-        $this->signInWithAbility('role.update');
+        $this->signInWithPermission('role.update');
 
         $response = $this->putJson(route('roles.update', $role), [
-            'title' => 'Foo',
+            'display_name' => 'Foo',
         ]);
 
         $response->assertForbidden();
 
         $this->assertDatabaseHas('roles', [
             'name' => $role->name,
-            'title' => $role->title,
+            'display_name' => $role->display_name,
         ]);
     }
 
@@ -108,13 +108,13 @@ class UpdateRoleTest extends TestCase
     {
         Event::fake();
 
-        $this->signInWithAbility('role.update');
+        $this->signInWithPermission('role.update');
 
         $data = [
             'id' => $this->role->id,
             'name' => 'new-name',
-            'title' => 'New title',
-            'abilities' => ['foo', 'bar', 'baz'],
+            'display_name' => 'New display name',
+            'permissions' => ['foo', 'bar', 'baz'],
             'users' => [],
         ];
 
@@ -130,43 +130,43 @@ class UpdateRoleTest extends TestCase
     /** @test **/
     public function roleCanBeRevokedFromUser()
     {
-        $this->signInWithAbility('role.update');
+        $this->signInWithPermission('role.update');
 
         $user = $this->createUser();
-        $user->assign($this->role);
+        $user->attachRole($this->role);
 
-        $this->assertTrue($user->isA($this->role));
+        $this->assertTrue($user->hasRole($this->role->name));
 
         $response = $this->putJson(route('roles.update', $this->role), [
             'id' => $this->role->id,
             'name' => $this->role->name,
-            'title' => $this->role->title,
+            'display_name' => $this->role->display_name,
             'users' => [],
         ]);
 
         $response->assertSuccessful();
 
-        $this->assertFalse($user->refresh()->isA($this->role));
+        $this->assertFalse($user->refresh()->hasRole($this->role->name));
     }
 
     /** @test **/
     public function roleCanBeGivenToUser()
     {
-        $this->signInWithAbility('role.update');
+        $this->signInWithPermission('role.update');
 
         $user = $this->createUser();
 
-        $this->assertFalse($user->isA($this->role));
+        $this->assertFalse($user->hasRole($this->role->name));
 
         $response = $this->putJson(route('roles.update', $this->role), [
             'id' => $this->role->id,
             'name' => $this->role->name,
-            'title' => $this->role->title,
+            'display_name' => $this->role->display_name,
             'users' => [$user->id],
         ]);
 
         $response->assertSuccessful();
 
-        $this->assertTrue($user->isA($this->role));
+        $this->assertTrue($user->hasRole($this->role->name));
     }
 }

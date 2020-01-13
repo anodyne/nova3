@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use Silber\Bouncer\BouncerFacade as Bouncer;
 use Nova\Foundation\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
@@ -18,8 +17,6 @@ abstract class TestCase extends BaseTestCase
 
         $this->remapRouteCollection();
         $this->setupTestResponseMacros();
-
-        Bouncer::dontCache();
     }
 
     /**

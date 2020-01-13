@@ -16,7 +16,7 @@ class CreateRoleTest extends TestCase
     /** @test **/
     public function authorizedUserCanCreateRole()
     {
-        $this->signInWithAbility('role.create');
+        $this->signInWithPermission('role.create');
 
         $this->get(route('roles.create'))->assertSuccessful();
     }
@@ -46,14 +46,14 @@ class CreateRoleTest extends TestCase
     /** @test **/
     public function roleCanBeCreated()
     {
-        $this->signInWithAbility('role.create');
+        $this->signInWithPermission('role.create');
 
         $roleData = factory(Role::class)->make();
 
         $postData = array_merge(
             $roleData->toArray(),
             [
-                'abilities' => ['foo', 'bar', 'baz'],
+                'permissions' => ['foo', 'bar', 'baz'],
                 'users' => [],
             ]
         );
@@ -63,11 +63,11 @@ class CreateRoleTest extends TestCase
 
         $role = Role::get()->last();
 
-        $this->assertCount(3, $role->getAbilities());
+        $this->assertCount(3, $role->permissions);
 
         $this->assertDatabaseHas('roles', [
             'name' => $roleData->name,
-            'title' => $roleData->title,
+            'display_name' => $roleData->display_name,
         ]);
     }
 
@@ -76,12 +76,12 @@ class CreateRoleTest extends TestCase
     {
         Event::fake();
 
-        $this->signInWithAbility('role.create');
+        $this->signInWithPermission('role.create');
 
         $data = array_merge(
             factory(Role::class)->make()->toArray(),
             [
-                'abilities' => ['foo', 'bar', 'baz'],
+                'permissions' => ['foo', 'bar', 'baz'],
                 'users' => [],
             ]
         );
@@ -98,9 +98,9 @@ class CreateRoleTest extends TestCase
     /** @test **/
     public function nameIsRequiredToCreateRole()
     {
-        $this->signInWithAbility('role.create');
+        $this->signInWithPermission('role.create');
 
-        $this->postJson(route('roles.store'), ['title' => 'Foo'])
+        $this->postJson(route('roles.store'), ['display_name' => 'Foo'])
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
@@ -109,16 +109,16 @@ class CreateRoleTest extends TestCase
     {
         $role = factory(Role::class)->create();
 
-        $this->signInWithAbility('role.create');
+        $this->signInWithPermission('role.create');
 
-        $this->postJson(route('roles.store'), ['name' => $role->name, 'title' => 'Title'])
+        $this->postJson(route('roles.store'), ['name' => $role->name, 'display_name' => 'display_name'])
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test **/
-    public function titleIsRequiredToCreateRole()
+    public function displayNameIsRequiredToCreateRole()
     {
-        $this->signInWithAbility('role.create');
+        $this->signInWithPermission('role.create');
 
         $this->postJson(route('roles.store'), ['name' => 'foo'])
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -127,7 +127,7 @@ class CreateRoleTest extends TestCase
     /** @test **/
     public function roleCanBeGivenToUser()
     {
-        $this->signInWithAbility('role.create');
+        $this->signInWithPermission('role.create');
 
         $user = $this->createUser();
 
@@ -136,7 +136,7 @@ class CreateRoleTest extends TestCase
         $data = array_merge(
             $role->toArray(),
             [
-                'abilities' => [],
+                'permissions' => [],
                 'users' => [$user->id],
             ]
         );
@@ -145,6 +145,6 @@ class CreateRoleTest extends TestCase
 
         $response->assertSuccessful();
 
-        $this->assertTrue($user->isA($role->name));
+        $this->assertTrue($user->hasRole($role->name));
     }
 }

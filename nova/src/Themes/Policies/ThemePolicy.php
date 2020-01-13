@@ -19,9 +19,7 @@ class ThemePolicy
      */
     public function viewAny(User $user)
     {
-        return $user->can('theme.create') ||
-            $user->can('theme.delete') ||
-            $user->can('theme.update');
+        return $user->can('theme.*');
     }
 
     /**
@@ -34,7 +32,7 @@ class ThemePolicy
      */
     public function view(User $user, Theme $theme)
     {
-        return true;
+        return $user->can('theme.*');
     }
 
     /**

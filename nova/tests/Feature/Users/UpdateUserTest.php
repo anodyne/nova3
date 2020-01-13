@@ -28,7 +28,7 @@ class UpdateUserTest extends TestCase
      */
     public function authorizedUserCanUpdateUser()
     {
-        $this->signInWithAbility('user.update');
+        $this->signInWithPermission('user.update');
 
         $response = $this->get(route('users.edit', $this->user));
 
@@ -68,7 +68,7 @@ class UpdateUserTest extends TestCase
      */
     public function userCanBeUpdated()
     {
-        $this->signInWithAbility('user.update');
+        $this->signInWithPermission('user.update');
 
         $userData = factory(User::class)->make();
 
@@ -88,7 +88,7 @@ class UpdateUserTest extends TestCase
     {
         Event::fake();
 
-        $this->signInWithAbility('user.update');
+        $this->signInWithPermission('user.update');
 
         $this->putJson(route('users.update', $this->user), factory(User::class)->make()->toArray());
 
@@ -108,7 +108,7 @@ class UpdateUserTest extends TestCase
      */
     public function NameIsRequiredToCreateUser()
     {
-        $this->signInWithAbility('user.create');
+        $this->signInWithPermission('user.create');
 
         $this->postJson(route('users.store'), ['email' => 'john@example.com'])
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -119,7 +119,7 @@ class UpdateUserTest extends TestCase
      */
     public function EmailIsRequiredToCreateUser()
     {
-        $this->signInWithAbility('user.create');
+        $this->signInWithPermission('user.create');
 
         $this->postJson(route('users.store'), ['name' => 'foo'])
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);

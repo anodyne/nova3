@@ -5,20 +5,18 @@ namespace Nova\Users\Models;
 use Nova\Users\Events;
 use Nova\Users\UsersCollection;
 use Illuminate\Notifications\Notifiable;
+use Laratrust\Traits\LaratrustUserTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Nova\Foundation\Concerns\CanAuthorizeAny;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable,
-        SoftDeletes,
-        HasRolesAndAbilities,
-        LogsActivity,
-        CanAuthorizeAny;
+    use Notifiable;
+    use SoftDeletes;
+    use LogsActivity;
+    use LaratrustUserTrait;
 
     protected static $logFillable = true;
 
