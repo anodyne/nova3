@@ -12,7 +12,7 @@
 */
 
 $app = new Nova\Foundation\Application(
-    realpath(__DIR__.'/../../')
+    $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__, 2)
 );
 
 /*
@@ -39,11 +39,6 @@ $app->singleton(
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     Nova\Foundation\Exceptions\Handler::class
-);
-
-$app->singleton(
-	Illuminate\Foundation\Bootstrap\LoadConfiguration::class,
-	Nova\Foundation\Bootstrap\LoadConfiguration::class
 );
 
 /*

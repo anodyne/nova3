@@ -1,0 +1,82 @@
+.button {
+    @apply inline-flex items-center justify-center w-full py-2 px-4 rounded font-semibold text-sm border border-gray-200 whitespace-no-wrap transition-color transition-medium uppercase tracking-widest text-gray-400;
+
+    &:focus,
+    &:active {
+        @apply outline-none;
+    }
+
+    &:hover {
+        @apply text-gray-600;
+    }
+
+    &.is-mini {
+        @apply text-sm py-1 px-2;
+    }
+
+    &.is-small {
+        @apply text-sm py-2 px-4;
+    }
+
+    &.is-large {
+        @apply py-4 px-8;
+    }
+
+    &.is-huge {
+        @apply py-8 px-16;
+    }
+
+    &.is-primary {
+        @apply bg-primary-500 text-white border-transparent;
+
+        &:hover {
+            @apply bg-primary-600 text-white border-transparent;
+        }
+    }
+
+    &.is-secondary {
+        @apply bg-white text-gray-600;
+
+        &:hover {
+            @apply bg-gray-300 text-gray-700 border-gray-300;
+        }
+    }
+
+    &.is-danger {
+        @apply bg-danger-100 text-danger-500 border-transparent;
+
+        &:hover {
+            @apply bg-danger-200 text-danger-600 border-transparent;
+        }
+    }
+
+    &.is-danger-vivid {
+        @apply bg-danger-600 text-white border-transparent;
+
+        &:hover {
+            @apply bg-danger-700 text-white border-transparent;
+        }
+    }
+
+    &.is-dark {
+        @apply bg-gray-600 text-gray-100 border-transparent;
+
+        &:hover {
+            @apply bg-gray-500 text-white border-transparent;
+        }
+    }
+
+    &.is-text {
+        @apply p-0 bg-transparent normal-case font-normal text-gray-600 tracking-normal border-transparent;
+
+        &:hover {
+            @apply bg-transparent text-gray-700 border-transparent;
+        }
+    }
+}
+
+@screen sm {
+    .button {
+        @apply w-auto;
+    }
+}

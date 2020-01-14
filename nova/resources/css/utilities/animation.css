@@ -1,0 +1,22 @@
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+.animated-fast {
+    animation-duration: 500ms;
+}
+
+.animated-faster {
+    animation-duration: 250ms;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}

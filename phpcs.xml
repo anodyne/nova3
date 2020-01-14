@@ -2,23 +2,11 @@
 <ruleset name="Nova">
 	<description>The coding standard for Anodyne's Nova 3 role playing system.</description>
 
+	<file>nova/foundation</file>
 	<file>nova/src</file>
 
-	<exclude-pattern>*/nova/src/CodeSniffer/*</exclude-pattern>
 	<exclude-pattern>*/nova/tests/*</exclude-pattern>
 	<exclude-pattern>*/nova/vendor/*</exclude-pattern>
 
 	<arg value="np"/>
-
-	<rule ref="PSR2">
-		<exclude name="Generic.WhiteSpace.DisallowTabIndent"/>
-	</rule>
-	<rule ref="nova/src/CodeSniffer/Standards/Anodyne"/>
-	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
-	<rule ref="Generic.WhiteSpace.ScopeIndent">
-		<properties>
-			<property name="indent" value="4"/>
-			<property name="tabIndent" value="true"/>
-		</properties>
-	</rule>
 </ruleset>

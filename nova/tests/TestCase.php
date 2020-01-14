@@ -1,88 +1,41 @@
-<?php namespace Tests;
+<?php
 
-use Nova\Authorize\Role;
-use Nova\Foundation\Exceptions\Handler;
-use Nova\Foundation\Providers\AuthServiceProvider;
-use Illuminate\Contracts\Debug\ExceptionHandler;
+namespace Tests;
+
+use Nova\Foundation\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-	use CreatesApplication;
+    use CreatesApplication;
+    use ManagesTestUsers;
+    use AddsCustomAssertions;
 
-	protected $oldExceptionHandler;
+    public function setUp(): void
+    {
+        parent::setUp();
 
-	protected function setUp()
-	{
-		parent::setUp();
+        $this->remapRouteCollection();
+        $this->setupTestResponseMacros();
+    }
 
-		$this->defineAuthorizationGates();
+    /**
+     * It's necessary to re-map the RouteCollection because the migrations run
+     * after the RouteServiceProvider has mapped all of the routes. Re-mapping
+     * ensures that all of the pages that are populated in the database end up
+     * as working routes.
+     *
+     * Additionally, the RouteCollection name and action lookup lists are NOT
+     * refreshed when the RouteCollection is re-mapped, so we have to manually
+     * refresh the lists in order to be able to use named routes in our tests.
+     *
+     * @return void
+     */
+    protected function remapRouteCollection(): void
+    {
+        $this->app->getProvider(RouteServiceProvider::class)->map();
 
-		$this->disableExceptionHandling();
-	}
-
-	protected function signIn($user = null)
-	{
-		$user = ($user) ?: $this->createUser();
-
-		$this->actingAs($user);
-	}
-
-	protected function signOut()
-	{
-		auth()->logout();
-	}
-
-	protected function createUser()
-	{
-		$user = create('Nova\Users\User');
-		$user->attachRole(Role::name('Active User')->first());
-
-		return $user;
-	}
-
-	protected function createAdmin()
-	{
-		$user = $this->createUser();
-		$user->attachRole(Role::name('System Admin')->first());
-
-		return $user;
-	}
-
-	protected function disableExceptionHandling()
-	{
-		$this->oldExceptionHandler = $this->app->make(ExceptionHandler::class);
-
-		$this->app->instance(ExceptionHandler::class, new class extends Handler {
-			public function __construct() {}
-			public function report(\Exception $e) {}
-			public function render($request, \Exception $e) {
-				throw $e;
-			}
-		});
-	}
-
-	protected function withExceptionHandling()
-	{
-		$this->app->instance(ExceptionHandler::class, $this->oldExceptionHandler);
-
-		return $this;
-	}
-
-	protected function postWithRedirect($to, $parameters = [], $redirect)
-	{
-		return $this->call(
-			'POST',
-			$to,
-			$parameters,
-			[],
-			[],
-			['HTTP_REFERER' => $redirect]
-		);
-	}
-
-	protected function defineAuthorizationGates()
-	{
-		return (new AuthServiceProvider(app()))->defineGates();
-	}
+        $this->app['router']->getRoutes()->refreshNameLookups();
+        $this->app['router']->getRoutes()->refreshActionLookups();
+    }
 }

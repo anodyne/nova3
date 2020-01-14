@@ -1,0 +1,10 @@
+<?php
+
+namespace Themes\DummyNamespace;
+
+use Nova\Themes\BaseTheme;
+
+class Theme extends BaseTheme
+{
+    public $location = 'DummyLocation';
+}

@@ -7,23 +7,7 @@
  * @author   Taylor Otwell <taylor@laravel.com>
  */
 
-// Does the .htaccess file exist?
-if (! file_exists('./.htaccess')) {
-	header("Location: error-htaccess.html");
-	exit;
-}
-
-// Are we in maintenance mode?
-if (file_exists('./storage/app/maintenance.json')) {
-	header("Location: error-maintenance.html");
-	exit;
-}
-
-// Does the vendor folder exist?
-if (! file_exists('./nova/vendor')) {
-	header("Location: error-vendor.html");
-	exit;
-}
+define('LARAVEL_START', microtime(true));
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +21,7 @@ if (! file_exists('./nova/vendor')) {
 |
 */
 
-require __DIR__.'/nova/bootstrap/autoload.php';
+require __DIR__.'/nova/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -68,7 +52,7 @@ $app = require_once __DIR__.'/nova/bootstrap/app.php';
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
 $response = $kernel->handle(
-	$request = Illuminate\Http\Request::capture()
+    $request = Illuminate\Http\Request::capture()
 );
 
 $response->send();

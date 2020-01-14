@@ -1,0 +1,19 @@
+.dropdown-link {
+    @apply flex items-center px-4 py-2 text-gray-300 cursor-pointer text-sm transition-all transition-fast;
+
+    &:hover {
+        @apply bg-gray-800 text-white;
+    }
+}
+
+.dropdown-link-danger {
+    @apply dropdown-link;
+
+    &:hover {
+        @apply bg-danger-500 text-white;
+    }
+}
+
+.dropdown-item-icon {
+    @apply h-5 w-5 mr-2;
+}

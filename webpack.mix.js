@@ -1,25 +1,39 @@
-let mix = require('laravel-mix');
+const mix = require('laravel-mix');
+const path = require('path');
 
-mix.setPublicPath('assets');
+mix.setPublicPath('dist');
 
-mix.autoload({
-		'popper.js/dist/umd/popper.js': ['Popper'],
-		jquery: ['$', 'jquery', 'jQuery', 'window.jquery'],
-		'moment': ['moment', 'window.moment'],
-		'webui-popover': ['webuiPopover', 'window.webuiPopover']
-	})
-	.extract([
-		'jquery', 'axios', 'bootstrap', 'croppie', 'humanize-number',
-		'jquery-confirm', 'lodash', 'md5', 'moment', 'pluralize', 'popper.js',
-		'sortablejs', 'vue', 'vue-clickaway', 'vue-js-toggle-button',
-		'webui-popover', 'sweetalert2', 'lightbox2'
-	])
-   .js('nova/resources/assets/js/app.js', 'assets/js')
-   .sass('nova/resources/assets/sass/app.scss', 'assets/css')
-   .sass('nova/resources/assets/sass/responsive.scss', 'assets/css')
-   .sass('nova/resources/assets/sass/vendor.scss', 'assets/css')
-   .sass('nova/resources/assets/sass/setup.scss', 'assets/css')
-   .sass('nova/resources/assets/sass/setup.responsive.scss', 'assets/css')
-   .options({
-		processCssUrls: false
-	});
+mix.js('nova/resources/js/app.js', 'dist/js')
+    .js('nova/resources/js/app-server.js', 'dist/js')
+
+    .postCss('nova/resources/css/app.css', 'dist/css')
+    .postCss('nova/resources/css/vendor.css', 'dist/css')
+
+    .options({
+        postCss: [
+            /* eslint-disable */
+            require('postcss-import'),
+            require('tailwindcss'),
+            require('postcss-nested')
+            /* eslint-enable */
+        ],
+        processCssUrls: false
+    })
+
+    .babelConfig({
+        plugins: ['@babel/plugin-syntax-dynamic-import']
+    })
+
+    .webpackConfig({
+        output: {
+            chunkFilename: 'js/[name].[contenthash].js',
+            publicPath: '/dist/'
+        },
+        resolve: {
+            alias: {
+                '@': path.resolve(__dirname, './nova/resources/js/'),
+                '@node_modules': path.resolve(__dirname, './node_modules/')
+            },
+            symlinks: false
+        }
+    });

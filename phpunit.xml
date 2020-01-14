@@ -1,62 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
-		 backupStaticAttributes="false"
-		 bootstrap="nova/bootstrap/autoload.php"
-		 colors="true"
-		 convertErrorsToExceptions="true"
-		 convertNoticesToExceptions="true"
-		 convertWarningsToExceptions="true"
-		 processIsolation="false"
-		 stopOnFailure="false">
-	<testsuites>
-		<testsuite name="nova-all">
-			<directory suffix="Test.php">./nova/tests</directory>
-		</testsuite>
-		<testsuite name="nova-auth">
-			<directory suffix="Test.php">./nova/tests/Auth</directory>
-		</testsuite>
-		<testsuite name="nova-authorize">
-			<directory suffix="Test.php">./nova/tests/Authorize</directory>
-		</testsuite>
-		<testsuite name="nova-characters">
-			<directory suffix="Test.php">./nova/tests/Characters</directory>
-		</testsuite>
-		<testsuite name="nova-genres">
-			<directory suffix="Test.php">./nova/tests/Genres</directory>
-		</testsuite>
-		<testsuite name="nova-media">
-			<directory suffix="Test.php">./nova/tests/Media</directory>
-		</testsuite>
-		<testsuite name="nova-unit">
-			<directory suffix="Test.php">./nova/tests/Unit</directory>
-		</testsuite>
-		<testsuite name="nova-users">
-			<directory suffix="Test.php">./nova/tests/Users</directory>
-		</testsuite>
-	</testsuites>
-	<filter>
-		<whitelist processUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">./nova/src/Auth</directory>
-			<directory suffix=".php">./nova/src/Authorize</directory>
-			<directory suffix=".php">./nova/src/Characters</directory>
-			<directory suffix=".php">./nova/src/Dashboard</directory>
-			<directory suffix=".php">./nova/src/Foundation</directory>
-			<directory suffix=".php">./nova/src/Genres</directory>
-			<directory suffix=".php">./nova/src/Media</directory>
-			<directory suffix=".php">./nova/src/Settings</directory>
-			<directory suffix=".php">./nova/src/Setup</directory>
-			<directory suffix=".php">./nova/src/Users</directory>
-			<!-- <exclude>
-				<file>./nova/routes/web.php</file>
-			</exclude> -->
-		</whitelist>
-	</filter>
-	<php>
-		<env name="APP_ENV" value="testing"/>
-		<env name="CACHE_DRIVER" value="array"/>
-		<env name="SESSION_DRIVER" value="array"/>
-		<env name="QUEUE_DRIVER" value="sync"/>
-		<env name="DB_CONNECTION" value="sqlite"/>
-		<env name="DB_DATABASE" value=":memory:"/>
-	</php>
+         backupStaticAttributes="false"
+         bootstrap="nova/tests/bootstrap.php"
+         cacheResult="true"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         printerClass="Codedungeon\PHPUnitPrettyResultPrinter\Printer"
+         processIsolation="false"
+         stopOnFailure="false">
+    <testsuites>
+        <testsuite name="unit">
+            <directory suffix="Test.php">./nova/tests/Unit</directory>
+        </testsuite>
+
+        <testsuite name="feature">
+            <directory suffix="Test.php">./nova/tests/Feature</directory>
+        </testsuite>
+
+        <testsuite name="authentication">
+            <directory suffix="Test.php">./nova/tests/Feature/Auth</directory>
+        </testsuite>
+
+        <testsuite name="roles">
+            <directory suffix="Test.php">./nova/tests/Feature/Roles</directory>
+            <directory suffix="Test.php">./nova/tests/Unit/Roles</directory>
+        </testsuite>
+
+        <testsuite name="themes">
+            <directory suffix="Test.php">./nova/tests/Feature/Themes</directory>
+            <directory suffix="Test.php">./nova/tests/Unit/Themes</directory>
+        </testsuite>
+
+        <testsuite name="users">
+            <directory suffix="Test.php">./nova/tests/Feature/Users</directory>
+            <directory suffix="Test.php">./nova/tests/Unit/Users</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./app</directory>
+        </whitelist>
+    </filter>
+    <php>
+        <server name="APP_ENV" value="testing"/>
+        <server name="BCRYPT_ROUNDS" value="4"/>
+        <server name="CACHE_DRIVER" value="array"/>
+        <server name="DB_CONNECTION" value="sqlite"/>
+		<server name="DB_DATABASE" value=":memory:"/>
+        <server name="MAIL_DRIVER" value="array"/>
+        <server name="QUEUE_CONNECTION" value="sync"/>
+        <server name="SESSION_DRIVER" value="array"/>
+        <server name="APP_CONFIG_CACHE" value="nova/bootstrap/cache/config.phpunit.php"/>
+        <server name="APP_SERVICES_CACHE" value="nova/bootstrap/cache/services.phpunit.php"/>
+        <server name="APP_PACKAGES_CACHE" value="nova/bootstrap/cache/packages.phpunit.php"/>
+        <server name="APP_ROUTES_CACHE" value="nova/bootstrap/cache/routes.phpunit.php"/>
+        <server name="APP_EVENTS_CACHE" value="nova/bootstrap/cache/events.phpunit.php"/>
+    </php>
 </phpunit>

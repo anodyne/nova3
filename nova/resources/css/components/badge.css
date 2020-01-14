@@ -1,0 +1,19 @@
+.badge {
+    @apply inline-block rounded-full py-2px px-3 text-xs font-extrabold uppercase tracking-wider bg-gray-200 text-gray-700;
+}
+
+.badge-danger {
+    @apply bg-danger-200 text-danger-700;
+}
+
+.badge-info {
+    @apply bg-info-200 text-info-800;
+}
+
+.badge-success {
+    @apply bg-success-200 text-success-800;
+}
+
+.badge-warning {
+    @apply bg-warning-200 text-warning-800;
+}

@@ -1,73 +1,85 @@
 {
-	"require": {
-		"php": ">=7.0.0",
-		"laravel/framework": "5.5.*",
-		"laravelcollective/html": "5.5.*",
-		"laravel/tinker": "~1.0",
-		"Krinkle/intuition": "~0.5",
-		"laracasts/presenter": "^0.2",
-		"creativeorange/gravatar": "^1.0",
-		"nothingworks/blade-svg": "^0.1",
-		"intervention/image": "^2.0",
-		"tightenco/ziggy": "^0.3",
-		"erusev/parsedown": "^1.6",
-		"guzzlehttp/guzzle": "^6.3"
-	},
-
-	"require-dev": {
-		"fzaninotto/faker": "^1.4",
-		"mockery/mockery": "0.9.*",
-		"phpunit/phpunit": "~6.0",
-		"barryvdh/laravel-debugbar": "^3.1",
-		"laravel/dusk": "^2.0",
-		"squizlabs/php_codesniffer": "^2.8",
-		"filp/whoops": "~2.0"
-	},
-
-	"autoload": {
-		"classmap": [
-			"nova/database"
-		],
-		"files": [
-			"nova/src/helpers.php"
-		],
-		"psr-4": {
-			"Nova\\": "nova/src/"
-		}
-	},
-
-	"autoload-dev": {
-		"files": [
-			"nova/tests/utilities/functions.php"
-		],
-		"psr-4": {
-			"Tests\\": "nova/tests/"
-		}
-	},
-
-	"scripts": {
-		"post-install-cmd": [
-			"Illuminate\\Foundation\\ComposerScripts::postInstall"
-		],
-
-		"post-update-cmd": [
-			"Illuminate\\Foundation\\ComposerScripts::postUpdate"
-		],
-
-		"post-autoload-dump": [
-			"Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-			"@php artisan package:discover"
-		]
-	},
-
-	"config": {
-		"vendor-dir": "nova/vendor",
-		"bin-dir": "nova/vendor/bin",
-		"preferred-install": "dist",
-		"sort-packages": true,
-		"optimize-autoloader": true
-	},
-
-	"minimum-stability": "dev",
-	"prefer-stable": true
+    "name": "anodyne/nova3",
+    "type": "project",
+    "description": "Nova 3 RPG Management",
+    "keywords": [
+        "cms",
+        "app",
+        "anodyne",
+        "nova",
+        "rpg"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2",
+        "fideloper/proxy": "^4.0",
+        "inertiajs/inertia-laravel": "^0.1",
+        "laravel/framework": "^6.0",
+        "laravel/tinker": "^1.0",
+        "santigarcor/laratrust": "^5.2",
+        "spatie/data-transfer-object": "^1.12",
+        "spatie/laravel-activitylog": "^3.6",
+        "spatie/laravel-collection-macros": "^6.0",
+        "spatie/laravel-html": "^2.21",
+        "spatie/laravel-model-states": "^1.0",
+        "tightenco/ziggy": "^0.8"
+    },
+    "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.2",
+        "codedungeon/phpunit-result-printer": "^0.26",
+        "facade/ignition": "^1.4",
+        "fzaninotto/faker": "^1.4",
+        "mockery/mockery": "^1.0",
+        "nunomaduro/collision": "^3.0",
+        "phpunit/phpunit": "^8.0",
+        "squizlabs/php_codesniffer": "^2.8"
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Nova\\": "nova/src/",
+            "Nova\\Foundation\\": "nova/foundation/",
+            "Nova\\Setup\\": "nova/setup/",
+            "Themes\\": "themes/"
+        },
+        "classmap": [
+            "nova/database/seeds",
+            "nova/database/factories"
+        ],
+        "files": [
+            "nova/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "nova/tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php -r \"file_exists('nova/vendor') && !file_exists('vendor') && symlink('nova/vendor', 'vendor');\"",
+            "@php artisan optimize:clear --ansi",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ]
+    },
+    "config": {
+        "bin-dir": "nova/vendor/bin",
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "vendor-dir": "nova/vendor"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

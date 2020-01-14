@@ -1,0 +1,61 @@
+@grid-columns: 12;
+
+.buildColumns (@i) when (@i > 0) {
+	@responsive {
+		.col-@{i} {
+			flex-basis: percentage((@i / 12));
+			max-width: percentage((@i / 12));
+		}
+	}
+
+	.buildColumns (@i - 1);
+}
+
+.buildColumnOffsets (@i) when (@i > 0) {
+	@responsive {
+		.col-offset-@{i} {
+			margin-left: percentage((@i / 12));
+		}
+	}
+
+	.buildColumnOffsets (@i - 1);
+}
+
+.row {
+	@apply .flex .flex-wrap .-mx-4;
+}
+
+.no-gutters {
+	@apply .mx-0;
+
+	> .col,
+	> [class*="col-"] {
+		@apply .px-0;
+	}
+}
+
+@responsive {
+	.row.reverse {
+		@apply .flex-row-reverse;
+	}
+}
+
+.col,
+[class*="col-"] {
+	@apply .flex .items-center .relative .w-full .px-4;
+
+	min-height: 1px;
+}
+
+@responsive {
+	.col {
+		@apply .flex-1;
+	}
+
+	.col-auto {
+		@apply .flex-shrink .flex-grow-0 .w-auto;
+	}
+}
+
+.buildColumns (@grid-columns);
+.buildColumnOffsets (@grid-columns - 1);
