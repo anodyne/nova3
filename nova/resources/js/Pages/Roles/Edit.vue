@@ -18,8 +18,8 @@
 
                 <div class="form-section">
                     <div class="form-section-column-content">
-                        <div class="form-section-header">Role Info</div>
-                        <p class="form-section-message">A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove permissions for a given user.</p>
+                        <div class="form-section-header">Role info</div>
+                        <p class="form-section-message">A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove access for a given user.</p>
                     </div>
 
                     <div class="form-section-column-form">
@@ -116,7 +116,7 @@
 
                 <div class="form-section">
                     <div class="form-section-column-content">
-                        <div class="form-section-header">Users with the Role</div>
+                        <div class="form-section-header">Users with this role</div>
                         <p class="form-section-message mb-6">This list shows the users who have been assigned this role. You can quickly add or remove users to the role from here.</p>
 
                         <p class="form-section-message"><span class="font-semibold text-warning-600">Take very special care when adding or removing roles from a user!</span></p>
@@ -143,7 +143,7 @@
                         </form-field>
 
                         <toggle-switch v-model="showAssignedUsersOnly" class="my-4">
-                            Show only users with the role
+                            Show only users with this role
                         </toggle-switch>
 
                         <div
@@ -174,7 +174,7 @@
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary">Update</button>
+                    <button type="submit" class="button is-primary">Update Role</button>
 
                     <inertia-link :href="route('roles.index')" class="button is-secondary">
                         Cancel
