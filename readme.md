@@ -1,6 +1,6 @@
 # Nova NextGen
 
-[![Actions Status](https://github.com/anodyne/nova3/workflows/Run%20tests/badge.svg)](https://github.com/anodyne/nova3/actions)
+[![Actions Status](https://github.com/anodyne/nova3/workflows/CI/badge.svg)](https://github.com/anodyne/nova3/actions)
 
 ## Installation
 
@@ -16,10 +16,9 @@ Next, run the following sets of commands:
 composer install
 
 php artisan key:generate --ansi
-php artisan migrate --seed
+php artisan migrate:fresh --seed
 
-yarn install
-yarn run dev
+yarn install && yarn dev
 ```
 
 *Note:* You should be able to use `npm` in place of `yarn`.
@@ -32,8 +31,7 @@ git pull origin dev
 composer dump
 composer install
 
-yarn install
-yarn run dev
+yarn install && yarn dev
 
 php artisan nova:refresh
 ```
