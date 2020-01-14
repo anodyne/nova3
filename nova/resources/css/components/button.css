@@ -1,5 +1,5 @@
 .button {
-    @apply inline-flex items-center justify-center w-full py-2 px-4 rounded font-semibold text-sm border border-gray-200 whitespace-no-wrap transition-color transition-medium uppercase tracking-widest text-gray-400;
+    @apply inline-flex items-center justify-center w-full py-2 px-4 rounded font-semibold text-sm border border-gray-200 whitespace-no-wrap transition-colors duration-200 uppercase tracking-widest text-gray-400;
 
     &:focus,
     &:active {

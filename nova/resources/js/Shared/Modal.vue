@@ -6,12 +6,12 @@
             @click="close"
         >
             <transition
-                enter-class="opacity-0"
-                enter-active-class="transition-all transition-fastest ease-out-quad"
-                enter-to-class="opacity-100"
-                leave-class="opacity-100"
-                leave-active-class="transition-all transition-medium ease-in-quad"
-                leave-to-class="opacity-0"
+                enter-active-class="transition-all duration-75 ease-out-quad"
+                enter-class="transform opacity-0"
+                enter-to-class="transform opacity-100"
+                leave-active-class="transition-all duration-200 ease-in-quad"
+                leave-class="transform opacity-100"
+                leave-to-class="transform opacity-0"
                 appear
                 @before-leave="backdropLeaving = true"
                 @after-leave="backdropLeaving = false"
@@ -22,12 +22,12 @@
             </transition>
 
             <transition
-                enter-class="opacity-0 scale-125"
-                enter-active-class="transition-all transition-medium ease-out-quad"
-                enter-to-class="opacity-100 scale-100"
-                leave-class="opacity-100 scale-100"
-                leave-active-class="transition-all transition-medium ease-in-quad"
-                leave-to-class="opacity-0 scale-125"
+                enter-active-class="transition-all duration-200 ease-out-quad"
+                enter-class="transform opacity-0 scale-125"
+                enter-to-class="transform opacity-100 scale-100"
+                leave-active-class="transition-all duration-200 ease-in-quad"
+                leave-class="transform opacity-100 scale-100"
+                leave-to-class="transform opacity-0 scale-125"
                 appear
                 @before-leave="cardLeaving = true"
                 @after-leave="cardLeaving = false"

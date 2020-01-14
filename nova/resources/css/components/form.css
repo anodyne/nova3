@@ -7,7 +7,7 @@
 }
 
 .field-group {
-    @apply flex items-center relative w-full px-3 py-2 rounded transition-color transition-medium border-2 bg-transparent;
+    @apply flex items-center relative w-full px-3 py-2 rounded transition-colors duration-200 border-2 bg-transparent;
 
     > .field {
         @apply flex-auto appearance-none bg-transparent text-gray-700;

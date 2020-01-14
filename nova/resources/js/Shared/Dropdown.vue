@@ -16,18 +16,18 @@
         </button>
 
         <transition
-            enter-active-class="transition-all transition-fastest ease-out"
-            enter-class="opacity-0 scale-75"
-            enter-to-class="opacity-100 scale-100"
-            leave-active-class="transition-all transition-faster ease-in"
-            leave-class="opacity-100 scale-100"
-            leave-to-class="opacity-0 scale-75"
+            enter-active-class="transition-all duration-75 ease-out"
+            enter-class="transform opacity-0 scale-75"
+            enter-to-class="transform opacity-100 scale-100"
+            leave-active-class="transition-all duration-100 ease-in"
+            leave-class="transform opacity-100 scale-100"
+            leave-to-class="transform opacity-0 scale-75"
             appear
         >
             <div
                 v-if="open"
                 ref="dropdown"
-                class="absolute flex flex-col min-w-40 rounded bg-gray-900 z-9999 shadow-md mt-2 overflow-hidden"
+                class="absolute flex flex-col min-w-40 rounded bg-gray-900 z-9999 shadow-md mt-2 overflow-hidden transform"
                 :class="styles.origin"
             >
                 <slot name="dropdown" :dropdownProps="dropdownProps"></slot>

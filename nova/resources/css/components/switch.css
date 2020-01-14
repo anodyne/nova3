@@ -77,7 +77,7 @@
 }
 .slider,
 .slider:before {
-    @apply absolute transition-medium;
+    @apply absolute duration-200;
 }
 .slider:before {
     @apply bg-white;

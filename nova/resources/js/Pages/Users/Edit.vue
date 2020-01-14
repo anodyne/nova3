@@ -59,7 +59,7 @@
                         <form-field label="Avatar">
                             <div class="avatar avatar-lg items-center">
                                 <div class="avatar-image">
-                                    <a role="button" class="absolute inset-0 flex justify-center items-center rounded-full transition-fast text-transparent hover:text-gray-100">
+                                    <a role="button" class="absolute inset-0 flex justify-center items-center rounded-full duration-150 text-transparent hover:text-gray-100">
                                         <icon name="edit"></icon>
                                     </a>
                                 </div>

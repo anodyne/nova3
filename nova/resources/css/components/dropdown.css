@@ -1,5 +1,5 @@
 .dropdown-link {
-    @apply flex items-center px-4 py-2 text-gray-300 cursor-pointer text-sm transition-all transition-fast;
+    @apply flex items-center px-4 py-2 text-gray-300 cursor-pointer text-sm transition-all duration-150;
 
     &:hover {
         @apply bg-gray-800 text-white;

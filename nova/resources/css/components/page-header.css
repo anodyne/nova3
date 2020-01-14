@@ -10,7 +10,7 @@
 	}
 
 	> a {
-		@apply no-underline text-gray-600 font-semibold transition-color transition-medium;
+		@apply no-underline text-gray-600 font-semibold transition-colors duration-200;
 
 		&:hover {
 			@apply text-gray-700;
