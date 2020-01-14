@@ -1,4 +1,4 @@
-name: Run tests
+name: CI
 
 on:
   push
@@ -12,18 +12,17 @@ jobs:
         strategy:
             matrix:
                 php: [7.4, 7.3, 7.2]
-                dependency-version: [prefer-lowest, prefer-stable]
+                dependency-version: [prefer-stable]
                 os: [ubuntu-latest]
 
-        name: PHP ${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+        name: PHP ${{ matrix.php }} - ${{ matrix.os }}
 
         steps:
             - name: Checkout code
               uses: actions/checkout@v1
 
             - name: Install dependencies
-              run: |
-                  composer install --no-scripts
+              run: composer install --no-interaction --no-scripts
             
             - name: Prepare Laravel app
               run: |
@@ -32,3 +31,7 @@ jobs:
 
             - name: Execute tests
               run: nova/vendor/bin/phpunit
+              
+            - name: Deploy to Forge
+              if: github.ref == 'refs/heads/preview'
+              run: curl "${{ secrets.FORGE_STAGING_DEPLOYMENT_WEBHOOK }}"
