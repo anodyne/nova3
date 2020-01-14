@@ -22,7 +22,7 @@ class ManageRolesTest extends TestCase
 
     public function testAuthorizedUserCanManageRoles()
     {
-        $this->signInWithAbility('role.create');
+        $this->signInWithPermission('role.create');
 
         $this->get(route('roles.index'))
             ->assertSuccessful();

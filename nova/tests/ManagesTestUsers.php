@@ -17,7 +17,7 @@ trait ManagesTestUsers
     {
         $admin = $this->createUser($attributes);
 
-        $admin->assign('admin');
+        $admin->attachRole('admin');
 
         return $admin;
     }
@@ -79,18 +79,18 @@ trait ManagesTestUsers
     }
 
     /**
-     * Sign in to the app with a specific ability.
+     * Sign in to the app with a specific permission.
      *
-     * @param  string  $ability
+     * @param  string  $permission
      * @param  null|User  $user
      *
      * @return User
      */
-    protected function signInWithAbility($ability, User $user = null): User
+    protected function signInWithPermission($permission, User $user = null): User
     {
         $user = $user ?? $this->createUser();
 
-        $user->allow($ability);
+        $user->attachPermission($permission);
 
         $this->actingAs($user);
 

@@ -24,7 +24,7 @@ class DeleteRoleTest extends TestCase
 
     public function testAuthorizedUserCanDeleteRole()
     {
-        $this->signInWithAbility('role.delete');
+        $this->signInWithPermission('role.delete');
 
         $this->deleteJson(route('roles.destroy', $this->role))
             ->assertSuccessful();
@@ -46,7 +46,7 @@ class DeleteRoleTest extends TestCase
 
     public function testRoleCanBeDeleted()
     {
-        $this->signInWithAbility('role.delete');
+        $this->signInWithPermission('role.delete');
 
         $this->deleteJson(route('roles.destroy', $this->role))
             ->assertSuccessful();
@@ -60,14 +60,14 @@ class DeleteRoleTest extends TestCase
     {
         $role = factory(Role::class)->states('locked')->create();
 
-        $this->signInWithAbility('role.delete');
+        $this->signInWithPermission('role.delete');
 
         $this->deleteJson(route('roles.destroy', $role))
             ->assertStatus(Response::HTTP_FORBIDDEN);
 
         $this->assertDatabaseHas('roles', [
             'name' => $role->name,
-            'title' => $role->title,
+            'display_name' => $role->display_name,
             'locked' => true,
         ]);
     }
@@ -76,7 +76,7 @@ class DeleteRoleTest extends TestCase
     {
         Event::fake();
 
-        $this->signInWithAbility('role.delete');
+        $this->signInWithPermission('role.delete');
 
         $this->deleteJson(route('roles.destroy', $this->role));
 
@@ -90,12 +90,12 @@ class DeleteRoleTest extends TestCase
         $role = factory(Role::class)->create();
 
         $user = $this->createUser();
-        $user->assign($role);
+        $user->attachRole($role);
 
-        $this->signInWithAbility('role.delete');
+        $this->signInWithPermission('role.delete');
 
         $this->deleteJson(route('roles.destroy', $role));
 
-        $this->assertCount(0, $user->getRoles());
+        $this->assertCount(0, $user->roles);
     }
 }

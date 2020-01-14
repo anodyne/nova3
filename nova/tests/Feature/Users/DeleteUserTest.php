@@ -27,7 +27,7 @@ class DeleteUserTest extends TestCase
      */
     public function authorizedUserCanDeleteUser()
     {
-        $this->signInWithAbility('user.delete');
+        $this->signInWithPermission('user.delete');
 
         $response = $this->deleteJson(route('users.destroy', $this->user));
 
@@ -61,7 +61,7 @@ class DeleteUserTest extends TestCase
      */
     public function userCanBeDeleted()
     {
-        $this->signInWithAbility('user.delete');
+        $this->signInWithPermission('user.delete');
 
         $response = $this->deleteJson(route('users.destroy', $this->user));
 
@@ -75,7 +75,7 @@ class DeleteUserTest extends TestCase
      */
     public function currentUserCannotBeDeletedWhileTheyAreLoggedIn()
     {
-        $this->signInWithAbility('user.delete');
+        $this->signInWithPermission('user.delete');
 
         $response = $this->deleteJson(
             route('users.destroy', $currentUser = auth()->user())
@@ -91,7 +91,7 @@ class DeleteUserTest extends TestCase
     {
         Event::fake();
 
-        $this->signInWithAbility('user.delete');
+        $this->signInWithPermission('user.delete');
 
         $response = $this->deleteJson(route('users.destroy', $this->user));
 

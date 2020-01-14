@@ -15,19 +15,25 @@ class RoleData extends DataTransferObject
     /**
      * @var  string
      */
-    public $title;
+    public $display_name;
+
+    /**
+     * @var  string
+     */
+    public $description;
 
     /**
      * @var  array
      */
-    public $abilities;
+    public $permissions;
 
     public static function fromRequest(Request $request): self
     {
         return new self([
-            'title' => $request->get('title'),
+            'description' => $request->get('description'),
+            'display_name' => $request->get('display_name'),
             'name' => $request->get('name'),
-            'abilities' => $request->get('abilities'),
+            'permissions' => $request->get('permissions'),
         ]);
     }
 }

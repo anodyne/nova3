@@ -3,10 +3,10 @@
 namespace Nova\Roles\Models;
 
 use Nova\Roles\Events;
+use Laratrust\Models\LaratrustRole;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Silber\Bouncer\Database\Role as BouncerRole;
 
-class Role extends BouncerRole
+class Role extends LaratrustRole
 {
     use LogsActivity;
 
@@ -19,6 +19,8 @@ class Role extends BouncerRole
         'updated' => Events\RoleUpdated::class,
         'deleted' => Events\RoleDeleted::class,
     ];
+
+    protected $fillable = ['name', 'display_name', 'description'];
 
     /**
      * Set the description for logging.

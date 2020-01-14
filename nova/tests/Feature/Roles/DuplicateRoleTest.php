@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Roles;
 
-use Bouncer;
 use Tests\TestCase;
 use Nova\Roles\Models\Role;
 use Illuminate\Http\Response;
+use Nova\Roles\Models\Permission;
 use Illuminate\Support\Facades\Event;
 use Nova\Roles\Events\RoleDuplicated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -20,16 +20,15 @@ class DuplicateRoleTest extends TestCase
     {
         parent::setUp();
 
-        $this->role = Bouncer::role()->firstOrCreate([
+        $this->role = Role::firstOrCreate([
             'name' => 'foo',
-            'title' => 'Foo',
+            'display_name' => 'Foo',
         ]);
     }
 
     public function testAuthorizedUserCanDuplicateRole()
     {
-        $this->withoutExceptionHandling();
-        $this->signInWithAbility('role.create');
+        $this->signInWithPermission('role.create');
 
         $this->postJson(route('roles.duplicate', $this->role))
             ->assertSuccessful();
@@ -51,13 +50,13 @@ class DuplicateRoleTest extends TestCase
 
     public function testRoleCanBeDuplicated()
     {
-        $this->signInWithAbility('role.create');
+        $this->signInWithPermission('role.create');
 
-        $originalAbility = Bouncer::ability()->firstOrCreate([
+        $originalPermission = Permission::firstOrCreate([
             'name' => 'bar',
         ]);
 
-        Bouncer::allow($this->role)->to($originalAbility);
+        $this->role->attachPermission($originalPermission);
 
         $this->postJson(route('roles.duplicate', $this->role))
             ->assertSuccessful();
@@ -65,20 +64,20 @@ class DuplicateRoleTest extends TestCase
         $role = Role::get()->last();
 
         $this->assertDatabaseHas('roles', [
-            'title' => "Copy of {$this->role->title}",
+            'display_name' => "Copy of {$this->role->display_name}",
         ]);
 
-        $this->assertCount(1, $this->role->getAbilities());
-        $this->assertCount(1, $role->getAbilities());
+        $this->assertCount(1, $this->role->permissions);
+        $this->assertCount(1, $role->permissions);
     }
 
     public function testEventIsDispatchedWhenRoleIsDuplicated()
     {
         Event::fake();
 
-        $this->signInWithAbility('role.create');
+        $this->signInWithPermission('role.create');
 
-        $originalRole = Bouncer::role()->firstOrCreate([
+        $originalRole = Role::firstOrCreate([
             'name' => 'foo',
         ]);
 

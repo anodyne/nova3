@@ -20,7 +20,7 @@ class CreateUserTest extends TestCase
      */
     public function authorizedUserCanCreateUser()
     {
-        $this->signInWithAbility('user.create');
+        $this->signInWithPermission('user.create');
 
         $response = $this->get(route('users.create'));
 
@@ -62,7 +62,7 @@ class CreateUserTest extends TestCase
      */
     public function userCanBeCreated()
     {
-        $this->signInWithAbility('user.create');
+        $this->signInWithPermission('user.create');
 
         $data = factory(User::class)->make();
 
@@ -80,7 +80,7 @@ class CreateUserTest extends TestCase
     {
         Event::fake();
 
-        $this->signInWithAbility('user.create');
+        $this->signInWithPermission('user.create');
 
         $response = $this->postJson(
             route('users.store'),
@@ -103,7 +103,7 @@ class CreateUserTest extends TestCase
      */
     public function nameIsRequiredToCreateUser()
     {
-        $this->signInWithAbility('user.create');
+        $this->signInWithPermission('user.create');
 
         $response = $this->postJson(route('users.store'), [
             'email' => 'john@example.com',
@@ -118,7 +118,7 @@ class CreateUserTest extends TestCase
      */
     public function emailIsRequiredToCreateUser()
     {
-        $this->signInWithAbility('user.create');
+        $this->signInWithPermission('user.create');
 
         $response = $this->postJson(route('users.store'), [
             'name' => 'foo',
@@ -133,7 +133,7 @@ class CreateUserTest extends TestCase
      */
     public function passwordIsGeneratedAfterCreation()
     {
-        $this->signInWithAbility('user.create');
+        $this->signInWithPermission('user.create');
 
         $response = $this->postJson(route('users.store'), [
             'name' => 'John Q. Public',
@@ -152,7 +152,7 @@ class CreateUserTest extends TestCase
     {
         Notification::fake();
 
-        $this->signInWithAbility('user.create');
+        $this->signInWithPermission('user.create');
 
         $response = $this->postJson(route('users.store'), [
             'name' => 'John Q. Public',

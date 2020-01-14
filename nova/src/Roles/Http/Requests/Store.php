@@ -9,9 +9,9 @@ class Store extends ValidatesRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:roles',
-            'title' => 'required',
-            'abilities' => 'nullable',
+            'name' => ['required', 'unique:roles'],
+            'display_name' => ['required'],
+            'permissions' => ['nullable'],
         ];
     }
 }

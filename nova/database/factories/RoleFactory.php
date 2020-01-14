@@ -9,13 +9,11 @@ $factory->define(Role::class, function (Faker $faker) {
 
     return [
         'name' => Str::slug($name),
-        'title' => $name,
-        'level' => null,
-        'scope' => null,
+        'display_name' => $name,
         'locked' => false,
     ];
 });
 
 $factory->state(Role::class, 'locked', [
-    'locked' => true
+    'locked' => true,
 ]);

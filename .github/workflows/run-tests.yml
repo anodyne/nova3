@@ -1,0 +1,34 @@
+name: Run tests
+
+on:
+  push
+
+jobs:
+    php-tests:
+        runs-on: ${{ matrix.os }}
+        container:
+          image: kirschbaumdevelopment/laravel-test-runner:${{ matrix.php }}
+
+        strategy:
+            matrix:
+                php: [7.4, 7.3, 7.2]
+                dependency-version: [prefer-lowest, prefer-stable]
+                os: [ubuntu-latest]
+
+        name: PHP ${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v1
+
+            - name: Install dependencies
+              run: |
+                  composer install --no-scripts
+            
+            - name: Prepare Laravel app
+              run: |
+                cp nova/.env.ci .env
+                php artisan key:generate
+
+            - name: Execute tests
+              run: nova/vendor/bin/phpunit

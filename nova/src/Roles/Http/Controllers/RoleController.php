@@ -6,7 +6,7 @@ use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
 use Nova\Roles\Http\Requests;
 use Nova\Roles\Http\Responses;
-use Nova\Roles\Models\Ability;
+use Nova\Roles\Models\Permission;
 use Nova\Roles\Actions\DeleteRole;
 use Nova\Roles\Actions\CreateRoleManager;
 use Nova\Roles\Actions\UpdateRoleManager;
@@ -28,14 +28,14 @@ class RoleController extends Controller
     public function index()
     {
         return app(Responses\Index::class)->with([
-            'roles' => new RoleCollection(Role::orderBy('title')->get()),
+            'roles' => new RoleCollection(Role::orderBy('display_name')->get()),
         ]);
     }
 
     public function create()
     {
         return app(Responses\Create::class)->with([
-            'abilities' => Ability::orderBy('title')->get(),
+            'permissions' => Permission::orderBy('display_name')->get(),
             'users' => User::get(),
         ]);
     }
@@ -49,7 +49,7 @@ class RoleController extends Controller
     {
         return app(Responses\Edit::class)->with([
             'role' => new RoleResource($role),
-            'abilities' => Ability::orderBy('title')->get(),
+            'permissions' => Permission::orderBy('display_name')->get(),
             'users' => User::get(),
         ]);
     }

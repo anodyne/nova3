@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@admin.com',
         ]);
 
-        $admin->assign('admin');
+        $admin->attachRole('admin');
 
         $user = factory(User::class)
             ->states('unverified-email')
@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
                 'email' => 'user@user.com',
             ]);
 
-        $user->assign('user');
+        $user->attachRole('user');
 
         activity()->enableLogging();
     }

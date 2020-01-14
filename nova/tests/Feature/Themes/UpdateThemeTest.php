@@ -27,7 +27,7 @@ class UpdateThemeTest extends TestCase
     /** @test **/
     public function authorizedUserCanUpdateTheme()
     {
-        $this->signInWithAbility('theme.update');
+        $this->signInWithPermission('theme.update');
 
         $this->get(route('themes.edit', $this->theme))
             ->assertSuccessful();
@@ -55,7 +55,7 @@ class UpdateThemeTest extends TestCase
     /** @test **/
     public function themeCanBeUpdated()
     {
-        $this->signInWithAbility('theme.update');
+        $this->signInWithPermission('theme.update');
 
         $this->followingRedirects()
             ->from(route('themes.edit', $this->theme))

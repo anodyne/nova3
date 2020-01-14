@@ -29,7 +29,7 @@ class InstallThemeTest extends TestCase
     {
         Storage::fake('themes');
 
-        $this->signInWithAbility('theme.create');
+        $this->signInWithPermission('theme.create');
 
         $disk = Storage::disk('themes');
 
@@ -68,7 +68,7 @@ class InstallThemeTest extends TestCase
     {
         Storage::fake('themes');
 
-        $this->signInWithAbility('theme.create');
+        $this->signInWithPermission('theme.create');
 
         $createData = [
             'name' => 'Foo',
@@ -100,7 +100,7 @@ class InstallThemeTest extends TestCase
     {
         Storage::fake('themes');
 
-        $this->signInWithAbility('theme.create');
+        $this->signInWithPermission('theme.create');
 
         $disk = Storage::disk('themes');
         $disk->makeDirectory('bar');

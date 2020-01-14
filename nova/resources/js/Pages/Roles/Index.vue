@@ -41,7 +41,7 @@
                     class="panel flex items-center justify-between"
                 >
                     <div>
-                        {{ role.title }}
+                        {{ role.display_name }}
                     </div>
 
                     <div>
@@ -95,7 +95,7 @@
             title="Delete Role"
             @close="hideModal"
         >
-            Are you sure you want to delete the <strong>{{ deletingItem.title }}</strong> role? This change is permanent and cannot be undone. Any users with this role will have any abilities defined by this role removed from their permissions.
+            Are you sure you want to delete the <strong>{{ deletingItem.display_name }}</strong> role? This change is permanent and cannot be undone. Any users with this role will have any permissions defined by this role removed from their permissions.
 
             <template #footer>
                 <button class="button is-secondary" @click="hideModal">
@@ -142,7 +142,7 @@ export default {
             return this.availableRoles.filter((role) => {
                 const searchRegex = new RegExp(this.search, 'i');
 
-                return searchRegex.test(role.name) || searchRegex.test(role.title);
+                return searchRegex.test(role.name) || searchRegex.test(role.display_name);
             });
         }
     },
@@ -157,7 +157,7 @@ export default {
             this.form.post({
                 url: this.route('roles.duplicate', { originalRole: role }),
                 then: (data) => {
-                    this.$toast.message(`${role.title} role was duplicated.`).success();
+                    this.$toast.message(`${role.display_name} role was duplicated.`).success();
 
                     this.availableRoles.push(data);
 
@@ -173,7 +173,7 @@ export default {
                     const index = findIndex(this.availableRoles, { id: data.id });
 
                     this.$toast
-                        .message(`${data.title} role was removed.`)
+                        .message(`${data.display_name} role was removed.`)
                         .success();
 
                     this.availableRoles.splice(index, 1);

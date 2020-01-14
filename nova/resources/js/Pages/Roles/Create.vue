@@ -18,21 +18,21 @@
                 <div class="form-section">
                     <div class="form-section-column-content">
                         <div class="form-section-header">Role Info</div>
-                        <p class="form-section-message">A role is a collection of abilities that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer abilities to give yourself more freedom to add and remove permissions for a given user.</p>
+                        <p class="form-section-message">A role is a collection of permissions that allows a user to take certain actions throughout Nova. Since a user can have as many roles as you'd like, we recommend creating roles with fewer permissions to give yourself more freedom to add and remove permissions for a given user.</p>
                     </div>
 
                     <div class="form-section-column-form">
                         <form-field
                             label="Name"
-                            field-id="title"
-                            name="title"
+                            field-id="display_name"
+                            name="display_name"
                         >
                             <div class="field-group">
                                 <input
-                                    id="title"
-                                    v-model="form.fields.title"
+                                    id="display_name"
+                                    v-model="form.fields.display_name"
                                     type="text"
-                                    name="title"
+                                    name="display_name"
                                     class="field"
                                 >
                             </div>
@@ -59,26 +59,24 @@
 
                 <div class="form-section">
                     <div class="form-section-column-content">
-                        <div class="form-section-header">Abilities</div>
-                        <p class="form-section-message mb-6">Abilities are the actions a user can take. Feel free to add whatever abilities to this role that you see fit.</p>
-
-                        <p class="form-section-message"><span class="font-semibold text-warning-600">Take very special care when adding or removing the <em>All Abilities</em> ability!</span></p>
+                        <div class="form-section-header">Permissions</div>
+                        <p class="form-section-message mb-6">Permissions are the actions a user can take. Feel free to add whatever permissions to this role that you see fit.</p>
                     </div>
 
                     <div class="form-section-column-form">
-                        <form-field label="Assign Abilities" class="mb-8">
+                        <form-field label="Assign permissions" class="mb-8">
                             <div class="field-group">
                                 <input
-                                    v-model="searchAbilities"
+                                    v-model="searchPermissions"
                                     type="text"
                                     class="field"
-                                    placeholder="Find an ability..."
+                                    placeholder="Find a permission..."
                                 >
 
                                 <button
-                                    v-show="searchAbilities !== ''"
+                                    v-show="searchPermissions !== ''"
                                     class="field-addon"
-                                    @click="searchAbilities = ''"
+                                    @click="searchPermissions = ''"
                                 >
                                     <icon name="close"></icon>
                                 </button>
@@ -86,25 +84,25 @@
                         </form-field>
 
                         <div
-                            v-for="(ability, index) in filteredAbilities"
-                            :key="ability.id"
+                            v-for="(permission, index) in filteredPermissions"
+                            :key="permission.id"
                             class="flex items-center justify-between w-full p-2 rounded"
                             :class="{ 'bg-gray-200': index % 2 === 0 }"
                         >
-                            <div class="text-gray-600">{{ ability.title }}</div>
+                            <div class="text-gray-600">{{ permission.display_name }}</div>
 
                             <button
-                                v-if="!hasAbility(ability)"
+                                v-if="!hasPermission(permission)"
                                 class="text-gray-500 hover:text-gray-600"
-                                @click.prevent="addAbility(ability)"
+                                @click.prevent="addPermission(permission)"
                             >
                                 <icon name="add"></icon>
                             </button>
 
                             <button
-                                v-if="hasAbility(ability)"
+                                v-if="hasPermission(permission)"
                                 class="text-success-500"
-                                @click.prevent="removeAbility(ability)"
+                                @click.prevent="removePermission(permission)"
                             >
                                 <icon name="check-circle"></icon>
                             </button>
@@ -186,7 +184,7 @@ import Form from '@/Utils/Form';
 
 export default {
     props: {
-        abilities: {
+        permissions: {
             type: Array,
             required: true
         },
@@ -199,23 +197,23 @@ export default {
     data () {
         return {
             form: new Form({
-                title: '',
+                display_name: '',
                 name: '',
-                abilities: [],
+                permissions: [],
                 users: []
             }),
-            searchAbilities: '',
+            searchPermissions: '',
             searchUsers: '',
             suggestName: true
         };
     },
 
     computed: {
-        filteredAbilities () {
-            return this.abilities.filter((ability) => {
-                const searchRegex = new RegExp(this.searchAbilities, 'i');
+        filteredPermissions () {
+            return this.permissions.filter((permission) => {
+                const searchRegex = new RegExp(this.searchPermissions, 'i');
 
-                return searchRegex.test(ability.name) || searchRegex.test(ability.title);
+                return searchRegex.test(permission.name) || searchRegex.test(permission.display_name);
             });
         },
 
@@ -233,7 +231,7 @@ export default {
     },
 
     watch: {
-        'form.fields.title': function (newValue) {
+        'form.fields.display_name': function (newValue) {
             if (this.suggestName) {
                 this.form.fields.name = slug(newValue.toLowerCase());
             }
@@ -241,26 +239,26 @@ export default {
     },
 
     methods: {
-        addAbility (ability) {
-            this.form.fields.abilities.push(ability.name);
+        addPermission (permission) {
+            this.form.fields.permissions.push(permission.name);
         },
 
         addUser (user) {
             this.form.fields.users.push(user.id);
         },
 
-        hasAbility (ability) {
-            return indexOf(this.form.fields.abilities, ability.name) > -1;
+        hasPermission (permission) {
+            return indexOf(this.form.fields.permissions, permission.name) > -1;
         },
 
         hasUser (user) {
             return indexOf(this.form.fields.users, user.id) > -1;
         },
 
-        removeAbility (ability) {
-            const index = indexOf(this.form.fields.abilities, ability.name);
+        removePermission (permission) {
+            const index = indexOf(this.form.fields.permissions, permission.name);
 
-            this.form.fields.abilities.splice(index, 1);
+            this.form.fields.permissions.splice(index, 1);
         },
 
         removeUser (user) {
@@ -273,7 +271,7 @@ export default {
             this.form.post({
                 url: this.route('roles.store'),
                 then: (data) => {
-                    this.$toast.message(`${data.title} role was created.`).success();
+                    this.$toast.message(`${data.display_name} role was created.`).success();
 
                     this.$inertia.replace(this.route('roles.index'));
                 }

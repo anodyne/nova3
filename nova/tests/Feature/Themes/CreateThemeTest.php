@@ -27,7 +27,7 @@ class CreateThemeTest extends TestCase
     /** @test  **/
     public function authorizedUserCanCreateTheme()
     {
-        $this->signInWithAbility('theme.create');
+        $this->signInWithPermission('theme.create');
 
         $this->get(route('themes.create'))->assertSuccessful();
     }
@@ -59,7 +59,7 @@ class CreateThemeTest extends TestCase
     {
         Storage::fake('themes');
 
-        $this->signInWithAbility('theme.create');
+        $this->signInWithPermission('theme.create');
 
         $theme = factory(Theme::class)->make()->toArray();
 
@@ -102,7 +102,7 @@ class CreateThemeTest extends TestCase
     {
         Storage::fake('themes');
 
-        $this->signInWithAbility('theme.create');
+        $this->signInWithPermission('theme.create');
 
         $this->from(route('themes.index'))
             ->post(route('themes.store'), [
@@ -117,7 +117,7 @@ class CreateThemeTest extends TestCase
     {
         Storage::fake('themes');
 
-        $this->signInWithAbility('theme.create');
+        $this->signInWithPermission('theme.create');
 
         $this->from(route('themes.index'))
             ->post(route('themes.store'), [

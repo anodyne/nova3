@@ -18,9 +18,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->can('user.create') ||
-            $user->can('user.delete') ||
-            $user->can('user.update');
+        return $user->can('user.*');
     }
 
     /**
@@ -33,7 +31,7 @@ class UserPolicy
      */
     public function view(User $user, User $actionableUser)
     {
-        return $user->can('user.view');
+        return $user->can('user.*');
     }
 
     /**

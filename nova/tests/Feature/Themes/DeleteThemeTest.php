@@ -26,7 +26,7 @@ class DeleteThemeTest extends TestCase
     /** @test **/
     public function authorizedUserCanDeleteTheme()
     {
-        $this->signInWithAbility('theme.delete');
+        $this->signInWithPermission('theme.delete');
 
         $this->deleteJson(route('themes.destroy', $this->theme))
             ->assertSuccessful();
@@ -51,7 +51,7 @@ class DeleteThemeTest extends TestCase
     /** @test **/
     public function themeCanBeDeleted()
     {
-        $this->signInWithAbility('theme.delete');
+        $this->signInWithPermission('theme.delete');
 
         $this->deleteJson(route('themes.destroy', $this->theme))
             ->assertJson($this->theme->toArray());

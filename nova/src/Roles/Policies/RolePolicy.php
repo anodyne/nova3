@@ -19,9 +19,7 @@ class RolePolicy
      */
     public function viewAny(User $user)
     {
-        return $user->can('role.create') ||
-            $user->can('role.delete') ||
-            $user->can('role.update');
+        return $user->can('role.*');
     }
 
     /**
@@ -34,9 +32,7 @@ class RolePolicy
      */
     public function view(User $user, Role $role)
     {
-        return $user->can('role.create') ||
-            $user->can('role.delete') ||
-            $user->can('role.update');
+        return $user->can('role.*');
     }
 
     /**

@@ -12,7 +12,7 @@ class ManageThemesTest extends TestCase
     /** @test **/
     public function authorizedUserCanManageThemes()
     {
-        $this->signInWithAbility('theme.create');
+        $this->signInWithPermission('theme.create');
 
         $this->get(route('themes.index'))
             ->assertSuccessful();
