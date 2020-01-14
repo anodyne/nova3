@@ -35,5 +35,8 @@ mix.js('nova/resources/js/app.js', 'dist/js')
                 '@node_modules': path.resolve(__dirname, './node_modules/')
             },
             symlinks: false
+        },
+        node: {
+            fs: 'empty'
         }
     });
