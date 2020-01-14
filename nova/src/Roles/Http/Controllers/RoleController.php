@@ -36,7 +36,7 @@ class RoleController extends Controller
     {
         return app(Responses\Create::class)->with([
             'permissions' => Permission::orderBy('display_name')->get(),
-            'users' => User::get(),
+            'users' => User::whereActive()->get(),
         ]);
     }
 
@@ -50,7 +50,7 @@ class RoleController extends Controller
         return app(Responses\Edit::class)->with([
             'role' => new RoleResource($role),
             'permissions' => Permission::orderBy('display_name')->get(),
-            'users' => User::get(),
+            'users' => User::whereActive()->get(),
         ]);
     }
 
