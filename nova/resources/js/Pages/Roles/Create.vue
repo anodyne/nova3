@@ -113,9 +113,9 @@
                 <div class="form-section">
                     <div class="form-section-column-content">
                         <div class="form-section-header">Users with the Role</div>
-                        <p class="form-section-message mb-6">This list shows the users who have been assigned this role. You can quickly add or remove users to the role from here.</p>
+                        <p class="form-section-message mb-6">You can quickly add users to the role you're creating from here.</p>
 
-                        <p class="form-section-message"><span class="font-semibold text-warning-600">Take very special care when adding or removing roles from a user!</span></p>
+                        <p class="form-section-message"><span class="font-semibold text-warning-600">Take very special care when adding a user to a role!</span></p>
                     </div>
 
                     <div class="form-section-column-form">
