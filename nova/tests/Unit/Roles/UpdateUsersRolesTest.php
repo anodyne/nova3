@@ -19,9 +19,14 @@ class UpdateUsersRolesTest extends TestCase
     protected $role;
 
     /**
-     * @var  \Nova\Users\Models\User
+     * @var  User
      */
     protected $user;
+
+    /**
+     * @var  UpdateUsersRoles
+     */
+    protected $action;
 
     public function setUp(): void
     {
@@ -30,6 +35,8 @@ class UpdateUsersRolesTest extends TestCase
         $this->user = $this->createUser();
 
         $this->role = Role::create(['name' => 'test-role']);
+
+        $this->action = new UpdateUsersRoles;
     }
 
     /** @test **/
@@ -37,11 +44,10 @@ class UpdateUsersRolesTest extends TestCase
     {
         $this->assertFalse($this->user->isA('test-role'));
 
-        $data = new RoleAssignmentData;
-        $data->role = $this->role;
-        $data->users = User::whereIn('id', [$this->user->id])->get();
-
-        (new UpdateUsersRoles)->execute($data);
+        $this->action->execute(new RoleAssignmentData([
+            'role' => $this->role,
+            'users' => User::whereIn('id', [$this->user->id])->get(),
+        ]));
 
         $this->assertTrue($this->user->isA('test-role'));
     }
@@ -53,11 +59,10 @@ class UpdateUsersRolesTest extends TestCase
 
         $this->assertTrue($this->user->isA('test-role'));
 
-        $data = new RoleAssignmentData;
-        $data->role = $this->role;
-        $data->users = collect();
-
-        (new UpdateUsersRoles)->execute($data);
+        $this->action->execute(new RoleAssignmentData([
+            'role' => $this->role,
+            'users' => collect(),
+        ]));
 
         $this->assertFalse($this->user->isA('test-role'));
     }

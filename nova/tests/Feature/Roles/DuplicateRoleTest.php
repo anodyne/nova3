@@ -4,7 +4,6 @@ namespace Tests\Feature\Roles;
 
 use Tests\TestCase;
 use Nova\Roles\Models\Role;
-use Illuminate\Http\Response;
 use Nova\Roles\Models\Permission;
 use Illuminate\Support\Facades\Event;
 use Nova\Roles\Events\RoleDuplicated;
@@ -26,31 +25,10 @@ class DuplicateRoleTest extends TestCase
         ]);
     }
 
-    public function testAuthorizedUserCanDuplicateRole()
+    /** @test **/
+    public function authorizedUserCanDuplicateRole()
     {
-        $this->signInWithPermission('role.create');
-
-        $this->postJson(route('roles.duplicate', $this->role))
-            ->assertSuccessful();
-    }
-
-    public function testUnauthorizedUserCannotDuplicateRole()
-    {
-        $this->signIn();
-
-        $this->postJson(route('roles.duplicate', $this->role))
-            ->assertStatus(Response::HTTP_FORBIDDEN);
-    }
-
-    public function testGuestCannotDuplicateRole()
-    {
-        $this->postJson(route('roles.duplicate', $this->role))
-            ->assertStatus(Response::HTTP_UNAUTHORIZED);
-    }
-
-    public function testRoleCanBeDuplicated()
-    {
-        $this->signInWithPermission('role.create');
+        $this->signInWithPermission(['role.create', 'role.update']);
 
         $originalPermission = Permission::firstOrCreate([
             'name' => 'bar',
@@ -58,30 +36,50 @@ class DuplicateRoleTest extends TestCase
 
         $this->role->attachPermission($originalPermission);
 
-        $this->postJson(route('roles.duplicate', $this->role))
-            ->assertSuccessful();
+        $response = $this->post(route('roles.duplicate', $this->role));
+
+        $this->followRedirects($response)->assertSuccessful();
 
         $role = Role::get()->last();
+
+        $this->assertCount(1, $this->role->permissions);
+        $this->assertCount(1, $role->permissions);
 
         $this->assertDatabaseHas('roles', [
             'display_name' => "Copy of {$this->role->display_name}",
         ]);
-
-        $this->assertCount(1, $this->role->permissions);
-        $this->assertCount(1, $role->permissions);
     }
 
-    public function testEventIsDispatchedWhenRoleIsDuplicated()
+    /** @test **/
+    public function unauthorizedUserCannotDuplicateRole()
+    {
+        $this->signIn();
+
+        $response = $this->post(route('roles.duplicate', $this->role));
+
+        $response->assertForbidden();
+    }
+
+    /** @test **/
+    public function guestCannotDuplicateRole()
+    {
+        $response = $this->post(route('roles.duplicate', $this->role));
+
+        $response->assertRedirect(route('login'));
+    }
+
+    /** @test **/
+    public function eventIsDispatchedWhenRoleIsDuplicated()
     {
         Event::fake();
 
-        $this->signInWithPermission('role.create');
+        $this->signInWithPermission(['role.create', 'role.update']);
 
         $originalRole = Role::firstOrCreate([
             'name' => 'foo',
         ]);
 
-        $this->postJson(route('roles.duplicate', $this->role));
+        $this->post(route('roles.duplicate', $this->role));
 
         $role = Role::get()->last();
 

@@ -4,7 +4,6 @@ namespace Tests\Feature\Roles;
 
 use Tests\TestCase;
 use Nova\Roles\Models\Role;
-use Illuminate\Http\Response;
 use Nova\Roles\Events\RoleCreated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -18,48 +17,21 @@ class CreateRoleTest extends TestCase
     {
         $this->signInWithPermission('role.create');
 
-        $this->get(route('roles.create'))->assertSuccessful();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotCreateRole()
-    {
-        $this->signIn();
-
-        $this->get(route('roles.create'))
-            ->assertStatus(Response::HTTP_FORBIDDEN);
-
-        $this->postJson(route('roles.store'), [])
-            ->assertStatus(Response::HTTP_FORBIDDEN);
-    }
-
-    /** @test **/
-    public function guestCannotCreateRole()
-    {
-        $this->get(route('roles.create'))
-            ->assertRedirect(route('login'));
-
-        $this->postJson(route('roles.store'), [])
-            ->assertStatus(Response::HTTP_UNAUTHORIZED);
-    }
-
-    /** @test **/
-    public function roleCanBeCreated()
-    {
-        $this->signInWithPermission('role.create');
+        $response = $this->get(route('roles.create'));
+        $response->assertSuccessful();
 
         $roleData = factory(Role::class)->make();
 
-        $postData = array_merge(
-            $roleData->toArray(),
-            [
-                'permissions' => ['foo', 'bar', 'baz'],
-                'users' => [],
-            ]
-        );
+        $postData = array_merge($roleData->toArray(), [
+            'permissions' => ['foo', 'bar', 'baz'],
+            'users' => [],
+        ]);
 
-        $this->postJson(route('roles.store'), $postData)
-            ->assertSuccessful();
+        $this->followingRedirects();
+
+        $response = $this->post(route('roles.store'), $postData);
+
+        $response->assertSuccessful();
 
         $role = Role::get()->last();
 
@@ -72,21 +44,40 @@ class CreateRoleTest extends TestCase
     }
 
     /** @test **/
+    public function unauthorizedUserCannotCreateRole()
+    {
+        $this->signIn();
+
+        $response = $this->get(route('roles.create'));
+        $response->assertForbidden();
+
+        $response = $this->post(route('roles.store'), []);
+        $response->assertForbidden();
+    }
+
+    /** @test **/
+    public function guestCannotCreateRole()
+    {
+        $response = $this->get(route('roles.create'));
+        $response->assertRedirect(route('login'));
+
+        $response = $this->post(route('roles.store'), []);
+        $response->assertRedirect(route('login'));
+    }
+
+    /** @test **/
     public function eventIsDispatchedWhenRoleIsCreated()
     {
         Event::fake();
 
         $this->signInWithPermission('role.create');
 
-        $data = array_merge(
-            factory(Role::class)->make()->toArray(),
-            [
-                'permissions' => ['foo', 'bar', 'baz'],
-                'users' => [],
-            ]
-        );
+        $data = array_merge(factory(Role::class)->make()->toArray(), [
+            'permissions' => ['foo', 'bar', 'baz'],
+            'users' => [],
+        ]);
 
-        $this->postJson(route('roles.store'), $data);
+        $this->post(route('roles.store'), $data);
 
         $role = Role::get()->last();
 
@@ -100,8 +91,11 @@ class CreateRoleTest extends TestCase
     {
         $this->signInWithPermission('role.create');
 
-        $this->postJson(route('roles.store'), ['display_name' => 'Foo'])
-            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response = $this->post(route('roles.store'), [
+            'display_name' => 'Foo',
+        ]);
+
+        $response->assertSessionHasErrors('name');
     }
 
     /** @test **/
@@ -111,8 +105,12 @@ class CreateRoleTest extends TestCase
 
         $this->signInWithPermission('role.create');
 
-        $this->postJson(route('roles.store'), ['name' => $role->name, 'display_name' => 'display_name'])
-            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response = $this->post(route('roles.store'), [
+            'name' => $role->name,
+            'display_name' => 'display_name',
+        ]);
+
+        $response->assertSessionHasErrors('name');
     }
 
     /** @test **/
@@ -120,8 +118,11 @@ class CreateRoleTest extends TestCase
     {
         $this->signInWithPermission('role.create');
 
-        $this->postJson(route('roles.store'), ['name' => 'foo'])
-            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response = $this->post(route('roles.store'), [
+            'name' => 'foo',
+        ]);
+
+        $response->assertSessionHasErrors('display_name');
     }
 
     /** @test **/
@@ -133,18 +134,23 @@ class CreateRoleTest extends TestCase
 
         $role = factory(Role::class)->make();
 
-        $data = array_merge(
-            $role->toArray(),
-            [
-                'permissions' => [],
-                'users' => [$user->id],
-            ]
-        );
+        $data = array_merge($role->toArray(), [
+            'permissions' => [],
+            'users' => [$user->id],
+        ]);
 
-        $response = $this->postJson(route('roles.store'), $data);
-
-        $response->assertSuccessful();
+        $this->post(route('roles.store'), $data);
 
         $this->assertTrue($user->hasRole($role->name));
+    }
+
+    /** @test **/
+    public function activityIsLoggedWhenRoleIsCreated()
+    {
+        $role = factory(Role::class)->create();
+
+        $this->assertDatabaseHas('activity_log', [
+            'description' => $role->display_name . ' role was created',
+        ]);
     }
 }
