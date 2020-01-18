@@ -4,6 +4,6 @@ namespace Nova\Roles\Http\Requests;
 
 use Nova\Foundation\Http\Requests\ValidatesRequest;
 
-class Duplicate extends ValidatesRequest
+class ValidateDuplicateRole extends ValidatesRequest
 {
 }
