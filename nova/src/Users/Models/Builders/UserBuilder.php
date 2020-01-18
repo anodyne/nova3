@@ -10,6 +10,14 @@ use Illuminate\Database\Eloquent\Builder;
 
 class UserBuilder extends Builder
 {
+    public function filter(array $filters)
+    {
+        return $this->when($filters['search'] ?? null, function ($query, $search) {
+            return $query->where('name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%");
+        });
+    }
+
     /**
      * Get active users.
      *
