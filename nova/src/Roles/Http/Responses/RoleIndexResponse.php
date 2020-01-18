@@ -4,7 +4,7 @@ namespace Nova\Roles\Http\Responses;
 
 use Nova\Foundation\Http\Responses\InertiaResponse;
 
-class Create extends InertiaResponse
+class RoleIndexResponse extends InertiaResponse
 {
-    public $component = 'Roles/Create';
+    public $component = 'Roles/Index';
 }

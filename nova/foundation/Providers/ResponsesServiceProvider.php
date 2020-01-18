@@ -33,9 +33,9 @@ class ResponsesServiceProvider extends ServiceProvider
             \Nova\Themes\Http\Responses\Create::class,
             \Nova\Themes\Http\Responses\Edit::class,
 
-            \Nova\Roles\Http\Responses\Index::class,
-            \Nova\Roles\Http\Responses\Create::class,
-            \Nova\Roles\Http\Responses\Edit::class,
+            \Nova\Roles\Http\Responses\RoleIndexResponse::class,
+            \Nova\Roles\Http\Responses\CreateRoleResponse::class,
+            \Nova\Roles\Http\Responses\EditRoleResponse::class,
 
             \Nova\Users\Http\Responses\Index::class,
             \Nova\Users\Http\Responses\Create::class,
