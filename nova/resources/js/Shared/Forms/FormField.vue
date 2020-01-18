@@ -50,7 +50,7 @@ export default {
     computed: {
         errorMessage () {
             if (this.hasError) {
-                return Nova.formErrors.first(this.name);
+                return this.$page.errors[this.name][0];
             }
 
             return false;
@@ -63,8 +63,7 @@ export default {
         },
 
         hasError () {
-            return false;
-            // return Nova.formErrors.has(this.name);
+            return this.$page.errors[this.name];
         },
 
         hasHelp () {

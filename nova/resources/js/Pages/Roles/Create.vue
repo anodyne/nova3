@@ -30,7 +30,7 @@
                             <div class="field-group">
                                 <input
                                     id="display_name"
-                                    v-model="form.fields.display_name"
+                                    v-model="form.display_name"
                                     type="text"
                                     name="display_name"
                                     class="field"
@@ -46,7 +46,7 @@
                             <div class="field-group">
                                 <input
                                     id="name"
-                                    v-model="form.fields.name"
+                                    v-model="form.name"
                                     type="text"
                                     name="name"
                                     class="field"
@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="form-section-column-form">
-                        <form-field label="Assign Permissions" class="mb-8">
+                        <!-- <form-field label="Assign Permissions" class="mb-8">
                             <div class="field-group">
                                 <input
                                     v-model="searchPermissions"
@@ -106,7 +106,7 @@
                             >
                                 <icon name="check-circle"></icon>
                             </button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -117,56 +117,42 @@
                     </div>
 
                     <div class="form-section-column-form">
-                        <form-field label="Assign Users" class="mb-8">
-                            <div class="field-group">
-                                <input
-                                    v-model="searchUsers"
-                                    type="text"
-                                    class="field"
-                                    placeholder="Find a user..."
-                                >
+                        <div class="flex items-center flex-wrap">
+                            <div
+                                v-for="user in form.users"
+                                :key="user.id"
+                                class="badge flex items-center mr-2 mt-3 py-1"
+                            >
+                                <div class="mr-2">{{ user.name }}</div>
 
                                 <button
-                                    v-show="searchUsers !== ''"
-                                    class="field-addon"
-                                    @click.prevent="searchUsers = ''"
+                                    class="text-gray-500"
+                                    @click.prevent="removeUser(user)"
                                 >
                                     <icon name="close"></icon>
                                 </button>
                             </div>
-                        </form-field>
 
-                        <div
-                            v-for="(user, index) in filteredUsers"
-                            :key="user.id"
-                            class="flex items-center justify-between w-full p-2 rounded"
-                            :class="{ 'bg-gray-200': index % 2 === 0 }"
-                        >
-                            <div class="text-gray-600">{{ user.name }}</div>
-
-                            <button
-                                v-if="!hasUser(user)"
-                                class="text-gray-500 hover:text-gray-600"
-                                @click.prevent="addUser(user)"
-                            >
+                            <button class="button button-icon button-bg button-info-soft rounded-full px-3 mt-3">
                                 <icon name="add"></icon>
                             </button>
 
-                            <button
-                                v-if="hasUser(user)"
-                                class="text-success-500"
-                                @click.prevent="removeUser(user)"
-                            >
-                                <icon name="check-circle"></icon>
-                            </button>
+                            <!-- <div class="inline-flex items-center bg-info-100 border-2 border-info-200 text-info-700 rounded-full py-1 px-3 mt-3 text-sm italic font-medium">
+                                <input
+                                    type="text"
+                                    class="appearance-none bg-transparent placeholder-info-700"
+                                    placeholder="Find a user..."
+                                >
+                                <icon name="add" class="text-info-400"></icon>
+                            </div> -->
                         </div>
                     </div>
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary">Add Role</button>
+                    <button type="submit" class="button button-primary">Add Role</button>
 
-                    <inertia-link :href="route('roles.index')" class="button is-secondary">
+                    <inertia-link :href="route('roles.index')" class="button button-soft">
                         Cancel
                     </inertia-link>
                 </div>
@@ -178,28 +164,16 @@
 <script>
 import slug from 'slug';
 import indexOf from 'lodash/indexOf';
-import Form from '@/Utils/Form';
 
 export default {
-    props: {
-        permissions: {
-            type: Array,
-            required: true
-        },
-        users: {
-            type: Array,
-            required: true
-        }
-    },
-
     data () {
         return {
-            form: new Form({
+            form: {
                 display_name: '',
                 name: '',
                 permissions: [],
                 users: []
-            }),
+            },
             searchPermissions: '',
             searchUsers: '',
             suggestName: true
@@ -229,51 +203,44 @@ export default {
     },
 
     watch: {
-        'form.fields.display_name': function (newValue) {
+        'form.display_name': function (newValue) {
             if (this.suggestName) {
-                this.form.fields.name = slug(newValue.toLowerCase());
+                this.form.name = slug(newValue.toLowerCase());
             }
         }
     },
 
     methods: {
         addPermission (permission) {
-            this.form.fields.permissions.push(permission.name);
+            this.form.permissions.push(permission.name);
         },
 
         addUser (user) {
-            this.form.fields.users.push(user.id);
+            this.form.users.push(user.id);
         },
 
         hasPermission (permission) {
-            return indexOf(this.form.fields.permissions, permission.name) > -1;
+            return indexOf(this.form.permissions, permission.name) > -1;
         },
 
         hasUser (user) {
-            return indexOf(this.form.fields.users, user.id) > -1;
+            return indexOf(this.form.users, user.id) > -1;
         },
 
         removePermission (permission) {
-            const index = indexOf(this.form.fields.permissions, permission.name);
+            const index = indexOf(this.form.permissions, permission.name);
 
-            this.form.fields.permissions.splice(index, 1);
+            this.form.permissions.splice(index, 1);
         },
 
         removeUser (user) {
-            const index = indexOf(this.form.fields.users, user.id);
+            const index = indexOf(this.form.users, user.id);
 
-            this.form.fields.users.splice(index, 1);
+            this.form.users.splice(index, 1);
         },
 
         submit () {
-            this.form.post({
-                url: this.route('roles.store'),
-                then: (data) => {
-                    this.$toast.message(`${data.display_name} role was created.`).success();
-
-                    this.$inertia.replace(this.route('roles.index'));
-                }
-            });
+            this.$inertia.post(this.route('roles.store'), this.form);
         }
     }
 };

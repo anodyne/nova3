@@ -31,7 +31,7 @@
                             <div class="field-group">
                                 <input
                                     id="display_name"
-                                    v-model="form.fields.display_name"
+                                    v-model="form.display_name"
                                     type="text"
                                     name="display_name"
                                     class="field"
@@ -47,7 +47,7 @@
                             <div class="field-group">
                                 <input
                                     id="name"
-                                    v-model="form.fields.name"
+                                    v-model="form.name"
                                     type="text"
                                     name="name"
                                     class="field"
@@ -123,8 +123,8 @@
                     </div>
 
                     <div class="form-section-column-form">
-                        <form-field label="Manage Users">
-                            <div class="field-group">
+                        <form-field>
+                            <!-- <div class="field-group">
                                 <input
                                     v-model="searchUsers"
                                     type="text"
@@ -144,39 +144,53 @@
 
                         <toggle-switch v-model="showAssignedUsersOnly" class="my-4">
                             Show only users with this role
-                        </toggle-switch>
+                        </toggle-switch> -->
 
-                        <div
-                            v-for="(user, index) in filteredUsers"
-                            :key="user.id"
-                            class="flex items-center justify-between w-full p-2 rounded"
-                            :class="{ 'bg-gray-200': index % 2 === 0 }"
-                        >
-                            <div class="text-gray-600">{{ user.name }}</div>
+                            <div class="flex items-center flex-wrap">
+                                <div
+                                    v-for="user in filteredUsers"
+                                    :key="user.id"
+                                    class="badge flex items-center mr-2 mt-3 py-1"
+                                >
+                                    <div class="text-gray-800 mr-2">{{ user.name }}</div>
 
-                            <button
-                                v-if="!hasUser(user)"
-                                class="text-gray-500 hover:text-gray-600"
-                                @click.prevent="addUser(user)"
-                            >
-                                <icon name="add"></icon>
-                            </button>
+                                    <button
+                                        v-if="!hasUser(user)"
+                                        class="text-gray-500 hover:text-gray-600"
+                                        @click.prevent="addUser(user)"
+                                    >
+                                        <icon name="add"></icon>
+                                    </button>
 
-                            <button
-                                v-if="hasUser(user)"
-                                class="text-success-500"
-                                @click.prevent="removeUser(user)"
-                            >
-                                <icon name="check-circle"></icon>
-                            </button>
-                        </div>
-                    </div>
+                                    <button
+                                        v-if="hasUser(user)"
+                                        class="text-gray-500"
+                                        @click.prevent="removeUser(user)"
+                                    >
+                                        <icon name="close"></icon>
+                                    </button>
+                                </div>
+
+                                <!-- <button class="flex items-center bg-info-200 text-info-600 rounded-full py-1 px-3 mt-3">
+                                    <icon name="add"></icon>
+                                </button> -->
+
+                                <div class="inline-flex items-center bg-info-100 border-2 border-info-200 text-info-700 rounded-full py-1 px-3 mt-3 text-sm italic font-medium">
+                                    <input
+                                        type="text"
+                                        class="appearance-none bg-transparent placeholder-info-700"
+                                        placeholder="Find a user..."
+                                    >
+                                    <icon name="add" class="text-info-400"></icon>
+                                </div>
+                            </div>
+                        </form-field></div>
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary">Update Role</button>
+                    <button type="submit" class="button button-primary">Update Role</button>
 
-                    <inertia-link :href="route('roles.index')" class="button is-secondary">
+                    <inertia-link :href="route('roles.index')" class="button">
                         Cancel
                     </inertia-link>
                 </div>
@@ -187,8 +201,6 @@
 
 <script>
 import indexOf from 'lodash/indexOf';
-import axios from '@/Utils/axios';
-import Form from '@/Utils/Form';
 
 export default {
     props: {
@@ -208,13 +220,13 @@ export default {
 
     data () {
         return {
-            form: new Form({
+            form: {
                 id: this.role.id,
                 name: this.role.name,
                 display_name: this.role.display_name,
                 permissions: this.role.permissions.map(permission => permission.name),
                 users: this.role.users.map(user => user.id)
-            }),
+            },
             searchPermissions: '',
             searchUsers: '',
             showAssignedPermissionsOnly: true,
@@ -256,11 +268,11 @@ export default {
 
     methods: {
         addPermission (permission) {
-            this.form.fields.permissions.push(permission.name);
+            this.form.permissions.push(permission.name);
         },
 
         addUser (user) {
-            this.form.fields.users.push(user.id);
+            this.form.users.push(user.id);
         },
 
         hasPermission (permission) {
@@ -268,34 +280,30 @@ export default {
                 ? permission
                 : permission.name;
 
-            return indexOf(this.form.fields.permissions, name) > -1;
+            return indexOf(this.form.permissions, name) > -1;
         },
 
         hasUser (user) {
-            return indexOf(this.form.fields.users, user.id) > -1;
+            return indexOf(this.form.users, user.id) > -1;
         },
 
         removePermission (permission) {
-            const index = indexOf(this.form.fields.permissions, permission.name);
+            const index = indexOf(this.form.permissions, permission.name);
 
-            this.form.fields.permissions.splice(index, 1);
+            this.form.permissions.splice(index, 1);
         },
 
         removeUser (user) {
-            const index = indexOf(this.form.fields.users, user.id);
+            const index = indexOf(this.form.users, user.id);
 
-            this.form.fields.users.splice(index, 1);
+            this.form.users.splice(index, 1);
         },
 
         submit () {
-            this.form.put({
-                url: this.route('roles.update', { role: this.role }),
-                then: (data) => {
-                    this.$toast.message(`${data.display_name} role was updated.`).success();
-
-                    this.$inertia.replace(this.route('roles.index'));
-                }
-            });
+            this.$inertia.put(
+                this.route('roles.update', { role: this.role }),
+                this.form
+            );
         }
     }
 };
