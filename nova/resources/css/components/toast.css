@@ -51,18 +51,14 @@
         }
 
         &.is-danger {
-            @apply bg-danger-500 text-white;
-
             .progress-bar > .percentage {
-                @apply bg-danger-600;
+                @apply bg-danger-500;
             }
         }
 
         &.is-success {
-            @apply bg-success-500 text-white;
-
             .progress-bar > .percentage {
-                @apply bg-success-600;
+                @apply bg-success-500;
             }
         }
     }
