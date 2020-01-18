@@ -9,7 +9,7 @@ class RoleResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'permissions' => $this->permissions,
+            'permissions' => $this->whenLoaded('permissions'),
             'can' => [
                 'create' => gate()->allows('create', $this->resource),
                 'delete' => gate()->allows('delete', $this->resource),
@@ -19,7 +19,7 @@ class RoleResource extends JsonResource
             'name' => $this->name,
             'locked' => (bool) $this->locked,
             'display_name' => $this->display_name,
-            'users' => $this->users,
+            'users' => $this->whenLoaded('users'),
         ];
     }
 }
