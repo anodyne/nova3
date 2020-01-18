@@ -122,7 +122,7 @@ module.exports = {
     },
 
     variants: {
-        backgroundColor: ['responsive', 'hover', 'focus', 'focus-within'],
+        backgroundColor: ['responsive', 'hover', 'focus', 'focus-within', 'even', 'odd'],
         borderColor: ['responsive', 'hover', 'focus', 'focus-within'],
         boxShadow: ['responsive', 'hover', 'focus', 'focus-within'],
         cursor: ['hover', 'group-hover', 'focus', 'focus-within', 'disabled'],
