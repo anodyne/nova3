@@ -27,9 +27,17 @@ class Toast
     public $actionText;
 
     /**
+     * @var int  The duration of the toast
+     */
+    public $duration = 3000;
+
+    /**
      * Data to be used by the toast.
      *
      * @param  array  $data
+     * @param mixed $key
+     * @param null|mixed $value
+     *
      * @return \Nova\Foundation\Toast
      */
     public function with($key, $value = null)
@@ -46,6 +54,8 @@ class Toast
      */
     public function make()
     {
+        $this->duration = 3000;
+
         return $this->makeToast();
     }
 
@@ -57,6 +67,7 @@ class Toast
     public function error()
     {
         $this->type = 'is-danger';
+        $this->duration = 6000;
 
         return $this->makeToast();
     }
@@ -69,8 +80,27 @@ class Toast
     public function success()
     {
         $this->type = 'is-success';
+        $this->duration = 3000;
 
         return $this->makeToast();
+    }
+
+    /**
+     * Dynamically bind parameters to the toast.
+     *
+     * @param  string  $method
+     * @param  array   $parameters
+     *
+     * @throws \BadMethodCallException
+     *
+     * @return \Nova\Foundation\Toast
+     *
+     */
+    public function __call($method, $parameters)
+    {
+        if (Str::startsWith($method, 'with')) {
+            return $this->with(Str::camel(substr($method, 4)), $parameters[0]);
+        }
     }
 
     /**
@@ -86,26 +116,10 @@ class Toast
             'actionFunction' => $this->actionLink,
             'actionText' => $this->actionText,
             'config' => [
-                'timeout' => 3000
-            ]
+                'timeout' => $this->duration,
+            ],
         ]);
 
         return $this;
-    }
-
-    /**
-     * Dynamically bind parameters to the toast.
-     *
-     * @param  string  $method
-     * @param  array   $parameters
-     * @return \Nova\Foundation\Toast
-     *
-     * @throws \BadMethodCallException
-     */
-    public function __call($method, $parameters)
-    {
-        if (Str::startsWith($method, 'with')) {
-            return $this->with(Str::camel(substr($method, 4)), $parameters[0]);
-        }
     }
 }
