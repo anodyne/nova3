@@ -36,6 +36,7 @@ class PopulatePagesTable extends Migration
             ['uri' => 'themes/install', 'key' => 'themes.install', 'verb' => 'post', 'resource' => 'Nova\\Themes\\Http\\Controllers\\InstallThemeController', 'layout' => 'admin'],
 
             ['uri' => 'roles', 'key' => 'roles.index', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@index', 'layout' => 'admin'],
+            ['uri' => 'roles/show/{role}', 'key' => 'roles.show', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@show', 'layout' => 'admin'],
             ['uri' => 'roles/create', 'key' => 'roles.create', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@create', 'layout' => 'admin'],
             ['uri' => 'roles', 'key' => 'roles.store', 'verb' => 'post', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@store', 'layout' => 'admin'],
             ['uri' => 'roles/{role}/edit', 'key' => 'roles.edit', 'resource' => 'Nova\\Roles\\Http\\Controllers\\RoleController@edit', 'layout' => 'admin'],

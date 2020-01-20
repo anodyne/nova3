@@ -13,6 +13,7 @@ use Nova\Roles\Http\Resources\RoleResource;
 use Nova\Roles\Http\Resources\RoleCollection;
 use Nova\Roles\Http\Requests\ValidateStoreRole;
 use Nova\Roles\Http\Responses\EditRoleResponse;
+use Nova\Roles\Http\Responses\ViewRoleResponse;
 use Nova\Foundation\Http\Controllers\Controller;
 use Nova\Roles\Http\Requests\ValidateUpdateRole;
 use Nova\Roles\Http\Responses\RoleIndexResponse;
@@ -38,6 +39,13 @@ class RoleController extends Controller
         return resolve(RoleIndexResponse::class)->with([
             'filters' => $request->all('search'),
             'roles' => new RoleCollection($roles),
+        ]);
+    }
+
+    public function show(Role $role)
+    {
+        return resolve(ViewRoleResponse::class)->with([
+            'role' => new RoleResource($role->load('permissions', 'users')),
         ]);
     }
 

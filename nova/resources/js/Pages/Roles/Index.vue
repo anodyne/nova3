@@ -30,18 +30,18 @@
                 </div>
 
                 <div>
-                    <icon
-                        v-if="role.locked"
-                        v-tippy
-                        name="lock"
-                        class="text-gray-600"
-                        title="This role is locked and cannot be duplicated, edited, or deleted."
-                    ></icon>
-
-                    <dropdown v-else placement="bottom-end">
+                    <dropdown placement="bottom-end">
                         <icon name="more-horizontal" class="h-6 w-6"></icon>
 
                         <template #dropdown="{ dropdownProps }">
+                            <inertia-link
+                                v-if="role.can.view"
+                                :href="route('roles.show', { role })"
+                                class="dropdown-link"
+                            >
+                                <icon name="eye" class="dropdown-item-icon"></icon>
+                                View
+                            </inertia-link>
                             <inertia-link
                                 v-if="role.can.update"
                                 :href="route('roles.edit', { role })"
@@ -66,6 +66,12 @@
                                 <icon name="delete" class="dropdown-item-icon"></icon>
                                 Delete
                             </button>
+                            <div v-if="role.locked">
+                                <div class="dropdown-item-divider"></div>
+                                <div class="dropdown-item italic">
+                                    This role is locked and cannot be duplicated, edited, or deleted.
+                                </div>
+                            </div>
                         </template>
                     </dropdown>
                 </div>

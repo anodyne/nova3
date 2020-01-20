@@ -57,6 +57,16 @@ class ManageRolesTest extends TestCase
     }
 
     /** @test **/
+    public function authorizedUserWithViewPermissionCanManageRoles()
+    {
+        $this->signInWithPermission('role.view');
+
+        $response = $this->get(route('roles.index'));
+
+        $response->assertSuccessful();
+    }
+
+    /** @test **/
     public function unauthorizedUserCannotManageRoles()
     {
         $this->signIn();

@@ -6,6 +6,10 @@
     }
 }
 
+.dropdown-item {
+    @apply flex items-center px-4 py-2 text-gray-300 text-sm;
+}
+
 .dropdown-link-danger {
     @apply dropdown-link;
 
@@ -16,4 +20,8 @@
 
 .dropdown-item-icon {
     @apply h-5 w-5 mr-2;
+}
+
+.dropdown-item-divider {
+    @apply border-t border-gray-700 h-px;
 }

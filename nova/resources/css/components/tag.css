@@ -1,0 +1,19 @@
+.tag {
+    @apply flex items-center rounded-full py-1 px-3 text-xs font-medium uppercase tracking-wider bg-gray-200 text-gray-700;
+}
+
+.tag-danger {
+    @apply bg-danger-200 text-danger-700;
+}
+
+.tag-info {
+    @apply bg-info-200 text-info-800;
+}
+
+.tag-success {
+    @apply bg-success-200 text-success-800;
+}
+
+.tag-warning {
+    @apply bg-warning-200 text-warning-800;
+}

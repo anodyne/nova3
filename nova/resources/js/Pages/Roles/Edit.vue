@@ -184,7 +184,8 @@
                                     <icon name="add" class="text-info-400"></icon>
                                 </div>
                             </div>
-                        </form-field></div>
+                        </form-field>
+                    </div>
                 </div>
 
                 <div class="form-controls">

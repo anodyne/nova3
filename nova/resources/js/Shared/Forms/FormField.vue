@@ -63,6 +63,10 @@ export default {
         },
 
         hasError () {
+            if (this.$page === undefined) {
+                return false;
+            }
+
             return this.$page.errors[this.name];
         },
 

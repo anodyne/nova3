@@ -14,6 +14,7 @@ class RoleResource extends JsonResource
                 'create' => gate()->allows('create', $this->resource),
                 'delete' => gate()->allows('delete', $this->resource),
                 'update' => gate()->allows('update', $this->resource),
+                'view' => gate()->allows('view', $this->resource),
             ],
             'id' => $this->id,
             'name' => $this->name,
