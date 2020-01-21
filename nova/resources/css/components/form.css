@@ -22,7 +22,9 @@
     }
 
     > a.field-addon,
-    > .field-addon a {
+    > button.field-addon,
+    > .field-addon a,
+    > .field-addon button {
         @apply pointer-events-auto text-gray-500;
 
         &:hover {
