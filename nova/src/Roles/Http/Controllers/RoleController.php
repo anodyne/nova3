@@ -3,9 +3,7 @@
 namespace Nova\Roles\Http\Controllers;
 
 use Nova\Roles\Models\Role;
-use Nova\Users\Models\User;
 use Illuminate\Http\Request;
-use Nova\Roles\Models\Permission;
 use Nova\Roles\Actions\DeleteRole;
 use Nova\Roles\Actions\CreateRoleManager;
 use Nova\Roles\Actions\UpdateRoleManager;
@@ -66,9 +64,7 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         return resolve(EditRoleResponse::class)->with([
-            'role' => new RoleResource($role->loadMissing('users', 'permissions')),
-            'permissions' => Permission::orderBy('display_name')->get(),
-            'users' => User::whereActive()->get(),
+            'role' => new RoleResource($role->load('users', 'permissions')),
         ]);
     }
 
