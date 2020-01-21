@@ -33,13 +33,13 @@
                     <dropdown placement="bottom-end">
                         <icon name="more-horizontal" class="h-6 w-6"></icon>
 
-                        <template #dropdown="{ dropdownProps }">
+                        <template #dropdown="{ toggle }">
                             <inertia-link
                                 v-if="role.can.view"
                                 :href="route('roles.show', { role })"
                                 class="dropdown-link"
                             >
-                                <icon name="eye" class="dropdown-item-icon"></icon>
+                                <icon name="eye" class="dropdown-icon"></icon>
                                 View
                             </inertia-link>
                             <inertia-link
@@ -47,7 +47,7 @@
                                 :href="route('roles.edit', { role })"
                                 class="dropdown-link"
                             >
-                                <icon name="edit" class="dropdown-item-icon"></icon>
+                                <icon name="edit" class="dropdown-icon"></icon>
                                 Edit
                             </inertia-link>
                             <button
@@ -55,20 +55,20 @@
                                 class="dropdown-link"
                                 @click.prevent="duplicate(role)"
                             >
-                                <icon name="copy" class="dropdown-item-icon"></icon>
+                                <icon name="copy" class="dropdown-icon"></icon>
                                 Duplicate
                             </button>
                             <button
                                 v-if="role.can.delete"
                                 class="dropdown-link-danger"
-                                @click.prevent="confirmRemove(role, dropdownProps)"
+                                @click.prevent="confirmRemove(role, toggle)"
                             >
-                                <icon name="delete" class="dropdown-item-icon"></icon>
+                                <icon name="delete" class="dropdown-icon"></icon>
                                 Delete
                             </button>
                             <div v-if="role.locked">
-                                <div class="dropdown-item-divider"></div>
-                                <div class="dropdown-item italic">
+                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-text italic">
                                     This role is locked and cannot be duplicated, edited, or deleted.
                                 </div>
                             </div>
@@ -140,7 +140,7 @@ export default {
     },
 
     methods: {
-        confirmRemove (role, { toggle }) {
+        confirmRemove (role, toggle) {
             toggle();
             this.showModal(role);
         },
