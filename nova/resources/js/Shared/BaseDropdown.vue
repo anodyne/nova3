@@ -1,7 +1,7 @@
 <template>
     <div class="dropdown-wrapper">
         <div
-            v-if="isOpen"
+            v-if="isActive"
             class="dropdown-overlay"
             @click="hide"
         ></div>
@@ -18,7 +18,7 @@
             appear
         >
             <div
-                v-if="isOpen"
+                v-if="isActive"
                 ref="dropdown"
                 class="dropdown-panel"
                 :class="styles.placement"
@@ -30,20 +30,18 @@
 </template>
 
 <script>
+import Toggleable from '@/Utils/Mixins/Toggleable';
+
 export default {
     name: 'BaseDropdown',
+
+    mixins: [Toggleable],
 
     props: {
         placement: {
             type: String,
             default: 'bottom-start'
         }
-    },
-
-    data () {
-        return {
-            isOpen: false
-        };
     },
 
     computed: {
@@ -62,17 +60,17 @@ export default {
 
     methods: {
         hide () {
-            if (this.isOpen) {
-                this.isOpen = false;
+            if (this.isActive) {
+                this.isActive = false;
             }
         },
 
         show () {
-            this.isOpen = true;
+            this.isActive = true;
         },
 
         toggle () {
-            if (this.isOpen) {
+            if (this.isActive) {
                 this.hide();
             } else {
                 this.show();
