@@ -171,7 +171,7 @@
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary">Create</button>
+                    <button type="submit" class="button button-primary">Create</button>
 
                     <inertia-link :href="route('themes.index')" class="button is-secondary">
                         Cancel

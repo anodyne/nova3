@@ -4,7 +4,7 @@
 
         <section>
             <button
-                class="button is-primary"
+                class="button button-primary"
                 type="button"
                 @click="modalIsShown = true"
             >Launch modal</button>
@@ -12,7 +12,7 @@
 
         <div class="panel mt-8">
             <stateful-button
-                class="is-primary"
+                class="button-primary"
                 :loading="buttonLoading"
                 @click="buttonLoading = true"
             >
@@ -43,7 +43,7 @@
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae voluptatum dolorum earum illum quod! Animi voluptates debitis molestias odio. Iure harum ea animi et fugit repudiandae vero enim quidem debitis.
 
             <template #footer>
-                <button type="button" class="button is-primary mr-4">
+                <button type="button" class="button button-primary mr-4">
                     Submit
                 </button>
 

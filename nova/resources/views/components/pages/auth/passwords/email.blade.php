@@ -29,7 +29,7 @@
         @endif
     </div>
 
-    <button type="submit" class="button is-primary">
+    <button type="submit" class="button button-primary">
         {{ __('Send Reset Link') }}
     </button>
 </form>

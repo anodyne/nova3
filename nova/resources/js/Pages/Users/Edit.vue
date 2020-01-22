@@ -64,7 +64,7 @@
                                     </a>
                                 </div>
 
-                                <a role="button" class="button is-danger is-small ml-2">
+                                <a role="button" class="button button-danger button-small ml-2">
                                     <icon name="trash" class="mr-2"></icon>
                                     Remove Image
                                 </a>
@@ -138,7 +138,7 @@
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary">Update</button>
+                    <button type="submit" class="button button-primary">Update</button>
 
                     <inertia-link :href="route('users.index')" class="button is-secondary">
                         Cancel

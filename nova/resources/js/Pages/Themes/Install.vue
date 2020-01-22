@@ -17,7 +17,7 @@
                         :class="{ 'bg-grey-50': index % 2 === 0 }"
                     >
                         themes/{{ theme.location }}
-                        <button class="button is-small is-dark my-0" @click="install(index)">
+                        <button class="button button-small button-dark my-0" @click="install(index)">
                             Install
                         </button>
                     </div>

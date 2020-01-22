@@ -2,7 +2,7 @@
     <sidebar-layout>
         <page-header title="Themes">
             <template v-if="themes.can.create" #controls>
-                <inertia-link :href="route('themes.create')" class="button is-primary">
+                <inertia-link :href="route('themes.create')" class="button button-primary">
                     Add Theme
                 </inertia-link>
             </template>

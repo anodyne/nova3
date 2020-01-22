@@ -9,7 +9,7 @@
 /* .switch {
     @apply inline-block relative flex-shrink-0 rounded-full cursor-pointer h-6 w-11;
 
-    &.is-small {
+    &.switch-small {
         @apply h-5 w-9;
     }
 
@@ -46,7 +46,7 @@
     transform: translateX(0.25rem);
 }
 
-.switch.is-small:after {
+.switch.switch-small:after {
     height: 0.875rem;
     margin-top: 0.2rem;
     width: 0.875rem;
@@ -59,7 +59,7 @@
     transform: translateX(1.5rem);
 }
 
-.switch.is-small[aria-checked="true"]:after {
+.switch.switch-small[aria-checked="true"]:after {
     -webkit-transform: translateX(1.125rem);
     transform: translateX(1.125rem);
 } */
