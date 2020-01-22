@@ -104,7 +104,7 @@
 }
 
 .button-text {
-    @apply inline-flex items-center font-medium transition-color transition-medium cursor-pointer text-gray-700;
+    @apply inline-flex items-center font-medium transition-colors duration-200 cursor-pointer text-gray-700;
 
     &:hover {
         @apply text-gray-800;
@@ -128,7 +128,7 @@
 }
 
 .button-icon {
-    @apply inline-flex items-center transition-color transition-medium cursor-pointer text-gray-600;
+    @apply inline-flex items-center transition-colors duration-200 cursor-pointer text-gray-600;
 
     &:hover {
         @apply text-gray-800;
