@@ -17,6 +17,7 @@
 @import 'components/search.css';
 @import 'components/switch.css';
 @import 'components/tab.css';
+@import 'components/tag.css';
 @import 'components/toast.css';
 
 @import 'tailwindcss/utilities';

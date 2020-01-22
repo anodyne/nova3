@@ -1,6 +1,6 @@
 <template>
     <sidebar-layout>
-        <page-header title="Add a Role">
+        <page-header title="Add Role">
             <template #pretitle>
                 <inertia-link :href="route('roles.index')">Roles</inertia-link>
             </template>
@@ -30,7 +30,7 @@
                             <div class="field-group">
                                 <input
                                     id="display_name"
-                                    v-model="form.fields.display_name"
+                                    v-model="form.display_name"
                                     type="text"
                                     name="display_name"
                                     class="field"
@@ -46,7 +46,7 @@
                             <div class="field-group">
                                 <input
                                     id="name"
-                                    v-model="form.fields.name"
+                                    v-model="form.name"
                                     type="text"
                                     name="name"
                                     class="field"
@@ -60,113 +60,48 @@
                 <div class="form-section">
                     <div class="form-section-column-content">
                         <div class="form-section-header">Permissions</div>
-                        <p class="form-section-message mb-6">Permissions are the actions a user can take. Feel free to add whatever permissions to this role that you see fit.</p>
+                        <p class="form-section-message">Permissions are the actions a signed in user can take throughout Nova. Feel free to add whatever permissions you want to this role.</p>
                     </div>
 
                     <div class="form-section-column-form">
-                        <form-field label="Assign Permissions" class="mb-8">
-                            <div class="field-group">
-                                <input
-                                    v-model="searchPermissions"
-                                    type="text"
-                                    class="field"
-                                    placeholder="Find a permission..."
-                                >
-
-                                <button
-                                    v-show="searchPermissions !== ''"
-                                    class="field-addon"
-                                    @click="searchPermissions = ''"
-                                >
-                                    <icon name="close"></icon>
-                                </button>
-                            </div>
+                        <form-field>
+                            <tags-input
+                                v-model="permissions.added"
+                                not-found-message="Sorry, no permissions found with that name."
+                                placeholder="Add a permission..."
+                                :search-url="route('permissions.search').url()"
+                                display-property="display_name"
+                                @add-item="addPermission"
+                                @remove-item="removePermission"
+                            ></tags-input>
                         </form-field>
-
-                        <div
-                            v-for="(permission, index) in filteredPermissions"
-                            :key="permission.id"
-                            class="flex items-center justify-between w-full p-2 rounded"
-                            :class="{ 'bg-gray-200': index % 2 === 0 }"
-                        >
-                            <div class="text-gray-600">{{ permission.display_name }}</div>
-
-                            <button
-                                v-if="!hasPermission(permission)"
-                                class="text-gray-500 hover:text-gray-600"
-                                @click.prevent="addPermission(permission)"
-                            >
-                                <icon name="add"></icon>
-                            </button>
-
-                            <button
-                                v-if="hasPermission(permission)"
-                                class="text-success-500"
-                                @click.prevent="removePermission(permission)"
-                            >
-                                <icon name="check-circle"></icon>
-                            </button>
-                        </div>
                     </div>
                 </div>
 
                 <div class="form-section">
                     <div class="form-section-column-content">
                         <div class="form-section-header">Give users this role</div>
-                        <p class="form-section-message mb-6">You can quickly add users to the role you're creating from here.</p>
+                        <p class="form-section-message">You can quickly add users to this role from here.</p>
                     </div>
 
                     <div class="form-section-column-form">
-                        <form-field label="Assign Users" class="mb-8">
-                            <div class="field-group">
-                                <input
-                                    v-model="searchUsers"
-                                    type="text"
-                                    class="field"
-                                    placeholder="Find a user..."
-                                >
-
-                                <button
-                                    v-show="searchUsers !== ''"
-                                    class="field-addon"
-                                    @click.prevent="searchUsers = ''"
-                                >
-                                    <icon name="close"></icon>
-                                </button>
-                            </div>
+                        <form-field>
+                            <tags-input
+                                v-model="users.added"
+                                not-found-message="Sorry, no users found with that name or email address."
+                                placeholder="Add a user..."
+                                :search-url="route('users.search').url()"
+                                @add-item="addUser"
+                                @remove-item="removeUser"
+                            ></tags-input>
                         </form-field>
-
-                        <div
-                            v-for="(user, index) in filteredUsers"
-                            :key="user.id"
-                            class="flex items-center justify-between w-full p-2 rounded"
-                            :class="{ 'bg-gray-200': index % 2 === 0 }"
-                        >
-                            <div class="text-gray-600">{{ user.name }}</div>
-
-                            <button
-                                v-if="!hasUser(user)"
-                                class="text-gray-500 hover:text-gray-600"
-                                @click.prevent="addUser(user)"
-                            >
-                                <icon name="add"></icon>
-                            </button>
-
-                            <button
-                                v-if="hasUser(user)"
-                                class="text-success-500"
-                                @click.prevent="removeUser(user)"
-                            >
-                                <icon name="check-circle"></icon>
-                            </button>
-                        </div>
                     </div>
                 </div>
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary">Add Role</button>
+                    <button type="submit" class="button button-primary">Add Role</button>
 
-                    <inertia-link :href="route('roles.index')" class="button is-secondary">
+                    <inertia-link :href="route('roles.index')" class="button button-soft">
                         Cancel
                     </inertia-link>
                 </div>
@@ -177,103 +112,110 @@
 
 <script>
 import slug from 'slug';
-import indexOf from 'lodash/indexOf';
-import Form from '@/Utils/Form';
+import findIndex from 'lodash/findIndex';
+import debounce from 'lodash/debounce';
+import axios from '@/Utils/axios';
+import TagsInput from '@/Shared/TagsInput';
 
 export default {
-    props: {
-        permissions: {
-            type: Array,
-            required: true
-        },
-        users: {
-            type: Array,
-            required: true
-        }
-    },
+    components: { TagsInput },
 
     data () {
         return {
-            form: new Form({
+            form: {
                 display_name: '',
-                name: '',
-                permissions: [],
-                users: []
-            }),
-            searchPermissions: '',
-            searchUsers: '',
-            suggestName: true
+                name: ''
+            },
+            permissions: {
+                added: [],
+                results: [],
+                search: ''
+            },
+            suggestName: true,
+            users: {
+                added: [],
+                results: [],
+                search: ''
+            }
         };
     },
 
     computed: {
-        filteredPermissions () {
-            return this.permissions.filter((permission) => {
-                const searchRegex = new RegExp(this.searchPermissions, 'i');
-
-                return searchRegex.test(permission.name) || searchRegex.test(permission.display_name);
-            });
-        },
-
-        filteredUsers () {
-            const users = (!this.showAssignedUsersOnly)
-                ? this.users
-                : this.users.filter(user => this.hasUser(user));
-
-            return users.filter((user) => {
-                const searchRegex = new RegExp(this.searchUsers, 'i');
-
-                return searchRegex.test(user.name) || searchRegex.test(user.email);
-            });
+        formData () {
+            return {
+                display_name: this.form.display_name,
+                name: this.form.name,
+                permissions: this.permissions.added.map(permission => permission.name),
+                users: this.users.added.map(user => user.id)
+            };
         }
     },
 
     watch: {
-        'form.fields.display_name': function (newValue) {
+        'form.display_name': function (newValue) {
             if (this.suggestName) {
-                this.form.fields.name = slug(newValue.toLowerCase());
+                this.form.name = slug(newValue.toLowerCase());
             }
+        },
+        'permissions.search': {
+            handler: 'searchForPermissions',
+            deep: true
+        },
+        'users.search': {
+            handler: 'searchForUsers',
+            deep: true
         }
     },
 
     methods: {
         addPermission (permission) {
-            this.form.fields.permissions.push(permission.name);
+            this.permissions.added.push(permission);
+
+            this.permissions.results = [];
         },
 
         addUser (user) {
-            this.form.fields.users.push(user.id);
-        },
+            this.users.added.push(user);
 
-        hasPermission (permission) {
-            return indexOf(this.form.fields.permissions, permission.name) > -1;
-        },
-
-        hasUser (user) {
-            return indexOf(this.form.fields.users, user.id) > -1;
+            this.users.results = [];
         },
 
         removePermission (permission) {
-            const index = indexOf(this.form.fields.permissions, permission.name);
+            const index = findIndex(
+                this.permissions.added,
+                p => p.name === permission.name
+            );
 
-            this.form.fields.permissions.splice(index, 1);
+            this.permissions.added.splice(index, 1);
         },
 
         removeUser (user) {
-            const index = indexOf(this.form.fields.users, user.id);
+            const index = findIndex(
+                this.users.added,
+                u => u.id === user.id
+            );
 
-            this.form.fields.users.splice(index, 1);
+            this.users.added.splice(index, 1);
         },
 
-        submit () {
-            this.form.post({
-                url: this.route('roles.store'),
-                then: (data) => {
-                    this.$toast.message(`${data.display_name} role was created.`).success();
+        searchForPermissions: debounce(function () {
+            const route = `${this.route('permissions.search')}?search=${this.permissions.search}`;
 
-                    this.$inertia.replace(this.route('roles.index'));
-                }
+            axios.get(route).then(({ data }) => {
+                this.permissions.results = data;
             });
+        }, 250),
+
+        searchForUsers: debounce(function () {
+            const route = `${this.route('users.search')}?search=${this.users.search}`;
+
+            axios.get(route).then(({ data }) => {
+                this.users.results = data;
+            });
+        }, 250),
+
+        submit () {
+            this.$inertia.post(this.route('roles.store'), this.formData);
         }
     }
 };

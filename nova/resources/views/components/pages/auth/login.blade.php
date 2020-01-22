@@ -15,13 +15,13 @@
 
     <div class="flex items-center justify-between mt-8">
         <div>
-            <stateful-button type="submit" class="button is-primary">
+            <stateful-button type="submit" class="button button-primary">
                 Sign In
             </stateful-button>
         </div>
 
         @if (Route::has('password.request'))
-            <a class="button is-text" href="{{ route('password.request') }}">
+            <a class="button-text" href="{{ route('password.request') }}">
                 {{ __('Forgot Your Password?') }}
             </a>
         @endif

@@ -29,34 +29,6 @@ class UpdateRoleTest extends TestCase
 
         $response = $this->get(route('roles.edit', $this->role));
         $response->assertSuccessful();
-    }
-
-    /** @test **/
-    public function unauthorizedUserCannotUpdateRole()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('roles.edit', $this->role));
-        $response->assertForbidden();
-
-        $response = $this->putJson(route('roles.update', $this->role), []);
-        $response->assertForbidden();
-    }
-
-    /** @test **/
-    public function guestCannotUpdateRole()
-    {
-        $response = $this->get(route('roles.edit', $this->role));
-        $response->assertRedirect(route('login'));
-
-        $response = $this->putJson(route('roles.update', $this->role), []);
-        $response->assertUnauthorized();
-    }
-
-    /** @test **/
-    public function roleCanBeUpdated()
-    {
-        $this->signInWithPermission('role.update');
 
         $data = [
             'id' => $this->role->id,
@@ -68,8 +40,9 @@ class UpdateRoleTest extends TestCase
 
         $this->assertCount(0, $this->role->permissions);
 
-        $response = $this->putJson(route('roles.update', $this->role), $data);
-        $response->assertSuccessful();
+        $response = $this->put(route('roles.update', $this->role), $data);
+
+        $this->followRedirects($response)->assertSuccessful();
 
         $this->assertDatabaseHas('roles', [
             'name' => 'new-name',
@@ -85,21 +58,43 @@ class UpdateRoleTest extends TestCase
     }
 
     /** @test **/
+    public function unauthorizedUserCannotUpdateRole()
+    {
+        $this->signIn();
+
+        $response = $this->get(route('roles.edit', $this->role));
+        $response->assertForbidden();
+
+        $response = $this->put(route('roles.update', $this->role), []);
+        $response->assertForbidden();
+    }
+
+    /** @test **/
+    public function guestCannotUpdateRole()
+    {
+        $response = $this->get(route('roles.edit', $this->role));
+        $response->assertRedirect(route('login'));
+
+        $response = $this->put(route('roles.update', $this->role), []);
+        $response->assertRedirect(route('login'));
+    }
+
+    /** @test **/
     public function lockedRoleCannotBeUpdated()
     {
         $role = factory(Role::class)->states('locked')->create();
 
         $this->signInWithPermission('role.update');
 
-        $response = $this->putJson(route('roles.update', $role), [
+        $response = $this->put(route('roles.update', $role), [
             'display_name' => 'Foo',
         ]);
 
         $response->assertForbidden();
 
         $this->assertDatabaseHas('roles', [
-            'name' => $role->name,
-            'display_name' => $role->display_name,
+            'id' => $role->id,
+            'locked' => true,
         ]);
     }
 
@@ -118,7 +113,7 @@ class UpdateRoleTest extends TestCase
             'users' => [],
         ];
 
-        $this->putJson(route('roles.update', $this->role), $data);
+        $this->put(route('roles.update', $this->role), $data);
 
         $role = $this->role->refresh();
 
@@ -137,14 +132,14 @@ class UpdateRoleTest extends TestCase
 
         $this->assertTrue($user->hasRole($this->role->name));
 
-        $response = $this->putJson(route('roles.update', $this->role), [
+        $response = $this->put(route('roles.update', $this->role), [
             'id' => $this->role->id,
             'name' => $this->role->name,
             'display_name' => $this->role->display_name,
             'users' => [],
         ]);
 
-        $response->assertSuccessful();
+        $this->followRedirects($response)->assertSuccessful();
 
         $this->assertFalse($user->refresh()->hasRole($this->role->name));
     }
@@ -158,15 +153,27 @@ class UpdateRoleTest extends TestCase
 
         $this->assertFalse($user->hasRole($this->role->name));
 
-        $response = $this->putJson(route('roles.update', $this->role), [
+        $response = $this->put(route('roles.update', $this->role), [
             'id' => $this->role->id,
             'name' => $this->role->name,
             'display_name' => $this->role->display_name,
             'users' => [$user->id],
         ]);
 
-        $response->assertSuccessful();
+        $this->followRedirects($response)->assertSuccessful();
 
         $this->assertTrue($user->hasRole($this->role->name));
+    }
+
+    /** @test **/
+    public function activityIsLoggedWhenRoleIsUpdated()
+    {
+        $this->role->update([
+            'display_name' => 'Foo',
+        ]);
+
+        $this->assertDatabaseHas('activity_log', [
+            'description' => $this->role->display_name . ' role was updated',
+        ]);
     }
 }

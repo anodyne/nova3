@@ -4,6 +4,7 @@ namespace Nova\Roles\Models;
 
 use Nova\Roles\Events;
 use Laratrust\Models\LaratrustRole;
+use Nova\Roles\Models\Builders\RoleBuilder;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Role extends LaratrustRole
@@ -31,6 +32,18 @@ class Role extends LaratrustRole
      */
     public function getDescriptionForEvent(string $eventName): string
     {
-        return ":subject.title role was {$eventName}";
+        return ":subject.display_name role was {$eventName}";
+    }
+
+    /**
+     * Use a custom Eloquent builder.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     *
+     * @return RoleBuilder
+     */
+    public function newEloquentBuilder($query): RoleBuilder
+    {
+        return new RoleBuilder($query);
     }
 }

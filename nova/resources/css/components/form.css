@@ -22,7 +22,9 @@
     }
 
     > a.field-addon,
-    > .field-addon a {
+    > button.field-addon,
+    > .field-addon a,
+    > .field-addon button {
         @apply pointer-events-auto text-gray-500;
 
         &:hover {
@@ -41,7 +43,7 @@
 }
 
 .field-label {
-    @apply flex items-center justify-between mb-1 ml-2px text-sm text-gray-700 font-semibold;
+    @apply flex items-center justify-between mb-1 text-sm text-gray-700 font-semibold;
 }
 
 .field-help,

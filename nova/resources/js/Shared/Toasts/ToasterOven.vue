@@ -11,7 +11,7 @@
 
 <script>
 import has from 'lodash/has';
-import Toast from './Toast';
+import Toast from './Toast.vue';
 
 export default {
     name: 'ToasterOven',
@@ -24,14 +24,12 @@ export default {
         };
     },
 
-    mounted () {
-        if (window.novaToast && window.novaToast.length > 0) {
-            this.setData(window.novaToast);
+    watch: {
+        '$page.toast': function () {
+            if (this.$page.toast.message) {
+                this.toasts.push(this.$page.toast);
+            }
         }
-
-        this.$toast.emitter.$on('nova.toast', (toast) => {
-            this.setData(toast);
-        });
     },
 
     methods: {

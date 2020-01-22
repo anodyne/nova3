@@ -7,8 +7,7 @@
         "watch-poll": "$npm_execpath run watch --watch-poll",
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js --scripts-prepend-node-path",
         "prod": "$npm_execpath run production --scripts-prepend-node-path",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --scripts-prepend-node-path",
-        "svg": "vsvg -s ./nova/resources/svg/feather -t ./nova/resources/js/components/icons/icons-feather --svgo=./svgo.js"
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --scripts-prepend-node-path"
     },
     "dependencies": {
         "@babel/plugin-syntax-dynamic-import": "^7.2.0",

@@ -3,7 +3,7 @@
 namespace Nova\Roles\Http\Resources;
 
 use Nova\Roles\Models\Role;
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Nova\Foundation\Http\Resources\ResourceCollection;
 
 class RoleCollection extends ResourceCollection
 {
@@ -11,11 +11,10 @@ class RoleCollection extends ResourceCollection
 
     public function toArray($request)
     {
-        return [
+        return $this->paginateResources([
             'can' => [
                 'create' => gate()->allows('create', Role::class),
             ],
-            'data' => $this->collection,
-        ];
+        ]);
     }
 }

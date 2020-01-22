@@ -4,8 +4,15 @@ namespace Nova\Users\Models;
 
 use Nova\Users\Events;
 use Nova\Users\UsersCollection;
+use Spatie\ModelStates\HasStates;
+use Nova\Users\Models\States\Active;
+use Nova\Users\Models\States\Pending;
+use Nova\Users\Models\States\Archived;
+use Nova\Users\Models\States\Inactive;
+use Nova\Users\Models\States\UserState;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
+use Nova\Users\Models\Builders\UserBuilder;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -17,11 +24,13 @@ class User extends Authenticatable implements MustVerifyEmail
     use SoftDeletes;
     use LogsActivity;
     use LaratrustUserTrait;
+    use HasStates;
 
     protected static $logFillable = true;
 
     protected $fillable = [
         'name', 'email', 'password', 'last_login', 'force_password_reset',
+        'state',
     ];
 
     protected $hidden = [
@@ -88,5 +97,33 @@ class User extends Authenticatable implements MustVerifyEmail
     public function newCollection(array $models = [])
     {
         return new UsersCollection($models);
+    }
+
+    /**
+     * Use the customized Eloquent builder when working with users.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     *
+     * @return UserBuilder
+     */
+    public function newEloquentBuilder($query)
+    {
+        return new UserBuilder($query);
+    }
+
+    protected function registerStates(): void
+    {
+        $this->addState('state', UserState::class)
+            ->allowTransitions([
+                [Pending::class, Active::class],
+                [Pending::class, Inactive::class],
+
+                [Active::class, Inactive::class],
+                [Active::class, Archived::class],
+
+                [Inactive::class, Archived::class],
+                [Inactive::class, Active::class],
+            ])
+            ->default(Pending::class);
     }
 }

@@ -20,8 +20,8 @@ class UserData extends DataTransferObject
     public static function fromRequest(Request $request): self
     {
         return new self([
-            'name' => $request->get('name'),
-            'email' => $request->get('email'),
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
         ]);
     }
 }

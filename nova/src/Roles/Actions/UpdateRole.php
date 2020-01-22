@@ -2,22 +2,27 @@
 
 namespace Nova\Roles\Actions;
 
+use Nova\Foundation\Action;
 use Nova\Roles\Models\Role;
 use Nova\Roles\Models\Permission;
 use Nova\Roles\DataTransferObjects\RoleData;
 
-class UpdateRole
+class UpdateRole extends Action
 {
+    public $errorMessage = 'There was a problem updating the role.';
+
     public function execute(Role $role, RoleData $data): Role
     {
-        $role->update($data->except('permissions')->toArray());
+        return $this->call(function () use ($role, $data) {
+            $role->update($data->except('permissions')->toArray());
 
-        $permissions = collect($data->permissions)->map(function ($permission) {
-            return Permission::firstOrCreate(['name' => $permission]);
+            $permissions = collect($data->permissions)->map(function ($permission) {
+                return Permission::firstOrCreate(['name' => $permission]);
+            });
+
+            $role->syncPermissions($permissions);
+
+            return $role->refresh();
         });
-
-        $role->syncPermissions($permissions);
-
-        return $role->refresh();
     }
 }

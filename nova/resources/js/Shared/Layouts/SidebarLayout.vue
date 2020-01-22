@@ -130,12 +130,12 @@
 
                         <template #dropdown>
                             <a href="#" class="dropdown-link">
-                                <icon name="user" class="dropdown-item-icon"></icon>
+                                <icon name="user" class="dropdown-icon"></icon>
                                 My Account
                             </a>
 
                             <a href="#" class="dropdown-link">
-                                <icon name="users" class="dropdown-item-icon"></icon>
+                                <icon name="users" class="dropdown-icon"></icon>
                                 My Characters
                             </a>
 
@@ -146,7 +146,7 @@
                                 class="dropdown-link"
                                 onclick="event.preventDefault();document.getElementById('logout-form').submit();"
                             >
-                                <icon name="sign-out" class="dropdown-item-icon"></icon>
+                                <icon name="sign-out" class="dropdown-icon"></icon>
                                 Log out
                             </a>
                             <form

@@ -96,7 +96,7 @@ export default {
         },
 
         isActionable () {
-            return this.actionText !== '';
+            return this.actionText !== null && this.actionText !== '';
         },
 
         isError () {

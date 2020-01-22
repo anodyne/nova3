@@ -4,7 +4,7 @@ namespace Nova\Roles\Http\Requests;
 
 use Nova\Foundation\Http\Requests\ValidatesRequest;
 
-class Update extends ValidatesRequest
+class ValidateUpdateRole extends ValidatesRequest
 {
     public function rules()
     {

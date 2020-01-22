@@ -3,7 +3,7 @@
 namespace Nova\Users\Http\Resources;
 
 use Nova\Users\Models\User;
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Nova\Foundation\Http\Resources\ResourceCollection;
 
 class UserCollection extends ResourceCollection
 {
@@ -11,11 +11,10 @@ class UserCollection extends ResourceCollection
 
     public function toArray($request)
     {
-        return [
+        return $this->paginateResources([
             'can' => [
                 'create' => gate()->allows('create', User::class),
             ],
-            'data' => $this->collection,
-        ];
+        ]);
     }
 }

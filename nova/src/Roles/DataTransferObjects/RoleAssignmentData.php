@@ -22,8 +22,8 @@ class RoleAssignmentData extends DataTransferObject
     public static function fromRequest(Request $request): self
     {
         return new self([
-            'role' => Role::find($request->get('id')),
-            'users' => User::whereIn('id', $request->get('users'))->get(),
+            'role' => Role::find($request->input('id')),
+            'users' => User::whereIn('id', $request->input('users'))->get(),
         ]);
     }
 }
