@@ -27,6 +27,11 @@ class ManageRolesTest extends TestCase
         $response = $this->get(route('roles.index'));
 
         $response->assertSuccessful();
+
+        $response->assertHasProp('roles.can');
+        $response->assertHasProp('roles.data');
+        $response->assertHasProp('roles.links');
+
         $response->assertPropCount('roles.data', 3);
         $response->assertPropValue('roles.data', function ($roles) {
             $this->assertEquals(
