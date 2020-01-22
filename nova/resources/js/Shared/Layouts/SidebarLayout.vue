@@ -45,7 +45,7 @@
 
                         <inertia-link
                             :href="route('roles.index')"
-                            class="flex items-center py-1 text-sm transition-colors duration-100"
+                            class="flex items-center py-1 text-sm tracking-wide transition-colors duration-100"
                             :class="navStyle('roles.*')"
                         >
                             Roles
@@ -53,7 +53,7 @@
 
                         <inertia-link
                             :href="route('themes.index')"
-                            class="flex items-center py-1 text-sm transition-colors duration-100"
+                            class="flex items-center py-1 text-sm tracking-wide transition-colors duration-100"
                             :class="navStyle('themes.*')"
                         >
                             Themes
@@ -61,7 +61,7 @@
 
                         <inertia-link
                             :href="route('users.index')"
-                            class="flex items-center py-1 text-sm transition-colors duration-100"
+                            class="flex items-center py-1 text-sm tracking-wide transition-colors duration-100"
                             :class="navStyle('users.*')"
                         >
                             Users
