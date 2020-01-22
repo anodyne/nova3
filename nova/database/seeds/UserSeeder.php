@@ -2,6 +2,7 @@
 
 use Nova\Users\Models\User;
 use Illuminate\Database\Seeder;
+use Nova\Users\Models\States\Active;
 
 class UserSeeder extends Seeder
 {
@@ -18,7 +19,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@admin.com',
         ]);
 
-        $admin->attachRole('admin');
+        $admin->transitionTo(Active::class)->attachRole('admin');
 
         $user = factory(User::class)
             ->states('unverified-email')
@@ -26,7 +27,9 @@ class UserSeeder extends Seeder
                 'email' => 'user@user.com',
             ]);
 
-        $user->attachRole('user');
+        $user->transitionTo(Active::class)->attachRole('user');
+
+        factory(User::class)->times(50)->create()->each->attachRole('user');
 
         activity()->enableLogging();
     }

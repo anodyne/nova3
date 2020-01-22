@@ -13,8 +13,7 @@ this.$toast
 ```
 
 ```php
-toast()
-    ->withMessage('Hello, world! This is an toast message.')
+toast()->withMessage('Hello, world! This is an toast message.')
     ->make();
 ```
 
@@ -27,8 +26,7 @@ this.$toast
 ```
 
 ```php
-toast()
-    ->withMessage('Hello, world! This is an toast message.')
+toast()->withMessage('Hello, world! This is an toast message.')
     ->success();
 ```
 
@@ -41,8 +39,7 @@ this.$toast
 ```
 
 ```php
-toast()
-    ->withMessage('Hello, world! This is an toast message.')
+toast()->withMessage('Hello, world! This is an toast message.')
     ->error();
 ```
 
@@ -88,6 +85,26 @@ this.$toast
 ```
 
 **Note:** Actionable toasts can specify a callback function (JavaScript only) or a link.
+
+## Redirecting with toasts
+
+When redirecting, you can specify an additional `withToast` or `withErrorToast` method to setup a toast message for the next page.
+
+```php
+return redirect()
+    ->route('roles.index')
+    ->withToast('Hello, world! This is an toast message.');
+
+return redirect()
+    ->route('roles.index')
+    ->withErrorToast('Hello, world! This is an toast message.');
+
+return back()
+    ->withToast('Hello, world! This is an toast message.');
+
+return back()
+    ->withErrorToast('Hello, world! This is an toast message.');
+```
 
 ## Customizing Toasts
 

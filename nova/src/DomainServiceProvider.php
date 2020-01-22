@@ -4,6 +4,7 @@ namespace Nova;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
@@ -17,6 +18,10 @@ abstract class DomainServiceProvider extends ServiceProvider
 
     protected $policies = [];
 
+    protected $responsables = [];
+
+    protected $routes = [];
+
     /**
      * Bootstrap any application services.
      */
@@ -28,6 +33,8 @@ abstract class DomainServiceProvider extends ServiceProvider
 
         $this->registerPolicies();
 
+        $this->registerRoutes();
+
         $this->bootActions();
     }
 
@@ -37,6 +44,8 @@ abstract class DomainServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerMorphMaps();
+
+        $this->registerResponsables();
 
         $this->registerActions();
     }
@@ -106,6 +115,38 @@ abstract class DomainServiceProvider extends ServiceProvider
     {
         collect($this->policies)->each(function ($policy, $model) {
             Gate::policy($model, $policy);
+        });
+    }
+
+    /**
+     * Register any Responsable classes.
+     *
+     * @return void
+     */
+    private function registerResponsables()
+    {
+        collect($this->responsables)->each(function ($responsable) {
+            $this->app->singleton($responsable, function ($app) use ($responsable) {
+                $page = optional($this->app['request']->route())->findPageFromRoute();
+
+                return new $responsable($page, $app);
+            });
+        });
+    }
+
+    /**
+     * Register any protected routes.
+     *
+     * @return void
+     */
+    private function registerRoutes()
+    {
+        Route::middleware('web')->group(function () {
+            collect($this->routes)->each(function ($route, $uri) {
+                $verb = $route['verb'];
+                unset($route['verb']);
+                Route::{$verb}($uri, $route);
+            });
         });
     }
 }

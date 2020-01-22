@@ -5,6 +5,7 @@ namespace Nova\Users\Http\Controllers;
 use Nova\Users\Events;
 use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
+use Illuminate\Http\Request;
 use Nova\Users\Http\Requests;
 use Nova\Users\Http\Responses;
 use Nova\Users\Actions\CreateUser;
@@ -26,19 +27,22 @@ class UserController extends Controller
         $this->authorizeResource(User::class);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::get();
+        $users = User::orderBy('name')
+            ->filter($request->only('search'))
+            ->paginate();
 
-        return app(Responses\Index::class)->with([
+        return resolve(Responses\Index::class)->with([
+            'filters' => $request->all('search'),
             'users' => new UserCollection($users),
-            'pendingUsers' => $users->pending(),
+            'pendingUsers' => User::wherePending()->get(),
         ]);
     }
 
     public function create()
     {
-        return app(Responses\Create::class)->with([
+        return resolve(Responses\Create::class)->with([
             'roles' => Role::orderBy('title')->get(),
         ]);
     }
@@ -54,7 +58,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return app(Responses\Edit::class)->with([
+        return resolve(Responses\Edit::class)->with([
             'roles' => Role::orderBy('title')->get(),
             'user' => new UserResource($user),
         ]);

@@ -1,5 +1,57 @@
+.dropdown-wrapper {
+    @apply relative;
+}
+
+.dropdown-overlay {
+    @apply fixed inset-0;
+}
+
+.dropdown-trigger {
+    @apply relative flex items-center cursor-pointer select-none text-gray-600;
+
+    &:hover {
+        @apply text-gray-700;
+    }
+
+    &:focus {
+        @apply outline-none;
+    }
+}
+
+.dropdown-panel {
+    @apply absolute flex flex-col min-w-40 rounded bg-gray-900 z-9999 shadow-md mt-2 overflow-hidden;
+
+    &.dropdown-bottom-center {
+        @apply left-0 origin-top;
+    }
+
+    &.dropdown-bottom-end {
+        @apply right-0 origin-top-right;
+    }
+
+    &.dropdown-bottom-start {
+        @apply left-0 origin-top-left;
+    }
+
+    &.dropdown-top-center {
+        @apply left-0 origin-bottom;
+    }
+
+    &.dropdown-top-end {
+        @apply right-0 origin-bottom-right;
+    }
+
+    &.dropdown-top-start {
+        @apply left-0 origin-bottom-left;
+    }
+}
+
+.dropdown-text {
+    @apply flex items-center px-4 py-2 text-gray-300 text-sm;
+}
+
 .dropdown-link {
-    @apply flex items-center px-4 py-2 text-gray-300 cursor-pointer text-sm transition-all transition-fast;
+    @apply flex items-center px-4 py-2 text-gray-300 text-sm cursor-pointer transition-all transition-fast;
 
     &:hover {
         @apply bg-gray-800 text-white;
@@ -14,6 +66,10 @@
     }
 }
 
-.dropdown-item-icon {
+.dropdown-icon {
     @apply h-5 w-5 mr-2;
+}
+
+.dropdown-divider {
+    @apply border-t border-gray-700 h-px;
 }

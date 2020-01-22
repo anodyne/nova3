@@ -5,7 +5,7 @@
                 v-if="users.can.create"
                 slot="controls"
                 :href="route('users.create')"
-                class="button is-primary"
+                class="button button-primary"
             >
                 Add User
             </inertia-link>
@@ -13,64 +13,50 @@
 
         <section>
             <div class="mb-6 w-1/3">
-                <div class="flex items-center py-1 px-2 rounded-full bg-white border-2 border-transparent text-gray-500 focus-within:bg-white focus-within:border-gray-400 focus-within:text-gray-600">
-                    <icon name="search" class="mr-2"></icon>
+                <search-filter
+                    v-model="form.search"
+                    placeholder="Find a user..."
+                    @reset="form.search = ''"
+                ></search-filter>
+            </div>
 
-                    <input
-                        v-model="search"
-                        type="text"
-                        placeholder="Find a user..."
-                        class="w-full appearance-none bg-transparent text-gray-800 focus:outline-none"
-                    >
+            <div
+                v-for="user in users.data"
+                :key="user.id"
+                class="panel flex items-center justify-between"
+            >
+                <div>
+                    <user-avatar :user="user" size="sm"></user-avatar>
+                </div>
 
-                    <a
-                        v-show="search != ''"
-                        role="button"
-                        class="ml-2 text-gray-500 hover:text-danger-500"
-                        @click="search = ''"
-                    >
-                        <icon name="close"></icon>
-                    </a>
+                <div>
+                    <dropdown placement="bottom-end">
+                        <icon name="more-horizontal" class="h-6 w-6"></icon>
+
+                        <template #dropdown="{ toggle }">
+                            <inertia-link
+                                v-if="user.can.update"
+                                :href="route('users.edit', { user })"
+                                class="dropdown-link"
+                            >
+                                <icon name="edit" class="dropdown-icon"></icon>
+                                Edit
+                            </inertia-link>
+                            <a
+                                v-if="user.can.delete"
+                                role="button"
+                                class="dropdown-link-danger"
+                                @click="confirmRemove(user, toggle)"
+                            >
+                                <icon name="delete" class="dropdown-icon"></icon>
+                                Delete
+                            </a>
+                        </template>
+                    </dropdown>
                 </div>
             </div>
 
-            <transition-group leave-active-class="animated fadeOut">
-                <div
-                    v-for="user in filteredUsers"
-                    :key="user.id"
-                    class="panel flex items-center justify-between"
-                >
-                    <div>
-                        <user-avatar :user="user" size="sm"></user-avatar>
-                    </div>
-
-                    <div>
-                        <dropdown placement="bottom-end">
-                            <icon name="more-horizontal" class="h-6 w-6"></icon>
-
-                            <template #dropdown="{ dropdownProps }">
-                                <inertia-link
-                                    v-if="user.can.update"
-                                    :href="route('users.edit', { user })"
-                                    class="dropdown-link"
-                                >
-                                    <icon name="edit" class="dropdown-item-icon"></icon>
-                                    Edit
-                                </inertia-link>
-                                <a
-                                    v-if="user.can.delete"
-                                    role="button"
-                                    class="dropdown-link-danger"
-                                    @click="confirmRemove(user, dropdownProps)"
-                                >
-                                    <icon name="delete" class="dropdown-item-icon"></icon>
-                                    Delete
-                                </a>
-                            </template>
-                        </dropdown>
-                    </div>
-                </div>
-            </transition-group>
+            <pagination :links="users.links"></pagination>
         </section>
 
         <modal
@@ -99,16 +85,23 @@
 
 <script>
 import findIndex from 'lodash/findIndex';
-import Form from '@/Utils/Form';
+import pickBy from 'lodash/pickBy';
+import debounce from 'lodash/debounce';
 import UserAvatar from '@/Shared/Avatars/UserAvatar';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
+import SearchFilter from '@/Shared/SearchFilter';
+import Pagination from '@/Shared/Pagination';
 
 export default {
-    components: { UserAvatar },
+    components: { UserAvatar, SearchFilter, Pagination },
 
     mixins: [ModalHelpers],
 
     props: {
+        filters: {
+            type: Object,
+            required: true
+        },
         pendingUsers: {
             type: Array,
             required: true
@@ -121,27 +114,32 @@ export default {
 
     data () {
         return {
-            allUsers: this.users.data,
-            form: new Form(),
-            search: ''
+            form: {
+                search: this.filters.search
+            }
         };
     },
 
-    computed: {
-        filteredUsers () {
-            return this.allUsers.filter((user) => {
-                const searchRegex = new RegExp(this.search, 'i');
-
-                return searchRegex.test(user.name) || searchRegex.test(user.email);
-            });
+    watch: {
+        form: {
+            handler: 'refreshUsersList',
+            deep: true
         }
     },
 
     methods: {
-        confirmRemove (user, { toggle }) {
+        confirmRemove (user, toggle) {
             toggle();
             this.showModal(user);
         },
+
+        refreshUsersList: debounce(function () {
+            const query = pickBy(this.form);
+
+            this.$inertia.replace(
+                this.route('users.index', Object.keys(query).length ? query : { remember: 'forget' })
+            );
+        }, 250),
 
         remove () {
             this.form.delete({

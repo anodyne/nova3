@@ -5,7 +5,7 @@
                 v-if="roles.can.create"
                 slot="controls"
                 :href="route('roles.create')"
-                class="button is-primary"
+                class="button button-primary"
             >
                 Add Role
             </inertia-link>
@@ -13,81 +13,71 @@
 
         <section>
             <div class="mb-6 w-1/3">
-                <div class="flex items-center py-1 px-2 rounded-full bg-white border-2 border-transparent text-gray-500 focus-within:bg-white focus-within:border-gray-400 focus-within:text-gray-600">
-                    <icon name="search" class="mr-2"></icon>
+                <search-filter
+                    v-model="form.search"
+                    placeholder="Find a role..."
+                    @reset="form.search = ''"
+                ></search-filter>
+            </div>
 
-                    <input
-                        v-model="search"
-                        type="text"
-                        placeholder="Find a role..."
-                        class="w-full appearance-none bg-transparent text-gray-800 focus:outline-none"
-                    >
+            <div
+                v-for="role in roles.data"
+                :key="role.id"
+                class="panel flex items-center justify-between"
+            >
+                <div>
+                    {{ role.display_name }}
+                </div>
 
-                    <a
-                        v-show="search != ''"
-                        role="button"
-                        class="ml-2 text-gray-500 hover:text-danger-500"
-                        @click="search = ''"
-                    >
-                        <icon name="close"></icon>
-                    </a>
+                <div>
+                    <dropdown placement="bottom-end">
+                        <icon name="more-horizontal" class="h-6 w-6"></icon>
+
+                        <template #dropdown="{ toggle }">
+                            <inertia-link
+                                v-if="role.can.view"
+                                :href="route('roles.show', { role })"
+                                class="dropdown-link"
+                            >
+                                <icon name="eye" class="dropdown-icon"></icon>
+                                View
+                            </inertia-link>
+                            <inertia-link
+                                v-if="role.can.update"
+                                :href="route('roles.edit', { role })"
+                                class="dropdown-link"
+                            >
+                                <icon name="edit" class="dropdown-icon"></icon>
+                                Edit
+                            </inertia-link>
+                            <button
+                                v-if="role.can.create && role.can.update"
+                                class="dropdown-link"
+                                @click.prevent="duplicate(role)"
+                            >
+                                <icon name="copy" class="dropdown-icon"></icon>
+                                Duplicate
+                            </button>
+                            <button
+                                v-if="role.can.delete"
+                                class="dropdown-link-danger"
+                                @click.prevent="confirmRemove(role, toggle)"
+                            >
+                                <icon name="delete" class="dropdown-icon"></icon>
+                                Delete
+                            </button>
+                            <div v-if="role.locked">
+                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-text italic">
+                                    This role is locked and cannot be duplicated, edited, or deleted.
+                                </div>
+                            </div>
+                        </template>
+                    </dropdown>
                 </div>
             </div>
 
-            <transition-group leave-active-class="animated fadeOut">
-                <div
-                    v-for="role in filteredRoles"
-                    :key="role.id"
-                    class="panel flex items-center justify-between"
-                >
-                    <div>
-                        {{ role.display_name }}
-                    </div>
-
-                    <div>
-                        <icon
-                            v-if="role.locked"
-                            v-tippy
-                            name="lock"
-                            class="text-gray-600"
-                            title="This role is locked and cannot be duplicated, edited, or deleted."
-                        ></icon>
-
-                        <dropdown v-else placement="bottom-end">
-                            <icon name="more-horizontal" class="h-6 w-6"></icon>
-
-                            <template #dropdown="{ dropdownProps }">
-                                <inertia-link
-                                    v-if="role.can.update"
-                                    :href="route('roles.edit', { role })"
-                                    class="dropdown-link"
-                                >
-                                    <icon name="edit" class="dropdown-item-icon"></icon>
-                                    Edit
-                                </inertia-link>
-                                <a
-                                    v-if="role.can.create"
-                                    role="button"
-                                    class="dropdown-link"
-                                    @click="duplicate(role)"
-                                >
-                                    <icon name="copy" class="dropdown-item-icon"></icon>
-                                    Duplicate
-                                </a>
-                                <a
-                                    v-if="role.can.delete"
-                                    role="button"
-                                    class="dropdown-link-danger"
-                                    @click="confirmRemove(role, dropdownProps)"
-                                >
-                                    <icon name="delete" class="dropdown-item-icon"></icon>
-                                    Delete
-                                </a>
-                            </template>
-                        </dropdown>
-                    </div>
-                </div>
-            </transition-group>
+            <pagination :links="roles.links"></pagination>
         </section>
 
         <modal
@@ -95,16 +85,16 @@
             title="Delete Role"
             @close="hideModal"
         >
-            Are you sure you want to delete the <strong>{{ deletingItem.display_name }}</strong> role? This change is permanent and cannot be undone. Any users with this role will have any permissions defined by this role removed from their permissions.
+            Are you sure you want to delete the <strong>{{ deletingItem.display_name }}</strong> role? This change is permanent and cannot be undone. Any users who have been assigned the role will have all permissions defined by this role removed from their personal permissions.
 
             <template #footer>
-                <button class="button is-secondary" @click="hideModal">
+                <button class="button" @click="hideModal">
                     Cancel
                 </button>
 
                 <button
                     type="button"
-                    class="button is-danger-vivid ml-4"
+                    class="button button-danger ml-4"
                     @click="remove"
                 >
                     Delete Role
@@ -115,14 +105,22 @@
 </template>
 
 <script>
-import findIndex from 'lodash/findIndex';
-import Form from '@/Utils/Form';
+import pickBy from 'lodash/pickBy';
+import debounce from 'lodash/debounce';
+import SearchFilter from '@/Shared/SearchFilter';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
+import Pagination from '@/Shared/Pagination';
 
 export default {
+    components: { Pagination, SearchFilter },
+
     mixins: [ModalHelpers],
 
     props: {
+        filters: {
+            type: Object,
+            required: true
+        },
         roles: {
             type: Object,
             required: true
@@ -131,54 +129,43 @@ export default {
 
     data () {
         return {
-            availableRoles: this.roles.data,
-            form: new Form(),
-            search: ''
+            form: {
+                search: this.filters.search
+            }
         };
     },
 
-    computed: {
-        filteredRoles () {
-            return this.availableRoles.filter((role) => {
-                const searchRegex = new RegExp(this.search, 'i');
-
-                return searchRegex.test(role.name) || searchRegex.test(role.display_name);
-            });
+    watch: {
+        form: {
+            handler: 'refreshRolesList',
+            deep: true
         }
     },
 
     methods: {
-        confirmRemove (role, { toggle }) {
+        confirmRemove (role, toggle) {
             toggle();
             this.showModal(role);
         },
 
         duplicate (role) {
-            this.form.post({
-                url: this.route('roles.duplicate', { originalRole: role }),
-                then: (data) => {
-                    this.$toast.message(`${role.display_name} role was duplicated.`).success();
-
-                    this.availableRoles.push(data);
-
-                    this.$inertia.replace(this.route('roles.edit', { role: data }));
-                }
-            });
+            this.$inertia.post(
+                this.route('roles.duplicate', { originalRole: role })
+            );
         },
 
+        refreshRolesList: debounce(function () {
+            const query = pickBy(this.form);
+
+            this.$inertia.replace(
+                this.route('roles.index', Object.keys(query).length ? query : { remember: 'forget' })
+            );
+        }, 250),
+
         remove () {
-            this.form.delete({
-                url: this.route('roles.destroy', { role: this.deletingItem }),
-                then: (data) => {
-                    const index = findIndex(this.availableRoles, { id: data.id });
-
-                    this.$toast
-                        .message(`${data.display_name} role was removed.`)
-                        .success();
-
-                    this.availableRoles.splice(index, 1);
-                }
-            });
+            this.$inertia.delete(
+                this.route('roles.destroy', { role: this.deletingItem })
+            );
         }
     }
 };

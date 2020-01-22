@@ -7,6 +7,7 @@ use Nova\DomainServiceProvider;
 use Nova\Users\Policies\UserPolicy;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Listeners\GeneratePassword;
+use Nova\Users\Http\Controllers\SearchUsersController;
 
 class UserServiceProvider extends DomainServiceProvider
 {
@@ -22,5 +23,13 @@ class UserServiceProvider extends DomainServiceProvider
 
     protected $policies = [
         User::class => UserPolicy::class,
+    ];
+
+    protected $routes = [
+        'users/search' => [
+            'verb' => 'get',
+            'uses' => SearchUsersController::class,
+            'as' => 'users.search',
+        ],
     ];
 }

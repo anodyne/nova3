@@ -81,16 +81,18 @@ trait ManagesTestUsers
     /**
      * Sign in to the app with a specific permission.
      *
-     * @param  string  $permission
+     * @param  string|array  $permissions
      * @param  null|User  $user
      *
      * @return User
      */
-    protected function signInWithPermission($permission, User $user = null): User
+    protected function signInWithPermission($permissions, User $user = null): User
     {
         $user = $user ?? $this->createUser();
 
-        $user->attachPermission($permission);
+        $permissions = (is_string($permissions)) ? [$permissions] : $permissions;
+
+        $user->attachPermissions($permissions);
 
         $this->actingAs($user);
 

@@ -32,7 +32,7 @@ class RolePolicy
      */
     public function view(User $user, Role $role)
     {
-        return $user->can('role.*');
+        return $user->can('role.view');
     }
 
     /**

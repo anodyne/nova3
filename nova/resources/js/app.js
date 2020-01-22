@@ -9,7 +9,7 @@ import './plugins';
 
 const app = document.getElementById('app');
 
-import ToasterOven from '@/Shared/Toasts/ToasterOven';
+import MasterInertia from '@/Shared/MasterInertia';
 import SidebarLayout from '@/Shared/Layouts/SidebarLayout';
 
 Vue.component('sidebar-layout', SidebarLayout);
@@ -24,14 +24,13 @@ new Vue({
     },
 
     render (h) {
-        return h('div', [
+        return h(MasterInertia, [
             h(InertiaApp, {
                 props: {
                     initialPage: JSON.parse(app.dataset.page),
                     resolveComponent: name => import(`@/Pages/${name}`).then(module => module.default)
                 }
-            }),
-            h(ToasterOven)
+            })
         ]);
     }
 }).$mount(app);

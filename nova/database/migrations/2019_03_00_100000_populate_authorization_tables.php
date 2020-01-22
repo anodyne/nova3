@@ -29,7 +29,11 @@ class PopulateAuthorizationTables extends Migration
     protected function assignPermissionsToRoles()
     {
         $permissions = [
-            'admin' => ['role.create', 'role.delete', 'role.update', 'theme.create', 'theme.delete', 'theme.update', 'user.create', 'user.delete', 'user.update'],
+            'admin' => [
+                'role.create', 'role.delete', 'role.update', 'role.view',
+                'theme.create', 'theme.delete', 'theme.update', 'theme.view',
+                'user.create', 'user.delete', 'user.update', 'user.view',
+            ],
             'user' => [],
         ];
 
@@ -48,14 +52,17 @@ class PopulateAuthorizationTables extends Migration
             ['name' => 'role.create', 'display_name' => 'Create role'],
             ['name' => 'role.delete', 'display_name' => 'Delete role'],
             ['name' => 'role.update', 'display_name' => 'Update role'],
+            ['name' => 'role.view', 'display_name' => 'View role'],
 
             ['name' => 'theme.create', 'display_name' => 'Create theme'],
             ['name' => 'theme.delete', 'display_name' => 'Delete theme'],
             ['name' => 'theme.update', 'display_name' => 'Update theme'],
+            ['name' => 'theme.view', 'display_name' => 'View theme'],
 
             ['name' => 'user.create', 'display_name' => 'Create user'],
             ['name' => 'user.delete', 'display_name' => 'Delete user'],
             ['name' => 'user.update', 'display_name' => 'Update user'],
+            ['name' => 'user.view', 'display_name' => 'View user'],
         ];
 
         collect($permissions)->each(function ($permission) {

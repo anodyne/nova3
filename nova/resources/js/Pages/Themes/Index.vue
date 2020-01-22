@@ -51,22 +51,22 @@
                         <dropdown placement="bottom-end">
                             <icon name="more-horizontal" class="h-6 w-6"></icon>
 
-                            <template #dropdown="{ dropdownProps }">
+                            <template #dropdown="{ toggle }">
                                 <inertia-link
                                     v-if="themes.can.update"
                                     :href="route('themes.edit', { theme })"
                                     class="dropdown-link"
                                 >
-                                    <icon name="edit" class="dropdown-item-icon"></icon>
+                                    <icon name="edit" class="dropdown-icon"></icon>
                                     Edit
                                 </inertia-link>
                                 <a
                                     v-if="themes.can.delete"
                                     role="button"
                                     class="dropdown-link-danger"
-                                    @click="confirmRemove(theme, dropdownProps)"
+                                    @click="confirmRemove(theme, toggle)"
                                 >
-                                    <icon name="delete" class="dropdown-item-icon"></icon>
+                                    <icon name="delete" class="dropdown-icon"></icon>
                                     Delete
                                 </a>
                             </template>
@@ -141,7 +141,7 @@ export default {
     },
 
     methods: {
-        confirmRemove (role, { toggle }) {
+        confirmRemove (role, toggle) {
             toggle();
             this.showModal(role);
         },

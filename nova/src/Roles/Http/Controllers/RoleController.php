@@ -3,16 +3,19 @@
 namespace Nova\Roles\Http\Controllers;
 
 use Nova\Roles\Models\Role;
-use Nova\Users\Models\User;
-use Nova\Roles\Http\Requests;
-use Nova\Roles\Http\Responses;
-use Nova\Roles\Models\Permission;
+use Illuminate\Http\Request;
 use Nova\Roles\Actions\DeleteRole;
 use Nova\Roles\Actions\CreateRoleManager;
 use Nova\Roles\Actions\UpdateRoleManager;
 use Nova\Roles\Http\Resources\RoleResource;
 use Nova\Roles\Http\Resources\RoleCollection;
+use Nova\Roles\Http\Requests\ValidateStoreRole;
+use Nova\Roles\Http\Responses\EditRoleResponse;
+use Nova\Roles\Http\Responses\ViewRoleResponse;
 use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Roles\Http\Requests\ValidateUpdateRole;
+use Nova\Roles\Http\Responses\RoleIndexResponse;
+use Nova\Roles\Http\Responses\CreateRoleResponse;
 
 class RoleController extends Controller
 {
@@ -25,42 +28,62 @@ class RoleController extends Controller
         $this->authorizeResource(Role::class);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return app(Responses\Index::class)->with([
-            'roles' => new RoleCollection(Role::orderBy('display_name')->get()),
+        $roles = Role::orderBy('display_name')
+            ->filter($request->only('search'))
+            ->paginate();
+
+        return resolve(RoleIndexResponse::class)->with([
+            'filters' => $request->all('search'),
+            'roles' => new RoleCollection($roles),
+        ]);
+    }
+
+    public function show(Role $role)
+    {
+        return resolve(ViewRoleResponse::class)->with([
+            'role' => new RoleResource($role->load('permissions', 'users')),
         ]);
     }
 
     public function create()
     {
-        return app(Responses\Create::class)->with([
-            'permissions' => Permission::orderBy('display_name')->get(),
-            'users' => User::get(),
-        ]);
+        return resolve(CreateRoleResponse::class);
     }
 
-    public function store(Requests\Store $request, CreateRoleManager $action)
+    public function store(ValidateStoreRole $request, CreateRoleManager $action)
     {
-        return $action->execute($request);
+        $role = $action->execute($request);
+
+        return redirect()
+            ->route('roles.index')
+            ->withToast("{$role->display_name} role was created.");
     }
 
     public function edit(Role $role)
     {
-        return app(Responses\Edit::class)->with([
-            'role' => new RoleResource($role),
-            'permissions' => Permission::orderBy('display_name')->get(),
-            'users' => User::get(),
+        return resolve(EditRoleResponse::class)->with([
+            'role' => new RoleResource($role->load('users', 'permissions')),
         ]);
     }
 
-    public function update(Requests\Update $request, UpdateRoleManager $action, Role $role)
-    {
-        return $action->execute($role, $request);
+    public function update(
+        ValidateUpdateRole $request,
+        UpdateRoleManager $action,
+        Role $role
+    ) {
+        $role = $action->execute($role, $request);
+
+        return back()->withToast("{$role->display_name} was updated.");
     }
 
     public function destroy(Role $role, DeleteRole $action)
     {
-        return $action->execute($role);
+        $action->execute($role);
+
+        return redirect()
+            ->route('roles.index')
+            ->withToast("{$role->display_name} was deleted.");
     }
 }

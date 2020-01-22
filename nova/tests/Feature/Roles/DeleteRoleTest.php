@@ -4,7 +4,6 @@ namespace Tests\Feature\Roles;
 
 use Tests\TestCase;
 use Nova\Roles\Models\Role;
-use Illuminate\Http\Response;
 use Nova\Roles\Events\RoleDeleted;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -22,80 +21,89 @@ class DeleteRoleTest extends TestCase
         $this->role = factory(Role::class)->create();
     }
 
-    public function testAuthorizedUserCanDeleteRole()
+    /** @test **/
+    public function authorizedUserCanDeleteRole()
     {
         $this->signInWithPermission('role.delete');
 
-        $this->deleteJson(route('roles.destroy', $this->role))
-            ->assertSuccessful();
-    }
+        $response = $this->delete(route('roles.destroy', $this->role));
 
-    public function testUnauthorizedUserCannotDeleteRole()
-    {
-        $this->signIn();
-
-        $this->deleteJson(route('roles.destroy', $this->role))
-            ->assertStatus(Response::HTTP_FORBIDDEN);
-    }
-
-    public function testGuestCannotDeleteRole()
-    {
-        $this->deleteJson(route('roles.destroy', $this->role))
-            ->assertStatus(Response::HTTP_UNAUTHORIZED);
-    }
-
-    public function testRoleCanBeDeleted()
-    {
-        $this->signInWithPermission('role.delete');
-
-        $this->deleteJson(route('roles.destroy', $this->role))
-            ->assertSuccessful();
+        $this->followRedirects($response)->assertSuccessful();
 
         $this->assertDatabaseMissing('roles', [
             'id' => $this->role->id,
         ]);
     }
 
-    public function testLockedRoleCannotBeDeleted()
+    /** @test **/
+    public function unauthorizedUserCannotDeleteRole()
+    {
+        $this->signIn();
+
+        $response = $this->delete(route('roles.destroy', $this->role));
+
+        $response->assertForbidden();
+    }
+
+    /** @test **/
+    public function guestCannotDeleteRole()
+    {
+        $response = $this->delete(route('roles.destroy', $this->role));
+
+        $response->assertRedirect(route('login'));
+    }
+
+    /** @test **/
+    public function lockedRoleCannotBeDeleted()
     {
         $role = factory(Role::class)->states('locked')->create();
 
         $this->signInWithPermission('role.delete');
 
-        $this->deleteJson(route('roles.destroy', $role))
-            ->assertStatus(Response::HTTP_FORBIDDEN);
+        $response = $this->delete(route('roles.destroy', $role));
+
+        $response->assertForbidden();
 
         $this->assertDatabaseHas('roles', [
-            'name' => $role->name,
-            'display_name' => $role->display_name,
+            'id' => $role->id,
             'locked' => true,
         ]);
     }
 
-    public function testEventIsDispatchedWhenRoleIsDeleted()
+    /** @test **/
+    public function eventIsDispatchedWhenRoleIsDeleted()
     {
         Event::fake();
 
         $this->signInWithPermission('role.delete');
 
-        $this->deleteJson(route('roles.destroy', $this->role));
+        $this->delete(route('roles.destroy', $this->role));
 
         Event::assertDispatched(RoleDeleted::class, function ($event) {
             return $event->role->is($this->role);
         });
     }
 
-    public function testUsersWithRoleThatHasBeenDeletedHaveThatRoleRemoved()
+    /** @test **/
+    public function usersWithRoleThatHasBeenDeletedHaveThatRoleRemoved()
     {
-        $role = factory(Role::class)->create();
-
         $user = $this->createUser();
-        $user->attachRole($role);
+        $user->attachRole($this->role->name);
 
         $this->signInWithPermission('role.delete');
 
-        $this->deleteJson(route('roles.destroy', $role));
+        $this->delete(route('roles.destroy', $this->role));
 
         $this->assertCount(0, $user->roles);
+    }
+
+    /** @test **/
+    public function activityIsLoggedWhenRoleIsDeleted()
+    {
+        $this->role->delete();
+
+        $this->assertDatabaseHas('activity_log', [
+            'description' => $this->role->display_name . ' role was deleted',
+        ]);
     }
 }
