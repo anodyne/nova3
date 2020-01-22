@@ -32,7 +32,7 @@ class RoleController extends Controller
     {
         $roles = Role::orderBy('display_name')
             ->filter($request->only('search'))
-            ->get();
+            ->paginate();
 
         return resolve(RoleIndexResponse::class)->with([
             'filters' => $request->all('search'),

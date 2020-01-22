@@ -55,6 +55,8 @@
                     </dropdown>
                 </div>
             </div>
+
+            <pagination :links="users.links"></pagination>
         </section>
 
         <modal
@@ -88,9 +90,10 @@ import debounce from 'lodash/debounce';
 import UserAvatar from '@/Shared/Avatars/UserAvatar';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 import SearchFilter from '@/Shared/SearchFilter';
+import Pagination from '@/Shared/Pagination';
 
 export default {
-    components: { UserAvatar, SearchFilter },
+    components: { UserAvatar, SearchFilter, Pagination },
 
     mixins: [ModalHelpers],
 

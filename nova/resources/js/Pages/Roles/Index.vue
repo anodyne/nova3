@@ -76,6 +76,8 @@
                     </dropdown>
                 </div>
             </div>
+
+            <pagination :links="roles.links"></pagination>
         </section>
 
         <modal
@@ -107,9 +109,10 @@ import pickBy from 'lodash/pickBy';
 import debounce from 'lodash/debounce';
 import SearchFilter from '@/Shared/SearchFilter';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
+import Pagination from '@/Shared/Pagination';
 
 export default {
-    components: { SearchFilter },
+    components: { Pagination, SearchFilter },
 
     mixins: [ModalHelpers],
 

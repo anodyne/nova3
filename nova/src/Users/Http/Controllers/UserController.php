@@ -31,7 +31,7 @@ class UserController extends Controller
     {
         $users = User::orderBy('name')
             ->filter($request->only('search'))
-            ->get();
+            ->paginate();
 
         return resolve(Responses\Index::class)->with([
             'filters' => $request->all('search'),
