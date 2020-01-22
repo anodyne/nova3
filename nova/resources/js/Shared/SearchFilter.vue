@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center py-1 px-2 rounded-full bg-white border-2 border-transparent text-gray-500 focus-within:bg-white focus-within:border-gray-400 focus-within:text-gray-600">
+    <div class="flex items-center py-1 px-2 rounded-full bg-white border-2 border-transparent text-gray-500 transition-all duration-100 focus-within:bg-white focus-within:border-gray-400 focus-within:text-gray-600">
         <icon name="search" class="mr-2"></icon>
 
         <input
