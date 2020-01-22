@@ -25,9 +25,9 @@ class ThemeData extends DataTransferObject
     public static function fromRequest(Request $request): self
     {
         return new self([
-            'name' => $request->get('name'),
-            'location' => $request->get('location'),
-            'credits' => $request->get('credits'),
+            'name' => $request->input('name'),
+            'location' => $request->input('location'),
+            'credits' => $request->input('credits'),
         ]);
     }
 }
