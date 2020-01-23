@@ -2,6 +2,23 @@
     <sidebar-layout>
         <page-header title="Test Page"></page-header>
 
+        <section class="panel">
+            <avatar size="xl" url="https://api.adorable.io/avatars/285/hello@adorable.io"></avatar>
+            <avatar size="lg" url="https://api.adorable.io/avatars/285/woohoo@adorable.io"></avatar>
+            <avatar url="https://api.adorable.io/avatars/285/abc@adorable.io"></avatar>
+            <avatar title="DV"></avatar>
+            <avatar size="sm" url="https://api.adorable.io/avatars/285/mystery@adorable.io"></avatar>
+            <avatar size="xs" url="https://api.adorable.io/avatars/285/something@adorable.io"></avatar>
+        </section>
+
+        <section class="panel">
+            <avatar-group :items="avatarItems"></avatar-group>
+        </section>
+
+        <section class="panel bg-gray-700">
+            <avatar-group :items="avatarItems"></avatar-group>
+        </section>
+
         <section>
             <button
                 class="button is-primary"
@@ -61,12 +78,24 @@
 
 <script>
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
+import Avatar from '@/Shared/Avatars/Avatar';
+import AvatarGroup from '@/Shared/Avatars/AvatarGroup';
 
 export default {
+    components: { Avatar, AvatarGroup },
+
     mixins: [ModalHelpers],
 
     data () {
         return {
+            avatarItems: [
+                { url: 'https://api.adorable.io/avatars/285/abc@adorable.io', title: 'AB' },
+                { url: 'https://api.adorable.io/avatars/285/cab@adorable.io', title: 'CA' },
+                { url: 'https://api.adorable.io/avatars/285/dvs@adorable.io', title: 'DV' },
+                { url: '', title: 'LG' },
+                { url: 'https://api.adorable.io/avatars/285/aj@adorable.io', title: 'AJ' },
+                { url: 'https://api.adorable.io/avatars/285/MGJ@adorable.io', title: 'MJ' }
+            ],
             buttonLoading: false,
             toggleSwitch: true,
             toggleSwitch2: false
