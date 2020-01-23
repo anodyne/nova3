@@ -105,6 +105,7 @@ module.exports = {
         spacing: {
             ...defaultTheme.spacing,
             '2px': '2px',
+            7: '1.75rem',
             9: '2.25rem',
             11: '2.75rem',
             72: '18rem',
