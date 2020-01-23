@@ -1,8 +1,8 @@
 <template>
     <div class="layout-app-sidebar">
-        <nav class="hidden md:flex flex-col items-stretch justify-between fixed w-64 bg-gray-900 h-screen text-gray-400">
+        <nav class="hidden md:flex flex-col items-stretch justify-between fixed w-64 h-screen text-gray-700">
             <div>
-                <a href="#" class="flex items-center justify-center h-16 leading-none bg-gray-800">
+                <a href="#" class="flex items-center justify-center h-16 leading-none">
                     <img
                         src="/dist/images/logo.png"
                         alt="Logo"
@@ -10,9 +10,9 @@
                     >
                 </a>
 
-                <div class="flex flex-col py-3 px-6">
-                    <inertia-link :href="route('dashboard')" class="flex items-center text-gray-400 py-2 transition-colors duration-100 hover:text-gray-200">
-                        <icon name="activity" class="mr-3 text-gray-600"></icon>
+                <div class="flex flex-col py-8 px-8">
+                    <inertia-link :href="route('dashboard')" class="flex items-center text-gray-600 py-2 transition-colors duration-100 hover:text-gray-700">
+                        <icon name="activity" class="mr-3 text-gray-500"></icon>
                         Dashboard
                     </inertia-link>
 
@@ -21,8 +21,8 @@
                         Settings
                     </inertia-link> -->
 
-                    <inertia-link href="#" class="flex items-center text-gray-400 py-2 transition-colors duration-100 hover:text-gray-200">
-                        <icon name="sidebar" class="mr-3 text-gray-600"></icon>
+                    <inertia-link href="#" class="flex items-center text-gray-600 py-2 transition-colors duration-100 hover:text-gray-700">
+                        <icon name="sidebar" class="mr-3 text-gray-500"></icon>
                         Manage
                     </inertia-link>
 
@@ -79,24 +79,24 @@
                     </inertia-link> -->
                 </div>
 
-                <div class="text-xs uppercase tracking-widest py-3 px-6 text-gray-600 font-semibold">Links</div>
+                <div class="text-xs uppercase tracking-widest py-3 px-6 text-gray-500 font-semibold">Links</div>
 
                 <div class="flex flex-col pb-3 px-6">
                     <a
                         href="https://github.com/anodyne/nova3"
                         target="_blank"
-                        class="flex items-center text-gray-400 py-2 transition-colors duration-100 hover:text-gray-200"
+                        class="flex items-center text-gray-600 py-2 transition-colors duration-100 hover:text-gray-700"
                     >
-                        <icon name="git-pull-request" class="mr-3 text-gray-600"></icon>
+                        <icon name="git-pull-request" class="mr-3 text-gray-500"></icon>
                         Github Repo
                     </a>
 
                     <a
                         href="https://github.com/anodyne/nova3/issues"
                         target="_blank"
-                        class="flex items-center text-gray-400 py-2 transition-colors duration-100 hover:text-gray-200"
+                        class="flex items-center text-gray-600 py-2 transition-colors duration-100 hover:text-gray-700"
                     >
-                        <icon name="frown" class="mr-3 text-gray-600"></icon>
+                        <icon name="frown" class="mr-3 text-gray-500"></icon>
                         Issues
                     </a>
                 </div>
@@ -104,7 +104,7 @@
         </nav>
 
         <div class="relative flex-1 md:ml-64">
-            <nav class="relative flex justify-between items-center bg-gray-300 h-16 px-8">
+            <nav class="relative flex justify-between items-center h-16 px-8">
                 <div class="w-1/3">
                     <div class="flex items-center py-1 px-2 rounded-full bg-white border-2 border-transparent text-gray-500 focus-within:bg-white focus-within:border-primary-300 focus-within:text-primary-500">
                         <icon name="search" class="mr-2"></icon>
@@ -124,7 +124,11 @@
 
                     <dropdown placement="bottom-end">
                         <div class="flex items-center">
-                            <user-avatar :user="$store.get('User')" size="sm"></user-avatar>
+                            <user-avatar
+                                :user="$store.get('User')"
+                                size="sm"
+                                :show-meta-title="false"
+                            ></user-avatar>
                             <icon name="chevron-down" class="ml-2 text-gray-500 h-4 w-4"></icon>
                         </div>
 
@@ -162,7 +166,7 @@
                 </div>
             </nav>
 
-            <main class="py-12 px-16">
+            <main class="py-8 px-8">
                 <slot></slot>
             </main>
         </div>
@@ -190,8 +194,8 @@ export default {
     methods: {
         navStyle (route) {
             return {
-                'font-bold text-white': this.route().current(route),
-                'text-gray-400 hover:text-gray-200': !this.route().current(route)
+                'font-bold text-primary-500': this.route().current(route),
+                'text-gray-600 hover:text-gray-700': !this.route().current(route)
             };
         }
     }

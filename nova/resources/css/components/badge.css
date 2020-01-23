@@ -1,5 +1,7 @@
 .badge {
-    @apply inline-block rounded-full py-2px px-3 text-xs font-extrabold uppercase tracking-wider bg-gray-200 text-gray-700;
+    @apply inline-block rounded-full h-6 px-3 text-xs font-semibold uppercase tracking-wider bg-gray-300 text-gray-700;
+
+    line-height: theme('spacing.6');
 }
 
 .badge-danger {
@@ -7,7 +9,7 @@
 }
 
 .badge-info {
-    @apply bg-info-200 text-info-800;
+    @apply bg-info-100 text-info-600;
 }
 
 .badge-success {
@@ -15,5 +17,5 @@
 }
 
 .badge-warning {
-    @apply bg-warning-200 text-warning-800;
+    @apply bg-warning-200 text-warning-700;
 }

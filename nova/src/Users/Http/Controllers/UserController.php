@@ -31,18 +31,18 @@ class UserController extends Controller
     {
         $users = User::orderBy('name')
             ->filter($request->only('search'))
-            ->paginate();
+            ->paginate(15);
 
-        return resolve(Responses\Index::class)->with([
+        return app(Responses\Index::class)->with([
             'filters' => $request->all('search'),
             'users' => new UserCollection($users),
-            'pendingUsers' => User::wherePending()->get(),
+            // 'pendingUsers' => User::wherePending()->get(),
         ]);
     }
 
     public function create()
     {
-        return resolve(Responses\Create::class)->with([
+        return app(Responses\Create::class)->with([
             'roles' => Role::orderBy('title')->get(),
         ]);
     }
@@ -58,7 +58,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return resolve(Responses\Edit::class)->with([
+        return app(Responses\Edit::class)->with([
             'roles' => Role::orderBy('title')->get(),
             'user' => new UserResource($user),
         ]);
