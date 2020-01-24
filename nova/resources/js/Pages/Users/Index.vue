@@ -26,7 +26,7 @@
                 class="panel flex items-center justify-between"
             >
                 <div class="flex items-center">
-                    <avatar size="sm" :url="`https://api.adorable.io/avatars/285/${user.email}`"></avatar>
+                    <avatar size="sm" :image-url="`https://api.adorable.io/avatars/285/${user.email}`"></avatar>
                     <div class="ml-3 text-lg font-semibold">
                         {{ user.name }}
                     </div>
