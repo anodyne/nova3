@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import Popper from 'popper.js';
+import { createPopper } from '@popperjs/core';
 
 export default {
     name: 'BasePicker',
@@ -218,7 +218,7 @@ export default {
 
         setupPopper () {
             if (this.popper === undefined) {
-                this.popper = new Popper(this.$refs.trigger, this.$refs.dropdown, {
+                this.popper = createPopper(this.$refs.trigger, this.$refs.dropdown, {
                     placement: 'bottom',
                     positionFixed: true,
                     modifiers: {
