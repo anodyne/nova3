@@ -30,6 +30,10 @@
                 </div>
 
                 <div>
+                    <avatar-group :items="role.users"></avatar-group>
+                </div>
+
+                <div>
                     <dropdown placement="bottom-end">
                         <icon name="more-horizontal" class="h-6 w-6"></icon>
 
@@ -110,9 +114,10 @@ import debounce from 'lodash/debounce';
 import SearchFilter from '@/Shared/SearchFilter';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 import Pagination from '@/Shared/Pagination';
+import AvatarGroup from '@/Shared/Avatars/AvatarGroup';
 
 export default {
-    components: { Pagination, SearchFilter },
+    components: { Pagination, SearchFilter, AvatarGroup },
 
     mixins: [ModalHelpers],
 

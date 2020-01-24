@@ -3,20 +3,24 @@
         <page-header title="Test Page"></page-header>
 
         <section class="panel">
-            <avatar size="xl" url="https://api.adorable.io/avatars/285/hello@adorable.io"></avatar>
-            <avatar size="lg" url="https://api.adorable.io/avatars/285/woohoo@adorable.io"></avatar>
-            <avatar url="https://api.adorable.io/avatars/285/abc@adorable.io"></avatar>
-            <avatar title="DV"></avatar>
-            <avatar size="sm" url="https://api.adorable.io/avatars/285/mystery@adorable.io"></avatar>
-            <avatar size="xs" url="https://api.adorable.io/avatars/285/something@adorable.io"></avatar>
+            <avatar
+                size="xl"
+                image-url="https://api.adorable.io/avatars/285/hello@adorable.io"
+                tooltip="hello@adorable.io"
+                link="https://google.com"
+            ></avatar>
+            <avatar size="lg" image-url="https://api.adorable.io/avatars/285/woohoo@adorable.io"></avatar>
+            <avatar image-url="https://api.adorable.io/avatars/285/abc@adorable.io"></avatar>
+            <avatar size="sm" image-url="https://api.adorable.io/avatars/285/mystery@adorable.io"></avatar>
+            <avatar size="xs" image-url="https://api.adorable.io/avatars/285/something@adorable.io"></avatar>
         </section>
 
         <section class="panel">
-            <avatar-group :items="avatarItems"></avatar-group>
+            <avatar-group :limit="2" :items="avatarItems"></avatar-group>
         </section>
 
         <section class="panel bg-gray-700">
-            <avatar-group :items="avatarItems"></avatar-group>
+            <avatar-group size="sm" :items="avatarItems"></avatar-group>
         </section>
 
         <section>
@@ -89,12 +93,24 @@ export default {
     data () {
         return {
             avatarItems: [
-                { url: 'https://api.adorable.io/avatars/285/abc@adorable.io', title: 'AB' },
-                { url: 'https://api.adorable.io/avatars/285/cab@adorable.io', title: 'CA' },
-                { url: 'https://api.adorable.io/avatars/285/dvs@adorable.io', title: 'DV' },
-                { url: '', title: 'LG' },
-                { url: 'https://api.adorable.io/avatars/285/aj@adorable.io', title: 'AJ' },
-                { url: 'https://api.adorable.io/avatars/285/MGJ@adorable.io', title: 'MJ' }
+                {
+                    id: 1, 'image-url': 'https://api.adorable.io/avatars/285/abc@adorable.io', tooltip: 'Tooltip', initials: 'AB'
+                },
+                {
+                    id: 2, 'image-url': 'https://api.adorable.io/avatars/285/cab@adorable.io', tooltip: 'Tooltip', initials: 'CA'
+                },
+                {
+                    id: 3, 'image-url': 'https://api.adorable.io/avatars/285/dvs@adorable.io', tooltip: 'Tooltip', initials: 'DV'
+                },
+                {
+                    id: 4, 'image-url': null, tooltip: 'Tooltip', initials: 'LG'
+                },
+                {
+                    id: 5, 'image-url': null, tooltip: 'Tooltip', initials: 'AJ'
+                },
+                {
+                    id: 6, 'image-url': 'https://api.adorable.io/avatars/285/MGJ@adorable.io', tooltip: 'Tooltip', initials: 'MJ'
+                }
             ],
             buttonLoading: false,
             toggleSwitch: true,

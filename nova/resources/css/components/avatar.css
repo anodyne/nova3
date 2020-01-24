@@ -21,11 +21,15 @@
     }
 
     .avatar-title {
-        @apply flex items-center justify-center h-full w-full rounded-full bg-primary-500 text-white;
+        @apply flex items-center justify-center cursor-default h-full w-full rounded-full bg-primary-500 text-white uppercase tracking-wide;
 
         &.avatar-title-soft {
             @apply bg-gray-300 text-gray-600;
         }
+    }
+
+    .avatar-link {
+        @apply cursor-pointer;
     }
 }
 
