@@ -30,7 +30,8 @@ class RoleController extends Controller
 
     public function index(Request $request)
     {
-        $roles = Role::orderBy('display_name')
+        $roles = Role::with('users')
+            ->orderBy('display_name')
             ->filter($request->only('search'))
             ->paginate();
 
