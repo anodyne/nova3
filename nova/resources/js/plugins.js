@@ -9,5 +9,6 @@ Vue.use(InertiaApp);
 Vue.use(PortalVue);
 Vue.use(VueTippy, {
     arrow: true,
-    arrowType: 'round'
+    arrowType: 'round',
+    onShow: options => !!options.props.content
 });

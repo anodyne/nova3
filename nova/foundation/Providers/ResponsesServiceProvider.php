@@ -29,10 +29,6 @@ class ResponsesServiceProvider extends ServiceProvider
 
             \Nova\Dashboard\Http\Responses\DashboardResponse::class,
 
-            \Nova\Themes\Http\Responses\Index::class,
-            \Nova\Themes\Http\Responses\Create::class,
-            \Nova\Themes\Http\Responses\Edit::class,
-
             \Nova\Users\Http\Responses\Index::class,
             \Nova\Users\Http\Responses\Create::class,
             \Nova\Users\Http\Responses\Edit::class,

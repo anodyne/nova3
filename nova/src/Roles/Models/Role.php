@@ -36,6 +36,22 @@ class Role extends LaratrustRole
     }
 
     /**
+     * Morph by Many relationship between the role and the one of the possible
+     * user models.
+     *
+     * NOTE: This method is being overridden by Nova to ensure we always return
+     * the users for a role in alphabetical order.
+     *
+     * @param  string  $relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function getMorphByUserRelation($relationship)
+    {
+        return parent::getMorphByUserRelation($relationship)->orderBy('name');
+    }
+
+    /**
      * Use a custom Eloquent builder.
      *
      * @param  \Illuminate\Database\Query\Builder  $query

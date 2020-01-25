@@ -8,6 +8,7 @@ use Nova\Themes\ThemesCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Nova\Themes\Models\Builders\ThemeBuilder;
 
 class Theme extends Model
 {
@@ -34,19 +35,6 @@ class Theme extends Model
         'updated' => Events\ThemeUpdated::class,
         'deleted' => Events\ThemeDeleted::class,
     ];
-
-    /**
-     * Scope the query to the location column.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string  $location
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeLocation(Builder $query, $location)
-    {
-        $query->where('location', $location);
-    }
 
     /**
      * Get the layout to use for the page.
@@ -82,5 +70,17 @@ class Theme extends Model
     public function newCollection(array $models = [])
     {
         return new ThemesCollection($models);
+    }
+
+    /**
+     * Use a custom Eloquent builder.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     *
+     * @return RoleBuilder
+     */
+    public function newEloquentBuilder($query): ThemeBuilder
+    {
+        return new ThemeBuilder($query);
     }
 }

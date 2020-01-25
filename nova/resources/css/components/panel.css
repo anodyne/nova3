@@ -1,5 +1,5 @@
 .panel {
-    @apply bg-white rounded p-8 shadow-md overflow-hidden;
+    @apply relative bg-white rounded p-8 shadow-md overflow-hidden;
 
     &.no-padding {
         @apply p-0;

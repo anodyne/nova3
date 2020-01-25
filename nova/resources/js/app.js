@@ -10,10 +10,8 @@ import './plugins';
 const app = document.getElementById('app');
 
 import MasterInertia from '@/Shared/MasterInertia';
-import AdminLayout from '@/Shared/Layouts/AdminLayout';
 import SidebarLayout from '@/Shared/Layouts/SidebarLayout';
 
-Vue.component('admin-layout', AdminLayout);
 Vue.component('sidebar-layout', SidebarLayout);
 
 new Vue({

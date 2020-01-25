@@ -35,7 +35,7 @@ class ManageRolesTest extends TestCase
         $response->assertPropCount('roles.data', 3);
         $response->assertPropValue('roles.data', function ($roles) {
             $this->assertEquals(
-                ['can', 'id', 'name', 'locked', 'display_name'],
+                ['can', 'id', 'name', 'locked', 'display_name', 'users'],
                 array_keys($roles[0])
             );
         });

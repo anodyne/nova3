@@ -3,7 +3,7 @@
 namespace Nova\Themes\Http\Resources;
 
 use Nova\Themes\Models\Theme;
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Nova\Foundation\Http\Resources\ResourceCollection;
 
 class ThemeCollection extends ResourceCollection
 {
@@ -11,13 +11,13 @@ class ThemeCollection extends ResourceCollection
 
     public function toArray($request)
     {
-        return [
+        return $this->paginateResources([
             'can' => [
                 'create' => gate()->allows('create', Theme::class),
                 'delete' => gate()->allows('delete', Theme::class),
                 'update' => gate()->allows('update', Theme::class),
+                'view' => gate()->allows('view', Theme::class),
             ],
-            'data' => $this->collection,
-        ];
+        ]);
     }
 }
