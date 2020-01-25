@@ -25,8 +25,11 @@
                 :key="user.id"
                 class="panel flex items-center justify-between"
             >
-                <div>
-                    <user-avatar :user="user" size="sm"></user-avatar>
+                <div class="flex items-center">
+                    <avatar size="sm" :image-url="`https://api.adorable.io/avatars/285/${user.email}`"></avatar>
+                    <div class="ml-3 text-lg font-semibold">
+                        {{ user.name }}
+                    </div>
                 </div>
 
                 <div>
@@ -87,13 +90,13 @@
 import findIndex from 'lodash/findIndex';
 import pickBy from 'lodash/pickBy';
 import debounce from 'lodash/debounce';
-import UserAvatar from '@/Shared/Avatars/UserAvatar';
+import Avatar from '@/Shared/Avatars/Avatar';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 import SearchFilter from '@/Shared/SearchFilter';
 import Pagination from '@/Shared/Pagination';
 
 export default {
-    components: { UserAvatar, SearchFilter, Pagination },
+    components: { Avatar, SearchFilter, Pagination },
 
     mixins: [ModalHelpers],
 

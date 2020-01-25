@@ -25,11 +25,15 @@
                 :key="role.id"
                 class="panel flex items-center justify-between"
             >
-                <div>
+                <div class="w-1/2">
                     {{ role.display_name }}
                 </div>
 
-                <div>
+                <div class="flex-auto">
+                    <avatar-group size="sm" :items="roleUsers(role)"></avatar-group>
+                </div>
+
+                <div class="flex-shrink">
                     <dropdown placement="bottom-end">
                         <icon name="more-horizontal" class="h-6 w-6"></icon>
 
@@ -110,9 +114,10 @@ import debounce from 'lodash/debounce';
 import SearchFilter from '@/Shared/SearchFilter';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 import Pagination from '@/Shared/Pagination';
+import AvatarGroup from '@/Shared/Avatars/AvatarGroup';
 
 export default {
-    components: { Pagination, SearchFilter },
+    components: { Pagination, SearchFilter, AvatarGroup },
 
     mixins: [ModalHelpers],
 
@@ -166,6 +171,13 @@ export default {
             this.$inertia.delete(
                 this.route('roles.destroy', { role: this.deletingItem })
             );
+        },
+
+        roleUsers (role) {
+            return role.users.map(user => ({
+                'image-url': `https://api.adorable.io/avatars/285/${user.email}`,
+                tooltip: user.name
+            }));
         }
     }
 };
