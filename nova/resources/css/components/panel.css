@@ -1,8 +1,21 @@
+.panel-header {
+    @apply flex items-center justify-between;
+}
+
+.panel-footer {
+    @apply flex items-center justify-between bg-gray-100 text-gray-600 text-sm rounded-b;
+}
+
 .panel {
-    @apply relative bg-white rounded p-8 shadow-md overflow-hidden;
+    @apply bg-white rounded p-8 shadow-md;
 
     &.no-padding {
         @apply p-0;
+
+        .panel-header,
+        .panel-footer {
+            @apply py-3 px-6;
+        }
     }
 
     + .panel {
