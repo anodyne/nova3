@@ -117,6 +117,8 @@ module.exports = {
     variants: {
         backgroundColor: ['responsive', 'hover', 'focus', 'focus-within', 'even', 'odd'],
         borderColor: ['responsive', 'hover', 'focus', 'focus-within'],
+        borderRadius: ['responsive', 'hover', 'focus', 'first', 'last'],
+        borderWidth: ['responsive', 'first', 'last'],
         boxShadow: ['responsive', 'hover', 'focus', 'focus-within'],
         cursor: ['hover', 'group-hover', 'focus', 'focus-within', 'disabled'],
         margin: ['responsive', 'hover', 'focus', 'first', 'last'],
