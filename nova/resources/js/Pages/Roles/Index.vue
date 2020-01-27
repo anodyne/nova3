@@ -11,26 +11,41 @@
             </inertia-link>
         </page-header>
 
-        <section>
-            <div class="mb-6 w-1/3">
+        <panel no-padding>
+            <template #header>
                 <search-filter
                     v-model="form.search"
+                    class="w-1/2"
                     placeholder="Find a role..."
                     @reset="form.search = ''"
                 ></search-filter>
+
+                <button class="button button-small button-soft button-icon">
+                    <icon name="filter"></icon>
+                </button>
+            </template>
+
+            <div class="flex items-center justify-between w-full py-2 px-6 bg-gray-200 border-t border-b text-xs uppercase tracking-wide font-semibold text-gray-600">
+                <div class="w-1/2">Role Name</div>
+                <div class="flex-auto">Assigned Users</div>
+            </div>
+
+            <div v-if="roles.data.length === 0" class="flex items-center py-3 px-6 font-semibold border-b text-warning-700">
+                <icon name="alert-triangle" class="mr-3 flex-shrink-0 h-6 w-6"></icon>
+                <div>No roles found.</div>
             </div>
 
             <div
                 v-for="role in roles.data"
                 :key="role.id"
-                class="panel flex items-center justify-between"
+                class="flex items-center justify-between w-full py-3 px-6 border-b odd:bg-gray-100"
             >
                 <div class="w-1/2">
                     {{ role.display_name }}
                 </div>
 
                 <div class="flex-auto">
-                    <avatar-group size="sm" :items="roleUsers(role)"></avatar-group>
+                    <avatar-group size="xs" :items="roleUsers(role)"></avatar-group>
                 </div>
 
                 <div class="flex-shrink">
@@ -81,8 +96,26 @@
                 </div>
             </div>
 
-            <pagination :links="roles.links"></pagination>
-        </section>
+            <template #footer>
+                <div class="flex-shrink">
+                    Showing <span class="font-semibold text-gray-700">1 of 2</span> roles
+                </div>
+
+                <div class="flex items-center font-medium">
+                    <pagination :links="roles.links"></pagination>
+
+                    <div class="flex items-center border-l ml-4 pl-4">
+                        <p>Go to page</p>
+
+                        <input type="text" class="w-12 rounded border py-1 px-2 mx-2">
+
+                        <button class="button button-text">
+                            Go
+                        </button>
+                    </div>
+                </div>
+            </template>
+        </panel>
 
         <modal
             :open="modalIsShown"
@@ -115,9 +148,12 @@ import SearchFilter from '@/Shared/SearchFilter';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
 import Pagination from '@/Shared/Pagination';
 import AvatarGroup from '@/Shared/Avatars/AvatarGroup';
+import Panel from '@/Shared/Panel';
 
 export default {
-    components: { Pagination, SearchFilter, AvatarGroup },
+    components: {
+        Pagination, SearchFilter, AvatarGroup, Panel
+    },
 
     mixins: [ModalHelpers],
 

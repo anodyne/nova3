@@ -9,10 +9,10 @@
         <slot name="dropdown-trigger" v-bind="dropdownProps"></slot>
 
         <transition
-            enter-active-class="transition-all transition-fastest ease-out"
+            enter-active-class="transition-all duration-75 ease-out"
             enter-class="opacity-0 scale-75"
             enter-to-class="opacity-100 scale-100"
-            leave-active-class="transition-all transition-faster ease-in"
+            leave-active-class="transition-all duration-100 ease-in"
             leave-class="opacity-100 scale-100"
             leave-to-class="opacity-0 scale-75"
             appear

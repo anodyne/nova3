@@ -35,7 +35,7 @@ class RoleController extends Controller
             ->filter($request->only('search'))
             ->paginate();
 
-        return resolve(RoleIndexResponse::class)->with([
+        return app(RoleIndexResponse::class)->with([
             'filters' => $request->all('search'),
             'roles' => new RoleCollection($roles),
         ]);
@@ -43,14 +43,14 @@ class RoleController extends Controller
 
     public function show(Role $role)
     {
-        return resolve(ViewRoleResponse::class)->with([
+        return app(ViewRoleResponse::class)->with([
             'role' => new RoleResource($role->load('permissions', 'users')),
         ]);
     }
 
     public function create()
     {
-        return resolve(CreateRoleResponse::class);
+        return app(CreateRoleResponse::class);
     }
 
     public function store(ValidateStoreRole $request, CreateRoleManager $action)
@@ -64,7 +64,7 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
-        return resolve(EditRoleResponse::class)->with([
+        return app(EditRoleResponse::class)->with([
             'role' => new RoleResource($role->load('users', 'permissions')),
         ]);
     }

@@ -1,5 +1,5 @@
 .button {
-    @apply inline-flex items-center justify-center w-full relative py-2 px-4 rounded text-center no-underline font-semibold text-sm uppercase tracking-wide transition-color transition-medium uppercase tracking-widest bg-white text-gray-600 cursor-pointer border border-gray-200 whitespace-no-wrap;
+    @apply inline-flex items-center justify-center w-full relative h-10 leading-none px-4 rounded text-center no-underline font-semibold text-sm uppercase tracking-wide transition-colors duration-200 uppercase tracking-wide bg-white text-gray-600 cursor-pointer border whitespace-no-wrap;
 
     &:focus,
     &:active {
@@ -7,11 +7,19 @@
     }
 
     &:hover {
-        @apply bg-gray-300 text-gray-700 border-gray-300;
+        @apply bg-gray-300 text-gray-700;
     }
 
     > .svg-icon {
         @apply h-5 w-5 mr-2 leading-0;
+    }
+
+    &.button-soft {
+        @apply bg-gray-200 text-gray-600 border-transparent;
+
+        &:hover {
+            @apply bg-gray-300 text-gray-700 border-transparent;
+        }
     }
 
     &.button-primary {
@@ -27,6 +35,22 @@
 
         &:hover {
             @apply bg-primary-200 text-primary-900 border-transparent;
+        }
+    }
+
+    &.button-success {
+        @apply bg-success-500 text-white border-transparent;
+
+        &:hover {
+            @apply bg-success-600 text-white border-transparent;
+        }
+    }
+
+    &.button-success-soft {
+        @apply bg-success-100 text-success-800 border-transparent;
+
+        &:hover {
+            @apply bg-success-200 text-success-900 border-transparent;
         }
     }
 
@@ -46,19 +70,19 @@
         }
     }
 
-    &.button-warning-soft {
-        @apply bg-warning-300 text-warning-900 border-transparent;
-
-        &:hover {
-            @apply bg-warning-400 text-warning-900 border-transparent;
-        }
-    }
-
     &.button-warning {
         @apply bg-warning-700 text-white border-transparent;
 
         &:hover {
             @apply bg-warning-800 text-white border-transparent;
+        }
+    }
+
+    &.button-warning-soft {
+        @apply bg-warning-300 text-warning-900 border-transparent;
+
+        &:hover {
+            @apply bg-warning-400 text-warning-900 border-transparent;
         }
     }
 
@@ -78,16 +102,64 @@
         }
     }
 
-    &.button-soft {
-        @apply bg-gray-200 text-gray-600 border-transparent;
+    &.button-text {
+        @apply px-0 h-auto text-gray-700 border-none normal-case;
 
         &:hover {
-            @apply bg-gray-300 text-gray-700 border-transparent;
+            @apply text-gray-800 bg-transparent;
+        }
+
+        &.button-soft {
+            @apply text-gray-400 bg-transparent;
+
+            &:hover {
+                @apply text-gray-500 bg-transparent;
+            }
+        }
+
+        &.button-primary {
+            @apply text-primary-600 bg-transparent;
+
+            &:hover {
+                @apply text-primary-700 bg-transparent;
+            }
+        }
+
+        &.button-success {
+            @apply text-success-600 bg-transparent;
+
+            &:hover {
+                @apply text-success-700 bg-transparent;
+            }
+        }
+
+        &.button-warning {
+            @apply text-warning-600 bg-transparent;
+
+            &:hover {
+                @apply text-warning-700 bg-transparent;
+            }
+        }
+
+        &.button-danger {
+            @apply text-danger-600 bg-transparent;
+
+            &:hover {
+                @apply text-danger-700 bg-transparent;
+            }
+        }
+
+        &.button-info {
+            @apply text-info-600 bg-transparent;
+
+            &:hover {
+                @apply text-info-700 bg-transparent;
+            }
         }
     }
 
     &.button-small {
-        @apply py-1 px-2 text-xs;
+        @apply px-2 h-8 text-xs;
 
         > .svg-icon {
             @apply h-4 w-4;
@@ -95,127 +167,11 @@
     }
 
     &.button-large {
-        @apply py-4 px-6 text-lg;
+        @apply px-6 h-12 text-lg;
 
         > .svg-icon {
             @apply h-8 w-8 mr-3;
         }
-    }
-}
-
-.button-text {
-    @apply inline-flex items-center font-medium transition-color transition-medium cursor-pointer text-gray-700;
-
-    &:hover {
-        @apply text-gray-800;
-    }
-
-    &.button-primary {
-        @apply text-primary-600;
-
-        &:hover {
-            @apply text-primary-700;
-        }
-    }
-
-    &.button-info {
-        @apply text-info-700;
-
-        &:hover {
-            @apply text-info-600;
-        }
-    }
-}
-
-.button-icon {
-    @apply inline-flex items-center transition-color transition-medium cursor-pointer text-gray-600;
-
-    &:hover {
-        @apply text-gray-800;
-    }
-
-    > .svg-icon {
-        @apply h-6 w-6 leading-0;
-    }
-
-    &.button-primary {
-        @apply text-primary-600;
-
-        &:hover {
-            @apply text-primary-500;
-        }
-    }
-
-    &.button-info {
-        @apply text-info-700;
-
-        &:hover {
-            @apply text-info-600;
-        }
-    }
-
-    &.button-bg {
-        @apply p-1 rounded bg-gray-300;
-
-        &:hover {
-            @apply bg-gray-400 text-gray-800;
-        }
-
-        &.button-soft {
-            @apply bg-gray-100 text-gray-500;
-
-            &:hover {
-                @apply bg-gray-200 text-gray-600;
-            }
-        }
-
-        &.button-primary {
-            @apply bg-primary-600 text-white;
-
-            &:hover {
-                @apply bg-primary-500 text-white;
-            }
-        }
-
-        &.button-primary-soft {
-            @apply bg-primary-100 text-primary-700;
-
-            &:hover {
-                @apply bg-primary-200 text-primary-800;
-            }
-        }
-
-        &.button-info {
-            @apply bg-info-600 text-white;
-
-            &:hover {
-                @apply bg-info-700 text-white;
-            }
-        }
-
-        &.button-info-soft {
-            @apply bg-info-200 text-info-600;
-
-            &:hover {
-                @apply bg-info-300 text-info-700;
-            }
-        }
-    }
-
-    &.button-small {
-        > .svg-icon {
-            @apply h-4 w-4 leading-0;
-        }
-    }
-
-    &.button-large {
-        > .svg-icon {
-            @apply h-8 w-8 leading-0;
-        }
-    }
-
-    &.button-round {
-        @apply .rounded-full;
     }
 }
 

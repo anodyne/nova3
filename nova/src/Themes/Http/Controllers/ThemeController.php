@@ -2,9 +2,9 @@
 
 namespace Nova\Themes\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Nova\Themes\Models\Theme;
 use Nova\Themes\Http\Requests;
-use Nova\Themes\Http\Responses;
 use Nova\Themes\Actions\CreateTheme;
 use Nova\Themes\Actions\DeleteTheme;
 use Nova\Themes\Actions\UpdateTheme;
@@ -12,6 +12,10 @@ use Nova\Themes\Http\Resources\ThemeResource;
 use Nova\Themes\DataTransferObjects\ThemeData;
 use Nova\Themes\Http\Resources\ThemeCollection;
 use Nova\Foundation\Http\Controllers\Controller;
+use Nova\Themes\Http\Responses\EditThemeResponse;
+use Nova\Themes\Http\Responses\ViewThemeResponse;
+use Nova\Themes\Http\Responses\ThemeIndexResponse;
+use Nova\Themes\Http\Responses\CreateThemeResponse;
 
 class ThemeController extends Controller
 {
@@ -24,19 +28,28 @@ class ThemeController extends Controller
         $this->authorizeResource(Theme::class);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $themes = Theme::get();
+        $themes = Theme::orderBy('name')
+            ->filter($request->only('search'))
+            ->paginate();
 
-        return app(Responses\Index::class)->with([
+        return app(ThemeIndexResponse::class)->with([
+            'filters' => $request->all('search'),
             'themes' => new ThemeCollection($themes),
-            'pendingThemes' => $themes->toBeInstalled(),
+        ]);
+    }
+
+    public function show(Theme $theme)
+    {
+        return app(ViewThemeResponse::class)->with([
+            'theme' => new ThemeResource($theme),
         ]);
     }
 
     public function create()
     {
-        return app(Responses\Create::class);
+        return app(CreateThemeResponse::class);
     }
 
     public function store(Requests\Store $request, CreateTheme $action)
@@ -46,7 +59,7 @@ class ThemeController extends Controller
 
     public function edit(Theme $theme)
     {
-        return app(Responses\Edit::class)->with([
+        return app(EditThemeResponse::class)->with([
             'theme' => new ThemeResource($theme),
         ]);
     }

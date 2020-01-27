@@ -30,9 +30,9 @@ class ThemePolicy
      *
      * @return mixed
      */
-    public function view(User $user, Theme $theme)
+    public function view(User $user)
     {
-        return $user->can('theme.*');
+        return $user->can('theme.view');
     }
 
     /**

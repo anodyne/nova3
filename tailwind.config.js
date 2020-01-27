@@ -18,15 +18,15 @@ module.exports = {
                 900: 'var(--color-danger-900, #742a2a)'
             },
             gray: {
-                100: 'var(--color-gray-100, #F7F7F7)',
-                200: 'var(--color-gray-200, #EAEBEC)',
-                300: 'var(--color-gray-300, #D1D4D7)',
-                400: 'var(--color-gray-400, #BBBFC3)',
-                500: 'var(--color-gray-500, #A1A5AB)',
-                600: 'var(--color-gray-600, #6B6F73)',
-                700: 'var(--color-gray-700, #565B5E)',
-                800: 'var(--color-gray-800, #3C4348)',
-                900: 'var(--color-gray-900, #283033)'
+                100: 'var(--color-gray-100, #f7fafc)',
+                200: 'var(--color-gray-200, #edf2f7)',
+                300: 'var(--color-gray-300, #e2e8f0)',
+                400: 'var(--color-gray-400, #cbd5e0)',
+                500: 'var(--color-gray-500, #a0aec0)',
+                600: 'var(--color-gray-600, #718096)',
+                700: 'var(--color-gray-700, #4a5568)',
+                800: 'var(--color-gray-800, #2d3748)',
+                900: 'var(--color-gray-900, #1a202c)'
             },
             info: {
                 100: 'var(--color-info-100, #faf5ff)',
@@ -77,9 +77,6 @@ module.exports = {
             center: true,
             padding: '1rem'
         },
-        fontFamily: {
-            sans: ['Nunito', 'sans-serif']
-        },
         lineHeight: {
             0: 0,
             ...defaultTheme.lineHeight
@@ -96,18 +93,13 @@ module.exports = {
             20: '.2',
             ...defaultTheme.opacity
         },
-        scale: {
-            0: 0,
-            75: '.75',
-            100: 1,
-            125: '1.25'
-        },
         spacing: {
             ...defaultTheme.spacing,
             '2px': '2px',
             7: '1.75rem',
             9: '2.25rem',
             11: '2.75rem',
+            60: '15rem',
             72: '18rem',
             80: '20rem',
             96: '24rem',
@@ -125,6 +117,8 @@ module.exports = {
     variants: {
         backgroundColor: ['responsive', 'hover', 'focus', 'focus-within', 'even', 'odd'],
         borderColor: ['responsive', 'hover', 'focus', 'focus-within'],
+        borderRadius: ['responsive', 'hover', 'focus', 'first', 'last'],
+        borderWidth: ['responsive', 'first', 'last'],
         boxShadow: ['responsive', 'hover', 'focus', 'focus-within'],
         cursor: ['hover', 'group-hover', 'focus', 'focus-within', 'disabled'],
         margin: ['responsive', 'hover', 'focus', 'first', 'last'],
@@ -133,6 +127,8 @@ module.exports = {
     },
 
     plugins: [
-        require('@kirschbaum-development/tailwindcss-scale-utilities')
+        /* eslint-disable */
+        require('./nova/resources/js/tailwind-plugins/flexbox-grid')()
+        /* eslint-enable */
     ]
 };

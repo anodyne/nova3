@@ -139,7 +139,7 @@
                 </div> -->
 
                 <div class="form-controls">
-                    <button type="submit" class="button is-primary">
+                    <button type="submit" class="button button-primary">
                         Update
                     </button>
 

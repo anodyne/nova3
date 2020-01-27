@@ -7,13 +7,21 @@ use Nova\Themes\Models\Theme;
 trait InteractsWithModel
 {
     public $name;
+
     public $credits;
+
     public $iconSet;
+
     public $layoutAuth;
+
     public $layoutAdmin;
+
     public $layoutPublic;
+
     public $layoutAuthSettings;
+
     public $layoutAdminSettings;
+
     public $layoutPublicSettings;
 
     /**
@@ -23,7 +31,7 @@ trait InteractsWithModel
      */
     public function getModel()
     {
-        return Theme::location($this->location)->firstOrFail();
+        return Theme::whereLocation($this->location)->firstOrFail();
     }
 
     /**

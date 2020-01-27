@@ -11,12 +11,12 @@
                 </a>
 
                 <div class="flex flex-col py-3 px-6">
-                    <inertia-link :href="route('dashboard')" class="flex items-center text-gray-400 py-2 transition-color transition-faster hover:text-gray-200">
+                    <inertia-link :href="route('dashboard')" class="flex items-center text-gray-400 py-2 transition-all duration-100 hover:text-gray-200">
                         <icon name="activity" class="mr-3 text-gray-600"></icon>
                         Dashboard
                     </inertia-link>
 
-                    <inertia-link href="#" class="flex items-center text-gray-400 py-2 transition-color transition-faster hover:text-gray-200">
+                    <inertia-link href="#" class="flex items-center text-gray-400 py-2 transition-all duration-100 hover:text-gray-200">
                         <icon name="sidebar" class="mr-3 text-gray-600"></icon>
                         Manage
                     </inertia-link>
@@ -24,7 +24,7 @@
                     <div class="ml-8 mb-2">
                         <inertia-link
                             :href="route('roles.index')"
-                            class="flex items-center py-1 text-sm transition-color transition-faster"
+                            class="flex items-center py-1 text-sm transition-all duration-100"
                             :class="navStyle('roles.*')"
                         >
                             Roles
@@ -32,7 +32,7 @@
 
                         <inertia-link
                             :href="route('themes.index')"
-                            class="flex items-center py-1 text-sm transition-color transition-faster"
+                            class="flex items-center py-1 text-sm transition-all duration-100"
                             :class="navStyle('themes.*')"
                         >
                             Themes
@@ -40,7 +40,7 @@
 
                         <inertia-link
                             :href="route('users.index')"
-                            class="flex items-center py-1 text-sm transition-color transition-faster"
+                            class="flex items-center py-1 text-sm transition-all duration-100"
                             :class="navStyle('users.*')"
                         >
                             Users
@@ -54,7 +54,7 @@
                     <a
                         href="https://github.com/anodyne/nova3"
                         target="_blank"
-                        class="flex items-center text-gray-400 py-2 transition-color transition-faster hover:text-gray-200"
+                        class="flex items-center text-gray-400 py-2 transition-all duration-100 hover:text-gray-200"
                     >
                         <icon name="git-pull-request" class="mr-3 text-gray-600"></icon>
                         Github Repo
@@ -63,7 +63,7 @@
                     <a
                         href="https://github.com/anodyne/nova3/issues"
                         target="_blank"
-                        class="flex items-center text-gray-400 py-2 transition-color transition-faster hover:text-gray-200"
+                        class="flex items-center text-gray-400 py-2 transition-all duration-100 hover:text-gray-200"
                     >
                         <icon name="frown" class="mr-3 text-gray-600"></icon>
                         Issues

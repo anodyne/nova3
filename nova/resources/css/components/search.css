@@ -1,5 +1,5 @@
 .search-field {
-    @apply flex items-center relative w-full transition-color transition-fast bg-gray-100 rounded-full;
+    @apply flex items-center relative w-full transition-colors duration-150 bg-gray-100 rounded-full;
 
     > .field {
         @apply flex-auto appearance-none bg-transparent text-gray-700;

@@ -2,79 +2,108 @@
     <sidebar-layout>
         <page-header title="Themes">
             <template v-if="themes.can.create" #controls>
-                <inertia-link :href="route('themes.create')" class="button is-primary">
+                <inertia-link :href="route('themes.create')" class="button button-primary">
                     Add Theme
                 </inertia-link>
             </template>
         </page-header>
 
-        <install-themes
-            :pending-themes="pendingThemes"
-            @theme-installed="installedThemes.push($event)"
-        ></install-themes>
+        <panel no-padding>
+            <template #header>
+                <search-filter
+                    v-model="form.search"
+                    class="w-1/2"
+                    placeholder="Find a theme..."
+                    @reset="form.search = ''"
+                ></search-filter>
 
-        <section>
-            <div class="mb-6 w-1/3">
-                <div class="flex items-center py-1 px-2 rounded-full bg-white border-2 border-transparent text-gray-500 focus-within:bg-white focus-within:border-gray-400 focus-within:text-gray-600">
-                    <icon name="search" class="mr-2"></icon>
+                <button class="button button-small button-soft button-icon">
+                    <icon name="filter"></icon>
+                </button>
+            </template>
 
-                    <input
-                        v-model="search"
-                        type="text"
-                        placeholder="Find a theme..."
-                        class="w-full appearance-none bg-transparent text-gray-800 focus:outline-none"
-                    >
+            <div class="flex items-center justify-between w-full py-2 px-6 bg-gray-200 border-t border-b text-xs uppercase tracking-wide font-semibold text-gray-600">
+                <div class="w-1/3">Theme Name</div>
+                <div class="w-1/3">Location</div>
+                <div class="flex-auto">Status</div>
+            </div>
 
-                    <a
-                        v-show="search != ''"
-                        role="button"
-                        class="ml-2 text-gray-500 hover:text-danger-500"
-                        @click="search = ''"
-                    >
-                        <icon name="close"></icon>
-                    </a>
+            <div v-if="themes.data.length === 0" class="flex items-center py-3 px-6 font-semibold border-b text-warning-700">
+                <icon name="alert-triangle" class="mr-3 flex-shrink-0 h-6 w-6"></icon>
+                <div>No themes found.</div>
+            </div>
+
+            <div
+                v-for="theme in themes.data"
+                :key="theme.id"
+                class="flex items-center justify-between w-full py-3 px-6 border-b odd:bg-gray-100"
+            >
+                <div class="w-1/3">
+                    {{ theme.name }}
+                </div>
+
+                <div class="w-1/3">
+                    themes/{{ theme.location }}
+                </div>
+
+                <div class="flex-auto">
+                    <div class="badge badge-success">Active</div>
+                </div>
+
+                <div class="flex-shrink">
+                    <dropdown placement="bottom-end">
+                        <icon name="more-horizontal" class="h-6 w-6"></icon>
+
+                        <template #dropdown="{ toggle }">
+                            <inertia-link
+                                v-if="themes.can.view"
+                                :href="route('themes.show', { theme })"
+                                class="dropdown-link"
+                            >
+                                <icon name="eye" class="dropdown-icon"></icon>
+                                View
+                            </inertia-link>
+                            <inertia-link
+                                v-if="themes.can.update"
+                                :href="route('themes.edit', { theme })"
+                                class="dropdown-link"
+                            >
+                                <icon name="edit" class="dropdown-icon"></icon>
+                                Edit
+                            </inertia-link>
+                            <button
+                                v-if="themes.can.delete"
+                                class="dropdown-link-danger"
+                                @click.prevent="confirmRemove(theme, toggle)"
+                            >
+                                <icon name="delete" class="dropdown-icon"></icon>
+                                Delete
+                            </button>
+                        </template>
+                    </dropdown>
                 </div>
             </div>
 
-            <transition-group leave-active-class="animated fadeOut">
-                <div
-                    v-for="theme in filteredThemes"
-                    :key="theme.id"
-                    class="panel flex items-center justify-between"
-                >
-                    <div class="flex flex-col">
-                        <div class="font-semibold">{{ theme.name }}</div>
-                        <div class="text-gray-600">themes/{{ theme.location }}</div>
-                    </div>
+            <template #footer>
+                <div class="flex-shrink">
+                    Showing <span class="font-semibold text-gray-700">1 of 2</span> themes
+                </div>
 
-                    <div>
-                        <dropdown placement="bottom-end">
-                            <icon name="more-horizontal" class="h-6 w-6"></icon>
+                <div class="flex items-center font-medium">
+                    <pagination :links="themes.links"></pagination>
 
-                            <template #dropdown="{ toggle }">
-                                <inertia-link
-                                    v-if="themes.can.update"
-                                    :href="route('themes.edit', { theme })"
-                                    class="dropdown-link"
-                                >
-                                    <icon name="edit" class="dropdown-icon"></icon>
-                                    Edit
-                                </inertia-link>
-                                <a
-                                    v-if="themes.can.delete"
-                                    role="button"
-                                    class="dropdown-link-danger"
-                                    @click="confirmRemove(theme, toggle)"
-                                >
-                                    <icon name="delete" class="dropdown-icon"></icon>
-                                    Delete
-                                </a>
-                            </template>
-                        </dropdown>
+                    <div class="flex items-center border-l ml-4 pl-4">
+                        <p>Go to page</p>
+
+                        <input type="text" class="w-12 rounded border py-1 px-2 mx-2">
+
+                        <button class="button button-text">
+                            Go
+                        </button>
                     </div>
                 </div>
-            </transition-group>
-        </section>
+            </template>
+        </panel>
 
         <modal
             :open="modalIsShown"
@@ -101,19 +130,22 @@
 </template>
 
 <script>
+import pickBy from 'lodash/pickBy';
+import debounce from 'lodash/debounce';
 import findIndex from 'lodash/findIndex';
-import Form from '@/Utils/Form';
-import InstallThemes from '@/Pages/Themes/Install';
 import ModalHelpers from '@/Utils/Mixins/ModalHelpers';
+import SearchFilter from '@/Shared/SearchFilter';
+import Pagination from '@/Shared/Pagination';
+import Panel from '@/Shared/Panel';
 
 export default {
-    components: { InstallThemes },
+    components: { Pagination, SearchFilter, Panel },
 
     mixins: [ModalHelpers],
 
     props: {
-        pendingThemes: {
-            type: [Array, Object],
+        filters: {
+            type: Object,
             required: true
         },
         themes: {
@@ -124,9 +156,10 @@ export default {
 
     data () {
         return {
-            form: new Form(),
-            installedThemes: this.themes.data,
-            search: ''
+            form: {
+                search: this.filters.search
+            },
+            installedThemes: this.themes.data
         };
     },
 
@@ -140,11 +173,26 @@ export default {
         }
     },
 
+    watch: {
+        form: {
+            handler: 'refreshThemesList',
+            deep: true
+        }
+    },
+
     methods: {
         confirmRemove (role, toggle) {
             toggle();
             this.showModal(role);
         },
+
+        refreshThemesList: debounce(function () {
+            const query = pickBy(this.form);
+
+            this.$inertia.replace(
+                this.route('themes.index', Object.keys(query).length ? query : { remember: 'forget' })
+            );
+        }, 250),
 
         remove () {
             this.form.delete({
