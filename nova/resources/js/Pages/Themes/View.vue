@@ -2,7 +2,7 @@
     <sidebar-layout>
         <page-header :title="theme.name">
             <template #pretitle>
-                <inertia-link :href="route('themes.index')">Themes</inertia-link>
+                <inertia-link :href="$route('themes.index')">Themes</inertia-link>
             </template>
         </page-header>
 
@@ -41,7 +41,7 @@
             </div>
 
             <div class="form-controls">
-                <inertia-link :href="route('themes.index')" class="button">
+                <inertia-link :href="$route('themes.index')" class="button">
                     Back
                 </inertia-link>
             </div>

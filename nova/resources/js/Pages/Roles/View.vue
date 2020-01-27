@@ -2,7 +2,7 @@
     <sidebar-layout>
         <page-header :title="role.display_name">
             <template #pretitle>
-                <inertia-link :href="route('roles.index')">Roles</inertia-link>
+                <inertia-link :href="$route('roles.index')">Roles</inertia-link>
             </template>
         </page-header>
 
@@ -73,7 +73,7 @@
             </div>
 
             <div class="form-controls">
-                <inertia-link :href="route('roles.index')" class="button">
+                <inertia-link :href="$route('roles.index')" class="button">
                     Back
                 </inertia-link>
             </div>

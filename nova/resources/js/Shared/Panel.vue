@@ -12,7 +12,7 @@
 
         <div
             v-if="hasSlot('footer')"
-            class="flex items-center justify-between bg-gray-100 text-gray-600 text-sm rounded-b"
+            class="flex items-center bg-gray-100 text-gray-600 text-sm rounded-b"
             :class="{ 'py-3 px-6': noPadding }"
         >
             <slot name="footer"></slot>
