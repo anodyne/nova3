@@ -92,7 +92,7 @@
 
                         <input type="text" class="w-12 rounded border py-1 px-2 mx-2">
 
-                        <button class="button-text">
+                        <button class="button button-text">
                             Go
                         </button>
                     </div>
