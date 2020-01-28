@@ -34,4 +34,4 @@ jobs:
               
             - name: Deploy to Forge
               if: github.ref == 'refs/heads/stage'
-              run: curl "${{ secrets.FORGE_STAGING_DEPLOYMENT_WEBHOOK }}"
+              run: curl "${{ secrets.FORGE_DEPLOYMENT_WEBHOOK }}"
